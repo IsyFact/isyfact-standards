@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<project name="batchrahmen-test" default="installTables" basedir=".">
+
+	<property file="${basedir}/src/test/resources/config/jpa.properties" />
+	<property name="database.jdbc.classpath" value="${basedir}/repository/com/oracle/ojdbc5/11.1.0.6.0/ojdbc5-11.1.0.6.0.jar" />
+	<property name="database.jdbc.driverClassName" value="oracle.jdbc.OracleDriver" />
+	<property name="database.skriptordner" value="${basedir}/src/main/sql" />
+	<property name="database.system.username" value="sys as sysdba" />
+	<property name="database.system.password" value="sys" />
+
+	<!-- ======================================================================
+        Ant Build-Datei fuer das Aufsetzen des Datenbank-Schemas in der Entwicklung. 
+        =================================================================== -->
+
+	<!-- Aufsetzen des Benutzers als System-->
+	<target name="installSchema">
+		<sql driver="${database.jdbc.driverClassName}" url="${database.url}" userid="${database.system.username}" password="${database.system.password}" src="${database.skriptordner}/schema-erzeugen.sql" onerror="continue" classpath="${database.jdbc.classpath}" />
+	</target>
+
+	<!-- Installieren der Tabellen -->
+	<target name="installTables" depends="installSchema">
+		<sql driver="${database.jdbc.driverClassName}" url="${database.url}" userid="${database.username}" password="${database.password}" src="${database.skriptordner}/tabellen-erzeugen.sql" classpath="${database.jdbc.classpath}" />
+	</target>
+</project>
