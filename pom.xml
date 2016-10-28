@@ -1,0 +1,140 @@
+<!-- =============================================================================================
+    Haupt Maven Projektmodell für die Bibliothek PLIS-Polling
+
+    Haupt Maven-Aufrufe mit diesem POM:
+    mvn deploy
+    ============================================================================================= -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>de.bund.bva.pliscommon</groupId>
+    <artifactId>plis-polling</artifactId>
+    <version>1.2.3</version>
+    <name>IsyFact Polling</name>
+    <packaging>jar</packaging>
+
+    <parent>
+        <groupId>de.bund.bva.isyfact</groupId>
+        <artifactId>isyfact-masterpom-lib</artifactId>
+        <version>1.3.1</version>
+    </parent>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>de.bund.bva.isyfact</groupId>
+                <artifactId>isyfact-base-bom</artifactId>
+                <version>1.3.6</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.16</version>
+                <configuration>
+                    <argLine>-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=9010
+                        -Dcom.sun.management.jmxremote.local.only=false
+                        -Dcom.sun.management.jmxremote.authenticate=false
+                        -Dcom.sun.management.jmxremote.ssl=false</argLine>
+                    <systemProperties>
+                        <user.language>de</user.language>
+                        <user.country>DE</user.country>
+                        <file.encoding>${project.build.sourceEncoding}</file.encoding>
+                    </systemProperties>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!-- =============================================================================================
+        Liste der benoetigten Bibliotheken.
+        ============================================================================================= -->
+    <dependencies>
+
+        <!-- Bibliothek für die Verwaltung der Anwendungskonfiguration -->
+        <dependency>
+            <groupId>de.bund.bva.isyfact</groupId>
+            <artifactId>isy-konfiguration</artifactId>
+        </dependency>
+
+        <!-- Fuer PLIS-Exceptions -->
+        <dependency>
+            <groupId>de.bund.bva.isyfact</groupId>
+            <artifactId>isy-exception-core</artifactId>
+        </dependency>
+
+        <!-- Fuer JMX-Annotations -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+
+        <!-- Sprin-AOP für Interceptor -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+        </dependency>
+
+        <!-- zusätzliche Bibliotheken -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>de.bund.bva.isyfact</groupId>
+            <artifactId>isy-logging</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>log4j-over-slf4j</artifactId>
+        </dependency>
+        <!-- =========================================================
+            Bibliotheken, die nur für die Tests benötigt werden.
+            ========================================================= -->
+        <!-- Testframework -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- MessageHolder -->
+        <dependency>
+            <groupId>de.bund.bva.isyfact</groupId>
+            <artifactId>isy-util</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Benoetigt fuer AOP (nur für den Test) -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+</project>
