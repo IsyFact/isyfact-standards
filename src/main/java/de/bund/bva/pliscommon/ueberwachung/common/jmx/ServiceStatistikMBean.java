@@ -264,6 +264,8 @@ public class ServiceStatistikMBean implements MethodInterceptor, InitializingBea
             erfolgreich = true;
             if (this.erweiterteFachlicheFehlerpruefung) {
                 fachlichErfolgreich = !sindFachlicheFehlerVorhanden(result);
+            } else {
+                fachlichErfolgreich = true;
             }
             return result;
         } catch (PlisBusinessToException t) {
@@ -329,8 +331,8 @@ public class ServiceStatistikMBean implements MethodInterceptor, InitializingBea
 
         for (Field field : fields) {
             if (!ClassUtils.isPrimitiveOrWrapper(field.getType()) && !field.getType().isEnum()) {
-                LOGISY.trace("{} {}.{}, Type {}", StringUtils.repeat("-", tiefe),
-                    clazzToScan.getSimpleName(), field.getName(), field.getType().getSimpleName());
+                LOGISY.trace("{} {}.{}, Type {}", StringUtils.repeat("-", tiefe), clazzToScan.getSimpleName(),
+                    field.getName(), field.getType().getSimpleName());
                 field.setAccessible(true);
                 try {
                     // Prüfe einzelne Klassenfelder (non-Collection) auf annotierten Typ und Vorhandensein
@@ -344,9 +346,8 @@ public class ServiceStatistikMBean implements MethodInterceptor, InitializingBea
 
                             // Wenn kein String, dann prüfe rekursiv Objektstruktur
                             if (fieldObject.getClass() != String.class) {
-                                fehlerGefunden =
-                                    pruefeObjektAufFehler(fieldObject, null, tiefe + 1) ? true
-                                        : fehlerGefunden;
+                                fehlerGefunden = pruefeObjektAufFehler(fieldObject, null, tiefe + 1) ? true
+                                    : fehlerGefunden;
                             }
                         }
                     } else {
@@ -371,10 +372,10 @@ public class ServiceStatistikMBean implements MethodInterceptor, InitializingBea
 
         // Die Klassen-Hierachie rekursiv nach oben prüfen
         if (clazzToScan.getSuperclass() != null && !clazzToScan.getSuperclass().equals(Object.class)) {
-            LOGISY.trace("{}> Climb up class hierarchy! Source {}, Target {}",
-                StringUtils.repeat("-", tiefe), clazzToScan.getSimpleName(), clazzToScan.getSuperclass());
+            LOGISY.trace("{}> Climb up class hierarchy! Source {}, Target {}", StringUtils.repeat("-", tiefe),
+                clazzToScan.getSimpleName(), clazzToScan.getSuperclass());
             fehlerGefunden =
-            // Aufruf mit gleicher Tiefe, da Vererbung nach oben durchlaufen wird
+                // Aufruf mit gleicher Tiefe, da Vererbung nach oben durchlaufen wird
                 pruefeObjektAufFehler(result, clazzToScan.getSuperclass(), tiefe) ? true : fehlerGefunden;
         }
 
