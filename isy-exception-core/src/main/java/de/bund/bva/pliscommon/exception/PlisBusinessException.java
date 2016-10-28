@@ -23,8 +23,9 @@ package de.bund.bva.pliscommon.exception;
  * Für die Konstruktoren wurde die Java 1.5er Funktionalität von variablen Parametern verwendet. Details zu
  * <i>Varargs</i> sind unter <a href="http://java.sun.com/j2se/1.5.0/docs/guide/language/varargs.html">http:/
  * /java.sun.com/j2se/1.5.0/docs/guide/language/varargs.html</a> beschrieben.
- * 
+ *
  */
+@Deprecated
 public abstract class PlisBusinessException extends PlisException {
 
     /**
@@ -33,7 +34,7 @@ public abstract class PlisBusinessException extends PlisException {
      * <p>
      * Der Grund wird nicht initialisiert und kann später durch den Aufruf der Methode
      * {@link #initCause(Throwable)} initialisiert werden.
-     * 
+     *
      * @param ausnahmeId
      *            Die Ausnahme-ID. Der Schlüssel, welcher verwendet wird, um einen Nachrichtentext, welcher
      *            als Fehler-Nachricht für die Exception verwendet wird aus einem ResourceBundle zu laden.
@@ -55,7 +56,7 @@ public abstract class PlisBusinessException extends PlisException {
      * <p>
      * Anmerkung: Der Fehlertext von <code>cause</code> (dem Grund) ist <i>nicht</i> automatisch mit dem
      * übergebenen Fehlertext verbunden.
-     * 
+     *
      * @param ausnahmeId
      *            Die Ausnahme-ID. Der Schlüssel der den Fehlertext identifiziert.
      * @param throwable

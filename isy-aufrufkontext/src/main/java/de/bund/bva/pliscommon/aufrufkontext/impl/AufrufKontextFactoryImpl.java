@@ -53,7 +53,7 @@ public class AufrufKontextFactoryImpl<T extends AufrufKontext> implements Aufruf
     /**
      * {@inheritDoc}
      */
-    public void nachAufrufKontextVerarbeitung(AufrufKontext aufrufKontext) {
+    public void nachAufrufKontextVerarbeitung(T aufrufKontext) {
         // es findet keine Nachbearbeitung statt.
     }
 
