@@ -1,0 +1,1 @@
+{"level":"TRACE","thread":"main","logger":"de.bund.bva.isyfact.logging.LoggingTest","context":"testserver_testsystem","zeitstempel":"2015-07-13T10:29:00.563Z","nachricht":"Dies ist ein super trace Test. Klasse, oder?","korrelationsid":"STATISCHE-KORR-ID-1;STATISCHE-KORR-ID-2;STATISCHE-KORR-ID-3","fachdaten":"false","parameter1":"super","parameter2":"trace","parameter3":"Klasse"}

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>isy-util</artifactId>
+    <packaging>jar</packaging>
+    <name>IsyFact-Utilities</name>
+    <description>Stellt Hilfsfunktionen für IsyFact-Anwendungen bereit.</description>
+
+    <parent>
+        <groupId>de.bund.bva.isyfact</groupId>
+        <artifactId>isyfact-base</artifactId>
+        <version>1.3.7</version>
+    </parent>
+
+    <dependencies>
+        <!-- PLIS-Exception fuer FehlerTextProviderImpl. Wird dieser nicht verwendet, wird auch plis-exception
+            nicht benöitgt, daher optional=true -->
+        <dependency>
+            <groupId>de.bund.bva.isyfact</groupId>
+            <artifactId>isy-exception-core</artifactId>
+            <version>${project.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!-- Fuer MessageSource im MessageSourceHolder -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <!-- Benoetigt fuer AOP -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!-- Logging -->
+        <dependency>
+            <groupId>de.bund.bva.isyfact</groupId>
+            <artifactId>isy-logging</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>log4j-over-slf4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</project>

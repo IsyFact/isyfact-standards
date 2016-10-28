@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>isy-sonderzeichen</artifactId>
+    <packaging>jar</packaging>
+    <name>IsyFact-Sonderzeichen</name>
+    <description>Komponente zur Unterstützung der Verarbeitung von Sonderzeichen.</description>
+
+    <parent>
+        <groupId>de.bund.bva.isyfact</groupId>
+        <artifactId>isyfact-base</artifactId>
+        <version>1.3.7</version>
+    </parent>
+
+    <dependencies>
+        <!--JUnit-Dependency -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Benoetigt fuer InitializingBeans -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.bund.bva.isyfact</groupId>
+            <artifactId>isy-logging</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>log4j-over-slf4j</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

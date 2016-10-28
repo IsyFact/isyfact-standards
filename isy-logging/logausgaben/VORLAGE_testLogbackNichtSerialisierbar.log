@@ -1,0 +1,1 @@
+{"level":"INFO","thread":"main","logger":"de.bund.bva.isyfact.logging.LogbackTest","context":"testserver_testsystem","zeitstempel":"2015-07-14T07:48:30.739Z","nachricht":"Type registration [A] overrides previous : de.bund.bva.isyfact.logging.LogbackTest@607df6","korrelationsid":"none","parameter1":"A","parameter2":{}}

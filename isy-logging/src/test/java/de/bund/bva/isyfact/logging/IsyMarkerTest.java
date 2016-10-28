@@ -1,0 +1,131 @@
+package de.bund.bva.isyfact.logging;
+
+/*
+ * #%L
+ * isy-logging
+ * %%
+ * 
+ * %%
+ * See the NOTICE file distributed with this work for additional
+ * information regarding copyright ownership.
+ * The Federal Office of Administration (Bundesverwaltungsamt, BVA)
+ * licenses this file to you under the Apache License, Version 2.0 (the
+ * License). You may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+ * implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ * #L%
+ */
+
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Assert;
+import org.junit.Test;
+import org.slf4j.Marker;
+
+import de.bund.bva.isyfact.logging.impl.IsyMarkerImpl;
+import de.bund.bva.isyfact.logging.impl.MarkerSchluessel;
+
+/**
+ * Tests der Klasse IsyMarker.
+ */
+public class IsyMarkerTest {
+
+    /**
+     * Testfälle für das Hinzufügen von Child-Markern.
+     */
+    @SuppressWarnings("deprecation")
+    @Test
+    public void isyMarkerChildrenTest() {
+
+        IsyMarker marker = new IsyMarkerImpl(MarkerSchluessel.DAUER, "123");
+        IsyMarker childMarker1 = new IsyMarkerImpl(MarkerSchluessel.FACHDATEN, "true");
+        IsyMarker childMarker2 = new IsyMarkerImpl(MarkerSchluessel.FACHDATEN, "true");
+
+        // Keine Children im Marker vorhanden
+        Assert.assertFalse("Es sind unerwartet Children im Marker vorhanden.", marker.hasChildren());
+        Assert.assertFalse("Es sind unerwartet Children im Marker vorhanden.", marker.contains(childMarker1));
+        Assert.assertFalse("Es sind unerwartet Children im Marker vorhanden.",
+                marker.contains(MarkerSchluessel.DAUER.toString()));
+        Assert.assertFalse("Es sind unerwartet Children im Marker vorhanden.",
+                marker.contains(MarkerSchluessel.FACHDATEN.toString()));
+
+        // Marker als Children ergänzen
+        marker.add(childMarker1);
+        Assert.assertTrue("Marker besitzt keine Children.", marker.hasChildren());
+        Assert.assertTrue("Children unerwartet nicht vorhanden.", marker.contains(childMarker1));
+        Assert.assertTrue("Children unerwartet nicht vorhanden.",
+                marker.contains(MarkerSchluessel.DAUER.getWert()));
+        Assert.assertTrue("Children unerwartet nicht vorhanden.",
+                marker.contains(MarkerSchluessel.FACHDATEN.getWert()));
+        Assert.assertFalse("Es sind unerwartet Children im Marker vorhanden.",
+                marker.contains(MarkerSchluessel.KATEGORIE.getWert()));
+
+        // Children entfernen
+        Assert.assertTrue("Entfernen eines vorhandenen Markers war nicht erfolgreich.",
+                marker.remove(childMarker1));
+        Assert.assertFalse(
+                "Entfernen eines Markers, obwohl keine Marker vorhanden sind, war unerwartet erfolgreich.",
+                marker.remove(childMarker1));
+        Assert.assertFalse("Es sind unerwartet Children im Marker vorhanden.", marker.hasChildren());
+
+        // Test mit der Ergänzung von null
+        marker.addAll(null);
+
+        // Mehrere Children ergänzen
+        List<Marker> markers = new ArrayList<Marker>();
+        markers.add(childMarker1);
+        markers.add(childMarker2);
+
+        // Zwei Marker ergänzen
+        marker.addAll(markers);
+        Assert.assertTrue("Children unerwartet nicht vorhanden.", marker.contains(childMarker1));
+        Assert.assertTrue("Children unerwartet nicht vorhanden.", marker.contains(childMarker2));
+
+    }
+
+    /**
+     * Tests für Standardmethoden wie bspw. 'equals'.
+     * 
+     * @throws Exception
+     *             wenn bei der Testausführung eine Exception auftritt.
+     */
+    @Test
+    public void isyMarkerStandardmethodenTest() throws Exception {
+        String marker1value = "123";
+        IsyMarkerImpl marker1 = new IsyMarkerImpl(MarkerSchluessel.DAUER, marker1value);
+        IsyMarkerImpl marker2 = new IsyMarkerImpl(MarkerSchluessel.DAUER, marker1value);
+        IsyMarkerImpl marker3 = new IsyMarkerImpl(MarkerSchluessel.FACHDATEN, "true");
+        IsyMarkerImpl marker4 = new IsyMarkerImpl(MarkerSchluessel.DAUER, "5678");
+        IsyMarkerImpl marker5 = new IsyMarkerImpl(MarkerSchluessel.DAUER, null);
+
+        marker1.equals(marker2);
+
+        // Teste Equals
+        Assert.assertTrue("Marker sind fälschlicherweise ungleich.", marker1.equals(marker2));
+        Assert.assertFalse("Marker sind fälschlicherweise gleich.", marker1.equals(marker3));
+        Assert.assertFalse("Marker sind fälschlicherweise gleich.", marker1.equals(marker4));
+        Assert.assertFalse("Marker sind fälschlicherweise gleich.", marker1.equals(marker5));
+        Assert.assertFalse("Marker sind fälschlicherweise gleich.", marker1.equals(null));
+        Assert.assertFalse("Marker sind fälschlicherweise gleich.", marker5.equals(new Integer(1)));
+
+        // Teste Compare-Methode per Reflection da die Konstellation "null" als erster Parameter bisher nicht
+        // auftreten
+        // kann.
+        Method compareMethod = IsyMarkerImpl.class.getDeclaredMethod("compare", String.class, String.class);
+        compareMethod.setAccessible(true);
+        compareMethod.invoke(marker1, null, null);
+        compareMethod.invoke(marker1, null, marker1value);
+
+        // Einfache Prüfung des HashCodes
+        Assert.assertTrue("Hashcode ist falsch.", marker1.hashCode() != 0);
+    }
+}
