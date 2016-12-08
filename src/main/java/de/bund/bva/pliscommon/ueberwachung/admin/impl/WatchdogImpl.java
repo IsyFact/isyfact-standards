@@ -28,6 +28,7 @@ import org.springframework.beans.factory.annotation.Required;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
+import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
 import de.bund.bva.pliscommon.ueberwachung.admin.Watchdog;
 import de.bund.bva.pliscommon.ueberwachung.common.jmx.StatusMonitorMBean;
@@ -72,7 +73,8 @@ public abstract class WatchdogImpl implements Watchdog {
                     MdcHelper.pushKorrelationsId(korrelationsid);
                     boolean pruefungErfolgreich = true;
                     for (PruefRoutine pruefRoutine : WatchdogImpl.this.pruefRoutinen) {
-                        LOG.debug("Führe Prüfung durch: {}", pruefRoutine.getBeschreibung());
+                        LOG.info(LogKategorie.JOURNAL, EreignisSchluessel.PLUEB00001,
+                            "Führe Prüfung durch: {}", pruefRoutine.getBeschreibung());
                         try {
                             if (!pruefRoutine.getPruefung().call()) {
                                 LOG.error(EreignisSchluessel.PLUEB00002, "Prüfung gescheitert: {}",
@@ -94,7 +96,7 @@ public abstract class WatchdogImpl implements Watchdog {
             LOG.warn(EreignisSchluessel.PLUEB00004, "Selbsttest fehlgeschlagen: ", t);
         } finally {
             if (erfolgreich) {
-                LOG.debug("Selbsttest erfolgreich.");
+                LOG.info(LogKategorie.JOURNAL, EreignisSchluessel.PLUEB00001, "Selbsttest erfolgreich.");
             }
             this.watchdogMBean.registrierePruefung(erfolgreich);
             try {
