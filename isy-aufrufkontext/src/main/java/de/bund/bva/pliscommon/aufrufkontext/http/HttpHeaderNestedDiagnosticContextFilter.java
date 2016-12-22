@@ -130,9 +130,6 @@ public class HttpHeaderNestedDiagnosticContextFilter extends AbstractRequestLogg
     @Override
     protected void afterRequest(HttpServletRequest request, String message) {
         MdcHelper.entferneKorrelationsId();
-
-        org.slf4j.MDC.remove("url");
-
         LOG.debug(message);
     }
 }
