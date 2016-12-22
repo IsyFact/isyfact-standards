@@ -57,8 +57,8 @@ import de.bund.bva.isyfact.logging.util.MdcHelper;
 public class HttpHeaderNestedDiagnosticContextFilter extends AbstractRequestLoggingFilter {
 
     /** Logger. */
-    private static final IsyLogger LOG = IsyLoggerFactory
-        .getLogger(HttpHeaderNestedDiagnosticContextFilter.class);
+    private static final IsyLogger LOG =
+        IsyLoggerFactory.getLogger(HttpHeaderNestedDiagnosticContextFilter.class);
 
     /** Der Name des HTTP-Headers mit der Correlation-ID. */
     private String correlationIdHttpHeaderName = "Correlation-Id";
@@ -114,6 +114,13 @@ public class HttpHeaderNestedDiagnosticContextFilter extends AbstractRequestLogg
     protected void beforeRequest(HttpServletRequest request, String message) {
         LOG.debug(message);
         MdcHelper.pushKorrelationsId(getNestedDiagnosticContextMessage(request));
+
+        if (request != null) {
+            org.slf4j.MDC.put("url", request.getRequestURI() + "/" + request.getQueryString());
+        } else {
+            org.slf4j.MDC.put("url", " --- request was null --- ");
+        }
+
     }
 
     /**
@@ -123,6 +130,9 @@ public class HttpHeaderNestedDiagnosticContextFilter extends AbstractRequestLogg
     @Override
     protected void afterRequest(HttpServletRequest request, String message) {
         MdcHelper.entferneKorrelationsId();
+
+        org.slf4j.MDC.remove("url");
+
         LOG.debug(message);
     }
 }
