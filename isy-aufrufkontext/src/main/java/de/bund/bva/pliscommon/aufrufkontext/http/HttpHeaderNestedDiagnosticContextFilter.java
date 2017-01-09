@@ -114,13 +114,6 @@ public class HttpHeaderNestedDiagnosticContextFilter extends AbstractRequestLogg
     protected void beforeRequest(HttpServletRequest request, String message) {
         LOG.debug(message);
         MdcHelper.pushKorrelationsId(getNestedDiagnosticContextMessage(request));
-
-        if (request != null) {
-            org.slf4j.MDC.put("url", request.getRequestURI() + "/" + request.getQueryString());
-        } else {
-            org.slf4j.MDC.put("url", " --- request was null --- ");
-        }
-
     }
 
     /**
