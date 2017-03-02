@@ -18,7 +18,7 @@ package de.bund.bva.pliscommon.persistence.exception;
 
 /**
  * Fehlerschlüssel für plis-persistence.
- * 
+ *
  */
 public final class FehlerSchluessel {
 
@@ -56,5 +56,17 @@ public final class FehlerSchluessel {
      * Beim Prüfen der Version des Datenbankschemas ist ein Fehler aufgetreten.
      */
     public static final String PRUEFEN_DER_SCHEMAVERSION_FEHLGESCHLAGEN = "PERSI00006";
+
+    /**
+     * Die Version des Datenbankschemas konnte nicht geprüft werden. Verbindungen zu diesem Schema sind erst
+     * nach einem Neustart wieder verfügbar.
+     */
+    public static final String DB_BEIM_HOCHFAHREN_NICHT_VERFUEGBAR = "PERSI00008";
+
+    /**
+     * Es konnte keine Verbindung aufgebaut werden, da beim Hochfahren ein Fehler aufgetreten war. Ist die
+     * Datenbank wieder erreichbar, muss das System neu gestartet werden.
+     */
+    public static final String KEINE_CONNECTION_WEGEN_FEHLERHAFTER_INITIALISIERUNG = "PERSI00009";
 
 }
