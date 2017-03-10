@@ -3,7 +3,6 @@
 -  ![isy-exception-sst] (https://gitlab.local.vm/IsyFact/isyfact-base/blob/master/isy-exception-sst/CHANGELOG.md)
 -  ![isy-konfiguration] (https://gitlab.local.vm/IsyFact/isyfact-base/blob/master/isy-konfiguration/CHANGELOG.md)
 -  ![isy-logging] (https://gitlab.local.vm/IsyFact/isyfact-base/blob/master/isy-logging/CHANGELOG.md)
--  ![isy-logging-log4j-bridge] (https://gitlab.local.vm/IsyFact/isyfact-base/blob/master/isy-logging-log4j-bridge/CHANGELOG.md)
 -  ![isy-sicherheit] (https://gitlab.local.vm/IsyFact/isyfact-base/blob/master/isy-sicherheit/CHANGELOG.md)
 -  ![isy-sonderzeichen] (https://gitlab.local.vm/IsyFact/isyfact-base/blob/master/isy-sonderzeichen/CHANGELOG.md)
 -  ![isy-util] (https://gitlab.local.vm/IsyFact/isyfact-base/blob/master/isy-util/CHANGELOG.md)

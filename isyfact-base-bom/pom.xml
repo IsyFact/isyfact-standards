@@ -44,11 +44,6 @@
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
-                <artifactId>isy-logging-log4j-bridge</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-sicherheit</artifactId>
                 <version>${project.version}</version>
             </dependency>
