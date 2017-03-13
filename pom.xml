@@ -6,7 +6,7 @@
     <groupId>de.bund.bva.isyfact</groupId>
     <artifactId>isy-persistence</artifactId>
     <packaging>jar</packaging>
-    <version>1.4.4</version>
+    <version>1.5.3</version>
     <description>Die Querschnittsbibliothek plis-persistence</description>
 
     <!-- PLIS-Parent POM -->
