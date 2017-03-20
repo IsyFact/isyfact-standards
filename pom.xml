@@ -12,7 +12,7 @@
     <groupId>de.bund.bva.isyfact</groupId>
     <artifactId>isy-serviceapi-sst</artifactId>
     <version>1.5.3</version>
-    <name>PLIS Service-API Transport-Objekte</name>
+    <name>ISY Service-API Transport-Objekte</name>
 
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
