@@ -151,7 +151,7 @@ public class PlisDataSource extends DelegatingDataSource {
             if (this.nonCriticalDataSource) {
                 this.initializationFailed = true;
                 LOG.error(FehlerSchluessel.DB_BEIM_HOCHFAHREN_NICHT_VERFUEGBAR,
-                    FEHLERTEXT_PROVIDER.getMessage(FehlerSchluessel.DB_BEIM_HOCHFAHREN_NICHT_VERFUEGBAR));
+                    FEHLERTEXT_PROVIDER.getMessage(FehlerSchluessel.DB_BEIM_HOCHFAHREN_NICHT_VERFUEGBAR), e);
             } else {
                 throw new PersistenzException(FehlerSchluessel.PRUEFEN_DER_SCHEMAVERSION_FEHLGESCHLAGEN, e);
             }
