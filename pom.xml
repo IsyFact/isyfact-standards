@@ -6,7 +6,7 @@
     <groupId>de.bund.bva.pliscommon</groupId>
     <artifactId>plis-persistence</artifactId>
     <packaging>jar</packaging>
-    <version>1.4.3</version>
+    <version>1.4.4</version>
     <description>Die Querschnittsbibliothek plis-persistence</description>
 
     <!-- PLIS-Parent POM -->

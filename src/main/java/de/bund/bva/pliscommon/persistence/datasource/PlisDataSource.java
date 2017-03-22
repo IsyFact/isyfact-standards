@@ -25,9 +25,11 @@ import org.springframework.jdbc.datasource.DelegatingDataSource;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
+import de.bund.bva.pliscommon.exception.FehlertextProvider;
 import de.bund.bva.pliscommon.persistence.common.EreignisSchluessel;
 import de.bund.bva.pliscommon.persistence.exception.FehlerSchluessel;
 import de.bund.bva.pliscommon.persistence.exception.PersistenzException;
+import de.bund.bva.pliscommon.persistence.exception.PersistenzFehlertextProvider;
 
 /**
  * DataSource-Wrapper, der null-Connections abfängt und eine PersistenzException wirft.
@@ -37,6 +39,12 @@ public class PlisDataSource extends DelegatingDataSource {
 
     /** Logger. */
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(PlisDataSource.class);
+
+    /** Fehlertext-Provider für die plis-persistence. */
+    private static final FehlertextProvider FEHLERTEXT_PROVIDER = new PersistenzFehlertextProvider();
+
+    /** Der SQLSTATE Code "connection exception". */
+    private static final String SQLSTATE_CONNECTION_EXCEPTION = "08000";
 
     /** Erwartete Version des Datenbank-Schemas. */
     private String schemaVersion;
@@ -49,10 +57,35 @@ public class PlisDataSource extends DelegatingDataSource {
     private String invalidSchemaVersionAction;
 
     /**
+     * Dieses Flag zeigt an, dass diese DataSource für die Anwendung nicht absolut notwendig ist. Ein Beispiel
+     * wäre die DataSource für ein Archivschema, welches für den regulären Betrieb nicht essentiell ist.<br>
+     * false: Ist die Datenbank beim Hochfahren nicht erreichbar, wird eine Exception geworfen und die
+     * DataSource wird nicht erzeugt<br>
+     * true: Ist die Datenbank beim Hochfahren nicht erreichbar, wird ein Log-Eintrag auf dem Level ERROR
+     * geschrieben. Die DataSource wird jedoch erzeugt und die Anwendung kann starten. Wird von dieser
+     * DataSource später eine Verbindung angefordert, wirft sie jedoch eine Exception. Dies bleibt bis zum
+     * Neustart bestehen.
+     */
+    private boolean nonCriticalDataSource;
+
+    /**
+     * Dieses Flag ist true, wenn {@link nonCriticalDataSource} auf true gesetzt war und die DataSource trotz
+     * fehlgeschlagener Schemaprüfung erstellt wurde. In diesem Fall dürfen keine Connections herausgegeben
+     * werden.
+     */
+    private boolean initializationFailed;
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public Connection getConnection() throws SQLException {
+        if (this.initializationFailed) {
+            throw new SQLException(
+                FEHLERTEXT_PROVIDER
+                    .getMessage(FehlerSchluessel.KEINE_CONNECTION_WEGEN_FEHLERHAFTER_INITIALISIERUNG),
+                SQLSTATE_CONNECTION_EXCEPTION);
+        }
         Connection conn = super.getConnection();
         if (conn == null) {
             throw new PersistenzException(FehlerSchluessel.KEINE_DB_CONNECTION_VERFUEGBAR);
@@ -66,6 +99,12 @@ public class PlisDataSource extends DelegatingDataSource {
      */
     @Override
     public Connection getConnection(String username, String password) throws SQLException {
+        if (this.initializationFailed) {
+            throw new SQLException(
+                FEHLERTEXT_PROVIDER
+                    .getMessage(FehlerSchluessel.KEINE_CONNECTION_WEGEN_FEHLERHAFTER_INITIALISIERUNG),
+                SQLSTATE_CONNECTION_EXCEPTION);
+        }
         Connection conn = super.getConnection(username, password);
         if (conn == null) {
             throw new PersistenzException(FehlerSchluessel.KEINE_DB_CONNECTION_VERFUEGBAR);
@@ -102,15 +141,20 @@ public class PlisDataSource extends DelegatingDataSource {
                 if ("warn".equals(this.invalidSchemaVersionAction)) {
                     LOG.warn(EreignisSchluessel.FALSCHE_SCHEMA_VERSION,
                         "Die Version des Datenbankschemas entspricht nicht der "
-                            + "erwarteten Version ( {} ).",
-                        this.schemaVersion);
+                            + "erwarteten Version ( {} ).", this.schemaVersion);
                 } else {
                     throw new PersistenzException(FehlerSchluessel.FALSCHE_DB_SCHEMAVERSION,
                         this.schemaVersion);
                 }
             }
         } catch (SQLException e) {
-            throw new PersistenzException(FehlerSchluessel.PRUEFEN_DER_SCHEMAVERSION_FEHLGESCHLAGEN, e);
+            if (this.nonCriticalDataSource) {
+                this.initializationFailed = true;
+                LOG.error(FehlerSchluessel.DB_BEIM_HOCHFAHREN_NICHT_VERFUEGBAR,
+                    FEHLERTEXT_PROVIDER.getMessage(FehlerSchluessel.DB_BEIM_HOCHFAHREN_NICHT_VERFUEGBAR), e);
+            } else {
+                throw new PersistenzException(FehlerSchluessel.PRUEFEN_DER_SCHEMAVERSION_FEHLGESCHLAGEN, e);
+            }
         } catch (PersistenzException e1) {
             throw e1;
         } finally {
@@ -119,8 +163,7 @@ public class PlisDataSource extends DelegatingDataSource {
                     conn.close();
                 } catch (SQLException e1) {
                     LOG.warn(EreignisSchluessel.DB_VERBINDUNG_NICHT_GESCHLOSSEN,
-                        "Die Datenbankverbindung konnte nicht geschlossen werden. Grund: {}",
-                        e1.getMessage());
+                        "Die Datenbankverbindung konnte nicht geschlossen werden. Grund: {}", e1.getMessage());
                 }
             }
         }
@@ -141,6 +184,15 @@ public class PlisDataSource extends DelegatingDataSource {
         } else {
             this.invalidSchemaVersionAction = null;
         }
+    }
+
+    /**
+     * Setzt das Feld 'nonCriticalDataSource'.
+     * @param nonCriticalDataSource
+     *            Neuer Wert für nonCriticalDataSource
+     */
+    public void setNonCriticalDataSource(boolean nonCriticalDataSource) {
+        this.nonCriticalDataSource = nonCriticalDataSource;
     }
 
 }
