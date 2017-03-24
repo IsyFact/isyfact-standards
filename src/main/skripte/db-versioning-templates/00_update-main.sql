@@ -41,11 +41,11 @@ SPOOL &P_LOG_DATEI
 -- Schritt 1b: Schemametadaten aktualisieren
 CONNECT &USER_CONNECTION
 declare
-  version_aktuell varchar2(5);
+  version_aktuell varchar2(25);
 begin
   select version_nummer into version_aktuell
   from m_schema_version
-  where version_nummer = '&EXPECTED_SCHEMA_VERSION' and update_nummer = '&EXPECTED_SCHEMA_UPDATE';
+  where version_nummer = '&EXPECTED_SCHEMA_VERSION' and update_nummer = '&EXPECTED_SCHEMA_UPDATE' and status = 'gueltig';
 exception
   when no_data_found
   then raise_application_error(-20000, 'Falsche Version der Datenbank. Erwartete gültige Version ist ' || '&EXPECTED_SCHEMA_VERSION' || ' UPDATE ' || '&EXPECTED_SCHEMA_UPDATE' || '.');
