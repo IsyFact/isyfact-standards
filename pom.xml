@@ -10,15 +10,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>de.bund.bva.pliscommon</groupId>
-    <artifactId>plis-serviceapi-core</artifactId>
-    <version>1.4.4</version>
+    <groupId>de.bund.bva.isyfact</groupId>
+    <artifactId>isy-serviceapi-core</artifactId>
+    <version>1.5.0</version>
     <name>IsyFact Service-API Anwendung</name>
 
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
         <artifactId>isyfact-masterpom-lib</artifactId>
-        <version>1.3.1</version>
+        <version>1.3.2</version>
     </parent>
 
     <dependencyManagement>
@@ -26,7 +26,7 @@
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isyfact-base-bom</artifactId>
-                <version>1.3.6</version>
+                <version>1.4.1</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -62,9 +62,9 @@
         </dependency>
 
         <dependency>
-            <groupId>de.bund.bva.pliscommon</groupId>
-            <artifactId>plis-serviceapi-sst</artifactId>
-            <version>1.4.3</version>
+            <groupId>de.bund.bva.isyfact</groupId>
+            <artifactId>isy-serviceapi-sst</artifactId>
+            <version>1.5.0</version>
         </dependency>
 
         <!-- PLIS-Sicherheit zur Autorisierung in der Service-Impl. -->
