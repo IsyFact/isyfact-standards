@@ -1,3 +1,6 @@
+# v1.5.0
+- `IFS-17`: Masterpom-lib und isyfact-base aktualisiert, group-id und artifact-id geändert
+
 # v1.4.5
 - DB-Update-Skript prüft, ob vorliegendes Schema 'gueltig' ist.
 
