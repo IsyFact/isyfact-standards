@@ -1,3 +1,6 @@
+# v1.4.5
+- DB-Update-Skript prüft, ob vorliegendes Schema 'gueltig' ist.
+
 # v1.4.4
 - Datasource kann als non-critical markiert werden, um das Hochfahren einer Anwendung trotz fehlender Verbindung zu ermöglichen.
 
