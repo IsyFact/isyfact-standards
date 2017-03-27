@@ -45,9 +45,9 @@
             <artifactId>isy-exception-sst</artifactId>
         </dependency>
         <dependency>
-            <groupId>de.bund.bva.pliscommon</groupId>
-            <artifactId>plis-serviceapi-sst</artifactId>
-            <version>1.4.3</version>
+            <groupId>de.bund.bva.isyfact</groupId>
+            <artifactId>isy-serviceapi-sst</artifactId>
+            <version>1.5.0</version>
         </dependency>
         <!-- Fuer das Auslesen des BHKZs aus dem Aufrufkontext -->
         <dependency>
