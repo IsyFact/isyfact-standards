@@ -1,3 +1,6 @@
+# v1.3.2
+- Minor-Version erhöht aufgrund von IFS-17
+
 # v1.3.1
 - Neue IsyFact Masterpom.
 - Umstellung auf IsyFact.
