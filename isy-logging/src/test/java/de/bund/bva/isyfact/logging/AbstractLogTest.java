@@ -23,28 +23,20 @@ package de.bund.bva.isyfact.logging;
  * #L%
  */
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import de.bund.bva.isyfact.logging.impl.Ereignisschluessel;
+import de.bund.bva.isyfact.logging.impl.FehlerSchluessel;
+import de.bund.bva.isyfact.logging.util.MdcHelper;
+import junit.framework.Assert;
+import org.junit.Before;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-
-import junit.framework.Assert;
-
-import org.junit.Before;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import de.bund.bva.isyfact.logging.impl.Ereignisschluessel;
-import de.bund.bva.isyfact.logging.impl.FehlerSchluessel;
-import de.bund.bva.isyfact.logging.util.MdcHelper;
 
 /**
  * Oberklasse aller Logging-Tests. Die Klasse kapselt insbesondere die Funktionalität zum Prüfen der durch die
@@ -57,7 +49,7 @@ public abstract class AbstractLogTest {
     protected static final String VORLAGE_PREFIX = "VORLAGE_";
 
     /** Pfad, in dem die Logdatei durch die Tests erstellt wird. */
-    protected static final String LOG_VERZEICHNIS = "/var/log/isy-logging/";
+    protected static final String LOG_VERZEICHNIS = "target/var/log/isy-logging/";
 
     /** Name der Logdatei. */
     protected static final String LOG_DATEI = "testserver_testsystem.log";
