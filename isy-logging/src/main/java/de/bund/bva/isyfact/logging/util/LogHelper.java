@@ -23,22 +23,22 @@ package de.bund.bva.isyfact.logging.util;
  * #L%
  */
 
+import de.bund.bva.isyfact.logging.IsyLogger;
+import de.bund.bva.isyfact.logging.IsyMarker;
+import de.bund.bva.isyfact.logging.LogKategorie;
+import de.bund.bva.isyfact.logging.impl.Ereignisschluessel;
+import de.bund.bva.isyfact.logging.impl.IsyMarkerImpl;
+import de.bund.bva.isyfact.logging.impl.MarkerSchluessel;
+
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import de.bund.bva.isyfact.logging.IsyLogger;
-import de.bund.bva.isyfact.logging.IsyMarker;
-import de.bund.bva.isyfact.logging.LogKategorie;
-import de.bund.bva.isyfact.logging.impl.IsyMarkerImpl;
-import de.bund.bva.isyfact.logging.impl.Ereignisschluessel;
-import de.bund.bva.isyfact.logging.impl.MarkerSchluessel;
-
 /**
  * Helperklasse zum Erstellen von Logeinträgen. Sie stellt den anderen Hilfsklassen dieses Bausteins
  * einheitliche Mechanismen zur Logerzeugung bereit.
- * 
+ *
  */
 public class LogHelper {
 
@@ -63,12 +63,85 @@ public class LogHelper {
      */
     private final boolean loggeDatenBeiException;
 
+    /**
+     * Konfigurationsparameter zum Festlegen der maximalen Größe von übergebenen Parameter des Aufrufs, mit
+     * der sie noch ins Log geschrieben werden.
+     */
+    private final long loggeMaximaleParameterGroesse;
+
     /** Konverter, um Beans vor deren Serialisierung zu konvertieren. */
     private BeanConverter konverter;
 
+    /** Prüfer, der Beans vor dem Loggen auf ihre Eignung als Parameter hin prüft. */
+    private BeanGroessePruefer pruefer;
+
     /**
      * Konstruktor der Klasse. Es werden die übergebenen Klassenattribute initialisiert.
-     * 
+     *
+     * @param loggeDauer
+     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
+     * @param loggeAufruf
+     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
+     * @param loggeErgebnis
+     *            Flag zum Kennzeichnen, ob das Ergebnis (Erfolg/Misserfolg) des Aufrufs gelogged werden soll.
+     * @param loggeDaten
+     *            Flag zum Kennzeichnen, ob die kompletten Anfragedaten gelogged werden sollen, wenn das
+     *            Ergebnis nicht erfolgreich war.
+     * @param loggeDatenBeiException
+     *            Flag zum Kennzeichnen, ob die kompletten Anfragedaten gelogged werden sollen, wenn das
+     *            Ergebnis nicht erfolgreich war.
+     * @param loggeMaximaleParameterGroesse
+     *            Konfigurationsparameter zum Festlegen der maximalen Größe von übergebenen Parameter des
+     *            Aufrufs, mit der sie noch ins Log geschrieben werden.
+     */
+    public LogHelper(boolean loggeAufruf, boolean loggeErgebnis, boolean loggeDauer,
+        boolean loggeDaten, boolean loggeDatenBeiException, long loggeMaximaleParameterGroesse) {
+        this(loggeAufruf, loggeErgebnis, loggeDauer, loggeDaten, loggeDatenBeiException,
+            loggeMaximaleParameterGroesse, null);
+    }
+
+    /**
+     * Konstruktor der Klasse. Es werden die übergebenen Klassenattribute initialisiert.
+     *
+     * @param loggeDauer
+     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
+     * @param loggeAufruf
+     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
+     * @param loggeErgebnis
+     *            Flag zum Kennzeichnen, ob das Ergebnis (Erfolg/Misserfolg) des Aufrufs gelogged werden soll.
+     * @param loggeDaten
+     *            Flag zum Kennzeichnen, ob die kompletten Anfragedaten gelogged werden sollen, wenn das
+     *            Ergebnis nicht erfolgreich war.
+     * @param loggeDatenBeiException
+     *            Flag zum Kennzeichnen, ob die kompletten Anfragedaten gelogged werden sollen, wenn das
+     *            Ergebnis nicht erfolgreich war.
+     * @param loggeMaximaleParameterGroesse
+     *            Konfigurationsparameter zum Festlegen der maximalen Größe von übergebenen Parameter des
+     *            Aufrufs, mit der sie noch ins Log geschrieben werden.
+     * @param konverter
+     *            Konverter, um Beans vor deren Serialisierung zu konvertieren.
+     */
+    public LogHelper(boolean loggeAufruf, boolean loggeErgebnis, boolean loggeDauer, boolean loggeDaten,
+        boolean loggeDatenBeiException, long loggeMaximaleParameterGroesse, BeanConverter konverter) {
+
+        if (konverter == null) {
+            konverter = erstelleStandardKonverter();
+        }
+
+        this.loggeAufruf = loggeAufruf;
+        this.loggeErgebnis = loggeErgebnis;
+        this.loggeDauer = loggeDauer;
+        this.loggeDaten = loggeDaten;
+        this.loggeDatenBeiException = loggeDatenBeiException;
+        this.loggeMaximaleParameterGroesse = loggeMaximaleParameterGroesse;
+        this.konverter = konverter;
+        this.pruefer = new BeanGroessePruefer();
+    }
+
+    /**
+     * Konstruktor der Klasse. Es werden die übergebenen Klassenattribute initialisiert.
+     *
+     * @deprecated Zukünftig muss der Konstruktor mit Parameter "loggeMaximaleParameterGroesse" verwendet werden.
      * @param loggeDauer
      *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
      * @param loggeAufruf
@@ -82,14 +155,16 @@ public class LogHelper {
      *            Flag zum Kennzeichnen, ob die kompletten Anfragedaten gelogged werden sollen, wenn das
      *            Ergebnis nicht erfolgreich war.
      */
-    public LogHelper(boolean loggeAufruf, boolean loggeErgebnis, boolean loggeDauer,
-            boolean loggeDaten, boolean loggeDatenBeiException) {
-        this(loggeAufruf, loggeErgebnis, loggeDauer, loggeDaten, loggeDatenBeiException, null);
+    @Deprecated
+    public LogHelper(boolean loggeAufruf, boolean loggeErgebnis, boolean loggeDauer, boolean loggeDaten,
+        boolean loggeDatenBeiException) {
+        this(loggeAufruf, loggeErgebnis, loggeDauer, loggeDaten, loggeDatenBeiException, 0, null);
     }
 
     /**
      * Konstruktor der Klasse. Es werden die übergebenen Klassenattribute initialisiert.
-     * 
+     *
+     * @deprecated Zukünftig muss der Konstruktor mit Parameter "loggeMaximaleParameterGroesse" verwendet werden.
      * @param loggeDauer
      *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
      * @param loggeAufruf
@@ -105,28 +180,19 @@ public class LogHelper {
      * @param konverter
      *            Konverter, um Beans vor deren Serialisierung zu konvertieren.
      */
+    @Deprecated
     public LogHelper(boolean loggeAufruf, boolean loggeErgebnis, boolean loggeDauer, boolean loggeDaten,
-            boolean loggeDatenBeiException, BeanConverter konverter) {
-
-        if (konverter == null) {
-            konverter = erstelleStandardKonverter();
-        }
-
-        this.loggeAufruf = loggeAufruf;
-        this.loggeErgebnis = loggeErgebnis;
-        this.loggeDauer = loggeDauer;
-        this.loggeDaten = loggeDaten;
-        this.loggeDatenBeiException = loggeDatenBeiException;
-        this.konverter = konverter;
+        boolean loggeDatenBeiException, BeanConverter konverter) {
+        this(loggeAufruf, loggeErgebnis, loggeDauer, loggeDaten, loggeDatenBeiException, 0, konverter);
     }
-    
+
     /**
      * Konstruktor der Klasse. Es werden die übergebenen Klassenattribute initialisiert.
      * Der Konstruktor setzt das Flag "loggeDaten" auf false.
-     * 
-     * @deprecated Zukünftig muss der Konstruktor mit Flag "loggeDaten" verwendet werden
+     *
+     * @deprecated Zukünftig muss der Konstruktor mit Flag "loggeDaten" sowie "loggeMaximaleParameterGroesse" verwendet werden
      * @see #LogHelper(boolean, boolean, boolean, boolean, boolean)
-     * 
+     *
      * @param loggeDauer
      *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
      * @param loggeAufruf
@@ -146,10 +212,10 @@ public class LogHelper {
     /**
      * Konstruktor der Klasse. Es werden die übergebenen Klassenattribute initialisiert.
      * Der Konstruktor setzt das Flag "loggeDaten" auf false.
-     * 
-     * @deprecated Zukünftig muss der Konstruktor mit Flag "loggeDaten" verwendet werden
+     *
+     * @deprecated Zukünftig muss der Konstruktor mit Flag "loggeDaten" sowie "loggeMaximaleParameterGroesse" verwendet werden
      * @see #LogHelper(boolean, boolean, boolean, boolean, BeanConverter)
-     * 
+     *
      * @param loggeDauer
      *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
      * @param loggeAufruf
@@ -171,7 +237,7 @@ public class LogHelper {
     /**
      * Hilfmethode zum Erstellen eines BeanToMapConverters, falls beim Aufruf des Konstruktors dieser Klasse
      * kein Konverter übergeben wurde.
-     * 
+     *
      * @return der zu verwendende Konverter.
      */
     public static BeanToMapConverter erstelleStandardKonverter() {
@@ -182,7 +248,7 @@ public class LogHelper {
 
     /**
      * Erstellt einen Logeintrag für den Aufruf der übergebenen Methode.
-     * 
+     *
      * @param logger
      *            der zu verwendende Logger.
      * @param methode
@@ -198,7 +264,7 @@ public class LogHelper {
 
     /**
      * Erstellt einen Logeintrag für das Aufrufergebnis der übergebenen Methode.
-     * 
+     *
      * @param logger
      *            der zu verwendende Logger.
      * @param methode
@@ -231,9 +297,16 @@ public class LogHelper {
 
             List<Object> parameterWerte = null;
             if (parameter != null) {
-                parameterWerte = new ArrayList<Object>();
-                for (int i = 0; i < parameter.length; i++) {
-                    parameterWerte.add(konverter.convert(parameter[i]));
+                parameterWerte = new ArrayList<>();
+                for (int index = 0; index < parameter.length; index++) {
+                    if (pruefer.pruefeGroesse(parameter[index], loggeMaximaleParameterGroesse)) {
+                        parameterWerte.add(konverter.convert(parameter[index]));
+                    } else {
+                        parameterWerte
+                            .add(Ereignisschluessel.DEBUG_LOGGE_DATEN_PARAMETER_ZU_GROSS.getNachricht());
+                        logger.debugFachdaten(Ereignisschluessel.DEBUG_LOGGE_DATEN_GROESSE.getNachricht(),
+                            erstelleMethodenname(methode), index + 1, parameterWerte.getClass().getName());
+                    }
                 }
             }
 
@@ -244,7 +317,7 @@ public class LogHelper {
 
     /**
      * Logged die Dauer eines Methodenaufrufs und erstellt einen entsprechenden Logeintrag.
-     * 
+     *
      * @param logger
      *            der zu verwendende Logger.
      * @param methode
@@ -271,7 +344,7 @@ public class LogHelper {
 
     /**
      * Erstellt einen Logeintrag für den Aufruf der übergebenen Methode eines Nachbarsystems.
-     * 
+     *
      * @param logger
      *            der zu verwendende Logger.
      * @param methode
@@ -292,7 +365,7 @@ public class LogHelper {
 
     /**
      * Erstellt einen Logeintrag für das Aufrufergebnis der übergebenen Methode eines Nachbarsystems.
-     * 
+     *
      * @param logger
      *            der zu verwendende Logger.
      * @param methode
@@ -322,7 +395,7 @@ public class LogHelper {
     /**
      * Logged die Dauer eines Methodenaufrufs eines Nachbarsystems und erstellt einen entsprechenden
      * Logeintrag.
-     * 
+     *
      * @param logger
      *            der zu verwendende Logger.
      * @param methode
@@ -356,7 +429,7 @@ public class LogHelper {
     /**
      * Hilfsmethode zum ermitteln des aktuellen Zeitstempels in Millisekunden. Dieser wird zur Berechnung der
      * Dauer eines Aufrufs verwendet.
-     * 
+     *
      * @return den aktuellen Zeitstempel in Millisekunden.
      */
     public long ermittleAktuellenZeitpunkt() {
@@ -365,7 +438,7 @@ public class LogHelper {
 
     /**
      * Bereitet die vollständige Signatur einer Methode als String auf.
-     * 
+     *
      * @param methode
      *            die Methode.
      * @return die aufbereitete Signatur als String.
@@ -376,7 +449,7 @@ public class LogHelper {
 
     /**
      * Bereitet den Namen Methode in einer Kurzform (Klasse.name) als String auf.
-     * 
+     *
      * @param methode
      *            die Methode.
      * @return die aufbereitete Signatur als String.
@@ -387,7 +460,7 @@ public class LogHelper {
 
     /**
      * Setzt den Wert des Attributs 'konverter'.
-     * 
+     *
      * @param konverter
      *            Neuer Wert des Attributs.
      */
@@ -397,7 +470,7 @@ public class LogHelper {
 
     /**
      * Liefert den Wert des Attributs 'konverter'.
-     * 
+     *
      * @return Wert des Attributs.
      */
     public BeanConverter getKonverter() {
