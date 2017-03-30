@@ -26,7 +26,7 @@ package de.bund.bva.isyfact.logging;
 import de.bund.bva.isyfact.logging.hilfsklassen.TestZielKlasse;
 import de.bund.bva.isyfact.logging.hilfsklassen.TestZielParameterPerson;
 import de.bund.bva.isyfact.logging.util.LoggingMethodInvoker;
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;

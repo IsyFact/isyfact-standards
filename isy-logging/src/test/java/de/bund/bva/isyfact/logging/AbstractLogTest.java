@@ -29,7 +29,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.bund.bva.isyfact.logging.impl.Ereignisschluessel;
 import de.bund.bva.isyfact.logging.impl.FehlerSchluessel;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.junit.Before;
 
 import java.io.*;
