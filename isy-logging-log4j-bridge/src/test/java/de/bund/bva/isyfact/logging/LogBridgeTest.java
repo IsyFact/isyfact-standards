@@ -22,6 +22,15 @@ package de.bund.bva.isyfact.logging;
  * permissions and limitations under the License.
  * #L%
  */
+
+import de.bund.bva.isyfact.logging.util.MdcHelper;
+import org.junit.Assert;
+import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -30,25 +39,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import org.apache.log4j.FileAppender;
-import org.apache.log4j.Level;
-import org.junit.Assert;
-import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Marker;
-import org.slf4j.MarkerFactory;
-
-import de.bund.bva.isyfact.logging.util.MdcHelper;
-import de.bund.bva.pliscommon.logging.common.layout.SingleLinePatternLayout;
-
 /**
  * Testfälle der LogBridge.
  */
 public class LogBridgeTest {
 
     /** Pfad zur Logdatei. */
-    protected static final String LOG_DATEI = "/var/log/isy-logging/bridge.log";
+    protected static final String LOG_DATEI = "target/var/log/isy-logging/bridge.log";
 
     /** Trenner zum einzelne Abschnitte in der Ergebnisdatei unterscheiden zu können. */
     protected static final String TESTFALL_TRENNER = "===== ENDE " + Calendar.getInstance().getTimeInMillis();

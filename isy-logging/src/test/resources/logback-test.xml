@@ -23,13 +23,13 @@
   -->
 
 <!-- Die Konfiguration wird minütlich auf Änderungen geprüft. -->
-<configuration scan="true" scanPeriod="1 minutes">
+<configuration scan="true" scanPeriod="1 minutes" debug="true">
 
     <!-- Eindeutige Identifikation der Instanz der Anwendung (HOST_System-ID). -->
     <contextName>testserver_testsystem</contextName>
 
     <!-- Pfad der Logdatei, ohne Endung -->
-    <property name="LOGFILE_PATH" value="/var/log/isy-logging/testserver_testsystem" />
+    <property name="LOGFILE_PATH" value="target/var/log/isy-logging/testserver_testsystem" />
 
     <include resource="resources/isylogging/logback/appender.xml" />
 
