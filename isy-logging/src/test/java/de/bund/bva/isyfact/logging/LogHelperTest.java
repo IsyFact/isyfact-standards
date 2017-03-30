@@ -23,10 +23,11 @@ package de.bund.bva.isyfact.logging;
  * #L%
  */
 
-import org.junit.Test;
-
 import de.bund.bva.isyfact.logging.hilfsklassen.TestBeanEinfach;
 import de.bund.bva.isyfact.logging.util.LogHelper;
+import org.junit.Test;
+
+import java.util.Random;
 
 /**
  * Test des Log-Helpers.
@@ -36,7 +37,7 @@ public class LogHelperTest extends AbstractLogTest {
     /**
      * Testet mehrere Spezialfälle des Aufrufs des Loghelpers, die nicht durch die anderen Testfälle abgedeckt
      * sind.
-     * 
+     *
      * @throws Exception
      *             wenn beim Test eine Exception aufgetreten ist.
      */
@@ -46,7 +47,7 @@ public class LogHelperTest extends AbstractLogTest {
         // LoggeErgebnis wird ohne Parameter aufgerufen, wobei im Helper nur "loggeErgebnis=true" und
         // "loggeDatenBeiException=true" ist. Es wird jeweils ein INFO-Logeintrag und einer in DEBUG mit den
         // übergebenen Parametern erstellt.
-        LogHelper logHelper = new LogHelper(false, true, false, false, true);
+        LogHelper logHelper = new LogHelper(false, true, false, false, true, 0);
         IsyLogger logger = IsyLoggerFactory.getLogger(LogHelperTest.class);
         logHelper.loggeErgebnis(logger, TestBeanEinfach.class.getMethod("setEinString", String.class), false,
                 null, "Ergebnis");
@@ -56,42 +57,65 @@ public class LogHelperTest extends AbstractLogTest {
         logHelper.loggeErgebnis(logger, TestBeanEinfach.class.getMethod("setEinString", String.class), false,
                 new String[] { "EinString" }, "Ergebnis");
         logHelper.loggeErgebnis(logger, TestBeanEinfach.class.getMethod("setEinString", String.class), true,
-                new String[] { "EinString" }, "Ergebnis");        
+                new String[] { "EinString" }, "Ergebnis");
 
         // LoggeErgebnis wird ohne Parameter aufgerufen, wobei im Helper nur "loggeErgebnis=true" ist. Es wird
         // jeweils nur der INFO.Eintrag erstellt.
-        logHelper = new LogHelper(false, true, false, false, false);
+        logHelper = new LogHelper(false, true, false, false, false, 0);
         logHelper.loggeErgebnis(logger, TestBeanEinfach.class.getMethod("setEinString", String.class), false,
                 null, null);
         logHelper.loggeErgebnis(logger, TestBeanEinfach.class.getMethod("setEinString", String.class), true,
-                null, null);        
+                null, null);
         // LoggeErgebnis wird mit einem Parameter aufgerufen
         logHelper.loggeErgebnis(logger, TestBeanEinfach.class.getMethod("setEinString", String.class), false,
                 new String[] { "EinString" }, "Ergebnis");
         logHelper.loggeErgebnis(logger, TestBeanEinfach.class.getMethod("setEinString", String.class), true,
-                new String[] { "EinString" }, "Ergebnis");        
+                new String[] { "EinString" }, "Ergebnis");
 
         // Übergeben von NULL-Werten und deaktivierten Methoden - bei diesen wird keine Log-Eintrag erstellt:
 
         // Loggen des Aufrufs mit "loggeAufruf=false"
-        logHelper = new LogHelper(false, true, true, false, true);
+        logHelper = new LogHelper(false, true, true, false, true, 0);
         logHelper.loggeNachbarsystemAufruf(logger, null, null, null);
 
         // Loggen des Ergebnisses mit "loggeErgebnis=false"
-        logHelper = new LogHelper(true, false, true, false, true);
+        logHelper = new LogHelper(true, false, true, false, true, 0);
         logHelper.loggeNachbarsystemErgebnis(logger, null, null, null, false);
 
         // Loggen der Dauer mit "loggeDauer=false"
-        logHelper = new LogHelper(true, true, false, false, true);
+        logHelper = new LogHelper(true, true, false, false, true, 0);
         logHelper.loggeNachbarsystemDauer(logger, null, 1, null, null, true);
 
         pruefeLogdatei("testLogHelperSpezialfaelle");
     }
-    
+
     /**
      * Testet mehrere Spezialfälle des Aufrufs des Loghelpers, die nicht durch die anderen Testfälle abgedeckt
      * sind. Es wird der deprecated-Konstruktor gestestet.
-     * 
+     *
+     * @throws Exception
+     *             wenn beim Test eine Exception aufgetreten ist.
+     */
+    @Test
+    public void testLogHelperParameterGroesse() throws Exception {
+        int parameterGroesse = 1000;
+
+        LogHelper logHelper = new LogHelper(false, false, false, true, false, parameterGroesse - 1);
+        IsyLogger logger = IsyLoggerFactory.getLogger(LogHelperTest.class);
+
+        // Loggen eines zu großen Parameters
+        byte[] binaerDaten = new byte[parameterGroesse];
+        new Random().nextBytes(binaerDaten);
+        logHelper.loggeErgebnis(logger, TestBeanEinfach.class.getMethod("setEinString", String.class), true,
+            new Object[] { binaerDaten, "einString" }, "Ergebnis");
+
+        pruefeLogdatei("testLogHelperParameterGroesse");
+    }
+
+    /**
+     * Testet mehrere Spezialfälle des Aufrufs des Loghelpers, die nicht durch die anderen Testfälle abgedeckt
+     * sind. Es wird der deprecated-Konstruktor gestestet.
+     *
      * @throws Exception
      *             wenn beim Test eine Exception aufgetreten ist.
      */
@@ -124,14 +148,14 @@ public class LogHelperTest extends AbstractLogTest {
         logHelper.loggeErgebnis(logger, TestBeanEinfach.class.getMethod("setEinString", String.class), false,
                 new String[] { "EinString" }, "Ergebnis");
         logHelper.loggeErgebnis(logger, TestBeanEinfach.class.getMethod("setEinString", String.class), true,
-                new String[] { "EinString" }, "Ergebnis");        
+                new String[] { "EinString" }, "Ergebnis");
 
         // Übergeben von NULL-Werten und deaktivierten Methoden - bei diesen wird keine Log-Eintrag erstellt:
 
         // Loggen des Aufrufs mit "loggeAufruf=false"
         logHelper = new LogHelper(false, true, true, true);
         logHelper.loggeNachbarsystemAufruf(logger, null, null, null);
-        
+
 
         // Loggen des Ergebnisses mit "loggeErgebnis=false"
         logHelper = new LogHelper(true, false, true, true);
@@ -144,11 +168,11 @@ public class LogHelperTest extends AbstractLogTest {
         pruefeLogdatei("testLogHelperSpezialfaelle");
     }
 
-    
+
     /**
      * Testet mehrere Spezialfälle des Aufrufs des Loghelpers, die nicht durch die anderen Testfälle abgedeckt
      * sind. Es wird der deprecated-Konstruktor mit eigenem Konverter gestestet.
-     * 
+     *
      * @throws Exception
      *             wenn beim Test eine Exception aufgetreten ist.
      */
@@ -168,7 +192,7 @@ public class LogHelperTest extends AbstractLogTest {
         logHelper.loggeErgebnis(logger, TestBeanEinfach.class.getMethod("setEinString", String.class), false,
                 new String[] { "EinString" }, "Ergebnis");
         logHelper.loggeErgebnis(logger, TestBeanEinfach.class.getMethod("setEinString", String.class), true,
-                new String[] { "EinString" }, "Ergebnis");        
+                new String[] { "EinString" }, "Ergebnis");
 
         // LoggeErgebnis wird ohne Parameter aufgerufen, wobei im Helper nur "loggeErgebnis=true" ist. Es wird
         // jeweils nur der INFO.Eintrag erstellt.
@@ -176,12 +200,12 @@ public class LogHelperTest extends AbstractLogTest {
         logHelper.loggeErgebnis(logger, TestBeanEinfach.class.getMethod("setEinString", String.class), false,
                 null, null);
         logHelper.loggeErgebnis(logger, TestBeanEinfach.class.getMethod("setEinString", String.class), true,
-                null, null);        
+                null, null);
         // LoggeErgebnis wird mit einem Parameter aufgerufen
         logHelper.loggeErgebnis(logger, TestBeanEinfach.class.getMethod("setEinString", String.class), false,
                 new String[] { "EinString" }, "Ergebnis");
         logHelper.loggeErgebnis(logger, TestBeanEinfach.class.getMethod("setEinString", String.class), true,
-                new String[] { "EinString" }, "Ergebnis");        
+                new String[] { "EinString" }, "Ergebnis");
 
         // Übergeben von NULL-Werten und deaktivierten Methoden - bei diesen wird keine Log-Eintrag erstellt:
 

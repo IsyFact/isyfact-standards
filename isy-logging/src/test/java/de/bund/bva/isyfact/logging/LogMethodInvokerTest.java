@@ -23,16 +23,14 @@ package de.bund.bva.isyfact.logging;
  * #L%
  */
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-import junit.framework.Assert;
-
-import org.junit.Test;
-
 import de.bund.bva.isyfact.logging.hilfsklassen.TestZielKlasse;
 import de.bund.bva.isyfact.logging.hilfsklassen.TestZielParameterPerson;
 import de.bund.bva.isyfact.logging.util.LoggingMethodInvoker;
+import junit.framework.Assert;
+import org.junit.Test;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * Testfälle zur Klasse LogMethodInvoker.
@@ -54,13 +52,14 @@ public class LogMethodInvokerTest extends AbstractLogTest {
         boolean loggeErgebnis = true;
         boolean loggeDatenBeiException = true;
         boolean loggeDaten = false;
+        long loggeMaximaleParameterGroesse = 1000000;
 
         Method methode = TestZielKlasse.class.getMethod("setzeName", TestZielParameterPerson.class,
                 String.class);
 
-        LoggingMethodInvoker<TestZielParameterPerson> methodInvoker = new LoggingMethodInvoker<TestZielParameterPerson>(
-                methode, IsyLoggerFactory.getLogger(TestZielKlasse.class), loggeAufruf, loggeErgebnis,
-                loggeDauer, loggeDaten, loggeDatenBeiException);
+        LoggingMethodInvoker<TestZielParameterPerson> methodInvoker =
+            new LoggingMethodInvoker<>(methode, IsyLoggerFactory.getLogger(TestZielKlasse.class), loggeAufruf,
+                loggeErgebnis, loggeDauer, loggeDaten, loggeDatenBeiException, loggeMaximaleParameterGroesse);
 
         methodInvoker.fuehreMethodeAus(new TestZielKlasse(), new TestZielParameterPerson("Mustermann", "Max",
                 "Peter", "Hans"), "TestParameter 2");
@@ -83,13 +82,14 @@ public class LogMethodInvokerTest extends AbstractLogTest {
         boolean loggeErgebnis = true;
         boolean loggeDatenBeiException = true;
         boolean loggeDaten = false;
+        long loggeMaximaleParameterGroesse = 1000000;
 
         Method methode = TestZielKlasse.class.getMethod("setzeNameException", TestZielParameterPerson.class,
                 String.class);
 
-        LoggingMethodInvoker<TestZielParameterPerson> methodInvoker = new LoggingMethodInvoker<TestZielParameterPerson>(
-                methode, IsyLoggerFactory.getLogger(TestZielKlasse.class), loggeAufruf, loggeErgebnis,
-                loggeDauer, loggeDaten, loggeDatenBeiException);
+        LoggingMethodInvoker<TestZielParameterPerson> methodInvoker =
+            new LoggingMethodInvoker<>(methode, IsyLoggerFactory.getLogger(TestZielKlasse.class), loggeAufruf,
+                loggeErgebnis, loggeDauer, loggeDaten, loggeDatenBeiException, loggeMaximaleParameterGroesse);
 
         try {
             methodInvoker.fuehreMethodeAus(new TestZielKlasse(), new TestZielParameterPerson("Mustermann",
@@ -115,13 +115,15 @@ public class LogMethodInvokerTest extends AbstractLogTest {
         boolean loggeErgebnis = true;
         boolean loggeDaten = false;
         boolean loggeDatenBeiException = true;
+        long loggeMaximaleParameterGroesse = 1000000;
 
         Method methode = TestZielKlasse.class.getMethod("setzeName", TestZielParameterPerson.class,
                 String.class);
 
-        LoggingMethodInvoker<TestZielParameterPerson> methodInvoker = new LoggingMethodInvoker<TestZielParameterPerson>(
-                methode, IsyLoggerFactory.getLogger(TestZielKlasse.class), loggeAufruf, loggeErgebnis,
-                loggeDauer, loggeDaten, loggeDatenBeiException, "Nachbarsystem 123", "http://test.test/test");
+        LoggingMethodInvoker<TestZielParameterPerson> methodInvoker =
+            new LoggingMethodInvoker<>(methode, IsyLoggerFactory.getLogger(TestZielKlasse.class), loggeAufruf,
+                loggeErgebnis, loggeDauer, loggeDaten, loggeDatenBeiException, loggeMaximaleParameterGroesse,
+                "Nachbarsystem 123", "http://test.test/test");
 
         methodInvoker.fuehreMethodeAus(new TestZielKlasse(), new TestZielParameterPerson("Mustermann", "Max",
                 "Peter", "Hans"), "TestParameter 2");
@@ -145,13 +147,15 @@ public class LogMethodInvokerTest extends AbstractLogTest {
         boolean loggeErgebnis = true;
         boolean loggeDatenBeiException = true;
         boolean loggeDaten = false;
+        long loggeMaximaleParameterGroesse = 1000000;
 
         Method methode = TestZielKlasse.class.getMethod("setzeNameException", TestZielParameterPerson.class,
                 String.class);
 
-        LoggingMethodInvoker<TestZielParameterPerson> methodInvoker = new LoggingMethodInvoker<TestZielParameterPerson>(
-                methode, IsyLoggerFactory.getLogger(TestZielKlasse.class), loggeAufruf, loggeErgebnis,
-                loggeDauer, loggeDaten, loggeDatenBeiException, "Nachbarsystem 123", "http://test.test/test");
+        LoggingMethodInvoker<TestZielParameterPerson> methodInvoker =
+            new LoggingMethodInvoker<>(methode, IsyLoggerFactory.getLogger(TestZielKlasse.class), loggeAufruf,
+                loggeErgebnis, loggeDauer, loggeDaten, loggeDatenBeiException, loggeMaximaleParameterGroesse,
+                "Nachbarsystem 123", "http://test.test/test");
 
         try {
             methodInvoker.fuehreMethodeAus(new TestZielKlasse(), new TestZielParameterPerson("Mustermann",

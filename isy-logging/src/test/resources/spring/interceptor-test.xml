@@ -24,68 +24,42 @@
 
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
-    xmlns:sec="http://www.springframework.org/schema/security"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans-3.1.xsd 
-                           http://www.springframework.org/schema/security 
-                           http://www.springframework.org/schema/security/spring-security-3.1.xsd
-                           http://www.springframework.org/schema/aop 
+                           http://www.springframework.org/schema/aop
                            http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
 
     <!-- Autoproxies einschalten -->
+<!--
     <aop:aspectj-autoproxy />
+-->
 
     <!-- Interceptor zum Loggen an Systemgrenzen. -->
     <bean id="alleFlagsTrueInterceptor"
         class="de.bund.bva.isyfact.logging.util.LoggingMethodInterceptor">
-        <property name="loggeErgebnis">
-            <value>true</value>
-        </property>
-        <property name="loggeDaten">
-            <value>true</value>
-        </property>
-        <property name="loggeDatenBeiException">
-            <value>true</value>
-        </property>
-        <property name="loggeAufruf">
-            <value>true</value>
-        </property>
-        <property name="loggeDauer">
-            <value>true</value>
-        </property>
+        <property name="loggeErgebnis" value="true"/>
+        <property name="loggeDaten" value="true"/>
+        <property name="loggeDatenBeiException" value="true"/>
+        <property name="loggeAufruf" value="true"/>
+        <property name="loggeDauer" value="true"/>
+        <property name="loggeMaximaleParameterGroesse" value="1000000" />
     </bean>
     
     <bean id="alleFlagsTrueOhneLoggeDatenInterceptor"
         class="de.bund.bva.isyfact.logging.util.LoggingMethodInterceptor">
-        <property name="loggeErgebnis">
-            <value>true</value>
-        </property>
-        <property name="loggeDatenBeiException">
-            <value>true</value>
-        </property>
-        <property name="loggeAufruf">
-            <value>true</value>
-        </property>
-        <property name="loggeDauer">
-            <value>true</value>
-        </property>
+        <property name="loggeErgebnis" value="true"/>
+        <property name="loggeDatenBeiException" value="true"/>
+        <property name="loggeAufruf" value="true"/>
+        <property name="loggeDauer" value="true"/>
     </bean>
 
     <!-- Interceptor zum Loggen an Systemgrenzen. -->
     <bean id="alleFlagsFalseInterceptor"
         class="de.bund.bva.isyfact.logging.util.LoggingMethodInterceptor">
-        <property name="loggeErgebnis">
-            <value>false</value>
-        </property>
-        <property name="loggeDatenBeiException">
-            <value>false</value>
-        </property>
-        <property name="loggeAufruf">
-            <value>false</value>
-        </property>
-        <property name="loggeDauer">
-            <value>false</value>
-        </property>
+        <property name="loggeErgebnis" value="false"/>
+        <property name="loggeDatenBeiException" value="false"/>
+        <property name="loggeAufruf" value="false"/>
+        <property name="loggeDauer" value="false"/>
     </bean>
 
     <!-- Interceptor zum Loggen an Systemgrenzen. -->
@@ -96,12 +70,8 @@
     <!-- Interceptor zum Loggen an Komponentengrenzen. -->
     <bean id="componentLogInterceptor"
         class="de.bund.bva.isyfact.logging.util.LoggingMethodInterceptor">
-        <property name="loggeErgebnis">
-            <value>false</value>
-        </property>
-        <property name="loggeDatenBeiException">
-            <value>false</value>
-        </property>
+        <property name="loggeErgebnis" value="false"/>
+        <property name="loggeDatenBeiException" value="false"/>
     </bean>
     
     <!-- TestZielKlasse (als Ziel des Pointcuts). -->
@@ -129,18 +99,10 @@
             </list>
         </constructor-arg>
         
-        <property name="loggeErgebnis">
-            <value>true</value>
-        </property>
-        <property name="loggeDatenBeiException">
-            <value>true</value>
-        </property>
-        <property name="loggeAufruf">
-            <value>true</value>
-        </property>
-        <property name="loggeDauer">
-            <value>true</value>
-        </property>
+        <property name="loggeErgebnis" value="true"/>
+        <property name="loggeDatenBeiException" value="true"/>
+        <property name="loggeAufruf" value="true"/>
+        <property name="loggeDauer" value="true"/>
     </bean>
 
     <!-- AOP-Advice für das Logging konfigurieren -->

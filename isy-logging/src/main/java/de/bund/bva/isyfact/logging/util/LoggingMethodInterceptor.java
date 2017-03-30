@@ -23,15 +23,14 @@ package de.bund.bva.isyfact.logging.util;
  * #L%
  */
 
-import java.lang.reflect.Method;
-import java.util.List;
-
+import de.bund.bva.isyfact.logging.IsyLogger;
+import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.beans.factory.InitializingBean;
 
-import de.bund.bva.isyfact.logging.IsyLogger;
-import de.bund.bva.isyfact.logging.IsyLoggerFactory;
+import java.lang.reflect.Method;
+import java.util.List;
 
 /**
  * Dieser Interceptor ermöglicht es, standardisierte Logeinträge bei Aufrufen von Methoden an System und
@@ -62,6 +61,13 @@ public class LoggingMethodInterceptor implements MethodInterceptor, Initializing
      * Exception auftritt.
      */
     private boolean loggeDatenBeiException = true;
+
+    /**
+     * Konfigurationsparameter zum Festlegen der maximalen Größe von übergebenen Parameter des Aufrufs, mit
+     * der sie noch ins Log geschrieben werden.
+     */
+    private long loggeMaximaleParameterGroesse = 0;
+
 
     /** Gibt an, ob der Standard BeanToMapConverter verwendet werden soll. */
     private final boolean verwendeStandardKonverter;
@@ -181,6 +187,16 @@ public class LoggingMethodInterceptor implements MethodInterceptor, Initializing
     }
 
     /**
+     * Setzt den Wert des Attributs 'loggeMaximaleParameterGroesse'.
+     *
+     * @param loggeMaximaleParameterGroesse
+     *            Neuer Wert des Attributs.
+     */
+    public void setLoggeMaximaleParameterGroesse(long loggeMaximaleParameterGroesse) {
+        this.loggeMaximaleParameterGroesse = loggeMaximaleParameterGroesse;
+    }
+
+    /**
      * Initialisierung des LogHelpers nachdem alle Properties gesetzt wurden.
      * 
      * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
@@ -191,7 +207,7 @@ public class LoggingMethodInterceptor implements MethodInterceptor, Initializing
     public void afterPropertiesSet() throws Exception {
         BeanConverter beanConverter = erstelleBeanConverter();
         this.logHelper = new LogHelper(loggeAufruf, loggeErgebnis, loggeDauer, loggeDaten,
-                loggeDatenBeiException, beanConverter);
+                loggeDatenBeiException, loggeMaximaleParameterGroesse, beanConverter);
     }
 
     /**
