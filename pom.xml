@@ -39,13 +39,13 @@
 
     <distributionManagement>
         <repository>
-            <id>plis</id>
-            <name>PLIS-Repository</name>
+            <id>repository</id>
+            <name>Repository</name>
             <url>${repositoryurl}/libs-release-local</url>
         </repository>
         <snapshotRepository>
-            <id>plis</id>
-            <name>PLIS-Repository</name>
+            <id>repository</id>
+            <name>Repository</name>
             <url>${repositoryurl}/libs-snapshot-local</url>
             <uniqueVersion>false</uniqueVersion>
         </snapshotRepository>
