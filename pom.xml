@@ -68,7 +68,7 @@
             <artifactId>isy-konfiguration</artifactId>
         </dependency>
 
-        <!-- Fuer PLIS-Exceptions -->
+        <!-- Fuer Isy-Exceptions -->
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-exception-core</artifactId>
