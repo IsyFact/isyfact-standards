@@ -259,21 +259,36 @@
                                         <exclude>de.bund.bva.pliscommon:plis-batchrahmen</exclude>
                                         <exclude>de.bund.bva.pliscommon:plis-behoerdenverzeichnis-client</exclude>
                                         <exclude>de.bund.bva.pliscommon:plis-benutzerverzeichnis-client</exclude>
-                                        <exclude>de.bund.bva.pliscommon:plis-exception-core</exclude>
+                                        <exclude>de.bund.bva.pliscommon:plis-benutzerverzeichnis-client</exclude>
+                                        <exclude>de.bund.bva.pliscommon:plis-bildformate</exclude>
+                                        <exclude>de.bund.bva.pliscommon:plis-binaerdatenservice-client</exclude>
                                         <exclude>de.bund.bva.pliscommon:plis-exception-sst</exclude>
-                                        <exclude>de.bund.bva.pliscommon:plis-konfiguration</exclude>
+                                        <exclude>de.bund.bva.pliscommon:plis-fingerabdruck</exclude>
+                                        <exclude>de.bund.bva.pliscommon:plis-fingerabdruck</exclude>
+                                        <exclude>de.bund.bva.pliscommon:plis-jmsutil</exclude>
+                                        <exclude>de.bund.bva.pliscommon:plis-mailgw</exclude>
+                                        <exclude>de.bund.bva.pliscommon:plis-mapping</exclude>
+                                        <exclude>de.bund.bva.pliscommon:plis-nummernkreis</exclude>
                                         <exclude>de.bund.bva.pliscommon:plis-persistence</exclude>
                                         <exclude>de.bund.bva.pliscommon:plis-polling</exclude>
+                                        <exclude>de.bund.bva.pliscommon:plis-regelwerk</exclude>
+                                        <exclude>de.bund.bva.pliscommon:plis-schluesselverzeichnis-client</exclude>
                                         <exclude>de.bund.bva.pliscommon:plis-schreiben</exclude>
-                                        <exclude>de.bund.bva.pliscommon:plis-plis-serviceapi-core</exclude>
-                                        <exclude>de.bund.bva.pliscommon:plis-plis-serviceapi-sst</exclude>
+                                        <exclude>de.bund.bva.pliscommon:plis-serviceapi-core</exclude>
+                                        <exclude>de.bund.bva.pliscommon:plis-serviceapi-sst</exclude>
+                                        <exclude>de.bund.bva.pliscommon:plis-sgw-util</exclude>
                                         <exclude>de.bund.bva.pliscommon:plis-sicherheit</exclude>
+                                        <exclude>de.bund.bva.pliscommon:plis-sicherheit-cams</exclude>
                                         <exclude>de.bund.bva.pliscommon:plis-sonderzeichen</exclude>
+                                        <exclude>de.bund.bva.pliscommon:plis-sonderzeichen-rp</exclude>
                                         <exclude>de.bund.bva.pliscommon:plis-style</exclude>
+                                        <exclude>de.bund.bva.pliscommon:plis-timestampprotocol</exclude>
+                                        <exclude>de.bund.bva.pliscommon:plis-tomcat</exclude>
                                         <exclude>de.bund.bva.pliscommon:plis-ueberwachung</exclude>
                                         <exclude>de.bund.bva.pliscommon:plis-util</exclude>
                                         <exclude>de.bund.bva.pliscommon:plis-validation</exclude>
                                         <exclude>de.bund.bva.pliscommon:plis-web</exclude>
+                                        <exclude>de.bund.bva.pliscommon:plis-web-rp</exclude>
                                         <exclude>log4j:log4j</exclude>
                                     </excludes>
                                     <message>Verbotene Abhängigkeiten gefunden, für die bspw. neuere
