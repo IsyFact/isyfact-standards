@@ -280,6 +280,7 @@
                                         <exclude>de.bund.bva.pliscommon:plis-sonderzeichen</exclude>
                                         <exclude>de.bund.bva.pliscommon:plis-sonderzeichen-rp</exclude>
                                         <exclude>de.bund.bva.pliscommon:plis-style</exclude>
+                                        <exclude>de.bund.bva.pliscommon:plis-test</exclude>
                                         <exclude>de.bund.bva.pliscommon:plis-timestampprotocol</exclude>
                                         <exclude>de.bund.bva.pliscommon:plis-tomcat</exclude>
                                         <exclude>de.bund.bva.pliscommon:plis-ueberwachung</exclude>
