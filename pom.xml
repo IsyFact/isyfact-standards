@@ -289,6 +289,7 @@
                                         <exclude>de.bund.bva.pliscommon:plis-validation</exclude>
                                         <exclude>de.bund.bva.pliscommon:plis-web</exclude>
                                         <exclude>de.bund.bva.pliscommon:plis-web-rp</exclude>
+                                        <exclude>de.bund.bva.pliscommon:plis-webgui</exclude>
                                         <exclude>log4j:log4j</exclude>
                                     </excludes>
                                     <message>Verbotene Abhängigkeiten gefunden, für die bspw. neuere
