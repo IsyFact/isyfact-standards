@@ -1,5 +1,6 @@
-# v1.3.2
-- `IFS-17` Minor-Version erhöht, weitere alte plis-Bibliotheksnamen gebannt.
+# v1.4.0
+- `IFS-17`: Umbenennung der Artifact-Id und Group-ID
+- plis-Bibliotheken gebannt
 
 # v1.3.1
 - Neue IsyFact Masterpom.
