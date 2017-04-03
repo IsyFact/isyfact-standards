@@ -259,11 +259,9 @@
                                         <exclude>de.bund.bva.pliscommon:plis-batchrahmen</exclude>
                                         <exclude>de.bund.bva.pliscommon:plis-behoerdenverzeichnis-client</exclude>
                                         <exclude>de.bund.bva.pliscommon:plis-benutzerverzeichnis-client</exclude>
-                                        <exclude>de.bund.bva.pliscommon:plis-benutzerverzeichnis-client</exclude>
                                         <exclude>de.bund.bva.pliscommon:plis-bildformate</exclude>
                                         <exclude>de.bund.bva.pliscommon:plis-binaerdatenservice-client</exclude>
                                         <exclude>de.bund.bva.pliscommon:plis-exception-sst</exclude>
-                                        <exclude>de.bund.bva.pliscommon:plis-fingerabdruck</exclude>
                                         <exclude>de.bund.bva.pliscommon:plis-fingerabdruck</exclude>
                                         <exclude>de.bund.bva.pliscommon:plis-jmsutil</exclude>
                                         <exclude>de.bund.bva.pliscommon:plis-mailgw</exclude>
