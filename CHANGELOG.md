@@ -1,5 +1,5 @@
 # v1.5.0
-- `IFS-17`: Umbenennung der Artifact-Id und Group-ID
+- `IFS-17`: Umbenennung der Artifact-ID und Group-ID
 
 # v1.4.5
 - DB-Update-Skript prüft, ob vorliegendes Schema 'gueltig' ist.
