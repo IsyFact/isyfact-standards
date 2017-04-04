@@ -269,6 +269,7 @@
                                         <exclude>de.bund.bva.pliscommon:plis-nummernkreis</exclude>
                                         <exclude>de.bund.bva.pliscommon:plis-persistence</exclude>
                                         <exclude>de.bund.bva.pliscommon:plis-polling</exclude>
+                                        <exclude>de.bund.bva.pliscommon:plis-protokollierung</exclude>
                                         <exclude>de.bund.bva.pliscommon:plis-regelwerk</exclude>
                                         <exclude>de.bund.bva.pliscommon:plis-schluesselverzeichnis-client</exclude>
                                         <exclude>de.bund.bva.pliscommon:plis-schreiben</exclude>
