@@ -1,9 +1,7 @@
-- ![isy-aufrufkontext](https://gitlab.local.vm/IsyFact/isyfact-base/blob/master/isy-aufrufkontext/CHANGELOG.md)
-- ![isy-exception-core] (https://gitlab.local.vm/IsyFact/isyfact-base/blob/master/isy-exception-core/CHANGELOG.md)
--  ![isy-exception-sst] (https://gitlab.local.vm/IsyFact/isyfact-base/blob/master/isy-exception-sst/CHANGELOG.md)
--  ![isy-konfiguration] (https://gitlab.local.vm/IsyFact/isyfact-base/blob/master/isy-konfiguration/CHANGELOG.md)
--  ![isy-logging] (https://gitlab.local.vm/IsyFact/isyfact-base/blob/master/isy-logging/CHANGELOG.md)
--  ![isy-sicherheit] (https://gitlab.local.vm/IsyFact/isyfact-base/blob/master/isy-sicherheit/CHANGELOG.md)
--  ![isy-sonderzeichen] (https://gitlab.local.vm/IsyFact/isyfact-base/blob/master/isy-sonderzeichen/CHANGELOG.md)
--  ![isy-util] (https://gitlab.local.vm/IsyFact/isyfact-base/blob/master/isy-util/CHANGELOG.md)
--  ![isyfact-base-bom](https://gitlab.local.vm/IsyFact/isyfact-base/blob/master/isyfact-base-bom/CHANGELOG.md)
+# v1.4.1
+- IFS-17: Umbenennung der Artifact-Id und Group-ID
+- isy-exception-core: PlisException, PlisBusinessException und PlisTechnicalException als Deprecated markiert.
+
+# v1.3.7
+- isy-konfiguration: `RF-107` Bugfix. Beim reload von properties wurden gelöschte properties nicht erfolgreich entfernt.
+- isy-sicherheit: Kaputtes Sonderzeichen behoben.
