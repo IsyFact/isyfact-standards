@@ -28,7 +28,7 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.aopalliance.intercept.MethodInvocation;
 import org.junit.Test;

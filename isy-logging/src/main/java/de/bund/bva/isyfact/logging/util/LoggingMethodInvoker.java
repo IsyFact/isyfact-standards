@@ -23,12 +23,12 @@ package de.bund.bva.isyfact.logging.util;
  * #L%
  */
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.exceptions.InterceptionFehler;
 import de.bund.bva.isyfact.logging.impl.FehlerSchluessel;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * Hilfsklasse zum Aufruf von Methoden per Reflection und dem gleichzeitigen erstellen standardisierter
@@ -60,7 +60,7 @@ public class LoggingMethodInvoker<T> {
     /**
      * Konstruktor der Klasse für den Aufruf einer Methode. Es werden die übergebenen Klassenattribute
      * initialisiert.
-     * 
+     *
      * @param methode
      *            auszuführende Methode.
      * @param logger
@@ -76,14 +76,18 @@ public class LoggingMethodInvoker<T> {
      * @param loggeDatenBeiException
      *            Flag zum Kennzeichnen, ob die kompletten Anfragedaten gelogged werden sollen, wenn das
      *            Ergebnis nicht erfolgreich war.
+     * @param loggeMaximaleParameterGroesse
+     *            Konfigurationsparameter zum Festlegen der maximalen Größe von übergebenen Parameter des
+     *            Aufrufs, mit der sie noch ins Log geschrieben werden.
      */
     public LoggingMethodInvoker(Method methode, IsyLogger logger, boolean loggeAufruf, boolean loggeErgebnis,
-            boolean loggeDauer, boolean loggeDaten, boolean loggeDatenBeiException) {
+        boolean loggeDauer, boolean loggeDaten, boolean loggeDatenBeiException,
+        long loggeMaximaleParameterGroesse) {
         this.methode = methode;
         this.logger = logger;
 
         this.helper = new LogHelper(loggeAufruf, loggeErgebnis, loggeDauer, loggeDaten,
-                loggeDatenBeiException);
+            loggeDatenBeiException, loggeMaximaleParameterGroesse);
         this.nachbarsystemName = null;
         this.nachbarsystemUrl = null;
         nachbarsystemAufruf = false;
@@ -92,10 +96,81 @@ public class LoggingMethodInvoker<T> {
     /**
      * Konstruktor der Klasse für den Aufruf einer Methode eines Nachbarsystems. Es werden die übergebenen
      * Klassenattribute initialisiert.
-     * 
+     *
      * Beim Aufruf von Nachbarsystemmethoden werd der Name und die URL des Nachbarsystems in die Logeinträge
      * aufgenommen.
-     * 
+     *
+     * @param methode
+     *            auszuführende Methode.
+     * @param logger
+     *            zu verwendender Logger.
+     * @param loggeDauer
+     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
+     * @param loggeAufruf
+     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
+     * @param loggeErgebnis
+     *            Flag zum Kennzeichnen, ob das Ergebnis (Erfolg/Misserfolg) des Aufrufs gelogged werden soll.
+     * @param loggeDaten
+     *            Flag zum Kennzeichnen, ob immer die kompletten Anfragedaten gelogged werden sollen.
+     * @param loggeDatenBeiException
+     *            Flag zum Kennzeichnen, ob die kompletten Anfragedaten gelogged werden sollen, wenn das
+     *            Ergebnis nicht erfolgreich war.
+     * @param loggeMaximaleParameterGroesse
+     *            Konfigurationsparameter zum Festlegen der maximalen Größe von übergebenen Parameter des
+     *            Aufrufs, mit der sie noch ins Log geschrieben werden.
+     * @param nachbarsystemName
+     *            Name des aufgerufenen Nachbarsystems.
+     * @param nachbarsystemUrl
+     *            URL des aufgerufenen Nachbarsystems.
+     */
+    public LoggingMethodInvoker(Method methode, IsyLogger logger, boolean loggeAufruf, boolean loggeErgebnis,
+        boolean loggeDauer, boolean loggeDaten, boolean loggeDatenBeiException,
+        long loggeMaximaleParameterGroesse, String nachbarsystemName, String nachbarsystemUrl) {
+        this.methode = methode;
+        this.logger = logger;
+
+        this.helper = new LogHelper(loggeAufruf, loggeErgebnis, loggeDauer, loggeDaten,
+            loggeDatenBeiException, loggeMaximaleParameterGroesse);
+
+        this.nachbarsystemName = nachbarsystemName;
+        this.nachbarsystemUrl = nachbarsystemUrl;
+        nachbarsystemAufruf = true;
+    }
+
+    /**
+     * Konstruktor der Klasse für den Aufruf einer Methode. Es werden die übergebenen Klassenattribute
+     * initialisiert.
+     *
+     * @param methode
+     *            auszuführende Methode.
+     * @param logger
+     *            zu verwendender Logger.
+     * @param loggeAufruf
+     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
+     * @param loggeErgebnis
+     *            Flag zum Kennzeichnen, ob das Ergebnis (Erfolg/Misserfolg) des Aufrufs gelogged werden soll.
+     * @param loggeDauer
+     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
+     * @param loggeDaten
+     *            Flag zum Kennzeichnen, ob immer die kompletten Anfragedaten gelogged werden sollen.
+     * @param loggeDatenBeiException
+     *            Flag zum Kennzeichnen, ob die kompletten Anfragedaten gelogged werden sollen, wenn das
+     *            Ergebnis nicht erfolgreich war.
+     * @deprecated Methode wurde durch Konstruktor mit zusätzlichem Flag für "loggeMaximaleParameterGroesse" ersetzt.
+     */
+    @Deprecated
+    public LoggingMethodInvoker(Method methode, IsyLogger logger, boolean loggeAufruf, boolean loggeErgebnis,
+        boolean loggeDauer, boolean loggeDaten, boolean loggeDatenBeiException) {
+        this(methode, logger, loggeAufruf, loggeErgebnis, loggeDauer, loggeDaten, loggeDatenBeiException, 0);
+    }
+
+    /**
+     * Konstruktor der Klasse für den Aufruf einer Methode eines Nachbarsystems. Es werden die übergebenen
+     * Klassenattribute initialisiert.
+     *
+     * Beim Aufruf von Nachbarsystemmethoden werd der Name und die URL des Nachbarsystems in die Logeinträge
+     * aufgenommen.
+     *
      * @param methode
      *            auszuführende Methode.
      * @param logger
@@ -115,19 +190,14 @@ public class LoggingMethodInvoker<T> {
      *            Name des aufgerufenen Nachbarsystems.
      * @param nachbarsystemUrl
      *            URL des aufgerufenen Nachbarsystems.
+     * @deprecated Methode wurde durch Konstruktor mit zusätzlichem Flag für "loggeMaximaleParameterGroesse" ersetzt.
      */
+    @Deprecated
     public LoggingMethodInvoker(Method methode, IsyLogger logger, boolean loggeAufruf, boolean loggeErgebnis,
-            boolean loggeDauer, boolean loggeDaten, boolean loggeDatenBeiException, String nachbarsystemName,
-            String nachbarsystemUrl) {
-        this.methode = methode;
-        this.logger = logger;
-
-        this.helper = new LogHelper(loggeAufruf, loggeErgebnis, loggeDauer, loggeDaten,
-                loggeDatenBeiException);
-
-        this.nachbarsystemName = nachbarsystemName;
-        this.nachbarsystemUrl = nachbarsystemUrl;
-        nachbarsystemAufruf = true;
+        boolean loggeDauer, boolean loggeDaten, boolean loggeDatenBeiException, String nachbarsystemName,
+        String nachbarsystemUrl) {
+        this(methode, logger, loggeAufruf, loggeErgebnis, loggeDauer, loggeDaten, loggeDatenBeiException, 0,
+            nachbarsystemName, nachbarsystemUrl);
     }
 
     /**
@@ -147,8 +217,8 @@ public class LoggingMethodInvoker<T> {
      * @param loggeDatenBeiException
      *            Flag zum Kennzeichnen, ob die kompletten Anfragedaten gelogged werden sollen, wenn das
      *            Ergebnis nicht erfolgreich war.
-     * 
-     * @deprecated Methode wurde durch Konstruktor mit zusätzlichem Flag für "LoggeDaten" ersetzt.
+     *
+     * @deprecated Methode wurde durch Konstruktor mit zusätzlichem Flag für "loggeDaten" sowie "loggeMaximaleParameterGroesse" ersetzt.
      * @see LoggingMethodInvoker#LoggingMethodInvoker(Method, IsyLogger, boolean, boolean, boolean, boolean,
      *      boolean)
      */
@@ -183,7 +253,7 @@ public class LoggingMethodInvoker<T> {
      * @param nachbarsystemUrl
      *            URL des aufgerufenen Nachbarsystems.
      * 
-     * @deprecated Methode wurde durch Konstruktor mit zusätzlichem Flag für "LoggeDaten" ersetzt.
+     * @deprecated Methode wurde durch Konstruktor mit zusätzlichem Flag für "loggeDaten" sowie "loggeMaximaleParameterGroesse" ersetzt.
      * @see LoggingMethodInvoker#LoggingMethodInvoker(Method, IsyLogger, boolean, boolean, boolean, boolean,
      *      boolean)
      */

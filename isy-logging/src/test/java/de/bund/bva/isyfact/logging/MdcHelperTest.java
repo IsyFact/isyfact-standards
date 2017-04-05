@@ -24,7 +24,7 @@ package de.bund.bva.isyfact.logging;
  */
 
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.junit.Test;
 import org.slf4j.MDC;

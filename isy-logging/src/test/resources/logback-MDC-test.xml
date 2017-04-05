@@ -29,7 +29,7 @@
     <contextName>testserver_testsystem</contextName>
 
     <!-- Pfad der Logdatei, ohne Endung -->
-    <property name="LOGFILE_PATH" value="/var/log/isy-logging/testserver_testsystem" />
+    <property name="LOGFILE_PATH" value="target/var/log/isy-logging/testserver_testsystem" />
     
     <!-- MDC in die Ausgabe mitaufnehmen. -->
     <property name="INCLUDE_MDC" value="true" />

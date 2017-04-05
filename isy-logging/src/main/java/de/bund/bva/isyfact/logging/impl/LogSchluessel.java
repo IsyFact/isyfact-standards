@@ -25,8 +25,9 @@ package de.bund.bva.isyfact.logging.impl;
 
 /**
  * Auflistung aller Standard-Logeinträge und deren Nachrichten, die in IsyFact-Logging genutzt werden.
- * 
+ * @deprecated Bitte die Einträge der Klasse {@link Ereignisschluessel} benutzen!
  */
+@Deprecated
 public enum LogSchluessel {
 
     /** Aufruf einer Methode. */
