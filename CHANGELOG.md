@@ -1,5 +1,8 @@
+# v1.4.2
+- isy-exception-core: `IFS-44`: PlisException, PlisBusinessException und PlisTechnicalException nicht mehr Deprecated.
+
 # v1.4.1
-- isy-exception-core: PlisException, PlisBusinessException und PlisTechnicalException als Deprecated markiert.
+- isy-exception-core: `IFS-14`: PlisException, PlisBusinessException und PlisTechnicalException als Deprecated markiert.
 - isy-logging: `IFS-31`: Konfiguration der maximalen Größe von Parametern implementiert
 - isy-logging: LogSchluessel als Deprecated markiert
 
