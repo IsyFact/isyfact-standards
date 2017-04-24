@@ -2,10 +2,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    
+
     <groupId>de.bund.bva.isyfact</groupId>
     <artifactId>isyfact-base</artifactId>
-    <version>1.4.1</version>
+    <version>1.4.2-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>IsyFact-Base</name>
     <description>Die Basis-Bibliotheken der IsyFact-Standards.</description>
@@ -25,9 +25,9 @@
         <module>isy-logging</module>
         <module>isy-sicherheit</module>
         <module>isy-util</module>
-    		<module>isy-sonderzeichen</module>
+        <module>isy-sonderzeichen</module>
     </modules>
-    
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -39,5 +39,5 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    
+
 </project>

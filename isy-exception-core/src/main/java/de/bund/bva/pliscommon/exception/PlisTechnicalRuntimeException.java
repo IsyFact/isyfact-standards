@@ -22,8 +22,7 @@ import de.bund.bva.pliscommon.exception.common.FehlertextUtil;
 
 /**
  * Abstrakte Hauptexception, welche als Basis für alle Exceptions einer Anwendung verwendet werden muss. Es
- * sollen nur <i>unchecked</i> Exceptions verwendet werden. Alle <i>checked</i> Exceptions beginnend bei der
- * {@link PlisException} sind veraltet und nicht mehr zu verwenden.
+ * sollen nur <i>unchecked</i> Exceptions verwendet werden.
  * <p>
  * <b>Anmerkung:</b> Alle technischen <i>unchecked</i> Exceptions, die als Kindklassen zu dieser Klasse
  * implementiert werden, müssen die hier angegebenen Konstruktoren implementieren. Dies ist notwendig, um

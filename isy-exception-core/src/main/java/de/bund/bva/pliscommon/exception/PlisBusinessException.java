@@ -25,7 +25,6 @@ package de.bund.bva.pliscommon.exception;
  * /java.sun.com/j2se/1.5.0/docs/guide/language/varargs.html</a> beschrieben.
  *
  */
-@Deprecated
 public abstract class PlisBusinessException extends PlisException {
 
     /**
