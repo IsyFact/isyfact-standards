@@ -6,7 +6,7 @@
     <groupId>de.bund.bva.isyfact</groupId>
     <artifactId>isy-persistence</artifactId>
     <packaging>jar</packaging>
-    <version>1.5.0</version>
+    <version>1.5.1</version>
     <description>Die Querschnittsbibliothek isy-persistence</description>
 
     <!-- PLIS-Parent POM -->
@@ -96,10 +96,10 @@
         </dependency>
 
         <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ojdbc7</artifactId>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
             <scope>test</scope>
-        </dependency>
+        </dependency> 
 
     </dependencies>
 
