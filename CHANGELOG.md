@@ -1,3 +1,6 @@
+# v1.5.1
+- `IFS-43`: ojdbc7 Dependency für Tests gegen h2 getauscht
+
 # v1.5.0
 - `IFS-17`: Umbenennung der Artifact-ID und Group-ID
 
