@@ -1,20 +1,10 @@
-﻿<!-- =============================================================================================
-    Haupt Maven Projektmodell für die Konfiguration-API
-
-    Haupt Maven-Aufrufe mit diesem POM:
-    - mvn eclipse:eclipse : Überträgt die Jar-Liste nach Eclipse
-    - mvn deploy : Übersetzen des Projekts und Jar-Generierung
-
-    Autor Simon Spielmann
-    Version $Id: pom.xml 144975 2015-08-18 13:07:56Z sdm_jmeisel $
-    ============================================================================================= -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.bund.bva.isyfact</groupId>
     <artifactId>isy-ueberwachung</artifactId>
     <packaging>jar</packaging>
-    <version>1.5.0</version>
+    <version>1.5.1</version>
     <name>IsyFact Ueberwachung.</name>
 
     <parent>
@@ -31,7 +21,7 @@
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isyfact-base-bom</artifactId>
-                <version>1.4.1</version>
+                <version>1.4.2</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
