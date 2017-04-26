@@ -128,12 +128,6 @@ public class NutzerAuthentifizierungInterceptor<K extends AufrufKontext> impleme
         aufrufKontextImpl.setDurchfuehrendeBehoerde(bhknz);
         aufrufKontextImpl.setKorrelationsId(korrelationsId);
         this.sicherheit.getBerechtigungsManagerUndAuthentifiziere((K) aufrufKontextImpl);
-
-        // Workaround: Für Systemnutzer sind Kennung und Sachbearbeiter-Name identisch. Im letzteren sind
-        // aber keine Underscores erlaubt.
-        K aufrufKontext = this.aufrufKontextVerwalter.getAufrufKontext();
-        String benutzerKennung = aufrufKontext.getDurchfuehrenderBenutzerKennung();
-        aufrufKontext.setDurchfuehrenderSachbearbeiterName(benutzerKennung.replaceAll("_", " "));
     }
 
     /**
