@@ -12,7 +12,7 @@
     <groupId>de.bund.bva.isyfact</groupId>
     <artifactId>isy-batchrahmen</artifactId>
     <packaging>jar</packaging>
-    <version>1.6.1</version>
+    <version>1.6.2</version>
     <name>IsyFact Batchrahmen</name>
 
 	  <parent>
@@ -26,7 +26,7 @@
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isyfact-base-bom</artifactId>
-                <version>1.4.2</version>
+                <version>1.4.3</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
