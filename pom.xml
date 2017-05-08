@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.bund.bva.isyfact</groupId>
     <artifactId>isy-serviceapi-core</artifactId>
-    <version>1.5.1</version>
+    <version>1.5.2</version>
     <name>IsyFact Service-API Anwendung</name>
 
     <parent>
@@ -18,7 +18,7 @@
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isyfact-base-bom</artifactId>
-                <version>1.4.2</version>
+                <version>1.4.3</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
