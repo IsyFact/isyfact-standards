@@ -6,7 +6,7 @@
     <groupId>de.bund.bva.isyfact</groupId>
     <artifactId>isy-persistence</artifactId>
     <packaging>jar</packaging>
-    <version>1.5.1</version>
+    <version>1.5.2</version>
     <description>Die Querschnittsbibliothek isy-persistence</description>
 
     <!-- PLIS-Parent POM -->
@@ -21,7 +21,7 @@
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isyfact-base-bom</artifactId>
-                <version>1.4.2</version>
+                <version>1.4.3</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
