@@ -61,7 +61,7 @@ public class PlisDataSource extends DelegatingDataSource {
      * wäre die DataSource für ein Archivschema, welches für den regulären Betrieb nicht essentiell ist.<br>
      * false: Ist die Datenbank beim Hochfahren nicht erreichbar, wird eine Exception geworfen und die
      * DataSource wird nicht erzeugt<br>
-     * true: Ist die Datenbank beim Hochfahren nicht erreichbar, wird ein Log-Eintrag auf dem Level ERROR
+     * true: Ist die Datenbank beim Hochfahren nicht erreichbar, wird ein Log-Eintrag auf dem Level WARN
      * geschrieben. Die DataSource wird jedoch erzeugt und die Anwendung kann starten. Wird von dieser
      * DataSource später eine Verbindung angefordert, wirft sie jedoch eine Exception. Dies bleibt bis zum
      * Neustart bestehen.
