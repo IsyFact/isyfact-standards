@@ -10,5 +10,5 @@
 # v1.4.4
 - `RF-146`: Datasource kann als non-critical markiert werden, um das Hochfahren einer Anwendung trotz fehlender Verbindung zu ermöglichen.
 
-# v1.2.4
+# v1.2.5
 - `RF-146`: Datasource kann als non-critical markiert werden, um das Hochfahren einer Anwendung trotz fehlender Verbindung zu ermöglichen (letzte Version vor Hibernate 5).
