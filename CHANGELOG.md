@@ -1,3 +1,6 @@
+# v1.5.0
+- isy-logging: `IFS-52`: Erweiterte Typisierung der Logeintäge
+
 # v1.4.2
 - isy-exception-core: `IFS-44`: PlisException, PlisBusinessException und PlisTechnicalException nicht mehr Deprecated.
 

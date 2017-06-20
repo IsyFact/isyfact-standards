@@ -23,19 +23,18 @@ package de.bund.bva.isyfact.logging.impl;
  * #L%
  */
 
+import de.bund.bva.isyfact.logging.IsyMarker;
+import org.slf4j.Marker;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import org.slf4j.Marker;
-
-import de.bund.bva.isyfact.logging.IsyMarker;
-
 /**
  * Standardimplementierung des IsyMarker-Interface.
  * 
- * @see de.bund.bva.isyfact.logging.IsyMarker
+ * @see IsyMarker
  * 
  */
 public class IsyMarkerImpl implements IsyMarker {
@@ -67,7 +66,7 @@ public class IsyMarkerImpl implements IsyMarker {
      *            Wert des Markers.
      */
     public IsyMarkerImpl(MarkerSchluessel name, String value) {
-        this(name, value, false);
+        this(name.getWert(), value, false);
     }
 
     /**
@@ -76,8 +75,12 @@ public class IsyMarkerImpl implements IsyMarker {
      * @return der erzeugte Root-Marker.
      */
     public static IsyMarker createRootMarker() {
-        return new IsyMarkerImpl(MarkerSchluessel.ROOTMARKER, ROOT_MARKER_VALUE, true);
+        return new IsyMarkerImpl(MarkerSchluessel.ROOTMARKER.getWert(), ROOT_MARKER_VALUE, true);
     }
+
+    /**
+     * Erzeugt einen
+     */
 
     /**
      * Konstruktor der Klasse. Er initialisiert die übergebenen Klassenattribute.
@@ -89,8 +92,8 @@ public class IsyMarkerImpl implements IsyMarker {
      * @param root
      *            Flag zum Kennzeichnen eines Root-Markers.
      */
-    private IsyMarkerImpl(MarkerSchluessel name, String value, boolean root) {
-        this.name = name.getWert();
+    IsyMarkerImpl(String name, String value, boolean root) {
+        this.name = name;
         this.value = value;
         this.root = root;
     }
@@ -98,7 +101,7 @@ public class IsyMarkerImpl implements IsyMarker {
     /**
      * {@inheritDoc}
      * 
-     * @see de.bund.bva.isyfact.logging.IsyMarker#getValue()
+     * @see IsyMarker#getValue()
      */
     public String getValue() {
         return value;
@@ -107,7 +110,7 @@ public class IsyMarkerImpl implements IsyMarker {
     /**
      * {@inheritDoc}
      * 
-     * @see org.slf4j.Marker#getName()
+     * @see Marker#getName()
      */
     public String getName() {
         return name;
@@ -116,7 +119,7 @@ public class IsyMarkerImpl implements IsyMarker {
     /**
      * {@inheritDoc}
      * 
-     * @see org.slf4j.Marker#remove(org.slf4j.Marker)
+     * @see Marker#remove(Marker)
      */
     public boolean remove(Marker reference) {
         return references.remove(reference);
@@ -125,7 +128,7 @@ public class IsyMarkerImpl implements IsyMarker {
     /**
      * {@inheritDoc}
      * 
-     * @see org.slf4j.Marker#hasChildren()
+     * @see Marker#hasChildren()
      */
     public boolean hasChildren() {
         return hasReferences();
@@ -134,7 +137,7 @@ public class IsyMarkerImpl implements IsyMarker {
     /**
      * {@inheritDoc}
      * 
-     * @see org.slf4j.Marker#hasReferences()
+     * @see Marker#hasReferences()
      */
     public boolean hasReferences() {
         return !references.isEmpty();
@@ -143,7 +146,7 @@ public class IsyMarkerImpl implements IsyMarker {
     /**
      * {@inheritDoc}
      * 
-     * @see org.slf4j.Marker#iterator()
+     * @see Marker#iterator()
      */
     public Iterator<Marker> iterator() {
         return references.iterator();
@@ -152,7 +155,7 @@ public class IsyMarkerImpl implements IsyMarker {
     /**
      * {@inheritDoc}
      * 
-     * @see org.slf4j.Marker#contains(java.lang.String)
+     * @see Marker#contains(String)
      */
     public boolean contains(String markerName) {
         if (this.name.equals(markerName)) {
@@ -170,7 +173,7 @@ public class IsyMarkerImpl implements IsyMarker {
     /**
      * {@inheritDoc}
      * 
-     * @see org.slf4j.Marker#add(org.slf4j.Marker)
+     * @see Marker#add(Marker)
      */
     public void add(Marker reference) {
         references.add(reference);
@@ -179,7 +182,7 @@ public class IsyMarkerImpl implements IsyMarker {
     /**
      * {@inheritDoc}
      * 
-     * @see org.slf4j.Marker#contains(org.slf4j.Marker)
+     * @see Marker#contains(Marker)
      */
     public boolean contains(Marker other) {
         return references.contains(other);
@@ -188,7 +191,7 @@ public class IsyMarkerImpl implements IsyMarker {
     /**
      * {@inheritDoc}
      * 
-     * @see java.lang.Object#equals(java.lang.Object)
+     * @see Object#equals(Object)
      */
     @Override
     public boolean equals(Object obj) {
@@ -208,7 +211,7 @@ public class IsyMarkerImpl implements IsyMarker {
     /**
      * {@inheritDoc}
      * 
-     * @see java.lang.Object#hashCode()
+     * @see Object#hashCode()
      */
     @Override
     public int hashCode() {
@@ -235,7 +238,7 @@ public class IsyMarkerImpl implements IsyMarker {
     /**
      * {@inheritDoc}
      * 
-     * @see de.bund.bva.isyfact.logging.IsyMarker#isRootMarker()
+     * @see IsyMarker#isRootMarker()
      */
     public boolean isRootMarker() {
         return root;
@@ -244,7 +247,7 @@ public class IsyMarkerImpl implements IsyMarker {
     /**
      * {@inheritDoc}
      * 
-     * @see de.bund.bva.isyfact.logging.IsyMarker#addAll(Collection)
+     * @see IsyMarker#addAll(Collection)
      */
     public void addAll(Collection<Marker> markerReferences) {
         if (markerReferences != null) {
