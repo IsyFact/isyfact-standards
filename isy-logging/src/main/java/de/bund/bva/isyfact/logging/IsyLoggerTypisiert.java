@@ -3,33 +3,43 @@ package de.bund.bva.isyfact.logging;
 import de.bund.bva.pliscommon.exception.PlisException;
 import de.bund.bva.pliscommon.exception.PlisTechnicalRuntimeException;
 
+/**
+ * Interface zum Erstellen von typisierten Logeinträgen. Die Logeinträge können mit einem benutzerdefinierten
+ * Marker versehen werden.
+ */
 public interface IsyLoggerTypisiert {
 
     /**
      * Erstellung eines Logeintrags im Level 'Trace'.
      *
+     * @param typ
+     *            Marker für den Datentyp des Logeintrags
      * @param nachricht
      *            die Lognachricht.
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    public void trace(IsyDatentypMarker typ, String nachricht, Object... werte);
+    void trace(IsyDatentypMarker typ, String nachricht, Object... werte);
 
     /**
      * Erstellung eines Logeintrags im Level 'Debug'.
      *
+     * @param typ
+     *            Marker für den Datentyp des Logeintrags
      * @param nachricht
      *            die Lognachricht.
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    public void debug(IsyDatentypMarker typ, String nachricht, Object... werte);
+    void debug(IsyDatentypMarker typ, String nachricht, Object... werte);
 
     /**
      * Erstellung eines Logeintrags im Level 'Info'.
      *
      * @param kategorie
      *            die Log-Kategorie des Eintrags.
+     * @param typ
+     *            Marker für den Datentyp des Logeintrags
      * @param schluessel
      *            der Ereignisschlüssel des Eintrags.
      * @param nachricht
@@ -37,7 +47,7 @@ public interface IsyLoggerTypisiert {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    public void info(LogKategorie kategorie, IsyDatentypMarker typ, String schluessel, String nachricht,
+    void info(LogKategorie kategorie, IsyDatentypMarker typ, String schluessel, String nachricht,
         Object... werte);
 
     /**
@@ -45,6 +55,8 @@ public interface IsyLoggerTypisiert {
      *
      * @param kategorie
      *            die Log-Kategorie des Eintrags.
+     * @param typ
+     *            Marker für den Datentyp des Logeintrags
      * @param nachricht
      *            die Lognachricht.
      * @param exception
@@ -52,7 +64,7 @@ public interface IsyLoggerTypisiert {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    public void info(LogKategorie kategorie, IsyDatentypMarker typ, String nachricht, PlisException exception,
+    void info(LogKategorie kategorie, IsyDatentypMarker typ, String nachricht, PlisException exception,
         Object... werte);
 
     /**
@@ -60,6 +72,8 @@ public interface IsyLoggerTypisiert {
      *
      * @param kategorie
      *            die Log-Kategorie des Eintrags.
+     * @param typ
+     *            Marker für den Datentyp des Logeintrags
      * @param nachricht
      *            die Lognachricht.
      * @param exception
@@ -67,7 +81,7 @@ public interface IsyLoggerTypisiert {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    public void info(LogKategorie kategorie, IsyDatentypMarker typ, String nachricht,
+    void info(LogKategorie kategorie, IsyDatentypMarker typ, String nachricht,
         PlisTechnicalRuntimeException exception, Object... werte);
 
     /**
@@ -75,6 +89,8 @@ public interface IsyLoggerTypisiert {
      *
      * @param kategorie
      *            die Log-Kategorie des Eintrags.
+     * @param typ
+     *            Marker für den Datentyp des Logeintrags
      * @param schluessel
      *            der Ereignisschlüssel des Eintrags.
      * @param nachricht
@@ -84,12 +100,14 @@ public interface IsyLoggerTypisiert {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    public void info(LogKategorie kategorie, IsyDatentypMarker typ, String schluessel, String nachricht,
+    void info(LogKategorie kategorie, IsyDatentypMarker typ, String schluessel, String nachricht,
         Throwable t, Object... werte);
 
     /**
      * Erstellung eines Logeintrags im Level 'Warn'.
      *
+     * @param typ
+     *            Marker für den Datentyp des Logeintrags
      * @param schluessel
      *            der Ereignisschlüssel des Eintrags.
      * @param nachricht
@@ -97,11 +115,13 @@ public interface IsyLoggerTypisiert {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    public void warn(IsyDatentypMarker typ, String schluessel, String nachricht, Object... werte);
+    void warn(IsyDatentypMarker typ, String schluessel, String nachricht, Object... werte);
 
     /**
      * Erstellung eines Logeintrags zu einer aufgetretenen Exception im Level 'Warn'.
      *
+     * @param typ
+     *            Marker für den Datentyp des Logeintrags
      * @param nachricht
      *            die Lognachricht.
      * @param exception
@@ -109,11 +129,13 @@ public interface IsyLoggerTypisiert {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    public void warn(IsyDatentypMarker typ, String nachricht, PlisException exception, Object... werte);
+    void warn(IsyDatentypMarker typ, String nachricht, PlisException exception, Object... werte);
 
     /**
      * Erstellung eines Logeintrags zu einer aufgetretenen Exception im Level 'Warn'.
      *
+     * @param typ
+     *            Marker für den Datentyp des Logeintrags
      * @param nachricht
      *            die Lognachricht.
      * @param exception
@@ -121,13 +143,15 @@ public interface IsyLoggerTypisiert {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    public void warn(IsyDatentypMarker typ, String nachricht, PlisTechnicalRuntimeException exception,
+    void warn(IsyDatentypMarker typ, String nachricht, PlisTechnicalRuntimeException exception,
         Object... werte);
 
     /**
      * Erstellung eines Logeintrags zu einer aufgetretenen Exception im Level 'Warn'.
      *
      *
+     * @param typ
+     *            Marker für den Datentyp des Logeintrags
      * @param schluessel
      *            der Ereignisschlüssel des Eintrags.
      * @param nachricht
@@ -137,11 +161,13 @@ public interface IsyLoggerTypisiert {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    public void warn(IsyDatentypMarker typ, String schluessel, String nachricht, Throwable t, Object... werte);
+    void warn(IsyDatentypMarker typ, String schluessel, String nachricht, Throwable t, Object... werte);
 
     /**
      * Erstellung eines Logeintrags zu einer aufgetretenen Exception im Level 'Error'.
      *
+     * @param typ
+     *            Marker für den Datentyp des Logeintrags
      * @param nachricht
      *            die Lognachricht.
      * @param exception
@@ -149,11 +175,13 @@ public interface IsyLoggerTypisiert {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    public void error(IsyDatentypMarker typ, String nachricht, PlisException exception, Object... werte);
+    void error(IsyDatentypMarker typ, String nachricht, PlisException exception, Object... werte);
 
     /**
      * Erstellung eines Logeintrags zu einer aufgetretenen Exception im Level 'Error'.
      *
+     * @param typ
+     *            Marker für den Datentyp des Logeintrags
      * @param nachricht
      *            die Lognachricht.
      * @param exception
@@ -161,12 +189,14 @@ public interface IsyLoggerTypisiert {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    public void error(IsyDatentypMarker typ, String nachricht, PlisTechnicalRuntimeException exception,
+    void error(IsyDatentypMarker typ, String nachricht, PlisTechnicalRuntimeException exception,
         Object... werte);
 
     /**
      * Erstellung eines Logeintrags zu einer aufgetretenen Exception im Level 'Error'.
      *
+     * @param typ
+     *            Marker für den Datentyp des Logeintrags
      * @param schluessel
      *            der Ereignisschlüssel des Eintrags.
      * @param nachricht
@@ -176,11 +206,13 @@ public interface IsyLoggerTypisiert {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    public void error(IsyDatentypMarker typ, String schluessel, String nachricht, Throwable t, Object... werte);
+    void error(IsyDatentypMarker typ, String schluessel, String nachricht, Throwable t, Object... werte);
 
     /**
      * Erstellung eines Logeintrags zu einer aufgetretenen Exception im Level 'Error'.
      *
+     * @param typ
+     *            Marker für den Datentyp des Logeintrags
      * @param schluessel
      *            der Ereignisschlüssel des Eintrags.
      * @param nachricht
@@ -188,11 +220,13 @@ public interface IsyLoggerTypisiert {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    public void error(IsyDatentypMarker typ, String schluessel, String nachricht, Object... werte);
+    void error(IsyDatentypMarker typ, String schluessel, String nachricht, Object... werte);
 
     /**
      * Erstellung eines Logeintrags zu einer aufgetretenen Exception im Level 'Fatal'.
      *
+     * @param typ
+     *            Marker für den Datentyp des Logeintrags
      * @param nachricht
      *            die Lognachricht.
      * @param exception
@@ -200,11 +234,13 @@ public interface IsyLoggerTypisiert {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    public void fatal(IsyDatentypMarker typ, String nachricht, PlisException exception, Object... werte);
+    void fatal(IsyDatentypMarker typ, String nachricht, PlisException exception, Object... werte);
 
     /**
      * Erstellung eines Logeintrags zu einer aufgetretenen Exception im Level 'Fatal'.
      *
+     * @param typ
+     *            Marker für den Datentyp des Logeintrags
      * @param nachricht
      *            die Lognachricht.
      * @param exception
@@ -212,12 +248,14 @@ public interface IsyLoggerTypisiert {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    public void fatal(IsyDatentypMarker typ, String nachricht, PlisTechnicalRuntimeException exception,
+    void fatal(IsyDatentypMarker typ, String nachricht, PlisTechnicalRuntimeException exception,
         Object... werte);
 
     /**
      * Erstellung eines Logeintrags zu einer aufgetretenen Exception im Level 'Fatal'.
      *
+     * @param typ
+     *            Marker für den Datentyp des Logeintrags
      * @param schluessel
      *            der Ereignisschlüssel des Eintrags.
      * @param nachricht
@@ -227,11 +265,13 @@ public interface IsyLoggerTypisiert {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    public void fatal(IsyDatentypMarker typ, String schluessel, String nachricht, Throwable t, Object... werte);
+    void fatal(IsyDatentypMarker typ, String schluessel, String nachricht, Throwable t, Object... werte);
 
     /**
      * Erstellung eines Logeintrags zu einer aufgetretenen Exception im Level 'Fatal'.
      *
+     * @param typ
+     *            Marker für den Datentyp des Logeintrags
      * @param schluessel
      *            der Ereignisschlüssel des Eintrags.
      * @param nachricht
@@ -239,6 +279,6 @@ public interface IsyLoggerTypisiert {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    public void fatal(IsyDatentypMarker typ, String schluessel, String nachricht, Object... werte);
+    void fatal(IsyDatentypMarker typ, String schluessel, String nachricht, Object... werte);
 
 }

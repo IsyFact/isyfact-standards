@@ -23,19 +23,19 @@ package de.bund.bva.isyfact.logging.layout;
  * #L%
  */
 
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.contrib.json.classic.JsonLayout;
+import de.bund.bva.isyfact.logging.IsyMarker;
+import de.bund.bva.isyfact.logging.impl.FachdatenMarker;
+import de.bund.bva.isyfact.logging.impl.MarkerSchluessel;
+import de.bund.bva.isyfact.logging.util.LoggingKonstanten;
+import de.bund.bva.isyfact.logging.util.MdcHelper;
+import org.slf4j.Marker;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import org.slf4j.Marker;
-
-import ch.qos.logback.classic.spi.ILoggingEvent;
-import ch.qos.logback.contrib.json.classic.JsonLayout;
-import de.bund.bva.isyfact.logging.IsyMarker;
-import de.bund.bva.isyfact.logging.impl.MarkerSchluessel;
-import de.bund.bva.isyfact.logging.util.LoggingKonstanten;
-import de.bund.bva.isyfact.logging.util.MdcHelper;
 
 /**
  * Logback-Layout zum Aufbereiten der Logeinträge in JSON-Format. Das Layout übernimmt dabei insbesondere auch
@@ -139,6 +139,8 @@ public class IsyJsonLayout extends JsonLayout {
         // Fachdaten in MDC: Dadurch kann der Wert des Markers "Fachdaten" nochmals überschrieben werden.
         boolean enthaeltFachlicheDaten = MdcHelper.liesMarkerFachdaten();
         if (enthaeltFachlicheDaten) {
+            // Hierdurch wird der bisherige Datentyp des Logeintrags überschrieben!
+            processMarker(new FachdatenMarker(), jsonMap, standardMarker);
             jsonMap.put(MarkerSchluessel.FACHDATEN.getWert(), LoggingKonstanten.TRUE);
         }
 
