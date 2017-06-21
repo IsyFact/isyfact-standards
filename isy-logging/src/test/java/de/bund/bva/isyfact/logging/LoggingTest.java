@@ -23,13 +23,6 @@ package de.bund.bva.isyfact.logging;
  * #L%
  */
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-import org.junit.Assert;
-import org.junit.Test;
-import org.slf4j.spi.LocationAwareLogger;
-
 import de.bund.bva.isyfact.logging.exceptions.FehlerhafterLogeintrag;
 import de.bund.bva.isyfact.logging.exceptions.IsyLoggingFehlertextProvider;
 import de.bund.bva.isyfact.logging.exceptions.LogKonfigurationFehler;
@@ -38,6 +31,12 @@ import de.bund.bva.isyfact.logging.impl.IsyLocationAwareLoggerImpl;
 import de.bund.bva.pliscommon.exception.PlisException;
 import de.bund.bva.pliscommon.exception.PlisTechnicalException;
 import de.bund.bva.pliscommon.exception.PlisTechnicalRuntimeException;
+import org.junit.Assert;
+import org.junit.Test;
+import org.slf4j.spi.LocationAwareLogger;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * Testfällt der Erstellung von Logeinträgen.
@@ -183,12 +182,14 @@ public class LoggingTest extends AbstractLogTest {
             // Logeintrag in Info ohne Kategorie führt zu Exception. Dies ist wird durch das Interface bisher
             // verhindert. Daher wird die interne Log-Methode direkt per Reflection aufgerufen.
             // Test für INFO
-            Method interneLogmethode = IsyLocationAwareLoggerImpl.class.getDeclaredMethod("log", int.class,
-                    String.class, String.class, String.class, Object[].class, Throwable.class, boolean.class);
+            Method interneLogmethode = IsyLocationAwareLoggerImpl.class
+                .getDeclaredMethod("log", int.class, String.class, IsyMarker[].class, String.class,
+                    String.class, Object[].class, Throwable.class);
             interneLogmethode.setAccessible(true);
-            
-            interneLogmethode.invoke(logger, LocationAwareLogger.INFO_INT, null, EREIGNISSCHLUESSEL,
-                    "Eine Nachricht.", null, null, false);
+
+            interneLogmethode
+                .invoke(logger, LocationAwareLogger.INFO_INT, null, new IsyMarker[0], EREIGNISSCHLUESSEL,
+                    "Eine Nachricht.", null, null);
             Assert.fail("Erstellen eines Logeintrags in Level INFO ohne Kategorie führte nicht zu einem Fehler.");
         } catch (InvocationTargetException ite) {
             FehlerhafterLogeintrag fle = (FehlerhafterLogeintrag) ite.getCause();
@@ -199,12 +200,14 @@ public class LoggingTest extends AbstractLogTest {
             // Logeintrag in Info ohne Kategorie führt zu Exception. Dies ist wird durch das Interface bisher
             // verhindert. Daher wird die interne Log-Methode direkt per Reflection aufgerufen.
             // Test für ERROR
-            Method interneLogmethode = IsyLocationAwareLoggerImpl.class.getDeclaredMethod("log", int.class,
-                    String.class, String.class, String.class, Object[].class, Throwable.class, boolean.class);
+            Method interneLogmethode = IsyLocationAwareLoggerImpl.class
+                .getDeclaredMethod("log", int.class, String.class, IsyMarker[].class, String.class,
+                    String.class, Object[].class, Throwable.class);
             interneLogmethode.setAccessible(true);
-            
-            interneLogmethode.invoke(logger, LocationAwareLogger.ERROR_INT, null, EREIGNISSCHLUESSEL,
-                    "Eine Nachricht.", null, null, false);
+
+            interneLogmethode
+                .invoke(logger, LocationAwareLogger.ERROR_INT, null, new IsyMarker[0], EREIGNISSCHLUESSEL,
+                    "Eine Nachricht.", null, null);
             Assert.fail("Erstellen eines Logeintrags in Level INFO ohne Kategorie führte nicht zu einem Fehler.");
         } catch (InvocationTargetException ite) {
             FehlerhafterLogeintrag fle = (FehlerhafterLogeintrag) ite.getCause();
