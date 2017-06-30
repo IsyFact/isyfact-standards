@@ -32,19 +32,16 @@ import de.bund.bva.isyfact.logging.util.LoggingKonstanten;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
 import org.slf4j.Marker;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Logback-Layout zum Aufbereiten der Logeinträge in JSON-Format. Das Layout übernimmt dabei insbesondere auch
  * die übergenenen Marker.
- * 
+ *
  */
 public class IsyJsonLayout extends JsonLayout {
 
-    /** Kosntante für eine leere Korrelations-ID. */
+    /** Konstante für eine leere Korrelations-ID. */
     private static final String LEERE_KORRELATIONSID = "none";
 
     /** Attributname des Zeitstempels. */
@@ -67,7 +64,7 @@ public class IsyJsonLayout extends JsonLayout {
      */
     public IsyJsonLayout() {
         super();
-        
+
         includeLevel = true;
         includeThreadName = true;
         // MDC wird nicht ausgegeben, da wir diesen als 'korrelationsid' aufnehmen.
@@ -87,21 +84,24 @@ public class IsyJsonLayout extends JsonLayout {
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see ch.qos.logback.contrib.json.classic.JsonLayout#toJsonMap(ch.qos.logback.classic.spi.ILoggingEvent)
      */
     @Override
     protected Map<String, Object> toJsonMap(ILoggingEvent event) {
-
         // Erstellen einer Map von JSON-Attributen. In der Superklasse werden nur die sl4j-Standardattribute
         // gefüllt. Es werden insbesondere keine Marker ausgewertet.
-        @SuppressWarnings("unchecked")
-        Map<String, Object> jsonMap = super.toJsonMap(event);
+        Map<String, Object> jsonMap = new LinkedHashMap<>();
 
+        // Die Attribute werden im Log nach der Reihenfolge ihrer Hinzufügung sortiert.
         String zeitstempel = formatTimestamp(event.getTimeStamp());
         if (zeitstempel != null) {
             jsonMap.put(ZEITSTEMPEL_ATTR_NAME, zeitstempel);
         }
+
+        @SuppressWarnings("unchecked")
+        Map<String, Object> defaultMap = super.toJsonMap(event);
+        jsonMap.putAll(defaultMap);
 
         // Nachricht übernehmen
         String msg = event.getFormattedMessage();
@@ -115,7 +115,7 @@ public class IsyJsonLayout extends JsonLayout {
             korrelationsId = LEERE_KORRELATIONSID;
         }
         jsonMap.put(KORRELATIONSID_ATTR_NAME, korrelationsId);
-        
+
         // Auswerten der Marker
         Marker marker = event.getMarker();
 
@@ -135,7 +135,7 @@ public class IsyJsonLayout extends JsonLayout {
         if (!standardMarker.isEmpty()) {
             jsonMap.put(MARKER_ATTR_NAME, standardMarker);
         }
-        
+
         // Fachdaten in MDC: Dadurch kann der Wert des Markers "Fachdaten" nochmals überschrieben werden.
         boolean enthaeltFachlicheDaten = MdcHelper.liesMarkerFachdaten();
         if (enthaeltFachlicheDaten) {
@@ -151,7 +151,7 @@ public class IsyJsonLayout extends JsonLayout {
      * Diese Methode verarbeitet den übergebenen Marker und durchläuft rekursiv dessen Referenzen.
      * IsyFact-Marker werden dabei als Name/Wert-Paare in die jsonMap übernommen. Alle anderen
      * "StandardMarker" werden in der Liste "standardMarker" gesammelt.
-     * 
+     *
      * @param marker
      *            der zu verarbeitende Marker.
      * @param jsonMap
