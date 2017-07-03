@@ -120,7 +120,7 @@ public class IsyJsonLayout extends JsonLayout {
         Marker marker = event.getMarker();
 
         // Marker durchlaufen und verarbeiten. IsyFact-Marker werden dabei direkt in die jsonMap übernommen.
-        List<String> standardMarker = new ArrayList<String>();
+        List<String> standardMarker = new ArrayList<>();
         processMarker(marker, jsonMap, standardMarker);
 
         // Parameter der Nachricht (Platzhalter) als separate Attribute übernehmen.
