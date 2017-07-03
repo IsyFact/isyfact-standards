@@ -1,8 +1,7 @@
 package de.bund.bva.isyfact.logging;
 
-import org.junit.Test;
-
 import de.bund.bva.isyfact.logging.util.MdcHelper;
+import org.junit.Test;
 
 /*
  * #%L
@@ -37,7 +36,7 @@ public class MdcFachdatenTest extends AbstractLogTest {
      */
     @Test
     public void testMdcFachdaten() {
-        IsyLogger logger = IsyLoggerFactory.getLogger(this.getClass());
+        IsyLoggerStandard logger = IsyLoggerFactory.getLogger(this.getClass());
         logger.debug("MdcFachdaten wurde nicht gesetzt.");
         
         MdcHelper.setzeMarkerFachdaten(true);

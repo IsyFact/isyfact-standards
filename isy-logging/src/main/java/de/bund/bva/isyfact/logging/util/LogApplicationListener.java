@@ -23,6 +23,10 @@ package de.bund.bva.isyfact.logging.util;
  * #L%
  */
 
+import de.bund.bva.isyfact.logging.IsyLoggerFactory;
+import de.bund.bva.isyfact.logging.IsyLoggerStandard;
+import de.bund.bva.isyfact.logging.LogKategorie;
+import de.bund.bva.isyfact.logging.impl.Ereignisschluessel;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
@@ -30,11 +34,6 @@ import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.ContextStartedEvent;
 import org.springframework.context.event.ContextStoppedEvent;
-
-import de.bund.bva.isyfact.logging.IsyLogger;
-import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.isyfact.logging.LogKategorie;
-import de.bund.bva.isyfact.logging.impl.Ereignisschluessel;
 
 /**
  * Spring-ApplicationListener zum Loggen von Änderungen des Systemzustands.
@@ -51,7 +50,7 @@ public class LogApplicationListener implements ApplicationListener<ApplicationEv
     private static final String SYSTEM_PROPERTY_DATEIKODIERUNG = "file.encoding";
 
     /** Logger der Klasse. */
-    private static final IsyLogger LOGGER = IsyLoggerFactory.getLogger(LogApplicationListener.class);
+    private static final IsyLoggerStandard LOGGER = IsyLoggerFactory.getLogger(LogApplicationListener.class);
 
     /** Name des Systems. */
     private String systemname;
