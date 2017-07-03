@@ -23,10 +23,9 @@ package de.bund.bva.isyfact.logging.util;
  * #L%
  */
 
-import org.slf4j.MDC;
-
-import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
+import de.bund.bva.isyfact.logging.IsyLoggerStandard;
+import org.slf4j.MDC;
 
 /**
  * Hilfsklasse zum Zugriff auf den MDC.
@@ -44,7 +43,7 @@ public final class MdcHelper {
     private static final String TRENNER = ";";
 
     /** Logger der Klasse. */
-    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(MdcHelper.class);
+    private static final IsyLoggerStandard LOG = IsyLoggerFactory.getLogger(MdcHelper.class);
 
     /**
      * Privater Konstruktor der Klasse. Verhindert, dass Instanzen der Klasse angelegt werden.

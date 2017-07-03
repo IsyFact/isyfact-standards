@@ -310,6 +310,12 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
             }
         }
 
+        if (expliziteMarker != null) {
+            for (IsyMarker isyMarker : expliziteMarker) {
+                rootMarker.add(isyMarker);
+            }
+        }
+
         // SLF4J erlaubt es grundsätzlich, dass beliebige Objekte zur Ersetzung der Platzhalter in der
         // Lognachricht übergeben werden. Wird ein IsyMarker übergeben, übernehmen wir diesen Marker als
         // "richtigen" Marker des Events und setzen nur den Wert des Markers in die Nachricht.
@@ -318,12 +324,6 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
                 IsyMarker marker = (IsyMarker) werte[i];
                 rootMarker.add(marker);
                 werte[i] = marker.getValue();
-            }
-        }
-
-        if (expliziteMarker != null) {
-            for (IsyMarker isyMarker : expliziteMarker) {
-                rootMarker.add(isyMarker);
             }
         }
 
@@ -720,21 +720,21 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
     @Override
     public void info(LogKategorie kategorie, IsyDatentypMarker typ, String nachricht, PlisException exception,
         Object... werte) {
-        logException(LocationAwareLogger.INFO_INT, null, new IsyMarker[] { typ }, nachricht, werte,
+        logException(LocationAwareLogger.INFO_INT, kategorie.name(), new IsyMarker[] { typ }, nachricht, werte,
             exception);
     }
 
     @Override
     public void info(LogKategorie kategorie, IsyDatentypMarker typ, String nachricht,
         PlisTechnicalRuntimeException exception, Object... werte) {
-        logTechnicalRuntimeException(LocationAwareLogger.INFO_INT, null, new IsyMarker[] { typ },
+        logTechnicalRuntimeException(LocationAwareLogger.INFO_INT, kategorie.name(), new IsyMarker[] { typ },
             nachricht, werte, exception);
     }
 
     @Override
     public void info(LogKategorie kategorie, IsyDatentypMarker typ, String schluessel, String nachricht,
         Throwable t, Object... werte) {
-        log(LocationAwareLogger.WARN_INT, null, new IsyMarker[] { typ }, schluessel, nachricht, werte, t);
+        log(LocationAwareLogger.INFO_INT, kategorie.name(), new IsyMarker[] { typ }, schluessel, nachricht, werte, t);
     }
 
     @Override
