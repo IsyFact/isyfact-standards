@@ -1,4 +1,4 @@
-# v1.4.3 (unveröffentlicht)
+# v1.4.4 (unveröffentlicht)
 - isy-sicherheit: Sonderlogik, die Underscores aus dem Attribut durchfuehrenderSachbearbeiterName des Aufrufkontextes entfernt, ausgebaut.
 
 ## Hinweise zum Upgrade
