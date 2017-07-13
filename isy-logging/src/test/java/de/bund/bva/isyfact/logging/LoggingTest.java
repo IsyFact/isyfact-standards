@@ -23,9 +23,13 @@ package de.bund.bva.isyfact.logging;
  * #L%
  */
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 import de.bund.bva.isyfact.logging.exceptions.FehlerhafterLogeintrag;
 import de.bund.bva.isyfact.logging.exceptions.IsyLoggingFehlertextProvider;
 import de.bund.bva.isyfact.logging.exceptions.LogKonfigurationFehler;
+import de.bund.bva.isyfact.logging.hilfsklassen.TestBeanKomplex;
 import de.bund.bva.isyfact.logging.impl.AbstractIsyDatentypMarker;
 import de.bund.bva.isyfact.logging.impl.FehlerSchluessel;
 import de.bund.bva.isyfact.logging.impl.IsyLocationAwareLoggerImpl;
@@ -35,9 +39,6 @@ import de.bund.bva.pliscommon.exception.PlisTechnicalRuntimeException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.spi.LocationAwareLogger;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 /**
  * Testfall zur Erstellung von Logeinträgen.
@@ -108,6 +109,11 @@ public class LoggingTest extends AbstractLogTest {
         logger.warn(EREIGNISSCHLUESSEL, nachricht, t, "super", "warn", "Klasse");
 
         logger.info(LogKategorie.JOURNAL, EREIGNISSCHLUESSEL_OHNE_NACHRICHT, (String) null);
+
+        TestBeanKomplex tbk = new TestBeanKomplex(true);
+
+        logger.info(LogKategorie.JOURNAL, EREIGNISSCHLUESSEL, nachricht, "super", "info", tbk);
+
 
         pruefeLogdatei("testLoggingErfolgreich");
     }

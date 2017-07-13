@@ -23,16 +23,25 @@ package de.bund.bva.isyfact.logging.layout;
  * #L%
  */
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.contrib.json.JsonFormatter;
 import ch.qos.logback.contrib.json.classic.JsonLayout;
+import ch.qos.logback.core.CoreConstants;
 import de.bund.bva.isyfact.logging.IsyMarker;
+import de.bund.bva.isyfact.logging.exceptions.FehlerhafterLogeintrag;
+import de.bund.bva.isyfact.logging.exceptions.LoggingTechnicalRuntimeException;
 import de.bund.bva.isyfact.logging.impl.FachdatenMarker;
+import de.bund.bva.isyfact.logging.impl.FehlerSchluessel;
 import de.bund.bva.isyfact.logging.impl.MarkerSchluessel;
 import de.bund.bva.isyfact.logging.util.LoggingKonstanten;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
 import org.slf4j.Marker;
-
-import java.util.*;
 
 /**
  * Logback-Layout zum Aufbereiten der Logeinträge in JSON-Format. Das Layout übernimmt dabei insbesondere auch
@@ -80,6 +89,47 @@ public class IsyJsonLayout extends JsonLayout {
         // Zeitstempel wird mauell als 'zeitstempel' ausgegeben.
         includeTimestamp = false;
         appendLineSeparator = false;
+    }
+
+    @Override
+    public String doLayout(ILoggingEvent event) {
+        Map<String, Object> map = toJsonMap(event);
+        if (map == null || map.isEmpty()) {
+            return "";
+        }
+        String result = getStringFromFormatter(map);
+        if (result == null || result.isEmpty()) {
+            return "";
+        }
+        return isAppendLineSeparator() ? result + CoreConstants.LINE_SEPARATOR : result;
+    }
+
+    private String getStringFromFormatter(Map<String, Object> map) {
+        JsonFormatter formatter = getJsonFormatter();
+        if (formatter == null) {
+            Exception fehler =
+                new LoggingTechnicalRuntimeException(FehlerSchluessel.FEHLENDE_KONFIGURATION_JSON_LAYOUT,
+                    getClass().getName());
+            addError(fehler.getMessage(), fehler);
+            return "";
+        }
+
+        try {
+            return formatter.toJsonString(map);
+        } catch (Exception e) {
+            Map<String, String> stringMap = new LinkedHashMap<>();
+            for (Map.Entry<String, Object> entry : map.entrySet()) {
+                stringMap.put(entry.getKey(), entry.getValue().toString());
+            }
+            try {
+                return formatter.toJsonString(stringMap);
+            } catch (Exception ex) {
+                Exception fehler =
+                    new FehlerhafterLogeintrag(FehlerSchluessel.FEHLER_SERIALISIERUNG_AUFRUFPARAMETER, ex);
+                addError(fehler.getMessage(), fehler);
+                return "";
+            }
+        }
     }
 
     /**
