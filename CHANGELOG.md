@@ -1,3 +1,9 @@
+# v1.4.4 (unveröffentlicht)
+- isy-sicherheit: Sonderlogik, die Underscores aus dem Attribut durchfuehrenderSachbearbeiterName des Aufrufkontextes entfernt, ausgebaut.
+
+## Hinweise zum Upgrade
+- Für Anwendungen, in die neue Version eingebunden werden soll, muss vorher geprüft, ob Underscores im Attribut durchfuehrenderSachbearbeiterName des Aufrufkontextes verarbeitet werden können.
+
 # v1.4.2
 - isy-exception-core: `IFS-44`: PlisException, PlisBusinessException und PlisTechnicalException nicht mehr Deprecated.
 
