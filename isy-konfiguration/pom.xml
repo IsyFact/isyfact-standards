@@ -11,12 +11,9 @@
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
         <artifactId>isyfact-base</artifactId>
-        <version>1.4.4</version>
+        <version>1.4.5</version>
     </parent>
 
-    <!-- =============================================================================================
-        Liste der benoetigten Bibliotheken.
-        ============================================================================================= -->
     <dependencies>
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>

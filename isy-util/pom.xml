@@ -11,11 +11,11 @@
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
         <artifactId>isyfact-base</artifactId>
-        <version>1.4.4</version>
+        <version>1.4.5</version>
     </parent>
 
     <dependencies>
-        <!-- PLIS-Exception fuer FehlerTextProviderImpl. Wird dieser nicht verwendet, wird auch plis-exception
+        <!-- ISY-Exception fuer FehlerTextProviderImpl. Wird dieser nicht verwendet, wird auch isy-exception
             nicht benöitgt, daher optional=true -->
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
