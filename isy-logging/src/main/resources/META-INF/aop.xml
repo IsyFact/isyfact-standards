@@ -1,0 +1,15 @@
+<!DOCTYPE aspectj PUBLIC "-//AspectJ//DTD//EN" "http://www.eclipse.org/aspectj/dtd/aspectj.dtd">
+<aspectj>
+
+    <!-- Weaving nur für AWF- und AFU-Klassen -->
+    <weaver>
+        <include within="*..core..Awf*"/>
+        <include within="*..core..Afu*"/>
+        <include within="de.bund.bva.isyfact.logging.util.PerformanceLoggingAspect"/>
+    </weaver>
+
+    <aspects>
+        <aspect name="de.bund.bva.isyfact.logging.util.PerformanceLoggingAspect"/>
+    </aspects>
+
+</aspectj>
