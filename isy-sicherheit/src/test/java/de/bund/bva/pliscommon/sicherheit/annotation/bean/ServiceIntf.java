@@ -16,20 +16,26 @@
  */
 package de.bund.bva.pliscommon.sicherheit.annotation.bean;
 
+import de.bund.bva.pliscommon.sicherheit.annotation.Gesichert;
+
 /**
  * Schnittstelle einer Servicekomponente zum Testen.
  *
  */
 public interface ServiceIntf {
 
-    public void gesichertDurch_Nichts();
+    void gesichertDurch_Nichts();
 
-    public void gesichertDurch_RechtA();
+    void gesichertDurch_RechtA();
 
-    public void gesichertDurch_RechtB();
+    void gesichertDurch_RechtB();
 
-    public void gesichertDurch_RechtAundB();
+    void gesichertDurch_RechtAundB();
 
-    public void gesichertDurch_leeresRecht();
+    void gesichertDurch_leeresRecht();
 
+    void nichtGesichert();
+
+    @Gesichert("Recht_A")
+    void gesichertAmInterface();
 }

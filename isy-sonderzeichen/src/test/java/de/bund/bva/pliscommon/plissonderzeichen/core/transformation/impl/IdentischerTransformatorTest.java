@@ -24,12 +24,16 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.pliscommon.plissonderzeichen.core.transformation.ZeichenKategorie;
 
 import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Testet den IdentischerTransformator.
  *
  */
-public class IdentischerTransformatorTest extends TestCase {
+public class IdentischerTransformatorTest {
 
     /** Transformator. */
     public AbstractTransformator transformator;
@@ -37,15 +41,17 @@ public class IdentischerTransformatorTest extends TestCase {
     /** Logger. */
     private static IsyLogger LOG = IsyLoggerFactory.getLogger(IdentischerTransformatorTest.class);
 
-    @Override
+    @Before
     public void setUp() {
         this.transformator = new IdentischerTransformator();
     }
 
+    @Test
     public void testInitialisierung() {
         this.transformator.initialisiere(null);
     }
 
+    @Test
     public void testTransformiere() {
 
         this.transformator.initialisiere(null);
@@ -62,12 +68,14 @@ public class IdentischerTransformatorTest extends TestCase {
         assertEquals(expected, transformed);
     }
 
+    @Test
     public void testGueltigeZeichen() {
 
         this.transformator.initialisiere(null);
 
     }
 
+    @Test
     public void testRegulaererAusdruckSpeziell() {
 
         this.transformator.initialisiere(null);
@@ -94,6 +102,7 @@ public class IdentischerTransformatorTest extends TestCase {
         assertFalse(matcherUngueltig_2.matches());
     }
 
+    @Test
     public void testIsGueltigesString() {
 
         this.transformator.initialisiere(null);
@@ -119,4 +128,27 @@ public class IdentischerTransformatorTest extends TestCase {
             new String[] { ZeichenKategorie.LETTER }));
     }
 
+    @Test
+    public void testTransformiereNull() {
+        transformator.transformiere(null);
+    }
+
+    @Test
+    public void testTransformiereOhneTrim() {
+        assertNull(transformator.transformiereOhneTrim(null));
+        String zeichenkette = "Dies ist ein Text zum trimmen    ";
+
+        transformator.initialisiere(null);
+        assertNotEquals(transformator.transformiere(zeichenkette),transformator.transformiereOhneTrim(zeichenkette));
+    }
+
+    @Test
+    public void testTransformiereZusaetzlich() {
+        String zeichenkette = "\u0410";
+        assertNotEquals("K", transformator.transformiere(zeichenkette));
+        transformator.initialisiere("/tabellen/zusaetzliche.transform");
+        assertEquals("K", transformator.transformiere(zeichenkette));
+
+
+    }
 }
