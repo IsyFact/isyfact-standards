@@ -4,7 +4,7 @@
     <groupId>de.bund.bva.isyfact</groupId>
     <artifactId>isy-ueberwachung</artifactId>
     <packaging>jar</packaging>
-    <version>1.5.2</version>
+    <version>1.6.0-SNAPSHOT</version>
     <name>IsyFact Ueberwachung.</name>
 
     <parent>
@@ -12,6 +12,10 @@
         <artifactId>isyfact-masterpom-lib</artifactId>
         <version>1.4.0</version>
     </parent>
+
+    <properties>
+        <spring.version>4.2.9.RELEASE</spring.version>
+    </properties>
 
     <!-- =============================================================================================
         Liste der benoetigten Bibliotheken.
@@ -21,7 +25,7 @@
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isyfact-base-bom</artifactId>
-                <version>1.4.3</version>
+                <version>1.5.0-SNAPSHOT</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -48,15 +52,18 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
         </dependency>
         <!-- Für AOP-Interfaces -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
@@ -72,6 +79,7 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
             <scope>provided</scope>
         </dependency>
 
@@ -79,6 +87,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+            <version>4.12</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
