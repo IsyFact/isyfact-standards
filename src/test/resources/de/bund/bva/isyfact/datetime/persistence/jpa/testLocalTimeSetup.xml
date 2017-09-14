@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <TESTLOCALTIMEENTITY id="0" LOCALTIME="15:00:00"/>
+    <TESTLOCALTIMEENTITY id="1"/>
+</dataset>
