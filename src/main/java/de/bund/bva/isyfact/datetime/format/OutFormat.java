@@ -64,9 +64,14 @@ public abstract class OutFormat {
     public static final DateTimeFormatter DATUM = DateTimeFormatter.ofPattern("dd.MM.uuuu", Locale.GERMAN);
 
     /**
-     * {@link DateTimeFormatter} für das Datumsformat {@code HH:mm:ss}
+     * {@link DateTimeFormatter} für das Zeitformat {@code HH:mm:ss}
      */
     public static final DateTimeFormatter ZEIT = DateTimeFormatter.ofPattern("HH:mm:ss", Locale.GERMAN);
+
+    /**
+     * {@link DateTimeFormatter} fur das Zeitformat {@code HH:mm}
+     */
+    public static final DateTimeFormatter ZEIT_KURZ = DateTimeFormatter.ofPattern("HH:mm", Locale.GERMAN);
 
     private static final Map<TemporalUnit, String> zeiteinheitenAbkuerzungen = new HashMap<>();
 

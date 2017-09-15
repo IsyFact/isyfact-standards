@@ -4,6 +4,7 @@ import java.time.Clock;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.Period;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -68,6 +69,18 @@ public class TestClock extends Clock {
         Objects.requireNonNull(localDateTime);
         Objects.requireNonNull(zoneId);
         return at(localDateTime.atZone(zoneId));
+    }
+
+    /**
+     * Erstellt eine {@link TestClock} mit einer {@link LocalDateTime} mit Zeitzone als initialen Wert.
+     *
+     * @param offsetDateTime
+     *     die zu verwendende {@link OffsetDateTime}, nicht null
+     * @return {@link TestClock} initial auf die Zeit gesetzt, nicht null
+     */
+    public static TestClock at(OffsetDateTime offsetDateTime) {
+        Objects.requireNonNull(offsetDateTime);
+        return TestClock.at(offsetDateTime.toZonedDateTime());
     }
 
     /**

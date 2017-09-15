@@ -593,7 +593,12 @@ public class Zeitraum implements Serializable {
     @Override
     public String toString() {
         if (ohneDatum) {
-            return OutFormat.ZEIT.format(getAnfangszeit()) + " - " + OutFormat.ZEIT.format(getEndzeit());
+            if (getAnfangszeit().getSecond() == 0 && getEndzeit().getSecond() == 0) {
+                return OutFormat.ZEIT_KURZ.format(getAnfangszeit()) + " - " + OutFormat.ZEIT_KURZ
+                    .format(getEndzeit());
+            } else {
+                return OutFormat.ZEIT.format(getAnfangszeit()) + " - " + OutFormat.ZEIT.format(getEndzeit());
+            }
         } else {
             return OutFormat.DATUM_ZEIT_ZONE.format(anfang) + " - " + OutFormat.DATUM_ZEIT_ZONE.format(ende);
         }

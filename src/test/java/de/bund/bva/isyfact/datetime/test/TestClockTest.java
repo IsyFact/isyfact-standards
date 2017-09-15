@@ -67,6 +67,14 @@ public class TestClockTest {
     }
 
     @Test
+    public void atOffsetDateTime() throws Exception {
+        TestClock clock = TestClock.at(zonedDateTime.toOffsetDateTime());
+
+        assertEquals(zonedDateTime.toInstant(), clock.instant());
+        assertEquals(ZoneId.of("Z"), clock.getZone());
+    }
+
+    @Test
     public void atZonedDateTime() throws Exception {
         TestClock clock = TestClock.at(zonedDateTime);
 

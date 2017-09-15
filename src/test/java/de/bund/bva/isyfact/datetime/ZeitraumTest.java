@@ -467,9 +467,19 @@ public class ZeitraumTest {
 
         assertEquals(expected, zeitraumMitDatum.toString());
 
-        Zeitraum zeitraumOhneDatum = Zeitraum.of(localTime, localTime.plusMinutes(90));
+        Zeitraum zeitraumOhneDatum = Zeitraum.of(localTime.plusSeconds(10), localTime.plusMinutes(90));
 
         expected = OutFormat.ZEIT.format(zeitraumOhneDatum.getAnfangszeit()) + " - " + OutFormat.ZEIT
             .format(zeitraumOhneDatum.getEndzeit());
+
+        assertEquals(expected, zeitraumOhneDatum.toString());
+
+        Zeitraum ohneDatum0Sekunden = Zeitraum.of(LocalTime.of(10, 0), LocalTime.of(11, 30));
+
+        expected =
+            OutFormat.ZEIT_KURZ.format(ohneDatum0Sekunden.getAnfangszeit()) + " - " + OutFormat.ZEIT_KURZ
+                .format(ohneDatum0Sekunden.getEndzeit());
+
+        assertEquals(expected, ohneDatum0Sekunden.toString());
     }
 }

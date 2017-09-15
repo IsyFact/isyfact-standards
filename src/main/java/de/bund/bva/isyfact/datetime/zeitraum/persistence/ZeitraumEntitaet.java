@@ -3,6 +3,7 @@ package de.bund.bva.isyfact.datetime.zeitraum.persistence;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import de.bund.bva.isyfact.datetime.zeitraum.core.Zeitraum;
@@ -14,6 +15,7 @@ import de.bund.bva.isyfact.datetime.zeitraum.core.Zeitraum;
 public class ZeitraumEntitaet {
 
     @Id
+    @GeneratedValue
     private long id;
 
     private ZonedDateTime anfang;
