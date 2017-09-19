@@ -40,7 +40,7 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
     private static final IsyLogger LOGGER = IsyLoggerFactory.getLogger(IsyHttpInvokerClientInterceptor.class);
 
     /** Helper, zum Erzeugen der Logeinträge. */
-    private LogHelper logHelper = new LogHelper(true, true, true, false);
+    private LogHelper logHelper = new LogHelper(false, false, true, false);
 
     /** Name des aufgerufenen Nachbarsystems. */
     private String remoteSystemName;
@@ -96,8 +96,8 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
         } finally {
             long endezeit = this.logHelper.ermittleAktuellenZeitpunkt();
             long dauer = endezeit - startzeit;
-            this.logHelper.loggeNachbarsystemErgebnis(LOGGER, methode, this.remoteSystemName,
-                getServiceUrl(), aufrufErfolgreich);
+            this.logHelper.loggeNachbarsystemErgebnis(LOGGER, methode, this.remoteSystemName, getServiceUrl(),
+                aufrufErfolgreich);
             this.logHelper.loggeNachbarsystemDauer(LOGGER, methode, dauer, this.remoteSystemName,
                 getServiceUrl(), aufrufErfolgreich);
 
