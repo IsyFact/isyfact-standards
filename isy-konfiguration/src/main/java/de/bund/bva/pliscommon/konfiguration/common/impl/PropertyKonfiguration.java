@@ -22,20 +22,34 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
+import de.bund.bva.isyfact.logging.IsyLogger;
+import de.bund.bva.isyfact.logging.IsyLoggerFactory;
+import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 import de.bund.bva.pliscommon.konfiguration.common.exception.KonfigurationDateiException;
 import de.bund.bva.pliscommon.konfiguration.common.konstanten.NachrichtenSchluessel;
 
 /**
  * Diese Klasse kapselt einen typsicheren Zugriff auf ein Properties-Objekt.
- * 
- * 
+ *
+ *
  */
 public class PropertyKonfiguration extends AbstractKonfiguration implements Konfiguration {
+
     /**
      * Gekapselte Properties.
      */
     private Properties properties;
+
+    /**
+     * Sortiert und Filtert die Liste an Dateinamen.
+     */
+    private DateinamenSortiererUndFilterer dateinamenSortiererUndFilterer;
+
+    /**
+     * Logger der Klasse.
+     */
+    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(PropertyKonfiguration.class);
 
     /**
      * Erzeuge neue Instanz für angegebene Properties.
@@ -50,9 +64,57 @@ public class PropertyKonfiguration extends AbstractKonfiguration implements Konf
      * Erzeuge neue Instanz für angegebene Properties. Die angegebenen Property-Dateien werden relativ zum
      * Klassenpfad per {@link ClassLoader#getResourceAsStream(String)} geladen, wobei der {@link ClassLoader}
      * über die Klasse von {@link PropertyKonfiguration} anhand {@link Class#getClassLoader()} ermittelt wird.
-     * 
+     *
      * Alle angegebenen Property-Datei werden zu einer gemeinsamen Konfiguration vereinigt.
-     * 
+     *
+     * @param propertyLocation
+     *            der Pfad zum Ordner der Properties-Dateien relativ zum Classpath. Im Gegensatz zu
+     *            {@link ReloadablePropertyKonfiguration#ReloadablePropertyKonfiguration(String[])} dürfen die
+     *            Pfade nicht mit "/" anfangen. Ein gültiger Pfad ist z.B. "config/test.properties". Der Pfad
+     *            muss mit einem "/" enden.
+     */
+    public PropertyKonfiguration(String propertyLocation) {
+        if (propertyLocation.endsWith("/")) {
+            this.dateinamenSortiererUndFilterer = new DateinamenSortiererUndFilterer();
+            this.properties = ladeMergedProperties(propertyLocation);
+        } else {
+            throw new KonfigurationDateiException(NachrichtenSchluessel.ERR_PROPERTY_ORDNER_PFAD,
+                propertyLocation);
+        }
+    }
+
+    /**
+     * Erzeuge neue Instanz für angegebene Properties. Die angegebenen Property-Dateien werden relativ zum
+     * Klassenpfad per {@link ClassLoader#getResourceAsStream(String)} geladen, wobei der {@link ClassLoader}
+     * über die Klasse von {@link PropertyKonfiguration} anhand {@link Class#getClassLoader()} ermittelt wird.
+     *
+     * Alle angegebenen Property-Datei werden zu einer gemeinsamen Konfiguration vereinigt.
+     *
+     * @param propertyLocation
+     *            der Pfad zum Ordner der Properties-Dateien relativ zum Classpath. Im Gegensatz zu
+     *            {@link ReloadablePropertyKonfiguration#ReloadablePropertyKonfiguration(String[])} dürfen die
+     *            Pfade nicht mit "/" anfangen. Ein gültiger Pfad ist z.B. "config/test.properties". Der Pfad
+     *            muss mit einem "/" enden.
+     * @param namensSchema
+     *            dem die Dateinamen entsprechen müssen.
+     */
+    public PropertyKonfiguration(String propertyLocation, String namensSchema) {
+        if (propertyLocation.endsWith("/")) {
+            this.dateinamenSortiererUndFilterer = new DateinamenSortiererUndFilterer(namensSchema);
+            this.properties = ladeMergedProperties(propertyLocation);
+        } else {
+            throw new KonfigurationDateiException(NachrichtenSchluessel.ERR_PROPERTY_ORDNER_PFAD,
+                propertyLocation);
+        }
+    }
+
+    /**
+     * Erzeuge neue Instanz für angegebene Properties. Die angegebenen Property-Dateien werden relativ zum
+     * Klassenpfad per {@link ClassLoader#getResourceAsStream(String)} geladen, wobei der {@link ClassLoader}
+     * über die Klasse von {@link PropertyKonfiguration} anhand {@link Class#getClassLoader()} ermittelt wird.
+     *
+     * Alle angegebenen Property-Datei werden zu einer gemeinsamen Konfiguration vereinigt.
+     *
      * @param propertyLocations
      *            die Pfade zu der Properties-Dateien relativ zum Classpath. Im Gegensatz zu
      *            {@link ReloadablePropertyKonfiguration#ReloadablePropertyKonfiguration(String[])} dürfen die
@@ -64,16 +126,22 @@ public class PropertyKonfiguration extends AbstractKonfiguration implements Konf
 
     /**
      * Lädt alle Properties von dem {@link ClassLoader} und fasst sie zu einem Properties-Objekt zusammen.
-     * 
+     *
      * @return die gemergten Properties.
      */
     private Properties ladeMergedProperties(List<String> propertyLocations) {
         Properties gesamtProperties = new Properties();
         for (String propertyLocation : propertyLocations) {
             if (RessourcenHelper.istOrdner(propertyLocation)) {
-                Set<String> propertyDateien = RessourcenHelper.ladePropertiesAusOrdner(propertyLocation);
-                for (String propertyDatei : propertyDateien) {
-                    gesamtProperties.putAll(ladeProperties(propertyDatei));
+                if (propertyLocation.endsWith("/")) {
+                    Set<String> propertyDateien = RessourcenHelper.ladePropertiesAusOrdner(propertyLocation);
+
+                    for (String propertyDatei : propertyDateien) {
+                        gesamtProperties.putAll(ladeProperties(propertyDatei));
+                    }
+                } else {
+                    LOG.info(LogKategorie.JOURNAL, NachrichtenSchluessel.ERR_PROPERTY_ORDNER_PFAD,
+                        "Der Pfad des Property-Ordners {} sollte mit einem /  enden.", propertyLocation);
                 }
             } else {
                 gesamtProperties.putAll(ladeProperties(propertyLocation));
@@ -83,8 +151,33 @@ public class PropertyKonfiguration extends AbstractKonfiguration implements Konf
     }
 
     /**
+     * Lädt alle Properties von dem {@link ClassLoader} und fasst sie zu einem Properties-Objekt zusammen.
+     *
+     * @param propertyLocation
+     *            der Pfad zum Ordner der Properties-Dateien relativ zum Classpath. Im Gegensatz zu
+     *            {@link ReloadablePropertyKonfiguration#ReloadablePropertyKonfiguration(String[])} dürfen die
+     *            Pfade nicht mit "/" anfangen. Ein gültiger Pfad ist z.B. "config/test.properties". Der Pfad
+     *            muss mit einem "/" enden.
+     * @return die gemergten Properties.
+     */
+    private Properties ladeMergedProperties(String propertyLocation) {
+        Properties gesamtProperties = new Properties();
+        if (RessourcenHelper.istOrdner(propertyLocation)) {
+            Set<String> propertyDateien = RessourcenHelper.ladePropertiesAusOrdner(propertyLocation);
+
+            List<String> propertyDateienList =
+                this.dateinamenSortiererUndFilterer.sortiereUndFiltereDateinamenAusStringSet(propertyDateien);
+
+            for (String propertyDatei : propertyDateienList) {
+                gesamtProperties.putAll(ladeProperties(propertyDatei));
+            }
+        }
+        return gesamtProperties;
+    }
+
+    /**
      * Lädt ein {@link Properties}-Objekt von dem {@link ClassLoader}.
-     * 
+     *
      * @return das geladene {@link Properties}-Objekt
      */
     private Properties ladeProperties(String propertyLocation) {

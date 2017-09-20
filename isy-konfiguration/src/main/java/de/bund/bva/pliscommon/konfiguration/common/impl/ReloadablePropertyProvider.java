@@ -16,7 +16,6 @@
  */
 package de.bund.bva.pliscommon.konfiguration.common.impl;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -36,6 +35,8 @@ import de.bund.bva.pliscommon.konfiguration.common.konstanten.NachrichtenSchlues
  *
  */
 public class ReloadablePropertyProvider {
+
+    private DateinamenSortiererUndFilterer dateinamenSortiererUndFilterer;
 
     /**
      * Logger der Klasse.
@@ -58,25 +59,57 @@ public class ReloadablePropertyProvider {
     private List<String> propertyOrdner;
 
     /**
-     * Läd die angegebenen Property-Dateien aus dem Klassenpfad (siehe {@link Class#getResource(String)}).
-     * Wird statt einer konkreten Property-Datei ein ganzes Verzeichnis angegeben, werden alle dort
-     * befindlichen Property-Dateien ausgelesen. Die Properties-Dateien werden zu einem einzelnen
-     * Properties-Objekt zusammengefasst. Bei gleichnamigen Parametern in den Properties wird die zuletzt
-     * gelesene übernommen.
+     * Ruft ladePropertyDateien() auf.
      *
      * @param propertyDateinamen
      *            Liste mit Property-Dateinamen.
      *
      */
     public ReloadablePropertyProvider(String[] propertyDateinamen) {
+        this.dateinamenSortiererUndFilterer = new DateinamenSortiererUndFilterer();
+        ladePropertyDateien(propertyDateinamen);
+    }
+
+    /**
+     * Ruft ladePropertyDateien() auf.
+     *
+     * @param propertyDateinamen
+     *            Liste mit Property-Dateinamen.
+     * @param namensSchema
+     *            dem die Dateinamen entsprechen müssen.
+     *
+     */
+    public ReloadablePropertyProvider(String[] propertyDateinamen, String namensSchema) {
+
+        this.dateinamenSortiererUndFilterer = new DateinamenSortiererUndFilterer(namensSchema);
+        ladePropertyDateien(propertyDateinamen);
+    }
+
+    /**
+     * Lädt die angegebenen Property-Dateien aus dem Klassenpfad (siehe {@link Class#getResource(String)}),
+     * welche dem NamensSchema entsprechen. Wird statt einer konkreten Property-Datei ein ganzes Verzeichnis
+     * angegeben, werden alle dort befindlichen Property-Dateien ausgelesen. Die Properties-Dateien werden zu
+     * einem einzelnen Properties-Objekt zusammengefasst. Bei gleichnamigen Parametern in den Properties wird
+     * die zuletzt gelesene übernommen.
+     *
+     * @param propertyDateinamen
+     *            Liste mit Property-Dateinamen.
+     *
+     */
+    private void ladePropertyDateien(String[] propertyDateinamen) {
         this.propertyDateien = new ArrayList<PropertyDatei>();
         this.propertyOrdner = new ArrayList<String>();
         for (String dateiname : propertyDateinamen) {
             if (RessourcenHelper.istOrdner(dateiname)) {
-                for (String propertyInOrdner : RessourcenHelper.ladePropertiesAusOrdner(dateiname)) {
-                    this.propertyDateien.add(new PropertyDatei(propertyInOrdner));
+                if (dateiname.endsWith("/")) {
+                    for (String propertyInOrdner : RessourcenHelper.ladePropertiesAusOrdner(dateiname)) {
+                        this.propertyDateien.add(new PropertyDatei(propertyInOrdner));
+                    }
+                    this.propertyOrdner.add(dateiname);
+                } else {
+                    throw new KonfigurationDateiException(NachrichtenSchluessel.ERR_PROPERTY_ORDNER_PFAD,
+                        dateiname);
                 }
-                this.propertyOrdner.add(dateiname);
             } else {
                 this.propertyDateien.add(new PropertyDatei(dateiname));
             }
@@ -90,6 +123,10 @@ public class ReloadablePropertyProvider {
      */
     private Properties mergeProperties() {
         Properties gesamtProperties = new Properties();
+
+        this.propertyDateien = this.dateinamenSortiererUndFilterer
+            .sortiereUndFiltereDateinamenAusPropertyDateiList(this.propertyDateien);
+
         for (PropertyDatei propertyDatei : this.propertyDateien) {
             gesamtProperties.putAll(propertyDatei.getProperties());
         }
@@ -112,6 +149,7 @@ public class ReloadablePropertyProvider {
         boolean neueVersionGeladen = false;
         boolean propertyEntfernt = entferneGeloeschtePropertyDateien();
         boolean propertyHinzugefuegt = ladeNeuePropertyDateienAusOrdnern();
+
         for (PropertyDatei propertyDatei : this.propertyDateien) {
             if (propertyDatei.isNeueVersionVerfuegbar()) {
                 LOG.info(LogKategorie.JOURNAL, EreignisSchluessel.KONFIGURATION_DATEI_NEU_GELADEN,
@@ -141,19 +179,24 @@ public class ReloadablePropertyProvider {
     private boolean ladeNeuePropertyDateienAusOrdnern() {
         boolean propertyHinzugefuegt = false;
         for (String ordnerPfad : this.propertyOrdner) {
-            for (String dateiname : RessourcenHelper.ladePropertiesAusOrdner(ordnerPfad)) {
-                boolean propertyIstNeu = true;
-                for (PropertyDatei existierendeProperty : this.propertyDateien) {
-                    if (dateiname.equals(existierendeProperty.getDateiname())) {
-                        propertyIstNeu = false;
-                        break;
+            if (ordnerPfad.endsWith("/")) {
+                for (String dateiname : RessourcenHelper.ladePropertiesAusOrdner(ordnerPfad)) {
+                    boolean propertyIstNeu = true;
+                    for (PropertyDatei existierendeProperty : this.propertyDateien) {
+                        if (dateiname.equals(existierendeProperty.getDateiname())) {
+                            propertyIstNeu = false;
+                            break;
+                        }
+                    }
+
+                    if (propertyIstNeu) {
+                        propertyHinzugefuegt = true;
+                        this.propertyDateien.add(new PropertyDatei(dateiname));
                     }
                 }
-
-                if (propertyIstNeu) {
-                    propertyHinzugefuegt = true;
-                    this.propertyDateien.add(new PropertyDatei(dateiname));
-                }
+            } else {
+                LOG.info(LogKategorie.JOURNAL, NachrichtenSchluessel.ERR_PROPERTY_ORDNER_PFAD,
+                    "Der Pfad des Property-Ordners {} sollte mit einem /  enden.", ordnerPfad);
             }
         }
         return propertyHinzugefuegt;
