@@ -36,6 +36,7 @@ public class TaskHandlerImpl implements TaskHandler {
 	 * @return Task
 	 */
 	public synchronized Task createTask(TaskData taskData) throws CreateOperationInstanceException, HostNotApplicableException {
+	    Task task = null;
 		HostHandler hostHandler = new HostHandlerImpl();
 		if (hostHandler.isHostApplicable(taskData)) {
 			SecurityHandler securityHandler
@@ -44,7 +45,8 @@ public class TaskHandlerImpl implements TaskHandler {
 					taskData.getUsername(),
 					taskData.getPassword());
 
-			LocalDateTime executionDateTime = fetchExecutionDateTime(taskData);
+			ExecutionDateTimeHandler executionDateTimeHandler = new ExecutionDateTimeHandlerImpl();
+			LocalDateTime executionDateTime = executionDateTimeHandler.createExecutionDateTime(taskData);
 
 			OperationHandler operationHandler = new OperationHandlerImpl();
 			Operation operation = operationHandler.createOperationInstance(taskData);
@@ -54,29 +56,13 @@ public class TaskHandlerImpl implements TaskHandler {
 
 			operation.setFixedRate(fixedRate);
 
-			Task task = new TaskImpl(
+			task = new TaskImpl(
 					taskData.getId(),
 					securityAuthenticator,
 					executionDateTime,
 					operation
 			);
-			return task;
-		} else {
-			return null;
 		}
-	}
-
-	/**
-	 * Liefert den Zeitpunkt, bei dem der TaskData ausgeführt werden soll.
-	 *
-	 * @param taskData
-	 * @return
-	 */
-	private synchronized LocalDateTime fetchExecutionDateTime(TaskData taskData) {
-		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(KonfigurationStandardwerte.DEFAULT_DATETIME_PATTERN);
-		String sExecutionDateTime = taskData.getExecutionDateTime();
-		LocalDateTime executionDateTime = LocalDateTime.parse(sExecutionDateTime, dateTimeFormatter);
-		LOG.debug("prepareTask: ", " executionDateTime: " + executionDateTime);
-		return executionDateTime;
+		return task;
 	}
 }
