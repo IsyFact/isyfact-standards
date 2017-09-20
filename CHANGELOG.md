@@ -1,3 +1,6 @@
+# v1.5.0 (unveröffentlicht)
+- isy-konfiguration: Konfiguration kann jetzt beliebige Konfigurationsdateien lesen
+
 # v1.4.6
 - isy-sicherheit: Sonderlogik, die Underscores aus dem Attribut durchfuehrenderSachbearbeiterName des Aufrufkontextes entfernt, wieder eingebaut, da Ausbau erst für v1.5.x relevant.
 
