@@ -10,6 +10,7 @@ import java.time.temporal.TemporalAccessor;
 import java.util.Objects;
 import java.util.Optional;
 
+// TODO Verschieben nach de.bund.bva.isyfact.datetime.core
 /**
  * Darstellung eines ungewissen Datums. Ein Datum ist ungewiss, wenn Teile des Datums nicht bekannt sind.
  * <p>
@@ -32,11 +33,13 @@ public class UngewissesDatum {
     }
 
     private UngewissesDatum(int jahr) {
+        // TODO Minimumwerte aus ChronoField beziehen?
         this.anfang = LocalDate.of(jahr, 1, 1);
-        this.ende = LocalDate.of(jahr, 12, 31);
+        this.ende = anfang.plusYears(1).minusDays(1);
     }
 
     private UngewissesDatum(int jahr, int monat) {
+        // TODO Minimumwerte aus ChronoField beziehen?
         this.anfang = LocalDate.of(jahr, monat, 1);
         this.ende = anfang.plusMonths(1).minusDays(1);
     }
@@ -52,17 +55,22 @@ public class UngewissesDatum {
     }
 
     private static void pruefeJahr(int jahr) {
+        // TODO Wir schränken hier den Bereich ein. ChronoField.YEAR.checkValidIntValue(jahr) nutzen?
         if (jahr < 0 || jahr > 9999) {
+            // TODO Exception ohne Nachricht. Entfällt, wenn die Validierung von ChronoField benutzt wird.
             throw new DateTimeException(null);
         }
     }
 
     private static void pruefeMonat(int monat) {
+        // TODO ChronoField.MONTH_OF_YEAR.checkValidIntValue(monat) nutzen?
         if (monat < 0 || monat > 12) {
+            // TODO Exception ohne Nachricht. Entfällt, wenn die Validierung von ChronoField benutzt wird.
             throw new DateTimeException(null);
         }
     }
 
+    // TODO Diese Methode ist nicht gut zu verstehen. Validierungslogik entfernen und auf LocalDate vertrauen? Dort wird mit ChronoField validiert.
     private static void pruefeJahrMonatTag(int... feld) {
         for (int i = 0; i < feld.length - 1; i++) {
             if (feld[i] == 0 && feld[i + 1] > 0) {
@@ -189,7 +197,9 @@ public class UngewissesDatum {
         Objects.requireNonNull(vonInklusive);
         Objects.requireNonNull(bisInklusive);
 
+        // TODO Idee: Robust reagieren und Zeitraum einfach herumdrehen?
         if (bisInklusive.isBefore(vonInklusive) || vonInklusive.getYear() != bisInklusive.getYear()) {
+            // TODO Sprechende Fehlermeldung
             throw new DateTimeException(null);
         }
 
@@ -197,7 +207,7 @@ public class UngewissesDatum {
     }
 
     /**
-     * Parst eine ungewisses Datum.
+     * Parst ein ungewisses Datum.
      * <p>
      * Folgende Formate werden unterstützt:
      * <p>

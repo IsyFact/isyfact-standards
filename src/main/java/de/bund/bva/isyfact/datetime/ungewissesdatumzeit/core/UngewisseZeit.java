@@ -10,6 +10,7 @@ import java.time.temporal.TemporalAccessor;
 import java.util.Objects;
 import java.util.Optional;
 
+// TODO Verschieben nach de.bund.bva.isyfact.datetime.core
 /**
  * Darstellung einer ungewissen Zeit. Eine Zeit ist ungewiss, wenn Teile der Zeit nicht bekannt sind.
  * <p>
@@ -53,6 +54,7 @@ public class UngewisseZeit {
      * @return eine {@link UngewisseZeit} mit der Stunde gesetzt
      */
     public static UngewisseZeit of(int stunde) {
+        // TODO Maximum und Minimumwerte aus ChronoField beziehen?
         return new UngewisseZeit(LocalTime.of(stunde, 0, 0), LocalTime.of(stunde, 59, 59));
     }
 
@@ -66,6 +68,7 @@ public class UngewisseZeit {
      * @return eine {@link UngewisseZeit} mit der Stunde und Minute gesetzt
      */
     public static UngewisseZeit of(int stunde, int minute) {
+        // TODO Maximum und Minimumwerte aus ChronoField beziehen?
         return new UngewisseZeit(LocalTime.of(stunde, minute, 0), LocalTime.of(stunde, minute, 59));
     }
 
@@ -100,7 +103,9 @@ public class UngewisseZeit {
         Objects.requireNonNull(vonInklusive);
         Objects.requireNonNull(bisInklusive);
 
+        // TODO Idee: Robust reagieren und Zeitraum einfach herumdrehen?
         if (vonInklusive.isAfter(bisInklusive)) {
+            // TODO Sprechende Fehlermeldung
             throw new DateTimeException(null);
         }
 
@@ -223,6 +228,7 @@ public class UngewisseZeit {
         Objects.requireNonNull(text);
 
         if (text.isEmpty()) {
+            // TODO Sprechende Fehlermeldung
             throw new DateTimeParseException(null, text, 0);
         }
 

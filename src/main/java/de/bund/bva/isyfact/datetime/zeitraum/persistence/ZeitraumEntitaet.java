@@ -8,6 +8,7 @@ import javax.persistence.Id;
 
 import de.bund.bva.isyfact.datetime.zeitraum.core.Zeitraum;
 
+// TODO Verschieben nach de.bund.bva.isyfact.datetime.persistence
 /**
  * @author Björn Saxe, msg systems ag
  */

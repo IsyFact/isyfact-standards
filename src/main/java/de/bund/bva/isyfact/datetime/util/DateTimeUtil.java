@@ -18,6 +18,7 @@ import java.util.Objects;
  */
 public abstract class DateTimeUtil {
 
+    // TODO Nur schwer testbar! Die Anwendung muss die Clock immer bestimmen können. Daher würde ich diese Variable und die Hilfsmethoden entfernen.
     public static Clock CLOCK = Clock.systemDefaultZone();
 
     /**
@@ -39,6 +40,7 @@ public abstract class DateTimeUtil {
         Objects.requireNonNull(ende);
 
         if (ende.isBefore(anfang)) {
+            // TODO Sprechende Fehlermeldung
             throw new DateTimeException(null);
         }
 
@@ -66,6 +68,7 @@ public abstract class DateTimeUtil {
         Objects.requireNonNull(ende);
 
         if (ende.isBefore(anfang)) {
+            // TODO Sprechende Fehlermeldung
             throw new DateTimeException(null);
         }
 
@@ -81,6 +84,7 @@ public abstract class DateTimeUtil {
      * sind 0; <code>null</code>, wenn das übergebene Datum <code>null</code> ist.
      */
     public static LocalDate getJahresanfang(LocalDate datum) {
+        // TODO Minimumwerte aus ChronoField beziehen
         return datum == null ? null : datum.withDayOfYear(1);
     }
 
@@ -93,6 +97,7 @@ public abstract class DateTimeUtil {
      * sind 0; <code>null</code>, wenn das übergebene Datum <code>null</code> ist.
      */
     public static LocalDate getMonatsanfang(LocalDate datum) {
+        // TODO Minimumwerte aus ChronoField beziehen
         return datum == null ? null : datum.withDayOfMonth(1);
     }
 

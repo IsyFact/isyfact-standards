@@ -3,6 +3,7 @@ package de.bund.bva.isyfact.datetime.ungewissesdatumzeit.persistence;
 import java.time.LocalDate;
 import javax.persistence.Embeddable;
 
+// TODO Verschieben nach de.bund.bva.isyfact.datetime.persistence
 /**
  * {@link javax.persistence.Embeddable} zum Speichern eines {@link UngewissesDatum} in einer Entität.
  *

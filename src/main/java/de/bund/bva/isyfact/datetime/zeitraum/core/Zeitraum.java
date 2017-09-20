@@ -21,6 +21,7 @@ import java.util.function.Function;
 import de.bund.bva.isyfact.datetime.format.InFormat;
 import de.bund.bva.isyfact.datetime.format.OutFormat;
 
+// TODO Verschieben nach de.bund.bva.isyfact.datetime.core
 /**
  * Ein Zeitraum bestehend aus zwei Datums- oder Zeitangaben, die den Start und das Ende eines Zeitraums
  * markieren. Die Dauer des Zeitraums ist die Differenz aus Ende und Start.
@@ -43,6 +44,7 @@ public class Zeitraum implements Serializable {
     }
 
     private static ZonedDateTime getLocalDateTimeInJvmTimeZone(LocalDateTime localDateTime) {
+        // TODO Konfiguration der Zeitzone?
         return ZonedDateTime.of(localDateTime, ZoneId.systemDefault());
     }
 
@@ -59,7 +61,9 @@ public class Zeitraum implements Serializable {
         Objects.requireNonNull(anfang);
         Objects.requireNonNull(ende);
 
+        // TODO Idee: Robust reagieren und Zeitraum einfach herumdrehen?
         if (ende.isBefore(anfang)) {
+            // TODO Sprechende Fehlermeldung
             throw new DateTimeException(null);
         }
 
@@ -82,7 +86,9 @@ public class Zeitraum implements Serializable {
         Objects.requireNonNull(anfang);
         Objects.requireNonNull(dauer);
 
+        // TODO Idee: Robust reagieren und Zeitraum einfach herumdrehen?
         if (dauer.isNegative()) {
+            // TODO Sprechende Fehlermeldung
             throw new DateTimeException(null);
         }
 
@@ -105,7 +111,9 @@ public class Zeitraum implements Serializable {
         Objects.requireNonNull(anfang);
         Objects.requireNonNull(dauer);
 
+        // TODO Idee: Robust reagieren und Zeitraum einfach herumdrehen?
         if (dauer.isNegative()) {
+            // TODO Sprechende Fehlermeldung
             throw new DateTimeException(null);
         }
 
@@ -126,7 +134,9 @@ public class Zeitraum implements Serializable {
         Objects.requireNonNull(anfang);
         Objects.requireNonNull(ende);
 
+        // TODO Idee: Robust reagieren und Zeitraum einfach herumdrehen?
         if (ende.isBefore(anfang)) {
+            // TODO Sprechende Fehlermeldung
             throw new DateTimeException(null);
         }
 
@@ -150,7 +160,9 @@ public class Zeitraum implements Serializable {
         Objects.requireNonNull(anfang);
         Objects.requireNonNull(dauer);
 
+        // TODO Idee: Robust reagieren und Zeitraum einfach herumdrehen?
         if (dauer.isNegative()) {
+            // TODO Sprechende Fehlermeldung
             throw new DateTimeException(null);
         }
 
@@ -175,7 +187,9 @@ public class Zeitraum implements Serializable {
         Objects.requireNonNull(anfang);
         Objects.requireNonNull(dauer);
 
+        // TODO Idee: Robust reagieren und Zeitraum einfach herumdrehen?
         if (dauer.isNegative()) {
+            // TODO Sprechende Fehlermeldung
             throw new DateTimeException(null);
         }
 
@@ -196,13 +210,15 @@ public class Zeitraum implements Serializable {
         Objects.requireNonNull(anfang);
         Objects.requireNonNull(ende);
 
+        // TODO Idee: Robust reagieren und Zeitraum einfach herumdrehen?
         if (ende.isBefore(anfang)) {
+            // TODO Sprechende Fehlermeldung
             throw new DateTimeException(null);
         }
 
         ZonedDateTime zonedAnfang =
-            getLocalDateTimeInJvmTimeZone(LocalDateTime.of(anfang, LocalTime.of(0, 0)));
-        ZonedDateTime zonedEnde = getLocalDateTimeInJvmTimeZone(LocalDateTime.of(ende, LocalTime.of(0, 0)));
+            getLocalDateTimeInJvmTimeZone(LocalDateTime.of(anfang, LocalTime.MIDNIGHT));
+        ZonedDateTime zonedEnde = getLocalDateTimeInJvmTimeZone(LocalDateTime.of(ende, LocalTime.MIDNIGHT));
         return new Zeitraum(zonedAnfang, zonedEnde);
     }
 
@@ -222,12 +238,14 @@ public class Zeitraum implements Serializable {
         Objects.requireNonNull(anfang);
         Objects.requireNonNull(dauer);
 
+        // TODO Idee: Robust reagieren und Zeitraum einfach herumdrehen?
         if (dauer.isNegative()) {
+            // TODO Sprechende Fehlermeldung
             throw new DateTimeException(null);
         }
 
         ZonedDateTime zonedAnfang =
-            getLocalDateTimeInJvmTimeZone(LocalDateTime.of(anfang, LocalTime.of(0, 0)));
+            getLocalDateTimeInJvmTimeZone(LocalDateTime.of(anfang, LocalTime.MIDNIGHT));
         return new Zeitraum(zonedAnfang, zonedAnfang.plus(dauer));
     }
 
@@ -288,9 +306,11 @@ public class Zeitraum implements Serializable {
         Objects.requireNonNull(dauer);
 
         if (dauer.isNegative() || dauer.compareTo(Duration.ofDays(1)) > 0) {
+            // TODO Sprechende Fehlermeldung
             throw new DateTimeException(null);
         }
 
+        // TODO Clock muss konfigurierbar sein. Entweder müsste sie ein Parameter werden oder wir müssen einen Teil der Bibliothek vorkonfigurieren.
         ZonedDateTime anfangDate = ZonedDateTime.of(LocalDate.now(Clock.systemUTC()), anfang, ZoneOffset.UTC);
         ZonedDateTime endeDate = anfangDate.plus(dauer);
 
@@ -352,7 +372,7 @@ public class Zeitraum implements Serializable {
                 return Zeitraum.of(anfangLocalTime, (Duration) endeOderDauer);
             }
         }
-
+        // TODO Sprechende Fehlermeldung
         throw new DateTimeParseException(null, text, 0);
     }
 
@@ -366,6 +386,7 @@ public class Zeitraum implements Serializable {
         anfang.add(tryParse(InFormat::parseToOffsetTime, textAnfang));
         anfang.add(tryParse(InFormat::parseToLocalTime, textAnfang));
 
+        // TODO Sprechende Fehlermeldung
         return anfang.stream().filter(Objects::nonNull).findFirst()
             .orElseThrow(() -> new DateTimeParseException(null, textAnfang, 0));
     }
@@ -382,6 +403,7 @@ public class Zeitraum implements Serializable {
         endeOderDauer.add(tryParse(InFormat::parseToDuration, textEndeOderDauer));
         endeOderDauer.add(tryParse(InFormat::parseToPeriod, textEndeOderDauer));
 
+        // TODO Sprechende Fehlermeldung
         return endeOderDauer.stream().filter(Objects::nonNull).findFirst()
             .orElseThrow(() -> new DateTimeParseException(null, textEndeOderDauer, 0));
     }
@@ -396,6 +418,7 @@ public class Zeitraum implements Serializable {
 
     private static String[] getZeitraumAnfangUndEndeOderDauerString(String text) {
         if (text.isEmpty()) {
+            // TODO Sprechende Fehlermeldung
             throw new DateTimeParseException(null, text, 0);
         }
 
@@ -405,6 +428,7 @@ public class Zeitraum implements Serializable {
             teile[0] = text.split(", ")[0].trim();
             teile[1] = text.split(", ")[1].trim();
         } catch (Exception e) {
+            // TODO Sprechende Fehlermeldung
             throw new DateTimeParseException(null, text, 0);
         }
 
@@ -501,7 +525,7 @@ public class Zeitraum implements Serializable {
      * Zeiträume ohne Datum ist
      */
     public boolean ueberschneidetSichMit(Zeitraum zeitraum) {
-        if (zeitraum != null && ((ohneDatum && zeitraum.ohneDatum) || (!ohneDatum && !zeitraum.ohneDatum))) {
+        if (zeitraum != null && ohneDatum == zeitraum.ohneDatum) {
             return teilweiseUeberschneidung(this, zeitraum) || teilweiseUeberschneidung(zeitraum, this)
                 || kompletteUeberschneidung(this, zeitraum) || kompletteUeberschneidung(zeitraum, this)
                 || this.equals(zeitraum);
