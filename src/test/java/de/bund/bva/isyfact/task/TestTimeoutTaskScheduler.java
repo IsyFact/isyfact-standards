@@ -13,6 +13,7 @@ import de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel;
 import de.bund.bva.isyfact.task.konstanten.KonfigurationStandardwerte;
 import de.bund.bva.isyfact.task.model.Task;
 import de.bund.bva.isyfact.task.model.TaskData;
+import de.bund.bva.isyfact.task.model.TaskKonfiguration;
 import de.bund.bva.isyfact.task.security.SecurityAuthenticator;
 import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 import org.junit.After;
@@ -79,23 +80,23 @@ public class TestTimeoutTaskScheduler {
         when(konfiguration.getAsString("isyfact.task.taskTest1.executionDateTime"))
             .thenReturn(sExecutionDateTime);
 
-        when(konfiguration.getAsString("isyfact.task.taskTest1.hostName"))
+        when(konfiguration.getAsString("isyfact.task.taskTest1.host"))
             .thenReturn(InetAddress.getLocalHost().getHostName());
         when(konfiguration.getAsString("isyfact.task.taskTest1.operationName"))
             .thenReturn("de.bund.bva.isyfact.task.TestOperation1");
-        when(konfiguration.getAsString("isyfact.task.taskTest1.username")).thenReturn("MyTestUser1");
-        when(konfiguration.getAsString("isyfact.task.taskTest1.password")).thenReturn("MyTestPasswort1");
+        when(konfiguration.getAsString("isyfact.task.taskTest1.benutzer")).thenReturn("MyTestUser1");
+        when(konfiguration.getAsString("isyfact.task.taskTest1.passwort")).thenReturn("MyTestPasswort1");
 
         String id = konfiguration.getAsString("isyfact.task.taskTest1.id");
-        String username = konfiguration.getAsString("isyfact.task.taskTest1.username");
-        String password = konfiguration.getAsString("isyfact.task.taskTest1.password");
         String executionDateTime = konfiguration.getAsString("isyfact.task.taskTest1.executionDateTime");
         String operationName = konfiguration.getAsString("isyfact.task.taskTest1.operationName");
-        String hostName = konfiguration.getAsString("isyfact.task.taskTest1.hostName");
+
+        TaskKonfiguration taskKonfig = new TaskKonfiguration("taskTest1", konfiguration);
 
         TaskDataHandler taskDataHandler = new TaskDataHandlerImpl();
         TaskData taskData = taskDataHandler
-            .createTaskData(id, username, password, executionDateTime, operationName, hostName);
+            .createTaskData(id, taskKonfig.benutzer(), taskKonfig.passwort(), executionDateTime,
+                operationName, taskKonfig.beschraenkeAufHost());
 
         TaskHandler taskHandler = new TaskHandlerImpl();
         Task task = taskHandler.createTask(taskData);
@@ -118,15 +119,12 @@ public class TestTimeoutTaskScheduler {
 
 
     /**
-     *
-     *
      * @throws Exception
      */
     @Test
     public void testSchedule2() throws Exception {
 
-        when(konfiguration.getAsString("isyfact.task.taskTest2.id"))
-                .thenReturn("TaskTest2");
+        when(konfiguration.getAsString("isyfact.task.taskTest2.id")).thenReturn("TaskTest2");
 
         /*
          * Fake ExecutionDateTime to a delay of 5 seconds, in order to have the test repeatable.
@@ -135,16 +133,14 @@ public class TestTimeoutTaskScheduler {
         String sExecutionDateTime = genericExecutionDateTime.format(dateTimeFormatter);
         System.out.println("sExecutionDateTime:" + sExecutionDateTime);
         when(konfiguration.getAsString("isyfact.task.taskTest2.executionDateTime"))
-                .thenReturn(sExecutionDateTime);
+            .thenReturn(sExecutionDateTime);
 
         when(konfiguration.getAsString("isyfact.task.taskTest1.hostName"))
             .thenReturn(InetAddress.getLocalHost().getHostName());
         when(konfiguration.getAsString("isyfact.task.taskTest2.operationName"))
-                .thenReturn("de.bund.bva.isyfact.task.TestOperation2");
-        when(konfiguration.getAsString("isyfact.task.taskTest1.username"))
-                .thenReturn("MyTestUser2");
-        when(konfiguration.getAsString("isyfact.task.taskTest1.password"))
-                .thenReturn("MyTestPasswort2");
+            .thenReturn("de.bund.bva.isyfact.task.TestOperation2");
+        when(konfiguration.getAsString("isyfact.task.taskTest1.username")).thenReturn("MyTestUser2");
+        when(konfiguration.getAsString("isyfact.task.taskTest1.password")).thenReturn("MyTestPasswort2");
 
         String id = konfiguration.getAsString("isyfact.task.taskTest2.id");
         String username = konfiguration.getAsString("isyfact.task.taskTest2.username");
@@ -154,14 +150,8 @@ public class TestTimeoutTaskScheduler {
         String hostName = konfiguration.getAsString("isyfact.task.taskTest2.hostName");
 
         TaskDataHandler taskDataHandler = new TaskDataHandlerImpl();
-        TaskData taskData = taskDataHandler.createTaskData(
-                id,
-                username,
-                password,
-                executionDateTime,
-                operationName,
-                hostName
-        );
+        TaskData taskData = taskDataHandler
+            .createTaskData(id, username, password, executionDateTime, operationName, hostName);
 
         TaskHandler taskHandler = new TaskHandlerImpl();
         Task task = taskHandler.createTask(taskData);
@@ -188,6 +178,5 @@ public class TestTimeoutTaskScheduler {
     @After
     public void tearDown() {
     }
-
 
 }

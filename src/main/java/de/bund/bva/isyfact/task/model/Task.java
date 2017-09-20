@@ -1,5 +1,6 @@
 package de.bund.bva.isyfact.task.model;
 
+import de.bund.bva.isyfact.task.konstanten.Ausfuehrungsplan;
 import de.bund.bva.isyfact.task.security.SecurityAuthenticator;
 
 import java.time.LocalDateTime;
@@ -41,4 +42,7 @@ public interface Task {
 	LocalDateTime getExecutionEndDateTime();
 
 	void setExecutionEndDateTime(LocalDateTime executionEndDateTime);
+
+	Ausfuehrungsplan getAusfuehrungsplan();
+
 }

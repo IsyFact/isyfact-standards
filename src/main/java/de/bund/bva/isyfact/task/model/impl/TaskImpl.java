@@ -1,5 +1,6 @@
 package de.bund.bva.isyfact.task.model.impl;
 
+import de.bund.bva.isyfact.task.konstanten.Ausfuehrungsplan;
 import de.bund.bva.isyfact.task.model.FixedRate;
 import de.bund.bva.isyfact.task.model.Operation;
 import de.bund.bva.isyfact.task.model.Task;
@@ -117,4 +118,8 @@ public class TaskImpl implements Task {
         this.operation.set(operation);
     }
 
+    @Override
+    public Ausfuehrungsplan getAusfuehrungsplan() {
+        return null;
+    }
 }
