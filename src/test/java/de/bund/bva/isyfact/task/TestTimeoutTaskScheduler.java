@@ -1,11 +1,8 @@
 package de.bund.bva.isyfact.task;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.when;
-
+import java.net.InetAddress;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.concurrent.ScheduledFuture;
 
 import de.bund.bva.isyfact.task.handler.TaskDataHandler;
 import de.bund.bva.isyfact.task.handler.TaskHandler;
@@ -22,8 +19,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Tester for the TaskData Scheduler Class.
@@ -32,14 +33,13 @@ import org.mockito.runners.MockitoJUnitRunner;
  *
  * @author Alexander Salvanos, msg systems ag
  */
-@RunWith(MockitoJUnitRunner.class)
-public class TestTimeoutTaskScheduler  {
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "/spring/timertask.xml" })
+public class TestTimeoutTaskScheduler {
 
-    @Mock
-    private Konfiguration konfiguration;
+    private Konfiguration konfiguration = mock(Konfiguration.class);
 
-    @Mock
-    private SecurityAuthenticator securityAuthenticator;
+    private SecurityAuthenticator securityAuthenticator = mock(SecurityAuthenticator.class);
 
     private DateTimeFormatter dateTimeFormatter;
 
@@ -49,32 +49,26 @@ public class TestTimeoutTaskScheduler  {
     @Before
     public void setUp() {
         when(konfiguration.getAsString("isyfact.task.standard.date_time_pattern"))
-                .thenReturn("dd.MM.yyyy HH:mm:ss.SSS");
-        when(konfiguration.getAsInteger("isyfact.task.standard.amount_of_threads"))
-                .thenReturn(100);
+            .thenReturn("dd.MM.yyyy HH:mm:ss.SSS");
+        when(konfiguration.getAsInteger("isyfact.task.standard.amount_of_threads")).thenReturn(100);
 
-        String dateTimePattern = konfiguration.getAsString(
-                KonfigurationSchluessel.DATETIME_PATTERN,
-                KonfigurationStandardwerte.DEFAULT_DATETIME_PATTERN);
+        String dateTimePattern = konfiguration.getAsString(KonfigurationSchluessel.DATETIME_PATTERN,
+            KonfigurationStandardwerte.DEFAULT_DATETIME_PATTERN);
 
         // TODO Konfiguration funktioniert nicht! Warum?
         dateTimePattern = "dd.MM.yyyy HH:mm:ss.SSS";
 
-        dateTimeFormatter =
-                DateTimeFormatter.ofPattern(dateTimePattern);
+        dateTimeFormatter = DateTimeFormatter.ofPattern(dateTimePattern);
 
     }
 
     /**
-     *
-     *
      * @throws Exception
      */
     @Test
     public void testSchedule1() throws Exception {
 
-        when(konfiguration.getAsString("isyfact.task.taskTest1.id"))
-                .thenReturn("TaskTest1");
+        when(konfiguration.getAsString("isyfact.task.taskTest1.id")).thenReturn("TaskTest1");
 
         /*
          * Fake ExecutionDateTime to a delay of 5 seconds, in order to have the test repeatable.
@@ -83,16 +77,14 @@ public class TestTimeoutTaskScheduler  {
         String sExecutionDateTime = genericExecutionDateTime.format(dateTimeFormatter);
         System.out.println("sExecutionDateTime:" + sExecutionDateTime);
         when(konfiguration.getAsString("isyfact.task.taskTest1.executionDateTime"))
-                .thenReturn(sExecutionDateTime);
+            .thenReturn(sExecutionDateTime);
 
         when(konfiguration.getAsString("isyfact.task.taskTest1.hostName"))
-                .thenReturn("isyfact-VirtualBox");
+            .thenReturn(InetAddress.getLocalHost().getHostName());
         when(konfiguration.getAsString("isyfact.task.taskTest1.operationName"))
-                .thenReturn("de.bund.bva.isyfact.task.TestOperation1");
-        when(konfiguration.getAsString("isyfact.task.taskTest1.username"))
-                .thenReturn("MyTestUser1");
-        when(konfiguration.getAsString("isyfact.task.taskTest1.password"))
-                .thenReturn("MyTestPasswort1");
+            .thenReturn("de.bund.bva.isyfact.task.TestOperation1");
+        when(konfiguration.getAsString("isyfact.task.taskTest1.username")).thenReturn("MyTestUser1");
+        when(konfiguration.getAsString("isyfact.task.taskTest1.password")).thenReturn("MyTestPasswort1");
 
         String id = konfiguration.getAsString("isyfact.task.taskTest1.id");
         String username = konfiguration.getAsString("isyfact.task.taskTest1.username");
@@ -102,14 +94,8 @@ public class TestTimeoutTaskScheduler  {
         String hostName = konfiguration.getAsString("isyfact.task.taskTest1.hostName");
 
         TaskDataHandler taskDataHandler = new TaskDataHandlerImpl();
-        TaskData taskData = taskDataHandler.createTaskData(
-                id,
-                username,
-                password,
-                executionDateTime,
-                operationName,
-                hostName
-        );
+        TaskData taskData = taskDataHandler
+            .createTaskData(id, username, password, executionDateTime, operationName, hostName);
 
         TaskHandler taskHandler = new TaskHandlerImpl();
         Task task = taskHandler.createTask(taskData);
@@ -151,8 +137,8 @@ public class TestTimeoutTaskScheduler  {
         when(konfiguration.getAsString("isyfact.task.taskTest2.executionDateTime"))
                 .thenReturn(sExecutionDateTime);
 
-        when(konfiguration.getAsString("isyfact.task.taskTest2.hostName"))
-                .thenReturn("isyfact-VirtualBox");
+        when(konfiguration.getAsString("isyfact.task.taskTest1.hostName"))
+            .thenReturn(InetAddress.getLocalHost().getHostName());
         when(konfiguration.getAsString("isyfact.task.taskTest2.operationName"))
                 .thenReturn("de.bund.bva.isyfact.task.TestOperation2");
         when(konfiguration.getAsString("isyfact.task.taskTest1.username"))
