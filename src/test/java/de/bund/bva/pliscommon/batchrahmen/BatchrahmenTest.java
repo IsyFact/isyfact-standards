@@ -92,6 +92,8 @@ public class BatchrahmenTest implements ApplicationContextAware {
     public void testBatchrahmenMitTestBatchLauncher() throws IOException {
         TestBatchLauchner batchLauncher =
             new TestBatchLauchner("/resources/batch/basic-test-batch-1-config.properties");
+        // TODO Assert überprüfen, scheint falsch zu sein. Wartezeit notwendig, sonst wird eine
+        // NullPointerException geworfen.
         assertEquals(0, batchLauncher.starteBatch(BatchStartTyp.START,
             "/testOutput/batch-1_out_TestBatchLauncher.xml", null));
         assertEquals("beendet", getBatchStatus("basicTestBatch-1").getBatchStatus());
@@ -127,6 +129,7 @@ public class BatchrahmenTest implements ApplicationContextAware {
 
         assertEquals(2, BatchLauncher.run(new String[] { "-start", "-cfg",
             "/resources/batch/error-test-batch-1-config.properties", "-initError", "true" }));
+        // TODO Assert überprüfen, scheint falsch zu sein
         assertEquals("beendet", getBatchStatus("errorTestBatch-1").getBatchStatus());
 
         // Test nach Abbruch
@@ -149,6 +152,7 @@ public class BatchrahmenTest implements ApplicationContextAware {
             "/resources/batch/error-test-batch-1-config.properties", "-laufError", "true" }));
         assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1").getBatchStatus());
 
+        // TODO Assert überprüfen, scheint falsch zu sein
         assertEquals(3, BatchLauncher.run(new String[] { "-start", "-cfg",
             "/resources/batch/error-test-batch-1-config.properties", "-laufError", "true" }));
         assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1").getBatchStatus());
