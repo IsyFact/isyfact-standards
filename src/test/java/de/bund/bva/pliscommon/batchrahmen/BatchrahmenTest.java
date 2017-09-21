@@ -93,7 +93,7 @@ public class BatchrahmenTest implements ApplicationContextAware {
         TestBatchLauchner batchLauncher =
             new TestBatchLauchner("/resources/batch/basic-test-batch-1-config.properties");
         assertEquals(0, batchLauncher.starteBatch(BatchStartTyp.START,
-            "c:/testOutput/batch-1_out_TestBatchLauncher.xml", null));
+            "/testOutput/batch-1_out_TestBatchLauncher.xml", null));
         assertEquals("beendet", getBatchStatus("basicTestBatch-1").getBatchStatus());
     }
 
