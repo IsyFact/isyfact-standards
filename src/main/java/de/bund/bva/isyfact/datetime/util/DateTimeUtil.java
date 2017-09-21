@@ -11,6 +11,8 @@ import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
+import de.bund.bva.isyfact.datetime.zeitraum.core.Zeitraum;
+
 /**
  * Utility-Funktionen für Datums- und Zeitberechnungen.
  *
@@ -19,6 +21,8 @@ import java.util.Objects;
 public abstract class DateTimeUtil {
 
     // TODO Nur schwer testbar! Die Anwendung muss die Clock immer bestimmen können. Daher würde ich diese Variable und die Hilfsmethoden entfernen.
+    // TODO Idee: Builder aus der Klasse erstellen. Konstruktor mit Clock bereitstellen (kann dann lokal oder als Spring Bean instanziiert werden).
+    // TODO Idee: Außerdem eine Standardinstanz mit einer Standardclock bereitstellen.
     public static Clock CLOCK = Clock.systemDefaultZone();
 
     /**
