@@ -44,7 +44,7 @@ public class Zeitraum implements Serializable {
     }
 
     private static ZonedDateTime getLocalDateTimeInJvmTimeZone(LocalDateTime localDateTime) {
-        // TODO Konfiguration der Zeitzone?
+        // TODO: Konfiguration der Zeitzone?
         return ZonedDateTime.of(localDateTime, ZoneId.systemDefault());
     }
 
@@ -310,7 +310,6 @@ public class Zeitraum implements Serializable {
             throw new DateTimeException(null);
         }
 
-        // TODO Clock muss konfigurierbar sein. Entweder müsste sie ein Parameter werden oder wir müssen einen Teil der Bibliothek vorkonfigurieren.
         ZonedDateTime anfangDate = ZonedDateTime.of(LocalDate.now(Clock.systemUTC()), anfang, ZoneOffset.UTC);
         ZonedDateTime endeDate = anfangDate.plus(dauer);
 

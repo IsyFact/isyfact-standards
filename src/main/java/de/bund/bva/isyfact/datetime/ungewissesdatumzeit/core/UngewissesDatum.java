@@ -11,6 +11,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 // TODO Verschieben nach de.bund.bva.isyfact.datetime.core
+// TODO Generell: Konstruktor mit Entität?
 /**
  * Darstellung eines ungewissen Datums. Ein Datum ist ungewiss, wenn Teile des Datums nicht bekannt sind.
  * <p>
