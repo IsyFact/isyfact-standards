@@ -129,7 +129,8 @@ public class BatchrahmenTest implements ApplicationContextAware {
 
         assertEquals(2, BatchLauncher.run(new String[] { "-start", "-cfg",
             "/resources/batch/error-test-batch-1-config.properties", "-initError", "true" }));
-        // TODO Assert überprüfen, scheint falsch zu sein
+        // TODO: batchStatus kann nicht "beendet" sein, da "-initError" true ist und deswegen eine Exception
+        // geworfen wird.
         assertEquals("beendet", getBatchStatus("errorTestBatch-1").getBatchStatus());
 
         // Test nach Abbruch
@@ -152,9 +153,8 @@ public class BatchrahmenTest implements ApplicationContextAware {
             "/resources/batch/error-test-batch-1-config.properties", "-laufError", "true" }));
         assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1").getBatchStatus());
 
-        // TODO Assert überprüfen, scheint falsch zu sein
         assertEquals(3, BatchLauncher.run(new String[] { "-start", "-cfg",
-            "/resources/batch/error-test-batch-1-config.properties", "-laufError", "true" }));
+            "/resources/batch/error-test-batch-1-config.properties", "laufzeit", "true" }));
         assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1").getBatchStatus());
 
         assertEquals(0, BatchLauncher.run(new String[] { "-start", "-ignoriereRestart", "-cfg",
