@@ -58,11 +58,6 @@ Liste aller Abhängigkeiten zu Drittsoftware gruppiert nach deren Lizenzen. Kein
 
         * Java Transaction API (javax.transaction:jta:1.1 - http://java.sun.com/products/jta)
         * servlet-api (javax.servlet:servlet-api:2.5 - no url defined)
-		
-		Oracle Technology Network Development and Distribution License Terms:
-		
-				* ojdbc7 (com.oracle:ojdbc7:12.1.0.2 - no url defined)
-				* ucp (com.oracle:ucp:12.1.0.1.0 - no url defined)
 				
     Eclipse Distribution License, Version 1.0:
 				

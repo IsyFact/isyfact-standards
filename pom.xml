@@ -104,7 +104,7 @@
             <artifactId>spring-jdbc</artifactId>
         </dependency>
 
-        <!-- JTA, Oracle -->
+        <!-- JTA -->
         <dependency>
             <groupId>javax.transaction</groupId>
             <artifactId>jta</artifactId>
@@ -127,7 +127,7 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>1.4.196</version>
-<!--             <scope>runtime</scope> -->
+            <scope>test</scope>
         </dependency>
 
         <!-- Hibernate -->
