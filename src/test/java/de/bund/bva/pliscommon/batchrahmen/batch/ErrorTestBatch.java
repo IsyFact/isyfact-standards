@@ -21,8 +21,8 @@ import java.util.Date;
 import de.bund.bva.pliscommon.batchrahmen.batch.exception.BatchAusfuehrungsException;
 import de.bund.bva.pliscommon.batchrahmen.batch.konfiguration.BatchKonfiguration;
 import de.bund.bva.pliscommon.batchrahmen.batch.protokoll.BatchErgebnisProtokoll;
-import de.bund.bva.pliscommon.batchrahmen.batch.rahmen.BatchAusfuehrungsBean;
 import de.bund.bva.pliscommon.batchrahmen.batch.rahmen.AuthenticationCredentials;
+import de.bund.bva.pliscommon.batchrahmen.batch.rahmen.BatchAusfuehrungsBean;
 import de.bund.bva.pliscommon.batchrahmen.batch.rahmen.BatchStartTyp;
 import de.bund.bva.pliscommon.batchrahmen.batch.rahmen.VerarbeitungsErgebnis;
 
@@ -31,12 +31,15 @@ public class ErrorTestBatch implements BatchAusfuehrungsBean {
 
     private BatchKonfiguration konfiguration;
 
+    @Override
     public void batchBeendet() {
     }
 
+    @Override
     public void checkpointGeschrieben(long satzNummer) throws BatchAusfuehrungsException {
     }
 
+    @Override
     public int initialisieren(BatchKonfiguration konfiguration, long satzNummer, String dbKey,
         BatchStartTyp startTyp, Date datumLetzterErfolg, BatchErgebnisProtokoll protokoll)
         throws BatchAusfuehrungsException {
@@ -44,24 +47,34 @@ public class ErrorTestBatch implements BatchAusfuehrungsBean {
         if (konfiguration.getAsBoolean("initError", false)) {
             throw new RuntimeException("Abbruch in Init");
         }
-        return count;
+        return this.count;
     }
 
+    @Override
     public VerarbeitungsErgebnis verarbeiteSatz() throws BatchAusfuehrungsException {
-        count--;
-        if (count < 10 && konfiguration.getAsBoolean("laufError", false)) {
+        // Mit dem Flag 'laufErrorSofort' kann ein Abbruch des Batches noch vor der Verarbeitung des ersten
+        // Satzes simuliert werden.
+        if (this.konfiguration.getAsBoolean("laufErrorSofort", false)) {
+            throw new RuntimeException("Sofortiger Abbruch in verarbeite Satz");
+        }
+
+        // Alternativ kann mit dem Flag 'laufError' ebenfalls ein Abbruch simuliert werden. Allerdings werden
+        // hier bereits Sätze verarbeitet, bevor es zu dem Abbruch kommt.
+        this.count--;
+        if (this.count < 10 && this.konfiguration.getAsBoolean("laufError", false)) {
             throw new RuntimeException("Abbruch in verarbeite Satz");
         }
-        return new VerarbeitungsErgebnis("" + count, count == 0);
+        return new VerarbeitungsErgebnis("" + this.count, this.count == 0);
     }
 
+    @Override
     public void rollbackDurchgefuehrt() {
     }
 
     /**
-     * Dieser Batch verwendet keine Sicherung.
-     * {@inheritDoc}
+     * Dieser Batch verwendet keine Sicherung. {@inheritDoc}
      */
+    @Override
     public AuthenticationCredentials getAuthenticationCredentials(BatchKonfiguration konfiguration) {
         return null;
     }
@@ -72,7 +85,7 @@ public class ErrorTestBatch implements BatchAusfuehrungsBean {
     @Override
     public void vorCheckpointGeschrieben(long satzNummer) throws BatchAusfuehrungsException {
         // TODO Auto-generated method stub
-        
+
     }
 
     /**
@@ -81,7 +94,7 @@ public class ErrorTestBatch implements BatchAusfuehrungsBean {
     @Override
     public void vorRollbackDurchgefuehrt() {
         // TODO Auto-generated method stub
-        
+
     }
 
 }
