@@ -58,7 +58,6 @@
     </bean>
 
 <jdbc:embedded-database id="appDataSource" type="H2">
-  <jdbc:script location="/sql/tabellen-loeschen.sql" />
   <jdbc:script location="/sql/tabellen-erzeugen.sql" />
 </jdbc:embedded-database>
 

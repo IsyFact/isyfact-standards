@@ -14,7 +14,7 @@
  implied. See the License for the specific language governing
  permissions and limitations under the License.
 */
-CREATE TABLE BATCHSTATUS (
+CREATE TABLE IF NOT EXISTS BATCHSTATUS (
 		BATCHID VARCHAR2(255) NOT NULL,
 		BATCHNAME VARCHAR2(255),
 		BATCHSTATUS VARCHAR2(255),

@@ -94,8 +94,7 @@ public class BatchrahmenTest implements ApplicationContextAware {
             new TestBatchLauchner("/resources/batch/basic-test-batch-1-config.properties");
         // TODO Assert überprüfen, scheint falsch zu sein. Wartezeit notwendig, sonst wird eine
         // NullPointerException geworfen.
-        assertEquals(0, batchLauncher.starteBatch(BatchStartTyp.START,
-            "/testOutput/batch-1_out_TestBatchLauncher.xml", null));
+        assertEquals(0, batchLauncher.starteBatch(BatchStartTyp.START, null));
         assertEquals("beendet", getBatchStatus("basicTestBatch-1").getBatchStatus());
     }
 
@@ -105,10 +104,10 @@ public class BatchrahmenTest implements ApplicationContextAware {
      */
     @Test
     public void testBatchrahmen() throws IOException {
-        assertEquals(0,
-            BatchLauncher
-                .run(new String[] { "-start", "-cfg", "/resources/batch/basic-test-batch-1-config.properties",
-                    "-Batchrahmen.Ergebnisdatei", "/testOutput/batchRahmen.out.xml" }));
+        assertEquals(
+            0,
+            BatchLauncher.run(new String[] { "-start", "-cfg",
+                "/resources/batch/basic-test-batch-1-config.properties" }));
         assertEquals("beendet", getBatchStatus("basicTestBatch-1").getBatchStatus());
     }
 
@@ -119,27 +118,37 @@ public class BatchrahmenTest implements ApplicationContextAware {
      */
     @Test
     public void testFehlerInInit() throws IOException {
-        assertEquals(2, BatchLauncher.run(new String[] { "-start", "-cfg",
-            "/resources/batch/error-test-batch-1-config.properties", "-initError", "true" }));
+        assertEquals(
+            2,
+            BatchLauncher.run(new String[] { "-start", "-cfg",
+                "/resources/batch/error-test-batch-1-config.properties", "-initError", "true" }));
         assertEquals("neu", getBatchStatus("errorTestBatch-1").getBatchStatus());
 
-        assertEquals(0, BatchLauncher.run(new String[] { "-start", "-cfg",
-            "/resources/batch/error-test-batch-1-config.properties", "-initError", "false" }));
+        assertEquals(
+            0,
+            BatchLauncher.run(new String[] { "-start", "-cfg",
+                "/resources/batch/error-test-batch-1-config.properties", "-initError", "false" }));
         assertEquals("beendet", getBatchStatus("errorTestBatch-1").getBatchStatus());
 
-        assertEquals(2, BatchLauncher.run(new String[] { "-start", "-cfg",
-            "/resources/batch/error-test-batch-1-config.properties", "-initError", "true" }));
+        assertEquals(
+            2,
+            BatchLauncher.run(new String[] { "-start", "-cfg",
+                "/resources/batch/error-test-batch-1-config.properties", "-initError", "true" }));
         // TODO: batchStatus kann nicht "beendet" sein, da "-initError" true ist und deswegen eine Exception
         // geworfen wird.
         assertEquals("beendet", getBatchStatus("errorTestBatch-1").getBatchStatus());
 
         // Test nach Abbruch
-        assertEquals(2, BatchLauncher.run(new String[] { "-start", "-cfg",
-            "/resources/batch/error-test-batch-1-config.properties", "-laufError", "true" }));
+        assertEquals(
+            2,
+            BatchLauncher.run(new String[] { "-start", "-cfg",
+                "/resources/batch/error-test-batch-1-config.properties", "-laufError", "true" }));
         assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1").getBatchStatus());
 
-        assertEquals(2, BatchLauncher.run(new String[] { "-start", "-ignoriereRestart", "-cfg",
-            "/resources/batch/error-test-batch-1-config.properties", "-initError", "true" }));
+        assertEquals(
+            2,
+            BatchLauncher.run(new String[] { "-start", "-ignoriereRestart", "-cfg",
+                "/resources/batch/error-test-batch-1-config.properties", "-initError", "true" }));
         assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1").getBatchStatus());
     }
 
@@ -149,16 +158,22 @@ public class BatchrahmenTest implements ApplicationContextAware {
      */
     @Test
     public void testIgnoriereLauf() throws IOException {
-        assertEquals(2, BatchLauncher.run(new String[] { "-start", "-cfg",
-            "/resources/batch/error-test-batch-1-config.properties", "-laufError", "true" }));
+        assertEquals(
+            2,
+            BatchLauncher.run(new String[] { "-start", "-cfg",
+                "/resources/batch/error-test-batch-1-config.properties", "-laufError", "true" }));
         assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1").getBatchStatus());
 
-        assertEquals(3, BatchLauncher.run(new String[] { "-start", "-cfg",
-            "/resources/batch/error-test-batch-1-config.properties", "laufzeit", "true" }));
+        assertEquals(
+            3,
+            BatchLauncher.run(new String[] { "-start", "-cfg",
+                "/resources/batch/error-test-batch-1-config.properties", "-laufError", "true" }));
         assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1").getBatchStatus());
 
-        assertEquals(0, BatchLauncher.run(new String[] { "-start", "-ignoriereRestart", "-cfg",
-            "/resources/batch/error-test-batch-1-config.properties", "-laufError", "false" }));
+        assertEquals(
+            0,
+            BatchLauncher.run(new String[] { "-start", "-ignoriereRestart", "-cfg",
+                "/resources/batch/error-test-batch-1-config.properties", "-laufError", "false" }));
         assertEquals("beendet", getBatchStatus("errorTestBatch-1").getBatchStatus());
     }
 
@@ -168,34 +183,38 @@ public class BatchrahmenTest implements ApplicationContextAware {
      */
     @Test
     public void testRestart() throws IOException {
-        assertEquals(2,
-            BatchLauncher
-                .run(new String[] { "-start", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
-                    "-laufError", "true", "-Batchrahmen.Ergebnisdatei", "/restartBatch.xml" }));
+        assertEquals(
+            2,
+            BatchLauncher.run(new String[] { "-start", "-cfg",
+                "/resources/batch/error-test-batch-1-config.properties", "-laufError", "true",
+                "-Batchrahmen.Ergebnisdatei", "/restartBatch.xml" }));
         assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1").getBatchStatus());
         BatchProtokollTester bpt = new BatchProtokollTester("/restartBatch.xml");
         assertFalse(bpt.isStartmodusRestart());
 
-        assertEquals(3,
-            BatchLauncher
-                .run(new String[] { "-start", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
-                    "-laufError", "true", "-Batchrahmen.Ergebnisdatei", "/restartBatch.xml" }));
+        assertEquals(
+            3,
+            BatchLauncher.run(new String[] { "-start", "-cfg",
+                "/resources/batch/error-test-batch-1-config.properties", "-laufError", "true",
+                "-Batchrahmen.Ergebnisdatei", "/restartBatch.xml" }));
         assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1").getBatchStatus());
         bpt = new BatchProtokollTester("/restartBatch.xml");
         assertFalse(bpt.isStartmodusRestart());
 
-        assertEquals(2,
-            BatchLauncher.run(
-                new String[] { "-restart", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
-                    "-laufError", "true", "-Batchrahmen.Ergebnisdatei", "/restartBatch.xml" }));
+        assertEquals(
+            2,
+            BatchLauncher.run(new String[] { "-restart", "-cfg",
+                "/resources/batch/error-test-batch-1-config.properties", "-laufError", "true",
+                "-Batchrahmen.Ergebnisdatei", "/restartBatch.xml" }));
         assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1").getBatchStatus());
         bpt = new BatchProtokollTester("/restartBatch.xml");
         assertTrue(bpt.isStartmodusRestart());
 
-        assertEquals(0,
-            BatchLauncher.run(
-                new String[] { "-restart", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
-                    "-laufError", "false", "-Batchrahmen.Ergebnisdatei", "/restartBatch.xml" }));
+        assertEquals(
+            0,
+            BatchLauncher.run(new String[] { "-restart", "-cfg",
+                "/resources/batch/error-test-batch-1-config.properties", "-laufError", "false",
+                "-Batchrahmen.Ergebnisdatei", "/restartBatch.xml" }));
         assertEquals("beendet", getBatchStatus("errorTestBatch-1").getBatchStatus());
         bpt = new BatchProtokollTester("/restartBatch.xml");
         assertTrue(bpt.isStartmodusRestart());
@@ -240,8 +259,10 @@ public class BatchrahmenTest implements ApplicationContextAware {
         System.out.println("Manueller Test, siehe JavaDoc");
         TestBatchLauchner batchLauncher =
             new TestBatchLauchner("/resources/batch/infinite-test-batch-1-config.properties");
-        assertEquals(144, batchLauncher.starteBatch(BatchStartTyp.START, "/laufzeit_out.xml",
-            new String[] { "-laufzeit", "1" }));
+        assertEquals(
+            144,
+            batchLauncher.starteBatch(BatchStartTyp.START, "/laufzeit_out.xml", new String[] { "-laufzeit",
+                "1" }));
         BatchProtokollTester bpt = new BatchProtokollTester("/laufzeit_out.xml");
         assertTrue(bpt.enthaeltMeldungsId("MAX_LAUFZEIT_UEBERSCHRITTEN"));
     }
@@ -256,8 +277,8 @@ public class BatchrahmenTest implements ApplicationContextAware {
     public void testLaufzeitParameterOhneMinuten() throws IOException {
         TestBatchLauchner batchLauncher =
             new TestBatchLauchner("/resources/batch/basic-test-batch-1-config.properties");
-        assertEquals(3, batchLauncher.starteBatch(BatchStartTyp.START, "/laufzeit_out.xml",
-            new String[] { "-laufzeit" }));
+        assertEquals(3,
+            batchLauncher.starteBatch(BatchStartTyp.START, "/laufzeit_out.xml", new String[] { "-laufzeit" }));
     }
 
     /**
@@ -270,8 +291,10 @@ public class BatchrahmenTest implements ApplicationContextAware {
     public void testLaufzeitParameterOhneMinutenIgnoriereTestlauf() throws IOException {
         TestBatchLauchner batchLauncher =
             new TestBatchLauchner("/resources/batch/basic-test-batch-1-config.properties");
-        assertEquals(3, batchLauncher.starteBatch(BatchStartTyp.START, "/laufzeit_out.xml",
-            new String[] { "-laufzeit", "-ignoriereLauf" }));
+        assertEquals(
+            3,
+            batchLauncher.starteBatch(BatchStartTyp.START, "/laufzeit_out.xml", new String[] { "-laufzeit",
+                "-ignoriereLauf" }));
     }
 
     /**
@@ -282,7 +305,8 @@ public class BatchrahmenTest implements ApplicationContextAware {
      */
     @Test
     public void testLaufzeitParameterOhneMinutenAlsOption() throws Exception {
-        assertEquals(3,
+        assertEquals(
+            3,
             BatchLauncher.run(new String[] { "-start", "-laufzeit", "-cfg",
                 "/resources/batch/gesicherter-test-batch-1-config.properties", "-Batchrahmen.Ergebnisdatei",
                 "/testOutput/batchRahmen.out.xml" }));
@@ -298,8 +322,7 @@ public class BatchrahmenTest implements ApplicationContextAware {
     public void testLaufzeitParameterMinutenNichtNumerisch() throws IOException {
         TestBatchLauchner batchLauncher =
             new TestBatchLauchner("/resources/batch/basic-test-batch-1-config.properties");
-        assertEquals(4, batchLauncher.starteBatch(BatchStartTyp.START, "/testOutput/laufzeit_out.xml",
-            new String[] { "-laufzeit", "ABC" }));
+        assertEquals(4, batchLauncher.starteBatch(BatchStartTyp.START, new String[] { "-laufzeit", "ABC" }));
     }
 
     /**
@@ -346,10 +369,10 @@ public class BatchrahmenTest implements ApplicationContextAware {
      */
     @Test
     public void testGesicherterBatchGutFall() throws Exception {
-        assertEquals(0,
+        assertEquals(
+            0,
             BatchLauncher.run(new String[] { "-start", "-cfg",
-                "/resources/batch/gesicherter-test-batch-1-config.properties", "-Batchrahmen.Ergebnisdatei",
-                "/testOutput/batchRahmen.out.xml" }));
+                "/resources/batch/gesicherter-test-batch-1-config.properties" }));
         assertEquals("beendet", getBatchStatus("gesicherterTestBatch-1").getBatchStatus());
     }
 
@@ -361,10 +384,10 @@ public class BatchrahmenTest implements ApplicationContextAware {
      */
     @Test
     public void testGesicherterBatchLoginNichtMoeglich() throws Exception {
-        assertEquals(4,
+        assertEquals(
+            4,
             BatchLauncher.run(new String[] { "-start", "-cfg",
-                "/resources/batch/gesicherter-test-batch-2-config.properties", "-Batchrahmen.Ergebnisdatei",
-                "/testOutput/batchRahmen.out.xml" }));
+                "/resources/batch/gesicherter-test-batch-2-config.properties" }));
         assertEquals("abgebrochen", getBatchStatus("gesicherterTestBatch-2").getBatchStatus());
     }
 
@@ -376,10 +399,10 @@ public class BatchrahmenTest implements ApplicationContextAware {
      */
     @Test
     public void testGesicherterBatchNichtErforderlicheRolle() throws Exception {
-        assertEquals(4,
+        assertEquals(
+            4,
             BatchLauncher.run(new String[] { "-start", "-cfg",
-                "/resources/batch/gesicherter-test-batch-3-config.properties", "-Batchrahmen.Ergebnisdatei",
-                "/testOutput/batchRahmen.out.xml" }));
+                "/resources/batch/gesicherter-test-batch-3-config.properties" }));
         assertEquals("abgebrochen", getBatchStatus("gesicherterTestBatch-3").getBatchStatus());
     }
 
@@ -391,10 +414,10 @@ public class BatchrahmenTest implements ApplicationContextAware {
      */
     @Test
     public void testGesicherterBatch2GutFall() throws Exception {
-        assertEquals(0,
+        assertEquals(
+            0,
             BatchLauncher.run(new String[] { "-start", "-cfg",
-                "/resources/batch/gesicherter-test-batch2-1-config.properties", "-Batchrahmen.Ergebnisdatei",
-                "/testOutput/batchRahmen.out.xml" }));
+                "/resources/batch/gesicherter-test-batch2-1-config.properties" }));
         assertEquals("beendet", getBatchStatus("gesicherterTestBatch2-1").getBatchStatus());
     }
 
@@ -406,10 +429,10 @@ public class BatchrahmenTest implements ApplicationContextAware {
      */
     @Test
     public void testGesicherterBatch2LoginNichtMoeglich() throws Exception {
-        assertEquals(4,
+        assertEquals(
+            4,
             BatchLauncher.run(new String[] { "-start", "-cfg",
-                "/resources/batch/gesicherter-test-batch2-2-config.properties", "-Batchrahmen.Ergebnisdatei",
-                "/testOutput/batchRahmen.out.xml" }));
+                "/resources/batch/gesicherter-test-batch2-2-config.properties" }));
         // Da der Batch nicht gestartet ist, muss der Status noch auf neu stehen
         assertEquals("neu", getBatchStatus("gesicherterTestBatch2-2").getBatchStatus());
     }
@@ -422,10 +445,10 @@ public class BatchrahmenTest implements ApplicationContextAware {
      */
     @Test
     public void testGesicherterBatch2NichtErforderlicheRolle() throws Exception {
-        assertEquals(4,
+        assertEquals(
+            4,
             BatchLauncher.run(new String[] { "-start", "-cfg",
-                "/resources/batch/gesicherter-test-batch2-3-config.properties", "-Batchrahmen.Ergebnisdatei",
-                "/testOutput/batchRahmen.out.xml" }));
+                "/resources/batch/gesicherter-test-batch2-3-config.properties" }));
         // Da der Batch nicht gestartet ist, muss der Status noch auf neu stehen
         assertEquals("neu", getBatchStatus("gesicherterTestBatch2-3").getBatchStatus());
     }
@@ -439,8 +462,8 @@ public class BatchrahmenTest implements ApplicationContextAware {
     public void testReturnCodeTestBatch() throws IOException {
         TestBatchLauchner batchLauncher =
             new TestBatchLauchner("/resources/batch/returnCode-test-batch-1-config.properties");
-        assertEquals(BatchReturnCode.FEHLER_AUSGEFUEHRT.getWert(), batchLauncher.starteBatch(
-            BatchStartTyp.START, "/testOutput/batch-returnCode_out_TestBatchLauncher.xml", null));
+        assertEquals(BatchReturnCode.FEHLER_AUSGEFUEHRT.getWert(),
+            batchLauncher.starteBatch(BatchStartTyp.START, null));
         assertEquals("beendet", getBatchStatus("returnCodeTestBatch-1").getBatchStatus());
     }
 
