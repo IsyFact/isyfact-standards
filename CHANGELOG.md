@@ -1,4 +1,4 @@
-# v1.5.0
+# v1.5.0 (unveröffentlicht)
 - isy-logging: `IFS-52`: Erweiterte Typisierung der Logeintäge
 
 # v1.4.2
