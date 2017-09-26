@@ -11,7 +11,7 @@
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
         <artifactId>isyfact-base</artifactId>
-        <version>1.4.6</version>
+        <version>1.5.0-SNAPSHOT</version>
     </parent>
 
     <dependencies>
@@ -25,5 +25,13 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
+        
+             <dependency>
+            <groupId>de.bund.bva.isyfact</groupId>
+            <artifactId>isy-serviceapi-core</artifactId>
+            <version>1.6.0-SNAPSHOT</version>
+        </dependency>
+        
+        
     </dependencies>
 </project>

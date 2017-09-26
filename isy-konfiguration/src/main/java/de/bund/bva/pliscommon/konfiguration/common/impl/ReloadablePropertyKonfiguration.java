@@ -32,6 +32,7 @@ import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 import de.bund.bva.pliscommon.konfiguration.common.KonfigurationChangeListener;
 import de.bund.bva.pliscommon.konfiguration.common.ReloadableKonfiguration;
 import de.bund.bva.pliscommon.konfiguration.common.konstanten.EreignisSchluessel;
+import de.bund.bva.pliscommon.serviceapi.core.aufrufkontext.StelltLoggingKontextBereit;
 
 /**
  * Diese Klasse bietet einen typsicheren Zugriff auf eine Konfiguration {@link Konfiguration}. Dazu wird an
@@ -92,6 +93,7 @@ public class ReloadablePropertyKonfiguration implements ReloadableKonfiguration 
      * {@inheritDoc}
      */
     @Override
+    @StelltLoggingKontextBereit(nutzeAufrufKontext = false)
     public synchronized boolean checkAndUpdate() {
         LOG.debug("Prüfe auf geänderte Konfigurationsdateien.");
         boolean neueVersionGeladen = this.propertyProvider.checkAndUpdate();
@@ -128,8 +130,8 @@ public class ReloadablePropertyKonfiguration implements ReloadableKonfiguration 
                     // können, wenn sich die Konfiguration geändert hat.
                     notifyChangeListeners.addAll(this.konfigurationChangeListener);
                     for (KonfigurationChangeListener listener : notifyChangeListeners) {
-                        LOG.debug("Informiere {} über Konfigurationsänderung.", listener.getClass()
-                            .toString());
+                        LOG.debug("Informiere {} über Konfigurationsänderung.",
+                            listener.getClass().toString());
                         listener.onKonfigurationChanged(Collections.unmodifiableSet(geaenderteSchluessel));
                     }
                 }
@@ -178,7 +180,8 @@ public class ReloadablePropertyKonfiguration implements ReloadableKonfiguration 
                 if (!this.konfigurationChangeListener.contains(listener)) {
                     this.konfigurationChangeListener.add(listener);
                 } else {
-                    LOG.info(LogKategorie.JOURNAL, EreignisSchluessel.KONFIGURATION_LISTENER_NICHT_HINZUGEFUEGT,
+                    LOG.info(LogKategorie.JOURNAL,
+                        EreignisSchluessel.KONFIGURATION_LISTENER_NICHT_HINZUGEFUEGT,
                         "Listener wurde nicht hinzugefügt, da die gleiche Instanz bereits registriert ist.");
                 }
             }
