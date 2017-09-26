@@ -24,9 +24,10 @@ import java.lang.annotation.Target;
 /**
  * Kennzeichnet Operationen einer Exception-Fassade, an die ein AufrufKontextTo übermittelt wird, aus dem die
  * Korrelations-ID als Logging-Kontext bereitgestellt wird.
- * 
+ *
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.METHOD, ElementType.TYPE, ElementType.ANNOTATION_TYPE })
 public @interface StelltLoggingKontextBereit {
+    boolean nutzeAufrufKontext() default true;
 }

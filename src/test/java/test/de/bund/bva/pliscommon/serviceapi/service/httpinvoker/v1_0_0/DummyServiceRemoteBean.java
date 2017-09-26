@@ -18,16 +18,25 @@ package test.de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0;
 
 /**
  * RemoteBean-Interface des Dummy-Services
- * 
+ *
  *
  */
 public interface DummyServiceRemoteBean {
 
     /**
      * Liefert die Nachricht zurück.
-     * @param message Die Nachricht.
+     * @param message
+     *            Die Nachricht.
      * @return Die Nachricht.
      */
     public abstract String ping(String message);
+
+    /**
+     * Liefert die Nachricht zurück.
+     * @param message
+     *            Die Nachricht.
+     * @return Die Nachricht.
+     */
+    String pingMitAufrufKontext(String message);
 
 }

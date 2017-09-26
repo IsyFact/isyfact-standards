@@ -16,11 +16,15 @@
  */
 package de.bund.bva.pliscommon.serviceapi.core.aufrufkontext;
 
+import java.lang.reflect.Method;
 import java.util.UUID;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.aop.support.AopUtils;
+import org.springframework.core.BridgeMethodResolver;
+import org.springframework.util.ClassUtils;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
@@ -31,18 +35,18 @@ import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontex
 /**
  * Dieser Aspekt sorgt dafür, dass in Service-Methoden automatisch der Logging-Kontext gesetzt wird.
  *
- *
  */
 public class StelltLoggingKontextBereitInterceptor implements MethodInterceptor {
 
     /** Logger. */
-    private static final IsyLogger LOG = IsyLoggerFactory
-        .getLogger(StelltLoggingKontextBereitInterceptor.class);
+    private static final IsyLogger LOG =
+        IsyLoggerFactory.getLogger(StelltLoggingKontextBereitInterceptor.class);
 
     /**
      * Dieser Aspekt sorgt dafür, dass eine Korrelation-ID erzeugt wird, falls im AufrufKontext keine gesetzt
-     * ist. Die Korrelation ID wird vor dem eigentlichen Aufruf im Logging-Kontext gesetzt und danach
-     * automatisch wieder entfernt.
+     * ist und in der Annotation angegeben ist, dass kein Aufrufkontext als Parameter übergeben wird. Die
+     * Korrelation ID wird vor dem eigentlichen Aufruf im Logging-Kontext gesetzt und danach automatisch
+     * wieder entfernt.
      *
      * @param invocation
      *            der Methodenaufruf
@@ -58,17 +62,39 @@ public class StelltLoggingKontextBereitInterceptor implements MethodInterceptor 
         AufrufKontextTo aufrufKontextTo =
             AufrufKontextToHelper.leseAufrufKontextTo(invocation.getArguments());
 
-        if (aufrufKontextTo == null) {
+        boolean nutzeAufrufKontext = false;
+
+        Class<?> targetClass =
+            (invocation.getThis() != null ? AopUtils.getTargetClass(invocation.getThis()) : null);
+
+        StelltLoggingKontextBereit stelltLoggingKontextBereit =
+            ermittleStelltLoggingKontextBereitAnnotation(invocation.getMethod(), targetClass);
+
+        if (stelltLoggingKontextBereit != null) {
+            nutzeAufrufKontext = stelltLoggingKontextBereit.nutzeAufrufKontext();
+        }
+
+        if (nutzeAufrufKontext) {
+            if (aufrufKontextTo != null) {
+                if (StringUtils.isEmpty(aufrufKontextTo.getKorrelationsId())) {
+                    LOG.debug("Es wurde keine Korrelations-ID übermittelt. Erzeuge neue Korrelations-ID.");
+                    korrelationsId = UUID.randomUUID().toString();
+                    aufrufKontextTo.setKorrelationsId(korrelationsId);
+                } else {
+                    LOG.debug("Setzte Korrelations-ID aus AufrufKontext.");
+                    korrelationsId = aufrufKontextTo.getKorrelationsId();
+                }
+
+            } else {
+                throw new IllegalArgumentException(
+                    "Die Annotation StelltLoggingKontextBereit gibt an, dass die Methode "
+                        + invocation.getMethod()
+                        + " einen Aufrufkontext als Parameter enthält. Dieser Parameter ist aber null oder nicht vorhanden.");
+            }
+        } else {
             korrelationsId = UUID.randomUUID().toString();
             LOG.warn(EreignisSchluessel.KEIN_AUFRUFKONTEXT_UEBERMITTELT,
                 "Es wurde kein AufrufKontext übermittelt. Erzeuge neue Korrelations-ID.");
-        } else if (StringUtils.isEmpty(aufrufKontextTo.getKorrelationsId())) {
-            LOG.debug("Es wurde keine Korrelations-ID übermittelt. Erzeuge neue Korrelations-ID.");
-            korrelationsId = UUID.randomUUID().toString();
-            aufrufKontextTo.setKorrelationsId(korrelationsId);
-        } else {
-            LOG.debug("Setzte Korrelations-ID aus AufrufKontext.");
-            korrelationsId = aufrufKontextTo.getKorrelationsId();
         }
 
         try {
@@ -78,5 +104,56 @@ public class StelltLoggingKontextBereitInterceptor implements MethodInterceptor 
             // Nach dem Aufruf alle Korrelations-IDs vom MDC entfernen.
             MdcHelper.entferneKorrelationsIds();
         }
+    }
+
+    /**
+     * Ermittelt die StelltLoggingKontextBereit-Annotation.
+     *
+     * @param method
+     *            Aufgerufene Methode.
+     * @param targetClass
+     *            Klasse, an der die Methode aufgerufen wurde.
+     * @return Annotation StelltLoggingKontextBereit
+     */
+    private StelltLoggingKontextBereit ermittleStelltLoggingKontextBereitAnnotation(Method method,
+        Class<?> targetClass) {
+
+        // Strategie für die Ermittlung der Annotation ist aus AnnotationTransactionAttributeSource
+        // übernommen.
+
+        // Ignore CGLIB subclasses - introspect the actual user class.
+        Class<?> userClass = ClassUtils.getUserClass(targetClass);
+        // The method may be on an interface, but we need attributes from the target class.
+        // If the target class is null, the method will be unchanged.
+        Method specificMethod = ClassUtils.getMostSpecificMethod(method, userClass);
+        // If we are dealing with method with generic parameters, find the original method.
+        specificMethod = BridgeMethodResolver.findBridgedMethod(specificMethod);
+
+        // First try is the method in the target class.
+        StelltLoggingKontextBereit stelltLoggingKontextBereit =
+            specificMethod.getAnnotation(StelltLoggingKontextBereit.class);
+        if (stelltLoggingKontextBereit != null) {
+            return stelltLoggingKontextBereit;
+        }
+
+        // Second try is the transaction attribute on the target class.
+        stelltLoggingKontextBereit =
+            specificMethod.getDeclaringClass().getAnnotation(StelltLoggingKontextBereit.class);
+        if (stelltLoggingKontextBereit != null) {
+            return stelltLoggingKontextBereit;
+        }
+
+        if (specificMethod != method) {
+            // Fallback is to look at the original method.
+            stelltLoggingKontextBereit = method.getAnnotation(StelltLoggingKontextBereit.class);
+            if (stelltLoggingKontextBereit != null) {
+                return stelltLoggingKontextBereit;
+            }
+
+            // Last fallback is the class of the original method.
+            return method.getDeclaringClass().getAnnotation(StelltLoggingKontextBereit.class);
+        }
+
+        return null;
     }
 }
