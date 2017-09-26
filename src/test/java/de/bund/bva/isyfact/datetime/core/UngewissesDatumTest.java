@@ -1,15 +1,16 @@
-package de.bund.bva.isyfact.datetime.ungewissesdatumzeit.core;
+package de.bund.bva.isyfact.datetime.core;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Optional;
 
+import de.bund.bva.isyfact.datetime.persistence.UngewissesDatumEntitaet;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 /**
- * @author Björn Saxe, msg systems ag
+
  */
 public class UngewissesDatumTest {
 
@@ -27,20 +28,6 @@ public class UngewissesDatumTest {
         assertFalse(nurJahr.isLeer());
         assertEquals(LocalDate.of(2017, 1, 1), nurJahr.getAnfang());
         assertEquals(LocalDate.of(2017, 12, 31), nurJahr.getEnde());
-
-        nurJahr = UngewissesDatum.of(0);
-
-        assertTrue(nurJahr.isLeer());
-    }
-
-    @Test(expected = DateTimeException.class)
-    public void ofJahrNegativ() throws Exception {
-        UngewissesDatum.of(-1);
-    }
-
-    @Test(expected = DateTimeException.class)
-    public void ofJahrZuGross() throws Exception {
-        UngewissesDatum.of(10000);
     }
 
     @Test
@@ -75,6 +62,22 @@ public class UngewissesDatumTest {
         assertEquals(UngewissesDatum.of(2017, 8, 1), ofLocalDate);
     }
 
+    @Test
+    public void ofUngewissesDatumEntitaet() throws Exception {
+        UngewissesDatumEntitaet entitaet = new UngewissesDatumEntitaet();
+
+        LocalDate anfang = LocalDate.of(2017, 1, 1);
+        LocalDate ende = LocalDate.of(2017, 6, 30);
+
+        entitaet.setAnfang(anfang);
+        entitaet.setEnde(ende);
+
+        UngewissesDatum ungewissesDatum = UngewissesDatum.of(entitaet);
+
+        assertEquals(anfang, ungewissesDatum.getAnfang());
+        assertEquals(ende, ungewissesDatum.getEnde());
+    }
+
     @Test(expected = NullPointerException.class)
     public void ofLocalDateNullArguments() throws Exception {
         UngewissesDatum.of(null, null);
@@ -83,6 +86,11 @@ public class UngewissesDatumTest {
     @Test(expected = DateTimeException.class)
     public void ofLocalDateAnfageNachEnde() throws Exception {
         UngewissesDatum.of(LocalDate.of(2017, 8, 1), LocalDate.of(2017, 7, 1));
+    }
+
+    @Test(expected = DateTimeException.class)
+    public void ofLocalDateJahreVerschieden() throws Exception {
+        UngewissesDatum.of(LocalDate.of(2017, 1, 1), LocalDate.of(2018, 8, 1));
     }
 
     @Test(expected = NullPointerException.class)

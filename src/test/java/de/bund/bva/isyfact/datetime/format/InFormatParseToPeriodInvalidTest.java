@@ -1,6 +1,5 @@
 package de.bund.bva.isyfact.datetime.format;
 
-import java.time.Duration;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.Collection;
@@ -15,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 /**
- * @author Björn Saxe, msg systems ag
+
  */
 @RunWith(Parameterized.class)
 public class InFormatParseToPeriodInvalidTest {

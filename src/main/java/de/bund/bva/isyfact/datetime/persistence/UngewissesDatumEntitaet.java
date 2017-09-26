@@ -1,17 +1,14 @@
-package de.bund.bva.isyfact.datetime.ungewissesdatumzeit.persistence;
+package de.bund.bva.isyfact.datetime.persistence;
 
 import java.time.LocalDate;
 import javax.persistence.Embeddable;
 
-// TODO Verschieben nach de.bund.bva.isyfact.datetime.persistence
-// TODO Generell: Umbenennen in *Entitaet?
 /**
- * {@link javax.persistence.Embeddable} zum Speichern eines {@link UngewissesDatum} in einer Entität.
+ * {@link javax.persistence.Embeddable} zum Speichern eines {@link UngewissesDatumEntitaet} in einer Entität.
  *
- * @author Björn Saxe, msg systems ag
  */
 @Embeddable
-public class UngewissesDatum {
+public class UngewissesDatumEntitaet {
 
     private LocalDate anfang;
 

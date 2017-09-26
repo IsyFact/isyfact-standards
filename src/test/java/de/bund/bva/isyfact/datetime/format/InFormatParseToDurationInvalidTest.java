@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 /**
- * @author Björn Saxe, msg systems ag
+
  */
 @RunWith(Parameterized.class)
 public class InFormatParseToDurationInvalidTest {

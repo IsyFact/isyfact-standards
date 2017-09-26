@@ -9,10 +9,11 @@ import de.bund.bva.isyfact.datetime.persistence.jpa.test.AbstractJpaTest;
 import de.bund.bva.isyfact.datetime.persistence.jpa.test.TestPeriodEntity;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
- * @author Björn Saxe, msg systems ag
+
  */
 @DatabaseSetup("testPeriodSetup.xml")
 public class PeriodAttributeConverterTest extends AbstractJpaTest {

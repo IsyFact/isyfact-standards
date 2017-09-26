@@ -16,7 +16,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * @author Björn Saxe, msg systems ag
+
  */
 public class DateTimeUtilTest {
 
@@ -28,7 +28,7 @@ public class DateTimeUtilTest {
 
     @After
     public void setClock() {
-        DateTimeUtil.CLOCK = Clock.systemDefaultZone();
+        DateTimeUtil.setClock(Clock.systemDefaultZone());
     }
 
     @Test
@@ -94,7 +94,7 @@ public class DateTimeUtilTest {
         assertEquals(LocalTime.now().withNano(0), DateTimeUtil.localTimeNow().withNano(0));
 
         LocalDateTime testDatumZeit = LocalDateTime.now().minusDays(1);
-        DateTimeUtil.CLOCK = TestClock.at(testDatumZeit);
+        DateTimeUtil.setClock(TestClock.at(testDatumZeit));
 
         assertEquals(testDatumZeit.toLocalTime(), DateTimeUtil.localTimeNow());
     }
@@ -104,7 +104,7 @@ public class DateTimeUtilTest {
         assertEquals(OffsetTime.now().withNano(0), DateTimeUtil.offsetTimeNow().withNano(0));
 
         OffsetDateTime testDatumZeit = OffsetDateTime.now().minusDays(1);
-        DateTimeUtil.CLOCK = TestClock.at(testDatumZeit);
+        DateTimeUtil.setClock(TestClock.at(testDatumZeit));
 
         assertEquals(testDatumZeit.toOffsetTime(), DateTimeUtil.offsetTimeNow());
     }
@@ -114,7 +114,7 @@ public class DateTimeUtilTest {
         assertEquals(LocalDate.now(), DateTimeUtil.localDateNow());
 
         LocalDateTime testDatumZeit = LocalDateTime.now().minusDays(1);
-        DateTimeUtil.CLOCK = TestClock.at(testDatumZeit);
+        DateTimeUtil.setClock(TestClock.at(testDatumZeit));
 
         assertEquals(testDatumZeit.toLocalDate(), DateTimeUtil.localDateNow());
     }
@@ -124,7 +124,7 @@ public class DateTimeUtilTest {
         assertEquals(LocalDateTime.now().withNano(0), DateTimeUtil.localDateTimeNow().withNano(0));
 
         LocalDateTime testDatumZeit = LocalDateTime.now().minusDays(1);
-        DateTimeUtil.CLOCK = TestClock.at(testDatumZeit);
+        DateTimeUtil.setClock(TestClock.at(testDatumZeit));
 
         assertEquals(testDatumZeit, DateTimeUtil.localDateTimeNow());
     }
@@ -134,7 +134,7 @@ public class DateTimeUtilTest {
         assertEquals(OffsetDateTime.now().withNano(0), DateTimeUtil.offsetDateTimeNow().withNano(0));
 
         OffsetDateTime testDatumZeit = OffsetDateTime.now().minusDays(1);
-        DateTimeUtil.CLOCK = TestClock.at(testDatumZeit);
+        DateTimeUtil.setClock(TestClock.at(testDatumZeit));
 
         assertEquals(testDatumZeit, DateTimeUtil.offsetDateTimeNow());
     }
@@ -144,7 +144,7 @@ public class DateTimeUtilTest {
         assertEquals(ZonedDateTime.now().withNano(0), DateTimeUtil.zonedDateTimeNow().withNano(0));
 
         ZonedDateTime testDatumZeit = ZonedDateTime.now().minusDays(1);
-        DateTimeUtil.CLOCK = TestClock.at(testDatumZeit);
+        DateTimeUtil.setClock(TestClock.at(testDatumZeit));
 
         assertEquals(testDatumZeit, DateTimeUtil.zonedDateTimeNow());
     }

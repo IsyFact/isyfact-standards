@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 /**
- * @author Björn Saxe, msg systems ag
+
  */
 @DatabaseSetup("testOffsetTimeSetup.xml")
 public class OffsetTimeAttributeConverterTest extends AbstractJpaTest {

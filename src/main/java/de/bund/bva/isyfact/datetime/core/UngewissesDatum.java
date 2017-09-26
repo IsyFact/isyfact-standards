@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.datetime.ungewissesdatumzeit.core;
+package de.bund.bva.isyfact.datetime.core;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -10,14 +10,13 @@ import java.time.temporal.TemporalAccessor;
 import java.util.Objects;
 import java.util.Optional;
 
-// TODO Verschieben nach de.bund.bva.isyfact.datetime.core
-// TODO Generell: Konstruktor mit Entität?
+import de.bund.bva.isyfact.datetime.persistence.UngewissesDatumEntitaet;
+
 /**
  * Darstellung eines ungewissen Datums. Ein Datum ist ungewiss, wenn Teile des Datums nicht bekannt sind.
  * <p>
  * Die Klasse ist zur Verwendung im Anwendungskern gedacht.
  *
- * @author Björn Saxe, msg systems ag
  */
 public class UngewissesDatum {
 
@@ -25,6 +24,10 @@ public class UngewissesDatum {
         new DateTimeFormatterBuilder().appendPattern("[00.00.0000]").appendPattern("[00.00.yyyy]")
             .appendPattern("[00.MM.yyyy]").appendPattern("['xx.xx.xxxx']").appendPattern("['xx.xx.'yyyy]")
             .appendPattern("['xx.'MM.yyyy]").appendPattern("[dd.MM.yyyy]").parseStrict().toFormatter();
+
+    private static final int minMonth = (int)ChronoField.MONTH_OF_YEAR.range().getMinimum();
+
+    private static final int minDayOfMonth = (int)ChronoField.DAY_OF_MONTH.range().getMinimum();
 
     private LocalDate anfang;
 
@@ -34,14 +37,12 @@ public class UngewissesDatum {
     }
 
     private UngewissesDatum(int jahr) {
-        // TODO Minimumwerte aus ChronoField beziehen?
-        this.anfang = LocalDate.of(jahr, 1, 1);
+        this.anfang = LocalDate.of(jahr, minMonth, minDayOfMonth);
         this.ende = anfang.plusYears(1).minusDays(1);
     }
 
     private UngewissesDatum(int jahr, int monat) {
-        // TODO Minimumwerte aus ChronoField beziehen?
-        this.anfang = LocalDate.of(jahr, monat, 1);
+        this.anfang = LocalDate.of(jahr, monat, minDayOfMonth);
         this.ende = anfang.plusMonths(1).minusDays(1);
     }
 
@@ -53,50 +54,6 @@ public class UngewissesDatum {
     private UngewissesDatum(LocalDate anfang, LocalDate ende) {
         this.anfang = anfang;
         this.ende = ende;
-    }
-
-    private static void pruefeJahr(int jahr) {
-        // TODO Wir schränken hier den Bereich ein. ChronoField.YEAR.checkValidIntValue(jahr) nutzen?
-        if (jahr < 0 || jahr > 9999) {
-            // TODO Exception ohne Nachricht. Entfällt, wenn die Validierung von ChronoField benutzt wird.
-            throw new DateTimeException(null);
-        }
-    }
-
-    private static void pruefeMonat(int monat) {
-        // TODO ChronoField.MONTH_OF_YEAR.checkValidIntValue(monat) nutzen?
-        if (monat < 0 || monat > 12) {
-            // TODO Exception ohne Nachricht. Entfällt, wenn die Validierung von ChronoField benutzt wird.
-            throw new DateTimeException(null);
-        }
-    }
-
-    // TODO Diese Methode ist nicht gut zu verstehen. Validierungslogik entfernen und auf LocalDate vertrauen? Dort wird mit ChronoField validiert.
-    private static void pruefeJahrMonatTag(int... feld) {
-        for (int i = 0; i < feld.length - 1; i++) {
-            if (feld[i] == 0 && feld[i + 1] > 0) {
-                throw new DateTimeException(null);
-            }
-        }
-
-        switch (feld.length) {
-        case 1:
-            pruefeJahr(feld[0]);
-            break;
-        case 2:
-            pruefeJahr(feld[0]);
-            pruefeMonat(feld[1]);
-            break;
-        case 3:
-            try {
-                LocalDate.of(feld[0], feld[1], feld[2]);
-            } catch (DateTimeException d) {
-                throw new DateTimeException(null);
-            }
-            break;
-        default:
-            throw new DateTimeException(null);
-        }
     }
 
     /**
@@ -136,13 +93,7 @@ public class UngewissesDatum {
      *     wenn jahr einen ungültigen Wert hat
      */
     public static UngewissesDatum of(int jahr) {
-        pruefeJahrMonatTag(jahr);
-
-        if (jahr == 0) {
-            return UngewissesDatum.leer();
-        } else {
-            return new UngewissesDatum(jahr);
-        }
+        return new UngewissesDatum(jahr);
     }
 
     /**
@@ -157,8 +108,6 @@ public class UngewissesDatum {
      *     wenn jahr oder monat einen ungültigen Wert haben
      */
     public static UngewissesDatum of(int jahr, int monat) {
-        pruefeJahrMonatTag(jahr, monat);
-
         return new UngewissesDatum(jahr, monat);
     }
 
@@ -178,8 +127,6 @@ public class UngewissesDatum {
      *     wenn jahr, monat oder tag einen ungültigen Wert haben
      */
     public static UngewissesDatum of(int jahr, int monat, int tag) {
-        pruefeJahrMonatTag(jahr, monat, tag);
-
         return new UngewissesDatum(jahr, monat, tag);
     }
 
@@ -198,13 +145,26 @@ public class UngewissesDatum {
         Objects.requireNonNull(vonInklusive);
         Objects.requireNonNull(bisInklusive);
 
-        // TODO Idee: Robust reagieren und Zeitraum einfach herumdrehen?
-        if (bisInklusive.isBefore(vonInklusive) || vonInklusive.getYear() != bisInklusive.getYear()) {
-            // TODO Sprechende Fehlermeldung
-            throw new DateTimeException(null);
+        if (bisInklusive.isBefore(vonInklusive)) {
+            throw new DateTimeException("Der Anfang " + vonInklusive + " liegt nach dem Ende " + bisInklusive + ".");
+        } else if (vonInklusive.getYear() != bisInklusive.getYear()) {
+            throw new DateTimeException("Der Anfang " + vonInklusive + " und das Ende " + bisInklusive + " müssen innerhalb des gleiche Jahres sein.");
         }
 
         return new UngewissesDatum(vonInklusive, bisInklusive);
+    }
+
+    /**
+     * Erstellt ein {@link UngewissesDatum} aus der dazugehörigen Persistenzklasse {@link UngewissesDatumEntitaet}.
+     * @param ungewissesDatumEntitaet
+     *      die  {@link UngewissesDatumEntitaet}
+     * @return
+     *      ein {@link UngewissesDatum} mit den Daten der {@link UngewissesDatumEntitaet}
+     */
+    public static UngewissesDatum of(UngewissesDatumEntitaet ungewissesDatumEntitaet) {
+        Objects.requireNonNull(ungewissesDatumEntitaet);
+
+        return UngewissesDatum.of(ungewissesDatumEntitaet.getAnfang(), ungewissesDatumEntitaet.getEnde());
     }
 
     /**
@@ -229,7 +189,7 @@ public class UngewissesDatum {
         Objects.requireNonNull(text);
 
         if (text.isEmpty()) {
-            throw new DateTimeParseException(null, text, 0);
+            throw new DateTimeParseException("Der String war leer.", text, 0);
         }
 
         TemporalAccessor ta = format.parse(text);

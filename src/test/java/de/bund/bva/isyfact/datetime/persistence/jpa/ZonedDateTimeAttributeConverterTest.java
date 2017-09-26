@@ -1,15 +1,12 @@
 package de.bund.bva.isyfact.datetime.persistence.jpa;
 
-import java.time.OffsetDateTime;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 import de.bund.bva.isyfact.datetime.persistence.jpa.test.AbstractJpaTest;
-import de.bund.bva.isyfact.datetime.persistence.jpa.test.TestOffsetDateTimeEntity;
 import de.bund.bva.isyfact.datetime.persistence.jpa.test.TestZonedDateTimeEntity;
 import org.junit.Test;
 
@@ -17,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 /**
- * @author Björn Saxe, msg systems ag
+
  */
 @DatabaseSetup("testZonedDateTimeSetup.xml")
 public class ZonedDateTimeAttributeConverterTest extends AbstractJpaTest {

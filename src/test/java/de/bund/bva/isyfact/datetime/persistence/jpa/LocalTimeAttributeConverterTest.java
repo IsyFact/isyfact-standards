@@ -13,7 +13,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 /**
- * @author Björn Saxe, msg systems ag
+
  */
 @DatabaseSetup("testLocalTimeSetup.xml")
 public class LocalTimeAttributeConverterTest extends AbstractJpaTest {

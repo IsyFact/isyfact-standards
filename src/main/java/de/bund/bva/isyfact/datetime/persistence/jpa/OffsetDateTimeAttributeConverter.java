@@ -1,7 +1,6 @@
 package de.bund.bva.isyfact.datetime.persistence.jpa;
 
 import java.time.OffsetDateTime;
-import java.time.ZonedDateTime;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
@@ -10,7 +9,6 @@ import javax.persistence.Converter;
  * <p>
  * Das Speichern erfolgt in der ISO-8601-Darstellung als String.
  *
- * @author Björn Saxe, msg systems ag
  */
 @Converter(autoApply = true)
 public class OffsetDateTimeAttributeConverter implements AttributeConverter<OffsetDateTime, String> {

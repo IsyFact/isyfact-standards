@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.datetime.ungewissesdatumzeit.core;
+package de.bund.bva.isyfact.datetime.core;
 
 import java.time.DateTimeException;
 import java.util.Arrays;
@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 /**
- * @author Björn Saxe, msg systems ag
+
  */
 @RunWith(Parameterized.class)
 public class UngewisseZeitTestStundeMinuteInvalid {

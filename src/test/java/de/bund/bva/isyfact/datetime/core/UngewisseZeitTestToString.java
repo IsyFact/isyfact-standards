@@ -1,6 +1,5 @@
-package de.bund.bva.isyfact.datetime.ungewissesdatumzeit.core;
+package de.bund.bva.isyfact.datetime.core;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.Collection;
@@ -12,7 +11,7 @@ import org.junit.runners.Parameterized;
 import static org.junit.Assert.assertEquals;
 
 /**
- * @author Björn Saxe, msg systems ag
+
  */
 @RunWith(Parameterized.class)
 public class UngewisseZeitTestToString {

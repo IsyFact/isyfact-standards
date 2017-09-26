@@ -9,7 +9,6 @@ import javax.persistence.Converter;
  * <p>
  * Das Speichern erfolgt in der ISO-8601-Darstellung als String.
  *
- * @author Björn Saxe, msg systems ag
  */
 @Converter(autoApply = true)
 public class ZonedDateTimeAttributeConverter implements AttributeConverter<ZonedDateTime, String> {

@@ -7,13 +7,13 @@ import java.util.Collection;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
 import org.junit.runners.Parameterized.Parameter;
+import org.junit.runners.Parameterized.Parameters;
 
 import static org.junit.Assert.assertEquals;
 
 /**
- * @author Björn Saxe, msg systems ag
+
  */
 @RunWith(Parameterized.class)
 public class InFormatParseToLocalTimeTest {

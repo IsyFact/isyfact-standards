@@ -1,20 +1,15 @@
-package de.bund.bva.isyfact.datetime.ungewissesdatumzeit.core;
+package de.bund.bva.isyfact.datetime.core;
 
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
 /**
- * @author Björn Saxe, msg systems ag
+
  */
 @RunWith(Parameterized.class)
 public class UngewissesDatumTestParseInvalid {

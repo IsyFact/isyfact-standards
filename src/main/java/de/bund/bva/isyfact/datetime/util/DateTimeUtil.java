@@ -11,19 +11,23 @@ import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
-import de.bund.bva.isyfact.datetime.zeitraum.core.Zeitraum;
-
 /**
- * Utility-Funktionen für Datums- und Zeitberechnungen.
+ * Utility-Funktionen für Datums- und Zeitberechnungen und Zeitabfragen.
  *
- * @author Björn Saxe, msg systems ag
  */
 public abstract class DateTimeUtil {
 
-    // TODO Nur schwer testbar! Die Anwendung muss die Clock immer bestimmen können. Daher würde ich diese Variable und die Hilfsmethoden entfernen.
-    // TODO Idee: Builder aus der Klasse erstellen. Konstruktor mit Clock bereitstellen (kann dann lokal oder als Spring Bean instanziiert werden).
-    // TODO Idee: Außerdem eine Standardinstanz mit einer Standardclock bereitstellen.
-    public static Clock CLOCK = Clock.systemDefaultZone();
+    private static Clock clock = Clock.systemDefaultZone();
+
+    public static Clock getClock() {
+        return clock;
+    }
+
+    public static void setClock(Clock clock) {
+        Objects.requireNonNull(clock);
+
+        DateTimeUtil.clock = clock;
+    }
 
     /**
      * Prüft, ob ein Datum zwischen zwei anderen Datumswerten liegt.
@@ -44,8 +48,7 @@ public abstract class DateTimeUtil {
         Objects.requireNonNull(ende);
 
         if (ende.isBefore(anfang)) {
-            // TODO Sprechende Fehlermeldung
-            throw new DateTimeException(null);
+            throw new DateTimeException("Das Enddatum " + ende + " liegt vor dem Anfangsdatum " + anfang);
         }
 
         return (datum.isEqual(anfang) || datum.isAfter(anfang)) && (datum.isBefore(ende) || datum
@@ -72,8 +75,7 @@ public abstract class DateTimeUtil {
         Objects.requireNonNull(ende);
 
         if (ende.isBefore(anfang)) {
-            // TODO Sprechende Fehlermeldung
-            throw new DateTimeException(null);
+            throw new DateTimeException("Das Enddatum " + ende + " liegt vor dem Anfangsdatum " + anfang);
         }
 
         return datum.isAfter(anfang) && datum.isBefore(ende);
@@ -88,7 +90,6 @@ public abstract class DateTimeUtil {
      * sind 0; <code>null</code>, wenn das übergebene Datum <code>null</code> ist.
      */
     public static LocalDate getJahresanfang(LocalDate datum) {
-        // TODO Minimumwerte aus ChronoField beziehen
         return datum == null ? null : datum.withDayOfYear(1);
     }
 
@@ -101,7 +102,6 @@ public abstract class DateTimeUtil {
      * sind 0; <code>null</code>, wenn das übergebene Datum <code>null</code> ist.
      */
     public static LocalDate getMonatsanfang(LocalDate datum) {
-        // TODO Minimumwerte aus ChronoField beziehen
         return datum == null ? null : datum.withDayOfMonth(1);
     }
 
@@ -132,26 +132,26 @@ public abstract class DateTimeUtil {
     }
 
     public static LocalTime localTimeNow() {
-        return LocalTime.now(CLOCK);
+        return LocalTime.now(clock);
     }
 
     public static LocalDate localDateNow() {
-        return LocalDate.now(CLOCK);
+        return LocalDate.now(clock);
     }
 
     public static LocalDateTime localDateTimeNow() {
-        return LocalDateTime.now(CLOCK);
+        return LocalDateTime.now(clock);
     }
 
     public static OffsetTime offsetTimeNow() {
-        return OffsetTime.now(CLOCK);
+        return OffsetTime.now(clock);
     }
 
     public static OffsetDateTime offsetDateTimeNow() {
-        return OffsetDateTime.now(CLOCK);
+        return OffsetDateTime.now(clock);
     }
 
     public static ZonedDateTime zonedDateTimeNow() {
-        return ZonedDateTime.now(CLOCK);
+        return ZonedDateTime.now(clock);
     }
 }

@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.datetime.ungewissesdatumzeit.core;
+package de.bund.bva.isyfact.datetime.core;
 
 import java.time.DateTimeException;
 import java.time.LocalTime;
@@ -10,19 +10,26 @@ import java.time.temporal.TemporalAccessor;
 import java.util.Objects;
 import java.util.Optional;
 
-// TODO Verschieben nach de.bund.bva.isyfact.datetime.core
+import de.bund.bva.isyfact.datetime.persistence.UngewisseZeitEntitaet;
+
 /**
  * Darstellung einer ungewissen Zeit. Eine Zeit ist ungewiss, wenn Teile der Zeit nicht bekannt sind.
  * <p>
  * Die Klasse ist zur Verwendung im Anwendungskern gedacht.
  *
- * @author Björn Saxe, msg systems ag
  */
 public class UngewisseZeit {
 
     private static final DateTimeFormatter format =
         new DateTimeFormatterBuilder().appendPattern("['xx:xx:xx']").appendPattern("[HH:'xx:xx']")
             .appendPattern("[HH:mm:'xx']").appendPattern("[HH:mm:ss]").parseStrict().toFormatter();
+
+    private static final int MIN_SEKUNDE = (int)ChronoField.SECOND_OF_MINUTE.range().getMinimum();
+    private static final int MAX_SEKUNDE = (int)ChronoField.SECOND_OF_MINUTE.range().getMaximum();
+
+    private static final int MIN_MINUTE = (int)ChronoField.MINUTE_OF_HOUR.range().getMinimum();
+    private static final int MAX_MINUTE = (int)ChronoField.MINUTE_OF_HOUR.range().getMaximum();
+
 
     private LocalTime anfang;
 
@@ -54,8 +61,9 @@ public class UngewisseZeit {
      * @return eine {@link UngewisseZeit} mit der Stunde gesetzt
      */
     public static UngewisseZeit of(int stunde) {
-        // TODO Maximum und Minimumwerte aus ChronoField beziehen?
-        return new UngewisseZeit(LocalTime.of(stunde, 0, 0), LocalTime.of(stunde, 59, 59));
+        return new UngewisseZeit(LocalTime.of(stunde, MIN_MINUTE, MIN_SEKUNDE), LocalTime.of(stunde,
+            MAX_MINUTE,
+            MAX_SEKUNDE));
     }
 
     /**
@@ -68,8 +76,8 @@ public class UngewisseZeit {
      * @return eine {@link UngewisseZeit} mit der Stunde und Minute gesetzt
      */
     public static UngewisseZeit of(int stunde, int minute) {
-        // TODO Maximum und Minimumwerte aus ChronoField beziehen?
-        return new UngewisseZeit(LocalTime.of(stunde, minute, 0), LocalTime.of(stunde, minute, 59));
+        return new UngewisseZeit(LocalTime.of(stunde, minute, MIN_SEKUNDE), LocalTime.of(stunde, minute,
+            MAX_SEKUNDE));
     }
 
     /**
@@ -103,13 +111,24 @@ public class UngewisseZeit {
         Objects.requireNonNull(vonInklusive);
         Objects.requireNonNull(bisInklusive);
 
-        // TODO Idee: Robust reagieren und Zeitraum einfach herumdrehen?
         if (vonInklusive.isAfter(bisInklusive)) {
-            // TODO Sprechende Fehlermeldung
-            throw new DateTimeException(null);
+            throw new DateTimeException("Der Anfang " + vonInklusive + " liegt nach dem Ende " + bisInklusive + ".");
         }
 
         return new UngewisseZeit(vonInklusive, bisInklusive);
+    }
+
+    /**
+     * Erstellt ein {@link UngewisseZeit} aus der dazugehörigen Persistenzklasse {@link UngewisseZeitEntitaet}.
+     * @param ungewisseZeitEntitaet
+     *      die  {@link UngewisseZeitEntitaet}
+     * @return
+     *      ein {@link UngewisseZeit} mit den Daten der {@link UngewisseZeitEntitaet}
+     */
+    public static UngewisseZeit of(UngewisseZeitEntitaet ungewisseZeitEntitaet) {
+        Objects.requireNonNull(ungewisseZeitEntitaet);
+
+        return UngewisseZeit.of(ungewisseZeitEntitaet.getAnfang(), ungewisseZeitEntitaet.getEnde());
     }
 
     /**
@@ -228,8 +247,7 @@ public class UngewisseZeit {
         Objects.requireNonNull(text);
 
         if (text.isEmpty()) {
-            // TODO Sprechende Fehlermeldung
-            throw new DateTimeParseException(null, text, 0);
+            throw new DateTimeParseException("Der String war leer.", text, 0);
         }
 
         TemporalAccessor ta = format.parse(text);

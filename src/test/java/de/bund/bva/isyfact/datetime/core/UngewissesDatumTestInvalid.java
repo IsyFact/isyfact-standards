@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.datetime.ungewissesdatumzeit.core;
+package de.bund.bva.isyfact.datetime.core;
 
 import java.time.DateTimeException;
 import java.util.Arrays;
@@ -9,19 +9,28 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 /**
- * @author Björn Saxe, msg systems ag
+
  */
 @RunWith(Parameterized.class)
-public class UngewissesDatumTestJahrMonatTagInvalid {
+public class UngewissesDatumTestInvalid {
 
     @Parameterized.Parameters(name = "{index}: of(Jahr={0}, Monat={1}, Tag={2})")
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][] {
-            // Jahr, Monat,   Tag
-            { 0, 0, -1 }, { 0, -1, 0 }, { 0, -1, -1 }, { -1, 0, 0 }, { -1, 0, -1 }, { -1, -1, 0 },
-            { -1, -1, -1 }, { 0, 0, 10000 }, { 0, 10000, 0 }, { 0, 10000, 10000 }, { 10000, 0, 0 },
-            { 10000, 0, 10000 }, { 10000, 10000, 0 }, { 10000, 10000, 10000 }, { 0, 0, 1 }, { 0, 1, 1 },
-            { 1, 0, 1 } });
+            // Jahr, Monat, Tag
+            { 0, 0, -1 },
+            { 0, -1, 0 },
+            { 0, -1, -1 },
+            { -1, 0, -1 },
+            { -1, -1, 0 },
+            { -1, -1, -1 },
+            { 0, 0, 100 },
+            { 0, 100, 0 },
+            { 0, 100, 100 },
+            { 100, 0, 100 },
+            { 100, 100, 0 },
+            { 100, 100, 100 }
+        });
     }
 
     @Parameterized.Parameter

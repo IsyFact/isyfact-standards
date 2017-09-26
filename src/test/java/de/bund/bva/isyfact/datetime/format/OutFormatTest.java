@@ -1,17 +1,14 @@
 package de.bund.bva.isyfact.datetime.format;
 
 import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.Period;
-import java.time.temporal.ChronoUnit;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
- * @author Björn Saxe, msg systems ag
+
  */
 public class OutFormatTest {
 

@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.datetime.zeitraum.core;
+package de.bund.bva.isyfact.datetime.core;
 
 import java.io.Serializable;
 import java.time.Clock;
@@ -20,13 +20,12 @@ import java.util.function.Function;
 
 import de.bund.bva.isyfact.datetime.format.InFormat;
 import de.bund.bva.isyfact.datetime.format.OutFormat;
+import de.bund.bva.isyfact.datetime.persistence.ZeitraumEntitaet;
 
-// TODO Verschieben nach de.bund.bva.isyfact.datetime.core
 /**
  * Ein Zeitraum bestehend aus zwei Datums- oder Zeitangaben, die den Start und das Ende eines Zeitraums
  * markieren. Die Dauer des Zeitraums ist die Differenz aus Ende und Start.
  *
- * @author Björn Saxe, msg systems ag
  */
 public class Zeitraum implements Serializable {
 
@@ -44,7 +43,6 @@ public class Zeitraum implements Serializable {
     }
 
     private static ZonedDateTime getLocalDateTimeInJvmTimeZone(LocalDateTime localDateTime) {
-        // TODO: Konfiguration der Zeitzone?
         return ZonedDateTime.of(localDateTime, ZoneId.systemDefault());
     }
 
@@ -61,10 +59,8 @@ public class Zeitraum implements Serializable {
         Objects.requireNonNull(anfang);
         Objects.requireNonNull(ende);
 
-        // TODO Idee: Robust reagieren und Zeitraum einfach herumdrehen?
         if (ende.isBefore(anfang)) {
-            // TODO Sprechende Fehlermeldung
-            throw new DateTimeException(null);
+            throw new DateTimeException("Der Anfang " + anfang + " liegt nach dem Ende " + ende + " des Zeitraums.");
         }
 
         return new Zeitraum(anfang, ende);
@@ -86,10 +82,8 @@ public class Zeitraum implements Serializable {
         Objects.requireNonNull(anfang);
         Objects.requireNonNull(dauer);
 
-        // TODO Idee: Robust reagieren und Zeitraum einfach herumdrehen?
         if (dauer.isNegative()) {
-            // TODO Sprechende Fehlermeldung
-            throw new DateTimeException(null);
+            throw new DateTimeException("Die Dauer " + dauer + " darf nicht negativ sein.");
         }
 
         return new Zeitraum(anfang, anfang.plus(dauer));
@@ -111,10 +105,8 @@ public class Zeitraum implements Serializable {
         Objects.requireNonNull(anfang);
         Objects.requireNonNull(dauer);
 
-        // TODO Idee: Robust reagieren und Zeitraum einfach herumdrehen?
         if (dauer.isNegative()) {
-            // TODO Sprechende Fehlermeldung
-            throw new DateTimeException(null);
+            throw new DateTimeException("Die Dauer " + dauer + " darf nicht negativ sein.");
         }
 
         return new Zeitraum(anfang, anfang.plus(dauer));
@@ -134,10 +126,8 @@ public class Zeitraum implements Serializable {
         Objects.requireNonNull(anfang);
         Objects.requireNonNull(ende);
 
-        // TODO Idee: Robust reagieren und Zeitraum einfach herumdrehen?
         if (ende.isBefore(anfang)) {
-            // TODO Sprechende Fehlermeldung
-            throw new DateTimeException(null);
+            throw new DateTimeException("Der Anfang " + anfang + " liegt nach dem Ende " + ende + " des Zeitraums.");
         }
 
         return new Zeitraum(getLocalDateTimeInJvmTimeZone(anfang), getLocalDateTimeInJvmTimeZone(ende));
@@ -160,10 +150,8 @@ public class Zeitraum implements Serializable {
         Objects.requireNonNull(anfang);
         Objects.requireNonNull(dauer);
 
-        // TODO Idee: Robust reagieren und Zeitraum einfach herumdrehen?
         if (dauer.isNegative()) {
-            // TODO Sprechende Fehlermeldung
-            throw new DateTimeException(null);
+            throw new DateTimeException("Die Dauer " + dauer + " darf nicht negativ sein.");
         }
 
         ZonedDateTime zonedAnfang = getLocalDateTimeInJvmTimeZone(anfang);
@@ -187,10 +175,8 @@ public class Zeitraum implements Serializable {
         Objects.requireNonNull(anfang);
         Objects.requireNonNull(dauer);
 
-        // TODO Idee: Robust reagieren und Zeitraum einfach herumdrehen?
         if (dauer.isNegative()) {
-            // TODO Sprechende Fehlermeldung
-            throw new DateTimeException(null);
+            throw new DateTimeException("Die Dauer " + dauer + " darf nicht negativ sein.");
         }
 
         ZonedDateTime zonedAnfang = getLocalDateTimeInJvmTimeZone(anfang);
@@ -210,10 +196,8 @@ public class Zeitraum implements Serializable {
         Objects.requireNonNull(anfang);
         Objects.requireNonNull(ende);
 
-        // TODO Idee: Robust reagieren und Zeitraum einfach herumdrehen?
         if (ende.isBefore(anfang)) {
-            // TODO Sprechende Fehlermeldung
-            throw new DateTimeException(null);
+            throw new DateTimeException("Der Anfang " + anfang + " liegt nach dem Ende " + ende + " des Zeitraums.");
         }
 
         ZonedDateTime zonedAnfang =
@@ -238,10 +222,8 @@ public class Zeitraum implements Serializable {
         Objects.requireNonNull(anfang);
         Objects.requireNonNull(dauer);
 
-        // TODO Idee: Robust reagieren und Zeitraum einfach herumdrehen?
         if (dauer.isNegative()) {
-            // TODO Sprechende Fehlermeldung
-            throw new DateTimeException(null);
+            throw new DateTimeException("Die Dauer " + dauer + " darf nicht negativ sein.");
         }
 
         ZonedDateTime zonedAnfang =
@@ -305,9 +287,10 @@ public class Zeitraum implements Serializable {
         Objects.requireNonNull(anfang);
         Objects.requireNonNull(dauer);
 
-        if (dauer.isNegative() || dauer.compareTo(Duration.ofDays(1)) > 0) {
-            // TODO Sprechende Fehlermeldung
-            throw new DateTimeException(null);
+        if (dauer.isNegative()) {
+            throw new DateTimeException("Die Dauer " + dauer + " darf nicht negativ sein.");
+        } else if (dauer.compareTo(Duration.ofDays(1)) > 0) {
+            throw new DateTimeException("Die Dauer " + dauer + " darf nicht länger als ein Tag sein.");
         }
 
         ZonedDateTime anfangDate = ZonedDateTime.of(LocalDate.now(Clock.systemUTC()), anfang, ZoneOffset.UTC);
@@ -321,9 +304,37 @@ public class Zeitraum implements Serializable {
     }
 
     /**
+     * Erstellt einen {@link Zeitraum} aus der dazugehörigen Persistenzklasse {@link ZeitraumEntitaet}.
+     *
+     * @param zeitraumEntitaet die {@link ZeitraumEntitaet}
+     * @return ein {@link Zeitraum} mit den der {@link ZeitraumEntitaet}
+     */
+    public static Zeitraum of(ZeitraumEntitaet zeitraumEntitaet) {
+        if (zeitraumEntitaet.isOhneDatum()) {
+            return Zeitraum.of(zeitraumEntitaet.getAnfang().toLocalTime(), zeitraumEntitaet.getEnde().toLocalTime());
+        } else {
+            return Zeitraum.of(zeitraumEntitaet.getAnfang(), zeitraumEntitaet.getEnde());
+        }
+    }
+
+    /**
+     * Parst einen String und erstellt daraus einen {@link Zeitraum}.
+     * <p>
+     * Folgende Eingaben im Format {@code "<1. Wert>, <2. Wert>"} sind möglich:
+     * <p>
+     *
+     * <table summary="Unterstütze Formate" border="1">
+     * <tr><th>1. Wert</th><th>2. Wert</th><th>Beispiel</th></tr>
+     * <tr><td>Datumswer</td><td>Datumswert</td><td>12.7.2017 14:00, 13.09.2018 19:00</td></tr>
+     * <tr><td>Datumswert</td><td>Dauer</td><td>12.8.2013, 14 d</td></tr>
+     * <tr><td>Zeitwert</td><td>Zeitwert</td><td>13:40:00, 15:45:12</td></tr>
+     * <tr><td>Zeitwert</td><td>Dauer</td><td>12:00, 90min 15s</td></tr>
+     * </table>
+     *
+     *
      * @param text
      *     der Text, der geparst werden soll, nicht null
-     * @return
+     * @return der {@link Zeitraum}
      */
     public static Zeitraum parse(String text) {
         Objects.requireNonNull(text);
@@ -371,8 +382,8 @@ public class Zeitraum implements Serializable {
                 return Zeitraum.of(anfangLocalTime, (Duration) endeOderDauer);
             }
         }
-        // TODO Sprechende Fehlermeldung
-        throw new DateTimeParseException(null, text, 0);
+
+        throw new DateTimeParseException("Beim Parsen des Strings ist ein Fehler aufgetreten.", text, 0);
     }
 
     private static Object parseAnfang(String textAnfang) {
@@ -385,9 +396,8 @@ public class Zeitraum implements Serializable {
         anfang.add(tryParse(InFormat::parseToOffsetTime, textAnfang));
         anfang.add(tryParse(InFormat::parseToLocalTime, textAnfang));
 
-        // TODO Sprechende Fehlermeldung
         return anfang.stream().filter(Objects::nonNull).findFirst()
-            .orElseThrow(() -> new DateTimeParseException(null, textAnfang, 0));
+            .orElseThrow(() -> new DateTimeParseException("Der Anfang des Zeitraums konnte nicht ermittelt werden.", textAnfang, 0));
     }
 
     private static Object parseEnde(String textEndeOderDauer) {
@@ -402,9 +412,8 @@ public class Zeitraum implements Serializable {
         endeOderDauer.add(tryParse(InFormat::parseToDuration, textEndeOderDauer));
         endeOderDauer.add(tryParse(InFormat::parseToPeriod, textEndeOderDauer));
 
-        // TODO Sprechende Fehlermeldung
         return endeOderDauer.stream().filter(Objects::nonNull).findFirst()
-            .orElseThrow(() -> new DateTimeParseException(null, textEndeOderDauer, 0));
+            .orElseThrow(() -> new DateTimeParseException("Das Ende oder die Dauer des Zeitraums konnte nicht ermittelt werden.", textEndeOderDauer, 0));
     }
 
     private static <T> T tryParse(Function<String, T> parseFunction, String text) {
@@ -417,8 +426,7 @@ public class Zeitraum implements Serializable {
 
     private static String[] getZeitraumAnfangUndEndeOderDauerString(String text) {
         if (text.isEmpty()) {
-            // TODO Sprechende Fehlermeldung
-            throw new DateTimeParseException(null, text, 0);
+            throw new DateTimeParseException("Der String war leer.", text, 0);
         }
 
         String teile[] = new String[2];
@@ -427,8 +435,7 @@ public class Zeitraum implements Serializable {
             teile[0] = text.split(", ")[0].trim();
             teile[1] = text.split(", ")[1].trim();
         } catch (Exception e) {
-            // TODO Sprechende Fehlermeldung
-            throw new DateTimeParseException(null, text, 0);
+            throw new DateTimeParseException("Der String entspricht nicht dem Format \"<Anfang>, <Ende> | <Dauer>\"", text, 0);
         }
 
         return teile;

@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.datetime;
+package de.bund.bva.isyfact.datetime.core;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -9,15 +9,12 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.Collection;
 
-import de.bund.bva.isyfact.datetime.zeitraum.core.Zeitraum;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import static org.junit.Assert.assertEquals;
-
 /**
- * @author Björn Saxe, msg systems ag
+
  */
 @RunWith(Parameterized.class)
 public class ZeitraumParseInvalidTest {

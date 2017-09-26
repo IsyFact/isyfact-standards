@@ -1,17 +1,14 @@
-package de.bund.bva.isyfact.datetime.ungewissesdatumzeit.persistence;
+package de.bund.bva.isyfact.datetime.persistence;
 
 import java.time.LocalTime;
 import javax.persistence.Embeddable;
 
-// TODO Verschieben nach de.bund.bva.isyfact.datetime.persistence
 /**
- * {@link javax.persistence.Embeddable} zum Speichern einer {@link UngewisseZeit} in einer Entität.
+ * {@link javax.persistence.Embeddable} zum Speichern einer {@link UngewisseZeitEntitaet} in einer Entität.
  *
- * // TODO Generell: @author-Tags entfernen. Autorenschaft wird ab IF 1.4 über git bestimmt.
- * @author Björn Saxe, msg systems ag
  */
 @Embeddable
-public class UngewisseZeit {
+public class UngewisseZeitEntitaet {
 
     private LocalTime anfang;
 

@@ -14,7 +14,6 @@ import java.util.Objects;
  *
  * <i>Mutable</i> Implementierung von {@link Clock} für Tests.
  *
- * @author Björn Saxe, msg systems ag
  */
 public class TestClock extends Clock {
 

@@ -1,7 +1,6 @@
 package de.bund.bva.isyfact.datetime.format;
 
 import java.time.OffsetTime;
-import java.time.OffsetTime;
 import java.time.ZoneOffset;
 import java.util.Arrays;
 import java.util.Collection;
@@ -13,7 +12,7 @@ import org.junit.runners.Parameterized;
 import static org.junit.Assert.assertEquals;
 
 /**
- * @author Björn Saxe, msg systems ag
+
  */
 @RunWith(Parameterized.class)
 public class InFormatParseToOffsetTimeTest {

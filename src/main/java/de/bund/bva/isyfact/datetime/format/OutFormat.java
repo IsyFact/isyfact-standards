@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
  *   <li>14:35:19</li>
  * </ul>
  *
- * @author Björn Saxe, msg systems ag
  */
 public abstract class OutFormat {
 

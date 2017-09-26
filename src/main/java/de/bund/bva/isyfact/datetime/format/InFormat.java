@@ -13,7 +13,6 @@ import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -60,7 +59,6 @@ import java.util.regex.Pattern;
  *   <tr><td>a</td><td>Jahr</td></tr>
  * </table>
  *
- * @author Björn Saxe, msg systems ag
  */
 public abstract class InFormat {
     /**

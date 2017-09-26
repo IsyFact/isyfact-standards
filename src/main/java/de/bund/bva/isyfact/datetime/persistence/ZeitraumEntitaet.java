@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.datetime.zeitraum.persistence;
+package de.bund.bva.isyfact.datetime.persistence;
 
 import java.time.ZonedDateTime;
 import java.util.Objects;
@@ -6,11 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-import de.bund.bva.isyfact.datetime.zeitraum.core.Zeitraum;
+import de.bund.bva.isyfact.datetime.core.Zeitraum;
 
-// TODO Verschieben nach de.bund.bva.isyfact.datetime.persistence
 /**
- * @author Björn Saxe, msg systems ag
+ * JPA-Entität zum Speichern von Zeiträumen.
  */
 @Entity
 public class ZeitraumEntitaet {

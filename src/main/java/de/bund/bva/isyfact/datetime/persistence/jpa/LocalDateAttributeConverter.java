@@ -8,7 +8,6 @@ import javax.persistence.Converter;
 /**
  * {@link javax.persistence.AttributeConverter} für {@link LocalDate}.
  *
- * @author Björn Saxe, msg systems ag
  */
 @Converter(autoApply = true)
 public class LocalDateAttributeConverter implements AttributeConverter<LocalDate, Date> {
