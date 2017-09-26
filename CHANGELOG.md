@@ -1,6 +1,5 @@
 # v1.5.0 (unveröffentlicht)
 - isy-logging: `IFS-42`: Erweiterung um Performance-Logging
-- isy-logging: `IFS-52`: Erweiterte Typisierung der Logeinträge
 - isy-logging: `IFS-68`: Erweiterte Typisierung von Logeinträgen
 - isy-logging: `IFS-70`: Position vom Zeitstempel verschoben
 
