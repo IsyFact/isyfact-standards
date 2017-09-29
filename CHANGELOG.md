@@ -1,3 +1,6 @@
+# V1.6.0 (unveröffentlicht)
+- `IFS-63`: Vollständiges Beispiel für DB-Update-Skripte eingefügt. Beispiel für schemaübergreifende Operationen eingefügt - sowohl DB-Install-Skripte, als auch DB-Update-Skripte 
+
 # v1.5.1
 - `IFS-43`: ojdbc7 Dependency für Tests gegen h2 getauscht
 
