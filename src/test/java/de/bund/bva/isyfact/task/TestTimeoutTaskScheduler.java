@@ -56,7 +56,7 @@ public class TestTimeoutTaskScheduler {
         when(konfiguration.getAsString("isyfact.task.taskTest1.benutzer")).thenReturn("MyTestUser1");
         when(konfiguration.getAsString("isyfact.task.taskTest1.passwort")).thenReturn("MyTestPasswort1");
         when(konfiguration.getAsString("isyfact.task.taskTest1.operationName"))
-                .thenReturn("de.bund.bva.isyfact.task.experimental.TestOperation1");
+                .thenReturn("de.bund.bva.isyfact.task.TestOperation1");
         when(konfiguration.getAsString("isyfact.task.taskTest1.host"))
                 .thenReturn(InetAddress.getLocalHost().getHostName());
 
@@ -64,7 +64,7 @@ public class TestTimeoutTaskScheduler {
         when(konfiguration.getAsString("isyfact.task.taskTest2.benutzer")).thenReturn("MyTestUser2");
         when(konfiguration.getAsString("isyfact.task.taskTest2.passwort")).thenReturn("MyTestPasswort2");
         when(konfiguration.getAsString("isyfact.task.taskTest2.operationName"))
-                .thenReturn("de.bund.bva.isyfact.task.experimental.TestOperation2");
+                .thenReturn("de.bund.bva.isyfact.task.TestOperation2");
         when(konfiguration.getAsString("isyfact.task.taskTest2.host"))
                 .thenReturn(InetAddress.getLocalHost().getHostName());
     }
