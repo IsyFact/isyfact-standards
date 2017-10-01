@@ -1,6 +1,7 @@
 package de.bund.bva.isyfact.task;
 
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -37,131 +38,78 @@ import static org.mockito.Mockito.when;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/spring/timertask.xml" })
 public class TestTimeoutTaskScheduler {
-
     private Konfiguration konfiguration = mock(Konfiguration.class);
-
     private SecurityAuthenticator securityAuthenticator = mock(SecurityAuthenticator.class);
-
-    private DateTimeFormatter dateTimeFormatter;
 
     /**
      * Initialize the Tests
      */
     @Before
-    public void setUp() {
-        when(konfiguration.getAsString("isyfact.task.standard.date_time_pattern"))
-            .thenReturn("dd.MM.yyyy HH:mm:ss.SSS");
+    public void setUp() throws UnknownHostException {
+        when(konfiguration.getAsString(
+                KonfigurationSchluessel.DATETIME_PATTERN,
+                KonfigurationStandardwerte.DEFAULT_DATETIME_PATTERN))
+                .thenReturn("dd.MM.yyyy HH:mm:ss.SSS");
         when(konfiguration.getAsInteger("isyfact.task.standard.amount_of_threads")).thenReturn(100);
 
-        String dateTimePattern = konfiguration.getAsString(KonfigurationSchluessel.DATETIME_PATTERN,
-            KonfigurationStandardwerte.DEFAULT_DATETIME_PATTERN);
-
-        // TODO Konfiguration funktioniert nicht! Warum?
-        dateTimePattern = "dd.MM.yyyy HH:mm:ss.SSS";
-
-        dateTimeFormatter = DateTimeFormatter.ofPattern(dateTimePattern);
-
-    }
-
-    /**
-     * @throws Exception
-     */
-    @Test
-    public void testSchedule1() throws Exception {
-
         when(konfiguration.getAsString("isyfact.task.taskTest1.id")).thenReturn("TaskTest1");
-
-        /*
-         * Fake ExecutionDateTime to a delay of 5 seconds, in order to have the test repeatable.
-         */
-        LocalDateTime genericExecutionDateTime = LocalDateTime.now().plusSeconds(5);
-        String sExecutionDateTime = genericExecutionDateTime.format(dateTimeFormatter);
-        System.out.println("sExecutionDateTime:" + sExecutionDateTime);
-        when(konfiguration.getAsString("isyfact.task.taskTest1.executionDateTime"))
-            .thenReturn(sExecutionDateTime);
-
-        when(konfiguration.getAsString("isyfact.task.taskTest1.host"))
-            .thenReturn(InetAddress.getLocalHost().getHostName());
-        when(konfiguration.getAsString("isyfact.task.taskTest1.operationName"))
-            .thenReturn("de.bund.bva.isyfact.task.TestOperation1");
         when(konfiguration.getAsString("isyfact.task.taskTest1.benutzer")).thenReturn("MyTestUser1");
         when(konfiguration.getAsString("isyfact.task.taskTest1.passwort")).thenReturn("MyTestPasswort1");
-
-        String id = konfiguration.getAsString("isyfact.task.taskTest1.id");
-        String executionDateTime = konfiguration.getAsString("isyfact.task.taskTest1.executionDateTime");
-        String operationName = konfiguration.getAsString("isyfact.task.taskTest1.operationName");
-
-        TaskKonfiguration taskKonfig = new TaskKonfiguration("taskTest1", konfiguration);
-
-        TaskDataHandler taskDataHandler = new TaskDataHandlerImpl();
-        TaskData taskData = taskDataHandler
-            .createTaskData(id, taskKonfig.benutzer(), taskKonfig.passwort(), executionDateTime,
-                operationName, taskKonfig.beschraenkeAufHost());
-
-        TaskHandler taskHandler = new TaskHandlerImpl();
-        Task task = taskHandler.createTask(taskData);
-
-        TaskScheduler taskScheduler = new TaskSchedulerImpl(konfiguration, securityAuthenticator);
-        taskScheduler.schedule(task);
-
-        int delay = task.getExecutionDateTime().getSecond() - LocalDateTime.now().getSecond();
-        System.out.println("Waiting " + delay + " seconds");
-
-        taskScheduler.awaitTerminationInSeconds(10);
-
-        int amount_of_threads = konfiguration.getAsInteger("isyfact.task.standard.amount_of_threads");
-        assertEquals(amount_of_threads, 100);
-
-        System.out.println("ScheduledExecuterService will shut down now!");
-        taskScheduler.shutDownNow();
-
-    }
-
-
-    /**
-     * @throws Exception
-     */
-    @Test
-    public void testSchedule2() throws Exception {
+        when(konfiguration.getAsString("isyfact.task.taskTest1.operationName"))
+                .thenReturn("de.bund.bva.isyfact.task.experimental.TestOperation1");
+        when(konfiguration.getAsString("isyfact.task.taskTest1.host"))
+                .thenReturn(InetAddress.getLocalHost().getHostName());
 
         when(konfiguration.getAsString("isyfact.task.taskTest2.id")).thenReturn("TaskTest2");
-
-        /*
-         * Fake ExecutionDateTime to a delay of 5 seconds, in order to have the test repeatable.
-         */
-        LocalDateTime genericExecutionDateTime = LocalDateTime.now().plusSeconds(5);
-        String sExecutionDateTime = genericExecutionDateTime.format(dateTimeFormatter);
-        System.out.println("sExecutionDateTime:" + sExecutionDateTime);
-        when(konfiguration.getAsString("isyfact.task.taskTest2.executionDateTime"))
-            .thenReturn(sExecutionDateTime);
-
-        when(konfiguration.getAsString("isyfact.task.taskTest1.hostName"))
-            .thenReturn(InetAddress.getLocalHost().getHostName());
+        when(konfiguration.getAsString("isyfact.task.taskTest2.benutzer")).thenReturn("MyTestUser2");
+        when(konfiguration.getAsString("isyfact.task.taskTest2.passwort")).thenReturn("MyTestPasswort2");
         when(konfiguration.getAsString("isyfact.task.taskTest2.operationName"))
-            .thenReturn("de.bund.bva.isyfact.task.TestOperation2");
-        when(konfiguration.getAsString("isyfact.task.taskTest1.username")).thenReturn("MyTestUser2");
-        when(konfiguration.getAsString("isyfact.task.taskTest1.password")).thenReturn("MyTestPasswort2");
+                .thenReturn("de.bund.bva.isyfact.task.experimental.TestOperation2");
+        when(konfiguration.getAsString("isyfact.task.taskTest2.host"))
+                .thenReturn(InetAddress.getLocalHost().getHostName());
+    }
 
-        String id = konfiguration.getAsString("isyfact.task.taskTest2.id");
-        String username = konfiguration.getAsString("isyfact.task.taskTest2.username");
-        String password = konfiguration.getAsString("isyfact.task.taskTest2.password");
-        String executionDateTime = konfiguration.getAsString("isyfact.task.taskTest2.executionDateTime");
-        String operationName = konfiguration.getAsString("isyfact.task.taskTest2.operationName");
-        String hostName = konfiguration.getAsString("isyfact.task.taskTest2.hostName");
+    @Test
+    public void testSchedule1() throws Exception {
+        String dateTimePattern = konfiguration.getAsString(KonfigurationSchluessel.DATETIME_PATTERN, KonfigurationStandardwerte.DEFAULT_DATETIME_PATTERN);
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(dateTimePattern);
 
         TaskDataHandler taskDataHandler = new TaskDataHandlerImpl();
-        TaskData taskData = taskDataHandler
-            .createTaskData(id, username, password, executionDateTime, operationName, hostName);
-
         TaskHandler taskHandler = new TaskHandlerImpl();
-        Task task = taskHandler.createTask(taskData);
+
+        String id1 = konfiguration.getAsString("isyfact.task.taskTest1.id");
+        String username1 = konfiguration.getAsString("isyfact.task.taskTest1.benutzer");
+        String password1 = konfiguration.getAsString("isyfact.task.taskTest1.passwort");
+        String executionDateTime1 = LocalDateTime.now().plusSeconds(3).format(dateTimeFormatter);
+        String operationName1 = konfiguration.getAsString("isyfact.task.taskTest1.operationName");
+        String hostName1 = konfiguration.getAsString("isyfact.task.taskTest1.host");
+        TaskData taskData1 = taskDataHandler.createTaskData(
+                id1,
+                username1,
+                password1,
+                executionDateTime1,
+                operationName1,
+                hostName1);
+        Task task1 = taskHandler.createTask(taskData1);
+
+        String id2 = konfiguration.getAsString("isyfact.task.taskTest2.id");
+        String username2 = konfiguration.getAsString("isyfact.task.taskTest2.benutzer");
+        String password2 = konfiguration.getAsString("isyfact.task.taskTest2.passwort");
+        String executionDateTime2 = LocalDateTime.now().plusSeconds(3).format(dateTimeFormatter);
+        String operationName2 = konfiguration.getAsString("isyfact.task.taskTest2.operationName");
+        String hostName2 = konfiguration.getAsString("isyfact.task.taskTest2.host");
+        TaskData taskData2 = taskDataHandler.createTaskData(
+                id2,
+                username2,
+                password2,
+                executionDateTime2,
+                operationName2,
+                hostName2);
+        Task task2 = taskHandler.createTask(taskData2);
 
         TaskScheduler taskScheduler = new TaskSchedulerImpl(konfiguration, securityAuthenticator);
-        taskScheduler.schedule(task);
-
-        int delay = task.getExecutionDateTime().getSecond() - LocalDateTime.now().getSecond();
-        System.out.println("Waiting " + delay + " seconds");
-
+        taskScheduler.schedule(task1);
+        taskScheduler.schedule(task2);
         taskScheduler.awaitTerminationInSeconds(20);
 
         int amount_of_threads = konfiguration.getAsInteger("isyfact.task.standard.amount_of_threads");
@@ -169,14 +117,5 @@ public class TestTimeoutTaskScheduler {
 
         System.out.println("ScheduledExecuterService will shut down now!");
         taskScheduler.shutDownNow();
-
     }
-
-    /**
-     * Commands after the test
-     */
-    @After
-    public void tearDown() {
-    }
-
 }

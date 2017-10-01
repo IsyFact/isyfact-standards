@@ -55,12 +55,17 @@ public class TaskSchedulerImpl implements TaskScheduler {
 
         this.startTime.set(LocalDateTime.now());
 
+        int initialNumberOfThreads = DEFAULT_INITIAL_NUMBER_OF_THREADS;
+        if(konfiguration != null) {
+            initialNumberOfThreads = this.konfiguration.get()
+                    .getAsInteger(
+                            KonfigurationSchluessel.INITIAL_NUMBER_OF_THREADS);
+        }
+
         ExecutorHandler executorHandler = new ExecutorHandlerImpl();
-        ScheduledExecutorService executorService = executorHandler.createScheduledExecutorService(
-                        this.konfiguration.get()
-                                .getAsInteger(
-                                        KonfigurationSchluessel.INITIAL_NUMBER_OF_THREADS,
-                                        DEFAULT_INITIAL_NUMBER_OF_THREADS));
+        ScheduledExecutorService executorService =
+                executorHandler.createScheduledExecutorService(initialNumberOfThreads);
+
         this.scheduledExecutorService.set(executorService);
     }
 
@@ -78,7 +83,7 @@ public class TaskSchedulerImpl implements TaskScheduler {
             MdcHelper.pushKorrelationsId(UUID.randomUUID().toString());
 
             // TODO: securityAuthenticator muss in der Spring Bean erst noch injiziert werden
-            securityAuthenticator.get().login();
+            // securityAuthenticator.get().login();
 
             scheduledExecutorService.get().schedule(
                     task.getOperation(),

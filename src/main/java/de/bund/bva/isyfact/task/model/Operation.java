@@ -15,6 +15,14 @@ public interface Operation extends Runnable {
 
     void set(String result);
 
+    String getId();
+
+    void setId(String id);
+
+    String getHostName();
+
+    void setHostName(String hostName);
+
     boolean getHasBeenExecutedSuccessfully();
 
     void setHasBeenExecutedSuccessfully(boolean hasBeenExecutedSuccessfully);

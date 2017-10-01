@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.task.model.impl;
 
-import de.bund.bva.isyfact.logging.IsyLogger;
-import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.task.model.FixedRate;
 import de.bund.bva.isyfact.task.model.Operation;
 
@@ -13,6 +11,8 @@ import de.bund.bva.isyfact.task.model.Operation;
  *
  */
 public abstract class OperationImpl implements Operation {
+    private volatile ThreadLocal<String> id
+            = new ThreadLocal<>();
     private volatile ThreadLocal<String> hostName
             = new ThreadLocal<>();
     private volatile ThreadLocal<Boolean> hasBeenExecutedSuccessfully
@@ -21,19 +21,27 @@ public abstract class OperationImpl implements Operation {
             = new ThreadLocal<>();
     private volatile ThreadLocal<FixedRate> fixedRate
             = new ThreadLocal<>();
+    private volatile ThreadLocal<String> threadLocalResult = new ThreadLocal<>();
 
     public OperationImpl() {}
 
-    private volatile ThreadLocal<String> threadLocalResult = new ThreadLocal<>();
-
     @Override
-    public String get() {
-        return threadLocalResult.get();
+    public String getId() {
+        return id.get();
     }
 
     @Override
-    public void set(String result) {
-        threadLocalResult.set(result);
+    public void setId(String id) {
+        this.id.set(id);
+    }
+
+    public String getHostName() {
+        return hostName.get();
+    }
+
+    @Override
+    public void setHostName(String hostName) {
+        this.hostName.set(hostName);
     }
 
     @Override
@@ -65,5 +73,15 @@ public abstract class OperationImpl implements Operation {
     @Override
     public void setFixedRate(FixedRate fixedRate) {
         this.fixedRate.set(fixedRate);
+    }
+
+    @Override
+    public String get() {
+        return threadLocalResult.get();
+    }
+
+    @Override
+    public void set(String result) {
+        threadLocalResult.set(result);
     }
 }
