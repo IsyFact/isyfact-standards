@@ -12,17 +12,17 @@ import de.bund.bva.pliscommon.sicherheit.Sicherheit;
  * @author Alexander Salvanos, msg systems ag
  */
 public class SecurityAuthenticatorImpl implements SecurityAuthenticator {
-    private volatile ThreadLocal<String> username
+    private volatile ThreadLocal<String> usernameThreadLocal
             = new ThreadLocal<>();
-    private volatile ThreadLocal<String> password
+    private volatile ThreadLocal<String> passwordThreadLocal
             = new ThreadLocal<>();
-    private volatile ThreadLocal<String> behoerdenkennzeichen
+    private volatile ThreadLocal<String> behoerdenkennzeichenThreadLocal
             = new ThreadLocal<>();
-    private volatile ThreadLocal<Sicherheit<AufrufKontext>> sicherheit
+    private volatile ThreadLocal<Sicherheit<AufrufKontext>> sicherheitThreadLocal
             = new ThreadLocal<>();
-    private volatile ThreadLocal<AufrufKontextFactory<AufrufKontext>> aufrufKontextFactory
+    private volatile ThreadLocal<AufrufKontextFactory<AufrufKontext>> aufrufKontextFactoryThreadLocal
             = new ThreadLocal<>();
-    private volatile ThreadLocal<AufrufKontextVerwalter<AufrufKontext>> aufrufKontextVerwalter
+    private volatile ThreadLocal<AufrufKontextVerwalter<AufrufKontext>> aufrufKontextVerwalterThreadLocal
             = new ThreadLocal<>();
 
 
@@ -47,12 +47,12 @@ public class SecurityAuthenticatorImpl implements SecurityAuthenticator {
             AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter,
             AufrufKontextFactory<AufrufKontext> aufrufKontextFactory,
             Sicherheit<AufrufKontext> sicherheit) {
-        this.username.set(username);
-        this.password.set(password);
-        this.behoerdenkennzeichen.set(behoerdenkennzeichen);
-        this.sicherheit.set(sicherheit);
-        this.aufrufKontextFactory.set(aufrufKontextFactory);
-        this.aufrufKontextVerwalter.set(aufrufKontextVerwalter);
+        this.usernameThreadLocal.set(username);
+        this.passwordThreadLocal.set(password);
+        this.behoerdenkennzeichenThreadLocal.set(behoerdenkennzeichen);
+        this.sicherheitThreadLocal.set(sicherheit);
+        this.aufrufKontextFactoryThreadLocal.set(aufrufKontextFactory);
+        this.aufrufKontextVerwalterThreadLocal.set(aufrufKontextVerwalter);
     }
 
     /**
@@ -61,12 +61,12 @@ public class SecurityAuthenticatorImpl implements SecurityAuthenticator {
     @Override
     public synchronized void login() {
         //TODO Die Properties müssen zunächst über Spring injiziert werden
-         AufrufKontext kontext = aufrufKontextFactory.get().erzeugeAufrufKontext();
-         aufrufKontextVerwalter.get().setAufrufKontext(kontext);
-         kontext.setDurchfuehrenderBenutzerKennung(username.get());
-         kontext.setDurchfuehrenderBenutzerPasswort(password.get());
-         kontext.setDurchfuehrendeBehoerde(behoerdenkennzeichen.get());
-         sicherheit.get().getBerechtigungsManagerUndAuthentifiziere(kontext);
+         AufrufKontext kontext = aufrufKontextFactoryThreadLocal.get().erzeugeAufrufKontext();
+         aufrufKontextVerwalterThreadLocal.get().setAufrufKontext(kontext);
+         kontext.setDurchfuehrenderBenutzerKennung(usernameThreadLocal.get());
+         kontext.setDurchfuehrenderBenutzerPasswort(passwordThreadLocal.get());
+         kontext.setDurchfuehrendeBehoerde(behoerdenkennzeichenThreadLocal.get());
+         sicherheitThreadLocal.get().getBerechtigungsManagerUndAuthentifiziere(kontext);
     }
 
     /**
@@ -74,67 +74,67 @@ public class SecurityAuthenticatorImpl implements SecurityAuthenticator {
      */
     @Override
     public synchronized void logout() {
-        aufrufKontextVerwalter.get().setAufrufKontext(null);
+        aufrufKontextVerwalterThreadLocal.get().setAufrufKontext(null);
     }
 
     @Override
     public synchronized String getUsername() {
-        return username.get();
+        return usernameThreadLocal.get();
     }
 
     @Override
     public synchronized void setUsername(String username) {
-        this.username.set(username);
+        this.usernameThreadLocal.set(username);
     }
 
     @Override
     public synchronized String getPassword() {
-        return password.get();
+        return passwordThreadLocal.get();
     }
 
     @Override
     public synchronized void setPassword(String password) {
-        this.password.set(password);
+        this.passwordThreadLocal.set(password);
     }
 
     @Override
     public synchronized String getBehoerdenkennzeichen() {
-        return behoerdenkennzeichen.get();
+        return behoerdenkennzeichenThreadLocal.get();
     }
 
     @Override
     public synchronized void setBehoerdenkennzeichen(String behoerdenkennzeichen) {
-        this.behoerdenkennzeichen.set(behoerdenkennzeichen);
+        this.behoerdenkennzeichenThreadLocal.set(behoerdenkennzeichen);
     }
 
     @Override
     public synchronized Sicherheit<AufrufKontext> getSicherheit() {
-        return sicherheit.get();
+        return sicherheitThreadLocal.get();
     }
 
     @Override
     public synchronized void setSicherheit(Sicherheit<AufrufKontext> sicherheit) {
-        this.sicherheit.set(sicherheit);
+        this.sicherheitThreadLocal.set(sicherheit);
     }
 
     @Override
     public synchronized AufrufKontextFactory<AufrufKontext> getAufrufKontextFactory() {
-        return aufrufKontextFactory.get();
+        return aufrufKontextFactoryThreadLocal.get();
     }
 
     @Override
     public synchronized void setAufrufKontextFactory(AufrufKontextFactory<AufrufKontext> aufrufKontextFactory) {
-        this.aufrufKontextFactory.set(aufrufKontextFactory);
+        this.aufrufKontextFactoryThreadLocal.set(aufrufKontextFactory);
     }
 
     @Override
     public synchronized AufrufKontextVerwalter<AufrufKontext> getAufrufKontextVerwalter() {
-        return aufrufKontextVerwalter.get();
+        return aufrufKontextVerwalterThreadLocal.get();
     }
 
     @Override
     public synchronized void setAufrufKontextVerwalter(AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter) {
-        this.aufrufKontextVerwalter.set(aufrufKontextVerwalter);
+        this.aufrufKontextVerwalterThreadLocal.set(aufrufKontextVerwalter);
     }
 
 }

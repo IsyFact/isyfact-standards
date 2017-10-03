@@ -77,7 +77,7 @@ public class TaskSchedulerImpl implements TaskScheduler {
      */
     @Override
     public synchronized ScheduledFuture<String> schedule(Task task) {
-        LOG.debug("schedule: ", " executionDateTime: " + task.getExecutionDateTime());
+        LOG.debug("schedule: ", " executionDateTime: " + task.getOperation().getExecutionDateTime());
         ScheduledFuture<String> scheduledFuture = null;
         try {
             MdcHelper.pushKorrelationsId(UUID.randomUUID().toString());
@@ -87,7 +87,7 @@ public class TaskSchedulerImpl implements TaskScheduler {
 
             scheduledExecutorService.get().schedule(
                     task.getOperation(),
-                    Duration.between(LocalDateTime.now(), task.getExecutionDateTime()).toNanos(),
+                    Duration.between(LocalDateTime.now(), task.getOperation().getExecutionDateTime()).toNanos(),
                     TimeUnit.NANOSECONDS);
             counter.incrementAndGet();
 
@@ -119,7 +119,7 @@ public class TaskSchedulerImpl implements TaskScheduler {
      */
     @Override
     public ScheduledFuture<?> scheduleAtFixedRate(Task task) throws NoSuchMethodException {
-        LOG.debug("schedule: ", " executionDateTime: " + task.getExecutionDateTime());
+        LOG.debug("schedule: ", " executionDateTime: " + task.getOperation().getExecutionDateTime());
         ScheduledFuture<?> scheduledFuture = null;
         try {
             MdcHelper.pushKorrelationsId(UUID.randomUUID().toString());
@@ -129,7 +129,7 @@ public class TaskSchedulerImpl implements TaskScheduler {
 
             scheduledFuture = scheduledExecutorService.get().scheduleAtFixedRate(
                     task.getOperation(),
-                    Duration.between(LocalDateTime.now(), task.getExecutionDateTime()).toNanos(),
+                    Duration.between(LocalDateTime.now(), task.getOperation().getExecutionDateTime()).toNanos(),
                     task.getOperation().getFixedRate().toNanos(),
                     TimeUnit.NANOSECONDS);
             counter.incrementAndGet();
@@ -159,7 +159,7 @@ public class TaskSchedulerImpl implements TaskScheduler {
      */
     @Override
     public ScheduledFuture<?> scheduleWithFixedDelay(Task task) throws NoSuchMethodException {
-        LOG.debug("schedule: ", " executionDateTime: " + task.getExecutionDateTime());
+        LOG.debug("schedule: ", " executionDateTime: " + task.getOperation().getExecutionDateTime());
         ScheduledFuture<?> scheduledFuture = null;
         try {
             MdcHelper.pushKorrelationsId(UUID.randomUUID().toString());
@@ -169,7 +169,7 @@ public class TaskSchedulerImpl implements TaskScheduler {
 
             scheduledFuture = scheduledExecutorService.get().scheduleWithFixedDelay(
                     task.getOperation(),
-                    Duration.between(LocalDateTime.now(), task.getExecutionDateTime()).toNanos(),
+                    Duration.between(LocalDateTime.now(), task.getOperation().getExecutionDateTime()).toNanos(),
                     task.getOperation().getFixedRate().toNanos(),
                     TimeUnit.NANOSECONDS);
             counter.incrementAndGet();

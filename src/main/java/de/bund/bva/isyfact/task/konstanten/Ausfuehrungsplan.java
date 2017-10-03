@@ -20,7 +20,7 @@ public enum Ausfuehrungsplan {
      * Wiederholte Ausführung zu einem definierten Zeitpunkt jeden Tag oder an bestimmten Tagen.
      * Beispiel: jeden Tag um 4 Uhr morgens, jeden Montag um 13 Uhr.
      */
-    FIXED_TIME,
+    EXECUTION_DATETIME,
 
     /**
      * Einmalige Ausführung zu einem definierten Zeitpunkt.

@@ -5,19 +5,14 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.task.exception.CreateOperationInstanceException;
 import de.bund.bva.isyfact.task.exception.HostNotApplicableException;
 import de.bund.bva.isyfact.task.handler.*;
-import de.bund.bva.isyfact.task.konstanten.KonfigurationStandardwerte;
-import de.bund.bva.isyfact.task.model.FixedRate;
+import de.bund.bva.isyfact.task.model.FixedDateTime;
 import de.bund.bva.isyfact.task.model.Operation;
 import de.bund.bva.isyfact.task.model.Task;
 import de.bund.bva.isyfact.task.model.TaskData;
 import de.bund.bva.isyfact.task.model.impl.TaskImpl;
 import de.bund.bva.isyfact.task.security.SecurityAuthenticator;
-import de.bund.bva.isyfact.task.security.impl.SecurityAuthenticatorImpl;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Der TaskHandler ist eine Werkzeugklasse für den Bau von Task-Instanzen.
@@ -50,11 +45,15 @@ public class TaskHandlerImpl implements TaskHandler {
 
 			OperationHandler operationHandler = new OperationHandlerImpl();
 			Operation operation = operationHandler.createOperationInstance(taskData);
+			operation.setExecutionDateTime(executionDateTime);
 
-			FixedRateHandler fixedRateHandler = new FixedRateHandlerImpl(taskData);
-			FixedRate fixedRate = fixedRateHandler.createFixedRate();
-
+			FixedDateTimeHandler fixedRateHandler = new FixedDateTimeHandlerImpl(taskData);
+			FixedDateTime fixedRate = fixedRateHandler.createFixedDateTime();
 			operation.setFixedRate(fixedRate);
+
+			FixedDateTimeHandler fixedDelayHandler = new FixedDateTimeHandlerImpl(taskData);
+			FixedDateTime fixedDelay = fixedDelayHandler.createFixedDateTime();
+			operation.setFixedDelay(fixedDelay);
 
 			task = new TaskImpl(
 					taskData.getId(),

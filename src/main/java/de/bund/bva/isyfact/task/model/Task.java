@@ -31,10 +31,6 @@ public interface Task {
 
 	void setSecurityAuthenticator(SecurityAuthenticator securityAuthenticator);
 
-	LocalDateTime getExecutionDateTime();
-
-	void setExecutionDateTime(LocalDateTime executionDateTime);
-
 	Operation getOperation();
 
 	void setOperation(Operation operation);

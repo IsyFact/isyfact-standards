@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.task.model;
 
-import de.bund.bva.isyfact.task.handler.impl.FixedRateHandlerImpl;
-
 /**
  * Ein TaskData Objekt kapselt die Zeichenketten-Properties für eine Aufgabe.
  *

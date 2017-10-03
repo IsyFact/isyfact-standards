@@ -66,8 +66,8 @@ public class JavaUtilConcurrentTaskScheduler
         case FIXED_DELAY:
             scheduledFutures.put(taskName, scheduleWithFixedDelay(task));
             break;
-        case FIXED_TIME:
-            // TODO
+        case EXECUTION_DATETIME:
+            scheduledFutures.put(taskName, schedule(task));
         case ONCE:
             schedule(task);
             break;

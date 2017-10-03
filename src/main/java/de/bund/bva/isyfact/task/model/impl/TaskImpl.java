@@ -1,7 +1,6 @@
 package de.bund.bva.isyfact.task.model.impl;
 
 import de.bund.bva.isyfact.task.konstanten.Ausfuehrungsplan;
-import de.bund.bva.isyfact.task.model.FixedRate;
 import de.bund.bva.isyfact.task.model.Operation;
 import de.bund.bva.isyfact.task.model.Task;
 import de.bund.bva.isyfact.task.security.SecurityAuthenticator;
@@ -26,17 +25,15 @@ import java.time.LocalDateTime;
  *
  */
 public class TaskImpl implements Task {
-    private volatile ThreadLocal<String> id
+    private volatile ThreadLocal<String> idThreadLocal
             = new ThreadLocal<>();
-    private volatile ThreadLocal<String> korrelationsId
+    private volatile ThreadLocal<String> korrelationsIdThreadLocal
             = new ThreadLocal<>();
-    private volatile ThreadLocal<SecurityAuthenticator> securityAuthenticator
+    private volatile ThreadLocal<SecurityAuthenticator> securityAuthenticatorThreadLocal
             = new ThreadLocal<>();
-    private volatile ThreadLocal<LocalDateTime> executionDateTime
+    private volatile ThreadLocal<LocalDateTime> executionEndDateTimeThreadLocal
             = new ThreadLocal<>();
-    private volatile ThreadLocal<LocalDateTime> executionEndDateTime
-            = new ThreadLocal<>();
-    private volatile ThreadLocal<Operation> operation
+    private volatile ThreadLocal<Operation> operationThreadLocal
             = new ThreadLocal<>();
 
     /**
@@ -52,70 +49,59 @@ public class TaskImpl implements Task {
             LocalDateTime executionDateTime,
             Operation operation
     ) {
-        this.id.set(id);
-        this.securityAuthenticator.set(securityAuthenticator);
-        this.executionDateTime.set(executionDateTime);
-        this.operation.set(operation);
+        this.idThreadLocal.set(id);
+        this.securityAuthenticatorThreadLocal.set(securityAuthenticator);
+        this.operationThreadLocal.set(operation);
     }
 
     @Override
     public synchronized String getId() {
-        return id.get();
+        return idThreadLocal.get();
     }
 
     @Override
     public synchronized void setId(String id) {
-        this.id.set(id);
+        this.idThreadLocal.set(id);
     }
 
     @Override
     public synchronized String getKorrelationsId() {
-        return korrelationsId.get();
+        return korrelationsIdThreadLocal.get();
     }
 
     @Override
     public synchronized void setKorrelationsId(String korrelationsId) {
-        this.korrelationsId.set(korrelationsId);
+        this.korrelationsIdThreadLocal.set(korrelationsId);
     }
 
     @Override
     public synchronized SecurityAuthenticator getSecurityAuthenticator() {
-        return securityAuthenticator.get();
+        return securityAuthenticatorThreadLocal.get();
     }
 
     @Override
     public synchronized void setSecurityAuthenticator(SecurityAuthenticator securityAuthenticator) {
-        this.securityAuthenticator.set(securityAuthenticator);
-    }
-
-    @Override
-    public synchronized LocalDateTime getExecutionDateTime() {
-        return this.executionDateTime.get();
-    }
-
-    @Override
-    public synchronized void setExecutionDateTime(LocalDateTime executionDateTime) {
-        this.executionDateTime.set(executionDateTime);
+        this.securityAuthenticatorThreadLocal.set(securityAuthenticator);
     }
 
     @Override
     public synchronized LocalDateTime getExecutionEndDateTime() {
-        return executionEndDateTime.get();
+        return executionEndDateTimeThreadLocal.get();
     }
 
     @Override
     public synchronized void setExecutionEndDateTime(LocalDateTime executionEndDateTime) {
-        this.executionEndDateTime.set(executionEndDateTime);
+        this.executionEndDateTimeThreadLocal.set(executionEndDateTime);
     }
 
     @Override
     public synchronized Operation getOperation() {
-        return this.operation.get();
+        return this.operationThreadLocal.get();
     }
 
     @Override
     public synchronized void setOperation(Operation operation) {
-        this.operation.set(operation);
+        this.operationThreadLocal.set(operation);
     }
 
     @Override

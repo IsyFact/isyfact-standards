@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.task.model.impl;
 
-import de.bund.bva.isyfact.task.handler.FixedRateHandler;
-import de.bund.bva.isyfact.task.handler.impl.FixedRateHandlerImpl;
 import de.bund.bva.isyfact.task.model.TaskData;
 
 /**

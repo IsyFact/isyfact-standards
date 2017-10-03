@@ -1,6 +1,6 @@
 package de.bund.bva.isyfact.task.model;
 
-import java.util.concurrent.Callable;
+import java.time.LocalDateTime;
 
 /**
  * Eine Operation enthält die Anweisungen, die erledigt werden sollen.
@@ -31,7 +31,15 @@ public interface Operation extends Runnable {
 
     void setErrorMessage(String errorMessage);
 
-    FixedRate getFixedRate();
+    LocalDateTime getExecutionDateTime();
 
-    void setFixedRate(FixedRate fixedRate);
+    void setExecutionDateTime(LocalDateTime executionDateTime);
+
+    FixedDateTime getFixedRate();
+
+    void setFixedRate(FixedDateTime fixedDateTime);
+
+    FixedDateTime getFixedDelay();
+
+    void setFixedDelay(FixedDateTime fixedDelay);
 }

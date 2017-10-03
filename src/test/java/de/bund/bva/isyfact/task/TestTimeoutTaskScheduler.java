@@ -56,7 +56,7 @@ public class TestTimeoutTaskScheduler {
         when(konfiguration.getAsString("isyfact.task.taskTest1.benutzer")).thenReturn("MyTestUser1");
         when(konfiguration.getAsString("isyfact.task.taskTest1.passwort")).thenReturn("MyTestPasswort1");
         when(konfiguration.getAsString("isyfact.task.taskTest1.operationName"))
-                .thenReturn("de.bund.bva.isyfact.task.experimental.TestOperation1");
+                .thenReturn("de.bund.bva.isyfact.task.TestOperation1");
         when(konfiguration.getAsString("isyfact.task.taskTest1.host"))
                 .thenReturn(InetAddress.getLocalHost().getHostName());
 
@@ -64,13 +64,13 @@ public class TestTimeoutTaskScheduler {
         when(konfiguration.getAsString("isyfact.task.taskTest2.benutzer")).thenReturn("MyTestUser2");
         when(konfiguration.getAsString("isyfact.task.taskTest2.passwort")).thenReturn("MyTestPasswort2");
         when(konfiguration.getAsString("isyfact.task.taskTest2.operationName"))
-                .thenReturn("de.bund.bva.isyfact.task.experimental.TestOperation2");
+                .thenReturn("de.bund.bva.isyfact.task.TestOperation2");
         when(konfiguration.getAsString("isyfact.task.taskTest2.host"))
                 .thenReturn(InetAddress.getLocalHost().getHostName());
     }
 
     @Test
-    public void testSchedule1() throws Exception {
+    public void testSchedule() throws Exception {
         String dateTimePattern = konfiguration.getAsString(KonfigurationSchluessel.DATETIME_PATTERN, KonfigurationStandardwerte.DEFAULT_DATETIME_PATTERN);
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(dateTimePattern);
 
@@ -80,7 +80,7 @@ public class TestTimeoutTaskScheduler {
         String id1 = konfiguration.getAsString("isyfact.task.taskTest1.id");
         String username1 = konfiguration.getAsString("isyfact.task.taskTest1.benutzer");
         String password1 = konfiguration.getAsString("isyfact.task.taskTest1.passwort");
-        String executionDateTime1 = LocalDateTime.now().plusSeconds(3).format(dateTimeFormatter);
+        String executionDateTime1 = LocalDateTime.now().plusSeconds(2).format(dateTimeFormatter);
         String operationName1 = konfiguration.getAsString("isyfact.task.taskTest1.operationName");
         String hostName1 = konfiguration.getAsString("isyfact.task.taskTest1.host");
         TaskData taskData1 = taskDataHandler.createTaskData(
