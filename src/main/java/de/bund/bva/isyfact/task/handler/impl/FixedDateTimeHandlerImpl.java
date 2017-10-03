@@ -13,21 +13,24 @@ import de.bund.bva.isyfact.task.model.impl.FixedDateTimeImpl;
  *
  */
 public class FixedDateTimeHandlerImpl implements FixedDateTimeHandler {
-    private volatile ThreadLocal<String> daysThreadLocal = new ThreadLocal<>();
-    private volatile ThreadLocal<String> hoursThreadLocal = new ThreadLocal<>();
-    private volatile ThreadLocal<String> minutesThreadLocal = new ThreadLocal<>();
-    private volatile ThreadLocal<String> secondsThreadLocal = new ThreadLocal<>();
+    private volatile ThreadLocal<Long> daysThreadLocal = new ThreadLocal<>();
+    private volatile ThreadLocal<Long> hoursThreadLocal = new ThreadLocal<>();
+    private volatile ThreadLocal<Long> minutesThreadLocal = new ThreadLocal<>();
+    private volatile ThreadLocal<Long> secondsThreadLocal = new ThreadLocal<>();
 
     /**
      *
-     * @param taskData
+     * @param days
+     * @param hours
+     * @param minutes
+     * @param seconds
      */
-    public FixedDateTimeHandlerImpl(TaskData taskData) {
+    public FixedDateTimeHandlerImpl(long days, long hours, long minutes, long seconds) {
         this
-                .setDays(taskData.getDays())
-                .setHours(taskData.getHours())
-                .setMinutes(taskData.getMinutes())
-                .setSeconds(taskData.getSeconds());
+                .setDays(days)
+                .setHours(hours)
+                .setMinutes(minutes)
+                .setSeconds(seconds);
 
     }
 
@@ -36,7 +39,7 @@ public class FixedDateTimeHandlerImpl implements FixedDateTimeHandler {
      * @param days
      * @return
      */
-    public synchronized FixedDateTimeHandlerImpl setDays(String days) {
+    public synchronized FixedDateTimeHandlerImpl setDays(long days) {
         this.daysThreadLocal.set(days);
         return this;
     }
@@ -46,7 +49,7 @@ public class FixedDateTimeHandlerImpl implements FixedDateTimeHandler {
      * @param hours
      * @return
      */
-    public synchronized FixedDateTimeHandlerImpl setHours(String hours) {
+    public synchronized FixedDateTimeHandlerImpl setHours(long hours) {
         this.hoursThreadLocal.set(hours);
         return this;
     }
@@ -56,7 +59,7 @@ public class FixedDateTimeHandlerImpl implements FixedDateTimeHandler {
      * @param minutes
      * @return
      */
-    public synchronized FixedDateTimeHandlerImpl setMinutes(String minutes) {
+    public synchronized FixedDateTimeHandlerImpl setMinutes(long minutes) {
         this.minutesThreadLocal.set(minutes);
         return this;
     }
@@ -66,33 +69,21 @@ public class FixedDateTimeHandlerImpl implements FixedDateTimeHandler {
      * @param seconds
      * @return
      */
-    public synchronized FixedDateTimeHandlerImpl setSeconds(String seconds) {
+    public synchronized FixedDateTimeHandlerImpl setSeconds(long seconds) {
         this.secondsThreadLocal.set(seconds);
         return this;
     }
 
     /**
      *
-     * @return
+     * @return fixedDateTime
      */
     public synchronized FixedDateTime createFixedDateTime() {
-        String sDays = this.daysThreadLocal.get();
-        long days = (sDays == null) ? 0 : Long.parseLong(sDays);
-
-        String sHours = this.hoursThreadLocal.get();
-        long hours = (sHours == null) ? 0 : Long.parseLong(sHours);
-
-        String sMinutes = this.minutesThreadLocal.get();
-        long minutes = (sMinutes == null) ? 0 : Long.parseLong(sMinutes);
-
-        String sSeconds = this.secondsThreadLocal.get();
-        long seconds = (sSeconds == null) ? 0 : Long.parseLong(sSeconds);
-
         return new FixedDateTimeImpl(
-                days,
-                hours,
-                minutes,
-                seconds);
+                daysThreadLocal.get(),
+                hoursThreadLocal.get(),
+                minutesThreadLocal.get(),
+                secondsThreadLocal.get());
     }
 
 

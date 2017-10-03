@@ -13,17 +13,26 @@ public interface TaskData {
 
 	String getPassword();
 
-	String getExecutionDateTime();
-
 	String getOperationName();
 
 	String getHostName();
 
-    String getDays();
+	String getExecutionDateTime();
 
-    String getHours();
+	long getFixedRateDays();
 
-    String getMinutes();
+	long getFixedRateHours();
 
-    String getSeconds();
+	long getFixedRateMinutes();
+
+	long getFixedRateSeconds();
+
+	long getFixedDelayDays();
+
+	long getFixedDelayHours();
+
+	long getFixedDelayMinutes();
+
+	long getFixedDelaySeconds();
+
 }

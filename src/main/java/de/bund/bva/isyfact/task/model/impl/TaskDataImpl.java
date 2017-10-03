@@ -13,97 +13,206 @@ public class TaskDataImpl implements TaskData {
 	private final String id;
 	private final String username;
 	private final String password;
-	private final String executionDateTime;
 	private final String operationName;
 	private final String hostName;
-	private final String days;
-	private final String hours;
-	private final String minutes;
-	private final String seconds;
+	private final String executionDateTime;
+	private final long fixedRateDays;
+	private final long fixedRateHours;
+	private final long fixedRateMinutes;
+	private final long fixedRateSeconds;
+	private final long fixedDelayDays;
+	private final long fixedDelayHours;
+	private final long fixedDelayMinutes;
+	private final long fixedDelaySeconds;
+
 
 	/**
 	 *
 	 * @param id
 	 * @param username
 	 * @param password
-	 * @param executionDateTime
 	 * @param operationName
 	 * @param hostName
-	 * @param days
-	 * @param hours
-	 * @param minutes
-	 * @param seconds
+	 * @param executionDateTime
 	 */
 	public TaskDataImpl(
 			String id,
 			String username,
 			String password,
-			String executionDateTime,
 			String operationName,
 			String hostName,
-			String days,
-			String hours,
-			String minutes,
-			String seconds) {
+			String executionDateTime
+	) {
+		this(
+				id,
+				username,
+				password,
+				operationName,
+				hostName,
+				executionDateTime,
+				0L,
+				0L,
+				0L,
+				0L);
+	}
+
+	/**
+	 * @param id
+	 * @param username
+	 * @param password
+	 * @param operationName
+	 * @param hostName
+	 * @param executionDateTime
+	 * @param fixedRatedays
+	 * @param fixedRateHours
+	 * @param fixedRateMinutes
+	 * @param fixedRateSeconds
+	 */
+	public TaskDataImpl(
+			String id,
+			String username,
+			String password,
+			String operationName,
+			String hostName,
+			String executionDateTime,
+			long fixedRatedays,
+			long fixedRateHours,
+			long fixedRateMinutes,
+			long fixedRateSeconds
+	) {
+		this(
+				id,
+				username,
+				password,
+				operationName,
+				hostName,
+				executionDateTime,
+				fixedRatedays,
+				fixedRateHours,
+				fixedRateMinutes,
+				fixedRateSeconds,
+				0L,
+				0L,
+				0L,
+				0L);
+	}
+
+	/**
+	 *
+	 * @param id
+	 * @param username
+	 * @param password
+	 * @param operationName
+	 * @param hostName
+	 * @param executionDateTime
+	 * @param fixedRatedays
+	 * @param fixedRateHours
+	 * @param fixedRateMinutes
+	 * @param fixedRateSeconds
+	 * @param fixedDelayDays
+	 * @param fixedDelayHours
+	 * @param fixedDelayMinutes
+	 * @param fixedDelaySeconds
+	 */
+	public TaskDataImpl(
+			String id,
+			String username,
+			String password,
+			String operationName,
+			String hostName,
+			String executionDateTime,
+			long fixedRatedays,
+			long fixedRateHours,
+			long fixedRateMinutes,
+			long fixedRateSeconds,
+			long fixedDelayDays,
+			long fixedDelayHours,
+			long fixedDelayMinutes,
+			long fixedDelaySeconds
+	) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.executionDateTime = executionDateTime;
 		this.operationName = operationName;
 		this.hostName = hostName;
-		this.days = days;
-		this.hours = hours;
-		this.minutes = minutes;
-		this.seconds = seconds;
+		this.fixedRateDays = fixedRatedays;
+		this.fixedRateHours = fixedRateHours;
+		this.fixedRateMinutes = fixedRateMinutes;
+		this.fixedRateSeconds = fixedRateSeconds;
+		this.fixedDelayDays = fixedDelayDays;
+		this.fixedDelayHours = fixedDelayHours;
+		this.fixedDelayMinutes = fixedDelayMinutes;
+		this.fixedDelaySeconds = fixedDelaySeconds;
 	}
 
 	@Override
-	public synchronized String getId() {
+	public String getId() {
 		return id;
 	}
 
 	@Override
-	public synchronized String getUsername() {
+	public String getUsername() {
 		return username;
 	}
 
 	@Override
-	public synchronized String getPassword() {
+	public String getPassword() {
 		return password;
 	}
 
 	@Override
-	public synchronized String getExecutionDateTime() {
+	public String getExecutionDateTime() {
 		return executionDateTime;
 	}
 
 	@Override
-	public synchronized String getOperationName() {
+	public String getOperationName() {
 		return operationName;
 	}
 
 	@Override
-	public synchronized String getHostName() {
+	public String getHostName() {
 		return hostName;
 	}
 
 	@Override
-	public synchronized String getDays() {
-		return days;
+	public long getFixedRateDays() {
+		return fixedRateDays;
 	}
 
 	@Override
-	public synchronized String getHours() {
-		return hours;
+	public long getFixedRateHours() {
+		return fixedRateHours;
 	}
 
 	@Override
-	public synchronized String getMinutes() {
-		return minutes;
+	public long getFixedRateMinutes() {
+		return fixedRateMinutes;
 	}
 
 	@Override
-	public synchronized String getSeconds() {
-		return seconds;
+	public long getFixedRateSeconds() {
+		return fixedRateSeconds;
+	}
+
+	@Override
+	public long getFixedDelayDays() {
+		return fixedDelayDays;
+	}
+
+	@Override
+	public long getFixedDelayHours() {
+		return fixedDelayHours;
+	}
+
+	@Override
+	public long getFixedDelayMinutes() {
+		return fixedDelayMinutes;
+	}
+
+	@Override
+	public long getFixedDelaySeconds() {
+		return fixedDelaySeconds;
 	}
 }

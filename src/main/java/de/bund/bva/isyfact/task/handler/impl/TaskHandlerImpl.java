@@ -47,11 +47,22 @@ public class TaskHandlerImpl implements TaskHandler {
 			Operation operation = operationHandler.createOperationInstance(taskData);
 			operation.setExecutionDateTime(executionDateTime);
 
-			FixedDateTimeHandler fixedRateHandler = new FixedDateTimeHandlerImpl(taskData);
+			FixedDateTimeHandler fixedRateHandler =
+					new FixedDateTimeHandlerImpl(
+							taskData.getFixedRateDays(),
+							taskData.getFixedRateHours(),
+							taskData.getFixedRateMinutes(),
+							taskData.getFixedRateSeconds()
+					);
 			FixedDateTime fixedRate = fixedRateHandler.createFixedDateTime();
 			operation.setFixedRate(fixedRate);
 
-			FixedDateTimeHandler fixedDelayHandler = new FixedDateTimeHandlerImpl(taskData);
+			FixedDateTimeHandler fixedDelayHandler = new FixedDateTimeHandlerImpl(
+					taskData.getFixedDelayDays(),
+					taskData.getFixedDelayHours(),
+					taskData.getFixedDelayMinutes(),
+					taskData.getFixedDelaySeconds()
+			);
 			FixedDateTime fixedDelay = fixedDelayHandler.createFixedDateTime();
 			operation.setFixedDelay(fixedDelay);
 

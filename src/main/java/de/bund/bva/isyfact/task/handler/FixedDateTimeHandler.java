@@ -8,13 +8,13 @@ import de.bund.bva.isyfact.task.model.FixedDateTime;
  * @author Alexander Salvanos, msg systems ag
  */
 public interface FixedDateTimeHandler {
-    FixedDateTimeHandler setDays(String days);
+    FixedDateTimeHandler setDays(long days);
 
-    FixedDateTimeHandler setHours(String hours);
+    FixedDateTimeHandler setHours(long hours);
 
-    FixedDateTimeHandler setMinutes(String minutes);
+    FixedDateTimeHandler setMinutes(long minutes);
 
-    FixedDateTimeHandler setSeconds(String seconds);
+    FixedDateTimeHandler setSeconds(long seconds);
 
     FixedDateTime createFixedDateTime();
 }

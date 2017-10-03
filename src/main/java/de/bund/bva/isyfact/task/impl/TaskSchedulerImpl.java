@@ -170,7 +170,7 @@ public class TaskSchedulerImpl implements TaskScheduler {
             scheduledFuture = scheduledExecutorService.get().scheduleWithFixedDelay(
                     task.getOperation(),
                     Duration.between(LocalDateTime.now(), task.getOperation().getExecutionDateTime()).toNanos(),
-                    task.getOperation().getFixedRate().toNanos(),
+                    task.getOperation().getFixedDelay().toNanos(),
                     TimeUnit.NANOSECONDS);
             counter.incrementAndGet();
 
