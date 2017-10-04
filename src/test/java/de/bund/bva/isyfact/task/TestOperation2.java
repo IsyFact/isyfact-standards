@@ -8,15 +8,7 @@ import java.util.concurrent.TimeUnit;
 public class TestOperation2 extends OperationImpl {
     @Override
     public void run() {
-        try {
-            for (int i = 0; i < 10; i++) {
-                TimeUnit.SECONDS.sleep(1);
-                System.out.println(LocalDateTime.now() + " running Operation 2");
-            }
-            setHasBeenExecutedSuccessfully(true);
-        } catch(Throwable e) {
-            setErrorMessage(e.getMessage());
-            setHasBeenExecutedSuccessfully(false);
-        }
+        System.out.println(LocalDateTime.now() + " running Operation 2");
+        setHasBeenExecutedSuccessfully(true);
     }
 }

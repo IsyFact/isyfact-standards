@@ -35,12 +35,11 @@ public class TaskSchedulerImpl implements TaskScheduler {
             = new ThreadLocal<>();
     private volatile ThreadLocal<LocalDateTime> startTime
             = new ThreadLocal<>();
-    private final AtomicLong counter = new AtomicLong();
-
     private volatile ThreadLocal<ScheduledExecutorService> scheduledExecutorService
             = new ThreadLocal<>();
 
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(TaskSchedulerImpl.class);
+    private final AtomicLong counter = new AtomicLong();
 
     /**
      *
@@ -76,16 +75,15 @@ public class TaskSchedulerImpl implements TaskScheduler {
      * @return ScheduledFuture/<String/>
      */
     @Override
-    public synchronized ScheduledFuture<String> schedule(Task task) {
-        LOG.debug("schedule: ", " executionDateTime: " + task.getOperation().getExecutionDateTime());
-        ScheduledFuture<String> scheduledFuture = null;
+    public synchronized ScheduledFuture<?> schedule(Task task) {
+        ScheduledFuture<?> scheduledFuture = null;
         try {
             MdcHelper.pushKorrelationsId(UUID.randomUUID().toString());
 
-            // TODO: securityAuthenticator muss in der Spring Bean erst noch injiziert werden
+            // TODO: Frage an Bjoern - Wie wird der SecurityAuthenticator injiziert
             // securityAuthenticator.get().login();
 
-            scheduledExecutorService.get().schedule(
+            scheduledFuture = scheduledExecutorService.get().schedule(
                     task.getOperation(),
                     Duration.between(LocalDateTime.now(), task.getOperation().getExecutionDateTime()).toNanos(),
                     TimeUnit.NANOSECONDS);
@@ -95,15 +93,14 @@ public class TaskSchedulerImpl implements TaskScheduler {
             task.getOperation().setErrorMessage(e.getMessage());
             task.getOperation().setHasBeenExecutedSuccessfully(false);
 
-            //TODO: Wie funktionieren die Meldungsschlüssel
+            //TODO: Frage an Bjoern - Wie funktionieren die Meldungsschlüssel
             // String msg = MessageSourceHolder.getMessage(FehlerSchluessel.MEL_FEHLER_TASK00001);
             // LOG.info(LogKategorie.JOURNAL, FehlerSchluessel.MEL_FEHLER_TASK00001, msg);
 
         } finally {
             MdcHelper.entferneKorrelationsId();
-
-            // TODO: securityAuthenticator muss in der Spring Bean erst noch injiziert werden
-            //securityAuthenticator.logout();
+            // TODO: Frage an Bjoern - Wie wird der SecurityAuthenticator injiziert
+           //securityAuthenticator.logout();
         }
         return scheduledFuture;
     }
@@ -118,13 +115,13 @@ public class TaskSchedulerImpl implements TaskScheduler {
      * @throws Exception
      */
     @Override
-    public ScheduledFuture<?> scheduleAtFixedRate(Task task) throws NoSuchMethodException {
+    public synchronized ScheduledFuture<?> scheduleAtFixedRate(Task task) throws NoSuchMethodException {
         LOG.debug("schedule: ", " executionDateTime: " + task.getOperation().getExecutionDateTime());
         ScheduledFuture<?> scheduledFuture = null;
         try {
             MdcHelper.pushKorrelationsId(UUID.randomUUID().toString());
 
-            // TODO: securityAuthenticator muss in der Spring Bean erst noch injiziert werden
+            // TODO: Frage an Bjoern - Wie wird der SecurityAuthenticator injiziert
             // securityAuthenticator.login();
 
             scheduledFuture = scheduledExecutorService.get().scheduleAtFixedRate(
@@ -138,14 +135,13 @@ public class TaskSchedulerImpl implements TaskScheduler {
             task.getOperation().setErrorMessage(e.getMessage());
             task.getOperation().setHasBeenExecutedSuccessfully(false);
 
-            //TODO: Wie funktionieren die Meldungsschlüssel
+            //TODO: Frage an Bjoern - Wie funktionieren die Meldungsschlüssel
             // String msg = MessageSourceHolder.getMessage(FehlerSchluessel.MEL_FEHLER_TASK00001);
             // LOG.info(LogKategorie.JOURNAL, FehlerSchluessel.MEL_FEHLER_TASK00001, msg);
 
         } finally {
             MdcHelper.entferneKorrelationsId();
-
-            // TODO: securityAuthenticator muss in der Spring Bean erst noch injiziert werden
+            // TODO: Frage an Bjoern - Wie wird der SecurityAuthenticator injiziert
             //securityAuthenticator.logout();
         }
         return scheduledFuture;
@@ -153,18 +149,16 @@ public class TaskSchedulerImpl implements TaskScheduler {
 
     /**
      * @param task
-     * @return
      * @throws NoSuchMethodException
      * @throws Exception
      */
     @Override
-    public ScheduledFuture<?> scheduleWithFixedDelay(Task task) throws NoSuchMethodException {
+    public synchronized ScheduledFuture<?> scheduleWithFixedDelay(Task task) throws NoSuchMethodException {
         LOG.debug("schedule: ", " executionDateTime: " + task.getOperation().getExecutionDateTime());
         ScheduledFuture<?> scheduledFuture = null;
         try {
             MdcHelper.pushKorrelationsId(UUID.randomUUID().toString());
-
-            // TODO: securityAuthenticator muss in der Spring Bean erst noch injiziert werden
+            // TODO: Frage an Bjoern - Wie wird der SecurityAuthenticator injiziert
             // securityAuthenticator.login();
 
             scheduledFuture = scheduledExecutorService.get().scheduleWithFixedDelay(
@@ -178,14 +172,13 @@ public class TaskSchedulerImpl implements TaskScheduler {
             task.getOperation().setErrorMessage(e.getMessage());
             task.getOperation().setHasBeenExecutedSuccessfully(false);
 
-            //TODO: Wie funktionieren die Meldungsschlüssel
+            //TODO: Frage an Bjoern - Wie funktionieren die Meldungsschlüssel
             // String msg = MessageSourceHolder.getMessage(FehlerSchluessel.MEL_FEHLER_TASK00001);
             // LOG.info(LogKategorie.JOURNAL, FehlerSchluessel.MEL_FEHLER_TASK00001, msg);
 
         } finally {
             MdcHelper.entferneKorrelationsId();
-
-            // TODO: securityAuthenticator muss in der Spring Bean erst noch injiziert werden
+            // TODO: Frage an Bjoern - Wie wird der SecurityAuthenticator injiziert
             //securityAuthenticator.logout();
         }
         return scheduledFuture;

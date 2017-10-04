@@ -64,14 +64,14 @@ public class TestTaskScheduler {
                 .thenReturn("de.bund.bva.isyfact.task.TestOperation2");
         when(konfiguration.getAsString("isyfact.task.taskTest2.host"))
                 .thenReturn(InetAddress.getLocalHost().getHostName());
-        when(konfiguration.getAsString("isyfact.task.taskTest2.fixedRate.days"))
-                .thenReturn("0");
-        when(konfiguration.getAsString("isyfact.task.taskTest2.fixedRate.hours"))
-                .thenReturn("0");
-        when(konfiguration.getAsString("isyfact.task.taskTest2.fixedRate.minutes"))
-                .thenReturn("0");
-        when(konfiguration.getAsString("isyfact.task.taskTest2.fixedRate.seconds"))
-                .thenReturn("0");
+        when(konfiguration.getAsLong("isyfact.task.taskTest2.fixedRate.days"))
+                .thenReturn(0L);
+        when(konfiguration.getAsLong("isyfact.task.taskTest2.fixedRate.hours"))
+                .thenReturn(0L);
+        when(konfiguration.getAsLong("isyfact.task.taskTest2.fixedRate.minutes"))
+                .thenReturn(0L);
+        when(konfiguration.getAsLong("isyfact.task.taskTest2.fixedRate.seconds"))
+                .thenReturn(2L);
 
         when(konfiguration.getAsString("isyfact.task.taskTest3.id")).thenReturn("TaskTest3");
         when(konfiguration.getAsString("isyfact.task.taskTest3.benutzer")).thenReturn("MyTestUser3");
@@ -80,22 +80,22 @@ public class TestTaskScheduler {
                 .thenReturn("de.bund.bva.isyfact.task.TestOperation3");
         when(konfiguration.getAsString("isyfact.task.taskTest3.host"))
                 .thenReturn(InetAddress.getLocalHost().getHostName());
-        when(konfiguration.getAsString("isyfact.task.taskTest3.fixedRate.days"))
-                .thenReturn("0");
-        when(konfiguration.getAsString("isyfact.task.taskTest3.fixedRate.hours"))
-                .thenReturn("0");
-        when(konfiguration.getAsString("isyfact.task.taskTest3.fixedRate.minutes"))
-                .thenReturn("0");
-        when(konfiguration.getAsString("isyfact.task.taskTest3.fixedRate.seconds"))
-                .thenReturn("0");
-        when(konfiguration.getAsString("isyfact.task.taskTest3.fixedDelay.days"))
-                .thenReturn("0");
-        when(konfiguration.getAsString("isyfact.task.taskTest3.fixedDelay.hours"))
-                .thenReturn("0");
-        when(konfiguration.getAsString("isyfact.task.taskTest3.fixedDelay.minutes"))
-                .thenReturn("0");
-        when(konfiguration.getAsString("isyfact.task.taskTest3.fixedDelay.seconds"))
-                .thenReturn("0");
+        when(konfiguration.getAsLong("isyfact.task.taskTest3.fixedRate.days"))
+                .thenReturn(0L);
+        when(konfiguration.getAsLong("isyfact.task.taskTest3.fixedRate.hours"))
+                .thenReturn(0L);
+        when(konfiguration.getAsLong("isyfact.task.taskTest3.fixedRate.minutes"))
+                .thenReturn(0L);
+        when(konfiguration.getAsLong("isyfact.task.taskTest3.fixedRate.seconds"))
+                .thenReturn(3L);
+        when(konfiguration.getAsLong("isyfact.task.taskTest3.fixedDelay.days"))
+                .thenReturn(0L);
+        when(konfiguration.getAsLong("isyfact.task.taskTest3.fixedDelay.hours"))
+                .thenReturn(0L);
+        when(konfiguration.getAsLong("isyfact.task.taskTest3.fixedDelay.minutes"))
+                .thenReturn(0L);
+        when(konfiguration.getAsLong("isyfact.task.taskTest3.fixedDelay.seconds"))
+                .thenReturn(3L);
     }
 
     @Test
@@ -104,8 +104,6 @@ public class TestTaskScheduler {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(dateTimePattern);
 
         TaskHandler taskHandler = new TaskHandlerImpl();
-
-
 
         String id1 = konfiguration.getAsString("isyfact.task.taskTest1.id");
         String username1 = konfiguration.getAsString("isyfact.task.taskTest1.benutzer");
@@ -180,8 +178,8 @@ public class TestTaskScheduler {
 
         TaskScheduler taskScheduler = new TaskSchedulerImpl(konfiguration, securityAuthenticator);
         taskScheduler.schedule(task1);
-        taskScheduler.schedule(task2);
-        taskScheduler.schedule(task3);
+        taskScheduler.scheduleAtFixedRate(task2);
+        taskScheduler.scheduleWithFixedDelay(task3);
         taskScheduler.awaitTerminationInSeconds(20);
 
         int amount_of_threads = konfiguration.getAsInteger("isyfact.task.standard.amount_of_threads");

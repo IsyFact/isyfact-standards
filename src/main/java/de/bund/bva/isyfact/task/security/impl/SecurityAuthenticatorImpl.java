@@ -60,7 +60,7 @@ public class SecurityAuthenticatorImpl implements SecurityAuthenticator {
      */
     @Override
     public synchronized void login() {
-        //TODO Die Properties müssen zunächst über Spring injiziert werden
+        //TODO: Frage an Bjoern - Wie werden die Properties injiziert
          AufrufKontext kontext = aufrufKontextFactoryThreadLocal.get().erzeugeAufrufKontext();
          aufrufKontextVerwalterThreadLocal.get().setAufrufKontext(kontext);
          kontext.setDurchfuehrenderBenutzerKennung(usernameThreadLocal.get());

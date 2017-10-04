@@ -32,31 +32,31 @@ public class OperationHandlerImpl implements OperationHandler {
 	@Override
 	public synchronized Operation createOperationInstance(TaskData taskData) {
 
-			// TODO Reparieren
-			// throws CreateOperationInstanceException {
+		//TODO: Frage an Bjoern - Wie wird die Exception injiziert?
+		// throws CreateOperationInstanceException {
 		String operationName = taskData.getOperationName();
 		Class<?> clazz = null;
 		try {
 			clazz = Class.forName(operationName);
 		} catch (ClassNotFoundException e) {
-			// TODO Reparieren
+			//TODO: Frage an Bjoern - Wie wird die Exception injiziert?
 			// throw new CreateOperationInstanceException();
 		}
 		Constructor<?> ctr = null;
 		try {
 			ctr = clazz.getConstructor();
 		} catch (NoSuchMethodException e) {
-			// TODO Reparieren
+			//TODO: Frage an Bjoern - Wie wird die Exception injiziert?
 			//throw new CreateOperationInstanceException();
 		}
 		try {
 			return (Operation) ctr.newInstance();
 		} catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-			// TODO Reparieren
+			//TODO: Frage an Bjoern - Wie wird die Exception injiziert?
 			// throw new CreateOperationInstanceException();
 		}
-		// Hier kommt man nur im Fehlerfall an.
-		// TODO Reparieren
+		//TODO: Frage an Bjoern - Wie wird die Exception injiziert?
+		// return ...
 		return null;
 	}
 }
