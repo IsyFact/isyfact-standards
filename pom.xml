@@ -7,8 +7,10 @@
     <groupId>de.bund.bva.isyfact</groupId>
     <artifactId>isyfact-masterpom</artifactId>
     <packaging>pom</packaging>
-    <version>1.4.0</version>
-    <description>Die IsyFact Master-POM enthält globale Vorgaben, die sich auf alle IsyFact Projekte auswirken sollen.</description>
+    <version>1.4.1-SNAPSHOT</version>
+    <description>Die IsyFact Master-POM enthält globale Vorgaben, die sich auf alle IsyFact Projekte auswirken
+        sollen.
+    </description>
 
     <organization>
         <name>Bundesverwaltungsamt (BVA)</name>
@@ -422,58 +424,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
                 <version>3.5.1</version>
-                <configuration>
-                    <reportPlugins>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-surefire-report-plugin</artifactId>
-                            <version>2.19.1</version>
-                        </plugin>
-                        <!-- Erzeugt einen Checkstyle-Bericht -->
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-checkstyle-plugin</artifactId>
-                            <version>2.12</version>
-                            <configuration>
-                                <configLocation>${checkstyle.config}</configLocation>
-                                <suppressionsLocation>${checkstyle.suppressions.config}</suppressionsLocation>
-                            </configuration>
-                        </plugin>
-                        <!-- Erzeugt JavaDoc beim Build. Die Angabe des Encodings sorgt für eine korrekte Darstellung
-                            von Sonderzeichen in den JavaDocs. -->
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-javadoc-plugin</artifactId>
-                            <version>${maven.javadoc.plugin.version}</version>
-                            <configuration>
-                                <encoding>${project.build.sourceEncoding}</encoding>
-                                <charset>${project.build.sourceEncoding}</charset>
-                                <additionalparam>-Xdoclint:none</additionalparam>
-                            </configuration>
-                        </plugin>
-                        <!-- Das JXR-Plugin ermöglicht die Verlinkung von Source-Code in diversen Maven-Reports. -->
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-jxr-plugin</artifactId>
-                            <version>2.5</version>
-                        </plugin>
-                        <!-- berichte über eingesetzte Bug Patterns. -->
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-pmd-plugin</artifactId>
-                            <version>3.6</version>
-                            <configuration>
-                                <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
-                                <targetJdk>${java.compile.version}</targetJdk>
-                            </configuration>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.codehaus.mojo</groupId>
-                            <artifactId>findbugs-maven-plugin</artifactId>
-                            <version>3.0.4</version>
-                        </plugin>
-                    </reportPlugins>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -513,5 +463,58 @@
             </plugin>
         </plugins>
     </build>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>2.19.1</version>
+            </plugin>
+            <!-- Erzeugt einen Checkstyle-Bericht -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.12</version>
+                <configuration>
+                    <configLocation>${checkstyle.config}</configLocation>
+                    <suppressionsLocation>${checkstyle.suppressions.config}</suppressionsLocation>
+                </configuration>
+            </plugin>
+            <!-- Erzeugt JavaDoc beim Build. Die Angabe des Encodings sorgt für eine korrekte Darstellung
+                von Sonderzeichen in den JavaDocs. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven.javadoc.plugin.version}</version>
+                <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <charset>${project.build.sourceEncoding}</charset>
+                    <additionalparam>-Xdoclint:none</additionalparam>
+                </configuration>
+            </plugin>
+            <!-- Das JXR-Plugin ermöglicht die Verlinkung von Source-Code in diversen Maven-Reports. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>2.5</version>
+            </plugin>
+            <!-- berichte über eingesetzte Bug Patterns. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.6</version>
+                <configuration>
+                    <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
+                    <targetJdk>${java.compile.version}</targetJdk>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>3.0.4</version>
+            </plugin>
+        </plugins>
+    </reporting>
 
 </project>
