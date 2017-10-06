@@ -15,14 +15,14 @@ public class TaskMonitor {
 
     private volatile Exception letzterFehler;
 
-    public void erfolgreicheAusfuehrung() {
+    public void zeichneErfolgreicheAusfuehrungAuf() {
         // TODO isy-datetime?
         letzteAusfuehrungAbgeschlossen = LocalDateTime.now();
         letzteAusfuehrungErfolgreich = true;
         letzterFehler = null;
     }
 
-    public void fehlerhafteAusfuehrung(Exception letzterFehler) {
+    public void zeichneFehlgeschlageneAusfuehrungAuf(Exception letzterFehler) {
         // TODO isy-datetime?
         letzteAusfuehrungAbgeschlossen = LocalDateTime.now();
         letzteAusfuehrungErfolgreich = false;

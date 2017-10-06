@@ -8,27 +8,27 @@ import de.bund.bva.isyfact.logging.util.MdcHelper;
 import de.bund.bva.isyfact.task.handler.AusfuehrungsplanHandler.Ausfuehrungsplan;
 import de.bund.bva.isyfact.task.handler.impl.AusfuehrungsplanHandlerImpl;
 import de.bund.bva.isyfact.task.jmx.TaskMonitor;
-import de.bund.bva.isyfact.task.model.Operation;
 import de.bund.bva.isyfact.task.model.Task;
+import de.bund.bva.isyfact.task.model.TaskRunner;
 import de.bund.bva.isyfact.task.security.SecurityAuthenticator;
 
 /**
- * Ein Task entspricht einer auszuführenden Aufgabe.
+ * Ein TaskRunner entspricht einer auszuführenden Aufgabe.
  *
  *
- * Ein Objekt des Typs Task entspricht einer auszuführenden Aufgabe. Jede Aufgabe ruft fachliche Operationen auf.
+ * Ein Objekt des Typs TaskRunner entspricht einer auszuführenden Aufgabe. Jede Aufgabe ruft fachliche Operationen auf.
  * Das bedeutet, dass sich alle aufgerufenen fachlichen Operationen eindeutig
  * einer bestimmten Ausführung einer Aufgabe zuordnen lassen.
- * Jeder auszuführende Task setzt seine id, seinen Namen und den Zeitpunkt der Ausführung.
+ * Jeder auszuführende TaskRunner setzt seine id, seinen Namen und den Zeitpunkt der Ausführung.
  * Die Aufgaben, die erledigt werden sollen, werden in einer call- bzw. run-Methode einer CallableOperation implementiert.
  *
  * Alle aufgerufenen fachlichen Operationen lassen sich eindeutig einer bestimmten Aufgabe zuordnen.
- * Wenn ein Task erfolgreich durchlaufen wurde, wird dies notiert.
- * Gleichzeitig merkt sich der Task den Endzeitpunkt des Durchlaufs.
+ * Wenn ein TaskRunner erfolgreich durchlaufen wurde, wird dies notiert.
+ * Gleichzeitig merkt sich der TaskRunner den Endzeitpunkt des Durchlaufs.
  *
  * @author Alexander Salvanos, msg systems ag
  */
-public class TaskImpl implements Task {
+public class TaskRunnerImpl implements TaskRunner {
     private volatile ThreadLocal<String> idThreadLocal = new ThreadLocal<>();
 
     private volatile ThreadLocal<String> korrelationsIdThreadLocal = new ThreadLocal<>();
@@ -46,28 +46,25 @@ public class TaskImpl implements Task {
 
     private final Duration fixedDelay;
 
-    private volatile TaskMonitor monitor;
-
-    private final Operation operation;
+    private final Task task;
 
     /**
      * @param id
      * @param securityAuthenticator
      * @param executionDateTime
-     * @param operation
+     * @param task
      */
-    public TaskImpl(String id, SecurityAuthenticator securityAuthenticator, Operation operation,
+    public TaskRunnerImpl(String id, SecurityAuthenticator securityAuthenticator, Task task,
         AusfuehrungsplanHandlerImpl.Ausfuehrungsplan ausfuehrungsplan, LocalDateTime executionDateTime,
-        Duration initialDelay, Duration fixedRate, Duration fixedDelay, TaskMonitor monitor) {
+        Duration initialDelay, Duration fixedRate, Duration fixedDelay) {
         this.idThreadLocal.set(id);
         this.securityAuthenticatorThreadLocal.set(securityAuthenticator);
         this.ausfuehrungsplanThreadLocal.set(ausfuehrungsplan);
-        this.operation = operation;
+        this.task = task;
         this.executionDateTime = executionDateTime;
         this.initialDelay = initialDelay;
         this.fixedRate = fixedRate;
         this.fixedDelay = fixedDelay;
-        this.monitor = monitor;
     }
 
     @Override
@@ -76,18 +73,14 @@ public class TaskImpl implements Task {
             MdcHelper.pushKorrelationsId(UUID.randomUUID().toString());
             //securityAuthenticatorThreadLocal.get().login();
 
-            operation.execute();
+            task.execute();
 
             //securityAuthenticatorThreadLocal.get().logout();
             MdcHelper.entferneKorrelationsId();
 
-            if (monitor != null) {
-                monitor.erfolgreicheAusfuehrung();
-            }
+            task.zeichneErfolgreicheAusfuehrungAuf();
         } catch (Exception e) {
-            if (monitor != null) {
-                monitor.fehlerhafteAusfuehrung(e);
-            }
+            task.zeichneFehlgeschlageneAusfuehrungAuf(e);
         }
     }
 
@@ -122,8 +115,8 @@ public class TaskImpl implements Task {
     }
 
     @Override
-    public synchronized Operation getOperation() {
-        return operation;
+    public synchronized Task getTask() {
+        return task;
     }
 
     @Override
@@ -156,8 +149,4 @@ public class TaskImpl implements Task {
         return fixedDelay;
     }
 
-    @Override
-    public TaskMonitor getMonitor() {
-        return monitor;
-    }
 }

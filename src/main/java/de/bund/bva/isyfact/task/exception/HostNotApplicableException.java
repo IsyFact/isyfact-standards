@@ -6,7 +6,7 @@ import de.bund.bva.pliscommon.exception.PlisTechnicalException;
 import de.bund.bva.pliscommon.util.exception.MessageSourceFehlertextProvider;
 
 /**
- * Die Exception wird geworfen, wenn ein Task auf einem bestimmten Ziel-Host ausgeführt werden soll,
+ * Die Exception wird geworfen, wenn ein TaskRunner auf einem bestimmten Ziel-Host ausgeführt werden soll,
  * der aktuelle Hostname, aber nicht dem Hostnamen des Ziel-Hosts entspricht.
  *
  * @author Alexander Salvanos, msg systems ag

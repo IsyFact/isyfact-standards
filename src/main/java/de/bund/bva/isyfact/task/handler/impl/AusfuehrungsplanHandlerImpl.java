@@ -7,7 +7,7 @@ import static de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel.AUSFUE
 import static de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel.PRAEFIX;
 
 /**
- * Der AusfuehrungsplanHandler liefert den Ausfuehrungsplan für einen Task.
+ * Der AusfuehrungsplanHandler liefert den Ausfuehrungsplan für einen TaskRunner.
  *
  * @author Alexander Salvanos, msg systems ag
  *

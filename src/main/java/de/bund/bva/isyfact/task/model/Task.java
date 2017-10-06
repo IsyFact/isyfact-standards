@@ -1,51 +1,27 @@
 package de.bund.bva.isyfact.task.model;
 
-import de.bund.bva.isyfact.task.handler.AusfuehrungsplanHandler.Ausfuehrungsplan;
-import de.bund.bva.isyfact.task.jmx.TaskMonitor;
-import de.bund.bva.isyfact.task.security.SecurityAuthenticator;
-
-import java.time.Duration;
-import java.time.LocalDateTime;
-
 /**
- * Ein Objekt des Typs Task entspricht einer auszuführenden Aufgabe.
- * Jede Aufgabe ruft fachliche Operationen auf.
- * Das bedeutet, dass sich alle aufgerufenen fachlichen Operationen eindeutig einer bestimmten Ausführung einer Aufgabe zuordnen lassen.
- * Ein TaskData wird von der konkreten Implementierung eines auszuführenden Tasks abgeleitet.
- * Jeder auszuführende Task setzt seine id, seinen Namen und den Zeitpunkt der Ausführung.
- * Die Aufgaben, die erledigt werden sollen, werden in einer call- bzw. run-Methode
- * einer CallableOperation oder RepeatableOperation implementiert.
+ * Eine Task enthält die Anweisungen, die erledigt werden sollen.
+ * Wenn die Anweisungen erfolgreich durchlaufen wurden, gibt hasBeenExecutedSuccessfully true zurück.
+ * Sollte der Durchlauf unterbrochen werden, wird die ErrorMessage notiert.
  *
  * @author Alexander Salvanos, msg systems ag
  */
-public interface Task extends Runnable {
+public interface Task {
 
-    String getId();
+    void execute();
 
-    void setId(String id);
+    /**
+     * Zeichnet eine erfolgreiche Ausführung des Tasks auf.
+     */
+    void zeichneErfolgreicheAusfuehrungAuf();
 
-    String getKorrelationsId();
-
-    void setKorrelationsId(String korrelationsId);
-
-    SecurityAuthenticator getSecurityAuthenticator();
-
-    void setSecurityAuthenticator(SecurityAuthenticator securityAuthenticator);
-
-    Operation getOperation();
-
-    Ausfuehrungsplan getAusfuehrungsplan();
-
-    void setAusfuehrungsplan(Ausfuehrungsplan ausfuehrungsplan);
-
-    Duration getInitialDelay();
-
-    Duration getFixedRate();
-
-    Duration getFixedDelay();
-
-    LocalDateTime getExecutionDateTime();
-
-    TaskMonitor getMonitor();
+    /**
+     * Zeichnet eine fehlgeschlagene Ausführung des Tasks auf.
+     *
+     * @param fehler
+     *     aufgetretene Ausnahme
+     */
+    void zeichneFehlgeschlageneAusfuehrungAuf(Exception fehler);
 
 }

@@ -2,7 +2,7 @@ package de.bund.bva.isyfact.task;
 
 import java.util.List;
 
-import de.bund.bva.isyfact.task.model.Task;
+import de.bund.bva.isyfact.task.model.TaskRunner;
 
 /**
  * Der TaskScheduler bietet die Möglichkeit, dass Aufgaben (Tasks) zu bestimmten Zeitpunkten ausgeführt werden können.
@@ -17,7 +17,7 @@ public interface TaskScheduler {
 	/**
 	 *
 	 */
-	void addTask(Task task);
+	void addTask(TaskRunner taskRunner);
 
 	/**
 	 *

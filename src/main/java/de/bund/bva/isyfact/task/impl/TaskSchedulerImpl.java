@@ -22,8 +22,8 @@ import de.bund.bva.isyfact.task.handler.TaskHandler;
 import de.bund.bva.isyfact.task.handler.impl.TaskHandlerImpl;
 import de.bund.bva.isyfact.task.konstanten.FehlerSchluessel;
 import de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel;
-import de.bund.bva.isyfact.task.model.Operation;
 import de.bund.bva.isyfact.task.model.Task;
+import de.bund.bva.isyfact.task.model.TaskRunner;
 import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 import de.bund.bva.pliscommon.util.spring.MessageSourceHolder;
 import org.springframework.beans.BeansException;
@@ -47,7 +47,7 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
 
     private volatile ThreadLocal<ScheduledExecutorService> scheduledExecutorService = new ThreadLocal<>();
 
-    private final Map<String, Task> tasks = new HashMap<>();
+    private final Map<String, TaskRunner> tasks = new HashMap<>();
 
     private final Map<String, ScheduledFuture<?>> scheduledFutures = new HashMap<>();
 
@@ -81,7 +81,7 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
     public void starteKonfigurierteTasks() {
         TaskHandler taskHandler = new TaskHandlerImpl();
 
-        for (String taskId : applicationContext.getBeanNamesForType(Operation.class)) {
+        for (String taskId : applicationContext.getBeanNamesForType(Task.class)) {
             try {
                 addTask(taskHandler.createTask(taskId, konfiguration.get(), applicationContext));
             } catch (HostNotApplicableException e) {
@@ -92,113 +92,107 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
         start();
     }
 
-    public void addTask(Task task) {
-        tasks.put(task.getId(), task);
+    public void addTask(TaskRunner taskRunner) {
+        tasks.put(taskRunner.getId(), taskRunner);
     }
 
     @Override
     public void start() {
-        for (Task task : tasks.values()) {
+        for (TaskRunner taskRunner : tasks.values()) {
             ScheduledFuture<?> scheduledFuture = null;
-            switch (task.getAusfuehrungsplan()) {
+            switch (taskRunner.getAusfuehrungsplan()) {
             case ONCE:
-                scheduledFuture = schedule(task);
+                scheduledFuture = schedule(taskRunner);
                 break;
             case FIXED_RATE:
-                scheduledFuture = scheduleAtFixedRate(task);
+                scheduledFuture = scheduleAtFixedRate(taskRunner);
                 break;
             case FIXED_DELAY:
-                scheduledFuture = scheduleWithFixedDelay(task);
+                scheduledFuture = scheduleWithFixedDelay(taskRunner);
                 break;
             }
-            String id = task.getId();
+            String id = taskRunner.getId();
             scheduledFutures.put(id, scheduledFuture);
         }
     }
 
     /**
-     * Plant und führt einen Task aus, der zu einem bestimmten Zeitpunkt ausgeführt wird.
+     * Plant und führt einen TaskRunner aus, der zu einem bestimmten Zeitpunkt ausgeführt wird.
      *
-     * @param task
+     * @param taskRunner
      * @return ScheduledFuture/<String/>
      */
-    private synchronized ScheduledFuture<?> schedule(Task task) {
-        LOG.debug("Reihe Task {} ein (delay: {})", task.getId(),
-            Duration.between(LocalDateTime.now(), task.getExecutionDateTime()));
+    private synchronized ScheduledFuture<?> schedule(TaskRunner taskRunner) {
+        LOG.debug("Reihe TaskRunner {} ein (delay: {})", taskRunner.getId(),
+            Duration.between(LocalDateTime.now(), taskRunner.getExecutionDateTime()));
         ScheduledFuture<?> scheduledFuture = null;
         try {
-            scheduledFuture = scheduledExecutorService.get().schedule(task,
-                Duration.between(LocalDateTime.now(), task.getExecutionDateTime()).getSeconds(),
+            scheduledFuture = scheduledExecutorService.get().schedule(taskRunner,
+                Duration.between(LocalDateTime.now(), taskRunner.getExecutionDateTime()).getSeconds(),
                 TimeUnit.SECONDS);
-            scheduledFutures.put(task.getId(), scheduledFuture);
+            scheduledFutures.put(taskRunner.getId(), scheduledFuture);
             counter.incrementAndGet();
 
         } catch (Exception e) {
-            if (task.getMonitor() != null) {
-                task.getMonitor().fehlerhafteAusfuehrung(e);
-            }
+            taskRunner.getTask().zeichneFehlgeschlageneAusfuehrungAuf(e);
 
             String msg = MessageSourceHolder
-                .getMessage(FehlerSchluessel.TASK_KONNTE_NICHT_EINGEREIHT_WERDEN, task.getId());
+                .getMessage(FehlerSchluessel.TASK_KONNTE_NICHT_EINGEREIHT_WERDEN, taskRunner.getId());
             LOG.error(FehlerSchluessel.TASK_KONNTE_NICHT_EINGEREIHT_WERDEN, msg, e);
         }
         return scheduledFuture;
     }
 
     /**
-     * Plant einen zeitgesteuerten und immer wiederkehrenden Task.
+     * Plant einen zeitgesteuerten und immer wiederkehrenden TaskRunner.
      *
-     * @param task
+     * @param taskRunner
      * @return
      * @throws NoSuchMethodException
      * @throws Exception
      */
-    private synchronized ScheduledFuture<?> scheduleAtFixedRate(Task task) {
-        LOG.debug("Reihe Task {} ein (initial-delay: {}, fixed-rate: {})", task.getId(),
-            task.getInitialDelay(), task.getFixedRate());
+    private synchronized ScheduledFuture<?> scheduleAtFixedRate(TaskRunner taskRunner) {
+        LOG.debug("Reihe TaskRunner {} ein (initial-delay: {}, fixed-rate: {})", taskRunner.getId(),
+            taskRunner.getInitialDelay(), taskRunner.getFixedRate());
         ScheduledFuture<?> scheduledFuture = null;
         try {
             scheduledFuture = scheduledExecutorService.get()
-                .scheduleAtFixedRate(task, task.getInitialDelay().getSeconds(),
-                    task.getFixedRate().getSeconds(), TimeUnit.SECONDS);
-            scheduledFutures.put(task.getId(), scheduledFuture);
+                .scheduleAtFixedRate(taskRunner, taskRunner.getInitialDelay().getSeconds(),
+                    taskRunner.getFixedRate().getSeconds(), TimeUnit.SECONDS);
+            scheduledFutures.put(taskRunner.getId(), scheduledFuture);
             counter.incrementAndGet();
 
         } catch (Exception e) {
-            if (task.getMonitor() != null) {
-                task.getMonitor().fehlerhafteAusfuehrung(e);
-            }
+            taskRunner.getTask().zeichneFehlgeschlageneAusfuehrungAuf(e);
 
             String msg = MessageSourceHolder
-                .getMessage(FehlerSchluessel.TASK_KONNTE_NICHT_EINGEREIHT_WERDEN, task.getId());
+                .getMessage(FehlerSchluessel.TASK_KONNTE_NICHT_EINGEREIHT_WERDEN, taskRunner.getId());
             LOG.error(FehlerSchluessel.TASK_KONNTE_NICHT_EINGEREIHT_WERDEN, msg, e);
         }
         return scheduledFuture;
     }
 
     /**
-     * @param task
+     * @param taskRunner
      * @throws NoSuchMethodException
      * @throws Exception
      */
-    private synchronized ScheduledFuture<?> scheduleWithFixedDelay(Task task) {
-        LOG.debug("Reihe Task {} ein (initial-delay: {}, fixed-delay: {})", task.getId(),
-            task.getInitialDelay(), task.getFixedDelay());
+    private synchronized ScheduledFuture<?> scheduleWithFixedDelay(TaskRunner taskRunner) {
+        LOG.debug("Reihe TaskRunner {} ein (initial-delay: {}, fixed-delay: {})", taskRunner.getId(),
+            taskRunner.getInitialDelay(), taskRunner.getFixedDelay());
         ScheduledFuture<?> scheduledFuture = null;
         try {
             scheduledFuture = scheduledExecutorService.get()
-                .scheduleWithFixedDelay(task, task.getInitialDelay().getSeconds(),
-                    task.getFixedDelay().getSeconds(), TimeUnit.SECONDS);
-            scheduledFutures.put(task.getId(), scheduledFuture);
+                .scheduleWithFixedDelay(taskRunner, taskRunner.getInitialDelay().getSeconds(),
+                    taskRunner.getFixedDelay().getSeconds(), TimeUnit.SECONDS);
+            scheduledFutures.put(taskRunner.getId(), scheduledFuture);
             counter.incrementAndGet();
 
         } catch (Exception e) {
-            if (task.getMonitor() != null) {
-                task.getMonitor().fehlerhafteAusfuehrung(e);
-            }
+            taskRunner.getTask().zeichneFehlgeschlageneAusfuehrungAuf(e);
 
             String msg = MessageSourceHolder
-                .getMessage(FehlerSchluessel.TASK_KONNTE_NICHT_EINGEREIHT_WERDEN, task.getId());
+                .getMessage(FehlerSchluessel.TASK_KONNTE_NICHT_EINGEREIHT_WERDEN, taskRunner.getId());
             LOG.error(FehlerSchluessel.TASK_KONNTE_NICHT_EINGEREIHT_WERDEN, msg, e);
         }
         return scheduledFuture;

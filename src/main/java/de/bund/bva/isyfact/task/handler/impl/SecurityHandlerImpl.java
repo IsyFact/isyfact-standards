@@ -22,7 +22,7 @@ public class SecurityHandlerImpl implements SecurityHandler {
 	private final static IsyLogger LOG = IsyLoggerFactory.getLogger(SecurityHandlerImpl.class);
 
 	/**
-	 * Erstellt einen SecurityAuthenticator und setzt ihn als Attribut in den Task.
+	 * Erstellt einen SecurityAuthenticator und setzt ihn als Attribut in den TaskRunner.
 	 *
 	 * @return a SecurityAuthenticator
 	 */

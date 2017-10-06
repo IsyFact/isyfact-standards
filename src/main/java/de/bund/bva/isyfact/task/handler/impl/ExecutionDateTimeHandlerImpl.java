@@ -22,7 +22,7 @@ public class ExecutionDateTimeHandlerImpl implements ExecutionDateTimeHandler {
     private final static IsyLogger LOG = IsyLoggerFactory.getLogger(ExecutionDateTimeHandlerImpl.class);
 
     /**
-     * Liefert den Zeitpunkt, bei dem der Task ausgeführt werden soll.
+     * Liefert den Zeitpunkt, bei dem der TaskRunner ausgeführt werden soll.
      *
      * @return
      */
