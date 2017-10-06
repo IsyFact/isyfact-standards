@@ -24,10 +24,10 @@ public abstract class KonfigurationSchluessel {
     public static final String FIXEDRATEMINUTES = ".fixedRate.minutes";
     public static final String FIXEDRATESECONDS = ".fixedRate.seconds";
 
-    public static final String FIXEDDELAYDAYS = ".fixedRate.days";
-    public static final String FIXEDDELAYHOURS = ".fixedRate.hours";
-    public static final String FIXEDDELAYMINUTES = ".fixedRate.minutes";
-    public static final String FIXEDDELAYSECONDS = ".fixedRate.seconds";
+    public static final String FIXEDDELAYDAYS = ".fixedDelay.days";
+    public static final String FIXEDDELAYHOURS = ".fixedDelay.hours";
+    public static final String FIXEDDELAYMINUTES = ".fixedDelay.minutes";
+    public static final String FIXEDDELAYSECONDS = ".fixedDelay.seconds";
 
 
 

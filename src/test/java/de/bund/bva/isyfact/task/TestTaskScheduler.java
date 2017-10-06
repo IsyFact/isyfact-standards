@@ -86,10 +86,10 @@ public class TestTaskScheduler {
         String executionDateTime3 = LocalDateTime.now().plusSeconds(5).format(dateTimeFormatter);
         when(konfiguration.getAsString("isyfact.task.taskTest3.executionDateTime"))
             .thenReturn(executionDateTime3);
-        when(konfiguration.getAsLong("isyfact.task.taskTest3.fixedRate.days")).thenReturn(0L);
-        when(konfiguration.getAsLong("isyfact.task.taskTest3.fixedRate.hours")).thenReturn(0L);
-        when(konfiguration.getAsLong("isyfact.task.taskTest3.fixedRate.minutes")).thenReturn(0L);
-        when(konfiguration.getAsLong("isyfact.task.taskTest3.fixedRate.seconds")).thenReturn(3L);
+        when(konfiguration.getAsLong("isyfact.task.taskTest3.fixedDelay.days")).thenReturn(0L);
+        when(konfiguration.getAsLong("isyfact.task.taskTest3.fixedDelay.hours")).thenReturn(0L);
+        when(konfiguration.getAsLong("isyfact.task.taskTest3.fixedDelay.minutes")).thenReturn(0L);
+        when(konfiguration.getAsLong("isyfact.task.taskTest3.fixedDelay.seconds")).thenReturn(3L);
     }
 
     @Test
