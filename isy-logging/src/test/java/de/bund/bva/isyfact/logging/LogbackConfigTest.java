@@ -1,14 +1,13 @@
 package de.bund.bva.isyfact.logging;
 
-import java.net.URL;
-
-import org.junit.Test;
-import org.slf4j.LoggerFactory;
-
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.joran.JoranConfigurator;
 import ch.qos.logback.core.joran.spi.JoranException;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
+import org.junit.Test;
+import org.slf4j.LoggerFactory;
+
+import java.net.URL;
 
 /*
  * #%L
@@ -73,7 +72,7 @@ public class LogbackConfigTest extends AbstractLogTest {
     @Test
     public void testMdcConfig() throws Exception {
         
-        IsyLogger logger = IsyLoggerFactory.getLogger(this.getClass());
+        IsyLoggerStandard logger = IsyLoggerFactory.getLogger(this.getClass());
 
         // Laden und Test der MDC-Log-Konfiguration
         konfiguriereLogback("logback-MDC-test.xml");

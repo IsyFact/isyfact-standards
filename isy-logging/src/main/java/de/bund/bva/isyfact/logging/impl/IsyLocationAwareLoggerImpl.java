@@ -23,8 +23,7 @@ package de.bund.bva.isyfact.logging.impl;
  * #L%
  */
 
-import org.slf4j.spi.LocationAwareLogger;
-
+import de.bund.bva.isyfact.logging.IsyDatentypMarker;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyMarker;
 import de.bund.bva.isyfact.logging.LogKategorie;
@@ -32,10 +31,13 @@ import de.bund.bva.isyfact.logging.exceptions.FehlerhafterLogeintrag;
 import de.bund.bva.isyfact.logging.util.LoggingKonstanten;
 import de.bund.bva.pliscommon.exception.PlisException;
 import de.bund.bva.pliscommon.exception.PlisTechnicalRuntimeException;
+import org.slf4j.spi.LocationAwareLogger;
+
+import java.util.Arrays;
 
 /**
  * Standardimplementierung des Loggers der IsyFact.
- * 
+ *
  */
 public class IsyLocationAwareLoggerImpl implements IsyLogger {
 
@@ -44,6 +46,12 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
      * bereitzustellen.
      */
     private final String fqcn = IsyLocationAwareLoggerImpl.class.getName();
+
+    private static final Throwable DEFAULT_THROWABLE = null;
+
+    private static final IsyMarker[] FACHDATEN_MARKER = { new FachdatenMarker() };
+
+    private static final IsyMarker[] TECHNIKDATEN_MARKER = { new TechnikdatenMarker() };
 
     /**
      * Gekapselter LocationAwareLogger. Es wird der LocationAwareLogger verwendet, da dieser die Hilfsmethode
@@ -54,7 +62,7 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
 
     /**
      * Konstruktor der Klasse. Es werden die übergebenen Klassenattribute gesetzt.
-     * 
+     *
      * @param logger
      *            zu verwendender sl4j-Logger.
      */
@@ -64,144 +72,193 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#trace(java.lang.String, java.lang.Object[])
+     *
+     * @see IsyLogger#trace(String, Object[])
      */
     public void trace(String nachricht, Object... werte) {
-        log(LocationAwareLogger.TRACE_INT, null, null, nachricht, werte, false);
+        log(LocationAwareLogger.TRACE_INT, null, TECHNIKDATEN_MARKER, null, nachricht, werte, DEFAULT_THROWABLE);
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#traceFachdaten(java.lang.String, java.lang.Object[])
+     *
+     * @see IsyLogger#traceFachdaten(String, Object[])
      */
     public void traceFachdaten(String nachricht, Object... werte) {
-        log(LocationAwareLogger.TRACE_INT, null, null, nachricht, werte, true);
+        log(LocationAwareLogger.TRACE_INT, null, FACHDATEN_MARKER, null, nachricht, werte, DEFAULT_THROWABLE);
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#debug(java.lang.String, java.lang.Object[])
+     *
+     * @see IsyLogger#debug(String, Object[])
      */
     public void debug(String nachricht, Object... werte) {
-        log(LocationAwareLogger.DEBUG_INT, null, null, nachricht, werte, false);
+        log(LocationAwareLogger.DEBUG_INT, null, TECHNIKDATEN_MARKER, null, nachricht, werte, DEFAULT_THROWABLE);
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#debugFachdaten(java.lang.String, java.lang.Object[])
+     *
+     * @see IsyLogger#debugFachdaten(String, Object[])
      */
     public void debugFachdaten(String nachricht, Object... werte) {
-        log(LocationAwareLogger.DEBUG_INT, null, null, nachricht, werte, true);
+        log(LocationAwareLogger.DEBUG_INT, null, FACHDATEN_MARKER, null, nachricht, werte, DEFAULT_THROWABLE);
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#info(de.bund.bva.isyfact.logging.LogKategorie,
-     *      java.lang.String, java.lang.String, java.lang.Object[])
+     *
+     * @see IsyLogger#info(LogKategorie,
+     *      String, String, Object[])
      */
     public void info(LogKategorie kategorie, String schluessel, String nachricht, Object... werte) {
-        log(LocationAwareLogger.INFO_INT, kategorie.name(), schluessel, nachricht, werte, false);
+        log(LocationAwareLogger.INFO_INT, kategorie.name(), TECHNIKDATEN_MARKER, schluessel, nachricht, werte, DEFAULT_THROWABLE);
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#infoFachdaten(de.bund.bva.isyfact.logging.LogKategorie,
-     *      java.lang.String, java.lang.String, java.lang.Object[])
+     *
+     * @see IsyLogger#infoFachdaten(LogKategorie,
+     *      String, String, Object[])
      */
     public void infoFachdaten(LogKategorie kategorie, String schluessel, String nachricht, Object... werte) {
-        log(LocationAwareLogger.INFO_INT, kategorie.name(), schluessel, nachricht, werte, true);
+        log(LocationAwareLogger.INFO_INT, kategorie.name(), FACHDATEN_MARKER, schluessel, nachricht, werte, DEFAULT_THROWABLE);
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#info(de.bund.bva.isyfact.logging.LogKategorie,
-     *      java.lang.String, de.bund.bva.pliscommon.exception.PlisException, java.lang.Object[])
+     *
+     * @see IsyLogger#info(LogKategorie,
+     *      String, PlisException, Object[])
      */
     public void info(LogKategorie kategorie, String nachricht, PlisException exception, Object... werte) {
-        log(LocationAwareLogger.INFO_INT, kategorie.name(), nachricht, werte, exception, false);
+        logException(LocationAwareLogger.INFO_INT, kategorie.name(), TECHNIKDATEN_MARKER, nachricht,
+            werte, exception);
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#infoFachdaten(de.bund.bva.isyfact.logging.LogKategorie,
-     *      java.lang.String, de.bund.bva.pliscommon.exception.PlisException, java.lang.Object[])
+     *
+     * @see IsyLogger#infoFachdaten(LogKategorie,
+     *      String, PlisException, Object[])
      */
     public void infoFachdaten(LogKategorie kategorie, String nachricht, PlisException exception,
             Object... werte) {
-        log(LocationAwareLogger.INFO_INT, kategorie.name(), nachricht, werte, exception, true);
+        logException(LocationAwareLogger.INFO_INT, kategorie.name(), FACHDATEN_MARKER, nachricht, werte,
+            exception);
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#warn(java.lang.String,
-     *      de.bund.bva.pliscommon.exception.PlisException, java.lang.Object[])
+     *
+     * @see IsyLogger#warn(String,
+     *      PlisException, Object[])
      */
     public void warn(String nachricht, PlisException exception, Object... werte) {
-        log(LocationAwareLogger.WARN_INT, null, nachricht, werte, exception, false);
+        logException(LocationAwareLogger.WARN_INT, null, TECHNIKDATEN_MARKER, nachricht, werte,
+            exception);
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#warnFachdaten(java.lang.String,
-     *      de.bund.bva.pliscommon.exception.PlisException, java.lang.Object[])
+     *
+     * @see IsyLogger#warnFachdaten(String,
+     *      PlisException, Object[])
      */
     public void warnFachdaten(String nachricht, PlisException exception, Object... werte) {
-        log(LocationAwareLogger.WARN_INT, null, nachricht, werte, exception, true);
+        logException(LocationAwareLogger.WARN_INT, null, FACHDATEN_MARKER, nachricht, werte, exception);
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#error(java.lang.String,
-     *      de.bund.bva.pliscommon.exception.PlisException, java.lang.Object[])
+     *
+     * @see IsyLogger#error(String,
+     *      PlisException, Object[])
      */
     public void error(String nachricht, PlisException exception, Object... werte) {
-        log(LocationAwareLogger.ERROR_INT, LogErrorKategorie.ERROR.name(), nachricht, werte, exception, false);
+        logException(LocationAwareLogger.ERROR_INT, LogErrorKategorie.ERROR.name(), TECHNIKDATEN_MARKER,
+            nachricht, werte, exception);
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#errorFachdaten(java.lang.String,
-     *      de.bund.bva.pliscommon.exception.PlisException, java.lang.Object[])
+     *
+     * @see IsyLogger#errorFachdaten(String,
+     *      PlisException, Object[])
      */
     public void errorFachdaten(String nachricht, PlisException exception, Object... werte) {
-        log(LocationAwareLogger.ERROR_INT, LogErrorKategorie.ERROR.name(), nachricht, werte, exception, true);
+        logException(LocationAwareLogger.ERROR_INT, LogErrorKategorie.ERROR.name(), FACHDATEN_MARKER,
+            nachricht, werte, exception);
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#fatal(java.lang.String,
-     *      de.bund.bva.pliscommon.exception.PlisException, java.lang.Object[])
+     *
+     * @see IsyLogger#fatal(String,
+     *      PlisException, Object[])
      */
     public void fatal(String nachricht, PlisException exception, Object... werte) {
-        log(LocationAwareLogger.ERROR_INT, LogErrorKategorie.FATAL.name(), nachricht, werte, exception, false);
+        logException(LocationAwareLogger.ERROR_INT, LogErrorKategorie.FATAL.name(), TECHNIKDATEN_MARKER,
+            nachricht, werte, exception);
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#fatalFachdaten(java.lang.String,
-     *      de.bund.bva.pliscommon.exception.PlisException, java.lang.Object[])
+     *
+     * @see IsyLogger#fatalFachdaten(String,
+     *      PlisException, Object[])
      */
     public void fatalFachdaten(String nachricht, PlisException exception, Object... werte) {
-        log(LocationAwareLogger.ERROR_INT, LogErrorKategorie.FATAL.name(), nachricht, werte, exception, true);
+        logException(LocationAwareLogger.ERROR_INT, LogErrorKategorie.FATAL.name(), FACHDATEN_MARKER,
+            nachricht, werte, exception);
+    }
+
+    /**
+     * Zentrale Methode zum Erstellen eines Logeintrags bei einer Ausnahme.
+     *
+     * @param level
+     *            der Level des Logeintrags als int gemäß LocationAwareLogger
+     * @param kategorie
+     *            die Kategorie des Logeintrags
+     * @param expliziteMarker
+     *            Explizite Marker der Nachricht
+     * @param nachricht
+     *            die eigentliche Lognachricht
+     * @param werte
+     *            Werte zum Ersetzen der Platzhalter in der Nachricht
+     * @param exception
+     *            zu loggende Ausnahme
+     */
+    private void logException(int level, String kategorie, IsyMarker[] expliziteMarker, String nachricht,
+        Object[] werte, PlisException exception) {
+        log(level, kategorie, expliziteMarker, exception.getAusnahmeId(), nachricht, werte, exception);
+    }
+
+    /**
+     * Zentrale Methode zum Erstellen eines Logeintrags bei technischen Ausnahmen.
+     *
+     * @param level
+     *            der Level des Logeintrags als int gemäß LocationAwareLogger
+     * @param kategorie
+     *            die Kategorie des Logeintrags
+     * @param expliziteMarker
+     *            Explizite Marker der Nachricht
+     * @param nachricht
+     *            die eigentliche Lognachricht
+     * @param werte
+     *            Werte zum Ersetzen der Platzhalter in der Nachricht
+     * @param exception
+     *            zu loggende Ausnahme
+     */
+    private void logTechnicalRuntimeException(int level, String kategorie, IsyMarker[] expliziteMarker,
+        String nachricht, Object[] werte, PlisTechnicalRuntimeException exception) {
+        log(level, kategorie, expliziteMarker, exception.getAusnahmeId(), nachricht, werte, exception);
     }
 
     /**
      * Zentrale Methode zum Erstellen eines Logeintrags.
-     * 
+     *
      * @param level
      *            der Level des Logeintrags als int gemäß LocationAwareLogger.
      * @param kategorie
@@ -212,83 +269,20 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
      *            die eigentliche Lognachricht.
      * @param werte
      *            Werte zum Ersetzen der Platzhalter in der Nachricht.
-     * @param enthaeltFachlicheDaten
-     *            Flag, zum Kennzeichnen, dass der Logeintrag fachliche Daten enthält.
-     */
-    private void log(int level, String kategorie, String schluessel, String nachricht, Object[] werte,
-            boolean enthaeltFachlicheDaten) {
-        log(level, kategorie, schluessel, nachricht, werte, null, enthaeltFachlicheDaten);
-    }
-
-    /**
-     * Zentrale Methode zum Erstellen eines Logeintrags.
-     * 
-     * @param level
-     *            der Level des Logeintrags als int gemäß LocationAwareLogger.
-     * @param kategorie
-     *            die Kategorie des Logeintrags.
-     * @param nachricht
-     *            die eigentliche Lognachricht.
-     * @param werte
-     *            Werte zum Ersetzen der Platzhalter in der Nachricht.
-     * @param exception
-     *            zu loggende PlisException.
-     * @param enthaeltFachlicheDaten
-     *            Flag, zum Kennzeichnen, dass der Logeintrag fachliche Daten enthält.
-     */
-    private void log(int level, String kategorie, String nachricht, Object[] werte, PlisException exception,
-            boolean enthaeltFachlicheDaten) {
-        log(level, kategorie, exception.getAusnahmeId(), nachricht, werte, exception, enthaeltFachlicheDaten);
-    }
-
-    /**
-     * Zentrale Methode zum Erstellen eines Logeintrags.
-     * 
-     * @param level
-     *            der Level des Logeintrags als int gemäß LocationAwareLogger.
-     * @param kategorie
-     *            die Kategorie des Logeintrags.
-     * @param nachricht
-     *            die eigentliche Lognachricht.
-     * @param werte
-     *            Werte zum Ersetzen der Platzhalter in der Nachricht.
-     * @param exception
-     *            zu loggende PlisTechnicalRuntimeException.
-     * @param enthaeltFachlicheDaten
-     *            Flag, zum Kennzeichnen, dass der Logeintrag fachliche Daten enthält.
-     */
-    private void log(int level, String kategorie, String nachricht, Object[] werte,
-            PlisTechnicalRuntimeException exception, boolean enthaeltFachlicheDaten) {
-        log(level, kategorie, exception.getAusnahmeId(), nachricht, werte, exception, enthaeltFachlicheDaten);
-    }
-
-    /**
-     * Zentrale Methode zum Erstellen eines Logeintrags.
-     * 
-     * @param level
-     *            der Level des Logeintrags als int gemäß LocationAwareLogger.
-     * @param kategorie
-     *            die Kategorie des Logeintrags.
-     * @param schluessel
-     *            der Ereigenisschlüssel.
-     * @param nachricht
-     *            die eigentliche Lognachricht.
-     * @param werte
-     *            Werte zum Ersetzen der Platzhalter in der Nachricht.
+     * @param expliziteMarker
+     *            Explizite Marker der Nachricht.
      * @param t
      *            zu loggende Exception.
-     * @param enthaeltFachlicheDaten
-     *            Flag, zum Kennzeichnen, dass der Logeintrag fachliche Daten enthält.
      */
-    private void log(int level, String kategorie, String schluessel, String nachricht, Object[] werte,
-            Throwable t, boolean enthaeltFachlicheDaten) {
+    private void log(int level, String kategorie, IsyMarker[] expliziteMarker, String schluessel,
+        String nachricht, Object[] werte, Throwable t) {
 
         IsyMarker rootMarker = IsyMarkerImpl.createRootMarker();
 
         if (kategorie == null) {
             if (pruefeIstKategoriePflicht(level)) {
                 throw new FehlerhafterLogeintrag(FehlerSchluessel.FEHLERHAFTER_EINTRAG_KEINE_KATEGORIE,
-                        ermittleLevelString(level), logger.getName());
+                    ermittleLevelString(level), logger.getName());
             }
         } else {
             rootMarker.add(new IsyMarkerImpl(MarkerSchluessel.KATEGORIE, kategorie));
@@ -302,14 +296,24 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
         } else {
             if (pruefeIstSchluesselPflicht(level)) {
                 throw new FehlerhafterLogeintrag(FehlerSchluessel.FEHLERHAFTER_EINTRAG_KEIN_SCHLUESSEL,
-                        ermittleLevelString(level), logger.getName());
+                    ermittleLevelString(level), logger.getName());
             }
         }
 
-        if (enthaeltFachlicheDaten) {
-            rootMarker.add(new IsyMarkerImpl(MarkerSchluessel.FACHDATEN, LoggingKonstanten.TRUE));
-        } else {
-            rootMarker.add(new IsyMarkerImpl(MarkerSchluessel.FACHDATEN, LoggingKonstanten.FALSE));
+        // Der alte Marker für Fachdaten wird zusätzlich in den Logeintrag geschrieben, wenn die neuen
+        // Marker für Fach- bzw. Technikdaten gesetzt sind.
+        if (expliziteMarker != null) {
+            if (Arrays.asList(expliziteMarker).contains(FACHDATEN_MARKER[0])) {
+                rootMarker.add(new IsyMarkerImpl(MarkerSchluessel.FACHDATEN, LoggingKonstanten.TRUE));
+            } else if (Arrays.asList(expliziteMarker).contains(TECHNIKDATEN_MARKER[0])) {
+                rootMarker.add(new IsyMarkerImpl(MarkerSchluessel.FACHDATEN, LoggingKonstanten.FALSE));
+            }
+        }
+
+        if (expliziteMarker != null) {
+            for (IsyMarker isyMarker : expliziteMarker) {
+                rootMarker.add(isyMarker);
+            }
         }
 
         // SLF4J erlaubt es grundsätzlich, dass beliebige Objekte zur Ersetzung der Platzhalter in der
@@ -329,7 +333,7 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
     /**
      * Ermittelt als dem übergebenen Level eine String-Repräsentstion zur Ausgabe in Texten (DEBUG, IFNO
      * etc.).
-     * 
+     *
      * @param level
      *            der Level des Logeintrags als int gemäß LocationAwareLogger.
      * @return den ermittelten LevelString.
@@ -353,7 +357,7 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
 
     /**
      * Prüft ob für das Loglevel eine Log-Kategorie angegeben werden muss.
-     * 
+     *
      * @param level
      *            das zu prüfende Loglevel.
      * @return <code>true</code> falls eine Kategorie angegeben werden muss, <code>false</code> sonst.
@@ -365,7 +369,7 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
 
     /**
      * Prüft ob für das Loglevel ein Ereignisschlüssel angegeben werden muss.
-     * 
+     *
      * @param level
      *            das zu prüfende Loglevel.
      * @return <code>true</code> falls ein Schlüssel angegeben werden muss, <code>false</code> sonst.
@@ -377,115 +381,123 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#info(de.bund.bva.isyfact.logging.LogKategorie,
-     *      java.lang.String, de.bund.bva.pliscommon.exception.PlisTechnicalRuntimeException,
-     *      java.lang.Object[])
+     *
+     * @see IsyLogger#info(LogKategorie,
+     *      String, PlisTechnicalRuntimeException,
+     *      Object[])
      */
     public void info(LogKategorie kategorie, String nachricht, PlisTechnicalRuntimeException exception,
             Object... werte) {
-        log(LocationAwareLogger.INFO_INT, LogKategorie.JOURNAL.name(), nachricht, werte, exception, false);
+        logTechnicalRuntimeException(LocationAwareLogger.INFO_INT, LogKategorie.JOURNAL.name(),
+            TECHNIKDATEN_MARKER, nachricht, werte, exception);
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#info(de.bund.bva.isyfact.logging.LogKategorie,
-     *      java.lang.String, java.lang.String, java.lang.Throwable, java.lang.Object[])
+     *
+     * @see IsyLogger#info(LogKategorie,
+     *      String, String, Throwable, Object[])
      */
     @Override
     public void info(LogKategorie kategorie, String schluessel, String nachricht, Throwable t,
             Object... werte) {
-        log(LocationAwareLogger.INFO_INT, kategorie.name(), schluessel, nachricht, werte, t, false);
+        log(LocationAwareLogger.INFO_INT, kategorie.name(), TECHNIKDATEN_MARKER, schluessel, nachricht, werte, t);
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#infoFachdaten(de.bund.bva.isyfact.logging.LogKategorie,
-     *      java.lang.String, de.bund.bva.pliscommon.exception.PlisTechnicalRuntimeException,
-     *      java.lang.Object[])
+     *
+     * @see IsyLogger#infoFachdaten(LogKategorie,
+     *      String, PlisTechnicalRuntimeException,
+     *      Object[])
      */
     public void infoFachdaten(LogKategorie kategorie, String nachricht,
             PlisTechnicalRuntimeException exception, Object... werte) {
-        log(LocationAwareLogger.INFO_INT, kategorie.name(), nachricht, werte, exception, true);
+        logTechnicalRuntimeException(LocationAwareLogger.INFO_INT, kategorie.name(), FACHDATEN_MARKER,
+            nachricht, werte, exception);
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#infoFachdaten(de.bund.bva.isyfact.logging.LogKategorie,
-     *      java.lang.String, java.lang.String, java.lang.Throwable, java.lang.Object[])
+     *
+     * @see IsyLogger#infoFachdaten(LogKategorie,
+     *      String, String, Throwable, Object[])
      */
     @Override
     public void infoFachdaten(LogKategorie kategorie, String schluessel, String nachricht, Throwable t,
             Object... werte) {
-        log(LocationAwareLogger.INFO_INT, kategorie.name(), schluessel, nachricht, werte, t, true);
+        log(LocationAwareLogger.INFO_INT, kategorie.name(), FACHDATEN_MARKER, schluessel, nachricht, werte, t);
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#warn(java.lang.String,
-     *      de.bund.bva.pliscommon.exception.PlisTechnicalRuntimeException, java.lang.Object[])
+     *
+     * @see IsyLogger#warn(String,
+     *      PlisTechnicalRuntimeException, Object[])
      */
     public void warn(String nachricht, PlisTechnicalRuntimeException exception, Object... werte) {
-        log(LocationAwareLogger.WARN_INT, null, nachricht, werte, exception, false);
+        logTechnicalRuntimeException(LocationAwareLogger.WARN_INT, null, TECHNIKDATEN_MARKER, nachricht,
+            werte, exception);
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#warnFachdaten(java.lang.String,
-     *      de.bund.bva.pliscommon.exception.PlisTechnicalRuntimeException, java.lang.Object[])
+     *
+     * @see IsyLogger#warnFachdaten(String,
+     *      PlisTechnicalRuntimeException, Object[])
      */
     public void warnFachdaten(String nachricht, PlisTechnicalRuntimeException exception, Object... werte) {
-        log(LocationAwareLogger.WARN_INT, null, nachricht, werte, exception, true);
+        logTechnicalRuntimeException(LocationAwareLogger.WARN_INT, null, FACHDATEN_MARKER, nachricht,
+            werte, exception);
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#error(java.lang.String,
-     *      de.bund.bva.pliscommon.exception.PlisTechnicalRuntimeException, java.lang.Object[])
+     *
+     * @see IsyLogger#error(String,
+     *      PlisTechnicalRuntimeException, Object[])
      */
     public void error(String nachricht, PlisTechnicalRuntimeException exception, Object... werte) {
-        log(LocationAwareLogger.ERROR_INT, LogErrorKategorie.ERROR.name(), nachricht, werte, exception, false);
+        logTechnicalRuntimeException(LocationAwareLogger.ERROR_INT, LogErrorKategorie.ERROR.name(),
+            TECHNIKDATEN_MARKER, nachricht, werte, exception);
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#errorFachdaten(java.lang.String,
-     *      de.bund.bva.pliscommon.exception.PlisTechnicalRuntimeException, java.lang.Object[])
+     *
+     * @see IsyLogger#errorFachdaten(String,
+     *      PlisTechnicalRuntimeException, Object[])
      */
     public void errorFachdaten(String nachricht, PlisTechnicalRuntimeException exception, Object... werte) {
-        log(LocationAwareLogger.ERROR_INT, LogErrorKategorie.ERROR.name(), nachricht, werte, exception, true);
+        logTechnicalRuntimeException(LocationAwareLogger.ERROR_INT, LogErrorKategorie.ERROR.name(),
+            FACHDATEN_MARKER, nachricht, werte, exception);
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#fatal(java.lang.String,
-     *      de.bund.bva.pliscommon.exception.PlisTechnicalRuntimeException, java.lang.Object[])
+     *
+     * @see IsyLogger#fatal(String,
+     *      PlisTechnicalRuntimeException, Object[])
      */
     public void fatal(String nachricht, PlisTechnicalRuntimeException exception, Object... werte) {
-        log(LocationAwareLogger.ERROR_INT, LogErrorKategorie.FATAL.name(), nachricht, werte, exception, false);
+        logTechnicalRuntimeException(LocationAwareLogger.ERROR_INT, LogErrorKategorie.FATAL.name(),
+            TECHNIKDATEN_MARKER, nachricht, werte, exception);
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#fatalFachdaten(java.lang.String,
-     *      de.bund.bva.pliscommon.exception.PlisTechnicalRuntimeException, java.lang.Object[])
+     *
+     * @see IsyLogger#fatalFachdaten(String,
+     *      PlisTechnicalRuntimeException, Object[])
      */
     public void fatalFachdaten(String nachricht, PlisTechnicalRuntimeException exception, Object... werte) {
-        log(LocationAwareLogger.ERROR_INT, LogErrorKategorie.FATAL.name(), nachricht, werte, exception, true);
+        logTechnicalRuntimeException(LocationAwareLogger.ERROR_INT, LogErrorKategorie.FATAL.name(),
+            FACHDATEN_MARKER, nachricht, werte, exception);
     }
 
     /**
      * Liefert den Wert des Attributs 'logger'.
-     * 
+     *
      * @return Wert des Attributs.
      */
     public LocationAwareLogger getLogger() {
@@ -494,145 +506,141 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#warn(java.lang.String, java.lang.String,
-     *      java.lang.Throwable, java.lang.Object[])
+     *
+     * @see IsyLogger#warn(String, String,
+     *      Throwable, Object[])
      */
     @Override
     public void warn(String schluessel, String nachricht, Throwable t, Object... werte) {
-        log(LocationAwareLogger.WARN_INT, null, schluessel, nachricht, werte, t, false);
+        log(LocationAwareLogger.WARN_INT, null, TECHNIKDATEN_MARKER, schluessel, nachricht, werte, t);
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#warnFachdaten(java.lang.String, java.lang.String,
-     *      java.lang.Throwable, java.lang.Object[])
+     *
+     * @see IsyLogger#warnFachdaten(String, String,
+     *      Throwable, Object[])
      */
     @Override
     public void warnFachdaten(String schluessel, String nachricht, Throwable t, Object... werte) {
-        log(LocationAwareLogger.WARN_INT, null, schluessel, nachricht, werte, t, true);
+        log(LocationAwareLogger.WARN_INT, null, FACHDATEN_MARKER, schluessel, nachricht, werte, t);
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#error(java.lang.String, java.lang.String,
-     *      java.lang.Throwable, java.lang.Object[])
+     *
+     * @see IsyLogger#error(String, String,
+     *      Throwable, Object[])
      */
     @Override
     public void error(String schluessel, String nachricht, Throwable t, Object... werte) {
-        log(LocationAwareLogger.ERROR_INT, LogErrorKategorie.ERROR.name(), schluessel, nachricht, werte, t,
-                false);
+        log(LocationAwareLogger.ERROR_INT, LogErrorKategorie.ERROR.name(), TECHNIKDATEN_MARKER, schluessel, nachricht, werte, t);
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#errorFachdaten(java.lang.String, java.lang.String,
-     *      java.lang.Throwable, java.lang.Object[])
+     *
+     * @see IsyLogger#errorFachdaten(String, String,
+     *      Throwable, Object[])
      */
     @Override
     public void errorFachdaten(String schluessel, String nachricht, Throwable t, Object... werte) {
-        log(LocationAwareLogger.ERROR_INT, LogErrorKategorie.ERROR.name(), schluessel, nachricht, werte, t,
-                true);
+        log(LocationAwareLogger.ERROR_INT, LogErrorKategorie.ERROR.name(), FACHDATEN_MARKER, schluessel, nachricht, werte, t);
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#fatal(java.lang.String, java.lang.String,
-     *      java.lang.Throwable, java.lang.Object[])
+     *
+     * @see IsyLogger#fatal(String, String,
+     *      Throwable, Object[])
      */
     @Override
     public void fatal(String schluessel, String nachricht, Throwable t, Object... werte) {
-        log(LocationAwareLogger.ERROR_INT, LogErrorKategorie.FATAL.name(), schluessel, nachricht, werte, t,
-                false);
+        log(LocationAwareLogger.ERROR_INT, LogErrorKategorie.FATAL.name(), TECHNIKDATEN_MARKER, schluessel, nachricht, werte, t);
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#fatalFachdaten(java.lang.String, java.lang.String,
-     *      java.lang.Throwable, java.lang.Object[])
+     *
+     * @see IsyLogger#fatalFachdaten(String, String,
+     *      Throwable, Object[])
      */
     @Override
     public void fatalFachdaten(String schluessel, String nachricht, Throwable t, Object... werte) {
-        log(LocationAwareLogger.ERROR_INT, LogErrorKategorie.FATAL.name(), schluessel, nachricht, werte, t,
-                true);
+        log(LocationAwareLogger.ERROR_INT, LogErrorKategorie.FATAL.name(), FACHDATEN_MARKER, schluessel, nachricht, werte, t);
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#warn(java.lang.String, java.lang.String, java.lang.Object[])
+     *
+     * @see IsyLogger#warn(String, String, Object[])
      */
     @Override
     public void warn(String schluessel, String nachricht, Object... werte) {
-        log(LocationAwareLogger.WARN_INT, null, schluessel, nachricht, werte, false);
+        log(LocationAwareLogger.WARN_INT, null, TECHNIKDATEN_MARKER, schluessel, nachricht, werte, DEFAULT_THROWABLE);
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#warnFachdaten(java.lang.String, java.lang.String,
-     *      java.lang.Object[])
+     *
+     * @see IsyLogger#warnFachdaten(String, String,
+     *      Object[])
      */
     @Override
     public void warnFachdaten(String schluessel, String nachricht, Object... werte) {
-        log(LocationAwareLogger.WARN_INT, null, schluessel, nachricht, werte, true);
+        log(LocationAwareLogger.WARN_INT, null, FACHDATEN_MARKER, schluessel, nachricht, werte, DEFAULT_THROWABLE);
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#error(java.lang.String, java.lang.String,
-     *      java.lang.Object[])
+     *
+     * @see IsyLogger#error(String, String,
+     *      Object[])
      */
     @Override
     public void error(String schluessel, String nachricht, Object... werte) {
-        log(LocationAwareLogger.ERROR_INT, LogErrorKategorie.ERROR.name(), schluessel, nachricht, werte,
-                false);
+        log(LocationAwareLogger.ERROR_INT, LogErrorKategorie.ERROR.name(), TECHNIKDATEN_MARKER, schluessel,
+            nachricht, werte, DEFAULT_THROWABLE);
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#errorFachdaten(java.lang.String, java.lang.String,
-     *      java.lang.Object[])
+     *
+     * @see IsyLogger#errorFachdaten(String, String,
+     *      Object[])
      */
     @Override
     public void errorFachdaten(String schluessel, String nachricht, Object... werte) {
-        log(LocationAwareLogger.ERROR_INT, LogErrorKategorie.ERROR.name(), schluessel, nachricht, werte, true);
+        log(LocationAwareLogger.ERROR_INT, LogErrorKategorie.ERROR.name(), FACHDATEN_MARKER, schluessel, nachricht, werte, DEFAULT_THROWABLE);
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#fatal(java.lang.String, java.lang.String,
-     *      java.lang.Object[])
+     *
+     * @see IsyLogger#fatal(String, String,
+     *      Object[])
      */
     @Override
     public void fatal(String schluessel, String nachricht, Object... werte) {
-        log(LocationAwareLogger.ERROR_INT, LogErrorKategorie.FATAL.name(), schluessel, nachricht, werte,
-                false);
+        log(LocationAwareLogger.ERROR_INT, LogErrorKategorie.FATAL.name(), TECHNIKDATEN_MARKER, schluessel,
+            nachricht, werte, DEFAULT_THROWABLE);
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#fatalFachdaten(java.lang.String, java.lang.String,
-     *      java.lang.Object[])
+     *
+     * @see IsyLogger#fatalFachdaten(String, String,
+     *      Object[])
      */
     @Override
     public void fatalFachdaten(String schluessel, String nachricht, Object... werte) {
-        log(LocationAwareLogger.ERROR_INT, LogErrorKategorie.FATAL.name(), schluessel, nachricht, werte, true);
+        log(LocationAwareLogger.ERROR_INT, LogErrorKategorie.FATAL.name(), FACHDATEN_MARKER, schluessel, nachricht, werte, DEFAULT_THROWABLE);
     }
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#isTraceEnabled()
+     *
+     * @see IsyLogger#isTraceEnabled()
      */
     @Override
     public boolean isTraceEnabled() {
@@ -641,8 +649,8 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#isDebugEnabled()
+     *
+     * @see IsyLogger#isDebugEnabled()
      */
     @Override
     public boolean isDebugEnabled() {
@@ -651,8 +659,8 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#isInfoEnabled()
+     *
+     * @see IsyLogger#isInfoEnabled()
      */
     @Override
     public boolean isInfoEnabled() {
@@ -661,8 +669,8 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#isWarnEnabled()
+     *
+     * @see IsyLogger#isWarnEnabled()
      */
     @Override
     public boolean isWarnEnabled() {
@@ -671,8 +679,8 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#isErrorEnabled()
+     *
+     * @see IsyLogger#isErrorEnabled()
      */
     @Override
     public boolean isErrorEnabled() {
@@ -681,8 +689,8 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
 
     /**
      * {@inheritDoc}
-     * 
-     * @see de.bund.bva.isyfact.logging.IsyLogger#isFatalEnabled()
+     *
+     * @see IsyLogger#isFatalEnabled()
      */
     @Override
     public boolean isFatalEnabled() {
@@ -690,4 +698,119 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
         return logger.isErrorEnabled();
     }
 
+    @Override
+    public void trace(IsyDatentypMarker typ, String nachricht, Object... werte) {
+        log(LocationAwareLogger.TRACE_INT, null, new IsyMarker[] { typ }, null, nachricht, werte,
+            DEFAULT_THROWABLE);
+    }
+
+    @Override
+    public void debug(IsyDatentypMarker typ, String nachricht, Object... werte) {
+        log(LocationAwareLogger.DEBUG_INT, null, new IsyMarker[] { typ }, null, nachricht, werte,
+            DEFAULT_THROWABLE);
+    }
+
+    @Override
+    public void info(LogKategorie kategorie, IsyDatentypMarker typ, String schluessel, String nachricht,
+        Object... werte) {
+        log(LocationAwareLogger.INFO_INT, kategorie.name(), new IsyMarker[] { typ }, schluessel, nachricht, werte,
+            DEFAULT_THROWABLE);
+    }
+
+    @Override
+    public void info(LogKategorie kategorie, IsyDatentypMarker typ, String nachricht, PlisException exception,
+        Object... werte) {
+        logException(LocationAwareLogger.INFO_INT, kategorie.name(), new IsyMarker[] { typ }, nachricht, werte,
+            exception);
+    }
+
+    @Override
+    public void info(LogKategorie kategorie, IsyDatentypMarker typ, String nachricht,
+        PlisTechnicalRuntimeException exception, Object... werte) {
+        logTechnicalRuntimeException(LocationAwareLogger.INFO_INT, kategorie.name(), new IsyMarker[] { typ },
+            nachricht, werte, exception);
+    }
+
+    @Override
+    public void info(LogKategorie kategorie, IsyDatentypMarker typ, String schluessel, String nachricht,
+        Throwable t, Object... werte) {
+        log(LocationAwareLogger.INFO_INT, kategorie.name(), new IsyMarker[] { typ }, schluessel, nachricht, werte, t);
+    }
+
+    @Override
+    public void warn(IsyDatentypMarker typ, String schluessel, String nachricht, Object... werte) {
+        log(LocationAwareLogger.WARN_INT, null, new IsyMarker[] { typ }, schluessel, nachricht, werte,
+            DEFAULT_THROWABLE);
+    }
+
+    @Override
+    public void warn(IsyDatentypMarker typ, String nachricht, PlisException exception, Object... werte) {
+        logException(LocationAwareLogger.WARN_INT, null, new IsyMarker[] { typ }, nachricht, werte,
+            exception);
+    }
+
+    @Override
+    public void warn(IsyDatentypMarker typ, String nachricht, PlisTechnicalRuntimeException exception,
+        Object... werte) {
+        logTechnicalRuntimeException(LocationAwareLogger.WARN_INT, null, new IsyMarker[] { typ },
+            nachricht, werte, exception);
+    }
+
+    @Override
+    public void warn(IsyDatentypMarker typ, String schluessel, String nachricht, Throwable t,
+        Object... werte) {
+        log(LocationAwareLogger.WARN_INT, null, new IsyMarker[] { typ }, schluessel, nachricht, werte, t);
+    }
+
+    @Override
+    public void error(IsyDatentypMarker typ, String nachricht, PlisException exception, Object... werte) {
+        logException(LocationAwareLogger.ERROR_INT, LogErrorKategorie.ERROR.name(),
+            new IsyMarker[] { typ }, nachricht, werte, exception);
+    }
+
+    @Override
+    public void error(IsyDatentypMarker typ, String nachricht, PlisTechnicalRuntimeException exception,
+        Object... werte) {
+        logTechnicalRuntimeException(LocationAwareLogger.ERROR_INT, LogErrorKategorie.ERROR.name(),
+            new IsyMarker[] { typ }, nachricht, werte, exception);
+    }
+
+    @Override
+    public void error(IsyDatentypMarker typ, String schluessel, String nachricht, Throwable t,
+        Object... werte) {
+        log(LocationAwareLogger.ERROR_INT, LogErrorKategorie.ERROR.name(), new IsyMarker[] { typ },
+            schluessel, nachricht, werte, t);
+    }
+
+    @Override
+    public void error(IsyDatentypMarker typ, String schluessel, String nachricht, Object... werte) {
+        log(LocationAwareLogger.ERROR_INT, LogErrorKategorie.ERROR.name(), new IsyMarker[] { typ },
+            schluessel, nachricht, werte, DEFAULT_THROWABLE);
+    }
+
+    @Override
+    public void fatal(IsyDatentypMarker typ, String nachricht, PlisException exception, Object... werte) {
+        logException(LocationAwareLogger.ERROR_INT, LogErrorKategorie.FATAL.name(),
+            new IsyMarker[] { typ }, nachricht, werte, exception);
+    }
+
+    @Override
+    public void fatal(IsyDatentypMarker typ, String nachricht, PlisTechnicalRuntimeException exception,
+        Object... werte) {
+        logTechnicalRuntimeException(LocationAwareLogger.ERROR_INT, LogErrorKategorie.FATAL.name(),
+            new IsyMarker[] { typ }, nachricht, werte, exception);
+    }
+
+    @Override
+    public void fatal(IsyDatentypMarker typ, String schluessel, String nachricht, Throwable t,
+        Object... werte) {
+        log(LocationAwareLogger.ERROR_INT, LogErrorKategorie.FATAL.name(), new IsyMarker[] { typ },
+            schluessel, nachricht, werte, t);
+    }
+
+    @Override
+    public void fatal(IsyDatentypMarker typ, String schluessel, String nachricht, Object... werte) {
+        log(LocationAwareLogger.ERROR_INT, LogErrorKategorie.FATAL.name(), new IsyMarker[] { typ },
+            schluessel, nachricht, werte, DEFAULT_THROWABLE);
+    }
 }

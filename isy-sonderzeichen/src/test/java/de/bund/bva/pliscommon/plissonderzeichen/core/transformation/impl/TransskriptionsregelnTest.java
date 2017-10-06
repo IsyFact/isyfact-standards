@@ -21,29 +21,46 @@ import java.util.Set;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
+import org.junit.Before;
+import org.junit.Test;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Überprüft die Funktion der Transskriptionsregeln.
  *
  */
-public class TransskriptionsregelnTest extends TestCase {
+public class TransskriptionsregelnTest {
 
     /** Logger. */
     private static IsyLogger LOG = IsyLoggerFactory.getLogger(TransskriptionsregelnTest.class);
 
-    /**
-     * Testet die Prüfung auf einen Wortanfang.
-     */
-    public void testWortanfang() {
-        Set trennzeichen = new HashSet();
+    private String text;
+    private Set<Character> trennzeichen;
+    private Set<Character> pruefzeichen;
+
+    @Before
+    public void setUp(){
+        trennzeichen = new HashSet<Character>();
         trennzeichen.add(new Character(' '));
         trennzeichen.add(new Character('-'));
         trennzeichen.add(new Character('/'));
 
-        String text = "Dies ist ein Testtext";
+        pruefzeichen = new HashSet<Character>();
+        pruefzeichen.add(new Character('a'));
+        pruefzeichen.add(new Character('x'));
+        pruefzeichen.add(new Character('t'));
 
+        text = "Dies ist ein Testtext";
+
+    }
+
+    /**
+     * Testet die Prüfung auf einen Wortanfang.
+     */
+    @Test
+    public void testWortanfang() {
         assertTrue(Transskriptionsregeln.isWortanfang(text, 0, trennzeichen));
         assertTrue(Transskriptionsregeln.isWortanfang(text, 5, trennzeichen));
         assertFalse(Transskriptionsregeln.isWortanfang(text, 3, trennzeichen));
@@ -53,14 +70,8 @@ public class TransskriptionsregelnTest extends TestCase {
     /**
      * Testet die Prüfung auf ein Wortende.
      */
+    @Test
     public void testWortende() {
-        Set trennzeichen = new HashSet();
-        trennzeichen.add(new Character(' '));
-        trennzeichen.add(new Character('-'));
-        trennzeichen.add(new Character('/'));
-
-        String text = "Dies ist ein Testtext";
-
         assertTrue(Transskriptionsregeln.isWortende(text, 0, 4, trennzeichen));
         assertFalse(Transskriptionsregeln.isWortende(text, 0, 3, trennzeichen));
         assertTrue(Transskriptionsregeln.isWortende(text, 16, 5, trennzeichen));
@@ -70,14 +81,8 @@ public class TransskriptionsregelnTest extends TestCase {
     /**
      * Testet die Prüfung auf die Wortmitte.
      */
+    @Test
     public void testWortmitte() {
-        Set trennzeichen = new HashSet();
-        trennzeichen.add(new Character(' '));
-        trennzeichen.add(new Character('-'));
-        trennzeichen.add(new Character('/'));
-
-        String text = "Dies ist ein Testtext";
-
         assertTrue(Transskriptionsregeln.isWortmitte(text, 1, 2, trennzeichen));
         assertFalse(Transskriptionsregeln.isWortmitte(text, 0, 3, trennzeichen));
         assertFalse(Transskriptionsregeln.isWortmitte(text, 1, 3, trennzeichen));
@@ -88,17 +93,37 @@ public class TransskriptionsregelnTest extends TestCase {
     /**
      * Testet die Prüfung auf Folgezeichen.
      */
+    @Test
     public void testVorZeichen() {
-        Set pruefzeichen = new HashSet();
-        pruefzeichen.add(new Character('a'));
-        pruefzeichen.add(new Character('x'));
-        pruefzeichen.add(new Character('t'));
-
-        String text = "Dies ist ein Testtext";
-
         assertTrue(Transskriptionsregeln.isVorZeichen(text, 4, 3, pruefzeichen));
         assertFalse(Transskriptionsregeln.isVorZeichen(text, 4, 2, pruefzeichen));
         assertFalse(Transskriptionsregeln.isVorZeichen(text, 16, 5, pruefzeichen));
+    }
+
+    @Test
+    public void testWortEndeNull(){
+        text = null;
+        assertFalse(Transskriptionsregeln.isWortende(text, 1, 2, trennzeichen));
+
+    }
+
+    @Test
+    public void testWortMitteNull(){
+        text = null;
+        assertFalse(Transskriptionsregeln.isWortmitte(text, 1, 2, trennzeichen));
+
+    }
+
+    @Test
+    public void testWortAnfangNull(){
+        text = null;
+        assertFalse(Transskriptionsregeln.isWortanfang(text,0,trennzeichen));
+
+    }
+    @Test
+    public void testVorZeichenNull() {
+        text = null;
+        assertFalse(Transskriptionsregeln.isVorZeichen(text, 4, 2, pruefzeichen));
     }
 
 }

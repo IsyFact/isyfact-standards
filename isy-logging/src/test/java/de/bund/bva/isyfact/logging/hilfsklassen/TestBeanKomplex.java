@@ -348,4 +348,8 @@ public class TestBeanKomplex extends AbstractTestBeanKomplex implements TestBean
         this.einInteger = einInteger;
     }
 
+    @Override
+    public String toString() {
+        return "Komplexes Testbean";
+    }
 }
