@@ -14,15 +14,14 @@ public class TestOperation1 extends OperationImpl {
 
     @Override
     public void execute() {
-        try {
-            for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {
+            try {
                 TimeUnit.SECONDS.sleep(1);
                 LOG.info(LogKategorie.JOURNAL, "OP1", "{} running Operation 1", LocalDateTime.now());
+            } catch (InterruptedException e) {
+                LOG.debug("Thread unterbrochen");
+                return;
             }
-            setHasBeenExecutedSuccessfully(true);
-        } catch (Throwable e) {
-            setErrorMessage(e.getMessage());
-            setHasBeenExecutedSuccessfully(false);
         }
     }
 }

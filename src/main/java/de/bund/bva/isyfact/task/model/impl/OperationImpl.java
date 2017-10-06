@@ -17,10 +17,6 @@ public abstract class OperationImpl implements Operation {
             = new ThreadLocal<>();
     private volatile ThreadLocal<String> hostNameThreadLocal
             = new ThreadLocal<>();
-    private volatile ThreadLocal<Boolean> hasBeenExecutedSuccessfullyThreadLocal
-            = new ThreadLocal<>();
-    private volatile ThreadLocal<String> errorMessageThreadLocal
-            = new ThreadLocal<>();
     private volatile ThreadLocal<LocalDateTime> executionDateTimeThreadLocal
             = new ThreadLocal<>();
     private volatile ThreadLocal<FixedDateTime> fixedRateThreadLocal
@@ -50,27 +46,6 @@ public abstract class OperationImpl implements Operation {
     @Override
     public void setHostName(String hostName) {
         this.hostNameThreadLocal.set(hostName);
-    }
-
-    @Override
-    public synchronized boolean getHasBeenExecutedSuccessfully() {
-        return hasBeenExecutedSuccessfullyThreadLocal.get().booleanValue();
-    }
-
-    @Override
-    public synchronized void setHasBeenExecutedSuccessfully(
-            boolean hasBeenExecutedSuccessfully) {
-        this.hasBeenExecutedSuccessfullyThreadLocal.set(hasBeenExecutedSuccessfully);
-    }
-
-    @Override
-    public synchronized String getErrorMessage() {
-        return errorMessageThreadLocal.get();
-    }
-
-    @Override
-    public synchronized void setErrorMessage(String errorMessage) {
-        this.errorMessageThreadLocal.set(errorMessage);
     }
 
     @Override

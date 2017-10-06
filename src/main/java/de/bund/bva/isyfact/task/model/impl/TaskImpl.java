@@ -19,41 +19,40 @@ import de.bund.bva.isyfact.task.security.SecurityAuthenticator;
  * einer bestimmten Ausführung einer Aufgabe zuordnen lassen.
  * Jeder auszuführende Task setzt seine id, seinen Namen und den Zeitpunkt der Ausführung.
  * Die Aufgaben, die erledigt werden sollen, werden in einer call- bzw. run-Methode einer CallableOperation implementiert.
-
+ *
  * Alle aufgerufenen fachlichen Operationen lassen sich eindeutig einer bestimmten Aufgabe zuordnen.
  * Wenn ein Task erfolgreich durchlaufen wurde, wird dies notiert.
  * Gleichzeitig merkt sich der Task den Endzeitpunkt des Durchlaufs.
  *
  * @author Alexander Salvanos, msg systems ag
- *
  */
 public class TaskImpl implements Task {
-    private volatile ThreadLocal<String> idThreadLocal
-            = new ThreadLocal<>();
-    private volatile ThreadLocal<String> korrelationsIdThreadLocal
-            = new ThreadLocal<>();
-    private volatile ThreadLocal<SecurityAuthenticator> securityAuthenticatorThreadLocal
-            = new ThreadLocal<>();
-    private volatile ThreadLocal<LocalDateTime> executionEndDateTimeThreadLocal
-            = new ThreadLocal<>();
-    private volatile ThreadLocal<Ausfuehrungsplan> ausfuehrungsplanThreadLocal
-            = new ThreadLocal<>();
+    private volatile ThreadLocal<String> idThreadLocal = new ThreadLocal<>();
+
+    private volatile ThreadLocal<String> korrelationsIdThreadLocal = new ThreadLocal<>();
+
+    private volatile ThreadLocal<SecurityAuthenticator> securityAuthenticatorThreadLocal =
+        new ThreadLocal<>();
+
+    private volatile ThreadLocal<LocalDateTime> executionEndDateTimeThreadLocal = new ThreadLocal<>();
+
+    private volatile ThreadLocal<Ausfuehrungsplan> ausfuehrungsplanThreadLocal = new ThreadLocal<>();
+
+    private volatile ThreadLocal<Boolean> hasBeenExecutedSuccessfullyThreadLocal
+        = new ThreadLocal<>();
+    private volatile ThreadLocal<String> errorMessageThreadLocal
+        = new ThreadLocal<>();
+
     private final Operation operation;
 
     /**
-     *
      * @param id
      * @param securityAuthenticator
      * @param executionDateTime
      * @param operation
      */
-    public TaskImpl(
-            String id,
-            SecurityAuthenticator securityAuthenticator,
-            Operation operation,
-            AusfuehrungsplanHandlerImpl.Ausfuehrungsplan ausfuehrungsplan,
-            LocalDateTime executionDateTime
-            ) {
+    public TaskImpl(String id, SecurityAuthenticator securityAuthenticator, Operation operation,
+        AusfuehrungsplanHandlerImpl.Ausfuehrungsplan ausfuehrungsplan, LocalDateTime executionDateTime) {
         this.idThreadLocal.set(id);
         this.securityAuthenticatorThreadLocal.set(securityAuthenticator);
         this.ausfuehrungsplanThreadLocal.set(ausfuehrungsplan);
@@ -62,13 +61,21 @@ public class TaskImpl implements Task {
 
     @Override
     public void run() {
-        MdcHelper.pushKorrelationsId(UUID.randomUUID().toString());
-        //securityAuthenticatorThreadLocal.get().login();
+        try {
+            MdcHelper.pushKorrelationsId(UUID.randomUUID().toString());
+            //securityAuthenticatorThreadLocal.get().login();
 
-        operation.execute();
+            operation.execute();
 
-        //securityAuthenticatorThreadLocal.get().logout();
-        MdcHelper.entferneKorrelationsId();
+            //securityAuthenticatorThreadLocal.get().logout();
+            MdcHelper.entferneKorrelationsId();
+
+            setHasBeenExecutedSuccessfully(true);
+            setErrorMessage(null);
+        } catch (Exception e) {
+            setHasBeenExecutedSuccessfully(false);
+            setErrorMessage(e.getMessage());
+        }
     }
 
     @Override
@@ -109,6 +116,27 @@ public class TaskImpl implements Task {
     @Override
     public synchronized void setExecutionEndDateTime(LocalDateTime executionEndDateTime) {
         this.executionEndDateTimeThreadLocal.set(executionEndDateTime);
+    }
+
+    @Override
+    public synchronized boolean getHasBeenExecutedSuccessfully() {
+        return hasBeenExecutedSuccessfullyThreadLocal.get().booleanValue();
+    }
+
+    @Override
+    public synchronized void setHasBeenExecutedSuccessfully(
+        boolean hasBeenExecutedSuccessfully) {
+        this.hasBeenExecutedSuccessfullyThreadLocal.set(hasBeenExecutedSuccessfully);
+    }
+
+    @Override
+    public synchronized String getErrorMessage() {
+        return errorMessageThreadLocal.get();
+    }
+
+    @Override
+    public synchronized void setErrorMessage(String errorMessage) {
+        this.errorMessageThreadLocal.set(errorMessage);
     }
 
     @Override

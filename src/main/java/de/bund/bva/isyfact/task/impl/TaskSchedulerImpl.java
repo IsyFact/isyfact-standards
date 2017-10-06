@@ -110,8 +110,8 @@ public class TaskSchedulerImpl implements TaskScheduler, Runnable
             counter.incrementAndGet();
 
         } catch (Exception e) {
-            task.getOperation().setErrorMessage(e.getMessage());
-            task.getOperation().setHasBeenExecutedSuccessfully(false);
+            task.setErrorMessage(e.getMessage());
+            task.setHasBeenExecutedSuccessfully(false);
 
             String msg = MessageSourceHolder
                 .getMessage(FehlerSchluessel.TASK_KONNTE_NICHT_EINGEREIHT_WERDEN, task.getId());
@@ -141,8 +141,8 @@ public class TaskSchedulerImpl implements TaskScheduler, Runnable
             counter.incrementAndGet();
 
         } catch (Exception e) {
-            task.getOperation().setErrorMessage(e.getMessage());
-            task.getOperation().setHasBeenExecutedSuccessfully(false);
+            task.setErrorMessage(e.getMessage());
+            task.setHasBeenExecutedSuccessfully(false);
 
             String msg = MessageSourceHolder
                 .getMessage(FehlerSchluessel.TASK_KONNTE_NICHT_EINGEREIHT_WERDEN, task.getId());
@@ -169,8 +169,8 @@ public class TaskSchedulerImpl implements TaskScheduler, Runnable
             counter.incrementAndGet();
 
         } catch (Exception e) {
-            task.getOperation().setErrorMessage(e.getMessage());
-            task.getOperation().setHasBeenExecutedSuccessfully(false);
+            task.setErrorMessage(e.getMessage());
+            task.setHasBeenExecutedSuccessfully(false);
 
             String msg = MessageSourceHolder
                 .getMessage(FehlerSchluessel.TASK_KONNTE_NICHT_EINGEREIHT_WERDEN, task.getId());

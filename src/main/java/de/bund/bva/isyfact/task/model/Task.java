@@ -40,4 +40,13 @@ public interface Task extends Runnable {
 	Ausfuehrungsplan getAusfuehrungsplan();
 
 	void setAusfuehrungsplan(Ausfuehrungsplan ausfuehrungsplan);
+
+	boolean getHasBeenExecutedSuccessfully();
+
+	void setHasBeenExecutedSuccessfully(boolean hasBeenExecutedSuccessfully);
+
+	String getErrorMessage();
+
+	void setErrorMessage(String errorMessage);
+
 }

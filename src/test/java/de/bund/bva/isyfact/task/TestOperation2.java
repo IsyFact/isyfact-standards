@@ -15,6 +15,5 @@ public class TestOperation2 extends OperationImpl {
     @Override
     public void execute() {
         LOG.info(LogKategorie.JOURNAL, "OP2", "{} running Operation 2", LocalDateTime.now());
-        setHasBeenExecutedSuccessfully(true);
     }
 }

@@ -26,14 +26,6 @@ public interface Operation {
 
     void setHostName(String hostName);
 
-    boolean getHasBeenExecutedSuccessfully();
-
-    void setHasBeenExecutedSuccessfully(boolean hasBeenExecutedSuccessfully);
-
-    String getErrorMessage();
-
-    void setErrorMessage(String errorMessage);
-
     LocalDateTime getExecutionDateTime();
 
     void setExecutionDateTime(LocalDateTime executionDateTime);
