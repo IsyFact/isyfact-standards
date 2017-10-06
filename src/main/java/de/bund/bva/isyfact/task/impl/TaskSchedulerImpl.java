@@ -154,12 +154,12 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
      */
     private synchronized ScheduledFuture<?> scheduleAtFixedRate(Task task) {
         LOG.debug("Reihe Task {} ein (initial-delay: {}, fixed-rate: {})", task.getId(),
-            Duration.between(LocalDateTime.now(), task.getExecutionDateTime()), task.getFixedRate());
+            task.getInitialDelay(), task.getFixedRate());
         ScheduledFuture<?> scheduledFuture = null;
         try {
-            scheduledFuture = scheduledExecutorService.get().scheduleAtFixedRate(task,
-                Duration.between(LocalDateTime.now(), task.getExecutionDateTime()).getSeconds(),
-                task.getFixedRate().getSeconds(), TimeUnit.SECONDS);
+            scheduledFuture = scheduledExecutorService.get()
+                .scheduleAtFixedRate(task, task.getInitialDelay().getSeconds(),
+                    task.getFixedRate().getSeconds(), TimeUnit.SECONDS);
             scheduledFutures.put(task.getId(), scheduledFuture);
             counter.incrementAndGet();
 
@@ -181,12 +181,12 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
      */
     private synchronized ScheduledFuture<?> scheduleWithFixedDelay(Task task) {
         LOG.debug("Reihe Task {} ein (initial-delay: {}, fixed-delay: {})", task.getId(),
-            Duration.between(LocalDateTime.now(), task.getExecutionDateTime()), task.getFixedDelay());
+            task.getInitialDelay(), task.getFixedDelay());
         ScheduledFuture<?> scheduledFuture = null;
         try {
-            scheduledFuture = scheduledExecutorService.get().scheduleWithFixedDelay(task,
-                Duration.between(LocalDateTime.now(), task.getExecutionDateTime()).getSeconds(),
-                task.getFixedDelay().getSeconds(), TimeUnit.SECONDS);
+            scheduledFuture = scheduledExecutorService.get()
+                .scheduleWithFixedDelay(task, task.getInitialDelay().getSeconds(),
+                    task.getFixedDelay().getSeconds(), TimeUnit.SECONDS);
             scheduledFutures.put(task.getId(), scheduledFuture);
             counter.incrementAndGet();
 

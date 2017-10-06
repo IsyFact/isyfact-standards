@@ -14,21 +14,17 @@ public abstract class KonfigurationSchluessel {
 
     public static final String BENUTZER = ".benutzer";
     public static final String PASSWORT = ".passwort";
-    public static final String OPERATION = ".operation";
     public static final String HOST = ".host";
-    public static final String AUSFUEHRUNGSPLAN = ".ausfuehrungsplan";
-    public static final String EXECUTIONDATETIME = ".executionDateTime";
+    public static final String AUSFUEHRUNGSPLAN = ".ausfuehrung";
+    public static final String ZEITPUNKT = ".zeitpunkt";
 
-    public static final String FIXEDRATEDAYS = ".fixedRate.days";
-    public static final String FIXEDRATEHOURS = ".fixedRate.hours";
-    public static final String FIXEDRATEMINUTES = ".fixedRate.minutes";
-    public static final String FIXEDRATESECONDS = ".fixedRate.seconds";
+    public static final String FIXED_RATE = ".fixed-rate";
+    public static final String FIXED_DELAY = ".fixed-delay";
+    public static final String INITIAL_DELAY = ".initial-delay";
 
-    public static final String FIXEDDELAYDAYS = ".fixedDelay.days";
-    public static final String FIXEDDELAYHOURS = ".fixedDelay.hours";
-    public static final String FIXEDDELAYMINUTES = ".fixedDelay.minutes";
-    public static final String FIXEDDELAYSECONDS = ".fixedDelay.seconds";
-
-
+    public static final String TAGE = ".days";
+    public static final String STUNDEN = ".hours";
+    public static final String MINUTEN = ".minutes";
+    public static final String SEKUNDEN = ".seconds";
 
 }

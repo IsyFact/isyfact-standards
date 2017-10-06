@@ -39,15 +39,18 @@ public class TaskImpl implements Task {
 
     private volatile ThreadLocal<Ausfuehrungsplan> ausfuehrungsplanThreadLocal = new ThreadLocal<>();
 
-    private volatile ThreadLocal<Duration> fixedRateThreadLocal = new ThreadLocal<>();
+    private final LocalDateTime executionDateTime;
 
-    private volatile ThreadLocal<Duration> fixedDelayThreadLocal = new ThreadLocal<>();
+    private final Duration initialDelay;
+
+    private final Duration fixedRate;
+
+    private final Duration fixedDelay;
 
     private volatile ThreadLocal<Boolean> hasBeenExecutedSuccessfullyThreadLocal = new ThreadLocal<>();
 
     private volatile ThreadLocal<String> errorMessageThreadLocal = new ThreadLocal<>();
 
-    private volatile ThreadLocal<LocalDateTime> executionDateTimeThreadLocal = new ThreadLocal<>();
 
 
     private final Operation operation;
@@ -59,14 +62,16 @@ public class TaskImpl implements Task {
      * @param operation
      */
     public TaskImpl(String id, SecurityAuthenticator securityAuthenticator, Operation operation,
-        AusfuehrungsplanHandlerImpl.Ausfuehrungsplan ausfuehrungsplan, LocalDateTime executionDateTime, Duration fixedRate, Duration fixedDelay) {
+        AusfuehrungsplanHandlerImpl.Ausfuehrungsplan ausfuehrungsplan, LocalDateTime executionDateTime,
+        Duration initialDelay, Duration fixedRate, Duration fixedDelay) {
         this.idThreadLocal.set(id);
         this.securityAuthenticatorThreadLocal.set(securityAuthenticator);
         this.ausfuehrungsplanThreadLocal.set(ausfuehrungsplan);
         this.operation = operation;
-        this.executionDateTimeThreadLocal.set(executionDateTime);
-        this.fixedRateThreadLocal.set(fixedRate);
-        this.fixedDelayThreadLocal.set(fixedDelay);
+        this.executionDateTime = executionDateTime;
+        this.initialDelay = initialDelay;
+        this.fixedRate = fixedRate;
+        this.fixedDelay = fixedDelay;
     }
 
     @Override
@@ -164,33 +169,23 @@ public class TaskImpl implements Task {
     }
 
     @Override
-    public Duration getFixedRate() {
-        return fixedRateThreadLocal.get();
+    public LocalDateTime getExecutionDateTime() {
+        return executionDateTime;
     }
 
     @Override
-    public void setFixedRate(Duration fixedDateTime) {
-        this.fixedRateThreadLocal.set(fixedDateTime);
+    public Duration getInitialDelay() {
+        return initialDelay;
+    }
+
+    @Override
+    public Duration getFixedRate() {
+        return fixedRate;
     }
 
     @Override
     public Duration getFixedDelay() {
-        return fixedDelayThreadLocal.get();
-    }
-
-    @Override
-    public void setFixedDelay(Duration fixedDelay) {
-        this.fixedDelayThreadLocal.set(fixedDelay);
-    }
-
-    @Override
-    public synchronized LocalDateTime getExecutionDateTime() {
-        return this.executionDateTimeThreadLocal.get();
-    }
-
-    @Override
-    public synchronized void setExecutionDateTime(LocalDateTime executionDateTime) {
-        this.executionDateTimeThreadLocal.set(executionDateTime);
+        return fixedDelay;
     }
 
 }

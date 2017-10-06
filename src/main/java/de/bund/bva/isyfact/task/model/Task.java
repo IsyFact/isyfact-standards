@@ -14,52 +14,47 @@ import java.time.LocalDateTime;
  * Jeder auszuführende Task setzt seine id, seinen Namen und den Zeitpunkt der Ausführung.
  * Die Aufgaben, die erledigt werden sollen, werden in einer call- bzw. run-Methode
  * einer CallableOperation oder RepeatableOperation implementiert.
- * 
- * @author Alexander Salvanos, msg systems ag
  *
+ * @author Alexander Salvanos, msg systems ag
  */
 public interface Task extends Runnable {
 
-	String getId();
+    String getId();
 
-	void setId(String id);
+    void setId(String id);
 
-	String getKorrelationsId();
+    String getKorrelationsId();
 
-	void setKorrelationsId(String korrelationsId);
+    void setKorrelationsId(String korrelationsId);
 
-	SecurityAuthenticator getSecurityAuthenticator();
+    SecurityAuthenticator getSecurityAuthenticator();
 
-	void setSecurityAuthenticator(SecurityAuthenticator securityAuthenticator);
+    void setSecurityAuthenticator(SecurityAuthenticator securityAuthenticator);
 
-	Operation getOperation();
+    Operation getOperation();
 
-	LocalDateTime getExecutionEndDateTime();
+    LocalDateTime getExecutionEndDateTime();
 
-	void setExecutionEndDateTime(LocalDateTime executionEndDateTime);
+    void setExecutionEndDateTime(LocalDateTime executionEndDateTime);
 
-	Ausfuehrungsplan getAusfuehrungsplan();
+    Ausfuehrungsplan getAusfuehrungsplan();
 
-	void setAusfuehrungsplan(Ausfuehrungsplan ausfuehrungsplan);
+    void setAusfuehrungsplan(Ausfuehrungsplan ausfuehrungsplan);
 
-	Duration getFixedRate();
+    Duration getInitialDelay();
 
-	void setFixedRate(Duration fixedDateTime);
+    Duration getFixedRate();
 
-	Duration getFixedDelay();
+    Duration getFixedDelay();
 
-	void setFixedDelay(Duration fixedDelay);
+    LocalDateTime getExecutionDateTime();
 
-	LocalDateTime getExecutionDateTime();
+    boolean getHasBeenExecutedSuccessfully();
 
-	void setExecutionDateTime(LocalDateTime executionDateTime);
+    void setHasBeenExecutedSuccessfully(boolean hasBeenExecutedSuccessfully);
 
-	boolean getHasBeenExecutedSuccessfully();
+    String getErrorMessage();
 
-	void setHasBeenExecutedSuccessfully(boolean hasBeenExecutedSuccessfully);
-
-	String getErrorMessage();
-
-	void setErrorMessage(String errorMessage);
+    void setErrorMessage(String errorMessage);
 
 }

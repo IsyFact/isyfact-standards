@@ -8,11 +8,10 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.task.exception.HostNotApplicableException;
 import de.bund.bva.isyfact.task.handler.AusfuehrungsplanHandler;
 import de.bund.bva.isyfact.task.handler.ExecutionDateTimeHandler;
-import de.bund.bva.isyfact.task.handler.FixedDelayHandler;
-import de.bund.bva.isyfact.task.handler.FixedRateHandler;
 import de.bund.bva.isyfact.task.handler.HostHandler;
 import de.bund.bva.isyfact.task.handler.SecurityHandler;
 import de.bund.bva.isyfact.task.handler.TaskHandler;
+import de.bund.bva.isyfact.task.konfiguration.DurationUtil;
 import de.bund.bva.isyfact.task.model.Operation;
 import de.bund.bva.isyfact.task.model.Task;
 import de.bund.bva.isyfact.task.model.impl.TaskImpl;
@@ -57,15 +56,12 @@ public class TaskHandlerImpl implements TaskHandler {
             LocalDateTime executionDateTime =
                 executionDateTimeHandler.getExecutionDateTime(id, konfiguration);
 
-            FixedRateHandler fixedRateHandler = new FixedRateHandlerImpl();
-            Duration fixedRate = fixedRateHandler.getFixedRate(id, konfiguration);
-
-            FixedDelayHandler fixedDelayHandler = new FixedDelayHandlerImpl();
-            Duration fixedDelay = fixedDelayHandler.getFixedDelay(id, konfiguration);
+            Duration initialDelay = DurationUtil.leseInitialDelay(id, konfiguration);
+            Duration fixedRate = DurationUtil.leseFixedRate(id, konfiguration);
+            Duration fixedDelay = DurationUtil.leseFixedDelay(id, konfiguration);
 
             task = new TaskImpl(id, securityAuthenticator, operation, ausfuehrungsplan, executionDateTime,
-                fixedRate, fixedDelay);
-        }
-        return task;
+                initialDelay, fixedRate, fixedDelay);
+        } return task;
     }
 }

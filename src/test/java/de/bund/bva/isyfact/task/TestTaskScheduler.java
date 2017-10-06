@@ -8,18 +8,19 @@ import java.time.format.DateTimeFormatter;
 import de.bund.bva.isyfact.task.impl.TaskSchedulerImpl;
 import de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel;
 import de.bund.bva.isyfact.task.konstanten.KonfigurationStandardwerte;
-import de.bund.bva.isyfact.task.security.SecurityAuthenticator;
 import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
+import de.bund.bva.pliscommon.konfiguration.common.exception.KonfigurationParameterException;
+import de.bund.bva.pliscommon.konfiguration.common.konstanten.NachrichtenSchluessel;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -36,8 +37,6 @@ public class TestTaskScheduler {
 
     private Konfiguration konfiguration = mock(Konfiguration.class);
 
-    private SecurityAuthenticator securityAuthenticator = mock(SecurityAuthenticator.class);
-
     @Autowired
     private ApplicationContext applicationContext;
 
@@ -52,43 +51,46 @@ public class TestTaskScheduler {
 
         when(konfiguration.getAsString("isyfact.task.taskTest1.benutzer")).thenReturn("MyTestUser1");
         when(konfiguration.getAsString("isyfact.task.taskTest1.passwort")).thenReturn("MyTestPasswort1");
-        when(konfiguration.getAsString("isyfact.task.taskTest1.host"))
-            .thenReturn(InetAddress.getLocalHost().getHostName());
-        when(konfiguration.getAsString("isyfact.task.taskTest1.ausfuehrungsplan")).thenReturn("ONCE");
-
+        when(konfiguration.getAsString("isyfact.task.taskTest1.ausfuehrung")).thenReturn("ONCE");
         String dateTimePattern = konfiguration.getAsString(KonfigurationSchluessel.DATETIME_PATTERN,
             KonfigurationStandardwerte.DEFAULT_DATETIME_PATTERN);
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(dateTimePattern);
         String executionDateTime1 = LocalDateTime.now().plusSeconds(5).format(dateTimeFormatter);
-
-        when(konfiguration.getAsString("isyfact.task.taskTest1.executionDateTime"))
-            .thenReturn(executionDateTime1);
+        when(konfiguration.getAsString("isyfact.task.taskTest1.zeitpunkt")).thenReturn(executionDateTime1);
 
         when(konfiguration.getAsString("isyfact.task.taskTest2.benutzer")).thenReturn("MyTestUser2");
         when(konfiguration.getAsString("isyfact.task.taskTest2.passwort")).thenReturn("MyTestPasswort2");
-        when(konfiguration.getAsString("isyfact.task.taskTest2.host"))
-            .thenReturn(InetAddress.getLocalHost().getHostName());
-        when(konfiguration.getAsString("isyfact.task.taskTest2.ausfuehrungsplan")).thenReturn("FIXED_RATE");
-        String executionDateTime2 = LocalDateTime.now().plusSeconds(5).format(dateTimeFormatter);
-        when(konfiguration.getAsString("isyfact.task.taskTest2.executionDateTime"))
-            .thenReturn(executionDateTime2);
-        when(konfiguration.getAsLong("isyfact.task.taskTest2.fixedRate.days")).thenReturn(0L);
-        when(konfiguration.getAsLong("isyfact.task.taskTest2.fixedRate.hours")).thenReturn(0L);
-        when(konfiguration.getAsLong("isyfact.task.taskTest2.fixedRate.minutes")).thenReturn(0L);
-        when(konfiguration.getAsLong("isyfact.task.taskTest2.fixedRate.seconds")).thenReturn(2L);
+        when(konfiguration.getAsString("isyfact.task.taskTest2.ausfuehrung")).thenReturn("FIXED_RATE");
+        when(konfiguration.getAsLong(eq("isyfact.task.taskTest2.initial-delay.days"), anyLong()))
+            .thenReturn(0L);
+        when(konfiguration.getAsLong(eq("isyfact.task.taskTest2.initial-delay.hours"), anyLong())).thenReturn(0L);
+        when(konfiguration.getAsLong(eq("isyfact.task.taskTest2.initial-delay.minutes"), anyLong())).thenReturn(0L);
+        when(konfiguration.getAsLong(eq("isyfact.task.taskTest2.initial-delay.seconds"), anyLong())).thenReturn(5L);
+        when(konfiguration.getAsLong(eq("isyfact.task.taskTest2.fixed-rate.days"), anyLong())).thenReturn(0L);
+        when(konfiguration.getAsLong(eq("isyfact.task.taskTest2.fixed-rate.hours"), anyLong())).thenReturn(0L);
+        when(konfiguration.getAsLong(eq("isyfact.task.taskTest2.fixed-rate.minutes"), anyLong())).thenReturn(0L);
+        when(konfiguration.getAsLong(eq("isyfact.task.taskTest2.fixed-rate.seconds"), anyLong())).thenReturn(2L);
+        when(konfiguration.getAsString("isyfact.task.taskTest2.zeitpunkt")).thenThrow(
+            new KonfigurationParameterException(NachrichtenSchluessel.ERR_PARAMETER_LEER,
+                "isyfact.task.taskTest2.zeitpunkt"));
 
         when(konfiguration.getAsString("isyfact.task.taskTest3.benutzer")).thenReturn("MyTestUser3");
         when(konfiguration.getAsString("isyfact.task.taskTest3.passwort")).thenReturn("MyTestPasswort3");
-        when(konfiguration.getAsString("isyfact.task.taskTest3.host"))
+        when(konfiguration.getAsString("isyfact.task.taskTest3.ausfuehrung")).thenReturn("FIXED_DELAY");
+        when(konfiguration.getAsLong(eq("isyfact.task.taskTest3.initial-delay.days"), anyLong())).thenReturn(0L);
+        when(konfiguration.getAsLong(eq("isyfact.task.taskTest3.initial-delay.hours"), anyLong())).thenReturn(0L);
+        when(konfiguration.getAsLong(eq("isyfact.task.taskTest3.initial-delay.minutes"), anyLong())).thenReturn(0L);
+        when(konfiguration.getAsLong(eq("isyfact.task.taskTest3.initial-delay.seconds"), anyLong())).thenReturn(5L);
+        when(konfiguration.getAsLong(eq("isyfact.task.taskTest3.fixed-delay.days"), anyLong())).thenReturn(0L);
+        when(konfiguration.getAsLong(eq("isyfact.task.taskTest3.fixed-delay.hours"), anyLong())).thenReturn(0L);
+        when(konfiguration.getAsLong(eq("isyfact.task.taskTest3.fixed-delay.minutes"), anyLong())).thenReturn(0L);
+        when(konfiguration.getAsLong(eq("isyfact.task.taskTest3.fixed-delay.seconds"), anyLong())).thenReturn(3L);
+        when(konfiguration.getAsString("isyfact.task.taskTest3.zeitpunkt")).thenThrow(
+            new KonfigurationParameterException(NachrichtenSchluessel.ERR_PARAMETER_LEER,
+                "isyfact.task.taskTest3.zeitpunkt"));
+
+        when(konfiguration.getAsString(endsWith("host")))
             .thenReturn(InetAddress.getLocalHost().getHostName());
-        when(konfiguration.getAsString("isyfact.task.taskTest3.ausfuehrungsplan")).thenReturn("FIXED_DELAY");
-        String executionDateTime3 = LocalDateTime.now().plusSeconds(5).format(dateTimeFormatter);
-        when(konfiguration.getAsString("isyfact.task.taskTest3.executionDateTime"))
-            .thenReturn(executionDateTime3);
-        when(konfiguration.getAsLong("isyfact.task.taskTest3.fixedDelay.days")).thenReturn(0L);
-        when(konfiguration.getAsLong("isyfact.task.taskTest3.fixedDelay.hours")).thenReturn(0L);
-        when(konfiguration.getAsLong("isyfact.task.taskTest3.fixedDelay.minutes")).thenReturn(0L);
-        when(konfiguration.getAsLong("isyfact.task.taskTest3.fixedDelay.seconds")).thenReturn(3L);
     }
 
     @Test
