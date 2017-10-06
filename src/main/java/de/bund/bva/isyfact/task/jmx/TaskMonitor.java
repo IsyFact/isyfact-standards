@@ -29,7 +29,7 @@ public class TaskMonitor {
         this.letzterFehler = letzterFehler;
     }
 
-    @ManagedAttribute(description = "Endzeitpunkt der letzten Ausführung")
+    @ManagedAttribute(description = "Ende der letzten Ausführung")
     public LocalDateTime getLetzteAusfuehrungAbgeschlossen() {
         return letzteAusfuehrungAbgeschlossen;
     }

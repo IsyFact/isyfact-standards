@@ -22,21 +22,9 @@ public interface TaskRunner extends Runnable {
 
     String getId();
 
-    void setId(String id);
-
-    String getKorrelationsId();
-
-    void setKorrelationsId(String korrelationsId);
-
-    SecurityAuthenticator getSecurityAuthenticator();
-
-    void setSecurityAuthenticator(SecurityAuthenticator securityAuthenticator);
-
     Task getTask();
 
     Ausfuehrungsplan getAusfuehrungsplan();
-
-    void setAusfuehrungsplan(Ausfuehrungsplan ausfuehrungsplan);
 
     Duration getInitialDelay();
 

@@ -7,7 +7,6 @@ import java.util.UUID;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
 import de.bund.bva.isyfact.task.handler.AusfuehrungsplanHandler.Ausfuehrungsplan;
 import de.bund.bva.isyfact.task.handler.impl.AusfuehrungsplanHandlerImpl;
-import de.bund.bva.isyfact.task.jmx.TaskMonitor;
 import de.bund.bva.isyfact.task.model.Task;
 import de.bund.bva.isyfact.task.model.TaskRunner;
 import de.bund.bva.isyfact.task.security.SecurityAuthenticator;
@@ -29,14 +28,11 @@ import de.bund.bva.isyfact.task.security.SecurityAuthenticator;
  * @author Alexander Salvanos, msg systems ag
  */
 public class TaskRunnerImpl implements TaskRunner {
-    private volatile ThreadLocal<String> idThreadLocal = new ThreadLocal<>();
+    private final String id;
 
-    private volatile ThreadLocal<String> korrelationsIdThreadLocal = new ThreadLocal<>();
+    private final SecurityAuthenticator securityAuthenticator;
 
-    private volatile ThreadLocal<SecurityAuthenticator> securityAuthenticatorThreadLocal =
-        new ThreadLocal<>();
-
-    private volatile ThreadLocal<Ausfuehrungsplan> ausfuehrungsplanThreadLocal = new ThreadLocal<>();
+    private final Ausfuehrungsplan ausfuehrungsplan;
 
     private final LocalDateTime executionDateTime;
 
@@ -48,18 +44,12 @@ public class TaskRunnerImpl implements TaskRunner {
 
     private final Task task;
 
-    /**
-     * @param id
-     * @param securityAuthenticator
-     * @param executionDateTime
-     * @param task
-     */
     public TaskRunnerImpl(String id, SecurityAuthenticator securityAuthenticator, Task task,
         AusfuehrungsplanHandlerImpl.Ausfuehrungsplan ausfuehrungsplan, LocalDateTime executionDateTime,
         Duration initialDelay, Duration fixedRate, Duration fixedDelay) {
-        this.idThreadLocal.set(id);
-        this.securityAuthenticatorThreadLocal.set(securityAuthenticator);
-        this.ausfuehrungsplanThreadLocal.set(ausfuehrungsplan);
+        this.id = id;
+        this.securityAuthenticator = securityAuthenticator;
+        this.ausfuehrungsplan = ausfuehrungsplan;
         this.task = task;
         this.executionDateTime = executionDateTime;
         this.initialDelay = initialDelay;
@@ -86,32 +76,7 @@ public class TaskRunnerImpl implements TaskRunner {
 
     @Override
     public synchronized String getId() {
-        return idThreadLocal.get();
-    }
-
-    @Override
-    public synchronized void setId(String id) {
-        this.idThreadLocal.set(id);
-    }
-
-    @Override
-    public synchronized String getKorrelationsId() {
-        return korrelationsIdThreadLocal.get();
-    }
-
-    @Override
-    public synchronized void setKorrelationsId(String korrelationsId) {
-        this.korrelationsIdThreadLocal.set(korrelationsId);
-    }
-
-    @Override
-    public synchronized SecurityAuthenticator getSecurityAuthenticator() {
-        return securityAuthenticatorThreadLocal.get();
-    }
-
-    @Override
-    public synchronized void setSecurityAuthenticator(SecurityAuthenticator securityAuthenticator) {
-        this.securityAuthenticatorThreadLocal.set(securityAuthenticator);
+        return id;
     }
 
     @Override
@@ -121,12 +86,7 @@ public class TaskRunnerImpl implements TaskRunner {
 
     @Override
     public Ausfuehrungsplan getAusfuehrungsplan() {
-        return this.ausfuehrungsplanThreadLocal.get();
-    }
-
-    @Override
-    public void setAusfuehrungsplan(Ausfuehrungsplan ausfuehrungsplan) {
-        this.ausfuehrungsplanThreadLocal.set(ausfuehrungsplan);
+        return ausfuehrungsplan;
     }
 
     @Override

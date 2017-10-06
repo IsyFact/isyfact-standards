@@ -99,12 +99,11 @@ public class TestTaskScheduler {
         taskScheduler.setApplicationContext(applicationContext);
         taskScheduler.starteKonfigurierteTasks();
 
-        taskScheduler.awaitTerminationInSeconds(120);
+        taskScheduler.awaitTerminationInSeconds(60);
 
         int amount_of_threads = konfiguration.getAsInteger("isyfact.task.standard.amount_of_threads");
         assertEquals(amount_of_threads, 100);
 
         System.out.println("ScheduledExecuterService will shut down now!");
-        //taskScheduler.shutDownNow();
     }
 }
