@@ -13,40 +13,14 @@ import java.time.LocalDateTime;
  *
  */
 public abstract class OperationImpl implements Operation {
-    private volatile ThreadLocal<String> idThreadLocal
-            = new ThreadLocal<>();
-    private volatile ThreadLocal<String> hostNameThreadLocal
-            = new ThreadLocal<>();
     private volatile ThreadLocal<LocalDateTime> executionDateTimeThreadLocal
             = new ThreadLocal<>();
     private volatile ThreadLocal<FixedDateTime> fixedRateThreadLocal
             = new ThreadLocal<>();
     private volatile ThreadLocal<FixedDateTime> fixedDelayThreadLocal
             = new ThreadLocal<>();
-    private volatile ThreadLocal<String> resultThreadLocal
-            = new ThreadLocal<>();
 
     public OperationImpl() {}
-
-    @Override
-    public String getId() {
-        return idThreadLocal.get();
-    }
-
-    @Override
-    public void setId(String id) {
-        this.idThreadLocal.set(id);
-    }
-
-    @Override
-    public String getHostName() {
-        return hostNameThreadLocal.get();
-    }
-
-    @Override
-    public void setHostName(String hostName) {
-        this.hostNameThreadLocal.set(hostName);
-    }
 
     @Override
     public synchronized LocalDateTime getExecutionDateTime() {
@@ -78,13 +52,4 @@ public abstract class OperationImpl implements Operation {
         this.fixedDelayThreadLocal.set(fixedDelay);
     }
 
-    @Override
-    public String get() {
-        return resultThreadLocal.get();
-    }
-
-    @Override
-    public void set(String result) {
-        resultThreadLocal.set(result);
-    }
 }

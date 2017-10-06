@@ -14,18 +14,6 @@ public interface Operation {
 
     void execute();
 
-    String get();
-
-    void set(String result);
-
-    String getId();
-
-    void setId(String id);
-
-    String getHostName();
-
-    void setHostName(String hostName);
-
     LocalDateTime getExecutionDateTime();
 
     void setExecutionDateTime(LocalDateTime executionDateTime);
