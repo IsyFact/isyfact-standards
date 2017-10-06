@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
  * @author Alexander Salvanos, msg systems ag
  *
  */
-public interface Task {
+public interface Task extends Runnable {
 
 	String getId();
 
@@ -32,8 +32,6 @@ public interface Task {
 	void setSecurityAuthenticator(SecurityAuthenticator securityAuthenticator);
 
 	Operation getOperation();
-
-	void setOperation(Operation operation);
 
 	LocalDateTime getExecutionEndDateTime();
 

@@ -10,7 +10,10 @@ import java.time.LocalDateTime;
  * @author Alexander Salvanos, msg systems ag
  *
  */
-public interface Operation extends Runnable {
+public interface Operation {
+
+    void execute();
+
     String get();
 
     void set(String result);

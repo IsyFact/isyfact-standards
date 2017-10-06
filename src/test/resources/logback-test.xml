@@ -1,0 +1,48 @@
+<configuration scan="true" scanPeriod="1 minutes">
+
+    <!-- Include der vorkonfigurierten Appender. -->
+    <include resource="resources/isylogging/logback/appender-entwicklung.xml"/>
+
+    <!-- Root-Logger als Grundlage für alle Logger-Instanzen -->
+    <root level="trace">
+        <appender-ref ref="KONSOLE"/>
+    </root>
+
+    <!-- IsyFact -->
+    <logger name="de.bund.bva.pliscommon" level="WARN" additivity="false">
+        <appender-ref ref="KONSOLE"/>
+    </logger>
+    <logger name="de.bund.bva.isyfact" level="INFO" additivity="false">
+        <appender-ref ref="KONSOLE"/>
+    </logger>
+    <!-- Spring -->
+    <logger name="org.springframework" level="WARN" additivity="false">
+        <appender-ref ref="KONSOLE"/>
+    </logger>
+    <!-- Hibernate -->
+    <logger name="org.hibernate" level="WARN" additivity="false">
+        <appender-ref ref="KONSOLE"/>
+    </logger>
+    <logger name="org.jboss.logging" level="WARN" additivity="false">
+        <appender-ref ref="KONSOLE"/>
+    </logger>
+    <!-- QueryDSL -->
+    <logger name="com.querydsl.jpa" level="WARN" additivity="false">
+        <appender-ref ref="KONSOLE"/>
+    </logger>
+    <!-- Dozer -->
+    <logger name="org.dozer" level="WARN" additivity="false">
+        <appender-ref ref="KONSOLE"/>
+    </logger>
+    <!-- Apache Commons -->
+    <logger name="org.apache.commons" level="WARN" additivity="false">
+        <appender-ref ref="KONSOLE"/>
+    </logger>
+    <!-- DB Unit -->
+    <logger name="com.github.springtestdbunit" level="WARN" additivity="false">
+        <appender-ref ref="KONSOLE"/>
+    </logger>
+    <logger name="org.dbunit" level="WARN" additivity="false">
+        <appender-ref ref="KONSOLE"/>
+    </logger>
+</configuration>

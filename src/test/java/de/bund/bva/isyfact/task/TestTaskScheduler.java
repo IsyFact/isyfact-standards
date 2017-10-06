@@ -131,7 +131,7 @@ public class TestTaskScheduler {
         Task task2 = taskHandler.createTask(konfiguration.getAsString("isyfact.task.taskTest2.id"), konfiguration, applicationContext);
         Task task3 = taskHandler.createTask(konfiguration.getAsString("isyfact.task.taskTest3.id"), konfiguration, applicationContext);
 
-        TaskScheduler taskScheduler = new TaskSchedulerImpl(konfiguration, securityAuthenticator);
+        TaskScheduler taskScheduler = new TaskSchedulerImpl(konfiguration);
         taskScheduler.addTask(task1);
         taskScheduler.addTask(task2);
         taskScheduler.addTask(task3);

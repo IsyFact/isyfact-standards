@@ -6,13 +6,11 @@
 
     <bean name="taskScheduler" class="de.bund.bva.isyfact.task.impl.TaskSchedulerImpl">
         <constructor-arg ref="konfiguration"/>
-        <constructor-arg ref="securityAuthenticator"/>
     </bean>
 
     <bean id="taskTest1" class="de.bund.bva.isyfact.task.TestOperation1"/>
     <bean id="taskTest2" class="de.bund.bva.isyfact.task.TestOperation2"/>
     <bean id="taskTest3" class="de.bund.bva.isyfact.task.TestOperation3"/>
-
 
     <bean id="konfiguration"
           class="de.bund.bva.pliscommon.konfiguration.common.impl.ReloadablePropertyKonfiguration">

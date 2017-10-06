@@ -1,19 +1,27 @@
 package de.bund.bva.isyfact.task.impl;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.CancellationException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicLong;
+
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
 import de.bund.bva.isyfact.task.TaskScheduler;
 import de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel;
 import de.bund.bva.isyfact.task.model.Task;
-import de.bund.bva.isyfact.task.security.SecurityAuthenticator;
 import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
-
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.*;
-import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicLong;
 
 import static de.bund.bva.isyfact.task.konstanten.KonfigurationStandardwerte.DEFAULT_INITIAL_NUMBER_OF_THREADS;
 
@@ -29,8 +37,6 @@ public class TaskSchedulerImpl implements TaskScheduler, Runnable
 {
     private volatile ThreadLocal<Konfiguration> konfiguration
             = new ThreadLocal<>();
-    private volatile ThreadLocal<SecurityAuthenticator> securityAuthenticator
-            = new ThreadLocal<>();
     private volatile ThreadLocal<LocalDateTime> startTime
             = new ThreadLocal<>();
     private volatile ThreadLocal<ScheduledExecutorService> scheduledExecutorService
@@ -45,13 +51,9 @@ public class TaskSchedulerImpl implements TaskScheduler, Runnable
 
     /**
      * @param konfiguration
-     * @param securityAuthenticator
      */
-    public TaskSchedulerImpl(
-            Konfiguration konfiguration,
-            SecurityAuthenticator securityAuthenticator) {
+    public TaskSchedulerImpl(Konfiguration konfiguration) {
         this.konfiguration.set(konfiguration);
-        this.securityAuthenticator.set(securityAuthenticator);
         this.startTime.set(LocalDateTime.now());
 
         int initialNumberOfThreads = DEFAULT_INITIAL_NUMBER_OF_THREADS;
@@ -100,13 +102,8 @@ public class TaskSchedulerImpl implements TaskScheduler, Runnable
     private synchronized ScheduledFuture<?> schedule(Task task) {
         ScheduledFuture<?> scheduledFuture = null;
         try {
-            MdcHelper.pushKorrelationsId(UUID.randomUUID().toString());
-
-            // TODO: Frage an Bjoern - Wie wird der SecurityAuthenticator injiziert
-            // securityAuthenticator.get().login();
-
             scheduledFuture = scheduledExecutorService.get().schedule(
-                    task.getOperation(),
+                    task,
                     Duration.between(LocalDateTime.now(), task.getOperation().getExecutionDateTime()).toNanos(),
                     TimeUnit.NANOSECONDS);
             scheduledFutures.put(task.getId(), scheduledFuture);
@@ -119,11 +116,6 @@ public class TaskSchedulerImpl implements TaskScheduler, Runnable
             //TODO: Frage an Bjoern - Wie funktionieren die Meldungsschlüssel
             // String msg = MessageSourceHolder.getMessage(FehlerSchluessel.MEL_FEHLER_TASK00001);
             // LOG.info(LogKategorie.JOURNAL, FehlerSchluessel.MEL_FEHLER_TASK00001, msg);
-
-        } finally {
-            MdcHelper.entferneKorrelationsId();
-            // TODO: Frage an Bjoern - Wie wird der SecurityAuthenticator injiziert
-            //securityAuthenticator.logout();
         }
         return scheduledFuture;
     }
@@ -140,13 +132,8 @@ public class TaskSchedulerImpl implements TaskScheduler, Runnable
         LOG.debug("schedule: ", " executionDateTime: " + task.getOperation().getExecutionDateTime());
         ScheduledFuture<?> scheduledFuture = null;
         try {
-            MdcHelper.pushKorrelationsId(UUID.randomUUID().toString());
-
-            // TODO: Frage an Bjoern - Wie wird der SecurityAuthenticator injiziert
-            // securityAuthenticator.login();
-
             scheduledFuture = scheduledExecutorService.get().scheduleAtFixedRate(
-                    task.getOperation(),
+                    task,
                     Duration.between(LocalDateTime.now(), task.getOperation().getExecutionDateTime()).toNanos(),
                     task.getOperation().getFixedRate().toNanos(),
                     TimeUnit.NANOSECONDS);
@@ -160,11 +147,6 @@ public class TaskSchedulerImpl implements TaskScheduler, Runnable
             //TODO: Frage an Bjoern - Wie funktionieren die Meldungsschlüssel
             // String msg = MessageSourceHolder.getMessage(FehlerSchluessel.MEL_FEHLER_TASK00001);
             // LOG.info(LogKategorie.JOURNAL, FehlerSchluessel.MEL_FEHLER_TASK00001, msg);
-
-        } finally {
-            MdcHelper.entferneKorrelationsId();
-            // TODO: Frage an Bjoern - Wie wird der SecurityAuthenticator injiziert
-            //securityAuthenticator.logout();
         }
         return scheduledFuture;
     }
@@ -178,12 +160,8 @@ public class TaskSchedulerImpl implements TaskScheduler, Runnable
         LOG.debug("schedule: ", " executionDateTime: " + task.getOperation().getExecutionDateTime());
         ScheduledFuture<?> scheduledFuture = null;
         try {
-            MdcHelper.pushKorrelationsId(UUID.randomUUID().toString());
-            // TODO: Frage an Bjoern - Wie wird der SecurityAuthenticator injiziert
-            // securityAuthenticator.login();
-
             scheduledFuture = scheduledExecutorService.get().scheduleWithFixedDelay(
-                    task.getOperation(),
+                    task,
                     Duration.between(LocalDateTime.now(), task.getOperation().getExecutionDateTime()).toNanos(),
                     task.getOperation().getFixedDelay().toNanos(),
                     TimeUnit.NANOSECONDS);
@@ -197,11 +175,6 @@ public class TaskSchedulerImpl implements TaskScheduler, Runnable
             //TODO: Frage an Bjoern - Wie funktionieren die Meldungsschlüssel
             // String msg = MessageSourceHolder.getMessage(FehlerSchluessel.MEL_FEHLER_TASK00001);
             // LOG.info(LogKategorie.JOURNAL, FehlerSchluessel.MEL_FEHLER_TASK00001, msg);
-
-        } finally {
-            MdcHelper.entferneKorrelationsId();
-            // TODO: Frage an Bjoern - Wie wird der SecurityAuthenticator injiziert
-            //securityAuthenticator.logout();
         }
         return scheduledFuture;
     }

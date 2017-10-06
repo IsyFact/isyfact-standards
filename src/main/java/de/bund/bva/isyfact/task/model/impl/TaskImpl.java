@@ -1,12 +1,14 @@
 package de.bund.bva.isyfact.task.model.impl;
 
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+import de.bund.bva.isyfact.logging.util.MdcHelper;
 import de.bund.bva.isyfact.task.handler.AusfuehrungsplanHandler.Ausfuehrungsplan;
 import de.bund.bva.isyfact.task.handler.impl.AusfuehrungsplanHandlerImpl;
 import de.bund.bva.isyfact.task.model.Operation;
 import de.bund.bva.isyfact.task.model.Task;
 import de.bund.bva.isyfact.task.security.SecurityAuthenticator;
-
-import java.time.LocalDateTime;
 
 /**
  * Ein Task entspricht einer auszuführenden Aufgabe.
@@ -34,10 +36,9 @@ public class TaskImpl implements Task {
             = new ThreadLocal<>();
     private volatile ThreadLocal<LocalDateTime> executionEndDateTimeThreadLocal
             = new ThreadLocal<>();
-    private volatile ThreadLocal<Operation> operationThreadLocal
-            = new ThreadLocal<>();
     private volatile ThreadLocal<Ausfuehrungsplan> ausfuehrungsplanThreadLocal
             = new ThreadLocal<>();
+    private final Operation operation;
 
     /**
      *
@@ -55,8 +56,19 @@ public class TaskImpl implements Task {
             ) {
         this.idThreadLocal.set(id);
         this.securityAuthenticatorThreadLocal.set(securityAuthenticator);
-        this.operationThreadLocal.set(operation);
         this.ausfuehrungsplanThreadLocal.set(ausfuehrungsplan);
+        this.operation = operation;
+    }
+
+    @Override
+    public void run() {
+        MdcHelper.pushKorrelationsId(UUID.randomUUID().toString());
+        //securityAuthenticatorThreadLocal.get().login();
+
+        operation.execute();
+
+        //securityAuthenticatorThreadLocal.get().logout();
+        MdcHelper.entferneKorrelationsId();
     }
 
     @Override
@@ -101,12 +113,7 @@ public class TaskImpl implements Task {
 
     @Override
     public synchronized Operation getOperation() {
-        return this.operationThreadLocal.get();
-    }
-
-    @Override
-    public synchronized void setOperation(Operation operation) {
-        this.operationThreadLocal.set(operation);
+        return operation;
     }
 
     @Override
