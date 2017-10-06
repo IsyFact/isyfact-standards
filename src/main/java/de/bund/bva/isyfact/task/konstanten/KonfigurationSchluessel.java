@@ -19,15 +19,15 @@ public abstract class KonfigurationSchluessel {
     public static final String AUSFUEHRUNGSPLAN = ".ausfuehrungsplan";
     public static final String EXECUTIONDATETIME = ".executionDateTime";
 
-    public static final String FIXEDRATEDAYS = ".fixedRateDays";
-    public static final String FIXEDRATEHOURS = ".fixedRateHours";
-    public static final String FIXEDRATEMINUTES = ".fixedRateMinutes";
-    public static final String FIXEDRATESECONDS = ".fixedRateSeconds";
+    public static final String FIXEDRATEDAYS = ".fixedRate.days";
+    public static final String FIXEDRATEHOURS = ".fixedRate.hours";
+    public static final String FIXEDRATEMINUTES = ".fixedRate.minutes";
+    public static final String FIXEDRATESECONDS = ".fixedRate.seconds";
 
-    public static final String FIXEDDELAYDAYS = ".fixedRateDays";
-    public static final String FIXEDDELAYHOURS = ".fixedRateHours";
-    public static final String FIXEDDELAYMINUTES = ".fixedRateMinutes";
-    public static final String FIXEDDELAYSECONDS = ".fixedRateSeconds";
+    public static final String FIXEDDELAYDAYS = ".fixedRate.days";
+    public static final String FIXEDDELAYHOURS = ".fixedRate.hours";
+    public static final String FIXEDDELAYMINUTES = ".fixedRate.minutes";
+    public static final String FIXEDDELAYSECONDS = ".fixedRate.seconds";
 
 
 

@@ -9,6 +9,11 @@
         <constructor-arg ref="securityAuthenticator"/>
     </bean>
 
+    <bean id="taskTest1" class="de.bund.bva.isyfact.task.TestOperation1"/>
+    <bean id="taskTest2" class="de.bund.bva.isyfact.task.TestOperation2"/>
+    <bean id="taskTest3" class="de.bund.bva.isyfact.task.TestOperation3"/>
+
+
     <bean id="konfiguration"
           class="de.bund.bva.pliscommon.konfiguration.common.impl.ReloadablePropertyKonfiguration">
         <constructor-arg>
@@ -27,14 +32,15 @@
     </bean>
 
     <bean id="messageSourceHolder" class="de.bund.bva.pliscommon.util.spring.MessageSourceHolder">
-        <property name="messageSource" ref="messageSource" />
+        <property name="messageSource" ref="messageSource"/>
     </bean>
 
     <!-- TODO: Die übrigen Properties des SecurityAuthenticators injizieren-->
-    <bean name="securityAuthenticator" class="de.bund.bva.isyfact.task.security.impl.SecurityAuthenticatorImpl">
-        <property name="behoerdenkennzeichen" value="${behoerdenkennzeichen}" />
-        <property name="username" value="${username}" />
-        <property name="password" value="${password}" />
+    <bean name="securityAuthenticator"
+          class="de.bund.bva.isyfact.task.security.impl.SecurityAuthenticatorImpl">
+        <property name="behoerdenkennzeichen" value="${behoerdenkennzeichen}"/>
+        <property name="username" value="${username}"/>
+        <property name="password" value="${password}"/>
     </bean>
 
     <!-- Sicherheit -->

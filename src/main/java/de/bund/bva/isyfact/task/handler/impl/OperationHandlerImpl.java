@@ -6,6 +6,7 @@ import de.bund.bva.isyfact.task.handler.*;
 import de.bund.bva.isyfact.task.konstanten.KonfigurationStandardwerte;
 import de.bund.bva.isyfact.task.model.Operation;
 import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
+import org.springframework.context.ApplicationContext;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -35,33 +36,7 @@ public class OperationHandlerImpl implements OperationHandler {
 	 * @throws Exception
 	 */
 	@Override
-	public synchronized Operation getOperation(String id, Konfiguration konfiguration) {
-		String operation = konfiguration.getAsString(PRAEFIX + id + OPERATION);
-
-		//TODO: Frage an Bjoern - Wie wird die Exception injiziert?
-		// throws CreateOperationInstanceException {
-		Class<?> clazz = null;
-		try {
-			clazz = Class.forName(operation);
-		} catch (ClassNotFoundException e) {
-			//TODO: Frage an Bjoern - Wie wird die Exception injiziert?
-			// throw new CreateOperationInstanceException();
-		}
-		Constructor<?> ctr = null;
-		try {
-			ctr = clazz.getConstructor();
-		} catch (NoSuchMethodException e) {
-			//TODO: Frage an Bjoern - Wie wird die Exception injiziert?
-			//throw new CreateOperationInstanceException();
-		}
-		try {
-			return (Operation) ctr.newInstance();
-		} catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-			//TODO: Frage an Bjoern - Wie wird die Exception injiziert?
-			// throw new CreateOperationInstanceException();
-		}
-		//TODO: Frage an Bjoern - Wie wird die Exception injiziert?
-		// return ...
-		return null;
+	public synchronized Operation getOperation(String id, ApplicationContext applicationContext) {
+		return applicationContext.getBean(id, Operation.class);
 	}
 }

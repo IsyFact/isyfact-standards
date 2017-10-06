@@ -11,6 +11,7 @@ import de.bund.bva.isyfact.task.model.Task;
 import de.bund.bva.isyfact.task.model.impl.TaskImpl;
 import de.bund.bva.isyfact.task.security.SecurityAuthenticator;
 import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
+import org.springframework.context.ApplicationContext;
 
 import java.time.LocalDateTime;
 
@@ -32,7 +33,7 @@ public class TaskHandlerImpl implements TaskHandler {
 	 * @return
 	 */
 	@Override
-	public synchronized Task createTask(String id, Konfiguration konfiguration)
+	public synchronized Task createTask(String id, Konfiguration konfiguration, ApplicationContext applicationContext)
 			throws CreateOperationInstanceException, HostNotApplicableException {
 
 	    Task task = null;
@@ -45,7 +46,7 @@ public class TaskHandlerImpl implements TaskHandler {
 					securityHandler.getSecurityAuthenticator(id, konfiguration);
 
 			OperationHandler operationHandler = new OperationHandlerImpl();
-			Operation operation = operationHandler.getOperation(id, konfiguration);
+			Operation operation = operationHandler.getOperation(id, applicationContext);
 
 			AusfuehrungsplanHandler ausfuehrungsplanHandler = new AusfuehrungsplanHandlerImpl();
 			AusfuehrungsplanHandlerImpl.Ausfuehrungsplan ausfuehrungsplan = ausfuehrungsplanHandler.getAusfuehrungsplan(id, konfiguration);

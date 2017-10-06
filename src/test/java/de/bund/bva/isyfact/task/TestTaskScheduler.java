@@ -16,6 +16,8 @@ import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -23,7 +25,6 @@ import static de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel.OPERAT
 import static de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel.PRAEFIX;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.stubVoid;
 import static org.mockito.Mockito.when;
 
 /**
@@ -38,6 +39,9 @@ import static org.mockito.Mockito.when;
 public class TestTaskScheduler {
     private Konfiguration konfiguration = mock(Konfiguration.class);
     private SecurityAuthenticator securityAuthenticator = mock(SecurityAuthenticator.class);
+
+    @Autowired
+    private ApplicationContext applicationContext;
 
     /**
      * Initialize the Tests
@@ -123,9 +127,9 @@ public class TestTaskScheduler {
     @Test
     public void testSchedule() throws Exception {
         TaskHandler taskHandler = new TaskHandlerImpl();
-        Task task1 = taskHandler.createTask(konfiguration.getAsString("isyfact.task.taskTest1.id"), konfiguration);
-        Task task2 = taskHandler.createTask(konfiguration.getAsString("isyfact.task.taskTest2.id"), konfiguration);
-        Task task3 = taskHandler.createTask(konfiguration.getAsString("isyfact.task.taskTest3.id"), konfiguration);
+        Task task1 = taskHandler.createTask(konfiguration.getAsString("isyfact.task.taskTest1.id"), konfiguration, applicationContext);
+        Task task2 = taskHandler.createTask(konfiguration.getAsString("isyfact.task.taskTest2.id"), konfiguration, applicationContext);
+        Task task3 = taskHandler.createTask(konfiguration.getAsString("isyfact.task.taskTest3.id"), konfiguration, applicationContext);
 
         TaskScheduler taskScheduler = new TaskSchedulerImpl(konfiguration, securityAuthenticator);
         taskScheduler.addTask(task1);

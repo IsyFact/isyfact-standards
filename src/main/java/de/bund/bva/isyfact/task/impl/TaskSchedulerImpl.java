@@ -80,10 +80,10 @@ public class TaskSchedulerImpl implements TaskScheduler, Runnable
                     scheduledFuture = schedule(task);
                     break;
                 case FIXED_RATE:
-                    scheduledFuture = schedule(task);
+                    scheduledFuture = scheduleAtFixedRate(task);
                     break;
                 case FIXED_DELAY:
-                    scheduledFuture = schedule(task);
+                    scheduledFuture = scheduleWithFixedDelay(task);
                     break;
             }
             String id = task.getId();
