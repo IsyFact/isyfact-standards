@@ -1,4 +1,5 @@
 # v1.5.0 (unveröffentlicht)
+- alle: `RF-161`: Bibliotheken binden genutzte Bibliotheken direkt ein und nicht mehr über BOM-Bibliotheken
 - isy-logging: `IFS-42`: Erweiterung um Performance-Logging
 - isy-logging: `IFS-68`: Erweiterte Typisierung von Logeinträgen
 - isy-logging: `IFS-70`: Position vom Zeitstempel verschoben
