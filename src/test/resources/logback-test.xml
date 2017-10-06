@@ -12,7 +12,10 @@
     <logger name="de.bund.bva.pliscommon" level="WARN" additivity="false">
         <appender-ref ref="KONSOLE"/>
     </logger>
-    <logger name="de.bund.bva.isyfact" level="INFO" additivity="false">
+    <logger name="de.bund.bva.isyfact" level="WARN" additivity="false">
+        <appender-ref ref="KONSOLE"/>
+    </logger>
+    <logger name="de.bund.bva.isyfact.task" level="DEBUG" additivity="false">
         <appender-ref ref="KONSOLE"/>
     </logger>
     <!-- Spring -->

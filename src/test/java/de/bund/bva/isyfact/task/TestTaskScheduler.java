@@ -46,7 +46,6 @@ public class TestTaskScheduler {
      */
     @Before
     public void setUp() throws UnknownHostException {
-        Mockito.
         when(konfiguration.getAsString(KonfigurationSchluessel.DATETIME_PATTERN,
             KonfigurationStandardwerte.DEFAULT_DATETIME_PATTERN)).thenReturn("dd.MM.yyyy HH:mm:ss.SSS");
         when(konfiguration.getAsInteger("isyfact.task.standard.amount_of_threads")).thenReturn(100);

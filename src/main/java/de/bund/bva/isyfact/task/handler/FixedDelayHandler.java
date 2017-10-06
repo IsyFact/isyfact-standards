@@ -1,6 +1,7 @@
 package de.bund.bva.isyfact.task.handler;
 
-import de.bund.bva.isyfact.task.model.FixedDateTime;
+import java.time.Duration;
+
 import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 
 /**
@@ -9,5 +10,5 @@ import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
  * @author Alexander Salvanos, msg systems ag
  */
 public interface FixedDelayHandler {
-    FixedDateTime getFixedDelay(String id, Konfiguration konfiguration);
+    Duration getFixedDelay(String id, Konfiguration konfiguration);
 }

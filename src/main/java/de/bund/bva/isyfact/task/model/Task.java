@@ -3,6 +3,7 @@ package de.bund.bva.isyfact.task.model;
 import de.bund.bva.isyfact.task.handler.AusfuehrungsplanHandler.Ausfuehrungsplan;
 import de.bund.bva.isyfact.task.security.SecurityAuthenticator;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 /**
@@ -40,6 +41,18 @@ public interface Task extends Runnable {
 	Ausfuehrungsplan getAusfuehrungsplan();
 
 	void setAusfuehrungsplan(Ausfuehrungsplan ausfuehrungsplan);
+
+	Duration getFixedRate();
+
+	void setFixedRate(Duration fixedDateTime);
+
+	Duration getFixedDelay();
+
+	void setFixedDelay(Duration fixedDelay);
+
+	LocalDateTime getExecutionDateTime();
+
+	void setExecutionDateTime(LocalDateTime executionDateTime);
 
 	boolean getHasBeenExecutedSuccessfully();
 

@@ -1,18 +1,24 @@
 package de.bund.bva.isyfact.task.handler.impl;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.task.exception.HostNotApplicableException;
-import de.bund.bva.isyfact.task.handler.*;
-import de.bund.bva.isyfact.task.model.FixedDateTime;
+import de.bund.bva.isyfact.task.handler.AusfuehrungsplanHandler;
+import de.bund.bva.isyfact.task.handler.ExecutionDateTimeHandler;
+import de.bund.bva.isyfact.task.handler.FixedDelayHandler;
+import de.bund.bva.isyfact.task.handler.FixedRateHandler;
+import de.bund.bva.isyfact.task.handler.HostHandler;
+import de.bund.bva.isyfact.task.handler.SecurityHandler;
+import de.bund.bva.isyfact.task.handler.TaskHandler;
 import de.bund.bva.isyfact.task.model.Operation;
 import de.bund.bva.isyfact.task.model.Task;
 import de.bund.bva.isyfact.task.model.impl.TaskImpl;
 import de.bund.bva.isyfact.task.security.SecurityAuthenticator;
 import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 import org.springframework.context.ApplicationContext;
-
-import java.time.LocalDateTime;
 
 /**
  * Der TaskHandler ist eine Werkzeugklasse für den Bau von Task-Instanzen.
@@ -50,17 +56,15 @@ public class TaskHandlerImpl implements TaskHandler {
             ExecutionDateTimeHandler executionDateTimeHandler = new ExecutionDateTimeHandlerImpl();
             LocalDateTime executionDateTime =
                 executionDateTimeHandler.getExecutionDateTime(id, konfiguration);
-            operation.setExecutionDateTime(executionDateTime);
 
             FixedRateHandler fixedRateHandler = new FixedRateHandlerImpl();
-            FixedDateTime fixedRate = fixedRateHandler.getFixedRate(id, konfiguration);
-            operation.setFixedRate(fixedRate);
+            Duration fixedRate = fixedRateHandler.getFixedRate(id, konfiguration);
 
             FixedDelayHandler fixedDelayHandler = new FixedDelayHandlerImpl();
-            FixedDateTime fixedDelay = fixedDelayHandler.getFixedDelay(id, konfiguration);
-            operation.setFixedDelay(fixedDelay);
+            Duration fixedDelay = fixedDelayHandler.getFixedDelay(id, konfiguration);
 
-            task = new TaskImpl(id, securityAuthenticator, operation, ausfuehrungsplan, executionDateTime);
+            task = new TaskImpl(id, securityAuthenticator, operation, ausfuehrungsplan, executionDateTime,
+                fixedRate, fixedDelay);
         }
         return task;
     }

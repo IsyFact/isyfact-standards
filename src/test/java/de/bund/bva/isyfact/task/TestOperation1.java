@@ -3,12 +3,12 @@ package de.bund.bva.isyfact.task;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
-import de.bund.bva.isyfact.task.model.impl.OperationImpl;
+import de.bund.bva.isyfact.task.model.Operation;
 
 import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
 
-public class TestOperation1 extends OperationImpl {
+public class TestOperation1 implements Operation {
 
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(TestOperation1.class);
 

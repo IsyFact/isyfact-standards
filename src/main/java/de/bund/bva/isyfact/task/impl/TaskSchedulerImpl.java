@@ -123,11 +123,13 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
      * @return ScheduledFuture/<String/>
      */
     private synchronized ScheduledFuture<?> schedule(Task task) {
+        LOG.debug("Reihe Task {} ein (delay: {})", task.getId(),
+            Duration.between(LocalDateTime.now(), task.getExecutionDateTime()));
         ScheduledFuture<?> scheduledFuture = null;
         try {
             scheduledFuture = scheduledExecutorService.get().schedule(task,
-                Duration.between(LocalDateTime.now(), task.getOperation().getExecutionDateTime()).toNanos(),
-                TimeUnit.NANOSECONDS);
+                Duration.between(LocalDateTime.now(), task.getExecutionDateTime()).getSeconds(),
+                TimeUnit.SECONDS);
             scheduledFutures.put(task.getId(), scheduledFuture);
             counter.incrementAndGet();
 
@@ -151,12 +153,13 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
      * @throws Exception
      */
     private synchronized ScheduledFuture<?> scheduleAtFixedRate(Task task) {
-        LOG.debug("schedule: ", " executionDateTime: " + task.getOperation().getExecutionDateTime());
+        LOG.debug("Reihe Task {} ein (initial-delay: {}, fixed-rate: {})", task.getId(),
+            Duration.between(LocalDateTime.now(), task.getExecutionDateTime()), task.getFixedRate());
         ScheduledFuture<?> scheduledFuture = null;
         try {
             scheduledFuture = scheduledExecutorService.get().scheduleAtFixedRate(task,
-                Duration.between(LocalDateTime.now(), task.getOperation().getExecutionDateTime()).toNanos(),
-                task.getOperation().getFixedRate().toNanos(), TimeUnit.NANOSECONDS);
+                Duration.between(LocalDateTime.now(), task.getExecutionDateTime()).getSeconds(),
+                task.getFixedRate().getSeconds(), TimeUnit.SECONDS);
             scheduledFutures.put(task.getId(), scheduledFuture);
             counter.incrementAndGet();
 
@@ -177,12 +180,13 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
      * @throws Exception
      */
     private synchronized ScheduledFuture<?> scheduleWithFixedDelay(Task task) {
-        LOG.debug("schedule: ", " executionDateTime: " + task.getOperation().getExecutionDateTime());
+        LOG.debug("Reihe Task {} ein (initial-delay: {}, fixed-delay: {})", task.getId(),
+            Duration.between(LocalDateTime.now(), task.getExecutionDateTime()), task.getFixedDelay());
         ScheduledFuture<?> scheduledFuture = null;
         try {
             scheduledFuture = scheduledExecutorService.get().scheduleWithFixedDelay(task,
-                Duration.between(LocalDateTime.now(), task.getOperation().getExecutionDateTime()).toNanos(),
-                task.getOperation().getFixedDelay().toNanos(), TimeUnit.NANOSECONDS);
+                Duration.between(LocalDateTime.now(), task.getExecutionDateTime()).getSeconds(),
+                task.getFixedDelay().getSeconds(), TimeUnit.SECONDS);
             scheduledFutures.put(task.getId(), scheduledFuture);
             counter.incrementAndGet();
 

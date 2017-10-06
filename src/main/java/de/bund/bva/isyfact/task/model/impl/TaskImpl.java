@@ -1,5 +1,6 @@
 package de.bund.bva.isyfact.task.model.impl;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -38,10 +39,16 @@ public class TaskImpl implements Task {
 
     private volatile ThreadLocal<Ausfuehrungsplan> ausfuehrungsplanThreadLocal = new ThreadLocal<>();
 
-    private volatile ThreadLocal<Boolean> hasBeenExecutedSuccessfullyThreadLocal
-        = new ThreadLocal<>();
-    private volatile ThreadLocal<String> errorMessageThreadLocal
-        = new ThreadLocal<>();
+    private volatile ThreadLocal<Duration> fixedRateThreadLocal = new ThreadLocal<>();
+
+    private volatile ThreadLocal<Duration> fixedDelayThreadLocal = new ThreadLocal<>();
+
+    private volatile ThreadLocal<Boolean> hasBeenExecutedSuccessfullyThreadLocal = new ThreadLocal<>();
+
+    private volatile ThreadLocal<String> errorMessageThreadLocal = new ThreadLocal<>();
+
+    private volatile ThreadLocal<LocalDateTime> executionDateTimeThreadLocal = new ThreadLocal<>();
+
 
     private final Operation operation;
 
@@ -52,11 +59,14 @@ public class TaskImpl implements Task {
      * @param operation
      */
     public TaskImpl(String id, SecurityAuthenticator securityAuthenticator, Operation operation,
-        AusfuehrungsplanHandlerImpl.Ausfuehrungsplan ausfuehrungsplan, LocalDateTime executionDateTime) {
+        AusfuehrungsplanHandlerImpl.Ausfuehrungsplan ausfuehrungsplan, LocalDateTime executionDateTime, Duration fixedRate, Duration fixedDelay) {
         this.idThreadLocal.set(id);
         this.securityAuthenticatorThreadLocal.set(securityAuthenticator);
         this.ausfuehrungsplanThreadLocal.set(ausfuehrungsplan);
         this.operation = operation;
+        this.executionDateTimeThreadLocal.set(executionDateTime);
+        this.fixedRateThreadLocal.set(fixedRate);
+        this.fixedDelayThreadLocal.set(fixedDelay);
     }
 
     @Override
@@ -124,8 +134,7 @@ public class TaskImpl implements Task {
     }
 
     @Override
-    public synchronized void setHasBeenExecutedSuccessfully(
-        boolean hasBeenExecutedSuccessfully) {
+    public synchronized void setHasBeenExecutedSuccessfully(boolean hasBeenExecutedSuccessfully) {
         this.hasBeenExecutedSuccessfullyThreadLocal.set(hasBeenExecutedSuccessfully);
     }
 
@@ -153,4 +162,35 @@ public class TaskImpl implements Task {
     public void setAusfuehrungsplan(Ausfuehrungsplan ausfuehrungsplan) {
         this.ausfuehrungsplanThreadLocal.set(ausfuehrungsplan);
     }
+
+    @Override
+    public Duration getFixedRate() {
+        return fixedRateThreadLocal.get();
+    }
+
+    @Override
+    public void setFixedRate(Duration fixedDateTime) {
+        this.fixedRateThreadLocal.set(fixedDateTime);
+    }
+
+    @Override
+    public Duration getFixedDelay() {
+        return fixedDelayThreadLocal.get();
+    }
+
+    @Override
+    public void setFixedDelay(Duration fixedDelay) {
+        this.fixedDelayThreadLocal.set(fixedDelay);
+    }
+
+    @Override
+    public synchronized LocalDateTime getExecutionDateTime() {
+        return this.executionDateTimeThreadLocal.get();
+    }
+
+    @Override
+    public synchronized void setExecutionDateTime(LocalDateTime executionDateTime) {
+        this.executionDateTimeThreadLocal.set(executionDateTime);
+    }
+
 }
