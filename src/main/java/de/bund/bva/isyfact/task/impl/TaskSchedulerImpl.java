@@ -134,8 +134,9 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
             counter.incrementAndGet();
 
         } catch (Exception e) {
-            task.setErrorMessage(e.getMessage());
-            task.setHasBeenExecutedSuccessfully(false);
+            if (task.getMonitor() != null) {
+                task.getMonitor().fehlerhafteAusfuehrung(e);
+            }
 
             String msg = MessageSourceHolder
                 .getMessage(FehlerSchluessel.TASK_KONNTE_NICHT_EINGEREIHT_WERDEN, task.getId());
@@ -164,8 +165,9 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
             counter.incrementAndGet();
 
         } catch (Exception e) {
-            task.setErrorMessage(e.getMessage());
-            task.setHasBeenExecutedSuccessfully(false);
+            if (task.getMonitor() != null) {
+                task.getMonitor().fehlerhafteAusfuehrung(e);
+            }
 
             String msg = MessageSourceHolder
                 .getMessage(FehlerSchluessel.TASK_KONNTE_NICHT_EINGEREIHT_WERDEN, task.getId());
@@ -191,8 +193,9 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
             counter.incrementAndGet();
 
         } catch (Exception e) {
-            task.setErrorMessage(e.getMessage());
-            task.setHasBeenExecutedSuccessfully(false);
+            if (task.getMonitor() != null) {
+                task.getMonitor().fehlerhafteAusfuehrung(e);
+            }
 
             String msg = MessageSourceHolder
                 .getMessage(FehlerSchluessel.TASK_KONNTE_NICHT_EINGEREIHT_WERDEN, task.getId());

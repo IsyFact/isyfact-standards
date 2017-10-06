@@ -9,8 +9,32 @@
     </bean>
 
     <bean id="taskTest1" class="de.bund.bva.isyfact.task.TestOperation1"/>
+    <bean id="taskTest1-monitor" class="de.bund.bva.isyfact.task.jmx.TaskMonitor"/>
     <bean id="taskTest2" class="de.bund.bva.isyfact.task.TestOperation2"/>
+    <bean id="taskTest2-monitor" class="de.bund.bva.isyfact.task.jmx.TaskMonitor"/>
     <bean id="taskTest3" class="de.bund.bva.isyfact.task.TestOperation3"/>
+    <bean id="taskTest3-monitor" class="de.bund.bva.isyfact.task.jmx.TaskMonitor"/>
+
+    <bean id="mBeanExporter" class="org.springframework.jmx.export.MBeanExporter">
+        <property name="assembler">
+            <bean class="org.springframework.jmx.export.assembler.MetadataMBeanInfoAssembler">
+                <property name="attributeSource">
+                    <bean class="org.springframework.jmx.export.annotation.AnnotationJmxAttributeSource"/>
+                </property>
+            </bean>
+        </property>
+        <property name="autodetect" value="false"/>
+        <property name="beans">
+            <map>
+                <entry key="de.bund.bva.isyfact.task:type=TaskMonitor,name=&quot;TaskTest1&quot;"
+                       value-ref="taskTest1-monitor"/>
+                <entry key="de.bund.bva.isyfact.task:type=TaskMonitor,name=&quot;TaskTest2&quot;"
+                       value-ref="taskTest2-monitor"/>
+                <entry key="de.bund.bva.isyfact.task:type=TaskMonitor,name=&quot;TaskTest3&quot;"
+                       value-ref="taskTest3-monitor"/>
+            </map>
+        </property>
+    </bean>
 
     <bean id="konfiguration"
           class="de.bund.bva.pliscommon.konfiguration.common.impl.ReloadablePropertyKonfiguration">

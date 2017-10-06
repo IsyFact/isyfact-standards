@@ -1,6 +1,7 @@
 package de.bund.bva.isyfact.task.model;
 
 import de.bund.bva.isyfact.task.handler.AusfuehrungsplanHandler.Ausfuehrungsplan;
+import de.bund.bva.isyfact.task.jmx.TaskMonitor;
 import de.bund.bva.isyfact.task.security.SecurityAuthenticator;
 
 import java.time.Duration;
@@ -33,10 +34,6 @@ public interface Task extends Runnable {
 
     Operation getOperation();
 
-    LocalDateTime getExecutionEndDateTime();
-
-    void setExecutionEndDateTime(LocalDateTime executionEndDateTime);
-
     Ausfuehrungsplan getAusfuehrungsplan();
 
     void setAusfuehrungsplan(Ausfuehrungsplan ausfuehrungsplan);
@@ -49,12 +46,6 @@ public interface Task extends Runnable {
 
     LocalDateTime getExecutionDateTime();
 
-    boolean getHasBeenExecutedSuccessfully();
-
-    void setHasBeenExecutedSuccessfully(boolean hasBeenExecutedSuccessfully);
-
-    String getErrorMessage();
-
-    void setErrorMessage(String errorMessage);
+    TaskMonitor getMonitor();
 
 }

@@ -11,6 +11,7 @@ import de.bund.bva.isyfact.task.handler.ExecutionDateTimeHandler;
 import de.bund.bva.isyfact.task.handler.HostHandler;
 import de.bund.bva.isyfact.task.handler.SecurityHandler;
 import de.bund.bva.isyfact.task.handler.TaskHandler;
+import de.bund.bva.isyfact.task.jmx.TaskMonitor;
 import de.bund.bva.isyfact.task.konfiguration.DurationUtil;
 import de.bund.bva.isyfact.task.model.Operation;
 import de.bund.bva.isyfact.task.model.Task;
@@ -47,6 +48,7 @@ public class TaskHandlerImpl implements TaskHandler {
                 securityHandler.getSecurityAuthenticator(id, konfiguration);
 
             Operation operation = applicationContext.getBean(id, Operation.class);
+            TaskMonitor monitor = applicationContext.getBean(id + "-monitor", TaskMonitor.class);
 
             AusfuehrungsplanHandler ausfuehrungsplanHandler = new AusfuehrungsplanHandlerImpl();
             AusfuehrungsplanHandlerImpl.Ausfuehrungsplan ausfuehrungsplan =
@@ -61,7 +63,8 @@ public class TaskHandlerImpl implements TaskHandler {
             Duration fixedDelay = DurationUtil.leseFixedDelay(id, konfiguration);
 
             task = new TaskImpl(id, securityAuthenticator, operation, ausfuehrungsplan, executionDateTime,
-                initialDelay, fixedRate, fixedDelay);
-        } return task;
+                initialDelay, fixedRate, fixedDelay, monitor);
+        }
+        return task;
     }
 }

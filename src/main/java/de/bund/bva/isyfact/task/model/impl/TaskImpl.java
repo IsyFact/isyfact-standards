@@ -7,6 +7,7 @@ import java.util.UUID;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
 import de.bund.bva.isyfact.task.handler.AusfuehrungsplanHandler.Ausfuehrungsplan;
 import de.bund.bva.isyfact.task.handler.impl.AusfuehrungsplanHandlerImpl;
+import de.bund.bva.isyfact.task.jmx.TaskMonitor;
 import de.bund.bva.isyfact.task.model.Operation;
 import de.bund.bva.isyfact.task.model.Task;
 import de.bund.bva.isyfact.task.security.SecurityAuthenticator;
@@ -35,8 +36,6 @@ public class TaskImpl implements Task {
     private volatile ThreadLocal<SecurityAuthenticator> securityAuthenticatorThreadLocal =
         new ThreadLocal<>();
 
-    private volatile ThreadLocal<LocalDateTime> executionEndDateTimeThreadLocal = new ThreadLocal<>();
-
     private volatile ThreadLocal<Ausfuehrungsplan> ausfuehrungsplanThreadLocal = new ThreadLocal<>();
 
     private final LocalDateTime executionDateTime;
@@ -47,11 +46,7 @@ public class TaskImpl implements Task {
 
     private final Duration fixedDelay;
 
-    private volatile ThreadLocal<Boolean> hasBeenExecutedSuccessfullyThreadLocal = new ThreadLocal<>();
-
-    private volatile ThreadLocal<String> errorMessageThreadLocal = new ThreadLocal<>();
-
-
+    private volatile TaskMonitor monitor;
 
     private final Operation operation;
 
@@ -63,7 +58,7 @@ public class TaskImpl implements Task {
      */
     public TaskImpl(String id, SecurityAuthenticator securityAuthenticator, Operation operation,
         AusfuehrungsplanHandlerImpl.Ausfuehrungsplan ausfuehrungsplan, LocalDateTime executionDateTime,
-        Duration initialDelay, Duration fixedRate, Duration fixedDelay) {
+        Duration initialDelay, Duration fixedRate, Duration fixedDelay, TaskMonitor monitor) {
         this.idThreadLocal.set(id);
         this.securityAuthenticatorThreadLocal.set(securityAuthenticator);
         this.ausfuehrungsplanThreadLocal.set(ausfuehrungsplan);
@@ -72,6 +67,7 @@ public class TaskImpl implements Task {
         this.initialDelay = initialDelay;
         this.fixedRate = fixedRate;
         this.fixedDelay = fixedDelay;
+        this.monitor = monitor;
     }
 
     @Override
@@ -85,11 +81,13 @@ public class TaskImpl implements Task {
             //securityAuthenticatorThreadLocal.get().logout();
             MdcHelper.entferneKorrelationsId();
 
-            setHasBeenExecutedSuccessfully(true);
-            setErrorMessage(null);
+            if (monitor != null) {
+                monitor.erfolgreicheAusfuehrung();
+            }
         } catch (Exception e) {
-            setHasBeenExecutedSuccessfully(false);
-            setErrorMessage(e.getMessage());
+            if (monitor != null) {
+                monitor.fehlerhafteAusfuehrung(e);
+            }
         }
     }
 
@@ -121,36 +119,6 @@ public class TaskImpl implements Task {
     @Override
     public synchronized void setSecurityAuthenticator(SecurityAuthenticator securityAuthenticator) {
         this.securityAuthenticatorThreadLocal.set(securityAuthenticator);
-    }
-
-    @Override
-    public synchronized LocalDateTime getExecutionEndDateTime() {
-        return executionEndDateTimeThreadLocal.get();
-    }
-
-    @Override
-    public synchronized void setExecutionEndDateTime(LocalDateTime executionEndDateTime) {
-        this.executionEndDateTimeThreadLocal.set(executionEndDateTime);
-    }
-
-    @Override
-    public synchronized boolean getHasBeenExecutedSuccessfully() {
-        return hasBeenExecutedSuccessfullyThreadLocal.get().booleanValue();
-    }
-
-    @Override
-    public synchronized void setHasBeenExecutedSuccessfully(boolean hasBeenExecutedSuccessfully) {
-        this.hasBeenExecutedSuccessfullyThreadLocal.set(hasBeenExecutedSuccessfully);
-    }
-
-    @Override
-    public synchronized String getErrorMessage() {
-        return errorMessageThreadLocal.get();
-    }
-
-    @Override
-    public synchronized void setErrorMessage(String errorMessage) {
-        this.errorMessageThreadLocal.set(errorMessage);
     }
 
     @Override
@@ -188,4 +156,8 @@ public class TaskImpl implements Task {
         return fixedDelay;
     }
 
+    @Override
+    public TaskMonitor getMonitor() {
+        return monitor;
+    }
 }
