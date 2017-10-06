@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
@@ -17,11 +16,12 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.isyfact.logging.util.MdcHelper;
 import de.bund.bva.isyfact.task.TaskScheduler;
+import de.bund.bva.isyfact.task.konstanten.FehlerSchluessel;
 import de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel;
 import de.bund.bva.isyfact.task.model.Task;
 import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
+import de.bund.bva.pliscommon.util.spring.MessageSourceHolder;
 
 import static de.bund.bva.isyfact.task.konstanten.KonfigurationStandardwerte.DEFAULT_INITIAL_NUMBER_OF_THREADS;
 
@@ -113,9 +113,9 @@ public class TaskSchedulerImpl implements TaskScheduler, Runnable
             task.getOperation().setErrorMessage(e.getMessage());
             task.getOperation().setHasBeenExecutedSuccessfully(false);
 
-            //TODO: Frage an Bjoern - Wie funktionieren die Meldungsschlüssel
-            // String msg = MessageSourceHolder.getMessage(FehlerSchluessel.MEL_FEHLER_TASK00001);
-            // LOG.info(LogKategorie.JOURNAL, FehlerSchluessel.MEL_FEHLER_TASK00001, msg);
+            String msg = MessageSourceHolder
+                .getMessage(FehlerSchluessel.TASK_KONNTE_NICHT_EINGEREIHT_WERDEN, task.getId());
+            LOG.error(FehlerSchluessel.TASK_KONNTE_NICHT_EINGEREIHT_WERDEN, msg, e);
         }
         return scheduledFuture;
     }
@@ -144,9 +144,9 @@ public class TaskSchedulerImpl implements TaskScheduler, Runnable
             task.getOperation().setErrorMessage(e.getMessage());
             task.getOperation().setHasBeenExecutedSuccessfully(false);
 
-            //TODO: Frage an Bjoern - Wie funktionieren die Meldungsschlüssel
-            // String msg = MessageSourceHolder.getMessage(FehlerSchluessel.MEL_FEHLER_TASK00001);
-            // LOG.info(LogKategorie.JOURNAL, FehlerSchluessel.MEL_FEHLER_TASK00001, msg);
+            String msg = MessageSourceHolder
+                .getMessage(FehlerSchluessel.TASK_KONNTE_NICHT_EINGEREIHT_WERDEN, task.getId());
+            LOG.error(FehlerSchluessel.TASK_KONNTE_NICHT_EINGEREIHT_WERDEN, msg, e);
         }
         return scheduledFuture;
     }
@@ -172,9 +172,9 @@ public class TaskSchedulerImpl implements TaskScheduler, Runnable
             task.getOperation().setErrorMessage(e.getMessage());
             task.getOperation().setHasBeenExecutedSuccessfully(false);
 
-            //TODO: Frage an Bjoern - Wie funktionieren die Meldungsschlüssel
-            // String msg = MessageSourceHolder.getMessage(FehlerSchluessel.MEL_FEHLER_TASK00001);
-            // LOG.info(LogKategorie.JOURNAL, FehlerSchluessel.MEL_FEHLER_TASK00001, msg);
+            String msg = MessageSourceHolder
+                .getMessage(FehlerSchluessel.TASK_KONNTE_NICHT_EINGEREIHT_WERDEN, task.getId());
+            LOG.error(FehlerSchluessel.TASK_KONNTE_NICHT_EINGEREIHT_WERDEN, msg, e);
         }
         return scheduledFuture;
     }
