@@ -16,17 +16,18 @@
  */
 package de.bund.bva.pliscommon.sicherheit.annotation;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
-
 import de.bund.bva.pliscommon.aufrufkontext.stub.AufrufKontextVerwalterStub;
 import de.bund.bva.pliscommon.sicherheit.annotation.bean.Service2Intf;
+import de.bund.bva.pliscommon.sicherheit.annotation.bean.ServiceImpl;
 import de.bund.bva.pliscommon.sicherheit.annotation.bean.ServiceIntf;
 import de.bund.bva.pliscommon.sicherheit.common.exception.AutorisierungFehlgeschlagenException;
 import de.bund.bva.pliscommon.sicherheit.common.exception.FehlerhafteServiceKonfigurationRuntimeException;
+import org.junit.Before;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.util.SimpleMethodInvocation;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
 @ContextConfiguration(locations = "/resources/spring/application_interceptor.xml")
 public class GesichertInterceptorTest extends AbstractJUnit4SpringContextTests {
@@ -40,6 +41,9 @@ public class GesichertInterceptorTest extends AbstractJUnit4SpringContextTests {
     @SuppressWarnings("rawtypes")
     @Autowired
     private AufrufKontextVerwalterStub aufrufKontextVerwalter;
+
+    @Autowired
+    private GesichertInterceptor interceptor;
 
     @Before
     public void resetRollen() {
@@ -131,4 +135,9 @@ public class GesichertInterceptorTest extends AbstractJUnit4SpringContextTests {
         this.test2Bean.gesichertDurch_RechtB();
     }
 
+    @Test(expected = AutorisierungFehlgeschlagenException.class)
+    public void testNegativ_statischeMethodeGesichert() throws Throwable{
+        SimpleMethodInvocation invocation = new SimpleMethodInvocation(null, ServiceImpl.class.getMethod("statischeMethodeGesichert"), new Object[]{} );
+        interceptor.invoke(invocation);
+    }
 }

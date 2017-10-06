@@ -53,6 +53,11 @@ public final class FehlerSchluessel {
     public static final String FEHLERHAFTER_EINTRAG_KEINE_KATEGORIE = "ISYLO00002";
 
     /**
+     * Es wurde kein JsonFormatter für das JSON-Layout {0} konfiguriert.
+     */
+    public static final String FEHLENDE_KONFIGURATION_JSON_LAYOUT = "ISYLO00003";
+
+    /**
      * Fehler beim Aufruf der Methode {0} durch den Log-Interceptor.
      */
     public static final String LOG_INTERCEPTOR_FEHLER_BEI_AUFRUF = "ISYLO01000";

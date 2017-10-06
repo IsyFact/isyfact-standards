@@ -20,6 +20,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import de.bund.bva.pliscommon.konfiguration.common.impl.ReloadablePropertyKonfiguration;
+import de.bund.bva.pliscommon.sicherheit.common.konstanten.SicherheitKonfigurationSchluessel;
 import org.junit.Test;
 
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
@@ -172,4 +174,31 @@ public class SicherheitImplTest extends AbstractSicherheitTest {
         this.sicherheit.getBerechtigungsManager();
     }
 
+    @Test(expected = AuthentifizierungTechnicalException.class)
+    public void testGetBerechtigungsmanagerBeiAufrufKontextVerwalterGleichNull(){
+        SicherheitImpl sich = new SicherheitImpl();
+        sich.getBerechtigungsManager();
+    }
+
+    @Test(expected = AuthentifizierungTechnicalException.class)
+    public void testGetBerechtigungsmanagerUndAuthentifiziereBeiAufrufKontextGleichNull(){
+        SicherheitImpl sich = new SicherheitImpl();
+        sich.getBerechtigungsManagerUndAuthentifiziere(null);
+    }
+
+
+    @Test(expected = InitialisierungsException.class)
+    public void testAfterPropertiesSetKeinAufrufKontextVerwalter() throws Exception{
+        SicherheitImpl sich = new SicherheitImpl();
+        sich.setRollenRechteDateiPfad("/resources/sicherheit/rollenrechte.xml");
+        sich.afterPropertiesSet();
+    }
+
+    @Test
+    public void testAfterPropertiesSetCacheTTLNull() throws Exception{
+        ReloadablePropertyKonfiguration konf = new ReloadablePropertyKonfiguration(new String[]{"/config/sicherheit.test2.properties"});
+        ((SicherheitImpl)sicherheit).setKonfiguration(konf);
+        ((SicherheitImpl)sicherheit).afterPropertiesSet();
+        assertEquals(0, konf.getAsInteger(SicherheitKonfigurationSchluessel.CONF_CACHE_TTL));
+    }
 }

@@ -18,8 +18,8 @@ package de.bund.bva.pliscommon.sicherheit.annotation.bean;
 
 public interface Service2Intf {
 
-    public void gesichertDurch_RechtA();
+    void gesichertDurch_RechtA();
 
-    public void gesichertDurch_RechtB();
+    void gesichertDurch_RechtB();
 
 }

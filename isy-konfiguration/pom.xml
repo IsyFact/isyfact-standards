@@ -32,8 +32,8 @@
             <artifactId>spring-test</artifactId>
             <scope>test</scope>
         </dependency>
-        
-        <!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
+
+        <!-- Testen, Utility-API: AssertJ -->
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
@@ -44,7 +44,6 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
-            <version>1.10.19</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
