@@ -6,7 +6,7 @@ import de.bund.bva.isyfact.task.model.Operation;
 import java.time.LocalDateTime;
 
 /**
- * Eine CallableOperation enthält die Anweisungen, die erledigt werden sollen.
+ * Eine Operation enthält die Anweisungen, die erledigt werden sollen.
  * Diese werden in einer call-Methode oder in einer run-Methode implementiert.
  *
  * @author Alexander Salvanos, msg systems ag
@@ -42,6 +42,7 @@ public abstract class OperationImpl implements Operation {
         this.idThreadLocal.set(id);
     }
 
+    @Override
     public String getHostName() {
         return hostNameThreadLocal.get();
     }

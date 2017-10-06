@@ -3,11 +3,17 @@ package de.bund.bva.isyfact.task.handler.impl;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.task.handler.*;
+import de.bund.bva.isyfact.task.konstanten.KonfigurationStandardwerte;
 import de.bund.bva.isyfact.task.model.Operation;
-import de.bund.bva.isyfact.task.model.TaskData;
+import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import static de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel.OPERATION;
+import static de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel.PRAEFIX;
 
 /**
  * Der OperationHandler ist eine Werkzeugklasse für den Bau von Operation-Instanzen.
@@ -25,19 +31,18 @@ public class OperationHandlerImpl implements OperationHandler {
 	 * Zunächst wird der Name der CallableOperation aus dem TaskData geholt.
 	 * Über die Reflection API wird eine Instanz der CallableOperation erzeugt und als Rückgabewert zurückgeliefert.
 	 *
-	 * @param taskData
 	 * @return die Instanz der CallableOperation
 	 * @throws Exception
 	 */
 	@Override
-	public synchronized Operation createOperationInstance(TaskData taskData) {
+	public synchronized Operation getOperation(String id, Konfiguration konfiguration) {
+		String operation = konfiguration.getAsString(PRAEFIX + id + OPERATION);
 
 		//TODO: Frage an Bjoern - Wie wird die Exception injiziert?
 		// throws CreateOperationInstanceException {
-		String operationName = taskData.getOperationName();
 		Class<?> clazz = null;
 		try {
-			clazz = Class.forName(operationName);
+			clazz = Class.forName(operation);
 		} catch (ClassNotFoundException e) {
 			//TODO: Frage an Bjoern - Wie wird die Exception injiziert?
 			// throw new CreateOperationInstanceException();

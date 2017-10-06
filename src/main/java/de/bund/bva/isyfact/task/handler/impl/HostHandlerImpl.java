@@ -4,10 +4,13 @@ import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.task.exception.HostNotApplicableException;
 import de.bund.bva.isyfact.task.handler.HostHandler;
-import de.bund.bva.isyfact.task.model.TaskData;
+import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+
+import static de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel.HOST;
+import static de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel.PRAEFIX;
 
 /**
  * Der HostHandler ist eine Werkzeugeklasse, die eine Host-Instanz überprüft.
@@ -22,11 +25,11 @@ public class HostHandlerImpl implements HostHandler {
 	/**
 	 * Überprüft, ob der TaskData auf dem aktuellen Host ausgeführt werden darf.
 	 *
-	 * @param taskData
 	 */
 	@Override
-	public synchronized boolean isHostApplicable(TaskData taskData) throws HostNotApplicableException {
-		String expectedHostName = taskData.getHostName();
+	public synchronized boolean isHostApplicable(String id, Konfiguration konfiguration)
+			throws HostNotApplicableException {
+		String expectedHostName = konfiguration.getAsString(PRAEFIX + id + HOST);
 		if(expectedHostName == null || expectedHostName.equalsIgnoreCase("localhost")) {
 			return true;
 		}

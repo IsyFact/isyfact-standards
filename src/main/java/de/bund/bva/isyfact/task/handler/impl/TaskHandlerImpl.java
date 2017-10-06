@@ -8,9 +8,9 @@ import de.bund.bva.isyfact.task.handler.*;
 import de.bund.bva.isyfact.task.model.FixedDateTime;
 import de.bund.bva.isyfact.task.model.Operation;
 import de.bund.bva.isyfact.task.model.Task;
-import de.bund.bva.isyfact.task.model.TaskData;
 import de.bund.bva.isyfact.task.model.impl.TaskImpl;
 import de.bund.bva.isyfact.task.security.SecurityAuthenticator;
+import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 
 import java.time.LocalDateTime;
 
@@ -27,50 +27,47 @@ public class TaskHandlerImpl implements TaskHandler {
 	/**
 	 * Erzeugt einen neuen Task aus einem TaskData-Objekt
 	 *
-	 * @param taskData
-	 * @return Task
+	 * @param konfiguration
+	 * @param id
+	 * @return
 	 */
-	public synchronized Task createTask(TaskData taskData) throws CreateOperationInstanceException, HostNotApplicableException {
+	@Override
+	public synchronized Task createTask(String id, Konfiguration konfiguration)
+			throws CreateOperationInstanceException, HostNotApplicableException {
+
 	    Task task = null;
 		HostHandler hostHandler = new HostHandlerImpl();
-		if (hostHandler.isHostApplicable(taskData)) {
+		if (hostHandler.isHostApplicable(id, konfiguration)) {
+
 			SecurityHandler securityHandler
 					= new SecurityHandlerImpl();
-			SecurityAuthenticator securityAuthenticator = securityHandler.createSecurityAuthenticator(
-					taskData.getUsername(),
-					taskData.getPassword());
-
-			ExecutionDateTimeHandler executionDateTimeHandler = new ExecutionDateTimeHandlerImpl();
-			LocalDateTime executionDateTime = executionDateTimeHandler.createExecutionDateTime(taskData);
+			SecurityAuthenticator securityAuthenticator =
+					securityHandler.getSecurityAuthenticator(id, konfiguration);
 
 			OperationHandler operationHandler = new OperationHandlerImpl();
-			Operation operation = operationHandler.createOperationInstance(taskData);
+			Operation operation = operationHandler.getOperation(id, konfiguration);
+
+			AusfuehrungsplanHandler ausfuehrungsplanHandler = new AusfuehrungsplanHandlerImpl();
+			AusfuehrungsplanHandlerImpl.Ausfuehrungsplan ausfuehrungsplan = ausfuehrungsplanHandler.getAusfuehrungsplan(id, konfiguration);
+
+			ExecutionDateTimeHandler executionDateTimeHandler = new ExecutionDateTimeHandlerImpl();
+			LocalDateTime executionDateTime = executionDateTimeHandler.getExecutionDateTime(id, konfiguration);
 			operation.setExecutionDateTime(executionDateTime);
 
-			FixedDateTimeHandler fixedRateHandler =
-					new FixedDateTimeHandlerImpl(
-							taskData.getFixedRateDays(),
-							taskData.getFixedRateHours(),
-							taskData.getFixedRateMinutes(),
-							taskData.getFixedRateSeconds()
-					);
-			FixedDateTime fixedRate = fixedRateHandler.createFixedDateTime();
+			FixedRateHandler fixedRateHandler = new FixedRateHandlerImpl();
+			FixedDateTime fixedRate = fixedRateHandler.getFixedRate(id, konfiguration);
 			operation.setFixedRate(fixedRate);
 
-			FixedDateTimeHandler fixedDelayHandler = new FixedDateTimeHandlerImpl(
-					taskData.getFixedDelayDays(),
-					taskData.getFixedDelayHours(),
-					taskData.getFixedDelayMinutes(),
-					taskData.getFixedDelaySeconds()
-			);
-			FixedDateTime fixedDelay = fixedDelayHandler.createFixedDateTime();
+			FixedDelayHandler fixedDelayHandler = new FixedDelayHandlerImpl();
+			FixedDateTime fixedDelay = fixedDelayHandler.getFixedDelay(id, konfiguration);
 			operation.setFixedDelay(fixedDelay);
 
 			task = new TaskImpl(
-					taskData.getId(),
+					id,
 					securityAuthenticator,
-					executionDateTime,
-					operation
+					operation,
+					ausfuehrungsplan,
+					executionDateTime
 			);
 		}
 		return task;

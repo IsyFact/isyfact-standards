@@ -1,7 +1,7 @@
 package de.bund.bva.isyfact.task.konstanten;
 
 /**
- *
+ * Die Standardwerte für die Konfiguration, die per Default geladen werden.
  *
  * @author Alexander Salvanos, msg systems ag
  */

@@ -2,12 +2,15 @@ package de.bund.bva.isyfact.task.handler.impl;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.isyfact.task.handler.*;
+import de.bund.bva.isyfact.task.handler.ExecutionDateTimeHandler;
 import de.bund.bva.isyfact.task.konstanten.KonfigurationStandardwerte;
-import de.bund.bva.isyfact.task.model.TaskData;
+import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import static de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel.EXECUTIONDATETIME;
+import static de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel.PRAEFIX;
 
 /**
  * Der ExecutionDateTimeHandler ist eine Werkzeugklasse für das Festsetzen der Ausführungszeit eines Tasks.
@@ -22,15 +25,12 @@ public class ExecutionDateTimeHandlerImpl implements ExecutionDateTimeHandler {
 	/**
 	 * Liefert den Zeitpunkt, bei dem der Task ausgeführt werden soll.
 	 *
-	 * @param taskData
 	 * @return
 	 */
 	@Override
-	public synchronized LocalDateTime createExecutionDateTime(TaskData taskData) {
+	public synchronized LocalDateTime getExecutionDateTime(String id, Konfiguration konfiguration) {
+		String executionDateTime = konfiguration.getAsString(PRAEFIX + id + EXECUTIONDATETIME);
 		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(KonfigurationStandardwerte.DEFAULT_DATETIME_PATTERN);
-		String sExecutionDateTime = taskData.getExecutionDateTime();
-		LocalDateTime executionDateTime = LocalDateTime.parse(sExecutionDateTime, dateTimeFormatter);
-		LOG.debug("prepareTask: ", " executionDateTime: " + executionDateTime);
-		return executionDateTime;
+		return LocalDateTime.parse(executionDateTime, dateTimeFormatter);
 	}
 }

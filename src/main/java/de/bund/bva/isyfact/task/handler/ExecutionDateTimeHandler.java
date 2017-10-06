@@ -1,6 +1,6 @@
 package de.bund.bva.isyfact.task.handler;
 
-import de.bund.bva.isyfact.task.model.TaskData;
+import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 
 import java.time.LocalDateTime;
 
@@ -12,5 +12,5 @@ import java.time.LocalDateTime;
  *
  */
 public interface ExecutionDateTimeHandler {
-    LocalDateTime createExecutionDateTime(TaskData taskData);
+    LocalDateTime getExecutionDateTime(String id, Konfiguration konfiguration);
 }

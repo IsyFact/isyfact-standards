@@ -1,7 +1,7 @@
 package de.bund.bva.isyfact.task.handler;
 
 import de.bund.bva.isyfact.task.exception.HostNotApplicableException;
-import de.bund.bva.isyfact.task.model.TaskData;
+import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 
 /**
  * Der HostHandler ist ein Werkzeug zur Überprüfung von Host-Instanzen.
@@ -11,5 +11,5 @@ import de.bund.bva.isyfact.task.model.TaskData;
  *
  */
 public interface HostHandler {
-    boolean isHostApplicable(TaskData taskData) throws HostNotApplicableException;
+    boolean isHostApplicable(String id, Konfiguration konfiguration) throws HostNotApplicableException;
 }

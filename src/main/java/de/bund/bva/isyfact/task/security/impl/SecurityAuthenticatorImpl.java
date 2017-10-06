@@ -7,6 +7,8 @@ import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.pliscommon.sicherheit.Sicherheit;
 
 /**
+ * Die Klasse SecurityAuthenticatorImpl ist eine Thread-sichere Klasse für die Verwendung von IsyFact-Sicherheit.
+ *
  *
  *
  * @author Alexander Salvanos, msg systems ag

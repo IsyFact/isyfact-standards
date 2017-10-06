@@ -5,10 +5,10 @@ import de.bund.bva.isyfact.task.model.FixedDateTime;
 import java.time.Duration;
 
 /**
- * Eine CallableOperation enthält die Anweisungen, die erledigt werden sollen.
- * Diese werden in einer call-Methode implementiert.
+ * Der Typ FixedDateTime kapselt den Zeitpunkt für einen FixedRate und einen FixedDelay.
  *
  * @author Alexander Salvanos, msg systems ag
+ *
  */
 public class FixedDateTimeImpl implements FixedDateTime {
     private volatile ThreadLocal<Duration> daysThreadLocal = new ThreadLocal<>();

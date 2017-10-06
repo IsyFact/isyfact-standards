@@ -13,28 +13,19 @@ import java.util.concurrent.ScheduledFuture;
  */
 public interface TaskScheduler {
 	/**
-	 * Plant einen Task.
 	 *
-	 *
-	 * @param task
 	 */
-	ScheduledFuture<?> schedule(Task task) throws NoSuchMethodException, Exception;
+	void addTask(Task task);
 
 	/**
-	 * Plant einen TaskData.
 	 *
-	 *
-     * @param task
-     */
-	ScheduledFuture<?> scheduleAtFixedRate(Task task) throws NoSuchMethodException, Exception;
+	 */
+	void start() throws NoSuchMethodException;
 
 	/**
-	 * Plant einen TaskData.
 	 *
-	 *
-	 * @param task
 	 */
-	ScheduledFuture<?> scheduleWithFixedDelay(Task task) throws NoSuchMethodException, Exception;
+	void stop();
 
 	/**
 	 *

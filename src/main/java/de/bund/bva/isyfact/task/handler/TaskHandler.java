@@ -3,7 +3,7 @@ package de.bund.bva.isyfact.task.handler;
 import de.bund.bva.isyfact.task.exception.CreateOperationInstanceException;
 import de.bund.bva.isyfact.task.exception.HostNotApplicableException;
 import de.bund.bva.isyfact.task.model.Task;
-import de.bund.bva.isyfact.task.model.TaskData;
+import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 
 /**
  * Der TaskHandler ist eine Werkzeugeklasse für Tasks.
@@ -13,12 +13,6 @@ import de.bund.bva.isyfact.task.model.TaskData;
  *
  */
 public interface TaskHandler {
-
-	/**
-	 * Erzeugt einen neuen Task aus einem TaskData-Objekt
-	 *
-	 * @return Task
-	 */
-	Task createTask(TaskData taskData) throws CreateOperationInstanceException, HostNotApplicableException;
-
+	Task createTask(String id, Konfiguration konfiguration)
+			throws CreateOperationInstanceException, HostNotApplicableException;
 }

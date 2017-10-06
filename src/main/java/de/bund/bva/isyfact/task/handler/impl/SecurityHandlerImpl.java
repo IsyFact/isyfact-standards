@@ -5,6 +5,11 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.task.handler.SecurityHandler;
 import de.bund.bva.isyfact.task.security.SecurityAuthenticator;
 import de.bund.bva.isyfact.task.security.impl.SecurityAuthenticatorImpl;
+import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
+
+import static de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel.BENUTZER;
+import static de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel.PASSWORT;
+import static de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel.PRAEFIX;
 
 /**
  * Die Klasse SecurityHandlerImpl ist eine Werkzeugklasse für die Erzeugung von SecurityAuthenticator-Instanzen.
@@ -19,17 +24,16 @@ public class SecurityHandlerImpl implements SecurityHandler {
 	/**
 	 * Erstellt einen SecurityAuthenticator und setzt ihn als Attribut in den Task.
 	 *
-	 * @param username
-	 * @param password
 	 * @return a SecurityAuthenticator
 	 */
 	@Override
-	public synchronized SecurityAuthenticator createSecurityAuthenticator(
-			String username,
-			String password) {
+	public synchronized SecurityAuthenticator getSecurityAuthenticator(String id, Konfiguration konfiguration) {
+		String benutzer = konfiguration.getAsString(PRAEFIX + id + BENUTZER);
+		String passwort = konfiguration.getAsString(PRAEFIX + id + PASSWORT);
+
 		SecurityAuthenticator securityAuthenticator = new SecurityAuthenticatorImpl();
-		securityAuthenticator.setUsername(username);
-		securityAuthenticator.setPassword(password);
+		securityAuthenticator.setUsername(benutzer);
+		securityAuthenticator.setPassword(passwort);
 		return securityAuthenticator;
 	}
 }

@@ -1,6 +1,7 @@
 package de.bund.bva.isyfact.task.model.impl;
 
-import de.bund.bva.isyfact.task.konstanten.Ausfuehrungsplan;
+import de.bund.bva.isyfact.task.handler.AusfuehrungsplanHandler.Ausfuehrungsplan;
+import de.bund.bva.isyfact.task.handler.impl.AusfuehrungsplanHandlerImpl;
 import de.bund.bva.isyfact.task.model.Operation;
 import de.bund.bva.isyfact.task.model.Task;
 import de.bund.bva.isyfact.task.security.SecurityAuthenticator;
@@ -35,6 +36,8 @@ public class TaskImpl implements Task {
             = new ThreadLocal<>();
     private volatile ThreadLocal<Operation> operationThreadLocal
             = new ThreadLocal<>();
+    private volatile ThreadLocal<Ausfuehrungsplan> ausfuehrungsplanThreadLocal
+            = new ThreadLocal<>();
 
     /**
      *
@@ -46,12 +49,14 @@ public class TaskImpl implements Task {
     public TaskImpl(
             String id,
             SecurityAuthenticator securityAuthenticator,
-            LocalDateTime executionDateTime,
-            Operation operation
-    ) {
+            Operation operation,
+            AusfuehrungsplanHandlerImpl.Ausfuehrungsplan ausfuehrungsplan,
+            LocalDateTime executionDateTime
+            ) {
         this.idThreadLocal.set(id);
         this.securityAuthenticatorThreadLocal.set(securityAuthenticator);
         this.operationThreadLocal.set(operation);
+        this.ausfuehrungsplanThreadLocal.set(ausfuehrungsplan);
     }
 
     @Override
@@ -106,6 +111,11 @@ public class TaskImpl implements Task {
 
     @Override
     public Ausfuehrungsplan getAusfuehrungsplan() {
-        return null;
+        return this.ausfuehrungsplanThreadLocal.get();
+    }
+
+    @Override
+    public void setAusfuehrungsplan(Ausfuehrungsplan ausfuehrungsplan) {
+        this.ausfuehrungsplanThreadLocal.set(ausfuehrungsplan);
     }
 }

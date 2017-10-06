@@ -4,8 +4,6 @@ import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
 import de.bund.bva.isyfact.task.TaskScheduler;
-import de.bund.bva.isyfact.task.handler.ExecutorHandler;
-import de.bund.bva.isyfact.task.handler.impl.ExecutorHandlerImpl;
 import de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel;
 import de.bund.bva.isyfact.task.model.Task;
 import de.bund.bva.isyfact.task.security.SecurityAuthenticator;
@@ -13,8 +11,7 @@ import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -28,7 +25,8 @@ import static de.bund.bva.isyfact.task.konstanten.KonfigurationStandardwerte.DEF
  *
  * @author Alexander Salvanos, msg systems ag
  */
-public class TaskSchedulerImpl implements TaskScheduler {
+public class TaskSchedulerImpl implements TaskScheduler, Runnable
+{
     private volatile ThreadLocal<Konfiguration> konfiguration
             = new ThreadLocal<>();
     private volatile ThreadLocal<SecurityAuthenticator> securityAuthenticator
@@ -37,12 +35,15 @@ public class TaskSchedulerImpl implements TaskScheduler {
             = new ThreadLocal<>();
     private volatile ThreadLocal<ScheduledExecutorService> scheduledExecutorService
             = new ThreadLocal<>();
+    private final Map<String, Task> tasks = new HashMap<>();
+    private final Map<String, ScheduledFuture<?>> scheduledFutures = new HashMap<>();
 
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(TaskSchedulerImpl.class);
     private final AtomicLong counter = new AtomicLong();
 
+    private boolean stop = false;
+
     /**
-     *
      * @param konfiguration
      * @param securityAuthenticator
      */
@@ -51,21 +52,43 @@ public class TaskSchedulerImpl implements TaskScheduler {
             SecurityAuthenticator securityAuthenticator) {
         this.konfiguration.set(konfiguration);
         this.securityAuthenticator.set(securityAuthenticator);
-
         this.startTime.set(LocalDateTime.now());
 
         int initialNumberOfThreads = DEFAULT_INITIAL_NUMBER_OF_THREADS;
-        if(konfiguration != null) {
+        if (konfiguration != null) {
             initialNumberOfThreads = this.konfiguration.get()
                     .getAsInteger(
                             KonfigurationSchluessel.INITIAL_NUMBER_OF_THREADS);
         }
 
-        ExecutorHandler executorHandler = new ExecutorHandlerImpl();
         ScheduledExecutorService executorService =
-                executorHandler.createScheduledExecutorService(initialNumberOfThreads);
+                Executors.newScheduledThreadPool(initialNumberOfThreads);
 
         this.scheduledExecutorService.set(executorService);
+    }
+
+    public void addTask(Task task) {
+        tasks.put(task.getId(), task);
+    }
+
+    @Override
+    public void start() throws NoSuchMethodException {
+        for(Task task : tasks.values()) {
+            ScheduledFuture<?> scheduledFuture = null;
+            switch (task.getAusfuehrungsplan()) {
+                case ONCE:
+                    scheduledFuture = schedule(task);
+                    break;
+                case FIXED_RATE:
+                    scheduledFuture = schedule(task);
+                    break;
+                case FIXED_DELAY:
+                    scheduledFuture = schedule(task);
+                    break;
+            }
+            String id = task.getId();
+            scheduledFutures.put(id, scheduledFuture);
+        }
     }
 
     /**
@@ -74,8 +97,7 @@ public class TaskSchedulerImpl implements TaskScheduler {
      * @param task
      * @return ScheduledFuture/<String/>
      */
-    @Override
-    public synchronized ScheduledFuture<?> schedule(Task task) {
+    private synchronized ScheduledFuture<?> schedule(Task task) {
         ScheduledFuture<?> scheduledFuture = null;
         try {
             MdcHelper.pushKorrelationsId(UUID.randomUUID().toString());
@@ -87,6 +109,7 @@ public class TaskSchedulerImpl implements TaskScheduler {
                     task.getOperation(),
                     Duration.between(LocalDateTime.now(), task.getOperation().getExecutionDateTime()).toNanos(),
                     TimeUnit.NANOSECONDS);
+            scheduledFutures.put(task.getId(), scheduledFuture);
             counter.incrementAndGet();
 
         } catch (Exception e) {
@@ -100,7 +123,7 @@ public class TaskSchedulerImpl implements TaskScheduler {
         } finally {
             MdcHelper.entferneKorrelationsId();
             // TODO: Frage an Bjoern - Wie wird der SecurityAuthenticator injiziert
-           //securityAuthenticator.logout();
+            //securityAuthenticator.logout();
         }
         return scheduledFuture;
     }
@@ -108,14 +131,12 @@ public class TaskSchedulerImpl implements TaskScheduler {
     /**
      * Plant einen zeitgesteuerten und immer wiederkehrenden Task.
      *
-     *
      * @param task
      * @return
      * @throws NoSuchMethodException
      * @throws Exception
      */
-    @Override
-    public synchronized ScheduledFuture<?> scheduleAtFixedRate(Task task) throws NoSuchMethodException {
+    private synchronized ScheduledFuture<?> scheduleAtFixedRate(Task task) throws NoSuchMethodException {
         LOG.debug("schedule: ", " executionDateTime: " + task.getOperation().getExecutionDateTime());
         ScheduledFuture<?> scheduledFuture = null;
         try {
@@ -129,6 +150,7 @@ public class TaskSchedulerImpl implements TaskScheduler {
                     Duration.between(LocalDateTime.now(), task.getOperation().getExecutionDateTime()).toNanos(),
                     task.getOperation().getFixedRate().toNanos(),
                     TimeUnit.NANOSECONDS);
+            scheduledFutures.put(task.getId(), scheduledFuture);
             counter.incrementAndGet();
 
         } catch (Exception e) {
@@ -152,8 +174,7 @@ public class TaskSchedulerImpl implements TaskScheduler {
      * @throws NoSuchMethodException
      * @throws Exception
      */
-    @Override
-    public synchronized ScheduledFuture<?> scheduleWithFixedDelay(Task task) throws NoSuchMethodException {
+    private synchronized ScheduledFuture<?> scheduleWithFixedDelay(Task task) throws NoSuchMethodException {
         LOG.debug("schedule: ", " executionDateTime: " + task.getOperation().getExecutionDateTime());
         ScheduledFuture<?> scheduledFuture = null;
         try {
@@ -166,6 +187,7 @@ public class TaskSchedulerImpl implements TaskScheduler {
                     Duration.between(LocalDateTime.now(), task.getOperation().getExecutionDateTime()).toNanos(),
                     task.getOperation().getFixedDelay().toNanos(),
                     TimeUnit.NANOSECONDS);
+            scheduledFutures.put(task.getId(), scheduledFuture);
             counter.incrementAndGet();
 
         } catch (Exception e) {
@@ -221,8 +243,6 @@ public class TaskSchedulerImpl implements TaskScheduler {
     }
 
     /**
-     *
-     *
      * @return
      */
     @Override
@@ -231,4 +251,38 @@ public class TaskSchedulerImpl implements TaskScheduler {
         return scheduledExecutorService.get().isTerminated();
     }
 
+    /**
+     * Eine interne Methode, die laufend den Status des isy-timertasks überprüft.
+     */
+    @Override
+    public void run() {
+        while(!stop) {
+            try {
+                List<String> tasksNeuStarten = new ArrayList<>();
+               for (Map.Entry<String, ScheduledFuture<?>> entry : scheduledFutures.entrySet()) {
+                    if (entry.getValue().isCancelled()) {
+                        try {
+                            entry.getValue().get();
+                        } catch (CancellationException e) {
+                            e.printStackTrace();
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                            tasksNeuStarten.add(entry.getKey());
+                        }
+                    }
+                }
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                stop = true;
+            }
+        }
+    }
+
+    /**
+     *
+     */
+    @Override
+    public void stop() {
+        stop = true;
+    }
 }

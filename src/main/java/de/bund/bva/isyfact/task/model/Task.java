@@ -1,6 +1,6 @@
 package de.bund.bva.isyfact.task.model;
 
-import de.bund.bva.isyfact.task.konstanten.Ausfuehrungsplan;
+import de.bund.bva.isyfact.task.handler.AusfuehrungsplanHandler.Ausfuehrungsplan;
 import de.bund.bva.isyfact.task.security.SecurityAuthenticator;
 
 import java.time.LocalDateTime;
@@ -41,4 +41,5 @@ public interface Task {
 
 	Ausfuehrungsplan getAusfuehrungsplan();
 
+	void setAusfuehrungsplan(Ausfuehrungsplan ausfuehrungsplan);
 }
