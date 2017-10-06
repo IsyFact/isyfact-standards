@@ -45,11 +45,6 @@
         ====================================================================== -->
     <bean id="propertyConfigurer"
         class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="locations">
-            <list>
-                <value>classpath:/config/jpa.properties</value>
-            </list>
-        </property>
     </bean>
     
     <import resource="sicherheit.xml"/>
