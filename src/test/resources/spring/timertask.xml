@@ -25,6 +25,7 @@
         <property name="basenames">
             <list>
                 <value>resources/nachrichten/fehler</value>
+                <value>resources/nachrichten/ereignisse</value>
             </list>
         </property>
     </bean>

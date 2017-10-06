@@ -237,8 +237,10 @@ public class TaskSchedulerImpl implements TaskScheduler, Runnable
                         try {
                             entry.getValue().get();
                         } catch (CancellationException e) {
+                            // TODO INFO-Log
                             e.printStackTrace();
                         } catch (ExecutionException e) {
+                            // TODO WARN-Log
                             e.printStackTrace();
                             tasksNeuStarten.add(entry.getKey());
                         }
