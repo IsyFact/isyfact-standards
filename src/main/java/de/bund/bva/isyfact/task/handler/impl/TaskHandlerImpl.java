@@ -41,8 +41,7 @@ public class TaskHandlerImpl implements TaskHandler {
             SecurityAuthenticator securityAuthenticator =
                 securityHandler.getSecurityAuthenticator(id, konfiguration);
 
-            OperationHandler operationHandler = new OperationHandlerImpl();
-            Operation operation = operationHandler.getOperation(id, applicationContext);
+            Operation operation = applicationContext.getBean(id, Operation.class);
 
             AusfuehrungsplanHandler ausfuehrungsplanHandler = new AusfuehrungsplanHandlerImpl();
             AusfuehrungsplanHandlerImpl.Ausfuehrungsplan ausfuehrungsplan =
