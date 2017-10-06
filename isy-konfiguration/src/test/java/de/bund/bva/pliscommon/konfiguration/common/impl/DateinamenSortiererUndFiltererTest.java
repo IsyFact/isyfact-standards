@@ -1,5 +1,6 @@
 package de.bund.bva.pliscommon.konfiguration.common.impl;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -7,8 +8,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.assertj.core.api.JUnitSoftAssertions;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -35,9 +34,6 @@ public class DateinamenSortiererUndFiltererTest {
     @Mock
     PropertyDatei propertyDateiC;
 
-    @Rule
-    public final JUnitSoftAssertions softly = new JUnitSoftAssertions();
-
     @Test
     public void testSortiereUndFiltereDateinamenAusStringSet() {
 
@@ -62,7 +58,7 @@ public class DateinamenSortiererUndFiltererTest {
             this.dateinamenSortiererUndFilterer.sortiereUndFiltereDateinamenAusStringSet(propertyDateienList);
 
         // Assert
-        this.softly.assertThat(aktuellePropertyDateienList).isEqualTo(erwartetePropertyDateienList);
+        assertEquals(aktuellePropertyDateienList, erwartetePropertyDateienList);
     }
 
     @Test
@@ -91,6 +87,6 @@ public class DateinamenSortiererUndFiltererTest {
             .sortiereUndFiltereDateinamenAusPropertyDateiList(propertyDateienList);
 
         // Assert
-        this.softly.assertThat(aktuellePropertyDateienList).isEqualTo(erwartetePropertyDateienList);
+        assertEquals(aktuellePropertyDateienList, erwartetePropertyDateienList);
     }
 }

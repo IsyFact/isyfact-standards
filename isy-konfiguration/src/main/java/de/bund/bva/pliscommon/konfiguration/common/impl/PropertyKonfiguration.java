@@ -65,13 +65,13 @@ public class PropertyKonfiguration extends AbstractKonfiguration implements Konf
      * Klassenpfad per {@link ClassLoader#getResourceAsStream(String)} geladen, wobei der {@link ClassLoader}
      * über die Klasse von {@link PropertyKonfiguration} anhand {@link Class#getClassLoader()} ermittelt wird.
      *
-     * Alle angegebenen Property-Datei werden zu einer gemeinsamen Konfiguration vereinigt.
+     * Alle angegebenen Property-Dateien werden zu einer gemeinsamen Konfiguration vereinigt.
      *
      * @param propertyLocation
      *            der Pfad zum Ordner der Properties-Dateien relativ zum Classpath. Im Gegensatz zu
      *            {@link ReloadablePropertyKonfiguration#ReloadablePropertyKonfiguration(String[])} dürfen die
-     *            Pfade nicht mit "/" anfangen. Ein gültiger Pfad ist z.B. "config/test.properties". Der Pfad
-     *            muss mit einem "/" enden.
+     *            Pfade nicht mit "/" anfangen. Ein gültiger Pfad ist z.B. "config/". Der Pfad muss mit einem
+     *            "/" enden.
      */
     public PropertyKonfiguration(String propertyLocation) {
         if (propertyLocation.endsWith("/")) {
@@ -88,15 +88,15 @@ public class PropertyKonfiguration extends AbstractKonfiguration implements Konf
      * Klassenpfad per {@link ClassLoader#getResourceAsStream(String)} geladen, wobei der {@link ClassLoader}
      * über die Klasse von {@link PropertyKonfiguration} anhand {@link Class#getClassLoader()} ermittelt wird.
      *
-     * Alle angegebenen Property-Datei werden zu einer gemeinsamen Konfiguration vereinigt.
+     * Alle angegebenen Property-Dateien werden zu einer gemeinsamen Konfiguration vereinigt.
      *
      * @param propertyLocation
      *            der Pfad zum Ordner der Properties-Dateien relativ zum Classpath. Im Gegensatz zu
      *            {@link ReloadablePropertyKonfiguration#ReloadablePropertyKonfiguration(String[])} dürfen die
-     *            Pfade nicht mit "/" anfangen. Ein gültiger Pfad ist z.B. "config/test.properties". Der Pfad
-     *            muss mit einem "/" enden.
+     *            Pfade nicht mit "/" anfangen. Ein gültiger Pfad ist z.B. "config/". Der Pfad muss mit einem
+     *            "/" enden.
      * @param namensSchema
-     *            dem die Dateinamen entsprechen müssen.
+     *            das Schema, dem die Dateinamen entsprechen müssen.
      */
     public PropertyKonfiguration(String propertyLocation, String namensSchema) {
         if (propertyLocation.endsWith("/")) {
@@ -141,7 +141,7 @@ public class PropertyKonfiguration extends AbstractKonfiguration implements Konf
                     }
                 } else {
                     LOG.info(LogKategorie.JOURNAL, NachrichtenSchluessel.ERR_PROPERTY_ORDNER_PFAD,
-                        "Der Pfad des Property-Ordners {} sollte mit einem /  enden.", propertyLocation);
+                        "Der Pfad des Property-Ordners {} muss mit einem \"/\" enden.", propertyLocation);
                 }
             } else {
                 gesamtProperties.putAll(ladeProperties(propertyLocation));
@@ -156,8 +156,8 @@ public class PropertyKonfiguration extends AbstractKonfiguration implements Konf
      * @param propertyLocation
      *            der Pfad zum Ordner der Properties-Dateien relativ zum Classpath. Im Gegensatz zu
      *            {@link ReloadablePropertyKonfiguration#ReloadablePropertyKonfiguration(String[])} dürfen die
-     *            Pfade nicht mit "/" anfangen. Ein gültiger Pfad ist z.B. "config/test.properties". Der Pfad
-     *            muss mit einem "/" enden.
+     *            Pfade nicht mit "/" anfangen. Ein gültiger Pfad ist z.B. "config/". Der Pfad muss mit einem
+     *            "/" enden.
      * @return die gemergten Properties.
      */
     private Properties ladeMergedProperties(String propertyLocation) {

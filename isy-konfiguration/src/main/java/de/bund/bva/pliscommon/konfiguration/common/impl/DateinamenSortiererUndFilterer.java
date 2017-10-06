@@ -48,7 +48,7 @@ public class DateinamenSortiererUndFilterer {
      *
      * @param propertyDateien
      *            Set, welches die Property-Dateinamen enthält
-     * @return sortierte und gefilterte Liste on Property-Dateinamen
+     * @return sortierte und gefilterte Liste von Property-Dateinamen
      */
     public List<String> sortiereUndFiltereDateinamenAusStringSet(Set<String> propertyDateien) {
 
@@ -67,7 +67,7 @@ public class DateinamenSortiererUndFilterer {
      *
      * @param propertyDateienList
      *            Liste von Property-Dateinamen
-     * @return Liste von Property-Liste von Property-Dateien, die dem NamensSchema entsprechen.
+     * @return Liste von Property-Dateienamen, die dem NamensSchema entsprechen.
      */
     private List<String> namensSchemaAnwendenAufStringList(List<String> propertyDateienList) {
 
@@ -87,7 +87,7 @@ public class DateinamenSortiererUndFilterer {
      *
      * @param propertyDateienList
      *            Liste von Property-Dateinamen
-     * @return Liste von Property-Liste von Property-Dateien, die dem NamensSchema entsprechen.
+     * @return Liste von von Property-Dateien, die dem NamensSchema entsprechen.
      */
     private List<PropertyDatei> namensSchemaAnwendenAufPropertyDateiList(
         List<PropertyDatei> propertyDateiList) {
@@ -107,7 +107,6 @@ public class DateinamenSortiererUndFilterer {
 
         @Override
         public int compare(PropertyDatei o1, PropertyDatei o2) {
-            // TODO Auto-generated method stub
             return o1.getDateiname().compareTo(o2.getDateiname());
         }
 

@@ -36,7 +36,7 @@ public abstract class NachrichtenSchluessel {
     /** Konfigurationsdatei konnte nicht geladen werden. */
     public static final String ERR_DATEI_FORMAT = "KONF202";
 
-    /** Der Pfad des Property-Ordners sollte mit einem "/" enden. */
+    /** Der Pfad des Property-Ordners muss mit einem "/" enden. */
     public static final String ERR_PROPERTY_ORDNER_PFAD = "KONF203";
 
 }
