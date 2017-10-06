@@ -1,9 +1,8 @@
 package de.bund.bva.isyfact.task;
 
-import de.bund.bva.isyfact.task.model.Task;
-
 import java.util.List;
-import java.util.concurrent.ScheduledFuture;
+
+import de.bund.bva.isyfact.task.model.Task;
 
 /**
  * Der TaskScheduler bietet die Möglichkeit, dass Aufgaben (Tasks) zu bestimmten Zeitpunkten ausgeführt werden können.
@@ -12,6 +11,9 @@ import java.util.concurrent.ScheduledFuture;
  *
  */
 public interface TaskScheduler {
+
+	void starteKonfigurierteTasks();
+
 	/**
 	 *
 	 */

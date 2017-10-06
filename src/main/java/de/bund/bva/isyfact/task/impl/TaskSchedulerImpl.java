@@ -17,11 +17,18 @@ import java.util.concurrent.atomic.AtomicLong;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.task.TaskScheduler;
+import de.bund.bva.isyfact.task.exception.HostNotApplicableException;
+import de.bund.bva.isyfact.task.handler.TaskHandler;
+import de.bund.bva.isyfact.task.handler.impl.TaskHandlerImpl;
 import de.bund.bva.isyfact.task.konstanten.FehlerSchluessel;
 import de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel;
+import de.bund.bva.isyfact.task.model.Operation;
 import de.bund.bva.isyfact.task.model.Task;
 import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 import de.bund.bva.pliscommon.util.spring.MessageSourceHolder;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 
 import static de.bund.bva.isyfact.task.konstanten.KonfigurationStandardwerte.DEFAULT_INITIAL_NUMBER_OF_THREADS;
 
@@ -33,19 +40,22 @@ import static de.bund.bva.isyfact.task.konstanten.KonfigurationStandardwerte.DEF
  *
  * @author Alexander Salvanos, msg systems ag
  */
-public class TaskSchedulerImpl implements TaskScheduler, Runnable
-{
-    private volatile ThreadLocal<Konfiguration> konfiguration
-            = new ThreadLocal<>();
-    private volatile ThreadLocal<LocalDateTime> startTime
-            = new ThreadLocal<>();
-    private volatile ThreadLocal<ScheduledExecutorService> scheduledExecutorService
-            = new ThreadLocal<>();
+public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware, Runnable {
+    private volatile ThreadLocal<Konfiguration> konfiguration = new ThreadLocal<>();
+
+    private volatile ThreadLocal<LocalDateTime> startTime = new ThreadLocal<>();
+
+    private volatile ThreadLocal<ScheduledExecutorService> scheduledExecutorService = new ThreadLocal<>();
+
     private final Map<String, Task> tasks = new HashMap<>();
+
     private final Map<String, ScheduledFuture<?>> scheduledFutures = new HashMap<>();
 
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(TaskSchedulerImpl.class);
+
     private final AtomicLong counter = new AtomicLong();
+
+    private ApplicationContext applicationContext;
 
     private boolean stop = false;
 
@@ -58,15 +68,28 @@ public class TaskSchedulerImpl implements TaskScheduler, Runnable
 
         int initialNumberOfThreads = DEFAULT_INITIAL_NUMBER_OF_THREADS;
         if (konfiguration != null) {
-            initialNumberOfThreads = this.konfiguration.get()
-                    .getAsInteger(
-                            KonfigurationSchluessel.INITIAL_NUMBER_OF_THREADS);
+            initialNumberOfThreads =
+                this.konfiguration.get().getAsInteger(KonfigurationSchluessel.INITIAL_NUMBER_OF_THREADS);
         }
 
-        ScheduledExecutorService executorService =
-                Executors.newScheduledThreadPool(initialNumberOfThreads);
+        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(initialNumberOfThreads);
 
         this.scheduledExecutorService.set(executorService);
+    }
+
+    @Override
+    public void starteKonfigurierteTasks() {
+        TaskHandler taskHandler = new TaskHandlerImpl();
+
+        for (String taskId : applicationContext.getBeanNamesForType(Operation.class)) {
+            try {
+                addTask(taskHandler.createTask(taskId, konfiguration.get(), applicationContext));
+            } catch (HostNotApplicableException e) {
+                // TODO INFO-LOG
+            }
+        }
+
+        start();
     }
 
     public void addTask(Task task) {
@@ -74,19 +97,19 @@ public class TaskSchedulerImpl implements TaskScheduler, Runnable
     }
 
     @Override
-    public void start() throws NoSuchMethodException {
-        for(Task task : tasks.values()) {
+    public void start() {
+        for (Task task : tasks.values()) {
             ScheduledFuture<?> scheduledFuture = null;
             switch (task.getAusfuehrungsplan()) {
-                case ONCE:
-                    scheduledFuture = schedule(task);
-                    break;
-                case FIXED_RATE:
-                    scheduledFuture = scheduleAtFixedRate(task);
-                    break;
-                case FIXED_DELAY:
-                    scheduledFuture = scheduleWithFixedDelay(task);
-                    break;
+            case ONCE:
+                scheduledFuture = schedule(task);
+                break;
+            case FIXED_RATE:
+                scheduledFuture = scheduleAtFixedRate(task);
+                break;
+            case FIXED_DELAY:
+                scheduledFuture = scheduleWithFixedDelay(task);
+                break;
             }
             String id = task.getId();
             scheduledFutures.put(id, scheduledFuture);
@@ -102,10 +125,9 @@ public class TaskSchedulerImpl implements TaskScheduler, Runnable
     private synchronized ScheduledFuture<?> schedule(Task task) {
         ScheduledFuture<?> scheduledFuture = null;
         try {
-            scheduledFuture = scheduledExecutorService.get().schedule(
-                    task,
-                    Duration.between(LocalDateTime.now(), task.getOperation().getExecutionDateTime()).toNanos(),
-                    TimeUnit.NANOSECONDS);
+            scheduledFuture = scheduledExecutorService.get().schedule(task,
+                Duration.between(LocalDateTime.now(), task.getOperation().getExecutionDateTime()).toNanos(),
+                TimeUnit.NANOSECONDS);
             scheduledFutures.put(task.getId(), scheduledFuture);
             counter.incrementAndGet();
 
@@ -128,15 +150,13 @@ public class TaskSchedulerImpl implements TaskScheduler, Runnable
      * @throws NoSuchMethodException
      * @throws Exception
      */
-    private synchronized ScheduledFuture<?> scheduleAtFixedRate(Task task) throws NoSuchMethodException {
+    private synchronized ScheduledFuture<?> scheduleAtFixedRate(Task task) {
         LOG.debug("schedule: ", " executionDateTime: " + task.getOperation().getExecutionDateTime());
         ScheduledFuture<?> scheduledFuture = null;
         try {
-            scheduledFuture = scheduledExecutorService.get().scheduleAtFixedRate(
-                    task,
-                    Duration.between(LocalDateTime.now(), task.getOperation().getExecutionDateTime()).toNanos(),
-                    task.getOperation().getFixedRate().toNanos(),
-                    TimeUnit.NANOSECONDS);
+            scheduledFuture = scheduledExecutorService.get().scheduleAtFixedRate(task,
+                Duration.between(LocalDateTime.now(), task.getOperation().getExecutionDateTime()).toNanos(),
+                task.getOperation().getFixedRate().toNanos(), TimeUnit.NANOSECONDS);
             scheduledFutures.put(task.getId(), scheduledFuture);
             counter.incrementAndGet();
 
@@ -156,15 +176,13 @@ public class TaskSchedulerImpl implements TaskScheduler, Runnable
      * @throws NoSuchMethodException
      * @throws Exception
      */
-    private synchronized ScheduledFuture<?> scheduleWithFixedDelay(Task task) throws NoSuchMethodException {
+    private synchronized ScheduledFuture<?> scheduleWithFixedDelay(Task task) {
         LOG.debug("schedule: ", " executionDateTime: " + task.getOperation().getExecutionDateTime());
         ScheduledFuture<?> scheduledFuture = null;
         try {
-            scheduledFuture = scheduledExecutorService.get().scheduleWithFixedDelay(
-                    task,
-                    Duration.between(LocalDateTime.now(), task.getOperation().getExecutionDateTime()).toNanos(),
-                    task.getOperation().getFixedDelay().toNanos(),
-                    TimeUnit.NANOSECONDS);
+            scheduledFuture = scheduledExecutorService.get().scheduleWithFixedDelay(task,
+                Duration.between(LocalDateTime.now(), task.getOperation().getExecutionDateTime()).toNanos(),
+                task.getOperation().getFixedDelay().toNanos(), TimeUnit.NANOSECONDS);
             scheduledFutures.put(task.getId(), scheduledFuture);
             counter.incrementAndGet();
 
@@ -229,10 +247,10 @@ public class TaskSchedulerImpl implements TaskScheduler, Runnable
      */
     @Override
     public void run() {
-        while(!stop) {
+        while (!stop) {
             try {
                 List<String> tasksNeuStarten = new ArrayList<>();
-               for (Map.Entry<String, ScheduledFuture<?>> entry : scheduledFutures.entrySet()) {
+                for (Map.Entry<String, ScheduledFuture<?>> entry : scheduledFutures.entrySet()) {
                     if (entry.getValue().isCancelled()) {
                         try {
                             entry.getValue().get();
@@ -259,5 +277,10 @@ public class TaskSchedulerImpl implements TaskScheduler, Runnable
     @Override
     public void stop() {
         stop = true;
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
     }
 }
