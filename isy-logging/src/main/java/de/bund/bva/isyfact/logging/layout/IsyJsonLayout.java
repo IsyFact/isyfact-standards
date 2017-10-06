@@ -25,26 +25,32 @@ package de.bund.bva.isyfact.logging.layout;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Marker;
-
 import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.contrib.json.JsonFormatter;
 import ch.qos.logback.contrib.json.classic.JsonLayout;
+import ch.qos.logback.core.CoreConstants;
 import de.bund.bva.isyfact.logging.IsyMarker;
+import de.bund.bva.isyfact.logging.exceptions.FehlerhafterLogeintrag;
+import de.bund.bva.isyfact.logging.exceptions.LoggingTechnicalRuntimeException;
+import de.bund.bva.isyfact.logging.impl.FachdatenMarker;
+import de.bund.bva.isyfact.logging.impl.FehlerSchluessel;
 import de.bund.bva.isyfact.logging.impl.MarkerSchluessel;
 import de.bund.bva.isyfact.logging.util.LoggingKonstanten;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
+import org.slf4j.Marker;
 
 /**
  * Logback-Layout zum Aufbereiten der Logeinträge in JSON-Format. Das Layout übernimmt dabei insbesondere auch
  * die übergenenen Marker.
- * 
+ *
  */
 public class IsyJsonLayout extends JsonLayout {
 
-    /** Kosntante für eine leere Korrelations-ID. */
+    /** Konstante für eine leere Korrelations-ID. */
     private static final String LEERE_KORRELATIONSID = "none";
 
     /** Attributname des Zeitstempels. */
@@ -67,7 +73,7 @@ public class IsyJsonLayout extends JsonLayout {
      */
     public IsyJsonLayout() {
         super();
-        
+
         includeLevel = true;
         includeThreadName = true;
         // MDC wird nicht ausgegeben, da wir diesen als 'korrelationsid' aufnehmen.
@@ -85,23 +91,67 @@ public class IsyJsonLayout extends JsonLayout {
         appendLineSeparator = false;
     }
 
+    @Override
+    public String doLayout(ILoggingEvent event) {
+        Map<String, Object> map = toJsonMap(event);
+        if (map == null || map.isEmpty()) {
+            return "";
+        }
+        String result = getStringFromFormatter(map);
+        if (result == null || result.isEmpty()) {
+            return "";
+        }
+        return isAppendLineSeparator() ? result + CoreConstants.LINE_SEPARATOR : result;
+    }
+
+    private String getStringFromFormatter(Map<String, Object> map) {
+        JsonFormatter formatter = getJsonFormatter();
+        if (formatter == null) {
+            Exception fehler =
+                new LoggingTechnicalRuntimeException(FehlerSchluessel.FEHLENDE_KONFIGURATION_JSON_LAYOUT,
+                    getClass().getName());
+            addError(fehler.getMessage(), fehler);
+            return "";
+        }
+
+        try {
+            return formatter.toJsonString(map);
+        } catch (Exception e) {
+            Map<String, String> stringMap = new LinkedHashMap<>();
+            for (Map.Entry<String, Object> entry : map.entrySet()) {
+                stringMap.put(entry.getKey(), entry.getValue().toString());
+            }
+            try {
+                return formatter.toJsonString(stringMap);
+            } catch (Exception ex) {
+                Exception fehler =
+                    new FehlerhafterLogeintrag(FehlerSchluessel.FEHLER_SERIALISIERUNG_AUFRUFPARAMETER, ex);
+                addError(fehler.getMessage(), fehler);
+                return "";
+            }
+        }
+    }
+
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see ch.qos.logback.contrib.json.classic.JsonLayout#toJsonMap(ch.qos.logback.classic.spi.ILoggingEvent)
      */
     @Override
     protected Map<String, Object> toJsonMap(ILoggingEvent event) {
-
         // Erstellen einer Map von JSON-Attributen. In der Superklasse werden nur die sl4j-Standardattribute
         // gefüllt. Es werden insbesondere keine Marker ausgewertet.
-        @SuppressWarnings("unchecked")
-        Map<String, Object> jsonMap = super.toJsonMap(event);
+        Map<String, Object> jsonMap = new LinkedHashMap<>();
 
+        // Die Attribute werden im Log nach der Reihenfolge ihrer Hinzufügung sortiert.
         String zeitstempel = formatTimestamp(event.getTimeStamp());
         if (zeitstempel != null) {
             jsonMap.put(ZEITSTEMPEL_ATTR_NAME, zeitstempel);
         }
+
+        @SuppressWarnings("unchecked")
+        Map<String, Object> defaultMap = super.toJsonMap(event);
+        jsonMap.putAll(defaultMap);
 
         // Nachricht übernehmen
         String msg = event.getFormattedMessage();
@@ -115,12 +165,12 @@ public class IsyJsonLayout extends JsonLayout {
             korrelationsId = LEERE_KORRELATIONSID;
         }
         jsonMap.put(KORRELATIONSID_ATTR_NAME, korrelationsId);
-        
+
         // Auswerten der Marker
         Marker marker = event.getMarker();
 
         // Marker durchlaufen und verarbeiten. IsyFact-Marker werden dabei direkt in die jsonMap übernommen.
-        List<String> standardMarker = new ArrayList<String>();
+        List<String> standardMarker = new ArrayList<>();
         processMarker(marker, jsonMap, standardMarker);
 
         // Parameter der Nachricht (Platzhalter) als separate Attribute übernehmen.
@@ -135,10 +185,12 @@ public class IsyJsonLayout extends JsonLayout {
         if (!standardMarker.isEmpty()) {
             jsonMap.put(MARKER_ATTR_NAME, standardMarker);
         }
-        
+
         // Fachdaten in MDC: Dadurch kann der Wert des Markers "Fachdaten" nochmals überschrieben werden.
         boolean enthaeltFachlicheDaten = MdcHelper.liesMarkerFachdaten();
         if (enthaeltFachlicheDaten) {
+            // Hierdurch wird der bisherige Datentyp des Logeintrags überschrieben!
+            processMarker(new FachdatenMarker(), jsonMap, standardMarker);
             jsonMap.put(MarkerSchluessel.FACHDATEN.getWert(), LoggingKonstanten.TRUE);
         }
 
@@ -149,7 +201,7 @@ public class IsyJsonLayout extends JsonLayout {
      * Diese Methode verarbeitet den übergebenen Marker und durchläuft rekursiv dessen Referenzen.
      * IsyFact-Marker werden dabei als Name/Wert-Paare in die jsonMap übernommen. Alle anderen
      * "StandardMarker" werden in der Liste "standardMarker" gesammelt.
-     * 
+     *
      * @param marker
      *            der zu verarbeitende Marker.
      * @param jsonMap
