@@ -137,6 +137,12 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <scope>test</scope>
+        </dependency>
+
         <!-- Erlaubt Servlets in JUnits Tests zu starten -->
         <dependency>
             <groupId>org.mortbay.jetty</groupId>
