@@ -122,9 +122,6 @@ public class StatusHandler {
             throw new BatchrahmenParameterException(NachrichtenSchluessel.ERR_BATCH_AKTIV,
                 KonfigurationSchluessel.KOMMANDO_PARAM_IGNORIERE_LAUF);
         }
-        System.out.println("\npruefeStatusDbGegenAufrufParameter");
-        System.out.println(status.getBatchStatus());
-        System.out.println("pruefeStatusDbGegenAufrufParameter\n");
         if (BatchStatusTyp.ABGEBROCHEN.getName().equals(status.getBatchStatus())
             && status.getSatzNummerLetztesCommit() >= 0 && konfig.getStartTyp() == BatchStartTyp.START
             && !konfig.getAsBoolean(KonfigurationSchluessel.KOMMANDO_PARAM_IGNORIERE_RESTART)) {
