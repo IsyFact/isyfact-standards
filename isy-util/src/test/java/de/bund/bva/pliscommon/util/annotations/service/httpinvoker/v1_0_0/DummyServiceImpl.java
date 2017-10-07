@@ -16,6 +16,7 @@
  */
 package de.bund.bva.pliscommon.util.annotations.service.httpinvoker.v1_0_0;
 
+import de.bund.bva.isyfact.logging.util.MdcHelper;
 import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 import de.bund.bva.pliscommon.util.annotations.StelltLoggingKontextBereit;
 
@@ -24,60 +25,32 @@ import de.bund.bva.pliscommon.util.annotations.StelltLoggingKontextBereit;
  */
 public class DummyServiceImpl implements DummyServiceRemoteBean {
 
-    /**
-     * Millisekunden, um die der Aufruf verzögert wird.
-     */
-    private int waitTime;
-
-    /**
-     * Zähler für die Aufrufe.
-     */
-    private int anzahlAufrufe;
-
-    /**
-     * Liefert das Feld 'anzahlAufrufe' zurück.
-     * @return Wert von anzahlAufrufe
-     */
-    public int getAnzahlAufrufe() {
-        return this.anzahlAufrufe;
+    @Override
+    public String stelltLoggingKontextNichtBereitOhneAufrufKontext() {
+        return MdcHelper.liesKorrelationsId();
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
+    public String stelltLoggingKontextNichtBereitMitAufrufKontext(AufrufKontextTo aufrufKontextTo) {
+        return MdcHelper.liesKorrelationsId();
+    }
+
+    @Override
+    @StelltLoggingKontextBereit(nutzeAufrufKontext = false)
+    public String stelltLoggingKontextBereitOhneAufrufKontextErwartet() {
+        return MdcHelper.liesKorrelationsId();
+    }
+
+    @Override
+    @StelltLoggingKontextBereit
+    public String stelltLoggingKontextBereitOhneAufrufKontextNichtErwartet() {
+        return MdcHelper.liesKorrelationsId();
+    }
+
     @Override
     @StelltLoggingKontextBereit(nutzeAufrufKontext = true)
-    public String pingOhneAufrufKontext(String message) {
-        try {
-            this.anzahlAufrufe++;
-            Thread.sleep(this.waitTime);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        return message;
+    public String stelltLoggingKontextBereitMitAufrufKontext(AufrufKontextTo aufrufKontextTo) {
+        return MdcHelper.liesKorrelationsId();
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @StelltLoggingKontextBereit(nutzeAufrufKontext = true)
-    public String pingMitAufrufKontext(AufrufKontextTo aufrufKontext, String message) {
-        try {
-            this.anzahlAufrufe++;
-            Thread.sleep(this.waitTime);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        return message;
-    }
-
-    /**
-     * Setzt das Feld 'waitTime'.
-     * @param waitTime
-     *            Neuer Wert für waitTime
-     */
-    public void setWaitTime(int waitTime) {
-        this.waitTime = waitTime;
-    }
 }

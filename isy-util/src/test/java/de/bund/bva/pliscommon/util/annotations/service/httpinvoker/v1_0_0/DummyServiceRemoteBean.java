@@ -20,26 +20,17 @@ import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontex
 
 /**
  * RemoteBean-Interface des Dummy-Services
- *
- *
  */
 public interface DummyServiceRemoteBean {
 
-    /**
-     * Liefert die Nachricht zurück.
-     * @param message
-     *            Die Nachricht.
-     * @return Die Nachricht.
-     */
-    public String pingOhneAufrufKontext(String message);
+    public String stelltLoggingKontextNichtBereitOhneAufrufKontext();
 
-    /**
-     * Liefert die Nachricht zurück.
-     * @param aufrufKontext
-     *            Der AufrufKontext.
-     * @param message
-     *            Die Nachricht.
-     * @return Die Nachricht.
-     */
-    public String pingMitAufrufKontext(AufrufKontextTo aufrufKontext, String message);
+    public String stelltLoggingKontextNichtBereitMitAufrufKontext(AufrufKontextTo aufrufKontextTo);
+
+    public String stelltLoggingKontextBereitOhneAufrufKontextErwartet();
+
+    public String stelltLoggingKontextBereitOhneAufrufKontextNichtErwartet();
+
+    public String stelltLoggingKontextBereitMitAufrufKontext(AufrufKontextTo aufrufKontextTo);
+
 }
