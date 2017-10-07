@@ -40,7 +40,7 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
     private static final IsyLogger LOGGER = IsyLoggerFactory.getLogger(IsyHttpInvokerClientInterceptor.class);
 
     /** Helper, zum Erzeugen der Logeinträge. */
-    private LogHelper logHelper = new LogHelper(false, false, true, false);
+    private LogHelper logHelper = new LogHelper(false, false, true, false, false, 0);
 
     /** Name des aufgerufenen Nachbarsystems. */
     private String remoteSystemName;
