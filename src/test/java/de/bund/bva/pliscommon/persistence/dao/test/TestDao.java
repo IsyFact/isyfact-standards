@@ -14,23 +14,15 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.pliscommon.persistence.usertype;
+package de.bund.bva.pliscommon.persistence.dao.test;
 
-import de.bund.bva.pliscommon.persistence.annotation.PersistentValue;
+import java.util.UUID;
 
-/**
- * Test-Enum.
- * 
- */
-public enum Vorgangsstatus {
-    /** . */
-    @PersistentValue("N")
-    NEU,
-    /** . */
-    @PersistentValue("B")
-    IN_BEARBEITUNG,
-    /** . */
-    @PersistentValue("E")
-    ERLEDIGT;
+import de.bund.bva.pliscommon.persistence.dao.AbstractDao;
 
+public class TestDao extends AbstractDao<TestEntity, UUID> {
+
+	public TestDao(){
+		super();
+	}
 }
