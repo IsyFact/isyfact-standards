@@ -17,15 +17,14 @@
     permissions and limitations under the License.
 
 -->
-<beans xmlns="http://www.springframework.org/schema/beans" 
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:aop="http://www.springframework.org/schema/aop" 
-       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
                            http://www.springframework.org/schema/beans/spring-beans-4.2.xsd 
                            http://www.springframework.org/schema/aop 
                            http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
 
-    <aop:aspectj-autoproxy/> 
+    <aop:aspectj-autoproxy/>
 
     <bean name="/dummyServiceBean_v1_0_0" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
         <property name="service" ref="dummyService"/>
@@ -35,22 +34,5 @@
     </bean>
 
     <bean id="dummyService" class="test.de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.DummyServiceImpl"/>
-    
-    <!-- @StelltLoggingKontextBereit Annotation einschalten -->
-        <bean id="stelltLoggingKontextBereitInterceptor" class="de.bund.bva.pliscommon.serviceapi.core.aufrufkontext.StelltLoggingKontextBereitInterceptor">
-
-    </bean>
-
-
-
-    
-
-    <aop:config>
-    
-        <aop:pointcut id="stelltLoggingKontextBereitPointcut"
-            expression="@annotation(de.bund.bva.pliscommon.serviceapi.core.aufrufkontext.StelltLoggingKontextBereit) || @within(de.bund.bva.pliscommon.serviceapi.core.aufrufkontext.StelltLoggingKontextBereit)"/>
-        <aop:advisor pointcut-ref="stelltLoggingKontextBereitPointcut" advice-ref="stelltLoggingKontextBereitInterceptor"  order="50"/>
-    </aop:config>
-
 
 </beans>

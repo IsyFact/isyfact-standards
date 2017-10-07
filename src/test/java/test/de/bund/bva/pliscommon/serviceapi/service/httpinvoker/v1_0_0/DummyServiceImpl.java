@@ -16,8 +16,6 @@
  */
 package test.de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0;
 
-import de.bund.bva.pliscommon.serviceapi.core.aufrufkontext.StelltLoggingKontextBereit;
-
 /**
  * Implementierung des DummyServices.
  *
@@ -47,21 +45,6 @@ public class DummyServiceImpl implements DummyServiceRemoteBean {
      */
     @Override
     public String ping(String message) {
-        try {
-            this.anzahlAufrufe++;
-            Thread.sleep(this.waitTime);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        return message;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @StelltLoggingKontextBereit(nutzeAufrufKontext = true)
-    public String pingMitAufrufKontext(String message) {
         try {
             this.anzahlAufrufe++;
             Thread.sleep(this.waitTime);

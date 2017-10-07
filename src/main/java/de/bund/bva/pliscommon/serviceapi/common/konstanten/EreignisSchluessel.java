@@ -17,11 +17,11 @@
 package de.bund.bva.pliscommon.serviceapi.common.konstanten;
 
 /**
- * Diese Klasse enthält Ereignisschlüssel für das Logging.
+ * Diese Klasse enthält Ereignisschlüssel für die isy-serviceapi-core.
  */
 public class EreignisSchluessel {
 
-    /** Es wurde kein AufrufKontext übermittelt. Erzeuge neue Korrelations-ID.. */
+    /** Es wurde kein AufrufKontext übermittelt. Erzeuge neue Korrelations-ID. */
     public static final String KEIN_AUFRUFKONTEXT_UEBERMITTELT = "EPLSAC00001";
 
     /**

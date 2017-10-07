@@ -31,12 +31,4 @@ public interface DummyServiceRemoteBean {
      */
     public abstract String ping(String message);
 
-    /**
-     * Liefert die Nachricht zurück.
-     * @param message
-     *            Die Nachricht.
-     * @return Die Nachricht.
-     */
-    String pingMitAufrufKontext(String message);
-
 }
