@@ -10,16 +10,13 @@
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
         <artifactId>isyfact-masterpom-lib</artifactId>
-        <version>1.4.0</version>
+        <version>1.4.1</version>
     </parent>
 
     <properties>
         <spring.version>4.2.9.RELEASE</spring.version>
     </properties>
 
-    <!-- =============================================================================================
-        Liste der benoetigten Bibliotheken.
-        ============================================================================================= -->
     <dependencyManagement>
         <dependencies>
             <dependency>
