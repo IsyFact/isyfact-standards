@@ -19,8 +19,11 @@ package de.bund.bva.pliscommon.batchrahmen;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -81,6 +84,9 @@ public class BatchrahmenTest implements ApplicationContextAware {
     private static final boolean DO_TEST_SHUTDOWN = false;
 
     private BatchStatusDao dao;
+
+    /** Datei für das Batch-Protokoll. Wird in {@link #init()} gesetzt. */
+    private static String ERGEBNIS_DATEI;
 
     private TransactionTemplate txTemplate;
 
@@ -164,38 +170,72 @@ public class BatchrahmenTest implements ApplicationContextAware {
      * @throws IOException
      */
     @Test
-    @Ignore("TestBatchLauncher startet Batch in eigener VM, dadurch NPE beim Test.")
+    // @Ignore("TestBatchLauncher startet Batch in eigener VM, dadurch NPE beim Test.")
     public void testRestart() throws IOException {
         assertEquals(2,
             BatchLauncher
                 .run(new String[] { "-start", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
-                    "-laufError", "true", "-Batchrahmen.Ergebnisdatei", "/restartBatch.xml" }));
+                    "-laufError", "true", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI }));
         assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1").getBatchStatus());
-        BatchProtokollTester bpt = new BatchProtokollTester("/restartBatch.xml");
+        BatchProtokollTester bpt = new BatchProtokollTester(ERGEBNIS_DATEI);
         assertFalse(bpt.isStartmodusRestart());
 
         assertEquals(3,
             BatchLauncher
                 .run(new String[] { "-start", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
-                    "-laufError", "true", "-Batchrahmen.Ergebnisdatei", "/restartBatch.xml" }));
+                    "-laufError", "true", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI }));
         assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1").getBatchStatus());
-        bpt = new BatchProtokollTester("/restartBatch.xml");
+        bpt = new BatchProtokollTester(ERGEBNIS_DATEI);
         assertFalse(bpt.isStartmodusRestart());
 
         assertEquals(2,
             BatchLauncher.run(
                 new String[] { "-restart", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
-                    "-laufError", "true", "-Batchrahmen.Ergebnisdatei", "/restartBatch.xml" }));
+                    "-laufError", "true", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI }));
         assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1").getBatchStatus());
-        bpt = new BatchProtokollTester("/restartBatch.xml");
+        bpt = new BatchProtokollTester(ERGEBNIS_DATEI);
         assertTrue(bpt.isStartmodusRestart());
 
         assertEquals(0,
             BatchLauncher.run(
                 new String[] { "-restart", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
-                    "-laufError", "false", "-Batchrahmen.Ergebnisdatei", "/restartBatch.xml" }));
+                    "-laufError", "false", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI }));
         assertEquals("beendet", getBatchStatus("errorTestBatch-1").getBatchStatus());
-        bpt = new BatchProtokollTester("/restartBatch.xml");
+        bpt = new BatchProtokollTester(ERGEBNIS_DATEI);
+        assertTrue(bpt.isStartmodusRestart());
+
+        // Ab hier Prüfung, dass das obige Verhalten auch greift, wenn der Abbruch nach der Initialisierung
+        // aber vor Verarbeitung eines Satzes erfolgt (0 Sätze verarbeitet).
+        assertEquals(2,
+            BatchLauncher
+                .run(new String[] { "-start", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
+                    "-laufErrorSofort", "true", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI }));
+        assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1").getBatchStatus());
+        bpt = new BatchProtokollTester(ERGEBNIS_DATEI);
+        assertFalse(bpt.isStartmodusRestart());
+
+        assertEquals(3,
+            BatchLauncher
+                .run(new String[] { "-start", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
+                    "-laufErrorSofort", "true", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI }));
+        assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1").getBatchStatus());
+        bpt = new BatchProtokollTester(ERGEBNIS_DATEI);
+        assertFalse(bpt.isStartmodusRestart());
+
+        assertEquals(2,
+            BatchLauncher.run(
+                new String[] { "-restart", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
+                    "-laufErrorSofort", "true", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI }));
+        assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1").getBatchStatus());
+        bpt = new BatchProtokollTester(ERGEBNIS_DATEI);
+        assertTrue(bpt.isStartmodusRestart());
+
+        assertEquals(0,
+            BatchLauncher.run(
+                new String[] { "-restart", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
+                    "-laufErrorSofort", "false", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI }));
+        assertEquals("beendet", getBatchStatus("errorTestBatch-1").getBatchStatus());
+        bpt = new BatchProtokollTester(ERGEBNIS_DATEI);
         assertTrue(bpt.isStartmodusRestart());
     }
 
@@ -333,6 +373,15 @@ public class BatchrahmenTest implements ApplicationContextAware {
                 em.createNativeQuery("delete from BATCHSTATUS").executeUpdate();
             }
         });
+
+        try {
+            ERGEBNIS_DATEI = new File(
+                BatchrahmenTest.class.getResource("/resources/batch/ausgabe/ergebnisdatei.xml").toURI())
+                    .getAbsolutePath();
+
+        } catch (URISyntaxException e) {
+            fail(e.getMessage());
+        }
     }
 
     /**

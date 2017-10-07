@@ -30,8 +30,8 @@ import de.bund.bva.pliscommon.batchrahmen.persistence.rahmen.BatchStatusDao;
 
 /**
  * Dieser Handler kapselt die Logik rund um die BatchStatus Tabelle.
- * 
- * 
+ *
+ *
  */
 public class StatusHandler {
     /** Referenz auf das DAO Objekt fuer die Status-Tabelle. */
@@ -42,7 +42,7 @@ public class StatusHandler {
 
     /**
      * Setzt die benoetigten Querschnittsdaten in der Instanz.
-     * 
+     *
      * @param factory
      *            {@link EntityManagerFactory} Aktuelle EntityManagerFactory für den Zugriff auf die
      *            Persistenz.
@@ -67,16 +67,16 @@ public class StatusHandler {
      * @return Der BatchStatus Datensatz fuer den Batch.
      */
     public BatchStatus statusSatzInitialisieren(BatchKonfiguration konfiguration) {
-        batchId = konfiguration.getAsString(KonfigurationSchluessel.PROPERTY_BATCH_ID);
+        this.batchId = konfiguration.getAsString(KonfigurationSchluessel.PROPERTY_BATCH_ID);
         String name = konfiguration.getAsString(KonfigurationSchluessel.PROPERTY_BATCH_NAME);
         // Lesen des Batch-Status, ggf. Anlegen des Satzes
-        BatchStatus status = batchStatusDao.leseBatchStatus(batchId);
+        BatchStatus status = this.batchStatusDao.leseBatchStatus(this.batchId);
         if (status == null) {
             status = new BatchStatus();
-            status.setBatchId(batchId);
+            status.setBatchId(this.batchId);
             status.setBatchName(name);
             status.setBatchStatus(BatchStatusTyp.NEU.getName());
-            batchStatusDao.createBatchStatus(status);
+            this.batchStatusDao.createBatchStatus(status);
         }
         pruefeStatusDbGegenAufrufParameter(status, konfiguration);
         return status;
@@ -94,7 +94,7 @@ public class StatusHandler {
         status.setDatumLetzterStart(new Timestamp(System.currentTimeMillis()));
         if (BatchStartTyp.START.equals(konfiguration.getStartTyp())) {
             status.setSatzNummerLetztesCommit(0);
-            status.setSchluesselLetztesCommit(null);            
+            status.setSchluesselLetztesCommit(null);
         }
     }
 
@@ -104,13 +104,13 @@ public class StatusHandler {
      */
     public BatchStatus leseBatchStatus() {
         // Lesen des Batch-Status, ggf. Anlegen des Satzes
-        return batchStatusDao.leseBatchStatus(batchId);
+        return this.batchStatusDao.leseBatchStatus(this.batchId);
     }
 
     /**
      * prueft, ob die Parameter fuer das Starten bzw. Restarten des Batches mit dem Status in der Datenbank
      * zusammenpassen.
-     * 
+     *
      * @param status
      *            der Status in der Datenbank
      * @param konfig
@@ -122,9 +122,8 @@ public class StatusHandler {
             throw new BatchrahmenParameterException(NachrichtenSchluessel.ERR_BATCH_AKTIV,
                 KonfigurationSchluessel.KOMMANDO_PARAM_IGNORIERE_LAUF);
         }
-
         if (BatchStatusTyp.ABGEBROCHEN.getName().equals(status.getBatchStatus())
-            && status.getSatzNummerLetztesCommit() > 0 && konfig.getStartTyp() == BatchStartTyp.START
+            && status.getSatzNummerLetztesCommit() >= 0 && konfig.getStartTyp() == BatchStartTyp.START
             && !konfig.getAsBoolean(KonfigurationSchluessel.KOMMANDO_PARAM_IGNORIERE_RESTART)) {
             throw new BatchrahmenParameterException(NachrichtenSchluessel.ERR_IGNORIERE_RESTART,
                 KonfigurationSchluessel.KOMMANDO_PARAM_RESTART,
