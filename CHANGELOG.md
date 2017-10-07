@@ -1,5 +1,6 @@
 # v1.6.0 (unveröffentlicht)
 - `RF-161`: Bibliotheken binden genutzte Bibliotheken direkt ein und nicht mehr über BOM-Bibliotheken
+- `IFS-63`: Vollständiges Beispiel für DB-Install/Update-Skripte eingefügt. Beispiel für schemaübergreifende Operationen eingefügt - sowohl DB-Install-Skripte, als auch DB-Update-Skripte. 
 
 # v1.5.1
 - `IFS-43`: ojdbc7 Dependency für Tests gegen h2 getauscht

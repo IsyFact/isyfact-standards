@@ -17,12 +17,12 @@
 ###
 
 ########################################################################
-# Richtet die Datenbank für das System ein.
-#######################################################################
+# Führt schemaübergreifende Datenbankoperationen für das System aus.
+########################################################################
 
 LogFile=logs/ausgabe.log
 
-sqlplus -S /nolog @00_install-main.sql 01_environment.sql ${LogFile}
+sqlplus -S /nolog @00_install-main.sql 91_environment.sql ${LogFile}
 echo ''
 
 AnzahlFehler=$(egrep -c "SP2\-[0-9]{4}\:|ORA\-[0-9]{5}\:" ${LogFile})
