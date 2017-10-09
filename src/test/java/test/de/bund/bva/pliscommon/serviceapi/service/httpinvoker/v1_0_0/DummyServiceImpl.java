@@ -18,7 +18,7 @@ package test.de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0;
 
 /**
  * Implementierung des DummyServices.
- * 
+ *
  *
  */
 public class DummyServiceImpl implements DummyServiceRemoteBean {
@@ -26,26 +26,28 @@ public class DummyServiceImpl implements DummyServiceRemoteBean {
      * Millisekunden, um die der Aufruf verzögert wird.
      */
     private int waitTime;
+
     /**
      * Zähler für die Aufrufe.
      */
     private int anzahlAufrufe;
-    
+
     /**
      * Liefert das Feld 'anzahlAufrufe' zurück.
      * @return Wert von anzahlAufrufe
      */
     public int getAnzahlAufrufe() {
-        return anzahlAufrufe;
+        return this.anzahlAufrufe;
     }
 
     /**
      * {@inheritDoc}
      */
+    @Override
     public String ping(String message) {
         try {
-            anzahlAufrufe++;
-            Thread.sleep(waitTime);
+            this.anzahlAufrufe++;
+            Thread.sleep(this.waitTime);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -54,7 +56,8 @@ public class DummyServiceImpl implements DummyServiceRemoteBean {
 
     /**
      * Setzt das Feld 'waitTime'.
-     * @param waitTime Neuer Wert für waitTime
+     * @param waitTime
+     *            Neuer Wert für waitTime
      */
     public void setWaitTime(int waitTime) {
         this.waitTime = waitTime;
