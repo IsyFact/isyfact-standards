@@ -22,11 +22,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Kennzeichnet Operationen einer Exception-Fassade, an die ein AufrufKontextTo übermittelt wird, aus dem die
- * Korrelations-ID als Logging-Kontext bereitgestellt wird. Alternativ können auch Operationen ohne
- * AufrufKontextTo gekennzeichnet werden. Dann muss dies mit dem Flag nutzeAufrufKontext=false kenntlich
- * gemacht werden.
- *
+ * Kennzeichnet Operationen einer Exception-Fassade, an die zwingend ein AufrufKontextTo übermittelt wird, aus
+ * dem die Korrelations-ID als Logging-Kontext bereitgestellt wird. Ist kein AufrufKontextTo vorhanden, wird
+ * eine Exception geworfen. Alternativ können auch Operationen ohne AufrufKontextTo gekennzeichnet werden.
+ * Dann muss dies mit dem Flag nutzeAufrufKontext=false kenntlich gemacht werden.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.METHOD, ElementType.TYPE, ElementType.ANNOTATION_TYPE })
