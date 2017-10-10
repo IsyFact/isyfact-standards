@@ -1,6 +1,7 @@
 # v1.5.0 (unveröffentlicht)
 - alle: `RF-161`: Bibliotheken binden genutzte Bibliotheken direkt ein und nicht mehr über BOM-Bibliotheken
 - isy-konfiguration: `IFS-59`: Konfiguration kann beliebige Konfigurationsdateien lesen
+- isy-util: `IFS-9`: StelltLoggingKontextBereit-Annotation auch ohne AufrufkontextTo nutzbar
 - isy-logging: `IFS-42`: Erweiterung um Performance-Logging
 - isy-logging: `IFS-68`: Erweiterte Typisierung von Logeinträgen
 - isy-logging: `IFS-70`: Position vom Zeitstempel verschoben
