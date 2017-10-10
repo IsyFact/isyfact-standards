@@ -36,6 +36,8 @@ import de.bund.bva.pliscommon.konfiguration.common.konstanten.NachrichtenSchlues
  */
 public class PropertyKonfiguration extends AbstractKonfiguration implements Konfiguration {
 
+    private String namensSchema;
+
     /**
      * Gekapselte Properties.
      */
@@ -44,7 +46,7 @@ public class PropertyKonfiguration extends AbstractKonfiguration implements Konf
     /**
      * Sortiert und Filtert die Liste an Dateinamen.
      */
-    private DateinamenSortiererUndFilterer dateinamenSortiererUndFilterer;
+    private DateinamenSortierer dateinamenSortiererUndFilterer;
 
     /**
      * Logger der Klasse.
@@ -55,9 +57,15 @@ public class PropertyKonfiguration extends AbstractKonfiguration implements Konf
      * Erzeuge neue Instanz für angegebene Properties.
      * @param properties
      *            Die zu kapselnden Properties.
+     * @param namensSchema
+     *            das Schema, dem die Dateinamen entsprechen müssen.
      */
-    public PropertyKonfiguration(Properties properties) {
+
+    public PropertyKonfiguration(Properties properties, String namensSchema) {
+
+        this.namensSchema = namensSchema;
         this.properties = properties;
+        this.dateinamenSortiererUndFilterer = new DateinamenSortierer();
     }
 
     /**
@@ -75,7 +83,7 @@ public class PropertyKonfiguration extends AbstractKonfiguration implements Konf
      */
     public PropertyKonfiguration(String propertyLocation) {
         if (propertyLocation.endsWith("/")) {
-            this.dateinamenSortiererUndFilterer = new DateinamenSortiererUndFilterer();
+            this.dateinamenSortiererUndFilterer = new DateinamenSortierer();
             this.properties = ladeMergedProperties(propertyLocation);
         } else {
             throw new KonfigurationDateiException(NachrichtenSchluessel.ERR_PROPERTY_ORDNER_PFAD,
@@ -100,7 +108,7 @@ public class PropertyKonfiguration extends AbstractKonfiguration implements Konf
      */
     public PropertyKonfiguration(String propertyLocation, String namensSchema) {
         if (propertyLocation.endsWith("/")) {
-            this.dateinamenSortiererUndFilterer = new DateinamenSortiererUndFilterer(namensSchema);
+            this.dateinamenSortiererUndFilterer = new DateinamenSortierer(namensSchema);
             this.properties = ladeMergedProperties(propertyLocation);
         } else {
             throw new KonfigurationDateiException(NachrichtenSchluessel.ERR_PROPERTY_ORDNER_PFAD,
@@ -134,14 +142,14 @@ public class PropertyKonfiguration extends AbstractKonfiguration implements Konf
         for (String propertyLocation : propertyLocations) {
             if (RessourcenHelper.istOrdner(propertyLocation)) {
                 if (propertyLocation.endsWith("/")) {
-                    Set<String> propertyDateien = RessourcenHelper.ladePropertiesAusOrdner(propertyLocation);
-
+                    Set<String> propertyDateien =
+                        RessourcenHelper.ladePropertiesAusOrdner(propertyLocation, this.namensSchema);
                     for (String propertyDatei : propertyDateien) {
                         gesamtProperties.putAll(ladeProperties(propertyDatei));
                     }
                 } else {
                     LOG.info(LogKategorie.JOURNAL, NachrichtenSchluessel.ERR_PROPERTY_ORDNER_PFAD,
-                        "Der Pfad des Property-Ordners {} muss mit einem \"/\" enden.", propertyLocation);
+                        "Der Pfad des Property-Ordners \"{}\" muss mit einem \"/\" enden.", propertyLocation);
                 }
             } else {
                 gesamtProperties.putAll(ladeProperties(propertyLocation));
@@ -163,7 +171,8 @@ public class PropertyKonfiguration extends AbstractKonfiguration implements Konf
     private Properties ladeMergedProperties(String propertyLocation) {
         Properties gesamtProperties = new Properties();
         if (RessourcenHelper.istOrdner(propertyLocation)) {
-            Set<String> propertyDateien = RessourcenHelper.ladePropertiesAusOrdner(propertyLocation);
+            Set<String> propertyDateien =
+                RessourcenHelper.ladePropertiesAusOrdner(propertyLocation, this.namensSchema);
 
             List<String> propertyDateienList =
                 this.dateinamenSortiererUndFilterer.sortiereUndFiltereDateinamenAusStringSet(propertyDateien);

@@ -36,7 +36,9 @@ import de.bund.bva.pliscommon.konfiguration.common.konstanten.NachrichtenSchlues
  */
 public class ReloadablePropertyProvider {
 
-    private DateinamenSortiererUndFilterer dateinamenSortiererUndFilterer;
+    private DateinamenSortierer dateinamenSortiererUndFilterer;
+
+    private String namensSchema;
 
     /**
      * Logger der Klasse.
@@ -63,25 +65,14 @@ public class ReloadablePropertyProvider {
      *
      * @param propertyDateinamen
      *            Liste mit Property-Dateinamen.
-     *
-     */
-    public ReloadablePropertyProvider(String[] propertyDateinamen) {
-        this.dateinamenSortiererUndFilterer = new DateinamenSortiererUndFilterer();
-        ladePropertyDateien(propertyDateinamen);
-    }
-
-    /**
-     * Ruft ladePropertyDateien() auf.
-     *
-     * @param propertyDateinamen
-     *            Liste mit Property-Dateinamen.
      * @param namensSchema
      *            dem die Dateinamen entsprechen müssen.
      *
      */
     public ReloadablePropertyProvider(String[] propertyDateinamen, String namensSchema) {
 
-        this.dateinamenSortiererUndFilterer = new DateinamenSortiererUndFilterer(namensSchema);
+        this.namensSchema = namensSchema;
+        this.dateinamenSortiererUndFilterer = new DateinamenSortierer();
         ladePropertyDateien(propertyDateinamen);
     }
 
@@ -102,7 +93,8 @@ public class ReloadablePropertyProvider {
         for (String dateiname : propertyDateinamen) {
             if (RessourcenHelper.istOrdner(dateiname)) {
                 if (dateiname.endsWith("/")) {
-                    for (String propertyInOrdner : RessourcenHelper.ladePropertiesAusOrdner(dateiname)) {
+                    for (String propertyInOrdner : RessourcenHelper.ladePropertiesAusOrdner(dateiname,
+                        this.namensSchema)) {
                         this.propertyDateien.add(new PropertyDatei(propertyInOrdner));
                     }
                     this.propertyOrdner.add(dateiname);
@@ -180,7 +172,8 @@ public class ReloadablePropertyProvider {
         boolean propertyHinzugefuegt = false;
         for (String ordnerPfad : this.propertyOrdner) {
             if (ordnerPfad.endsWith("/")) {
-                for (String dateiname : RessourcenHelper.ladePropertiesAusOrdner(ordnerPfad)) {
+                for (String dateiname : RessourcenHelper.ladePropertiesAusOrdner(ordnerPfad,
+                    this.namensSchema)) {
                     boolean propertyIstNeu = true;
                     for (PropertyDatei existierendeProperty : this.propertyDateien) {
                         if (dateiname.equals(existierendeProperty.getDateiname())) {

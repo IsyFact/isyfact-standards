@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import de.bund.bva.pliscommon.konfiguration.common.exception.KonfigurationDateiException;
 import de.bund.bva.pliscommon.konfiguration.common.konstanten.NachrichtenSchluessel;
@@ -19,23 +20,25 @@ class RessourcenHelper {
 
     /**
      * Sucht alle Properties-Dateien in einem bestimmten Ordner und liefert den relativen Pfad zu den Dateien
-     * zurück. Die Property-Dateien müssen mit '.properties' enden, alle anderen Dateien werden ignoriert.
+     * zurück. Die Property-Dateien müssen dem namensSchema entsprechen, alle anderen Dateien werden
+     * ignoriert.
      * @param ordnerPfad
      *            Pfad zu dem Ordner, in dem nach Properties-Dateien gesucht werden sollen.
+     * @param namensSchema
+     *            das Schema, dem die Dateinamen entsprechen müssen.
      * @return Das Set mit den Pfaden zu allen Properties-Dateien.
      */
-    public static Set<String> ladePropertiesAusOrdner(String ordnerPfad) {
+    public static Set<String> ladePropertiesAusOrdner(String ordnerPfad, String namensSchema) {
         Set<String> allePropertiesPfade = new HashSet<String>();
         URI ordnerUri = getAbsoluterPfad(ordnerPfad);
         File ordner = new File(ordnerUri);
         File[] alleProperties = ordner.listFiles();
         for (File property : alleProperties) {
-            String relativerPfad = ordnerPfad.concat(property.getName());
-            if (relativerPfad.endsWith(".properties")) {
+            if (Pattern.matches(namensSchema, property.getName())) {
+                String relativerPfad = ordnerPfad.concat(property.getName());
                 allePropertiesPfade.add(relativerPfad);
             }
         }
-
         return allePropertiesPfade;
     }
 
