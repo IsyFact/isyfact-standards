@@ -22,6 +22,13 @@
         </dependency>
 
         <dependency>
+            <groupId>de.bund.bva.isyfact</groupId>
+            <artifactId>isy-util</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- JUnit Test -->
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>

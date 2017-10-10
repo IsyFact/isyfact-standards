@@ -32,7 +32,7 @@ import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 import de.bund.bva.pliscommon.konfiguration.common.KonfigurationChangeListener;
 import de.bund.bva.pliscommon.konfiguration.common.ReloadableKonfiguration;
 import de.bund.bva.pliscommon.konfiguration.common.konstanten.EreignisSchluessel;
-import de.bund.bva.pliscommon.serviceapi.core.aufrufkontext.StelltLoggingKontextBereit;
+import de.bund.bva.pliscommon.util.annotations.StelltLoggingKontextBereit;
 
 /**
  * Diese Klasse bietet einen typsicheren Zugriff auf eine Konfiguration {@link Konfiguration}. Dazu wird an
@@ -86,12 +86,7 @@ public class ReloadablePropertyKonfiguration implements ReloadableKonfiguration 
      *            Liste von Property-Dateinamen.
      */
     public ReloadablePropertyKonfiguration(String[] propertyLocations) {
-
-        this.namensSchema = RessourcenHelper.DEFAULTNAMENSSCHEMA;
-        this.propertyProvider = new ReloadablePropertyProvider(propertyLocations, this.namensSchema);
-        this.konfigurationChangeListener = new LinkedList<KonfigurationChangeListener>();
-        this.propertyKonfiguration =
-            new PropertyKonfiguration(this.propertyProvider.getProperties(), this.namensSchema);
+        new ReloadablePropertyKonfiguration(propertyLocations, RessourcenHelper.DEFAULTNAMENSSCHEMA);
     }
 
     /**
@@ -110,7 +105,7 @@ public class ReloadablePropertyKonfiguration implements ReloadableKonfiguration 
     public ReloadablePropertyKonfiguration(String[] propertyLocations, String namensSchema) {
         this.namensSchema = namensSchema;
         this.propertyProvider = new ReloadablePropertyProvider(propertyLocations, namensSchema);
-        this.konfigurationChangeListener = new LinkedList<KonfigurationChangeListener>();
+        this.konfigurationChangeListener = new LinkedList<>();
         this.propertyKonfiguration =
             new PropertyKonfiguration(this.propertyProvider.getProperties(), namensSchema);
     }
@@ -150,7 +145,7 @@ public class ReloadablePropertyKonfiguration implements ReloadableKonfiguration 
         }
         if (geaenderteSchluessel.size() > 0) {
             List<KonfigurationChangeListener> notifyChangeListeners =
-                new ArrayList<KonfigurationChangeListener>(this.konfigurationChangeListener.size());
+                new ArrayList<>(this.konfigurationChangeListener.size());
             synchronized (this.konfigurationChangeListener) {
                 if (this.konfigurationChangeListener.size() > 0) {
                     // Verwende eine lokale Kopie, so dass sich Listener registrieren oder deregistrieren
@@ -178,7 +173,7 @@ public class ReloadablePropertyKonfiguration implements ReloadableKonfiguration 
      */
     @SuppressWarnings("rawtypes")
     private Set<String> ermittleGeaenderteSchluessel(Properties a, Properties b) {
-        Set<String> geaenderteSchluessel = new HashSet<String>();
+        Set<String> geaenderteSchluessel = new HashSet<>();
         for (Map.Entry entry : a.entrySet()) {
             // Schluessel ist gar nicht oder mit einem anderen Wert in b
             // enthalten.
