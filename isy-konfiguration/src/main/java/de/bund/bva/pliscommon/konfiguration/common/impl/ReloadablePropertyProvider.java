@@ -36,8 +36,14 @@ import de.bund.bva.pliscommon.konfiguration.common.konstanten.NachrichtenSchlues
  */
 public class ReloadablePropertyProvider {
 
-    private DateinamenSortierer dateinamenSortiererUndFilterer;
+    /**
+     * Sortiert die Dateinamen.
+     */
+    private DateinamenSortierer dateinamenSortierer;
 
+    /**
+     * Schema, dem die Dateinamen entsprechen müssen.
+     */
     private String namensSchema;
 
     /**
@@ -72,7 +78,7 @@ public class ReloadablePropertyProvider {
     public ReloadablePropertyProvider(String[] propertyDateinamen, String namensSchema) {
 
         this.namensSchema = namensSchema;
-        this.dateinamenSortiererUndFilterer = new DateinamenSortierer();
+        this.dateinamenSortierer = new DateinamenSortierer();
         ladePropertyDateien(propertyDateinamen);
     }
 
@@ -116,8 +122,8 @@ public class ReloadablePropertyProvider {
     private Properties mergeProperties() {
         Properties gesamtProperties = new Properties();
 
-        this.propertyDateien = this.dateinamenSortiererUndFilterer
-            .sortiereUndFiltereDateinamenAusPropertyDateiList(this.propertyDateien);
+        this.propertyDateien =
+            this.dateinamenSortierer.sortiereDateinamenAusPropertyDateiList(this.propertyDateien);
 
         for (PropertyDatei propertyDatei : this.propertyDateien) {
             gesamtProperties.putAll(propertyDatei.getProperties());

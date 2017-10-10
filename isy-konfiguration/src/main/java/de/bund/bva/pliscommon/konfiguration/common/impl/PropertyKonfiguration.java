@@ -36,6 +36,9 @@ import de.bund.bva.pliscommon.konfiguration.common.konstanten.NachrichtenSchlues
  */
 public class PropertyKonfiguration extends AbstractKonfiguration implements Konfiguration {
 
+    /**
+     * Schema, dem die Dateinamen entsprechen müssen.
+     */
     private String namensSchema;
 
     /**
@@ -44,9 +47,9 @@ public class PropertyKonfiguration extends AbstractKonfiguration implements Konf
     private Properties properties;
 
     /**
-     * Sortiert und Filtert die Liste an Dateinamen.
+     * Sortiert die Liste an Dateinamen.
      */
-    private DateinamenSortierer dateinamenSortiererUndFilterer;
+    private DateinamenSortierer dateinamenSortierer;
 
     /**
      * Logger der Klasse.
@@ -65,7 +68,7 @@ public class PropertyKonfiguration extends AbstractKonfiguration implements Konf
 
         this.namensSchema = namensSchema;
         this.properties = properties;
-        this.dateinamenSortiererUndFilterer = new DateinamenSortierer();
+        this.dateinamenSortierer = new DateinamenSortierer();
     }
 
     /**
@@ -83,32 +86,7 @@ public class PropertyKonfiguration extends AbstractKonfiguration implements Konf
      */
     public PropertyKonfiguration(String propertyLocation) {
         if (propertyLocation.endsWith("/")) {
-            this.dateinamenSortiererUndFilterer = new DateinamenSortierer();
-            this.properties = ladeMergedProperties(propertyLocation);
-        } else {
-            throw new KonfigurationDateiException(NachrichtenSchluessel.ERR_PROPERTY_ORDNER_PFAD,
-                propertyLocation);
-        }
-    }
-
-    /**
-     * Erzeuge neue Instanz für angegebene Properties. Die angegebenen Property-Dateien werden relativ zum
-     * Klassenpfad per {@link ClassLoader#getResourceAsStream(String)} geladen, wobei der {@link ClassLoader}
-     * über die Klasse von {@link PropertyKonfiguration} anhand {@link Class#getClassLoader()} ermittelt wird.
-     *
-     * Alle angegebenen Property-Dateien werden zu einer gemeinsamen Konfiguration vereinigt.
-     *
-     * @param propertyLocation
-     *            der Pfad zum Ordner der Properties-Dateien relativ zum Classpath. Im Gegensatz zu
-     *            {@link ReloadablePropertyKonfiguration#ReloadablePropertyKonfiguration(String[])} dürfen die
-     *            Pfade nicht mit "/" anfangen. Ein gültiger Pfad ist z.B. "config/". Der Pfad muss mit einem
-     *            "/" enden.
-     * @param namensSchema
-     *            das Schema, dem die Dateinamen entsprechen müssen.
-     */
-    public PropertyKonfiguration(String propertyLocation, String namensSchema) {
-        if (propertyLocation.endsWith("/")) {
-            this.dateinamenSortiererUndFilterer = new DateinamenSortierer(namensSchema);
+            this.dateinamenSortierer = new DateinamenSortierer();
             this.properties = ladeMergedProperties(propertyLocation);
         } else {
             throw new KonfigurationDateiException(NachrichtenSchluessel.ERR_PROPERTY_ORDNER_PFAD,
@@ -127,8 +105,11 @@ public class PropertyKonfiguration extends AbstractKonfiguration implements Konf
      *            die Pfade zu der Properties-Dateien relativ zum Classpath. Im Gegensatz zu
      *            {@link ReloadablePropertyKonfiguration#ReloadablePropertyKonfiguration(String[])} dürfen die
      *            Pfade nicht mit "/" anfangen. Ein gültiger Pfad ist z.B. "config/test.properties"
+     * @param namensSchema
+     *            das Schema, dem die Dateinamen entsprechen müssen.
      */
-    public PropertyKonfiguration(List<String> propertyLocations) {
+    public PropertyKonfiguration(List<String> propertyLocations, String namensSchema) {
+        this.namensSchema = namensSchema;
         this.properties = ladeMergedProperties(propertyLocations);
     }
 
@@ -175,7 +156,7 @@ public class PropertyKonfiguration extends AbstractKonfiguration implements Konf
                 RessourcenHelper.ladePropertiesAusOrdner(propertyLocation, this.namensSchema);
 
             List<String> propertyDateienList =
-                this.dateinamenSortiererUndFilterer.sortiereUndFiltereDateinamenAusStringSet(propertyDateien);
+                this.dateinamenSortierer.sortiereDateinamenAusStringSet(propertyDateien);
 
             for (String propertyDatei : propertyDateienList) {
                 gesamtProperties.putAll(ladeProperties(propertyDatei));

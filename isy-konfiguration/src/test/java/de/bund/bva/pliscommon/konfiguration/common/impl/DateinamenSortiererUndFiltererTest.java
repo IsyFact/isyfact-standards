@@ -17,13 +17,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 /**
- * Testet die Klasse {@link DateinamenSortiererUndFilterer}}
+ * Testet die Klasse {@link DateinamenSortierer}}
  */
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 public class DateinamenSortiererUndFiltererTest {
 
-    private DateinamenSortiererUndFilterer dateinamenSortiererUndFilterer;
+    private DateinamenSortierer dateinamenSortierer;
 
     @Mock
     PropertyDatei propertyDateiA;
@@ -35,56 +35,52 @@ public class DateinamenSortiererUndFiltererTest {
     PropertyDatei propertyDateiC;
 
     @Test
-    public void testSortiereUndFiltereDateinamenAusStringSet() {
+    public void testSortiereDateinamenAusStringSet() {
 
         // Arrange
-        this.dateinamenSortiererUndFilterer = new DateinamenSortiererUndFilterer();
+        this.dateinamenSortierer = new DateinamenSortierer();
 
         Set<String> propertyDateienList = new HashSet<>();
         ArrayList<String> erwartetePropertyDateienList = new ArrayList<>();
 
         String abcProperties = "abc.properties";
         String bcdProperties = "bcd.properties";
-        String cdeProperies = "cde.properies";
 
         erwartetePropertyDateienList.add(abcProperties);
         erwartetePropertyDateienList.add(bcdProperties);
         propertyDateienList.add(bcdProperties);
         propertyDateienList.add(abcProperties);
-        propertyDateienList.add(cdeProperies);
 
         // Act
         List<String> aktuellePropertyDateienList =
-            this.dateinamenSortiererUndFilterer.sortiereUndFiltereDateinamenAusStringSet(propertyDateienList);
+            this.dateinamenSortierer.sortiereDateinamenAusStringSet(propertyDateienList);
 
         // Assert
         assertEquals(aktuellePropertyDateienList, erwartetePropertyDateienList);
     }
 
     @Test
-    public void testSortiereUndFiltereDateinamenAusPropertyDateiList() {
+    public void testSortiereDateinamenAusPropertyDateiList() {
 
         // Arrange
         MockitoAnnotations.initMocks(this);
 
-        this.dateinamenSortiererUndFilterer = new DateinamenSortiererUndFilterer();
+        this.dateinamenSortierer = new DateinamenSortierer();
 
         List<PropertyDatei> propertyDateienList = new ArrayList<>();
         ArrayList<PropertyDatei> erwartetePropertyDateienList = new ArrayList<>();
 
         when(this.propertyDateiA.getDateiname()).thenReturn("abc.properties");
         when(this.propertyDateiB.getDateiname()).thenReturn("bcd.properties");
-        when(this.propertyDateiC.getDateiname()).thenReturn("cde.properies");
 
         erwartetePropertyDateienList.add(this.propertyDateiA);
         erwartetePropertyDateienList.add(this.propertyDateiB);
         propertyDateienList.add(this.propertyDateiB);
         propertyDateienList.add(this.propertyDateiA);
-        propertyDateienList.add(this.propertyDateiC);
 
         // Act
-        List<PropertyDatei> aktuellePropertyDateienList = this.dateinamenSortiererUndFilterer
-            .sortiereUndFiltereDateinamenAusPropertyDateiList(propertyDateienList);
+        List<PropertyDatei> aktuellePropertyDateienList =
+            this.dateinamenSortierer.sortiereDateinamenAusPropertyDateiList(propertyDateienList);
 
         // Assert
         assertEquals(aktuellePropertyDateienList, erwartetePropertyDateienList);
