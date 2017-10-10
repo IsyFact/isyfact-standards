@@ -12,6 +12,21 @@ public interface Task {
     void execute();
 
     /**
+     * Prüft, ob der Task manuell deaktiviert ist.
+     */
+    boolean isDeaktiviert();
+
+    /**
+     * Aktiviert den Task manuell.
+     */
+    void aktivieren();
+
+    /**
+     * Deaktiviert den Task manuell.
+     */
+    void deaktivieren();
+
+    /**
      * Zeichnet eine erfolgreiche Ausführung des Tasks auf.
      */
     void zeichneErfolgreicheAusfuehrungAuf();

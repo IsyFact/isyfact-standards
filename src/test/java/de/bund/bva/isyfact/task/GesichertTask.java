@@ -5,8 +5,9 @@ import java.time.LocalDateTime;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
-import de.bund.bva.isyfact.task.jmx.TaskMonitor;
+
 import de.bund.bva.isyfact.task.model.AbstractTask;
+import de.bund.bva.isyfact.task.model.TaskMonitor;
 import de.bund.bva.pliscommon.sicherheit.annotation.Gesichert;
 
 /**
