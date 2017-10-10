@@ -1,8 +1,6 @@
 package de.bund.bva.isyfact.task.model;
 
 import de.bund.bva.isyfact.task.handler.AusfuehrungsplanHandler.Ausfuehrungsplan;
-import de.bund.bva.isyfact.task.jmx.TaskMonitor;
-import de.bund.bva.isyfact.task.security.SecurityAuthenticator;
 
 import java.time.Duration;
 import java.time.LocalDateTime;

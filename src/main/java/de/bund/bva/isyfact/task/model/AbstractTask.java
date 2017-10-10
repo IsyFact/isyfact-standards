@@ -1,10 +1,10 @@
 package de.bund.bva.isyfact.task.model;
 
-import de.bund.bva.isyfact.task.jmx.TaskMonitor;
-
 public abstract class AbstractTask implements Task {
 
     private final TaskMonitor monitor;
+
+    private boolean deaktiviert = false;
 
     protected AbstractTask() {
         this.monitor = null;
@@ -12,10 +12,26 @@ public abstract class AbstractTask implements Task {
 
     protected AbstractTask(TaskMonitor monitor) {
         this.monitor = monitor;
+        this.monitor.setTask(this);
     }
 
     protected <T extends TaskMonitor> T getMonitor() {
         return monitor != null ? (T) monitor : null;
+    }
+
+    @Override
+    public synchronized boolean isDeaktiviert() {
+        return deaktiviert;
+    }
+
+    @Override
+    public synchronized void aktivieren() {
+        deaktiviert = false;
+    }
+
+    @Override
+    public synchronized void deaktivieren() {
+        deaktiviert = true;
     }
 
     @Override

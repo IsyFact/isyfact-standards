@@ -59,6 +59,10 @@ public class TaskRunnerImpl implements TaskRunner {
 
     @Override
     public void run() {
+        if (task.isDeaktiviert()) {
+            return;
+        }
+
         try {
             MdcHelper.pushKorrelationsId(UUID.randomUUID().toString());
             //securityAuthenticatorThreadLocal.get().login();

@@ -1,9 +1,10 @@
-package de.bund.bva.isyfact.task.jmx;
+package de.bund.bva.isyfact.task.model;
 
 import java.time.LocalDateTime;
 
 import de.bund.bva.pliscommon.exception.PlisException;
 import org.springframework.jmx.export.annotation.ManagedAttribute;
+import org.springframework.jmx.export.annotation.ManagedOperation;
 import org.springframework.jmx.export.annotation.ManagedResource;
 
 @ManagedResource(description = "Überwacht eine zur wiederholten Ausführung geplante Aufgabe")
@@ -14,6 +15,12 @@ public class TaskMonitor {
     private volatile boolean letzteAusfuehrungErfolgreich;
 
     private volatile Exception letzterFehler;
+
+    private volatile Task task;
+
+    void setTask(Task task) {
+        this.task = task;
+    }
 
     public void zeichneErfolgreicheAusfuehrungAuf() {
         // TODO isy-datetime?
@@ -27,6 +34,21 @@ public class TaskMonitor {
         letzteAusfuehrungAbgeschlossen = LocalDateTime.now();
         letzteAusfuehrungErfolgreich = false;
         this.letzterFehler = letzterFehler;
+    }
+
+    @ManagedAttribute(description = "Manuelle Deaktivierung des Tasks")
+    public boolean isDeaktiviert() {
+        return this.task.isDeaktiviert();
+    }
+
+    @ManagedOperation(description = "Deaktiviert den Task")
+    public void deaktivieren() {
+        this.task.deaktivieren();
+    }
+
+    @ManagedOperation(description = "Aktiviert den Task")
+    public void aktivieren() {
+        this.task.aktivieren();
     }
 
     @ManagedAttribute(description = "Ende der letzten Ausführung")
