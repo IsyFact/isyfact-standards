@@ -51,6 +51,10 @@ import de.bund.bva.pliscommon.serviceapi.core.aufrufkontext.StelltLoggingKontext
  */
 public class ReloadablePropertyKonfiguration implements ReloadableKonfiguration {
 
+    final static String DEFAULTNAMENSSCHEMA = ".*[.]properties";
+
+    private String namensSchema;
+
     /**
      * Logger der Klasse.
      */
@@ -84,9 +88,33 @@ public class ReloadablePropertyKonfiguration implements ReloadableKonfiguration 
      *            Liste von Property-Dateinamen.
      */
     public ReloadablePropertyKonfiguration(String[] propertyLocations) {
-        this.propertyProvider = new ReloadablePropertyProvider(propertyLocations);
+
+        this.namensSchema = DEFAULTNAMENSSCHEMA;
+        this.propertyProvider = new ReloadablePropertyProvider(propertyLocations, this.namensSchema);
         this.konfigurationChangeListener = new LinkedList<KonfigurationChangeListener>();
-        this.propertyKonfiguration = new PropertyKonfiguration(this.propertyProvider.getProperties());
+        this.propertyKonfiguration =
+            new PropertyKonfiguration(this.propertyProvider.getProperties(), this.namensSchema);
+    }
+
+    /**
+     * Erzeugt eine neue Konfiguration für die angegebenen Properties. Die angegebenen Property-Dateien werden
+     * relativ zum Klassenpfad per {@link Class#getResource(String)} geladen. Alle angegebenen Property-Datei
+     * werden zu einer gemeinsamen Konfiguration vereinigt. Für mehrfach auftretende Parameter wird der
+     * zuletzt auftretende Wert übernommen.
+     *
+     * Das eigentliche Laden erfolgt per {@link ReloadablePropertyProvider}.
+     *
+     * @param propertyLocations
+     *            Liste von Property-Dateinamen.
+     * @param namensSchema
+     *            das Schema, dem die Dateinamen entsprechen müssen.
+     */
+    public ReloadablePropertyKonfiguration(String[] propertyLocations, String namensSchema) {
+        this.namensSchema = namensSchema;
+        this.propertyProvider = new ReloadablePropertyProvider(propertyLocations, namensSchema);
+        this.konfigurationChangeListener = new LinkedList<KonfigurationChangeListener>();
+        this.propertyKonfiguration =
+            new PropertyKonfiguration(this.propertyProvider.getProperties(), namensSchema);
     }
 
     /**
@@ -102,7 +130,7 @@ public class ReloadablePropertyKonfiguration implements ReloadableKonfiguration 
                 "Mindestens eine Konfigurationsdatei wurde geändert.");
             Properties neueProperties = this.propertyProvider.getProperties();
             Properties aktuelleProperties = this.propertyKonfiguration.getProperties();
-            this.propertyKonfiguration = new PropertyKonfiguration(neueProperties);
+            this.propertyKonfiguration = new PropertyKonfiguration(neueProperties, this.namensSchema);
             fireKonfigurationChanged(aktuelleProperties, neueProperties);
         }
         return neueVersionGeladen;

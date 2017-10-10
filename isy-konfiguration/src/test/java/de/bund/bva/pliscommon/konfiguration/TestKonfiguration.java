@@ -24,15 +24,17 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import junit.framework.TestCase;
-
 import de.bund.bva.pliscommon.konfiguration.common.KonfigurationChangeListener;
 import de.bund.bva.pliscommon.konfiguration.common.exception.KonfigurationDateiException;
 import de.bund.bva.pliscommon.konfiguration.common.exception.KonfigurationParameterException;
 import de.bund.bva.pliscommon.konfiguration.common.impl.PropertyKonfiguration;
 import de.bund.bva.pliscommon.konfiguration.common.impl.ReloadablePropertyKonfiguration;
 
+import junit.framework.TestCase;
+
 public class TestKonfiguration extends TestCase {
+
+    final static String DEFAULTNAMENSSCHEMA = ".*[.]properties";
 
     private static final String CONFIG_A = "/config/config_A.properties";
 
@@ -86,14 +88,16 @@ public class TestKonfiguration extends TestCase {
             new ReloadablePropertyKonfiguration(new String[] { CONFIG_A });
         try {
             konfig.getAsDouble("nicht.vorhanden");
-            fail("Der Test hätte eine " + KonfigurationParameterException.class.getName() + " werfen müssen.");
+            fail(
+                "Der Test hätte eine " + KonfigurationParameterException.class.getName() + " werfen müssen.");
         } catch (KonfigurationParameterException ex) {
             System.out.println("Erwartete Ausnahme: " + ex);
         }
 
         try {
             konfig.getAsInteger("parameter.boolean");
-            fail("Der Test hätte eine " + KonfigurationParameterException.class.getName() + " werfen müssen.");
+            fail(
+                "Der Test hätte eine " + KonfigurationParameterException.class.getName() + " werfen müssen.");
         } catch (KonfigurationParameterException ex) {
             System.out.println("Erwartete Ausnahme: " + ex);
         }
@@ -136,7 +140,8 @@ public class TestKonfiguration extends TestCase {
     }
 
     public void testPropertiyKonfigurationAlsStreamLaden() throws Exception {
-        PropertyKonfiguration konfig = new PropertyKonfiguration(Collections.singletonList(CONFIG_A));
+        PropertyKonfiguration konfig =
+            new PropertyKonfiguration(Collections.singletonList(CONFIG_A), DEFAULTNAMENSSCHEMA);
         assertEquals(1000, konfig.getAsInteger("parameter.int"));
     }
 
@@ -157,7 +162,8 @@ public class TestKonfiguration extends TestCase {
             assertEquals("Hello", konfig.getAsString("parameter.a"));
             configFile.delete();
             assertTrue(konfig.checkAndUpdate());
-            fail("Der Test hätte eine " + KonfigurationParameterException.class.getName() + " werfen müssen.");
+            fail(
+                "Der Test hätte eine " + KonfigurationParameterException.class.getName() + " werfen müssen.");
         } catch (KonfigurationDateiException ex) {
             System.out.println("Erwartete Ausnahme: " + ex);
         } finally {
@@ -167,8 +173,8 @@ public class TestKonfiguration extends TestCase {
     }
 
     public void testKonfigAusPropertyKonfigurationLaden() {
-        PropertyKonfiguration konfig =
-            new PropertyKonfiguration(Arrays.asList(new String[] { CONFIG_ORDNER, CONFIG_B }));
+        PropertyKonfiguration konfig = new PropertyKonfiguration(
+            Arrays.asList(new String[] { CONFIG_ORDNER, CONFIG_B }), DEFAULTNAMENSSCHEMA);
         assertEquals(1000, konfig.getAsInteger("parameter.ordner.int"));
         assertEquals(2000, konfig.getAsInteger("parameter.int"));
         assertEquals(true, konfig.getAsBoolean("parameter.ordner.boolean"));
