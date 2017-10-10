@@ -18,6 +18,8 @@ import de.bund.bva.pliscommon.konfiguration.common.konstanten.NachrichtenSchlues
  */
 class RessourcenHelper {
 
+    public final static String DEFAULTNAMENSSCHEMA = ".*[.]properties";
+
     /**
      * Sucht alle Properties-Dateien in einem bestimmten Ordner und liefert den relativen Pfad zu den Dateien
      * zurück. Die Property-Dateien müssen dem namensSchema entsprechen, alle anderen Dateien werden
@@ -29,7 +31,7 @@ class RessourcenHelper {
      * @return Das Set mit den Pfaden zu allen Properties-Dateien.
      */
     public static Set<String> ladePropertiesAusOrdner(String ordnerPfad, String namensSchema) {
-        Set<String> allePropertiesPfade = new HashSet<String>();
+        Set<String> allePropertiesPfade = new HashSet<>();
         URI ordnerUri = getAbsoluterPfad(ordnerPfad);
         File ordner = new File(ordnerUri);
         File[] alleProperties = ordner.listFiles();

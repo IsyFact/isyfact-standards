@@ -51,8 +51,6 @@ import de.bund.bva.pliscommon.serviceapi.core.aufrufkontext.StelltLoggingKontext
  */
 public class ReloadablePropertyKonfiguration implements ReloadableKonfiguration {
 
-    final static String DEFAULTNAMENSSCHEMA = ".*[.]properties";
-
     private String namensSchema;
 
     /**
@@ -89,7 +87,7 @@ public class ReloadablePropertyKonfiguration implements ReloadableKonfiguration 
      */
     public ReloadablePropertyKonfiguration(String[] propertyLocations) {
 
-        this.namensSchema = DEFAULTNAMENSSCHEMA;
+        this.namensSchema = RessourcenHelper.DEFAULTNAMENSSCHEMA;
         this.propertyProvider = new ReloadablePropertyProvider(propertyLocations, this.namensSchema);
         this.konfigurationChangeListener = new LinkedList<KonfigurationChangeListener>();
         this.propertyKonfiguration =
@@ -123,7 +121,8 @@ public class ReloadablePropertyKonfiguration implements ReloadableKonfiguration 
     @Override
     @StelltLoggingKontextBereit(nutzeAufrufKontext = false)
     public synchronized boolean checkAndUpdate() {
-        LOG.debug("Prüfe auf geänderte Konfigurationsdateien.");
+        LOG.info(LogKategorie.JOURNAL, EreignisSchluessel.KONFIGURATION_DATEI_GEAENDERT,
+            "Prüfe auf geänderte Konfigurationsdateien.");
         boolean neueVersionGeladen = this.propertyProvider.checkAndUpdate();
         if (neueVersionGeladen) {
             LOG.info(LogKategorie.JOURNAL, EreignisSchluessel.KONFIGURATION_DATEI_GEAENDERT,

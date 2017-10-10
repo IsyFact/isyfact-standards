@@ -49,7 +49,7 @@ public class PropertyKonfiguration extends AbstractKonfiguration implements Konf
     /**
      * Sortiert die Liste an Dateinamen.
      */
-    private DateinamenSortierer dateinamenSortierer;
+    private DateinamenSortierer dateinamenSortierer = new DateinamenSortierer();
 
     /**
      * Logger der Klasse.
@@ -60,15 +60,23 @@ public class PropertyKonfiguration extends AbstractKonfiguration implements Konf
      * Erzeuge neue Instanz für angegebene Properties.
      * @param properties
      *            Die zu kapselnden Properties.
+     */
+    public PropertyKonfiguration(Properties properties) {
+
+        new PropertyKonfiguration(properties, RessourcenHelper.DEFAULTNAMENSSCHEMA);
+    }
+
+    /**
+     * Erzeuge neue Instanz für angegebene Properties.
+     * @param properties
+     *            Die zu kapselnden Properties.
      * @param namensSchema
      *            das Schema, dem die Dateinamen entsprechen müssen.
      */
-
     public PropertyKonfiguration(Properties properties, String namensSchema) {
 
         this.namensSchema = namensSchema;
         this.properties = properties;
-        this.dateinamenSortierer = new DateinamenSortierer();
     }
 
     /**
@@ -85,8 +93,28 @@ public class PropertyKonfiguration extends AbstractKonfiguration implements Konf
      *            "/" enden.
      */
     public PropertyKonfiguration(String propertyLocation) {
+
+        new PropertyKonfiguration(propertyLocation, RessourcenHelper.DEFAULTNAMENSSCHEMA);
+    }
+
+    /**
+     * Erzeuge neue Instanz für angegebene Properties. Die angegebenen Property-Dateien werden relativ zum
+     * Klassenpfad per {@link ClassLoader#getResourceAsStream(String)} geladen, wobei der {@link ClassLoader}
+     * über die Klasse von {@link PropertyKonfiguration} anhand {@link Class#getClassLoader()} ermittelt wird.
+     *
+     * Alle angegebenen Property-Dateien werden zu einer gemeinsamen Konfiguration vereinigt.
+     *
+     * @param propertyLocation
+     *            der Pfad zum Ordner der Properties-Dateien relativ zum Classpath. Im Gegensatz zu
+     *            {@link ReloadablePropertyKonfiguration#ReloadablePropertyKonfiguration(String[])} dürfen die
+     *            Pfade nicht mit "/" anfangen. Ein gültiger Pfad ist z.B. "config/". Der Pfad muss mit einem
+     *            "/" enden.
+     * @param namensSchema
+     *            das Schema, dem die Dateinamen entsprechen müssen.
+     */
+    public PropertyKonfiguration(String propertyLocation, String namensSchema) {
         if (propertyLocation.endsWith("/")) {
-            this.dateinamenSortierer = new DateinamenSortierer();
+            this.namensSchema = namensSchema;
             this.properties = ladeMergedProperties(propertyLocation);
         } else {
             throw new KonfigurationDateiException(NachrichtenSchluessel.ERR_PROPERTY_ORDNER_PFAD,
@@ -105,10 +133,28 @@ public class PropertyKonfiguration extends AbstractKonfiguration implements Konf
      *            die Pfade zu der Properties-Dateien relativ zum Classpath. Im Gegensatz zu
      *            {@link ReloadablePropertyKonfiguration#ReloadablePropertyKonfiguration(String[])} dürfen die
      *            Pfade nicht mit "/" anfangen. Ein gültiger Pfad ist z.B. "config/test.properties"
+     */
+    public PropertyKonfiguration(List<String> propertyLocations) {
+
+        new PropertyKonfiguration(propertyLocations, RessourcenHelper.DEFAULTNAMENSSCHEMA);
+    }
+
+    /**
+     * Erzeuge neue Instanz für angegebene Properties. Die angegebenen Property-Dateien werden relativ zum
+     * Klassenpfad per {@link ClassLoader#getResourceAsStream(String)} geladen, wobei der {@link ClassLoader}
+     * über die Klasse von {@link PropertyKonfiguration} anhand {@link Class#getClassLoader()} ermittelt wird.
+     *
+     * Alle angegebenen Property-Datei werden zu einer gemeinsamen Konfiguration vereinigt.
+     *
+     * @param propertyLocations
+     *            die Pfade zu der Properties-Dateien relativ zum Classpath. Im Gegensatz zu
+     *            {@link ReloadablePropertyKonfiguration#ReloadablePropertyKonfiguration(String[])} dürfen die
+     *            Pfade nicht mit "/" anfangen. Ein gültiger Pfad ist z.B. "config/test.properties"
      * @param namensSchema
      *            das Schema, dem die Dateinamen entsprechen müssen.
      */
     public PropertyKonfiguration(List<String> propertyLocations, String namensSchema) {
+
         this.namensSchema = namensSchema;
         this.properties = ladeMergedProperties(propertyLocations);
     }
