@@ -55,7 +55,7 @@ public abstract class AbstractLogTest {
     protected static final String LOG_DATEI = "testserver_testsystem.log";
 
     /** Der in den Subklassen einheitlich zu verwendende Logger. */
-    private static final IsyLogger LOGGER = IsyLoggerFactory.getLogger(AbstractLogTest.class);
+    private static final IsyLoggerStandard LOGGER = IsyLoggerFactory.getLogger(AbstractLogTest.class);
 
     /** Konstante für die Einleitung des Attributs "zeitstempel" in einem Logeintrag. */
     private static final String JSON_ZEITSTEMPEL_PRAEFIX = "zeitstempel\":\"";

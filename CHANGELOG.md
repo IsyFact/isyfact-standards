@@ -1,5 +1,9 @@
 # v1.5.0 (unveröffentlicht)
-- isy-konfiguration: Logeinträge bei Konfigurationsaktualisierung werden mit Korrelations-Id geloggt. Dazu muss ein Pointcut auf die Annotation @StelltLoggingKontextBereit im Anwendungssystem konfiguriert sein.
+- alle: `RF-161`: Bibliotheken binden genutzte Bibliotheken direkt ein und nicht mehr über BOM-Bibliotheken
+- isy-util: `IFS-9`: StelltLoggingKontextBereit-Annotation auch ohne AufrufkontextTo nutzbar
+- isy-logging: `IFS-42`: Erweiterung um Performance-Logging
+- isy-logging: `IFS-68`: Erweiterte Typisierung von Logeinträgen
+- isy-logging: `IFS-70`: Position vom Zeitstempel verschoben
 
 # v1.4.6
 - isy-sicherheit: Sonderlogik, die Underscores aus dem Attribut durchfuehrenderSachbearbeiterName des Aufrufkontextes entfernt, wieder eingebaut, da Ausbau erst für v1.5.x relevant.

@@ -28,9 +28,6 @@ import de.bund.bva.pliscommon.sicherheit.annotation.NutzerAuthentifizierung;
  */
 public class ServiceImpl implements ServiceIntf {
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     @NutzerAuthentifizierung(konfigurationSchluesselBenutzer = "testBenutzer")
     @Gesichert({})
@@ -38,9 +35,6 @@ public class ServiceImpl implements ServiceIntf {
         // noop
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     @NutzerAuthentifizierung(konfigurationSchluesselBenutzer = "testBenutzer")
     @Gesichert("Recht_A")
@@ -48,9 +42,6 @@ public class ServiceImpl implements ServiceIntf {
         // noop
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     @NutzerAuthentifizierung(konfigurationSchluesselBenutzer = "testBenutzer")
     @Gesichert("Recht_B")
@@ -58,9 +49,6 @@ public class ServiceImpl implements ServiceIntf {
         // noop
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     @NutzerAuthentifizierung(konfigurationSchluesselBenutzer = "testBenutzer")
     @Gesichert({ "Recht_A", "Recht_B" })
@@ -68,13 +56,30 @@ public class ServiceImpl implements ServiceIntf {
         // noop
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     @NutzerAuthentifizierung(konfigurationSchluesselBenutzer = "testBenutzer")
     @Gesichert("")
     public void gesichertDurch_leeresRecht() {
+        // noop
+    }
+
+    @Gesichert("Recht_A")
+    public static void statischeMethodeGesichert(){
+        // noop
+    }
+
+    @NutzerAuthentifizierung(konfigurationSchluesselBenutzer = "testBenutzer")
+    public static void statischeMethodeGesichertDurchNutzerAnnotation(){
+        // noop
+    }
+
+    @Override
+    public void nichtGesichert(){
+        // noop
+    }
+
+    @Override
+    public void gesichertAmInterface() {
         // noop
     }
 }

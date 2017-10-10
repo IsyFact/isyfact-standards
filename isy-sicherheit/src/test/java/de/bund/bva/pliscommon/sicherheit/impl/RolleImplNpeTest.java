@@ -16,22 +16,73 @@
  */
 package de.bund.bva.pliscommon.sicherheit.impl;
 
+import de.bund.bva.pliscommon.sicherheit.common.exception.RollenRechteMappingException;
 import org.junit.Assert;
 import org.junit.Test;
+
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertFalse;
+import static junit.framework.TestCase.assertTrue;
 
 public class RolleImplNpeTest {
 
     @Test
-    public void testEqualsObject() {
+    public void testEqualsZweiUnterschiedlicheRollen() {
+        RolleImpl r1 = new RolleImpl("r1", null);
+        RolleImpl r2 = new RolleImpl("r2", "notnull");
+        assertFalse(r1.equals(r2));
+    }
 
-        // ID und Name muessen gleich sein (auch NULL moeglich bei Namen)
-        Assert.assertTrue(new RolleImpl("r1", "nameR1").equals(new RolleImpl("r1", "nameR1")));
-        Assert.assertTrue(new RolleImpl("r1", null).equals(new RolleImpl("r1", null)));
+    @Test
+    public void testEqualsGleichesRollenObjekt() {
+        RolleImpl r1 = new RolleImpl("r1", null);
+        assertTrue(r1.equals(r1));
+    }
 
-        // False Szenarien
-        Assert.assertFalse(new RolleImpl("r1", "nameR1").equals(new RolleImpl("r1", "nameR2")));
-        Assert.assertFalse(new RolleImpl("r1", "nameR1").equals(new RolleImpl("r2", "nameR1")));
-        Assert.assertFalse(new RolleImpl("r1", null).equals(new RolleImpl("r1", "nameR2")));
-        Assert.assertFalse(new RolleImpl("r1", "nameR1").equals(new RolleImpl("r1", null)));
+    @Test
+    public void testEqualsNullParameter() {
+        RolleImpl r1 = new RolleImpl("r1", null);
+        assertFalse(r1.equals(null));
+    }
+
+    @Test
+    public void testEqualsAnderesObjekt() {
+        RolleImpl r1 = new RolleImpl("r1", null);
+        assertFalse(r1.equals(5));
+    }
+
+    @Test(expected = RollenRechteMappingException.class)
+    public void testRolleIdNull() {
+        RolleImpl r1 = new RolleImpl(null, null);
+    }
+
+    @Test
+    public void testEqualsGleicheIdsBeideNamenNull() {
+        RolleImpl r1 = new RolleImpl("r1", null);
+        RolleImpl r2 = new RolleImpl("r1", null);
+        assertTrue(r1.equals(r2));
+    }
+
+    @Test
+    public void testEqualsGleicheIdsUnterschiedlicheNamen() {
+        RolleImpl r1 = new RolleImpl("r1", "null");
+        RolleImpl r2 = new RolleImpl("r1", "notnull");
+        assertFalse(r1.equals(r2));
+    }
+
+    @Test
+    public void testEqualsGleicheIdsGleicheNamen() {
+        RolleImpl r1 = new RolleImpl("r1", "null");
+        RolleImpl r2 = new RolleImpl("r1", r1.getName());
+        assertTrue(r1.equals(r2));
+        assertEquals(r1.toString(), r2.toString());
+    }
+
+    @Test
+    public void testEqualsGleicheIdsEinNameNull() {
+        RolleImpl r1 = new RolleImpl("r1", null);
+        RolleImpl r2 = new RolleImpl(r1.getId());
+        r2.setName("notnull");
+        assertFalse(r1.equals(r2));
     }
 }
