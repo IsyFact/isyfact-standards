@@ -32,6 +32,7 @@ import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 import de.bund.bva.pliscommon.konfiguration.common.KonfigurationChangeListener;
 import de.bund.bva.pliscommon.konfiguration.common.ReloadableKonfiguration;
 import de.bund.bva.pliscommon.konfiguration.common.konstanten.EreignisSchluessel;
+import de.bund.bva.pliscommon.serviceapi.core.aufrufkontext.StelltLoggingKontextBereit;
 
 /**
  * Diese Klasse bietet einen typsicheren Zugriff auf eine Konfiguration {@link Konfiguration}. Dazu wird an
@@ -120,6 +121,7 @@ public class ReloadablePropertyKonfiguration implements ReloadableKonfiguration 
      * {@inheritDoc}
      */
     @Override
+    @StelltLoggingKontextBereit(nutzeAufrufKontext = false)
     public synchronized boolean checkAndUpdate() {
         LOG.debug("Prüfe auf geänderte Konfigurationsdateien.");
         boolean neueVersionGeladen = this.propertyProvider.checkAndUpdate();
