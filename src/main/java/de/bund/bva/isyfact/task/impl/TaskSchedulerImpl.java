@@ -18,12 +18,19 @@ import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.task.TaskScheduler;
 import de.bund.bva.isyfact.task.exception.HostNotApplicableException;
-import de.bund.bva.isyfact.task.handler.TaskHandler;
-import de.bund.bva.isyfact.task.handler.impl.TaskHandlerImpl;
+import de.bund.bva.isyfact.task.handler.AusfuehrungsplanHandler;
+import de.bund.bva.isyfact.task.handler.ExecutionDateTimeHandler;
+import de.bund.bva.isyfact.task.handler.HostHandler;
+import de.bund.bva.isyfact.task.handler.impl.AusfuehrungsplanHandlerImpl;
+import de.bund.bva.isyfact.task.handler.impl.ExecutionDateTimeHandlerImpl;
+import de.bund.bva.isyfact.task.konfiguration.DurationUtil;
 import de.bund.bva.isyfact.task.konstanten.FehlerSchluessel;
 import de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel;
 import de.bund.bva.isyfact.task.model.Task;
 import de.bund.bva.isyfact.task.model.TaskRunner;
+import de.bund.bva.isyfact.task.model.impl.TaskRunnerImpl;
+import de.bund.bva.isyfact.task.security.SecurityAuthenticator;
+import de.bund.bva.isyfact.task.security.SecurityAuthenticatorFactory;
 import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 import de.bund.bva.pliscommon.util.spring.MessageSourceHolder;
 import org.springframework.beans.BeansException;
@@ -41,11 +48,15 @@ import static de.bund.bva.isyfact.task.konstanten.KonfigurationStandardwerte.DEF
  * @author Alexander Salvanos, msg systems ag
  */
 public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware, Runnable {
-    private volatile ThreadLocal<Konfiguration> konfiguration = new ThreadLocal<>();
+    private ThreadLocal<Konfiguration> konfiguration = new ThreadLocal<>();
 
-    private volatile ThreadLocal<LocalDateTime> startTime = new ThreadLocal<>();
+    private ThreadLocal<SecurityAuthenticatorFactory> securityAuthenticatorFactory = new ThreadLocal<>();
 
-    private volatile ThreadLocal<ScheduledExecutorService> scheduledExecutorService = new ThreadLocal<>();
+    private final HostHandler hostHandler;
+
+    private ThreadLocal<LocalDateTime> startTime = new ThreadLocal<>();
+
+    private ThreadLocal<ScheduledExecutorService> scheduledExecutorService = new ThreadLocal<>();
 
     private final Map<String, TaskRunner> tasks = new HashMap<>();
 
@@ -62,8 +73,11 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
     /**
      * @param konfiguration
      */
-    public TaskSchedulerImpl(Konfiguration konfiguration) {
+    public TaskSchedulerImpl(Konfiguration konfiguration,
+        SecurityAuthenticatorFactory securityAuthenticatorFactory, HostHandler hostHandler) {
         this.konfiguration.set(konfiguration);
+        this.securityAuthenticatorFactory.set(securityAuthenticatorFactory);
+        this.hostHandler = hostHandler;
         this.startTime.set(LocalDateTime.now());
 
         int initialNumberOfThreads = DEFAULT_INITIAL_NUMBER_OF_THREADS;
@@ -79,17 +93,43 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
 
     @Override
     public void starteKonfigurierteTasks() {
-        TaskHandler taskHandler = new TaskHandlerImpl();
-
         for (String taskId : applicationContext.getBeanNamesForType(Task.class)) {
             try {
-                addTask(taskHandler.createTask(taskId, konfiguration.get(), applicationContext));
+                addTask(createTask(taskId, konfiguration.get(), applicationContext));
             } catch (HostNotApplicableException e) {
                 // TODO INFO-LOG
             }
         }
 
         start();
+    }
+
+    private TaskRunner createTask(String id, Konfiguration konfiguration,
+        ApplicationContext applicationContext) throws HostNotApplicableException {
+
+        TaskRunner taskRunner = null;
+        if (hostHandler.isHostApplicable(id, konfiguration)) {
+
+            SecurityAuthenticator securityAuthenticator = securityAuthenticatorFactory.get().getSecurityAuthenticator(id);
+
+            Task task = applicationContext.getBean(id, Task.class);
+
+            AusfuehrungsplanHandler ausfuehrungsplanHandler = new AusfuehrungsplanHandlerImpl();
+            AusfuehrungsplanHandlerImpl.Ausfuehrungsplan ausfuehrungsplan =
+                ausfuehrungsplanHandler.getAusfuehrungsplan(id, konfiguration);
+
+            ExecutionDateTimeHandler executionDateTimeHandler = new ExecutionDateTimeHandlerImpl();
+            LocalDateTime executionDateTime =
+                executionDateTimeHandler.getExecutionDateTime(id, konfiguration);
+
+            Duration initialDelay = DurationUtil.leseInitialDelay(id, konfiguration);
+            Duration fixedRate = DurationUtil.leseFixedRate(id, konfiguration);
+            Duration fixedDelay = DurationUtil.leseFixedDelay(id, konfiguration);
+
+            taskRunner = new TaskRunnerImpl(id, securityAuthenticator, task, ausfuehrungsplan, executionDateTime,
+                initialDelay, fixedRate, fixedDelay);
+        }
+        return taskRunner;
     }
 
     public void addTask(TaskRunner taskRunner) {
@@ -246,6 +286,7 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
     /**
      * Eine interne Methode, die laufend den Status des isy-timertasks überprüft.
      */
+    // TODO Methode wieder in innere Klasse verschieben
     @Override
     public void run() {
         while (!stop) {
@@ -259,11 +300,12 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
                             // TODO INFO-Log
                             e.printStackTrace();
                         } catch (ExecutionException e) {
-                            // TODO WARN-Log
+                            // TODO ERROR-Log
                             e.printStackTrace();
                             tasksNeuStarten.add(entry.getKey());
                         }
                     }
+                    // TODO Taks auch neu starten außer der Schleife
                 }
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException e) {

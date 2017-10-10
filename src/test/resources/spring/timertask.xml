@@ -2,48 +2,17 @@
 
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns="http://www.springframework.org/schema/beans"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <bean name="taskScheduler" class="de.bund.bva.isyfact.task.impl.TaskSchedulerImpl">
         <constructor-arg ref="konfiguration"/>
+        <constructor-arg ref="securityAuthenticatorFactory"/>
+        <constructor-arg ref="hosthandler"/>
     </bean>
 
-    <bean id="taskTest1" class="de.bund.bva.isyfact.task.TestTask1"/>
-    <bean id="taskTest2" class="de.bund.bva.isyfact.task.TestTask2">
-        <constructor-arg ref="taskTest2-monitor"/>
-    </bean>
-    <bean id="taskTest2-monitor" class="de.bund.bva.isyfact.task.jmx.TaskMonitor"/>
-    <bean id="taskTest3" class="de.bund.bva.isyfact.task.TestTask3">
-        <constructor-arg ref="taskTest3-monitor"/>
-    </bean>
-    <bean id="taskTest3-monitor" class="de.bund.bva.isyfact.task.jmx.TaskMonitor"/>
-
-    <bean id="mBeanExporter" class="org.springframework.jmx.export.MBeanExporter">
-        <property name="assembler">
-            <bean class="org.springframework.jmx.export.assembler.MetadataMBeanInfoAssembler">
-                <property name="attributeSource">
-                    <bean class="org.springframework.jmx.export.annotation.AnnotationJmxAttributeSource"/>
-                </property>
-            </bean>
-        </property>
-        <property name="autodetect" value="false"/>
-        <property name="beans">
-            <map>
-                <entry key="de.bund.bva.isyfact.taskRunner:type=TaskMonitor,name=&quot;TaskTest2&quot;"
-                       value-ref="taskTest2-monitor"/>
-                <entry key="de.bund.bva.isyfact.taskRunner:type=TaskMonitor,name=&quot;TaskTest3&quot;"
-                       value-ref="taskTest3-monitor"/>
-            </map>
-        </property>
-    </bean>
-
-    <bean id="konfiguration"
-          class="de.bund.bva.pliscommon.konfiguration.common.impl.ReloadablePropertyKonfiguration">
-        <constructor-arg>
-            <list>
-                <value>/config/timertask.properties</value>
-            </list>
-        </constructor-arg>
+    <bean id="konfiguration" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="de.bund.bva.pliscommon.konfiguration.common.impl.ReloadablePropertyKonfiguration" />
     </bean>
 
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
@@ -59,23 +28,42 @@
         <property name="messageSource" ref="messageSource"/>
     </bean>
 
-    <!-- TODO: Die übrigen Properties des SecurityAuthenticators injizieren-->
-    <bean name="securityAuthenticator"
-          class="de.bund.bva.isyfact.task.security.impl.SecurityAuthenticatorImpl">
-        <property name="behoerdenkennzeichen" value="${behoerdenkennzeichen}"/>
-        <property name="username" value="${username}"/>
-        <property name="password" value="${password}"/>
+    <bean id="hosthandler" class="de.bund.bva.isyfact.task.handler.impl.HostHandlerImpl"/>
+
+    <bean id="securityAuthenticatorFactory" class="de.bund.bva.isyfact.task.security.impl.IsySicherheitSecurityAuthenticatorFactory">
+        <constructor-arg ref="konfiguration"/>
+        <constructor-arg ref="sicherheit"/>
+        <constructor-arg ref="aufrufKontextFactory"/>
+        <constructor-arg ref="aufrufKontextVerwalter"/>
     </bean>
 
-    <!-- Sicherheit -->
-    <!--<bean id="sicherheit" class="de.bund.bva.pliscommon.sicherheit.impl.SicherheitImpl">
-        <property name="aufrufKontextVerwalter" ref="aufrufKontextVerwalter" />
-        <property name="aufrufKontextFactory" ref="aufrufKontextFactory" />
-        <property name="konfiguration" ref="konfiguration" />
+    <bean id="accessManagerDummy" class="de.bund.bva.isyfact.task.test.AccessManagerDummy"/>
+
+    <bean id="sicherheit" class="de.bund.bva.pliscommon.sicherheit.impl.SicherheitImpl">
+        <property name="rollenRechteDateiPfad" value="/sicherheit/rollenrechte.xml"/>
+        <property name="aufrufKontextVerwalter" ref="aufrufKontextVerwalter"/>
+        <property name="aufrufKontextFactory" ref="aufrufKontextFactory"/>
+        <property name="konfiguration" ref="konfiguration"/>
+        <property name="accessManager" ref="accessManagerDummy"/>
     </bean>
 
-    <bean id="aufrufKontextVerwalter" class="de.bund.bva.pliscommon.aufrufkontext.impl.AufrufKontextVerwalterImpl" />
-    <bean id="aufrufKontextFactory" class="de.bund.bva.pliscommon.aufrufkontext.impl.AufrufKontextFactoryImpl">
-        <property name="aufrufKontextKlasse" value="de.bund.bva.pliscommon.aufrufkontext.impl.AufrufKontextImpl" />
-    </bean>-->
+    <bean id="aufrufKontextVerwalter"
+          class="de.bund.bva.pliscommon.aufrufkontext.impl.AufrufKontextVerwalterImpl"/>
+
+    <bean id="aufrufKontextFactory"
+          class="de.bund.bva.pliscommon.aufrufkontext.impl.AufrufKontextFactoryImpl">
+        <property name="aufrufKontextKlasse"
+                  value="de.bund.bva.pliscommon.aufrufkontext.impl.AufrufKontextImpl"/>
+    </bean>
+
+    <bean id="gesichertInterceptor" class="de.bund.bva.pliscommon.sicherheit.annotation.GesichertInterceptor">
+        <property name="sicherheit" ref="sicherheit"/>
+    </bean>
+
+    <aop:config>
+        <aop:pointcut id="gesichertPointcut"
+                      expression="@annotation(de.bund.bva.pliscommon.sicherheit.annotation.Gesichert) || @within(de.bund.bva.pliscommon.sicherheit.annotation.Gesichert)"/>
+        <aop:advisor pointcut-ref="gesichertPointcut" advice-ref="gesichertInterceptor"/>
+    </aop:config>
+
 </beans>

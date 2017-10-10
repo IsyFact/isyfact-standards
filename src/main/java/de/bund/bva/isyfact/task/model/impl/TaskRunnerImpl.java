@@ -61,16 +61,18 @@ public class TaskRunnerImpl implements TaskRunner {
     public void run() {
         try {
             MdcHelper.pushKorrelationsId(UUID.randomUUID().toString());
-            //securityAuthenticatorThreadLocal.get().login();
+            securityAuthenticator.login();
 
             task.execute();
 
-            //securityAuthenticatorThreadLocal.get().logout();
-            MdcHelper.entferneKorrelationsId();
-
             task.zeichneErfolgreicheAusfuehrungAuf();
         } catch (Exception e) {
+            // Fachliche Exceptions loggen mit INFO
+            // Technische loggen und weiter werfen
             task.zeichneFehlgeschlageneAusfuehrungAuf(e);
+        } finally {
+            securityAuthenticator.logout();
+            MdcHelper.entferneKorrelationsId();
         }
     }
 
