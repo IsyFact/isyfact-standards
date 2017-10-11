@@ -1,8 +1,8 @@
 package de.bund.bva.isyfact.task;
 
-import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
 
+import de.bund.bva.isyfact.datetime.util.DateTimeUtil;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
@@ -17,7 +17,7 @@ public class TestTask1 extends AbstractTask {
         for (int i = 0; i < 10; i++) {
             try {
                 TimeUnit.SECONDS.sleep(1);
-                LOG.info(LogKategorie.JOURNAL, "OP1", "{} running Task 1", LocalDateTime.now());
+                LOG.info(LogKategorie.JOURNAL, "OP1", "{} running Task 1", DateTimeUtil.localDateTimeNow());
             } catch (InterruptedException e) {
                 LOG.debug("Thread unterbrochen");
                 return;

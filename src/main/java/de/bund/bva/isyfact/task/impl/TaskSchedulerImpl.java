@@ -14,6 +14,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 
+import de.bund.bva.isyfact.datetime.util.DateTimeUtil;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.task.TaskScheduler;
@@ -78,7 +79,7 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
         this.konfiguration.set(konfiguration);
         this.securityAuthenticatorFactory.set(securityAuthenticatorFactory);
         this.hostHandler = hostHandler;
-        this.startTime.set(LocalDateTime.now());
+        this.startTime.set(DateTimeUtil.localDateTimeNow());
 
         int initialNumberOfThreads = DEFAULT_INITIAL_NUMBER_OF_THREADS;
         if (konfiguration != null) {
@@ -164,11 +165,12 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
      */
     private synchronized ScheduledFuture<?> schedule(TaskRunner taskRunner) {
         LOG.debug("Reihe TaskRunner {} ein (delay: {})", taskRunner.getId(),
-            Duration.between(LocalDateTime.now(), taskRunner.getExecutionDateTime()));
+            Duration.between(DateTimeUtil.localDateTimeNow(), taskRunner.getExecutionDateTime()));
         ScheduledFuture<?> scheduledFuture = null;
         try {
             scheduledFuture = scheduledExecutorService.get().schedule(taskRunner,
-                Duration.between(LocalDateTime.now(), taskRunner.getExecutionDateTime()).getSeconds(),
+                Duration.between(DateTimeUtil.localDateTimeNow(), taskRunner.getExecutionDateTime())
+                    .getSeconds(),
                 TimeUnit.SECONDS);
             scheduledFutures.put(taskRunner.getId(), scheduledFuture);
             counter.incrementAndGet();

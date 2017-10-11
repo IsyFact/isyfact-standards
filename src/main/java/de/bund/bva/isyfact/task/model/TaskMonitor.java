@@ -2,6 +2,7 @@ package de.bund.bva.isyfact.task.model;
 
 import java.time.LocalDateTime;
 
+import de.bund.bva.isyfact.datetime.util.DateTimeUtil;
 import de.bund.bva.pliscommon.exception.PlisException;
 import org.springframework.jmx.export.annotation.ManagedAttribute;
 import org.springframework.jmx.export.annotation.ManagedOperation;
@@ -23,15 +24,13 @@ public class TaskMonitor {
     }
 
     public void zeichneErfolgreicheAusfuehrungAuf() {
-        // TODO isy-datetime?
-        letzteAusfuehrungAbgeschlossen = LocalDateTime.now();
+        letzteAusfuehrungAbgeschlossen = DateTimeUtil.localDateTimeNow();
         letzteAusfuehrungErfolgreich = true;
         letzterFehler = null;
     }
 
     public void zeichneFehlgeschlageneAusfuehrungAuf(Exception letzterFehler) {
-        // TODO isy-datetime?
-        letzteAusfuehrungAbgeschlossen = LocalDateTime.now();
+        letzteAusfuehrungAbgeschlossen = DateTimeUtil.localDateTimeNow();
         letzteAusfuehrungErfolgreich = false;
         this.letzterFehler = letzterFehler;
     }

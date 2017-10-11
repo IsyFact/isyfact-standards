@@ -61,6 +61,11 @@
             <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-util</artifactId>
         </dependency>
+        <dependency>
+            <groupId>de.bund.bva.isyfact</groupId>
+            <artifactId>isy-datetime</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
 
         <!-- Test -->
         <dependency>

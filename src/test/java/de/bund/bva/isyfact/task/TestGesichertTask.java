@@ -1,7 +1,6 @@
 package de.bund.bva.isyfact.task;
 
 import java.net.InetAddress;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -9,6 +8,7 @@ import javax.management.MBeanServer;
 import javax.management.MBeanServerFactory;
 import javax.management.ObjectName;
 
+import de.bund.bva.isyfact.datetime.util.DateTimeUtil;
 import de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel;
 import de.bund.bva.isyfact.task.konstanten.KonfigurationStandardwerte;
 import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
@@ -21,7 +21,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.endsWith;
+import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -51,8 +51,15 @@ public class TestGesichertTask {
         String dateTimePattern = konfiguration.getAsString(KonfigurationSchluessel.DATETIME_PATTERN,
             KonfigurationStandardwerte.DEFAULT_DATETIME_PATTERN);
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(dateTimePattern);
-        String executionDateTime1 = LocalDateTime.now().plusSeconds(1).format(dateTimeFormatter);
+        String executionDateTime1 = DateTimeUtil.localDateTimeNow().plusSeconds(1).format(dateTimeFormatter);
         when(konfiguration.getAsString("isyfact.task.gesichertTask.zeitpunkt")).thenReturn(executionDateTime1);
+
+        when(konfiguration.getAsString(eq("isyfact.task.gesichertTask.initial-delay"), anyString()))
+            .thenReturn("0s");
+        when(konfiguration.getAsString(eq("isyfact.task.gesichertTask.fixed-rate"), anyString()))
+            .thenReturn("0s");
+        when(konfiguration.getAsString(eq("isyfact.task.gesichertTask.fixed-delay"), anyString()))
+            .thenReturn("0s");
 
         taskScheduler.starteKonfigurierteTasks();
 
@@ -69,7 +76,7 @@ public class TestGesichertTask {
         String dateTimePattern = konfiguration.getAsString(KonfigurationSchluessel.DATETIME_PATTERN,
             KonfigurationStandardwerte.DEFAULT_DATETIME_PATTERN);
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(dateTimePattern);
-        String executionDateTime1 = LocalDateTime.now().plusSeconds(1).format(dateTimeFormatter);
+        String executionDateTime1 = DateTimeUtil.localDateTimeNow().plusSeconds(1).format(dateTimeFormatter);
         when(konfiguration.getAsString("isyfact.task.gesichertTask.zeitpunkt")).thenReturn(executionDateTime1);
 
         taskScheduler.starteKonfigurierteTasks();
