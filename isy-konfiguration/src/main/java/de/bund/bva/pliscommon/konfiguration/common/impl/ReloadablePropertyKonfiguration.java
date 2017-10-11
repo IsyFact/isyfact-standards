@@ -86,11 +86,7 @@ public class ReloadablePropertyKonfiguration implements ReloadableKonfiguration 
      *            Liste von Property-Dateinamen.
      */
     public ReloadablePropertyKonfiguration(String[] propertyLocations) {
-        this.namensSchema = RessourcenHelper.DEFAULTNAMENSSCHEMA;
-        this.propertyProvider = new ReloadablePropertyProvider(propertyLocations, this.namensSchema);
-        this.konfigurationChangeListener = new LinkedList<>();
-        this.propertyKonfiguration =
-            new PropertyKonfiguration(this.propertyProvider.getProperties(), this.namensSchema);
+        this(propertyLocations, RessourcenHelper.DEFAULTNAMENSSCHEMA);
     }
 
     /**
