@@ -86,7 +86,7 @@ public class ReloadablePropertyKonfiguration implements ReloadableKonfiguration 
      *            Liste von Property-Dateinamen.
      */
     public ReloadablePropertyKonfiguration(String[] propertyLocations) {
-        new ReloadablePropertyKonfiguration(propertyLocations, RessourcenHelper.DEFAULTNAMENSSCHEMA);
+        this(propertyLocations, RessourcenHelper.DEFAULTNAMENSSCHEMA);
     }
 
     /**

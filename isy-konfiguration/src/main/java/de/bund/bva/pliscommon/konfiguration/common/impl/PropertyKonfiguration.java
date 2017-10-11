@@ -62,8 +62,7 @@ public class PropertyKonfiguration extends AbstractKonfiguration implements Konf
      *            Die zu kapselnden Properties.
      */
     public PropertyKonfiguration(Properties properties) {
-
-        new PropertyKonfiguration(properties, RessourcenHelper.DEFAULTNAMENSSCHEMA);
+        this(properties, RessourcenHelper.DEFAULTNAMENSSCHEMA);
     }
 
     /**
@@ -74,7 +73,6 @@ public class PropertyKonfiguration extends AbstractKonfiguration implements Konf
      *            das Schema, dem die Dateinamen entsprechen müssen.
      */
     public PropertyKonfiguration(Properties properties, String namensSchema) {
-
         this.namensSchema = namensSchema;
         this.properties = properties;
     }
@@ -93,8 +91,7 @@ public class PropertyKonfiguration extends AbstractKonfiguration implements Konf
      *            "/" enden.
      */
     public PropertyKonfiguration(String propertyLocation) {
-
-        new PropertyKonfiguration(propertyLocation, RessourcenHelper.DEFAULTNAMENSSCHEMA);
+        this(propertyLocation, RessourcenHelper.DEFAULTNAMENSSCHEMA);
     }
 
     /**
@@ -135,8 +132,7 @@ public class PropertyKonfiguration extends AbstractKonfiguration implements Konf
      *            Pfade nicht mit "/" anfangen. Ein gültiger Pfad ist z.B. "config/test.properties"
      */
     public PropertyKonfiguration(List<String> propertyLocations) {
-
-        new PropertyKonfiguration(propertyLocations, RessourcenHelper.DEFAULTNAMENSSCHEMA);
+        this(propertyLocations, RessourcenHelper.DEFAULTNAMENSSCHEMA);
     }
 
     /**
@@ -154,7 +150,6 @@ public class PropertyKonfiguration extends AbstractKonfiguration implements Konf
      *            das Schema, dem die Dateinamen entsprechen müssen.
      */
     public PropertyKonfiguration(List<String> propertyLocations, String namensSchema) {
-
         this.namensSchema = namensSchema;
         this.properties = ladeMergedProperties(propertyLocations);
     }
