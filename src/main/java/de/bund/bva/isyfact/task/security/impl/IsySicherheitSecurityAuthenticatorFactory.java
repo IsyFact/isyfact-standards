@@ -8,6 +8,7 @@ import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextFactory;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
+import de.bund.bva.pliscommon.konfiguration.common.exception.KonfigurationException;
 import de.bund.bva.pliscommon.sicherheit.Sicherheit;
 
 import static de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel.*;
@@ -21,7 +22,6 @@ import static de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel.*;
  */
 public class IsySicherheitSecurityAuthenticatorFactory implements SecurityAuthenticatorFactory {
 	private final static IsyLogger LOG = IsyLoggerFactory.getLogger(IsySicherheitSecurityAuthenticatorFactory.class);
-
 
 	private final Konfiguration konfiguration;
 
@@ -47,11 +47,16 @@ public class IsySicherheitSecurityAuthenticatorFactory implements SecurityAuthen
 	 * @return a SecurityAuthenticator
 	 */
 	public synchronized SecurityAuthenticator getSecurityAuthenticator(String taskId) {
-		String benutzer = konfiguration.getAsString(PRAEFIX + taskId + BENUTZER);
-		String passwort = konfiguration.getAsString(PRAEFIX + taskId + PASSWORT);
-		String bhkz = konfiguration.getAsString(PRAEFIX + taskId + BEHOERDENKENNYEICHEN);
+        try {
+            String benutzer = konfiguration.getAsString(PRAEFIX + taskId + BENUTZER);
+            String passwort = konfiguration.getAsString(PRAEFIX + taskId + PASSWORT);
+            String bhkz = konfiguration.getAsString(PRAEFIX + taskId + BEHOERDENKENNZEICHEN);
 
-		return new IsySicherheitSecurityAuthenticator(benutzer, passwort, bhkz, aufrufKontextVerwalter,
-			aufrufKontextFactory, sicherheit);
-	}
+            return new IsySicherheitSecurityAuthenticator(benutzer, passwort, bhkz, aufrufKontextVerwalter,
+                aufrufKontextFactory, sicherheit);
+        } catch (KonfigurationException e) {
+            // TODO Log?
+            return new NoOpSecurityAuthenticator();
+        }
+    }
 }

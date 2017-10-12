@@ -291,8 +291,6 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
         public void run() {
             ScheduledFuture<?> taskFuture = scheduledFutures.get(taskId);
 
-            System.out.println("Watchdog für " + taskId + " gestartet");
-
             do {
                 try {
                     taskFuture.get();
@@ -317,8 +315,6 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
                     stop = true;
                 }
             } while (!stop);
-
-            System.out.println("Watchdog für " + taskId + " beendet");
         }
 
         private void addTask(String id) {
@@ -328,8 +324,6 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
                 // TODO log
             }
         }
-
-
     }
 
     @Override

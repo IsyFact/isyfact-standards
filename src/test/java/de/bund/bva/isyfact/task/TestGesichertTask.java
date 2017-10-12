@@ -9,8 +9,7 @@ import org.junit.Test;
 import org.springframework.test.context.ContextConfiguration;
 
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.when;
 
 @ContextConfiguration(locations = { "/spring/timertask.xml", "/spring/gesichertTask.xml" })
@@ -50,6 +49,9 @@ public class TestGesichertTask extends AbstractTaskTest {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(dateTimePattern);
         String executionDateTime1 = DateTimeUtil.localDateTimeNow().plusSeconds(1).format(dateTimeFormatter);
         when(konfiguration.getAsString("isyfact.task.gesichertTask.zeitpunkt")).thenReturn(executionDateTime1);
+
+        when(konfiguration.getAsInteger(eq(KonfigurationSchluessel.WATCHDOG_RESTART_INTERVAL), anyInt()))
+            .thenReturn(3);
 
         taskScheduler.starteKonfigurierteTasks();
 

@@ -39,8 +39,11 @@ public class TestTaskScheduler extends AbstractTaskTest {
         when(konfiguration.getAsString(eq("isyfact.task.taskTest1.fixed-delay"), anyString()))
             .thenReturn("0s");
 
-        when(konfiguration.getAsString("isyfact.task.taskTest2.benutzer")).thenReturn("TestUser2");
-        when(konfiguration.getAsString("isyfact.task.taskTest2.passwort")).thenReturn("TestPasswort2");
+        //when(konfiguration.getAsString("isyfact.task.taskTest2.benutzer")).thenReturn("TestUser2");
+        //when(konfiguration.getAsString("isyfact.task.taskTest2.passwort")).thenReturn("TestPasswort2");
+        when(konfiguration.getAsString("isyfact.task.taskTest2.benutzer")).thenThrow(
+            new KonfigurationParameterException(NachrichtenSchluessel.ERR_PARAMETER_LEER,
+                "isyfact.task.taskTest2.benutzer"));
         when(konfiguration.getAsString("isyfact.task.taskTest2.ausfuehrung")).thenReturn("FIXED_RATE");
 
         when(konfiguration.getAsString(eq("isyfact.task.taskTest2.initial-delay"), anyString()))
@@ -71,11 +74,9 @@ public class TestTaskScheduler extends AbstractTaskTest {
 
         taskScheduler.starteKonfigurierteTasks();
 
-        taskScheduler.awaitTerminationInSeconds(60);
+        taskScheduler.awaitTerminationInSeconds(20);
 
         int amount_of_threads = konfiguration.getAsInteger("isyfact.task.standard.amount_of_threads");
         assertEquals(amount_of_threads, 100);
-
-        System.out.println("ScheduledExecuterService will shut down now!");
     }
 }

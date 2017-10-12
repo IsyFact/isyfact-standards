@@ -13,7 +13,8 @@ public abstract class KonfigurationSchluessel {
 
     public static final String BENUTZER = ".benutzer";
     public static final String PASSWORT = ".passwort";
-    public static final String BEHOERDENKENNYEICHEN = ".bhkz";
+
+    public static final String BEHOERDENKENNZEICHEN = ".bhkz";
     public static final String HOST = ".host";
     public static final String AUSFUEHRUNGSPLAN = ".ausfuehrung";
     public static final String ZEITPUNKT = ".zeitpunkt";
