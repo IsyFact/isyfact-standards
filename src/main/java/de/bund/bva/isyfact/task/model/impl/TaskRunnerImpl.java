@@ -4,12 +4,16 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import de.bund.bva.isyfact.logging.IsyLogger;
+import de.bund.bva.isyfact.logging.IsyLoggerFactory;
+import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
 import de.bund.bva.isyfact.task.handler.AusfuehrungsplanHandler.Ausfuehrungsplan;
 import de.bund.bva.isyfact.task.handler.impl.AusfuehrungsplanHandlerImpl;
 import de.bund.bva.isyfact.task.model.Task;
 import de.bund.bva.isyfact.task.model.TaskRunner;
 import de.bund.bva.isyfact.task.security.SecurityAuthenticator;
+import de.bund.bva.pliscommon.exception.PlisException;
 
 /**
  * Ein TaskRunner entspricht einer auszuführenden Aufgabe.
@@ -28,6 +32,8 @@ import de.bund.bva.isyfact.task.security.SecurityAuthenticator;
  * @author Alexander Salvanos, msg systems ag
  */
 public class TaskRunnerImpl implements TaskRunner {
+    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(TaskRunnerImpl.class);
+
     private final String id;
 
     private final SecurityAuthenticator securityAuthenticator;
@@ -71,9 +77,14 @@ public class TaskRunnerImpl implements TaskRunner {
 
             task.zeichneErfolgreicheAusfuehrungAuf();
         } catch (Exception e) {
-            // Fachliche Exceptions loggen mit INFO
-            // Technische loggen und weiter werfen
             task.zeichneFehlgeschlageneAusfuehrungAuf(e);
+
+            if (e instanceof PlisException) {
+                LOG.info(LogKategorie.JOURNAL,
+                    "Während der Ausführung des Tasks ist eine Exception aufgetreten", (PlisException) e);
+            } else {
+                throw e;
+            }
         } finally {
             securityAuthenticator.logout();
             MdcHelper.entferneKorrelationsId();

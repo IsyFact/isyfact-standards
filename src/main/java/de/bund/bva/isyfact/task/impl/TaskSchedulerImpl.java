@@ -11,12 +11,11 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicLong;
 
 import de.bund.bva.isyfact.datetime.util.DateTimeUtil;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
+import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.task.TaskScheduler;
 import de.bund.bva.isyfact.task.exception.HostNotApplicableException;
 import de.bund.bva.isyfact.task.handler.AusfuehrungsplanHandler;
@@ -34,69 +33,56 @@ import de.bund.bva.isyfact.task.security.SecurityAuthenticator;
 import de.bund.bva.isyfact.task.security.SecurityAuthenticatorFactory;
 import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 import de.bund.bva.pliscommon.util.spring.MessageSourceHolder;
-import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
 import static de.bund.bva.isyfact.task.konstanten.KonfigurationStandardwerte.DEFAULT_INITIAL_NUMBER_OF_THREADS;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
- * Der TaskScheduler bietet die Möglichkeit, dass Tasks zu bestimmten Zeitpunkten ausgeführt werden können.
+ * Der TaskScheduler bietet die Möglichkeit, Tasks zu bestimmten Zeitpunkten auszuführen.
  *
  * Intern arbeitet TaskScheduler mit Thread-Local-gesicherten ScheduledExecutorServices, sodass auch
  * ein TaskScheduler Thread-sicher von mehreren Threads Thread-sicher durchlaufen werden kann.
  *
- * @author Alexander Salvanos, msg systems ag
  */
-public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware, Runnable {
-    private ThreadLocal<Konfiguration> konfiguration = new ThreadLocal<>();
+public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware {
+    private final Konfiguration konfiguration;
 
-    private ThreadLocal<SecurityAuthenticatorFactory> securityAuthenticatorFactory = new ThreadLocal<>();
+    private final SecurityAuthenticatorFactory securityAuthenticatorFactory;
 
     private final HostHandler hostHandler;
 
-    private ThreadLocal<LocalDateTime> startTime = new ThreadLocal<>();
+    private ScheduledExecutorService scheduledExecutorService;
 
-    private ThreadLocal<ScheduledExecutorService> scheduledExecutorService = new ThreadLocal<>();
-
-    private final Map<String, TaskRunner> tasks = new HashMap<>();
+    private final List<TaskRunner> zuStartendeTaks = new ArrayList<>();
 
     private final Map<String, ScheduledFuture<?>> scheduledFutures = new HashMap<>();
 
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(TaskSchedulerImpl.class);
 
-    private final AtomicLong counter = new AtomicLong();
-
     private ApplicationContext applicationContext;
 
-    private boolean stop = false;
-
-    /**
-     * @param konfiguration
-     */
     public TaskSchedulerImpl(Konfiguration konfiguration,
         SecurityAuthenticatorFactory securityAuthenticatorFactory, HostHandler hostHandler) {
-        this.konfiguration.set(konfiguration);
-        this.securityAuthenticatorFactory.set(securityAuthenticatorFactory);
+        this.konfiguration = konfiguration;
+        this.securityAuthenticatorFactory = securityAuthenticatorFactory;
         this.hostHandler = hostHandler;
-        this.startTime.set(DateTimeUtil.localDateTimeNow());
 
         int initialNumberOfThreads = DEFAULT_INITIAL_NUMBER_OF_THREADS;
         if (konfiguration != null) {
             initialNumberOfThreads =
-                this.konfiguration.get().getAsInteger(KonfigurationSchluessel.INITIAL_NUMBER_OF_THREADS);
+                this.konfiguration.getAsInteger(KonfigurationSchluessel.INITIAL_NUMBER_OF_THREADS);
         }
 
-        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(initialNumberOfThreads);
-
-        this.scheduledExecutorService.set(executorService);
+        scheduledExecutorService = Executors.newScheduledThreadPool(initialNumberOfThreads);
     }
 
     @Override
     public void starteKonfigurierteTasks() {
         for (String taskId : applicationContext.getBeanNamesForType(Task.class)) {
             try {
-                addTask(createTask(taskId, konfiguration.get(), applicationContext));
+                addTask(createTask(taskId, konfiguration, applicationContext));
             } catch (HostNotApplicableException e) {
                 // TODO INFO-LOG
             }
@@ -111,7 +97,8 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
         TaskRunner taskRunner = null;
         if (hostHandler.isHostApplicable(id, konfiguration)) {
 
-            SecurityAuthenticator securityAuthenticator = securityAuthenticatorFactory.get().getSecurityAuthenticator(id);
+            SecurityAuthenticator securityAuthenticator =
+                securityAuthenticatorFactory.getSecurityAuthenticator(id);
 
             Task task = applicationContext.getBean(id, Task.class);
 
@@ -133,13 +120,17 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
         return taskRunner;
     }
 
-    public void addTask(TaskRunner taskRunner) {
-        tasks.put(taskRunner.getId(), taskRunner);
+    public synchronized void addTask(TaskRunner taskRunner) {
+        zuStartendeTaks.add(taskRunner);
     }
 
     @Override
-    public void start() {
-        for (TaskRunner taskRunner : tasks.values()) {
+    public synchronized void start() {
+        starteTasks(true);
+    }
+
+    private void starteTasks(boolean starteWatchdog) {
+        for (TaskRunner taskRunner : zuStartendeTaks) {
             ScheduledFuture<?> scheduledFuture = null;
             switch (taskRunner.getAusfuehrungsplan()) {
             case ONCE:
@@ -154,7 +145,12 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
             }
             String id = taskRunner.getId();
             scheduledFutures.put(id, scheduledFuture);
+            if (starteWatchdog) {
+                new Thread(new CompletionWatchdog(id)).start();
+            }
+
         }
+        zuStartendeTaks.clear();
     }
 
     /**
@@ -168,12 +164,10 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
             Duration.between(DateTimeUtil.localDateTimeNow(), taskRunner.getExecutionDateTime()));
         ScheduledFuture<?> scheduledFuture = null;
         try {
-            scheduledFuture = scheduledExecutorService.get().schedule(taskRunner,
+            scheduledFuture = scheduledExecutorService.schedule(taskRunner,
                 Duration.between(DateTimeUtil.localDateTimeNow(), taskRunner.getExecutionDateTime())
-                    .getSeconds(),
-                TimeUnit.SECONDS);
+                    .getSeconds(), SECONDS);
             scheduledFutures.put(taskRunner.getId(), scheduledFuture);
-            counter.incrementAndGet();
 
         } catch (Exception e) {
             taskRunner.getTask().zeichneFehlgeschlageneAusfuehrungAuf(e);
@@ -198,11 +192,10 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
             taskRunner.getInitialDelay(), taskRunner.getFixedRate());
         ScheduledFuture<?> scheduledFuture = null;
         try {
-            scheduledFuture = scheduledExecutorService.get()
+            scheduledFuture = scheduledExecutorService
                 .scheduleAtFixedRate(taskRunner, taskRunner.getInitialDelay().getSeconds(),
-                    taskRunner.getFixedRate().getSeconds(), TimeUnit.SECONDS);
+                    taskRunner.getFixedRate().getSeconds(), SECONDS);
             scheduledFutures.put(taskRunner.getId(), scheduledFuture);
-            counter.incrementAndGet();
 
         } catch (Exception e) {
             taskRunner.getTask().zeichneFehlgeschlageneAusfuehrungAuf(e);
@@ -224,11 +217,10 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
             taskRunner.getInitialDelay(), taskRunner.getFixedDelay());
         ScheduledFuture<?> scheduledFuture = null;
         try {
-            scheduledFuture = scheduledExecutorService.get()
+            scheduledFuture = scheduledExecutorService
                 .scheduleWithFixedDelay(taskRunner, taskRunner.getInitialDelay().getSeconds(),
-                    taskRunner.getFixedDelay().getSeconds(), TimeUnit.SECONDS);
+                    taskRunner.getFixedDelay().getSeconds(), SECONDS);
             scheduledFutures.put(taskRunner.getId(), scheduledFuture);
-            counter.incrementAndGet();
 
         } catch (Exception e) {
             taskRunner.getTask().zeichneFehlgeschlageneAusfuehrungAuf(e);
@@ -249,8 +241,8 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
      */
     @Override
     public void awaitTerminationInSeconds(long seconds) throws InterruptedException {
-        LOG.debug("awaitTerminationInSeconds ", " counter: " + counter.get());
-        scheduledExecutorService.get().awaitTermination(seconds, TimeUnit.SECONDS);
+        LOG.debug("awaitTerminationInSeconds");
+        scheduledExecutorService.awaitTermination(seconds, SECONDS);
     }
 
     /**
@@ -260,8 +252,8 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
      */
     @Override
     public void shutDown() {
-        LOG.debug("shutDown ", " counter: " + counter.get());
-        scheduledExecutorService.get().shutdown();
+        LOG.debug("shutDown");
+        scheduledExecutorService.shutdown();
     }
 
     /**
@@ -272,8 +264,8 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
      */
     @Override
     public List<Runnable> shutDownNow() {
-        LOG.debug("shutDownNow ", " counter: " + counter.get());
-        return scheduledExecutorService.get().shutdownNow();
+        LOG.debug("shutDownNow");
+        return scheduledExecutorService.shutdownNow();
     }
 
     /**
@@ -281,51 +273,67 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
      */
     @Override
     public boolean isTerminated() {
-        LOG.debug("isTerminated ", " counter: " + counter.get());
-        return scheduledExecutorService.get().isTerminated();
+        LOG.debug("isTerminated");
+        return scheduledExecutorService.isTerminated();
     }
 
-    /**
-     * Eine interne Methode, die laufend den Status des isy-timertasks überprüft.
-     */
-    // TODO Methode wieder in innere Klasse verschieben
-    @Override
-    public void run() {
-        while (!stop) {
-            try {
-                List<String> tasksNeuStarten = new ArrayList<>();
-                for (Map.Entry<String, ScheduledFuture<?>> entry : scheduledFutures.entrySet()) {
-                    if (entry.getValue().isCancelled()) {
-                        try {
-                            entry.getValue().get();
-                        } catch (CancellationException e) {
-                            // TODO INFO-Log
-                            e.printStackTrace();
-                        } catch (ExecutionException e) {
-                            // TODO ERROR-Log
-                            e.printStackTrace();
-                            tasksNeuStarten.add(entry.getKey());
-                        }
+    private class CompletionWatchdog implements Runnable {
+
+        private boolean stop = false;
+
+        private final String taskId;
+
+        CompletionWatchdog(String taskId) {
+            this.taskId = taskId;
+        }
+
+        @Override
+        public void run() {
+            ScheduledFuture<?> taskFuture = scheduledFutures.get(taskId);
+
+            System.out.println("Watchdog für " + taskId + " gestartet");
+
+            do {
+                try {
+                    taskFuture.get();
+                    stop = true;
+                } catch (CancellationException e) {
+                    LOG.info(LogKategorie.JOURNAL, "ISYTA99999", "Task wurde abgebrochen.", e);
+                    stop = true;
+                } catch (ExecutionException e) {
+                    LOG.warn("ISYTA99999", "Task wurde fehlerhaft beendet.", e.getCause());
+                    taskFuture.cancel(true);
+                    addTask(taskId);
+                    starteTasks(false);
+                    taskFuture = scheduledFutures.get(taskId);
+
+                    try {
+                        SECONDS.sleep(
+                            konfiguration.getAsInteger(KonfigurationSchluessel.WATCHDOG_RESTART_INTERVAL, 1));
+                    } catch (InterruptedException ie) {
+                        stop = true;
                     }
-                    // TODO Taks auch neu starten außer der Schleife
+                } catch (InterruptedException e) {
+                    stop = true;
                 }
-                TimeUnit.SECONDS.sleep(1);
-            } catch (InterruptedException e) {
-                stop = true;
+            } while (!stop);
+
+            System.out.println("Watchdog für " + taskId + " beendet");
+        }
+
+        private void addTask(String id) {
+            try {
+                TaskSchedulerImpl.this.addTask(createTask(id, konfiguration, applicationContext));
+            } catch (HostNotApplicableException hnae) {
+                // TODO log
             }
         }
-    }
 
-    /**
-     *
-     */
-    @Override
-    public void stop() {
-        stop = true;
+
     }
 
     @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+    public void setApplicationContext(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
     }
 }

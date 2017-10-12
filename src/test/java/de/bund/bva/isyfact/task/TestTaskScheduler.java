@@ -1,52 +1,27 @@
 package de.bund.bva.isyfact.task;
 
-import java.net.InetAddress;
 import java.time.format.DateTimeFormatter;
 
 import de.bund.bva.isyfact.datetime.util.DateTimeUtil;
 import de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel;
 import de.bund.bva.isyfact.task.konstanten.KonfigurationStandardwerte;
-import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 import de.bund.bva.pliscommon.konfiguration.common.exception.KonfigurationParameterException;
 import de.bund.bva.pliscommon.konfiguration.common.konstanten.NachrichtenSchluessel;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.*;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 
 /**
  * Tester for the TaskData Scheduler Class.
  * Die Zeitangabe erfolgt über das Pattern: "dd.MM.yyyy HH:mm:ss.SSS"
  * Der Zeitpunkt wird entweder über eine Properties-Datei oder programmatisch festgelegt.
- *
- * @author Alexander Salvanos, msg systems ag
  */
-@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/spring/timertask.xml", "/spring/tasks1_2_3.xml" })
-@DirtiesContext
-public class TestTaskScheduler {
-    @Autowired
-    private Konfiguration konfiguration;
-
-    @Autowired
-    private TaskScheduler taskScheduler;
-
-    @Before
-    public void setUp() throws Exception {
-        when(konfiguration.getAsString(KonfigurationSchluessel.DATETIME_PATTERN,
-            KonfigurationStandardwerte.DEFAULT_DATETIME_PATTERN)).thenReturn("dd.MM.yyyy HH:mm:ss.SSS");
-        when(konfiguration.getAsInteger("isyfact.task.standard.amount_of_threads")).thenReturn(100);
-        when(konfiguration.getAsString(endsWith("host")))
-            .thenReturn(InetAddress.getLocalHost().getHostName());
-    }
-
+public class TestTaskScheduler extends AbstractTaskTest {
     @Test
     public void testSchedule() throws Exception {
         when(konfiguration.getAsString("isyfact.task.taskTest1.benutzer")).thenReturn("TestUser1");

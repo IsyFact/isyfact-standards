@@ -24,10 +24,6 @@ public interface TaskScheduler {
 	 */
 	void start() throws NoSuchMethodException;
 
-	/**
-	 *
-	 */
-	void stop();
 
 	/**
 	 *
