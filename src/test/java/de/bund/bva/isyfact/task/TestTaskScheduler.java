@@ -39,8 +39,6 @@ public class TestTaskScheduler extends AbstractTaskTest {
         when(konfiguration.getAsString(eq("isyfact.task.taskTest1.fixed-delay"), anyString()))
             .thenReturn("0s");
 
-        //when(konfiguration.getAsString("isyfact.task.taskTest2.benutzer")).thenReturn("TestUser2");
-        //when(konfiguration.getAsString("isyfact.task.taskTest2.passwort")).thenReturn("TestPasswort2");
         when(konfiguration.getAsString("isyfact.task.taskTest2.benutzer")).thenThrow(
             new KonfigurationParameterException(NachrichtenSchluessel.ERR_PARAMETER_LEER,
                 "isyfact.task.taskTest2.benutzer"));
@@ -72,6 +70,23 @@ public class TestTaskScheduler extends AbstractTaskTest {
             new KonfigurationParameterException(NachrichtenSchluessel.ERR_PARAMETER_LEER,
                 "isyfact.task.taskTest3.zeitpunkt"));
 
+        when(konfiguration.getAsString("isyfact.task.taskTestOnceInitialDelay.benutzer"))
+            .thenReturn("TestUser1");
+        when(konfiguration.getAsString("isyfact.task.taskTestOnceInitialDelay.passwort"))
+            .thenReturn("TestPasswort1");
+        when(konfiguration.getAsString("isyfact.task.taskTestOnceInitialDelay.ausfuehrung"))
+            .thenReturn("ONCE");
+        when(
+            konfiguration.getAsString(eq("isyfact.task.taskTestOnceInitialDelay.initial-delay"), anyString()))
+            .thenReturn("10s");
+        when(konfiguration.getAsString(eq("isyfact.task.taskTestOnceInitialDelay.fixed-rate"), anyString()))
+            .thenReturn("0s");
+        when(konfiguration.getAsString(eq("isyfact.task.taskTestOnceInitialDelay.fixed-delay"), anyString()))
+            .thenReturn("0s");
+        when(konfiguration.getAsString("isyfact.task.taskTestOnceInitialDelay.zeitpunkt")).thenThrow(
+            new KonfigurationParameterException(NachrichtenSchluessel.ERR_PARAMETER_LEER,
+                "isyfact.task.taskTestOnceInitialDelay.zeitpunkt"));
+
         taskScheduler.starteKonfigurierteTasks();
 
         taskScheduler.awaitTerminationInSeconds(20);
@@ -79,4 +94,5 @@ public class TestTaskScheduler extends AbstractTaskTest {
         int amount_of_threads = konfiguration.getAsInteger("isyfact.task.standard.amount_of_threads");
         assertEquals(amount_of_threads, 100);
     }
+
 }

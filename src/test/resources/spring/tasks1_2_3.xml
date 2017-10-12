@@ -32,4 +32,6 @@
             </map>
         </property>
     </bean>
+
+    <bean id="taskTestOnceInitialDelay" class="de.bund.bva.isyfact.task.TestTask1"/>
 </beans>

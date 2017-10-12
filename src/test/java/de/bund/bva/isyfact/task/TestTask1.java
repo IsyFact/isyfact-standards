@@ -14,7 +14,7 @@ public class TestTask1 extends AbstractTask {
 
     @Override
     public void execute() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             try {
                 TimeUnit.SECONDS.sleep(1);
                 LOG.info(LogKategorie.JOURNAL, "OP1", "{} running Task 1", DateTimeUtil.localDateTimeNow());

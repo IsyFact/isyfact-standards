@@ -55,7 +55,7 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
 
     private ScheduledExecutorService scheduledExecutorService;
 
-    private final List<TaskRunner> zuStartendeTaks = new ArrayList<>();
+    private final List<TaskRunner> zuStartendeTasks = new ArrayList<>();
 
     private final Map<String, ScheduledFuture<?>> scheduledFutures = new HashMap<>();
 
@@ -121,7 +121,7 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
     }
 
     public synchronized void addTask(TaskRunner taskRunner) {
-        zuStartendeTaks.add(taskRunner);
+        zuStartendeTasks.add(taskRunner);
     }
 
     @Override
@@ -130,7 +130,7 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
     }
 
     private void starteTasks(boolean starteWatchdog) {
-        for (TaskRunner taskRunner : zuStartendeTaks) {
+        for (TaskRunner taskRunner : zuStartendeTasks) {
             ScheduledFuture<?> scheduledFuture = null;
             switch (taskRunner.getAusfuehrungsplan()) {
             case ONCE:
@@ -150,7 +150,7 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
             }
 
         }
-        zuStartendeTaks.clear();
+        zuStartendeTasks.clear();
     }
 
     /**
@@ -160,13 +160,21 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
      * @return ScheduledFuture/<String/>
      */
     private synchronized ScheduledFuture<?> schedule(TaskRunner taskRunner) {
-        LOG.debug("Reihe TaskRunner {} ein (delay: {})", taskRunner.getId(),
-            Duration.between(DateTimeUtil.localDateTimeNow(), taskRunner.getExecutionDateTime()));
+
         ScheduledFuture<?> scheduledFuture = null;
         try {
-            scheduledFuture = scheduledExecutorService.schedule(taskRunner,
-                Duration.between(DateTimeUtil.localDateTimeNow(), taskRunner.getExecutionDateTime())
-                    .getSeconds(), SECONDS);
+            if (taskRunner.getExecutionDateTime() != null) {
+                LOG.debug("Reihe TaskRunner {} ein (delay: {})", taskRunner.getId(),
+                    Duration.between(DateTimeUtil.localDateTimeNow(), taskRunner.getExecutionDateTime()));
+                scheduledFuture = scheduledExecutorService.schedule(taskRunner,
+                    Duration.between(DateTimeUtil.localDateTimeNow(), taskRunner.getExecutionDateTime())
+                        .getSeconds(), SECONDS);
+            } else if (taskRunner.getInitialDelay() != null) {
+                LOG.debug("Reihe TaskRunner {} ein (delay: {})", taskRunner.getId(),
+                    taskRunner.getInitialDelay());
+                scheduledFuture = scheduledExecutorService
+                    .schedule(taskRunner, taskRunner.getInitialDelay().getSeconds(), SECONDS);
+            }
             scheduledFutures.put(taskRunner.getId(), scheduledFuture);
 
         } catch (Exception e) {
