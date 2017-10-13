@@ -4,7 +4,7 @@
 
     <groupId>de.bund.bva.isyfact</groupId>
     <artifactId>isy-polling</artifactId>
-    <version>1.4.0-SNAPSHOT</version>
+    <version>1.4.0</version>
     <name>IsyFact Polling</name>
     <packaging>jar</packaging>
 
@@ -24,7 +24,7 @@
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isyfact-base-bom</artifactId>
-                <version>1.5.0-SNAPSHOT</version>
+                <version>1.5.1</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -52,11 +52,7 @@
         </plugins>
     </build>
 
-    <!-- =============================================================================================
-        Liste der benoetigten Bibliotheken.
-        ============================================================================================= -->
     <dependencies>
-
         <!-- Bibliothek für die Verwaltung der Anwendungskonfiguration -->
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
@@ -137,7 +133,5 @@
             <version>${spring.version}</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
-
 </project>
