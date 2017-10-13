@@ -1,5 +1,6 @@
-# v1.5.0 (unveröffentlicht)
+# v1.5.0
 - alle: `RF-161`: Bibliotheken binden genutzte Bibliotheken direkt ein und nicht mehr über BOM-Bibliotheken
+- isy-konfiguration: `IFS-26`: Konfigurationsaktualisierung via Timertask nun mit Korrelations-ID
 - isy-konfiguration: `IFS-59`: Konfiguration kann beliebige Konfigurationsdateien lesen
 - isy-util: `IFS-9`: StelltLoggingKontextBereit-Annotation auch ohne AufrufkontextTo nutzbar
 - isy-logging: `IFS-42`: Erweiterung um Performance-Logging
@@ -8,7 +9,6 @@
 
 # v1.4.6
 - isy-sicherheit: Sonderlogik, die Underscores aus dem Attribut durchfuehrenderSachbearbeiterName des Aufrufkontextes entfernt, wieder eingebaut, da Ausbau erst für v1.5.x relevant.
-
 
 # v1.4.4
 - isy-sicherheit: Sonderlogik, die Underscores aus dem Attribut durchfuehrenderSachbearbeiterName des Aufrufkontextes entfernt, ausgebaut.
