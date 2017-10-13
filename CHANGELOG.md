@@ -1,4 +1,4 @@
-# v1.5.0
+# v1.5.1
 - alle: `RF-161`: Bibliotheken binden genutzte Bibliotheken direkt ein und nicht mehr über BOM-Bibliotheken
 - isy-konfiguration: `IFS-26`: Konfigurationsaktualisierung via Timertask nun mit Korrelations-ID
 - isy-konfiguration: `IFS-59`: Konfiguration kann beliebige Konfigurationsdateien lesen
