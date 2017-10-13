@@ -39,7 +39,7 @@ public class ReloadablePropertyProvider {
     /**
      * Sortiert die Dateinamen.
      */
-    private DateinamenSortierer dateinamenSortierer;
+    private DateinamenSortierer dateinamenSortierer = new DateinamenSortierer();
 
     /**
      * Schema, dem die Dateinamen entsprechen müssen.
@@ -73,12 +73,21 @@ public class ReloadablePropertyProvider {
      *            Liste mit Property-Dateinamen.
      * @param namensSchema
      *            dem die Dateinamen entsprechen müssen.
+     */
+    public ReloadablePropertyProvider(String[] propertyDateinamen) {
+        this(propertyDateinamen, RessourcenHelper.DEFAULTNAMENSSCHEMA);
+    }
+
+    /**
+     * Ruft ladePropertyDateien() auf.
      *
+     * @param propertyDateinamen
+     *            Liste mit Property-Dateinamen.
+     * @param namensSchema
+     *            dem die Dateinamen entsprechen müssen.
      */
     public ReloadablePropertyProvider(String[] propertyDateinamen, String namensSchema) {
-
         this.namensSchema = namensSchema;
-        this.dateinamenSortierer = new DateinamenSortierer();
         ladePropertyDateien(propertyDateinamen);
     }
 
@@ -94,8 +103,8 @@ public class ReloadablePropertyProvider {
      *
      */
     private void ladePropertyDateien(String[] propertyDateinamen) {
-        this.propertyDateien = new ArrayList<PropertyDatei>();
-        this.propertyOrdner = new ArrayList<String>();
+        this.propertyDateien = new ArrayList<>();
+        this.propertyOrdner = new ArrayList<>();
         for (String dateiname : propertyDateinamen) {
             if (RessourcenHelper.istOrdner(dateiname)) {
                 if (dateiname.endsWith("/")) {
