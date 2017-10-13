@@ -1,4 +1,4 @@
-# v1.4.0 (unveröffentlicht)
+# v1.4.0
 - `RF-161`: Bibliotheken binden genutzte Bibliotheken direkt ein und nicht mehr über BOM-Bibliotheken
 
 # v1.3.0
