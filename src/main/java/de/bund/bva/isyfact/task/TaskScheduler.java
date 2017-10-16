@@ -6,9 +6,6 @@ import de.bund.bva.isyfact.task.model.TaskRunner;
 
 /**
  * Der TaskScheduler bietet die Möglichkeit, dass Aufgaben (Tasks) zu bestimmten Zeitpunkten ausgeführt werden können.
- *
- * @author Alexander Salvanos, msg systems ag
- *
  */
 public interface TaskScheduler {
 

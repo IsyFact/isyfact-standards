@@ -14,10 +14,6 @@ import static de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel.PRAEFI
 
 /**
  * Der HostHandler ist eine Werkzeugeklasse, die eine Host-Instanz überprüft.
- *
- *
- * @author Alexander Salvanos, msg systems ag
- *
  */
 public class HostHandlerImpl implements HostHandler {
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(HostHandlerImpl.class);
@@ -30,8 +26,9 @@ public class HostHandlerImpl implements HostHandler {
 	public synchronized boolean isHostApplicable(String id, Konfiguration konfiguration)
 			throws HostNotApplicableException {
 		String expectedHostName = konfiguration.getAsString(PRAEFIX + id + HOST);
-		if(expectedHostName == null || expectedHostName.equalsIgnoreCase("localhost")) {
-			return true;
+        // TODO expectedHostName ist niemals null
+        if (expectedHostName == null || expectedHostName.equalsIgnoreCase("localhost")) {
+            return true;
 		}
 		LOG.debug("isHostApplicable: ", " expectedHostName: " + expectedHostName);
 

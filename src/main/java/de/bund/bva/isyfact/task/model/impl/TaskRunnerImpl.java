@@ -8,8 +8,7 @@ import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
-import de.bund.bva.isyfact.task.handler.AusfuehrungsplanHandler.Ausfuehrungsplan;
-import de.bund.bva.isyfact.task.handler.impl.AusfuehrungsplanHandlerImpl;
+import de.bund.bva.isyfact.task.konfiguration.TaskKonfiguration;
 import de.bund.bva.isyfact.task.model.Task;
 import de.bund.bva.isyfact.task.model.TaskRunner;
 import de.bund.bva.isyfact.task.security.SecurityAuthenticator;
@@ -28,8 +27,6 @@ import de.bund.bva.pliscommon.exception.PlisException;
  * Alle aufgerufenen fachlichen Operationen lassen sich eindeutig einer bestimmten Aufgabe zuordnen.
  * Wenn ein TaskRunner erfolgreich durchlaufen wurde, wird dies notiert.
  * Gleichzeitig merkt sich der TaskRunner den Endzeitpunkt des Durchlaufs.
- *
- * @author Alexander Salvanos, msg systems ag
  */
 public class TaskRunnerImpl implements TaskRunner {
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(TaskRunnerImpl.class);
@@ -38,7 +35,7 @@ public class TaskRunnerImpl implements TaskRunner {
 
     private final SecurityAuthenticator securityAuthenticator;
 
-    private final Ausfuehrungsplan ausfuehrungsplan;
+    private final TaskKonfiguration.Ausfuehrungsplan ausfuehrungsplan;
 
     private final LocalDateTime executionDateTime;
 
@@ -51,7 +48,7 @@ public class TaskRunnerImpl implements TaskRunner {
     private final Task task;
 
     public TaskRunnerImpl(String id, SecurityAuthenticator securityAuthenticator, Task task,
-        AusfuehrungsplanHandlerImpl.Ausfuehrungsplan ausfuehrungsplan, LocalDateTime executionDateTime,
+        TaskKonfiguration.Ausfuehrungsplan ausfuehrungsplan, LocalDateTime executionDateTime,
         Duration initialDelay, Duration fixedRate, Duration fixedDelay) {
         this.id = id;
         this.securityAuthenticator = securityAuthenticator;
@@ -102,7 +99,7 @@ public class TaskRunnerImpl implements TaskRunner {
     }
 
     @Override
-    public Ausfuehrungsplan getAusfuehrungsplan() {
+    public TaskKonfiguration.Ausfuehrungsplan getAusfuehrungsplan() {
         return ausfuehrungsplan;
     }
 

@@ -1,9 +1,9 @@
 package de.bund.bva.isyfact.task.model;
 
-import de.bund.bva.isyfact.task.handler.AusfuehrungsplanHandler.Ausfuehrungsplan;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
+
+import de.bund.bva.isyfact.task.konfiguration.TaskKonfiguration;
 
 /**
  * Ein Objekt des Typs TaskRunner entspricht einer auszuführenden Aufgabe.
@@ -13,8 +13,6 @@ import java.time.LocalDateTime;
  * Jeder auszuführende TaskRunner setzt seine id, seinen Namen und den Zeitpunkt der Ausführung.
  * Die Aufgaben, die erledigt werden sollen, werden in einer call- bzw. run-Methode
  * einer CallableOperation oder RepeatableOperation implementiert.
- *
- * @author Alexander Salvanos, msg systems ag
  */
 public interface TaskRunner extends Runnable {
 
@@ -22,7 +20,7 @@ public interface TaskRunner extends Runnable {
 
     Task getTask();
 
-    Ausfuehrungsplan getAusfuehrungsplan();
+    TaskKonfiguration.Ausfuehrungsplan getAusfuehrungsplan();
 
     Duration getInitialDelay();
 

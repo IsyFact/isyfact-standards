@@ -2,6 +2,8 @@ package de.bund.bva.isyfact.task.security.impl;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
+import de.bund.bva.isyfact.logging.LogKategorie;
+import de.bund.bva.isyfact.task.konstanten.HinweisSchluessel;
 import de.bund.bva.isyfact.task.security.SecurityAuthenticator;
 import de.bund.bva.isyfact.task.security.SecurityAuthenticatorFactory;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
@@ -10,15 +12,12 @@ import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 import de.bund.bva.pliscommon.konfiguration.common.exception.KonfigurationException;
 import de.bund.bva.pliscommon.sicherheit.Sicherheit;
+import de.bund.bva.pliscommon.util.spring.MessageSourceHolder;
 
 import static de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel.*;
 
 /**
- * Die Klasse IsySicherheitSecurityAuthenticatorFactory ist eine Werkzeugklasse für die Erzeugung von SecurityAuthenticator-Instanzen.
- *
- *
- * @author Alexander Salvanos, msg systems ag
- *
+ * Erzeugt SecurityAuthenticator-Instanzen für die Verwendung von isy-sicherheit.
  */
 public class IsySicherheitSecurityAuthenticatorFactory implements SecurityAuthenticatorFactory {
 	private final static IsyLogger LOG = IsyLoggerFactory.getLogger(IsySicherheitSecurityAuthenticatorFactory.class);
@@ -41,22 +40,36 @@ public class IsySicherheitSecurityAuthenticatorFactory implements SecurityAuthen
 		this.aufrufKontextVerwalter = aufrufKontextVerwalter;
 	}
 
-	/**
-	 * Erstellt einen SecurityAuthenticator und setzt ihn als Attribut in den TaskRunner.
-	 *
-	 * @return a SecurityAuthenticator
-	 */
 	public synchronized SecurityAuthenticator getSecurityAuthenticator(String taskId) {
+        String benutzer;
+        String passwort;
+        String bhkz;
+
         try {
-            String benutzer = konfiguration.getAsString(PRAEFIX + taskId + BENUTZER);
-            String passwort = konfiguration.getAsString(PRAEFIX + taskId + PASSWORT);
-            String bhkz = konfiguration.getAsString(PRAEFIX + taskId + BEHOERDENKENNZEICHEN);
+            benutzer = konfiguration.getAsString(PRAEFIX + taskId + BENUTZER);
+            passwort = konfiguration.getAsString(PRAEFIX + taskId + PASSWORT);
+            bhkz = konfiguration.getAsString(PRAEFIX + taskId + BEHOERDENKENNZEICHEN);
 
             return new IsySicherheitSecurityAuthenticator(benutzer, passwort, bhkz, aufrufKontextVerwalter,
                 aufrufKontextFactory, sicherheit);
         } catch (KonfigurationException e) {
-            // TODO Log?
-            return new NoOpSecurityAuthenticator();
+            String nachricht = MessageSourceHolder
+                .getMessage(HinweisSchluessel.VERWENDE_STANDARD_KONFIGURATION, "benutzer, passwort, bhkz");
+            LOG.info(LogKategorie.SICHERHEIT, HinweisSchluessel.VERWENDE_STANDARD_KONFIGURATION, nachricht);
         }
+
+        try {
+            benutzer = konfiguration.getAsString(PRAEFIX + STANDARD_BENUTZER);
+            passwort = konfiguration.getAsString(PRAEFIX + STANDARD_PASSWORT);
+            bhkz = konfiguration.getAsString(PRAEFIX + BEHOERDENKENNZEICHEN);
+
+            return new IsySicherheitSecurityAuthenticator(benutzer, passwort, bhkz, aufrufKontextVerwalter,
+                aufrufKontextFactory, sicherheit);
+        } catch (KonfigurationException e) {
+            LOG.info(LogKategorie.SICHERHEIT, HinweisSchluessel.VERWENDE_KEINE_AUTHENTIFIZIERUNG,
+                MessageSourceHolder.getMessage(HinweisSchluessel.VERWENDE_KEINE_AUTHENTIFIZIERUNG));
+        }
+
+        return new NoOpSecurityAuthenticator();
     }
 }

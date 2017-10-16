@@ -18,19 +18,13 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.task.TaskScheduler;
 import de.bund.bva.isyfact.task.exception.HostNotApplicableException;
-import de.bund.bva.isyfact.task.handler.AusfuehrungsplanHandler;
-import de.bund.bva.isyfact.task.handler.ExecutionDateTimeHandler;
-import de.bund.bva.isyfact.task.handler.HostHandler;
-import de.bund.bva.isyfact.task.handler.impl.AusfuehrungsplanHandlerImpl;
-import de.bund.bva.isyfact.task.handler.impl.ExecutionDateTimeHandlerImpl;
-import de.bund.bva.isyfact.task.konfiguration.DurationUtil;
+import de.bund.bva.isyfact.task.konfiguration.TaskKonfiguration;
 import de.bund.bva.isyfact.task.konstanten.FehlerSchluessel;
 import de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel;
 import de.bund.bva.isyfact.task.model.Task;
 import de.bund.bva.isyfact.task.model.TaskRunner;
 import de.bund.bva.isyfact.task.model.impl.TaskRunnerImpl;
 import de.bund.bva.isyfact.task.security.SecurityAuthenticator;
-import de.bund.bva.isyfact.task.security.SecurityAuthenticatorFactory;
 import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 import de.bund.bva.pliscommon.util.spring.MessageSourceHolder;
 import org.springframework.context.ApplicationContext;
@@ -49,9 +43,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware {
     private final Konfiguration konfiguration;
 
-    private final SecurityAuthenticatorFactory securityAuthenticatorFactory;
-
-    private final HostHandler hostHandler;
+    private final TaskKonfiguration taskKonfiguration;
 
     private ScheduledExecutorService scheduledExecutorService;
 
@@ -63,12 +55,9 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
 
     private ApplicationContext applicationContext;
 
-    public TaskSchedulerImpl(Konfiguration konfiguration,
-        SecurityAuthenticatorFactory securityAuthenticatorFactory, HostHandler hostHandler) {
+    public TaskSchedulerImpl(Konfiguration konfiguration, TaskKonfiguration taskKonfiguration) {
         this.konfiguration = konfiguration;
-        this.securityAuthenticatorFactory = securityAuthenticatorFactory;
-        this.hostHandler = hostHandler;
-
+        this.taskKonfiguration = taskKonfiguration;
         int initialNumberOfThreads = DEFAULT_INITIAL_NUMBER_OF_THREADS;
         if (konfiguration != null) {
             initialNumberOfThreads =
@@ -82,7 +71,7 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
     public void starteKonfigurierteTasks() {
         for (String taskId : applicationContext.getBeanNamesForType(Task.class)) {
             try {
-                addTask(createTask(taskId, konfiguration, applicationContext));
+                addTask(createTask(taskId, taskKonfiguration, applicationContext));
             } catch (HostNotApplicableException e) {
                 // TODO INFO-LOG
             }
@@ -91,31 +80,25 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
         start();
     }
 
-    private TaskRunner createTask(String id, Konfiguration konfiguration,
+    private TaskRunner createTask(String taskId, TaskKonfiguration taskKonfiguration,
         ApplicationContext applicationContext) throws HostNotApplicableException {
 
         TaskRunner taskRunner = null;
-        if (hostHandler.isHostApplicable(id, konfiguration)) {
+        if (taskKonfiguration.getHostHandler().isHostApplicable(taskId, konfiguration)) {
 
-            SecurityAuthenticator securityAuthenticator =
-                securityAuthenticatorFactory.getSecurityAuthenticator(id);
+            SecurityAuthenticator securityAuthenticator = taskKonfiguration.getSecurityAuthenticator(taskId);
 
-            Task task = applicationContext.getBean(id, Task.class);
+            Task task = applicationContext.getBean(taskId, Task.class);
 
-            AusfuehrungsplanHandler ausfuehrungsplanHandler = new AusfuehrungsplanHandlerImpl();
-            AusfuehrungsplanHandlerImpl.Ausfuehrungsplan ausfuehrungsplan =
-                ausfuehrungsplanHandler.getAusfuehrungsplan(id, konfiguration);
+            TaskKonfiguration.Ausfuehrungsplan ausfuehrungsplan =
+                taskKonfiguration.getAusfuehrungsplan(taskId);
 
-            ExecutionDateTimeHandler executionDateTimeHandler = new ExecutionDateTimeHandlerImpl();
-            LocalDateTime executionDateTime =
-                executionDateTimeHandler.getExecutionDateTime(id, konfiguration);
+            LocalDateTime executionDateTime = taskKonfiguration.getExecutionDateTime(taskId);
 
-            Duration initialDelay = DurationUtil.leseInitialDelay(id, konfiguration);
-            Duration fixedRate = DurationUtil.leseFixedRate(id, konfiguration);
-            Duration fixedDelay = DurationUtil.leseFixedDelay(id, konfiguration);
-
-            taskRunner = new TaskRunnerImpl(id, securityAuthenticator, task, ausfuehrungsplan, executionDateTime,
-                initialDelay, fixedRate, fixedDelay);
+            taskRunner =
+                new TaskRunnerImpl(taskId, securityAuthenticator, task, ausfuehrungsplan, executionDateTime,
+                    taskKonfiguration.getInitialDelay(taskId), taskKonfiguration.getFixedRate(taskId),
+                    taskKonfiguration.getFixedDelay(taskId));
         }
         return taskRunner;
     }
@@ -307,7 +290,7 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
                     LOG.info(LogKategorie.JOURNAL, "ISYTA99999", "Task wurde abgebrochen.", e);
                     stop = true;
                 } catch (ExecutionException e) {
-                    LOG.warn("ISYTA99999", "Task wurde fehlerhaft beendet.", e.getCause());
+                    LOG.warn("ISYTA99999", "Task " + taskId + " wurde fehlerhaft beendet.", e.getCause());
                     taskFuture.cancel(true);
                     addTask(taskId);
                     starteTasks(false);
@@ -327,7 +310,7 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
 
         private void addTask(String id) {
             try {
-                TaskSchedulerImpl.this.addTask(createTask(id, konfiguration, applicationContext));
+                TaskSchedulerImpl.this.addTask(createTask(id, taskKonfiguration, applicationContext));
             } catch (HostNotApplicableException hnae) {
                 // TODO log
             }

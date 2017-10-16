@@ -7,7 +7,7 @@ import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.pliscommon.sicherheit.Sicherheit;
 
 /**
- * Die Klasse IsySicherheitSecurityAuthenticator ist eine Thread-sichere Klasse für die Verwendung von IsyFact-Sicherheit.
+ * Implementierung von {@link SecurityAuthenticator} für die Verwendung von isy-sicherheit.
  */
 public class IsySicherheitSecurityAuthenticator implements SecurityAuthenticator {
     private String username;

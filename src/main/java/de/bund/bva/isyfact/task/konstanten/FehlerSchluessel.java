@@ -2,9 +2,6 @@ package de.bund.bva.isyfact.task.konstanten;
 
 /**
  * Die Fehlerschlüssel für den isy-timertask.
- *
- * @author Alexander Salvanos, msg systems ag
- *
  */
 public abstract class FehlerSchluessel {
 

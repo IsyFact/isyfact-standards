@@ -7,8 +7,7 @@
 
     <bean name="taskScheduler" class="de.bund.bva.isyfact.task.impl.TaskSchedulerImpl">
         <constructor-arg ref="konfiguration"/>
-        <constructor-arg ref="securityAuthenticatorFactory"/>
-        <constructor-arg ref="hosthandler"/>
+        <constructor-arg ref="taskKonfiguration"/>
     </bean>
 
     <bean id="konfiguration" class="org.mockito.Mockito" factory-method="mock">
@@ -20,12 +19,19 @@
             <list>
                 <value>resources/nachrichten/fehler</value>
                 <value>resources/nachrichten/ereignisse</value>
+                <value>resources.nachrichten.hinweise</value>
             </list>
         </property>
     </bean>
 
     <bean id="messageSourceHolder" class="de.bund.bva.pliscommon.util.spring.MessageSourceHolder">
         <property name="messageSource" ref="messageSource"/>
+    </bean>
+
+    <bean id="taskKonfiguration" class="de.bund.bva.isyfact.task.konfiguration.TaskKonfiguration">
+        <constructor-arg ref="konfiguration"/>
+        <constructor-arg ref="hosthandler"/>
+        <constructor-arg ref="securityAuthenticatorFactory"/>
     </bean>
 
     <bean id="hosthandler" class="de.bund.bva.isyfact.task.handler.impl.HostHandlerImpl"/>

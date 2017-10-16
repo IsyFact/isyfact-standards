@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import static de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel.*;
 import static org.mockito.Matchers.endsWith;
 import static org.mockito.Mockito.when;
 
@@ -36,6 +37,10 @@ public abstract class AbstractTaskTest {
         when(konfiguration.getAsInteger("isyfact.task.standard.amount_of_threads")).thenReturn(100);
         when(konfiguration.getAsString(endsWith("host")))
             .thenReturn(InetAddress.getLocalHost().getHostName());
+
+        when(konfiguration.getAsString(PRAEFIX + STANDARD_BENUTZER)).thenReturn("TestUser1");
+        when(konfiguration.getAsString(PRAEFIX + STANDARD_PASSWORT)).thenReturn("TestPasswort1");
+        when(konfiguration.getAsString(PRAEFIX + STANDARD_BHKZ)).thenReturn("BHKZ1");
     }
 
     protected String getMBeanAttribute(String taskName, String attributeName) throws Exception {
