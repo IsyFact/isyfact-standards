@@ -5,29 +5,33 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import de.bund.bva.isyfact.datetime.format.InFormat;
-import de.bund.bva.isyfact.task.handler.HostHandler;
+import de.bund.bva.isyfact.logging.IsyLogger;
+import de.bund.bva.isyfact.logging.IsyLoggerFactory;
+import de.bund.bva.isyfact.logging.LogKategorie;
+import de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel;
 import de.bund.bva.isyfact.task.konstanten.KonfigurationStandardwerte;
 import de.bund.bva.isyfact.task.security.SecurityAuthenticator;
 import de.bund.bva.isyfact.task.security.SecurityAuthenticatorFactory;
 import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 import de.bund.bva.pliscommon.konfiguration.common.exception.KonfigurationException;
+import de.bund.bva.pliscommon.util.spring.MessageSourceHolder;
 
+import static de.bund.bva.isyfact.task.konstanten.HinweisSchluessel.VERWENDE_STANDARD_KONFIGURATION;
 import static de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel.*;
 
 public class TaskKonfiguration {
+
+    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(TaskKonfiguration.class);
 
     public enum Ausfuehrungsplan {ONCE, FIXED_RATE, FIXED_DELAY}
 
     private final Konfiguration konfiguration;
 
-    private final HostHandler hostHandler;
-
     private final SecurityAuthenticatorFactory securityAuthenticatorFactory;
 
-    public TaskKonfiguration(Konfiguration konfiguration, HostHandler hostHandler,
+    public TaskKonfiguration(Konfiguration konfiguration,
         SecurityAuthenticatorFactory securityAuthenticatorFactory) {
         this.konfiguration = konfiguration;
-        this.hostHandler = hostHandler;
         this.securityAuthenticatorFactory = securityAuthenticatorFactory;
     }
 
@@ -59,8 +63,15 @@ public class TaskKonfiguration {
         return InFormat.parseToDuration(konfiguration.getAsString(PRAEFIX + taskId + FIXED_RATE, "0s"));
     }
 
-    public synchronized HostHandler getHostHandler() {
-        return hostHandler;
+    public synchronized String getHostname(String taskId) {
+        try {
+            return konfiguration.getAsString(PRAEFIX + taskId + HOST);
+        } catch (KonfigurationException e) {
+            String nachricht = MessageSourceHolder.getMessage(VERWENDE_STANDARD_KONFIGURATION, "hostname");
+            LOG.info(LogKategorie.JOURNAL, VERWENDE_STANDARD_KONFIGURATION, nachricht);
+        }
+
+        return konfiguration.getAsString(KonfigurationSchluessel.STANDARD_HOST);
     }
 
     public synchronized SecurityAuthenticator getSecurityAuthenticator(String taskId) {

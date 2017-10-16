@@ -8,6 +8,7 @@
     <bean name="taskScheduler" class="de.bund.bva.isyfact.task.impl.TaskSchedulerImpl">
         <constructor-arg ref="konfiguration"/>
         <constructor-arg ref="taskKonfiguration"/>
+        <constructor-arg ref="hosthandler"/>
     </bean>
 
     <bean id="konfiguration" class="org.mockito.Mockito" factory-method="mock">
@@ -30,11 +31,10 @@
 
     <bean id="taskKonfiguration" class="de.bund.bva.isyfact.task.konfiguration.TaskKonfiguration">
         <constructor-arg ref="konfiguration"/>
-        <constructor-arg ref="hosthandler"/>
         <constructor-arg ref="securityAuthenticatorFactory"/>
     </bean>
 
-    <bean id="hosthandler" class="de.bund.bva.isyfact.task.handler.impl.HostHandlerImpl"/>
+    <bean id="hosthandler" class="de.bund.bva.isyfact.task.konfiguration.impl.LocalHostHandlerImpl"/>
 
     <bean id="securityAuthenticatorFactory" class="de.bund.bva.isyfact.task.security.impl.IsySicherheitSecurityAuthenticatorFactory">
         <constructor-arg ref="konfiguration"/>

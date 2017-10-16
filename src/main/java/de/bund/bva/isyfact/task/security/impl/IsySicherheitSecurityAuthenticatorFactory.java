@@ -59,9 +59,9 @@ public class IsySicherheitSecurityAuthenticatorFactory implements SecurityAuthen
         }
 
         try {
-            benutzer = konfiguration.getAsString(PRAEFIX + STANDARD_BENUTZER);
-            passwort = konfiguration.getAsString(PRAEFIX + STANDARD_PASSWORT);
-            bhkz = konfiguration.getAsString(PRAEFIX + BEHOERDENKENNZEICHEN);
+            benutzer = konfiguration.getAsString(STANDARD_BENUTZER);
+            passwort = konfiguration.getAsString(STANDARD_PASSWORT);
+            bhkz = konfiguration.getAsString(STANDARD_BHKZ);
 
             return new IsySicherheitSecurityAuthenticator(benutzer, passwort, bhkz, aufrufKontextVerwalter,
                 aufrufKontextFactory, sicherheit);

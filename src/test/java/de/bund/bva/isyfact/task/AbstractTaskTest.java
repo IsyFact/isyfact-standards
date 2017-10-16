@@ -38,9 +38,11 @@ public abstract class AbstractTaskTest {
         when(konfiguration.getAsString(endsWith("host")))
             .thenReturn(InetAddress.getLocalHost().getHostName());
 
-        when(konfiguration.getAsString(PRAEFIX + STANDARD_BENUTZER)).thenReturn("TestUser1");
-        when(konfiguration.getAsString(PRAEFIX + STANDARD_PASSWORT)).thenReturn("TestPasswort1");
-        when(konfiguration.getAsString(PRAEFIX + STANDARD_BHKZ)).thenReturn("BHKZ1");
+        when(konfiguration.getAsString(STANDARD_BENUTZER)).thenReturn("TestUser1");
+        when(konfiguration.getAsString(STANDARD_PASSWORT)).thenReturn("TestPasswort1");
+        when(konfiguration.getAsString(STANDARD_BHKZ)).thenReturn("BHKZ1");
+
+        when(konfiguration.getAsString(STANDARD_HOST)).thenReturn("localhost");
     }
 
     protected String getMBeanAttribute(String taskName, String attributeName) throws Exception {

@@ -18,6 +18,7 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.task.TaskScheduler;
 import de.bund.bva.isyfact.task.exception.HostNotApplicableException;
+import de.bund.bva.isyfact.task.konfiguration.HostHandler;
 import de.bund.bva.isyfact.task.konfiguration.TaskKonfiguration;
 import de.bund.bva.isyfact.task.konstanten.FehlerSchluessel;
 import de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel;
@@ -45,6 +46,8 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
 
     private final TaskKonfiguration taskKonfiguration;
 
+    private final HostHandler hostHandler;
+
     private ScheduledExecutorService scheduledExecutorService;
 
     private final List<TaskRunner> zuStartendeTasks = new ArrayList<>();
@@ -55,9 +58,11 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
 
     private ApplicationContext applicationContext;
 
-    public TaskSchedulerImpl(Konfiguration konfiguration, TaskKonfiguration taskKonfiguration) {
+    public TaskSchedulerImpl(Konfiguration konfiguration, TaskKonfiguration taskKonfiguration,
+        HostHandler hostHandler) {
         this.konfiguration = konfiguration;
         this.taskKonfiguration = taskKonfiguration;
+        this.hostHandler = hostHandler;
         int initialNumberOfThreads = DEFAULT_INITIAL_NUMBER_OF_THREADS;
         if (konfiguration != null) {
             initialNumberOfThreads =
@@ -73,7 +78,7 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
             try {
                 addTask(createTask(taskId, taskKonfiguration, applicationContext));
             } catch (HostNotApplicableException e) {
-                // TODO INFO-LOG
+                LOG.info(LogKategorie.JOURNAL, FehlerSchluessel.HOSTNAME_STIMMT_NICHT_UEBEREIN, e);
             }
         }
 
@@ -84,7 +89,7 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
         ApplicationContext applicationContext) throws HostNotApplicableException {
 
         TaskRunner taskRunner = null;
-        if (taskKonfiguration.getHostHandler().isHostApplicable(taskId, konfiguration)) {
+        if (hostHandler.isHostApplicable(taskKonfiguration.getHostname(taskId))) {
 
             SecurityAuthenticator securityAuthenticator = taskKonfiguration.getSecurityAuthenticator(taskId);
 
@@ -312,7 +317,7 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
             try {
                 TaskSchedulerImpl.this.addTask(createTask(id, taskKonfiguration, applicationContext));
             } catch (HostNotApplicableException hnae) {
-                // TODO log
+                LOG.info(LogKategorie.JOURNAL, FehlerSchluessel.HOSTNAME_STIMMT_NICHT_UEBEREIN, hnae);
             }
         }
     }
