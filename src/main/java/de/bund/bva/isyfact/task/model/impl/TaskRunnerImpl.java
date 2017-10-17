@@ -11,7 +11,7 @@ import de.bund.bva.isyfact.logging.util.MdcHelper;
 import de.bund.bva.isyfact.task.konfiguration.TaskKonfiguration;
 import de.bund.bva.isyfact.task.model.Task;
 import de.bund.bva.isyfact.task.model.TaskRunner;
-import de.bund.bva.isyfact.task.security.SecurityAuthenticator;
+import de.bund.bva.isyfact.task.sicherheit.Authenticator;
 import de.bund.bva.pliscommon.exception.PlisException;
 
 /**
@@ -33,7 +33,7 @@ public class TaskRunnerImpl implements TaskRunner {
 
     private final String id;
 
-    private final SecurityAuthenticator securityAuthenticator;
+    private final Authenticator authenticator;
 
     private final TaskKonfiguration.Ausfuehrungsplan ausfuehrungsplan;
 
@@ -47,11 +47,11 @@ public class TaskRunnerImpl implements TaskRunner {
 
     private final Task task;
 
-    public TaskRunnerImpl(String id, SecurityAuthenticator securityAuthenticator, Task task,
+    public TaskRunnerImpl(String id, Authenticator authenticator, Task task,
         TaskKonfiguration.Ausfuehrungsplan ausfuehrungsplan, LocalDateTime executionDateTime,
         Duration initialDelay, Duration fixedRate, Duration fixedDelay) {
         this.id = id;
-        this.securityAuthenticator = securityAuthenticator;
+        this.authenticator = authenticator;
         this.ausfuehrungsplan = ausfuehrungsplan;
         this.task = task;
         this.executionDateTime = executionDateTime;
@@ -68,7 +68,7 @@ public class TaskRunnerImpl implements TaskRunner {
 
         try {
             MdcHelper.pushKorrelationsId(UUID.randomUUID().toString());
-            securityAuthenticator.login();
+            authenticator.login();
 
             task.execute();
 
@@ -83,7 +83,7 @@ public class TaskRunnerImpl implements TaskRunner {
                 throw e;
             }
         } finally {
-            securityAuthenticator.logout();
+            authenticator.logout();
             MdcHelper.entferneKorrelationsId();
         }
     }
@@ -99,27 +99,27 @@ public class TaskRunnerImpl implements TaskRunner {
     }
 
     @Override
-    public TaskKonfiguration.Ausfuehrungsplan getAusfuehrungsplan() {
+    public synchronized TaskKonfiguration.Ausfuehrungsplan getAusfuehrungsplan() {
         return ausfuehrungsplan;
     }
 
     @Override
-    public LocalDateTime getExecutionDateTime() {
+    public synchronized LocalDateTime getExecutionDateTime() {
         return executionDateTime;
     }
 
     @Override
-    public Duration getInitialDelay() {
+    public synchronized Duration getInitialDelay() {
         return initialDelay;
     }
 
     @Override
-    public Duration getFixedRate() {
+    public synchronized Duration getFixedRate() {
         return fixedRate;
     }
 
     @Override
-    public Duration getFixedDelay() {
+    public synchronized Duration getFixedDelay() {
         return fixedDelay;
     }
 

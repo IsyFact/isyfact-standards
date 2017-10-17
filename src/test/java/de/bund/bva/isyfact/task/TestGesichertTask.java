@@ -34,7 +34,7 @@ public class TestGesichertTask extends AbstractTaskTest {
 
         taskScheduler.starteKonfigurierteTasks();
 
-        taskScheduler.awaitTerminationInSeconds(10);
+        taskScheduler.warteAufTerminierung(10);
 
         assertTrue(Boolean.valueOf(getMBeanAttribute("GesichertTask", "LetzteAusfuehrungErfolgreich")));
     }
@@ -55,7 +55,7 @@ public class TestGesichertTask extends AbstractTaskTest {
 
         taskScheduler.starteKonfigurierteTasks();
 
-        taskScheduler.awaitTerminationInSeconds(10);
+        taskScheduler.warteAufTerminierung(10);
 
         String letzterFehlerNachricht = getMBeanAttribute("GesichertTask", "LetzterFehlerNachricht");
 

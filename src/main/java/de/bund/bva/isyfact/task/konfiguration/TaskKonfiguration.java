@@ -10,8 +10,8 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel;
 import de.bund.bva.isyfact.task.konstanten.KonfigurationStandardwerte;
-import de.bund.bva.isyfact.task.security.SecurityAuthenticator;
-import de.bund.bva.isyfact.task.security.SecurityAuthenticatorFactory;
+import de.bund.bva.isyfact.task.sicherheit.Authenticator;
+import de.bund.bva.isyfact.task.sicherheit.AuthenticatorFactory;
 import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 import de.bund.bva.pliscommon.konfiguration.common.exception.KonfigurationException;
 import de.bund.bva.pliscommon.util.spring.MessageSourceHolder;
@@ -27,12 +27,11 @@ public class TaskKonfiguration {
 
     private final Konfiguration konfiguration;
 
-    private final SecurityAuthenticatorFactory securityAuthenticatorFactory;
+    private final AuthenticatorFactory authenticatorFactory;
 
-    public TaskKonfiguration(Konfiguration konfiguration,
-        SecurityAuthenticatorFactory securityAuthenticatorFactory) {
+    public TaskKonfiguration(Konfiguration konfiguration, AuthenticatorFactory authenticatorFactory) {
         this.konfiguration = konfiguration;
-        this.securityAuthenticatorFactory = securityAuthenticatorFactory;
+        this.authenticatorFactory = authenticatorFactory;
     }
 
     public synchronized Ausfuehrungsplan getAusfuehrungsplan(String taskId) {
@@ -74,7 +73,7 @@ public class TaskKonfiguration {
         return konfiguration.getAsString(KonfigurationSchluessel.STANDARD_HOST);
     }
 
-    public synchronized SecurityAuthenticator getSecurityAuthenticator(String taskId) {
-        return securityAuthenticatorFactory.getSecurityAuthenticator(taskId);
+    public synchronized Authenticator getSecurityAuthenticator(String taskId) {
+        return authenticatorFactory.getSecurityAuthenticator(taskId);
     }
 }

@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.task;
 
-import java.util.List;
-
 import de.bund.bva.isyfact.task.model.TaskRunner;
 
 /**
@@ -11,36 +9,19 @@ public interface TaskScheduler {
 
 	void starteKonfigurierteTasks();
 
-	/**
-	 *
-	 */
 	void addTask(TaskRunner taskRunner);
 
-	/**
-	 *
-	 */
 	void start() throws NoSuchMethodException;
 
+    /**
+     * Diese Methode blockiert das Beenden des Programms für eine festgelegte Anzahl an Sekunden.
+     * Die Methode wird genutzt, damit die Tasks noch weiterlaufen.
+     *
+     * @param sekunden
+     * @throws InterruptedException
+     */
+    void stopNachTimeout(long sekunden) throws InterruptedException;
 
-	/**
-	 *
-	 * @param seconds
-	 * @throws InterruptedException
-	 */
-	void awaitTerminationInSeconds(long seconds) throws InterruptedException;
 
-	/**
-	 *
-	 */
-    void shutDown();
-
-	/**
-	 *
-	 */
-	List<Runnable> shutDownNow();
-
-	/**
-	 *
-	 */
-	boolean isTerminated();
+    void warteAufTerminierung(long sekunden) throws InterruptedException;
 }

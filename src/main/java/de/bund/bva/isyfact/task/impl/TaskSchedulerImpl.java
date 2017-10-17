@@ -20,12 +20,13 @@ import de.bund.bva.isyfact.task.TaskScheduler;
 import de.bund.bva.isyfact.task.exception.HostNotApplicableException;
 import de.bund.bva.isyfact.task.konfiguration.HostHandler;
 import de.bund.bva.isyfact.task.konfiguration.TaskKonfiguration;
+import de.bund.bva.isyfact.task.konstanten.Ereignisschluessel;
 import de.bund.bva.isyfact.task.konstanten.FehlerSchluessel;
 import de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel;
 import de.bund.bva.isyfact.task.model.Task;
 import de.bund.bva.isyfact.task.model.TaskRunner;
 import de.bund.bva.isyfact.task.model.impl.TaskRunnerImpl;
-import de.bund.bva.isyfact.task.security.SecurityAuthenticator;
+import de.bund.bva.isyfact.task.sicherheit.Authenticator;
 import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 import de.bund.bva.pliscommon.util.spring.MessageSourceHolder;
 import org.springframework.context.ApplicationContext;
@@ -37,9 +38,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 /**
  * Der TaskScheduler bietet die Möglichkeit, Tasks zu bestimmten Zeitpunkten auszuführen.
  *
- * Intern arbeitet TaskScheduler mit Thread-Local-gesicherten ScheduledExecutorServices, sodass auch
- * ein TaskScheduler Thread-sicher von mehreren Threads Thread-sicher durchlaufen werden kann.
- *
+ * Intern arbeitet TaskScheduler mit einem ScheduledExecutorService.
  */
 public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware {
     private final Konfiguration konfiguration;
@@ -91,7 +90,7 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
         TaskRunner taskRunner = null;
         if (hostHandler.isHostApplicable(taskKonfiguration.getHostname(taskId))) {
 
-            SecurityAuthenticator securityAuthenticator = taskKonfiguration.getSecurityAuthenticator(taskId);
+            Authenticator authenticator = taskKonfiguration.getSecurityAuthenticator(taskId);
 
             Task task = applicationContext.getBean(taskId, Task.class);
 
@@ -100,8 +99,7 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
 
             LocalDateTime executionDateTime = taskKonfiguration.getExecutionDateTime(taskId);
 
-            taskRunner =
-                new TaskRunnerImpl(taskId, securityAuthenticator, task, ausfuehrungsplan, executionDateTime,
+            taskRunner = new TaskRunnerImpl(taskId, authenticator, task, ausfuehrungsplan, executionDateTime,
                     taskKonfiguration.getInitialDelay(taskId), taskKonfiguration.getFixedRate(taskId),
                     taskKonfiguration.getFixedDelay(taskId));
         }
@@ -141,22 +139,15 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
         zuStartendeTasks.clear();
     }
 
-    /**
-     * Plant und führt einen TaskRunner aus, der zu einem bestimmten Zeitpunkt ausgeführt wird.
-     *
-     * @param taskRunner
-     * @return ScheduledFuture/<String/>
-     */
     private synchronized ScheduledFuture<?> schedule(TaskRunner taskRunner) {
 
         ScheduledFuture<?> scheduledFuture = null;
         try {
             if (taskRunner.getExecutionDateTime() != null) {
-                LOG.debug("Reihe TaskRunner {} ein (delay: {})", taskRunner.getId(),
-                    Duration.between(DateTimeUtil.localDateTimeNow(), taskRunner.getExecutionDateTime()));
-                scheduledFuture = scheduledExecutorService.schedule(taskRunner,
-                    Duration.between(DateTimeUtil.localDateTimeNow(), taskRunner.getExecutionDateTime())
-                        .getSeconds(), SECONDS);
+                Duration delay =
+                    Duration.between(DateTimeUtil.localDateTimeNow(), taskRunner.getExecutionDateTime());
+                LOG.debug("Reihe TaskRunner {} ein (delay: {})", taskRunner.getId(), delay);
+                scheduledFuture = scheduledExecutorService.schedule(taskRunner, delay.getSeconds(), SECONDS);
             } else if (taskRunner.getInitialDelay() != null) {
                 LOG.debug("Reihe TaskRunner {} ein (delay: {})", taskRunner.getId(),
                     taskRunner.getInitialDelay());
@@ -175,14 +166,6 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
         return scheduledFuture;
     }
 
-    /**
-     * Plant einen zeitgesteuerten und immer wiederkehrenden TaskRunner.
-     *
-     * @param taskRunner
-     * @return
-     * @throws NoSuchMethodException
-     * @throws Exception
-     */
     private synchronized ScheduledFuture<?> scheduleAtFixedRate(TaskRunner taskRunner) {
         LOG.debug("Reihe TaskRunner {} ein (initial-delay: {}, fixed-rate: {})", taskRunner.getId(),
             taskRunner.getInitialDelay(), taskRunner.getFixedRate());
@@ -203,11 +186,6 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
         return scheduledFuture;
     }
 
-    /**
-     * @param taskRunner
-     * @throws NoSuchMethodException
-     * @throws Exception
-     */
     private synchronized ScheduledFuture<?> scheduleWithFixedDelay(TaskRunner taskRunner) {
         LOG.debug("Reihe TaskRunner {} ein (initial-delay: {}, fixed-delay: {})", taskRunner.getId(),
             taskRunner.getInitialDelay(), taskRunner.getFixedDelay());
@@ -228,49 +206,16 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
         return scheduledFuture;
     }
 
-    /**
-     * Diese Methode blockiert das Beenden des Programms für eine festgelegte Anzahl an Sekunden.
-     * Die Methode wird genutzt, damit die Tasks noch weiterlaufen.
-     *
-     * @param seconds
-     * @throws InterruptedException
-     */
+
     @Override
-    public void awaitTerminationInSeconds(long seconds) throws InterruptedException {
-        LOG.debug("awaitTerminationInSeconds");
+    public void stopNachTimeout(long seconds) throws InterruptedException {
+        scheduledExecutorService.shutdown();
         scheduledExecutorService.awaitTermination(seconds, SECONDS);
     }
 
-    /**
-     * Mit dieser Methode wird veranlasst, dass der ScheduledThreadPoolExecutor
-     * keine neuen Tasks mehr übernimmt.
-     * Die im bereits zugewiesenen Tasks werden aber noch abgearbeitet.
-     */
     @Override
-    public void shutDown() {
-        LOG.debug("shutDown");
-        scheduledExecutorService.shutdown();
-    }
-
-    /**
-     * Mit dieser Methode wird bei allen aktiven Tasks der Interrupted-Status auf interrupted gesetzt.
-     * Die aktiven Threads sind selbst dafür verantwortlich, hierauf zu reagieren.
-     *
-     * @return
-     */
-    @Override
-    public List<Runnable> shutDownNow() {
-        LOG.debug("shutDownNow");
-        return scheduledExecutorService.shutdownNow();
-    }
-
-    /**
-     * @return
-     */
-    @Override
-    public boolean isTerminated() {
-        LOG.debug("isTerminated");
-        return scheduledExecutorService.isTerminated();
+    public void warteAufTerminierung(long sekunden) throws InterruptedException {
+        scheduledExecutorService.awaitTermination(sekunden, SECONDS);
     }
 
     private class CompletionWatchdog implements Runnable {
@@ -292,10 +237,14 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
                     taskFuture.get();
                     stop = true;
                 } catch (CancellationException e) {
-                    LOG.info(LogKategorie.JOURNAL, "ISYTA99999", "Task wurde abgebrochen.", e);
+                    String nachricht =
+                        MessageSourceHolder.getMessage(Ereignisschluessel.TASK_WURDE_ABGEBROCHEN, taskId);
+                    LOG.info(LogKategorie.JOURNAL, Ereignisschluessel.TASK_WURDE_ABGEBROCHEN, nachricht);
                     stop = true;
                 } catch (ExecutionException e) {
-                    LOG.warn("ISYTA99999", "Task " + taskId + " wurde fehlerhaft beendet.", e.getCause());
+                    String nachricht = MessageSourceHolder
+                        .getMessage(Ereignisschluessel.TASK_WURDE_FEHLERHAFT_BEENDET, taskId, e.getMessage());
+                    LOG.warn(Ereignisschluessel.TASK_WURDE_FEHLERHAFT_BEENDET, nachricht);
                     taskFuture.cancel(true);
                     addTask(taskId);
                     starteTasks(false);

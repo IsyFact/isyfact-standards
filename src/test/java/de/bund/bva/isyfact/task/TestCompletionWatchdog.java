@@ -35,7 +35,7 @@ public class TestCompletionWatchdog extends AbstractTaskTest {
 
         taskScheduler.starteKonfigurierteTasks();
 
-        taskScheduler.awaitTerminationInSeconds(10);
+        taskScheduler.warteAufTerminierung(10);
 
         assertTrue(Boolean.valueOf(getMBeanAttribute("TaskMitException", "LetzteAusfuehrungErfolgreich")));
     }

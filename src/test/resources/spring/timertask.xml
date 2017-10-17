@@ -31,12 +31,13 @@
 
     <bean id="taskKonfiguration" class="de.bund.bva.isyfact.task.konfiguration.TaskKonfiguration">
         <constructor-arg ref="konfiguration"/>
-        <constructor-arg ref="securityAuthenticatorFactory"/>
+        <constructor-arg ref="authenticatorFactory"/>
     </bean>
 
     <bean id="hosthandler" class="de.bund.bva.isyfact.task.konfiguration.impl.LocalHostHandlerImpl"/>
 
-    <bean id="securityAuthenticatorFactory" class="de.bund.bva.isyfact.task.security.impl.IsySicherheitSecurityAuthenticatorFactory">
+    <bean id="authenticatorFactory"
+          class="de.bund.bva.isyfact.task.sicherheit.impl.IsySicherheitAuthenticatorFactory">
         <constructor-arg ref="konfiguration"/>
         <constructor-arg ref="sicherheit"/>
         <constructor-arg ref="aufrufKontextFactory"/>

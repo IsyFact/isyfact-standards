@@ -1,11 +1,11 @@
-package de.bund.bva.isyfact.task.security.impl;
+package de.bund.bva.isyfact.task.sicherheit.impl;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.task.konstanten.HinweisSchluessel;
-import de.bund.bva.isyfact.task.security.SecurityAuthenticator;
-import de.bund.bva.isyfact.task.security.SecurityAuthenticatorFactory;
+import de.bund.bva.isyfact.task.sicherheit.Authenticator;
+import de.bund.bva.isyfact.task.sicherheit.AuthenticatorFactory;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextFactory;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
@@ -17,10 +17,10 @@ import de.bund.bva.pliscommon.util.spring.MessageSourceHolder;
 import static de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel.*;
 
 /**
- * Erzeugt SecurityAuthenticator-Instanzen für die Verwendung von isy-sicherheit.
+ * Erzeugt Authenticator-Instanzen für die Verwendung von isy-sicherheit.
  */
-public class IsySicherheitSecurityAuthenticatorFactory implements SecurityAuthenticatorFactory {
-	private final static IsyLogger LOG = IsyLoggerFactory.getLogger(IsySicherheitSecurityAuthenticatorFactory.class);
+public class IsySicherheitAuthenticatorFactory implements AuthenticatorFactory {
+    private final static IsyLogger LOG = IsyLoggerFactory.getLogger(IsySicherheitAuthenticatorFactory.class);
 
 	private final Konfiguration konfiguration;
 
@@ -30,8 +30,7 @@ public class IsySicherheitSecurityAuthenticatorFactory implements SecurityAuthen
 
 	private final AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter;
 
-	public IsySicherheitSecurityAuthenticatorFactory(Konfiguration konfiguration,
-		Sicherheit<AufrufKontext> sicherheit,
+    public IsySicherheitAuthenticatorFactory(Konfiguration konfiguration, Sicherheit<AufrufKontext> sicherheit,
 		AufrufKontextFactory<AufrufKontext> aufrufKontextFactory,
 		AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter) {
 		this.konfiguration = konfiguration;
@@ -40,7 +39,7 @@ public class IsySicherheitSecurityAuthenticatorFactory implements SecurityAuthen
 		this.aufrufKontextVerwalter = aufrufKontextVerwalter;
 	}
 
-	public synchronized SecurityAuthenticator getSecurityAuthenticator(String taskId) {
+    public synchronized Authenticator getSecurityAuthenticator(String taskId) {
         String benutzer;
         String passwort;
         String bhkz;
@@ -50,7 +49,7 @@ public class IsySicherheitSecurityAuthenticatorFactory implements SecurityAuthen
             passwort = konfiguration.getAsString(PRAEFIX + taskId + PASSWORT);
             bhkz = konfiguration.getAsString(PRAEFIX + taskId + BEHOERDENKENNZEICHEN);
 
-            return new IsySicherheitSecurityAuthenticator(benutzer, passwort, bhkz, aufrufKontextVerwalter,
+            return new IsySicherheitAuthenticator(benutzer, passwort, bhkz, aufrufKontextVerwalter,
                 aufrufKontextFactory, sicherheit);
         } catch (KonfigurationException e) {
             String nachricht = MessageSourceHolder
@@ -63,13 +62,13 @@ public class IsySicherheitSecurityAuthenticatorFactory implements SecurityAuthen
             passwort = konfiguration.getAsString(STANDARD_PASSWORT);
             bhkz = konfiguration.getAsString(STANDARD_BHKZ);
 
-            return new IsySicherheitSecurityAuthenticator(benutzer, passwort, bhkz, aufrufKontextVerwalter,
+            return new IsySicherheitAuthenticator(benutzer, passwort, bhkz, aufrufKontextVerwalter,
                 aufrufKontextFactory, sicherheit);
         } catch (KonfigurationException e) {
             LOG.info(LogKategorie.SICHERHEIT, HinweisSchluessel.VERWENDE_KEINE_AUTHENTIFIZIERUNG,
                 MessageSourceHolder.getMessage(HinweisSchluessel.VERWENDE_KEINE_AUTHENTIFIZIERUNG));
         }
 
-        return new NoOpSecurityAuthenticator();
+        return new NoOpAuthenticator();
     }
 }

@@ -1,15 +1,15 @@
-package de.bund.bva.isyfact.task.security.impl;
+package de.bund.bva.isyfact.task.sicherheit.impl;
 
-import de.bund.bva.isyfact.task.security.SecurityAuthenticator;
+import de.bund.bva.isyfact.task.sicherheit.Authenticator;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextFactory;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.pliscommon.sicherheit.Sicherheit;
 
 /**
- * Implementierung von {@link SecurityAuthenticator} für die Verwendung von isy-sicherheit.
+ * Implementierung von {@link Authenticator} für die Verwendung von isy-sicherheit.
  */
-public class IsySicherheitSecurityAuthenticator implements SecurityAuthenticator {
+public class IsySicherheitAuthenticator implements Authenticator {
     private String username;
     private String password;
     private String behoerdenkennzeichen;
@@ -26,7 +26,7 @@ public class IsySicherheitSecurityAuthenticator implements SecurityAuthenticator
      * @param aufrufKontextFactory
      * @param sicherheit
      */
-    public IsySicherheitSecurityAuthenticator(
+    public IsySicherheitAuthenticator(
             String username,
             String password,
             String behoerdenkennzeichen,

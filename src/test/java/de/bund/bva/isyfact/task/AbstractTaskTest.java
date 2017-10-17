@@ -13,7 +13,6 @@ import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel.*;
@@ -21,7 +20,6 @@ import static org.mockito.Matchers.endsWith;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@DirtiesContext
 public abstract class AbstractTaskTest {
 
     @Autowired
