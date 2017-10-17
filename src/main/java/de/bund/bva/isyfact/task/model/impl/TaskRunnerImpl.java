@@ -6,13 +6,11 @@ import java.util.UUID;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
 import de.bund.bva.isyfact.task.konfiguration.TaskKonfiguration;
 import de.bund.bva.isyfact.task.model.Task;
 import de.bund.bva.isyfact.task.model.TaskRunner;
 import de.bund.bva.isyfact.task.sicherheit.Authenticator;
-import de.bund.bva.pliscommon.exception.PlisException;
 
 /**
  * Ein TaskRunner entspricht einer auszuführenden Aufgabe.
@@ -75,13 +73,7 @@ public class TaskRunnerImpl implements TaskRunner {
             task.zeichneErfolgreicheAusfuehrungAuf();
         } catch (Exception e) {
             task.zeichneFehlgeschlageneAusfuehrungAuf(e);
-
-            if (e instanceof PlisException) {
-                LOG.info(LogKategorie.JOURNAL,
-                    "Während der Ausführung des Tasks ist eine Exception aufgetreten", (PlisException) e);
-            } else {
-                throw e;
-            }
+            throw e;
         } finally {
             authenticator.logout();
             MdcHelper.entferneKorrelationsId();

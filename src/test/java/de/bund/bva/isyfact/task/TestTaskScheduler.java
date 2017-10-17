@@ -20,7 +20,7 @@ import static org.mockito.Mockito.when;
  * Die Zeitangabe erfolgt über das Pattern: "dd.MM.yyyy HH:mm:ss.SSS"
  * Der Zeitpunkt wird entweder über eine Properties-Datei oder programmatisch festgelegt.
  */
-@ContextConfiguration(locations = { "/spring/timertask.xml", "/spring/tasks1_2_3.xml" })
+@ContextConfiguration(locations = { "/spring/timertask-test.xml", "/spring/tasks1_2_3.xml" })
 public class TestTaskScheduler extends AbstractTaskTest {
     @Test
     public void testSchedule() throws Exception {
@@ -93,5 +93,10 @@ public class TestTaskScheduler extends AbstractTaskTest {
 
         int amount_of_threads = konfiguration.getAsInteger("isyfact.task.standard.amount_of_threads");
         assertEquals(amount_of_threads, 100);
+    }
+
+    @Test
+    public void testScheduleManuell() {
+        // TODO
     }
 }

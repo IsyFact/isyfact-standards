@@ -7,11 +7,22 @@ import de.bund.bva.isyfact.task.model.TaskRunner;
  */
 public interface TaskScheduler {
 
-	void starteKonfigurierteTasks();
+    /**
+     * Startet alle über Spring konfigurierte Tasks.
+     */
+    void starteKonfigurierteTasks();
 
-	void addTask(TaskRunner taskRunner);
+    /**
+     * Fügt einen Task manuell hinzu.
+     *
+     * @param taskRunner Der {@link TaskRunner} mit dem Task.
+     */
+    void addTask(TaskRunner taskRunner);
 
-	void start() throws NoSuchMethodException;
+    /**
+     * Startet alle Tasks...?
+     */
+    void start();
 
     /**
      * Diese Methode blockiert das Beenden des Programms für eine festgelegte Anzahl an Sekunden.

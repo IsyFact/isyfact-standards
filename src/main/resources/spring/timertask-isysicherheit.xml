@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+    <bean name="taskScheduler" class="de.bund.bva.isyfact.task.impl.TaskSchedulerImpl">
+        <constructor-arg ref="konfiguration"/>
+        <constructor-arg ref="taskKonfiguration"/>
+        <constructor-arg ref="hosthandler"/>
+    </bean>
+
+    <bean id="taskKonfiguration" class="de.bund.bva.isyfact.task.konfiguration.TaskKonfiguration">
+        <constructor-arg ref="konfiguration"/>
+        <constructor-arg ref="authenticatorFactory"/>
+    </bean>
+
+    <bean id="hosthandler" class="de.bund.bva.isyfact.task.konfiguration.impl.LocalHostHandlerImpl"/>
+
+    <bean id="authenticatorFactory"
+          class="de.bund.bva.isyfact.task.sicherheit.impl.IsySicherheitAuthenticatorFactory">
+        <constructor-arg ref="konfiguration"/>
+        <constructor-arg ref="sicherheit"/>
+        <constructor-arg ref="aufrufKontextFactory"/>
+        <constructor-arg ref="aufrufKontextVerwalter"/>
+    </bean>
+</beans>

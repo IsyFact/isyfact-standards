@@ -10,7 +10,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.when;
 
-@ContextConfiguration(locations = { "/spring/timertask.xml", "/spring/task_exception.xml" })
+@ContextConfiguration(locations = { "/spring/timertask-test.xml", "/spring/task_exception.xml" })
 public class TestCompletionWatchdog extends AbstractTaskTest {
 
     @Test

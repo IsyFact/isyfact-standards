@@ -8,9 +8,6 @@ import de.bund.bva.isyfact.task.model.AbstractTask;
 import de.bund.bva.isyfact.task.model.TaskMonitor;
 import de.bund.bva.pliscommon.sicherheit.annotation.Gesichert;
 
-/**
- * @author Björn Saxe, msg systems ag
- */
 public class GesichertTask extends AbstractTask {
 
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(GesichertTask.class);

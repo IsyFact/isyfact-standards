@@ -12,7 +12,8 @@
     </bean>
 
     <bean id="konfiguration" class="org.mockito.Mockito" factory-method="mock">
-        <constructor-arg value="de.bund.bva.pliscommon.konfiguration.common.impl.ReloadablePropertyKonfiguration" />
+        <constructor-arg
+                value="de.bund.bva.pliscommon.konfiguration.common.impl.ReloadablePropertyKonfiguration"/>
     </bean>
 
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
@@ -20,7 +21,7 @@
             <list>
                 <value>resources/nachrichten/fehler</value>
                 <value>resources/nachrichten/ereignisse</value>
-                <value>resources.nachrichten.hinweise</value>
+                <value>resources/nachrichten/hinweise</value>
             </list>
         </property>
     </bean>
