@@ -1,16 +1,27 @@
 package de.bund.bva.isyfact.task;
 
+import java.time.Duration;
 import java.time.format.DateTimeFormatter;
+import java.util.concurrent.TimeUnit;
 
 import de.bund.bva.isyfact.datetime.util.DateTimeUtil;
+import de.bund.bva.isyfact.logging.IsyLogger;
+import de.bund.bva.isyfact.logging.IsyLoggerFactory;
+import de.bund.bva.isyfact.logging.LogKategorie;
+import de.bund.bva.isyfact.task.konfiguration.TaskKonfiguration;
 import de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel;
 import de.bund.bva.isyfact.task.konstanten.KonfigurationStandardwerte;
+import de.bund.bva.isyfact.task.model.Task;
+import de.bund.bva.isyfact.task.model.TaskRunner;
+import de.bund.bva.isyfact.task.model.impl.TaskRunnerImpl;
+import de.bund.bva.isyfact.task.sicherheit.impl.NoOpAuthenticator;
 import de.bund.bva.pliscommon.konfiguration.common.exception.KonfigurationParameterException;
 import de.bund.bva.pliscommon.konfiguration.common.konstanten.NachrichtenSchluessel;
 import org.junit.Test;
 import org.springframework.test.context.ContextConfiguration;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
@@ -96,7 +107,42 @@ public class TestTaskScheduler extends AbstractTaskTest {
     }
 
     @Test
-    public void testScheduleManuell() {
-        // TODO
+    public void testScheduleManuell() throws Exception {
+        boolean taskDone[] = { false };
+
+        class ManuellerTask extends TestTask1 {
+
+            final IsyLogger LOG = IsyLoggerFactory.getLogger(ManuellerTask.class);
+
+            @Override
+            public void execute() {
+                for (int i = 0; i < 3; i++) {
+                    try {
+                        TimeUnit.SECONDS.sleep(1);
+                        LOG.info(LogKategorie.JOURNAL, "manuellerTask", "{} running Manueller Task",
+                            DateTimeUtil.localDateTimeNow());
+                    } catch (InterruptedException e) {
+                        LOG.debug("Thread unterbrochen");
+                        return;
+                    }
+                }
+                taskDone[0] = true;
+            }
+        }
+        ;
+
+        Task manuellerTask = new ManuellerTask();
+
+        TaskRunner taskRunner = new TaskRunnerImpl("manuellerTask", new NoOpAuthenticator(), manuellerTask,
+            TaskKonfiguration.Ausfuehrungsplan.ONCE, null, Duration.ofSeconds(2), Duration.ZERO,
+            Duration.ZERO);
+
+        taskScheduler.addTask(taskRunner);
+
+        taskScheduler.start();
+
+        taskScheduler.warteAufTerminierung(6);
+
+        assertTrue(taskDone[0]);
     }
 }

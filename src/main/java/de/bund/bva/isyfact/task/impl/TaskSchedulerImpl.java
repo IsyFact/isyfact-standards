@@ -75,7 +75,8 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
     public void starteKonfigurierteTasks() {
         for (String taskId : applicationContext.getBeanNamesForType(Task.class)) {
             try {
-                addTask(createTask(taskId, taskKonfiguration, applicationContext));
+                addTask(
+                    createTask(taskId, applicationContext.getBean(taskId, Task.class), taskKonfiguration));
             } catch (HostNotApplicableException e) {
                 LOG.info(LogKategorie.JOURNAL, FehlerSchluessel.HOSTNAME_STIMMT_NICHT_UEBEREIN, e);
             }
@@ -84,15 +85,13 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
         start();
     }
 
-    private TaskRunner createTask(String taskId, TaskKonfiguration taskKonfiguration,
-        ApplicationContext applicationContext) throws HostNotApplicableException {
+    private TaskRunner createTask(String taskId, Task task, TaskKonfiguration taskKonfiguration)
+        throws HostNotApplicableException {
 
         TaskRunner taskRunner = null;
         if (hostHandler.isHostApplicable(taskKonfiguration.getHostname(taskId))) {
 
             Authenticator authenticator = taskKonfiguration.getSecurityAuthenticator(taskId);
-
-            Task task = applicationContext.getBean(taskId, Task.class);
 
             TaskKonfiguration.Ausfuehrungsplan ausfuehrungsplan =
                 taskKonfiguration.getAusfuehrungsplan(taskId);
@@ -264,7 +263,8 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
 
         private void addTask(String id) {
             try {
-                TaskSchedulerImpl.this.addTask(createTask(id, taskKonfiguration, applicationContext));
+                TaskSchedulerImpl.this.addTask(
+                    createTask(id, applicationContext.getBean(taskId, Task.class), taskKonfiguration));
             } catch (HostNotApplicableException hnae) {
                 LOG.info(LogKategorie.JOURNAL, FehlerSchluessel.HOSTNAME_STIMMT_NICHT_UEBEREIN, hnae);
             }
