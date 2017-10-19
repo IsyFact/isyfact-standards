@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.task.model.impl;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
@@ -29,33 +27,16 @@ import de.bund.bva.isyfact.task.sicherheit.Authenticator;
 public class TaskRunnerImpl implements TaskRunner {
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(TaskRunnerImpl.class);
 
-    private final String id;
+    private final Task task;
+
+    private final TaskKonfiguration taskKonfiguration;
 
     private final Authenticator authenticator;
 
-    private final TaskKonfiguration.Ausfuehrungsplan ausfuehrungsplan;
-
-    private final LocalDateTime executionDateTime;
-
-    private final Duration initialDelay;
-
-    private final Duration fixedRate;
-
-    private final Duration fixedDelay;
-
-    private final Task task;
-
-    public TaskRunnerImpl(String id, Authenticator authenticator, Task task,
-        TaskKonfiguration.Ausfuehrungsplan ausfuehrungsplan, LocalDateTime executionDateTime,
-        Duration initialDelay, Duration fixedRate, Duration fixedDelay) {
-        this.id = id;
-        this.authenticator = authenticator;
-        this.ausfuehrungsplan = ausfuehrungsplan;
+    public TaskRunnerImpl(Task task, TaskKonfiguration taskKonfiguration) {
         this.task = task;
-        this.executionDateTime = executionDateTime;
-        this.initialDelay = initialDelay;
-        this.fixedRate = fixedRate;
-        this.fixedDelay = fixedDelay;
+        this.taskKonfiguration = taskKonfiguration;
+        authenticator = taskKonfiguration.getAuthenticator();
     }
 
     @Override
@@ -80,39 +61,16 @@ public class TaskRunnerImpl implements TaskRunner {
         }
     }
 
-    @Override
-    public synchronized String getId() {
-        return id;
-    }
+
 
     @Override
-    public synchronized Task getTask() {
+    public Task getTask() {
         return task;
     }
 
     @Override
-    public synchronized TaskKonfiguration.Ausfuehrungsplan getAusfuehrungsplan() {
-        return ausfuehrungsplan;
-    }
-
-    @Override
-    public synchronized LocalDateTime getExecutionDateTime() {
-        return executionDateTime;
-    }
-
-    @Override
-    public synchronized Duration getInitialDelay() {
-        return initialDelay;
-    }
-
-    @Override
-    public synchronized Duration getFixedRate() {
-        return fixedRate;
-    }
-
-    @Override
-    public synchronized Duration getFixedDelay() {
-        return fixedDelay;
+    public synchronized TaskKonfiguration getTaskKonfiguration() {
+        return taskKonfiguration;
     }
 
 }

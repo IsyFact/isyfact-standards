@@ -30,7 +30,7 @@
         <property name="messageSource" ref="messageSource"/>
     </bean>
 
-    <bean id="taskKonfiguration" class="de.bund.bva.isyfact.task.konfiguration.TaskKonfiguration">
+    <bean id="taskKonfiguration" class="de.bund.bva.isyfact.task.konfiguration.TaskKonfigurationVerwalter">
         <constructor-arg ref="konfiguration"/>
         <constructor-arg ref="authenticatorFactory"/>
     </bean>

@@ -55,4 +55,9 @@ public abstract class AbstractTaskTest {
         Object attribute = mBeanServer.getAttribute(testObjectName, attributeName);
         return attribute == null ? null : attribute.toString();
     }
+
+    protected boolean isTaskRunning(String taskId) {
+        return taskScheduler.getLaufendeTasks().stream()
+            .anyMatch(t -> t.getTaskKonfiguration().getTaskId().equals(taskId));
+    }
 }

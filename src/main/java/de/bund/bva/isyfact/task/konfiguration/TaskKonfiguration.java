@@ -2,78 +2,90 @@ package de.bund.bva.isyfact.task.konfiguration;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
-import de.bund.bva.isyfact.datetime.format.InFormat;
-import de.bund.bva.isyfact.logging.IsyLogger;
-import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.isyfact.logging.LogKategorie;
-import de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel;
-import de.bund.bva.isyfact.task.konstanten.KonfigurationStandardwerte;
 import de.bund.bva.isyfact.task.sicherheit.Authenticator;
-import de.bund.bva.isyfact.task.sicherheit.AuthenticatorFactory;
-import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
-import de.bund.bva.pliscommon.konfiguration.common.exception.KonfigurationException;
-import de.bund.bva.pliscommon.util.spring.MessageSourceHolder;
-
-import static de.bund.bva.isyfact.task.konstanten.HinweisSchluessel.VERWENDE_STANDARD_KONFIGURATION;
-import static de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel.*;
 
 public class TaskKonfiguration {
 
-    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(TaskKonfiguration.class);
-
     public enum Ausfuehrungsplan {ONCE, FIXED_RATE, FIXED_DELAY}
 
-    private final Konfiguration konfiguration;
+    private String taskId;
 
-    private final AuthenticatorFactory authenticatorFactory;
+    private Ausfuehrungsplan ausfuehrungsplan;
 
-    public TaskKonfiguration(Konfiguration konfiguration, AuthenticatorFactory authenticatorFactory) {
-        this.konfiguration = konfiguration;
-        this.authenticatorFactory = authenticatorFactory;
+    private LocalDateTime executionDateTime;
+
+    private Duration initialDelay;
+
+    private Duration fixedRate;
+
+    private Duration fixedDelay;
+
+    private String hostname;
+
+    private Authenticator authenticator;
+
+    public void setTaskId(String taskId) {
+        this.taskId = taskId;
     }
 
-    public synchronized Ausfuehrungsplan getAusfuehrungsplan(String taskId) {
-        String ausfuehrungsplan = konfiguration.getAsString(PRAEFIX + taskId + AUSFUEHRUNGSPLAN);
-        return ausfuehrungsplan == null ? null : Ausfuehrungsplan.valueOf(ausfuehrungsplan);
+    public void setAusfuehrungsplan(Ausfuehrungsplan ausfuehrungsplan) {
+        this.ausfuehrungsplan = ausfuehrungsplan;
     }
 
-    public synchronized LocalDateTime getExecutionDateTime(String taskId) {
-        try {
-            String executionDateTime = konfiguration.getAsString(PRAEFIX + taskId + ZEITPUNKT);
-            DateTimeFormatter dateTimeFormatter =
-                DateTimeFormatter.ofPattern(KonfigurationStandardwerte.DEFAULT_DATETIME_PATTERN);
-            return LocalDateTime.parse(executionDateTime, dateTimeFormatter);
-        } catch (KonfigurationException e) {
-            return null;
-        }
+    public void setExecutionDateTime(LocalDateTime executionDateTime) {
+        this.executionDateTime = executionDateTime;
     }
 
-    public synchronized Duration getInitialDelay(String taskId) {
-        return InFormat.parseToDuration(konfiguration.getAsString(PRAEFIX + taskId + INITIAL_DELAY, "0s"));
+    public void setInitialDelay(Duration initialDelay) {
+        this.initialDelay = initialDelay;
     }
 
-    public synchronized Duration getFixedDelay(String taskId) {
-        return InFormat.parseToDuration(konfiguration.getAsString(PRAEFIX + taskId + FIXED_DELAY, "0s"));
+    public void setFixedRate(Duration fixedRate) {
+        this.fixedRate = fixedRate;
     }
 
-    public synchronized Duration getFixedRate(String taskId) {
-        return InFormat.parseToDuration(konfiguration.getAsString(PRAEFIX + taskId + FIXED_RATE, "0s"));
+    public void setFixedDelay(Duration fixedDelay) {
+        this.fixedDelay = fixedDelay;
     }
 
-    public synchronized String getHostname(String taskId) {
-        try {
-            return konfiguration.getAsString(PRAEFIX + taskId + HOST);
-        } catch (KonfigurationException e) {
-            String nachricht = MessageSourceHolder.getMessage(VERWENDE_STANDARD_KONFIGURATION, "hostname");
-            LOG.info(LogKategorie.JOURNAL, VERWENDE_STANDARD_KONFIGURATION, nachricht);
-        }
-
-        return konfiguration.getAsString(KonfigurationSchluessel.STANDARD_HOST);
+    public void setHostname(String hostname) {
+        this.hostname = hostname;
     }
 
-    public synchronized Authenticator getSecurityAuthenticator(String taskId) {
-        return authenticatorFactory.getSecurityAuthenticator(taskId);
+    public void setAuthenticator(Authenticator authenticator) {
+        this.authenticator = authenticator;
+    }
+
+    public String getTaskId() {
+        return taskId;
+    }
+
+    public Ausfuehrungsplan getAusfuehrungsplan() {
+        return ausfuehrungsplan;
+    }
+
+    public LocalDateTime getExecutionDateTime() {
+        return executionDateTime;
+    }
+
+    public Duration getInitialDelay() {
+        return initialDelay;
+    }
+
+    public Duration getFixedRate() {
+        return fixedRate;
+    }
+
+    public Duration getFixedDelay() {
+        return fixedDelay;
+    }
+
+    public String getHostname() {
+        return hostname;
+    }
+
+    public Authenticator getAuthenticator() {
+        return authenticator;
     }
 }

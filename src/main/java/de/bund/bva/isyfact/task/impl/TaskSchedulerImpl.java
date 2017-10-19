@@ -1,8 +1,8 @@
 package de.bund.bva.isyfact.task.impl;
 
 import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,13 +20,13 @@ import de.bund.bva.isyfact.task.TaskScheduler;
 import de.bund.bva.isyfact.task.exception.HostNotApplicableException;
 import de.bund.bva.isyfact.task.konfiguration.HostHandler;
 import de.bund.bva.isyfact.task.konfiguration.TaskKonfiguration;
+import de.bund.bva.isyfact.task.konfiguration.TaskKonfigurationVerwalter;
 import de.bund.bva.isyfact.task.konstanten.Ereignisschluessel;
 import de.bund.bva.isyfact.task.konstanten.FehlerSchluessel;
 import de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel;
 import de.bund.bva.isyfact.task.model.Task;
 import de.bund.bva.isyfact.task.model.TaskRunner;
 import de.bund.bva.isyfact.task.model.impl.TaskRunnerImpl;
-import de.bund.bva.isyfact.task.sicherheit.Authenticator;
 import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 import de.bund.bva.pliscommon.util.spring.MessageSourceHolder;
 import org.springframework.context.ApplicationContext;
@@ -43,7 +43,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware {
     private final Konfiguration konfiguration;
 
-    private final TaskKonfiguration taskKonfiguration;
+    private final TaskKonfigurationVerwalter taskKonfigurationVerwalter;
 
     private final HostHandler hostHandler;
 
@@ -51,16 +51,19 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
 
     private final List<TaskRunner> zuStartendeTasks = new ArrayList<>();
 
+    private final List<TaskRunner> laufendeTasks = new ArrayList<>();
+
     private final Map<String, ScheduledFuture<?>> scheduledFutures = new HashMap<>();
 
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(TaskSchedulerImpl.class);
 
     private ApplicationContext applicationContext;
 
-    public TaskSchedulerImpl(Konfiguration konfiguration, TaskKonfiguration taskKonfiguration,
+    public TaskSchedulerImpl(Konfiguration konfiguration,
+        TaskKonfigurationVerwalter taskKonfigurationVerwalter,
         HostHandler hostHandler) {
         this.konfiguration = konfiguration;
-        this.taskKonfiguration = taskKonfiguration;
+        this.taskKonfigurationVerwalter = taskKonfigurationVerwalter;
         this.hostHandler = hostHandler;
         int initialNumberOfThreads = DEFAULT_INITIAL_NUMBER_OF_THREADS;
         if (konfiguration != null) {
@@ -75,8 +78,8 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
     public void starteKonfigurierteTasks() {
         for (String taskId : applicationContext.getBeanNamesForType(Task.class)) {
             try {
-                addTask(
-                    createTask(taskId, applicationContext.getBean(taskId, Task.class), taskKonfiguration));
+                addTask(createTask(applicationContext.getBean(taskId, Task.class),
+                    taskKonfigurationVerwalter.getTaskKonfiguration(taskId)));
             } catch (HostNotApplicableException e) {
                 LOG.info(LogKategorie.JOURNAL, FehlerSchluessel.HOSTNAME_STIMMT_NICHT_UEBEREIN, e);
             }
@@ -85,22 +88,12 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
         start();
     }
 
-    private TaskRunner createTask(String taskId, Task task, TaskKonfiguration taskKonfiguration)
+    private TaskRunner createTask(Task task, TaskKonfiguration taskKonfiguration)
         throws HostNotApplicableException {
 
         TaskRunner taskRunner = null;
-        if (hostHandler.isHostApplicable(taskKonfiguration.getHostname(taskId))) {
-
-            Authenticator authenticator = taskKonfiguration.getSecurityAuthenticator(taskId);
-
-            TaskKonfiguration.Ausfuehrungsplan ausfuehrungsplan =
-                taskKonfiguration.getAusfuehrungsplan(taskId);
-
-            LocalDateTime executionDateTime = taskKonfiguration.getExecutionDateTime(taskId);
-
-            taskRunner = new TaskRunnerImpl(taskId, authenticator, task, ausfuehrungsplan, executionDateTime,
-                    taskKonfiguration.getInitialDelay(taskId), taskKonfiguration.getFixedRate(taskId),
-                    taskKonfiguration.getFixedDelay(taskId));
+        if (hostHandler.isHostApplicable(taskKonfiguration.getHostname())) {
+            taskRunner = new TaskRunnerImpl(task, taskKonfiguration);
         }
         return taskRunner;
     }
@@ -116,20 +109,19 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
 
     private void starteTasks(boolean starteWatchdog) {
         for (TaskRunner taskRunner : zuStartendeTasks) {
-            ScheduledFuture<?> scheduledFuture = null;
-            switch (taskRunner.getAusfuehrungsplan()) {
+            switch (taskRunner.getTaskKonfiguration().getAusfuehrungsplan()) {
             case ONCE:
-                scheduledFuture = schedule(taskRunner);
+                schedule(taskRunner);
                 break;
             case FIXED_RATE:
-                scheduledFuture = scheduleAtFixedRate(taskRunner);
+                scheduleAtFixedRate(taskRunner);
                 break;
             case FIXED_DELAY:
-                scheduledFuture = scheduleWithFixedDelay(taskRunner);
+                scheduleWithFixedDelay(taskRunner);
                 break;
             }
-            String id = taskRunner.getId();
-            scheduledFutures.put(id, scheduledFuture);
+            String id = taskRunner.getTaskKonfiguration().getTaskId();
+
             if (starteWatchdog) {
                 new Thread(new CompletionWatchdog(id)).start();
             }
@@ -138,71 +130,78 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
         zuStartendeTasks.clear();
     }
 
-    private synchronized ScheduledFuture<?> schedule(TaskRunner taskRunner) {
-
+    private synchronized void schedule(TaskRunner taskRunner) {
         ScheduledFuture<?> scheduledFuture = null;
+        String taskId = taskRunner.getTaskKonfiguration().getTaskId();
+        ;
         try {
-            if (taskRunner.getExecutionDateTime() != null) {
-                Duration delay =
-                    Duration.between(DateTimeUtil.localDateTimeNow(), taskRunner.getExecutionDateTime());
-                LOG.debug("Reihe TaskRunner {} ein (delay: {})", taskRunner.getId(), delay);
+            if (taskRunner.getTaskKonfiguration().getExecutionDateTime() != null) {
+                Duration delay = Duration.between(DateTimeUtil.localDateTimeNow(),
+                    taskRunner.getTaskKonfiguration().getExecutionDateTime());
+                LOG.debug("Reihe TaskRunner {} ein (delay: {})", taskId, delay);
                 scheduledFuture = scheduledExecutorService.schedule(taskRunner, delay.getSeconds(), SECONDS);
-            } else if (taskRunner.getInitialDelay() != null) {
-                LOG.debug("Reihe TaskRunner {} ein (delay: {})", taskRunner.getId(),
-                    taskRunner.getInitialDelay());
+            } else if (taskRunner.getTaskKonfiguration().getInitialDelay() != null) {
+                LOG.debug("Reihe TaskRunner {} ein (delay: {})", taskId,
+                    taskRunner.getTaskKonfiguration().getInitialDelay());
                 scheduledFuture = scheduledExecutorService
-                    .schedule(taskRunner, taskRunner.getInitialDelay().getSeconds(), SECONDS);
+                    .schedule(taskRunner, taskRunner.getTaskKonfiguration().getInitialDelay().getSeconds(),
+                        SECONDS);
             }
-            scheduledFutures.put(taskRunner.getId(), scheduledFuture);
-
+            scheduledFutures.put(taskId, scheduledFuture);
+            laufendeTasks.add(taskRunner);
         } catch (Exception e) {
             taskRunner.getTask().zeichneFehlgeschlageneAusfuehrungAuf(e);
 
             String msg = MessageSourceHolder
-                .getMessage(FehlerSchluessel.TASK_KONNTE_NICHT_EINGEREIHT_WERDEN, taskRunner.getId());
+                .getMessage(FehlerSchluessel.TASK_KONNTE_NICHT_EINGEREIHT_WERDEN, taskId);
             LOG.error(FehlerSchluessel.TASK_KONNTE_NICHT_EINGEREIHT_WERDEN, msg, e);
         }
-        return scheduledFuture;
     }
 
-    private synchronized ScheduledFuture<?> scheduleAtFixedRate(TaskRunner taskRunner) {
-        LOG.debug("Reihe TaskRunner {} ein (initial-delay: {}, fixed-rate: {})", taskRunner.getId(),
-            taskRunner.getInitialDelay(), taskRunner.getFixedRate());
+    private synchronized void scheduleAtFixedRate(TaskRunner taskRunner) {
+        Duration fixedRate = taskRunner.getTaskKonfiguration().getFixedRate();
+        Duration initialDelay = taskRunner.getTaskKonfiguration().getInitialDelay();
+        String taskId = taskRunner.getTaskKonfiguration().getTaskId();
+
+        LOG.debug("Reihe TaskRunner {} ein (initial-delay: {}, fixed-rate: {})", taskId, initialDelay,
+            fixedRate);
+        ScheduledFuture<?> scheduledFuture = null;
+
+        try {
+            scheduledFuture = scheduledExecutorService
+                .scheduleAtFixedRate(taskRunner, initialDelay.getSeconds(), fixedRate.getSeconds(), SECONDS);
+            scheduledFutures.put(taskId, scheduledFuture);
+            laufendeTasks.add(taskRunner);
+        } catch (Exception e) {
+            taskRunner.getTask().zeichneFehlgeschlageneAusfuehrungAuf(e);
+
+            String msg = MessageSourceHolder
+                .getMessage(FehlerSchluessel.TASK_KONNTE_NICHT_EINGEREIHT_WERDEN, taskId);
+            LOG.error(FehlerSchluessel.TASK_KONNTE_NICHT_EINGEREIHT_WERDEN, msg, e);
+        }
+    }
+
+    private synchronized void scheduleWithFixedDelay(TaskRunner taskRunner) {
+        Duration fixedDelay = taskRunner.getTaskKonfiguration().getFixedDelay();
+        Duration initialDelay = taskRunner.getTaskKonfiguration().getInitialDelay();
+        String taskId = taskRunner.getTaskKonfiguration().getTaskId();
+
+        LOG.debug("Reihe TaskRunner {} ein (initial-delay: {}, fixed-delay: {})", taskId, initialDelay,
+            fixedDelay);
         ScheduledFuture<?> scheduledFuture = null;
         try {
             scheduledFuture = scheduledExecutorService
-                .scheduleAtFixedRate(taskRunner, taskRunner.getInitialDelay().getSeconds(),
-                    taskRunner.getFixedRate().getSeconds(), SECONDS);
-            scheduledFutures.put(taskRunner.getId(), scheduledFuture);
-
+                .scheduleWithFixedDelay(taskRunner, initialDelay.getSeconds(), fixedDelay.getSeconds(),
+                    SECONDS);
+            scheduledFutures.put(taskId, scheduledFuture);
+            laufendeTasks.add(taskRunner);
         } catch (Exception e) {
             taskRunner.getTask().zeichneFehlgeschlageneAusfuehrungAuf(e);
 
             String msg = MessageSourceHolder
-                .getMessage(FehlerSchluessel.TASK_KONNTE_NICHT_EINGEREIHT_WERDEN, taskRunner.getId());
+                .getMessage(FehlerSchluessel.TASK_KONNTE_NICHT_EINGEREIHT_WERDEN, taskId);
             LOG.error(FehlerSchluessel.TASK_KONNTE_NICHT_EINGEREIHT_WERDEN, msg, e);
         }
-        return scheduledFuture;
-    }
-
-    private synchronized ScheduledFuture<?> scheduleWithFixedDelay(TaskRunner taskRunner) {
-        LOG.debug("Reihe TaskRunner {} ein (initial-delay: {}, fixed-delay: {})", taskRunner.getId(),
-            taskRunner.getInitialDelay(), taskRunner.getFixedDelay());
-        ScheduledFuture<?> scheduledFuture = null;
-        try {
-            scheduledFuture = scheduledExecutorService
-                .scheduleWithFixedDelay(taskRunner, taskRunner.getInitialDelay().getSeconds(),
-                    taskRunner.getFixedDelay().getSeconds(), SECONDS);
-            scheduledFutures.put(taskRunner.getId(), scheduledFuture);
-
-        } catch (Exception e) {
-            taskRunner.getTask().zeichneFehlgeschlageneAusfuehrungAuf(e);
-
-            String msg = MessageSourceHolder
-                .getMessage(FehlerSchluessel.TASK_KONNTE_NICHT_EINGEREIHT_WERDEN, taskRunner.getId());
-            LOG.error(FehlerSchluessel.TASK_KONNTE_NICHT_EINGEREIHT_WERDEN, msg, e);
-        }
-        return scheduledFuture;
     }
 
 
@@ -234,11 +233,17 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
             do {
                 try {
                     taskFuture.get();
+
+                    entferneLaufendenTask(taskId);
+
                     stop = true;
                 } catch (CancellationException e) {
                     String nachricht =
                         MessageSourceHolder.getMessage(Ereignisschluessel.TASK_WURDE_ABGEBROCHEN, taskId);
                     LOG.info(LogKategorie.JOURNAL, Ereignisschluessel.TASK_WURDE_ABGEBROCHEN, nachricht);
+
+                    entferneLaufendenTask(taskId);
+
                     stop = true;
                 } catch (ExecutionException e) {
                     String nachricht = MessageSourceHolder
@@ -263,16 +268,26 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
 
         private void addTask(String id) {
             try {
-                TaskSchedulerImpl.this.addTask(
-                    createTask(id, applicationContext.getBean(taskId, Task.class), taskKonfiguration));
+                TaskSchedulerImpl.this.addTask(createTask(applicationContext.getBean(taskId, Task.class),
+                    taskKonfigurationVerwalter.getTaskKonfiguration(id)));
             } catch (HostNotApplicableException hnae) {
                 LOG.info(LogKategorie.JOURNAL, FehlerSchluessel.HOSTNAME_STIMMT_NICHT_UEBEREIN, hnae);
             }
+        }
+
+        private void entferneLaufendenTask(String taskId) {
+            scheduledFutures.remove(taskId);
+            laufendeTasks.removeIf(t -> t.getTaskKonfiguration().getTaskId().equals(taskId));
         }
     }
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
+    }
+
+    @Override
+    public List<TaskRunner> getLaufendeTasks() {
+        return Collections.unmodifiableList(laufendeTasks);
     }
 }

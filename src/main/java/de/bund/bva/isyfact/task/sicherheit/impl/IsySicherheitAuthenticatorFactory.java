@@ -39,7 +39,7 @@ public class IsySicherheitAuthenticatorFactory implements AuthenticatorFactory {
 		this.aufrufKontextVerwalter = aufrufKontextVerwalter;
 	}
 
-    public synchronized Authenticator getSecurityAuthenticator(String taskId) {
+    public synchronized Authenticator getAuthenticator(String taskId) {
         String benutzer;
         String passwort;
         String bhkz;

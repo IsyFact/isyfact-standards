@@ -1,5 +1,7 @@
 package de.bund.bva.isyfact.task;
 
+import java.util.List;
+
 import de.bund.bva.isyfact.task.model.TaskRunner;
 
 /**
@@ -33,6 +35,15 @@ public interface TaskScheduler {
      */
     void stopNachTimeout(long sekunden) throws InterruptedException;
 
-
+    /**
+     * @param sekunden
+     * @throws InterruptedException
+     */
     void warteAufTerminierung(long sekunden) throws InterruptedException;
+
+    /**
+     *
+     * @return
+     */
+    List<TaskRunner> getLaufendeTasks();
 }

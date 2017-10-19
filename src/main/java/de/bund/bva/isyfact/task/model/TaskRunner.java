@@ -1,8 +1,5 @@
 package de.bund.bva.isyfact.task.model;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
-
 import de.bund.bva.isyfact.task.konfiguration.TaskKonfiguration;
 
 /**
@@ -16,18 +13,7 @@ import de.bund.bva.isyfact.task.konfiguration.TaskKonfiguration;
  */
 public interface TaskRunner extends Runnable {
 
-    String getId();
-
     Task getTask();
 
-    TaskKonfiguration.Ausfuehrungsplan getAusfuehrungsplan();
-
-    Duration getInitialDelay();
-
-    Duration getFixedRate();
-
-    Duration getFixedDelay();
-
-    LocalDateTime getExecutionDateTime();
-
+    TaskKonfiguration getTaskKonfiguration();
 }

@@ -20,7 +20,7 @@ import de.bund.bva.pliscommon.konfiguration.common.konstanten.NachrichtenSchlues
 import org.junit.Test;
 import org.springframework.test.context.ContextConfiguration;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
@@ -100,10 +100,17 @@ public class TestTaskScheduler extends AbstractTaskTest {
 
         taskScheduler.starteKonfigurierteTasks();
 
+        assertTrue(isTaskRunning("taskTest1"));
+        assertTrue(isTaskRunning("taskTest2"));
+        assertTrue(isTaskRunning("taskTest3"));
+        assertTrue(isTaskRunning("taskTestOnceInitialDelay"));
+
         taskScheduler.warteAufTerminierung(20);
 
-        int amount_of_threads = konfiguration.getAsInteger("isyfact.task.standard.amount_of_threads");
-        assertEquals(amount_of_threads, 100);
+        assertTrue(isTaskRunning("taskTest2"));
+        assertTrue(isTaskRunning("taskTest3"));
+        assertFalse(isTaskRunning("taskTest1"));
+        assertFalse(isTaskRunning("taskTestOnceInitialDelay"));
     }
 
     @Test
@@ -133,16 +140,25 @@ public class TestTaskScheduler extends AbstractTaskTest {
 
         Task manuellerTask = new ManuellerTask();
 
-        TaskRunner taskRunner = new TaskRunnerImpl("manuellerTask", new NoOpAuthenticator(), manuellerTask,
-            TaskKonfiguration.Ausfuehrungsplan.ONCE, null, Duration.ofSeconds(2), Duration.ZERO,
-            Duration.ZERO);
+        TaskKonfiguration taskKonfiguration = new TaskKonfiguration();
+
+        taskKonfiguration.setTaskId("manuellerTask");
+        taskKonfiguration.setAuthenticator(new NoOpAuthenticator());
+        taskKonfiguration.setHostname("localhost");
+        taskKonfiguration.setAusfuehrungsplan(TaskKonfiguration.Ausfuehrungsplan.ONCE);
+        taskKonfiguration.setInitialDelay(Duration.ofSeconds(2));
+
+        TaskRunner taskRunner = new TaskRunnerImpl(manuellerTask, taskKonfiguration);
 
         taskScheduler.addTask(taskRunner);
 
         taskScheduler.start();
 
+        assertTrue(isTaskRunning("manuellerTask"));
+
         taskScheduler.warteAufTerminierung(6);
 
         assertTrue(taskDone[0]);
+        assertFalse(isTaskRunning("manuellerTask"));
     }
 }
