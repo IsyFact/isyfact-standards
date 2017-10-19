@@ -1,7 +1,7 @@
 package de.bund.bva.isyfact.task.konstanten;
 
 /**
- * Die Konfigurationsschlüssel für isy-task
+ * Die Konfigurationsschlüssel für isy-task.
  */
 public abstract class KonfigurationSchluessel {
     public static final String PRAEFIX = "isyfact.task.";

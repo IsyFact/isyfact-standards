@@ -18,13 +18,14 @@ public class IsySicherheitAuthenticator implements Authenticator {
     private AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter;
 
     /**
+     *  Erstellt eine Instanz eines {@link Authenticator} für isy-sicherheit.
      *
-     * @param username
-     * @param password
-     * @param behoerdenkennzeichen
-     * @param aufrufKontextVerwalter
-     * @param aufrufKontextFactory
-     * @param sicherheit
+     * @param username der Benutzername
+     * @param password das Passwort
+     * @param behoerdenkennzeichen das Behördenkennzeichen
+     * @param aufrufKontextVerwalter der {@link AufrufKontextVerwalter}
+     * @param aufrufKontextFactory die {@link AufrufKontextFactory}
+     * @param sicherheit die {@link Sicherheit}
      */
     public IsySicherheitAuthenticator(
             String username,
@@ -41,9 +42,6 @@ public class IsySicherheitAuthenticator implements Authenticator {
         this.aufrufKontextVerwalter = aufrufKontextVerwalter;
     }
 
-    /**
-     *
-     */
     @Override
     public synchronized void login() {
          AufrufKontext kontext = aufrufKontextFactory.erzeugeAufrufKontext();
@@ -54,9 +52,6 @@ public class IsySicherheitAuthenticator implements Authenticator {
          sicherheit.getBerechtigungsManagerUndAuthentifiziere(kontext);
     }
 
-    /**
-     *
-     */
     @Override
     public synchronized void logout() {
         aufrufKontextVerwalter.setAufrufKontext(null);

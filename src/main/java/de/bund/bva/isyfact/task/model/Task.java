@@ -1,12 +1,14 @@
 package de.bund.bva.isyfact.task.model;
 
 /**
- * Eine Task enthält die Anweisungen, die erledigt werden sollen.
- * Wenn die Anweisungen erfolgreich durchlaufen wurden, gibt hasBeenExecutedSuccessfully true zurück.
- * Sollte der Durchlauf unterbrochen werden, wird die ErrorMessage notiert.
+ * Eine Task enthält die Anweisungen, die erledigt werden sollen und Methoden zur Steuerung und Überwachung
+ * eines Tasks.
  */
 public interface Task {
 
+    /**
+     * Enthält die eigentliche Operation, die der Task ausführen soll.
+     */
     void execute();
 
     /**

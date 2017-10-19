@@ -11,6 +11,7 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel;
 import de.bund.bva.isyfact.task.konstanten.KonfigurationStandardwerte;
+import de.bund.bva.isyfact.task.sicherheit.Authenticator;
 import de.bund.bva.isyfact.task.sicherheit.AuthenticatorFactory;
 import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 import de.bund.bva.pliscommon.konfiguration.common.exception.KonfigurationException;
@@ -19,6 +20,9 @@ import de.bund.bva.pliscommon.util.spring.MessageSourceHolder;
 import static de.bund.bva.isyfact.task.konstanten.HinweisSchluessel.VERWENDE_STANDARD_KONFIGURATION;
 import static de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel.*;
 
+/**
+ * Zentrale Instanz zum Einlesen der Konfiguration von Tasks in Form einer {@link TaskKonfiguration}.
+ */
 public class TaskKonfigurationVerwalter {
 
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(TaskKonfigurationVerwalter.class);
@@ -27,12 +31,24 @@ public class TaskKonfigurationVerwalter {
 
     private final AuthenticatorFactory authenticatorFactory;
 
-    public TaskKonfigurationVerwalter(Konfiguration konfiguration,
-        AuthenticatorFactory authenticatorFactory) {
+    /**
+     * Erstellt eine neue Instanz eines {@link TaskKonfigurationVerwalter}.
+     *
+     * @param konfiguration        {@link Konfiguration} aus der die Konfiuration für die Tasks ausgelesen wird.
+     * @param authenticatorFactory {@link AuthenticatorFactory} zur Erzeugung von
+     *                             {@link Authenticator}-Instanzen für die Tasks.
+     */
+    public TaskKonfigurationVerwalter(Konfiguration konfiguration, AuthenticatorFactory authenticatorFactory) {
         this.konfiguration = konfiguration;
         this.authenticatorFactory = authenticatorFactory;
     }
 
+    /**
+     * Gibt eine {@link TaskKonfiguration} für einen Task zurück.
+     *
+     * @param taskId die ID des Tasks.
+     * @return die {@link TaskKonfiguration} für den Task.
+     */
     public synchronized TaskKonfiguration getTaskKonfiguration(String taskId) {
         Objects.requireNonNull(taskId);
 
@@ -50,6 +66,12 @@ public class TaskKonfigurationVerwalter {
         return taskKonfiguration;
     }
 
+    /**
+     * Überprüft eine {@link TaskKonfiguration} auf Konsistenz.
+     *
+     * @param taskKonfiguration die {@link TaskKonfiguration}, die geprüft werden soll
+     * @return true, wenn die {@link TaskKonfiguration} konsistent ist, sonst false
+     */
     public synchronized boolean isKonfigurationValide(TaskKonfiguration taskKonfiguration) {
         if (taskKonfiguration.getTaskId() == null || taskKonfiguration.getAuthenticator() == null
             || taskKonfiguration.getHostname() == null || taskKonfiguration.getAusfuehrungsplan() == null) {
@@ -62,15 +84,13 @@ public class TaskKonfigurationVerwalter {
             } else if (executionDateTimeUndInitialDelayGesetzt(taskKonfiguration)) {
                 return false;
             }
-        } else if (taskKonfiguration.getAusfuehrungsplan()
-            .equals(TaskKonfiguration.Ausfuehrungsplan.FIXED_RATE)) {
+        } else if (taskKonfiguration.getAusfuehrungsplan().equals(TaskKonfiguration.Ausfuehrungsplan.FIXED_RATE)) {
             if (taskKonfiguration.getFixedRate() == null) {
                 return false;
             } else if (fixedRateUndFixedDelayGesetzt(taskKonfiguration)) {
                 return false;
             }
-        } else if (taskKonfiguration.getAusfuehrungsplan()
-            .equals(TaskKonfiguration.Ausfuehrungsplan.FIXED_DELAY)) {
+        } else if (taskKonfiguration.getAusfuehrungsplan().equals(TaskKonfiguration.Ausfuehrungsplan.FIXED_DELAY)) {
             if (taskKonfiguration.getFixedDelay() == null) {
                 return false;
             } else if (fixedRateUndFixedDelayGesetzt(taskKonfiguration)) {
@@ -86,13 +106,11 @@ public class TaskKonfigurationVerwalter {
     }
 
     private boolean executionDateTimeUndInitialDelayGesetzt(TaskKonfiguration taskKonfiguration) {
-        return taskKonfiguration.getExecutionDateTime() != null
-            && taskKonfiguration.getInitialDelay() != null;
+        return taskKonfiguration.getExecutionDateTime() != null && taskKonfiguration.getInitialDelay() != null;
     }
 
     private boolean wederExecutionDateTimeNochInitialDelayGesetzt(TaskKonfiguration taskKonfiguration) {
-        return taskKonfiguration.getExecutionDateTime() == null
-            && taskKonfiguration.getInitialDelay() == null;
+        return taskKonfiguration.getExecutionDateTime() == null && taskKonfiguration.getInitialDelay() == null;
     }
 
     private TaskKonfiguration.Ausfuehrungsplan getAusfuehrungsplan(String taskId) {
@@ -103,8 +121,7 @@ public class TaskKonfigurationVerwalter {
     private LocalDateTime getExecutionDateTime(String taskId) {
         try {
             String executionDateTime = konfiguration.getAsString(PRAEFIX + taskId + ZEITPUNKT);
-            DateTimeFormatter dateTimeFormatter =
-                DateTimeFormatter.ofPattern(KonfigurationStandardwerte.DEFAULT_DATETIME_PATTERN);
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(KonfigurationStandardwerte.DEFAULT_DATETIME_PATTERN);
             return LocalDateTime.parse(executionDateTime, dateTimeFormatter);
         } catch (KonfigurationException e) {
             return null;

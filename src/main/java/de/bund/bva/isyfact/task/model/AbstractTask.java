@@ -1,5 +1,9 @@
 package de.bund.bva.isyfact.task.model;
 
+/**
+ * Abstrakte Basis-Klasse die für alle Methoden von {@link Task} bis auf {@link Task#execute()} eine
+ * Standardimplementierung mitbringt.
+ */
 public abstract class AbstractTask implements Task {
 
     private final TaskMonitor monitor;

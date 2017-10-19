@@ -9,13 +9,13 @@ import de.bund.bva.isyfact.task.exception.HostNotApplicableException;
 import de.bund.bva.isyfact.task.konfiguration.HostHandler;
 
 /**
- * Der HostHandler ist eine Werkzeugeklasse, die eine Host-Instanz überprüft.
+ * Der HostHandler ist eine Werkzeugklasse, die eine Host-Instanz überprüft.
  */
 public class LocalHostHandlerImpl implements HostHandler {
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(LocalHostHandlerImpl.class);
 
 	/**
-	 * Überprüft, ob der TaskData auf dem aktuellen Host ausgeführt werden darf.
+	 * Überprüft, ob der Task auf dem Host ausgeführt werden darf.
 	 *
 	 */
 	@Override

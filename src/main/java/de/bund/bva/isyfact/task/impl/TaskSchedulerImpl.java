@@ -36,9 +36,8 @@ import static de.bund.bva.isyfact.task.konstanten.KonfigurationStandardwerte.DEF
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
- * Der TaskScheduler bietet die Möglichkeit, Tasks zu bestimmten Zeitpunkten auszuführen.
- *
- * Intern arbeitet TaskScheduler mit einem ScheduledExecutorService.
+ * Implementierung von {@link TaskScheduler}, bei der die Tasks als Spring-Beans bereitgestellt
+ * und per {@link Konfiguration} konfiguriert werden.
  */
 public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware {
     private final Konfiguration konfiguration;
@@ -59,16 +58,23 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
 
     private ApplicationContext applicationContext;
 
-    public TaskSchedulerImpl(Konfiguration konfiguration,
-        TaskKonfigurationVerwalter taskKonfigurationVerwalter,
+    /**
+     * Erstelle eine {@link TaskScheduler}-Instanz.
+     *
+     * @param konfiguration              {@link Konfiguration} zur Konfiguration des TaskScheduler
+     * @param taskKonfigurationVerwalter {@link TaskKonfigurationVerwalter} der die Konfiguration der Tasks
+     *                                   bereitstellt
+     * @param hostHandler                {@link HostHandler} zur Überprüfung des Hosts, auf dem die Tasks ausgeführt werden
+     *                                   sollen
+     */
+    public TaskSchedulerImpl(Konfiguration konfiguration, TaskKonfigurationVerwalter taskKonfigurationVerwalter,
         HostHandler hostHandler) {
         this.konfiguration = konfiguration;
         this.taskKonfigurationVerwalter = taskKonfigurationVerwalter;
         this.hostHandler = hostHandler;
         int initialNumberOfThreads = DEFAULT_INITIAL_NUMBER_OF_THREADS;
         if (konfiguration != null) {
-            initialNumberOfThreads =
-                this.konfiguration.getAsInteger(KonfigurationSchluessel.INITIAL_NUMBER_OF_THREADS);
+            initialNumberOfThreads = this.konfiguration.getAsInteger(KonfigurationSchluessel.INITIAL_NUMBER_OF_THREADS);
         }
 
         scheduledExecutorService = Executors.newScheduledThreadPool(initialNumberOfThreads);
@@ -133,7 +139,7 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
     private synchronized void schedule(TaskRunner taskRunner) {
         ScheduledFuture<?> scheduledFuture = null;
         String taskId = taskRunner.getTaskKonfiguration().getTaskId();
-        ;
+
         try {
             if (taskRunner.getTaskKonfiguration().getExecutionDateTime() != null) {
                 Duration delay = Duration.between(DateTimeUtil.localDateTimeNow(),

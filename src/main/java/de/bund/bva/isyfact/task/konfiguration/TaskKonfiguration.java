@@ -5,6 +5,9 @@ import java.time.LocalDateTime;
 
 import de.bund.bva.isyfact.task.sicherheit.Authenticator;
 
+/**
+ * Kapselt die zur Ausführung eines Tasks benötigte Konfiguration.
+ */
 public class TaskKonfiguration {
 
     public enum Ausfuehrungsplan {ONCE, FIXED_RATE, FIXED_DELAY}

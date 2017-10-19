@@ -1,7 +1,7 @@
 package de.bund.bva.isyfact.task.konstanten;
 
 /**
- * Die Fehlerschlüssel für den isy-timertask.
+ * Die Fehlerschlüssel von isy-task.
  */
 public abstract class FehlerSchluessel {
 

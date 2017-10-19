@@ -22,7 +22,7 @@ public interface TaskScheduler {
     void addTask(TaskRunner taskRunner);
 
     /**
-     * Startet alle Tasks...?
+     * Startet Tasks, die vorher per {@link TaskScheduler#addTask(TaskRunner)} hinzugefügt wurden.
      */
     void start();
 
@@ -42,8 +42,9 @@ public interface TaskScheduler {
     void warteAufTerminierung(long sekunden) throws InterruptedException;
 
     /**
+     * Gibt eine Liste der zur Ausführung geplanten und laufenden Tasks zurück.
      *
-     * @return
+     * @return die Liste mit geplanten und laufenden Tasks.
      */
     List<TaskRunner> getLaufendeTasks();
 }

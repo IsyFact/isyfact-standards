@@ -8,6 +8,9 @@ import org.springframework.jmx.export.annotation.ManagedAttribute;
 import org.springframework.jmx.export.annotation.ManagedOperation;
 import org.springframework.jmx.export.annotation.ManagedResource;
 
+/**
+ * Monitor-Klasse zur Überwachung von Tasks mit JMX.
+ */
 @ManagedResource(description = "Überwacht eine zur wiederholten Ausführung geplante Aufgabe")
 public class TaskMonitor {
 

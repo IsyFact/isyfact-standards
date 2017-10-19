@@ -30,15 +30,31 @@ public class IsySicherheitAuthenticatorFactory implements AuthenticatorFactory {
 
 	private final AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter;
 
+    /**
+     * Erstellt eine neue Instanz.
+     *
+     * @param konfiguration          die {@link Konfiguration}, aus der die Daten zur Authentifizierung gelesen werden
+     * @param sicherheit             die {@link Sicherheit}
+     * @param aufrufKontextFactory   die {@link AufrufKontextFactory}
+     * @param aufrufKontextVerwalter der {@link AufrufKontextVerwalter}
+     */
     public IsySicherheitAuthenticatorFactory(Konfiguration konfiguration, Sicherheit<AufrufKontext> sicherheit,
-		AufrufKontextFactory<AufrufKontext> aufrufKontextFactory,
-		AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter) {
-		this.konfiguration = konfiguration;
-		this.sicherheit = sicherheit;
-		this.aufrufKontextFactory = aufrufKontextFactory;
-		this.aufrufKontextVerwalter = aufrufKontextVerwalter;
-	}
+        AufrufKontextFactory<AufrufKontext> aufrufKontextFactory, AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter) {
+        this.konfiguration = konfiguration;
+        this.sicherheit = sicherheit;
+        this.aufrufKontextFactory = aufrufKontextFactory;
+        this.aufrufKontextVerwalter = aufrufKontextVerwalter;
+    }
 
+    /**
+     * Stellt einen {@link IsySicherheitAuthenticator} für einen bestimmtenn Tasks bereit, wenn die
+     * notwendigen Daten (Benutzername, ...) zur Authentifizierung gefunden werden können. Werden keine Daten
+     * gefunden, wird ein {@link NoOpAuthenticator} zurückgegeben.
+     *
+     * @param taskId die Id des Tasks
+     * @return den {@link IsySicherheitAuthenticator} für den Task, wenn die Daten zur Authentifizierung
+     *         vorhanden sind, sonst ein {@link NoOpAuthenticator}.
+     */
     public synchronized Authenticator getAuthenticator(String taskId) {
         String benutzer;
         String passwort;
@@ -52,8 +68,7 @@ public class IsySicherheitAuthenticatorFactory implements AuthenticatorFactory {
             return new IsySicherheitAuthenticator(benutzer, passwort, bhkz, aufrufKontextVerwalter,
                 aufrufKontextFactory, sicherheit);
         } catch (KonfigurationException e) {
-            String nachricht = MessageSourceHolder
-                .getMessage(HinweisSchluessel.VERWENDE_STANDARD_KONFIGURATION, "benutzer, passwort, bhkz");
+            String nachricht = MessageSourceHolder.getMessage(HinweisSchluessel.VERWENDE_STANDARD_KONFIGURATION, "benutzer, passwort, bhkz");
             LOG.info(LogKategorie.SICHERHEIT, HinweisSchluessel.VERWENDE_STANDARD_KONFIGURATION, nachricht);
         }
 
