@@ -9,6 +9,7 @@ import de.bund.bva.isyfact.datetime.format.InFormat;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
+import de.bund.bva.isyfact.task.exception.TaskKonfigurationInvalidException;
 import de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel;
 import de.bund.bva.isyfact.task.konstanten.KonfigurationStandardwerte;
 import de.bund.bva.isyfact.task.sicherheit.Authenticator;
@@ -48,6 +49,7 @@ public class TaskKonfigurationVerwalter {
      *
      * @param taskId die ID des Tasks.
      * @return die {@link TaskKonfiguration} für den Task.
+     * @throws TaskKonfigurationInvalidException wenn die Task-Konfiguration ungültige Werte enthält
      */
     public synchronized TaskKonfiguration getTaskKonfiguration(String taskId) {
         Objects.requireNonNull(taskId);
@@ -63,50 +65,47 @@ public class TaskKonfigurationVerwalter {
         taskKonfiguration.setFixedRate(getFixedRate(taskId));
         taskKonfiguration.setFixedDelay(getFixedDelay(taskId));
 
+        pruefeTaskKonfiguration(taskKonfiguration);
+
         return taskKonfiguration;
     }
 
     /**
-     * Überprüft eine {@link TaskKonfiguration} auf Konsistenz.
+     * Überprüft eine {@link TaskKonfiguration} auf Konsistenz. Ist die Konfiguration nicht valide, wird eine
+     * {@link TaskKonfigurationInvalidException} geworfen.
      *
      * @param taskKonfiguration die {@link TaskKonfiguration}, die geprüft werden soll
-     * @return true, wenn die {@link TaskKonfiguration} konsistent ist, sonst false
+     * @throws TaskKonfigurationInvalidException wenn die Task-Konfiguration ungültige Werte enthält
      */
-    public synchronized boolean isKonfigurationValide(TaskKonfiguration taskKonfiguration) {
+    public synchronized void pruefeTaskKonfiguration(TaskKonfiguration taskKonfiguration) {
         if (taskKonfiguration.getTaskId() == null || taskKonfiguration.getAuthenticator() == null
             || taskKonfiguration.getHostname() == null || taskKonfiguration.getAusfuehrungsplan() == null) {
-            return false;
+            throw new TaskKonfigurationInvalidException(
+                "Task-ID, Authenticator, Hostname oder Ausführungsplan ist null");
         }
 
         if (taskKonfiguration.getAusfuehrungsplan().equals(TaskKonfiguration.Ausfuehrungsplan.ONCE)) {
             if (wederExecutionDateTimeNochInitialDelayGesetzt(taskKonfiguration)) {
-                return false;
-            } else if (executionDateTimeUndInitialDelayGesetzt(taskKonfiguration)) {
-                return false;
+                throw new TaskKonfigurationInvalidException(
+                    "Weder ExecutionDateTime noch InitialDelay sind gesetzt");
+            } else if (executionDateTimeUndInitialDelayGroesserNullGesetzt(taskKonfiguration)) {
+                throw new TaskKonfigurationInvalidException(
+                    "ExecutionDateTime zusammen mit InitialDelay gesetzt");
             }
-        } else if (taskKonfiguration.getAusfuehrungsplan().equals(TaskKonfiguration.Ausfuehrungsplan.FIXED_RATE)) {
-            if (taskKonfiguration.getFixedRate() == null) {
-                return false;
-            } else if (fixedRateUndFixedDelayGesetzt(taskKonfiguration)) {
-                return false;
-            }
-        } else if (taskKonfiguration.getAusfuehrungsplan().equals(TaskKonfiguration.Ausfuehrungsplan.FIXED_DELAY)) {
-            if (taskKonfiguration.getFixedDelay() == null) {
-                return false;
-            } else if (fixedRateUndFixedDelayGesetzt(taskKonfiguration)) {
-                return false;
-            }
+        } else if (
+            taskKonfiguration.getAusfuehrungsplan().equals(TaskKonfiguration.Ausfuehrungsplan.FIXED_RATE)
+                && taskKonfiguration.getFixedRate() == null) {
+            throw new TaskKonfigurationInvalidException("FixedRate ist null");
+        } else if (
+            taskKonfiguration.getAusfuehrungsplan().equals(TaskKonfiguration.Ausfuehrungsplan.FIXED_DELAY)
+                && taskKonfiguration.getFixedDelay() == null) {
+            throw new TaskKonfigurationInvalidException("FixedDelay ist null");
         }
-
-        return true;
     }
 
-    private boolean fixedRateUndFixedDelayGesetzt(TaskKonfiguration taskKonfiguration) {
-        return taskKonfiguration.getFixedDelay() != null && taskKonfiguration.getFixedRate() != null;
-    }
-
-    private boolean executionDateTimeUndInitialDelayGesetzt(TaskKonfiguration taskKonfiguration) {
-        return taskKonfiguration.getExecutionDateTime() != null && taskKonfiguration.getInitialDelay() != null;
+    private boolean executionDateTimeUndInitialDelayGroesserNullGesetzt(TaskKonfiguration taskKonfiguration) {
+        return taskKonfiguration.getExecutionDateTime() != null && taskKonfiguration.getInitialDelay() != null
+            && !taskKonfiguration.getInitialDelay().equals(Duration.ZERO);
     }
 
     private boolean wederExecutionDateTimeNochInitialDelayGesetzt(TaskKonfiguration taskKonfiguration) {
@@ -133,11 +132,19 @@ public class TaskKonfigurationVerwalter {
     }
 
     private Duration getFixedDelay(String taskId) {
-        return InFormat.parseToDuration(konfiguration.getAsString(PRAEFIX + taskId + FIXED_DELAY, "0s"));
+        try {
+            return InFormat.parseToDuration(konfiguration.getAsString(PRAEFIX + taskId + FIXED_DELAY));
+        } catch (KonfigurationException e) {
+            return null;
+        }
     }
 
     private Duration getFixedRate(String taskId) {
-        return InFormat.parseToDuration(konfiguration.getAsString(PRAEFIX + taskId + FIXED_RATE, "0s"));
+        try {
+            return InFormat.parseToDuration(konfiguration.getAsString(PRAEFIX + taskId + FIXED_RATE));
+        } catch (KonfigurationException e) {
+            return null;
+        }
     }
 
     private String getHostname(String taskId) {

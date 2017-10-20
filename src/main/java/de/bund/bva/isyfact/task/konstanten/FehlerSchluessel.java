@@ -9,4 +9,6 @@ public abstract class FehlerSchluessel {
 
     public static final String TASK_KONNTE_NICHT_EINGEREIHT_WERDEN = "ISYTA00002";
 
+    public static final String TASK_KONFIGURATION_UNGUELTIG = "ISYTA00003";
+
 }

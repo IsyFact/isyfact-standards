@@ -18,18 +18,17 @@ public class TestCompletionWatchdog extends AbstractTaskTest {
     public void taskMitExceptionWirdNeuGestartet() throws Exception {
         when(konfiguration.getAsString("isyfact.task.taskMitException.benutzer")).thenReturn("TestUser1");
         when(konfiguration.getAsString("isyfact.task.taskMitException.passwort")).thenReturn("TestPasswort1");
+        when(konfiguration.getAsString("isyfact.task.taskMitException.bhkz")).thenReturn("BHKZ1");
         when(konfiguration.getAsString("isyfact.task.taskMitException.ausfuehrung")).thenReturn("FIXED_RATE");
-
-        when(konfiguration.getAsString(eq("isyfact.task.taskMitException.initial-delay"), anyString()))
-            .thenReturn("1s");
-        when(konfiguration.getAsString(eq("isyfact.task.taskMitException.fixed-rate"), anyString()))
-            .thenReturn("3s");
-        when(konfiguration.getAsString(eq("isyfact.task.taskMitException.fixed-delay"), anyString()))
-            .thenReturn("0s");
-
         when(konfiguration.getAsString("isyfact.task.taskMitException.zeitpunkt")).thenThrow(
             new KonfigurationParameterException(NachrichtenSchluessel.ERR_PARAMETER_LEER,
                 "isyfact.task.taskMitException.zeitpunkt"));
+        when(konfiguration.getAsString(eq("isyfact.task.taskMitException.initial-delay"), anyString()))
+            .thenReturn("1s");
+        when(konfiguration.getAsString("isyfact.task.taskMitException.fixed-rate")).thenReturn("3s");
+        when(konfiguration.getAsString("isyfact.task.taskMitException.fixed-delay")).thenThrow(
+            new KonfigurationParameterException(NachrichtenSchluessel.ERR_PARAMETER_LEER,
+                "isyfact.task.taskMitException.fixed-delay"));
 
         when(konfiguration.getAsInteger(eq(KonfigurationSchluessel.WATCHDOG_RESTART_INTERVAL), anyInt()))
             .thenReturn(1);
