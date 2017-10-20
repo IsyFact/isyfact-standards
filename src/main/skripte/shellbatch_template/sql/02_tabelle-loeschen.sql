@@ -1,4 +1,4 @@
--- Beispielstabelle entfernen
+-- Beispieltabelle entfernen
 DROP TABLE FOO;
 
 commit;
