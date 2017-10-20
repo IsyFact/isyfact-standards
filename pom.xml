@@ -11,7 +11,7 @@
     <groupId>de.bund.bva.isyfact</groupId>
     <artifactId>isy-batchrahmen</artifactId>
     <packaging>jar</packaging>
-    <version>1.7.0</version>
+    <version>1.7.1-SNAPSHOT</version>
     <name>IsyFact-Batchrahmen</name>
 
     <parent>
