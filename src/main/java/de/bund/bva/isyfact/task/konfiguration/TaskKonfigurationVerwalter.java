@@ -45,7 +45,8 @@ public class TaskKonfigurationVerwalter {
     }
 
     /**
-     * Gibt eine {@link TaskKonfiguration} für einen Task zurück.
+     * Gibt eine {@link TaskKonfiguration} für einen Task zurück. Die Task-Konfiguration wird mit
+     * {@link TaskKonfigurationVerwalter#pruefeTaskKonfiguration(TaskKonfiguration)} auf Konsistenz geprüft.
      *
      * @param taskId die ID des Tasks.
      * @return die {@link TaskKonfiguration} für den Task.
@@ -113,8 +114,12 @@ public class TaskKonfigurationVerwalter {
     }
 
     private TaskKonfiguration.Ausfuehrungsplan getAusfuehrungsplan(String taskId) {
-        String ausfuehrungsplan = konfiguration.getAsString(PRAEFIX + taskId + AUSFUEHRUNGSPLAN);
-        return ausfuehrungsplan == null ? null : TaskKonfiguration.Ausfuehrungsplan.valueOf(ausfuehrungsplan);
+        try {
+            String ausfuehrungsplan = konfiguration.getAsString(PRAEFIX + taskId + AUSFUEHRUNGSPLAN);
+            return TaskKonfiguration.Ausfuehrungsplan.valueOf(ausfuehrungsplan);
+        } catch (KonfigurationException e) {
+            return null;
+        }
     }
 
     private LocalDateTime getExecutionDateTime(String taskId) {
