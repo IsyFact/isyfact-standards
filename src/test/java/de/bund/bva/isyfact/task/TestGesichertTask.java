@@ -8,6 +8,7 @@ import de.bund.bva.isyfact.task.konstanten.KonfigurationStandardwerte;
 import org.junit.Test;
 import org.springframework.test.context.ContextConfiguration;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.when;
@@ -34,7 +35,9 @@ public class TestGesichertTask extends AbstractTaskTest {
 
         taskScheduler.starteKonfigurierteTasks();
 
-        taskScheduler.warteAufTerminierung(10);
+        SECONDS.sleep(3);
+
+        taskScheduler.shutdownMitTimeout(1);
 
         assertTrue(Boolean.valueOf(getMBeanAttribute("GesichertTask", "LetzteAusfuehrungErfolgreich")));
     }
@@ -50,12 +53,21 @@ public class TestGesichertTask extends AbstractTaskTest {
         String executionDateTime1 = DateTimeUtil.localDateTimeNow().plusSeconds(1).format(dateTimeFormatter);
         when(konfiguration.getAsString("isyfact.task.gesichertTask.zeitpunkt")).thenReturn(executionDateTime1);
 
+        when(konfiguration.getAsString(eq("isyfact.task.gesichertTask.initial-delay"), anyString()))
+            .thenReturn("0s");
+        when(konfiguration.getAsString(eq("isyfact.task.gesichertTask.fixed-rate"), anyString()))
+            .thenReturn("0s");
+        when(konfiguration.getAsString(eq("isyfact.task.gesichertTask.fixed-delay"), anyString()))
+            .thenReturn("0s");
+
         when(konfiguration.getAsInteger(eq(KonfigurationSchluessel.WATCHDOG_RESTART_INTERVAL), anyInt()))
-            .thenReturn(3);
+            .thenReturn(5);
 
         taskScheduler.starteKonfigurierteTasks();
 
-        taskScheduler.warteAufTerminierung(10);
+        SECONDS.sleep(3);
+
+        taskScheduler.shutdownMitTimeout(1);
 
         String letzterFehlerNachricht = getMBeanAttribute("GesichertTask", "LetzterFehlerNachricht");
 

@@ -2,7 +2,6 @@ package de.bund.bva.isyfact.task;
 
 import java.time.Duration;
 import java.time.format.DateTimeFormatter;
-import java.util.concurrent.TimeUnit;
 
 import de.bund.bva.isyfact.datetime.util.DateTimeUtil;
 import de.bund.bva.isyfact.logging.IsyLogger;
@@ -20,6 +19,7 @@ import de.bund.bva.pliscommon.konfiguration.common.konstanten.NachrichtenSchlues
 import org.junit.Test;
 import org.springframework.test.context.ContextConfiguration;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyString;
@@ -105,10 +105,13 @@ public class TestTaskScheduler extends AbstractTaskTest {
         assertTrue(isTaskRunning("taskTest3"));
         assertTrue(isTaskRunning("taskTestOnceInitialDelay"));
 
-        taskScheduler.warteAufTerminierung(20);
+        SECONDS.sleep(20);
+        taskScheduler.shutdownMitTimeout(1);
 
-        assertTrue(isTaskRunning("taskTest2"));
-        assertTrue(isTaskRunning("taskTest3"));
+        SECONDS.sleep(1);
+
+        assertFalse(isTaskRunning("taskTest2"));
+        assertFalse(isTaskRunning("taskTest3"));
         assertFalse(isTaskRunning("taskTest1"));
         assertFalse(isTaskRunning("taskTestOnceInitialDelay"));
     }
@@ -125,7 +128,7 @@ public class TestTaskScheduler extends AbstractTaskTest {
             public void execute() {
                 for (int i = 0; i < 3; i++) {
                     try {
-                        TimeUnit.SECONDS.sleep(1);
+                        SECONDS.sleep(1);
                         LOG.info(LogKategorie.JOURNAL, "manuellerTask", "{} running Manueller Task",
                             DateTimeUtil.localDateTimeNow());
                     } catch (InterruptedException e) {
@@ -146,7 +149,7 @@ public class TestTaskScheduler extends AbstractTaskTest {
         taskKonfiguration.setAuthenticator(new NoOpAuthenticator());
         taskKonfiguration.setHostname("localhost");
         taskKonfiguration.setAusfuehrungsplan(TaskKonfiguration.Ausfuehrungsplan.ONCE);
-        taskKonfiguration.setInitialDelay(Duration.ofSeconds(2));
+        taskKonfiguration.setInitialDelay(Duration.ofSeconds(1));
 
         TaskRunner taskRunner = new TaskRunnerImpl(manuellerTask, taskKonfiguration);
 
@@ -156,9 +159,12 @@ public class TestTaskScheduler extends AbstractTaskTest {
 
         assertTrue(isTaskRunning("manuellerTask"));
 
-        taskScheduler.warteAufTerminierung(6);
+        taskScheduler.shutdownMitTimeout(7);
 
         assertTrue(taskDone[0]);
+
+        SECONDS.sleep(1);
+
         assertFalse(isTaskRunning("manuellerTask"));
     }
 }

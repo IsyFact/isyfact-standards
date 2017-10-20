@@ -27,19 +27,14 @@ public interface TaskScheduler {
     void start();
 
     /**
-     * Diese Methode blockiert das Beenden des Programms für eine festgelegte Anzahl an Sekunden.
-     * Die Methode wird genutzt, damit die Tasks noch weiterlaufen.
+     * Diese Methode fährt den Task-Scheduler herunter und wartet bis alle Tasks beendet sind oder die
+     * angegebene Zeit abgelaufen ist.
      *
-     * @param sekunden
-     * @throws InterruptedException
+     * @param sekunden die Zeit in Sekunden, die maximal gewartet werden soll.
+     * @return true, wenn alle Tasks vor Ablauf der Wartezeit beendet wurden, sonst false
+     * @throws InterruptedException wenn das Warten unterbrochen wurde
      */
-    void stopNachTimeout(long sekunden) throws InterruptedException;
-
-    /**
-     * @param sekunden
-     * @throws InterruptedException
-     */
-    void warteAufTerminierung(long sekunden) throws InterruptedException;
+    boolean shutdownMitTimeout(long sekunden) throws InterruptedException;
 
     /**
      * Gibt eine Liste der zur Ausführung geplanten und laufenden Tasks zurück.

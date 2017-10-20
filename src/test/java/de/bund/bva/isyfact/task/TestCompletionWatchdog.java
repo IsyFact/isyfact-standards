@@ -6,6 +6,7 @@ import de.bund.bva.pliscommon.konfiguration.common.konstanten.NachrichtenSchlues
 import org.junit.Test;
 import org.springframework.test.context.ContextConfiguration;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.when;
@@ -20,9 +21,9 @@ public class TestCompletionWatchdog extends AbstractTaskTest {
         when(konfiguration.getAsString("isyfact.task.taskMitException.ausfuehrung")).thenReturn("FIXED_RATE");
 
         when(konfiguration.getAsString(eq("isyfact.task.taskMitException.initial-delay"), anyString()))
-            .thenReturn("3s");
+            .thenReturn("1s");
         when(konfiguration.getAsString(eq("isyfact.task.taskMitException.fixed-rate"), anyString()))
-            .thenReturn("5s");
+            .thenReturn("3s");
         when(konfiguration.getAsString(eq("isyfact.task.taskMitException.fixed-delay"), anyString()))
             .thenReturn("0s");
 
@@ -31,11 +32,13 @@ public class TestCompletionWatchdog extends AbstractTaskTest {
                 "isyfact.task.taskMitException.zeitpunkt"));
 
         when(konfiguration.getAsInteger(eq(KonfigurationSchluessel.WATCHDOG_RESTART_INTERVAL), anyInt()))
-            .thenReturn(3);
+            .thenReturn(1);
 
         taskScheduler.starteKonfigurierteTasks();
 
-        taskScheduler.warteAufTerminierung(10);
+        SECONDS.sleep(10);
+
+        taskScheduler.shutdownMitTimeout(10);
 
         assertTrue(Boolean.valueOf(getMBeanAttribute("TaskMitException", "LetzteAusfuehrungErfolgreich")));
     }

@@ -1,5 +1,6 @@
 package de.bund.bva.isyfact.task.sicherheit.impl;
 
+import de.bund.bva.isyfact.logging.util.MdcHelper;
 import de.bund.bva.isyfact.task.sicherheit.Authenticator;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextFactory;
@@ -49,6 +50,7 @@ public class IsySicherheitAuthenticator implements Authenticator {
          kontext.setDurchfuehrenderBenutzerKennung(username);
          kontext.setDurchfuehrenderBenutzerPasswort(password);
          kontext.setDurchfuehrendeBehoerde(behoerdenkennzeichen);
+        kontext.setKorrelationsId(MdcHelper.liesKorrelationsId());
          sicherheit.getBerechtigungsManagerUndAuthentifiziere(kontext);
     }
 

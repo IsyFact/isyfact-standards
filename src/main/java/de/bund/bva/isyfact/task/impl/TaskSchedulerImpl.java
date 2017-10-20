@@ -33,6 +33,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
 import static de.bund.bva.isyfact.task.konstanten.KonfigurationStandardwerte.DEFAULT_INITIAL_NUMBER_OF_THREADS;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
@@ -48,9 +49,9 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
 
     private ScheduledExecutorService scheduledExecutorService;
 
-    private final List<TaskRunner> zuStartendeTasks = new ArrayList<>();
+    private final List<TaskRunner> zuStartendeTasks = Collections.synchronizedList(new ArrayList<>());
 
-    private final List<TaskRunner> laufendeTasks = new ArrayList<>();
+    private final List<TaskRunner> laufendeTasks = Collections.synchronizedList(new ArrayList<>());
 
     private final Map<String, ScheduledFuture<?>> scheduledFutures = new HashMap<>();
 
@@ -128,7 +129,7 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
             }
             String id = taskRunner.getTaskKonfiguration().getTaskId();
 
-            if (starteWatchdog) {
+            if (starteWatchdog && scheduledFutures.containsKey(id)) {
                 new Thread(new CompletionWatchdog(id)).start();
             }
 
@@ -145,13 +146,14 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
                 Duration delay = Duration.between(DateTimeUtil.localDateTimeNow(),
                     taskRunner.getTaskKonfiguration().getExecutionDateTime());
                 LOG.debug("Reihe TaskRunner {} ein (delay: {})", taskId, delay);
-                scheduledFuture = scheduledExecutorService.schedule(taskRunner, delay.getSeconds(), SECONDS);
+                scheduledFuture =
+                    scheduledExecutorService.schedule(taskRunner, delay.toMillis(), MILLISECONDS);
             } else if (taskRunner.getTaskKonfiguration().getInitialDelay() != null) {
                 LOG.debug("Reihe TaskRunner {} ein (delay: {})", taskId,
                     taskRunner.getTaskKonfiguration().getInitialDelay());
                 scheduledFuture = scheduledExecutorService
-                    .schedule(taskRunner, taskRunner.getTaskKonfiguration().getInitialDelay().getSeconds(),
-                        SECONDS);
+                    .schedule(taskRunner, taskRunner.getTaskKonfiguration().getInitialDelay().toMillis(),
+                        MILLISECONDS);
             }
             scheduledFutures.put(taskId, scheduledFuture);
             laufendeTasks.add(taskRunner);
@@ -175,7 +177,7 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
 
         try {
             scheduledFuture = scheduledExecutorService
-                .scheduleAtFixedRate(taskRunner, initialDelay.getSeconds(), fixedRate.getSeconds(), SECONDS);
+                .scheduleAtFixedRate(taskRunner, initialDelay.toMillis(), fixedRate.toMillis(), MILLISECONDS);
             scheduledFutures.put(taskId, scheduledFuture);
             laufendeTasks.add(taskRunner);
         } catch (Exception e) {
@@ -197,8 +199,8 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
         ScheduledFuture<?> scheduledFuture = null;
         try {
             scheduledFuture = scheduledExecutorService
-                .scheduleWithFixedDelay(taskRunner, initialDelay.getSeconds(), fixedDelay.getSeconds(),
-                    SECONDS);
+                .scheduleWithFixedDelay(taskRunner, initialDelay.toMillis(), fixedDelay.toMillis(),
+                    MILLISECONDS);
             scheduledFutures.put(taskId, scheduledFuture);
             laufendeTasks.add(taskRunner);
         } catch (Exception e) {
@@ -212,14 +214,9 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
 
 
     @Override
-    public void stopNachTimeout(long seconds) throws InterruptedException {
+    public boolean shutdownMitTimeout(long seconds) throws InterruptedException {
         scheduledExecutorService.shutdown();
-        scheduledExecutorService.awaitTermination(seconds, SECONDS);
-    }
-
-    @Override
-    public void warteAufTerminierung(long sekunden) throws InterruptedException {
-        scheduledExecutorService.awaitTermination(sekunden, SECONDS);
+        return scheduledExecutorService.awaitTermination(seconds, SECONDS);
     }
 
     private class CompletionWatchdog implements Runnable {
@@ -246,7 +243,8 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
                 } catch (CancellationException e) {
                     String nachricht =
                         MessageSourceHolder.getMessage(Ereignisschluessel.TASK_WURDE_ABGEBROCHEN, taskId);
-                    LOG.info(LogKategorie.JOURNAL, Ereignisschluessel.TASK_WURDE_ABGEBROCHEN, nachricht);
+                    LOG.info(LogKategorie.JOURNAL, Ereignisschluessel.TASK_WURDE_ABGEBROCHEN,
+                        DateTimeUtil.localDateTimeNow() + " " + nachricht);
 
                     entferneLaufendenTask(taskId);
 
@@ -255,7 +253,11 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
                     String nachricht = MessageSourceHolder
                         .getMessage(Ereignisschluessel.TASK_WURDE_FEHLERHAFT_BEENDET, taskId, e.getMessage());
                     LOG.warn(Ereignisschluessel.TASK_WURDE_FEHLERHAFT_BEENDET, nachricht);
-                    taskFuture.cancel(true);
+
+                    if (scheduledExecutorService.isShutdown()) {
+                        break;
+                    }
+
                     addTask(taskId);
                     starteTasks(false);
                     taskFuture = scheduledFutures.get(taskId);
@@ -293,7 +295,7 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
     }
 
     @Override
-    public List<TaskRunner> getLaufendeTasks() {
+    public synchronized List<TaskRunner> getLaufendeTasks() {
         return Collections.unmodifiableList(laufendeTasks);
     }
 }
