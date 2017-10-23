@@ -29,10 +29,4 @@ public abstract class KonfigurationSchluessel {
     public static final String FIXED_RATE = ".fixed-rate";
     public static final String FIXED_DELAY = ".fixed-delay";
     public static final String INITIAL_DELAY = ".initial-delay";
-
-    public static final String STANDARD_FIXED_DATE = "standard.fixed-rate";
-
-    public static final String STANDARD_FIXED_DELAY = "standard.fixed-delay";
-
-    public static final String STANDARD_INITIAL_DELAY = "standard.initial-delay";
 }
