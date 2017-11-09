@@ -24,7 +24,7 @@ public abstract class KonfigurationSchluessel {
     public static final String AUSFUEHRUNGSPLAN = ".ausfuehrung";
     public static final String ZEITPUNKT = ".zeitpunkt";
 
-    public static final String STANDARD_HOST = PRAEFIX + ".standard.host";
+    public static final String STANDARD_HOST = PRAEFIX + "standard.host";
 
     public static final String FIXED_RATE = ".fixed-rate";
     public static final String FIXED_DELAY = ".fixed-delay";
