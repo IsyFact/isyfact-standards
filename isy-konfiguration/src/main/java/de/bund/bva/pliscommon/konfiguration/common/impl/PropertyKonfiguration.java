@@ -24,7 +24,6 @@ import java.util.Set;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 import de.bund.bva.pliscommon.konfiguration.common.exception.KonfigurationDateiException;
 import de.bund.bva.pliscommon.konfiguration.common.konstanten.NachrichtenSchluessel;
@@ -45,11 +44,6 @@ public class PropertyKonfiguration extends AbstractKonfiguration implements Konf
      * Gekapselte Properties.
      */
     private Properties properties;
-
-    /**
-     * Sortiert die Liste an Dateinamen.
-     */
-    private DateinamenSortierer dateinamenSortierer = new DateinamenSortierer();
 
     /**
      * Logger der Klasse.
@@ -166,16 +160,12 @@ public class PropertyKonfiguration extends AbstractKonfiguration implements Konf
                 if (propertyLocation.endsWith("/")) {
                     Set<String> propertyDateien =
                         RessourcenHelper.ladePropertiesAusOrdner(propertyLocation, this.namensSchema);
-                    // TODO IFS-98: Ggf. muss hier gar nicht sortiert werden, da dies das Standard-Verhalten
-                    // ist.
-                    List<String> propertyDateienList =
-                        this.dateinamenSortierer.sortiereDateinamenAusStringSet(propertyDateien);
-                    for (String propertyDatei : propertyDateienList) {
+                    for (String propertyDatei : propertyDateien) {
                         gesamtProperties.putAll(ladeProperties(propertyDatei));
                     }
                 } else {
-                    LOG.info(LogKategorie.JOURNAL, NachrichtenSchluessel.ERR_PROPERTY_ORDNER_PFAD,
-                        "Der Pfad des Property-Ordners \"{}\" muss mit einem \"/\" enden.", propertyLocation);
+                    throw new KonfigurationDateiException(NachrichtenSchluessel.ERR_PROPERTY_ORDNER_PFAD,
+                        propertyLocation);
                 }
             } else {
                 gesamtProperties.putAll(ladeProperties(propertyLocation));
@@ -199,10 +189,6 @@ public class PropertyKonfiguration extends AbstractKonfiguration implements Konf
         if (RessourcenHelper.istOrdner(propertyLocation)) {
             Set<String> propertyDateien =
                 RessourcenHelper.ladePropertiesAusOrdner(propertyLocation, this.namensSchema);
-
-            // TODO IFS-98: Hier darf nicht mehr sortiert werden.
-            // List<String> propertyDateienList =
-            // this.dateinamenSortierer.sortiereDateinamenAusStringSet(propertyDateien);
 
             for (String propertyDatei : propertyDateien) {
                 gesamtProperties.putAll(ladeProperties(propertyDatei));

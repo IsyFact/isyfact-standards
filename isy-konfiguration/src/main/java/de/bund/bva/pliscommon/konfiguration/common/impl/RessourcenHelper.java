@@ -6,6 +6,8 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -22,7 +24,7 @@ class RessourcenHelper {
 
     /**
      * Sucht alle Properties-Dateien in einem bestimmten Ordner und liefert den relativen Pfad zu den Dateien
-     * zurück. Die Property-Dateien müssen dem namensSchema entsprechen, alle anderen Dateien werden
+     * sortiert zurück. Die Property-Dateien müssen dem namensSchema entsprechen, alle anderen Dateien werden
      * ignoriert.
      * @param ordnerPfad
      *            Pfad zu dem Ordner, in dem nach Properties-Dateien gesucht werden sollen.
@@ -35,6 +37,7 @@ class RessourcenHelper {
         URI ordnerUri = getAbsoluterPfad(ordnerPfad);
         File ordner = new File(ordnerUri);
         File[] alleProperties = ordner.listFiles();
+        Arrays.sort(alleProperties, new FileComparator());
         for (File property : alleProperties) {
             if (Pattern.matches(namensSchema, property.getName())) {
                 String relativerPfad = ordnerPfad.concat(property.getName());
@@ -79,4 +82,13 @@ class RessourcenHelper {
         URI absoluterPfad = getAbsoluterPfad(relativerPfad);
         return Files.isDirectory(Paths.get(absoluterPfad));
     }
+
+    public static class FileComparator implements Comparator<File> {
+
+        @Override
+        public int compare(File o1, File o2) {
+            return o1.getName().compareTo(o2.getName());
+        }
+    }
+
 }
