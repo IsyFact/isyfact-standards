@@ -5,7 +5,7 @@
 
     <groupId>de.bund.bva.isyfact</groupId>
     <artifactId>isyfact-base</artifactId>
-    <version>1.5.1</version>
+    <version>1.5.2-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>IsyFact-Base</name>
     <description>Die Basis-Bibliotheken der IsyFact-Standards.</description>

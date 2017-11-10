@@ -1,3 +1,7 @@
+# v1.5.2 (unveröffentlicht)
+## Bugfix
+- isy-konfiguration: `IFS-98`: Sortierung von Dateien darf nur bei Konfiguration als Ordnerstruktur verwendet werden
+
 # v1.5.1
 - alle: `RF-161`: Bibliotheken binden genutzte Bibliotheken direkt ein und nicht mehr über BOM-Bibliotheken
 - isy-konfiguration: `IFS-26`: Konfigurationsaktualisierung via Timertask nun mit Korrelations-ID

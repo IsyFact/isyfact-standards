@@ -166,7 +166,11 @@ public class PropertyKonfiguration extends AbstractKonfiguration implements Konf
                 if (propertyLocation.endsWith("/")) {
                     Set<String> propertyDateien =
                         RessourcenHelper.ladePropertiesAusOrdner(propertyLocation, this.namensSchema);
-                    for (String propertyDatei : propertyDateien) {
+                    // TODO IFS-98: Ggf. muss hier gar nicht sortiert werden, da dies das Standard-Verhalten
+                    // ist.
+                    List<String> propertyDateienList =
+                        this.dateinamenSortierer.sortiereDateinamenAusStringSet(propertyDateien);
+                    for (String propertyDatei : propertyDateienList) {
                         gesamtProperties.putAll(ladeProperties(propertyDatei));
                     }
                 } else {
@@ -196,10 +200,11 @@ public class PropertyKonfiguration extends AbstractKonfiguration implements Konf
             Set<String> propertyDateien =
                 RessourcenHelper.ladePropertiesAusOrdner(propertyLocation, this.namensSchema);
 
-            List<String> propertyDateienList =
-                this.dateinamenSortierer.sortiereDateinamenAusStringSet(propertyDateien);
+            // TODO IFS-98: Hier darf nicht mehr sortiert werden.
+            // List<String> propertyDateienList =
+            // this.dateinamenSortierer.sortiereDateinamenAusStringSet(propertyDateien);
 
-            for (String propertyDatei : propertyDateienList) {
+            for (String propertyDatei : propertyDateien) {
                 gesamtProperties.putAll(ladeProperties(propertyDatei));
             }
         }
