@@ -1,4 +1,4 @@
-# v1.5.2 (unveröffentlicht)
+# v1.5.2
 ## Bugfix
 - isy-konfiguration: `IFS-98`: Sortierung von Dateien darf nur bei Konfiguration als Ordnerstruktur verwendet werden
 
