@@ -158,7 +158,7 @@ public class PropertyKonfiguration extends AbstractKonfiguration implements Konf
         for (String propertyLocation : propertyLocations) {
             if (RessourcenHelper.istOrdner(propertyLocation)) {
                 if (propertyLocation.endsWith("/")) {
-                    Set<String> propertyDateien =
+                    List<String> propertyDateien =
                         RessourcenHelper.ladePropertiesAusOrdner(propertyLocation, this.namensSchema);
                     for (String propertyDatei : propertyDateien) {
                         gesamtProperties.putAll(ladeProperties(propertyDatei));
@@ -187,7 +187,7 @@ public class PropertyKonfiguration extends AbstractKonfiguration implements Konf
     private Properties ladeMergedProperties(String propertyLocation) {
         Properties gesamtProperties = new Properties();
         if (RessourcenHelper.istOrdner(propertyLocation)) {
-            Set<String> propertyDateien =
+            List<String> propertyDateien =
                 RessourcenHelper.ladePropertiesAusOrdner(propertyLocation, this.namensSchema);
 
             for (String propertyDatei : propertyDateien) {

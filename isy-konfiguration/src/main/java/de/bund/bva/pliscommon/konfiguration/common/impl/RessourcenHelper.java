@@ -6,10 +6,10 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import de.bund.bva.pliscommon.konfiguration.common.exception.KonfigurationDateiException;
@@ -32,8 +32,8 @@ class RessourcenHelper {
      *            das Schema, dem die Dateinamen entsprechen müssen.
      * @return Das Set mit den Pfaden zu allen Properties-Dateien.
      */
-    public static Set<String> ladePropertiesAusOrdner(String ordnerPfad, String namensSchema) {
-        Set<String> allePropertiesPfade = new HashSet<>();
+    public static List<String> ladePropertiesAusOrdner(String ordnerPfad, String namensSchema) {
+        List<String> allePropertiesPfade = new ArrayList<>();
         URI ordnerUri = getAbsoluterPfad(ordnerPfad);
         File ordner = new File(ordnerUri);
         File[] alleProperties = ordner.listFiles();
