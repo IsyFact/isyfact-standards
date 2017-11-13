@@ -37,11 +37,6 @@ import de.bund.bva.pliscommon.konfiguration.common.konstanten.NachrichtenSchlues
 public class ReloadablePropertyProvider {
 
     /**
-     * Sortiert die Dateinamen.
-     */
-    private DateinamenSortierer dateinamenSortierer = new DateinamenSortierer();
-
-    /**
      * Schema, dem die Dateinamen entsprechen müssen.
      */
     private String namensSchema;
@@ -71,8 +66,6 @@ public class ReloadablePropertyProvider {
      *
      * @param propertyDateinamen
      *            Liste mit Property-Dateinamen.
-     * @param namensSchema
-     *            dem die Dateinamen entsprechen müssen.
      */
     public ReloadablePropertyProvider(String[] propertyDateinamen) {
         this(propertyDateinamen, RessourcenHelper.DEFAULTNAMENSSCHEMA);
@@ -130,9 +123,6 @@ public class ReloadablePropertyProvider {
      */
     private Properties mergeProperties() {
         Properties gesamtProperties = new Properties();
-
-        this.propertyDateien =
-            this.dateinamenSortierer.sortiereDateinamenAusPropertyDateiList(this.propertyDateien);
 
         for (PropertyDatei propertyDatei : this.propertyDateien) {
             gesamtProperties.putAll(propertyDatei.getProperties());
@@ -203,8 +193,8 @@ public class ReloadablePropertyProvider {
                     }
                 }
             } else {
-                LOG.info(LogKategorie.JOURNAL, NachrichtenSchluessel.ERR_PROPERTY_ORDNER_PFAD,
-                    "Der Pfad des Property-Ordners {} sollte mit einem /  enden.", ordnerPfad);
+                throw new KonfigurationDateiException(NachrichtenSchluessel.ERR_PROPERTY_ORDNER_PFAD,
+                    ordnerPfad);
             }
         }
         return propertyHinzugefuegt;
