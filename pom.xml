@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>isy-task</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <description>Die Querschnittsbibliothek isy-task</description>
 
     <parent>
@@ -51,7 +51,7 @@
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-ueberwachung</artifactId>
-            <version>1.6.0</version>
+            <version>1.6.1</version>
         </dependency>
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
