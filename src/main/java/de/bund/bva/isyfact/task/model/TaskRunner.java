@@ -11,14 +11,16 @@ import de.bund.bva.isyfact.task.konfiguration.TaskKonfiguration;
 public interface TaskRunner extends Runnable {
 
     /**
-     * Gibt des mit diesem {@link TaskRunner} verlinkten Task zurück.
+     * Gibt den mit diesem {@link TaskRunner} verlinkten Task zurück.
      *
      * @return der Task dieses TaskRunners
      */
     Task getTask();
 
     /**
-     * @return
+     * Gibt die Konfiguration des mit diesem {@link TaskRunner} verlinkten Task zurück.
+     *
+     * @return die Task-Konfiguration
      */
     TaskKonfiguration getTaskKonfiguration();
 }
