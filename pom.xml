@@ -11,13 +11,13 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.bund.bva.isyfact</groupId>
     <artifactId>isy-serviceapi-sst</artifactId>
-    <version>1.5.1</version>
+    <version>1.5.2</version>
     <name>ISY Service-API Transport-Objekte</name>
 
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
         <artifactId>isyfact-masterpom-lib</artifactId>
-        <version>1.4.1</version>
+        <version>1.4.2</version>
     </parent>
 
 </project>
