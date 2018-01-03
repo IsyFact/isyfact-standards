@@ -173,7 +173,13 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
                     .getSatzNummer()) && !this.batchAbgebrochen
                 && !(this.maximaleLaufzeitUeberschritten = istMaximaleLaufzeitUeberschritten(verarbInfo))) {
                 verarbInfo.incSatzNummer();
+
+                MdcHelper.pushKorrelationsId(Long.toString(verarbInfo.getSatzNummer()));
+
                 ergebnis = verarbInfo.getBean().verarbeiteSatz();
+
+                MdcHelper.entferneKorrelationsId();
+
                 this.jmxBean.satzVerarbeitet(ergebnis.getDatenbankSchluessel());
                 if ((verarbInfo.getCommitIntervall() > 0)
                     && (verarbInfo.getSatzNummer() % verarbInfo.getCommitIntervall() == 0)) {
