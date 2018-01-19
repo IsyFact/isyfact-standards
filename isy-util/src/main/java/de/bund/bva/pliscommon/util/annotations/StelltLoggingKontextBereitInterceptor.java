@@ -77,11 +77,12 @@ public class StelltLoggingKontextBereitInterceptor implements MethodInterceptor 
         if (nutzeAufrufKontext) {
             if (aufrufKontextTo != null) {
                 if (StringUtils.isEmpty(aufrufKontextTo.getKorrelationsId())) {
-                    LOG.debug("Es wurde keine Korrelations-ID übermittelt. Erzeuge neue Korrelations-ID.");
+                    LOG.warn(EreignisSchluessel.KEINE_KORRELATAIONSID_IM_AUFRUFKONTEXT_UEBERMITTELT,
+                        "Es wurde keine Korrelations-ID im AufrufKontext übermittelt. Erzeuge neue Korrelations-ID.");
                     korrelationsId = UUID.randomUUID().toString();
                     aufrufKontextTo.setKorrelationsId(korrelationsId);
                 } else {
-                    LOG.debug("Setzte Korrelations-ID aus AufrufKontext.");
+                    LOG.debug("Setze Korrelations-ID aus AufrufKontext.");
                     korrelationsId = aufrufKontextTo.getKorrelationsId();
                 }
 
@@ -93,8 +94,7 @@ public class StelltLoggingKontextBereitInterceptor implements MethodInterceptor 
             }
         } else {
             korrelationsId = UUID.randomUUID().toString();
-            LOG.warn(EreignisSchluessel.KEIN_AUFRUFKONTEXT_UEBERMITTELT,
-                "Es wurde kein AufrufKontext übermittelt. Erzeuge neue Korrelations-ID.");
+            LOG.debug("Erzeuge neue Korrelations-ID.");
         }
 
         try {
