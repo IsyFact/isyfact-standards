@@ -1,4 +1,4 @@
-# v1.5.3
+# v1.5.4
 ## Bugfix
 - isy-util: `IFS-120`: Der StelltLoggingKontextBereitInterceptor erzeugt keine Warn-Logausgabe mehr, wenn eine StelltLoggingKontextBereit-Annotation mit dem Parameter nutzeAufrufKontext = false definiert ist.
 
