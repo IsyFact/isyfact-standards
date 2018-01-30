@@ -1,3 +1,7 @@
+# v1.5.4
+## Bugfix
+- isy-util: `IFS-120`: Der StelltLoggingKontextBereitInterceptor erzeugt keine Warn-Logausgabe mehr, wenn eine StelltLoggingKontextBereit-Annotation mit dem Parameter nutzeAufrufKontext = false definiert ist.
+
 # v1.5.2
 ## Bugfix
 - isy-konfiguration: `IFS-98`: Sortierung von Dateien darf nur bei Konfiguration als Ordnerstruktur verwendet werden
