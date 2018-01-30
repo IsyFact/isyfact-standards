@@ -193,10 +193,7 @@ public class PollingVerwalterImpl implements PollingVerwalter, InitializingBean 
             throw new PollingUeberpruefungTechnicalException(
                 Fehlerschluessel.MSG_MBEAN_INSTANZ_NICHT_GEFUNDEN, e, mBeanObjektName,
                 verbindungsparameter.getIpAdressePort());
-        } catch (MBeanException e) {
-            throw new PollingUeberpruefungTechnicalException(Fehlerschluessel.MSG_MBEAN_ZUGRIFF_FEHLER, e,
-                mBeanObjektName, verbindungsparameter.getIpAdressePort());
-        } catch (ReflectionException e) {
+        } catch (MBeanException | ReflectionException e) {
             throw new PollingUeberpruefungTechnicalException(Fehlerschluessel.MSG_MBEAN_ZUGRIFF_FEHLER, e,
                 mBeanObjektName, verbindungsparameter.getIpAdressePort());
         } finally {

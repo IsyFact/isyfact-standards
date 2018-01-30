@@ -75,27 +75,4 @@ public class PollingVerwalterDefaultJmxConnTest extends AbstractPollingTest {
         Assert.assertTrue("Polling darf gestartet werden", pollingVerwalter.startePolling("CLUSTER1"));
 
     }
-    
-    /**
-     * Testet, ob der Interceptor funktioniert.
-     */
-    @Test
-    public void annotationTest() throws Exception {
-        
-        // Zeitpunkt der letzten Ausführung merken
-        long ausfuehrungszeitpunkt1 = pollingVerwalter.getZeitpunktLetztePollingAktivitaet("CLUSTER1");
-        // Polling-Aktion ausführen
-        pollingAktionAusfuehrer.doPollingAktionClusterKorrekt();
-        // Zeitpunkt der letzten Ausführung lesen
-        long ausfuehrungszeitpunkt2 = pollingVerwalter.getZeitpunktLetztePollingAktivitaet("CLUSTER1");
-        Assert.assertTrue("Ausführungszeitpunkt wurde nicht geändert.", ausfuehrungszeitpunkt1 != ausfuehrungszeitpunkt2);
-
-        // Aktion für unbekannten Cluster ausführen
-        try {
-            pollingAktionAusfuehrer.doPollingAktionClusterUnbekannt();
-            Assert.fail("keine Exception geworfen");
-        } catch (Exception e) {
-            Assert.assertTrue("Unerwartete Exception", e instanceof PollingClusterUnbekanntException);
-        }
-    }   
 }
