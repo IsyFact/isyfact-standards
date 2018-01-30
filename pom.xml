@@ -23,6 +23,10 @@
         </license>
     </licenses>
 
+    <modules>
+        <module>isyfact-masterpom-lib</module>
+    </modules>
+
     <properties>
         <!-- Die parameter 'checkstyle.config' und 'checkstyle.suppressions.config' müssen über die settings.xml
             gesetzt werden, da sie von der Umgebung abhängig sind. -->
