@@ -33,6 +33,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.orm.jpa.EntityManagerFactoryUtils;
@@ -68,9 +69,7 @@ import de.bund.bva.pliscommon.sicherheit.common.exception.AutorisierungTechnical
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
     TransactionalTestExecutionListener.class })
 @ContextConfiguration(locations = { "/resources/anwendung/jpa.xml", "/resources/anwendung/querschnitt.xml" })
-public class BatchrahmenTest implements ApplicationContextAware {
-
-    private ApplicationContext applicationContext;
+public class BatchrahmenTest {
 
     /**
      * Aktiviert/Deaktiviert den Laufzeit-Test {@link #testLaufzeitParameter()}.
@@ -90,10 +89,41 @@ public class BatchrahmenTest implements ApplicationContextAware {
 
     private TransactionTemplate txTemplate;
 
+    @Autowired
+    private EntityManagerFactory emf;
+
+    @Autowired
+    private PlatformTransactionManager txManager;
+
+    @Before
+    public void init() {
+        this.dao = new BatchStatusDao(emf);
+        TransactionDefinition def =
+            new DefaultTransactionDefinition(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
+        this.txTemplate = new TransactionTemplate(txManager, def);
+        this.txTemplate.execute(new TransactionCallbackWithoutResult() {
+            @Override
+            public void doInTransactionWithoutResult(TransactionStatus status) {
+                EntityManager em = EntityManagerFactoryUtils.getTransactionalEntityManager(emf);
+                em.flush();
+                em.clear();
+                em.createNativeQuery("delete from BATCHSTATUS").executeUpdate();
+            }
+        });
+
+        try {
+            ERGEBNIS_DATEI = new File(
+                BatchrahmenTest.class.getResource("/resources/batch/ausgabe/ergebnisdatei.xml").toURI())
+                .getAbsolutePath();
+
+        } catch (URISyntaxException e) {
+            fail(e.getMessage());
+        }
+    }
+
     /**
      * Testet die Ausführung des Batchrahmens mit dem TestBatchLauncher, der den Batch in einer eigenen VM
      * ausführt.
-     * @throws IOException
      */
     @Test
     @Ignore("TestBatchLauncher startet Batch in eigener VM, dadurch NPE beim Test.")
@@ -106,7 +136,6 @@ public class BatchrahmenTest implements ApplicationContextAware {
 
     /**
      * Testet die Ausführung des Batchrahmens.
-     * @throws IOException
      */
     @Test
     public void testBatchrahmen() throws IOException {
@@ -118,7 +147,6 @@ public class BatchrahmenTest implements ApplicationContextAware {
     /**
      * Testet die Behandlung des Status-Satzes, wenn der Batch mit einem Fehler in der Initialisierung
      * abbricht. Der Status muss bei einem Abbruch während der Initialisierung auf "beendet" stehen.
-     * @throws IOException
      */
     @Test
     public void testFehlerInInit() throws IOException {
@@ -148,7 +176,6 @@ public class BatchrahmenTest implements ApplicationContextAware {
 
     /**
      * Testet, dass nach einem Abbruch der Batch nur mit ignoriereLauf neu gestartet werden kann.
-     * @throws IOException
      */
     @Test
     public void testIgnoriereLauf() throws IOException {
@@ -167,7 +194,6 @@ public class BatchrahmenTest implements ApplicationContextAware {
 
     /**
      * Testet, dass nach einem Abbruch der Batch mit Restart gestartet werden kann.
-     * @throws IOException
      */
     @Test
     // @Ignore("TestBatchLauncher startet Batch in eigener VM, dadurch NPE beim Test.")
@@ -246,11 +272,9 @@ public class BatchrahmenTest implements ApplicationContextAware {
      *
      * Unter Windows kann der Batch mit "taskkill /PID 1234" beendet werden. PID ist dem Task-Manager zu
      * entnehmen.
-     *
-     * @throws IOException
      */
     @Test
-    public void testShutdown() throws IOException {
+    public void testShutdown() throws Exception {
         if (!DO_TEST_SHUTDOWN) {
             return;
         }
@@ -267,11 +291,9 @@ public class BatchrahmenTest implements ApplicationContextAware {
      * Testet ob der Batch mit dem Laufzeitparameter abgebrochen werden kann. Anschließend muss geprüft
      * werden, ob im Log die Meldung Batch beendet geschrieben wurde und der Status in der DB auf abgebrochen
      * steht.
-     *
-     * @throws IOException
      */
     @Test
-    public void testLaufzeitParameter() throws IOException {
+    public void testLaufzeitParameter() throws Exception {
         if (!DO_TEST_LAUFZEIT) {
             return;
         }
@@ -287,11 +309,9 @@ public class BatchrahmenTest implements ApplicationContextAware {
     /**
      * Testet ob der Batch mit Parameter-Exception abbricht, wenn der Laufzeit-Parameter ohne die Minuten
      * angegeben ist. Dabei ist "-laufzeit" der letzte Parameter.
-     *
-     * @throws IOException
      */
     @Test
-    public void testLaufzeitParameterOhneMinuten() throws IOException {
+    public void testLaufzeitParameterOhneMinuten() throws Exception {
         TestBatchLauchner batchLauncher =
             new TestBatchLauchner("/resources/batch/basic-test-batch-1-config.properties");
         assertEquals(3, batchLauncher.starteBatch(BatchStartTyp.START, "/laufzeit_out.xml",
@@ -301,11 +321,9 @@ public class BatchrahmenTest implements ApplicationContextAware {
     /**
      * Testet ob der Batch mit Parameter-Exception abbricht, wenn der Laufzeit-Parameter ohne die Minuten
      * angegeben ist. Der Parameter "-laufzeit" wird direkt mit einem anderen Parameter gefolgt.
-     *
-     * @throws IOException
      */
     @Test
-    public void testLaufzeitParameterOhneMinutenIgnoriereTestlauf() throws IOException {
+    public void testLaufzeitParameterOhneMinutenIgnoriereTestlauf() throws Exception {
         TestBatchLauchner batchLauncher =
             new TestBatchLauchner("/resources/batch/basic-test-batch-1-config.properties");
         assertEquals(3, batchLauncher.starteBatch(BatchStartTyp.START, "/laufzeit_out.xml",
@@ -315,8 +333,6 @@ public class BatchrahmenTest implements ApplicationContextAware {
     /**
      * Testet ob der Batch mit Parameter-Exception abbricht, wenn der Laufzeit-Parameter ohne die Minuten
      * angegeben ist. Der Parameter "-laufzeit" vorne als Option angegeben.
-     *
-     * @throws IOException
      */
     @Test
     public void testLaufzeitParameterOhneMinutenAlsOption() throws Exception {
@@ -329,11 +345,9 @@ public class BatchrahmenTest implements ApplicationContextAware {
     /**
      * Testet ob der Batch mit Parameter-Exception abbricht, wenn der Laufzeit-Parameter angegeben ist, aber
      * die Minuten nicht numerisch sind.
-     *
-     * @throws IOException
      */
     @Test
-    public void testLaufzeitParameterMinutenNichtNumerisch() throws IOException {
+    public void testLaufzeitParameterMinutenNichtNumerisch() throws Exception {
         TestBatchLauchner batchLauncher =
             new TestBatchLauchner("/resources/batch/basic-test-batch-1-config.properties");
         assertEquals(4, batchLauncher.starteBatch(BatchStartTyp.START, new String[] { "-laufzeit", "ABC" }));
@@ -354,41 +368,8 @@ public class BatchrahmenTest implements ApplicationContextAware {
         });
     }
 
-    @Before
-    public void init() throws Exception {
-        final EntityManagerFactory emf =
-            (EntityManagerFactory) this.applicationContext.getBean("entityManagerFactory");
-        PlatformTransactionManager txManager =
-            (PlatformTransactionManager) this.applicationContext.getBean("transactionManager");
-        this.dao = new BatchStatusDao(emf);
-        TransactionDefinition def =
-            new DefaultTransactionDefinition(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
-        this.txTemplate = new TransactionTemplate(txManager, def);
-        this.txTemplate.execute(new TransactionCallbackWithoutResult() {
-            @Override
-            public void doInTransactionWithoutResult(TransactionStatus status) {
-                EntityManager em = EntityManagerFactoryUtils.getTransactionalEntityManager(emf);
-                em.flush();
-                em.clear();
-                em.createNativeQuery("delete from BATCHSTATUS").executeUpdate();
-            }
-        });
-
-        try {
-            ERGEBNIS_DATEI = new File(
-                BatchrahmenTest.class.getResource("/resources/batch/ausgabe/ergebnisdatei.xml").toURI())
-                    .getAbsolutePath();
-
-        } catch (URISyntaxException e) {
-            fail(e.getMessage());
-        }
-    }
-
     /**
      * Testet die Absicherung eines Batches vor der Verarbeitung eines Satzes.
-     * @throws IOException
-     * @throws AutorisierungTechnicalException
-     * @throws AuthentifizierungFehlgeschlagenException
      */
     @Test
     public void testGesicherterBatchGutFall() throws Exception {
@@ -399,9 +380,6 @@ public class BatchrahmenTest implements ApplicationContextAware {
 
     /**
      * Testet die Absicherung eines Batches vor der Verarbeitung eines Satzes.
-     * @throws IOException
-     * @throws AutorisierungTechnicalException
-     * @throws AuthentifizierungFehlgeschlagenException
      */
     @Test
     public void testGesicherterBatchLoginNichtMoeglich() throws Exception {
@@ -412,9 +390,6 @@ public class BatchrahmenTest implements ApplicationContextAware {
 
     /**
      * Testet die Absicherung eines Batches vor der Verarbeitung eines Satzes.
-     * @throws IOException
-     * @throws AutorisierungTechnicalException
-     * @throws AuthentifizierungFehlgeschlagenException
      */
     @Test
     public void testGesicherterBatchNichtErforderlicheRolle() throws Exception {
@@ -425,9 +400,6 @@ public class BatchrahmenTest implements ApplicationContextAware {
 
     /**
      * Testet die Absicherung eines Batches vor der Initialisierung.
-     * @throws IOException
-     * @throws AutorisierungTechnicalException
-     * @throws AuthentifizierungFehlgeschlagenException
      */
     @Test
     public void testGesicherterBatch2GutFall() throws Exception {
@@ -438,9 +410,6 @@ public class BatchrahmenTest implements ApplicationContextAware {
 
     /**
      * Testet die Absicherung eines Batches vor der Initialisierung.
-     * @throws IOException
-     * @throws AutorisierungTechnicalException
-     * @throws AuthentifizierungFehlgeschlagenException
      */
     @Test
     public void testGesicherterBatch2LoginNichtMoeglich() throws Exception {
@@ -452,9 +421,6 @@ public class BatchrahmenTest implements ApplicationContextAware {
 
     /**
      * Testet die Absicherung eines Batches vor der Initialisierung.
-     * @throws IOException
-     * @throws AutorisierungTechnicalException
-     * @throws AuthentifizierungFehlgeschlagenException
      */
     @Test
     public void testGesicherterBatch2NichtErforderlicheRolle() throws Exception {
@@ -467,24 +433,14 @@ public class BatchrahmenTest implements ApplicationContextAware {
     /**
      * Testet die Ausführung des Batchrahmens mit dem TestBatchLauncher, der den Batch in einer eigenen VM
      * ausführt.
-     * @throws IOException
      */
     @Test
     @Ignore("TestBatchLauncher startet Batch in eigener VM, dadurch NPE beim Test.")
-    public void testReturnCodeTestBatch() throws IOException {
+    public void testReturnCodeTestBatch() throws Exception {
         TestBatchLauchner batchLauncher =
             new TestBatchLauchner("/resources/batch/returnCode-test-batch-1-config.properties");
         assertEquals(BatchReturnCode.FEHLER_AUSGEFUEHRT.getWert(),
             batchLauncher.starteBatch(BatchStartTyp.START, null));
         assertEquals("beendet", getBatchStatus("returnCodeTestBatch-1").getBatchStatus());
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
-    }
-
 }

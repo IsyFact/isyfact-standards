@@ -61,18 +61,12 @@ public class BatchProtokollTester {
         docFactory.setNamespaceAware(true);
         DocumentBuilder builder;
         try {
-            // Dokument parsen
             builder = docFactory.newDocumentBuilder();
             batchProtokoll = builder.parse(ergebnisDatei);
 
-            // XPath initialisieren
             XPathFactory xpathFactory = XPathFactory.newInstance();
             xpath = xpathFactory.newXPath();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
         }
     }
@@ -85,10 +79,7 @@ public class BatchProtokollTester {
      */
     public boolean enthaeltMeldungsId(String id) {
         String xpathQuery = "//Meldung[@ID='" + id + "']";
-        if (getNodeListFromXpath(xpathQuery).getLength() == 0) {
-            return false;
-        }
-        return true;
+        return getNodeListFromXpath(xpathQuery).getLength() != 0;
     }
 
     /**
@@ -97,10 +88,7 @@ public class BatchProtokollTester {
      */
     public boolean isFehlerfrei() {
         String xpathQuery = "//Meldung[@Typ='F']";
-        if (getNodeListFromXpath(xpathQuery).getLength() == 0) {
-            return true;
-        }
-        return false;
+        return getNodeListFromXpath(xpathQuery).getLength() == 0;
     }
 
     /**
@@ -111,10 +99,7 @@ public class BatchProtokollTester {
      */
     public boolean enthaeltFehler(String fehlerId) {
         String xpathQuery = "//Meldung[@Typ='F' and @ID='" + fehlerId + "']";
-        if (getNodeListFromXpath(xpathQuery).getLength() == 0) {
-            return false;
-        }
-        return true;
+        return getNodeListFromXpath(xpathQuery).getLength() != 0;
     }
 
     /**
@@ -128,11 +113,8 @@ public class BatchProtokollTester {
      * @return true/false
      */
     public boolean enthaeltFehler(String fehlerId, String textTeil) {
-        String xpathQuery = "//Meldung[@Typ='F' and contains(@Text, '" + textTeil + "')]";
-        if (getNodeListFromXpath(xpathQuery).getLength() == 0) {
-            return false;
-        }
-        return true;
+        String xpathQuery = "//Meldung[@Typ='F' and @ID='" + fehlerId + "' and contains(@Text, '" + textTeil + "')]";
+        return getNodeListFromXpath(xpathQuery).getLength() != 0;
     }
 
     /**
@@ -140,7 +122,7 @@ public class BatchProtokollTester {
      * @return Liste der FehlerIDs als Strings.
      */
     public Collection<String> getFehlerIds() {
-        ArrayList<String> fehlerListe = new ArrayList<String>();
+        ArrayList<String> fehlerListe = new ArrayList<>();
         String xpathQuery = "//Meldung[@Typ='F']";
         if (getNodeListFromXpath(xpathQuery).getLength() != 0) {
             NodeList nodes = getNodeListFromXpath(xpathQuery);
@@ -154,10 +136,10 @@ public class BatchProtokollTester {
 
     /**
      * Liefert alle eindeutigen FehlerIDs zurück (ohne Duplikate).
-     * @return Liste der eindeutigen FehlerIDs
+     * @return Menge der eindeutigen FehlerIDs
      */
     public Set<String> getFehlerIdsEindeutig() {
-        HashSet<String> fehlerIdsEindeutig = new HashSet<String>();
+        HashSet<String> fehlerIdsEindeutig = new HashSet<>();
         for (String fehlerId : getFehlerIds()) {
             if (!fehlerIdsEindeutig.contains(fehlerId)) {
                 fehlerIdsEindeutig.add(fehlerId);
@@ -173,10 +155,7 @@ public class BatchProtokollTester {
      */
     public boolean isStartmodusRestart() {
         String xpathQuery = "//Meldung[@ID='RESTART']";
-        if (getNodeListFromXpath(xpathQuery).getLength() == 0) {
-            return false;
-        }
-        return true;
+        return getNodeListFromXpath(xpathQuery).getLength() != 0;
     }
 
     /**
