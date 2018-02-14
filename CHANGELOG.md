@@ -1,3 +1,7 @@
+# v1.6.0
+- isy-util: `IFS-111`: Abhängigkeit von isy-util auf isy-serviceapi-sst aufgelöst. StelltLoggingKontextBereitInterceptor nach isy-serviceapi-core verschoben.
+
+
 # v1.5.4
 ## Bugfix
 - isy-util: `IFS-120`: Der StelltLoggingKontextBereitInterceptor erzeugt keine Warn-Logausgabe mehr, wenn eine StelltLoggingKontextBereit-Annotation mit dem Parameter nutzeAufrufKontext = false definiert ist.
