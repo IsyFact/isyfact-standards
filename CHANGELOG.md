@@ -1,6 +1,6 @@
 # v1.6.0
 - isy-util: `IFS-111`: Abhängigkeit von isy-util auf isy-serviceapi-sst aufgelöst. StelltLoggingKontextBereitInterceptor nach isy-serviceapi-core verschoben.
-
+**Achtung**: Dieses Ticket nimmt die Änderungen von `IFS-9` (s. v1.5.1) zurück. Der `checkAndUpdate()`-Task der Konfiguration kann in Zukunft direkt über die Bibliothek `isy-task` eingebunden und konfiguriert werden.
 
 # v1.5.4
 ## Bugfix
