@@ -43,45 +43,6 @@ public class AccessManagerStub implements AccessManager<AufrufKontext, Authentif
     /** der zuletzt autorisierte Nutzer. */
     private String nutzer;
 
-    // /**
-    // * {@inheritDoc}
-    // */
-    // public HashMap<String, Object> holeSessionInhalte(String sessionId)
-    // throws AuthentifizierungTechnicalException {
-    // HashMap<String, Object> hashMap = new HashMap<String, Object>();
-    // hashMap.put(AccessManager.STRING_ANMELDENAME, nutzer);
-    // hashMap.put(AccessManager.STRING_ORGANISATIONSEINHEIT, "900600");
-    // ArrayList<String> list = new ArrayList<String>();
-    // if ("benutzer".equals(nutzer)) {
-    // list.add("Anwender");
-    // }
-    // hashMap.put(AccessManager.STRING_LIST_ROLLEN_IDS, list);
-    // return hashMap;
-    // }
-    //
-    // public String authentifiziere(String correlationId, String userName, String userPasswort,
-    // String clientZertifikat, String clientZertifikatDN) throws AuthentifizierungFehlgeschlagenException,
-    // AuthentifizierungTechnicalException {
-    // if ("falscher_benutzer".equals(userName)) {
-    // throw new AuthentifizierungFehlgeschlagenException("SIC2050");
-    // }
-    // nutzer = userName;
-    // return RandomStringUtils.randomAlphabetic(16);
-    // }
-    //
-    // /**
-    // * {@inheritDoc}
-    // */
-    // public String authentifiziereNutzer(String correlationId, String userName, String userPasswort,
-    // String bhknz, String zertifikatOu) throws AuthentifizierungFehlgeschlagenException,
-    // AuthentifizierungTechnicalException {
-    // if ("falscher_benutzer".equals(userName)) {
-    // throw new AuthentifizierungFehlgeschlagenException("SIC2050");
-    // }
-    // nutzer = userName;
-    // return RandomStringUtils.randomAlphabetic(16);
-    // }
-
     /**
      * {@inheritDoc}
      */

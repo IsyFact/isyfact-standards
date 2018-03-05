@@ -126,7 +126,6 @@ public class TestBatchLauchner {
                         }
                     } catch (IOException ex) {
                         // Thread beendet.
-                        return;
                     }
                 }
             });

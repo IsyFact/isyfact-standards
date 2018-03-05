@@ -66,7 +66,7 @@
 
     <!-- ====================================================================== Die Ausfuehrer-Bean fuer den Test-Batch
         ====================================================================== -->
-    <bean id="basicTestBatch" class="de.bund.bva.pliscommon.batchrahmen.batch.BasicTestBatch">
+    <bean id="basicTestBatch" class="de.bund.bva.pliscommon.batchrahmen.batch.7BasicTestBatch">
     </bean>
 
     <!-- ====================================================================== Die Ausfuehrer-Bean fuer den Test-Batch
