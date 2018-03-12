@@ -1,3 +1,7 @@
+# v1.6.0
+- isy-aufrufkontext: `IFS-139`: Default-Name des HTTP-Headers in HttpHeaderNestedDiagnosticContextFilter geändert 
+- isy-aufrufkontext: `IFS-136`: HttpHeaderNestedDiagnosticContextFilter entfernt alle Korrelations-Ids
+
 # v1.5.4
 ## Bugfix
 - isy-util: `IFS-120`: Der StelltLoggingKontextBereitInterceptor erzeugt keine Warn-Logausgabe mehr, wenn eine StelltLoggingKontextBereit-Annotation mit dem Parameter nutzeAufrufKontext = false definiert ist.

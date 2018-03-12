@@ -59,7 +59,7 @@ public class HttpHeaderNestedDiagnosticContextFilter extends AbstractRequestLogg
         IsyLoggerFactory.getLogger(HttpHeaderNestedDiagnosticContextFilter.class);
 
     /** Der Name des HTTP-Headers mit der Correlation-ID. */
-    private String correlationIdHttpHeaderName = "Correlation-Id";
+    private String correlationIdHttpHeaderName = "X-Correlation-Id";
 
     /**
      * Setzt den Namen des HTTP-Headers mit der Correlation-ID.
