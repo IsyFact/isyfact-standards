@@ -17,15 +17,13 @@
 package de.bund.bva.pliscommon.aufrufkontext.http;
 
 import java.util.UUID;
-
 import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.web.filter.AbstractRequestLoggingFilter;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.web.filter.AbstractRequestLoggingFilter;
 
 /**
  * Ein Servlet-Filter, der die Correlation-ID aus dem Http-Header {@link #correlationIdHttpHeaderName} und im
@@ -61,7 +59,7 @@ public class HttpHeaderNestedDiagnosticContextFilter extends AbstractRequestLogg
         IsyLoggerFactory.getLogger(HttpHeaderNestedDiagnosticContextFilter.class);
 
     /** Der Name des HTTP-Headers mit der Correlation-ID. */
-    private String correlationIdHttpHeaderName = "Correlation-Id";
+    private String correlationIdHttpHeaderName = "X-Correlation-Id";
 
     /**
      * Setzt den Namen des HTTP-Headers mit der Correlation-ID.
@@ -122,7 +120,7 @@ public class HttpHeaderNestedDiagnosticContextFilter extends AbstractRequestLogg
      */
     @Override
     protected void afterRequest(HttpServletRequest request, String message) {
-        MdcHelper.entferneKorrelationsId();
+        MdcHelper.entferneKorrelationsIds();
         LOG.debug(message);
     }
 }
