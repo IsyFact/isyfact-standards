@@ -17,6 +17,7 @@
 package de.bund.bva.pliscommon.batchrahmen.core.rahmen.impl;
 
 import java.util.Date;
+import java.util.UUID;
 
 import javax.persistence.EntityManager;
 
@@ -173,7 +174,13 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
                     .getSatzNummer()) && !this.batchAbgebrochen
                 && !(this.maximaleLaufzeitUeberschritten = istMaximaleLaufzeitUeberschritten(verarbInfo))) {
                 verarbInfo.incSatzNummer();
+
+                MdcHelper.pushKorrelationsId(UUID.randomUUID().toString());
+
                 ergebnis = verarbInfo.getBean().verarbeiteSatz();
+
+                MdcHelper.entferneKorrelationsId();
+
                 this.jmxBean.satzVerarbeitet(ergebnis.getDatenbankSchluessel());
                 if ((verarbInfo.getCommitIntervall() > 0)
                     && (verarbInfo.getSatzNummer() % verarbInfo.getCommitIntervall() == 0)) {
