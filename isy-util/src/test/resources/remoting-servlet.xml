@@ -35,15 +35,7 @@
 
     <bean id="dummyService" class="de.bund.bva.pliscommon.util.annotations.service.httpinvoker.v1_0_0.DummyServiceImpl"/>
 
-    <!-- @StelltLoggingKontextBereit Annotation einschalten -->
-    <bean id="stelltLoggingKontextBereitInterceptor" class="de.bund.bva.pliscommon.util.annotations.StelltLoggingKontextBereitInterceptor">
-    </bean>
 
-    <aop:config>
-        <aop:pointcut id="stelltLoggingKontextBereitPointcut"
-            expression="@annotation(de.bund.bva.pliscommon.util.annotations.StelltLoggingKontextBereit) || @within(de.bund.bva.pliscommon.util.annotations.StelltLoggingKontextBereit)"/>
-        <aop:advisor pointcut-ref="stelltLoggingKontextBereitPointcut" advice-ref="stelltLoggingKontextBereitInterceptor"
-            order="50"/>
-    </aop:config>
+
 
 </beans>
