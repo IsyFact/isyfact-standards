@@ -29,7 +29,7 @@ public class TestHttpHeaderNestedDiagnosticContextFilter {
 	@Test
 	public void testGetNestedDiagnosticContextMessage() {
 		HttpServletRequest mock = Mockito.mock(HttpServletRequest.class);
-		when(mock.getHeader("Correlation-Id")).thenReturn("someId");
+		when(mock.getHeader("X-Correlation-Id")).thenReturn("someId");
 		
 		HttpHeaderNestedDiagnosticContextFilter filter = new HttpHeaderNestedDiagnosticContextFilter();
 		String id = filter.getNestedDiagnosticContextMessage(mock);
