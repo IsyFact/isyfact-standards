@@ -58,9 +58,7 @@ public class PollingAktionInterceptor implements MethodInterceptor {
         PollingAktion pollingAktion = ermittlePollingAktionAnnotation(invocation.getMethod(), targetClass);
 
         try {
-            // Methode aufrufen
-            Object ergebnis = invocation.proceed();
-            return ergebnis;
+            return invocation.proceed();
         } finally {
             // aktualisiere den Zeitpunkt der letzten Polling-Aktion.
             pollingVerwalter.aktualisiereZeitpunktLetztePollingAktivitaet(pollingAktion.pollingCluster());

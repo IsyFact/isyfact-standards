@@ -46,7 +46,7 @@
         MBeans zu ermitteln.
         ====================================================================== -->
     <bean id="mBeanExporter" class="org.springframework.jmx.export.MBeanExporter">
-        <property name="registrationBehaviorName" value="REGISTRATION_REPLACE_EXISTING"/>
+        <property name="registrationPolicy" value="REPLACE_EXISTING"/>
         <property name="assembler">
             <bean class="org.springframework.jmx.export.assembler.MetadataMBeanInfoAssembler">
                 <property name="attributeSource">
