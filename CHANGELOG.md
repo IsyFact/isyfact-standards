@@ -1,5 +1,5 @@
 # v1.7.0
-- `IFS-111`: StelltLoggingKontextBereitInterceptor von isyfact-base/isy-utils übernommen. 
+- `IFS-111`: StelltLoggingKontextBereit von isy-util übernommen. 
 
 # v1.6.0
 - `IFS-9`: StelltLoggingKontextBereit-Annotation nach isy-util verschoben, da auch ohne AufrufkontextTo nutzbar
