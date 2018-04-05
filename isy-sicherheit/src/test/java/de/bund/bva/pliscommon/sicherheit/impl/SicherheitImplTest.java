@@ -199,6 +199,17 @@ public class SicherheitImplTest extends AbstractSicherheitTest {
         ReloadablePropertyKonfiguration konf = new ReloadablePropertyKonfiguration(new String[]{"/config/sicherheit.test2.properties"});
         ((SicherheitImpl)sicherheit).setKonfiguration(konf);
         ((SicherheitImpl)sicherheit).afterPropertiesSet();
-        assertEquals(0, konf.getAsInteger(SicherheitKonfigurationSchluessel.CONF_CACHE_TTL));
+
+        AufrufKontext aufrufKontext = this.aufrufKontextFactory.erzeugeAufrufKontext();
+        aufrufKontext.setDurchfuehrenderBenutzerKennung("nutzer");
+        aufrufKontext.setDurchfuehrenderSachbearbeiterName("name");
+        aufrufKontext.setDurchfuehrendeBehoerde("behoerde");
+        aufrufKontext.setDurchfuehrenderBenutzerPasswort("passwort");
+        aufrufKontext.setRollenErmittelt(false);
+        aufrufKontext.setRolle(new String[] { "Rolle_XYZ" });
+
+        sicherheit.getBerechtigungsManagerUndAuthentifiziere(aufrufKontext);
+        sicherheit.getBerechtigungsManagerUndAuthentifiziere(aufrufKontext);
+        assertEquals(2, testAccessManager.getCountAuthentifziere());
     }
 }
