@@ -19,6 +19,7 @@ package de.bund.bva.pliscommon.sicherheit.impl;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -31,6 +32,7 @@ import de.bund.bva.pliscommon.sicherheit.accessmgr.test.TestAccessManager;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "/resources/spring/application_interceptor.xml")
+@DirtiesContext
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public abstract class AbstractSicherheitTest {
 
