@@ -116,12 +116,5 @@
             <version>${spring.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- Für Spring in JUnit-Tests -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>${spring.version}</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 </project>
