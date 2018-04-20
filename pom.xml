@@ -5,13 +5,13 @@
     
     <groupId>de.bund.bva.isyfact</groupId>
     <artifactId>isy-serviceapi-core</artifactId>
-    <version>1.7.0.RC1</version>
+    <version>1.7.0.RC2</version>
     <name>IsyFact Service-API Anwendung</name>
 
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
         <artifactId>isyfact-masterpom-lib</artifactId>
-        <version>1.5.0.RC1</version>
+        <version>1.5.0.RC2</version>
     </parent>
 
     <properties>
@@ -23,7 +23,7 @@
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isyfact-base-bom</artifactId>
-                <version>1.6.0.RC1</version>
+                <version>1.6.0.RC2</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -56,7 +56,7 @@
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-serviceapi-sst</artifactId>
-            <version>1.6.0.RC1</version>
+            <version>1.6.0.RC2</version>
         </dependency>
 
         <!-- PLIS-Sicherheit zur Autorisierung in der Service-Impl. -->
