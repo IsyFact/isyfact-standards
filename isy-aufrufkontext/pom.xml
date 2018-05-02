@@ -11,7 +11,7 @@
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
         <artifactId>isyfact-base</artifactId>
-        <version>1.6.0.RC1</version>
+        <version>1.6.0</version>
     </parent>
 
     <dependencies>
@@ -39,12 +39,6 @@
             <artifactId>spring-aspects</artifactId>
             <version>${spring.version}</version>
             <scope>runtime</scope>
-        </dependency>
-        <!-- Dozer (Bean Mapping) -->
-        <dependency>
-            <groupId>net.sf.dozer</groupId>
-            <artifactId>dozer</artifactId>
-            <version>${dozer.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
