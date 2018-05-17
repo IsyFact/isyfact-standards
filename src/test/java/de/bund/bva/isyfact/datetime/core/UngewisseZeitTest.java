@@ -4,14 +4,11 @@ import java.time.DateTimeException;
 import java.time.LocalTime;
 import java.util.Optional;
 
-import de.bund.bva.isyfact.datetime.persistence.UngewisseZeitEntitaet;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-/**
 
- */
 public class UngewisseZeitTest {
 
     @Test
@@ -70,21 +67,6 @@ public class UngewisseZeitTest {
 
         assertFalse(ofLocalTime.isLeer());
         assertEquals(UngewisseZeit.of(17, 30, 0), ofLocalTime);
-    }
-
-    @Test
-    public void ofUngewisseZeitEntitaet() throws Exception {
-        LocalTime anfang = LocalTime.of(12, 0);
-        LocalTime ende = LocalTime.of(18, 30);
-
-        UngewisseZeitEntitaet entitaet = new UngewisseZeitEntitaet();
-        entitaet.setAnfang(anfang);
-        entitaet.setEnde(ende);
-
-        UngewisseZeit ungewisseZeit = UngewisseZeit.of(entitaet);
-
-        assertEquals(anfang, ungewisseZeit.getAnfang());
-        assertEquals(ende, ungewisseZeit.getEnde());
     }
 
     @Test(expected = NullPointerException.class)

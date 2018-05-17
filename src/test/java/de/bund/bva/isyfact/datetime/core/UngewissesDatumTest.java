@@ -4,14 +4,11 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Optional;
 
-import de.bund.bva.isyfact.datetime.persistence.UngewissesDatumEntitaet;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-/**
 
- */
 public class UngewissesDatumTest {
 
     @Test
@@ -60,22 +57,6 @@ public class UngewissesDatumTest {
 
         assertFalse(ofLocalDate.isLeer());
         assertEquals(UngewissesDatum.of(2017, 8, 1), ofLocalDate);
-    }
-
-    @Test
-    public void ofUngewissesDatumEntitaet() throws Exception {
-        UngewissesDatumEntitaet entitaet = new UngewissesDatumEntitaet();
-
-        LocalDate anfang = LocalDate.of(2017, 1, 1);
-        LocalDate ende = LocalDate.of(2017, 6, 30);
-
-        entitaet.setAnfang(anfang);
-        entitaet.setEnde(ende);
-
-        UngewissesDatum ungewissesDatum = UngewissesDatum.of(entitaet);
-
-        assertEquals(anfang, ungewissesDatum.getAnfang());
-        assertEquals(ende, ungewissesDatum.getEnde());
     }
 
     @Test(expected = NullPointerException.class)

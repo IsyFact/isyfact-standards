@@ -10,8 +10,6 @@ import java.time.temporal.TemporalAccessor;
 import java.util.Objects;
 import java.util.Optional;
 
-import de.bund.bva.isyfact.datetime.persistence.UngewisseZeitEntitaet;
-
 /**
  * Darstellung einer ungewissen Zeit. Eine Zeit ist ungewiss, wenn Teile der Zeit nicht bekannt sind.
  * <p>
@@ -116,19 +114,6 @@ public class UngewisseZeit {
         }
 
         return new UngewisseZeit(vonInklusive, bisInklusive);
-    }
-
-    /**
-     * Erstellt ein {@link UngewisseZeit} aus der dazugehörigen Persistenzklasse {@link UngewisseZeitEntitaet}.
-     * @param ungewisseZeitEntitaet
-     *      die  {@link UngewisseZeitEntitaet}
-     * @return
-     *      ein {@link UngewisseZeit} mit den Daten der {@link UngewisseZeitEntitaet}
-     */
-    public static UngewisseZeit of(UngewisseZeitEntitaet ungewisseZeitEntitaet) {
-        Objects.requireNonNull(ungewisseZeitEntitaet);
-
-        return UngewisseZeit.of(ungewisseZeitEntitaet.getAnfang(), ungewisseZeitEntitaet.getEnde());
     }
 
     /**

@@ -20,7 +20,6 @@ import java.util.function.Function;
 
 import de.bund.bva.isyfact.datetime.format.InFormat;
 import de.bund.bva.isyfact.datetime.format.OutFormat;
-import de.bund.bva.isyfact.datetime.persistence.ZeitraumEntitaet;
 
 /**
  * Ein Zeitraum bestehend aus zwei Datums- oder Zeitangaben, die den Start und das Ende eines Zeitraums
@@ -301,20 +300,6 @@ public class Zeitraum implements Serializable {
         zeitraum.ohneDatum = true;
 
         return zeitraum;
-    }
-
-    /**
-     * Erstellt einen {@link Zeitraum} aus der dazugehörigen Persistenzklasse {@link ZeitraumEntitaet}.
-     *
-     * @param zeitraumEntitaet die {@link ZeitraumEntitaet}
-     * @return ein {@link Zeitraum} mit den der {@link ZeitraumEntitaet}
-     */
-    public static Zeitraum of(ZeitraumEntitaet zeitraumEntitaet) {
-        if (zeitraumEntitaet.isOhneDatum()) {
-            return Zeitraum.of(zeitraumEntitaet.getAnfang().toLocalTime(), zeitraumEntitaet.getEnde().toLocalTime());
-        } else {
-            return Zeitraum.of(zeitraumEntitaet.getAnfang(), zeitraumEntitaet.getEnde());
-        }
     }
 
     /**

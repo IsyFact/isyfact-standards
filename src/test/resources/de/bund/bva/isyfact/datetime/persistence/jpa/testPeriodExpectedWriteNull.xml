@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<dataset>
-    <TESTPERIODENTITY id="0" PERIOD="P10Y20M30D"/>
-    <TESTPERIODENTITY id="1"/>
-    <TESTPERIODENTITY id="2"/>
-</dataset>
