@@ -15,8 +15,8 @@
     </parent>
     
     <properties>
-        <!-- Die Bibliotheken werden auf Java 1.7 kompiliert. -->
-        <java.compile.version>1.7</java.compile.version>
+        <!-- Die Bibliotheken werden auf Java 8 kompiliert. -->
+        <java.compile.version>1.8</java.compile.version>
     </properties>
     
 </project>
