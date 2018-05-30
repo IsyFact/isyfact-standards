@@ -10,8 +10,6 @@ import java.time.temporal.TemporalAccessor;
 import java.util.Objects;
 import java.util.Optional;
 
-import de.bund.bva.isyfact.datetime.persistence.UngewissesDatumEntitaet;
-
 /**
  * Darstellung eines ungewissen Datums. Ein Datum ist ungewiss, wenn Teile des Datums nicht bekannt sind.
  * <p>
@@ -152,19 +150,6 @@ public class UngewissesDatum {
         }
 
         return new UngewissesDatum(vonInklusive, bisInklusive);
-    }
-
-    /**
-     * Erstellt ein {@link UngewissesDatum} aus der dazugehörigen Persistenzklasse {@link UngewissesDatumEntitaet}.
-     * @param ungewissesDatumEntitaet
-     *      die  {@link UngewissesDatumEntitaet}
-     * @return
-     *      ein {@link UngewissesDatum} mit den Daten der {@link UngewissesDatumEntitaet}
-     */
-    public static UngewissesDatum of(UngewissesDatumEntitaet ungewissesDatumEntitaet) {
-        Objects.requireNonNull(ungewissesDatumEntitaet);
-
-        return UngewissesDatum.of(ungewissesDatumEntitaet.getAnfang(), ungewissesDatumEntitaet.getEnde());
     }
 
     /**

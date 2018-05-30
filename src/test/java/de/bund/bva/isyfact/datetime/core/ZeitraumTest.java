@@ -11,14 +11,11 @@ import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 
 import de.bund.bva.isyfact.datetime.format.OutFormat;
-import de.bund.bva.isyfact.datetime.persistence.ZeitraumEntitaet;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-/**
 
- */
 public class ZeitraumTest {
 
     private static final LocalDate localDate = LocalDate.of(2017, 8, 1);
@@ -244,33 +241,6 @@ public class ZeitraumTest {
         assertEquals(localTime.plusHours(2), zeitraum.getEndzeit());
         assertNull(zeitraum.getAnfangsdatumzeit());
         assertNull(zeitraum.getEndedatumzeit());
-        assertTrue(zeitraum.isOhneDatum());
-    }
-
-    @Test
-    public void ofZeitraumEntitaet() throws Exception {
-        ZonedDateTime anfang = zonedDateTime;
-        ZonedDateTime ende = zonedDateTime.plusHours(12);
-
-        ZeitraumEntitaet entitaet = new ZeitraumEntitaet();
-        entitaet.setAnfang(anfang);
-        entitaet.setEnde(ende);
-        entitaet.setOhneDatum(false);
-
-        Zeitraum zeitraum = Zeitraum.of(entitaet);
-
-        assertEquals(anfang, zeitraum.getAnfangsdatumzeit());
-        assertEquals(ende, zeitraum.getEndedatumzeit());
-        assertFalse(entitaet.isOhneDatum());
-
-        entitaet.setOhneDatum(true);
-
-        zeitraum = Zeitraum.of(entitaet);
-
-        assertNull(zeitraum.getAnfangsdatumzeit());
-        assertNull(zeitraum.getEndedatumzeit());
-        assertEquals(anfang.toLocalTime(), zeitraum.getAnfangszeit());
-        assertEquals(ende.toLocalTime(), zeitraum.getEndzeit());
         assertTrue(zeitraum.isOhneDatum());
     }
 
