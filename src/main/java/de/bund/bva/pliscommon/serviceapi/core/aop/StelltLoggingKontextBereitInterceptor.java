@@ -44,8 +44,8 @@ public class StelltLoggingKontextBereitInterceptor implements MethodInterceptor 
 
     /**
      * Dieser Aspekt sorgt dafür, dass eine Korrelation-ID erzeugt wird, falls im AufrufKontext keine gesetzt
-     * ist und in der Annotation angegeben ist, dass kein Aufrufkontext als Parameter übergeben wird. Die
-     * Korrelation ID wird vor dem eigentlichen Aufruf im Logging-Kontext gesetzt und danach automatisch
+     * ist und in der Annotation angegeben ist, dass kein Aufrufkontext als Parameter übergeben wird.
+     * Die Korrelation ID wird vor dem eigentlichen Aufruf im Logging-Kontext gesetzt und danach automatisch
      * wieder entfernt.
      *
      * @param invocation
@@ -57,7 +57,8 @@ public class StelltLoggingKontextBereitInterceptor implements MethodInterceptor 
      */
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
-        String korrelationsId = null;
+        /** Die Korrelations-ID wird zur eindeutigen Identifikation von Service-Aufrufen verwendet. **/
+         String korrelationsId = null;
 
         AufrufKontextTo aufrufKontextTo = leseAufrufKontextTo(invocation.getArguments());
 
@@ -70,7 +71,17 @@ public class StelltLoggingKontextBereitInterceptor implements MethodInterceptor 
             ermittleStelltLoggingKontextBereitAnnotation(invocation.getMethod(), targetClass);
 
         if (stelltLoggingKontextBereit != null) {
+            // Wenn stelltLogginKontextBereit != null ist, haben wir es mit einer annotierten Klasse zu tun.
+            // Dann entscheidet die Methode nutzeAufrufKontext darüber, ob AufrufKontextTo verwendet wird
+            // oder nicht.
             nutzeAufrufKontext = stelltLoggingKontextBereit.nutzeAufrufKontext();
+        }else{
+            // Es bleibt die Frage, ob ein AufrufKontextTo ohne Annotation übergeben wurde.
+            if(aufrufKontextTo != null){
+                nutzeAufrufKontext = true;
+            }else{
+                nutzeAufrufKontext = false;
+            }
         }
 
         if (nutzeAufrufKontext) {
@@ -93,7 +104,7 @@ public class StelltLoggingKontextBereitInterceptor implements MethodInterceptor 
             }
         } else {
             korrelationsId = UUID.randomUUID().toString();
-            LOG.debug("Erzeuge neue Korrelations-ID.");
+            LOG.debug("Es wurde kein AufrufKontext übermittelt. Erzeuge neue Korrelations-ID.");
         }
 
         try {
