@@ -1,3 +1,6 @@
+# v1.8.0
+- `IFS-137`: Funktionalität von LoggingKontextAspect in StelltLoggingKontextBereitInterceptor übernommen und LoggingKontextAspect als @Deprecated markiert. Neue Testfälle angelegt. 
+
 # v1.7.0
 - `IFS-111`: StelltLoggingKontextBereit von isy-util übernommen. 
 
