@@ -39,7 +39,7 @@ import static org.mockito.Mockito.*;
  * eine KorrelationsID (AufrufKontextTO) zurückgibt.
  *
  */
-public class StelltLoggingKontextBereitAspectText {
+public class StelltLoggingKontextBereitAspectTest {
 
 	private Appender mockAppender;
 	private ArgumentCaptor<LoggingEvent> captorLoggingEvent;
