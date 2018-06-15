@@ -30,7 +30,10 @@ import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontex
 /**
  * Dieser Aspekt sorgt dafür, dass in Service-Methoden automatisch der Logging-Kontext gesetzt wird.
  *
+ * @deprecated use {link StelltLoggingKontextBereitInterceptor} instead.
+ *
  */
+@Deprecated
 public class LoggingKontextAspect implements MethodInterceptor {
 
     /** Isy-Logger */
