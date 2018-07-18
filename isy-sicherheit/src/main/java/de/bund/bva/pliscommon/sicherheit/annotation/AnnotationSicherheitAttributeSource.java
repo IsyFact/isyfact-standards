@@ -18,8 +18,6 @@ package de.bund.bva.pliscommon.sicherheit.annotation;
 
 import java.lang.reflect.Method;
 
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.BridgeMethodResolver;
 import org.springframework.util.ClassUtils;
 
@@ -88,11 +86,11 @@ public class AnnotationSicherheitAttributeSource implements SicherheitAttributeS
      *             falls kein Recht gefordert wird.
      */
     private void pruefeTagKombination(Gesichert gesichert) {
-        if (gesichert == null || ArrayUtils.isEmpty(gesichert.value())) {
+        if (gesichert == null || gesichert.value().length == 0) {
             throw new FehlerhafteServiceKonfigurationRuntimeException();
         }
         for (String recht : gesichert.value()) {
-            if (StringUtils.isEmpty(recht)) {
+            if (recht == null || recht.isEmpty()) {
                 throw new FehlerhafteServiceKonfigurationRuntimeException();
             }
         }

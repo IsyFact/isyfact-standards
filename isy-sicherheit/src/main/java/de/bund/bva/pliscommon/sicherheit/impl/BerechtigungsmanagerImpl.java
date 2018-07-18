@@ -21,8 +21,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.lang3.StringUtils;
-
 import de.bund.bva.pliscommon.sicherheit.Berechtigungsmanager;
 import de.bund.bva.pliscommon.sicherheit.Recht;
 import de.bund.bva.pliscommon.sicherheit.Rolle;
@@ -112,7 +110,7 @@ public class BerechtigungsmanagerImpl implements Berechtigungsmanager {
      * {@inheritDoc}
      */
     public boolean hatRecht(String recht) {
-        if (StringUtils.isEmpty(recht)) {
+        if (recht == null || recht.isEmpty()) {
             throw new IllegalArgumentException(new SicherheitFehlertextProvider().getMessage(
                 SicherheitFehlerSchluessel.MSG_PARAMETER_FEHLT, "recht"));
         }
@@ -143,7 +141,7 @@ public class BerechtigungsmanagerImpl implements Berechtigungsmanager {
      * {@inheritDoc}
      */
     public Recht getRecht(String recht) {
-        if (StringUtils.isEmpty(recht)) {
+        if (recht == null || recht.isEmpty()) {
             throw new IllegalArgumentException(new SicherheitFehlertextProvider().getMessage(
                 SicherheitFehlerSchluessel.MSG_PARAMETER_FEHLT, "recht"));
         }

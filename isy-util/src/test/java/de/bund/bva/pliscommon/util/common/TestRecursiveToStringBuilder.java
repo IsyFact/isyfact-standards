@@ -16,22 +16,19 @@
  */
 package de.bund.bva.pliscommon.util.common;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.naming.CompositeName;
 import javax.naming.InvalidNameException;
 
-import de.bund.bva.pliscommon.util.common.RecursiveToStringBuilder;
-import org.junit.Test;
-
 import de.bund.bva.pliscommon.util.common.test.MyNode;
 import de.bund.bva.pliscommon.util.exception.MessageSourceFehlertextProvider;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class TestRecursiveToStringBuilder {
 

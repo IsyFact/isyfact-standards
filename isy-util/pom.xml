@@ -25,33 +25,24 @@
         </dependency>
 
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.4</version>
-        </dependency>
-        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>${spring.version}</version>
             <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
-            <version>${spring.version}</version>
             <optional>true</optional>
         </dependency>
         <!-- Fuer MessageSource im MessageSourceHolder -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>${spring.version}</version>
         </dependency>
         <!-- Benoetigt fuer AOP -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
-            <version>${spring.version}</version>
             <optional>true</optional>
         </dependency>
         <!-- Logging -->
@@ -63,57 +54,21 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>log4j-over-slf4j</artifactId>
-            <version>${slf4j.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>${javax.servlet-api.version}</version>
             <scope>provided</scope>
         </dependency>
         <!-- Tests -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>${spring.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <version>${mockito.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-core</artifactId>
-            <version>${spring.security.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <!-- Erlaubt Servlets in JUnits Tests zu starten -->
-        <dependency>
-            <groupId>org.mortbay.jetty</groupId>
-            <artifactId>jetty-servlet-tester</artifactId>
-            <version>6.1.6</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mortbay.jetty</groupId>
-            <artifactId>jetty</artifactId>
-            <version>6.1.6</version>
-            <scope>test</scope>
-        </dependency>
-        <!-- Für HttpInvoker-Service in JUnit-Tests -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>${spring.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

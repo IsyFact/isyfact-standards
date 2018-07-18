@@ -22,7 +22,6 @@ import javax.servlet.http.HttpServletRequest;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.filter.AbstractRequestLoggingFilter;
 
 /**
@@ -42,10 +41,15 @@ import org.springframework.web.filter.AbstractRequestLoggingFilter;
  * <pre>
  * &lt;filter&gt;
  *   &lt;filter-name&gt;mdcFilter&lt;/filter-name&gt;
- *   &lt;filter-class&gt;de.bund.bva.pliscommon.aufrufkontext.http.HttpHeaderNestedDiagnosticContextFilter * &lt;/filter-class&gt; &lt;/filter&gt;
+ *   &lt;filter-class&gt;
+ *     de.bund.bva.pliscommon.aufrufkontext.http.HttpHeaderNestedDiagnosticContextFilter
+ *   &lt;/filter-class&gt;
+ * &lt;/filter&gt;
  *
- * &lt;filter-mapping&gt; &lt;filter-name&gt;mdcFilter&lt;/filter-name&gt;
- * &lt;url-pattern&gt;/*&lt;/url-pattern&gt; &lt;/filter-mapping&gt;
+ * &lt;filter-mapping&gt;
+ *   &lt;filter-name&gt;mdcFilter&lt;/filter-name&gt;
+ *   &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+ * &lt;/filter-mapping&gt;
  * </pre>
  *
  * </p>
@@ -87,7 +91,7 @@ public class HttpHeaderNestedDiagnosticContextFilter extends AbstractRequestLogg
             correlationId = request.getHeader(this.correlationIdHttpHeaderName);
         }
 
-        if (StringUtils.isEmpty(correlationId)) {
+        if (correlationId == null || correlationId.isEmpty()) {
             correlationId = UUID.randomUUID().toString();
 
             if (this.correlationIdHttpHeaderName != null) {
