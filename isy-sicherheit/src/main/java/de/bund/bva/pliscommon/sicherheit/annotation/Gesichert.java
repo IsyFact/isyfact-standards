@@ -28,6 +28,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.METHOD, ElementType.TYPE, ElementType.ANNOTATION_TYPE })
 public @interface Gesichert {
+
     /** Eine Liste mit Rechten, welche vorhanden sein müssen. */
-    public String[] value();
+    String[] value() default {};
+
 }

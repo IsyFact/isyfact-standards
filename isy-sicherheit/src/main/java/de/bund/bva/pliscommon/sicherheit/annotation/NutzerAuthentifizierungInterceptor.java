@@ -21,7 +21,6 @@ import java.util.UUID;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.core.BridgeMethodResolver;
@@ -81,7 +80,7 @@ public class NutzerAuthentifizierungInterceptor<K extends AufrufKontext> impleme
         boolean korrelationsIdErzeugt = false;
         try {
             String korrelationsId = MdcHelper.liesKorrelationsId();
-            if ((korrelationsId == null) || StringUtils.EMPTY.equals(korrelationsId)) {
+            if (korrelationsId == null || korrelationsId.isEmpty()) {
                 korrelationsId = UUID.randomUUID().toString();
                 MdcHelper.pushKorrelationsId(korrelationsId);
                 korrelationsIdErzeugt = true;

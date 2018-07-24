@@ -16,7 +16,7 @@
  */
 package de.bund.bva.pliscommon.sicherheit.accessmgr.test;
 
-import org.apache.commons.lang3.builder.HashCodeBuilder;
+import java.util.Objects;
 
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
 import de.bund.bva.pliscommon.sicherheit.accessmgr.AccessManager;
@@ -77,11 +77,10 @@ public class TestAccessManager implements AccessManager<AufrufKontext, TestAuthe
     public Object erzeugeCacheSchluessel(AufrufKontext aufrufKontext) {
         // Dies ist nur eine beispielhafte Dummy-Implementierung. Die Nutzung von hashcode() ist nicht
         // eindeutig genug für einen produktiven Einsatz!
-        HashCodeBuilder builder = new HashCodeBuilder();
-        builder.append(aufrufKontext.getDurchfuehrenderBenutzerKennung());
-        builder.append(aufrufKontext.getDurchfuehrenderBenutzerPasswort());
-        builder.append(aufrufKontext.getDurchfuehrendeBehoerde());
-        return builder.build();
+        return Objects.hash(
+            aufrufKontext.getDurchfuehrenderBenutzerKennung(),
+            aufrufKontext.getDurchfuehrenderBenutzerPasswort(),
+            aufrufKontext.getDurchfuehrendeBehoerde());
     }
 
     public void reset() {

@@ -18,7 +18,6 @@ package de.bund.bva.pliscommon.sicherheit.impl;
 
 import java.util.Set;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Required;
@@ -48,6 +47,8 @@ import de.bund.bva.pliscommon.sicherheit.kontext.ZertifikatInfoAufrufKontext;
  * und Komponenten verwendet werden. Es wird das Interface Sicherheit implementiert, über welches
  * Berechtigungsmanager instanziiert werden können.
  *
+ * @param <K> Typ des Aufrufkontextes
+ * @param <E> Typ des Ergebnisses der Authentifizierung
  */
 public class SicherheitImpl<K extends AufrufKontext, E extends AuthentifzierungErgebnis> implements
     Sicherheit<K>, InitializingBean, DisposableBean {
@@ -72,7 +73,7 @@ public class SicherheitImpl<K extends AufrufKontext, E extends AuthentifzierungE
     /** Das ausgelesene Rollenrechtemapping. */
     private RollenRechteMapping mapping;
 
-    /** Referenz auf den AccessManager für den Zugriff auf Rollen/Rechte der Benutzer */
+    /** Referenz auf den AccessManager für den Zugriff auf Rollen/Rechte der Benutzer. */
     private AccessManager<K, E> accessManager;
 
     /** Zugriff auf die Aufrufkontext-Factory. */
@@ -85,7 +86,7 @@ public class SicherheitImpl<K extends AufrufKontext, E extends AuthentifzierungE
      * Cache-Verwalter zum Cachen von Authentifizierungsinformationen, so dass der AccessManager entlastet
      * wird.
      **/
-    private CacheVerwalter<E> cacheVerwalter = new CacheVerwalter<E>();
+    private CacheVerwalter<E> cacheVerwalter = new CacheVerwalter<>();
 
     /**
      * {@inheritDoc}
@@ -118,6 +119,11 @@ public class SicherheitImpl<K extends AufrufKontext, E extends AuthentifzierungE
         return erzeugeBerechtigungsmanager(aufrufKontext);
     }
 
+    /**
+     * Erzeugt einen Berechtigungsmanager anhand eines Aufrufkontextes.
+     * @param aufrufKontext Aufrufkontext
+     * @return einen neuen Berechtigungmanager.
+     */
     private Berechtigungsmanager erzeugeBerechtigungsmanager(K aufrufKontext) {
         BerechtigungsmanagerImpl berechtigungsmanager =
             new BerechtigungsmanagerImpl(aufrufKontext.getRolle());
@@ -136,6 +142,7 @@ public class SicherheitImpl<K extends AufrufKontext, E extends AuthentifzierungE
     /**
      * {@inheritDoc}
      */
+    @Deprecated
     @Override
     @SuppressWarnings("unchecked")
     public Berechtigungsmanager getBerechtigungsManagerUndAuthentifiziereNutzer(String kennung,
@@ -187,6 +194,7 @@ public class SicherheitImpl<K extends AufrufKontext, E extends AuthentifzierungE
     /**
      * {@inheritDoc}
      */
+    @Deprecated
     @Override
     @SuppressWarnings("unchecked")
     public Berechtigungsmanager getBerechtigungsManagerUndAuthentifiziere(String kennung, String passwort,
@@ -199,10 +207,8 @@ public class SicherheitImpl<K extends AufrufKontext, E extends AuthentifzierungE
     /**
      * Schreibt Daten aus einer Benutzersession in den Aufrufkontext.
      *
-     * @param correlationId
-     *            Korrelations ID des Service-Aufrufs.
-     * @param sessionInhalte
-     *            die Session-Inhalte
+     * @param correlationId            Korrelations-ID des Service-Aufrufs
+     * @param authentifzierungErgebnis Ergebnis der Authentifizierung
      */
     private void aktualisiereAufrufKontextAusAuthentifizierungErgebnis(String correlationId,
         E authentifzierungErgebnis) {
@@ -292,7 +298,7 @@ public class SicherheitImpl<K extends AufrufKontext, E extends AuthentifzierungE
     public void afterPropertiesSet() throws Exception {
         LOG.info(LogKategorie.SICHERHEIT, EreignisSchluessel.INITIALISIERUNG_SICHERHEIT,
             "Initialisiere Sicherheitskomponente mit RollenRechteDatei: {}", this.rollenRechteDateiPfad);
-        if (StringUtils.isEmpty(this.rollenRechteDateiPfad)) {
+        if (this.rollenRechteDateiPfad == null || this.rollenRechteDateiPfad.isEmpty()) {
             throw new InitialisierungsException(
                 SicherheitFehlerSchluessel.MSG_INITIALISIERUNGS_ELEMENT_FEHLT, "rollenRechteDateiPfad");
         }
@@ -334,15 +340,16 @@ public class SicherheitImpl<K extends AufrufKontext, E extends AuthentifzierungE
         LOG.debugFachdaten("Erzeuge Berechtigungsmanager mit Authentifizierung für {}", kennung);
 
         // Prüfung der Parameter
-        if (StringUtils.isEmpty(kennung)) {
+        if (kennung == null || kennung.isEmpty()) {
             throw new AuthentifizierungFehlgeschlagenException("Benutzerkennung ist leer.");
         }
-        if (StringUtils.isEmpty(passwort)) {
+        if (passwort == null || passwort.isEmpty()) {
             throw new AuthentifizierungFehlgeschlagenException("Passwort ist leer.");
         }
 
         // entweder Zertifikat oder ZertifikatDn (oder beides) muss übergeben werden
-        if (StringUtils.isEmpty(clientZertifikat) && StringUtils.isEmpty(clientZertifikatDn)) {
+        if ((clientZertifikat == null || clientZertifikat.isEmpty())
+            && (clientZertifikatDn == null || clientZertifikatDn.isEmpty())) {
             throw new AuthentifizierungFehlgeschlagenException("Client-Zertifikat ist leer.");
         }
 
@@ -365,16 +372,16 @@ public class SicherheitImpl<K extends AufrufKontext, E extends AuthentifzierungE
         String bhknz, String zertifikatOu, String correlationId) {
 
         // Prüfung der Parameter
-        if (StringUtils.isEmpty(kennung)) {
+        if (kennung == null || kennung.isEmpty()) {
             LOG.debug("Authentifizierung fehlgeschlagen. Es wurde keine Benutzerkennung angegeben.");
             throw new AuthentifizierungFehlgeschlagenException("Benutzerkennung ist leer.");
         }
-        if (StringUtils.isEmpty(passwort)) {
+        if (passwort == null || passwort.isEmpty()) {
             LOG.debug("Authentifizierung fehlgeschlagen. Es wurde kein Passwort angegeben.");
             throw new AuthentifizierungFehlgeschlagenException("Passwort ist leer.");
         }
 
-        if (StringUtils.isEmpty(bhknz)) {
+        if (bhknz == null || bhknz.isEmpty()) {
             LOG.debug("Authentifizierung fehlgeschlagen. Es wurde kein Behoerdenkennzeichen angegeben.");
             throw new AuthentifizierungFehlgeschlagenException("Behördenkennzeichen ist leer.");
         }
@@ -392,7 +399,7 @@ public class SicherheitImpl<K extends AufrufKontext, E extends AuthentifzierungE
      * {@inheritDoc}
      */
     @Override
-    public void destroy() throws Exception {
+    public void destroy() {
         this.cacheVerwalter.shutdownManager();
     }
 
