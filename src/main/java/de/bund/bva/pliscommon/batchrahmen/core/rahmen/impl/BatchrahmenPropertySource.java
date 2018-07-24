@@ -18,7 +18,6 @@ package de.bund.bva.pliscommon.batchrahmen.core.rahmen.impl;
 
 import java.util.Properties;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.core.env.AbstractEnvironment;
 import org.springframework.core.env.PropertySource;
 
@@ -36,7 +35,7 @@ import de.bund.bva.pliscommon.konfiguration.common.impl.ReloadablePropertyProvid
 public class BatchrahmenPropertySource extends PropertySource<Properties> {
 
     /** Der Logger. */
-    public static final IsyLogger LOG = IsyLoggerFactory.getLogger(BatchrahmenPropertySource.class);
+    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(BatchrahmenPropertySource.class);
 
     /** Kommaseparierte Liste von aktiven Spring-Profilen. */
     private String springProfiles;
@@ -51,7 +50,8 @@ public class BatchrahmenPropertySource extends PropertySource<Properties> {
      */
     public BatchrahmenPropertySource(String[] propertyDateien, String[] propertyKeys) {
         super("BatchrahmenPropertySource");
-        if (ArrayUtils.isEmpty(propertyDateien) || ArrayUtils.isEmpty(propertyKeys)) {
+        if (propertyDateien == null || propertyDateien.length == 0
+            || propertyKeys == null || propertyKeys.length == 0) {
             return;
         }
         ReloadablePropertyProvider propertyProvider = new ReloadablePropertyProvider(propertyDateien);
