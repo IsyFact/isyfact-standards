@@ -1,3 +1,6 @@
+# v1.7.0
+- isy-logging: `IFS-177`: Anwendungen und Batches loggen identisch. Der Batch-Appender `appender-batch.xml` ist deprecated und wird im Release v2.0.0 entfernt.
+
 # v1.6.0
 - isy-aufrufkontext: `IFS-139`: Default-Name des HTTP-Headers in HttpHeaderNestedDiagnosticContextFilter geändert 
 - isy-aufrufkontext: `IFS-136`: HttpHeaderNestedDiagnosticContextFilter entfernt alle Korrelations-Ids
