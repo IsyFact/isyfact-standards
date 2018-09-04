@@ -20,31 +20,25 @@
   #L%
   -->
 <included>
+    <!-- Hinweis: Dieser Appender ist seit IsyFact 1.6 identisch zu dem für Anwendungen.
+         Er ist deprecated und wird im Rahmen der IsyFact 2.0 entfernt! -->
 
     <!-- Appender zum rollierenden Schreiben in Logdateien. -->
-    <appender name="DATEI_BATCH"
-        class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="DATEI_BATCH" class="ch.qos.logback.core.rolling.RollingFileAppender">
 
         <!-- Zu verwendende Logdatei. -->
-        <file>
-            ${LOGFILE_PATH}.log
-        </file>
+        <file>${LOGFILE_PATH}.log</file>
 
         <!-- Strategie zum Rollieren der Logdateien. -->
-        <rollingPolicy
-            class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- Stündliche Rotation der Logdateien. -->
             <fileNamePattern>
-                ${LOGFILE_PATH}_%i.log
+                ${LOGFILE_PATH}_%d{yyyy-MM-dd_HH,UTC}.log
             </fileNamePattern>
-            <minIndex>1</minIndex>
-            <maxIndex>${MAX_INDEX}</maxIndex>
+            <!-- Das Löschen der Logdateien erfolgt durch die Infrastruktur,
+                daher wird das Attribut 'maxHistory' nicht angegeben (entspricht einer unendlichen
+                Historie) <maxHistory>0</maxHistory> -->
         </rollingPolicy>
-
-        <!-- Policy zum Steuern, wann die Rotation erfolgen soll. -->
-        <triggeringPolicy
-            class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
-            <maxFileSize>100MB</maxFileSize>
-        </triggeringPolicy>
 
         <!-- Vorhandene Logdateien sollen fortgesetzt werden. -->
         <append>true</append>
@@ -53,19 +47,16 @@
         <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
             <!-- Plis-Layout zum Aufbereiten der Logeinträge -->
             <layout class="de.bund.bva.isyfact.logging.layout.IsyJsonLayout">
-                <jsonFormatter
-                    class="de.bund.bva.isyfact.logging.layout.IsyJacksonJsonFormatter">
+                <jsonFormatter class="de.bund.bva.isyfact.logging.layout.IsyJacksonJsonFormatter">
                     <prettyPrint>false</prettyPrint>
                 </jsonFormatter>
-                <timestampFormat>
-                    yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
-                </timestampFormat>
-                <timestampFormatTimezoneId>UTC
-                </timestampFormatTimezoneId>
+                <timestampFormat>yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</timestampFormat>
+                <timestampFormatTimezoneId>UTC</timestampFormatTimezoneId>
                 <appendLineSeparator>true</appendLineSeparator>
                 <includeMDC>${INCLUDE_MDC}</includeMDC>
             </layout>
         </encoder>
     </appender>
+
 </included>
 
