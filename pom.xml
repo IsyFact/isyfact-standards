@@ -42,6 +42,7 @@
         <module>isy-serviceapi-core</module>
         <module>isy-serviceapi-sst</module>
         <module>isy-sicherheit</module>
+        <module>isy-ueberwachung</module>
         <module>isy-util</module>
         <module>isy-sonderzeichen</module>
     </modules>
