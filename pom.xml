@@ -40,6 +40,7 @@
         <module>isy-persistence</module>
         <module>isy-polling</module>
         <module>isy-serviceapi-core</module>
+        <module>isy-serviceapi-sst</module>
         <module>isy-sicherheit</module>
         <module>isy-util</module>
         <module>isy-sonderzeichen</module>
