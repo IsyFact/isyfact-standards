@@ -39,6 +39,7 @@
         <module>isy-logging</module>
         <module>isy-persistence</module>
         <module>isy-polling</module>
+        <module>isy-serviceapi-core</module>
         <module>isy-sicherheit</module>
         <module>isy-util</module>
         <module>isy-sonderzeichen</module>
