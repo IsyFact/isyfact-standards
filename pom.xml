@@ -33,6 +33,7 @@
         <module>isyfact-products-bom</module>
         <module>isyfact-base-bom</module>
         <module>isy-aufrufkontext</module>
+        <module>isy-datetime</module>
         <module>isy-exception-core</module>
         <module>isy-exception-sst</module>
         <module>isy-konfiguration</module>
