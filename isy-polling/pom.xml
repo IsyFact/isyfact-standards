@@ -1,0 +1,137 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>de.bund.bva.isyfact</groupId>
+    <artifactId>isy-polling</artifactId>
+    <version>1.6.0-SNAPSHOT</version>
+    <name>IsyFact Polling</name>
+    <packaging>jar</packaging>
+
+    <parent>
+        <groupId>de.bund.bva.isyfact</groupId>
+        <artifactId>isyfact-masterpom-lib</artifactId>
+        <version>1.6.0-SNAPSHOT</version>
+    </parent>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring.version>4.2.9.RELEASE</spring.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>de.bund.bva.isyfact</groupId>
+                <artifactId>isyfact-base-bom</artifactId>
+                <version>1.7.0-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.16</version>
+                <configuration>
+                    <argLine>-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=9010
+                        -Dcom.sun.management.jmxremote.local.only=false
+                        -Dcom.sun.management.jmxremote.authenticate=false
+                        -Dcom.sun.management.jmxremote.ssl=false</argLine>
+                    <systemProperties>
+                        <user.language>de</user.language>
+                        <user.country>DE</user.country>
+                        <file.encoding>${project.build.sourceEncoding}</file.encoding>
+                    </systemProperties>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <!-- Bibliothek für die Verwaltung der Anwendungskonfiguration -->
+        <dependency>
+            <groupId>de.bund.bva.isyfact</groupId>
+            <artifactId>isy-konfiguration</artifactId>
+        </dependency>
+
+        <!-- Fuer Isy-Exceptions -->
+        <dependency>
+            <groupId>de.bund.bva.isyfact</groupId>
+            <artifactId>isy-exception-core</artifactId>
+        </dependency>
+
+        <!-- Fuer JMX-Annotations -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <!-- Spring-AOP für Interceptor -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <!-- zusätzliche Bibliotheken -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>de.bund.bva.isyfact</groupId>
+            <artifactId>isy-logging</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>log4j-over-slf4j</artifactId>
+            <version>1.7.25</version>
+        </dependency>
+        <!-- =========================================================
+            Bibliotheken, die nur für die Tests benötigt werden.
+            ========================================================= -->
+        <!-- Testframework -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- MessageHolder -->
+        <dependency>
+            <groupId>de.bund.bva.isyfact</groupId>
+            <artifactId>isy-util</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Benoetigt fuer AOP (nur für den Test) -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+            <version>${spring.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>
