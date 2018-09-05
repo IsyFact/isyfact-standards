@@ -52,7 +52,7 @@ package:jdk8:
   stage: package
   script:
     - 'mvn $MAVEN_CLI_OPTS package'
-        
+
 deploy:jdk8:
   stage: deploy
   script:
