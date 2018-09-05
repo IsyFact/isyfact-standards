@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- =============================================================================================
+    Maven Projektmodell für die Transport-Objekte der Service-API
+
+    Haupt Maven-Aufrufe mit diesem POM:
+    mvn clean deploy
+
+    ============================================================================================= -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>de.bund.bva.isyfact</groupId>
+    <artifactId>isy-serviceapi-sst</artifactId>
+    <version>1.7.0-SNAPSHOT</version>
+    <name>ISY Service-API Transport-Objekte</name>
+
+    <parent>
+        <groupId>de.bund.bva.isyfact</groupId>
+        <artifactId>isyfact-masterpom-lib</artifactId>
+        <version>1.6.0-SNAPSHOT</version>
+    </parent>
+
+</project>
