@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    See the NOTICE file distributed with this work for additional
+    information regarding copyright ownership.
+    The Federal Office of Administration (Bundesverwaltungsamt, BVA)
+    licenses this file to you under the Apache License, Version 2.0 (the
+    License). You may not use this file except in compliance with the
+    License. You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+    implied. See the License for the specific language governing
+    permissions and limitations under the License.
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                           http://www.springframework.org/schema/beans/spring-beans-4.2.xsd 
+                           http://www.springframework.org/schema/aop 
+                           http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
+
+    <aop:aspectj-autoproxy/>
+
+    <bean name="/dummyServiceBean_v1_0_0" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+        <property name="service" ref="dummyService"/>
+        <property name="registerTraceInterceptor" value="false"/>
+        <property name="serviceInterface"
+            value="test.de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.DummyServiceRemoteBean"/>
+    </bean>
+
+    <bean id="dummyService" class="test.de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.DummyServiceImpl"/>
+    <bean id="dummyKontextService" class="test.de.bund.bva.pliscommon.serviceapi.core.aop.service.httpinvoker.v1_0_0.DummyKontextServiceImpl"/>
+
+
+    <!-- @StelltLoggingKontextBereit Annotation einschalten -->
+    <bean id="stelltLoggingKontextBereitInterceptor" class="de.bund.bva.pliscommon.serviceapi.core.aop.StelltLoggingKontextBereitInterceptor">
+    </bean>
+
+
+
+    <aop:config>
+        <aop:pointcut id="stelltLoggingKontextBereitPointcut"
+                      expression="@annotation(de.bund.bva.pliscommon.serviceapi.core.aop.StelltLoggingKontextBereit) || @within(de.bund.bva.pliscommon.serviceapi.core.aop.StelltLoggingKontextBereit)"/>
+        <aop:advisor pointcut-ref="stelltLoggingKontextBereitPointcut" advice-ref="stelltLoggingKontextBereitInterceptor"
+                     order="50"/>
+    </aop:config>
+
+
+</beans>
