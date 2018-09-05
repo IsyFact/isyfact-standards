@@ -1,2 +1,5 @@
+# 1.6.0
+- `IFS-189`: Repositories der IsyFact-Standards zusammengeführt, Bibliotheken benutzen wieder gemeinsames Produkt-BOM und werden zentral über das POM isyfact-standards versioniert
+
 # 1.5.0
 - `IFS-138`: Jackson auf Version 2.8.11 angehoben

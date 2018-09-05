@@ -30,6 +30,7 @@
     <modules>
         <module>isyfact-masterpom</module>
         <module>isyfact-masterpom-lib</module>
+        <module>isyfact-products-bom</module>
         <module>isyfact-base-bom</module>
         <module>isy-aufrufkontext</module>
         <module>isy-exception-core</module>
