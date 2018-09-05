@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean name="taskScheduler" class="de.bund.bva.isyfact.task.impl.TaskSchedulerImpl">
+        <constructor-arg ref="konfiguration"/>
+        <constructor-arg ref="taskKonfiguration"/>
+        <constructor-arg ref="hosthandler"/>
+    </bean>
+
+    <bean id="konfiguration" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg
+                value="de.bund.bva.pliscommon.konfiguration.common.impl.ReloadablePropertyKonfiguration"/>
+    </bean>
+
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>resources/nachrichten/fehler</value>
+                <value>resources/nachrichten/ereignisse</value>
+                <value>resources/nachrichten/hinweise</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="messageSourceHolder" class="de.bund.bva.pliscommon.util.spring.MessageSourceHolder">
+        <property name="messageSource" ref="messageSource"/>
+    </bean>
+
+    <bean id="taskKonfiguration" class="de.bund.bva.isyfact.task.konfiguration.TaskKonfigurationVerwalter">
+        <constructor-arg ref="konfiguration"/>
+        <constructor-arg ref="authenticatorFactory"/>
+    </bean>
+
+    <bean id="hosthandler" class="de.bund.bva.isyfact.task.konfiguration.impl.LocalHostHandlerImpl"/>
+
+    <bean id="authenticatorFactory"
+          class="de.bund.bva.isyfact.task.sicherheit.impl.IsySicherheitAuthenticatorFactory">
+        <constructor-arg ref="konfiguration"/>
+        <constructor-arg ref="sicherheit"/>
+        <constructor-arg ref="aufrufKontextFactory"/>
+        <constructor-arg ref="aufrufKontextVerwalter"/>
+    </bean>
+
+    <bean id="accessManagerDummy" class="de.bund.bva.isyfact.task.test.AccessManagerDummy"/>
+
+    <bean id="sicherheit" class="de.bund.bva.pliscommon.sicherheit.impl.SicherheitImpl">
+        <property name="rollenRechteDateiPfad" value="/sicherheit/rollenrechte.xml"/>
+        <property name="aufrufKontextVerwalter" ref="aufrufKontextVerwalter"/>
+        <property name="aufrufKontextFactory" ref="aufrufKontextFactory"/>
+        <property name="konfiguration" ref="konfiguration"/>
+        <property name="accessManager" ref="accessManagerDummy"/>
+    </bean>
+
+    <bean id="aufrufKontextVerwalter"
+          class="de.bund.bva.pliscommon.aufrufkontext.impl.AufrufKontextVerwalterImpl"/>
+
+    <bean id="aufrufKontextFactory"
+          class="de.bund.bva.pliscommon.aufrufkontext.impl.AufrufKontextFactoryImpl">
+        <property name="aufrufKontextKlasse"
+                  value="de.bund.bva.pliscommon.aufrufkontext.impl.AufrufKontextImpl"/>
+    </bean>
+
+    <bean id="gesichertInterceptor" class="de.bund.bva.pliscommon.sicherheit.annotation.GesichertInterceptor">
+        <property name="sicherheit" ref="sicherheit"/>
+    </bean>
+
+    <aop:config>
+        <aop:pointcut id="gesichertPointcut"
+                      expression="@annotation(de.bund.bva.pliscommon.sicherheit.annotation.Gesichert) || @within(de.bund.bva.pliscommon.sicherheit.annotation.Gesichert)"/>
+        <aop:advisor pointcut-ref="gesichertPointcut" advice-ref="gesichertInterceptor"/>
+    </aop:config>
+
+</beans>
