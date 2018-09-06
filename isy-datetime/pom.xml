@@ -7,7 +7,8 @@
     <artifactId>isy-datetime</artifactId>
     <version>1.2.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <description>Die Querschnittsbibliothek isy-datetime</description>
+
+    <name>IsyFact Datum &amp; Zeit</name>
 
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
@@ -16,17 +17,23 @@
         <relativePath>../isyfact-masterpom-lib</relativePath>
     </parent>
 
-    <properties>
-        <spring.version>4.2.9.RELEASE</spring.version>
-        <hibernate.version>5.1.1.Final</hibernate.version>
-    </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>de.bund.bva.isyfact</groupId>
+                <artifactId>isyfact-products-bom</artifactId>
+                <version>${parent.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <!-- Test -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

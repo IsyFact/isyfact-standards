@@ -21,7 +21,7 @@
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isyfact-products-bom</artifactId>
-                <version>1.6.0-SNAPSHOT</version>
+                <version>${parent.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -47,7 +47,6 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <scope>compile</scope>
         </dependency>
 
         <!-- Benoetigt fuer AOP -->
