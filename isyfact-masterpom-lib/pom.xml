@@ -12,8 +12,9 @@
         <groupId>de.bund.bva.isyfact</groupId>
         <artifactId>isyfact-masterpom</artifactId>
         <version>1.6.0-SNAPSHOT</version>
+        <relativePath>../isyfact-masterpom</relativePath>
     </parent>
-    
+
     <properties>
         <!-- Die Bibliotheken werden auf Java 8 kompiliert. -->
         <java.compile.version>1.8</java.compile.version>

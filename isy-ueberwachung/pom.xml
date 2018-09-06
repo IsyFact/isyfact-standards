@@ -3,16 +3,16 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     
-    <groupId>de.bund.bva.isyfact</groupId>
     <artifactId>isy-ueberwachung</artifactId>
-    <packaging>jar</packaging>
     <version>1.8.0-SNAPSHOT</version>
-    <name>IsyFact-Ueberwachung.</name>
+    <packaging>jar</packaging>
+    <name>IsyFact-Überwachung</name>
 
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
         <artifactId>isyfact-masterpom-lib</artifactId>
         <version>1.6.0-SNAPSHOT</version>
+        <relativePath>../isyfact-masterpom-lib</relativePath>
     </parent>
 
     <properties>
