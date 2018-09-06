@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.bund.bva.isyfact</groupId>
@@ -26,11 +26,17 @@
         </license>
     </licenses>
 
-     <modules>
+    <properties>
+        <isyfact-base.version>1.7.0-SNAPSHOT</isyfact-base.version>
+        <isy-datetime.version>1.2.0-SNAPSHOT</isy-datetime.version>
+        <isy-serviceapi-sst.version>1.7.0-SNAPSHOT</isy-serviceapi-sst.version>
+        <isy-ueberwachung.version>1.8.0-SNAPSHOT</isy-ueberwachung.version>
+    </properties>
+
+    <modules>
         <module>isyfact-masterpom</module>
         <module>isyfact-masterpom-lib</module>
         <module>isyfact-products-bom</module>
-        <module>isyfact-base-bom</module>
         <module>isy-aufrufkontext</module>
         <module>isy-batchrahmen</module>
         <module>isy-datetime</module>
