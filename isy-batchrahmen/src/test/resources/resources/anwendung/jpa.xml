@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    See the NOTICE file distributed with this work for additional
+    information regarding copyright ownership.
+    The Federal Office of Administration (Bundesverwaltungsamt, BVA)
+    licenses this file to you under the Apache License, Version 2.0 (the
+    License). You may not use this file except in compliance with the
+    License. You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+    implied. See the License for the specific language governing
+    permissions and limitations under the License.
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+    xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+      http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.2.xsd" >
+
+    <!-- ======================================================================
+        In dieser Bean wird eine EntityManagerFactory erzeugt
+        ====================================================================== -->
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="persistenceProviderClass" value="org.hibernate.ejb.HibernatePersistence"/>
+        <property name="persistenceUnitName" value="hibernatePersistence"/>
+        <property name="dataSource">
+            <ref bean="appDataSource"/>
+        </property>
+        <property name="jpaDialect">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect"/>
+        </property>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect
+                </prop>
+                <prop key="hibernate.connection.isolation">4</prop>
+                <prop key="hibernate.hbm2ddl.auto">validate</prop>
+                <prop key="hibernate.connection.useUnicode">true</prop>
+                <prop key="hibernate.connection.characterEncoding">utf-8</prop>
+                <prop key="hibernate.jdbc.batch_size">0</prop>
+                <prop key="hibernate.jdbc.use_streams_for_binary">true</prop>
+                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <!-- Hibernate-Mappings und Lazy-Loading per Default werden hibernate.cfg.xml konfiguriert -->
+                <prop key="hibernate.ejb.cfgfile">/resources/anwendung/hibernate.cfg.xml
+                </prop>
+            </props>
+        </property>
+    </bean>
+
+<jdbc:embedded-database id="appDataSource" type="H2">
+  <jdbc:script location="/sql/tabellen-erzeugen.sql" />
+</jdbc:embedded-database>
+
+
+    <!-- ======================================================================
+        Der zu verwendende Transaction-Manager.
+        ====================================================================== -->
+    <!-- depends-on wird benoetigt, damit der jpaTemplateHolder initialisiert wird,
+        bevor die Transaktion startet. Somit ist er fuer alle DAO-Klassen verfuegbar. -->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+
+        <property name="entityManagerFactory">
+            <ref bean="entityManagerFactory"/>
+        </property>
+
+    </bean>
+
+    <!-- Transaktionssteuerung per Annotationen -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+</beans>

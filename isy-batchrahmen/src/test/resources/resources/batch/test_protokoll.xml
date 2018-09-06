@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Batch-Ergebnis>
+    <Start BatchID="testBatch1" Datum="2018-01-30" Uhrzeit="12:00:00" Parameter="-restart -cfg /resources/batch/testBatch1.properties -laufErrorSofort false -Batchrahmen.Ergebnisdatei ergebnisdatei.xml"/>
+    <Meldungen>
+        <Meldung ID="RESTART" Typ="I" Text="Information1"/>
+        <Meldung ID="INFO2" Typ="I" Text="Information2"/>
+        <Meldung ID="FEHLER1" Typ="F" Text="Fehler1"/>
+        <Meldung ID="FEHLER1" Typ="F" Text="Fehler1"/>
+        <Meldung ID="FEHLER2" Typ="F" Text="Fehler2"/>
+    </Meldungen>
+    <Statistik>
+        <Statistik-Eintrag ID="STATISTIK1" Text="Statistik1" Wert="10"/>
+    </Statistik>
+    <Ende Datum="2018-01-30" Uhrzeit="17:19:59"/>
+    <Return-Code RC="0" Text="Verarbeitung ohne Fehler durchgeführt."/>
+</Batch-Ergebnis>

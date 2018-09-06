@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    See the NOTICE file distributed with this work for additional
+    information regarding copyright ownership.
+    The Federal Office of Administration (Bundesverwaltungsamt, BVA)
+    licenses this file to you under the Apache License, Version 2.0 (the
+    License). You may not use this file except in compliance with the
+    License. You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+    implied. See the License for the specific language governing
+    permissions and limitations under the License.
+
+-->
+<configuration scan="true" scanPeriod="1 minutes">
+
+    <!-- Pfad der Logdatei, ohne Endung -->
+    <property name="LOGFILE_PATH" value="/var/log/batchrahmen-test/HOSTNAME_${BatchId}"/>
+
+    <!-- Maximale Fenstergröße der zu erstellenden Logdateien. -->
+    <property name="MAX_INDEX" value="20" />
+
+
+    <!-- Include der vorkonfigurierten Appender. -->
+    <include resource="resources/isylogging/logback/appender-batch.xml" />
+
+    <!-- Root-Logger als Grundlage für alle Logger-Instanzen -->
+    <root level="TRACE">
+        <appender-ref ref="DATEI_BATCH" />
+    </root>
+
+
+    <!-- Dozer nicht auf Level DEBUG Loggen, da es dann einen Performance-Einbruch gibt. -->
+    <logger name="org.dozer" level="INFO" additivity="false">
+        <appender-ref ref="DATEI_BATCH"/>
+    </logger>
+    <logger name="net.sf.dozer" level="INFO" additivity="false">
+        <appender-ref ref="DATEI_BATCH"/>
+    </logger>
+
+    <!-- Dozer Warnings über fehlende Properties deaktivieren. -->
+    <logger name="org.dozer.config.GlobalSettings" level="ERROR" additivity="false">
+        <appender-ref ref="DATEI_BATCH"/>
+    </logger>
+    <logger name="de.bund.bva.pliscommon.sicherheit.cams.web.CamsAuthenticationProvider" level="WARN"
+        additivity="false">
+        <appender-ref ref="DATEI_BATCH"/>
+    </logger>
+
+    <!-- Verhindert das Logging von Warning-Messages wegen fehlenden Destructions Callbacks, welche der ThreadScope nicht unterstützt und nicht benötigt werden. -->
+    <!-- Empfohlener Standardwert: ERROR -->
+    <logger name="org.springframework.context.support.SimpleThreadScope" level="ERROR"
+        additivity="false">
+        <appender-ref ref="DATEI_BATCH"/>
+    </logger>
+    
+    <!-- Verhindert das Logging von Fehlern, wenn Sperren in DB nicht gesetzt werden können. -->
+    <logger name="org.hibernate.event.def.DefaultLoadEventListener" level="WARN"
+        additivity="false">
+        <appender-ref ref="DATEI_BATCH"/>
+    </logger>    
+
+</configuration>

@@ -1,0 +1,10 @@
+-- Beispieltabelle erstellen
+CREATE TABLE FOO (
+    ID NUMBER(19,0) NOT NULL,
+    BAR VARCHAR2(100 CHAR) NOT NULL,    
+    CONSTRAINT PK_FOO PRIMARY KEY (ID),
+    CONSTRAINT UC_BAR UNIQUE (BAR)
+);
+
+commit;
+exit;
