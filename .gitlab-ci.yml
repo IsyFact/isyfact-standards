@@ -53,6 +53,7 @@ build:masterpom:
   dependencies:
    - build:masterpom
   artifacts:
+   paths:
    - "*target/*"
    expire_in: 30 mins
 
