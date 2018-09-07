@@ -30,6 +30,7 @@ image: maven:3-jdk-8
 stages:
   - buildstage1
   - buildstage2
+  - buildstage3
 cache:
   paths:
     - .m2/repository
@@ -54,7 +55,7 @@ build:masterpom:
    - build:masterpom
   artifacts:
    paths:
-   - "*target/*"
+   - "*/target/*"
    expire_in: 30 mins
 
 build:productsbom:
@@ -72,3 +73,88 @@ build:datetime:
   script:
     - 'mvn -pl isy-datetime $MAVEN_CLI_OPTS test-compile'
 
+
+
+#buildstage3
+.template: &build3
+  stage: buildstage3
+  dependencies:
+   - build:productsbom
+   - build:serviceapisst
+   - build:datetime
+  artifacts:
+   paths:
+   - "*/target/*"
+   expire_in: 30 mins
+
+build:aufrufkontext:
+  <<: *build3
+  script:
+    - 'mvn -pl isy-aufrufkontext $MAVEN_CLI_OPTS test-compile'
+  
+
+build:batchrahmen:
+  <<: *build3
+  script:
+    - 'mvn -pl isy-batchrahmen $MAVEN_CLI_OPTS test-compile'
+
+build:exceptioncore:
+  <<: *build3
+  script:
+    - 'mvn -pl isy-exception-core $MAVEN_CLI_OPTS test-compile'
+
+build:konfiguration:
+  <<: *build3
+  script:
+    - 'mvn -pl isy-konfiguration $MAVEN_CLI_OPTS test-compile'
+
+build:logging:
+  <<: *build3
+  script:
+    - 'mvn -pl isy-logging $MAVEN_CLI_OPTS test-compile'
+
+build:persistence:
+  <<: *build3
+  script:
+    - 'mvn -pl isy-persistence $MAVEN_CLI_OPTS test-compile'
+
+build:polling:
+  <<: *build3
+  script:
+    - 'mvn -pl isy-polling $MAVEN_CLI_OPTS test-compile'
+
+build:serviceapicore:
+  <<: *build3
+  script:
+    - 'mvn -pl isy-serviceapi-core $MAVEN_CLI_OPTS test-compile'
+
+build:sicherheit:
+  <<: *build3
+  script:
+    - 'mvn -pl isy-sicherheit $MAVEN_CLI_OPTS test-compile'
+
+build:task:
+  <<: *build3
+  script:
+    - 'mvn -pl isy-task $MAVEN_CLI_OPTS test-compile'
+
+build:util:
+  <<: *build3
+  script:
+    - 'mvn -pl isy-util $MAVEN_CLI_OPTS test-compile'
+
+build:sonderzeichen:
+  <<: *build3
+  script:
+    - 'mvn -pl isy-sonderzeichen $MAVEN_CLI_OPTS test-compile'
+
+
+#buildstage4
+build:ueberwachung:
+  stage: buildstage4
+  dependencies:
+   - build:task
+  artifacts:
+   paths:
+   - "*/target/*"
+   expire_in: 30 mins
