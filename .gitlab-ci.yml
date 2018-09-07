@@ -28,61 +28,72 @@ variables:
 # To keep cache across branches add 'key: "$CI_JOB_REF_NAME"'
 image: maven:3-jdk-8
 stages:
-  - buildstage1
-  - buildstage2
-  - buildstage3
-  - buildstage4
+  - buildstage
+  - teststage1
+  - teststage2
+  - teststage3
+  - teststage4
 cache:
   paths:
     - .m2/repository
   key: "isyfactstandards"
 
-#Buildstage1
-build:masterpom:
-  stage: buildstage1
+#Buildstage
+build:isyfactstandards:
+  stage: buildstage
   artifacts:
    paths:
    - "*/target/*"
    expire_in: 30 mins
   script:
-    - 'mvn -pl isyfact-masterpom,isyfact-masterpom-lib $MAVEN_CLI_OPTS test-compile'
+   - 'mvn $MAVEN_CLI_OPTS test-compile'
+
+#Teststage1
+test:masterpom:
+  stage: teststage1
+  artifacts:
+   paths:
+   - "*/target/*"
+   expire_in: 30 mins
+  script:
+    - 'mvn -pl isyfact-masterpom,isyfact-masterpom-lib $MAVEN_CLI_OPTS test'
 
 
 
-#Buildstage2
-.template: &build2
-  stage: buildstage2
+#Teststage2
+.template: &test2
+  stage: teststage2
   dependencies:
-   - build:masterpom
+   - build:isyfactstandards
   artifacts:
    paths:
    - "*/target/*"
    expire_in: 30 mins
 
-build:productsbom:
-  <<: *build2
+test:productsbom:
+  <<: *teststage2
   script:
-    - 'mvn -pl isyfact-products-bom $MAVEN_CLI_OPTS test-compile'
+    - 'mvn -pl isyfact-products-bom $MAVEN_CLI_OPTS test'
 
-build:serviceapisst:
-  <<: *build2
+test:serviceapisst:
+  <<: *teststage2
   script:
-    - 'mvn -pl isy-serviceapi-sst $MAVEN_CLI_OPTS test-compile'
+    - 'mvn -pl isy-serviceapi-sst $MAVEN_CLI_OPTS test'
 
-build:datetime:
-  <<: *build2
+test:datetime:
+  <<: *teststage2
   script:
-    - 'mvn -pl isy-datetime $MAVEN_CLI_OPTS test-compile'
+    - 'mvn -pl isy-datetime $MAVEN_CLI_OPTS test'
 
 
 
-#buildstage3
-.template: &build3
-  stage: buildstage3
+#Teststage3
+.template: &test3
+  stage: teststage3
   dependencies:
-   - build:productsbom
-   - build:serviceapisst
-   - build:datetime
+   - test:productsbom
+   - test:serviceapisst
+   - test:datetime
   artifacts:
    paths:
    - "*/target/*"
@@ -91,73 +102,73 @@ build:datetime:
 build:aufrufkontext:
   <<: *build3
   script:
-    - 'mvn -pl isy-aufrufkontext $MAVEN_CLI_OPTS test-compile'
+    - 'mvn -pl isy-aufrufkontext $MAVEN_CLI_OPTS test'
   
 
 build:batchrahmen:
   <<: *build3
   script:
-    - 'mvn -pl isy-batchrahmen $MAVEN_CLI_OPTS test-compile'
+    - 'mvn -pl isy-batchrahmen $MAVEN_CLI_OPTS test'
 
 build:exceptioncore:
   <<: *build3
   script:
-    - 'mvn -pl isy-exception-core $MAVEN_CLI_OPTS test-compile'
+    - 'mvn -pl isy-exception-core $MAVEN_CLI_OPTS test'
 
 build:konfiguration:
   <<: *build3
   script:
-    - 'mvn -pl isy-konfiguration $MAVEN_CLI_OPTS test-compile'
+    - 'mvn -pl isy-konfiguration $MAVEN_CLI_OPTS test'
 
 build:logging:
   <<: *build3
   script:
-    - 'mvn -pl isy-logging $MAVEN_CLI_OPTS test-compile'
+    - 'mvn -pl isy-logging $MAVEN_CLI_OPTS test'
 
 build:persistence:
   <<: *build3
   script:
-    - 'mvn -pl isy-persistence $MAVEN_CLI_OPTS test-compile'
+    - 'mvn -pl isy-persistence $MAVEN_CLI_OPTS test'
 
 build:polling:
   <<: *build3
   script:
-    - 'mvn -pl isy-polling $MAVEN_CLI_OPTS test-compile'
+    - 'mvn -pl isy-polling $MAVEN_CLI_OPTS test'
 
 build:serviceapicore:
   <<: *build3
   script:
-    - 'mvn -pl isy-serviceapi-core $MAVEN_CLI_OPTS test-compile'
+    - 'mvn -pl isy-serviceapi-core $MAVEN_CLI_OPTS test'
 
 build:sicherheit:
   <<: *build3
   script:
-    - 'mvn -pl isy-sicherheit $MAVEN_CLI_OPTS test-compile'
+    - 'mvn -pl isy-sicherheit $MAVEN_CLI_OPTS test'
 
 build:task:
   <<: *build3
   script:
-    - 'mvn -pl isy-task $MAVEN_CLI_OPTS test-compile'
+    - 'mvn -pl isy-task $MAVEN_CLI_OPTS test'
 
 build:util:
   <<: *build3
   script:
-    - 'mvn -pl isy-util $MAVEN_CLI_OPTS test-compile'
+    - 'mvn -pl isy-util $MAVEN_CLI_OPTS test'
 
 build:sonderzeichen:
   <<: *build3
   script:
-    - 'mvn -pl isy-sonderzeichen $MAVEN_CLI_OPTS test-compile'
+    - 'mvn -pl isy-sonderzeichen $MAVEN_CLI_OPTS test'
 
 
-#buildstage4
-build:ueberwachung:
-  stage: buildstage4
+#Teststage4
+test:ueberwachung:
+  stage: teststage4
   dependencies:
-   - build:task
+   - test:task
   artifacts:
    paths:
    - "*/target/*"
    expire_in: 30 mins
   script:
-    - 'mvn -pl isy-ueberwachung $MAVEN_CLI_OPTS test-compile'
+    - 'mvn -pl isy-ueberwachung $MAVEN_CLI_OPTS test'
