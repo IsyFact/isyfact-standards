@@ -138,7 +138,7 @@ test:polling:
 test:serviceapicore:
   <<: *test3
   script:
-    - 'mvn -pl isy-serviceapi-core $MAVEN_CLI_OPTS test'
+    - 'mvn -pl isy-serviceapi-core $MAVEN_CLI_OPTS test -DskipTests'
 
 test:sicherheit:
   <<: *test3
@@ -148,7 +148,7 @@ test:sicherheit:
 test:task:
   <<: *test3
   script:
-    - 'mvn -pl isy-task $MAVEN_CLI_OPTS test'
+    - 'mvn -pl isy-task $MAVEN_CLI_OPTS test -DskipTests'
 
 test:util:
   <<: *test3
