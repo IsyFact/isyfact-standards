@@ -28,32 +28,46 @@ variables:
 # To keep cache across branches add 'key: "$CI_JOB_REF_NAME"'
 image: maven:3-jdk-8
 stages:
-  - build
-  - test
-  - package
-  - deploy
+  - buildstage1
+  - buildstage2
 cache:
   paths:
     - .m2/repository
+  key: "isyfactstandards"
 
-# Validate merge requests using JDK8
-build:jdk8:
-  stage: build
+#Buildstage1
+build:masterpom:
+  stage: buildstage1
+  artifacts:
+   paths:
+   - "*/target/*"
+   expire_in: 30 mins
   script:
-    - 'mvn $MAVEN_CLI_OPTS test-compile'
+    - 'mvn -pl isyfact-masterpom,isyfact-masterpom-lib $MAVEN_CLI_OPTS test-compile'
 
-# Verify merge requests using JDK8
-test:jdk8:
-  stage: test
-  script:
-    - 'mvn $MAVEN_CLI_OPTS test'
 
-package:jdk8:
-  stage: package
-  script:
-    - 'mvn $MAVEN_CLI_OPTS package'
 
-deploy:jdk8:
-  stage: deploy
+#Buildstage2
+.template: &build2
+  stage: buildstage2
+  dependencies:
+   - build:masterpom
+  artifacts:
+   - "*target/*"
+   expire_in: 30 mins
+
+build:productsbom:
+  <<: *build2
   script:
-    - 'mvn $MAVEN_CLI_OPTS deploy'
+    - 'mvn -pl isyfact-products-bom $MAVEN_CLI_OPTS test-compile'
+
+build:serviceapisst:
+  <<: *build2
+  script:
+    - 'mvn -pl isy-serviceapi-sst $MAVEN_CLI_OPTS test-compile'
+
+build:datetime:
+  <<: *build2
+  script:
+    - 'mvn -pl isy-datetime $MAVEN_CLI_OPTS test-compile'
+
