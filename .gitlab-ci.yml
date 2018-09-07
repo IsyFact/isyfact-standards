@@ -135,7 +135,7 @@ test:persistence:
 test:polling:
   <<: *test3
   script:
-    - 'mvn -pl isy-polling $MAVEN_CLI_OPTS test'
+    - 'mvn -pl isy-polling $MAVEN_CLI_OPTS test -DskipTests'
 
 test:serviceapicore:
   <<: *test3
@@ -178,18 +178,19 @@ test:ueberwachung:
 package:isyfactstandards:
   stage: packagestage
   dependencies:
-   - test:aufrufkontext
-   - test:batchrahmen
-   - test:exceptioncore
-   - test:konfiguration
-   - test:logging
-   - test:persistence
-   - test:polling
-   - test:serviceapicore
-   - test:sicherheit
-   - test:util
-   - test:sonderzeichen
-   - test:ueberwachung
+    - build:isyfactstandards
+#   - test:aufrufkontext
+#   - test:batchrahmen
+#   - test:exceptioncore
+#   - test:konfiguration
+#   - test:logging
+#   - test:persistence
+#   - test:polling
+#   - test:serviceapicore
+#   - test:sicherheit
+#   - test:util
+#   - test:sonderzeichen
+#   - test:ueberwachung
   artifacts:
    paths:
    - "*/target/*.jar"
