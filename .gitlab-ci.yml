@@ -71,17 +71,17 @@ test:masterpom:
    expire_in: 30 mins
 
 test:productsbom:
-  <<: *teststage2
+  <<: *test2
   script:
     - 'mvn -pl isyfact-products-bom $MAVEN_CLI_OPTS test'
 
 test:serviceapisst:
-  <<: *teststage2
+  <<: *test2
   script:
     - 'mvn -pl isy-serviceapi-sst $MAVEN_CLI_OPTS test'
 
 test:datetime:
-  <<: *teststage2
+  <<: *test2
   script:
     - 'mvn -pl isy-datetime $MAVEN_CLI_OPTS test'
 
@@ -100,63 +100,63 @@ test:datetime:
    expire_in: 30 mins
 
 build:aufrufkontext:
-  <<: *build3
+  <<: *test3
   script:
     - 'mvn -pl isy-aufrufkontext $MAVEN_CLI_OPTS test'
   
 
 build:batchrahmen:
-  <<: *build3
+  <<: *test3
   script:
     - 'mvn -pl isy-batchrahmen $MAVEN_CLI_OPTS test'
 
 build:exceptioncore:
-  <<: *build3
+  <<: *test3
   script:
     - 'mvn -pl isy-exception-core $MAVEN_CLI_OPTS test'
 
 build:konfiguration:
-  <<: *build3
+  <<: *test3
   script:
     - 'mvn -pl isy-konfiguration $MAVEN_CLI_OPTS test'
 
 build:logging:
-  <<: *build3
+  <<: *test3
   script:
     - 'mvn -pl isy-logging $MAVEN_CLI_OPTS test'
 
 build:persistence:
-  <<: *build3
+  <<: *test3
   script:
     - 'mvn -pl isy-persistence $MAVEN_CLI_OPTS test'
 
 build:polling:
-  <<: *build3
+  <<: *test3
   script:
     - 'mvn -pl isy-polling $MAVEN_CLI_OPTS test'
 
 build:serviceapicore:
-  <<: *build3
+  <<: *test3
   script:
     - 'mvn -pl isy-serviceapi-core $MAVEN_CLI_OPTS test'
 
 build:sicherheit:
-  <<: *build3
+  <<: *test3
   script:
     - 'mvn -pl isy-sicherheit $MAVEN_CLI_OPTS test'
 
 build:task:
-  <<: *build3
+  <<: *test3
   script:
     - 'mvn -pl isy-task $MAVEN_CLI_OPTS test'
 
 build:util:
-  <<: *build3
+  <<: *test3
   script:
     - 'mvn -pl isy-util $MAVEN_CLI_OPTS test'
 
 build:sonderzeichen:
-  <<: *build3
+  <<: *test3
   script:
     - 'mvn -pl isy-sonderzeichen $MAVEN_CLI_OPTS test'
 
