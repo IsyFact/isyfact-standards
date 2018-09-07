@@ -132,12 +132,12 @@ test:persistence:
   script:
     - 'mvn -pl isy-persistence $MAVEN_CLI_OPTS test'
 
-test:polling:
+.test:polling:
   <<: *test3
   script:
     - 'mvn -pl isy-polling $MAVEN_CLI_OPTS test -DskipTests'
 
-test:serviceapicore:
+.test:serviceapicore:
   <<: *test3
   script:
     - 'mvn -pl isy-serviceapi-core $MAVEN_CLI_OPTS test -DskipTests'
@@ -147,7 +147,7 @@ test:sicherheit:
   script:
     - 'mvn -pl isy-sicherheit $MAVEN_CLI_OPTS test'
 
-test:task:
+.test:task:
   <<: *test3
   script:
     - 'mvn -pl isy-task $MAVEN_CLI_OPTS test -DskipTests'
@@ -164,7 +164,7 @@ test:sonderzeichen:
 
 
 #Teststage4
-test:ueberwachung:
+.test:ueberwachung:
   stage: teststage4
   dependencies:
    - test:task
