@@ -33,6 +33,8 @@ stages:
   - teststage2
   - teststage3
   - teststage4
+  - packagestage
+  - deploystage
 cache:
   paths:
     - .m2/repository
@@ -172,3 +174,20 @@ test:ueberwachung:
    expire_in: 30 mins
   script:
     - 'mvn -pl isy-ueberwachung $MAVEN_CLI_OPTS test'
+
+package:isyfactstandards:
+  stage: packagestage
+  dependencies:
+   - "test:*"
+  artifacts:
+   paths:
+   - "*/target/*.jar"
+  script:
+   - 'mvn $MAVEN_CLI_OPTS package -DskipTests'
+
+deploy:isyfactstandards:
+  stage: deploystage
+  dependencies:
+   - package:isyfactstandards
+  script:
+   - 'mvn $MAVEN_CLI_OPTS deploy'
