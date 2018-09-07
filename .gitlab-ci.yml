@@ -99,63 +99,63 @@ test:datetime:
    - "*/target/*"
    expire_in: 30 mins
 
-build:aufrufkontext:
+test:aufrufkontext:
   <<: *test3
   script:
     - 'mvn -pl isy-aufrufkontext $MAVEN_CLI_OPTS test'
   
 
-build:batchrahmen:
+test:batchrahmen:
   <<: *test3
   script:
     - 'mvn -pl isy-batchrahmen $MAVEN_CLI_OPTS test'
 
-build:exceptioncore:
+test:exceptioncore:
   <<: *test3
   script:
     - 'mvn -pl isy-exception-core $MAVEN_CLI_OPTS test'
 
-build:konfiguration:
+test:konfiguration:
   <<: *test3
   script:
     - 'mvn -pl isy-konfiguration $MAVEN_CLI_OPTS test'
 
-build:logging:
+test:logging:
   <<: *test3
   script:
     - 'mvn -pl isy-logging $MAVEN_CLI_OPTS test'
 
-build:persistence:
+test:persistence:
   <<: *test3
   script:
     - 'mvn -pl isy-persistence $MAVEN_CLI_OPTS test'
 
-build:polling:
+test:polling:
   <<: *test3
   script:
     - 'mvn -pl isy-polling $MAVEN_CLI_OPTS test'
 
-build:serviceapicore:
+test:serviceapicore:
   <<: *test3
   script:
     - 'mvn -pl isy-serviceapi-core $MAVEN_CLI_OPTS test'
 
-build:sicherheit:
+test:sicherheit:
   <<: *test3
   script:
     - 'mvn -pl isy-sicherheit $MAVEN_CLI_OPTS test'
 
-build:task:
+test:task:
   <<: *test3
   script:
     - 'mvn -pl isy-task $MAVEN_CLI_OPTS test'
 
-build:util:
+test:util:
   <<: *test3
   script:
     - 'mvn -pl isy-util $MAVEN_CLI_OPTS test'
 
-build:sonderzeichen:
+test:sonderzeichen:
   <<: *test3
   script:
     - 'mvn -pl isy-sonderzeichen $MAVEN_CLI_OPTS test'
