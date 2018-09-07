@@ -158,3 +158,5 @@ build:ueberwachung:
    paths:
    - "*/target/*"
    expire_in: 30 mins
+  script:
+    - 'mvn -pl isy-ueberwachung $MAVEN_CLI_OPTS test-compile'
