@@ -178,7 +178,18 @@ test:ueberwachung:
 package:isyfactstandards:
   stage: packagestage
   dependencies:
-   - test
+   - test:aufrufkontext
+   - test:batchrahmen
+   - test:exceptioncore
+   - test:konfiguration
+   - test:logging
+   - test:persistence
+   - test:polling
+   - test:serviceapicore
+   - test:sicherheit
+   - test:util
+   - test:sonderzeichen
+   - test:ueberwachung
   artifacts:
    paths:
    - "*/target/*.jar"
