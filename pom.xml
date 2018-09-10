@@ -54,4 +54,16 @@
         <module>isy-util</module>
         <module>isy-sonderzeichen</module>
     </modules>
+    <distributionManagement>
+        <repository>
+           <id>repository</id>
+           <name>Repository</name>
+           <url>${deploy-url-release}</url>
+        </repository>
+        <snapshotRepository>
+           <id>repository</id>
+           <name>Repository</name>
+           <url>${deploy-url-snapshot}</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
