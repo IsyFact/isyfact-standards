@@ -256,6 +256,7 @@ package:isyfactstandards:
    - test:sicherheit
    - test:util
    - test:sonderzeichen
+   - test:task
    - test:ueberwachung
   artifacts:
    paths:
@@ -269,4 +270,4 @@ deploy:isyfactstandards:
   dependencies:
    - package:isyfactstandards
   script:
-   - 'mvn $MAVEN_CLI_OPTS deploy'
+   - 'mvn $MAVEN_CLI_OPTS deploy -DskipTests'
