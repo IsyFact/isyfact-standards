@@ -55,7 +55,8 @@ test:masterpom:
   stage: teststage1
   artifacts:
    paths:
-   - "*/target/*"
+   - "isyfact-masterpom/target/*"
+   - "isyfact-masterpom-lib/target/*"
    expire_in: 30 mins
   script:
     - 'mvn -pl isyfact-masterpom,isyfact-masterpom-lib $MAVEN_CLI_OPTS test'
@@ -67,23 +68,31 @@ test:masterpom:
   stage: teststage2
   dependencies:
    - build:isyfactstandards
-  artifacts:
-   paths:
-   - "*/target/*"
-   expire_in: 30 mins
 
 test:productsbom:
   <<: *test2
+  artifacts:
+   paths:
+   - "isyfact-products-bom/target/*"
+   expire_in: 30 mins
   script:
     - 'mvn -pl isyfact-products-bom $MAVEN_CLI_OPTS test'
 
 test:serviceapisst:
   <<: *test2
+  artifacts:
+   paths:
+   - "isy-serviceapi-sst/target/*"
+   expire_in: 30 mins
   script:
     - 'mvn -pl isy-serviceapi-sst $MAVEN_CLI_OPTS test'
 
 test:datetime:
   <<: *test2
+  artifacts:
+   paths:
+   - "isy-datetime/target/*"
+   expire_in: 30 mins
   script:
     - 'mvn -pl isy-datetime $MAVEN_CLI_OPTS test'
 
@@ -93,72 +102,125 @@ test:datetime:
 .template: &test3
   stage: teststage3
   dependencies:
+   - build:isyfactstandards
    - test:productsbom
    - test:serviceapisst
    - test:datetime
-  artifacts:
-   paths:
-   - "*/target/*"
-   expire_in: 30 mins
 
 test:aufrufkontext:
   <<: *test3
+  artifacts:
+   paths:
+   - "isy-aufrufkontext/target/*"
+   expire_in: 30 mins
   script:
     - 'mvn -pl isy-aufrufkontext $MAVEN_CLI_OPTS test'
   
-
 test:batchrahmen:
   <<: *test3
+  artifacts:
+   paths:
+   - "isy-batchrahmen/target/*"
+   expire_in: 30 mins
   script:
     - 'mvn -pl isy-batchrahmen $MAVEN_CLI_OPTS test'
 
+test:exceptionsst:
+  <<: *test3
+  artifacts:
+   paths:
+   - "isy-exception-sst/target/*"
+   expire_in: 30 mins
+  script:
+    - 'mvn -pl isy-exception-sst $MAVEN_CLI_OPTS test'
+
 test:exceptioncore:
   <<: *test3
+  artifacts:
+   paths:
+   - "isy-exception-core/target/*"
+   expire_in: 30 mins
   script:
     - 'mvn -pl isy-exception-core $MAVEN_CLI_OPTS test'
 
 test:konfiguration:
   <<: *test3
+  artifacts:
+   paths:
+   - "isy-konfiguration/target/*"
+   expire_in: 30 mins
   script:
     - 'mvn -pl isy-konfiguration $MAVEN_CLI_OPTS test'
 
 test:logging:
   <<: *test3
+  artifacts:
+   paths:
+   - "isy-logging/target/*"
+   expire_in: 30 mins
   script:
     - 'mvn -pl isy-logging $MAVEN_CLI_OPTS test'
 
 test:persistence:
   <<: *test3
+  artifacts:
+   paths:
+   - "isy-persistence/target/*"
+   expire_in: 30 mins
   script:
     - 'mvn -pl isy-persistence $MAVEN_CLI_OPTS test'
 
 test:polling:
   <<: *test3
+  artifacts:
+   paths:
+   - "isy-polling/target/*"
+   expire_in: 30 mins
   script:
     - 'mvn -pl isy-polling $MAVEN_CLI_OPTS test -DskipTests'
 
 test:serviceapicore:
   <<: *test3
+  artifacts:
+   paths:
+   - "isy-serviceapi-core/target/*"
+   expire_in: 30 mins
   script:
     - 'mvn -pl isy-serviceapi-core $MAVEN_CLI_OPTS test -DskipTests'
 
 test:sicherheit:
   <<: *test3
+  artifacts:
+   paths:
+   - "isy-sicherheit/target/*"
+   expire_in: 30 mins
   script:
     - 'mvn -pl isy-sicherheit $MAVEN_CLI_OPTS test'
 
 test:task:
   <<: *test3
+  artifacts:
+   paths:
+   - "isy-task/target/*"
+   expire_in: 30 mins
   script:
     - 'mvn -pl isy-task $MAVEN_CLI_OPTS test -DskipTests'
 
 test:util:
   <<: *test3
+  artifacts:
+   paths:
+   - "isy-util/target/*"
+   expire_in: 30 mins
   script:
     - 'mvn -pl isy-util $MAVEN_CLI_OPTS test'
 
 test:sonderzeichen:
   <<: *test3
+  artifacts:
+   paths:
+   - "isy-sonderzeichen/target/*"
+   expire_in: 30 mins
   script:
     - 'mvn -pl isy-sonderzeichen $MAVEN_CLI_OPTS test'
 
@@ -170,7 +232,7 @@ test:ueberwachung:
    - test:task
   artifacts:
    paths:
-   - "*/target/*"
+   - "isy-ueberwachung/target/*"
    expire_in: 30 mins
   script:
     - 'mvn -pl isy-ueberwachung $MAVEN_CLI_OPTS test -DskipTests'
@@ -178,22 +240,26 @@ test:ueberwachung:
 package:isyfactstandards:
   stage: packagestage
   dependencies:
-    - build:isyfactstandards
-#   - test:aufrufkontext
-#   - test:batchrahmen
-#   - test:exceptioncore
-#   - test:konfiguration
-#   - test:logging
-#   - test:persistence
-#   - test:polling
-#   - test:serviceapicore
-#   - test:sicherheit
-#   - test:util
-#   - test:sonderzeichen
-#   - test:ueberwachung
+   - test:masterpom
+   - test:productsbom
+   - test:serviceapisst
+   - test:datetime
+   - test:aufrufkontext
+   - test:batchrahmen
+   - test:exceptionsst
+   - test:exceptioncore
+   - test:konfiguration
+   - test:logging
+   - test:persistence
+   - test:polling
+   - test:serviceapicore
+   - test:sicherheit
+   - test:util
+   - test:sonderzeichen
+   - test:ueberwachung
   artifacts:
    paths:
-   - "*/target/*.jar"
+   - "*/target/*"
    expire_in: 30 mins
   script:
    - 'mvn $MAVEN_CLI_OPTS package -DskipTests'
