@@ -194,6 +194,7 @@ package:isyfactstandards:
   artifacts:
    paths:
    - "*/target/*.jar"
+   expire_in: 30 mins
   script:
    - 'mvn $MAVEN_CLI_OPTS package -DskipTests'
 
