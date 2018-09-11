@@ -177,7 +177,8 @@ test:polling:
    - "isy-polling/target/*"
    expire_in: 30 mins
   script:
-    - 'mvn -pl isy-polling $MAVEN_CLI_OPTS test -DskipTests'
+    - 'echo "127.0.0.1 $HOSTNAME >> /etc/hosts'
+    - 'mvn -pl isy-polling $MAVEN_CLI_OPTS test'
 
 test:serviceapicore:
   <<: *test3
