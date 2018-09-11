@@ -4,7 +4,6 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>isyfact-products-bom</artifactId>
-    <version>${project.parent.version}</version>
     <packaging>pom</packaging>
     <name>IsyFact Products BOM</name>
     <description>Definiert die Versionen aller 3rd-Party Abhängigkeiten des Core Technology Stack der IsyFact.</description>
