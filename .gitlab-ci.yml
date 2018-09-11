@@ -96,14 +96,6 @@ test:datetime:
   script:
     - 'mvn -pl isy-datetime $MAVEN_CLI_OPTS test'
 
-test:exceptioncore:
-  <<: *test2
-  artifacts:
-   paths:
-   - "isy-exception-core/target/*"
-   expire_in: 30 mins
-  script:
-    - 'mvn -pl isy-exception-core $MAVEN_CLI_OPTS test'
 
 
 #Teststage3
@@ -114,7 +106,6 @@ test:exceptioncore:
    - test:productsbom
    - test:serviceapisst
    - test:datetime
-   - test:exceptioncore
 
 test:aufrufkontext:
   <<: *test3
@@ -142,6 +133,15 @@ test:exceptionsst:
    expire_in: 30 mins
   script:
     - 'mvn -pl isy-exception-sst $MAVEN_CLI_OPTS test'
+
+test:exceptioncore:
+  <<: *test3
+  artifacts:
+   paths:
+   - "isy-exception-core/target/*"
+   expire_in: 30 mins
+  script:
+    - 'mvn -pl isy-exception-core $MAVEN_CLI_OPTS test'
 
 test:konfiguration:
   <<: *test3
