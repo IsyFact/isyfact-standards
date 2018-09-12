@@ -39,6 +39,8 @@ cache:
   paths:
     - .m2/repository
   key: "isyfactstandards"
+#before_script:
+#  - rm -rf .m2/repository/de
 
 #Buildstage
 build:isyfactstandards:
@@ -48,20 +50,15 @@ build:isyfactstandards:
    - "*/target/*"
    expire_in: 30 mins
   script:
-   - 'mvn $MAVEN_CLI_OPTS test-compile'
+   - 'mvn $MAVEN_CLI_OPTS compile'
 
 #Teststage1
 test:masterpom:
   stage: teststage1
-  artifacts:
-   paths:
-   - "isyfact-masterpom/target/*"
-   - "isyfact-masterpom-lib/target/*"
-   expire_in: 30 mins
+  dependencies:
+   - build:isyfactstandards
   script:
-    - 'mvn -pl isyfact-masterpom,isyfact-masterpom-lib $MAVEN_CLI_OPTS test'
-
-
+   - 'mvn -pl isyfact-masterpom,isyfact-masterpom-lib $MAVEN_CLI_OPTS test'
 
 #Teststage2
 .template: &test2
@@ -71,12 +68,8 @@ test:masterpom:
 
 test:productsbom:
   <<: *test2
-  artifacts:
-   paths:
-   - "isyfact-products-bom/target/*"
-   expire_in: 30 mins
   script:
-    - 'mvn -pl isyfact-products-bom $MAVEN_CLI_OPTS test'
+   - 'mvn -pl isyfact-products-bom $MAVEN_CLI_OPTS test'
 
 test:serviceapisst:
   <<: *test2
@@ -85,7 +78,7 @@ test:serviceapisst:
    - "isy-serviceapi-sst/target/*"
    expire_in: 30 mins
   script:
-    - 'mvn -pl isy-serviceapi-sst $MAVEN_CLI_OPTS test'
+   - 'mvn -pl isy-serviceapi-sst $MAVEN_CLI_OPTS test'
 
 test:datetime:
   <<: *test2
@@ -94,7 +87,7 @@ test:datetime:
    - "isy-datetime/target/*"
    expire_in: 30 mins
   script:
-    - 'mvn -pl isy-datetime $MAVEN_CLI_OPTS test'
+   - 'mvn -pl isy-datetime $MAVEN_CLI_OPTS test'
 
 test:exceptioncore:
   <<: *test2
@@ -103,7 +96,7 @@ test:exceptioncore:
    - "isy-exception-core/target/*"
    expire_in: 30 mins
   script:
-    - 'mvn -pl isy-exception-core $MAVEN_CLI_OPTS test'
+   - 'mvn -pl isy-exception-core $MAVEN_CLI_OPTS test'
 
 
 
@@ -112,10 +105,13 @@ test:exceptioncore:
   stage: teststage3
   dependencies:
    - build:isyfactstandards
-   - test:productsbom
    - test:serviceapisst
    - test:datetime
    - test:exceptioncore
+  before_script:
+#   - 'rm -rf .m2/repository/de'
+   - 'echo "127.0.0.1 $HOSTNAME" >> /etc/hosts'
+   - 'mvn -pl isyfact-masterpom,isyfact-masterpom-lib,isyfact-products-bom test-compile'
 
 test:aufrufkontext:
   <<: *test3
@@ -124,7 +120,7 @@ test:aufrufkontext:
    - "isy-aufrufkontext/target/*"
    expire_in: 30 mins
   script:
-    - 'mvn -pl isy-aufrufkontext $MAVEN_CLI_OPTS test'
+   - 'mvn -pl isy-aufrufkontext $MAVEN_CLI_OPTS test'
   
 test:batchrahmen:
   <<: *test3
@@ -133,7 +129,7 @@ test:batchrahmen:
    - "isy-batchrahmen/target/*"
    expire_in: 30 mins
   script:
-    - 'mvn -pl isy-batchrahmen $MAVEN_CLI_OPTS test'
+   - 'mvn -pl isy-batchrahmen $MAVEN_CLI_OPTS test'
 
 test:exceptionsst:
   <<: *test3
@@ -142,7 +138,7 @@ test:exceptionsst:
    - "isy-exception-sst/target/*"
    expire_in: 30 mins
   script:
-    - 'mvn -pl isy-exception-sst $MAVEN_CLI_OPTS test'
+   - 'mvn -pl isy-exception-sst $MAVEN_CLI_OPTS test'
 
 test:konfiguration:
   <<: *test3
@@ -151,7 +147,7 @@ test:konfiguration:
    - "isy-konfiguration/target/*"
    expire_in: 30 mins
   script:
-    - 'mvn -pl isy-konfiguration $MAVEN_CLI_OPTS test'
+   - 'mvn -pl isy-konfiguration $MAVEN_CLI_OPTS test'
 
 test:logging:
   <<: *test3
@@ -160,7 +156,7 @@ test:logging:
    - "isy-logging/target/*"
    expire_in: 30 mins
   script:
-    - 'mvn -pl isy-logging $MAVEN_CLI_OPTS test'
+   - 'mvn -pl isy-logging $MAVEN_CLI_OPTS test'
 
 test:persistence:
   <<: *test3
@@ -169,7 +165,7 @@ test:persistence:
    - "isy-persistence/target/*"
    expire_in: 30 mins
   script:
-    - 'mvn -pl isy-persistence $MAVEN_CLI_OPTS test'
+   - 'mvn -pl isy-persistence $MAVEN_CLI_OPTS test'
 
 test:polling:
   <<: *test3
@@ -178,8 +174,7 @@ test:polling:
    - "isy-polling/target/*"
    expire_in: 30 mins
   script:
-    - 'echo "127.0.0.1 $HOSTNAME" >> /etc/hosts'
-    - 'mvn -pl isy-polling $MAVEN_CLI_OPTS test'
+   - 'mvn -pl isy-polling $MAVEN_CLI_OPTS test'
 
 test:serviceapicore:
   <<: *test3
@@ -188,8 +183,7 @@ test:serviceapicore:
    - "isy-serviceapi-core/target/*"
    expire_in: 30 mins
   script:
-    - 'echo "127.0.0.1 $HOSTNAME" >> /etc/hosts'
-    - 'mvn -pl isy-serviceapi-core $MAVEN_CLI_OPTS test'
+   - 'mvn -pl isy-serviceapi-core $MAVEN_CLI_OPTS test'
 
 test:sicherheit:
   <<: *test3
@@ -198,7 +192,7 @@ test:sicherheit:
    - "isy-sicherheit/target/*"
    expire_in: 30 mins
   script:
-    - 'mvn -pl isy-sicherheit $MAVEN_CLI_OPTS test'
+   - 'mvn -pl isy-sicherheit $MAVEN_CLI_OPTS test'
 
 test:task:
   <<: *test3
@@ -207,8 +201,7 @@ test:task:
    - "isy-task/target/*"
    expire_in: 30 mins
   script:
-    - 'echo "127.0.0.1 $HOSTNAME" >> /etc/hosts'
-    - 'mvn -pl isy-task $MAVEN_CLI_OPTS test'
+   - 'mvn -pl isy-task $MAVEN_CLI_OPTS test'
 
 test:util:
   <<: *test3
@@ -217,7 +210,7 @@ test:util:
    - "isy-util/target/*"
    expire_in: 30 mins
   script:
-    - 'mvn -pl isy-util $MAVEN_CLI_OPTS test'
+   - 'mvn -pl isy-util $MAVEN_CLI_OPTS test'
 
 test:sonderzeichen:
   <<: *test3
@@ -226,7 +219,7 @@ test:sonderzeichen:
    - "isy-sonderzeichen/target/*"
    expire_in: 30 mins
   script:
-    - 'mvn -pl isy-sonderzeichen $MAVEN_CLI_OPTS test'
+   - 'mvn -pl isy-sonderzeichen $MAVEN_CLI_OPTS test'
 
 
 #Teststage4
@@ -238,15 +231,17 @@ test:ueberwachung:
    paths:
    - "isy-ueberwachung/target/*"
    expire_in: 30 mins
+  before_script:
+#   - 'rm -rf .m2/repository/de'
+   - 'echo "127.0.0.1 $HOSTNAME" >> /etc/hosts'
+   - 'mvn -pl isyfact-masterpom,isyfact-masterpom-lib,isyfact-products-bom test-compile'
   script:
-    - 'echo "127.0.0.1 $HOSTNAME" >> /etc/hosts'
-    - 'mvn -pl isy-ueberwachung $MAVEN_CLI_OPTS test'
+   - 'mvn -pl isy-ueberwachung $MAVEN_CLI_OPTS test'
 
 package:isyfactstandards:
   stage: packagestage
   dependencies:
-   - test:masterpom
-   - test:productsbom
+   - build:isyfactstandards
    - test:serviceapisst
    - test:datetime
    - test:aufrufkontext
