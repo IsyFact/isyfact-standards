@@ -39,8 +39,6 @@ cache:
   paths:
     - .m2/repository
   key: "isyfactstandards"
-#before_script:
-#  - rm -rf .m2/repository/de
 
 #Buildstage
 build:isyfactstandards:
@@ -49,6 +47,8 @@ build:isyfactstandards:
    paths:
    - "*/target/*"
    expire_in: 30 mins
+  before_script:
+   - rm -rf .m2/repository/de
   script:
    - 'mvn $MAVEN_CLI_OPTS compile'
 
@@ -109,7 +109,6 @@ test:exceptioncore:
    - test:datetime
    - test:exceptioncore
   before_script:
-#   - 'rm -rf .m2/repository/de'
    - 'echo "127.0.0.1 $HOSTNAME" >> /etc/hosts'
    - 'mvn -pl isyfact-masterpom,isyfact-masterpom-lib,isyfact-products-bom test-compile'
 
@@ -232,7 +231,6 @@ test:ueberwachung:
    - "isy-ueberwachung/target/*"
    expire_in: 30 mins
   before_script:
-#   - 'rm -rf .m2/repository/de'
    - 'echo "127.0.0.1 $HOSTNAME" >> /etc/hosts'
    - 'mvn -pl isyfact-masterpom,isyfact-masterpom-lib,isyfact-products-bom test-compile'
   script:
@@ -267,6 +265,11 @@ package:isyfactstandards:
 
 deploy:isyfactstandards:
   stage: deploystage
+  cache:
+    paths:
+      - .m2/repository
+    key: "isyfactstandards"
+    policy: pull
   dependencies:
    - package:isyfactstandards
   script:
