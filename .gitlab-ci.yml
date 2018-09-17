@@ -33,6 +33,7 @@ stages:
   - teststage2
   - teststage3
   - teststage4
+  - testerwstage
   - packagestage
   - deploystage
 cache:
@@ -235,6 +236,36 @@ test:ueberwachung:
    - 'mvn -pl isyfact-masterpom,isyfact-masterpom-lib,isyfact-products-bom test-compile'
   script:
    - 'mvn -pl isy-ueberwachung $MAVEN_CLI_OPTS test'
+
+
+#Test nachfolgernder Repos: isy-style + Artefactbereitstellung
+test:erweiterungen:
+  stage: testerwstage
+  dependencies:
+   - build:isyfactstandards
+   - test:serviceapisst
+   - test:datetime
+   - test:aufrufkontext
+   - test:batchrahmen
+   - test:exceptionsst
+   - test:exceptioncore
+   - test:konfiguration
+   - test:logging
+   - test:persistence
+   - test:polling
+   - test:serviceapicore
+   - test:sicherheit
+   - test:util
+   - test:sonderzeichen
+   - test:task
+   - test:ueberwachung
+  artifacts:
+   paths:
+   - "*/target/*"
+   expire_in: 30 mins
+  script:
+   - ' curl -X POST -F token=$ISYSTYLETOKEN -F ref=master https://$GIT/api/v4/projects/142/trigger/pipeline'
+
 
 package:isyfactstandards:
   stage: packagestage
