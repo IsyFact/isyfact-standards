@@ -28,32 +28,284 @@ variables:
 # To keep cache across branches add 'key: "$CI_JOB_REF_NAME"'
 image: maven:3-jdk-8
 stages:
-  - build
-  - test
-  - package
-  - deploy
+  - buildstage
+  - teststage1
+  - teststage2
+  - teststage3
+  - teststage4
+  - testerwstage
+  - packagestage
+  - deploystage
 cache:
   paths:
     - .m2/repository
+  key: "isyfactstandards"
 
-# Validate merge requests using JDK8
-build:jdk8:
-  stage: build
+#Buildstage
+build:isyfactstandards:
+  stage: buildstage
+  artifacts:
+   paths:
+   - "*/target/*"
+   expire_in: 30 mins
+  before_script:
+   - rm -rf .m2/repository/de
   script:
-    - 'mvn $MAVEN_CLI_OPTS test-compile'
+   - 'mvn $MAVEN_CLI_OPTS compile'
 
-# Verify merge requests using JDK8
-test:jdk8:
-  stage: test
+#Teststage1
+test:masterpom:
+  stage: teststage1
+  dependencies:
+   - build:isyfactstandards
   script:
-    - 'mvn $MAVEN_CLI_OPTS test'
+   - 'mvn -pl isyfact-masterpom,isyfact-masterpom-lib $MAVEN_CLI_OPTS test'
 
-package:jdk8:
-  stage: package
-  script:
-    - 'mvn $MAVEN_CLI_OPTS package'
+#Teststage2
+.template: &test2
+  stage: teststage2
+  dependencies:
+   - build:isyfactstandards
 
-deploy:jdk8:
-  stage: deploy
+test:productsbom:
+  <<: *test2
   script:
-    - 'mvn $MAVEN_CLI_OPTS deploy'
+   - 'mvn -pl isyfact-products-bom $MAVEN_CLI_OPTS test'
+
+test:serviceapisst:
+  <<: *test2
+  artifacts:
+   paths:
+   - "isy-serviceapi-sst/target/*"
+   expire_in: 30 mins
+  script:
+   - 'mvn -pl isy-serviceapi-sst $MAVEN_CLI_OPTS test'
+
+test:datetime:
+  <<: *test2
+  artifacts:
+   paths:
+   - "isy-datetime/target/*"
+   expire_in: 30 mins
+  script:
+   - 'mvn -pl isy-datetime $MAVEN_CLI_OPTS test'
+
+test:exceptioncore:
+  <<: *test2
+  artifacts:
+   paths:
+   - "isy-exception-core/target/*"
+   expire_in: 30 mins
+  script:
+   - 'mvn -pl isy-exception-core $MAVEN_CLI_OPTS test'
+
+
+
+#Teststage3
+.template: &test3
+  stage: teststage3
+  dependencies:
+   - build:isyfactstandards
+   - test:serviceapisst
+   - test:datetime
+   - test:exceptioncore
+  before_script:
+   - 'echo "127.0.0.1 $HOSTNAME" >> /etc/hosts'
+   - 'mvn -pl isyfact-masterpom,isyfact-masterpom-lib,isyfact-products-bom test-compile'
+
+test:aufrufkontext:
+  <<: *test3
+  artifacts:
+   paths:
+   - "isy-aufrufkontext/target/*"
+   expire_in: 30 mins
+  script:
+   - 'mvn -pl isy-aufrufkontext $MAVEN_CLI_OPTS test'
+  
+test:batchrahmen:
+  <<: *test3
+  artifacts:
+   paths:
+   - "isy-batchrahmen/target/*"
+   expire_in: 30 mins
+  script:
+   - 'mvn -pl isy-batchrahmen $MAVEN_CLI_OPTS test'
+
+test:exceptionsst:
+  <<: *test3
+  artifacts:
+   paths:
+   - "isy-exception-sst/target/*"
+   expire_in: 30 mins
+  script:
+   - 'mvn -pl isy-exception-sst $MAVEN_CLI_OPTS test'
+
+test:konfiguration:
+  <<: *test3
+  artifacts:
+   paths:
+   - "isy-konfiguration/target/*"
+   expire_in: 30 mins
+  script:
+   - 'mvn -pl isy-konfiguration $MAVEN_CLI_OPTS test'
+
+test:logging:
+  <<: *test3
+  artifacts:
+   paths:
+   - "isy-logging/target/*"
+   expire_in: 30 mins
+  script:
+   - 'mvn -pl isy-logging $MAVEN_CLI_OPTS test'
+
+test:persistence:
+  <<: *test3
+  artifacts:
+   paths:
+   - "isy-persistence/target/*"
+   expire_in: 30 mins
+  script:
+   - 'mvn -pl isy-persistence $MAVEN_CLI_OPTS test'
+
+test:polling:
+  <<: *test3
+  artifacts:
+   paths:
+   - "isy-polling/target/*"
+   expire_in: 30 mins
+  script:
+   - 'mvn -pl isy-polling $MAVEN_CLI_OPTS test'
+
+test:serviceapicore:
+  <<: *test3
+  artifacts:
+   paths:
+   - "isy-serviceapi-core/target/*"
+   expire_in: 30 mins
+  script:
+   - 'mvn -pl isy-serviceapi-core $MAVEN_CLI_OPTS test'
+
+test:sicherheit:
+  <<: *test3
+  artifacts:
+   paths:
+   - "isy-sicherheit/target/*"
+   expire_in: 30 mins
+  script:
+   - 'mvn -pl isy-sicherheit $MAVEN_CLI_OPTS test'
+
+test:task:
+  <<: *test3
+  artifacts:
+   paths:
+   - "isy-task/target/*"
+   expire_in: 30 mins
+  script:
+   - 'mvn -pl isy-task $MAVEN_CLI_OPTS test'
+
+test:util:
+  <<: *test3
+  artifacts:
+   paths:
+   - "isy-util/target/*"
+   expire_in: 30 mins
+  script:
+   - 'mvn -pl isy-util $MAVEN_CLI_OPTS test'
+
+test:sonderzeichen:
+  <<: *test3
+  artifacts:
+   paths:
+   - "isy-sonderzeichen/target/*"
+   expire_in: 30 mins
+  script:
+   - 'mvn -pl isy-sonderzeichen $MAVEN_CLI_OPTS test'
+
+
+#Teststage4
+test:ueberwachung:
+  stage: teststage4
+  dependencies:
+   - test:task
+  artifacts:
+   paths:
+   - "isy-ueberwachung/target/*"
+   expire_in: 30 mins
+  before_script:
+   - 'echo "127.0.0.1 $HOSTNAME" >> /etc/hosts'
+   - 'mvn -pl isyfact-masterpom,isyfact-masterpom-lib,isyfact-products-bom test-compile'
+  script:
+   - 'mvn -pl isy-ueberwachung $MAVEN_CLI_OPTS test'
+
+
+#Test nachfolgernder Repos: isy-style + Artefactbereitstellung
+test:erweiterungen:
+  stage: testerwstage
+  dependencies:
+   - build:isyfactstandards
+   - test:serviceapisst
+   - test:datetime
+   - test:aufrufkontext
+   - test:batchrahmen
+   - test:exceptionsst
+   - test:exceptioncore
+   - test:konfiguration
+   - test:logging
+   - test:persistence
+   - test:polling
+   - test:serviceapicore
+   - test:sicherheit
+   - test:util
+   - test:sonderzeichen
+   - test:task
+   - test:ueberwachung
+  artifacts:
+   paths:
+   - "*/target/*"
+   expire_in: 30 mins
+  script:
+   - ' curl -X POST -F token=$ISYSTYLETOKEN -F ref=master https://$GIT/api/v4/projects/142/trigger/pipeline'
+
+
+package:isyfactstandards:
+  stage: packagestage
+  dependencies:
+   - build:isyfactstandards
+   - test:serviceapisst
+   - test:datetime
+   - test:aufrufkontext
+   - test:batchrahmen
+   - test:exceptionsst
+   - test:exceptioncore
+   - test:konfiguration
+   - test:logging
+   - test:persistence
+   - test:polling
+   - test:serviceapicore
+   - test:sicherheit
+   - test:util
+   - test:sonderzeichen
+   - test:task
+   - test:ueberwachung
+  artifacts:
+   paths:
+   - "*/target/*"
+   expire_in: 30 mins
+  script:
+   - 'mvn $MAVEN_CLI_OPTS package -DskipTests'
+  only:
+   - master@Isyfact/isyfact-standards
+
+deploy:isyfactstandards:
+  stage: deploystage
+  cache:
+    paths:
+      - .m2/repository
+    key: "isyfactstandards"
+    policy: pull
+  dependencies:
+   - package:isyfactstandards
+  script:
+   - 'mvn $MAVEN_CLI_OPTS deploy -DskipTests -Dmaven.install.skip=true -Dmaven.javadoc.skip=true'
+  only:
+   - master@Isyfact/isyfact-standards
