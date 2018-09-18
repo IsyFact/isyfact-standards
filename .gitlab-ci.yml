@@ -239,7 +239,7 @@ test:ueberwachung:
 
 
 #Test nachfolgernder Repos: isy-style + Artefactbereitstellung
-test:erweiterungen:
+.test:erweiterungen:
   stage: testerwstage
   dependencies:
    - build:isyfactstandards
