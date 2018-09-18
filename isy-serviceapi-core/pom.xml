@@ -18,6 +18,13 @@
         <dependencies>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
+                <artifactId>isyfact-standards-bom</artifactId>
+                <version>${project.parent.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isyfact-products-bom</artifactId>
                 <version>${project.parent.version}</version>
                 <type>pom</type>
@@ -31,7 +38,6 @@
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-logging</artifactId>
-            <version>${isyfact-base.version}</version>
         </dependency>
 
         <dependency>
@@ -44,31 +50,26 @@
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-exception-core</artifactId>
-            <version>${isyfact-base.version}</version>
         </dependency>
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-exception-sst</artifactId>
-            <version>${isyfact-base.version}</version>
         </dependency>
 
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-serviceapi-sst</artifactId>
-            <version>${isy-serviceapi-sst.version}</version>
         </dependency>
 
         <!-- PLIS-Sicherheit zur Autorisierung in der Service-Impl. -->
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-sicherheit</artifactId>
-            <version>${isyfact-base.version}</version>
         </dependency>
 
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-aufrufkontext</artifactId>
-            <version>${isyfact-base.version}</version>
         </dependency>
 
         <!-- Dozer (Bean Mapping) für Parametertransformationen in der Service-Impl. -->

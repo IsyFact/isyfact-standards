@@ -26,16 +26,10 @@
         </license>
     </licenses>
 
-    <properties>
-        <isyfact-base.version>1.7.0-SNAPSHOT</isyfact-base.version>
-        <isy-datetime.version>1.2.0-SNAPSHOT</isy-datetime.version>
-        <isy-serviceapi-sst.version>1.7.0-SNAPSHOT</isy-serviceapi-sst.version>
-        <isy-ueberwachung.version>1.8.0-SNAPSHOT</isy-ueberwachung.version>
-    </properties>
-
     <modules>
         <module>isyfact-masterpom</module>
         <module>isyfact-masterpom-lib</module>
+        <module>isyfact-standards-bom</module>
         <module>isyfact-products-bom</module>
         <module>isy-aufrufkontext</module>
         <module>isy-batchrahmen</module>
