@@ -18,6 +18,13 @@
         <dependencies>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
+                <artifactId>isyfact-standards-bom</artifactId>
+                <version>${project.parent.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isyfact-products-bom</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>
@@ -52,14 +59,12 @@
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-konfiguration</artifactId>
-            <version>${isyfact-base.version}</version>
         </dependency>
 
         <!-- Fuer Isy-Exceptions -->
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-exception-core</artifactId>
-            <version>${isyfact-base.version}</version>
         </dependency>
 
         <!-- Fuer JMX-Annotations -->
@@ -88,7 +93,6 @@
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-logging</artifactId>
-            <version>${isyfact-base.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -114,7 +118,6 @@
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-util</artifactId>
-            <version>${isyfact-base.version}</version>
             <scope>test</scope>
         </dependency>
 
