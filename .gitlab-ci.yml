@@ -294,7 +294,7 @@ package:isyfactstandards:
   script:
    - 'mvn $MAVEN_CLI_OPTS package -DskipTests'
   only:
-   - master@Isyfact/isyfact-standards
+   - master@IsyFact/isyfact-standards
 
 deploy:isyfactstandards:
   stage: deploystage
@@ -308,4 +308,4 @@ deploy:isyfactstandards:
   script:
    - 'mvn $MAVEN_CLI_OPTS deploy -DskipTests -Dmaven.install.skip=true -Dmaven.javadoc.skip=true'
   only:
-   - master@Isyfact/isyfact-standards
+   - master@IsyFact/isyfact-standards
