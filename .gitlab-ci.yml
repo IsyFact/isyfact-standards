@@ -73,7 +73,7 @@ package:isyfactstandards:
    - "*/target/*"
    expire_in: 30 mins
   script:
-   - 'mvn $MAVEN_CLI_OPTS package -DskipTests'
+   - 'mvn -DskipTests $MAVEN_CLI_OPTS package'
 
 deploy:isyfactstandards:
   stage: deploystage
@@ -85,4 +85,4 @@ deploy:isyfactstandards:
   dependencies:
    - package:isyfactstandards
   script:
-   - ' mvn $MAVEN_CLI_OPTS deploy -DskipTests -Dmaven.install.skip=true -Dmaven.javadoc.skip=true'
+   - ' mvn -DskipTests -Dmaven.install.skip=true -Dmaven.javadoc.skip=true $MAVEN_CLI_OPTS deploy'
