@@ -31,6 +31,7 @@
         <maven.enforcer.plugin.version>1.4.1</maven.enforcer.plugin.version>
         <maven.javadoc.plugin.version>2.10.4</maven.javadoc.plugin.version>
         <jarsigner.skip>true</jarsigner.skip>
+	<gpg.skip>true</gpg.skip>
     </properties>
 
 
@@ -213,6 +214,20 @@
                                         <ignore/>
                                     </action>
                                 </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.apache.maven.plugins</groupId>
+                                        <artifactId>maven-gpg-plugin</artifactId>
+                                        <versionRange>[1.6,)</versionRange>
+                                        <goals>
+                                            <goal>sign</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore/>
+                                    </action>
+                                </pluginExecution>
+
                             </pluginExecutions>
                         </lifecycleMappingMetadata>
                     </configuration>
@@ -496,6 +511,25 @@
                    <certs>true</certs>
                 </configuration>
             </plugin>
+             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                   <execution>
+                   <id>sign-artifacts</id>
+		   <phase>verify</phase>
+                   <goals>
+                      <goal>sign</goal>
+                   </goals>
+                   </execution>
+                </executions>
+		<configuration>
+		   <keyname>${gpg.keyname}</keyname>
+		   <passphrase>${gpg.passphrase}</passphrase>
+		</configuration>
+            </plugin>
+
        </plugins>
     </build>
 
