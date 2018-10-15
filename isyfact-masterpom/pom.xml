@@ -32,18 +32,6 @@
         <maven.javadoc.plugin.version>2.10.4</maven.javadoc.plugin.version>
     </properties>
 
-    <distributionManagement>
-        <repository>
-            <id>repository</id>
-            <name>Repository</name>
-            <url>${deploy-url-release}</url>
-        </repository>
-        <snapshotRepository>
-            <id>repository</id>
-            <name>Repository</name>
-            <url>${deploy-url-snapshot}</url>
-        </snapshotRepository>
-    </distributionManagement>
 
     <profiles>
         <!-- Profil um Snapshot-Versionen in Release-Tags zu verhindern -->
@@ -453,7 +441,7 @@
                     </additionalConfig>
                 </configuration>
             </plugin>
-        </plugins>
+       </plugins>
     </build>
 
     <reporting>
