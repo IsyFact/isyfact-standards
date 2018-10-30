@@ -24,10 +24,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
+import java.util.UUID;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
+import de.bund.bva.isyfact.logging.util.MdcHelper;
 import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 import de.bund.bva.pliscommon.konfiguration.common.KonfigurationChangeListener;
 import de.bund.bva.pliscommon.konfiguration.common.ReloadableKonfiguration;
@@ -116,6 +118,12 @@ public class ReloadablePropertyKonfiguration implements ReloadableKonfiguration 
     public synchronized boolean checkAndUpdate() {
         LOG.info(LogKategorie.JOURNAL, EreignisSchluessel.KONFIGURATION_DATEI_GEAENDERT,
             "Prüfe auf geänderte Konfigurationsdateien.");
+        boolean korrelationsIdGesetzt = false;
+        if (MdcHelper.liesKorrelationsId() == null) {
+            MdcHelper.pushKorrelationsId(UUID.randomUUID().toString());
+            korrelationsIdGesetzt = true;
+        }
+
         boolean neueVersionGeladen = this.propertyProvider.checkAndUpdate();
         if (neueVersionGeladen) {
             LOG.info(LogKategorie.JOURNAL, EreignisSchluessel.KONFIGURATION_DATEI_GEAENDERT,
@@ -124,6 +132,10 @@ public class ReloadablePropertyKonfiguration implements ReloadableKonfiguration 
             Properties aktuelleProperties = this.propertyKonfiguration.getProperties();
             this.propertyKonfiguration = new PropertyKonfiguration(neueProperties, this.namensSchema);
             fireKonfigurationChanged(aktuelleProperties, neueProperties);
+        }
+
+        if (korrelationsIdGesetzt) {
+            MdcHelper.entferneKorrelationsId();
         }
         return neueVersionGeladen;
     }
