@@ -190,16 +190,16 @@
 
             <!-- JDBC-Treiber: Oracle -->
             <dependency>
-                <groupId>com.oracle</groupId>
+                <groupId>com.oracle.jdbc</groupId>
                 <artifactId>ojdbc7</artifactId>
                 <version>12.1.0.2</version>
             </dependency>
 
             <!-- Connection Pool: Oracle Universal Connection Pool (UCP) -->
             <dependency>
-                <groupId>com.oracle</groupId>
+                <groupId>com.oracle.jdbc</groupId>
                 <artifactId>ucp</artifactId>
-                <version>12.1.0.2.0</version>
+                <version>12.1.0.2</version>
             </dependency>
 
             <!-- Bean-Mapping: Dozer -->
