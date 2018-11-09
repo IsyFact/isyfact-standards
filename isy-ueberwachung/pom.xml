@@ -4,14 +4,14 @@
     <modelVersion>4.0.0</modelVersion>
     
     <artifactId>isy-ueberwachung</artifactId>
-    <version>1.8.0.RC1</version>
+    <version>1.8.0.RC2</version>
     <packaging>jar</packaging>
     <name>IsyFact-Überwachung</name>
 
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
         <artifactId>isyfact-masterpom-lib</artifactId>
-        <version>1.6.0.RC1</version>
+        <version>1.6.0.RC2</version>
         <relativePath>../isyfact-masterpom-lib</relativePath>
     </parent>
 
