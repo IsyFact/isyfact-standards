@@ -6,13 +6,13 @@
 
     <artifactId>isy-persistence</artifactId>
     <packaging>jar</packaging>
-    <version>1.8.0.RC1</version>
+    <version>1.8.0.RC2</version>
     <description>Die Querschnittsbibliothek isy-persistence</description>
 
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
         <artifactId>isyfact-masterpom-lib</artifactId>
-        <version>1.6.0.RC1</version>
+        <version>1.6.0.RC2</version>
         <relativePath>../isyfact-masterpom-lib</relativePath>
     </parent>
 
