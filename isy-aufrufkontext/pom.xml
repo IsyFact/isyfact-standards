@@ -4,7 +4,6 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>isy-aufrufkontext</artifactId>
-    <version>1.7.0.RC2</version>
     <packaging>jar</packaging>
     <name>IsyFact-Aufrufkontext</name>
     <description>Stellt eine Komponente zur Verwaltung des Aufrufkontextes bereit.</description>
@@ -12,7 +11,7 @@
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
         <artifactId>isyfact-masterpom-lib</artifactId>
-        <version>1.6.0.RC2</version>
+        <version>2.0.0.alpha</version>
         <relativePath>../isyfact-masterpom-lib</relativePath>
     </parent>
 
