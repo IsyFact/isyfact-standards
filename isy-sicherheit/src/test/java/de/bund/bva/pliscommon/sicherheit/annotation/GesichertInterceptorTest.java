@@ -137,7 +137,7 @@ public class GesichertInterceptorTest extends AbstractJUnit4SpringContextTests {
 
     @Test(expected = AutorisierungFehlgeschlagenException.class)
     public void testNegativ_statischeMethodeGesichert() throws Throwable{
-        SimpleMethodInvocation invocation = new SimpleMethodInvocation(null, ServiceImpl.class.getMethod("statischeMethodeGesichert"), new Object[]{} );
+        SimpleMethodInvocation invocation = new SimpleMethodInvocation(testBean, ServiceImpl.class.getMethod("gesichertDurch_RechtA"), new Object[]{} );
         interceptor.invoke(invocation);
     }
 }
