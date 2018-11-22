@@ -16,26 +16,22 @@
  */
 package de.bund.bva.pliscommon.batchrahmen;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import java.io.File;
-import java.io.IOException;
 import java.net.URISyntaxException;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
+import de.bund.bva.pliscommon.batchrahmen.batch.rahmen.BatchReturnCode;
+import de.bund.bva.pliscommon.batchrahmen.batch.rahmen.BatchStartTyp;
+import de.bund.bva.pliscommon.batchrahmen.core.launcher.BatchLauncher;
+import de.bund.bva.pliscommon.batchrahmen.persistence.rahmen.BatchStatus;
+import de.bund.bva.pliscommon.batchrahmen.test.BatchProtokollTester;
+import de.bund.bva.pliscommon.batchrahmen.test.TestBatchLauchner;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.orm.jpa.EntityManagerFactoryUtils;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -46,43 +42,19 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
-import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import de.bund.bva.pliscommon.batchrahmen.batch.rahmen.BatchReturnCode;
-import de.bund.bva.pliscommon.batchrahmen.batch.rahmen.BatchStartTyp;
-import de.bund.bva.pliscommon.batchrahmen.core.launcher.BatchLauncher;
-import de.bund.bva.pliscommon.batchrahmen.persistence.rahmen.BatchStatus;
-import de.bund.bva.pliscommon.batchrahmen.persistence.rahmen.BatchStatusDao;
-import de.bund.bva.pliscommon.batchrahmen.test.BatchProtokollTester;
-import de.bund.bva.pliscommon.batchrahmen.test.TestBatchLauchner;
-import de.bund.bva.pliscommon.sicherheit.common.exception.AuthentifizierungFehlgeschlagenException;
-import de.bund.bva.pliscommon.sicherheit.common.exception.AutorisierungTechnicalException;
+import static org.junit.Assert.*;
 
 /**
  * Entwicklertests des Batch-Rahmens.
- *
- *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
     TransactionalTestExecutionListener.class })
 @ContextConfiguration(locations = { "/resources/anwendung/jpa.xml", "/resources/anwendung/querschnitt.xml" })
 public class BatchrahmenTest {
-
-    /**
-     * Aktiviert/Deaktiviert den Laufzeit-Test {@link #testLaufzeitParameter()}.
-     */
-    private static final boolean DO_TEST_LAUFZEIT = false;
-
-    /**
-     * Aktiviert/Deaktiviert den Shutdown-Test {@link #testShutdown()}, erfordert manuelles 'kill -15' von
-     * außen.
-     */
-    private static final boolean DO_TEST_SHUTDOWN = false;
-
-    private BatchStatusDao dao;
 
     /** Datei für das Batch-Protokoll. Wird in {@link #init()} gesetzt. */
     private static String ERGEBNIS_DATEI;
@@ -97,7 +69,6 @@ public class BatchrahmenTest {
 
     @Before
     public void init() {
-        this.dao = new BatchStatusDao(emf);
         TransactionDefinition def =
             new DefaultTransactionDefinition(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
         this.txTemplate = new TransactionTemplate(txManager, def);
@@ -127,7 +98,7 @@ public class BatchrahmenTest {
      */
     @Test
     @Ignore("TestBatchLauncher startet Batch in eigener VM, dadurch NPE beim Test.")
-    public void testBatchrahmenMitTestBatchLauncher() throws IOException {
+    public void testBatchrahmenMitTestBatchLauncher() throws Exception {
         TestBatchLauchner batchLauncher =
             new TestBatchLauchner("/resources/batch/basic-test-batch-1-config.properties");
         assertEquals(0, batchLauncher.starteBatch(BatchStartTyp.START, null));
@@ -138,7 +109,7 @@ public class BatchrahmenTest {
      * Testet die Ausführung des Batchrahmens.
      */
     @Test
-    public void testBatchrahmen() throws IOException {
+    public void testBatchrahmen() throws Exception {
         assertEquals(0, BatchLauncher
             .run(new String[] { "-start", "-cfg", "/resources/batch/basic-test-batch-1-config.properties" }));
         assertEquals("beendet", getBatchStatus("basicTestBatch-1").getBatchStatus());
@@ -149,24 +120,28 @@ public class BatchrahmenTest {
      * abbricht. Der Status muss bei einem Abbruch während der Initialisierung auf "beendet" stehen.
      */
     @Test
-    public void testFehlerInInit() throws IOException {
-        assertEquals(2, BatchLauncher.run(new String[] { "-start", "-cfg",
-            "/resources/batch/error-test-batch-1-config.properties", "-initError", "true" }));
+    public void testFehlerInInit() throws Exception {
+        assertEquals(2, BatchLauncher.run(
+            new String[] { "-start", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
+                "-initError", "true" }));
         assertEquals("neu", getBatchStatus("errorTestBatch-1").getBatchStatus());
 
-        assertEquals(0, BatchLauncher.run(new String[] { "-start", "-cfg",
-            "/resources/batch/error-test-batch-1-config.properties", "-initError", "false" }));
+        assertEquals(0, BatchLauncher.run(
+            new String[] { "-start", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
+                "-initError", "false" }));
         assertEquals("beendet", getBatchStatus("errorTestBatch-1").getBatchStatus());
 
-        assertEquals(2, BatchLauncher.run(new String[] { "-start", "-cfg",
-            "/resources/batch/error-test-batch-1-config.properties", "-initError", "true" }));
+        assertEquals(2, BatchLauncher.run(
+            new String[] { "-start", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
+                "-initError", "true" }));
         // TODO: batchStatus kann nicht "beendet" sein, da "-initError" true ist und deswegen eine Exception
         // geworfen wird.
         assertEquals("beendet", getBatchStatus("errorTestBatch-1").getBatchStatus());
 
         // Test nach Abbruch
-        assertEquals(2, BatchLauncher.run(new String[] { "-start", "-cfg",
-            "/resources/batch/error-test-batch-1-config.properties", "-laufError", "true" }));
+        assertEquals(2, BatchLauncher.run(
+            new String[] { "-start", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
+                "-laufError", "true" }));
         assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1").getBatchStatus());
 
         assertEquals(2, BatchLauncher.run(new String[] { "-start", "-ignoriereRestart", "-cfg",
@@ -178,13 +153,15 @@ public class BatchrahmenTest {
      * Testet, dass nach einem Abbruch der Batch nur mit ignoriereLauf neu gestartet werden kann.
      */
     @Test
-    public void testIgnoriereLauf() throws IOException {
-        assertEquals(2, BatchLauncher.run(new String[] { "-start", "-cfg",
-            "/resources/batch/error-test-batch-1-config.properties", "-laufError", "true" }));
+    public void testIgnoriereLauf() throws Exception {
+        assertEquals(2, BatchLauncher.run(
+            new String[] { "-start", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
+                "-laufError", "true" }));
         assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1").getBatchStatus());
 
-        assertEquals(3, BatchLauncher.run(new String[] { "-start", "-cfg",
-            "/resources/batch/error-test-batch-1-config.properties", "-laufError", "true" }));
+        assertEquals(3, BatchLauncher.run(
+            new String[] { "-start", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
+                "-laufError", "true" }));
         assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1").getBatchStatus());
 
         assertEquals(0, BatchLauncher.run(new String[] { "-start", "-ignoriereRestart", "-cfg",
@@ -197,69 +174,61 @@ public class BatchrahmenTest {
      */
     @Test
     // @Ignore("TestBatchLauncher startet Batch in eigener VM, dadurch NPE beim Test.")
-    public void testRestart() throws IOException {
-        assertEquals(2,
-            BatchLauncher
-                .run(new String[] { "-start", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
-                    "-laufError", "true", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI }));
+    public void testRestart() throws Exception {
+        assertEquals(2, BatchLauncher.run(
+            new String[] { "-start", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
+                "-laufError", "true", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI }));
         assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1").getBatchStatus());
         BatchProtokollTester bpt = new BatchProtokollTester(ERGEBNIS_DATEI);
         assertFalse(bpt.isStartmodusRestart());
 
-        assertEquals(3,
-            BatchLauncher
-                .run(new String[] { "-start", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
-                    "-laufError", "true", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI }));
+        assertEquals(3, BatchLauncher.run(
+            new String[] { "-start", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
+                "-laufError", "true", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI }));
         assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1").getBatchStatus());
         bpt = new BatchProtokollTester(ERGEBNIS_DATEI);
         assertFalse(bpt.isStartmodusRestart());
 
-        assertEquals(2,
-            BatchLauncher.run(
-                new String[] { "-restart", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
-                    "-laufError", "true", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI }));
+        assertEquals(2, BatchLauncher.run(
+            new String[] { "-restart", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
+                "-laufError", "true", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI }));
         assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1").getBatchStatus());
         bpt = new BatchProtokollTester(ERGEBNIS_DATEI);
         assertTrue(bpt.isStartmodusRestart());
 
-        assertEquals(0,
-            BatchLauncher.run(
-                new String[] { "-restart", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
-                    "-laufError", "false", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI }));
+        assertEquals(0, BatchLauncher.run(
+            new String[] { "-restart", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
+                "-laufError", "false", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI }));
         assertEquals("beendet", getBatchStatus("errorTestBatch-1").getBatchStatus());
         bpt = new BatchProtokollTester(ERGEBNIS_DATEI);
         assertTrue(bpt.isStartmodusRestart());
 
         // Ab hier Prüfung, dass das obige Verhalten auch greift, wenn der Abbruch nach der Initialisierung
         // aber vor Verarbeitung eines Satzes erfolgt (0 Sätze verarbeitet).
-        assertEquals(2,
-            BatchLauncher
-                .run(new String[] { "-start", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
-                    "-laufErrorSofort", "true", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI }));
+        assertEquals(2, BatchLauncher.run(
+            new String[] { "-start", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
+                "-laufErrorSofort", "true", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI }));
         assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1").getBatchStatus());
         bpt = new BatchProtokollTester(ERGEBNIS_DATEI);
         assertFalse(bpt.isStartmodusRestart());
 
-        assertEquals(3,
-            BatchLauncher
-                .run(new String[] { "-start", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
-                    "-laufErrorSofort", "true", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI }));
+        assertEquals(3, BatchLauncher.run(
+            new String[] { "-start", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
+                "-laufErrorSofort", "true", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI }));
         assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1").getBatchStatus());
         bpt = new BatchProtokollTester(ERGEBNIS_DATEI);
         assertFalse(bpt.isStartmodusRestart());
 
-        assertEquals(2,
-            BatchLauncher.run(
-                new String[] { "-restart", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
-                    "-laufErrorSofort", "true", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI }));
+        assertEquals(2, BatchLauncher.run(
+            new String[] { "-restart", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
+                "-laufErrorSofort", "true", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI }));
         assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1").getBatchStatus());
         bpt = new BatchProtokollTester(ERGEBNIS_DATEI);
         assertTrue(bpt.isStartmodusRestart());
 
-        assertEquals(0,
-            BatchLauncher.run(
-                new String[] { "-restart", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
-                    "-laufErrorSofort", "false", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI }));
+        assertEquals(0, BatchLauncher.run(
+            new String[] { "-restart", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
+                "-laufErrorSofort", "false", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI }));
         assertEquals("beendet", getBatchStatus("errorTestBatch-1").getBatchStatus());
         bpt = new BatchProtokollTester(ERGEBNIS_DATEI);
         assertTrue(bpt.isStartmodusRestart());
@@ -274,11 +243,8 @@ public class BatchrahmenTest {
      * entnehmen.
      */
     @Test
+    @Ignore("Erfordert manuelles 'kill -15' von außen")
     public void testShutdown() throws Exception {
-        if (!DO_TEST_SHUTDOWN) {
-            return;
-        }
-        System.out.println("Manueller Test, siehe JavaDoc");
         TestBatchLauchner batchLauncher =
             new TestBatchLauchner("/resources/batch/infinite-test-batch-1-config.properties");
         batchLauncher.starteBatch(BatchStartTyp.START, "/batch-2_out.xml", null);
@@ -293,15 +259,14 @@ public class BatchrahmenTest {
      * steht.
      */
     @Test
+    @Ignore("Testet ob der Batch mit dem Laufzeitparameter abgebrochen werden kann. Anschließend muss geprüft " +
+            "werden, ob im Log die Meldung Batch beendet geschrieben wurde und der Status in der DB auf abgebrochen " +
+            "steht.")
     public void testLaufzeitParameter() throws Exception {
-        if (!DO_TEST_LAUFZEIT) {
-            return;
-        }
-        System.out.println("Manueller Test, siehe JavaDoc");
         TestBatchLauchner batchLauncher =
             new TestBatchLauchner("/resources/batch/infinite-test-batch-1-config.properties");
-        assertEquals(144, batchLauncher.starteBatch(BatchStartTyp.START, "/laufzeit_out.xml",
-            new String[] { "-laufzeit", "1" }));
+        assertEquals(144, batchLauncher
+            .starteBatch(BatchStartTyp.START, "/laufzeit_out.xml", new String[] { "-laufzeit", "1" }));
         BatchProtokollTester bpt = new BatchProtokollTester("/laufzeit_out.xml");
         assertTrue(bpt.enthaeltMeldungsId("MAX_LAUFZEIT_UEBERSCHRITTEN"));
     }
@@ -314,8 +279,8 @@ public class BatchrahmenTest {
     public void testLaufzeitParameterOhneMinuten() throws Exception {
         TestBatchLauchner batchLauncher =
             new TestBatchLauchner("/resources/batch/basic-test-batch-1-config.properties");
-        assertEquals(3, batchLauncher.starteBatch(BatchStartTyp.START, "/laufzeit_out.xml",
-            new String[] { "-laufzeit" }));
+        assertEquals(3, batchLauncher
+            .starteBatch(BatchStartTyp.START, "/laufzeit_out.xml", new String[] { "-laufzeit" }));
     }
 
     /**
@@ -336,10 +301,9 @@ public class BatchrahmenTest {
      */
     @Test
     public void testLaufzeitParameterOhneMinutenAlsOption() throws Exception {
-        assertEquals(3,
-            BatchLauncher.run(new String[] { "-start", "-laufzeit", "-cfg",
-                "/resources/batch/gesicherter-test-batch-1-config.properties", "-Batchrahmen.Ergebnisdatei",
-                "/testOutput/batchRahmen.out.xml" }));
+        assertEquals(3, BatchLauncher.run(new String[] { "-start", "-laufzeit", "-cfg",
+            "/resources/batch/gesicherter-test-batch-1-config.properties", "-Batchrahmen.Ergebnisdatei",
+            "/testOutput/batchRahmen.out.xml" }));
     }
 
     /**
@@ -355,16 +319,20 @@ public class BatchrahmenTest {
 
     /**
      * Liest den BatchStatus mit der angegebenen Id in einer eigenen Transaktion.
-     * @param batchId
-     *            Id als Schlüssel für den BatchStatus
+     *
+     * @param batchId Id als Schlüssel für den BatchStatus
      * @return Den BatchStatus
      */
     private BatchStatus getBatchStatus(final String batchId) {
-        return this.txTemplate.execute(new TransactionCallback<BatchStatus>() {
-            @Override
-            public BatchStatus doInTransaction(TransactionStatus status) {
-                return BatchrahmenTest.this.dao.leseBatchStatus(batchId);
-            }
+        /*
+        return this.txTemplate.execute(status -> BatchrahmenTest.this.dao.leseBatchStatus(batchId));
+        */
+        TransactionDefinition def = new DefaultTransactionDefinition(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
+        TransactionTemplate template = new TransactionTemplate(txManager, def);
+
+        return template.execute(status -> {
+            EntityManager em = EntityManagerFactoryUtils.getTransactionalEntityManager(emf);
+            return em.find(BatchStatus.class, batchId);
         });
     }
 

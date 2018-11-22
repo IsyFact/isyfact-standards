@@ -30,7 +30,7 @@
     <include resource="resources/isylogging/logback/appender-batch.xml" />
 
     <!-- Root-Logger als Grundlage für alle Logger-Instanzen -->
-    <root level="TRACE">
+    <root level="INFO">
         <appender-ref ref="DATEI_BATCH" />
     </root>
 
@@ -57,6 +57,10 @@
     <logger name="org.springframework.context.support.SimpleThreadScope" level="ERROR"
         additivity="false">
         <appender-ref ref="DATEI_BATCH"/>
+    </logger>
+
+    <logger name="org.springframework" level="INFO" additivity="false">
+        <appender-ref ref="KONSOlE"/>
     </logger>
     
     <!-- Verhindert das Logging von Fehlern, wenn Sperren in DB nicht gesetzt werden können. -->

@@ -102,7 +102,7 @@
         fuer das Management-Interface der zu exportierenden MBeans zu ermitteln.
         ====================================================================== -->
     <bean id="mBeanExporter" class="org.springframework.jmx.export.MBeanExporter">
-        <property name="registrationBehaviorName" value="REGISTRATION_IGNORE_EXISTING"/>
+        <property name="registrationPolicy" value="IGNORE_EXISTING"/>
         <property name="autodetect" value="false"/>
         <property name="assembler">
             <bean class="org.springframework.jmx.export.assembler.MetadataMBeanInfoAssembler">
