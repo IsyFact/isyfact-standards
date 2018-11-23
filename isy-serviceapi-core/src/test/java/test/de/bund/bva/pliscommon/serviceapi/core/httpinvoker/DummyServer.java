@@ -16,8 +16,9 @@
  */
 package test.de.bund.bva.pliscommon.serviceapi.core.httpinvoker;
 
-import org.mortbay.jetty.servlet.ServletHolder;
-import org.mortbay.jetty.testing.ServletTester;
+
+import org.eclipse.jetty.servlet.ServletHolder;
+import org.eclipse.jetty.servlet.ServletTester;
 import org.springframework.web.servlet.DispatcherServlet;
 
 import test.de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.DummyServiceImpl;
@@ -29,7 +30,7 @@ import test.de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.DummySe
  * 
  *
  */
-public class DummyServer {
+class DummyServer {
     /** Pfad, unter dem der Service angeboten wird. */
     private static final String DUMMY_SERVICE_BEAN_PATH = "/dummyServiceBean_v1_0_0";
 
@@ -56,13 +57,13 @@ public class DummyServer {
      * Erzeugt und startet den Server.
      * @throws Exception Wenn der Service nicht gestartet werden kann.
      */
-    public DummyServer() throws Exception {
+    DummyServer() throws Exception {
         servletTester = new ServletTester();
         servletTester.setContextPath("/");
         servletTester.setResourceBase(getBaseUrl());
         ServletHolder holder = servletTester.addServlet(DispatcherServlet.class, DUMMY_SERVICE_BEAN_PATH);
         holder.setInitParameter("contextConfigLocation", "remoting-servlet.xml");
-        serviceUrl = servletTester.createSocketConnector(false) + DUMMY_SERVICE_BEAN_PATH;
+        serviceUrl = servletTester.createConnector(false) + DUMMY_SERVICE_BEAN_PATH;
         servletTester.start();
         dummyService =
             (DummyServiceImpl) ((DispatcherServlet) holder.getServlet()).getWebApplicationContext().getBean(
@@ -73,7 +74,7 @@ public class DummyServer {
      * Stoppt den Server.
      * @throws Exception
      */
-    public void stop() throws Exception {
+    void stop() throws Exception {
         servletTester.stop();
     }
 
@@ -81,7 +82,7 @@ public class DummyServer {
      * Liefert das Feld 'serviceUrl' zurück.
      * @return Wert von serviceUrl
      */
-    public String getServiceUrl() {
+    String getServiceUrl() {
         return serviceUrl;
     }
 
@@ -89,7 +90,7 @@ public class DummyServer {
      * Liefert das Feld 'dummyService' zurück.
      * @return Wert von dummyService
      */
-    public DummyServiceImpl getDummyService() {
+    DummyServiceImpl getDummyService() {
         return dummyService;
     }
 }

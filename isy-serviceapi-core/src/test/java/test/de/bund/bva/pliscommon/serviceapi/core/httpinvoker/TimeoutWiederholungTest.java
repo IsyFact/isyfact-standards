@@ -17,9 +17,13 @@
 package test.de.bund.bva.pliscommon.serviceapi.core.httpinvoker;
 
 import java.io.InterruptedIOException;
+import java.util.concurrent.TimeUnit;
 
 import junit.framework.TestCase;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean;
 import org.springframework.remoting.httpinvoker.SimpleHttpInvokerRequestExecutor;
 
@@ -28,7 +32,11 @@ import test.de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.DummySe
 
 import de.bund.bva.pliscommon.serviceapi.core.httpinvoker.TimeoutWiederholungHttpInvokerRequestExecutor;
 
-public class TimeoutWiederholungTest extends TestCase {
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+public class TimeoutWiederholungTest {
     private DummyServer dummyServer;
     private DummyServiceImpl dummyService;
     private String serviceUrl;
@@ -36,8 +44,8 @@ public class TimeoutWiederholungTest extends TestCase {
     /**
      * {@inheritDoc}
      */
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         dummyServer = new DummyServer();
         serviceUrl = dummyServer.getServiceUrl();
         dummyService = dummyServer.getDummyService();
@@ -46,13 +54,13 @@ public class TimeoutWiederholungTest extends TestCase {
     /**
      * {@inheritDoc}
      */
-    @Override
-    protected void tearDown() throws Exception {
+    @After
+    public void tearDown() throws Exception {
         Thread.sleep(1000);
         dummyServer.stop();
     }
     
-    public DummyServiceRemoteBean createHttpInvokerProxy(SimpleHttpInvokerRequestExecutor simpleHttpInvokerRequestExecutor) {
+    private DummyServiceRemoteBean createHttpInvokerProxy(SimpleHttpInvokerRequestExecutor simpleHttpInvokerRequestExecutor) {
         HttpInvokerProxyFactoryBean proxyFactory = new HttpInvokerProxyFactoryBean();
         proxyFactory.setHttpInvokerRequestExecutor(simpleHttpInvokerRequestExecutor);
         proxyFactory.setServiceUrl(serviceUrl);
@@ -61,6 +69,7 @@ public class TimeoutWiederholungTest extends TestCase {
         return (DummyServiceRemoteBean) proxyFactory.getObject();
     }    
 
+    @Test
     public void testTimeoutKurz() {
         dummyService.setWaitTime(0);
         TimeoutWiederholungHttpInvokerRequestExecutor timeoutExecutor = new TimeoutWiederholungHttpInvokerRequestExecutor();
@@ -69,7 +78,8 @@ public class TimeoutWiederholungTest extends TestCase {
         assertEquals("Hello", dummyServiceRemoteBean.ping("Hello"));
         assertEquals(1, dummyService.getAnzahlAufrufe());
     }
-    
+
+    @Test
     public void testTimeoutLang() {
         dummyService.setWaitTime(30000);
         TimeoutWiederholungHttpInvokerRequestExecutor timeoutExecutor = new TimeoutWiederholungHttpInvokerRequestExecutor();
@@ -78,7 +88,8 @@ public class TimeoutWiederholungTest extends TestCase {
         assertEquals("Hello", dummyServiceRemoteBean.ping("Hello"));
         assertEquals(1, dummyService.getAnzahlAufrufe());        
     }    
-    
+
+    @Test
     public void testAufrufWiederholung() {
         dummyService.setWaitTime(200);
         TimeoutWiederholungHttpInvokerRequestExecutor timeoutExecutor = new TimeoutWiederholungHttpInvokerRequestExecutor();

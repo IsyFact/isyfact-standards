@@ -17,9 +17,8 @@
 package test.de.bund.bva.pliscommon.serviceapi.core.aop;
 
 
-
-import org.mortbay.jetty.servlet.ServletHolder;
-import org.mortbay.jetty.testing.ServletTester;
+import org.eclipse.jetty.servlet.ServletHolder;
+import org.eclipse.jetty.servlet.ServletTester;
 import org.springframework.web.servlet.DispatcherServlet;
 import test.de.bund.bva.pliscommon.serviceapi.core.aop.service.httpinvoker.v1_0_0.DummyKontextServiceImpl;
 
@@ -62,7 +61,7 @@ public class DummyServer {
         ServletHolder holder =
             this.servletTester.addServlet(DispatcherServlet.class, DUMMY_SERVICE_BEAN_PATH);
         holder.setInitParameter("contextConfigLocation", "remoting-servlet.xml");
-        this.serviceUrl = this.servletTester.createSocketConnector(false) + DUMMY_SERVICE_BEAN_PATH;
+        this.serviceUrl = this.servletTester.createConnector(false) + DUMMY_SERVICE_BEAN_PATH;
         this.servletTester.start();
         this.dummyService = (DummyKontextServiceImpl) ((DispatcherServlet) holder.getServlet())
             .getWebApplicationContext().getBean("dummyService");

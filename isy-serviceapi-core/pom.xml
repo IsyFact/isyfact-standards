@@ -140,18 +140,24 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Erlaubt Servlets in JUnits Tests zu starten -->
         <dependency>
-            <groupId>org.mortbay.jetty</groupId>
-            <artifactId>jetty-servlet-tester</artifactId>
-            <version>6.1.6</version>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-servlet</artifactId>
+            <version>9.2.22.v20170606</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>org.mortbay.jetty</groupId>
-            <artifactId>jetty</artifactId>
-            <version>6.1.6</version>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.9.7</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.9.7</version>
             <scope>test</scope>
         </dependency>
 
