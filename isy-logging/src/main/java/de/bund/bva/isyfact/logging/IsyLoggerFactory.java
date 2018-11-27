@@ -52,7 +52,7 @@ public final class IsyLoggerFactory {
      * Map mit allen erstellten loggern als simpler Cache. Verhindert, dass Logger zu einer Klasse mehrfach
      * erzeugt werden.
      */
-    private static final Map<String, IsyLogger> LOGGER_CACHE = new HashMap<String, IsyLogger>();
+    private static final Map<String, IsyLogger> LOGGER_CACHE = new HashMap<>();
 
     /**
      * Erstellt einen Logger für die übergebene Klasse. Als Name, wird der absolute Pfad der Klasse verwendet.

@@ -59,7 +59,7 @@ public class BeanGroessePruefer {
      * Parameter zu groß ist.
      */
     private boolean ermittleGroesseInBytes(Object bean, Long maximalGroesse) {
-        Set<Object> bereitsGezaehlteBeans = Collections.newSetFromMap(new IdentityHashMap<Object, Boolean>());
+        Set<Object> bereitsGezaehlteBeans = Collections.newSetFromMap(new IdentityHashMap<>());
         long beanGroesse = 0L;
 
         Deque<Object> stack = new ArrayDeque<>();

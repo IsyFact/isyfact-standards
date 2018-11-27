@@ -61,7 +61,7 @@ public abstract class AbstractTestBeanKomplex {
         this.einStringOhneGetter = "einStringOhneGetter";
         this.einStringOhneSetter = "einStringOhneSetter";
         this.eineStringListe = Arrays.asList("A", "B", null, "C");
-        this.eineObjectListe = new ArrayList<Object>();
+        this.eineObjectListe = new ArrayList<>();
         eineObjectListe.add(new ThreadGroup("A"));
         eineObjectListe.add(null);
         eineObjectListe.add(getEinString());

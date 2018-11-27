@@ -23,7 +23,17 @@ package de.bund.bva.isyfact.logging;
  * #L%
  */
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.bund.bva.isyfact.logging.impl.Ereignisschluessel;
@@ -31,12 +41,6 @@ import de.bund.bva.isyfact.logging.impl.FehlerSchluessel;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
 import org.junit.Assert;
 import org.junit.Before;
-
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * Oberklasse aller Logging-Tests. Die Klasse kapselt insbesondere die Funktionalität zum Prüfen der durch die
@@ -143,8 +147,6 @@ public abstract class AbstractLogTest {
      * 
      * @param testfallName
      *            name des ausgeführten Testfalls.
-     * @throws IOException
-     *             beim einem Fehler bei Zugriff auf die Logdatei.
      */
     protected void pruefeLogdatei(String testfallName) {
         pruefeLogdatei(testfallName, false);
@@ -159,8 +161,6 @@ public abstract class AbstractLogTest {
      *            name des ausgeführten Testfalls.
      * @param jsonVergleich
      *            gibt an, ob der Vergleich auf JSON-oder auf String-Basis erfolgen soll.
-     * @throws IOException
-     *             beim einem Fehler bei Zugriff auf die Logdatei.
      */
     protected void pruefeLogdatei(String testfallName, boolean jsonVergleich) {
 
@@ -179,9 +179,8 @@ public abstract class AbstractLogTest {
             }
 
             // Es werden die Logeinträge gesammelt, die zum aktuellen Logeintrag gehören. Das sind die Zeilen
-            // nach
-            // dem letzten Trenner bis zum Ende der Datei.
-            List<String> ergebnis = new ArrayList<String>();
+            // nach dem letzten Trenner bis zum Ende der Datei.
+            List<String> ergebnis = new ArrayList<>();
             BufferedReader ergebnisReader = new BufferedReader(new FileReader(ergebnisDatei));
             String zeileErgebnis;
             while ((zeileErgebnis = ergebnisReader.readLine()) != null) {
@@ -210,10 +209,10 @@ public abstract class AbstractLogTest {
                 int i = 0;
                 while ((zeileVorlage = vorlageReader.readLine()) != null) {
                     // Konsistenzprüfung der Zeile an sich
-                    pruefeLogZeile(ergebnis.get(i), i);
+                    pruefeLogZeile(ergebnis.get(i));
                     // Zeilenweise vergleichen der Vorlage mit der Ergebnisdatei.
                     if (jsonVergleich) {
-                        vergleicheLogZeileJson(zeileVorlage, ergebnis.get(i), i, testfallName);
+                        vergleicheLogZeileJson(zeileVorlage, ergebnis.get(i));
                     } else {
                         vergleicheLogZeile(zeileVorlage, ergebnis.get(i), i, testfallName);
                     }
@@ -232,8 +231,7 @@ public abstract class AbstractLogTest {
 
     }
 
-    private void vergleicheLogZeileJson(String zeileVorlage, String zeileErgebnis, int zeilennummer,
-            String testfallName) {
+    private void vergleicheLogZeileJson(String zeileVorlage, String zeileErgebnis) {
         ObjectMapper om = new ObjectMapper();
         try {
             JsonNode treeVorlage = om.readTree(zeileVorlage);
@@ -246,8 +244,6 @@ public abstract class AbstractLogTest {
             }
             vergleicheJsonNodes(treeVorlage, treeErgebnis, ereignisschluessel);
 
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -257,8 +253,8 @@ public abstract class AbstractLogTest {
         Iterator<String> feldnamenVorlageIter = nodeVorlage.fieldNames();
         Iterator<String> feldnamenErgebnisIter = nodeErgebnis.fieldNames();
 
-        List<String> feldnamenVorlage = new ArrayList<String>();
-        List<String> feldnamenErgebnis = new ArrayList<String>();
+        List<String> feldnamenVorlage = new ArrayList<>();
+        List<String> feldnamenErgebnis = new ArrayList<>();
 
         while (feldnamenVorlageIter.hasNext()) {
             feldnamenVorlage.add(feldnamenVorlageIter.next());
@@ -269,7 +265,7 @@ public abstract class AbstractLogTest {
         Collections.sort(feldnamenErgebnis);
 
         // Erkennen zuvieler Felder im Ergebnis
-        List<String> feldnamenErgebnisZuViel = new ArrayList<String>();
+        List<String> feldnamenErgebnisZuViel = new ArrayList<>();
         while (feldnamenErgebnisIter.hasNext()) {
             feldnamenErgebnisZuViel.add(feldnamenErgebnisIter.next());
         }
@@ -472,10 +468,8 @@ public abstract class AbstractLogTest {
      * 
      * @param zeileErgebnis
      *            die erstellte Zeile.
-     * @param zeilennummer
-     *            die Laufendenummer der Zeile.
      */
-    private void pruefeLogZeile(String zeileErgebnis, int zeilennummer) {
+    private void pruefeLogZeile(String zeileErgebnis) {
         String dauer = leseSubString(zeileErgebnis, JSON_DAUER_PRAEFIX, JSON_ATTRIBUT_SUFFIX, 0);
         if (dauer != null) {
             int dauerInt = Integer.parseInt(dauer);
@@ -484,8 +478,8 @@ public abstract class AbstractLogTest {
         }
 
         if (zeileErgebnis.contains(JSON_DAUERTE_PRAEFIX)) {
-            Assert.assertTrue("Text 'dauerte' in Nachricht gefunden, aber kein Marker 'dauer' vorhanden",
-                    dauer != null);
+            Assert.assertNotNull("Text 'dauerte' in Nachricht gefunden, aber kein Marker 'dauer' vorhanden",
+                    dauer);
         }
 
         if (dauer != null) {
@@ -498,7 +492,7 @@ public abstract class AbstractLogTest {
         // "ALL wird als Default verwendet, wenn das Loglevel nicht geparsed werden konnte. Da wir dieses
         // Loglevel beim Aufruf nicht verwenden entspricht wird dieses nur zurückgeliefert, wenn ein
         // Fehlerhaftes Level übergeben wurde.
-        if (level.equalsIgnoreCase("ALL")) {
+        if ("ALL".equalsIgnoreCase(level)) {
             Assert.fail("Ungültiges Loglevel " + level);
         }
 
@@ -507,7 +501,7 @@ public abstract class AbstractLogTest {
         String schluessel = null;
         if (schluesselPflicht) {
             // Schlüssel prüfen bei relevanten Leveln
-            if (!level.equalsIgnoreCase("DEBUG") && !level.equalsIgnoreCase("TRACE")) {
+            if (!"DEBUG".equalsIgnoreCase(level) && !"TRACE".equalsIgnoreCase(level)) {
                 schluessel = leseSubString(zeileErgebnis, JSON_SCHLUESSEL_PRAEFIX, JSON_ATTRIBUT_SUFFIX, 0);
                 Assert.assertNotNull("Logeintrag besitzt keinen Schluessel.", schluessel);
                 int schluesselLaenge = schluessel.length();

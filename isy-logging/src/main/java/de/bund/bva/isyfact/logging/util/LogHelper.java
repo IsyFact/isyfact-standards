@@ -241,7 +241,7 @@ public class LogHelper {
      * @return der zu verwendende Konverter.
      */
     public static BeanToMapConverter erstelleStandardKonverter() {
-        List<String> includes = new ArrayList<String>();
+        List<String> includes = new ArrayList<>();
         includes.add("de.bund.bva");
         return new BeanToMapConverter(includes, null);
     }

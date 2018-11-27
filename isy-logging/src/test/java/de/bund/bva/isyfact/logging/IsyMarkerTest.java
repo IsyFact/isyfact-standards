@@ -34,6 +34,9 @@ import org.slf4j.Marker;
 import de.bund.bva.isyfact.logging.impl.IsyMarkerImpl;
 import de.bund.bva.isyfact.logging.impl.MarkerSchluessel;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 /**
  * Tests der Klasse IsyMarker.
  */
@@ -51,44 +54,44 @@ public class IsyMarkerTest {
         IsyMarker childMarker2 = new IsyMarkerImpl(MarkerSchluessel.FACHDATEN, "true");
 
         // Keine Children im Marker vorhanden
-        Assert.assertFalse("Es sind unerwartet Children im Marker vorhanden.", marker.hasChildren());
-        Assert.assertFalse("Es sind unerwartet Children im Marker vorhanden.", marker.contains(childMarker1));
-        Assert.assertFalse("Es sind unerwartet Children im Marker vorhanden.",
+        assertFalse("Es sind unerwartet Children im Marker vorhanden.", marker.hasChildren());
+        assertFalse("Es sind unerwartet Children im Marker vorhanden.", marker.contains(childMarker1));
+        assertFalse("Es sind unerwartet Children im Marker vorhanden.",
                 marker.contains(MarkerSchluessel.DAUER.toString()));
-        Assert.assertFalse("Es sind unerwartet Children im Marker vorhanden.",
+        assertFalse("Es sind unerwartet Children im Marker vorhanden.",
                 marker.contains(MarkerSchluessel.FACHDATEN.toString()));
 
         // Marker als Children ergänzen
         marker.add(childMarker1);
-        Assert.assertTrue("Marker besitzt keine Children.", marker.hasChildren());
-        Assert.assertTrue("Children unerwartet nicht vorhanden.", marker.contains(childMarker1));
-        Assert.assertTrue("Children unerwartet nicht vorhanden.",
+        assertTrue("Marker besitzt keine Children.", marker.hasChildren());
+        assertTrue("Children unerwartet nicht vorhanden.", marker.contains(childMarker1));
+        assertTrue("Children unerwartet nicht vorhanden.",
                 marker.contains(MarkerSchluessel.DAUER.getWert()));
-        Assert.assertTrue("Children unerwartet nicht vorhanden.",
+        assertTrue("Children unerwartet nicht vorhanden.",
                 marker.contains(MarkerSchluessel.FACHDATEN.getWert()));
-        Assert.assertFalse("Es sind unerwartet Children im Marker vorhanden.",
+        assertFalse("Es sind unerwartet Children im Marker vorhanden.",
                 marker.contains(MarkerSchluessel.KATEGORIE.getWert()));
 
         // Children entfernen
-        Assert.assertTrue("Entfernen eines vorhandenen Markers war nicht erfolgreich.",
+        assertTrue("Entfernen eines vorhandenen Markers war nicht erfolgreich.",
                 marker.remove(childMarker1));
-        Assert.assertFalse(
+        assertFalse(
                 "Entfernen eines Markers, obwohl keine Marker vorhanden sind, war unerwartet erfolgreich.",
                 marker.remove(childMarker1));
-        Assert.assertFalse("Es sind unerwartet Children im Marker vorhanden.", marker.hasChildren());
+        assertFalse("Es sind unerwartet Children im Marker vorhanden.", marker.hasChildren());
 
         // Test mit der Ergänzung von null
         marker.addAll(null);
 
         // Mehrere Children ergänzen
-        List<Marker> markers = new ArrayList<Marker>();
+        List<Marker> markers = new ArrayList<>();
         markers.add(childMarker1);
         markers.add(childMarker2);
 
         // Zwei Marker ergänzen
         marker.addAll(markers);
-        Assert.assertTrue("Children unerwartet nicht vorhanden.", marker.contains(childMarker1));
-        Assert.assertTrue("Children unerwartet nicht vorhanden.", marker.contains(childMarker2));
+        assertTrue("Children unerwartet nicht vorhanden.", marker.contains(childMarker1));
+        assertTrue("Children unerwartet nicht vorhanden.", marker.contains(childMarker2));
 
     }
 
@@ -110,12 +113,12 @@ public class IsyMarkerTest {
         marker1.equals(marker2);
 
         // Teste Equals
-        Assert.assertTrue("Marker sind fälschlicherweise ungleich.", marker1.equals(marker2));
-        Assert.assertFalse("Marker sind fälschlicherweise gleich.", marker1.equals(marker3));
-        Assert.assertFalse("Marker sind fälschlicherweise gleich.", marker1.equals(marker4));
-        Assert.assertFalse("Marker sind fälschlicherweise gleich.", marker1.equals(marker5));
-        Assert.assertFalse("Marker sind fälschlicherweise gleich.", marker1.equals(null));
-        Assert.assertFalse("Marker sind fälschlicherweise gleich.", marker5.equals(new Integer(1)));
+        assertTrue("Marker sind fälschlicherweise ungleich.", marker1.equals(marker2));
+        assertFalse("Marker sind fälschlicherweise gleich.", marker1.equals(marker3));
+        assertFalse("Marker sind fälschlicherweise gleich.", marker1.equals(marker4));
+        assertFalse("Marker sind fälschlicherweise gleich.", marker1.equals(marker5));
+        assertFalse("Marker sind fälschlicherweise gleich.", marker1.equals(null));
+        assertFalse("Marker sind fälschlicherweise gleich.", marker5.equals(new Integer(1)));
 
         // Teste Compare-Methode per Reflection da die Konstellation "null" als erster Parameter bisher nicht
         // auftreten
@@ -126,6 +129,6 @@ public class IsyMarkerTest {
         compareMethod.invoke(marker1, null, marker1value);
 
         // Einfache Prüfung des HashCodes
-        Assert.assertTrue("Hashcode ist falsch.", marker1.hashCode() != 0);
+        assertTrue("Hashcode ist falsch.", marker1.hashCode() != 0);
     }
 }

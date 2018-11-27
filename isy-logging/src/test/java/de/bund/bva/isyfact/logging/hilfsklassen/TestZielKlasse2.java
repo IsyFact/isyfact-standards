@@ -23,10 +23,13 @@ package de.bund.bva.isyfact.logging.hilfsklassen;
  * #L%
  */
 
+import de.bund.bva.isyfact.logging.annotation.Komponentengrenze;
+
 /**
  * Testklasse, als Ziel eines zu loggenden Aufrufs.
  * 
  */
+@Komponentengrenze
 public class TestZielKlasse2 {
 
     /**
