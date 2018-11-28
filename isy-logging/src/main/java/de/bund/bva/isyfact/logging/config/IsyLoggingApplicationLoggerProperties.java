@@ -2,9 +2,12 @@ package de.bund.bva.isyfact.logging.config;
 
 import javax.validation.constraints.NotEmpty;
 
+import org.springframework.validation.annotation.Validated;
+
 /**
  * Properties für die Konfiguration des Application-Loggers von Isy-Logging.
  */
+@Validated
 public class IsyLoggingApplicationLoggerProperties {
 
     /** Name der Anwendung. Wird beim Start ausgegeben. */
