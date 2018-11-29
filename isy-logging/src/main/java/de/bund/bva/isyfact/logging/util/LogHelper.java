@@ -139,102 +139,6 @@ public class LogHelper {
     }
 
     /**
-     * Konstruktor der Klasse. Es werden die übergebenen Klassenattribute initialisiert.
-     *
-     * @deprecated Zukünftig muss der Konstruktor mit Parameter "loggeMaximaleParameterGroesse" verwendet werden.
-     * @param loggeDauer
-     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
-     * @param loggeAufruf
-     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
-     * @param loggeErgebnis
-     *            Flag zum Kennzeichnen, ob das Ergebnis (Erfolg/Misserfolg) des Aufrufs gelogged werden soll.
-     * @param loggeDaten
-     *            Flag zum Kennzeichnen, ob die kompletten Anfragedaten gelogged werden sollen, wenn das
-     *            Ergebnis nicht erfolgreich war.
-     * @param loggeDatenBeiException
-     *            Flag zum Kennzeichnen, ob die kompletten Anfragedaten gelogged werden sollen, wenn das
-     *            Ergebnis nicht erfolgreich war.
-     */
-    @Deprecated
-    public LogHelper(boolean loggeAufruf, boolean loggeErgebnis, boolean loggeDauer, boolean loggeDaten,
-        boolean loggeDatenBeiException) {
-        this(loggeAufruf, loggeErgebnis, loggeDauer, loggeDaten, loggeDatenBeiException, 0, null);
-    }
-
-    /**
-     * Konstruktor der Klasse. Es werden die übergebenen Klassenattribute initialisiert.
-     *
-     * @deprecated Zukünftig muss der Konstruktor mit Parameter "loggeMaximaleParameterGroesse" verwendet werden.
-     * @param loggeDauer
-     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
-     * @param loggeAufruf
-     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
-     * @param loggeErgebnis
-     *            Flag zum Kennzeichnen, ob das Ergebnis (Erfolg/Misserfolg) des Aufrufs gelogged werden soll.
-     * @param loggeDaten
-     *            Flag zum Kennzeichnen, ob die kompletten Anfragedaten gelogged werden sollen, wenn das
-     *            Ergebnis nicht erfolgreich war.
-     * @param loggeDatenBeiException
-     *            Flag zum Kennzeichnen, ob die kompletten Anfragedaten gelogged werden sollen, wenn das
-     *            Ergebnis nicht erfolgreich war.
-     * @param konverter
-     *            Konverter, um Beans vor deren Serialisierung zu konvertieren.
-     */
-    @Deprecated
-    public LogHelper(boolean loggeAufruf, boolean loggeErgebnis, boolean loggeDauer, boolean loggeDaten,
-        boolean loggeDatenBeiException, BeanConverter konverter) {
-        this(loggeAufruf, loggeErgebnis, loggeDauer, loggeDaten, loggeDatenBeiException, 0, konverter);
-    }
-
-    /**
-     * Konstruktor der Klasse. Es werden die übergebenen Klassenattribute initialisiert.
-     * Der Konstruktor setzt das Flag "loggeDaten" auf false.
-     *
-     * @deprecated Zukünftig muss der Konstruktor mit Flag "loggeDaten" sowie "loggeMaximaleParameterGroesse" verwendet werden
-     * @see #LogHelper(boolean, boolean, boolean, boolean, boolean)
-     *
-     * @param loggeDauer
-     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
-     * @param loggeAufruf
-     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
-     * @param loggeErgebnis
-     *            Flag zum Kennzeichnen, ob das Ergebnis (Erfolg/Misserfolg) des Aufrufs gelogged werden soll.
-     * @param loggeDatenBeiException
-     *            Flag zum Kennzeichnen, ob die kompletten Anfragedaten gelogged werden sollen, wenn das
-     *            Ergebnis nicht erfolgreich war.
-     */
-    @Deprecated
-    public LogHelper(boolean loggeAufruf, boolean loggeErgebnis, boolean loggeDauer,
-            boolean loggeDatenBeiException) {
-        this(loggeAufruf, loggeErgebnis, loggeDauer, false, loggeDatenBeiException);
-    }
-
-    /**
-     * Konstruktor der Klasse. Es werden die übergebenen Klassenattribute initialisiert.
-     * Der Konstruktor setzt das Flag "loggeDaten" auf false.
-     *
-     * @deprecated Zukünftig muss der Konstruktor mit Flag "loggeDaten" sowie "loggeMaximaleParameterGroesse" verwendet werden
-     * @see #LogHelper(boolean, boolean, boolean, boolean, BeanConverter)
-     *
-     * @param loggeDauer
-     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
-     * @param loggeAufruf
-     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
-     * @param loggeErgebnis
-     *            Flag zum Kennzeichnen, ob das Ergebnis (Erfolg/Misserfolg) des Aufrufs gelogged werden soll.
-     * @param loggeDatenBeiException
-     *            Flag zum Kennzeichnen, ob die kompletten Anfragedaten gelogged werden sollen, wenn das
-     *            Ergebnis nicht erfolgreich war.
-     * @param konverter
-     *            Konverter, um Beans vor deren Serialisierung zu konvertieren.
-     */
-    @Deprecated
-    public LogHelper(boolean loggeAufruf, boolean loggeErgebnis, boolean loggeDauer,
-            boolean loggeDatenBeiException, BeanConverter konverter) {
-        this(loggeAufruf, loggeErgebnis, loggeDauer, false, loggeDatenBeiException, konverter);
-    }
-
-    /**
      * Hilfmethode zum Erstellen eines BeanToMapConverters, falls beim Aufruf des Konstruktors dieser Klasse
      * kein Konverter übergeben wurde.
      *
@@ -443,7 +347,7 @@ public class LogHelper {
      *            die Methode.
      * @return die aufbereitete Signatur als String.
      */
-    public IsyMarker erstelleSignatur(Method methode) {
+    private IsyMarker erstelleSignatur(Method methode) {
         return new IsyMarkerImpl(MarkerSchluessel.METHODE, methode.toString());
     }
 
@@ -454,7 +358,7 @@ public class LogHelper {
      *            die Methode.
      * @return die aufbereitete Signatur als String.
      */
-    public String erstelleMethodenname(Method methode) {
+    private String erstelleMethodenname(Method methode) {
         return methode.getDeclaringClass().getSimpleName() + "." + methode.getName();
     }
 
