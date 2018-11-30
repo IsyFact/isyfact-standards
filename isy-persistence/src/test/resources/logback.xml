@@ -4,7 +4,7 @@
     <include resource="resources/isylogging/logback/appender-entwicklung.xml"/>
 
     <!-- Root-Logger als Grundlage für alle Logger-Instanzen -->
-    <root level="trace">
+    <root level="INFO">
         <appender-ref ref="KONSOLE"/>
     </root>
 
