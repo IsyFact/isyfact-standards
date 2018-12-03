@@ -5,14 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>isy-task</artifactId>
-    <version>1.2.0.RC2</version>
+    <version>1.2.0</version>
 
     <name>IsyFact Task Scheduling</name>
 
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
         <artifactId>isyfact-masterpom-lib</artifactId>
-        <version>1.6.0.RC2</version>
+        <version>1.6.0</version>
         <relativePath>../isyfact-masterpom-lib</relativePath>
     </parent>
 

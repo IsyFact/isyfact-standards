@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>isy-konfiguration</artifactId>
-    <version>1.7.0.RC2</version>
+    <version>1.7.0</version>
     <packaging>jar</packaging>
     <name>IsyFact-Konfiguration</name>
     <description>Stellt eine Komponente für die Konfiguration von Anwendungen bereit.</description>
@@ -12,7 +12,7 @@
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
         <artifactId>isyfact-masterpom-lib</artifactId>
-        <version>1.6.0.RC2</version>
+        <version>1.6.0</version>
         <relativePath>../isyfact-masterpom-lib</relativePath>
     </parent>
 
