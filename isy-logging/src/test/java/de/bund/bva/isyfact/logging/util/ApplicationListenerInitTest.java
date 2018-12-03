@@ -1,37 +1,42 @@
 package de.bund.bva.isyfact.logging.util;
 
-import de.bund.bva.isyfact.logging.AbstractLogTest;
-import de.bund.bva.isyfact.logging.autoconfigure.IsyLoggingAutoConfiguration;
-import de.bund.bva.isyfact.logging.config.IsyLoggingApplicationLoggerProperties;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.properties.ConfigurationPropertiesBindException;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Configuration;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-@RunWith(SpringRunner.class)
-@ImportAutoConfiguration(IsyLoggingAutoConfiguration.class)
-@SpringBootTest(classes = ApplicationListenerInitTest.TestConfiguration.class, webEnvironment = SpringBootTest.WebEnvironment.NONE, properties = {
-    "isy.logging.anwendung.name=IsyLogging",
-    "isy.logging.anwendung.typ=Test",
-    "isy.logging.anwendung.version=0.0.0"
-})
-public class ApplicationListenerInitTest extends AbstractLogTest {
+public class ApplicationListenerInitTest {
 
-    @Autowired
-    private IsyLoggingApplicationLoggerProperties properties;
+    private Map<String, Object> properties = new HashMap<>();
 
     @Test
-    public void populateIsyLoggingApplicationLoggerProperties() {
-        assertEquals("IsyLogging", properties.getName());
-        assertEquals("Test", properties.getTyp());
-        assertEquals("0.0.0", properties.getVersion());
+    public void testPropertiesGesetzt() {
+        properties.put("isy.logging.anwendung.name", "test");
+        properties.put("isy.logging.anwendung.typ", "test");
+        properties.put("isy.logging.anwendung.version", "1.0-TEST");
+
+        ConfigurableApplicationContext context = new SpringApplicationBuilder()
+            .sources(TestConfig.class)
+            .properties(properties)
+            .run();
+        assertNotNull(context.getBean(LogApplicationListener.class));
     }
 
-    static class TestConfiguration {
-
+    @Test(expected = ConfigurationPropertiesBindException.class)
+    public void testPropertiesNichtGesetzt() {
+        new SpringApplicationBuilder()
+            .sources(TestConfig.class)
+            .run();
     }
+
+    @Configuration
+    @EnableAutoConfiguration
+    static class TestConfig { }
 }
