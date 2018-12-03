@@ -35,10 +35,10 @@ import de.bund.bva.pliscommon.exception.FehlertextProvider;
  * DataSource-Wrapper, der null-Connections abfängt und eine PersistenzException wirft.
  *
  */
-public class PlisDataSource extends DelegatingDataSource {
+public class IsyDataSource extends DelegatingDataSource {
 
     /** Logger. */
-    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(PlisDataSource.class);
+    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(IsyDataSource.class);
 
     /** Fehlertext-Provider für die plis-persistence. */
     private static final FehlertextProvider FEHLERTEXT_PROVIDER = new PersistenzFehlertextProvider();

@@ -31,12 +31,12 @@ import org.junit.Test;
 
 import de.bund.bva.isyfact.persistence.exception.PersistenzException;
 
-public class TestPlisDataSource {
+public class TestIsyDataSource {
 
 	private DataSource dataSource;
 	private Connection connection;
 	private ResultSet resultSet;
-	private PlisDataSource plisDataSource;
+	private IsyDataSource isyDataSource;
 	private PreparedStatement statement;
 
 	private static final String query = "select version_nummer from m_schema_version where version_nummer = ? and status = 'gueltig'";
@@ -48,22 +48,22 @@ public class TestPlisDataSource {
 		connection = mock(Connection.class);
 		resultSet = mock(ResultSet.class);
 		statement = mock(PreparedStatement.class);
-		plisDataSource = new PlisDataSource();
-		plisDataSource.setTargetDataSource(dataSource);
+		isyDataSource = new IsyDataSource();
+		isyDataSource.setTargetDataSource(dataSource);
 	}
 	
 	@Test(expected = PersistenzException.class)
 	public void testGetConnectionNull() throws SQLException {
 		when(dataSource.getConnection()).thenReturn(null);
-		plisDataSource.getConnection();
+		isyDataSource.getConnection();
 	}
 	
 	@Test
 	public void testGetConnection() throws SQLException {
 		when(dataSource.getConnection()).thenReturn(connection);
-		plisDataSource.setInvalidSchemaVersionAction(null);
-		plisDataSource.afterPropertiesSet();
-		Connection ref = plisDataSource.getConnection();
+		isyDataSource.setInvalidSchemaVersionAction(null);
+		isyDataSource.afterPropertiesSet();
+		Connection ref = isyDataSource.getConnection();
 		assertEquals(connection, ref);
 		
 	}
@@ -71,16 +71,16 @@ public class TestPlisDataSource {
 	@Test(expected = PersistenzException.class)
 	public void testGetConnectionUserPasswordNull() throws SQLException {
 		when(dataSource.getConnection("user", "password")).thenReturn(null);
-		plisDataSource.getConnection("user", "password");
+		isyDataSource.getConnection("user", "password");
 	}
 	
 	@Test
 	public void testGetConnectionUserPassword() throws SQLException {
 		when(dataSource.getConnection("user", "password")).thenReturn(connection);
-		plisDataSource.setSchemaVersion(" ");
-		plisDataSource.setInvalidSchemaVersionAction("action");
-		plisDataSource.afterPropertiesSet();
-		Connection ref = plisDataSource.getConnection("user", "password");
+		isyDataSource.setSchemaVersion(" ");
+		isyDataSource.setInvalidSchemaVersionAction("action");
+		isyDataSource.afterPropertiesSet();
+		Connection ref = isyDataSource.getConnection("user", "password");
 		assertEquals(connection, ref);
 	}
 	
@@ -91,8 +91,8 @@ public class TestPlisDataSource {
 		when(statement.executeQuery()).thenReturn(resultSet);
 		when(resultSet.next()).thenReturn(true);
 		when(resultSet.getString(1)).thenReturn("version");
-		plisDataSource.setSchemaVersion("version");
-		plisDataSource.afterPropertiesSet();
+		isyDataSource.setSchemaVersion("version");
+		isyDataSource.afterPropertiesSet();
 	}
 	
 	@Test
@@ -101,9 +101,9 @@ public class TestPlisDataSource {
 		when(connection.prepareStatement(query)).thenReturn(statement);
 		when(statement.executeQuery()).thenReturn(null);
 		doThrow(SQLException.class).when(connection).close();
-		plisDataSource.setSchemaVersion("version");
-		plisDataSource.setInvalidSchemaVersionAction("warn");
-		plisDataSource.afterPropertiesSet();
+		isyDataSource.setSchemaVersion("version");
+		isyDataSource.setInvalidSchemaVersionAction("warn");
+		isyDataSource.afterPropertiesSet();
 	}
 	
 	@Test(expected = PersistenzException.class)
@@ -112,8 +112,8 @@ public class TestPlisDataSource {
 		when(dataSource.getConnection()).thenReturn(connection);
 		when(connection.prepareStatement(query)).thenReturn(statement);
 		when(statement.executeQuery()).thenReturn(null);
-		plisDataSource.setSchemaVersion("version");
-		plisDataSource.afterPropertiesSet();
+		isyDataSource.setSchemaVersion("version");
+		isyDataSource.afterPropertiesSet();
 	}
 	
 	@Test(expected = PersistenzException.class)
@@ -122,15 +122,15 @@ public class TestPlisDataSource {
 		when(connection.prepareStatement(query)).thenReturn(statement);
 		when(statement.executeQuery()).thenReturn(resultSet);
 		when(resultSet.next()).thenReturn(false);
-		plisDataSource.setSchemaVersion("version");
-		plisDataSource.afterPropertiesSet();
+		isyDataSource.setSchemaVersion("version");
+		isyDataSource.afterPropertiesSet();
 	}
 
 	@Test(expected = PersistenzException.class)
 	public void testAfterPropertiesSetConnIsNull() throws SQLException{
 		when(dataSource.getConnection()).thenThrow(SQLException.class);
-		plisDataSource.setSchemaVersion("version");
-		plisDataSource.afterPropertiesSet();
+		isyDataSource.setSchemaVersion("version");
+		isyDataSource.afterPropertiesSet();
 	}
 	
 }
