@@ -27,6 +27,7 @@ import java.io.Serializable;
  *            die Primärschlüsselklasse
  * 
  */
+@Deprecated
 public interface Dao<T, ID extends Serializable> {
 
     /**

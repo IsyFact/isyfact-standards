@@ -39,6 +39,7 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
  *            die Primärschlüsselklasse
  *
  */
+@Deprecated
 @Repository
 public abstract class AbstractDao<T, ID extends Serializable> implements Dao<T, ID> {
 
