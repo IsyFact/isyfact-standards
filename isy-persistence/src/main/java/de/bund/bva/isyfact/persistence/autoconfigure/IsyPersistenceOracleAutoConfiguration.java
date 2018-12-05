@@ -5,9 +5,9 @@ import javax.sql.DataSource;
 
 import de.bund.bva.isyfact.persistence.config.OracleDataSourceProperties;
 import de.bund.bva.isyfact.persistence.datasource.IsyDataSource;
-import de.bund.bva.isyfact.persistence.health.OracleHealthIndicator;
 import oracle.ucp.jdbc.PoolDataSource;
 import oracle.ucp.jdbc.PoolDataSourceFactory;
+import org.springframework.boot.actuate.jdbc.DataSourceHealthIndicator;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -24,11 +24,15 @@ public class IsyPersistenceOracleAutoConfiguration {
 
     /**
      * Erzeugt eine Bean für den Health-Check.
-     * @return Bean oracleHealthIndicator.
+     * @return Bean oracleDataSourceHealthIndicator
      */
     @Bean
-    public OracleHealthIndicator oracleHealthIndicator() {
-        return new OracleHealthIndicator();
+    public DataSourceHealthIndicator oracleDataSourceHealthIndicator(DataSource dataSource) {
+        DataSourceHealthIndicator dataSourceHealthIndicator = new DataSourceHealthIndicator();
+        dataSourceHealthIndicator.setDataSource(dataSource);
+        dataSourceHealthIndicator.setQuery("select BANNER from V$VERSION where BANNER like 'Oracle%'");
+
+        return dataSourceHealthIndicator;
     }
 
     /**
