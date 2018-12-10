@@ -17,11 +17,11 @@
     permissions and limitations under the License.
 
 -->
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
-    xsi:schemaLocation="
-       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
-       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
     <!-- ====================================================================== In dieser Datei werden die Spring-Beans
         fuer die Batches einer Anwendung konfiguriert. Die Beans werden als Spring-Kontext geladen und die Bean 
@@ -52,7 +52,7 @@
         Diese Bean muss entweder "batchrahmen" genannt werden, oder ihr Name muss in der Property-Datei in Property 
         Batchrahmen.BeanName
         abgelegt werden. ====================================================================== -->
-    <bean id="batchrahmen" class="de.bund.bva.pliscommon.batchrahmen.core.rahmen.impl.BatchrahmenImpl">
+    <bean id="batchrahmen" class="de.bund.bva.isyfact.batchrahmen.core.rahmen.impl.BatchrahmenImpl">
         <property name="transactionManager" ref="transactionManager"/>
         <property name="jmxBean" ref="batchVerarbeitung"/>
         <property name="aufrufKontextVerwalter" ref="aufrufKontextVerwalter"/>
@@ -66,32 +66,32 @@
 
     <!-- ====================================================================== Die Ausfuehrer-Bean fuer den Test-Batch
         ====================================================================== -->
-    <bean id="basicTestBatch" class="de.bund.bva.pliscommon.batchrahmen.batch.BasicTestBatch">
+    <bean id="basicTestBatch" class="de.bund.bva.isyfact.batchrahmen.batch.BasicTestBatch">
     </bean>
 
     <!-- ====================================================================== Die Ausfuehrer-Bean fuer den Test-Batch
         2 ====================================================================== -->
-    <bean id="infiniteTestBatch" class="de.bund.bva.pliscommon.batchrahmen.batch.InfiniteTestBatch">
+    <bean id="infiniteTestBatch" class="de.bund.bva.isyfact.batchrahmen.batch.InfiniteTestBatch">
     </bean>
 
     <!-- ====================================================================== Die Ausfuehrer-Bean fuer den Test-Batch
         3 ====================================================================== -->
-    <bean id="errorTestBatch" class="de.bund.bva.pliscommon.batchrahmen.batch.ErrorTestBatch">
+    <bean id="errorTestBatch" class="de.bund.bva.isyfact.batchrahmen.batch.ErrorTestBatch">
     </bean>
 
     <!-- ====================================================================== Die Ausfuehrer-Bean fuer den Test-Batch
         4 ====================================================================== -->
-    <bean id="gesicherterTestBatch" class="de.bund.bva.pliscommon.batchrahmen.batch.GesicherterTestBatch">
+    <bean id="gesicherterTestBatch" class="de.bund.bva.isyfact.batchrahmen.batch.GesicherterTestBatch">
     </bean>
 
     <!-- ====================================================================== Die Ausfuehrer-Bean fuer den Test-Batch
         4 ====================================================================== -->
-    <bean id="gesicherterTestBatch2" class="de.bund.bva.pliscommon.batchrahmen.batch.GesicherterTestBatch2">
+    <bean id="gesicherterTestBatch2" class="de.bund.bva.isyfact.batchrahmen.batch.GesicherterTestBatch2">
     </bean>
 
     <!-- ====================================================================== Die Ausfuehrer-Bean fuer den Test-Batch
         ====================================================================== -->
-    <bean id="returnCodeTestBatch" class="de.bund.bva.pliscommon.batchrahmen.batch.ReturnCodeTestBatch">
+    <bean id="returnCodeTestBatch" class="de.bund.bva.isyfact.batchrahmen.batch.ReturnCodeTestBatch">
     </bean>
 
     <!-- ======================================================================
@@ -121,5 +121,5 @@
 
     <!-- ====================================================================== Die JMX-Bean des Batchrahmens.
         ====================================================================== -->
-    <bean id="batchVerarbeitung" class="de.bund.bva.pliscommon.batchrahmen.core.rahmen.jmx.BatchRahmenMBean"/>
+    <bean id="batchVerarbeitung" class="de.bund.bva.isyfact.batchrahmen.core.rahmen.jmx.BatchRahmenMBean"/>
 </beans>

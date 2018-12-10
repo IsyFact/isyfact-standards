@@ -45,7 +45,6 @@
                 <prop key="hibernate.jdbc.use_streams_for_binary">true</prop>
                 <prop key="hibernate.show_sql">false</prop>
                 <prop key="hibernate.format_sql">true</prop>
-                <!-- Hibernate-Mappings und Lazy-Loading per Default werden hibernate.cfg.xml konfiguriert -->
                 <prop key="hibernate.ejb.cfgfile">/resources/anwendung/hibernate.cfg.xml
                 </prop>
             </props>

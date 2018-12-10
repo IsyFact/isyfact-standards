@@ -17,9 +17,9 @@
     permissions and limitations under the License.
 
 -->
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:sec="http://www.springframework.org/schema/security" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
-                http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
-                http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
     <!-- @Gesichert Annotation einschalten -->
     <bean class="de.bund.bva.pliscommon.sicherheit.annotation.GesichertInterceptor">
         <property name="sicherheit" ref="sicherheit"/>
@@ -30,7 +30,7 @@
             <list/>
         </constructor-arg>
     </bean>
-    <bean id="accessManagerStub" class="de.bund.bva.pliscommon.batchrahmen.sicherheit.AccessManagerStub"/>
+    <bean id="accessManagerStub" class="de.bund.bva.isyfact.batchrahmen.sicherheit.AccessManagerStub"/>
     <bean id="sicherheit" class="de.bund.bva.pliscommon.sicherheit.impl.SicherheitImpl">
         <property name="rollenRechteDateiPfad" value="/resources/sicherheit/rollenrechte.xml"/>
         <property name="aufrufKontextVerwalter" ref="aufrufKontextVerwalter"/>
