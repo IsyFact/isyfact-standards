@@ -16,21 +16,26 @@
  */
 package de.bund.bva.isyfact.batchrahmen.core.rahmen.impl;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 import de.bund.bva.isyfact.batchrahmen.batch.konstanten.BatchRahmenEreignisSchluessel;
-import org.springframework.core.env.AbstractEnvironment;
-import org.springframework.core.env.PropertySource;
-
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
-import de.bund.bva.pliscommon.konfiguration.common.impl.ReloadablePropertyProvider;
+import org.springframework.core.env.AbstractEnvironment;
+import org.springframework.core.env.PropertySource;
 
 /**
  * Die Klasse liest aus Property-Dateien und entsprechenden Schlüsseln die eingetragenen Spring-Profile aus.
- *
- *
  */
 public class BatchrahmenPropertySource extends PropertySource<Properties> {
 
@@ -43,29 +48,42 @@ public class BatchrahmenPropertySource extends PropertySource<Properties> {
     /**
      * Erzeugt eine neue PropertySource für den Batchrahmen.
      *
-     * @param propertyDateien
-     *            Liste von Property-Dateien, welche Spring-Profil-Definitionen enthalten.
-     * @param propertyKeys
-     *            Liste von Schlüsseln, welche in den Property-Dateien die Spring-Profile definieren.
+     * @param propertyDateien Liste von Property-Dateien, welche Spring-Profil-Definitionen enthalten.
+     * @param propertyKeys    Liste von Schlüsseln, welche in den Property-Dateien die Spring-Profile definieren.
      */
     public BatchrahmenPropertySource(String[] propertyDateien, String[] propertyKeys) {
         super("BatchrahmenPropertySource");
-        if (propertyDateien == null || propertyDateien.length == 0
-            || propertyKeys == null || propertyKeys.length == 0) {
+        if (propertyDateien == null || propertyDateien.length == 0 || propertyKeys == null
+            || propertyKeys.length == 0) {
             return;
         }
-        ReloadablePropertyProvider propertyProvider = new ReloadablePropertyProvider(propertyDateien);
-        Properties properties = propertyProvider.getProperties();
-        StringBuilder profilesStringBuilder = new StringBuilder();
-        for (String propertyKey : propertyKeys) {
-            if (profilesStringBuilder.length() != 0) {
-                profilesStringBuilder.append(",");
-            }
-            profilesStringBuilder.append(properties.getProperty(propertyKey));
-        }
-        this.springProfiles = profilesStringBuilder.toString();
+        Properties properties = readProperties(Arrays.asList(propertyDateien));
+
+        springProfiles = Arrays.stream(propertyKeys).map(properties::getProperty)
+            .collect(Collectors.joining(","));
+
         LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001,
             "Active spring profiles: {}", this.springProfiles);
+    }
+
+    private Properties readProperties(List<String> propertyDateien) {
+        return propertyDateien.stream().map(this::loadProperty)
+            .reduce(new Properties(), (properties, properties2) -> {
+                properties.putAll(properties2);
+                return properties;
+            });
+    }
+
+    private Properties loadProperty(String path) {
+        Properties p = new Properties();
+        try {
+            URL url = Thread.currentThread().getClass().getResource(path);
+            URI uri = url.toURI();
+            p.load(new FileInputStream(new File(uri)));
+        } catch (IOException | URISyntaxException e) {
+            throw new IllegalArgumentException(e);
+        }
+        return p;
     }
 
     @Override
