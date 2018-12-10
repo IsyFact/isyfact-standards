@@ -19,6 +19,7 @@ import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
@@ -34,15 +35,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableAspectJAutoProxy
 public class AnwendungTestConfig {
 
+
     @Bean
     public DataSource appDataSource() {
-        /*
-        return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2)
-            .addScript("/sql/tabellen-erzeugen.sql").build();
-        */
         JdbcDataSource dataSource = new JdbcDataSource();
-        dataSource.setUrl("jdbc:h2:~/isy-batchrahmen;MODE=Oracle");
-
+        dataSource.setUrl("jdbc:h2:./target/isy-batchrahmen;MODE=Oracle");
         return dataSource;
     }
 

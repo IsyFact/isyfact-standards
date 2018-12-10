@@ -22,6 +22,7 @@ import java.io.InputStreamReader;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import de.bund.bva.isyfact.batchrahmen.batch.konstanten.BatchRahmenEreignisSchluessel;
@@ -47,7 +48,7 @@ import de.bund.bva.isyfact.batchrahmen.core.launcher.BatchLauncher;
 public class TestBatchLauchner {
 
     /** Der Logger. */
-    public static final IsyLogger LOG = IsyLoggerFactory.getLogger(TestBatchLauchner.class);
+    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(TestBatchLauchner.class);
 
     /** Property-Konfiguration des zu startenden Batches. */
     private String batchKonfig;
@@ -82,51 +83,40 @@ public class TestBatchLauchner {
         LOG.debug("Classpath: {}", classpath);
         String javaHome = System.getProperty("java.home");
         LOG.debug("Java Home: {}", javaHome);
-        List<String> params = new ArrayList<String>(3 + batchLauncherParams.length);
+        List<String> params = new ArrayList<>(3 + batchLauncherParams.length);
         params.add(javaHome + "/bin/java"); // Java-Command
         // Retrieve all Java VM Parameters
         RuntimeMXBean runtimeMxBean = ManagementFactory.getRuntimeMXBean();
         List<String> arguments = runtimeMxBean.getInputArguments();
-        for (String vmargs : arguments) {
-            params.add(vmargs);
-        }
+        params.addAll(arguments);
         params.add("-classpath");
         params.add(classpath);
         params.add(BatchLauncher.class.getName()); // Main-Class
-        for (String batchParam : batchLauncherParams) {
-            params.add(batchParam);
-        }
+        params.addAll(Arrays.asList(batchLauncherParams));
+
         if (batchParameter != null) {
-            for (String batchParam : batchParameter) {
-                params.add(batchParam);
-            }
+            params.addAll(Arrays.asList(batchParameter));
         }
+
         ProcessBuilder processBuilder = new ProcessBuilder(params);
         processBuilder.redirectErrorStream(true);
         LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001, "Starte Batch...");
-        String cmdLine = "";
-        for (String param : params) {
-            cmdLine += param + " ";
-        }
+        String cmdLine = String.join(" ", params);
         LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001,
             "Die Kommandozeile ist:\n{}", cmdLine);
         Process batchProcess = processBuilder.start();
-        BufferedReader processIn = null;
-        try {
-            processIn = new BufferedReader(new InputStreamReader(batchProcess.getInputStream()));
-            final BufferedReader in = processIn;
-            Thread t = new Thread(new Runnable() {
-                public void run() {
-                    try {
-                        while (!Thread.currentThread().isInterrupted()) {
-                            String input = in.readLine();
-                            if (input != null) {
-                                System.out.println(input);
-                            }
+
+        try (BufferedReader processIn = new BufferedReader(new InputStreamReader(batchProcess.getInputStream()))) {
+            Thread t = new Thread(() -> {
+                try {
+                    while (!Thread.currentThread().isInterrupted()) {
+                        String input = processIn.readLine();
+                        if (input != null) {
+                            System.out.println(input);
                         }
-                    } catch (IOException ex) {
-                        // Thread beendet.
                     }
+                } catch (IOException ex) {
+                    // Thread beendet.
                 }
             });
             t.start();
@@ -137,10 +127,6 @@ public class TestBatchLauchner {
             } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
                 return -1;
-            }
-        } finally {
-            if (processIn != null) {
-                processIn.close();
             }
         }
     }
