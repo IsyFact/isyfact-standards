@@ -66,10 +66,10 @@
             <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-logging</artifactId>
         </dependency>
+
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.4</version>
+            <groupId>de.bund.bva.isyfact</groupId>
+            <artifactId>isy-datetime</artifactId>
         </dependency>
 
         <!-- Servlet-API fuer Loadbalancing-Servlet. Wird nur zum Kompilieren benoetigt. -->
