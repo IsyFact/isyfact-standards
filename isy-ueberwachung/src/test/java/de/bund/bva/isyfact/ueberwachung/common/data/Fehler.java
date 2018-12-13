@@ -14,22 +14,11 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.isyfact.ueberwachung.common.jmx.data;
+package de.bund.bva.isyfact.ueberwachung.common.data;
 
-public class ToObjektMitFehlernInOberklasse extends AbstractToObjektMitFehlernInOberklasse {
+import de.bund.bva.pliscommon.serviceapi.annotations.FachlicherFehler;
 
-    private int x = 0;
-
-    // Für den Test mit Vererbung & Objekthierarchie
-    private ToObjektMitFehlernInOberklasse toObjektMitFehlernInOberklasse;
-
-    public ToObjektMitFehlernInOberklasse getToObjektMitFehlernInOberklasse() {
-        return this.toObjektMitFehlernInOberklasse;
-    }
-
-    public void setToObjektMitFehlernInOberklasse(
-        ToObjektMitFehlernInOberklasse toObjektMitFehlernInOberklasse) {
-        this.toObjektMitFehlernInOberklasse = toObjektMitFehlernInOberklasse;
-    }
+@FachlicherFehler
+public class Fehler {
 
 }

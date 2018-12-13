@@ -14,7 +14,7 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.isyfact.ueberwachung.common.jmx.bean;
+package de.bund.bva.isyfact.ueberwachung.common.bean;
 
 import de.bund.bva.pliscommon.exception.service.PlisTechnicalToException;
 

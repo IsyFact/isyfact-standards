@@ -14,17 +14,21 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.isyfact.ueberwachung.common.jmx;
+package de.bund.bva.isyfact.ueberwachung.common;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import de.bund.bva.isyfact.ueberwachung.common.jmx.data.Fehler;
-import de.bund.bva.isyfact.ueberwachung.common.jmx.data.ToMitFehlerCollection;
-import de.bund.bva.isyfact.ueberwachung.common.jmx.data.ToMitFehlerFeld;
-import de.bund.bva.isyfact.ueberwachung.common.jmx.data.ToObjektMitFehlernInOberklasse;
-import de.bund.bva.isyfact.ueberwachung.common.jmx.data.ToObjekthierarchieMitFehlern;
+import de.bund.bva.isyfact.ueberwachung.common.data.Fehler;
+import de.bund.bva.isyfact.ueberwachung.common.data.ToMitFehlerCollection;
+import de.bund.bva.isyfact.ueberwachung.common.data.ToMitFehlerFeld;
+import de.bund.bva.isyfact.ueberwachung.common.data.ToObjektMitFehlernInOberklasse;
+import de.bund.bva.isyfact.ueberwachung.common.data.ToObjekthierarchieMitFehlern;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -33,11 +37,18 @@ import static org.junit.Assert.assertTrue;
  * Tests für Erkennung fachlicher Fehler.
  *
  * @author Capgemini, Julian Meisel
- * @version $Id: TestServiceStatistikMBeanFachlicheFehler.java 129945 2015-02-09 10:03:33Z sdm_jmeisel $
+ * @version $Id: TestServiceStatistikFachlicheFehler.java 129945 2015-02-09 10:03:33Z sdm_jmeisel $
  */
-public class TestServiceStatistikMBeanFachlicheFehler {
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = TestConfig.class,
+    webEnvironment = SpringBootTest.WebEnvironment.NONE,
+    properties = {"isy.logging.anwendung.name=Test",
+        "isy.logging.anwedung.typ=Test",
+        "isy.logging.anwendung.version=0.1"})
+public class TestServiceStatistikFachlicheFehler {
 
-    private static ServiceStatistikMBean mBean = new ServiceStatistikMBean();
+    @Autowired
+    private ServiceStatistik serviceStatistik;
 
     /**
      * Testet die Erkennung von einzelnen Fehlerobjekten als Attribute.
@@ -62,7 +73,7 @@ public class TestServiceStatistikMBeanFachlicheFehler {
         toCollection.setFehlerliste(null);
         erwarteKeineFehler(toCollection);
 
-        List<Fehler> fehlerlisteMitFehler = new ArrayList<Fehler>();
+        List<Fehler> fehlerlisteMitFehler = new ArrayList<>();
         fehlerlisteMitFehler.add(new Fehler());
         toCollection.setFehlerliste(fehlerlisteMitFehler);
         erwarteFehler(toCollection);
@@ -106,7 +117,7 @@ public class TestServiceStatistikMBeanFachlicheFehler {
         toObject.setFehler(null);
         erwarteKeineFehler(toObject);
 
-        List<Fehler> fehlerliste = new ArrayList<Fehler>();
+        List<Fehler> fehlerliste = new ArrayList<>();
         fehlerliste.add(new Fehler());
         toObject.setFehlerliste(fehlerliste);
         erwarteFehler(toObject);
@@ -140,7 +151,7 @@ public class TestServiceStatistikMBeanFachlicheFehler {
      *            Objektstruktur
      */
     private void erwarteFehler(Object object) {
-        assertTrue(mBean.pruefeObjektAufFehler(object, null, 0));
+        assertTrue(serviceStatistik.pruefeObjektAufFehler(object, null, 0));
     }
 
     /**
@@ -150,7 +161,7 @@ public class TestServiceStatistikMBeanFachlicheFehler {
      *            Objektstruktur
      */
     private void erwarteKeineFehler(Object object) {
-        assertFalse(mBean.pruefeObjektAufFehler(object, null, 0));
+        assertFalse(serviceStatistik.pruefeObjektAufFehler(object, null, 0));
     }
 
 }

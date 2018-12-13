@@ -14,21 +14,19 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.isyfact.ueberwachung.common.jmx.data;
+package de.bund.bva.isyfact.ueberwachung.common.data;
 
-import java.util.ArrayList;
-import java.util.List;
 
-public class ToMitFehlerCollection {
+public class ToMitFehlerFeld {
 
-    private List<Fehler> fehlerliste = new ArrayList<Fehler>();
+    private Fehler fehler;
 
-    public List<Fehler> getFehlerliste() {
-        return this.fehlerliste;
+    public Fehler getFehler() {
+        return this.fehler;
     }
 
-    public void setFehlerliste(List<Fehler> fehler) {
-        this.fehlerliste = fehler;
+    public void setFehler(Fehler fehler) {
+        this.fehler = fehler;
     }
 
 }

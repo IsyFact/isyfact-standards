@@ -14,7 +14,7 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.isyfact.ueberwachung.common.jmx;
+package de.bund.bva.isyfact.ueberwachung.common;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
@@ -31,11 +31,12 @@ import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.pliscommon.exception.service.PlisBusinessToException;
 import de.bund.bva.pliscommon.serviceapi.annotations.FachlicherFehler;
+import io.micrometer.core.instrument.Gauge;
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Tags;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.jmx.export.annotation.ManagedAttribute;
-import org.springframework.jmx.export.annotation.ManagedResource;
 import org.springframework.util.ClassUtils;
 
 /**
@@ -43,32 +44,30 @@ import org.springframework.util.ClassUtils;
  * welche jeder Service der PLIS anbieten muss.
  *
  * @author sd&m Simon Spielmann
- * @version $Id: ServiceStatistikMBean.java 144975 2015-08-18 13:07:56Z sdm_jmeisel $
+ * @version $Id: ServiceStatistik.java 144975 2015-08-18 13:07:56Z sdm_jmeisel $
  */
-@ManagedResource(description = "Diese MBean liefert Überwacht die Aufrufe eines Services.")
-public class ServiceStatistikMBean implements MethodInterceptor, InitializingBean {
+public class ServiceStatistik implements MethodInterceptor, InitializingBean {
     /**
      * Standard-Wert fuer Anzahl Suchen, anhand derer der Durchschnitt berechnet wird.
      */
     private static final int ANZAHL_AUFRUFE_FUER_DURCHSCHNITT = 10;
 
     /**
-     * Gibt an, ob die Rückgabeobjektstrukturen auf fachliche Fehler überprüft werden sollen. Kann
-     * Auswirkungen auf die Performance haben.
+     * Logger.
      */
-    private boolean erweiterteFachlicheFehlerpruefung;
+    private static final IsyLogger LOGISY = IsyLoggerFactory.getLogger(ServiceStatistik.class);
+
+    /**
+     * Die maximale Tiefe bei der rekursiven Prüfung auf fachliche Fehler bei der erweiterten fachlichen
+     * Fehlerprüfung.
+     */
+    private static final int MAXTIEFE = 10;
 
     /**
      * Gibt an, ob die Rückgabeobjektstrukturen auf fachliche Fehler überprüft werden sollen. Kann
      * Auswirkungen auf die Performance haben.
-     *
-     * @param fachlicheFehlerpruefungAktiviert
-     *            <code>true</code> wenn die Rückgabeobjektstruktur auf fachliche Fehler hin untersucht werden
-     *            soll, ansonsten <code>false</code>.
      */
-    public void setErweiterteFachlicheFehlerpruefung(boolean fachlicheFehlerpruefungAktiviert) {
-        this.erweiterteFachlicheFehlerpruefung = fachlicheFehlerpruefungAktiviert;
-    }
+    private boolean erweiterteFachlicheFehlerpruefung;
 
     /**
      * Dauern der letzten Such-Aufrufe (in Millisekunden).
@@ -83,7 +82,6 @@ public class ServiceStatistikMBean implements MethodInterceptor, InitializingBea
     /**
      * Anzahl der nicht fehlerhaften Aufrufe, die in der durch letzteMinute bezeichneten Minute durchgeführt
      * wurden.
-     *
      */
     private volatile int anzahlAufrufeLetzteMinute;
 
@@ -118,42 +116,75 @@ public class ServiceStatistikMBean implements MethodInterceptor, InitializingBea
      */
     private volatile int anzahlFachlicheFehlerAktuelleMinute;
 
-    /**
-     * Logger.
-     */
-    private static final IsyLogger LOGISY = IsyLoggerFactory.getLogger(ServiceStatistikMBean.class);
+    public ServiceStatistik(MeterRegistry meterRegistry, Tags tags) {
+        Gauge.builder("anzahlAufrufe.LetzteMinute", this, ServiceStatistik::getAnzahlAufrufeLetzteMinute)
+            .tags(tags)
+            .description("Liefert die Anzahl der nicht fehlerhaften Aufrufe in der letzten Minute")
+            .register(meterRegistry);
+
+        Gauge.builder("anzahlFehler.LetzteMinute", this, ServiceStatistik::getAnzahlFehlerLetzteMinute)
+            .tags(tags)
+            .description("Liefert die Anzahl der fehlerhaften Aufrufe in der letzten Minute")
+            .register(meterRegistry);
+
+        Gauge.builder("anzahlFachlicheFehler.LetzteMinute", this, ServiceStatistik::getAnzahlFachlicheFehlerLetzteMinute)
+            .tags(tags)
+            .description("Liefert die Anzahl der fachlich fehlerhaften Aufrufe in der letzten Minute")
+            .register(meterRegistry);
+
+        Gauge.builder("durchschnittsDauer.LetzteAufrufe", this, ServiceStatistik::getDurchschnittsDauerLetzteAufrufe)
+            .tags(tags)
+            .description("Liefert die durchschnittliche Dauer der letzten 10 Aufrufe in ms")
+            .register(meterRegistry);
+    }
 
     /**
-     * Die maximale Tiefe bei der rekursiven Prüfung auf fachliche Fehler bei der erweiterten fachlichen
-     * Fehlerprüfung.
+     * Berechnet die aktuelle Minute der Systemzeit.
+     *
+     * @return Der Minuten-Anteil der aktuellen Systemzeit
      */
-    private static final int MAXTIEFE = 10;
+    private static LocalDateTime getAktuelleMinute() {
+        return DateTimeUtil.localDateTimeNow().truncatedTo(ChronoUnit.MINUTES);
+    }
+
+    /**
+     * Gibt an, ob die Rückgabeobjektstrukturen auf fachliche Fehler überprüft werden sollen. Kann
+     * Auswirkungen auf die Performance haben.
+     *
+     * @param fachlicheFehlerpruefungAktiviert <code>true</code> wenn die Rückgabeobjektstruktur auf fachliche Fehler hin untersucht werden
+     *                                         soll, ansonsten <code>false</code>.
+     */
+    public void setErweiterteFachlicheFehlerpruefung(boolean fachlicheFehlerpruefungAktiviert) {
+        erweiterteFachlicheFehlerpruefung = fachlicheFehlerpruefungAktiviert;
+    }
 
     /**
      * Diese Methode zählt einen Aufruf der Komponente für die Statistik. Für die Statistik wird die Angabe
      * der Dauer und ob der Aufruf fehlerhaft war benötigt.
-     * @param dauer
-     *            Die Dauer des Aufrufs in Millisekunden.
-     * @param erfolgreich
-     *            Kennzeichen, ob der Aufruf erfolgreich war (<code>true</code>) oder ein technischer Fehler
-     *            aufgetreten ist (<code>false</code>).
-     * @param fachlichErfolgreich
-     *            Kennzeichen, ob der Aufruf fachlich erfolgreich war (<code>true</code>) oder ein fachlicher
-     *            Fehler aufgetreten ist (<code>false</code>).
+     *
+     * @param dauer               Die Dauer des Aufrufs in Millisekunden.
+     * @param erfolgreich         Kennzeichen, ob der Aufruf erfolgreich war (<code>true</code>) oder ein technischer Fehler
+     *                            aufgetreten ist (<code>false</code>).
+     * @param fachlichErfolgreich Kennzeichen, ob der Aufruf fachlich erfolgreich war (<code>true</code>) oder ein fachlicher
+     *                            Fehler aufgetreten ist (<code>false</code>).
      */
     public synchronized void zaehleAufruf(long dauer, boolean erfolgreich, boolean fachlichErfolgreich) {
         aktualisiereZeitfenster();
-        this.anzahlAufrufeAktuelleMinute++;
+        anzahlAufrufeAktuelleMinute++;
+
         if (!erfolgreich) {
-            this.anzahlFehlerAktuelleMinute++;
+            anzahlFehlerAktuelleMinute++;
         }
+
         if (!fachlichErfolgreich) {
-            this.anzahlFachlicheFehlerAktuelleMinute++;
+            anzahlFachlicheFehlerAktuelleMinute++;
         }
-        if (this.letzteSuchdauern.size() == ANZAHL_AUFRUFE_FUER_DURCHSCHNITT) {
-            this.letzteSuchdauern.remove(ANZAHL_AUFRUFE_FUER_DURCHSCHNITT - 1);
+
+        if (letzteSuchdauern.size() == ANZAHL_AUFRUFE_FUER_DURCHSCHNITT) {
+            letzteSuchdauern.remove(ANZAHL_AUFRUFE_FUER_DURCHSCHNITT - 1);
         }
-        this.letzteSuchdauern.add(0, dauer);
+
+        letzteSuchdauern.add(0, dauer);
     }
 
     /**
@@ -167,47 +198,39 @@ public class ServiceStatistikMBean implements MethodInterceptor, InitializingBea
         if (!aktuelleMinute.isEqual(letzteMinute)) {
             if (ChronoUnit.MINUTES.between(letzteMinute, aktuelleMinute) > 1) {
                 // keine infos von letzter Minute
-                this.anzahlAufrufeLetzteMinute = 0;
-                this.anzahlFehlerLetzteMinute = 0;
-                this.anzahlFachlicheFehlerLetzteMinute = 0;
+                anzahlAufrufeLetzteMinute = 0;
+                anzahlFehlerLetzteMinute = 0;
+                anzahlFachlicheFehlerLetzteMinute = 0;
             } else {
-                this.anzahlAufrufeLetzteMinute = this.anzahlAufrufeAktuelleMinute;
-                this.anzahlFehlerLetzteMinute = this.anzahlFehlerAktuelleMinute;
-                this.anzahlFachlicheFehlerLetzteMinute = this.anzahlFachlicheFehlerAktuelleMinute;
+                anzahlAufrufeLetzteMinute = anzahlAufrufeAktuelleMinute;
+                anzahlFehlerLetzteMinute = anzahlFehlerAktuelleMinute;
+                anzahlFachlicheFehlerLetzteMinute = anzahlFachlicheFehlerAktuelleMinute;
             }
 
-            this.anzahlAufrufeAktuelleMinute = 0;
-            this.anzahlFehlerAktuelleMinute = 0;
-            this.anzahlFachlicheFehlerAktuelleMinute = 0;
-            this.letzteMinute = aktuelleMinute;
+            anzahlAufrufeAktuelleMinute = 0;
+            anzahlFehlerAktuelleMinute = 0;
+            anzahlFachlicheFehlerAktuelleMinute = 0;
+            letzteMinute = aktuelleMinute;
         }
-    }
-
-    /**
-     * Berechnet die aktuelle Minute der Systemzeit.
-     * @return Der Minuten-Anteil der aktuellen Systemzeit
-     */
-    private static LocalDateTime getAktuelleMinute() {
-        return DateTimeUtil.localDateTimeNow().truncatedTo(ChronoUnit.MINUTES);
     }
 
     /**
      * Liefert die durchschnittliche Dauer der letzten 10 Aurufe. Definiert eine Methode für das
      * Management-Interface dieser MBean.
+     *
      * @return Die durchschnittliche Dauer der letzten 10 Aufrufe in ms.
      */
-    @ManagedAttribute(description = "Liefert die durchschnittliche Dauer der letzten 10 Aufrufe in ms.")
-    public long getDurchschnittsDauerLetzteAufrufe() {
+    private long getDurchschnittsDauerLetzteAufrufe() {
         long result = 0;
         if (!letzteSuchdauern.isEmpty()) {
             // Kopiere Liste um konkurrierende Änderungen zu vermeiden
             // Explizit keine Synchronisierung, um die Anwendungsperformance
             // nicht zu verschlechtern.
-            Long[] dauern = this.letzteSuchdauern.toArray(new Long[0]);
+            Long[] dauern = letzteSuchdauern.toArray(new Long[0]);
             for (long dauer : dauern) {
                 result += dauer;
             }
-            result /= this.letzteSuchdauern.size();
+            result /= letzteSuchdauern.size();
         }
         return result;
     }
@@ -215,41 +238,37 @@ public class ServiceStatistikMBean implements MethodInterceptor, InitializingBea
     /**
      * Liefert die Anzahl der in der letzten Minute gezählten Aufrufe, bei denen kein Fehler aufgetreten ist.
      * Definiert eine Methode für das Management-Interface dieser MBean.
+     *
      * @return Die Anzahl der in der letzten Minute gezählten Aufrufe, bei denen kein Fehler aufgetreten ist.
      */
-    @ManagedAttribute(description = "Liefert die Anzahl der nicht fehlerhaften Aufrufe in der letzten Minute")
-    public int getAnzahlAufrufeLetzteMinute() {
+    private int getAnzahlAufrufeLetzteMinute() {
         aktualisiereZeitfenster();
-        return this.anzahlAufrufeLetzteMinute;
+        return anzahlAufrufeLetzteMinute;
     }
 
     /**
      * Liefert die Anzahl der in der letzten Minute gezählten Aufrufe, bei denen ein Fehler aufgetreten ist.
      * Definiert eine Methode für das Management-Interface dieser MBean.
+     *
      * @return Die Anzahl der in der letzten Minute gezählten Aufrufe, bei denen ein Fehler aufgetreten ist.
      */
-    @ManagedAttribute(description = "Liefert die Anzahl der fehlerhaften Aufrufe in der letzten Minute")
-    public int getAnzahlFehlerLetzteMinute() {
+    private int getAnzahlFehlerLetzteMinute() {
         aktualisiereZeitfenster();
-        return this.anzahlFehlerLetzteMinute;
+        return anzahlFehlerLetzteMinute;
     }
 
     /**
      * Liefert die Anzahl der in der letzten Minute gezählten Aufrufe, bei denen ein fachlicher Fehler
      * aufgetreten ist.
+     *
      * @return Die Anzahl der in der letzten Minute gezählten Aufrufe, bei denen ein fachlicher Fehler
-     *         aufgetreten ist.
+     * aufgetreten ist.
      */
-    @ManagedAttribute(
-        description = "Liefert die Anzahl der fachlich fehlerhaften Aufrufe in der letzten Minute")
-    public int getAnzahlFachlicheFehlerLetzteMinute() {
+    private int getAnzahlFachlicheFehlerLetzteMinute() {
         aktualisiereZeitfenster();
-        return this.anzahlFachlicheFehlerLetzteMinute;
+        return anzahlFachlicheFehlerLetzteMinute;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
         Instant start = DateTimeUtil.getClock().instant();
@@ -259,7 +278,7 @@ public class ServiceStatistikMBean implements MethodInterceptor, InitializingBea
         try {
             Object result = invocation.proceed();
             erfolgreich = true;
-            if (this.erweiterteFachlicheFehlerpruefung) {
+            if (erweiterteFachlicheFehlerpruefung) {
                 fachlichErfolgreich = !sindFachlicheFehlerVorhanden(result);
             } else {
                 fachlichErfolgreich = true;
@@ -279,8 +298,7 @@ public class ServiceStatistikMBean implements MethodInterceptor, InitializingBea
      * Prüft ob im Rückgabeobjekt fachliche Fehler enthalten waren. Das Rückgabeobjekt muss eine Collection
      * enthalten, die mit @FachlicheFehlerListe annotiert ist.
      *
-     * @param result
-     *            Das Rückgabeobjekt des Aufrufs.
+     * @param result Das Rückgabeobjekt des Aufrufs.
      * @return true bei Fehlern, sonst false
      */
     private boolean sindFachlicheFehlerVorhanden(final Object result) {
@@ -293,14 +311,11 @@ public class ServiceStatistikMBean implements MethodInterceptor, InitializingBea
      *
      * Durchsucht Oberklassen & untergeordnete Objektstrukturen ebenfalls rekursiv.
      *
-     * @param result
-     *            Das Objekt
-     * @param clazz
-     *            Die Klasse des Objekts durchsucht werden soll (optional). Kann leergelassen werden beim
-     *            Start, kann aber genutzt werden um auf Oberklassen eines Objekts zu prüfen.
-     * @param tiefe
-     *            tiefe Gibt die aktuelle Tiefe des Aufrufs an. Muss erhöht werden wenn man die
-     *            Klassenstruktur nach unten durchläuft.
+     * @param result Das Objekt
+     * @param clazz  Die Klasse des Objekts durchsucht werden soll (optional). Kann leergelassen werden beim
+     *               Start, kann aber genutzt werden um auf Oberklassen eines Objekts zu prüfen.
+     * @param tiefe  tiefe Gibt die aktuelle Tiefe des Aufrufs an. Muss erhöht werden wenn man die
+     *               Klassenstruktur nach unten durchläuft.
      * @return <code>true</code> wenn Fehler gefunden, ansonsten <code>false</code>
      */
     boolean pruefeObjektAufFehler(final Object result, Class<?> clazz, int tiefe) {
@@ -320,12 +335,13 @@ public class ServiceStatistikMBean implements MethodInterceptor, InitializingBea
         Field[] fields = clazzToScan.getDeclaredFields();
 
         LOGISY.trace("{} Analysiere Objekt {} (Klasse {}) {} Felder gefunden.",
-            String.join("", Collections.nCopies(tiefe, "-")), result.toString(), clazzToScan.getSimpleName(), fields.length);
+            String.join("", Collections.nCopies(tiefe, "-")), result.toString(), clazzToScan.getSimpleName(),
+            fields.length);
 
         for (Field field : fields) {
             if (!ClassUtils.isPrimitiveOrWrapper(field.getType()) && !field.getType().isEnum()) {
-                LOGISY.trace("{} {}.{}, Type {}", String.join("", Collections.nCopies(tiefe, "-")), clazzToScan.getSimpleName(),
-                    field.getName(), field.getType().getSimpleName());
+                LOGISY.trace("{} {}.{}, Type {}", String.join("", Collections.nCopies(tiefe, "-")),
+                    clazzToScan.getSimpleName(), field.getName(), field.getType().getSimpleName());
                 field.setAccessible(true);
                 try {
                     // Prüfe einzelne Klassenfelder (non-Collection) auf annotierten Typ und Vorhandensein
@@ -339,8 +355,9 @@ public class ServiceStatistikMBean implements MethodInterceptor, InitializingBea
 
                             // Wenn kein String, dann prüfe rekursiv Objektstruktur
                             if (fieldObject.getClass() != String.class) {
-                                fehlerGefunden = pruefeObjektAufFehler(fieldObject, null, tiefe + 1) ? true
-                                    : fehlerGefunden;
+                                fehlerGefunden = pruefeObjektAufFehler(fieldObject, null, tiefe + 1) ?
+                                    true :
+                                    fehlerGefunden;
                             }
                         }
                     } else {
@@ -365,8 +382,9 @@ public class ServiceStatistikMBean implements MethodInterceptor, InitializingBea
 
         // Die Klassen-Hierachie rekursiv nach oben prüfen
         if (clazzToScan.getSuperclass() != null && !clazzToScan.getSuperclass().equals(Object.class)) {
-            LOGISY.trace("{}> Climb up class hierarchy! Source {}, Target {}", String.join("", Collections.nCopies(tiefe, "-")),
-                clazzToScan.getSimpleName(), clazzToScan.getSuperclass());
+            LOGISY.trace("{}> Climb up class hierarchy! Source {}, Target {}",
+                String.join("", Collections.nCopies(tiefe, "-")), clazzToScan.getSimpleName(),
+                clazzToScan.getSuperclass());
             fehlerGefunden =
                 // Aufruf mit gleicher Tiefe, da Vererbung nach oben durchlaufen wird
                 pruefeObjektAufFehler(result, clazzToScan.getSuperclass(), tiefe) ? true : fehlerGefunden;
@@ -375,13 +393,10 @@ public class ServiceStatistikMBean implements MethodInterceptor, InitializingBea
         return fehlerGefunden;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void afterPropertiesSet() {
-        LOGISY.debug("ServiceStatistikMBean "
-            + (this.erweiterteFachlicheFehlerpruefung ? " mit erweiterter fachlicher Fehlerprüfung " : "")
-            + " initialisiert.");
+        LOGISY.debug("ServiceStatistik " + (erweiterteFachlicheFehlerpruefung ?
+            " mit erweiterter fachlicher Fehlerprüfung " :
+            "") + " initialisiert.");
     }
 }
