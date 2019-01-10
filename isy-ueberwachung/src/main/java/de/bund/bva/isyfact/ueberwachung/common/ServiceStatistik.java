@@ -21,10 +21,12 @@ import java.lang.reflect.ParameterizedType;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import de.bund.bva.isyfact.datetime.util.DateTimeUtil;
 import de.bund.bva.isyfact.logging.IsyLogger;
@@ -67,7 +69,7 @@ public class ServiceStatistik implements MethodInterceptor, InitializingBean {
      * Gibt an, ob die Rückgabeobjektstrukturen auf fachliche Fehler überprüft werden sollen. Kann
      * Auswirkungen auf die Performance haben.
      */
-    private boolean erweiterteFachlicheFehlerpruefung;
+    private boolean fachlicheFehlerpruefung;
 
     /**
      * Dauern der letzten Such-Aufrufe (in Millisekunden).
@@ -151,11 +153,11 @@ public class ServiceStatistik implements MethodInterceptor, InitializingBean {
      * Gibt an, ob die Rückgabeobjektstrukturen auf fachliche Fehler überprüft werden sollen. Kann
      * Auswirkungen auf die Performance haben.
      *
-     * @param fachlicheFehlerpruefungAktiviert <code>true</code> wenn die Rückgabeobjektstruktur auf fachliche Fehler hin untersucht werden
+     * @param fachlicheFehlerpruefung <code>true</code> wenn die Rückgabeobjektstruktur auf fachliche Fehler hin untersucht werden
      *                                         soll, ansonsten <code>false</code>.
      */
-    public void setErweiterteFachlicheFehlerpruefung(boolean fachlicheFehlerpruefungAktiviert) {
-        erweiterteFachlicheFehlerpruefung = fachlicheFehlerpruefungAktiviert;
+    public void setFachlicheFehlerpruefung(boolean fachlicheFehlerpruefung) {
+        this.fachlicheFehlerpruefung = fachlicheFehlerpruefung;
     }
 
     /**
@@ -278,7 +280,7 @@ public class ServiceStatistik implements MethodInterceptor, InitializingBean {
         try {
             Object result = invocation.proceed();
             erfolgreich = true;
-            if (erweiterteFachlicheFehlerpruefung) {
+            if (fachlicheFehlerpruefung) {
                 fachlichErfolgreich = !sindFachlicheFehlerVorhanden(result);
             } else {
                 fachlichErfolgreich = true;
@@ -319,83 +321,91 @@ public class ServiceStatistik implements MethodInterceptor, InitializingBean {
      * @return <code>true</code> wenn Fehler gefunden, ansonsten <code>false</code>
      */
     boolean pruefeObjektAufFehler(final Object result, Class<?> clazz, int tiefe) {
-        boolean fehlerGefunden = false;
-        Class<?> clazzToScan = clazz;
-        // Wenn keine Klasse übergeben, selber ermitteln
-        if (clazzToScan == null) {
-            clazzToScan = result.getClass();
-        }
-
         // Wenn max. Tiefe erreicht, nicht weiter prüfen
         if (tiefe > MAXTIEFE) {
             LOGISY.trace("Max. Tiefe erreicht, prüfe nicht weiter auf fachliche Fehler");
             return false;
         }
 
-        Field[] fields = clazzToScan.getDeclaredFields();
+        // Wenn keine Klasse übergeben, selber ermitteln
+        Class<?> clazzToScan = clazz;
+        if (clazzToScan == null) {
+            clazzToScan = result.getClass();
+        }
+
+        List<Field> objectFields = Arrays.stream(clazzToScan.getDeclaredFields())
+                                         .filter(field -> !ClassUtils.isPrimitiveOrWrapper(field.getType()) && !field.getType().isEnum())
+                                         .collect(Collectors.toList());
 
         LOGISY.trace("{} Analysiere Objekt {} (Klasse {}) {} Felder gefunden.",
             String.join("", Collections.nCopies(tiefe, "-")), result.toString(), clazzToScan.getSimpleName(),
-            fields.length);
+            objectFields.size());
 
-        for (Field field : fields) {
-            if (!ClassUtils.isPrimitiveOrWrapper(field.getType()) && !field.getType().isEnum()) {
-                LOGISY.trace("{} {}.{}, Type {}", String.join("", Collections.nCopies(tiefe, "-")),
-                    clazzToScan.getSimpleName(), field.getName(), field.getType().getSimpleName());
-                field.setAccessible(true);
-                try {
-                    // Prüfe einzelne Klassenfelder (non-Collection) auf annotierten Typ und Vorhandensein
-                    if (!Collection.class.isAssignableFrom(field.getType())) {
-                        if (field.get(result) != null) {
-                            Object fieldObject = field.get(result);
-                            if (fieldObject.getClass().isAnnotationPresent(FachlicherFehler.class)) {
-                                // Fachliches Fehlerobjekt gefunden
-                                return true;
-                            }
+        boolean fehlerGefunden = false;
 
-                            // Wenn kein String, dann prüfe rekursiv Objektstruktur
-                            if (fieldObject.getClass() != String.class) {
-                                fehlerGefunden = pruefeObjektAufFehler(fieldObject, null, tiefe + 1) ?
-                                    true :
-                                    fehlerGefunden;
-                            }
+        for (Field field : objectFields) {
+            LOGISY.trace("{} {}.{}, Type {}", String.join("", Collections.nCopies(tiefe, "-")),
+                clazzToScan.getSimpleName(), field.getName(), field.getType().getSimpleName());
+            field.setAccessible(true);
+            try {
+                // Prüfe einzelne Klassenfelder (non-Collection) auf annotierten Typ und Vorhandensein
+                if (fieldIsNotACollection(field)) {
+                    Object fieldObject = field.get(result);
+
+                    if (fieldObject != null) {
+                        if (fieldObject.getClass().isAnnotationPresent(FachlicherFehler.class)) {
+                            // Fachliches Fehlerobjekt gefunden
+                            return true;
                         }
-                    } else {
-                        // Collection, prüfen ob fachliche Fehlerliste
-                        ParameterizedType type = (ParameterizedType) field.getGenericType();
-                        Class<?> collectionTypeArgument = (Class<?>) type.getActualTypeArguments()[0];
-                        if (collectionTypeArgument.isAnnotationPresent(FachlicherFehler.class)) {
-                            // Ist Fehlerliste, prüfen ob nicht leer
-                            Collection<?> collection = (Collection<?>) field.get(result);
-                            if (collection != null && !collection.isEmpty()) {
-                                // Fachliche Fehler in Fehlerliste gefunden
-                                return true;
-                            }
+
+                        // Wenn kein String, dann prüfe rekursiv Objektstruktur
+                        if (fieldObject.getClass() != String.class) {
+                            fehlerGefunden = pruefeObjektAufFehler(fieldObject, null, tiefe + 1) || fehlerGefunden;
                         }
                     }
-                } catch (IllegalAccessException e) {
-                    // Nichts tun, Feld wird ignoriert
-                    LOGISY.debug("Feldzugriffsfehler: {}", e.getMessage());
+                } else {
+                    // Collection, prüfen ob fachliche Fehlerliste
+                    ParameterizedType type = (ParameterizedType) field.getGenericType();
+                    Class<?> collectionTypeArgument = (Class<?>) type.getActualTypeArguments()[0];
+                    if (collectionTypeArgument.isAnnotationPresent(FachlicherFehler.class)) {
+                        // Ist Fehlerliste, prüfen ob nicht leer
+                        Collection<?> collection = (Collection<?>) field.get(result);
+                        if (collection != null && !collection.isEmpty()) {
+                            // Fachliche Fehler in Fehlerliste gefunden
+                            return true;
+                        }
+                    }
                 }
+            } catch (IllegalAccessException e) {
+                // Nichts tun, Feld wird ignoriert
+                LOGISY.debug("Feldzugriffsfehler: {}", e.getMessage());
             }
         }
 
         // Die Klassen-Hierachie rekursiv nach oben prüfen
-        if (clazzToScan.getSuperclass() != null && !clazzToScan.getSuperclass().equals(Object.class)) {
+        if (typeHasSuperClass(clazzToScan)) {
             LOGISY.trace("{}> Climb up class hierarchy! Source {}, Target {}",
                 String.join("", Collections.nCopies(tiefe, "-")), clazzToScan.getSimpleName(),
                 clazzToScan.getSuperclass());
             fehlerGefunden =
                 // Aufruf mit gleicher Tiefe, da Vererbung nach oben durchlaufen wird
-                pruefeObjektAufFehler(result, clazzToScan.getSuperclass(), tiefe) ? true : fehlerGefunden;
+                pruefeObjektAufFehler(result, clazzToScan.getSuperclass(), tiefe) || fehlerGefunden;
         }
 
         return fehlerGefunden;
     }
 
+    private boolean typeHasSuperClass(Class clazz) {
+        return clazz.getSuperclass() != null && !clazz.getSuperclass().equals(Object.class);
+    }
+
+    private boolean fieldIsNotACollection(Field field) {
+        return !Collection.class.isAssignableFrom(field.getType());
+    }
+
     @Override
     public void afterPropertiesSet() {
-        LOGISY.debug("ServiceStatistik " + (erweiterteFachlicheFehlerpruefung ?
+        LOGISY.debug("ServiceStatistik " + (fachlicheFehlerpruefung ?
             " mit erweiterter fachlicher Fehlerprüfung " :
             "") + " initialisiert.");
     }
