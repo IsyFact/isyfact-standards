@@ -5,7 +5,7 @@
 
     <groupId>de.bund.bva.isyfact</groupId>
     <artifactId>isyfact-standards</artifactId>
-    <version>1.6.0</version>
+    <version>1.6.1</version>
     <packaging>pom</packaging>
 
     <name>IsyFact-Standards (Module- &amp; Parent-POM)</name>
@@ -14,17 +14,29 @@
         Fundament der IsyFact. Sie umfassen allgemeingültige und wiederverwendbare Konzepte und
         Komponenten, die für die Entwicklung beliebiger Fachanwendungen relevant sind.
     </description>
+    <url>http://isyfact.de</url>
 
-    <organization>
-        <name>Bundesverwaltungsamt (BVA)</name>
-        <url>http://www.isyfact.de</url>
-    </organization>
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
             <url>http://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
     </licenses>
+
+    <developers>
+        <developer>
+            <name>IsyFact-Team</name>
+            <email>isyfact@bva.bund.de</email>
+            <organization>Bundesverwaltungsamt (BVA)</organization>
+            <organizationUrl>https://www.bva.bund.de</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/IsyFact/isyfact-standards.git</connection>
+        <developerConnection>scm:git:ssh://github.com:IsyFact/isyfact-standards.git</developerConnection>
+        <url>https://github.com/IsyFact/isyfact-standards</url>
+    </scm>
 
     <modules>
         <module>isyfact-masterpom</module>
