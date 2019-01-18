@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>isy-sicherheit</artifactId>
-    <version>1.7.0</version>
+    <version>1.8.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>IsyFact-Sicherheit</name>
     <description>Komponente für die Autorisierung von Benutzern in IsyFact-Anwendungen.</description>
@@ -12,7 +12,7 @@
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
         <artifactId>isyfact-masterpom-lib</artifactId>
-        <version>1.6.0</version>
+        <version>1.7.0-SNAPSHOT</version>
         <relativePath>../isyfact-masterpom-lib</relativePath>
     </parent>
 
