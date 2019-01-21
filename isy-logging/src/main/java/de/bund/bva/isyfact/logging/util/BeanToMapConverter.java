@@ -118,7 +118,7 @@ public class BeanToMapConverter implements BeanConverter {
     private Map<String, Object> collectAttributesRecursive(Object bean, Set<Object> seen) {
 
         // Die Ergebnismap. Treemap wird verwendet, für eine stabile Sortierungsreihenfolge.
-        Map<String, Object> propertyMap = new TreeMap<String, Object>();
+        Map<String, Object> propertyMap = new TreeMap<>();
 
         propertyMap.put(HASHCODE_KEY, "" + bean.hashCode());
 
@@ -219,7 +219,7 @@ public class BeanToMapConverter implements BeanConverter {
 
         // Arrays werden wie Listen behandelt
         if (value.getClass().isArray()) {
-            List<Object> valueList = new ArrayList<Object>();
+            List<Object> valueList = new ArrayList<>();
 
             // Hier wird explizit nicht Arrays.asList verwendet, da dies zu problemen bei Arrays von
             // primitiven Datentypen führt.
@@ -252,7 +252,7 @@ public class BeanToMapConverter implements BeanConverter {
      * @return die Werte in konvertierter Form.
      */
     private Object processMapValue(Map<?, ?> value, Set<Object> seen) {
-        Map<Object, Object> convertedMap = new TreeMap<Object, Object>();
+        Map<Object, Object> convertedMap = new TreeMap<>();
 
         for (Object mapKey : value.keySet()) {
             Object mapValue = value.get(mapKey);
@@ -283,7 +283,7 @@ public class BeanToMapConverter implements BeanConverter {
      */
     private List<Object> processIterableValue(Iterable<?> iterable, Set<Object> seen) {
 
-        List<Object> convertedMap = new ArrayList<Object>();
+        List<Object> convertedMap = new ArrayList<>();
 
         for (Object value : iterable) {
             Object converted = processValue(value, seen);

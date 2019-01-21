@@ -138,135 +138,7 @@ public class LoggingMethodInvoker<T> {
     }
 
     /**
-     * Konstruktor der Klasse für den Aufruf einer Methode. Es werden die übergebenen Klassenattribute
-     * initialisiert.
-     *
-     * @param methode
-     *            auszuführende Methode.
-     * @param logger
-     *            zu verwendender Logger.
-     * @param loggeAufruf
-     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
-     * @param loggeErgebnis
-     *            Flag zum Kennzeichnen, ob das Ergebnis (Erfolg/Misserfolg) des Aufrufs gelogged werden soll.
-     * @param loggeDauer
-     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
-     * @param loggeDaten
-     *            Flag zum Kennzeichnen, ob immer die kompletten Anfragedaten gelogged werden sollen.
-     * @param loggeDatenBeiException
-     *            Flag zum Kennzeichnen, ob die kompletten Anfragedaten gelogged werden sollen, wenn das
-     *            Ergebnis nicht erfolgreich war.
-     * @deprecated Methode wurde durch Konstruktor mit zusätzlichem Flag für "loggeMaximaleParameterGroesse" ersetzt.
-     */
-    @Deprecated
-    public LoggingMethodInvoker(Method methode, IsyLogger logger, boolean loggeAufruf, boolean loggeErgebnis,
-        boolean loggeDauer, boolean loggeDaten, boolean loggeDatenBeiException) {
-        this(methode, logger, loggeAufruf, loggeErgebnis, loggeDauer, loggeDaten, loggeDatenBeiException, 0);
-    }
-
-    /**
-     * Konstruktor der Klasse für den Aufruf einer Methode eines Nachbarsystems. Es werden die übergebenen
-     * Klassenattribute initialisiert.
-     *
-     * Beim Aufruf von Nachbarsystemmethoden werd der Name und die URL des Nachbarsystems in die Logeinträge
-     * aufgenommen.
-     *
-     * @param methode
-     *            auszuführende Methode.
-     * @param logger
-     *            zu verwendender Logger.
-     * @param loggeDauer
-     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
-     * @param loggeAufruf
-     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
-     * @param loggeErgebnis
-     *            Flag zum Kennzeichnen, ob das Ergebnis (Erfolg/Misserfolg) des Aufrufs gelogged werden soll.
-     * @param loggeDaten
-     *            Flag zum Kennzeichnen, ob immer die kompletten Anfragedaten gelogged werden sollen.
-     * @param loggeDatenBeiException
-     *            Flag zum Kennzeichnen, ob die kompletten Anfragedaten gelogged werden sollen, wenn das
-     *            Ergebnis nicht erfolgreich war.
-     * @param nachbarsystemName
-     *            Name des aufgerufenen Nachbarsystems.
-     * @param nachbarsystemUrl
-     *            URL des aufgerufenen Nachbarsystems.
-     * @deprecated Methode wurde durch Konstruktor mit zusätzlichem Flag für "loggeMaximaleParameterGroesse" ersetzt.
-     */
-    @Deprecated
-    public LoggingMethodInvoker(Method methode, IsyLogger logger, boolean loggeAufruf, boolean loggeErgebnis,
-        boolean loggeDauer, boolean loggeDaten, boolean loggeDatenBeiException, String nachbarsystemName,
-        String nachbarsystemUrl) {
-        this(methode, logger, loggeAufruf, loggeErgebnis, loggeDauer, loggeDaten, loggeDatenBeiException, 0,
-            nachbarsystemName, nachbarsystemUrl);
-    }
-
-    /**
-     * Konstruktor der Klasse für den Aufruf einer Methode. Es werden die übergebenen Klassenattribute
-     * initialisiert.
-     * 
-     * @param methode
-     *            auszuführende Methode.
-     * @param logger
-     *            zu verwendender Logger.
-     * @param loggeAufruf
-     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
-     * @param loggeErgebnis
-     *            Flag zum Kennzeichnen, ob das Ergebnis (Erfolg/Misserfolg) des Aufrufs gelogged werden soll.
-     * @param loggeDauer
-     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
-     * @param loggeDatenBeiException
-     *            Flag zum Kennzeichnen, ob die kompletten Anfragedaten gelogged werden sollen, wenn das
-     *            Ergebnis nicht erfolgreich war.
-     *
-     * @deprecated Methode wurde durch Konstruktor mit zusätzlichem Flag für "loggeDaten" sowie "loggeMaximaleParameterGroesse" ersetzt.
-     * @see LoggingMethodInvoker#LoggingMethodInvoker(Method, IsyLogger, boolean, boolean, boolean, boolean,
-     *      boolean)
-     */
-    @Deprecated
-    public LoggingMethodInvoker(Method methode, IsyLogger logger, boolean loggeAufruf, boolean loggeErgebnis,
-            boolean loggeDauer, boolean loggeDatenBeiException) {
-        this(methode, logger, loggeAufruf, loggeErgebnis, loggeDauer, false, loggeDatenBeiException);
-    }
-
-    /**
-     * Konstruktor der Klasse für den Aufruf einer Methode eines Nachbarsystems. Es werden die übergebenen
-     * Klassenattribute initialisiert.
-     * 
-     * Beim Aufruf von Nachbarsystemmethoden werd der Name und die URL des Nachbarsystems in die Logeinträge
-     * aufgenommen.
-     * 
-     * @param methode
-     *            auszuführende Methode.
-     * @param logger
-     *            zu verwendender Logger.
-     * @param loggeDauer
-     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
-     * @param loggeAufruf
-     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
-     * @param loggeErgebnis
-     *            Flag zum Kennzeichnen, ob das Ergebnis (Erfolg/Misserfolg) des Aufrufs gelogged werden soll.
-     * @param loggeDatenBeiException
-     *            Flag zum Kennzeichnen, ob die kompletten Anfragedaten gelogged werden sollen, wenn das
-     *            Ergebnis nicht erfolgreich war.
-     * @param nachbarsystemName
-     *            Name des aufgerufenen Nachbarsystems.
-     * @param nachbarsystemUrl
-     *            URL des aufgerufenen Nachbarsystems.
-     * 
-     * @deprecated Methode wurde durch Konstruktor mit zusätzlichem Flag für "loggeDaten" sowie "loggeMaximaleParameterGroesse" ersetzt.
-     * @see LoggingMethodInvoker#LoggingMethodInvoker(Method, IsyLogger, boolean, boolean, boolean, boolean,
-     *      boolean)
-     */
-    @Deprecated
-    public LoggingMethodInvoker(Method methode, IsyLogger logger, boolean loggeAufruf, boolean loggeErgebnis,
-            boolean loggeDauer, boolean loggeDatenBeiException, String nachbarsystemName,
-            String nachbarsystemUrl) {
-        this(methode, logger, loggeAufruf, loggeErgebnis, loggeDauer, false, loggeDatenBeiException,
-                nachbarsystemName, nachbarsystemUrl);
-    }
-
-    /**
-     * Führt die Methode mit den übergebnen Parametern auf dem übergebnen Zielobjekt aus und erstellt die
+     * Führt die Methode mit den übergebenen Parametern auf dem übergebenen Zielobjekt aus und erstellt die
      * entsprechenden Logeinträge.
      * 
      * @param ziel
@@ -284,7 +156,7 @@ public class LoggingMethodInvoker<T> {
      */
     @SuppressWarnings("unchecked")
     public T fuehreMethodeAus(Object ziel, Object... parameter) throws IllegalAccessException,
-            IllegalArgumentException, InvocationTargetException {
+            InvocationTargetException {
         boolean aufrufErfolgreich = false;
 
         erstelleLogVorAuruf();
@@ -299,20 +171,12 @@ public class LoggingMethodInvoker<T> {
             // Aufruf ist ohne Exception verarbeitet worden.
             aufrufErfolgreich = true;
             return (T) ergebnis;
-
-        } catch (IllegalAccessException e) {
-            ergebnis = e;
-            throw e;
-        } catch (IllegalArgumentException e) {
-            ergebnis = e;
-            throw e;
-        } catch (InvocationTargetException e) {
+        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             ergebnis = e;
             throw e;
         } catch (ClassCastException e) {
-            InterceptionFehler interceptionFehler = new InterceptionFehler(
+            ergebnis = new InterceptionFehler(
                     FehlerSchluessel.LOG_INTERCEPTOR_FEHLER_BEI_AUFRUF, e, methode.getName());
-            ergebnis = interceptionFehler;
             throw e;
         } finally {
             long endezeit = helper.ermittleAktuellenZeitpunkt();

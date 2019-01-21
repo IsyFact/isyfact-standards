@@ -55,7 +55,7 @@ public class IsyMarkerImpl implements IsyMarker {
     private final boolean root;
 
     /** Referenzen auf enthaltene Marker. */
-    private final List<Marker> references = new ArrayList<Marker>();
+    private final List<Marker> references = new ArrayList<>();
 
     /**
      * Konstruktor der Klasse. Er initialisiert die übergebenen Klassenattribute.
