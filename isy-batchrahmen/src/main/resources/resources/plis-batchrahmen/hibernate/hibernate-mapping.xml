@@ -30,7 +30,7 @@
         
         ====================================================================== -->
 
-    <class name="de.bund.bva.pliscommon.batchrahmen.persistence.rahmen.BatchStatus" table="batchstatus">
+    <class name="de.bund.bva.isyfact.batchrahmen.persistence.rahmen.BatchStatus" table="batchstatus">
 
         <id name="batchId" type="string" />
         <property name="batchName" type="string" />

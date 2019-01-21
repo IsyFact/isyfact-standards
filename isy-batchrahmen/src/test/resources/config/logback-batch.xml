@@ -60,7 +60,7 @@
     </logger>
 
     <logger name="org.springframework" level="INFO" additivity="false">
-        <appender-ref ref="KONSOlE"/>
+        <appender-ref ref="KONSOLE"/>
     </logger>
     
     <!-- Verhindert das Logging von Fehlern, wenn Sperren in DB nicht gesetzt werden können. -->
