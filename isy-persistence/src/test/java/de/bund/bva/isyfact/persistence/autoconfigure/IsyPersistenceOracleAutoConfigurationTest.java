@@ -19,8 +19,15 @@ public class IsyPersistenceOracleAutoConfigurationTest {
 
     @Test(expected = NoSuchBeanDefinitionException.class)
     public void testOraclePropertiesNichtGesetzt() {
+        Map<String, Object> properties = new HashMap<>();
+
+        properties.put("isy.logging.anwendung.name", "test");
+        properties.put("isy.logging.anwendung.typ", "test");
+        properties.put("isy.logging.anwendung.version", "test");
+
         ConfigurableApplicationContext context = new SpringApplicationBuilder()
             .sources(TestConfig.class)
+            .properties(properties)
             .run();
 
         context.getBean(IsyDataSource.class);

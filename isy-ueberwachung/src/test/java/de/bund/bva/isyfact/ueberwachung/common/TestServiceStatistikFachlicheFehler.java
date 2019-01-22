@@ -43,7 +43,7 @@ import static org.junit.Assert.assertTrue;
 @SpringBootTest(classes = TestConfig.class,
     webEnvironment = SpringBootTest.WebEnvironment.NONE,
     properties = {"isy.logging.anwendung.name=Test",
-        "isy.logging.anwedung.typ=Test",
+        "isy.logging.anwendung.typ=Test",
         "isy.logging.anwendung.version=0.1"})
 public class TestServiceStatistikFachlicheFehler {
 

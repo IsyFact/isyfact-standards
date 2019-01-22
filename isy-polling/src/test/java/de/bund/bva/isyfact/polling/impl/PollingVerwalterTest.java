@@ -60,6 +60,10 @@ import org.springframework.jmx.support.RegistrationPolicy;
 @SpringBootTest(classes = {
     TestConfig.class, PollingVerwalterTest.TestConfig.class }, webEnvironment = SpringBootTest.WebEnvironment.NONE, properties = {
 
+    "isy.logging.anwendung.name = test",
+    "isy.logging.anwendung.typ = test",
+    "isy.logging.anwendung.version = test",
+
     "isy.polling.jmx.verbindungen.SERVER1.host=localhost",
     "isy.polling.jmx.verbindungen.SERVER1.port=9010",
     "isy.polling.jmx.verbindungen.SERVER1.benutzer=server1",

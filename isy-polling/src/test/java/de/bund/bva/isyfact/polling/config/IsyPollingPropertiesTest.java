@@ -19,8 +19,11 @@ public class IsyPollingPropertiesTest {
     public void testPropertiesGesetzt() {
         Map<String, Object> properties = new HashMap<>();
 
-        properties.put("isy.polling.jmx.domain", "testdomain");
+        properties.put("isy.logging.anwendung.name", "test");
+        properties.put("isy.logging.anwendung.typ", "test");
+        properties.put("isy.logging.anwendung.version", "test");
 
+        properties.put("isy.polling.jmx.domain", "testdomain");
 
         properties.put("isy.polling.jmx.verbindungen.server1.host", "host1");
         properties.put("isy.polling.jmx.verbindungen.server1.port", "9001");
