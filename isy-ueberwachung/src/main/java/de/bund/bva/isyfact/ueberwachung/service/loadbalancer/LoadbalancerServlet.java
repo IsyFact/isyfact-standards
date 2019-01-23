@@ -19,6 +19,7 @@ package de.bund.bva.isyfact.ueberwachung.service.loadbalancer;
 import java.io.File;
 import java.io.IOException;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -64,6 +65,7 @@ public class LoadbalancerServlet extends HttpServlet {
     @Override
     public void init() {
         LOG.info(LogKategorie.JOURNAL, EreignisSchluessel.PLUEB00001, "Initialisiere Loadbalancer-Servlet.");
+
         String isAliveFileLocation = getInitParameter(PARAM_IS_ALIVE_FILE_LOCATION);
         if (isAliveFileLocation == null) {
             LOG.debug("Position der IsAliveDatei nicht konfiguriert. Verwende Standard-Einstellung: {}",
@@ -72,6 +74,7 @@ public class LoadbalancerServlet extends HttpServlet {
         }
         String realIsAliveFilePath = getServletContext().getRealPath(isAliveFileLocation);
         isAliveFile = new File(realIsAliveFilePath);
+
         LOG.info(LogKategorie.JOURNAL, EreignisSchluessel.PLUEB00001, "IsAlive-Datei {} konfiguriert.",
             isAliveFile.getAbsolutePath());
     }
@@ -84,8 +87,8 @@ public class LoadbalancerServlet extends HttpServlet {
      *
      * @throws IOException
      *             Wenn die Antwort nicht geschrieben werden kann. GET-Request bearbeiten. Prüft, ob die
-     *             IsAlive-Datei aus {@link #PARAM_IS_ALIVE_FILE_LOCATION} vorhanden ist und liefert dann HTTP
-     *             OK zurück. Andernfalls wird HTTP FORBIDDEN zurückgeliefert.
+     *             IsAlive-Datei vorhanden ist und liefert dann HTTP  OK zurück. Andernfalls wird
+     *             HTTP FORBIDDEN zurückgeliefert.
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {

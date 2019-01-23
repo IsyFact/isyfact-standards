@@ -26,7 +26,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.core.Appender;
-import de.bund.bva.isyfact.ueberwachung.service.loadbalancer.LoadbalancerServlet;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.LoggerFactory;
