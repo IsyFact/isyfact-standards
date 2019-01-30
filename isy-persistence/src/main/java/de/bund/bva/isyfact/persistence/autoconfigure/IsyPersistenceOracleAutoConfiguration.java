@@ -7,7 +7,9 @@ import de.bund.bva.isyfact.persistence.config.OracleDataSourceProperties;
 import de.bund.bva.isyfact.persistence.datasource.IsyDataSource;
 import oracle.ucp.jdbc.PoolDataSource;
 import oracle.ucp.jdbc.PoolDataSourceFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.actuate.jdbc.DataSourceHealthIndicator;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -27,7 +29,8 @@ public class IsyPersistenceOracleAutoConfiguration {
      * @return Bean oracleDataSourceHealthIndicator
      */
     @Bean
-    public DataSourceHealthIndicator oracleDataSourceHealthIndicator(DataSource dataSource) {
+    @ConditionalOnMissingBean(DataSourceHealthIndicator.class)
+    public DataSourceHealthIndicator oracleDataSourceHealthIndicator(@Qualifier("appDataSource") DataSource dataSource) {
         DataSourceHealthIndicator dataSourceHealthIndicator = new DataSourceHealthIndicator();
         dataSourceHealthIndicator.setDataSource(dataSource);
         dataSourceHealthIndicator.setQuery("select BANNER from V$VERSION where BANNER like 'Oracle%'");
