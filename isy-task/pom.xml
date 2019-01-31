@@ -40,10 +40,6 @@
         </dependency>
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
-            <artifactId>isy-konfiguration</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-logging</artifactId>
         </dependency>
         <dependency>
@@ -58,21 +54,19 @@
             <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-datetime</artifactId>
         </dependency>
+        <dependency>
+            <groupId>de.bund.bva.isyfact</groupId>
+            <artifactId>isy-util</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.bund.bva.isyfact</groupId>
+            <artifactId>isy-konfiguration</artifactId>
+        </dependency>
 
         <!-- Test -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

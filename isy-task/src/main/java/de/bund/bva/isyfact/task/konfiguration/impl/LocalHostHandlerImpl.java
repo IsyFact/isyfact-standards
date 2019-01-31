@@ -21,7 +21,7 @@ public class LocalHostHandlerImpl implements HostHandler {
 	@Override
     public synchronized boolean isHostApplicable(String expectedHostName) throws HostNotApplicableException {
 
-        InetAddress inetAdress = null;
+        InetAddress inetAdress;
 
 		try {
 			inetAdress = InetAddress.getLocalHost();
@@ -29,7 +29,7 @@ public class LocalHostHandlerImpl implements HostHandler {
 			throw new HostNotApplicableException(expectedHostName, e);
 		}
 
-		LOG.debug("isHostApplicable: ", " inetAdress: " + inetAdress);
+		LOG.debug("isHostApplicable: inetAdress: {}", inetAdress);
 
 		if (inetAdress == null) {
 			return false;
@@ -37,15 +37,15 @@ public class LocalHostHandlerImpl implements HostHandler {
 
 		String currentHostName = inetAdress.getHostName();
 
-        LOG.debug("isHostApplicable: ", " currentHostName: " + currentHostName);
+        LOG.debug("isHostApplicable: currentHostName: {}", currentHostName);
 
         if (currentHostName == null || currentHostName.isEmpty()) {
-            LOG.debug("isHostApplicable: ", " inetAdress: " + inetAdress);
+            LOG.debug("isHostApplicable: inetAdress: {}", inetAdress);
 			return false;
 		}
 
 		if(!expectedHostName.equals(currentHostName)) {
-            LOG.debug("isHostApplicable: ", " hostNames do not match! expectedHostName: " + expectedHostName + " currentHostName: " + currentHostName);
+            LOG.debug("isHostApplicable: hostNames do not match! expectedHostName: {} currentHostName: {}", expectedHostName, currentHostName);
 			throw new HostNotApplicableException(expectedHostName);
 		}
 

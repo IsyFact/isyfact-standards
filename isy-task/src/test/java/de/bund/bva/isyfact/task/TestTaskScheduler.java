@@ -1,165 +1,75 @@
 package de.bund.bva.isyfact.task;
 
-import java.time.Duration;
+import java.net.InetAddress;
 import java.time.format.DateTimeFormatter;
 
 import de.bund.bva.isyfact.datetime.util.DateTimeUtil;
-import de.bund.bva.isyfact.logging.IsyLogger;
-import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.isyfact.logging.LogKategorie;
-import de.bund.bva.isyfact.task.konfiguration.TaskKonfiguration;
-import de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel;
-import de.bund.bva.isyfact.task.konstanten.KonfigurationStandardwerte;
-import de.bund.bva.isyfact.task.model.Task;
-import de.bund.bva.isyfact.task.model.TaskRunner;
-import de.bund.bva.isyfact.task.model.impl.TaskRunnerImpl;
-import de.bund.bva.isyfact.task.sicherheit.impl.NoOpAuthenticator;
-import de.bund.bva.pliscommon.konfiguration.common.exception.KonfigurationParameterException;
-import de.bund.bva.pliscommon.konfiguration.common.konstanten.NachrichtenSchluessel;
+import de.bund.bva.isyfact.task.config.IsyTaskConfigurationProperties;
+import de.bund.bva.isyfact.task.test.config.TestConfig;
+import de.bund.bva.isyfact.task.test.config.TestTasksConfig;
+import org.junit.Before;
 import org.junit.Test;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.when;
 
-@ContextConfiguration(locations = { "/spring/timertask-test.xml", "/spring/tasks1_2_3.xml" })
+@SpringBootTest(classes = {TestConfig.class, TestTasksConfig.class}, webEnvironment = SpringBootTest.WebEnvironment.NONE,
+properties = {"isy.logging.anwendung.name=test",
+              "isy.logging.anwendung.typ=test",
+              "isy.logging.anwendung.version=test",
+              "logging.level.root=info",
+              "isy.task.tasks.testTask1.benutzer=TestUser1",
+              "isy.task.tasks.testTask1.passwort=TestPasswort1",
+              "isy.task.tasks.testTask1.ausfuehrung=ONCE",
+              "isy.task.tasks.testTask1.initial-delay=0s",
+
+              "isy.task.tasks.testTask2.ausfuehrung=FIXED_RATE",
+              "isy.task.tasks.testTask2.initial-delay=5s",
+              "isy.task.tasks.testTask2.fixed-rate=2s",
+
+              "isy.task.tasks.testTask3.benutzer=TestUser3",
+              "isy.task.tasks.testTask3.passwort=TestPasswort3",
+              "isy.task.tasks.testTask3.ausfuehrung=FIXED_DELAY",
+              "isy.task.tasks.testTask3.initial-delay=5s",
+              "isy.task.tasks.testTask3.fixed-delay=3s",
+
+              "isy.task.tasks.testTaskOnceInitialDelay.benutzer=TestUser1",
+              "isy.task.tasks.testTaskOnceInitialDelay.passwort=TestPasswort1",
+              "isy.task.tasks.testTaskOnceInitialDelay.ausfuehrung=ONCE",
+              "isy.task.tasks.testTaskOnceInitialDelay.initial-delay=10s"})
 public class TestTaskScheduler extends AbstractTaskTest {
+
+    @Autowired
+    private IsyTaskConfigurationProperties configurationProperties;
+
+    @Before
+    public void setup() throws Exception {
+        configurationProperties.getDefault().setHost(InetAddress.getLocalHost().getHostName());
+        String executionDateTime = DateTimeUtil.localDateTimeNow().plusSeconds(5)
+            .format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss.SSS"));
+        configurationProperties.getTasks().get("testTask1").setZeitpunkt(executionDateTime);
+    }
+    
     @Test
     public void testSchedule() throws Exception {
-        when(konfiguration.getAsString("isyfact.task.taskTest1.benutzer")).thenReturn("TestUser1");
-        when(konfiguration.getAsString("isyfact.task.taskTest1.passwort")).thenReturn("TestPasswort1");
-        when(konfiguration.getAsString("isyfact.task.taskTest1.ausfuehrung")).thenReturn("ONCE");
-        String dateTimePattern = konfiguration.getAsString(KonfigurationSchluessel.DATETIME_PATTERN,
-            KonfigurationStandardwerte.DEFAULT_DATETIME_PATTERN);
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(dateTimePattern);
-        String executionDateTime1 = DateTimeUtil.localDateTimeNow().plusSeconds(5).format(dateTimeFormatter);
-        when(konfiguration.getAsString("isyfact.task.taskTest1.zeitpunkt")).thenReturn(executionDateTime1);
-        when(konfiguration.getAsString(eq("isyfact.task.taskTest1.initial-delay"), anyString()))
-            .thenReturn("0s");
-        when(konfiguration.getAsString("isyfact.task.taskTest1.fixed-rate")).thenThrow(
-            new KonfigurationParameterException(NachrichtenSchluessel.ERR_PARAMETER_LEER,
-                "isyfact.task.taskTest1.fixed-rate"));
-        when(konfiguration.getAsString("isyfact.task.taskTest1.fixed-delay")).thenThrow(
-            new KonfigurationParameterException(NachrichtenSchluessel.ERR_PARAMETER_LEER,
-                "isyfact.task.taskTest1.fixed-delay"));
-
-        when(konfiguration.getAsString("isyfact.task.taskTest2.benutzer")).thenThrow(
-            new KonfigurationParameterException(NachrichtenSchluessel.ERR_PARAMETER_LEER,
-                "isyfact.task.taskTest2.benutzer"));
-        when(konfiguration.getAsString("isyfact.task.taskTest2.ausfuehrung")).thenReturn("FIXED_RATE");
-        when(konfiguration.getAsString("isyfact.task.taskTest2.zeitpunkt")).thenThrow(new KonfigurationParameterException(NachrichtenSchluessel.ERR_PARAMETER_LEER,
-            "isyfact.task.taskTest2.zeitpunkt"));
-        when(konfiguration.getAsString(eq("isyfact.task.taskTest2.initial-delay"), anyString()))
-            .thenReturn("5s");
-        when(konfiguration.getAsString("isyfact.task.taskTest2.fixed-rate")).thenReturn("2s");
-        when(konfiguration.getAsString("isyfact.task.taskTest2.fixed-delay")).thenThrow(
-            new KonfigurationParameterException(NachrichtenSchluessel.ERR_PARAMETER_LEER,
-                "isyfact.task.taskTest2.fixed-delay"));
-
-        when(konfiguration.getAsString("isyfact.task.taskTest3.benutzer")).thenReturn("TestUser3");
-        when(konfiguration.getAsString("isyfact.task.taskTest3.passwort")).thenReturn("TestPasswort3");
-        when(konfiguration.getAsString("isyfact.task.taskTest3.ausfuehrung")).thenReturn("FIXED_DELAY");
-        when(konfiguration.getAsString("isyfact.task.taskTest3.zeitpunkt")).thenThrow(
-            new KonfigurationParameterException(NachrichtenSchluessel.ERR_PARAMETER_LEER,
-                "isyfact.task.taskTest3.zeitpunkt"));
-        when(konfiguration.getAsString(eq("isyfact.task.taskTest3.initial-delay"), anyString()))
-            .thenReturn("5s");
-        when(konfiguration.getAsString("isyfact.task.taskTest3.fixed-rate")).thenThrow(
-            new KonfigurationParameterException(NachrichtenSchluessel.ERR_PARAMETER_LEER,
-                "isyfact.task.taskTest3.fixed-rate"));
-        when(konfiguration.getAsString("isyfact.task.taskTest3.fixed-delay"))
-            .thenReturn("3s");
-
-        when(konfiguration.getAsString("isyfact.task.taskTestOnceInitialDelay.benutzer"))
-            .thenReturn("TestUser1");
-        when(konfiguration.getAsString("isyfact.task.taskTestOnceInitialDelay.passwort"))
-            .thenReturn("TestPasswort1");
-        when(konfiguration.getAsString("isyfact.task.taskTestOnceInitialDelay.ausfuehrung"))
-            .thenReturn("ONCE");
-        when(konfiguration.getAsString("isyfact.task.taskTestOnceInitialDelay.zeitpunkt")).thenThrow(
-            new KonfigurationParameterException(NachrichtenSchluessel.ERR_PARAMETER_LEER,
-                "isyfact.task.taskTestOnceInitialDelay.zeitpunkt"));
-        when(
-            konfiguration.getAsString(eq("isyfact.task.taskTestOnceInitialDelay.initial-delay"), anyString()))
-            .thenReturn("10s");
-        when(konfiguration.getAsString(eq("isyfact.task.taskTestOnceInitialDelay.fixed-rate"))).thenThrow(
-            new KonfigurationParameterException(NachrichtenSchluessel.ERR_PARAMETER_LEER,
-                "isyfact.task.taskTest2.fixed-delay"));
-        when(konfiguration.getAsString(eq("isyfact.task.taskTestOnceInitialDelay.fixed-delay"))).thenThrow(
-            new KonfigurationParameterException(NachrichtenSchluessel.ERR_PARAMETER_LEER,
-                "isyfact.task.taskTestOnceInitialDelay.fixed-delay"));
-
         taskScheduler.starteKonfigurierteTasks();
 
-        assertTrue(isTaskRunning("taskTest1"));
-        assertTrue(isTaskRunning("taskTest2"));
-        assertTrue(isTaskRunning("taskTest3"));
-        assertTrue(isTaskRunning("taskTestOnceInitialDelay"));
+        assertTrue(isTaskRunning("testTask1"));
+        assertTrue(isTaskRunning("testTask2"));
+        assertTrue(isTaskRunning("testTask3"));
+        assertTrue(isTaskRunning("testTaskOnceInitialDelay"));
 
         SECONDS.sleep(20);
         taskScheduler.shutdownMitTimeout(1);
 
         SECONDS.sleep(1);
 
-        assertFalse(isTaskRunning("taskTest2"));
-        assertFalse(isTaskRunning("taskTest3"));
-        assertFalse(isTaskRunning("taskTest1"));
-        assertFalse(isTaskRunning("taskTestOnceInitialDelay"));
-    }
-
-    @Test
-    public void testScheduleManuell() throws Exception {
-        boolean taskDone[] = { false };
-
-        class ManuellerTask extends TestTask1 {
-
-            final IsyLogger LOG = IsyLoggerFactory.getLogger(ManuellerTask.class);
-
-            @Override
-            public void execute() {
-                for (int i = 0; i < 3; i++) {
-                    try {
-                        SECONDS.sleep(1);
-                        LOG.info(LogKategorie.JOURNAL, "manuellerTask", "{} running Manueller Task",
-                            DateTimeUtil.localDateTimeNow());
-                    } catch (InterruptedException e) {
-                        LOG.debug("Thread unterbrochen");
-                        return;
-                    }
-                }
-                taskDone[0] = true;
-            }
-        }
-        ;
-
-        Task manuellerTask = new ManuellerTask();
-
-        TaskKonfiguration taskKonfiguration = new TaskKonfiguration();
-
-        taskKonfiguration.setTaskId("manuellerTask");
-        taskKonfiguration.setAuthenticator(new NoOpAuthenticator());
-        taskKonfiguration.setHostname("localhost");
-        taskKonfiguration.setAusfuehrungsplan(TaskKonfiguration.Ausfuehrungsplan.ONCE);
-        taskKonfiguration.setInitialDelay(Duration.ofSeconds(1));
-
-        TaskRunner taskRunner = new TaskRunnerImpl(manuellerTask, taskKonfiguration);
-
-        taskScheduler.addTask(taskRunner);
-
-        taskScheduler.start();
-
-        assertTrue(isTaskRunning("manuellerTask"));
-
-        taskScheduler.shutdownMitTimeout(7);
-
-        assertTrue(taskDone[0]);
-
-        SECONDS.sleep(1);
-
-        assertFalse(isTaskRunning("manuellerTask"));
+        assertFalse(isTaskRunning("testTask2"));
+        assertFalse(isTaskRunning("testTask3"));
+        assertFalse(isTaskRunning("testTask1"));
+        assertFalse(isTaskRunning("testTaskOnceInitialDelay"));
     }
 }

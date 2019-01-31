@@ -7,6 +7,7 @@ import de.bund.bva.pliscommon.konfiguration.common.ReloadableKonfiguration;
 /**
  * Task zum Neuladen der Konfiguration. Siehe {@link ReloadableKonfiguration#checkAndUpdate()}.
  */
+@Deprecated
 public class KonfigurationUpdateTask extends AbstractTask {
 
     private final ReloadableKonfiguration konfiguration;

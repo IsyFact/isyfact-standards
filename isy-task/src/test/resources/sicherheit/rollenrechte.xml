@@ -10,7 +10,6 @@
         <tns:rechtId Id="Recht2"/>
     </tns:rollen>
 
-    <!-- Benutzerverwaltung -->
     <tns:rechte>
         <tns:rechtId Id="Recht1"/>
     </tns:rechte>

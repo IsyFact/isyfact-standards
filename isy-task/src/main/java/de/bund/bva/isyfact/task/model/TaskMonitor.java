@@ -65,7 +65,7 @@ public class TaskMonitor {
 
     @ManagedAttribute(description = "Bei Misserfolg: Ausnahme-ID des letzten Fehlers")
     public String getLetzterFehlerAusnahmeId() {
-        if (letzterFehler != null && letzterFehler instanceof PlisException) {
+        if (letzterFehler instanceof PlisException) {
             return ((PlisException) letzterFehler).getAusnahmeId();
         } else {
             return null;
