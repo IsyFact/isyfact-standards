@@ -80,13 +80,7 @@ public class IsyLoggingAutoConfiguration {
      */
     @Bean
     public LoggingMethodInterceptor boundaryLogInterceptor(IsyLoggingBoundaryLoggerProperties properties) {
-        LoggingMethodInterceptor bean = new LoggingMethodInterceptor();
-        bean.setLoggeDauer(properties.isLoggeDauer());
-        bean.setLoggeAufruf(properties.isLoggeAufruf());
-        bean.setLoggeErgebnis(properties.isLoggeErgebnis());
-        bean.setLoggeDaten(properties.isLoggeDaten());
-        bean.setLoggeDatenBeiException(properties.isLoggeDatenBeiException());
-        return bean;
+        return createLoggingMethodInterceptor(properties);
     }
 
     /**
@@ -97,13 +91,24 @@ public class IsyLoggingAutoConfiguration {
      */
     @Bean
     public LoggingMethodInterceptor componentLogInterceptor(IsyLoggingComponentLoggerProperties properties) {
-        LoggingMethodInterceptor bean = new LoggingMethodInterceptor();
-        bean.setLoggeDauer(properties.isLoggeDauer());
-        bean.setLoggeAufruf(properties.isLoggeAufruf());
-        bean.setLoggeErgebnis(properties.isLoggeErgebnis());
-        bean.setLoggeDaten(properties.isLoggeDaten());
-        bean.setLoggeDatenBeiException(properties.isLoggeDatenBeiException());
-        return bean;
+        return createLoggingMethodInterceptor(properties);
+    }
+
+    private LoggingMethodInterceptor createLoggingMethodInterceptor(AbstractBoundaryLoggerProperties properties) {
+        LoggingMethodInterceptor interceptor;
+
+        if (properties.getConverterExcludes().isEmpty() && properties.getConverterIncludes().isEmpty()) {
+            interceptor = new LoggingMethodInterceptor();
+        } else {
+            interceptor = new LoggingMethodInterceptor(properties.getConverterIncludes(), properties.getConverterExcludes());
+        }
+
+        interceptor.setLoggeDauer(properties.isLoggeDauer());
+        interceptor.setLoggeAufruf(properties.isLoggeAufruf());
+        interceptor.setLoggeErgebnis(properties.isLoggeErgebnis());
+        interceptor.setLoggeDaten(properties.isLoggeDaten());
+        interceptor.setLoggeDatenBeiException(properties.isLoggeDatenBeiException());
+        return interceptor;
     }
 
     /**

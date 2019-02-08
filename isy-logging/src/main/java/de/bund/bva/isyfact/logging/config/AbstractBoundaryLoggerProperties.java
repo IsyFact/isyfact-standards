@@ -1,5 +1,8 @@
 package de.bund.bva.isyfact.logging.config;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Properties, die das Loggen an Aufrufgrenzen konfigurieren.
  */
@@ -38,6 +41,16 @@ public abstract class AbstractBoundaryLoggerProperties {
      * wenn eine Exception auftritt. Default = false.
      */
     private boolean loggeDatenBeiException = false;
+
+    /**
+     * Includes, die für den BeanToMapConverter bei der Seriailiserung von Objektstrukturen zu verwenden sind.
+     */
+    private List<String> converterIncludes = new ArrayList<>();
+
+    /**
+     * Excludes, die für den BeanToMapConverter bei der Serialisierung von Objektstrukturen zu verwenden sind.
+     */
+    private List<String> converterExcludes = new ArrayList<>();
 
     public boolean isLoggeDauer() {
         return this.loggeDauer;
@@ -87,4 +100,19 @@ public abstract class AbstractBoundaryLoggerProperties {
         this.pointcut = pointcut;
     }
 
+    public List<String> getConverterIncludes() {
+        return converterIncludes;
+    }
+
+    public void setConverterIncludes(List<String> converterIncludes) {
+        this.converterIncludes = converterIncludes;
+    }
+
+    public List<String> getConverterExcludes() {
+        return converterExcludes;
+    }
+
+    public void setConverterExcludes(List<String> converterExcludes) {
+        this.converterExcludes = converterExcludes;
+    }
 }
