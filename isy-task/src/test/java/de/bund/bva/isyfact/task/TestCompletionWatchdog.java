@@ -1,38 +1,42 @@
 package de.bund.bva.isyfact.task;
 
-import de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel;
-import de.bund.bva.pliscommon.konfiguration.common.exception.KonfigurationParameterException;
-import de.bund.bva.pliscommon.konfiguration.common.konstanten.NachrichtenSchluessel;
+import java.net.InetAddress;
+
+import de.bund.bva.isyfact.task.config.IsyTaskConfigurationProperties;
+import de.bund.bva.isyfact.task.test.config.TestConfig;
+import de.bund.bva.isyfact.task.test.config.TestTaskExceptionConfig;
+import org.junit.Before;
 import org.junit.Test;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.when;
 
-@ContextConfiguration(locations = { "/spring/timertask-test.xml", "/spring/task_exception.xml" })
+@SpringBootTest(classes = {TestConfig.class, TestTaskExceptionConfig.class }, webEnvironment = SpringBootTest.WebEnvironment.NONE,
+    properties = {"isy.logging.anwendung.name=test",
+                  "isy.logging.anwendung.typ=test",
+                  "isy.logging.anwendung.version=test",
+                  "logging.level.root=info",
+                  "isy.task.tasks.taskMitException.benutzer=TestUser1",
+                  "isy.task.tasks.taskMitException.passwort=TestPasswort1",
+                  "isy.task.tasks.taskMitException.bhkz=BHKZ1",
+                  "isy.task.tasks.taskMitException.ausfuehrung=FIXED_RATE",
+                  "isy.task.tasks.taskMitException.initial-delay=1s",
+                  "isy.task.tasks.taskMitException.fixed-rate=3s",
+                  "isy.task.watchdog.restart-interval=1s"})
 public class TestCompletionWatchdog extends AbstractTaskTest {
+
+    @Autowired
+    private IsyTaskConfigurationProperties configurationProperties;
+
+    @Before
+    public void setup() throws Exception {
+        configurationProperties.getDefault().setHost(InetAddress.getLocalHost().getHostName());
+    }
 
     @Test
     public void taskMitExceptionWirdNeuGestartet() throws Exception {
-        when(konfiguration.getAsString("isyfact.task.taskMitException.benutzer")).thenReturn("TestUser1");
-        when(konfiguration.getAsString("isyfact.task.taskMitException.passwort")).thenReturn("TestPasswort1");
-        when(konfiguration.getAsString("isyfact.task.taskMitException.bhkz")).thenReturn("BHKZ1");
-        when(konfiguration.getAsString("isyfact.task.taskMitException.ausfuehrung")).thenReturn("FIXED_RATE");
-        when(konfiguration.getAsString("isyfact.task.taskMitException.zeitpunkt")).thenThrow(
-            new KonfigurationParameterException(NachrichtenSchluessel.ERR_PARAMETER_LEER,
-                "isyfact.task.taskMitException.zeitpunkt"));
-        when(konfiguration.getAsString(eq("isyfact.task.taskMitException.initial-delay"), anyString()))
-            .thenReturn("1s");
-        when(konfiguration.getAsString("isyfact.task.taskMitException.fixed-rate")).thenReturn("3s");
-        when(konfiguration.getAsString("isyfact.task.taskMitException.fixed-delay")).thenThrow(
-            new KonfigurationParameterException(NachrichtenSchluessel.ERR_PARAMETER_LEER,
-                "isyfact.task.taskMitException.fixed-delay"));
-
-        when(konfiguration.getAsInteger(eq(KonfigurationSchluessel.WATCHDOG_RESTART_INTERVAL), anyInt()))
-            .thenReturn(1);
-
         taskScheduler.starteKonfigurierteTasks();
 
         SECONDS.sleep(10);
