@@ -28,7 +28,16 @@ import de.bund.bva.pliscommon.sicherheit.accessmgr.AuthentifzierungErgebnis;
 public class SicherheitAdminImpl<T extends AufrufKontext> implements SicherheitAdmin {
 
     /** Referenz auf den AccessManager für den Zugriff auf Rollen/Rechte der Benutzer. */
-    private AccessManager<T, AuthentifzierungErgebnis> accessManager;
+    private final AccessManager<T, AuthentifzierungErgebnis> accessManager;
+
+    /**
+     * Erzeugt ein SicherheitAdmin, das den übergebenen AccessManager verwendet.
+     *
+     * @param accessManager der {@link AccessManager}, welcher für das Auslesen der Rollen und Rechte zuständig ist
+     */
+    public SicherheitAdminImpl(AccessManager<T, AuthentifzierungErgebnis> accessManager) {
+        this.accessManager = accessManager;
+    }
 
     /**
      * {@inheritDoc}
@@ -36,15 +45,5 @@ public class SicherheitAdminImpl<T extends AufrufKontext> implements SicherheitA
     @Override
     public boolean pingAccessManager() {
         return this.accessManager.pingAccessManager();
-    }
-
-    /**
-     * Setzt den {@link AccessManager}, welcher für das Auslesen der Rollen und Rechte zuständig ist.
-     *
-     * @param accessManager
-     *            AccessManager.
-     */
-    public void setAccessManager(AccessManager<T, AuthentifzierungErgebnis> accessManager) {
-        this.accessManager = accessManager;
     }
 }

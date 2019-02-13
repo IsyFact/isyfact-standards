@@ -16,28 +16,28 @@
  */
 package de.bund.bva.pliscommon.sicherheit.impl;
 
-import org.junit.Before;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextFactory;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
-import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 import de.bund.bva.pliscommon.sicherheit.Sicherheit;
 import de.bund.bva.pliscommon.sicherheit.accessmgr.test.TestAccessManager;
+import de.bund.bva.pliscommon.sicherheit.config.IsySicherheitConfigurationProperties;
+import de.bund.bva.pliscommon.sicherheit.config.SicherheitTestConfig;
+import org.junit.Before;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "/resources/spring/application_interceptor.xml")
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = SicherheitTestConfig.class, webEnvironment = SpringBootTest.WebEnvironment.NONE,
+    properties = {"isy.logging.anwendung.name=test", "isy.logging.anwendung.typ=test", "isy.logging.anwendung.version=test",
+    "isy.sicherheit.cache.ttl=1"})
 @DirtiesContext
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public abstract class AbstractSicherheitTest {
-
-    @Autowired
-    protected Konfiguration konfiguration;
 
     @Autowired
     protected Sicherheit sicherheit;
@@ -51,11 +51,14 @@ public abstract class AbstractSicherheitTest {
     @Autowired
     protected AufrufKontextFactory<AufrufKontext> aufrufKontextFactory;
 
+    @Autowired
+    protected IsySicherheitConfigurationProperties isySicherheitConfigurationProperties;
+
     @Before
     public void setup() {
         this.aufrufKontextVerwalter.setAufrufKontext(null);
         this.testAccessManager.reset();
-        ((SicherheitImpl) this.sicherheit).leereCache();
+        this.sicherheit.leereCache();
         this.testAccessManager.setResultAuthentifiziere("Rolle_A", "Rolle_B");
     }
 

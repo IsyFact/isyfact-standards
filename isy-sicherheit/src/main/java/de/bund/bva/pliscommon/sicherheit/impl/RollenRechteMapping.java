@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import de.bund.bva.pliscommon.sicherheit.Recht;
@@ -40,19 +41,19 @@ public class RollenRechteMapping {
     /**
      * Enthält das anwendungesspezifische Mapping von Rollen zu Rechten.
      */
-    private HashMap<Rolle, List<Recht>> rollenRechteMapping = new HashMap<Rolle, List<Recht>>();
+    private Map<Rolle, List<Recht>> rollenRechteMapping = new HashMap<>();
 
     /**
      * alle in der Anwendung definierten Rechte.
      */
-    private HashSet<Recht> alleDefiniertenRechte = new HashSet<Recht>();
+    private Set<Recht> alleDefiniertenRechte = new HashSet<>();
 
     /**
      * Getter für das Rollen zu Rechte Mapping.
      * 
      * @return Das Mapping von Rollen zu Rechten
      */
-    public HashMap<Rolle, List<Recht>> getRollenRechteMapping() {
+    public Map<Rolle, List<Recht>> getRollenRechteMapping() {
         return rollenRechteMapping;
     }
 
@@ -62,7 +63,7 @@ public class RollenRechteMapping {
      * @param rollenRechteMapping
      *            Das Mapping
      */
-    public void setRollenRechteMapping(HashMap<Rolle, List<Recht>> rollenRechteMapping) {
+    public void setRollenRechteMapping(Map<Rolle, List<Recht>> rollenRechteMapping) {
         this.rollenRechteMapping = rollenRechteMapping;
     }
 
@@ -110,6 +111,6 @@ public class RollenRechteMapping {
      * @param collection Neuer Wert für alleDefiniertenRechte
      */
     public void setAlleDefiniertenRechte(Collection<Recht> collection) {
-        this.alleDefiniertenRechte = new HashSet<Recht>(collection);
+        this.alleDefiniertenRechte = new HashSet<>(collection);
     }
 }

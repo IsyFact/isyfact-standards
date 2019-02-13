@@ -18,19 +18,17 @@ package de.bund.bva.pliscommon.sicherheit.web;
 
 import java.util.Collection;
 
-import org.springframework.beans.factory.annotation.Required;
-import org.springframework.security.access.AccessDecisionManager;
-import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.access.ConfigAttribute;
-import org.springframework.security.authentication.InsufficientAuthenticationException;
-import org.springframework.security.core.Authentication;
-
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
 import de.bund.bva.pliscommon.sicherheit.Berechtigungsmanager;
 import de.bund.bva.pliscommon.sicherheit.Sicherheit;
 import de.bund.bva.pliscommon.sicherheit.common.exception.AuthentifizierungFehlgeschlagenException;
 import de.bund.bva.pliscommon.sicherheit.common.exception.AuthentifizierungTechnicalException;
 import de.bund.bva.pliscommon.sicherheit.common.konstanten.SicherheitFehlerSchluessel;
+import org.springframework.security.access.AccessDecisionManager;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.ConfigAttribute;
+import org.springframework.security.authentication.InsufficientAuthenticationException;
+import org.springframework.security.core.Authentication;
 
 /**
  * Ein AccessDecisionManager zur Verwendung mit spring-security.
@@ -43,15 +41,9 @@ import de.bund.bva.pliscommon.sicherheit.common.konstanten.SicherheitFehlerSchlu
 public class DelegatingAccessDecisionManager implements AccessDecisionManager {
 
     /** Zugriff auf die Komponente Sciherheit. */
-    private Sicherheit<? extends AufrufKontext> sicherheit;
+    private final Sicherheit<? extends AufrufKontext> sicherheit;
 
-    /**
-     * Setzt das Feld 'sicherheit'.
-     * @param sicherheit
-     *            Neuer Wert für sicherheit
-     */
-    @Required
-    public void setSicherheit(Sicherheit<? extends AufrufKontext> sicherheit) {
+    public DelegatingAccessDecisionManager(Sicherheit<? extends AufrufKontext> sicherheit) {
         this.sicherheit = sicherheit;
     }
 

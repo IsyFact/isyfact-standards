@@ -18,29 +18,24 @@ package de.bund.bva.pliscommon.sicherheit.impl;
 
 import java.util.Set;
 
-import org.springframework.beans.factory.DisposableBean;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Required;
-
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextFactory;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
-import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 import de.bund.bva.pliscommon.sicherheit.Berechtigungsmanager;
 import de.bund.bva.pliscommon.sicherheit.Rolle;
 import de.bund.bva.pliscommon.sicherheit.Sicherheit;
 import de.bund.bva.pliscommon.sicherheit.accessmgr.AccessManager;
 import de.bund.bva.pliscommon.sicherheit.accessmgr.AuthentifzierungErgebnis;
-import de.bund.bva.pliscommon.sicherheit.common.exception.AuthentifizierungFehlgeschlagenException;
 import de.bund.bva.pliscommon.sicherheit.common.exception.AuthentifizierungTechnicalException;
 import de.bund.bva.pliscommon.sicherheit.common.exception.InitialisierungsException;
 import de.bund.bva.pliscommon.sicherheit.common.konstanten.EreignisSchluessel;
 import de.bund.bva.pliscommon.sicherheit.common.konstanten.SicherheitFehlerSchluessel;
-import de.bund.bva.pliscommon.sicherheit.common.konstanten.SicherheitKonfigurationSchluessel;
-import de.bund.bva.pliscommon.sicherheit.kontext.ZertifikatInfoAufrufKontext;
+import de.bund.bva.pliscommon.sicherheit.config.IsySicherheitConfigurationProperties;
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
 
 /**
  * Diese Klasse dient als Implementierung der Komponente Sicherheit und kann als Bean in anderen Anwendungen
@@ -58,35 +53,38 @@ public class SicherheitImpl<K extends AufrufKontext, E extends AuthentifzierungE
      */
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(SicherheitImpl.class);
 
-    /** Defaultwert für die Time-to-live der Cacheinträge. 0 = deaktiviert. **/
-    private static final int CACHE_DEFAULT_TTL = 0;
-
-    /** Defaultwert für die maximale Anzahl an Einträgen im Cache (in Memory). **/
-    private static final int CACHE_DEFAULT_MAX_ENTRIES = 10000;
-
     /** Pfad zum Rollen-Rechte-Mapping. */
-    private String rollenRechteDateiPfad;
+    private final String rollenRechteDateiPfad;
 
     /** Zugriff auf den AufrufKontextVerwalter. */
-    private AufrufKontextVerwalter<K> aufrufKontextVerwalter;
+    private final AufrufKontextVerwalter<K> aufrufKontextVerwalter;
 
     /** Das ausgelesene Rollenrechtemapping. */
     private RollenRechteMapping mapping;
 
     /** Referenz auf den AccessManager für den Zugriff auf Rollen/Rechte der Benutzer. */
-    private AccessManager<K, E> accessManager;
+    private final AccessManager<K, E> accessManager;
 
     /** Zugriff auf die Aufrufkontext-Factory. */
     private AufrufKontextFactory<K> aufrufKontextFactory;
 
-    /** Zugriff auf die Konfiguration. */
-    private Konfiguration konfiguration;
+    private final IsySicherheitConfigurationProperties properties;
 
     /**
      * Cache-Verwalter zum Cachen von Authentifizierungsinformationen, so dass der AccessManager entlastet
      * wird.
      **/
-    private CacheVerwalter<E> cacheVerwalter = new CacheVerwalter<>();
+    private final CacheVerwalter<E> cacheVerwalter = new CacheVerwalter<>();
+
+    public SicherheitImpl(String rollenRechteDateiPfad, AufrufKontextVerwalter<K> aufrufKontextVerwalter,
+        AufrufKontextFactory<K> aufrufKontextFactory, AccessManager<K, E> accessManager,
+        IsySicherheitConfigurationProperties properties) {
+        this.rollenRechteDateiPfad = rollenRechteDateiPfad;
+        this.aufrufKontextVerwalter = aufrufKontextVerwalter;
+        this.accessManager = accessManager;
+        this.aufrufKontextFactory = aufrufKontextFactory;
+        this.properties = properties;
+    }
 
     /**
      * {@inheritDoc}
@@ -142,19 +140,6 @@ public class SicherheitImpl<K extends AufrufKontext, E extends AuthentifzierungE
     /**
      * {@inheritDoc}
      */
-    @Deprecated
-    @Override
-    @SuppressWarnings("unchecked")
-    public Berechtigungsmanager getBerechtigungsManagerUndAuthentifiziereNutzer(String kennung,
-        String passwort, String bhknz, String zertifikatOu, String correlationId)
-        throws AuthentifizierungTechnicalException {
-        return getBerechtigungsManagerUndAuthentifiziere((K) erzeugeAufrufKontextNutzer(kennung, passwort,
-            bhknz, zertifikatOu, correlationId));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Berechtigungsmanager getBerechtigungsManagerUndAuthentifiziere(K unauthentifizierterAufrufKontext)
         throws AuthentifizierungTechnicalException {
@@ -192,19 +177,6 @@ public class SicherheitImpl<K extends AufrufKontext, E extends AuthentifzierungE
     }
 
     /**
-     * {@inheritDoc}
-     */
-    @Deprecated
-    @Override
-    @SuppressWarnings("unchecked")
-    public Berechtigungsmanager getBerechtigungsManagerUndAuthentifiziere(String kennung, String passwort,
-        String clientZertifikat, String clientZertifikatDn, String correlationId)
-        throws AuthentifizierungTechnicalException {
-        return getBerechtigungsManagerUndAuthentifiziere((K) erzeugeAufrufKontext(kennung, passwort,
-            clientZertifikat, clientZertifikatDn, correlationId));
-    }
-
-    /**
      * Schreibt Daten aus einer Benutzersession in den Aufrufkontext.
      *
      * @param correlationId            Korrelations-ID des Service-Aufrufs
@@ -233,56 +205,6 @@ public class SicherheitImpl<K extends AufrufKontext, E extends AuthentifzierungE
     }
 
     /**
-     * Setzt das Feld {@link #konfiguration}.
-     * @param konfiguration
-     *            Neuer Wert für konfiguration
-     */
-    @Required
-    public void setKonfiguration(Konfiguration konfiguration) {
-        this.konfiguration = konfiguration;
-    }
-
-    /**
-     * Setzt das Feld 'aufrufKontextVerwalter'.
-     * @param aufrufKontextVerwalter
-     *            Neuer Wert für aufrufKontextVerwalter
-     */
-    @Required
-    public void setAufrufKontextVerwalter(AufrufKontextVerwalter<K> aufrufKontextVerwalter) {
-        this.aufrufKontextVerwalter = aufrufKontextVerwalter;
-    }
-
-    /**
-     * Setzt das Feld {@link #aufrufKontextFactory}.
-     * @param aufrufKontextFactory
-     *            Neuer Wert für aufrufKontextFactory
-     */
-    @Required
-    public void setAufrufKontextFactory(AufrufKontextFactory<K> aufrufKontextFactory) {
-        this.aufrufKontextFactory = aufrufKontextFactory;
-    }
-
-    /**
-     * Setzt den Pfad zur Datei mit dem Rollen-Rechte-Mapping.
-     * @param rollenRechteDateiPfad
-     *            Neuer Wert für rollenRechteDateiPfad
-     */
-    @Required
-    public void setRollenRechteDateiPfad(String rollenRechteDateiPfad) {
-        this.rollenRechteDateiPfad = rollenRechteDateiPfad;
-    }
-
-    /**
-     * Setzt den {@link AccessManager}, welcher für das Auslesen der Rollen und Rechte zuständig ist.
-     *
-     * @param accessManager
-     *            AccessManager.
-     */
-    public void setAccessManager(AccessManager<K, E> accessManager) {
-        this.accessManager = accessManager;
-    }
-
-    /**
      * Setzt die Konfiguration des Caches.
      * @param cacheKonfiguration
      *            Die zu setzende Cache-Konfiguration
@@ -302,7 +224,7 @@ public class SicherheitImpl<K extends AufrufKontext, E extends AuthentifzierungE
             throw new InitialisierungsException(
                 SicherheitFehlerSchluessel.MSG_INITIALISIERUNGS_ELEMENT_FEHLT, "rollenRechteDateiPfad");
         }
-        if (null == this.aufrufKontextVerwalter) {
+        if (this.aufrufKontextVerwalter == null) {
             throw new InitialisierungsException(
                 SicherheitFehlerSchluessel.MSG_INITIALISIERUNGS_ELEMENT_FEHLT, "aufrufKontextVerwalter");
         }
@@ -310,12 +232,8 @@ public class SicherheitImpl<K extends AufrufKontext, E extends AuthentifzierungE
         XmlAccess access = new XmlAccess();
         this.mapping = access.parseRollenRechteFile(this.rollenRechteDateiPfad);
 
-        int cacheTimeToLive =
-            this.konfiguration.getAsInteger(SicherheitKonfigurationSchluessel.CONF_CACHE_TTL,
-                CACHE_DEFAULT_TTL);
-        int cacheMaxEntriesInMemory =
-            this.konfiguration.getAsInteger(SicherheitKonfigurationSchluessel.CONF_CACHE_MAX_ELEMENTE,
-                CACHE_DEFAULT_MAX_ENTRIES);
+        int cacheTimeToLive = properties.getTtl();
+        int cacheMaxEntriesInMemory = properties.getMaxelements();
 
         // Wenn kein Cache konfiguriert wurde oder der Cache deaktiviert wurde, wird das Caching abgeschaltet.
         if (cacheTimeToLive == 0) {
@@ -327,72 +245,6 @@ public class SicherheitImpl<K extends AufrufKontext, E extends AuthentifzierungE
         }
 
         LOG.debug("Initialisierung der Sicherheitskomponente beendet.");
-    }
-
-    /**
-     * Hilfsmethode zur Erzeugung eines Aufrufkontext, um veraltetes Authentifzierungsschema mit einzelnen
-     * Parametern anstelle eines AufrufKontext in {@link SicherheitImpl} zu unterstützen.
-     * @see Sicherheit#getBerechtigungsManagerUndAuthentifiziere(String, String, String, String, String) *
-     */
-    @Deprecated
-    public static ZertifikatInfoAufrufKontext erzeugeAufrufKontext(String kennung, String passwort,
-        String clientZertifikat, String clientZertifikatDn, String correlationId) {
-        LOG.debugFachdaten("Erzeuge Berechtigungsmanager mit Authentifizierung für {}", kennung);
-
-        // Prüfung der Parameter
-        if (kennung == null || kennung.isEmpty()) {
-            throw new AuthentifizierungFehlgeschlagenException("Benutzerkennung ist leer.");
-        }
-        if (passwort == null || passwort.isEmpty()) {
-            throw new AuthentifizierungFehlgeschlagenException("Passwort ist leer.");
-        }
-
-        // entweder Zertifikat oder ZertifikatDn (oder beides) muss übergeben werden
-        if ((clientZertifikat == null || clientZertifikat.isEmpty())
-            && (clientZertifikatDn == null || clientZertifikatDn.isEmpty())) {
-            throw new AuthentifizierungFehlgeschlagenException("Client-Zertifikat ist leer.");
-        }
-
-        ZertifikatInfoAufrufKontext kontext = new ZertifikatInfoAufrufKontext();
-        kontext.setDurchfuehrenderBenutzerKennung(kennung);
-        kontext.setDurchfuehrenderBenutzerPasswort(passwort);
-        kontext.setClientZertifikat(clientZertifikat);
-        kontext.setClientZertifikatDn(clientZertifikatDn);
-        kontext.setKorrelationsId(correlationId);
-        return kontext;
-    }
-
-    /**
-     * Hilfsmethode zur Erzeugung eines Aufrufkontext, um veraltetes Authentifzierungsschema mit einzelnen
-     * Parametern anstelle eines AufrufKontext in {@link SicherheitImpl} zu unterstützen.
-     * @see Sicherheit#getBerechtigungsManagerUndAuthentifiziereNutzer(String, String, String, String, String)
-     */
-    @Deprecated
-    public static ZertifikatInfoAufrufKontext erzeugeAufrufKontextNutzer(String kennung, String passwort,
-        String bhknz, String zertifikatOu, String correlationId) {
-
-        // Prüfung der Parameter
-        if (kennung == null || kennung.isEmpty()) {
-            LOG.debug("Authentifizierung fehlgeschlagen. Es wurde keine Benutzerkennung angegeben.");
-            throw new AuthentifizierungFehlgeschlagenException("Benutzerkennung ist leer.");
-        }
-        if (passwort == null || passwort.isEmpty()) {
-            LOG.debug("Authentifizierung fehlgeschlagen. Es wurde kein Passwort angegeben.");
-            throw new AuthentifizierungFehlgeschlagenException("Passwort ist leer.");
-        }
-
-        if (bhknz == null || bhknz.isEmpty()) {
-            LOG.debug("Authentifizierung fehlgeschlagen. Es wurde kein Behoerdenkennzeichen angegeben.");
-            throw new AuthentifizierungFehlgeschlagenException("Behördenkennzeichen ist leer.");
-        }
-
-        ZertifikatInfoAufrufKontext kontext = new ZertifikatInfoAufrufKontext();
-        kontext.setDurchfuehrenderBenutzerKennung(kennung);
-        kontext.setDurchfuehrenderBenutzerPasswort(passwort);
-        kontext.setDurchfuehrendeBehoerde(bhknz);
-        kontext.setKorrelationsId(correlationId);
-        kontext.setZertifikatOu(zertifikatOu);
-        return kontext;
     }
 
     /**

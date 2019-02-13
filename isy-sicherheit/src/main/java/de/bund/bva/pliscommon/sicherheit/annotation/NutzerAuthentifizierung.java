@@ -35,6 +35,6 @@ public @interface NutzerAuthentifizierung {
      * Der Konfigurationsschlüssel der betrieblichen Konfiguration, unter dem die Benutzerdaten zur
      * Authentifizierung abgelegt sind.
      */
-    String konfigurationSchluesselBenutzer();
+    String benutzer();
 
 }

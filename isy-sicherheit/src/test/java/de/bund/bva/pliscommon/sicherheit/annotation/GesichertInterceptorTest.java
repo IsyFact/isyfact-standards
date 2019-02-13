@@ -22,15 +22,22 @@ import de.bund.bva.pliscommon.sicherheit.annotation.bean.ServiceImpl;
 import de.bund.bva.pliscommon.sicherheit.annotation.bean.ServiceIntf;
 import de.bund.bva.pliscommon.sicherheit.common.exception.AutorisierungFehlgeschlagenException;
 import de.bund.bva.pliscommon.sicherheit.common.exception.FehlerhafteServiceKonfigurationRuntimeException;
+import de.bund.bva.pliscommon.sicherheit.config.SicherheitTestConfig;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.util.SimpleMethodInvocation;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
+import org.springframework.test.context.junit4.SpringRunner;
 
-@ContextConfiguration(locations = "/resources/spring/application_interceptor.xml")
-public class GesichertInterceptorTest extends AbstractJUnit4SpringContextTests {
+//@ContextConfiguration(locations = "/resources/spring/application_interceptor.xml")
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = SicherheitTestConfig.class, webEnvironment = SpringBootTest.WebEnvironment.NONE,
+properties = {"isy.logging.anwendung.name=test", "isy.logging.anwendung.typ=test", "isy.logging.anwendung.version=test"})
+public class GesichertInterceptorTest {
 
     @Autowired
     private ServiceIntf testBean;

@@ -52,30 +52,6 @@ public class SicherheitStub implements Sicherheit<AufrufKontext> {
         throw new UnsupportedOperationException();
     }
 
-    @Override
-    public Berechtigungsmanager getBerechtigungsManagerUndAuthentifiziere(String kennung, String passwort,
-        String clientZertifikat, String clientZertifikatDn, String correlationId)
-        throws AuthentifizierungFehlgeschlagenException, AuthentifizierungTechnicalException {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Berechtigungsmanager getBerechtigungsManagerUndAuthentifiziereNutzer(String kennung,
-        String passwort, String bhknz, String zertifikatOu, String correlationId) {
-
-        AufrufKontext aufrufKontext = new AufrufKontextImpl();
-        aufrufKontext.setDurchfuehrenderBenutzerKennung(kennung);
-        aufrufKontext.setDurchfuehrenderBenutzerPasswort(passwort);
-        aufrufKontext.setDurchfuehrendeBehoerde(bhknz);
-        aufrufKontext.setKorrelationsId(correlationId);
-
-        this.aufrufKontextVerwalter.setAufrufKontext(aufrufKontext);
-
-        this.letzterAufrufKontext = aufrufKontext;
-
-        return null;
-    }
-
     /**
      * {@inheritDoc}
      */

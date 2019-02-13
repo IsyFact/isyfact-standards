@@ -61,7 +61,7 @@ public class CacheVerwalterTest {
 		Appender mockAppender = mock(Appender.class);
 		logger.addAppender(mockAppender);
 
-		verwalter.setCacheKonfiguration("/resources/plis-sicherheit/ehcache/sicherheitcache.default.xml");
+		verwalter.setCacheKonfiguration("/resources/isy-sicherheit/ehcache/sicherheitcache.default.xml");
 		verify(mockAppender, times(4)).doAppend(any());
 	}
 	
@@ -72,7 +72,7 @@ public class CacheVerwalterTest {
 		Appender mockAppender = mock(Appender.class);
 		logger.addAppender(mockAppender);
 
-		verwalter.setCacheKonfiguration("/resources/plis-sicherheit/ehcache/sicherheitcache.default2.xml");
+		verwalter.setCacheKonfiguration("/resources/isy-sicherheit/ehcache/sicherheitcache.default2.xml");
 		verify(mockAppender, times(4)).doAppend(any());
 	}
 }

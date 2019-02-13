@@ -16,9 +16,12 @@
  */
 package de.bund.bva.pliscommon.sicherheit.annotation;
 
+import de.bund.bva.pliscommon.sicherheit.config.SicherheitTestConfig;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
@@ -26,9 +29,13 @@ import de.bund.bva.pliscommon.aufrufkontext.stub.AufrufKontextVerwalterStub;
 import de.bund.bva.pliscommon.sicherheit.annotation.bean.ServiceIntf;
 import de.bund.bva.pliscommon.sicherheit.common.exception.AutorisierungFehlgeschlagenException;
 import de.bund.bva.pliscommon.sicherheit.common.exception.FehlerhafteServiceKonfigurationRuntimeException;
+import org.springframework.test.context.junit4.SpringRunner;
 
-@ContextConfiguration(locations = "/resources/spring/application_interceptor.xml")
-public class GesichertTest extends AbstractJUnit4SpringContextTests {
+//@ContextConfiguration(locations = "/resources/spring/application_interceptor.xml")
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = SicherheitTestConfig.class, webEnvironment = SpringBootTest.WebEnvironment.NONE,
+    properties = {"isy.logging.anwendung.name=test", "isy.logging.anwendung.typ=test", "isy.logging.anwendung.version=test"})
+public class GesichertTest {
 
     @Autowired
     private ServiceIntf testBean;

@@ -16,26 +16,21 @@
  */
 package de.bund.bva.pliscommon.sicherheit.impl;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import java.util.HashSet;
 import java.util.Set;
 
+import de.bund.bva.pliscommon.sicherheit.config.IsySicherheitConfigurationProperties;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
 import de.bund.bva.pliscommon.aufrufkontext.impl.AufrufKontextImpl;
 import de.bund.bva.pliscommon.aufrufkontext.impl.AufrufKontextVerwalterImpl;
-import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 import de.bund.bva.pliscommon.sicherheit.Berechtigungsmanager;
 import de.bund.bva.pliscommon.sicherheit.Recht;
 import de.bund.bva.pliscommon.sicherheit.common.exception.RollenRechteMappingException;
+
+import static org.junit.Assert.*;
 
 /**
  * Testet die Implementierung des Berechtigungsmanagers.
@@ -66,9 +61,6 @@ public class BerechtigungsmanagerTest {
     /** die geparste RollenRechteMapping-Datei. */
     private RollenRechteMapping mapping;
 
-    @Autowired
-    private Konfiguration konfiguration;
-
     /**
      * Erstellt den zu Testenden Berechtigungsmanager.
      */
@@ -89,10 +81,10 @@ public class BerechtigungsmanagerTest {
     @Test
     public void testGetRechte() {
         Set<Recht> rechte = this.berechtigungsmanager.getRechte();
-        assertTrue("RechteSet nicht korrekt", rechte.equals(new HashSet<Recht>()));
+        assertEquals("RechteSet nicht korrekt", new HashSet<Recht>(), rechte);
 
         String[] abc = new String[] { "Recht_A", "Recht_B", "Recht_C" };
-        Set<Recht> expected = new HashSet<Recht>();
+        Set<Recht> expected = new HashSet<>();
         for (String recht : abc) {
             expected.add(new RechtImpl(recht, null));
         }
@@ -100,7 +92,7 @@ public class BerechtigungsmanagerTest {
         this.berechtigungsmanager = new BerechtigungsmanagerImpl(this.aufrufKontext.getRolle());
         this.berechtigungsmanager.setRollenRechteMapping(this.mapping);
         rechte = this.berechtigungsmanager.getRechte();
-        assertTrue("RechteSet nicht korrekt", rechte.equals(expected));
+        assertEquals("RechteSet nicht korrekt", expected, rechte);
 
         String[] a = new String[] { "Recht_A" };
         expected = new HashSet<Recht>();
@@ -111,7 +103,7 @@ public class BerechtigungsmanagerTest {
         this.berechtigungsmanager = new BerechtigungsmanagerImpl(this.aufrufKontext.getRolle());
         this.berechtigungsmanager.setRollenRechteMapping(this.mapping);
         rechte = this.berechtigungsmanager.getRechte();
-        assertTrue("RechteSet nicht korrekt", rechte.equals(expected));
+        assertEquals("RechteSet nicht korrekt", expected, rechte);
 
         String[] ac = new String[] { "Recht_A", "Recht_C" };
         expected = new HashSet<Recht>();
@@ -122,7 +114,7 @@ public class BerechtigungsmanagerTest {
         this.berechtigungsmanager = new BerechtigungsmanagerImpl(this.aufrufKontext.getRolle());
         this.berechtigungsmanager.setRollenRechteMapping(this.mapping);
         rechte = this.berechtigungsmanager.getRechte();
-        assertTrue("RechteSet nicht korrekt", rechte.equals(expected));
+        assertEquals("RechteSet nicht korrekt", expected, rechte);
 
     }
 
@@ -200,17 +192,12 @@ public class BerechtigungsmanagerTest {
         aufrufKontext.setRolle(AUFRUF_KONTEXT_ROLLEN);
         aufrufKontext.setRollenErmittelt(true);
 
-        SicherheitImpl sicherheit = new SicherheitImpl();
         AufrufKontextVerwalterImpl aufrufKontextVerwalter = new AufrufKontextVerwalterImpl();
         aufrufKontextVerwalter.setAufrufKontext(aufrufKontext);
-        sicherheit.setAufrufKontextVerwalter(aufrufKontextVerwalter);
-        sicherheit.setRollenRechteDateiPfad(ROLLENRECHTE_PFAD);
-        try {
-            sicherheit.afterPropertiesSet();
-        } catch (NullPointerException e) {
-            // Tue nichts. Dieser Test hat keine Springkonfiguration und die Methode afterPropertiesSet
-            // braucht zwingend eine Instanz von Konfiguration.
-        }
+
+        SicherheitImpl sicherheit = new SicherheitImpl(ROLLENRECHTE_PFAD, aufrufKontextVerwalter, null, null, new IsySicherheitConfigurationProperties());
+        sicherheit.afterPropertiesSet();
+
         Berechtigungsmanager berechtigungsManager = sicherheit.getBerechtigungsManager();
         berechtigungsManager.hatRecht("Dieses Recht kommt in der RollenRechteMappingDatei nicht vor.");
     }

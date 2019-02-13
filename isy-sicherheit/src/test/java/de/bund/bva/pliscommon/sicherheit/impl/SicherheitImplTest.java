@@ -16,14 +16,6 @@
  */
 package de.bund.bva.pliscommon.sicherheit.impl;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import de.bund.bva.pliscommon.konfiguration.common.impl.ReloadablePropertyKonfiguration;
-import de.bund.bva.pliscommon.sicherheit.common.konstanten.SicherheitKonfigurationSchluessel;
-import org.junit.Test;
-
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
 import de.bund.bva.pliscommon.aufrufkontext.impl.AufrufKontextImpl;
 import de.bund.bva.pliscommon.aufrufkontext.impl.AufrufKontextVerwalterImpl;
@@ -31,6 +23,10 @@ import de.bund.bva.pliscommon.sicherheit.Berechtigungsmanager;
 import de.bund.bva.pliscommon.sicherheit.common.exception.AuthentifizierungFehlgeschlagenException;
 import de.bund.bva.pliscommon.sicherheit.common.exception.AuthentifizierungTechnicalException;
 import de.bund.bva.pliscommon.sicherheit.common.exception.InitialisierungsException;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test der Klasse {@link SicherheitImpl}.
@@ -74,32 +70,6 @@ public class SicherheitImplTest extends AbstractSicherheitTest {
         assertEquals(2, this.sicherheit.getBerechtigungsManager().getRollen().size());
     }
 
-    @Test
-    public void testeAuthentifiziereMitParams() throws AuthentifizierungTechnicalException {
-        Berechtigungsmanager berechtigungsManager =
-            this.sicherheit.getBerechtigungsManagerUndAuthentifiziere("kennung", "passwort", "CERT",
-                "CERT-DN", "1234567890");
-        assertNotNull(berechtigungsManager);
-        assertNotNull(berechtigungsManager.getRollen());
-        assertTrue(berechtigungsManager.getRollen().size() > 0);
-    }
-
-    @Test(expected = AuthentifizierungFehlgeschlagenException.class)
-    public void testeAuthentifiziereMitParamsException() {
-        this.testAccessManager.setAuthentifiziereException(new AuthentifizierungFehlgeschlagenException(
-            "Testfehler"));
-        this.sicherheit.getBerechtigungsManagerUndAuthentifiziere("kennung", "passwort", "CERT", "CERT-DN",
-            "1234567890");
-    }
-
-    @Test(expected = AuthentifizierungTechnicalException.class)
-    public void testeAuthentifiziereMitParamsException2() {
-        this.testAccessManager.setAuthentifiziereException(new AuthentifizierungTechnicalException(
-            "Testfehler"));
-        this.sicherheit.getBerechtigungsManagerUndAuthentifiziere("kennung", "passwort", "CERT", "CERT-DN",
-            "1234567890");
-    }
-
     @Test(expected = AuthentifizierungFehlgeschlagenException.class)
     public void testeAuthentifiziereMitKontextException() {
         this.testAccessManager.setAuthentifiziereException(new AuthentifizierungFehlgeschlagenException(
@@ -114,16 +84,6 @@ public class SicherheitImplTest extends AbstractSicherheitTest {
             "Testfehler"));
         this.sicherheit.getBerechtigungsManagerUndAuthentifiziere(this.aufrufKontextFactory
             .erzeugeAufrufKontext());
-    }
-
-    @Test
-    public void testeAuthentifiziereNutzer() {
-        Berechtigungsmanager berechtigungsManager =
-            this.sicherheit.getBerechtigungsManagerUndAuthentifiziereNutzer("kennung", "passwort", "900600",
-                null, "987654321");
-        assertNotNull(berechtigungsManager);
-        assertNotNull(berechtigungsManager.getRollen());
-        assertTrue(berechtigungsManager.getRollen().size() > 0);
     }
 
     @Test
@@ -158,14 +118,13 @@ public class SicherheitImplTest extends AbstractSicherheitTest {
         aufrufKontext.setRolle(new String[] { "Rolle_A", "Rolle_B" });
         aufrufKontext.setRollenErmittelt(true);
         aufrufKontextVerwalterImpl.setAufrufKontext(aufrufKontext);
-        SicherheitImpl sicherheit = new SicherheitImpl();
-        sicherheit.setAufrufKontextVerwalter(aufrufKontextVerwalterImpl);
+        SicherheitImpl sicherheit = new SicherheitImpl(null, aufrufKontextVerwalterImpl, null, null, null);
         sicherheit.afterPropertiesSet();
     }
 
     @Test(expected = InitialisierungsException.class)
     public void testeFehlerAufrufKontextVerwalterNichtGesetzt() throws Exception {
-        SicherheitImpl sicherheit = new SicherheitImpl();
+        SicherheitImpl sicherheit = new SicherheitImpl("/resources/sicherheit/rollenrechte.xml", null, aufrufKontextFactory, testAccessManager, isySicherheitConfigurationProperties);
         sicherheit.afterPropertiesSet();
     }
 
@@ -176,28 +135,26 @@ public class SicherheitImplTest extends AbstractSicherheitTest {
 
     @Test(expected = AuthentifizierungTechnicalException.class)
     public void testGetBerechtigungsmanagerBeiAufrufKontextVerwalterGleichNull(){
-        SicherheitImpl sich = new SicherheitImpl();
+        SicherheitImpl sich = new SicherheitImpl("/resources/sicherheit/rollenrechte.xml", null, aufrufKontextFactory, testAccessManager, isySicherheitConfigurationProperties);
         sich.getBerechtigungsManager();
     }
 
     @Test(expected = AuthentifizierungTechnicalException.class)
     public void testGetBerechtigungsmanagerUndAuthentifiziereBeiAufrufKontextGleichNull(){
-        SicherheitImpl sich = new SicherheitImpl();
-        sich.getBerechtigungsManagerUndAuthentifiziere(null);
+        SicherheitImpl sicherheit = new SicherheitImpl("/resources/sicherheit/rollenrechte.xml", aufrufKontextVerwalter, aufrufKontextFactory, testAccessManager, isySicherheitConfigurationProperties);
+        sicherheit.getBerechtigungsManagerUndAuthentifiziere(null);
     }
 
 
     @Test(expected = InitialisierungsException.class)
     public void testAfterPropertiesSetKeinAufrufKontextVerwalter() throws Exception{
-        SicherheitImpl sich = new SicherheitImpl();
-        sich.setRollenRechteDateiPfad("/resources/sicherheit/rollenrechte.xml");
-        sich.afterPropertiesSet();
+        SicherheitImpl sicherheit = new SicherheitImpl("/resources/sicherheit/rollenrechte.xml", null, null, null, null);
+        sicherheit.afterPropertiesSet();
     }
 
     @Test
     public void testAfterPropertiesSetCacheTTLNull() throws Exception{
-        ReloadablePropertyKonfiguration konf = new ReloadablePropertyKonfiguration(new String[]{"/config/sicherheit.test2.properties"});
-        ((SicherheitImpl)sicherheit).setKonfiguration(konf);
+        isySicherheitConfigurationProperties.setTtl(0);
         ((SicherheitImpl)sicherheit).afterPropertiesSet();
 
         AufrufKontext aufrufKontext = this.aufrufKontextFactory.erzeugeAufrufKontext();

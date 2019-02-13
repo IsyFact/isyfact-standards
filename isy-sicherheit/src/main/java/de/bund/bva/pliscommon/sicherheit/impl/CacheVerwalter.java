@@ -46,7 +46,7 @@ public class CacheVerwalter<E extends AuthentifzierungErgebnis> {
      * Pfad zur Standard-Konfiguration des Cache-Managers.
      */
     private static final String DEFAULT_CACHE_MANAGER_KONFIGURATION_PFAD =
-        "/resources/plis-sicherheit/ehcache/sicherheitcache.default.xml";
+        "/resources/isy-sicherheit/ehcache/sicherheitcache.default.xml";
 
     /** Der Cache-Verwalter. */
     private CacheManager cacheManager;

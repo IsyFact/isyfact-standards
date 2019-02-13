@@ -19,10 +19,10 @@ package de.bund.bva.pliscommon.sicherheit.annotation;
 import java.lang.reflect.Method;
 import java.util.UUID;
 
+import de.bund.bva.pliscommon.sicherheit.config.NutzerAuthentifizierungProperties;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.aop.support.AopUtils;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.core.BridgeMethodResolver;
 import org.springframework.util.ClassUtils;
 
@@ -30,7 +30,6 @@ import de.bund.bva.isyfact.logging.util.MdcHelper;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.pliscommon.aufrufkontext.impl.AufrufKontextImpl;
-import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 import de.bund.bva.pliscommon.sicherheit.Sicherheit;
 import de.bund.bva.pliscommon.sicherheit.common.exception.AnnotationFehltRuntimeException;
 
@@ -49,26 +48,18 @@ import de.bund.bva.pliscommon.sicherheit.common.exception.AnnotationFehltRuntime
 public class NutzerAuthentifizierungInterceptor<K extends AufrufKontext> implements MethodInterceptor {
 
     /** Der AufrufKontextVerwalter. */
-    private AufrufKontextVerwalter<K> aufrufKontextVerwalter;
+    private final AufrufKontextVerwalter<K> aufrufKontextVerwalter;
 
-    /** Die Konfiguration. */
-    private Konfiguration konfiguration;
+    /* Die Benutzerkennungen */
+    private final NutzerAuthentifizierungProperties properties;
 
     /** Die Querschnittskomponente Sicherheit. */
-    private Sicherheit<K> sicherheit;
+    private final Sicherheit<K> sicherheit;
 
-    @Required
-    public void setAufrufKontextVerwalter(AufrufKontextVerwalter<K> aufrufKontextVerwalter) {
+    public NutzerAuthentifizierungInterceptor(AufrufKontextVerwalter<K> aufrufKontextVerwalter,
+        NutzerAuthentifizierungProperties properties, Sicherheit<K> sicherheit) {
         this.aufrufKontextVerwalter = aufrufKontextVerwalter;
-    }
-
-    @Required
-    public void setKonfiguration(Konfiguration konfiguration) {
-        this.konfiguration = konfiguration;
-    }
-
-    @Required
-    public void setSicherheit(Sicherheit<K> sicherheit) {
+        this.properties = properties;
         this.sicherheit = sicherheit;
     }
 
@@ -113,10 +104,10 @@ public class NutzerAuthentifizierungInterceptor<K extends AufrufKontext> impleme
                 invocation.getMethod().toString());
         }
 
-        String konfigSchluesselPraefix = ann.konfigurationSchluesselBenutzer();
-        String kennung = this.konfiguration.getAsString(konfigSchluesselPraefix + ".kennung");
-        String passwort = this.konfiguration.getAsString(konfigSchluesselPraefix + ".passwort");
-        String bhknz = this.konfiguration.getAsString(konfigSchluesselPraefix + ".bhknz");
+        String konfigSchluesselPraefix = ann.benutzer();
+        String kennung = properties.getBenutzer().get(konfigSchluesselPraefix).getKennung();
+        String passwort = properties.getBenutzer().get(konfigSchluesselPraefix).getPasswort();
+        String bhknz = properties.getBenutzer().get(konfigSchluesselPraefix).getBhknz();
 
         // Benutzer authentifizieren und AufrufKontextVerwalter befüllen
         // sicherheit.getBerechtigungsManagerUndAuthentifiziereNutzer(kennung, passwort, bhknz, null,

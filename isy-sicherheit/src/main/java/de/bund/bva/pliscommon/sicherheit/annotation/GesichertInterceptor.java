@@ -16,10 +16,12 @@
  */
 package de.bund.bva.pliscommon.sicherheit.annotation;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.aop.support.AopUtils;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.core.Ordered;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
@@ -40,7 +42,7 @@ public class GesichertInterceptor implements MethodInterceptor, Ordered {
     private static IsyLogger LOG = IsyLoggerFactory.getLogger(GesichertInterceptor.class);
 
     /** Zugriff auf die Komponete zur Autorisierung. */
-    private Sicherheit<?> sicherheit;
+    private final Sicherheit<?> sicherheit;
 
     /**
      * Ermittelt die benötigten Rechte zu einer Methode. Default: Rechte werden aus der Annotation @Gesichert
@@ -48,8 +50,7 @@ public class GesichertInterceptor implements MethodInterceptor, Ordered {
      */
     private SicherheitAttributeSource sicherheitAttributeSource = new AnnotationSicherheitAttributeSource();
 
-    @Required
-    public void setSicherheit(Sicherheit<?> sicherheit) {
+    public GesichertInterceptor(Sicherheit<?> sicherheit) {
         this.sicherheit = sicherheit;
     }
 
@@ -87,23 +88,12 @@ public class GesichertInterceptor implements MethodInterceptor, Ordered {
         return invocation.proceed();
     }
 
-    // XXX: Use Guava Joiner ?
     private String join(String... benoetigeRechte) {
         if (benoetigeRechte == null || benoetigeRechte.length == 0) {
             return "(keine)";
+        } else {
+            return Arrays.stream(benoetigeRechte).map(r -> "'" + r + "'").collect(Collectors.joining(", "));
         }
-
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < benoetigeRechte.length; i++) {
-            String recht = benoetigeRechte[i];
-            if (i > 0) {
-                sb.append(", ");
-            }
-            sb.append("'");
-            sb.append(recht);
-            sb.append("'");
-        }
-        return sb.toString();
     }
 
     @Override

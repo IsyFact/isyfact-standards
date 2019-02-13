@@ -16,23 +16,23 @@
  */
 package de.bund.bva.pliscommon.sicherheit.impl;
 
-import static org.junit.Assert.assertTrue;
-
+import de.bund.bva.pliscommon.sicherheit.SicherheitAdmin;
+import de.bund.bva.pliscommon.sicherheit.config.SicherheitTestConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
-import de.bund.bva.pliscommon.sicherheit.SicherheitAdmin;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Testfälle für das pingen des Policy Servers.
- *
- *
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "/resources/spring/application_interceptor.xml")
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = SicherheitTestConfig.class, webEnvironment = SpringBootTest.WebEnvironment.NONE, properties = {
+    "isy.logging.anwendung.name=test", "isy.logging.anwendung.typ=test",
+    "isy.logging.anwendung.version=test" })
 public class SicherheitAdminImplTest {
 
     @Autowired

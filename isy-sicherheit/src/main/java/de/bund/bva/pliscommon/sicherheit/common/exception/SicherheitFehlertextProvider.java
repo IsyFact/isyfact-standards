@@ -33,7 +33,7 @@ public class SicherheitFehlertextProvider implements de.bund.bva.pliscommon.exce
      * Das ResourceBoundle mit den Fehlertexten der Proxy-API.
      */
     public static final ResourceBundle FEHLERTEXT_BUNDLE =
-        ResourceBundle.getBundle("resources/plis-sicherheit/nachrichten/sicherheitfehler", Locale.GERMANY);
+        ResourceBundle.getBundle("resources/isy-sicherheit/nachrichten/sicherheitfehler", Locale.GERMANY);
 
     /**
      * liest Nachricht aus und ersetzt die Platzhalter durch die übergebenen Parameter.
