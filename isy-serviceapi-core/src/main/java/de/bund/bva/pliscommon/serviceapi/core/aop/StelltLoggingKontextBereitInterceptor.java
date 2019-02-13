@@ -19,7 +19,9 @@ package de.bund.bva.pliscommon.serviceapi.core.aop;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
+
 import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
+
 import de.bund.bva.pliscommon.util.common.konstanten.EreignisSchluessel;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
@@ -87,7 +89,7 @@ public class StelltLoggingKontextBereitInterceptor implements MethodInterceptor 
         if (nutzeAufrufKontext) {
             if (aufrufKontextTo != null) {
                 if (StringUtils.isEmpty(aufrufKontextTo.getKorrelationsId())) {
-                    LOG.warn(EreignisSchluessel.KEINE_KORRELATAIONSID_IM_AUFRUFKONTEXT_UEBERMITTELT,
+                    LOG.warn(EreignisSchluessel.KEINE_KORRELATIONSID_IM_AUFRUFKONTEXT_UEBERMITTELT,
                         "Es wurde keine Korrelations-ID im AufrufKontext übermittelt. Erzeuge neue Korrelations-ID.");
                     korrelationsId = UUID.randomUUID().toString();
                     aufrufKontextTo.setKorrelationsId(korrelationsId);

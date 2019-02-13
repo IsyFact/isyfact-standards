@@ -71,6 +71,11 @@
             <artifactId>isy-aufrufkontext</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>de.bund.bva.isyfact</groupId>
+            <artifactId>isy-util</artifactId>
+        </dependency>
+
         <!-- Dozer (Bean Mapping) für Parametertransformationen in der Service-Impl. -->
         <dependency>
             <groupId>net.sf.dozer</groupId>

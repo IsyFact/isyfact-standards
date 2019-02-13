@@ -22,6 +22,6 @@ package de.bund.bva.pliscommon.util.common.konstanten;
 public class EreignisSchluessel {
 
     /** Es wurde ein AufrufKontext ohne Korrelations-ID übermittelt. Erzeuge neue Korrelations-ID. */
-    public static final String KEINE_KORRELATAIONSID_IM_AUFRUFKONTEXT_UEBERMITTELT = "EPLUTL00001";
+    public static final String KEINE_KORRELATIONSID_IM_AUFRUFKONTEXT_UEBERMITTELT = "EPLUTL00001";
 
 }

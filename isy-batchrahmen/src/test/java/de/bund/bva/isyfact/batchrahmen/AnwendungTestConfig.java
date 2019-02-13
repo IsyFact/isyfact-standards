@@ -8,9 +8,9 @@ import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextFactory;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.pliscommon.aufrufkontext.impl.AufrufKontextFactoryImpl;
 import de.bund.bva.pliscommon.aufrufkontext.impl.AufrufKontextVerwalterImpl;
-import de.bund.bva.pliscommon.konfiguration.common.impl.ReloadablePropertyKonfiguration;
 import de.bund.bva.pliscommon.sicherheit.Sicherheit;
 import de.bund.bva.pliscommon.sicherheit.annotation.GesichertInterceptor;
+import de.bund.bva.pliscommon.sicherheit.config.IsySicherheitConfigurationProperties;
 import de.bund.bva.pliscommon.sicherheit.impl.SicherheitImpl;
 import org.h2.jdbcx.JdbcDataSource;
 import org.springframework.aop.Advisor;
@@ -19,10 +19,7 @@ import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.context.annotation.ImportResource;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
@@ -87,23 +84,18 @@ public class AnwendungTestConfig {
     }
 
     @Bean
-    public Sicherheit sicherheit(AccessManagerStub accessManagerStub, AufrufKontextFactory aufrufKontextFactory, AufrufKontextVerwalter aufrufKontextVerwalter) {
-        SicherheitImpl sicherheit = new SicherheitImpl();
+    public IsySicherheitConfigurationProperties isySicherheitConfigurationProperties() {
+        return new IsySicherheitConfigurationProperties();
+    }
 
-        sicherheit.setAccessManager(accessManagerStub);
-        sicherheit.setAufrufKontextFactory(aufrufKontextFactory);
-        sicherheit.setAufrufKontextVerwalter(aufrufKontextVerwalter);
-        sicherheit.setKonfiguration(new ReloadablePropertyKonfiguration(new String[] {}));
-        sicherheit.setRollenRechteDateiPfad("/resources/sicherheit/rollenrechte.xml");
-
-        return sicherheit;
+    @Bean
+    public Sicherheit sicherheit(AccessManagerStub accessManagerStub, AufrufKontextFactory aufrufKontextFactory, AufrufKontextVerwalter aufrufKontextVerwalter, IsySicherheitConfigurationProperties properties) {
+        return new SicherheitImpl("/resources/sicherheit/rollenrechte.xml", aufrufKontextVerwalter, aufrufKontextFactory, accessManagerStub, properties);
     }
 
     @Bean
     public GesichertInterceptor gesichertInterceptor(Sicherheit sicherheit) {
-        GesichertInterceptor gesichertInterceptor = new GesichertInterceptor();
-        gesichertInterceptor.setSicherheit(sicherheit);
-
+        GesichertInterceptor gesichertInterceptor = new GesichertInterceptor(sicherheit);
         return gesichertInterceptor;
     }
 

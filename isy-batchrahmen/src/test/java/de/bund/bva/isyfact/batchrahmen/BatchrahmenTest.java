@@ -29,18 +29,17 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
 import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-    TransactionalTestExecutionListener.class })
+/* @SpringBootTest(classes = AnwendungTestConfig.class, webEnvironment = SpringBootTest.WebEnvironment.NONE, properties = {
+    "isy.logging.anwendung.name=test", "isy.logging.anwendung.typ=test",
+    "isy.logging.anwendung.version=test" })*/
 @ContextConfiguration(classes = AnwendungTestConfig.class)
 public class BatchrahmenTest {
 
@@ -52,17 +51,11 @@ public class BatchrahmenTest {
 
     @Before
     public void init() {
-        jdbcTemplate.execute("DROP TABLE IF EXISTS BATCHSTATUS;"
-                               + "CREATE TABLE IF NOT EXISTS BATCHSTATUS ("
-                               +   "BATCHID VARCHAR2(255) NOT NULL,"
-                               +   "BATCHNAME VARCHAR2(255),"
-                               +   "BATCHSTATUS VARCHAR2(255),"
-                               +   "SATZNUMMERLETZTESCOMMIT BIGINT,"
-                               +   "SCHLUESSELLETZTESCOMMIT VARCHAR2(255),"
-                               +   "DATUMLETZTERSTART TIMESTAMP,"
-                               +   "DATUMLETZTERABBRUCH TIMESTAMP,"
-                               +   "DATUMLETZTERERFOLG TIMESTAMP,"
-                               +   "CONSTRAINT BATCHSTATUS_PK PRIMARY KEY (BATCHID));");
+        jdbcTemplate.execute("DROP TABLE IF EXISTS BATCHSTATUS;" + "CREATE TABLE IF NOT EXISTS BATCHSTATUS ("
+            + "BATCHID VARCHAR2(255) NOT NULL," + "BATCHNAME VARCHAR2(255)," + "BATCHSTATUS VARCHAR2(255),"
+            + "SATZNUMMERLETZTESCOMMIT BIGINT," + "SCHLUESSELLETZTESCOMMIT VARCHAR2(255),"
+            + "DATUMLETZTERSTART TIMESTAMP," + "DATUMLETZTERABBRUCH TIMESTAMP,"
+            + "DATUMLETZTERERFOLG TIMESTAMP," + "CONSTRAINT BATCHSTATUS_PK PRIMARY KEY (BATCHID));");
         //jdbcTemplate.execute("DELETE FROM batchstatus");
 
         try {

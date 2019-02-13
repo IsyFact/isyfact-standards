@@ -10,6 +10,7 @@ import de.bund.bva.pliscommon.konfiguration.common.impl.ReloadablePropertyKonfig
 import de.bund.bva.pliscommon.sicherheit.Sicherheit;
 import de.bund.bva.pliscommon.sicherheit.accessmgr.AccessManager;
 import de.bund.bva.pliscommon.sicherheit.annotation.GesichertInterceptor;
+import de.bund.bva.pliscommon.sicherheit.config.IsySicherheitConfigurationProperties;
 import de.bund.bva.pliscommon.sicherheit.impl.SicherheitImpl;
 import de.bund.bva.pliscommon.util.spring.MessageSourceHolder;
 import org.springframework.aop.Advisor;
@@ -30,47 +31,13 @@ public class TestConfig {
     }
 
     @Bean
-    public Sicherheit sicherheit(AufrufKontextVerwalter aufrufKontextVerwalter, AufrufKontextFactory aufrufKontextFactory, AccessManager accessManager) {
-        SicherheitImpl sicherheit = new SicherheitImpl();
-        sicherheit.setAufrufKontextVerwalter(aufrufKontextVerwalter);
-        sicherheit.setAufrufKontextFactory(aufrufKontextFactory);
-        sicherheit.setKonfiguration(new ReloadablePropertyKonfiguration(new String[] {}));
-        sicherheit.setAccessManager(accessManager);
-        sicherheit.setRollenRechteDateiPfad("/sicherheit/rollenrechte.xml");
-
-        return sicherheit;
+    public Sicherheit sicherheit(AufrufKontextVerwalter aufrufKontextVerwalter, AufrufKontextFactory aufrufKontextFactory, AccessManager accessManager, IsySicherheitConfigurationProperties properties) {
+        return new SicherheitImpl("/sicherheit/rollenrechte.xml", aufrufKontextVerwalter, aufrufKontextFactory, accessManager, properties);
     }
 
     @Bean
     public AufrufKontextVerwalter aufrufKontextVerwalter() {
         return new AufrufKontextVerwalterImpl();
-    }
-
-    @Bean
-    public AufrufKontextFactory aufrufKontextFactory() {
-        AufrufKontextFactoryImpl aufrufKontextFactory = new AufrufKontextFactoryImpl();
-        aufrufKontextFactory.setAufrufKontextKlasse(AufrufKontextImpl.class);
-
-        return aufrufKontextFactory;
-    }
-
-    // TODO: Nach Autokonfiguration isy-sicherheit entfernen
-    @Bean
-    public GesichertInterceptor gesichertInterceptor(Sicherheit sicherheit) {
-        GesichertInterceptor gesichertInterceptor = new GesichertInterceptor();
-        gesichertInterceptor.setSicherheit(sicherheit);
-
-        return gesichertInterceptor;
-    }
-
-    // TODO: Nach Autokonfiguration isy-sicherheit entfernen
-    @Bean
-    public Advisor gesichertAdvisor(GesichertInterceptor gesichertInterceptor) {
-        AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
-        pointcut.setExpression("@annotation(de.bund.bva.pliscommon.sicherheit.annotation.Gesichert) || @within(de.bund.bva.pliscommon.sicherheit.annotation.Gesichert)");
-        DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor(pointcut, gesichertInterceptor);
-
-        return advisor;
     }
 
     @Bean
