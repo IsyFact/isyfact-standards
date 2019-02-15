@@ -162,6 +162,19 @@ public class UeberwachungConfig {
 === 3.6.5 Konfiguration des Caches
 * Die Properties für die Konfiguration des Caches lauten `isy.sicherheit.cache.ttl` und `isy.sicherheit.cache.maxelements`.
 
+[[konfiguration]]
+== Neuerungen isy-konfiguration 2.0
+
+4.3.1.3 Implementierungsvorgaben für Property-Dateien
+
+* Die Bean `konfiguration` wird automatisch erstellt, sobald die Property `isy.konfiguration.properties` in `application.properties` gesetzt wird.
+* Die Property `isy.konfiguration.properties` enhält eine Liste von Pfaden zu Property-Dateien, die von Konfiguration gelesen werden sollen.
+[source]
+----
+isy.konfiguration.properties=/config/config_A.properties, /config/config_B.properties
+----
+
+
 [[anwendung]]
 == Neuerungen Anwendungskonfiguration / Spring
 
