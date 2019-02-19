@@ -9,6 +9,7 @@ import org.springframework.aop.Advisor;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.beans.factory.config.CustomScopeConfigurer;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +18,7 @@ import org.springframework.context.support.SimpleThreadScope;
 
 @Configuration
 @EnableConfigurationProperties
+@ConditionalOnBean(Sicherheit.class)
 public class IsySicherheitAutoConfiguration {
 
     @Bean

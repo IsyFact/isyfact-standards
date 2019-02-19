@@ -5,8 +5,22 @@
 
 === 6. Verwendung von JPA in der Anwendung
 * `isy-persistence` setzt auf die Verwendung von Spring Data (https://docs.spring.io/spring-data/jpa/docs/current/reference/html/).
+* Neue DAOs werden von `CrudRepository` abgeleitet.
+  Wird Sortier- und Paging-Funktionalität benötigt, wird von `PagingAndSortingRepository` abgeleitet.
 * Die Definition der Query wird vom Methodenamen abegeleitet. Bei Ausnahmen wird `@Query` verwendet.
+* Die Interfaces von DAOs sind mit `@Repository` zu annotieren.
 * Die von `isy-persistence` bereitgestellen abstrakten Klassen und Interfaces (`Dao`, `AbstractDao`) sind nur aus Gründen der Abwärtskompatibilität enthalten.
+* Die Beans für die DAOs werden automatisch von Spring erzeugt.
+  Dazu wird die Annotation `EnableJpaRepositories` verwendet.
+
+[source,java]
+----
+@Configuration
+@EnableJpaRepositories(basePackages = {"de.if2application.persistence"})
+@EntityScan("de.if2application.persistence")
+public class PersistenceConfig { }
+----
+
 
 === 6.3 Ablage von Query-Definitionen in Konfigurationsdatei
 * NamedQueries werden über Annotationen an den Entitätsklasssen definiert und nicht mehr in XML abgelegt.
@@ -305,4 +319,37 @@ public HttpInvokerServiceExporter meldung() {
 === 6.2.1. Konfigurationsdatei und Kommandozeilenparameter
 * Die Property, mit der die Konfiguration für Spring-Kontexte angegeben werden, enthält nicht mehr einen Pfad zu einer XML-Konfigurationsdatei, sondern den voll qualifizierten Namen einer Java-Konfigurationsklasse (`@Configuration`).
 
-// TODO: Beschreibung für Annotationen BatchKonfig/AnwendungsKonfig
+// TODO: Beschreibung für Annotationen NichtInBatchKonfig/AnwendungsKonfig
+
+== Neuerungen in isy-polling 2.0
+
+=== 4.1 Anwendungskonfiguration
+
+Die Properties zur Konfiguration von `isy-polling` haben folgendes Schema.
+Die Listen kommaseparierter IDs entfallen.
+
+[source]
+----
+isy.polling.jmx.verbindungen.server1.host = host1
+isy.polling.jmx.verbindungen.server1.port = 9001
+isy.polling.jmx.verbindungen.server1.benutzer = userid1
+isy.polling.jmx.verbindungen.server1.passwort = pwd1
+
+isy.polling.jmx.verbindungen.server2.host = host2
+isy.polling.jmx.verbindungen.server2.port = 9002
+isy.polling.jmx.verbindungen.server2.benutzer = userid2
+isy.polling.jmx.verbindungen.server2.passwort = pwd2
+
+isy.polling.cluster.POSTFACH1_CLUSTER.name = Postfachabruf-1
+isy.polling.cluster.POSTFACH1_CLUSTER.wartezeit = 600
+isy.polling.cluster.POSTFACH2_CLUSTER.name = Postfachabruf-2
+isy.polling.cluster.POSTFACH2_CLUSTER.wartezeit = 700
+isy.polling.cluster.POSTFACH2_CLUSTER.jmxverbindungen = server1,server2
+----
+
+=== 4.2 Spring Konfiguration
+
+* Die Bean `pollingVerwalter` wird automatisch erstellt.
+  Die Konfiguration der JMX-Domain erfolgt über die Property `isy.polling.jmx.domain` in `application.properties`.
+* Die MBeans und der MBeanExporter werden manuell über Java-Config konfiguriert.
+* Der `PollingAktion`-Interceptor zur Verwendung der Annotation `@PollingAktion` wird automatisch konfiguriert.
