@@ -18,6 +18,7 @@ package de.bund.bva.isyfact.batchrahmen.batch.konfiguration;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -42,11 +43,8 @@ public class BatchKonfiguration {
     /** Property-Namenprefix fuer die Spring-Dateien des Rahmens. */
     private static final String PROPERTY_BATCHRAHMEN_SPRING_DATEIEN = "Batchrahmen.SpringDateien.";
 
-    /** Property-Namenprefix für die Konfigurations-Dateien, welche definierte Spring-Profile beinhalten. */
-    private static final String PROPERTY_SPRINGPROFILES_DATEIEN = "SpringProfiles.PropertyDatei.";
-
-    /** Property-Namenprefix für die Properties (Schlüssel), welche definierte Spring-Profile beinhalten. */
-    private static final String PROPERTY_SPRINGPROFILES_PROPERTIES = "SpringProfiles.Property.";
+    /** Property-Name für die Property (Schlüssel), welche die aktiven Spring-Profile beinhaltet. */
+    private static final String PROPERTY_SPRINGPROFILES_PROPERTIES = "SpringProfiles";
 
     /** Inhalt der Property-Datei. */
     private Properties properties;
@@ -88,23 +86,17 @@ public class BatchKonfiguration {
     }
 
     /**
-     * Liest die Schlüssel aus, welche die Pfade zu Property-Dateien definieren, die die Spring-Profiles
-     * konfigurieren. Die Schlüssel werden konfiguriert durch <tt>SpringProfiles.PropertyDatei.&lt;N&gt;</tt>.
+     * Liest die konfigurierten Spring-Profile.
      *
-     * @return Liste der Property-Schlüssel.
+     * @return Liste der aktiven Spring-Profile.
      */
-    public String[] getSpringProfilesKonfigFiles() {
-        return getNumberedPropertyValues(PROPERTY_SPRINGPROFILES_DATEIEN);
-    }
-
-    /**
-     * Liest die Schlüssel aus, welche in den Property-Dateien die Spring-Profiles definieren. Die Schlüssel
-     * werden konfiguriert durch <tt>SpringProfiles.Property.&lt;N&gt;</tt>.
-     *
-     * @return Liste der Property-Schlüssel.
-     */
-    public String[] getSpringProfilesProperties() {
-        return getNumberedPropertyValues(PROPERTY_SPRINGPROFILES_PROPERTIES);
+    public String[] getSpringProfiles() {
+        String profiles = properties.getProperty(PROPERTY_SPRINGPROFILES_PROPERTIES);
+        if (profiles != null) {
+            return properties.getProperty(PROPERTY_SPRINGPROFILES_PROPERTIES).trim().split(",");
+        } else {
+            return new String[] {};
+        }
     }
 
     /**
@@ -116,35 +108,13 @@ public class BatchKonfiguration {
      * @return die Liste der Werte.
      */
     private String[] getNumberedPropertyValues(String prefix) {
-        ArrayList<String> values = new ArrayList<String>();
+        List<String> values = new ArrayList<>();
         int i = 1;
         while (this.properties.containsKey(prefix + i)) {
             values.add(this.properties.getProperty(prefix + i));
             i++;
         }
-        return values.toArray(new String[values.size()]);
-    }
-
-    /**
-     * Liefert den angegebenen Konfigurationsparameter als int zurück.
-     *
-     * @param name
-     *            Der Name des Konfigurationsparameters, wie er in den Properties enthalten ist.
-     * @throws BatchrahmenKonfigurationException
-     *             Wenn der Konfigurationsparameter nicht gesetzt oder in ein Integer konvertiert werden kann.
-     * @return Den Konfigurationsparameter als int.
-     */
-    public int getAsInteger(String name) {
-        if (!this.properties.containsKey(name)) {
-            throw new BatchrahmenKonfigurationException(NachrichtenSchluessel.ERR_KONF_PARAMETER_FEHLT, name);
-        }
-        String propValue = this.properties.getProperty(name);
-        try {
-            return Integer.parseInt(propValue);
-        } catch (NumberFormatException ex) {
-            throw new BatchrahmenKonfigurationException(NachrichtenSchluessel.ERR_KONF_PARAMETER_UNGUELTIG,
-                ex, propValue, name);
-        }
+        return values.toArray(new String[] {});
     }
 
     /**

@@ -318,8 +318,7 @@ public HttpInvokerServiceExporter meldung() {
 
 === 6.2.1. Konfigurationsdatei und Kommandozeilenparameter
 * Die Property, mit der die Konfiguration für Spring-Kontexte angegeben werden, enthält nicht mehr einen Pfad zu einer XML-Konfigurationsdatei, sondern den voll qualifizierten Namen einer Java-Konfigurationsklasse (`@Configuration`).
-
-// TODO: Beschreibung für Annotationen NichtInBatchKonfig/AnwendungsKonfig
+* Sollen Beans für den Batch-Lauf nicht im Anwendungskontext erzeugt werden, können sie mit der Annotation `ExcludeFromBatchContext` annotiert werden.
 
 == Neuerungen in isy-polling 2.0
 

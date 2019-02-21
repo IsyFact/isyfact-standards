@@ -17,11 +17,12 @@
 package de.bund.bva.isyfact.batchrahmen.core.launcher;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.net.URL;
-import java.util.Properties;
 
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.classic.joran.JoranConfigurator;
+import ch.qos.logback.core.joran.spi.JoranException;
 import de.bund.bva.isyfact.batchrahmen.batch.exception.BatchAusfuehrungsException;
 import de.bund.bva.isyfact.batchrahmen.batch.konfiguration.BatchKonfiguration;
 import de.bund.bva.isyfact.batchrahmen.batch.konstanten.BatchRahmenEreignisSchluessel;
@@ -36,21 +37,14 @@ import de.bund.bva.isyfact.batchrahmen.core.exception.BatchrahmenProtokollExcept
 import de.bund.bva.isyfact.batchrahmen.core.konstanten.NachrichtenSchluessel;
 import de.bund.bva.isyfact.batchrahmen.core.protokoll.DefaultBatchErgebnisProtokoll;
 import de.bund.bva.isyfact.batchrahmen.core.rahmen.Batchrahmen;
-import de.bund.bva.isyfact.batchrahmen.core.rahmen.impl.BatchrahmenPropertySource;
-import org.slf4j.LoggerFactory;
-import org.springframework.boot.Banner;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.core.env.PropertySource;
-
-import ch.qos.logback.classic.LoggerContext;
-import ch.qos.logback.classic.joran.JoranConfigurator;
-import ch.qos.logback.core.joran.spi.JoranException;
-
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.pliscommon.sicherheit.common.exception.SicherheitTechnicalRuntimeException;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.Banner;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ConfigurableApplicationContext;
 
 /**
  * Diese Klasse startet einen Batch (siehe {@link Batchrahmen} mit der ï¿½bergebenen Konfiguration. Die
@@ -274,12 +268,12 @@ public class BatchLauncher {
             System.err.println(e.getMessage());
         }
 
-
         ConfigurableApplicationContext
-            rahmen = new SpringApplicationBuilder().sources(anwendungContextConfig, batchContextConfig).bannerMode(
-            Banner.Mode.OFF).run();
-        rahmen.registerShutdownHook();
-        setzeSpringProfiles(rahmen);
+            rahmen = new SpringApplicationBuilder().sources(anwendungContextConfig, batchContextConfig)
+                                                   .bannerMode(Banner.Mode.OFF)
+                                                   .registerShutdownHook(true)
+                                                   .profiles(rahmenKonfiguration.getSpringProfiles())
+                                                   .run();
 
         String rahmenBeanName =
             this.rahmenKonfiguration.getAsString(KonfigurationSchluessel.PROPERTY_BATCHRAHMEN_BEAN_NAME,
@@ -291,20 +285,4 @@ public class BatchLauncher {
             rahmen.close();
         }
     }
-
-    /**
-     * Setzt die Spring-Profile im ApplicationContext über eine Property-Source.
-     *
-     * @param applicationContext
-     *            Spring-ApplicationContext.
-     */
-    private void setzeSpringProfiles(ConfigurableApplicationContext applicationContext) {
-        PropertySource<Properties> ps =
-            new BatchrahmenPropertySource(this.rahmenKonfiguration.getSpringProfilesKonfigFiles(),
-                this.rahmenKonfiguration.getSpringProfilesProperties());
-        // aktive Profile werden nur über die Property-Source gesteurt, deshalb alle anderen entfernen
-        applicationContext.getEnvironment().setActiveProfiles();
-        applicationContext.getEnvironment().getPropertySources().addFirst(ps);
-    }
-
 }
