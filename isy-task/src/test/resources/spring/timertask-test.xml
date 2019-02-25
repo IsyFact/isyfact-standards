@@ -13,7 +13,7 @@
 
     <bean id="konfiguration" class="org.mockito.Mockito" factory-method="mock">
         <constructor-arg
-                value="de.bund.bva.isyfact.konfiguration.common.impl.ReloadablePropertyKonfiguration"/>
+                value="de.bund.bva.pliscommon.konfiguration.common.impl.ReloadablePropertyKonfiguration"/>
     </bean>
 
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
