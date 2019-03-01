@@ -40,9 +40,6 @@ public class OracleDataSourceProperties {
     @NotEmpty
     private String databaseUrl;
 
-    /** Default-Schema für die Anwendung. */
-    private String databaseSchemaDefault;
-
     /** Anzahl der initialen Connections im Connection Pool. */
     private int poolInitialSize = 2;
 
@@ -201,14 +198,6 @@ public class OracleDataSourceProperties {
 
     public void setDatabaseUrl(String databaseUrl) {
         this.databaseUrl = databaseUrl;
-    }
-
-    public String getDatabaseSchemaDefault() {
-        return this.databaseSchemaDefault;
-    }
-
-    public void setDatabaseSchemaDefault(String databaseSchemaDefault) {
-        this.databaseSchemaDefault = databaseSchemaDefault;
     }
 
     public int getPoolInitialSize() {
