@@ -37,7 +37,7 @@ cache:
   dependencies:
    - build
   script:
-   - mvn -q -am -pl "${CI_JOB_NAME//test:/}" -Dmaven.test.skip=true -Dmaven.javadoc.skip=true $MAVEN_CLI_OPTS install
+   - mvn -q -am -pl isyfact-products-bom,isyfact-standards-bom -Dmaven.test.skip=true -Dmaven.javadoc.skip=true $MAVEN_CLI_OPTS install
    - mvn -q $MAVEN_CLI_OPTS clean
    - mvn -pl "${CI_JOB_NAME//test:/}" $MAVEN_CLI_OPTS org.jacoco:jacoco-maven-plugin:prepare-agent -Dmaven.surefire.argline='@{argLine} -Xmx1g -Dfile.encoding=${project.build.sourceEncoding}' test org.jacoco:jacoco-maven-plugin:report
   after_script:
@@ -46,6 +46,15 @@ cache:
    - mvn -am -pl "${CI_JOB_NAME//test:/}" $MAVEN_CLI_OPTS surefire-report:report-only
    - mvn -am -pl "${CI_JOB_NAME//test:/}" -DgenerateReports=false $MAVEN_CLI_OPTS site
    - '[[ -f ./${CI_JOB_NAME//test:/}/target/site/jacoco/index.html ]] && echo Code coverage:$(egrep "([0-9]{1,3}%)" ./${CI_JOB_NAME//test:/}/target/site/jacoco/index.html -o -h |  head -1)'
+
+.testtemplate2: &testvorlage2
+  <<: *testvorlage
+  script:
+   - mvn -q -am -pl isyfact-products-bom,isyfact-standards-bom -Dmaven.test.skip=true -Dmaven.javadoc.skip=true $MAVEN_CLI_OPTS install
+   - mvn -q -am -pl "${CI_JOB_NAME//test:/}" -Dmaven.test.skip=true -Dmaven.javadoc.skip=true $MAVEN_CLI_OPTS install
+   - mvn -q $MAVEN_CLI_OPTS clean
+   - mvn -pl "${CI_JOB_NAME//test:/}" $MAVEN_CLI_OPTS org.jacoco:jacoco-maven-plugin:prepare-agent -Dmaven.surefire.argline='@{argLine} -Xmx1g -Dfile.encoding=${project.build.sourceEncoding}' test org.jacoco:jacoco-maven-plugin:report
+
 
 
 #Buildstage
@@ -62,10 +71,10 @@ build:
 
 #Teststage
 test:isy-aufrufkontext:
-  <<: *testvorlage
+  <<: *testvorlage2
 
 test:isy-batchrahmen:
-  <<: *testvorlage
+  <<: *testvorlage2
 
 test:isy-datetime:
   <<: *testvorlage
@@ -77,37 +86,37 @@ test:isy-exception-sst:
   <<: *testvorlage
 
 test:isy-konfiguration:
-  <<: *testvorlage
+  <<: *testvorlage2
 
 test:isy-logging:
-  <<: *testvorlage
+  <<: *testvorlage2
 
 test:isy-persistence:
-  <<: *testvorlage
+  <<: *testvorlage2
 
 test:isy-polling:
-  <<: *testvorlage
+  <<: *testvorlage2
 
 test:isy-serviceapi-core:
-  <<: *testvorlage
+  <<: *testvorlage2
 
 test:isy-serviceapi-sst:
-  <<: *testvorlage
+  <<: *testvorlage2
 
 test:isy-sicherheit:
-  <<: *testvorlage
+  <<: *testvorlage2
 
 test:isy-sonderzeichen:
-  <<: *testvorlage
+  <<: *testvorlage2
 
 test:isy-task:
-  <<: *testvorlage
+  <<: *testvorlage2
 
 test:isy-ueberwachung:
-  <<: *testvorlage
+  <<: *testvorlage2
 
 test:isy-util:
-  <<: *testvorlage
+  <<: *testvorlage2
 
 package:
   <<: *vorlage
