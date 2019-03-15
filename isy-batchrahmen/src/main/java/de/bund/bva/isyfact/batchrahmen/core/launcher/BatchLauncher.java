@@ -19,6 +19,10 @@ package de.bund.bva.isyfact.batchrahmen.core.launcher;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.joran.JoranConfigurator;
@@ -259,17 +263,26 @@ public class BatchLauncher {
      *
      */
     private void launch() throws BatchAusfuehrungsException {
-        Class batchContextConfig = null;
-        Class anwendungContextConfig = null;
-        try {
-            anwendungContextConfig = Class.forName(rahmenKonfiguration.getAnwendungSpringKonfigFiles()[0]);
-            batchContextConfig = Class.forName(rahmenKonfiguration.getBatchRahmenSpringKonfigFiles()[0]);
-        } catch (ClassNotFoundException e) {
-            System.err.println(e.getMessage());
-        }
+        Function<String, Class> loadClass = name -> {
+            try {
+                return Class.forName(name);
+            } catch (ClassNotFoundException e) {
+                System.err.println(e.getMessage());
+                System.exit(1);
+            }
+            return null;
+        };
+
+        List<Class> anwendungContextConfigs = rahmenKonfiguration.getAnwendungSpringKonfigFiles().stream().map(loadClass).collect(
+            Collectors.toList());
+        List<Class> batchContextConfigs = rahmenKonfiguration.getBatchRahmenSpringKonfigFiles().stream().map(loadClass).collect(
+            Collectors.toList());
+
+        List<Class> configs = new ArrayList<>(anwendungContextConfigs);
+        configs.addAll(batchContextConfigs);
 
         ConfigurableApplicationContext
-            rahmen = new SpringApplicationBuilder().sources(anwendungContextConfig, batchContextConfig)
+            rahmen = new SpringApplicationBuilder().sources(configs.toArray(new Class[0]))
                                                    .bannerMode(Banner.Mode.OFF)
                                                    .registerShutdownHook(true)
                                                    .profiles(rahmenKonfiguration.getSpringProfiles())

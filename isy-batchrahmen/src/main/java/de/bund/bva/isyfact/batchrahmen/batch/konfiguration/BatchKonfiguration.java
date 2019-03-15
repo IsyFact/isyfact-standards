@@ -72,7 +72,7 @@ public class BatchKonfiguration {
      *
      * @return Liste der Dateinamen.
      */
-    public String[] getBatchRahmenSpringKonfigFiles() {
+    public List<String> getBatchRahmenSpringKonfigFiles() {
         return getNumberedPropertyValues(PROPERTY_BATCHRAHMEN_SPRING_DATEIEN);
     }
 
@@ -81,7 +81,7 @@ public class BatchKonfiguration {
      * Property-Schlüssel <tt>Anwendung.SpringDateien.&lt;N&gt;</tt>.
      * @return Liste der Dateinamen.
      */
-    public String[] getAnwendungSpringKonfigFiles() {
+    public List<String> getAnwendungSpringKonfigFiles() {
         return getNumberedPropertyValues(PROPERTY_ANWENDUNG_SPRING_DATEIEN);
     }
 
@@ -107,14 +107,14 @@ public class BatchKonfiguration {
      *            der Prefix zum Auslesen.
      * @return die Liste der Werte.
      */
-    private String[] getNumberedPropertyValues(String prefix) {
+    private List<String> getNumberedPropertyValues(String prefix) {
         List<String> values = new ArrayList<>();
         int i = 1;
         while (this.properties.containsKey(prefix + i)) {
             values.add(this.properties.getProperty(prefix + i));
             i++;
         }
-        return values.toArray(new String[] {});
+        return values;
     }
 
     /**
