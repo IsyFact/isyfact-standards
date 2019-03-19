@@ -87,7 +87,7 @@ public class StelltLoggingKontextBereitInterceptor implements MethodInterceptor 
         if (nutzeAufrufKontext) {
             if (aufrufKontextTo != null) {
                 if (StringUtils.isEmpty(aufrufKontextTo.getKorrelationsId())) {
-                    LOG.warn(EreignisSchluessel.KEINE_KORRELATAIONSID_IM_AUFRUFKONTEXT_UEBERMITTELT,
+                    LOG.debug(EreignisSchluessel.KEINE_KORRELATAIONSID_IM_AUFRUFKONTEXT_UEBERMITTELT,
                         "Es wurde keine Korrelations-ID im AufrufKontext übermittelt. Erzeuge neue Korrelations-ID.");
                     korrelationsId = UUID.randomUUID().toString();
                     aufrufKontextTo.setKorrelationsId(korrelationsId);
