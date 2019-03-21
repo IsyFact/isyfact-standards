@@ -63,8 +63,7 @@ public class StelltAllgemeinenAufrufKontextBereitInterceptor<T extends AufrufKon
             AufrufKontextToHelper.leseAufrufKontextTo(invocation.getArguments());
 
         if (aufrufKontextTo == null) {
-            LOGISY.warn(EreignisSchluessel.KEIN_AUFRUFKONTEXT_UEBERMITTELT,
-                "Es wurde kein AufrufKontext uebermittelt.");
+            LOGISY.debug("Es wurde kein AufrufKontext uebermittelt.");
             this.aufrufKontextVerwalter.setAufrufKontext(null);
         } else {
             T aufrufKontext = this.aufrufKontextFactory.erzeugeAufrufKontext();
