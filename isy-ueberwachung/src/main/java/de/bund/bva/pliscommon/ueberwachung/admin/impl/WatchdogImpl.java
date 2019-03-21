@@ -73,8 +73,7 @@ public abstract class WatchdogImpl implements Watchdog {
                     MdcHelper.pushKorrelationsId(korrelationsid);
                     boolean pruefungErfolgreich = true;
                     for (PruefRoutine pruefRoutine : WatchdogImpl.this.pruefRoutinen) {
-                        LOG.info(LogKategorie.JOURNAL, EreignisSchluessel.PLUEB00001,
-                            "Führe Prüfung durch: {}", pruefRoutine.getBeschreibung());
+                        LOG.debug("Führe Prüfung durch: {}", pruefRoutine.getBeschreibung());
                         try {
                             if (!pruefRoutine.getPruefung().call()) {
                                 LOG.error(EreignisSchluessel.PLUEB00002, "Prüfung gescheitert: {}",
