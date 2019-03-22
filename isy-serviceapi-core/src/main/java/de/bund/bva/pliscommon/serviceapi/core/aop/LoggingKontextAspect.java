@@ -66,8 +66,7 @@ public class LoggingKontextAspect implements MethodInterceptor {
         String korrelationsId = null;
         if (aufrufKontextTo == null) {
             korrelationsId = UUID.randomUUID().toString();
-            LOG.warn(EreignisSchluessel.KEIN_AUFRUFKONTEXT_UEBERMITTELT,
-                "Es wurde kein AufrufKontext übermittelt. Erzeuge neue Korrelations-ID.");
+            LOG.debug("Es wurde kein AufrufKontext übermittelt. Erzeuge neue Korrelations-ID.");
         } else if (aufrufKontextTo.getKorrelationsId() == null
             || aufrufKontextTo.getKorrelationsId().equals("")) {
             LOG.debug("Es wurde keine Korrelations-ID übermittelt. Erzeuge neue Korrelations-ID");

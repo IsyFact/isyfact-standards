@@ -71,8 +71,7 @@ public class StelltAufrufKontextBereitInterceptor<T extends AufrufKontext> imple
             AufrufKontextToHelper.leseAufrufKontextTo(invocation.getArguments());
 
         if (aufrufKontextTo == null) {
-            LOG.warn(EreignisSchluessel.KEIN_AUFRUFKONTEXT_UEBERMITTELT,
-                "Es wurde kein AufrufKontext übermittelt.");
+            LOG.debug("Es wurde kein AufrufKontext übermittelt.");
             this.aufrufKontextVerwalter.setAufrufKontext(null);
         } else {
             T aufrufKontext = this.aufrufKontextFactory.erzeugeAufrufKontext();
