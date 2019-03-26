@@ -4,13 +4,10 @@ import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextFactory;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.pliscommon.aufrufkontext.stub.AufrufKontextVerwalterStub;
 import de.bund.bva.pliscommon.sicherheit.Sicherheit;
-import de.bund.bva.pliscommon.sicherheit.SicherheitAdmin;
 import de.bund.bva.pliscommon.sicherheit.accessmgr.AccessManager;
 import de.bund.bva.pliscommon.sicherheit.accessmgr.test.TestAccessManager;
-import de.bund.bva.pliscommon.sicherheit.annotation.NutzerAuthentifizierungInterceptor;
 import de.bund.bva.pliscommon.sicherheit.annotation.bean.Service2Impl;
 import de.bund.bva.pliscommon.sicherheit.annotation.bean.ServiceImpl;
-import de.bund.bva.pliscommon.sicherheit.impl.SicherheitAdminImpl;
 import de.bund.bva.pliscommon.sicherheit.impl.SicherheitImpl;
 import de.bund.bva.pliscommon.sicherheit.web.DelegatingAccessDecisionManager;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -31,11 +28,6 @@ public class SicherheitTestConfig {
     @Bean
     public TestAccessManager accessManager() {
         return new TestAccessManager();
-    }
-
-    @Bean
-    public SicherheitAdmin sicherheitAdmin(AccessManager accessManager) {
-        return new SicherheitAdminImpl<>(accessManager);
     }
 
     @Bean

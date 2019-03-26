@@ -3,13 +3,17 @@ package de.bund.bva.pliscommon.sicherheit.autoconfigure;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextFactory;
 import de.bund.bva.pliscommon.aufrufkontext.impl.AufrufKontextFactoryImpl;
 import de.bund.bva.pliscommon.sicherheit.Sicherheit;
+import de.bund.bva.pliscommon.sicherheit.SicherheitAdmin;
+import de.bund.bva.pliscommon.sicherheit.accessmgr.AccessManager;
 import de.bund.bva.pliscommon.sicherheit.annotation.GesichertInterceptor;
 import de.bund.bva.pliscommon.sicherheit.config.IsySicherheitConfigurationProperties;
+import de.bund.bva.pliscommon.sicherheit.impl.SicherheitAdminImpl;
 import org.springframework.aop.Advisor;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.beans.factory.config.CustomScopeConfigurer;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -41,6 +45,7 @@ public class IsySicherheitAutoConfiguration {
     }
 
     @Bean
+    @ConditionalOnMissingBean(AufrufKontextFactory.class)
     public AufrufKontextFactory aufrufKontextFactory() {
         return new AufrufKontextFactoryImpl<>();
     }
@@ -54,4 +59,9 @@ public class IsySicherheitAutoConfiguration {
         return customScopeConfigurer;
     }
 
+    @Bean
+    @ConditionalOnBean(AccessManager.class)
+    public SicherheitAdmin sicherheitAdmin(AccessManager accessManager) {
+        return new SicherheitAdminImpl(accessManager);
+    }
 }
