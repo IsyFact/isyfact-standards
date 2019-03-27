@@ -45,18 +45,14 @@ public class StelltAufrufKontextBereitInterceptor<T extends AufrufKontext> imple
      * Zugriff auf die AufrufKontextFactory zum Mappen des empfangenen AufrufKontextTo auf den
      * Anwendungsspezifischen AufrufKontext.
      */
-    private AufrufKontextFactory<T> aufrufKontextFactory;
+    private final AufrufKontextFactory<T> aufrufKontextFactory;
 
     /** Zugriff auf den AufrufKontextVerwalter, um den AufrufKontext zu setzten. */
-    private AufrufKontextVerwalter<T> aufrufKontextVerwalter;
+    private final AufrufKontextVerwalter<T> aufrufKontextVerwalter;
 
-    @Required
-    public void setAufrufKontextFactory(AufrufKontextFactory<T> aufrufKontextFactory) {
+    public StelltAufrufKontextBereitInterceptor(AufrufKontextFactory<T> aufrufKontextFactory,
+        AufrufKontextVerwalter<T> aufrufKontextVerwalter) {
         this.aufrufKontextFactory = aufrufKontextFactory;
-    }
-
-    @Required
-    public void setAufrufKontextVerwalter(AufrufKontextVerwalter<T> aufrufKontextVerwalter) {
         this.aufrufKontextVerwalter = aufrufKontextVerwalter;
     }
 

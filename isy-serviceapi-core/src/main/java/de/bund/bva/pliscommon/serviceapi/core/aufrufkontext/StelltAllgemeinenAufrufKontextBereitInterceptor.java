@@ -16,11 +16,6 @@
  */
 package de.bund.bva.pliscommon.serviceapi.core.aufrufkontext;
 
-import org.aopalliance.intercept.MethodInterceptor;
-import org.aopalliance.intercept.MethodInvocation;
-import org.dozer.Mapper;
-import org.springframework.beans.factory.annotation.Required;
-
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
@@ -28,6 +23,9 @@ import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextFactory;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.pliscommon.aufrufkontext.common.konstanten.EreignisSchluessel;
 import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
+import org.aopalliance.intercept.MethodInterceptor;
+import org.aopalliance.intercept.MethodInvocation;
+import org.dozer.Mapper;
 
 /**
  * Ein Interceptor, welcher den AufrufKontext auf Basis eines Dozer-Mappings bereit stellt.
@@ -36,7 +34,7 @@ public class StelltAllgemeinenAufrufKontextBereitInterceptor<T extends AufrufKon
     MethodInterceptor {
 
     /** Die Referenz auf Dozer, welcher zum Mapping benutzt wird. */
-    private Mapper dozer;
+    private final Mapper dozer;
 
     /** Logger. */
     private static final IsyLogger LOGISY = IsyLoggerFactory
@@ -46,10 +44,17 @@ public class StelltAllgemeinenAufrufKontextBereitInterceptor<T extends AufrufKon
      * Zugriff auf die AufrufKontextFactory zum Mappen des empfangenen AufrufKontextTo auf den
      * Anwendungsspezifischen AufrufKontext.
      */
-    private AufrufKontextFactory<T> aufrufKontextFactory;
+    private final AufrufKontextFactory<T> aufrufKontextFactory;
 
     /** Zugriff auf den AufrufKontextVerwalter, um den AufrufKontext zu setzten. */
-    private AufrufKontextVerwalter<T> aufrufKontextVerwalter;
+    private final AufrufKontextVerwalter<T> aufrufKontextVerwalter;
+
+    public StelltAllgemeinenAufrufKontextBereitInterceptor(Mapper dozer,
+        AufrufKontextFactory<T> aufrufKontextFactory, AufrufKontextVerwalter<T> aufrufKontextVerwalter) {
+        this.dozer = dozer;
+        this.aufrufKontextFactory = aufrufKontextFactory;
+        this.aufrufKontextVerwalter = aufrufKontextVerwalter;
+    }
 
     /**
      * {@inheritDoc}
@@ -82,20 +87,4 @@ public class StelltAllgemeinenAufrufKontextBereitInterceptor<T extends AufrufKon
             this.aufrufKontextVerwalter.setAufrufKontext(alterAufrufKontext);
         }
     }
-
-    @Required
-    public void setDozer(Mapper dozer) {
-        this.dozer = dozer;
-    }
-
-    @Required
-    public void setAufrufKontextFactory(AufrufKontextFactory<T> aufrufKontextFactory) {
-        this.aufrufKontextFactory = aufrufKontextFactory;
-    }
-
-    @Required
-    public void setAufrufKontextVerwalter(AufrufKontextVerwalter<T> aufrufKontextVerwalter) {
-        this.aufrufKontextVerwalter = aufrufKontextVerwalter;
-    }
-
 }
