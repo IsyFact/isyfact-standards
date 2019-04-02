@@ -15,8 +15,10 @@
     </parent>
 
     <properties>
-        <spring.webflow.version>2.4.8.RELEASE</spring.webflow.version>
-        <spring.security.version>4.0.4.RELEASE</spring.security.version>
+        <spring.version>5.1.2.RELEASE</spring.version>
+        <spring.boot.version>2.1.0.RELEASE</spring.boot.version>
+        <spring.webflow.version>2.5.1.RELEASE</spring.webflow.version>
+        <spring.security.version>5.1.2.RELEASE</spring.security.version>
         <hibernate.orm.version>5.3.7.Final</hibernate.orm.version>
         <querydsl.version>4.0.9</querydsl.version>
     </properties>
@@ -92,7 +94,7 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-framework-bom</artifactId>
-                <version>5.1.2.RELEASE</version>
+                <version>${spring.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -100,7 +102,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>2.1.0.RELEASE</version>
+                <version>${spring.boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -140,13 +142,6 @@
                 <artifactId>hibernate-core</artifactId>
                 <version>${hibernate.orm.version}</version>
             </dependency>
-            <!-- Unterstützung für Java-8-Time -->
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-java8</artifactId>
-                <version>${hibernate.orm.version}</version>
-            </dependency>
-
             <!-- Web-Service Framework (SOAP): Metro -->
             <dependency>
                 <groupId>com.sun.xml.ws</groupId>

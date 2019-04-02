@@ -56,7 +56,7 @@ public class TestGesichertTask extends AbstractTaskTest {
 
         taskScheduler.shutdownMitTimeout(1);
 
-        SECONDS.sleep(2);
+        SECONDS.sleep(5);
         assertTrue(Boolean.valueOf(getMBeanAttribute("GesichertTask1", "LetzteAusfuehrungErfolgreich")));
         String letzterFehlerNachricht = getMBeanAttribute("GesichertTask2", "LetzterFehlerNachricht");
         assertTrue(letzterFehlerNachricht.startsWith("#SIC2051 Die Autorisierung ist fehlgeschlagen. Das für diese Aktion erforderliche Recht ist nicht vorhanden. Recht1 "));
