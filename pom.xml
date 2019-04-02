@@ -40,7 +40,6 @@
 
     <modules>
         <module>isyfact-masterpom</module>
-        <module>isyfact-masterpom-lib</module>
         <module>isyfact-standards-bom</module>
         <module>isyfact-products-bom</module>
         <module>isy-aufrufkontext</module>
