@@ -17,8 +17,8 @@
 package de.bund.bva.pliscommon.persistence.usertype;
 
 import java.io.Serializable;
+import java.util.Objects;
 
-import org.apache.commons.lang3.ObjectUtils;
 import org.hibernate.HibernateException;
 import org.hibernate.usertype.UserType;
 
@@ -32,14 +32,14 @@ public abstract class AbstractImmutableUserType implements UserType {
      * {@inheritDoc}
      */
     public boolean equals(Object x, Object y) throws HibernateException {
-        return ObjectUtils.equals(x, y);
+        return Objects.equals(x, y);
     }
 
     /**
      * {@inheritDoc}
      */
     public int hashCode(Object x) throws HibernateException {
-        return ObjectUtils.hashCode(x);
+        return Objects.hashCode(x);
     }
 
     /**
