@@ -80,6 +80,12 @@
             <version>2.6.6</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
         <!--Test Dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
