@@ -1,5 +1,6 @@
 # 1.9.0
 - `IFS-266`: Anpassung Log-Level bei Erzeugung neuer Korrelations-ID aufgrund fehlender Korrelations-ID im AufrufKontext auf debug.
+- `IFS-347`: Abhaengigkeiten zu commons-lang3 aufgeloest und durch Utility-API `guava` ersetzt.
 
 # 1.8.0
 - `IFS-189`: Repositories der IsyFact-Standards zusammengeführt, Bibliotheken benutzen wieder gemeinsames Produkt-BOM und werden zentral über das POM isyfact-standards versioniert
