@@ -14,22 +14,11 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.pliscommon.util.monitoring;
+package de.bund.bva.isyfact.util.common.test;
 
-import java.lang.reflect.Method;
+public class MyNode {
 
-/**
- * Interface, welches zu einer (gerade ausgeführten) Methode den Performance-Tag-Namen liefert.
- * 
- *
- */
-public interface PerformanceTagSource {
-    
-    /**
-     * Liefert den Namen des Performance-Tags für die angegebene Methode.
-     * @param method Gemessene Methode.
-     * @param targetClass Klasse, für den die Methode ausgeführt wird.
-     * @return Name des Tags.
-     */
-    public String getTag(Method method, Class<? extends Object> targetClass);
+	public MyNode child;
+	
+	public String str;
 }

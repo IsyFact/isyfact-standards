@@ -27,7 +27,7 @@ import de.bund.bva.isyfact.task.konstanten.FehlerSchluessel;
 import de.bund.bva.isyfact.task.model.Task;
 import de.bund.bva.isyfact.task.model.TaskRunner;
 import de.bund.bva.isyfact.task.model.impl.TaskRunnerImpl;
-import de.bund.bva.pliscommon.util.spring.MessageSourceHolder;
+import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 

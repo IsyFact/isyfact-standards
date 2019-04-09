@@ -14,11 +14,12 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.pliscommon.util.common;
+package de.bund.bva.isyfact.util.common;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -161,8 +162,8 @@ public class RecursiveToStringBuilder {
      */
     private static void appendIterable(final StringBuilder prefix, final Iterable<?> o,
         final StringBuilder buffer, final Collection<Object> seen) {
-        Iterator<?> it = ((Iterable<?>) o).iterator();
-        buffer.append(o.getClass().getName() + " [\n");
+        Iterator<?> it = o.iterator();
+        buffer.append(o.getClass().getName()).append(" [\n");
         while (it.hasNext()) {
             Object obj = it.next();
             buffer.append(prefix);
@@ -190,7 +191,7 @@ public class RecursiveToStringBuilder {
     private static void appendMap(final StringBuilder prefix, final Map<?, ?> o, final StringBuilder buffer,
         final Collection<Object> seen) {
         Iterator<?> it = o.entrySet().iterator();
-        buffer.append(o.getClass().getName() + " [\n");
+        buffer.append(o.getClass().getName()).append(" [\n");
         buffer.append(prefix);
         while (it.hasNext()) {
             Map.Entry<?,?> entry = (Entry<?, ?>) it.next();
@@ -260,17 +261,15 @@ public class RecursiveToStringBuilder {
      * @return Alle Felder.
      */
     private static Field[] bestimmeAlleFelder(Object o) {
-        List<Field> fields = new LinkedList<Field>();
+        List<Field> fields = new LinkedList<>();
         Class<?> aktuelleKlasse = o.getClass();
 
         while (aktuelleKlasse != null) {
             Field[] declaredFields = aktuelleKlasse.getDeclaredFields();
-            for (Field f : declaredFields) {
-                fields.add(f);
-            }
+            Collections.addAll(fields, declaredFields);
             aktuelleKlasse = aktuelleKlasse.getSuperclass();
         }
-        return fields.toArray(new Field[fields.size()]);
+        return fields.toArray(new Field[0]);
     }
 
     /**

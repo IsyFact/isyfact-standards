@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @SpringBootTest(classes = { TestConfig.class, TestTaskGesichertConfig.class }, webEnvironment = SpringBootTest.WebEnvironment.NONE,
@@ -32,7 +33,7 @@ properties = {
     "isy.task.tasks.gesichertTask2.bhkz=BHKZ1",
     "isy.task.tasks.gesichertTask2.ausfuehrung=ONCE",
     "isy.task.tasks.gesichertTask2.initial-delay=0s",
-    "isy.task.watchdog.restart-interval=5s"
+    "isy.task.watchdog.restart-interval=20s"
 })
 public class TestGesichertTask extends AbstractTaskTest {
 
@@ -59,6 +60,7 @@ public class TestGesichertTask extends AbstractTaskTest {
         SECONDS.sleep(5);
         assertTrue(Boolean.valueOf(getMBeanAttribute("GesichertTask1", "LetzteAusfuehrungErfolgreich")));
         String letzterFehlerNachricht = getMBeanAttribute("GesichertTask2", "LetzterFehlerNachricht");
+        assertFalse(Boolean.valueOf(getMBeanAttribute("GesichertTask2", "LetzteAusfuehrungErfolgreich")));
         assertTrue(letzterFehlerNachricht.startsWith("#SIC2051 Die Autorisierung ist fehlgeschlagen. Das für diese Aktion erforderliche Recht ist nicht vorhanden. Recht1 "));
     }
 }

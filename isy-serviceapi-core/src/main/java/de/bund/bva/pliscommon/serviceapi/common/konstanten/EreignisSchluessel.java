@@ -57,4 +57,7 @@ public class EreignisSchluessel {
      */
     public static final String AUFRUFKONTEXT_KORRID_KORRIGIERT = "EPLSAC00010";
 
+    /** Es wurde ein AufrufKontext ohne Korrelations-ID übermittelt. Erzeuge neue Korrelations-ID. */
+    public static final String KEINE_KORRELATIONSID_IM_AUFRUFKONTEXT_UEBERMITTELT = "EPLASC00011";
+
 }

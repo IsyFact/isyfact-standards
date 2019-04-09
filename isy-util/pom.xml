@@ -28,7 +28,7 @@
     </dependencyManagement>
 
     <dependencies>
-        <!-- ISY-Exception fuer FehlerTextProviderImpl. Wird dieser nicht verwendet, wird auch isy-exception
+        <!-- isy-exception-core fuer FehlerTextProviderImpl. Wird dieser nicht verwendet, wird auch isy-exception-core
             nicht benötigt, daher optional=true. -->
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
@@ -39,49 +39,12 @@
 
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-beans</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <!-- Fuer MessageSource im MessageSourceHolder -->
-        <dependency>
-            <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
         </dependency>
-        <!-- Benoetigt fuer AOP -->
+
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aop</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <!-- Logging -->
-        <dependency>
-            <groupId>de.bund.bva.isyfact</groupId>
-            <artifactId>isy-logging</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>log4j-over-slf4j</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <!-- Tests -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

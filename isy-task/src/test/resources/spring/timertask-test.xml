@@ -26,7 +26,7 @@
         </property>
     </bean>
 
-    <bean id="messageSourceHolder" class="de.bund.bva.pliscommon.util.spring.MessageSourceHolder">
+    <bean id="messageSourceHolder" class="de.bund.bva.isyfact.util.spring.MessageSourceHolder">
         <property name="messageSource" ref="messageSource"/>
     </bean>
 

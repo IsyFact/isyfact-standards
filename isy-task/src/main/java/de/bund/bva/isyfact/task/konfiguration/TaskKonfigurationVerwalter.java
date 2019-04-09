@@ -13,7 +13,7 @@ import de.bund.bva.isyfact.task.exception.TaskKonfigurationInvalidException;
 import de.bund.bva.isyfact.task.konstanten.KonfigurationStandardwerte;
 import de.bund.bva.isyfact.task.sicherheit.Authenticator;
 import de.bund.bva.isyfact.task.sicherheit.AuthenticatorFactory;
-import de.bund.bva.pliscommon.util.spring.MessageSourceHolder;
+import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
 
 import static de.bund.bva.isyfact.task.konstanten.HinweisSchluessel.VERWENDE_STANDARD_KONFIGURATION;
 

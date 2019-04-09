@@ -14,20 +14,23 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.pliscommon.util.exception;
+package de.bund.bva.isyfact.util.exception;
 
 import static org.junit.Assert.*;
 
-import de.bund.bva.pliscommon.util.exception.MessageSourceFehlertextProvider;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import de.bund.bva.pliscommon.util.spring.MessageSourceHolder;
+import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/testMessageSourceFehlertextProvider.xml" })
+@ContextConfiguration(classes = TestMessageSourceFehlertextProvider.TestConfig.class)
 public class TestMessageSourceFehlertextProvider {
 
 	@Test
@@ -56,5 +59,23 @@ public class TestMessageSourceFehlertextProvider {
 		
 		result = provider.getMessage("message3", "Hans", "Mustermann");
 		assertEquals("message3: Hans, Mustermann", result);
+	}
+
+	@Configuration
+	public static class TestConfig {
+
+		@Bean
+		public MessageSource messageSource() {
+			ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+			messageSource.setBasename("locale/messages");
+			return messageSource;
+		}
+
+		@Bean
+		public MessageSourceHolder messageSourceHolder(MessageSource messageSource) {
+			MessageSourceHolder holder = new MessageSourceHolder();
+			holder.setMessageSource(messageSource);
+			return holder;
+		}
 	}
 }

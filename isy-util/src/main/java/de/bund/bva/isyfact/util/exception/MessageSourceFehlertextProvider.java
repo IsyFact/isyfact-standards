@@ -14,22 +14,25 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.pliscommon.util.annotations;
-
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Inherited;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
 /**
- * Diese Annotation kennzeichnet eine DAO-Implementierungsklasse.
  * 
  */
-@Target({ ElementType.TYPE })
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-@Inherited
-public @interface DataAccessObject {
+package de.bund.bva.isyfact.util.exception;
+
+import de.bund.bva.pliscommon.exception.FehlertextProvider;
+import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
+
+/**
+ * Diese Klasse implementiert einen {@link FehlertextProvider}, der zum Laden der Nachrichten den
+ * {@link MessageSourceHolder} verwendet. Letztere muss als Spring-Bean in der Anwendung konfiguriert sein.
+ * 
+ */
+public class MessageSourceFehlertextProvider implements FehlertextProvider {
+
+    /**
+     * {@inheritDoc}
+     */
+    public String getMessage(String schluessel, String... parameter) {
+        return MessageSourceHolder.getMessage(schluessel, parameter);
+    }
 }

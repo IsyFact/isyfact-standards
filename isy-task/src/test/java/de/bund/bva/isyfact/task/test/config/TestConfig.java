@@ -8,7 +8,7 @@ import de.bund.bva.pliscommon.sicherheit.Sicherheit;
 import de.bund.bva.pliscommon.sicherheit.accessmgr.AccessManager;
 import de.bund.bva.pliscommon.sicherheit.config.IsySicherheitConfigurationProperties;
 import de.bund.bva.pliscommon.sicherheit.impl.SicherheitImpl;
-import de.bund.bva.pliscommon.util.spring.MessageSourceHolder;
+import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
