@@ -14,7 +14,7 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.pliscommon.plissonderzeichen.core.transformation.impl;
+package de.bund.bva.isyfact.sonderzeichen.core.transformation.impl;
 
 import java.util.Set;
 
@@ -42,7 +42,7 @@ public abstract class Transskriptionsregeln {
         if (position <= 0) {
             return true;
         }
-        if (trennzeichen.contains((Character.valueOf(text.charAt(position - 1))))) {
+        if (trennzeichen.contains((text.charAt(position - 1)))) {
             return true;
         }
         return false;
@@ -112,7 +112,7 @@ public abstract class Transskriptionsregeln {
         if (position + laenge >= text.length()) {
             return false;
         }
-        if (pruefzeichen.contains((Character.valueOf(text.charAt(position + laenge))))) {
+        if (pruefzeichen.contains((text.charAt(position + laenge)))) {
             return true;
         }
         return false;

@@ -14,18 +14,10 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.pliscommon.plissonderzeichen.core.transformation;
+package de.bund.bva.isyfact.sonderzeichen.konstanten;
 
-public class ZeichenKategorie {
-    
-    public final static String LETTER = "LETTER";
-    public final static String NUMBER = "NUMBER";
-    public final static String OTHER = "OTHER";
-    public final static String PUNCTUATION = "PUNCTUATION";
-    public final static String SEPARATOR = "SEPARATOR";
-    public final static String SYMBOL = "SYMBOL";
-    public final static String ALLE = "ALLE";
-    
-    public final static String[] ALLE_ZEICHEN_KATEGORIEN = new String[]{LETTER,NUMBER,OTHER,PUNCTUATION,SEPARATOR,SYMBOL,ALLE};
+public class EreignisSchluessel {
+
+    public static final String TRANSFORMATION = "EPLSOND00001";
 
 }

@@ -49,7 +49,7 @@ public class ReturnCodeTestBatch implements BatchAusfuehrungsBean {
     private BatchErgebnisProtokoll protokoll;
 
     /** Der Logger. */
-    public static final IsyLogger LOG = IsyLoggerFactory.getLogger(ReturnCodeTestBatch.class);
+    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(ReturnCodeTestBatch.class);
 
     /** StatistikEintraege fuer die Sollwertkontrolle */
     private StatistikEintrag statistik1;
@@ -116,8 +116,7 @@ public class ReturnCodeTestBatch implements BatchAusfuehrungsBean {
      */
     @Override
     public void vorCheckpointGeschrieben(long satzNummer) throws BatchAusfuehrungsException {
-        // TODO Auto-generated method stub
-
+        // leer
     }
 
     /**
@@ -125,8 +124,7 @@ public class ReturnCodeTestBatch implements BatchAusfuehrungsBean {
      */
     @Override
     public void vorRollbackDurchgefuehrt() {
-        // TODO Auto-generated method stub
-
+        // leer
     }
 
 }

@@ -24,98 +24,82 @@ public class AufrufKontextWithoutDefaultConstructor implements AufrufKontext {
 	
 	@Override
 	public String getDurchfuehrenderBenutzerKennung() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void setDurchfuehrenderBenutzerKennung(String durchfuehrenderBenutzerKennung) {
-		// TODO Auto-generated method stub
-
+		// leer
 	}
 
 	@Override
 	public String getDurchfuehrenderBenutzerPasswort() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void setDurchfuehrenderBenutzerPasswort(String durchfuehrenderBenutzerPasswort) {
-		// TODO Auto-generated method stub
-
+		// leer
 	}
 
 	@Override
 	public String getDurchfuehrendeBehoerde() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void setDurchfuehrendeBehoerde(String durchfuehrendeBehoerde) {
-		// TODO Auto-generated method stub
-
+		// leer
 	}
 
 	@Override
 	public String getKorrelationsId() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void setKorrelationsId(String korrelationsId) {
-		// TODO Auto-generated method stub
-
+		// leer
 	}
 
 	@Override
 	public String[] getRolle() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void setRolle(String[] rolle) {
-		// TODO Auto-generated method stub
-
+		// leer
 	}
 
 	@Override
 	public boolean isRollenErmittelt() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public void setRollenErmittelt(boolean rollenErmittelt) {
-		// TODO Auto-generated method stub
-
+		// leer
 	}
 
 	@Override
 	public String getDurchfuehrenderSachbearbeiterName() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void setDurchfuehrenderSachbearbeiterName(String durchfuehrenderSachbearbeiterName) {
-		// TODO Auto-generated method stub
-
+		// leer
 	}
 
 	@Override
 	public String getDurchfuehrenderBenutzerInterneKennung() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void setDurchfuehrenderBenutzerInterneKennung(String durchfuehrenderBenutzerInterneKennung) {
-		// TODO Auto-generated method stub
-
+		// leer
 	}
 
 }

@@ -14,19 +14,19 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.pliscommon.plissonderzeichen.core.transformation;
+package de.bund.bva.isyfact.sonderzeichen.core.transformation;
 
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 
-import de.bund.bva.pliscommon.plissonderzeichen.core.transformation.impl.AbstractTransformator;
+import de.bund.bva.isyfact.sonderzeichen.core.transformation.impl.AbstractTransformator;
 
 
 /**
  * Die Factory für den jeweiligen Transformator.
  * 
  */
-public class TransformatorFactory implements FactoryBean, InitializingBean{
+public class TransformatorFactory implements FactoryBean, InitializingBean {
     
     /** Der Transformator, wird über Spring gesetzt */
     private AbstractTransformator transformator;
@@ -37,8 +37,7 @@ public class TransformatorFactory implements FactoryBean, InitializingBean{
     /**
      * {@inheritDoc}
      */
-    public void afterPropertiesSet() throws Exception {
-        //Initialisiere Transformator
+    public void afterPropertiesSet() {
         transformator.initialisiere(transformationsTabelle);
     }
     
@@ -53,7 +52,7 @@ public class TransformatorFactory implements FactoryBean, InitializingBean{
     /**
      * {@inheritDoc}
      */
-    public Object getObject() throws Exception {
+    public Object getObject() {
         return transformator;
     }
 
@@ -71,6 +70,7 @@ public class TransformatorFactory implements FactoryBean, InitializingBean{
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean isSingleton() {
         return true;
     }

@@ -14,16 +14,15 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.pliscommon.plissonderzeichen.core.transformation.impl;
+package de.bund.bva.isyfact.sonderzeichen.core.transformation.impl;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.pliscommon.plissonderzeichen.core.transformation.ZeichenKategorie;
+import de.bund.bva.isyfact.sonderzeichen.core.transformation.ZeichenKategorie;
 
-import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 

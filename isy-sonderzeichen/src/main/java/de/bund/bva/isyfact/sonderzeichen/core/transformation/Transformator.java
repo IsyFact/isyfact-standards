@@ -14,7 +14,7 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.pliscommon.plissonderzeichen.core.transformation;
+package de.bund.bva.isyfact.sonderzeichen.core.transformation;
 
 /**
  * Schnittstelle für alle möglichen Transformatoren. Definiert Methoden, welche jeder Transformator anbieten
@@ -38,7 +38,7 @@ public interface Transformator {
      *            Die maximale Länge der Zeichenkette
      * @return die transformierte Zeichenkette, oder null, falls null übergeben wurde
      */
-    public String transformiere(String zeichenkette, int maximaleLaenge);
+    String transformiere(String zeichenkette, int maximaleLaenge);
 
     /**
      * Transformiert eine Zeichenkette und gibt sie zurück. Leerzeichen am Anfang und am Ende der Zeichenkette
@@ -57,7 +57,7 @@ public interface Transformator {
      *            Die zu transformierende Zeichenkette
      * @return die transformierte Zeichenkette, oder null, falls null übergeben wurde
      */
-    public String transformiere(String zeichenkette);
+    String transformiere(String zeichenkette);
 
     /**
      * Transformiert eine Zeichenkette und gibt sie zurück. Führt keine Trim Operationen am Ende aus.
@@ -69,7 +69,7 @@ public interface Transformator {
      *            Die zu transformierende Zeichenkette
      * @return die transformierte Zeichenkette, oder null, falls null übergeben wurde
      */
-    public String transformiereOhneTrim(String zeichenkette);
+    String transformiereOhneTrim(String zeichenkette);
 
     /**
      * Gibt den regulären Ausdruck für alle erlaubten Ausdrücke innerhalb der Zeichenkategorie zurück.
@@ -77,7 +77,7 @@ public interface Transformator {
      *            die erlaubten Ausdrücke der Zeichenkategorie
      * @return der reguläre Ausdruck
      */
-    public String getRegulaererAusdruck(String[] kategorieListe);
+    String getRegulaererAusdruck(String[] kategorieListe);
 
     /**
      * Überprüft ob die übergebene Zeichenkette nur Zeichen enthält, welche in der jeweiligen Kategorie des
@@ -89,7 +89,7 @@ public interface Transformator {
      *            die Liste der Kategorien
      * @return true, wenn die übergebene Zeichenkette nur Zeichen der jeweiligen Kategorie enthält
      */
-    public boolean isGueltigerString(String zeichenkette, String[] kategorieListe);
+    boolean isGueltigerString(String zeichenkette, String[] kategorieListe);
 
     /**
      * Gibt alle gueltigen Zeichen des Transformators zurueck.
@@ -97,7 +97,7 @@ public interface Transformator {
      *            die Kategorie
      * @return alle gültuigen Zeichen des Transformators
      */
-    public String[] getGueltigeZeichen(String kategorie);
+    String[] getGueltigeZeichen(String kategorie);
 
     /**
      * Prüft mit Hilfe einer Regel, ob ein zu transliterierender Substring eine bestimmte Bedingung erfüllt.
@@ -112,6 +112,6 @@ public interface Transformator {
      *            Länge des Substrings.
      * @return true, wenn die Bedingung erfüllt ist, sonst false.
      */
-    public boolean werteRegelAus(int regel, String text, int position, int laenge);
+    boolean werteRegelAus(int regel, String text, int position, int laenge);
 
 }

@@ -84,8 +84,7 @@ public class ErrorTestBatch implements BatchAusfuehrungsBean {
      */
     @Override
     public void vorCheckpointGeschrieben(long satzNummer) throws BatchAusfuehrungsException {
-        // TODO Auto-generated method stub
-
+        // leer
     }
 
     /**
@@ -93,8 +92,7 @@ public class ErrorTestBatch implements BatchAusfuehrungsBean {
      */
     @Override
     public void vorRollbackDurchgefuehrt() {
-        // TODO Auto-generated method stub
-
+        // leer
     }
 
 }

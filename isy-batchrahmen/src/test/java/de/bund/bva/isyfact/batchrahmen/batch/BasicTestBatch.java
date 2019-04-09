@@ -46,7 +46,7 @@ public class BasicTestBatch implements BatchAusfuehrungsBean {
     private BatchErgebnisProtokoll protokoll;
 
     /** Der Logger. */
-    public static final IsyLogger LOG = IsyLoggerFactory.getLogger(BasicTestBatch.class);
+    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(BasicTestBatch.class);
 
     /** StatistikEintraege fuer die Sollwertkontrolle */
     private StatistikEintrag statistik1;
@@ -112,8 +112,7 @@ public class BasicTestBatch implements BatchAusfuehrungsBean {
      */
     @Override
     public void vorCheckpointGeschrieben(long satzNummer) throws BatchAusfuehrungsException {
-        // TODO Auto-generated method stub
-
+        // leer
     }
 
     /**
@@ -121,8 +120,7 @@ public class BasicTestBatch implements BatchAusfuehrungsBean {
      */
     @Override
     public void vorRollbackDurchgefuehrt() {
-        // TODO Auto-generated method stub
-
+        // leer
     }
 
 }

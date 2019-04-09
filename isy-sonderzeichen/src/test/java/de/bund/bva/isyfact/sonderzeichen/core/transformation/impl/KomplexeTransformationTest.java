@@ -14,14 +14,14 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.pliscommon.plissonderzeichen.core.transformation.impl;
+package de.bund.bva.isyfact.sonderzeichen.core.transformation.impl;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import de.bund.bva.pliscommon.plissonderzeichen.core.transformation.Transformator;
+import de.bund.bva.isyfact.sonderzeichen.core.transformation.Transformator;
 
 public class KomplexeTransformationTest {
 	

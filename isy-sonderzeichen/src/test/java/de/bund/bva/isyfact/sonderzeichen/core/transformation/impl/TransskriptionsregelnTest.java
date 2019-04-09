@@ -14,7 +14,7 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.pliscommon.plissonderzeichen.core.transformation.impl;
+package de.bund.bva.isyfact.sonderzeichen.core.transformation.impl;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -33,24 +33,21 @@ import static org.junit.Assert.assertTrue;
  */
 public class TransskriptionsregelnTest {
 
-    /** Logger. */
-    private static IsyLogger LOG = IsyLoggerFactory.getLogger(TransskriptionsregelnTest.class);
-
     private String text;
     private Set<Character> trennzeichen;
     private Set<Character> pruefzeichen;
 
     @Before
     public void setUp(){
-        trennzeichen = new HashSet<Character>();
-        trennzeichen.add(new Character(' '));
-        trennzeichen.add(new Character('-'));
-        trennzeichen.add(new Character('/'));
+        trennzeichen = new HashSet<>();
+        trennzeichen.add(' ');
+        trennzeichen.add('-');
+        trennzeichen.add('/');
 
-        pruefzeichen = new HashSet<Character>();
-        pruefzeichen.add(new Character('a'));
-        pruefzeichen.add(new Character('x'));
-        pruefzeichen.add(new Character('t'));
+        pruefzeichen = new HashSet<>();
+        pruefzeichen.add('a');
+        pruefzeichen.add('x');
+        pruefzeichen.add('t');
 
         text = "Dies ist ein Testtext";
 

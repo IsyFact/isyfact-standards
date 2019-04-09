@@ -14,14 +14,14 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.pliscommon.plissonderzeichen.core.transformation.impl;
+package de.bund.bva.isyfact.sonderzeichen.core.transformation.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import de.bund.bva.pliscommon.plissonderzeichen.core.transformation.Transformator;
+import de.bund.bva.isyfact.sonderzeichen.core.transformation.Transformator;
 
 /**
  * Diese Klasse bildet Transformationen ab, bei denen mehr als ein Zeichen transformiert wird oder bei denen
@@ -41,10 +41,10 @@ public class KomplexeTransformation {
          * Wenn mehrere Regeln angegeben sind, so wird die Ersetzung verwendet, wenn mindestens eine davon
          * erfüllt ist. Ist keine Regel angegeben, so kann die Ersetzung immer verwendet werden.
          */
-        public int[] regeln = new int[0];
+        int[] regeln = new int[0];
 
         /** Der String, durch den die ursprünglichen Zeichen ersetzt werden. */
-        public String ersatz;
+        String ersatz;
     }
 
     /** Der Transformator, dem die Transformation zugeordnet ist. */

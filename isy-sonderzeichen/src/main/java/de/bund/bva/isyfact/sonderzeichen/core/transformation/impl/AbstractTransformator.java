@@ -14,7 +14,7 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.pliscommon.plissonderzeichen.core.transformation.impl;
+package de.bund.bva.isyfact.sonderzeichen.core.transformation.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,6 +23,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -30,10 +31,10 @@ import java.util.regex.Pattern;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.LogKategorie;
-import de.bund.bva.pliscommon.plissonderzeichen.core.transformation.Transformator;
-import de.bund.bva.pliscommon.plissonderzeichen.core.transformation.ZeichenKategorie;
-import de.bund.bva.pliscommon.plissonderzeichen.konstanten.EreignisSchluessel;
-import de.bund.bva.pliscommon.plissonderzeichen.konstanten.TransformationsKonstanten;
+import de.bund.bva.isyfact.sonderzeichen.core.transformation.Transformator;
+import de.bund.bva.isyfact.sonderzeichen.core.transformation.ZeichenKategorie;
+import de.bund.bva.isyfact.sonderzeichen.konstanten.EreignisSchluessel;
+import de.bund.bva.isyfact.sonderzeichen.konstanten.TransformationsKonstanten;
 
 /**
  * Stellt gemeinsame Methoden für alle Transformatoren zur Verfügung.
@@ -49,15 +50,15 @@ public abstract class AbstractTransformator implements Transformator {
         '*', '+', '-', (char) (Integer.valueOf("002D", 16).intValue()), '(', ')', '<', '>', '{', '}' };
 
     /** Die Transformationstabelle: Character -> StringBuffer. */
-    protected HashMap transformationsTabelle = new HashMap();
+    protected Map transformationsTabelle = new HashMap();
 
     /**
      * Die Kategorietabelle mit den gueltigen Zeichen des Transformators String(ZeichenKategorie) -> String[].
      */
-    protected HashMap kategorieGueltigeZeichenTabelle = new HashMap();
+    protected Map kategorieGueltigeZeichenTabelle = new HashMap();
 
     /** Eine Map, welche gueltige Zeichen anhand ihrer Laenge sortiert: Integer -> (String) ArrayList. */
-    protected HashMap laengeGueltigeZeichenMap = new HashMap();
+    protected Map laengeGueltigeZeichenMap = new HashMap();
 
     /** Die Standardersetzung (falls kein Eintrag in der Transformationstabelle gefunden wird). */
     protected String standardErsetzung;
@@ -201,9 +202,9 @@ public abstract class AbstractTransformator implements Transformator {
     public boolean isGueltigerString(String zeichenkette, String[] kategorieListe) {
 
         // Gueltige Zeichen der Kategorie ermitteln
-        Set gueltigeZeichenSet = new HashSet();
-        for (int i = 0; i < kategorieListe.length; i++) {
-            gueltigeZeichenSet.addAll(Arrays.asList(getGueltigeZeichen(kategorieListe[i])));
+        Set<String> gueltigeZeichenSet = new HashSet<>();
+        for (String s : kategorieListe) {
+            gueltigeZeichenSet.addAll(Arrays.asList(getGueltigeZeichen(s)));
         }
 
         // Durch Zeichenkette iterieren
@@ -218,7 +219,7 @@ public abstract class AbstractTransformator implements Transformator {
                 if (zeichenketteIteration + laengeIteration <= zeichenkette.length()) {
                     // Genügende Zeichen übrig
                     ArrayList gueltigeZeichenArrayList =
-                        (ArrayList) this.laengeGueltigeZeichenMap.get(new Integer(laengeIteration));
+                        (ArrayList) this.laengeGueltigeZeichenMap.get(laengeIteration);
                     Iterator gueltigeZeichenIterator = gueltigeZeichenArrayList.iterator();
                     while (gueltigeZeichenIterator.hasNext()) {
                         String gueltigesZeichen = (String) gueltigeZeichenIterator.next();
@@ -274,7 +275,7 @@ public abstract class AbstractTransformator implements Transformator {
         StringBuffer filtered = new StringBuffer();
 
         for (int i = 0; i < zeichenkette.length(); i++) {
-            Object object = this.transformationsTabelle.get(new Character(zeichenkette.charAt(i)));
+            Object object = this.transformationsTabelle.get(zeichenkette.charAt(i));
             if (object == null || object instanceof StringBuffer) {
                 if (object != null) {
                     filtered.append(object);
@@ -348,9 +349,9 @@ public abstract class AbstractTransformator implements Transformator {
                 getLogger().debug("Transformation " + links + " -> " + rechtsString.toString() + " (" + rechts
                     + ") geladen.");
             } else if ("".equals(rechts)) {
-                Object tabelleneintrag = this.transformationsTabelle.get(new Character(linksChar));
+                Object tabelleneintrag = this.transformationsTabelle.get(linksChar);
                 if (tabelleneintrag == null) {
-                    this.transformationsTabelle.put(new Character(linksChar),
+                    this.transformationsTabelle.put(linksChar,
                         new StringBuffer(TransformationsKonstanten.ZEICHEN_ENTFERNE));
                 } else {
                     KomplexeTransformation transformation = (KomplexeTransformation) tabelleneintrag;
@@ -360,7 +361,7 @@ public abstract class AbstractTransformator implements Transformator {
                 getLogger()
                     .debug("Transformation " + linksChar + " (" + links + ") -> <entferneZeichen> geladen.");
             } else {
-                Character linksKey = new Character(linksChar);
+                Character linksKey = linksChar;
                 Object tabelleneintrag = this.transformationsTabelle.get(linksKey);
                 if (linksSplitted.length == 1 && regeln.length == 0 && tabelleneintrag == null) {
                     // Eine einfache Transformation ersetzt ein Zeichen durch ein oder mehrere andere und hat
@@ -371,7 +372,7 @@ public abstract class AbstractTransformator implements Transformator {
                 } else {
                     // Eine komplexe Transformation ersetzt mehrere Zeichen auf einmal und/oder hat
                     // zusätzliche Regeln, wann die Transformation anzuwenden ist.
-                    KomplexeTransformation transformation = null;
+                    KomplexeTransformation transformation;
                     if (tabelleneintrag == null) {
                         // Neuanlage, falls noch nicht vorhanden
                         transformation = new KomplexeTransformation(this);
@@ -411,7 +412,7 @@ public abstract class AbstractTransformator implements Transformator {
 
             String kategorie = ZeichenKategorie.ALLE_ZEICHEN_KATEGORIEN[it];
 
-            HashSet zeichenketteListe = new HashSet();
+            Set<String> zeichenketteListe = new HashSet<>();
             Iterator gueltigeZeichenIterator = properties.keySet().iterator();
             while (gueltigeZeichenIterator.hasNext()) {
 
@@ -451,10 +452,10 @@ public abstract class AbstractTransformator implements Transformator {
                 }
 
                 ArrayList existierendeLaengeArray =
-                    (ArrayList) this.laengeGueltigeZeichenMap.get(new Integer(zeichenketteLaenge));
+                    (ArrayList) this.laengeGueltigeZeichenMap.get(zeichenketteLaenge);
                 if (existierendeLaengeArray == null) {
                     existierendeLaengeArray = new ArrayList();
-                    this.laengeGueltigeZeichenMap.put(new Integer(zeichenketteLaenge),
+                    this.laengeGueltigeZeichenMap.put(zeichenketteLaenge,
                         existierendeLaengeArray);
                 }
                 existierendeLaengeArray.add(zeichenkette);
@@ -491,8 +492,8 @@ public abstract class AbstractTransformator implements Transformator {
 
     private boolean containsChar(char[] charArray, char c) {
 
-        for (int i = 0; i < charArray.length; i++) {
-            if (c == charArray[i]) {
+        for (char value : charArray) {
+            if (c == value) {
                 return true;
             }
         }

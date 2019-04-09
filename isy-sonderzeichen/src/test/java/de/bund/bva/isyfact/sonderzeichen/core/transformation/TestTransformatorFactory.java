@@ -14,15 +14,15 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.pliscommon.plissonderzeichen.core.transformation;
+package de.bund.bva.isyfact.sonderzeichen.core.transformation;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import de.bund.bva.pliscommon.plissonderzeichen.core.transformation.impl.AbstractTransformator;
-import de.bund.bva.pliscommon.plissonderzeichen.core.transformation.impl.IdentischerTransformator;
+import de.bund.bva.isyfact.sonderzeichen.core.transformation.impl.AbstractTransformator;
+import de.bund.bva.isyfact.sonderzeichen.core.transformation.impl.IdentischerTransformator;
 
 public class TestTransformatorFactory {
 
@@ -46,7 +46,7 @@ public class TestTransformatorFactory {
 	@Test
 	public void testGetObjectNullType() {
 		transFactory.setTransformator(transformator);
-		assertEquals(null, transFactory.getObjectType());
+		assertNull(transFactory.getObjectType());
 	}
 	
 	@Test
