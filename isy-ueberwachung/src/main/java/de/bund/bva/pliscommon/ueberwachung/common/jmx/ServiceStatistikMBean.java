@@ -24,8 +24,6 @@ import java.util.List;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.jmx.export.annotation.ManagedAttribute;
 import org.springframework.jmx.export.annotation.ManagedResource;
@@ -34,13 +32,11 @@ import org.springframework.util.ClassUtils;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.pliscommon.exception.service.PlisBusinessToException;
-import de.bund.bva.pliscommon.exception.service.PlisToException;
 import de.bund.bva.pliscommon.serviceapi.annotations.FachlicherFehler;
-import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 
 /**
  * Diese Klasse implementiert eine Überwachungs-MBean für Services. Sie liefert die Überwachungsoptionen,
- * welche jeder Service der PLIS anbieten muss.
+ * welche jeder Service der IsyFact anbieten muss.
  *
  * @author sd&m Simon Spielmann
  * @version $Id: ServiceStatistikMBean.java 144975 2015-08-18 13:07:56Z sdm_jmeisel $
@@ -73,7 +69,7 @@ public class ServiceStatistikMBean implements MethodInterceptor, InitializingBea
     /**
      * Dauern der letzten Such-Aufrufe (in Millisekunden).
      */
-    private List<Long> letzteSuchdauern = new LinkedList<Long>();
+    private List<Long> letzteSuchdauern = new LinkedList<>();
 
     /**
      * Merker für die Minute, in der Werte der letzten Minute ermittelt wurden.
@@ -117,9 +113,6 @@ public class ServiceStatistikMBean implements MethodInterceptor, InitializingBea
      * Einträge enthielt.
      */
     private volatile int anzahlFachlicheFehlerAktuelleMinute;
-
-    /** Fehlercode einer eventuell geworfenen Exception. */
-    private String fehlerCode;
 
     /**
      * Logger.
@@ -190,7 +183,7 @@ public class ServiceStatistikMBean implements MethodInterceptor, InitializingBea
      * Berechnet die aktuelle Minute der Systemzeit.
      * @return Der Minuten-Anteil der aktuellen Systemzeit
      */
-    private static final int getAktuelleMinute() {
+    private static int getAktuelleMinute() {
         return (int) (System.currentTimeMillis() / 60000);
     }
 
@@ -271,10 +264,6 @@ public class ServiceStatistikMBean implements MethodInterceptor, InitializingBea
         } catch (PlisBusinessToException t) {
             // BusinessExceptions werden nicht als technischer Fehler gezählt.
             erfolgreich = true;
-            this.fehlerCode = t.getAusnahmeId();
-            throw t;
-        } catch (PlisToException t) {
-            this.fehlerCode = t.getAusnahmeId();
             throw t;
         } finally {
             long aufrufDauer = System.currentTimeMillis() - startZeit;
@@ -327,11 +316,11 @@ public class ServiceStatistikMBean implements MethodInterceptor, InitializingBea
         Field[] fields = clazzToScan.getDeclaredFields();
 
         LOGISY.trace("{} Analysiere Objekt {} (Klasse {}) {} Felder gefunden.",
-            StringUtils.repeat("-", tiefe), result.toString(), clazzToScan.getSimpleName(), fields.length);
+            zeigeTiefeAn(tiefe), result.toString(), clazzToScan.getSimpleName(), fields.length);
 
         for (Field field : fields) {
             if (!ClassUtils.isPrimitiveOrWrapper(field.getType()) && !field.getType().isEnum()) {
-                LOGISY.trace("{} {}.{}, Type {}", StringUtils.repeat("-", tiefe), clazzToScan.getSimpleName(),
+                LOGISY.trace("{} {}.{}, Type {}", zeigeTiefeAn(tiefe), clazzToScan.getSimpleName(),
                     field.getName(), field.getType().getSimpleName());
                 field.setAccessible(true);
                 try {
@@ -346,8 +335,8 @@ public class ServiceStatistikMBean implements MethodInterceptor, InitializingBea
 
                             // Wenn kein String, dann prüfe rekursiv Objektstruktur
                             if (fieldObject.getClass() != String.class) {
-                                fehlerGefunden = pruefeObjektAufFehler(fieldObject, null, tiefe + 1) ? true
-                                    : fehlerGefunden;
+                                fehlerGefunden =
+                                    pruefeObjektAufFehler(fieldObject, null, tiefe + 1) || fehlerGefunden;
                             }
                         }
                     } else {
@@ -372,11 +361,11 @@ public class ServiceStatistikMBean implements MethodInterceptor, InitializingBea
 
         // Die Klassen-Hierachie rekursiv nach oben prüfen
         if (clazzToScan.getSuperclass() != null && !clazzToScan.getSuperclass().equals(Object.class)) {
-            LOGISY.trace("{}> Climb up class hierarchy! Source {}, Target {}", StringUtils.repeat("-", tiefe),
+            LOGISY.trace("{}> Climb up class hierarchy! Source {}, Target {}", zeigeTiefeAn(tiefe),
                 clazzToScan.getSimpleName(), clazzToScan.getSuperclass());
             fehlerGefunden =
                 // Aufruf mit gleicher Tiefe, da Vererbung nach oben durchlaufen wird
-                pruefeObjektAufFehler(result, clazzToScan.getSuperclass(), tiefe) ? true : fehlerGefunden;
+                pruefeObjektAufFehler(result, clazzToScan.getSuperclass(), tiefe) || fehlerGefunden;
         }
 
         return fehlerGefunden;
@@ -386,26 +375,19 @@ public class ServiceStatistikMBean implements MethodInterceptor, InitializingBea
      * {@inheritDoc}
      */
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         LOGISY.debug("ServiceStatistikMBean "
             + (this.erweiterteFachlicheFehlerpruefung ? " mit erweiterter fachlicher Fehlerprüfung " : "")
             + " initialisiert.");
     }
 
-    /**
-     * Lädt den {@link AufrufKontextTo} aus den Parametern der aufgerufenen Funktion.
-     *
-     * @param args
-     *            die Argumente der Service-Operation
-     *
-     * @return das AufrufKontextTo Objekt
-     */
-    private AufrufKontextTo leseAufrufKontextTo(Object[] args) {
-        if (ArrayUtils.isNotEmpty(args) && args[0] instanceof AufrufKontextTo) {
-            return (AufrufKontextTo) args[0];
-        } else {
-            return null;
+    private static String zeigeTiefeAn(final int tiefe) {
+        final char anzeiger = '-';
+        final char[] buffer = new char[tiefe];
+        for (int i = tiefe - 1; i >= 0; i--) {
+            buffer[i] = anzeiger;
         }
+        return new String(buffer);
     }
 
 }

@@ -18,8 +18,6 @@ package de.bund.bva.pliscommon.serviceapi.core.serviceimpl;
 
 import java.lang.reflect.Method;
 
-import org.apache.commons.lang3.StringUtils;
-
 import de.bund.bva.pliscommon.exception.PlisException;
 import de.bund.bva.pliscommon.exception.service.PlisTechnicalToException;
 import de.bund.bva.pliscommon.exception.service.PlisToException;
@@ -43,12 +41,11 @@ public class ReflectiveExceptionMappingSource implements ExceptionMappingSource 
     public Class<? extends PlisToException> getToExceptionClass(Method remoteBeanMethod,
         Class<? extends PlisException> exceptionClass) {
 
-        String coreExceptionName = StringUtils.removeEnd(exceptionClass.getSimpleName(), "Exception");
+        String coreExceptionName = removeEnd(exceptionClass.getSimpleName(), "Exception");
 
         for (Class<?> toExceptionClass : remoteBeanMethod.getExceptionTypes()) {
             if (PlisToException.class.isAssignableFrom(toExceptionClass)) {
-                String toExceptionName =
-                    StringUtils.removeEnd(toExceptionClass.getSimpleName(), "ToException");
+                String toExceptionName = removeEnd(toExceptionClass.getSimpleName(), "ToException");
                 if (coreExceptionName.equals(toExceptionName)) {
                     @SuppressWarnings("unchecked")
                     Class<? extends PlisToException> castToExceptionClass =
@@ -99,5 +96,16 @@ public class ReflectiveExceptionMappingSource implements ExceptionMappingSource 
     protected String getMethodSignatureString(Method method) {
         return method.getDeclaringClass().getName() + "." + method.getName();
     }
+
+    private static String removeEnd(String str, String remove) {
+        if (str == null || str.length() == 0 || remove == null || remove.length() == 0) {
+            return str;
+        }
+        if (str.endsWith(remove)) {
+            return str.substring(0, str.length() - remove.length());
+        }
+        return str;
+    }
+
 
 }

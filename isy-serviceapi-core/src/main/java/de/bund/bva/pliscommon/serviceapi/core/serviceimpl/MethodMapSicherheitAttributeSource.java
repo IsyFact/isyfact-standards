@@ -22,7 +22,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.BeanClassLoaderAware;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
@@ -55,10 +54,10 @@ public class MethodMapSicherheitAttributeSource implements SicherheitAttributeSo
     private ClassLoader beanClassLoader = ClassUtils.getDefaultClassLoader();
 
     /** Map from Method to benötigte Rechte. */
-    private final Map<Method, String[]> sicherheitAttributeMap = new HashMap<Method, String[]>();
+    private final Map<Method, String[]> sicherheitAttributeMap = new HashMap<>();
 
     /** Map from Method to name pattern used for registration. */
-    private final Map<Method, String> methodNameMap = new HashMap<Method, String>();
+    private final Map<Method, String> methodNameMap = new HashMap<>();
 
     /**
      * Set a name/attribute map, consisting of "FQCN.method" method names (e.g.
@@ -141,7 +140,7 @@ public class MethodMapSicherheitAttributeSource implements SicherheitAttributeSo
         String name = clazz.getName() + '.' + mappedName;
 
         Method[] methods = clazz.getDeclaredMethods();
-        List<Method> matchingMethods = new ArrayList<Method>();
+        List<Method> matchingMethods = new ArrayList<>();
         for (Method method : methods) {
             if (isMatch(method.getName(), mappedName)) {
                 matchingMethods.add(method);
@@ -211,7 +210,7 @@ public class MethodMapSicherheitAttributeSource implements SicherheitAttributeSo
     @Override
     public String[] getBenoetigeRechte(Method method, Class<?> targetClass) {
         String[] benoetigteRechte = this.sicherheitAttributeMap.get(method);
-        if (ArrayUtils.isEmpty(benoetigteRechte)) {
+        if (benoetigteRechte == null || benoetigteRechte.length == 0) {
             throw new FehlerhafteServiceKonfigurationRuntimeException();
         }
         return benoetigteRechte;

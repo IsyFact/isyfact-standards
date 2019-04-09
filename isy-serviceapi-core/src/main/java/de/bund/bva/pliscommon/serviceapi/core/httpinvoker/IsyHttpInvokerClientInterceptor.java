@@ -19,9 +19,8 @@ package de.bund.bva.pliscommon.serviceapi.core.httpinvoker;
 import java.lang.reflect.Method;
 import java.util.UUID;
 
+import de.bund.bva.pliscommon.serviceapi.common.AufrufKontextToHelper;
 import org.aopalliance.intercept.MethodInvocation;
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.remoting.httpinvoker.HttpInvokerClientInterceptor;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
@@ -61,14 +60,15 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
 
         Method methode = methodInvocation.getMethod();
 
-        AufrufKontextTo aufrufKontextTo = leseAufrufKontextTo(methodInvocation.getArguments());
+        AufrufKontextTo aufrufKontextTo =
+            AufrufKontextToHelper.leseAufrufKontextTo(methodInvocation.getArguments());
 
         LOGGER.debug("Erzeuge neue Korrelations-ID {}", korrelationsId);
         MdcHelper.pushKorrelationsId(korrelationsId);
 
         // Warnung bei falschem Setzen der Korr-Id im Aufrufkontext.
-        if (aufrufKontextTo != null && //
-            !StringUtils.isEmpty(aufrufKontextTo.getKorrelationsId()) && //
+        if (aufrufKontextTo != null && aufrufKontextTo.getKorrelationsId() != null &&
+            aufrufKontextTo.getKorrelationsId().length() != 0 &&
             !MdcHelper.liesKorrelationsId()
                 .equals(aufrufKontextTo.getKorrelationsId() + ";" + korrelationsId)) {
             LOGGER.warn(EreignisSchluessel.AUFRUFKONTEXT_KORRID_KORRIGIERT,
@@ -127,27 +127,6 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
      */
     public void setRemoteSystemName(String remoteSystemName) {
         this.remoteSystemName = remoteSystemName;
-    }
-
-    /**
-     * Lädt den ersten gefundenen {@link AufrufKontextTo} aus den Parametern der aufgerufenen Funktion.
-     *
-     * @param args
-     *            die Argumente der Service-Operation
-     *
-     * @return das AufrufKontextTo Objekt
-     */
-    private AufrufKontextTo leseAufrufKontextTo(Object[] args) {
-
-        if (ArrayUtils.isNotEmpty(args)) {
-            for (Object parameter : args) {
-                if (parameter instanceof AufrufKontextTo) {
-                    return (AufrufKontextTo) parameter;
-                }
-            }
-        }
-
-        return null;
     }
 
     /**
