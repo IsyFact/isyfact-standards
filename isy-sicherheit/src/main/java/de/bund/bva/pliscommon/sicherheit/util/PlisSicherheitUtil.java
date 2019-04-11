@@ -17,11 +17,9 @@
 package de.bund.bva.pliscommon.sicherheit.util;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.codec.binary.Base64;
-
 /**
  * Diese Klasse enthält Utility-Methoden für die PLIS-Sicherheit.
  */
@@ -29,7 +27,7 @@ public final class PlisSicherheitUtil {
     /**
      * Header-Name für Authorisierung.
      */
-    public static final String HEADER_NAME_AUTH = "Authorization";
+    private static final String HEADER_NAME_AUTH = "Authorization";
 
     /**
      * Prefix-Name für HTTP-Basic-Authentifizierung .
@@ -71,9 +69,9 @@ public final class PlisSicherheitUtil {
             if (prefix.equalsIgnoreCase(BASIC_AUTH_PREFIX)) {
                 // "Basic" Präfix gefunden. Der restliche String enthält username:password base64 kodiert
                 headerValue = headerValue.trim();
-                headerValue = headerValue.substring(5, headerValue.length()).trim();
-                headerValue = new String(Base64.decodeBase64(headerValue), StandardCharsets.ISO_8859_1);
-                if (headerValue.indexOf(BASIC_AUTH_DELIMITER) > 0) {
+                headerValue = headerValue.substring(5).trim();
+                headerValue = new String(Base64.getDecoder().decode(headerValue), StandardCharsets.ISO_8859_1);
+                if (headerValue.contains(BASIC_AUTH_DELIMITER)) {
                     // Bis zum Delimiter ist alles Benutzername
                     result[0] = headerValue.substring(0, headerValue.indexOf(BASIC_AUTH_DELIMITER));
                     // Alles nach Delimiter ist Passwort
@@ -110,8 +108,7 @@ public final class PlisSicherheitUtil {
         }
 
         String loginPassword = tmpLoginId + BASIC_AUTH_DELIMITER + tmpPassword;
-        String loginPasswordEncoded =
-            Base64.encodeBase64String(loginPassword.getBytes(StandardCharsets.ISO_8859_1));
+        String loginPasswordEncoded = Base64.getEncoder().encodeToString(loginPassword.getBytes(StandardCharsets.ISO_8859_1));
 
         result[1] = BASIC_AUTH_PREFIX + " " + loginPasswordEncoded;
 

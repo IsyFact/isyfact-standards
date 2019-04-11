@@ -50,7 +50,6 @@ import static org.junit.Assert.*;
  */
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = AllgemeinerAufrufKontextInterceptorAnnotationTest.TestConfig.class)
-//@ContextConfiguration(locations = { "/allgemeinerAufrufKontextInterceptorTest.xml" })
 public class AllgemeinerAufrufKontextInterceptorAnnotationTest {
 
     /**
