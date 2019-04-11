@@ -45,7 +45,7 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
 
     private final HostHandler hostHandler;
 
-    private ScheduledExecutorService scheduledExecutorService;
+    private final ScheduledExecutorService scheduledExecutorService;
 
     private final List<TaskRunner> zuStartendeTasks = Collections.synchronizedList(new ArrayList<>());
 

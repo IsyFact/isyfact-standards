@@ -36,8 +36,6 @@ public class HttpHeaderNestedDiagnosticContextFilterTest {
     public void beforeRequestKeineIdImHeader() {
         HttpHeaderNestedDiagnosticContextFilter filter = new HttpHeaderNestedDiagnosticContextFilter();
 
-        when(servletRequest.getHeader("Correlation-Id")).thenReturn(null);
-
         MdcHelper.pushKorrelationsId("testId0");
 
         filter.beforeRequest(servletRequest, "message");

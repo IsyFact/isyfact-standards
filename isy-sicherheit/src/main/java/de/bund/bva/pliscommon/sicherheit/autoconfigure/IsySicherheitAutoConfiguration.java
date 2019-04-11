@@ -51,7 +51,7 @@ public class IsySicherheitAutoConfiguration {
     }
 
     @Bean
-    public CustomScopeConfigurer customScopeConfigurer() {
+    public static CustomScopeConfigurer customScopeConfigurer() {
         CustomScopeConfigurer customScopeConfigurer = new CustomScopeConfigurer();
         customScopeConfigurer.addScope("thread", new SimpleThreadScope());
         customScopeConfigurer.addScope("request", new RequestScope());

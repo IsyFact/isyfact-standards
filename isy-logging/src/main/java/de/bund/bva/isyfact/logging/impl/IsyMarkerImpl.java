@@ -79,10 +79,6 @@ public class IsyMarkerImpl implements IsyMarker {
     }
 
     /**
-     * Erzeugt einen
-     */
-
-    /**
      * Konstruktor der Klasse. Er initialisiert die übergebenen Klassenattribute.
      * 
      * @param name
@@ -127,8 +123,7 @@ public class IsyMarkerImpl implements IsyMarker {
 
     /**
      * {@inheritDoc}
-     * 
-     * @see Marker#hasChildren()
+     *
      */
     public boolean hasChildren() {
         return hasReferences();

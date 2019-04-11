@@ -86,7 +86,7 @@ public class BerechtigungsmanagerImpl implements Berechtigungsmanager {
      *             Falls das Mapping der Rollen zu Rechten fehlt
      */
     private void berechneRechteAusRollen() {
-        rechte = new HashSet<Recht>();
+        rechte = new HashSet<>();
         if (rollen == null) {
             return;
         }

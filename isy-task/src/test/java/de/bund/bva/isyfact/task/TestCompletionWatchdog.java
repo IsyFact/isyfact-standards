@@ -3,6 +3,7 @@ package de.bund.bva.isyfact.task;
 import java.net.InetAddress;
 
 import de.bund.bva.isyfact.task.config.IsyTaskConfigurationProperties;
+import de.bund.bva.isyfact.task.model.TaskMonitor;
 import de.bund.bva.isyfact.task.test.config.TestConfig;
 import de.bund.bva.isyfact.task.test.config.TestTaskExceptionConfig;
 import org.junit.Before;
@@ -30,6 +31,9 @@ public class TestCompletionWatchdog extends AbstractTaskTest {
     @Autowired
     private IsyTaskConfigurationProperties configurationProperties;
 
+    @Autowired
+    private TaskMonitor taskMonitor;
+
     @Before
     public void setup() throws Exception {
         configurationProperties.getDefault().setHost(InetAddress.getLocalHost().getHostName());
@@ -43,6 +47,6 @@ public class TestCompletionWatchdog extends AbstractTaskTest {
 
         taskScheduler.shutdownMitTimeout(10);
 
-        assertTrue(Boolean.valueOf(getMBeanAttribute("TaskMitException", "LetzteAusfuehrungErfolgreich")));
+        assertTrue(taskMonitor.isLetzteAusfuehrungErfolgreich());
     }
 }
