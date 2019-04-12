@@ -26,10 +26,7 @@ import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
 import de.bund.bva.pliscommon.sicherheit.Berechtigungsmanager;
 import de.bund.bva.pliscommon.sicherheit.common.exception.AuthentifizierungTechnicalException;
 
-/**
- * Tests für Caching
- *
- */
+@SuppressWarnings("unchecked")
 public class SicherheitCachingTest extends AbstractSicherheitTest {
 
     @Test

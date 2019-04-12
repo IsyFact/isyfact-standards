@@ -27,52 +27,51 @@ public class RechtImplTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testRechtOhneID() {
-		RechtImpl recht = new RechtImpl(null, null);
+		new RechtImpl(null, null);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testRechtLeereID() {
-		RechtImpl recht = new RechtImpl("", null);
+		new RechtImpl("", null);
 	}
 	
 	@Test()
 	public void testRechtNullProps() {
-		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<>();
 		map.put("key", "value");
 		RechtImpl recht = new RechtImpl("ro1", map);
-		String str = recht.toString();
 		assertEquals("value", recht.getProperty("key"));
 	}
 	
 	@Test
 	public void testEqualsRechteIdentisch(){
-		RechtImpl recht = new RechtImpl("id", new HashMap<String, Object>());
+		RechtImpl recht = new RechtImpl("id", new HashMap<>());
 		assertTrue(recht.equals(recht));
 	}
 	
 	@Test
 	public void testEqualsZweitesRechtNull(){
-		RechtImpl recht = new RechtImpl("id", new HashMap<String, Object>());
+		RechtImpl recht = new RechtImpl("id", new HashMap<>());
 		assertFalse(recht.equals(null));
 	}
 	
 	@Test
 	public void testEqualsZweitesRechtAnderesObjekt(){
-		RechtImpl recht = new RechtImpl("id", new HashMap<String, Object>());
+		RechtImpl recht = new RechtImpl("id", new HashMap<>());
 		assertFalse(recht.equals(new Integer(1)));
 	}
 	
 	@Test
 	public void testEqualsRechteIdsGleich(){
-		RechtImpl r1 = new RechtImpl("r1", new HashMap<String, Object>());
-		RechtImpl r2 = new RechtImpl("r1", new HashMap<String, Object>());
+		RechtImpl r1 = new RechtImpl("r1", new HashMap<>());
+		RechtImpl r2 = new RechtImpl("r1", new HashMap<>());
 		assertTrue(r1.equals(r2));
 	}
 
 	@Test
 	public void testEqualsRechteIdsVerschieden(){
-		RechtImpl r1 = new RechtImpl("r1", new HashMap<String, Object>());
-		RechtImpl r2 = new RechtImpl("r2", new HashMap<String, Object>());
+		RechtImpl r1 = new RechtImpl("r1", new HashMap<>());
+		RechtImpl r2 = new RechtImpl("r2", new HashMap<>());
 		assertFalse(r1.equals(r2));
 	}
 }

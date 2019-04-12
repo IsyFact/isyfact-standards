@@ -26,8 +26,6 @@ import de.bund.bva.pliscommon.sicherheit.common.exception.AuthentifizierungTechn
  * 
  */
 public interface AccessManager<K extends AufrufKontext, E extends AuthentifzierungErgebnis> {
-
-
     /**
      * 
      * @param unauthentifizierterAufrufKontext
@@ -78,7 +76,7 @@ public interface AccessManager<K extends AufrufKontext, E extends Authentifzieru
      * @param authentifzierungErgebnis
      *            Das Ergebnis der Authentifzierung
      */
-    public void befuelleAufrufkontext(K aufrufKontext, E authentifzierungErgebnis);
+    void befuelleAufrufkontext(K aufrufKontext, E authentifzierungErgebnis);
 
     /**
      * Erzeugt den Schlüssel unter dem der Aufrufkontext gecached wird. Im Cache der PLIS-Sicherheit wird
@@ -91,6 +89,5 @@ public interface AccessManager<K extends AufrufKontext, E extends Authentifzieru
      *            AufrufKontext für den gerade eine Authentifzierung durchgeführt wird.
      * @return Key für das Caching des Aufrufkontext oder <code>null</code>.
      */
-    public Object erzeugeCacheSchluessel(K aufrufKontext);
-
+    Object erzeugeCacheSchluessel(K aufrufKontext);
 }

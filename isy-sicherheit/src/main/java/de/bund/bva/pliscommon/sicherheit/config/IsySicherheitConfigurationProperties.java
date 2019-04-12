@@ -2,7 +2,7 @@ package de.bund.bva.pliscommon.sicherheit.config;
 
 public class IsySicherheitConfigurationProperties {
 
-    /** Defaultwert für die Time-to-live der Cacheinträge. 0 = deaktiviert. **/
+    /** Defaultwert für die Time-to-live (in Sekunden) der Cacheinträge. 0 = deaktiviert. **/
     private int ttl = 0;
 
     /** Defaultwert für die maximale Anzahl an Einträgen im Cache (in Memory). **/

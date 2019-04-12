@@ -16,31 +16,34 @@
  */
 package de.bund.bva.pliscommon.sicherheit.impl;
 
-import de.bund.bva.pliscommon.sicherheit.SicherheitAdmin;
-import de.bund.bva.pliscommon.sicherheit.config.SicherheitTestConfig;
+import de.bund.bva.pliscommon.sicherheit.accessmgr.AccessManager;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.*;
 
-/**
- * Testfälle für das pingen des Policy Servers.
- */
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = SicherheitTestConfig.class, webEnvironment = SpringBootTest.WebEnvironment.NONE, properties = {
-    "isy.logging.anwendung.name=test", "isy.logging.anwendung.typ=test",
-    "isy.logging.anwendung.version=test" })
+@RunWith(MockitoJUnitRunner.class)
 public class SicherheitAdminImplTest {
 
-    @Autowired
-    private SicherheitAdmin sicherheitAdmin;
+    @Mock
+    private AccessManager accessManager;
 
     @Test
+    @SuppressWarnings("unchecked")
     public void testePing() {
-        assertTrue(this.sicherheitAdmin.pingAccessManager());
+        SicherheitAdminImpl sicherheitAdmin = new SicherheitAdminImpl(accessManager);
+
+        when(accessManager.pingAccessManager()).thenReturn(true);
+        assertTrue(sicherheitAdmin.pingAccessManager());
+        verify(accessManager, times(1)).pingAccessManager();
+
+        when(accessManager.pingAccessManager()).thenReturn(false);
+        assertFalse(sicherheitAdmin.pingAccessManager());
+        verify(accessManager, times(2)).pingAccessManager();
     }
 
 }

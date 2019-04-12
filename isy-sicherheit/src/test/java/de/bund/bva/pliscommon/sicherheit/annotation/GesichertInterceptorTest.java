@@ -143,7 +143,7 @@ public class GesichertInterceptorTest {
 
     @Test(expected = AutorisierungFehlgeschlagenException.class)
     public void testNegativ_statischeMethodeGesichert() throws Throwable{
-        SimpleMethodInvocation invocation = new SimpleMethodInvocation(testBean, ServiceImpl.class.getMethod("gesichertDurch_RechtA"), new Object[]{} );
+        SimpleMethodInvocation invocation = new SimpleMethodInvocation(testBean, ServiceImpl.class.getMethod("gesichertDurch_RechtA"));
         interceptor.invoke(invocation);
     }
 }

@@ -67,14 +67,11 @@ public class SicherheitStub implements Sicherheit<AufrufKontext> {
 
     @Override
     public Set<Rolle> getAlleRollen() {
-        return new HashSet<Rolle>();
+        return new HashSet<>();
     }
 
     @Override
     public void leereCache() {
-        // TODO
-        // DIESE METHODE WIRD BISHER NICHT VERWENDET
         throw new UnsupportedOperationException();
     }
-
 }

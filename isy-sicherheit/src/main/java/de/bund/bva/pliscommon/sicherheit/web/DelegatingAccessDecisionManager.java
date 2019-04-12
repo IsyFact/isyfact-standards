@@ -40,7 +40,7 @@ import org.springframework.security.core.Authentication;
  */
 public class DelegatingAccessDecisionManager implements AccessDecisionManager {
 
-    /** Zugriff auf die Komponente Sciherheit. */
+    /** Zugriff auf die Komponente Sicherheit. */
     private final Sicherheit<? extends AufrufKontext> sicherheit;
 
     public DelegatingAccessDecisionManager(Sicherheit<? extends AufrufKontext> sicherheit) {

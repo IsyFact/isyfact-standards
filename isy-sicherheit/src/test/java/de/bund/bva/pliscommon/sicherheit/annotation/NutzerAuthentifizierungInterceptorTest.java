@@ -63,8 +63,7 @@ public class NutzerAuthentifizierungInterceptorTest {
     @Test(expected = AnnotationFehltRuntimeException.class)
     public void testNegativ_gesichertDurchNichts() throws Throwable {
         SimpleMethodInvocation invocation =
-            new SimpleMethodInvocation(testBean, ServiceImpl.class.getMethod("nichtGesichert"),
-                new Object[] {});
+            new SimpleMethodInvocation(testBean, ServiceImpl.class.getMethod("nichtGesichert"));
         interceptor.invoke(invocation);
     }
 

@@ -91,10 +91,8 @@
             <artifactId>javax.servlet-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>net.sf.ehcache</groupId>
-            <artifactId>ehcache-core</artifactId>
-            <!-- Abweichung zum Produktkatalog (veraltete Version) -->
-            <version>2.6.6</version>
+            <groupId>org.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
         </dependency>
 
         <dependency>

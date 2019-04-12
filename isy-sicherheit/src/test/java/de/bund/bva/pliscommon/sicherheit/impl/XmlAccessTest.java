@@ -16,15 +16,12 @@
  */
 package de.bund.bva.pliscommon.sicherheit.impl;
 
-import static org.junit.Assert.*;
-
-import java.io.IOException;
-
+import de.bund.bva.pliscommon.sicherheit.Recht;
+import de.bund.bva.pliscommon.sicherheit.common.exception.RollenRechteMappingException;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.bund.bva.pliscommon.sicherheit.Recht;
-import de.bund.bva.pliscommon.sicherheit.common.exception.RollenRechteMappingException;
+import static org.junit.Assert.*;
 
 public class XmlAccessTest {
 

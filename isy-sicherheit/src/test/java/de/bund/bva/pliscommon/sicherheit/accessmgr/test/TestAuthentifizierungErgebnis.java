@@ -20,9 +20,6 @@ import de.bund.bva.pliscommon.sicherheit.accessmgr.AuthentifzierungErgebnis;
 
 public class TestAuthentifizierungErgebnis implements AuthentifzierungErgebnis {
 
-    /**
-     * UID
-     */
     private static final long serialVersionUID = 1L;
 
     private String[] rollen;

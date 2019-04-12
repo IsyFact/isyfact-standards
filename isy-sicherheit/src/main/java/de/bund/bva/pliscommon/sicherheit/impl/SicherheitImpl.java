@@ -16,7 +16,9 @@
  */
 package de.bund.bva.pliscommon.sicherheit.impl;
 
+import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
@@ -34,7 +36,14 @@ import de.bund.bva.pliscommon.sicherheit.common.exception.InitialisierungsExcept
 import de.bund.bva.pliscommon.sicherheit.common.konstanten.EreignisSchluessel;
 import de.bund.bva.pliscommon.sicherheit.common.konstanten.SicherheitFehlerSchluessel;
 import de.bund.bva.pliscommon.sicherheit.config.IsySicherheitConfigurationProperties;
-import org.springframework.beans.factory.DisposableBean;
+import org.ehcache.Cache;
+import org.ehcache.CacheManager;
+import org.ehcache.config.CacheConfiguration;
+import org.ehcache.config.builders.CacheConfigurationBuilder;
+import org.ehcache.config.builders.CacheManagerBuilder;
+import org.ehcache.config.builders.ResourcePoolsBuilder;
+import org.ehcache.expiry.Duration;
+import org.ehcache.expiry.Expirations;
 import org.springframework.beans.factory.InitializingBean;
 
 /**
@@ -45,13 +54,15 @@ import org.springframework.beans.factory.InitializingBean;
  * @param <K> Typ des Aufrufkontextes
  * @param <E> Typ des Ergebnisses der Authentifizierung
  */
-public class SicherheitImpl<K extends AufrufKontext, E extends AuthentifzierungErgebnis> implements
-    Sicherheit<K>, InitializingBean, DisposableBean {
+public class SicherheitImpl<K extends AufrufKontext, E extends AuthentifzierungErgebnis>
+    implements Sicherheit<K>, InitializingBean {
 
     /**
      * Logger der Klasse.
      */
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(SicherheitImpl.class);
+
+    private static final String CACHE_ALIAS = "de.bund.bva.isyfact.sicherheit.authentifizierung";
 
     /** Pfad zum Rollen-Rechte-Mapping. */
     private final String rollenRechteDateiPfad;
@@ -59,22 +70,22 @@ public class SicherheitImpl<K extends AufrufKontext, E extends AuthentifzierungE
     /** Zugriff auf den AufrufKontextVerwalter. */
     private final AufrufKontextVerwalter<K> aufrufKontextVerwalter;
 
-    /** Das ausgelesene Rollenrechtemapping. */
-    private RollenRechteMapping mapping;
-
     /** Referenz auf den AccessManager für den Zugriff auf Rollen/Rechte der Benutzer. */
     private final AccessManager<K, E> accessManager;
+
+    /**
+     * Cache für Authentifizierungsinformationen, so dass der AccessManager entlastet
+     * wird.
+     */
+    private final Cache<Object, E> authentifizierungCache;
+
+    /** Das ausgelesene Rollenrechtemapping. */
+    private RollenRechteMapping mapping;
 
     /** Zugriff auf die Aufrufkontext-Factory. */
     private AufrufKontextFactory<K> aufrufKontextFactory;
 
-    private final IsySicherheitConfigurationProperties properties;
-
-    /**
-     * Cache-Verwalter zum Cachen von Authentifizierungsinformationen, so dass der AccessManager entlastet
-     * wird.
-     **/
-    private final CacheVerwalter<E> cacheVerwalter = new CacheVerwalter<>();
+    private boolean cacheAktiviert = true;
 
     public SicherheitImpl(String rollenRechteDateiPfad, AufrufKontextVerwalter<K> aufrufKontextVerwalter,
         AufrufKontextFactory<K> aufrufKontextFactory, AccessManager<K, E> accessManager,
@@ -83,7 +94,8 @@ public class SicherheitImpl<K extends AufrufKontext, E extends AuthentifzierungE
         this.aufrufKontextVerwalter = aufrufKontextVerwalter;
         this.accessManager = accessManager;
         this.aufrufKontextFactory = aufrufKontextFactory;
-        this.properties = properties;
+
+        authentifizierungCache = setupCache(properties);
     }
 
     /**
@@ -117,8 +129,30 @@ public class SicherheitImpl<K extends AufrufKontext, E extends AuthentifzierungE
         return erzeugeBerechtigungsmanager(aufrufKontext);
     }
 
+    @SuppressWarnings("unchecked")
+    private Cache<Object, E> setupCache(IsySicherheitConfigurationProperties properties) {
+        if (properties.getTtl() == 0) {
+            cacheAktiviert = false;
+            return null;
+        } else {
+            CacheConfiguration<Object, AuthentifzierungErgebnis> cacheConfiguration =
+                CacheConfigurationBuilder
+                    .newCacheConfigurationBuilder(Object.class, AuthentifzierungErgebnis.class,
+                        ResourcePoolsBuilder.heap(properties.getMaxelements())).withExpiry(
+                    Expirations.timeToLiveExpiration(Duration.of(properties.getTtl(), TimeUnit.SECONDS)))
+                    .build();
+            CacheManager cacheManager =
+                CacheManagerBuilder.newCacheManagerBuilder().withCache(CACHE_ALIAS, cacheConfiguration)
+                    .build(true);
+
+            return (Cache<Object, E>) cacheManager
+                .getCache(CACHE_ALIAS, Object.class, AuthentifzierungErgebnis.class);
+        }
+    }
+
     /**
      * Erzeugt einen Berechtigungsmanager anhand eines Aufrufkontextes.
+     *
      * @param aufrufKontext Aufrufkontext
      * @return einen neuen Berechtigungmanager.
      */
@@ -134,16 +168,15 @@ public class SicherheitImpl<K extends AufrufKontext, E extends AuthentifzierungE
      */
     @Override
     public void leereCache() {
-        this.cacheVerwalter.leereCache();
+        authentifizierungCache.clear();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Berechtigungsmanager getBerechtigungsManagerUndAuthentifiziere(K unauthentifizierterAufrufKontext)
-        throws AuthentifizierungTechnicalException {
-
+    public Berechtigungsmanager getBerechtigungsManagerUndAuthentifiziere(
+        K unauthentifizierterAufrufKontext) {
         // Der AufrufKontext muss bereitgestellt werden, da dieser die zur Authentifizierung benötigten Daten
         // bereithält.
         if (unauthentifizierterAufrufKontext == null) {
@@ -151,29 +184,41 @@ public class SicherheitImpl<K extends AufrufKontext, E extends AuthentifzierungE
                 SicherheitFehlerSchluessel.MSG_AUFRUFKONTEXT_NICHT_VERFUEGBAR);
         }
 
-        Object cacheKey = this.accessManager.erzeugeCacheSchluessel(unauthentifizierterAufrufKontext);
-        E authentifzierungErgebnis = null;
-        if (cacheKey != null) {
-            authentifzierungErgebnis = this.cacheVerwalter.getFromCache(cacheKey);
+        Optional<E> authentifizierungErgebnis;
+        if (cacheAktiviert) {
+            authentifizierungErgebnis = authentifiziereKontextMitCache(unauthentifizierterAufrufKontext);
+        } else {
+            authentifizierungErgebnis = authentifiziereKontext(unauthentifizierterAufrufKontext);
         }
-        if (authentifzierungErgebnis == null) {
-            // Zugriff auf den AccessManager, um Informationen über aktuellen Benutzer zu ermitteln
-            try {
-                authentifzierungErgebnis =
-                    this.accessManager.authentifiziere(unauthentifizierterAufrufKontext);
-                this.cacheVerwalter.putIntoCache(cacheKey, authentifzierungErgebnis);
-            } finally {
-                if (authentifzierungErgebnis != null) {
-                    this.accessManager.logout(authentifzierungErgebnis);
-                }
-            }
-        }
-        if (authentifzierungErgebnis == null) {
-            throw new AuthentifizierungTechnicalException("AccessManager hat kein Ergebnis geliefert.");
-        }
+
         aktualisiereAufrufKontextAusAuthentifizierungErgebnis(
-            unauthentifizierterAufrufKontext.getKorrelationsId(), authentifzierungErgebnis);
+            unauthentifizierterAufrufKontext.getKorrelationsId(), authentifizierungErgebnis.orElseThrow(
+                () -> new AuthentifizierungTechnicalException("AccessManager hat kein Ergebnis geliefert.")));
+
         return erzeugeBerechtigungsmanager(this.aufrufKontextVerwalter.getAufrufKontext());
+    }
+
+    private Optional<E> authentifiziereKontext(K unauthentifizierterAufrufKontext) {
+        Optional<E> authentifizierungErgebnis = Optional.empty();
+        try {
+            authentifizierungErgebnis =
+                Optional.ofNullable(accessManager.authentifiziere(unauthentifizierterAufrufKontext));
+        } finally {
+            authentifizierungErgebnis.ifPresent(accessManager::logout);
+        }
+        return authentifizierungErgebnis;
+    }
+
+    private Optional<E> authentifiziereKontextMitCache(K unauthentifizierterAufrufKontext) {
+        Object cacheKey = accessManager.erzeugeCacheSchluessel(unauthentifizierterAufrufKontext);
+
+        Optional<E> authentifizierungErgebnis = Optional.ofNullable(authentifizierungCache.get(cacheKey));
+
+        if (!authentifizierungErgebnis.isPresent()) {
+            authentifizierungErgebnis = authentifiziereKontext(unauthentifizierterAufrufKontext);
+            authentifizierungErgebnis.ifPresent(ergebnis -> authentifizierungCache.put(cacheKey, ergebnis));
+        }
+        return authentifizierungErgebnis;
     }
 
     /**
@@ -205,15 +250,6 @@ public class SicherheitImpl<K extends AufrufKontext, E extends AuthentifzierungE
     }
 
     /**
-     * Setzt die Konfiguration des Caches.
-     * @param cacheKonfiguration
-     *            Die zu setzende Cache-Konfiguration
-     */
-    public void setCacheKonfiguration(String cacheKonfiguration) {
-        this.cacheVerwalter.setCacheKonfiguration(cacheKonfiguration);
-    }
-
-    /**
      * {@inheritDoc}
      */
     @Override
@@ -221,38 +257,18 @@ public class SicherheitImpl<K extends AufrufKontext, E extends AuthentifzierungE
         LOG.info(LogKategorie.SICHERHEIT, EreignisSchluessel.INITIALISIERUNG_SICHERHEIT,
             "Initialisiere Sicherheitskomponente mit RollenRechteDatei: {}", this.rollenRechteDateiPfad);
         if (this.rollenRechteDateiPfad == null || this.rollenRechteDateiPfad.isEmpty()) {
-            throw new InitialisierungsException(
-                SicherheitFehlerSchluessel.MSG_INITIALISIERUNGS_ELEMENT_FEHLT, "rollenRechteDateiPfad");
+            throw new InitialisierungsException(SicherheitFehlerSchluessel.MSG_INITIALISIERUNGS_ELEMENT_FEHLT,
+                "rollenRechteDateiPfad");
         }
         if (this.aufrufKontextVerwalter == null) {
-            throw new InitialisierungsException(
-                SicherheitFehlerSchluessel.MSG_INITIALISIERUNGS_ELEMENT_FEHLT, "aufrufKontextVerwalter");
+            throw new InitialisierungsException(SicherheitFehlerSchluessel.MSG_INITIALISIERUNGS_ELEMENT_FEHLT,
+                "aufrufKontextVerwalter");
         }
 
         XmlAccess access = new XmlAccess();
         this.mapping = access.parseRollenRechteFile(this.rollenRechteDateiPfad);
 
-        int cacheTimeToLive = properties.getTtl();
-        int cacheMaxEntriesInMemory = properties.getMaxelements();
-
-        // Wenn kein Cache konfiguriert wurde oder der Cache deaktiviert wurde, wird das Caching abgeschaltet.
-        if (cacheTimeToLive == 0) {
-            this.cacheVerwalter.setCacheAktiviert(false);
-        } else {
-            this.cacheVerwalter.setCacheAktiviert(true);
-            this.cacheVerwalter.setTimeToLiveSeconds(cacheTimeToLive);
-            this.cacheVerwalter.setMaxEntriesLocalHeap(cacheMaxEntriesInMemory);
-        }
-
         LOG.debug("Initialisierung der Sicherheitskomponente beendet.");
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void destroy() {
-        this.cacheVerwalter.shutdownManager();
     }
 
     @Override

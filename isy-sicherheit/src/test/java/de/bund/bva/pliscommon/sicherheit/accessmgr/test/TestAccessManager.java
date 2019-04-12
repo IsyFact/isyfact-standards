@@ -24,9 +24,6 @@ import de.bund.bva.pliscommon.sicherheit.common.exception.AuthentifizierungFehlg
 import de.bund.bva.pliscommon.sicherheit.common.exception.AuthentifizierungTechnicalException;
 import de.bund.bva.pliscommon.sicherheit.common.exception.SicherheitTechnicalRuntimeException;
 
-/**
- *
- */
 public class TestAccessManager implements AccessManager<AufrufKontext, TestAuthentifizierungErgebnis> {
 
     private AufrufKontext paramAuthentifiziereAufrufKontext;

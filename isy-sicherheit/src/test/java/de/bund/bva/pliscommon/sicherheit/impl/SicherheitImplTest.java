@@ -23,89 +23,87 @@ import de.bund.bva.pliscommon.sicherheit.Berechtigungsmanager;
 import de.bund.bva.pliscommon.sicherheit.common.exception.AuthentifizierungFehlgeschlagenException;
 import de.bund.bva.pliscommon.sicherheit.common.exception.AuthentifizierungTechnicalException;
 import de.bund.bva.pliscommon.sicherheit.common.exception.InitialisierungsException;
+import de.bund.bva.pliscommon.sicherheit.config.IsySicherheitConfigurationProperties;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Test der Klasse {@link SicherheitImpl}.
- *
- */
+@SuppressWarnings("unchecked")
 public class SicherheitImplTest extends AbstractSicherheitTest {
 
     @Test
     public void testeGetBerechtigungsManagerRollenErmittelt() throws Exception {
-        AufrufKontext aufrufKontext = this.aufrufKontextFactory.erzeugeAufrufKontext();
+        AufrufKontext aufrufKontext = aufrufKontextFactory.erzeugeAufrufKontext();
 
         aufrufKontext.setDurchfuehrenderBenutzerKennung("nutzer");
         aufrufKontext.setDurchfuehrenderSachbearbeiterName("name");
         aufrufKontext.setDurchfuehrendeBehoerde("behoerde");
         aufrufKontext.setRolle(new String[] { "Rolle_A", "Rolle_B" });
         aufrufKontext.setRollenErmittelt(true);
-        this.aufrufKontextVerwalter.setAufrufKontext(aufrufKontext);
-        Berechtigungsmanager berechtigungsManager = this.sicherheit.getBerechtigungsManager();
-        assertEquals(0, this.testAccessManager.getCountAuthentifziere());
+        aufrufKontextVerwalter.setAufrufKontext(aufrufKontext);
+        Berechtigungsmanager berechtigungsManager = sicherheit.getBerechtigungsManager();
+        assertEquals(0, testAccessManager.getCountAuthentifziere());
         assertEquals("Nicht alle Rechte wurden zugewiesen", 2, berechtigungsManager.getRechte().size());
     }
 
     @Test
     public void testeAuthentifziereMitKontext() throws Exception {
-        AufrufKontext aufrufKontext = this.aufrufKontextFactory.erzeugeAufrufKontext();
+        AufrufKontext aufrufKontext = aufrufKontextFactory.erzeugeAufrufKontext();
         aufrufKontext.setDurchfuehrenderBenutzerKennung("nutzer");
         aufrufKontext.setDurchfuehrenderSachbearbeiterName("name");
         aufrufKontext.setDurchfuehrendeBehoerde("behoerde");
         aufrufKontext.setDurchfuehrenderBenutzerPasswort("passwort");
         aufrufKontext.setRollenErmittelt(false);
         aufrufKontext.setRolle(new String[] { "Rolle_XYZ" });
-        this.sicherheit.getBerechtigungsManagerUndAuthentifiziere(aufrufKontext);
+        sicherheit.getBerechtigungsManagerUndAuthentifiziere(aufrufKontext);
 
-        assertEquals(1, this.testAccessManager.getCountAuthentifziere());
-        assertEquals("nutzer", this.testAccessManager.getParamAuthentifiziereAufrufKontext()
+        assertEquals(1, testAccessManager.getCountAuthentifziere());
+        assertEquals("nutzer", testAccessManager.getParamAuthentifiziereAufrufKontext()
             .getDurchfuehrenderBenutzerKennung());
-        assertEquals("passwort", this.testAccessManager.getParamAuthentifiziereAufrufKontext()
+        assertEquals("passwort", testAccessManager.getParamAuthentifiziereAufrufKontext()
             .getDurchfuehrenderBenutzerPasswort());
-        assertTrue(this.sicherheit.getBerechtigungsManager().hatRecht("Recht_A"));
-        assertTrue(this.sicherheit.getBerechtigungsManager().hatRecht("Recht_B"));
-        assertEquals(2, this.sicherheit.getBerechtigungsManager().getRollen().size());
+        assertTrue(sicherheit.getBerechtigungsManager().hatRecht("Recht_A"));
+        assertTrue(sicherheit.getBerechtigungsManager().hatRecht("Recht_B"));
+        assertEquals(2, sicherheit.getBerechtigungsManager().getRollen().size());
     }
 
     @Test(expected = AuthentifizierungFehlgeschlagenException.class)
     public void testeAuthentifiziereMitKontextException() {
-        this.testAccessManager.setAuthentifiziereException(new AuthentifizierungFehlgeschlagenException(
+        testAccessManager.setAuthentifiziereException(new AuthentifizierungFehlgeschlagenException(
             "Testfehler"));
-        this.sicherheit.getBerechtigungsManagerUndAuthentifiziere(this.aufrufKontextFactory
+        sicherheit.getBerechtigungsManagerUndAuthentifiziere(aufrufKontextFactory
             .erzeugeAufrufKontext());
     }
 
     @Test(expected = AuthentifizierungTechnicalException.class)
     public void testeAuthentifiziereMitKontextException2() {
-        this.testAccessManager.setAuthentifiziereException(new AuthentifizierungTechnicalException(
+        testAccessManager.setAuthentifiziereException(new AuthentifizierungTechnicalException(
             "Testfehler"));
-        this.sicherheit.getBerechtigungsManagerUndAuthentifiziere(this.aufrufKontextFactory
+        sicherheit.getBerechtigungsManagerUndAuthentifiziere(aufrufKontextFactory
             .erzeugeAufrufKontext());
     }
 
     @Test
     public void testeGetBerechtigungsManagerRollenNichtErmittelt() throws Exception {
-        AufrufKontext aufrufKontext = this.aufrufKontextFactory.erzeugeAufrufKontext();
+        AufrufKontext aufrufKontext = aufrufKontextFactory.erzeugeAufrufKontext();
         aufrufKontext.setDurchfuehrenderBenutzerKennung("nutzer");
         aufrufKontext.setDurchfuehrenderSachbearbeiterName("name");
         aufrufKontext.setDurchfuehrendeBehoerde("behoerde");
         aufrufKontext.setDurchfuehrenderBenutzerPasswort("passwort");
         aufrufKontext.setRollenErmittelt(false);
         aufrufKontext.setRolle(new String[] { "Rolle_XYZ" });
-        this.aufrufKontextVerwalter.setAufrufKontext(aufrufKontext);
-        this.sicherheit.getBerechtigungsManager();
+        aufrufKontextVerwalter.setAufrufKontext(aufrufKontext);
+        sicherheit.getBerechtigungsManager();
 
-        assertEquals(1, this.testAccessManager.getCountAuthentifziere());
-        assertEquals("nutzer", this.testAccessManager.getParamAuthentifiziereAufrufKontext()
+        assertEquals(1, testAccessManager.getCountAuthentifziere());
+        assertEquals("nutzer", testAccessManager.getParamAuthentifiziereAufrufKontext()
             .getDurchfuehrenderBenutzerKennung());
-        assertEquals("passwort", this.testAccessManager.getParamAuthentifiziereAufrufKontext()
+        assertEquals("passwort", testAccessManager.getParamAuthentifiziereAufrufKontext()
             .getDurchfuehrenderBenutzerPasswort());
-        assertTrue(this.sicherheit.getBerechtigungsManager().hatRecht("Recht_A"));
-        assertTrue(this.sicherheit.getBerechtigungsManager().hatRecht("Recht_B"));
-        assertEquals(2, this.sicherheit.getBerechtigungsManager().getRollen().size());
+        assertTrue(sicherheit.getBerechtigungsManager().hatRecht("Recht_A"));
+        assertTrue(sicherheit.getBerechtigungsManager().hatRecht("Recht_B"));
+        assertEquals(2, sicherheit.getBerechtigungsManager().getRollen().size());
     }
 
     @Test(expected = InitialisierungsException.class)
@@ -118,7 +116,7 @@ public class SicherheitImplTest extends AbstractSicherheitTest {
         aufrufKontext.setRolle(new String[] { "Rolle_A", "Rolle_B" });
         aufrufKontext.setRollenErmittelt(true);
         aufrufKontextVerwalterImpl.setAufrufKontext(aufrufKontext);
-        SicherheitImpl sicherheit = new SicherheitImpl(null, aufrufKontextVerwalterImpl, null, null, null);
+        SicherheitImpl sicherheit = new SicherheitImpl(null, aufrufKontextVerwalterImpl, null, null, isySicherheitConfigurationProperties);
         sicherheit.afterPropertiesSet();
     }
 
@@ -130,7 +128,7 @@ public class SicherheitImplTest extends AbstractSicherheitTest {
 
     @Test(expected = AuthentifizierungTechnicalException.class)
     public void testeFehlerAufrufKontextNichtGesetzt() throws Exception {
-        this.sicherheit.getBerechtigungsManager();
+        sicherheit.getBerechtigungsManager();
     }
 
     @Test(expected = AuthentifizierungTechnicalException.class)
@@ -148,25 +146,7 @@ public class SicherheitImplTest extends AbstractSicherheitTest {
 
     @Test(expected = InitialisierungsException.class)
     public void testAfterPropertiesSetKeinAufrufKontextVerwalter() throws Exception{
-        SicherheitImpl sicherheit = new SicherheitImpl("/resources/sicherheit/rollenrechte.xml", null, null, null, null);
+        SicherheitImpl sicherheit = new SicherheitImpl("/resources/sicherheit/rollenrechte.xml", null, null, null, new IsySicherheitConfigurationProperties());
         sicherheit.afterPropertiesSet();
-    }
-
-    @Test
-    public void testAfterPropertiesSetCacheTTLNull() throws Exception{
-        isySicherheitConfigurationProperties.setTtl(0);
-        ((SicherheitImpl)sicherheit).afterPropertiesSet();
-
-        AufrufKontext aufrufKontext = this.aufrufKontextFactory.erzeugeAufrufKontext();
-        aufrufKontext.setDurchfuehrenderBenutzerKennung("nutzer");
-        aufrufKontext.setDurchfuehrenderSachbearbeiterName("name");
-        aufrufKontext.setDurchfuehrendeBehoerde("behoerde");
-        aufrufKontext.setDurchfuehrenderBenutzerPasswort("passwort");
-        aufrufKontext.setRollenErmittelt(false);
-        aufrufKontext.setRolle(new String[] { "Rolle_XYZ" });
-
-        sicherheit.getBerechtigungsManagerUndAuthentifiziere(aufrufKontext);
-        sicherheit.getBerechtigungsManagerUndAuthentifiziere(aufrufKontext);
-        assertEquals(2, testAccessManager.getCountAuthentifziere());
     }
 }
