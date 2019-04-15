@@ -111,7 +111,7 @@ public class DefaultBatchErgebnisProtokoll implements BatchErgebnisProtokoll {
      *             Falls die temporäre Datei für die Meldungen nicht angelegt werden kann.
      */
     public DefaultBatchErgebnisProtokoll(String ergebnisDatei) throws IOException {
-        // Keine statische Logger konfiguration, da der Batchrahmen Log4j erst zur Laufzeit konfiguriert.
+        // Keine statische Logger konfiguration, da der Batchrahmen Logback erst zur Laufzeit konfiguriert.
         this.log = IsyLoggerFactory.getLogger(DefaultBatchErgebnisProtokoll.class);
 
         if (!"".equals(ergebnisDatei) && ergebnisDatei != null) {

@@ -30,7 +30,7 @@ public abstract class KonfigurationSchluessel {
     /** Property-Name fuer die Batchrahmen-Bean. */
     public static final String PROPERTY_BATCHRAHMEN_BEAN_NAME = "Batchrahmen.BeanName";
 
-    /** Property-Name fuer die Log4J-Kontiguration. */
+    /** Property-Name fuer die Logback-Kontiguration. */
     public static final String PROPERTY_BATCHRAHMEN_LOGBACK_CONF = "Batchrahmen.LogbackConfigFile";
 
     /** Property-Name fuer das Commit-Intervall. */

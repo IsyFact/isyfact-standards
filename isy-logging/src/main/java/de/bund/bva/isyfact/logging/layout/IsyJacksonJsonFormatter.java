@@ -31,9 +31,7 @@ import ch.qos.logback.contrib.jackson.JacksonJsonFormatter;
 /**
  * Erweiterung des JacksonJsonFormatters, um IsyLogging erweiterte Konfigurationsmöglichkeiten
  * bereitzustellen.
- * 
- * @author msg systems AG, Andreas Buechner
- * @version $Id$
+ *
  */
 public class IsyJacksonJsonFormatter extends JacksonJsonFormatter {
 

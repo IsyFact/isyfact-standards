@@ -72,7 +72,7 @@ import org.springframework.context.ConfigurableApplicationContext;
  * <li>Batchrahmen.BeanName: Name der Batchrahmen-Bean.
  * <li>Anwendung.SpringDateien.&lt;N&gt;: Namen der Spring-Konfigurationsdateien des Systems.
  * <li>Batchrahmen.SpringDateien.&lt;N&gt;: Namen der Spring-Konfigurationsdateien des Batchrahmens.
- * <li>Batchrahmen.Log4JConfigFile: Pfad zur Log4J Konfigurationsdatei.
+ * <li>Batchrahmen.LogbackConfigFile: Pfad zur Log4J Konfigurationsdatei.
  * <li>Batchrahmen.CommitIntervall: Anzahl Satz-Verarbeitungen pro Commit.
  * <li>Batchrahmen.AnzahlZuVerarbeitendeDatensaetze: Anzahl zu verarbeitende Datensütze.
  * <li>AusfuehrungsBean: Name der Ausfuehrungsbean fuer die Batch-Logik.

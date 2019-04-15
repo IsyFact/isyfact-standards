@@ -18,8 +18,7 @@ package de.bund.bva.isyfact.polling.common.konstanten;
 
 /**
  * Diese Klasse enthält Ereignisschlüssel für das Logging.
- * @author Capgemini, Marcel Vielsack
- * @version $Id:$
+ *
  */
 public class EreignisSchluessel {
 

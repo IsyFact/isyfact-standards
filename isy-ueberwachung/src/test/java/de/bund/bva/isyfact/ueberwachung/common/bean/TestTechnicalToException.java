@@ -21,8 +21,6 @@ import de.bund.bva.pliscommon.exception.service.PlisTechnicalToException;
 /**
  * Exception fuer den Test. Es wird eine Exception vom Typ PlisToException benoetigt.
  *
- * @author Capgemini, Marcel Vielsack
- * @version $Id: TestTechnicalToException.java 130451 2015-02-13 16:17:14Z sdm_ahoerning $
  */
 public class TestTechnicalToException extends PlisTechnicalToException {
 

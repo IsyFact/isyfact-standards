@@ -45,8 +45,6 @@ import org.springframework.util.ClassUtils;
  * Diese Klasse implementiert eine Überwachungs-MBean für Services. Sie liefert die Überwachungsoptionen,
  * welche jeder Service der PLIS anbieten muss.
  *
- * @author sd&m Simon Spielmann
- * @version $Id: ServiceStatistik.java 144975 2015-08-18 13:07:56Z sdm_jmeisel $
  */
 public class ServiceStatistik implements MethodInterceptor, InitializingBean {
     /**

@@ -36,8 +36,6 @@ import static org.junit.Assert.assertTrue;
 /**
  * Tests für Erkennung fachlicher Fehler.
  *
- * @author Capgemini, Julian Meisel
- * @version $Id: TestServiceStatistikFachlicheFehler.java 129945 2015-02-09 10:03:33Z sdm_jmeisel $
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = TestConfig.class,

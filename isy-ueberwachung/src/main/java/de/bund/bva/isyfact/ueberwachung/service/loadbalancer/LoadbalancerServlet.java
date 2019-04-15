@@ -37,9 +37,6 @@ import de.bund.bva.isyfact.ueberwachung.common.konstanten.EreignisSchluessel;
  * {@link #PARAM_IS_ALIVE_FILE_LOCATION} angegeben werden. Ist der Parameter nicht gesetzt, wird der
  * Default-Wert {@link #DEFAULT_IS_ALIVE_FILE_LOCATION} verwendet.
  *
- * @author sd&amp;m AG, Simon Spielmann
- * @version $Id: LoadbalancerServlet.java 141410 2015-07-13 14:13:30Z sdm_jmeisel $
- *
  */
 public class LoadbalancerServlet extends HttpServlet {
     /** UID der Klasse. */
