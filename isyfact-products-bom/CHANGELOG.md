@@ -1,3 +1,6 @@
+# 1.7.0
+- `IFS-274`: Spring-Framework auf 4.3.22 angehoben
+
 # 1.6.0
 - `IFS-272`: Maven-Koordinaten der Oracle-Bibliotheken angepasst
 - `IFS-117`: Spring Web Flow auf Version 2.4.8 angehoben
