@@ -18,7 +18,6 @@ package de.bund.bva.isyfact.batchrahmen.core.rahmen.impl;
 
 import java.util.Date;
 import java.util.UUID;
-
 import javax.persistence.EntityManager;
 
 import de.bund.bva.isyfact.batchrahmen.batch.exception.BatchAusfuehrungsException;
@@ -38,6 +37,13 @@ import de.bund.bva.isyfact.batchrahmen.core.konstanten.NachrichtenSchluessel;
 import de.bund.bva.isyfact.batchrahmen.core.rahmen.Batchrahmen;
 import de.bund.bva.isyfact.batchrahmen.core.rahmen.jmx.BatchRahmenMBean;
 import de.bund.bva.isyfact.batchrahmen.persistence.rahmen.BatchStatus;
+import de.bund.bva.isyfact.logging.IsyLogger;
+import de.bund.bva.isyfact.logging.IsyLoggerFactory;
+import de.bund.bva.isyfact.logging.LogKategorie;
+import de.bund.bva.isyfact.logging.util.MdcHelper;
+import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
+import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextFactory;
+import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Required;
@@ -48,14 +54,6 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
-
-import de.bund.bva.isyfact.logging.IsyLogger;
-import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.isyfact.logging.LogKategorie;
-import de.bund.bva.isyfact.logging.util.MdcHelper;
-import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
-import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextFactory;
-import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
 
 /**
  * Implementierung der Batchrahmen-Funktionalitaet.
@@ -115,7 +113,6 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
     public void runBatch(BatchKonfiguration konfiguration, BatchErgebnisProtokoll protokoll)
         throws BatchAusfuehrungsException {
         VerarbeitungsInformationen verarbInfo = new VerarbeitungsInformationen(konfiguration);
-        final String correlationId = konfiguration.getAsString(KonfigurationSchluessel.PROPERTY_BATCH_ID);
         boolean erfolgreich = false;
         boolean initErfolgreich = false;
 
@@ -142,10 +139,10 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
         erfolgreich = false;
 
         try {
-            MdcHelper.pushKorrelationsId(correlationId);
+            MdcHelper.pushKorrelationsId(UUID.randomUUID().toString());
             // Initialisierungsphase
             T aufrufKontext = this.aufrufKontextFactory.erzeugeAufrufKontext();
-            aufrufKontext.setKorrelationsId(correlationId);
+            aufrufKontext.setKorrelationsId(MdcHelper.liesKorrelationsId());
             this.aufrufKontextVerwalter.setAufrufKontext(aufrufKontext);
             this.batchLaeuft = true;
 
