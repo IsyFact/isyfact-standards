@@ -34,7 +34,7 @@ public interface MethodMappingSource {
      * 
      * @return die aufzurufende Methode der target-Bean
      */
-    public Method getTargetMethod(Method calledMethod, Class<?> targetClass);
+    Method getTargetMethod(Method calledMethod, Class<?> targetClass);
 
     /**
      * Prüft, ob ein Parameter übersprungen, d.h. nicht an die Zielmethode weitergegeben werden soll.
@@ -44,6 +44,6 @@ public interface MethodMappingSource {
      * 
      * @return ob der Parameter übersprungen werden soll
      */
-    public boolean skipParameter(Class<?> parameterType);
+    boolean skipParameter(Class<?> parameterType);
 
 }

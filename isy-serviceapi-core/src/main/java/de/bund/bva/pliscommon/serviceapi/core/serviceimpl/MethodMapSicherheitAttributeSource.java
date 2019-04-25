@@ -22,17 +22,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.ArrayUtils;
+import de.bund.bva.isyfact.logging.IsyLogger;
+import de.bund.bva.isyfact.logging.IsyLoggerFactory;
+import de.bund.bva.pliscommon.sicherheit.annotation.SicherheitAttributeSource;
+import de.bund.bva.pliscommon.sicherheit.common.exception.FehlerhafteServiceKonfigurationRuntimeException;
 import org.springframework.beans.factory.BeanClassLoaderAware;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.PatternMatchUtils;
-
-import de.bund.bva.isyfact.logging.IsyLogger;
-import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.pliscommon.sicherheit.annotation.SicherheitAttributeSource;
-import de.bund.bva.pliscommon.sicherheit.common.exception.FehlerhafteServiceKonfigurationRuntimeException;
 
 /**
  * Stellt die benötigten Rechte pro Methode in einer Map bereit.
@@ -55,10 +53,10 @@ public class MethodMapSicherheitAttributeSource implements SicherheitAttributeSo
     private ClassLoader beanClassLoader = ClassUtils.getDefaultClassLoader();
 
     /** Map from Method to benötigte Rechte. */
-    private final Map<Method, String[]> sicherheitAttributeMap = new HashMap<Method, String[]>();
+    private final Map<Method, String[]> sicherheitAttributeMap = new HashMap<>();
 
     /** Map from Method to name pattern used for registration. */
-    private final Map<Method, String> methodNameMap = new HashMap<Method, String>();
+    private final Map<Method, String> methodNameMap = new HashMap<>();
 
     /**
      * Set a name/attribute map, consisting of "FQCN.method" method names (e.g.
@@ -114,7 +112,7 @@ public class MethodMapSicherheitAttributeSource implements SicherheitAttributeSo
      */
     public void addGesichertMethod(String name, String[] attr) {
         Assert.notNull(name, "Name must not be null");
-        int lastDotIndex = name.lastIndexOf(".");
+        int lastDotIndex = name.lastIndexOf('.');
         if (lastDotIndex == -1) {
             throw new IllegalArgumentException("'" + name
                 + "' is not a valid method name: format is FQN.methodName");
@@ -141,7 +139,7 @@ public class MethodMapSicherheitAttributeSource implements SicherheitAttributeSo
         String name = clazz.getName() + '.' + mappedName;
 
         Method[] methods = clazz.getDeclaredMethods();
-        List<Method> matchingMethods = new ArrayList<Method>();
+        List<Method> matchingMethods = new ArrayList<>();
         for (Method method : methods) {
             if (isMatch(method.getName(), mappedName)) {
                 matchingMethods.add(method);
@@ -211,7 +209,7 @@ public class MethodMapSicherheitAttributeSource implements SicherheitAttributeSo
     @Override
     public String[] getBenoetigeRechte(Method method, Class<?> targetClass) {
         String[] benoetigteRechte = this.sicherheitAttributeMap.get(method);
-        if (ArrayUtils.isEmpty(benoetigteRechte)) {
+        if (benoetigteRechte == null || benoetigteRechte.length == 0) {
             throw new FehlerhafteServiceKonfigurationRuntimeException();
         }
         return benoetigteRechte;

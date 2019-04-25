@@ -18,9 +18,9 @@ package de.bund.bva.pliscommon.serviceapi.core.aufrufkontext;
 
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
 import de.bund.bva.pliscommon.serviceapi.core.aop.test.AufrufKontextSstTestBean;
+import de.bund.bva.pliscommon.serviceapi.core.aufrufkontext.helper.DebugAufrufKontextVerwalter;
 import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 import junit.framework.AssertionFailedError;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +28,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import de.bund.bva.pliscommon.serviceapi.core.aufrufkontext.helper.DebugAufrufKontextVerwalter;
 
 import static org.junit.Assert.*;
 
@@ -58,12 +57,12 @@ public class AufrufKontextInterceptorAnnotationTest {
      */
     private AufrufKontextTo createAufrufKontextTo() {
         AufrufKontextTo aufrufKontextTo = new AufrufKontextTo();
-        aufrufKontextTo.setDurchfuehrendeBehoerde(RandomStringUtils.randomAscii(10));
-        aufrufKontextTo.setDurchfuehrenderBenutzerKennung(RandomStringUtils.randomAscii(10));
-        aufrufKontextTo.setDurchfuehrenderBenutzerPasswort(RandomStringUtils.randomAscii(10));
-        aufrufKontextTo.setDurchfuehrenderSachbearbeiterName(RandomStringUtils.randomAscii(10));
-        aufrufKontextTo.setKorrelationsId(RandomStringUtils.randomAscii(10));
-        aufrufKontextTo.setRolle(new String[] { RandomStringUtils.randomAscii(10) });
+        aufrufKontextTo.setDurchfuehrendeBehoerde("TEST");
+        aufrufKontextTo.setDurchfuehrenderBenutzerKennung("TEST");
+        aufrufKontextTo.setDurchfuehrenderBenutzerPasswort("TEST");
+        aufrufKontextTo.setDurchfuehrenderSachbearbeiterName("TEST");
+        aufrufKontextTo.setKorrelationsId("TEST");
+        aufrufKontextTo.setRolle(new String[] { "TEST" });
         aufrufKontextTo.setRollenErmittelt(true);
         return aufrufKontextTo;
     }

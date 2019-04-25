@@ -16,23 +16,20 @@
  */
 package de.bund.bva.pliscommon.serviceapi.core.aop;
 
+import java.lang.reflect.Method;
+import java.util.UUID;
+
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
-
 import de.bund.bva.pliscommon.serviceapi.common.konstanten.EreignisSchluessel;
 import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
-
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
-import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.core.BridgeMethodResolver;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.StringUtils;
-
-import java.lang.reflect.Method;
-import java.util.UUID;
 
 /**
  * Dieser Aspekt sorgt dafür, dass in Service-Methoden automatisch der Logging-Kontext gesetzt wird.
@@ -77,13 +74,9 @@ public class StelltLoggingKontextBereitInterceptor implements MethodInterceptor 
             // Dann entscheidet die Methode nutzeAufrufKontext darüber, ob AufrufKontextTo verwendet wird
             // oder nicht.
             nutzeAufrufKontext = stelltLoggingKontextBereit.nutzeAufrufKontext();
-        }else{
+        } else {
             // Es bleibt die Frage, ob ein AufrufKontextTo ohne Annotation übergeben wurde.
-            if(aufrufKontextTo != null){
-                nutzeAufrufKontext = true;
-            }else{
-                nutzeAufrufKontext = false;
-            }
+            nutzeAufrufKontext = aufrufKontextTo != null;
         }
 
         if (nutzeAufrufKontext) {
@@ -128,7 +121,7 @@ public class StelltLoggingKontextBereitInterceptor implements MethodInterceptor 
      */
     private AufrufKontextTo leseAufrufKontextTo(Object[] args) {
 
-        if (ArrayUtils.isNotEmpty(args)) {
+        if (args != null && args.length > 0) {
             for (Object parameter : args) {
                 if (parameter instanceof AufrufKontextTo) {
                     return (AufrufKontextTo) parameter;

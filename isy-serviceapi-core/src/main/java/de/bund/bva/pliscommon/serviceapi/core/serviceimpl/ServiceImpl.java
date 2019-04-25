@@ -22,30 +22,28 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import ma.glasnost.orika.MapperFacade;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
-import org.dozer.Mapper;
 import org.springframework.aop.support.AopUtils;
 
 /**
  * Generische Implementierung des Kernteils einer Service- oder Native-GUI-Komponente. Die Implementierung
  * ruft für einen RemoteBean-Aufruf die korrespondierende Methode einer Anwendungskern-Komponente. Dabei
- * werden alle Methodenparameter sowie das Methodenergebnis mithilfe von Dozer konvertiert.
+ * werden alle Methodenparameter sowie das Methodenergebnis mit Hilfe eines Bean Mappers konvertiert.
  * 
  */
 public class ServiceImpl implements MethodInterceptor, Validatable {
 
-    /** Methoden-Mapping. */
     private MethodMappingSource methodMappingSource;
+
+    private MapperFacade mapper;
 
     public void setMethodMappingSource(MethodMappingSource methodMappingSource) {
         this.methodMappingSource = methodMappingSource;
     }
 
-    /** Der Dozer Bean-Mapper. */
-    private Mapper mapper;
-
-    public void setMapper(Mapper mapper) {
+    public void setMapper(MapperFacade mapper) {
         this.mapper = mapper;
     }
 
@@ -72,9 +70,7 @@ public class ServiceImpl implements MethodInterceptor, Validatable {
         }
 
         // Ergebnis abbilden
-        Object externesErgebnis = mapErgebnis(internesErgebnis, externeMethode);
-
-        return externesErgebnis;
+        return mapErgebnis(internesErgebnis, externeMethode);
     }
 
     /**
@@ -89,11 +85,11 @@ public class ServiceImpl implements MethodInterceptor, Validatable {
      *            werden sollen.
      * @return die gemappten externen Parameter auf die Parametertypen der internen Methode.
      */
-    Object[] mapParameter(Object[] externeParameter, Method externeMethode, Method interneMethode) {
+    private Object[] mapParameter(Object[] externeParameter, Method externeMethode, Method interneMethode) {
         Class<?>[] externeParameterTypen = externeMethode.getParameterTypes();
         Type[] interneParameterTypen = interneMethode.getGenericParameterTypes();
 
-        List<Object> interneParameter = new ArrayList<Object>(externeParameter.length);
+        List<Object> interneParameter = new ArrayList<>(externeParameter.length);
         int j = 0;
         for (int i = 0; i < externeParameter.length; i++) {
             if (!methodMappingSource.skipParameter(externeParameterTypen[i])) {
@@ -115,10 +111,8 @@ public class ServiceImpl implements MethodInterceptor, Validatable {
      *            die externe Methode
      * @return der Ergebniswert für die externe Methode
      */
-    Object mapErgebnis(Object internesErgebnis, Method externeMethode) {
-        Object externesErgebnis =
-            MappingHelper.map(mapper, internesErgebnis, externeMethode.getGenericReturnType());
-        return externesErgebnis;
+    private Object mapErgebnis(Object internesErgebnis, Method externeMethode) {
+        return MappingHelper.map(mapper, internesErgebnis, externeMethode.getGenericReturnType());
     }
 
     /**

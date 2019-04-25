@@ -18,8 +18,6 @@ package de.bund.bva.pliscommon.serviceapi.core.serviceimpl;
 
 import java.lang.reflect.Method;
 
-import org.apache.commons.lang3.StringUtils;
-
 import de.bund.bva.pliscommon.exception.PlisException;
 import de.bund.bva.pliscommon.exception.service.PlisTechnicalToException;
 import de.bund.bva.pliscommon.exception.service.PlisToException;
@@ -43,12 +41,11 @@ public class ReflectiveExceptionMappingSource implements ExceptionMappingSource 
     public Class<? extends PlisToException> getToExceptionClass(Method remoteBeanMethod,
         Class<? extends PlisException> exceptionClass) {
 
-        String coreExceptionName = StringUtils.removeEnd(exceptionClass.getSimpleName(), "Exception");
+        String coreExceptionName = removeEnd(exceptionClass.getSimpleName(), "Exception");
 
         for (Class<?> toExceptionClass : remoteBeanMethod.getExceptionTypes()) {
             if (PlisToException.class.isAssignableFrom(toExceptionClass)) {
-                String toExceptionName =
-                    StringUtils.removeEnd(toExceptionClass.getSimpleName(), "ToException");
+                String toExceptionName = removeEnd(toExceptionClass.getSimpleName(), "ToException");
                 if (coreExceptionName.equals(toExceptionName)) {
                     @SuppressWarnings("unchecked")
                     Class<? extends PlisToException> castToExceptionClass =
@@ -60,6 +57,14 @@ public class ReflectiveExceptionMappingSource implements ExceptionMappingSource 
 
         throw new IllegalStateException("Keine TO-Exception für die AWK-Exception " + exceptionClass
             + " in Serviceoperation " + getMethodSignatureString(remoteBeanMethod));
+    }
+
+    private String removeEnd(String s, String end) {
+        if (s.endsWith(end)) {
+            return s.substring(0, s.indexOf(end));
+        } else {
+            return s;
+        }
     }
 
     /**

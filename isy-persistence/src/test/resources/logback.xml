@@ -30,14 +30,6 @@
     <logger name="com.querydsl.jpa" level="INFO" additivity="false">
         <appender-ref ref="KONSOLE"/>
     </logger>
-    <!-- Dozer -->
-    <logger name="org.dozer" level="INFO" additivity="false">
-        <appender-ref ref="KONSOLE"/>
-    </logger>
-    <!-- Apache Commons -->
-    <logger name="org.apache.commons" level="INFO" additivity="false">
-        <appender-ref ref="KONSOLE"/>
-    </logger>
     <!-- DBUnit -->
     <logger name="org.dbunit" level="INFO" additivity="false">
         <appender-ref ref="KONSOLE"/>

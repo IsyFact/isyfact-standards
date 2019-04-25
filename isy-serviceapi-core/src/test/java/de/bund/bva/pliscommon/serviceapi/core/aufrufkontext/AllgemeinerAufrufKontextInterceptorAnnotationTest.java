@@ -16,18 +16,16 @@
  */
 package de.bund.bva.pliscommon.serviceapi.core.aufrufkontext;
 
-import java.util.Collections;
-
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextFactory;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.pliscommon.aufrufkontext.impl.AufrufKontextFactoryImpl;
 import de.bund.bva.pliscommon.serviceapi.core.aop.test.AufrufKontextSstTestBean;
+import de.bund.bva.pliscommon.serviceapi.core.aufrufkontext.helper.DebugAufrufKontextVerwalter;
 import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 import junit.framework.AssertionFailedError;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.dozer.DozerBeanMapper;
-import org.dozer.Mapper;
+import ma.glasnost.orika.MapperFacade;
+import ma.glasnost.orika.impl.DefaultMapperFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,7 +39,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import de.bund.bva.pliscommon.serviceapi.core.aufrufkontext.helper.DebugAufrufKontextVerwalter;
 
 import static org.junit.Assert.*;
 
@@ -70,12 +67,12 @@ public class AllgemeinerAufrufKontextInterceptorAnnotationTest {
      */
     private AufrufKontextTo createAufrufKontextTo() {
         AufrufKontextTo aufrufKontextTo = new AufrufKontextTo();
-        aufrufKontextTo.setDurchfuehrendeBehoerde(RandomStringUtils.randomAscii(10));
-        aufrufKontextTo.setDurchfuehrenderBenutzerKennung(RandomStringUtils.randomAscii(10));
-        aufrufKontextTo.setDurchfuehrenderBenutzerPasswort(RandomStringUtils.randomAscii(10));
-        aufrufKontextTo.setDurchfuehrenderSachbearbeiterName(RandomStringUtils.randomAscii(10));
-        aufrufKontextTo.setKorrelationsId(RandomStringUtils.randomAscii(10));
-        aufrufKontextTo.setRolle(new String[] { RandomStringUtils.randomAscii(10) });
+        aufrufKontextTo.setDurchfuehrendeBehoerde("TEST");
+        aufrufKontextTo.setDurchfuehrenderBenutzerKennung("TEST");
+        aufrufKontextTo.setDurchfuehrenderBenutzerPasswort("TEST");
+        aufrufKontextTo.setDurchfuehrenderSachbearbeiterName("TEST");
+        aufrufKontextTo.setKorrelationsId("TEST");
+        aufrufKontextTo.setRolle(new String[] { "TEST" });
         aufrufKontextTo.setRollenErmittelt(true);
         return aufrufKontextTo;
     }
@@ -158,15 +155,13 @@ public class AllgemeinerAufrufKontextInterceptorAnnotationTest {
     public static class TestConfig {
 
         @Bean
-        public Mapper dozerBeanMapper() {
-            DozerBeanMapper mapper = new DozerBeanMapper();
-            mapper.setMappingFiles(Collections.singletonList("dozerMapping.xml"));
-            return mapper;
+        public MapperFacade mapperFacade() {
+            return new DefaultMapperFactory.Builder().build().getMapperFacade();
         }
 
         @Bean
         public StelltAllgemeinenAufrufKontextBereitInterceptor interceptor(AufrufKontextFactory factory,
-            AufrufKontextVerwalter verwalter, Mapper mapper) {
+            AufrufKontextVerwalter verwalter, MapperFacade mapper) {
             return new StelltAllgemeinenAufrufKontextBereitInterceptor(mapper, factory, verwalter);
         }
 

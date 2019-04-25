@@ -19,17 +19,15 @@ package de.bund.bva.pliscommon.serviceapi.core.httpinvoker;
 import java.lang.reflect.Method;
 import java.util.UUID;
 
-import org.aopalliance.intercept.MethodInvocation;
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.remoting.httpinvoker.HttpInvokerClientInterceptor;
-
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.util.LogHelper;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
 import de.bund.bva.pliscommon.serviceapi.common.konstanten.EreignisSchluessel;
 import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
+import org.aopalliance.intercept.MethodInvocation;
+import org.springframework.remoting.httpinvoker.HttpInvokerClientInterceptor;
+import org.springframework.util.StringUtils;
 
 /**
  * HTTP-InvokerClientInterceptor zum Erzeugen IsyFact-konformer Loggingeinträge.
@@ -68,7 +66,7 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
 
         // Warnung bei falschem Setzen der Korr-Id im Aufrufkontext.
         if (aufrufKontextTo != null && //
-            !StringUtils.isEmpty(aufrufKontextTo.getKorrelationsId()) && //
+            !StringUtils.isEmpty(aufrufKontextTo.getKorrelationsId()) &&
             !MdcHelper.liesKorrelationsId()
                 .equals(aufrufKontextTo.getKorrelationsId() + ";" + korrelationsId)) {
             LOGGER.warn(EreignisSchluessel.AUFRUFKONTEXT_KORRID_KORRIGIERT,
@@ -139,7 +137,7 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
      */
     private AufrufKontextTo leseAufrufKontextTo(Object[] args) {
 
-        if (ArrayUtils.isNotEmpty(args)) {
+        if (args != null && args.length > 0) {
             for (Object parameter : args) {
                 if (parameter instanceof AufrufKontextTo) {
                     return (AufrufKontextTo) parameter;

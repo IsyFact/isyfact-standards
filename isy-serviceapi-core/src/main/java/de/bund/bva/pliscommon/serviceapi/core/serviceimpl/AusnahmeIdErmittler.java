@@ -29,6 +29,6 @@ public interface AusnahmeIdErmittler {
      *            die aufgetretene Exception
      * @return die Ausnahme-ID, nicht null
      */
-    public String ermittleAusnahmeId(Throwable e);
+    String ermittleAusnahmeId(Throwable e);
 
 }

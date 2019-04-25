@@ -17,23 +17,22 @@
 package de.bund.bva.pliscommon.serviceapi.core.serviceimpl;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 import de.bund.bva.pliscommon.exception.service.PlisTechnicalToException;
 import de.bund.bva.pliscommon.serviceapi.core.serviceimpl.test.RemoteBean;
-import org.dozer.Mapper;
+import de.bund.bva.pliscommon.serviceapi.core.serviceimpl.test.ValidRemoteBean;
+import de.bund.bva.pliscommon.serviceapi.core.serviceimpl.test.impl.RemoteBeanImpl;
+import de.bund.bva.pliscommon.serviceapi.core.serviceimpl.test.impl.ValidRemoteBeanImpl;
+import ma.glasnost.orika.MapperFacade;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.springframework.aop.framework.ProxyFactory;
-import de.bund.bva.pliscommon.serviceapi.core.serviceimpl.test.ValidRemoteBean;
-import de.bund.bva.pliscommon.serviceapi.core.serviceimpl.test.impl.RemoteBeanImpl;
-import de.bund.bva.pliscommon.serviceapi.core.serviceimpl.test.impl.ValidRemoteBeanImpl;
 
 public class TestServiceImpl {
 
 	private MethodMappingSource source;
-	private Mapper mapper;
+	private MapperFacade mapper;
 	private ValidRemoteBean remote;
 	private ServiceImpl service;
 	private ValidRemoteBean proxy;
@@ -43,7 +42,7 @@ public class TestServiceImpl {
 		remote = new ValidRemoteBeanImpl();
 		service = new ServiceImpl();
 		source = Mockito.mock(MethodMappingSource.class);
-		mapper = Mockito.mock(Mapper.class);
+		mapper = Mockito.mock(MapperFacade.class);
 		service.setMethodMappingSource(source);
 		service.setMapper(mapper);
 		ProxyFactory fac = new ProxyFactory(remote);
@@ -53,7 +52,7 @@ public class TestServiceImpl {
 
 	@Test
 	public void testInvoke() throws PlisTechnicalToException, NoSuchMethodException, SecurityException {
-		Mockito.when(source.getTargetMethod((Method)Mockito.any(), (Class<?>) Mockito.any())).thenReturn(remote.getClass().getMethod("eineMethode"));
+		Mockito.when(source.getTargetMethod(Mockito.any(), Mockito.any())).thenReturn(remote.getClass().getMethod("eineMethode"));
 		proxy.eineMethode();
 	}
 	
@@ -63,14 +62,14 @@ public class TestServiceImpl {
 		ProxyFactory fac = new ProxyFactory(bean);
 		fac.addAdvice(service);
 		RemoteBean proxy = (RemoteBean) fac.getProxy();
-		Mockito.when(source.getTargetMethod((Method)Mockito.any(), (Class<?>) Mockito.any())).thenReturn(bean.getClass().getMethod("eineMethodeMitException"));
+		Mockito.when(source.getTargetMethod(Mockito.any(), Mockito.any())).thenReturn(bean.getClass().getMethod("eineMethodeMitException"));
 		proxy.eineMethodeMitException();
 	}
 	
 	@Test
 	public void testInvokeMitParameter() throws PlisTechnicalToException, NoSuchMethodException, SecurityException{
-		Mockito.when(source.getTargetMethod((Method)Mockito.any(), (Class<?>) Mockito.any())).thenReturn(remote.getClass().getMethod("methodeMitParametern", Integer.class, String.class));
-		Mockito.when(source.skipParameter((Class<?>) Mockito.any())).thenReturn(false, false);
+		Mockito.when(source.getTargetMethod(Mockito.any(), Mockito.any())).thenReturn(remote.getClass().getMethod("methodeMitParametern", Integer.class, String.class));
+		Mockito.when(source.skipParameter(Mockito.any())).thenReturn(false, false);
 		proxy.methodeMitParametern(10, "zehn");
 	}
 	

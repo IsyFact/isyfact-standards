@@ -33,27 +33,27 @@ import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import org.apache.commons.lang3.ClassUtils;
-import org.dozer.Mapper;
+import ma.glasnost.orika.MapperFacade;
+import org.springframework.util.ClassUtils;
 
 /**
- * Hilfsklasse für Dozer-Mappings, die Mappings von generischen Collections und Maps sowie von primitiven
- * Typen unterstützt.
+ * Hilfsklasse für Mappings von generischen Collections und Maps sowie von primitiven
+ * Typen.
  * 
  */
-public final class MappingHelper {
+final class MappingHelper {
 
     /** Klassen, die nicht gemappt werden sollen. */
-    private static final List<Class<?>> MAPPING_BLACKLIST = Arrays.asList(new Class<?>[] { String.class,
-        Class.class, Object.class });
+    private static final List<Class<?>> MAPPING_BLACKLIST = Arrays.asList(String.class, Class.class,
+        Object.class);
 
     /**
-     * Bildet ein Objekt mithilfe von Dozer auf einen gewünschten Zieltyp ab. Im Gegensatz zu
-     * {@link Mapper#map(Object, Class)} können als Zieltyp auch generische Collections, String und primitive
+     * Bildet ein Objekt mithilfe eines Bean Mappers auf einen gewünschten Zieltyp ab. Im Gegensatz zu
+     * {@link MapperFacade#map(Object, Class)} können als Zieltyp auch generische Collections, String und primitive
      * Typen übergeben werden.
      * 
      * @param mapper
-     *            der Dozer-Mapper
+     *            der Bean-Mapper
      * @param source
      *            das zu mappende Objekt
      * @param destinationType
@@ -61,7 +61,7 @@ public final class MappingHelper {
      * @return das gemappte Objekt
      */
     @SuppressWarnings("unchecked")
-    public static Object map(Mapper mapper, Object source, Type destinationType) {
+    static Object map(MapperFacade mapper, Object source, Type destinationType) {
         if (source == null) {
             return null;
         }
@@ -71,15 +71,15 @@ public final class MappingHelper {
 
             Class<?> rawClass = (Class<?>) parDestinationType.getRawType();
             if (List.class.isAssignableFrom(rawClass)) {
-                return mapCollection(mapper, source, parDestinationType, new ArrayList<Object>());
+                return mapCollection(mapper, source, parDestinationType, new ArrayList<>());
             } else if (SortedSet.class.isAssignableFrom(rawClass)) {
-                return mapCollection(mapper, source, parDestinationType, new TreeSet<Object>());
+                return mapCollection(mapper, source, parDestinationType, new TreeSet<>());
             } else if (Set.class.isAssignableFrom(rawClass)) {
-                return mapCollection(mapper, source, parDestinationType, new HashSet<Object>());
+                return mapCollection(mapper, source, parDestinationType, new HashSet<>());
             } else if (SortedMap.class.isAssignableFrom(rawClass)) {
-                return mapMap(mapper, source, parDestinationType, new TreeMap<Object, Object>());
+                return mapMap(mapper, source, parDestinationType, new TreeMap<>());
             } else if (Map.class.isAssignableFrom(rawClass)) {
-                return mapMap(mapper, source, parDestinationType, new HashMap<Object, Object>());
+                return mapMap(mapper, source, parDestinationType, new HashMap<>());
             }
 
             destinationType = parDestinationType.getRawType();
@@ -145,7 +145,7 @@ public final class MappingHelper {
      * Mappt eine Collection.
      * 
      * @param mapper
-     *            der Dozer-Mapper
+     *            der Bean-Mapper
      * @param source
      *            eine Collection
      * @param parDestinationType
@@ -154,7 +154,7 @@ public final class MappingHelper {
      *            die instanziierte, leere Ziel-Collection
      * @return die gemappte Collection
      */
-    static Collection<Object> mapCollection(Mapper mapper, Object source,
+    private static Collection<Object> mapCollection(MapperFacade mapper, Object source,
         ParameterizedType parDestinationType, Collection<Object> result) {
         if (!(source instanceof Collection)) {
             throw new IllegalArgumentException("Ein Objekt vom Typ " + source.getClass() + " kann nicht auf "
@@ -175,7 +175,7 @@ public final class MappingHelper {
      * Mappt eine Map.
      * 
      * @param mapper
-     *            der Dozer-Mapper
+     *            der Bean-Mapper
      * @param source
      *            eine Map
      * @param parDestinationType
@@ -184,7 +184,7 @@ public final class MappingHelper {
      *            die instanziierte, leere Ziel-Map
      * @return die gemappte Map
      */
-    static Map<Object, Object> mapMap(Mapper mapper, Object source, ParameterizedType parDestinationType,
+    private static Map<Object, Object> mapMap(MapperFacade mapper, Object source, ParameterizedType parDestinationType,
         Map<Object, Object> result) {
         if (!(source instanceof Map)) {
             throw new IllegalArgumentException("Ein Objekt vom Typ " + source.getClass() + " kann nicht auf "

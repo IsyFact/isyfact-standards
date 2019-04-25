@@ -23,20 +23,18 @@ import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextFactory;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.pliscommon.aufrufkontext.common.konstanten.EreignisSchluessel;
 import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
+import ma.glasnost.orika.MapperFacade;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
-import org.dozer.Mapper;
 
 /**
- * Ein Interceptor, welcher den AufrufKontext auf Basis eines Dozer-Mappings bereit stellt.
+ * Ein Interceptor, welcher den AufrufKontext auf Basis eines Mappings bereit stellt.
  */
 public class StelltAllgemeinenAufrufKontextBereitInterceptor<T extends AufrufKontext> implements
     MethodInterceptor {
 
-    /** Die Referenz auf Dozer, welcher zum Mapping benutzt wird. */
-    private final Mapper dozer;
+    private final MapperFacade mapper;
 
-    /** Logger. */
     private static final IsyLogger LOGISY = IsyLoggerFactory
         .getLogger(StelltAllgemeinenAufrufKontextBereitInterceptor.class);
 
@@ -49,9 +47,9 @@ public class StelltAllgemeinenAufrufKontextBereitInterceptor<T extends AufrufKon
     /** Zugriff auf den AufrufKontextVerwalter, um den AufrufKontext zu setzten. */
     private final AufrufKontextVerwalter<T> aufrufKontextVerwalter;
 
-    public StelltAllgemeinenAufrufKontextBereitInterceptor(Mapper dozer,
+    public StelltAllgemeinenAufrufKontextBereitInterceptor(MapperFacade mapper,
         AufrufKontextFactory<T> aufrufKontextFactory, AufrufKontextVerwalter<T> aufrufKontextVerwalter) {
-        this.dozer = dozer;
+        this.mapper = mapper;
         this.aufrufKontextFactory = aufrufKontextFactory;
         this.aufrufKontextVerwalter = aufrufKontextVerwalter;
     }
@@ -73,8 +71,7 @@ public class StelltAllgemeinenAufrufKontextBereitInterceptor<T extends AufrufKon
             this.aufrufKontextVerwalter.setAufrufKontext(null);
         } else {
             T aufrufKontext = this.aufrufKontextFactory.erzeugeAufrufKontext();
-            // Fuehre Mapping mit Hilfe von Dozer durch
-            this.dozer.map(aufrufKontextTo, aufrufKontext);
+            this.mapper.map(aufrufKontextTo, aufrufKontext);
             this.aufrufKontextFactory.nachAufrufKontextVerarbeitung(aufrufKontext);
 
             this.aufrufKontextVerwalter.setAufrufKontext(aufrufKontext);

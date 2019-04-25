@@ -16,17 +16,16 @@
  */
 package de.bund.bva.pliscommon.serviceapi.core.serviceimpl;
 
-import static org.junit.Assert.*;
-
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.bund.bva.pliscommon.serviceapi.core.serviceimpl.test.impl.RemoteBeanImpl;
+import de.bund.bva.pliscommon.sicherheit.common.exception.FehlerhafteServiceKonfigurationRuntimeException;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.bund.bva.pliscommon.serviceapi.core.serviceimpl.test.impl.RemoteBeanImpl;
-import de.bund.bva.pliscommon.sicherheit.common.exception.FehlerhafteServiceKonfigurationRuntimeException;
+import static org.junit.Assert.assertArrayEquals;
 
 public class TestMethodMapSicherheitAttributeSource {
 
@@ -53,7 +52,7 @@ public class TestMethodMapSicherheitAttributeSource {
 		Method m1 = RemoteBeanImpl.class.getMethod("eineMethode");
 		Method m2 = RemoteBeanImpl.class.getMethod("eineAndereMethode");
 		
-		Map<String, String[]> map = new HashMap<String, String[]>();
+		Map<String, String[]> map = new HashMap<>();
 		map.put(RemoteBeanImpl.class.getName() + "." + m1.getName(), rechte1);
 		map.put(RemoteBeanImpl.class.getName() + "." + m2.getName(), rechte2);
 		

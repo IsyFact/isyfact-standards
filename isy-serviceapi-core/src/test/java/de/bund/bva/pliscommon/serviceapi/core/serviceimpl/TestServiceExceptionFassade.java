@@ -16,196 +16,143 @@
  */
 package de.bund.bva.pliscommon.serviceapi.core.serviceimpl;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 import ch.qos.logback.classic.Level;
-
-import de.bund.bva.pliscommon.serviceapi.core.serviceimpl.test.RemoteBean;
-import org.junit.Before;
-import org.junit.Test;
-
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
-import org.springframework.aop.framework.ProxyFactory;
-
 import de.bund.bva.pliscommon.aufrufkontext.common.exception.AufrufKontextFehlerhaftException;
 import de.bund.bva.pliscommon.exception.PlisBusinessException;
-import de.bund.bva.pliscommon.exception.PlisException;
 import de.bund.bva.pliscommon.exception.PlisTechnicalException;
 import de.bund.bva.pliscommon.exception.service.PlisTechnicalToException;
 import de.bund.bva.pliscommon.serviceapi.core.serviceimpl.test.PlisTechnicalRuntimeTestException;
 import de.bund.bva.pliscommon.serviceapi.core.serviceimpl.test.PlisTechnicalTestToException;
+import de.bund.bva.pliscommon.serviceapi.core.serviceimpl.test.RemoteBean;
 import de.bund.bva.pliscommon.serviceapi.core.serviceimpl.test.ValidRemoteBean;
 import de.bund.bva.pliscommon.serviceapi.core.serviceimpl.test.impl.RemoteBeanImpl;
 import de.bund.bva.pliscommon.serviceapi.core.serviceimpl.test.impl.ValidRemoteBeanImpl;
+import org.junit.Before;
+import org.junit.Test;
+import org.springframework.aop.framework.ProxyFactory;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class TestServiceExceptionFassade {
 
-	private ServiceExceptionFassade fassade;
-	private AusnahmeIdErmittler ermittler;
-	private MethodMappingSource methodMappingSource;
-	private ExceptionMappingSource exceptionMappingSource;
-	private ValidRemoteBean bean;
+    private ServiceExceptionFassade fassade;
 
-	@Before
-	public void setUp(){
-		fassade = new ServiceExceptionFassade();
-		ermittler = mock(AusnahmeIdErmittler.class);
-		methodMappingSource = mock(MethodMappingSource.class);
-		exceptionMappingSource = mock(ExceptionMappingSource.class);				
-		fassade.setAusnahmeIdErmittler(ermittler);
-		fassade.setMethodMappingSource(methodMappingSource);
-		fassade.setExceptionMappingSource(exceptionMappingSource);
-		fassade.setAppTechnicalRuntimeException(PlisTechnicalRuntimeTestException.class);
-		fassade.setLogLevelPlisExceptions(Level.DEBUG.levelStr);
-		bean = new ValidRemoteBeanImpl();
-	}
-	
-	@Test(expected = IllegalArgumentException.class)
-	public void testSetAppTechnicalRuntimeExceptionErwarteterKonstruktorNichtVorhanden() {
-		fassade.setAppTechnicalRuntimeException(AufrufKontextFehlerhaftException.class);
-	}
-	
-	@Test
-	public void testValidateConfiguration() throws NoSuchMethodException, SecurityException{		
-		when(exceptionMappingSource.getGenericTechnicalToException((Method) any())).thenAnswer(new Answer<Class<PlisTechnicalToException>>() {
-			@Override
-			public Class<PlisTechnicalToException> answer(InvocationOnMock invocation) throws Throwable {
-				return PlisTechnicalToException.class;
-			}
-		});		
-		when(exceptionMappingSource.getToExceptionClass((Method)any(), (Class)any())).thenAnswer(new Answer<Class<PlisTechnicalException>>() {
-			@Override
-			public Class<PlisTechnicalException> answer(InvocationOnMock invocation) throws Throwable {				
-				return PlisTechnicalException.class;
-			}
-		});
-		
-		fassade.setMethodMappingSource(new ReflectiveMethodMappingSource());
-		fassade.validateConfiguration(ValidRemoteBean.class, bean);
-	}
-	
-	@Test(expected = IllegalStateException.class)
-	public void testValidateConfigurationPlisExceptionClassIsNull() throws NoSuchMethodException, SecurityException{		
-		when(exceptionMappingSource.getGenericTechnicalToException((Method) any())).thenAnswer(new Answer<Class<PlisTechnicalToException>>() {
-			@Override
-			public Class<PlisTechnicalToException> answer(InvocationOnMock invocation) throws Throwable {				
-				return PlisTechnicalToException.class;
-			}
-		});		
-		when(exceptionMappingSource.getToExceptionClass((Method)any(), (Class)any())).thenAnswer(new Answer<Class<PlisTechnicalException>>() {
-			@Override
-			public Class<PlisTechnicalException> answer(InvocationOnMock invocation) throws Throwable {				
-				return null;
-			}
-		});
-		
-		fassade.setMethodMappingSource(new ReflectiveMethodMappingSource());		
-		fassade.validateConfiguration(ValidRemoteBean.class, bean);
-	}
-	
-	@Test(expected = IllegalStateException.class)
-	public void testValidateConfigurationPlisExceptionClassIsNotOnMethod() throws NoSuchMethodException, SecurityException{		
-		when(exceptionMappingSource.getGenericTechnicalToException((Method) any())).thenAnswer(new Answer<Class<PlisTechnicalToException>>() {
-			@Override
-			public Class<PlisTechnicalToException> answer(InvocationOnMock invocation) throws Throwable {				
-				return PlisTechnicalToException.class;
-			}
-		});		
-		when(exceptionMappingSource.getToExceptionClass((Method)any(), (Class<? extends PlisException>)any())).thenAnswer(new Answer<Class<PlisBusinessException>>() {
-			@Override
-			public Class<PlisBusinessException> answer(InvocationOnMock invocation) throws Throwable {				
-				return PlisBusinessException.class;
-			}
-		});
-		
-		fassade.setMethodMappingSource(new ReflectiveMethodMappingSource());		
-		fassade.validateConfiguration(ValidRemoteBean.class, bean);
-	}
-	
-	@Test(expected = IllegalStateException.class)
-	public void testValidateConfigurationNoStaticConfigOfGenericToException(){
-		when(exceptionMappingSource.getGenericTechnicalToException((Method) any())).thenReturn(null);		
-		fassade.validateConfiguration(ValidRemoteBean.class, new ValidRemoteBeanImpl());
-	}
+    private ValidRemoteBean bean;
 
-	@Test(expected = IllegalStateException.class)
-	public void testValidateConfigurationNoPlisTechnicalToExceptionOnMethod(){
-		when(exceptionMappingSource.getGenericTechnicalToException((Method) any())).thenAnswer(new Answer<Class<PlisTechnicalToException>>() {
-			@Override
-			public Class<PlisTechnicalToException> answer(InvocationOnMock invocation) throws Throwable {				
-				return PlisTechnicalToException.class;
-			}
-		});
-		fassade.setMethodMappingSource(new ReflectiveMethodMappingSource());
-		fassade.validateConfiguration(RemoteBean.class, new RemoteBeanImpl());
-	}
-	
-	@Test
-	public void testInvoke() throws Throwable{
-		ProxyFactory fac = new ProxyFactory(bean);
-		fac.addAdvice(fassade);
-		ValidRemoteBean proxy = (ValidRemoteBean) fac.getProxy();
-		proxy.eineMethode();
-	}
-	
-	private RemoteBean getProxyForRemoteBean(){
-		RemoteBean bean = new RemoteBeanImpl();
-		ProxyFactory fac = new ProxyFactory(bean);
-		fac.addAdvice(fassade);
-		return (RemoteBean) fac.getProxy();
-	}
-	
-	@Test(expected = PlisTechnicalTestToException.class)
-	public void testInvokePlisException() throws Throwable{
-		when(exceptionMappingSource.getToExceptionClass((Method) any(), (Class<? extends PlisException>) any())).thenAnswer(new Answer<Class<PlisTechnicalTestToException>>() {
-			@Override
-			public Class<PlisTechnicalTestToException> answer(InvocationOnMock invocation) throws Throwable {				
-				return PlisTechnicalTestToException.class;
-			}
-		});
-		RemoteBean proxy = getProxyForRemoteBean();
-		proxy.eineMethodeMitPlisException();
-	}
-	
-	@Test(expected = PlisTechnicalTestToException.class)
-	public void testInvokePlisException2() throws Throwable{
-		when(exceptionMappingSource.getGenericTechnicalToException((Method) any())).thenAnswer(new Answer<Class<PlisTechnicalTestToException>>() {
-			@Override
-			public Class<PlisTechnicalTestToException> answer(InvocationOnMock invocation) throws Throwable {				
-				return PlisTechnicalTestToException.class;
-			}
-		});
-		RemoteBean proxy = getProxyForRemoteBean();
-		proxy.eineMethodeMitPlisException();
-	}
-	
-	@Test(expected = PlisTechnicalTestToException.class)
-	public void testInvokePlisTechnicalRuntimeException() throws Throwable{
-		when(exceptionMappingSource.getGenericTechnicalToException((Method) any())).thenAnswer(new Answer<Class<PlisTechnicalTestToException>>() {
-			@Override
-			public Class<PlisTechnicalTestToException> answer(InvocationOnMock invocation) throws Throwable {				
-				return PlisTechnicalTestToException.class;
-			}
-		});
-		RemoteBean proxy = getProxyForRemoteBean();
-		proxy.eineMethodeMitPlisTechnicalRuntimeException();
-	}
-	
-	@Test(expected = PlisTechnicalTestToException.class)
-	public void testInvokeIllegalArgumentException() throws InvocationTargetException, PlisTechnicalToException{
-		when(exceptionMappingSource.getGenericTechnicalToException((Method) any())).thenAnswer(new Answer<Class<PlisTechnicalTestToException>>() {
-			@Override
-			public Class<PlisTechnicalTestToException> answer(InvocationOnMock invocation) throws Throwable {				
-				return PlisTechnicalTestToException.class;
-			}
-		});
-		RemoteBean proxy = getProxyForRemoteBean();
-		proxy.eineMethodeMitException();
-	}
+    private AusnahmeIdErmittler ermittler;
+
+    private ExceptionMappingSource exceptionMappingSource;
+
+    @Before
+    public void setUp() {
+        ermittler = mock(AusnahmeIdErmittler.class);
+        exceptionMappingSource = mock(ExceptionMappingSource.class);
+        fassade = new ServiceExceptionFassade(new ReflectiveMethodMappingSource(), exceptionMappingSource,
+            ermittler, PlisTechnicalRuntimeTestException.class);
+
+        fassade.setLogLevelPlisExceptions(Level.DEBUG.levelStr);
+        bean = new ValidRemoteBeanImpl();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetAppTechnicalRuntimeExceptionErwarteterKonstruktorNichtVorhanden() {
+        fassade = new ServiceExceptionFassade(new ReflectiveMethodMappingSource(), exceptionMappingSource,
+            ermittler, AufrufKontextFehlerhaftException.class);
+    }
+
+    @Test
+    public void testValidateConfiguration() throws SecurityException {
+        when(exceptionMappingSource.getGenericTechnicalToException(any()))
+            .thenAnswer(invocation -> PlisTechnicalToException.class);
+        when(exceptionMappingSource.getToExceptionClass(any(), any()))
+            .thenAnswer(invocation -> PlisTechnicalException.class);
+
+        fassade.validateConfiguration(ValidRemoteBean.class, bean);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testValidateConfigurationPlisExceptionClassIsNull() throws SecurityException {
+        when(exceptionMappingSource.getGenericTechnicalToException(any()))
+            .thenAnswer(invocation -> PlisTechnicalToException.class);
+        when(exceptionMappingSource.getToExceptionClass(any(), any())).thenAnswer(invocation -> null);
+
+        fassade.validateConfiguration(ValidRemoteBean.class, bean);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testValidateConfigurationPlisExceptionClassIsNotOnMethod() throws SecurityException {
+        when(exceptionMappingSource.getGenericTechnicalToException(any()))
+            .thenAnswer(invocation -> PlisTechnicalToException.class);
+        when(exceptionMappingSource.getToExceptionClass(any(), any()))
+            .thenAnswer(invocation -> PlisBusinessException.class);
+
+        fassade.validateConfiguration(ValidRemoteBean.class, bean);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testValidateConfigurationNoStaticConfigOfGenericToException() {
+        when(exceptionMappingSource.getGenericTechnicalToException(any())).thenReturn(null);
+
+        fassade.validateConfiguration(ValidRemoteBean.class, new ValidRemoteBeanImpl());
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testValidateConfigurationNoPlisTechnicalToExceptionOnMethod() {
+        when(exceptionMappingSource.getGenericTechnicalToException(any()))
+            .thenAnswer(invocation -> PlisTechnicalToException.class);
+
+        fassade.validateConfiguration(RemoteBean.class, new RemoteBeanImpl());
+    }
+
+    @Test
+    public void testInvoke() throws Throwable {
+        ProxyFactory fac = new ProxyFactory(bean);
+        fac.addAdvice(fassade);
+        ValidRemoteBean proxy = (ValidRemoteBean) fac.getProxy();
+        proxy.eineMethode();
+    }
+
+    private RemoteBean getProxyForRemoteBean() {
+        RemoteBean bean = new RemoteBeanImpl();
+        ProxyFactory fac = new ProxyFactory(bean);
+        fac.addAdvice(fassade);
+        return (RemoteBean) fac.getProxy();
+    }
+
+    @Test(expected = PlisTechnicalTestToException.class)
+    public void testInvokePlisException() throws Throwable {
+        when(exceptionMappingSource.getToExceptionClass(any(), any()))
+            .thenAnswer(invocation -> PlisTechnicalTestToException.class);
+        RemoteBean proxy = getProxyForRemoteBean();
+        proxy.eineMethodeMitPlisException();
+    }
+
+    @Test(expected = PlisTechnicalTestToException.class)
+    public void testInvokePlisException2() throws Throwable {
+        when(exceptionMappingSource.getGenericTechnicalToException(any()))
+            .thenAnswer(invocation -> PlisTechnicalTestToException.class);
+        RemoteBean proxy = getProxyForRemoteBean();
+        proxy.eineMethodeMitPlisException();
+    }
+
+    @Test(expected = PlisTechnicalTestToException.class)
+    public void testInvokePlisTechnicalRuntimeException() throws Throwable {
+        when(exceptionMappingSource.getGenericTechnicalToException(any()))
+            .thenAnswer(invocation -> PlisTechnicalTestToException.class);
+        RemoteBean proxy = getProxyForRemoteBean();
+        proxy.eineMethodeMitPlisTechnicalRuntimeException();
+    }
+
+    @Test(expected = PlisTechnicalTestToException.class)
+    public void testInvokeIllegalArgumentException()
+        throws InvocationTargetException, PlisTechnicalToException {
+        when(exceptionMappingSource.getGenericTechnicalToException(any()))
+            .thenAnswer(invocation -> PlisTechnicalTestToException.class);
+        RemoteBean proxy = getProxyForRemoteBean();
+        proxy.eineMethodeMitException();
+    }
 }
