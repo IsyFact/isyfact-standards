@@ -277,6 +277,7 @@ public class BatchLauncher {
         setzeSpringProfiles(anwendung);
         anwendung.setConfigLocations(this.rahmenKonfiguration.getAnwendungSpringKonfigFiles());
         anwendung.refresh();
+        anwendung.registerShutdownHook();
         ClassPathXmlApplicationContext rahmen =
             new ClassPathXmlApplicationContext(this.rahmenKonfiguration.getBatchRahmenSpringKonfigFiles(),
                 anwendung);
