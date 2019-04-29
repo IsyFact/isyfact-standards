@@ -166,7 +166,7 @@
             </build>
         </profile>
         <profile>
-            <id>signing</id>
+            <id>JARsigning</id>
             <build>
                 <plugins>
                     <plugin>
@@ -201,6 +201,13 @@
                             <certs>true</certs>
                         </configuration>
                     </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>GPGsigning</id>
+            <build>
+                <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
