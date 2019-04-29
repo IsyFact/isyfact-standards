@@ -14,7 +14,7 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.pliscommon.serviceapi.core.aufrufkontext;
+package de.bund.bva.pliscommon.serviceapi.common;
 
 import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 
@@ -22,7 +22,7 @@ import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontex
  * Hilfsklasse zum Ermitteln des AufrufKontextTo aus den Serviceparametern.
  * 
  */
-class AufrufKontextToHelper {
+public class AufrufKontextToHelper {
 
     /**
      * Lädt den ersten gefundenen {@link AufrufKontextTo} aus den Parametern der aufgerufenen Funktion.

@@ -59,14 +59,6 @@ public class ReflectiveExceptionMappingSource implements ExceptionMappingSource 
             + " in Serviceoperation " + getMethodSignatureString(remoteBeanMethod));
     }
 
-    private String removeEnd(String s, String end) {
-        if (s.endsWith(end)) {
-            return s.substring(0, s.indexOf(end));
-        } else {
-            return s;
-        }
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -104,5 +96,16 @@ public class ReflectiveExceptionMappingSource implements ExceptionMappingSource 
     protected String getMethodSignatureString(Method method) {
         return method.getDeclaringClass().getName() + "." + method.getName();
     }
+
+    private static String removeEnd(String str, String remove) {
+        if (str == null || str.length() == 0 || remove == null || remove.length() == 0) {
+            return str;
+        }
+        if (str.endsWith(remove)) {
+            return str.substring(0, str.length() - remove.length());
+        }
+        return str;
+    }
+
 
 }

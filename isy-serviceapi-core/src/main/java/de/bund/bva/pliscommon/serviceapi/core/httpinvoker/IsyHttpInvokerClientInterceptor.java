@@ -19,16 +19,17 @@ package de.bund.bva.pliscommon.serviceapi.core.httpinvoker;
 import java.lang.reflect.Method;
 import java.util.UUID;
 
-import de.bund.bva.isyfact.logging.IsyLogger;
-import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.isyfact.logging.util.LogHelper;
-import de.bund.bva.isyfact.logging.util.MdcHelper;
-import de.bund.bva.pliscommon.serviceapi.common.konstanten.EreignisSchluessel;
-import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.remoting.httpinvoker.HttpInvokerClientInterceptor;
 import org.springframework.util.StringUtils;
 
+import de.bund.bva.isyfact.logging.IsyLogger;
+import de.bund.bva.isyfact.logging.IsyLoggerFactory;
+import de.bund.bva.isyfact.logging.util.LogHelper;
+import de.bund.bva.isyfact.logging.util.MdcHelper;
+import de.bund.bva.pliscommon.serviceapi.common.AufrufKontextToHelper;
+import de.bund.bva.pliscommon.serviceapi.common.konstanten.EreignisSchluessel;
+import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 /**
  * HTTP-InvokerClientInterceptor zum Erzeugen IsyFact-konformer Loggingeinträge.
  */
@@ -59,7 +60,8 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
 
         Method methode = methodInvocation.getMethod();
 
-        AufrufKontextTo aufrufKontextTo = leseAufrufKontextTo(methodInvocation.getArguments());
+        AufrufKontextTo aufrufKontextTo =
+            AufrufKontextToHelper.leseAufrufKontextTo(methodInvocation.getArguments());
 
         LOGGER.debug("Erzeuge neue Korrelations-ID {}", korrelationsId);
         MdcHelper.pushKorrelationsId(korrelationsId);
@@ -125,27 +127,6 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
      */
     public void setRemoteSystemName(String remoteSystemName) {
         this.remoteSystemName = remoteSystemName;
-    }
-
-    /**
-     * Lädt den ersten gefundenen {@link AufrufKontextTo} aus den Parametern der aufgerufenen Funktion.
-     *
-     * @param args
-     *            die Argumente der Service-Operation
-     *
-     * @return das AufrufKontextTo Objekt
-     */
-    private AufrufKontextTo leseAufrufKontextTo(Object[] args) {
-
-        if (args != null && args.length > 0) {
-            for (Object parameter : args) {
-                if (parameter instanceof AufrufKontextTo) {
-                    return (AufrufKontextTo) parameter;
-                }
-            }
-        }
-
-        return null;
     }
 
     /**

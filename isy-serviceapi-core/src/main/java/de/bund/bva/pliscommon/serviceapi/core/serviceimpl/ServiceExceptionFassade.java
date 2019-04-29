@@ -21,6 +21,10 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Optional;
 
+import org.aopalliance.intercept.MethodInterceptor;
+import org.aopalliance.intercept.MethodInvocation;
+import org.springframework.aop.support.AopUtils;
+
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
@@ -30,9 +34,7 @@ import de.bund.bva.pliscommon.exception.service.PlisTechnicalToException;
 import de.bund.bva.pliscommon.exception.service.PlisToException;
 import de.bund.bva.pliscommon.serviceapi.common.exception.PlisExceptionMapper;
 import de.bund.bva.pliscommon.serviceapi.common.konstanten.EreignisSchluessel;
-import org.aopalliance.intercept.MethodInterceptor;
-import org.aopalliance.intercept.MethodInvocation;
-import org.springframework.aop.support.AopUtils;
+
 
 /**
  * Eine generische Exception-Fassade für Service- und Native-GUI-Komponenten. Diese Implementierung fängt alle
@@ -162,13 +164,11 @@ public class ServiceExceptionFassade implements MethodInterceptor, Validatable {
                     "Für die Serviceoperation {} ist kein Exception-Mapping für Exceptionklasse {} definiert. Benutze stattdessen technische TO-Exception {}",
                     getMethodSignatureString(invocation), e.getClass(), targetExceptionClass.getName());
             }
-            PlisToException toException = PlisExceptionMapper.mapException(e, targetExceptionClass);
-            throw toException;
+            throw PlisExceptionMapper.mapException(e, targetExceptionClass);
         } catch (PlisTechnicalRuntimeException e) {
             LOG.error("Fehler in der Serviceoperation {}", e, getMethodSignatureString(invocation));
-            PlisTechnicalToException toException = PlisExceptionMapper.mapException(e,
+            throw PlisExceptionMapper.mapException(e,
                 this.exceptionMappingSource.getGenericTechnicalToException(remoteBeanMethod));
-            throw toException;
         } catch (Throwable t) {
             // In seltenen Fällen trat bei Lasttests ein NoClassDefFound-Fehler beim Erzeugen der
             // RuntimeException auf. Da dabei der ursprüngliche Fehler verloren ging, wird hier nochmal
@@ -191,10 +191,8 @@ public class ServiceExceptionFassade implements MethodInterceptor, Validatable {
                     t.getMessage());
             }
 
-            PlisTechnicalToException toException = PlisExceptionMapper.mapException(plisRuntimeException,
+            throw PlisExceptionMapper.mapException(plisRuntimeException,
                 this.exceptionMappingSource.getGenericTechnicalToException(remoteBeanMethod));
-            throw toException;
-
         }
     }
 
@@ -239,7 +237,9 @@ public class ServiceExceptionFassade implements MethodInterceptor, Validatable {
                     "Fehler in der statischen Konfiguration der Exception-Fassade für "
                         + remoteBeanInterface.getName() + ": Keine generische TO-Exception definiert");
             }
-            if (Arrays.stream(remoteBeanMethod.getExceptionTypes()).noneMatch(genericTechnicalToExceptionClass::equals)) {
+
+            if (!Arrays.asList(remoteBeanMethod.getExceptionTypes())
+                .contains(genericTechnicalToExceptionClass)) {
                 throw new IllegalStateException(
                     "Fehler in der statischen Konfiguration der Exception-Fassade für "
                         + getMethodSignatureString(remoteBeanMethod) + ": Die generische TO-Exception "
@@ -263,7 +263,7 @@ public class ServiceExceptionFassade implements MethodInterceptor, Validatable {
                                 + ": Keine TO-Exception für AWK-Exception "
                                 + plisExceptionClass.getSimpleName() + " definiert");
                     }
-                    if (Arrays.stream(remoteBeanMethod.getExceptionTypes()).noneMatch(plisToExceptionClass::equals)) {
+                    if (!Arrays.asList(remoteBeanMethod.getExceptionTypes()).contains(plisToExceptionClass)) {
                         throw new IllegalStateException(
                             "Fehler in der statischen Konfiguration der Exception-Fassade für "
                                 + getMethodSignatureString(remoteBeanMethod) + ": Die TO-Exception "

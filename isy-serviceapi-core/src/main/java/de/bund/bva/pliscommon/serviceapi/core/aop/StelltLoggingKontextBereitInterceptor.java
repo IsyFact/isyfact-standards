@@ -19,16 +19,18 @@ package de.bund.bva.pliscommon.serviceapi.core.aop;
 import java.lang.reflect.Method;
 import java.util.UUID;
 
-import de.bund.bva.isyfact.logging.IsyLogger;
-import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.isyfact.logging.util.MdcHelper;
-import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
+import de.bund.bva.pliscommon.serviceapi.common.AufrufKontextToHelper;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.core.BridgeMethodResolver;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.StringUtils;
+
+import de.bund.bva.isyfact.logging.IsyLogger;
+import de.bund.bva.isyfact.logging.IsyLoggerFactory;
+import de.bund.bva.isyfact.logging.util.MdcHelper;
+import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 
 /**
  * Dieser Aspekt sorgt dafür, dass in Service-Methoden automatisch der Logging-Kontext gesetzt wird.
@@ -55,12 +57,13 @@ public class StelltLoggingKontextBereitInterceptor implements MethodInterceptor 
      */
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
-        /** Die Korrelations-ID wird zur eindeutigen Identifikation von Service-Aufrufen verwendet. **/
-         String korrelationsId = null;
+        // Die Korrelations-ID wird zur eindeutigen Identifikation von Service-Aufrufen verwendet.
+        String korrelationsId;
 
-        AufrufKontextTo aufrufKontextTo = leseAufrufKontextTo(invocation.getArguments());
+        AufrufKontextTo aufrufKontextTo =
+            AufrufKontextToHelper.leseAufrufKontextTo(invocation.getArguments());
 
-        boolean nutzeAufrufKontext = false;
+        boolean nutzeAufrufKontext;
 
         Class<?> targetClass =
             (invocation.getThis() != null ? AopUtils.getTargetClass(invocation.getThis()) : null);
@@ -107,27 +110,6 @@ public class StelltLoggingKontextBereitInterceptor implements MethodInterceptor 
             // Nach dem Aufruf alle Korrelations-IDs vom MDC entfernen.
             MdcHelper.entferneKorrelationsIds();
         }
-    }
-
-    /**
-     * Lädt den ersten gefundenen {@link AufrufKontextTo} aus den Parametern der aufgerufenen Funktion.
-     *
-     * @param args
-     *            die Argumente der Service-Operation
-     *
-     * @return das AufrufKontextTo Objekt
-     */
-    private AufrufKontextTo leseAufrufKontextTo(Object[] args) {
-
-        if (args != null && args.length > 0) {
-            for (Object parameter : args) {
-                if (parameter instanceof AufrufKontextTo) {
-                    return (AufrufKontextTo) parameter;
-                }
-            }
-        }
-
-        return null;
     }
 
     /**
