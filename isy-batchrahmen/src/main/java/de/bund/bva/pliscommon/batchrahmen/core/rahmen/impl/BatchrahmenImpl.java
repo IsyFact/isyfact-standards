@@ -68,7 +68,7 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
     ApplicationContextAware, DisposableBean {
 
     /** Der Logger. */
-    public static final IsyLogger LOG = IsyLoggerFactory.getLogger(BatchrahmenImpl.class);
+    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(BatchrahmenImpl.class);
 
     /** Referenz auf den TransaktionsManager. */
     private JpaTransactionManager transactionManager;
@@ -115,7 +115,6 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
     public void runBatch(BatchKonfiguration konfiguration, BatchErgebnisProtokoll protokoll)
         throws BatchAusfuehrungsException {
         VerarbeitungsInformationen verarbInfo = new VerarbeitungsInformationen(konfiguration);
-        final String correlationId = konfiguration.getAsString(KonfigurationSchluessel.PROPERTY_BATCH_ID);
         boolean erfolgreich = false;
         boolean initErfolgreich = false;
 
@@ -142,10 +141,10 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
         erfolgreich = false;
 
         try {
-            MdcHelper.pushKorrelationsId(correlationId);
+            MdcHelper.pushKorrelationsId(UUID.randomUUID().toString());
             // Initialisierungsphase
             T aufrufKontext = this.aufrufKontextFactory.erzeugeAufrufKontext();
-            aufrufKontext.setKorrelationsId(correlationId);
+            aufrufKontext.setKorrelationsId(MdcHelper.liesKorrelationsId());
             this.aufrufKontextVerwalter.setAufrufKontext(aufrufKontext);
             this.batchLaeuft = true;
 

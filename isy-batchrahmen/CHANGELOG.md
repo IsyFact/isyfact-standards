@@ -1,5 +1,6 @@
 # 1.10.0
 - `IFS-262`: `isyfact-masterpom` deprecated (Abschaffung mit IsyFact 2.0), `isyfact-masterpom-lib` aufgelöst, Bibliotheken benutzen `isyfact-standards` als Parent-POM
+- `IFS-270`: UUID als Korrelations-ID für Batches statt Batch-ID
 - `IFS-255`: Schließen des Anwendungskontexts nach Ausführung eines Batches.
 
 # 1.9.0
