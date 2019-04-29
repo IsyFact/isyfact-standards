@@ -16,16 +16,14 @@
  */
 package de.bund.bva.pliscommon.serviceapi.core.aufrufkontext;
 
-import org.aopalliance.intercept.MethodInterceptor;
-import org.aopalliance.intercept.MethodInvocation;
-
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextFactory;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
-import de.bund.bva.pliscommon.aufrufkontext.common.konstanten.EreignisSchluessel;
 import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
+import org.aopalliance.intercept.MethodInterceptor;
+import org.aopalliance.intercept.MethodInvocation;
 
 /**
  * Erzeugt einen {@link AufrufKontext}, befüllt ihn mit den Daten aus dem {@link AufrufKontextTo}, und setzt
@@ -66,8 +64,7 @@ public class StelltAufrufKontextBereitInterceptor<T extends AufrufKontext> imple
             AufrufKontextToHelper.leseAufrufKontextTo(invocation.getArguments());
 
         if (aufrufKontextTo == null) {
-            LOG.warn(EreignisSchluessel.KEIN_AUFRUFKONTEXT_UEBERMITTELT,
-                "Es wurde kein AufrufKontext übermittelt.");
+            LOG.debug("Es wurde kein AufrufKontext übermittelt.");
             this.aufrufKontextVerwalter.setAufrufKontext(null);
         } else {
             T aufrufKontext = this.aufrufKontextFactory.erzeugeAufrufKontext();

@@ -21,7 +21,6 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextFactory;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
-import de.bund.bva.pliscommon.aufrufkontext.common.konstanten.EreignisSchluessel;
 import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 import ma.glasnost.orika.MapperFacade;
 import org.aopalliance.intercept.MethodInterceptor;
@@ -66,8 +65,7 @@ public class StelltAllgemeinenAufrufKontextBereitInterceptor<T extends AufrufKon
             AufrufKontextToHelper.leseAufrufKontextTo(invocation.getArguments());
 
         if (aufrufKontextTo == null) {
-            LOGISY.warn(EreignisSchluessel.KEIN_AUFRUFKONTEXT_UEBERMITTELT,
-                "Es wurde kein AufrufKontext uebermittelt.");
+            LOGISY.debug("Es wurde kein AufrufKontext uebermittelt.");
             this.aufrufKontextVerwalter.setAufrufKontext(null);
         } else {
             T aufrufKontext = this.aufrufKontextFactory.erzeugeAufrufKontext();

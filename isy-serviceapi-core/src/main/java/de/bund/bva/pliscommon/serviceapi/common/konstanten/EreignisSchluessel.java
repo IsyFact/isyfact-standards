@@ -21,9 +21,6 @@ package de.bund.bva.pliscommon.serviceapi.common.konstanten;
  */
 public class EreignisSchluessel {
 
-    /** Es wurde kein AufrufKontext übermittelt. Erzeuge neue Korrelations-ID. */
-    public static final String KEIN_AUFRUFKONTEXT_UEBERMITTELT = "EPLSAC00001";
-
     /**
      * Für die Serviceoperation {} ist kein Exception-Mapping für Exceptionklasse {} definiert. Benutze
      * stattdessen technische TO-Exception {}:
