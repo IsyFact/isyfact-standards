@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>isy-logging</artifactId>
-    <version>1.8.0-SNAPSHOT</version>
+    <version>1.8.0-RC1</version>
     <packaging>jar</packaging>
     <name>IsyFact-Logging</name>
     <description>Stellt eine Komponente für das Logging bereit.</description>
@@ -12,7 +12,7 @@
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
         <artifactId>isyfact-standards</artifactId>
-        <version>1.7.0-SNAPSHOT</version>
+        <version>1.7.0-RC1</version>
     </parent>
 
     <dependencyManagement>
