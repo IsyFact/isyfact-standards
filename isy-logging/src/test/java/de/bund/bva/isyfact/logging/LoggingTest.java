@@ -25,6 +25,7 @@ package de.bund.bva.isyfact.logging;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 import de.bund.bva.isyfact.logging.exceptions.FehlerhafterLogeintrag;
 import de.bund.bva.isyfact.logging.exceptions.IsyLoggingFehlertextProvider;
@@ -39,6 +40,8 @@ import de.bund.bva.pliscommon.exception.PlisTechnicalRuntimeException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.spi.LocationAwareLogger;
+import de.bund.bva.isyfact.logging.LogbackConfigTest;
+
 
 /**
  * Testfall zur Erstellung von Logeinträgen.
@@ -363,6 +366,119 @@ public class LoggingTest extends AbstractLogTest {
                 interneErmittleLevelMethode.invoke(logger, LocationAwareLogger.TRACE_INT));
         Assert.assertEquals("WARN", interneErmittleLevelMethode.invoke(logger, LocationAwareLogger.WARN_INT));
         Assert.assertEquals(null, interneErmittleLevelMethode.invoke(logger, -5));
+    }
+
+    /**
+     * Testfall zum Erstellen verschiedener Loeinträge, die die Größe eines maximalen Logeintrags übertreffen
+     */
+    @Test
+    public void testLogeintragZuGross() {
+        IsyLoggerStandard logger = IsyLoggerFactory.getLogger(this.getClass());
+
+        // String aus Sonderzeichen (2 Byte) für die Exception
+        String exceptionText ="";
+        for(int i=0; i<2000; i++){
+            exceptionText+="ä";
+        }
+
+        FehlerhafterLogeintrag fl = new FehlerhafterLogeintrag(FehlerSchluessel.FEHLER_LOGEINTRAG_ZU_GROSS,
+                exceptionText);
+
+        // Strings für Testfälle erzeugen
+        String nachrichtTestfall3 = "";
+        for (int i=0; i<8000;i++){
+            nachrichtTestfall3+="a";
+        }
+
+        FehlerhafterLogeintrag flB = new FehlerhafterLogeintrag(FehlerSchluessel.FEHLER_LOGEINTRAG_ZU_GROSS,
+                nachrichtTestfall3);
+
+        // Strings für Testfälle erzeugen
+        String nachrichtA = "";
+        for (int i=0; i<3000;i++){
+            nachrichtA+="ab123üö%7/";
+        }
+
+        String nachrichtB = "";
+        for (int i=0; i<3000;i++){
+            nachrichtB+="aaaaaaaaaa";
+        }
+
+        ArrayList<String> arrayListA = new ArrayList<String>();
+        for (int i=0; i<2000;i++){
+            arrayListA.add(nachrichtB.charAt(i)+""+nachrichtA.charAt(i));
+        }
+
+        // Testfall 1: Test der Level-Bedignung - Testnachricht besitzt Level Debug
+        logger
+                .debug("Diese Nachricht ist zu lang: {}",  nachrichtA);
+
+        // Testfall 2: Test der maximalen Länge Bedingung: Testnachricht ist zu klein
+        logger.info(LogKategorie.JOURNAL, EREIGNISSCHLUESSEL, "Diese Nachricht ist zu gross.");
+
+        // Testfall 3: Test der maximalen Größe, Testnachricht ist zu klein aber größer als 16.000 Zeichen
+        logger.
+                info(LogKategorie.JOURNAL, EREIGNISSCHLUESSEL,
+                        "Diese Nachricht ist zu gross. {}", nachrichtTestfall3);
+
+        // Testfall 4: Test der Parameterentfernung, Testnachricht ist zu groß und enthält Parameter
+        // Nach Entfernung der Parameter ist die Testnachricht nicht mehr zu lang
+        logger.
+                info(LogKategorie.JOURNAL, EREIGNISSCHLUESSEL,
+                        "Diese Nachricht ist zu gross. {} und {} ",
+                        nachrichtTestfall3, nachrichtTestfall3, nachrichtTestfall3);
+
+        // Testfall 5: Zu großer Logeintrag mit Exception,
+        // Anzahl Zeichen der Exception ist kleiner als der Überhang, Länge in Bytes aber größer
+        // Exception wird gekuerzt und anschließend wird festgestellt, dass die Kürzung ausreichend war
+        logger.info(LogKategorie.JOURNAL, nachrichtB, fl);
+
+        // Testfall 6: Zu großer Logeintrag mit Exception und zu langer Nachricht,
+        // Anzahl Zeichen der Exception ist kleiner als der Überhang, Länge in Bytes aber größer
+        // Exception wird gekuerzt und anschließend wird festgestellt, dass die Kürzung nicht ausreichend war
+        // Das Feld Nachricht wird anschließend gekürzt
+        logger.info(LogKategorie.JOURNAL, "Zu langer Logeintrag: {}", fl, nachrichtA);
+
+        // Testfall 7: Zu großer Logeintrag aufgrund zu großer Paramter und zu großer Lognachricht
+        logger.info(LogKategorie.JOURNAL, EREIGNISSCHLUESSEL,"Zu langer Logeintrag: {} {}",
+                nachrichtA, arrayListA);
+
+        // Testfall 8: Zu großer Logeintrag mit Exception
+        // Anzahl Zeichen der Exception ist kleiner als der Überhang
+        logger.info(LogKategorie.JOURNAL, nachrichtB, flB);
+
+        // Testfall 9: Zu großer Logeintrag ohne Exception
+        // Anzahl Zeichen der Nachricht ist größer als der Überhang
+        logger.info(LogKategorie.JOURNAL, EREIGNISSCHLUESSEL, nachrichtB+nachrichtB);
+
+        // Testfall 10: Zu großer Logeintrag mit Exception
+        // Die Exception ist kleiner als der Überhang
+        // Die Lognachricht ist größer als der Überhang
+        logger.info(LogKategorie.JOURNAL, nachrichtB+nachrichtA+nachrichtB+nachrichtB, flB);
+
+        // Testfall 11: Zu großer Logeintrag, der nicht ausreichend gekürzt werden kann
+        // Um einen Überhang zu erzeugen, der nicht weiter gekürzt werden kann,
+        // wird der Parameter maxLength auf 50 Bytes gesetzt.
+
+        LogbackConfigTest logbackConfig = new LogbackConfigTest();
+
+        try{
+            logbackConfig.konfiguriereLogback("logback-maxLength-test.xml");
+        }catch(Exception e){}
+
+        logger.info(LogKategorie.JOURNAL, EREIGNISSCHLUESSEL, nachrichtB, nachrichtA, nachrichtB);
+
+        try{
+            logbackConfig.konfiguriereLogback("logback-test.xml");
+        }catch(Exception e){}
+
+        // Testfall 12: Test eines zu großen Logeintrags mit dem Level ERROR
+        logger.error(FehlerSchluessel.FEHLER_LOGEINTRAG_ZU_GROSS, "Zu große Error Nachricht {}", nachrichtA);
+
+        // Testfall 13: Test eines zu großen Logeintrags mit dem Level WARN
+        logger.warn(FehlerSchluessel.FEHLER_LOGEINTRAG_ZU_GROSS, "Zu große WARN Nachricht {}", nachrichtA);
+
+        pruefeLogdatei("testLogeintragZuGross");
     }
 
 }

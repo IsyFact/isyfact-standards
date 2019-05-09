@@ -52,6 +52,7 @@
                 <timestampFormatTimezoneId>UTC</timestampFormatTimezoneId>
                 <appendLineSeparator>true</appendLineSeparator>
                 <includeMDC>${INCLUDE_MDC}</includeMDC>
+                <maxLength>${MAX_LENGTH}</maxLength>
             </layout>
         </encoder>
     </appender>

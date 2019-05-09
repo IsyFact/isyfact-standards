@@ -50,6 +50,7 @@ public class LogbackConfigTest extends AbstractLogTest {
         // Laden der Batch-Log-Konfiguration
         konfiguriereLogback("logback-batch-test.xml");
 
+
         // Es werden ausgewählte Tests der Standardkonfiguration aufgerufen. Das erwartete Ergebnis ist das
         // gleiche.
         LoggingTest loggingTest = new LoggingTest();
@@ -98,7 +99,7 @@ public class LogbackConfigTest extends AbstractLogTest {
      * @throws JoranException
      *             falls ein Fehler beim Einlesen der Datei auftritt.
      */
-    private void konfiguriereLogback(String konfigDatei) throws JoranException {
+    public void konfiguriereLogback(String konfigDatei) throws JoranException {
         URL url = this.getClass().getClassLoader().getResource(konfigDatei);
         LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
         context.reset();
