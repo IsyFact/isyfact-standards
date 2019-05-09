@@ -1,21 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd" xmlns="http://maven.apache.org/SETTINGS/1.1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <proxies>
-        <proxy>
-            <id>runner-proxy</id>
-            <active>true</active>
-            <protocol>http</protocol>
-            <host>${env.PROXY_HOST}</host>
-            <port>3128</port>
-        </proxy>
-        <proxy>
-            <id>runner-proxy-https</id>
-            <active>true</active>
-            <host>${env.PROXY_HOST}</host>
-            <port>3128</port>
-        </proxy>
-    </proxies>
 	<servers>
 		<server>
 		    <id>repository</id>
