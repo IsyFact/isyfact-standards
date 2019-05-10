@@ -67,9 +67,5 @@ public final class FehlerSchluessel {
      */
     public static final String FEHLER_SERIALISIERUNG_AUFRUFPARAMETER = "ISYLO01001";
 
-    /**
-     * Der Logeintrag überschreitet die maximale Größe.
-     */
-    public static final String FEHLER_LOGEINTRAG_ZU_GROSS = "ISYLO01002";
 
 }

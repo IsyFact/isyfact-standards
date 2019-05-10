@@ -381,7 +381,7 @@ public class LoggingTest extends AbstractLogTest {
             exceptionText+="ä";
         }
 
-        FehlerhafterLogeintrag fl = new FehlerhafterLogeintrag(FehlerSchluessel.FEHLER_LOGEINTRAG_ZU_GROSS,
+        FehlerhafterLogeintrag fl = new FehlerhafterLogeintrag(FehlerSchluessel.FEHLERHAFTER_EINTRAG_KEINE_KATEGORIE,
                 exceptionText);
 
         // Strings für Testfälle erzeugen
@@ -390,7 +390,7 @@ public class LoggingTest extends AbstractLogTest {
             nachrichtTestfall3+="a";
         }
 
-        FehlerhafterLogeintrag flB = new FehlerhafterLogeintrag(FehlerSchluessel.FEHLER_LOGEINTRAG_ZU_GROSS,
+        FehlerhafterLogeintrag flB = new FehlerhafterLogeintrag(FehlerSchluessel.FEHLERHAFTER_EINTRAG_KEINE_KATEGORIE,
                 nachrichtTestfall3);
 
         // Strings für Testfälle erzeugen
@@ -411,7 +411,7 @@ public class LoggingTest extends AbstractLogTest {
 
         // Testfall 1: Test der Level-Bedignung - Testnachricht besitzt Level Debug
         logger
-                .debug("Diese Nachricht ist zu lang: {}",  nachrichtA);
+              .debug("Diese Nachricht ist zu lang: {}",  nachrichtA);
 
         // Testfall 2: Test der maximalen Länge Bedingung: Testnachricht ist zu klein
         logger.info(LogKategorie.JOURNAL, EREIGNISSCHLUESSEL, "Diese Nachricht ist zu gross.");
@@ -473,10 +473,10 @@ public class LoggingTest extends AbstractLogTest {
         }catch(Exception e){}
 
         // Testfall 12: Test eines zu großen Logeintrags mit dem Level ERROR
-        logger.error(FehlerSchluessel.FEHLER_LOGEINTRAG_ZU_GROSS, "Zu große Error Nachricht {}", nachrichtA);
+        logger.error(FehlerSchluessel.FEHLERHAFTER_EINTRAG_KEINE_KATEGORIE, "Zu große Error Nachricht {}", nachrichtA);
 
         // Testfall 13: Test eines zu großen Logeintrags mit dem Level WARN
-        logger.warn(FehlerSchluessel.FEHLER_LOGEINTRAG_ZU_GROSS, "Zu große WARN Nachricht {}", nachrichtA);
+        logger.warn(FehlerSchluessel.FEHLERHAFTER_EINTRAG_KEINE_KATEGORIE, "Zu große WARN Nachricht {}", nachrichtA);
 
         pruefeLogdatei("testLogeintragZuGross");
     }

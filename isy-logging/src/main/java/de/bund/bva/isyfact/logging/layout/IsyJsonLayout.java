@@ -276,11 +276,7 @@ public class IsyJsonLayout extends JsonLayout {
 
     private String pruefeGroesse(Map map, String logeintrag, ILoggingEvent event){
 
-        System.out.println("Zu pruefender Logeintrag: "+getStringFromFormatter(map));
         // Prüfen, ob eine maximale Länge definiert wurde (0=beliebig lang)
-
-        System.out.println("Maximale Länge ist: "+maxLength);
-
         if(maxLength>0){
             // Nur Lognachrichten in Betracht ziehen, die Level INFO oder höher besitzen
             if(event.getLevel().isGreaterOrEqual(Level.INFO)){
@@ -290,89 +286,41 @@ public class IsyJsonLayout extends JsonLayout {
                     byte [] zeichen = logeintrag.getBytes();
                     int tatsaechlicheLaenge = zeichen.length;
                     if(tatsaechlicheLaenge>maxLength) {
-
-                        System.out.println("----------------------------------------------------");
-                        System.out.println("Größe des Logeintrags: " + tatsaechlicheLaenge + " Bytes");
-                        System.out.println("Größe des Logintrags: " + logeintrag.length() + " Zeichen");
-                        System.out.println("Überhang: " + (tatsaechlicheLaenge - maxLength) + " Bytes");
-
                         // Zunächst alle Parameter des Logeintrags entfernen: Parameter1, Parameter2, Parameter3...
-                        // und durch "gekürzt" ersetzen
-                        // terminiert, wenn kein weiterer Parameter mehr vorhanden ist
-                        System.out.println("Prüfen, ob Parameter entfernt werden können...");
+
                         for (int i = 0; i < map.size(); i++) {
                             if (map.containsKey(PARAMETER_ATTR_NAME + (i + 1))) {
-                                System.out.println("Parameter " + (i + 1) + " vorhanden. Die Länge beträgt " + map.get("parameter" + (i + 1)).toString().length() + " Zeichen");
                                 map.put(PARAMETER_ATTR_NAME + (i + 1), LOG_GEKUERZT);
-                                System.out.println("Paramter " + (i + 1) + " entfernt.");
                             } else {
-                                System.out.println("Keine weiteren Parameter vorhanden.");
                                 break;
                             }
                         }
-                        System.out.println("Parameterprüfung beendet.");
-
-                        // Hinweis auf Kürzung hinzufügen
                         map.put("gekuerzt", LoggingKonstanten.TRUE);
 
                         boolean nachrichtGekuerzt = false;
-
                         int ueberhang = berechneUeberhang(map);
 
                         if (ueberhang>0) {
-
-                            System.out.println("Logeintrag immer noch zu groß.");
-                            System.out.println("Prüfe, ob es eine Exception gibt, die gekürzt werden kann...");
-
-                            // Logeintrag immer noch zu groß
                             // Exception kürzen, falls vorhanden
                             if (map.containsKey(EXCEPTION_ATTR_NAME)) {
                                 ueberhang = feldKuerzen(EXCEPTION_ATTR_NAME, map, ueberhang);
                             } else {
-                                System.out.println("Keine Exception vorhanden.");
-                                System.out.println("Kürze direkt die Nachricht...");
                                 // Asonsten direkt die Nachricht kürzen
                                 ueberhang = feldKuerzen(NACHRICHT_ATTR_NAME, map, ueberhang);
                                 nachrichtGekuerzt = true;
                             }
 
                             if (!nachrichtGekuerzt) {
-                                // Erneute Prüfung, ob Logeintrag immmer noch zu groß
-
                                 if (ueberhang>0) {
-                                    System.out.println("Logeintrag immer noch zu groß.");
-                                    ueberhang = feldKuerzen(NACHRICHT_ATTR_NAME, map, ueberhang);
-
+                                    feldKuerzen(NACHRICHT_ATTR_NAME, map, ueberhang);
                                 }else{
-                                    System.out.println("Logeintrag nicht mehr zu groß.");
-                                    System.out.println("M:"+getStringFromFormatter(map));
                                     return getStringFromFormatter(map);
                                 }
                             }
-
-                            // Prüfen, ob nach dem Kürzen der Logeintrag immer noch zu groß ist
-                            if(ueberhang>0){
-                                System.out.println("Logeintrag immer noch zu groß und kann nicht weiter gekürzt werden.");
-                                // Das Feld gekuerzt wird auf FALSE gesetzt, so können die Logs besser auf zu lange
-                                // Nachrichten hin analysiert werden.
-                                System.out.println("M:"+getStringFromFormatter(map));
-                                //throw new FehlerhafterLogeintrag(FehlerSchluessel.FEHLER_LOGEINTRAG_ZU_GROSS, ""+maxLength, ""+(getStringFromFormatter(map).getBytes().length-maxLength));
-                            }else{
-                                System.out.println("Logeintrag ausreichend gekürzt.");
-                                System.out.println("M:"+getStringFromFormatter(map));
-                                return getStringFromFormatter(map);
-                            }
                         }
-
-                        System.out.println("#########################################");
-
-                        // Aus der Map wieder einen String erzeugen
                         return getStringFromFormatter(map);
-
                     }
-
                 }
-
             }
         }
 
@@ -398,15 +346,13 @@ public class IsyJsonLayout extends JsonLayout {
             int feldlaenge;
             do {
                 feldlaenge = map.get(schluessel).toString().length();
-                System.out.println("Feld " + schluessel + " vorhanden. Die Länge des Feldes beträgt " + feldlaenge + " Zeichen");
                 if (ueberhang >= feldlaenge) {
-                    map.put(schluessel, "");
+                    map.put(schluessel, LOG_GEKUERZT);
                 } else {
                     map.put(schluessel, map.get(schluessel).toString().substring(0, feldlaenge - ueberhang - 1));
                 }
-                System.out.println("Das Feld " + schluessel + " wurde gekürzt.");
                 ueberhang = berechneUeberhang(map);
-            } while (ueberhang > 0 && map.get(schluessel).toString().length() > 0);
+            } while (ueberhang > 0 && !map.get(schluessel).toString().equals(LOG_GEKUERZT));
         }
         return ueberhang;
     }
@@ -422,7 +368,6 @@ public class IsyJsonLayout extends JsonLayout {
      */
 
     private int berechneUeberhang(Map map){
-        // Erneute Prüfung, ob Logeintrag immmer noch zu groß
         String logeintrag = getStringFromFormatter(map);
         int tatsaechlicheLaenge = logeintrag.getBytes().length;
 
@@ -431,10 +376,6 @@ public class IsyJsonLayout extends JsonLayout {
         float byteZeichen = (float) tatsaechlicheLaenge / (float) logeintrag.length();
         // Ueberhang gibt die Anzahl zu entfernender Zeichen an
         int ueberhang = (int) ((tatsaechlicheLaenge - maxLength) / byteZeichen) + 1;
-
-        System.out.println("Prüfen, ob Logeintrag immer noch zu groß...");
-        System.out.println("Größe des Logeintrags: " + tatsaechlicheLaenge + " Bytes | "+ logeintrag.length() + " Zeichen");
-        System.out.println("Überhang: " + (tatsaechlicheLaenge - maxLength) + " Bytes | "+ ueberhang + " Zeichen");
 
         return ueberhang;
     }
