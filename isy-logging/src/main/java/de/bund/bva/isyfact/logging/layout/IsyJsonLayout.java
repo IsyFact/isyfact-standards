@@ -107,7 +107,7 @@ public class IsyJsonLayout extends JsonLayout {
     }
 
     @Override
-    public String doLayout(ILoggingEvent event) throws FehlerhafterLogeintrag {
+    public String doLayout(ILoggingEvent event) {
         Map<String, Object> map = toJsonMap(event);
         if (map == null || map.isEmpty()) {
             return "";
