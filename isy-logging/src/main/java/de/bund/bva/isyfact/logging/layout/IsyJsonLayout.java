@@ -28,7 +28,6 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.spi.ILoggingEvent;
@@ -38,6 +37,7 @@ import ch.qos.logback.core.CoreConstants;
 import de.bund.bva.isyfact.logging.IsyMarker;
 import de.bund.bva.isyfact.logging.exceptions.FehlerhafterLogeintrag;
 import de.bund.bva.isyfact.logging.exceptions.LoggingTechnicalRuntimeException;
+import de.bund.bva.isyfact.logging.impl.Ereignisschluessel;
 import de.bund.bva.isyfact.logging.impl.FachdatenMarker;
 import de.bund.bva.isyfact.logging.impl.FehlerSchluessel;
 import de.bund.bva.isyfact.logging.impl.MarkerSchluessel;
@@ -75,10 +75,11 @@ public class IsyJsonLayout extends JsonLayout {
     /** Attributname für allgemeine Marker. */
     private static final String MARKER_ATTR_NAME = "marker";
 
-    private static final String LOG_GEKUERZT ="gekürzt";
+    /** Attributname für gekürzte Log-Nachrichten. */
+    private static final String GEKUERZT_ATTR_NAME = "gekuerzt";
 
-    /** Maximale Groesse eines Loeintrags in Byte */
-    private int maxLength=32000;
+    /** Maximale Groesse eines Loeintrags in Byte. */
+    private int maxLength = 32000;
 
 
      /**
@@ -106,7 +107,7 @@ public class IsyJsonLayout extends JsonLayout {
     }
 
     @Override
-    public String doLayout(ILoggingEvent event) throws FehlerhafterLogeintrag{
+    public String doLayout(ILoggingEvent event) throws FehlerhafterLogeintrag {
         Map<String, Object> map = toJsonMap(event);
         if (map == null || map.isEmpty()) {
             return "";
@@ -264,58 +265,47 @@ public class IsyJsonLayout extends JsonLayout {
      *
      * Sollte der Logeintrag nach dem Kürzen immer noch zu lang sein, so wird eine Exception geworfen.
      *
-     * @param map
-     *            die Map mit den Rohdaten des Log-Events
-     * @param logeintrag
-     *            die Map in einen String gewandelt
-     * @param event
-     *            das Log-Event
+     * @param map        die Map mit den Rohdaten des Log-Events
+     * @param logeintrag die Map in einen String gewandelt
+     * @param event      das Log-Event
      * @return der geprüfte und eventuell gekürzte Logeintrag als String
-     *
      */
 
-    private String pruefeGroesse(Map map, String logeintrag, ILoggingEvent event){
+    private String pruefeGroesse(Map<String, Object> map, String logeintrag, ILoggingEvent event) {
 
         // Prüfen, ob eine maximale Länge definiert wurde (0=beliebig lang)
-        if(maxLength>0){
+        if (maxLength > 0) {
             // Nur Lognachrichten in Betracht ziehen, die Level INFO oder höher besitzen
-            if(event.getLevel().isGreaterOrEqual(Level.INFO)){
+            if (event.getLevel().isGreaterOrEqual(Level.INFO)) {
                 // Prüfen, ob die Lognachricht die maximale Größe in Bytes überhaupt mit ihrer Länge erreichen kann
-                if(logeintrag.length()>=(maxLength/2.0)){
+                if (logeintrag.length() >= (maxLength / 2.0)) {
 
-                    byte [] zeichen = logeintrag.getBytes();
+                    byte[] zeichen = logeintrag.getBytes();
                     int tatsaechlicheLaenge = zeichen.length;
-                    if(tatsaechlicheLaenge>maxLength) {
-                        // Zunächst alle Parameter des Logeintrags entfernen: Parameter1, Parameter2, Parameter3...
-
+                    if (tatsaechlicheLaenge > maxLength) {
+                        // Zunächst alle Parameter des Logeintrags entfernen
                         for (int i = 0; i < map.size(); i++) {
                             if (map.containsKey(PARAMETER_ATTR_NAME + (i + 1))) {
-                                map.put(PARAMETER_ATTR_NAME + (i + 1), LOG_GEKUERZT);
+                                map.put(PARAMETER_ATTR_NAME + (i + 1),
+                                    Ereignisschluessel.DEBUG_LOG_GEKUERZT.getNachricht());
                             } else {
                                 break;
                             }
                         }
-                        map.put("gekuerzt", LoggingKonstanten.TRUE);
+                        map.put(GEKUERZT_ATTR_NAME, LoggingKonstanten.TRUE);
 
-                        boolean nachrichtGekuerzt = false;
                         int ueberhang = berechneUeberhang(map);
 
-                        if (ueberhang>0) {
-                            // Exception kürzen, falls vorhanden
+                        if (ueberhang > 0) {
                             if (map.containsKey(EXCEPTION_ATTR_NAME)) {
+                                // Zuerst Exception kürzen, falls vorhanden, dann Nachricht, falls noch zu lang
                                 ueberhang = feldKuerzen(EXCEPTION_ATTR_NAME, map, ueberhang);
-                            } else {
-                                // Asonsten direkt die Nachricht kürzen
-                                ueberhang = feldKuerzen(NACHRICHT_ATTR_NAME, map, ueberhang);
-                                nachrichtGekuerzt = true;
-                            }
-
-                            if (!nachrichtGekuerzt) {
-                                if (ueberhang>0) {
+                                if (ueberhang > 0) {
                                     feldKuerzen(NACHRICHT_ATTR_NAME, map, ueberhang);
-                                }else{
-                                    return getStringFromFormatter(map);
                                 }
+                            } else {
+                                // Ansonsten direkt die Nachricht kürzen
+                                feldKuerzen(NACHRICHT_ATTR_NAME, map, ueberhang);
                             }
                         }
                         return getStringFromFormatter(map);
@@ -331,55 +321,49 @@ public class IsyJsonLayout extends JsonLayout {
      * Diese Methode kürzt den Inhalt eines Feldes einer Map anhand des übermittelten Überhangs,
      * berechnet den Überhang nach der Kürzung und gibt diesen zurück.
      *
-     * @param schluessel
-     *            der Schluessel des Feldes in der Map, das gekürzt werden soll
-     * @param map
-     *            die Map mit den Rohdaten des Log-Events
-     * @param ueberhang
-     *            der Überhang als Anzahl Zeichen
-     * @return
-     *            der aktualisierte Überhang nach der Kürzung
+     * @param schluessel der Schluessel des Feldes in der Map, das gekürzt werden soll
+     * @param map        die Map mit den Rohdaten des Log-Events
+     * @param ueberhang  der Überhang als Anzahl Zeichen
+     * @return der aktualisierte Überhang nach der Kürzung
      */
 
-    private int feldKuerzen(String schluessel, Map map, int ueberhang){
-        if(map.containsKey(schluessel)){
+    private int feldKuerzen(String schluessel, Map<String, Object> map, int ueberhang) {
+        int neuerUeberhang = ueberhang;
+        if (map.containsKey(schluessel)) {
             int feldlaenge;
             do {
                 feldlaenge = map.get(schluessel).toString().length();
-                if (ueberhang >= feldlaenge) {
-                    map.put(schluessel, LOG_GEKUERZT);
+                if (neuerUeberhang >= feldlaenge) {
+                    map.put(schluessel, Ereignisschluessel.DEBUG_LOG_GEKUERZT.getNachricht());
                 } else {
-                    map.put(schluessel, map.get(schluessel).toString().substring(0, feldlaenge - ueberhang - 1));
+                    map.put(schluessel,
+                        map.get(schluessel).toString().substring(0, feldlaenge - neuerUeberhang - 1));
                 }
-                ueberhang = berechneUeberhang(map);
-            } while (ueberhang > 0 && !map.get(schluessel).toString().equals(LOG_GEKUERZT));
+                neuerUeberhang = berechneUeberhang(map);
+            } while (neuerUeberhang > 0 && !map.get(schluessel).toString()
+                .equals(Ereignisschluessel.DEBUG_LOG_GEKUERZT.getNachricht()));
         }
-        return ueberhang;
+        return neuerUeberhang;
     }
 
     /**
      * Diese Methode berechnet den Überhang eines Logeintrags, der als Map übermittelt wird.
      * Der Überhang wird zunächst in Bytes berechnet und anschließend in eine Anzahl von Zeichen umgewandelt.
      *
-     * @param map
-     *            die Map mit den Rohdaten des Log-Events
-     * @return
-     *            der berechnete Ueberhang
+     * @param map die Map mit den Rohdaten des Log-Events
+     * @return der berechnete Ueberhang
      */
-
-    private int berechneUeberhang(Map map){
+    private int berechneUeberhang(Map<String, Object> map) {
         String logeintrag = getStringFromFormatter(map);
         int tatsaechlicheLaenge = logeintrag.getBytes().length;
 
-        // Anzahl der abzuschneidenen Zeichen ermitteln
+        // Anzahl der abzuschneidenden Zeichen ermitteln (
         // Berechne Bytes pro Zeichen
         float byteZeichen = (float) tatsaechlicheLaenge / (float) logeintrag.length();
+
         // Ueberhang gibt die Anzahl zu entfernender Zeichen an
-        int ueberhang = (int) ((tatsaechlicheLaenge - maxLength) / byteZeichen) + 1;
-
-        return ueberhang;
+        return (int) ((tatsaechlicheLaenge - maxLength) / byteZeichen) + 1;
     }
-
 
     public int getMaxLength() {
         return maxLength;
