@@ -52,8 +52,6 @@ import org.slf4j.Marker;
  */
 public class IsyJsonLayout extends JsonLayout {
 
-
-
     /** Konstante für eine leere Korrelations-ID. */
     private static final String LEERE_KORRELATIONSID = "none";
 
@@ -103,7 +101,6 @@ public class IsyJsonLayout extends JsonLayout {
         // Zeitstempel wird mauell als 'zeitstempel' ausgegeben.
         includeTimestamp = false;
         appendLineSeparator = false;
-        //maxLength = 32000;
     }
 
     @Override
@@ -172,7 +169,6 @@ public class IsyJsonLayout extends JsonLayout {
 
         // Nachricht übernehmen
         String msg = event.getFormattedMessage();
-
         if (msg != null) {
             jsonMap.put(NACHRICHT_ATTR_NAME, msg);
         }
@@ -268,7 +264,6 @@ public class IsyJsonLayout extends JsonLayout {
      */
 
     private String pruefeGroesse(Map<String, Object> map, String logeintrag, ILoggingEvent event) {
-
         // Prüfen, ob eine maximale Länge definiert wurde (0=beliebig lang)
         if (maxLength > 0) {
             // Nur Lognachrichten in Betracht ziehen, die Level INFO oder höher besitzen

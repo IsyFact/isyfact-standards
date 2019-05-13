@@ -50,7 +50,6 @@ public class LogbackConfigTest extends AbstractLogTest {
         // Laden der Batch-Log-Konfiguration
         konfiguriereLogback("logback-batch-test.xml");
 
-
         // Es werden ausgewählte Tests der Standardkonfiguration aufgerufen. Das erwartete Ergebnis ist das
         // gleiche.
         LoggingTest loggingTest = new LoggingTest();

@@ -67,5 +67,4 @@ public final class FehlerSchluessel {
      */
     public static final String FEHLER_SERIALISIERUNG_AUFRUFPARAMETER = "ISYLO01001";
 
-
 }
