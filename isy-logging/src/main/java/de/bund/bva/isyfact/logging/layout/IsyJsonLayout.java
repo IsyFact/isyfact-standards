@@ -113,11 +113,9 @@ public class IsyJsonLayout extends JsonLayout {
             return "";
         }
         String result = getStringFromFormatter(map);
-
         if (result == null || result.isEmpty()) {
             return "";
         }
-
         result = pruefeGroesse(map, result, event);
 
         return isAppendLineSeparator() ? result + CoreConstants.LINE_SEPARATOR : result;
@@ -135,8 +133,6 @@ public class IsyJsonLayout extends JsonLayout {
 
         try {
             return formatter.toJsonString(map);
-
-
         } catch (Exception e) {
             Map<String, String> stringMap = new LinkedHashMap<>();
             for (Map.Entry<String, Object> entry : map.entrySet()) {

@@ -520,11 +520,9 @@ public abstract class AbstractLogTest {
         String nachricht = leseSubString(zeileErgebnis, JSON_NACHRICHT_PRAEFIX, JSON_ATTRIBUT_SUFFIX, 0);
         if (!EREIGNISSCHLUESSEL_OHNE_NACHRICHT.equals(schluessel)) {
             Assert.assertNotNull("Logeintrag besitzt keine Nachricht.", nachricht);
-            int nachrichtLaenge = nachricht.length();
-            //Assert.assertTrue("Nachricht hat unplausible Länge: " + nachrichtLaenge, (nachrichtLaenge > 25));
             // Bei den explizit fehlerhaften Tests werden Platzhalter teilweise nicht ersetzt.
-            boolean paltzhalterErsetzen = !zeileErgebnis.contains(KENNZEICHNUNG_FEHLERTEST);
-            if (paltzhalterErsetzen) {
+            boolean platzhalterErsetzen = !zeileErgebnis.contains(KENNZEICHNUNG_FEHLERTEST);
+            if (platzhalterErsetzen) {
                 Assert.assertFalse("Nachricht enthält nicht ersetzte Platzhalter: " + nachricht,
                         nachricht.contains("{}"));
             }
