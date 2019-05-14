@@ -320,9 +320,11 @@ public class IsyJsonLayout extends JsonLayout {
 
     private int feldKuerzen(String schluessel, Map<String, Object> map, int ueberhang) {
         int neuerUeberhang = ueberhang;
+        int vorherigerUeberhang;
         if (map.containsKey(schluessel)) {
             int feldlaenge;
             do {
+                vorherigerUeberhang = neuerUeberhang;
                 feldlaenge = map.get(schluessel).toString().length();
                 if (neuerUeberhang >= feldlaenge) {
                     map.put(schluessel, Ereignisschluessel.DEBUG_LOG_GEKUERZT.getNachricht());
@@ -332,7 +334,7 @@ public class IsyJsonLayout extends JsonLayout {
                 }
                 neuerUeberhang = berechneUeberhang(map);
             } while (neuerUeberhang > 0 && !map.get(schluessel).toString()
-                .equals(Ereignisschluessel.DEBUG_LOG_GEKUERZT.getNachricht()));
+                .equals(Ereignisschluessel.DEBUG_LOG_GEKUERZT.getNachricht()) && neuerUeberhang!=vorherigerUeberhang);
         }
         return neuerUeberhang;
     }
