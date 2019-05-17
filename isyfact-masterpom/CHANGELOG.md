@@ -1,3 +1,6 @@
+# 1.7.0
+- `maven-checkstyle-plugin` auf Version `3.0.0` erhöht.
+
 # 1.6.0
 - `IFS-189`: Repositories der IsyFact-Standards zusammengeführt, Bibliotheken benutzen wieder gemeinsames Produkt-BOM und werden zentral über das POM isyfact-standards versioniert
 
