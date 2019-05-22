@@ -405,42 +405,6 @@
                 <artifactId>maven-site-plugin</artifactId>
                 <version>3.5.1</version>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-eclipse-plugin</artifactId>
-                <version>2.10</version>
-                <configuration>
-                    <wtpversion combine.children="append">2.0</wtpversion>
-                    <downloadSources>true</downloadSources>
-                    <downloadJavadocs>true</downloadJavadocs>
-                    <additionalBuildcommands>
-                        <buildcommand>net.sf.eclipsecs.core.CheckstyleBuilder</buildcommand>
-                        <buildcommand>org.springframework.ide.eclipse.core.springbuilder</buildcommand>
-                    </additionalBuildcommands>
-                    <additionalProjectnatures>
-                        <projectnature>net.sf.eclipsecs.core.CheckstyleNature</projectnature>
-                        <projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
-                    </additionalProjectnatures>
-                    <additionalConfig>
-                        <file>
-                            <name>.checkstyle</name>
-                            <content><![CDATA[
-<?xml version="1.0" encoding="UTF-8"?>
-<fileset-config file-format-version="1.2.0" simple-config="true">
-    <fileset name="Alle" enabled="true" check-config-name="IsyFact-Checkstyle-Stil" local="false">
-        <file-match-pattern match-pattern="." include-pattern="true"/>
-    </fileset>
-    <filter name="FilesFromPackage" enabled="true">
-        <filter-data value="src/main/generated"/>
-        <filter-data value="src/test/java"/>
-    </filter>
-    <filter name="NonSrcDirs" enabled="true"/>
-</fileset-config>
-]]></content>
-                        </file>
-                    </additionalConfig>
-                </configuration>
-            </plugin>
        </plugins>
     </build>
 
