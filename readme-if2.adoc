@@ -31,24 +31,24 @@ public class PersistenceConfig { }
 === 7.3 Konfiguration der Datasource
 * Die Bean für die `DataSource` mit dem Namen `appDataSource` wird automatisch erstellt.
 * Die Konfiguration der `DataSource` und des Connection Pools erfolgt über `application.properties`:
-** `oracle.datasource.database-url`
-** `oracle.datasource.database-username`
-** `oracle.datasource.database-password`
-** `oracle.datasource.database-schema-default`
-** `oracle.datasource.pool-name`
-** `oracle.datasource.pool-min-active`
-** `oracle.datasource.pool-max-active`
-** `oracle.datasource.pool-validate-on-borrow`
-** `oracle.datasource.pool-wait-timeout`
-** `oracle.datasource.pool-inactive-timeout`
-** `oracle.datasource.pool-time-to-live-timeout`
-** `oracle.datasource.pool-abandoned-timeout`
-** `oracle.datasource.pool-max-reuse-time`
-** `oracle.datasource.pool-max-reuse-count`
-** `oracle.datasource.pool-statement-cache`
-** `oracle.datasource.jdbc-timeout-connect`
-** `oracle.datasource.jdbc-timeout-read`
-** `oracle.datasource.jdbc-disable-oob`
+** `isy.persistence.oracle.datasource.database-url`
+** `isy.persistence.oracle.datasource.database-username`
+** `isy.persistence.oracle.datasource.database-password`
+** `isy.persistence.oracle.datasource.database-schema-default`
+** `isy.persistence.oracle.datasource.pool-name`
+** `isy.persistence.oracle.datasource.pool-min-active`
+** `isy.persistence.oracle.datasource.pool-max-active`
+** `isy.persistence.oracle.datasource.pool-validate-on-borrow`
+** `isy.persistence.oracle.datasource.pool-wait-timeout`
+** `isy.persistence.oracle.datasource.pool-inactive-timeout`
+** `isy.persistence.oracle.datasource.pool-time-to-live-timeout`
+** `isy.persistence.oracle.datasource.pool-abandoned-timeout`
+** `isy.persistence.oracle.datasource.pool-max-reuse-time`
+** `isy.persistence.oracle.datasource.pool-max-reuse-count`
+** `isy.persistence.oracle.datasource.pool-statement-cache`
+** `isy.persistence.oracle.datasource.jdbc-timeout-connect`
+** `isy.persistence.oracle.datasource.jdbc-timeout-read`
+** `isy.persistence.oracle.datasource.jdbc-disable-oob`
 
 === 7.4 UCP verwenden
 * Entfällt, wird über Properties in `application.properties` konfiguriert.

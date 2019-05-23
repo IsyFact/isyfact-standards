@@ -37,7 +37,7 @@ public class IsyPersistenceOracleAutoConfigurationTest {
     public void testOraclePropertiesUnvollstaendigGesetzt() {
         Map<String, Object> properties = new HashMap<>();
 
-        properties.put("oracle.datasource.databaseurl", "test");
+        properties.put("isy.persistence.oracle.datasource.databaseurl", "test");
 
         new SpringApplicationBuilder()
             .sources(TestConfig.class)
