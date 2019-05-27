@@ -98,7 +98,7 @@ public class LogbackConfigTest extends AbstractLogTest {
      * @throws JoranException
      *             falls ein Fehler beim Einlesen der Datei auftritt.
      */
-    private void konfiguriereLogback(String konfigDatei) throws JoranException {
+    public void konfiguriereLogback(String konfigDatei) throws JoranException {
         URL url = this.getClass().getClassLoader().getResource(konfigDatei);
         LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
         context.reset();

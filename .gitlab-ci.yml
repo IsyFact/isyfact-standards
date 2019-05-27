@@ -1,88 +1,148 @@
-# This file is a template, and might need editing before it works on your project.
----
-# Build JAVA applications using Apache Maven (http://maven.apache.org)
-# For docker image tags see https://hub.docker.com/_/maven/
-#
-# For general lifecycle information see https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html
-#
-# This template will build and test your projects as well as create the documentation.
-#
-# * Caches downloaded dependencies and plugins between invocation.
-# * Does only verify merge requests but deploy built artifacts of the
-#   master branch.
-# * Shows how to use multiple jobs in test stage for verifying functionality
-#   with multiple JDKs.
-# * Uses site:stage to collect the documentation for multi-module projects.
-# * Publishes the documentation for `master` branch.
-
 variables:
-  # This will supress any download for dependencies and plugins or upload messages which would clutter the console log.
-  # `showDateTime` will show the passed time in milliseconds. You need to specify `--batch-mode` to make this work.
-  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
-  # As of Maven 3.3.0 instead of this you may define these options in `.mvn/maven.config` so the same config is used
-  # when running from the command line.
-  # `installAtEnd` and `deployAtEnd`are only effective with recent version of the corresponding plugins.
-  MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version"
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+  MAVEN_CLI_OPTS: "-s settings.xml --batch-mode --errors --fail-at-end"
 
-# Cache downloaded dependencies and plugins between builds.
-# To keep cache across branches add 'key: "$CI_JOB_REF_NAME"'
 image: $BUILDIMAGE
 stages:
   - buildstage
   - teststage
   - packagestage
   - deploystage
-  - testerwstage
 cache:
   paths:
     - .m2/repository
   key: "isyfactstandards"
 
+#Vorlagen
+
+.template: &vorlage
+  tags:
+   - zssi
+  retry: 1
+
+.testtemplate: &testvorlage
+  <<: *vorlage
+  stage: teststage
+  artifacts:
+   paths:
+    - "${CI_JOB_NAME//test:/}/target/surefire-reports/*"
+    - "${CI_JOB_NAME//test:/}/target/site/*"
+   reports:
+    junit:
+     - "${CI_JOB_NAME//test:/}/target/surefire-reports/TEST-*.xml"
+   when: always
+  dependencies:
+   - build
+  script:
+   - mvn -q -am -pl isyfact-products-bom,isyfact-standards-bom -Dmaven.test.skip=true -Dmaven.javadoc.skip=true $MAVEN_CLI_OPTS install
+   - mvn -q $MAVEN_CLI_OPTS clean
+   - mvn -pl "${CI_JOB_NAME//test:/}" $MAVEN_CLI_OPTS org.jacoco:jacoco-maven-plugin:prepare-agent -Dmaven.surefire.argline='@{argLine} -Xmx1g -Dfile.encoding=${project.build.sourceEncoding}' test org.jacoco:jacoco-maven-plugin:report
+  after_script:
+   - mkdir -p src/site
+   - echo "<project name=\"IsyFact Standards\"></project>" > src/site/site.xml
+   - mvn -am -pl "${CI_JOB_NAME//test:/}" $MAVEN_CLI_OPTS surefire-report:report-only
+   - mvn -am -pl "${CI_JOB_NAME//test:/}" -DgenerateReports=false $MAVEN_CLI_OPTS site
+   - '[[ -f ./${CI_JOB_NAME//test:/}/target/site/jacoco/index.html ]] && echo Code coverage:$(egrep "([0-9]{1,3}%)" ./${CI_JOB_NAME//test:/}/target/site/jacoco/index.html -o -h |  head -1)'
+
+.testtemplate2: &testvorlage2
+  <<: *testvorlage
+  script:
+   - mvn -q -am -pl isyfact-products-bom,isyfact-standards-bom -Dmaven.test.skip=true -Dmaven.javadoc.skip=true $MAVEN_CLI_OPTS install
+   - mvn -q -am -pl "${CI_JOB_NAME//test:/}" -Dmaven.test.skip=true -Dmaven.javadoc.skip=true $MAVEN_CLI_OPTS install
+   - mvn -q $MAVEN_CLI_OPTS clean
+   - mvn -pl "${CI_JOB_NAME//test:/}" $MAVEN_CLI_OPTS org.jacoco:jacoco-maven-plugin:prepare-agent -Dmaven.surefire.argline='@{argLine} -Xmx1g -Dfile.encoding=${project.build.sourceEncoding}' test org.jacoco:jacoco-maven-plugin:report
+
+
+
 #Buildstage
-build:isyfactstandards:
+build:
+  <<: *vorlage
   stage: buildstage
   artifacts:
    paths:
    - "*/target/*"
-   expire_in: 30 mins
-  before_script:
-   - rm -rf .m2/repository/de
+   expire_in: 6 h
   script:
-   - ' mvn $MAVEN_CLI_OPTS test-compile'
+   - rm -rf .m2/repository/de
+   - mvn -U $MAVEN_CLI_OPTS compile
 
 #Teststage
-test:isyfactstandards:
-  stage: teststage
-  dependencies:
-   - build:isyfactstandards
-  artifacts:
-   paths:
-   - "*/target/*"
-   expire_in: 30 mins
-  before_script:
-   - ' echo "127.0.0.1 $HOSTNAME" >> /etc/hosts'
-  script:
-   - ' mvn $MAVEN_CLI_OPTS test'
+test:isy-aufrufkontext:
+  <<: *testvorlage2
 
-package:isyfactstandards:
+test:isy-batchrahmen:
+  <<: *testvorlage2
+
+test:isy-datetime:
+  <<: *testvorlage
+
+test:isy-exception-core:
+  <<: *testvorlage
+
+test:isy-exception-sst:
+  <<: *testvorlage
+
+test:isy-konfiguration:
+  <<: *testvorlage2
+
+test:isy-logging:
+  <<: *testvorlage2
+
+test:isy-persistence:
+  <<: *testvorlage2
+
+test:isy-polling:
+  <<: *testvorlage2
+
+test:isy-serviceapi-core:
+  <<: *testvorlage2
+
+test:isy-serviceapi-sst:
+  <<: *testvorlage2
+
+test:isy-sicherheit:
+  <<: *testvorlage2
+
+test:isy-sonderzeichen:
+  <<: *testvorlage2
+
+test:isy-task:
+  <<: *testvorlage2
+
+test:isy-ueberwachung:
+  <<: *testvorlage2
+
+test:isy-util:
+  <<: *testvorlage2
+
+package:
+  <<: *vorlage
   stage: packagestage
   dependencies:
-   - test:isyfactstandards
-  artifacts:
-   paths:
-   - "*/target/*"
-   expire_in: 30 mins
+   - build
   script:
-   - 'mvn -DskipTests $MAVEN_CLI_OPTS package'
+   - mvn -Dmaven.test.skip=true $MAVEN_CLI_OPTS package
 
-deploy:isyfactstandards:
+deploy_release:
+  <<: *vorlage
   stage: deploystage
-  cache:
-    paths:
-      - .m2/repository
-    key: "isyfactstandards"
-    policy: pull
   dependencies:
-   - package:isyfactstandards
+   - build
   script:
-   - ' mvn -DskipTests -Dmaven.install.skip=true -Dmaven.javadoc.skip=true $MAVEN_CLI_OPTS deploy'
+   - mvn -Prelease -Dmaven.test.skip=true -Dmaven.install.skip=true $MAVEN_CLI_OPTS deploy
+  only:
+   - tags
+
+deploy_staging:
+  <<: *vorlage
+  stage: deploystage
+  dependencies:
+   - build
+  script:
+   - SNAPSHOT=true
+   - '[[ $(mvn --non-recursive -Dexpression=project.version $MAVEN_CLI_OPTS help:evaluate | grep -v "\[.*") == *-SNAPSHOT ]] || SNAPSHOT=false'
+   - MODULE=($(mvn -Dexpression=project.modules $MAVEN_CLI_OPTS help:evaluate | grep -v "^\[" | grep "<string>" | sed 's/<\/*string>//g ; s/[[:space:]]//'))
+   - for MODUL in ${MODULE[@]}; do [[ $(mvn -pl $MODUL -Dexpression=project.version $MAVEN_CLI_OPTS help:evaluate  | grep -v "^\[") == *-SNAPSHOT ]] || SNAPSHOT=false ; done
+   - '[[ $SNAPSHOT == true ]] && mvn -Dmaven.test.skip=true -Dmaven.install.skip=true $MAVEN_CLI_OPTS deploy || echo "Keine SNAPSHOT-Version - deploy wird nur bei Tags durchgefuehrt"'
+  except:
+   - tags
