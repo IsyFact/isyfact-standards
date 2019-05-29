@@ -23,7 +23,7 @@ package de.bund.bva.isyfact.logging.exceptions;
  * #L%
  */
 
-import de.bund.bva.pliscommon.exception.PlisTechnicalRuntimeException;
+import de.bund.bva.isyfact.exception.PlisTechnicalRuntimeException;
 
 /**
  * Oberklasse aller TechnicalRuntimeExceptions der Bibliothek.
@@ -40,7 +40,7 @@ public class LoggingTechnicalRuntimeException extends PlisTechnicalRuntimeExcept
     /**
      * Konstruktor der Klasse zum Erstellen einer Exception mit den übergebenen Parametern.
      * 
-     * @see de.bund.bva.pliscommon.exception.PlisTechnicalRuntimeException
+     * @see PlisTechnicalRuntimeException
      * 
      * @param ausnahmeId
      *            Die Ausnahme-ID. Der Schl&uuml;ssel, welcher verwendet wird, um einen Nachrichtentext,
@@ -57,7 +57,7 @@ public class LoggingTechnicalRuntimeException extends PlisTechnicalRuntimeExcept
     /**
      * Konstruktor der Klasse zum Erstellen einer Exception mit den übergebenen Parametern.
      * 
-     * @see de.bund.bva.pliscommon.exception.PlisTechnicalRuntimeException
+     * @see PlisTechnicalRuntimeException
      * 
      * @param ausnahmeId
      *            Die Ausnahme-ID. Der Schl&uuml;ssel, welcher verwendet wird, um einen Nachrichtentext,

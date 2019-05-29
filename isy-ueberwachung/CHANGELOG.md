@@ -1,3 +1,7 @@
+# 2.0.0
+- `IFS-228`: Einführung von Spring Boot
+- `IFS-32`: Package-Name auf de.bund.bva.isyfact geändert
+
 #1.9.0
 - `IFS-248`: Log-Level vom Start der Watchdog Prüfung auf debug gesetzt.
 - `IFS-347`: Abhängigkeiten zu commons-lang3 aufgelöst.

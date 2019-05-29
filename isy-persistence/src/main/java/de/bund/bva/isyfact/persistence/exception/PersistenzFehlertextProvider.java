@@ -20,7 +20,7 @@ import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import de.bund.bva.pliscommon.exception.FehlertextProvider;
+import de.bund.bva.isyfact.exception.FehlertextProvider;
 
 /**
  * Fehlertext-Provider für die plis-persistence.
@@ -31,7 +31,7 @@ public class PersistenzFehlertextProvider implements FehlertextProvider {
      * Das ResourceBoundle mit den Fehlertexten der AufrufkontextAPI.
      */
     public static final ResourceBundle FEHLERTEXT_BUNDLE = ResourceBundle.getBundle(
-        "resources/plis-persistence/nachrichten/fehler", Locale.GERMANY);
+        "resources/isy-persistence/nachrichten/fehler", Locale.GERMANY);
 
     /**
      * {@inheritDoc}

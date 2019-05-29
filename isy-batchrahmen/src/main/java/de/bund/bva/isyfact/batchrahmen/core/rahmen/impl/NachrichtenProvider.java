@@ -32,7 +32,7 @@ public class NachrichtenProvider {
      * Das ResourceBoundle mit den Fehlertexten der Proxy-API.
      */
     private static final ResourceBundle FEHLERTEXT_BUNDLE = ResourceBundle.getBundle(
-        "resources/plis-batchrahmen/nachrichten/batchrahmen", Locale.GERMANY);
+        "resources/isy-batchrahmen/nachrichten/batchrahmen", Locale.GERMANY);
 
     /**
      * Liefert die Nachricht mit dem Schlüssel.

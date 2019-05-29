@@ -29,8 +29,8 @@ import de.bund.bva.isyfact.logging.IsyMarker;
 import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.logging.exceptions.FehlerhafterLogeintrag;
 import de.bund.bva.isyfact.logging.util.LoggingKonstanten;
-import de.bund.bva.pliscommon.exception.PlisException;
-import de.bund.bva.pliscommon.exception.PlisTechnicalRuntimeException;
+import de.bund.bva.isyfact.exception.PlisException;
+import de.bund.bva.isyfact.exception.PlisTechnicalRuntimeException;
 import org.slf4j.spi.LocationAwareLogger;
 
 import java.util.Arrays;

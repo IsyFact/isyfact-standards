@@ -24,6 +24,8 @@ package de.bund.bva.isyfact.logging.exceptions;
  */
 
 
+import de.bund.bva.isyfact.exception.PlisTechnicalRuntimeException;
+
 /**
  * Fehler beim Abfangen einer Methode, um Logeinträge zu erzeugen.
  * 
@@ -36,7 +38,7 @@ public class InterceptionFehler extends LoggingTechnicalRuntimeException {
     /**
      * Konstruktor der Klasse.
      * 
-     * @see de.bund.bva.pliscommon.exception.PlisTechnicalRuntimeException
+     * @see PlisTechnicalRuntimeException
      * 
      * @param ausnahmeId
      *            Die Ausnahme-ID. Der Schl&uuml;ssel, welcher verwendet wird, um einen Nachrichtentext,
@@ -53,7 +55,7 @@ public class InterceptionFehler extends LoggingTechnicalRuntimeException {
     /**
      * Konstruktor der Klasse zum Erstellen einer Exception mit den übergebenen Parametern.
      * 
-     * @see de.bund.bva.pliscommon.exception.PlisTechnicalRuntimeException
+     * @see PlisTechnicalRuntimeException
      * 
      * @param ausnahmeId
      *            Die Ausnahme-ID. Der Schl&uuml;ssel, welcher verwendet wird, um einen Nachrichtentext,

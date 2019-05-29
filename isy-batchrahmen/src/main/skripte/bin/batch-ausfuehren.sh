@@ -43,8 +43,8 @@ do
     fi
 done
 
-echo ${JAVA_COMMAND} -classpath "${CP}" ${JAVA_OPTS} de.bund.bva.pliscommon.batchrahmen.core.launcher.BatchLauncher $*
-${JAVA_COMMAND} -classpath "${CP}" ${JAVA_OPTS} de.bund.bva.pliscommon.batchrahmen.core.launcher.BatchLauncher $*
+echo ${JAVA_COMMAND} -classpath "${CP}" ${JAVA_OPTS} de.bund.bva.isyfact.batchrahmen.core.launcher.BatchLauncher $*
+${JAVA_COMMAND} -classpath "${CP}" ${JAVA_OPTS} de.bund.bva.isyfact.batchrahmen.core.launcher.BatchLauncher $*
 rueckgabe=$?
 
 popd > /dev/null

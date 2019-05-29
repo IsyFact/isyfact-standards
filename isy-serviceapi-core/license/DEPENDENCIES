@@ -27,7 +27,7 @@ Liste aller Abhängigkeiten zu Drittsoftware gruppiert nach deren Lizenzen. Kein
         * Logback Contrib :: Jackson (ch.qos.logback.contrib:logback-jackson:jar:0.1.2 - https://github.com/qos-ch/logback-contribs/wiki/logback-jackson)
         * Logback Contrib :: JSON :: Classic (ch.qos.logback.contrib:logback-json-classic:jar:0.1.2 - https://github.com/qos-ch/logback-contribs/wiki/logback-json-parent/logback-json-classic)				
         * Logback Contrib :: JSON :: Core (ch.qos.logback.contrib:logback-json-core:jar:0.1.2 - https://github.com/qos-ch/logback-contribs/wiki/logback-json-parent/logback-json-core)        
-				* PLIS Service-API Transport-Objekte (de.bund.bva.pliscommon:plis-serviceapi-sst:jar:1.4.1 - no url defined)
+				* PLIS Service-API Transport-Objekte (de.bund.bva.isyfact:plis-serviceapi-sst:jar:1.4.1 - no url defined)
         * Spring Aspects (org.springframework:spring-aspects:jar:4.2.5.RELEASE - https://github.com/spring-projects/spring-framework)				
         * Spring AOP (org.springframework:spring-aop:jar:4.2.5.RELEASE - https://github.com/spring-projects/spring-framework)
         * Spring Beans (org.springframework:spring-beans:jar:4.2.5.RELEASE - https://github.com/spring-projects/spring-framework)

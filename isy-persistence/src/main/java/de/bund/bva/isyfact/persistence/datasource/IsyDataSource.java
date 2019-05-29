@@ -29,7 +29,7 @@ import org.springframework.jdbc.datasource.DelegatingDataSource;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.pliscommon.exception.FehlertextProvider;
+import de.bund.bva.isyfact.exception.FehlertextProvider;
 
 /**
  * DataSource-Wrapper, der null-Connections abfängt und eine PersistenzException wirft.

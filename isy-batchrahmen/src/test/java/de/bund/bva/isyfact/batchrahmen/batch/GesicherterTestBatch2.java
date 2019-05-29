@@ -24,7 +24,7 @@ import de.bund.bva.isyfact.batchrahmen.batch.protokoll.BatchErgebnisProtokoll;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.AuthenticationCredentials;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchStartTyp;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.VerarbeitungsErgebnis;
-import de.bund.bva.pliscommon.sicherheit.annotation.Gesichert;
+import de.bund.bva.isyfact.sicherheit.annotation.Gesichert;
 
 /**
  * Verhält sich wie der BasicTest-Batch - jedoch wird eine Autorisierung vor der Initialisierung durchgeführt.

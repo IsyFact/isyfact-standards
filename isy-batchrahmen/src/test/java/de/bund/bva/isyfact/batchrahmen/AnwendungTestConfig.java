@@ -4,14 +4,14 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import de.bund.bva.isyfact.batchrahmen.sicherheit.AccessManagerStub;
-import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextFactory;
-import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
-import de.bund.bva.pliscommon.aufrufkontext.impl.AufrufKontextFactoryImpl;
-import de.bund.bva.pliscommon.aufrufkontext.impl.AufrufKontextVerwalterImpl;
-import de.bund.bva.pliscommon.sicherheit.Sicherheit;
-import de.bund.bva.pliscommon.sicherheit.annotation.GesichertInterceptor;
-import de.bund.bva.pliscommon.sicherheit.config.IsySicherheitConfigurationProperties;
-import de.bund.bva.pliscommon.sicherheit.impl.SicherheitImpl;
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontextFactory;
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
+import de.bund.bva.isyfact.aufrufkontext.impl.AufrufKontextFactoryImpl;
+import de.bund.bva.isyfact.aufrufkontext.impl.AufrufKontextVerwalterImpl;
+import de.bund.bva.isyfact.sicherheit.Sicherheit;
+import de.bund.bva.isyfact.sicherheit.annotation.GesichertInterceptor;
+import de.bund.bva.isyfact.sicherheit.config.IsySicherheitConfigurationProperties;
+import de.bund.bva.isyfact.sicherheit.impl.SicherheitImpl;
 import org.h2.jdbcx.JdbcDataSource;
 import org.springframework.aop.Advisor;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
@@ -102,7 +102,7 @@ public class AnwendungTestConfig {
     @Bean
     public Advisor gesichertPointAdvisor(GesichertInterceptor gesichertInterceptor) {
         AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
-        pointcut.setExpression("@annotation(de.bund.bva.pliscommon.sicherheit.annotation.Gesichert) || @within(de.bund.bva.pliscommon.sicherheit.annotation.Gesichert)");
+        pointcut.setExpression("@annotation(de.bund.bva.isyfact.sicherheit.annotation.Gesichert) || @within(de.bund.bva.isyfact.sicherheit.annotation.Gesichert)");
         return new DefaultPointcutAdvisor(pointcut, gesichertInterceptor);
     }
 }

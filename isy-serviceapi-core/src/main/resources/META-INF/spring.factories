@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-de.bund.bva.pliscommon.serviceapi.autoconfigure.IsyServiceApiCoreAutoConfiguration
+de.bund.bva.isyfact.serviceapi.autoconfigure.IsyServiceApiCoreAutoConfiguration

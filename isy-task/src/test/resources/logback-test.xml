@@ -8,7 +8,7 @@
 
     <logger name="de.bund.bva.isyfact" level="DEBUG"/>
 
-    <logger name="de.bund.bva.pliscommon" level="DEBUG"/>
+    <logger name="de.bund.bva.isyfact" level="DEBUG"/>
 
     <logger name="org.springframework" level="INFO"/>
 </configuration>

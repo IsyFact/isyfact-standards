@@ -1,7 +1,7 @@
 package de.bund.bva.isyfact.logging;
 
-import de.bund.bva.pliscommon.exception.PlisException;
-import de.bund.bva.pliscommon.exception.PlisTechnicalRuntimeException;
+import de.bund.bva.isyfact.exception.PlisException;
+import de.bund.bva.isyfact.exception.PlisTechnicalRuntimeException;
 
 /**
  * Interface zum Erstellen von typisierten Logeinträgen. Die Logeinträge können mit einem benutzerdefinierten

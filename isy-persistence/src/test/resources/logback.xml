@@ -9,9 +9,6 @@
     </root>
 
     <!-- IsyFact -->
-    <logger name="de.bund.bva.pliscommon" level="INFO" additivity="false">
-        <appender-ref ref="KONSOLE"/>
-    </logger>
     <logger name="de.bund.bva.isyfact" level="INFO" additivity="false">
         <appender-ref ref="KONSOLE"/>
     </logger>

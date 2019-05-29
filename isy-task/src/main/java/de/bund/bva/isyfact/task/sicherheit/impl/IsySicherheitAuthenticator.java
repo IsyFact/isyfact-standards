@@ -2,10 +2,10 @@ package de.bund.bva.isyfact.task.sicherheit.impl;
 
 import de.bund.bva.isyfact.logging.util.MdcHelper;
 import de.bund.bva.isyfact.task.sicherheit.Authenticator;
-import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
-import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextFactory;
-import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
-import de.bund.bva.pliscommon.sicherheit.Sicherheit;
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontextFactory;
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
+import de.bund.bva.isyfact.sicherheit.Sicherheit;
 
 /**
  * Implementierung von {@link Authenticator} für die Verwendung von isy-sicherheit.

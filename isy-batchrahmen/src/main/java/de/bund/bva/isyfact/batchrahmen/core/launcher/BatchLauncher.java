@@ -44,7 +44,7 @@ import de.bund.bva.isyfact.batchrahmen.core.rahmen.Batchrahmen;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
-import de.bund.bva.pliscommon.sicherheit.common.exception.SicherheitTechnicalRuntimeException;
+import de.bund.bva.isyfact.sicherheit.common.exception.SicherheitTechnicalRuntimeException;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.Banner;
 import org.springframework.boot.builder.SpringApplicationBuilder;

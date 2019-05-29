@@ -3,7 +3,7 @@ package de.bund.bva.isyfact.task.model;
 import java.time.LocalDateTime;
 
 import de.bund.bva.isyfact.datetime.util.DateTimeUtil;
-import de.bund.bva.pliscommon.exception.PlisException;
+import de.bund.bva.isyfact.exception.PlisException;
 import org.springframework.jmx.export.annotation.ManagedAttribute;
 import org.springframework.jmx.export.annotation.ManagedOperation;
 import org.springframework.jmx.export.annotation.ManagedResource;

@@ -27,7 +27,7 @@ import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import de.bund.bva.pliscommon.exception.FehlertextProvider;
+import de.bund.bva.isyfact.exception.FehlertextProvider;
 
 /**
  * FehlertextProvider für IsyLogging, um die bibliotheksspezifischen Fehlermeldungen aufzulösen.

@@ -1,8 +1,8 @@
 package de.bund.bva.isyfact.task.exception;
 
 import de.bund.bva.isyfact.task.konstanten.FehlerSchluessel;
-import de.bund.bva.pliscommon.exception.FehlertextProvider;
-import de.bund.bva.pliscommon.exception.PlisTechnicalException;
+import de.bund.bva.isyfact.exception.FehlertextProvider;
+import de.bund.bva.isyfact.exception.PlisTechnicalException;
 import de.bund.bva.isyfact.util.exception.MessageSourceFehlertextProvider;
 
 /**

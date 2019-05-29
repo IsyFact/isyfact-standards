@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-de.bund.bva.pliscommon.sicherheit.autoconfigure.IsySicherheitAutoConfiguration
+de.bund.bva.isyfact.sicherheit.autoconfigure.IsySicherheitAutoConfiguration

@@ -16,10 +16,10 @@
  */
 package de.bund.bva.isyfact.batchrahmen.sicherheit;
 
-import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
-import de.bund.bva.pliscommon.sicherheit.accessmgr.AccessManager;
-import de.bund.bva.pliscommon.sicherheit.common.exception.AuthentifizierungFehlgeschlagenException;
-import de.bund.bva.pliscommon.sicherheit.common.exception.AuthentifizierungTechnicalException;
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
+import de.bund.bva.isyfact.sicherheit.accessmgr.AccessManager;
+import de.bund.bva.isyfact.sicherheit.common.exception.AuthentifizierungFehlgeschlagenException;
+import de.bund.bva.isyfact.sicherheit.common.exception.AuthentifizierungTechnicalException;
 
 /**
  * Dies ist ein Stub, der von den Tests "testGesicherterBatch*" in BatchrahmenTest verwendet wird, um zu

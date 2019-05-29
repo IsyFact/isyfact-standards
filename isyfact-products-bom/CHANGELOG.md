@@ -1,3 +1,6 @@
+# 2.0.0
+- `IFS-228`: Einführung von Spring Boot
+
 # 1.6.0
 - `IFS-272`: Maven-Koordinaten der Oracle-Bibliotheken angepasst
 - `IFS-117`: Spring Web Flow auf Version 2.4.8 angehoben

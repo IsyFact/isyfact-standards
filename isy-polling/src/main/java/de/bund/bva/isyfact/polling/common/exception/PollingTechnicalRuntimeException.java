@@ -16,8 +16,8 @@
  */
 package de.bund.bva.isyfact.polling.common.exception;
 
-import de.bund.bva.pliscommon.exception.FehlertextProvider;
-import de.bund.bva.pliscommon.exception.PlisTechnicalRuntimeException;
+import de.bund.bva.isyfact.exception.FehlertextProvider;
+import de.bund.bva.isyfact.exception.PlisTechnicalRuntimeException;
 
 /**
  * Abstrakte technische <i>unchecked</i> Hauptexception. Alle technischen, <i>unchecked</i> Exceptions 

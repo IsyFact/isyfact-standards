@@ -1,3 +1,7 @@
+# 2.0.0
+- `IFS-228`: Umstellung auf Java Config
+- `IFS-32`: Package-Name auf de.bund.bva.isyfact geändert
+
 # 1.10.0
 - `IFS-262`: `isyfact-masterpom` deprecated (Abschaffung mit IsyFact 2.0), `isyfact-masterpom-lib` aufgelöst, Bibliotheken benutzen `isyfact-standards` als Parent-POM
 - `IFS-255`: Schließen des Anwendungskontexts nach Ausführung eines Batches.

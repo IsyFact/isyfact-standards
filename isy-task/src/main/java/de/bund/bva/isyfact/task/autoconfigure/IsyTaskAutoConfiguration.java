@@ -1,8 +1,8 @@
 package de.bund.bva.isyfact.task.autoconfigure;
 
-import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextFactory;
-import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
-import de.bund.bva.pliscommon.sicherheit.Sicherheit;
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontextFactory;
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
+import de.bund.bva.isyfact.sicherheit.Sicherheit;
 import de.bund.bva.isyfact.task.TaskScheduler;
 import de.bund.bva.isyfact.task.config.IsyTaskConfigurationProperties;
 import de.bund.bva.isyfact.task.impl.TaskSchedulerImpl;

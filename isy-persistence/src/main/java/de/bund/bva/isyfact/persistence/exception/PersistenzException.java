@@ -16,8 +16,8 @@
  */
 package de.bund.bva.isyfact.persistence.exception;
 
-import de.bund.bva.pliscommon.exception.FehlertextProvider;
-import de.bund.bva.pliscommon.exception.PlisTechnicalRuntimeException;
+import de.bund.bva.isyfact.exception.FehlertextProvider;
+import de.bund.bva.isyfact.exception.PlisTechnicalRuntimeException;
 
 /**
  * Technischer Fehler in der plis-persistence.

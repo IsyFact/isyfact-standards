@@ -16,7 +16,7 @@
  */
 package de.bund.bva.isyfact.batchrahmen.sicherheit;
 
-import de.bund.bva.pliscommon.sicherheit.accessmgr.AuthentifzierungErgebnis;
+import de.bund.bva.isyfact.sicherheit.accessmgr.AuthentifzierungErgebnis;
 
 /**
  * Ein Stub für das Authentifizierungsergebnis.

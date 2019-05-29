@@ -6,7 +6,7 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.task.model.AbstractTask;
 import de.bund.bva.isyfact.task.model.TaskMonitor;
-import de.bund.bva.pliscommon.sicherheit.annotation.Gesichert;
+import de.bund.bva.isyfact.sicherheit.annotation.Gesichert;
 
 public class GesichertTask extends AbstractTask {
 

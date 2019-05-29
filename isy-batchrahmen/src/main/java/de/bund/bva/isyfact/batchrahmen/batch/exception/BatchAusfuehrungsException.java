@@ -17,8 +17,8 @@
 package de.bund.bva.isyfact.batchrahmen.batch.exception;
 
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchReturnCode;
-import de.bund.bva.pliscommon.exception.PlisException;
-import de.bund.bva.pliscommon.exception.PlisTechnicalRuntimeException;
+import de.bund.bva.isyfact.exception.PlisException;
+import de.bund.bva.isyfact.exception.PlisTechnicalRuntimeException;
 
 /**
  * Diese Exception wird von Implementierungen des Interfaces

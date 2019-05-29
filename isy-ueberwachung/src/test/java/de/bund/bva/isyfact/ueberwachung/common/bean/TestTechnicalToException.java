@@ -16,7 +16,7 @@
  */
 package de.bund.bva.isyfact.ueberwachung.common.bean;
 
-import de.bund.bva.pliscommon.exception.service.PlisTechnicalToException;
+import de.bund.bva.isyfact.exception.service.PlisTechnicalToException;
 
 /**
  * Exception fuer den Test. Es wird eine Exception vom Typ PlisToException benoetigt.

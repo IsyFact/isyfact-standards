@@ -19,7 +19,7 @@
  */
 package de.bund.bva.isyfact.util.exception;
 
-import de.bund.bva.pliscommon.exception.FehlertextProvider;
+import de.bund.bva.isyfact.exception.FehlertextProvider;
 import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
 
 /**
