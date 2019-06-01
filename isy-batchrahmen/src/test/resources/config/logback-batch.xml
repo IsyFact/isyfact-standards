@@ -27,7 +27,7 @@
 
 
     <!-- Include der vorkonfigurierten Appender. -->
-    <include resource="resources/isylogging/logback/appender-batch.xml" />
+    <include resource="resources/isylogging/logback/appender.xml" />
 
     <!-- Root-Logger als Grundlage für alle Logger-Instanzen -->
     <root level="INFO">
@@ -48,7 +48,7 @@
     <!-- Verhindert das Logging von Fehlern, wenn Sperren in DB nicht gesetzt werden können. -->
     <logger name="org.hibernate.event.def.DefaultLoadEventListener" level="WARN"
         additivity="false">
-        <appender-ref ref="DATEI_BATCH"/>
+        <appender-ref ref="DATEI_ANWENDUNG"/>
     </logger>    
 
 </configuration>
