@@ -6,7 +6,7 @@
 
     <artifactId>isy-persistence</artifactId>
     <packaging>jar</packaging>
-    <version>1.9.0-RC1</version>
+    <version>1.9.0</version>
     <description>Die Querschnittsbibliothek isy-persistence</description>
 
     <parent>
