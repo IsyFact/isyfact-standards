@@ -205,7 +205,6 @@ public class IsyJsonLayout extends JsonLayout {
         if (enthaeltFachlicheDaten) {
             // Hierdurch wird der bisherige Datentyp des Logeintrags überschrieben!
             processMarker(new FachdatenMarker(), jsonMap, standardMarker);
-            jsonMap.put(MarkerSchluessel.FACHDATEN.getWert(), LoggingKonstanten.TRUE);
         }
 
         return jsonMap;

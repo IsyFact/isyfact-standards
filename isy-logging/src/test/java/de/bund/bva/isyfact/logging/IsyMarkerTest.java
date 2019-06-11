@@ -45,13 +45,12 @@ public class IsyMarkerTest {
     /**
      * Testfälle für das Hinzufügen von Child-Markern.
      */
-    @SuppressWarnings("deprecation")
     @Test
     public void isyMarkerChildrenTest() {
 
         IsyMarker marker = new IsyMarkerImpl(MarkerSchluessel.DAUER, "123");
-        IsyMarker childMarker1 = new IsyMarkerImpl(MarkerSchluessel.FACHDATEN, "true");
-        IsyMarker childMarker2 = new IsyMarkerImpl(MarkerSchluessel.FACHDATEN, "true");
+        IsyMarker childMarker1 = new IsyMarkerImpl(MarkerSchluessel.DATENTYP, "String");
+        IsyMarker childMarker2 = new IsyMarkerImpl(MarkerSchluessel.DATENTYP, "String");
 
         // Keine Children im Marker vorhanden
         assertFalse("Es sind unerwartet Children im Marker vorhanden.", marker.hasChildren());
@@ -59,7 +58,7 @@ public class IsyMarkerTest {
         assertFalse("Es sind unerwartet Children im Marker vorhanden.",
                 marker.contains(MarkerSchluessel.DAUER.toString()));
         assertFalse("Es sind unerwartet Children im Marker vorhanden.",
-                marker.contains(MarkerSchluessel.FACHDATEN.toString()));
+                marker.contains(MarkerSchluessel.DATENTYP.toString()));
 
         // Marker als Children ergänzen
         marker.add(childMarker1);
@@ -68,7 +67,7 @@ public class IsyMarkerTest {
         assertTrue("Children unerwartet nicht vorhanden.",
                 marker.contains(MarkerSchluessel.DAUER.getWert()));
         assertTrue("Children unerwartet nicht vorhanden.",
-                marker.contains(MarkerSchluessel.FACHDATEN.getWert()));
+                marker.contains(MarkerSchluessel.DATENTYP.getWert()));
         assertFalse("Es sind unerwartet Children im Marker vorhanden.",
                 marker.contains(MarkerSchluessel.KATEGORIE.getWert()));
 
@@ -106,7 +105,7 @@ public class IsyMarkerTest {
         String marker1value = "123";
         IsyMarkerImpl marker1 = new IsyMarkerImpl(MarkerSchluessel.DAUER, marker1value);
         IsyMarkerImpl marker2 = new IsyMarkerImpl(MarkerSchluessel.DAUER, marker1value);
-        IsyMarkerImpl marker3 = new IsyMarkerImpl(MarkerSchluessel.FACHDATEN, "true");
+        IsyMarkerImpl marker3 = new IsyMarkerImpl(MarkerSchluessel.DATENTYP,"String");
         IsyMarkerImpl marker4 = new IsyMarkerImpl(MarkerSchluessel.DAUER, "5678");
         IsyMarkerImpl marker5 = new IsyMarkerImpl(MarkerSchluessel.DAUER, null);
 
