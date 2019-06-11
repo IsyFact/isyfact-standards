@@ -464,7 +464,7 @@ public class LoggingTest extends AbstractLogTest {
         logger.warn(FehlerSchluessel.FEHLERHAFTER_EINTRAG_KEINE_KATEGORIE, "Zu große WARN Nachricht {}",
             nachrichtA);
 
-        pruefeLogdatei("testLogeintragZuGross");
+        pruefeLogdatei("testLogEintragZuGross");
     }
 
 }
