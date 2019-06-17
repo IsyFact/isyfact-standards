@@ -16,6 +16,7 @@
  */
 package de.bund.bva.isyfact.batchrahmen.batch.exception;
 
+import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchAusfuehrungsBean;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchReturnCode;
 import de.bund.bva.isyfact.exception.PlisException;
 import de.bund.bva.isyfact.exception.PlisTechnicalRuntimeException;

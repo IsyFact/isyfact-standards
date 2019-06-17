@@ -133,7 +133,7 @@ public class Zeitraum implements Serializable {
     }
 
     /**
-     * Erstellt einen {@link} unter Angabe des Anfangs und der Dauer als {@link Duration} des
+     * Erstellt einen {@link Zeitraum} unter Angabe des Anfangs und der Dauer als {@link Duration} des
      * Zeitraums. Zur Bestimmung des Endes wird die Dauer zum Anfang hinzuaddiert. Als Zeitzone für
      * Anfang und Ende wird Default-Zeitzone verwendet.
      *

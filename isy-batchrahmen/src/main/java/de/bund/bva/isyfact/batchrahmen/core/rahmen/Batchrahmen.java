@@ -16,6 +16,7 @@
  */
 package de.bund.bva.isyfact.batchrahmen.core.rahmen;
 
+import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchAusfuehrungsBean;
 import de.bund.bva.isyfact.batchrahmen.core.launcher.BatchLauncher;
 import de.bund.bva.isyfact.batchrahmen.core.rahmen.impl.BatchrahmenImpl;
 import de.bund.bva.isyfact.batchrahmen.batch.exception.BatchAusfuehrungsException;
@@ -49,6 +50,6 @@ public interface Batchrahmen {
      *             Wenn ein Fehler wï¿½hrend der Batchausfï¿½hrung autritt.
      * 
      */
-    public void runBatch(BatchKonfiguration konfiguration, BatchErgebnisProtokoll protokoll)
+    void runBatch(BatchKonfiguration konfiguration, BatchErgebnisProtokoll protokoll)
             throws BatchAusfuehrungsException;
 }
