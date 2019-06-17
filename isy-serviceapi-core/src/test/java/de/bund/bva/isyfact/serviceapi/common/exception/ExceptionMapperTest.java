@@ -16,89 +16,89 @@
  */
 package de.bund.bva.isyfact.serviceapi.common.exception;
 
-import de.bund.bva.isyfact.exception.PlisBusinessException;
-import de.bund.bva.isyfact.exception.PlisTechnicalException;
-import de.bund.bva.isyfact.exception.PlisTechnicalRuntimeException;
-import de.bund.bva.isyfact.exception.service.PlisBusinessToException;
-import de.bund.bva.isyfact.exception.service.PlisTechnicalToException;
+import de.bund.bva.isyfact.exception.BusinessException;
+import de.bund.bva.isyfact.exception.TechnicalException;
+import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
+import de.bund.bva.isyfact.exception.service.BusinessToException;
+import de.bund.bva.isyfact.exception.service.TechnicalToException;
 import org.junit.Test;
 import de.bund.bva.isyfact.serviceapi.common.exception.test.TestExceptionFactory;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class PlisExceptionMapperTest {
+public class ExceptionMapperTest {
 
     @Test
     public void testMapException() {
-        PlisBusinessException exc = TestExceptionFactory.getPlisBusinessException();
-        PlisBusinessToException toExc =
-            PlisExceptionMapper.mapException(exc, TestExceptionFactory.MyPlisBusinessToException.class);
+        BusinessException exc = TestExceptionFactory.getBusinessException();
+        BusinessToException toExc =
+            ExceptionMapper.mapException(exc, TestExceptionFactory.MyBusinessToException.class);
         assertNotNull(toExc);
         assertEquals(TestExceptionFactory.ausnahmeId, toExc.getAusnahmeId());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testMapException2() {
-        PlisBusinessException exc = TestExceptionFactory.getPlisBusinessException();
-        PlisBusinessToException toExc = PlisExceptionMapper.mapException(exc, null);
+        BusinessException exc = TestExceptionFactory.getBusinessException();
+        BusinessToException toExc = ExceptionMapper.mapException(exc, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testMapException3() {
-        PlisTechnicalException exc = TestExceptionFactory.getPlisTechnicalException();
-        PlisTechnicalToException toExc =
-            PlisExceptionMapper.mapException(exc, TestExceptionFactory.MyWrongConstructorToException.class);
+        TechnicalException exc = TestExceptionFactory.getTechnicalException();
+        TechnicalToException toExc =
+            ExceptionMapper.mapException(exc, TestExceptionFactory.MyWrongConstructorToException.class);
     }
 
     @Test
     public void testMapException4() {
-        PlisTechnicalRuntimeException exc = TestExceptionFactory.getPlisTechnicalRuntimeException();
-        TestExceptionFactory.MyPlisTechnicalToException toExc =
-            PlisExceptionMapper.mapException(exc, TestExceptionFactory.MyPlisTechnicalToException.class);
+        TechnicalRuntimeException exc = TestExceptionFactory.getTechnicalRuntimeException();
+        TestExceptionFactory.MyTechnicalToException toExc =
+            ExceptionMapper.mapException(exc, TestExceptionFactory.MyTechnicalToException.class);
         assertNotNull(toExc);
         assertEquals(TestExceptionFactory.ausnahmeId, toExc.getAusnahmeId());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testMapException5() {
-        PlisTechnicalRuntimeException exc = TestExceptionFactory.getPlisTechnicalRuntimeException();
-        TestExceptionFactory.MyPlisTechnicalToException toExc = PlisExceptionMapper.mapException(exc, null);
+        TechnicalRuntimeException exc = TestExceptionFactory.getTechnicalRuntimeException();
+        TestExceptionFactory.MyTechnicalToException toExc = ExceptionMapper.mapException(exc, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testMapException6() {
-        PlisTechnicalRuntimeException exc = TestExceptionFactory.getPlisTechnicalRuntimeException();
+        TechnicalRuntimeException exc = TestExceptionFactory.getTechnicalRuntimeException();
         TestExceptionFactory.MyWrongConstructorToException toExc =
-            PlisExceptionMapper.mapException(exc, TestExceptionFactory.MyWrongConstructorToException.class);
+            ExceptionMapper.mapException(exc, TestExceptionFactory.MyWrongConstructorToException.class);
     }
 
     @Test
     public void testCreateException() {
-        TestExceptionFactory.MyPlisBusinessToException toExc = PlisExceptionMapper
+        TestExceptionFactory.MyBusinessToException toExc = ExceptionMapper
             .createToException(TestExceptionFactory.ausnahmeId, TestExceptionFactory.provider,
-                TestExceptionFactory.MyPlisBusinessToException.class, TestExceptionFactory.parameter);
+                TestExceptionFactory.MyBusinessToException.class, TestExceptionFactory.parameter);
         assertNotNull(toExc);
         assertEquals(TestExceptionFactory.ausnahmeId, toExc.getAusnahmeId());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testCreateException1() {
-        TestExceptionFactory.MyPlisBusinessToException toExc = PlisExceptionMapper
+        TestExceptionFactory.MyBusinessToException toExc = ExceptionMapper
             .createToException(TestExceptionFactory.ausnahmeId, TestExceptionFactory.provider, null,
                 TestExceptionFactory.parameter);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testCreateException2() {
-        TestExceptionFactory.MyWrongConstructorToException toExc = PlisExceptionMapper
+        TestExceptionFactory.MyWrongConstructorToException toExc = ExceptionMapper
             .createToException(TestExceptionFactory.ausnahmeId, TestExceptionFactory.provider,
                 TestExceptionFactory.MyWrongConstructorToException.class, TestExceptionFactory.parameter);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testCreateException3() {
-        TestExceptionFactory.MyWrongParameterToException toExc = PlisExceptionMapper
+        TestExceptionFactory.MyWrongParameterToException toExc = ExceptionMapper
             .createToException("foo bar", TestExceptionFactory.provider,
                 TestExceptionFactory.MyWrongParameterToException.class, TestExceptionFactory.parameter);
     }

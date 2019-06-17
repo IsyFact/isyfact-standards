@@ -21,18 +21,18 @@ import static org.junit.Assert.assertEquals;
 import de.bund.bva.isyfact.exception.util.TestExceptionFactory;
 import org.junit.Test;
 
-public class TestPlisTechnicalException {
+public class TestTechnicalException {
 		
 	@Test
-	public void testPlisTechnicalException() {
-		TestExceptionFactory.MyPlisTechnicalException pte = TestExceptionFactory.getPlisTechnicalException();
+	public void testTechnicalException() {
+		TestExceptionFactory.MyTechnicalException pte = TestExceptionFactory.getTechnicalException();
 		assertEquals(TestExceptionFactory.ausnahmeId, pte.getAusnahmeId());
 	}
 	
 	@Test
-	public void testPlisTechnicalException2() {
+	public void testTechnicalException2() {
 		RuntimeException e = new RuntimeException("meine Exception");
-		TestExceptionFactory.MyPlisTechnicalException pte = TestExceptionFactory.getPlisTechnicalException(e);
+		TestExceptionFactory.MyTechnicalException pte = TestExceptionFactory.getTechnicalException(e);
 		assertEquals(TestExceptionFactory.ausnahmeId, pte.getAusnahmeId());
 		assertEquals(e, pte.getCause());
 	}

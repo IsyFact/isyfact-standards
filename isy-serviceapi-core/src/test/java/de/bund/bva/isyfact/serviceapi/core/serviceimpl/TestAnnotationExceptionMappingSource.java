@@ -25,8 +25,8 @@ import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.impl.RemoteBeanImpl;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.bund.bva.isyfact.exception.PlisTechnicalException;
-import de.bund.bva.isyfact.exception.service.PlisTechnicalToException;
+import de.bund.bva.isyfact.exception.TechnicalException;
+import de.bund.bva.isyfact.exception.service.TechnicalToException;
 import de.bund.bva.isyfact.sicherheit.common.exception.SicherheitTechnicalException;
 
 public class TestAnnotationExceptionMappingSource {
@@ -45,8 +45,8 @@ public class TestAnnotationExceptionMappingSource {
 		// Braucht man, damit der ClassLoader das entsprechende Package und Implementierungsklasse lädt.
 		Class<?> implClass = RemoteBeanImpl.class;
 				
-		Class<?> exceptionClass = mappingSource.getToExceptionClass(method, PlisTechnicalException.class);
-		assertEquals(PlisTechnicalToException.class, exceptionClass);
+		Class<?> exceptionClass = mappingSource.getToExceptionClass(method, TechnicalException.class);
+		assertEquals(TechnicalToException.class, exceptionClass);
 	}
 	
 	@Test
@@ -60,7 +60,7 @@ public class TestAnnotationExceptionMappingSource {
 	
 	@Test(expected = IllegalStateException.class)
 	public void testGetToExceptionClassPackageNotExists() throws NoSuchMethodException, SecurityException {
-		mappingSource.getToExceptionClass(Object.class.getMethod("toString"), PlisTechnicalException.class);
+		mappingSource.getToExceptionClass(Object.class.getMethod("toString"), TechnicalException.class);
 	}
 	
 	@Test
@@ -69,7 +69,7 @@ public class TestAnnotationExceptionMappingSource {
 		Class<?> implClass = RemoteBeanImpl.class;
 				
 		Class<?> exceptionClass = mappingSource.getGenericTechnicalToException(method);
-		assertEquals(PlisTechnicalToException.class, exceptionClass);
+		assertEquals(TechnicalToException.class, exceptionClass);
 	}
 
 }

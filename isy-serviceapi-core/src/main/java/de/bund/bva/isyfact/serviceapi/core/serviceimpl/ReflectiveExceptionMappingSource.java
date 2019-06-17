@@ -18,9 +18,9 @@ package de.bund.bva.isyfact.serviceapi.core.serviceimpl;
 
 import java.lang.reflect.Method;
 
-import de.bund.bva.isyfact.exception.PlisException;
-import de.bund.bva.isyfact.exception.service.PlisTechnicalToException;
-import de.bund.bva.isyfact.exception.service.PlisToException;
+import de.bund.bva.isyfact.exception.BaseException;
+import de.bund.bva.isyfact.exception.service.TechnicalToException;
+import de.bund.bva.isyfact.exception.service.ToException;
 
 /**
  * Ermittelt die Abbildung von Exceptions per Reflection.
@@ -38,18 +38,18 @@ public class ReflectiveExceptionMappingSource implements ExceptionMappingSource 
     /**
      * {@inheritDoc}
      */
-    public Class<? extends PlisToException> getToExceptionClass(Method remoteBeanMethod,
-        Class<? extends PlisException> exceptionClass) {
+    public Class<? extends ToException> getToExceptionClass(Method remoteBeanMethod,
+        Class<? extends BaseException> exceptionClass) {
 
         String coreExceptionName = removeEnd(exceptionClass.getSimpleName(), "Exception");
 
         for (Class<?> toExceptionClass : remoteBeanMethod.getExceptionTypes()) {
-            if (PlisToException.class.isAssignableFrom(toExceptionClass)) {
+            if (ToException.class.isAssignableFrom(toExceptionClass)) {
                 String toExceptionName = removeEnd(toExceptionClass.getSimpleName(), "ToException");
                 if (coreExceptionName.equals(toExceptionName)) {
                     @SuppressWarnings("unchecked")
-                    Class<? extends PlisToException> castToExceptionClass =
-                        (Class<? extends PlisToException>) toExceptionClass;
+                    Class<? extends ToException> castToExceptionClass =
+                        (Class<? extends ToException>) toExceptionClass;
                     return castToExceptionClass;
                 }
             }
@@ -62,18 +62,18 @@ public class ReflectiveExceptionMappingSource implements ExceptionMappingSource 
     /**
      * {@inheritDoc}
      */
-    public Class<? extends PlisTechnicalToException> getGenericTechnicalToException(Method remoteBeanMethod) {
-        Class<? extends PlisTechnicalToException> genericTechnicalToException = null;
+    public Class<? extends TechnicalToException> getGenericTechnicalToException(Method remoteBeanMethod) {
+        Class<? extends TechnicalToException> genericTechnicalToException = null;
         for (Class<?> toExceptionClass : remoteBeanMethod.getExceptionTypes()) {
-            if (PlisTechnicalToException.class.isAssignableFrom(toExceptionClass)) {
+            if (TechnicalToException.class.isAssignableFrom(toExceptionClass)) {
                 if (genericTechnicalToException != null) {
                     throw new IllegalStateException(
                         "Mehr als eine Technical-TO-Exception in Serviceoperation "
                             + getMethodSignatureString(remoteBeanMethod));
                 }
                 @SuppressWarnings("unchecked")
-                Class<? extends PlisTechnicalToException> castToExceptionClass =
-                    (Class<? extends PlisTechnicalToException>) toExceptionClass;
+                Class<? extends TechnicalToException> castToExceptionClass =
+                    (Class<? extends TechnicalToException>) toExceptionClass;
                 genericTechnicalToException = castToExceptionClass;
             }
         }

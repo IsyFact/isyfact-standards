@@ -16,13 +16,13 @@
  */
 package de.bund.bva.isyfact.sicherheit.common.exception;
 
-import de.bund.bva.isyfact.exception.PlisTechnicalRuntimeException;
+import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
 
 /**
  * Die Basisklasse für alle technischen RuntimeExceptions der Komponente Sicherheit.
  * 
  */
-public abstract class SicherheitTechnicalRuntimeException extends PlisTechnicalRuntimeException {
+public abstract class SicherheitTechnicalRuntimeException extends TechnicalRuntimeException {
 
     /**
      * UID.

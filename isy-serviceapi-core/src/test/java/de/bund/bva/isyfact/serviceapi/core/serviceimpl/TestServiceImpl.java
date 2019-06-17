@@ -18,7 +18,7 @@ package de.bund.bva.isyfact.serviceapi.core.serviceimpl;
 
 import java.lang.reflect.InvocationTargetException;
 
-import de.bund.bva.isyfact.exception.service.PlisTechnicalToException;
+import de.bund.bva.isyfact.exception.service.TechnicalToException;
 import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.RemoteBean;
 import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.ValidRemoteBean;
 import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.impl.RemoteBeanImpl;
@@ -51,13 +51,13 @@ public class TestServiceImpl {
 	}
 
 	@Test
-	public void testInvoke() throws PlisTechnicalToException, NoSuchMethodException, SecurityException {
+	public void testInvoke() throws TechnicalToException, NoSuchMethodException, SecurityException {
 		Mockito.when(source.getTargetMethod(Mockito.any(), Mockito.any())).thenReturn(remote.getClass().getMethod("eineMethode"));
 		proxy.eineMethode();
 	}
 	
 	@Test(expected = InvocationTargetException.class)
-	public void testInvokeMitException() throws PlisTechnicalToException, NoSuchMethodException, SecurityException, InvocationTargetException {
+	public void testInvokeMitException() throws TechnicalToException, NoSuchMethodException, SecurityException, InvocationTargetException {
 		RemoteBean bean = new RemoteBeanImpl();
 		ProxyFactory fac = new ProxyFactory(bean);
 		fac.addAdvice(service);
@@ -67,7 +67,7 @@ public class TestServiceImpl {
 	}
 	
 	@Test
-	public void testInvokeMitParameter() throws PlisTechnicalToException, NoSuchMethodException, SecurityException{
+	public void testInvokeMitParameter() throws TechnicalToException, NoSuchMethodException, SecurityException{
 		Mockito.when(source.getTargetMethod(Mockito.any(), Mockito.any())).thenReturn(remote.getClass().getMethod("methodeMitParametern", Integer.class, String.class));
 		Mockito.when(source.skipParameter(Mockito.any())).thenReturn(false, false);
 		proxy.methodeMitParametern(10, "zehn");

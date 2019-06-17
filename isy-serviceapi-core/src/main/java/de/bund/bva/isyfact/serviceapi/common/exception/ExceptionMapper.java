@@ -23,10 +23,10 @@ import java.util.UUID;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.exception.FehlertextProvider;
-import de.bund.bva.isyfact.exception.PlisException;
-import de.bund.bva.isyfact.exception.PlisTechnicalRuntimeException;
+import de.bund.bva.isyfact.exception.BaseException;
+import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
 import de.bund.bva.isyfact.exception.common.konstanten.EreignisSchluessel;
-import de.bund.bva.isyfact.exception.service.PlisToException;
+import de.bund.bva.isyfact.exception.service.ToException;
 
 /**
  * Diese Klasse bietet Methoden zur Uebernahme von Inhalten von Anwendungsexceptions in Schnittstellen bzw.
@@ -36,10 +36,10 @@ import de.bund.bva.isyfact.exception.service.PlisToException;
  * einerm {@link FehlertextProvider}.
  *
  */
-public class PlisExceptionMapper {
+public class ExceptionMapper {
 
     /** Isy-Logger. */
-    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(PlisExceptionMapper.class);
+    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(ExceptionMapper.class);
 
     /**
      * erzeugt und füllt eine TransportExcpetion-Klasse vom übergebenen Typ mit den Werten aus der übergebenen
@@ -47,8 +47,8 @@ public class PlisExceptionMapper {
      *
      * @param <T>
      *            Typ der zu erzeugenden TransportExcpetion
-     * @param plisException
-     *            Die original PlisException
+     * @param exception
+     *            Die originale BaseException
      * @param transportExceptionClass
      *            die fachliche oder technische TransportException
      * @return Die TransportException.
@@ -56,7 +56,7 @@ public class PlisExceptionMapper {
      *             falls <em>null</em> als Wert für den Parameter <code>transportExceptionClass</code>
      *             übergeben wurde.
      */
-    public static <T extends PlisToException> T mapException(PlisException plisException,
+    public static <T extends ToException> T mapException(BaseException exception,
         Class<T> transportExceptionClass) {
 
         // IllegalArgumentException, wenn die Transport-Exception nicht gesetzt wurde.
@@ -69,15 +69,15 @@ public class PlisExceptionMapper {
                 transportExceptionClass.getConstructor(String.class, String.class, String.class);
 
             // Exception erzeugen
-            T ex = con.newInstance(plisException.getFehlertext(), plisException.getAusnahmeId(),
-                plisException.getUniqueId());
+            T ex = con.newInstance(exception.getFehlertext(), exception.getAusnahmeId(),
+                exception.getUniqueId());
 
             return ex;
         } catch (Throwable t) {
             LOG.error(EreignisSchluessel.KONSTRUKTOR_NICHT_IMPLEMENTIERT,
                 "Die TransportException ({}) konnte nicht mit den Werten aus der  AnwendungsException ({}), mit den Werten AusnahmeId: {}, Fehlertext: {} und UUID: {} gefuellt werden! Die TransportException implementiert nicht den benoetigten Konstruktor mit den Parametern: String message, String ausnahmeId, String uniqueId",
-                t, transportExceptionClass.getClass(), plisException.getClass(),
-                plisException.getAusnahmeId(), plisException.getFehlertext(), plisException.getUniqueId());
+                t, transportExceptionClass.getClass(), exception.getClass(),
+                exception.getAusnahmeId(), exception.getFehlertext(), exception.getUniqueId());
             throw new IllegalArgumentException(
                 "Die TransportException implementiert nicht den benoetigten Konstruktor mit den "
                     + "Parametern: String message, String ausnahmeId, String uniqueId");
@@ -90,8 +90,8 @@ public class PlisExceptionMapper {
      *
      * @param <T>
      *            Typ der zu erzeugenden TransportExcpetion
-     * @param plisTechnicalRuntimeException
-     *            Die original PlisTechnicalRuntimeException
+     * @param technicalRuntimeException
+     *            Die original TechnicalRuntimeException
      * @param transportExceptionClass
      *            die fachliche oder technische TransportException
      * @return Die TransportException.
@@ -100,8 +100,8 @@ public class PlisExceptionMapper {
      *             übergeben wurde oder die transportException keinen Konstruktor mit den Parametern
      *             (String.class, String.class, String.class).
      */
-    public static <T extends PlisToException> T mapException(
-        PlisTechnicalRuntimeException plisTechnicalRuntimeException, Class<T> transportExceptionClass) {
+    public static <T extends ToException> T mapException(
+        TechnicalRuntimeException technicalRuntimeException, Class<T> transportExceptionClass) {
 
         // IllegalArgumentException, wenn die Transport-Exception nicht gesetzt wurde.
         if (transportExceptionClass == null) {
@@ -113,8 +113,8 @@ public class PlisExceptionMapper {
                 transportExceptionClass.getConstructor(String.class, String.class, String.class);
 
             // Exception erzeugen
-            T ex = con.newInstance(plisTechnicalRuntimeException.getFehlertext(),
-                plisTechnicalRuntimeException.getAusnahmeId(), plisTechnicalRuntimeException.getUniqueId());
+            T ex = con.newInstance(technicalRuntimeException.getFehlertext(),
+                technicalRuntimeException.getAusnahmeId(), technicalRuntimeException.getUniqueId());
 
             return ex;
         } catch (Throwable t) {
@@ -123,9 +123,9 @@ public class PlisExceptionMapper {
                     + "mit den Werten AusnahmeId: {}, Fehlertext: {} und UUID: {} gefuellt werden! "
                     + "Die TransportException implementiert nicht den benoetigten Konstruktor mit den Parametern: "
                     + "String message, String ausnahmeId, String uniqueId",
-                t, transportExceptionClass.getClass(), plisTechnicalRuntimeException.getClass(),
-                plisTechnicalRuntimeException.getAusnahmeId(), plisTechnicalRuntimeException.getFehlertext(),
-                plisTechnicalRuntimeException.getUniqueId());
+                t, transportExceptionClass.getClass(), technicalRuntimeException.getClass(),
+                technicalRuntimeException.getAusnahmeId(), technicalRuntimeException.getFehlertext(),
+                technicalRuntimeException.getUniqueId());
             throw new IllegalArgumentException(
                 "Die TransportException implementiert nicht den benoetigten Konstruktor mit den "
                     + "Parametern: String message, String ausnahmeId, String uniqueId");
@@ -159,7 +159,7 @@ public class PlisExceptionMapper {
      *             <li>eine Exception innerhalb des Konstruktors der zu erzeugenden TransportException
      *             auftritt
      */
-    public static <T extends PlisToException> T createToException(String ausnahmeId,
+    public static <T extends ToException> T createToException(String ausnahmeId,
         FehlertextProvider fehlertextProvider, Class<T> transportExceptionClass, String... parameter) {
 
         // IllegalArgumentException, wenn die Transport-Exception nicht gesetzt wurde.

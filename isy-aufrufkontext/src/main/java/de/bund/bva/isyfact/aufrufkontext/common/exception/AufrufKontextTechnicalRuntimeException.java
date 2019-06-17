@@ -17,13 +17,13 @@
 package de.bund.bva.isyfact.aufrufkontext.common.exception;
 
 import de.bund.bva.isyfact.exception.FehlertextProvider;
-import de.bund.bva.isyfact.exception.PlisTechnicalRuntimeException;
+import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
 
 /**
  * Für Exceptions, die durch den AufrufKontext entstehen können.
  * 
  */
-public abstract class AufrufKontextTechnicalRuntimeException extends PlisTechnicalRuntimeException {
+public abstract class AufrufKontextTechnicalRuntimeException extends TechnicalRuntimeException {
     /**
      * Serial Version Id.
      */

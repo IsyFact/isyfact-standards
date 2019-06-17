@@ -21,7 +21,7 @@ import java.util.Base64;
 
 import javax.servlet.http.HttpServletRequest;
 /**
- * Diese Klasse enthält Utility-Methoden für die PLIS-Sicherheit.
+ * Diese Klasse enthält Utility-Methoden für die isy-sicherheit.
  */
 public final class IsySicherheitUtil {
     /**

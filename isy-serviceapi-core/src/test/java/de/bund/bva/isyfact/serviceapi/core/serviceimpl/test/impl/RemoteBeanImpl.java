@@ -18,13 +18,13 @@ package de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.impl;
 
 import java.lang.reflect.InvocationTargetException;
 
-import de.bund.bva.isyfact.exception.PlisException;
-import de.bund.bva.isyfact.exception.PlisTechnicalRuntimeException;
-import de.bund.bva.isyfact.exception.service.PlisBusinessToException;
-import de.bund.bva.isyfact.exception.service.PlisTechnicalToException;
-import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.PlisBusinessTestException;
-import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.PlisTechnicalRuntimeTestException;
-import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.PlisTechnicalTestToException;
+import de.bund.bva.isyfact.exception.BaseException;
+import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
+import de.bund.bva.isyfact.exception.service.BusinessToException;
+import de.bund.bva.isyfact.exception.service.TechnicalToException;
+import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.BusinessTestException;
+import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.TechnicalRuntimeTestException;
+import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.TechnicalTestToException;
 import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.RemoteBean;
 import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 
@@ -41,18 +41,19 @@ public class RemoteBeanImpl implements RemoteBean {
 	}
 
 	@Override
-	public void methodeMitZweiToExceptions() throws IllegalStateException, PlisTechnicalToException, PlisBusinessToException {
+	public void methodeMitZweiToExceptions() throws IllegalStateException, TechnicalToException,
+		BusinessToException {
 		// noop		
 	}
 
 	@Override
-	public void methodeMitToException() throws IllegalStateException, PlisTechnicalToException {
+	public void methodeMitToException() throws IllegalStateException, TechnicalToException {
 		// noop		
 	}
 
 	@Override
 	public void methodeMitZweiTechnicalToExceptions()
-			throws IllegalStateException, PlisTechnicalToException, PlisTechnicalTestToException {
+			throws IllegalStateException, TechnicalToException, TechnicalTestToException {
 		// noop		
 	}
 	
@@ -76,19 +77,19 @@ public class RemoteBeanImpl implements RemoteBean {
 	}
 
 	@Override
-	public void eineMethodeMitException() throws InvocationTargetException, PlisTechnicalToException {
+	public void eineMethodeMitException() throws InvocationTargetException {
 		IllegalArgumentException e = new IllegalArgumentException("eine simulierte Exception.");
 		throw new InvocationTargetException(e);
 	}
 
 	@Override
-	public void eineMethodeMitPlisException() throws PlisException, PlisTechnicalToException {
-		throw new PlisBusinessTestException();
+	public void eineMethodeMitBusinessException() throws BaseException {
+		throw new BusinessTestException();
 	}
 
 	@Override
-	public void eineMethodeMitPlisTechnicalRuntimeException() throws PlisTechnicalRuntimeException, PlisTechnicalToException {
-		throw new PlisTechnicalRuntimeTestException("", null, null);
+	public void eineMethodeMitTechnicalRuntimeException() throws TechnicalRuntimeException {
+		throw new TechnicalRuntimeTestException("", null, null);
 	}
 	
 }

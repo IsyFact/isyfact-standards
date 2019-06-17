@@ -18,14 +18,14 @@ package de.bund.bva.isyfact.exception.service;
 
 /**
  * Abstrakte Implementierung, welche als Basis für die abstrakten fachlichen und technischen
- * PLIS-SchnittstellenExceptions verwendet wird.
+ * Schnittstellen-Exceptions verwendet wird.
  * <p>
  * Von dieser Exception darf nicht direkt geerbet werden. Alle Exception in einer Anwendung, die
- * SchnittstellenExceptions sind, müssen von den Exceptions {@link PlisTechnicalToException} und
- * {@link PlisBusinessToException} erben.
+ * SchnittstellenExceptions sind, müssen von den Exceptions {@link TechnicalToException} und
+ * {@link BusinessToException} erben.
  * 
  */
-public class PlisToException extends Exception {
+public class ToException extends Exception {
     /** Die UID. */
     private static final long serialVersionUID = -8496566533430654282L;
 
@@ -61,7 +61,7 @@ public class PlisToException extends Exception {
      * @param uniqueId
      *            Die eineindeutige ID des Fehlers
      */
-    protected PlisToException(String message, String ausnahmeId, String uniqueId) {
+    protected ToException(String message, String ausnahmeId, String uniqueId) {
         super(message);
         this.ausnahmeId = ausnahmeId;
         this.uniqueId = uniqueId;

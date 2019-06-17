@@ -44,7 +44,7 @@ public class KomplexeTransformationTest {
 	@Test
 	public void testAddErsetzungMitRegeln() {
 		String[] regeln = new String[] { "1", "2" };
-		komplexeTransformation.addErsetzung("plis", "isy", regeln);
-		assertEquals("isy", komplexeTransformation.getErsetzung("plis", 0));
+		komplexeTransformation.addErsetzung("alt", "neu", regeln);
+		assertEquals("neu", komplexeTransformation.getErsetzung("alt", 0));
 	}
 }

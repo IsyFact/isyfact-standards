@@ -18,13 +18,13 @@ package de.bund.bva.isyfact.serviceapi.core.serviceimpl;
 
 import static org.junit.Assert.assertEquals;
 
+import de.bund.bva.isyfact.exception.service.BusinessToException;
 import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.RemoteBean;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.bund.bva.isyfact.exception.PlisBusinessException;
-import de.bund.bva.isyfact.exception.service.PlisBusinessToException;
-import de.bund.bva.isyfact.exception.service.PlisTechnicalToException;
+import de.bund.bva.isyfact.exception.BusinessException;
+import de.bund.bva.isyfact.exception.service.TechnicalToException;
 
 public class TestReflectiveExceptionMappingSource {
 
@@ -37,19 +37,19 @@ public class TestReflectiveExceptionMappingSource {
 	
 	@Test
 	public void testGetToExceptionClass() throws NoSuchMethodException, SecurityException {
-		Class<?> clazz = source.getToExceptionClass(RemoteBean.class.getMethod("methodeMitZweiToExceptions"), PlisBusinessException.class);
-		assertEquals(PlisBusinessToException.class, clazz);
+		Class<?> clazz = source.getToExceptionClass(RemoteBean.class.getMethod("methodeMitZweiToExceptions"), BusinessException.class);
+		assertEquals(BusinessToException.class, clazz);
 	}
 	
 	@Test(expected = IllegalStateException.class)
 	public void testGetToExceptionClassMethodWiothoutException() throws NoSuchMethodException, SecurityException {
-		source.getToExceptionClass(RemoteBean.class.getMethod("eineMethode"), PlisBusinessException.class);		
+		source.getToExceptionClass(RemoteBean.class.getMethod("eineMethode"), BusinessException.class);
 	}
 	
 	@Test
 	public void testGetGenericTechnicalToException() throws NoSuchMethodException, SecurityException{
 		Class<?> clazz = source.getGenericTechnicalToException(RemoteBean.class.getMethod("methodeMitZweiToExceptions"));
-		assertEquals(PlisTechnicalToException.class, clazz);
+		assertEquals(TechnicalToException.class, clazz);
 	}
 	
 	@Test(expected = IllegalStateException.class)

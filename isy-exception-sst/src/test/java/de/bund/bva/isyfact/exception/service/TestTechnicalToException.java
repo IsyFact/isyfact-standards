@@ -16,30 +16,32 @@
  */
 package de.bund.bva.isyfact.exception.service;
 
-import de.bund.bva.isyfact.exception.service.PlisToException;
-import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 
-public class TestPlisToException {
+import org.junit.Test;
+
+public class TestTechnicalToException {
 
 	private static final String message = "Testen";
-	private static final String ausnahmeId = "von PlisToException";
+	private static final String ausnahmeId = "von ToException";
 	private static final String uniqueId = "und deren Ableitungen";
 	private static final String SEPERATOR = "#";
 	private static final String SPACE = " ";
-	
-	PlisToException pte = new PlisToException(message, ausnahmeId, uniqueId);
-	
+
 	@Test
-	public void testGetterPlisToException() {
-		PlisToException pte = new PlisToException(message, ausnahmeId, uniqueId);
-		assertEquals(message,pte.getFehlertext());
-		assertEquals(ausnahmeId,pte.getAusnahmeId());
-		assertEquals(uniqueId,pte.getUniqueId());
-		
+	public void testTechnicalToException() {
+		ToException pte = new TestTechnicalToInstanz(message, ausnahmeId, uniqueId);
+		assertEquals(message, pte.getFehlertext());
+		assertEquals(ausnahmeId, pte.getAusnahmeId());
+		assertEquals(uniqueId, pte.getUniqueId());
+
 		String exception = SEPERATOR + ausnahmeId + SPACE + message + SPACE + SEPERATOR + uniqueId;
 		assertEquals(exception, pte.getMessage());
 	}
 
+	class TestTechnicalToInstanz extends TechnicalToException {
+		public TestTechnicalToInstanz(String message, String ausnahmeId, String uniqueId) {
+			super(message, ausnahmeId, uniqueId);
+		}
+	}
 }

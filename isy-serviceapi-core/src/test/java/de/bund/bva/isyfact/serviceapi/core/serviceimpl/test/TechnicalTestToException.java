@@ -16,21 +16,13 @@
  */
 package de.bund.bva.isyfact.serviceapi.core.serviceimpl.test;
 
-import java.util.Arrays;
+import de.bund.bva.isyfact.exception.service.TechnicalToException;
 
-import de.bund.bva.isyfact.exception.FehlertextProvider;
-import de.bund.bva.isyfact.exception.PlisTechnicalRuntimeException;
+public class TechnicalTestToException extends TechnicalToException {
+	private static final long serialVersionUID = -1453296643631781592L;
 
-public class PlisTechnicalRuntimeTestException extends PlisTechnicalRuntimeException {
-	private static final long serialVersionUID = 4944917830826917167L;
-
-	public PlisTechnicalRuntimeTestException(String ausnahmeId, Throwable throwable, String[] parameter) {		
-		super(ausnahmeId, throwable, new FehlertextProvider() {
-			@Override
-			public String getMessage(String schluessel, String... parameter) {				
-				return schluessel + ": " + Arrays.toString(parameter);
-			}
-		}, parameter);
+	public TechnicalTestToException(String message, String ausnahmeId, String uniqueId) {
+		super(message, ausnahmeId, uniqueId);
 	}
 
 }

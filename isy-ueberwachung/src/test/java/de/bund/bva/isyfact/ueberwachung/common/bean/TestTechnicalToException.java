@@ -16,13 +16,13 @@
  */
 package de.bund.bva.isyfact.ueberwachung.common.bean;
 
-import de.bund.bva.isyfact.exception.service.PlisTechnicalToException;
+import de.bund.bva.isyfact.exception.service.TechnicalToException;
 
 /**
- * Exception fuer den Test. Es wird eine Exception vom Typ PlisToException benoetigt.
+ * Exception fuer den Test. Es wird eine Exception vom Typ ToException benoetigt.
  *
  */
-public class TestTechnicalToException extends PlisTechnicalToException {
+public class TestTechnicalToException extends TechnicalToException {
 
     /**
      * default serial.

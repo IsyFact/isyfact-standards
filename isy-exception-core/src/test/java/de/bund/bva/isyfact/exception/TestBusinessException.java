@@ -22,46 +22,46 @@ import de.bund.bva.isyfact.exception.util.TestExceptionFactory;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TestPlisBusinessException {
+public class TestBusinessException {
 	
-	private PlisException pE;
-	private PlisTechnicalRuntimeException ptE;
+	private BaseException pE;
+	private TechnicalRuntimeException ptE;
 
 	@Before
 	public void setUp(){
-		pE = new PlisException(TestExceptionFactory.ausnahmeId, TestExceptionFactory.provider, TestExceptionFactory.parameter) {
+		pE = new BaseException(TestExceptionFactory.ausnahmeId, TestExceptionFactory.provider, TestExceptionFactory.parameter) {
 		};
-		ptE = new PlisTechnicalRuntimeException(TestExceptionFactory.ausnahmeId, TestExceptionFactory.provider, TestExceptionFactory.parameter) {
+		ptE = new TechnicalRuntimeException(TestExceptionFactory.ausnahmeId, TestExceptionFactory.provider, TestExceptionFactory.parameter) {
 		};
 	}
 	
 	@Test
-	public void testPlisBusinessException(){		
-		TestExceptionFactory.MyPlisBusinessException pbe = TestExceptionFactory.getPlisBusinessException();
+	public void testBusinessException(){
+		TestExceptionFactory.MyBusinessException pbe = TestExceptionFactory.getBusinessException();
 		assertEquals(TestExceptionFactory.ausnahmeId, pbe.getAusnahmeId());
 		assertEquals(
 			TestExceptionFactory.provider.getMessage(TestExceptionFactory.ausnahmeId, TestExceptionFactory.parameter), pbe.getFehlertext());
 	}
 	
 	@Test
-	public void testPlisBusinessException2(){
-		TestExceptionFactory.MyPlisBusinessException pbe = TestExceptionFactory.getPlisBusinessException(pE);
+	public void testBusinessException2(){
+		TestExceptionFactory.MyBusinessException pbe = TestExceptionFactory.getBusinessException(pE);
 		assertEquals(TestExceptionFactory.ausnahmeId, pbe.getAusnahmeId());
 		assertEquals(pE, pbe.getCause());
 		assertEquals(pE.getMessage(), pbe.getMessage());
 	}
 	
 	@Test
-	public void testPlisBusinessException3(){
+	public void testBusinessException3(){
 		RuntimeException e = new RuntimeException("meine Exception");
-		TestExceptionFactory.MyPlisBusinessException pbe = TestExceptionFactory.getPlisBusinessException(e);
+		TestExceptionFactory.MyBusinessException pbe = TestExceptionFactory.getBusinessException(e);
 		assertEquals(TestExceptionFactory.ausnahmeId, pbe.getAusnahmeId());
 		assertEquals(e, pbe.getCause());
 	}
 	
 	@Test
-	public void testPlisBusinessException4(){
-		TestExceptionFactory.MyPlisBusinessException pbe = TestExceptionFactory.getPlisBusinessException(ptE);
+	public void testBusinessException4(){
+		TestExceptionFactory.MyBusinessException pbe = TestExceptionFactory.getBusinessException(ptE);
 		assertEquals(TestExceptionFactory.ausnahmeId, pbe.getAusnahmeId());
 		assertEquals(ptE, pbe.getCause());
 	}

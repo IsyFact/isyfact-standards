@@ -16,13 +16,18 @@
  */
 package de.bund.bva.isyfact.serviceapi.core.serviceimpl.test;
 
-import de.bund.bva.isyfact.exception.service.PlisTechnicalToException;
+import de.bund.bva.isyfact.exception.FehlertextProvider;
+import de.bund.bva.isyfact.exception.BusinessException;
 
-public class PlisTechnicalTestToException extends PlisTechnicalToException {
-	private static final long serialVersionUID = -1453296643631781592L;
-
-	public PlisTechnicalTestToException(String message, String ausnahmeId, String uniqueId) {
-		super(message, ausnahmeId, uniqueId);
+public class BusinessTestException extends BusinessException {
+	private static final long serialVersionUID = -3811370257922504594L;
+	public BusinessTestException() {
+		super("", new FehlertextProvider() {
+			@Override
+			public String getMessage(String schluessel, String... parameter) {
+				return "";
+			}
+		});
 	}
 
 }

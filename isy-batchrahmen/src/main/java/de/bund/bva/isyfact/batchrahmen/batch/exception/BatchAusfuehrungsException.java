@@ -18,8 +18,8 @@ package de.bund.bva.isyfact.batchrahmen.batch.exception;
 
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchAusfuehrungsBean;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchReturnCode;
-import de.bund.bva.isyfact.exception.PlisException;
-import de.bund.bva.isyfact.exception.PlisTechnicalRuntimeException;
+import de.bund.bva.isyfact.exception.BaseException;
+import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
 
 /**
  * Diese Exception wird von Implementierungen des Interfaces
@@ -86,25 +86,25 @@ public class BatchAusfuehrungsException extends Exception {
 
     /**
      * Erzeuge {@link BatchAusfuehrungsException} zur einer
-     * {@link PlisException}. AusnahmeId, Message und Cause werden übernommen.
+     * {@link BaseException}. AusnahmeId, Message und Cause werden übernommen.
      * 
      * @param cause
      *            Ursprünglicher Fehler
      */
-    public BatchAusfuehrungsException(PlisException cause) {
+    public BatchAusfuehrungsException(BaseException cause) {
         super(cause.getMessage(), cause);
         this.ausnahmeId = cause.getAusnahmeId();
     }
 
     /**
      * Erzeuge {@link BatchAusfuehrungsException} zur einer
-     * {@link PlisTechnicalRuntimeException}. AusnahmeId, Message und Cause
+     * {@link TechnicalRuntimeException}. AusnahmeId, Message und Cause
      * werden übernommen.
      * 
      * @param cause
      *            Ursprünglicher Fehler
      */
-    public BatchAusfuehrungsException(PlisTechnicalRuntimeException cause) {
+    public BatchAusfuehrungsException(TechnicalRuntimeException cause) {
         super(cause.getMessage(), cause);
         this.ausnahmeId = cause.getAusnahmeId();
     }
@@ -161,14 +161,14 @@ public class BatchAusfuehrungsException extends Exception {
 
     /**
      * Erzeuge {@link BatchAusfuehrungsException} zur einer
-     * {@link PlisException}. AusnahmeId, Message und Cause werden übernommen.
+     * {@link BaseException}. AusnahmeId, Message und Cause werden übernommen.
      * 
      * @param cause
      *            Ursprünglicher Fehler
      * @param returnCode
      *            mit dem der Batch beendet werden soll.
      */
-    public BatchAusfuehrungsException(PlisException cause, BatchReturnCode returnCode) {
+    public BatchAusfuehrungsException(BaseException cause, BatchReturnCode returnCode) {
         super(cause.getMessage(), cause);
         this.ausnahmeId = cause.getAusnahmeId();
         this.returnCode = returnCode;
@@ -176,7 +176,7 @@ public class BatchAusfuehrungsException extends Exception {
 
     /**
      * Erzeuge {@link BatchAusfuehrungsException} zur einer
-     * {@link PlisTechnicalRuntimeException}. AusnahmeId, Message und Cause
+     * {@link TechnicalRuntimeException}. AusnahmeId, Message und Cause
      * werden übernommen.
      * 
      * @param cause
@@ -184,7 +184,7 @@ public class BatchAusfuehrungsException extends Exception {
      * @param returnCode
      *            mit dem der Batch beendet werden soll.
      */
-    public BatchAusfuehrungsException(PlisTechnicalRuntimeException cause, BatchReturnCode returnCode) {
+    public BatchAusfuehrungsException(TechnicalRuntimeException cause, BatchReturnCode returnCode) {
         super(cause.getMessage(), cause);
         this.ausnahmeId = cause.getAusnahmeId();        
         this.returnCode = returnCode;

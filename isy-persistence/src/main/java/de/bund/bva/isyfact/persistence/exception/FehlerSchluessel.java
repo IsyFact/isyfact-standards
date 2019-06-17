@@ -17,7 +17,7 @@
 package de.bund.bva.isyfact.persistence.exception;
 
 /**
- * Fehlerschlüssel für plis-persistence.
+ * Fehlerschlüssel für isy-persistence.
  *
  */
 public final class FehlerSchluessel {

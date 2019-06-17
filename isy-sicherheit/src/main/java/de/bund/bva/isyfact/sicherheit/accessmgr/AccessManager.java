@@ -79,7 +79,7 @@ public interface AccessManager<K extends AufrufKontext, E extends Authentifzieru
     void befuelleAufrufkontext(K aufrufKontext, E authentifzierungErgebnis);
 
     /**
-     * Erzeugt den Schlüssel unter dem der Aufrufkontext gecached wird. Im Cache der PLIS-Sicherheit wird
+     * Erzeugt den Schlüssel unter dem der Aufrufkontext gecached wird. Im Cache von isy-sicherheit wird
      * anhand des hier zurückgegebenen Keys geprüft, ob bereits eine Authentifizierung durchgeführt wurde.
      * Falls ja, wird das {@link AuthentifzierungErgebnis} aus dem Cache verwendet und der
      * {@link AccessManager} nicht erneut aufgerufen. Der Cache-Key muss also alle für die Authentifizierung

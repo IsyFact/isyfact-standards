@@ -17,14 +17,14 @@
 package de.bund.bva.isyfact.polling.common.exception;
 
 import de.bund.bva.isyfact.exception.FehlertextProvider;
-import de.bund.bva.isyfact.exception.PlisTechnicalRuntimeException;
+import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
 
 /**
  * Abstrakte technische <i>unchecked</i> Hauptexception. Alle technischen, <i>unchecked</i> Exceptions 
- * der Biliothek PLIS-Polling müssen von dieser Klasse abgeleitet werden.
+ * der Biliothek isy-polling müssen von dieser Klasse abgeleitet werden.
  * 
  */
-public abstract class PollingTechnicalRuntimeException extends PlisTechnicalRuntimeException {
+public abstract class PollingTechnicalRuntimeException extends TechnicalRuntimeException {
 
     /** SerialVersionUID. **/
     private static final long serialVersionUID = 0L;

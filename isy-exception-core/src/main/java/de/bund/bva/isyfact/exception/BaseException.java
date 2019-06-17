@@ -21,21 +21,16 @@ import java.util.UUID;
 import de.bund.bva.isyfact.exception.common.FehlertextUtil;
 
 /**
- * Abstrakte Hauptexception, welche als Basis für alle Exceptions einer Anwendung verwendet werden muss. Es
- * sollen nur <i>unchecked</i> Exceptions verwendet werden.
+ * Abstrakte (<i>checked</i>) Hauptexception, welche als Basis für die abstrakten fachlichen und technischen
+ * Exceptions (<i>checked</i>) auf Anwendungsebene verwendet wird.
  * <p>
- * <b>Anmerkung:</b> Alle technischen <i>unchecked</i> Exceptions, die als Kindklassen zu dieser Klasse
- * implementiert werden, müssen die hier angegebenen Konstruktoren implementieren. Dies ist notwendig, um
- * Fehler-IDs und die zugeordneten Texte in der Exception zu haben. Dies ist wichtig, da diese technischen
- * Exceptions in Transport-Exceptions umgewandelt werden, die zum Aufrufer durchgeroutet werden. Diese
- * wiederum müssen immer eine Ausnahme-ID besitzen.
+ * Die Applikationsspezifischen Exceptions sollen nicht von direkt von {@link BaseException} erben,
+ * sondern von {@link BusinessException} (für fachliche checked Exceptions) oder
+ * {@link TechnicalException} (für technische checked Exceptions).
  * <p>
- * Für die Konstruktoren wurde die Java 1.5er Funktionalität von variablen Parametern verwendet. Details zu
- * Vargs sind unter <a href="http://java.sun.com/j2se/1.5.0/docs/guide/language/varargs.html">http:/
- * /java.sun.com/j2se/1.5.0/docs/guide/language/varargs.html</a> beschrieben.
  *
  */
-public abstract class PlisTechnicalRuntimeException extends RuntimeException {
+public abstract class BaseException extends Exception {
     /**
      * Ausnahme-ID.
      */
@@ -47,8 +42,8 @@ public abstract class PlisTechnicalRuntimeException extends RuntimeException {
     private String uniqueId;
 
     /**
-     * Erstellt eine neue technische <i>unchecked</i> Exception mit einer Ausnahme-ID für den Fehlertext und
-     * einem Array mit Werten für die Variablenersetzung im Fehlertext.
+     * Erstellt eine neue <i>checked</i> Exception mit einer Ausnahme-ID für den Fehlertext und einem Werten
+     * für die Variablenersetzung im Fehlertext.
      * <p>
      * Der Grund wird nicht initialisiert und kann später durch den Aufruf der Methode
      * {@link #initCause(Throwable)} initialisiert werden.
@@ -59,28 +54,26 @@ public abstract class PlisTechnicalRuntimeException extends RuntimeException {
      * @param fehlertextProvider
      *            Die FehlertextProvider-Implementierung, welche verwendet wird, um eine Fehlertext zu laden.
      * @param parameter
-     *            Variable Anzahl an Parameterwerten. Parameter f&uml;r die möglichen Variablen in einer
+     *            Variable Anzahl an Parameterwerten. Parameterwert f&uml;r die mögliche Variable in einer
      *            Fehler-Nachricht.
      */
-    protected PlisTechnicalRuntimeException(String ausnahmeId, FehlertextProvider fehlertextProvider,
-        String... parameter) {
+    protected BaseException(String ausnahmeId, FehlertextProvider fehlertextProvider, String... parameter) {
         super(fehlertextProvider.getMessage(ausnahmeId, parameter));
         this.ausnahmeId = ausnahmeId;
         this.uniqueId = UUID.randomUUID().toString();
     }
 
     /**
-     * Erstellt eine neue technische <i>unchecked</i> Exception mit einer Ausnahme-ID für den Fehlertext,
-     * einem Werten für die Variablenersetzung im Fehlertext und mit dem übergebenen Grund.
+     * Erstellt eine neue <i>checked</i> Exception mit einer Ausnahme-ID für den Fehlertext, einem Werten für
+     * die Variablenersetzung im Fehlertext und mit dem übergebenen Grund.
      * <p>
      * Anmerkung: Der Fehlertext von <code>cause</code> (dem Grund) ist <i>nicht</i> automatisch mit dem
      * übergebenen Fehlertext verbunden.
      *
      * @param ausnahmeId
-     *            Die Ausnahme-ID. Der Schlüssel, welcher verwendet wird, um einen Nachrichtentext, welcher
-     *            als Fehler-Nachricht für die Exception verwendet wird aus einem ResourceBundle zu laden.
+     *            Die Ausnahme-ID. Der Schlüssel der den Fehlertext identifiziert.
      * @param throwable
-     *            Der Grund. Throwable wird gespeichert hfür die spätere Nutzung durch die Methode
+     *            Der Grund. Throwable wird gespeichert für die spätere Nutzung durch die Methode
      *            {@link #getCause()}. <tt>null</tt> als Wert ist erlaubt und bedeutet, dass kein Grund
      *            existiert oder der Grund nicht bekannt ist.
      * @param fehlertextProvider
@@ -89,24 +82,24 @@ public abstract class PlisTechnicalRuntimeException extends RuntimeException {
      *            Variable Anzahl an Parameterwerten. Parameterwert f&uml;r die mögliche Variable in einer
      *            Fehler-Nachricht.
      */
-    protected PlisTechnicalRuntimeException(String ausnahmeId, Throwable throwable,
-        FehlertextProvider fehlertextProvider, String... parameter) {
+    protected BaseException(String ausnahmeId, Throwable throwable, FehlertextProvider fehlertextProvider,
+        String... parameter) {
         super(fehlertextProvider.getMessage(ausnahmeId, parameter), throwable);
         this.ausnahmeId = ausnahmeId;
         setUniqueId(throwable);
     }
 
     /**
-     * Setzt die eineindeutige ID (UUID) aus der übergebenen Exception.
+     * setzt die UniqueId aus der übergebenen Exception.
      *
      * @param throwable
      *            Die übergebene Exception.
      */
     private void setUniqueId(Throwable throwable) {
-        if (throwable instanceof PlisException) {
-            this.uniqueId = ((PlisException) throwable).getUniqueId();
-        } else if (throwable instanceof PlisTechnicalRuntimeException) {
-            this.uniqueId = ((PlisTechnicalRuntimeException) throwable).getUniqueId();
+        if (throwable instanceof BaseException) {
+            this.uniqueId = ((BaseException) throwable).getUniqueId();
+        } else if (throwable instanceof TechnicalRuntimeException) {
+            this.uniqueId = ((TechnicalRuntimeException) throwable).getUniqueId();
         } else {
             this.uniqueId = UUID.randomUUID().toString();
         }
@@ -122,9 +115,9 @@ public abstract class PlisTechnicalRuntimeException extends RuntimeException {
     }
 
     /**
-     * Liefert die eineindeutige ID (UUID) zurück, welche beim Auftreten der Exception erzeugt wurde.
+     * Liefert die eineindeutige ID zurück, welche beim Auftreten der Exception erzeugt wurde.
      *
-     * @return the ausnahmeId
+     * @return Die Ausnahme-ID
      */
     public String getUniqueId() {
         return this.uniqueId;

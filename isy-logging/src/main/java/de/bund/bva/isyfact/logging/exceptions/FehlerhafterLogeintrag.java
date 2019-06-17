@@ -23,7 +23,7 @@ package de.bund.bva.isyfact.logging.exceptions;
  * #L%
  */
 
-import de.bund.bva.isyfact.exception.PlisTechnicalRuntimeException;
+import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
 
 /**
  * Exception zum Kennzeichnen das ein fehlerhafter Logeintrag erstellt werden sollte. Bspw. auf Grund
@@ -38,7 +38,7 @@ public class FehlerhafterLogeintrag extends LoggingTechnicalRuntimeException {
     /**
      * Konstruktor der Klasse.
      * 
-     * @see PlisTechnicalRuntimeException
+     * @see TechnicalRuntimeException
      * 
      * @param ausnahmeId
      *            Die Ausnahme-ID. Der Schl&uuml;ssel, welcher verwendet wird, um einen Nachrichtentext,
@@ -55,7 +55,7 @@ public class FehlerhafterLogeintrag extends LoggingTechnicalRuntimeException {
     /**
      * Konstruktor der Klasse.
      *
-     * @see PlisTechnicalRuntimeException
+     * @see TechnicalRuntimeException
      *
      * @param ausnahmeId
      *            Die Ausnahme-ID. Der Schl&uuml;ssel, welcher verwendet wird, um einen Nachrichtentext,
