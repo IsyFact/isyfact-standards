@@ -18,21 +18,19 @@ package de.bund.bva.isyfact.exception.service;
 
 import static org.junit.Assert.assertEquals;
 
-import de.bund.bva.isyfact.exception.service.PlisTechnicalToException;
-import de.bund.bva.isyfact.exception.service.PlisToException;
 import org.junit.Test;
 
-public class TestPlisTechnicalToException {
+public class TestBusinessToException {
 
 	private static final String message = "Testen";
-	private static final String ausnahmeId = "von PlisToException";
+	private static final String ausnahmeId = "von ToException";
 	private static final String uniqueId = "und deren Ableitungen";
 	private static final String SEPERATOR = "#";
 	private static final String SPACE = " ";
 
 	@Test
-	public void testPlisTechnicalToException() {
-		PlisToException pte = new TestTechnicalToInstanz(message, ausnahmeId, uniqueId);
+	public void testBusinessToException() {
+		ToException pte = new TestBusinessToInstanz(message, ausnahmeId, uniqueId);
 		assertEquals(message, pte.getFehlertext());
 		assertEquals(ausnahmeId, pte.getAusnahmeId());
 		assertEquals(uniqueId, pte.getUniqueId());
@@ -41,9 +39,10 @@ public class TestPlisTechnicalToException {
 		assertEquals(exception, pte.getMessage());
 	}
 
-	class TestTechnicalToInstanz extends PlisTechnicalToException {
-		public TestTechnicalToInstanz(String message, String ausnahmeId, String uniqueId) {
+	class TestBusinessToInstanz extends BusinessToException {
+		public TestBusinessToInstanz(String message, String ausnahmeId, String uniqueId) {
 			super(message, ausnahmeId, uniqueId);
 		}
 	}
+
 }

@@ -2,6 +2,7 @@
 - `IFS-71`: Alter Fachdaten-Marker entfernt
 - `IFS-228`: Einführung von Spring Boot
 - `IFS-177`: Batch-Appender entfernt
+- `IFS-251`: Abhängigkeiten zu log4j entfernt
 
 # 1.8.0
 - `IFS-225`: Prüfung der Logeinträge auf maximale Länge und ggfs. Kürzung dieser

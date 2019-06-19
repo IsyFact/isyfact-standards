@@ -6,9 +6,9 @@ List of third-party dependencies grouped by their license type. No warranty on c
         * Logback Contrib :: Jackson (ch.qos.logback.contrib:logback-jackson:0.1.2 - https://github.com/qos-ch/logback-contribs/wiki/logback-jackson)
         * Logback Contrib :: JSON :: Classic (ch.qos.logback.contrib:logback-json-classic:0.1.2 - https://github.com/qos-ch/logback-contribs/wiki/logback-json-parent/logback-json-classic)
         * Logback Contrib :: JSON :: Core (ch.qos.logback.contrib:logback-json-core:0.1.2 - https://github.com/qos-ch/logback-contribs/wiki/logback-json-parent/logback-json-core)
-        * PLIS Fehlerbehandlung Anwendung (de.bund.bva.isyfact:plis-exception-core:1.1.0 - no url defined)
-        * PLIS Fehlerbehandlung Schnittstelle (de.bund.bva.isyfact:plis-exception-sst:1.1.0 - no url defined)
-        * Bibliothek mit Utility-Klassen fuer PLIS. (de.bund.bva.isyfact:plis-util:1.2.0 - no url defined)
+        * IsyFact Fehlerbehandlung Anwendung (de.bund.bva.isyfact:isy-exception-core:1.1.0 - no url defined)
+        * IsyFact Fehlerbehandlung Schnittstelle (de.bund.bva.isyfact:isy-exception-sst:1.1.0 - no url defined)
+        * Bibliothek mit Utility-Klassen fuer IsyFact. (de.bund.bva.isyfact:isy-util:1.2.0 - no url defined)
 
     Common Public License Version 1.0:
 

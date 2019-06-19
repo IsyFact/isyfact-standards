@@ -17,18 +17,15 @@
 package de.bund.bva.isyfact.exception;
 
 /**
- * Abstrakte (<i>checked</i>) Hauptexception, welche als Basis für die abstrakten <b>fachlichen</b> Exceptions
- * (<i>checked</i>) auf Anwendungsebene verwendet wird.
+ * Abstrakte (<i>checked</i>) Hauptexception, welche als Basis für die abstrakten <b>technischen</b>
+ * Exceptions (<i>checked</i>) auf Anwendungsebene verwendet wird.
  * <p>
- * Für die Konstruktoren wurde die Java 1.5er Funktionalität von variablen Parametern verwendet. Details zu
- * <i>Varargs</i> sind unter <a href="http://java.sun.com/j2se/1.5.0/docs/guide/language/varargs.html">http:/
- * /java.sun.com/j2se/1.5.0/docs/guide/language/varargs.html</a> beschrieben.
  *
  */
-public abstract class PlisBusinessException extends PlisException {
+public abstract class TechnicalException extends BaseException {
 
     /**
-     * Erstellt eine fachliche neue <i>checked</i> Exception mit einer Ausnahme-ID für den Fehlertext und
+     * Erstellt eine neue technische <i>checked</i> Exception mit einer Ausnahme-ID für den Fehlertext und
      * einem Werten für die Variablenersetzung im Fehlertext.
      * <p>
      * Der Grund wird nicht initialisiert und kann später durch den Aufruf der Methode
@@ -43,14 +40,14 @@ public abstract class PlisBusinessException extends PlisException {
      *            Variable Anzahl an Parameterwerten. Parameterwert für die mögliche Variable in einer
      *            Fehler-Nachricht.
      */
-    protected PlisBusinessException(String ausnahmeId, FehlertextProvider fehlertextProvider,
+    protected TechnicalException(String ausnahmeId, FehlertextProvider fehlertextProvider,
         String... parameter) {
 
         super(ausnahmeId, fehlertextProvider, parameter);
     }
 
     /**
-     * Erstellt eine fachliche neue <i>checked</i> Exception mit einer Ausnahme-ID für den Fehlertext, einem
+     * Erstellt eine neue technische <i>checked</i> Exception mit einer Ausnahme-ID für den Fehlertext, einem
      * Werten für die Variablenersetzung im Fehlertext und mit dem übergebenen Grund.
      * <p>
      * Anmerkung: Der Fehlertext von <code>cause</code> (dem Grund) ist <i>nicht</i> automatisch mit dem
@@ -68,7 +65,7 @@ public abstract class PlisBusinessException extends PlisException {
      *            Variable Anzahl an Parameterwerten. Parameterwert für die mögliche Variable in einer
      *            Fehler-Nachricht.
      */
-    protected PlisBusinessException(String ausnahmeId, Throwable throwable,
+    protected TechnicalException(String ausnahmeId, Throwable throwable,
         FehlertextProvider fehlertextProvider, String... parameter) {
 
         super(ausnahmeId, throwable, fehlertextProvider, parameter);

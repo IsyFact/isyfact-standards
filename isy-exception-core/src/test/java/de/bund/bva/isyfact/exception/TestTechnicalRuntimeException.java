@@ -22,53 +22,53 @@ import de.bund.bva.isyfact.exception.util.TestExceptionFactory;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TestPlisTechnicalRuntimeException {
+public class TestTechnicalRuntimeException {
 	
-	PlisException pE;
-	PlisTechnicalRuntimeException ptE;
+	BaseException pE;
+	TechnicalRuntimeException ptE;
 		
 	@Before
 	public void setUp(){
-		pE = new PlisException(TestExceptionFactory.ausnahmeId, TestExceptionFactory.provider, TestExceptionFactory.parameter) {
+		pE = new BaseException(TestExceptionFactory.ausnahmeId, TestExceptionFactory.provider, TestExceptionFactory.parameter) {
 		};
-		ptE = new PlisTechnicalRuntimeException(TestExceptionFactory.ausnahmeId, TestExceptionFactory.provider, TestExceptionFactory.parameter) {
+		ptE = new TechnicalRuntimeException(TestExceptionFactory.ausnahmeId, TestExceptionFactory.provider, TestExceptionFactory.parameter) {
 		};
 	}
 	
 	@Test
-	public void testGetterPlisRuntimeException() {	
-		TestExceptionFactory.MyPlisTechnicalRuntimeException pte = TestExceptionFactory.getPlisTechnicalRuntimeException();
+	public void testGetterRuntimeException() {
+		TestExceptionFactory.MyTechnicalRuntimeException pte = TestExceptionFactory.getTechnicalRuntimeException();
 		assertEquals(TestExceptionFactory.ausnahmeId, pte.getAusnahmeId());
 	}
 	
 	@Test
-	public void testGetterPlisRuntimeException2() {
+	public void testGetterRuntimeException2() {
 		RuntimeException e = new RuntimeException("meine Exception");
-		TestExceptionFactory.MyPlisTechnicalRuntimeException pte = TestExceptionFactory.getPlisTechnicalRuntimeException();
+		TestExceptionFactory.MyTechnicalRuntimeException pte = TestExceptionFactory.getTechnicalRuntimeException();
 		assertEquals(TestExceptionFactory.ausnahmeId, pte.getAusnahmeId());
 		assertEquals(
 			TestExceptionFactory.provider.getMessage(TestExceptionFactory.ausnahmeId, TestExceptionFactory.parameter), pte.getFehlertext());
 	}
 	
 	@Test
-	public void testPlisBusinessException2(){
-		TestExceptionFactory.MyPlisTechnicalRuntimeException pte = TestExceptionFactory.getPlisTechnicalRuntimeException(pE);
+	public void testBusinessException2(){
+		TestExceptionFactory.MyTechnicalRuntimeException pte = TestExceptionFactory.getTechnicalRuntimeException(pE);
 		assertEquals(TestExceptionFactory.ausnahmeId, pte.getAusnahmeId());
 		assertEquals(pE, pte.getCause());
 		assertEquals(pE.getMessage(), pte.getMessage());
 	}
 	
 	@Test
-	public void testPlisBusinessException4(){
-		TestExceptionFactory.MyPlisTechnicalRuntimeException pte = TestExceptionFactory.getPlisTechnicalRuntimeException(ptE);
+	public void testBusinessException4(){
+		TestExceptionFactory.MyTechnicalRuntimeException pte = TestExceptionFactory.getTechnicalRuntimeException(ptE);
 		assertEquals(TestExceptionFactory.ausnahmeId, pte.getAusnahmeId());
 		assertEquals(ptE, pte.getCause());
 	}
 	
 	@Test
-	public void testPlisBusinessException5(){
+	public void testBusinessException5(){
 		Exception e = new Exception();
-		TestExceptionFactory.MyPlisTechnicalRuntimeException pte = TestExceptionFactory.getPlisTechnicalRuntimeException(e);
+		TestExceptionFactory.MyTechnicalRuntimeException pte = TestExceptionFactory.getTechnicalRuntimeException(e);
 		assertEquals(TestExceptionFactory.ausnahmeId, pte.getAusnahmeId());
 		assertEquals(e, pte.getCause());
 	}

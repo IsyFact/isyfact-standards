@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
 import de.bund.bva.isyfact.exception.FehlertextProvider;
 
 /**
- * Fehlertext-Provider für die plis-persistence.
+ * Fehlertext-Provider für die isy-persistence.
  * 
  */
 public class PersistenzFehlertextProvider implements FehlertextProvider {

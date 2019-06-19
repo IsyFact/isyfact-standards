@@ -15,7 +15,7 @@
  * permissions and limitations under the License.
  */
 /**
- * Komponenten der Bibliothek plis-polling.
+ * Komponenten der Bibliothek isy-polling.
  */
 package de.bund.bva.isyfact.polling;
 

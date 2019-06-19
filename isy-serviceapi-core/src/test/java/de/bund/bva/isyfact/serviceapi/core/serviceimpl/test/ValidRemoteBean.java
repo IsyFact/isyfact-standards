@@ -16,16 +16,16 @@
  */
 package de.bund.bva.isyfact.serviceapi.core.serviceimpl.test;
 
-import de.bund.bva.isyfact.exception.PlisTechnicalException;
-import de.bund.bva.isyfact.exception.service.PlisTechnicalToException;
+import de.bund.bva.isyfact.exception.TechnicalException;
+import de.bund.bva.isyfact.exception.service.TechnicalToException;
 
 public interface ValidRemoteBean {
 
-	void eineMethode() throws PlisTechnicalToException;
+	void eineMethode() throws TechnicalToException;
 	
-	void eineAndereMethode()  throws PlisTechnicalToException;
+	void eineAndereMethode()  throws TechnicalToException;
 	
-	void methodeMitPlisException() throws PlisTechnicalException, PlisTechnicalToException;
+	void methodeMitException() throws TechnicalException, TechnicalToException;
 	
-	void methodeMitParametern(Integer zahl, String zeichenkette) throws PlisTechnicalToException;
+	void methodeMitParametern(Integer zahl, String zeichenkette) throws TechnicalToException;
 }

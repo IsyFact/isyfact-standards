@@ -25,7 +25,7 @@ import java.lang.annotation.Target;
 /**
  * Kennzeichnet einen fachlichen Fehler. Wenn ein solches Objekt nicht <code>null</code> ist, oder eine
  * Collection vom Typ eines solchen Objekts Einträge enthält, gilt ein Methodenaufruf als fachlich fehlerhaft.
- * Die plis-ueberwachung kann diese Annotation dann auswerten, und die Fehler per JMX ausgeben.
+ * Die isy-ueberwachung kann diese Annotation dann auswerten, und die Fehler per JMX ausgeben.
  *
  * Die Annotation wird folgendermaßen verwendet:
  *

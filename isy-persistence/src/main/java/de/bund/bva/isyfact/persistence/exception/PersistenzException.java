@@ -17,13 +17,13 @@
 package de.bund.bva.isyfact.persistence.exception;
 
 import de.bund.bva.isyfact.exception.FehlertextProvider;
-import de.bund.bva.isyfact.exception.PlisTechnicalRuntimeException;
+import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
 
 /**
- * Technischer Fehler in der plis-persistence.
+ * Technischer Fehler in der isy-persistence.
  * 
  */
-public class PersistenzException extends PlisTechnicalRuntimeException {
+public class PersistenzException extends TechnicalRuntimeException {
 
     /** Serial version UID. */
     private static final long serialVersionUID = 1L;

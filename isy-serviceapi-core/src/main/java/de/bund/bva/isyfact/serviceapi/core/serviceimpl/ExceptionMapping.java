@@ -22,10 +22,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import de.bund.bva.isyfact.exception.PlisException;
-import de.bund.bva.isyfact.exception.PlisTechnicalRuntimeException;
-import de.bund.bva.isyfact.exception.service.PlisTechnicalToException;
-import de.bund.bva.isyfact.exception.service.PlisToException;
+import de.bund.bva.isyfact.exception.BaseException;
+import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
+import de.bund.bva.isyfact.exception.service.TechnicalToException;
+import de.bund.bva.isyfact.exception.service.ToException;
 
 /**
  * Definiert, wie Exceptions des Anwendungskerns in einer Service-Komponente auf TO-Exceptions abgebildet
@@ -39,13 +39,13 @@ import de.bund.bva.isyfact.exception.service.PlisToException;
 public @interface ExceptionMapping {
 
     /**
-     * Die technische TO-Exception, auf die alle {@link PlisTechnicalRuntimeException} und alle unchecked
+     * Die technische TO-Exception, auf die alle {@link TechnicalRuntimeException} und alle unchecked
      * Exceptions abgebildet werden.
      */
-    Class<? extends PlisTechnicalToException> technicalToException();
+    Class<? extends TechnicalToException> technicalToException();
 
     /**
-     * Die Abbildungen der {@link PlisException PlisExceptions} auf {@link PlisToException PlisToExceptions}.
+     * Die Abbildungen der {@link BaseException Exceptions} auf {@link ToException ToExceptions}.
      */
     Mapping[] mappings();
 }

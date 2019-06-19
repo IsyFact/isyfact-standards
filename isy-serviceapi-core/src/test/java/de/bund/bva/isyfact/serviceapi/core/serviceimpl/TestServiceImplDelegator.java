@@ -18,7 +18,7 @@ package de.bund.bva.isyfact.serviceapi.core.serviceimpl;
 
 import java.lang.reflect.InvocationTargetException;
 
-import de.bund.bva.isyfact.exception.service.PlisTechnicalToException;
+import de.bund.bva.isyfact.exception.service.TechnicalToException;
 import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.RemoteBean;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,7 +43,7 @@ public class TestServiceImplDelegator {
 	}
 
 	@Test
-	public void testInvoke() throws PlisTechnicalToException {
+	public void testInvoke() throws TechnicalToException {
 		proxy.eineMethode();
 	}
 	
@@ -58,7 +58,7 @@ public class TestServiceImplDelegator {
 	}
 	
 	@Test(expected = InvocationTargetException.class)
-	public void testInvokeMitException() throws PlisTechnicalToException, NoSuchMethodException, SecurityException, InvocationTargetException {
+	public void testInvokeMitException() throws TechnicalToException, NoSuchMethodException, SecurityException, InvocationTargetException {
 		RemoteBean bean = new RemoteBeanImpl();
 		ProxyFactory fac = new ProxyFactory(bean);
 		fac.addAdvice(delegator);

@@ -22,12 +22,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import de.bund.bva.isyfact.exception.PlisException;
-import de.bund.bva.isyfact.exception.service.PlisToException;
+import de.bund.bva.isyfact.exception.BaseException;
+import de.bund.bva.isyfact.exception.service.ToException;
 
 /**
- * Definiert eine Abbildung von einer {@link PlisException} des Anwendungskerns auf eine
- * {@link PlisToException} der Service-Schnittstelle.
+ * Definiert eine Abbildung von einer {@link BaseException} des Anwendungskerns auf eine
+ * {@link ToException} der Service-Schnittstelle.
  * 
  */
 @Target(ElementType.LOCAL_VARIABLE)
@@ -36,13 +36,13 @@ import de.bund.bva.isyfact.exception.service.PlisToException;
 public @interface Mapping {
 
     /**
-     * Die {@link PlisException} des Anwendungskerns.
+     * Die {@link BaseException} des Anwendungskerns.
      */
-    Class<? extends PlisException> exception();
+    Class<? extends BaseException> exception();
 
     /**
-     * Die {@link PlisToException} der Service-Schnittstelle.
+     * Die {@link ToException} der Service-Schnittstelle.
      */
-    Class<? extends PlisToException> toException();
+    Class<? extends ToException> toException();
 
 }

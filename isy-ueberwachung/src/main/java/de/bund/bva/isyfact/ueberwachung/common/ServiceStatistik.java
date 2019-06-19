@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 import de.bund.bva.isyfact.datetime.util.DateTimeUtil;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.isyfact.exception.service.PlisBusinessToException;
+import de.bund.bva.isyfact.exception.service.BusinessToException;
 import de.bund.bva.isyfact.serviceapi.annotations.FachlicherFehler;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -43,7 +43,7 @@ import org.springframework.util.ClassUtils;
 
 /**
  * Diese Klasse implementiert eine Überwachungs-MBean für Services. Sie liefert die Überwachungsoptionen,
- * welche jeder Service der PLIS anbieten muss.
+ * welche jeder Service nach IsyFact anbieten muss.
  *
  */
 public class ServiceStatistik implements MethodInterceptor, InitializingBean {
@@ -284,7 +284,7 @@ public class ServiceStatistik implements MethodInterceptor, InitializingBean {
                 fachlichErfolgreich = true;
             }
             return result;
-        } catch (PlisBusinessToException t) {
+        } catch (BusinessToException t) {
             // BusinessExceptions werden nicht als technischer Fehler gezählt.
             erfolgreich = true;
             throw t;

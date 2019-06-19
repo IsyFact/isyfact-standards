@@ -18,9 +18,9 @@ package de.bund.bva.isyfact.serviceapi.core.serviceimpl;
 
 import java.lang.reflect.Method;
 
-import de.bund.bva.isyfact.exception.PlisException;
-import de.bund.bva.isyfact.exception.service.PlisTechnicalToException;
-import de.bund.bva.isyfact.exception.service.PlisToException;
+import de.bund.bva.isyfact.exception.BaseException;
+import de.bund.bva.isyfact.exception.service.TechnicalToException;
+import de.bund.bva.isyfact.exception.service.ToException;
 
 /**
  * Über diese Schnittstelle können die Abbildungsregeln für Exceptions in einer Serviceimplementierung
@@ -38,8 +38,8 @@ public interface ExceptionMappingSource {
      *            die Klasse der im Anwendungskern geworfenen Exception
      * @return die Transport-Exceptionklasse
      */
-    public Class<? extends PlisToException> getToExceptionClass(Method remoteBeanMethod,
-        Class<? extends PlisException> exceptionClass);
+    public Class<? extends ToException> getToExceptionClass(Method remoteBeanMethod,
+        Class<? extends BaseException> exceptionClass);
 
     /**
      * Ermittelt die generische, technische Transport-Exceptionklasse, auf die alle technischen Exceptions
@@ -49,6 +49,6 @@ public interface ExceptionMappingSource {
      *            die RemoteBean-Methode, in der die Exception geworfen wurde
      * @return die generische, technische Transport-Exceptionklasse
      */
-    public Class<? extends PlisTechnicalToException> getGenericTechnicalToException(Method remoteBeanMethod);
+    public Class<? extends TechnicalToException> getGenericTechnicalToException(Method remoteBeanMethod);
 
 }

@@ -40,7 +40,7 @@ public class IsyDataSource extends DelegatingDataSource {
     /** Logger. */
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(IsyDataSource.class);
 
-    /** Fehlertext-Provider für die plis-persistence. */
+    /** Fehlertext-Provider für die isy-persistence. */
     private static final FehlertextProvider FEHLERTEXT_PROVIDER = new PersistenzFehlertextProvider();
 
     /** Der SQLSTATE Code "connection exception". */

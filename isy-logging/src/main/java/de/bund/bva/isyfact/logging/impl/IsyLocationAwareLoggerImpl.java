@@ -23,14 +23,14 @@ package de.bund.bva.isyfact.logging.impl;
  * #L%
  */
 
+import de.bund.bva.isyfact.exception.BaseException;
+import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
 import de.bund.bva.isyfact.logging.IsyDatentypMarker;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyMarker;
 import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.logging.exceptions.FehlerhafterLogeintrag;
 import de.bund.bva.isyfact.logging.util.LoggingKonstanten;
-import de.bund.bva.isyfact.exception.PlisException;
-import de.bund.bva.isyfact.exception.PlisTechnicalRuntimeException;
 import org.slf4j.spi.LocationAwareLogger;
 
 import java.util.Arrays;
@@ -130,9 +130,9 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
      * {@inheritDoc}
      *
      * @see IsyLogger#info(LogKategorie,
-     *      String, PlisException, Object[])
+     *      String, BaseException, Object[])
      */
-    public void info(LogKategorie kategorie, String nachricht, PlisException exception, Object... werte) {
+    public void info(LogKategorie kategorie, String nachricht, BaseException exception, Object... werte) {
         logException(LocationAwareLogger.INFO_INT, kategorie.name(), TECHNIKDATEN_MARKER, nachricht,
             werte, exception);
     }
@@ -141,9 +141,9 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
      * {@inheritDoc}
      *
      * @see IsyLogger#infoFachdaten(LogKategorie,
-     *      String, PlisException, Object[])
+     *      String, BaseException, Object[])
      */
-    public void infoFachdaten(LogKategorie kategorie, String nachricht, PlisException exception,
+    public void infoFachdaten(LogKategorie kategorie, String nachricht, BaseException exception,
             Object... werte) {
         logException(LocationAwareLogger.INFO_INT, kategorie.name(), FACHDATEN_MARKER, nachricht, werte,
             exception);
@@ -153,9 +153,9 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
      * {@inheritDoc}
      *
      * @see IsyLogger#warn(String,
-     *      PlisException, Object[])
+     *      BaseException, Object[])
      */
-    public void warn(String nachricht, PlisException exception, Object... werte) {
+    public void warn(String nachricht, BaseException exception, Object... werte) {
         logException(LocationAwareLogger.WARN_INT, null, TECHNIKDATEN_MARKER, nachricht, werte,
             exception);
     }
@@ -164,9 +164,9 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
      * {@inheritDoc}
      *
      * @see IsyLogger#warnFachdaten(String,
-     *      PlisException, Object[])
+     *      BaseException, Object[])
      */
-    public void warnFachdaten(String nachricht, PlisException exception, Object... werte) {
+    public void warnFachdaten(String nachricht, BaseException exception, Object... werte) {
         logException(LocationAwareLogger.WARN_INT, null, FACHDATEN_MARKER, nachricht, werte, exception);
     }
 
@@ -174,9 +174,9 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
      * {@inheritDoc}
      *
      * @see IsyLogger#error(String,
-     *      PlisException, Object[])
+     *      BaseException, Object[])
      */
-    public void error(String nachricht, PlisException exception, Object... werte) {
+    public void error(String nachricht, BaseException exception, Object... werte) {
         logException(LocationAwareLogger.ERROR_INT, LogErrorKategorie.ERROR.name(), TECHNIKDATEN_MARKER,
             nachricht, werte, exception);
     }
@@ -185,9 +185,9 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
      * {@inheritDoc}
      *
      * @see IsyLogger#errorFachdaten(String,
-     *      PlisException, Object[])
+     *      BaseException, Object[])
      */
-    public void errorFachdaten(String nachricht, PlisException exception, Object... werte) {
+    public void errorFachdaten(String nachricht, BaseException exception, Object... werte) {
         logException(LocationAwareLogger.ERROR_INT, LogErrorKategorie.ERROR.name(), FACHDATEN_MARKER,
             nachricht, werte, exception);
     }
@@ -196,9 +196,9 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
      * {@inheritDoc}
      *
      * @see IsyLogger#fatal(String,
-     *      PlisException, Object[])
+     *      BaseException, Object[])
      */
-    public void fatal(String nachricht, PlisException exception, Object... werte) {
+    public void fatal(String nachricht, BaseException exception, Object... werte) {
         logException(LocationAwareLogger.ERROR_INT, LogErrorKategorie.FATAL.name(), TECHNIKDATEN_MARKER,
             nachricht, werte, exception);
     }
@@ -207,9 +207,9 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
      * {@inheritDoc}
      *
      * @see IsyLogger#fatalFachdaten(String,
-     *      PlisException, Object[])
+     *      BaseException, Object[])
      */
-    public void fatalFachdaten(String nachricht, PlisException exception, Object... werte) {
+    public void fatalFachdaten(String nachricht, BaseException exception, Object... werte) {
         logException(LocationAwareLogger.ERROR_INT, LogErrorKategorie.FATAL.name(), FACHDATEN_MARKER,
             nachricht, werte, exception);
     }
@@ -231,7 +231,7 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
      *            zu loggende Ausnahme
      */
     private void logException(int level, String kategorie, IsyMarker[] expliziteMarker, String nachricht,
-        Object[] werte, PlisException exception) {
+        Object[] werte, BaseException exception) {
         log(level, kategorie, expliziteMarker, exception.getAusnahmeId(), nachricht, werte, exception);
     }
 
@@ -252,7 +252,7 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
      *            zu loggende Ausnahme
      */
     private void logTechnicalRuntimeException(int level, String kategorie, IsyMarker[] expliziteMarker,
-        String nachricht, Object[] werte, PlisTechnicalRuntimeException exception) {
+        String nachricht, Object[] werte, TechnicalRuntimeException exception) {
         log(level, kategorie, expliziteMarker, exception.getAusnahmeId(), nachricht, werte, exception);
     }
 
@@ -289,7 +289,7 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
         }
 
         // Bei einer Exception wird der Schlüssel immer ungeprüft übernommen, auch wenn er NULL ist. Dies kann
-        // nur der Fall sein, wenn eine PLIS-Exception ohne Ausnahme-ID übergeben wurde. Dies soll die
+        // nur der Fall sein, wenn eine Exception ohne Ausnahme-ID übergeben wurde. Dies soll die
         // Erstellung des Logeintrags nicht verhindern.
         if (t != null || schluessel != null) {
             rootMarker.add(new IsyMarkerImpl(MarkerSchluessel.SCHLUESSEL, schluessel));
@@ -373,10 +373,10 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
      * {@inheritDoc}
      *
      * @see IsyLogger#info(LogKategorie,
-     *      String, PlisTechnicalRuntimeException,
+     *      String, TechnicalRuntimeException,
      *      Object[])
      */
-    public void info(LogKategorie kategorie, String nachricht, PlisTechnicalRuntimeException exception,
+    public void info(LogKategorie kategorie, String nachricht, TechnicalRuntimeException exception,
             Object... werte) {
         logTechnicalRuntimeException(LocationAwareLogger.INFO_INT, LogKategorie.JOURNAL.name(),
             TECHNIKDATEN_MARKER, nachricht, werte, exception);
@@ -398,11 +398,11 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
      * {@inheritDoc}
      *
      * @see IsyLogger#infoFachdaten(LogKategorie,
-     *      String, PlisTechnicalRuntimeException,
+     *      String, TechnicalRuntimeException,
      *      Object[])
      */
     public void infoFachdaten(LogKategorie kategorie, String nachricht,
-            PlisTechnicalRuntimeException exception, Object... werte) {
+            TechnicalRuntimeException exception, Object... werte) {
         logTechnicalRuntimeException(LocationAwareLogger.INFO_INT, kategorie.name(), FACHDATEN_MARKER,
             nachricht, werte, exception);
     }
@@ -423,9 +423,9 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
      * {@inheritDoc}
      *
      * @see IsyLogger#warn(String,
-     *      PlisTechnicalRuntimeException, Object[])
+     *      TechnicalRuntimeException, Object[])
      */
-    public void warn(String nachricht, PlisTechnicalRuntimeException exception, Object... werte) {
+    public void warn(String nachricht, TechnicalRuntimeException exception, Object... werte) {
         logTechnicalRuntimeException(LocationAwareLogger.WARN_INT, null, TECHNIKDATEN_MARKER, nachricht,
             werte, exception);
     }
@@ -434,9 +434,9 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
      * {@inheritDoc}
      *
      * @see IsyLogger#warnFachdaten(String,
-     *      PlisTechnicalRuntimeException, Object[])
+     *      TechnicalRuntimeException, Object[])
      */
-    public void warnFachdaten(String nachricht, PlisTechnicalRuntimeException exception, Object... werte) {
+    public void warnFachdaten(String nachricht, TechnicalRuntimeException exception, Object... werte) {
         logTechnicalRuntimeException(LocationAwareLogger.WARN_INT, null, FACHDATEN_MARKER, nachricht,
             werte, exception);
     }
@@ -445,9 +445,9 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
      * {@inheritDoc}
      *
      * @see IsyLogger#error(String,
-     *      PlisTechnicalRuntimeException, Object[])
+     *      TechnicalRuntimeException, Object[])
      */
-    public void error(String nachricht, PlisTechnicalRuntimeException exception, Object... werte) {
+    public void error(String nachricht, TechnicalRuntimeException exception, Object... werte) {
         logTechnicalRuntimeException(LocationAwareLogger.ERROR_INT, LogErrorKategorie.ERROR.name(),
             TECHNIKDATEN_MARKER, nachricht, werte, exception);
     }
@@ -456,9 +456,9 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
      * {@inheritDoc}
      *
      * @see IsyLogger#errorFachdaten(String,
-     *      PlisTechnicalRuntimeException, Object[])
+     *      TechnicalRuntimeException, Object[])
      */
-    public void errorFachdaten(String nachricht, PlisTechnicalRuntimeException exception, Object... werte) {
+    public void errorFachdaten(String nachricht, TechnicalRuntimeException exception, Object... werte) {
         logTechnicalRuntimeException(LocationAwareLogger.ERROR_INT, LogErrorKategorie.ERROR.name(),
             FACHDATEN_MARKER, nachricht, werte, exception);
     }
@@ -467,9 +467,9 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
      * {@inheritDoc}
      *
      * @see IsyLogger#fatal(String,
-     *      PlisTechnicalRuntimeException, Object[])
+     *      TechnicalRuntimeException, Object[])
      */
-    public void fatal(String nachricht, PlisTechnicalRuntimeException exception, Object... werte) {
+    public void fatal(String nachricht, TechnicalRuntimeException exception, Object... werte) {
         logTechnicalRuntimeException(LocationAwareLogger.ERROR_INT, LogErrorKategorie.FATAL.name(),
             TECHNIKDATEN_MARKER, nachricht, werte, exception);
     }
@@ -478,9 +478,9 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
      * {@inheritDoc}
      *
      * @see IsyLogger#fatalFachdaten(String,
-     *      PlisTechnicalRuntimeException, Object[])
+     *      TechnicalRuntimeException, Object[])
      */
-    public void fatalFachdaten(String nachricht, PlisTechnicalRuntimeException exception, Object... werte) {
+    public void fatalFachdaten(String nachricht, TechnicalRuntimeException exception, Object... werte) {
         logTechnicalRuntimeException(LocationAwareLogger.ERROR_INT, LogErrorKategorie.FATAL.name(),
             FACHDATEN_MARKER, nachricht, werte, exception);
     }
@@ -708,7 +708,7 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
     }
 
     @Override
-    public void info(LogKategorie kategorie, IsyDatentypMarker typ, String nachricht, PlisException exception,
+    public void info(LogKategorie kategorie, IsyDatentypMarker typ, String nachricht, BaseException exception,
         Object... werte) {
         logException(LocationAwareLogger.INFO_INT, kategorie.name(), new IsyMarker[] { typ }, nachricht, werte,
             exception);
@@ -716,7 +716,7 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
 
     @Override
     public void info(LogKategorie kategorie, IsyDatentypMarker typ, String nachricht,
-        PlisTechnicalRuntimeException exception, Object... werte) {
+        TechnicalRuntimeException exception, Object... werte) {
         logTechnicalRuntimeException(LocationAwareLogger.INFO_INT, kategorie.name(), new IsyMarker[] { typ },
             nachricht, werte, exception);
     }
@@ -734,13 +734,13 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
     }
 
     @Override
-    public void warn(IsyDatentypMarker typ, String nachricht, PlisException exception, Object... werte) {
+    public void warn(IsyDatentypMarker typ, String nachricht, BaseException exception, Object... werte) {
         logException(LocationAwareLogger.WARN_INT, null, new IsyMarker[] { typ }, nachricht, werte,
             exception);
     }
 
     @Override
-    public void warn(IsyDatentypMarker typ, String nachricht, PlisTechnicalRuntimeException exception,
+    public void warn(IsyDatentypMarker typ, String nachricht, TechnicalRuntimeException exception,
         Object... werte) {
         logTechnicalRuntimeException(LocationAwareLogger.WARN_INT, null, new IsyMarker[] { typ },
             nachricht, werte, exception);
@@ -753,13 +753,13 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
     }
 
     @Override
-    public void error(IsyDatentypMarker typ, String nachricht, PlisException exception, Object... werte) {
+    public void error(IsyDatentypMarker typ, String nachricht, BaseException exception, Object... werte) {
         logException(LocationAwareLogger.ERROR_INT, LogErrorKategorie.ERROR.name(),
             new IsyMarker[] { typ }, nachricht, werte, exception);
     }
 
     @Override
-    public void error(IsyDatentypMarker typ, String nachricht, PlisTechnicalRuntimeException exception,
+    public void error(IsyDatentypMarker typ, String nachricht, TechnicalRuntimeException exception,
         Object... werte) {
         logTechnicalRuntimeException(LocationAwareLogger.ERROR_INT, LogErrorKategorie.ERROR.name(),
             new IsyMarker[] { typ }, nachricht, werte, exception);
@@ -779,13 +779,13 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
     }
 
     @Override
-    public void fatal(IsyDatentypMarker typ, String nachricht, PlisException exception, Object... werte) {
+    public void fatal(IsyDatentypMarker typ, String nachricht, BaseException exception, Object... werte) {
         logException(LocationAwareLogger.ERROR_INT, LogErrorKategorie.FATAL.name(),
             new IsyMarker[] { typ }, nachricht, werte, exception);
     }
 
     @Override
-    public void fatal(IsyDatentypMarker typ, String nachricht, PlisTechnicalRuntimeException exception,
+    public void fatal(IsyDatentypMarker typ, String nachricht, TechnicalRuntimeException exception,
         Object... werte) {
         logTechnicalRuntimeException(LocationAwareLogger.ERROR_INT, LogErrorKategorie.FATAL.name(),
             new IsyMarker[] { typ }, nachricht, werte, exception);

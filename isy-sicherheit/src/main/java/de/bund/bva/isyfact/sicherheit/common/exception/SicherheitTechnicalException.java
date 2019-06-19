@@ -17,7 +17,7 @@
 package de.bund.bva.isyfact.sicherheit.common.exception;
 
 import de.bund.bva.isyfact.exception.FehlertextProvider;
-import de.bund.bva.isyfact.exception.PlisException;
+import de.bund.bva.isyfact.exception.BaseException;
 
 /**
  * Abstrakte technische <i>checked</i> Hauptexception. Alle technischen, <i>checked</i> Exceptions im
@@ -25,7 +25,7 @@ import de.bund.bva.isyfact.exception.PlisException;
  * 
  * 
  */
-public abstract class SicherheitTechnicalException extends PlisException {
+public abstract class SicherheitTechnicalException extends BaseException {
 
     /**
      * Zum Zugriff auf die Fehlertexte.

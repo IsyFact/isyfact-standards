@@ -1,6 +1,6 @@
 #!/bin/bash
 # #%L
-# plis-persistence
+# isy-persistence
 # %%
 # 
 # %%

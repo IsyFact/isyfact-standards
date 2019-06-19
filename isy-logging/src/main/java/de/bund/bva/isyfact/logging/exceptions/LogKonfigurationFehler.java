@@ -23,7 +23,7 @@ package de.bund.bva.isyfact.logging.exceptions;
  * #L%
  */
 
-import de.bund.bva.isyfact.exception.PlisTechnicalRuntimeException;
+import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
 
 /**
  * Fehler in der Konfiguration des Loggings.
@@ -37,7 +37,7 @@ public class LogKonfigurationFehler extends LoggingTechnicalRuntimeException {
     /**
      * Konstruktor der Klasse.
      * 
-     * @see PlisTechnicalRuntimeException
+     * @see TechnicalRuntimeException
      * 
      * @param ausnahmeId
      *            Die Ausnahme-ID. Der Schl&uuml;ssel, welcher verwendet wird, um einen Nachrichtentext,

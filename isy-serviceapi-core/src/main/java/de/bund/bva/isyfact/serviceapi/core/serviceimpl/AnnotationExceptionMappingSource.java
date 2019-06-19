@@ -18,9 +18,9 @@ package de.bund.bva.isyfact.serviceapi.core.serviceimpl;
 
 import java.lang.reflect.Method;
 
-import de.bund.bva.isyfact.exception.PlisException;
-import de.bund.bva.isyfact.exception.service.PlisTechnicalToException;
-import de.bund.bva.isyfact.exception.service.PlisToException;
+import de.bund.bva.isyfact.exception.BaseException;
+import de.bund.bva.isyfact.exception.service.TechnicalToException;
+import de.bund.bva.isyfact.exception.service.ToException;
 
 /**
  * Ermittelt Abbildungsregeln für Exceptions, die über Annotationen definiert sind.
@@ -37,8 +37,8 @@ public class AnnotationExceptionMappingSource implements ExceptionMappingSource 
     /**
      * {@inheritDoc}
      */
-    public Class<? extends PlisToException> getToExceptionClass(Method remoteBeanMethod,
-        Class<? extends PlisException> exceptionClass) {
+    public Class<? extends ToException> getToExceptionClass(Method remoteBeanMethod,
+        Class<? extends BaseException> exceptionClass) {
 
         Class<?> remoteBeanInterface = remoteBeanMethod.getDeclaringClass();
 
@@ -56,7 +56,7 @@ public class AnnotationExceptionMappingSource implements ExceptionMappingSource 
     /**
      * {@inheritDoc}
      */
-    public Class<? extends PlisTechnicalToException> getGenericTechnicalToException(Method remoteBeanMethod) {
+    public Class<? extends TechnicalToException> getGenericTechnicalToException(Method remoteBeanMethod) {
 
         Class<?> remoteBeanInterface = remoteBeanMethod.getDeclaringClass();
 

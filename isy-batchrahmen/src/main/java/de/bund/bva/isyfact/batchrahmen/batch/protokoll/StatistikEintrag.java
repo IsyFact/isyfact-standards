@@ -16,6 +16,8 @@
  */
 package de.bund.bva.isyfact.batchrahmen.batch.protokoll;
 
+import de.bund.bva.isyfact.batchrahmen.core.protokoll.DefaultBatchErgebnisProtokoll;
+
 /**
  * Enthält die Daten für einen Statistik-Eintrag.
  * 
@@ -44,7 +46,7 @@ public class StatistikEintrag implements Comparable<StatistikEintrag> {
 
     /**
      * Erzeugt Statistikeintrag mit Id und Text.
-     * @param id Id zur Identifikation des Eintrags 
+     * @param id Id zur Identifikation des Eintrags
      * {@link DefaultBatchErgebnisProtokoll#getStatistikEintrag(String)}
      * @param text Langtext der Statistik für das Protokoll.
      */

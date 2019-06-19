@@ -16,35 +16,29 @@
  */
 package de.bund.bva.isyfact.exception.service;
 
-import static org.junit.Assert.assertEquals;
-
-import de.bund.bva.isyfact.exception.service.PlisBusinessToException;
-import de.bund.bva.isyfact.exception.service.PlisToException;
 import org.junit.Test;
 
-public class TestPlisBusinessToException {
+import static org.junit.Assert.assertEquals;
+
+public class TestToException {
 
 	private static final String message = "Testen";
-	private static final String ausnahmeId = "von PlisToException";
+	private static final String ausnahmeId = "von ToException";
 	private static final String uniqueId = "und deren Ableitungen";
 	private static final String SEPERATOR = "#";
 	private static final String SPACE = " ";
-
+	
+	ToException pte = new ToException(message, ausnahmeId, uniqueId);
+	
 	@Test
-	public void testPlisBusinessToException() {
-		PlisToException pte = new TestBusinessToInstanz(message, ausnahmeId, uniqueId);
-		assertEquals(message, pte.getFehlertext());
-		assertEquals(ausnahmeId, pte.getAusnahmeId());
-		assertEquals(uniqueId, pte.getUniqueId());
-
+	public void testGetterToException() {
+		ToException pte = new ToException(message, ausnahmeId, uniqueId);
+		assertEquals(message,pte.getFehlertext());
+		assertEquals(ausnahmeId,pte.getAusnahmeId());
+		assertEquals(uniqueId,pte.getUniqueId());
+		
 		String exception = SEPERATOR + ausnahmeId + SPACE + message + SPACE + SEPERATOR + uniqueId;
 		assertEquals(exception, pte.getMessage());
-	}
-
-	class TestBusinessToInstanz extends PlisBusinessToException {
-		public TestBusinessToInstanz(String message, String ausnahmeId, String uniqueId) {
-			super(message, ausnahmeId, uniqueId);
-		}
 	}
 
 }

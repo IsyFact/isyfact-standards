@@ -17,10 +17,10 @@
 package de.bund.bva.isyfact.exception.service;
 
 /**
- * Abstrakte Implementierung für alle <b>technischen Schnittstellen-Exceptions</b>.
+ * Abstrakte Implementierung für alle <b>fachlichen Schnittstellen-Exceptions</b>.
  * 
  */
-public abstract class PlisTechnicalToException extends PlisToException {
+public abstract class BusinessToException extends ToException {
     /**
      * Einziger Konstruktor. Es ist notwendig die Nachricht direkt zu übergeben, da diese nicht
      * nachträglich gesetzt werden kann. Zusätzlich nimmt dieser Konstrukt noch die Ausnahme-ID und
@@ -33,7 +33,7 @@ public abstract class PlisTechnicalToException extends PlisToException {
      * @param uniqueId
      *            eineindeutige ID des Fehlers
      */
-    protected PlisTechnicalToException(String message, String ausnahmeId, String uniqueId) {
+    protected BusinessToException(String message, String ausnahmeId, String uniqueId) {
         super(message, ausnahmeId, uniqueId);
     }
 }

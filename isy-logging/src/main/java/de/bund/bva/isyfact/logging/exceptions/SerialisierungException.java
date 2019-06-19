@@ -23,7 +23,7 @@ package de.bund.bva.isyfact.logging.exceptions;
  * #L%
  */
 
-import de.bund.bva.isyfact.exception.PlisTechnicalRuntimeException;
+import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
 
 /**
  * Fehler bei der Serialisierung von Objekten im Rahmen des Loggings.
@@ -36,7 +36,7 @@ public class SerialisierungException extends LoggingTechnicalRuntimeException {
     /**
      * Konstruktor der Klasse.
      * 
-     * @see PlisTechnicalRuntimeException
+     * @see TechnicalRuntimeException
      * 
      * @param ausnahmeId
      *            Die Ausnahme-ID. Der Schl&uuml;ssel, welcher verwendet wird, um einen Nachrichtentext,
@@ -53,7 +53,7 @@ public class SerialisierungException extends LoggingTechnicalRuntimeException {
     /**
      * Konstruktor der Klasse zum Erstellen einer Exception mit den übergebenen Parametern.
      * 
-     * @see PlisTechnicalRuntimeException
+     * @see TechnicalRuntimeException
      * 
      * @param ausnahmeId
      *            Die Ausnahme-ID. Der Schl&uuml;ssel, welcher verwendet wird, um einen Nachrichtentext,

@@ -30,6 +30,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import de.bund.bva.isyfact.exception.BaseException;
+import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
 import de.bund.bva.isyfact.logging.exceptions.FehlerhafterLogeintrag;
 import de.bund.bva.isyfact.logging.exceptions.IsyLoggingFehlertextProvider;
 import de.bund.bva.isyfact.logging.exceptions.LogKonfigurationFehler;
@@ -37,9 +39,7 @@ import de.bund.bva.isyfact.logging.hilfsklassen.TestBeanKomplex;
 import de.bund.bva.isyfact.logging.impl.AbstractIsyDatentypMarker;
 import de.bund.bva.isyfact.logging.impl.FehlerSchluessel;
 import de.bund.bva.isyfact.logging.impl.IsyLocationAwareLoggerImpl;
-import de.bund.bva.isyfact.exception.PlisException;
-import de.bund.bva.isyfact.exception.PlisTechnicalException;
-import de.bund.bva.isyfact.exception.PlisTechnicalRuntimeException;
+import de.bund.bva.isyfact.exception.TechnicalException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.spi.LocationAwareLogger;
@@ -60,12 +60,12 @@ public class LoggingTest extends AbstractLogTest {
         IsyLoggerStandard logger = IsyLoggerFactory.getLogger(this.getClass());
 
         Exception t = new NullPointerException();
-        PlisTechnicalRuntimeException tre =
+        TechnicalRuntimeException tre =
             new LogKonfigurationFehler(FehlerSchluessel.FALSCHES_LOGGING_FRAMEWORK,
                 this.getClass().getName());
 
         @SuppressWarnings("serial")
-        PlisException te = new PlisTechnicalException(FehlerSchluessel.FALSCHES_LOGGING_FRAMEWORK,
+        BaseException te = new TechnicalException(FehlerSchluessel.FALSCHES_LOGGING_FRAMEWORK,
             new IsyLoggingFehlertextProvider(), this.getClass().getName()) {
         };
 
@@ -129,7 +129,7 @@ public class LoggingTest extends AbstractLogTest {
         IsyLoggerFachdaten logger = IsyLoggerFactory.getLogger(this.getClass());
 
         Exception t = new NullPointerException();
-        PlisTechnicalRuntimeException tre =
+        TechnicalRuntimeException tre =
             new LogKonfigurationFehler(FehlerSchluessel.FALSCHES_LOGGING_FRAMEWORK,
                 this.getClass().getName());
 
@@ -137,7 +137,7 @@ public class LoggingTest extends AbstractLogTest {
             "info", "Fachdaten", "Klasse");
 
         @SuppressWarnings("serial")
-        PlisException te = new PlisTechnicalException(FehlerSchluessel.FALSCHES_LOGGING_FRAMEWORK,
+        BaseException te = new TechnicalException(FehlerSchluessel.FALSCHES_LOGGING_FRAMEWORK,
             new IsyLoggingFehlertextProvider(), this.getClass().getName()) {
         };
 
@@ -210,7 +210,7 @@ public class LoggingTest extends AbstractLogTest {
         };
 
         Exception t = new NullPointerException();
-        PlisTechnicalRuntimeException tre =
+        TechnicalRuntimeException tre =
             new LogKonfigurationFehler(FehlerSchluessel.FALSCHES_LOGGING_FRAMEWORK,
                 this.getClass().getName());
 
@@ -218,7 +218,7 @@ public class LoggingTest extends AbstractLogTest {
             "info", "Fachdaten", "Klasse");
 
         @SuppressWarnings("serial")
-        PlisException te = new PlisTechnicalException(FehlerSchluessel.FALSCHES_LOGGING_FRAMEWORK,
+        BaseException te = new TechnicalException(FehlerSchluessel.FALSCHES_LOGGING_FRAMEWORK,
             new IsyLoggingFehlertextProvider(), this.getClass().getName()) {
         };
 
@@ -464,7 +464,7 @@ public class LoggingTest extends AbstractLogTest {
         logger.warn(FehlerSchluessel.FEHLERHAFTER_EINTRAG_KEINE_KATEGORIE, "Zu große WARN Nachricht {}",
             nachrichtA);
 
-        pruefeLogdatei("testLogeintragZuGross");
+        pruefeLogdatei("testLogEintragZuGross");
     }
 
 }

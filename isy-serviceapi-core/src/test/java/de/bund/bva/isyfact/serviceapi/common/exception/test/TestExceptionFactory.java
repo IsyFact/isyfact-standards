@@ -17,15 +17,15 @@
 package de.bund.bva.isyfact.serviceapi.common.exception.test;
 
 import de.bund.bva.isyfact.exception.FehlertextProvider;
-import de.bund.bva.isyfact.exception.PlisBusinessException;
-import de.bund.bva.isyfact.exception.PlisTechnicalException;
-import de.bund.bva.isyfact.exception.PlisTechnicalRuntimeException;
-import de.bund.bva.isyfact.exception.service.PlisBusinessToException;
-import de.bund.bva.isyfact.exception.service.PlisTechnicalToException;
+import de.bund.bva.isyfact.exception.BusinessException;
+import de.bund.bva.isyfact.exception.TechnicalException;
+import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
+import de.bund.bva.isyfact.exception.service.BusinessToException;
+import de.bund.bva.isyfact.exception.service.TechnicalToException;
 
 public class TestExceptionFactory {
 	
-	public static final String ausnahmeId = "PlisException";
+	public static final String ausnahmeId = "BaseException";
 	public static final String parameter = "param";
 	public static final FehlertextProvider provider = new FehlertextProvider() {
 		@Override
@@ -40,112 +40,112 @@ public class TestExceptionFactory {
 	
 	private TestExceptionFactory(){}
 	
-	public static MyPlisBusinessException getPlisBusinessException(){
-		return new MyPlisBusinessException();
+	public static MyBusinessException getBusinessException(){
+		return new MyBusinessException();
 	}
 	
-	public static MyPlisBusinessException getPlisBusinessException(Throwable e){
-		return new MyPlisBusinessException(e);
+	public static MyBusinessException getBusinessException(Throwable e){
+		return new MyBusinessException(e);
 	}
 	
-	public static MyPlisTechnicalException getPlisTechnicalException(){
-		return new MyPlisTechnicalException();
+	public static MyTechnicalException getTechnicalException(){
+		return new MyTechnicalException();
 	}	
 	
-	public static MyPlisTechnicalException getPlisTechnicalException(Throwable e) {
-		return new MyPlisTechnicalException(e);
+	public static MyTechnicalException getTechnicalException(Throwable e) {
+		return new MyTechnicalException(e);
 	}
 	
-	public static MyPlisTechnicalRuntimeException getPlisTechnicalRuntimeException(){
-		return new MyPlisTechnicalRuntimeException();
+	public static MyTechnicalRuntimeException getTechnicalRuntimeException(){
+		return new MyTechnicalRuntimeException();
 	}
 	
-	public static MyPlisTechnicalRuntimeException getPlisTechnicalRuntimeException(Throwable e){
-		return new MyPlisTechnicalRuntimeException(e);
+	public static MyTechnicalRuntimeException getTechnicalRuntimeException(Throwable e){
+		return new MyTechnicalRuntimeException(e);
 	}
 	
-	public static class MyPlisBusinessException extends PlisBusinessException {
+	public static class MyBusinessException extends BusinessException {
 		 
-		MyPlisBusinessException(){
+		MyBusinessException(){
 			this(ausnahmeId, provider, parameter);
 		}
 		
-		MyPlisBusinessException(Throwable t){
+		MyBusinessException(Throwable t){
 			this(ausnahmeId, t, provider, parameter);
 		}
 
-		MyPlisBusinessException(String ausnahmeId, FehlertextProvider provider, String... parameters) {
+		MyBusinessException(String ausnahmeId, FehlertextProvider provider, String... parameters) {
 			super(ausnahmeId, provider, parameters);
 		}
 		
-		MyPlisBusinessException(String ausnahmeId, Throwable t, FehlertextProvider provider, String... parameters) {
+		MyBusinessException(String ausnahmeId, Throwable t, FehlertextProvider provider, String... parameters) {
 			super(ausnahmeId, t, provider, parameters);
 		}
 	}
 	
-	public static class MyPlisTechnicalException extends PlisTechnicalException {
+	public static class MyTechnicalException extends TechnicalException {
 		
-		MyPlisTechnicalException(){
+		MyTechnicalException(){
 			this(ausnahmeId, provider, parameter);
 		}
 		
-		MyPlisTechnicalException(Throwable t){
+		MyTechnicalException(Throwable t){
 			this(ausnahmeId, t, provider, parameter);
 		}
 		
-		MyPlisTechnicalException(String ausnahmeId, FehlertextProvider fehlertextProvider,
+		MyTechnicalException(String ausnahmeId, FehlertextProvider fehlertextProvider,
 		        String... parameter) {
 			super(ausnahmeId, fehlertextProvider, parameter);
 		}
 		
-		MyPlisTechnicalException(String ausnahmeId, Throwable throwable,
+		MyTechnicalException(String ausnahmeId, Throwable throwable,
 		        FehlertextProvider fehlertextProvider, String... parameter) {
 			super(ausnahmeId, throwable, fehlertextProvider, parameter);
 		}
 	}
 	
-	public static class MyPlisTechnicalRuntimeException extends PlisTechnicalRuntimeException {
+	public static class MyTechnicalRuntimeException extends TechnicalRuntimeException {
 		
-		MyPlisTechnicalRuntimeException(){
+		MyTechnicalRuntimeException(){
 			this(ausnahmeId, provider, parameter);
 		}
 		
-		MyPlisTechnicalRuntimeException(Throwable t){
+		MyTechnicalRuntimeException(Throwable t){
 			this(ausnahmeId, t, provider, parameter);
 		}
 		
-		MyPlisTechnicalRuntimeException(String ausnahmeId, FehlertextProvider fehlertextProvider,
+		MyTechnicalRuntimeException(String ausnahmeId, FehlertextProvider fehlertextProvider,
 		        String... parameter) {
 			super(ausnahmeId, fehlertextProvider, parameter);
 		}
 		
-		MyPlisTechnicalRuntimeException(String ausnahmeId, Throwable throwable,
+		MyTechnicalRuntimeException(String ausnahmeId, Throwable throwable,
 		        FehlertextProvider fehlertextProvider, String... parameter) {
 			super(ausnahmeId, throwable, fehlertextProvider, parameter);
 		}
 	}
 
-	public static class MyPlisBusinessToException extends PlisBusinessToException{
+	public static class MyBusinessToException extends BusinessToException {
 
-		public MyPlisBusinessToException(String message, String ausnahmeId, String uniqueId) {
+		public MyBusinessToException(String message, String ausnahmeId, String uniqueId) {
 			super(message, ausnahmeId, uniqueId);
 		}
 	}
 	
-	public static class MyPlisTechnicalToException extends PlisTechnicalToException{
+	public static class MyTechnicalToException extends TechnicalToException {
 
-		public MyPlisTechnicalToException(String message, String ausnahmeId, String uniqueId) {
+		public MyTechnicalToException(String message, String ausnahmeId, String uniqueId) {
 			super(message, ausnahmeId, uniqueId);
 		}
 	}
 	
-	public static class MyWrongConstructorToException extends PlisTechnicalToException{
+	public static class MyWrongConstructorToException extends TechnicalToException {
 		public MyWrongConstructorToException(){
 			super("message", ausnahmeId, "uniqueId");
 		}
 	}
 	
-	public static class MyWrongParameterToException extends PlisTechnicalToException{
+	public static class MyWrongParameterToException extends TechnicalToException {
 		public MyWrongParameterToException(String message, String ausnahmeId, String uniqueId){			
 			super(message, ausnahmeId, uniqueId);
 			if(ausnahmeId.equalsIgnoreCase("foo bar")){

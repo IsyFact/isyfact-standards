@@ -1,7 +1,7 @@
 package de.bund.bva.isyfact.logging;
 
-import de.bund.bva.isyfact.exception.PlisException;
-import de.bund.bva.isyfact.exception.PlisTechnicalRuntimeException;
+import de.bund.bva.isyfact.exception.BaseException;
+import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
 
 /**
  * Interface zum Erstellen von typisierten Logeinträgen. Die Logeinträge können mit einem benutzerdefinierten
@@ -64,7 +64,7 @@ public interface IsyLoggerTypisiert {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    void info(LogKategorie kategorie, IsyDatentypMarker typ, String nachricht, PlisException exception,
+    void info(LogKategorie kategorie, IsyDatentypMarker typ, String nachricht, BaseException exception,
         Object... werte);
 
     /**
@@ -82,7 +82,7 @@ public interface IsyLoggerTypisiert {
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
     void info(LogKategorie kategorie, IsyDatentypMarker typ, String nachricht,
-        PlisTechnicalRuntimeException exception, Object... werte);
+        TechnicalRuntimeException exception, Object... werte);
 
     /**
      * Erstellung eines Logeintrags zu einer aufgetretenen Exception im Level 'Info'.
@@ -129,7 +129,7 @@ public interface IsyLoggerTypisiert {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    void warn(IsyDatentypMarker typ, String nachricht, PlisException exception, Object... werte);
+    void warn(IsyDatentypMarker typ, String nachricht, BaseException exception, Object... werte);
 
     /**
      * Erstellung eines Logeintrags zu einer aufgetretenen Exception im Level 'Warn'.
@@ -143,7 +143,7 @@ public interface IsyLoggerTypisiert {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    void warn(IsyDatentypMarker typ, String nachricht, PlisTechnicalRuntimeException exception,
+    void warn(IsyDatentypMarker typ, String nachricht, TechnicalRuntimeException exception,
         Object... werte);
 
     /**
@@ -175,7 +175,7 @@ public interface IsyLoggerTypisiert {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    void error(IsyDatentypMarker typ, String nachricht, PlisException exception, Object... werte);
+    void error(IsyDatentypMarker typ, String nachricht, BaseException exception, Object... werte);
 
     /**
      * Erstellung eines Logeintrags zu einer aufgetretenen Exception im Level 'Error'.
@@ -189,7 +189,7 @@ public interface IsyLoggerTypisiert {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    void error(IsyDatentypMarker typ, String nachricht, PlisTechnicalRuntimeException exception,
+    void error(IsyDatentypMarker typ, String nachricht, TechnicalRuntimeException exception,
         Object... werte);
 
     /**
@@ -234,7 +234,7 @@ public interface IsyLoggerTypisiert {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    void fatal(IsyDatentypMarker typ, String nachricht, PlisException exception, Object... werte);
+    void fatal(IsyDatentypMarker typ, String nachricht, BaseException exception, Object... werte);
 
     /**
      * Erstellung eines Logeintrags zu einer aufgetretenen Exception im Level 'Fatal'.
@@ -248,7 +248,7 @@ public interface IsyLoggerTypisiert {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    void fatal(IsyDatentypMarker typ, String nachricht, PlisTechnicalRuntimeException exception,
+    void fatal(IsyDatentypMarker typ, String nachricht, TechnicalRuntimeException exception,
         Object... werte);
 
     /**

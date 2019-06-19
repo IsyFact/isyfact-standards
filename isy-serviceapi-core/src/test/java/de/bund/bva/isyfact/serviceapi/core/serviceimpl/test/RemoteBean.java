@@ -18,10 +18,10 @@ package de.bund.bva.isyfact.serviceapi.core.serviceimpl.test;
 
 import java.lang.reflect.InvocationTargetException;
 
-import de.bund.bva.isyfact.exception.PlisException;
-import de.bund.bva.isyfact.exception.PlisTechnicalRuntimeException;
-import de.bund.bva.isyfact.exception.service.PlisBusinessToException;
-import de.bund.bva.isyfact.exception.service.PlisTechnicalToException;
+import de.bund.bva.isyfact.exception.BaseException;
+import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
+import de.bund.bva.isyfact.exception.service.BusinessToException;
+import de.bund.bva.isyfact.exception.service.TechnicalToException;
 import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 
 public interface RemoteBean {
@@ -36,15 +36,16 @@ public interface RemoteBean {
 	
 	void eineAndereMethode(AufrufKontextTo to, Integer zahl);
 	
-	void methodeMitZweiToExceptions() throws IllegalStateException, PlisTechnicalToException, PlisBusinessToException;
+	void methodeMitZweiToExceptions() throws IllegalStateException, TechnicalToException, BusinessToException;
 	
-	void methodeMitToException() throws IllegalStateException, PlisTechnicalToException;
+	void methodeMitToException() throws IllegalStateException, TechnicalToException;
 	
-	void methodeMitZweiTechnicalToExceptions() throws IllegalStateException, PlisTechnicalToException, PlisTechnicalTestToException;
+	void methodeMitZweiTechnicalToExceptions() throws IllegalStateException, TechnicalToException,
+		TechnicalTestToException;
 	
-	void eineMethodeMitException() throws InvocationTargetException, PlisTechnicalToException;
+	void eineMethodeMitException() throws InvocationTargetException, TechnicalToException;
 	
-	void eineMethodeMitPlisException() throws PlisException, PlisTechnicalToException;
+	void eineMethodeMitBusinessException() throws BaseException, TechnicalToException;
 	
-	void eineMethodeMitPlisTechnicalRuntimeException() throws PlisTechnicalRuntimeException, PlisTechnicalToException;
+	void eineMethodeMitTechnicalRuntimeException() throws TechnicalRuntimeException, TechnicalToException;
 }
