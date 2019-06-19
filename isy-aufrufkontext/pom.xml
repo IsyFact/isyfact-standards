@@ -4,16 +4,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>isy-aufrufkontext</artifactId>
-    <version>1.7.0</version>
     <packaging>jar</packaging>
     <name>IsyFact-Aufrufkontext</name>
     <description>Stellt eine Komponente zur Verwaltung des Aufrufkontextes bereit.</description>
 
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
-        <artifactId>isyfact-masterpom-lib</artifactId>
-        <version>1.6.0</version>
-        <relativePath>../isyfact-masterpom-lib</relativePath>
+        <artifactId>isyfact-standards</artifactId>
+        <version>2.0.0</version>
     </parent>
 
     <dependencyManagement>
@@ -37,11 +35,14 @@
 
     <dependencies>
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <scope>provided</scope>
+            <groupId>de.bund.bva.isyfact</groupId>
+            <artifactId>isy-exception-core</artifactId>
         </dependency>
-        <!-- Spring -->
+        <dependency>
+            <groupId>de.bund.bva.isyfact</groupId>
+            <artifactId>isy-logging</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
@@ -50,34 +51,16 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
         </dependency>
+
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aspects</artifactId>
-            <scope>runtime</scope>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
         </dependency>
-        <!-- IsyFact Komponenten -->
+
         <dependency>
-            <groupId>de.bund.bva.isyfact</groupId>
-            <artifactId>isy-exception-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>de.bund.bva.isyfact</groupId>
-            <artifactId>isy-logging</artifactId>
-        </dependency>
-        <!-- Test -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

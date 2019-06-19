@@ -1,6 +1,6 @@
 package de.bund.bva.isyfact.task.test;
 
-import de.bund.bva.pliscommon.sicherheit.accessmgr.AuthentifzierungErgebnis;
+import de.bund.bva.isyfact.sicherheit.accessmgr.AuthentifzierungErgebnis;
 
 public class AuthentifizierungsErgebnisDummy implements AuthentifzierungErgebnis {
 

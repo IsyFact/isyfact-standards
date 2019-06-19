@@ -41,10 +41,12 @@ public enum Ereignisschluessel {
     EISYLO01005("Aufruf von {} mit Fehler beendet. Der Aufruf dauerte {} ms."),
     /** Aufruf einer Methode inklusive Parameter. */
     DEBUG_LOGGE_DATEN("Die Methode {} wurde mit folgenden Parametern aufgerufen: {}. Als Ergebnis wurde geliefert: {}"),
-    /** Hinweis auf das Aufrufen einer Methode mit einem zu großen Parameter */
+    /** Hinweis auf das Aufrufen einer Methode mit einem zu großen Parameter. */
     DEBUG_LOGGE_DATEN_GROESSE("Die Methode {} wurde mit einem zu großen Parameter aufgerufen. Position: {}, Klasse: {}"),
-    /** Ersatz für einen zu großen Parameter in Log-Ausgaben **/
+    /** Ersatz für einen zu großen Parameter in Log-Ausgaben. */
     DEBUG_LOGGE_DATEN_PARAMETER_ZU_GROSS("<Maximale Größe überschritten>"),
+    /** Ersatz für gekürzte Felder in einer zu großen Log-Nachricht. **/
+    DEBUG_LOG_GEKUERZT("<gekürzt>"),
     /** Aufruf eines Nachbarsystems inklusive URL. */
     EISYLO01011("Die Methode {} des Nachbarssystems {} wird unter der URL {} aufgerufen."),
     /** Erfolgreiches Ende eines Nachbarsystemaufrufs inklusive URL. */

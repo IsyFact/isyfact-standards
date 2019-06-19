@@ -1,7 +1,7 @@
 package de.bund.bva.isyfact.logging;
 
-import de.bund.bva.pliscommon.exception.PlisException;
-import de.bund.bva.pliscommon.exception.PlisTechnicalRuntimeException;
+import de.bund.bva.isyfact.exception.BaseException;
+import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
 
 /**
  * Interface zum Erstellen von Logeinträgen, die Fachdaten enthalten. Alle Logeinträge werden als fachliche
@@ -56,7 +56,7 @@ public interface IsyLoggerFachdaten {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    void infoFachdaten(LogKategorie kategorie, String nachricht, PlisException exception, Object... werte);
+    void infoFachdaten(LogKategorie kategorie, String nachricht, BaseException exception, Object... werte);
 
     /**
      * Erstellung eines Logeintrags, der fachliche Daten enthält, zu einer aufgetretenen Exception im Level
@@ -71,7 +71,7 @@ public interface IsyLoggerFachdaten {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    void infoFachdaten(LogKategorie kategorie, String nachricht, PlisTechnicalRuntimeException exception,
+    void infoFachdaten(LogKategorie kategorie, String nachricht, TechnicalRuntimeException exception,
         Object... werte);
 
     /**
@@ -103,7 +103,7 @@ public interface IsyLoggerFachdaten {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    void warnFachdaten(String nachricht, PlisException exception, Object... werte);
+    void warnFachdaten(String nachricht, BaseException exception, Object... werte);
 
     /**
      * Erstellung eines Logeintrags, der fachliche Daten enthält, zu einer aufgetretenen Exception im Level
@@ -116,7 +116,7 @@ public interface IsyLoggerFachdaten {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    void warnFachdaten(String nachricht, PlisTechnicalRuntimeException exception, Object... werte);
+    void warnFachdaten(String nachricht, TechnicalRuntimeException exception, Object... werte);
 
     /**
      * Erstellung eines Logeintrags, der fachliche Daten enthält, zu einer aufgetretenen Exception im Level
@@ -157,7 +157,7 @@ public interface IsyLoggerFachdaten {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    void errorFachdaten(String nachricht, PlisException exception, Object... werte);
+    void errorFachdaten(String nachricht, BaseException exception, Object... werte);
 
     /**
      * Erstellung eines Logeintrags, der fachliche Daten enthält, zu einer aufgetretenen Exception im Level
@@ -170,7 +170,7 @@ public interface IsyLoggerFachdaten {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    void errorFachdaten(String nachricht, PlisTechnicalRuntimeException exception, Object... werte);
+    void errorFachdaten(String nachricht, TechnicalRuntimeException exception, Object... werte);
 
     /**
      * Erstellung eines Logeintrags, der fachliche Daten enthält, zu einer aufgetretenen Exception im Level
@@ -211,7 +211,7 @@ public interface IsyLoggerFachdaten {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    void fatalFachdaten(String nachricht, PlisException exception, Object... werte);
+    void fatalFachdaten(String nachricht, BaseException exception, Object... werte);
 
     /**
      * Erstellung eines Logeintrags, der fachliche Daten enthält, zu einer aufgetretenen Exception im Level
@@ -224,7 +224,7 @@ public interface IsyLoggerFachdaten {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    void fatalFachdaten(String nachricht, PlisTechnicalRuntimeException exception, Object... werte);
+    void fatalFachdaten(String nachricht, TechnicalRuntimeException exception, Object... werte);
 
     /**
      * Erstellung eines Logeintrags, der fachliche Daten enthält, zu einer aufgetretenen Exception im Level

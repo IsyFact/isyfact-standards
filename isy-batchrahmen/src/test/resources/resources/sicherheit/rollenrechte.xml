@@ -18,7 +18,7 @@
 
 -->
 <tns:Anwendung AnwendungsId="Batchrahmen" xmlns:tns="http://www.example.org/RollenRechteSchema"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/RollenRechteSchema RollenRechteSche-ma.xsd ">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/RollenRechteSchema">
 
     <!-- Eine Rolle und ein Recht. Jeder, der die Rolle trägt, trägt auch das Recht. -->
 

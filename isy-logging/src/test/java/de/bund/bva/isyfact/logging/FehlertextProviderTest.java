@@ -28,7 +28,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import de.bund.bva.isyfact.logging.exceptions.IsyLoggingFehlertextProvider;
-import de.bund.bva.pliscommon.exception.FehlertextProvider;
+import de.bund.bva.isyfact.exception.FehlertextProvider;
 
 /**
  * Die Tests des Fehlertextproviders.

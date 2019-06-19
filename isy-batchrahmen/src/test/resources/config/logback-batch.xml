@@ -27,30 +27,12 @@
 
 
     <!-- Include der vorkonfigurierten Appender. -->
-    <include resource="resources/isylogging/logback/appender-batch.xml" />
+    <include resource="resources/isylogging/logback/appender.xml" />
 
     <!-- Root-Logger als Grundlage für alle Logger-Instanzen -->
-    <root level="TRACE">
+    <root level="INFO">
         <appender-ref ref="DATEI_BATCH" />
     </root>
-
-
-    <!-- Dozer nicht auf Level DEBUG Loggen, da es dann einen Performance-Einbruch gibt. -->
-    <logger name="org.dozer" level="INFO" additivity="false">
-        <appender-ref ref="DATEI_BATCH"/>
-    </logger>
-    <logger name="net.sf.dozer" level="INFO" additivity="false">
-        <appender-ref ref="DATEI_BATCH"/>
-    </logger>
-
-    <!-- Dozer Warnings über fehlende Properties deaktivieren. -->
-    <logger name="org.dozer.config.GlobalSettings" level="ERROR" additivity="false">
-        <appender-ref ref="DATEI_BATCH"/>
-    </logger>
-    <logger name="de.bund.bva.pliscommon.sicherheit.cams.web.CamsAuthenticationProvider" level="WARN"
-        additivity="false">
-        <appender-ref ref="DATEI_BATCH"/>
-    </logger>
 
     <!-- Verhindert das Logging von Warning-Messages wegen fehlenden Destructions Callbacks, welche der ThreadScope nicht unterstützt und nicht benötigt werden. -->
     <!-- Empfohlener Standardwert: ERROR -->
@@ -58,11 +40,15 @@
         additivity="false">
         <appender-ref ref="DATEI_BATCH"/>
     </logger>
+
+    <logger name="org.springframework" level="INFO" additivity="false">
+        <appender-ref ref="KONSOLE"/>
+    </logger>
     
     <!-- Verhindert das Logging von Fehlern, wenn Sperren in DB nicht gesetzt werden können. -->
     <logger name="org.hibernate.event.def.DefaultLoadEventListener" level="WARN"
         additivity="false">
-        <appender-ref ref="DATEI_BATCH"/>
+        <appender-ref ref="DATEI_ANWENDUNG"/>
     </logger>    
 
 </configuration>

@@ -38,7 +38,7 @@ import org.springframework.context.event.ContextStoppedEvent;
 /**
  * Spring-ApplicationListener zum Loggen von Änderungen des Systemzustands.
  */
-public class LogApplicationListener implements ApplicationListener<ApplicationEvent>, InitializingBean {
+public class LogApplicationListener implements ApplicationListener<ApplicationEvent> {
 
     /** Systemproperty aus der die JAVA-Version gelesen wird. */
     private static final String SYSTEM_PROPERTY_JAVA_VERSION = "java.version";
@@ -53,13 +53,26 @@ public class LogApplicationListener implements ApplicationListener<ApplicationEv
     private static final IsyLoggerStandard LOGGER = IsyLoggerFactory.getLogger(LogApplicationListener.class);
 
     /** Name des Systems. */
-    private String systemname;
+    private final String systemname;
 
     /** Art des Systems. */
-    private String systemart;
+    private final String systemart;
 
     /** Version des Systems. */
-    private String systemversion;
+    private final String systemversion;
+
+    /**
+     * Erzeugt einen neuen LogApplicationListener.
+     *
+     * @param systemname Wert des Attributs 'systemname'.
+     * @param systemart Wert des Attributs 'systemart'.
+     * @param systemversion Wert des Attributs 'systemversion'.
+     */
+    public LogApplicationListener(String systemname, String systemart, String systemversion) {
+        this.systemname = systemname;
+        this.systemart = systemart;
+        this.systemversion = systemversion;
+    }
 
     /**
      * {@inheritDoc}
@@ -99,51 +112,4 @@ public class LogApplicationListener implements ApplicationListener<ApplicationEv
         }
 
     }
-
-    /**
-     * {@inheritDoc}
-     * 
-     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
-     */
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        if (systemart == null) {
-            throw new IllegalArgumentException("Property 'systemart' muss gesetzt werden");
-        } else if (systemname == null) {
-            throw new IllegalArgumentException("Property 'systemname' muss gesetzt werden");
-        } else if (systemversion == null) {
-            throw new IllegalArgumentException("Property 'systemversion' muss gesetzt werden");
-        }
-    }
-
-    /**
-     * Setzt den Wert des Attributs 'systemname'.
-     * 
-     * @param systemname
-     *            Neuer Wert des Attributs.
-     */
-    public void setSystemname(String systemname) {
-        this.systemname = systemname;
-    }
-
-    /**
-     * Setzt den Wert des Attributs 'systemart'.
-     * 
-     * @param systemart
-     *            Neuer Wert des Attributs.
-     */
-    public void setSystemart(String systemart) {
-        this.systemart = systemart;
-    }
-
-    /**
-     * Setzt den Wert des Attributs 'systemversion'.
-     * 
-     * @param systemversion
-     *            Neuer Wert des Attributs.
-     */
-    public void setSystemversion(String systemversion) {
-        this.systemversion = systemversion;
-    }
-
 }

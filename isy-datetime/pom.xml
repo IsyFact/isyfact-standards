@@ -5,16 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>isy-datetime</artifactId>
-    <version>1.2.0</version>
     <packaging>jar</packaging>
 
     <name>IsyFact Datum &amp; Zeit</name>
 
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
-        <artifactId>isyfact-masterpom-lib</artifactId>
-        <version>1.6.0</version>
-        <relativePath>../isyfact-masterpom-lib</relativePath>
+        <artifactId>isyfact-standards</artifactId>
+        <version>2.0.0</version>
     </parent>
 
     <dependencyManagement>
@@ -30,7 +28,6 @@
     </dependencyManagement>
 
     <dependencies>
-        <!-- Test -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

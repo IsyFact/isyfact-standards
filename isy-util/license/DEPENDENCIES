@@ -5,8 +5,8 @@ Liste aller Abhängigkeiten zu Drittsoftware gruppiert nach deren Lizenzen. Kein
     Apache License, Version 2.0:
 
 		* Apache Commons Logging (commons-logging:commons-logging:jar:1.2 - http://commons.apache.org/proper/commons-logging/)						
-		* IsyFact Fehlerbehandlung Anwendung (de.bund.bva.pliscommon:isy-exception-core:jar:1.2.0 - no url defined)
-		* IsyFact Fehlerbehandlung Schnittstelle (de.bund.bva.pliscommon:isy-exception-sst:jar:1.2.0 - no url defined)				
+		* IsyFact Fehlerbehandlung Anwendung (de.bund.bva.isyfact:isy-exception-core:jar:1.2.0 - no url defined)
+		* IsyFact Fehlerbehandlung Schnittstelle (de.bund.bva.isyfact:isy-exception-sst:jar:1.2.0 - no url defined)
         * isy-logging (de.bund.bva.isyfact:isy-logging:jar:1.1.2 - no url defined)
         * Jackson-annotations (com.fasterxml.jackson.core:jackson-annotations:jar:2.5.0 - http://github.com/FasterXML/jackson)
         * Jackson-core (com.fasterxml.jackson.core:jackson-core:jar:2.5.0 - https://github.com/FasterXML/jackson)

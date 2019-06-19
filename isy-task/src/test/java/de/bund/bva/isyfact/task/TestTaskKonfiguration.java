@@ -7,17 +7,20 @@ import de.bund.bva.isyfact.task.exception.TaskKonfigurationInvalidException;
 import de.bund.bva.isyfact.task.konfiguration.TaskKonfiguration;
 import de.bund.bva.isyfact.task.konfiguration.TaskKonfigurationVerwalter;
 import de.bund.bva.isyfact.task.sicherheit.impl.NoOpAuthenticator;
-import de.bund.bva.pliscommon.konfiguration.common.exception.KonfigurationParameterException;
-import de.bund.bva.pliscommon.konfiguration.common.konstanten.NachrichtenSchluessel;
+import de.bund.bva.isyfact.task.test.config.TestConfig;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.when;
-
-@ContextConfiguration(locations = { "/spring/timertask-test.xml" })
+@SpringBootTest(classes = TestConfig.class, webEnvironment = SpringBootTest.WebEnvironment.NONE,
+    properties = {"isy.logging.anwendung.name=test",
+                  "isy.logging.anwendung.typ=test",
+                  "isy.logging.anwendung.version=test",
+                  "isy.task.tasks.test.benutzer=Test1",
+                  "isy.task.tasks.test.passwort=Test1",
+                  "isy.task.tasks.test.bhkz=Test1",
+                  "isy.task.tasks.test.initial-delay=1s",
+                  "isy.task.tasks.test.fixed-rate=3s"})
 public class TestTaskKonfiguration extends AbstractTaskTest {
 
     @Autowired
@@ -101,21 +104,6 @@ public class TestTaskKonfiguration extends AbstractTaskTest {
 
     @Test(expected = TaskKonfigurationInvalidException.class)
     public void getTaskKonfigurationPrueftKonfiguration() throws Exception {
-        when(konfiguration.getAsString("isyfact.task.test.benutzer")).thenReturn("TestUser1");
-        when(konfiguration.getAsString("isyfact.task.test.passwort")).thenReturn("TestPasswort1");
-        when(konfiguration.getAsString("isyfact.task.test.bhkz")).thenReturn("BHKZ1");
-        when(konfiguration.getAsString("isyfact.task.test.ausfuehrung")).thenThrow(
-            new KonfigurationParameterException(NachrichtenSchluessel.ERR_PARAMETER_LEER,
-                "isyfact.task.test.ausfuehrung"));
-        when(konfiguration.getAsString("isyfact.task.test.zeitpunkt")).thenThrow(
-            new KonfigurationParameterException(NachrichtenSchluessel.ERR_PARAMETER_LEER,
-                "isyfact.task.test.zeitpunkt"));
-        when(konfiguration.getAsString(eq("isyfact.task.test.initial-delay"), anyString())).thenReturn("1s");
-        when(konfiguration.getAsString("isyfact.task.test.fixed-rate")).thenReturn("3s");
-        when(konfiguration.getAsString("isyfact.task.test.fixed-delay")).thenThrow(
-            new KonfigurationParameterException(NachrichtenSchluessel.ERR_PARAMETER_LEER,
-                "isyfact.task.test.fixed-delay"));
-
         taskKonfigurationVerwalter.getTaskKonfiguration("test");
     }
 

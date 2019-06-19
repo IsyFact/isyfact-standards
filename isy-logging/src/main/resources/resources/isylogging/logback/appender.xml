@@ -43,7 +43,7 @@
 
         <!-- Encoder zum Steuern des Schreibens der Logeinträge -->
         <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
-            <!-- Plis-Layout zum Aufbereiten der Logeinträge -->
+            <!-- IsyFact-Layout zum Aufbereiten der Logeinträge -->
             <layout class="de.bund.bva.isyfact.logging.layout.IsyJsonLayout">
                 <jsonFormatter class="de.bund.bva.isyfact.logging.layout.IsyJacksonJsonFormatter">
                     <prettyPrint>false</prettyPrint>
@@ -52,6 +52,7 @@
                 <timestampFormatTimezoneId>UTC</timestampFormatTimezoneId>
                 <appendLineSeparator>true</appendLineSeparator>
                 <includeMDC>${INCLUDE_MDC}</includeMDC>
+                <maxLength>${MAX_LENGTH}</maxLength>
             </layout>
         </encoder>
     </appender>

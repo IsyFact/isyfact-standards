@@ -4,7 +4,7 @@ package de.bund.bva.isyfact.logging;
  * #%L
  * isy-logging
  * %%
- * 
+ *
  * %%
  * See the NOTICE file distributed with this work for additional
  * information regarding copyright ownership.
@@ -12,9 +12,9 @@ package de.bund.bva.isyfact.logging;
  * licenses this file to you under the Apache License, Version 2.0 (the
  * License). You may not use this file except in compliance with the
  * License. You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
@@ -26,18 +26,26 @@ package de.bund.bva.isyfact.logging;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
+import org.aopalliance.intercept.MethodInterceptor;
 import org.junit.Assert;
 
 import org.aopalliance.intercept.MethodInvocation;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.aop.Advisor;
+import org.springframework.aop.aspectj.AspectJExpressionPointcut;
+import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 import de.bund.bva.isyfact.logging.hilfsklassen.DefaultMethodInvocation;
@@ -49,10 +57,10 @@ import de.bund.bva.isyfact.logging.util.LoggingMethodInterceptor;
 
 /**
  * Testfälle des LogInterceptors.
- * 
+ *
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:spring/interceptor-test.xml" })
+@RunWith(SpringRunner.class)
+@ContextConfiguration(classes = LogInterceptorTest.LogInterceptorTestConfig.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class })
 public class LogInterceptorTest extends AbstractLogTest {
 
@@ -103,7 +111,7 @@ public class LogInterceptorTest extends AbstractLogTest {
     /**
      * Test des Loggings eines erfolgreichen Methodenaufrufs mit maximaler Logausgabe. Interceptor wird direkt
      * und nicht über Spring aufgerufen.
-     * 
+     *
      * @throws Throwable
      *             wenn bei der Testausführung ein Fehler aufgetreten ist.
      */
@@ -125,7 +133,7 @@ public class LogInterceptorTest extends AbstractLogTest {
     /**
      * Test des Loggings eines nicht erfolgreichen Methodenaufrufs (Exception) mit maximaler Logausgabe.
      * Interceptor wird direkt und nicht über Spring aufgerufen.
-     * 
+     *
      * @throws Throwable
      *             wenn bei der Testausführung ein Fehler aufgetreten ist.
      */
@@ -153,7 +161,7 @@ public class LogInterceptorTest extends AbstractLogTest {
     /**
      * Test des Loggings eines erfolgreichen Methodenaufrufs mit minimaler Logausgabe. Interceptor wird direkt
      * und nicht über Spring aufgerufen.
-     * 
+     *
      * @throws Throwable
      *             wenn bei der Testausführung ein Fehler aufgetreten ist.
      */
@@ -175,7 +183,7 @@ public class LogInterceptorTest extends AbstractLogTest {
     /**
      * Test des Loggings eines nicht erfolgreichen Methodenaufrufs (Exception) mit minimaler Logausgabe.
      * Interceptor wird direkt und nicht über Spring aufgerufen.
-     * 
+     *
      * @throws Throwable
      *             wenn bei der Testausführung ein Fehler aufgetreten ist.
      */
@@ -201,7 +209,7 @@ public class LogInterceptorTest extends AbstractLogTest {
     /**
      * Test des Loggings eines erfolgreichen Systemschnittstellenaufrufs. Es wird dabei ein per
      * Spring-Konfigurierter Interceptor getestet.
-     * 
+     *
      * @throws Throwable
      *             wenn bei der Testausführung ein Fehler aufgetreten ist.
      */
@@ -218,7 +226,7 @@ public class LogInterceptorTest extends AbstractLogTest {
     /**
      * Test des Loggings eines nicht erfolgreichen Systemschnittstellenaufrufs (Exception). Es wird dabei ein
      * per Spring-Konfigurierter Interceptor getestet.
-     * 
+     *
      * @throws Throwable
      *             wenn bei der Testausführung ein Fehler aufgetreten ist.
      */
@@ -239,7 +247,7 @@ public class LogInterceptorTest extends AbstractLogTest {
     /**
      * Test des Loggings eines erfolgreichen Komponentenschnittstellenaufrufs. Es wird dabei ein per
      * Spring-Konfigurierter Interceptor getestet.
-     * 
+     *
      * @throws Throwable
      *             wenn bei der Testausführung ein Fehler aufgetreten ist.
      */
@@ -255,7 +263,7 @@ public class LogInterceptorTest extends AbstractLogTest {
     /**
      * Test des Loggings eines nicht erfolgreichen Komponentenschnittstellenaufrufs (Exception). Es wird dabei
      * ein per Spring-Konfigurierter Interceptor getestet.
-     * 
+     *
      * @throws Throwable
      *             wenn bei der Testausführung ein Fehler aufgetreten ist.
      */
@@ -275,14 +283,14 @@ public class LogInterceptorTest extends AbstractLogTest {
     /**
      * Testet die Initialisierung von Includes und Excludes des BeanMappers, wenn nicht der Standardmapper
      * verwendet werden soll.
-     * 
+     *
      * @throws Exception
      *             falls bei der Testdurchführung ein Fehler aufgetreten ist.
      */
     @Test
     public void testInitialisierungIncludesExcludes() throws Exception {
-        List<String> includes = Arrays.asList("de.bund.bva.xyz");
-        List<String> excludes = Arrays.asList("java.util.xyz");
+        List<String> includes = Collections.singletonList("de.bund.bva.xyz");
+        List<String> excludes = Collections.singletonList("java.util.xyz");
         LoggingMethodInterceptor loggingMethodInterceptor = new LoggingMethodInterceptor(includes, excludes);
         loggingMethodInterceptor.afterPropertiesSet();
         BeanToMapConverter converter = (BeanToMapConverter) loggingMethodInterceptor.getLogHelper()
@@ -295,7 +303,7 @@ public class LogInterceptorTest extends AbstractLogTest {
      * Test des Loggings eines nicht erfolgreichen Methodenaufrufs (Exception) mit maximaler Logausgabe.
      * Interceptor wird direkt und nicht über Spring aufgerufen. Der Interceptor ist dabei so konfiguriert,
      * dass der BeanConverter alle Beans unter de.bund.bva bei Serialisierung nicht berücksichtigt.
-     * 
+     *
      * @throws Throwable
      *             wenn bei der Testausführung ein Fehler aufgetreten ist.
      */
@@ -319,11 +327,11 @@ public class LogInterceptorTest extends AbstractLogTest {
         pruefeLogdatei("testAufrufMitExceptionInterceptorIndividuell", true);
 
     }
-    
+
     /**
      * Test des Loggings eines erfolgreichen Methodenaufrufs mit maximaler Logausgabe. Interceptor wird direkt
      * und nicht über Spring aufgerufen.
-     * 
+     *
      * @throws Throwable
      *             wenn bei der Testausführung ein Fehler aufgetreten ist.
      */
@@ -344,5 +352,99 @@ public class LogInterceptorTest extends AbstractLogTest {
 
         pruefeLogdatei("testAufrufErfolgreichLoggeDatenDirekt");
 
+    }
+
+    @Configuration
+    @EnableAspectJAutoProxy
+    static class LogInterceptorTestConfig {
+        @Bean
+        LoggingMethodInterceptor alleFlagsTrueInterceptor() {
+            LoggingMethodInterceptor loggingMethodInterceptor = new LoggingMethodInterceptor();
+            loggingMethodInterceptor.setLoggeErgebnis(true);
+            loggingMethodInterceptor.setLoggeDaten(true);
+            loggingMethodInterceptor.setLoggeDatenBeiException(true);
+            loggingMethodInterceptor.setLoggeAufruf(true);
+            loggingMethodInterceptor.setLoggeDauer(true);
+            loggingMethodInterceptor.setLoggeMaximaleParameterGroesse(1000000);
+
+            return loggingMethodInterceptor;
+        }
+
+        @Bean
+        LoggingMethodInterceptor alleFlagsTrueOhneLoggeDatenInterceptor() {
+            LoggingMethodInterceptor loggingMethodInterceptor = new LoggingMethodInterceptor();
+            loggingMethodInterceptor.setLoggeErgebnis(true);
+            loggingMethodInterceptor.setLoggeDatenBeiException(true);
+            loggingMethodInterceptor.setLoggeAufruf(true);
+            loggingMethodInterceptor.setLoggeDauer(true);
+
+            return loggingMethodInterceptor;
+        }
+
+        @Bean
+        LoggingMethodInterceptor alleFlagsFalseInterceptor() {
+            LoggingMethodInterceptor loggingMethodInterceptor = new LoggingMethodInterceptor();
+            loggingMethodInterceptor.setLoggeErgebnis(false);
+            loggingMethodInterceptor.setLoggeDatenBeiException(false);
+            loggingMethodInterceptor.setLoggeAufruf(false);
+            loggingMethodInterceptor.setLoggeDauer(false);
+
+            return loggingMethodInterceptor;
+        }
+
+        @Bean
+        LoggingMethodInterceptor boundaryLogInterceptor() {
+            return new LoggingMethodInterceptor();
+        }
+
+        @Bean
+        LoggingMethodInterceptor componentLogInterceptor() {
+            LoggingMethodInterceptor loggingMethodInterceptor = new LoggingMethodInterceptor();
+            loggingMethodInterceptor.setLoggeErgebnis(false);
+            loggingMethodInterceptor.setLoggeDatenBeiException(false);
+
+            return loggingMethodInterceptor;
+        }
+
+        @Bean
+        TestZielKlasse zielKlasse() {
+            return new TestZielKlasse();
+        }
+
+        @Bean
+        TestZielKlasse2 zielKlasse2() {
+            return new TestZielKlasse2();
+        }
+
+        @Bean
+        LoggingMethodInterceptor individuellerInterceptor() {
+            LoggingMethodInterceptor loggingMethodInterceptor = new LoggingMethodInterceptor(Collections.singletonList("irgendein.package"),
+                Collections.singletonList("de.bund.bva"));
+
+            loggingMethodInterceptor.setLoggeErgebnis(true);
+            loggingMethodInterceptor.setLoggeDatenBeiException(true);
+            loggingMethodInterceptor.setLoggeAufruf(true);
+            loggingMethodInterceptor.setLoggeDauer(true);
+
+            return loggingMethodInterceptor;
+        }
+
+        @Bean
+        Advisor boundaryLogAdvice(@Qualifier("boundaryLogInterceptor") MethodInterceptor boundaryLogInterceptor) {
+            AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
+            pointcut.setExpression("@within(de.bund.bva.isyfact.logging.annotation.Systemgrenze)");
+            DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor(pointcut, boundaryLogInterceptor);
+            advisor.setOrder(1000);
+            return advisor;
+        }
+
+        @Bean
+        Advisor componentLogAdvice(@Qualifier("componentLogInterceptor") MethodInterceptor componentLogInterceptor) {
+            AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
+            pointcut.setExpression("@within(de.bund.bva.isyfact.logging.annotation.Komponentengrenze)");
+            DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor(pointcut, componentLogInterceptor);
+            advisor.setOrder(1000);
+            return advisor;
+        }
     }
 }

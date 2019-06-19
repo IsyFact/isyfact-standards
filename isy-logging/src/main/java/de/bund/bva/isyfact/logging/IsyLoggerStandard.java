@@ -1,7 +1,7 @@
 package de.bund.bva.isyfact.logging;
 
-import de.bund.bva.pliscommon.exception.PlisException;
-import de.bund.bva.pliscommon.exception.PlisTechnicalRuntimeException;
+import de.bund.bva.isyfact.exception.BaseException;
+import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
 
 /**
  * Interface zum Erstellen von Standard-Logeinträgen. Alle Logeinträge werden als technische Daten
@@ -55,7 +55,7 @@ public interface IsyLoggerStandard {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    void info(LogKategorie kategorie, String nachricht, PlisException exception, Object... werte);
+    void info(LogKategorie kategorie, String nachricht, BaseException exception, Object... werte);
 
     /**
      * Erstellung eines Logeintrags zu einer aufgetretenen Exception im Level 'Info'.
@@ -69,7 +69,7 @@ public interface IsyLoggerStandard {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    void info(LogKategorie kategorie, String nachricht, PlisTechnicalRuntimeException exception,
+    void info(LogKategorie kategorie, String nachricht, TechnicalRuntimeException exception,
         Object... werte);
 
     /**
@@ -110,7 +110,7 @@ public interface IsyLoggerStandard {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    void warn(String nachricht, PlisException exception, Object... werte);
+    void warn(String nachricht, BaseException exception, Object... werte);
 
     /**
      * Erstellung eines Logeintrags zu einer aufgetretenen Exception im Level 'Warn'.
@@ -122,7 +122,7 @@ public interface IsyLoggerStandard {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    void warn(String nachricht, PlisTechnicalRuntimeException exception, Object... werte);
+    void warn(String nachricht, TechnicalRuntimeException exception, Object... werte);
 
     /**
      * Erstellung eines Logeintrags zu einer aufgetretenen Exception im Level 'Warn'.
@@ -149,7 +149,7 @@ public interface IsyLoggerStandard {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    void error(String nachricht, PlisException exception, Object... werte);
+    void error(String nachricht, BaseException exception, Object... werte);
 
     /**
      * Erstellung eines Logeintrags zu einer aufgetretenen Exception im Level 'Error'.
@@ -161,7 +161,7 @@ public interface IsyLoggerStandard {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    void error(String nachricht, PlisTechnicalRuntimeException exception, Object... werte);
+    void error(String nachricht, TechnicalRuntimeException exception, Object... werte);
 
     /**
      * Erstellung eines Logeintrags zu einer aufgetretenen Exception im Level 'Error'.
@@ -199,7 +199,7 @@ public interface IsyLoggerStandard {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    void fatal(String nachricht, PlisException exception, Object... werte);
+    void fatal(String nachricht, BaseException exception, Object... werte);
 
     /**
      * Erstellung eines Logeintrags zu einer aufgetretenen Exception im Level 'Fatal'.
@@ -211,7 +211,7 @@ public interface IsyLoggerStandard {
      * @param werte
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
-    void fatal(String nachricht, PlisTechnicalRuntimeException exception, Object... werte);
+    void fatal(String nachricht, TechnicalRuntimeException exception, Object... werte);
 
     /**
      * Erstellung eines Logeintrags zu einer aufgetretenen Exception im Level 'Fatal'.

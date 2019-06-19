@@ -17,37 +17,35 @@ import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.task.TaskScheduler;
+import de.bund.bva.isyfact.task.config.IsyTaskConfigurationProperties;
 import de.bund.bva.isyfact.task.exception.HostNotApplicableException;
 import de.bund.bva.isyfact.task.konfiguration.HostHandler;
 import de.bund.bva.isyfact.task.konfiguration.TaskKonfiguration;
 import de.bund.bva.isyfact.task.konfiguration.TaskKonfigurationVerwalter;
 import de.bund.bva.isyfact.task.konstanten.Ereignisschluessel;
 import de.bund.bva.isyfact.task.konstanten.FehlerSchluessel;
-import de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel;
 import de.bund.bva.isyfact.task.model.Task;
 import de.bund.bva.isyfact.task.model.TaskRunner;
 import de.bund.bva.isyfact.task.model.impl.TaskRunnerImpl;
-import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
-import de.bund.bva.pliscommon.util.spring.MessageSourceHolder;
+import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
-import static de.bund.bva.isyfact.task.konstanten.KonfigurationStandardwerte.DEFAULT_INITIAL_NUMBER_OF_THREADS;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
  * Implementierung von {@link TaskScheduler}, bei der die Tasks als Spring-Beans bereitgestellt
- * und per {@link Konfiguration} konfiguriert werden.
+ * und per {@link IsyTaskConfigurationProperties} konfiguriert werden.
  */
 public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware {
-    private final Konfiguration konfiguration;
+    private final IsyTaskConfigurationProperties configurationProperties;
 
     private final TaskKonfigurationVerwalter taskKonfigurationVerwalter;
 
     private final HostHandler hostHandler;
 
-    private ScheduledExecutorService scheduledExecutorService;
+    private final ScheduledExecutorService scheduledExecutorService;
 
     private final List<TaskRunner> zuStartendeTasks = Collections.synchronizedList(new ArrayList<>());
 
@@ -62,21 +60,18 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
     /**
      * Erstelle eine {@link TaskScheduler}-Instanz.
      *
-     * @param konfiguration              {@link Konfiguration} zur Konfiguration des TaskScheduler
+     * @param configurationProperties    {@link IsyTaskConfigurationProperties} zur Konfiguration des TaskScheduler
      * @param taskKonfigurationVerwalter {@link TaskKonfigurationVerwalter} der die Konfiguration der Tasks
      *                                   bereitstellt
      * @param hostHandler                {@link HostHandler} zur Überprüfung des Hosts, auf dem die Tasks ausgeführt werden
      *                                   sollen
      */
-    public TaskSchedulerImpl(Konfiguration konfiguration, TaskKonfigurationVerwalter taskKonfigurationVerwalter,
+    public TaskSchedulerImpl(IsyTaskConfigurationProperties configurationProperties, TaskKonfigurationVerwalter taskKonfigurationVerwalter,
         HostHandler hostHandler) {
-        this.konfiguration = konfiguration;
+        this.configurationProperties = configurationProperties;
         this.taskKonfigurationVerwalter = taskKonfigurationVerwalter;
         this.hostHandler = hostHandler;
-        int initialNumberOfThreads = DEFAULT_INITIAL_NUMBER_OF_THREADS;
-        if (konfiguration != null) {
-            initialNumberOfThreads = this.konfiguration.getAsInteger(KonfigurationSchluessel.INITIAL_NUMBER_OF_THREADS);
-        }
+        int initialNumberOfThreads = configurationProperties.getDefault().getAmountOfThreads();
 
         scheduledExecutorService = Executors.newScheduledThreadPool(initialNumberOfThreads);
     }
@@ -263,8 +258,7 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
                     taskFuture = scheduledFutures.get(taskId);
 
                     try {
-                        SECONDS.sleep(
-                            konfiguration.getAsInteger(KonfigurationSchluessel.WATCHDOG_RESTART_INTERVAL, 1));
+                        SECONDS.sleep(configurationProperties.getWatchdog().getRestartInterval().getSeconds());
                     } catch (InterruptedException ie) {
                         stop = true;
                     }

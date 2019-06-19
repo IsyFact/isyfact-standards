@@ -9,9 +9,6 @@
     </root>
 
     <!-- IsyFact -->
-    <logger name="de.bund.bva.pliscommon" level="INFO" additivity="false">
-        <appender-ref ref="KONSOLE"/>
-    </logger>
     <logger name="de.bund.bva.isyfact" level="INFO" additivity="false">
         <appender-ref ref="KONSOLE"/>
     </logger>
@@ -19,27 +16,5 @@
     <logger name="org.springframework" level="INFO" additivity="false">
         <appender-ref ref="KONSOLE"/>
     </logger>
-    <!-- Hibernate -->
-    <logger name="org.hibernate" level="INFO" additivity="false">
-        <appender-ref ref="KONSOLE"/>
-    </logger>
-    <logger name="org.jboss.logging" level="INFO" additivity="false">
-        <appender-ref ref="KONSOLE"/>
-    </logger>
-    <!-- QueryDSL -->
-    <logger name="com.querydsl.jpa" level="INFO" additivity="false">
-        <appender-ref ref="KONSOLE"/>
-    </logger>
-    <!-- Dozer -->
-    <logger name="org.dozer" level="INFO" additivity="false">
-        <appender-ref ref="KONSOLE"/>
-    </logger>
-    <!-- Apache Commons -->
-    <logger name="org.apache.commons" level="INFO" additivity="false">
-        <appender-ref ref="KONSOLE"/>
-    </logger>
-    <!-- DBUnit -->
-    <logger name="org.dbunit" level="INFO" additivity="false">
-        <appender-ref ref="KONSOLE"/>
-    </logger>
+
 </configuration>

@@ -17,10 +17,8 @@ cache:
 
 .template: &vorlage
   tags:
-   - ZIII4
-  before_script:
-   - echo "$SETTINGSSECURITY" > ~/.m2/settings-security.xml
-   - echo "127.0.0.1 $HOSTNAME" >> /etc/hosts
+   - zssi
+  retry: 1
 
 .testtemplate: &testvorlage
   <<: *vorlage
@@ -29,7 +27,6 @@ cache:
    paths:
     - "${CI_JOB_NAME//test:/}/target/surefire-reports/*"
     - "${CI_JOB_NAME//test:/}/target/site/*"
-   expire_in: 1 day
    reports:
     junit:
      - "${CI_JOB_NAME//test:/}/target/surefire-reports/TEST-*.xml"
@@ -81,7 +78,7 @@ test:isy-datetime:
 
 test:isy-exception-core:
   <<: *testvorlage
-  
+
 test:isy-exception-sst:
   <<: *testvorlage
 
@@ -126,10 +123,26 @@ package:
   script:
    - mvn -Dmaven.test.skip=true $MAVEN_CLI_OPTS package
 
-deploy:
+deploy_release:
   <<: *vorlage
   stage: deploystage
   dependencies:
    - build
   script:
-   - mvn -Dmaven.test.skip=true -Dmaven.install.skip=true $MAVEN_CLI_OPTS deploy
+   - mvn -Prelease -Dmaven.test.skip=true -Dmaven.install.skip=true $MAVEN_CLI_OPTS deploy
+  only:
+   - tags
+
+deploy_staging:
+  <<: *vorlage
+  stage: deploystage
+  dependencies:
+   - build
+  script:
+   - SNAPSHOT=true
+   - '[[ $(mvn --non-recursive -Dexpression=project.version $MAVEN_CLI_OPTS help:evaluate | grep -v "\[.*") == *-SNAPSHOT ]] || SNAPSHOT=false'
+   - MODULE=($(mvn -Dexpression=project.modules $MAVEN_CLI_OPTS help:evaluate | grep -v "^\[" | grep "<string>" | sed 's/<\/*string>//g ; s/[[:space:]]//'))
+   - for MODUL in ${MODULE[@]}; do [[ $(mvn -pl $MODUL -Dexpression=project.version $MAVEN_CLI_OPTS help:evaluate  | grep -v "^\[") == *-SNAPSHOT ]] || SNAPSHOT=false ; done
+   - '[[ $SNAPSHOT == true ]] && mvn -Dmaven.test.skip=true -Dmaven.install.skip=true $MAVEN_CLI_OPTS deploy || echo "Keine SNAPSHOT-Version - deploy wird nur bei Tags durchgefuehrt"'
+  except:
+   - tags

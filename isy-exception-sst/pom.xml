@@ -4,16 +4,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>isy-exception-sst</artifactId>
-    <version>1.7.0</version>
     <packaging>jar</packaging>
     <name>IsyFact-Fehlerbehandlung (Schnittstelle)</name>
     <description>Stellt die Schnittstelle der Komponente zur Fehlerbehandlung bereit.</description>
 
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
-        <artifactId>isyfact-masterpom-lib</artifactId>
-        <version>1.6.0</version>
-        <relativePath>../isyfact-masterpom-lib</relativePath>
+        <artifactId>isyfact-standards</artifactId>
+        <version>2.0.0</version>
     </parent>
 
     <dependencyManagement>

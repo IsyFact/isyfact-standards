@@ -38,31 +38,6 @@ import java.net.URL;
 public class LogbackConfigTest extends AbstractLogTest {
 
     /**
-     * Testet die Konfigurationsvorlage für Batches (appender-batch.xml). Diese wird über die
-     * Testkonfiguration 'logback-Batch-test.xml' eingebunden.
-     * 
-     * @throws Exception
-     *             falls eine Exception bei der Testausführung auftritt.
-     */
-    @Test
-    public void testBatchConfig() throws Exception {
-
-        // Laden der Batch-Log-Konfiguration
-        konfiguriereLogback("logback-batch-test.xml");
-
-        // Es werden ausgewählte Tests der Standardkonfiguration aufgerufen. Das erwartete Ergebnis ist das
-        // gleiche.
-        LoggingTest loggingTest = new LoggingTest();
-        setUp();
-        loggingTest.testLoggingErfolgreich();
-        setUp();
-        loggingTest.testLoggingFehlerhaft();
-
-        // Zurücksetzen auf die Standardkonfiguration.
-        konfiguriereLogback("logback-test.xml");
-    }
-
-    /**
      * Testet die Konfiguration des Parameters INCLUDE_MDC, der zu einer Aufnahme des vollständigen MDC in den
      * Kontext führt.
      * 
@@ -98,7 +73,7 @@ public class LogbackConfigTest extends AbstractLogTest {
      * @throws JoranException
      *             falls ein Fehler beim Einlesen der Datei auftritt.
      */
-    private void konfiguriereLogback(String konfigDatei) throws JoranException {
+    public void konfiguriereLogback(String konfigDatei) throws JoranException {
         URL url = this.getClass().getClassLoader().getResource(konfigDatei);
         LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
         context.reset();

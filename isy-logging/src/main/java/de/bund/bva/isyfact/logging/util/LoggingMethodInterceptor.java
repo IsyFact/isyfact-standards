@@ -78,7 +78,7 @@ public class LoggingMethodInterceptor implements MethodInterceptor, Initializing
     private List<String> converterIncludes;
 
     /**
-     * Excludes, die für den BeanToMapConverter bei der Seriailiserung von Objektstrukturen zu verwenden sind.
+     * Excludes, die für den BeanToMapConverter bei der Serialisierung von Objektstrukturen zu verwenden sind.
      */
     private List<String> converterExcludes;
 

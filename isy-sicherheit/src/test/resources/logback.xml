@@ -38,28 +38,4 @@
     <logger name="de.bund.bva" level="INFO" additivity="false">
         <appender-ref ref="KONSOLE"/>
     </logger>
-    
-    <!-- Alle Logmeldungen vom Paket de.sdm.* ausgeben. -->
-    <logger name="de.sdm" level="INFO" additivity="false">
-        <appender-ref ref="KONSOLE"/>
-    </logger>
-
-    <!-- Alle Logmeldungen der HTTPClient-Bibliothek ausgeben. -->
-    <logger name="httpclient.wire.header" level="WARN" additivity="false">
-        <appender-ref ref="KONSOLE"/>
-    </logger>
-    <logger name="org.apache.commons.httpclient" level="WARN" additivity="false">
-        <appender-ref ref="KONSOLE"/>
-    </logger>
-
-    <!-- Nur Hibernate Warnungen und Fehler anzeigen -->
-    <logger name="org.hibernate" level="WARN" additivity="false">
-        <appender-ref ref="KONSOLE"/>
-    </logger>
-
-    <!-- Nur Hibernate Warnungen und Fehler anzeigen -->
-    <logger name="org.apache.poi" level="WARN" additivity="false">
-        <appender-ref ref="KONSOLE"/>
-    </logger>
-
 </configuration>

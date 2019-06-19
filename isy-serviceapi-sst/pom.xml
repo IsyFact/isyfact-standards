@@ -4,14 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>isy-serviceapi-sst</artifactId>
-    <version>1.7.0</version>
     <name>IsyFact Service-API Transport-Objekte</name>
 
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
-        <artifactId>isyfact-masterpom-lib</artifactId>
-        <version>1.6.0</version>
-        <relativePath>../isyfact-masterpom-lib</relativePath>
+        <artifactId>isyfact-standards</artifactId>
+        <version>2.0.0</version>
     </parent>
 
 </project>

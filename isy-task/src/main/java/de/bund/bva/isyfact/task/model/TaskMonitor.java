@@ -3,7 +3,7 @@ package de.bund.bva.isyfact.task.model;
 import java.time.LocalDateTime;
 
 import de.bund.bva.isyfact.datetime.util.DateTimeUtil;
-import de.bund.bva.pliscommon.exception.PlisException;
+import de.bund.bva.isyfact.exception.BaseException;
 import org.springframework.jmx.export.annotation.ManagedAttribute;
 import org.springframework.jmx.export.annotation.ManagedOperation;
 import org.springframework.jmx.export.annotation.ManagedResource;
@@ -65,8 +65,8 @@ public class TaskMonitor {
 
     @ManagedAttribute(description = "Bei Misserfolg: Ausnahme-ID des letzten Fehlers")
     public String getLetzterFehlerAusnahmeId() {
-        if (letzterFehler != null && letzterFehler instanceof PlisException) {
-            return ((PlisException) letzterFehler).getAusnahmeId();
+        if (letzterFehler instanceof BaseException) {
+            return ((BaseException) letzterFehler).getAusnahmeId();
         } else {
             return null;
         }

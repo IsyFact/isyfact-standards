@@ -2,11 +2,12 @@ package de.bund.bva.isyfact.task.task;
 
 import de.bund.bva.isyfact.task.model.AbstractTask;
 import de.bund.bva.isyfact.task.model.TaskMonitor;
-import de.bund.bva.pliscommon.konfiguration.common.ReloadableKonfiguration;
+import de.bund.bva.isyfact.konfiguration.common.ReloadableKonfiguration;
 
 /**
  * Task zum Neuladen der Konfiguration. Siehe {@link ReloadableKonfiguration#checkAndUpdate()}.
  */
+@Deprecated
 public class KonfigurationUpdateTask extends AbstractTask {
 
     private final ReloadableKonfiguration konfiguration;

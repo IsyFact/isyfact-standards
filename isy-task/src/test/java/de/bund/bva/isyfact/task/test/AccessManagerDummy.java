@@ -1,9 +1,9 @@
 package de.bund.bva.isyfact.task.test;
 
-import de.bund.bva.pliscommon.aufrufkontext.impl.AufrufKontextImpl;
-import de.bund.bva.pliscommon.sicherheit.accessmgr.AccessManager;
-import de.bund.bva.pliscommon.sicherheit.common.exception.AuthentifizierungFehlgeschlagenException;
-import de.bund.bva.pliscommon.sicherheit.common.exception.AuthentifizierungTechnicalException;
+import de.bund.bva.isyfact.aufrufkontext.impl.AufrufKontextImpl;
+import de.bund.bva.isyfact.sicherheit.accessmgr.AccessManager;
+import de.bund.bva.isyfact.sicherheit.common.exception.AuthentifizierungFehlgeschlagenException;
+import de.bund.bva.isyfact.sicherheit.common.exception.AuthentifizierungTechnicalException;
 
 public class AccessManagerDummy implements AccessManager<AufrufKontextImpl, AuthentifizierungsErgebnisDummy> {
     @Override

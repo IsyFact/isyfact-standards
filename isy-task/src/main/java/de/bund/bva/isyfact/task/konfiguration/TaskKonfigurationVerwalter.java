@@ -5,21 +5,17 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-import de.bund.bva.isyfact.datetime.format.InFormat;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
+import de.bund.bva.isyfact.task.config.IsyTaskConfigurationProperties;
 import de.bund.bva.isyfact.task.exception.TaskKonfigurationInvalidException;
-import de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel;
 import de.bund.bva.isyfact.task.konstanten.KonfigurationStandardwerte;
 import de.bund.bva.isyfact.task.sicherheit.Authenticator;
 import de.bund.bva.isyfact.task.sicherheit.AuthenticatorFactory;
-import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
-import de.bund.bva.pliscommon.konfiguration.common.exception.KonfigurationException;
-import de.bund.bva.pliscommon.util.spring.MessageSourceHolder;
+import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
 
 import static de.bund.bva.isyfact.task.konstanten.HinweisSchluessel.VERWENDE_STANDARD_KONFIGURATION;
-import static de.bund.bva.isyfact.task.konstanten.KonfigurationSchluessel.*;
 
 /**
  * Zentrale Instanz zum Einlesen der Konfiguration von Tasks in Form einer {@link TaskKonfiguration}.
@@ -28,19 +24,19 @@ public class TaskKonfigurationVerwalter {
 
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(TaskKonfigurationVerwalter.class);
 
-    private final Konfiguration konfiguration;
+    private final IsyTaskConfigurationProperties configurationProperties;
 
     private final AuthenticatorFactory authenticatorFactory;
 
     /**
      * Erstellt eine neue Instanz eines {@link TaskKonfigurationVerwalter}.
      *
-     * @param konfiguration        {@link Konfiguration} aus der die Konfiuration für die Tasks ausgelesen wird.
-     * @param authenticatorFactory {@link AuthenticatorFactory} zur Erzeugung von
-     *                             {@link Authenticator}-Instanzen für die Tasks.
+     * @param configurationProperties {@link IsyTaskConfigurationProperties} aus der die Konfiuration für die Tasks ausgelesen wird.
+     * @param authenticatorFactory    {@link AuthenticatorFactory} zur Erzeugung von
+     *                                {@link Authenticator}-Instanzen für die Tasks.
      */
-    public TaskKonfigurationVerwalter(Konfiguration konfiguration, AuthenticatorFactory authenticatorFactory) {
-        this.konfiguration = konfiguration;
+    public TaskKonfigurationVerwalter(IsyTaskConfigurationProperties configurationProperties, AuthenticatorFactory authenticatorFactory) {
+        this.configurationProperties = configurationProperties;
         this.authenticatorFactory = authenticatorFactory;
     }
 
@@ -60,11 +56,11 @@ public class TaskKonfigurationVerwalter {
         taskKonfiguration.setTaskId(taskId);
         taskKonfiguration.setAuthenticator(authenticatorFactory.getAuthenticator(taskId));
         taskKonfiguration.setHostname(getHostname(taskId));
-        taskKonfiguration.setAusfuehrungsplan(getAusfuehrungsplan(taskId));
+        taskKonfiguration.setAusfuehrungsplan(configurationProperties.getTasks().get(taskId).getAusfuehrung());
         taskKonfiguration.setExecutionDateTime(getExecutionDateTime(taskId));
-        taskKonfiguration.setInitialDelay(getInitialDelay(taskId));
-        taskKonfiguration.setFixedRate(getFixedRate(taskId));
-        taskKonfiguration.setFixedDelay(getFixedDelay(taskId));
+        taskKonfiguration.setInitialDelay(configurationProperties.getTasks().get(taskId).getInitialDelay());
+        taskKonfiguration.setFixedRate(configurationProperties.getTasks().get(taskId).getFixedRate());
+        taskKonfiguration.setFixedDelay(configurationProperties.getTasks().get(taskId).getFixedDelay());
 
         pruefeTaskKonfiguration(taskKonfiguration);
 
@@ -113,53 +109,26 @@ public class TaskKonfigurationVerwalter {
         return taskKonfiguration.getExecutionDateTime() == null && taskKonfiguration.getInitialDelay() == null;
     }
 
-    private TaskKonfiguration.Ausfuehrungsplan getAusfuehrungsplan(String taskId) {
-        try {
-            String ausfuehrungsplan = konfiguration.getAsString(PRAEFIX + taskId + AUSFUEHRUNGSPLAN);
-            return TaskKonfiguration.Ausfuehrungsplan.valueOf(ausfuehrungsplan);
-        } catch (KonfigurationException e) {
-            return null;
-        }
-    }
-
     private LocalDateTime getExecutionDateTime(String taskId) {
-        try {
-            String executionDateTime = konfiguration.getAsString(PRAEFIX + taskId + ZEITPUNKT);
+        String executionDateTime = configurationProperties.getTasks().get(taskId).getZeitpunkt();
+
+        if (executionDateTime != null) {
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(KonfigurationStandardwerte.DEFAULT_DATETIME_PATTERN);
             return LocalDateTime.parse(executionDateTime, dateTimeFormatter);
-        } catch (KonfigurationException e) {
-            return null;
-        }
-    }
-
-    private Duration getInitialDelay(String taskId) {
-        return InFormat.parseToDuration(konfiguration.getAsString(PRAEFIX + taskId + INITIAL_DELAY, "0s"));
-    }
-
-    private Duration getFixedDelay(String taskId) {
-        try {
-            return InFormat.parseToDuration(konfiguration.getAsString(PRAEFIX + taskId + FIXED_DELAY));
-        } catch (KonfigurationException e) {
-            return null;
-        }
-    }
-
-    private Duration getFixedRate(String taskId) {
-        try {
-            return InFormat.parseToDuration(konfiguration.getAsString(PRAEFIX + taskId + FIXED_RATE));
-        } catch (KonfigurationException e) {
+        } else {
             return null;
         }
     }
 
     private String getHostname(String taskId) {
-        try {
-            return konfiguration.getAsString(PRAEFIX + taskId + HOST);
-        } catch (KonfigurationException e) {
+        String host = configurationProperties.getTasks().get(taskId).getHost();
+
+        if (host == null) {
             String nachricht = MessageSourceHolder.getMessage(VERWENDE_STANDARD_KONFIGURATION, "hostname");
             LOG.info(LogKategorie.JOURNAL, VERWENDE_STANDARD_KONFIGURATION, nachricht);
+            host = configurationProperties.getDefault().getHost();
         }
 
-        return konfiguration.getAsString(KonfigurationSchluessel.STANDARD_HOST);
+        return host;
     }
 }

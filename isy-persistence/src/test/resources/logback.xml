@@ -4,14 +4,11 @@
     <include resource="resources/isylogging/logback/appender-entwicklung.xml"/>
 
     <!-- Root-Logger als Grundlage für alle Logger-Instanzen -->
-    <root level="trace">
+    <root level="INFO">
         <appender-ref ref="KONSOLE"/>
     </root>
 
     <!-- IsyFact -->
-    <logger name="de.bund.bva.pliscommon" level="INFO" additivity="false">
-        <appender-ref ref="KONSOLE"/>
-    </logger>
     <logger name="de.bund.bva.isyfact" level="INFO" additivity="false">
         <appender-ref ref="KONSOLE"/>
     </logger>
@@ -28,14 +25,6 @@
     </logger>
     <!-- QueryDSL -->
     <logger name="com.querydsl.jpa" level="INFO" additivity="false">
-        <appender-ref ref="KONSOLE"/>
-    </logger>
-    <!-- Dozer -->
-    <logger name="org.dozer" level="INFO" additivity="false">
-        <appender-ref ref="KONSOLE"/>
-    </logger>
-    <!-- Apache Commons -->
-    <logger name="org.apache.commons" level="INFO" additivity="false">
         <appender-ref ref="KONSOLE"/>
     </logger>
     <!-- DBUnit -->

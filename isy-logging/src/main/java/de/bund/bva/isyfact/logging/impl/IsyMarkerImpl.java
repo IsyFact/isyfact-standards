@@ -55,7 +55,7 @@ public class IsyMarkerImpl implements IsyMarker {
     private final boolean root;
 
     /** Referenzen auf enthaltene Marker. */
-    private final List<Marker> references = new ArrayList<Marker>();
+    private final List<Marker> references = new ArrayList<>();
 
     /**
      * Konstruktor der Klasse. Er initialisiert die übergebenen Klassenattribute.
@@ -77,10 +77,6 @@ public class IsyMarkerImpl implements IsyMarker {
     public static IsyMarker createRootMarker() {
         return new IsyMarkerImpl(MarkerSchluessel.ROOTMARKER.getWert(), ROOT_MARKER_VALUE, true);
     }
-
-    /**
-     * Erzeugt einen
-     */
 
     /**
      * Konstruktor der Klasse. Er initialisiert die übergebenen Klassenattribute.
@@ -127,8 +123,7 @@ public class IsyMarkerImpl implements IsyMarker {
 
     /**
      * {@inheritDoc}
-     * 
-     * @see Marker#hasChildren()
+     *
      */
     public boolean hasChildren() {
         return hasReferences();

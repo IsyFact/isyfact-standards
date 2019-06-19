@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<dataset>
-    <TESTDURATIONENTITY id="0" DURATION="10123456789"/>
-    <TESTDURATIONENTITY id="1"/>
-    <TESTDURATIONENTITY id="2" DURATION="9223372036854775807"/>
-</dataset>

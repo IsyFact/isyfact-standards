@@ -34,13 +34,13 @@
     <!-- MDC in die Ausgabe mitaufnehmen. -->
     <property name="INCLUDE_MDC" value="true" />
     
-    <include resource="resources/isylogging/logback/appender-batch.xml" />
+    <include resource="resources/isylogging/logback/appender.xml" />
 
     <logger name="de.bund.bva.isyfact" level="trace" />
 
     <!-- Root-Logger als Grundlage für alle Logger-Instanzen -->
     <root level="error">
-        <appender-ref ref="DATEI_BATCH" />
+        <appender-ref ref="DATEI_ANWENDUNG" />
     </root>
 
 </configuration>

@@ -98,7 +98,7 @@ public class TestBeanKomplex extends AbstractTestBeanKomplex implements TestBean
             rekursivNeu = new TestBeanKomplex(false);
             rekursivObject = this;
         }
-        this.einInteger = new Integer(123);
+        this.einInteger = 123;
     }
 
     /**
