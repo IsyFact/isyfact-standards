@@ -35,11 +35,6 @@ public enum MarkerSchluessel {
     KATEGORIE("kategorie"),
     /** Schlüssel des Logeintrags. */
     SCHLUESSEL("schluessel"),
-    /**
-     * Logeintrag enthält Fachdaten.
-     * @deprecated Wird ersetzt durch {@link FachdatenMarker} und {@link TechnikdatenMarker}.
-     */
-    FACHDATEN("fachdaten"),
     /** Dauer des Logeintrags. */
     DAUER("dauer"),
     /** Methode eines geloggten Methodenaufruf. */

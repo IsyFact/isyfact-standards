@@ -300,16 +300,6 @@ public class IsyLocationAwareLoggerImpl implements IsyLogger {
             }
         }
 
-        // Der alte Marker für Fachdaten wird zusätzlich in den Logeintrag geschrieben, wenn die neuen
-        // Marker für Fach- bzw. Technikdaten gesetzt sind.
-        if (expliziteMarker != null) {
-            if (Arrays.asList(expliziteMarker).contains(FACHDATEN_MARKER[0])) {
-                rootMarker.add(new IsyMarkerImpl(MarkerSchluessel.FACHDATEN, LoggingKonstanten.TRUE));
-            } else if (Arrays.asList(expliziteMarker).contains(TECHNIKDATEN_MARKER[0])) {
-                rootMarker.add(new IsyMarkerImpl(MarkerSchluessel.FACHDATEN, LoggingKonstanten.FALSE));
-            }
-        }
-
         if (expliziteMarker != null) {
             for (IsyMarker isyMarker : expliziteMarker) {
                 rootMarker.add(isyMarker);
