@@ -141,8 +141,8 @@ deploy_staging:
   script:
    - SNAPSHOT=true
    - '[[ $(mvn --non-recursive -Dexpression=project.version $MAVEN_CLI_OPTS help:evaluate | grep -v "\[.*") == *-SNAPSHOT ]] || SNAPSHOT=false'
-   - MODULE=($(mvn -Dexpression=project.modules $MAVEN_CLI_OPTS help:evaluate | grep -v "^\[" | grep "<string>" | sed 's/<\/*string>//g ; s/[[:space:]]//'))
-   - for MODUL in ${MODULE[@]}; do [[ $(mvn -pl $MODUL -Dexpression=project.version $MAVEN_CLI_OPTS help:evaluate  | grep -v "^\[") == *-SNAPSHOT ]] || SNAPSHOT=false ; done
+   - MODULE=($(mvn -Dexpression=project.modules $MAVEN_CLI_OPTS help:evaluate | grep -v "\[.*" | grep "<string>" | sed 's/<\/*string>//g ; s/[[:space:]]//'))
+   - for MODUL in ${MODULE[@]}; do [[ $(mvn -pl $MODUL -Dexpression=project.version $MAVEN_CLI_OPTS help:evaluate  | grep -v "\[.*") == *-SNAPSHOT ]] || SNAPSHOT=false ; done
    - '[[ $SNAPSHOT == true ]] && mvn -Dmaven.test.skip=true -Dmaven.install.skip=true $MAVEN_CLI_OPTS deploy || echo "Keine SNAPSHOT-Version - deploy wird nur bei Tags durchgefuehrt"'
   except:
    - tags
