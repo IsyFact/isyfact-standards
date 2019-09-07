@@ -16,21 +16,21 @@
  */
 package de.bund.bva.isyfact.konfiguration.common.impl;
 
+import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 import de.bund.bva.isyfact.konfiguration.common.exception.KonfigurationParameterException;
 import de.bund.bva.isyfact.konfiguration.common.konstanten.NachrichtenSchluessel;
-import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 
 /**
  * Abstrakte Basisklasse für {@link Konfiguration Konfigurations}-Implementierungen, die alle
- * Typkonvertierungen erledigt, das Ermitteln eines Konfigurationswerts aus einem Konfigurationsspeicher jedoch
- * an eine abstrakte Methode delegiert.
- * 
+ * Typkonvertierungen erledigt, das Ermitteln eines Konfigurationswerts aus einem Konfigurationsspeicher
+ * jedoch an eine abstrakte Methode delegiert.
+ *
  */
 public abstract class AbstractKonfiguration implements Konfiguration {
 
     /**
      * Prüft, ob zum gegebenen Konfigurationparameter ein Konfigurationswert hinterlegt ist.
-     * 
+     *
      * @param schluessel
      *            der Name des Konfigurationsparameters
      * @return <code>true</code>, wenn zum gegebenen Konfigurationparameter ein Konfigurationswert hinterlegt
@@ -40,7 +40,7 @@ public abstract class AbstractKonfiguration implements Konfiguration {
 
     /**
      * Liest den Konfigurationswert zum gegebenen Konfigurationsparameter.
-     * 
+     *
      * @param schluessel
      *            der Name des Konfigurationsparameters
      * @return der Konfigurationswert, oder <code>null</code>, falls keiner gefunden wurde.
@@ -50,6 +50,7 @@ public abstract class AbstractKonfiguration implements Konfiguration {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getAsRawString(String schluessel, String defaultWert) {
         if (!containsKey(schluessel)) {
             return defaultWert;
@@ -60,6 +61,7 @@ public abstract class AbstractKonfiguration implements Konfiguration {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getAsRawString(String schluessel) {
         if (!containsKey(schluessel)) {
             throw new KonfigurationParameterException(NachrichtenSchluessel.ERR_PARAMETER_LEER, schluessel);
@@ -70,6 +72,7 @@ public abstract class AbstractKonfiguration implements Konfiguration {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getAsString(String schluessel, String defaultWert) {
         if (!containsKey(schluessel)) {
             return defaultWert;
@@ -80,6 +83,7 @@ public abstract class AbstractKonfiguration implements Konfiguration {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getAsString(String schluessel) {
         if (!containsKey(schluessel)) {
             throw new KonfigurationParameterException(NachrichtenSchluessel.ERR_PARAMETER_LEER, schluessel);
@@ -90,6 +94,7 @@ public abstract class AbstractKonfiguration implements Konfiguration {
     /**
      * {@inheritDoc}
      */
+    @Override
     public int getAsInteger(String schluessel, int defaultWert) {
         if (!containsKey(schluessel)) {
             return defaultWert;
@@ -100,6 +105,7 @@ public abstract class AbstractKonfiguration implements Konfiguration {
     /**
      * {@inheritDoc}
      */
+    @Override
     public int getAsInteger(String schluessel) {
         if (!containsKey(schluessel)) {
             throw new KonfigurationParameterException(NachrichtenSchluessel.ERR_PARAMETER_LEER, schluessel);
@@ -109,13 +115,14 @@ public abstract class AbstractKonfiguration implements Konfiguration {
             return Integer.parseInt(propValue);
         } catch (NumberFormatException ex) {
             throw new KonfigurationParameterException(NachrichtenSchluessel.ERR_PARAMETERWERT_UNGUELTIG,
-                new String[] { schluessel, propValue });
+                schluessel, propValue);
         }
     }
 
     /**
      * {@inheritDoc}
      */
+    @Override
     public double getAsDouble(String schluessel, double defaultWert) {
         if (!containsKey(schluessel)) {
             return defaultWert;
@@ -126,6 +133,7 @@ public abstract class AbstractKonfiguration implements Konfiguration {
     /**
      * {@inheritDoc}
      */
+    @Override
     public double getAsDouble(String schluessel) {
         if (!containsKey(schluessel)) {
             throw new KonfigurationParameterException(NachrichtenSchluessel.ERR_PARAMETER_LEER, schluessel);
@@ -135,13 +143,14 @@ public abstract class AbstractKonfiguration implements Konfiguration {
             return Double.parseDouble(propValue);
         } catch (NumberFormatException ex) {
             throw new KonfigurationParameterException(NachrichtenSchluessel.ERR_PARAMETERWERT_UNGUELTIG,
-                new String[] { schluessel, propValue });
+                schluessel, propValue);
         }
     }
 
     /**
      * {@inheritDoc}
      */
+    @Override
     public long getAsLong(String schluessel, long defaultWert) {
         if (!containsKey(schluessel)) {
             return defaultWert;
@@ -152,6 +161,7 @@ public abstract class AbstractKonfiguration implements Konfiguration {
     /**
      * {@inheritDoc}
      */
+    @Override
     public long getAsLong(String schluessel) {
         if (!containsKey(schluessel)) {
             throw new KonfigurationParameterException(NachrichtenSchluessel.ERR_PARAMETER_LEER, schluessel);
@@ -161,13 +171,14 @@ public abstract class AbstractKonfiguration implements Konfiguration {
             return Long.parseLong(propValue);
         } catch (NumberFormatException ex) {
             throw new KonfigurationParameterException(NachrichtenSchluessel.ERR_PARAMETERWERT_UNGUELTIG,
-                new String[] { schluessel, propValue });
+                schluessel, propValue);
         }
     }
 
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean getAsBoolean(String schluessel, boolean defaultWert) {
         if (!containsKey(schluessel)) {
             return defaultWert;
@@ -178,6 +189,7 @@ public abstract class AbstractKonfiguration implements Konfiguration {
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean getAsBoolean(String schluessel) {
         if (!containsKey(schluessel)) {
             throw new KonfigurationParameterException(NachrichtenSchluessel.ERR_PARAMETER_LEER, schluessel);
@@ -190,7 +202,7 @@ public abstract class AbstractKonfiguration implements Konfiguration {
             return false;
         }
         throw new KonfigurationParameterException(NachrichtenSchluessel.ERR_PARAMETERWERT_UNGUELTIG,
-            new String[] { schluessel, propValue });
+            schluessel, propValue);
     }
 
 }

@@ -16,12 +16,13 @@
  */
 package de.bund.bva.isyfact.konfiguration.common.impl;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import static java.util.Collections.unmodifiableSet;
+import static java.util.stream.Collectors.toSet;
+
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
 import java.util.UUID;
@@ -29,11 +30,11 @@ import java.util.UUID;
 import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 import de.bund.bva.isyfact.konfiguration.common.KonfigurationChangeListener;
 import de.bund.bva.isyfact.konfiguration.common.ReloadableKonfiguration;
+import de.bund.bva.isyfact.konfiguration.common.konstanten.EreignisSchluessel;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
-import de.bund.bva.isyfact.konfiguration.common.konstanten.EreignisSchluessel;
 
 /**
  * Diese Klasse bietet einen typsicheren Zugriff auf eine Konfiguration {@link Konfiguration}. Dazu wird an
@@ -51,8 +52,6 @@ import de.bund.bva.isyfact.konfiguration.common.konstanten.EreignisSchluessel;
  *
  */
 public class ReloadablePropertyKonfiguration implements ReloadableKonfiguration {
-
-    private String namensSchema;
 
     /**
      * Logger der Klasse.
@@ -76,39 +75,15 @@ public class ReloadablePropertyKonfiguration implements ReloadableKonfiguration 
     private List<KonfigurationChangeListener> konfigurationChangeListener;
 
     /**
-     * Erzeugt eine neue Konfiguration für die angegebenen Properties. Die angegebenen Property-Dateien werden
-     * relativ zum Klassenpfad per {@link Class#getResource(String)} geladen. Alle angegebenen Property-Datei
-     * werden zu einer gemeinsamen Konfiguration vereinigt. Für mehrfach auftretende Parameter wird der
-     * zuletzt auftretende Wert übernommen.
+     * Erzeugt eine neue Konfiguration eine Menge von Spring Location-Patterns.
      *
-     * Das eigentliche Laden erfolgt per {@link ReloadablePropertyProvider}.
-     *
-     * @param propertyLocations
-     *            Liste von Property-Dateinamen.
+     * @see PropertyKonfiguration#PropertyKonfiguration(String...)
      */
-    public ReloadablePropertyKonfiguration(String[] propertyLocations) {
-        this(propertyLocations, RessourcenHelper.DEFAULTNAMENSSCHEMA);
-    }
-
-    /**
-     * Erzeugt eine neue Konfiguration für die angegebenen Properties. Die angegebenen Property-Dateien werden
-     * relativ zum Klassenpfad per {@link Class#getResource(String)} geladen. Alle angegebenen Property-Datei
-     * werden zu einer gemeinsamen Konfiguration vereinigt. Für mehrfach auftretende Parameter wird der
-     * zuletzt auftretende Wert übernommen.
-     *
-     * Das eigentliche Laden erfolgt per {@link ReloadablePropertyProvider}.
-     *
-     * @param propertyLocations
-     *            Liste von Property-Dateinamen.
-     * @param namensSchema
-     *            das Schema, dem die Dateinamen entsprechen müssen.
-     */
-    public ReloadablePropertyKonfiguration(String[] propertyLocations, String namensSchema) {
-        this.namensSchema = namensSchema;
-        this.propertyProvider = new ReloadablePropertyProvider(propertyLocations, namensSchema);
+    public ReloadablePropertyKonfiguration(String... locationPatterns) {
+        this.propertyProvider = new ReloadablePropertyProvider(locationPatterns);
         this.konfigurationChangeListener = new LinkedList<>();
         this.propertyKonfiguration =
-            new PropertyKonfiguration(this.propertyProvider.getProperties(), namensSchema);
+            new PropertyKonfiguration(this.propertyProvider.getProperties());
     }
 
     /**
@@ -130,7 +105,7 @@ public class ReloadablePropertyKonfiguration implements ReloadableKonfiguration 
                 "Mindestens eine Konfigurationsdatei wurde geändert.");
             Properties neueProperties = this.propertyProvider.getProperties();
             Properties aktuelleProperties = this.propertyKonfiguration.getProperties();
-            this.propertyKonfiguration = new PropertyKonfiguration(neueProperties, this.namensSchema);
+            this.propertyKonfiguration = new PropertyKonfiguration(neueProperties);
             fireKonfigurationChanged(aktuelleProperties, neueProperties);
         }
 
@@ -141,7 +116,7 @@ public class ReloadablePropertyKonfiguration implements ReloadableKonfiguration 
     }
 
     /**
-     * Informiere alle registrieten Listener. Die geänderten Schlüssel werden aus den angegebenen Properties
+     * Informiere alle registrierten Listener. Die geänderten Schlüssel werden aus den angegebenen Properties
      * ermittelt.
      * @param bisherigeProperties
      *            Die bisherige Konfiguration.
@@ -149,23 +124,17 @@ public class ReloadablePropertyKonfiguration implements ReloadableKonfiguration 
      *            Die neue Konfiguration.
      */
     private void fireKonfigurationChanged(Properties bisherigeProperties, Properties neueProperties) {
-        Set<String> geaenderteSchluessel = ermittleGeaenderteSchluessel(bisherigeProperties, neueProperties);
+        Set<String> geaenderteSchluessel =
+            unmodifiableSet(ermittleGeaenderteSchluessel(bisherigeProperties, neueProperties));
         for (String schluessel : geaenderteSchluessel) {
             LOG.debug("Konfigurationsparameter {} wurde geändert.", schluessel);
         }
-        if (geaenderteSchluessel.size() > 0) {
-            List<KonfigurationChangeListener> notifyChangeListeners =
-                new ArrayList<>(this.konfigurationChangeListener.size());
+        if (!geaenderteSchluessel.isEmpty()) {
             synchronized (this.konfigurationChangeListener) {
-                if (this.konfigurationChangeListener.size() > 0) {
-                    // Verwende eine lokale Kopie, so dass sich Listener registrieren oder deregistrieren
-                    // können, wenn sich die Konfiguration geändert hat.
-                    notifyChangeListeners.addAll(this.konfigurationChangeListener);
-                    for (KonfigurationChangeListener listener : notifyChangeListeners) {
-                        LOG.debug("Informiere {} über Konfigurationsänderung.",
-                            listener.getClass().toString());
-                        listener.onKonfigurationChanged(Collections.unmodifiableSet(geaenderteSchluessel));
-                    }
+                for (KonfigurationChangeListener listener : this.konfigurationChangeListener) {
+                    LOG.debug("Informiere {} über Konfigurationsänderung.",
+                        listener.getClass().toString());
+                    listener.onKonfigurationChanged(geaenderteSchluessel);
                 }
             }
         }
@@ -181,25 +150,11 @@ public class ReloadablePropertyKonfiguration implements ReloadableKonfiguration 
      *            Properties B
      * @return Liste aller nicht identischen Schlüssel.
      */
-    @SuppressWarnings("rawtypes")
+    @SuppressWarnings("unchecked")
     private Set<String> ermittleGeaenderteSchluessel(Properties a, Properties b) {
-        Set<String> geaenderteSchluessel = new HashSet<>();
-        for (Map.Entry entry : a.entrySet()) {
-            // Schluessel ist gar nicht oder mit einem anderen Wert in b
-            // enthalten.
-            if (!b.containsKey(entry.getKey()) || !b.get(entry.getKey()).equals(entry.getValue())) {
-                geaenderteSchluessel.add((String) entry.getKey());
-            }
-        }
-
-        for (Map.Entry entry : b.entrySet()) {
-            // Schluessel ist gar nicht oder mit einem anderen Wert in a
-            // enthalten.
-            if (!a.containsKey(entry.getKey()) || !a.get(entry.getKey()).equals(entry.getValue())) {
-                geaenderteSchluessel.add((String) entry.getKey());
-            }
-        }
-        return geaenderteSchluessel;
+        Set<Entry<?, ?>> changedEntries = new HashSet<>(a.entrySet());
+        changedEntries.removeAll(b.entrySet());
+        return (Set<String>) changedEntries.stream().map(Entry::getKey).collect(toSet());
     }
 
     /**

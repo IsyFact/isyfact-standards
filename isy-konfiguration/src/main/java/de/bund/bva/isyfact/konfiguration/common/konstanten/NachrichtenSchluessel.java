@@ -21,6 +21,10 @@ package de.bund.bva.isyfact.konfiguration.common.konstanten;
  *
  */
 public abstract class NachrichtenSchluessel {
+
+    private NachrichtenSchluessel() {
+    }
+
     /** Der angegebene Konfigurationsparameter ist nicht gesetzt. */
     public static final String ERR_PARAMETER_LEER = "KONF100";
 

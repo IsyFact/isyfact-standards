@@ -16,17 +16,20 @@
  */
 package de.bund.bva.isyfact.konfiguration.common.impl;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+
 import de.bund.bva.isyfact.konfiguration.common.exception.KonfigurationDateiException;
+import de.bund.bva.isyfact.konfiguration.common.konstanten.EreignisSchluessel;
 import de.bund.bva.isyfact.konfiguration.common.konstanten.NachrichtenSchluessel;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
-import de.bund.bva.isyfact.konfiguration.common.konstanten.EreignisSchluessel;
 
 /**
  * Implementiert das Laden und Mergen von Property-Dateien. Über die Methode {@link #checkAndUpdate()} werden
@@ -36,10 +39,7 @@ import de.bund.bva.isyfact.konfiguration.common.konstanten.EreignisSchluessel;
  */
 public class ReloadablePropertyProvider {
 
-    /**
-     * Schema, dem die Dateinamen entsprechen müssen.
-     */
-    private String namensSchema;
+    private final String[] locationPatterns;
 
     /**
      * Logger der Klasse.
@@ -49,72 +49,55 @@ public class ReloadablePropertyProvider {
     /**
      * Liste der von dieser Klasse verwalteten Property-Dateien.
      */
-    private List<PropertyDatei> propertyDateien;
+    private Map<Resource, PropertyResource> propertyResources = new HashMap<>();
 
     /**
-     * Aus {@link #propertyDateien} resultierende Properties.
+     * Aus {@link #propertyResources} resultierende Properties.
      */
     private Properties properties;
 
-    /**
-     * Liste mit allen Ordnern die Property-Dateien enthalten.
-     */
-    private List<String> propertyOrdner;
+    private final PathMatchingResourcePatternResolver pmrpr = new PathMatchingResourcePatternResolver();
 
     /**
-     * Ruft ladePropertyDateien() auf.
+     * Siehe {@link PathMatchingResourcePatternResolver} für Format der <code>locationPatterns</code>
      *
-     * @param propertyDateinamen
-     *            Liste mit Property-Dateinamen.
+     * @param locationPatterns
+     *            Spring Location-Patterns, aus denen Properties gelesen werden sollen.
      */
-    public ReloadablePropertyProvider(String[] propertyDateinamen) {
-        this(propertyDateinamen, RessourcenHelper.DEFAULTNAMENSSCHEMA);
+    public ReloadablePropertyProvider(String... locationPatterns) {
+        this.locationPatterns = locationPatterns;
+        checkAndUpdate();
     }
 
     /**
-     * Ruft ladePropertyDateien() auf.
-     *
-     * @param propertyDateinamen
-     *            Liste mit Property-Dateinamen.
-     * @param namensSchema
-     *            dem die Dateinamen entsprechen müssen.
+     * @see PathMatchingResourcePatternResolver
      */
-    public ReloadablePropertyProvider(String[] propertyDateinamen, String namensSchema) {
-        this.namensSchema = namensSchema;
-        ladePropertyDateien(propertyDateinamen);
-    }
-
-    /**
-     * Lädt die angegebenen Property-Dateien aus dem Klassenpfad (siehe {@link Class#getResource(String)}),
-     * welche dem NamensSchema entsprechen. Wird statt einer konkreten Property-Datei ein ganzes Verzeichnis
-     * angegeben, werden alle dort befindlichen Property-Dateien ausgelesen. Die Properties-Dateien werden zu
-     * einem einzelnen Properties-Objekt zusammengefasst. Bei gleichnamigen Parametern in den Properties wird
-     * die zuletzt gelesene übernommen.
-     *
-     * @param propertyDateinamen
-     *            Liste mit Property-Dateinamen.
-     *
-     */
-    private void ladePropertyDateien(String[] propertyDateinamen) {
-        this.propertyDateien = new ArrayList<>();
-        this.propertyOrdner = new ArrayList<>();
-        for (String dateiname : propertyDateinamen) {
-            if (RessourcenHelper.istOrdner(dateiname)) {
-                if (dateiname.endsWith("/")) {
-                    for (String propertyInOrdner : RessourcenHelper.ladePropertiesAusOrdner(dateiname,
-                        this.namensSchema)) {
-                        this.propertyDateien.add(new PropertyDatei(propertyInOrdner));
+    private boolean loadPropertyResources() {
+        try {
+            boolean createdNewPropertyFile = false;
+            Map<Resource, PropertyResource> neuePropertyResources = new HashMap<>();
+            for (String locationPattern : this.locationPatterns) {
+                for (Resource resource : this.pmrpr.getResources(locationPattern)) {
+                    PropertyResource propertyFile = this.propertyResources.get(resource);
+                    if (null == propertyFile) {
+                        propertyFile = new PropertyResource(resource);
+                        createdNewPropertyFile = true;
                     }
-                    this.propertyOrdner.add(dateiname);
-                } else {
-                    throw new KonfigurationDateiException(NachrichtenSchluessel.ERR_PROPERTY_ORDNER_PFAD,
-                        dateiname);
+                    neuePropertyResources.put(resource, propertyFile);
                 }
-            } else {
-                this.propertyDateien.add(new PropertyDatei(dateiname));
             }
+
+            // Wenn eine neue PropertyResource angelegt wurde oder es weniger sind als zuvor, so hat sich was
+            // geändert.
+            boolean somethingChanged =
+                createdNewPropertyFile || neuePropertyResources.size() < this.propertyResources.size();
+
+            this.propertyResources = neuePropertyResources;
+
+            return somethingChanged;
+        } catch (IOException e) {
+            throw new KonfigurationDateiException(NachrichtenSchluessel.ERR_DATEI_LESEN, e);
         }
-        this.properties = mergeProperties();
     }
 
     /**
@@ -124,8 +107,8 @@ public class ReloadablePropertyProvider {
     private Properties mergeProperties() {
         Properties gesamtProperties = new Properties();
 
-        for (PropertyDatei propertyDatei : this.propertyDateien) {
-            gesamtProperties.putAll(propertyDatei.getProperties());
+        for (PropertyResource propertyResource : this.propertyResources.values()) {
+            gesamtProperties.putAll(propertyResource.getProperties());
         }
         return gesamtProperties;
     }
@@ -139,86 +122,25 @@ public class ReloadablePropertyProvider {
     }
 
     /**
-     * Prüft ob eine der Property-Dateien modifziert wurde und lädt dann die Properties neu.
-     * @return <code>true</code> fallse eine der Properties-Dateien geändert wurde.
+     * Prüft ob eine der Property-Resources modifiziert wurde und lädt dann die Properties neu.
+     * @return <code>true</code> falls eine der Properties-Resources geändert wurde.
      */
     public synchronized boolean checkAndUpdate() {
-        boolean neueVersionGeladen = false;
-        boolean propertyEntfernt = entferneGeloeschtePropertyDateien();
-        boolean propertyHinzugefuegt = ladeNeuePropertyDateienAusOrdnern();
+        boolean propertyResourceMengeGeaendert = loadPropertyResources();
+        boolean propertyResourceInhaltGeaendert = false;
 
-        for (PropertyDatei propertyDatei : this.propertyDateien) {
-            if (propertyDatei.isNeueVersionVerfuegbar()) {
+        for (PropertyResource propertyResource : this.propertyResources.values()) {
+            if (propertyResource.isNeueVersionVerfuegbar()) {
                 LOG.info(LogKategorie.JOURNAL, EreignisSchluessel.KONFIGURATION_DATEI_NEU_GELADEN,
-                    "Die Konfigurationsdatei {} wird neu geladen.", propertyDatei.getDateiname());
-                try {
-                    neueVersionGeladen = true;
-                    propertyDatei.neuLaden();
-                } catch (Throwable t) {
-                    throw new KonfigurationDateiException(NachrichtenSchluessel.ERR_DATEI_LESEN, t,
-                        propertyDatei.getDateiname());
-                }
+                    "Die Konfigurationsdatei {} wird neu geladen.", propertyResource.getDescription());
+                propertyResourceInhaltGeaendert = true;
+                propertyResource.reload();
             }
         }
-        boolean propertiesVeraendert = neueVersionGeladen || propertyEntfernt || propertyHinzugefuegt;
-        if (propertiesVeraendert) {
-            neueVersionGeladen = true;
+        if (propertyResourceMengeGeaendert || propertyResourceInhaltGeaendert) {
             this.properties = mergeProperties();
+            return true;
         }
-        return propertiesVeraendert;
-    }
-
-    /**
-     * Sucht in allen Ordnern aus {@link #propertyOrdner} nach neuen Property-Dateien und fügt diese der
-     * {@link #propertyDateien} Liste hinzu.
-     * @return ture wenn mindestens eine neue Property-Datei existiert.
-     */
-    private boolean ladeNeuePropertyDateienAusOrdnern() {
-        boolean propertyHinzugefuegt = false;
-        for (String ordnerPfad : this.propertyOrdner) {
-            if (ordnerPfad.endsWith("/")) {
-                for (String dateiname : RessourcenHelper.ladePropertiesAusOrdner(ordnerPfad,
-                    this.namensSchema)) {
-                    boolean propertyIstNeu = true;
-                    for (PropertyDatei existierendeProperty : this.propertyDateien) {
-                        if (dateiname.equals(existierendeProperty.getDateiname())) {
-                            propertyIstNeu = false;
-                            break;
-                        }
-                    }
-
-                    if (propertyIstNeu) {
-                        propertyHinzugefuegt = true;
-                        this.propertyDateien.add(new PropertyDatei(dateiname));
-                    }
-                }
-            } else {
-                throw new KonfigurationDateiException(NachrichtenSchluessel.ERR_PROPERTY_ORDNER_PFAD,
-                    ordnerPfad);
-            }
-        }
-        return propertyHinzugefuegt;
-    }
-
-    /**
-     * Entfernt gelöschte Property-Dateien aus der {@link #propertyDateien} Liste die sich in den Ordern aus
-     * {@link #propertyOrdner} befinden.
-     * @return true wenn mindestens eine Property-Datei gelöscht wurde.
-     */
-    private boolean entferneGeloeschtePropertyDateien() {
-        boolean propertyGeloescht = false;
-        Iterator<PropertyDatei> it = this.propertyDateien.iterator();
-        while (it.hasNext()) {
-            PropertyDatei propertyDatei = it.next();
-            for (String ordnerPfad : this.propertyOrdner) {
-                if (propertyDatei.getDateiname().startsWith(ordnerPfad)) {
-                    if (!propertyDatei.existiert()) {
-                        propertyGeloescht = true;
-                        it.remove();
-                    }
-                }
-            }
-        }
-        return propertyGeloescht;
+        return false;
     }
 }

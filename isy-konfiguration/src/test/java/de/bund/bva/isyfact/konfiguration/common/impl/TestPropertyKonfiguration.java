@@ -19,8 +19,6 @@ package de.bund.bva.isyfact.konfiguration.common.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import org.junit.Before;
@@ -31,8 +29,6 @@ import de.bund.bva.isyfact.konfiguration.common.exception.KonfigurationParameter
 
 public class TestPropertyKonfiguration {
 
-    final static String DEFAULTNAMENSSCHEMA = ".*[.]properties";
-
     private static final String CONFIG_A = "/config/config_A.properties";
 
     private static final String CONFIG_B = "/config/config_B.properties";
@@ -41,10 +37,7 @@ public class TestPropertyKonfiguration {
 
     @Before
     public void setUp() throws Exception {
-        List<String> list = new ArrayList<String>();
-        list.add(CONFIG_A);
-        list.add(CONFIG_B);
-        this.konf = new PropertyKonfiguration(list, DEFAULTNAMENSSCHEMA);
+        this.konf = new PropertyKonfiguration(CONFIG_A, CONFIG_B);
     }
 
     @Test
@@ -63,15 +56,13 @@ public class TestPropertyKonfiguration {
 
     @Test
     public void testGetValue() {
-        PropertyKonfiguration konfCopy = new PropertyKonfiguration(this.konf.getProperties(), "");
+        PropertyKonfiguration konfCopy = new PropertyKonfiguration(this.konf.getProperties());
         assertEquals("Hans ", konfCopy.getValue("parameter.rawstring"));
     }
 
     @Test(expected = KonfigurationDateiException.class)
     public void testInitializationOnException() {
-        List<String> list = new ArrayList<String>();
-        list.add("foo bar");
-        new PropertyKonfiguration(list, DEFAULTNAMENSSCHEMA);
+        new PropertyKonfiguration("foo bar");
     }
 
     /**
