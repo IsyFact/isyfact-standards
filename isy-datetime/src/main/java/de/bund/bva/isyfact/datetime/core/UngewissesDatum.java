@@ -23,9 +23,9 @@ public class UngewissesDatum {
             .appendPattern("[00.MM.yyyy]").appendPattern("['xx.xx.xxxx']").appendPattern("['xx.xx.'yyyy]")
             .appendPattern("['xx.'MM.yyyy]").appendPattern("[dd.MM.yyyy]").parseStrict().toFormatter();
 
-    private static final int minMonth = (int)ChronoField.MONTH_OF_YEAR.range().getMinimum();
+    private static final int minMonth = (int) ChronoField.MONTH_OF_YEAR.range().getMinimum();
 
-    private static final int minDayOfMonth = (int)ChronoField.DAY_OF_MONTH.range().getMinimum();
+    private static final int minDayOfMonth = (int) ChronoField.DAY_OF_MONTH.range().getMinimum();
 
     private LocalDate anfang;
 
@@ -85,10 +85,10 @@ public class UngewissesDatum {
      * Erstellt ein {@link UngewissesDatum}, bei dem nur das Jahr bekannt ist.
      *
      * @param jahr
-     *     das Jahr
+     *            das Jahr
      * @return ein {@link UngewissesDatum} mit dem Jahr gesetzt
      * @throws DateTimeException
-     *     wenn jahr einen ungültigen Wert hat
+     *             wenn jahr einen ungültigen Wert hat
      */
     public static UngewissesDatum of(int jahr) {
         return new UngewissesDatum(jahr);
@@ -98,31 +98,31 @@ public class UngewissesDatum {
      * Erstellt ein {@link UngewissesDatum}, bei dem das Jahr und der Monat bekannt sind.
      *
      * @param jahr
-     *     das Jahr
+     *            das Jahr
      * @param monat
-     *     der Monat
+     *            der Monat
      * @return ein {@link UngewissesDatum} mit dem Jahr und Monat gesetzt
      * @throws DateTimeException
-     *     wenn jahr oder monat einen ungültigen Wert haben
+     *             wenn jahr oder monat einen ungültigen Wert haben
      */
     public static UngewissesDatum of(int jahr, int monat) {
         return new UngewissesDatum(jahr, monat);
     }
 
     /**
-     * Erstellt ein {@link UngewissesDatum}, bei dem Jahr, Monat und Tag bekannt sind.
-     * Damit ist das Datum nicht mehr ungewiss und kann mit {@link UngewissesDatum#toLocalDate()}
-     * in ein {@link LocalDate} konvertiert werden.
+     * Erstellt ein {@link UngewissesDatum}, bei dem Jahr, Monat und Tag bekannt sind. Damit ist das Datum
+     * nicht mehr ungewiss und kann mit {@link UngewissesDatum#toLocalDate()} in ein {@link LocalDate}
+     * konvertiert werden.
      *
      * @param jahr
-     *     das Jahr
+     *            das Jahr
      * @param monat
-     *     der Monat
+     *            der Monat
      * @param tag
-     *     der Tag
+     *            der Tag
      * @return ein {@link UngewissesDatum} mit dem Jahr, Monat und Tag gesetzt
      * @throws DateTimeException
-     *     wenn jahr, monat oder tag einen ungültigen Wert haben
+     *             wenn jahr, monat oder tag einen ungültigen Wert haben
      */
     public static UngewissesDatum of(int jahr, int monat, int tag) {
         return new UngewissesDatum(jahr, monat, tag);
@@ -132,21 +132,23 @@ public class UngewissesDatum {
      * Erstellt ein {@link UngewissesDatum} bei dem Anfang und Ende des Zeitraums des Datums übergeben werden.
      *
      * @param vonInklusive
-     *     der Anfang des Zeitraums inklusive, nicht null
+     *            der Anfang des Zeitraums inklusive, nicht null
      * @param bisInklusive
-     *     das Ende des Zeitraums inklusive, nicht null
+     *            das Ende des Zeitraums inklusive, nicht null
      * @return ein {@link UngewissesDatum} mit dem gesetzten Zeitraum
      * @throws DateTimeException
-     *     wenn vonInklusive vor bisInklusive liegt
+     *             wenn vonInklusive vor bisInklusive liegt
      */
     public static UngewissesDatum of(LocalDate vonInklusive, LocalDate bisInklusive) {
         Objects.requireNonNull(vonInklusive);
         Objects.requireNonNull(bisInklusive);
 
         if (bisInklusive.isBefore(vonInklusive)) {
-            throw new DateTimeException("Der Anfang " + vonInklusive + " liegt nach dem Ende " + bisInklusive + ".");
+            throw new DateTimeException(
+                "Der Anfang " + vonInklusive + " liegt nach dem Ende " + bisInklusive + ".");
         } else if (vonInklusive.getYear() != bisInklusive.getYear()) {
-            throw new DateTimeException("Der Anfang " + vonInklusive + " und das Ende " + bisInklusive + " müssen innerhalb des gleiche Jahres sein.");
+            throw new DateTimeException("Der Anfang " + vonInklusive + " und das Ende " + bisInklusive
+                + " müssen innerhalb des gleiche Jahres sein.");
         }
 
         return new UngewissesDatum(vonInklusive, bisInklusive);
@@ -158,17 +160,37 @@ public class UngewissesDatum {
      * Folgende Formate werden unterstützt:
      * <p>
      * <table summary="Unterstütze Formate" border="1">
-     * <tr><th>Fall</th><th>Eingabe mit 0</th><th>Eingabe mit x</th><th>Interner Zeitraum</th></tr>
-     * <tr><td>Tag unbekannt</td><td>00.05.1966</td><td>xx.05.1966</td><td>1.5.1966 – 31.5.1966</td></tr>
-     * <tr><td>Tag und Monat unbekannt</td><td>00.00.1966</td><td>xx.xx.1966</td><td>1.1.1966 – 31.12.1966</td></tr>
-     * <tr><td>Datum komplett unbekannt</td><td>00.00.0000</td><td>xx.xx.xxxx</td><td>nicht gesetzt (null)</td></tr>
+     * <tr>
+     * <th>Fall</th>
+     * <th>Eingabe mit 0</th>
+     * <th>Eingabe mit x</th>
+     * <th>Interner Zeitraum</th>
+     * </tr>
+     * <tr>
+     * <td>Tag unbekannt</td>
+     * <td>00.05.1966</td>
+     * <td>xx.05.1966</td>
+     * <td>1.5.1966 – 31.5.1966</td>
+     * </tr>
+     * <tr>
+     * <td>Tag und Monat unbekannt</td>
+     * <td>00.00.1966</td>
+     * <td>xx.xx.1966</td>
+     * <td>1.1.1966 – 31.12.1966</td>
+     * </tr>
+     * <tr>
+     * <td>Datum komplett unbekannt</td>
+     * <td>00.00.0000</td>
+     * <td>xx.xx.xxxx</td>
+     * <td>nicht gesetzt (null)</td>
+     * </tr>
      * </table>
      *
      * @param text
-     *     der Text, der geparst werden soll
+     *            der Text, der geparst werden soll
      * @return das geparste {@link UngewissesDatum}
      * @throws DateTimeParseException
-     *     wenn der Text nicht geparst werden kann
+     *             wenn der Text nicht geparst werden kann
      */
     public static UngewissesDatum parse(String text) {
         Objects.requireNonNull(text);
@@ -194,7 +216,8 @@ public class UngewissesDatum {
     /**
      * Gibt ein {@link java.util.Optional} zurück, das das Jahr dieses Datums enthält.
      *
-     * @return ein {@link java.util.Optional} mit dem Jahr, wenn dieses gesetzt ist, sonst ein leeres {@link java.util.Optional}
+     * @return ein {@link java.util.Optional} mit dem Jahr, wenn dieses gesetzt ist, sonst ein leeres
+     *         {@link java.util.Optional}
      */
     public Optional<Integer> getJahr() {
         if (anfang != null || nurJahrBekannt()) {
@@ -205,11 +228,12 @@ public class UngewissesDatum {
     }
 
     /**
-     * Gibt ein {@link java.util.Optional} zurück, das den Monat dieses Datums enthält.
-     * Sind der Anfang und das Ende dieses ungewissen Datums nicht im selben Monat, wird ein leeres
-     * {@link java.util.Optional} zurückgegeben.
+     * Gibt ein {@link java.util.Optional} zurück, das den Monat dieses Datums enthält. Sind der Anfang und
+     * das Ende dieses ungewissen Datums nicht im selben Monat, wird ein leeres {@link java.util.Optional}
+     * zurückgegeben.
      *
-     * @return ein {@link java.util.Optional} mit dem Monat, wenn gesetzt und eindeutig, sonst ein leeres {@link java.util.Optional}
+     * @return ein {@link java.util.Optional} mit dem Monat, wenn gesetzt und eindeutig, sonst ein leeres
+     *         {@link java.util.Optional}
      */
     public Optional<Integer> getMonat() {
         if ((anfang != null && anfang.getMonth() == ende.getMonth()) || nurMonatUndJahrBekannt()) {
@@ -220,11 +244,12 @@ public class UngewissesDatum {
     }
 
     /**
-     * Gibt ein {@link java.util.Optional} zurück, das den Tag dieses Datums enthält.
-     * Sind der Anfang und das Ende dieses ungewissen Datums nicht am selben Tag, wird ein leeres
-     * {@link java.util.Optional} zurückgegeben.
+     * Gibt ein {@link java.util.Optional} zurück, das den Tag dieses Datums enthält. Sind der Anfang und das
+     * Ende dieses ungewissen Datums nicht am selben Tag, wird ein leeres {@link java.util.Optional}
+     * zurückgegeben.
      *
-     * @return ein {@link java.util.Optional} mit dem Tag, wenn gesetzt und eindeutig, sonst ein leeres {@link java.util.Optional}
+     * @return ein {@link java.util.Optional} mit dem Tag, wenn gesetzt und eindeutig, sonst ein leeres
+     *         {@link java.util.Optional}
      */
     public Optional<Integer> getTag() {
         if (isUngewiss()) {
@@ -237,7 +262,8 @@ public class UngewissesDatum {
     /**
      * Gibt ein {@link java.util.Optional} zurück, das dieses Datum als {@link LocalDate} enthält.
      *
-     * @return ein {@link java.util.Optional} mit dem {@link LocalDate}, wenn eindeutige Werte gesetzt sind, sonst ein leeres {@link java.util.Optional}
+     * @return ein {@link java.util.Optional} mit dem {@link LocalDate}, wenn eindeutige Werte gesetzt sind,
+     *         sonst ein leeres {@link java.util.Optional}
      */
     public Optional<LocalDate> toLocalDate() {
         if (isUngewiss()) {
@@ -268,9 +294,9 @@ public class UngewissesDatum {
     }
 
     /**
-     * Gibt dieses {@link UngewissesDatum} als String im Format {@code dd.MM.uuuu} zurück.
-     * Unbekannte Werte werde mit {@code xx} dargestellt, z.B. {@code xx.08.2017}. Ist das Datum so nicht darstellbar,
-     * wird es als Zeitraum dargestellt, z.B. {@code 10.08.2017 - 31.08.2017}.
+     * Gibt dieses {@link UngewissesDatum} als String im Format {@code dd.MM.uuuu} zurück. Unbekannte Werte
+     * werde mit {@code xx} dargestellt, z.B. {@code xx.08.2017}. Ist das Datum so nicht darstellbar, wird es
+     * als Zeitraum dargestellt, z.B. {@code 10.08.2017 - 31.08.2017}.
      *
      * @return Repräsentation dieses {@link UngewissesDatum} als {@link String}
      */

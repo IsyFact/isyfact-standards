@@ -81,14 +81,15 @@ public final class IsyLoggerFactory {
     /**
      * Hilfsmethode zum Prüfen, ob die Logger-Implementierung unterstützt wird.
      * 
-     * @param logger der zu überprüfende Logger.
+     * @param logger
+     *            der zu überprüfende Logger.
      * @throws LogKonfigurationFehler
      *             falls die Logger-Implementierung nicht unterstützt wird.
      */
     private static void pruefeLoggerImplementierung(Object logger) {
         if (!(logger instanceof LocationAwareLogger)) {
             throw new LogKonfigurationFehler(FehlerSchluessel.FALSCHES_LOGGING_FRAMEWORK, logger.getClass()
-                    .getName());
+                .getName());
         }
     }
 

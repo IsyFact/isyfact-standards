@@ -34,8 +34,7 @@ public class PollingClusterKonfigurationException extends PollingTechnicalRuntim
      * 
      * @param ausnahmeID
      *            Die Ausnahme-ID. Der Schlüssel, welcher verwendet wird, um einen Nachrichtentext, welcher
-     *            als Fehler-Nachricht für die Exception verwendet wird aus einem ResourceBundle zu
-     *            laden.
+     *            als Fehler-Nachricht für die Exception verwendet wird aus einem ResourceBundle zu laden.
      * @param parameter
      *            Die Parameter. Parameter für die möglichen Variablen in einer Fehler-Nachricht.
      *            <tt>null</tt> als Wert ist erlaubt und bedeutet, dass kein Variablen zu ersetzen sind.
@@ -43,7 +42,7 @@ public class PollingClusterKonfigurationException extends PollingTechnicalRuntim
     public PollingClusterKonfigurationException(String ausnahmeID, String... parameter) {
         super(ausnahmeID, parameter);
     }
-    
+
     /**
      * Erstellt eine neue technische <i>unchecked</i> Exception mit einer Ausnahme-ID für den Fehlertext,
      * einem Array mit Werten für die Variablenersetzung im Fehlertext und mit dem übergebenen Grund.
@@ -67,6 +66,3 @@ public class PollingClusterKonfigurationException extends PollingTechnicalRuntim
         super(ausnahmeID, throwable, parameter);
     }
 }
-
-
-

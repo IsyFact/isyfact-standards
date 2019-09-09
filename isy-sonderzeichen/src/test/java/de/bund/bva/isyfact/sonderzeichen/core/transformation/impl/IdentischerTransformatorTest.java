@@ -138,7 +138,8 @@ public class IdentischerTransformatorTest {
         String zeichenkette = "Dies ist ein Text zum trimmen    ";
 
         transformator.initialisiere(null);
-        assertNotEquals(transformator.transformiere(zeichenkette),transformator.transformiereOhneTrim(zeichenkette));
+        assertNotEquals(transformator.transformiere(zeichenkette),
+            transformator.transformiereOhneTrim(zeichenkette));
     }
 
     @Test
@@ -147,7 +148,6 @@ public class IdentischerTransformatorTest {
         assertNotEquals("K", transformator.transformiere(zeichenkette));
         transformator.initialisiere("/tabellen/zusaetzliche.transform");
         assertEquals("K", transformator.transformiere(zeichenkette));
-
 
     }
 }

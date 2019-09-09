@@ -40,10 +40,12 @@ public class BeanGroessePruefer {
     /**
      * Prüft die Größe eines Log-Parameters gegen einen Maximalwert.
      *
-     * @param bean        Log-Parameter
-     * @param maximalSize maximal erlaubte Größe (in Byte)
+     * @param bean
+     *            Log-Parameter
+     * @param maximalSize
+     *            maximal erlaubte Größe (in Byte)
      * @return {@code true} falls der Parameter innerhalb der erlaubten Größe liegt oder kein Maximalwert
-     * definiert ist, {@code false} falls der Parameter zu groß ist.
+     *         definiert ist, {@code false} falls der Parameter zu groß ist.
      */
     public boolean pruefeGroesse(Object bean, Long maximalSize) {
         return maximalSize == null || maximalSize <= 0 || ermittleGroesseInBytes(bean, maximalSize);
@@ -53,10 +55,12 @@ public class BeanGroessePruefer {
      * Ermittelt die Größe eines Log-Parameters in Byte. Bricht ab, wenn die Größe des Beans die Maximalgröße
      * übersteigt.
      *
-     * @param bean           Log-Parameter
-     * @param maximalGroesse maximal erlaubte Größe (in Byte)
+     * @param bean
+     *            Log-Parameter
+     * @param maximalGroesse
+     *            maximal erlaubte Größe (in Byte)
      * @return {@code true} falls der Parameter innerhalb der erlaubten Größe liegt, {@code false} falls der
-     * Parameter zu groß ist.
+     *         Parameter zu groß ist.
      */
     private boolean ermittleGroesseInBytes(Object bean, Long maximalGroesse) {
         Set<Object> bereitsGezaehlteBeans = Collections.newSetFromMap(new IdentityHashMap<>());
@@ -117,7 +121,8 @@ public class BeanGroessePruefer {
      * Ermittelt alle Attribute einer Instanz, die nicht statisch sind. Schaut dazu auch in die Superklassen.
      * Setzt die Felder alle "accessible", so dass via Reflection darauf zugegriffen werden kann.
      *
-     * @param instanz Instanz
+     * @param instanz
+     *            Instanz
      * @return eine Liste aller nicht-statischen Attribute.
      */
     private List<Field> ermittleAlleInstanzAttribute(Object instanz) {

@@ -26,8 +26,8 @@ import de.bund.bva.isyfact.exception.BaseException;
 import de.bund.bva.isyfact.exception.service.ToException;
 
 /**
- * Definiert eine Abbildung von einer {@link BaseException} des Anwendungskerns auf eine
- * {@link ToException} der Service-Schnittstelle.
+ * Definiert eine Abbildung von einer {@link BaseException} des Anwendungskerns auf eine {@link ToException}
+ * der Service-Schnittstelle.
  * 
  */
 @Target(ElementType.LOCAL_VARIABLE)

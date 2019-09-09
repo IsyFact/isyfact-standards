@@ -17,8 +17,7 @@
 package de.bund.bva.isyfact.polling.common.exception;
 
 /**
- * Diese Exception signalisiert einen Technischen Fehler bei der Überprüfung des 
- * Polling-Status.
+ * Diese Exception signalisiert einen Technischen Fehler bei der Überprüfung des Polling-Status.
  * 
  */
 public class PollingUeberpruefungTechnicalException extends PollingTechnicalRuntimeException {
@@ -49,6 +48,3 @@ public class PollingUeberpruefungTechnicalException extends PollingTechnicalRunt
         super(ausnahmeID, throwable, parameter);
     }
 }
-
-
-

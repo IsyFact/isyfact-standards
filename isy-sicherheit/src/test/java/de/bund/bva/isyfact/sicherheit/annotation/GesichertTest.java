@@ -30,7 +30,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SicherheitTestConfig.class, webEnvironment = SpringBootTest.WebEnvironment.NONE,
-    properties = {"isy.logging.anwendung.name=test", "isy.logging.anwendung.typ=test", "isy.logging.anwendung.version=test"})
+    properties = { "isy.logging.anwendung.name=test", "isy.logging.anwendung.typ=test",
+        "isy.logging.anwendung.version=test" })
 public class GesichertTest {
 
     @Autowired

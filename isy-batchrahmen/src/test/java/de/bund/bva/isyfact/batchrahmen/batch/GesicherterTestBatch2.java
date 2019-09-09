@@ -44,8 +44,6 @@ public class GesicherterTestBatch2 extends BasicTestBatch {
     /** Konfigurationsschlüssel für das verwendete Behördenkennzeichen. */
     public static final String BATCH_BHKNZ = "batch.bhknz";
 
-
-
     /**
      * Diese Methode wird gesichert. {@inheritDoc}
      */
@@ -60,8 +58,8 @@ public class GesicherterTestBatch2 extends BasicTestBatch {
     public int initialisieren(BatchKonfiguration konfiguration, long satzNummer, String dbKey,
         BatchStartTyp startTyp, Date datumLetzterErfolg, BatchErgebnisProtokoll protokoll)
         throws BatchAusfuehrungsException {
-        return super
-            .initialisieren(konfiguration, satzNummer, dbKey, startTyp, datumLetzterErfolg, protokoll);
+        return super.initialisieren(konfiguration, satzNummer, dbKey, startTyp, datumLetzterErfolg,
+            protokoll);
     }
 
     /**
@@ -87,10 +85,9 @@ public class GesicherterTestBatch2 extends BasicTestBatch {
     protected String getBatchBenutzerBhknz(BatchKonfiguration konfiguration) {
         return konfiguration.getAsString(BATCH_BHKNZ);
     }
-    
+
     /**
-     * Dieser Batch verwendet keine Sicherung.
-     * {@inheritDoc}
+     * Dieser Batch verwendet keine Sicherung. {@inheritDoc}
      */
     public AuthenticationCredentials getAuthenticationCredentials(BatchKonfiguration konfiguration) {
         AuthenticationCredentials authentifizierung = new AuthenticationCredentials();

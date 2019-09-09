@@ -45,11 +45,12 @@ public class ExceptionTest {
 
         try {
             throw new LogKonfigurationFehler(FehlerSchluessel.FALSCHES_LOGGING_FRAMEWORK, this.getClass()
-                    .getName());
+                .getName());
         } catch (LogKonfigurationFehler e) {
             Assert.assertEquals(
-                    "Der Logger der bereitgestetllten SLF4J-Implementierung implementiert nicht das benötigte Inferface LocationAwareLogger. Bereitgestellt wurde: "
-                            + this.getClass().getName(), e.getFehlertext());
+                "Der Logger der bereitgestetllten SLF4J-Implementierung implementiert nicht das benötigte Inferface LocationAwareLogger. Bereitgestellt wurde: "
+                    + this.getClass().getName(),
+                e.getFehlertext());
         }
 
     }

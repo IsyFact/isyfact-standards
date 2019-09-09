@@ -27,7 +27,8 @@ import de.bund.bva.isyfact.batchrahmen.batch.rahmen.VerarbeitungsErgebnis;
 import de.bund.bva.isyfact.sicherheit.annotation.Gesichert;
 
 /**
- * Verhält sich wie der BasicTest-Batch - jedoch wird eine Autorisierung vor der Verarbeitung eines Satzes durchgeführt.
+ * Verhält sich wie der BasicTest-Batch - jedoch wird eine Autorisierung vor der Verarbeitung eines Satzes
+ * durchgeführt.
  * <p>
  * Die Daten, die zur Autorisierung verwendet werden, können in der Konfiguration hinterlegt werden.
  * 
@@ -62,8 +63,8 @@ public class GesicherterTestBatch extends BasicTestBatch {
         BatchStartTyp startTyp, Date datumLetzterErfolg, BatchErgebnisProtokoll protokoll)
         throws BatchAusfuehrungsException {
         this.konfiguration = konfiguration;
-        return super
-            .initialisieren(konfiguration, satzNummer, dbKey, startTyp, datumLetzterErfolg, protokoll);
+        return super.initialisieren(konfiguration, satzNummer, dbKey, startTyp, datumLetzterErfolg,
+            protokoll);
     }
 
     /**
@@ -89,10 +90,9 @@ public class GesicherterTestBatch extends BasicTestBatch {
     protected String getBatchBenutzerBhknz(BatchKonfiguration konfiguration) {
         return konfiguration.getAsString(BATCH_BHKNZ);
     }
-    
+
     /**
-     * Dieser Batch verwendet keine Sicherung.
-     * {@inheritDoc}
+     * Dieser Batch verwendet keine Sicherung. {@inheritDoc}
      */
     @Override
     public AuthenticationCredentials getAuthenticationCredentials(BatchKonfiguration konfiguration) {

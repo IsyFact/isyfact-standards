@@ -262,9 +262,10 @@ public class PollingVerwalterImpl implements PollingVerwalter, InitializingBean 
             }
 
             // Polling-Cluster erzeugen
-            PollingCluster pollingCluster = new PollingCluster(isyPollingProperties.getJmx().getDomain(), clusterId, clusterName,
-                cluster.getWartezeit(),
-                jmxParameterListe);
+            PollingCluster pollingCluster =
+                new PollingCluster(isyPollingProperties.getJmx().getDomain(), clusterId, clusterName,
+                    cluster.getWartezeit(),
+                    jmxParameterListe);
             clusterMap.put(clusterId, pollingCluster);
         });
 
@@ -294,7 +295,8 @@ public class PollingVerwalterImpl implements PollingVerwalter, InitializingBean 
 
         modusStandalone = false;
         isyPollingProperties.getJmx().getVerbindungen().forEach((id, verbindung) -> {
-            JMXConnectionParameter jmxParameter = new JMXConnectionParameter(id, verbindung.getHost(), String.valueOf(verbindung.getPort()), verbindung.getBenutzer(), verbindung.getPasswort());
+            JMXConnectionParameter jmxParameter = new JMXConnectionParameter(id, verbindung.getHost(),
+                String.valueOf(verbindung.getPort()), verbindung.getBenutzer(), verbindung.getPasswort());
 
             jmxConnectionMap.put(id, jmxParameter);
         });

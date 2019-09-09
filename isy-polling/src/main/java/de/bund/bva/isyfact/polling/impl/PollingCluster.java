@@ -16,7 +16,6 @@
  */
 package de.bund.bva.isyfact.polling.impl;
 
-
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +23,8 @@ import java.util.List;
 import de.bund.bva.isyfact.datetime.util.DateTimeUtil;
 
 /**
- * Ein Polling-Cluster besteht aus Menge von Servern, die jeweils die gleiche Nachrichtenquelle abfragen
- * und wird durch eine innerhalb der Anwendung eindeutige Id identifiziert.
- * <br>
+ * Ein Polling-Cluster besteht aus Menge von Servern, die jeweils die gleiche Nachrichtenquelle abfragen und
+ * wird durch eine innerhalb der Anwendung eindeutige Id identifiziert. <br>
  * Diese Klasse enthält die beschreibenden Attribute eines Polling-Clusters.
  *
  */
@@ -42,8 +40,8 @@ class PollingCluster {
     private String clusterName;
 
     /**
-     * Liste der der Verbindungsangaben zu den JMX-Services der Anwendungen,
-     * die außer der eigenen Anwendung noch zu diesem Polling-Cluster gehören.
+     * Liste der der Verbindungsangaben zu den JMX-Services der Anwendungen, die außer der eigenen Anwendung
+     * noch zu diesem Polling-Cluster gehören.
      */
     private List<JMXConnectionParameter> jmxConnectionParameterListe = new ArrayList<>(5);
 
@@ -53,20 +51,19 @@ class PollingCluster {
     /** Zeitstempel der letzten durchgeführten Polling-Aktivität. */
     private long zeitstempel;
 
-
     /**
      * Erzeugt einen neuen Polling-Cluster.
      *
      * @param jmxDomain
-     *          Domain-Name für die JMX-MBeans.
+     *            Domain-Name für die JMX-MBeans.
      * @param clusterId
-     *          ID des Polling-Clusters.
+     *            ID des Polling-Clusters.
      * @param clusterName
-     *          Name des Clusters. Dieser Name wird zur Bildung der MBean-Identifikation verwendet.
+     *            Name des Clusters. Dieser Name wird zur Bildung der MBean-Identifikation verwendet.
      * @param wartezeit
-     *          Wartezeit bis zur Übernahme der Polling-Aktivität in Sekunden.
+     *            Wartezeit bis zur Übernahme der Polling-Aktivität in Sekunden.
      * @param jmxConnectionParameterListe
-     *          Liste mit Verbindungsangaben.
+     *            Liste mit Verbindungsangaben.
      */
     PollingCluster(String jmxDomain, String clusterId, String clusterName, int wartezeit,
         List<JMXConnectionParameter> jmxConnectionParameterListe) {
@@ -95,8 +92,7 @@ class PollingCluster {
     }
 
     /**
-     * Liefert die Id des Polling-Clusters.
-     * Unter dieser Id ist er auch im Polling-Verwalter registriert.
+     * Liefert die Id des Polling-Clusters. Unter dieser Id ist er auch im Polling-Verwalter registriert.
      *
      * @return Id des Polling-Clusters.
      */
@@ -122,8 +118,8 @@ class PollingCluster {
     }
 
     /**
-     * Liefert die Liste der Verbindungsangaben zu den JMX-Services der Anwendungen,
-     * die außer der eigenen Anwendung noch zu diesem Polling-Cluster gehören.
+     * Liefert die Liste der Verbindungsangaben zu den JMX-Services der Anwendungen, die außer der eigenen
+     * Anwendung noch zu diesem Polling-Cluster gehören.
      *
      * @return Array mit JMX-Verbindungsangaben.
      */
@@ -131,7 +127,8 @@ class PollingCluster {
         if (jmxConnectionParameterListe.size() == 0) {
             return new JMXConnectionParameter[0];
         }
-        return jmxConnectionParameterListe.toArray(new JMXConnectionParameter[jmxConnectionParameterListe.size()]);
+        return jmxConnectionParameterListe
+            .toArray(new JMXConnectionParameter[jmxConnectionParameterListe.size()]);
     }
 
     /**

@@ -22,11 +22,10 @@ import de.bund.bva.isyfact.exception.BaseException;
 import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
 
 /**
- * Diese Exception wird von Implementierungen des Interfaces
- * {@link BatchAusfuehrungsBean} geworfen, wenn bei der Verarbeitung ein Fehler
- * auftritt. Optional kann ein {@link BatchReturnCode} übergeben werden. Dieser
- * wird vom Batchrahmen ausgewertet. Falls kein {@link BatchReturnCode}
- * angegeben wird, bestimmt der Batchrahmen den ReturnCode.
+ * Diese Exception wird von Implementierungen des Interfaces {@link BatchAusfuehrungsBean} geworfen, wenn bei
+ * der Verarbeitung ein Fehler auftritt. Optional kann ein {@link BatchReturnCode} übergeben werden. Dieser
+ * wird vom Batchrahmen ausgewertet. Falls kein {@link BatchReturnCode} angegeben wird, bestimmt der
+ * Batchrahmen den ReturnCode.
  * 
  * 
  */
@@ -34,8 +33,8 @@ public class BatchAusfuehrungsException extends Exception {
     /**
      * AusnahmeId, wird für Ergbenisprotokoll verwendet.
      */
-    private String ausnahmeId;    
-    
+    private String ausnahmeId;
+
     /**
      * ReturnCode, mit dem Batch beendet werden soll.
      */
@@ -66,7 +65,7 @@ public class BatchAusfuehrungsException extends Exception {
      */
     public BatchAusfuehrungsException(String ausnahmeId, Throwable cause) {
         super(cause);
-        this.ausnahmeId = ausnahmeId;        
+        this.ausnahmeId = ausnahmeId;
     }
 
     /**
@@ -85,8 +84,8 @@ public class BatchAusfuehrungsException extends Exception {
     }
 
     /**
-     * Erzeuge {@link BatchAusfuehrungsException} zur einer
-     * {@link BaseException}. AusnahmeId, Message und Cause werden übernommen.
+     * Erzeuge {@link BatchAusfuehrungsException} zur einer {@link BaseException}. AusnahmeId, Message und
+     * Cause werden übernommen.
      * 
      * @param cause
      *            Ursprünglicher Fehler
@@ -97,9 +96,8 @@ public class BatchAusfuehrungsException extends Exception {
     }
 
     /**
-     * Erzeuge {@link BatchAusfuehrungsException} zur einer
-     * {@link TechnicalRuntimeException}. AusnahmeId, Message und Cause
-     * werden übernommen.
+     * Erzeuge {@link BatchAusfuehrungsException} zur einer {@link TechnicalRuntimeException}. AusnahmeId,
+     * Message und Cause werden übernommen.
      * 
      * @param cause
      *            Ursprünglicher Fehler
@@ -136,7 +134,7 @@ public class BatchAusfuehrungsException extends Exception {
      */
     public BatchAusfuehrungsException(String ausnahmeId, Throwable cause, BatchReturnCode returnCode) {
         super(cause);
-        this.ausnahmeId = ausnahmeId;        
+        this.ausnahmeId = ausnahmeId;
         this.returnCode = returnCode;
     }
 
@@ -153,15 +151,15 @@ public class BatchAusfuehrungsException extends Exception {
      *            mit dem der Batch beendet werden soll.
      */
     public BatchAusfuehrungsException(String ausnahmeId, String msg, Throwable cause,
-            BatchReturnCode returnCode) {
+        BatchReturnCode returnCode) {
         super(msg, cause);
         this.ausnahmeId = ausnahmeId;
         this.returnCode = returnCode;
     }
 
     /**
-     * Erzeuge {@link BatchAusfuehrungsException} zur einer
-     * {@link BaseException}. AusnahmeId, Message und Cause werden übernommen.
+     * Erzeuge {@link BatchAusfuehrungsException} zur einer {@link BaseException}. AusnahmeId, Message und
+     * Cause werden übernommen.
      * 
      * @param cause
      *            Ursprünglicher Fehler
@@ -175,9 +173,8 @@ public class BatchAusfuehrungsException extends Exception {
     }
 
     /**
-     * Erzeuge {@link BatchAusfuehrungsException} zur einer
-     * {@link TechnicalRuntimeException}. AusnahmeId, Message und Cause
-     * werden übernommen.
+     * Erzeuge {@link BatchAusfuehrungsException} zur einer {@link TechnicalRuntimeException}. AusnahmeId,
+     * Message und Cause werden übernommen.
      * 
      * @param cause
      *            Ursprünglicher Fehler
@@ -186,7 +183,7 @@ public class BatchAusfuehrungsException extends Exception {
      */
     public BatchAusfuehrungsException(TechnicalRuntimeException cause, BatchReturnCode returnCode) {
         super(cause.getMessage(), cause);
-        this.ausnahmeId = cause.getAusnahmeId();        
+        this.ausnahmeId = cause.getAusnahmeId();
         this.returnCode = returnCode;
     }
 
@@ -197,13 +194,13 @@ public class BatchAusfuehrungsException extends Exception {
     public BatchReturnCode getReturnCode() {
         return returnCode;
     }
-    
+
     /**
      * Liefert die ausnahmeId.
      * @return Die ausnahmeId
      */
     public String getAusnahmeId() {
         return ausnahmeId;
-    }    
+    }
 
 }

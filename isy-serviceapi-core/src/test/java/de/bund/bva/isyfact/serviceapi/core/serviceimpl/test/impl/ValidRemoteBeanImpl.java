@@ -22,23 +22,23 @@ import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.ValidRemoteBean;
 
 public class ValidRemoteBeanImpl implements ValidRemoteBean {
 
-	@Override
-	public void eineMethode() throws TechnicalToException {
+    @Override
+    public void eineMethode() throws TechnicalToException {
 
-	}
+    }
 
-	@Override
-	public void eineAndereMethode() throws TechnicalToException {
+    @Override
+    public void eineAndereMethode() throws TechnicalToException {
 
-	}
+    }
 
-	@Override
-	public void methodeMitException() throws TechnicalException, TechnicalToException {
+    @Override
+    public void methodeMitException() throws TechnicalException, TechnicalToException {
 
-	}
+    }
 
-	@Override
-	public void methodeMitParametern(Integer zahl, String zeichenkette) throws TechnicalToException {
+    @Override
+    public void methodeMitParametern(Integer zahl, String zeichenkette) throws TechnicalToException {
 
-	}
+    }
 }

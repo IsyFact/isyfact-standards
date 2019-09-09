@@ -16,7 +16,6 @@
  */
 package de.bund.bva.isyfact.polling.common.exception;
 
-
 import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -24,8 +23,8 @@ import java.util.ResourceBundle;
 import de.bund.bva.isyfact.exception.FehlertextProvider;
 
 /**
- * Diese Klasse stellt Methoden zum Auslesen von Fehlertexten auf Basis von AusnahmeIDs und
- * Parametern, zur Verfügung.
+ * Diese Klasse stellt Methoden zum Auslesen von Fehlertexten auf Basis von AusnahmeIDs und Parametern, zur
+ * Verfügung.
  * 
  */
 public class FehlertextProviderImpl implements FehlertextProvider {

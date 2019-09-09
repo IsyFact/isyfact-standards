@@ -80,11 +80,10 @@ public class TestReloadablePropertyKonfiguration {
         assertEquals(100.5, konf.getAsDouble("parameter.double", 0.0), 0.0);
 
         assertEquals("", konf.getAsString("parameter.defined", null));
-        //testet ob die AsString Methode trimmt
+        // testet ob die AsString Methode trimmt
         assertEquals("Hans", konf.getAsString("parameter.rawstring", null));
 
         assertEquals("Hans ", konf.getAsRawString("parameter.rawstring", null));
-
 
         assertTrue(konf.getAsBoolean("parameter", true));
         assertEquals(0, konf.getAsInteger("parameter", 0));
@@ -153,7 +152,8 @@ public class TestReloadablePropertyKonfiguration {
 
     @Test
     public void testAddKonfigurationChangeListener() {
-        KonfigurationChangeListener listener = changedKeys -> {};
+        KonfigurationChangeListener listener = changedKeys -> {
+        };
 
         konf.addKonfigurationChangeListener(listener);
         assertTrue(konf.hasKonfigurationChangeListener(listener));
@@ -187,7 +187,8 @@ public class TestReloadablePropertyKonfiguration {
         fw.write(CONTENT + "World");
         fw.write("\nparameter.hello = World");
         fw.close();
-        other.addKonfigurationChangeListener(changedKeys -> {});
+        other.addKonfigurationChangeListener(changedKeys -> {
+        });
         Thread.sleep(1000);
         assertTrue(other.checkAndUpdate());
         assertTrue(f.delete());

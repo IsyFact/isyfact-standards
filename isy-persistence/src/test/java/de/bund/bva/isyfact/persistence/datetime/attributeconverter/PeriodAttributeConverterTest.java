@@ -82,7 +82,8 @@ public class PeriodAttributeConverterTest {
     }
 
     @Test
-    @ExpectedDatabase(value = "testPeriodExpectedWriteNull.xml", assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
+    @ExpectedDatabase(value = "testPeriodExpectedWriteNull.xml",
+        assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
     public void convertToDatabaseColumnNull() throws Exception {
         TestPeriodEntity testEntity = new TestPeriodEntity();
         testEntity.setId(2);
@@ -99,7 +100,8 @@ public class PeriodAttributeConverterTest {
     }
 
     @Test
-    @ExpectedDatabase(value = "testPeriodExpectedWritePeriod.xml", assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
+    @ExpectedDatabase(value = "testPeriodExpectedWritePeriod.xml",
+        assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
     public void convertToDatabaseColumn() throws Exception {
         TestPeriodEntity testEntity = new TestPeriodEntity();
         testEntity.setId(2);

@@ -56,7 +56,7 @@ public class ApplicationListenerTest extends AbstractLogTest {
 
         @Bean
         LogApplicationListener statusLogger() {
-            return  new LogApplicationListener("RegXYZ", "REG", "1.1.1");
+            return new LogApplicationListener("RegXYZ", "REG", "1.1.1");
         }
     }
 }

@@ -15,7 +15,6 @@ import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.helper.DebugAufrufKonte
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
 public class IsyServiceApiCoreAutoConfigurationTest {
 
     private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
@@ -35,11 +34,11 @@ public class IsyServiceApiCoreAutoConfigurationTest {
     public void isyServiceApiCoreAutoConfigurationWithAufrufKontext() {
         contextRunner
             .withConfiguration(UserConfigurations.of(AufrufKontextTestConfig.class)).run(context -> {
-            assertThat(context).hasSingleBean(StelltLoggingKontextBereitInterceptor.class);
-            assertThat(context).hasBean("stelltLoggingKontextBereitAdvisor");
-            assertThat(context).hasSingleBean(StelltAufrufKontextBereitInterceptor.class);
-            assertThat(context).hasBean("stelltAufrufKontextBereitAdvisor");
-        });
+                assertThat(context).hasSingleBean(StelltLoggingKontextBereitInterceptor.class);
+                assertThat(context).hasBean("stelltLoggingKontextBereitAdvisor");
+                assertThat(context).hasSingleBean(StelltAufrufKontextBereitInterceptor.class);
+                assertThat(context).hasBean("stelltAufrufKontextBereitAdvisor");
+            });
     }
 
     @Configuration

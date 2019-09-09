@@ -18,7 +18,7 @@ public class TestTaskGesichertConfig {
 
     @Bean
     public GesichertTask gesichertTask1(@Qualifier("taskMonitor1") TaskMonitor monitor) {
-         return new GesichertTask(monitor);
+        return new GesichertTask(monitor);
     }
 
     @Bean
@@ -37,7 +37,8 @@ public class TestTaskGesichertConfig {
     }
 
     @Bean
-    public MBeanExporter mBeanExporter(@Qualifier("taskMonitor1") TaskMonitor monitor1, @Qualifier("taskMonitor2") TaskMonitor monitor2) {
+    public MBeanExporter mBeanExporter(@Qualifier("taskMonitor1") TaskMonitor monitor1,
+        @Qualifier("taskMonitor2") TaskMonitor monitor2) {
         MBeanExporter mBeanExporter = new MBeanExporter();
         mBeanExporter.setRegistrationPolicy(RegistrationPolicy.REPLACE_EXISTING);
         mBeanExporter.setAssembler(new MetadataMBeanInfoAssembler(new AnnotationJmxAttributeSource()));

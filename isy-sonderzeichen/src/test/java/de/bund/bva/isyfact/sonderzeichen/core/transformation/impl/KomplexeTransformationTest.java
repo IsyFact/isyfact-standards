@@ -24,27 +24,28 @@ import org.junit.Test;
 import de.bund.bva.isyfact.sonderzeichen.core.transformation.Transformator;
 
 public class KomplexeTransformationTest {
-	
-	Transformator transformator;
-	KomplexeTransformation komplexeTransformation;
 
-	@Before
-	public void setUp(){
-		transformator = new IdentischerTransformator();
-		komplexeTransformation = new KomplexeTransformation(transformator);
-	}
-	
-	@Test
-	public void testAddErsetzung() {
-		komplexeTransformation.addErsetzung("Wagner", "Jens");
-		assertEquals("Jens", komplexeTransformation.getErsetzung("Wagner", 0));
+    Transformator transformator;
 
-	}
+    KomplexeTransformation komplexeTransformation;
 
-	@Test
-	public void testAddErsetzungMitRegeln() {
-		String[] regeln = new String[] { "1", "2" };
-		komplexeTransformation.addErsetzung("alt", "neu", regeln);
-		assertEquals("neu", komplexeTransformation.getErsetzung("alt", 0));
-	}
+    @Before
+    public void setUp() {
+        transformator = new IdentischerTransformator();
+        komplexeTransformation = new KomplexeTransformation(transformator);
+    }
+
+    @Test
+    public void testAddErsetzung() {
+        komplexeTransformation.addErsetzung("Wagner", "Jens");
+        assertEquals("Jens", komplexeTransformation.getErsetzung("Wagner", 0));
+
+    }
+
+    @Test
+    public void testAddErsetzungMitRegeln() {
+        String[] regeln = new String[] { "1", "2" };
+        komplexeTransformation.addErsetzung("alt", "neu", regeln);
+        assertEquals("neu", komplexeTransformation.getErsetzung("alt", 0));
+    }
 }

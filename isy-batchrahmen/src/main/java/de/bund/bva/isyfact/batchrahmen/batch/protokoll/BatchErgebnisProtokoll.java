@@ -20,7 +20,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-
 import de.bund.bva.isyfact.batchrahmen.batch.konfiguration.BatchKonfiguration;
 import de.bund.bva.isyfact.batchrahmen.core.exception.BatchrahmenProtokollException;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchReturnCode;
@@ -30,7 +29,7 @@ import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchReturnCode;
  * Elemente gespeichert:
  * <ul>
  * <li>Der ReturnCode des Batchs (siehe {@link #setReturnCode(BatchReturnCode)}</li>
- * <li>Meldungen, die während der Batch-Verabreitung erzeugt werden 
+ * <li>Meldungen, die während der Batch-Verabreitung erzeugt werden
  * ({@link #ergaenzeMeldung(VerarbeitungsMeldung)}</li>
  * <li>Statistiken</li>
  * </ul>
@@ -65,7 +64,7 @@ public interface BatchErgebnisProtokoll {
      * @return Liefert den Statistikeintrag mit der Id <code>id</code>
      */
     public StatistikEintrag getStatistikEintrag(String id);
-    
+
     /**
      * Liefert eine sortierte Liste der Statistikeinträge.
      * @return Liste mitte allen Statistikeinträgen, sortiert nach Reihenfolge.
@@ -98,81 +97,87 @@ public interface BatchErgebnisProtokoll {
      * @return <code>true</code> oder <code>false</code>.
      */
     public boolean enthaeltFehlerNachrichten();
-    
+
     /**
      * Protokolliert den Batchstart.
      * 
-     * @param konfiguration Die Konfiguration des Batches.
-     * @param args Die übergebenen Batchparameter
+     * @param konfiguration
+     *            Die Konfiguration des Batches.
+     * @param args
+     *            Die übergebenen Batchparameter
      */
     public void batchStart(BatchKonfiguration konfiguration, String[] args);
-    
+
     /**
      * Protokolliert das Batchende.
      */
     public void batchEnde();
-    
-    
+
     /**
      * Setzt die BatchID.
-     * @param batchId Batchid des Batches
+     * @param batchId
+     *            Batchid des Batches
      */
     public void setBatchId(String batchId);
-    
+
     /**
      * Liefert das Feld 'batchId' zurück.
      * @return Wert von batchId
      */
     public String getBatchId();
-    
+
     /**
      * Setzt das Feld 'endeDatum'.
-     * @param endeDatum Neuer Wert für endeDatum
+     * @param endeDatum
+     *            Neuer Wert für endeDatum
      */
-    public void setEndeDatum(Date endeDatum);   
-    
+    public void setEndeDatum(Date endeDatum);
+
     /**
      * Liefert das Feld 'endeDatum' zurück.
      * @return Wert von endeDatum
      */
-    public Date getEndeDatum();   
-    
+    public Date getEndeDatum();
+
     /**
      * Setzt das Feld 'startDatum'.
-     * @param startDatum Neuer Wert für startDatum
+     * @param startDatum
+     *            Neuer Wert für startDatum
      */
     public void setStartDatum(Date startDatum);
-    
+
     /**
      * Liefert das Feld 'startDatum' zurück.
      * @return Wert von startDatum
      */
     public Date getStartDatum();
-    
+
     /**
      * Liefert das Feld 'parameter' zurück.
      * @return Wert von parameter
      */
     public String[] getParameter();
-    
+
     /**
      * Setzt das Feld 'parameter'.
-     * @param parameter Neuer Wert für parameter
+     * @param parameter
+     *            Neuer Wert für parameter
      */
-    public void setParameter(String[] parameter);  
-    
+    public void setParameter(String[] parameter);
+
     /**
      * Setzt das Feld batchabgebrochen.
-     * @param wert Neuer Wert
+     * @param wert
+     *            Neuer Wert
      */
     public void setBatchAbgebrochen(boolean wert);
-    
+
     /**
      * Setzt das Feld batchabgebrochen.
      * @return Wert von batchabgebrochen
      */
     public boolean isBatchAbgebrochen();
-    
+
     /**
      * Liefert das Feld 'maximaleLaufzeitUeberschritten' zurück.
      * @return Wert von maximaleLaufzeitUeberschritten
@@ -181,7 +186,8 @@ public interface BatchErgebnisProtokoll {
 
     /**
      * Setzt das Feld 'maximaleLaufzeitUeberschritten'.
-     * @param maximaleLaufzeitUeberschritten Neuer Wert für maximaleLaufzeitUeberschritten
+     * @param maximaleLaufzeitUeberschritten
+     *            Neuer Wert für maximaleLaufzeitUeberschritten
      */
     public void setMaximaleLaufzeitUeberschritten(boolean maximaleLaufzeitUeberschritten);
 }

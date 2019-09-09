@@ -21,8 +21,7 @@ package de.bund.bva.isyfact.exception.common;
  * sofern vorhanden.
  * <p>
  * <b>Anmerkung:</b> Die Methoden zur Erstellung von Fehlertexten in dieser Klasse, behandeln
- * {@link Throwable}. Dies ist notwendig, da diese Methoden in Konstruktoren für Exceptions aufgerufen
- * werden.
+ * {@link Throwable}. Dies ist notwendig, da diese Methoden in Konstruktoren für Exceptions aufgerufen werden.
  * 
  */
 public class FehlertextUtil {
@@ -40,9 +39,8 @@ public class FehlertextUtil {
      * Erstellt aus einer AusnahmeID einen Fehlertext inklusive AusnahmeID nach dem Schema <i>#AusnahmeID
      * Fehlertext #UUID</i>.
      * @param ausnahmeID
-     *            Die Ausnahme-ID. Der Schlüssel, welcher verwendet wird, um einen Fehlertext, welcher
-     *            als Fehler-Nachricht für die Exception verwendet wird, aus einem ResourceBundle zu
-     *            laden.
+     *            Die Ausnahme-ID. Der Schlüssel, welcher verwendet wird, um einen Fehlertext, welcher als
+     *            Fehler-Nachricht für die Exception verwendet wird, aus einem ResourceBundle zu laden.
      * @param fehlertext
      *            Der original Fehlertext.
      * @param uniqueId

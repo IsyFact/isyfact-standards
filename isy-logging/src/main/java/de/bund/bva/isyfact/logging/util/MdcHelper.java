@@ -140,12 +140,12 @@ public final class MdcHelper {
             MDC.put(MDC_FACHDATEN, LoggingKonstanten.FALSE);
         }
     }
-    
+
     /**
      * Hilfsmethode zum Entfernen des Markers "fachdaten" im MDC.
      */
     public static void entferneMarkerFachdaten() {
         MDC.remove(MDC_FACHDATEN);
     }
-    
+
 }

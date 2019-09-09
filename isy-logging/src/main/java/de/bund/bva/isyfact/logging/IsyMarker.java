@@ -36,7 +36,8 @@ public interface IsyMarker extends Marker {
 
     /**
      * Isy-Logging verwendet einen "Wurzel-Marker" in dem weitere Marker gesammelt werden selbst aber keine
-     * relevanten Log-Informationen (Name/Wert) enthält. Dieses Flag gibt an, ob es sich um einen Root-Marker handelt.
+     * relevanten Log-Informationen (Name/Wert) enthält. Dieses Flag gibt an, ob es sich um einen Root-Marker
+     * handelt.
      * 
      * @return <code>true</code> falls es sich um einen Root-Marker handelt, <code>false</code> sonst.
      */
@@ -48,11 +49,12 @@ public interface IsyMarker extends Marker {
      * @return der Wert des Markers.
      */
     public String getValue();
-    
+
     /**
      * Ergänze mehrere Referenzen zu anderen Markern.
      * 
-     * @param references Referenzen zu anderen Markern.
+     * @param references
+     *            Referenzen zu anderen Markern.
      */
     public void addAll(Collection<Marker> references);
 

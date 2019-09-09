@@ -60,12 +60,12 @@ public interface ProtokollGenerator {
      *            Das BatchProtokoll
      */
     public void erzeugeReturnCodeElement(BatchErgebnisProtokoll protokoll);
-    
+
     /**
      * Beendet des Generierens. Schließen der Connection oder Handles.
      */
     public void close();
-    
+
     /**
      * Output flushen.
      */

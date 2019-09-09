@@ -35,7 +35,8 @@ public class LoggingTechnicalRuntimeException extends TechnicalRuntimeException 
     private static final long serialVersionUID = 1L;
 
     /** Fehlertextprovider zum Auslesen von Fehlertexten. */
-    private static final IsyLoggingFehlertextProvider FEHLERTEXT_PROVIDER = new IsyLoggingFehlertextProvider();
+    private static final IsyLoggingFehlertextProvider FEHLERTEXT_PROVIDER =
+        new IsyLoggingFehlertextProvider();
 
     /**
      * Konstruktor der Klasse zum Erstellen einer Exception mit den übergebenen Parametern.

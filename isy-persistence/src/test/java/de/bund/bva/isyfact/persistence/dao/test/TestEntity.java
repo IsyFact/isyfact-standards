@@ -18,32 +18,35 @@ package de.bund.bva.isyfact.persistence.dao.test;
 
 import java.util.UUID;
 
-public class TestEntity{
+public class TestEntity {
 
-	private UUID key;
-	private String value;
-	
-	public TestEntity() {
-	}
-	
-	public TestEntity(UUID key, String value) {
-		super();
-		this.key = key;
-		this.value = value;
-	}
-	
-	public UUID getKey() {
-		return key;
-	}
-	public void setKey(UUID key) {
-		this.key = key;
-	}
-	public String getValue() {
-		return value;
-	}
-	public void setValue(String value) {
-		this.value = value;
-	}
-	
-	
+    private UUID key;
+
+    private String value;
+
+    public TestEntity() {
+    }
+
+    public TestEntity(UUID key, String value) {
+        super();
+        this.key = key;
+        this.value = value;
+    }
+
+    public UUID getKey() {
+        return key;
+    }
+
+    public void setKey(UUID key) {
+        this.key = key;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
 }

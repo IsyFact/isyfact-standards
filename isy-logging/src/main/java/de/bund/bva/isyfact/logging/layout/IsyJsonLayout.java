@@ -79,7 +79,6 @@ public class IsyJsonLayout extends JsonLayout {
     /** Maximale Groesse eines Loeintrags in Byte. */
     private int maxLength = 32000;
 
-
     /**
      * Konstruktor der Klasse.
      */
@@ -246,26 +245,29 @@ public class IsyJsonLayout extends JsonLayout {
         }
     }
 
-
     /**
      * Diese Methode prüft, ob der übergebene String des Logeintrags die maximale Größe überschreitet und
-     * gekürzt werden muss. Ist der Logeintrag zu groß, wird der Logeintrag nach folgendem Ablauf gekürzt:
-     * 1. Alle Parameter aus dem Logeintrag entfernen.
-     * 2. Feld Exception kürzen, falls vorhanden
-     * 3. Feld Nachricht kürzen
+     * gekürzt werden muss. Ist der Logeintrag zu groß, wird der Logeintrag nach folgendem Ablauf gekürzt: 1.
+     * Alle Parameter aus dem Logeintrag entfernen. 2. Feld Exception kürzen, falls vorhanden 3. Feld
+     * Nachricht kürzen
      *
      * Sollte der Logeintrag nach dem Kürzen immer noch zu lang sein, so wird eine Exception geworfen.
      *
-     * @param map        die Map mit den Rohdaten des Log-Events
-     * @param logeintrag die Map in einen String gewandelt
-     * @param event      das Log-Event
+     * @param map
+     *            die Map mit den Rohdaten des Log-Events
+     * @param logeintrag
+     *            die Map in einen String gewandelt
+     * @param event
+     *            das Log-Event
      * @return der geprüfte und eventuell gekürzte Logeintrag als String
      */
 
     private String pruefeGroesse(Map<String, Object> map, String logeintrag, ILoggingEvent event) {
         if (maxLength > 0 && // Prüfen, ob eine maximale Länge definiert wurde (0=beliebig lang)
-            event.getLevel().isGreaterOrEqual(Level.INFO) && // Nur Lognachrichten in Betracht ziehen, die Level INFO oder höher besitzen
-            logeintrag.length() >= (maxLength / 2.0)) { // Prüfen, ob die Lognachricht die maximale Größe in Bytes überhaupt mit ihrer Länge erreichen kann
+            event.getLevel().isGreaterOrEqual(Level.INFO) && // Nur Lognachrichten in Betracht ziehen, die
+                                                             // Level INFO oder höher besitzen
+            logeintrag.length() >= (maxLength / 2.0)) { // Prüfen, ob die Lognachricht die maximale Größe in
+                                                        // Bytes überhaupt mit ihrer Länge erreichen kann
 
             byte[] zeichen = logeintrag.getBytes();
             int tatsaechlicheLaenge = zeichen.length;
@@ -303,12 +305,15 @@ public class IsyJsonLayout extends JsonLayout {
     }
 
     /**
-     * Diese Methode kürzt den Inhalt eines Feldes einer Map anhand des übermittelten Überhangs,
-     * berechnet den Überhang nach der Kürzung und gibt diesen zurück.
+     * Diese Methode kürzt den Inhalt eines Feldes einer Map anhand des übermittelten Überhangs, berechnet den
+     * Überhang nach der Kürzung und gibt diesen zurück.
      *
-     * @param schluessel der Schluessel des Feldes in der Map, das gekürzt werden soll
-     * @param map        die Map mit den Rohdaten des Log-Events
-     * @param ueberhang  der Überhang als Anzahl Zeichen
+     * @param schluessel
+     *            der Schluessel des Feldes in der Map, das gekürzt werden soll
+     * @param map
+     *            die Map mit den Rohdaten des Log-Events
+     * @param ueberhang
+     *            der Überhang als Anzahl Zeichen
      * @return der aktualisierte Überhang nach der Kürzung
      */
 
@@ -328,16 +333,18 @@ public class IsyJsonLayout extends JsonLayout {
                 }
                 neuerUeberhang = berechneUeberhang(map);
             } while (neuerUeberhang > 0 && !map.get(schluessel).toString()
-                .equals(Ereignisschluessel.DEBUG_LOG_GEKUERZT.getNachricht()) && neuerUeberhang != vorherigerUeberhang);
+                .equals(Ereignisschluessel.DEBUG_LOG_GEKUERZT.getNachricht())
+                && neuerUeberhang != vorherigerUeberhang);
         }
         return neuerUeberhang;
     }
 
     /**
-     * Diese Methode berechnet den Überhang eines Logeintrags, der als Map übermittelt wird.
-     * Der Überhang wird zunächst in Bytes berechnet und anschließend in eine Anzahl von Zeichen umgewandelt.
+     * Diese Methode berechnet den Überhang eines Logeintrags, der als Map übermittelt wird. Der Überhang wird
+     * zunächst in Bytes berechnet und anschließend in eine Anzahl von Zeichen umgewandelt.
      *
-     * @param map die Map mit den Rohdaten des Log-Events
+     * @param map
+     *            die Map mit den Rohdaten des Log-Events
      * @return der berechnete Ueberhang
      */
     private int berechneUeberhang(Map<String, Object> map) {

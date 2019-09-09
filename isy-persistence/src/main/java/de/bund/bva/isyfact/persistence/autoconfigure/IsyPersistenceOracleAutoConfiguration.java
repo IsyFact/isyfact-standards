@@ -30,7 +30,8 @@ public class IsyPersistenceOracleAutoConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean(DataSourceHealthIndicator.class)
-    public DataSourceHealthIndicator oracleDataSourceHealthIndicator(@Qualifier("appDataSource") DataSource dataSource) {
+    public DataSourceHealthIndicator oracleDataSourceHealthIndicator(
+        @Qualifier("appDataSource") DataSource dataSource) {
         DataSourceHealthIndicator dataSourceHealthIndicator = new DataSourceHealthIndicator();
         dataSourceHealthIndicator.setDataSource(dataSource);
         dataSourceHealthIndicator.setQuery("select BANNER from V$VERSION where BANNER like 'Oracle%'");

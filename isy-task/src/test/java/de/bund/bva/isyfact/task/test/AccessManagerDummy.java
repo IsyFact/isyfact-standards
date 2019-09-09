@@ -12,15 +12,18 @@ public class AccessManagerDummy implements AccessManager<AufrufKontextImpl, Auth
         AuthentifizierungsErgebnisDummy ergebnis = null;
 
         switch (unauthentifizierterAufrufKontext.getDurchfuehrenderBenutzerKennung()) {
-        case "TestUser1": ergebnis = new AuthentifizierungsErgebnisDummy();
-                          ergebnis.setRollenIds(new String[] { "Rolle1" });
-                          break;
-        case "TestUser2": ergebnis = new AuthentifizierungsErgebnisDummy();
-                          ergebnis.setRollenIds(new String[] { "Rolle2" });
-                          break;
-        case "TestUser3": ergebnis = new AuthentifizierungsErgebnisDummy();
-                          ergebnis.setRollenIds(new String[] { });
-                          break;
+        case "TestUser1":
+            ergebnis = new AuthentifizierungsErgebnisDummy();
+            ergebnis.setRollenIds(new String[] { "Rolle1" });
+            break;
+        case "TestUser2":
+            ergebnis = new AuthentifizierungsErgebnisDummy();
+            ergebnis.setRollenIds(new String[] { "Rolle2" });
+            break;
+        case "TestUser3":
+            ergebnis = new AuthentifizierungsErgebnisDummy();
+            ergebnis.setRollenIds(new String[] {});
+            break;
         }
 
         return ergebnis;
@@ -44,8 +47,8 @@ public class AccessManagerDummy implements AccessManager<AufrufKontextImpl, Auth
     @Override
     public void befuelleAufrufkontext(AufrufKontextImpl aufrufKontext,
         AuthentifizierungsErgebnisDummy authentifzierungErgebnis) {
-            aufrufKontext.setRolle(authentifzierungErgebnis.getRollenIds());
-            aufrufKontext.setRollenErmittelt(true);
+        aufrufKontext.setRolle(authentifzierungErgebnis.getRollenIds());
+        aufrufKontext.setRollenErmittelt(true);
     }
 
     @Override

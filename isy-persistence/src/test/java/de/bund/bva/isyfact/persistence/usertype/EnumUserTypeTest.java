@@ -35,117 +35,117 @@ import de.bund.bva.isyfact.persistence.exception.PersistenzException;
 
 public class EnumUserTypeTest {
 
-	private EnumUserType userType;
-	
-	@Before
-	public void setUp(){
-		userType = new EnumUserType();
-	}
-	
+    private EnumUserType userType;
+
+    @Before
+    public void setUp() {
+        userType = new EnumUserType();
+    }
+
     @Test
-    public void testSetParameterValues() {        
+    public void testSetParameterValues() {
         Properties prop = new Properties();
         prop.setProperty("enumClass", Vorgangsstatus.class.getName());
         userType.setParameterValues(prop);
         assertEquals("B", userType.convertInstanceToString(Vorgangsstatus.IN_BEARBEITUNG));
-        assertEquals(Vorgangsstatus.IN_BEARBEITUNG, userType.convertStringToInstance("B"));        
+        assertEquals(Vorgangsstatus.IN_BEARBEITUNG, userType.convertStringToInstance("B"));
     }
-    
+
     @Test(expected = NullPointerException.class)
-    public void testSetParameterValuesNull() {        
-        userType.setParameterValues(null);      
+    public void testSetParameterValuesNull() {
+        userType.setParameterValues(null);
     }
-    
+
     @Test(expected = PersistenzException.class)
-    public void testSetParameterValuesNoEnumClassSet() {        
+    public void testSetParameterValuesNoEnumClassSet() {
         Properties prop = new Properties();
-        userType.setParameterValues(prop);      
+        userType.setParameterValues(prop);
     }
-    
+
     @Test(expected = PersistenzException.class)
-    public void testSetParameterValuesKeineEnumClass() {        
+    public void testSetParameterValuesKeineEnumClass() {
         Properties prop = new Properties();
         prop.setProperty("enumClass", Object.class.getName());
-        userType.setParameterValues(prop);      
+        userType.setParameterValues(prop);
     }
-    
+
     @Test(expected = PersistenzException.class)
-    public void testSetParameterValuesKeineKlasse() {        
+    public void testSetParameterValuesKeineKlasse() {
         Properties prop = new Properties();
         prop.setProperty("enumClass", "ObjectA");
-        userType.setParameterValues(prop);      
+        userType.setParameterValues(prop);
     }
 
     @Test
-    public void testConvertStringToInstance() {        
+    public void testConvertStringToInstance() {
         userType.setEnumClass(Vorgangsstatus.class);
         assertEquals("B", userType.convertInstanceToString(Vorgangsstatus.IN_BEARBEITUNG));
         assertEquals(Vorgangsstatus.class, userType.returnedClass());
     }
 
     @Test
-    public void testConvertInstanceToString() {        
+    public void testConvertInstanceToString() {
         userType.setEnumClass(Vorgangsstatus.class);
         assertEquals(Vorgangsstatus.IN_BEARBEITUNG, userType.convertStringToInstance("B"));
     }
-    
+
     @Test(expected = PersistenzException.class)
-    public void testKeineAnnotationAnEnumKonstanten(){
-    	userType.setEnumClass(Vermerkstyp.class);
+    public void testKeineAnnotationAnEnumKonstanten() {
+        userType.setEnumClass(Vermerkstyp.class);
     }
-    
+
     @Test(expected = PersistenzException.class)
-    public void testDuplicatePersistentValue(){
-    	userType.setEnumClass(DuplicatePersistentValueEnum.class);
+    public void testDuplicatePersistentValue() {
+        userType.setEnumClass(DuplicatePersistentValueEnum.class);
     }
-    
+
     @Test(expected = PersistenzException.class)
-    public void testConvertStringToInstanceKeyNotExists(){
-    	userType.setEnumClass(Vorgangsstatus.class);
-    	userType.convertStringToInstance("");
+    public void testConvertStringToInstanceKeyNotExists() {
+        userType.setEnumClass(Vorgangsstatus.class);
+        userType.convertStringToInstance("");
     }
-    
+
     @Test(expected = PersistenzException.class)
-    public void testConvertInstanceToStringObjectNotExists(){
-    	userType.setEnumClass(Vorgangsstatus.class);
-    	userType.convertInstanceToString(Vermerkstyp.NACHRICHT_EMPFANGEN);
+    public void testConvertInstanceToStringObjectNotExists() {
+        userType.setEnumClass(Vorgangsstatus.class);
+        userType.convertInstanceToString(Vermerkstyp.NACHRICHT_EMPFANGEN);
     }
-    
+
     @Test
-    public void testNullSafeGet() throws SQLException{
-    	ResultSet rs = mock(ResultSet.class);
-    	when(rs.getString("name")).thenReturn("E");
-    	when(rs.wasNull()).thenReturn(false);
-    	String [] names = new String[]{"name"};
-    	userType.setEnumClass(Vorgangsstatus.class);
-    	Object obj = userType.nullSafeGet(rs, names, null, null);
-    	assertEquals(Vorgangsstatus.ERLEDIGT, (Vorgangsstatus)obj);
+    public void testNullSafeGet() throws SQLException {
+        ResultSet rs = mock(ResultSet.class);
+        when(rs.getString("name")).thenReturn("E");
+        when(rs.wasNull()).thenReturn(false);
+        String[] names = new String[] { "name" };
+        userType.setEnumClass(Vorgangsstatus.class);
+        Object obj = userType.nullSafeGet(rs, names, null, null);
+        assertEquals(Vorgangsstatus.ERLEDIGT, (Vorgangsstatus) obj);
     }
-    
+
     @Test
-    public void testNullSafeGetNull() throws SQLException{
-    	ResultSet rs = mock(ResultSet.class);
-    	when(rs.getString("name")).thenReturn("NONE");
-    	when(rs.wasNull()).thenReturn(true);
-    	String [] names = new String[]{"name"};
-    	userType.setEnumClass(Vorgangsstatus.class);
-    	Object obj = userType.nullSafeGet(rs, names, null, null);
-    	assertEquals(null, (Vorgangsstatus)obj);
+    public void testNullSafeGetNull() throws SQLException {
+        ResultSet rs = mock(ResultSet.class);
+        when(rs.getString("name")).thenReturn("NONE");
+        when(rs.wasNull()).thenReturn(true);
+        String[] names = new String[] { "name" };
+        userType.setEnumClass(Vorgangsstatus.class);
+        Object obj = userType.nullSafeGet(rs, names, null, null);
+        assertEquals(null, (Vorgangsstatus) obj);
     }
-    
+
     @Test
-    public void nullSafeSetNull() throws SQLException{
-    	PreparedStatement st = mock(PreparedStatement.class);
-    	userType.setEnumClass(Vorgangsstatus.class);
-    	userType.nullSafeSet(st, null, 0, null);
-    	verify(st, times(1)).setNull(0, userType.sqlTypes()[0]);
+    public void nullSafeSetNull() throws SQLException {
+        PreparedStatement st = mock(PreparedStatement.class);
+        userType.setEnumClass(Vorgangsstatus.class);
+        userType.nullSafeSet(st, null, 0, null);
+        verify(st, times(1)).setNull(0, userType.sqlTypes()[0]);
     }
-    
+
     @Test
-    public void nullSafeSetVorgangsstatus() throws SQLException{
-    	PreparedStatement st = mock(PreparedStatement.class);
-    	userType.setEnumClass(Vorgangsstatus.class);
-    	userType.nullSafeSet(st, Vorgangsstatus.ERLEDIGT, 0, null);
-    	verify(st, times(1)).setString(0, "E");
+    public void nullSafeSetVorgangsstatus() throws SQLException {
+        PreparedStatement st = mock(PreparedStatement.class);
+        userType.setEnumClass(Vorgangsstatus.class);
+        userType.nullSafeSet(st, Vorgangsstatus.ERLEDIGT, 0, null);
+        verify(st, times(1)).setString(0, "E");
     }
 }

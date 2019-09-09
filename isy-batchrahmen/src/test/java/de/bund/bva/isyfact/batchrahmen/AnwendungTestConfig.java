@@ -32,7 +32,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableAspectJAutoProxy
 public class AnwendungTestConfig {
 
-
     @Bean
     public DataSource appDataSource() {
         JdbcDataSource dataSource = new JdbcDataSource();
@@ -89,8 +88,11 @@ public class AnwendungTestConfig {
     }
 
     @Bean
-    public Sicherheit sicherheit(AccessManagerStub accessManagerStub, AufrufKontextFactory aufrufKontextFactory, AufrufKontextVerwalter aufrufKontextVerwalter, IsySicherheitConfigurationProperties properties) {
-        return new SicherheitImpl("/resources/sicherheit/rollenrechte.xml", aufrufKontextVerwalter, aufrufKontextFactory, accessManagerStub, properties);
+    public Sicherheit sicherheit(AccessManagerStub accessManagerStub,
+        AufrufKontextFactory aufrufKontextFactory, AufrufKontextVerwalter aufrufKontextVerwalter,
+        IsySicherheitConfigurationProperties properties) {
+        return new SicherheitImpl("/resources/sicherheit/rollenrechte.xml", aufrufKontextVerwalter,
+            aufrufKontextFactory, accessManagerStub, properties);
     }
 
     @Bean
@@ -102,7 +104,8 @@ public class AnwendungTestConfig {
     @Bean
     public Advisor gesichertPointAdvisor(GesichertInterceptor gesichertInterceptor) {
         AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
-        pointcut.setExpression("@annotation(de.bund.bva.isyfact.sicherheit.annotation.Gesichert) || @within(de.bund.bva.isyfact.sicherheit.annotation.Gesichert)");
+        pointcut.setExpression(
+            "@annotation(de.bund.bva.isyfact.sicherheit.annotation.Gesichert) || @within(de.bund.bva.isyfact.sicherheit.annotation.Gesichert)");
         return new DefaultPointcutAdvisor(pointcut, gesichertInterceptor);
     }
 }

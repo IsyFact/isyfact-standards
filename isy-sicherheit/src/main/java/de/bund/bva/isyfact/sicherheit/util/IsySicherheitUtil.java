@@ -20,6 +20,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 import javax.servlet.http.HttpServletRequest;
+
 /**
  * Diese Klasse enthält Utility-Methoden für die isy-sicherheit.
  */
@@ -70,7 +71,8 @@ public final class IsySicherheitUtil {
                 // "Basic" Präfix gefunden. Der restliche String enthält username:password base64 kodiert
                 headerValue = headerValue.trim();
                 headerValue = headerValue.substring(5).trim();
-                headerValue = new String(Base64.getDecoder().decode(headerValue), StandardCharsets.ISO_8859_1);
+                headerValue =
+                    new String(Base64.getDecoder().decode(headerValue), StandardCharsets.ISO_8859_1);
                 if (headerValue.contains(BASIC_AUTH_DELIMITER)) {
                     // Bis zum Delimiter ist alles Benutzername
                     result[0] = headerValue.substring(0, headerValue.indexOf(BASIC_AUTH_DELIMITER));
@@ -108,7 +110,8 @@ public final class IsySicherheitUtil {
         }
 
         String loginPassword = tmpLoginId + BASIC_AUTH_DELIMITER + tmpPassword;
-        String loginPasswordEncoded = Base64.getEncoder().encodeToString(loginPassword.getBytes(StandardCharsets.ISO_8859_1));
+        String loginPasswordEncoded =
+            Base64.getEncoder().encodeToString(loginPassword.getBytes(StandardCharsets.ISO_8859_1));
 
         result[1] = BASIC_AUTH_PREFIX + " " + loginPasswordEncoded;
 

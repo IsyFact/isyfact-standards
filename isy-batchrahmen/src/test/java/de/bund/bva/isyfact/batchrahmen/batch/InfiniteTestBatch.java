@@ -46,7 +46,8 @@ public class InfiniteTestBatch implements BatchAusfuehrungsBean {
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(InfiniteTestBatch.class);
 
     public void batchBeendet() {
-        LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001, "Batch beendet aufgerufen!");
+        LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001,
+            "Batch beendet aufgerufen!");
     }
 
     public void checkpointGeschrieben(long satzNummer) throws BatchAusfuehrungsException {

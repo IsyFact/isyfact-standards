@@ -31,14 +31,18 @@ public class NutzerauthentifizierungTestConfig extends SicherheitTestConfig {
     }
 
     @Bean
-    public NutzerAuthentifizierungInterceptor nutzerAuthentifizierungInterceptor(SicherheitStub sicherheitStub, AufrufKontextVerwalter aufrufKontextVerwalter, NutzerAuthentifizierungProperties nutzerAuthentifizierungProperties) {
-        return new NutzerAuthentifizierungInterceptor(aufrufKontextVerwalter, nutzerAuthentifizierungProperties, sicherheitStub);
+    public NutzerAuthentifizierungInterceptor nutzerAuthentifizierungInterceptor(
+        SicherheitStub sicherheitStub, AufrufKontextVerwalter aufrufKontextVerwalter,
+        NutzerAuthentifizierungProperties nutzerAuthentifizierungProperties) {
+        return new NutzerAuthentifizierungInterceptor(aufrufKontextVerwalter,
+            nutzerAuthentifizierungProperties, sicherheitStub);
     }
 
     @Bean
     public Advisor NutzerAuthentifizierungAdvisor(NutzerAuthentifizierungInterceptor interceptor) {
         AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
-        pointcut.setExpression("@annotation(de.bund.bva.isyfact.sicherheit.annotation.NutzerAuthentifizierung) || @within(de.bund.bva.isyfact.sicherheit.annotation.NutzerAuthentifizierung)");
+        pointcut.setExpression(
+            "@annotation(de.bund.bva.isyfact.sicherheit.annotation.NutzerAuthentifizierung) || @within(de.bund.bva.isyfact.sicherheit.annotation.NutzerAuthentifizierung)");
         DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor(pointcut, interceptor);
         return advisor;
     }

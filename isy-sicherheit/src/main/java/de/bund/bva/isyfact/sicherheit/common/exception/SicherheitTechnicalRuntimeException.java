@@ -52,7 +52,8 @@ public abstract class SicherheitTechnicalRuntimeException extends TechnicalRunti
      * @param parameter
      *            Parameter für den Fehlertext
      */
-    protected SicherheitTechnicalRuntimeException(String ausnahmeId, Throwable throwable, String... parameter) {
+    protected SicherheitTechnicalRuntimeException(String ausnahmeId, Throwable throwable,
+        String... parameter) {
         super(ausnahmeId, throwable, new SicherheitFehlertextProvider(), parameter);
     }
 

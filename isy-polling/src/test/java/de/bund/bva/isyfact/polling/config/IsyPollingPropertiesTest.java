@@ -61,7 +61,6 @@ public class IsyPollingPropertiesTest {
             isyPollingProperties.getCluster().get("POSTFACH2_CLUSTER").getJmxverbindungen().get(1));
     }
 
-
     @Test(expected = BeanCreationException.class)
     public void testPropertiesNichtGesetzt() {
         Map<String, Object> properties = new HashMap<>();

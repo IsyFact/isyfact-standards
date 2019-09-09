@@ -32,11 +32,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = NutzerauthentifizierungTestConfig.class, webEnvironment = SpringBootTest.WebEnvironment.NONE, properties = {
-    "isy.logging.anwendung.name=test", "isy.logging.anwendung.typ=test", "isy.logging.anwendung.version=test",
-    "isy.sicherheit.nutzerauthentifizierung.benutzer.testBenutzer.kennung=testbenutzer",
-    "isy.sicherheit.nutzerauthentizifierung.benutzer.testBenutzer.passwort=passwort",
-    "isy.sicherheit.nutzerauthentizifierung.benutzer.testBenutzer.bhknz=123456" })
+@SpringBootTest(classes = NutzerauthentifizierungTestConfig.class,
+    webEnvironment = SpringBootTest.WebEnvironment.NONE, properties = {
+        "isy.logging.anwendung.name=test", "isy.logging.anwendung.typ=test",
+        "isy.logging.anwendung.version=test",
+        "isy.sicherheit.nutzerauthentifizierung.benutzer.testBenutzer.kennung=testbenutzer",
+        "isy.sicherheit.nutzerauthentizifierung.benutzer.testBenutzer.passwort=passwort",
+        "isy.sicherheit.nutzerauthentizifierung.benutzer.testBenutzer.bhknz=123456" })
 public class NutzerAuthentifizierungInterceptorTest {
 
     @Autowired
@@ -57,7 +59,8 @@ public class NutzerAuthentifizierungInterceptorTest {
     public void testPositiv_gesichertDurch_RechtA() {
         testBean.methodeGesichertDurchNutzerAnnotation();
         assertNotNull(sicherheitStub.getLetzterAufrufKontext());
-        assertEquals("testbenutzer", sicherheitStub.getLetzterAufrufKontext().getDurchfuehrenderBenutzerKennung());
+        assertEquals("testbenutzer",
+            sicherheitStub.getLetzterAufrufKontext().getDurchfuehrenderBenutzerKennung());
     }
 
     @Test(expected = AnnotationFehltRuntimeException.class)

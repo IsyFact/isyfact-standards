@@ -23,7 +23,6 @@ package de.bund.bva.isyfact.logging.exceptions;
  * #L%
  */
 
-
 import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
 
 /**
@@ -51,7 +50,7 @@ public class InterceptionFehler extends LoggingTechnicalRuntimeException {
     public InterceptionFehler(String ausnahmeId, String... parameter) {
         super(ausnahmeId, parameter);
     }
-    
+
     /**
      * Konstruktor der Klasse zum Erstellen einer Exception mit den übergebenen Parametern.
      * 

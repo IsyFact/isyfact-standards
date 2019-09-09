@@ -29,34 +29,108 @@ import java.util.regex.Pattern;
  * <b>Datum: &lt;Tag&gt;.&lt;Monat&gt;.&lt;Jahr&gt;</b>
  * <p>
  * <table summary="Unterstütze Formate für Datum" border="1">
- *   <tr><th>Feld</th><th>Format</th><th>Beispiel</th><th>Pflichtfeld</th></tr>
- *   <tr><td>Tag</td><td>Ganzzahl (1-31)</td><td>3, 03, 14</td><td>Ja</td></tr>
- *   <tr><td>Monat</td><td>Ganzzahl (1-12)</td><td>5, 07, 11</td><td>Ja</td></tr>
- *   <tr><td>Jahr</td><td>Ganzzahl (1-9999)</td><td>9, 476, 2013</td><td>Ja</td></tr>
+ * <tr>
+ * <th>Feld</th>
+ * <th>Format</th>
+ * <th>Beispiel</th>
+ * <th>Pflichtfeld</th>
+ * </tr>
+ * <tr>
+ * <td>Tag</td>
+ * <td>Ganzzahl (1-31)</td>
+ * <td>3, 03, 14</td>
+ * <td>Ja</td>
+ * </tr>
+ * <tr>
+ * <td>Monat</td>
+ * <td>Ganzzahl (1-12)</td>
+ * <td>5, 07, 11</td>
+ * <td>Ja</td>
+ * </tr>
+ * <tr>
+ * <td>Jahr</td>
+ * <td>Ganzzahl (1-9999)</td>
+ * <td>9, 476, 2013</td>
+ * <td>Ja</td>
+ * </tr>
  * </table>
  * <p>
  * <b>Zeit: &lt;Stunde&gt;:&lt;Minute&gt;:&lt;Sekunde&gt;.&lt;Sekundenbruchteile&gt; &lt;Zeitzone&gt;</b>
  * <p>
  * <table summary="Unterstütze Formate für Zeit" border="1">
- *   <tr><th>Feld</th><th>Format</th><th>Beispiel</th><th>Pflichtfeld</th></tr>
- *   <tr><td>Stunde</td><td>Ganzzahl (1-31)</td><td>3, 03, 14</td><td>Ja</td></tr>
- *   <tr><td>Minute</td><td>Ganzzahl (1-12)</td><td>5, 07, 11</td><td>Ja</td></tr>
- *   <tr><td>Sekunde</td><td>Ganzzahl (1-9999)</td><td>9, 476, 2013</td><td>Nein</td></tr>
- *   <tr><td>Sekundenbruchteile</td><td>max. neunstellige Ganzzahl (1-999999999)</td><td>127 (ms), 235674 (&micro;s), 349672834 (ns)</td><td>Nein</td></tr>
- *   <tr><td>Zeitzone</td><td>Abweichung von UTC oder Name der Zeitzone</td><td>+02:30, -05:00 oder Europe/Berlin</td><td>Nein</td></tr>
+ * <tr>
+ * <th>Feld</th>
+ * <th>Format</th>
+ * <th>Beispiel</th>
+ * <th>Pflichtfeld</th>
+ * </tr>
+ * <tr>
+ * <td>Stunde</td>
+ * <td>Ganzzahl (1-31)</td>
+ * <td>3, 03, 14</td>
+ * <td>Ja</td>
+ * </tr>
+ * <tr>
+ * <td>Minute</td>
+ * <td>Ganzzahl (1-12)</td>
+ * <td>5, 07, 11</td>
+ * <td>Ja</td>
+ * </tr>
+ * <tr>
+ * <td>Sekunde</td>
+ * <td>Ganzzahl (1-9999)</td>
+ * <td>9, 476, 2013</td>
+ * <td>Nein</td>
+ * </tr>
+ * <tr>
+ * <td>Sekundenbruchteile</td>
+ * <td>max. neunstellige Ganzzahl (1-999999999)</td>
+ * <td>127 (ms), 235674 (&micro;s), 349672834 (ns)</td>
+ * <td>Nein</td>
+ * </tr>
+ * <tr>
+ * <td>Zeitzone</td>
+ * <td>Abweichung von UTC oder Name der Zeitzone</td>
+ * <td>+02:30, -05:00 oder Europe/Berlin</td>
+ * <td>Nein</td>
+ * </tr>
  * </table>
  * <p>
  * <b>Dauer: &lt;Anzahl&gt;&lt;Zeiteinheit&gt; (&lt;Anzahl&gt;&lt;Zeiteinheit&gt; ...)</b>
  * <p>
  * <table summary="Unterstütze Einheiten für Dauer" border="1">
- *   <tr><th>Abkürzung</th><th>Zeiteinheit</th></tr>
- *   <tr><td>ms</td><td>Millisekunde</td></tr>
- *   <tr><td>s</td><td>Sekunde</td></tr>
- *   <tr><td>min</td><td>Minute</td></tr>
- *   <tr><td>h</td><td>Stunde</td></tr>
- *   <tr><td>d</td><td>Tag</td></tr>
- *   <tr><td>M</td><td>Monat</td></tr>
- *   <tr><td>a</td><td>Jahr</td></tr>
+ * <tr>
+ * <th>Abkürzung</th>
+ * <th>Zeiteinheit</th>
+ * </tr>
+ * <tr>
+ * <td>ms</td>
+ * <td>Millisekunde</td>
+ * </tr>
+ * <tr>
+ * <td>s</td>
+ * <td>Sekunde</td>
+ * </tr>
+ * <tr>
+ * <td>min</td>
+ * <td>Minute</td>
+ * </tr>
+ * <tr>
+ * <td>h</td>
+ * <td>Stunde</td>
+ * </tr>
+ * <tr>
+ * <td>d</td>
+ * <td>Tag</td>
+ * </tr>
+ * <tr>
+ * <td>M</td>
+ * <td>Monat</td>
+ * </tr>
+ * <tr>
+ * <td>a</td>
+ * <td>Jahr</td>
+ * </tr>
  * </table>
  *
  */
@@ -250,10 +324,10 @@ public abstract class InFormat {
      * Parst einen String in eine {@code LocalTime}.
      *
      * @param text
-     *     der Text, der geparst werden soll, nicht null
+     *            der Text, der geparst werden soll, nicht null
      * @return die geparste Zeit, nicht null
      * @throws DateTimeParseException
-     *     wenn die Eingabe nicht geparst werden kann
+     *             wenn die Eingabe nicht geparst werden kann
      */
     public static LocalTime parseToLocalTime(String text) {
         return zeitFormatter.parse(text, LocalTime::from);
@@ -263,10 +337,10 @@ public abstract class InFormat {
      * Parst einen String in eine {@code OffsetTime}.
      *
      * @param text
-     *     der Text, der geparst werden soll, nicht null
+     *            der Text, der geparst werden soll, nicht null
      * @return die geparste Zeit, nicht null
      * @throws DateTimeParseException
-     *     wenn die Eingabe nicht geparst werden kann
+     *             wenn die Eingabe nicht geparst werden kann
      */
     public static OffsetTime parseToOffsetTime(String text) {
         return zeitFormatter.parse(text, OffsetTime::from);
@@ -276,10 +350,10 @@ public abstract class InFormat {
      * Parst einen String in ein {@link LocalDate}.
      *
      * @param text
-     *     der Text, der geparst werden soll, nicht null
+     *            der Text, der geparst werden soll, nicht null
      * @return das geparste Datum, nicht null
      * @throws DateTimeParseException
-     *     wenn die Eingabe nicht geparst werden kann
+     *             wenn die Eingabe nicht geparst werden kann
      */
     public static LocalDate parseToLocalDate(String text) {
         return datumFormatter.parse(text, LocalDate::from);
@@ -289,10 +363,10 @@ public abstract class InFormat {
      * Parst einen String in eine {@link LocalDateTime}.
      *
      * @param text
-     *     der Text, der geparst werden soll, nicht null
+     *            der Text, der geparst werden soll, nicht null
      * @return das geparste Datum/Zeit, nicht null
      * @throws DateTimeParseException
-     *     wenn die Eingabe nicht geparst werden kann
+     *             wenn die Eingabe nicht geparst werden kann
      */
     public static LocalDateTime parseToLocalDateTime(String text) {
         return datumZeitFormatter.parse(text, LocalDateTime::from);
@@ -302,10 +376,10 @@ public abstract class InFormat {
      * Parst einen String in eine {@link OffsetDateTime}.
      *
      * @param text
-     *     der Text, der geparst werden soll, nicht null
+     *            der Text, der geparst werden soll, nicht null
      * @return das geparste Datum/Zeit, nicht null
      * @throws DateTimeParseException
-     *     wenn die Eingabe nicht geparst werden kann
+     *             wenn die Eingabe nicht geparst werden kann
      */
     public static OffsetDateTime parseToOffsetDateTime(String text) {
         return datumZeitFormatter.parse(text, OffsetDateTime::from);
@@ -315,10 +389,10 @@ public abstract class InFormat {
      * Parst einen String in eine {@link ZonedDateTime}.
      *
      * @param text
-     *     der Text, der geparst werden soll, nicht null
+     *            der Text, der geparst werden soll, nicht null
      * @return das geparste Datum/Zeit, nicht null
      * @throws DateTimeParseException
-     *     wenn die Eingabe nicht geparst werden kann
+     *             wenn die Eingabe nicht geparst werden kann
      */
     public static ZonedDateTime parseToZonedDateTime(String text) {
         return datumZeitFormatter.parse(text, ZonedDateTime::from);
@@ -330,11 +404,10 @@ public abstract class InFormat {
      * Enthält der String Zeiteinheiten &lt; Tag, wird eine {@link DateTimeParseException} geworfen.
      *
      * @param text
-     *     der Text, der geparst werden soll, nicht null
+     *            der Text, der geparst werden soll, nicht null
      * @return die geparste Period, nicht null
      * @throws DateTimeParseException
-     *     wenn die Eingabe nicht geparst werden kann oder Zeiteinheiten &gt;
-     *     Stunden enthalten sind
+     *             wenn die Eingabe nicht geparst werden kann oder Zeiteinheiten &gt; Stunden enthalten sind
      */
     public static Period parseToPeriod(String text) {
         Objects.requireNonNull(text);
@@ -356,10 +429,10 @@ public abstract class InFormat {
      * Enthält der String Zeiteinheiten &gt; Stunde, wird eine {@link DateTimeParseException} geworfen.
      *
      * @param text
-     *     der Text, der geparst werden soll, nicht null
+     *            der Text, der geparst werden soll, nicht null
      * @return die geparste {@link Duration}, nicht null
      * @throws DateTimeParseException
-     *     wenn die Eingabe nicht geparst werden kann
+     *             wenn die Eingabe nicht geparst werden kann
      */
     public static Duration parseToDuration(String text) {
         Objects.requireNonNull(text);

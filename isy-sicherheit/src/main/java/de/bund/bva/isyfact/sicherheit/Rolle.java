@@ -17,15 +17,15 @@
 package de.bund.bva.isyfact.sicherheit;
 
 /**
- * Dieses Interface definiert die Rollen die ein Benutzer haben kann. 
+ * Dieses Interface definiert die Rollen die ein Benutzer haben kann.
  * 
  * Diese Klasse erbt die Methode getId() von Berechtigungsdaten
  * 
  */
 public interface Rolle extends Berechtigungsdaten {
-    
+
     /**
-     * Gibt den Namen einer Rolle zurueck. 
+     * Gibt den Namen einer Rolle zurueck.
      * @return den Namen der Rolle
      */
     String getName();

@@ -37,8 +37,7 @@ import ma.glasnost.orika.MapperFacade;
 import org.springframework.util.ClassUtils;
 
 /**
- * Hilfsklasse für Mappings von generischen Collections und Maps sowie von primitiven
- * Typen.
+ * Hilfsklasse für Mappings von generischen Collections und Maps sowie von primitiven Typen.
  * 
  */
 final class MappingHelper {
@@ -49,8 +48,8 @@ final class MappingHelper {
 
     /**
      * Bildet ein Objekt mithilfe eines Bean Mappers auf einen gewünschten Zieltyp ab. Im Gegensatz zu
-     * {@link MapperFacade#map(Object, Class)} können als Zieltyp auch generische Collections, String und primitive
-     * Typen übergeben werden.
+     * {@link MapperFacade#map(Object, Class)} können als Zieltyp auch generische Collections, String und
+     * primitive Typen übergeben werden.
      * 
      * @param mapper
      *            der Bean-Mapper
@@ -126,7 +125,8 @@ final class MappingHelper {
 
         Class<?> destinationClass = (Class<?>) destinationType;
 
-        if (ClassUtils.isPrimitiveOrWrapper(destinationClass) || MAPPING_BLACKLIST.contains(destinationClass)) {
+        if (ClassUtils.isPrimitiveOrWrapper(destinationClass)
+            || MAPPING_BLACKLIST.contains(destinationClass)) {
             return source;
         } else if (destinationClass.isEnum()) {
             // wir müssen auf dieser Ebene Enums leider manuell mappen
@@ -184,7 +184,8 @@ final class MappingHelper {
      *            die instanziierte, leere Ziel-Map
      * @return die gemappte Map
      */
-    private static Map<Object, Object> mapMap(MapperFacade mapper, Object source, ParameterizedType parDestinationType,
+    private static Map<Object, Object> mapMap(MapperFacade mapper, Object source,
+        ParameterizedType parDestinationType,
         Map<Object, Object> result) {
         if (!(source instanceof Map)) {
             throw new IllegalArgumentException("Ein Objekt vom Typ " + source.getClass() + " kann nicht auf "

@@ -141,7 +141,8 @@ public class IsyDataSource extends DelegatingDataSource {
                 if ("warn".equals(this.invalidSchemaVersionAction)) {
                     LOG.warn(EreignisSchluessel.FALSCHE_SCHEMA_VERSION,
                         "Die Version des Datenbankschemas entspricht nicht der "
-                            + "erwarteten Version ( {} ).", this.schemaVersion);
+                            + "erwarteten Version ( {} ).",
+                        this.schemaVersion);
                 } else {
                     throw new PersistenzException(FehlerSchluessel.FALSCHE_DB_SCHEMAVERSION,
                         this.schemaVersion);
@@ -163,7 +164,8 @@ public class IsyDataSource extends DelegatingDataSource {
                     conn.close();
                 } catch (SQLException e1) {
                     LOG.warn(EreignisSchluessel.DB_VERBINDUNG_NICHT_GESCHLOSSEN,
-                        "Die Datenbankverbindung konnte nicht geschlossen werden. Grund: {}", e1.getMessage());
+                        "Die Datenbankverbindung konnte nicht geschlossen werden. Grund: {}",
+                        e1.getMessage());
                 }
             }
         }

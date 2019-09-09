@@ -22,4 +22,3 @@ public class KonfigurationUpdateTask extends AbstractTask {
         konfiguration.checkAndUpdate();
     }
 }
-

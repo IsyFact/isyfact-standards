@@ -18,10 +18,8 @@ package de.bund.bva.isyfact.batchrahmen.core.exception;
 
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchReturnCode;
 
-
 /**
- * Diese Exception wird geworfen, wenn der Batchrahmen nicht 
- * erfolgreich konfiguriert werden kann.
+ * Diese Exception wird geworfen, wenn der Batchrahmen nicht erfolgreich konfiguriert werden kann.
  * 
  *
  */
@@ -39,7 +37,7 @@ public class BatchrahmenKonfigurationException extends BatchrahmenException {
     public BatchrahmenKonfigurationException(String ausnahmeId, String... parameter) {
         super(ausnahmeId, parameter);
     }
-    
+
     /**
      * Ergzeugt einen Fehler.
      * @param ausnahmeId

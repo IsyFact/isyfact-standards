@@ -38,5 +38,6 @@ public class ApplicationListenerInitTest {
 
     @Configuration
     @EnableAutoConfiguration
-    static class TestConfig { }
+    static class TestConfig {
+    }
 }

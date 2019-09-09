@@ -167,8 +167,10 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
             VerarbeitungsErgebnis ergebnis = null;
             // Ausfuehren, bis Bean keine Datensaetze mehr verarbeitet.
             while ((ergebnis == null || !ergebnis.isAlleSaetzeVerarbeitet())
-                && !(verarbInfo.getLetzterDatensatzNummer() != 0 && verarbInfo.getLetzterDatensatzNummer() == verarbInfo
-                    .getSatzNummer()) && !this.batchAbgebrochen
+                && !(verarbInfo.getLetzterDatensatzNummer() != 0
+                    && verarbInfo.getLetzterDatensatzNummer() == verarbInfo
+                        .getSatzNummer())
+                && !this.batchAbgebrochen
                 && !(this.maximaleLaufzeitUeberschritten = istMaximaleLaufzeitUeberschritten(verarbInfo))) {
                 verarbInfo.incSatzNummer();
 
@@ -451,7 +453,8 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
         }
         BatchAusfuehrungsBean bean = (BatchAusfuehrungsBean) this.applicationContext.getBean(beanName);
         if (bean == null) {
-            throw new BatchrahmenKonfigurationException(NachrichtenSchluessel.ERR_KONF_BEAN_PFLICHT, beanName);
+            throw new BatchrahmenKonfigurationException(NachrichtenSchluessel.ERR_KONF_BEAN_PFLICHT,
+                beanName);
         }
         return bean;
     }

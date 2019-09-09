@@ -26,8 +26,10 @@ public class IsyUeberwachungAutoConfiguration {
     }
 
     @Bean
-    public ServletRegistrationBean<LoadbalancerServlet> loadbalancerservlet(LoadbalancerServletConfigurationProperties properties) {
-        ServletRegistrationBean<LoadbalancerServlet> loadbalancerServlet = new ServletRegistrationBean<>(new LoadbalancerServlet());
+    public ServletRegistrationBean<LoadbalancerServlet> loadbalancerservlet(
+        LoadbalancerServletConfigurationProperties properties) {
+        ServletRegistrationBean<LoadbalancerServlet> loadbalancerServlet =
+            new ServletRegistrationBean<>(new LoadbalancerServlet());
         loadbalancerServlet.setLoadOnStartup(1);
         loadbalancerServlet.addUrlMappings("/Loadbalancer");
 

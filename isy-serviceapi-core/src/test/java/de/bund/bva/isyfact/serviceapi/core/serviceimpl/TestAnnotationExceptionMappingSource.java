@@ -31,45 +31,48 @@ import de.bund.bva.isyfact.sicherheit.common.exception.SicherheitTechnicalExcept
 
 public class TestAnnotationExceptionMappingSource {
 
-	private Method method;
-	private AnnotationExceptionMappingSource mappingSource;
-	
-	@Before
-	public void setUp() throws NoSuchMethodException, SecurityException{
-		method = RemoteBean.class.getMethod("eineMethode");
-		mappingSource = new AnnotationExceptionMappingSource();
-	}
-	
-	@Test
-	public void testGetToExceptionClass() throws NoSuchMethodException, SecurityException {
-		// Braucht man, damit der ClassLoader das entsprechende Package und Implementierungsklasse lädt.
-		Class<?> implClass = RemoteBeanImpl.class;
-				
-		Class<?> exceptionClass = mappingSource.getToExceptionClass(method, TechnicalException.class);
-		assertEquals(TechnicalToException.class, exceptionClass);
-	}
-	
-	@Test
-	public void testGetToExceptionClassExceptionNotInMapping() throws NoSuchMethodException, SecurityException {
-		// Braucht man, damit der ClassLoader das entsprechende Package und Implementierungsklasse lädt.
-		Class<?> implClass = RemoteBeanImpl.class;
-				
-		Class<?> exceptionClass = mappingSource.getToExceptionClass(method, SicherheitTechnicalException.class);
-		assertEquals(null, exceptionClass);
-	}
-	
-	@Test(expected = IllegalStateException.class)
-	public void testGetToExceptionClassPackageNotExists() throws NoSuchMethodException, SecurityException {
-		mappingSource.getToExceptionClass(Object.class.getMethod("toString"), TechnicalException.class);
-	}
-	
-	@Test
-	public void testGetGenericTechnicalToException() throws NoSuchMethodException, SecurityException {
-		// Braucht man, damit der ClassLoader das entsprechende Package und Implementierungsklasse lädt.
-		Class<?> implClass = RemoteBeanImpl.class;
-				
-		Class<?> exceptionClass = mappingSource.getGenericTechnicalToException(method);
-		assertEquals(TechnicalToException.class, exceptionClass);
-	}
+    private Method method;
+
+    private AnnotationExceptionMappingSource mappingSource;
+
+    @Before
+    public void setUp() throws NoSuchMethodException, SecurityException {
+        method = RemoteBean.class.getMethod("eineMethode");
+        mappingSource = new AnnotationExceptionMappingSource();
+    }
+
+    @Test
+    public void testGetToExceptionClass() throws NoSuchMethodException, SecurityException {
+        // Braucht man, damit der ClassLoader das entsprechende Package und Implementierungsklasse lädt.
+        Class<?> implClass = RemoteBeanImpl.class;
+
+        Class<?> exceptionClass = mappingSource.getToExceptionClass(method, TechnicalException.class);
+        assertEquals(TechnicalToException.class, exceptionClass);
+    }
+
+    @Test
+    public void testGetToExceptionClassExceptionNotInMapping()
+        throws NoSuchMethodException, SecurityException {
+        // Braucht man, damit der ClassLoader das entsprechende Package und Implementierungsklasse lädt.
+        Class<?> implClass = RemoteBeanImpl.class;
+
+        Class<?> exceptionClass =
+            mappingSource.getToExceptionClass(method, SicherheitTechnicalException.class);
+        assertEquals(null, exceptionClass);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testGetToExceptionClassPackageNotExists() throws NoSuchMethodException, SecurityException {
+        mappingSource.getToExceptionClass(Object.class.getMethod("toString"), TechnicalException.class);
+    }
+
+    @Test
+    public void testGetGenericTechnicalToException() throws NoSuchMethodException, SecurityException {
+        // Braucht man, damit der ClassLoader das entsprechende Package und Implementierungsklasse lädt.
+        Class<?> implClass = RemoteBeanImpl.class;
+
+        Class<?> exceptionClass = mappingSource.getGenericTechnicalToException(method);
+        assertEquals(TechnicalToException.class, exceptionClass);
+    }
 
 }

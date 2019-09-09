@@ -17,7 +17,7 @@ public class TestTaskExceptionConfig {
 
     @Bean
     public TestTaskMitException taskMitException(TaskMonitor monitor) {
-         return new TestTaskMitException(monitor);
+        return new TestTaskMitException(monitor);
     }
 
     @Bean

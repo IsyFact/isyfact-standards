@@ -40,9 +40,11 @@ public enum Ereignisschluessel {
     /** Nicht erfolgreiches Ende eines Methodenaufrufs inklusive Dauer. */
     EISYLO01005("Aufruf von {} mit Fehler beendet. Der Aufruf dauerte {} ms."),
     /** Aufruf einer Methode inklusive Parameter. */
-    DEBUG_LOGGE_DATEN("Die Methode {} wurde mit folgenden Parametern aufgerufen: {}. Als Ergebnis wurde geliefert: {}"),
+    DEBUG_LOGGE_DATEN(
+        "Die Methode {} wurde mit folgenden Parametern aufgerufen: {}. Als Ergebnis wurde geliefert: {}"),
     /** Hinweis auf das Aufrufen einer Methode mit einem zu großen Parameter. */
-    DEBUG_LOGGE_DATEN_GROESSE("Die Methode {} wurde mit einem zu großen Parameter aufgerufen. Position: {}, Klasse: {}"),
+    DEBUG_LOGGE_DATEN_GROESSE(
+        "Die Methode {} wurde mit einem zu großen Parameter aufgerufen. Position: {}, Klasse: {}"),
     /** Ersatz für einen zu großen Parameter in Log-Ausgaben. */
     DEBUG_LOGGE_DATEN_PARAMETER_ZU_GROSS("<Maximale Größe überschritten>"),
     /** Ersatz für gekürzte Felder in einer zu großen Log-Nachricht. **/
@@ -55,10 +57,10 @@ public enum Ereignisschluessel {
     EISYLO01013("Aufruf von {} des Nachbarssystems {} unter der URL {} mit Fehler beendet."),
     /** Erfolgreiches Ende eines Nachbarsystemaufrufs inklusive URL und Dauer. */
     EISYLO01014(
-            "Aufruf von {} des Nachbarssystems {} unter der URL {} erfolgreich beendet. Der Aufruf dauerte {} ms."),
+        "Aufruf von {} des Nachbarssystems {} unter der URL {} erfolgreich beendet. Der Aufruf dauerte {} ms."),
     /** Nicht erfolgreiches Ende eines Nachbarsystemaufrufs inklusive URL und Dauer. */
     EISYLO01015(
-            "Aufruf von {} des Nachbarssystems {} unter der URL {} mit Fehler beendet. Der Aufruf dauerte {} ms."),
+        "Aufruf von {} des Nachbarssystems {} unter der URL {} mit Fehler beendet. Der Aufruf dauerte {} ms."),
 
     /** Starten des Spring-Application-Contexts mit Systemname, Systemart und auslösendes Spring-Event. */
     EISYLO02001("Der ApplicationContext des Systems {} ({}) wurde gestartet oder aktualisiert. Event: {}"),

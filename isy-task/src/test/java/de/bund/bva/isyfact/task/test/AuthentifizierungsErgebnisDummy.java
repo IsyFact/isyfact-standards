@@ -5,6 +5,7 @@ import de.bund.bva.isyfact.sicherheit.accessmgr.AuthentifzierungErgebnis;
 public class AuthentifizierungsErgebnisDummy implements AuthentifzierungErgebnis {
 
     private static final long serialVersionUID = 1L;
+
     private String[] rollenIds;
 
     public String[] getRollenIds() {

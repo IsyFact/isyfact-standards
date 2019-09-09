@@ -27,12 +27,11 @@ import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchAusfuehrungsBean;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchStartTyp;
 
 /**
- * Informationen zur aktuellen Verarbeitunsstand des Batches. Dieses Objekt wird
- * zur Transportierung dier Informationen in verschiedene Methoden und
- * Operationen benoetigt.
+ * Informationen zur aktuellen Verarbeitunsstand des Batches. Dieses Objekt wird zur Transportierung dier
+ * Informationen in verschiedene Methoden und Operationen benoetigt.
  * <p>
- * Dieser Informations-Container kapselt alle für die Verarbeitung notwendige Parameter,
- * damit diese nicht einzeln übergeben werden müssen.
+ * Dieser Informations-Container kapselt alle für die Verarbeitung notwendige Parameter, damit diese nicht
+ * einzeln übergeben werden müssen.
  * 
  * 
  */
@@ -60,30 +59,32 @@ public class VerarbeitungsInformationen {
 
     /** Nummer des letzten Datensatzes. */
     private long letzterDatensatzNummer;
-    
+
     /** Zeitstempel vom Begin des Batches als long ( System.currentTimeMillis() ) */
     final private long zeitstempelBegin;
-    
-    /** Das konfigurierte maximale Laufzeit-Limit in Minten. Oder -1, wenn keine Laufzeit konfiguriert wurde. */
+
+    /**
+     * Das konfigurierte maximale Laufzeit-Limit in Minten. Oder -1, wenn keine Laufzeit konfiguriert wurde.
+     */
     final private long maximaleLaufzeitLimitInMinuten;
 
     /**
-     * Erzeugt neue Instanz. StartTyp, CommitInterval, ClearInterval werden aus
-     * der Konfiguration ausgelesen.
-     * @param konfiguration Die Batchkonfiguration.
+     * Erzeugt neue Instanz. StartTyp, CommitInterval, ClearInterval werden aus der Konfiguration ausgelesen.
+     * @param konfiguration
+     *            Die Batchkonfiguration.
      */
     public VerarbeitungsInformationen(BatchKonfiguration konfiguration) {
         this.konfiguration = konfiguration;
         startTyp = konfiguration.getStartTyp();
         commitIntervall =
-                konfiguration.getAsLong(KonfigurationSchluessel.PROPERTY_BATCHRAHMEN_COMMIT_INTERVALL);
+            konfiguration.getAsLong(KonfigurationSchluessel.PROPERTY_BATCHRAHMEN_COMMIT_INTERVALL);
         clearIntervall =
-                konfiguration.getAsLong(KonfigurationSchluessel.PROPERTY_BATCHRAHMEN_CLEAR_INTERVALL);
+            konfiguration.getAsLong(KonfigurationSchluessel.PROPERTY_BATCHRAHMEN_CLEAR_INTERVALL);
         zeitstempelBegin = System.currentTimeMillis();
         maximaleLaufzeitLimitInMinuten =
             konfiguration.getAsLong(KonfigurationSchluessel.KOMMANDO_PARAM_LAUFZEIT, -1);
     }
-    
+
     /**
      * Prüft, ob die maximale Laufzeit konfiguriert ist.
      * @return true, wenn die maximale Laufzeit konfiguriert ist
@@ -91,14 +92,14 @@ public class VerarbeitungsInformationen {
     public boolean istMaximaleLaufzeitKonfiguriert() {
         return maximaleLaufzeitLimitInMinuten != -1;
     }
-    
+
     /**
      * Ermittelt die vergangene Laufzeit aufgrund der aktueller Zeit und dem in der Initialisierung
      * festgehaltenen Zeitpunkt. Angabe in Minuten.
      * 
      * @return vergangeneMinuten - die vergangene Laufzeit
      */
-    public long getAktuelleLaufzeitInMinuten() {        
+    public long getAktuelleLaufzeitInMinuten() {
         long zeitstempelJetzt = Calendar.getInstance().getTimeInMillis();
         long vergangeneMillis = zeitstempelJetzt - zeitstempelBegin;
         return TimeUnit.MILLISECONDS.toMinutes(vergangeneMillis);
@@ -184,7 +185,7 @@ public class VerarbeitungsInformationen {
         return clearIntervall;
     }
 
-    /** 
+    /**
      * Liefert die Nummer des letzen Datensatzes.
      * @return Die Nummer des letzen Datensatzes.
      */
@@ -217,5 +218,5 @@ public class VerarbeitungsInformationen {
     public long getMaximaleLaufzeitLimitInMinuten() {
         return maximaleLaufzeitLimitInMinuten;
     }
-    
+
 }

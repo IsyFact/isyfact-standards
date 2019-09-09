@@ -23,7 +23,8 @@ public class IsyKonfigurationAutoConfiguration {
     @ConditionalOnProperty("isy.konfiguration.properties")
     public Konfiguration konfiguration(IsyKonfigurationProperties properties) {
         if (properties.getNamenschema() != null) {
-            return new ReloadablePropertyKonfiguration(properties.getProperties().toArray(new String[0]), properties.getNamenschema());
+            return new ReloadablePropertyKonfiguration(properties.getProperties().toArray(new String[0]),
+                properties.getNamenschema());
         } else {
             return new ReloadablePropertyKonfiguration(properties.getProperties().toArray(new String[0]));
         }

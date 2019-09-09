@@ -84,8 +84,8 @@ public class TestBeanKomplex extends AbstractTestBeanKomplex implements TestBean
     public TestBeanKomplex(boolean rekursiv) {
         super(rekursiv);
         this.eineEnumListe = Arrays.asList(LogErrorKategorie.ERROR, LogErrorKategorie.FATAL,
-                LogErrorKategorie.ERROR);
-        this.einStringArray = new String[] {"A", "B", null, "C" };
+            LogErrorKategorie.ERROR);
+        this.einStringArray = new String[] { "A", "B", null, "C" };
         this.einObjectArray = getEineObjectListe().toArray();
         this.einEnumArray = eineEnumListe.toArray(new LogErrorKategorie[3]);
         this.javaLang = new ThreadGroup("A");

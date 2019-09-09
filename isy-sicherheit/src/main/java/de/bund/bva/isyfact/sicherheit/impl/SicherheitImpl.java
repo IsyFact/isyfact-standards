@@ -51,8 +51,10 @@ import org.springframework.beans.factory.InitializingBean;
  * und Komponenten verwendet werden. Es wird das Interface Sicherheit implementiert, über welches
  * Berechtigungsmanager instanziiert werden können.
  *
- * @param <K> Typ des Aufrufkontextes
- * @param <E> Typ des Ergebnisses der Authentifizierung
+ * @param <K>
+ *            Typ des Aufrufkontextes
+ * @param <E>
+ *            Typ des Ergebnisses der Authentifizierung
  */
 public class SicherheitImpl<K extends AufrufKontext, E extends AuthentifzierungErgebnis>
     implements Sicherheit<K>, InitializingBean {
@@ -74,8 +76,7 @@ public class SicherheitImpl<K extends AufrufKontext, E extends AuthentifzierungE
     private final AccessManager<K, E> accessManager;
 
     /**
-     * Cache für Authentifizierungsinformationen, so dass der AccessManager entlastet
-     * wird.
+     * Cache für Authentifizierungsinformationen, so dass der AccessManager entlastet wird.
      */
     private final Cache<Object, E> authentifizierungCache;
 
@@ -138,8 +139,9 @@ public class SicherheitImpl<K extends AufrufKontext, E extends AuthentifzierungE
             CacheConfiguration<Object, AuthentifzierungErgebnis> cacheConfiguration =
                 CacheConfigurationBuilder
                     .newCacheConfigurationBuilder(Object.class, AuthentifzierungErgebnis.class,
-                        ResourcePoolsBuilder.heap(properties.getMaxelements())).withExpiry(
-                    Expirations.timeToLiveExpiration(Duration.of(properties.getTtl(), TimeUnit.SECONDS)))
+                        ResourcePoolsBuilder.heap(properties.getMaxelements()))
+                    .withExpiry(
+                        Expirations.timeToLiveExpiration(Duration.of(properties.getTtl(), TimeUnit.SECONDS)))
                     .build();
             CacheManager cacheManager =
                 CacheManagerBuilder.newCacheManagerBuilder().withCache(CACHE_ALIAS, cacheConfiguration)
@@ -153,7 +155,8 @@ public class SicherheitImpl<K extends AufrufKontext, E extends AuthentifzierungE
     /**
      * Erzeugt einen Berechtigungsmanager anhand eines Aufrufkontextes.
      *
-     * @param aufrufKontext Aufrufkontext
+     * @param aufrufKontext
+     *            Aufrufkontext
      * @return einen neuen Berechtigungmanager.
      */
     private Berechtigungsmanager erzeugeBerechtigungsmanager(K aufrufKontext) {
@@ -224,8 +227,10 @@ public class SicherheitImpl<K extends AufrufKontext, E extends AuthentifzierungE
     /**
      * Schreibt Daten aus einer Benutzersession in den Aufrufkontext.
      *
-     * @param correlationId            Korrelations-ID des Service-Aufrufs
-     * @param authentifzierungErgebnis Ergebnis der Authentifizierung
+     * @param correlationId
+     *            Korrelations-ID des Service-Aufrufs
+     * @param authentifzierungErgebnis
+     *            Ergebnis der Authentifizierung
      */
     private void aktualisiereAufrufKontextAusAuthentifizierungErgebnis(String correlationId,
         E authentifzierungErgebnis) {

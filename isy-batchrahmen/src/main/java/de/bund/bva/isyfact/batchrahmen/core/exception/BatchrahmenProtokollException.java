@@ -26,7 +26,7 @@ import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchReturnCode;
  *
  */
 public class BatchrahmenProtokollException extends BatchrahmenException {
-    
+
     /** Versions-ID. */
     private static final long serialVersionUID = -8998498430670506383L;
 
@@ -40,7 +40,7 @@ public class BatchrahmenProtokollException extends BatchrahmenException {
     public BatchrahmenProtokollException(String ausnahmeId, String... parameter) {
         super(ausnahmeId, parameter);
     }
-    
+
     /**
      * Ergzeugt einen Fehler.
      * @param ausnahmeId
@@ -53,13 +53,12 @@ public class BatchrahmenProtokollException extends BatchrahmenException {
     public BatchrahmenProtokollException(String ausnahmeId, Throwable cause, String... parameter) {
         super(ausnahmeId, cause, parameter);
     }
-    
+
     /**
      * {@inheritDoc}
      */
     @Override
     public BatchReturnCode getReturnCode() {
         return BatchReturnCode.FEHLER_ABBRUCH;
-    }    
+    }
 }
-

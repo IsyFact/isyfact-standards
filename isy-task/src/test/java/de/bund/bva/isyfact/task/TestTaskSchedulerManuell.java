@@ -20,9 +20,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @SpringBootTest(classes = TestConfig.class, webEnvironment = SpringBootTest.WebEnvironment.NONE,
-    properties = {"isy.logging.anwendung.name=test",
+    properties = { "isy.logging.anwendung.name=test",
         "isy.logging.anwendung.typ=test",
-        "isy.logging.anwendung.version=test"})
+        "isy.logging.anwendung.version=test" })
 public class TestTaskSchedulerManuell extends AbstractTaskTest {
 
     @Test

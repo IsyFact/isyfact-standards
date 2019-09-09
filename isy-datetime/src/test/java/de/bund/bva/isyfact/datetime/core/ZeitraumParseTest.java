@@ -41,8 +41,9 @@ public class ZeitraumParseTest {
         return Arrays.asList(new Object[][] {
             { "12.7.2017 14:00 Europe/Moscow, 13.09.2018 15:45 Europe/Moscow",
                 Zeitraum.of(ZonedDateTime.of(datumAnfang, zeitAnfang, MOSKAU),
-                    ZonedDateTime.of(datumEnde, zeitEnde, MOSKAU)) }, { "12.7.2017 14:00 Europe/Moscow, 7d",
-            Zeitraum.of(ZonedDateTime.of(datumAnfang, zeitAnfang, MOSKAU), dauerPeriod) },
+                    ZonedDateTime.of(datumEnde, zeitEnde, MOSKAU)) },
+            { "12.7.2017 14:00 Europe/Moscow, 7d",
+                Zeitraum.of(ZonedDateTime.of(datumAnfang, zeitAnfang, MOSKAU), dauerPeriod) },
             { "12.7.2017 14:00 Europe/Moscow, 1h 30min",
                 Zeitraum.of(ZonedDateTime.of(datumAnfang, zeitAnfang, MOSKAU), dauerDuration) },
             { "12.7.2017 14:00, 13.09.2018 15:45", Zeitraum.of(LocalDateTime.of(datumAnfang, zeitAnfang),

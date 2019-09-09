@@ -30,9 +30,9 @@ public class TestClock extends Clock {
      * Erstellt eine {@link TestClock} mit {@link Instant} und Zeitzone als initialen Wert.
      *
      * @param instant
-     *     der zu verwendende {@link Instant}, nicht null
+     *            der zu verwendende {@link Instant}, nicht null
      * @param zoneId
-     *     die zu verwendende Zeitzone als {@link ZoneId}, nicht null
+     *            die zu verwendende Zeitzone als {@link ZoneId}, nicht null
      * @return {@link TestClock} initial auf den Zeitpunkt und Zeitzone gesetzt, nicht null
      */
     public static TestClock at(Instant instant, ZoneId zoneId) {
@@ -47,7 +47,7 @@ public class TestClock extends Clock {
      * Als Zeitzone wird die Default-Zeitzone verwendet.
      *
      * @param localDateTime
-     *     die zu verwendende {@link LocalDateTime}, nicht null
+     *            die zu verwendende {@link LocalDateTime}, nicht null
      * @return {@link TestClock} initial auf die Zeit gesetzt, nicht null
      */
     public static TestClock at(LocalDateTime localDateTime) {
@@ -59,9 +59,9 @@ public class TestClock extends Clock {
      * Erstellt eine {@link TestClock} mit einer {@link LocalDateTime} mit Zeitzone als initialen Wert.
      *
      * @param localDateTime
-     *     die zu verwendende {@link LocalDateTime}, nicht null
+     *            die zu verwendende {@link LocalDateTime}, nicht null
      * @param zoneId
-     *     die zu verwendende Zeitzone als {@link ZoneId}, nicht null
+     *            die zu verwendende Zeitzone als {@link ZoneId}, nicht null
      * @return {@link TestClock} initial auf die Zeit mit der Zeitzone gesetzt, nicht null
      */
     public static TestClock at(LocalDateTime localDateTime, ZoneId zoneId) {
@@ -74,7 +74,7 @@ public class TestClock extends Clock {
      * Erstellt eine {@link TestClock} mit einer {@link LocalDateTime} mit Zeitzone als initialen Wert.
      *
      * @param offsetDateTime
-     *     die zu verwendende {@link OffsetDateTime}, nicht null
+     *            die zu verwendende {@link OffsetDateTime}, nicht null
      * @return {@link TestClock} initial auf die Zeit gesetzt, nicht null
      */
     public static TestClock at(OffsetDateTime offsetDateTime) {
@@ -86,7 +86,7 @@ public class TestClock extends Clock {
      * Erstellt eine {@link TestClock} mit einer {@link ZonedDateTime} als initialen Wert.
      *
      * @param zonedDateTime
-     *     die zu verwendende {@link ZonedDateTime}, nicht null
+     *            die zu verwendende {@link ZonedDateTime}, nicht null
      * @return {@link TestClock} initial auf die Zeit gesetzt, nicht null
      */
     public static TestClock at(ZonedDateTime zonedDateTime) {
@@ -98,7 +98,7 @@ public class TestClock extends Clock {
      * Erstellt eine {@link TestClock} mit der aktuellen Systemzeit und Zeitzone als initialen Wert.
      *
      * @param zoneId
-     *     die zu verwendende Zeitzone als {@link ZoneId}, nicht null
+     *            die zu verwendende Zeitzone als {@link ZoneId}, nicht null
      * @return {@link TestClock} initial auf die Systemzeit mit der Zone gesetzt, nicht null
      */
     public static TestClock now(ZoneId zoneId) {
@@ -119,7 +119,7 @@ public class TestClock extends Clock {
      * Verändere die Zeit der {@link TestClock} um die übergebene {@link Duration}.
      *
      * @param duration
-     *     {@link Duration}, mit der die Zeit dieser {@link TestClock} geändert werden soll
+     *            {@link Duration}, mit der die Zeit dieser {@link TestClock} geändert werden soll
      * @return diese {@link TestClock}, mit der geänderten Zeit
      */
     public TestClock advanceBy(Duration duration) {
@@ -132,7 +132,7 @@ public class TestClock extends Clock {
      * Verändere die Zeit der {@link TestClock} um die übergebene {@link Period}.
      *
      * @param period
-     *     {@link Period}, mit der die Zeit dieser {@link TestClock} geändert werden soll
+     *            {@link Period}, mit der die Zeit dieser {@link TestClock} geändert werden soll
      * @return diese {@link TestClock}, mit der geänderten Zeit
      */
     public TestClock advanceBy(Period period) {

@@ -35,9 +35,10 @@ import org.springframework.test.context.junit4.SpringRunner;
  * weiterleitet.
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = SicherheitTestConfig.class, webEnvironment = SpringBootTest.WebEnvironment.NONE, properties = {
-    "isy.logging.anwendung.name=test", "isy.logging.anwendung.typ=test",
-    "isy.logging.anwendung.version=test" })
+@SpringBootTest(classes = SicherheitTestConfig.class, webEnvironment = SpringBootTest.WebEnvironment.NONE,
+    properties = {
+        "isy.logging.anwendung.name=test", "isy.logging.anwendung.typ=test",
+        "isy.logging.anwendung.version=test" })
 public class DelegatingAccessDecisionManagerTest {
 
     @SuppressWarnings("rawtypes")

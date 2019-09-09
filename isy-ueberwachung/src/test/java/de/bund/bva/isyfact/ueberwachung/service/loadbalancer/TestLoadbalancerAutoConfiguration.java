@@ -14,7 +14,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = TestLoadbalancerAutoConfiguration.TestConfig.class, properties = {"isy.logging.autoconfiguration.enabled=false"})
+@SpringBootTest(classes = TestLoadbalancerAutoConfiguration.TestConfig.class,
+    properties = { "isy.logging.autoconfiguration.enabled=false" })
 public class TestLoadbalancerAutoConfiguration {
 
     @Autowired
@@ -31,11 +32,13 @@ public class TestLoadbalancerAutoConfiguration {
 
     @Test
     public void isAliveDefaultConfigTest() {
-        assertEquals("/WEB-INF/classes/config/isAlive", loadbalancerServletConfigurationProperties.getIsAliveFileLocation());
+        assertEquals("/WEB-INF/classes/config/isAlive",
+            loadbalancerServletConfigurationProperties.getIsAliveFileLocation());
     }
 
     @Configuration
     @EnableAutoConfiguration
-    static class TestConfig {}
+    static class TestConfig {
+    }
 
 }

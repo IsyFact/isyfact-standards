@@ -68,7 +68,6 @@ public class LoggingMethodInterceptor implements MethodInterceptor, Initializing
      */
     private long loggeMaximaleParameterGroesse = 0;
 
-
     /** Gibt an, ob der Standard BeanToMapConverter verwendet werden soll. */
     private final boolean verwendeStandardKonverter;
 
@@ -207,7 +206,7 @@ public class LoggingMethodInterceptor implements MethodInterceptor, Initializing
     public void afterPropertiesSet() throws Exception {
         BeanConverter beanConverter = erstelleBeanConverter();
         this.logHelper = new LogHelper(loggeAufruf, loggeErgebnis, loggeDauer, loggeDaten,
-                loggeDatenBeiException, loggeMaximaleParameterGroesse, beanConverter);
+            loggeDatenBeiException, loggeMaximaleParameterGroesse, beanConverter);
     }
 
     /**

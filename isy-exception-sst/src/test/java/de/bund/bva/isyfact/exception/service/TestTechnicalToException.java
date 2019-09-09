@@ -22,26 +22,30 @@ import org.junit.Test;
 
 public class TestTechnicalToException {
 
-	private static final String message = "Testen";
-	private static final String ausnahmeId = "von ToException";
-	private static final String uniqueId = "und deren Ableitungen";
-	private static final String SEPERATOR = "#";
-	private static final String SPACE = " ";
+    private static final String message = "Testen";
 
-	@Test
-	public void testTechnicalToException() {
-		ToException pte = new TestTechnicalToInstanz(message, ausnahmeId, uniqueId);
-		assertEquals(message, pte.getFehlertext());
-		assertEquals(ausnahmeId, pte.getAusnahmeId());
-		assertEquals(uniqueId, pte.getUniqueId());
+    private static final String ausnahmeId = "von ToException";
 
-		String exception = SEPERATOR + ausnahmeId + SPACE + message + SPACE + SEPERATOR + uniqueId;
-		assertEquals(exception, pte.getMessage());
-	}
+    private static final String uniqueId = "und deren Ableitungen";
 
-	class TestTechnicalToInstanz extends TechnicalToException {
-		public TestTechnicalToInstanz(String message, String ausnahmeId, String uniqueId) {
-			super(message, ausnahmeId, uniqueId);
-		}
-	}
+    private static final String SEPERATOR = "#";
+
+    private static final String SPACE = " ";
+
+    @Test
+    public void testTechnicalToException() {
+        ToException pte = new TestTechnicalToInstanz(message, ausnahmeId, uniqueId);
+        assertEquals(message, pte.getFehlertext());
+        assertEquals(ausnahmeId, pte.getAusnahmeId());
+        assertEquals(uniqueId, pte.getUniqueId());
+
+        String exception = SEPERATOR + ausnahmeId + SPACE + message + SPACE + SEPERATOR + uniqueId;
+        assertEquals(exception, pte.getMessage());
+    }
+
+    class TestTechnicalToInstanz extends TechnicalToException {
+        public TestTechnicalToInstanz(String message, String ausnahmeId, String uniqueId) {
+            super(message, ausnahmeId, uniqueId);
+        }
+    }
 }

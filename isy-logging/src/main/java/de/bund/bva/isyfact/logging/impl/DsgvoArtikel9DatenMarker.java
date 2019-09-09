@@ -7,7 +7,6 @@ public class DsgvoArtikel9DatenMarker extends AbstractIsyDatentypMarker {
      */
     public static final DsgvoArtikel9DatenMarker INSTANZ = new DsgvoArtikel9DatenMarker();
 
-
     private DsgvoArtikel9DatenMarker() {
         super("Daten gem. Artikel 9 DSGVO");
     }

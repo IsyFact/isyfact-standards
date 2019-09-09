@@ -22,13 +22,15 @@ public class IsyServiceApiCoreAutoConfiguration {
     @Bean
     public Advisor stelltLoggingKontextBereitAdvisor(StelltLoggingKontextBereitInterceptor interceptor) {
         AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
-        pointcut.setExpression("@annotation(de.bund.bva.isyfact.serviceapi.core.aop.StelltLoggingKontextBereit) || @within(de.bund.bva.isyfact.serviceapi.core.aop.StelltLoggingKontextBereit)");
+        pointcut.setExpression(
+            "@annotation(de.bund.bva.isyfact.serviceapi.core.aop.StelltLoggingKontextBereit) || @within(de.bund.bva.isyfact.serviceapi.core.aop.StelltLoggingKontextBereit)");
         return new DefaultPointcutAdvisor(pointcut, interceptor);
     }
 
     @Bean
-    @ConditionalOnBean({AufrufKontextFactory.class, AufrufKontextVerwalter.class})
-    public StelltAufrufKontextBereitInterceptor stelltAufrufKontextBereitInterceptor(AufrufKontextFactory factory, AufrufKontextVerwalter verwalter) {
+    @ConditionalOnBean({ AufrufKontextFactory.class, AufrufKontextVerwalter.class })
+    public StelltAufrufKontextBereitInterceptor stelltAufrufKontextBereitInterceptor(
+        AufrufKontextFactory factory, AufrufKontextVerwalter verwalter) {
         return new StelltAufrufKontextBereitInterceptor(factory, verwalter);
     }
 
@@ -36,7 +38,8 @@ public class IsyServiceApiCoreAutoConfiguration {
     @ConditionalOnBean(StelltAufrufKontextBereitInterceptor.class)
     public Advisor stelltAufrufKontextBereitAdvisor(StelltAufrufKontextBereitInterceptor interceptor) {
         AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
-        pointcut.setExpression("@annotation(de.bund.bva.isyfact.serviceapi.core.aufrufkontext.StelltAufrufKontextBereit) || @within(de.bund.bva.isyfact.serviceapi.core.aufrufkontext.StelltAufrufKontextBereit)");
+        pointcut.setExpression(
+            "@annotation(de.bund.bva.isyfact.serviceapi.core.aufrufkontext.StelltAufrufKontextBereit) || @within(de.bund.bva.isyfact.serviceapi.core.aufrufkontext.StelltAufrufKontextBereit)");
         return new DefaultPointcutAdvisor(pointcut, interceptor);
     }
 }

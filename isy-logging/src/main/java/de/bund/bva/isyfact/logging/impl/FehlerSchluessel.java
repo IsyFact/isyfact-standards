@@ -61,7 +61,7 @@ public final class FehlerSchluessel {
      * Fehler beim Aufruf der Methode {0} durch den Log-Interceptor.
      */
     public static final String LOG_INTERCEPTOR_FEHLER_BEI_AUFRUF = "ISYLO01000";
-    
+
     /**
      * Fehler bei der Serialisierung der Aufrufparameter.
      */

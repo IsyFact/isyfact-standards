@@ -32,62 +32,62 @@ import de.bund.bva.isyfact.persistence.dao.test.TestEntity;
 
 public class TestAbstractDao {
 
-	@Test
-	public void testConstructor() {
-		AbstractDao dao = new TestDao();
-		assertEquals(TestEntity.class, dao.getPersistentClass());
-	}
-	
-	@Test
-	public void testSpeichere(){
-		TestDao dao = new TestDao();
-		EntityManager manager = mock(EntityManager.class);
-		dao.setEntityManager(manager);
-		assertEquals(manager, dao.getEntityManager());
-		TestEntity entity = new TestEntity();
-		dao.speichere(entity);
-		verify(manager, times(1)).persist(entity);
-	}
-	
-	@Test
-	public void testLoesche(){
-		TestDao dao = new TestDao();
-		EntityManager manager = mock(EntityManager.class);
-		dao.setEntityManager(manager);
-		assertEquals(manager, dao.getEntityManager());
-		TestEntity entity = new TestEntity();
-		dao.loesche(entity);
-		verify(manager, times(1)).remove(entity);
-	}
-	
-	@Test
-	public void testSucheMitId(){
-		TestDao dao = new TestDao();
-		EntityManager manager = mock(EntityManager.class);		
-		dao.setEntityManager(manager);
-		assertEquals(manager, dao.getEntityManager());
-		UUID id = UUID.randomUUID();		
-		TestEntity entity = new TestEntity(id, "wert");
-		when(manager.find(TestEntity.class,id)).thenReturn(entity);
-		assertEquals(entity, dao.sucheMitId(id));
-		
-	}
-	
-	@Test
-	public void testGetSingleOptionalResult(){
-		TestEntity entity = new TestEntity();
-		TestDao dao = new TestDao();
-		TypedQuery<TestEntity> query = mock(TypedQuery.class);
-		when(query.getSingleResult()).thenReturn(entity);
-		assertEquals(entity, dao.getSingleOptionalResult(query));
-	}
-	
-	@Test
-	public void testGetSingleOptionalResultNoResult(){
-		TestDao dao = new TestDao();
-		TypedQuery<TestEntity> query = mock(TypedQuery.class);
-		when(query.getSingleResult()).thenThrow(NoResultException.class);
-		assertEquals(null, dao.getSingleOptionalResult(query));
-	}
+    @Test
+    public void testConstructor() {
+        AbstractDao dao = new TestDao();
+        assertEquals(TestEntity.class, dao.getPersistentClass());
+    }
+
+    @Test
+    public void testSpeichere() {
+        TestDao dao = new TestDao();
+        EntityManager manager = mock(EntityManager.class);
+        dao.setEntityManager(manager);
+        assertEquals(manager, dao.getEntityManager());
+        TestEntity entity = new TestEntity();
+        dao.speichere(entity);
+        verify(manager, times(1)).persist(entity);
+    }
+
+    @Test
+    public void testLoesche() {
+        TestDao dao = new TestDao();
+        EntityManager manager = mock(EntityManager.class);
+        dao.setEntityManager(manager);
+        assertEquals(manager, dao.getEntityManager());
+        TestEntity entity = new TestEntity();
+        dao.loesche(entity);
+        verify(manager, times(1)).remove(entity);
+    }
+
+    @Test
+    public void testSucheMitId() {
+        TestDao dao = new TestDao();
+        EntityManager manager = mock(EntityManager.class);
+        dao.setEntityManager(manager);
+        assertEquals(manager, dao.getEntityManager());
+        UUID id = UUID.randomUUID();
+        TestEntity entity = new TestEntity(id, "wert");
+        when(manager.find(TestEntity.class, id)).thenReturn(entity);
+        assertEquals(entity, dao.sucheMitId(id));
+
+    }
+
+    @Test
+    public void testGetSingleOptionalResult() {
+        TestEntity entity = new TestEntity();
+        TestDao dao = new TestDao();
+        TypedQuery<TestEntity> query = mock(TypedQuery.class);
+        when(query.getSingleResult()).thenReturn(entity);
+        assertEquals(entity, dao.getSingleOptionalResult(query));
+    }
+
+    @Test
+    public void testGetSingleOptionalResultNoResult() {
+        TestDao dao = new TestDao();
+        TypedQuery<TestEntity> query = mock(TypedQuery.class);
+        when(query.getSingleResult()).thenThrow(NoResultException.class);
+        assertEquals(null, dao.getSingleOptionalResult(query));
+    }
 
 }

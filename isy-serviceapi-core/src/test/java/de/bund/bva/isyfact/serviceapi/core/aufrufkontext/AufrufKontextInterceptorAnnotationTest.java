@@ -36,7 +36,7 @@ import static org.junit.Assert.*;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = TestConfig.class, webEnvironment = SpringBootTest.WebEnvironment.NONE,
-properties = {"isy.logging.autoconfiguration.enabled=false"})
+    properties = { "isy.logging.autoconfiguration.enabled=false" })
 public class AufrufKontextInterceptorAnnotationTest {
 
     /**
@@ -72,8 +72,10 @@ public class AufrufKontextInterceptorAnnotationTest {
      * <p>
      * Wirft einen {@link AssertionFailedError}, wenn die übergebenen Objekte nicht überein stimmen.
      *
-     * @param to      Transportobjekt
-     * @param kontext AufrufKontext
+     * @param to
+     *            Transportobjekt
+     * @param kontext
+     *            AufrufKontext
      */
     private void assertEqualData(AufrufKontextTo to, AufrufKontext kontext) {
         assertEquals(to.getDurchfuehrendeBehoerde(), kontext.getDurchfuehrendeBehoerde());

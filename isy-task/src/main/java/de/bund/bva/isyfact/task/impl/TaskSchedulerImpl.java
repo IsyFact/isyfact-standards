@@ -35,8 +35,8 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
- * Implementierung von {@link TaskScheduler}, bei der die Tasks als Spring-Beans bereitgestellt
- * und per {@link IsyTaskConfigurationProperties} konfiguriert werden.
+ * Implementierung von {@link TaskScheduler}, bei der die Tasks als Spring-Beans bereitgestellt und per
+ * {@link IsyTaskConfigurationProperties} konfiguriert werden.
  */
 public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware {
     private final IsyTaskConfigurationProperties configurationProperties;
@@ -60,13 +60,15 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
     /**
      * Erstelle eine {@link TaskScheduler}-Instanz.
      *
-     * @param configurationProperties    {@link IsyTaskConfigurationProperties} zur Konfiguration des TaskScheduler
-     * @param taskKonfigurationVerwalter {@link TaskKonfigurationVerwalter} der die Konfiguration der Tasks
-     *                                   bereitstellt
-     * @param hostHandler                {@link HostHandler} zur Überprüfung des Hosts, auf dem die Tasks ausgeführt werden
-     *                                   sollen
+     * @param configurationProperties
+     *            {@link IsyTaskConfigurationProperties} zur Konfiguration des TaskScheduler
+     * @param taskKonfigurationVerwalter
+     *            {@link TaskKonfigurationVerwalter} der die Konfiguration der Tasks bereitstellt
+     * @param hostHandler
+     *            {@link HostHandler} zur Überprüfung des Hosts, auf dem die Tasks ausgeführt werden sollen
      */
-    public TaskSchedulerImpl(IsyTaskConfigurationProperties configurationProperties, TaskKonfigurationVerwalter taskKonfigurationVerwalter,
+    public TaskSchedulerImpl(IsyTaskConfigurationProperties configurationProperties,
+        TaskKonfigurationVerwalter taskKonfigurationVerwalter,
         HostHandler hostHandler) {
         this.configurationProperties = configurationProperties;
         this.taskKonfigurationVerwalter = taskKonfigurationVerwalter;
@@ -207,7 +209,6 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
         }
     }
 
-
     @Override
     public boolean shutdownMitTimeout(long seconds) throws InterruptedException {
         scheduledExecutorService.shutdown();
@@ -258,7 +259,8 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
                     taskFuture = scheduledFutures.get(taskId);
 
                     try {
-                        SECONDS.sleep(configurationProperties.getWatchdog().getRestartInterval().getSeconds());
+                        SECONDS
+                            .sleep(configurationProperties.getWatchdog().getRestartInterval().getSeconds());
                     } catch (InterruptedException ie) {
                         stop = true;
                     }

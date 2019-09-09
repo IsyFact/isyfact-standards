@@ -19,10 +19,10 @@ package de.bund.bva.isyfact.serviceapi.core.serviceimpl.test;
 import de.bund.bva.isyfact.exception.service.TechnicalToException;
 
 public class TechnicalTestToException extends TechnicalToException {
-	private static final long serialVersionUID = -1453296643631781592L;
+    private static final long serialVersionUID = -1453296643631781592L;
 
-	public TechnicalTestToException(String message, String ausnahmeId, String uniqueId) {
-		super(message, ausnahmeId, uniqueId);
-	}
+    public TechnicalTestToException(String message, String ausnahmeId, String uniqueId) {
+        super(message, ausnahmeId, uniqueId);
+    }
 
 }

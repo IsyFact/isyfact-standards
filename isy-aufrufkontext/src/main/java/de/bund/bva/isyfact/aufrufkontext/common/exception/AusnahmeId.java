@@ -22,10 +22,10 @@ package de.bund.bva.isyfact.aufrufkontext.common.exception;
  *
  */
 public enum AusnahmeId {
-    
+
     /** Der übergebene Parameter ist null oder leer. */
     UEBERGEBENER_PARAMETER_FALSCH("AUFRU00001"),
-    
+
     AUFRUFKONTEXT_KEIN_DEFAULT_KOSTRUKTOR("AUFRU00002");
 
     /** der Code für den FehlertextProvider. */
@@ -42,6 +42,5 @@ public enum AusnahmeId {
     private AusnahmeId(String code) {
         this.code = code;
     }
-    
-}
 
+}

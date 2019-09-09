@@ -273,20 +273,22 @@ public class BatchLauncher {
             return null;
         };
 
-        List<Class> anwendungContextConfigs = rahmenKonfiguration.getAnwendungSpringKonfigFiles().stream().map(loadClass).collect(
-            Collectors.toList());
-        List<Class> batchContextConfigs = rahmenKonfiguration.getBatchRahmenSpringKonfigFiles().stream().map(loadClass).collect(
-            Collectors.toList());
+        List<Class> anwendungContextConfigs =
+            rahmenKonfiguration.getAnwendungSpringKonfigFiles().stream().map(loadClass).collect(
+                Collectors.toList());
+        List<Class> batchContextConfigs =
+            rahmenKonfiguration.getBatchRahmenSpringKonfigFiles().stream().map(loadClass).collect(
+                Collectors.toList());
 
         List<Class> configs = new ArrayList<>(anwendungContextConfigs);
         configs.addAll(batchContextConfigs);
 
-        ConfigurableApplicationContext
-            rahmen = new SpringApplicationBuilder().sources(configs.toArray(new Class[0]))
-                                                   .bannerMode(Banner.Mode.OFF)
-                                                   .registerShutdownHook(true)
-                                                   .profiles(rahmenKonfiguration.getSpringProfiles())
-                                                   .run();
+        ConfigurableApplicationContext rahmen =
+            new SpringApplicationBuilder().sources(configs.toArray(new Class[0]))
+                .bannerMode(Banner.Mode.OFF)
+                .registerShutdownHook(true)
+                .profiles(rahmenKonfiguration.getSpringProfiles())
+                .run();
 
         String rahmenBeanName =
             this.rahmenKonfiguration.getAsString(KonfigurationSchluessel.PROPERTY_BATCHRAHMEN_BEAN_NAME,

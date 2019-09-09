@@ -19,46 +19,47 @@ package de.bund.bva.isyfact.batchrahmen.persistence.rahmen;
 import java.io.Serializable;
 
 /**
- * Die Persistenz-Klasse fuer einen Konfigurations-Parameter des Batches.
- * Dies sind sowohl Aufruf-Parameter als auch Einträge der Property-Datei.
+ * Die Persistenz-Klasse fuer einen Konfigurations-Parameter des Batches. Dies sind sowohl Aufruf-Parameter
+ * als auch Einträge der Property-Datei.
  * 
  * 
  */
 public class BatchKonfigurationsParameter implements Serializable {
-    
-    /** Die Versions-ID.  */
-    private static final long serialVersionUID = -8564991741012915474L;
 
+    /** Die Versions-ID. */
+    private static final long serialVersionUID = -8564991741012915474L;
 
     /** Der Wert des Konfigurations-Parameters. */
     private String parameterWert;
-    
+
     /** Die ID des Batches fuer diesen Parameter. */
     private String batchId;
 
     /** Der Name des Konfigurations-Parameters. */
     private String parameterName;
-    
-    
+
     /**
      * Konstruktor mit allen Werten.
      * 
-     * @param batchId         die Batch-Id.
-     * @param parameterName   der Name des Parameters.
-     * @param parameterWert   der Wert des Parameters.
+     * @param batchId
+     *            die Batch-Id.
+     * @param parameterName
+     *            der Name des Parameters.
+     * @param parameterWert
+     *            der Wert des Parameters.
      */
     public BatchKonfigurationsParameter(String batchId, String parameterName, String parameterWert) {
         this.parameterName = parameterName;
         this.batchId = batchId;
         this.parameterWert = parameterWert;
-    }    
+    }
 
     /**
      * Konstruktor fuer Hibernate.
      */
     public BatchKonfigurationsParameter() {
         super();
-    }    
+    }
 
     /**
      * gibt die ID des Batches zurueck.
@@ -113,8 +114,7 @@ public class BatchKonfigurationsParameter implements Serializable {
      */
     public void setParameterWert(String parameterWert) {
         this.parameterWert = parameterWert;
-    }    
-
+    }
 
     /**
      * errechnet den HashCode ueber die Batch-ID und den Parameter-Namen.
@@ -126,15 +126,17 @@ public class BatchKonfigurationsParameter implements Serializable {
         int result = 1;
         result = prime * result + ((batchId == null) ? 0 : batchId.hashCode());
         result =
-                prime
-                        * result
-                        + ((parameterName == null) ? 0 : parameterName
-                                .hashCode());
+            prime
+                * result
+                + ((parameterName == null) ? 0
+                    : parameterName
+                        .hashCode());
         result =
-                prime
-                        * result
-                        + ((parameterWert == null) ? 0 : parameterWert
-                                .hashCode());
+            prime
+                * result
+                + ((parameterWert == null) ? 0
+                    : parameterWert
+                        .hashCode());
         return result;
     }
 
@@ -156,7 +158,7 @@ public class BatchKonfigurationsParameter implements Serializable {
             return false;
         }
         final BatchKonfigurationsParameter other =
-                (BatchKonfigurationsParameter) obj;
+            (BatchKonfigurationsParameter) obj;
         if (batchId == null) {
             if (other.batchId != null) {
                 return false;

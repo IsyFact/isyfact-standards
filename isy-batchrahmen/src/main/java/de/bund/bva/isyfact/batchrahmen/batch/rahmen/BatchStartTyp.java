@@ -21,7 +21,7 @@ package de.bund.bva.isyfact.batchrahmen.batch.rahmen;
  * <ul>
  * <li>Start und
  * <li>Restart
- * </ul> 
+ * </ul>
  * 
  *
  */

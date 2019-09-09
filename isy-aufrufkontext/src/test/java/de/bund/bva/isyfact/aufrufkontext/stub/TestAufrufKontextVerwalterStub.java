@@ -27,69 +27,72 @@ import de.bund.bva.isyfact.aufrufkontext.impl.AufrufKontextFactoryImpl;
 
 public class TestAufrufKontextVerwalterStub {
 
-	private AufrufKontext aKontext;
-	private AufrufKontextVerwalterStub<AufrufKontext> stub;
+    private AufrufKontext aKontext;
 
-	@Before
-	public void setUp() {
-		stub = new AufrufKontextVerwalterStub<AufrufKontext>();
-		stub.setAufrufKontextFactory(new AufrufKontextFactoryImpl<AufrufKontext>());
-		stub.setFesterAufrufKontext(true);
-		aKontext = stub.getAufrufKontext();
-	}
+    private AufrufKontextVerwalterStub<AufrufKontext> stub;
 
-	private void assertEqualsAufrufKontext(AufrufKontext k1, AufrufKontext k2) {
-		assertEquals(k1.getDurchfuehrendeBehoerde(), k2.getDurchfuehrendeBehoerde());
-		assertEquals(k1.getDurchfuehrenderBenutzerKennung(), k2.getDurchfuehrenderBenutzerKennung());
-		assertEquals(k1.getDurchfuehrenderBenutzerPasswort(), k2.getDurchfuehrenderBenutzerPasswort());
-		assertEquals(k1.getDurchfuehrenderSachbearbeiterName(), k2.getDurchfuehrenderSachbearbeiterName());
-		assertEquals(k1.getDurchfuehrenderBenutzerInterneKennung(), k2.getDurchfuehrenderBenutzerInterneKennung());
-		assertArrayEquals(k1.getRolle(), k2.getRolle());
-	}
+    @Before
+    public void setUp() {
+        stub = new AufrufKontextVerwalterStub<AufrufKontext>();
+        stub.setAufrufKontextFactory(new AufrufKontextFactoryImpl<AufrufKontext>());
+        stub.setFesterAufrufKontext(true);
+        aKontext = stub.getAufrufKontext();
+    }
 
-	@Test
-	public void testErzeugeAufrufKontext() {
-		AufrufKontext kontext = stub.getAufrufKontext();
-		assertEqualsAufrufKontext(kontext, aKontext);
-	}
+    private void assertEqualsAufrufKontext(AufrufKontext k1, AufrufKontext k2) {
+        assertEquals(k1.getDurchfuehrendeBehoerde(), k2.getDurchfuehrendeBehoerde());
+        assertEquals(k1.getDurchfuehrenderBenutzerKennung(), k2.getDurchfuehrenderBenutzerKennung());
+        assertEquals(k1.getDurchfuehrenderBenutzerPasswort(), k2.getDurchfuehrenderBenutzerPasswort());
+        assertEquals(k1.getDurchfuehrenderSachbearbeiterName(), k2.getDurchfuehrenderSachbearbeiterName());
+        assertEquals(k1.getDurchfuehrenderBenutzerInterneKennung(),
+            k2.getDurchfuehrenderBenutzerInterneKennung());
+        assertArrayEquals(k1.getRolle(), k2.getRolle());
+    }
 
-	@Test
-	public void testErzeugeAufrufKontext2() throws Exception {
+    @Test
+    public void testErzeugeAufrufKontext() {
+        AufrufKontext kontext = stub.getAufrufKontext();
+        assertEqualsAufrufKontext(kontext, aKontext);
+    }
 
-		String durchfuehrendeBehoerde = "654321";
-		String durchfuehrenderBenutzerKennung = "max.mustermann@bva.bund.de";
-		String durchfuehrenderBenutzerPasswort = "passwort";
-		String durchfuehrenderSachbearbeiterName = "Max Mustermann";
-		String durchfuehrenderBenutzerInterneKennung = "Max013";
-		String[] rollen = null;
+    @Test
+    public void testErzeugeAufrufKontext2() throws Exception {
 
-		stub.setDurchfuehrendeBehoerde(durchfuehrendeBehoerde);
-		stub.setDurchfuehrenderBenutzerKennung(durchfuehrenderBenutzerKennung);
-		stub.setDurchfuehrenderBenutzerPasswort(durchfuehrenderBenutzerPasswort);
-		stub.setDurchfuehrenderSachbearbeiterName(durchfuehrenderSachbearbeiterName);
-		stub.setDurchfuehrenderBenutzerInterneKennung(durchfuehrenderBenutzerInterneKennung);
-		stub.setRollen(rollen);
+        String durchfuehrendeBehoerde = "654321";
+        String durchfuehrenderBenutzerKennung = "max.mustermann@bva.bund.de";
+        String durchfuehrenderBenutzerPasswort = "passwort";
+        String durchfuehrenderSachbearbeiterName = "Max Mustermann";
+        String durchfuehrenderBenutzerInterneKennung = "Max013";
+        String[] rollen = null;
 
-		stub.setFesterAufrufKontext(false);
-		stub.afterPropertiesSet();
+        stub.setDurchfuehrendeBehoerde(durchfuehrendeBehoerde);
+        stub.setDurchfuehrenderBenutzerKennung(durchfuehrenderBenutzerKennung);
+        stub.setDurchfuehrenderBenutzerPasswort(durchfuehrenderBenutzerPasswort);
+        stub.setDurchfuehrenderSachbearbeiterName(durchfuehrenderSachbearbeiterName);
+        stub.setDurchfuehrenderBenutzerInterneKennung(durchfuehrenderBenutzerInterneKennung);
+        stub.setRollen(rollen);
 
-		AufrufKontext kontext = stub.getAufrufKontext();
+        stub.setFesterAufrufKontext(false);
+        stub.afterPropertiesSet();
 
-		assertEquals(durchfuehrendeBehoerde, kontext.getDurchfuehrendeBehoerde());
-		assertEquals(durchfuehrenderBenutzerKennung, kontext.getDurchfuehrenderBenutzerKennung());
-		assertEquals(durchfuehrenderBenutzerPasswort, kontext.getDurchfuehrenderBenutzerPasswort());
-		assertEquals(durchfuehrenderSachbearbeiterName, kontext.getDurchfuehrenderSachbearbeiterName());
-		assertEquals(durchfuehrenderBenutzerInterneKennung, kontext.getDurchfuehrenderBenutzerInterneKennung());
-		assertArrayEquals(new String[]{}, kontext.getRolle());
-	}
+        AufrufKontext kontext = stub.getAufrufKontext();
 
-	@Test
-	public void testErzeugeAufrufKontext3() {
+        assertEquals(durchfuehrendeBehoerde, kontext.getDurchfuehrendeBehoerde());
+        assertEquals(durchfuehrenderBenutzerKennung, kontext.getDurchfuehrenderBenutzerKennung());
+        assertEquals(durchfuehrenderBenutzerPasswort, kontext.getDurchfuehrenderBenutzerPasswort());
+        assertEquals(durchfuehrenderSachbearbeiterName, kontext.getDurchfuehrenderSachbearbeiterName());
+        assertEquals(durchfuehrenderBenutzerInterneKennung,
+            kontext.getDurchfuehrenderBenutzerInterneKennung());
+        assertArrayEquals(new String[] {}, kontext.getRolle());
+    }
 
-		stub.setAufrufKontext(aKontext);
-		stub.setFesterAufrufKontext(false);
-		AufrufKontext kontext = stub.getAufrufKontext();
-		
-		assertEquals(aKontext, kontext);
-	}
+    @Test
+    public void testErzeugeAufrufKontext3() {
+
+        stub.setAufrufKontext(aKontext);
+        stub.setFesterAufrufKontext(false);
+        AufrufKontext kontext = stub.getAufrufKontext();
+
+        assertEquals(aKontext, kontext);
+    }
 }

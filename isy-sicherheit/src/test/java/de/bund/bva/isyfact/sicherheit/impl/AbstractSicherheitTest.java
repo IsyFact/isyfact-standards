@@ -32,8 +32,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SicherheitTestConfig.class, webEnvironment = SpringBootTest.WebEnvironment.NONE,
-    properties = {"isy.logging.anwendung.name=test", "isy.logging.anwendung.typ=test", "isy.logging.anwendung.version=test",
-    "isy.sicherheit.cache.ttl=1"})
+    properties = { "isy.logging.anwendung.name=test", "isy.logging.anwendung.typ=test",
+        "isy.logging.anwendung.version=test",
+        "isy.sicherheit.cache.ttl=1" })
 @DirtiesContext
 public abstract class AbstractSicherheitTest {
 

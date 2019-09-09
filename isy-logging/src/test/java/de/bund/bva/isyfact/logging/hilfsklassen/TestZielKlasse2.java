@@ -62,18 +62,18 @@ public class TestZielKlasse2 {
      *             java.lang.ArithmeticException: wird immer geworfen.
      */
     public TestZielParameterPerson setzeNameException(TestZielParameterPerson person, String str)
-            throws Throwable {
+        throws Throwable {
 
         person.setName(str);
 
         Thread.sleep(125);
-        
+
         // Exception provozieren
         int i = 1 / 0;
         person.setName("Name " + i);
 
         return person;
-        
+
     }
 
 }

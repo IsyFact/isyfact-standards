@@ -24,7 +24,7 @@ public abstract class AbstractPollingTest {
 
     /**
      * Überprüft den JMX-Status und gibt Informationen auf der Konsole aus.
-     * @return true, falls JMX aktiv ist, false sonst. 
+     * @return true, falls JMX aktiv ist, false sonst.
      */
     public boolean pruefeJMXStatus() throws Exception {
 
@@ -36,7 +36,7 @@ public abstract class AbstractPollingTest {
             if (System.getProperty("com.sun.management.jmxremote.port") != null) {
                 System.out.println("JMX running on port "
                     + Integer.parseInt(
-                    System.getProperty("com.sun.management.jmxremote.port")));
+                        System.getProperty("com.sun.management.jmxremote.port")));
             }
         }
 

@@ -24,9 +24,9 @@ import de.bund.bva.isyfact.exception.common.FehlertextUtil;
  * Abstrakte (<i>checked</i>) Hauptexception, welche als Basis für die abstrakten fachlichen und technischen
  * Exceptions (<i>checked</i>) auf Anwendungsebene verwendet wird.
  * <p>
- * Die Applikationsspezifischen Exceptions sollen nicht von direkt von {@link BaseException} erben,
- * sondern von {@link BusinessException} (für fachliche checked Exceptions) oder
- * {@link TechnicalException} (für technische checked Exceptions).
+ * Die Applikationsspezifischen Exceptions sollen nicht von direkt von {@link BaseException} erben, sondern
+ * von {@link BusinessException} (für fachliche checked Exceptions) oder {@link TechnicalException} (für
+ * technische checked Exceptions).
  * <p>
  *
  */

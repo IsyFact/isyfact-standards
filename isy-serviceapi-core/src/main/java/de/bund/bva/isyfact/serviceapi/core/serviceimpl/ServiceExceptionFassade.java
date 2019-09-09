@@ -35,7 +35,6 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.exception.service.TechnicalToException;
 
-
 /**
  * Eine generische Exception-Fassade für Service- und Native-GUI-Komponenten. Diese Implementierung fängt alle
  * Exceptions und behandelt sie folgendermaßen:
@@ -46,8 +45,8 @@ import de.bund.bva.isyfact.exception.service.TechnicalToException;
  * {@link #setLogLevelExceptions(String)}). Sie wird auf eine {@link ToException} abgebildet, die pro
  * konkreter {@link BaseException}-Subklasse konfigurierbar ist.</li>
  *
- * <li>Eine {@link TechnicalRuntimeException} wird auf Level ERROR geloggt und auf eine global
- * konfigurierbare {@link TechnicalToException} abgebildet.</li>
+ * <li>Eine {@link TechnicalRuntimeException} wird auf Level ERROR geloggt und auf eine global konfigurierbare
+ * {@link TechnicalToException} abgebildet.</li>
  *
  * <li>Eine sonstige Exception zunächst in eine global konfigurierbare {@link TechnicalRuntimeException}
  * gewrappt und dann auf Level ERROR geloggt. Durch das Wrapping werden eine Ausnahme-ID und Unique-ID
@@ -71,10 +70,10 @@ public class ServiceExceptionFassade implements MethodInterceptor, Validatable {
     private Constructor<? extends TechnicalRuntimeException> appTechnicalRuntimeExceptionCon;
 
     /**
-     * Das Log-Level, auf dem (checked) {@link BaseException Exceptions} geloggt werden. Checked
-     * Exceptions sind vorhergesehene fachliche oder technische Fehler, die keinen unerwarteten
-     * Betriebszustand darstellen. Sie sollen deshalb unter Umständen nicht ins ERROR-Log geschrieben werden,
-     * um den Betrieb nicht grundlos zu alarmieren. Hier kann ein feinerer Log-Level konfiguriert werden oder
+     * Das Log-Level, auf dem (checked) {@link BaseException Exceptions} geloggt werden. Checked Exceptions
+     * sind vorhergesehene fachliche oder technische Fehler, die keinen unerwarteten Betriebszustand
+     * darstellen. Sie sollen deshalb unter Umständen nicht ins ERROR-Log geschrieben werden, um den Betrieb
+     * nicht grundlos zu alarmieren. Hier kann ein feinerer Log-Level konfiguriert werden oder
      * <code>null</code>, um checked Exceptions gar nicht zu loggen.
      */
     private String logLevelExceptions = "ERROR";
@@ -83,13 +82,13 @@ public class ServiceExceptionFassade implements MethodInterceptor, Validatable {
      * Erzeugt eine generische Exception-Fassade für Service- und Native-GUI-Komponenten.
      *
      * @param methodMappingSource
-     *          Konfiguration für das Methoden-Mapping.
+     *            Konfiguration für das Methoden-Mapping.
      * @param exceptionMappingSource
-     *          Konfiguration für das Exception-Mapping.
+     *            Konfiguration für das Exception-Mapping.
      * @param ausnahmeIdErmittler
-     *          Konfiguration für Ermittlung der Ausnahme-ID beim Wrapping.
+     *            Konfiguration für Ermittlung der Ausnahme-ID beim Wrapping.
      * @param appTechnicalRuntimeException
-     *          Exception, auf die sonstige Exceptions gemappt werden.
+     *            Exception, auf die sonstige Exceptions gemappt werden.
      *
      */
     public ServiceExceptionFassade(MethodMappingSource methodMappingSource,

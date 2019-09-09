@@ -42,7 +42,7 @@ public class IsyLoggingFehlertextProvider implements FehlertextProvider {
      * Das ResourceBoundle mit den Fehlertexten der Proxy-API.
      */
     private static final ResourceBundle FEHLERTEXT_BUNDLE = ResourceBundle.getBundle(
-            NACHRICHTEN_RESOURCE, Locale.GERMANY);
+        NACHRICHTEN_RESOURCE, Locale.GERMANY);
 
     /**
      * liest Nachricht aus.

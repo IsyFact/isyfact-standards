@@ -19,7 +19,7 @@ package de.bund.bva.isyfact.sicherheit.common.exception;
 import de.bund.bva.isyfact.sicherheit.common.konstanten.SicherheitFehlerSchluessel;
 
 /**
- * Exceptions dieser Klasse werden geworfen wenn ein technischer Fehler beim Authentifizieren auftritt. 
+ * Exceptions dieser Klasse werden geworfen wenn ein technischer Fehler beim Authentifizieren auftritt.
  * 
  * 
  */
@@ -31,8 +31,7 @@ public class AuthentifizierungTechnicalException extends SicherheitTechnicalRunt
     private static final long serialVersionUID = 7283769057757274739L;
 
     /**
-     * Erzeugt die Exception.
-     *      * 
+     * Erzeugt die Exception. *
      * @param detailText
      *            Detail-Text der in die Fehlermeldung übernommen werden soll.
      * @param throwable
@@ -53,10 +52,10 @@ public class AuthentifizierungTechnicalException extends SicherheitTechnicalRunt
     public AuthentifizierungTechnicalException(String detailText) {
         super(SicherheitFehlerSchluessel.MSG_ZUGRIFF_ACCESSMANAGER_FEHLGESCHLAGEN, detailText);
     }
-    
+
     /**
      * Erzeugt die Exception.
-     *      
+     * 
      * @param throwable
      *            Der Grund. Throwable wird gespeichert für die spätere Nutzung durch die Methode
      *            {@link #getCause()}. <tt>null</tt> als Wert ist erlaubt und bedeutet, dass kein Grund

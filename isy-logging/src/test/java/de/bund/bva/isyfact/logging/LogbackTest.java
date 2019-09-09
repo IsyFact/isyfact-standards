@@ -51,14 +51,14 @@ public class LogbackTest extends AbstractLogTest {
         Logger logbackLogger = LoggerFactory.getLogger(LogbackTest.class);
         logbackLogger.debug("Dies ist eine Debug-Logausgabe mit Logback {} {}", 1, 2);
         logbackLogger.info("Dies ist eine Info-Logausgabe mit Logback {} {}", 1, 2,
-                new LogKonfigurationFehler(FehlerSchluessel.FALSCHES_LOGGING_FRAMEWORK, this.getClass()
-                        .getName()));
+            new LogKonfigurationFehler(FehlerSchluessel.FALSCHES_LOGGING_FRAMEWORK, this.getClass()
+                .getName()));
         logbackLogger.warn("Dies ist eine Warn-Logausgabe mit Logback {} {}", 1, 2);
 
         logbackLogger.debug(marker, "Dies ist eine Debug-Logausgabe mit Logback {} {}", 1, 2);
         logbackLogger.info(marker, "Dies ist eine Info-Logausgabe mit Logback {} {}", 1, 2,
-                new LogKonfigurationFehler(FehlerSchluessel.FALSCHES_LOGGING_FRAMEWORK, this.getClass()
-                        .getName()));
+            new LogKonfigurationFehler(FehlerSchluessel.FALSCHES_LOGGING_FRAMEWORK, this.getClass()
+                .getName()));
         logbackLogger.warn(marker, "Dies ist eine Warn-Logausgabe mit Logback {} {}", 1, 2);
 
         pruefeLogdatei("testLogback");

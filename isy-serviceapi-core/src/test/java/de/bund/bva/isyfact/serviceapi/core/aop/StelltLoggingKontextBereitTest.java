@@ -25,7 +25,7 @@ import static org.junit.Assert.*;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = StelltLoggingKontextBereitTest.TestConfig.class,
-properties = {"isy.logging.autoconfiguration.enabled=false"})
+    properties = { "isy.logging.autoconfiguration.enabled=false" })
 public class StelltLoggingKontextBereitTest {
 
     @Autowired

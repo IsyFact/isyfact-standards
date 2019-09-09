@@ -106,7 +106,8 @@ public class TestBatchLauchner {
             "Die Kommandozeile ist:\n{}", cmdLine);
         Process batchProcess = processBuilder.start();
 
-        try (BufferedReader processIn = new BufferedReader(new InputStreamReader(batchProcess.getInputStream()))) {
+        try (BufferedReader processIn =
+            new BufferedReader(new InputStreamReader(batchProcess.getInputStream()))) {
             Thread t = new Thread(() -> {
                 try {
                     while (!Thread.currentThread().isInterrupted()) {

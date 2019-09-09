@@ -84,8 +84,8 @@ public class LoadbalancerServlet extends HttpServlet {
      *
      * @throws IOException
      *             Wenn die Antwort nicht geschrieben werden kann. GET-Request bearbeiten. Prüft, ob die
-     *             IsAlive-Datei vorhanden ist und liefert dann HTTP  OK zurück. Andernfalls wird
-     *             HTTP FORBIDDEN zurückgeliefert.
+     *             IsAlive-Datei vorhanden ist und liefert dann HTTP OK zurück. Andernfalls wird HTTP
+     *             FORBIDDEN zurückgeliefert.
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {

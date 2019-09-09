@@ -18,9 +18,9 @@ package de.bund.bva.isyfact.sicherheit.accessmgr;
 
 import java.io.Serializable;
 
-/** 
- * Interface für Ergebnis des Authentifzierungsaufrufs des {@link AccessManager}
- * Muss Serialisierbar sein für Caching.
+/**
+ * Interface für Ergebnis des Authentifzierungsaufrufs des {@link AccessManager} Muss Serialisierbar sein für
+ * Caching.
  * 
  */
 public interface AuthentifzierungErgebnis extends Serializable {

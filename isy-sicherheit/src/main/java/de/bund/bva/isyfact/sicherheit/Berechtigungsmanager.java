@@ -52,7 +52,6 @@ public interface Berechtigungsmanager {
      */
     boolean hatRecht(String recht);
 
-
     /**
      * Überprüft ob der aktuelle Benutzer ein Recht hat.
      * 
@@ -83,6 +82,6 @@ public interface Berechtigungsmanager {
      */
     Recht getRecht(String recht);
 
-	// TODO: Javadoc
+    // TODO: Javadoc
     Set<Rolle> getRollen();
 }

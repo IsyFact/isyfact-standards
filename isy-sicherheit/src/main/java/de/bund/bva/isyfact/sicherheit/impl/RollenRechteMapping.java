@@ -108,7 +108,8 @@ public class RollenRechteMapping {
 
     /**
      * Setzt das Feld {@link #alleDefiniertenRechte}.
-     * @param collection Neuer Wert für alleDefiniertenRechte
+     * @param collection
+     *            Neuer Wert für alleDefiniertenRechte
      */
     public void setAlleDefiniertenRechte(Collection<Recht> collection) {
         this.alleDefiniertenRechte = new HashSet<>(collection);

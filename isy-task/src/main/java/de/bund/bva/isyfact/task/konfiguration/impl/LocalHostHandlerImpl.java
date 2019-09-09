@@ -14,41 +14,42 @@ import de.bund.bva.isyfact.task.konfiguration.HostHandler;
 public class LocalHostHandlerImpl implements HostHandler {
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(LocalHostHandlerImpl.class);
 
-	/**
-	 * Überprüft, ob der Task auf dem Host ausgeführt werden darf.
-	 *
-	 */
-	@Override
+    /**
+     * Überprüft, ob der Task auf dem Host ausgeführt werden darf.
+     *
+     */
+    @Override
     public synchronized boolean isHostApplicable(String expectedHostName) throws HostNotApplicableException {
 
         InetAddress inetAdress;
 
-		try {
-			inetAdress = InetAddress.getLocalHost();
-		} catch (UnknownHostException e) {
-			throw new HostNotApplicableException(expectedHostName, e);
-		}
+        try {
+            inetAdress = InetAddress.getLocalHost();
+        } catch (UnknownHostException e) {
+            throw new HostNotApplicableException(expectedHostName, e);
+        }
 
-		LOG.debug("isHostApplicable: inetAdress: {}", inetAdress);
+        LOG.debug("isHostApplicable: inetAdress: {}", inetAdress);
 
-		if (inetAdress == null) {
-			return false;
-		}
+        if (inetAdress == null) {
+            return false;
+        }
 
-		String currentHostName = inetAdress.getHostName();
+        String currentHostName = inetAdress.getHostName();
 
         LOG.debug("isHostApplicable: currentHostName: {}", currentHostName);
 
         if (currentHostName == null || currentHostName.isEmpty()) {
             LOG.debug("isHostApplicable: inetAdress: {}", inetAdress);
-			return false;
-		}
+            return false;
+        }
 
-		if(!expectedHostName.equals(currentHostName)) {
-            LOG.debug("isHostApplicable: hostNames do not match! expectedHostName: {} currentHostName: {}", expectedHostName, currentHostName);
-			throw new HostNotApplicableException(expectedHostName);
-		}
+        if (!expectedHostName.equals(currentHostName)) {
+            LOG.debug("isHostApplicable: hostNames do not match! expectedHostName: {} currentHostName: {}",
+                expectedHostName, currentHostName);
+            throw new HostNotApplicableException(expectedHostName);
+        }
 
-		return true;
-	}
+        return true;
+    }
 }

@@ -49,9 +49,9 @@ public class Zeitraum implements Serializable {
      * Erstellt einen {@link Zeitraum} unter Angabe von Start und Ende des Zeitraums.
      *
      * @param anfang
-     *     der Anfang des Zeitraums inklusive, muss vor dem Ende liegen, nicht null
+     *            der Anfang des Zeitraums inklusive, muss vor dem Ende liegen, nicht null
      * @param ende
-     *     das Ende des Zeitraums exklusive, muss nach Anfang liegen, nicht null
+     *            das Ende des Zeitraums exklusive, muss nach Anfang liegen, nicht null
      * @return ein {@link Zeitraum} mit Start und Ende gesetzt
      */
     public static Zeitraum of(ZonedDateTime anfang, ZonedDateTime ende) {
@@ -59,7 +59,8 @@ public class Zeitraum implements Serializable {
         Objects.requireNonNull(ende);
 
         if (ende.isBefore(anfang)) {
-            throw new DateTimeException("Der Anfang " + anfang + " liegt nach dem Ende " + ende + " des Zeitraums.");
+            throw new DateTimeException(
+                "Der Anfang " + anfang + " liegt nach dem Ende " + ende + " des Zeitraums.");
         }
 
         return new Zeitraum(anfang, ende);
@@ -70,12 +71,12 @@ public class Zeitraum implements Serializable {
      * Zeitraums. Zur Bestimmung des Endes wird die Dauer zum Anfang hinzuaddiert.
      *
      * @param anfang
-     *     der Anfang des Zeitraums inklusive, nicht null
+     *            der Anfang des Zeitraums inklusive, nicht null
      * @param dauer
-     *     die Dauer des Zeitraums, nicht negativ, nicht null
+     *            die Dauer des Zeitraums, nicht negativ, nicht null
      * @return ein {@link Zeitraum} mit Anfang und Dauer
      * @throws DateTimeException
-     *     wenn die Dauer negativ ist
+     *             wenn die Dauer negativ ist
      */
     public static Zeitraum of(ZonedDateTime anfang, Duration dauer) {
         Objects.requireNonNull(anfang);
@@ -93,12 +94,12 @@ public class Zeitraum implements Serializable {
      * Zeitraums. Zur Bestimmung des Endes wird die Dauer zum Anfang hinzuaddiert.
      *
      * @param anfang
-     *     der Anfang des Zeitraums inklusive, nicht null
+     *            der Anfang des Zeitraums inklusive, nicht null
      * @param dauer
-     *     die Dauer des Zeitraums, nicht negativ, nicht null
+     *            die Dauer des Zeitraums, nicht negativ, nicht null
      * @return ein {@link Zeitraum} mit Anfang und Dauer
      * @throws DateTimeException
-     *     wenn die Dauer negativ ist
+     *             wenn die Dauer negativ ist
      */
     public static Zeitraum of(ZonedDateTime anfang, Period dauer) {
         Objects.requireNonNull(anfang);
@@ -112,13 +113,13 @@ public class Zeitraum implements Serializable {
     }
 
     /**
-     * Erstellt einen {@link Zeitraum} unter Angabe von Start und Ende des Zeitraums. Als Zeitzone für
-     * Anfang und Ende wird Default-Zeitzone verwendet.
+     * Erstellt einen {@link Zeitraum} unter Angabe von Start und Ende des Zeitraums. Als Zeitzone für Anfang
+     * und Ende wird Default-Zeitzone verwendet.
      *
      * @param anfang
-     *     der Anfang des Zeitraums inklusive, nicht null
+     *            der Anfang des Zeitraums inklusive, nicht null
      * @param ende
-     *     das Ende des Zeitraums exklusive, nicht null
+     *            das Ende des Zeitraums exklusive, nicht null
      * @return ein {@link Zeitraum} mit Start und Ende gesetzt
      */
     public static Zeitraum of(LocalDateTime anfang, LocalDateTime ende) {
@@ -126,7 +127,8 @@ public class Zeitraum implements Serializable {
         Objects.requireNonNull(ende);
 
         if (ende.isBefore(anfang)) {
-            throw new DateTimeException("Der Anfang " + anfang + " liegt nach dem Ende " + ende + " des Zeitraums.");
+            throw new DateTimeException(
+                "Der Anfang " + anfang + " liegt nach dem Ende " + ende + " des Zeitraums.");
         }
 
         return new Zeitraum(getLocalDateTimeInJvmTimeZone(anfang), getLocalDateTimeInJvmTimeZone(ende));
@@ -134,16 +136,16 @@ public class Zeitraum implements Serializable {
 
     /**
      * Erstellt einen {@link Zeitraum} unter Angabe des Anfangs und der Dauer als {@link Duration} des
-     * Zeitraums. Zur Bestimmung des Endes wird die Dauer zum Anfang hinzuaddiert. Als Zeitzone für
-     * Anfang und Ende wird Default-Zeitzone verwendet.
+     * Zeitraums. Zur Bestimmung des Endes wird die Dauer zum Anfang hinzuaddiert. Als Zeitzone für Anfang und
+     * Ende wird Default-Zeitzone verwendet.
      *
      * @param anfang
-     *     der Anfang des Zeitraums inklusive, nicht null
+     *            der Anfang des Zeitraums inklusive, nicht null
      * @param dauer
-     *     die Dauer des Zeitraums, nicht negativ, nicht null
+     *            die Dauer des Zeitraums, nicht negativ, nicht null
      * @return ein {@link Zeitraum} mit Anfang und Dauer
      * @throws DateTimeException
-     *     wenn die Dauer negativ ist
+     *             wenn die Dauer negativ ist
      */
     public static Zeitraum of(LocalDateTime anfang, Duration dauer) {
         Objects.requireNonNull(anfang);
@@ -159,16 +161,16 @@ public class Zeitraum implements Serializable {
 
     /**
      * Erstellt einen {@link Zeitraum} unter Angabe des Anfangs und der Dauer als {@link Period} des
-     * Zeitraums. Zur Bestimmung des Endes wird die Dauer zum Anfang hinzuaddiert. Als Zeitzone für
-     * Anfang und Ende wird Default-Zeitzone verwendet.
+     * Zeitraums. Zur Bestimmung des Endes wird die Dauer zum Anfang hinzuaddiert. Als Zeitzone für Anfang und
+     * Ende wird Default-Zeitzone verwendet.
      *
      * @param anfang
-     *     der Anfang des Zeitraums inklusive, nicht null
+     *            der Anfang des Zeitraums inklusive, nicht null
      * @param dauer
-     *     die Dauer des Zeitraums, nicht negativ, nicht null
+     *            die Dauer des Zeitraums, nicht negativ, nicht null
      * @return ein {@link Zeitraum} mit Anfang und Dauer
      * @throws DateTimeException
-     *     wenn die Dauer negativ ist
+     *             wenn die Dauer negativ ist
      */
     public static Zeitraum of(LocalDateTime anfang, Period dauer) {
         Objects.requireNonNull(anfang);
@@ -186,9 +188,9 @@ public class Zeitraum implements Serializable {
      * Erstellt einen {@link Zeitraum} unter Angabe von Start und Ende des Zeitraums.
      *
      * @param anfang
-     *     der Anfang des Zeitraums inklusive, nicht null
+     *            der Anfang des Zeitraums inklusive, nicht null
      * @param ende
-     *     das Ende des Zeitraums exklusive, nicht null
+     *            das Ende des Zeitraums exklusive, nicht null
      * @return ein {@link Zeitraum} mit Start und Ende gesetzt
      */
     public static Zeitraum of(LocalDate anfang, LocalDate ende) {
@@ -196,7 +198,8 @@ public class Zeitraum implements Serializable {
         Objects.requireNonNull(ende);
 
         if (ende.isBefore(anfang)) {
-            throw new DateTimeException("Der Anfang " + anfang + " liegt nach dem Ende " + ende + " des Zeitraums.");
+            throw new DateTimeException(
+                "Der Anfang " + anfang + " liegt nach dem Ende " + ende + " des Zeitraums.");
         }
 
         ZonedDateTime zonedAnfang =
@@ -210,12 +213,12 @@ public class Zeitraum implements Serializable {
      * Zeitraums. Zur Bestimmung des Endes wird die Dauer zum Anfang hinzuaddiert.
      *
      * @param anfang
-     *     der Anfang des Zeitraums inklusive, nicht null
+     *            der Anfang des Zeitraums inklusive, nicht null
      * @param dauer
-     *     die Dauer des Zeitraums, nicht negativ, nicht null
+     *            die Dauer des Zeitraums, nicht negativ, nicht null
      * @return ein {@link Zeitraum} mit Anfang und Dauer
      * @throws DateTimeException
-     *     wenn die Dauer negativ ist
+     *             wenn die Dauer negativ ist
      */
     public static Zeitraum of(LocalDate anfang, Period dauer) {
         Objects.requireNonNull(anfang);
@@ -231,14 +234,14 @@ public class Zeitraum implements Serializable {
     }
 
     /**
-     * Erstellt einen {@link Zeitraum} unter Angabe des Anfangs und des Endes als {@link LocalTime}
-     * des Zeitraums. Ein solcher Zeitraum enthält eine reine Zeitdauer und ist unabhängig von einem Datum.
-     * Liegt die Anfangszeit nach der Endzeit, geht der Zeitraum über den Tageswechsel.
+     * Erstellt einen {@link Zeitraum} unter Angabe des Anfangs und des Endes als {@link LocalTime} des
+     * Zeitraums. Ein solcher Zeitraum enthält eine reine Zeitdauer und ist unabhängig von einem Datum. Liegt
+     * die Anfangszeit nach der Endzeit, geht der Zeitraum über den Tageswechsel.
      *
      * @param anfang
-     *     der Anfang des Zeitraums, nicht null
+     *            der Anfang des Zeitraums, nicht null
      * @param ende
-     *     das Ende des Zeitraums, nicht null
+     *            das Ende des Zeitraums, nicht null
      * @return ein {@link Zeitraum} mit Start und Ende gesetzt
      */
     public static Zeitraum of(LocalTime anfang, LocalTime ende) {
@@ -270,17 +273,17 @@ public class Zeitraum implements Serializable {
     }
 
     /**
-     * Erstellt einen {@link Zeitraum} unter Angabe des Anfangs und der Dauer als {@link Duration}
-     * des Zeitraums. Zur Bestimmung des Endes wird die Dauer zum Anfang hinzuaddiert. Ein solcher Zeitraum
+     * Erstellt einen {@link Zeitraum} unter Angabe des Anfangs und der Dauer als {@link Duration} des
+     * Zeitraums. Zur Bestimmung des Endes wird die Dauer zum Anfang hinzuaddiert. Ein solcher Zeitraum
      * enthält eine reine Zeitdauer und ist unabhängig von einem Datum.
      *
      * @param anfang
-     *     der Anfang des Zeitraums inklusive, nicht null
+     *            der Anfang des Zeitraums inklusive, nicht null
      * @param dauer
-     *     die Dauer des Zeitraums, nicht negativ, nicht null
+     *            die Dauer des Zeitraums, nicht negativ, nicht null
      * @return ein {@link Zeitraum} mit Anfang und Dauer
      * @throws DateTimeException
-     *     wenn die Dauer negativ ist
+     *             wenn die Dauer negativ ist
      */
     public static Zeitraum of(LocalTime anfang, Duration dauer) {
         Objects.requireNonNull(anfang);
@@ -309,16 +312,36 @@ public class Zeitraum implements Serializable {
      * <p>
      *
      * <table summary="Unterstütze Formate" border="1">
-     * <tr><th>1. Wert</th><th>2. Wert</th><th>Beispiel</th></tr>
-     * <tr><td>Datumswer</td><td>Datumswert</td><td>12.7.2017 14:00, 13.09.2018 19:00</td></tr>
-     * <tr><td>Datumswert</td><td>Dauer</td><td>12.8.2013, 14 d</td></tr>
-     * <tr><td>Zeitwert</td><td>Zeitwert</td><td>13:40:00, 15:45:12</td></tr>
-     * <tr><td>Zeitwert</td><td>Dauer</td><td>12:00, 90min 15s</td></tr>
+     * <tr>
+     * <th>1. Wert</th>
+     * <th>2. Wert</th>
+     * <th>Beispiel</th>
+     * </tr>
+     * <tr>
+     * <td>Datumswer</td>
+     * <td>Datumswert</td>
+     * <td>12.7.2017 14:00, 13.09.2018 19:00</td>
+     * </tr>
+     * <tr>
+     * <td>Datumswert</td>
+     * <td>Dauer</td>
+     * <td>12.8.2013, 14 d</td>
+     * </tr>
+     * <tr>
+     * <td>Zeitwert</td>
+     * <td>Zeitwert</td>
+     * <td>13:40:00, 15:45:12</td>
+     * </tr>
+     * <tr>
+     * <td>Zeitwert</td>
+     * <td>Dauer</td>
+     * <td>12:00, 90min 15s</td>
+     * </tr>
      * </table>
      *
      *
      * @param text
-     *     der Text, der geparst werden soll, nicht null
+     *            der Text, der geparst werden soll, nicht null
      * @return der {@link Zeitraum}
      */
     public static Zeitraum parse(String text) {
@@ -382,7 +405,8 @@ public class Zeitraum implements Serializable {
         anfang.add(tryParse(InFormat::parseToLocalTime, textAnfang));
 
         return anfang.stream().filter(Objects::nonNull).findFirst()
-            .orElseThrow(() -> new DateTimeParseException("Der Anfang des Zeitraums konnte nicht ermittelt werden.", textAnfang, 0));
+            .orElseThrow(() -> new DateTimeParseException(
+                "Der Anfang des Zeitraums konnte nicht ermittelt werden.", textAnfang, 0));
     }
 
     private static Object parseEnde(String textEndeOderDauer) {
@@ -398,7 +422,9 @@ public class Zeitraum implements Serializable {
         endeOderDauer.add(tryParse(InFormat::parseToPeriod, textEndeOderDauer));
 
         return endeOderDauer.stream().filter(Objects::nonNull).findFirst()
-            .orElseThrow(() -> new DateTimeParseException("Das Ende oder die Dauer des Zeitraums konnte nicht ermittelt werden.", textEndeOderDauer, 0));
+            .orElseThrow(() -> new DateTimeParseException(
+                "Das Ende oder die Dauer des Zeitraums konnte nicht ermittelt werden.", textEndeOderDauer,
+                0));
     }
 
     private static <T> T tryParse(Function<String, T> parseFunction, String text) {
@@ -420,7 +446,8 @@ public class Zeitraum implements Serializable {
             teile[0] = text.split(", ")[0].trim();
             teile[1] = text.split(", ")[1].trim();
         } catch (Exception e) {
-            throw new DateTimeParseException("Der String entspricht nicht dem Format \"<Anfang>, <Ende> | <Dauer>\"", text, 0);
+            throw new DateTimeParseException(
+                "Der String entspricht nicht dem Format \"<Anfang>, <Ende> | <Dauer>\"", text, 0);
         }
 
         return teile;
@@ -430,7 +457,7 @@ public class Zeitraum implements Serializable {
      * Gibt die Dauer des Zeitraums in der angegebenen Zeiteinheit ({@link TemporalUnit}) zurück.
      *
      * @param unit
-     *     die Zeiteinheit für die Dauer
+     *            die Zeiteinheit für die Dauer
      * @return die Dauer des Zeitraums in der angegeben Zeiteinheit
      */
     public long dauer(TemporalUnit unit) {
@@ -443,7 +470,7 @@ public class Zeitraum implements Serializable {
      * Prüft, ob ein Datums-/Zeitwert innerhalb dieses {@link Zeitraum} liegt.
      *
      * @param dateTime
-     *     der Datums-/Zeitwert
+     *            der Datums-/Zeitwert
      * @return true wenn der Wert innerhalb des Zeitraums liegt.
      */
     public boolean isInZeitraum(ZonedDateTime dateTime) {
@@ -459,7 +486,7 @@ public class Zeitraum implements Serializable {
      * Default-Zeitzone verwendet.
      *
      * @param dateTime
-     *     der Datums-/Zeitwert
+     *            der Datums-/Zeitwert
      * @return true wenn der Wert innerhalb des Zeitraums liegt.
      */
     public boolean isInZeitraum(LocalDateTime dateTime) {
@@ -472,11 +499,11 @@ public class Zeitraum implements Serializable {
     }
 
     /**
-     * Prüft, ob ein Datumswert innerhalb dieses {@link Zeitraum} liegt.
-     * Als Zeit für das Datum wird 00:00 in der Default-Zeitzone angenommen.
+     * Prüft, ob ein Datumswert innerhalb dieses {@link Zeitraum} liegt. Als Zeit für das Datum wird 00:00 in
+     * der Default-Zeitzone angenommen.
      *
      * @param date
-     *     der Datumswert
+     *            der Datumswert
      * @return true wenn der Wert innerhalb des Zeitraums liegt.
      */
     public boolean isInZeitraum(LocalDate date) {
@@ -492,7 +519,7 @@ public class Zeitraum implements Serializable {
      * Prüft, ob ein Zeitwert innerhalb dieses {@link Zeitraum} liegt.
      *
      * @param localTime
-     *     der Datumswert
+     *            der Datumswert
      * @return true wenn der Wert innerhalb des Zeitraums liegt.
      */
     public boolean isInZeitraum(LocalTime localTime) {
@@ -511,9 +538,9 @@ public class Zeitraum implements Serializable {
      * Ergebnis immer false.
      *
      * @param zeitraum
-     *     der andere Zeitraum
-     * @return true wenn sich die Zeiträume überschneiden, false wenn nicht ohne einer der beiden
-     * Zeiträume ohne Datum ist
+     *            der andere Zeitraum
+     * @return true wenn sich die Zeiträume überschneiden, false wenn nicht ohne einer der beiden Zeiträume
+     *         ohne Datum ist
      */
     public boolean ueberschneidetSichMit(Zeitraum zeitraum) {
         if (zeitraum != null && ohneDatum == zeitraum.ohneDatum) {
@@ -556,8 +583,8 @@ public class Zeitraum implements Serializable {
 
     /**
      * Gibt das Ende dieses Zeitraums (exklusive) zurück. Handelt es sich um einen Zeitraum ohne Datum, wird
-     * {@code null} zurückgegeben. Für Zeiträume ohne Datum ist die Methode {@link Zeitraum#getEndzeit()}
-     * zu verwenden.
+     * {@code null} zurückgegeben. Für Zeiträume ohne Datum ist die Methode {@link Zeitraum#getEndzeit()} zu
+     * verwenden.
      *
      * @return das Ende dieses Zeitraums (exklusive)
      */

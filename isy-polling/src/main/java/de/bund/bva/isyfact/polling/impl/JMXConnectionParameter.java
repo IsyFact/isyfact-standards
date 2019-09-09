@@ -34,31 +34,31 @@ class JMXConnectionParameter {
 
     /** ID des JMXConnectionParameter-Objekts. */
     private String id;
-    
+
     /** IP-Adresse mit Portangabe. */
     private String ipAdressePort;
-    
+
     /** JMX-Service-URL. */
     private JMXServiceURL jmxServiceUrl;
-    
-    /** Environment mit Benutzerkennung und Kennwort. */ 
+
+    /** Environment mit Benutzerkennung und Kennwort. */
     private Map<String, Object> environment;
 
     /**
      * Erzeugt neue JMX-Connection-Parameter.
      * 
      * @param id
-     *          ID des JMXConnectionParameter-Objekts.
+     *            ID des JMXConnectionParameter-Objekts.
      * @param host
-     *          Host.
+     *            Host.
      * @param port
-     *          Port.
+     *            Port.
      * @param benutzerId
-     *          Benutzer-Id.
+     *            Benutzer-Id.
      * @param passwort
-     *          Passwort.
+     *            Passwort.
      */
-    JMXConnectionParameter(String id, String host, String port, String benutzerId, String passwort)  {
+    JMXConnectionParameter(String id, String host, String port, String benutzerId, String passwort) {
         this.id = id;
 
         ipAdressePort = host + ":" + port;
@@ -72,10 +72,10 @@ class JMXConnectionParameter {
 
         if (benutzerId != null) {
             environment = new HashMap<String, Object>();
-            environment.put(JMXConnector.CREDENTIALS, new String[] {benutzerId, passwort});
+            environment.put(JMXConnector.CREDENTIALS, new String[] { benutzerId, passwort });
         }
     }
-    
+
     /**
      * Liefert das Feld 'id' zurück.
      * @return Wert von id
@@ -99,9 +99,9 @@ class JMXConnectionParameter {
     String getIpAdressePort() {
         return ipAdressePort;
     }
-    
+
     /**
-     * Liefert das Environment mit Benutzerkennung und Kennwort. 
+     * Liefert das Environment mit Benutzerkennung und Kennwort.
      * @return Environment.
      */
     Map<String, ?> getEnvironment() {

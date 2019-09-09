@@ -15,7 +15,7 @@
  * permissions and limitations under the License.
  */
 package de.bund.bva.isyfact.polling.common.konstanten;
- 
+
 /**
  * Diese Klasse enthält die Konstanten für Fehler-IDs des Pollings.
  * 
@@ -31,9 +31,9 @@ public abstract class Fehlerschluessel {
     /** Fehler bei der Verbindung zur Polling-Anwendung mit der IP-Adresse "{0}" im Polling-Cluster {1}. */
     public static final String MSG_VERBINDUNGSFEHLER = "POLLI01003";
 
-    /** 
-     * Der JMX-Verbindungsparameter ipadresseport mit dem Wert "{0}" für die 
-     * JMX-Verbindungs-ID "{1}" ist fehlerhaft. 
+    /**
+     * Der JMX-Verbindungsparameter ipadresseport mit dem Wert "{0}" für die JMX-Verbindungs-ID "{1}" ist
+     * fehlerhaft.
      */
     public static final String MSG_JMX_IPADRESSEPORT_FEHLERHAFT = "POLLI01004";
 
@@ -49,10 +49,10 @@ public abstract class Fehlerschluessel {
     /** Die MBean-Instanz "{0}" auf dem Server mit der IP-Adresse "{1} wurde nicht gefunden. */
     public static final String MSG_MBEAN_INSTANZ_NICHT_GEFUNDEN = "POLLI01008";
 
-    /** Beim Zugriff auf die MBean-Instanz "{0}" auf dem Server mit der IP-Adresse "{1} ist ein Fehler aufgetreten. */
+    /**
+     * Beim Zugriff auf die MBean-Instanz "{0}" auf dem Server mit der IP-Adresse "{1} ist ein Fehler
+     * aufgetreten.
+     */
     public static final String MSG_MBEAN_ZUGRIFF_FEHLER = "POLLI01009";
 
 }
-
-
-

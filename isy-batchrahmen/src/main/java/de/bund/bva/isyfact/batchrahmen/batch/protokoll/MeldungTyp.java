@@ -28,18 +28,19 @@ public enum MeldungTyp {
     WARNUNG("W"),
     /** Infos. */
     INFO("I");
-    
+
     /** Kürzel für das Protokoll. */
     private String kuerzel;
-    
+
     /**
      * Erzeugt MeldungTyp mit Kürzel.
-     * @param kuerzel Das Kürzek fürs Protokoll.
+     * @param kuerzel
+     *            Das Kürzek fürs Protokoll.
      */
     private MeldungTyp(String kuerzel) {
         this.kuerzel = kuerzel;
     }
-    
+
     /**
      * Das Kürzel für diesen Meldungstyp.
      * @return Das Kürzel für diesen Meldungstyp.

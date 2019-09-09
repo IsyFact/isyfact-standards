@@ -26,26 +26,26 @@ import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo
 
 public interface RemoteBean {
 
-	void eineMethode();
-	
-	void eineAndereMethode();
-	
-	void eineAndereMethode(Integer zahl);
-	
-	void eineAndereMethode(Double zahl);
-	
-	void eineAndereMethode(AufrufKontextTo to, Integer zahl);
-	
-	void methodeMitZweiToExceptions() throws IllegalStateException, TechnicalToException, BusinessToException;
-	
-	void methodeMitToException() throws IllegalStateException, TechnicalToException;
-	
-	void methodeMitZweiTechnicalToExceptions() throws IllegalStateException, TechnicalToException,
-		TechnicalTestToException;
-	
-	void eineMethodeMitException() throws InvocationTargetException, TechnicalToException;
-	
-	void eineMethodeMitBusinessException() throws BaseException, TechnicalToException;
-	
-	void eineMethodeMitTechnicalRuntimeException() throws TechnicalRuntimeException, TechnicalToException;
+    void eineMethode();
+
+    void eineAndereMethode();
+
+    void eineAndereMethode(Integer zahl);
+
+    void eineAndereMethode(Double zahl);
+
+    void eineAndereMethode(AufrufKontextTo to, Integer zahl);
+
+    void methodeMitZweiToExceptions() throws IllegalStateException, TechnicalToException, BusinessToException;
+
+    void methodeMitToException() throws IllegalStateException, TechnicalToException;
+
+    void methodeMitZweiTechnicalToExceptions() throws IllegalStateException, TechnicalToException,
+        TechnicalTestToException;
+
+    void eineMethodeMitException() throws InvocationTargetException, TechnicalToException;
+
+    void eineMethodeMitBusinessException() throws BaseException, TechnicalToException;
+
+    void eineMethodeMitTechnicalRuntimeException() throws TechnicalRuntimeException, TechnicalToException;
 }

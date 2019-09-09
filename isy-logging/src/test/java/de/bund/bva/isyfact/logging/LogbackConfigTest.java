@@ -46,22 +46,22 @@ public class LogbackConfigTest extends AbstractLogTest {
      */
     @Test
     public void testMdcConfig() throws Exception {
-        
+
         IsyLoggerStandard logger = IsyLoggerFactory.getLogger(this.getClass());
 
         // Laden und Test der MDC-Log-Konfiguration
         konfiguriereLogback("logback-MDC-test.xml");
         MdcHelper.setzeMarkerFachdaten(true);
         logger.debug("Eine Testnachricht mit vollständigen MDC.");
-        
+
         // Laden Test der Batch-MDC-Log-Konfiguration
         konfiguriereLogback("logback-batch-MDC-test.xml");
         MdcHelper.setzeMarkerFachdaten(true);
         logger.debug("Eine Testnachricht mit vollständigen MDC.");
-        
+
         // Zurücksetzen auf die Standardkonfiguration.
         konfiguriereLogback("logback-test.xml");
-        
+
         pruefeLogdatei("testMdcConfig");
     }
 

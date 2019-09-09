@@ -20,8 +20,8 @@ import de.bund.bva.isyfact.exception.FehlertextProvider;
 import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
 
 /**
- * Abstrakte technische <i>unchecked</i> Hauptexception. Alle technischen, <i>unchecked</i> Exceptions 
- * der Biliothek isy-polling müssen von dieser Klasse abgeleitet werden.
+ * Abstrakte technische <i>unchecked</i> Hauptexception. Alle technischen, <i>unchecked</i> Exceptions der
+ * Biliothek isy-polling müssen von dieser Klasse abgeleitet werden.
  * 
  */
 public abstract class PollingTechnicalRuntimeException extends TechnicalRuntimeException {
@@ -57,8 +57,7 @@ public abstract class PollingTechnicalRuntimeException extends TechnicalRuntimeE
      * 
      * @param ausnahmeID
      *            Die Ausnahme-ID. Der Schlüssel, welcher verwendet wird, um einen Nachrichtentext, welcher
-     *            als Fehler-Nachricht für die Exception verwendet wird aus einem ResourceBundle zu
-     *            laden.
+     *            als Fehler-Nachricht für die Exception verwendet wird aus einem ResourceBundle zu laden.
      * @param parameter
      *            Die Parameter. Parameter für die möglichen Variablen in einer Fehler-Nachricht.
      *            <tt>null</tt> als Wert ist erlaubt und bedeutet, dass kein Variablen zu ersetzen sind.

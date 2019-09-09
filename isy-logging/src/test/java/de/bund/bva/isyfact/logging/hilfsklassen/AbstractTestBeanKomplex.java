@@ -32,7 +32,6 @@ import java.util.List;
  * @see TestBeanKomplex
  */
 public abstract class AbstractTestBeanKomplex {
-    
 
     /** Standard Stringwert. */
     private String einString;
@@ -82,7 +81,8 @@ public abstract class AbstractTestBeanKomplex {
     /**
      * Setzt den Wert des Attributs 'einString'.
      *
-     * @param einString Neuer Wert des Attributs.
+     * @param einString
+     *            Neuer Wert des Attributs.
      */
     public void setEinString(String einString) {
         this.einString = einString;
@@ -91,7 +91,8 @@ public abstract class AbstractTestBeanKomplex {
     /**
      * Setzt den Wert des Attributs 'einStringOhneGetter'.
      *
-     * @param einStringOhneGetter Neuer Wert des Attributs.
+     * @param einStringOhneGetter
+     *            Neuer Wert des Attributs.
      */
     public void setEinStringOhneGetter(String einStringOhneGetter) {
         this.einStringOhneGetter = einStringOhneGetter;
@@ -118,7 +119,8 @@ public abstract class AbstractTestBeanKomplex {
     /**
      * Setzt den Wert des Attributs 'eineStringListe'.
      *
-     * @param eineStringListe Neuer Wert des Attributs.
+     * @param eineStringListe
+     *            Neuer Wert des Attributs.
      */
     public void setEineStringListe(List<String> eineStringListe) {
         this.eineStringListe = eineStringListe;
@@ -136,10 +138,11 @@ public abstract class AbstractTestBeanKomplex {
     /**
      * Setzt den Wert des Attributs 'eineObjectListe'.
      *
-     * @param eineObjectListe Neuer Wert des Attributs.
+     * @param eineObjectListe
+     *            Neuer Wert des Attributs.
      */
     public void setEineObjectListe(List<Object> eineObjectListe) {
         this.eineObjectListe = eineObjectListe;
     }
-    
+
 }

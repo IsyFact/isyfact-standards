@@ -61,7 +61,7 @@ public class BerechtigungsmanagerImpl implements Berechtigungsmanager {
     public BerechtigungsmanagerImpl(String[] rollenIds) throws AuthentifizierungTechnicalException {
         rollen = new HashSet<Rolle>();
         if (rollenIds == null) {
-            return; 
+            return;
         }
         for (String rollenId : rollenIds) {
             rollen.add(new RolleImpl(rollenId));
@@ -114,7 +114,7 @@ public class BerechtigungsmanagerImpl implements Berechtigungsmanager {
             throw new IllegalArgumentException(new SicherheitFehlertextProvider().getMessage(
                 SicherheitFehlerSchluessel.MSG_PARAMETER_FEHLT, "recht"));
         }
-       
+
         RechtImpl rechtImpl = new RechtImpl(recht, null);
         if (getRechte().contains(rechtImpl)) {
             return true;
@@ -168,6 +168,6 @@ public class BerechtigungsmanagerImpl implements Berechtigungsmanager {
 
     public Set<Rolle> getRollen() {
         return rollen;
-}
+    }
 
 }

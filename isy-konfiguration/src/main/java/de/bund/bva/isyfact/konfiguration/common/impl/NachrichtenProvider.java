@@ -31,8 +31,8 @@ public class NachrichtenProvider {
      * Das ResourceBoundle mit den Texten.
      */
     private static final ResourceBundle FEHLERTEXT_BUNDLE =
-            ResourceBundle
-                    .getBundle("resources/isy-konfiguration/nachrichten/konfiguration", Locale.GERMANY);
+        ResourceBundle
+            .getBundle("resources/isy-konfiguration/nachrichten/konfiguration", Locale.GERMANY);
 
     /**
      * Liefert die Nachricht mit dem Schlüssel.
@@ -45,8 +45,7 @@ public class NachrichtenProvider {
     }
 
     /**
-     * Liefert die Nachricht mit dem Schlüssel. Darin werden die angegebenen
-     * Parameter ersetzt.
+     * Liefert die Nachricht mit dem Schlüssel. Darin werden die angegebenen Parameter ersetzt.
      * @param schluessel
      *            Nachrichten-Schlüssel.
      * @param parameter

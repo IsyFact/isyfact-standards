@@ -47,7 +47,7 @@ public class LogsToJsonFiles extends AbstractLogTest {
      * 
      * @param args
      *            Wird nicht verwendet.
-     * @throws IOException 
+     * @throws IOException
      */
     public static void main(String[] args) throws IOException {
 

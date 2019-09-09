@@ -16,30 +16,31 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-@SpringBootTest(classes = {TestConfig.class, TestTasksConfig.class}, webEnvironment = SpringBootTest.WebEnvironment.NONE,
-properties = {"isy.logging.anwendung.name=test",
-              "isy.logging.anwendung.typ=test",
-              "isy.logging.anwendung.version=test",
-              "logging.level.root=info",
-              "isy.task.tasks.testTask1.benutzer=TestUser1",
-              "isy.task.tasks.testTask1.passwort=TestPasswort1",
-              "isy.task.tasks.testTask1.ausfuehrung=ONCE",
-              "isy.task.tasks.testTask1.initial-delay=0s",
+@SpringBootTest(classes = { TestConfig.class, TestTasksConfig.class },
+    webEnvironment = SpringBootTest.WebEnvironment.NONE,
+    properties = { "isy.logging.anwendung.name=test",
+        "isy.logging.anwendung.typ=test",
+        "isy.logging.anwendung.version=test",
+        "logging.level.root=info",
+        "isy.task.tasks.testTask1.benutzer=TestUser1",
+        "isy.task.tasks.testTask1.passwort=TestPasswort1",
+        "isy.task.tasks.testTask1.ausfuehrung=ONCE",
+        "isy.task.tasks.testTask1.initial-delay=0s",
 
-              "isy.task.tasks.testTask2.ausfuehrung=FIXED_RATE",
-              "isy.task.tasks.testTask2.initial-delay=5s",
-              "isy.task.tasks.testTask2.fixed-rate=2s",
+        "isy.task.tasks.testTask2.ausfuehrung=FIXED_RATE",
+        "isy.task.tasks.testTask2.initial-delay=5s",
+        "isy.task.tasks.testTask2.fixed-rate=2s",
 
-              "isy.task.tasks.testTask3.benutzer=TestUser3",
-              "isy.task.tasks.testTask3.passwort=TestPasswort3",
-              "isy.task.tasks.testTask3.ausfuehrung=FIXED_DELAY",
-              "isy.task.tasks.testTask3.initial-delay=5s",
-              "isy.task.tasks.testTask3.fixed-delay=3s",
+        "isy.task.tasks.testTask3.benutzer=TestUser3",
+        "isy.task.tasks.testTask3.passwort=TestPasswort3",
+        "isy.task.tasks.testTask3.ausfuehrung=FIXED_DELAY",
+        "isy.task.tasks.testTask3.initial-delay=5s",
+        "isy.task.tasks.testTask3.fixed-delay=3s",
 
-              "isy.task.tasks.testTaskOnceInitialDelay.benutzer=TestUser1",
-              "isy.task.tasks.testTaskOnceInitialDelay.passwort=TestPasswort1",
-              "isy.task.tasks.testTaskOnceInitialDelay.ausfuehrung=ONCE",
-              "isy.task.tasks.testTaskOnceInitialDelay.initial-delay=10s"})
+        "isy.task.tasks.testTaskOnceInitialDelay.benutzer=TestUser1",
+        "isy.task.tasks.testTaskOnceInitialDelay.passwort=TestPasswort1",
+        "isy.task.tasks.testTaskOnceInitialDelay.ausfuehrung=ONCE",
+        "isy.task.tasks.testTaskOnceInitialDelay.initial-delay=10s" })
 public class TestTaskScheduler extends AbstractTaskTest {
 
     @Autowired
@@ -52,7 +53,7 @@ public class TestTaskScheduler extends AbstractTaskTest {
             .format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss.SSS"));
         configurationProperties.getTasks().get("testTask1").setZeitpunkt(executionDateTime);
     }
-    
+
     @Test
     public void testSchedule() throws Exception {
         taskScheduler.starteKonfigurierteTasks();

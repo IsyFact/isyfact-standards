@@ -4,8 +4,8 @@ import de.bund.bva.isyfact.exception.BaseException;
 import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
 
 /**
- * Interface zum Erstellen von Standard-Logeinträgen. Alle Logeinträge werden als technische Daten
- * (datentyp: Technikdaten) markiert.
+ * Interface zum Erstellen von Standard-Logeinträgen. Alle Logeinträge werden als technische Daten (datentyp:
+ * Technikdaten) markiert.
  */
 public interface IsyLoggerStandard {
 

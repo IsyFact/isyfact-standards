@@ -270,7 +270,7 @@ public abstract class AbstractLogTest {
             feldnamenErgebnisZuViel.add(feldnamenErgebnisIter.next());
         }
         Assert.assertTrue("Zuviele Felder im Ergebnis: " + feldnamenErgebnisZuViel,
-                feldnamenErgebnisZuViel.isEmpty());
+            feldnamenErgebnisZuViel.isEmpty());
 
         // Vergleich Vorlage mit Ergebnis
         for (int i = 0; i < feldnamenVorlage.size(); i++) {
@@ -284,7 +284,7 @@ public abstract class AbstractLogTest {
             JsonNode jsonNodeErgebnis = nodeErgebnis.get(feldnameVorlage);
 
             Assert.assertEquals("Node-Typen nicht identisch. ValueNode:", jsonNodeVorlage.isValueNode(),
-                    jsonNodeErgebnis.isValueNode());
+                jsonNodeErgebnis.isValueNode());
 
             if (jsonNodeVorlage.isValueNode()) {
                 String textVorlage = jsonNodeVorlage.asText();
@@ -330,7 +330,7 @@ public abstract class AbstractLogTest {
                 }
 
                 Assert.assertEquals("Textinhalte unterscheiden sich in Knoten '" + feldnameVorlage + "'",
-                        textVorlage, textErgebnis);
+                    textVorlage, textErgebnis);
 
             } else {
                 vergleicheJsonNodes(jsonNodeVorlage, jsonNodeErgebnis, ereignisschluessel);
@@ -354,7 +354,7 @@ public abstract class AbstractLogTest {
      *            Name des ausgeführten Testfalls.
      */
     private void vergleicheLogZeile(String zeileVorlage, String zeileErgebnis, int zeilennummer,
-            String testfallName) {
+        String testfallName) {
 
         // Tests sollen auf Windoes und Unix laufen - daher Zeilenenden anpassen
         zeileVorlage = zeileVorlage.replaceAll("\\\\r\\\\n", "\\\\n");
@@ -362,16 +362,16 @@ public abstract class AbstractLogTest {
 
         // Bei der Exception kann die ID im Stacktrace nicht überprüft werden.
         if (zeileVorlage.contains(FehlerSchluessel.FALSCHES_LOGGING_FRAMEWORK)
-                && zeileErgebnis.contains(FehlerSchluessel.FALSCHES_LOGGING_FRAMEWORK)) {
+            && zeileErgebnis.contains(FehlerSchluessel.FALSCHES_LOGGING_FRAMEWORK)) {
             zeileVorlage = ersetzeString(zeileVorlage,
-                    "SLF4J-Implementierung bereitgestellt: de.bund.bva.isyfact.logging.LoggingTest. #", "\\n");
+                "SLF4J-Implementierung bereitgestellt: de.bund.bva.isyfact.logging.LoggingTest. #", "\\n");
             zeileVorlage = ersetzeString(zeileVorlage,
-                    "SLF4J-Implementierung bereitgestellt: de.bund.bva.isyfact.logging.LogbackTest. #", "\\n");
+                "SLF4J-Implementierung bereitgestellt: de.bund.bva.isyfact.logging.LogbackTest. #", "\\n");
 
             zeileErgebnis = ersetzeString(zeileErgebnis,
-                    "SLF4J-Implementierung bereitgestellt: de.bund.bva.isyfact.logging.LoggingTest. #", "\\n");
+                "SLF4J-Implementierung bereitgestellt: de.bund.bva.isyfact.logging.LoggingTest. #", "\\n");
             zeileErgebnis = ersetzeString(zeileErgebnis,
-                    "SLF4J-Implementierung bereitgestellt: de.bund.bva.isyfact.logging.LogbackTest. #", "\\n");
+                "SLF4J-Implementierung bereitgestellt: de.bund.bva.isyfact.logging.LogbackTest. #", "\\n");
         }
 
         // Exceptions können nicht verglichen werden (Codezeilen, IDs zu unterschiedlich auf verschiedenen
@@ -474,17 +474,17 @@ public abstract class AbstractLogTest {
         if (dauer != null) {
             int dauerInt = Integer.parseInt(dauer);
             Assert.assertTrue("Es wurde eine ungültige Dauer gelogged: " + dauerInt, dauerInt > 0
-                    && dauerInt < 1000);
+                && dauerInt < 1000);
         }
 
         if (zeileErgebnis.contains(JSON_DAUERTE_PRAEFIX)) {
             Assert.assertNotNull("Text 'dauerte' in Nachricht gefunden, aber kein Marker 'dauer' vorhanden",
-                    dauer);
+                dauer);
         }
 
         if (dauer != null) {
             Assert.assertTrue("Marker 'dauer' vorhanden, aber Text 'dauerte' in Nachricht nicht gefunden",
-                    zeileErgebnis.contains(JSON_DAUERTE_PRAEFIX));
+                zeileErgebnis.contains(JSON_DAUERTE_PRAEFIX));
         }
 
         String level = leseSubString(zeileErgebnis, JSON_LEVEL_PRAEFIX, JSON_ATTRIBUT_SUFFIX, 0);
@@ -507,7 +507,7 @@ public abstract class AbstractLogTest {
                 int schluesselLaenge = schluessel.length();
                 // Die Länge des Schlüssels muss 10 (Fehlerschluessel) oder 11 (Ereignisschluessel) sein
                 Assert.assertTrue("Schluessel hat falsche Länge: " + schluesselLaenge,
-                        (schluesselLaenge == 10 || schluesselLaenge == 11));
+                    (schluesselLaenge == 10 || schluesselLaenge == 11));
             }
         }
 
@@ -518,7 +518,7 @@ public abstract class AbstractLogTest {
             boolean platzhalterErsetzen = !zeileErgebnis.contains(KENNZEICHNUNG_FEHLERTEST);
             if (platzhalterErsetzen) {
                 Assert.assertFalse("Nachricht enthält nicht ersetzte Platzhalter: " + nachricht,
-                        nachricht.contains("{}"));
+                    nachricht.contains("{}"));
             }
         }
     }
@@ -577,8 +577,8 @@ public abstract class AbstractLogTest {
         if (!praefix.equals(JSON_EXCEPTION_PRAEFIX)) {
             int anzahlErsetzterZeichen = ersetzenEnde - ersetzenStart;
             Assert.assertTrue("Fehler in den Tests - es wurden zu viele Zeichen ersetzt ("
-                    + anzahlErsetzterZeichen + ") Vorher: [" + logZeileVorher + "] Nachher: [" + logzeile
-                    + "]", anzahlErsetzterZeichen < 40);
+                + anzahlErsetzterZeichen + ") Vorher: [" + logZeileVorher + "] Nachher: [" + logzeile
+                + "]", anzahlErsetzterZeichen < 40);
         }
 
         return ersetzeString(logzeile, praefix, suffix, ersetzenEnde);

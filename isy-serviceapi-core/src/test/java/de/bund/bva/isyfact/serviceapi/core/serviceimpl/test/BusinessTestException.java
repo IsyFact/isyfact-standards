@@ -20,14 +20,15 @@ import de.bund.bva.isyfact.exception.FehlertextProvider;
 import de.bund.bva.isyfact.exception.BusinessException;
 
 public class BusinessTestException extends BusinessException {
-	private static final long serialVersionUID = -3811370257922504594L;
-	public BusinessTestException() {
-		super("", new FehlertextProvider() {
-			@Override
-			public String getMessage(String schluessel, String... parameter) {
-				return "";
-			}
-		});
-	}
+    private static final long serialVersionUID = -3811370257922504594L;
+
+    public BusinessTestException() {
+        super("", new FehlertextProvider() {
+            @Override
+            public String getMessage(String schluessel, String... parameter) {
+                return "";
+            }
+        });
+    }
 
 }

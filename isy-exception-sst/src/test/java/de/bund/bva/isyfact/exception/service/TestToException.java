@@ -22,23 +22,27 @@ import static org.junit.Assert.assertEquals;
 
 public class TestToException {
 
-	private static final String message = "Testen";
-	private static final String ausnahmeId = "von ToException";
-	private static final String uniqueId = "und deren Ableitungen";
-	private static final String SEPERATOR = "#";
-	private static final String SPACE = " ";
-	
-	ToException pte = new ToException(message, ausnahmeId, uniqueId);
-	
-	@Test
-	public void testGetterToException() {
-		ToException pte = new ToException(message, ausnahmeId, uniqueId);
-		assertEquals(message,pte.getFehlertext());
-		assertEquals(ausnahmeId,pte.getAusnahmeId());
-		assertEquals(uniqueId,pte.getUniqueId());
-		
-		String exception = SEPERATOR + ausnahmeId + SPACE + message + SPACE + SEPERATOR + uniqueId;
-		assertEquals(exception, pte.getMessage());
-	}
+    private static final String message = "Testen";
+
+    private static final String ausnahmeId = "von ToException";
+
+    private static final String uniqueId = "und deren Ableitungen";
+
+    private static final String SEPERATOR = "#";
+
+    private static final String SPACE = " ";
+
+    ToException pte = new ToException(message, ausnahmeId, uniqueId);
+
+    @Test
+    public void testGetterToException() {
+        ToException pte = new ToException(message, ausnahmeId, uniqueId);
+        assertEquals(message, pte.getFehlertext());
+        assertEquals(ausnahmeId, pte.getAusnahmeId());
+        assertEquals(uniqueId, pte.getUniqueId());
+
+        String exception = SEPERATOR + ausnahmeId + SPACE + message + SPACE + SEPERATOR + uniqueId;
+        assertEquals(exception, pte.getMessage());
+    }
 
 }

@@ -23,7 +23,6 @@ package de.bund.bva.isyfact.exception;
  */
 public interface FehlertextProvider {
 
-
     /**
      * liest Nachricht aus und ersetzt die Platzhalter durch die übergebenen Parameter.
      * 

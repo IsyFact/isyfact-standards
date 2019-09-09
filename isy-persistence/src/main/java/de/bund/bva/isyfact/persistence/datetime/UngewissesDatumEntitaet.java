@@ -34,8 +34,7 @@ public class UngewissesDatumEntitaet {
 
     /**
      * Erstellt ein {@link UngewissesDatum} aus diesem Objekt.
-     * @return
-     *      ein {@link UngewissesDatum} mit den Daten der {@link UngewissesDatumEntitaet}
+     * @return ein {@link UngewissesDatum} mit den Daten der {@link UngewissesDatumEntitaet}
      */
     public UngewissesDatum toUngewissesDatum() {
         return UngewissesDatum.of(getAnfang(), getEnde());

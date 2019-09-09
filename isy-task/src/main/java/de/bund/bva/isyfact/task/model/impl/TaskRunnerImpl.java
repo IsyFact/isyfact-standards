@@ -43,7 +43,6 @@ public class TaskRunnerImpl implements TaskRunner {
         }
     }
 
-
     @Override
     public Task getTask() {
         return task;

@@ -24,10 +24,10 @@ import org.junit.Test;
 
 public class TestAufrufKontextFehlerhaftException {
 
-	@Test
-	public void testAufrufKontextFehlerhaftException() {
-		AufrufKontextFehlerhaftException e = new AufrufKontextFehlerhaftException();
-		assertEquals(AusnahmeId.UEBERGEBENER_PARAMETER_FALSCH.getCode(), e.getAusnahmeId());
-	}
+    @Test
+    public void testAufrufKontextFehlerhaftException() {
+        AufrufKontextFehlerhaftException e = new AufrufKontextFehlerhaftException();
+        assertEquals(AusnahmeId.UEBERGEBENER_PARAMETER_FALSCH.getCode(), e.getAusnahmeId());
+    }
 
 }

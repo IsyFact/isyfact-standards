@@ -24,7 +24,8 @@ public class BatchrahmenTestConfig {
     }
 
     @Bean
-    public Batchrahmen batchrahmen(JpaTransactionManager jpaTransactionManager, AufrufKontextVerwalter aufrufKontextVerwalter, AufrufKontextFactory aufrufKontextFactory) {
+    public Batchrahmen batchrahmen(JpaTransactionManager jpaTransactionManager,
+        AufrufKontextVerwalter aufrufKontextVerwalter, AufrufKontextFactory aufrufKontextFactory) {
         BatchrahmenImpl batchrahmen = new BatchrahmenImpl();
         batchrahmen.setTransactionManager(jpaTransactionManager);
         batchrahmen.setAufrufKontextFactory(aufrufKontextFactory);

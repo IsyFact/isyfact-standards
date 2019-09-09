@@ -14,11 +14,11 @@ import org.springframework.context.annotation.EnableLoadTimeWeaving;
 @EnableLoadTimeWeaving
 public class IsyPerformanceLoggingAutoConfiguration {
 
-    String[] pointcuts = {"execution(public * *..gui..*Controller.*(..))",
-                          "execution(public * *..service..*ServiceImpl.*(..))",
-                          "execution(public * *..core..*Impl.*(..))",
-                          "execution(public * *..persistence..*DaoImpl.*(..))", // TODO: Mit Spring Data?
-                          "execution(@de.bund.bva.isyfact.logging.annotation.PerformanceLogging * *(..))"
+    String[] pointcuts = { "execution(public * *..gui..*Controller.*(..))",
+        "execution(public * *..service..*ServiceImpl.*(..))",
+        "execution(public * *..core..*Impl.*(..))",
+        "execution(public * *..persistence..*DaoImpl.*(..))", // TODO: Mit Spring Data?
+        "execution(@de.bund.bva.isyfact.logging.annotation.PerformanceLogging * *(..))"
     };
 
     @Bean

@@ -37,9 +37,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
-/* @SpringBootTest(classes = AnwendungTestConfig.class, webEnvironment = SpringBootTest.WebEnvironment.NONE, properties = {
-    "isy.logging.anwendung.name=test", "isy.logging.anwendung.typ=test",
-    "isy.logging.anwendung.version=test" })*/
+/*
+ * @SpringBootTest(classes = AnwendungTestConfig.class, webEnvironment = SpringBootTest.WebEnvironment.NONE,
+ * properties = { "isy.logging.anwendung.name=test", "isy.logging.anwendung.typ=test",
+ * "isy.logging.anwendung.version=test" })
+ */
 @ContextConfiguration(classes = AnwendungTestConfig.class)
 public class BatchrahmenTest {
 
@@ -56,12 +58,12 @@ public class BatchrahmenTest {
             + "SATZNUMMERLETZTESCOMMIT BIGINT," + "SCHLUESSELLETZTESCOMMIT VARCHAR2(255),"
             + "DATUMLETZTERSTART TIMESTAMP," + "DATUMLETZTERABBRUCH TIMESTAMP,"
             + "DATUMLETZTERERFOLG TIMESTAMP," + "CONSTRAINT BATCHSTATUS_PK PRIMARY KEY (BATCHID));");
-        //jdbcTemplate.execute("DELETE FROM batchstatus");
+        // jdbcTemplate.execute("DELETE FROM batchstatus");
 
         try {
             ERGEBNIS_DATEI = new File(
                 BatchrahmenTest.class.getResource("/resources/batch/ausgabe/ergebnisdatei.xml").toURI())
-                .getAbsolutePath();
+                    .getAbsolutePath();
 
         } catch (URISyntaxException e) {
             fail(e.getMessage());
@@ -233,10 +235,9 @@ public class BatchrahmenTest {
      * steht.
      */
     @Test
-    @Ignore(
-        "Testet ob der Batch mit dem Laufzeitparameter abgebrochen werden kann. Anschließend muss geprüft "
-            + "werden, ob im Log die Meldung Batch beendet geschrieben wurde und der Status in der DB auf abgebrochen "
-            + "steht.")
+    @Ignore("Testet ob der Batch mit dem Laufzeitparameter abgebrochen werden kann. Anschließend muss geprüft "
+        + "werden, ob im Log die Meldung Batch beendet geschrieben wurde und der Status in der DB auf abgebrochen "
+        + "steht.")
     public void testLaufzeitParameter() throws Exception {
         TestBatchLauchner batchLauncher =
             new TestBatchLauchner("/resources/batch/infinite-test-batch-1-config.properties");
@@ -295,7 +296,8 @@ public class BatchrahmenTest {
     /**
      * Liest den BatchStatus mit der angegebenen Id in einer eigenen Transaktion.
      *
-     * @param batchId Id als Schlüssel für den BatchStatus
+     * @param batchId
+     *            Id als Schlüssel für den BatchStatus
      * @return Den BatchStatus
      */
     private String getBatchStatus(final String batchId) {

@@ -16,15 +16,13 @@
  */
 package de.bund.bva.isyfact.aufrufkontext;
 
-/** 
+/**
  * Container für den aktuellen Aufrufkontext.
  * 
  * Diese Klasse sollte als Bean mit dem scope "thread" verwendet werden:
  * 
- *  <aop:aspectj-autoproxy/>
- *  <bean id="aufrufKontextVerwalter" scope="thread" class="de.bund.bva.isyfact.aufrufkontext.impl.AufrufKontextVerwalterImpl">
- *       <aop:scoped-proxy/>
- *  </bean>
+ * <aop:aspectj-autoproxy/> <bean id="aufrufKontextVerwalter" scope="thread" class=
+ * "de.bund.bva.isyfact.aufrufkontext.impl.AufrufKontextVerwalterImpl"> <aop:scoped-proxy/> </bean>
  * 
  * <p>
  *
@@ -39,7 +37,8 @@ public interface AufrufKontextVerwalter<T extends AufrufKontext> {
 
     /**
      * setzt den aktuellen AufrufKontext.
-     * @param aufrufKontext das zu setzende Objekt.
+     * @param aufrufKontext
+     *            das zu setzende Objekt.
      */
     void setAufrufKontext(T aufrufKontext);
 }

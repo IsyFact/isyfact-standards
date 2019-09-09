@@ -16,7 +16,6 @@
  */
 package de.bund.bva.isyfact.serviceapi.core.aop.service.httpinvoker.v1_0_0;
 
-
 import de.bund.bva.isyfact.logging.util.MdcHelper;
 import de.bund.bva.isyfact.serviceapi.core.aop.StelltLoggingKontextBereit;
 import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;

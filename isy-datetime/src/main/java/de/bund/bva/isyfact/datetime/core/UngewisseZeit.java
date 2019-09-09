@@ -22,12 +22,13 @@ public class UngewisseZeit {
         new DateTimeFormatterBuilder().appendPattern("['xx:xx:xx']").appendPattern("[HH:'xx:xx']")
             .appendPattern("[HH:mm:'xx']").appendPattern("[HH:mm:ss]").parseStrict().toFormatter();
 
-    private static final int MIN_SEKUNDE = (int)ChronoField.SECOND_OF_MINUTE.range().getMinimum();
-    private static final int MAX_SEKUNDE = (int)ChronoField.SECOND_OF_MINUTE.range().getMaximum();
+    private static final int MIN_SEKUNDE = (int) ChronoField.SECOND_OF_MINUTE.range().getMinimum();
 
-    private static final int MIN_MINUTE = (int)ChronoField.MINUTE_OF_HOUR.range().getMinimum();
-    private static final int MAX_MINUTE = (int)ChronoField.MINUTE_OF_HOUR.range().getMaximum();
+    private static final int MAX_SEKUNDE = (int) ChronoField.SECOND_OF_MINUTE.range().getMaximum();
 
+    private static final int MIN_MINUTE = (int) ChronoField.MINUTE_OF_HOUR.range().getMinimum();
+
+    private static final int MAX_MINUTE = (int) ChronoField.MINUTE_OF_HOUR.range().getMaximum();
 
     private LocalTime anfang;
 
@@ -55,7 +56,7 @@ public class UngewisseZeit {
      * Erstellt eine {@link UngewisseZeit}, bei nur die Stunde bekannt ist.
      *
      * @param stunde
-     *     die Stunde
+     *            die Stunde
      * @return eine {@link UngewisseZeit} mit der Stunde gesetzt
      */
     public static UngewisseZeit of(int stunde) {
@@ -68,9 +69,9 @@ public class UngewisseZeit {
      * Erstellt eine {@link UngewisseZeit}, bei der Stunde und Minute bekannt sind.
      *
      * @param stunde
-     *     die Stunde
+     *            die Stunde
      * @param minute
-     *     die Minute
+     *            die Minute
      * @return eine {@link UngewisseZeit} mit der Stunde und Minute gesetzt
      */
     public static UngewisseZeit of(int stunde, int minute) {
@@ -79,16 +80,16 @@ public class UngewisseZeit {
     }
 
     /**
-     * Erstellt eine {@link UngewisseZeit}, bei der Stunde, Minute und Sekunde bekannt sind.
-     * Damit ist die Zeit nicht mehr ungewiss und kann mit {@link UngewisseZeit#toLocalTime()}
-     * in eine {@link java.time.LocalDateTime} konvertiert werden.
+     * Erstellt eine {@link UngewisseZeit}, bei der Stunde, Minute und Sekunde bekannt sind. Damit ist die
+     * Zeit nicht mehr ungewiss und kann mit {@link UngewisseZeit#toLocalTime()} in eine
+     * {@link java.time.LocalDateTime} konvertiert werden.
      *
      * @param stunde
-     *     die Stunde
+     *            die Stunde
      * @param minute
-     *     die Minute
+     *            die Minute
      * @param sekunde
-     *     die Sekunde
+     *            die Sekunde
      * @return eine {@link UngewisseZeit} mit der Stunde, Minute und Sekunde gesetzt
      */
     public static UngewisseZeit of(int stunde, int minute, int sekunde) {
@@ -100,9 +101,9 @@ public class UngewisseZeit {
      * Erstellt eine {@link UngewisseZeit} bei der Anfang und Ende des Zeitraums übergeben werden.
      *
      * @param vonInklusive
-     *     der Anfang des Zeitraums inklusive, nicht null
+     *            der Anfang des Zeitraums inklusive, nicht null
      * @param bisInklusive
-     *     das Ende des Zeitraums inklusive, nicht null
+     *            das Ende des Zeitraums inklusive, nicht null
      * @return eine {@link UngewisseZeit} mit dem gesetzten Zeitraum
      */
     public static UngewisseZeit of(LocalTime vonInklusive, LocalTime bisInklusive) {
@@ -110,7 +111,8 @@ public class UngewisseZeit {
         Objects.requireNonNull(bisInklusive);
 
         if (vonInklusive.isAfter(bisInklusive)) {
-            throw new DateTimeException("Der Anfang " + vonInklusive + " liegt nach dem Ende " + bisInklusive + ".");
+            throw new DateTimeException(
+                "Der Anfang " + vonInklusive + " liegt nach dem Ende " + bisInklusive + ".");
         }
 
         return new UngewisseZeit(vonInklusive, bisInklusive);
@@ -157,7 +159,8 @@ public class UngewisseZeit {
     /**
      * Gibt ein {@link java.util.Optional} zurück, das die Stunde dieser {@link UngewisseZeit} enthält.
      *
-     * @return ein {@link java.util.Optional} mit der Stunde, wenn dieses gesetzt ist, sonst ein leeres {@link java.util.Optional}
+     * @return ein {@link java.util.Optional} mit der Stunde, wenn dieses gesetzt ist, sonst ein leeres
+     *         {@link java.util.Optional}
      */
     public Optional<Integer> getStunde() {
         if (nurStundeBekannt()) {
@@ -168,11 +171,12 @@ public class UngewisseZeit {
     }
 
     /**
-     * Gibt ein {@link java.util.Optional} zurück, das die Minute dieser {@link UngewisseZeit} enthält.
-     * Sind der Anfang und das Ende dieser ungewissen Zeit nicht in der selben Minute, wird ein leeres
+     * Gibt ein {@link java.util.Optional} zurück, das die Minute dieser {@link UngewisseZeit} enthält. Sind
+     * der Anfang und das Ende dieser ungewissen Zeit nicht in der selben Minute, wird ein leeres
      * {@link java.util.Optional} zurückgegeben.
      *
-     * @return ein {@link java.util.Optional} mit der Minute, wenn gesetzt und eindeutig, sonst ein leeres {@link java.util.Optional}
+     * @return ein {@link java.util.Optional} mit der Minute, wenn gesetzt und eindeutig, sonst ein leeres
+     *         {@link java.util.Optional}
      */
     public Optional<Integer> getMinute() {
         if (nurMinuteUndStundeBekannt()) {
@@ -183,11 +187,12 @@ public class UngewisseZeit {
     }
 
     /**
-     * Gibt ein {@link java.util.Optional} zurück, das die Sekunde dieser {@link UngewisseZeit} enthält.
-     * Sind der Anfang und das Ende dieser ungewissen Zeit nicht in der selben Sekunde, wird ein leeres
+     * Gibt ein {@link java.util.Optional} zurück, das die Sekunde dieser {@link UngewisseZeit} enthält. Sind
+     * der Anfang und das Ende dieser ungewissen Zeit nicht in der selben Sekunde, wird ein leeres
      * {@link java.util.Optional} zurückgegeben.
      *
-     * @return ein {@link java.util.Optional} mit der Sekunde, wenn gesetzt und eindeutig, sonst ein leeres {@link java.util.Optional}
+     * @return ein {@link java.util.Optional} mit der Sekunde, wenn gesetzt und eindeutig, sonst ein leeres
+     *         {@link java.util.Optional}
      */
     public Optional<Integer> getSekunde() {
         if (isUngewiss()) {
@@ -198,9 +203,11 @@ public class UngewisseZeit {
     }
 
     /**
-     * Gibt ein {@link java.util.Optional} zurück, das diese {@link UngewisseZeit} als {@link java.time.LocalTime} enthält.
+     * Gibt ein {@link java.util.Optional} zurück, das diese {@link UngewisseZeit} als
+     * {@link java.time.LocalTime} enthält.
      *
-     * @return ein {@link java.util.Optional} mit der {@link java.time.LocalTime}, wenn eindeutige Werte gesetzt sind, sonst ein leeres {@link java.util.Optional}
+     * @return ein {@link java.util.Optional} mit der {@link java.time.LocalTime}, wenn eindeutige Werte
+     *         gesetzt sind, sonst ein leeres {@link java.util.Optional}
      */
     public Optional<LocalTime> toLocalTime() {
         if (isUngewiss()) {
@@ -216,17 +223,33 @@ public class UngewisseZeit {
      * Folgende Formate werden unterstützt:
      * <p>
      * <table summary="Unterstütze Formate" border="1">
-     * <tr><th>Fall</th><th>Eingabe</th><th>Interner Zeitraum</th></tr>
-     * <tr><td>Sekunde unbekannt</td><td>14:34:xx</td><td>14:34:00 – 14:34:59</td></tr>
-     * <tr><td>Sekunde und Minute unbekannt</td><td>14:xx:xx</td><td>14:00:00 – 14:59:59</td></tr>
-     * <tr><td>Zeit komplett unbekannt</td><td>xx:xx:xx</td><td>nicht gesetzt (null)</td></tr>
+     * <tr>
+     * <th>Fall</th>
+     * <th>Eingabe</th>
+     * <th>Interner Zeitraum</th>
+     * </tr>
+     * <tr>
+     * <td>Sekunde unbekannt</td>
+     * <td>14:34:xx</td>
+     * <td>14:34:00 – 14:34:59</td>
+     * </tr>
+     * <tr>
+     * <td>Sekunde und Minute unbekannt</td>
+     * <td>14:xx:xx</td>
+     * <td>14:00:00 – 14:59:59</td>
+     * </tr>
+     * <tr>
+     * <td>Zeit komplett unbekannt</td>
+     * <td>xx:xx:xx</td>
+     * <td>nicht gesetzt (null)</td>
+     * </tr>
      * </table>
      *
      * @param text
-     *     der Text, der geparst werden soll
+     *            der Text, der geparst werden soll
      * @return die geparste {@link UngewisseZeit}
      * @throws DateTimeParseException
-     *     wenn der Text nicht geparst werden kann
+     *             wenn der Text nicht geparst werden kann
      */
     public static UngewisseZeit parse(String text) {
         Objects.requireNonNull(text);
@@ -267,9 +290,9 @@ public class UngewisseZeit {
     }
 
     /**
-     * Gibt diese {@link UngewisseZeit} als String im Format {@code HH:mm.ss} zurück.
-     * Unbekannte Werte werde mit {@code xx} dargestellt, z.B. {@code 14:xx:xx}. Ist die Zeit so nicht darstellbar,
-     * wird sie als Zeitraum dargestellt, z.B. {@code 12:30:00 - 18:30:00}.
+     * Gibt diese {@link UngewisseZeit} als String im Format {@code HH:mm.ss} zurück. Unbekannte Werte werde
+     * mit {@code xx} dargestellt, z.B. {@code 14:xx:xx}. Ist die Zeit so nicht darstellbar, wird sie als
+     * Zeitraum dargestellt, z.B. {@code 12:30:00 - 18:30:00}.
      *
      * @return Repräsentation dieser {@link UngewisseZeit} als {@link String}
      */

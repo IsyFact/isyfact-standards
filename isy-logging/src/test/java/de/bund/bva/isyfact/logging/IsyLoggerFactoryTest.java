@@ -48,13 +48,13 @@ public class IsyLoggerFactoryTest {
         // Die Prüfung der Methode muss per Reflection erfolgen, da es unmöglich ist eine zweite
         // SLF4J-Implementierung in die Tests zuverlässig zu integrieren.
         Method pruefeLoggerImplementierungMethod = IsyLoggerFactory.class.getDeclaredMethod(
-                "pruefeLoggerImplementierung", Object.class);
+            "pruefeLoggerImplementierung", Object.class);
         pruefeLoggerImplementierungMethod.setAccessible(true);
         try {
             // Integer als "Logframework" zur Prüfung geben.
             pruefeLoggerImplementierungMethod.invoke(null, new Integer(5));
             Assert.fail("Erzeugung des Loggers erfolgreich, obwohl nicht "
-                    + "unterstütztes Logframework verwendet wird.");
+                + "unterstütztes Logframework verwendet wird.");
         } catch (InvocationTargetException ite) {
             LogKonfigurationFehler lkf = (LogKonfigurationFehler) ite.getCause();
             Assert.assertEquals("ISYLO00000", lkf.getAusnahmeId());

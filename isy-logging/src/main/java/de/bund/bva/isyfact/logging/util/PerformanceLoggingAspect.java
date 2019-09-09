@@ -11,8 +11,8 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 
 /**
- * AspectJ-Aspect zum Logging von AWF- und AFU-Klassen, die nicht public sind und deshalb nicht
- * über Spring AOP geloggt werden können.
+ * AspectJ-Aspect zum Logging von AWF- und AFU-Klassen, die nicht public sind und deshalb nicht über Spring
+ * AOP geloggt werden können.
  */
 @Aspect
 public class PerformanceLoggingAspect {
@@ -23,14 +23,14 @@ public class PerformanceLoggingAspect {
     @Around("awfUndAfuKlassen()")
     public Object loggeDauer(ProceedingJoinPoint pjp) throws Throwable {
         Class<?> klasse = pjp.getTarget().getClass();
-        Method methode = ((MethodSignature)pjp.getSignature()).getMethod();
+        Method methode = ((MethodSignature) pjp.getSignature()).getMethod();
 
         IsyLogger logger = IsyLoggerFactory.getLogger(klasse);
 
         long startzeit = logHelper.ermittleAktuellenZeitpunkt();
 
         try {
-            Object ergebnis =  pjp.proceed();
+            Object ergebnis = pjp.proceed();
             long dauer = ermittleDauer(startzeit);
             logHelper.loggeDauer(logger, methode, dauer, true);
             return ergebnis;
@@ -42,7 +42,8 @@ public class PerformanceLoggingAspect {
     }
 
     @Pointcut("execution(* * ..core..Awf*.*(..)) || execution(* * ..core..Afu*.*(..))")
-    public void awfUndAfuKlassen(){}
+    public void awfUndAfuKlassen() {
+    }
 
     /**
      * Interne Hilfsmethode zum ermitteln der Dauer eines Aufrufs an hand der Startzeit und der aktuellen

@@ -47,9 +47,9 @@ public class IsyTaskAutoConfiguration {
         return new LocalHostHandlerImpl();
     }
 
-
     @Bean
-    @ConditionalOnProperty(value = "isy.task.authentication.enabled", havingValue = "false", matchIfMissing = true)
+    @ConditionalOnProperty(value = "isy.task.authentication.enabled", havingValue = "false",
+        matchIfMissing = true)
     @ConditionalOnMissingBean(AuthenticatorFactory.class)
     public AuthenticatorFactory authenticatorFactoryNoOp() {
         return new NoOpAuthenticatorFactory();

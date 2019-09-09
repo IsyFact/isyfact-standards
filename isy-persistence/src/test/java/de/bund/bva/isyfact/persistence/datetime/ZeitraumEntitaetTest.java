@@ -14,7 +14,8 @@ public class ZeitraumEntitaetTest {
 
     @Test
     public void toZeitraum() {
-        ZonedDateTime zonedDateTime = ZonedDateTime.of(LocalDateTime.of(2017, 8, 1, 15, 0), ZoneId.systemDefault());
+        ZonedDateTime zonedDateTime =
+            ZonedDateTime.of(LocalDateTime.of(2017, 8, 1, 15, 0), ZoneId.systemDefault());
 
         ZonedDateTime anfang = zonedDateTime;
         ZonedDateTime ende = zonedDateTime.plusHours(12);

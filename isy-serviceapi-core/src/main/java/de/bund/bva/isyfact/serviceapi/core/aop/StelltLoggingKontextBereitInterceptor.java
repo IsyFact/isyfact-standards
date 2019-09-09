@@ -44,8 +44,8 @@ public class StelltLoggingKontextBereitInterceptor implements MethodInterceptor 
 
     /**
      * Dieser Aspekt sorgt dafür, dass eine Korrelation-ID erzeugt wird, falls im AufrufKontext keine gesetzt
-     * ist und in der Annotation angegeben ist, dass kein Aufrufkontext als Parameter übergeben wird.
-     * Die Korrelation ID wird vor dem eigentlichen Aufruf im Logging-Kontext gesetzt und danach automatisch
+     * ist und in der Annotation angegeben ist, dass kein Aufrufkontext als Parameter übergeben wird. Die
+     * Korrelation ID wird vor dem eigentlichen Aufruf im Logging-Kontext gesetzt und danach automatisch
      * wieder entfernt.
      *
      * @param invocation
@@ -84,7 +84,8 @@ public class StelltLoggingKontextBereitInterceptor implements MethodInterceptor 
         if (nutzeAufrufKontext) {
             if (aufrufKontextTo != null) {
                 if (StringUtils.isEmpty(aufrufKontextTo.getKorrelationsId())) {
-                    LOG.debug("Es wurde keine Korrelations-ID im AufrufKontext übermittelt. Erzeuge neue Korrelations-ID.");
+                    LOG.debug(
+                        "Es wurde keine Korrelations-ID im AufrufKontext übermittelt. Erzeuge neue Korrelations-ID.");
                     korrelationsId = UUID.randomUUID().toString();
                     aufrufKontextTo.setKorrelationsId(korrelationsId);
                 } else {

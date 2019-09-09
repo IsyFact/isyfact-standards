@@ -200,8 +200,8 @@ public class BerechtigungsmanagerTest {
         AufrufKontextVerwalterImpl aufrufKontextVerwalter = new AufrufKontextVerwalterImpl();
         aufrufKontextVerwalter.setAufrufKontext(aufrufKontext);
 
-        SicherheitImpl
-            sicherheit = new SicherheitImpl(ROLLENRECHTE_PFAD, aufrufKontextVerwalter, null, null, new IsySicherheitConfigurationProperties());
+        SicherheitImpl sicherheit = new SicherheitImpl(ROLLENRECHTE_PFAD, aufrufKontextVerwalter, null, null,
+            new IsySicherheitConfigurationProperties());
         sicherheit.afterPropertiesSet();
 
         Berechtigungsmanager berechtigungsManager = sicherheit.getBerechtigungsManager();

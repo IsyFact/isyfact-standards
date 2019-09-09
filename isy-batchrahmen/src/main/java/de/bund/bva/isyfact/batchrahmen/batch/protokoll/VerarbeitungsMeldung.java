@@ -33,11 +33,11 @@ public class VerarbeitungsMeldung implements Serializable {
      * Id der Meldung.
      */
     private String id;
-    
+
     /**
      * Fachliche Id der Meldung.
      */
-    private String fachlicheId;    
+    private String fachlicheId;
 
     /**
      * Typ der Meldung.
@@ -48,32 +48,39 @@ public class VerarbeitungsMeldung implements Serializable {
      * Meldungstext.
      */
     private String text;
-    
+
     /**
      * Erzeugt eine Meldung.
-     * @param id Id
-     * @param typ Typ
-     * @param text Langtext
+     * @param id
+     *            Id
+     * @param typ
+     *            Typ
+     * @param text
+     *            Langtext
      */
     public VerarbeitungsMeldung(String id, MeldungTyp typ, String text) {
         this.id = id;
         this.typ = typ;
         this.text = text;
     }
-    
+
     /**
      * Erzeugt eine Meldung mit fachlicher Id.
-     * @param id Id
-     * @param fachlicheId Die fachliche ID
-     * @param typ Typ
-     * @param text Langtext
+     * @param id
+     *            Id
+     * @param fachlicheId
+     *            Die fachliche ID
+     * @param typ
+     *            Typ
+     * @param text
+     *            Langtext
      */
     public VerarbeitungsMeldung(String id, String fachlicheId, MeldungTyp typ, String text) {
         this.id = id;
         this.fachlicheId = fachlicheId;
         this.typ = typ;
         this.text = text;
-    }    
+    }
 
     /**
      * Liefert die Id der Meldung.
@@ -82,7 +89,7 @@ public class VerarbeitungsMeldung implements Serializable {
     public String getId() {
         return id;
     }
-    
+
     /**
      * Liefert das Feld 'fachlicheId' zurück.
      * @return Wert von fachlicheId
@@ -93,7 +100,8 @@ public class VerarbeitungsMeldung implements Serializable {
 
     /**
      * Setzt das Feld 'fachlicheId'.
-     * @param fachlicheId Neuer Wert für fachlicheId
+     * @param fachlicheId
+     *            Neuer Wert für fachlicheId
      */
     public void setFachlicheId(String fachlicheId) {
         this.fachlicheId = fachlicheId;
@@ -110,7 +118,7 @@ public class VerarbeitungsMeldung implements Serializable {
     /**
      * Liefert den eigentlichen Text der Meldung.
      * @return den Text.
-     */    
+     */
     public String getText() {
         return text;
     }

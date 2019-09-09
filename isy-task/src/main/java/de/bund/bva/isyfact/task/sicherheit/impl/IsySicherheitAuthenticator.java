@@ -12,29 +12,40 @@ import de.bund.bva.isyfact.sicherheit.Sicherheit;
  */
 public class IsySicherheitAuthenticator implements Authenticator {
     private String username;
+
     private String password;
+
     private String behoerdenkennzeichen;
+
     private Sicherheit<AufrufKontext> sicherheit;
+
     private AufrufKontextFactory<AufrufKontext> aufrufKontextFactory;
+
     private AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter;
 
     /**
-     *  Erstellt eine Instanz eines {@link Authenticator} für isy-sicherheit.
+     * Erstellt eine Instanz eines {@link Authenticator} für isy-sicherheit.
      *
-     * @param username der Benutzername
-     * @param password das Passwort
-     * @param behoerdenkennzeichen das Behördenkennzeichen
-     * @param aufrufKontextVerwalter der {@link AufrufKontextVerwalter}
-     * @param aufrufKontextFactory die {@link AufrufKontextFactory}
-     * @param sicherheit die {@link Sicherheit}
+     * @param username
+     *            der Benutzername
+     * @param password
+     *            das Passwort
+     * @param behoerdenkennzeichen
+     *            das Behördenkennzeichen
+     * @param aufrufKontextVerwalter
+     *            der {@link AufrufKontextVerwalter}
+     * @param aufrufKontextFactory
+     *            die {@link AufrufKontextFactory}
+     * @param sicherheit
+     *            die {@link Sicherheit}
      */
     public IsySicherheitAuthenticator(
-            String username,
-            String password,
-            String behoerdenkennzeichen,
-            AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter,
-            AufrufKontextFactory<AufrufKontext> aufrufKontextFactory,
-            Sicherheit<AufrufKontext> sicherheit) {
+        String username,
+        String password,
+        String behoerdenkennzeichen,
+        AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter,
+        AufrufKontextFactory<AufrufKontext> aufrufKontextFactory,
+        Sicherheit<AufrufKontext> sicherheit) {
         this.username = username;
         this.password = password;
         this.behoerdenkennzeichen = behoerdenkennzeichen;
@@ -45,13 +56,13 @@ public class IsySicherheitAuthenticator implements Authenticator {
 
     @Override
     public synchronized void login() {
-         AufrufKontext kontext = aufrufKontextFactory.erzeugeAufrufKontext();
-         aufrufKontextVerwalter.setAufrufKontext(kontext);
-         kontext.setDurchfuehrenderBenutzerKennung(username);
-         kontext.setDurchfuehrenderBenutzerPasswort(password);
-         kontext.setDurchfuehrendeBehoerde(behoerdenkennzeichen);
+        AufrufKontext kontext = aufrufKontextFactory.erzeugeAufrufKontext();
+        aufrufKontextVerwalter.setAufrufKontext(kontext);
+        kontext.setDurchfuehrenderBenutzerKennung(username);
+        kontext.setDurchfuehrenderBenutzerPasswort(password);
+        kontext.setDurchfuehrendeBehoerde(behoerdenkennzeichen);
         kontext.setKorrelationsId(MdcHelper.liesKorrelationsId());
-         sicherheit.getBerechtigungsManagerUndAuthentifiziere(kontext);
+        sicherheit.getBerechtigungsManagerUndAuthentifiziere(kontext);
     }
 
     @Override

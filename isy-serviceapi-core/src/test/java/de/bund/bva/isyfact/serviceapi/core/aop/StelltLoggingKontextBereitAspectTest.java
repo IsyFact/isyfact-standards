@@ -33,82 +33,87 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 /**
- * Tested, ob der {@link StelltLoggingKontextBereitInterceptor} auch für Klassen ohne Annotations
- * eine KorrelationsID (AufrufKontextTO) zurückgibt.
+ * Tested, ob der {@link StelltLoggingKontextBereitInterceptor} auch für Klassen ohne Annotations eine
+ * KorrelationsID (AufrufKontextTO) zurückgibt.
  *
  */
 public class StelltLoggingKontextBereitAspectTest {
 
-	private Appender mockAppender;
-	private ArgumentCaptor<LoggingEvent> captorLoggingEvent;
-	private LoggingKontextAspectService service;
+    private Appender mockAppender;
 
-	@Before
-	public void setUp(){
-		captorLoggingEvent = ArgumentCaptor.forClass(LoggingEvent.class);
+    private ArgumentCaptor<LoggingEvent> captorLoggingEvent;
 
-		Logger logger = (Logger) LoggerFactory.getLogger("de.bund.bva.isyfact.serviceapi.core.aop.StelltLoggingKontextBereitInterceptor");
-		mockAppender = mock(Appender.class);
-		when(mockAppender.getName()).thenReturn("MOCK");
+    private LoggingKontextAspectService service;
 
-		logger.addAppender(mockAppender);
+    @Before
+    public void setUp() {
+        captorLoggingEvent = ArgumentCaptor.forClass(LoggingEvent.class);
 
-		StelltLoggingKontextBereitInterceptor aspect = new StelltLoggingKontextBereitInterceptor();
-		LoggingKontextAspectService service = new LoggingKontextAspectService();
-		ProxyFactory proxyFactory = new ProxyFactory(service);
-		proxyFactory.addAdvice(aspect);
-		this.service = (LoggingKontextAspectService) proxyFactory.getProxy();
-	}
+        Logger logger = (Logger) LoggerFactory
+            .getLogger("de.bund.bva.isyfact.serviceapi.core.aop.StelltLoggingKontextBereitInterceptor");
+        mockAppender = mock(Appender.class);
+        when(mockAppender.getName()).thenReturn("MOCK");
 
-	@Test
-	public void testAufrufOhneParameter() {
-		service.aufrufOhneParameter();
-		verify(mockAppender, times(1)).doAppend(captorLoggingEvent.capture());
-		assertEquals("Es wurde kein AufrufKontext übermittelt. Erzeuge neue Korrelations-ID.",
-			captorLoggingEvent.getAllValues().get(0).getMessage());
-	}
+        logger.addAppender(mockAppender);
 
-	@Test
-	public void testAufrufOhneAufrufKontext() {
-		service.aufrufOhneAufrufKontext(10);
-		verify(mockAppender, times(1)).doAppend(captorLoggingEvent.capture());
-		assertEquals("Es wurde kein AufrufKontext übermittelt. Erzeuge neue Korrelations-ID.",
-			captorLoggingEvent.getAllValues().get(0).getMessage());
-	}
+        StelltLoggingKontextBereitInterceptor aspect = new StelltLoggingKontextBereitInterceptor();
+        LoggingKontextAspectService service = new LoggingKontextAspectService();
+        ProxyFactory proxyFactory = new ProxyFactory(service);
+        proxyFactory.addAdvice(aspect);
+        this.service = (LoggingKontextAspectService) proxyFactory.getProxy();
+    }
 
-	@Test
-	public void testAufrufOhneKorrelationsId() {
-		AufrufKontextTo to = new AufrufKontextTo();
-		service.aufrufMitAufrufKontext(to);
-		verify(mockAppender, times(1)).doAppend(captorLoggingEvent.capture());
-		assertEquals("Es wurde keine Korrelations-ID im AufrufKontext übermittelt. Erzeuge neue Korrelations-ID.",
-			captorLoggingEvent.getAllValues().get(0).getMessage());
-	}
+    @Test
+    public void testAufrufOhneParameter() {
+        service.aufrufOhneParameter();
+        verify(mockAppender, times(1)).doAppend(captorLoggingEvent.capture());
+        assertEquals("Es wurde kein AufrufKontext übermittelt. Erzeuge neue Korrelations-ID.",
+            captorLoggingEvent.getAllValues().get(0).getMessage());
+    }
 
-	@Test
-	public void testAufrufLeereKorrelationsId() {
-		AufrufKontextTo to = new AufrufKontextTo();
-		to.setKorrelationsId("");
-		service.aufrufMitAufrufKontext(to);
-		verify(mockAppender, times(1)).doAppend(captorLoggingEvent.capture());
-		assertEquals("Es wurde keine Korrelations-ID im AufrufKontext übermittelt. Erzeuge neue Korrelations-ID.",
-			captorLoggingEvent.getAllValues().get(0).getMessage());
-	}
+    @Test
+    public void testAufrufOhneAufrufKontext() {
+        service.aufrufOhneAufrufKontext(10);
+        verify(mockAppender, times(1)).doAppend(captorLoggingEvent.capture());
+        assertEquals("Es wurde kein AufrufKontext übermittelt. Erzeuge neue Korrelations-ID.",
+            captorLoggingEvent.getAllValues().get(0).getMessage());
+    }
 
-	@Test
-	public void testAufrufMitKorrelationsId() {
-		AufrufKontextTo to = new AufrufKontextTo();
-		UUID korrId = UUID.randomUUID();
-		to.setKorrelationsId(korrId.toString());
-		service.aufrufMitAufrufKontext(to);
-		verify(mockAppender, times(1)).doAppend(captorLoggingEvent.capture());
-		assertEquals("Setze Korrelations-ID aus AufrufKontext.",
-			captorLoggingEvent.getAllValues().get(0).getMessage());
-	}
+    @Test
+    public void testAufrufOhneKorrelationsId() {
+        AufrufKontextTo to = new AufrufKontextTo();
+        service.aufrufMitAufrufKontext(to);
+        verify(mockAppender, times(1)).doAppend(captorLoggingEvent.capture());
+        assertEquals(
+            "Es wurde keine Korrelations-ID im AufrufKontext übermittelt. Erzeuge neue Korrelations-ID.",
+            captorLoggingEvent.getAllValues().get(0).getMessage());
+    }
 
-	@Test(expected = Exception.class)
-	public void testAufrufMitException() throws Exception {
-		service.aufrufMitException();
-	}
+    @Test
+    public void testAufrufLeereKorrelationsId() {
+        AufrufKontextTo to = new AufrufKontextTo();
+        to.setKorrelationsId("");
+        service.aufrufMitAufrufKontext(to);
+        verify(mockAppender, times(1)).doAppend(captorLoggingEvent.capture());
+        assertEquals(
+            "Es wurde keine Korrelations-ID im AufrufKontext übermittelt. Erzeuge neue Korrelations-ID.",
+            captorLoggingEvent.getAllValues().get(0).getMessage());
+    }
+
+    @Test
+    public void testAufrufMitKorrelationsId() {
+        AufrufKontextTo to = new AufrufKontextTo();
+        UUID korrId = UUID.randomUUID();
+        to.setKorrelationsId(korrId.toString());
+        service.aufrufMitAufrufKontext(to);
+        verify(mockAppender, times(1)).doAppend(captorLoggingEvent.capture());
+        assertEquals("Setze Korrelations-ID aus AufrufKontext.",
+            captorLoggingEvent.getAllValues().get(0).getMessage());
+    }
+
+    @Test(expected = Exception.class)
+    public void testAufrufMitException() throws Exception {
+        service.aufrufMitException();
+    }
 
 }

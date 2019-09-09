@@ -51,7 +51,7 @@ public abstract class NachrichtenSchluessel {
 
     /** Parameter muss mit - beginnen. */
     public static final String ERR_KOMMANDO_PARAMETER_PRAEFIX = "BAT240";
-    
+
     /** Fuer den Kommandozeilenparameter {0} ist kein Wert angegeben. */
     public static final String ERR_KOMMANDO_PARAMETER_WERT_NOETIG = "BAT250";
 
@@ -71,7 +71,7 @@ public abstract class NachrichtenSchluessel {
     // **** Fehler bei der Ausführung ****
     /** Nicht alle Datensätze wurden verarbeitet. */
     public static final String ERR_BATCH_UNVOLLSTAENDIG = "BAT400";
-    
+
     /** Fehler bei der Verarbeitung des Ergebnis-Protokolls. */
     public static final String ERR_BATCH_PROTOKOLL = "BAT410";
 
@@ -90,12 +90,12 @@ public abstract class NachrichtenSchluessel {
 
     /** Fehler in der Konfiguration. */
     public static final String MSG_RC_FEHLER_KONFIGURATION = "RC_FEHLER_KONFIGURATION";
-    
+
     /** Fehler in der Konfiguration. */
     public static final String MSG_RC_FEHLER_MANUELLER_ABBRUCH = "RC_FEHLER_MANUELLER_ABBRUCH";
 
     /** Abbruch wegen Laufzeitüberchreitung.. */
     public static final String MSG_RC_FEHLER_MAX_LAUFZEIT_UEBERSCHRITTEN =
         "RC_FEHLER_MAX_LAUFZEIT_UEBERSCHRITTEN";
-    
+
 }

@@ -20,9 +20,8 @@ import de.bund.bva.isyfact.sicherheit.annotation.Gesichert;
 import de.bund.bva.isyfact.sicherheit.common.konstanten.SicherheitFehlerSchluessel;
 
 /**
- * Diese Exception wird geworfen, wenn eine Methode durch eine
- * {@link Gesichert}-Annotation gesichert wurde, aber die
- * erforderlichen Rechte in der Annotation nicht angegeben wurden.
+ * Diese Exception wird geworfen, wenn eine Methode durch eine {@link Gesichert}-Annotation gesichert wurde,
+ * aber die erforderlichen Rechte in der Annotation nicht angegeben wurden.
  * 
  */
 public class FehlerhafteServiceKonfigurationRuntimeException extends SicherheitTechnicalRuntimeException {

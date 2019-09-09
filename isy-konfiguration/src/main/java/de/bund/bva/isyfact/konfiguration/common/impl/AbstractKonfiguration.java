@@ -22,8 +22,8 @@ import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 
 /**
  * Abstrakte Basisklasse für {@link Konfiguration Konfigurations}-Implementierungen, die alle
- * Typkonvertierungen erledigt, das Ermitteln eines Konfigurationswerts aus einem Konfigurationsspeicher jedoch
- * an eine abstrakte Methode delegiert.
+ * Typkonvertierungen erledigt, das Ermitteln eines Konfigurationswerts aus einem Konfigurationsspeicher
+ * jedoch an eine abstrakte Methode delegiert.
  * 
  */
 public abstract class AbstractKonfiguration implements Konfiguration {

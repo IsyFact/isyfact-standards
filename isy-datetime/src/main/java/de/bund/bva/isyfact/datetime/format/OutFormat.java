@@ -18,10 +18,10 @@ import java.util.stream.Collectors;
  * Folgende Formate werden für Datum und Zeit unterstützt (Bestandteile in Klammern sind optional):
  * <p>
  * <ul>
- *   <li>(Montag,) 17. Juli 2017 14:35:19 (MESZ)</li>
- *   <li>17.07.2017 14:35:19 (+02:00)</li>
- *   <li>17.07.2017</li>
- *   <li>14:35:19</li>
+ * <li>(Montag,) 17. Juli 2017 14:35:19 (MESZ)</li>
+ * <li>17.07.2017 14:35:19 (+02:00)</li>
+ * <li>17.07.2017</li>
+ * <li>14:35:19</li>
  * </ul>
  *
  */
@@ -90,7 +90,7 @@ public abstract class OutFormat {
      * Zum Format von Dauern siehe {@link InFormat}.
      *
      * @param period
-     *     {@link Duration}, die umgewandelt werden soll, nicht null
+     *            {@link Duration}, die umgewandelt werden soll, nicht null
      * @return Darstellung der {@link Duration} als Dauer String, nicht null
      */
     public static String toDauerString(Period period) {
@@ -107,7 +107,7 @@ public abstract class OutFormat {
      * Zum Format von Dauern siehe {@link InFormat}.
      *
      * @param duration
-     *     {@link Duration}, die umgewandelt werdens soll, nicht null
+     *            {@link Duration}, die umgewandelt werdens soll, nicht null
      * @return Darstellung der {@link Duration} als Dauer String, nicht null
      */
     public static String toDauerString(Duration duration) {

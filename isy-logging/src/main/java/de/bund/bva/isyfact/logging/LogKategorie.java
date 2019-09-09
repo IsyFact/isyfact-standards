@@ -32,7 +32,7 @@ public enum LogKategorie {
 
     /** Informationen zu Systemzustand, Systemereignissen und durchgeführten Operationen. */
     JOURNAL,
-    /**  Kennzahlen zum Systembetrieb und zur Systemnutzung. */
+    /** Kennzahlen zum Systembetrieb und zur Systemnutzung. */
     METRIK,
     /** Informationen zum Laufzeitverhalten des Systems. */
     PROFILING,

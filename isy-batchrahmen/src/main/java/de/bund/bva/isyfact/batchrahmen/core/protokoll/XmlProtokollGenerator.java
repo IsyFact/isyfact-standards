@@ -107,7 +107,7 @@ public class XmlProtokollGenerator implements ProtokollGenerator {
 
     /** Handler zum XML-Schreiben. **/
     private TransformerHandler handler;
-    
+
     /** Der Outputstream zur Datei. **/
     private Writer writer;
 
@@ -119,8 +119,8 @@ public class XmlProtokollGenerator implements ProtokollGenerator {
      *                Probleme beim XML parsen
      * @exception TransformerConfigurationException
      *                Probleme beim XML parsen
-     * @throws UnsupportedEncodingException 
-     *      Falls das UTF-8 Encoding nicht bekannt ist.
+     * @throws UnsupportedEncodingException
+     *             Falls das UTF-8 Encoding nicht bekannt ist.
      */
     public XmlProtokollGenerator(OutputStream outStream) throws SAXException,
         TransformerConfigurationException, UnsupportedEncodingException {
@@ -210,7 +210,7 @@ public class XmlProtokollGenerator implements ProtokollGenerator {
      * @param meldung
      *            Die zu verarbeitende Meldung.
      */
-    public void erzeugeMeldung(VerarbeitungsMeldung meldung) {       
+    public void erzeugeMeldung(VerarbeitungsMeldung meldung) {
         AttributesImpl atts = new AttributesImpl();
         atts.clear();
         atts.addAttribute("", "", ATTR_ID, ATTR_TYPE_CDATA, nullSafeGet(meldung.getId()));
@@ -242,7 +242,8 @@ public class XmlProtokollGenerator implements ProtokollGenerator {
                 atts.clear();
                 atts.addAttribute("", "", ATTR_ID, ATTR_TYPE_CDATA, nullSafeGet(statistikEintrag.getId()));
                 atts
-                    .addAttribute("", "", ATTR_TEXT, ATTR_TYPE_CDATA, nullSafeGet(statistikEintrag.getText()));
+                    .addAttribute("", "", ATTR_TEXT, ATTR_TYPE_CDATA,
+                        nullSafeGet(statistikEintrag.getText()));
                 atts.addAttribute("", "", ATTR_WERT, ATTR_TYPE_CDATA, Integer.toString(statistikEintrag
                     .getWert()));
                 handler.startElement("", "", ELEM_STATISTIK_EINTRAG, atts);

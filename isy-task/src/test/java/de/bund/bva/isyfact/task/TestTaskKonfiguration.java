@@ -13,14 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest(classes = TestConfig.class, webEnvironment = SpringBootTest.WebEnvironment.NONE,
-    properties = {"isy.logging.anwendung.name=test",
-                  "isy.logging.anwendung.typ=test",
-                  "isy.logging.anwendung.version=test",
-                  "isy.task.tasks.test.benutzer=Test1",
-                  "isy.task.tasks.test.passwort=Test1",
-                  "isy.task.tasks.test.bhkz=Test1",
-                  "isy.task.tasks.test.initial-delay=1s",
-                  "isy.task.tasks.test.fixed-rate=3s"})
+    properties = { "isy.logging.anwendung.name=test",
+        "isy.logging.anwendung.typ=test",
+        "isy.logging.anwendung.version=test",
+        "isy.task.tasks.test.benutzer=Test1",
+        "isy.task.tasks.test.passwort=Test1",
+        "isy.task.tasks.test.bhkz=Test1",
+        "isy.task.tasks.test.initial-delay=1s",
+        "isy.task.tasks.test.fixed-rate=3s" })
 public class TestTaskKonfiguration extends AbstractTaskTest {
 
     @Autowired

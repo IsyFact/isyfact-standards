@@ -48,7 +48,8 @@ public abstract class AbstractImmutableStringUserType extends AbstractImmutableU
      * {@inheritDoc}
      */
     @Override
-    public Object nullSafeGet(ResultSet rs, String[] names, SharedSessionContractImplementor sessionImplementor,
+    public Object nullSafeGet(ResultSet rs, String[] names,
+        SharedSessionContractImplementor sessionImplementor,
         Object owner) throws HibernateException, SQLException {
         String value = rs.getString(names[0]);
         if (rs.wasNull()) {

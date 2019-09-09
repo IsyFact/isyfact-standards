@@ -64,9 +64,12 @@ public class LogApplicationListener implements ApplicationListener<ApplicationEv
     /**
      * Erzeugt einen neuen LogApplicationListener.
      *
-     * @param systemname Wert des Attributs 'systemname'.
-     * @param systemart Wert des Attributs 'systemart'.
-     * @param systemversion Wert des Attributs 'systemversion'.
+     * @param systemname
+     *            Wert des Attributs 'systemname'.
+     * @param systemart
+     *            Wert des Attributs 'systemart'.
+     * @param systemversion
+     *            Wert des Attributs 'systemversion'.
      */
     public LogApplicationListener(String systemname, String systemart, String systemversion) {
         this.systemname = systemname;
@@ -82,33 +85,37 @@ public class LogApplicationListener implements ApplicationListener<ApplicationEv
     @Override
     public void onApplicationEvent(ApplicationEvent event) {
         if (event instanceof ContextStartedEvent || event instanceof ContextRefreshedEvent) {
-            LOGGER.info(LogKategorie.JOURNAL, Ereignisschluessel.EISYLO02001.name(), Ereignisschluessel.EISYLO02001
-                    .getNachricht(), systemname, systemart, event.getClass().getSimpleName());
+            LOGGER.info(LogKategorie.JOURNAL, Ereignisschluessel.EISYLO02001.name(),
+                Ereignisschluessel.EISYLO02001
+                    .getNachricht(),
+                systemname, systemart, event.getClass().getSimpleName());
             LOGGER.info(LogKategorie.JOURNAL, Ereignisschluessel.EISYLO02003.name(),
-                    Ereignisschluessel.EISYLO02003.getNachricht(), systemversion);
+                Ereignisschluessel.EISYLO02003.getNachricht(), systemversion);
 
             // Java-Version loggen
             LOGGER.info(LogKategorie.JOURNAL, Ereignisschluessel.EISYLO02004.name(),
-                    Ereignisschluessel.EISYLO02004.getNachricht(), SYSTEM_PROPERTY_JAVA_VERSION,
-                    System.getProperty(SYSTEM_PROPERTY_JAVA_VERSION));
+                Ereignisschluessel.EISYLO02004.getNachricht(), SYSTEM_PROPERTY_JAVA_VERSION,
+                System.getProperty(SYSTEM_PROPERTY_JAVA_VERSION));
 
             // Zeitzone loggen
             LOGGER.info(LogKategorie.JOURNAL, Ereignisschluessel.EISYLO02004.name(),
-                    Ereignisschluessel.EISYLO02004.getNachricht(), SYSTEM_PROPERTY_ZEITZONE,
-                    System.getProperty(SYSTEM_PROPERTY_ZEITZONE));
+                Ereignisschluessel.EISYLO02004.getNachricht(), SYSTEM_PROPERTY_ZEITZONE,
+                System.getProperty(SYSTEM_PROPERTY_ZEITZONE));
 
             // Encoding loggen
             LOGGER.info(LogKategorie.JOURNAL, Ereignisschluessel.EISYLO02004.name(),
-                    Ereignisschluessel.EISYLO02004.getNachricht(), SYSTEM_PROPERTY_DATEIKODIERUNG,
-                    System.getProperty(SYSTEM_PROPERTY_DATEIKODIERUNG));
+                Ereignisschluessel.EISYLO02004.getNachricht(), SYSTEM_PROPERTY_DATEIKODIERUNG,
+                System.getProperty(SYSTEM_PROPERTY_DATEIKODIERUNG));
 
             // Max Heap-Size loggen
             LOGGER.info(LogKategorie.JOURNAL, Ereignisschluessel.EISYLO02004.name(),
-                    Ereignisschluessel.EISYLO02004.getNachricht(), "maxMemory", Runtime.getRuntime().maxMemory());
+                Ereignisschluessel.EISYLO02004.getNachricht(), "maxMemory", Runtime.getRuntime().maxMemory());
 
         } else if (event instanceof ContextStoppedEvent || event instanceof ContextClosedEvent) {
-            LOGGER.info(LogKategorie.JOURNAL, Ereignisschluessel.EISYLO02002.name(), Ereignisschluessel.EISYLO02002
-                    .getNachricht(), systemname, systemart, event.getClass().getSimpleName());
+            LOGGER.info(LogKategorie.JOURNAL, Ereignisschluessel.EISYLO02002.name(),
+                Ereignisschluessel.EISYLO02002
+                    .getNachricht(),
+                systemname, systemart, event.getClass().getSimpleName());
         }
 
     }

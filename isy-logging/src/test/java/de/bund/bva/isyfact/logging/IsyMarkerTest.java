@@ -56,27 +56,27 @@ public class IsyMarkerTest {
         assertFalse("Es sind unerwartet Children im Marker vorhanden.", marker.hasChildren());
         assertFalse("Es sind unerwartet Children im Marker vorhanden.", marker.contains(childMarker1));
         assertFalse("Es sind unerwartet Children im Marker vorhanden.",
-                marker.contains(MarkerSchluessel.DAUER.toString()));
+            marker.contains(MarkerSchluessel.DAUER.toString()));
         assertFalse("Es sind unerwartet Children im Marker vorhanden.",
-                marker.contains(MarkerSchluessel.DATENTYP.toString()));
+            marker.contains(MarkerSchluessel.DATENTYP.toString()));
 
         // Marker als Children ergänzen
         marker.add(childMarker1);
         assertTrue("Marker besitzt keine Children.", marker.hasChildren());
         assertTrue("Children unerwartet nicht vorhanden.", marker.contains(childMarker1));
         assertTrue("Children unerwartet nicht vorhanden.",
-                marker.contains(MarkerSchluessel.DAUER.getWert()));
+            marker.contains(MarkerSchluessel.DAUER.getWert()));
         assertTrue("Children unerwartet nicht vorhanden.",
-                marker.contains(MarkerSchluessel.DATENTYP.getWert()));
+            marker.contains(MarkerSchluessel.DATENTYP.getWert()));
         assertFalse("Es sind unerwartet Children im Marker vorhanden.",
-                marker.contains(MarkerSchluessel.KATEGORIE.getWert()));
+            marker.contains(MarkerSchluessel.KATEGORIE.getWert()));
 
         // Children entfernen
         assertTrue("Entfernen eines vorhandenen Markers war nicht erfolgreich.",
-                marker.remove(childMarker1));
+            marker.remove(childMarker1));
         assertFalse(
-                "Entfernen eines Markers, obwohl keine Marker vorhanden sind, war unerwartet erfolgreich.",
-                marker.remove(childMarker1));
+            "Entfernen eines Markers, obwohl keine Marker vorhanden sind, war unerwartet erfolgreich.",
+            marker.remove(childMarker1));
         assertFalse("Es sind unerwartet Children im Marker vorhanden.", marker.hasChildren());
 
         // Test mit der Ergänzung von null
@@ -105,7 +105,7 @@ public class IsyMarkerTest {
         String marker1value = "123";
         IsyMarkerImpl marker1 = new IsyMarkerImpl(MarkerSchluessel.DAUER, marker1value);
         IsyMarkerImpl marker2 = new IsyMarkerImpl(MarkerSchluessel.DAUER, marker1value);
-        IsyMarkerImpl marker3 = new IsyMarkerImpl(MarkerSchluessel.DATENTYP,"String");
+        IsyMarkerImpl marker3 = new IsyMarkerImpl(MarkerSchluessel.DATENTYP, "String");
         IsyMarkerImpl marker4 = new IsyMarkerImpl(MarkerSchluessel.DAUER, "5678");
         IsyMarkerImpl marker5 = new IsyMarkerImpl(MarkerSchluessel.DAUER, null);
 

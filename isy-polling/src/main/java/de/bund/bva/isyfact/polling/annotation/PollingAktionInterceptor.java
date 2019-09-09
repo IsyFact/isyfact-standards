@@ -15,7 +15,7 @@
  * permissions and limitations under the License.
  */
 package de.bund.bva.isyfact.polling.annotation;
- 
+
 import java.lang.reflect.Method;
 
 import de.bund.bva.isyfact.polling.PollingVerwalter;
@@ -26,9 +26,8 @@ import org.springframework.core.BridgeMethodResolver;
 import org.springframework.util.ClassUtils;
 
 /**
- * Interceptor zum Durchführen einer Polling-Aktion.
- * Aktualisiert nach dem Aufruf der eigentlichen Polling-Aktion den
- * Zeitpunkt der letzten Ausführung.
+ * Interceptor zum Durchführen einer Polling-Aktion. Aktualisiert nach dem Aufruf der eigentlichen
+ * Polling-Aktion den Zeitpunkt der letzten Ausführung.
  * 
  */
 public class PollingAktionInterceptor implements MethodInterceptor {
@@ -39,7 +38,8 @@ public class PollingAktionInterceptor implements MethodInterceptor {
     /**
      * Erzeugt einen neuen Interceptor zum Durchführen einer Polling-Aktion.
      *
-     * @param pollingVerwalter der {@link PollingVerwalter}
+     * @param pollingVerwalter
+     *            der {@link PollingVerwalter}
      */
     public PollingAktionInterceptor(PollingVerwalter pollingVerwalter) {
         this.pollingVerwalter = pollingVerwalter;
@@ -64,9 +64,9 @@ public class PollingAktionInterceptor implements MethodInterceptor {
      * Ermittelt die PollingAktion-Annotation.
      * 
      * @param method
-     *          Aufgerufene Methode.
+     *            Aufgerufene Methode.
      * @param targetClass
-     *          Klasse, an der die Methode aufgerufen wurde.
+     *            Klasse, an der die Methode aufgerufen wurde.
      * @return Annotation PollingAktion
      */
     private PollingAktion ermittlePollingAktionAnnotation(Method method, Class<?> targetClass) {
@@ -105,10 +105,7 @@ public class PollingAktionInterceptor implements MethodInterceptor {
             return method.getDeclaringClass().getAnnotation(PollingAktion.class);
         }
 
-        return null;        
+        return null;
     }
 
 }
-
-
-

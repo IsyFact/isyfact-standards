@@ -60,7 +60,8 @@ public class BatchKonfiguration {
         Map<String, String> kommandoZeilenParameter = parser.parse(kommandoZeile);
         String propertyDatei = kommandoZeilenParameter.get(KonfigurationSchluessel.KOMMANDO_PARAM_PROP_DATEI);
         if (propertyDatei == null) {
-            throw new BatchrahmenParameterException(NachrichtenSchluessel.ERR_KOMMANDO_PARAMETER_KEINE_CONFIG);
+            throw new BatchrahmenParameterException(
+                NachrichtenSchluessel.ERR_KOMMANDO_PARAMETER_KEINE_CONFIG);
         }
         this.properties = ladePropertyDatei(propertyDatei);
         this.properties.putAll(kommandoZeilenParameter);

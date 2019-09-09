@@ -8,9 +8,10 @@ import java.lang.annotation.Target;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
 import org.springframework.core.annotation.AliasFor;
 
-@Target({ ElementType.TYPE, ElementType.METHOD})
+@Target({ ElementType.TYPE, ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
 @ConditionalOnMissingClass("de.bund.bva.isyfact.batchrahmen.core.launcher.BatchLauncher")
 public @interface ExcludeFromBatchContext {
-    @AliasFor(annotation = ConditionalOnMissingClass.class, attribute = "value") String[] value() default {"de.bund.bva.isyfact.batchrahmen.core.launcher.BatchLauncher"};
+    @AliasFor(annotation = ConditionalOnMissingClass.class, attribute = "value")
+    String[] value() default { "de.bund.bva.isyfact.batchrahmen.core.launcher.BatchLauncher" };
 }

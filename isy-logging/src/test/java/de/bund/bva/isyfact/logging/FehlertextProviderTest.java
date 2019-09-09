@@ -43,9 +43,9 @@ public class FehlertextProviderTest {
 
         FehlertextProvider provider = new IsyLoggingFehlertextProvider();
         Assert.assertEquals("Fehler bei der Serialisierung der Aufrufparameter.",
-                provider.getMessage("ISYLO01001"));
+            provider.getMessage("ISYLO01001"));
         Assert.assertEquals("Fehler bei der Serialisierung der Aufrufparameter.",
-                provider.getMessage("ISYLO01001", new String[0]));
+            provider.getMessage("ISYLO01001", new String[0]));
 
     }
 

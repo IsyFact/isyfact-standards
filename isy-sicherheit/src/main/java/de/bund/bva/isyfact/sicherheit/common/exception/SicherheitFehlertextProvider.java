@@ -54,5 +54,5 @@ public class SicherheitFehlertextProvider implements FehlertextProvider {
     public String getMessage(String schluessel, String... parameter) {
         return MessageFormat.format(getMessage(schluessel), (Object[]) parameter);
     }
-    
+
 }

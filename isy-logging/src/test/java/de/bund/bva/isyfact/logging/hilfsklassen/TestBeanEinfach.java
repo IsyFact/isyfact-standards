@@ -79,7 +79,8 @@ public class TestBeanEinfach {
     /**
      * Setzt den Wert des Attributs 'inneresBean'.
      *
-     * @param inneresBean Neuer Wert des Attributs.
+     * @param inneresBean
+     *            Neuer Wert des Attributs.
      */
     public void setInneresBean(TestBeanKomplex inneresBean) {
         this.inneresBean = inneresBean;
@@ -88,7 +89,8 @@ public class TestBeanEinfach {
     /**
      * Setzt den Wert des Attributs 'einString'.
      *
-     * @param einString Neuer Wert des Attributs.
+     * @param einString
+     *            Neuer Wert des Attributs.
      */
     public void setEinString(String einString) {
         this.einString = einString;
@@ -97,7 +99,8 @@ public class TestBeanEinfach {
     /**
      * Setzt den Wert des Attributs 'eineListe'.
      *
-     * @param eineListe Neuer Wert des Attributs.
+     * @param eineListe
+     *            Neuer Wert des Attributs.
      */
     public void setEineListe(List<TestBeanKomplex> eineListe) {
         this.eineListe = eineListe;

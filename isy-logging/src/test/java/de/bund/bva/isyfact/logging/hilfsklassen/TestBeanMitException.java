@@ -27,7 +27,7 @@ package de.bund.bva.isyfact.logging.hilfsklassen;
  * Test-Bean, dass innerhalb eines Getters einen Fehler wirft.
  */
 public class TestBeanMitException {
-    
+
     /** Einfache Property bei "get" eine Exception erzeugt. */
     private String a;
 
@@ -44,11 +44,11 @@ public class TestBeanMitException {
     /**
      * Setzt den Wert des Attributs 'a'.
      *
-     * @param a Neuer Wert des Attributs.
+     * @param a
+     *            Neuer Wert des Attributs.
      */
     public void setA(String a) {
         this.a = a;
     }
-    
 
 }

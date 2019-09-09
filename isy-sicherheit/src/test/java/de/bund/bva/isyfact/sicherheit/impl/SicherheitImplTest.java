@@ -117,13 +117,15 @@ public class SicherheitImplTest extends AbstractSicherheitTest {
         aufrufKontext.setRolle(new String[] { "Rolle_A", "Rolle_B" });
         aufrufKontext.setRollenErmittelt(true);
         aufrufKontextVerwalterImpl.setAufrufKontext(aufrufKontext);
-        SicherheitImpl sicherheit = new SicherheitImpl(null, aufrufKontextVerwalterImpl, null, null, isySicherheitConfigurationProperties);
+        SicherheitImpl sicherheit = new SicherheitImpl(null, aufrufKontextVerwalterImpl, null, null,
+            isySicherheitConfigurationProperties);
         sicherheit.afterPropertiesSet();
     }
 
     @Test(expected = InitialisierungsException.class)
     public void testeFehlerAufrufKontextVerwalterNichtGesetzt() throws Exception {
-        SicherheitImpl sicherheit = new SicherheitImpl("/resources/sicherheit/rollenrechte.xml", null, aufrufKontextFactory, testAccessManager, isySicherheitConfigurationProperties);
+        SicherheitImpl sicherheit = new SicherheitImpl("/resources/sicherheit/rollenrechte.xml", null,
+            aufrufKontextFactory, testAccessManager, isySicherheitConfigurationProperties);
         sicherheit.afterPropertiesSet();
     }
 
@@ -133,21 +135,24 @@ public class SicherheitImplTest extends AbstractSicherheitTest {
     }
 
     @Test(expected = AuthentifizierungTechnicalException.class)
-    public void testGetBerechtigungsmanagerBeiAufrufKontextVerwalterGleichNull(){
-        SicherheitImpl sich = new SicherheitImpl("/resources/sicherheit/rollenrechte.xml", null, aufrufKontextFactory, testAccessManager, isySicherheitConfigurationProperties);
+    public void testGetBerechtigungsmanagerBeiAufrufKontextVerwalterGleichNull() {
+        SicherheitImpl sich = new SicherheitImpl("/resources/sicherheit/rollenrechte.xml", null,
+            aufrufKontextFactory, testAccessManager, isySicherheitConfigurationProperties);
         sich.getBerechtigungsManager();
     }
 
     @Test(expected = AuthentifizierungTechnicalException.class)
-    public void testGetBerechtigungsmanagerUndAuthentifiziereBeiAufrufKontextGleichNull(){
-        SicherheitImpl sicherheit = new SicherheitImpl("/resources/sicherheit/rollenrechte.xml", aufrufKontextVerwalter, aufrufKontextFactory, testAccessManager, isySicherheitConfigurationProperties);
+    public void testGetBerechtigungsmanagerUndAuthentifiziereBeiAufrufKontextGleichNull() {
+        SicherheitImpl sicherheit =
+            new SicherheitImpl("/resources/sicherheit/rollenrechte.xml", aufrufKontextVerwalter,
+                aufrufKontextFactory, testAccessManager, isySicherheitConfigurationProperties);
         sicherheit.getBerechtigungsManagerUndAuthentifiziere(null);
     }
 
-
     @Test(expected = InitialisierungsException.class)
-    public void testAfterPropertiesSetKeinAufrufKontextVerwalter() throws Exception{
-        SicherheitImpl sicherheit = new SicherheitImpl("/resources/sicherheit/rollenrechte.xml", null, null, null, new IsySicherheitConfigurationProperties());
+    public void testAfterPropertiesSetKeinAufrufKontextVerwalter() throws Exception {
+        SicherheitImpl sicherheit = new SicherheitImpl("/resources/sicherheit/rollenrechte.xml", null, null,
+            null, new IsySicherheitConfigurationProperties());
         sicherheit.afterPropertiesSet();
     }
 }

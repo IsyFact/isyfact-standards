@@ -26,7 +26,6 @@ public class IsyPollingProperties {
         return cluster;
     }
 
-
     public static class Jmx {
 
         private final Map<String, Verbindung> verbindungen = new HashMap<>();
@@ -44,7 +43,6 @@ public class IsyPollingProperties {
         public Map<String, Verbindung> getVerbindungen() {
             return verbindungen;
         }
-
 
         public static class Verbindung {
             private String host;

@@ -21,11 +21,11 @@ import de.bund.bva.isyfact.exception.service.TechnicalToException;
 
 public interface ValidRemoteBean {
 
-	void eineMethode() throws TechnicalToException;
-	
-	void eineAndereMethode()  throws TechnicalToException;
-	
-	void methodeMitException() throws TechnicalException, TechnicalToException;
-	
-	void methodeMitParametern(Integer zahl, String zeichenkette) throws TechnicalToException;
+    void eineMethode() throws TechnicalToException;
+
+    void eineAndereMethode() throws TechnicalToException;
+
+    void methodeMitException() throws TechnicalException, TechnicalToException;
+
+    void methodeMitParametern(Integer zahl, String zeichenkette) throws TechnicalToException;
 }

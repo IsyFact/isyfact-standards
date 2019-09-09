@@ -38,8 +38,10 @@ public class TestZielParameterPerson {
     /**
      * Konstruktor der Klasse. Initialisiert die übergebenen Parameter.
      * 
-     * @param vornamen die Vornamen.
-     * @param name der Name.
+     * @param vornamen
+     *            die Vornamen.
+     * @param name
+     *            der Name.
      */
     public TestZielParameterPerson(String name, String... vornamen) {
         super();

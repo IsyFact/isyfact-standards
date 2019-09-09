@@ -28,17 +28,15 @@ public class KonfigurationParameterException extends KonfigurationException {
     private static final long serialVersionUID = -7634417761675462137L;
 
     /**
-     * Erstellt eine neue technische <i>unchecked</i> KonfigurationException mit einer Ausnahme-ID für
-     * den Fehlertext, einem Werten für die Variablenersetzung im Fehlertext und mit dem übergebenen
-     * Grund.
+     * Erstellt eine neue technische <i>unchecked</i> KonfigurationException mit einer Ausnahme-ID für den
+     * Fehlertext, einem Werten für die Variablenersetzung im Fehlertext und mit dem übergebenen Grund.
      * <p>
      * Anmerkung: Der Fehlertext von <code>cause</code> (dem Grund) ist <i>nicht</i> automatisch mit dem
      * übergebenen Fehlertext verbunden.
      * 
      * @param ausnahmeId
-     *            Die Ausnahme-ID. Der Schlüssel, welcher verwendet wird, um einen Nachrichtentext,
-     *            welcher als Fehler-Nachricht für die Exception verwendet wird aus einem ResourceBundle
-     *            zu laden.
+     *            Die Ausnahme-ID. Der Schlüssel, welcher verwendet wird, um einen Nachrichtentext, welcher
+     *            als Fehler-Nachricht für die Exception verwendet wird aus einem ResourceBundle zu laden.
      * @param cause
      *            Der Grund. Throwable wird gespeichert hfür die spätere Nutzung durch die Methode
      *            {@link #getCause()}. <tt>null</tt> als Wert ist erlaubt und bedeutet, dass kein Grund
@@ -46,23 +44,22 @@ public class KonfigurationParameterException extends KonfigurationException {
      * @param parameter
      *            Die variablen Parameterwerte. Parameterwerte f&uml;r die möglichen Variablen in einer
      *            Fehler-Nachricht. <tt>null</tt> als Wert ist erlaubt und bedeutet, dass kein Variablen zu
-     *            ersetzen sind.            
+     *            ersetzen sind.
      */
     public KonfigurationParameterException(String ausnahmeId, Throwable cause, String... parameter) {
         super(ausnahmeId, cause, parameter);
     }
 
     /**
-     * Erstellt eine neue technische <i>unchecked</i> KonfigurationException mit einer Ausnahme-ID für
-     * den Fehlertext und dem übergebenen Grund.
+     * Erstellt eine neue technische <i>unchecked</i> KonfigurationException mit einer Ausnahme-ID für den
+     * Fehlertext und dem übergebenen Grund.
      * <p>
      * Anmerkung: Der Fehlertext von <code>cause</code> (dem Grund) ist <i>nicht</i> automatisch mit dem
      * übergebenen Fehlertext verbunden.
      * 
      * @param ausnahmeId
-     *            Die Ausnahme-ID. Der Schlüssel, welcher verwendet wird, um einen Nachrichtentext,
-     *            welcher als Fehler-Nachricht für die Exception verwendet wird aus einem ResourceBundle
-     *            zu laden.
+     *            Die Ausnahme-ID. Der Schlüssel, welcher verwendet wird, um einen Nachrichtentext, welcher
+     *            als Fehler-Nachricht für die Exception verwendet wird aus einem ResourceBundle zu laden.
      * @param cause
      *            Der Grund. Throwable wird gespeichert hfür die spätere Nutzung durch die Methode
      *            {@link #getCause()}. <tt>null</tt> als Wert ist erlaubt und bedeutet, dass kein Grund
@@ -73,33 +70,30 @@ public class KonfigurationParameterException extends KonfigurationException {
     }
 
     /**
-     * Erstellt eine neue <i>unchecked</i> KonfigurationException mit einer Ausnahme-ID für den
-     * Fehlertext.
+     * Erstellt eine neue <i>unchecked</i> KonfigurationException mit einer Ausnahme-ID für den Fehlertext.
      * <p>
      * Der Grund wird nicht initialisiert und kann später durch den Aufruf der Methode
      * {@link #initCause(Throwable)} initialisiert werden.
      * 
      * @param ausnahmeId
-     *            Die Ausnahme-ID. Der Schlüssel, welcher verwendet wird, um einen Nachrichtentext,
-     *            welcher als Fehler-Nachricht für die Exception verwendet wird aus einem ResourceBundle
-     *            zu laden.
+     *            Die Ausnahme-ID. Der Schlüssel, welcher verwendet wird, um einen Nachrichtentext, welcher
+     *            als Fehler-Nachricht für die Exception verwendet wird aus einem ResourceBundle zu laden.
      */
     public KonfigurationParameterException(String ausnahmeId) {
         super(ausnahmeId);
     }
 
     /**
-     * Erstellt eine neue <i>unchecked</i> KonfigurationException mit einer Fehler-ID für den Fehlertext
-     * und einem Werten für die Variablenersetzung im Fehlertext. Au&szlig;serdem wird, wie im Default
+     * Erstellt eine neue <i>unchecked</i> KonfigurationException mit einer Fehler-ID für den Fehlertext und
+     * einem Werten für die Variablenersetzung im Fehlertext. Au&szlig;serdem wird, wie im Default
      * Konstruktor, <code>null</code> als Fehlertext verwendet.
      * <p>
      * Der Grund wird nicht initialisiert und kann später durch den Aufruf der Methode
      * {@link #initCause(Throwable)} initialisiert werden.
      * 
      * @param ausnahmeId
-     *            Die Fehler-ID. Der Schlüssel, welcher verwendet wird, um einen Nachrichtentext, welcher
-     *            als Fehler-Nachricht für die Exception verwendet wird aus einem ResourceBundle zu
-     *            laden.
+     *            Die Fehler-ID. Der Schlüssel, welcher verwendet wird, um einen Nachrichtentext, welcher als
+     *            Fehler-Nachricht für die Exception verwendet wird aus einem ResourceBundle zu laden.
      * @param parameter
      *            Die variablen Parameterwerte. Parameterwerte f&uml;r die möglichen Variablen in einer
      *            Fehler-Nachricht. <tt>null</tt> als Wert ist erlaubt und bedeutet, dass kein Variablen zu

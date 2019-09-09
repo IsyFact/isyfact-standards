@@ -1,6 +1,5 @@
 package de.bund.bva.isyfact.logging.autoconfigure;
 
-
 import de.bund.bva.isyfact.logging.config.AbstractBoundaryLoggerProperties;
 import de.bund.bva.isyfact.logging.config.IsyLoggingApplicationLoggerProperties;
 import de.bund.bva.isyfact.logging.config.IsyLoggingBoundaryLoggerProperties;
@@ -64,7 +63,8 @@ public class IsyLoggingAutoConfiguration {
     /**
      * Listener zum Loggen beim Hochfahren/Herunterfahren.
      *
-     * @param properties Parameter für die Konfiguration des Status-Loggers.
+     * @param properties
+     *            Parameter für die Konfiguration des Status-Loggers.
      * @return Listener zum Loggen beim Hochfahren/Herunterfahren.
      */
     @Bean
@@ -75,7 +75,8 @@ public class IsyLoggingAutoConfiguration {
     /**
      * Interceptor zum Loggen an Systemgrenzen.
      *
-     * @param properties Parameter für die Konfiguration des Interceptors.
+     * @param properties
+     *            Parameter für die Konfiguration des Interceptors.
      * @return Interceptor zum Loggen an Systemgrenzen.
      */
     @Bean
@@ -86,7 +87,8 @@ public class IsyLoggingAutoConfiguration {
     /**
      * Interceptor zum Loggen an Komponentengrenzen.
      *
-     * @param properties Parameter für die Konfiguration des Interceptors.
+     * @param properties
+     *            Parameter für die Konfiguration des Interceptors.
      * @return Interceptor zum Loggen an Komponentengrenzen.
      */
     @Bean
@@ -94,13 +96,15 @@ public class IsyLoggingAutoConfiguration {
         return createLoggingMethodInterceptor(properties);
     }
 
-    private LoggingMethodInterceptor createLoggingMethodInterceptor(AbstractBoundaryLoggerProperties properties) {
+    private LoggingMethodInterceptor createLoggingMethodInterceptor(
+        AbstractBoundaryLoggerProperties properties) {
         LoggingMethodInterceptor interceptor;
 
         if (properties.getConverterExcludes().isEmpty() && properties.getConverterIncludes().isEmpty()) {
             interceptor = new LoggingMethodInterceptor();
         } else {
-            interceptor = new LoggingMethodInterceptor(properties.getConverterIncludes(), properties.getConverterExcludes());
+            interceptor = new LoggingMethodInterceptor(properties.getConverterIncludes(),
+                properties.getConverterExcludes());
         }
 
         interceptor.setLoggeDauer(properties.isLoggeDauer());
@@ -114,8 +118,10 @@ public class IsyLoggingAutoConfiguration {
     /**
      * Advisor für das Loggen an Systemgrenzen.
      *
-     * @param properties             Properties für die Konfiguration des Pointcuts.
-     * @param boundaryLogInterceptor Interceptor für das Logging.
+     * @param properties
+     *            Properties für die Konfiguration des Pointcuts.
+     * @param boundaryLogInterceptor
+     *            Interceptor für das Logging.
      * @return Advisor für das Loggen an Systemgrenzen.
      */
     @Bean
@@ -127,8 +133,10 @@ public class IsyLoggingAutoConfiguration {
     /**
      * Advisor für das Loggen an Komponentengrenzen.
      *
-     * @param properties              Properties für die Konfiguration des Pointcuts.
-     * @param componentLogInterceptor Interceptor für das Logging.
+     * @param properties
+     *            Properties für die Konfiguration des Pointcuts.
+     * @param componentLogInterceptor
+     *            Interceptor für das Logging.
      * @return Advisor für das Loggen an Komponentengrenzen.
      */
     @Bean

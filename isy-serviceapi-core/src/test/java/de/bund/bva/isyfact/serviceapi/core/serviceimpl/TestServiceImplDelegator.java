@@ -29,41 +29,44 @@ import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.impl.ValidRemoteBean
 
 public class TestServiceImplDelegator {
 
-	private ServiceImplDelegator delegator;
-	private ValidRemoteBeanImpl bean;
-	private ValidRemoteBean proxy;
-	
-	@Before
-	public void setUp() throws Exception {
-		delegator = new ServiceImplDelegator();
-		bean = new ValidRemoteBeanImpl();
-		ProxyFactory fac = new ProxyFactory(bean);
-		fac.addAdvice(delegator);
-		proxy = (ValidRemoteBean) fac.getProxy();
-	}
+    private ServiceImplDelegator delegator;
 
-	@Test
-	public void testInvoke() throws TechnicalToException {
-		proxy.eineMethode();
-	}
-	
-	@Test
-	public void testValidateConfiguration(){
-		delegator.validateConfiguration(ValidRemoteBean.class, bean);
-	}
-	
-	@Test(expected = IllegalArgumentException.class)
-	public void testValidateConfigurationWrongTargetObject(){
-		delegator.validateConfiguration(ValidRemoteBean.class, new Object());
-	}
-	
-	@Test(expected = InvocationTargetException.class)
-	public void testInvokeMitException() throws TechnicalToException, NoSuchMethodException, SecurityException, InvocationTargetException {
-		RemoteBean bean = new RemoteBeanImpl();
-		ProxyFactory fac = new ProxyFactory(bean);
-		fac.addAdvice(delegator);
-		RemoteBean proxy = (RemoteBean) fac.getProxy();		
-		proxy.eineMethodeMitException();
-	}
+    private ValidRemoteBeanImpl bean;
+
+    private ValidRemoteBean proxy;
+
+    @Before
+    public void setUp() throws Exception {
+        delegator = new ServiceImplDelegator();
+        bean = new ValidRemoteBeanImpl();
+        ProxyFactory fac = new ProxyFactory(bean);
+        fac.addAdvice(delegator);
+        proxy = (ValidRemoteBean) fac.getProxy();
+    }
+
+    @Test
+    public void testInvoke() throws TechnicalToException {
+        proxy.eineMethode();
+    }
+
+    @Test
+    public void testValidateConfiguration() {
+        delegator.validateConfiguration(ValidRemoteBean.class, bean);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testValidateConfigurationWrongTargetObject() {
+        delegator.validateConfiguration(ValidRemoteBean.class, new Object());
+    }
+
+    @Test(expected = InvocationTargetException.class)
+    public void testInvokeMitException()
+        throws TechnicalToException, NoSuchMethodException, SecurityException, InvocationTargetException {
+        RemoteBean bean = new RemoteBeanImpl();
+        ProxyFactory fac = new ProxyFactory(bean);
+        fac.addAdvice(delegator);
+        RemoteBean proxy = (RemoteBean) fac.getProxy();
+        proxy.eineMethodeMitException();
+    }
 
 }

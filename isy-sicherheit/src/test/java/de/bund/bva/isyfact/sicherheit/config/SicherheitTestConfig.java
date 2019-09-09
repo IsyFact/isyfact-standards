@@ -19,8 +19,11 @@ import org.springframework.context.annotation.Configuration;
 public class SicherheitTestConfig {
 
     @Bean
-    public Sicherheit sicherheit(AufrufKontextVerwalter aufrufKontextVerwalter, AufrufKontextFactory aufrufKontextFactory, AccessManager accessManager, IsySicherheitConfigurationProperties properties) {
-        SicherheitImpl sicherheit = new SicherheitImpl("/resources/sicherheit/rollenrechte.xml", aufrufKontextVerwalter, aufrufKontextFactory, accessManager, properties);
+    public Sicherheit sicherheit(AufrufKontextVerwalter aufrufKontextVerwalter,
+        AufrufKontextFactory aufrufKontextFactory, AccessManager accessManager,
+        IsySicherheitConfigurationProperties properties) {
+        SicherheitImpl sicherheit = new SicherheitImpl("/resources/sicherheit/rollenrechte.xml",
+            aufrufKontextVerwalter, aufrufKontextFactory, accessManager, properties);
 
         return sicherheit;
     }

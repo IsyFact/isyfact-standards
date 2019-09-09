@@ -19,10 +19,10 @@ public class IsyLoggingAutoConfigurationTest {
     public void isyLoggingAutoConfigurationEnabled() {
         contextRunner.withPropertyValues("isy.logging.anwendung.name=test", "isy.logging.anwendung.typ=test",
             "isy.logging.anwendung.version=test").run(context -> {
-            assertThat(context).hasSingleBean(LogApplicationListener.class);
-            assertThat(context).hasBean("componentLogInterceptor");
-            assertThat(context).hasBean("boundaryLogInterceptor");
-        });
+                assertThat(context).hasSingleBean(LogApplicationListener.class);
+                assertThat(context).hasBean("componentLogInterceptor");
+                assertThat(context).hasBean("boundaryLogInterceptor");
+            });
     }
 
     @Test

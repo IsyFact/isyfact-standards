@@ -30,10 +30,15 @@ public class IsySicherheitAuthenticatorFactory implements AuthenticatorFactory {
     /**
      * Erstellt eine neue Instanz.
      *
-     * @param configurationProperties die {@link IsyTaskConfigurationProperties}, aus der die Daten zur Authentifizierung gelesen werden
-     * @param sicherheit              die {@link Sicherheit}
-     * @param aufrufKontextFactory    die {@link AufrufKontextFactory}
-     * @param aufrufKontextVerwalter  der {@link AufrufKontextVerwalter}
+     * @param configurationProperties
+     *            die {@link IsyTaskConfigurationProperties}, aus der die Daten zur Authentifizierung gelesen
+     *            werden
+     * @param sicherheit
+     *            die {@link Sicherheit}
+     * @param aufrufKontextFactory
+     *            die {@link AufrufKontextFactory}
+     * @param aufrufKontextVerwalter
+     *            der {@link AufrufKontextVerwalter}
      */
     public IsySicherheitAuthenticatorFactory(IsyTaskConfigurationProperties configurationProperties,
         Sicherheit<AufrufKontext> sicherheit, AufrufKontextFactory<AufrufKontext> aufrufKontextFactory,
@@ -49,9 +54,10 @@ public class IsySicherheitAuthenticatorFactory implements AuthenticatorFactory {
      * notwendigen Daten (Benutzername, ...) zur Authentifizierung gefunden werden können. Werden keine Daten
      * gefunden, wird ein {@link NoOpAuthenticator} zurückgegeben.
      *
-     * @param taskId die Id des Tasks
+     * @param taskId
+     *            die Id des Tasks
      * @return den {@link IsySicherheitAuthenticator} für den Task, wenn die Daten zur Authentifizierung
-     * vorhanden sind, sonst ein {@link NoOpAuthenticator}.
+     *         vorhanden sind, sonst ein {@link NoOpAuthenticator}.
      */
     public synchronized Authenticator getAuthenticator(String taskId) {
         if (useTaskSpecificCredentials(taskId)) {

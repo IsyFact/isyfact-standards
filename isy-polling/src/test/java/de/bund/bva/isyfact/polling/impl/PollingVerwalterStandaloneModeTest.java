@@ -37,34 +37,32 @@ import org.springframework.jmx.support.RegistrationPolicy;
 /**
  * Tests für den Polling Verwalter.
  *
- * Damit die Tests funktionieren, muss JMX über die folgenden Startparameter der VM
- * aktiviert werden:
+ * Damit die Tests funktionieren, muss JMX über die folgenden Startparameter der VM aktiviert werden:
  *
- * -Dcom.sun.management.jmxremote
- * -Dcom.sun.management.jmxremote.port=9010
- * -Dcom.sun.management.jmxremote.local.only=false
- * -Dcom.sun.management.jmxremote.ssl=false
+ * -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=9010
+ * -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.ssl=false
  * -Dcom.sun.management.jmxremote.authenticate=false
  */
 
 @SpringBootTest(classes = {
-    TestConfig.class, PollingVerwalterStandaloneModeTest.TestConfig.class }, webEnvironment = SpringBootTest.WebEnvironment.NONE, properties = {
-    "isy.logging.anwendung.name=IsyLogging", "isy.logging.anwendung.typ=Test",
-    "isy.logging.anwendung.version=0.0.0", "isy.logging.component.loggedauer=true",
-    "isy.logging.component.loggeaufruf=true",
+    TestConfig.class, PollingVerwalterStandaloneModeTest.TestConfig.class },
+    webEnvironment = SpringBootTest.WebEnvironment.NONE, properties = {
+        "isy.logging.anwendung.name=IsyLogging", "isy.logging.anwendung.typ=Test",
+        "isy.logging.anwendung.version=0.0.0", "isy.logging.component.loggedauer=true",
+        "isy.logging.component.loggeaufruf=true",
 
-    "isy.polling.cluster.CLUSTER1.name=Name-Cluster1",
-    "isy.polling.cluster.CLUSTER1.wartezeit=12",
-    "isy.polling.cluster.CLUSTER1.jmxverbindungen=SERVER1, SERVER2",
+        "isy.polling.cluster.CLUSTER1.name=Name-Cluster1",
+        "isy.polling.cluster.CLUSTER1.wartezeit=12",
+        "isy.polling.cluster.CLUSTER1.jmxverbindungen=SERVER1, SERVER2",
 
-    "isy.polling.cluster.CLUSTER2.name=Name-Cluster2",
-    "isy.polling.cluster.CLUSTER2.wartezeit=12",
-    "isy.polling.cluster.CLUSTER2.jmxverbindungen=SERVER3,SERVER4",
+        "isy.polling.cluster.CLUSTER2.name=Name-Cluster2",
+        "isy.polling.cluster.CLUSTER2.wartezeit=12",
+        "isy.polling.cluster.CLUSTER2.jmxverbindungen=SERVER3,SERVER4",
 
-    "isy.polling.cluster.CLUSTER3.name=Name-Cluster3",
-    "isy.polling.cluster.CLUSTER3.wartezeit=12",
-    "isy.polling.cluster.CLUSTER3.jmxverbindungen=SERVER5"
-})
+        "isy.polling.cluster.CLUSTER3.name=Name-Cluster3",
+        "isy.polling.cluster.CLUSTER3.wartezeit=12",
+        "isy.polling.cluster.CLUSTER3.jmxverbindungen=SERVER5"
+    })
 @ImportAutoConfiguration(IsyPollingAutoConfiguration.class)
 public class PollingVerwalterStandaloneModeTest extends AbstractPollingStandaloneTest {
 
@@ -72,7 +70,8 @@ public class PollingVerwalterStandaloneModeTest extends AbstractPollingStandalon
     static class TestConfig {
         @Bean
         public MBeanExporter mBeanExporter(@Qualifier("cluster1Monitor") PollingMBean cluster1Monitor,
-            @Qualifier("cluster2Monitor") PollingMBean cluster2Monitor, IsyPollingProperties isyPollingProperties) {
+            @Qualifier("cluster2Monitor") PollingMBean cluster2Monitor,
+            IsyPollingProperties isyPollingProperties) {
             MBeanExporter mBeanExporter = new MBeanExporter();
             mBeanExporter.setRegistrationPolicy(RegistrationPolicy.REPLACE_EXISTING);
             mBeanExporter.setAssembler(new MetadataMBeanInfoAssembler(new AnnotationJmxAttributeSource()));

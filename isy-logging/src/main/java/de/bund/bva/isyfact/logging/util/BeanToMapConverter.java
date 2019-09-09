@@ -44,7 +44,9 @@ import de.bund.bva.isyfact.logging.impl.FehlerSchluessel;
  */
 public class BeanToMapConverter implements BeanConverter {
 
-    /** List mit zu berücksichtigenden Packages. Diese wird für die Filterung einzelner Propterties verwendet. */
+    /**
+     * List mit zu berücksichtigenden Packages. Diese wird für die Filterung einzelner Propterties verwendet.
+     */
     private final List<String> includes;
 
     /** List mit zu ignorierenden Packages. Diese wird für die Filterung einzelner Propterties verwendet. */
@@ -55,7 +57,7 @@ public class BeanToMapConverter implements BeanConverter {
 
     /** Der zu verwendende String für die Ausgabe des HashCodes. */
     public static final String HASHCODE_KEY = "hashCode";
-    
+
     /** Der zu verwendende String für bei der Ausgabe eines excludierten Objects.. */
     public static final String EXCLUDED_VALUE = "NICHT_SERIALISIERT";
 

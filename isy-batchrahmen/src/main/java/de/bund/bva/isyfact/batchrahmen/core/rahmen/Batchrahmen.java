@@ -24,13 +24,10 @@ import de.bund.bva.isyfact.batchrahmen.batch.konfiguration.BatchKonfiguration;
 import de.bund.bva.isyfact.batchrahmen.batch.protokoll.BatchErgebnisProtokoll;
 
 /**
- * Das Interface der Batchrahmen-Bean. Diese wird von der
- * {@link BatchLauncher} Klasse
- * aufgerufen.
+ * Das Interface der Batchrahmen-Bean. Diese wird von der {@link BatchLauncher} Klasse aufgerufen.
  * <p>
- * Die Bean selbst (meist Klasse
- * {@link BatchrahmenImpl})
- * verwaltet die Batch-Statustabelle und handled die Transaktionen.
+ * Die Bean selbst (meist Klasse {@link BatchrahmenImpl}) verwaltet die Batch-Statustabelle und handled die
+ * Transaktionen.
  * 
  * Sie ruft fuer die Verarbeitung eine {@link BatchAusfuehrungsBean} Bean auf.
  * 
@@ -39,8 +36,8 @@ import de.bund.bva.isyfact.batchrahmen.batch.protokoll.BatchErgebnisProtokoll;
 public interface Batchrahmen {
 
     /**
-     * startet den Batch. Mit der Konfiguration werden die Kommandozeilen-
-     * Parameter sowie der Inhalt der Property-Datei ï¿½bergeben.
+     * startet den Batch. Mit der Konfiguration werden die Kommandozeilen- Parameter sowie der Inhalt der
+     * Property-Datei ï¿½bergeben.
      * 
      * @param konfiguration
      *            die Konfiguration des Batchrahmens.
@@ -51,5 +48,5 @@ public interface Batchrahmen {
      * 
      */
     void runBatch(BatchKonfiguration konfiguration, BatchErgebnisProtokoll protokoll)
-            throws BatchAusfuehrungsException;
+        throws BatchAusfuehrungsException;
 }

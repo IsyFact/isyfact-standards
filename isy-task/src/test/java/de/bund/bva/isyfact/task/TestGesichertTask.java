@@ -20,20 +20,22 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @SpringBootTest(classes = { TestConfig.class,
-    TestTaskGesichertConfig.class }, webEnvironment = SpringBootTest.WebEnvironment.NONE, properties = {
-    "isy.logging.anwendung.name=test", "isy.logging.anwendung.typ=test", "isy.logging.anwendung.version=test",
-    "isy.task.authentication.enabled=true",
-    "isy.task.tasks.gesichertTask1.benutzer=TestUser1",
-    "isy.task.tasks.gesichertTask1.passwort=TestPasswort1",
-    "isy.task.tasks.gesichertTask1.bhkz=BHKZ1",
-    "isy.task.tasks.gesichertTask1.ausfuehrung=ONCE",
-    "isy.task.tasks.gesichertTask1.initial-delay=0s",
-    "isy.task.tasks.gesichertTask2.benutzer=TestUser2",
-    "isy.task.tasks.gesichertTask2.passwort=TestPasswort2",
-    "isy.task.tasks.gesichertTask2.bhkz=BHKZ1",
-    "isy.task.tasks.gesichertTask2.ausfuehrung=ONCE",
-    "isy.task.tasks.gesichertTask2.initial-delay=0s",
-    "isy.task.watchdog.restart-interval=1s" })
+    TestTaskGesichertConfig.class }, webEnvironment = SpringBootTest.WebEnvironment.NONE,
+    properties = {
+        "isy.logging.anwendung.name=test", "isy.logging.anwendung.typ=test",
+        "isy.logging.anwendung.version=test",
+        "isy.task.authentication.enabled=true",
+        "isy.task.tasks.gesichertTask1.benutzer=TestUser1",
+        "isy.task.tasks.gesichertTask1.passwort=TestPasswort1",
+        "isy.task.tasks.gesichertTask1.bhkz=BHKZ1",
+        "isy.task.tasks.gesichertTask1.ausfuehrung=ONCE",
+        "isy.task.tasks.gesichertTask1.initial-delay=0s",
+        "isy.task.tasks.gesichertTask2.benutzer=TestUser2",
+        "isy.task.tasks.gesichertTask2.passwort=TestPasswort2",
+        "isy.task.tasks.gesichertTask2.bhkz=BHKZ1",
+        "isy.task.tasks.gesichertTask2.ausfuehrung=ONCE",
+        "isy.task.tasks.gesichertTask2.initial-delay=0s",
+        "isy.task.watchdog.restart-interval=1s" })
 public class TestGesichertTask extends AbstractTaskTest {
 
     @Autowired
@@ -69,6 +71,6 @@ public class TestGesichertTask extends AbstractTaskTest {
         assertTrue(taskMonitor1.isLetzteAusfuehrungErfolgreich());
         assertFalse(taskMonitor2.isLetzteAusfuehrungErfolgreich());
         assertTrue(taskMonitor2.getLetzterFehlerNachricht().startsWith(
-           "#SIC2051 Die Autorisierung ist fehlgeschlagen. Das für diese Aktion erforderliche Recht ist nicht vorhanden. Recht1 "));
+            "#SIC2051 Die Autorisierung ist fehlgeschlagen. Das für diese Aktion erforderliche Recht ist nicht vorhanden. Recht1 "));
     }
 }

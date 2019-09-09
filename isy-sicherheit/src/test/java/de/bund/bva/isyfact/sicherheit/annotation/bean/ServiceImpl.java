@@ -64,12 +64,12 @@ public class ServiceImpl implements ServiceIntf {
     }
 
     @NutzerAuthentifizierung(benutzer = "testBenutzer")
-    public void methodeGesichertDurchNutzerAnnotation(){
+    public void methodeGesichertDurchNutzerAnnotation() {
         // noop
     }
 
     @Override
-    public void nichtGesichert(){
+    public void nichtGesichert() {
         // noop
     }
 

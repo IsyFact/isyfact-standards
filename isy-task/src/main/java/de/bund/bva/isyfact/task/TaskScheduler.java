@@ -5,7 +5,8 @@ import java.util.List;
 import de.bund.bva.isyfact.task.model.TaskRunner;
 
 /**
- * Der TaskScheduler bietet die Möglichkeit, dass Aufgaben (Tasks) zu bestimmten Zeitpunkten ausgeführt werden können.
+ * Der TaskScheduler bietet die Möglichkeit, dass Aufgaben (Tasks) zu bestimmten Zeitpunkten ausgeführt werden
+ * können.
  */
 public interface TaskScheduler {
 
@@ -17,7 +18,8 @@ public interface TaskScheduler {
     /**
      * Fügt einen Task manuell hinzu.
      *
-     * @param taskRunner Der {@link TaskRunner} mit dem Task.
+     * @param taskRunner
+     *            Der {@link TaskRunner} mit dem Task.
      */
     void addTask(TaskRunner taskRunner);
 
@@ -30,9 +32,11 @@ public interface TaskScheduler {
      * Diese Methode fährt den Task-Scheduler herunter und wartet bis alle Tasks beendet sind oder die
      * angegebene Zeit abgelaufen ist.
      *
-     * @param sekunden die Zeit in Sekunden, die maximal gewartet werden soll.
+     * @param sekunden
+     *            die Zeit in Sekunden, die maximal gewartet werden soll.
      * @return true, wenn alle Tasks vor Ablauf der Wartezeit beendet wurden, sonst false
-     * @throws InterruptedException wenn das Warten unterbrochen wurde
+     * @throws InterruptedException
+     *             wenn das Warten unterbrochen wurde
      */
     boolean shutdownMitTimeout(long sekunden) throws InterruptedException;
 

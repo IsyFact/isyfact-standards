@@ -34,11 +34,13 @@ import static org.junit.Assert.assertTrue;
 public class TransskriptionsregelnTest {
 
     private String text;
+
     private Set<Character> trennzeichen;
+
     private Set<Character> pruefzeichen;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         trennzeichen = new HashSet<>();
         trennzeichen.add(' ');
         trennzeichen.add('-');
@@ -98,25 +100,26 @@ public class TransskriptionsregelnTest {
     }
 
     @Test
-    public void testWortEndeNull(){
+    public void testWortEndeNull() {
         text = null;
         assertFalse(Transskriptionsregeln.isWortende(text, 1, 2, trennzeichen));
 
     }
 
     @Test
-    public void testWortMitteNull(){
+    public void testWortMitteNull() {
         text = null;
         assertFalse(Transskriptionsregeln.isWortmitte(text, 1, 2, trennzeichen));
 
     }
 
     @Test
-    public void testWortAnfangNull(){
+    public void testWortAnfangNull() {
         text = null;
-        assertFalse(Transskriptionsregeln.isWortanfang(text,0,trennzeichen));
+        assertFalse(Transskriptionsregeln.isWortanfang(text, 0, trennzeichen));
 
     }
+
     @Test
     public void testVorZeichenNull() {
         text = null;

@@ -35,24 +35,22 @@ public enum BatchReturnCode {
     FEHLER_ABBRUCH(2, NachrichtenProvider.getMessage(NachrichtenSchluessel.MSG_RC_FEHLER_ABBRUCH)),
 
     /**
-     * Batch konnte wegen Fehlern in den Aufrufparametern nicht gestartet
-     * werden.
+     * Batch konnte wegen Fehlern in den Aufrufparametern nicht gestartet werden.
      */
     FEHLER_PARAMETER(3, NachrichtenProvider.getMessage(NachrichtenSchluessel.MSG_RC_FEHLER_PARAMETER)),
 
     /**
-     * Batch konnte wegen Fehlern in der Batch-Konfiguration nicht gestartet
-     * werden.
+     * Batch konnte wegen Fehlern in der Batch-Konfiguration nicht gestartet werden.
      */
     FEHLER_KONFIGURATION(4, NachrichtenProvider.getMessage(
-            NachrichtenSchluessel.MSG_RC_FEHLER_KONFIGURATION)),
-    
+        NachrichtenSchluessel.MSG_RC_FEHLER_KONFIGURATION)),
+
     /**
      * Batch wurde währends des Betriebs vom Nutzer abgebrochen. (kill -15 bzw. STRG+C)
      */
     FEHLER_MANUELLER_ABBRUCH(143, NachrichtenProvider.getMessage(
-            NachrichtenSchluessel.MSG_RC_FEHLER_MANUELLER_ABBRUCH)), 
-    
+        NachrichtenSchluessel.MSG_RC_FEHLER_MANUELLER_ABBRUCH)),
+
     /**
      * Batch wurde wegen der Überschreitung der maximalen Laufzeit abgebrochen.
      */
@@ -60,8 +58,7 @@ public enum BatchReturnCode {
         .getMessage(NachrichtenSchluessel.MSG_RC_FEHLER_MAX_LAUFZEIT_UEBERSCHRITTEN));
 
     /**
-     * Zahlenwert des ReturnCodes. Wird letzendlich per System.exit()
-     * zurückgeliefert.
+     * Zahlenwert des ReturnCodes. Wird letzendlich per System.exit() zurückgeliefert.
      */
     private final int returnCode;
 

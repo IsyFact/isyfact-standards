@@ -128,6 +128,6 @@ class PropertyDatei {
      */
     public boolean existiert() {
         return this.propertyFile.exists();
-}
+    }
 
 }

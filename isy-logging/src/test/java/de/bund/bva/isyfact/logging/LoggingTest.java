@@ -117,7 +117,6 @@ public class LoggingTest extends AbstractLogTest {
 
         logger.info(LogKategorie.JOURNAL, EREIGNISSCHLUESSEL, nachricht, "super", "info", tbk);
 
-
         pruefeLogdatei("testLoggingErfolgreich");
     }
 
@@ -283,7 +282,8 @@ public class LoggingTest extends AbstractLogTest {
     /**
      * Testfall zum Erstellen korrekter Logeinträge in allen Log-Leveln, bei fehlerhaften Aufrufen.
      *
-     * @throws Exception Wenn bei der Testausführung eine Exception auftritt.
+     * @throws Exception
+     *             Wenn bei der Testausführung eine Exception auftritt.
      */
     @Test
     public void testLoggingFehlerhaft() throws Exception {
@@ -350,7 +350,8 @@ public class LoggingTest extends AbstractLogTest {
      * Testet die interne Methode "ermittleLevelString" die nur für die Aufbereitung von Meldungen eigener
      * Exceptions verwendet wird.
      *
-     * @throws Exception Wenn bei der Testausführung eine Exception auftritt.
+     * @throws Exception
+     *             Wenn bei der Testausführung eine Exception auftritt.
      */
     @Test
     public void testErmittleLevelString() throws Exception {
@@ -396,9 +397,9 @@ public class LoggingTest extends AbstractLogTest {
 
         String nachrichtB = String.join("", Collections.nCopies(3000, "aaaaaaaaaa"));
 
-
         List<String> arrayListA = IntStream
-            .range(0, 2000).mapToObj(i -> "" + nachrichtA.charAt(i) + nachrichtB.charAt(i)).collect(Collectors.toList());
+            .range(0, 2000).mapToObj(i -> "" + nachrichtA.charAt(i) + nachrichtB.charAt(i))
+            .collect(Collectors.toList());
 
         // Testfall 1: Test der Level-Bedignung - Testnachricht besitzt Level Debug
         logger.debug("Diese Nachricht ist zu lang: {}", nachrichtA);
@@ -407,15 +408,13 @@ public class LoggingTest extends AbstractLogTest {
         logger.info(LogKategorie.JOURNAL, EREIGNISSCHLUESSEL, "Diese Nachricht ist zu gross.");
 
         // Testfall 3: Test der maximalen Größe, Testnachricht ist zu klein aber größer als 16.000 Zeichen
-        logger.
-            info(LogKategorie.JOURNAL, EREIGNISSCHLUESSEL, "Diese Nachricht ist zu gross. {}",
-                nachrichtTestfall3);
+        logger.info(LogKategorie.JOURNAL, EREIGNISSCHLUESSEL, "Diese Nachricht ist zu gross. {}",
+            nachrichtTestfall3);
 
         // Testfall 4: Test der Parameterentfernung, Testnachricht ist zu groß und enthält Parameter
         // Nach Entfernung der Parameter ist die Testnachricht nicht mehr zu lang
-        logger.
-            info(LogKategorie.JOURNAL, EREIGNISSCHLUESSEL, "Diese Nachricht ist zu gross. {} und {} ",
-                nachrichtTestfall3, nachrichtTestfall3, nachrichtTestfall3);
+        logger.info(LogKategorie.JOURNAL, EREIGNISSCHLUESSEL, "Diese Nachricht ist zu gross. {} und {} ",
+            nachrichtTestfall3, nachrichtTestfall3, nachrichtTestfall3);
 
         // Testfall 5: Zu großer Logeintrag mit Exception,
         // Anzahl Zeichen der Exception ist kleiner als der Überhang, Länge in Bytes aber größer

@@ -15,7 +15,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-
 public class ZeitraumTest {
 
     private static final LocalDate localDate = LocalDate.of(2017, 8, 1);

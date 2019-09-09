@@ -32,31 +32,33 @@ import static junit.framework.TestCase.assertEquals;
 
 public class AnnotationSicherheitAttributeSourceTest {
 
-	private AnnotationSicherheitAttributeSource source;
-	
-	@Before
-	public void setUp(){
-		source = new AnnotationSicherheitAttributeSource();
-	}
+    private AnnotationSicherheitAttributeSource source;
 
-	@Test(expected = FehlerhafteServiceKonfigurationRuntimeException.class)
-	public void testMethodeNichtGesichert() throws Exception {
-		ServiceIntf service = new ServiceImpl();
-		source.getBenoetigeRechte(service.getClass().getMethod("nichtGesichert"), service.getClass());
-	}
-	
-	@Test
-	public void testMethodeGesichertAmInterface() throws Exception {
-		ServiceIntf service = new ServiceImpl();
-		String[] rechte = source.getBenoetigeRechte(ServiceIntf.class.getMethod("gesichertAmInterface"), service.getClass());
-		assertEquals(Collections.singletonList("Recht_A"), Arrays.asList(rechte));
-	}
-	
-	@Test
-	public void testGesichertAmInterface() throws Exception {
-		Service3Intf service3 = new Service3Impl();
-		String[] rechte = source.getBenoetigeRechte(Service3Intf.class.getMethod("gesichertDurch_RechtB"), service3.getClass());
-		assertEquals(Collections.singletonList("Recht_B"), Arrays.asList(rechte));
-	}
+    @Before
+    public void setUp() {
+        source = new AnnotationSicherheitAttributeSource();
+    }
+
+    @Test(expected = FehlerhafteServiceKonfigurationRuntimeException.class)
+    public void testMethodeNichtGesichert() throws Exception {
+        ServiceIntf service = new ServiceImpl();
+        source.getBenoetigeRechte(service.getClass().getMethod("nichtGesichert"), service.getClass());
+    }
+
+    @Test
+    public void testMethodeGesichertAmInterface() throws Exception {
+        ServiceIntf service = new ServiceImpl();
+        String[] rechte = source.getBenoetigeRechte(ServiceIntf.class.getMethod("gesichertAmInterface"),
+            service.getClass());
+        assertEquals(Collections.singletonList("Recht_A"), Arrays.asList(rechte));
+    }
+
+    @Test
+    public void testGesichertAmInterface() throws Exception {
+        Service3Intf service3 = new Service3Impl();
+        String[] rechte = source.getBenoetigeRechte(Service3Intf.class.getMethod("gesichertDurch_RechtB"),
+            service3.getClass());
+        assertEquals(Collections.singletonList("Recht_B"), Arrays.asList(rechte));
+    }
 
 }

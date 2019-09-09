@@ -43,10 +43,10 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = TestConfig.class,
-                webEnvironment = SpringBootTest.WebEnvironment.NONE,
-                properties = {"isy.logging.anwendung.name=Test",
-                              "isy.logging.anwendung.typ=Test",
-                              "isy.logging.anwendung.version=0.1"})
+    webEnvironment = SpringBootTest.WebEnvironment.NONE,
+    properties = { "isy.logging.anwendung.name=Test",
+        "isy.logging.anwendung.typ=Test",
+        "isy.logging.anwendung.version=0.1" })
 public class TestServiceStatistik {
 
     @Autowired
@@ -78,15 +78,18 @@ public class TestServiceStatistik {
 
         Gauge anzahlAufrufeLetzteMinute = meterRegistry.get("anzahlAufrufe.LetzteMinute").gauge();
         Gauge anzahlFehlerLetzteMinute = meterRegistry.get("anzahlFehler.LetzteMinute").gauge();
-        Gauge durchschnittsDauerLetzteZehnAufrufe =  meterRegistry.get("durchschnittsDauer.LetzteAufrufe").gauge();
+        Gauge durchschnittsDauerLetzteZehnAufrufe =
+            meterRegistry.get("durchschnittsDauer.LetzteAufrufe").gauge();
 
         double durchschnittsDauerLetzteZehnAufrufeReferenz = durchschnittsDauerLetzteZehnAufrufe.value();
 
         LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001,
             "AnzahlAufrufeLetzteMinute           :{}", anzahlAufrufeLetzteMinute.value());
-        LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001, "AnzahlFehlerLetzteMinute            :{}",
+        LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001,
+            "AnzahlFehlerLetzteMinute            :{}",
             anzahlFehlerLetzteMinute.value());
-        LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001, "DurchschnittsDauerLetzteZehnAufrufe :{}",
+        LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001,
+            "DurchschnittsDauerLetzteZehnAufrufe :{}",
             durchschnittsDauerLetzteZehnAufrufeReferenz);
         // the statistics from the current minute are not yet populated
         assertEquals(0, anzahlAufrufeLetzteMinute.value(), 0.0);
@@ -94,17 +97,20 @@ public class TestServiceStatistik {
         assertTrue(durchschnittsDauerLetzteZehnAufrufeReferenz > 0.0);
 
         LOG.debug("Stelle Uhr um 1 Minute nach vorn");
-        ((TestClock)DateTimeUtil.getClock()).advanceBy(Duration.ofMinutes(1));
+        ((TestClock) DateTimeUtil.getClock()).advanceBy(Duration.ofMinutes(1));
 
         LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001,
             "AnzahlAufrufeLetzteMinute           :{}", anzahlAufrufeLetzteMinute.value());
-        LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001, "AnzahlFehlerLetzteMinute            :{}",
+        LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001,
+            "AnzahlFehlerLetzteMinute            :{}",
             anzahlFehlerLetzteMinute.value());
-        LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001, "DurchschnittsDauerLetzteZehnAufrufe :{}",
+        LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001,
+            "DurchschnittsDauerLetzteZehnAufrufe :{}",
             durchschnittsDauerLetzteZehnAufrufeReferenz);
         assertEquals(anzahlAufrufe, anzahlAufrufeLetzteMinute.value(), 0.0);
         assertTrue(anzahlFehlerLetzteMinute.value() > 0.0);
-        assertEquals(durchschnittsDauerLetzteZehnAufrufeReferenz, durchschnittsDauerLetzteZehnAufrufe.value(), 0.0);
+        assertEquals(durchschnittsDauerLetzteZehnAufrufeReferenz, durchschnittsDauerLetzteZehnAufrufe.value(),
+            0.0);
         LOG.info(LogKategorie.JOURNAL, EreignisSchluessel.PLUEB00001, "Prüfungen für 1. Minute erfolgreich");
     }
 
@@ -127,15 +133,18 @@ public class TestServiceStatistik {
 
         Gauge anzahlAufrufeLetzteMinute = meterRegistry.get("anzahlAufrufe.LetzteMinute").gauge();
         Gauge anzahlFehlerLetzteMinute = meterRegistry.get("anzahlFehler.LetzteMinute").gauge();
-        Gauge durchschnittsDauerLetzteZehnAufrufe =  meterRegistry.get("durchschnittsDauer.LetzteAufrufe").gauge();
+        Gauge durchschnittsDauerLetzteZehnAufrufe =
+            meterRegistry.get("durchschnittsDauer.LetzteAufrufe").gauge();
 
         double durchschnittsDauerLetzteZehnAufrufeReferenz = durchschnittsDauerLetzteZehnAufrufe.value();
 
         LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001,
             "AnzahlAufrufeLetzteMinute           :{}", anzahlAufrufeLetzteMinute);
-        LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001, "AnzahlFehlerLetzteMinute            :{}",
+        LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001,
+            "AnzahlFehlerLetzteMinute            :{}",
             anzahlFehlerLetzteMinute);
-        LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001, "DurchschnittsDauerLetzteZehnAufrufe :{}",
+        LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001,
+            "DurchschnittsDauerLetzteZehnAufrufe :{}",
             durchschnittsDauerLetzteZehnAufrufeReferenz);
         // the statistics from the current minute are not yet populated
         assertEquals(0, anzahlAufrufeLetzteMinute.value(), 0.0);
@@ -145,7 +154,7 @@ public class TestServiceStatistik {
         // wait 120 seconds and check the values. Since there were no calls in the last minute
         // number of calls and number of erroneous calls should be zero.
         LOG.debug("Stelle Uhr um 2 Minuten nach vorn");
-        ((TestClock)DateTimeUtil.getClock()).advanceBy(Duration.ofMinutes(2));
+        ((TestClock) DateTimeUtil.getClock()).advanceBy(Duration.ofMinutes(2));
 
         LOG.info(LogKategorie.METRIK, EreignisSchluessel.PLUEB00001,
             "AnzahlAufrufeLetzteMinute           :{}", anzahlAufrufeLetzteMinute);
@@ -155,7 +164,8 @@ public class TestServiceStatistik {
             durchschnittsDauerLetzteZehnAufrufeReferenz);
         assertEquals(0, anzahlAufrufeLetzteMinute.value(), 0.0);
         assertEquals(0, anzahlFehlerLetzteMinute.value(), 0.0);
-        assertEquals(durchschnittsDauerLetzteZehnAufrufeReferenz, durchschnittsDauerLetzteZehnAufrufe.value(), 0.0);
+        assertEquals(durchschnittsDauerLetzteZehnAufrufeReferenz, durchschnittsDauerLetzteZehnAufrufe.value(),
+            0.0);
         LOG.info(LogKategorie.JOURNAL, EreignisSchluessel.PLUEB00001, "Prüfungen für 2. Minute erfolgreich");
     }
 }

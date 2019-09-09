@@ -34,13 +34,12 @@ public class PollingClusterUnbekanntException extends PollingTechnicalRuntimeExc
      * 
      * @param ausnahmeID
      *            Die Ausnahme-ID. Der Schlüssel, welcher verwendet wird, um einen Nachrichtentext, welcher
-     *            als Fehler-Nachricht für die Exception verwendet wird aus einem ResourceBundle zu
-     *            laden.
+     *            als Fehler-Nachricht für die Exception verwendet wird aus einem ResourceBundle zu laden.
      * @param parameter
      *            Die Parameter. Parameter für die möglichen Variablen in einer Fehler-Nachricht.
      *            <tt>null</tt> als Wert ist erlaubt und bedeutet, dass kein Variablen zu ersetzen sind.
      */
     public PollingClusterUnbekanntException(String ausnahmeID, String... parameter) {
         super(ausnahmeID, parameter);
-    }   
+    }
 }

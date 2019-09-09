@@ -27,10 +27,10 @@ public class ExcludeFromBatchContextTest {
     @Test
     public void annotatedBeanInContextWhenNotRunningAsBatch() {
         contextRunner.withClassLoader(new FilteredClassLoader(BatchLauncher.class))
-                     .run(context -> {
-                         assertThat(context).hasBean("coreBean");
-                         assertThat(context).hasBean("webGuiBean");
-                     });
+            .run(context -> {
+                assertThat(context).hasBean("coreBean");
+                assertThat(context).hasBean("webGuiBean");
+            });
     }
 
     @Configuration

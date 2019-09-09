@@ -194,7 +194,7 @@ public class IsyMarkerImpl implements IsyMarker {
         if (obj == null) {
             return false;
         }
-        
+
         if (obj instanceof IsyMarker) {
             IsyMarker comp = (IsyMarker) obj;
             return compare(this.name, comp.getName()) && compare(this.value, comp.getValue());

@@ -44,7 +44,7 @@ public class DebugAufrufKontextVerwalter extends AufrufKontextVerwalterImpl<Aufr
     public AufrufKontextImpl getLetzterAufrufKontext() {
         return letzterAufrufKontext;
     }
-    
+
     /**
      * Setzt den AufrufKontext und den letztenAufrufKontext auf null.
      */

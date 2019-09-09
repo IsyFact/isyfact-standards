@@ -91,8 +91,9 @@ public class BeanToMapConverterTest {
         // TestBeanEinfach wird includiert
         // TestBeanKomplex wird excludiert
         BeanToMapConverter converter = new BeanToMapConverter(
-            Collections.singletonList("de.bund.bva.isyfact.logging.hilfsklassen.TestBeanEinfach"), Arrays.asList(
-                        "de.bund.bva.isyfact.logging.hilfsklassen.TestBeanKomplex", "java.util"));
+            Collections.singletonList("de.bund.bva.isyfact.logging.hilfsklassen.TestBeanEinfach"),
+            Arrays.asList(
+                "de.bund.bva.isyfact.logging.hilfsklassen.TestBeanKomplex", "java.util"));
 
         // Konvertiere eine Instanz von TestBeanEinfach.
         @SuppressWarnings("unchecked")
@@ -100,19 +101,20 @@ public class BeanToMapConverterTest {
         List<String> keyList = new ArrayList<>(konvertiert.keySet());
         List<Object> valueList = new ArrayList<>(konvertiert.values());
 
-        // Das Testbean besitzt 3 Properties + den HashCode + 'Class' der immer serialisiert wird. Eines davon ist vom
+        // Das Testbean besitzt 3 Properties + den HashCode + 'Class' der immer serialisiert wird. Eines davon
+        // ist vom
         // Typ TestBeanKomplex, welches auf Grund des Excludes nicht berücksichtigt werden soll.
         assertEquals(5, konvertiert.size());
 
         // Zähler des aktuellen Attributs
         int currentPos = 0;
-        
+
         // Prüfung der einzelnen Properties
-        
+
         // Property
         assertEquals("class", keyList.get(currentPos));
         assertEquals(TestBeanEinfach.class.toString(), valueList.get(currentPos));
-        
+
         // Property
         currentPos++;
         assertEquals("einString", keyList.get(currentPos));
@@ -146,7 +148,7 @@ public class BeanToMapConverterTest {
 
         // Include = null
         BeanToMapConverter converter = new BeanToMapConverter(null,
-                Collections.singletonList("de.bund.bva.isyfact.logging.hilfsklassen.TestBeanKomplex"));
+            Collections.singletonList("de.bund.bva.isyfact.logging.hilfsklassen.TestBeanKomplex"));
         TestBeanEinfach tbe = new TestBeanEinfach();
         Object konvertiert = converter.convert(tbe);
         assertEquals(tbe.toString(), konvertiert);
@@ -221,7 +223,7 @@ public class BeanToMapConverterTest {
      *            gibt an, ob das KomplexeBean mit dem Flag "rekursiv" erstellt wurde oder nicht.
      */
     private void pruefeTestBeanStandard(TestBeanKomplex bean, Map<String, Object> konvertiert,
-            boolean rekursiv) {
+        boolean rekursiv) {
 
         // Key und Attribute in separaten Listen um mit dem Index darauf zugreifen zu können
         List<String> keyList = new ArrayList<>(konvertiert.keySet());
@@ -232,7 +234,7 @@ public class BeanToMapConverterTest {
 
         // Zähler des aktuellen Attributs
         int currentPos = 0;
-        
+
         // Property
         assertEquals("class", keyList.get(currentPos));
         assertEquals(TestBeanKomplex.class.toString(), valueList.get(currentPos));
@@ -400,7 +402,7 @@ public class BeanToMapConverterTest {
     public void testMapExcludedKey() {
         TestBeanEinfach tbe = new TestBeanEinfach();
         BeanToMapConverter converter = new BeanToMapConverter(null,
-                Collections.singletonList("de.bund.bva.isyfact.logging.hilfsklassen.TestBeanEinfach"));
+            Collections.singletonList("de.bund.bva.isyfact.logging.hilfsklassen.TestBeanEinfach"));
 
         Map<Object, Object> map = new HashMap<Object, Object>();
         map.put(tbe, tbe);
@@ -421,7 +423,7 @@ public class BeanToMapConverterTest {
     public void testMapNull() {
         TestBeanEinfach tbe = new TestBeanEinfach();
         BeanToMapConverter converter = new BeanToMapConverter(null,
-                Collections.singletonList("de.bund.bva.isyfact.logging.hilfsklassen.TestBeanEinfach"));
+            Collections.singletonList("de.bund.bva.isyfact.logging.hilfsklassen.TestBeanEinfach"));
 
         Map<Object, Object> map = new HashMap<Object, Object>();
         map.put(null, tbe);

@@ -35,7 +35,8 @@ public class AufrufKontextFehlertextProvider implements FehlertextProvider {
      * Das ResourceBoundle mit den Fehlertexten der AufrufkontextAPI.
      */
     public static final ResourceBundle FEHLERTEXT_BUNDLE =
-        ResourceBundle.getBundle("resources/isy-aufrufkontext/nachrichten/aufrufkontextfehler", Locale.GERMANY);
+        ResourceBundle.getBundle("resources/isy-aufrufkontext/nachrichten/aufrufkontextfehler",
+            Locale.GERMANY);
 
     /**
      * liest Nachricht aus und ersetzt die Platzhalter durch die übergebenen Parameter.
@@ -54,5 +55,5 @@ public class AufrufKontextFehlertextProvider implements FehlertextProvider {
     public String getMessage(String schluessel, String... parameter) {
         return MessageFormat.format(getMessage(schluessel), (Object[]) parameter);
     }
-    
+
 }

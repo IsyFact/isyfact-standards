@@ -17,15 +17,22 @@
 package de.bund.bva.isyfact.sonderzeichen.core.transformation;
 
 public class ZeichenKategorie {
-    
+
     public static final String LETTER = "LETTER";
+
     public static final String NUMBER = "NUMBER";
+
     public static final String OTHER = "OTHER";
+
     public static final String PUNCTUATION = "PUNCTUATION";
+
     public static final String SEPARATOR = "SEPARATOR";
+
     public static final String SYMBOL = "SYMBOL";
+
     public static final String ALLE = "ALLE";
-    
-    public static final String[] ALLE_ZEICHEN_KATEGORIEN = new String[]{LETTER,NUMBER,OTHER,PUNCTUATION,SEPARATOR,SYMBOL,ALLE};
+
+    public static final String[] ALLE_ZEICHEN_KATEGORIEN =
+        new String[] { LETTER, NUMBER, OTHER, PUNCTUATION, SEPARATOR, SYMBOL, ALLE };
 
 }

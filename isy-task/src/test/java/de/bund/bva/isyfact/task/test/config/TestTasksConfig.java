@@ -20,12 +20,12 @@ public class TestTasksConfig {
 
     @Bean
     public TestTask1 testTask1() {
-         return new TestTask1();
+        return new TestTask1();
     }
 
     @Bean
     public TestTask2 testTask2(@Qualifier("testTask2Monitor") TaskMonitor monitor) {
-         return new TestTask2(monitor);
+        return new TestTask2(monitor);
     }
 
     @Bean
@@ -44,7 +44,8 @@ public class TestTasksConfig {
     }
 
     @Bean
-    public MBeanExporter mBeanExporter(@Qualifier("testTask2Monitor") TaskMonitor monitor2, @Qualifier("testTask3Monitor") TaskMonitor monitor3) {
+    public MBeanExporter mBeanExporter(@Qualifier("testTask2Monitor") TaskMonitor monitor2,
+        @Qualifier("testTask3Monitor") TaskMonitor monitor3) {
         MBeanExporter mBeanExporter = new MBeanExporter();
         mBeanExporter.setRegistrationPolicy(RegistrationPolicy.REPLACE_EXISTING);
         mBeanExporter.setAssembler(new MetadataMBeanInfoAssembler(new AnnotationJmxAttributeSource()));

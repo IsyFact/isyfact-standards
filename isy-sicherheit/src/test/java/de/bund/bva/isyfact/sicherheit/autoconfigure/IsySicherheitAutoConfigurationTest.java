@@ -48,13 +48,13 @@ public class IsySicherheitAutoConfigurationTest {
     public void isySicherheitAutoConfigurationEnabled() {
         contextRunner.withPropertyValues("isy.logging.autoconfiguration.enabled=false")
             .withConfiguration(UserConfigurations.of(SicherheitTestConfig.class)).run(context -> {
-            assertThat(context).hasSingleBean(GesichertInterceptor.class);
-            assertThat(context).hasSingleBean(Advisor.class);
-            assertThat(context).hasSingleBean(IsySicherheitConfigurationProperties.class);
-            assertThat(context).hasSingleBean(AufrufKontextFactory.class);
-            assertThat(context).hasSingleBean(CustomScopeConfigurer.class);
-            assertThat(context).hasSingleBean(SicherheitAdmin.class);
-        });
+                assertThat(context).hasSingleBean(GesichertInterceptor.class);
+                assertThat(context).hasSingleBean(Advisor.class);
+                assertThat(context).hasSingleBean(IsySicherheitConfigurationProperties.class);
+                assertThat(context).hasSingleBean(AufrufKontextFactory.class);
+                assertThat(context).hasSingleBean(CustomScopeConfigurer.class);
+                assertThat(context).hasSingleBean(SicherheitAdmin.class);
+            });
     }
 
     @Configuration

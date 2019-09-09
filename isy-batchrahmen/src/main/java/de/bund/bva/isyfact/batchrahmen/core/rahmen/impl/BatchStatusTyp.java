@@ -25,16 +25,16 @@ import java.util.HashMap;
  */
 public enum BatchStatusTyp {
     /**
-     *  Der Status NEU. 
+     * Der Status NEU.
      */
     NEU("neu"),
     /**
-     *  Der Status LAUEFT. 
+     * Der Status LAUEFT.
      */
     LAEUFT("laeuft"),
 
     /**
-     *  Der Status ABGEBROCHEN. 
+     * Der Status ABGEBROCHEN.
      */
     ABGEBROCHEN("abgebrochen"),
 
@@ -93,8 +93,5 @@ public enum BatchStatusTyp {
     public static BatchStatusTyp fromCode(String name) {
         return (BatchStatusTyp) codeMap.get(name);
     }
-
-    
-    
 
 }

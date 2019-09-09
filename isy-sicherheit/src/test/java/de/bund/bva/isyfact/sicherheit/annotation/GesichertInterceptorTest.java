@@ -33,7 +33,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SicherheitTestConfig.class, webEnvironment = SpringBootTest.WebEnvironment.NONE,
-properties = {"isy.logging.anwendung.name=test", "isy.logging.anwendung.typ=test", "isy.logging.anwendung.version=test"})
+    properties = { "isy.logging.anwendung.name=test", "isy.logging.anwendung.typ=test",
+        "isy.logging.anwendung.version=test" })
 public class GesichertInterceptorTest {
 
     @Autowired
@@ -63,7 +64,7 @@ public class GesichertInterceptorTest {
     public void testGesichertDurch_Nichts() {
         this.testBean.gesichertDurch_Nichts();
     }
-    
+
     @Test(expected = FehlerhafteServiceKonfigurationRuntimeException.class)
     public void testKeineGesichertAnnotation() throws NoSuchMethodException {
         AnnotationSicherheitAttributeSource anno = new AnnotationSicherheitAttributeSource();
@@ -140,8 +141,9 @@ public class GesichertInterceptorTest {
     }
 
     @Test(expected = AutorisierungFehlgeschlagenException.class)
-    public void testNegativ_statischeMethodeGesichert() throws Throwable{
-        SimpleMethodInvocation invocation = new SimpleMethodInvocation(testBean, ServiceImpl.class.getMethod("gesichertDurch_RechtA"));
+    public void testNegativ_statischeMethodeGesichert() throws Throwable {
+        SimpleMethodInvocation invocation =
+            new SimpleMethodInvocation(testBean, ServiceImpl.class.getMethod("gesichertDurch_RechtA"));
         interceptor.invoke(invocation);
     }
 }

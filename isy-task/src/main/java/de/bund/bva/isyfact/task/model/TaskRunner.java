@@ -2,7 +2,6 @@ package de.bund.bva.isyfact.task.model;
 
 import de.bund.bva.isyfact.task.konfiguration.TaskKonfiguration;
 
-
 /**
  * Ein TaskRunner übernimmt die eigentliche Ausführung des Tasks. Er enthält den Task selber und die zur
  * Ausführung benötigte Konfiguration.

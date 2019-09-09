@@ -33,7 +33,7 @@ public class AufrufKontextToHelper {
      * @return das AufrufKontextTo Objekt
      */
     public static AufrufKontextTo leseAufrufKontextTo(Object[] args) {
-        
+
         if (args != null && args.length > 0) {
             for (Object parameter : args) {
                 if (parameter instanceof AufrufKontextTo) {
@@ -41,7 +41,7 @@ public class AufrufKontextToHelper {
                 }
             }
         }
-        
+
         return null;
     }
 

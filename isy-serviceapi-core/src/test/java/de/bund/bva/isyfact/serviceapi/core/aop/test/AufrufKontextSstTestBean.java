@@ -46,7 +46,8 @@ public class AufrufKontextSstTestBean {
     }
 
     @StelltAufrufKontextBereit
-    public void stelltAufrufKontextBereitMitMehrerenParametern(AufrufKontextTo aufrufKontextTo, String dummy) {
+    public void stelltAufrufKontextBereitMitMehrerenParametern(AufrufKontextTo aufrufKontextTo,
+        String dummy) {
         // noop
     }
 
@@ -57,7 +58,8 @@ public class AufrufKontextSstTestBean {
     }
 
     @StelltAufrufKontextBereit
-    public void stelltAufrufKontextBereitMitMehrerenParameterOhneKontext(String dummy, String aufrufKontextTo) {
+    public void stelltAufrufKontextBereitMitMehrerenParameterOhneKontext(String dummy,
+        String aufrufKontextTo) {
         // noop
     }
 

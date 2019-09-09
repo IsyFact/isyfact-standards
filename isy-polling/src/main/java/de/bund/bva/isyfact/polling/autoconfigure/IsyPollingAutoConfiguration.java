@@ -18,7 +18,6 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @EnableConfigurationProperties
 public class IsyPollingAutoConfiguration {
 
-
     @Bean
     @ConfigurationProperties(prefix = "isy.polling")
     public IsyPollingProperties isyPollingProperties() {

@@ -21,16 +21,15 @@ import org.springframework.beans.factory.InitializingBean;
 
 import de.bund.bva.isyfact.sonderzeichen.core.transformation.impl.AbstractTransformator;
 
-
 /**
  * Die Factory für den jeweiligen Transformator.
  * 
  */
 public class TransformatorFactory implements FactoryBean, InitializingBean {
-    
+
     /** Der Transformator, wird über Spring gesetzt */
     private AbstractTransformator transformator;
-    
+
     /** Zusätzliche Transformationstabelle, wird über Spring gesetzt */
     private String transformationsTabelle;
 
@@ -40,7 +39,7 @@ public class TransformatorFactory implements FactoryBean, InitializingBean {
     public void afterPropertiesSet() {
         transformator.initialisiere(transformationsTabelle);
     }
-    
+
     public void setTransformationsTabelle(String transformationsTabelle) {
         this.transformationsTabelle = transformationsTabelle;
     }
@@ -60,7 +59,7 @@ public class TransformatorFactory implements FactoryBean, InitializingBean {
      * {@inheritDoc}
      */
     public Class getObjectType() {
-        if(transformator == null){
+        if (transformator == null) {
             return null;
         } else {
             return Transformator.class.getClass();

@@ -14,11 +14,11 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-@ExceptionMapping(mappings = { 	@Mapping(	exception = BusinessException.class,
-											toException = BusinessToException.class),
-								@Mapping(	exception = TechnicalException.class,
-											toException = TechnicalToException.class)},
-					technicalToException = TechnicalToException.class)
+@ExceptionMapping(mappings = { @Mapping(exception = BusinessException.class,
+    toException = BusinessToException.class),
+    @Mapping(exception = TechnicalException.class,
+        toException = TechnicalToException.class) },
+    technicalToException = TechnicalToException.class)
 package de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.impl;
 
 import de.bund.bva.isyfact.exception.BusinessException;

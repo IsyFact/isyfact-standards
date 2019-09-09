@@ -22,7 +22,7 @@ import de.bund.bva.isyfact.persistence.dao.AbstractDao;
 
 public class TestDao extends AbstractDao<TestEntity, UUID> {
 
-	public TestDao(){
-		super();
-	}
+    public TestDao() {
+        super();
+    }
 }

@@ -35,7 +35,7 @@ public interface Task {
      * Zeichnet eine fehlgeschlagene Ausführung des Tasks auf.
      *
      * @param fehler
-     *     aufgetretene Ausnahme
+     *            aufgetretene Ausnahme
      */
     void zeichneFehlgeschlageneAusfuehrungAuf(Exception fehler);
 

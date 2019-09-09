@@ -127,12 +127,16 @@ public class ServiceStatistik implements MethodInterceptor, InitializingBean {
             .description("Liefert die Anzahl der fehlerhaften Aufrufe in der letzten Minute")
             .register(meterRegistry);
 
-        Gauge.builder("anzahlFachlicheFehler.LetzteMinute", this, ServiceStatistik::getAnzahlFachlicheFehlerLetzteMinute)
+        Gauge
+            .builder("anzahlFachlicheFehler.LetzteMinute", this,
+                ServiceStatistik::getAnzahlFachlicheFehlerLetzteMinute)
             .tags(tags)
             .description("Liefert die Anzahl der fachlich fehlerhaften Aufrufe in der letzten Minute")
             .register(meterRegistry);
 
-        Gauge.builder("durchschnittsDauer.LetzteAufrufe", this, ServiceStatistik::getDurchschnittsDauerLetzteAufrufe)
+        Gauge
+            .builder("durchschnittsDauer.LetzteAufrufe", this,
+                ServiceStatistik::getDurchschnittsDauerLetzteAufrufe)
             .tags(tags)
             .description("Liefert die durchschnittliche Dauer der letzten 10 Aufrufe in ms")
             .register(meterRegistry);
@@ -151,8 +155,9 @@ public class ServiceStatistik implements MethodInterceptor, InitializingBean {
      * Gibt an, ob die Rückgabeobjektstrukturen auf fachliche Fehler überprüft werden sollen. Kann
      * Auswirkungen auf die Performance haben.
      *
-     * @param fachlicheFehlerpruefung <code>true</code> wenn die Rückgabeobjektstruktur auf fachliche Fehler hin untersucht werden
-     *                                         soll, ansonsten <code>false</code>.
+     * @param fachlicheFehlerpruefung
+     *            <code>true</code> wenn die Rückgabeobjektstruktur auf fachliche Fehler hin untersucht werden
+     *            soll, ansonsten <code>false</code>.
      */
     public void setFachlicheFehlerpruefung(boolean fachlicheFehlerpruefung) {
         this.fachlicheFehlerpruefung = fachlicheFehlerpruefung;
@@ -162,11 +167,14 @@ public class ServiceStatistik implements MethodInterceptor, InitializingBean {
      * Diese Methode zählt einen Aufruf der Komponente für die Statistik. Für die Statistik wird die Angabe
      * der Dauer und ob der Aufruf fehlerhaft war benötigt.
      *
-     * @param dauer               Die Dauer des Aufrufs in Millisekunden.
-     * @param erfolgreich         Kennzeichen, ob der Aufruf erfolgreich war (<code>true</code>) oder ein technischer Fehler
-     *                            aufgetreten ist (<code>false</code>).
-     * @param fachlichErfolgreich Kennzeichen, ob der Aufruf fachlich erfolgreich war (<code>true</code>) oder ein fachlicher
-     *                            Fehler aufgetreten ist (<code>false</code>).
+     * @param dauer
+     *            Die Dauer des Aufrufs in Millisekunden.
+     * @param erfolgreich
+     *            Kennzeichen, ob der Aufruf erfolgreich war (<code>true</code>) oder ein technischer Fehler
+     *            aufgetreten ist (<code>false</code>).
+     * @param fachlichErfolgreich
+     *            Kennzeichen, ob der Aufruf fachlich erfolgreich war (<code>true</code>) oder ein fachlicher
+     *            Fehler aufgetreten ist (<code>false</code>).
      */
     public synchronized void zaehleAufruf(long dauer, boolean erfolgreich, boolean fachlichErfolgreich) {
         aktualisiereZeitfenster();
@@ -262,7 +270,7 @@ public class ServiceStatistik implements MethodInterceptor, InitializingBean {
      * aufgetreten ist.
      *
      * @return Die Anzahl der in der letzten Minute gezählten Aufrufe, bei denen ein fachlicher Fehler
-     * aufgetreten ist.
+     *         aufgetreten ist.
      */
     private int getAnzahlFachlicheFehlerLetzteMinute() {
         aktualisiereZeitfenster();
@@ -298,7 +306,8 @@ public class ServiceStatistik implements MethodInterceptor, InitializingBean {
      * Prüft ob im Rückgabeobjekt fachliche Fehler enthalten waren. Das Rückgabeobjekt muss eine Collection
      * enthalten, die mit @FachlicheFehlerListe annotiert ist.
      *
-     * @param result Das Rückgabeobjekt des Aufrufs.
+     * @param result
+     *            Das Rückgabeobjekt des Aufrufs.
      * @return true bei Fehlern, sonst false
      */
     private boolean sindFachlicheFehlerVorhanden(final Object result) {
@@ -311,11 +320,14 @@ public class ServiceStatistik implements MethodInterceptor, InitializingBean {
      *
      * Durchsucht Oberklassen & untergeordnete Objektstrukturen ebenfalls rekursiv.
      *
-     * @param result Das Objekt
-     * @param clazz  Die Klasse des Objekts durchsucht werden soll (optional). Kann leergelassen werden beim
-     *               Start, kann aber genutzt werden um auf Oberklassen eines Objekts zu prüfen.
-     * @param tiefe  tiefe Gibt die aktuelle Tiefe des Aufrufs an. Muss erhöht werden wenn man die
-     *               Klassenstruktur nach unten durchläuft.
+     * @param result
+     *            Das Objekt
+     * @param clazz
+     *            Die Klasse des Objekts durchsucht werden soll (optional). Kann leergelassen werden beim
+     *            Start, kann aber genutzt werden um auf Oberklassen eines Objekts zu prüfen.
+     * @param tiefe
+     *            tiefe Gibt die aktuelle Tiefe des Aufrufs an. Muss erhöht werden wenn man die
+     *            Klassenstruktur nach unten durchläuft.
      * @return <code>true</code> wenn Fehler gefunden, ansonsten <code>false</code>
      */
     boolean pruefeObjektAufFehler(final Object result, Class<?> clazz, int tiefe) {
@@ -332,8 +344,8 @@ public class ServiceStatistik implements MethodInterceptor, InitializingBean {
         }
 
         List<Field> objectFields = Arrays.stream(clazzToScan.getDeclaredFields())
-                                         .filter(field -> !ClassUtils.isPrimitiveOrWrapper(field.getType()) && !field.getType().isEnum())
-                                         .collect(Collectors.toList());
+            .filter(field -> !ClassUtils.isPrimitiveOrWrapper(field.getType()) && !field.getType().isEnum())
+            .collect(Collectors.toList());
 
         LOGISY.trace("{} Analysiere Objekt {} (Klasse {}) {} Felder gefunden.",
             String.join("", Collections.nCopies(tiefe, "-")), result.toString(), clazzToScan.getSimpleName(),
@@ -358,7 +370,8 @@ public class ServiceStatistik implements MethodInterceptor, InitializingBean {
 
                         // Wenn kein String, dann prüfe rekursiv Objektstruktur
                         if (fieldObject.getClass() != String.class) {
-                            fehlerGefunden = pruefeObjektAufFehler(fieldObject, null, tiefe + 1) || fehlerGefunden;
+                            fehlerGefunden =
+                                pruefeObjektAufFehler(fieldObject, null, tiefe + 1) || fehlerGefunden;
                         }
                     }
                 } else {
@@ -403,8 +416,8 @@ public class ServiceStatistik implements MethodInterceptor, InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
-        LOGISY.debug("ServiceStatistik " + (fachlicheFehlerpruefung ?
-            " mit erweiterter fachlicher Fehlerprüfung " :
-            "") + " initialisiert.");
+        LOGISY.debug("ServiceStatistik "
+            + (fachlicheFehlerpruefung ? " mit erweiterter fachlicher Fehlerprüfung " : "")
+            + " initialisiert.");
     }
 }

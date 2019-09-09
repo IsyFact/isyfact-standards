@@ -40,7 +40,8 @@ public class IsySicherheitAutoConfiguration {
     @Bean
     public Advisor gesichertAdvisor(GesichertInterceptor interceptor) {
         AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
-        pointcut.setExpression("@annotation(de.bund.bva.isyfact.sicherheit.annotation.Gesichert) || @within(de.bund.bva.isyfact.sicherheit.annotation.Gesichert)");
+        pointcut.setExpression(
+            "@annotation(de.bund.bva.isyfact.sicherheit.annotation.Gesichert) || @within(de.bund.bva.isyfact.sicherheit.annotation.Gesichert)");
         return new DefaultPointcutAdvisor(pointcut, interceptor);
     }
 

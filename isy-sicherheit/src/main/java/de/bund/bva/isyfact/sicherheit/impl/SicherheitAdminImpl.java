@@ -33,7 +33,8 @@ public class SicherheitAdminImpl<T extends AufrufKontext> implements SicherheitA
     /**
      * Erzeugt ein SicherheitAdmin, das den übergebenen AccessManager verwendet.
      *
-     * @param accessManager der {@link AccessManager}, welcher für das Auslesen der Rollen und Rechte zuständig ist
+     * @param accessManager
+     *            der {@link AccessManager}, welcher für das Auslesen der Rollen und Rechte zuständig ist
      */
     public SicherheitAdminImpl(AccessManager<T, AuthentifzierungErgebnis> accessManager) {
         this.accessManager = accessManager;

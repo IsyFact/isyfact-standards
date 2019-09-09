@@ -33,49 +33,49 @@ import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
 @ContextConfiguration(classes = TestMessageSourceFehlertextProvider.TestConfig.class)
 public class TestMessageSourceFehlertextProvider {
 
-	@Test
-	public void testGetMessage() {
-		MessageSourceFehlertextProvider provider = new MessageSourceFehlertextProvider();
-		assertNotNull(provider);
-		
-		String result = provider.getMessage("message2", "Hans");
-		assertEquals("Hallo Hans", result);
-		
-		result = MessageSourceHolder.getMessage("message1");
-		assertEquals("Hallo Welt", result);		
-		
-	}
-	
-	@Test
-	public void testGetMessageWrongMessageCode(){
-		MessageSourceFehlertextProvider provider = new MessageSourceFehlertextProvider();		
-		assertNotNull(provider);
-		
-		String result = provider.getMessage("message3", (String[])null);
-		assertEquals("message3", result);
-		
-		result = provider.getMessage("message3", new String[]{});
-		assertEquals("message3", result);
-		
-		result = provider.getMessage("message3", "Hans", "Mustermann");
-		assertEquals("message3: Hans, Mustermann", result);
-	}
+    @Test
+    public void testGetMessage() {
+        MessageSourceFehlertextProvider provider = new MessageSourceFehlertextProvider();
+        assertNotNull(provider);
 
-	@Configuration
-	public static class TestConfig {
+        String result = provider.getMessage("message2", "Hans");
+        assertEquals("Hallo Hans", result);
 
-		@Bean
-		public MessageSource messageSource() {
-			ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-			messageSource.setBasename("locale/messages");
-			return messageSource;
-		}
+        result = MessageSourceHolder.getMessage("message1");
+        assertEquals("Hallo Welt", result);
 
-		@Bean
-		public MessageSourceHolder messageSourceHolder(MessageSource messageSource) {
-			MessageSourceHolder holder = new MessageSourceHolder();
-			holder.setMessageSource(messageSource);
-			return holder;
-		}
-	}
+    }
+
+    @Test
+    public void testGetMessageWrongMessageCode() {
+        MessageSourceFehlertextProvider provider = new MessageSourceFehlertextProvider();
+        assertNotNull(provider);
+
+        String result = provider.getMessage("message3", (String[]) null);
+        assertEquals("message3", result);
+
+        result = provider.getMessage("message3", new String[] {});
+        assertEquals("message3", result);
+
+        result = provider.getMessage("message3", "Hans", "Mustermann");
+        assertEquals("message3: Hans, Mustermann", result);
+    }
+
+    @Configuration
+    public static class TestConfig {
+
+        @Bean
+        public MessageSource messageSource() {
+            ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+            messageSource.setBasename("locale/messages");
+            return messageSource;
+        }
+
+        @Bean
+        public MessageSourceHolder messageSourceHolder(MessageSource messageSource) {
+            MessageSourceHolder holder = new MessageSourceHolder();
+            holder.setMessageSource(messageSource);
+            return holder;
+        }
+    }
 }

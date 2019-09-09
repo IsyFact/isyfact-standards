@@ -14,13 +14,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = { TestZielKlasse.class,
-    TestZielKlasse2.class }, webEnvironment = SpringBootTest.WebEnvironment.NONE, properties = {
-    "isy.logging.anwendung.name=IsyLogging",
-    "isy.logging.anwendung.typ=Test",
-    "isy.logging.anwendung.version=0.0.0",
-    "isy.logging.component.loggedauer=true",
-    "isy.logging.component.loggeaufruf=true"
-})
+    TestZielKlasse2.class }, webEnvironment = SpringBootTest.WebEnvironment.NONE,
+    properties = {
+        "isy.logging.anwendung.name=IsyLogging",
+        "isy.logging.anwendung.typ=Test",
+        "isy.logging.anwendung.version=0.0.0",
+        "isy.logging.component.loggedauer=true",
+        "isy.logging.component.loggeaufruf=true"
+    })
 @ImportAutoConfiguration(IsyLoggingAutoConfiguration.class)
 public class LogMethodInterceptorAnnotationTest extends AbstractLogTest {
 

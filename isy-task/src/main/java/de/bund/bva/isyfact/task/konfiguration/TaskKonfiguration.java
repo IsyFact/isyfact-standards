@@ -10,7 +10,9 @@ import de.bund.bva.isyfact.task.sicherheit.Authenticator;
  */
 public class TaskKonfiguration {
 
-    public enum Ausfuehrungsplan {ONCE, FIXED_RATE, FIXED_DELAY}
+    public enum Ausfuehrungsplan {
+        ONCE, FIXED_RATE, FIXED_DELAY
+    }
 
     private String taskId;
 

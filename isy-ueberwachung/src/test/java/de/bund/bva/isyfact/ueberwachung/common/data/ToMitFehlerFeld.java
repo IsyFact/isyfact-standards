@@ -16,7 +16,6 @@
  */
 package de.bund.bva.isyfact.ueberwachung.common.data;
 
-
 public class ToMitFehlerFeld {
 
     private Fehler fehler;

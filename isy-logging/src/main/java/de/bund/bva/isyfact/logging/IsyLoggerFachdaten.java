@@ -253,5 +253,5 @@ public interface IsyLoggerFachdaten {
      *            Werte zum Ersetzen von Platzhaltern in der Lognachricht.
      */
     void fatalFachdaten(String schluessel, String nachricht, Object... werte);
-	
+
 }

@@ -25,11 +25,12 @@ import java.util.Set;
  *
  */
 public interface KonfigurationChangeListener {
-    
+
     /**
      * Diese Methode wird aufgerufen, wenn die Konfiguration geändert wurde.
      * 
-     * @param changedKeys Liste der Konfigurationsschlüssel, derren Werte sich geändert haben.
+     * @param changedKeys
+     *            Liste der Konfigurationsschlüssel, derren Werte sich geändert haben.
      */
     public void onKonfigurationChanged(Set<String> changedKeys);
 

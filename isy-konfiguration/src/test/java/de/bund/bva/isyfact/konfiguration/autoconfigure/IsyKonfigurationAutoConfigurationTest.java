@@ -16,14 +16,15 @@ public class IsyKonfigurationAutoConfigurationTest {
     public void isyKonfigurationAutoConfigurationDisabled() {
         contextRunner.withPropertyValues("isy.logging.anwendung.name=test", "isy.logging.anwendung.typ=test",
             "isy.logging.anwendung.version=test").run(context -> {
-            assertThat(context).doesNotHaveBean(Konfiguration.class);
-        });
+                assertThat(context).doesNotHaveBean(Konfiguration.class);
+            });
     }
 
     @Test
     public void isyKonfigurationAutoConfigurationEnabled() {
         contextRunner.withPropertyValues("isy.logging.anwendung.name=test", "isy.logging.anwendung.typ=test",
-            "isy.logging.anwendung.version=test", "isy.konfiguration.properties=/config/config_A.properties, /config/config_B.properties")
+            "isy.logging.anwendung.version=test",
+            "isy.konfiguration.properties=/config/config_A.properties, /config/config_B.properties")
             .run(context -> assertThat(context).hasSingleBean(Konfiguration.class));
     }
 

@@ -113,7 +113,8 @@ public class BatchProtokollTester {
      * @return true/false
      */
     public boolean enthaeltFehler(String fehlerId, String textTeil) {
-        String xpathQuery = "//Meldung[@Typ='F' and @ID='" + fehlerId + "' and contains(@Text, '" + textTeil + "')]";
+        String xpathQuery =
+            "//Meldung[@Typ='F' and @ID='" + fehlerId + "' and contains(@Text, '" + textTeil + "')]";
         return getNodeListFromXpath(xpathQuery).getLength() != 0;
     }
 

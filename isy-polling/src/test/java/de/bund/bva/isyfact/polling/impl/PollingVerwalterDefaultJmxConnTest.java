@@ -44,32 +44,30 @@ import org.springframework.jmx.support.RegistrationPolicy;
 /**
  * Tests für den Polling Verwalter.
  *
- * Damit die Tests funktionieren, muss JMX über die folgenden Startparameter der VM
- * aktiviert werden:
+ * Damit die Tests funktionieren, muss JMX über die folgenden Startparameter der VM aktiviert werden:
  *
- * -Dcom.sun.management.jmxremote
- * -Dcom.sun.management.jmxremote.port=9010
- * -Dcom.sun.management.jmxremote.local.only=false
- * -Dcom.sun.management.jmxremote.ssl=false
+ * -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=9010
+ * -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.ssl=false
  * -Dcom.sun.management.jmxremote.authenticate=false
  */
 @SpringBootTest(classes = {
-    TestConfig.class, PollingVerwalterDefaultJmxConnTest.TestConfig.class }, webEnvironment = SpringBootTest.WebEnvironment.NONE, properties = {
-    "isy.logging.anwendung.name = test",
-    "isy.logging.anwendung.typ = test",
-    "isy.logging.anwendung.version = test",
+    TestConfig.class, PollingVerwalterDefaultJmxConnTest.TestConfig.class },
+    webEnvironment = SpringBootTest.WebEnvironment.NONE, properties = {
+        "isy.logging.anwendung.name = test",
+        "isy.logging.anwendung.typ = test",
+        "isy.logging.anwendung.version = test",
 
-    "isy.polling.jmx.verbindungen.SERVER1.host = localhost",
-    "isy.polling.jmx.verbindungen.SERVER1.port = 9010",
-    "isy.polling.jmx.verbindungen.SERVER1.benutzer = server1",
-    "isy.polling.jmx.verbindungen.SERVER1.passwort = server1",
+        "isy.polling.jmx.verbindungen.SERVER1.host = localhost",
+        "isy.polling.jmx.verbindungen.SERVER1.port = 9010",
+        "isy.polling.jmx.verbindungen.SERVER1.benutzer = server1",
+        "isy.polling.jmx.verbindungen.SERVER1.passwort = server1",
 
-    "isy.polling.jmx.verbindungen.SERVER2.host = localhost",
-    "isy.polling.jmx.verbindungen.SERVER2.port = 9010",
-    "isy.polling.jmx.verbindungen.SERVER2.benutzer = SERVER2",
-    "isy.polling.jmx.verbindungen.SERVER2.passwort = SERVER2",
+        "isy.polling.jmx.verbindungen.SERVER2.host = localhost",
+        "isy.polling.jmx.verbindungen.SERVER2.port = 9010",
+        "isy.polling.jmx.verbindungen.SERVER2.benutzer = SERVER2",
+        "isy.polling.jmx.verbindungen.SERVER2.passwort = SERVER2",
 
-    "isy.polling.cluster.CLUSTER1.name = Name-Cluster1", "isy.polling.cluster.CLUSTER1.wartezeit = 12" })
+        "isy.polling.cluster.CLUSTER1.name = Name-Cluster1", "isy.polling.cluster.CLUSTER1.wartezeit = 12" })
 @ImportAutoConfiguration(IsyPollingAutoConfiguration.class)
 public class PollingVerwalterDefaultJmxConnTest extends AbstractPollingTest {
 
@@ -87,7 +85,7 @@ public class PollingVerwalterDefaultJmxConnTest extends AbstractPollingTest {
         TestClock testClock = TestClock.now();
         DateTimeUtil.setClock(testClock);
 
-        // Cluster 1 aktualisieren. Da der Test lokal ist, führt das dazu, 
+        // Cluster 1 aktualisieren. Da der Test lokal ist, führt das dazu,
         // dass das Polling nicht gestartet werden darf.
         pollingVerwalter.aktualisiereZeitpunktLetztePollingAktivitaet("CLUSTER1");
         Assert.assertFalse("Polling darf nicht gestartet werden", pollingVerwalter.startePolling("CLUSTER1"));
@@ -95,7 +93,7 @@ public class PollingVerwalterDefaultJmxConnTest extends AbstractPollingTest {
         // Einen Teil der Wartezeit verstreichen lassen
         testClock.advanceBy(Duration.ofSeconds(5));
 
-        // Für Cluster1 darf das Polling immer noch nicht gestartet werden. 
+        // Für Cluster1 darf das Polling immer noch nicht gestartet werden.
         Assert.assertFalse("Polling darf nicht gestartet werden", pollingVerwalter.startePolling("CLUSTER1"));
 
         // Rest der Wartezeit verstreichen lassen

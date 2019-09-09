@@ -36,68 +36,73 @@ import static org.mockito.Mockito.*;
 
 public class TestLoadbalancerServlet {
 
-	private LoadbalancerServlet loadBalancer;
-	private ServletConfig mockConfig;
-	private Appender mockAppender;
-	private ServletContext mockContext;
-	
-	@Before
-	public void setUp(){
-		loadBalancer = new LoadbalancerServlet();
+    private LoadbalancerServlet loadBalancer;
 
-		Logger logger = (Logger) LoggerFactory.getLogger(LoadbalancerServlet.class);
+    private ServletConfig mockConfig;
+
+    private Appender mockAppender;
+
+    private ServletContext mockContext;
+
+    @Before
+    public void setUp() {
+        loadBalancer = new LoadbalancerServlet();
+
+        Logger logger = (Logger) LoggerFactory.getLogger(LoadbalancerServlet.class);
         mockAppender = mock(Appender.class);
-		logger.addAppender(mockAppender);
+        logger.addAppender(mockAppender);
 
-		mockConfig = mock(ServletConfig.class);
-		mockContext = mock(ServletContext.class);
-		when(mockConfig.getServletContext()).thenReturn(mockContext);
-	}
-	
-	@Test
-	public void testInit() throws ServletException {
-		when(mockContext.getRealPath("/WEB-INF/classes/config/isAlive")).thenReturn("/WEB-INF/classes/config/isAlive/isAlive");
-		when(mockConfig.getInitParameter("isAliveFileLocation")).thenReturn("/WEB-INF/classes/config/isAlive");
-		loadBalancer.init(mockConfig);	
-		verify(mockAppender, times(2)).doAppend(any());
-	}
-	
-	@Test
-	public void testInitNull() throws ServletException {
-		when(mockContext.getRealPath("/WEB-INF/classes/config/isAlive")).thenReturn("/WEB-INF/classes/config/isAlive/isAlive");
-		when(mockConfig.getInitParameter("isAliveFileLocation")).thenReturn(null);
-		loadBalancer.init(mockConfig);	
-		verify(mockAppender, times(3)).doAppend(any());
-	}
-	
-	
-	@Test
-	public void testDoGet() throws ServletException, IOException {
-		when(mockContext.getRealPath("/src/test/resources")).thenReturn("/src/test/resources/isAlive");
-		when(mockConfig.getInitParameter("isAliveFileLocation")).thenReturn("/src/test/resources");
-		loadBalancer.init(mockConfig);	
-		HttpServletResponse resp = mock(HttpServletResponse.class);
-		loadBalancer.doGet(null, resp);
-		verify(mockAppender, times(3)).doAppend(any());
-		verify(resp, times(1)).setStatus(HttpServletResponse.SC_FORBIDDEN);
-	}
-	
-	@Test
-	public void testDoGetIsAlive() throws ServletException, IOException {
-		when(mockContext.getRealPath("/src/test/resources")).thenReturn("src/test/resources/isAlive");
-		when(mockConfig.getInitParameter("isAliveFileLocation")).thenReturn("/src/test/resources");
-		File f = new File("src/test/resources/isAlive");
-		assertTrue(f.createNewFile());
-		PrintWriter writer = new PrintWriter(f);
-		loadBalancer.init(mockConfig);	
-		HttpServletResponse resp = mock(HttpServletResponse.class);
-		when(resp.getWriter()).thenReturn(writer);
-		loadBalancer.doGet(null, resp);
-		verify(mockAppender, times(3)).doAppend(any());
-		verify(resp, times(1)).setStatus(HttpServletResponse.SC_OK);
+        mockConfig = mock(ServletConfig.class);
+        mockContext = mock(ServletContext.class);
+        when(mockConfig.getServletContext()).thenReturn(mockContext);
+    }
 
-		writer.close();
-		f.delete();
-	}
+    @Test
+    public void testInit() throws ServletException {
+        when(mockContext.getRealPath("/WEB-INF/classes/config/isAlive"))
+            .thenReturn("/WEB-INF/classes/config/isAlive/isAlive");
+        when(mockConfig.getInitParameter("isAliveFileLocation"))
+            .thenReturn("/WEB-INF/classes/config/isAlive");
+        loadBalancer.init(mockConfig);
+        verify(mockAppender, times(2)).doAppend(any());
+    }
+
+    @Test
+    public void testInitNull() throws ServletException {
+        when(mockContext.getRealPath("/WEB-INF/classes/config/isAlive"))
+            .thenReturn("/WEB-INF/classes/config/isAlive/isAlive");
+        when(mockConfig.getInitParameter("isAliveFileLocation")).thenReturn(null);
+        loadBalancer.init(mockConfig);
+        verify(mockAppender, times(3)).doAppend(any());
+    }
+
+    @Test
+    public void testDoGet() throws ServletException, IOException {
+        when(mockContext.getRealPath("/src/test/resources")).thenReturn("/src/test/resources/isAlive");
+        when(mockConfig.getInitParameter("isAliveFileLocation")).thenReturn("/src/test/resources");
+        loadBalancer.init(mockConfig);
+        HttpServletResponse resp = mock(HttpServletResponse.class);
+        loadBalancer.doGet(null, resp);
+        verify(mockAppender, times(3)).doAppend(any());
+        verify(resp, times(1)).setStatus(HttpServletResponse.SC_FORBIDDEN);
+    }
+
+    @Test
+    public void testDoGetIsAlive() throws ServletException, IOException {
+        when(mockContext.getRealPath("/src/test/resources")).thenReturn("src/test/resources/isAlive");
+        when(mockConfig.getInitParameter("isAliveFileLocation")).thenReturn("/src/test/resources");
+        File f = new File("src/test/resources/isAlive");
+        assertTrue(f.createNewFile());
+        PrintWriter writer = new PrintWriter(f);
+        loadBalancer.init(mockConfig);
+        HttpServletResponse resp = mock(HttpServletResponse.class);
+        when(resp.getWriter()).thenReturn(writer);
+        loadBalancer.doGet(null, resp);
+        verify(mockAppender, times(3)).doAppend(any());
+        verify(resp, times(1)).setStatus(HttpServletResponse.SC_OK);
+
+        writer.close();
+        f.delete();
+    }
 
 }
