@@ -286,6 +286,27 @@
             </resource>
         </resources>
 
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>3.1.0</version>
+                    <configuration>
+                        <configLocation>IsyFact-Checkstyle-Stil-8.0_IFS-377.xml</configLocation>
+                        <suppressionsLocation>checkstyle-suppressions.xml</suppressionsLocation>
+                    </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>de.bund.bva.isyfact</groupId>
+                            <artifactId>isyfact-config</artifactId>
+                            <version>${isyfact.config.version}</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
         <plugins>
             <!-- Erlaube den Build nur mit richtiger Java & Maven Version -->
             <plugin>
@@ -497,11 +518,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.0.0</version>
-                <configuration>
-                    <configLocation>${checkstyle.config}</configLocation>
-                    <suppressionsLocation>${checkstyle.suppressions.config}</suppressionsLocation>
-                </configuration>
             </plugin>
             <!-- Erzeugt JavaDoc beim Build. Die Angabe des Encodings sorgt für eine korrekte Darstellung
                 von Sonderzeichen in den JavaDocs. -->

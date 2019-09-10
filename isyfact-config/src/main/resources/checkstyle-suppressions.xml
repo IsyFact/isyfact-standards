@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE suppressions PUBLIC
+    "-//Puppy Crawl//DTD Suppressions 1.1//EN"
+    "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
+
+<suppressions>
+    <suppress files="[a-zA-Z0-9]*Frame\.java" checks="[a-zA-Z0-9]*"/>
+    <suppress files="[a-zA-Z0-9]*Panel\.java" checks="[a-zA-Z0-9]*"/>
+    <suppress files="src[\\/]test[\\/]java[\\/]" checks="[a-zA-Z0-9]*Name|JavadocPackage"/>
+    <suppress files="[\\/]jaxb[\\/]" checks="[a-zA-Z0-9]*"/>
+</suppressions>
