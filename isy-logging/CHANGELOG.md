@@ -1,3 +1,6 @@
+# 1.9.0
+- `IFS-362`: LogApplicationListener loggt nur noch bei Änderungen des Root-Kontextes
+
 # 1.8.0
 - `IFS-225`: Prüfung der Logeinträge auf maximale Länge und ggfs. Kürzung dieser
 - `IFS-262`: `isyfact-masterpom` deprecated (Abschaffung mit IsyFact 2.0), `isyfact-masterpom-lib` aufgelöst, Bibliotheken benutzen `isyfact-standards` als Parent-POM

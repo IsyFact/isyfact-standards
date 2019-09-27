@@ -4,7 +4,7 @@ package de.bund.bva.isyfact.logging.util;
  * #%L
  * isy-logging
  * %%
- * 
+ *
  * %%
  * See the NOTICE file distributed with this work for additional
  * information regarding copyright ownership.
@@ -12,9 +12,9 @@ package de.bund.bva.isyfact.logging.util;
  * licenses this file to you under the Apache License, Version 2.0 (the
  * License). You may not use this file except in compliance with the
  * License. You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
@@ -23,54 +23,78 @@ package de.bund.bva.isyfact.logging.util;
  * #L%
  */
 
-import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.isyfact.logging.IsyLoggerStandard;
-import de.bund.bva.isyfact.logging.LogKategorie;
-import de.bund.bva.isyfact.logging.impl.Ereignisschluessel;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ApplicationContextEvent;
 import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.ContextStartedEvent;
 import org.springframework.context.event.ContextStoppedEvent;
+
+import de.bund.bva.isyfact.logging.IsyLoggerFactory;
+import de.bund.bva.isyfact.logging.IsyLoggerStandard;
+import de.bund.bva.isyfact.logging.LogKategorie;
+import de.bund.bva.isyfact.logging.impl.Ereignisschluessel;
 
 /**
  * Spring-ApplicationListener zum Loggen von Änderungen des Systemzustands.
  */
 public class LogApplicationListener implements ApplicationListener<ApplicationEvent>, InitializingBean {
 
-    /** Systemproperty aus der die JAVA-Version gelesen wird. */
+    /**
+     * Systemproperty aus der die JAVA-Version gelesen wird.
+     */
     private static final String SYSTEM_PROPERTY_JAVA_VERSION = "java.version";
 
-    /** Systemproperty aus der die Zeitzone gelesen wird. */
+    /**
+     * Systemproperty aus der die Zeitzone gelesen wird.
+     */
     private static final String SYSTEM_PROPERTY_ZEITZONE = "user.timezone";
 
-    /** Systemproperty aus der die Dateikodierung gelesen wird. */
+    /**
+     * Systemproperty aus der die Dateikodierung gelesen wird.
+     */
     private static final String SYSTEM_PROPERTY_DATEIKODIERUNG = "file.encoding";
 
-    /** Logger der Klasse. */
+    /**
+     * Logger der Klasse.
+     */
     private static final IsyLoggerStandard LOGGER = IsyLoggerFactory.getLogger(LogApplicationListener.class);
 
-    /** Name des Systems. */
+    /**
+     * Name des Systems.
+     */
     private String systemname;
 
-    /** Art des Systems. */
+    /**
+     * Art des Systems.
+     */
     private String systemart;
 
-    /** Version des Systems. */
+    /**
+     * Version des Systems.
+     */
     private String systemversion;
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see org.springframework.context.ApplicationListener#onApplicationEvent(org.springframework.context.ApplicationEvent)
      */
     @Override
     public void onApplicationEvent(ApplicationEvent event) {
+        // Behandele nur Events des Root-Contextes, sonst Return
+        if (!(event instanceof ApplicationContextEvent)
+                || ((ApplicationContextEvent) event).getApplicationContext().getParent() != null) {
+            return;
+        }
+
         if (event instanceof ContextStartedEvent || event instanceof ContextRefreshedEvent) {
+            // ContextRefreshedEvent loggen
             LOGGER.info(LogKategorie.JOURNAL, Ereignisschluessel.EISYLO02001.name(), Ereignisschluessel.EISYLO02001
                     .getNachricht(), systemname, systemart, event.getClass().getSimpleName());
+            // Systemversion loggen
             LOGGER.info(LogKategorie.JOURNAL, Ereignisschluessel.EISYLO02003.name(),
                     Ereignisschluessel.EISYLO02003.getNachricht(), systemversion);
 
@@ -102,7 +126,7 @@ public class LogApplicationListener implements ApplicationListener<ApplicationEv
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
      */
     @Override
@@ -118,9 +142,8 @@ public class LogApplicationListener implements ApplicationListener<ApplicationEv
 
     /**
      * Setzt den Wert des Attributs 'systemname'.
-     * 
-     * @param systemname
-     *            Neuer Wert des Attributs.
+     *
+     * @param systemname Neuer Wert des Attributs.
      */
     public void setSystemname(String systemname) {
         this.systemname = systemname;
@@ -128,9 +151,8 @@ public class LogApplicationListener implements ApplicationListener<ApplicationEv
 
     /**
      * Setzt den Wert des Attributs 'systemart'.
-     * 
-     * @param systemart
-     *            Neuer Wert des Attributs.
+     *
+     * @param systemart Neuer Wert des Attributs.
      */
     public void setSystemart(String systemart) {
         this.systemart = systemart;
@@ -138,12 +160,12 @@ public class LogApplicationListener implements ApplicationListener<ApplicationEv
 
     /**
      * Setzt den Wert des Attributs 'systemversion'.
-     * 
-     * @param systemversion
-     *            Neuer Wert des Attributs.
+     *
+     * @param systemversion Neuer Wert des Attributs.
      */
     public void setSystemversion(String systemversion) {
         this.systemversion = systemversion;
     }
+
 
 }
