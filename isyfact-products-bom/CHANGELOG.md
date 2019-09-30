@@ -1,3 +1,6 @@
+# 1.8.0
+- `IFS-423`: Anhebung der UCP und JDBC Version auf 12.2.0.1
+
 # 1.7.0
 - `IFS-262`: `isyfact-masterpom` deprecated (Abschaffung mit IsyFact 2.0), `isyfact-masterpom-lib` aufgelöst, Bibliotheken benutzen `isyfact-standards` als Parent-POM
 - `IFS-274`: Spring-Framework auf 4.3.22 angehoben
