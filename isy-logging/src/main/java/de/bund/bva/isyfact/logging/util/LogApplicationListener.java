@@ -23,6 +23,10 @@ package de.bund.bva.isyfact.logging.util;
  * #L%
  */
 
+import java.util.Objects;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ApplicationContextEvent;
@@ -37,40 +41,64 @@ import de.bund.bva.isyfact.logging.impl.Ereignisschluessel;
 /**
  * Spring-ApplicationListener zum Loggen von Änderungen des Systemzustands.
  */
-public class LogApplicationListener implements ApplicationListener<ApplicationEvent> {
+public class LogApplicationListener implements ApplicationListener<ApplicationEvent>, ApplicationContextAware {
 
-    /** Systemproperty aus der die JAVA-Version gelesen wird. */
+    /**
+     * Systemproperty aus der die JAVA-Version gelesen wird.
+     */
     private static final String SYSTEM_PROPERTY_JAVA_VERSION = "java.version";
 
-    /** Systemproperty aus der die Zeitzone gelesen wird. */
+    /**
+     * Systemproperty aus der die Zeitzone gelesen wird.
+     */
     private static final String SYSTEM_PROPERTY_ZEITZONE = "user.timezone";
 
-    /** Systemproperty aus der die Dateikodierung gelesen wird. */
+    /**
+     * Systemproperty aus der die Dateikodierung gelesen wird.
+     */
     private static final String SYSTEM_PROPERTY_DATEIKODIERUNG = "file.encoding";
 
-    /** Logger der Klasse. */
+    /**
+     * Logger der Klasse.
+     */
     private static final IsyLoggerStandard LOGGER = IsyLoggerFactory.getLogger(LogApplicationListener.class);
 
-    /** Name des Systems. */
+    /**
+     * Name des Systems.
+     */
     private final String systemname;
 
-    /** Art des Systems. */
+    /**
+     * Art des Systems.
+     */
     private final String systemart;
 
-    /** Version des Systems. */
+    /**
+     * Version des Systems.
+     */
     private final String systemversion;
+
+    /**
+     * Applikationskontext des Loggers
+     */
+    private ApplicationContext applicationContext;
 
     /**
      * Erzeugt einen neuen LogApplicationListener.
      *
-     * @param systemname Wert des Attributs 'systemname'.
-     * @param systemart Wert des Attributs 'systemart'.
+     * @param systemname    Wert des Attributs 'systemname'.
+     * @param systemart     Wert des Attributs 'systemart'.
      * @param systemversion Wert des Attributs 'systemversion'.
      */
     public LogApplicationListener(String systemname, String systemart, String systemversion) {
         this.systemname = systemname;
         this.systemart = systemart;
         this.systemversion = systemversion;
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
     }
 
     /**
@@ -80,9 +108,9 @@ public class LogApplicationListener implements ApplicationListener<ApplicationEv
      */
     @Override
     public void onApplicationEvent(ApplicationEvent event) {
-        // Behandele nur Events des Root-Contextes, sonst Return
+        // Behandele nur Events des Kontext, in dem der Logger registriert ist, keine Kind-Kontexte
         if (!(event instanceof ApplicationContextEvent)
-                || ((ApplicationContextEvent) event).getApplicationContext().getParent() != null) {
+                || !Objects.equals(applicationContext, ((ApplicationContextEvent) event).getApplicationContext())) {
             return;
         }
 

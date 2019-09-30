@@ -52,7 +52,7 @@ public class ApplicationListenerTest extends AbstractLogTest {
 
         AnnotationConfigApplicationContext childContext = new AnnotationConfigApplicationContext();
         childContext.setParent(context);
-        childContext.register(ApplicationListenerTest.ApplicationListenerTestConfig.class);
+        childContext.register(ApplicationListenerChildConfig.class);
         childContext.refresh();
         pruefeLogdatei("testApplicationContext");
     }
@@ -65,4 +65,7 @@ public class ApplicationListenerTest extends AbstractLogTest {
             return new LogApplicationListener("RegXYZ", "REG", "1.1.1");
         }
     }
+
+    @Configuration
+    static class ApplicationListenerChildConfig {}
 }
