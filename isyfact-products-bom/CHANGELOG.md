@@ -1,3 +1,6 @@
+# 2.1.0
+- `IFS-423`: Anhebung der UCP und JDBC Version auf 12.2.0.1
+
 # 2.0.0
 - `IFS-228`: Einführung von Spring Boot
 - `IFS-353`: Ablösung von Dozer durch Orika
