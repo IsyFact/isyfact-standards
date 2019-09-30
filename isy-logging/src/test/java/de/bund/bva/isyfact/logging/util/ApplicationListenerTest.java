@@ -24,11 +24,13 @@ package de.bund.bva.isyfact.logging.util;
  */
 
 import de.bund.bva.isyfact.logging.AbstractLogTest;
+
 import org.junit.Test;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.GenericApplicationContext;
 
 /**
  * Testfälle des LogApplicationListeners.
@@ -42,12 +44,17 @@ public class ApplicationListenerTest extends AbstractLogTest {
     @Test
     public void testApplicationContextLogs() {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(
-            ApplicationListenerTest.ApplicationListenerTestConfig.class);
+                ApplicationListenerTest.ApplicationListenerTestConfig.class);
         context.start();
         context.publishEvent(new ApplicationEvent(this) {
         });
         context.stop();
         context.close();
+
+        AnnotationConfigApplicationContext childContext = new AnnotationConfigApplicationContext();
+        childContext.setParent(context);
+        childContext.register(ApplicationListenerTest.ApplicationListenerTestConfig.class);
+        childContext.refresh();
         pruefeLogdatei("testApplicationContext");
     }
 
@@ -56,7 +63,7 @@ public class ApplicationListenerTest extends AbstractLogTest {
 
         @Bean
         LogApplicationListener statusLogger() {
-            return  new LogApplicationListener("RegXYZ", "REG", "1.1.1");
+            return new LogApplicationListener("RegXYZ", "REG", "1.1.1");
         }
     }
 }

@@ -4,7 +4,7 @@ package de.bund.bva.isyfact.logging.util;
  * #%L
  * isy-logging
  * %%
- * 
+ *
  * %%
  * See the NOTICE file distributed with this work for additional
  * information regarding copyright ownership.
@@ -12,9 +12,9 @@ package de.bund.bva.isyfact.logging.util;
  * licenses this file to you under the Apache License, Version 2.0 (the
  * License). You may not use this file except in compliance with the
  * License. You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
@@ -23,17 +23,16 @@ package de.bund.bva.isyfact.logging.util;
  * #L%
  */
 
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ApplicationContextEvent;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.context.event.ContextStartedEvent;
+
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.IsyLoggerStandard;
 import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.logging.impl.Ereignisschluessel;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.context.ApplicationEvent;
-import org.springframework.context.ApplicationListener;
-import org.springframework.context.event.ContextClosedEvent;
-import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.context.event.ContextStartedEvent;
-import org.springframework.context.event.ContextStoppedEvent;
 
 /**
  * Spring-ApplicationListener zum Loggen von Änderungen des Systemzustands.
@@ -76,14 +75,21 @@ public class LogApplicationListener implements ApplicationListener<ApplicationEv
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see org.springframework.context.ApplicationListener#onApplicationEvent(org.springframework.context.ApplicationEvent)
      */
     @Override
     public void onApplicationEvent(ApplicationEvent event) {
+        // Behandele nur Events des Root-Contextes, sonst Return
+        if (!(event instanceof ApplicationContextEvent)
+                || ((ApplicationContextEvent) event).getApplicationContext().getParent() != null) {
+            return;
+        }
+
         if (event instanceof ContextStartedEvent || event instanceof ContextRefreshedEvent) {
-            LOGGER.info(LogKategorie.JOURNAL, Ereignisschluessel.EISYLO02001.name(), Ereignisschluessel.EISYLO02001
-                    .getNachricht(), systemname, systemart, event.getClass().getSimpleName());
+            LOGGER.info(LogKategorie.JOURNAL, Ereignisschluessel.EISYLO02001.name(),
+                    Ereignisschluessel.EISYLO02001.getNachricht(), systemname, systemart,
+                    event.getClass().getSimpleName());
             LOGGER.info(LogKategorie.JOURNAL, Ereignisschluessel.EISYLO02003.name(),
                     Ereignisschluessel.EISYLO02003.getNachricht(), systemversion);
 
@@ -104,11 +110,13 @@ public class LogApplicationListener implements ApplicationListener<ApplicationEv
 
             // Max Heap-Size loggen
             LOGGER.info(LogKategorie.JOURNAL, Ereignisschluessel.EISYLO02004.name(),
-                    Ereignisschluessel.EISYLO02004.getNachricht(), "maxMemory", Runtime.getRuntime().maxMemory());
+                    Ereignisschluessel.EISYLO02004.getNachricht(), "maxMemory",
+                    Runtime.getRuntime().maxMemory());
 
-        } else if (event instanceof ContextStoppedEvent || event instanceof ContextClosedEvent) {
-            LOGGER.info(LogKategorie.JOURNAL, Ereignisschluessel.EISYLO02002.name(), Ereignisschluessel.EISYLO02002
-                    .getNachricht(), systemname, systemart, event.getClass().getSimpleName());
+        } else {
+            LOGGER.info(LogKategorie.JOURNAL, Ereignisschluessel.EISYLO02002.name(),
+                    Ereignisschluessel.EISYLO02002.getNachricht(), systemname, systemart,
+                    event.getClass().getSimpleName());
         }
 
     }
