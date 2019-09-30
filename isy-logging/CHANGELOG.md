@@ -1,5 +1,5 @@
 # 1.9.0
-- `IFS-362`: LogApplicationListener loggt nur noch bei Änderungen des Root-Kontextes
+- `IFS-362`: LogApplicationListener loggt nur noch für den eigenen ApplicationContext (nicht für Kind-Kontexte)
 
 # 1.8.0
 - `IFS-225`: Prüfung der Logeinträge auf maximale Länge und ggfs. Kürzung dieser
