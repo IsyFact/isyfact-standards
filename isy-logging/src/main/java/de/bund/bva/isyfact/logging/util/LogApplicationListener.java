@@ -27,10 +27,8 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ApplicationContextEvent;
-import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.ContextStartedEvent;
-import org.springframework.context.event.ContextStoppedEvent;
 
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.IsyLoggerStandard;
@@ -92,8 +90,9 @@ public class LogApplicationListener implements ApplicationListener<ApplicationEv
 
         if (event instanceof ContextStartedEvent || event instanceof ContextRefreshedEvent) {
             // ContextRefreshedEvent loggen
-            LOGGER.info(LogKategorie.JOURNAL, Ereignisschluessel.EISYLO02001.name(), Ereignisschluessel.EISYLO02001
-                    .getNachricht(), systemname, systemart, event.getClass().getSimpleName());
+            LOGGER.info(LogKategorie.JOURNAL, Ereignisschluessel.EISYLO02001.name(),
+                    Ereignisschluessel.EISYLO02001.getNachricht(), systemname, systemart,
+                    event.getClass().getSimpleName());
             // Systemversion loggen
             LOGGER.info(LogKategorie.JOURNAL, Ereignisschluessel.EISYLO02003.name(),
                     Ereignisschluessel.EISYLO02003.getNachricht(), systemversion);
@@ -115,11 +114,13 @@ public class LogApplicationListener implements ApplicationListener<ApplicationEv
 
             // Max Heap-Size loggen
             LOGGER.info(LogKategorie.JOURNAL, Ereignisschluessel.EISYLO02004.name(),
-                    Ereignisschluessel.EISYLO02004.getNachricht(), "maxMemory", Runtime.getRuntime().maxMemory());
+                    Ereignisschluessel.EISYLO02004.getNachricht(), "maxMemory",
+                    Runtime.getRuntime().maxMemory());
 
-        } else if (event instanceof ContextStoppedEvent || event instanceof ContextClosedEvent) {
-            LOGGER.info(LogKategorie.JOURNAL, Ereignisschluessel.EISYLO02002.name(), Ereignisschluessel.EISYLO02002
-                    .getNachricht(), systemname, systemart, event.getClass().getSimpleName());
+        } else { // Context Closed
+            LOGGER.info(LogKategorie.JOURNAL, Ereignisschluessel.EISYLO02002.name(),
+                    Ereignisschluessel.EISYLO02002.getNachricht(), systemname, systemart,
+                    event.getClass().getSimpleName());
         }
 
     }
