@@ -29,6 +29,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.GenericApplicationContext;
 
 import de.bund.bva.isyfact.logging.util.LogApplicationListener;
 
@@ -51,10 +52,9 @@ public class ApplicationListenerTest extends AbstractLogTest {
             /** UID. */
             private static final long serialVersionUID = 1L;
         });
-        ClassPathXmlApplicationContext context2 = new ClassPathXmlApplicationContext(
-                new String[]{configLocation}, context);
-        context2.close();
         context.stop();
+        GenericApplicationContext childContext = new GenericApplicationContext(context);
+        childContext.close();
         context.close();
         pruefeLogdatei("testApplicationContext");
     }
@@ -63,8 +63,7 @@ public class ApplicationListenerTest extends AbstractLogTest {
     /**
      * Testet die verschiedenen Fehler, die bei der Initialisierung auftreten können.
      *
-     * @throws Exception
-     *             wenn beim Test eine Exception auftritt.
+     * @throws Exception wenn beim Test eine Exception auftritt.
      */
     @Test
     public void testInitialisierungFehlerhaft() throws Exception {

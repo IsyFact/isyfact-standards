@@ -23,7 +23,11 @@ package de.bund.bva.isyfact.logging.util;
  * #L%
  */
 
+import java.util.Objects;
+
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ApplicationContextEvent;
@@ -38,7 +42,8 @@ import de.bund.bva.isyfact.logging.impl.Ereignisschluessel;
 /**
  * Spring-ApplicationListener zum Loggen von Änderungen des Systemzustands.
  */
-public class LogApplicationListener implements ApplicationListener<ApplicationEvent>, InitializingBean {
+public class LogApplicationListener implements ApplicationListener<ApplicationEvent>,
+        InitializingBean, ApplicationContextAware {
 
     /**
      * Systemproperty aus der die JAVA-Version gelesen wird.
@@ -76,15 +81,20 @@ public class LogApplicationListener implements ApplicationListener<ApplicationEv
     private String systemversion;
 
     /**
+     * Applicationcontext, in dem der Logger registriert ist.
+     */
+    private ApplicationContext applicationContext;
+
+    /**
      * {@inheritDoc}
      *
      * @see org.springframework.context.ApplicationListener#onApplicationEvent(org.springframework.context.ApplicationEvent)
      */
     @Override
     public void onApplicationEvent(ApplicationEvent event) {
-        // Behandele nur Events des Root-Contextes, sonst Return
-        if (!(event instanceof ApplicationContextEvent)
-                || ((ApplicationContextEvent) event).getApplicationContext().getParent() != null) {
+        // Behandele nur Events des eigenen Kontextes, nicht Kind-Kontexte
+        if (!(event instanceof ApplicationContextEvent) ||
+                !Objects.equals(((ApplicationContextEvent) event).getApplicationContext(), applicationContext)) {
             return;
         }
 
@@ -168,5 +178,8 @@ public class LogApplicationListener implements ApplicationListener<ApplicationEv
         this.systemversion = systemversion;
     }
 
-
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
+    }
 }
