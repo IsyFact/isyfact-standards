@@ -1,5 +1,5 @@
 # 2.1.0
-- `IFS-362`: LogApplicationListener loggt nur noch bei Änderungen des Root-Kontextes
+- `IFS-362`: LogApplicationListener loggt nur noch für den eigenen ApplicationContext (nicht für Kind-Kontexte)
 
 # 2.0.0
 - `IFS-71`: Alter Fachdaten-Marker entfernt
