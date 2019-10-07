@@ -1,3 +1,6 @@
+# 2.1.0
+- `IFS-444`: Anpassung der Klasse BeanToMapConverter
+
 # 2.0.0
 - `IFS-71`: Alter Fachdaten-Marker entfernt
 - `IFS-228`: Einführung von Spring Boot
