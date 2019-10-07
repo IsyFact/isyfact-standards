@@ -16,7 +16,7 @@
 
     <properties>
         <spring.webflow.version>2.4.8.RELEASE</spring.webflow.version>
-        <spring.security.version>4.0.4.RELEASE</spring.security.version>
+        <spring.security.version>4.2.13.RELEASE</spring.security.version>
         <hibernate.orm.version>5.1.1.Final</hibernate.orm.version>
         <querydsl.version>4.0.9</querydsl.version>
     </properties>
