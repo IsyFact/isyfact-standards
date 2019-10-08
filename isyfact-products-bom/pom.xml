@@ -15,10 +15,10 @@
     </parent>
 
     <properties>
-        <spring.version>5.1.2.RELEASE</spring.version>
+        <spring.version>5.1.9.RELEASE</spring.version>
         <spring.boot.version>2.1.0.RELEASE</spring.boot.version>
         <spring.webflow.version>2.5.1.RELEASE</spring.webflow.version>
-        <spring.security.version>5.1.2.RELEASE</spring.security.version>
+        <spring.security.version>5.1.6.RELEASE</spring.security.version>
         <hibernate.orm.version>5.3.7.Final</hibernate.orm.version>
         <querydsl.version>4.0.9</querydsl.version>
     </properties>
