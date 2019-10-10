@@ -1,3 +1,6 @@
+# 2.1.0
+- `IFS-326`: Autostart-Klasse für den TaskScheduler hinzugefügt
+
 # 2.0.0
 - `IFS-228`: Einführung von Spring Boot
 
