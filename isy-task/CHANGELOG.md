@@ -1,4 +1,7 @@
 # 2.0.0
+- `IFS-323`: Hostnamen werden jetzt mit Regex angegeben
+
+# 2.0.0
 - `IFS-228`: Einführung von Spring Boot
 
 # 1.3.0
