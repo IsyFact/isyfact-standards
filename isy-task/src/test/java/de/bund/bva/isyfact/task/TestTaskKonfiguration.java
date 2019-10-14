@@ -77,6 +77,15 @@ public class TestTaskKonfiguration extends AbstractTaskTest {
         taskKonfigurationVerwalter.pruefeTaskKonfiguration(taskKonfiguration);
     }
 
+    @Test
+    public void hostnameValideRegEx() {
+        TaskKonfiguration taskKonfiguration = getTestTaskKonfiguration();
+
+        taskKonfiguration.setHostname("host.*");
+
+        taskKonfigurationVerwalter.pruefeTaskKonfiguration(taskKonfiguration);
+    }
+
     @Test(expected = TaskKonfigurationInvalidException.class)
     public void ausfuehrungOnceWederExecutionDateTimeNochInitialDelayGesetzt() throws Exception {
         TaskKonfiguration taskKonfiguration = getTestTaskKonfiguration();
