@@ -1,4 +1,4 @@
-# 2.0.0
+# 2.1.0
 - `IFS-323`: Hostnamen werden jetzt mit Regex angegeben
 
 # 2.0.0
