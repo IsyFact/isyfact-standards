@@ -317,6 +317,7 @@
                             <rules>
                                 <dependencyConvergence/>
                             </rules>
+                            <fail>false</fail>
                         </configuration>
                     </execution>
                     <execution>
