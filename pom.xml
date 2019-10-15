@@ -308,6 +308,17 @@
                         </configuration>
                     </execution>
                     <execution>
+                        <id>enforce-dependency-convergence</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <dependencyConvergence/>
+                            </rules>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <id>enforce-banned-dependencies</id>
                         <goals>
                             <goal>enforce</goal>
