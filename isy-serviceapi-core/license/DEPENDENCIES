@@ -2,71 +2,97 @@
 List of third-party dependencies grouped by their license type. No warranty on correctness and completeness. /
 Liste aller Abhängigkeiten zu Drittsoftware gruppiert nach deren Lizenzen. Keine Gewähr für Korrektheit und Vollständigkeit.
 
-    Apache License, Version 2.0:
+	(Apache 2):
 
-				* Apache Commons BeanUtils (commons-beanutils:commons-beanutils:jar:1.9.1 - http://commons.apache.org/proper/commons-beanutils/)
-				* Apache Commons Codec (commons-codec:commons-codec:jar:1.9 - http://commons.apache.org/proper/commons-codec/)
-				* Apache Commons Lang (org.apache.commons:commons-lang3:jar:3.4 - http://commons.apache.org/proper/commons-lang/)
-				* Commons Collections (commons-collections:commons-collections:jar:3.2.1 - http://commons.apache.org/collections/)
-				* Commons Logging (commons-logging:commons-logging:jar:1.1.3 - http://commons.apache.org/proper/commons-logging/)
-				* Dozer (com.github.dozermapper:dozer-core:6.5.0 - https://github.com/DozerMapper/dozer)
-				* Ehcache Core (net.sf.ehcache:ehcache-core:jar:2.6.6 - http://ehcache.org/)
-				* IsyFact-Aufrufkontext (de.bund.bva.isyfact:isy-aufrufkontext:1.3.2 - no url defined)
-				* IsyFact-Fehlerbehandlung (Basisklassen) (de.bund.bva.isyfact:isy-exception-core:jar:1.3.2 - no url defined)
-				* IsyFact-Fehlerbehandlung (Implementierung) (de.bund.bva.isyfact:isy-exception-handling:jar:1.3.2 - no url defined)
-				* IsyFact-Fehlerbehandlung (Schnittstelle) (de.bund.bva.isyfact:isy-exception-sst:jar:1.3.2 - no url defined)				
-				* IsyFact-Konfiguration (de.bund.bva.isyfact:isy-konfiguration:jar:1.3.2 - no url defined)
-				* IsyFact-Logging (de.bund.bva.isyfact:isy-logging:jar:1.3.2 - no url defined)
-				* IsyFact-Sicherheit (de.bund.bva.isyfact:isy-sicherheit:jar:1.3.2 - no url defined)
-        * Jackson-annotations (com.fasterxml.jackson.core:jackson-annotations:jar:2.5.0 - http://github.com/FasterXML/jackson)
-        * Jackson-core (com.fasterxml.jackson.core:jackson-core:jar:2.5.0 - https://github.com/FasterXML/jackson)
-				* Jackson-databind (com.fasterxml.jackson.core:jackson-databind:jar:2.5.0 - http://github.com/FasterXML/jackson)
-				* Jetty Server (org.mortbay.jetty:jetty:jar:6.1.6 - http://jetty.mortbay.org/)
-				* Jetty Servlet Tester (org.mortbay.jetty:jetty-servlet-tester:jar:6.1.6 - http://jetty.mortbay.org/)
-				* Jetty Utilities (org.mortbay.jetty:jetty-util:jar:6.1.6 - http://jetty.mortbay.org/)
-        * Logback Contrib :: Jackson (ch.qos.logback.contrib:logback-jackson:jar:0.1.2 - https://github.com/qos-ch/logback-contribs/wiki/logback-jackson)
-        * Logback Contrib :: JSON :: Classic (ch.qos.logback.contrib:logback-json-classic:jar:0.1.2 - https://github.com/qos-ch/logback-contribs/wiki/logback-json-parent/logback-json-classic)				
-        * Logback Contrib :: JSON :: Core (ch.qos.logback.contrib:logback-json-core:jar:0.1.2 - https://github.com/qos-ch/logback-contribs/wiki/logback-json-parent/logback-json-core)        
-				* PLIS Service-API Transport-Objekte (de.bund.bva.pliscommon:plis-serviceapi-sst:jar:1.4.1 - no url defined)
-        * Spring Aspects (org.springframework:spring-aspects:jar:4.2.5.RELEASE - https://github.com/spring-projects/spring-framework)				
-        * Spring AOP (org.springframework:spring-aop:jar:4.2.5.RELEASE - https://github.com/spring-projects/spring-framework)
-        * Spring Beans (org.springframework:spring-beans:jar:4.2.5.RELEASE - https://github.com/spring-projects/spring-framework)
-        * Spring Context (org.springframework:spring-context:jar:4.2.5.RELEASE - https://github.com/spring-projects/spring-framework)
-        * Spring Core (org.springframework:spring-core:jar:4.2.5.RELEASE - https://github.com/spring-projects/spring-framework)				
-        * Spring Expression Language (SpEL)(org.springframework:spring-expression:jar:4.2.5.RELEASE - https://github.com/spring-projects/spring-framework)
-				* spring-security-core (org.springframework.security:spring-security-core:jar:4.0.4.RELEASE - http://spring.io/spring-security)				
-        * Spring TestContext Framework (org.springframework:spring-test:jar:4.2.5.RELEASE - https://github.com/spring-projects/spring-framework)
-        * Spring Transaction (org.springframework:spring-tx:jar:4.2.5.RELEASE - https://github.com/spring-projects/spring-framework)
-        * Spring Web (org.springframework:spring-web:jar:4.2.5.RELEASE - https://github.com/spring-projects/spring-framework)				
- 				* Spring Web MVC (org.springframework:spring-webmvc:jar:4.2.5.RELEASE - https://github.com/spring-projects/spring-framework)
+		* Objenesis (org.objenesis:objenesis:2.6 - http://objenesis.org)
 
-    BSD License, 2-Clause
-    		
-    		* Hamcrest Core (org.hamcrest:hamcrest-core:jar:1.3 - https://github.com/hamcrest/JavaHamcrest/hamcrest-core)
-				
-    Eclipse Public License, Version 1.0:
+	(Apache License Version 2):
 
-        * AspectJ weaver (org.aspectj:aspectjweaver:jar:1.8.8 - http://www.aspectj.org/)
-				* JUnit (junit:junit:jar:4.12 - http://junit.org/) 
-        * Logback Classic Module (ch.qos.logback:logback-classic:jar:1.1.3 - http://logback.qos.ch/logback-classic)				
-        * Logback Core Module (ch.qos.logback:logback-core:jar:1.1.3 - http://logback.qos.ch/logback-core)        
-        
-    GNU Lesser General Public License, Version 2.1:        
+		* Jetty Servlet Tester (org.mortbay.jetty:jetty-servlet-tester:6.1.6 - http://jetty.mortbay.org)
 
-        * Logback Classic Module (ch.qos.logback:logback-classic:jar:1.1.3 - http://logback.qos.ch/logback-classic)				    
-        * Logback Core Module (ch.qos.logback:logback-core:jar:1.1.3 - http://logback.qos.ch/logback-core)        
+	(Apache License Version 2.0):
 
-		MIT License:
+		* Jetty Server (org.mortbay.jetty:jetty:6.1.6 - http://jetty.mortbay.org)
+		* Jetty Utilities (org.mortbay.jetty:jetty-util:6.1.6 - http://jetty.mortbay.org)
 
-				* JCL 1.1.1 implemented over SLF4J (org.slf4j:jcl-over-slf4j:jar:1.7.21 - http://www.slf4j.org/)        
-				* SLF4J API Module (org.slf4j:slf4j-api:jar:1.7.7 - http://www.slf4j.org/)
+	(Apache License, Version 2.0):
 
-    Common Development and Distribution License 1.0:
+		* Apache Commons BeanUtils (commons-beanutils:commons-beanutils:1.9.3 - https://commons.apache.org/proper/commons-beanutils/)
+		* Apache Commons Collections (commons-collections:commons-collections:3.2.2 - http://commons.apache.org/collections/)
+		* Apache Commons IO (commons-io:commons-io:2.5 - http://commons.apache.org/proper/commons-io/)
+		* Apache Commons Lang (org.apache.commons:commons-lang3:3.7 - http://commons.apache.org/proper/commons-lang/)
+		* Dozer :: Core (com.github.dozermapper:dozer-core:6.5.0 - http://nexus.sonatype.org/oss-repository-hosting.html/dozer-parent/dozer-plugins-parent/dozer-core)
+		* Dozer :: Integrations :: Spring Support :: Spring 4 (com.github.dozermapper:dozer-spring4:6.5.0 - http://nexus.sonatype.org/oss-repository-hosting.html/dozer-parent/dozer-plugins-parent/dozer-integrations/dozer-spring-support/dozer-spring4)
+		* IsyFact Service-API Transport-Objekte (de.bund.bva.isyfact:isy-serviceapi-sst:1.9.0-SNAPSHOT - http://isyfact.de/isy-serviceapi-sst)
+		* IsyFact-Aufrufkontext (de.bund.bva.isyfact:isy-aufrufkontext:1.9.0-SNAPSHOT - http://isyfact.de/isy-aufrufkontext)
+		* IsyFact-Fehlerbehandlung (Basisklassen) (de.bund.bva.isyfact:isy-exception-core:1.9.0-SNAPSHOT - http://isyfact.de/isy-exception-core)
+		* IsyFact-Fehlerbehandlung (Schnittstelle) (de.bund.bva.isyfact:isy-exception-sst:1.9.0-SNAPSHOT - http://isyfact.de/isy-exception-sst)
+		* IsyFact-Konfiguration (de.bund.bva.isyfact:isy-konfiguration:1.9.0-SNAPSHOT - http://isyfact.de/isy-konfiguration)
+		* IsyFact-Logging (de.bund.bva.isyfact:isy-logging:1.9.0-SNAPSHOT - http://isyfact.de/isy-logging)
+		* IsyFact-Sicherheit (de.bund.bva.isyfact:isy-sicherheit:1.9.0-SNAPSHOT - http://isyfact.de/isy-sicherheit)
+		* IsyFact-Utilities (de.bund.bva.isyfact:isy-util:1.9.0-SNAPSHOT - http://isyfact.de/isy-util)
+		* Spring AOP (org.springframework:spring-aop:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+		* Spring Aspects (org.springframework:spring-aspects:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+		* Spring Beans (org.springframework:spring-beans:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+		* Spring Context (org.springframework:spring-context:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+		* Spring Core (org.springframework:spring-core:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+		* Spring Expression Language (SpEL) (org.springframework:spring-expression:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+		* Spring TestContext Framework (org.springframework:spring-test:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+		* Spring Transaction (org.springframework:spring-tx:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+		* Spring Web (org.springframework:spring-web:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+		* Spring Web MVC (org.springframework:spring-webmvc:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
 
-        * Java Servlet API (javax.servlet:javax.servlet-api:jar:3.1.0 - http://servlet-spec.java.net/)
-        * servlet-api (javax.servlet:servlet-api:jar:2.5 - no url defined)				
-        * Servlet Specification 2.5 API (org.mortbay.jetty:servlet-api-2.5:jar:6.1.6 - http://jetty.mortbay.org/)
-        
-    Public Domain:
+	(Apache Software Licenses):
 
-        * AOP alliance (aopalliance:aopalliance:jar:1.0 - http://aopalliance.sourceforge.net/)        
+		* Log4j Implemented Over SLF4J (org.slf4j:log4j-over-slf4j:1.7.25 - http://www.slf4j.org)
+
+	(CDDL + GPLv2 with classpath exception):
+
+		* Java Servlet API (javax.servlet:javax.servlet-api:3.1.0 - http://servlet-spec.java.net)
+
+	(CDDL 1.0):
+
+		* Servlet Specification 2.5 API (org.mortbay.jetty:servlet-api-2.5:6.1.6 - http://jetty.mortbay.org)
+
+	(Eclipse Public License - v 1.0):
+
+		* AspectJ weaver (org.aspectj:aspectjweaver:1.8.9 - http://www.aspectj.org)
+
+	(Eclipse Public License - v 1.0) (GNU Lesser General Public License):
+
+		* Logback Classic Module (ch.qos.logback:logback-classic:1.1.11 - http://logback.qos.ch/logback-classic)
+		* Logback Contrib :: JSON :: Classic (ch.qos.logback.contrib:logback-json-classic:0.1.5 - https://github.com/qos-ch/logback-contrib/wiki/logback-json-parent/logback-json-classic)
+		* Logback Contrib :: JSON :: Core (ch.qos.logback.contrib:logback-json-core:0.1.5 - https://github.com/qos-ch/logback-contrib/wiki/logback-json-parent/logback-json-core)
+		* Logback Contrib :: Jackson (ch.qos.logback.contrib:logback-jackson:0.1.5 - https://github.com/qos-ch/logback-contrib/wiki/logback-jackson)
+		* Logback Core Module (ch.qos.logback:logback-core:1.1.11 - http://logback.qos.ch/logback-core)
+
+	(Eclipse Public License 1.0):
+
+		* JUnit (junit:junit:4.12 - http://junit.org)
+
+	(MIT License):
+
+		* JCL 1.2 implemented over SLF4J (org.slf4j:jcl-over-slf4j:1.7.25 - http://www.slf4j.org)
+		* SLF4J API Module (org.slf4j:slf4j-api:1.7.25 - http://www.slf4j.org)
+
+	(New BSD License):
+
+		* Hamcrest Core (org.hamcrest:hamcrest-core:1.3 - https://github.com/hamcrest/JavaHamcrest/hamcrest-core)
+
+	(Public Domain):
+
+		* AOP alliance (aopalliance:aopalliance:1.0 - http://aopalliance.sourceforge.net)
+
+	(The Apache Software License, Version 2.0):
+
+		* Apache Commons Codec (commons-codec:commons-codec:1.9 - http://commons.apache.org/proper/commons-codec/)
+		* Commons Logging (commons-logging:commons-logging:1.1.3 - http://commons.apache.org/proper/commons-logging/)
+		* Ehcache Core (net.sf.ehcache:ehcache-core:2.6.6 - http://ehcache.org)
+		* Jackson-annotations (com.fasterxml.jackson.core:jackson-annotations:2.9.0 - http://github.com/FasterXML/jackson)
+		* Jackson-core (com.fasterxml.jackson.core:jackson-core:2.9.9 - https://github.com/FasterXML/jackson-core)
+		* jackson-databind (com.fasterxml.jackson.core:jackson-databind:2.9.9.3 - http://github.com/FasterXML/jackson)
+		* spring-security-core (org.springframework.security:spring-security-core:4.2.13.RELEASE - https://spring.io/spring-security)
+
+	(The MIT License):
+
+		* Mockito (org.mockito:mockito-all:1.10.19 - http://www.mockito.org)
