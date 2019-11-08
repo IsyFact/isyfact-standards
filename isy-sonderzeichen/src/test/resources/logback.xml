@@ -30,10 +30,6 @@
     <logger name="com.querydsl.jpa" level="INFO" additivity="false">
         <appender-ref ref="KONSOLE"/>
     </logger>
-    <!-- Dozer -->
-    <logger name="com.github.dozermapper" level="INFO" additivity="false">
-        <appender-ref ref="KONSOLE"/>
-    </logger>
     <!-- Apache Commons -->
     <logger name="org.apache.commons" level="INFO" additivity="false">
         <appender-ref ref="KONSOLE"/>

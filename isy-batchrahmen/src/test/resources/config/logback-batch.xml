@@ -34,12 +34,6 @@
         <appender-ref ref="DATEI_BATCH" />
     </root>
 
-
-    <!-- Dozer nicht auf Level DEBUG Loggen, da es dann einen Performance-Einbruch gibt. -->
-    <logger name="com.github.dozermapper" level="INFO" additivity="false">
-        <appender-ref ref="DATEI_BATCH"/>
-    </logger>
-
     <logger name="de.bund.bva.pliscommon.sicherheit.cams.web.CamsAuthenticationProvider" level="WARN"
         additivity="false">
         <appender-ref ref="DATEI_BATCH"/>

@@ -27,9 +27,4 @@
         <appender-ref ref="KONSOLE"/>
     </root>
 
-    <!-- Dozer nicht auf Level DEBUG Loggen, da es dann einen Performance-Einbruch gibt. -->
-    <logger name="com.github.dozermapper" level="INFO" additivity="false">
-        <appender-ref ref="KONSOLE"/>
-    </logger>
-
 </configuration>
