@@ -36,17 +36,10 @@
 
 
     <!-- Dozer nicht auf Level DEBUG Loggen, da es dann einen Performance-Einbruch gibt. -->
-    <logger name="org.dozer" level="INFO" additivity="false">
-        <appender-ref ref="DATEI_BATCH"/>
-    </logger>
-    <logger name="net.sf.dozer" level="INFO" additivity="false">
+    <logger name="com.github.dozermapper" level="INFO" additivity="false">
         <appender-ref ref="DATEI_BATCH"/>
     </logger>
 
-    <!-- Dozer Warnings über fehlende Properties deaktivieren. -->
-    <logger name="org.dozer.config.GlobalSettings" level="ERROR" additivity="false">
-        <appender-ref ref="DATEI_BATCH"/>
-    </logger>
     <logger name="de.bund.bva.pliscommon.sicherheit.cams.web.CamsAuthenticationProvider" level="WARN"
         additivity="false">
         <appender-ref ref="DATEI_BATCH"/>

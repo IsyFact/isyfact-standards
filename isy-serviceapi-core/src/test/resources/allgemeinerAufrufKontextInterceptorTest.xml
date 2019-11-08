@@ -33,14 +33,23 @@
     <bean id="aufrufKontextVerwalter" class="test.de.bund.bva.pliscommon.serviceapi.core.aufrufkontext.helper.DebugAufrufKontextVerwalter" />
 
     <bean id="aufrufKontextFactory" class="de.bund.bva.pliscommon.aufrufkontext.impl.AufrufKontextFactoryImpl" />
-    
-    <bean id="dozerMapper" class="org.dozer.DozerBeanMapper">
-  		<property name="mappingFiles">
-    	<list>
-      		<value>dozerMapping.xml</value>			   
-    	</list>
-  		</property>
-  	</bean>
+
+    <bean id="mapperBuilder" class="com.github.dozermapper.core.DozerBeanMapperBuilder"
+          factory-method="create"/>
+
+    <!-- Hilfsbean zur Konfiguration der mapperBuilder-Bean -->
+    <bean id="mapperBuilderConfig" class="com.github.dozermapper.core.DozerBeanMapperBuilder"
+          factory-bean="mapperBuilder"
+          factory-method="withMappingFiles">
+        <constructor-arg>
+            <list>
+                <value>dozerMapping.xml</value>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="dozerMapper" class="com.github.dozermapper.core.DozerBeanMapper" factory-bean="mapperBuilderConfig"
+          factory-method="build"/>
 
     <bean id="stelltAllgemeinenAufrufKontextBereitInterceptor" class="de.bund.bva.pliscommon.serviceapi.core.aufrufkontext.StelltAllgemeinenAufrufKontextBereitInterceptor">
         <property name="aufrufKontextVerwalter" ref="aufrufKontextVerwalter" />

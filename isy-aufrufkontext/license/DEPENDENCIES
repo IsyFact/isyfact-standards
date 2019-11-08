@@ -8,7 +8,7 @@ Liste aller Abhängigkeiten zu Drittsoftware gruppiert nach deren Lizenzen. Kein
 				* Apache Commons Lang (org.apache.commons:commons-lang3:3.4 - http://commons.apache.org/proper/commons-lang/)
         * Apache Commons Logging (commons-logging:commons-logging:1.2 - http://commons.apache.org/proper/commons-logging/)
 				* Commons Collections (commons-collections:commons-collections:3.2.1 - http://commons.apache.org/collections/)
-        * Dozer (net.sf.dozer:5.5.1 - http://dozer.sourceforge.net/dozer)
+		* Dozer (com.github.dozermapper:dozer-core:6.5.0 - https://github.com/DozerMapper/dozer)
         * IsyFact Fehlerbehandlung Anwendung (de.bund.bva.isyfact:isy-exception-core:1.2.0 - no url defined)
         * IsyFact Fehlerbehandlung Schnittstelle(de.bund.bva.isyfact:isy-exception-sst:1.2.0 - no url defined)
         * isy-logging (de.bund.bva.isyfact:isy-logging:1.1.2 - no url defined)
