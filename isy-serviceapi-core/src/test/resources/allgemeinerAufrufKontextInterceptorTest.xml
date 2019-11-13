@@ -34,7 +34,7 @@
 
     <bean id="aufrufKontextFactory" class="de.bund.bva.pliscommon.aufrufkontext.impl.AufrufKontextFactoryImpl" />
 
-    <bean id="dozerMapper" class="com.github.dozermapper.spring.DozerBeanMapperFactoryBean">
+    <bean id="dozerMapper" class="de.bund.bva.pliscommon.util.mapper.DozerBeanMapperFactoryBean">
         <property name="mappingFiles">
         <list>
             <value>dozerMapping.xml</value>

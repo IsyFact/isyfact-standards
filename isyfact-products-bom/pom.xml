@@ -19,7 +19,6 @@
         <spring.security.version>4.2.13.RELEASE</spring.security.version>
         <hibernate.orm.version>5.1.1.Final</hibernate.orm.version>
         <querydsl.version>4.0.9</querydsl.version>
-        <dozermapper.version>6.5.0</dozermapper.version>
     </properties>
 
     <!-- Dependency-Management für den Core Technology Stack der IsyFact. -->
@@ -201,13 +200,7 @@
             <dependency>
                 <groupId>com.github.dozermapper</groupId>
                 <artifactId>dozer-core</artifactId>
-                <version>${dozermapper.version}</version>
-            </dependency>
-            <!-- Spring4-Integration -->
-            <dependency>
-                <groupId>com.github.dozermapper</groupId>
-                <artifactId>dozer-spring4</artifactId>
-                <version>${dozermapper.version}</version>
+                <version>6.5.0</version>
             </dependency>
 
             <!-- XML-Serialisierung: XStream -->
