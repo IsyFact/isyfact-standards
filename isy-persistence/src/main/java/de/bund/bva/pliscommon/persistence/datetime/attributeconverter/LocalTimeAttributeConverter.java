@@ -9,7 +9,8 @@ import javax.persistence.Converter;
  * {@link javax.persistence.AttributeConverter} für {@link LocalTime}.
  *
  */
-@Converter(autoApply = true)
+@Deprecated
+@Converter//(autoApply = true) // Auskommentiert damit dieser nicht mehr angewandt wird.
 public class LocalTimeAttributeConverter implements AttributeConverter<LocalTime, Time> {
 
     @Override

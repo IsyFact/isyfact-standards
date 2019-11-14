@@ -12,7 +12,8 @@ import javax.persistence.Converter;
  * Die maximal speicherbare {@link Duration} hat damit eine Länge von 106751 Tagen &asymp; 292.4 Jahre.
  *
  */
-@Converter(autoApply = true)
+@Deprecated
+@Converter//(autoApply = true) // Auskommentiert damit dieser nicht mehr angewandt wird.
 public class DurationAttributeConverter implements AttributeConverter<Duration, Long> {
 
     @Override
