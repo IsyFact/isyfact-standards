@@ -2,6 +2,7 @@
 - `IFS-262`: `isyfact-masterpom` deprecated (Abschaffung mit IsyFact 2.0), `isyfact-masterpom-lib` aufgelöst, Bibliotheken benutzen `isyfact-standards` als Parent-POM
 - `IFS-270`: UUID als Korrelations-ID für Batches statt Batch-ID
 - `IFS-255`: Schließen des Anwendungskontexts nach Ausführung eines Batches.
+- `IFS-461`: Wegen Hibernate Anhebung jpa.xml angepasst.
 
 # 1.9.0
 - `IFS-189`: Repositories der IsyFact-Standards zusammengeführt, Bibliotheken benutzen wieder gemeinsames Produkt-BOM und werden zentral über das POM isyfact-standards versioniert
