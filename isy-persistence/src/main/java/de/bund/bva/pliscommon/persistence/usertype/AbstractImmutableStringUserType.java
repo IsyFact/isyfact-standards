@@ -22,7 +22,6 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import org.hibernate.HibernateException;
-import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.usertype.UserType;
 
@@ -46,8 +45,8 @@ public abstract class AbstractImmutableStringUserType extends AbstractImmutableU
     /**
      * {@inheritDoc}
      */
-    public Object nullSafeGet(ResultSet rs, String[] names, SharedSessionContractImplementor sessionImplementor,
-        Object owner) throws HibernateException, SQLException {
+    public Object nullSafeGet(ResultSet rs, String[] names, SharedSessionContractImplementor
+        sharedSessionContractImplementor, Object owner) throws HibernateException, SQLException {
         String value = rs.getString(names[0]);
         if (rs.wasNull()) {
             return null;
@@ -58,8 +57,8 @@ public abstract class AbstractImmutableStringUserType extends AbstractImmutableU
     /**
      * {@inheritDoc}
      */
-    public void nullSafeSet(PreparedStatement st, Object value, int index,
-        SharedSessionContractImplementor sessionImplementor) throws HibernateException, SQLException {
+    public void nullSafeSet(PreparedStatement st, Object value, int index, SharedSessionContractImplementor
+        sharedSessionContractImplementor) throws HibernateException, SQLException {
         if (value == null) {
             st.setNull(index, SQL_TYPE);
         } else {
