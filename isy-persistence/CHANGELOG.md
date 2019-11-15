@@ -1,5 +1,5 @@
 # 1.10.0
-- `IFS-461`: Wegen Hibernate Anhebung Methodensignaturen angepasst und einige AttributeConverter und Tests als Deprecated markiert.
+- `IFS-461`: Wegen Hibernate Anhebung Hibernate-Entitymanager entfernt, Methodensignaturen angepasst und einige AttributeConverter und Tests als Deprecated markiert.
 
 # 1.9.0
 - `IFS-262`: `isyfact-masterpom` deprecated (Abschaffung mit IsyFact 2.0), `isyfact-masterpom-lib` aufgelöst, Bibliotheken benutzen `isyfact-standards` als Parent-POM

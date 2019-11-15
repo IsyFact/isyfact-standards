@@ -111,11 +111,6 @@
             <!-- Persistenz-Framework: Hibernate -->
             <!-- Hibernate-EntityManager für JPA -->
             <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-entitymanager</artifactId>
-                <version>${hibernate.orm.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.hibernate.javax.persistence</groupId>
                 <artifactId>hibernate-jpa-2.1-api</artifactId>
                 <version>1.0.0.Final</version>
@@ -124,12 +119,6 @@
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-core</artifactId>
-                <version>${hibernate.orm.version}</version>
-            </dependency>
-            <!-- Unterstützung für Java-8-Time -->
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-java8</artifactId>
                 <version>${hibernate.orm.version}</version>
             </dependency>
 
