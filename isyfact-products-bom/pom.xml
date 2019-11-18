@@ -19,6 +19,7 @@
         <spring.security.version>4.2.13.RELEASE</spring.security.version>
         <hibernate.orm.version>5.1.1.Final</hibernate.orm.version>
         <querydsl.version>4.0.9</querydsl.version>
+        <slf4j.version>1.7.25</slf4j.version>
     </properties>
 
     <!-- Dependency-Management für den Core Technology Stack der IsyFact. -->
@@ -145,16 +146,26 @@
                 <version>2.0.1</version>
             </dependency>
 
-            <!-- Logging: Logback -->
+            <!-- Logging -->
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <version>1.7.25</version>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-jcl</artifactId>
+                <version>${slf4j.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>log4j-over-slf4j</artifactId>
-                <version>1.7.25</version>
+                <version>${slf4j.version}</version>
             </dependency>
             <dependency>
                 <groupId>log4j</groupId>
