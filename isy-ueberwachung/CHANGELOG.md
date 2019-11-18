@@ -1,3 +1,6 @@
+# 1.10.0
+- `IFS-325`: Implementierung vom `AdministrationWatchdogTask` und dazugehoerigen Tests.
+
 # 1.9.0
 - `IFS-248`: Log-Level vom Start der Watchdog Prüfung auf debug gesetzt.
 - `IFS-262`: `isyfact-masterpom` deprecated (Abschaffung mit IsyFact 2.0), `isyfact-masterpom-lib` aufgelöst, Bibliotheken benutzen `isyfact-standards` als Parent-POM
