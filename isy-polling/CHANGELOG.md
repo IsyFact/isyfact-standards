@@ -1,3 +1,6 @@
+# 1.8.0
+- `IFS-303`: Surefire-Plugin bezieht Version aus Standards und argLine Anpassung JaCoCo
+
 # 1.7.0
 - `IFS-262`: `isyfact-masterpom` deprecated (Abschaffung mit IsyFact 2.0), `isyfact-masterpom-lib` aufgelöst, Bibliotheken benutzen `isyfact-standards` als Parent-POM
 - `IFS-312`: Nicht benötigte SQL-Skripte entfernt
