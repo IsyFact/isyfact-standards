@@ -6,8 +6,7 @@ import de.bund.bva.isyfact.task.model.TaskMonitor;
 import de.bund.bva.pliscommon.ueberwachung.admin.Watchdog;
 import org.junit.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.*;
 
 public class TestAdministrationWatchdogTask {
 
@@ -23,38 +22,11 @@ public class TestAdministrationWatchdogTask {
     public void testExecuteMitWatchdog() {
         AdministrationWatchdogTask administrationWatchdogTask = new AdministrationWatchdogTask(new TaskMonitor());
 
-        AdministrationWatchdog administrationWatchdog = new AdministrationWatchdog();
-        administrationWatchdog.setGeprueft(false);
+        Watchdog administrationWatchdog = mock(Watchdog.class);
         administrationWatchdogTask.setAdministrationWatchdog(administrationWatchdog);
 
-        assertFalse(administrationWatchdog.isGeprueft());
-
         administrationWatchdogTask.execute();
-
-        assertTrue(administrationWatchdog.isGeprueft());
+        verify(administrationWatchdog, times(1)).pruefeSystem();
     }
 
-    private class AdministrationWatchdog implements Watchdog {
-
-        private boolean geprueft;
-
-        public void setGeprueft(boolean geprueft) {
-            this.geprueft = geprueft;
-        }
-
-        public boolean isGeprueft() {
-            return geprueft;
-        }
-
-        @Override
-        public boolean pruefeSystem() {
-            geprueft = true;
-            return false;
-        }
-
-        @Override
-        public void addPruefung(String beschreibung, Callable<Boolean> pruefung) {
-
-        }
-    }
 }
