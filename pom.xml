@@ -258,6 +258,7 @@
                 <executions>
                     <execution>
                         <id>check-pom-style</id>
+                        <phase>validate</phase>
                         <goals>
                             <goal>check</goal>
                         </goals>
