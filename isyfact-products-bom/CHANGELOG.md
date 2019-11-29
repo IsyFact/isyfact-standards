@@ -2,6 +2,7 @@
 - `IFS-385`: jackson-databind auf 2.9.9.3 angehoben.
 - `IFS-418`: Spring auf 5.1.9.RELEASE angehoben. Spring Security auf 5.1.6.RELEASE angehoben.
 - `IFS-437`: com.thoughtworks.xstream:xstream auf 1.4.11.1 angehoben
+- `IFS-460`: org.apache.poi:poi auf 4.1.1 angehoben
 
 # 2.0.0
 - `IFS-228`: Einführung von Spring Boot
