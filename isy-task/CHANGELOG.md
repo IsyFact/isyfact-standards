@@ -1,3 +1,6 @@
+# 1.4.0
+- `IFS-325`: Ungenutze Abhaengigkeit auf `isy-ueberwachung` entfernt
+
 # 1.3.0
 - `IFS-262`: `isyfact-masterpom` deprecated (Abschaffung mit IsyFact 2.0), `isyfact-masterpom-lib` aufgelöst, Bibliotheken benutzen `isyfact-standards` als Parent-POM
 
