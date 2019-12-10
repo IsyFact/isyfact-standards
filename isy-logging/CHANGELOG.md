@@ -1,4 +1,5 @@
 # 2.1.0
+- `IFS-362`: LogApplicationListener loggt nur noch für den eigenen ApplicationContext (nicht für Kind-Kontexte)
 - `IFS-444`: Anpassung der Klasse BeanToMapConverter
 
 # 2.0.0
