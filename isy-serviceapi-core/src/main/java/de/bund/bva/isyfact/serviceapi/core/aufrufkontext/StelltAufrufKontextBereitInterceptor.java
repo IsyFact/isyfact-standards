@@ -25,6 +25,7 @@ import de.bund.bva.isyfact.serviceapi.common.AufrufKontextToHelper;
 import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
+import org.springframework.core.Ordered;
 
 /**
  * Erzeugt einen {@link AufrufKontext}, befüllt ihn mit den Daten aus dem {@link AufrufKontextTo}, und setzt
@@ -33,11 +34,19 @@ import org.aopalliance.intercept.MethodInvocation;
  * @param <T>
  *            der Aufrufkontext
  */
-public class StelltAufrufKontextBereitInterceptor<T extends AufrufKontext> implements MethodInterceptor {
+public class StelltAufrufKontextBereitInterceptor<T extends AufrufKontext> implements MethodInterceptor,
+    Ordered {
 
     /** Logger. */
     private static final IsyLogger LOG = IsyLoggerFactory
         .getLogger(StelltAufrufKontextBereitInterceptor.class);
+
+    /** Standard-Reihenfolge für die Intercepter-Ausführung, wenn kein anderer gesetzt wird.
+     * Muss vor GesichertInterceptor ausgeführt werden. */
+    private static final int DEFAULT_ORDER = 10_000;
+
+    /** Reihenfolge für die Interceptor-Ausführung. */
+    private int order = DEFAULT_ORDER;
 
     /**
      * Zugriff auf die AufrufKontextFactory zum Mappen des empfangenen AufrufKontextTo auf den
@@ -94,4 +103,12 @@ public class StelltAufrufKontextBereitInterceptor<T extends AufrufKontext> imple
         }
     }
 
+    public void setOrder(int order) {
+        this.order = order;
+    }
+
+    @Override
+    public int getOrder() {
+        return order;
+    }
 }
