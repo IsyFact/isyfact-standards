@@ -2,80 +2,107 @@
 List of third-party dependencies grouped by their license type. No warranty on correctness and completeness. /
 Liste aller Abhängigkeiten zu Drittsoftware gruppiert nach deren Lizenzen. Keine Gewähr für Korrektheit und Vollständigkeit.
 
-    Apache License, Version 2.0:
+	(Apache 2):
 
-				* Apache Commons Lang (org.apache.commons:commons-lang:3:3.4 - http://commons.apache.org/proper/commons-lang/)
-				* ClassMate (com.fasterxml:classmate:1.3.0 - http://github.com/cowtowncoder/java-classmate)
-				* Commons Logging (commons-logging:commons-logging:1.1.3 - http://commons.apache.org/proper/commons-logging/)
-				* IsyFact-Fehlerbehandlung (Basisklassen) (de.bund.bva.isyfact:isy-exception-core:1.3.2 - no url defined)
-				* IsyFact-Logging (de.bund.bva.isyfact:isy-logging:1.3.2 - no url defined)				
-				* IsyFact-Utilities (de.bund.bva.isyfact:isy-util:1.3.2 - no url defined)
-        * Jackson-annotations (com.fasterxml.jackson.core:jackson-annotations:2.5.0 - http://github.com/FasterXML/jackson)
-        * Jackson-core (com.fasterxml.jackson.core:jackson-core:2.5.0 - https://github.com/FasterXML/jackson)
-        * Jackson-databind (com.fasterxml.jackson.core:jackson-databind:2.5.0 - http://github.com/FasterXML/jackson)
-        * Java Annotation Indexer (org.jboss:jandex:2.0.0.Final - http://www.jboss.org/jandex)
-        * Javassist (org.javassist:javassist:3.20.0-GA - http://www.javassist.org/)
-        * JBoss Logging 3 (org.jboss.logging:jboss-logging:3.3.0.Final - http://www.jboss.org/)
-        * JTA 1.1 (org.apache.geronimo.specs:geronimo-jta_1.1_spec:1.1.1 - http://geronimo.apache.org/specs/geronimo-jta_1.1_spec)
-        * Logback Contrib :: JSON :: Classic (ch.qos.logback.contrib:logback-json-classic:0.1.2 - https://github.com/qos-ch/logback-contribs/wiki/logback-json-parent/logback-json-classic)
-        * Logback Contrib :: JSON :: Core (ch.qos.logback.contrib:logback-json-core:0.1.2 - https://github.com/qos-ch/logback-contribs/wiki/logback-json-parent/logback-json-core)				
-        * Logback Contrib :: Jackson (ch.qos.logback.contrib:logback-jackson:0.1.2 - https://github.com/qos-ch/logback-contribs/wiki/logback-jackson)
-        * Log4j Implemented Over SLF4J (org.slf4j:log4j-over-slf4j:1.7.7 - http://www.slf4j.org/)
-        * Spring AOP (org.springframework:spring-aop:4.2.5.RELEASE - https://github.com/spring-projects/spring-framework)       				
-        * Spring Aspects (org.springframework:spring-aspects:4.2.5.RELEASE - https://github.com/spring-projects/spring-framework)
-        * Spring Beans (org.springframework:spring-beans:4.2.5.RELEASE - https://github.com/spring-projects/spring-framework)
-        * Spring Context (org.springframework:spring-context:4.2.5.RELEASE - https://github.com/spring-projects/spring-framework)
-        * Spring Core (org.springframework:spring-core:4.2.5.RELEASE - https://github.com/spring-projects/spring-framework)
-        * Spring Expression Language (SpEL)(org.springframework:spring-expression:4.2.5.RELEASE - https://github.com/spring-projects/spring-framework)
-        * Spring JDBC (org.springframework:spring-jdbc:4.2.5.RELEASE - https://github.com/spring-projects/spring-framework)
-        * Spring TestContext Framework (org.springframework:spring-test:4.2.5.RELEASE - https://github.com/spring-projects/spring-framework)
-        * Spring Transaction (org.springframework:spring-tx:4.2.5.RELEASE - https://github.com/spring-projects/spring-framework)
-				* XML Commons External Components XML APIs (xml-apis:xml-apis:1.0.b2 - http://xml.apache.org/commons/#external)
+		* Spring Test DBUnit (com.github.springtestdbunit:spring-test-dbunit:1.3.0 - https://springtestdbunit.github.com/spring-test-dbunit)
 
-    BSD License:
+	(Apache License 2.0) (LGPL 2.1) (MPL 1.1):
 
-        * AntLR Parser Generator (antlr:antlr:2.7.7 - http://www.antlr.org/)                
-				
-    BSD License, 2-Clause:
-    		
-    		* Hamcrest Core (org.hamcrest:hamcrest-core:1.3 - https://github.com/hamcrest/JavaHamcrest/hamcrest-core)
-    		
-    BSD License, 3-Clause:
+		* Javassist (org.javassist:javassist:3.20.0-GA - http://www.javassist.org/)
 
-        * dom4j (dom4j:dom4j:1.6.1 - http://dom4j.org/)
-        
-    Eclipse Public License, Version 1.0:				
-    
-        * AspectJ weaver (org.aspectj:aspectjweaver:1.8.8 - http://www.aspectj.org/)
-        * Java Persistence API, Version 2.1 (org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final - http://hibernate.org/)
-				* JUnit (junit:junit:4.12 - http://junit.org/) 
-        * Logback Classic Module (ch.qos.logback:logback-classic:1.1.3 - http://logback.qos.ch/logback-classic)
-        * Logback Core Module (ch.qos.logback:logback-core:1.1.3 - http://logback.qos.ch/logback-core)
-        
-    Eclipse Distribution License, Version 1.0:			    
-            
-        * Java Persistence API, Version 2.1 (org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final - http://hibernate.org/)            
-            
-		GNU Lesser General Public License, Version 2.1:
-        
-        * Core Hibernate O/RM functionality (org.hibernate:hibernate-core:5.1.0.Final - http://hibernate.org/)        
-        * Hibernate Commons Annotations (org.hibernate.common:hibernate-commons-annotations:5.0.1.Final - http://hibernate.org/)
-        * Javassist (org.javassist:javassist:3.20.0-GA - http://www.javassist.org/)
-        * Logback Classic Module (ch.qos.logback:logback-classic:1.1.3 - http://logback.qos.ch/logback-classic)
-				* Logback Core Module (ch.qos.logback:logback-core:1.1.3 - http://logback.qos.ch/logback-core)        
-				
-		Public Domain:
+	(Apache License, Version 2.0):
 
-        * AOP alliance (aopalliance:aopalliance:1.0 - http://aopalliance.sourceforge.net/)
-        
-    MIT License:
+		* Apache Commons Codec (commons-codec:commons-codec:1.10 - http://commons.apache.org/proper/commons-codec/)
+		* Apache Commons Collections (commons-collections:commons-collections:3.2.2 - http://commons.apache.org/collections/)
+		* IsyFact Datum & Zeit (de.bund.bva.isyfact:isy-datetime:1.4.0-SNAPSHOT - http://isyfact.de/isy-datetime)
+		* IsyFact-Fehlerbehandlung (Basisklassen) (de.bund.bva.isyfact:isy-exception-core:1.9.0-SNAPSHOT - http://isyfact.de/isy-exception-core)
+		* IsyFact-Logging (de.bund.bva.isyfact:isy-logging:1.9.0-SNAPSHOT - http://isyfact.de/isy-logging)
+		* IsyFact-Utilities (de.bund.bva.isyfact:isy-util:1.9.0-SNAPSHOT - http://isyfact.de/isy-util)
+		* Java Annotation Indexer (org.jboss:jandex:2.0.0.Final - http://www.jboss.org/jandex)
+		* Spring AOP (org.springframework:spring-aop:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+		* Spring Aspects (org.springframework:spring-aspects:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+		* Spring Beans (org.springframework:spring-beans:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+		* Spring Context (org.springframework:spring-context:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+		* Spring Core (org.springframework:spring-core:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+		* Spring Expression Language (SpEL) (org.springframework:spring-expression:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+		* Spring JDBC (org.springframework:spring-jdbc:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+		* Spring Object/Relational Mapping (org.springframework:spring-orm:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+		* Spring TestContext Framework (org.springframework:spring-test:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+		* Spring Transaction (org.springframework:spring-tx:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
 
-				* SLF4J API Module (org.slf4j:slf4j-api:1.7.7 - http://www.slf4j.org/)
-				
-		Mozilla Public License Version 1.1
-		
-        * Javassist (org.javassist:javassist:3.20.0-GA - http://www.javassist.org/)
-        
-		Oracle Technology Network Development and Distribution License Terms:
-		
-				* ojdbc7 (com.oracle:ojdbc7:12.1.0.2 - no url defined)        
+	(Apache License, version 2.0):
+
+		* JBoss Logging 3 (org.jboss.logging:jboss-logging:3.3.0.Final - http://www.jboss.org)
+
+	(Apache Software Licenses):
+
+		* Log4j Implemented Over SLF4J (org.slf4j:log4j-over-slf4j:1.7.25 - http://www.slf4j.org)
+
+	(BSD License):
+
+		* AntLR Parser Generator (antlr:antlr:2.7.7 - http://www.antlr.org/)
+		* curvesapi (com.github.virtuald:curvesapi:1.03 - https://github.com/virtuald/curvesapi)
+
+	(Eclipse Distribution License (EDL), Version 1.0) (Eclipse Public License (EPL), Version 1.0):
+
+		* Java Persistence API, Version 2.1 (org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final - http://hibernate.org)
+
+	(Eclipse Public License - v 1.0):
+
+		* AspectJ weaver (org.aspectj:aspectjweaver:1.8.9 - http://www.aspectj.org)
+
+	(Eclipse Public License - v 1.0) (GNU Lesser General Public License):
+
+		* Logback Classic Module (ch.qos.logback:logback-classic:1.2.3 - http://logback.qos.ch/logback-classic)
+		* Logback Contrib :: JSON :: Classic (ch.qos.logback.contrib:logback-json-classic:0.1.5 - https://github.com/qos-ch/logback-contrib/wiki/logback-json-parent/logback-json-classic)
+		* Logback Contrib :: JSON :: Core (ch.qos.logback.contrib:logback-json-core:0.1.5 - https://github.com/qos-ch/logback-contrib/wiki/logback-json-parent/logback-json-core)
+		* Logback Contrib :: Jackson (ch.qos.logback.contrib:logback-jackson:0.1.5 - https://github.com/qos-ch/logback-contrib/wiki/logback-jackson)
+		* Logback Core Module (ch.qos.logback:logback-core:1.2.3 - http://logback.qos.ch/logback-core)
+
+	(Eclipse Public License 1.0):
+
+		* JUnit (junit:junit:4.12 - http://junit.org)
+
+	(GNU Lesser General Public License):
+
+		* Core Hibernate O/RM functionality (org.hibernate:hibernate-core:5.1.1.Final - http://hibernate.org)
+		* Hibernate Commons Annotations (org.hibernate.common:hibernate-commons-annotations:5.0.1.Final - http://hibernate.org)
+		* Hibernate JPA Support (org.hibernate:hibernate-entitymanager:5.1.1.Final - http://hibernate.org)
+
+	(GNU Lesser General Public License, Version 2.1):
+
+		* dbUnit Extension (org.dbunit:dbunit:2.5.3 - http://dbunit.sourceforge.net)
+
+	(MIT License):
+
+		* SLF4J API Module (org.slf4j:slf4j-api:1.7.25 - http://www.slf4j.org)
+
+	(MPL 2.0 or EPL 1.0):
+
+		* H2 Database Engine (com.h2database:h2:1.4.196 - http://www.h2database.com)
+
+	(New BSD License):
+
+		* Hamcrest Core (org.hamcrest:hamcrest-core:1.3 - https://github.com/hamcrest/JavaHamcrest/hamcrest-core)
+
+	(The Apache Software License, Version 2.0):
+
+		* Apache POI (org.apache.poi:poi-ooxml-schemas:3.14 - http://poi.apache.org/)
+		* Apache POI (org.apache.poi:poi-ooxml:3.14 - http://poi.apache.org/)
+		* Apache POI (org.apache.poi:poi:3.14 - http://poi.apache.org/)
+		* ClassMate (com.fasterxml:classmate:1.3.0 - http://github.com/cowtowncoder/java-classmate)
+		* Commons Logging (commons-logging:commons-logging:1.1.3 - http://commons.apache.org/proper/commons-logging/)
+		* JTA 1.1 (org.apache.geronimo.specs:geronimo-jta_1.1_spec:1.1.1 - http://geronimo.apache.org/specs/geronimo-jta_1.1_spec)
+		* Jackson-annotations (com.fasterxml.jackson.core:jackson-annotations:2.9.0 - http://github.com/FasterXML/jackson)
+		* Jackson-core (com.fasterxml.jackson.core:jackson-core:2.9.9 - https://github.com/FasterXML/jackson-core)
+		* StAX API (stax:stax-api:1.0.1 - http://stax.codehaus.org/)
+		* XmlBeans (org.apache.xmlbeans:xmlbeans:2.6.0 - http://xmlbeans.apache.org)
+		* jackson-databind (com.fasterxml.jackson.core:jackson-databind:2.9.9.3 - http://github.com/FasterXML/jackson)
+
+	(The MIT License):
+
+		* Mockito (org.mockito:mockito-all:1.10.19 - http://www.mockito.org)
+
+	(Unknown license):
+
+		* dom4j (dom4j:dom4j:1.6.1 - http://dom4j.org)
