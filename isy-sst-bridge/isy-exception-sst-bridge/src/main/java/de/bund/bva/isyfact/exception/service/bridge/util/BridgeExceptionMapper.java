@@ -14,7 +14,7 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.isyfact.exception.service.util;
+package de.bund.bva.isyfact.exception.service.bridge.util;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

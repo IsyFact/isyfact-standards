@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.util;
+package de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.bridge.util;
 
 import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.ClientAufrufKontextTo;

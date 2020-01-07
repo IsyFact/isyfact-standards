@@ -4,7 +4,7 @@ import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.isyfact.exception.BusinessException;
 import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
-import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.util.ServiceApiMapper;
+import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.bridge.util.ServiceApiMapper;
 import de.bund.bva.pliscommon.bridges.integration.config.TestClientConfiguration;
 import de.bund.bva.pliscommon.bridges.integration.config.TestServiceConfiguration;
 import de.bund.bva.pliscommon.bridges.integration.sst.PlisTestRemoteBean;

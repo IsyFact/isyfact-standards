@@ -2,6 +2,7 @@ package de.bund.bva.isyfact.exception.service.util;
 
 import static org.junit.Assert.*;
 
+import de.bund.bva.isyfact.exception.service.bridge.util.BridgeExceptionMapper;
 import org.junit.Test;
 
 import de.bund.bva.isyfact.exception.BusinessException;

@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.Objects;
 
+import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.bridge.util.ServiceApiMapper;
 import org.junit.Test;
 
 import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
