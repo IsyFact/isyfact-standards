@@ -8,7 +8,7 @@
         <version>2.1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>serviceapi-sst-bridge</artifactId>
+    <artifactId>isy-serviceapi-sst-bridge</artifactId>
 
     <dependencies>
         <dependency>

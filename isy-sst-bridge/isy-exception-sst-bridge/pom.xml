@@ -8,7 +8,7 @@
         <version>2.1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>exception-sst-bridge</artifactId>
+    <artifactId>isy-exception-sst-bridge</artifactId>
 
     <dependencies>
         <dependency>
