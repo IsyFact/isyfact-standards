@@ -1,0 +1,11 @@
+= Titel des Dokuments: Inhalt
+include::{isy-dokumentvorlagen}/docs/common/isyfact-attributes.adoc[]
+
+// tag::inhalt[]
+
+== Kapitel
+
+Inhalt
+
+
+// end::inhalt[]

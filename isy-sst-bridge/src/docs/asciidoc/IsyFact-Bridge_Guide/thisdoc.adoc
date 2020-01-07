@@ -1,0 +1,14 @@
+= Isyfact-Bridges-Guide: Einleitung
+include::{isy-dokumentvorlagen}/docs/common/isyfact-attributes.adoc[]
+
+// tag::inhalt[]
+
+In diesem Dokument wird der Zweck und die Verwendung der isy-sst-bridges beschrieben.
+Das Modul unterstützt bei der Kommunikation von IsyFact2-Anwendungen auf IsyFact1-Anwendungen.
+
+[[aufbau-und-zweck-des-dokuments]]
+== Aufbau und Zweck des Dokuments
+
+Knappe Schilderung des Aufbaus und der zentralen Inhalte jedes Kapitels.
+
+// end::inhalt[]
