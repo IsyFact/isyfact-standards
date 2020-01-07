@@ -1,5 +1,4 @@
 # 2.1.0
-- `IFS-410`: Checkstyle Plugin auf Version 3.1.0 angehoben
 - `IFS-463`: Abwärtskompatibilität IsyFact 2 zu IsyFact 1 - Erstellung der Bridge
 
 
