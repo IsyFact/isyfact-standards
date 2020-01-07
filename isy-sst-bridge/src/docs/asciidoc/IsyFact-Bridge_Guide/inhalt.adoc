@@ -1,11 +1,39 @@
-= Titel des Dokuments: Inhalt
+= Isyfact-Bridges-Guide: Inhalt
 include::{isy-dokumentvorlagen}/docs/common/isyfact-attributes.adoc[]
 
 // tag::inhalt[]
 
-== Kapitel
+== Nutzen der Isy-SST-Bridge
 
-Inhalt
+Mit der Versionsanhebung von IsyFact 1 auf IsyFact 2, wurden einige Module aus dem ehemaligen "plis-common"-Namensraum in den "isyfact"-Namensraum umgezogen.
+Dies hat unter Anderem dazu geführt, dass IsyFact 2 Anwendungen nicht mehr die Schnittstellen von Isyfact 1 Anwendungen zugreifen konnten, da sie die den "plis-common"-Namensraum nicht mehr kennen.
+Das Modul Isy-SST-Bridge stellt IsyFact 2-Anwendungen die wichtigsten Transfer-Objekte aus dem "plis-common"-Namensraum zur Verfügung.
+Enthalten sind die Transferobjekte der isy-exception-sst und der isy-serviceapi-sst, sowie einige Hilfsmapper.
+
+== Einbindung
+
+Um in 2er Anwendungen auch Schnittstellen von 1er Anwendungen nutzen zu können, müssen die Bridges als Dependency in Maven hinzugefügt werden.
+
+:desc-listing-pom: Einbindung in pom.xml
+[id="listing-pom",reftext="Listing pom.xml"]
+.{desc-listing-pom}
+[source,xml]
+----
+<dependency>
+    <groupId>de.bund.bva.isyfact</groupId>
+    <artifactId>isy-exception-sst-bridge</artifactId>
+</dependency>
+<dependency>
+    <groupId>de.bund.bva.isyfact</groupId>
+    <artifactId>isy-serviceapi-sst-bridge</artifactId>
+</dependency>
+----
+
+== Verwendung
+
+Mit der Bridge wird ein ServiceApiMapper zur Verfügung gestellt.
+Um diesen nutzen zu können, wird dieser als Bean initialisiert.
+
 
 
 // end::inhalt[]

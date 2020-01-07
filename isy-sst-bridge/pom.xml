@@ -16,8 +16,8 @@
     <description>Stellt die SST-Objekte der 1er-IsyFact-Version zur Verfügung.</description>
 
     <modules>
-        <module>serviceapi-sst-bridge</module>
-        <module>exception-sst-bridge</module>
+        <module>isy-serviceapi-sst-bridge</module>
+        <module>isy-exception-sst-bridge</module>
     </modules>
 
     <dependencyManagement>
