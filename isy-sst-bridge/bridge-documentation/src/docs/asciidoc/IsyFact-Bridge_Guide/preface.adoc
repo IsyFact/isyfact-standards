@@ -1,4 +1,4 @@
 == Zusammenfassung für das Management
 
-Das Modul isy-sst-bridge nterstützt bei der Kommunikation von IsyFact2-Anwendungen mit IsyFact1-Anwendungen.
+Das Modul isy-sst-bridge unterstützt bei der Kommunikation von IsyFact2-Anwendungen mit IsyFact1-Anwendungen.
 Im vorliegenden Dokument wird die Einbindung und Nutzung für den Programmierer beschrieben.

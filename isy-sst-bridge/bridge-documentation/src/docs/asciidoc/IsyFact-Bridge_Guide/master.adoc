@@ -2,7 +2,7 @@
 include::{isy-dokumentvorlagen}/docs/common/isyfact-attributes.adoc[]
 
 //
-:doctitle: Isyfact-Bridges-Guide
+:doctitle: Isyfact-Bridge-Guide
 :title: {doctitle}
 
 // Zwangsplatz des TOC

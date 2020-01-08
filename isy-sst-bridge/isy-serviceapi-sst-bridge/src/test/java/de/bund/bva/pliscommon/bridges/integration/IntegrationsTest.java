@@ -72,7 +72,7 @@ public class IntegrationsTest {
     }
 
     /*
-     * Analog zu BehoerdenverzeichnisHttpInvokerWrapper übernommen
+     * übernommen aus anderen Service-Anwendungen bei Erzeugung eines TO-Objektes
      */
     private AufrufKontextTo mappeAufrufKontext2AufrufKontextTo(AufrufKontext aufrufKontext) {
         AufrufKontextTo aufrufKontextTo = new AufrufKontextTo();

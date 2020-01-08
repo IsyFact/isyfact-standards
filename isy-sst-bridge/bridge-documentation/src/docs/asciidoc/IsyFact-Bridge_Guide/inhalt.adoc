@@ -32,37 +32,91 @@ Um in 2er Anwendungen auch Schnittstellen von 1er Anwendungen nutzen zu können,
 Die richtige Version wird aus der Standard-Products-BOM mitgeliefert.
 Generell muss eine 2.x Anwendung die 2.x Version des Wrappers einbinden, um auf 1.x Anwendungen zugreifen zu können.
 
-== Verwendung
+== Verwendung auf Client-Seite
 
-Die Bridge beinhaltet einen ServiceApiMapper zum einfachen Mappen des 2.x-AufrufKontextTo auf einen 1.x-AufrufKontextTo.
+Der Service-Zugriff ist nach dem <<DetailkonzeptKomponenteService, Detailkonzept Komponente Service>> zu gestalten.
+Der folgende Abschnitt beschreibt den Zugriff einer 2.x-Anwendung auf einen 1.x-Service einer 1er Anwendung.
+
+Die Bridge beinhaltet hierfür einen ServiceApiMapper zum einfachen Mappen des 2.x-AufrufKontextTo auf einen 1.x-AufrufKontextTo.
 Standardmäßig wird der ServiceApiMapper mit der Autokonfiguration des Moduls als Bean zur Verfügung gestellt.
-Im <<listing-serviceapimapper>> zeigt am Beispiel die Nutzung des ServiceApiMapper.
+Das <<listing-serviceapimapper>> zeigt am Beispiel die Nutzung des ServiceApiMapper.
 
 :desc-listing-serviceapimapper: Nutzung des ServiceApiMapper
 [id="listing-serviceapimapper",reftext="Listing Nutzung des ServiceApiMapper"]
 .{desc-listing-serviceapimapper}
-[source,xml]
+[source,java]
 ----
-import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.bridge.util.ServiceApiMapper;
-
+import
+de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.bridge.util.ServiceApiMapper;
+import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 ...
 
-    // Injection
-    @Autowired
-    private ServiceApiMapper aufrufKontextMapper;
+// Injection
+@Autowired
+private ServiceApiMapper aufrufKontextMapper;
 
 ...
-
-        // Usage:
-        // Hole Isyfact AufrufKontextTo
-        AufrufKontextTo isyAufrufKontextTo = // ...
-        // Mappe in einen plis-AufrufKontext
-        AufrufKontextTo plisAufrufKontextTo = aufrufKontextMapper.map(isyAufrufKontextTo);
-        //Aufruf der RemoteBean
-        remoteBean.doSomething(plisAufrufKontextTo, ...);
+/* In der Aufrufmethode */
+// Erstelle Isyfact AufrufKontextTo wie gehabt
+de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo isyAufrufKontextTo = // ...
+// Mappe in einen plis-AufrufKontext
+AufrufKontextTo plisAufrufKontextTo = aufrufKontextMapper.map(isyAufrufKontextTo);
+//Aufruf der 1.x-RemoteBean
+remoteBean.doSomething(plisAufrufKontextTo, ...);
 
 ...
 ----
 
+Da in der Klasse sowohl der "pliscommon"- als auch der "isyfact"-AufrufKontextTo genutzt wird, kann nur einer der beiden als Import angegeben werden.
+Sofern der andere explizit im Code benötigt wird, muss der volle Pfad angegeben werden, wie im <<listing-serviceapimapper>> zu sehen.
+
+[TIP]
+====
+Eine 1.x-RemoteBean wird nur 1.x-AufrufKontextTo-Objekte akzeptieren.
+Wenn Ihnen beim Aufruf Kompilationsfehler angezeigt werden, überprüfen Sie nochmals, ob die richtige Version des AufrufKontextTo übergeben wird.
+====
+
+Wirft die Funktion der RemoteBean Exceptions, werden diese, wie in <<DetailkonzeptKomponenteService, Detailkonzept Komponente Service>> beschrieben abgefangen.
+Das isy-exception-sst-bridge-Modul, welches in <<listing-pom>> eingebunden wurde, liefert hierfür die ExceptionTo-Klassen des Plis-Namensraums.
+
+
+
+== Verwendung auf Service-Seite
+
+Die Bridge kann auch verwendet werden, falls eine 2.x-Anwendung eine 1er-Serviceschnittstelle zur Verfügung stellen möchte.
+Hierfür liefert die Bridge zusätzlich auch einen Exception-Mapper.
+
+Der BridgeExceptionMapper ermöglicht es reguläre Isyfact2-Exceptions in Isyfact1-TranferExceptions zu konvertieren.
+Die Verwendung ist dabei identisch zum ExceptionMapper aus isy-serviceapi-core.
+Das <<listing-exceptionmapper>> zeigt, wie die Verwendung in einer Exception-Fassade aussieht.
+
+:desc-listing-exceptionmapper: Nutzung des BridgeExceptionMapper
+[id="listing-exceptionmapper",reftext="Listing Nutzung des BridgeExceptionMapper"]
+.{desc-listing-exceptionmapper}
+[source,java]
+----
+import de.bund.bva.isyfact.exception.service.bridge.util.BridgeExceptionMapper;
+
+...
+public class BeispielExceptionFassade implements BeispielRemoteBean
+{
+    private BeispielService beispielService;
+...
+    public BeispielHolenAntwortTo holeBeispielAnfrage(
+            AufrufKontextTo kontext,
+            BeispielHolenAnfrageTo anfrage
+        ) throws TargetPlisToException {
+        try {
+            return beispielService.holeBeispielAnfrage(kontext,anfrage);
+        } catch (SomeIsyException someIsyException) {
+            logger.error("Fehler bei Transaktion", e);
+            throw BridgeExceptionMapper.mapException(someIsyException, TargetPlisToException.class);
+        }
+        // weitere Exceptions
+}
+...
+----
+
+Weitere Informationen zum Aufbau der Service-Logik sind dem <<DetailkonzeptKomponenteService, Detailkonzept Komponente Service>> zu entnehmen.
 
 // end::inhalt[]

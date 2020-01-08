@@ -11,6 +11,7 @@
     <artifactId>bridge-documentation</artifactId>
 
     <profiles>
+    <!--in eigenem Profil, da er nur unter Linux ausgefuehrt werden kann-->
     <profile>
         <id>build-bridge-guide</id>
         <properties>
@@ -108,7 +109,7 @@
                     <configuration>
                         <filesets>
                             <fileset>
-                                <directory>src/docs/asciidoc</directory>
+                                <directory>${project.basedir}/src/docs/asciidoc</directory>
                                 <includes>
                                     <include>**/bibliography.adoc</include>
                                     <include>**/glossary.adoc</include>
