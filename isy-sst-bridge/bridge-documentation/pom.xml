@@ -108,7 +108,7 @@
                     <configuration>
                         <filesets>
                             <fileset>
-                                <directory>src/docs/asciidoc</directory>
+                                <directory>${project.basedir}/src/docs/asciidoc</directory>
                                 <includes>
                                     <include>**/bibliography.adoc</include>
                                     <include>**/glossary.adoc</include>

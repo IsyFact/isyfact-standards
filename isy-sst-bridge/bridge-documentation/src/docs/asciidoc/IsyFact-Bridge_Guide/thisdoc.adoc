@@ -1,4 +1,4 @@
-= Isyfact-Bridges-Guide: Einleitung
+= Isyfact-Bridge-Guide: Einleitung
 include::{isy-dokumentvorlagen}/docs/common/isyfact-attributes.adoc[]
 
 // tag::inhalt[]
