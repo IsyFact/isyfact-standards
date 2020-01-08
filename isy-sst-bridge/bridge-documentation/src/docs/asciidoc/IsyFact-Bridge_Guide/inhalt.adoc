@@ -109,7 +109,7 @@ public class BeispielExceptionFassade implements BeispielRemoteBean
         try {
             return beispielService.holeBeispielAnfrage(kontext,anfrage);
         } catch (SomeIsyException someIsyException) {
-            logger.error("Fehler bei Transaktion", e);
+            logger.error("Fehler bei Transaktion", someIsyException);
             throw BridgeExceptionMapper.mapException(someIsyException, TargetPlisToException.class);
         }
         // weitere Exceptions
