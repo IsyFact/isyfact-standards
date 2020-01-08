@@ -1,0 +1,5 @@
+**Dokumentinformationen**
+
+|====
+|Dokumenten-ID:| IsyFact-Bridge-Guide
+|====
