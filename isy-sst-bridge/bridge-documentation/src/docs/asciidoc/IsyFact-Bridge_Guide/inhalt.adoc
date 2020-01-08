@@ -29,11 +29,40 @@ Um in 2er Anwendungen auch Schnittstellen von 1er Anwendungen nutzen zu können,
 </dependency>
 ----
 
+Die richtige Version wird aus der Standard-Products-BOM mitgeliefert.
+Generell muss eine 2.x Anwendung die 2.x Version des Wrappers einbinden, um auf 1.x Anwendungen zugreifen zu können.
+
 == Verwendung
 
-Mit der Bridge wird ein ServiceApiMapper zur Verfügung gestellt.
-Um diesen nutzen zu können, wird dieser als Bean initialisiert.
+Die Bridge beinhaltet einen ServiceApiMapper zum einfachen Mappen des 2.x-AufrufKontextTo auf einen 1.x-AufrufKontextTo.
+Standardmäßig wird der ServiceApiMapper mit der Autokonfiguration des Moduls als Bean zur Verfügung gestellt.
+Im <<listing-serviceapimapper>> zeigt am Beispiel die Nutzung des ServiceApiMapper.
 
+:desc-listing-serviceapimapper: Nutzung des ServiceApiMapper
+[id="listing-serviceapimapper",reftext="Listing Nutzung des ServiceApiMapper"]
+.{desc-listing-serviceapimapper}
+[source,xml]
+----
+import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.bridge.util.ServiceApiMapper;
+
+...
+
+    // Injection
+    @Autowired
+    private ServiceApiMapper aufrufKontextMapper;
+
+...
+
+        // Usage:
+        // Hole Isyfact AufrufKontextTo
+        AufrufKontextTo isyAufrufKontextTo = // ...
+        // Mappe in einen plis-AufrufKontext
+        AufrufKontextTo plisAufrufKontextTo = aufrufKontextMapper.map(isyAufrufKontextTo);
+        //Aufruf der RemoteBean
+        remoteBean.doSomething(plisAufrufKontextTo, ...);
+
+...
+----
 
 
 // end::inhalt[]
