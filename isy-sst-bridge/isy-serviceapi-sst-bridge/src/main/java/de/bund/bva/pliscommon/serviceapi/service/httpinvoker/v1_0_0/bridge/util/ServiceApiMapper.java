@@ -19,12 +19,12 @@ public class ServiceApiMapper {
         mapper = DozerBeanMapperBuilder.buildDefault();
     }
 
-    public AufrufKontextTo map(AufrufKontextTo plisAufrufKontextTo) {
+    public AufrufKontextTo map(de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo plisAufrufKontextTo) {
         if (plisAufrufKontextTo == null) return null;
         return mapper.map(plisAufrufKontextTo, AufrufKontextTo.class);
     }
 
-    public ClientAufrufKontextTo map(ClientAufrufKontextTo plisAufrufKontextTo) {
+    public ClientAufrufKontextTo map(de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.ClientAufrufKontextTo plisAufrufKontextTo) {
         if (plisAufrufKontextTo == null) return null;
         return mapper.map(plisAufrufKontextTo, ClientAufrufKontextTo.class);
     }

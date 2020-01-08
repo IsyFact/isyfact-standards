@@ -1,14 +1,13 @@
-package de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.util;
+package de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.bridge.util;
 
 import static org.junit.Assert.*;
 
 import java.util.Objects;
 
-import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.bridge.util.ServiceApiMapper;
 import org.junit.Test;
 
-import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
-import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.ClientAufrufKontextTo;
+import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
+import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.ClientAufrufKontextTo;
 
 public class ServiceApiMapperTest {
 
@@ -16,35 +15,35 @@ public class ServiceApiMapperTest {
 
     @Test
     public void mapNullAufrufKontextTo() {
-        AufrufKontextTo isyAufrufKontextTo = null;
-        assertNull(mapper.map(isyAufrufKontextTo));
+        AufrufKontextTo plisAufrufKontextTo = null;
+        assertNull(mapper.map(plisAufrufKontextTo));
     }
 
     @Test
     public void mapNullClientAufrufKontextTo() {
-        ClientAufrufKontextTo isyClientAufrufKontextTo = null;
-        assertNull(mapper.map(isyClientAufrufKontextTo));
+        ClientAufrufKontextTo plisClientAufrufKontextTo = null;
+        assertNull(mapper.map(plisClientAufrufKontextTo));
     }
 
     @Test
     public void mapAufrufKontextTo() {
-        AufrufKontextTo isyAufrufKontextTo = getIsyAufrufKontextToStub();
-        AufrufKontextTo plisAufrufKontextTo =
-                mapper.map(isyAufrufKontextTo);
-        assertNotNull(plisAufrufKontextTo);
-        assertTrue(areEqual(isyAufrufKontextTo, plisAufrufKontextTo));
+        AufrufKontextTo plisAufrufKontextTo = getPlisAufrufKontextToStub();
+        de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo isyAufrufKontextTo =
+            mapper.map(plisAufrufKontextTo);
+        assertNotNull(isyAufrufKontextTo);
+        assertTrue(areEqual(plisAufrufKontextTo, isyAufrufKontextTo));
     }
 
     @Test
     public void mapClientAufrufKontextTo() {
-        ClientAufrufKontextTo isyClientAufrufKontextTo = getIsyClientAufrufKontextToStub();
-        ClientAufrufKontextTo plisClientAufrufKontextTo =
-                mapper.map(isyClientAufrufKontextTo);
-        assertNotNull(plisClientAufrufKontextTo);
-        assertTrue(areEqual(isyClientAufrufKontextTo, plisClientAufrufKontextTo));
+        ClientAufrufKontextTo plisClientAufrufKontextTo = getPlisClientAufrufKontextToStub();
+        de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.ClientAufrufKontextTo isyClientAufrufKontextTo =
+            mapper.map(plisClientAufrufKontextTo);
+        assertNotNull(isyClientAufrufKontextTo);
+        assertTrue(areEqual(plisClientAufrufKontextTo, isyClientAufrufKontextTo));
     }
 
-    private AufrufKontextTo getIsyAufrufKontextToStub() {
+    private AufrufKontextTo getPlisAufrufKontextToStub() {
         AufrufKontextTo aufrufKontextTo = new AufrufKontextTo();
         aufrufKontextTo.setDurchfuehrendeBehoerde("123456");
         aufrufKontextTo.setDurchfuehrenderBenutzerKennung("martha.mustermann@bva.bund.de");
@@ -55,7 +54,7 @@ public class ServiceApiMapperTest {
         return aufrufKontextTo;
     }
 
-    private ClientAufrufKontextTo getIsyClientAufrufKontextToStub() {
+    private ClientAufrufKontextTo getPlisClientAufrufKontextToStub() {
         ClientAufrufKontextTo clientAufrufKontextTo = new ClientAufrufKontextTo();
         clientAufrufKontextTo.setKennung("GEORGE123");
         clientAufrufKontextTo.setKennwort("123");
@@ -64,7 +63,7 @@ public class ServiceApiMapperTest {
         return clientAufrufKontextTo;
     }
 
-    private boolean areEqual(AufrufKontextTo ak1, AufrufKontextTo ak2) {
+    private boolean areEqual(AufrufKontextTo ak1, de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo ak2) {
         if ((ak1 == null && ak2 != null) || (ak1 != null && ak2 == null)) {
             return false;
         }
@@ -80,7 +79,7 @@ public class ServiceApiMapperTest {
         return result;
     }
 
-    private boolean areEqual(ClientAufrufKontextTo cak1, ClientAufrufKontextTo cak2) {
+    private boolean areEqual(ClientAufrufKontextTo cak1, de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.ClientAufrufKontextTo cak2) {
         if ((cak1 == null && cak2 != null) || (cak1 != null && cak2 == null)) {
             return false;
         }
