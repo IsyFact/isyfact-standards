@@ -68,7 +68,7 @@ private ServiceApiMapper aufrufKontextMapper;
 
 ...
 /* In der Aufrufmethode */
-// Hole Isyfact AufrufKontextTo
+// Hole pliscommon AufrufKontextTo
 de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo plisAufrufKontextTo = // ... wie gehabt erstellen
 // Mappe in einen isy-AufrufKontext
 AufrufKontextTo isyAufrufKontextTo = aufrufKontextMapper.map(plisAufrufKontextTo);
