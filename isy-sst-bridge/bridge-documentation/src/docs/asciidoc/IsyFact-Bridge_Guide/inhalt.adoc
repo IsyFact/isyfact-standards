@@ -1,0 +1,78 @@
+= Isyfact-Bridges-Guide: Inhalt
+include::{isy-dokumentvorlagen}/docs/common/isyfact-attributes.adoc[]
+
+// tag::inhalt[]
+
+== Nutzen der Isy-SST-Bridge
+
+Mit der Versionsanhebung von IsyFact 1 auf IsyFact 2, wurden einige Module aus dem ehemaligen "plis-common"-Namensraum in den "isyfact"-Namensraum umgezogen.
+Dies hat unter Anderem dazu geführt, dass IsyFact 2 Anwendungen nicht mehr die Schnittstellen von Isyfact 1 Anwendungen zugreifen konnten, da sie die den "plis-common"-Namensraum nicht mehr kennen und umgekehrt IsyFact 1-Anwendungen nicht auf IsyFact 2-Anwendungen zugreifen können.
+Das Modul Isy-SST-Bridge stellt IsyFact 1-Anwendungen die wichtigsten Transfer-Objekte aus dem "isyfact"-Namensraum zur Verfügung.
+Enthalten sind die Transferobjekte der isy-exception-sst und der isy-serviceapi-sst, sowie einige Hilfsmapper.
+
+== Einbindung
+
+Um in 1er Anwendungen auch Schnittstellen von 2er Anwendungen nutzen zu können, müssen die Bridges als Dependency in Maven hinzugefügt werden.
+
+:desc-listing-pom: Einbindung in pom.xml
+[id="listing-pom",reftext="Listing pom.xml"]
+.{desc-listing-pom}
+[source,xml]
+----
+<dependency>
+    <groupId>de.bund.bva.isyfact</groupId>
+    <artifactId>isy-exception-sst-bridge</artifactId>
+</dependency>
+<dependency>
+    <groupId>de.bund.bva.isyfact</groupId>
+    <artifactId>isy-serviceapi-sst-bridge</artifactId>
+</dependency>
+----
+
+Die richtige Version wird aus der Standard-Products-BOM mitgeliefert.
+Generell muss eine 1.x Anwendung die 1.x Version des Wrappers einbinden, um auf 2.x Anwendungen zugreifen zu können.
+
+== Verwendung
+
+Die Bridge beinhaltet einen ServiceApiMapper zum einfachen Mappen des 1.x-AufrufKontextTo auf einen 2.x-AufrufKontextTo.
+Zur Nutzung muss der ServiceApiMapper als Bean wie in <<listing-bean>> definiert werden.
+
+:desc-listing-bean: Nutzung des ServiceApiMapper
+[id="listing-bean",reftext="Listing Definition der ServiceApiMapper-Bean"]
+.{desc-listing-bean}
+[source,xml]
+----
+	<bean id="serviceApiMapper"
+		class="de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.bridge.util.ServiceApiMapper">
+	</bean>
+----
+
+Das <<listing-serviceapimapper>> zeigt am Beispiel die Nutzung des ServiceApiMapper in einer Java-Klasse.
+
+:desc-listing-serviceapimapper: Nutzung des ServiceApiMapper
+[id="listing-serviceapimapper",reftext="Listing Nutzung des ServiceApiMapper"]
+.{desc-listing-serviceapimapper}
+[source,java]
+----
+import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.bridge.util.ServiceApiMapper;
+import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
+
+...
+
+    // Injection
+    @Autowired
+    private ServiceApiMapper aufrufKontextMapper;
+
+...
+        // Hole Isyfact AufrufKontextTo
+        de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo plisAufrufKontextTo = // ... wie gehabt erstellen
+        // Mappe in einen isy-AufrufKontext
+        AufrufKontextTo isyAufrufKontextTo = aufrufKontextMapper.map(plisAufrufKontextTo);
+        //Aufruf einer 2.x RemoteBean
+        remoteBean.doSomething(isyAufrufKontextTo, ...);
+
+...
+----
+
+
+// end::inhalt[]
