@@ -48,7 +48,7 @@
         </dependency>
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
-            <artifactId>exception-sst-bridge</artifactId>
+            <artifactId>isy-exception-sst-bridge</artifactId>
             <version>${project.parent.version}</version>
             <scope>test</scope>
         </dependency>

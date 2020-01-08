@@ -98,8 +98,8 @@
                                 <executable>bash</executable>
                                 <workingDirectory>${project.build.directory}/isy-dokumentvorlagen/docs</workingDirectory>
                                 <arguments>
-                                    <argument>${project.build.directory}/isy-dokumentvorlagen/scripts/glossary.sh</argument>
-                                    <argument>${basedir}/src/docs/asciidoc</argument>
+                                    <argument>${project.basedir}/src/docs/asciidoc/scripts/glossary.sh</argument>
+                                    <argument>${project.basedir}/src/docs/asciidoc</argument>
                                 </arguments>
                             </configuration>
                         </execution>
@@ -116,7 +116,7 @@
                                 <workingDirectory>${project.build.directory}/isy-dokumentvorlagen/docs</workingDirectory>
                                 <arguments>
                                     <argument>${project.build.directory}/isy-dokumentvorlagen/scripts/bibliography.sh</argument>
-                                    <argument>${basedir}/src/docs/asciidoc</argument>
+                                    <argument>${project.basedir}/src/docs/asciidoc</argument>
                                 </arguments>
                             </configuration>
                         </execution>
@@ -133,7 +133,7 @@
                                 <workingDirectory>${project.build.directory}/isy-dokumentvorlagen/docs</workingDirectory>
                                 <arguments>
                                     <argument>${project.build.directory}/isy-dokumentvorlagen/scripts/listof.sh</argument>
-                                    <argument>${basedir}/src/docs/asciidoc</argument>
+                                    <argument>${project.basedir}/src/docs/asciidoc</argument>
                                 </arguments>
                             </configuration>
                         </execution>
