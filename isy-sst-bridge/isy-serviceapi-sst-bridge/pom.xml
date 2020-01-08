@@ -27,6 +27,27 @@
             </exclusions>
         </dependency>
 
+        <!-- Erlaubt Servlets in JUnits Tests zu starten -->
+        <dependency>
+            <groupId>org.mortbay.jetty</groupId>
+            <artifactId>jetty-servlet-tester</artifactId>
+            <version>6.1.6</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mortbay.jetty</groupId>
+            <artifactId>jetty</artifactId>
+            <version>6.1.6</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Für HttpInvoker-Service in JUnit-Tests -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <scope>test</scope>
+        </dependency>
+
         <!-- Integrationstest -->
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
