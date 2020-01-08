@@ -12,7 +12,7 @@ Enthalten sind die Transferobjekte der isy-exception-sst und der isy-serviceapi-
 
 == Einbindung
 
-Um in 2er Anwendungen auch Schnittstellen von 1er Anwendungen nutzen zu können, müssen die Bridges als Dependency in Maven hinzugefügt werden.
+Um in einer 2er Anwendungen auch Schnittstellen von 1er Anwendungen nutzen zu können, müssen die Bridges als Dependency in Maven hinzugefügt werden.
 
 :desc-listing-pom: Einbindung in pom.xml
 [id="listing-pom",reftext="Listing pom.xml"]
