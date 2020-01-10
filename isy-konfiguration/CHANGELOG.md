@@ -1,3 +1,6 @@
+# 2.1.0
+- `IFS-324`: Umzug des Tasks für Konfigurations-Updates von isy-task zu isy-konfiguration
+
 # 2.0.0
 - `IFS-228`: Einführung von Spring Boot
 - `IFS-32`: Package-Name auf de.bund.bva.isyfact geändert
