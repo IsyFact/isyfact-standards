@@ -2,39 +2,10 @@
 List of third-party dependencies grouped by their license type. No warranty on correctness and completeness. /
 Liste aller Abhängigkeiten zu Drittsoftware gruppiert nach deren Lizenzen. Keine Gewähr für Korrektheit und Vollständigkeit.
 
-    Apache License, Version 2.0:
-				
- 				* Commons Logging (commons-logging:commons-logging:1.2 - http://commons.apache.org/proper/commons-logging/)
-				* IsyFact Fehlerbehandlung Schnittstelle (de.bund.bva.isyfact:isy-exception-sst:1.3.2 - no url defined)
-        * isy-logging (de.bund.bva.isyfact:isy-logging:1.3.2 - no url defined)
-        * Jackson-databind (com.fasterxml.jackson.core:jackson-databind:2.5.0 - http://github.com/FasterXML/jackson)
-        * Jackson-annotations (com.fasterxml.jackson.core:jackson-annotations:2.5.0 - http://github.com/FasterXML/jackson)
-        * Jackson-core (com.fasterxml.jackson.core:jackson-core:2.5.0 - https://github.com/FasterXML/jackson)
-        * Logback Contrib :: JSON :: Classic (ch.qos.logback.contrib:logback-json-classic:0.1.2 - https://github.com/qos-ch/logback-contribs/wiki/logback-json-parent/logback-json-classic)        * Logback Contrib :: JSON :: Classic (ch.qos.logback.contrib:logback-json-classic:0.1.2 - https://github.com/qos-ch/logback-contribs/wiki/logback-json-parent/logback-json-classic)
-        * Logback Contrib :: JSON :: Core (ch.qos.logback.contrib:logback-json-core:0.1.2 - https://github.com/qos-ch/logback-contribs/wiki/logback-json-parent/logback-json-core)
-        * Logback Contrib :: Jackson (ch.qos.logback.contrib:logback-jackson:0.1.2 - https://github.com/qos-ch/logback-contribs/wiki/logback-jackson)
-        * Spring AOP (org.springframework:spring-aop:4.2.5.RELEASE - https://github.com/spring-projects/spring-framework)
-        * Spring Aspects (org.springframework:spring-aspects:4.2.5.RELEASE - https://github.com/spring-projects/spring-framework)
-        * Spring Beans (org.springframework:spring-beans:4.2.5.RELEASE - https://github.com/spring-projects/spring-framework)
-        * Spring Context (org.springframework:spring-context:4.2.5.RELEASE - https://github.com/spring-projects/spring-framework)
-        * Spring Core (org.springframework:spring-core:4.2.5.RELEASE - https://github.com/spring-projects/spring-framework)
-        * Spring Expression Language (SpEL)(org.springframework:spring-expression:4.2.5.RELEASE - https://github.com/spring-projects/spring-framework) 
-        
-    Eclipse Public License, Version 1.0:
-    
-        * AspectJ weaver (org.aspectj:aspectjweaver:1.8.8 - http://www.aspectj.org/)        
-        * Logback Classic Module (ch.qos.logback:logback-classic:1.1.3 - http://logback.qos.ch/logback-classic)
-        * Logback Core Module (ch.qos.logback:logback-core:1.1.3 - http://logback.qos.ch/logback-core)
-        
-    GNU Lesser General Public License, Version 2.1:
-    
-        * Logback Classic Module (ch.qos.logback:logback-classic:1.1.3 - http://logback.qos.ch/logback-classic)
-        * Logback Core Module (ch.qos.logback:logback-core:1.1.3 - http://logback.qos.ch/logback-core)
-        
-    MIT License:
+	(Eclipse Public License 1.0):
 
-				* SLF4J API Module (org.slf4j:slf4j-api:1.7.7 - http://www.slf4j.org/)
-				
-		Public Domain:
+		* JUnit (junit:junit:4.12 - http://junit.org)
 
-        * AOP alliance (aopalliance:aopalliance:1.0 - http://aopalliance.sourceforge.net/)
+	(New BSD License):
+
+		* Hamcrest Core (org.hamcrest:hamcrest-core:1.3 - https://github.com/hamcrest/JavaHamcrest/hamcrest-core)
