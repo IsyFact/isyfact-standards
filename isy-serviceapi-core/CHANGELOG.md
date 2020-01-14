@@ -7,6 +7,7 @@
 - `IFS-347`: Abhängigkeiten zu commons-lang3 aufgelöst.
 
 # 1.8.0
+- `IFS-378`: StelltAufrufKontextBereit-Interceptoren eine Standard-Reihenfolge hinzugefügt.
 - `IFS-189`: Repositories der IsyFact-Standards zusammengeführt, Bibliotheken benutzen wieder gemeinsames Produkt-BOM und werden zentral über das POM isyfact-standards versioniert
 - `IFS-137`: Funktionalität von LoggingKontextAspect in StelltLoggingKontextBereitInterceptor übernommen und LoggingKontextAspect als @Deprecated markiert. Neue Testfälle angelegt. 
 
