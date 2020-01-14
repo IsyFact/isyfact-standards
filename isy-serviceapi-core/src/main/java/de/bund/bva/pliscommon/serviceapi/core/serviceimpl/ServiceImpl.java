@@ -22,9 +22,11 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.github.dozermapper.core.Mapper;
+
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
-import org.dozer.Mapper;
+
 import org.springframework.aop.support.AopUtils;
 
 /**
