@@ -30,6 +30,7 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -252,7 +253,7 @@ public class BeanToMapConverter implements BeanConverter {
      * @return die Werte in konvertierter Form.
      */
     private Object processMapValue(Map<?, ?> value, Set<Object> seen) {
-        Map<Object, Object> convertedMap = new TreeMap<>();
+        Map<Object, Object> convertedMap = new TreeMap<>(Comparator.comparing(Object::toString));
 
         for (Object mapKey : value.keySet()) {
             Object mapValue = value.get(mapKey);

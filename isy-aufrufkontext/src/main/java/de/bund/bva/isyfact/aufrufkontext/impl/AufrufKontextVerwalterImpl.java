@@ -16,14 +16,15 @@
  */
 package de.bund.bva.isyfact.aufrufkontext.impl;
 
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
 
 /**
  * Stellt einer Anwendung den AufrufKontext bereit.
- * 
+ *
  *
  */
-public class AufrufKontextVerwalterImpl<T extends AufrufKontextImpl> implements AufrufKontextVerwalter<T> {
+public class AufrufKontextVerwalterImpl<T extends AufrufKontext> implements AufrufKontextVerwalter<T> {
 
     /** der aktuelle AufrufKontext. */
     private T aufrufKontext;
@@ -32,6 +33,7 @@ public class AufrufKontextVerwalterImpl<T extends AufrufKontextImpl> implements 
      * Liefert das Feld 'aufrufKontext' zurück.
      * @return Wert von aufrufKontext
      */
+    @Override
     public T getAufrufKontext() {
         return aufrufKontext;
     }
@@ -40,6 +42,7 @@ public class AufrufKontextVerwalterImpl<T extends AufrufKontextImpl> implements 
      * Setzt das Feld 'aufrufKontext'.
      * @param aufrufKontext Neuer Wert für aufrufKontext
      */
+    @Override
     public void setAufrufKontext(T aufrufKontext) {
         this.aufrufKontext = aufrufKontext;
     }

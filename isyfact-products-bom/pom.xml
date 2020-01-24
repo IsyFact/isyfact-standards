@@ -172,7 +172,7 @@
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
-                <version>1.1.11</version>
+                <version>1.2.3</version>
             </dependency>
             <dependency>
                 <groupId>ch.qos.logback.contrib</groupId>
@@ -188,15 +188,15 @@
             <!-- JDBC-Treiber: Oracle -->
             <dependency>
                 <groupId>com.oracle.jdbc</groupId>
-                <artifactId>ojdbc7</artifactId>
-                <version>12.1.0.2</version>
+                <artifactId>ojdbc8</artifactId>
+                <version>12.2.0.1</version>
             </dependency>
 
             <!-- Connection Pool: Oracle Universal Connection Pool (UCP) -->
             <dependency>
                 <groupId>com.oracle.jdbc</groupId>
                 <artifactId>ucp</artifactId>
-                <version>12.1.0.2</version>
+                <version>12.2.0.1</version>
             </dependency>
 
             <!-- Bean-Mapping: Orika -->
@@ -217,7 +217,7 @@
             <dependency>
                 <groupId>org.apache.poi</groupId>
                 <artifactId>poi</artifactId>
-                <version>3.14</version>
+                <version>4.1.1</version>
             </dependency>
 
             <!-- CSV-Verarbeitung: OpenCSV -->
