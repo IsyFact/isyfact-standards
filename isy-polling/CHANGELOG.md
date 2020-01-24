@@ -1,5 +1,6 @@
 # 1.8.0
 - `IFS-303`: Surefire-Plugin bezieht Version aus Standards und argLine Anpassung JaCoCo
+- `IFS-468`: Update auf dozer 6.5.0 / Dozer aus logback.xml entfernt, wenn es nicht verwendet wird
 
 # 1.7.0
 - `IFS-262`: `isyfact-masterpom` deprecated (Abschaffung mit IsyFact 2.0), `isyfact-masterpom-lib` aufgelöst, Bibliotheken benutzen `isyfact-standards` als Parent-POM

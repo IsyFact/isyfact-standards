@@ -18,6 +18,7 @@ package test.de.bund.bva.pliscommon.serviceapi.core.aufrufkontext;
 
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
 
+import de.bund.bva.pliscommon.serviceapi.core.aufrufkontext.StelltAllgemeinenAufrufKontextBereitInterceptor;
 import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 import junit.framework.AssertionFailedError;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -34,7 +35,7 @@ import test.de.bund.bva.pliscommon.serviceapi.core.aufrufkontext.helper.DebugAuf
 import static org.junit.Assert.*;
 
 /**
- * Testet die Funktionalität von {@link StelltAufrufKontextBereitInterceptor}.
+ * Testet die Funktionalität von {@link StelltAllgemeinenAufrufKontextBereitInterceptor}.
  * 
  */
 @RunWith(SpringJUnit4ClassRunner.class)

@@ -341,6 +341,18 @@
                         </configuration>
                     </execution>
                     <execution>
+                        <id>enforce-dependency-convergence</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <dependencyConvergence/>
+                            </rules>
+                            <fail>false</fail>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <id>enforce-banned-dependencies</id>
                         <goals>
                             <goal>enforce</goal>
@@ -500,7 +512,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>3.1.0</version>
                 <configuration>
                     <configLocation>${checkstyle.config}</configLocation>
                     <suppressionsLocation>${checkstyle.suppressions.config}</suppressionsLocation>

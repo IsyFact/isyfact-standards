@@ -4,7 +4,7 @@ package de.bund.bva.isyfact.logging;
  * #%L
  * isy-logging
  * %%
- * 
+ *
  * %%
  * See the NOTICE file distributed with this work for additional
  * information regarding copyright ownership.
@@ -12,9 +12,9 @@ package de.bund.bva.isyfact.logging;
  * licenses this file to you under the Apache License, Version 2.0 (the
  * License). You may not use this file except in compliance with the
  * License. You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
@@ -23,10 +23,13 @@ package de.bund.bva.isyfact.logging;
  * #L%
  */
 
+import java.util.EventObject;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.GenericApplicationContext;
 
 import de.bund.bva.isyfact.logging.util.LogApplicationListener;
 
@@ -41,8 +44,8 @@ public class ApplicationListenerTest extends AbstractLogTest {
      */
     @Test
     public void testApplicationContextLogs() {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-                "classpath:spring/applicationListener-test.xml");
+        final String configLocation = "classpath:spring/applicationListener-test.xml";
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(configLocation);
         context.getBean("statusLogger");
         context.start();
         context.publishEvent(new ApplicationEvent(this) {
@@ -50,15 +53,17 @@ public class ApplicationListenerTest extends AbstractLogTest {
             private static final long serialVersionUID = 1L;
         });
         context.stop();
+        GenericApplicationContext childContext = new GenericApplicationContext(context);
+        childContext.close();
         context.close();
         pruefeLogdatei("testApplicationContext");
     }
 
+
     /**
      * Testet die verschiedenen Fehler, die bei der Initialisierung auftreten können.
-     * 
-     * @throws Exception
-     *             wenn beim Test eine Exception auftritt.
+     *
+     * @throws Exception wenn beim Test eine Exception auftritt.
      */
     @Test
     public void testInitialisierungFehlerhaft() throws Exception {
