@@ -5,6 +5,7 @@
 - `IFS-437`: com.thoughtworks.xstream:xstream auf 1.4.11.1 angehoben
 - `IFS-460`: org.apache.poi:poi auf 3.17 angehoben
 - `IFS-468`: Update auf dozer 6.5.0
+- `IFS-490`: `com.fasterxml.jackson.core:jackson-databind` auf 2.9.10.1 angehoben
 - `IFS-492`: ch.qos.logback:logback-classic und ch.qos.logback:logback-core auf 1.2.3 angehoben.
 
 # 1.7.0
