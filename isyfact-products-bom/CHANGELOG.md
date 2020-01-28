@@ -1,4 +1,5 @@
 # 1.8.0
+- `IFS-223`: Logging Bridges ergänzt: jcl-over-slf4j, slf4j-jcl
 - `IFS-423`: Anhebung der UCP und JDBC Version auf 12.2.0.1
 - `IFS-384`: Spring Security auf 4.2.13.RELEASE angehoben
 - `IFS-385`: jackson-databind auf 2.9.9.3 angehoben. jackson-core auf Version 2.9.9 angehoben. jackson-annotations auf Version 2.9.0 angehoben.

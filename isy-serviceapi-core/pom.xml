@@ -42,7 +42,6 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
-            <version>1.7.25</version>
         </dependency>
 
         <!-- Exception-Klassen -->
