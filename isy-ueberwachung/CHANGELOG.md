@@ -1,4 +1,5 @@
 # 1.10.0
+- `IFS-325`: Implementierung vom `AdministrationWatchdogTask` und dazugehoerigen Tests.
 - `IFS-468`: Update auf dozer 6.5.0
 
 # 1.9.0
