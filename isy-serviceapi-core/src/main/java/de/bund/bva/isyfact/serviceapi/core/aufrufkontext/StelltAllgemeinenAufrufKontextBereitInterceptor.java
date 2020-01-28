@@ -28,17 +28,25 @@ import de.bund.bva.isyfact.aufrufkontext.AufrufKontextFactory;
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.isyfact.serviceapi.common.AufrufKontextToHelper;
 import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
+import org.springframework.core.Ordered;
 
 /**
  * Ein Interceptor, welcher den AufrufKontext auf Basis eines Mappings bereit stellt.
  */
 public class StelltAllgemeinenAufrufKontextBereitInterceptor<T extends AufrufKontext> implements
-    MethodInterceptor {
+    MethodInterceptor, Ordered {
 
     private final MapperFacade mapper;
 
     private static final IsyLogger LOGISY = IsyLoggerFactory
         .getLogger(StelltAllgemeinenAufrufKontextBereitInterceptor.class);
+
+    /** Standard-Reihenfolge für die Intercepter-Ausführung, wenn kein anderer gesetzt wird.
+     * Muss vor GesichertInterceptor ausgeführt werden. */
+    private static final int DEFAULT_ORDER = 9_000;
+
+    /** Reihenfolge für die Interceptor-Ausführung. */
+    private int order = DEFAULT_ORDER;
 
     /**
      * Zugriff auf die AufrufKontextFactory zum Mappen des empfangenen AufrufKontextTo auf den
@@ -84,5 +92,14 @@ public class StelltAllgemeinenAufrufKontextBereitInterceptor<T extends AufrufKon
             // Setze alten AufrufKontext zurueck
             this.aufrufKontextVerwalter.setAufrufKontext(alterAufrufKontext);
         }
+    }
+
+    @Override
+    public int getOrder() {
+        return order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
     }
 }
