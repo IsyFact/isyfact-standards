@@ -26,9 +26,15 @@ public class TestTaskKonfiguration extends AbstractTaskTest {
     @Autowired
     private TaskKonfigurationVerwalter taskKonfigurationVerwalter;
 
+    @Test
+    public void erfolgreicherDurchlauf() {
+        TaskKonfiguration taskKonfiguration = getTestTaskKonfiguration();
+        taskKonfigurationVerwalter.pruefeTaskKonfiguration(taskKonfiguration);
+    }
+
     @Test(expected = TaskKonfigurationInvalidException.class)
     public void taskIdNull() throws Exception {
-        TaskKonfiguration taskKonfiguration = new TaskKonfiguration();
+        TaskKonfiguration taskKonfiguration = getTestTaskKonfiguration();
 
         taskKonfiguration.setTaskId(null);
 
@@ -37,7 +43,7 @@ public class TestTaskKonfiguration extends AbstractTaskTest {
 
     @Test(expected = TaskKonfigurationInvalidException.class)
     public void authenticatorNull() throws Exception {
-        TaskKonfiguration taskKonfiguration = new TaskKonfiguration();
+        TaskKonfiguration taskKonfiguration = getTestTaskKonfiguration();
 
         taskKonfiguration.setAuthenticator(null);
 
@@ -46,7 +52,7 @@ public class TestTaskKonfiguration extends AbstractTaskTest {
 
     @Test(expected = TaskKonfigurationInvalidException.class)
     public void ausfuehrungsplanNull() throws Exception {
-        TaskKonfiguration taskKonfiguration = new TaskKonfiguration();
+        TaskKonfiguration taskKonfiguration = getTestTaskKonfiguration();
 
         taskKonfiguration.setAusfuehrungsplan(null);
 
@@ -55,9 +61,27 @@ public class TestTaskKonfiguration extends AbstractTaskTest {
 
     @Test(expected = TaskKonfigurationInvalidException.class)
     public void hostnameNull() throws Exception {
-        TaskKonfiguration taskKonfiguration = new TaskKonfiguration();
+        TaskKonfiguration taskKonfiguration = getTestTaskKonfiguration();
 
         taskKonfiguration.setHostname(null);
+
+        taskKonfigurationVerwalter.pruefeTaskKonfiguration(taskKonfiguration);
+    }
+
+    @Test(expected = TaskKonfigurationInvalidException.class)
+    public void hostnameInvalideRegEx() throws Exception {
+        TaskKonfiguration taskKonfiguration = getTestTaskKonfiguration();
+
+        taskKonfiguration.setHostname("((\\");
+
+        taskKonfigurationVerwalter.pruefeTaskKonfiguration(taskKonfiguration);
+    }
+
+    @Test
+    public void hostnameValideRegEx() {
+        TaskKonfiguration taskKonfiguration = getTestTaskKonfiguration();
+
+        taskKonfiguration.setHostname("host.*");
 
         taskKonfigurationVerwalter.pruefeTaskKonfiguration(taskKonfiguration);
     }
@@ -114,6 +138,7 @@ public class TestTaskKonfiguration extends AbstractTaskTest {
         taskKonfiguration.setAuthenticator(new NoOpAuthenticator());
         taskKonfiguration.setHostname("hostname");
         taskKonfiguration.setAusfuehrungsplan(TaskKonfiguration.Ausfuehrungsplan.ONCE);
+        taskKonfiguration.setInitialDelay(Duration.ZERO);
 
         return taskKonfiguration;
     }
