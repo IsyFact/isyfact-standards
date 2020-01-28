@@ -1,2 +1,11 @@
 
-The project has no dependencies / Dieses Projekt besitzt keine Abhängigkeiten.
+List of third-party dependencies grouped by their license type. No warranty on correctness and completeness. /
+Liste aller Abhängigkeiten zu Drittsoftware gruppiert nach deren Lizenzen. Keine Gewähr für Korrektheit und Vollständigkeit.
+
+	(Eclipse Public License 1.0):
+
+		* JUnit (junit:junit:4.12 - http://junit.org)
+
+	(New BSD License):
+
+		* Hamcrest Core (org.hamcrest:hamcrest-core:1.3 - https://github.com/hamcrest/JavaHamcrest/hamcrest-core)

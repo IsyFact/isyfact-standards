@@ -30,7 +30,7 @@
         In dieser Bean wird eine EntityManagerFactory erzeugt
         ====================================================================== -->
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="persistenceProviderClass" value="org.hibernate.ejb.HibernatePersistence"/>
+        <property name="persistenceProviderClass" value="org.hibernate.jpa.HibernatePersistenceProvider"/>
         <property name="persistenceUnitName" value="hibernatePersistence"/>
         <property name="dataSource">
             <ref bean="appDataSource"/>

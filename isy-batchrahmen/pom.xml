@@ -111,12 +111,6 @@
             <artifactId>jta</artifactId>
         </dependency>
 
-        <!-- Hibernate-EntityManager für JPA -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>concurrent</groupId>
             <artifactId>concurrent</artifactId>

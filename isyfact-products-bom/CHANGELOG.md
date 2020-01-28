@@ -1,8 +1,14 @@
 # 1.8.0
+- `IFS-223`: Logging Bridges ergänzt: jcl-over-slf4j, slf4j-jcl
+- `IFS-423`: Anhebung der UCP und JDBC Version auf 12.2.0.1
 - `IFS-384`: Spring Security auf 4.2.13.RELEASE angehoben
 - `IFS-385`: jackson-databind auf 2.9.9.3 angehoben. jackson-core auf Version 2.9.9 angehoben. jackson-annotations auf Version 2.9.0 angehoben.
 - `IFS-437`: com.thoughtworks.xstream:xstream auf 1.4.11.1 angehoben
-- `IFS-223`: Logging Bridges ergänzt: jcl-over-slf4j, slf4j-jcl
+- `IFS-461`: Hibernate Version auf 5.4.8.Final angehoben.
+- `IFS-460`: org.apache.poi:poi auf 3.17 angehoben
+- `IFS-468`: Update auf dozer 6.5.0
+- `IFS-490`: `com.fasterxml.jackson.core:jackson-databind` auf 2.9.10.1 angehoben
+- `IFS-492`: ch.qos.logback:logback-classic und ch.qos.logback:logback-core auf 1.2.3 angehoben.
 
 # 1.7.0
 - `IFS-262`: `isyfact-masterpom` deprecated (Abschaffung mit IsyFact 2.0), `isyfact-masterpom-lib` aufgelöst, Bibliotheken benutzen `isyfact-standards` als Parent-POM
