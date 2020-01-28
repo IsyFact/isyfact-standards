@@ -4,6 +4,7 @@ Liste aller Abhängigkeiten zu Drittsoftware gruppiert nach deren Lizenzen. Kein
 
 	(Apache 2):
 
+		* Dozer (net.sf.dozer:dozer:5.4.0 - http://dozer.sourceforge.net/dozer)
 		* Objenesis (org.objenesis:objenesis:2.6 - http://objenesis.org)
 
 	(Apache License Version 2):

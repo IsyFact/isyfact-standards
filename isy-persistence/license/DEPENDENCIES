@@ -8,7 +8,7 @@ Liste aller Abhängigkeiten zu Drittsoftware gruppiert nach deren Lizenzen. Kein
 
 	(Apache License 2.0) (LGPL 2.1) (MPL 1.1):
 
-		* Javassist (org.javassist:javassist:3.20.0-GA - http://www.javassist.org/)
+		* Javassist (org.javassist:javassist:3.24.0-GA - http://www.javassist.org/)
 
 	(Apache License, Version 2.0):
 
@@ -18,7 +18,7 @@ Liste aller Abhängigkeiten zu Drittsoftware gruppiert nach deren Lizenzen. Kein
 		* IsyFact-Fehlerbehandlung (Basisklassen) (de.bund.bva.isyfact:isy-exception-core:1.9.0-SNAPSHOT - http://isyfact.de/isy-exception-core)
 		* IsyFact-Logging (de.bund.bva.isyfact:isy-logging:1.9.0-SNAPSHOT - http://isyfact.de/isy-logging)
 		* IsyFact-Utilities (de.bund.bva.isyfact:isy-util:1.9.0-SNAPSHOT - http://isyfact.de/isy-util)
-		* Java Annotation Indexer (org.jboss:jandex:2.0.0.Final - http://www.jboss.org/jandex)
+		* Java Annotation Indexer (org.jboss:jandex:2.0.5.Final - http://www.jboss.org/jandex)
 		* Spring AOP (org.springframework:spring-aop:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
 		* Spring Aspects (org.springframework:spring-aspects:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
 		* Spring Beans (org.springframework:spring-beans:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
@@ -29,19 +29,46 @@ Liste aller Abhängigkeiten zu Drittsoftware gruppiert nach deren Lizenzen. Kein
 		* Spring Object/Relational Mapping (org.springframework:spring-orm:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
 		* Spring TestContext Framework (org.springframework:spring-test:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
 		* Spring Transaction (org.springframework:spring-tx:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+		* fastinfoset (com.sun.xml.fastinfoset:FastInfoset:1.2.15 - http://fi.java.net)
 
 	(Apache License, version 2.0):
 
-		* JBoss Logging 3 (org.jboss.logging:jboss-logging:3.3.0.Final - http://www.jboss.org)
+		* JBoss Logging 3 (org.jboss.logging:jboss-logging:3.3.2.Final - http://www.jboss.org)
 
 	(Apache Software Licenses):
 
 		* Log4j Implemented Over SLF4J (org.slf4j:log4j-over-slf4j:1.7.25 - http://www.slf4j.org)
 
+	(BSD 3-clause New License):
+
+		* dom4j (org.dom4j:dom4j:2.1.1 - http://dom4j.github.io/)
+
 	(BSD License):
 
 		* AntLR Parser Generator (antlr:antlr:2.7.7 - http://www.antlr.org/)
 		* curvesapi (com.github.virtuald:curvesapi:1.03 - https://github.com/virtuald/curvesapi)
+
+	(CDDL 1.1) (GPL2 w/ CPE):
+
+		* istack common utility code runtime (com.sun.istack:istack-commons-runtime:3.0.7 - http://java.net/istack-commons/istack-commons-runtime/)
+		* jaxb-api (javax.xml.bind:jaxb-api:2.3.1 - https://github.com/javaee/jaxb-spec/jaxb-api)
+
+	(CDDL+GPL License):
+
+		* JAXB Runtime (org.glassfish.jaxb:jaxb-runtime:2.3.1 - http://jaxb.java.net/jaxb-runtime-parent/jaxb-runtime)
+		* TXW2 Runtime (org.glassfish.jaxb:txw2:2.3.1 - http://jaxb.java.net/jaxb-txw-parent/txw2)
+
+	(CDDL/GPLv2+CE):
+
+		* JavaBeans Activation Framework API jar (javax.activation:javax.activation-api:1.2.0 - http://java.net/all/javax.activation-api/)
+
+	(Common Development and Distribution License) (GNU General Public License, Version 2 with the Classpath Exception):
+
+		* Java Transaction API (org.jboss.spec.javax.transaction:jboss-transaction-api_1.2_spec:1.1.1.Final - http://www.jboss.org/jboss-transaction-api_1.2_spec)
+
+	(Dual license consisting of the CDDL v1.1 and GPL v2):
+
+		* Extended StAX API (org.jvnet.staxex:stax-ex:1.8 - http://stax-ex.java.net/)
 
 	(Eclipse Distribution License (EDL), Version 1.0) (Eclipse Public License (EPL), Version 1.0):
 
@@ -63,15 +90,14 @@ Liste aller Abhängigkeiten zu Drittsoftware gruppiert nach deren Lizenzen. Kein
 
 		* JUnit (junit:junit:4.12 - http://junit.org)
 
-	(GNU Lesser General Public License):
-
-		* Core Hibernate O/RM functionality (org.hibernate:hibernate-core:5.1.1.Final - http://hibernate.org)
-		* Hibernate Commons Annotations (org.hibernate.common:hibernate-commons-annotations:5.0.1.Final - http://hibernate.org)
-		* Hibernate JPA Support (org.hibernate:hibernate-entitymanager:5.1.1.Final - http://hibernate.org)
-
 	(GNU Lesser General Public License, Version 2.1):
 
 		* dbUnit Extension (org.dbunit:dbunit:2.5.3 - http://dbunit.sourceforge.net)
+
+	(GNU Library General Public License v2.1 or later):
+
+		* Hibernate Commons Annotations (org.hibernate.common:hibernate-commons-annotations:5.1.0.Final - http://hibernate.org)
+		* Hibernate ORM - hibernate-core (org.hibernate:hibernate-core:5.4.8.Final - http://hibernate.org/orm)
 
 	(MIT License):
 
@@ -90,9 +116,8 @@ Liste aller Abhängigkeiten zu Drittsoftware gruppiert nach deren Lizenzen. Kein
 		* Apache POI (org.apache.poi:poi-ooxml-schemas:3.14 - http://poi.apache.org/)
 		* Apache POI (org.apache.poi:poi-ooxml:3.14 - http://poi.apache.org/)
 		* Apache POI (org.apache.poi:poi:3.14 - http://poi.apache.org/)
-		* ClassMate (com.fasterxml:classmate:1.3.0 - http://github.com/cowtowncoder/java-classmate)
+		* ClassMate (com.fasterxml:classmate:1.3.4 - http://github.com/FasterXML/java-classmate)
 		* Commons Logging (commons-logging:commons-logging:1.1.3 - http://commons.apache.org/proper/commons-logging/)
-		* JTA 1.1 (org.apache.geronimo.specs:geronimo-jta_1.1_spec:1.1.1 - http://geronimo.apache.org/specs/geronimo-jta_1.1_spec)
 		* Jackson-annotations (com.fasterxml.jackson.core:jackson-annotations:2.9.0 - http://github.com/FasterXML/jackson)
 		* Jackson-core (com.fasterxml.jackson.core:jackson-core:2.9.9 - https://github.com/FasterXML/jackson-core)
 		* StAX API (stax:stax-api:1.0.1 - http://stax.codehaus.org/)
@@ -102,7 +127,3 @@ Liste aller Abhängigkeiten zu Drittsoftware gruppiert nach deren Lizenzen. Kein
 	(The MIT License):
 
 		* Mockito (org.mockito:mockito-all:1.10.19 - http://www.mockito.org)
-
-	(Unknown license):
-
-		* dom4j (dom4j:dom4j:1.6.1 - http://dom4j.org)
