@@ -16,26 +16,26 @@
  */
 package de.bund.bva.pliscommon.serviceapi.core.aufrufkontext;
 
-import de.bund.bva.pliscommon.serviceapi.common.AufrufKontextToHelper;
-import org.aopalliance.intercept.MethodInterceptor;
-import org.aopalliance.intercept.MethodInvocation;
-import org.springframework.beans.factory.annotation.Required;
-
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextFactory;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
+import de.bund.bva.pliscommon.serviceapi.common.AufrufKontextToHelper;
 import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
+import org.aopalliance.intercept.MethodInterceptor;
+import org.aopalliance.intercept.MethodInvocation;
+import org.springframework.beans.factory.annotation.Required;
+import org.springframework.core.Ordered;
 
 /**
  * Erzeugt einen {@link AufrufKontext}, befüllt ihn mit den Daten aus dem {@link AufrufKontextTo}, und setzt
  * ihn in dem {@link AufrufKontextVerwalter}.
  *
- * @param <T>
- *            der Aufrufkontext
+ * @param <T> der Aufrufkontext
  */
-public class StelltAufrufKontextBereitInterceptor<T extends AufrufKontext> implements MethodInterceptor {
+public class StelltAufrufKontextBereitInterceptor<T extends AufrufKontext> implements MethodInterceptor,
+    Ordered {
 
     /** Logger. */
     private static final IsyLogger LOG = IsyLoggerFactory
@@ -49,6 +49,16 @@ public class StelltAufrufKontextBereitInterceptor<T extends AufrufKontext> imple
 
     /** Zugriff auf den AufrufKontextVerwalter, um den AufrufKontext zu setzten. */
     private AufrufKontextVerwalter<T> aufrufKontextVerwalter;
+
+
+    /**
+     * Standard-Reihenfolge für die Intercepter-Ausführung, wenn kein anderer gesetzt wird.
+     * Muss vor GesichertInterceptor ausgeführt werden.
+     */
+    private static final int DEFAULT_ORDER = 10_000;
+
+    /** Reihenfolge für die Interceptor-Ausführung. */
+    private int order = DEFAULT_ORDER;
 
     @Required
     public void setAufrufKontextFactory(AufrufKontextFactory<T> aufrufKontextFactory) {
@@ -100,4 +110,12 @@ public class StelltAufrufKontextBereitInterceptor<T extends AufrufKontext> imple
         }
     }
 
+    @Override
+    public int getOrder() {
+        return order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
+    }
 }

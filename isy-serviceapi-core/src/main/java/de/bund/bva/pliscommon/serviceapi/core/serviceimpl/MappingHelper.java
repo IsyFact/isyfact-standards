@@ -33,8 +33,8 @@ import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import com.github.dozermapper.core.Mapper;
 import org.apache.commons.lang3.ClassUtils;
-import org.dozer.Mapper;
 
 /**
  * Hilfsklasse für Dozer-Mappings, die Mappings von generischen Collections und Maps sowie von primitiven

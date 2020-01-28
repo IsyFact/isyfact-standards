@@ -32,11 +32,11 @@ Liste aller Abhängigkeiten zu Drittsoftware gruppiert nach deren Lizenzen. Kein
 
 	(Eclipse Public License - v 1.0) (GNU Lesser General Public License):
 
-		* Logback Classic Module (ch.qos.logback:logback-classic:1.1.11 - http://logback.qos.ch/logback-classic)
+		* Logback Classic Module (ch.qos.logback:logback-classic:1.2.3 - http://logback.qos.ch/logback-classic)
 		* Logback Contrib :: JSON :: Classic (ch.qos.logback.contrib:logback-json-classic:0.1.5 - https://github.com/qos-ch/logback-contrib/wiki/logback-json-parent/logback-json-classic)
 		* Logback Contrib :: JSON :: Core (ch.qos.logback.contrib:logback-json-core:0.1.5 - https://github.com/qos-ch/logback-contrib/wiki/logback-json-parent/logback-json-core)
 		* Logback Contrib :: Jackson (ch.qos.logback.contrib:logback-jackson:0.1.5 - https://github.com/qos-ch/logback-contrib/wiki/logback-jackson)
-		* Logback Core Module (ch.qos.logback:logback-core:1.1.11 - http://logback.qos.ch/logback-core)
+		* Logback Core Module (ch.qos.logback:logback-core:1.2.3 - http://logback.qos.ch/logback-core)
 
 	(Eclipse Public License 1.0):
 

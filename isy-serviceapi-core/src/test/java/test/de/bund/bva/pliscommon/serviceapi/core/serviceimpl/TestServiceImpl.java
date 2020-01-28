@@ -19,10 +19,10 @@ package test.de.bund.bva.pliscommon.serviceapi.core.serviceimpl;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import com.github.dozermapper.core.Mapper;
 import de.bund.bva.pliscommon.exception.service.PlisTechnicalToException;
 import de.bund.bva.pliscommon.serviceapi.core.serviceimpl.MethodMappingSource;
 import de.bund.bva.pliscommon.serviceapi.core.serviceimpl.ServiceImpl;
-import org.dozer.Mapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;

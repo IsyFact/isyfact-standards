@@ -1,5 +1,6 @@
 # 1.10.0
 - `IFS-461`: Wegen Hibernate Anhebung Hibernate-Entitymanager entfernt, Methodensignaturen angepasst und einige AttributeConverter und Tests als Deprecated markiert.
+- `IFS-468`: Update auf dozer 6.5.0 / Dozer aus logback.xml entfernt, wenn es nicht verwendet wird
 
 # 1.9.0
 - `IFS-262`: `isyfact-masterpom` deprecated (Abschaffung mit IsyFact 2.0), `isyfact-masterpom-lib` aufgelöst, Bibliotheken benutzen `isyfact-standards` als Parent-POM
