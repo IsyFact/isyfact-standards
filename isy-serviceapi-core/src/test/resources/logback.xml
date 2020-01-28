@@ -39,4 +39,10 @@
         <appender-ref ref="KONSOLE"/>
     </logger>
 
+    <!-- Dozer Warnings über fehlende ELExpressionFactory deaktivieren. Wird nicht genutzt im Dozer-Teil -->
+    <logger name="com.github.dozermapper.core.el.ELExpressionFactory" level="ERROR" additivity="false">
+        <appender-ref ref="KONSOLE"/>
+    </logger>
+
+
 </configuration>

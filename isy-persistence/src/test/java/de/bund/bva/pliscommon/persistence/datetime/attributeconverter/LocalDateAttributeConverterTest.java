@@ -15,6 +15,7 @@ import static org.junit.Assert.assertNull;
 /**
 
  */
+@Deprecated
 @DatabaseSetup("testLocalDateSetup.xml")
 public class LocalDateAttributeConverterTest extends AbstractJpaTest {
 
