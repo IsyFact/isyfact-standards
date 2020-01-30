@@ -33,7 +33,7 @@ public class TaskSchedulerStarterAutoConfigOnTest {
     //Prüfe dass TaskSchedulerStarter vorhanden ist
     // und einmal starteKonfigurierteTasks auf TaskScheduler aufgerufen hat
     @Test
-    public void testTaskSchedulerStarterNichtVorhanden() {
+    public void testTaskSchedulerStarterVorhanden() {
         assertNotNull(isyTaskAutoConfiguration);
         assertNotNull(taskSchedulerStarter);
         verify(taskScheduler, times(1)).starteKonfigurierteTasks();
