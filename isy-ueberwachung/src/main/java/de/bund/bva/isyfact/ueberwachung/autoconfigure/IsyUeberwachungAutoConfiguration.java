@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.ServletRegistration;
 
 import de.bund.bva.isyfact.ueberwachung.config.LoadbalancerServletConfigurationProperties;
+import de.bund.bva.isyfact.ueberwachung.config.NachbarsystemConfigurationProperties;
 import de.bund.bva.isyfact.ueberwachung.service.loadbalancer.LoadbalancerServlet;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -18,6 +19,12 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties
 @ConditionalOnClass(ServletRegistration.class)
 public class IsyUeberwachungAutoConfiguration {
+
+    @Bean
+    @ConfigurationProperties(prefix = "isy.ueberwachung")
+    public NachbarsystemConfigurationProperties nachbarsystemConfigurationProperties() {
+        return new NachbarsystemConfigurationProperties();
+    }
 
     @Bean
     @ConfigurationProperties(prefix = "isy.ueberwachung.loadbalancer")
