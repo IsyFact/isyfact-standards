@@ -24,6 +24,13 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>de.bund.bva.isyfact</groupId>
+                <artifactId>isyfact-standards-bom</artifactId>
+                <version>${project.parent.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <dependencies>
@@ -50,7 +57,6 @@
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-exception-core</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
         <dependency>

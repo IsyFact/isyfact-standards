@@ -1,3 +1,6 @@
+# 1.9.0
+- `IFS-528`: Explizite Version für isy-exception-core entfernt und stattdessen isyfact-standards-bom importiert
+
 # 1.8.0
 - `IFS-362`: LogApplicationListener loggt nur noch für den eigenen ApplicationContext (nicht für Kind-Kontexte)
 - `IFS-225`: Prüfung der Logeinträge auf maximale Länge und ggfs. Kürzung dieser
