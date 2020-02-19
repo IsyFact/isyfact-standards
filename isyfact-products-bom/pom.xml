@@ -21,6 +21,7 @@
         <spring.security.version>5.1.6.RELEASE</spring.security.version>
         <hibernate.orm.version>5.3.7.Final</hibernate.orm.version>
         <querydsl.version>4.0.9</querydsl.version>
+        <slf4j.version>1.7.25</slf4j.version>
     </properties>
 
     <!-- Dependency-Management für den Core Technology Stack der IsyFact. -->
@@ -148,16 +149,26 @@
                 <version>2.0.1</version>
             </dependency>
 
-            <!-- Logging: Logback -->
+            <!-- Logging: SLF4J -->
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <version>1.7.25</version>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-jcl</artifactId>
+                <version>${slf4j.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>log4j-over-slf4j</artifactId>
-                <version>1.7.25</version>
+                <version>${slf4j.version}</version>
             </dependency>
             <dependency>
                 <groupId>log4j</groupId>
@@ -172,7 +183,7 @@
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
-                <version>1.1.11</version>
+                <version>1.2.3</version>
             </dependency>
             <dependency>
                 <groupId>ch.qos.logback.contrib</groupId>
@@ -188,15 +199,15 @@
             <!-- JDBC-Treiber: Oracle -->
             <dependency>
                 <groupId>com.oracle.jdbc</groupId>
-                <artifactId>ojdbc7</artifactId>
-                <version>12.1.0.2</version>
+                <artifactId>ojdbc8</artifactId>
+                <version>12.2.0.1</version>
             </dependency>
 
             <!-- Connection Pool: Oracle Universal Connection Pool (UCP) -->
             <dependency>
                 <groupId>com.oracle.jdbc</groupId>
                 <artifactId>ucp</artifactId>
-                <version>12.1.0.2</version>
+                <version>12.2.0.1</version>
             </dependency>
 
             <!-- Bean-Mapping: Orika -->
@@ -217,7 +228,7 @@
             <dependency>
                 <groupId>org.apache.poi</groupId>
                 <artifactId>poi</artifactId>
-                <version>3.14</version>
+                <version>4.1.1</version>
             </dependency>
 
             <!-- CSV-Verarbeitung: OpenCSV -->
@@ -252,17 +263,17 @@
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-core</artifactId>
-                <version>2.9.9</version>
+                <version>2.9.10</version>
             </dependency>
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
-                <version>2.9.9.3</version>
+                <version>2.9.10.1</version>
             </dependency>
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-annotations</artifactId>
-                <version>2.9.9</version>
+                <version>2.9.10</version>
             </dependency>
 
             <!-- Erstellung dynamischer SQL-Queries: QueryDSL -->

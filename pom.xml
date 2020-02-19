@@ -66,8 +66,12 @@
         <enforced.jdk.version>[1.8,1.9)</enforced.jdk.version>
         <enforced.maven.version>[3.1.1,4)</enforced.maven.version>
 
+        <!-- Konfiguration wird von jacoco befüllt und von surefire genutzt -->
+        <maven.jacoco.argLine/>
+
         <!-- Konfiguration des maven-surefire-plugin -->
-        <maven.surefire.argline>-Xmx1g -XX:MaxPermSize=256m -Dfile.encoding=${project.build.sourceEncoding}</maven.surefire.argline>
+        <maven.surefire.argline>-Xmx1g -XX:MaxPermSize=256m -Dfile.encoding=${project.build.sourceEncoding} @{maven.jacoco.argLine}
+        </maven.surefire.argline>
 
 
         <!-- Versionen von Plugins, die an mehreren Stellen genutzt werden -->
@@ -106,6 +110,18 @@
                                     <version>${enforced.maven.version}</version>
                                 </requireMavenVersion>
                             </rules>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>enforce-dependency-convergence</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <dependencyConvergence/>
+                            </rules>
+                            <fail>false</fail>
                         </configuration>
                     </execution>
                     <execution>
@@ -284,7 +300,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>3.1.0</version>
                 <configuration>
                     <configLocation>${checkstyle.config}</configLocation>
                     <suppressionsLocation>${checkstyle.suppressions.config}</suppressionsLocation>
@@ -518,6 +534,35 @@
                     <url>${deploy-url-snapshot}</url>
                 </snapshotRepository>
             </distributionManagement>
+        </profile>
+        <profile>
+            <id>jacoco</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <version>0.8.4</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                                <configuration>
+                                    <propertyName>maven.jacoco.argLine</propertyName>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>report</id>
+                                <phase>test</phase>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 </project>

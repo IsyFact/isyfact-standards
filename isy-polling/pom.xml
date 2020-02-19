@@ -91,17 +91,17 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.16</version>
                 <configuration>
                     <argLine>-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=9010
                         -Dcom.sun.management.jmxremote.local.only=false
                         -Dcom.sun.management.jmxremote.authenticate=false
                         -Dcom.sun.management.jmxremote.ssl=false
-                        -Dfile.encoding=${project.build.sourceEncoding}</argLine>
+                        -Dfile.encoding=${project.build.sourceEncoding}
+                        @{maven.jacoco.argLine}
+                    </argLine>
                     <systemProperties>
                         <user.language>de</user.language>
                         <user.country>DE</user.country>
-                        <file.encoding>${project.build.sourceEncoding}</file.encoding>
                     </systemProperties>
                 </configuration>
             </plugin>
