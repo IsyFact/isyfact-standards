@@ -72,6 +72,11 @@
             <artifactId>javax.servlet-api</artifactId>
             <scope>provided</scope>
         </dependency>
+        <!-- Bean-Mapping: Dozer -->
+        <dependency>
+            <groupId>com.github.dozermapper</groupId>
+            <artifactId>dozer-core</artifactId>
+        </dependency>
         <!-- Tests -->
         <dependency>
             <groupId>org.springframework</groupId>

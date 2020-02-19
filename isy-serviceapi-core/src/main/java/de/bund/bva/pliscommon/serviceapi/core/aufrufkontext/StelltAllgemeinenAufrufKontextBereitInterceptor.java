@@ -16,24 +16,24 @@
  */
 package de.bund.bva.pliscommon.serviceapi.core.aufrufkontext;
 
-import de.bund.bva.pliscommon.serviceapi.common.AufrufKontextToHelper;
-import org.aopalliance.intercept.MethodInterceptor;
-import org.aopalliance.intercept.MethodInvocation;
-import org.dozer.Mapper;
-import org.springframework.beans.factory.annotation.Required;
-
+import com.github.dozermapper.core.Mapper;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextFactory;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
+import de.bund.bva.pliscommon.serviceapi.common.AufrufKontextToHelper;
 import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
+import org.aopalliance.intercept.MethodInterceptor;
+import org.aopalliance.intercept.MethodInvocation;
+import org.springframework.beans.factory.annotation.Required;
+import org.springframework.core.Ordered;
 
 /**
  * Ein Interceptor, welcher den AufrufKontext auf Basis eines Dozer-Mappings bereit stellt.
  */
 public class StelltAllgemeinenAufrufKontextBereitInterceptor<T extends AufrufKontext> implements
-    MethodInterceptor {
+    MethodInterceptor, Ordered {
 
     /** Die Referenz auf Dozer, welcher zum Mapping benutzt wird. */
     private Mapper dozer;
@@ -42,6 +42,12 @@ public class StelltAllgemeinenAufrufKontextBereitInterceptor<T extends AufrufKon
     private static final IsyLogger LOGISY = IsyLoggerFactory
         .getLogger(StelltAllgemeinenAufrufKontextBereitInterceptor.class);
 
+    /** Standard-Reihenfolge für die Intercepter-Ausführung, wenn kein anderer gesetzt wird.
+     * Muss vor GesichertInterceptor ausgeführt werden. */
+    private static final int DEFAULT_ORDER = 9_000;
+
+    /** Reihenfolge für die Interceptor-Ausführung. */
+    private int order = DEFAULT_ORDER;
     /**
      * Zugriff auf die AufrufKontextFactory zum Mappen des empfangenen AufrufKontextTo auf den
      * Anwendungsspezifischen AufrufKontext.
@@ -97,4 +103,12 @@ public class StelltAllgemeinenAufrufKontextBereitInterceptor<T extends AufrufKon
         this.aufrufKontextVerwalter = aufrufKontextVerwalter;
     }
 
+    @Override
+    public int getOrder() {
+        return order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
+    }
 }

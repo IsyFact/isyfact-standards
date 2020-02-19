@@ -50,10 +50,6 @@
         </dependency>
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
-            <artifactId>isy-ueberwachung</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-datetime</artifactId>
         </dependency>
 

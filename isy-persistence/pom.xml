@@ -87,11 +87,6 @@
         </dependency>
 
         <!-- Test-Abhängigkeiten -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <scope>test</scope>
-        </dependency>
 
         <dependency>
             <groupId>junit</groupId>
