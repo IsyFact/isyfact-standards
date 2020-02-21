@@ -76,7 +76,7 @@ public class BridgeExceptionMapper {
         } catch (Throwable t) {
             LOG.error(EreignisSchluessel.KONSTRUKTOR_NICHT_IMPLEMENTIERT,
                     "Die TransportException ({}) konnte nicht mit den Werten aus der  AnwendungsException ({}), mit den Werten AusnahmeId: {}, Fehlertext: {} und UUID: {} gefuellt werden! Die TransportException implementiert nicht den benoetigten Konstruktor mit den Parametern: String message, String ausnahmeId, String uniqueId",
-                    t, transportExceptionClass.getClass(), plisException.getClass(),
+                    t, transportExceptionClass, plisException.getClass(),
                     plisException.getAusnahmeId(), plisException.getFehlertext(), plisException.getUniqueId());
             throw new IllegalArgumentException(
                     "Die TransportException implementiert nicht den benoetigten Konstruktor mit den "
@@ -123,7 +123,7 @@ public class BridgeExceptionMapper {
                             + "mit den Werten AusnahmeId: {}, Fehlertext: {} und UUID: {} gefuellt werden! "
                             + "Die TransportException implementiert nicht den benoetigten Konstruktor mit den Parametern: "
                             + "String message, String ausnahmeId, String uniqueId",
-                    t, transportExceptionClass.getClass(), plisTechnicalRuntimeException.getClass(),
+                    t, transportExceptionClass, plisTechnicalRuntimeException.getClass(),
                     plisTechnicalRuntimeException.getAusnahmeId(), plisTechnicalRuntimeException.getFehlertext(),
                     plisTechnicalRuntimeException.getUniqueId());
             throw new IllegalArgumentException(
@@ -188,9 +188,9 @@ public class BridgeExceptionMapper {
             // Der Zugriff auf den Konstruktur verstoesst gegen die Sicherheitsrichtlinien von Java
             LOG.error(EreignisSchluessel.KONSTRUKTOR_SICHERHEITSRICHTLINIEN,
                     "Der Zugriff auf den Konstruktur der TransportException {} verstoesst gegen die Java-Sicherheitsrichtlinien.",
-                    se, transportExceptionClass.getClass());
+                    se, transportExceptionClass);
             throw new IllegalArgumentException(
-                    "Der Aufruf des Konstruktors der TransportException " + transportExceptionClass.getClass()
+                    "Der Aufruf des Konstruktors der TransportException " + transportExceptionClass
                             + "fuehrte innerhalb des aufgerufenen Konstruktors zu einer Exception.");
         } catch (NoSuchMethodException nsme) {
             // Der Konstruktor ist nicht vorhanden
@@ -198,7 +198,7 @@ public class BridgeExceptionMapper {
                     "Die TransportException {} konnte nicht erzeugt werden. Die TransportException"
                             + " implementiert nicht den benoetigten Konstruktor mit den Parametern: "
                             + "String message, String ausnahmeId, String uniqueId.",
-                    nsme, transportExceptionClass.getClass());
+                    nsme, transportExceptionClass);
             throw new IllegalArgumentException(
                     "Die TransportException implementiert nicht den benoetigten Konstruktor mit den "
                             + "Parametern: String message, String ausnahmeId, String uniqueId.");
@@ -207,16 +207,16 @@ public class BridgeExceptionMapper {
             LOG.error(EreignisSchluessel.PARAMETER_FALSCH,
                     "Die TransportException {} konnte nicht erzeugt werden. Die Parameterwerte ({}, {}, {}) entsprechen nicht den benoetigten "
                             + "Werten: String message, String ausnahmeId, String uniqueId.",
-                    iae, transportExceptionClass.getClass(), fehlertext, ausnahmeId, uuid);
+                    iae, transportExceptionClass, fehlertext, ausnahmeId, uuid);
             throw new IllegalArgumentException(
                     "Die Parameterwerte sind nicht zulaessig zur Erzeugung einer TransportException.");
         } catch (InstantiationException ie) {
-            // Die ?bergebene Klasse ist ein Interface oder eine abstrakte Klasse
+            // Die Übergebene Klasse ist ein Interface oder eine abstrakte Klasse
             LOG.error(EreignisSchluessel.TRANSPORT_EXCEPTION_INTERFACE_ABSTRAKT,
                     "Die TransportException {} konnte nicht erzeugt werden. Sie ist entweder ein Interface oder aber"
                             + " eine abstrakte Klasse. Sie TransportException muss aber eine konkrete"
                             + " Implementierung sein",
-                    ie, transportExceptionClass.getClass());
+                    ie, transportExceptionClass);
             throw new IllegalArgumentException(
                     "Die Uebergebene TransportException-Klasse ist ein Interface oder eine abstrakte Klasse.");
         } catch (IllegalAccessException iae) {
@@ -225,7 +225,7 @@ public class BridgeExceptionMapper {
                     "Die TransportException {} konnte nicht erzeugt werden. Die TransportException"
                             + " implementiert nicht den benoetigten Konstruktor mit den Parametern: "
                             + "String message, String ausnahmeId, String uniqueId.",
-                    iae, transportExceptionClass.getClass());
+                    iae, transportExceptionClass);
             throw new IllegalArgumentException(
                     "Die TransportException implementiert nicht den benoetigten Konstruktor mit den "
                             + "Parametern: String message, String ausnahmeId, String uniqueId");
@@ -233,9 +233,9 @@ public class BridgeExceptionMapper {
             // Der Aufruf des Konstruktors fuehrte innerhalb des Konstruktors zu einer Exception
             LOG.error(EreignisSchluessel.KONSTRUKTOR_EXCEPTION,
                     "Der Aufruf des Konstruktors der TransportException {} fuehrte innerhalb des aufgerufenen Konstruktors zu einer Exception.",
-                    ite, transportExceptionClass.getClass());
+                    ite, transportExceptionClass);
             throw new IllegalArgumentException(
-                    "Der Aufruf des Konstruktors der TransportException" + transportExceptionClass.getClass()
+                    "Der Aufruf des Konstruktors der TransportException" + transportExceptionClass
                             + "fuehrte innerhalb des aufgerufenen Konstruktors zu einer Exception.");
         }
     }
