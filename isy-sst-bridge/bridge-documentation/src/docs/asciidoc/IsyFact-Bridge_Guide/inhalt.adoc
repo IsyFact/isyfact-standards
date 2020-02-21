@@ -32,6 +32,9 @@ Um in einer 2er Anwendungen auch Schnittstellen von 1er Anwendungen nutzen zu k�
 Die richtige Version wird aus der Standard-Products-BOM mitgeliefert.
 Generell muss eine 2.x Anwendung die 2.x Version des Wrappers einbinden, um auf 1.x Anwendungen zugreifen zu können.
 
+Standardmäßig werden beim Einbinden über die Autokonfiguration alle notwendigen Konverter-Beans initialisiert.
+Ist dies nicht erwünscht, kann die Autokonfiguration über `isy.sst.serviceapibridge.autoconfiguration.enabled=false` in den `application.properties` ausgeschaltet werden.
+
 == Verwendung auf Client-Seite
 
 Der Service-Zugriff ist nach dem <<DetailkonzeptKomponenteService, Detailkonzept Komponente Service>> zu gestalten.
