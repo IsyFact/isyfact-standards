@@ -24,20 +24,20 @@ public class BridgeExceptionMapperTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testMapException2() {
+    public void testMapExceptionZuNull() {
         BusinessException exc = IsyTestExceptionFactory.getBusinessException();
         PlisBusinessToException toExc = BridgeExceptionMapper.mapException(exc, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testMapException3() {
+    public void testMapExceptionZuUngueltigerKonstruktor() {
         TechnicalException exc = IsyTestExceptionFactory.getTechnicalException();
         PlisTechnicalToException toExc =
                 BridgeExceptionMapper.mapException(exc, IsyTestExceptionFactory.MyWrongConstructorToException.class);
     }
 
     @Test
-    public void testMapException4() {
+    public void testMapRuntimeException() {
         TechnicalRuntimeException exc = IsyTestExceptionFactory.getTechnicalRuntimeException();
         IsyTestExceptionFactory.MyPlisTechnicalToException toExc =
                 BridgeExceptionMapper.mapException(exc, IsyTestExceptionFactory.MyPlisTechnicalToException.class);
@@ -46,14 +46,14 @@ public class BridgeExceptionMapperTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testMapException5() {
+    public void testMapRuntimeExceptionZuNull() {
         TechnicalRuntimeException exc = IsyTestExceptionFactory.getTechnicalRuntimeException();
         IsyTestExceptionFactory.MyPlisTechnicalToException toExc = BridgeExceptionMapper
             .mapException(exc, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testMapException6() {
+    public void testMapRuntimeExceptionZuUngueltigerKonstruktor() {
         TechnicalRuntimeException exc = IsyTestExceptionFactory.getTechnicalRuntimeException();
         IsyTestExceptionFactory.MyWrongConstructorToException toExc =
                 BridgeExceptionMapper.mapException(exc, IsyTestExceptionFactory.MyWrongConstructorToException.class);
@@ -69,21 +69,21 @@ public class BridgeExceptionMapperTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testCreateException1() {
+    public void testCreateNullException() {
         IsyTestExceptionFactory.MyPlisBusinessToException toExc = BridgeExceptionMapper
                 .createToException(IsyTestExceptionFactory.ausnahmeId, IsyTestExceptionFactory.provider, null,
                         IsyTestExceptionFactory.parameter);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testCreateException2() {
+    public void testCreateUngueltigerKonstruktorException() {
         IsyTestExceptionFactory.MyWrongConstructorToException toExc = BridgeExceptionMapper
                 .createToException(IsyTestExceptionFactory.ausnahmeId, IsyTestExceptionFactory.provider,
                         IsyTestExceptionFactory.MyWrongConstructorToException.class, IsyTestExceptionFactory.parameter);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testCreateException3() {
+    public void testCreateUngueltigeExceptionInitialisierung() {
         IsyTestExceptionFactory.MyWrongParameterToException toExc = BridgeExceptionMapper
                 .createToException("foo bar", IsyTestExceptionFactory.provider,
                         IsyTestExceptionFactory.MyWrongParameterToException.class, IsyTestExceptionFactory.parameter);
