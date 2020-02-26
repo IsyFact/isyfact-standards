@@ -16,10 +16,6 @@
  */
 package de.bund.bva.isyfact.exception.service.bridge.util;
 
-import ma.glasnost.orika.MapperFacade;
-import ma.glasnost.orika.MapperFactory;
-import ma.glasnost.orika.impl.DefaultMapperFactory;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.UUID;

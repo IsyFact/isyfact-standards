@@ -12,10 +12,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>ma.glasnost.orika</groupId>
-            <artifactId>orika-core</artifactId>
-        </dependency>
-        <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-logging</artifactId>
         </dependency>
