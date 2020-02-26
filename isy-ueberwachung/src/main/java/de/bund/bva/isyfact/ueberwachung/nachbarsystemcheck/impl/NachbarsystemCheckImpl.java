@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
+import de.bund.bva.isyfact.ueberwachung.common.konstanten.EreignisSchluessel;
 import de.bund.bva.isyfact.ueberwachung.nachbarsystemcheck.NachbarsystemCheck;
 import de.bund.bva.isyfact.ueberwachung.nachbarsystemcheck.model.HealthTO;
 import de.bund.bva.isyfact.ueberwachung.nachbarsystemcheck.model.Nachbarsystem;
@@ -45,11 +46,14 @@ public class NachbarsystemCheckImpl implements NachbarsystemCheck {
         }
 
         //Logging, wenn Status "nicht UP" ist
-        if (nachbarsystem.isEssentiell()) { //TODO schluessel erstellen?
-            LOG.error("schluessel", "Essentielles Nachbarsystem {} nicht erreicht.",
-                nachbarsystem.getSystemname());
+        if (nachbarsystem.isEssentiell()) {
+            LOG.error(EreignisSchluessel.NACHBARSYSTEM_ESSENTIELL_NICHT_ERREICHBAR,
+                "Essentielles Nachbarsystem {} nicht erreicht. Status: {}",
+                nachbarsystem.getSystemname(), health.getStatus());
         } else {
-            LOG.warn("schluessel", "Nachbarsystem {} nicht erreicht.", nachbarsystem.getSystemname());
+            LOG.warn(EreignisSchluessel.NACHBARSYSTEM_NICHT_ESSENTIELL_NICHT_ERREICHBAR,
+                "Nicht-essentielles Nachbarsystem {} nicht erreicht. Status: {}",
+                nachbarsystem.getSystemname(), health.getStatus());
         }
     }
 

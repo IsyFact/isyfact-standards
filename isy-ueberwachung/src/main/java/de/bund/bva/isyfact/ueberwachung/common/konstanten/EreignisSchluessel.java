@@ -21,11 +21,12 @@ package de.bund.bva.isyfact.ueberwachung.common.konstanten;
  */
 public class EreignisSchluessel {
 
+    /** Infos Loadbalancer. */
     public static final String PLUEB00001 = "PLUEB00001";
 
-    public static final String PLUEB00002 = "PLUEB00002";
+    /** Essentielles Nachbarsystem {} nicht erreicht. Status: {} */
+    public static final String NACHBARSYSTEM_ESSENTIELL_NICHT_ERREICHBAR = "PLUEB00002";
 
-    public static final String PLUEB00003 = "PLUEB00003";
-
-    public static final String PLUEB00004 = "PLUEB00004";
+    /** Nicht-essentielles Nachbarsystem {} nicht erreicht. Status: {} */
+    public static final String NACHBARSYSTEM_NICHT_ESSENTIELL_NICHT_ERREICHBAR = "PLUEB00003";
 }
