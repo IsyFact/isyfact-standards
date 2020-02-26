@@ -9,6 +9,7 @@
     </parent>
 
     <artifactId>bridge-documentation</artifactId>
+    <packaging>pom</packaging>
 
     <profiles>
     <!--in eigenem Profil, da er nur unter Linux ausgefuehrt werden kann-->
