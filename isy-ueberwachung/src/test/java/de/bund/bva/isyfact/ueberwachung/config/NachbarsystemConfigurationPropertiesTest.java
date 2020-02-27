@@ -1,7 +1,7 @@
 package de.bund.bva.isyfact.ueberwachung.config;
 
 import de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyUeberwachungAutoConfiguration;
-import de.bund.bva.isyfact.ueberwachung.nachbarsystemcheck.model.Nachbarsystem;
+import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.Nachbarsystem;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

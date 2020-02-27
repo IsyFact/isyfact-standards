@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.ueberwachung.nachbarsystemcheck.impl;
+package de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.impl;
 
 import java.net.URI;
 
@@ -7,9 +7,9 @@ import javax.validation.constraints.NotNull;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.ueberwachung.common.konstanten.EreignisSchluessel;
-import de.bund.bva.isyfact.ueberwachung.nachbarsystemcheck.NachbarsystemCheck;
-import de.bund.bva.isyfact.ueberwachung.nachbarsystemcheck.model.NachbarsystemHealth;
-import de.bund.bva.isyfact.ueberwachung.nachbarsystemcheck.model.Nachbarsystem;
+import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.NachbarsystemCheck;
+import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.NachbarsystemHealth;
+import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.Nachbarsystem;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;

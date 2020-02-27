@@ -1,12 +1,12 @@
-package de.bund.bva.isyfact.ueberwachung.nachbarsystemcheck;
+package de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
 import de.bund.bva.isyfact.ueberwachung.config.NachbarsystemConfigurationProperties;
-import de.bund.bva.isyfact.ueberwachung.nachbarsystemcheck.model.NachbarsystemHealth;
-import de.bund.bva.isyfact.ueberwachung.nachbarsystemcheck.model.Nachbarsystem;
+import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.NachbarsystemHealth;
+import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.Nachbarsystem;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.Status;

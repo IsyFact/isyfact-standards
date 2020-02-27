@@ -3,7 +3,7 @@ package de.bund.bva.isyfact.ueberwachung.config;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.bund.bva.isyfact.ueberwachung.nachbarsystemcheck.model.Nachbarsystem;
+import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.Nachbarsystem;
 
 /** Enthält die Nachbarsysteme, die mittels des Nachbarsystemchecks überprüft werden. */
 public class NachbarsystemConfigurationProperties {

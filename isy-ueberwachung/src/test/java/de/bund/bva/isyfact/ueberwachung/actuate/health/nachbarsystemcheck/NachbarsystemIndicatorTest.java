@@ -1,12 +1,12 @@
-package de.bund.bva.isyfact.ueberwachung.nachbarsystemcheck;
+package de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck;
 
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
 import de.bund.bva.isyfact.ueberwachung.config.NachbarsystemConfigurationProperties;
-import de.bund.bva.isyfact.ueberwachung.nachbarsystemcheck.model.NachbarsystemHealth;
-import de.bund.bva.isyfact.ueberwachung.nachbarsystemcheck.model.Nachbarsystem;
+import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.NachbarsystemHealth;
+import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.Nachbarsystem;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

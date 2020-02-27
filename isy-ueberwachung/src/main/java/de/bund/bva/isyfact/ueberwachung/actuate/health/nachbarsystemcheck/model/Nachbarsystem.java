@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.ueberwachung.nachbarsystemcheck.model;
+package de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model;
 
 import java.net.URI;
 
