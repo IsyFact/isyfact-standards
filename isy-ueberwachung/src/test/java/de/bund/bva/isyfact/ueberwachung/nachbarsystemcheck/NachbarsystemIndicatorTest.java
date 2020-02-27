@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.bund.bva.isyfact.ueberwachung.config.NachbarsystemConfigurationProperties;
+import de.bund.bva.isyfact.ueberwachung.nachbarsystemcheck.model.NachbarsystemHealth;
 import de.bund.bva.isyfact.ueberwachung.nachbarsystemcheck.model.Nachbarsystem;
 import org.junit.Assert;
 import org.junit.Before;
@@ -32,6 +33,16 @@ public class NachbarsystemIndicatorTest {
             new NachbarsystemIndicator(nachbarsystemCheck, nachbarsystemConfigurationProperties);
     }
 
+    // wenn keine Nachbarsysteme konfiguriert sind, gibt der Check immer "UP" zurück
+    @Test
+    public void keineNachbarsystemeKonfiguriert() {
+        Mockito.when(nachbarsystemConfigurationProperties.getNachbarsysteme()).thenReturn(new HashMap<>());
+        //Führe Check durch
+        Health health = nachbarsystemIndicator.health();
+        //Erwartetes ergebnis: UP
+        Assert.assertEquals(Status.UP, health.getStatus());
+    }
+
     // Wenn ein System "nicht essentiell" ist und der Check nicht erfolgreich ist,
     // liefert der Indikator trotzdem "UP" zurück
     @Test
@@ -46,9 +57,12 @@ public class NachbarsystemIndicatorTest {
 
         Mockito.when(nachbarsystemConfigurationProperties.getNachbarsysteme()).thenReturn(nachbarn);
 
+        NachbarsystemHealth mockHealth = new NachbarsystemHealth();
+        mockHealth.setNachbarsystem(nachbar);
+        mockHealth.setStatus(Status.DOWN);
         //Mock: Check liefert Down zurück
         Mockito.when(nachbarsystemCheck.checkNachbarsystem(Mockito.any()))
-            .thenReturn(Mono.just(Health.down().build()));
+            .thenReturn(Mono.just(mockHealth));
 
         //Führe Check durch
         Health health = nachbarsystemIndicator.health();
@@ -70,9 +84,12 @@ public class NachbarsystemIndicatorTest {
 
         Mockito.when(nachbarsystemConfigurationProperties.getNachbarsysteme()).thenReturn(nachbarn);
 
+        NachbarsystemHealth mockHealth = new NachbarsystemHealth();
+        mockHealth.setNachbarsystem(nachbar);
+        mockHealth.setStatus(Status.DOWN);
         //Mock: Check liefert Down zurück
         Mockito.when(nachbarsystemCheck.checkNachbarsystem(Mockito.any()))
-            .thenReturn(Mono.just(Health.down().build()));
+            .thenReturn(Mono.just(mockHealth));
 
         //Führe Check durch
         Health health = nachbarsystemIndicator.health();
@@ -99,9 +116,12 @@ public class NachbarsystemIndicatorTest {
 
         Mockito.when(nachbarsystemConfigurationProperties.getNachbarsysteme()).thenReturn(nachbarn);
 
+        NachbarsystemHealth mockHealth = new NachbarsystemHealth();
+        mockHealth.setNachbarsystem(nachbar);
+        mockHealth.setStatus(Status.UP);
         //Mock: Check liefert UP zurück
         Mockito.when(nachbarsystemCheck.checkNachbarsystem(Mockito.any()))
-            .thenReturn(Mono.just(Health.up().build()));
+            .thenReturn(Mono.just(mockHealth));
 
         //Führe Check durch
         Health health = nachbarsystemIndicator.health();

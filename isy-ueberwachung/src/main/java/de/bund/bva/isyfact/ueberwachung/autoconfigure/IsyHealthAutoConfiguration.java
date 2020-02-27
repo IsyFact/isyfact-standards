@@ -3,14 +3,22 @@ package de.bund.bva.isyfact.ueberwachung.autoconfigure;
 import de.bund.bva.isyfact.ueberwachung.actuate.health.IsyHealthCache;
 import de.bund.bva.isyfact.ueberwachung.actuate.health.IsyHealthEndpoint;
 import de.bund.bva.isyfact.ueberwachung.actuate.health.IsyHealthTask;
+import de.bund.bva.isyfact.ueberwachung.config.NachbarsystemConfigurationProperties;
+import de.bund.bva.isyfact.ueberwachung.nachbarsystemcheck.NachbarsystemCheck;
+import de.bund.bva.isyfact.ueberwachung.nachbarsystemcheck.NachbarsystemIndicator;
+import de.bund.bva.isyfact.ueberwachung.nachbarsystemcheck.impl.NachbarsystemCheckImpl;
+import de.bund.bva.isyfact.ueberwachung.nachbarsystemcheck.model.Nachbarsystem;
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnEnabledEndpoint;
 import org.springframework.boot.actuate.health.CompositeHealthIndicator;
 import org.springframework.boot.actuate.health.HealthAggregator;
 import org.springframework.boot.actuate.health.HealthEndpoint;
 import org.springframework.boot.actuate.health.HealthIndicatorRegistry;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.web.reactive.function.client.WebClient;
 
 /**
  * Auto-Configuration fuer den entkoppelten HealthEndpoint mit Cache.
@@ -20,6 +28,31 @@ import org.springframework.context.annotation.PropertySource;
 @Configuration
 @PropertySource("classpath:config/health.properties")
 public class IsyHealthAutoConfiguration {
+
+    @Bean
+    @ConfigurationProperties(prefix = "isy.ueberwachung")
+    public NachbarsystemConfigurationProperties nachbarsystemConfigurationProperties() {
+        return new NachbarsystemConfigurationProperties();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public WebClient webClient() {
+        return WebClient.create();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public NachbarsystemCheck nachbarsystemCheck(WebClient webClient) {
+        return new NachbarsystemCheckImpl(webClient);
+    }
+
+    @Bean
+    @ConditionalOnEnabledEndpoint(endpoint = HealthEndpoint.class)
+    public NachbarsystemIndicator nachbarsystemIndicator(NachbarsystemCheck nachbarsystemCheck,
+        NachbarsystemConfigurationProperties nachbarsystemConfigurationProperties) {
+        return new NachbarsystemIndicator(nachbarsystemCheck, nachbarsystemConfigurationProperties);
+    }
 
     @Bean
     @ConditionalOnEnabledEndpoint(endpoint = HealthEndpoint.class)
@@ -39,8 +72,8 @@ public class IsyHealthAutoConfiguration {
     @Bean
     @ConditionalOnEnabledEndpoint(endpoint = HealthEndpoint.class)
     public IsyHealthTask isyHealthTask(HealthAggregator healthAggregator,
-                                       HealthIndicatorRegistry registry,
-                                       IsyHealthCache isyHealthCache) {
+        HealthIndicatorRegistry registry,
+        IsyHealthCache isyHealthCache) {
         return new IsyHealthTask(new CompositeHealthIndicator(healthAggregator, registry), isyHealthCache);
     }
 

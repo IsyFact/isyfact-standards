@@ -1,11 +1,17 @@
 package de.bund.bva.isyfact.ueberwachung.nachbarsystemcheck;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.bund.bva.isyfact.ueberwachung.config.NachbarsystemConfigurationProperties;
+import de.bund.bva.isyfact.ueberwachung.nachbarsystemcheck.model.NachbarsystemHealth;
 import de.bund.bva.isyfact.ueberwachung.nachbarsystemcheck.model.Nachbarsystem;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.Status;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 /**
  * Der NachbarsystemIndicator überprüft für alle in den NachbarsystemConfigurationProperties konfigurierten
@@ -27,13 +33,24 @@ public class NachbarsystemIndicator implements HealthIndicator {
 
     @Override
     public Health health() {
-        Health.Builder healthAggregated = Health.up(); //Default Rückgabewert: Nachbarn sind up.
-
+        //Checke Health aller Nachbarn
+        List<Mono<NachbarsystemHealth>> healthresults = new ArrayList<>();
         for (Nachbarsystem nachbar : nachbarsystemConfigurationProperties.getNachbarsysteme().values()) {
+            healthresults.add(nachbarsystemCheck.checkNachbarsystem(nachbar));
+        }
 
-            Health nachbarHealth = nachbarsystemCheck.checkNachbarsystem(nachbar).block();
-            //Asynchronität ist durch Cache gewährleistet, wir wollen für die Überprüfung explizit blocken
+        //Aggregiere Ergebnisse
+        return Flux.merge(healthresults)
+            .collectList()
+            .map(this::aggregateHealth)
+            .block();
+    }
 
+    //aggregiert die Ergebnisse der Nachbarn in das Ergebnis des Healthchecks
+    private Health aggregateHealth(List<NachbarsystemHealth> healthresults) {
+        Health.Builder healthAggregated = Health.up(); //Default Rückgabewert: Nachbarn sind up.
+        for (NachbarsystemHealth nachbarHealth : healthresults) {
+            Nachbarsystem nachbar = nachbarHealth.getNachbarsystem();
             //wenn ein essentielles System nicht verfügbar ist,
             //gibt der NachbarsystemIndikator "Out of Service" zurück
             healthAggregated.withDetail(nachbar.getSystemname(), nachbarHealth);
@@ -42,5 +59,6 @@ public class NachbarsystemIndicator implements HealthIndicator {
             }
         }
         return healthAggregated.build();
+
     }
 }

@@ -8,9 +8,8 @@ import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.ueberwachung.common.konstanten.EreignisSchluessel;
 import de.bund.bva.isyfact.ueberwachung.nachbarsystemcheck.NachbarsystemCheck;
-import de.bund.bva.isyfact.ueberwachung.nachbarsystemcheck.model.HealthTO;
+import de.bund.bva.isyfact.ueberwachung.nachbarsystemcheck.model.NachbarsystemHealth;
 import de.bund.bva.isyfact.ueberwachung.nachbarsystemcheck.model.Nachbarsystem;
-import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -28,17 +27,17 @@ public class NachbarsystemCheckImpl implements NachbarsystemCheck {
     }
 
     @Override
-    public Mono<Health> checkNachbarsystem(@NotNull Nachbarsystem nachbarsystem) {
+    public Mono<NachbarsystemHealth> checkNachbarsystem(@NotNull Nachbarsystem nachbarsystem) {
         return checkUri(nachbarsystem.getHealthEndpoint())
-            .retry(1) //retry once on failure
+            .retry(1)//retry once on failure
             .onErrorReturn(//map Error to default-Health "down"
-                Health.down().withDetail("Error bei Statusabfrage", "").build())
-            .doOnNext(health -> {
-                logHealth(nachbarsystem, health);
-            });
+                createDefaultHealth())
+            .doOnNext(h -> h.setNachbarsystem(nachbarsystem))
+            .doOnNext(this::logHealth);
     }
 
-    private void logHealth(Nachbarsystem nachbarsystem, Health health) {
+    private void logHealth(NachbarsystemHealth health) {
+        Nachbarsystem nachbarsystem = health.getNachbarsystem();
         //Logge Status UP nur in DEBUG
         if (Status.UP.equals(health.getStatus())) {
             LOG.debug("Nachbarsystem verfügbar: {}", nachbarsystem.getSystemname());
@@ -57,12 +56,18 @@ public class NachbarsystemCheckImpl implements NachbarsystemCheck {
         }
     }
 
-    private Mono<Health> checkUri(URI url) {
+    private Mono<NachbarsystemHealth> checkUri(URI url) {
         return webClient
             .get()
             .uri(url)
             .retrieve()
-            .bodyToMono(HealthTO.class)
-            .map(HealthTO::convertToHealth);
+            .bodyToMono(NachbarsystemHealth.class);
+    }
+
+    private NachbarsystemHealth createDefaultHealth() {
+        NachbarsystemHealth health = new NachbarsystemHealth();
+        health.setStatus(Status.DOWN);
+        health.getDetails().put("info", "Error bei Statusabfrage");
+        return health;
     }
 }

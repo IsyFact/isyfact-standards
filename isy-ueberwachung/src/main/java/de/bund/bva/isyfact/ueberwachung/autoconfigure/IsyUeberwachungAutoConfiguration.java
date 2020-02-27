@@ -21,20 +21,16 @@ import org.springframework.context.annotation.Configuration;
 public class IsyUeberwachungAutoConfiguration {
 
     @Bean
-    @ConfigurationProperties(prefix = "isy.ueberwachung")
-    public NachbarsystemConfigurationProperties nachbarsystemConfigurationProperties() {
-        return new NachbarsystemConfigurationProperties();
-    }
-
-    @Bean
     @ConfigurationProperties(prefix = "isy.ueberwachung.loadbalancer")
     public LoadbalancerServletConfigurationProperties loadbalancerServletConfigurationProperties() {
         return new LoadbalancerServletConfigurationProperties();
     }
 
     @Bean
-    public ServletRegistrationBean<LoadbalancerServlet> loadbalancerservlet(LoadbalancerServletConfigurationProperties properties) {
-        ServletRegistrationBean<LoadbalancerServlet> loadbalancerServlet = new ServletRegistrationBean<>(new LoadbalancerServlet());
+    public ServletRegistrationBean<LoadbalancerServlet> loadbalancerservlet(
+        LoadbalancerServletConfigurationProperties properties) {
+        ServletRegistrationBean<LoadbalancerServlet> loadbalancerServlet =
+            new ServletRegistrationBean<>(new LoadbalancerServlet());
         loadbalancerServlet.setLoadOnStartup(1);
         loadbalancerServlet.addUrlMappings("/Loadbalancer");
 
