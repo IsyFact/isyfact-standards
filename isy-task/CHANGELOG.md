@@ -1,4 +1,5 @@
 # 2.1.0
+- `IFS-323`: Hostnamen werden jetzt mit Regex angegeben
 - `IFS-324`: Umzug des Tasks für Konfigurations-Updates von isy-task zu isy-konfiguration
 
 # 2.0.0
