@@ -2,6 +2,8 @@ package de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.impl;
 
 import java.net.URI;
 
+import de.bund.bva.isyfact.logging.IsyLogger;
+import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.NachbarsystemCheck;
 import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.NachbarsystemHealth;
 import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.Nachbarsystem;
@@ -17,6 +19,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class NachbarsystemCheckImplTest {
+
+    private final IsyLogger LOGGER = IsyLoggerFactory.getLogger(NachbarsystemCheckImplTest.class);
 
     //Mocken der Anfrage nach außen
     private final WebClient webClient = mock(WebClient.class);
@@ -61,7 +65,24 @@ public class NachbarsystemCheckImplTest {
         when(responseSpec.bodyToMono(NachbarsystemHealth.class))
             .thenReturn(Mono.error(new Exception("someException")));
 
+        LOGGER.debug("Error-Log erwartet: ");
         Mono<NachbarsystemHealth> healthMono = nachbarsystemCheck.checkNachbarsystem(nachbarsystem);
+
+        NachbarsystemHealth health = healthMono.block();
+        Assert.assertNotNull(health);
+        Assert.assertEquals(Status.DOWN, health.getStatus());
+    }
+
+    @Test
+    public void exceptionBeiAnfrageNichtEssentiell() {
+        Nachbarsystem nachbarsystem = createNachbarsystemDummy();
+        nachbarsystem.setEssentiell(false);
+        when(responseSpec.bodyToMono(NachbarsystemHealth.class))
+            .thenReturn(Mono.error(new Exception("someException")));
+
+        LOGGER.debug("Warn-Log erwartet: ");
+        Mono<NachbarsystemHealth> healthMono = nachbarsystemCheck.checkNachbarsystem(nachbarsystem);
+
         NachbarsystemHealth health = healthMono.block();
         Assert.assertNotNull(health);
         Assert.assertEquals(Status.DOWN, health.getStatus());
