@@ -52,10 +52,10 @@ public class NachbarsystemIndicator implements HealthIndicator {
         for (NachbarsystemHealth nachbarHealth : healthresults) {
             Nachbarsystem nachbar = nachbarHealth.getNachbarsystem();
             //wenn ein essentielles System nicht verfügbar ist,
-            //gibt der NachbarsystemIndikator "Out of Service" zurück
+            //gibt der NachbarsystemIndikator "DOWN" zurück
             healthAggregated.withDetail(nachbar.getSystemname(), nachbarHealth);
             if (nachbar.isEssentiell() && !Status.UP.equals(nachbarHealth.getStatus())) {
-                healthAggregated.status(Status.OUT_OF_SERVICE);
+                healthAggregated.status(Status.DOWN);
             }
         }
         return healthAggregated.build();

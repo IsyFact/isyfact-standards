@@ -74,7 +74,7 @@ public class NachbarsystemIndicatorTest {
     }
 
     // Wenn ein System "essentiell" ist und der Check nicht erfolgreich ist,
-    // liefert der Indikator trotzdem "OUT_OF_SERVICE" zurück
+    // liefert der Indikator trotzdem "DOWN" zurück
     @Test
     public void essentiellesSystemDown() {
         //Mock: Nachbar ist essentiell
@@ -97,7 +97,7 @@ public class NachbarsystemIndicatorTest {
         //Führe Check durch
         Health health = nachbarsystemIndicator.health();
         //Erwartetes ergebnis: OUT OF SERVICE
-        assertEquals(Status.OUT_OF_SERVICE, health.getStatus());
+        assertEquals(Status.DOWN, health.getStatus());
     }
 
     // Wenn alle Systeme erfolgreich überprüft werden (Health ist "UP"),
