@@ -1,30 +1,35 @@
 package de.bund.bva.isyfact.ueberwachung.config;
 
-import de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyHealthAutoConfiguration;
-import de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyUeberwachungAutoConfiguration;
-import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.Nachbarsystem;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.Nachbarsystem;
+import de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyHealthAutoConfiguration;
+import de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyUeberwachungAutoConfiguration;
+
 import static org.junit.Assert.*;
 
-/* Test zum überprüfen, ob die gesetzten properties korrekt geladen werden.
+/**
+ * Test zum überprüfen, ob die gesetzten properties korrekt geladen werden.
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = { IsyUeberwachungAutoConfiguration.class, IsyHealthAutoConfiguration.class },
-    properties = {
-        "isy.ueberwachung.nachbarsysteme.nachbar1.systemname=Nachbar",
-        "isy.ueberwachung.nachbarsysteme.nachbar1.essentiell=true",
-        "isy.ueberwachung.nachbarsysteme.nachbar1.healthendpoint=http://example.com",
-        "isy.ueberwachung.nachbarsysteme.nachbar2.systemname=Nachbar2",
-        "isy.ueberwachung.nachbarsysteme.nachbar2.essentiell=false",
-        "isy.ueberwachung.nachbarsysteme.nachbar2.healthendpoint=http://example.com" })
+        properties = {
+                "isy.ueberwachung.nachbarsysteme.nachbar1.systemname=Nachbar",
+                "isy.ueberwachung.nachbarsysteme.nachbar1.essentiell=true",
+                "isy.ueberwachung.nachbarsysteme.nachbar1.healthendpoint=http://example.com",
+                "isy.ueberwachung.nachbarsysteme.nachbar2.systemname=Nachbar2",
+                "isy.ueberwachung.nachbarsysteme.nachbar2.essentiell=false",
+                "isy.ueberwachung.nachbarsysteme.nachbar2.healthendpoint=http://example.com" },
+        webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class NachbarsystemConfigurationPropertiesTest {
 
-    /** NachbarsystemConfigurationProperties. */
+    /**
+     * NachbarsystemConfigurationProperties.
+     */
     @Autowired
     private NachbarsystemConfigurationProperties nachbarsystemConfigurationProperties;
 
@@ -45,4 +50,5 @@ public class NachbarsystemConfigurationPropertiesTest {
         assertFalse(nachbar2.isEssentiell());
         assertEquals("http://example.com", nachbar2.getHealthEndpoint().toString());
     }
+
 }

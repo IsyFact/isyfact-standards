@@ -2,21 +2,22 @@ package de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.impl;
 
 import java.net.URI;
 
-import de.bund.bva.isyfact.logging.IsyLogger;
-import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.NachbarsystemCheck;
-import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.NachbarsystemHealth;
-import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.Nachbarsystem;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import de.bund.bva.isyfact.logging.IsyLogger;
+import de.bund.bva.isyfact.logging.IsyLoggerFactory;
+import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.NachbarsystemCheck;
+import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.Nachbarsystem;
+import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.NachbarsystemHealth;
+
 import reactor.core.publisher.Mono;
 
+import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class NachbarsystemCheckImplTest {
 
@@ -25,7 +26,7 @@ public class NachbarsystemCheckImplTest {
     //Mocken der Anfrage nach außen
     private final WebClient webClient = mock(WebClient.class);
     private final WebClient.RequestHeadersUriSpec requestHeadersUriSpec =
-        mock(WebClient.RequestHeadersUriSpec.class);
+            mock(WebClient.RequestHeadersUriSpec.class);
     private final WebClient.RequestBodySpec requestBodySpec = mock(WebClient.RequestBodySpec.class);
     private final WebClient.ResponseSpec responseSpec = mock(WebClient.ResponseSpec.class);
 
@@ -35,7 +36,7 @@ public class NachbarsystemCheckImplTest {
     public void setup() {
         when(webClient.get()).thenReturn(requestHeadersUriSpec);
         when(requestHeadersUriSpec.uri(any(URI.class)))
-            .thenReturn(requestBodySpec);
+                .thenReturn(requestBodySpec);
         when(requestBodySpec.retrieve()).thenReturn(responseSpec);
 
         nachbarsystemCheck = new NachbarsystemCheckImpl(webClient);
@@ -49,12 +50,12 @@ public class NachbarsystemCheckImplTest {
         NachbarsystemHealth nachbarsystemHealth = new NachbarsystemHealth();
         nachbarsystemHealth.setStatus(Status.UP);
         when(responseSpec.bodyToMono(NachbarsystemHealth.class))
-            .thenReturn(Mono.just(nachbarsystemHealth));
+                .thenReturn(Mono.just(nachbarsystemHealth));
 
         Mono<NachbarsystemHealth> healthMono = nachbarsystemCheck.checkNachbarsystem(nachbarsystem);
         NachbarsystemHealth health = healthMono.block();
-        Assert.assertNotNull(health);
-        Assert.assertEquals(Status.UP, health.getStatus());
+        assertNotNull(health);
+        assertEquals(Status.UP, health.getStatus());
     }
 
     //Wenn bei der Anfrage eine Exception auftritt, gilt der Nachbar als nicht erreichbar
@@ -63,14 +64,14 @@ public class NachbarsystemCheckImplTest {
     public void exceptionBeiAnfrage() {
         Nachbarsystem nachbarsystem = createNachbarsystemDummy();
         when(responseSpec.bodyToMono(NachbarsystemHealth.class))
-            .thenReturn(Mono.error(new Exception("someException")));
+                .thenReturn(Mono.error(new Exception("someException")));
 
         LOGGER.debug("Error-Log erwartet: ");
         Mono<NachbarsystemHealth> healthMono = nachbarsystemCheck.checkNachbarsystem(nachbarsystem);
 
         NachbarsystemHealth health = healthMono.block();
-        Assert.assertNotNull(health);
-        Assert.assertEquals(Status.DOWN, health.getStatus());
+        assertNotNull(health);
+        assertEquals(Status.DOWN, health.getStatus());
     }
 
     @Test
@@ -78,14 +79,14 @@ public class NachbarsystemCheckImplTest {
         Nachbarsystem nachbarsystem = createNachbarsystemDummy();
         nachbarsystem.setEssentiell(false);
         when(responseSpec.bodyToMono(NachbarsystemHealth.class))
-            .thenReturn(Mono.error(new Exception("someException")));
+                .thenReturn(Mono.error(new Exception("someException")));
 
         LOGGER.debug("Warn-Log erwartet: ");
         Mono<NachbarsystemHealth> healthMono = nachbarsystemCheck.checkNachbarsystem(nachbarsystem);
 
         NachbarsystemHealth health = healthMono.block();
-        Assert.assertNotNull(health);
-        Assert.assertEquals(Status.DOWN, health.getStatus());
+        assertNotNull(health);
+        assertEquals(Status.DOWN, health.getStatus());
     }
 
 
@@ -96,4 +97,5 @@ public class NachbarsystemCheckImplTest {
         nachbarsystem.setHealthEndpoint(URI.create("http://example.com"));
         return nachbarsystem;
     }
+
 }
