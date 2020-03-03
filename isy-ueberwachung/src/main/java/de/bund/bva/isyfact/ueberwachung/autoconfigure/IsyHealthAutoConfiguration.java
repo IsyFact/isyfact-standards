@@ -1,5 +1,10 @@
 package de.bund.bva.isyfact.ueberwachung.autoconfigure;
 
+import java.util.concurrent.TimeUnit;
+
+import io.netty.channel.ChannelOption;
+import io.netty.handler.timeout.ReadTimeoutHandler;
+import io.netty.handler.timeout.WriteTimeoutHandler;
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnEnabledEndpoint;
 import org.springframework.boot.actuate.health.CompositeHealthIndicator;
 import org.springframework.boot.actuate.health.HealthAggregator;
@@ -21,6 +26,7 @@ import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.Nachba
 import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.NachbarsystemIndicator;
 import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.impl.NachbarsystemCheckImpl;
 import de.bund.bva.isyfact.ueberwachung.config.NachbarsystemConfigurationProperties;
+import reactor.netty.http.client.HttpClient;
 
 /**
  * Auto-Configuration fuer den entkoppelten HealthEndpoint mit Cache.
@@ -39,21 +45,41 @@ public class IsyHealthAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public WebClient webClient() {
-        ClientHttpConnector clientHttpConnector = new ReactorClientHttpConnector();
+    public WebClient webClient(
+        NachbarsystemConfigurationProperties nachbarsystemConfigurationProperties) {
+        long timeoutInMillis =
+            nachbarsystemConfigurationProperties.getNachbarsystemCheck().getTimeout().toMillis();
+        if (timeoutInMillis > (long) Integer.MAX_VALUE) { //damit beim Cast keine Probleme auftreten
+            //fachlich gesehen sollte der Wert ohnehin deutlich kleiner sein
+            throw new IllegalArgumentException(
+                String.format("WebClient wurde nicht erstellt. Timeout zu lang: %s ms", timeoutInMillis));
+        }
+
+        // Netty Http-Client erstellen
+        HttpClient httpClient = HttpClient.create()
+            .tcpConfiguration(tcpClient -> {
+                tcpClient = tcpClient.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, (int) timeoutInMillis);
+                tcpClient = tcpClient.doOnConnected(conn -> conn
+                    .addHandlerLast(new ReadTimeoutHandler(timeoutInMillis, TimeUnit.MILLISECONDS))
+                    .addHandlerLast(new WriteTimeoutHandler(timeoutInMillis, TimeUnit.MILLISECONDS)));
+                return tcpClient;
+            });
+        // Http-Connecter basierend auf dem Http-Client
+        ClientHttpConnector clientHttpConnector = new ReactorClientHttpConnector(httpClient);
         return WebClient.builder().clientConnector(clientHttpConnector).build();
     }
 
     @Bean
     @ConditionalOnMissingBean
-    public NachbarsystemCheck nachbarsystemCheck(WebClient webClient) {
-        return new NachbarsystemCheckImpl(webClient);
+    public NachbarsystemCheck nachbarsystemCheck(WebClient webClient,
+        NachbarsystemConfigurationProperties nachbarsystemConfigurationProperties) {
+        return new NachbarsystemCheckImpl(webClient, nachbarsystemConfigurationProperties);
     }
 
     @Bean
     @ConditionalOnEnabledEndpoint(endpoint = HealthEndpoint.class)
     public NachbarsystemIndicator nachbarsystemIndicator(NachbarsystemCheck nachbarsystemCheck,
-                                                         NachbarsystemConfigurationProperties nachbarsystemConfigurationProperties) {
+        NachbarsystemConfigurationProperties nachbarsystemConfigurationProperties) {
         return new NachbarsystemIndicator(nachbarsystemCheck, nachbarsystemConfigurationProperties);
     }
 

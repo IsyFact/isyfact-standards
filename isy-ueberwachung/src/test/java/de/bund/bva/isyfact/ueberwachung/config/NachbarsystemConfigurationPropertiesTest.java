@@ -1,5 +1,7 @@
 package de.bund.bva.isyfact.ueberwachung.config;
 
+import java.time.Duration;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +19,16 @@ import static org.junit.Assert.*;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = { IsyUeberwachungAutoConfiguration.class, IsyHealthAutoConfiguration.class },
-        properties = {
-                "isy.ueberwachung.nachbarsysteme.nachbar1.systemname=Nachbar",
-                "isy.ueberwachung.nachbarsysteme.nachbar1.essentiell=true",
-                "isy.ueberwachung.nachbarsysteme.nachbar1.healthendpoint=http://example.com",
-                "isy.ueberwachung.nachbarsysteme.nachbar2.systemname=Nachbar2",
-                "isy.ueberwachung.nachbarsysteme.nachbar2.essentiell=false",
-                "isy.ueberwachung.nachbarsysteme.nachbar2.healthendpoint=http://example.com" },
-        webEnvironment = SpringBootTest.WebEnvironment.NONE)
+    properties = {
+        "isy.ueberwachung.nachbarsysteme.nachbar1.systemname=Nachbar",
+        "isy.ueberwachung.nachbarsysteme.nachbar1.essentiell=true",
+        "isy.ueberwachung.nachbarsysteme.nachbar1.healthendpoint=http://example.com",
+        "isy.ueberwachung.nachbarsysteme.nachbar2.systemname=Nachbar2",
+        "isy.ueberwachung.nachbarsysteme.nachbar2.essentiell=false",
+        "isy.ueberwachung.nachbarsysteme.nachbar2.healthendpoint=http://example.com",
+        "isy.ueberwachung.nachbarsystemcheck.timeout=20s",
+        "isy.ueberwachung.nachbarsystemcheck.anzahlretries=2" },
+    webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class NachbarsystemConfigurationPropertiesTest {
 
     /**
@@ -49,6 +53,15 @@ public class NachbarsystemConfigurationPropertiesTest {
         assertEquals("Nachbar2", nachbar2.getSystemname());
         assertFalse(nachbar2.isEssentiell());
         assertEquals("http://example.com", nachbar2.getHealthEndpoint().toString());
+    }
+
+    @Test
+    public void nachbarsystemcheckConfigurationPropertiesTest() {
+        NachbarsystemConfigurationProperties.NachbarsystemCheckProperties nachbarsystemCheckProperties =
+            nachbarsystemConfigurationProperties.getNachbarsystemCheck();
+        assertNotNull(nachbarsystemCheckProperties);
+        assertEquals(2, nachbarsystemCheckProperties.getAnzahlRetries());
+        assertEquals(Duration.ofSeconds(20), nachbarsystemCheckProperties.getTimeout());
     }
 
 }

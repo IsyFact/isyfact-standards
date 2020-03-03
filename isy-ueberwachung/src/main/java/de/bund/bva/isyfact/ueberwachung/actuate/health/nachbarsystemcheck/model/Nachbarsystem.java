@@ -7,10 +7,14 @@ import java.net.URI;
  */
 public class Nachbarsystem {
 
-    /** Name des Nachbarsystems. Wird für Loggingausgabe verwendet. */
+    /**
+     * Name des Nachbarsystems. Wird für Loggingausgabe verwendet.
+     */
     private String systemname;
 
-    /** URI des Nachbarsystems für Anfragen. */
+    /**
+     * URI des Nachbarsystems für Anfragen.
+     */
     private URI healthEndpoint;
 
     /**
@@ -42,4 +46,5 @@ public class Nachbarsystem {
     public void setEssentiell(boolean essentiell) {
         this.essentiell = essentiell;
     }
+
 }

@@ -4,36 +4,52 @@ import java.net.URI;
 
 import javax.validation.constraints.NotNull;
 
-import de.bund.bva.isyfact.logging.IsyLogger;
-import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.isyfact.ueberwachung.common.konstanten.EreignisSchluessel;
-import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.NachbarsystemCheck;
-import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.NachbarsystemHealth;
-import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.Nachbarsystem;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import de.bund.bva.isyfact.logging.IsyLogger;
+import de.bund.bva.isyfact.logging.IsyLoggerFactory;
+import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.NachbarsystemCheck;
+import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.Nachbarsystem;
+import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.NachbarsystemHealth;
+import de.bund.bva.isyfact.ueberwachung.common.konstanten.EreignisSchluessel;
+import de.bund.bva.isyfact.ueberwachung.config.NachbarsystemConfigurationProperties;
+
 import reactor.core.publisher.Mono;
 
+/**
+ * Implementierung des NachbarsystemCheck. Die Abfrage erfolgt via Spring-WebClient.
+ * Für den WebClient
+ */
 public class NachbarsystemCheckImpl implements NachbarsystemCheck {
 
-    /** Logger. */
+    /**
+     * Logger.
+     */
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(NachbarsystemCheckImpl.class);
 
-    /** WebClient zur Abfrage. */
+    /**
+     * WebClient zur Abfrage.
+     */
     private WebClient webClient;
 
-    public NachbarsystemCheckImpl(WebClient webClient) {
+    /**
+     * Properties für die Abfrage (für Retries).
+     */
+    private NachbarsystemConfigurationProperties nachbarsystemConfigurationProperties;
+
+    public NachbarsystemCheckImpl(WebClient webClient,
+                                  NachbarsystemConfigurationProperties nachbarsystemConfigurationProperties) {
         this.webClient = webClient;
+        this.nachbarsystemConfigurationProperties = nachbarsystemConfigurationProperties;
     }
 
     @Override
-    public Mono<NachbarsystemHealth> checkNachbarsystem(@NotNull Nachbarsystem nachbarsystem) {
+    public NachbarsystemHealth checkNachbarsystem(@NotNull Nachbarsystem nachbarsystem) {
         return checkUri(nachbarsystem.getHealthEndpoint())
-            .retry(1)//retry once on failure
-            .onErrorReturn(//map Error to default-Health "down"
-                createDefaultHealth())
-            .doOnNext(h -> h.setNachbarsystem(nachbarsystem))
-            .doOnNext(this::logHealth);
+                .doOnNext(h -> h.setNachbarsystem(nachbarsystem))
+                .doOnNext(this::logHealth)
+                .block();
     }
 
     private void logHealth(NachbarsystemHealth health) {
@@ -47,21 +63,24 @@ public class NachbarsystemCheckImpl implements NachbarsystemCheck {
         //Logging, wenn Status "nicht UP" ist
         if (nachbarsystem.isEssentiell()) {
             LOG.error(EreignisSchluessel.NACHBARSYSTEM_ESSENTIELL_NICHT_ERREICHBAR,
-                "Essentielles Nachbarsystem {} nicht erreicht. Status: {}",
-                nachbarsystem.getSystemname(), health.getStatus());
+                    "Essentielles Nachbarsystem {} nicht erreicht. Status: {}",
+                    nachbarsystem.getSystemname(), health.getStatus());
         } else {
             LOG.warn(EreignisSchluessel.NACHBARSYSTEM_NICHT_ESSENTIELL_NICHT_ERREICHBAR,
-                "Nicht-essentielles Nachbarsystem {} nicht erreicht. Status: {}",
-                nachbarsystem.getSystemname(), health.getStatus());
+                    "Nicht-essentielles Nachbarsystem {} nicht erreicht. Status: {}",
+                    nachbarsystem.getSystemname(), health.getStatus());
         }
     }
 
-    private Mono<NachbarsystemHealth> checkUri(URI url) {
+    private Mono<NachbarsystemHealth> checkUri(URI uri) {
         return webClient
-            .get()
-            .uri(url)
-            .retrieve()
-            .bodyToMono(NachbarsystemHealth.class);
+                .get()
+                .uri(uri)
+                .exchange()
+                .retry(nachbarsystemConfigurationProperties.getNachbarsystemCheck().getAnzahlRetries())
+                .flatMap(clientResponse -> clientResponse.bodyToMono(NachbarsystemHealth.class))
+                .defaultIfEmpty(createDefaultHealth())
+                .onErrorReturn(createDefaultHealth());
     }
 
     private NachbarsystemHealth createDefaultHealth() {
@@ -70,4 +89,5 @@ public class NachbarsystemCheckImpl implements NachbarsystemCheck {
         health.getDetails().put("info", "Error bei Statusabfrage");
         return health;
     }
+
 }

@@ -16,13 +16,19 @@ import org.springframework.boot.actuate.health.Status;
  */
 public class NachbarsystemHealth {
 
-    /** Nachbarsystem, für dass die Healthinformationen gelten. */
+    /**
+     * Nachbarsystem, für dass die Healthinformationen gelten.
+     */
     private Nachbarsystem nachbarsystem;
 
-    /** @see Health#getStatus() */
+    /**
+     * @see Health#getStatus()
+     */
     private Status status = Status.UNKNOWN;
 
-    /** @see Health#getDetails() */
+    /**
+     * @see Health#getDetails()
+     */
     private Map<String, Object> details = new HashMap<>();
 
     public Status getStatus() {
@@ -48,4 +54,5 @@ public class NachbarsystemHealth {
     public void setNachbarsystem(@NotNull Nachbarsystem nachbarsystem) {
         this.nachbarsystem = nachbarsystem;
     }
+
 }

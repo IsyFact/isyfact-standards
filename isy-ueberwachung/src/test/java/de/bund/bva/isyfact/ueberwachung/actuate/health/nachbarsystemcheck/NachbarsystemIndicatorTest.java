@@ -13,8 +13,6 @@ import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.
 import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.NachbarsystemHealth;
 import de.bund.bva.isyfact.ueberwachung.config.NachbarsystemConfigurationProperties;
 
-import reactor.core.publisher.Mono;
-
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -65,7 +63,7 @@ public class NachbarsystemIndicatorTest {
         mockHealth.setStatus(Status.DOWN);
         //Mock: Check liefert Down zurück
         when(nachbarsystemCheck.checkNachbarsystem(any()))
-                .thenReturn(Mono.just(mockHealth));
+                .thenReturn(mockHealth);
 
         //Führe Check durch
         Health health = nachbarsystemIndicator.health();
@@ -74,7 +72,7 @@ public class NachbarsystemIndicatorTest {
     }
 
     // Wenn ein System "essentiell" ist und der Check nicht erfolgreich ist,
-    // liefert der Indikator trotzdem "DOWN" zurück
+    // liefert der Indikator "DOWN" zurück
     @Test
     public void essentiellesSystemDown() {
         //Mock: Nachbar ist essentiell
@@ -92,7 +90,7 @@ public class NachbarsystemIndicatorTest {
         mockHealth.setStatus(Status.DOWN);
         //Mock: Check liefert Down zurück
         when(nachbarsystemCheck.checkNachbarsystem(any()))
-                .thenReturn(Mono.just(mockHealth));
+                .thenReturn(mockHealth);
 
         //Führe Check durch
         Health health = nachbarsystemIndicator.health();
@@ -124,7 +122,7 @@ public class NachbarsystemIndicatorTest {
         mockHealth.setStatus(Status.UP);
         //Mock: Check liefert UP zurück
         when(nachbarsystemCheck.checkNachbarsystem(any()))
-                .thenReturn(Mono.just(mockHealth));
+                .thenReturn(mockHealth);
 
         //Führe Check durch
         Health health = nachbarsystemIndicator.health();

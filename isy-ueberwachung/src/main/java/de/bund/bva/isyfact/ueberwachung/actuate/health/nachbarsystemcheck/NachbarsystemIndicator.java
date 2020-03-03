@@ -4,29 +4,34 @@ package de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.bund.bva.isyfact.ueberwachung.config.NachbarsystemConfigurationProperties;
-import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.NachbarsystemHealth;
-import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.Nachbarsystem;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.Status;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
+
+import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.Nachbarsystem;
+import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.NachbarsystemHealth;
+import de.bund.bva.isyfact.ueberwachung.config.NachbarsystemConfigurationProperties;
 
 /**
  * Der NachbarsystemIndicator überprüft für alle in den NachbarsystemConfigurationProperties konfigurierten
  * Nachbarn, ob sie erreichbar sind. Ist ein essentieller Nachbar nicht erreichbar, gibt der Indicator
- * den Status "OUT_OF_SERVICE" zurück, sonst "UP".
+ * den Status "DOWN" zurück, sonst "UP".
  */
 public class NachbarsystemIndicator implements HealthIndicator {
 
+    /**
+     * Bean zur Dürchführung des Checks.
+     */
     private NachbarsystemCheck nachbarsystemCheck;
 
+    /**
+     * Bean mit den konfigurierten Nachbarsystemen.
+     */
     private NachbarsystemConfigurationProperties nachbarsystemConfigurationProperties;
 
-    public NachbarsystemIndicator(
-        NachbarsystemCheck nachbarsystemCheck,
-        NachbarsystemConfigurationProperties nachbarsystemConfigurationProperties) {
+
+    public NachbarsystemIndicator(NachbarsystemCheck nachbarsystemCheck,
+                                  NachbarsystemConfigurationProperties nachbarsystemConfigurationProperties) {
         this.nachbarsystemCheck = nachbarsystemCheck;
         this.nachbarsystemConfigurationProperties = nachbarsystemConfigurationProperties;
     }
@@ -34,19 +39,17 @@ public class NachbarsystemIndicator implements HealthIndicator {
     @Override
     public Health health() {
         //Checke Health aller Nachbarn
-        List<Mono<NachbarsystemHealth>> healthresults = new ArrayList<>();
+        List<NachbarsystemHealth> healthresults = new ArrayList<>();
         for (Nachbarsystem nachbar : nachbarsystemConfigurationProperties.getNachbarsysteme().values()) {
             healthresults.add(nachbarsystemCheck.checkNachbarsystem(nachbar));
         }
-
         //Aggregiere Ergebnisse
-        return Flux.merge(healthresults)
-            .collectList()
-            .map(this::aggregateHealth)
-            .block();
+        return aggregateHealth(healthresults);
     }
 
-    //aggregiert die Ergebnisse der Nachbarn in das Ergebnis des Healthchecks
+    /**
+     * Aggregiert die Ergebnisse der Nachbarn in das Ergebnis des Healthchecks.
+     */
     private Health aggregateHealth(List<NachbarsystemHealth> healthresults) {
         Health.Builder healthAggregated = Health.up(); //Default Rückgabewert: Nachbarn sind up.
         for (NachbarsystemHealth nachbarHealth : healthresults) {
@@ -59,6 +62,6 @@ public class NachbarsystemIndicator implements HealthIndicator {
             }
         }
         return healthAggregated.build();
-
     }
+
 }
