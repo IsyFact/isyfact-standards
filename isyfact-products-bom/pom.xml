@@ -356,4 +356,24 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <profiles>
+        <profile>
+            <id>JDK-11</id>
+            <activation>
+                <jdk>[11,12)</jdk>
+            </activation>
+            <dependencyManagement>
+                <dependencies>
+                    <!-- Java Enterprise -->
+                    <dependency>
+                        <groupId>com.sun.xml.ws</groupId>
+                        <artifactId>jaxws-ri</artifactId>
+                        <version>2.3.3-b01</version>
+                        <type>pom</type>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+    </profiles>
 </project>
