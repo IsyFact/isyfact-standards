@@ -1,4 +1,6 @@
 # 2.1.0
+- `IFS-323`: Hostnamen werden jetzt mit Regex angegeben
+- `IFS-324`: Umzug des Tasks für Konfigurations-Updates von isy-task zu isy-konfiguration
 - `IFS-326`: Autostart-Klasse für den TaskScheduler hinzugefügt
 
 # 2.0.0

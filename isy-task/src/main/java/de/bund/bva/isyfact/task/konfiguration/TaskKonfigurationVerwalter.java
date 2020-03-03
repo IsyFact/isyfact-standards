@@ -4,6 +4,8 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
@@ -79,6 +81,13 @@ public class TaskKonfigurationVerwalter {
             || taskKonfiguration.getHostname() == null || taskKonfiguration.getAusfuehrungsplan() == null) {
             throw new TaskKonfigurationInvalidException(
                 "Task-ID, Authenticator, Hostname oder Ausführungsplan ist null");
+        }
+
+        try {
+            Pattern.compile(taskKonfiguration.getHostname());
+        } catch (PatternSyntaxException pse) {
+            throw new TaskKonfigurationInvalidException(
+                "Hostname ist keine gültige Regex");
         }
 
         if (taskKonfiguration.getAusfuehrungsplan().equals(TaskKonfiguration.Ausfuehrungsplan.ONCE)) {

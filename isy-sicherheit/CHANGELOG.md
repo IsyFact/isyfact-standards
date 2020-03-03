@@ -1,3 +1,6 @@
+# 2.1.0
+- `IFS-156`: Sonderlogik, die Underscores aus dem Attribut durchfuehrenderSachbearbeiterName des Aufrufkontextes entfernt, erneut ausgebaut.
+
 # 2.0.0
 - `IFS-228`: Einführung von Spring Boot
 - `IFS-32`: Package-Name auf de.bund.bva.isyfact geändert
