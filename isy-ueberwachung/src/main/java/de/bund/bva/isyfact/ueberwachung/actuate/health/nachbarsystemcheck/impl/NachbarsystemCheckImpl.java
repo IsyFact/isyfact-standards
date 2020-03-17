@@ -1,7 +1,5 @@
 package de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.impl;
 
-import java.net.URI;
-
 import javax.validation.constraints.NotNull;
 
 import org.springframework.boot.actuate.health.Status;
@@ -46,7 +44,7 @@ public class NachbarsystemCheckImpl implements NachbarsystemCheck {
 
     @Override
     public NachbarsystemHealth checkNachbarsystem(@NotNull Nachbarsystem nachbarsystem) {
-        return checkUri(nachbarsystem.getHealthEndpoint())
+        return checkUri(nachbarsystem)
                 .doOnNext(h -> h.setNachbarsystem(nachbarsystem))
                 .doOnNext(this::logHealth)
                 .block();
@@ -72,15 +70,23 @@ public class NachbarsystemCheckImpl implements NachbarsystemCheck {
         }
     }
 
-    private Mono<NachbarsystemHealth> checkUri(URI uri) {
+    private Mono<NachbarsystemHealth> checkUri(@NotNull Nachbarsystem nachbarsystem) {
         return webClient
                 .get()
-                .uri(uri)
+                .uri(nachbarsystem.getHealthEndpoint())
                 .exchange()
                 .retry(nachbarsystemConfigurationProperties.getNachbarsystemCheck().getAnzahlRetries())
                 .flatMap(clientResponse -> clientResponse.bodyToMono(NachbarsystemHealth.class))
                 .defaultIfEmpty(createDefaultHealth())
-                .onErrorReturn(createDefaultHealth());
+                .onErrorResume(e -> loggeAufruffehlerAndReturn(e, nachbarsystem, createDefaultHealth()));
+    }
+
+    private Mono<NachbarsystemHealth> loggeAufruffehlerAndReturn(Throwable e, Nachbarsystem nachbarsystem,
+                                                                 NachbarsystemHealth healthToReturn) {
+        LOG.error(EreignisSchluessel.NACHBARSYSTEM_ANFRAGEFEHLER,
+                "Bei der Anfrage des Nachbarsystems {} ist ein Fehler aufgetreten: {}",
+                e, nachbarsystem.getSystemname(), e.getMessage());
+        return Mono.just(healthToReturn);
     }
 
     private NachbarsystemHealth createDefaultHealth() {

@@ -29,4 +29,7 @@ public class EreignisSchluessel {
 
     /** Nicht-essentielles Nachbarsystem {} nicht erreicht. Status: {} */
     public static final String NACHBARSYSTEM_NICHT_ESSENTIELL_NICHT_ERREICHBAR = "PLUEB00003";
+
+    /** Bei der Anfrage des Nachbarsystems {} ist ein Fehler aufgetreten: {} */
+    public static final String NACHBARSYSTEM_ANFRAGEFEHLER = "PLUEB00004";
 }
