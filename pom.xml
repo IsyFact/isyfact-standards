@@ -620,6 +620,7 @@
                         <artifactId>maven-javadoc-plugin</artifactId>
                         <version>${maven.javadoc.plugin.version}</version>
                         <configuration>
+                            <source>11</source>
                             <encoding>${project.build.sourceEncoding}</encoding>
                             <charset>${project.build.sourceEncoding}</charset>
                             <doclint>none</doclint>
