@@ -1,5 +1,6 @@
 # 1.9.0
 - `IFS-528`: Explizite Version für isy-exception-core entfernt und stattdessen isyfact-standards-bom importiert
+- `IFS-539`: Exclusion von logback-classic in logback-json-classic für Dependency Convergence
 
 # 1.8.0
 - `IFS-362`: LogApplicationListener loggt nur noch für den eigenen ApplicationContext (nicht für Kind-Kontexte)

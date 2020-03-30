@@ -1,5 +1,6 @@
 # 1.9.0
 - `IFS-468`: Update auf dozer 6.5.0
+- `IFS-496`: Update commons-codec auf 1.13
 - `IFS-528`: Explizite Versionen für isy-aufrufkontext, isy-exception-core, isy-konfiguration und isy-logging entfernt und stattdessen isyfact-standards-bom importiert
 
 # 1.8.0
