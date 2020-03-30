@@ -1,3 +1,6 @@
+# 1.9.0
+- `IFS-528`: Explizite Versionen für isy-logging und isy-util entfernt und stattdessen isyfact-standards-bom importiert
+
 # 1.8.0
 - `IFS-262`: `isyfact-masterpom` deprecated (Abschaffung mit IsyFact 2.0), `isyfact-masterpom-lib` aufgelöst, Bibliotheken benutzen `isyfact-standards` als Parent-POM
 
