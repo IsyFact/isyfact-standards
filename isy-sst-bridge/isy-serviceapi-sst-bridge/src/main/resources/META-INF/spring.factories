@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.bridge.autoconfiguration.ServiceApiBridgeAutoConfiguration
