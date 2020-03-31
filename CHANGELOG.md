@@ -5,3 +5,5 @@
 - `IFS-454`: Maven Enforcer Rule: dependency-convergence ergänzt.
 - `IFS-458`: Tidy-Plugin eingebunden, so dass immer ein Check ausgeführt wird. Alle pom.xml Dateien mit tidy:pom fortmatiert und getestet.
 - `IFS-468`: Update auf dozer 6.5.0
+- `IFS-463`: Abwärtskompatibilität IsyFact 2 zu IsyFact 1 - Erstellung der Bridge
+
