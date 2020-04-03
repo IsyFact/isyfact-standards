@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>isy-task</artifactId>
-    <version>1.4.0-SNAPSHOT</version>
+    <version>1.4.0</version>
 
     <name>IsyFact Task Scheduling</name>
 
