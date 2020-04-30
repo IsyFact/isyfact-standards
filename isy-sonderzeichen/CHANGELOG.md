@@ -1,5 +1,7 @@
 # 1.9.0
-- `IFS-468`: Update auf dozer 6.5.0 / Dozer aus logback.xml entfernt, wenn es nicht verwendet wird
+- `IFS-468`: license/DEPENDENCIES überarbeitet und Dozer (nach Update auf 6.5.0) entfernt
+
+
 - `IFS-528`: Explizite Version für isy-logging entfernt und stattdessen isyfact-standards-bom importiert
 
 # 1.8.0
