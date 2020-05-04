@@ -15,7 +15,7 @@
     </parent>
 
     <artifactId>isy-batchrahmen</artifactId>
-    <version>1.11.0</version>
+    <version>1.11.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>IsyFact-Batchrahmen</name>

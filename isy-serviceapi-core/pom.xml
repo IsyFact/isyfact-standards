@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>isy-serviceapi-core</artifactId>
-    <version>1.10.0</version>
+    <version>1.10.1-SNAPSHOT</version>
 
     <name>IsyFact Service-API Anwendung</name>
 
