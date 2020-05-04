@@ -1,9 +1,12 @@
+# 2.2.0
+- `IFS-453`: Loglevel für isAlive-Datei-Ereignisse erhöht: INFO für Standardablageort wird genutzt; ERROR für Datei existiert bei Abfrage nicht.
+
 # 2.0.0
 - `IFS-228`: Einführung von Spring Boot
 - `IFS-32`: Package-Name auf de.bund.bva.isyfact geändert
 - `IFS-251`: Abhängigkeiten zu log4j entfernt
 
-#1.9.0
+# 1.9.0
 - `IFS-248`: Log-Level vom Start der Watchdog Prüfung auf debug gesetzt.
 - `IFS-347`: Abhängigkeiten zu commons-lang3 aufgelöst.
 - `IFS-262`: `isyfact-masterpom` deprecated (Abschaffung mit IsyFact 2.0), `isyfact-masterpom-lib` aufgelöst, Bibliotheken benutzen `isyfact-standards` als Parent-POM
