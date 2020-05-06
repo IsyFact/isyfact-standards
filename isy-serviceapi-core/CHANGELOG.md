@@ -1,3 +1,6 @@
+# 2.2.0
+- `IFS-564`: Deaktivieren von Proxy-Objekten in HttpInvoker Schnittstellen
+
 # 2.1.0
 - `IFS-378`: Reihenfolge der Schnittstellenannotationen angepasst
 
