@@ -80,7 +80,7 @@ public class LoggingKontextAspect implements MethodInterceptor {
             MdcHelper.pushKorrelationsId(korrelationsId);
             return invocation.proceed();
         } finally {
-            MdcHelper.entferneKorrelationsId();
+            MdcHelper.entferneKorrelationsIds();
         }
     }
 }
