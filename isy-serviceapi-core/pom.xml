@@ -91,7 +91,7 @@
         <!-- Benoetigt fuer HttpInvoker -->
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
+            <artifactId>spring-web</artifactId>
         </dependency>
 
         <!-- Für HttpInvoker-Aufruf in JUnit-Tests und AopUtils -->
