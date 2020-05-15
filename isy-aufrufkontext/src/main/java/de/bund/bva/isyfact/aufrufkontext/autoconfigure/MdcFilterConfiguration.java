@@ -15,7 +15,9 @@ import de.bund.bva.isyfact.aufrufkontext.http.HttpHeaderNestedDiagnosticContextF
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 public class MdcFilterConfiguration {
 
-    //Automatisches setzen der Korrelations-ID
+    /**
+     * Automatisches setzen der Korrelations-ID.
+     */
     @Bean
     FilterRegistrationBean<HttpHeaderNestedDiagnosticContextFilter> httpHeaderNestedDiagnosticContextFilter() {
         FilterRegistrationBean<HttpHeaderNestedDiagnosticContextFilter> registrationBean =

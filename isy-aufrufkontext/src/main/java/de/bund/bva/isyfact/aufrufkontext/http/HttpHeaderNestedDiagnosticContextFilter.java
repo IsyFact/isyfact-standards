@@ -37,7 +37,7 @@ import de.bund.bva.isyfact.logging.util.MdcHelper;
  * </p>
  *
  * <p>
- * Die Konfiguration erfolgt automatisch durch {@link de.bund.bva.isyfact.aufrufkontext.autoconfigure.IsyAufrufkontextAutoConfiguration}.
+ * Die Konfiguration erfolgt automatisch durch {@link de.bund.bva.isyfact.aufrufkontext.autoconfigure.MdcFilterConfiguration}.
  * </p>
  *
  */
