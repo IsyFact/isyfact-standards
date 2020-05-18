@@ -340,6 +340,13 @@
                 <version>1.4.196</version>
                 <scope>test</scope>
             </dependency>
+
+            <!-- Apache Commons-Validator -->
+            <dependency>
+                <groupId>commons-validator</groupId>
+                <artifactId>commons-validator</artifactId>
+                <version>1.6</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>
