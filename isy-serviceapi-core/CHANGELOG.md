@@ -1,7 +1,9 @@
+# 1.10.1
+- `IFS-564`: Deaktivieren von Proxy-Objekten in HttpInvoker Schnittstellen
+
 # 1.10.0
 - `IFS-223`: Logging Bridges in Products-POM ergänzt: jcl-over-slf4j, slf4j-jcl
 - `IFS-468`: Update auf dozer 6.5.0
-- `IFS-564`: Deaktivieren von Proxy-Objekten in HttpInvoker Schnittstellen
 
 # 1.9.0
 - `IFS-262`: `isyfact-masterpom` deprecated (Abschaffung mit IsyFact 2.0), `isyfact-masterpom-lib` aufgelöst, Bibliotheken benutzen `isyfact-standards` als Parent-POM
