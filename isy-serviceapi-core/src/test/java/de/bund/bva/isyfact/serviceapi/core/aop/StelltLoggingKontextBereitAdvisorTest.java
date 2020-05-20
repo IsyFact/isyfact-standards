@@ -25,7 +25,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import de.bund.bva.isyfact.serviceapi.core.aop.test.LoggingKontextAdvisorService;
 
 /**
- * Klasse zum testen der Standardanwendungsreihenfolge des StelltLoggingKontextBereit Advisors
+ * Klasse zum Testen der Standardanwendungsreihenfolge des StelltLoggingKontextBereit Advisors
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = StelltLoggingKontextBereitAdvisorTest.TestConfig.class,
@@ -79,8 +79,8 @@ public class StelltLoggingKontextBereitAdvisorTest {
         }
 
         /**
-         * Erstellet einen angepassten {@link StelltLoggingKontextBereitInterceptor}, der nicht weiter tut, als
-         * sich selbst in die executionOrder einträgt. Diese Bean ist mit @Primary versehen, so dass sie
+         * Erstellt einen angepassten {@link StelltLoggingKontextBereitInterceptor}, der sich selbst in die
+         * executionOrder einträgt. Diese Bean ist mit @Primary versehen, so dass sie
          * standardmäßig von dem stelltAufrufKontextBereit Advisor in der Auto Configuration benutzt wird.
          * @return Ein angepasster {@link StelltLoggingKontextBereitInterceptor}
          */
@@ -103,7 +103,7 @@ public class StelltLoggingKontextBereitAdvisorTest {
         }
 
         /**
-         * Erstellt einen DummyInterceptor, der nicht weiter tut, als sich selbst in die executionOrder einträgt.
+         * Erstellt einen DummyInterceptor, der sich selbst in die executionOrder einträgt.
          * Dieser Interceptor wird in dem Dummy Advisor eingesetzt.
          * @return Einen DummyInterceptor
          */
@@ -125,7 +125,7 @@ public class StelltLoggingKontextBereitAdvisorTest {
         }
 
         /**
-         * Erstellet einen Advisor der einen Pointcut für die Annotation {@link de.bund.bva.isyfact.serviceapi.core.aop.test.LoggingKontextAdvisorService.UnorderedDummyAnnotation}
+         * Erstellt einen Advisor der einen Pointcut für die Annotation {@link de.bund.bva.isyfact.serviceapi.core.aop.test.LoggingKontextAdvisorService.UnorderedDummyAnnotation}
          * macht und den DummyInterceptor ausführt.
          * @return Ein DummyAdvisor für die Annotation {@link de.bund.bva.isyfact.serviceapi.core.aop.test.LoggingKontextAdvisorService.UnorderedDummyAnnotation}
          */

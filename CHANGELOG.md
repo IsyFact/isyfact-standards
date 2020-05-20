@@ -5,3 +5,4 @@
 - `IFS-454`: Maven Enforcer Rule: dependency-convergence ergänzt.
 - `IFS-458`: Zulieferung von Github getestet und übernommen. (Versionsanhebungen rausgenommen.)
 - `IFS-463`: Abwärtskompatibilität IsyFact 2 zu IsyFact 1 - Erstellung der Bridge
+- `IFS-488`: [isy-serviceapi-core] Setze Advisor Order auf 50 für `stelltAufrufKontextBereitAdvisor`
