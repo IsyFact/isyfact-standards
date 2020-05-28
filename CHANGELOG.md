@@ -1,3 +1,6 @@
+# 1.8.1
+- `IFS-578`: Hebung Apache Commons-Validator auf 1.6
+
 # 1.8.0
 - `IFS-223`: Logging Bridges in Products-POM ergänzt: jcl-over-slf4j, slf4j-jcl
 - `IFS-334`: Hinzufügen eines Profils für Jacoco und Anpassung der Surefire Config
