@@ -1,3 +1,6 @@
+# 2.2.0
+- `IFS-491`: Jackson Version auf 2.10.1 angehoben
+
 # 2.1.0
 - `IFS-223`: Logging Bridges ergänzt: jcl-over-slf4j, slf4j-jcl
 - `IFS-385`: jackson-databind auf 2.9.9.3 angehoben.
