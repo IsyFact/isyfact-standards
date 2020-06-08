@@ -21,11 +21,20 @@ package de.bund.bva.pliscommon.ueberwachung.common.konstanten;
  */
 public class EreignisSchluessel {
 
+    /** Standard-Ereignis für Ausgaben ohne eigene Ereignis-ID. */
     public static final String PLUEB00001 = "PLUEB00001";
 
+    /**
+     * Pruefung der Pruefroutine nicht erfolgreich.
+     */
     public static final String PLUEB00002 = "PLUEB00002";
 
+    /** Pruefung der Pruefroutine nicht erfolgreich (hat Exception geworfen). */
     public static final String PLUEB00003 = "PLUEB00003";
 
+    /** Selbsttest fehlgeschlagen. */
     public static final String PLUEB00004 = "PLUEB00004";
+
+    /** Loadbalancer wurde abgefragt, aber isAlive-Datei existiert nicht. */
+    public static final String IS_ALIVE_EXISTIERT_NICHT = "PLUEB00005";
 }
