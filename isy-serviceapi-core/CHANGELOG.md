@@ -1,4 +1,5 @@
 # 1.10.1
+- `IFS-510`: LoggingKontextAspect räumt KorrelationIds nicht richtig auf: ersetzen der Methode `entferneKorrelationsId()` durch `entferneKorrelationsIds()`
 - `IFS-564`: Deaktivieren von Proxy-Objekten in HttpInvoker Schnittstellen
 
 # 1.10.0

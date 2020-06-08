@@ -1,3 +1,6 @@
+# 1.8.1
+- `IFS-510`: \[isy-service-api-core\] LoggingKontextAspect räumt KorrelationIds nicht richtig auf
+
 # 1.8.0
 - `IFS-223`: Logging Bridges in Products-POM ergänzt: jcl-over-slf4j, slf4j-jcl
 - `IFS-334`: Hinzufügen eines Profils für Jacoco und Anpassung der Surefire Config
