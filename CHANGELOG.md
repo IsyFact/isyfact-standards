@@ -2,6 +2,7 @@
 - `IFS-453`: [isy-ueberwachung] Loglevel für isAlive-Datei-Ereignisse erhöht.
 - `IFS-510`: [isy-serviceapi-core] LoggingKontextAspect räumt KorrelationIds nicht richtig auf
 - `IFS-564`: [isy-serviceapi-core] Deaktivieren von Proxy-Objekten in HttpInvoker Schnittstellen
+- `IFS-578`: Hebung Apache Commons-Validator auf 1.6
 
 # 1.8.0
 - `IFS-223`: Logging Bridges in Products-POM ergänzt: jcl-over-slf4j, slf4j-jcl
