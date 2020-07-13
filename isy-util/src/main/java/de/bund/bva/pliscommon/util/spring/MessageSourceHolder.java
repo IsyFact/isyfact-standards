@@ -39,17 +39,6 @@ public final class MessageSourceHolder implements MessageSourceAware {
      * 
      * @param schluessel
      *            der Schlüssel des Resource-Bundles
-     * @return die Nachricht
-     */
-    public static String getMessage(String schluessel) {
-        return getMessage(schluessel, Locale.GERMANY, (String) null);
-    }
-
-    /**
-     * Liest eine Nachricht aus den in Spring konfigurierten Resource-Bundles aus.
-     * 
-     * @param schluessel
-     *            der Schlüssel des Resource-Bundles
      * @param parameter
      *            der Wert fuer die zu ersetzenden Platzhalter
      * @return die Nachricht

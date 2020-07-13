@@ -1,3 +1,6 @@
+# 1.10.0
+- `IFS-568`: Entfernt redundante Methode `getMessage(String schluessel)` aus dem MessageSourceHolder
+
 # 1.9.0
 - `IFS-528`: Explizite Versionen für isy-exception-core und isy-logging entfernt und stattdessen isyfact-standards-bom importiert
 
