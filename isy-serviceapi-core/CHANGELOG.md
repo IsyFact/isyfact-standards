@@ -1,6 +1,9 @@
 # 1.10.0
 - `IFS-223`: Logging Bridges in Products-POM ergänzt: jcl-over-slf4j, slf4j-jcl
-- `IFS-468`: Update auf dozer 6.5.0
+- `IFS-468`: Update Dozer auf 6.5.0
+    *  Paketpfade und Maven-Dependency auf `com.github.dozermapper` umgestellt
+    * (test-scope) `dozerMapper`-Bean-Pfad auf eigene `DozerBeanMapperFactoryBean` (neu in isy-util 1.9.0) umgestellt
+    * (test-scope) logback.xml: Warnings über fehlende ELExpressionFactory deaktiviert da diese nicht verwendet wird
 
 # 1.9.0
 - `IFS-262`: `isyfact-masterpom` deprecated (Abschaffung mit IsyFact 2.0), `isyfact-masterpom-lib` aufgelöst, Bibliotheken benutzen `isyfact-standards` als Parent-POM

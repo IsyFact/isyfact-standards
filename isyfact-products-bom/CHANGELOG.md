@@ -5,7 +5,7 @@
 - `IFS-385`: jackson-databind auf 2.9.9.3 angehoben. jackson-core auf Version 2.9.9 angehoben. jackson-annotations auf Version 2.9.0 angehoben.
 - `IFS-437`: com.thoughtworks.xstream:xstream auf 1.4.11.1 angehoben
 - `IFS-461`: Hibernate Version auf 5.4.8.Final angehoben.
-- `IFS-460`: org.apache.poi:poi auf 3.17 angehoben
+- `IFS-460`: org.apache.poi:poi auf 3.17 angehoben (Auf Grund von CVE-2017-5644)
 - `IFS-468`: Update auf dozer 6.5.0
 - `IFS-490`: `com.fasterxml.jackson.core:jackson-databind` auf 2.9.10.1 angehoben
 - `IFS-492`: ch.qos.logback:logback-classic und ch.qos.logback:logback-core auf 1.2.3 angehoben.
