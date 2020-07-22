@@ -1,4 +1,5 @@
 # 1.8.1
+- `IFS-453`: [isy-ueberwachung] Loglevel für isAlive-Datei-Ereignisse erhöht.
 - `IFS-466`: Fix für fehlerhafte Mdc Formatierung
 - `IFS-510`: \[isy-service-api-core\] LoggingKontextAspect räumt KorrelationIds nicht richtig auf
 - `IFS-578`: Hebung Apache Commons-Validator auf 1.6

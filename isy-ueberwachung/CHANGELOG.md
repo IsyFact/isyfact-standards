@@ -1,3 +1,6 @@
+#1.10.1
+- `IFS-453`: Loglevel für isAlive-Datei-Ereignisse erhöht: INFO für Standardablageort wird genutzt; ERROR für Datei existiert bei Abfrage nicht.
+
 # 1.10.0
 - `IFS-325`: Implementierung vom `AdministrationWatchdogTask` und dazugehoerigen Tests.
 - `IFS-468`: license/DEPENDENCIES überarbeitet und Dozer (nach Update auf 6.5.0) entfernt
