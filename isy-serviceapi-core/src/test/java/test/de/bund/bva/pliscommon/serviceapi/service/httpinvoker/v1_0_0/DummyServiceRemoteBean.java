@@ -16,6 +16,8 @@
  */
 package test.de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0;
 
+import test.de.bund.bva.pliscommon.serviceapi.core.httpinvoker.user.User;
+
 /**
  * RemoteBean-Interface des Dummy-Services
  *
@@ -30,5 +32,7 @@ public interface DummyServiceRemoteBean {
      * @return Die Nachricht.
      */
     public abstract String ping(String message);
+
+    String addUser(User user);
 
 }

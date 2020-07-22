@@ -32,6 +32,7 @@ import org.mockito.stubbing.Answer;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.ProxyFactory;
 
+import de.bund.bva.isyfact.logging.util.MdcHelper;
 import de.bund.bva.pliscommon.serviceapi.core.aop.LoggingKontextAspect;
 
 import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
@@ -111,10 +112,23 @@ public class TestLoggingKontextAspect {
 		AufrufKontextTo to = new AufrufKontextTo();
 		UUID korrId = UUID.randomUUID();
 		to.setKorrelationsId(korrId.toString());
-		service.aufrufMitAufrufKontext(to);		
+		service.aufrufMitAufrufKontext(to);
 		verify(mockAppender, times(1)).doAppend(captorLoggingEvent.capture());
 		assertEquals("Setzte Korrelations-ID aus AufrufKontext.",
 				captorLoggingEvent.getAllValues().get(0).getMessage());
+	}
+
+	@Test
+	public void testAufrufMit2KorrelationsId() {
+		AufrufKontextTo to = new AufrufKontextTo();
+		UUID korrId1 = UUID.randomUUID();
+		UUID korrId2 = UUID.randomUUID();
+		to.setKorrelationsId(korrId1.toString() + ";" + korrId2.toString());
+		service.aufrufMitAufrufKontext(to);
+		verify(mockAppender, times(1)).doAppend(captorLoggingEvent.capture());
+		assertEquals("Setzte Korrelations-ID aus AufrufKontext.",
+				captorLoggingEvent.getAllValues().get(0).getMessage());
+		assertNull("Es existiert noch Korrelations-ID in MDC.", MdcHelper.liesKorrelationsId());
 	}
 	
 	@Test(expected = Exception.class)

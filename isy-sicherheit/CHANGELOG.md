@@ -1,5 +1,7 @@
 # 1.9.0
-- `IFS-468`: Update auf dozer 6.5.0
+- `IFS-468`: license/DEPENDENCIES überarbeitet und Dozer (nach Update auf 6.5.0) entfernt
+- `IFS-496`: Update commons-codec auf 1.13
+- `IFS-528`: Explizite Versionen für isy-aufrufkontext, isy-exception-core, isy-konfiguration und isy-logging entfernt und stattdessen isyfact-standards-bom importiert
 
 # 1.8.0
 - `IFS-262`: `isyfact-masterpom` deprecated (Abschaffung mit IsyFact 2.0), `isyfact-masterpom-lib` aufgelöst, Bibliotheken benutzen `isyfact-standards` als Parent-POM

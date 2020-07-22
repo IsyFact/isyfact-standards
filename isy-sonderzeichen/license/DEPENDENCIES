@@ -4,8 +4,8 @@ Liste aller Abhängigkeiten zu Drittsoftware gruppiert nach deren Lizenzen. Kein
 
 	(Apache License, Version 2.0):
 
-		* IsyFact-Fehlerbehandlung (Basisklassen) (de.bund.bva.isyfact:isy-exception-core:1.9.0-SNAPSHOT - http://isyfact.de/isy-exception-core)
-		* IsyFact-Logging (de.bund.bva.isyfact:isy-logging:1.9.0-SNAPSHOT - http://isyfact.de/isy-logging)
+		* IsyFact-Fehlerbehandlung (Basisklassen) (de.bund.bva.isyfact:isy-exception-core:1.9.1-SNAPSHOT - http://isyfact.de/isy-exception-core)
+		* IsyFact-Logging (de.bund.bva.isyfact:isy-logging:1.9.1-SNAPSHOT - http://isyfact.de/isy-logging)
 		* Spring AOP (org.springframework:spring-aop:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
 		* Spring Aspects (org.springframework:spring-aspects:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
 		* Spring Beans (org.springframework:spring-beans:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
@@ -44,6 +44,6 @@ Liste aller Abhängigkeiten zu Drittsoftware gruppiert nach deren Lizenzen. Kein
 	(The Apache Software License, Version 2.0):
 
 		* Commons Logging (commons-logging:commons-logging:1.1.3 - http://commons.apache.org/proper/commons-logging/)
-		* Jackson-annotations (com.fasterxml.jackson.core:jackson-annotations:2.9.0 - http://github.com/FasterXML/jackson)
-		* Jackson-core (com.fasterxml.jackson.core:jackson-core:2.9.9 - https://github.com/FasterXML/jackson-core)
-		* jackson-databind (com.fasterxml.jackson.core:jackson-databind:2.9.9.3 - http://github.com/FasterXML/jackson)
+		* Jackson-annotations (com.fasterxml.jackson.core:jackson-annotations:2.9.10 - http://github.com/FasterXML/jackson)
+		* Jackson-core (com.fasterxml.jackson.core:jackson-core:2.9.10 - https://github.com/FasterXML/jackson-core)
+		* jackson-databind (com.fasterxml.jackson.core:jackson-databind:2.9.10.1 - http://github.com/FasterXML/jackson)
