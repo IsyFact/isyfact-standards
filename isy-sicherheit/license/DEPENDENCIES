@@ -2,13 +2,23 @@
 List of third-party dependencies grouped by their license type. No warranty on correctness and completeness. /
 Liste aller Abhängigkeiten zu Drittsoftware gruppiert nach deren Lizenzen. Keine Gewähr für Korrektheit und Vollständigkeit.
 
+	(Apache 2):
+
+		* Objenesis (org.objenesis:objenesis:2.6 - http://objenesis.org)
+
 	(Apache License, Version 2.0):
 
-		* IsyFact-Aufrufkontext (de.bund.bva.isyfact:isy-aufrufkontext:1.9.0-SNAPSHOT - http://isyfact.de/isy-aufrufkontext)
-		* IsyFact-Fehlerbehandlung (Basisklassen) (de.bund.bva.isyfact:isy-exception-core:1.9.0-SNAPSHOT - http://isyfact.de/isy-exception-core)
-		* IsyFact-Konfiguration (de.bund.bva.isyfact:isy-konfiguration:1.9.0-SNAPSHOT - http://isyfact.de/isy-konfiguration)
-		* IsyFact-Logging (de.bund.bva.isyfact:isy-logging:1.9.0-SNAPSHOT - http://isyfact.de/isy-logging)
-		* IsyFact-Utilities (de.bund.bva.isyfact:isy-util:1.9.0-SNAPSHOT - http://isyfact.de/isy-util)
+		* Apache Commons BeanUtils (commons-beanutils:commons-beanutils:1.9.3 - https://commons.apache.org/proper/commons-beanutils/)
+		* Apache Commons Codec (commons-codec:commons-codec:1.13 - https://commons.apache.org/proper/commons-codec/)
+		* Apache Commons Collections (commons-collections:commons-collections:3.2.2 - http://commons.apache.org/collections/)
+		* Apache Commons IO (commons-io:commons-io:2.5 - http://commons.apache.org/proper/commons-io/)
+		* Apache Commons Lang (org.apache.commons:commons-lang3:3.7 - http://commons.apache.org/proper/commons-lang/)
+		* Dozer :: Core (com.github.dozermapper:dozer-core:6.5.0 - http://nexus.sonatype.org/oss-repository-hosting.html/dozer-parent/dozer-plugins-parent/dozer-core)
+		* IsyFact-Aufrufkontext (de.bund.bva.isyfact:isy-aufrufkontext:1.9.1-SNAPSHOT - http://isyfact.de/isy-aufrufkontext)
+		* IsyFact-Fehlerbehandlung (Basisklassen) (de.bund.bva.isyfact:isy-exception-core:1.9.1-SNAPSHOT - http://isyfact.de/isy-exception-core)
+		* IsyFact-Konfiguration (de.bund.bva.isyfact:isy-konfiguration:1.9.1-SNAPSHOT - http://isyfact.de/isy-konfiguration)
+		* IsyFact-Logging (de.bund.bva.isyfact:isy-logging:1.9.1-SNAPSHOT - http://isyfact.de/isy-logging)
+		* IsyFact-Utilities (de.bund.bva.isyfact:isy-util:1.9.1-SNAPSHOT - http://isyfact.de/isy-util)
 		* Spring AOP (org.springframework:spring-aop:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
 		* Spring Aspects (org.springframework:spring-aspects:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
 		* Spring Beans (org.springframework:spring-beans:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
@@ -44,6 +54,7 @@ Liste aller Abhängigkeiten zu Drittsoftware gruppiert nach deren Lizenzen. Kein
 
 	(MIT License):
 
+		* JCL 1.2 implemented over SLF4J (org.slf4j:jcl-over-slf4j:1.7.25 - http://www.slf4j.org)
 		* SLF4J API Module (org.slf4j:slf4j-api:1.7.25 - http://www.slf4j.org)
 
 	(New BSD License):
@@ -56,12 +67,11 @@ Liste aller Abhängigkeiten zu Drittsoftware gruppiert nach deren Lizenzen. Kein
 
 	(The Apache Software License, Version 2.0):
 
-		* Apache Commons Codec (commons-codec:commons-codec:1.9 - http://commons.apache.org/proper/commons-codec/)
 		* Commons Logging (commons-logging:commons-logging:1.1.3 - http://commons.apache.org/proper/commons-logging/)
 		* Ehcache Core (net.sf.ehcache:ehcache-core:2.6.6 - http://ehcache.org)
-		* Jackson-annotations (com.fasterxml.jackson.core:jackson-annotations:2.9.0 - http://github.com/FasterXML/jackson)
-		* Jackson-core (com.fasterxml.jackson.core:jackson-core:2.9.9 - https://github.com/FasterXML/jackson-core)
-		* jackson-databind (com.fasterxml.jackson.core:jackson-databind:2.9.9.3 - http://github.com/FasterXML/jackson)
+		* Jackson-annotations (com.fasterxml.jackson.core:jackson-annotations:2.9.10 - http://github.com/FasterXML/jackson)
+		* Jackson-core (com.fasterxml.jackson.core:jackson-core:2.9.10 - https://github.com/FasterXML/jackson-core)
+		* jackson-databind (com.fasterxml.jackson.core:jackson-databind:2.9.10.1 - http://github.com/FasterXML/jackson)
 		* spring-security-core (org.springframework.security:spring-security-core:4.2.13.RELEASE - https://spring.io/spring-security)
 
 	(The MIT License):

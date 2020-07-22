@@ -1,3 +1,6 @@
+# 1.8.1
+- `IFS-578`: Hebung Apache Commons-Validator auf 1.6
+
 # 1.8.0
 - `IFS-223`: Logging Bridges ergänzt: jcl-over-slf4j, slf4j-jcl
 - `IFS-423`: Anhebung der UCP und JDBC Version auf 12.2.0.1

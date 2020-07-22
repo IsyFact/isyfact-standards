@@ -5,7 +5,7 @@
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
         <artifactId>isyfact-standards</artifactId>
-        <version>1.8.0</version>
+        <version>1.8.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>isyfact-products-bom</artifactId>
@@ -339,6 +339,13 @@
                 <artifactId>h2</artifactId>
                 <version>1.4.196</version>
                 <scope>test</scope>
+            </dependency>
+
+            <!-- Apache Commons-Validator -->
+            <dependency>
+                <groupId>commons-validator</groupId>
+                <artifactId>commons-validator</artifactId>
+                <version>1.6</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
