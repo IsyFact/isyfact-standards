@@ -1,4 +1,5 @@
 # 1.8.1
+- `IFS-510`: \[isy-service-api-core\] LoggingKontextAspect räumt KorrelationIds nicht richtig auf
 - `IFS-578`: Hebung Apache Commons-Validator auf 1.6
 
 # 1.8.0
