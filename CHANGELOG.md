@@ -1,8 +1,9 @@
 # 1.8.1
 - `IFS-453`: [isy-ueberwachung] Loglevel für isAlive-Datei-Ereignisse erhöht.
-- `IFS-466`: Fix für fehlerhafte Mdc Formatierung
-- `IFS-510`: \[isy-service-api-core\] LoggingKontextAspect räumt KorrelationIds nicht richtig auf
-- `IFS-578`: Hebung Apache Commons-Validator auf 1.6
+- `IFS-466`: [isy-logging] Fix für fehlerhafte Mdc Formatierung
+- `IFS-510`: [isy-serviceapi-core] LoggingKontextAspect räumt KorrelationIds nicht richtig auf
+- `IFS-564`: [isy-serviceapi-core] Deaktivieren von Proxy-Objekten in HttpInvoker Schnittstellen
+- `IFS-578`: Versionsanhebung Apache Commons-Validator auf 1.6
 
 # 1.8.0
 - `IFS-223`: Logging Bridges in Products-POM ergänzt: jcl-over-slf4j, slf4j-jcl
