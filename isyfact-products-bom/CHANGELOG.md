@@ -7,6 +7,7 @@
 - `IFS-460`: org.apache.poi:poi auf 4.1.1 angehoben
 - `IFS-490`: `com.fasterxml.jackson.core:jackson-databind` auf 2.9.10.1 angehoben
 - `IFS-492`: ch.qos.logback:logback-classic und ch.qos.logback:logback-core auf 1.2.3 angehoben.
+- `IFS-509`: Update AssertJ auf 3.12.0
 
 # 2.0.0
 - `IFS-228`: Einführung von Spring Boot
