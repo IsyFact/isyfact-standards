@@ -40,7 +40,6 @@ import de.bund.bva.isyfact.logging.exceptions.LoggingTechnicalRuntimeException;
 import de.bund.bva.isyfact.logging.impl.Ereignisschluessel;
 import de.bund.bva.isyfact.logging.impl.FachdatenMarker;
 import de.bund.bva.isyfact.logging.impl.FehlerSchluessel;
-import de.bund.bva.isyfact.logging.impl.MarkerSchluessel;
 import de.bund.bva.isyfact.logging.util.LoggingKonstanten;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
 import org.slf4j.Marker;
@@ -131,9 +130,13 @@ public class IsyJsonLayout extends JsonLayout {
         try {
             return formatter.toJsonString(map);
         } catch (Exception e) {
-            Map<String, String> stringMap = new LinkedHashMap<>();
+            Map<String, Object> stringMap = new LinkedHashMap<>();
             for (Map.Entry<String, Object> entry : map.entrySet()) {
-                stringMap.put(entry.getKey(), entry.getValue().toString());
+                if (MDC_ATTR_NAME.equals(entry.getKey())) {
+                    stringMap.put(entry.getKey(), entry.getValue());
+                } else {
+                    stringMap.put(entry.getKey(), entry.getValue().toString());
+                }
             }
             try {
                 return formatter.toJsonString(stringMap);
