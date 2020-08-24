@@ -18,7 +18,7 @@ public class IsyTaskConfigurationProperties {
 
     private final Watchdog watchdog = new Watchdog();
 
-    private String autostart;
+    private boolean autostart;
 
     public Map<String, TaskConfig> getTasks() {
         return tasks;
@@ -32,11 +32,11 @@ public class IsyTaskConfigurationProperties {
         return watchdog;
     }
 
-    public String getAutostart() {
+    public boolean isAutostart() {
         return autostart;
     }
 
-    public void setAutostart(String autostart) {
+    public void setAutostart(boolean autostart) {
         this.autostart = autostart;
     }
 
