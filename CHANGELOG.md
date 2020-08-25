@@ -13,11 +13,14 @@
 - `IFS-418`: [isy-products-bom] Spring auf 5.1.9.RELEASE angehoben. Spring Security auf 5.1.6.RELEASE angehoben.
 - `IFS-423`: [isy-products-bom] Anhebung der UCP und JDBC Version auf 12.2.0.1
 - `IFS-437`: [isy-products-bom] `com.thoughtworks.xstream:xstream` auf 1.4.11.1 angehoben
+- `IFS-436`: Entkopplung Health-Endpoint und hinzufügen Nachbarsystem-Check
 - `IFS-444`: [isy-logging] Anpassung der Klasse `BeanToMapConverter` damit die Verwendung von TreeMaps keine Exceptions auslöst 
 - `IFS-454`: Maven Enforcer Rule: dependency-convergence ergänzt.
 - `IFS-458`: Tidy-maven-plugin auf `validate` gesetzt und POMs aufgeräumt
 - `IFS-459`: Die Klasse `AufrufKontextVerwalterImpl` verwendet nun das Interface `AufrufKontext` anstatt der Implementierung `AufrufKontextImpl`
 - `IFS-460`: [isyfact-products-bom] org.apache.poi:poi auf 4.1.1 angehoben
 - `IFS-463`: [isy-sst-bridge] Abwärtskompatibilität IsyFact 2 zu IsyFact 1 - Erstellung der Bridge
+- `IFS-466`: Fix für fehlerhafte Mdc Formatierung
+- `IFS-488`: [isy-serviceapi-core] Setze Advisor Order auf 50 für `stelltAufrufKontextBereitAdvisor`
 - `IFS-490`: [isyfact-products-bom] `com.fasterxml.jackson.core:jackson-databind` auf 2.9.10.1 angehoben
 - `IFS-492`: [isyfact-products-bom] `ch.qos.logback:logback-classic` und `ch.qos.logback:logback-core` auf 1.2.3 angehoben.

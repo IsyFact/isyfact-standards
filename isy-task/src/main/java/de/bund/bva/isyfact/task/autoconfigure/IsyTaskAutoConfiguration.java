@@ -4,6 +4,7 @@ import de.bund.bva.isyfact.aufrufkontext.AufrufKontextFactory;
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.isyfact.sicherheit.Sicherheit;
 import de.bund.bva.isyfact.task.TaskScheduler;
+import de.bund.bva.isyfact.task.TaskSchedulerStarter;
 import de.bund.bva.isyfact.task.config.IsyTaskConfigurationProperties;
 import de.bund.bva.isyfact.task.impl.TaskSchedulerImpl;
 import de.bund.bva.isyfact.task.konfiguration.HostHandler;
@@ -33,6 +34,12 @@ public class IsyTaskAutoConfiguration {
     public TaskScheduler taskScheduler(IsyTaskConfigurationProperties configurationProperties,
         TaskKonfigurationVerwalter taskKonfigurationVerwalter, HostHandler hostHandler) {
         return new TaskSchedulerImpl(configurationProperties, taskKonfigurationVerwalter, hostHandler);
+    }
+
+    @Bean
+    @ConditionalOnProperty(value = "isy.task.autostart", havingValue = "true")
+    public TaskSchedulerStarter taskSchedulerStarter(TaskScheduler taskScheduler) {
+        return new TaskSchedulerStarter(taskScheduler);
     }
 
     @Bean
