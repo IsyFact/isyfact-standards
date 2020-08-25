@@ -6,4 +6,5 @@
 - `IFS-436`: Entkopplung Health-Endpoint und hinzufügen Nachbarsystem-Check
 - `IFS-458`: Zulieferung von Github getestet und übernommen. (Versionsanhebungen rausgenommen.)
 - `IFS-463`: Abwärtskompatibilität IsyFact 2 zu IsyFact 1 - Erstellung der Bridge
+- `IFS-488`: [isy-serviceapi-core] Setze Advisor Order auf 50 für `stelltAufrufKontextBereitAdvisor`
 - `IFS-466`: Fix für fehlerhafte Mdc Formatierung
