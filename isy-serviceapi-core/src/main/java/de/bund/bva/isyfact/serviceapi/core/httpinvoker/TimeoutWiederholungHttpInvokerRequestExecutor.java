@@ -21,14 +21,14 @@ import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.net.HttpURLConnection;
 
-import org.springframework.remoting.httpinvoker.HttpInvokerClientConfiguration;
-import org.springframework.remoting.httpinvoker.SimpleHttpInvokerRequestExecutor;
-import org.springframework.remoting.support.RemoteInvocationResult;
-
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.serviceapi.common.konstanten.EreignisSchluessel;
+import org.springframework.remoting.httpinvoker.HttpInvokerClientConfiguration;
+import org.springframework.remoting.httpinvoker.SimpleHttpInvokerRequestExecutor;
+import org.springframework.remoting.support.RemoteInvocationResult;
 
 /**
  * Erweiterung des {@link SimpleHttpInvokerRequestExecutor} von Spring. Diese Erweiterung erlaubt es den
@@ -41,6 +41,9 @@ public class TimeoutWiederholungHttpInvokerRequestExecutor extends SimpleHttpInv
     /** Isy-Logger. */
     private static final IsyLogger LOG = IsyLoggerFactory
         .getLogger(TimeoutWiederholungHttpInvokerRequestExecutor.class);
+
+    /** Aufrufkontextverwalter zum Setzen des Bearer Tokens. */
+    private AufrufKontextVerwalter<?> aufrufKontextVerwalter;
 
     /** Timeout für Request. */
     private int timeout;
@@ -93,8 +96,19 @@ public class TimeoutWiederholungHttpInvokerRequestExecutor extends SimpleHttpInv
     @Override
     protected void prepareConnection(HttpURLConnection con, int contentLength) throws IOException {
         super.prepareConnection(con, contentLength);
+        con.setRequestProperty("Authorization", aufrufKontextVerwalter.getBearerToken());
         con.setReadTimeout(this.timeout);
         con.setConnectTimeout(this.timeout);
+    }
+
+
+    /**
+     * Setzt den AufrufkontextVerwalter.
+     *
+     * @param aufrufKontextVerwalter der AufrufkontextVerwalter des aktuellen Requests.
+     */
+    public void setAufrufKontextVerwalter(AufrufKontextVerwalter<?> aufrufKontextVerwalter) {
+        this.aufrufKontextVerwalter = aufrufKontextVerwalter;
     }
 
     /**

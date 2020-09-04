@@ -2,6 +2,7 @@ package de.bund.bva.isyfact.serviceapi.core.httpinvoker;
 
 import java.io.InterruptedIOException;
 
+import de.bund.bva.isyfact.aufrufkontext.stub.AufrufKontextVerwalterStub;
 import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.DummyServiceImpl;
 import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.DummyServiceRemoteBean;
 import org.junit.Before;
@@ -91,7 +92,7 @@ public class TimeoutWiederholungHttpInvokerRequestExecutorTest {
 
         @Bean(name = "/dummyServiceBean_v1_0_0")
         HttpInvokerServiceExporter pingService(DummyServiceImpl dummyService) {
-            HttpInvokerServiceExporter exporter = new IsyHttpInvokerServiceExporter();
+            HttpInvokerServiceExporter exporter = new IsyHttpInvokerServiceExporter(new AufrufKontextVerwalterStub<>());
             exporter.setService(dummyService);
             exporter.setServiceInterface(DummyServiceRemoteBean.class);
             return exporter;

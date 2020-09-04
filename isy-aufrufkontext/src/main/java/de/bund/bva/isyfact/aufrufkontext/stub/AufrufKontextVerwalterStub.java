@@ -62,6 +62,8 @@ public class AufrufKontextVerwalterStub<T extends AufrufKontext> implements Aufr
     /** aufrufKontext, der jedes mal zurückgegeben wird. */
     private T aufrufKontext;
 
+    private String bearerToken;
+
     /**
      * Setzt das Feld {@link #festerAufrufKontext}.
      * @param festerAufrufKontext
@@ -180,4 +182,13 @@ public class AufrufKontextVerwalterStub<T extends AufrufKontext> implements Aufr
         return aufrufKontext;
     }
 
+    @Override
+    public String getBearerToken() {
+        return bearerToken;
+    }
+
+    @Override
+    public void setBearerToken(String bearerToken) {
+        this.bearerToken = bearerToken;
+    }
 }

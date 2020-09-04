@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.lang.reflect.Proxy;
 
+import de.bund.bva.isyfact.aufrufkontext.impl.AufrufKontextVerwalterImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +74,7 @@ public class IsyHttpInvokerServiceExporterTest {
 
         @Bean(name = "/isyDummyServiceBean_v1_0_0")
         IsyHttpInvokerServiceExporter userService(DummyServiceImpl dummyService) {
-            IsyHttpInvokerServiceExporter exporter = new IsyHttpInvokerServiceExporter();
+            IsyHttpInvokerServiceExporter exporter = new IsyHttpInvokerServiceExporter(new AufrufKontextVerwalterImpl<>());
             exporter.setService(dummyService);
             exporter.setServiceInterface(DummyServiceRemoteBean.class);
             return exporter;
