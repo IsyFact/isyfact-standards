@@ -1,13 +1,11 @@
 package de.bund.bva.isyfact.serviceapi.core.httpinvoker;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter;
 
 /**
