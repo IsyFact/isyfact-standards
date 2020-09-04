@@ -28,6 +28,7 @@ import org.springframework.remoting.support.RemoteInvocationResult;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
+import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.pliscommon.serviceapi.common.konstanten.EreignisSchluessel;
 
 /**
@@ -41,6 +42,9 @@ public class TimeoutWiederholungHttpInvokerRequestExecutor extends SimpleHttpInv
     /** Isy-Logger. */
     private static final IsyLogger LOG = IsyLoggerFactory
         .getLogger(TimeoutWiederholungHttpInvokerRequestExecutor.class);
+
+    /** Aufrufkontextverwalter zum Setzen des Bearer Tokens. */
+    private AufrufKontextVerwalter<?> aufrufKontextVerwalter;
 
     /** Timeout für Request. */
     private int timeout;
@@ -93,8 +97,19 @@ public class TimeoutWiederholungHttpInvokerRequestExecutor extends SimpleHttpInv
     @Override
     protected void prepareConnection(HttpURLConnection con, int contentLength) throws IOException {
         super.prepareConnection(con, contentLength);
+        con.setRequestProperty("Authorization", aufrufKontextVerwalter.getBearerToken());
         con.setReadTimeout(this.timeout);
         con.setConnectTimeout(this.timeout);
+    }
+
+
+    /**
+     * Setzt den AufrufkontextVerwalter.
+     *
+     * @param aufrufKontextVerwalter der AufrufkontextVerwalter des aktuellen Requests.
+     */
+    public void setAufrufKontextVerwalter(AufrufKontextVerwalter<?> aufrufKontextVerwalter) {
+        this.aufrufKontextVerwalter = aufrufKontextVerwalter;
     }
 
     /**

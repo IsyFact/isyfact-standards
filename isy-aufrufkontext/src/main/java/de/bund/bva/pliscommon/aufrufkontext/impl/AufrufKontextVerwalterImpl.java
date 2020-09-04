@@ -20,13 +20,18 @@ import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
 
 /**
  * Stellt einer Anwendung den AufrufKontext bereit.
- * 
+ *
  *
  */
 public class AufrufKontextVerwalterImpl<T extends AufrufKontextImpl> implements AufrufKontextVerwalter<T> {
 
+    private static final String BEARER_MATCHER = "[bB][eE][aA][rR][eE][rR] ";
+
     /** der aktuelle AufrufKontext. */
     private T aufrufKontext;
+
+    /** das aktuelle OAuth2 Bearer Token. */
+    private String bearerToken;
 
     /**
      * Liefert das Feld 'aufrufKontext' zurück.
@@ -42,6 +47,14 @@ public class AufrufKontextVerwalterImpl<T extends AufrufKontextImpl> implements 
      */
     public void setAufrufKontext(T aufrufKontext) {
         this.aufrufKontext = aufrufKontext;
+    }
+
+    public String getBearerToken() {
+        return this.bearerToken;
+    }
+
+    public void setBearerToken(String bearerToken) {
+        this.bearerToken = bearerToken.replaceFirst(BEARER_MATCHER, "");
     }
 
 }

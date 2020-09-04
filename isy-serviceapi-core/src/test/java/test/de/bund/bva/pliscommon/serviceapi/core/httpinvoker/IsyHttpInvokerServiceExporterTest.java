@@ -1,6 +1,6 @@
 package test.de.bund.bva.pliscommon.serviceapi.core.httpinvoker;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.lang.reflect.Proxy;
 
@@ -19,13 +19,14 @@ import org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import de.bund.bva.pliscommon.aufrufkontext.impl.AufrufKontextVerwalterImpl;
+import de.bund.bva.pliscommon.serviceapi.core.httpinvoker.IsyHttpInvokerServiceExporter;
+
 import test.de.bund.bva.pliscommon.serviceapi.core.httpinvoker.user.User;
 import test.de.bund.bva.pliscommon.serviceapi.core.httpinvoker.user.UserImpl;
 import test.de.bund.bva.pliscommon.serviceapi.core.httpinvoker.user.UserInvocationHandler;
 import test.de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.DummyServiceImpl;
 import test.de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.DummyServiceRemoteBean;
-
-import de.bund.bva.pliscommon.serviceapi.core.httpinvoker.IsyHttpInvokerServiceExporter;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = IsyHttpInvokerServiceExporterTest.TestConfig.class,
@@ -75,7 +76,7 @@ public class IsyHttpInvokerServiceExporterTest {
 
         @Bean(name = "/isyDummyServiceBean")
         IsyHttpInvokerServiceExporter userService(DummyServiceImpl dummyService) {
-            IsyHttpInvokerServiceExporter exporter = new IsyHttpInvokerServiceExporter();
+            IsyHttpInvokerServiceExporter exporter = new IsyHttpInvokerServiceExporter(new AufrufKontextVerwalterImpl<>());
             exporter.setService(dummyService);
             exporter.setServiceInterface(DummyServiceRemoteBean.class);
             return exporter;
