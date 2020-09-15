@@ -60,7 +60,6 @@ public class NachbarsystemConfigurationPropertiesTest {
         NachbarsystemConfigurationProperties.NachbarsystemCheckProperties nachbarsystemCheckProperties =
             nachbarsystemConfigurationProperties.getNachbarsystemCheck();
         assertNotNull(nachbarsystemCheckProperties);
-        assertEquals(2, nachbarsystemCheckProperties.getAnzahlRetries());
         assertEquals(Duration.ofSeconds(20), nachbarsystemCheckProperties.getTimeout());
     }
 

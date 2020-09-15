@@ -5,17 +5,15 @@ import java.net.URI;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.boot.actuate.health.Status;
-import org.springframework.web.reactive.function.client.ClientResponse;
-import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.NachbarsystemCheck;
 import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.Nachbarsystem;
 import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.NachbarsystemHealth;
-import de.bund.bva.isyfact.ueberwachung.config.NachbarsystemConfigurationProperties;
-
-import reactor.core.publisher.Mono;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -26,26 +24,14 @@ public class NachbarsystemCheckImplTest {
     private final IsyLogger LOGGER = IsyLoggerFactory.getLogger(NachbarsystemCheckImplTest.class);
 
     //Mocken der Anfrage nach außen
-    private final WebClient webClient = mock(WebClient.class);
-    private final WebClient.RequestHeadersUriSpec requestHeadersUriSpec =
-            mock(WebClient.RequestHeadersUriSpec.class);
-    private final WebClient.RequestBodySpec requestBodySpec = mock(WebClient.RequestBodySpec.class);
-    private final ClientResponse clientResponse = mock(ClientResponse.class);
+    private final RestTemplate restTemplate = mock(RestTemplate.class);
 
     private NachbarsystemCheck nachbarsystemCheck;
 
-    private NachbarsystemConfigurationProperties nachbarsystemConfigurationProperties;
 
     @Before
     public void setup() {
-        nachbarsystemConfigurationProperties = new NachbarsystemConfigurationProperties();
-
-        when(webClient.get()).thenReturn(requestHeadersUriSpec);
-        when(requestHeadersUriSpec.uri(any(URI.class)))
-                .thenReturn(requestBodySpec);
-        when(requestBodySpec.exchange()).thenReturn(Mono.just(clientResponse));
-
-        nachbarsystemCheck = new NachbarsystemCheckImpl(webClient, nachbarsystemConfigurationProperties);
+        nachbarsystemCheck = new NachbarsystemCheckImpl(restTemplate);
     }
 
     //korrekter Durchlauf
@@ -55,8 +41,8 @@ public class NachbarsystemCheckImplTest {
 
         NachbarsystemHealth nachbarsystemHealth = new NachbarsystemHealth();
         nachbarsystemHealth.setStatus(Status.UP);
-        when(clientResponse.bodyToMono(NachbarsystemHealth.class))
-                .thenReturn(Mono.just(nachbarsystemHealth));
+        when(restTemplate.getForEntity(any(), eq(NachbarsystemHealth.class)))
+            .thenReturn(new ResponseEntity<>(nachbarsystemHealth, HttpStatus.OK));
 
         NachbarsystemHealth health = nachbarsystemCheck.checkNachbarsystem(nachbarsystem);
         assertNotNull(health);
@@ -68,8 +54,8 @@ public class NachbarsystemCheckImplTest {
     @Test
     public void exceptionBeiAnfrage() {
         Nachbarsystem nachbarsystem = createNachbarsystemDummy();
-        when(clientResponse.bodyToMono(NachbarsystemHealth.class))
-                .thenReturn(Mono.error(new Exception("someException")));
+        when(restTemplate.getForEntity(any(), eq(NachbarsystemHealth.class)))
+            .thenThrow(new RuntimeException("Fehler bei Abfrage simuliert"));
 
         LOGGER.debug("Error-Log erwartet: ");
         NachbarsystemHealth health = nachbarsystemCheck.checkNachbarsystem(nachbarsystem);
@@ -82,8 +68,8 @@ public class NachbarsystemCheckImplTest {
     public void exceptionBeiAnfrageNichtEssentiell() {
         Nachbarsystem nachbarsystem = createNachbarsystemDummy();
         nachbarsystem.setEssentiell(false);
-        when(clientResponse.bodyToMono(NachbarsystemHealth.class))
-                .thenReturn(Mono.error(new Exception("someException")));
+        when(restTemplate.getForEntity(any(), eq(NachbarsystemHealth.class)))
+            .thenThrow(new RuntimeException("Fehler bei Abfrage simuliert"));
 
         LOGGER.debug("Warn-Log erwartet: ");
         NachbarsystemHealth health = nachbarsystemCheck.checkNachbarsystem(nachbarsystem);
