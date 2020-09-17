@@ -50,7 +50,7 @@ public class NachbarsystemCheckImpl implements NachbarsystemCheck {
             return;
         }
 
-        //Logging, if status i not "UP"
+        //Logging, if status is not "UP"
         if (nachbarsystem.isEssentiell()) {
             LOG.error(EreignisSchluessel.NACHBARSYSTEM_ESSENTIELL_NICHT_ERREICHBAR,
                     "Essentielles Nachbarsystem {} nicht erreicht. Status: {}",
@@ -73,10 +73,15 @@ public class NachbarsystemCheckImpl implements NachbarsystemCheck {
             health = responseEntity.getBody();
         } catch (Exception e) {
             //If an Exception occured, log it, no further handling.
-            LOG.info(LogKategorie.JOURNAL, EreignisSchluessel.NACHBARSYSTEM_ANFRAGEFEHLER,
-                "Bei der Anfrage des Nachbarsystems {} ist ein Fehler aufgetreten: {}",
-                nachbarsystem.getSystemname(), e.getMessage()
-                );
+            if (nachbarsystem.isEssentiell()) {
+                LOG.error(EreignisSchluessel.NACHBARSYSTEM_ANFRAGEFEHLER,
+                    "Bei der Anfrage des Nachbarsystems {} ist ein Fehler aufgetreten: {}",
+                    nachbarsystem.getSystemname(), e.getMessage());
+            } else {
+                LOG.warn(EreignisSchluessel.NACHBARSYSTEM_ANFRAGEFEHLER,
+                    "Bei der Anfrage des Nachbarsystems {} ist ein Fehler aufgetreten: {}",
+                    nachbarsystem.getSystemname(), e.getMessage());
+            }
         }
 
         //if the health endpoint couldn't be read (health empty) or an exception occured,
