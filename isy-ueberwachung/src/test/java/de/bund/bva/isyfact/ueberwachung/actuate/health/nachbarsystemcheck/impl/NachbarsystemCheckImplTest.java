@@ -37,7 +37,7 @@ public class NachbarsystemCheckImplTest {
         nachbarsystemCheck = new NachbarsystemCheckImpl(restTemplate);
     }
 
-    //korrekter Durchlauf
+    //korrekter Durchlauf mit Antwort "UP".
     @Test
     public void checkNachbarUp() {
         Nachbarsystem nachbarsystem = createNachbarsystemDummy();
@@ -50,6 +50,21 @@ public class NachbarsystemCheckImplTest {
         NachbarsystemHealth health = nachbarsystemCheck.checkNachbarsystem(nachbarsystem);
         assertNotNull(health);
         assertEquals(Status.UP, health.getStatus());
+    }
+
+    // korrekter Durchlauf mit Antwort "OUT_OF_SERVICE", ungleich "UP".
+    @Test
+    public void checkNachbarDown() {
+        Nachbarsystem nachbarsystem = createNachbarsystemDummy();
+
+        NachbarsystemHealth nachbarsystemHealth = new NachbarsystemHealth();
+        nachbarsystemHealth.setStatus(Status.OUT_OF_SERVICE);
+        when(restTemplate.getForEntity(any(), eq(NachbarsystemHealth.class)))
+            .thenReturn(new ResponseEntity<>(nachbarsystemHealth, HttpStatus.OK));
+
+        NachbarsystemHealth health = nachbarsystemCheck.checkNachbarsystem(nachbarsystem);
+        assertNotNull(health);
+        assertEquals(Status.OUT_OF_SERVICE, health.getStatus());
     }
 
     //Wenn bei der Anfrage eine Exception auftritt, gilt der Nachbar als nicht erreichbar
