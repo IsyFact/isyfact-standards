@@ -74,15 +74,10 @@ public class NachbarsystemCheckImpl implements NachbarsystemCheck {
             health = responseEntity.getBody();
         } catch (Exception e) {
             //If an Exception occured, log it, no further handling.
-            if (nachbarsystem.isEssentiell()) {
-                LOG.error(EreignisSchluessel.NACHBARSYSTEM_ANFRAGEFEHLER,
-                    "Bei der Anfrage des Nachbarsystems {} ist ein Fehler aufgetreten: {}",
-                    nachbarsystem.getSystemname(), e.getMessage());
-            } else {
-                LOG.warn(EreignisSchluessel.NACHBARSYSTEM_ANFRAGEFEHLER,
-                    "Bei der Anfrage des Nachbarsystems {} ist ein Fehler aufgetreten: {}",
-                    nachbarsystem.getSystemname(), e.getMessage());
-            }
+            LOG.error(EreignisSchluessel.NACHBARSYSTEM_ANFRAGEFEHLER,
+                "Bei der Anfrage des Nachbarsystems {} ist ein Fehler aufgetreten: {}",
+                e, nachbarsystem.getSystemname(), e.getMessage()
+                );
         }
 
         //if the health endpoint couldn't be read (health empty) or an exception occured,
