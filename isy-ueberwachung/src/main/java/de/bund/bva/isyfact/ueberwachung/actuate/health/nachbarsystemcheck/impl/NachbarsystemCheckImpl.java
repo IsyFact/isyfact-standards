@@ -1,18 +1,19 @@
 package de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.impl;
 
 import java.net.URI;
+
 import javax.validation.constraints.NotNull;
+
+import org.springframework.boot.actuate.health.Status;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.NachbarsystemCheck;
 import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.Nachbarsystem;
 import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.NachbarsystemHealth;
 import de.bund.bva.isyfact.ueberwachung.common.konstanten.EreignisSchluessel;
-import org.springframework.boot.actuate.health.Status;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
 
 /**
  * Implementierung des NachbarsystemCheck.

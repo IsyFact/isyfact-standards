@@ -1,5 +1,10 @@
 package de.bund.bva.isyfact.ueberwachung.config;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.time.Duration;
 
 import org.junit.Test;
@@ -11,8 +16,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.Nachbarsystem;
 import de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyHealthAutoConfiguration;
 import de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyUeberwachungAutoConfiguration;
-
-import static org.junit.Assert.*;
 
 /**
  * Test zum überprüfen, ob die gesetzten properties korrekt geladen werden.

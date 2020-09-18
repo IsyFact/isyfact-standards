@@ -16,22 +16,23 @@
  */
 package de.bund.bva.isyfact.ueberwachung.common;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import de.bund.bva.isyfact.ueberwachung.common.data.Fehler;
-import de.bund.bva.isyfact.ueberwachung.common.data.ToMitFehlerCollection;
-import de.bund.bva.isyfact.ueberwachung.common.data.ToMitFehlerFeld;
-import de.bund.bva.isyfact.ueberwachung.common.data.ToObjektMitFehlernInOberklasse;
-import de.bund.bva.isyfact.ueberwachung.common.data.ToObjekthierarchieMitFehlern;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import de.bund.bva.isyfact.ueberwachung.common.data.Fehler;
+import de.bund.bva.isyfact.ueberwachung.common.data.ToMitFehlerCollection;
+import de.bund.bva.isyfact.ueberwachung.common.data.ToMitFehlerFeld;
+import de.bund.bva.isyfact.ueberwachung.common.data.ToObjektMitFehlernInOberklasse;
+import de.bund.bva.isyfact.ueberwachung.common.data.ToObjekthierarchieMitFehlern;
 
 /**
  * Tests für Erkennung fachlicher Fehler.

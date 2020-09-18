@@ -1,6 +1,5 @@
 package de.bund.bva.isyfact.ueberwachung.autoconfigure;
 
-import de.bund.bva.isyfact.ueberwachung.config.NachbarsystemRestTemplateConfigurer;
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnEnabledEndpoint;
 import org.springframework.boot.actuate.health.CompositeHealthIndicator;
 import org.springframework.boot.actuate.health.HealthAggregator;
@@ -21,6 +20,7 @@ import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.Nachba
 import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.NachbarsystemIndicator;
 import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.impl.NachbarsystemCheckImpl;
 import de.bund.bva.isyfact.ueberwachung.config.NachbarsystemConfigurationProperties;
+import de.bund.bva.isyfact.ueberwachung.config.NachbarsystemRestTemplateConfigurer;
 
 /**
  * Auto-Configuration fuer den entkoppelten HealthEndpoint mit Cache.

@@ -1,11 +1,12 @@
 package de.bund.bva.isyfact.ueberwachung.actuate.health;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.Status;
-
-import static org.junit.Assert.*;
 
 public class IsyHealthCacheTest {
 

@@ -1,5 +1,10 @@
 package de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck;
 
+import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,9 +17,6 @@ import org.springframework.boot.actuate.health.Status;
 import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.Nachbarsystem;
 import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.NachbarsystemHealth;
 import de.bund.bva.isyfact.ueberwachung.config.NachbarsystemConfigurationProperties;
-
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 public class NachbarsystemIndicatorTest {
 

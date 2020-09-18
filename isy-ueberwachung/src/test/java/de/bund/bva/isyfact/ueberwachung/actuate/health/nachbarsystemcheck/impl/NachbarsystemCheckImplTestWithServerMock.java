@@ -1,9 +1,11 @@
 package de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.impl;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.io.IOException;
 import java.net.URI;
 
-import de.bund.bva.isyfact.ueberwachung.config.NachbarsystemRestTemplateConfigurer;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -22,12 +24,11 @@ import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.Nachba
 import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.Nachbarsystem;
 import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.NachbarsystemHealth;
 import de.bund.bva.isyfact.ueberwachung.config.NachbarsystemConfigurationProperties;
+import de.bund.bva.isyfact.ueberwachung.config.NachbarsystemRestTemplateConfigurer;
 
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.SocketPolicy;
-
-import static org.junit.Assert.*;
 
 public class NachbarsystemCheckImplTestWithServerMock {
 

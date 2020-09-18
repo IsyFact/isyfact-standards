@@ -1,6 +1,11 @@
 package de.bund.bva.isyfact.ueberwachung.actuate.health;
 
-import java.io.IOException;
+import static de.bund.bva.isyfact.ueberwachung.actuate.health.HealthEndpointIntegrationTest.DELAY_MS;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -21,27 +26,20 @@ import org.springframework.boot.actuate.health.ShowDetails;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.util.ReflectionTestUtils;
-import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.ResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 
 import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.NachbarsystemHealth;
 import de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyHealthAutoConfiguration;
 import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
-
-import static de.bund.bva.isyfact.ueberwachung.actuate.health.HealthEndpointIntegrationTest.DELAY_MS;
-import static org.junit.Assert.*;
 
 /**
  * Test zum Überprüfen, ob der {@link IsyHealthEndpoint} benutzt wird und die Konfiguration greift.
