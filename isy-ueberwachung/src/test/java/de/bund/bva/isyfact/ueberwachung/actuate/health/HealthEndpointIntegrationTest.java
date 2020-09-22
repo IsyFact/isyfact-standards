@@ -1,5 +1,11 @@
 package de.bund.bva.isyfact.ueberwachung.actuate.health;
 
+import static de.bund.bva.isyfact.ueberwachung.actuate.health.HealthEndpointIntegrationTest.DELAY_MS;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -28,15 +34,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.util.ReflectionTestUtils;
-import org.springframework.web.reactive.function.client.ClientResponse;
-import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestTemplate;
 
 import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.NachbarsystemHealth;
 import de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyHealthAutoConfiguration;
 import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
-
-import static de.bund.bva.isyfact.ueberwachung.actuate.health.HealthEndpointIntegrationTest.DELAY_MS;
-import static org.junit.Assert.*;
 
 /**
  * Test zum Überprüfen, ob der {@link IsyHealthEndpoint} benutzt wird und die Konfiguration greift.
@@ -64,8 +67,7 @@ public class HealthEndpointIntegrationTest {
     @LocalServerPort
     private int localPort;
 
-    @Autowired
-    private WebClient webClient;
+    private final RestTemplate restTemplate = new RestTemplate();
 
     @Autowired
     private HealthWebEndpointResponseMapper healthWebEndpointResponseMapper;
@@ -103,25 +105,43 @@ public class HealthEndpointIntegrationTest {
      */
     @Test
     public void test3_andereEndpointsLiefern404() {
-        ResponseEntity<NachbarsystemHealth> componentResponse = getHealthResponse(testComponentName);
-        assertEquals(HttpStatus.NOT_FOUND, componentResponse.getStatusCode());
+        try {
+            getHealthResponse(testComponentName);
+            fail("Abfrage sollte exception werfen wegen 404-Statuscode");
+        } catch(HttpClientErrorException e){
+            assertEquals(HttpStatus.NOT_FOUND, e.getStatusCode());
+        } catch(Exception e){
+            fail("unerwartete Exception: "+ e.getMessage());
+        }
 
-        ResponseEntity<NachbarsystemHealth> componentInstanceResponse = getHealthResponse(testComponentName, testInstanceName);
-        assertEquals(HttpStatus.NOT_FOUND, componentInstanceResponse.getStatusCode());
+        try {
+            getHealthResponse(testComponentName, testInstanceName);
+            fail("Abfrage sollte exception werfen wegen 404-Statuscode");
+        } catch(HttpClientErrorException e){
+            assertEquals(HttpStatus.NOT_FOUND, e.getStatusCode());
+        } catch(Exception e){
+            fail("unerwartete Exception: "+ e.getMessage());
+        }
     }
 
     @Test
     public void test4_metricsEnabled() {
-        ClientResponse clientResponse = getClientResponse("metrics");
+        ResponseEntity<NachbarsystemHealth> responseEntity = getClientResponse("metrics");
 
-        assertEquals(HttpStatus.OK, clientResponse.statusCode());
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
 
     @Test
     public void test5_infoDisabled() {
-        ClientResponse clientResponse = getClientResponse("info");
 
-        assertEquals(HttpStatus.NOT_FOUND, clientResponse.statusCode());
+        try {
+            getClientResponse("info");
+            fail("info ist disabled und Abfrage sollte Exception werfen");
+        } catch(HttpClientErrorException e){
+            assertEquals(HttpStatus.NOT_FOUND, e.getStatusCode());
+        } catch(Exception e){
+            fail("unerwartete Exception: "+ e.getMessage());
+        }
     }
 
     @Test
@@ -147,16 +167,17 @@ public class HealthEndpointIntegrationTest {
     }
 
     private ResponseEntity<NachbarsystemHealth> getHealthResponse(String... path) {
-        return getClientResponse("health", path).toEntity(NachbarsystemHealth.class).block();
+        return getClientResponse("health", path);
     }
 
-    private ClientResponse getClientResponse(String endpoint, String... path) {
+    private ResponseEntity<NachbarsystemHealth> getClientResponse(String endpoint, String... path) {
         String p = "";
         if (path != null) {
             p = "/" + String.join("/", path);
         }
-        return webClient.get().uri("http://localhost:" + localPort + "/actuator/" + endpoint + p)
-                .exchange().block();
+        String uri = "http://localhost:" + localPort + "/actuator/" + endpoint + p;
+
+        return restTemplate.getForEntity(uri, NachbarsystemHealth.class);
     }
 
     @Configuration

@@ -1,9 +1,12 @@
 package de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.impl;
 
+import java.net.URI;
+
 import javax.validation.constraints.NotNull;
 
 import org.springframework.boot.actuate.health.Status;
-import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
@@ -11,13 +14,9 @@ import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.Nachba
 import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.Nachbarsystem;
 import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.NachbarsystemHealth;
 import de.bund.bva.isyfact.ueberwachung.common.konstanten.EreignisSchluessel;
-import de.bund.bva.isyfact.ueberwachung.config.NachbarsystemConfigurationProperties;
-
-import reactor.core.publisher.Mono;
 
 /**
- * Implementierung des NachbarsystemCheck. Die Abfrage erfolgt via Spring-WebClient.
- * Für den WebClient
+ * Implementierung des NachbarsystemCheck.
  */
 public class NachbarsystemCheckImpl implements NachbarsystemCheck {
 
@@ -27,38 +26,32 @@ public class NachbarsystemCheckImpl implements NachbarsystemCheck {
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(NachbarsystemCheckImpl.class);
 
     /**
-     * WebClient zur Abfrage.
+     * RestTemplate used for Querying
      */
-    private WebClient webClient;
+    private final RestTemplate restTemplate;
 
-    /**
-     * Properties für die Abfrage (für Retries).
-     */
-    private NachbarsystemConfigurationProperties nachbarsystemConfigurationProperties;
 
-    public NachbarsystemCheckImpl(WebClient webClient,
-                                  NachbarsystemConfigurationProperties nachbarsystemConfigurationProperties) {
-        this.webClient = webClient;
-        this.nachbarsystemConfigurationProperties = nachbarsystemConfigurationProperties;
+    public NachbarsystemCheckImpl(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
     }
 
     @Override
     public NachbarsystemHealth checkNachbarsystem(@NotNull Nachbarsystem nachbarsystem) {
-        return checkUri(nachbarsystem)
-                .doOnNext(h -> h.setNachbarsystem(nachbarsystem))
-                .doOnNext(this::logHealth)
-                .block();
+        NachbarsystemHealth health = check(nachbarsystem);
+        health.setNachbarsystem(nachbarsystem);
+        logHealth(health);
+        return health;
     }
 
     private void logHealth(NachbarsystemHealth health) {
         Nachbarsystem nachbarsystem = health.getNachbarsystem();
-        //Logge Status UP nur in DEBUG
+        //Log Status UP in DEBUG
         if (Status.UP.equals(health.getStatus())) {
             LOG.debug("Nachbarsystem verfügbar: {}", nachbarsystem.getSystemname());
             return;
         }
 
-        //Logging, wenn Status "nicht UP" ist
+        //Logging, if status is not "UP"
         if (nachbarsystem.isEssentiell()) {
             LOG.error(EreignisSchluessel.NACHBARSYSTEM_ESSENTIELL_NICHT_ERREICHBAR,
                     "Essentielles Nachbarsystem {} nicht erreicht. Status: {}",
@@ -70,29 +63,36 @@ public class NachbarsystemCheckImpl implements NachbarsystemCheck {
         }
     }
 
-    private Mono<NachbarsystemHealth> checkUri(@NotNull Nachbarsystem nachbarsystem) {
-        return webClient
-                .get()
-                .uri(nachbarsystem.getHealthEndpoint())
-                .exchange()
-                .retry(nachbarsystemConfigurationProperties.getNachbarsystemCheck().getAnzahlRetries())
-                .flatMap(clientResponse -> clientResponse.bodyToMono(NachbarsystemHealth.class))
-                .defaultIfEmpty(createDefaultHealth())
-                .onErrorResume(e -> loggeAufruffehlerAndReturn(e, nachbarsystem, createDefaultHealth()));
-    }
+    private NachbarsystemHealth check(@NotNull Nachbarsystem nachbarsystem)
+    {
+        NachbarsystemHealth health = null;
+        URI healthUri = nachbarsystem.getHealthEndpoint();
 
-    private Mono<NachbarsystemHealth> loggeAufruffehlerAndReturn(Throwable e, Nachbarsystem nachbarsystem,
-                                                                 NachbarsystemHealth healthToReturn) {
-        LOG.error(EreignisSchluessel.NACHBARSYSTEM_ANFRAGEFEHLER,
+        try {
+            ResponseEntity<NachbarsystemHealth> responseEntity =
+                            restTemplate.getForEntity(healthUri, NachbarsystemHealth.class);
+            health = responseEntity.getBody();
+        } catch (Exception e) {
+            //If an Exception occured, log it, no further handling.
+            LOG.error(EreignisSchluessel.NACHBARSYSTEM_ANFRAGEFEHLER,
                 "Bei der Anfrage des Nachbarsystems {} ist ein Fehler aufgetreten: {}",
-                e, nachbarsystem.getSystemname(), e.getMessage());
-        return Mono.just(healthToReturn);
+                e, nachbarsystem.getSystemname(), e.getMessage()
+                );
+        }
+
+        //if the health endpoint couldn't be read (health empty) or an exception occured,
+        //default assumed health for the neighbor will be "DOWN"
+        if ( health == null ) {
+            health = createDefaultHealthDown();
+        }
+        return health;
     }
 
-    private NachbarsystemHealth createDefaultHealth() {
+    // default Health if the Health is Empty or an Error occured
+    private NachbarsystemHealth createDefaultHealthDown() {
         NachbarsystemHealth health = new NachbarsystemHealth();
         health.setStatus(Status.DOWN);
-        health.getDetails().put("info", "Error bei Statusabfrage");
+        health.getDetails().put("info", "Fehler bei Statusabfrage");
         return health;
     }
 

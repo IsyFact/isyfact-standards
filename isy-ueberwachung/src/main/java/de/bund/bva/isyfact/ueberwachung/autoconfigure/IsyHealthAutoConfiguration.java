@@ -1,10 +1,5 @@
 package de.bund.bva.isyfact.ueberwachung.autoconfigure;
 
-import java.util.concurrent.TimeUnit;
-
-import io.netty.channel.ChannelOption;
-import io.netty.handler.timeout.ReadTimeoutHandler;
-import io.netty.handler.timeout.WriteTimeoutHandler;
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnEnabledEndpoint;
 import org.springframework.boot.actuate.health.CompositeHealthIndicator;
 import org.springframework.boot.actuate.health.HealthAggregator;
@@ -13,12 +8,11 @@ import org.springframework.boot.actuate.health.HealthIndicatorRegistry;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.http.client.reactive.ClientHttpConnector;
-import org.springframework.http.client.reactive.ReactorClientHttpConnector;
-import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.client.RestTemplate;
 
 import de.bund.bva.isyfact.ueberwachung.actuate.health.IsyHealthEndpoint;
 import de.bund.bva.isyfact.ueberwachung.actuate.health.IsyHealthTask;
@@ -26,7 +20,7 @@ import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.Nachba
 import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.NachbarsystemIndicator;
 import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.impl.NachbarsystemCheckImpl;
 import de.bund.bva.isyfact.ueberwachung.config.NachbarsystemConfigurationProperties;
-import reactor.netty.http.client.HttpClient;
+import de.bund.bva.isyfact.ueberwachung.config.NachbarsystemRestTemplateConfigurer;
 
 /**
  * Auto-Configuration fuer den entkoppelten HealthEndpoint mit Cache.
@@ -45,35 +39,18 @@ public class IsyHealthAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public WebClient webClient(
+    public NachbarsystemCheck nachbarsystemCheck(
         NachbarsystemConfigurationProperties nachbarsystemConfigurationProperties) {
-        long timeoutInMillis =
-            nachbarsystemConfigurationProperties.getNachbarsystemCheck().getTimeout().toMillis();
-        if (timeoutInMillis > (long) Integer.MAX_VALUE) { //damit beim Cast keine Probleme auftreten
-            //fachlich gesehen sollte der Wert ohnehin deutlich kleiner sein
-            throw new IllegalArgumentException(
-                String.format("WebClient wurde nicht erstellt. Timeout zu lang: %s ms", timeoutInMillis));
-        }
 
-        // Netty Http-Client erstellen
-        HttpClient httpClient = HttpClient.create()
-            .tcpConfiguration(tcpClient -> {
-                tcpClient = tcpClient.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, (int) timeoutInMillis);
-                tcpClient = tcpClient.doOnConnected(conn -> conn
-                    .addHandlerLast(new ReadTimeoutHandler(timeoutInMillis, TimeUnit.MILLISECONDS))
-                    .addHandlerLast(new WriteTimeoutHandler(timeoutInMillis, TimeUnit.MILLISECONDS)));
-                return tcpClient;
-            });
-        // Http-Connecter basierend auf dem Http-Client
-        ClientHttpConnector clientHttpConnector = new ReactorClientHttpConnector(httpClient);
-        return WebClient.builder().clientConnector(clientHttpConnector).build();
-    }
+        //we want our own RestTemplate to set Properties accordingly
+        //but it can be reused for all our subsequent requests (is threadsafe)
+        //build a RestTemplate based on nachbarsystemConfigurationProperties
+        RestTemplateBuilder templateBuilder = new RestTemplateBuilder();
+        templateBuilder = NachbarsystemRestTemplateConfigurer
+            .configureForNachbarSystemCheck(templateBuilder, nachbarsystemConfigurationProperties);
+        RestTemplate restTemplate = templateBuilder.build();
 
-    @Bean
-    @ConditionalOnMissingBean
-    public NachbarsystemCheck nachbarsystemCheck(WebClient webClient,
-        NachbarsystemConfigurationProperties nachbarsystemConfigurationProperties) {
-        return new NachbarsystemCheckImpl(webClient, nachbarsystemConfigurationProperties);
+        return new NachbarsystemCheckImpl(restTemplate);
     }
 
     @Bean

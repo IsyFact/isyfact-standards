@@ -1,28 +1,22 @@
 package de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.impl;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.io.IOException;
 import java.net.URI;
-import java.util.concurrent.TimeUnit;
 
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.health.Status;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.client.reactive.ClientHttpConnector;
-import org.springframework.http.client.reactive.ReactorClientHttpConnector;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.client.RestTemplate;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
@@ -30,26 +24,12 @@ import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.Nachba
 import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.Nachbarsystem;
 import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.NachbarsystemHealth;
 import de.bund.bva.isyfact.ueberwachung.config.NachbarsystemConfigurationProperties;
+import de.bund.bva.isyfact.ueberwachung.config.NachbarsystemRestTemplateConfigurer;
 
-import io.netty.channel.ChannelOption;
-import io.netty.handler.timeout.ReadTimeoutHandler;
-import io.netty.handler.timeout.WriteTimeoutHandler;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.SocketPolicy;
-import reactor.netty.http.client.HttpClient;
 
-import static org.junit.Assert.*;
-
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = { NachbarsystemCheckImplTestWithServerMock.TestConfiguration.class },
-        properties = {
-                "isy.logging.anwendung.name=NachbarsystemCheckImplTest",
-                "isy.logging.anwendung.version=1.0.0-SNAPSHOT",
-                "isy.logging.anwendung.typ=Test",
-                "isy.task.autostart=false"
-        },
-        webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class NachbarsystemCheckImplTestWithServerMock {
 
     private final IsyLogger LOGGER =
@@ -57,17 +37,10 @@ public class NachbarsystemCheckImplTestWithServerMock {
 
     private static MockWebServer mockBackEnd;
 
-    @Autowired
-    private WebClient webClient;
-
-    @Autowired
-    private NachbarsystemConfigurationProperties nachbarsystemConfigurationProperties;
-
     private NachbarsystemCheck nachbarsystemCheck;
 
 
     @BeforeClass
-
     public static void startServer() throws IOException {
         mockBackEnd = new MockWebServer();
         mockBackEnd.start(1234);
@@ -75,8 +48,11 @@ public class NachbarsystemCheckImplTestWithServerMock {
 
     @Before
     public void setUp() {
-        nachbarsystemCheck = Mockito.spy(new NachbarsystemCheckImpl(
-                webClient, nachbarsystemConfigurationProperties));
+        RestTemplate restTemplate = NachbarsystemRestTemplateConfigurer
+            .configureForNachbarSystemCheck(new RestTemplateBuilder(),
+                new NachbarsystemConfigurationProperties() )
+            .build();
+        nachbarsystemCheck = Mockito.spy(new NachbarsystemCheckImpl(restTemplate));
     }
 
     @AfterClass
@@ -172,7 +148,7 @@ public class NachbarsystemCheckImplTestWithServerMock {
     }
 
     @Test
-    public void timeoutWirdGetriggertMitRetries() {
+    public void timeoutWirdGetriggert() {
         //Server gibt keine Response
         mockBackEnd.enqueue(new MockResponse().setSocketPolicy(SocketPolicy.NO_RESPONSE));
 
@@ -193,42 +169,6 @@ public class NachbarsystemCheckImplTestWithServerMock {
         nachbarsystem
                 .setHealthEndpoint(URI.create("http://localhost:" + mockBackEnd.getPort() + "/actuate/health"));
         return nachbarsystem;
-    }
-
-
-    @Configuration
-    public static class TestConfiguration {
-
-        @Bean
-        @ConditionalOnMissingBean
-        public WebClient webClient(
-                NachbarsystemConfigurationProperties nachbarsystemConfigurationProperties) {
-            long timeoutInMillis =
-                    nachbarsystemConfigurationProperties.getNachbarsystemCheck().getTimeout().toMillis();
-            if (timeoutInMillis > (long) Integer.MAX_VALUE) { //damit beim Cast keine Probleme auftreten
-                //fachlich gesehen sollte der Wert ohnehin deutlich kleiner sein
-                throw new IllegalArgumentException("NachbarsystemConfigurationProperties: Timeout zu lang");
-            }
-
-            // create reactor netty HTTP client
-            HttpClient httpClient = HttpClient.create()
-                    .tcpConfiguration(tcpClient -> {
-                        tcpClient = tcpClient.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, (int) timeoutInMillis);
-                        tcpClient = tcpClient.doOnConnected(conn -> conn
-                                .addHandlerLast(new ReadTimeoutHandler(timeoutInMillis, TimeUnit.MILLISECONDS))
-                                .addHandlerLast(new WriteTimeoutHandler(timeoutInMillis, TimeUnit.MILLISECONDS)));
-                        return tcpClient;
-                    });
-            // create a client http connector using above http client
-            ClientHttpConnector clientHttpConnector = new ReactorClientHttpConnector(httpClient);
-            return WebClient.builder().clientConnector(clientHttpConnector).build();
-        }
-
-        @Bean
-        public NachbarsystemConfigurationProperties nachbarsystemConfigurationProperties() {
-            return new NachbarsystemConfigurationProperties();
-        }
-
     }
 
 }
