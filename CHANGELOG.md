@@ -1,6 +1,8 @@
 # 2.2.0
 - `IFS-465`: Profile zum Bauen mit Java 11 erstellt
-- `IFS-568`: [isy-util] Entfernt redundante Methode aus dem MessageSourceHolder 
+- `IFS-568`: [isy-util] Entfernt redundante Methode aus dem MessageSourceHolder
+- `IFS-694`: Spring-Boot Versionsanhebung auf 2.2.9
+
 
 # 2.1.0
 - `IFS-156`: [isy-sicherheit] Sonderlogik, die Underscores aus dem Attribut `durchfuehrenderSachbearbeiterName` des Aufrufkontextes entfernt erneut ausgebaut.
