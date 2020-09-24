@@ -12,6 +12,7 @@
 - `IFS-410`: Checkstyle Plugin auf Version 3.1.0 angehoben
 - `IFS-418`: [isy-products-bom] Spring auf 5.1.9.RELEASE angehoben. Spring Security auf 5.1.6.RELEASE angehoben.
 - `IFS-423`: [isy-products-bom] Anhebung der UCP und JDBC Version auf 12.2.0.1
+- `IFS-429`: JAR signer in Phase 'deploy' verschoben
 - `IFS-437`: [isy-products-bom] `com.thoughtworks.xstream:xstream` auf 1.4.11.1 angehoben
 - `IFS-436`: [isy-ueberwachung] Entkopplung Health-Endpoint und hinzufügen Nachbarsystem-Check
 - `IFS-444`: [isy-logging] Anpassung der Klasse `BeanToMapConverter` damit die Verwendung von TreeMaps keine Exceptions auslöst 
