@@ -174,6 +174,8 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
 
                 MdcHelper.pushKorrelationsId(UUID.randomUUID().toString());
 
+                aufrufKontext.setKorrelationsId(MdcHelper.liesKorrelationsId());
+
                 ergebnis = verarbInfo.getBean().verarbeiteSatz();
 
                 MdcHelper.entferneKorrelationsId();

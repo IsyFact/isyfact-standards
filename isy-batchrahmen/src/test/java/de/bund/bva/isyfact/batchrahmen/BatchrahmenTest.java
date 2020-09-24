@@ -16,25 +16,28 @@
  */
 package de.bund.bva.isyfact.batchrahmen;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.File;
 import java.net.URISyntaxException;
+
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchReturnCode;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchStartTyp;
 import de.bund.bva.isyfact.batchrahmen.core.launcher.BatchLauncher;
 import de.bund.bva.isyfact.batchrahmen.test.BatchProtokollTester;
 import de.bund.bva.isyfact.batchrahmen.test.TestBatchLauchner;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 /* @SpringBootTest(classes = AnwendungTestConfig.class, webEnvironment = SpringBootTest.WebEnvironment.NONE, properties = {
@@ -376,5 +379,15 @@ public class BatchrahmenTest {
         assertEquals(BatchReturnCode.FEHLER_AUSGEFUEHRT.getWert(),
             batchLauncher.starteBatch(BatchStartTyp.START, null));
         assertEquals("beendet", getBatchStatus("returnCodeTestBatch-1"));
+    }
+
+    /**
+     * test if correlation-id in AufrufKontext will be set during batch execution
+     */
+    @Test
+    public void testAufrufKontextTestBatch() {
+        assertEquals(0, BatchLauncher.run(new String[] { "-start", "-cfg",
+                "/resources/batch/aufruf-kontext-test-batch-config.properties" }));
+        assertEquals("beendet", getBatchStatus("aufrufKontextTestBatch"));
     }
 }
