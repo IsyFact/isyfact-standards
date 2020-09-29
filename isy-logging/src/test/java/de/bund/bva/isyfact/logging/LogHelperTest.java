@@ -24,13 +24,14 @@ package de.bund.bva.isyfact.logging;
  */
 
 import de.bund.bva.isyfact.logging.hilfsklassen.TestBeanEinfach;
+import de.bund.bva.isyfact.logging.hilfsklassen.TestSignaturKlasse;
 import de.bund.bva.isyfact.logging.util.LogHelper;
 import org.junit.Test;
 
 import java.util.Random;
 
 /**
- * Test des Log-Helpers.
+ * Log-Helper tests.
  */
 public class LogHelperTest extends AbstractLogTest {
 
@@ -49,27 +50,43 @@ public class LogHelperTest extends AbstractLogTest {
         // übergebenen Parametern erstellt.
         LogHelper logHelper = new LogHelper(false, true, false, false, true, 0);
         IsyLogger logger = IsyLoggerFactory.getLogger(LogHelperTest.class);
-        logHelper.loggeErgebnis(logger, TestBeanEinfach.class.getMethod("setEinString", String.class), false,
+        logHelper.loggeErgebnis(logger, TestSignaturKlasse.class.getMethod("method", String.class), false,
                 null, "Ergebnis");
-        logHelper.loggeErgebnis(logger, TestBeanEinfach.class.getMethod("setEinString", String.class), true,
+        logHelper.loggeErgebnis(logger, TestSignaturKlasse.class.getMethod("method", String.class), true,
+                null, "Ergebnis");
+        logHelper.loggeErgebnis(logger, TestSignaturKlasse.class.getMethod("methodWithException", String.class), false,
+                null, "Ergebnis");
+        logHelper.loggeErgebnis(logger, TestSignaturKlasse.class.getMethod("methodWithException", String.class), true,
                 null, "Ergebnis");
         // LoggeErgebnis wird mit einem Parameter aufgerufen
-        logHelper.loggeErgebnis(logger, TestBeanEinfach.class.getMethod("setEinString", String.class), false,
+        logHelper.loggeErgebnis(logger, TestSignaturKlasse.class.getMethod("method", String.class), false,
                 new String[] { "EinString" }, "Ergebnis");
-        logHelper.loggeErgebnis(logger, TestBeanEinfach.class.getMethod("setEinString", String.class), true,
+        logHelper.loggeErgebnis(logger, TestSignaturKlasse.class.getMethod("method", String.class), true,
+                new String[] { "EinString" }, "Ergebnis");
+        logHelper.loggeErgebnis(logger, TestSignaturKlasse.class.getMethod("methodWithException", String.class), false,
+                new String[] { "EinString" }, "Ergebnis");
+        logHelper.loggeErgebnis(logger, TestSignaturKlasse.class.getMethod("methodWithException", String.class), true,
                 new String[] { "EinString" }, "Ergebnis");
 
         // LoggeErgebnis wird ohne Parameter aufgerufen, wobei im Helper nur "loggeErgebnis=true" ist. Es wird
         // jeweils nur der INFO.Eintrag erstellt.
         logHelper = new LogHelper(false, true, false, false, false, 0);
-        logHelper.loggeErgebnis(logger, TestBeanEinfach.class.getMethod("setEinString", String.class), false,
+        logHelper.loggeErgebnis(logger, TestSignaturKlasse.class.getMethod("method", String.class), false,
                 null, null);
-        logHelper.loggeErgebnis(logger, TestBeanEinfach.class.getMethod("setEinString", String.class), true,
+        logHelper.loggeErgebnis(logger, TestSignaturKlasse.class.getMethod("method", String.class), true,
                 null, null);
+        logHelper.loggeErgebnis(logger, TestSignaturKlasse.class.getMethod("methodWithException", String.class), false,
+                null, "Ergebnis");
+        logHelper.loggeErgebnis(logger, TestSignaturKlasse.class.getMethod("methodWithException", String.class), true,
+                null, "Ergebnis");
         // LoggeErgebnis wird mit einem Parameter aufgerufen
-        logHelper.loggeErgebnis(logger, TestBeanEinfach.class.getMethod("setEinString", String.class), false,
+        logHelper.loggeErgebnis(logger, TestSignaturKlasse.class.getMethod("method", String.class), false,
                 new String[] { "EinString" }, "Ergebnis");
-        logHelper.loggeErgebnis(logger, TestBeanEinfach.class.getMethod("setEinString", String.class), true,
+        logHelper.loggeErgebnis(logger, TestSignaturKlasse.class.getMethod("method", String.class), true,
+                new String[] { "EinString" }, "Ergebnis");
+        logHelper.loggeErgebnis(logger, TestSignaturKlasse.class.getMethod("methodWithException", String.class), false,
+                new String[] { "EinString" }, "Ergebnis");
+        logHelper.loggeErgebnis(logger, TestSignaturKlasse.class.getMethod("methodWithException", String.class), true,
                 new String[] { "EinString" }, "Ergebnis");
 
         // Übergeben von NULL-Werten und deaktivierten Methoden - bei diesen wird keine Log-Eintrag erstellt:
