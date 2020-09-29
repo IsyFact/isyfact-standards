@@ -1,3 +1,6 @@
+# 2.2.0
+- `IFS-568`: [isy-util] Entfernt redundante Methode aus dem MessageSourceHolder 
+
 # 2.1.0
 - `IFS-156`: [isy-sicherheit] Sonderlogik, die Underscores aus dem Attribut `durchfuehrenderSachbearbeiterName` des Aufrufkontextes entfernt erneut ausgebaut.
 - `IFS-223`: [isy-products-bom] Logging Bridges in products-pom ergänzt: jcl-over-slf4j, slf4j-jcl
