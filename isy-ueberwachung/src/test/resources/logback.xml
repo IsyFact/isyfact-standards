@@ -22,8 +22,12 @@
     <include resource="resources/isylogging/logback/appender-entwicklung.xml"/>
 
     <!-- Root-Logger als Grundlage für alle Logger-Instanzen -->
-    <root level="DEBUG">
+    <root level="INFO">
         <appender-ref ref="KONSOLE"/>
     </root>
+
+    <logger name="de.bund.bva.isyfact" level="DEBUG" additivity="false">
+        <appender-ref ref="KONSOLE"/>
+    </logger>
 
 </configuration>

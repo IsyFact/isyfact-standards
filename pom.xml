@@ -45,6 +45,7 @@
         <module>isy-serviceapi-core</module>
         <module>isy-serviceapi-sst</module>
         <module>isy-sicherheit</module>
+        <module>isy-sst-bridge</module>
         <module>isy-task</module>
         <module>isy-ueberwachung</module>
         <module>isy-util</module>
@@ -439,7 +440,7 @@
                         <executions>
                             <execution>
                                 <id>sign</id>
-                                <phase>verify</phase>
+                                <phase>deploy</phase>
                                 <goals>
                                     <goal>sign</goal>
                                 </goals>

@@ -1,5 +1,6 @@
 # 2.1.0
 - `IFS-378`: Reihenfolge der Schnittstellenannotationen angepasst
+- `IFS-488`: Setze Advisor Order auf 50 für stelltAufrufKontextBereitAdvisor
 
 # 2.0.0
 - `IFS-228`: Einführung von Spring Boot
