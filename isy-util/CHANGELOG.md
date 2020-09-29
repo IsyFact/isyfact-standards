@@ -1,3 +1,6 @@
+# 2.2.0
+- `IFS-568`: Entfernt redundante Methode `getMessage(String schluessel)` aus dem MessageSourceHolder
+
 # 2.0.0
 - `IFS-32`: Package-Name auf de.bund.bva.isyfact geändert
 

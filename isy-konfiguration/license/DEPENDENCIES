@@ -17,8 +17,13 @@ Liste aller Abhängigkeiten zu Drittsoftware gruppiert nach deren Lizenzen. Kein
 		* Apache Log4j API (org.apache.logging.log4j:log4j-api:2.11.1 - https://logging.apache.org/log4j/2.x/log4j-api/)
 		* Apache Log4j to SLF4J Adapter (org.apache.logging.log4j:log4j-to-slf4j:2.11.1 - https://logging.apache.org/log4j/2.x/log4j-to-slf4j/)
 		* AssertJ fluent assertions (org.assertj:assertj-core:3.2.0 - http://nexus.sonatype.org/oss-repository-hosting.html/assertj-parent-pom/assertj-core)
-		* IsyFact-Fehlerbehandlung (Basisklassen) (de.bund.bva.isyfact:isy-exception-core:2.1.0-SNAPSHOT - http://isyfact.de/isy-exception-core)
-		* IsyFact-Logging (de.bund.bva.isyfact:isy-logging:2.1.0-SNAPSHOT - http://isyfact.de/isy-logging)
+		* IsyFact Datum & Zeit (de.bund.bva.isyfact:isy-datetime:2.2.0-SNAPSHOT - http://isyfact.de/isy-datetime)
+		* IsyFact Task Scheduling (de.bund.bva.isyfact:isy-task:2.2.0-SNAPSHOT - http://isyfact.de/isy-task)
+		* IsyFact-Aufrufkontext (de.bund.bva.isyfact:isy-aufrufkontext:2.2.0-SNAPSHOT - http://isyfact.de/isy-aufrufkontext)
+		* IsyFact-Fehlerbehandlung (Basisklassen) (de.bund.bva.isyfact:isy-exception-core:2.2.0-SNAPSHOT - http://isyfact.de/isy-exception-core)
+		* IsyFact-Logging (de.bund.bva.isyfact:isy-logging:2.2.0-SNAPSHOT - http://isyfact.de/isy-logging)
+		* IsyFact-Sicherheit (de.bund.bva.isyfact:isy-sicherheit:2.2.0-SNAPSHOT - http://isyfact.de/isy-sicherheit)
+		* IsyFact-Utilities (de.bund.bva.isyfact:isy-util:2.2.0-SNAPSHOT - http://isyfact.de/isy-util)
 		* SnakeYAML (org.yaml:snakeyaml:1.23 - http://www.snakeyaml.org)
 		* Spring AOP (org.springframework:spring-aop:5.1.9.RELEASE - https://github.com/spring-projects/spring-framework)
 		* Spring Beans (org.springframework:spring-beans:5.1.9.RELEASE - https://github.com/spring-projects/spring-framework)
@@ -37,6 +42,7 @@ Liste aller Abhängigkeiten zu Drittsoftware gruppiert nach deren Lizenzen. Kein
 		* Spring Core (org.springframework:spring-core:5.1.9.RELEASE - https://github.com/spring-projects/spring-framework)
 		* Spring Expression Language (SpEL) (org.springframework:spring-expression:5.1.9.RELEASE - https://github.com/spring-projects/spring-framework)
 		* Spring TestContext Framework (org.springframework:spring-test:5.1.9.RELEASE - https://github.com/spring-projects/spring-framework)
+		* Spring Web (org.springframework:spring-web:5.1.9.RELEASE - https://github.com/spring-projects/spring-framework)
 		* tomcat-embed-el (org.apache.tomcat.embed:tomcat-embed-el:9.0.12 - https://tomcat.apache.org/)
 
 	(Apache License, version 2.0):
@@ -83,13 +89,15 @@ Liste aller Abhängigkeiten zu Drittsoftware gruppiert nach deren Lizenzen. Kein
 		* Byte Buddy (without dependencies) (net.bytebuddy:byte-buddy:1.9.3 - http://bytebuddy.net/byte-buddy)
 		* Byte Buddy Java agent (net.bytebuddy:byte-buddy-agent:1.9.3 - http://bytebuddy.net/byte-buddy-agent)
 		* ClassMate (com.fasterxml:classmate:1.4.0 - http://github.com/FasterXML/java-classmate)
+		* Ehcache (org.ehcache:ehcache:3.1.4 - http://ehcache.org)
 		* JSON Small and Fast Parser (net.minidev:json-smart:2.3 - http://www.minidev.net/)
 		* JSONassert (org.skyscreamer:jsonassert:1.5.0 - https://github.com/skyscreamer/JSONassert)
-		* Jackson-annotations (com.fasterxml.jackson.core:jackson-annotations:2.9.9 - http://github.com/FasterXML/jackson)
-		* Jackson-core (com.fasterxml.jackson.core:jackson-core:2.9.9 - https://github.com/FasterXML/jackson-core)
-		* jackson-databind (com.fasterxml.jackson.core:jackson-databind:2.9.9.3 - http://github.com/FasterXML/jackson)
+		* Jackson-annotations (com.fasterxml.jackson.core:jackson-annotations:2.9.10 - http://github.com/FasterXML/jackson)
+		* Jackson-core (com.fasterxml.jackson.core:jackson-core:2.9.10 - https://github.com/FasterXML/jackson-core)
+		* jackson-databind (com.fasterxml.jackson.core:jackson-databind:2.9.10.1 - http://github.com/FasterXML/jackson)
 		* org.xmlunit:xmlunit-core (org.xmlunit:xmlunit-core:2.6.2 - https://www.xmlunit.org/)
 		* project ':json-path' (com.jayway.jsonpath:json-path:2.4.0 - https://github.com/jayway/JsonPath)
+		* spring-security-core (org.springframework.security:spring-security-core:5.1.6.RELEASE - https://spring.io/spring-security)
 
 	(The MIT License):
 
