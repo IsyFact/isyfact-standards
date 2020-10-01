@@ -1,5 +1,6 @@
 # 2.2.0
 - `IFS-465`: Profile zum Bauen mit Java 11 erstellt
+- `IFS-625`: Google.Guava von Version 19.0 auf 29.0 angehoben.
 
 # 2.1.0
 - `IFS-223`: Logging Bridges ergänzt: jcl-over-slf4j, slf4j-jcl
