@@ -24,9 +24,11 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import ch.qos.logback.classic.LoggerContext;
-import ch.qos.logback.classic.joran.JoranConfigurator;
-import ch.qos.logback.core.joran.spi.JoranException;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.Banner;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ConfigurableApplicationContext;
+
 import de.bund.bva.isyfact.batchrahmen.batch.exception.BatchAusfuehrungsException;
 import de.bund.bva.isyfact.batchrahmen.batch.konfiguration.BatchKonfiguration;
 import de.bund.bva.isyfact.batchrahmen.batch.konstanten.BatchRahmenEreignisSchluessel;
@@ -45,74 +47,71 @@ import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.sicherheit.common.exception.SicherheitTechnicalRuntimeException;
-import org.slf4j.LoggerFactory;
-import org.springframework.boot.Banner;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.context.ConfigurableApplicationContext;
+
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.classic.joran.JoranConfigurator;
+import ch.qos.logback.core.joran.spi.JoranException;
 
 /**
- * Diese Klasse startet einen Batch (siehe {@link Batchrahmen} mit der ï¿½bergebenen Konfiguration. Die
- * Konfiguration erfolgt über Kommandozeilen-Argumente sowie über eine Property-Datei.
+ * This class starts a batch (see {@link Batchrahmen} with the transferred configuration. The configuration
+ * is done via command line arguments und a property file.
  * <p>
- * Die Verarbeitungs-Logik ist dabei auf einen Batchrahmen und eine Ausfuehrungsbean aufgeteilt. Siehe dazu
- * das Detailkonzept Batch der Migrationsstufe 1.
+ * The processing logic is divided into a Batchrahmen and a Ausführungsbean. See the Detailkonzept Batch
+ * der Migrationsstufe 1.
  * <p>
- * Kommandozeilenargumente müssen stets die Form <tt>-ParameterName ParameterWert</tt> oder
- * <tt>-ParameterName</tt> besitzen. Folgende Parameter sind fuer den Batchrahmen relevant:
+ * Command line arguments must always have the form <tt>-ParameterName ParameterValue</tt> oder
+ * <tt>-ParameterName</tt>. The following parameters are relevant for Batchrahmen:
  * <ul>
- * <li>cfg &lt;Dateiname&gt;: Name der Property-Datei
- * <li>start: Starten des Batches im "Start" Modus.
- * <li>restart: Starten des Batches im "Restart" Modus nach einem Fehler-Abbruch.
- * <li>ignoriereRestart: Auch bei Fehlern Start akzeptieren, nicht auf Restart beharren.
- * <li>ignoriereLauf: Auch bei Status "Laeuft" Start akzeptieren.
+ * <li>cfg &lt;filename&gt;: Name of property file
+ * <li>start: Start batch in "Start" mode.
+ * <li>restart: Start batch im "Restart" mode after an abort with error.
+ * <li>ignoriereRestart: Accept start even in the event of errors, do not insist on restart.
+ * <li>ignoriereLauf: Accept start even with status "Laeuft".
  * </ul>
  * <p>
- * Die Property-Datei darf folgende Grüüe besitzen:
+ * The property file may have following values:
  * <ul>
- * <li>Batchrahmen.BeanName: Name der Batchrahmen-Bean.
- * <li>Anwendung.SpringDateien.&lt;N&gt;: Namen der Spring-Konfigurationsdateien des Systems.
- * <li>Batchrahmen.SpringDateien.&lt;N&gt;: Namen der Spring-Konfigurationsdateien des Batchrahmens.
- * <li>Batchrahmen.LogbackConfigFile: Pfad zur Log4J Konfigurationsdatei.
- * <li>Batchrahmen.CommitIntervall: Anzahl Satz-Verarbeitungen pro Commit.
- * <li>Batchrahmen.AnzahlZuVerarbeitendeDatensaetze: Anzahl zu verarbeitende Datensütze.
- * <li>AusfuehrungsBean: Name der Ausfuehrungsbean fuer die Batch-Logik.
- * <li>BatchId: ID des Batches (ID des Batch-Status-Datensatzes).
- * <li>BatchName: Name des Batches in der Batch-Status-Tabelle.
+ * <li>Batchrahmen.BeanName: Name of Batchrahmen-Bean.
+ * <li>Anwendung.SpringDateien.&lt;N&gt;: Namen of spring configuration files of system.
+ * <li>Batchrahmen.SpringDateien.&lt;N&gt;: Namen of spring configuration files of Batchrahmen.
+ * <li>Batchrahmen.LogbackConfigFile: Path to Log4J configuration file.
+ * <li>Batchrahmen.CommitIntervall: Number of record processes per commit.
+ * <li>Batchrahmen.AnzahlZuVerarbeitendeDatensaetze: Number of data record to be processed.
+ * <li>AusfuehrungsBean: Name of Ausfuehrungsbean for batch logic.
+ * <li>BatchId: ID of batche (ID of batch status data record).
+ * <li>BatchName: Name of batch in batch status table.
  * </ul>
  * <p>
- * Es künnen beliebige weitere Kommandozeilen-Parameter und Properties eingetragen werden. Die
- * Kommandozeilen-Parameter werden den Properties hinzugefügt und überschreiben sie ggf., bevor sie an die
- * Batchrahmen-Bean weitergegeben werden. Die Batchrahmen-Bean gibt die komplette Konfiguration an die
- * Ausfuehrungsbean weiter, welche sie zur Konfiguration verwenden kann.
- *
- *
+ * Any further command line parameters and properties can be entered. The command line parameters
+ * are added to the properties and overwrite them, if necessary, before they are passed on to the
+ * Batchrahmen-Bean. The Batchrahmen-Bean forwards the complete configuration to the Ausfuehrungsbean,
+ * which it can use for configuration.
  */
 public class BatchLauncher {
-    /** Die Konfiguration fuer den Batch-Rahmen. */
+    /**
+     * The configuration for Batch-Rahmen.
+     */
     private BatchKonfiguration rahmenKonfiguration;
 
     /**
-     * Das Protokoll, zur Speicherung von Meldungen und Statistiken der Batch-Ausfuehrung.
+     * The protocol, for storing messages und statistics of Batch-Ausfuehrung.
      */
     private BatchErgebnisProtokoll protokoll;
 
     /**
-     * Main-Methode zum Starten des Batches. Diese Methode ruft die Methode {@link #run(String[])} auf und
-     * liefert deren ReturnCode per System.exit() zurück.
+     * Main method for starting batch. This method calls the method {@link #run(String[])} und return its ReturnCode via System.exit().
      *
-     * @param args
-     *            Kommandozeilen-Parameter.
+     * @param args command line parameters.
      */
     public static void main(String[] args) {
         System.exit(BatchLauncher.run(args));
     }
 
     /**
-     * Startet den Batch. Zur Konfiguration siehe Klassen-Kommentar.
+     * Start batch. For configuration see class comment.
      *
-     * @param args
-     *            Die Kommandozeilen-Argumente. Beschreibung siehe Klassen-Kommentar.
-     * @return Return-Code des Batches.
+     * @param args command line parameters. For description see class comment.
+     * @return return code of batch.
      */
     public static int run(final String[] args) {
         IsyLogger log = null;
@@ -123,8 +122,8 @@ public class BatchLauncher {
         try {
             rahmenKonfiguration = new BatchKonfiguration(args);
             ergebnisDatei =
-                rahmenKonfiguration.getAsString(KonfigurationSchluessel.PROPERTY_BATCHRAHMEN_ERGEBNIS_DATEI,
-                    null);
+                    rahmenKonfiguration.getAsString(KonfigurationSchluessel.PROPERTY_BATCHRAHMEN_ERGEBNIS_DATEI,
+                            null);
             initialisiereLogback(rahmenKonfiguration);
             protokoll = new DefaultBatchErgebnisProtokoll(ergebnisDatei);
             protokoll.batchStart(rahmenKonfiguration, args);
@@ -170,14 +169,12 @@ public class BatchLauncher {
     }
 
     /**
-     * Protokolliert einen Fehler. Wenn möglich wird dieses über den {@link IsyLogger} log durchgeführt. Auf
-     * jeden Fall erfolgt eine Ausgabe auf System.Err. Zusätzlich wird im ErgebnisProtokoll protokolliert.
-     * @param log
-     *            Der Logger.
-     * @param protokoll
-     *            Das DefaultBatchErgebnisProtokoll.
-     * @param ex
-     *            Die Aufgetretene Exception.
+     * Logs an error. If possible, this is done via the {@link IsyLogger} log. In any case,
+     * there is an output on System.Err. In addition, it is recorded in ErgebnisProtokoll.
+     *
+     * @param log       Logger.
+     * @param protokoll DefaultBatchErgebnisProtokoll.
+     * @param ex        Occurred exception.
      */
     private static void protokolliereFehler(IsyLogger log, BatchErgebnisProtokoll protokoll, Throwable ex) {
         String nachricht = exceptionToString(ex);
@@ -198,16 +195,16 @@ public class BatchLauncher {
                 protokoll.ergaenzeMeldung(new VerarbeitungsMeldung(ausnahmeId, MeldungTyp.FEHLER, nachricht));
             } catch (BatchrahmenProtokollException protokollEx) {
                 System.err.println("Die Fehlermeldung " + protokollEx.toString()
-                    + " konnte nicht in das Ergebnisprotokoll geschrieben werden.");
+                        + " konnte nicht in das Ergebnisprotokoll geschrieben werden.");
             }
         }
     }
 
     /**
-     * Konvertiert eine Exception inkl. Stacktrace in einen String.
-     * @param t
-     *            Exception
-     * @return String inkl. Stacktrace ohne Zeilenumbrüche.
+     * Converts an exception including a stack trace into a string.
+     *
+     * @param t Exception
+     * @return String including stack trace without line breaks.
      */
     private static String exceptionToString(Throwable t) {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -216,23 +213,21 @@ public class BatchLauncher {
     }
 
     /**
-     * initialisiert Logback mit der Log-Konfiguration, welche in der Property-Datei mit Schluessel
-     * {@link KonfigurationSchluessel#PROPERTY_BATCHRAHMEN_LOGBACK_CONF} angegeben wurde. Als default wird
-     * /config/logback-batch.xml verwendet.
+     * initializes Logback with the log configuration which was specified in the property file with key
+     * {@link KonfigurationSchluessel # PROPERTY_BATCHRAHMEN_LOGBACK_CONF}.
+     * /config/logback-batch.xml is used as default.
      *
-     * @param konf
-     *            die Batch-Konfiguration.
-     * @throws JoranException
-     *             Wenn der Logger nicht konfiguriert werden konnte.
+     * @param konf batch configuration.
+     * @throws JoranException If the Logger could not be configured.
      */
     private static void initialisiereLogback(BatchKonfiguration konf) throws JoranException {
         String propertyFile =
-            konf.getAsString(KonfigurationSchluessel.PROPERTY_BATCHRAHMEN_LOGBACK_CONF,
-                "/config/logback-batch.xml");
+                konf.getAsString(KonfigurationSchluessel.PROPERTY_BATCHRAHMEN_LOGBACK_CONF,
+                        "/config/logback-batch.xml");
         URL configLocation = BatchLauncher.class.getResource(propertyFile);
         if (configLocation == null) {
             throw new BatchrahmenInitialisierungException(NachrichtenSchluessel.ERR_KONF_DATEI_LESEN,
-                propertyFile);
+                    propertyFile);
         }
         LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
         JoranConfigurator jc = new JoranConfigurator();
@@ -243,12 +238,10 @@ public class BatchLauncher {
     }
 
     /**
-     * erzeugt eine neue Instanz und setzt die Konfiguration.
+     * creates a new instance and sets the configuration.
      *
-     * @param rahmenKonfiguration
-     *            die Konfiguration fuer den Batch-Rahmen.
-     * @param protokoll
-     *            das ErgebinsProtokoll.
+     * @param rahmenKonfiguration configuration for Batch-Rahmen.
+     * @param protokoll           ErgebinsProtokoll.
      */
     public BatchLauncher(BatchKonfiguration rahmenKonfiguration, BatchErgebnisProtokoll protokoll) {
         this.rahmenKonfiguration = rahmenKonfiguration;
@@ -256,11 +249,11 @@ public class BatchLauncher {
     }
 
     /**
-     * Erzeugt die Spring-Kontexte fuer die Anwendung sowie den Batchrahmen. Startet die Batchrahmen-Bean über
-     * Methode {@link Batchrahmen#runBatch(BatchKonfiguration, BatchErgebnisProtokoll)}.
-     * @throws BatchAusfuehrungsException
-     *             Wenn ein Fehler während der Batchausführung auftritt.
+     * Generates the spring contexts for the application and the Batchrahmen.
+     * Starts the Batchrahmen-Bean using the method
+     * {@link Batchrahmen # runBatch (BatchKonfiguration, BatchErresultProtokoll)}.
      *
+     * @throws BatchAusfuehrungsException When an error occurs during batch execution.
      */
     private void launch() throws BatchAusfuehrungsException {
         Function<String, Class> loadClass = name -> {
@@ -274,23 +267,30 @@ public class BatchLauncher {
         };
 
         List<Class> anwendungContextConfigs = rahmenKonfiguration.getAnwendungSpringKonfigFiles().stream().map(loadClass).collect(
-            Collectors.toList());
+                Collectors.toList());
         List<Class> batchContextConfigs = rahmenKonfiguration.getBatchRahmenSpringKonfigFiles().stream().map(loadClass).collect(
-            Collectors.toList());
+                Collectors.toList());
 
         List<Class> configs = new ArrayList<>(anwendungContextConfigs);
         configs.addAll(batchContextConfigs);
 
         ConfigurableApplicationContext
-            rahmen = new SpringApplicationBuilder().sources(configs.toArray(new Class[0]))
-                                                   .bannerMode(Banner.Mode.OFF)
-                                                   .registerShutdownHook(true)
-                                                   .profiles(rahmenKonfiguration.getSpringProfiles())
-                                                   .run();
+                rahmen = new SpringApplicationBuilder().sources(configs.toArray(new Class[0]))
+                .bannerMode(Banner.Mode.OFF)
+                .registerShutdownHook(true)
+                .profiles(rahmenKonfiguration.getSpringProfiles())
+                .initializers(applicationContext -> {
+                    try {
+                        initialisiereLogback(rahmenKonfiguration);
+                    } catch (JoranException e) {
+                        System.err.println(e.getMessage());
+                    }
+                })
+                .run();
 
         String rahmenBeanName =
-            this.rahmenKonfiguration.getAsString(KonfigurationSchluessel.PROPERTY_BATCHRAHMEN_BEAN_NAME,
-                "batchrahmen");
+                this.rahmenKonfiguration.getAsString(KonfigurationSchluessel.PROPERTY_BATCHRAHMEN_BEAN_NAME,
+                        "batchrahmen");
         Batchrahmen rahmenBean = (Batchrahmen) rahmen.getBean(rahmenBeanName);
         try {
             rahmenBean.runBatch(this.rahmenKonfiguration, this.protokoll);
