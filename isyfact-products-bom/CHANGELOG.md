@@ -1,5 +1,12 @@
 # 2.2.0
 - `IFS-465`: Profile zum Bauen mit Java 11 erstellt
+- `IFS-676`: Upgrade von Opencsv von 3.8 auf 5.3
+            * Anpassungen in rf-asv und isy-outputmanagement:
+                * Die Methode readNext() der Klasse CSVReader wirft zusätzlich zu der 
+                  IOException eine CsvValidationException
+                * Viele Konstruktoren wurden entfernt, wichtig ist dass der Konstruktor 
+                  des CSVReader nur noch 1 Argument erwartet, da empfohlen wird den 
+                  CsvReaderBuilder zu nutzen
 
 # 2.1.0
 - `IFS-223`: Logging Bridges ergänzt: jcl-over-slf4j, slf4j-jcl
