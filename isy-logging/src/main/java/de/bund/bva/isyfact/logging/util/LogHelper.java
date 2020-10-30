@@ -4,7 +4,7 @@ package de.bund.bva.isyfact.logging.util;
  * #%L
  * isy-logging
  * %%
- * 
+ *
  * %%
  * See the NOTICE file distributed with this work for additional
  * information regarding copyright ownership.
@@ -12,9 +12,9 @@ package de.bund.bva.isyfact.logging.util;
  * licenses this file to you under the Apache License, Version 2.0 (the
  * License). You may not use this file except in compliance with the
  * License. You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
@@ -23,6 +23,11 @@ package de.bund.bva.isyfact.logging.util;
  * #L%
  */
 
+import java.lang.reflect.Method;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyMarker;
 import de.bund.bva.isyfact.logging.LogKategorie;
@@ -30,14 +35,9 @@ import de.bund.bva.isyfact.logging.impl.Ereignisschluessel;
 import de.bund.bva.isyfact.logging.impl.IsyMarkerImpl;
 import de.bund.bva.isyfact.logging.impl.MarkerSchluessel;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 /**
  * Helper class for creating log entries. It provides the other helper classes of this component
- * with a mechanism for creation a uniform logs.
+ * with a mechanism for creating uniform logs.
  *
  */
 public class LogHelper {
@@ -70,7 +70,7 @@ public class LogHelper {
     private BeanConverter konverter;
 
     /** Validator which determines the suitability of a bean to be logged as a parameter. */
-    private BeanGroessePruefer pruefer;
+    private final BeanGroessePruefer pruefer;
 
     /**
      * Constructor of the class. Initializes the passed in class attributes.
@@ -119,25 +119,26 @@ public class LogHelper {
     public LogHelper(boolean loggeAufruf, boolean loggeErgebnis, boolean loggeDauer, boolean loggeDaten,
         boolean loggeDatenBeiException, long loggeMaximaleParameterGroesse, BeanConverter konverter) {
 
-        if (konverter == null) {
-            konverter = erstelleStandardKonverter();
-        }
-
         this.loggeAufruf = loggeAufruf;
         this.loggeErgebnis = loggeErgebnis;
         this.loggeDauer = loggeDauer;
         this.loggeDaten = loggeDaten;
         this.loggeDatenBeiException = loggeDatenBeiException;
         this.loggeMaximaleParameterGroesse = loggeMaximaleParameterGroesse;
-        this.konverter = konverter;
         this.pruefer = new BeanGroessePruefer();
+        if (konverter == null) {
+            this.konverter = erstelleStandardKonverter();
+        }
+        else {
+            this.konverter = konverter;
+        }
     }
 
     /**
      * Helper method for creating a BeanToMapConverter in case no converter was provided during the
      * invocation of the constructor.
      *
-     * @return The converter, that is to be used.
+     * @return The converter that is to be used.
      */
     public static BeanToMapConverter erstelleStandardKonverter() {
         List<String> includes = new ArrayList<>();
@@ -149,7 +150,7 @@ public class LogHelper {
      * Creates a log entry for the invocation of the passed in method.
      *
      * @param logger
-     *            The logger, that is to be used.
+     *            The logger that is to be used.
      * @param methode
      *            The invoked method.
      */
@@ -165,7 +166,7 @@ public class LogHelper {
      * Creates a log entry for the result of the passed in method's invocation.
      *
      * @param logger
-     *            The logger, that is to be used.
+     *            The logger that is to be used.
      * @param methode
      *            The invoked method.
      * @param erfolgreich
@@ -190,8 +191,8 @@ public class LogHelper {
         }
         // Outputs the data if
         // either "loggeDaten" is set to true
-        // or der invocation was not successful and "loggeDatenBeiException" is set to true.
-        boolean loggeAufrufUndErgebnisdaten = loggeDaten || (!erfolgreich && loggeDatenBeiException);
+        // or the invocation was not successful and "loggeDatenBeiException" is set to true.
+        boolean loggeAufrufUndErgebnisdaten = loggeDaten || !erfolgreich && loggeDatenBeiException;
         if (loggeAufrufUndErgebnisdaten) {
 
             List<Object> parameterWerte = null;
@@ -218,7 +219,7 @@ public class LogHelper {
      * Logs the duration of a method invocation and creates a corresponding log entry.
      *
      * @param logger
-     *            The logger, that is to be used.
+     *            The logger that is to be used.
      * @param methode
      *            The invoked method.
      * @param dauer
@@ -232,11 +233,11 @@ public class LogHelper {
             if (erfolgreich) {
                 logger.info(LogKategorie.PROFILING, Ereignisschluessel.EISYLO01004.name(),
                         Ereignisschluessel.EISYLO01004.getNachricht(), erstelleMethodenname(methode),
-                        new IsyMarkerImpl(MarkerSchluessel.DAUER, "" + dauer), erstelleSignatur(methode));
+                        new IsyMarkerImpl(MarkerSchluessel.DAUER, String.valueOf(dauer)), erstelleSignatur(methode));
             } else {
                 logger.info(LogKategorie.PROFILING, Ereignisschluessel.EISYLO01005.name(),
                         Ereignisschluessel.EISYLO01005.getNachricht(), erstelleMethodenname(methode),
-                        new IsyMarkerImpl(MarkerSchluessel.DAUER, "" + dauer), erstelleSignatur(methode));
+                        new IsyMarkerImpl(MarkerSchluessel.DAUER, String.valueOf(dauer)), erstelleSignatur(methode));
             }
         }
     }
@@ -245,13 +246,13 @@ public class LogHelper {
      * Creates a log entry for the method invocation of an adjacent system.
      *
      * @param logger
-     *            der zu verwendende Logger.
+     *             The logger that is to be used.
      * @param methode
-     *            die aufgerufene Methode.
+     *            The invoked method.
      * @param nachbarsystemName
-     *            Name des Nachbarsystems.
+     *            Name of the adjacent system.
      * @param nachbarsystemUrl
-     *            URL des Nachbarsystems.
+     *            URL of the adjacent system.
      */
     public void loggeNachbarsystemAufruf(IsyLogger logger, Method methode, String nachbarsystemName,
             String nachbarsystemUrl) {
@@ -263,10 +264,10 @@ public class LogHelper {
     }
 
     /**
-     * Erstellt einen Logeintrag für das Aufrufergebnis der übergebenen Methode eines Nachbarsystems.
+     * Creates a log entry for the result of the passed in method's invocation. of an adjacent system.
      *
      * @param logger
-     *            The logger, that is to be used.
+     *            The logger that is to be used.
      * @param methode
      *            The invoked method.
      * @param nachbarsystemName
@@ -292,11 +293,10 @@ public class LogHelper {
     }
 
     /**
-     * Logged die Dauer eines Methodenaufrufs eines Nachbarsystems und erstellt einen entsprechenden
-     * Logeintrag.
+     * Logs the duration of a method invocation of an adjacent system and creates a corresponding log entry.
      *
      * @param logger
-     *            The logger, that is to be used.
+     *            The logger that is to be used.
      * @param methode
      *            The invoked method.
      * @param dauer
@@ -314,13 +314,13 @@ public class LogHelper {
             if (erfolgreich) {
                 logger.info(LogKategorie.PROFILING, Ereignisschluessel.EISYLO01014.name(),
                         Ereignisschluessel.EISYLO01014.getNachricht(), erstelleMethodenname(methode),
-                        nachbarsystemName, nachbarsystemUrl, new IsyMarkerImpl(MarkerSchluessel.DAUER, ""
-                                + dauer), erstelleSignatur(methode));
+                        nachbarsystemName, nachbarsystemUrl,
+                        new IsyMarkerImpl(MarkerSchluessel.DAUER, String.valueOf(dauer)), erstelleSignatur(methode));
             } else {
                 logger.info(LogKategorie.PROFILING, Ereignisschluessel.EISYLO01015.name(),
                         Ereignisschluessel.EISYLO01015.getNachricht(), erstelleMethodenname(methode),
-                        nachbarsystemName, nachbarsystemUrl, new IsyMarkerImpl(MarkerSchluessel.DAUER, ""
-                                + dauer), erstelleSignatur(methode));
+                        nachbarsystemName, nachbarsystemUrl,
+                        new IsyMarkerImpl(MarkerSchluessel.DAUER, String.valueOf(dauer)), erstelleSignatur(methode));
             }
         }
     }
@@ -332,34 +332,34 @@ public class LogHelper {
      * @return The current timestamp in milliseconds.
      */
     public long ermittleAktuellenZeitpunkt() {
-        return new Date().getTime();
+        return Instant.now().toEpochMilli();
     }
 
     /**
-     * Processes a method's signature into a String representation.
+     * Formats a method's signature into a String representation.
      * The method signature is stripped off declared exceptions in this process.
      *
      * @param methode
      *            The method.
      * @return The processed signature as a String.
      */
-    private IsyMarker erstelleSignatur(Method methode) {
+    private static IsyMarker erstelleSignatur(Method methode) {
         String signatur = methode.toString();
         int throwIndex = signatur.indexOf(" throws ");
         if (throwIndex >= 0) {
-            signatur = signatur.substring(0, signatur.indexOf(" throws "));
+            signatur = signatur.substring(0, throwIndex);
         }
         return new IsyMarkerImpl(MarkerSchluessel.METHODE, signatur);
     }
 
     /**
-     * Processes the method name into shortened String representation (class.name).
+     * Formats the method name into a shortened String representation (class.name).
      *
      * @param methode
-     *            die Methode.
+     *            The method.
      * @return The processed method name as a String.
      */
-    private String erstelleMethodenname(Method methode) {
+    private static String erstelleMethodenname(Method methode) {
         return methode.getDeclaringClass().getSimpleName() + "." + methode.getName();
     }
 
