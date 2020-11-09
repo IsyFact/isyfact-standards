@@ -22,26 +22,26 @@ import java.util.List;
 import de.bund.bva.isyfact.serviceapi.core.httpinvoker.user.User;
 
 /**
- * Implementierung des DummyServices.
+ * Implementation of the DummyService.
  *
  *
  */
 public class DummyServiceImpl implements DummyServiceRemoteBean {
     /**
-     * Millisekunden, um die der Aufruf verzögert wird.
+     * Milliseconds that the call is delayed.
      */
     private int waitTime;
 
     /**
-     * Zähler für die Aufrufe.
+     * Counter for calls.
      */
     private int anzahlAufrufe;
 
     private List<User> users = new ArrayList<>();
 
     /**
-     * Liefert das Feld 'anzahlAufrufe' zurück.
-     * @return Wert von anzahlAufrufe
+     * Getter for 'anzahlAufrufe'.
+     * @return The value of anzahlAufrufe.
      */
     public int getAnzahlAufrufe() {
         return this.anzahlAufrufe;
@@ -71,9 +71,9 @@ public class DummyServiceImpl implements DummyServiceRemoteBean {
     }
 
     /**
-     * Setzt das Feld 'waitTime'.
+     * Setter for 'waitTime'.
      * @param waitTime
-     *            Neuer Wert für waitTime
+     *            New value for waitTime.
      */
     public void setWaitTime(int waitTime) {
         this.waitTime = waitTime;
