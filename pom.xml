@@ -440,7 +440,7 @@
                         <executions>
                             <execution>
                                 <id>sign</id>
-                                <phase>verify</phase>
+                                <phase>deploy</phase>
                                 <goals>
                                     <goal>sign</goal>
                                 </goals>
@@ -558,6 +558,79 @@
                                 <phase>test</phase>
                                 <goals>
                                     <goal>report</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>JDK-11-for-8</id>
+            <activation>
+                <jdk>[11,12)</jdk>
+                <property>
+                    <name>!for11</name>
+                </property>
+            </activation>
+            <properties>
+                <enforced.jdk.version>[11,12)</enforced.jdk.version>
+                <maven.javadoc.plugin.version>3.1.1</maven.javadoc.plugin.version>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>${maven.javadoc.plugin.version}</version>
+                        <configuration>
+                            <source>8</source>
+                            <encoding>${project.build.sourceEncoding}</encoding>
+                            <charset>${project.build.sourceEncoding}</charset>
+                            <doclint>none</doclint>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>JDK-11-for-11</id>
+            <activation>
+                <jdk>[11,12)</jdk>
+                <property>
+                    <name>for11</name>
+                </property>
+            </activation>
+            <properties>
+                <enforced.jdk.version>[11,12)</enforced.jdk.version>
+                <maven.javadoc.plugin.version>3.1.1</maven.javadoc.plugin.version>
+                <java.compile.version>11</java.compile.version>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>${maven.javadoc.plugin.version}</version>
+                        <configuration>
+                            <source>11</source>
+                            <encoding>${project.build.sourceEncoding}</encoding>
+                            <charset>${project.build.sourceEncoding}</charset>
+                            <doclint>none</doclint>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
                                 </goals>
                             </execution>
                         </executions>
