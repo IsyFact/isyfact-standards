@@ -56,46 +56,46 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 /**
- * Implementierung der Batchrahmen-Funktionalitaet.
+ * Implementation of the 'Batchrahmen-Funktionalitaet'.
  * <p>
- * T ist der Typ des zu verwendenden AufrufKontextes.
+ * T is the type of 'AufrufKontextes' to be used.
  *
  *
  */
 public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, InitializingBean,
     ApplicationContextAware, DisposableBean {
 
-    /** Der Logger. */
+    /** Logger. */
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(BatchrahmenImpl.class);
 
-    /** Referenz auf den TransaktionsManager. */
+    /** Reference to TransaktionsManager. */
     private JpaTransactionManager transactionManager;
 
-    /** Die Kapsel rund um die BatchStatus Tabelle. */
+    /** The capsule around the BatchStatus table. */
     private StatusHandler statusHandler;
 
-    /** Der ApplicationContext, benoetigt zum Auslesen der Bean. */
+    /** The ApplicationContext, needed to read the bean. */
     private ApplicationContext applicationContext;
 
-    /** Die JMX-Bean. */
+    /** The JMX-Bean. */
     private BatchRahmenMBean jmxBean;
 
-    /** Kennzeichen, ob der Batch abgebrochen wurde. */
+    /** Indicates whether the batch was aborted. */
     private volatile boolean batchAbgebrochen;
 
-    /** Kennzeichen, wenn der Batch beendet wurde. */
+    /** Indicates whether the batch was completed. */
     private volatile boolean batchLaeuft;
 
-    /* Flag ob die maximale Laufzeit überschritten wurde. */
+    /* Flag if the maximum runtime was exceeded. */
     private boolean maximaleLaufzeitUeberschritten;
 
-    /** Sichert den vorigen BatchStatus. **/
+    /** Saves the previous batch status. **/
     private String vorigerBatchStatus;
 
-    /** Referenz auf Komponente AufrufKontextVerwalter */
+    /** Reference to component 'AufrufKontextVerwalter' */
     private AufrufKontextVerwalter<T> aufrufKontextVerwalter;
 
-    /** Referenz auf die AufrufKontextFactory. */
+    /** Reference to 'AufrufKontextFactory'. */
     private AufrufKontextFactory<T> aufrufKontextFactory;
 
     /**
@@ -125,7 +125,7 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
                 "Es wurde keine maximale Laufzeit konfiguriert.");
         }
 
-        // Status-Satz initialisieren
+        // Initialize 'Status-Satz'
         try {
             verarbInfo.setTransactionStatus(starteTransaktion());
             this.statusHandler.statusSatzInitialisieren(konfiguration);
@@ -140,7 +140,7 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
 
         try {
             MdcHelper.pushKorrelationsId(UUID.randomUUID().toString());
-            // Initialisierungsphase
+            // Initialization phase
             T aufrufKontext = this.aufrufKontextFactory.erzeugeAufrufKontext();
             aufrufKontext.setKorrelationsId(MdcHelper.liesKorrelationsId());
             this.aufrufKontextVerwalter.setAufrufKontext(aufrufKontext);
@@ -162,10 +162,10 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
 
             LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001,
                 "Beginne Batch-Satzverarbeitung...");
-            // Transaktion starten
+            // Start Transaction
             verarbInfo.setTransactionStatus(starteTransaktion());
             VerarbeitungsErgebnis ergebnis = null;
-            // Ausfuehren, bis Bean keine Datensaetze mehr verarbeitet.
+            // Execute until Bean stops processing records.
             while ((ergebnis == null || !ergebnis.isAlleSaetzeVerarbeitet())
                 && !(verarbInfo.getLetzterDatensatzNummer() != 0 && verarbInfo.getLetzterDatensatzNummer() == verarbInfo
                     .getSatzNummer()) && !this.batchAbgebrochen
@@ -188,11 +188,11 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
                 }
                 if ((verarbInfo.getClearIntervall() > 0)
                     && (verarbInfo.getSatzNummer() % verarbInfo.getClearIntervall() == 0)) {
-                    // Den aktuellen EntityManager holen
+                    // Get the latest EntityManager
                     EntityManager entityManager =
                         EntityManagerFactoryUtils.getTransactionalEntityManager(this.transactionManager
                             .getEntityManagerFactory());
-                    // Session-Cache clearen
+                    // Clear Session-Cache
                     entityManager.flush();
                     entityManager.clear();
                 }
@@ -209,15 +209,15 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
             erfolgreich = true;
         } finally {
             try {
-                // Prüfe auf Fehler während Init
+                // Check for errors during Init
                 if (!initErfolgreich) {
                     LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001,
                         "Fehler während der Initialisierung erkannt, beende Batch...");
-                    // Batchausführung abwickeln und beenden
+                    // Process and end batch execution
                     rollbackTransaction(verarbInfo.getTransactionStatus(), verarbInfo.getBean());
                     beendeBatchMitVorigemStatus();
                 } else if (!erfolgreich) {
-                    // Fehler während Verarbeitung
+                    // Error during processing
                     rollbackTransaction(verarbInfo.getTransactionStatus(), verarbInfo.getBean());
                     setzeStatusSatzAufAbbruch();
                 }
@@ -229,8 +229,8 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
     }
 
     /**
-     * Prüft, ob die Laufzeit überschritten wurde, falls die Laufzeit konfiguriert ist.
-     * @return true, wenn die Laufzeit konfiguriert ist und überschritten wurde; sonst false
+     * Checks if the runtime has been exceeded, if the runtime is configured.
+     * @return true, if the runtime is configured and exceeded; otherwise false
      */
     private boolean istMaximaleLaufzeitUeberschritten(VerarbeitungsInformationen verarbInfo) {
         if (!verarbInfo.istMaximaleLaufzeitKonfiguriert()) {
@@ -240,52 +240,51 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
     }
 
     /**
-     * Logik fuer die Verarbeitung eines Checkpunkts: Der Status-Datenbanksatz wird aktualisiert, die
-     * Transaktion beendet, eine neue gestartet, der Status-Satz neu geladen und die Ausfuehrungs-Bean
-     * informiert.
+     * Logic for processing a checkpoint: The status database record is updated,
+     * the transaction is terminated, a new one is started,
+     * the status record is reloaded and the execution bean is informed.
      *
      * @param verarbInfo
-     *            die Verarbeitungs-Informationen des Batches
+     *            the processing information of the batch
      * @param dbSchluessel
-     *            der Datenbank-Schluessel des letzten Satzes
+     *            the database key of the last record
      * @throws BatchAusfuehrungsException
-     *             Wenn beim verarbeiten des Checkpoints ein Fehler auftritt.
+     *             If an error occurs while processing the checkpoint.
      *
      * @throws BatchAusfuehrungsException
-     *             bei Fehlern beim Informieren der Bean.
+     *             for errors when informing the Bean.
      */
     private void verarbeiteCheckpunkt(VerarbeitungsInformationen verarbInfo, String dbSchluessel)
         throws BatchAusfuehrungsException {
-        // Status-Tabelle aktualisieren
+        // Update Status Table
         BatchStatus status = this.statusHandler.leseBatchStatus();
         status.setSatzNummerLetztesCommit(verarbInfo.getSatzNummer());
         status.setSchluesselLetztesCommit(dbSchluessel);
 
-        // Neue Transaktion beginnen, Cache leeren.
-        // Bean über anstehenden Checkpunkt informieren.
+        // Start new transaction, empty cache.
+        // Inform Bean about upcoming checkpoint.
         verarbInfo.getBean().vorCheckpointGeschrieben(verarbInfo.getSatzNummer());
         this.transactionManager.commit(verarbInfo.getTransactionStatus());
         verarbInfo.setTransactionStatus(starteTransaktion());
 
-        // Bean ueber Checkpunkt informieren.
+        // Inform Bean about checkpoint.
         verarbInfo.getBean().checkpointGeschrieben(verarbInfo.getSatzNummer());
     }
 
     /**
-     * Initialisiert die Verarbeitungs-Informationen des Batches, die Status-Tabelle sowie die
-     * Ausfuehrungsbean.
+     * Initializes the processing information of the batch, the status table and the execution bean.
      *
      * @param verarbInfo
-     *            die zu befuellenden Verarbeitungs-Informationen.
+     *            the processing information to be filled.
      * @param protokoll
-     *            das zu befuellende BatchErgebnisProtokollImpl
+     *            the BatchErgebnisProtokollImpl to be filled
      * @throws BatchAusfuehrungsException
-     *             bei Initialisierungs-Fehlern der Ausfuehrungs-Bean.
+     *             for initialization errors of the execution bean.
      */
     private void initialisiereBatch(VerarbeitungsInformationen verarbInfo, BatchErgebnisProtokoll protokoll)
         throws BatchAusfuehrungsException {
 
-        // Transaktion starten
+        // Start Transaction
 
         verarbInfo.setTransactionStatus(starteTransaktion());
         this.vorigerBatchStatus = this.statusHandler.leseBatchStatus().getBatchStatus();
@@ -299,7 +298,7 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
                 "Batch wurde im Restart-Modus gestartet.");
         }
 
-        // Bean lesen und initialisieren
+        // Read and initialize bean
         LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001,
             "Batch Initialisierungsphase beginnt...");
         verarbInfo.setBean(getBatchAusfuehrer(verarbInfo.getKonfiguration()));
@@ -320,18 +319,18 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
         }
 
         this.jmxBean.init(anzSaetze, verarbInfo.getSatzNummer(), status.getBatchId(), status.getBatchName());
-        // Transaktion beenden.
+        // End transaction
         this.transactionManager.commit(verarbInfo.getTransactionStatus());
     }
 
     /**
-     * Aktualisiert den Status-Datenbanksatz und informiert die Bean ueber das Ende der Verarbeitung.
-     * Schliesst die letzte Transaktion.
+     * Updates the status database record and informs the bean about the end of processing.
+     * Closes the last transaction.
      *
      * @param verarbInfo
-     *            die Verarbeitungs-Informationen.
+     *            the processing information.
      * @param dbschl
-     *            der Datenbankschluessel, der zuletzt verarbeitet wurde.
+     *            the database key that was last processed.
      */
     private void beendeBatch(VerarbeitungsInformationen verarbInfo, BatchErgebnisProtokoll protokoll,
         String dbschl) {
@@ -360,16 +359,15 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
             status.setBatchStatus(BatchStatusTyp.ABGEBROCHEN.getName());
             status.setDatumLetzterAbbruch(new Date());
         }
-        // Es folgt der letzte Commit: Aktualisiere letzte verarbeitete Satznummer und Datenbankschluessel
+        // The last commit follows: Update last processed record number and database key
         status.setSatzNummerLetztesCommit(verarbInfo.getSatzNummer());
         status.setSchluesselLetztesCommit(dbschl);
         this.transactionManager.commit(verarbInfo.getTransactionStatus());
     }
 
     /**
-     * setzt in Tabelle BatchStatus den Status auf abgebrochen und das Datum des letzten Abbruchs auf das
-     * aktuelle Datum. Dabei auftretende Fehler werden geloggt. In diesem Fall wird die Transaktion
-     * zurückgerollt.
+     * Sets the status in the BatchStatus table to canceled and the date of the last cancellation to the current date.
+     * Any errors occurring during this process are logged. In this case the transaction is rolled back.
      */
     private void setzeStatusSatzAufAbbruch() {
         TransactionStatus transactionStatus = null;
@@ -390,8 +388,7 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
     }
 
     /**
-     * Beendet den Batch mit dem vorigen Status. Diese Funktion wird bei einem Fehler während der
-     * Initialisierungsphase genutzt.
+     * Ends the batch with the previous status. This function is used in case of an error during the initialization phase.
      */
     private void beendeBatchMitVorigemStatus() {
         TransactionStatus transactionStatus = null;
@@ -412,12 +409,12 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
     }
 
     /**
-     * Die Transaktion wird zurückgerollt. Dabei auftretende Fehler werden geloggt und ignoriert.
+     * The transaction is rolled back. Any errors occurring during this process are logged and ignored.
      *
      * @param transactionStatus
-     *            die zurückzurollende Transaktion.
+     *            the transaction to roll back.
      * @param batchBean
-     *            (optional) die Batch-Bean, welcher das Zurückrollen mitgeteilt werden soll.
+     *            (optional) the batch bean, which should be informed about the rollback.
      */
     private void rollbackTransaction(TransactionStatus transactionStatus, BatchAusfuehrungsBean batchBean) {
         if (transactionStatus != null && !transactionStatus.isCompleted()) {
@@ -437,13 +434,13 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
     }
 
     /**
-     * liest einen Beannamen aus Property {@link BatchKonfiguration.PROPERTY_AUSFUEHRUNGSBEAN} und liest die
-     * Bean mit diesem Namen aus dem Kontext. Die Bean wird auf das {@link BatchAusfuehrungsBean} Interface
-     * gecastet und zurueckgegeben.
+     * Reads a bean name from Property {@link BatchKonfiguration.PROPERTY_AUSFUEHRUNGSBEAN}
+     * and reads the bean with this name from the context.
+     * The Bean is casted to the {@link BatchAusfuehrungsBean} interface and returned.
      *
      * @param konfig
-     *            die Konfiguration
-     * @return die Bean.
+     *            the configuration
+     * @return the Bean.
      */
     private BatchAusfuehrungsBean getBatchAusfuehrer(BatchKonfiguration konfig) {
         String beanName = konfig.getAsString(KonfigurationSchluessel.PROPERTY_AUSFUEHRUNGSBEAN);
@@ -459,27 +456,27 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
     }
 
     /**
-     * aufgerufen durch Spring zum Konfigurieren des Transaktions-Managers.
+     * called by Spring to configure the Transaction Manager.
      * @param transactionManager
-     *            der Transaktionsmanager.
+     *            the transaction manager.
      */
     public void setTransactionManager(JpaTransactionManager transactionManager) {
         this.transactionManager = transactionManager;
     }
 
     /**
-     * aufgerufen durch Spring zum Setzen des Applikationskontext.
+     * called by Spring to set the application context.
      * @param applicationContext
-     *            Der Applikations-Kontext.
+     *            the application context.
      */
     public void setApplicationContext(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
     }
 
     /**
-     * aufgerufen durch Spring zum Konfigurieren der JMX-Bean.
+     * called by Spring to configure the JMX-Bean.
      * @param jmxBean
-     *            die JMX-Bean.
+     *            the JMX-Bean.
      */
     public void setJmxBean(BatchRahmenMBean jmxBean) {
         this.jmxBean = jmxBean;
@@ -509,9 +506,9 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
     }
 
     /**
-     * Setzt das Feld {@link #aufrufKontextVerwalter}.
+     * Sets the field {@link #aufrufKontextVerwalter}.
      * @param aufrufKontextVerwalter
-     *            Neuer Wert für aufrufKontextVerwalter
+     *            new value for aufrufKontextVerwalter
      */
     @Required
     public void setAufrufKontextVerwalter(AufrufKontextVerwalter<T> aufrufKontextVerwalter) {
@@ -519,9 +516,9 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
     }
 
     /**
-     * Setzt das Feld {@link #aufrufKontextFactory}.
+     * Sets the field {@link #aufrufKontextFactory}.
      * @param aufrufKontextFactory
-     *            Neuer Wert für aufrufKontextFactory
+     *            New value for aufrufKontextFactory
      */
     @Required
     public void setAufrufKontextFactory(AufrufKontextFactory<T> aufrufKontextFactory) {
