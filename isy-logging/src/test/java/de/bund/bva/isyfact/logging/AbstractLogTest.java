@@ -4,7 +4,7 @@ package de.bund.bva.isyfact.logging;
  * #%L
  * isy-logging
  * %%
- * 
+ *
  * %%
  * See the NOTICE file distributed with this work for additional
  * information regarding copyright ownership.
@@ -12,9 +12,9 @@ package de.bund.bva.isyfact.logging;
  * licenses this file to you under the Apache License, Version 2.0 (the
  * License). You may not use this file except in compliance with the
  * License. You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
@@ -29,6 +29,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -45,12 +47,15 @@ import org.junit.Before;
 /**
  * Oberklasse aller Logging-Tests. Die Klasse kapselt insbesondere die Funktionalität zum Prüfen der durch die
  * Testfälle erstellten Logdatei .
- * 
+ *
  */
 public abstract class AbstractLogTest {
 
     /** Präfix aller Vorlage-Logdateien. */
     protected static final String VORLAGE_PREFIX = "VORLAGE_";
+
+    /** Path to expected logs. */
+    private static final Path EXPECTED_LOGS_PATH = Paths.get("src", "test", "resources", "logausgaben");
 
     /** Pfad, in dem die Logdatei durch die Tests erstellt wird. */
     protected static final String LOG_VERZEICHNIS = "target/var/log/isy-logging/";
@@ -144,7 +149,7 @@ public abstract class AbstractLogTest {
      * Hilfsmethode zum überprüfen der erstellten Logdatei. Datei wird die Logdatei mit einer Vorlagedatei
      * verglichen. Dies geschieht in dem die Vorlagedatei und die erstellte Logdatei Zeilenweise eingelesen
      * und verglichen werden.
-     * 
+     *
      * @param testfallName
      *            name des ausgeführten Testfalls.
      */
@@ -156,7 +161,7 @@ public abstract class AbstractLogTest {
      * Hilfsmethode zum überprüfen der erstellten Logdatei. Datei wird die Logdatei mit einer Vorlagedatei
      * verglichen. Dies geschieht in dem die Vorlagedatei und die erstellte Logdatei Zeilenweise eingelesen
      * und verglichen werden.
-     * 
+     *
      * @param testfallName
      *            name des ausgeführten Testfalls.
      * @param jsonVergleich
@@ -168,7 +173,7 @@ public abstract class AbstractLogTest {
 
             // Für jeden Testfall existiert eine eigene Vorlagedatei, die den Namen des Testsfalls im Namen
             // trägt
-            File vorlageDatei = new File("logausgaben/" + VORLAGE_PREFIX + testfallName + ".log");
+            File vorlageDatei = new File(EXPECTED_LOGS_PATH.toString(), VORLAGE_PREFIX + testfallName + ".log");
             File ergebnisDatei = new File(LOG_VERZEICHNIS + LOG_DATEI);
 
             if (!vorlageDatei.exists()) {
@@ -343,7 +348,7 @@ public abstract class AbstractLogTest {
      * Hilfsmethode zum Vergleichen zweier Logzeilen. In Abhängigkeit des Logschlüssels werden dabei die
      * Variablen Teile (bspw. Zeitstempel, Hashwerte...) durch eine Konstante ersetzt, damit die Werte gleich
      * sind.
-     * 
+     *
      * @param zeileVorlage
      *            die erwartete Zeile.
      * @param zeileErgebnis
@@ -454,7 +459,7 @@ public abstract class AbstractLogTest {
 
     /**
      * Hilfsmethode zum Ersetzen der Dauer in Parameter 4.
-     * 
+     *
      * @param zeile
      *            die Zeile, in der die Ersetzung stattfinden soll.
      * @return die Zeile mit der Ersetzung.
@@ -465,7 +470,7 @@ public abstract class AbstractLogTest {
 
     /**
      * Führt einzelne Konsistenzprüfungen auf den Logzeilen durch.
-     * 
+     *
      * @param zeileErgebnis
      *            die erstellte Zeile.
      */
@@ -526,7 +531,7 @@ public abstract class AbstractLogTest {
     /**
      * Ersetzt einen String in einer Logzeile beginnend nach dem ersten auftreten des übergebenen Präfix, bis
      * zum danach erstmaligen auftreten des übergebenen Suffix.
-     * 
+     *
      * @param logzeile
      *            die Logzeile.
      * @param praefix
@@ -542,7 +547,7 @@ public abstract class AbstractLogTest {
     /**
      * Ersetzt einen String in einer Logzeile beginnend nach dem ersten auftreten des übergebenen Präfix, bis
      * zum danach erstmaligen auftreten des übergebenen Suffix.
-     * 
+     *
      * @param logzeile
      *            die Logzeile.
      * @param praefix
@@ -587,7 +592,7 @@ public abstract class AbstractLogTest {
     /**
      * Liest einen String in einer Logzeile beginnend nach dem ersten auftreten des übergebenen Präfix, bis
      * zum danach erstmaligen auftreten des übergebenen Suffix.
-     * 
+     *
      * @param logzeile
      *            die Logzeile.
      * @param praefix
