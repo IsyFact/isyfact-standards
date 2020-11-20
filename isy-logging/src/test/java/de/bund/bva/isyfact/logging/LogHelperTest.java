@@ -4,7 +4,7 @@ package de.bund.bva.isyfact.logging;
  * #%L
  * isy-logging
  * %%
- * 
+ *
  * %%
  * See the NOTICE file distributed with this work for additional
  * information regarding copyright ownership.
@@ -12,9 +12,9 @@ package de.bund.bva.isyfact.logging;
  * licenses this file to you under the Apache License, Version 2.0 (the
  * License). You may not use this file except in compliance with the
  * License. You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
@@ -31,23 +31,20 @@ import org.junit.Test;
 import java.util.Random;
 
 /**
- * Log-Helper tests.
+ * {@link LogHelper} tests.
  */
 public class LogHelperTest extends AbstractLogTest {
 
     /**
-     * Testet mehrere Spezialfälle des Aufrufs des Loghelpers, die nicht durch die anderen Testfälle abgedeckt
-     * sind.
-     *
-     * @throws Exception
-     *             wenn beim Test eine Exception aufgetreten ist.
+     * Test special cases which are not covered in other test cases.
+     * @throws Exception if an exception during the test occurs.
      */
     @Test
     public void testLogHelperSpezialfaelle() throws Exception {
 
-        // LoggeErgebnis wird ohne Parameter aufgerufen, wobei im Helper nur "loggeErgebnis=true" und
-        // "loggeDatenBeiException=true" ist. Es wird jeweils ein INFO-Logeintrag und einer in DEBUG mit den
-        // übergebenen Parametern erstellt.
+        // The method "loggeErgebnis" is called without parameter and only "loggeErgebnis=true" and
+        // "loggeDatenBeiException=true" are set in the helper. INFO and DEBUG log entries are created
+        // with the given parameters.
         LogHelper logHelper = new LogHelper(false, true, false, false, true, 0);
         IsyLogger logger = IsyLoggerFactory.getLogger(LogHelperTest.class);
         logHelper.loggeErgebnis(logger, TestSignaturKlasse.class.getMethod("method", String.class), false,
@@ -68,8 +65,8 @@ public class LogHelperTest extends AbstractLogTest {
         logHelper.loggeErgebnis(logger, TestSignaturKlasse.class.getMethod("methodWithException", String.class), true,
                 new String[] { "EinString" }, "Ergebnis");
 
-        // LoggeErgebnis wird ohne Parameter aufgerufen, wobei im Helper nur "loggeErgebnis=true" ist. Es wird
-        // jeweils nur der INFO.Eintrag erstellt.
+        // The method "loggeErgebnis" is called without parameter and only "loggeErgebnis=true" and is set
+        // in the helper. INFO log entry is created.
         logHelper = new LogHelper(false, true, false, false, false, 0);
         logHelper.loggeErgebnis(logger, TestSignaturKlasse.class.getMethod("method", String.class), false,
                 null, null);
@@ -89,17 +86,17 @@ public class LogHelperTest extends AbstractLogTest {
         logHelper.loggeErgebnis(logger, TestSignaturKlasse.class.getMethod("methodWithException", String.class), true,
                 new String[] { "EinString" }, "Ergebnis");
 
-        // Übergeben von NULL-Werten und deaktivierten Methoden - bei diesen wird keine Log-Eintrag erstellt:
+        // Passing nulls and disabled methods - no log entries will be created:
 
-        // Loggen des Aufrufs mit "loggeAufruf=false"
+        // Log a method call with "loggeAufruf=false"
         logHelper = new LogHelper(false, true, true, false, true, 0);
         logHelper.loggeNachbarsystemAufruf(logger, null, null, null);
 
-        // Loggen des Ergebnisses mit "loggeErgebnis=false"
+        // Log result with "loggeErgebnis=false"
         logHelper = new LogHelper(true, false, true, false, true, 0);
         logHelper.loggeNachbarsystemErgebnis(logger, null, null, null, false);
 
-        // Loggen der Dauer mit "loggeDauer=false"
+        // Log duration with "loggeDauer=false"
         logHelper = new LogHelper(true, true, false, false, true, 0);
         logHelper.loggeNachbarsystemDauer(logger, null, 1, null, null, true);
 
@@ -107,20 +104,17 @@ public class LogHelperTest extends AbstractLogTest {
     }
 
     /**
-     * Testet mehrere Spezialfälle des Aufrufs des Loghelpers, die nicht durch die anderen Testfälle abgedeckt
-     * sind. Es wird der deprecated-Konstruktor gestestet.
-     *
-     * @throws Exception
-     *             wenn beim Test eine Exception aufgetreten ist.
+     * Test special cases which are not covered in other test cases. Test deprecated constructor.
+     * @throws Exception if an exception during the test occurs.
      */
-    @Test
+   @Test
     public void testLogHelperParameterGroesse() throws Exception {
         int parameterGroesse = 1000;
 
         LogHelper logHelper = new LogHelper(false, false, false, true, false, parameterGroesse - 1);
         IsyLogger logger = IsyLoggerFactory.getLogger(LogHelperTest.class);
 
-        // Loggen eines zu großen Parameters
+        // Log a parameter with a too big value
         byte[] binaerDaten = new byte[parameterGroesse];
         new Random().nextBytes(binaerDaten);
         logHelper.loggeErgebnis(logger, TestBeanEinfach.class.getMethod("setEinString", String.class), true,
