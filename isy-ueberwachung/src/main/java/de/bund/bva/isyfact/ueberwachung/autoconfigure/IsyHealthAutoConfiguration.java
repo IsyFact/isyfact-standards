@@ -1,10 +1,10 @@
 package de.bund.bva.isyfact.ueberwachung.autoconfigure;
 
-import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnEnabledEndpoint;
-import org.springframework.boot.actuate.health.CompositeHealthIndicator;
-import org.springframework.boot.actuate.health.HealthAggregator;
+import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
+import org.springframework.boot.actuate.health.HealthContributorRegistry;
 import org.springframework.boot.actuate.health.HealthEndpoint;
-import org.springframework.boot.actuate.health.HealthIndicatorRegistry;
+import org.springframework.boot.actuate.health.HealthEndpointGroups;
+import org.springframework.boot.actuate.health.HealthEndpointWebExtension;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.client.RestTemplate;
 
-import de.bund.bva.isyfact.ueberwachung.actuate.health.IsyHealthEndpoint;
+import de.bund.bva.isyfact.ueberwachung.actuate.health.IsyHealthContributorRegistryCache;
 import de.bund.bva.isyfact.ueberwachung.actuate.health.IsyHealthTask;
 import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.NachbarsystemCheck;
 import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.NachbarsystemIndicator;
@@ -54,7 +54,7 @@ public class IsyHealthAutoConfiguration {
     }
 
     @Bean
-    @ConditionalOnEnabledEndpoint(endpoint = HealthEndpoint.class)
+    @ConditionalOnAvailableEndpoint(endpoint = HealthEndpoint.class)
     public NachbarsystemIndicator nachbarsystemIndicator(NachbarsystemCheck nachbarsystemCheck,
         NachbarsystemConfigurationProperties nachbarsystemConfigurationProperties) {
         return new NachbarsystemIndicator(nachbarsystemCheck, nachbarsystemConfigurationProperties);
@@ -65,30 +65,63 @@ public class IsyHealthAutoConfiguration {
     static class HealthEndpointConfiguration {
 
         /**
-         * Erstellung des IsyHealthEndpoints analog zur Erstellung des Standard-HealthEndpoints in
-         * {@link org.springframework.boot.actuate.autoconfigure.health.HealthEndpointConfiguration}.
+         * Erstellung eines {@link IsyHealthContributorRegistryCache}s, der ein
+         * {@link HealthContributorRegistry} mit einem Caching-Mechanismus erweitert.
          *
-         * @param healthAggregator Der HealthAggregator von Spring
-         * @param registry         Die HealthIndicatorRegistry von Spring
-         * @return IsyHealthEndpoint-Instanz
+         * @param healthContributorRegistry Das zu wrappende {@link HealthContributorRegistry}.
+         * @return IsyHealthContributorRegistryCache-Instanz.
          */
         @Bean
-        @ConditionalOnEnabledEndpoint(endpoint = HealthEndpoint.class)
-        public IsyHealthEndpoint isyHealthEndpoint(HealthAggregator healthAggregator,
-                                                   HealthIndicatorRegistry registry) {
-            return new IsyHealthEndpoint(new CompositeHealthIndicator(healthAggregator, registry));
+        @ConditionalOnAvailableEndpoint(endpoint = HealthEndpoint.class)
+        public IsyHealthContributorRegistryCache isyHealthContributorRegistry(
+                HealthContributorRegistry healthContributorRegistry) {
+            return new IsyHealthContributorRegistryCache(healthContributorRegistry);
         }
 
         /**
-         * Erstellung eines Tasks, um den Cache des IsyHealthEndpoints zu aktualisieren.
+         * Erstellung eines {@link HealthEndpoint}s, der einem mit caching erweiterten
+         * {@link HealthContributorRegistry} verwendet.
          *
-         * @param isyHealthEndpoint Der zu aktualisierende IsyHealthEndpoint
+         * @param cachingWrapper Die Wrapper, der ein cachendes {@link HealthContributorRegistry} bereitstellt.
+         * @param groups Die Groups mit denen der Endpoint konfiguriert wird.
+         * @return HealthEndpoint-Instanz.
+         */
+        @Bean
+        @ConditionalOnAvailableEndpoint(endpoint = HealthEndpoint.class)
+        public HealthEndpoint healthEndpoint(
+                IsyHealthContributorRegistryCache cachingWrapper,
+                HealthEndpointGroups groups) {
+            return new HealthEndpoint(cachingWrapper.getAdaptedRegistry(), groups);
+        }
+
+
+        /**
+         * Erstellung eines {@link HealthEndpointWebExtension}s, der einem mit caching erweiterten
+         * {@link HealthContributorRegistry} verwendet.
+         *
+         * @param cachingWrapper Die Wrapper, der ein cachendes {@link HealthContributorRegistry} bereitstellt.
+         * @param groups Die Groups mit denen der Endpoint konfiguriert wird.
+         * @return HealthEndpointWebExtension-Instanz.
+         */
+        @Bean
+        @ConditionalOnAvailableEndpoint(endpoint = HealthEndpoint.class)
+        public HealthEndpointWebExtension healthEndpointWebExtension(
+                IsyHealthContributorRegistryCache cachingWrapper,
+                HealthEndpointGroups groups) {
+            return new HealthEndpointWebExtension(cachingWrapper.getAdaptedRegistry(), groups);
+        }
+
+        /**
+         * Erstellung eines Tasks, um den Cache des {@link IsyHealthContributorRegistryCache} zu
+         * aktualisieren.
+         *
+         * @param cachingWrapper Der zu aktualisierende {@link IsyHealthContributorRegistryCache}
          * @return IsyHealthTask-Instanz
          */
         @Bean
-        @ConditionalOnEnabledEndpoint(endpoint = HealthEndpoint.class)
-        public IsyHealthTask isyHealthTask(IsyHealthEndpoint isyHealthEndpoint) {
-            return new IsyHealthTask(isyHealthEndpoint);
+        @ConditionalOnAvailableEndpoint(endpoint = HealthEndpoint.class)
+        public IsyHealthTask isyHealthTask(IsyHealthContributorRegistryCache cachingWrapper) {
+            return new IsyHealthTask(cachingWrapper);
         }
 
     }
