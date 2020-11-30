@@ -14,41 +14,39 @@ import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.util.Assert;
 
 /**
- * This class creates and manages a cache for the {@link Health} of {@link HealthIndicator}.
+ * This class serves as a cache for the individual {@link Health} results from the {@link HealthIndicator}s in
+ * a {@link HealthContributorRegistry}.
  * <p/>
- * Using {@link #getAdaptedRegistry()} will return a wrapped instance the original registry linking it to the
- * cache so that any call to {@link HealthIndicator#health()} will be proxied by the cache.
+ * Using the method {@link #getAdaptedRegistry()} will return wrapped instance of the original registry
+ * linking it to the cache so that calls to {@link HealthIndicator#health()} will return the corresponding
+ * cached value for the HealthIndicator.
  * <p/>
- * The cache can be updated using
- *
- * With
- * Diese Klasse, wrappt ein {@link HealthContributorRegistry} so, dass bei der Abfrage nach der Health eines
- * {@link HealthIndicator}s der gecachte Wert zurückgegeben wird.
- * <p/>
- * Der Cache wird von dem Wrapper verwaltet und kann über die Mehtode
- * {@link IsyHealthContributorRegistryCache#update()} aktualisiert werden.
+ * The method {@link #update()} will refresh the cache using the original registry hence synchronising the
+ * cache and the registry in case the registry has been modified during runtime.
  */
 @AutoConfigureBefore
 public class IsyHealthContributorRegistryCache {
 
     /**
-     * Default Wert für die eigene Health bevor der Cache das erste Mal aktualisiert wurde.
+     * Default {@link Health} used as an initial value for the cache.
      */
     private static final Health DEFAULT_HEALTH = Health.unknown().build();
 
     /**
-     * Das Registry, das gecachet wird.
+     * The registry for which the health values are cached for.
      */
     private final HealthContributorRegistry registry;
 
     /**
-     * Die Wurzel des Caches.
+     * The root node of the cache.
+     * (Analogous to the registry.)
      */
     private volatile CacheNode rootNode;
 
     /**
-     * Konstruktor der Klasse.
-     * @param registry Das {@link HealthContributorRegistry}, das gewrappt wird.
+     * Constructor of the class.
+     *
+     * @param registry The {@link HealthContributorRegistry} for which the Health will be cached.
      */
     public IsyHealthContributorRegistryCache(HealthContributorRegistry registry) {
         Assert.notNull(registry, "Das Registry darf nicht null sein.");
@@ -56,10 +54,28 @@ public class IsyHealthContributorRegistryCache {
         this.rootNode = new CacheNode();
     }
 
+    /**
+     * Adapts the original {@link HealthContributorRegistry} linking it to the cache, so that calls to
+     * {@link HealthIndicator#health()} are replaces by the cached values.
+     * <p/>
+     * {@link HealthContributorRegistry#registerContributor(String, Object)} and
+     * {@link HealthContributorRegistry#unregisterContributor(String)} remain uncached modifying the original
+     * registry.
+     * <p/>
+     * {@link HealthContributor}s added to the adapted or original registry between two update calls will return
+     * {@link #DEFAULT_HEALTH} until updated.
+     *
+     * @see #update()
+     *
+     * @return An adapted instance of the original registry linked to the cache.
+     */
     public HealthContributorRegistry getAdaptedRegistry() {
         return new CachingHealthContributorRegistry();
     }
 
+    /**
+     * Updates the cache by walking the original registry and thereby always syncing the cache to the registry.
+     */
     public void update() {
         CacheNode rootNode = new CacheNode();
         for (NamedContributor<HealthContributor> namedContributor : registry) {
@@ -83,9 +99,6 @@ public class IsyHealthContributorRegistryCache {
         }
     }
 
-    /**
-     * Hilfsklasse mit der eine Cachestruktor analog zum Registry aufgebaut wird.
-     */
     private static class CacheNode {
 
         private Map<String, CacheNode> children;

@@ -22,17 +22,18 @@ import org.springframework.boot.actuate.health.NamedContributors;
 import org.springframework.boot.actuate.health.Status;
 
 /**
- *
+ * Class for testing the functionality of {@link IsyHealthContributorRegistryCache} and the adapted registry it
+ * it creates.
  */
 public class IsyHealthContributorRegistryCacheTest {
 
     private static final Health UP_HEALTH = Health.up().build();
 
-    HealthContributorRegistry liveRegistry;
+    private HealthContributorRegistry liveRegistry;
 
-    IsyHealthContributorRegistryCache registryCache;
+    private IsyHealthContributorRegistryCache registryCache;
 
-    HealthContributorRegistry cachingRegistry;
+   private HealthContributorRegistry cachingRegistry;
 
     @Before
     public void setup() {
@@ -51,53 +52,76 @@ public class IsyHealthContributorRegistryCacheTest {
         this.cachingRegistry = registryCache.getAdaptedRegistry();
     }
 
-    // 1 compare Structures
+    /**
+     * Verifies that the structure of the live registry and the caching registry are identical.
+     */
     @Test
     public void testVergleicheStrukture() {
-        assertSubsetOf(liveRegistry, cachingRegistry);
-        assertSubsetOf(cachingRegistry, liveRegistry);
+        assertEquals(liveRegistry, cachingRegistry);
     }
 
     // 2 Register and Unregister
+
+    /**
+     * Verifies that adding an additional HealthContributor to the caching registry also adds it to the
+     * original registry and that the health method of the Indicator is invoked when updating the cache.
+     */
     @Test
     public void testCachingRegistryRegisterContributor() {
         HealthIndicator indicator = ContributorBuilder.indicator();
         cachingRegistry.registerContributor("HOLA", indicator);
-        assertSubsetOf(liveRegistry, cachingRegistry);
+        assertEquals(liveRegistry, cachingRegistry);
         registryCache.update();
         verify(indicator).health();
     }
 
+    /**
+     * Verifies that removing a HealthContributor from the caching registry also removes it from the live
+     * registry and the health method of the Indicators is not invoked anymore when updating the cache
+     * once the contributor was removed.
+     */
     @Test
     public void testCachingRegistryUnregisterContributor() {
         HealthContributor healthContributor = cachingRegistry.unregisterContributor("A2");
-        assertSubsetOf(liveRegistry, cachingRegistry);
+        assertEquals(liveRegistry, cachingRegistry);
         registryCache.update();
         consumeIndicators(healthContributor, healthIndicator -> {
             verify(healthIndicator, Mockito.never()).health();
         });
     }
 
+    /**
+     * Verifies that adding an additional HealthContributor to the live registry also adds it to the
+     * caching registry and that the health method of the Indicator is invoked when updating the cache.
+     */
     @Test
     public void testLiveRegistryRegisterContributor() {
         HealthIndicator indicator = ContributorBuilder.indicator();
         liveRegistry.registerContributor("HOLA", indicator);
-        assertSubsetOf(cachingRegistry, liveRegistry);
+        assertEquals(liveRegistry, cachingRegistry);
         registryCache.update();
         verify(indicator).health();
     }
 
+    /**
+     * Verifies that removing a HealthContributor from the live registry also removes it from the caching
+     * registry and the health method of the Indicators is not invoked anymore when updating the cache
+     * once the contributor was removed.
+     */
     @Test
     public void testLiveRegistryUnregisterContributor() {
         HealthContributor healthContributor = liveRegistry.unregisterContributor("A2");
-        assertSubsetOf(cachingRegistry, liveRegistry);
+        assertEquals(liveRegistry, cachingRegistry);
         registryCache.update();
         consumeIndicators(healthContributor, healthIndicator -> {
             verify(healthIndicator, Mockito.never()).health();
         });
     }
 
-    // 3 Check Health -> Update -> Check Health
+    /**
+     * Verifies that the health methods of the caching registry all initially return {@link Status#UNKNOWN} and
+     * the health method of the live HealthIndicators in the live registry have not been invoked.
+     */
     @Test
     public void testInitialHealth() {
         // Assert that Health is initially UNKNOWN for the cachingRegistry
@@ -111,6 +135,11 @@ public class IsyHealthContributorRegistryCacheTest {
         });
     }
 
+    /**
+     * Verifies that calling the update method of the registry cache will invoke the health method on all the
+     * HealthIndicators in the live registry and that the health of the cached indicators now returns
+     * {@link Status#UP}.
+     */
     @Test
     public void testUpdateCache() {
         // Update cached Indicator Values
@@ -142,6 +171,11 @@ public class IsyHealthContributorRegistryCacheTest {
         } else {
             consumer.accept((HealthIndicator) contributor);
         }
+    }
+
+    private void assertEquals(NamedContributors<HealthContributor> contA, NamedContributors<HealthContributor> contB) {
+        assertSubsetOf(contA, contB);
+        assertSubsetOf(contB, contA);
     }
 
     @SuppressWarnings("unchecked")

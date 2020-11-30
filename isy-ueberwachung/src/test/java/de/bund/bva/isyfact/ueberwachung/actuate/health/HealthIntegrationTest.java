@@ -36,8 +36,7 @@ import static de.bund.bva.isyfact.ueberwachung.actuate.health.HealthIntegrationT
 import static org.junit.Assert.*;
 
 /**
- * Test zum Überprüfen, ob der Health Endpoint mit dem caching Registry korrekt funktioniert.
- *
+ * Class for verifying whether the health endpoint functions correctly with the caching registry.
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(SpringRunner.class)
@@ -56,7 +55,7 @@ public class HealthIntegrationTest {
 
     static final int DELAY_MS = 3000;
 
-    private static final String testComponentName = "testComponent"; // muss Name der HealthIndicator-Bean entsprechen
+    private static final String testComponentName = "testComponent"; // must correspond to the name of the HealthIndicator-Bean
     private static final String testInstanceName = "testInstance";
 
     @LocalServerPort
@@ -90,10 +89,10 @@ public class HealthIntegrationTest {
     }
 
     /**
-     * Wenn "management.endpoint.health.show-details=never" gesetzt ist, liefern die Endpoints für component und
-     * componentInstance immer ein 404 zurück, auch wenn der HealthIndicator existiert.
+     * If the property "management.endpoint.health.show-details" is set to "never" getting the health of a nested
+     * component always return 404, even if the HealthContributor exists.
      *
-     * @see HealthEndpointWebExtension#health(ApiVersion, SecurityContext)
+     * @see HealthEndpointWebExtension#health(ApiVersion, SecurityContext, String...)
      */
     @Test
     public void test3_andereEndpointsLiefern404() {

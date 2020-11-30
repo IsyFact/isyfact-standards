@@ -23,9 +23,10 @@ import de.bund.bva.isyfact.ueberwachung.config.NachbarsystemConfigurationPropert
 import de.bund.bva.isyfact.ueberwachung.config.NachbarsystemRestTemplateConfigurer;
 
 /**
- * Auto-Configuration fuer den entkoppelten HealthEndpoint mit Cache.
- * Dieser ersetzt den Standard-HealthEndpoint von Spring und wird aufgrund der Conditionals nur aktiviert,
- * wenn der normale HealthEndpoint in den Properties aktiviert ist.
+ * Auto configuration for the {@link HealthEndpoint} and {@link HealthEndpointWebExtension} with a caching
+ * {@link HealthContributorRegistry}.
+ * These health endpoint replace the ones configured by spring and furthermore only activate when the usual
+ * health endpoint would have been created.
  */
 @Configuration
 @PropertySource("classpath:config/health.properties")
@@ -65,11 +66,10 @@ public class IsyHealthAutoConfiguration {
     static class HealthEndpointConfiguration {
 
         /**
-         * Erstellung eines {@link IsyHealthContributorRegistryCache}s, der ein
-         * {@link HealthContributorRegistry} mit einem Caching-Mechanismus erweitert.
+         * Creates an instance of {@link IsyHealthContributorRegistryCache}.
          *
-         * @param healthContributorRegistry Das zu wrappende {@link HealthContributorRegistry}.
-         * @return IsyHealthContributorRegistryCache-Instanz.
+         * @param healthContributorRegistry The original registry for which the cache will be created.
+         * @return An IsyHealthContributorRegistryCache instance.
          */
         @Bean
         @ConditionalOnAvailableEndpoint(endpoint = HealthEndpoint.class)
@@ -79,49 +79,53 @@ public class IsyHealthAutoConfiguration {
         }
 
         /**
-         * Erstellung eines {@link HealthEndpoint}s, der einem mit caching erweiterten
-         * {@link HealthContributorRegistry} verwendet.
+         * Creates an instance of {@link HealthEndpoint} which utilizes the adapted registry of
+         * an {@link IsyHealthContributorRegistryCache}.
          *
-         * @param cachingWrapper Die Wrapper, der ein cachendes {@link HealthContributorRegistry} bereitstellt.
-         * @param groups Die Groups mit denen der Endpoint konfiguriert wird.
-         * @return HealthEndpoint-Instanz.
+         * @param registryCache
+         *          The {@link IsyHealthContributorRegistryCache} which provides the caching registry.
+         * @param groups
+         *          The groups with which the endpoint will be configured.
+         * @return HealthEndpoint instance.
          */
         @Bean
         @ConditionalOnAvailableEndpoint(endpoint = HealthEndpoint.class)
         public HealthEndpoint healthEndpoint(
-                IsyHealthContributorRegistryCache cachingWrapper,
+                IsyHealthContributorRegistryCache registryCache,
                 HealthEndpointGroups groups) {
-            return new HealthEndpoint(cachingWrapper.getAdaptedRegistry(), groups);
+            return new HealthEndpoint(registryCache.getAdaptedRegistry(), groups);
         }
 
 
         /**
-         * Erstellung eines {@link HealthEndpointWebExtension}s, der einem mit caching erweiterten
-         * {@link HealthContributorRegistry} verwendet.
+         * Creates an instance of {@link HealthEndpointWebExtension} which utilizes the adapted registry of
+         * an {@link IsyHealthContributorRegistryCache}.
          *
-         * @param cachingWrapper Die Wrapper, der ein cachendes {@link HealthContributorRegistry} bereitstellt.
-         * @param groups Die Groups mit denen der Endpoint konfiguriert wird.
-         * @return HealthEndpointWebExtension-Instanz.
+         * @param registryCache
+         *          The {@link IsyHealthContributorRegistryCache} which provides the caching registry.
+         * @param groups
+         *          The groups with which the endpoint will be configured.
+         * @return HealthEndpointWebExtension instance.
          */
         @Bean
         @ConditionalOnAvailableEndpoint(endpoint = HealthEndpoint.class)
         public HealthEndpointWebExtension healthEndpointWebExtension(
-                IsyHealthContributorRegistryCache cachingWrapper,
+                IsyHealthContributorRegistryCache registryCache,
                 HealthEndpointGroups groups) {
-            return new HealthEndpointWebExtension(cachingWrapper.getAdaptedRegistry(), groups);
+            return new HealthEndpointWebExtension(registryCache.getAdaptedRegistry(), groups);
         }
 
         /**
-         * Erstellung eines Tasks, um den Cache des {@link IsyHealthContributorRegistryCache} zu
-         * aktualisieren.
+         * Creates a task which updates the cache in {@link IsyHealthContributorRegistryCache} in fixed
+         * intervals.
          *
-         * @param cachingWrapper Der zu aktualisierende {@link IsyHealthContributorRegistryCache}
-         * @return IsyHealthTask-Instanz
+         * @param registryCache The {@link IsyHealthContributorRegistryCache} that is to be updated regularly.
+         * @return IsyHealthTask instance
          */
         @Bean
         @ConditionalOnAvailableEndpoint(endpoint = HealthEndpoint.class)
-        public IsyHealthTask isyHealthTask(IsyHealthContributorRegistryCache cachingWrapper) {
-            return new IsyHealthTask(cachingWrapper);
+        public IsyHealthTask isyHealthTask(IsyHealthContributorRegistryCache registryCache) {
+            return new IsyHealthTask(registryCache);
         }
 
     }

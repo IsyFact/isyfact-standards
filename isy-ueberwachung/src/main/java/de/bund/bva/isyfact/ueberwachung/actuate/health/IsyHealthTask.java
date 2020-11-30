@@ -7,7 +7,7 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.task.model.AbstractTask;
 
 /**
- * Dieser Task aktualisiert den Cache in {@link IsyHealthContributorRegistryCache}.
+ * This Task updates the cache in {@link IsyHealthContributorRegistryCache}.
  */
 public class IsyHealthTask extends AbstractTask {
 
