@@ -247,62 +247,9 @@
         </pluginManagement>
         <plugins>
             <!-- Erlaube den Build nur mit richtiger Java & Maven Version -->
-            <!-- TODO (aweber): Beim nächsten Major Release entfernen (Wird über PluginManagement gesteuert). -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>${maven.enforcer.plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>enforce-maven</id>
-                        <goals>
-                            <goal>enforce</goal>
-                        </goals>
-                        <configuration>
-                            <rules>
-                                <requireJavaVersion>
-                                    <version>${enforced.jdk.version}</version>
-                                </requireJavaVersion>
-                                <requireMavenVersion>
-                                    <version>${enforced.maven.version}</version>
-                                </requireMavenVersion>
-                            </rules>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>enforce-dependency-convergence</id>
-                        <goals>
-                            <goal>enforce</goal>
-                        </goals>
-                        <configuration>
-                            <rules>
-                                <dependencyConvergence/>
-                            </rules>
-                            <fail>false</fail>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>enforce-banned-dependencies</id>
-                        <goals>
-                            <goal>enforce</goal>
-                        </goals>
-                        <configuration>
-                            <rules>
-                                <bannedDependencies>
-                                    <excludes>
-                                        <exclude>de.bund.bva.pliscommon:plis-*</exclude>
-                                        <exclude>log4j:log4j</exclude>
-                                    </excludes>
-                                    <message>Verbotene Abhängigkeiten gefunden, für die neuere Entsprechungen
-                                        (Group-ID: de.bund.bva.isyfact) existieren.
-                                        Bitte dependency:tree prüfen und entsprechend exkludieren.
-                                    </message>
-                                </bannedDependencies>
-                            </rules>
-                            <fail>true</fail>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -364,19 +311,9 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- TODO (aweber): Beim nächsten Major Release entfernen (Wird über PluginManagement gesteuert). -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.19.1</version>
-                <configuration>
-                    <!-- VM-Argumente für bspw. mehr Speicher bei grossen Testläufen -->
-                    <argLine>${maven.surefire.argline}</argLine>
-                    <systemPropertyVariables>
-                        <user.language>de</user.language>
-                        <user.country>DE</user.country>
-                    </systemPropertyVariables>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -425,20 +362,9 @@
             </plugin>
             <!-- Sicherstellen, dass alle POMs Maven-Team-Standard konform sortiert sind. -->
             <!-- Um eine POM korrekt zu sortieren, mvn tidy:pom ausführen. -->
-            <!-- TODO (aweber): Beim nächsten Major Release entfernen (Wird über PluginManagement gesteuert). -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>tidy-maven-plugin</artifactId>
-                <version>1.1.0</version>
-                <executions>
-                    <execution>
-                        <id>check-pom-style</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
@@ -459,11 +385,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.1.0</version>
-                <configuration>
-                    <configLocation>${checkstyle.config}</configLocation>
-                    <suppressionsLocation>${checkstyle.suppressions.config}</suppressionsLocation>
-                </configuration>
             </plugin>
             <!-- Erzeugt JavaDoc beim Build. Die Angabe des Encodings sorgt für eine korrekte Darstellung
                 von Sonderzeichen in den JavaDocs. -->
@@ -510,7 +431,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-enforcer-plugin</artifactId>
-                        <version>${maven.enforcer.plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>enforce-no-snapshots</id>
@@ -701,24 +621,6 @@
                     <plugin>
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>
-                        <version>0.8.4</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>prepare-agent</goal>
-                                </goals>
-                                <configuration>
-                                    <propertyName>maven.jacoco.argLine</propertyName>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>report</id>
-                                <phase>test</phase>
-                                <goals>
-                                    <goal>report</goal>
-                                </goals>
-                            </execution>
-                        </executions>
                     </plugin>
                 </plugins>
             </build>
