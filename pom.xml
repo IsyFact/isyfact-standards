@@ -59,23 +59,23 @@
     </scm>
 
     <properties>
-        <!-- Build-Variablen -->
+        <!-- Build properties -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.compile.version>1.8</java.compile.version>
 
-        <!-- Konfiguration des maven-enforcer-plugin -->
+        <!-- maven-enforcer-plugin configuration -->
         <enforced.jdk.version>[1.8,1.9)</enforced.jdk.version>
         <enforced.maven.version>[3.1.1,4)</enforced.maven.version>
 
-        <!-- Konfiguration wird von jacoco befüllt und von surefire genutzt -->
+        <!-- Property is set by jacoco and user by surefire -->
         <maven.jacoco.argLine/>
 
-        <!-- Konfiguration des maven-surefire-plugin -->
+        <!-- maven-surefire-plugin configuration -->
         <maven.surefire.argline>-Xmx1g -XX:MaxPermSize=256m -Dfile.encoding=${project.build.sourceEncoding} @{maven.jacoco.argLine}
         </maven.surefire.argline>
 
 
-        <!-- Versionen von Plugins, die an mehreren Stellen genutzt werden -->
+        <!-- Plugin versions used in several places -->
         <maven.enforcer.plugin.version>1.4.1</maven.enforcer.plugin.version>
         <maven.javadoc.plugin.version>2.10.4</maven.javadoc.plugin.version>
     </properties>
@@ -86,7 +86,7 @@
                 <directory>src/main/resources</directory>
             </resource>
             <resource>
-                <!-- Füge die Lizenzdateien dem JAR hinzu -->
+                <!-- License directory -->
                 <directory>license</directory>
             </resource>
         </resources>
@@ -352,13 +352,13 @@
                 <version>3.7.1</version>
             </plugin>
 <!-- Quality Gates 1 -->
-            <!-- Sicherstellen, dass alle POMs Maven-Team-Standard konform sortiert sind. -->
-            <!-- Um eine POM korrekt zu sortieren, mvn tidy:pom ausführen. -->
+            <!-- Check if all POMs are formatted according to the Maven-Team-Standard. -->
+            <!-- Use mvn tidy:pom in order to tidy up the POM. -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>tidy-maven-plugin</artifactId>
             </plugin>
-            <!-- Erlaube den Build nur mit richtiger Java & Maven Version -->
+            <!-- Check java and maven version. -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
@@ -394,13 +394,12 @@
                 <artifactId>maven-surefire-report-plugin</artifactId>
                 <version>2.19.1</version>
             </plugin>
-            <!-- Erzeugt einen Checkstyle-Bericht -->
+            <!-- Create checkstyle report -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
             </plugin>
-            <!-- Erzeugt JavaDoc beim Build. Die Angabe des Encodings sorgt für eine korrekte Darstellung
-                von Sonderzeichen in den JavaDocs. -->
+            <!-- Create javadocs. Providing the encoding ensures correct character representation in the javadocs. -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -411,13 +410,13 @@
                     <additionalparam>-Xdoclint:none</additionalparam>
                 </configuration>
             </plugin>
-            <!-- Das JXR-Plugin ermöglicht die Verlinkung von Source-Code in diversen Maven-Reports. -->
+            <!-- Allows cross-reference of the project's sources in maven reports. -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>
                 <version>2.5</version>
             </plugin>
-            <!-- berichte über eingesetzte Bug Patterns. -->
+            <!-- Report bug patterns. -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
@@ -436,7 +435,7 @@
     </reporting>
 
     <profiles>
-        <!-- Profil um Snapshot-Versionen in Release-Tags zu verhindern -->
+        <!-- Profile to avoid SNAPSHOT-versions in releases. -->
         <profile>
             <id>release</id>
             <build>
@@ -468,7 +467,7 @@
             </build>
         </profile>
         <profile>
-            <!-- Verschiebt, wenn vorhanden, die Lizenzdateien in APIDocs -->
+            <!-- Moves the license files in APIDocs, if present. -->
             <id>copyLicenseFiles</id>
             <activation>
                 <file>
