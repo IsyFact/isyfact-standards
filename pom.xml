@@ -91,6 +91,7 @@
                 <directory>license</directory>
             </resource>
         </resources>
+        <pluginManagement>
         <plugins>
             <!-- Check java and maven versions -->
             <plugin>
@@ -123,7 +124,7 @@
                             <rules>
                                 <dependencyConvergence/>
                             </rules>
-                            <fail>false</fail>
+                                <fail>true</fail>
                         </configuration>
                     </execution>
                     <execution>
@@ -149,6 +150,104 @@
                     </execution>
                 </executions>
             </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>3.1.1</version>
+                    <configuration>
+                        <configLocation>checkstyle.config.xml</configLocation>
+                        <encoding>UTF-8</encoding>
+                        <consoleOutput>true</consoleOutput>
+                        <failsOnError>true</failsOnError>
+                        <linkXRef>false</linkXRef>
+                    </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>de.bund.bva.isyfact</groupId>
+                            <artifactId>isy-checkstyle-config</artifactId>
+                            <version>0.1.0</version>
+                        </dependency>
+                    </dependencies>
+                    <executions>
+                        <execution>
+                            <id>validate</id>
+                            <phase>validate</phase>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>tidy-maven-plugin</artifactId>
+                    <version>1.1.0</version>
+                    <executions>
+                        <execution>
+                            <id>check-pom-style</id>
+                            <phase>validate</phase>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>0.8.6</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>prepare-agent</goal>
+                            </goals>
+                            <configuration>
+                                <propertyName>maven.jacoco.argLine</propertyName>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>report</id>
+                            <phase>test</phase>
+                            <goals>
+                                <goal>report</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.19.1</version>
+                    <configuration>
+                        <argLine>${maven.surefire.argline}</argLine>
+                        <systemPropertyVariables>
+                            <user.language>de</user.language>
+                            <user.country>DE</user.country>
+                        </systemPropertyVariables>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>com.github.spotbugs</groupId>
+                    <artifactId>spotbugs-maven-plugin</artifactId>
+                    <version>4.1.3</version>
+                    <configuration>
+                        <effort>Max</effort>
+                        <threshold>high</threshold>
+                        <xmlOutput>true</xmlOutput>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>execute-spot-bugs</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
@@ -210,19 +309,6 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.19.1</version>
-                <configuration>
-                    <!-- JVM arguments e.g. if more RAM is needed for heavy tests -->
-                    <argLine>${maven.surefire.argline}</argLine>
-                    <systemPropertyVariables>
-                        <user.language>de</user.language>
-                        <user.country>DE</user.country>
-                    </systemPropertyVariables>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
                 <version>2.3</version>
@@ -267,21 +353,33 @@
                 <artifactId>maven-site-plugin</artifactId>
                 <version>3.7.1</version>
             </plugin>
+<!-- Quality Gates 1 -->
             <!-- Check if all POMs are formatted according to the Maven-Team-Standard. -->
             <!-- Use mvn tidy:pom in order to tidy up the POM. -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>tidy-maven-plugin</artifactId>
-                <version>1.1.0</version>
-                <executions>
-                    <execution>
-                        <id>check-pom-style</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
+            </plugin>
+            <!-- Check java and maven version. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
@@ -302,11 +400,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.1.0</version>
-                <configuration>
-                    <configLocation>${checkstyle.config}</configLocation>
-                    <suppressionsLocation>${checkstyle.suppressions.config}</suppressionsLocation>
-                </configuration>
             </plugin>
             <!-- Create javadocs. Providing the encoding ensures correct character representation in the javadocs. -->
             <plugin>
@@ -352,7 +445,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-enforcer-plugin</artifactId>
-                        <version>${maven.enforcer.plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>enforce-no-snapshots</id>
@@ -535,35 +627,6 @@
                     <url>${deploy-url-snapshot}</url>
                 </snapshotRepository>
             </distributionManagement>
-        </profile>
-        <profile>
-            <id>jacoco</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.jacoco</groupId>
-                        <artifactId>jacoco-maven-plugin</artifactId>
-                        <version>0.8.4</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>prepare-agent</goal>
-                                </goals>
-                                <configuration>
-                                    <propertyName>maven.jacoco.argLine</propertyName>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>report</id>
-                                <phase>test</phase>
-                                <goals>
-                                    <goal>report</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
         </profile>
     </profiles>
 </project>
