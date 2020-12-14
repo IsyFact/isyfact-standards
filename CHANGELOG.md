@@ -1,7 +1,8 @@
 # 2.2.0
 - `IFS-465`: Profile zum Bauen mit Java 11 erstellt
 - `IFS-568`: [isy-util] Entfernt redundante Methode aus dem MessageSourceHolder 
-- `IFS-676`: Upgrade von Opencsv von 3.8 auf 5.3
+- `IFS-676`: Versionsupdate von OpenCSV 3.8 auf 5.3 
+    * Hinweise zu Breaking Changes s. Changelog.md der isyfact-products-bom
 
 # 2.1.0
 - `IFS-156`: [isy-sicherheit] Sonderlogik, die Underscores aus dem Attribut `durchfuehrenderSachbearbeiterName` des Aufrufkontextes entfernt erneut ausgebaut.
