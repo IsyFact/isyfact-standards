@@ -2,6 +2,7 @@
 - `IFS-578`: Hebung Apache Commons-Validator auf 1.6
 - `IFS-494`: commons-beanutils:commons-beanutils in Version 1.9.4 hinzugefügt.
 - `IFS-509`: Update AssertJ auf 3.12.0
+- `IFS-785`: Versionsupdate von XStream von 1.4.11 auf 1.4.14 wegen CVE
 
 # 1.8.0
 - `IFS-223`: Logging Bridges ergänzt: jcl-over-slf4j, slf4j-jcl
