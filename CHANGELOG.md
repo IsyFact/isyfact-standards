@@ -1,6 +1,7 @@
 # 2.2.0
 - `IFS-465`: Profile zum Bauen mit Java 11 erstellt
 - `IFS-568`: [isy-util] Entfernt redundante Methode aus dem MessageSourceHolder 
+- `IFS-783`: Konfiguration von Quality Gate 1; Umstellung auf GitLabCI Templates
 
 # 2.1.0
 - `IFS-156`: [isy-sicherheit] Sonderlogik, die Underscores aus dem Attribut `durchfuehrenderSachbearbeiterName` des Aufrufkontextes entfernt erneut ausgebaut.
