@@ -251,7 +251,7 @@ public class BatchLauncher {
     /**
      * Generates the spring contexts for the application and the Batchrahmen.
      * Starts the Batchrahmen-Bean using the method
-     * {@link Batchrahmen # runBatch (BatchKonfiguration, BatchErresultProtokoll)}.
+     * {@link Batchrahmen#runBatch(BatchKonfiguration, BatchErgebnisProtokoll)}.
      *
      * @throws BatchAusfuehrungsException When an error occurs during batch execution.
      */
