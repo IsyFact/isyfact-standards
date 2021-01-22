@@ -19,6 +19,7 @@ package de.bund.bva.isyfact.batchrahmen;
 import java.io.File;
 import java.net.URISyntaxException;
 
+import ch.qos.logback.classic.LoggerContext;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchReturnCode;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchStartTyp;
 import de.bund.bva.isyfact.batchrahmen.core.launcher.BatchLauncher;
@@ -28,6 +29,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -376,5 +378,14 @@ public class BatchrahmenTest {
         assertEquals(BatchReturnCode.FEHLER_AUSGEFUEHRT.getWert(),
             batchLauncher.starteBatch(BatchStartTyp.START, null));
         assertEquals("beendet", getBatchStatus("returnCodeTestBatch-1"));
+    }
+
+    @Test
+    public void testBatchIdInLoggerContext() {
+        assertEquals(0, BatchLauncher
+                .run(new String[] { "-start", "-cfg", "/resources/batch/basic-test-batch-1-config.properties" }));
+        final LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
+        final String actualBatchId = loggerContext.getProperty("BatchId");
+        assertEquals("BatchId ist in Batch LoggerContext gesetzt", "basicTestBatch-1", actualBatchId);
     }
 }
