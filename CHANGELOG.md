@@ -1,3 +1,6 @@
+# 1.8.x
+- `IFS-568`: [isy-util] Entfernt redundante Methode `getMessage(String schluessel)` aus dem MessageSourceHolder
+
 # 1.8.1
 - `IFS-453`: [isy-ueberwachung] Loglevel für isAlive-Datei-Ereignisse erhöht.
 - `IFS-466`: [isy-logging] Fix für fehlerhafte Mdc Formatierung
@@ -15,3 +18,4 @@
     *  Neue Option `wildcard-case-insensitive` löst Case-Sensitive-Problem
     *  GroupIDs in Submodulen wurde auf `com.github.dozermapper` umgestellt
 - `IFS-463`: Abwärtskompatibilität IsyFact 2 zu IsyFact 1 - Erstellung der Bridge
+
