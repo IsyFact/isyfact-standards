@@ -16,6 +16,11 @@
  */
 package de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import de.bund.bva.isyfact.serviceapi.core.httpinvoker.user.User;
+
 /**
  * Implementierung des DummyServices.
  *
@@ -31,6 +36,8 @@ public class DummyServiceImpl implements DummyServiceRemoteBean {
      * Zähler für die Aufrufe.
      */
     private int anzahlAufrufe;
+
+    private List<User> users = new ArrayList<>();
 
     /**
      * Liefert das Feld 'anzahlAufrufe' zurück.
@@ -52,6 +59,15 @@ public class DummyServiceImpl implements DummyServiceRemoteBean {
             throw new RuntimeException(e);
         }
         return message;
+    }
+
+    @Override
+    public String addUser(User user) {
+        if(user != null){
+            this.users.add(user);
+            return "Added user successful.";
+        }
+        return "Failed to add user";
     }
 
     /**
