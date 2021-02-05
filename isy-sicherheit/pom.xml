@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>isy-sicherheit</artifactId>
-    <version>1.9.1-SNAPSHOT</version>
+    <version>1.9.1</version>
     <packaging>jar</packaging>
 
     <name>IsyFact-Sicherheit</name>

@@ -202,6 +202,12 @@
                 <artifactId>dozer-core</artifactId>
                 <version>6.5.0</version>
             </dependency>
+            <!-- IFS-494: behebt CVEs in der Version 1.9.3 die mit Dozer mitgeliefert wird -->
+            <dependency>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
+                <version>1.9.4</version>
+            </dependency>
 
             <!-- XML-Serialisierung: XStream -->
             <dependency>
@@ -329,7 +335,7 @@
             <dependency>
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
-                <version>3.2.0</version>
+                <version>3.12.0</version>
                 <scope>test</scope>
             </dependency>
 
@@ -339,6 +345,13 @@
                 <artifactId>h2</artifactId>
                 <version>1.4.196</version>
                 <scope>test</scope>
+            </dependency>
+
+            <!-- Apache Commons-Validator -->
+            <dependency>
+                <groupId>commons-validator</groupId>
+                <artifactId>commons-validator</artifactId>
+                <version>1.6</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

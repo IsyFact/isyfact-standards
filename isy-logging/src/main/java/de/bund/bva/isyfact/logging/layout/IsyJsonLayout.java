@@ -131,9 +131,13 @@ public class IsyJsonLayout extends JsonLayout {
         try {
             return formatter.toJsonString(map);
         } catch (Exception e) {
-            Map<String, String> stringMap = new LinkedHashMap<>();
+            Map<String, Object> stringMap = new LinkedHashMap<>();
             for (Map.Entry<String, Object> entry : map.entrySet()) {
-                stringMap.put(entry.getKey(), entry.getValue().toString());
+                if (MDC_ATTR_NAME.equals(entry.getKey())) {
+                    stringMap.put(entry.getKey(), entry.getValue());
+                } else {
+                    stringMap.put(entry.getKey(), entry.getValue().toString());
+                }
             }
             try {
                 return formatter.toJsonString(stringMap);

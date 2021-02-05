@@ -67,7 +67,8 @@ public class LoadbalancerServlet extends HttpServlet {
         LOG.info(LogKategorie.JOURNAL, EreignisSchluessel.PLUEB00001, "Initialisiere Loadbalancer-Servlet.");
         String isAliveFileLocation = getInitParameter(PARAM_IS_ALIVE_FILE_LOCATION);
         if (isAliveFileLocation == null) {
-            LOG.debug("Position der IsAliveDatei nicht konfiguriert. Verwende Standard-Einstellung: {}",
+            LOG.info(LogKategorie.JOURNAL, EreignisSchluessel.PLUEB00001,
+                "Position der IsAliveDatei nicht konfiguriert. Verwende Standard-Einstellung: {}",
                 DEFAULT_IS_ALIVE_FILE_LOCATION);
             isAliveFileLocation = DEFAULT_IS_ALIVE_FILE_LOCATION;
         }
@@ -78,6 +79,9 @@ public class LoadbalancerServlet extends HttpServlet {
     }
 
     /**
+     * GET-Request bearbeiten. Prüft, ob die IsAlive-Datei aus {@link #PARAM_IS_ALIVE_FILE_LOCATION}
+     * vorhanden ist und liefert dann HTTP OK zurück. Andernfalls wird HTTP FORBIDDEN zurückgeliefert.
+     *
      * @param req
      *            Der HttpServletRequest an das Loadbalancer-Servlet.
      * @param resp
@@ -85,9 +89,7 @@ public class LoadbalancerServlet extends HttpServlet {
      *
      * @throws ServletException
      * @throws IOException
-     *             Wenn die Antwort nicht geschrieben werden kann. GET-Request bearbeiten. Prüft, ob die
-     *             IsAlive-Datei aus {@link #PARAM_IS_ALIVE_FILE_LOCATION} vorhanden ist und liefert dann HTTP
-     *             OK zurück. Andernfalls wird HTTP FORBIDDEN zurückgeliefert.
+     *             Wenn die Antwort nicht geschrieben werden kann.
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -96,7 +98,8 @@ public class LoadbalancerServlet extends HttpServlet {
             resp.setStatus(HttpServletResponse.SC_OK);
             resp.getWriter().write("<html><body><center>IS ALIVE!</center></body></html>");
         } else {
-            LOG.info(LogKategorie.JOURNAL, EreignisSchluessel.PLUEB00001,
+            LOG.error(
+                    EreignisSchluessel.IS_ALIVE_EXISTIERT_NICHT,
                 "IsAlive-Datei {} existiert nicht, sende HTTP FORBIDDEN.", this.isAliveFile.getAbsolutePath());
             resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }

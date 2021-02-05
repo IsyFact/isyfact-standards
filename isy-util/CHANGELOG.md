@@ -3,6 +3,9 @@
 
 # 1.9.0
 - `IFS-528`: Explizite Versionen für isy-exception-core und isy-logging entfernt und stattdessen isyfact-standards-bom importiert
+- `IFS-468`: DozerMapper im Zuge des Updates auf 6.5.0 hinzugefügt
+    * Konkret wurde eine eigene Implementierung der `DozerBeanMapperFactoryBean` hinzugefügt um die Abh. auf GitHub-Version abzulösen
+    * license/DEPENDENCIES überarbeitet
 
 # 1.8.0
 - `IFS-262`: `isyfact-masterpom` deprecated (Abschaffung mit IsyFact 2.0), `isyfact-masterpom-lib` aufgelöst, Bibliotheken benutzen `isyfact-standards` als Parent-POM
