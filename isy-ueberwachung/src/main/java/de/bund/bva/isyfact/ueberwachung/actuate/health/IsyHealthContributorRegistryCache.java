@@ -10,7 +10,6 @@ import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.actuate.health.HealthContributorRegistry;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.NamedContributor;
-import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.util.Assert;
 
 /**
@@ -24,7 +23,6 @@ import org.springframework.util.Assert;
  * The method {@link #update()} will refresh the cache using the original registry hence synchronising the
  * cache and the registry in case the registry has been modified during runtime.
  */
-@AutoConfigureBefore
 public class IsyHealthContributorRegistryCache {
 
     /**
@@ -156,7 +154,7 @@ public class IsyHealthContributorRegistryCache {
             if (healthContributor instanceof CompositeHealthContributor) {
                 return adapt((CompositeHealthContributor) healthContributor, cacheNode);
             }
-            return adapt((HealthIndicator) healthContributor, cacheNode);
+            return adapt(cacheNode);
         }
 
         private CompositeHealthContributor adapt(CompositeHealthContributor composite, CacheNode cacheNode) {
@@ -178,7 +176,7 @@ public class IsyHealthContributorRegistryCache {
         }
 
 
-        private HealthIndicator adapt(HealthIndicator healthIndicator, CacheNode cacheNode) {
+        private HealthIndicator adapt(CacheNode cacheNode) {
             if (cacheNode != null) {
                 return cacheNode::getHealth;
             }

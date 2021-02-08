@@ -73,7 +73,7 @@ public class IsyHealthAutoConfiguration {
          */
         @Bean
         @ConditionalOnAvailableEndpoint(endpoint = HealthEndpoint.class)
-        public IsyHealthContributorRegistryCache isyHealthContributorRegistry(
+        public IsyHealthContributorRegistryCache isyHealthContributorRegistryCache(
                 HealthContributorRegistry healthContributorRegistry) {
             return new IsyHealthContributorRegistryCache(healthContributorRegistry);
         }
