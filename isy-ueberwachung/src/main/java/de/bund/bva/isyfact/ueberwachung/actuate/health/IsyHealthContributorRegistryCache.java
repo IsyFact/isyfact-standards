@@ -10,20 +10,16 @@ import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.actuate.health.HealthContributorRegistry;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.NamedContributor;
-import org.springframework.util.Assert;
+import org.springframework.boot.actuate.health.NamedContributors;
 
 /**
  * This class serves as a cache for the individual {@link Health} results from the {@link HealthIndicator}s in
  * a {@link HealthContributorRegistry}.
  * <p/>
- * Using the method {@link #getAdaptedRegistry()} will return wrapped instance of the original registry
- * linking it to the cache so that calls to {@link HealthIndicator#health()} will return the corresponding
- * cached value for the HealthIndicator.
- * <p/>
- * The method {@link #update()} will refresh the cache using the original registry hence synchronising the
- * cache and the registry in case the registry has been modified during runtime.
+ * The method {@link #update(NamedContributors)} will refresh the cache using the original registry hence synchronising
+ * the cache and the registry in case the registry has been modified during runtime.
  */
-public class IsyHealthContributorRegistryCache {
+class IsyHealthContributorRegistryCache {
 
     /**
      * Default {@link Health} used as an initial value for the cache.
@@ -31,61 +27,35 @@ public class IsyHealthContributorRegistryCache {
     private static final Health DEFAULT_HEALTH = Health.unknown().build();
 
     /**
-     * The registry for which the health values are cached for.
-     */
-    private final HealthContributorRegistry registry;
-
-    /**
      * The root node of the cache.
      * (Analogous to the registry.)
      */
-    private volatile CacheNode rootNode;
+    private volatile CacheNode rootNode = new CacheNode();
 
-    /**
-     * Constructor of the class.
-     *
-     * @param registry The {@link HealthContributorRegistry} for which the Health will be cached.
-     */
-    public IsyHealthContributorRegistryCache(HealthContributorRegistry registry) {
-        Assert.notNull(registry, "Das Registry darf nicht null sein.");
-        this.registry = registry;
-        this.rootNode = new CacheNode();
+    HealthContributor getContributor(HealthContributor contributor, String name) {
+        return adapt(contributor, rootNode.getChild(name));
     }
 
-    /**
-     * Adapts the original {@link HealthContributorRegistry} linking it to the cache, so that calls to
-     * {@link HealthIndicator#health()} are replaces by the cached values.
-     * <p/>
-     * {@link HealthContributorRegistry#registerContributor(String, Object)} and
-     * {@link HealthContributorRegistry#unregisterContributor(String)} remain uncached modifying the original
-     * registry.
-     * <p/>
-     * {@link HealthContributor}s added to the adapted or original registry between two update calls will return
-     * {@link #DEFAULT_HEALTH} until updated.
-     *
-     * @see #update()
-     *
-     * @return An adapted instance of the original registry linked to the cache.
-     */
-    public HealthContributorRegistry getAdaptedRegistry() {
-        return new CachingHealthContributorRegistry();
+    Iterator<NamedContributor<HealthContributor>> iterator(NamedContributors<HealthContributor> contributors) {
+        return createAdapterIterator(contributors, rootNode);
     }
 
     /**
      * Updates the cache by walking the original registry and thereby always syncing the cache to the registry.
      */
-    public void update() {
-        CacheNode rootNode = new CacheNode();
-        for (NamedContributor<HealthContributor> namedContributor : registry) {
-            update(namedContributor, rootNode);
+    void update(NamedContributors<HealthContributor> contributors) {
+        CacheNode newRootNode = new CacheNode();
+        for (NamedContributor<HealthContributor> namedContributor : contributors) {
+            update(namedContributor, newRootNode);
         }
-        this.rootNode = rootNode;
+        rootNode = newRootNode;
     }
 
-    private void update(NamedContributor<HealthContributor> namedContributor, CacheNode parentNode) {
+    private static void update(NamedContributor<HealthContributor> namedContributor, CacheNode parentNode) {
         String name = namedContributor.getName();
-        CacheNode cacheNode = parentNode.makeChild(name);
         HealthContributor contributor = namedContributor.getContributor();
+
+        CacheNode cacheNode = parentNode.makeChild(name);
 
         if (contributor instanceof CompositeHealthContributor) {
             CompositeHealthContributor composite = (CompositeHealthContributor) contributor;
@@ -97,7 +67,7 @@ public class IsyHealthContributorRegistryCache {
         }
     }
 
-    private static class CacheNode {
+    private static final class CacheNode implements HealthIndicator {
 
         private Map<String, CacheNode> children;
 
@@ -123,88 +93,66 @@ public class IsyHealthContributorRegistryCache {
             this.health = health;
         }
 
-        public Health getHealth() {
+        @Override
+        public Health health() {
             return health;
         }
     }
 
-    private class CachingHealthContributorRegistry implements HealthContributorRegistry {
-
-        @Override
-        public void registerContributor(String name, HealthContributor contributor) {
-            registry.registerContributor(name, contributor);
+    private static HealthContributor adapt(HealthContributor healthContributor, CacheNode cacheNode) {
+        if (healthContributor instanceof CompositeHealthContributor) {
+            return adapt((CompositeHealthContributor) healthContributor, cacheNode);
         }
+        return adapt(cacheNode);
+    }
 
-        @Override
-        public HealthContributor unregisterContributor(String name) {
-            return registry.unregisterContributor(name);
-        }
-
-        @Override
-        public HealthContributor getContributor(String name) {
-            return adapt(registry.getContributor(name), rootNode.getChild(name));
-        }
-
-        @Override
-        public Iterator<NamedContributor<HealthContributor>> iterator() {
-            return createAdapterIterator(registry, rootNode);
-        }
-
-        private HealthContributor adapt(HealthContributor healthContributor, CacheNode cacheNode) {
-            if (healthContributor instanceof CompositeHealthContributor) {
-                return adapt((CompositeHealthContributor) healthContributor, cacheNode);
+    private static CompositeHealthContributor adapt(CompositeHealthContributor composite, CacheNode cacheNode) {
+        return new CompositeHealthContributor() {
+            @Override
+            public HealthContributor getContributor(String name) {
+                CacheNode childNode = null;
+                if (cacheNode != null) {
+                    childNode = cacheNode.getChild(name);
+                }
+                return adapt(composite.getContributor(name), childNode);
             }
-            return adapt(cacheNode);
-        }
 
-        private CompositeHealthContributor adapt(CompositeHealthContributor composite, CacheNode cacheNode) {
-            return new CompositeHealthContributor() {
-                @Override
-                public HealthContributor getContributor(String name) {
-                    CacheNode childNode = null;
-                    if (cacheNode != null) {
-                        childNode = cacheNode.getChild(name);
-                    }
-                    return adapt(composite.getContributor(name), childNode);
-                }
-
-                @Override
-                public Iterator<NamedContributor<HealthContributor>> iterator() {
-                    return createAdapterIterator(composite, cacheNode);
-                }
-            };
-        }
-
-
-        private HealthIndicator adapt(CacheNode cacheNode) {
-            if (cacheNode != null) {
-                return cacheNode::getHealth;
+            @Override
+            public Iterator<NamedContributor<HealthContributor>> iterator() {
+                return createAdapterIterator(composite, cacheNode);
             }
-            return () -> DEFAULT_HEALTH;
+        };
+    }
+
+
+    private static HealthIndicator adapt(CacheNode cacheNode) {
+        if (cacheNode != null) {
+            return cacheNode;
         }
+        return () -> DEFAULT_HEALTH;
+    }
 
-        private Iterator<NamedContributor<HealthContributor>> createAdapterIterator(
-                Iterable<NamedContributor<HealthContributor>> composite, CacheNode cacheNode) {
-            Iterator<NamedContributor<HealthContributor>> iterator = composite.iterator();
-            return new Iterator<NamedContributor<HealthContributor>>() {
+    private static Iterator<NamedContributor<HealthContributor>> createAdapterIterator(
+            Iterable<NamedContributor<HealthContributor>> composite, CacheNode cacheNode) {
+        Iterator<NamedContributor<HealthContributor>> iterator = composite.iterator();
+        return new Iterator<NamedContributor<HealthContributor>>() {
 
-                @Override
-                public boolean hasNext() {
-                    return iterator.hasNext();
+            @Override
+            public boolean hasNext() {
+                return iterator.hasNext();
+            }
+
+            @Override
+            public NamedContributor<HealthContributor> next() {
+                NamedContributor<HealthContributor> next = iterator.next();
+                String name = next.getName();
+                CacheNode childNode = null;
+                if (cacheNode != null) {
+                    childNode = cacheNode.getChild(name);
                 }
+                return NamedContributor.of(name, adapt(next.getContributor(), childNode));
+            }
 
-                @Override
-                public NamedContributor<HealthContributor> next() {
-                    NamedContributor<HealthContributor> next = iterator.next();
-                    String name = next.getName();
-                    CacheNode childNode = null;
-                    if (cacheNode != null) {
-                        childNode = cacheNode.getChild(name);
-                    }
-                    return NamedContributor.of(name, adapt(next.getContributor(), childNode));
-                }
-
-            };
-        }
+        };
     }
 }

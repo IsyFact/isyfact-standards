@@ -10,7 +10,6 @@ import java.util.function.Consumer;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 import org.springframework.boot.actuate.health.CompositeHealthContributor;
 import org.springframework.boot.actuate.health.DefaultHealthContributorRegistry;
 import org.springframework.boot.actuate.health.Health;
@@ -31,9 +30,7 @@ public class IsyHealthContributorRegistryCacheTest {
 
     private HealthContributorRegistry liveRegistry;
 
-    private IsyHealthContributorRegistryCache registryCache;
-
-   private HealthContributorRegistry cachingRegistry;
+    private IsyCachingHealthContributorRegistry cachingRegistry;
 
     @Before
     public void setup() {
@@ -48,8 +45,7 @@ public class IsyHealthContributorRegistryCacheTest {
                 .build());
         liveRegistry.registerContributor("A3", ContributorBuilder.indicator());
 
-        this.registryCache = new IsyHealthContributorRegistryCache(liveRegistry);
-        this.cachingRegistry = registryCache.getAdaptedRegistry();
+        cachingRegistry = new IsyCachingHealthContributorRegistry(liveRegistry);
     }
 
     /**
@@ -71,7 +67,7 @@ public class IsyHealthContributorRegistryCacheTest {
         HealthIndicator indicator = ContributorBuilder.indicator();
         cachingRegistry.registerContributor("HOLA", indicator);
         assertEquals(liveRegistry, cachingRegistry);
-        registryCache.update();
+        cachingRegistry.updateCache();
         verify(indicator).health();
     }
 
@@ -84,9 +80,9 @@ public class IsyHealthContributorRegistryCacheTest {
     public void testCachingRegistryUnregisterContributor() {
         HealthContributor healthContributor = cachingRegistry.unregisterContributor("A2");
         assertEquals(liveRegistry, cachingRegistry);
-        registryCache.update();
+        cachingRegistry.updateCache();
         consumeIndicators(healthContributor, healthIndicator -> {
-            verify(healthIndicator, Mockito.never()).health();
+            verify(healthIndicator, never()).health();
         });
     }
 
@@ -99,7 +95,7 @@ public class IsyHealthContributorRegistryCacheTest {
         HealthIndicator indicator = ContributorBuilder.indicator();
         liveRegistry.registerContributor("HOLA", indicator);
         assertEquals(liveRegistry, cachingRegistry);
-        registryCache.update();
+        cachingRegistry.updateCache();
         verify(indicator).health();
     }
 
@@ -112,9 +108,9 @@ public class IsyHealthContributorRegistryCacheTest {
     public void testLiveRegistryUnregisterContributor() {
         HealthContributor healthContributor = liveRegistry.unregisterContributor("A2");
         assertEquals(liveRegistry, cachingRegistry);
-        registryCache.update();
+        cachingRegistry.updateCache();
         consumeIndicators(healthContributor, healthIndicator -> {
-            verify(healthIndicator, Mockito.never()).health();
+            verify(healthIndicator, never()).health();
         });
     }
 
@@ -143,7 +139,7 @@ public class IsyHealthContributorRegistryCacheTest {
     @Test
     public void testUpdateCache() {
         // Update cached Indicator Values
-        registryCache.update();
+        cachingRegistry.updateCache();
 
         // Assert that the mocked Indicators of the original Registry have been called
         consumeIndicators(liveRegistry, healthIndicator -> {
@@ -214,18 +210,18 @@ public class IsyHealthContributorRegistryCacheTest {
 
         static class CompositeBuilder {
 
-            private Map<String, HealthContributor> map = new LinkedHashMap<>();
+            private final Map<String, HealthContributor> map = new LinkedHashMap<>();
 
-            private String prefix;
+            private final String prefix;
 
-            private int count = 0;
+            private int count;
 
             private CompositeBuilder(String prefix) {
                 this.prefix = prefix;
             }
 
             CompositeBuilder with(HealthContributor healthIndicator) {
-                this.map.put(prefix + (++count), healthIndicator);
+                map.put(prefix + ++count, healthIndicator);
                 return this;
             }
 

@@ -13,19 +13,19 @@ public class IsyHealthTask extends AbstractTask {
 
     private static final IsyLogger LOGISY = IsyLoggerFactory.getLogger(IsyHealthTask.class);
 
-    private final IsyHealthContributorRegistryCache isyHealthContributorRegistryCache;
+    private final IsyCachingHealthContributorRegistry cachingHealthContributorRegistry;
 
-    public IsyHealthTask(IsyHealthContributorRegistryCache isyHealthContributorRegistryCache) {
-        Assert.notNull(isyHealthContributorRegistryCache,
-        "IsyHealthContributorRegistryCache must not be null");
-        this.isyHealthContributorRegistryCache = isyHealthContributorRegistryCache;
+    public IsyHealthTask(IsyCachingHealthContributorRegistry cachingHealthContributorRegistry) {
+        Assert.notNull(cachingHealthContributorRegistry,
+        "IsyCachingHealthContributorRegistry must not be null");
+        this.cachingHealthContributorRegistry = cachingHealthContributorRegistry;
     }
 
     @Override
     public void execute() {
         LOGISY.debug("Starte Health Caching");
 
-        isyHealthContributorRegistryCache.update();
+        cachingHealthContributorRegistry.updateCache();
 
         LOGISY.debug("Health Cache aktualisiert");
     }
