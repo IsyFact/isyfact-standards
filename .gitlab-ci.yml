@@ -18,6 +18,8 @@ cache:
 .template: &vorlage
   tags:
    - zssi
+   - docker
+
   retry: 1
 
 .testtemplate: &testvorlage
@@ -27,6 +29,7 @@ cache:
    paths:
     - "${CI_JOB_NAME//test:/}/target/surefire-reports/*"
     - "${CI_JOB_NAME//test:/}/target/site/*"
+   expire_in: 1 day
    reports:
     junit:
      - "${CI_JOB_NAME//test:/}/target/surefire-reports/TEST-*.xml"
