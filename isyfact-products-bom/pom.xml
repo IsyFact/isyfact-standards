@@ -343,7 +343,7 @@
             <dependency>
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
-                <version>3.2.0</version>
+                <version>3.12.0</version>
                 <scope>test</scope>
             </dependency>
 
@@ -354,6 +354,33 @@
                 <version>1.4.196</version>
                 <scope>test</scope>
             </dependency>
+
+            <!-- Apache Commons-Validator -->
+            <dependency>
+                <groupId>commons-validator</groupId>
+                <artifactId>commons-validator</artifactId>
+                <version>1.6</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <profiles>
+        <profile>
+            <id>JDK-11</id>
+            <activation>
+                <jdk>[11,12)</jdk>
+            </activation>
+            <dependencyManagement>
+                <dependencies>
+                    <!-- Java Enterprise -->
+                    <dependency>
+                        <groupId>com.sun.xml.ws</groupId>
+                        <artifactId>jaxws-ri</artifactId>
+                        <version>2.3.3-b01</version>
+                        <type>pom</type>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+    </profiles>
 </project>

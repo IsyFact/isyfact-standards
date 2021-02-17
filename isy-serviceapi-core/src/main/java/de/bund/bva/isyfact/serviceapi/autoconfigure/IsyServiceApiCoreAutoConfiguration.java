@@ -23,7 +23,9 @@ public class IsyServiceApiCoreAutoConfiguration {
     public Advisor stelltLoggingKontextBereitAdvisor(StelltLoggingKontextBereitInterceptor interceptor) {
         AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
         pointcut.setExpression("@annotation(de.bund.bva.isyfact.serviceapi.core.aop.StelltLoggingKontextBereit) || @within(de.bund.bva.isyfact.serviceapi.core.aop.StelltLoggingKontextBereit)");
-        return new DefaultPointcutAdvisor(pointcut, interceptor);
+        DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor(pointcut, interceptor);
+        advisor.setOrder(50);
+        return advisor;
     }
 
     @Bean
