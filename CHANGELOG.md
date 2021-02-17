@@ -1,4 +1,5 @@
 # 2.2.0
+- `IFS-563`: Java-Konfiguration "HttpHeaderNestedDiagnosticContextFilter"
 - `IFS-465`: Profile zum Bauen mit Java 11 erstellt
 - `IFS-568`: [isy-util] Entfernt redundante Methode aus dem MessageSourceHolder 
 
