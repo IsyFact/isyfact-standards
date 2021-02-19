@@ -1,4 +1,5 @@
 # 2.2.0
+- `IFS-491`: Jackson Version auf 2.10.1 angehoben
 - `IFS-465`: Profile zum Bauen mit Java 11 erstellt
 
 # 2.1.0
