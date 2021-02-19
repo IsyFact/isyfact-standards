@@ -5,14 +5,15 @@ import java.util.Map;
 
 import javax.servlet.ServletRegistration;
 
-import de.bund.bva.isyfact.ueberwachung.config.LoadbalancerServletConfigurationProperties;
-import de.bund.bva.isyfact.ueberwachung.service.loadbalancer.LoadbalancerServlet;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import de.bund.bva.isyfact.ueberwachung.config.LoadbalancerServletConfigurationProperties;
+import de.bund.bva.isyfact.ueberwachung.service.loadbalancer.LoadbalancerServlet;
 
 @Configuration
 @EnableConfigurationProperties
@@ -26,8 +27,10 @@ public class IsyUeberwachungAutoConfiguration {
     }
 
     @Bean
-    public ServletRegistrationBean<LoadbalancerServlet> loadbalancerservlet(LoadbalancerServletConfigurationProperties properties) {
-        ServletRegistrationBean<LoadbalancerServlet> loadbalancerServlet = new ServletRegistrationBean<>(new LoadbalancerServlet());
+    public ServletRegistrationBean<LoadbalancerServlet> loadbalancerservlet(
+        LoadbalancerServletConfigurationProperties properties) {
+        ServletRegistrationBean<LoadbalancerServlet> loadbalancerServlet =
+            new ServletRegistrationBean<>(new LoadbalancerServlet());
         loadbalancerServlet.setLoadOnStartup(1);
         loadbalancerServlet.addUrlMappings("/Loadbalancer");
 

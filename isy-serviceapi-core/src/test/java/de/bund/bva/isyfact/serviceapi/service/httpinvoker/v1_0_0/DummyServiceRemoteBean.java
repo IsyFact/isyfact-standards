@@ -16,6 +16,8 @@
  */
 package de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0;
 
+import de.bund.bva.isyfact.serviceapi.core.httpinvoker.user.User;
+
 /**
  * RemoteBean-Interface des Dummy-Services
  *
@@ -30,5 +32,7 @@ public interface DummyServiceRemoteBean {
      * @return Die Nachricht.
      */
     String ping(String message);
+
+    String addUser(User user);
 
 }
