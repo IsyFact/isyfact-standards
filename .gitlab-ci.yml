@@ -1,3 +1,69 @@
 include:
   - project: 'IsyFact/isy-gitlabci-templates'
-    file: '/maven/.gitlab-ci-maven-all.yml'
+    file: '/maven/.gitlab-ci-maven.yml'
+
+build:
+  extends: .maven-build
+
+test:isy-aufrufkontext:
+  extends: .maven-test
+
+test:isy-batchrahmen:
+  extends: .maven-test
+
+test:isy-datetime:
+  extends: .maven-test
+
+test:isy-exception-core:
+  extends: .maven-test
+
+test:isy-exception-sst:
+  extends: .maven-test
+
+test:isy-konfiguration:
+  extends: .maven-test
+
+test:isy-logging:
+  extends: .maven-test
+
+test:isy-persistence:
+  extends: .maven-test
+
+test:isy-polling:
+  extends: .maven-test
+
+test:isy-serviceapi-core:
+  extends: .maven-test
+
+test:isy-serviceapi-sst:
+  extends: .maven-test
+
+test:isy-sonderzeichen:
+  extends: .maven-test
+
+test:isy-sst-bridge:
+  extends: .maven-test
+
+test:isy-task:
+  extends: .maven-test
+
+test:isy-ueberwachung:
+  extends: .maven-test
+
+test:isy-util:
+  extends: .maven-test
+
+package:
+  extends: .maven-package
+
+deploy-snapshot:
+  extends: .maven-deploy-snapshot
+
+deploy:
+  extends: .maven-deploy
+
+stages:
+  - build
+  - test
+  - package
+  - deploy
