@@ -38,6 +38,9 @@ test:isy-serviceapi-core:
 test:isy-serviceapi-sst:
   extends: .maven-test
 
+test:isy-sicherheit:
+  extends: .maven-test
+
 test:isy-sonderzeichen:
   extends: .maven-test
 
