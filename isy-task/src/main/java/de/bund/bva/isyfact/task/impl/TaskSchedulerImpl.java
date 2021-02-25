@@ -35,8 +35,8 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
- * Implementierung von {@link TaskScheduler}, bei der die Tasks als Spring-Beans bereitgestellt
- * und per {@link IsyTaskConfigurationProperties} konfiguriert werden.
+ * Implementation of {@link TaskScheduler}, in which the tasks are provided as spring beans and configured via
+ * {@link IsyTaskConfigurationProperties}.
  */
 public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware {
     private final IsyTaskConfigurationProperties configurationProperties;
@@ -58,13 +58,12 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
     private ApplicationContext applicationContext;
 
     /**
-     * Erstelle eine {@link TaskScheduler}-Instanz.
+     * Create a {@link TaskScheduler} instance.
      *
-     * @param configurationProperties    {@link IsyTaskConfigurationProperties} zur Konfiguration des TaskScheduler
-     * @param taskKonfigurationVerwalter {@link TaskKonfigurationVerwalter} der die Konfiguration der Tasks
-     *                                   bereitstellt
-     * @param hostHandler                {@link HostHandler} zur Überprüfung des Hosts, auf dem die Tasks ausgeführt werden
-     *                                   sollen
+     * @param configurationProperties    {@link IsyTaskConfigurationProperties} to configure the TaskScheduler
+     * @param taskKonfigurationVerwalter {@link TaskKonfigurationVerwalter} that provides the configuration of
+     *                                   the tasks
+     * @param hostHandler                {@link HostHandler} to check the host on which the tasks are to be run
      */
     public TaskSchedulerImpl(IsyTaskConfigurationProperties configurationProperties, TaskKonfigurationVerwalter taskKonfigurationVerwalter,
         HostHandler hostHandler) {
@@ -93,11 +92,11 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
     private TaskRunner createTask(Task task, TaskKonfiguration taskKonfiguration)
         throws HostNotApplicableException {
 
-        TaskRunner taskRunner = null;
         if (hostHandler.isHostApplicable(taskKonfiguration.getHostname())) {
-            taskRunner = new TaskRunnerImpl(task, taskKonfiguration);
+            return new TaskRunnerImpl(task, taskKonfiguration);
+        } else {
+            throw new HostNotApplicableException(taskKonfiguration.getHostname());
         }
-        return taskRunner;
     }
 
     public synchronized void addTask(TaskRunner taskRunner) {
