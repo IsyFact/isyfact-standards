@@ -1,3 +1,6 @@
+# 1.4.1
+- `IFS-746`: Behebung von NullPointerException in TaskSchedulerImpl (wenn HostHandler false zurückgibt)
+
 # 1.4.0
 - `IFS-325`: Ungenutze Abhaengigkeit auf `isy-ueberwachung` entfernt
 - `IFS-468`: Update auf dozer 6.5.0

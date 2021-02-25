@@ -1,5 +1,9 @@
 package de.bund.bva.isyfact.task.impl;
 
+import static de.bund.bva.isyfact.task.konstanten.KonfigurationStandardwerte.DEFAULT_INITIAL_NUMBER_OF_THREADS;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,6 +15,9 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 
 import de.bund.bva.isyfact.datetime.util.DateTimeUtil;
 import de.bund.bva.isyfact.logging.IsyLogger;
@@ -29,16 +36,10 @@ import de.bund.bva.isyfact.task.model.TaskRunner;
 import de.bund.bva.isyfact.task.model.impl.TaskRunnerImpl;
 import de.bund.bva.pliscommon.konfiguration.common.Konfiguration;
 import de.bund.bva.pliscommon.util.spring.MessageSourceHolder;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
-
-import static de.bund.bva.isyfact.task.konstanten.KonfigurationStandardwerte.DEFAULT_INITIAL_NUMBER_OF_THREADS;
-import static java.util.concurrent.TimeUnit.MILLISECONDS;
-import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
- * Implementierung von {@link TaskScheduler}, bei der die Tasks als Spring-Beans bereitgestellt
- * und per {@link Konfiguration} konfiguriert werden.
+ * Implementation of {@link TaskScheduler}, in which the tasks are provided as spring beans and configured via
+ * {@link Konfiguration}.
  */
 public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware {
     private final Konfiguration konfiguration;
@@ -60,13 +61,13 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
     private ApplicationContext applicationContext;
 
     /**
-     * Erstelle eine {@link TaskScheduler}-Instanz.
+     * Create a {@link TaskScheduler} instance.
      *
-     * @param konfiguration              {@link Konfiguration} zur Konfiguration des TaskScheduler
-     * @param taskKonfigurationVerwalter {@link TaskKonfigurationVerwalter} der die Konfiguration der Tasks
-     *                                   bereitstellt
-     * @param hostHandler                {@link HostHandler} zur Überprüfung des Hosts, auf dem die Tasks ausgeführt werden
-     *                                   sollen
+     * @param konfiguration              {@link Konfiguration} to configure the TaskScheduler
+     * @param taskKonfigurationVerwalter {@link TaskKonfigurationVerwalter} who provides the configuration of
+     *                                   the tasks
+     * @param hostHandler                {@link HostHandler} to check the host on which the tasks should be
+     *                                   executed
      */
     public TaskSchedulerImpl(Konfiguration konfiguration, TaskKonfigurationVerwalter taskKonfigurationVerwalter,
         HostHandler hostHandler) {
@@ -98,11 +99,11 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
     private TaskRunner createTask(Task task, TaskKonfiguration taskKonfiguration)
         throws HostNotApplicableException {
 
-        TaskRunner taskRunner = null;
         if (hostHandler.isHostApplicable(taskKonfiguration.getHostname())) {
-            taskRunner = new TaskRunnerImpl(task, taskKonfiguration);
+            return new TaskRunnerImpl(task, taskKonfiguration);
+        } else {
+            throw new HostNotApplicableException(taskKonfiguration.getHostname());
         }
-        return taskRunner;
     }
 
     public synchronized void addTask(TaskRunner taskRunner) {
