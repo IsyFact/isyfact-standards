@@ -1,5 +1,6 @@
 #1.10.1
 - `IFS-453`: Loglevel für isAlive-Datei-Ereignisse erhöht: INFO für Standardablageort wird genutzt; ERROR für Datei existiert bei Abfrage nicht.
+- `IFS-656`: ServiceStatstik berechnet Durchschnitt nun threadsafe
 
 # 1.10.0
 - `IFS-325`: Implementierung vom `AdministrationWatchdogTask` und dazugehoerigen Tests.
