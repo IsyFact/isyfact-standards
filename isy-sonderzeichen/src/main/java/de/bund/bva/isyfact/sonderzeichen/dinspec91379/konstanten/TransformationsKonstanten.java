@@ -33,9 +33,9 @@ public class TransformationsKonstanten {
 
     /** Der Pfad zur Transformations Tabelle Identisch */
     public static final String TRANSFORMATIONS_TABELLE_IDENTISCH =
-        "/resources/tabellen/transformation_identisch.transform";
+        "/resources/tabellen/transformation_dinspec91379.transform";
 
     /** Der Pfad zur Kategorie Tabelle Identisch */
-    public static final String KATEGORIE_TABELLE_IDENTISCH = "/resources/tabellen/kategorie_identisch.kat";
+    public static final String KATEGORIE_TABELLE_IDENTISCH = "/resources/tabellen/kategorie_dinspec91379.kat";
 
 }
