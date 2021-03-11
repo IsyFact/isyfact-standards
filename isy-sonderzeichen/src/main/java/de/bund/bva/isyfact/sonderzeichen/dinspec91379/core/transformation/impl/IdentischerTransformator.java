@@ -46,7 +46,7 @@ public class IdentischerTransformator extends AbstractTransformator {
 
     @Override
     protected String getKategorieTabelle() {
-        return TransformationsKonstanten.KATEGORIE_TABELLE_IDENTISCH;
+        return TransformationsKonstanten.KATEGORIE_TABELLE;
     }
 
 }

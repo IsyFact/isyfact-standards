@@ -36,6 +36,7 @@ public class TransformationsKonstanten {
         "/resources/tabellen/transformation_dinspec91379.transform";
 
     /** Der Pfad zur Kategorie Tabelle Identisch */
-    public static final String KATEGORIE_TABELLE_IDENTISCH = "/resources/tabellen/kategorie_dinspec91379.kat";
+    public static final String KATEGORIE_TABELLE = "/resources/tabellen/kategorie_dinspec91379.kat";
 
+    public static final String TRANSFORMATIONS_TABELLE_TRANSCRIPTION = "/resources/tabellen/transformation_din91379_transkription.transform";
 }
