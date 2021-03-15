@@ -23,15 +23,15 @@ import de.bund.bva.isyfact.sonderzeichen.stringlatin1_1.core.transformation.impl
 
 
 /**
- * Die Factory für den jeweiligen Transformator.
- * 
+ * The factory for the respective transformer.
+ *
  */
 public class TransformatorFactory implements FactoryBean, InitializingBean {
     
-    /** Der Transformator, wird über Spring gesetzt */
+    /** The transformer is set via Spring */
     private AbstractTransformator transformator;
-    
-    /** Zusätzliche Transformationstabelle, wird über Spring gesetzt */
+
+    /** Additional transformation table is set via Spring */
     private String transformationsTabelle;
 
     /**

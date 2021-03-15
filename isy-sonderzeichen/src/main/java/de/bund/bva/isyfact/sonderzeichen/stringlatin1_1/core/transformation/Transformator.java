@@ -17,100 +17,97 @@
 package de.bund.bva.isyfact.sonderzeichen.stringlatin1_1.core.transformation;
 
 /**
- * Schnittstelle für alle möglichen Transformatoren. Definiert Methoden, welche jeder Transformator anbieten
- * kann.
- * 
+ * Interface for all possible transformers. Defines methods that every transformer can offer.
+ *
  */
 public interface Transformator {
 
     /**
-     * Transformiert eine Zeichenkette. Stellt sicher, dass die Zeichenkette nach der Operation die angegebene
-     * Länge hat. Es wird dabei nicht unterschieden, ob die ursprüngliche Zeichenkettenlänge bereits das
-     * Maximum überschritten hat oder erst durch eine Transformation die Zeichenkette verlängert wurde.<br>
-     * Liefert <code>null</code> zurück, falls die Zeichenkette als <code>null</code> übergeben wurde.
-     * 
-     * Wichtig! Es gelten die gleichen Einschränkungen für non-BMP characters wir für
+     * Transforms a string. Ensures that the string has the specified length after the operation. There is no
+     * distinction between whether the original string length has already exceeded the maximum or whether the
+     * string was only lengthened by a transformation. <br> Returns <code> null </code> if the string is
+     * <code> null </ code > was passed.
+     *
+     * Important! The same restrictions apply to non-BMP characters as we do to
      * {@link #transformiere(String)}
-     * 
+     *
      * @param zeichenkette
-     *            Die zu transformierende Zeichenkette
+     *            The string to transform
      * @param maximaleLaenge
-     *            Die maximale Länge der Zeichenkette
-     * @return die transformierte Zeichenkette, oder null, falls null übergeben wurde
+     *            The maximum length of the string
+     * @return the transformed string, or null if null was passed
      */
     String transformiere(String zeichenkette, int maximaleLaenge);
 
     /**
-     * Transformiert eine Zeichenkette und gibt sie zurück. Leerzeichen am Anfang und am Ende der Zeichenkette
-     * werden abgeschnitten. Doppelte Leerzeichen innerhalb der Zeichenkette werden zu einem Leerzeichen
-     * umgewandelt.<br>
-     * Liefert <code>null</code> zurück, falls die Zeichenkette als <code>null</code> übergeben wurde.
-     * 
-     * Wichtig! Die Transformationsfunktion arbeitet die Zeichenkette char für char ab. Sollte ein
-     * Unicode-Character, welcher aus mehreren char Objekten besteht definiert sein (non-BMP character, z.B. I
-     * mit angehängtem Circumflex (\\u006C\\u0302), so liefert die Tranformationsfunktion das korrekte
-     * Ergebnis, kann aber nicht zwischen SL und NON-SL Zeichen unterscheiden. So könnten Zeichen außerhalb
-     * des Definitionsbereichs (z.B. alle \\u####\\u0302) der Transformation transformiert werden.<br>
-     * Zur Überprüfung ob eine Zeichenkette innerhalb des für den Transformator gültigen Bereichs liegt,
-     * sollte daher die Funktion {@link #isGueltigerString(String, String[])} benutzt werden.
+     * Transforms a string and returns it. Spaces at the beginning and at the end of the character string are
+     * cut off. Duplicate spaces within the string are converted to a space. <br> Returns <code> null </code>
+     * if the string was passed as <code> null </code>.
+     *
+     * Important! The transformation function processes the character string char for char. If a Unicode
+     * character, which consists of several char objects, is defined (non-BMP character, e.g. I with appended
+     * circumflex (\\u006C\\u0302), the transformation function delivers the correct result, but cannot
+     * switch between SL and NON-SL distinguish characters. Characters outside the definition range
+     * (eg all \\u####\\u0302) of the transformation could be transformed. <br> To check whether a character
+     * string is within the range valid for the transformer, the function
+     * {@link #isGueltigerString(String, String[])} can be used.
      * @param zeichenkette
-     *            Die zu transformierende Zeichenkette
-     * @return die transformierte Zeichenkette, oder null, falls null übergeben wurde
+     *            The string to transform
+     * @return the transformed string, or null if null was passed
      */
     String transformiere(String zeichenkette);
 
     /**
-     * Transformiert eine Zeichenkette und gibt sie zurück. Führt keine Trim Operationen am Ende aus.
-     * 
-     * Wichtig! Es gelten die gleichen Einschränkungen für non-BMP characters wir für
-     * {@link #transformiere(String)}
-     * 
+     * Transforms a string and returns it. Does not trim at the end.
+     *
+     * Important! The same restrictions apply for non-BMP characters as for {@link #transformiere(String)}
+     *
      * @param zeichenkette
-     *            Die zu transformierende Zeichenkette
-     * @return die transformierte Zeichenkette, oder null, falls null übergeben wurde
+     *            The string to transform
+     * @return the transformed string, or null if null was passed
      */
     String transformiereOhneTrim(String zeichenkette);
 
     /**
-     * Gibt den regulären Ausdruck für alle erlaubten Ausdrücke innerhalb der Zeichenkategorie zurück.
+     * Returns the regular expression for all allowed expressions within the character category.
      * @param kategorieListe
-     *            die erlaubten Ausdrücke der Zeichenkategorie
-     * @return der reguläre Ausdruck
+     *            the allowed expressions of the character category
+     * @return the regular expression
      */
     String getRegulaererAusdruck(String[] kategorieListe);
 
     /**
-     * Überprüft ob die übergebene Zeichenkette nur Zeichen enthält, welche in der jeweiligen Kategorie des
-     * Zielzeichensatzes des Transformators existiert. Der Zielzeichensatz besteht aus der Menge der Zeichen
-     * auf die abgebildet werden kann.
+     * Checks whether the transferred character string only contains characters that exist in the respective
+     * category of the target character set of the transformer. The target character set consists of the set of
+     * characters that can be mapped to.
      * @param zeichenkette
-     *            die zu überprüfende Zeichenkette
+     *            the string to be checked
      * @param kategorieListe
-     *            die Liste der Kategorien
-     * @return true, wenn die übergebene Zeichenkette nur Zeichen der jeweiligen Kategorie enthält
+     *            the list of categories
+     * @return true if the transferred character string only contains characters from the respective category
      */
     boolean isGueltigerString(String zeichenkette, String[] kategorieListe);
 
     /**
-     * Gibt alle gueltigen Zeichen des Transformators zurueck.
+     * Returns all valid characters of the transformer.
      * @param kategorie
-     *            die Kategorie
-     * @return alle gültuigen Zeichen des Transformators
+     *            the category
+     * @return all valid characters of the transformer
      */
     String[] getGueltigeZeichen(String kategorie);
 
     /**
-     * Prüft mit Hilfe einer Regel, ob ein zu transliterierender Substring eine bestimmte Bedingung erfüllt.
-     * 
+     * Checks with the help of a rule whether a substring to be transliterated fulfills a certain condition.
+     *
      * @param regel
-     *            Nummer der auszuwertenden Regel.
+     *            Number of the rule to be evaluated.
      * @param text
-     *            String, aus dem der zu prüfende Substring stammt.
+     *            String from which the substring to be tested originates.
      * @param position
-     *            Position des Substrings im Text.
+     *            Position of the substring in the text.
      * @param laenge
-     *            Länge des Substrings.
-     * @return true, wenn die Bedingung erfüllt ist, sonst false.
+     *            Length of the substring.
+     * @return true if the condition is met, otherwise false.
      */
     boolean werteRegelAus(int regel, String text, int position, int laenge);
 

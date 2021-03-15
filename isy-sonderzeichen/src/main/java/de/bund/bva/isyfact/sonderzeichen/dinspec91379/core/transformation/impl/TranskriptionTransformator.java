@@ -4,13 +4,17 @@ import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.sonderzeichen.dinspec91379.konstanten.TransformationsKonstanten;
 
+/**
+ * The transcription transformer
+ *
+ */
 public class TranskriptionTransformator extends  AbstractTransformator {
 
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(TranskriptionTransformator.class);;
 
     @Override
     protected String getStandardTransformationsTabelle() {
-        return TransformationsKonstanten.TRANSFORMATIONS_TABELLE_TRANSCRIPTION;
+        return TransformationsKonstanten.TRANSFORMATIONS_TABELLE_TRANSKRIPTION;
     }
 
     @Override

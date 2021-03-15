@@ -29,7 +29,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Testet den IdentischerTransformator.
+ * Tests the IdentischerTransformator.
  *
  */
 public class IdentischerTransformatorTest {

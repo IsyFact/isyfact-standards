@@ -21,7 +21,7 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.sonderzeichen.dinspec91379.konstanten.TransformationsKonstanten;
 
 /**
- * Der Transformator für identische String Latin Zeichen.
+ * The transformer for identical string Latin characters.
  *
  */
 public class IdentischerTransformator extends AbstractTransformator {
