@@ -1,28 +1,20 @@
 package de.bund.bva.isyfact.ueberwachung.actuate.health;
 
-import static de.bund.bva.isyfact.ueberwachung.actuate.health.HealthEndpointIntegrationTest.DELAY_MS;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Supplier;
 
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
-import org.springframework.boot.actuate.health.CompositeHealthIndicator;
+import org.springframework.boot.actuate.endpoint.http.ApiVersion;
+import org.springframework.boot.actuate.health.CompositeHealthContributor;
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.HealthAggregator;
+import org.springframework.boot.actuate.health.HealthContributor;
+import org.springframework.boot.actuate.health.HealthEndpointWebExtension;
 import org.springframework.boot.actuate.health.HealthIndicator;
-import org.springframework.boot.actuate.health.HealthWebEndpointResponseMapper;
-import org.springframework.boot.actuate.health.ShowDetails;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -33,7 +25,6 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
@@ -41,14 +32,17 @@ import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.
 import de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyHealthAutoConfiguration;
 import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
 
+import static de.bund.bva.isyfact.ueberwachung.actuate.health.HealthIntegrationTest.DELAY_MS;
+import static org.junit.Assert.*;
+
 /**
- * Test zum Überprüfen, ob der {@link IsyHealthEndpoint} benutzt wird und die Konfiguration greift.
+ * Class for verifying whether the health endpoint functions correctly with the caching registry.
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = { IsyHealthAutoConfiguration.class, HealthEndpointIntegrationTest.TestConfiguration.class },
+@SpringBootTest(classes = { IsyHealthAutoConfiguration.class, HealthIntegrationTest.TestConfiguration.class },
         properties = {
-                "isy.logging.anwendung.name=HealthEndpointIntegrationTest",
+                "isy.logging.anwendung.name=HealthIntegrationTest",
                 "isy.logging.anwendung.version=1.0.0-SNAPSHOT",
                 "isy.logging.anwendung.typ=Integrationstest",
                 "isy.task.autostart=true",
@@ -57,20 +51,17 @@ import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
         },
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @EnableAutoConfiguration
-public class HealthEndpointIntegrationTest {
+public class HealthIntegrationTest {
 
     static final int DELAY_MS = 3000;
 
-    private static final String testComponentName = "testComponent"; // muss Name der HealthIndicator-Bean entsprechen
+    private static final String testComponentName = "testComponent"; // must correspond to the name of the HealthIndicator-Bean
     private static final String testInstanceName = "testInstance";
 
     @LocalServerPort
     private int localPort;
 
     private final RestTemplate restTemplate = new RestTemplate();
-
-    @Autowired
-    private HealthWebEndpointResponseMapper healthWebEndpointResponseMapper;
 
     @BeforeClass
     public static void initClass() {
@@ -98,10 +89,10 @@ public class HealthEndpointIntegrationTest {
     }
 
     /**
-     * Wenn "management.endpoint.health.show-details=never" gesetzt ist, liefern die Endpoints für component und
-     * componentInstance immer ein 404 zurück, auch wenn der HealthIndicator existiert.
+     * If the property "management.endpoint.health.show-details" is set to "never" getting the health of a nested
+     * component always return 404, even if the HealthContributor exists.
      *
-     * @see org.springframework.boot.actuate.health.HealthWebEndpointResponseMapper#mapDetails(Supplier, SecurityContext)
+     * @see HealthEndpointWebExtension#health(ApiVersion, SecurityContext, String...)
      */
     @Test
     public void test3_andereEndpointsLiefern404() {
@@ -136,28 +127,6 @@ public class HealthEndpointIntegrationTest {
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
 
-    @Test
-    public void test6_andereEndpointsSindDaWennShowDetailsGleichAlways() {
-        ReflectionTestUtils.setField(healthWebEndpointResponseMapper, "showDetails", ShowDetails.ALWAYS);
-
-        // die eigene Health zeigt jetzt Details an
-        ResponseEntity<NachbarsystemHealth> healthResponse = getHealthResponse();
-        assertEquals(HttpStatus.OK, healthResponse.getStatusCode());
-        assertEquals(Status.UP, healthResponse.getBody().getStatus());
-        assertFalse(healthResponse.getBody().getDetails().isEmpty());
-
-        // die anderen Endpoint sind da und der CompositeIndicator zeigt Details an
-        ResponseEntity<NachbarsystemHealth> componentResponse = getHealthResponse(testComponentName);
-        assertEquals(HttpStatus.OK, componentResponse.getStatusCode());
-        assertEquals(Status.UP, componentResponse.getBody().getStatus());
-        assertFalse(componentResponse.getBody().getDetails().isEmpty());
-
-        ResponseEntity<NachbarsystemHealth> componentInstanceResponse = getHealthResponse(testComponentName, testInstanceName);
-        assertEquals(HttpStatus.OK, componentInstanceResponse.getStatusCode());
-        assertEquals(Status.UP, componentInstanceResponse.getBody().getStatus());
-        assertTrue(componentInstanceResponse.getBody().getDetails().isEmpty());
-    }
-
     private ResponseEntity<NachbarsystemHealth> getHealthResponse(String... path) {
         return getClientResponse("health", path);
     }
@@ -175,11 +144,12 @@ public class HealthEndpointIntegrationTest {
     @Configuration
     static class TestConfiguration {
 
+        // creates a new indicator under /actuator/health/testComponent/testInstance
         @Bean
-        public HealthIndicator testComponent(HealthAggregator healthAggregator) {
+        public HealthContributor testComponent() {
             Map<String, HealthIndicator> healthIndicatorMap = new HashMap<>();
             healthIndicatorMap.put("testInstance", () -> Health.up().build());
-            return new CompositeHealthIndicator(healthAggregator, healthIndicatorMap);
+            return CompositeHealthContributor.fromMap(healthIndicatorMap);
         }
 
     }

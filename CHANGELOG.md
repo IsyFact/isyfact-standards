@@ -2,7 +2,8 @@
 - `IFS-491`: Jackson Version auf 2.10.1 angehoben
 - `IFS-563`: Java-Konfiguration "HttpHeaderNestedDiagnosticContextFilter"
 - `IFS-465`: Profile zum Bauen mit Java 11 erstellt
-- `IFS-568`: [isy-util] Entfernt redundante Methode aus dem MessageSourceHolder 
+- `IFS-568`: [isy-util] Entfernt redundante Methode aus dem MessageSourceHolder
+- `IFS-694`: [isy-products-bom] Spring-Boot Versionsanhebung auf 2.2.9 und Fasterxml Jackson auf Version 2.10.5
 - `IFS-783`: Konfiguration von Quality Gate 1; Umstellung auf GitLabCI Templates
 
 # 2.1.0
