@@ -118,21 +118,13 @@ public class HealthIntegrationTest {
     @Test
     public void test4_metricsEnabled() {
         ResponseEntity<NachbarsystemHealth> responseEntity = getClientResponse("metrics");
-
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
 
     @Test
-    public void test5_infoDisabled() {
-
-        try {
-            getClientResponse("info");
-            fail("info ist disabled und Abfrage sollte Exception werfen");
-        } catch(HttpClientErrorException e){
-            assertEquals(HttpStatus.NOT_FOUND, e.getStatusCode());
-        } catch(Exception e){
-            fail("unerwartete Exception: "+ e.getMessage());
-        }
+    public void test5_infoEnabled() {
+        ResponseEntity<NachbarsystemHealth> responseEntity = getClientResponse("info");
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
 
     private ResponseEntity<NachbarsystemHealth> getHealthResponse(String... path) {
