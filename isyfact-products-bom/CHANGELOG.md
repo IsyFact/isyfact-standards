@@ -2,6 +2,7 @@
 - `IFS-491`: Jackson Version auf 2.10.1 angehoben
 - `IFS-465`: Profile zum Bauen mit Java 11 erstellt
 - `IFS-694`: Spring-Boot Versionsanhebung auf 2.2.9 und Fasterxml Jackson auf Version 2.10.5
+- `IFS-600`: Spring-Boot Versionsanhebung auf 2.3.8 und Fasterxml Jackson auf Version 2.11.2
 
 # 2.1.0
 - `IFS-223`: Logging Bridges ergänzt: jcl-over-slf4j, slf4j-jcl
