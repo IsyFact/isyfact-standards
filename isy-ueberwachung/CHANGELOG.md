@@ -1,5 +1,5 @@
 # 2.2.0
--`IFS-656`: ServiceStatstik: Durchschnitt threadsafe berechnet
+- `IFS-656`: ServiceStatstik: Durchschnitt threadsafe berechnet
 
 # 2.1.0
 - `IFS-436`: Entkopplung Health-Endpoint und hinzufügen Nachbarsystem-Check

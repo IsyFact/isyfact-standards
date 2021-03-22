@@ -6,6 +6,7 @@
 - `IFS-694`: [isy-products-bom] Spring-Boot Versionsanhebung auf 2.2.9 und Fasterxml Jackson auf Version 2.10.5
 - `IFS-600`: [isy-products-bom] Spring-Boot Versionsanhebung auf 2.3.8 und Fasterxml Jackson auf Version 2.11.2
 - `IFS-783`: Konfiguration von Quality Gate 1; Umstellung auf GitLabCI Templates
+- `IFS-656`: [isy-ueberwachung] ServiceStatstik: Durchschnitt threadsafe berechnet
 
 # 2.1.0
 - `IFS-156`: [isy-sicherheit] Sonderlogik, die Underscores aus dem Attribut `durchfuehrenderSachbearbeiterName` des Aufrufkontextes entfernt erneut ausgebaut.
