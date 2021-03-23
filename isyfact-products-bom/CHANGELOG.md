@@ -1,5 +1,6 @@
 # 1.8.3
 - `IFS-785`: Versionsupdate von XStream von 1.4.11 auf 1.4.14 wegen CVE
+   - es gibt voraussichtlich keine Kompatibilitätsprobleme
 
 # 1.8.1
 - `IFS-578`: Hebung Apache Commons-Validator auf 1.6
