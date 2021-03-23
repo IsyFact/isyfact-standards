@@ -2,6 +2,7 @@
 - `IFS-491`: Jackson Version auf 2.10.1 angehoben
 - `IFS-465`: Profile zum Bauen mit Java 11 erstellt
 - `IFS-785`: Versionsupdate von XStream von 1.4.11 auf 1.4.14 wegen CVE
+   - es gibt voraussichtlich keine Kompatibilitätsprobleme
 
 # 2.1.0
 - `IFS-223`: Logging Bridges ergänzt: jcl-over-slf4j, slf4j-jcl
