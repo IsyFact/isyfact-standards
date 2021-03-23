@@ -14,13 +14,11 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.isyfact.sonderzeichen.core.transformation.impl;
+package de.bund.bva.isyfact.sonderzeichen.stringlatin1_1.core.transformation.impl;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import de.bund.bva.isyfact.logging.IsyLogger;
-import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import org.junit.Before;
 import org.junit.Test;
 

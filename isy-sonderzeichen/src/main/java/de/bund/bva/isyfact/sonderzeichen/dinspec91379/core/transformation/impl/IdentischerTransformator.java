@@ -14,11 +14,11 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.isyfact.sonderzeichen.core.transformation.impl;
+package de.bund.bva.isyfact.sonderzeichen.dinspec91379.core.transformation.impl;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.isyfact.sonderzeichen.konstanten.TransformationsKonstanten;
+import de.bund.bva.isyfact.sonderzeichen.dinspec91379.konstanten.TransformationsKonstanten;
 
 /**
  * Der Transformator für identische String Latin Zeichen.

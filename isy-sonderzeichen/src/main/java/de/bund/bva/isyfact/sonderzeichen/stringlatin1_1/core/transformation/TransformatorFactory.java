@@ -14,12 +14,12 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.isyfact.sonderzeichen.core.transformation;
+package de.bund.bva.isyfact.sonderzeichen.stringlatin1_1.core.transformation;
 
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 
-import de.bund.bva.isyfact.sonderzeichen.core.transformation.impl.AbstractTransformator;
+import de.bund.bva.isyfact.sonderzeichen.stringlatin1_1.core.transformation.impl.AbstractTransformator;
 
 
 /**
