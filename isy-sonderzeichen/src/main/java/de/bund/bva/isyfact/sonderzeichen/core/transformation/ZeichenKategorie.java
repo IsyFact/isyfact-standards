@@ -16,6 +16,8 @@
  */
 package de.bund.bva.isyfact.sonderzeichen.core.transformation;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public class ZeichenKategorie {
     
     public static final String LETTER = "LETTER";
@@ -25,7 +27,11 @@ public class ZeichenKategorie {
     public static final String SEPARATOR = "SEPARATOR";
     public static final String SYMBOL = "SYMBOL";
     public static final String ALLE = "ALLE";
-    
+
+    @SuppressFBWarnings(
+            value = "MS_MUTABLE_ARRAY",
+            justification = "Solved with IFS-804"
+    )
     public static final String[] ALLE_ZEICHEN_KATEGORIEN = new String[]{LETTER,NUMBER,OTHER,PUNCTUATION,SEPARATOR,SYMBOL,ALLE};
 
 }

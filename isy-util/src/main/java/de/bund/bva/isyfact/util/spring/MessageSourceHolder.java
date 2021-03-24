@@ -18,6 +18,7 @@ package de.bund.bva.isyfact.util.spring;
 
 import java.util.Locale;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceAware;
 import org.springframework.context.NoSuchMessageException;
@@ -33,17 +34,6 @@ public final class MessageSourceHolder implements MessageSourceAware {
 
     /** Statischer Verweis auf die MessageSource der Anwendung. */
     private static MessageSource messageSource;
-
-    /**
-     * Liest eine Nachricht aus den in Spring konfigurierten Resource-Bundles aus.
-     * 
-     * @param schluessel
-     *            der Schlüssel des Resource-Bundles
-     * @return die Nachricht
-     */
-    public static String getMessage(String schluessel) {
-        return getMessage(schluessel, Locale.GERMANY, (String) null);
-    }
 
     /**
      * Liest eine Nachricht aus den in Spring konfigurierten Resource-Bundles aus.
@@ -94,6 +84,10 @@ public final class MessageSourceHolder implements MessageSourceAware {
      * @param messageSource
      *            MessageSource-Bean der Anwendung.
      */
+    @SuppressFBWarnings(
+            value = "ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD",
+            justification = "Solved with IFS-805"
+    )
     public void setMessageSource(MessageSource messageSource) {
         MessageSourceHolder.messageSource = messageSource;
     }

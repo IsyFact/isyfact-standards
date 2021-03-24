@@ -40,9 +40,9 @@ import de.bund.bva.isyfact.logging.exceptions.LoggingTechnicalRuntimeException;
 import de.bund.bva.isyfact.logging.impl.Ereignisschluessel;
 import de.bund.bva.isyfact.logging.impl.FachdatenMarker;
 import de.bund.bva.isyfact.logging.impl.FehlerSchluessel;
-import de.bund.bva.isyfact.logging.impl.MarkerSchluessel;
 import de.bund.bva.isyfact.logging.util.LoggingKonstanten;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.slf4j.Marker;
 
 /**
@@ -131,9 +131,13 @@ public class IsyJsonLayout extends JsonLayout {
         try {
             return formatter.toJsonString(map);
         } catch (Exception e) {
-            Map<String, String> stringMap = new LinkedHashMap<>();
+            Map<String, Object> stringMap = new LinkedHashMap<>();
             for (Map.Entry<String, Object> entry : map.entrySet()) {
-                stringMap.put(entry.getKey(), entry.getValue().toString());
+                if (MDC_ATTR_NAME.equals(entry.getKey())) {
+                    stringMap.put(entry.getKey(), entry.getValue());
+                } else {
+                    stringMap.put(entry.getKey(), entry.getValue().toString());
+                }
             }
             try {
                 return formatter.toJsonString(stringMap);
@@ -262,6 +266,10 @@ public class IsyJsonLayout extends JsonLayout {
      * @return der geprüfte und eventuell gekürzte Logeintrag als String
      */
 
+    @SuppressFBWarnings(
+            value = "DM_DEFAULT_ENCODING",
+            justification = "Solved with IFS-802"
+    )
     private String pruefeGroesse(Map<String, Object> map, String logeintrag, ILoggingEvent event) {
         if (maxLength > 0 && // Prüfen, ob eine maximale Länge definiert wurde (0=beliebig lang)
             event.getLevel().isGreaterOrEqual(Level.INFO) && // Nur Lognachrichten in Betracht ziehen, die Level INFO oder höher besitzen
@@ -340,6 +348,10 @@ public class IsyJsonLayout extends JsonLayout {
      * @param map die Map mit den Rohdaten des Log-Events
      * @return der berechnete Ueberhang
      */
+    @SuppressFBWarnings(
+            value = "DM_DEFAULT_ENCODING",
+            justification = "Solved with IFS-802"
+    )
     private int berechneUeberhang(Map<String, Object> map) {
         String logeintrag = getStringFromFormatter(map);
         int tatsaechlicheLaenge = logeintrag.getBytes().length;

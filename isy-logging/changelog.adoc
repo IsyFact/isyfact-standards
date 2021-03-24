@@ -1,0 +1,73 @@
+[[changelog]]
+= Changelog
+
+// *Änderungen IsyFact 2.2.0*
+
+// tag::release-2.2.0[]
+// end::release-2.2.0[]
+
+*Änderungen IsyFact 2.1.0*
+
+// tag::release-2.1.0[]
+- `IFS-362`: LogApplicationListener loggt nur noch für den eigenen ApplicationContext (nicht für Kind-Kontexte)
+- `IFS-444`: Anpassung der Klasse BeanToMapConverter
+- `IFS-466`: Fix für fehlerhafte Mdc Formatierung
+// end::release-2.1.0[]
+
+*Änderungen IsyFact 2.0.0*
+
+// tag::release-2.0.0[]
+- `IFS-71`: Alter Fachdaten-Marker entfernt
+- `IFS-228`: Einführung von Spring Boot
+- `IFS-177`: Batch-Appender entfernt
+- `IFS-251`: Abhängigkeiten zu log4j entfernt
+// end::release-2.0.0[]
+
+// *Änderungen IsyFact 1.8.0*
+
+// tag::release-1.8.0[]
+// end::release-1.8.0[]
+
+*Änderungen IsyFact 1.7.0*
+
+// tag::release-1.7.0[]
+// Interne alte Version: 1.8.0
+- `IFS-225`: Prüfung der Logeinträge auf maximale Länge und ggfs. Kürzung dieser
+- `IFS-262`: `isyfact-masterpom` deprecated (Abschaffung mit IsyFact 2.0), `isyfact-masterpom-lib` aufgelöst, Bibliotheken benutzen `isyfact-standards` als Parent-POM
+// end::release-1.7.0[]
+
+*Änderungen IsyFact 1.6.0*
+
+// tag::release-1.6.0[]
+// Interne alte Version: 1.7.0
+- `IFS-189`: Repositories der IsyFact-Standards zusammengeführt, Bibliotheken benutzen wieder gemeinsames Produkt-BOM und werden zentral über das POM isyfact-standards versioniert
+- `IFS-177`: Anwendungen und Batches loggen identisch. Der Batch-Appender `appender-batch.xml` ist deprecated und wird im Release v2.0.0 entfernt.
+// end::release-1.6.0[]
+
+// *Änderungen IsyFact 1.5.0*
+
+// tag::release-1.5.0[]
+// end::release-1.5.0[]
+
+*Änderungen IsyFact 1.4.0*
+
+// tag::release-1.4.0[]
+// Interne alte Version: 1.5.1
+- `RF-161`: Bibliotheken binden genutzte Bibliotheken direkt ein und nicht mehr über BOM-Bibliotheken
+- `IFS-42`: Erweiterung um Performance-Logging
+- `IFS-68`: Erweiterte Typisierung von Logeinträgen
+- `IFS-70`: Position vom Zeitstempel verschoben
+// end::release-1.4.0[]
+
+*Änderungen IsyFact 1.3.5*
+
+// tag::release-1.3.5[]
+// Interne alte Version: 1.4.1
+- `IFS-31`: Konfiguration der maximalen Größe von Parametern implementiert
+- LogSchluessel als Deprecated markiert
+// end::release-1.3.5[]
+
+// *Änderungen IsyFact 1.3.0*
+
+// tag::release-1.3.0[]
+// end::release-1.3.0[]

@@ -18,6 +18,8 @@ public class IsyTaskConfigurationProperties {
 
     private final Watchdog watchdog = new Watchdog();
 
+    private boolean autostart;
+
     public Map<String, TaskConfig> getTasks() {
         return tasks;
     }
@@ -28,6 +30,14 @@ public class IsyTaskConfigurationProperties {
 
     public Watchdog getWatchdog() {
         return watchdog;
+    }
+
+    public boolean isAutostart() {
+        return autostart;
+    }
+
+    public void setAutostart(boolean autostart) {
+        this.autostart = autostart;
     }
 
     public static class TaskConfig {
