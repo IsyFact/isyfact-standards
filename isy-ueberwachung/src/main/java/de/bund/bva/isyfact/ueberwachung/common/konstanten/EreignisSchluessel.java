@@ -41,4 +41,13 @@ public class EreignisSchluessel {
 
     /** Loadbalancer wurde abgefragt, aber isAlive-Datei existiert nicht. */
     public static final String IS_ALIVE_EXISTIERT_NICHT = "PLUEB00005";
+
+    /** Essentielles Nachbarsystem {} nicht erreicht. Status: {} */
+    public static final String NACHBARSYSTEM_ESSENTIELL_NICHT_ERREICHBAR = "PLUEB00002";
+
+    /** Nicht-essentielles Nachbarsystem {} nicht erreicht. Status: {} */
+    public static final String NACHBARSYSTEM_NICHT_ESSENTIELL_NICHT_ERREICHBAR = "PLUEB00003";
+
+    /** Bei der Anfrage des Nachbarsystems {} ist ein Fehler aufgetreten: {} */
+    public static final String NACHBARSYSTEM_ANFRAGEFEHLER = "PLUEB00004";
 }
