@@ -17,16 +17,19 @@
 package de.bund.bva.isyfact.aufrufkontext.http;
 
 import java.util.UUID;
+
 import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.web.filter.AbstractRequestLoggingFilter;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
-import org.springframework.web.filter.AbstractRequestLoggingFilter;
 
 /**
- * Ein Servlet-Filter, der die Correlation-ID aus dem Http-Header {@link #correlationIdHttpHeaderName} und im
- * Logging-Framework verfügbar macht. Ist der Header nicht gesetzt wird eine neue Correlation-ID generiert.
+ * Ein Servlet-Filter, der die Correlation-ID aus dem Http-Header {@link #correlationIdHttpHeaderName}
+ * ausliest und im Logging-Framework verfügbar macht.
+ * Ist der Header nicht gesetzt wird eine neue Correlation-ID generiert.
  * <p>
  * Die Correlation-ID in einem Servlet-Filter zu verarbeiten bietet den Vorteil, dass der zum frühest
  * möglichen Zeitpunkt innerhalb eines Requests gesetzt ist. Dadurch enthalten auch alle Logausgaben von
@@ -34,24 +37,7 @@ import org.springframework.web.filter.AbstractRequestLoggingFilter;
  * </p>
  *
  * <p>
- * Der Servlet-Filter muss in der {@code web.xml} der Anwendung für die gewünschten URLs konfiguriert werden
- * und sollte vor der springSecurityFilterChain definiert werden, da diese die gesetzte Correlation-ID
- * ausließt. Beispiel:
- *
- * <pre>
- * &lt;filter&gt;
- *   &lt;filter-name&gt;mdcFilter&lt;/filter-name&gt;
- *   &lt;filter-class&gt;
- *     de.bund.bva.isyfact.aufrufkontext.http.HttpHeaderNestedDiagnosticContextFilter
- *   &lt;/filter-class&gt;
- * &lt;/filter&gt;
- *
- * &lt;filter-mapping&gt;
- *   &lt;filter-name&gt;mdcFilter&lt;/filter-name&gt;
- *   &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
- * &lt;/filter-mapping&gt;
- * </pre>
- *
+ * Die Konfiguration erfolgt automatisch durch {@link de.bund.bva.isyfact.aufrufkontext.autoconfigure.MdcFilterConfiguration}.
  * </p>
  *
  */

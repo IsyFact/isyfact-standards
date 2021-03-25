@@ -1,0 +1,70 @@
+[[changelog]]
+= Changelog
+
+// *Änderungen IsyFact 2.2.0*
+
+// tag::release-2.2.0[]
+// end::release-2.2.0[]
+
+//*Änderungen IsyFact 2.1.0*
+
+// tag::release-2.1.0[]
+// end::release-2.1.0[]
+
+*Änderungen IsyFact 2.0.0*
+
+// tag::release-2.0.0[]
+- `IFS-228`: Einführung von Spring Boot
+- `IFS-32`: Package-Name auf de.bund.bva.isyfact geändert
+// end::release-2.0.0[]
+
+// *Änderungen IsyFact 1.8.0*
+
+// tag::release-1.8.0[]
+// end::release-1.8.0[]
+
+*Änderungen IsyFact 1.7.0*
+
+// tag::release-1.7.0[]
+// Interne alte Version: 1.9.0
+- `IFS-262`: `isyfact-masterpom` deprecated (Abschaffung mit IsyFact 2.0), `isyfact-masterpom-lib` aufgelöst, Bibliotheken benutzen `isyfact-standards` als Parent-POM
+// end::release-1.7.0[]
+
+*Änderungen IsyFact 1.6.0*
+
+// tag::release-1.6.0[]
+// Interne alte Version: 1.8.0
+- `IFS-115`: Persistenz-Code von `isy-datetime` nach `isy-persistence` verschoben
+- `IFS-189`: Repositories der IsyFact-Standards zusammengeführt, Bibliotheken benutzen wieder gemeinsames Produkt-BOM und werden zentral über das POM isyfact-standards versioniert
+// end::release-1.6.0[]
+
+// *Änderungen IsyFact 1.5.0*
+
+// tag::release-1.5.0[]
+// end::release-1.5.0[]
+
+*Änderungen IsyFact 1.4.0*
+
+// tag::release-1.4.0[]
+// Interne alte Version: 1.6.0
+- `RF-161`: Bibliotheken binden genutzte Bibliotheken direkt ein und nicht mehr über BOM-Bibliotheken
+- `IFS-63`: Vollständiges Beispiel für DB-Install/Update-Skripte eingefügt. Beispiel für schemaübergreifende Operationen eingefügt - sowohl DB-Install-Skripte, als auch DB-Update-Skripte.
+// end::release-1.4.0[]
+
+*Änderungen IsyFact 1.3.5*
+
+// tag::release-1.3.5[]
+// Interne alte Version: 1.5.1
+- `IFS-43`: ojdbc7 Dependency für Tests gegen h2 getauscht
+- `IFS-17`: Umbenennung der Artifact-ID und Group-ID
+// end::release-1.3.5[]
+
+*Änderungen IsyFact 1.3.0*
+
+// tag::release-1.3.0[]
+// Interne alte Version: < 1.5
+- DB-Update-Skript prüft, ob vorliegendes Schema 'gueltig' ist.
+- `RF-146`: Datasource kann als non-critical markiert werden, um das Hochfahren einer Anwendung trotz fehlender Verbindung zu ermöglichen.
+- `RF-146`: Datasource kann als non-critical markiert werden, um das Hochfahren einer Anwendung trotz fehlender Verbindung zu ermöglichen (letzte Version vor Hibernate 5).
+// end::release-1.3.0[]
+

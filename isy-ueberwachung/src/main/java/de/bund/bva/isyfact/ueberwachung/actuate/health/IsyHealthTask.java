@@ -7,24 +7,25 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.task.model.AbstractTask;
 
 /**
- * Dieser Task aktualisiert den Cache in {@link IsyHealthEndpoint}.
+ * This Task updates the cache in {@link IsyHealthContributorRegistryCache}.
  */
 public class IsyHealthTask extends AbstractTask {
 
     private static final IsyLogger LOGISY = IsyLoggerFactory.getLogger(IsyHealthTask.class);
 
-    private final IsyHealthEndpoint isyHealthEndpoint;
+    private final IsyCachingHealthContributorRegistry cachingHealthContributorRegistry;
 
-    public IsyHealthTask(IsyHealthEndpoint isyHealthEndpoint) {
-        Assert.notNull(isyHealthEndpoint, "IsyHealtHEndpoint must not be null");
-        this.isyHealthEndpoint = isyHealthEndpoint;
+    public IsyHealthTask(IsyCachingHealthContributorRegistry cachingHealthContributorRegistry) {
+        Assert.notNull(cachingHealthContributorRegistry,
+        "IsyCachingHealthContributorRegistry must not be null");
+        this.cachingHealthContributorRegistry = cachingHealthContributorRegistry;
     }
 
     @Override
     public void execute() {
         LOGISY.debug("Starte Health Caching");
 
-        isyHealthEndpoint.aktualisiereCache();
+        cachingHealthContributorRegistry.updateCache();
 
         LOGISY.debug("Health Cache aktualisiert");
     }
