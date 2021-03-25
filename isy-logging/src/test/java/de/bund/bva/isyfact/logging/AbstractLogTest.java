@@ -4,7 +4,7 @@ package de.bund.bva.isyfact.logging;
  * #%L
  * isy-logging
  * %%
- * 
+ *
  * %%
  * See the NOTICE file distributed with this work for additional
  * information regarding copyright ownership.
@@ -12,9 +12,9 @@ package de.bund.bva.isyfact.logging;
  * licenses this file to you under the Apache License, Version 2.0 (the
  * License). You may not use this file except in compliance with the
  * License. You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
@@ -29,6 +29,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -43,132 +45,126 @@ import org.junit.Assert;
 import org.junit.Before;
 
 /**
- * Oberklasse aller Logging-Tests. Die Klasse kapselt insbesondere die Funktionalität zum Prüfen der durch die
- * Testfälle erstellten Logdatei .
- * 
+ * Base class for all logging tests. The class contains methods to check the log files created in the test cases.
  */
 public abstract class AbstractLogTest {
 
-    /** Präfix aller Vorlage-Logdateien. */
+    /** Prefix for all expected log files. */
     protected static final String VORLAGE_PREFIX = "VORLAGE_";
 
-    /** Pfad, in dem die Logdatei durch die Tests erstellt wird. */
+    /** Path to expected logs. */
+    private static final Path EXPECTED_LOGS_PATH = Paths.get("src", "test", "resources", "logausgaben");
+
+    /** Path where the tests write the log files. */
     protected static final String LOG_VERZEICHNIS = "target/var/log/isy-logging/";
 
-    /** Name der Logdatei. */
+    /** Log file name. */
     protected static final String LOG_DATEI = "testserver_testsystem.log";
 
-    /** Der in den Subklassen einheitlich zu verwendende Logger. */
+    /** Logger to use in the subclasses. */
     private static final IsyLoggerStandard LOGGER = IsyLoggerFactory.getLogger(AbstractLogTest.class);
 
-    /** Konstante für die Einleitung des Attributs "zeitstempel" in einem Logeintrag. */
+    /** Prefix for the attribute "zeitstempel" in a log file. */
     private static final String JSON_ZEITSTEMPEL_PRAEFIX = "zeitstempel\":\"";
 
-    /** Konstante für den Abschluss eines Attributs im Logeintrag. */
+    /** Suffix for the an attribute in a log file. */
     private static final String JSON_ATTRIBUT_SUFFIX = "\"";
 
-    /** Konstante für die Einleitung der Bearbeitungsdauer in einer Lognachricht. */
+    /** Prefix for the duration in a log entry. */
     private static final String JSON_DAUERTE_PRAEFIX = "dauerte ";
 
-    /** Konstante für den Abschluss der Bearbeitungsdauer in einer Lognachricht. */
+    /** Suffix for the duration in a log entry. */
     private static final String JSON_DAUER_SUFFIX = "ms";
 
-    /** Konstante für die Einleitung des Attributs "parameter2" in einem Logeintrag. */
+    /** Prefix for the attribute "parameter2" in a log file. */
     private static final String JSON_PARAMETER2_PRAEFIX = "parameter2\":\"";
 
-    /** Konstante für die Einleitung des Attributs "parameter2" in einem Logeintrag. */
+    /** Prefix for the attribute "parameter2" in a log file. */
     private static final String JSON_PARAMETER2_PRAEFIX_OHNE_LEERZEICHEN = "parameter2\":";
 
-    /** Abschließendes Zeichen des Logeintrags. */
+    /** Log entry closing symbol. */
     private static final String JSON_ENDE = "}";
 
-    /** Konstante für die Einleitung des Attributs "parameter4" in einem Logeintrag. */
+    /** Prefix for the attribute "parameter4" in a log file. */
     private static final String JSON_PARAMETER4_PRAEFIX_OHNE_LEERZEICHEN = "parameter4\":";
 
-    /** Konstante für die Einleitung des Attributs "dauer" in einem Logeintrag. */
+    /** Prefix for the attribute "dauer" in a log file. */
     private static final String JSON_DAUER_PRAEFIX = "dauer\":\"";
 
-    /** Konstante für die Einleitung des Attributs "schluessel" in einem Logeintrag. */
+    /** Prefix for the attribute "schluessel" in a log file. */
     private static final String JSON_SCHLUESSEL_PRAEFIX = "schluessel\":\"";
 
-    /** Konstante für die Einleitung des Attributs "level\":\"" in einem Logeintrag. */
+    /** Prefix for the attribute "level" in a log file. */
     private static final String JSON_LEVEL_PRAEFIX = "level\":\"";
 
-    /** Konstante für die Einleitung des Attributs "nachricht" in einem Logeintrag. */
+    /** Prefix for the attribute "nachricht" in a log file. */
     private static final String JSON_NACHRICHT_PRAEFIX = "nachricht\":\"";
 
-    /** Konstante für die Einleitung des Attributs "exception" in einem Logeintrag. */
+    /** Prefix for the attribute "exception" in a log file. */
     private static final String JSON_EXCEPTION_PRAEFIX = "exception\":\"";
 
-    /** Konstante für den Trenner zwischen Attributen. */
+    /** Attribute delimiter. */
     private static final String JSON_NAECHSTES_ATTRIBUT = ",";
 
-    /** Kennzeichung eines Fehlertests. */
+    /** Failed test marker. */
     protected static final String KENNZEICHNUNG_FEHLERTEST = "Fehlertest";
 
-    /**
-     * Konstante für eine Lognachricht, die als Trenner der Testfälle dient (erster Logeintrag bei Beginn des
-     * Tests.
-     */
+    /** Log entry, which is a delimiter between test cases (first log entry when a test begins). */
     private static final String TRENNER_NEUER_TESTFALL = "***** NEUERTESTFALL *****";
 
     /**
-     * Flag zum Kennzeichnen, ob statt einer Prüfung, dass erstellte Ergebnis als Vorlage übernommen werden
-     * soll. Muss manuell, vor Ausführung der Tests gesetzt werden.
+     * Flag, if the result should be saved as expected output instead of being asserted. Must be set
+     * manually before test execution.
      */
     private static final boolean UEBERNEHME_IN_VORLAGE = false;
 
-    /** Ereignisschlüssel, zum Test des Erstellens eines Logeintrags ohne Nachricht. */
+    /** Event key for the test creating log entry without a message. */
     public static final String EREIGNISSCHLUESSEL_OHNE_NACHRICHT = "OHNENACHRIT";
 
     /**
-     * Vorbereiten des Tests.
+     * Test setup.
      */
     @Before
     public void setUp() {
 
-        // Vor Start jedes Testfalls wird ein einleitender Logeintrag erstellt, um zu erkennen, wo die
-        // Logeinträge dieses Tests beginnen. Dies ist notwendig, da die Logdatei beim Ausführen mehrerer
-        // Tests nicht zwischenzeitlich geköscht werden kann.
+        // A start log entry will be created before each test to mark the beginning of the log entries for this test.
+        // This is needed because the log file cannot be deleted between the executions of several tests.
         LOGGER.debug(TRENNER_NEUER_TESTFALL);
 
-        // KorrelationsId setzen
+        // Set the correlation id
         while (MdcHelper.entferneKorrelationsId() != null) {
-            // Korrelations-Id wird geleert.
+            // Reset correlation idt.
         }
         MdcHelper.entferneMarkerFachdaten();
         MdcHelper.pushKorrelationsId("STATISCHE-KORR-ID-1;STATISCHE-KORR-ID-2;STATISCHE-KORR-ID-3");
     }
 
     /**
-     * Hilfsmethode zum überprüfen der erstellten Logdatei. Datei wird die Logdatei mit einer Vorlagedatei
-     * verglichen. Dies geschieht in dem die Vorlagedatei und die erstellte Logdatei Zeilenweise eingelesen
-     * und verglichen werden.
-     * 
+     * Helper method to check the created log file. The log file will be compared to the expected output.
+     * Both files are read and compared line by line.
+     *
      * @param testfallName
-     *            name des ausgeführten Testfalls.
+     *            test case.
      */
     protected void pruefeLogdatei(String testfallName) {
         pruefeLogdatei(testfallName, false);
     }
 
     /**
-     * Hilfsmethode zum überprüfen der erstellten Logdatei. Datei wird die Logdatei mit einer Vorlagedatei
-     * verglichen. Dies geschieht in dem die Vorlagedatei und die erstellte Logdatei Zeilenweise eingelesen
-     * und verglichen werden.
-     * 
+     * Helper method to check the created log file. The log file will be compared to the expected output.
+     * Both files are read and compared line by line.
+     *
      * @param testfallName
-     *            name des ausgeführten Testfalls.
+     *            test case.
      * @param jsonVergleich
-     *            gibt an, ob der Vergleich auf JSON-oder auf String-Basis erfolgen soll.
+     *            flag, if JSON or String comparison should be performed.
      */
     protected void pruefeLogdatei(String testfallName, boolean jsonVergleich) {
 
         try {
 
-            // Für jeden Testfall existiert eine eigene Vorlagedatei, die den Namen des Testsfalls im Namen
-            // trägt
-            File vorlageDatei = new File("logausgaben/" + VORLAGE_PREFIX + testfallName + ".log");
+            // Expected ouput file exists for each test case. The file name contains the name of the test case.
+            File vorlageDatei = new File(EXPECTED_LOGS_PATH.toString(), VORLAGE_PREFIX + testfallName + ".log");
             File ergebnisDatei = new File(LOG_VERZEICHNIS + LOG_DATEI);
 
             if (!vorlageDatei.exists()) {
@@ -178,8 +174,8 @@ public abstract class AbstractLogTest {
                 Assert.fail("Ergebnisdatei existiert nicht: " + ergebnisDatei.getAbsolutePath());
             }
 
-            // Es werden die Logeinträge gesammelt, die zum aktuellen Logeintrag gehören. Das sind die Zeilen
-            // nach dem letzten Trenner bis zum Ende der Datei.
+            // Collect log entries, which belong the current log record (lines after the last delimiter to the
+            // end of file).
             List<String> ergebnis = new ArrayList<>();
             BufferedReader ergebnisReader = new BufferedReader(new FileReader(ergebnisDatei));
             String zeileErgebnis;
@@ -194,8 +190,8 @@ public abstract class AbstractLogTest {
             ergebnisReader.close();
 
             if (UEBERNEHME_IN_VORLAGE) {
-                // Automatisches übernehmen des Ergenisses als Vorlage. Dieser Mechanismus kann bei
-                // querschnittlichen Änderungen die Vorlagedateien gerade zu ziehen.
+                // Write the result into the expected ouput file. This can be used to bulk adjust the
+                // expected output files.
                 vorlageDatei.delete();
                 PrintWriter vorlageWriter = new PrintWriter(new FileWriter(vorlageDatei));
                 for (String zeile : ergebnis) {
@@ -203,14 +199,14 @@ public abstract class AbstractLogTest {
                 }
                 vorlageWriter.close();
             } else {
-                // Einlesen der Vorlage.
+                // Read expected ouput.
                 BufferedReader vorlageReader = new BufferedReader(new FileReader(vorlageDatei));
                 String zeileVorlage;
                 int i = 0;
                 while ((zeileVorlage = vorlageReader.readLine()) != null) {
-                    // Konsistenzprüfung der Zeile an sich
+                    // Consistency check of the line
                     pruefeLogZeile(ergebnis.get(i));
-                    // Zeilenweise vergleichen der Vorlage mit der Ergebnisdatei.
+                    // Compare line by line the expected output with the result file.
                     if (jsonVergleich) {
                         vergleicheLogZeileJson(zeileVorlage, ergebnis.get(i));
                     } else {
@@ -219,7 +215,7 @@ public abstract class AbstractLogTest {
                     i++;
                 }
                 if (ergebnis.size() > i) {
-                    // Es wurden zu viele Logeinträge erstellt.
+                    // Too many log entries were created.
                     Assert.fail("Die erstellte Logdatei enthält zuviele Zeilen: " + zeileErgebnis);
                 }
                 vorlageReader.close();
@@ -264,7 +260,7 @@ public abstract class AbstractLogTest {
         Collections.sort(feldnamenVorlage);
         Collections.sort(feldnamenErgebnis);
 
-        // Erkennen zuvieler Felder im Ergebnis
+        // Check if there are too many fields in the result
         List<String> feldnamenErgebnisZuViel = new ArrayList<>();
         while (feldnamenErgebnisIter.hasNext()) {
             feldnamenErgebnisZuViel.add(feldnamenErgebnisIter.next());
@@ -272,7 +268,7 @@ public abstract class AbstractLogTest {
         Assert.assertTrue("Zuviele Felder im Ergebnis: " + feldnamenErgebnisZuViel,
                 feldnamenErgebnisZuViel.isEmpty());
 
-        // Vergleich Vorlage mit Ergebnis
+        // Compare result to the expected output
         for (int i = 0; i < feldnamenVorlage.size(); i++) {
 
             String feldnameVorlage = feldnamenVorlage.get(i);
@@ -291,12 +287,12 @@ public abstract class AbstractLogTest {
                 String textErgebnis = jsonNodeErgebnis.asText();
 
                 if ("zeitstempel".equals(feldnameVorlage)) {
-                    // Abweichung wird akzeptiert
+                    // Difference is allowed
                     textVorlage = "";
                     textErgebnis = "";
                 }
                 if ("dauer".equals(feldnameVorlage)) {
-                    // Dauer muss eine Zahl sein
+                    // Duration must be a number
                     try {
                         Integer.parseInt(textVorlage);
                     } catch (Exception e) {
@@ -308,23 +304,23 @@ public abstract class AbstractLogTest {
                         Assert.fail("Dauer in Ergebnis ist keine Zahl: " + textVorlage);
                     }
 
-                    // Abweichung wird akzeptiert
+                    // Difference is allowed
                     textVorlage = "";
                     textErgebnis = "";
                 }
                 if ("parameter2".equals(feldnameVorlage)) {
                     if (("EISYLO01005").equals(ereignisschluessel)) {
-                        // Parameter enthält die Dauer
+                        // Parameter contains the duration
                         textVorlage = "";
                         textErgebnis = "";
                     }
                 }
                 if ("nachricht".equals(feldnameVorlage)) {
-                    // "dauerte 100 ms" ersetzen durch "dauerte ERSETZT ms"
+                    // "dauerte 100 ms" replaced by "dauerte ERSETZT ms"
                     textVorlage = ersetzeString(textVorlage, JSON_DAUERTE_PRAEFIX, JSON_DAUER_SUFFIX);
                     textErgebnis = ersetzeString(textErgebnis, JSON_DAUERTE_PRAEFIX, JSON_DAUER_SUFFIX);
 
-                    // "hashcode=12345," ersetzen durch "hashcode=ERSETZT,"
+                    // "hashcode=12345," replaced by "hashcode=ERSETZT,"
                     textVorlage = ersetzeString(textVorlage, "hashCode=", ",");
                     textErgebnis = ersetzeString(textErgebnis, "hashCode=", ",");
                 }
@@ -340,27 +336,26 @@ public abstract class AbstractLogTest {
     }
 
     /**
-     * Hilfsmethode zum Vergleichen zweier Logzeilen. In Abhängigkeit des Logschlüssels werden dabei die
-     * Variablen Teile (bspw. Zeitstempel, Hashwerte...) durch eine Konstante ersetzt, damit die Werte gleich
-     * sind.
-     * 
+     * Helper method to compare 2 lines. Depending on the log key the variable parts (e.g. "zeitstempel",
+     * "hashwerte") are replaced by constant values, so that the values are equal.
+     *
      * @param zeileVorlage
-     *            die erwartete Zeile.
+     *            the expected line.
      * @param zeileErgebnis
-     *            die erstellte Zeile.
+     *            the actual line.
      * @param zeilennummer
-     *            die Laufendenummer der Zeile.
+     *            the line number.
      * @param testfallName
-     *            Name des ausgeführten Testfalls.
+     *            test case.
      */
     private void vergleicheLogZeile(String zeileVorlage, String zeileErgebnis, int zeilennummer,
             String testfallName) {
 
-        // Tests sollen auf Windoes und Unix laufen - daher Zeilenenden anpassen
+        // Tests should run on Windows and Unix, so the line endings are adjusted
         zeileVorlage = zeileVorlage.replaceAll("\\\\r\\\\n", "\\\\n");
         zeileErgebnis = zeileErgebnis.replaceAll("\\\\r\\\\n", "\\\\n");
 
-        // Bei der Exception kann die ID im Stacktrace nicht überprüft werden.
+        // The id cannot be asserted when an exception occurs.
         if (zeileVorlage.contains(FehlerSchluessel.FALSCHES_LOGGING_FRAMEWORK)
                 && zeileErgebnis.contains(FehlerSchluessel.FALSCHES_LOGGING_FRAMEWORK)) {
             zeileVorlage = ersetzeString(zeileVorlage,
@@ -374,8 +369,7 @@ public abstract class AbstractLogTest {
                     "SLF4J-Implementierung bereitgestellt: de.bund.bva.isyfact.logging.LogbackTest. #", "\\n");
         }
 
-        // Exceptions können nicht verglichen werden (Codezeilen, IDs zu unterschiedlich auf verschiedenen
-        // Umgebungen)
+        // Exceptions cannot be compared (code lines and ids are to different in different environments)
         zeileVorlage = ersetzeString(zeileVorlage, JSON_EXCEPTION_PRAEFIX, JSON_ATTRIBUT_SUFFIX);
         zeileErgebnis = ersetzeString(zeileErgebnis, JSON_EXCEPTION_PRAEFIX, JSON_ATTRIBUT_SUFFIX);
 
@@ -387,13 +381,13 @@ public abstract class AbstractLogTest {
         zeileVorlage = ersetzeString(zeileVorlage, JSON_DAUER_PRAEFIX, JSON_ATTRIBUT_SUFFIX);
         zeileErgebnis = ersetzeString(zeileErgebnis, JSON_DAUER_PRAEFIX, JSON_ATTRIBUT_SUFFIX);
 
-        // hashCode in Text und als JSON ersetzen ersetzen
+        // Replace "hashCode" in text and JSON
         zeileVorlage = ersetzeString(zeileVorlage, "hashCode=", ",");
         zeileVorlage = ersetzeString(zeileVorlage, "hashCode\":\"", "\"");
         zeileErgebnis = ersetzeString(zeileErgebnis, "hashCode=", ",");
         zeileErgebnis = ersetzeString(zeileErgebnis, "hashCode\":\"", "\"");
 
-        // "Bereitsverarbeitet ersetzen
+        // Replace "Bereitsverarbeitet"
         zeileVorlage = ersetzeString(zeileVorlage, "[\"Bereits verarbeitet: ", "\"]");
         zeileVorlage = ersetzeString(zeileVorlage, "[Bereits verarbeitet: ", "]");
         zeileErgebnis = ersetzeString(zeileErgebnis, "[\"Bereits verarbeitet: ", "\"]");
@@ -421,8 +415,8 @@ public abstract class AbstractLogTest {
             zeileErgebnis = ersetzeDauerInParameter4(zeileErgebnis);
         }
 
-        // Umgebungsparameter können zwischen den Verschiedenen Umgebungen, auf denen die Tests laufen,
-        // variieren. Daher können die geloggten Werte im Text als auch im Parameter nicht verglichen werden.
+        // Parameter values can be different in the different test environments. Therefore, the logged values
+        // cannot be compared with the parameter values.
         if (zeileVorlage.contains(Ereignisschluessel.EISYLO02004.name())) {
             zeileVorlage = ersetzeString(zeileVorlage, "besitzt den Wert", ".\"");
             zeileErgebnis = ersetzeString(zeileErgebnis, "besitzt den Wert", ".\"");
@@ -430,8 +424,7 @@ public abstract class AbstractLogTest {
             zeileErgebnis = ersetzeString(zeileErgebnis, JSON_PARAMETER2_PRAEFIX_OHNE_LEERZEICHEN, JSON_ENDE);
         }
 
-        // Sondernbehandlung: Wenn die übergebenen Parameter serializiert werden, wir der Hash des Objects mit
-        // ausgegben (Klasse@1234567{Daten)
+        // Special case: the hash of the object is written (Class@1234567{Daten), if the parameters are serialized.
         if (zeileVorlage.contains("wurde mit folgenden Parametern aufgerufen")) {
             zeileVorlage = ersetzeString(zeileVorlage, "@", "\"");
             zeileErgebnis = ersetzeString(zeileErgebnis, "@", "\"");
@@ -443,8 +436,8 @@ public abstract class AbstractLogTest {
         }
 
         if ("testAufrufMitExceptionInterceptor".equals(testfallName)) {
-            // Testfall mit Ausgabe einer Exception durch den Methodinterceptor. Die Id des 'EnhancerByCGLIB'
-            // im Stacktrace ändert sich bei jedem Auruf.
+            // Test case with an Exception written by the method interceptor. The id of the 'EnhancerByCGLIB'
+            // in the stack trace is different in every call.
             zeileVorlage = ersetzeString(zeileVorlage, "EnhancerByCGLIB$$", "\"");
             zeileErgebnis = ersetzeString(zeileErgebnis, "EnhancerByCGLIB$$", "\"");
         }
@@ -453,21 +446,21 @@ public abstract class AbstractLogTest {
     }
 
     /**
-     * Hilfsmethode zum Ersetzen der Dauer in Parameter 4.
-     * 
+     * Helper method to replace the duration in parameter 4.
+     *
      * @param zeile
-     *            die Zeile, in der die Ersetzung stattfinden soll.
-     * @return die Zeile mit der Ersetzung.
+     *            the line in which the duration should be replaced.
+     * @return the line with the replacement.
      */
     private String ersetzeDauerInParameter4(String zeile) {
         return ersetzeString(zeile, JSON_PARAMETER4_PRAEFIX_OHNE_LEERZEICHEN, JSON_NAECHSTES_ATTRIBUT);
     }
 
     /**
-     * Führt einzelne Konsistenzprüfungen auf den Logzeilen durch.
-     * 
+     * Execute consistency checks in the log lines.
+     *
      * @param zeileErgebnis
-     *            die erstellte Zeile.
+     *            log line.
      */
     private void pruefeLogZeile(String zeileErgebnis) {
         String dauer = leseSubString(zeileErgebnis, JSON_DAUER_PRAEFIX, JSON_ATTRIBUT_SUFFIX, 0);
@@ -489,23 +482,22 @@ public abstract class AbstractLogTest {
 
         String level = leseSubString(zeileErgebnis, JSON_LEVEL_PRAEFIX, JSON_ATTRIBUT_SUFFIX, 0);
 
-        // "ALL wird als Default verwendet, wenn das Loglevel nicht geparsed werden konnte. Da wir dieses
-        // Loglevel beim Aufruf nicht verwenden entspricht wird dieses nur zurückgeliefert, wenn ein
-        // Fehlerhaftes Level übergeben wurde.
+        // "ALL" is used as default value, if the log level cannot be parsed. This value is return only
+        // if a wrong log level is set.
         if ("ALL".equalsIgnoreCase(level)) {
             Assert.fail("Ungültiges Loglevel " + level);
         }
 
-        // Nur bei den Tests, die direkt Logback verwenden, müssen keine Schlüssel angegeben werden.
+        // No keys must be provided only in tests, which use logback directly.
         boolean schluesselPflicht = !zeileErgebnis.contains("de.bund.bva.isyfact.logging.LogbackTest");
         String schluessel = null;
         if (schluesselPflicht) {
-            // Schlüssel prüfen bei relevanten Leveln
+            // Check the key in the relevant log levels.
             if (!"DEBUG".equalsIgnoreCase(level) && !"TRACE".equalsIgnoreCase(level)) {
                 schluessel = leseSubString(zeileErgebnis, JSON_SCHLUESSEL_PRAEFIX, JSON_ATTRIBUT_SUFFIX, 0);
                 Assert.assertNotNull("Logeintrag besitzt keinen Schluessel.", schluessel);
                 int schluesselLaenge = schluessel.length();
-                // Die Länge des Schlüssels muss 10 (Fehlerschluessel) oder 11 (Ereignisschluessel) sein
+                // The length of the key must be 10 (error key) or 11 (event key).
                 Assert.assertTrue("Schluessel hat falsche Länge: " + schluesselLaenge,
                         (schluesselLaenge == 10 || schluesselLaenge == 11));
             }
@@ -514,7 +506,7 @@ public abstract class AbstractLogTest {
         String nachricht = leseSubString(zeileErgebnis, JSON_NACHRICHT_PRAEFIX, JSON_ATTRIBUT_SUFFIX, 0);
         if (!EREIGNISSCHLUESSEL_OHNE_NACHRICHT.equals(schluessel)) {
             Assert.assertNotNull("Logeintrag besitzt keine Nachricht.", nachricht);
-            // Bei den explizit fehlerhaften Tests werden Platzhalter teilweise nicht ersetzt.
+            // Some placeholders are not replaced in negative tests.
             boolean platzhalterErsetzen = !zeileErgebnis.contains(KENNZEICHNUNG_FEHLERTEST);
             if (platzhalterErsetzen) {
                 Assert.assertFalse("Nachricht enthält nicht ersetzte Platzhalter: " + nachricht,
@@ -524,34 +516,32 @@ public abstract class AbstractLogTest {
     }
 
     /**
-     * Ersetzt einen String in einer Logzeile beginnend nach dem ersten auftreten des übergebenen Präfix, bis
-     * zum danach erstmaligen auftreten des übergebenen Suffix.
-     * 
+     * Replace the substring in a log line between the first occurrence of the given prefix and suffix.
+     *
      * @param logzeile
-     *            die Logzeile.
+     *            the log line.
      * @param praefix
-     *            der Präfix.
+     *            the prefix.
      * @param suffix
-     *            der Suffix.
-     * @return die Logzeile mit durchgeführten Ersetzungen.
+     *            the suffix.
+     * @return the log line with replaced values.
      */
     private String ersetzeString(String logzeile, String praefix, String suffix) {
         return ersetzeString(logzeile, praefix, suffix, 0);
     }
 
     /**
-     * Ersetzt einen String in einer Logzeile beginnend nach dem ersten auftreten des übergebenen Präfix, bis
-     * zum danach erstmaligen auftreten des übergebenen Suffix.
-     * 
+     * Replace the substring in a log line between the first occurrence of the given prefix and suffix.
+     *
      * @param logzeile
-     *            die Logzeile.
+     *            the log line.
      * @param praefix
-     *            der Präfix.
+     *            the prefix.
      * @param suffix
-     *            der Suffix.
+     *            the suffix.
      * @param offset
-     *            index des Zeichens, ab dem mit der Ersetzung begonnen werden soll.
-     * @return die Logzeile mit durchgeführten Ersetzungen.
+     *            character index, after which the replacement should be done.
+     * @return the log line with replaced values.
      */
     private String ersetzeString(String logzeile, String praefix, String suffix, int offset) {
 
@@ -572,8 +562,8 @@ public abstract class AbstractLogTest {
 
         logzeile = logzeile.substring(0, ersetzenStart) + "ERSETZT" + logzeile.substring(ersetzenEnde);
 
-        // Die längste Ersetzung ist eine Objekt ID mit max 40 Zeichen - bis auf Stacktraces.
-        // Diese sind länger und werden daher hier nicht geprüft.
+        // The longest replacement is an object id with max 40 characters - except for stack traces.
+        // Stack traces are longer and will not be checked.
         if (!praefix.equals(JSON_EXCEPTION_PRAEFIX)) {
             int anzahlErsetzterZeichen = ersetzenEnde - ersetzenStart;
             Assert.assertTrue("Fehler in den Tests - es wurden zu viele Zeichen ersetzt ("
@@ -585,18 +575,17 @@ public abstract class AbstractLogTest {
     }
 
     /**
-     * Liest einen String in einer Logzeile beginnend nach dem ersten auftreten des übergebenen Präfix, bis
-     * zum danach erstmaligen auftreten des übergebenen Suffix.
-     * 
+     * Read the substring from a log line between the first occurrence of the given prefix and suffix.
+     *
      * @param logzeile
-     *            die Logzeile.
+     *            the log line.
      * @param praefix
-     *            der Präfix.
+     *            the prefix.
      * @param suffix
-     *            der Suffix.
+     *            the suffix.
      * @param offset
-     *            index des Zeichens, ab dem mit der Ersetzung begonnen werden soll.
-     * @return die Logzeile mit durchgeführten Ersetzungen.
+     *            character index, after which the characters will be read.
+     * @return the read substring.
      */
     private String leseSubString(String logzeile, String praefix, String suffix, int offset) {
 
