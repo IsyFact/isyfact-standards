@@ -4,7 +4,7 @@ package de.bund.bva.isyfact.logging.util;
  * #%L
  * isy-logging
  * %%
- * 
+ *
  * %%
  * See the NOTICE file distributed with this work for additional
  * information regarding copyright ownership.
@@ -12,9 +12,9 @@ package de.bund.bva.isyfact.logging.util;
  * licenses this file to you under the Apache License, Version 2.0 (the
  * License). You may not use this file except in compliance with the
  * License. You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
@@ -23,6 +23,11 @@ package de.bund.bva.isyfact.logging.util;
  * #L%
  */
 
+import java.lang.reflect.Method;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyMarker;
 import de.bund.bva.isyfact.logging.LogKategorie;
@@ -30,69 +35,60 @@ import de.bund.bva.isyfact.logging.impl.Ereignisschluessel;
 import de.bund.bva.isyfact.logging.impl.IsyMarkerImpl;
 import de.bund.bva.isyfact.logging.impl.MarkerSchluessel;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 /**
- * Helperklasse zum Erstellen von Logeinträgen. Sie stellt den anderen Hilfsklassen dieses Bausteins
- * einheitliche Mechanismen zur Logerzeugung bereit.
+ * Helper class for creating log entries. It provides the other helper classes of this component
+ * with a mechanism for creating uniform logs.
  *
  */
 public class LogHelper {
 
-    /** Flag zum Kennzeichnen, ob der Start eines Methodenaufrufs gelogged werden soll. */
+    /** Flag determining whether a method invocation should be logged. */
     private final boolean loggeAufruf;
 
-    /** Flag zum Kennzeichnen, ob das Ergebnis eines Aufrufs (Erfolg/Misserfolg) gelogged werden soll. */
+    /** Flag determining whether the result of an invocation (Success/Failure) should be logged. */
     private final boolean loggeErgebnis;
 
-    /** Flag zum Kennzeichnen, ob die Dauer eines Aufrufs gelogged werden soll. */
+    /** Flag determining whether the duration of an invocation should be logged. */
     private final boolean loggeDauer;
 
-    /**
-     * Flag zum Kennzeichnen, ob sämtliche Daten gelogged werden sollen, die beim Aufruf der Methode übergeben
-     * wurden.
-     */
+    /** Flag determining whether all data passed to a method during its invocation should be logged. */
     private final boolean loggeDaten;
 
     /**
-     * Flag zum Kennzeichnen, ob die übergebenen Parameter des Aufrufs gelogged werden sollen, wenn eine
-     * Exception auftritt.
+     * Flag determining whether the parameters of a method invocation should be
+     * logged if an exception occurs.
      */
     private final boolean loggeDatenBeiException;
 
     /**
-     * Konfigurationsparameter zum Festlegen der maximalen Größe von übergebenen Parameter des Aufrufs, mit
-     * der sie noch ins Log geschrieben werden.
+     * Configuration property to set the maximum size limit for an invocation parameter to be included
+     * in the log.
      */
     private final long loggeMaximaleParameterGroesse;
 
-    /** Konverter, um Beans vor deren Serialisierung zu konvertieren. */
+    /** Converter to convert beans before they are serialized. */
     private BeanConverter konverter;
 
-    /** Prüfer, der Beans vor dem Loggen auf ihre Eignung als Parameter hin prüft. */
-    private BeanGroessePruefer pruefer;
+    /** Validator which determines the suitability of a bean to be logged as a parameter. */
+    private final BeanGroessePruefer pruefer;
 
     /**
-     * Konstruktor der Klasse. Es werden die übergebenen Klassenattribute initialisiert.
+     * Constructor of the class. Initializes the passed in class attributes.
      *
      * @param loggeDauer
-     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
+     *            Flag determining whether the duration of an invocation should be logged.
      * @param loggeAufruf
-     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
+     *            Flag determining whether a method invocation should be logged.
      * @param loggeErgebnis
-     *            Flag zum Kennzeichnen, ob das Ergebnis (Erfolg/Misserfolg) des Aufrufs gelogged werden soll.
+     *            Flag determining whether the result of an invocation (Success/Failure) should be logged.
      * @param loggeDaten
-     *            Flag zum Kennzeichnen, ob die kompletten Anfragedaten gelogged werden sollen, wenn das
-     *            Ergebnis nicht erfolgreich war.
+     *            Flag determining whether all data passed to a method during its invocation should be logged.
      * @param loggeDatenBeiException
-     *            Flag zum Kennzeichnen, ob die kompletten Anfragedaten gelogged werden sollen, wenn das
-     *            Ergebnis nicht erfolgreich war.
+     *            Flag determining whether the parameters of a method invocation should be
+     *            logged if an exception occurs.
      * @param loggeMaximaleParameterGroesse
-     *            Konfigurationsparameter zum Festlegen der maximalen Größe von übergebenen Parameter des
-     *            Aufrufs, mit der sie noch ins Log geschrieben werden.
+     *            Configuration property to set the maximum size limit for an invocation parameter to be included
+     *            in the log.
      */
     public LogHelper(boolean loggeAufruf, boolean loggeErgebnis, boolean loggeDauer,
         boolean loggeDaten, boolean loggeDatenBeiException, long loggeMaximaleParameterGroesse) {
@@ -101,32 +97,27 @@ public class LogHelper {
     }
 
     /**
-     * Konstruktor der Klasse. Es werden die übergebenen Klassenattribute initialisiert.
+     * Constructor of the class. Initializes the passed in class attributes.
      *
      * @param loggeDauer
-     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
+     *            Flag determining whether the duration of an invocation should be logged.
      * @param loggeAufruf
-     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
+     *            Flag determining whether a method invocation should be logged.
      * @param loggeErgebnis
-     *            Flag zum Kennzeichnen, ob das Ergebnis (Erfolg/Misserfolg) des Aufrufs gelogged werden soll.
+     *            Flag determining whether the result of an invocation (Success/Failure) should be logged.
      * @param loggeDaten
-     *            Flag zum Kennzeichnen, ob die kompletten Anfragedaten gelogged werden sollen, wenn das
-     *            Ergebnis nicht erfolgreich war.
+     *            Flag determining whether all data passed to a method during its invocation should be logged.
      * @param loggeDatenBeiException
-     *            Flag zum Kennzeichnen, ob die kompletten Anfragedaten gelogged werden sollen, wenn das
-     *            Ergebnis nicht erfolgreich war.
+     *            Flag determining whether the parameters of a method invocation should be
+     *            logged if an exception occurs.
      * @param loggeMaximaleParameterGroesse
-     *            Konfigurationsparameter zum Festlegen der maximalen Größe von übergebenen Parameter des
-     *            Aufrufs, mit der sie noch ins Log geschrieben werden.
+     *            Configuration property to set the maximum size limit for an invocation parameter to be included
+     *            in the log.
      * @param konverter
-     *            Konverter, um Beans vor deren Serialisierung zu konvertieren.
+     *            Converter to convert beans before they are serialized.
      */
     public LogHelper(boolean loggeAufruf, boolean loggeErgebnis, boolean loggeDauer, boolean loggeDaten,
         boolean loggeDatenBeiException, long loggeMaximaleParameterGroesse, BeanConverter konverter) {
-
-        if (konverter == null) {
-            konverter = erstelleStandardKonverter();
-        }
 
         this.loggeAufruf = loggeAufruf;
         this.loggeErgebnis = loggeErgebnis;
@@ -134,15 +125,20 @@ public class LogHelper {
         this.loggeDaten = loggeDaten;
         this.loggeDatenBeiException = loggeDatenBeiException;
         this.loggeMaximaleParameterGroesse = loggeMaximaleParameterGroesse;
-        this.konverter = konverter;
         this.pruefer = new BeanGroessePruefer();
+        if (konverter == null) {
+            this.konverter = erstelleStandardKonverter();
+        }
+        else {
+            this.konverter = konverter;
+        }
     }
 
     /**
-     * Hilfmethode zum Erstellen eines BeanToMapConverters, falls beim Aufruf des Konstruktors dieser Klasse
-     * kein Konverter übergeben wurde.
+     * Helper method for creating a BeanToMapConverter in case no converter was provided during the
+     * invocation of the constructor.
      *
-     * @return der zu verwendende Konverter.
+     * @return The converter that is to be used.
      */
     public static BeanToMapConverter erstelleStandardKonverter() {
         List<String> includes = new ArrayList<>();
@@ -151,12 +147,12 @@ public class LogHelper {
     }
 
     /**
-     * Erstellt einen Logeintrag für den Aufruf der übergebenen Methode.
+     * Creates a log entry for the invocation of the passed in method.
      *
      * @param logger
-     *            der zu verwendende Logger.
+     *            The logger that is to be used.
      * @param methode
-     *            die aufgerufene Methode.
+     *            The invoked method.
      */
     public void loggeAufruf(IsyLogger logger, Method methode) {
         if (loggeAufruf) {
@@ -167,18 +163,18 @@ public class LogHelper {
     }
 
     /**
-     * Erstellt einen Logeintrag für das Aufrufergebnis der übergebenen Methode.
+     * Creates a log entry for the result of the passed in method's invocation.
      *
      * @param logger
-     *            der zu verwendende Logger.
+     *            The logger that is to be used.
      * @param methode
-     *            die aufgerufene Methode.
+     *            The invoked method.
      * @param erfolgreich
-     *            gibt an, ob der Auruf erfolgreich war (keine Exception aufgetreten ist).
+     *            Determines whether the invocation was successful (No exceptions were thrown).
      * @param parameter
-     *            Methodenarameter.
+     *            Parameters the method was invoked with.
      * @param ergebnis
-     *            Ergebnis des Methodenaufrufs, dies kann auch eine Exception sein.
+     *            The result of the method invocation (This can also be an exception).
      */
     public void loggeErgebnis(IsyLogger logger, Method methode, boolean erfolgreich, Object[] parameter,
             Object ergebnis) {
@@ -193,10 +189,10 @@ public class LogHelper {
                         erstelleSignatur(methode));
             }
         }
-        // Ausgabe der Daten, wenn
-        // entweder "loggeDaten" gesetzt ist,
-        // oder der Aufruf nicht erfolgreich war und "loggeDatenBeiException" gesetzt ist.
-        boolean loggeAufrufUndErgebnisdaten = loggeDaten || (!erfolgreich && loggeDatenBeiException);
+        // Outputs the data if
+        // either "loggeDaten" is set to true
+        // or the invocation was not successful and "loggeDatenBeiException" is set to true.
+        boolean loggeAufrufUndErgebnisdaten = loggeDaten || !erfolgreich && loggeDatenBeiException;
         if (loggeAufrufUndErgebnisdaten) {
 
             List<Object> parameterWerte = null;
@@ -220,16 +216,16 @@ public class LogHelper {
     }
 
     /**
-     * Logged die Dauer eines Methodenaufrufs und erstellt einen entsprechenden Logeintrag.
+     * Logs the duration of a method invocation and creates a corresponding log entry.
      *
      * @param logger
-     *            der zu verwendende Logger.
+     *            The logger that is to be used.
      * @param methode
-     *            die aufgerufene Methode.
+     *            The invoked method.
      * @param dauer
-     *            Dauer des Aufrufs.
+     *            The duration of the invocation.
      * @param erfolgreich
-     *            gibt an, ob der Auruf erfolgreich war.
+     *            Specifies whether the invocation was successful.
      */
     public void loggeDauer(IsyLogger logger, Method methode, long dauer, boolean erfolgreich) {
 
@@ -237,26 +233,26 @@ public class LogHelper {
             if (erfolgreich) {
                 logger.info(LogKategorie.PROFILING, Ereignisschluessel.EISYLO01004.name(),
                         Ereignisschluessel.EISYLO01004.getNachricht(), erstelleMethodenname(methode),
-                        new IsyMarkerImpl(MarkerSchluessel.DAUER, "" + dauer), erstelleSignatur(methode));
+                        new IsyMarkerImpl(MarkerSchluessel.DAUER, String.valueOf(dauer)), erstelleSignatur(methode));
             } else {
                 logger.info(LogKategorie.PROFILING, Ereignisschluessel.EISYLO01005.name(),
                         Ereignisschluessel.EISYLO01005.getNachricht(), erstelleMethodenname(methode),
-                        new IsyMarkerImpl(MarkerSchluessel.DAUER, "" + dauer), erstelleSignatur(methode));
+                        new IsyMarkerImpl(MarkerSchluessel.DAUER, String.valueOf(dauer)), erstelleSignatur(methode));
             }
         }
     }
 
     /**
-     * Erstellt einen Logeintrag für den Aufruf der übergebenen Methode eines Nachbarsystems.
+     * Creates a log entry for the method invocation of an adjacent system.
      *
      * @param logger
-     *            der zu verwendende Logger.
+     *             The logger that is to be used.
      * @param methode
-     *            die aufgerufene Methode.
+     *            The invoked method.
      * @param nachbarsystemName
-     *            Name des Nachbarsystems.
+     *            Name of the adjacent system.
      * @param nachbarsystemUrl
-     *            URL des Nachbarsystems.
+     *            URL of the adjacent system.
      */
     public void loggeNachbarsystemAufruf(IsyLogger logger, Method methode, String nachbarsystemName,
             String nachbarsystemUrl) {
@@ -268,18 +264,18 @@ public class LogHelper {
     }
 
     /**
-     * Erstellt einen Logeintrag für das Aufrufergebnis der übergebenen Methode eines Nachbarsystems.
+     * Creates a log entry for the result of the passed in method's invocation. of an adjacent system.
      *
      * @param logger
-     *            der zu verwendende Logger.
+     *            The logger that is to be used.
      * @param methode
-     *            die aufgerufene Methode.
+     *            The invoked method.
      * @param nachbarsystemName
-     *            Name des Nachbarsystems.
+     *            Name of the adjacent system.
      * @param nachbarsystemUrl
-     *            URL des Nachbarsystems.
+     *            URL of the adjacent system.
      * @param erfolgreich
-     *            gibt an, ob der Auruf erfolgreich war.
+     *            Specifies whether the invocation was successful.
      */
     public void loggeNachbarsystemErgebnis(IsyLogger logger, Method methode, String nachbarsystemName,
             String nachbarsystemUrl, boolean erfolgreich) {
@@ -297,21 +293,20 @@ public class LogHelper {
     }
 
     /**
-     * Logged die Dauer eines Methodenaufrufs eines Nachbarsystems und erstellt einen entsprechenden
-     * Logeintrag.
+     * Logs the duration of a method invocation of an adjacent system and creates a corresponding log entry.
      *
      * @param logger
-     *            der zu verwendende Logger.
+     *            The logger that is to be used.
      * @param methode
-     *            die aufgerufene Methode.
+     *            The invoked method.
      * @param dauer
-     *            Dauer des Aufrufs.
+     *            The duration of the invocation.
      * @param nachbarsystemName
-     *            Name des Nachbarsystems.
+     *            Name of the adjacent system.
      * @param nachbarsystemUrl
-     *            URL des Nachbarsystems.
+     *            URL of the adjacent system.
      * @param erfolgreich
-     *            gibt an, ob der Auruf erfolgreich war.
+     *            Specifies whether the invocation was successful.
      */
     public void loggeNachbarsystemDauer(IsyLogger logger, Method methode, long dauer,
             String nachbarsystemName, String nachbarsystemUrl, boolean erfolgreich) {
@@ -319,63 +314,69 @@ public class LogHelper {
             if (erfolgreich) {
                 logger.info(LogKategorie.PROFILING, Ereignisschluessel.EISYLO01014.name(),
                         Ereignisschluessel.EISYLO01014.getNachricht(), erstelleMethodenname(methode),
-                        nachbarsystemName, nachbarsystemUrl, new IsyMarkerImpl(MarkerSchluessel.DAUER, ""
-                                + dauer), erstelleSignatur(methode));
+                        nachbarsystemName, nachbarsystemUrl,
+                        new IsyMarkerImpl(MarkerSchluessel.DAUER, String.valueOf(dauer)), erstelleSignatur(methode));
             } else {
                 logger.info(LogKategorie.PROFILING, Ereignisschluessel.EISYLO01015.name(),
                         Ereignisschluessel.EISYLO01015.getNachricht(), erstelleMethodenname(methode),
-                        nachbarsystemName, nachbarsystemUrl, new IsyMarkerImpl(MarkerSchluessel.DAUER, ""
-                                + dauer), erstelleSignatur(methode));
+                        nachbarsystemName, nachbarsystemUrl,
+                        new IsyMarkerImpl(MarkerSchluessel.DAUER, String.valueOf(dauer)), erstelleSignatur(methode));
             }
         }
     }
 
     /**
-     * Hilfsmethode zum ermitteln des aktuellen Zeitstempels in Millisekunden. Dieser wird zur Berechnung der
-     * Dauer eines Aufrufs verwendet.
+     * Helper method to obtain the current timestamp in milliseconds. This timestamp is used to
+     * determine the duration of a method invocation.
      *
-     * @return den aktuellen Zeitstempel in Millisekunden.
+     * @return The current timestamp in milliseconds.
      */
     public long ermittleAktuellenZeitpunkt() {
-        return new Date().getTime();
+        return Instant.now().toEpochMilli();
     }
 
     /**
-     * Bereitet die vollständige Signatur einer Methode als String auf.
+     * Formats a method's signature into a String representation.
+     * The method signature is stripped off declared exceptions in this process.
      *
      * @param methode
-     *            die Methode.
-     * @return die aufbereitete Signatur als String.
+     *            The method.
+     * @return The processed signature as a String.
      */
-    private IsyMarker erstelleSignatur(Method methode) {
-        return new IsyMarkerImpl(MarkerSchluessel.METHODE, methode.toString());
+    private static IsyMarker erstelleSignatur(Method methode) {
+        String signatur = methode.toString();
+        int throwIndex = signatur.indexOf(" throws ");
+        if (throwIndex >= 0) {
+            signatur = signatur.substring(0, throwIndex);
+        }
+        return new IsyMarkerImpl(MarkerSchluessel.METHODE, signatur);
     }
 
     /**
-     * Bereitet den Namen Methode in einer Kurzform (Klasse.name) als String auf.
+     * Formats the method name into a shortened String representation (class.name).
      *
      * @param methode
-     *            die Methode.
-     * @return die aufbereitete Signatur als String.
+     *            The method.
+     * @return The processed method name as a String.
      */
-    private String erstelleMethodenname(Method methode) {
+    private static String erstelleMethodenname(Method methode) {
         return methode.getDeclaringClass().getSimpleName() + "." + methode.getName();
     }
 
     /**
-     * Setzt den Wert des Attributs 'konverter'.
+     * Sets the value for the attribute 'konverter'.
      *
      * @param konverter
-     *            Neuer Wert des Attributs.
+     *            The new value for the attribute.
      */
     public void setKonverter(BeanToMapConverter konverter) {
         this.konverter = konverter;
     }
 
     /**
-     * Liefert den Wert des Attributs 'konverter'.
+     * Returns the currents value of the attribute 'konverter'.
      *
-     * @return Wert des Attributs.
+     * @return Value of the attribute.
      */
     public BeanConverter getKonverter() {
         return konverter;

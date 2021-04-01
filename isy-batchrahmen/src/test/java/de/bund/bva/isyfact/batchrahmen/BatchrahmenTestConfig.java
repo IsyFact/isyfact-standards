@@ -1,5 +1,6 @@
 package de.bund.bva.isyfact.batchrahmen;
 
+import de.bund.bva.isyfact.batchrahmen.batch.AufrufKontextTestBatch;
 import de.bund.bva.isyfact.batchrahmen.batch.BasicTestBatch;
 import de.bund.bva.isyfact.batchrahmen.batch.ErrorTestBatch;
 import de.bund.bva.isyfact.batchrahmen.batch.GesicherterTestBatch;
@@ -62,5 +63,10 @@ public class BatchrahmenTestConfig {
     @Bean
     public ReturnCodeTestBatch returnCodeTestBatch() {
         return new ReturnCodeTestBatch();
+    }
+
+    @Bean
+    public AufrufKontextTestBatch aufrufKontextTestBatch() {
+        return new AufrufKontextTestBatch();
     }
 }
