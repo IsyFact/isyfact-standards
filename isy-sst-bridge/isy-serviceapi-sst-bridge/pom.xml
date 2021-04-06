@@ -65,5 +65,10 @@
             <version>${project.parent.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>de.bund.bva.isyfact</groupId>
+            <artifactId>isy-serviceapi-core</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>

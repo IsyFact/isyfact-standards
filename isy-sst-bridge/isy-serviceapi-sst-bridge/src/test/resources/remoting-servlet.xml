@@ -26,7 +26,7 @@
 
 <!--    <aop:aspectj-autoproxy/>-->
 
-    <bean name="/TestService" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+    <bean name="/TestService" class="de.bund.bva.pliscommon.serviceapi.core.httpinvoker.IsyHttpInvokerServiceExporter">
         <property name="service" ref="isyTestService"/>
         <property name="registerTraceInterceptor" value="false"/>
         <property name="serviceInterface"

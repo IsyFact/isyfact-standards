@@ -3,15 +3,14 @@ package de.bund.bva.pliscommon.serviceapi.core.httpinvoker;
 import org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter;
 
 /**
- * {@link HttpInvokerServiceExporter} mit deaktiviertem {@link acceptProxyClasses}.
+ * {@link HttpInvokerServiceExporter} with disabled {@link #acceptProxyClasses}.
  */
 public class IsyHttpInvokerServiceExporter extends HttpInvokerServiceExporter {
 
     /**
-     * Default Konstruktor.
+     * Default constructor.
      */
     public IsyHttpInvokerServiceExporter() {
-        super();
-        this.setAcceptProxyClasses(false);
+        setAcceptProxyClasses(false);
     }
 }
