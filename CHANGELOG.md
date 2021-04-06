@@ -1,6 +1,7 @@
 # 1.8.x
 - `IFS-568`: [isy-util] Entfernt redundante Methode `getMessage(String schluessel)` aus dem MessageSourceHolder
 - `IFS-597`: [isy-sst-bridge], [isy-serviceapi-core] Verwendung der Klasse `IsyHttpInvokerServiceExporter` in Tests anstatt `HttpInvokerServiceExporter`
+- `IFS-656`: [isy-ueberwachung] ServiceStatstik berechnet Durchschnitt nun threadsafe
 - `IFS-692`: [isyfact-products-bom] Google Guava von 19.0 auf 29.0 angehoben
 - `IFS-785`: [isyfact-products-bom] Versionsupdate von XStream von 1.4.11 auf 1.4.14 wegen CVE
 
