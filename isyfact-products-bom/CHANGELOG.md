@@ -1,6 +1,9 @@
 # 2.2.0
-- `IFS-491`: Jackson Version auf 2.10.1 angehoben
 - `IFS-465`: Profile zum Bauen mit Java 11 erstellt
+- `IFS-491`: Jackson Version auf 2.10.1 angehoben
+- `IFS-600`: Spring-Boot Versionsanhebung auf 2.3.8 und Fasterxml Jackson auf Version 2.11.2
+- `IFS-625`: Google.Guava von Version 19.0 auf 29.0 angehoben.
+- `IFS-694`: Spring-Boot Versionsanhebung auf 2.2.9 und Fasterxml Jackson auf Version 2.10.5
 - `IFS-785`: Versionsupdate von XStream von 1.4.11 auf 1.4.14 wegen CVE
    - es gibt voraussichtlich keine Kompatibilitätsprobleme
 
