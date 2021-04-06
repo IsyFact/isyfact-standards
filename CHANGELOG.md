@@ -1,6 +1,7 @@
 # 1.8.x
 - `IFS-568`: [isy-util] Entfernt redundante Methode `getMessage(String schluessel)` aus dem MessageSourceHolder
 - `IFS-692`: [isyfact-products-bom] Google Guava von 19.0 auf 29.0 angehoben
+- `IFS-785`: [isyfact-products-bom] Versionsupdate von XStream von 1.4.11 auf 1.4.14 wegen CVE
 
 # 1.8.1
 - `IFS-453`: [isy-ueberwachung] Loglevel für isAlive-Datei-Ereignisse erhöht.
