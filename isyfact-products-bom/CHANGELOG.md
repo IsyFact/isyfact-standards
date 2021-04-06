@@ -1,4 +1,5 @@
 # 1.8.3
+- `IFS-692`: Google Guava von 19.0 auf 29.0 angehoben
 - `IFS-785`: Versionsupdate von XStream von 1.4.11 auf 1.4.14 wegen CVE
    - es gibt voraussichtlich keine Kompatibilitätsprobleme
 
