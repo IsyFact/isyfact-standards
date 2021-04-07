@@ -1,16 +1,19 @@
 package de.bund.bva.isyfact.persistence.datetime;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
+
 import javax.persistence.Embeddable;
 
 import de.bund.bva.isyfact.datetime.core.UngewissesDatum;
 
 /**
- * {@link javax.persistence.Embeddable} zum Speichern eines {@link UngewissesDatumEntitaet} in einer Entität.
+ * {@link javax.persistence.Embeddable} to store {@link UngewissesDatumEntitaet} in entity.
  *
  */
 @Embeddable
-public class UngewissesDatumEntitaet {
+public class UngewissesDatumEntitaet implements Serializable {
 
     private LocalDate anfang;
 
@@ -33,11 +36,29 @@ public class UngewissesDatumEntitaet {
     }
 
     /**
-     * Erstellt ein {@link UngewissesDatum} aus diesem Objekt.
+     * Create {@link UngewissesDatum} from this objekt.
      * @return
-     *      ein {@link UngewissesDatum} mit den Daten der {@link UngewissesDatumEntitaet}
+     *      {@link UngewissesDatum} with data from {@link UngewissesDatumEntitaet}
      */
     public UngewissesDatum toUngewissesDatum() {
         return UngewissesDatum.of(getAnfang(), getEnde());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        UngewissesDatumEntitaet that = (UngewissesDatumEntitaet) o;
+        return Objects.equals(anfang, that.anfang) &&
+                Objects.equals(ende, that.ende);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(anfang, ende);
     }
 }
