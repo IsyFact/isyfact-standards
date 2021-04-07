@@ -19,14 +19,14 @@
 -->
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:aop="http://www.springframework.org/schema/aop"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans 
-                           http://www.springframework.org/schema/beans/spring-beans-4.2.xsd 
-                           http://www.springframework.org/schema/aop 
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+                           http://www.springframework.org/schema/aop
                            http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
 
     <aop:aspectj-autoproxy/>
 
-    <bean name="/dummyServiceBean_v1_0_0" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+    <bean name="/dummyServiceBean_v1_0_0" class="de.bund.bva.pliscommon.serviceapi.core.httpinvoker.IsyHttpInvokerServiceExporter">
         <property name="service" ref="dummyService"/>
         <property name="registerTraceInterceptor" value="false"/>
         <property name="serviceInterface"
