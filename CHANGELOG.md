@@ -9,6 +9,7 @@
 - `IFS-625`: Google.Guava von Version 19.0 auf 29.0 angehoben.
 - `IFS-656`: [isy-ueberwachung] ServiceStatstik: Durchschnitt threadsafe berechnet
 - `IFS-694`: [isy-products-bom] Spring-Boot Versionsanhebung auf 2.2.9 und Fasterxml Jackson auf Version 2.10.5
+- `IFS-746`: [isy-task] Behebung von NullPointerException in TaskSchedulerImpl (wenn HostHandler false zurückgibt)
 - `IFS-783`: Konfiguration von Quality Gate 1; Umstellung auf GitLabCI Templates
 - `IFS-785`: [isy-products-bom] Versionsupdate von XStream von 1.4.11 auf 1.4.14 wegen CVE
 

@@ -1,3 +1,6 @@
+# 2.2.0
+- `IFS-746`: Behebung von NullPointerException in TaskSchedulerImpl (wenn HostHandler false zurückgibt)
+
 # 2.1.0
 - `IFS-323`: Hostnamen werden jetzt mit Regex angegeben
 - `IFS-324`: Umzug des Tasks für Konfigurations-Updates von isy-task zu isy-konfiguration
