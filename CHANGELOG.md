@@ -3,6 +3,7 @@
 - `IFS-597`: [isy-sst-bridge], [isy-serviceapi-core] Verwendung der Klasse `IsyHttpInvokerServiceExporter` in Tests anstatt `HttpInvokerServiceExporter`
 - `IFS-656`: [isy-ueberwachung] ServiceStatstik berechnet Durchschnitt nun threadsafe
 - `IFS-692`: [isyfact-products-bom] Google Guava von 19.0 auf 29.0 angehoben
+- `IFS-746`: [isy-task] Behebung von NullPointerException in TaskSchedulerImpl (wenn HostHandler false zurückgibt)
 - `IFS-785`: [isyfact-products-bom] Versionsupdate von XStream von 1.4.11 auf 1.4.14 wegen CVE
 
 # 1.8.1
