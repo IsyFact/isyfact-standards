@@ -1,11 +1,12 @@
 package de.bund.bva.pliscommon.bridges.integration.config;
 
-import de.bund.bva.pliscommon.bridges.integration.sst.PlisTestRemoteBean;
-import de.bund.bva.pliscommon.bridges.integration.sst.impl.PlisTestExceptionFassade;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter;
+
+import de.bund.bva.isyfact.serviceapi.core.httpinvoker.IsyHttpInvokerServiceExporter;
+import de.bund.bva.pliscommon.bridges.integration.sst.PlisTestRemoteBean;
+import de.bund.bva.pliscommon.bridges.integration.sst.impl.PlisTestExceptionFassade;
 
 @Configuration
 @EnableAutoConfiguration
@@ -17,8 +18,8 @@ public class TestServiceConfiguration {
     }
 
     @Bean("/TestService")
-    public HttpInvokerServiceExporter testService(PlisTestRemoteBean dummyServiceFassade) {
-        HttpInvokerServiceExporter exporter = new HttpInvokerServiceExporter();
+    public IsyHttpInvokerServiceExporter testService(PlisTestRemoteBean dummyServiceFassade) {
+        IsyHttpInvokerServiceExporter exporter = new IsyHttpInvokerServiceExporter();
         exporter.setService(dummyServiceFassade);
         exporter.setServiceInterface(PlisTestRemoteBean.class);
         return exporter;

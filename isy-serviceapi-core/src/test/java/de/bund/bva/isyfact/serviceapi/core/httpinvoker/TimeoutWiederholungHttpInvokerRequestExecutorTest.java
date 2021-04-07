@@ -91,7 +91,7 @@ public class TimeoutWiederholungHttpInvokerRequestExecutorTest {
 
         @Bean(name = "/dummyServiceBean_v1_0_0")
         HttpInvokerServiceExporter pingService(DummyServiceImpl dummyService) {
-            HttpInvokerServiceExporter exporter = new HttpInvokerServiceExporter();
+            HttpInvokerServiceExporter exporter = new IsyHttpInvokerServiceExporter();
             exporter.setService(dummyService);
             exporter.setServiceInterface(DummyServiceRemoteBean.class);
             return exporter;
