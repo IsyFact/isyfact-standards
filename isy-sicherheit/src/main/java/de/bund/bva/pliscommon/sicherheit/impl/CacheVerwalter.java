@@ -16,6 +16,7 @@
  */
 package de.bund.bva.pliscommon.sicherheit.impl;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
@@ -149,6 +150,10 @@ public class CacheVerwalter<E extends AuthentifzierungErgebnis> {
      * @param cacheKonfiguration
      *            Die zu setzende Cache-Konfiguration.
      */
+    @SuppressFBWarnings(
+            value = "ML_SYNC_ON_FIELD_TO_GUARD_CHANGING_THAT_FIELD",
+            justification = "solved with IFS-803"
+    )
     public void setCacheKonfiguration(String cacheKonfiguration) {
         synchronized (this.cacheManager) {
             LOG.debug("Setzen der Cache Konfiguration.");

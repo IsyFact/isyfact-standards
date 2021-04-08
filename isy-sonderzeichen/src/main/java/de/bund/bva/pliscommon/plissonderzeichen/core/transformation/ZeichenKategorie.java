@@ -16,6 +16,8 @@
  */
 package de.bund.bva.pliscommon.plissonderzeichen.core.transformation;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public class ZeichenKategorie {
     
     public final static String LETTER = "LETTER";
@@ -25,7 +27,11 @@ public class ZeichenKategorie {
     public final static String SEPARATOR = "SEPARATOR";
     public final static String SYMBOL = "SYMBOL";
     public final static String ALLE = "ALLE";
-    
+
+    @SuppressFBWarnings(
+            value = "MS_MUTABLE_ARRAY",
+            justification = "solved with IFS-804"
+    )
     public final static String[] ALLE_ZEICHEN_KATEGORIEN = new String[]{LETTER,NUMBER,OTHER,PUNCTUATION,SEPARATOR,SYMBOL,ALLE};
 
 }
