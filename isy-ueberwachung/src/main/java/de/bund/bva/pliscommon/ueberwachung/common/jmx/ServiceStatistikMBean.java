@@ -35,82 +35,79 @@ import de.bund.bva.pliscommon.exception.service.PlisBusinessToException;
 import de.bund.bva.pliscommon.serviceapi.annotations.FachlicherFehler;
 
 /**
- * Diese Klasse implementiert eine Überwachungs-MBean für Services. Sie liefert die Überwachungsoptionen,
- * welche jeder Service der IsyFact anbieten muss.
+ * This class implements a monitoring bean for services. It provides the monitoring options,
+ * which each service must provide to IsyFact.
  *
- * @author sd&m Simon Spielmann
+ * @author sd&m
  * @version $Id: ServiceStatistikMBean.java 144975 2015-08-18 13:07:56Z sdm_jmeisel $
  */
 @ManagedResource(description = "Diese MBean liefert Überwacht die Aufrufe eines Services.")
 public class ServiceStatistikMBean implements MethodInterceptor, InitializingBean {
     /**
-     * Standard-Wert fuer Anzahl Suchen, anhand derer der Durchschnitt berechnet wird.
+     * Default value for number of searches used to calculate the average.
      */
     private static final int ANZAHL_AUFRUFE_FUER_DURCHSCHNITT = 10;
 
     /**
-     * Gibt an, ob die Rückgabeobjektstrukturen auf fachliche Fehler überprüft werden sollen. Kann
-     * Auswirkungen auf die Performance haben.
+     * Specifies whether the return object structures should be checked for business errors. May
+     * have an impact on performance.
      */
     private boolean erweiterteFachlicheFehlerpruefung;
 
     /**
-     * Gibt an, ob die Rückgabeobjektstrukturen auf fachliche Fehler überprüft werden sollen. Kann
-     * Auswirkungen auf die Performance haben.
+     * Specifies whether the return object structures should be checked for business errors. May
+     * have an impact on performance.
      *
-     * @param fachlicheFehlerpruefungAktiviert
-     *            <code>true</code> wenn die Rückgabeobjektstruktur auf fachliche Fehler hin untersucht werden
-     *            soll, ansonsten <code>false</code>.
+     * @param fachlicheFehlerpruefungAktiviert <code>true</code> if the return object structure should be checked for functional errors,
+     *                                         otherwise <code>false</code>.
      */
     public void setErweiterteFachlicheFehlerpruefung(boolean fachlicheFehlerpruefungAktiviert) {
         this.erweiterteFachlicheFehlerpruefung = fachlicheFehlerpruefungAktiviert;
     }
 
     /**
-     * Dauern der letzten Such-Aufrufe (in Millisekunden).
+     * Duration of the last search calls (in milliseconds).
      */
     private List<Long> letzteSuchdauern = new LinkedList<>();
 
     /**
-     * Merker für die Minute, in der Werte der letzten Minute ermittelt wurden.
+     * Flag for the minute in which values of the last minute were determined.
      */
     private volatile int letzteMinute;
 
     /**
-     * Anzahl der nicht fehlerhaften Aufrufe, die in der durch letzteMinute bezeichneten Minute durchgeführt
-     * wurden.
-     *
+     * Number of non-error calls made in the minute indicated by lastminute.
      */
     private volatile int anzahlAufrufeLetzteMinute;
 
     /**
-     * Anzahl der nicht fehlerhaften Aufrufe, die in der aktuellen Minute durchgeführt wurden.
+     * Number of non-error calls made in the current minute.
      */
     private volatile int anzahlAufrufeAktuelleMinute;
 
     /**
-     * Anzahl der Aufrufe, die in der durch letzteMinute bezeichneten Minute durchgeführt wurden, bei denen
-     * ein techinscher Fehler aufgetreten ist.
+     * Number of calls made in the minute denoted by lastMinute, during which
+     * a technical error occurred.
      */
     private volatile int anzahlFehlerLetzteMinute;
 
     /**
-     * Anzahl der Aufrufe, die in der aktuellen Minute durchgeführt wurden, bei denen ein techinscher Fehler
-     * aufgetreten ist.
+     * Number of calls made in the current minute in which a techincal error
+     * occurred.
      */
     private volatile int anzahlFehlerAktuelleMinute;
 
     /**
-     * Die Anzahl der fachlichen Fehler in der aktuellen Minute. Ein fachlicher Fehler liegt vor, wenn
-     * entweder eine Exception vom Typ PlusBusinessException geworfen wurde oder die zurückgegebene
-     * Fehlerliste Einträge enthielt.
+     * The number of technical errors in the current minute. A business error is present if
+     * either an exception of type PlusBusinessException was thrown or the returned
+     * error list contained entries.
      */
     private volatile int anzahlFachlicheFehlerLetzteMinute;
 
     /**
-     * Die Anzahl der fachlichen Fehler in der letzten Minute. Ein fachlicher Fehler liegt vor, wenn entweder
-     * eine Exception vom Typ PlusBusinessException geworfen wurde oder die zurückgegebene Fehlerliste
-     * Einträge enthielt.
+     * The number of technical errors in the last minute. A business error is present if either
+     * an exception of type PlusBusinessException was thrown or the returned error list contained
+     * entries.
      */
     private volatile int anzahlFachlicheFehlerAktuelleMinute;
 
@@ -120,22 +117,19 @@ public class ServiceStatistikMBean implements MethodInterceptor, InitializingBea
     private static final IsyLogger LOGISY = IsyLoggerFactory.getLogger(ServiceStatistikMBean.class);
 
     /**
-     * Die maximale Tiefe bei der rekursiven Prüfung auf fachliche Fehler bei der erweiterten fachlichen
-     * Fehlerprüfung.
+     * The maximum depth for recursive checking for functional errors in extended functional
+     * Error checking.
      */
     private static final int MAXTIEFE = 10;
 
     /**
-     * Diese Methode zählt einen Aufruf der Komponente für die Statistik. Für die Statistik wird die Angabe
-     * der Dauer und ob der Aufruf fehlerhaft war benötigt.
-     * @param dauer
-     *            Die Dauer des Aufrufs in Millisekunden.
-     * @param erfolgreich
-     *            Kennzeichen, ob der Aufruf erfolgreich war (<code>true</code>) oder ein technischer Fehler
-     *            aufgetreten ist (<code>false</code>).
-     * @param fachlichErfolgreich
-     *            Kennzeichen, ob der Aufruf fachlich erfolgreich war (<code>true</code>) oder ein fachlicher
-     *            Fehler aufgetreten ist (<code>false</code>).
+     * This method counts a call to the component for statistics. For the statistics the specification,
+     * the duration and whether the call was erroneous is needed.
+     *
+     * @param dauer               The duration of the call in milliseconds.
+     * @param erfolgreich         Indicator whether the call was successful (<code>true</code>) or a technical error
+     *                            occurred (<code>false</code>).
+     * @param fachlichErfolgreich Flag indicating whether the call was technically successful (<code>true</code>) or a technical * error occurred (<code>false</code>).
      */
     public synchronized void zaehleAufruf(long dauer, boolean erfolgreich, boolean fachlichErfolgreich) {
         aktualisiereZeitfenster();
@@ -153,16 +147,16 @@ public class ServiceStatistikMBean implements MethodInterceptor, InitializingBea
     }
 
     /**
-     * Diese Methode veranlasst, dass das Zeitfenster für die Zähler der Fehler und Aufrufe in der aktuellen
-     * und letzten Minute aktualisiert wird. Falls eine Minute verstrichen ist, werden die Werte der aktuellen
-     * Minute in die der Zähler für die letzte Minut kopiert. Die Zähler für die aktuelle Minute werden auf 0
-     * gesetzt. Die Methode sorg dafür, dass dieser Vorgang nur einmal pro Minute ausgeführt werden kann.
+     * This method causes the time window for the counters of errors and calls to be updated in the current
+     * and last minute. If a minute has elapsed, the values of the current * minute are copied to those of the counters for the last minute.
+     * The counters for the current minute are set to 0
+     * The method ensures that this operation can be performed only once per minute.
      */
     private synchronized void aktualisiereZeitfenster() {
         int aktuelleMinute = getAktuelleMinute();
         if (aktuelleMinute != this.letzteMinute) {
             if ((aktuelleMinute - this.letzteMinute) > 1) {
-                // keine infos von letzten Minute
+                // no info from last minute
                 this.anzahlAufrufeLetzteMinute = 0;
                 this.anzahlFehlerLetzteMinute = 0;
                 this.anzahlFachlicheFehlerLetzteMinute = 0;
@@ -180,38 +174,40 @@ public class ServiceStatistikMBean implements MethodInterceptor, InitializingBea
     }
 
     /**
-     * Berechnet die aktuelle Minute der Systemzeit.
-     * @return Der Minuten-Anteil der aktuellen Systemzeit
+     * Calculates the current minute of the system time.
+     *
+     * @return The minute portion of the current system time.
      */
     private static int getAktuelleMinute() {
         return (int) (System.currentTimeMillis() / 60000);
     }
 
     /**
-     * Liefert die durchschnittliche Dauer der letzten 10 Aurufe. Definiert eine Methode für das
-     * Management-Interface dieser MBean.
-     * @return Die durchschnittliche Dauer der letzten 10 Aufrufe in ms.
+     * Returns the average duration of the last 10 aura calls. Defines a method for the
+     * management interface of this MBean.
+     *
+     * @return The average duration of the last 10 calls in ms.
      */
     @ManagedAttribute(description = "Liefert die durchschnittliche Dauer der letzten 10 Aufrufe in ms.")
     public long getDurchschnittsDauerLetzteAufrufe() {
         long result = 0;
         if (this.letzteSuchdauern.size() > 0) {
-            // Kopiere Liste um konkurrierende Änderungen zu vermeiden
-            // Explizit keine Synchronisierung, um die Anwendungsperformance
-            // nicht zu verschlechtern.
+            // Copy list to avoid concurrent changes
+            // Explicitly no synchronization to not degrade application performance
             Long[] dauern = this.letzteSuchdauern.toArray(new Long[0]);
             for (long dauer : dauern) {
                 result += dauer;
             }
-            result /= this.letzteSuchdauern.size();
+            result /= dauern.length;
         }
         return result;
     }
 
     /**
-     * Liefert die Anzahl der in der letzten Minute gezählten Aufrufe, bei denen kein Fehler aufgetreten ist.
-     * Definiert eine Methode für das Management-Interface dieser MBean.
-     * @return Die Anzahl der in der letzten Minute gezählten Aufrufe, bei denen kein Fehler aufgetreten ist.
+     * Returns the number of calls counted in the last minute where no error occurred.
+     * Defines a method for the management interface of this MBean.
+     *
+     * @return The number of calls counted in the last minute where no error occurred.
      */
     @ManagedAttribute(description = "Liefert die Anzahl der nicht fehlerhaften Aufrufe in der letzten Minute")
     public int getAnzahlAufrufeLetzteMinute() {
@@ -220,9 +216,10 @@ public class ServiceStatistikMBean implements MethodInterceptor, InitializingBea
     }
 
     /**
-     * Liefert die Anzahl der in der letzten Minute gezählten Aufrufe, bei denen ein Fehler aufgetreten ist.
-     * Definiert eine Methode für das Management-Interface dieser MBean.
-     * @return Die Anzahl der in der letzten Minute gezählten Aufrufe, bei denen ein Fehler aufgetreten ist.
+     * Returns the number of calls counted in the last minute where an error occurred.
+     * Defines a method for the management interface of this MBean.
+     *
+     * @return The number of calls counted in the last minute where an error occurred.
      */
     @ManagedAttribute(description = "Liefert die Anzahl der fehlerhaften Aufrufe in der letzten Minute")
     public int getAnzahlFehlerLetzteMinute() {
@@ -231,13 +228,13 @@ public class ServiceStatistikMBean implements MethodInterceptor, InitializingBea
     }
 
     /**
-     * Liefert die Anzahl der in der letzten Minute gezählten Aufrufe, bei denen ein fachlicher Fehler
-     * aufgetreten ist.
-     * @return Die Anzahl der in der letzten Minute gezählten Aufrufe, bei denen ein fachlicher Fehler
-     *         aufgetreten ist.
+     * Returns the number of calls counted in the last minute in which a technical error
+     * has occurred.
+     *
+     * @return The number of calls counted in the last minute where a technical error * occurred.
      */
     @ManagedAttribute(
-        description = "Liefert die Anzahl der fachlich fehlerhaften Aufrufe in der letzten Minute")
+            description = "Liefert die Anzahl der fachlich fehlerhaften Aufrufe in der letzten Minute")
     public int getAnzahlFachlicheFehlerLetzteMinute() {
         aktualisiereZeitfenster();
         return this.anzahlFachlicheFehlerLetzteMinute;
@@ -262,7 +259,7 @@ public class ServiceStatistikMBean implements MethodInterceptor, InitializingBea
             }
             return result;
         } catch (PlisBusinessToException t) {
-            // BusinessExceptions werden nicht als technischer Fehler gezählt.
+            // BusinessExceptions isn't counted as technical error
             erfolgreich = true;
             throw t;
         } finally {
@@ -272,42 +269,38 @@ public class ServiceStatistikMBean implements MethodInterceptor, InitializingBea
     }
 
     /**
-     * Prüft ob im Rückgabeobjekt fachliche Fehler enthalten waren. Das Rückgabeobjekt muss eine Collection
-     * enthalten, die mit @FachlicheFehlerListe annotiert ist.
+     * Checks whether the return object contained business errors. The return object must contain a collection
+     * annotated with @SubjectErrorList.
      *
-     * @param result
-     *            Das Rückgabeobjekt des Aufrufs.
-     * @return true bei Fehlern, sonst false
+     * @param result The return object of the call.
+     * @return true on errors, false otherwise.
      */
     private boolean sindFachlicheFehlerVorhanden(final Object result) {
         return pruefeObjektAufFehler(result, null, 1);
     }
 
     /**
-     * Durchsucht eine Klasse nach Fehlerobjekten, die nicht null sind, oder Fehlercollections, die nicht leer
-     * sind. Fehlerobjekten sind mit {link FachlicherFehler} annotiert.
+     * Searches a class for non-null error objects or non-empty error collections.
+     * Error objects are annotated with {link SpecializedError}.
+     * <p>
+     * Searches superclasses & child object structures recursively as well.
      *
-     * Durchsucht Oberklassen & untergeordnete Objektstrukturen ebenfalls rekursiv.
-     *
-     * @param result
-     *            Das Objekt
-     * @param clazz
-     *            Die Klasse des Objekts durchsucht werden soll (optional). Kann leergelassen werden beim
-     *            Start, kann aber genutzt werden um auf Oberklassen eines Objekts zu prüfen.
-     * @param tiefe
-     *            tiefe Gibt die aktuelle Tiefe des Aufrufs an. Muss erhöht werden wenn man die
-     *            Klassenstruktur nach unten durchläuft.
-     * @return <code>true</code> wenn Fehler gefunden, ansonsten <code>false</code>
+     * @param result The object
+     * @param clazz  The class of the object to be searched (optional). Can be left empty at
+     *               start, but can be used to check for superclasses of an object.
+     * @param tiefe  tiefe specifies the current depth of the call. Must be incremented when traversing the
+     *               class structure down.
+     * @return <code>true</code> if error found, otherwise <code>false</code>.
      */
     boolean pruefeObjektAufFehler(final Object result, Class<?> clazz, int tiefe) {
         boolean fehlerGefunden = false;
         Class<?> clazzToScan = clazz;
-        // Wenn keine Klasse übergeben, selber ermitteln
+        // If no class is passed, determine yourself
         if (clazzToScan == null) {
             clazzToScan = result.getClass();
         }
 
-        // Wenn max. Tiefe erreicht, nicht weiter prüfen
+        // If max. depth reached, do not check further
         if (tiefe > MAXTIEFE) {
             LOGISY.trace("Max. Tiefe erreicht, prüfe nicht weiter auf fachliche Fehler");
             return false;
@@ -316,56 +309,56 @@ public class ServiceStatistikMBean implements MethodInterceptor, InitializingBea
         Field[] fields = clazzToScan.getDeclaredFields();
 
         LOGISY.trace("{} Analysiere Objekt {} (Klasse {}) {} Felder gefunden.",
-            zeigeTiefeAn(tiefe), result.toString(), clazzToScan.getSimpleName(), fields.length);
+                zeigeTiefeAn(tiefe), result.toString(), clazzToScan.getSimpleName(), fields.length);
 
         for (Field field : fields) {
             if (!ClassUtils.isPrimitiveOrWrapper(field.getType()) && !field.getType().isEnum()) {
                 LOGISY.trace("{} {}.{}, Type {}", zeigeTiefeAn(tiefe), clazzToScan.getSimpleName(),
-                    field.getName(), field.getType().getSimpleName());
+                        field.getName(), field.getType().getSimpleName());
                 field.setAccessible(true);
                 try {
-                    // Prüfe einzelne Klassenfelder (non-Collection) auf annotierten Typ und Vorhandensein
+                    // Check individual class fields (non-collection) for annotated type and presence
                     if (!Collection.class.isAssignableFrom(field.getType())) {
                         if (field.get(result) != null) {
                             Object fieldObject = field.get(result);
                             if (fieldObject.getClass().isAnnotationPresent(FachlicherFehler.class)) {
-                                // Fachliches Fehlerobjekt gefunden
+                                // Subject error object found
                                 return true;
                             }
 
-                            // Wenn kein String, dann prüfe rekursiv Objektstruktur
+                            // If no string, then recursively check object structure
                             if (fieldObject.getClass() != String.class) {
                                 fehlerGefunden =
-                                    pruefeObjektAufFehler(fieldObject, null, tiefe + 1) || fehlerGefunden;
+                                        pruefeObjektAufFehler(fieldObject, null, tiefe + 1) || fehlerGefunden;
                             }
                         }
                     } else {
-                        // Collection, prüfen ob fachliche Fehlerliste
+                        // Collection, check if professional error list
                         ParameterizedType type = (ParameterizedType) field.getGenericType();
                         Class<?> collectionTypeArgument = (Class<?>) type.getActualTypeArguments()[0];
                         if (collectionTypeArgument.isAnnotationPresent(FachlicherFehler.class)) {
-                            // Ist Fehlerliste, prüfen ob nicht leer
+                            // Is error list, check if not empty
                             Collection<?> collection = (Collection<?>) field.get(result);
                             if (collection != null && !collection.isEmpty()) {
-                                // Fachliche Fehler in Fehlerliste gefunden
+                                // Professional errors found in error list
                                 return true;
                             }
                         }
                     }
                 } catch (IllegalAccessException e) {
-                    // Nichts tun, Feld wird ignoriert
+                    // Do nothing, field is ignored
                     LOGISY.debug("Feldzugriffsfehler: {}", e.getMessage());
                 }
             }
         }
 
-        // Die Klassen-Hierachie rekursiv nach oben prüfen
+        // Check the class hierarchy recursively upwards
         if (clazzToScan.getSuperclass() != null && !clazzToScan.getSuperclass().equals(Object.class)) {
             LOGISY.trace("{}> Climb up class hierarchy! Source {}, Target {}", zeigeTiefeAn(tiefe),
-                clazzToScan.getSimpleName(), clazzToScan.getSuperclass());
+                    clazzToScan.getSimpleName(), clazzToScan.getSuperclass());
             fehlerGefunden =
-                // Aufruf mit gleicher Tiefe, da Vererbung nach oben durchlaufen wird
-                pruefeObjektAufFehler(result, clazzToScan.getSuperclass(), tiefe) || fehlerGefunden;
+                    // Call with same depth, as inheritance is passed upwards
+                    pruefeObjektAufFehler(result, clazzToScan.getSuperclass(), tiefe) || fehlerGefunden;
         }
 
         return fehlerGefunden;
@@ -377,8 +370,8 @@ public class ServiceStatistikMBean implements MethodInterceptor, InitializingBea
     @Override
     public void afterPropertiesSet() {
         LOGISY.debug("ServiceStatistikMBean "
-            + (this.erweiterteFachlicheFehlerpruefung ? " mit erweiterter fachlicher Fehlerprüfung " : "")
-            + " initialisiert.");
+                + (this.erweiterteFachlicheFehlerpruefung ? " mit erweiterter fachlicher Fehlerprüfung " : "")
+                + " initialisiert.");
     }
 
     private static String zeigeTiefeAn(final int tiefe) {

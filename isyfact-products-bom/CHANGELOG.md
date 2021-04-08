@@ -1,3 +1,8 @@
+# 1.8.3
+- `IFS-692`: Google Guava von 19.0 auf 29.0 angehoben
+- `IFS-785`: Versionsupdate von XStream von 1.4.11 auf 1.4.14 wegen CVE
+   - es gibt voraussichtlich keine Kompatibilitätsprobleme
+
 # 1.8.1
 - `IFS-578`: Hebung Apache Commons-Validator auf 1.6
 - `IFS-494`: commons-beanutils:commons-beanutils in Version 1.9.4 hinzugefügt.

@@ -1,9 +1,12 @@
+# 1.5.0
+- `IFS-746`: Behebung von NullPointerException in TaskSchedulerImpl (wenn HostHandler false zurückgibt)
+
 # 1.4.0
 - `IFS-325`: Ungenutze Abhaengigkeit auf `isy-ueberwachung` entfernt
 - `IFS-468`: Update auf dozer 6.5.0
     * license/DEPENDENCIES hinzugefügt
     * (test-scope) Dozer aus logback.xml entfernt, da es nicht mehr verwendet wird
-    
+
 # 1.3.0
 - `IFS-262`: `isyfact-masterpom` deprecated (Abschaffung mit IsyFact 2.0), `isyfact-masterpom-lib` aufgelöst, Bibliotheken benutzen `isyfact-standards` als Parent-POM
 
