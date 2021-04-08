@@ -5,6 +5,7 @@
 - `IFS-692`: [isyfact-products-bom] Google Guava von 19.0 auf 29.0 angehoben
 - `IFS-746`: [isy-task] Behebung von NullPointerException in TaskSchedulerImpl (wenn HostHandler false zurückgibt)
 - `IFS-785`: [isyfact-products-bom] Versionsupdate von XStream von 1.4.11 auf 1.4.14 wegen CVE
+- `IFS-783`: Konfiguration von Quality Gate 1; Umstellung auf GitLabCI Templates
 
 # 1.8.1
 - `IFS-453`: [isy-ueberwachung] Loglevel für isAlive-Datei-Ereignisse erhöht.
@@ -23,3 +24,4 @@
     *  Neue Option `wildcard-case-insensitive` löst Case-Sensitive-Problem
     *  GroupIDs in Submodulen wurde auf `com.github.dozermapper` umgestellt
 - `IFS-463`: Abwärtskompatibilität IsyFact 2 zu IsyFact 1 - Erstellung der Bridge
+

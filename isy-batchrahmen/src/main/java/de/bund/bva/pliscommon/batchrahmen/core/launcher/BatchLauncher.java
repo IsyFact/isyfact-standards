@@ -22,6 +22,7 @@ import java.io.PrintStream;
 import java.net.URL;
 import java.util.Properties;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.env.PropertySource;
@@ -216,6 +217,10 @@ public class BatchLauncher {
      *            Exception
      * @return String inkl. Stacktrace ohne Zeilenumbrüche.
      */
+    @SuppressFBWarnings(
+            value = "DM_DEFAULT_ENCODING",
+            justification = "Solved with IFS-801"
+    )
     private static String exceptionToString(Throwable t) {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         t.printStackTrace(new PrintStream(out));

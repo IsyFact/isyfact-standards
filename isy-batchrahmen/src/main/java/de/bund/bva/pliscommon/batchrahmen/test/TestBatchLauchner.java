@@ -30,6 +30,7 @@ import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.pliscommon.batchrahmen.batch.konstanten.BatchRahmenEreignisSchluessel;
 import de.bund.bva.pliscommon.batchrahmen.batch.rahmen.BatchStartTyp;
 import de.bund.bva.pliscommon.batchrahmen.core.launcher.BatchLauncher;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Diese Klasse erlaubt das einfache Starten von Batches aus JUnit-Tests.
@@ -73,6 +74,10 @@ public class TestBatchLauchner {
      * @throws IOException
      *             Wenn der Batch nicht gestartet werden konnte.
      */
+    @SuppressFBWarnings(
+            value = "DM_DEFAULT_ENCODING",
+            justification = "solved with IFS-801"
+    )
     private int starteBatch(String[] batchLauncherParams, String[] batchParameter) throws IOException {
         // Classpath von Maven Surefire übernehmen, falls gesetzt.
         String classpath = System.getProperty("surefire.test.class.path");

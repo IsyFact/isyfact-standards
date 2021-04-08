@@ -43,6 +43,7 @@ import de.bund.bva.isyfact.logging.impl.FehlerSchluessel;
 import de.bund.bva.isyfact.logging.impl.MarkerSchluessel;
 import de.bund.bva.isyfact.logging.util.LoggingKonstanten;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.slf4j.Marker;
 
 /**
@@ -266,7 +267,10 @@ public class IsyJsonLayout extends JsonLayout {
      * @param event      das Log-Event
      * @return der geprüfte und eventuell gekürzte Logeintrag als String
      */
-
+    @SuppressFBWarnings(
+            value = "DM_DEFAULT_ENCODING",
+            justification = "solved with IFS-802"
+    )
     private String pruefeGroesse(Map<String, Object> map, String logeintrag, ILoggingEvent event) {
         // Prüfen, ob eine maximale Länge definiert wurde (0=beliebig lang)
         if (maxLength > 0) {
@@ -350,6 +354,10 @@ public class IsyJsonLayout extends JsonLayout {
      * @param map die Map mit den Rohdaten des Log-Events
      * @return der berechnete Ueberhang
      */
+    @SuppressFBWarnings(
+            value = "DM_DEFAULT_ENCODING",
+            justification = "solved with IFS-802"
+    )
     private int berechneUeberhang(Map<String, Object> map) {
         String logeintrag = getStringFromFormatter(map);
         int tatsaechlicheLaenge = logeintrag.getBytes().length;

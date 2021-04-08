@@ -18,6 +18,7 @@ package de.bund.bva.pliscommon.util.spring;
 
 import java.util.Locale;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceAware;
 import org.springframework.context.NoSuchMessageException;
@@ -83,6 +84,10 @@ public final class MessageSourceHolder implements MessageSourceAware {
      * @param messageSource
      *            MessageSource-Bean der Anwendung.
      */
+    @SuppressFBWarnings(
+            value = "ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD",
+            justification = "solved with IFS-805"
+    )
     public void setMessageSource(MessageSource messageSource) {
         MessageSourceHolder.messageSource = messageSource;
     }
