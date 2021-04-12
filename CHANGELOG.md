@@ -12,6 +12,7 @@
 - `IFS-746`: [isy-task] Behebung von NullPointerException in TaskSchedulerImpl (wenn HostHandler false zurückgibt)
 - `IFS-783`: Konfiguration von Quality Gate 1; Umstellung auf GitLabCI Templates
 - `IFS-785`: [isy-products-bom] Versionsupdate von XStream von 1.4.11 auf 1.4.14 wegen CVE
+- `IFS-741`: [isy-persistence] Entferne das Anlegen von DB-User in Update-Skripten
 
 # 2.1.0
 - `IFS-156`: [isy-sicherheit] Sonderlogik, die Underscores aus dem Attribut `durchfuehrenderSachbearbeiterName` des Aufrufkontextes entfernt erneut ausgebaut.
