@@ -6,6 +6,7 @@
 - `IFS-746`: [isy-task] Behebung von NullPointerException in TaskSchedulerImpl (wenn HostHandler false zurückgibt)
 - `IFS-785`: [isyfact-products-bom] Versionsupdate von XStream von 1.4.11 auf 1.4.14 wegen CVE
 - `IFS-783`: Konfiguration von Quality Gate 1; Umstellung auf GitLabCI Templates
+- `IFS-560`: [isy-persistence] Entferne das Anlegen von DB-User in Update-Skripten
 
 # 1.8.1
 - `IFS-453`: [isy-ueberwachung] Loglevel für isAlive-Datei-Ereignisse erhöht.
