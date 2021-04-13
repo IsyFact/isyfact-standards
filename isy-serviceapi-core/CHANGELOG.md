@@ -1,4 +1,4 @@
-# 1.11.0
+# 1.10.2
 - `IFS-597`: Verwendung der Klasse `IsyHttpInvokerServiceExporter` in Tests anstatt `HttpInvokerServiceExporter`
 
 # 1.10.1
