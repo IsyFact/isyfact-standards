@@ -1,0 +1,54 @@
+[[changelog]]
+= Changelog
+
+// *Änderungen IsyFact 2.2.0*
+
+// tag::release-2.2.0[]
+// end::release-2.2.0[]
+
+*Änderungen IsyFact 2.1.0*
+
+// tag::release-2.1.0[]
+- `IFS-463`: Abwärtskompatibilität IsyFact 2 zu IsyFact 1 - Erstellung der Bridge
+// end::release-2.1.0[]
+
+// *Änderungen IsyFact 2.0.0*
+
+// tag::release-2.0.0[]
+// end::release-2.0.0[]
+
+// *Änderungen IsyFact 1.8.0*
+
+// tag::release-1.8.0[]
+// end::release-1.8.0[]
+
+// *Änderungen IsyFact 1.7.0*
+
+// tag::release-1.7.0[]
+// end::release-1.7.0[]
+
+// *Änderungen IsyFact 1.6.0*
+
+// tag::release-1.6.0[]
+// end::release-1.6.0[]
+
+// *Änderungen IsyFact 1.5.0*
+
+// tag::release-1.5.0[]
+// end::release-1.5.0[]
+
+// *Änderungen IsyFact 1.4.0*
+
+// tag::release-1.4.0[]
+// end::release-1.4.0[]
+
+// *Änderungen IsyFact 1.3.5*
+
+// tag::release-1.3.5[]
+// end::release-1.3.5[]
+
+// *Änderungen IsyFact 1.3.0*
+
+// tag::release-1.3.0[]
+// end::release-1.3.0[]
+

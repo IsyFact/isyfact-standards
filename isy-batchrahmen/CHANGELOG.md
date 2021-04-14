@@ -1,3 +1,6 @@
+# 2.2.0
+- `IFS-542`: Fügt Korrelations-Id bei jeder Satzverarbeitung in Aufruf-Kontext hinzu
+
 # 2.0.0
 - `IFS-228`: Umstellung auf Java Config
 - `IFS-32`: Package-Name auf de.bund.bva.isyfact geändert

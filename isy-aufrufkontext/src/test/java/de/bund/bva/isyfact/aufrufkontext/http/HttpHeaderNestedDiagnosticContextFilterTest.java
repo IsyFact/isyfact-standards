@@ -2,12 +2,11 @@ package de.bund.bva.isyfact.aufrufkontext.http;
 
 import javax.servlet.http.HttpServletRequest;
 
-import de.bund.bva.isyfact.aufrufkontext.http.HttpHeaderNestedDiagnosticContextFilter;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
