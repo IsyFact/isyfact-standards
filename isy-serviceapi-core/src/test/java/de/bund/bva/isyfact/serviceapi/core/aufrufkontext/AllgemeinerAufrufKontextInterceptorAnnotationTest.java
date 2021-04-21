@@ -20,6 +20,7 @@ import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontextFactory;
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.isyfact.aufrufkontext.impl.AufrufKontextFactoryImpl;
+import de.bund.bva.isyfact.serviceapi.common.AufrufKontextToResolver;
 import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.helper.DebugAufrufKontextVerwalter;
 import de.bund.bva.isyfact.serviceapi.core.aop.test.AufrufKontextSstTestBean;
 import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
@@ -43,27 +44,26 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static org.junit.Assert.*;
 
 /**
- * Testet die Funktionalität von {@link StelltAufrufKontextBereitInterceptor}.
+ * Tests functionality of {@link StelltAufrufKontextBereitInterceptor}.
  */
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = AllgemeinerAufrufKontextInterceptorAnnotationTest.TestConfig.class)
 public class AllgemeinerAufrufKontextInterceptorAnnotationTest {
 
     /**
-     * Zugriff auf den AufrufKontextVerwalter, um zu überprüfen, ob der AufrufKontext korrekt gesetzt / nicht
-     * gesetzt wurde.
+     * Access to the AufrufKontextVerwalter to check if the call context is set / not set correctly.
      */
     @Autowired
     public DebugAufrufKontextVerwalter aufrufKontextVerwalter;
 
-    /** Simulation einer Service-Schnittstelle, auf die Aufrufe getätigt werden. */
+    /** Simulation of a service interface which is called. */
     @Autowired
     public AufrufKontextSstTestBean sst;
 
     /**
-     * erzeugt ein AufrufKontext Transport Objekt.
+     * Create a AufrufKontext transport object.
      *
-     * @return
+     * @return AufrufKontextTo containing dummy data
      */
     private AufrufKontextTo createAufrufKontextTo() {
         AufrufKontextTo aufrufKontextTo = new AufrufKontextTo();
@@ -78,11 +78,11 @@ public class AllgemeinerAufrufKontextInterceptorAnnotationTest {
     }
 
     /**
-     * Vergleicht ein AufrufKontextTo mit einem AufrufKontext.
+     * Compares an AufrufKontextTo with a AufrufKontext.
      * <p>
-     * Wirft einen {@link AssertionFailedError}, wenn die übergebenen Objekte nicht überein stimmen.
+     * Throws {@link AssertionFailedError}, if the parameters don't match.
      *
-     * @param to      Transportobjekt
+     * @param to      transport object
      * @param kontext AufrufKontext
      */
     private void assertEqualData(AufrufKontextTo to, AufrufKontext kontext) {
@@ -97,7 +97,7 @@ public class AllgemeinerAufrufKontextInterceptorAnnotationTest {
     }
 
     /**
-     * setzt den AufrufKontext vor jedem Test zurück.
+     * reset AufrufKontext before every test case
      */
     @Before
     public void leereAufrufKontext() {
@@ -106,7 +106,7 @@ public class AllgemeinerAufrufKontextInterceptorAnnotationTest {
 
     @After
     public void isAufrufKontextLeer() {
-        // der AufrufKontext darf nach Beendigung des Aufrufs nicht mehr gesetzt sein.
+        // the Aufrufkontext shouldn't be set after a test case
         assertNull(aufrufKontextVerwalter.getAufrufKontext());
     }
 
@@ -155,14 +155,19 @@ public class AllgemeinerAufrufKontextInterceptorAnnotationTest {
     public static class TestConfig {
 
         @Bean
+        public AufrufKontextToResolver aufrufKontextToResolver() {
+            return new AufrufKontextToResolver();
+        }
+
+        @Bean
         public MapperFacade mapperFacade() {
             return new DefaultMapperFactory.Builder().build().getMapperFacade();
         }
 
         @Bean
         public StelltAllgemeinenAufrufKontextBereitInterceptor interceptor(AufrufKontextFactory factory,
-            AufrufKontextVerwalter verwalter, MapperFacade mapper) {
-            return new StelltAllgemeinenAufrufKontextBereitInterceptor(mapper, factory, verwalter);
+            AufrufKontextVerwalter verwalter, MapperFacade mapper, AufrufKontextToResolver aufrufKontextToResolver) {
+            return new StelltAllgemeinenAufrufKontextBereitInterceptor(mapper, factory, verwalter, aufrufKontextToResolver);
         }
 
         @Bean

@@ -35,8 +35,10 @@ public class IsyServiceApiCoreAutoConfiguration {
     @Bean
     @ConditionalOnBean({ AufrufKontextFactory.class, AufrufKontextVerwalter.class })
     public StelltAufrufKontextBereitInterceptor stelltAufrufKontextBereitInterceptor(
-        AufrufKontextFactory factory, AufrufKontextVerwalter verwalter) {
-        return new StelltAufrufKontextBereitInterceptor(factory, verwalter);
+        AufrufKontextFactory factory,
+        AufrufKontextVerwalter verwalter,
+        AufrufKontextToResolver resolver) {
+        return new StelltAufrufKontextBereitInterceptor(factory, verwalter, resolver);
     }
 
     @Bean
