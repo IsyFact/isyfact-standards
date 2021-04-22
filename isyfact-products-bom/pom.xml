@@ -337,6 +337,14 @@
                 <scope>test</scope>
             </dependency>
 
+            <!-- Testen, Mocking-Framework: WireMock -->
+            <dependency>
+                <groupId>com.github.tomakehurst</groupId>
+                <artifactId>wiremock-jre8</artifactId>
+                <version>2.27.2</version>
+                <scope>test</scope>
+            </dependency>
+
             <!-- Testing, test framework (addon): DBUnit -->
             <dependency>
                 <groupId>org.dbunit</groupId>
