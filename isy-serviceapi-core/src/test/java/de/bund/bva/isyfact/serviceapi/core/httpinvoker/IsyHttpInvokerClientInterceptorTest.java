@@ -4,7 +4,7 @@ import java.lang.reflect.Method;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.util.LogHelper;
-import de.bund.bva.isyfact.serviceapi.common.AufrufKontextToResolver;
+import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.DefaultAufrufKontextToResolver;
 import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 import org.aopalliance.intercept.MethodInvocation;
 import org.junit.Test;
@@ -40,7 +40,7 @@ public class IsyHttpInvokerClientInterceptorTest {
         when(methodInvocation.getMethod()).thenReturn(toStringMethod);
         when(aufrufKontextTo.getKorrelationsId()).thenReturn("korrelationsId");
 
-        isyHttpInvokerClientInterceptor.setAufrufKontextToResolver(new AufrufKontextToResolver());
+        isyHttpInvokerClientInterceptor.setAufrufKontextToResolver(new DefaultAufrufKontextToResolver());
         isyHttpInvokerClientInterceptor.setLogHelper(logHelper);
         isyHttpInvokerClientInterceptor.setRemoteSystemName("remoteSystem");
 

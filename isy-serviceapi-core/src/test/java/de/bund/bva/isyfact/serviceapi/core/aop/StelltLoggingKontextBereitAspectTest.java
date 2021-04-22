@@ -29,8 +29,9 @@ import org.junit.Test;
 import org.springframework.aop.framework.ProxyFactory;
 
 import de.bund.bva.isyfact.logging.util.MdcHelper;
-import de.bund.bva.isyfact.serviceapi.common.AufrufKontextToResolver;
+import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.AufrufKontextToResolver;
 import de.bund.bva.isyfact.serviceapi.core.aop.test.LoggingKontextAspectService;
+import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.DefaultAufrufKontextToResolver;
 import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 
 /**
@@ -46,7 +47,7 @@ public class StelltLoggingKontextBereitAspectTest {
         // cleanUp
         MdcHelper.entferneKorrelationsIds();
 
-        AufrufKontextToResolver aufrufKontextToResolver = new AufrufKontextToResolver();
+        AufrufKontextToResolver aufrufKontextToResolver = new DefaultAufrufKontextToResolver();
         StelltLoggingKontextBereitInterceptor aspect =
             new StelltLoggingKontextBereitInterceptor(aufrufKontextToResolver);
         LoggingKontextAspectService service = new LoggingKontextAspectService();

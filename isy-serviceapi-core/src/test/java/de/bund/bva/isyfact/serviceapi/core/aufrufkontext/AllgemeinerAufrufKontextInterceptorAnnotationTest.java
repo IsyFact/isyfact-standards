@@ -20,7 +20,6 @@ import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontextFactory;
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.isyfact.aufrufkontext.impl.AufrufKontextFactoryImpl;
-import de.bund.bva.isyfact.serviceapi.common.AufrufKontextToResolver;
 import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.helper.DebugAufrufKontextVerwalter;
 import de.bund.bva.isyfact.serviceapi.core.aop.test.AufrufKontextSstTestBean;
 import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
@@ -156,7 +155,7 @@ public class AllgemeinerAufrufKontextInterceptorAnnotationTest {
 
         @Bean
         public AufrufKontextToResolver aufrufKontextToResolver() {
-            return new AufrufKontextToResolver();
+            return new DefaultAufrufKontextToResolver();
         }
 
         @Bean

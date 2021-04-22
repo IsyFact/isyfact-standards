@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.serviceapi.common;
+package de.bund.bva.isyfact.serviceapi.core.aufrufkontext;
 
 import java.util.Optional;
 
@@ -7,17 +7,13 @@ import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo
 /**
  * Helper class to read AufrufKontextTo from a parameter-list.
  */
-public class AufrufKontextToResolver {
+public class DefaultAufrufKontextToResolver implements AufrufKontextToResolver {
+
     /**
-     * Resolves {@link AufrufKontextTo} from an Object array.
-     * Primary use is to read AufrufKontextTo from the parameter list of a service call.
-     * The first found instance is returned.
-     *
-     * @param args
-     *            arguments of the service call
-     *
-     * @return an {@link Optional} containing the AufrufKontextTo. Returns empty Optional, if no AufrufKontextTo was found.
+     * {@inheritDoc}
+     * The first found instance of {@link AufrufKontextTo} is returned.
      */
+    @Override
     public Optional<AufrufKontextTo> leseAufrufKontextTo(Object[] args) {
 
         if (args != null) {

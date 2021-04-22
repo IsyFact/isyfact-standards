@@ -4,7 +4,7 @@
   aus Tests entfernt
 - `IFS-977`: Statische Auflösung des AufrufKontextTo durch Bean-Lösung abgelöst
     * AufrufKontextToHelper ist deprecated -> stattdessen AufrufKontextToResolver verwenden
-    * Resolver wird auch in der Autoconfig automatisch erstellt
+    * DefaultAufrufKontextToResolver wird auch in der Autoconfig automatisch erstellt und steht für Autowiring zur Verfügung
     * folgende Klassen benötigen jetzt den Resolver als Pflichtparameter:
         * `StelltAufrufKontextBereitInterceptor`
         * `StelltAllgemeinenAufrufKontextBereitInterceptor`

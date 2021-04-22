@@ -16,6 +16,8 @@
  */
 package de.bund.bva.isyfact.serviceapi.common;
 
+import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.AufrufKontextToResolver;
+import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.DefaultAufrufKontextToResolver;
 import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 
 /**
@@ -34,7 +36,7 @@ public class AufrufKontextToHelper {
      * @return the AufrufKontextTo object
      */
     public static AufrufKontextTo leseAufrufKontextTo(Object[] args) {
-        return new AufrufKontextToResolver().leseAufrufKontextTo(args).orElse(null);
+        return new DefaultAufrufKontextToResolver().leseAufrufKontextTo(args).orElse(null);
     }
 
 }

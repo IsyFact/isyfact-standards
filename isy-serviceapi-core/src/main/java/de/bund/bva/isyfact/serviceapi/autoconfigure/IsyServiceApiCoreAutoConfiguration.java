@@ -10,8 +10,9 @@ import org.springframework.context.annotation.Configuration;
 
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontextFactory;
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
-import de.bund.bva.isyfact.serviceapi.common.AufrufKontextToResolver;
+import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.AufrufKontextToResolver;
 import de.bund.bva.isyfact.serviceapi.core.aop.StelltLoggingKontextBereitInterceptor;
+import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.DefaultAufrufKontextToResolver;
 import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.StelltAufrufKontextBereitInterceptor;
 
 @Configuration
@@ -53,6 +54,6 @@ public class IsyServiceApiCoreAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public AufrufKontextToResolver aufrufKontextToResolver() {
-        return new AufrufKontextToResolver();
+        return new DefaultAufrufKontextToResolver();
     }
 }

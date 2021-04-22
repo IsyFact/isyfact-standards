@@ -22,8 +22,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import de.bund.bva.isyfact.serviceapi.common.AufrufKontextToResolver;
 import de.bund.bva.isyfact.serviceapi.core.aop.test.LoggingKontextAdvisorService;
+import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.DefaultAufrufKontextToResolver;
 
 /**
  * Tests for default order of StelltLoggingKontextBereit advisors
@@ -88,7 +88,7 @@ public class StelltLoggingKontextBereitAdvisorTest {
         @Bean(name = "CustomStelltLoggingKontextBereitInterceptor")
         @Primary
         public StelltLoggingKontextBereitInterceptor stelltLoggingKontextBereitInterceptorMock() {
-            return new StelltLoggingKontextBereitInterceptor(new AufrufKontextToResolver()) {
+            return new StelltLoggingKontextBereitInterceptor(new DefaultAufrufKontextToResolver()) {
                 @Override
                 public Object invoke(MethodInvocation invocation) throws Throwable {
                     StelltLoggingKontextBereitAdvisorTest.executionOrder

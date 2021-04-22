@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.serviceapi.common;
+package de.bund.bva.isyfact.serviceapi.core.aufrufkontext;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -10,9 +10,9 @@ import org.junit.Test;
 
 import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 
-public class AufrufKontextToResolverTest {
+public class DefaultAufrufKontextToResolverTest {
 
-    AufrufKontextToResolver resolver = new AufrufKontextToResolver();
+    AufrufKontextToResolver resolver = new DefaultAufrufKontextToResolver();
 
     @Test
     public void leseAufrufKontextToReadNull() {

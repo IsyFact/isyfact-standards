@@ -10,7 +10,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import de.bund.bva.isyfact.serviceapi.common.AufrufKontextToResolver;
+import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.AufrufKontextToResolver;
+import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.DefaultAufrufKontextToResolver;
 import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.DummyServiceRemoteBean;
 
 @RunWith(SpringRunner.class)
@@ -34,7 +35,7 @@ public class IsyHttpInvokerClientInterceptorAutowiringTest {
     public static class TestContext {
         @Bean
         AufrufKontextToResolver aufrufKontextToResolver() {
-            return new AufrufKontextToResolver();
+            return new DefaultAufrufKontextToResolver();
         }
 
         @Bean

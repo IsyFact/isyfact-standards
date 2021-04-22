@@ -17,7 +17,7 @@
 - `IFS-741`: [isy-persistence] Entferne das Anlegen von DB-User in Update-Skripten
 - `IFS-977`: [isy-serviceapi-core] Statische Auflösung des AufrufKontextTo durch Bean-Lösung abgelöst
     * AufrufKontextToHelper ist deprecated -> stattdessen AufrufKontextToResolver verwenden
-    * Resolver wird auch in der Autoconfig automatisch erstellt
+    * DefaultAufrufKontextToResolver wird auch in der Autoconfig automatisch erstellt und steht für Autowiring zur Verfügung
     * folgende Klassen benötigen jetzt den Resolver als Pflichtparameter:
         * `StelltAufrufKontextBereitInterceptor`
         * `StelltAllgemeinenAufrufKontextBereitInterceptor`
