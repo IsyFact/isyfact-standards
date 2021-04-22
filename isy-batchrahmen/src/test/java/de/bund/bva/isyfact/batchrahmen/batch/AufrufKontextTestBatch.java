@@ -19,6 +19,7 @@ import de.bund.bva.isyfact.batchrahmen.batch.protokoll.BatchErgebnisProtokoll;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchStartTyp;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.VerarbeitungsErgebnis;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
+import de.bund.bva.isyfact.serviceapi.common.AufrufKontextToResolver;
 import de.bund.bva.isyfact.serviceapi.core.httpinvoker.IsyHttpInvokerClientInterceptor;
 import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 
@@ -42,6 +43,7 @@ public class AufrufKontextTestBatch extends BasicTestBatch{
             throws BatchAusfuehrungsException {
         MockitoAnnotations.initMocks(this);
         isyHttpInvokerClientInterceptor = new IsyHttpInvokerClientInterceptor();
+        isyHttpInvokerClientInterceptor.setAufrufKontextToResolver(new AufrufKontextToResolver());
         isyHttpInvokerClientInterceptor.setRemoteSystemName("remoteSystem");
         return 0;
     }
