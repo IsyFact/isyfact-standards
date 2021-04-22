@@ -1,3 +1,10 @@
+# 1.10.0:
+- `IFS-849`: 
+    + Alte Implementierung in `de.bund.bva.pliscommon.plissonderzeichen.stringlatin1_1` verschoben
+    + Neue Implementierung in `de.bund.bva.pliscommon.plissonderzeichen.dinspec91379` erstellt
+    + Neue Transformation und Kategorie Tabelle hinzugefügt
+- `IFS-928`: neue Resource und Regel für Transkription hinzugefügt
+
 # 1.9.0
 - `IFS-468`: license/DEPENDENCIES überarbeitet und Dozer (nach Update auf 6.5.0) entfernt
 

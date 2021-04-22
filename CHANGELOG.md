@@ -1,3 +1,10 @@
+# 1.9.0
+- `IFS-849`: [isy-sonderzeichen] DIN SPEC: isy-sonderzeichen Transformation
+    + Alte Implementierung in `de.bund.bva.pliscommon.plissonderzeichen.stringlatin1_1` verschoben
+    + Neue Implementierung in `de.bund.bva.pliscommon.plissonderzeichen.dinspec91379` erstellt
+    + Neue Transformation und Kategorie Tabelle hinzugefügt
+- `IFS-928`: [isy-sonderzeichen] neue Resource und Regel für Transkription hinzugefügt
+
 # 1.8.3
 - `IFS-568`: [isy-util] Entfernt redundante Methode `getMessage(String schluessel)` aus dem MessageSourceHolder
 - `IFS-597`: [isy-sst-bridge], [isy-serviceapi-core] Verwendung der Klasse `IsyHttpInvokerServiceExporter` in Tests anstatt `HttpInvokerServiceExporter`

@@ -14,13 +14,14 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.pliscommon.plissonderzeichen.core.transformation.impl;
+package de.bund.bva.pliscommon.plissonderzeichen.stringlatin1_1.core.transformation.impl;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,7 +29,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Überprüft die Funktion der Transskriptionsregeln.
+ * Checks the function of the transcription rules.
  *
  */
 public class TransskriptionsregelnTest {
@@ -57,7 +58,7 @@ public class TransskriptionsregelnTest {
     }
 
     /**
-     * Testet die Prüfung auf einen Wortanfang.
+     * Tests the exam for the beginning of a word.
      */
     @Test
     public void testWortanfang() {
@@ -68,7 +69,7 @@ public class TransskriptionsregelnTest {
     }
 
     /**
-     * Testet die Prüfung auf ein Wortende.
+     * Tests the exam for the end of a word.
      */
     @Test
     public void testWortende() {
@@ -79,7 +80,7 @@ public class TransskriptionsregelnTest {
     }
 
     /**
-     * Testet die Prüfung auf die Wortmitte.
+     * Tests the middle of the word exam.
      */
     @Test
     public void testWortmitte() {
@@ -91,7 +92,7 @@ public class TransskriptionsregelnTest {
     }
 
     /**
-     * Testet die Prüfung auf Folgezeichen.
+     * Tests the exam for follow-up characters.
      */
     @Test
     public void testVorZeichen() {
