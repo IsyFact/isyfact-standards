@@ -51,6 +51,7 @@ import de.bund.bva.isyfact.sicherheit.common.exception.SicherheitTechnicalRuntim
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.joran.JoranConfigurator;
 import ch.qos.logback.core.joran.spi.JoranException;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * This class starts a batch (see {@link Batchrahmen} with the transferred configuration. The configuration
@@ -113,6 +114,10 @@ public class BatchLauncher {
      * @param args command line parameters. For description see class comment.
      * @return return code of batch.
      */
+    @SuppressFBWarnings(
+            value = "DM_DEFAULT_ENCODING",
+            justification = "Solved with IFS-801"
+    )
     public static int run(final String[] args) {
         IsyLogger log = null;
         BatchKonfiguration rahmenKonfiguration = null;
@@ -206,6 +211,10 @@ public class BatchLauncher {
      * @param t Exception
      * @return String including stack trace without line breaks.
      */
+    @SuppressFBWarnings(
+            value = "DM_DEFAULT_ENCODING",
+            justification = "Solved with IFS-801"
+    )
     private static String exceptionToString(Throwable t) {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         t.printStackTrace(new PrintStream(out));

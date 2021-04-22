@@ -1,5 +1,6 @@
 # 2.2.0
 - `IFS-693`: Initialisierung des LoggerKontexts für Anwendungskontext
+- `IFS-542`: Fügt Korrelations-Id bei jeder Satzverarbeitung in Aufruf-Kontext hinzu
 
 # 2.0.0
 - `IFS-228`: Umstellung auf Java Config

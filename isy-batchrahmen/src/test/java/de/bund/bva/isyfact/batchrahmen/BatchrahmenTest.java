@@ -16,6 +16,11 @@
  */
 package de.bund.bva.isyfact.batchrahmen;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.File;
 import java.net.URISyntaxException;
 
@@ -31,12 +36,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 /* @SpringBootTest(classes = AnwendungTestConfig.class, webEnvironment = SpringBootTest.WebEnvironment.NONE, properties = {
@@ -45,7 +48,7 @@ import static org.junit.Assert.*;
 @ContextConfiguration(classes = AnwendungTestConfig.class)
 public class BatchrahmenTest {
 
-    /** Datei für das Batch-Protokoll. Wird in {@link #init()} gesetzt. */
+    /** File for Batch protocol. Is set in {@link #init()}. */
     private static String ERGEBNIS_DATEI;
 
     @Autowired
@@ -71,8 +74,7 @@ public class BatchrahmenTest {
     }
 
     /**
-     * Testet die Ausführung des Batchrahmens mit dem TestBatchLauncher, der den Batch in einer eigenen VM
-     * ausführt.
+     * Tests the execution of the batch frame with the TestBatchLauncher, which executes the batch in a separate VM.
      */
     @Test
     public void testBatchrahmenMitTestBatchLauncher() throws Exception {
@@ -83,7 +85,7 @@ public class BatchrahmenTest {
     }
 
     /**
-     * Testet die Ausführung des Batchrahmens.
+     * Tests the execution of the batch frame.
      */
     @Test
     public void testBatchrahmen() throws Exception {
@@ -93,8 +95,8 @@ public class BatchrahmenTest {
     }
 
     /**
-     * Testet die Behandlung des Status-Satzes, wenn der Batch mit einem Fehler in der Initialisierung
-     * abbricht. Der Status muss bei einem Abbruch während der Initialisierung auf "beendet" stehen.
+     * Tests the handling of the status record if the batch terminates with an error in the initialization.
+     * The status must be set to "finished" if the abort occurs during initialization.
      */
     @Test
     public void testFehlerInInit() throws Exception {
@@ -111,11 +113,10 @@ public class BatchrahmenTest {
         assertEquals(2, BatchLauncher.run(
             new String[] { "-start", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
                 "-initError", "true" }));
-        // TODO: batchStatus kann nicht "beendet" sein, da "-initError" true ist und deswegen eine Exception
-        // geworfen wird.
+        // TODO: batchStatus cannot be "finished" because "-initError" is true and therefore an exception is thrown.
         assertEquals("beendet", getBatchStatus("errorTestBatch-1"));
 
-        // Test nach Abbruch
+        // Test after abort
         assertEquals(2, BatchLauncher.run(
             new String[] { "-start", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
                 "-laufError", "true" }));
@@ -127,7 +128,7 @@ public class BatchrahmenTest {
     }
 
     /**
-     * Testet, dass nach einem Abbruch der Batch nur mit ignoriereLauf neu gestartet werden kann.
+     * Tests that after an abort the batch can only be restarted with ignore run.
      */
     @Test
     public void testIgnoriereLauf() throws Exception {
@@ -147,7 +148,7 @@ public class BatchrahmenTest {
     }
 
     /**
-     * Testet, dass nach einem Abbruch der Batch mit Restart gestartet werden kann.
+     * Tests that after an abort the batch can be started with Restart.
      */
     @Test
     public void testRestart() throws Exception {
@@ -179,8 +180,8 @@ public class BatchrahmenTest {
         bpt = new BatchProtokollTester(ERGEBNIS_DATEI);
         assertTrue(bpt.isStartmodusRestart());
 
-        // Ab hier Prüfung, dass das obige Verhalten auch greift, wenn der Abbruch nach der Initialisierung
-        // aber vor Verarbeitung eines Satzes erfolgt (0 Sätze verarbeitet).
+        // From here on check, that the above behavior also applies,
+        // if the abort occurs after initialization but before processing a record (0 records processed).
         assertEquals(2, BatchLauncher.run(
             new String[] { "-start", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
                 "-laufErrorSofort", "true", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI }));
@@ -211,12 +212,10 @@ public class BatchrahmenTest {
     }
 
     /**
-     * Testet einen Batch, der als Daemon (uendlich) weiter läuft. Der Batch wird mit "kill -s INT pid"
-     * geordnet beendet. Anschließend muss geprüft werden, ob im Log die Meldung Batch beendet geschrieben
-     * wurde und der Status in der DB auf abgebrochen steht.
+     * Tests a batch that continues to run as daemon (uendlich). The batch is terminated with "kill -s INT pid".
+     * Afterwards it must be checked if the message Batch finished was written in the log and the status in the DB is set to aborted.
      *
-     * Unter Windows kann der Batch mit "taskkill /PID 1234" beendet werden. PID ist dem Task-Manager zu
-     * entnehmen.
+     * Windows, the batch can be terminated with "taskkill /PID 1234". PID can be taken from the task manager.
      */
     @Test
     @Ignore("Erfordert manuelles 'kill -15' von außen")
@@ -230,9 +229,8 @@ public class BatchrahmenTest {
     }
 
     /**
-     * Testet ob der Batch mit dem Laufzeitparameter abgebrochen werden kann. Anschließend muss geprüft
-     * werden, ob im Log die Meldung Batch beendet geschrieben wurde und der Status in der DB auf abgebrochen
-     * steht.
+     * Tests if the batch can be aborted with the runtime parameter.
+     * Afterwards it must be checked if the message Batch finished was written in the log and the status in the DB is set to aborted.
      */
     @Test
     @Ignore(
@@ -249,8 +247,8 @@ public class BatchrahmenTest {
     }
 
     /**
-     * Testet ob der Batch mit Parameter-Exception abbricht, wenn der Laufzeit-Parameter ohne die Minuten
-     * angegeben ist. Dabei ist "-laufzeit" der letzte Parameter.
+     * Tests if the batch with parameter exception terminates if the runtime parameter is specified without the minutes.
+     * Here "-runtime" is the last parameter.
      */
     @Test
     public void testLaufzeitParameterOhneMinuten() throws Exception {
@@ -261,8 +259,8 @@ public class BatchrahmenTest {
     }
 
     /**
-     * Testet ob der Batch mit Parameter-Exception abbricht, wenn der Laufzeit-Parameter ohne die Minuten
-     * angegeben ist. Der Parameter "-laufzeit" wird direkt mit einem anderen Parameter gefolgt.
+     * Tests if the batch with parameter exception terminates if the runtime parameter is specified without the minutes.
+     * The parameter "-laufzeit" is directly followed by another parameter.
      */
     @Test
     public void testLaufzeitParameterOhneMinutenIgnoriereTestlauf() throws Exception {
@@ -273,8 +271,8 @@ public class BatchrahmenTest {
     }
 
     /**
-     * Testet ob der Batch mit Parameter-Exception abbricht, wenn der Laufzeit-Parameter ohne die Minuten
-     * angegeben ist. Der Parameter "-laufzeit" vorne als Option angegeben.
+     * Tests if the batch with parameter exception terminates if the runtime parameter is specified without the minutes.
+     * The parameter "-laufzeit" is specified as an option at the front.
      */
     @Test
     public void testLaufzeitParameterOhneMinutenAlsOption() throws Exception {
@@ -284,8 +282,7 @@ public class BatchrahmenTest {
     }
 
     /**
-     * Testet ob der Batch mit Parameter-Exception abbricht, wenn der Laufzeit-Parameter angegeben ist, aber
-     * die Minuten nicht numerisch sind.
+     * Tests if the batch with parameter exception aborts if the runtime parameter is specified but the minutes are not numeric.
      */
     @Test
     public void testLaufzeitParameterMinutenNichtNumerisch() throws Exception {
@@ -295,10 +292,10 @@ public class BatchrahmenTest {
     }
 
     /**
-     * Liest den BatchStatus mit der angegebenen Id in einer eigenen Transaktion.
+     * Reads the BatchStatus with the specified Id in a separate transaction.
      *
-     * @param batchId Id als Schlüssel für den BatchStatus
-     * @return Den BatchStatus
+     * @param batchId Id as key for the BatchStatus
+     * @return the BatchStatus
      */
     private String getBatchStatus(final String batchId) {
         String sql = "SELECT batchstatus FROM batchstatus WHERE batchid = ?";
@@ -306,7 +303,7 @@ public class BatchrahmenTest {
     }
 
     /**
-     * Testet die Absicherung eines Batches vor der Verarbeitung eines Satzes.
+     * Tests the protection of a batch before processing a set.
      */
     @Test
     public void testGesicherterBatchGutFall() throws Exception {
@@ -316,7 +313,7 @@ public class BatchrahmenTest {
     }
 
     /**
-     * Testet die Absicherung eines Batches vor der Verarbeitung eines Satzes.
+     * Tests the protection of a batch before processing a set.
      */
     @Test
     public void testGesicherterBatchLoginNichtMoeglich() throws Exception {
@@ -326,7 +323,7 @@ public class BatchrahmenTest {
     }
 
     /**
-     * Testet die Absicherung eines Batches vor der Verarbeitung eines Satzes.
+     * Tests the protection of a batch before processing a set.
      */
     @Test
     public void testGesicherterBatchNichtErforderlicheRolle() throws Exception {
@@ -336,7 +333,7 @@ public class BatchrahmenTest {
     }
 
     /**
-     * Testet die Absicherung eines Batches vor der Initialisierung.
+     * Tests the protection of a batch before initialization.
      */
     @Test
     public void testGesicherterBatch2GutFall() throws Exception {
@@ -346,7 +343,7 @@ public class BatchrahmenTest {
     }
 
     /**
-     * Testet die Absicherung eines Batches vor der Initialisierung.
+     * Tests the protection of a batch before initialization.
      */
     @Test
     public void testGesicherterBatch2LoginNichtMoeglich() throws Exception {
@@ -357,7 +354,7 @@ public class BatchrahmenTest {
     }
 
     /**
-     * Testet die Absicherung eines Batches vor der Initialisierung.
+     * Tests the protection of a batch before initialization.
      */
     @Test
     public void testGesicherterBatch2NichtErforderlicheRolle() throws Exception {
@@ -368,8 +365,7 @@ public class BatchrahmenTest {
     }
 
     /**
-     * Testet die Ausführung des Batchrahmens mit dem TestBatchLauncher, der den Batch in einer eigenen VM
-     * ausführt.
+     * Tests the execution of the batch frame with the TestBatchLauncher, which executes the batch in a separate VM.
      */
     @Test
     public void testReturnCodeTestBatch() throws Exception {
@@ -387,5 +383,15 @@ public class BatchrahmenTest {
         final LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
         final String actualBatchId = loggerContext.getProperty("BatchId");
         assertEquals("BatchId ist in Batch LoggerContext gesetzt", "basicTestBatch-1", actualBatchId);
+    }
+
+    /**
+     * test if correlation-id in AufrufKontext will be set during batch execution
+     */
+    @Test
+    public void testAufrufKontextTestBatch() {
+        assertEquals(0, BatchLauncher.run(new String[] { "-start", "-cfg",
+                "/resources/batch/aufruf-kontext-test-batch-config.properties" }));
+        assertEquals("beendet", getBatchStatus("aufrufKontextTestBatch"));
     }
 }

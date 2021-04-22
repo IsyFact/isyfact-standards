@@ -1,3 +1,7 @@
+# 2.2.0
+- `IFS-453`: Loglevel für isAlive-Datei-Ereignisse erhöht: INFO für Standardablageort wird genutzt; ERROR für Datei existiert bei Abfrage nicht.
+- `IFS-656`: ServiceStatstik: Durchschnitt threadsafe berechnet
+
 # 2.1.0
 - `IFS-436`: Entkopplung Health-Endpoint und hinzufügen Nachbarsystem-Check
 - `IFS-687`: Umstellung des Nachbarsystem-Checks auf RestTemplate statt WebClient

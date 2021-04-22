@@ -1,3 +1,6 @@
+# 2.2.0
+- `IFE-202`: Ergänzung von Equals und HashCode Methoden und Serializable Implementierung in @Embeddable-Typen
+
 # 2.0.0
 - `IFS-228`: Einführung von Spring Boot
 - `IFS-32`: Package-Name auf de.bund.bva.isyfact geändert

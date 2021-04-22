@@ -1,3 +1,6 @@
+# 2.2.0
+- `IFS-489`: Entferne beim Loggen deklarierte Throwables in Methodensignaturen
+
 # 2.1.0
 - `IFS-362`: LogApplicationListener loggt nur noch für den eigenen ApplicationContext (nicht für Kind-Kontexte)
 - `IFS-444`: Anpassung der Klasse BeanToMapConverter

@@ -1,3 +1,8 @@
+# 2.2.0
+- `IFS-564`: Deaktivieren von Proxy-Objekten in HttpInvoker Schnittstellen
+- `IFS-597`: Verwendung der Klasse `IsyHttpInvokerServiceExporter` anstatt `HttpInvokerServiceExporter`
+  aus Tests entfernt
+
 # 2.1.0
 - `IFS-378`: Reihenfolge der Schnittstellenannotationen angepasst
 - `IFS-488`: Setze Advisor Order auf 50 für stelltAufrufKontextBereitAdvisor
