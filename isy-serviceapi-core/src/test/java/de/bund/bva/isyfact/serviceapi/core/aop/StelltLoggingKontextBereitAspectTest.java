@@ -18,40 +18,31 @@ package de.bund.bva.isyfact.serviceapi.core.aop;
 
 import java.util.UUID;
 
-import ch.qos.logback.classic.Logger;
-import ch.qos.logback.classic.spi.LoggingEvent;
-import ch.qos.logback.core.Appender;
+import de.bund.bva.isyfact.logging.util.MdcHelper;
 import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
-import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.ProxyFactory;
 import de.bund.bva.isyfact.serviceapi.core.aop.test.LoggingKontextAspectService;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
- * Tested, ob der {@link StelltLoggingKontextBereitInterceptor} auch für Klassen ohne Annotations
- * eine KorrelationsID (AufrufKontextTO) zurückgibt.
- *
+ * Tests that the {@link StelltLoggingKontextBereitInterceptor} sets a KorrelationsID (AufrufKontextTO)
+ * for Classes without Annotations as well.
  */
 public class StelltLoggingKontextBereitAspectTest {
 
-	private Appender mockAppender;
-	private ArgumentCaptor<LoggingEvent> captorLoggingEvent;
 	private LoggingKontextAspectService service;
 
 	@Before
 	public void setUp(){
-		captorLoggingEvent = ArgumentCaptor.forClass(LoggingEvent.class);
-
-		Logger logger = (Logger) LoggerFactory.getLogger("de.bund.bva.isyfact.serviceapi.core.aop.StelltLoggingKontextBereitInterceptor");
-		mockAppender = mock(Appender.class);
-		when(mockAppender.getName()).thenReturn("MOCK");
-
-		logger.addAppender(mockAppender);
+		// cleanUp
+		MdcHelper.entferneKorrelationsIds();
 
 		StelltLoggingKontextBereitInterceptor aspect = new StelltLoggingKontextBereitInterceptor();
 		LoggingKontextAspectService service = new LoggingKontextAspectService();
@@ -62,53 +53,106 @@ public class StelltLoggingKontextBereitAspectTest {
 
 	@Test
 	public void testAufrufOhneParameter() {
+		//just check state before for consistency
+		assertNull(MdcHelper.liesKorrelationsId());
+		assertNull(service.getKorrelationsIDLetzterAufruf());
+
+		//make call
 		service.aufrufOhneParameter();
-		verify(mockAppender, times(1)).doAppend(captorLoggingEvent.capture());
-		assertEquals("Es wurde kein AufrufKontext übermittelt. Erzeuge neue Korrelations-ID.",
-			captorLoggingEvent.getAllValues().get(0).getMessage());
+
+		//assert MDC was correct during call
+		assertNotNull(service.getKorrelationsIDLetzterAufruf());
+		//assert MDC state after call
+		assertNull(MdcHelper.liesKorrelationsId());
 	}
 
 	@Test
 	public void testAufrufOhneAufrufKontext() {
+		//just check state before for consistency
+		assertNull(MdcHelper.liesKorrelationsId());
+		assertNull(service.getKorrelationsIDLetzterAufruf());
+
+		//make call
 		service.aufrufOhneAufrufKontext(10);
-		verify(mockAppender, times(1)).doAppend(captorLoggingEvent.capture());
-		assertEquals("Es wurde kein AufrufKontext übermittelt. Erzeuge neue Korrelations-ID.",
-			captorLoggingEvent.getAllValues().get(0).getMessage());
+
+		//assert MDC was correct during call
+		assertNotNull(service.getKorrelationsIDLetzterAufruf());
+		//assert MDC state after call
+		assertNull(MdcHelper.liesKorrelationsId());
 	}
 
 	@Test
 	public void testAufrufOhneKorrelationsId() {
+		//just check state before for consistency
+		assertNull(MdcHelper.liesKorrelationsId());
+		assertNull(service.getKorrelationsIDLetzterAufruf());
+
+		//call
 		AufrufKontextTo to = new AufrufKontextTo();
 		service.aufrufMitAufrufKontext(to);
-		verify(mockAppender, times(1)).doAppend(captorLoggingEvent.capture());
-		assertEquals("Es wurde keine Korrelations-ID im AufrufKontext übermittelt. Erzeuge neue Korrelations-ID.",
-			captorLoggingEvent.getAllValues().get(0).getMessage());
+
+		//assert MDC was correct during call
+		assertNotNull(service.getKorrelationsIDLetzterAufruf());
+		//assert MDC state after call
+		assertNull(MdcHelper.liesKorrelationsId());
 	}
 
 	@Test
 	public void testAufrufLeereKorrelationsId() {
+		//just check state before for consistency
+		assertNull(MdcHelper.liesKorrelationsId());
+		assertNull(service.getKorrelationsIDLetzterAufruf());
+
+		//call
 		AufrufKontextTo to = new AufrufKontextTo();
 		to.setKorrelationsId("");
 		service.aufrufMitAufrufKontext(to);
-		verify(mockAppender, times(1)).doAppend(captorLoggingEvent.capture());
-		assertEquals("Es wurde keine Korrelations-ID im AufrufKontext übermittelt. Erzeuge neue Korrelations-ID.",
-			captorLoggingEvent.getAllValues().get(0).getMessage());
+
+		//assert MDC was correct during call
+		String korrId = service.getKorrelationsIDLetzterAufruf();
+		assertNotNull(korrId);
+		assertTrue(korrId.length() > 0);
+		//assert MDC state after call
+		assertNull(MdcHelper.liesKorrelationsId());
 	}
 
 	@Test
 	public void testAufrufMitKorrelationsId() {
+
+		//just check state before for consistency
+		assertNull(MdcHelper.liesKorrelationsId());
+		assertNull(service.getKorrelationsIDLetzterAufruf());
+
+		//prepare call
 		AufrufKontextTo to = new AufrufKontextTo();
 		UUID korrId = UUID.randomUUID();
 		to.setKorrelationsId(korrId.toString());
+		//make call
 		service.aufrufMitAufrufKontext(to);
-		verify(mockAppender, times(1)).doAppend(captorLoggingEvent.capture());
-		assertEquals("Setze Korrelations-ID aus AufrufKontext.",
-			captorLoggingEvent.getAllValues().get(0).getMessage());
+
+		//assert MDC was correct during call (from AufrufKontext)
+		assertEquals(korrId.toString(), service.getKorrelationsIDLetzterAufruf());
+		//assert MDC state after call
+		assertNull(MdcHelper.liesKorrelationsId());
 	}
 
-	@Test(expected = Exception.class)
-	public void testAufrufMitException() throws Exception {
-		service.aufrufMitException();
+	@Test
+	public void testAufrufMitException() {
+		//just check state before for consistency
+		assertNull(MdcHelper.liesKorrelationsId());
+		assertNull(service.getKorrelationsIDLetzterAufruf());
+
+		//make call
+		try {
+			service.aufrufMitException();
+			fail(); //exception should still be thrown
+		} catch (Exception ignored){
+		}
+
+		//assert MDC was correct during call (from AufrufKontext)
+		assertNotNull(service.getKorrelationsIDLetzterAufruf());
+		//assert MDC state after call
+		assertNull(MdcHelper.liesKorrelationsId());
 	}
 
 }
