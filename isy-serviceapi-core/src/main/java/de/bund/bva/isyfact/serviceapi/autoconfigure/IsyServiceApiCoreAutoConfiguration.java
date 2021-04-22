@@ -18,8 +18,8 @@ import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.StelltAufrufKontextBere
 public class IsyServiceApiCoreAutoConfiguration {
 
     @Bean
-    public StelltLoggingKontextBereitInterceptor stelltLoggingKontextBereitInterceptor() {
-        return new StelltLoggingKontextBereitInterceptor();
+    public StelltLoggingKontextBereitInterceptor stelltLoggingKontextBereitInterceptor(AufrufKontextToResolver aufrufKontextToResolver) {
+        return new StelltLoggingKontextBereitInterceptor(aufrufKontextToResolver);
     }
 
     @Bean

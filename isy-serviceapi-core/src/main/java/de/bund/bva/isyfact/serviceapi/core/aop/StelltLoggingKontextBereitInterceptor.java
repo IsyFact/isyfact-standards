@@ -17,24 +17,23 @@
 package de.bund.bva.isyfact.serviceapi.core.aop;
 
 import java.lang.reflect.Method;
+import java.util.Optional;
 import java.util.UUID;
 
-import de.bund.bva.isyfact.serviceapi.common.AufrufKontextToHelper;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.core.BridgeMethodResolver;
 import org.springframework.util.ClassUtils;
-import org.springframework.util.StringUtils;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
+import de.bund.bva.isyfact.serviceapi.common.AufrufKontextToResolver;
 import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 
 /**
- * Dieser Aspekt sorgt dafür, dass in Service-Methoden automatisch der Logging-Kontext gesetzt wird.
- *
+ * This aspect ensures that the logging context is automatically set in service methods.
  */
 public class StelltLoggingKontextBereitInterceptor implements MethodInterceptor {
 
@@ -42,90 +41,115 @@ public class StelltLoggingKontextBereitInterceptor implements MethodInterceptor 
     private static final IsyLogger LOG =
         IsyLoggerFactory.getLogger(StelltLoggingKontextBereitInterceptor.class);
 
+    /** Resolver for reading AufrufKontextTo from parameter list. */
+    private final AufrufKontextToResolver aufrufKontextToResolver;
+
+    public StelltLoggingKontextBereitInterceptor(
+        AufrufKontextToResolver aufrufKontextToResolver) {
+        this.aufrufKontextToResolver = aufrufKontextToResolver;
+    }
+
     /**
-     * Dieser Aspekt sorgt dafür, dass eine Korrelation-ID erzeugt wird, falls im AufrufKontext keine gesetzt
-     * ist und in der Annotation angegeben ist, dass kein Aufrufkontext als Parameter übergeben wird.
-     * Die Korrelation ID wird vor dem eigentlichen Aufruf im Logging-Kontext gesetzt und danach automatisch
-     * wieder entfernt.
+     * This aspect ensures that a correlation ID is generated if none is set in the AufrufKontext
+     * and it is specified in the annotation that no AufrufKontext is passed as a parameter.
+     * The correlation ID is set in the logging context before the actual call
+     * and is automatically removed afterwards.
      *
-     * @param invocation
-     *            der Methodenaufruf
-     *
-     * @return das Ergebnis der eigentlichen Methode.
-     * @throws Throwable
-     *             wenn die eigentliche Methode einen Fehler wirft.
+     * @param invocation the method call
+     * @return result of the called method
+     * @throws Throwable if an exception occurred in the called method
      */
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
-        // Die Korrelations-ID wird zur eindeutigen Identifikation von Service-Aufrufen verwendet.
+        // The correlation ID is used to uniquely identify service calls.
         String korrelationsId;
 
-        AufrufKontextTo aufrufKontextTo =
-            AufrufKontextToHelper.leseAufrufKontextTo(invocation.getArguments());
-
-        boolean nutzeAufrufKontext;
-
+        //determine if StelltLoggingKontextBereit annotation was set on Method
         Class<?> targetClass =
             (invocation.getThis() != null ? AopUtils.getTargetClass(invocation.getThis()) : null);
-
         StelltLoggingKontextBereit stelltLoggingKontextBereit =
             ermittleStelltLoggingKontextBereitAnnotation(invocation.getMethod(), targetClass);
 
+        //is StelltLoggingKontextBereit present?
         if (stelltLoggingKontextBereit != null) {
-            // Wenn stelltLogginKontextBereit != null ist, haben wir es mit einer annotierten Klasse zu tun.
-            // Dann entscheidet die Methode nutzeAufrufKontext darüber, ob AufrufKontextTo verwendet wird
-            // oder nicht.
-            nutzeAufrufKontext = stelltLoggingKontextBereit.nutzeAufrufKontext();
+            korrelationsId =
+                determineKorrelationsIdAccordingToAnnotation(stelltLoggingKontextBereit, invocation);
         } else {
-            // Es bleibt die Frage, ob ein AufrufKontextTo ohne Annotation übergeben wurde.
-            nutzeAufrufKontext = aufrufKontextTo != null;
-        }
-
-        if (nutzeAufrufKontext) {
-            if (aufrufKontextTo != null) {
-                if (StringUtils.isEmpty(aufrufKontextTo.getKorrelationsId())) {
-                    LOG.debug("Es wurde keine Korrelations-ID im AufrufKontext übermittelt. Erzeuge neue Korrelations-ID.");
-                    korrelationsId = UUID.randomUUID().toString();
-                    aufrufKontextTo.setKorrelationsId(korrelationsId);
-                } else {
-                    LOG.debug("Setze Korrelations-ID aus AufrufKontext.");
-                    korrelationsId = aufrufKontextTo.getKorrelationsId();
-                }
-
-            } else {
-                throw new IllegalArgumentException(
-                    "Die Annotation StelltLoggingKontextBereit gibt an, dass die Methode "
-                        + invocation.getMethod()
-                        + " einen Aufrufkontext als Parameter enthält. Dieser Parameter ist aber null oder nicht vorhanden.");
-            }
-        } else {
-            korrelationsId = UUID.randomUUID().toString();
-            LOG.debug("Es wurde kein AufrufKontext übermittelt. Erzeuge neue Korrelations-ID.");
+            korrelationsId = determineKorrelationsIdDefaultHandling(invocation);
         }
 
         try {
+            LOG.debug("Setze Korrelations-ID: " + korrelationsId);
             MdcHelper.pushKorrelationsId(korrelationsId);
             return invocation.proceed();
         } finally {
-            // Nach dem Aufruf alle Korrelations-IDs vom MDC entfernen.
+            // remove correlation id from MDC after service call
             MdcHelper.entferneKorrelationsIds();
         }
     }
 
     /**
-     * Ermittelt die StelltLoggingKontextBereit-Annotation.
+     * Get Correlation-ID according to StelltLoggingKontextBereit-annotation.
+     * If "nutzeAufrufKontext" is false, a new Korrelation-ID will be generated.
+     * If "nutzeAufrufKontext" is true, the AufrufKontextTo will be read and the Korrelations-ID will be set accordingly.
      *
-     * @param method
-     *            Aufgerufene Methode.
-     * @param targetClass
-     *            Klasse, an der die Methode aufgerufen wurde.
+     * @throws IllegalArgumentException if "nutzeAufrufKontext" is true, but no AufrufKontext was found.
+     */
+    public String determineKorrelationsIdAccordingToAnnotation(
+        StelltLoggingKontextBereit stelltLoggingKontextBereit, MethodInvocation invocation) {
+
+        if (stelltLoggingKontextBereit.nutzeAufrufKontext()) {
+            Optional<AufrufKontextTo> aufrufKontextToOptional =
+                aufrufKontextToResolver.leseAufrufKontextTo(invocation.getArguments());
+
+            if (!aufrufKontextToOptional.isPresent()) {
+                throw new IllegalArgumentException(
+                    "Die Annotation StelltLoggingKontextBereit gibt an, dass die Methode "
+                        + invocation.getMethod()
+                        + " einen Aufrufkontext als Parameter enthält. Dieser Parameter ist aber null oder nicht vorhanden.");
+            }
+
+            return aufrufKontextToOptional
+                .map(AufrufKontextTo::getKorrelationsId)
+                .filter(kor -> !kor.isEmpty())
+                .orElseGet(this::createNewCorrelationID);
+        } else {
+            return createNewCorrelationID();
+        }
+    }
+
+    /**
+     * Default handling if no Annotation is present.
+     * Try to read from Correlation ID from AufrufKontextTo, if none is available create new one.
+     */
+    public String determineKorrelationsIdDefaultHandling(MethodInvocation invocation) {
+        Optional<AufrufKontextTo> aufrufKontextToOptional =
+            aufrufKontextToResolver.leseAufrufKontextTo(invocation.getArguments());
+
+        return aufrufKontextToOptional
+            .map(AufrufKontextTo::getKorrelationsId)
+            .filter(kor -> !kor.isEmpty())
+            .orElseGet(this::createNewCorrelationID);
+    }
+
+    /** Create correlation ID. */
+    private String createNewCorrelationID() {
+        LOG.debug(
+            "Erzeuge neue Korrelations-ID.");
+        return UUID.randomUUID().toString();
+    }
+
+    /**
+     * Determines the StelltLoggingKontextBereit annotation.
+     *
+     * @param method      called method
+     * @param targetClass class, on which the method was called
      * @return Annotation StelltLoggingKontextBereit
      */
     private StelltLoggingKontextBereit ermittleStelltLoggingKontextBereitAnnotation(Method method,
         Class<?> targetClass) {
 
-        // Strategie für die Ermittlung der Annotation ist aus AnnotationTransactionAttributeSource
-        // übernommen.
+        // Strategy for determining the annotation is taken from AnnotationTransactionAttributeSource.
 
         // Ignore CGLIB subclasses - introspect the actual user class.
         Class<?> userClass = ClassUtils.getUserClass(targetClass);
