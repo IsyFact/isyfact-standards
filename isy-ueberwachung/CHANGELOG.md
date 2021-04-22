@@ -1,4 +1,4 @@
-# 1.11.0
+# 1.10.2
 - `IFS-656`: ServiceStatstik berechnet Durchschnitt nun threadsafe
 
 # 1.10.1

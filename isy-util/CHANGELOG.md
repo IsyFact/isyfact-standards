@@ -1,4 +1,4 @@
-# 1.10.0
+# 1.9.2
 - `IFS-568`: Entfernt redundante Methode `getMessage(String schluessel)` aus dem MessageSourceHolder
 
 # 1.9.0

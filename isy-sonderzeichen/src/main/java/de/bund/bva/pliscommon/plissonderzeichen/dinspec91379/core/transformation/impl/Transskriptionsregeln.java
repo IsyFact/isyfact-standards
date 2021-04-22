@@ -14,26 +14,26 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.pliscommon.plissonderzeichen.core.transformation.impl;
+package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.core.transformation.impl;
 
 import java.util.Set;
 
 /**
- * Methoden zur Prüfung von Transskriptionsregeln.
+ * Methods for checking transcription rules.
  * 
  */
 public abstract class Transskriptionsregeln {
 
     /**
-     * Prüft, ob sich eine Position im Text an einem Wortanfang befindet.
+     * Checks whether a position in the text is at the beginning of a word.
      * 
      * @param text
-     *            Der Text, in dem die Position untersucht werden soll.
+     *            The text in which to examine the position.
      * @param position
-     *            Die zu untersuchende Position.
+     *            The position to be examined.
      * @param trennzeichen
-     *            Die Menge aller Zeichen, die nicht als Teil eines Wortes gelten.
-     * @return true, wenn die Position an einem Wortanfang steht, sonst false
+     *            The set of all characters that are not considered part of a word.
+     * @return true if the position is at the beginning of a word, otherwise false
      */
     public static boolean isWortanfang(String text, int position, Set trennzeichen) {
         if (text == null || position > text.length() - 1) {
@@ -49,17 +49,17 @@ public abstract class Transskriptionsregeln {
     }
 
     /**
-     * Prüft, ob ein Substring im Text an einem Wortende endet.
+     * Checks whether a substring in the text ends at the end of a word.
      * 
      * @param text
-     *            Der Text, in dem die Position untersucht werden soll.
+     *            The text in which to examine the position.
      * @param position
-     *            Die Startposition des zu untersuchenden Substrings.
+     *            The starting position of the substring to be examined.
      * @param laenge
-     *            Die Länge des zu untersuchenden Substrings.
+     *            The length of the substring to be examined.
      * @param trennzeichen
-     *            Die Menge aller Zeichen, die nicht als Teil eines Wortes gelten.
-     * @return true, wenn der Substring an einem Wortende steht, sonst false
+     *            The set of all characters that are not considered part of a word.
+     * @return true if the substring is at the end of a word, otherwise false
      */
     public static boolean isWortende(String text, int position, int laenge, Set trennzeichen) {
         if (text == null) {
@@ -72,17 +72,17 @@ public abstract class Transskriptionsregeln {
     }
 
     /**
-     * Prüft, ob sich ein Substring im Text in der Mitte eines Wortes befindet.
+     * Checks whether there is a substring in the text in the middle of a word.
      * 
      * @param text
-     *            Der Text, in dem die Position untersucht werden soll.
+     *            The text in which to examine the position.
      * @param position
-     *            Die Startposition des zu untersuchenden Substrings.
+     *            The starting position of the substring to be examined.
      * @param laenge
-     *            Die Länge des zu untersuchenden Substrings.
+     *            The length of the substring to be examined.
      * @param trennzeichen
-     *            Die Menge aller Zeichen, die nicht als Teil eines Wortes gelten.
-     * @return true, wenn der Substring in der Mitte eines Wortes steht, sonst false
+     *            The set of all characters that are not considered part of a word.
+     * @return true if the substring is in the middle of a word, otherwise false
      */
     public static boolean isWortmitte(String text, int position, int laenge, Set trennzeichen) {
         if (text == null) {
@@ -93,17 +93,17 @@ public abstract class Transskriptionsregeln {
     }
 
     /**
-     * Prüft, ob auf einen bestimmten Substring im Text eines aus einer Menge von Zeichen folgt.
+     * Checks whether a certain substring in the text is followed by one of a set of characters.
      * 
      * @param text
-     *            Der Text, in dem die Position untersucht werden soll.
+     *            The text in which to examine the position.
      * @param position
-     *            Die Startposition des zu untersuchenden Substrings.
+     *            The starting position of the substring to be examined.
      * @param laenge
-     *            Die Länge des zu untersuchenden Substrings.
+     *            The length of the substring to be examined.
      * @param pruefzeichen
-     *            Die Menge aller Zeichen, die nicht als Teil eines Wortes gelten.
-     * @return true, wenn der Substring in der Mitte eines Wortes steht, sonst false
+     *            The set of all characters that are not considered part of a word.
+     * @return true if the substring is in the middle of a word, otherwise false
      */
     public static boolean isVorZeichen(String text, int position, int laenge, Set pruefzeichen) {
         if (text == null) {

@@ -1,4 +1,4 @@
-# 1.5.0
+# 1.4.2
 - `IFS-746`: Behebung von NullPointerException in TaskSchedulerImpl (wenn HostHandler false zurückgibt)
 
 # 1.4.0

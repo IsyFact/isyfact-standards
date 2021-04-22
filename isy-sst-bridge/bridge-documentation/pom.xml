@@ -5,7 +5,7 @@
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
         <artifactId>isy-sst-bridge</artifactId>
-        <version>1.8.3-SNAPSHOT</version>
+        <version>1.9.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>bridge-documentation</artifactId>
@@ -35,7 +35,7 @@
                                     <artifactItem>
                                         <groupId>de.bund.bva.isyfact</groupId>
                                         <artifactId>isy-dokumentvorlagen</artifactId>
-                                        <version>${project.version}</version>
+                                        <version>1.8.1</version>
                                         <overWrite>true</overWrite>
                                     </artifactItem>
                                 </artifactItems>
