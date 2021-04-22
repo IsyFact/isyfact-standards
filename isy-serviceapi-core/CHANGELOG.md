@@ -8,6 +8,7 @@
     * folgende Klassen benötigen jetzt den Resolver als Pflichtparameter:
         * `StelltAufrufKontextBereitInterceptor`
         * `StelltAllgemeinenAufrufKontextBereitInterceptor`
+        * `StelltLoggingKontextBereitInterceptor`
         * `IsyHttpInvokerClientInterceptor`
 
 # 2.1.0
