@@ -17,30 +17,34 @@
 package de.bund.bva.isyfact.batchrahmen.sicherheit;
 
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
+import de.bund.bva.isyfact.logging.IsyLogger;
+import de.bund.bva.isyfact.logging.IsyLoggerFactory;
+import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.sicherheit.accessmgr.AccessManager;
 import de.bund.bva.isyfact.sicherheit.common.exception.AuthentifizierungFehlgeschlagenException;
 import de.bund.bva.isyfact.sicherheit.common.exception.AuthentifizierungTechnicalException;
 
 /**
- * Dies ist ein Stub, der von den Tests "testGesicherterBatch*" in BatchrahmenTest verwendet wird, um zu
- * testen, ob die Rechteprüfung im Batch ordnungsgemäß funktioniert.
+ * This is a stub that is used by the "testGesicherterBatch*" tests in BatchRahmenTest to test
+ * whether the Rechteprüfung in the batch is working properly.
  * <p>
- * Er simuliert eine Authentifizierungsanfrage an den CAMS Server. Folgendes Verhalten ist implementiert:
+ * It simulates an authentication request to the Keycloak server. The following behavior is implemented:
  * <ul>
- * <li>Wird versucht sich mit dem Benutzer "falscher_benutzer" anzumelden - wird eine
- * AuthentifizierungFehlgeschlagenException erzeugt</li>
- * <li>Wird sich mit dem Benutzer "benutzer" angemeldet, enthält die Liste zurückgegebener Rollen die Rolle
- * "Anwender"</li>
- * <li>Alle anderen Benutzer erhalten eine leere Rollenliste</li>
+ * <li>If an attempt is made to log on with the user "falscher_benutzer",
+ * an AuthentifizierungFehlgeschlagenException is generated.</li>
+ * <li>If it is logged on with the user "benutzer", the list of returned roles contains the role "Anwender".</li>
+ * <li>All other users receive an empty role list</li>
  * </ul>
- * Es werden nur die Methoden {@link #authentifiziere(String, String, String, String, String)},
- * {@link #authentifiziereNutzer(String, String, String, String, String)} und
- * {@link #holeSessionInhalte(String)} unterstützt.
+ * Only methods {@link #authentifiziere(String, String, String, String, String)},
+ * {@link #authentifiziereNutzer(String, String, String, String, String)} and
+ * {@link #holeSessionInhalte(String)} are supported.
  *
  */
 public class AccessManagerStub implements AccessManager<AufrufKontext, AuthentifzierungErgebnisStub> {
 
-    /** der zuletzt autorisierte Nutzer. */
+    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(AccessManagerStub.class);
+
+    /** the last authorized user. */
     private String nutzer;
 
     /**
@@ -61,6 +65,7 @@ public class AccessManagerStub implements AccessManager<AufrufKontext, Authentif
             throw new AuthentifizierungFehlgeschlagenException("SIC2050");
         }
         this.nutzer = userName;
+        LOG.info(LogKategorie.JOURNAL, "AnwendungKontext", "Erfolgreich authentifiziert");
         return new AuthentifzierungErgebnisStub();
     }
 

@@ -12,6 +12,8 @@
 - `IFS-746`: [isy-task] Behebung von NullPointerException in TaskSchedulerImpl (wenn HostHandler false zurückgibt)
 - `IFS-783`: Konfiguration von Quality Gate 1; Umstellung auf GitLabCI Templates
 - `IFS-785`: [isy-products-bom] Versionsupdate von XStream von 1.4.11 auf 1.4.14 wegen CVE
+- `IFS-568`: [isy-util] Entfernt redundante Methode aus dem MessageSourceHolder
+- `IFS-693`: [isy-batchrahmen] Initialisierung des LoggerKontexts für Anwendungskontext
 - `IFS-741`: [isy-persistence] Entferne das Anlegen von DB-User in Update-Skripten
 
 # 2.1.0
