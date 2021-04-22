@@ -14,31 +14,31 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.pliscommon.plissonderzeichen.core.transformation;
+package de.bund.bva.pliscommon.plissonderzeichen.stringlatin1_1.core.transformation;
 
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 
-import de.bund.bva.pliscommon.plissonderzeichen.core.transformation.impl.AbstractTransformator;
+import de.bund.bva.pliscommon.plissonderzeichen.stringlatin1_1.core.transformation.impl.AbstractTransformator;
 
 
 /**
- * Die Factory für den jeweiligen Transformator.
- * 
+ * The factory for the respective transformer.
+ *
  */
 public class TransformatorFactory implements FactoryBean, InitializingBean{
-    
-    /** Der Transformator, wird über Spring gesetzt */
+
+    /** The transformer is set via Spring */
     private AbstractTransformator transformator;
-    
-    /** Zusätzliche Transformationstabelle, wird über Spring gesetzt */
+
+    /** Additional transformation table is set via Spring */
     private String transformationsTabelle;
 
     /**
      * {@inheritDoc}
      */
     public void afterPropertiesSet() throws Exception {
-        //Initialisiere Transformator
+        //Initialize transformer
         transformator.initialisiere(transformationsTabelle);
     }
     

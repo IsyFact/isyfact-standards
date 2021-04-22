@@ -14,13 +14,8 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.pliscommon.plissonderzeichen.konstanten;
+package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.konstanten;
 
-/**
- *
- * @author Capgemini, Marcel Vielsack
- * @version $Id:$
- */
 public class EreignisSchluessel {
 
     public static final String TRANSFORMATION = "EPLSOND00001";

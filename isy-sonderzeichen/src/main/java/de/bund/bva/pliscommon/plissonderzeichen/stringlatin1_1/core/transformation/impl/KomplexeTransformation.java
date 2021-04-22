@@ -14,49 +14,49 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.pliscommon.plissonderzeichen.core.transformation.impl;
+package de.bund.bva.pliscommon.plissonderzeichen.stringlatin1_1.core.transformation.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import de.bund.bva.pliscommon.plissonderzeichen.core.transformation.Transformator;
+import de.bund.bva.pliscommon.plissonderzeichen.stringlatin1_1.core.transformation.Transformator;
 
 /**
- * Diese Klasse bildet Transformationen ab, bei denen mehr als ein Zeichen transformiert wird oder bei denen
- * besondere Bedingungen erfüllt sein müssen.
- * 
+ * This class maps transformations in which more than one character is transformed or in which special
+ * conditions must be met.
+ *
  */
 public class KomplexeTransformation {
 
     /**
-     * Diese Klasse beschreibt eine mögliche Ersetzung mit den dafür eventuell notwendigen Regeln.
+     * This class describes a possible replacement with the rules that may be necessary for this.
      */
     private class Ersetzung {
 
         /**
-         * Die Nummern der Regeln, bei deren Erfüllung die Ersetzung angewendet werden kann.
-         * 
-         * Wenn mehrere Regeln angegeben sind, so wird die Ersetzung verwendet, wenn mindestens eine davon
-         * erfüllt ist. Ist keine Regel angegeben, so kann die Ersetzung immer verwendet werden.
+         * The numbers of the rules that if met, the replacement can be applied.
+         *
+         * If more than one rule is specified, the replacement is used if at least one of them is met.
+         * If no rule is given, the replacement can always be used.
          */
         public int[] regeln = new int[0];
 
-        /** Der String, durch den die ursprünglichen Zeichen ersetzt werden. */
+        /** The string to replace the original characters with. */
         public String ersatz;
     }
 
-    /** Der Transformator, dem die Transformation zugeordnet ist. */
+    /** The transformer to which the transformation is assigned. */
     private Transformator transformator;
 
-    /** Enthält alle möglichen Ersetzung, die mit einem bestimmten Zeichen beginnen. */
+    /** Contains all possible replacements that begin with a specific character. */
     private Map ersetzungen = new HashMap();
 
-    /** Die Länge der längsten zu ersetzenden Zeichenkombination. */
+    /** The length of the longest character combination to replace. */
     private int maxKeyLaenge = 0;
 
-    /** Anzahl Zeichen, die bei der letzten ermittelten Zeichenersetzung ersetzt worden wären. */
+    /** Number of characters that would have been replaced with the last character replacement determined. */
     private int laengeLetzteErsetzung = 0;
 
     public KomplexeTransformation(Transformator transformator) {
@@ -64,12 +64,12 @@ public class KomplexeTransformation {
     }
 
     /**
-     * Fügt der Liste der Ersetzungen eine neue Ersetzung ohne Regeln hinzu.
-     * 
+     * Adds a new replacement with no rules to the list of replacements.
+     *
      * @param ersetzenVon
-     *            Die zu ersetzende Zeichenkette.
+     *            The string to be replaced.
      * @param ersetzenNach
-     *            Zeichenkette, durch die ersetzt wird.
+     *            Character string to be replaced by.
      */
     public void addErsetzung(String ersetzenVon, String ersetzenNach) {
         Ersetzung ersetzung = new Ersetzung();
@@ -78,14 +78,14 @@ public class KomplexeTransformation {
     }
 
     /**
-     * Fügt der Liste der Ersetzungen eine neue Ersetzung mit Regeln hinzu.
-     * 
+     * Adds a new replacement with rules to the list of replacements.
+     *
      * @param ersetzenVon
-     *            Die zu ersetzende Zeichenkette.
+     *            The string to be replaced.
      * @param ersetzenNach
-     *            Zeichenkette, durch die ersetzt wird.
+     *            Character string to be replaced by.
      * @param regeln
-     *            Liste der Regeln, die für die neue Ersetzung zu prüfen sind.
+     *            List of rules to consider for the new replacement.
      */
     public void addErsetzung(String ersetzenVon, String ersetzenNach, String[] regeln) {
         Ersetzung ersetzung = new Ersetzung();
@@ -98,16 +98,16 @@ public class KomplexeTransformation {
     }
 
     /**
-     * Liefert eine Zeichenersetzung für eine Position innerhalb einer Zeichenkette.
-     * 
-     * Es wird immer die Zeichenersetzung ermittelt, durch die möglichst viele Zeichen des Ausgangsstrings
-     * ersetzt werden.
-     * 
+     * Returns a character replacement for a position within a character string.
+     *
+     * The character replacement is always determined by which as many characters as possible in the output
+     * string are replaced.
+     *
      * @param text
-     *            Zeichenkette, in der Zeichen ersetzt werden sollen.
+     *            Character string in which characters are to be replaced.
      * @param position
-     *            Position innerhalb der Zeichenkette, an der Zeichen ersetzt werden sollen.
-     * @return String, durch den die Zeichen an der angegebenen Position zu ersetzen sind.
+     *            Position within the character string at which characters are to be replaced.
+     * @return String with which the characters at the specified position are to be replaced.
      */
     public String getErsetzung(String text, int position) {
         for (int laenge = maxKeyLaenge; laenge > 0; laenge--) {
@@ -139,9 +139,9 @@ public class KomplexeTransformation {
     }
 
     /**
-     * Gibt die Anzahl von Zeichen zurück, die durch die letzte ermittelte Ersetzung ersetzt worden wären.
-     * 
-     * @return Anzahl ersetzter Zeichen.
+     * Returns the number of characters that would have been replaced by the last replacement found.
+     *
+     * @return Number of replaced characters.
      */
     public int getLaengeLetzteErsetzung() {
         return laengeLetzteErsetzung;
