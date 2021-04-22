@@ -15,6 +15,13 @@
 - `IFS-568`: [isy-util] Entfernt redundante Methode aus dem MessageSourceHolder
 - `IFS-693`: [isy-batchrahmen] Initialisierung des LoggerKontexts für Anwendungskontext
 - `IFS-741`: [isy-persistence] Entferne das Anlegen von DB-User in Update-Skripten
+- `IFS-977`: [isy-serviceapi-core] Statische Auflösung des AufrufKontextTo durch Bean-Lösung abgelöst
+    * AufrufKontextToHelper ist deprecated -> stattdessen AufrufKontextToResolver verwenden
+    * Resolver wird auch in der Autoconfig automatisch erstellt
+    * folgende Klassen benötigen jetzt den Resolver als Pflichtparameter:
+        * `StelltAufrufKontextBereitInterceptor`
+        * `StelltAllgemeinenAufrufKontextBereitInterceptor`
+        * `IsyHttpInvokerClientInterceptor`
 
 # 2.1.0
 - `IFS-156`: [isy-sicherheit] Sonderlogik, die Underscores aus dem Attribut `durchfuehrenderSachbearbeiterName` des Aufrufkontextes entfernt erneut ausgebaut.
