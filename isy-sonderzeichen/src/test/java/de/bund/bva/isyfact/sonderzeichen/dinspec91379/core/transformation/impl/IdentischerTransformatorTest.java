@@ -14,22 +14,27 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.isyfact.sonderzeichen.core.transformation.impl;
+package de.bund.bva.isyfact.sonderzeichen.dinspec91379.core.transformation.impl;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import de.bund.bva.isyfact.logging.IsyLogger;
-import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.isyfact.sonderzeichen.core.transformation.ZeichenKategorie;
-
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import de.bund.bva.isyfact.logging.IsyLogger;
+import de.bund.bva.isyfact.logging.IsyLoggerFactory;
+import de.bund.bva.isyfact.sonderzeichen.dinspec91379.core.transformation.ZeichenKategorie;
+import de.bund.bva.isyfact.sonderzeichen.dinspec91379.core.transformation.TestData;
 
 /**
- * Testet den IdentischerTransformator.
+ * Tests the IdentischerTransformator.
  *
  */
 public class IdentischerTransformatorTest {
@@ -65,6 +70,21 @@ public class IdentischerTransformatorTest {
         LOG.debug("Ausgabe: " + transformed);
 
         assertEquals(expected, transformed);
+    }
+
+    @Test
+    public void testTransformiereDinspec91379() {
+
+        this.transformator.initialisiere(null);
+
+        for (int i = 0; i < TestData.RANDOM_TESTDATA.length; i++) {
+            LOG.debug("Eingabe: " + TestData.RANDOM_TESTDATA[i]);
+            LOG.debug("Erwartete Ausgabe: " + TestData.RANDOM_TESTDATA[i]);
+            String transformed = this.transformator.transformiere(TestData.RANDOM_TESTDATA[i]);
+            LOG.debug("Ausgabe: " + transformed);
+
+            assertEquals(TestData.RANDOM_TESTDATA[i], transformed);
+        }
     }
 
     @Test
@@ -143,11 +163,9 @@ public class IdentischerTransformatorTest {
 
     @Test
     public void testTransformiereZusaetzlich() {
-        String zeichenkette = "\u0410";
+        String zeichenkette = "\u2022";
         assertNotEquals("K", transformator.transformiere(zeichenkette));
         transformator.initialisiere("/tabellen/zusaetzliche.transform");
         assertEquals("K", transformator.transformiere(zeichenkette));
-
-
     }
 }

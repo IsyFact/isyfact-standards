@@ -14,14 +14,14 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.isyfact.sonderzeichen.core.transformation.impl;
+package de.bund.bva.isyfact.sonderzeichen.dinspec91379.core.transformation.impl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import de.bund.bva.isyfact.sonderzeichen.core.transformation.Transformator;
+import de.bund.bva.isyfact.sonderzeichen.dinspec91379.core.transformation.Transformator;
 
 public class KomplexeTransformationTest {
 	
@@ -44,7 +44,7 @@ public class KomplexeTransformationTest {
 	@Test
 	public void testAddErsetzungMitRegeln() {
 		String[] regeln = new String[] { "1", "2" };
-		komplexeTransformation.addErsetzung("alt", "neu", regeln);
-		assertEquals("neu", komplexeTransformation.getErsetzung("alt", 0));
+		komplexeTransformation.addErsetzung("plis", "isy", regeln);
+		assertEquals("isy", komplexeTransformation.getErsetzung("plis", 0));
 	}
 }

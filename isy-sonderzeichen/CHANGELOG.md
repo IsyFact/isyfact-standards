@@ -1,3 +1,10 @@
+# 2.2.0: 
+- `IFS-929`: 
+    + Alte Implementierung in `de.bund.bva.isyfact.sonderzeichen.stringlatin1_1` verschoben
+    + Neue Implementierung in `de.bund.bva.isyfact.sonderzeichen.dinspec91379` erstellt
+    + Neue Transformation und Kategorie Tabelle hinzugefügt
+    + Neue Resource und Regel für Transkription hinzugefügt
+
 # 2.0.0
 - `IFS-32`: Package-Name auf de.bund.bva.isyfact geändert
 

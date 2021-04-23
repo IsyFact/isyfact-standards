@@ -14,28 +14,30 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.isyfact.sonderzeichen.konstanten;
+package de.bund.bva.isyfact.sonderzeichen.dinspec91379.konstanten;
 
 /**
- * Diese Klasse enthält Konstanten zu den Ressourcen der jeweiligen Transformations Tabelle.
+ * This class contains constants for the resources of the respective transformation table.
  *
  */
 public class TransformationsKonstanten {
 
-    /** Die Zeichenkette, welche die Zeichen für das Entfernen beschreibt */
+    /** The string that describes the characters to remove */
     public static final String ZEICHEN_ENTFERNE = "";
 
-    /** Der Eintrag in einer Transformationstabelle, welcher den Standardfall beschreibt */
+    /** The entry in a transformation table that describes the standard case */
     public static final String EINTRAG_STANDARD = "standard";
 
-    /** String, welches das Leerzeichen darstellt */
+    /** String representing the space */
     public static final String STRING_SPACE = " ";
 
-    /** Der Pfad zur Transformations Tabelle Identisch */
+    /** The path to the transformation table identical */
     public static final String TRANSFORMATIONS_TABELLE_IDENTISCH =
-        "/resources/tabellen/transformation_identisch.transform";
+        "/resources/tabellen/transformation_dinspec91379.transform";
 
-    /** Der Pfad zur Kategorie Tabelle Identisch */
-    public static final String KATEGORIE_TABELLE_IDENTISCH = "/resources/tabellen/kategorie_identisch.kat";
+    /** The path to the table identical category */
+    public static final String KATEGORIE_TABELLE = "/resources/tabellen/kategorie_dinspec91379.kat";
 
+    /** The path to the transformation transcription table */
+    public static final String TRANSFORMATIONS_TABELLE_TRANSKRIPTION = "/resources/tabellen/transformation_din91379_transkription.transform";
 }
