@@ -15,69 +15,45 @@
  permissions and limitations under the License.
 */
 /*
- Dieses Skript enthält alle Umgebungsvariablen des Systems für die Umgebung.
-*/ 
+ This script contains all of the system's environment variables for the environment.
+*/
 
 -- -------------------------------------
--- Konfiguration: Datenbankverbindungen
+-- Configuration: Database connections
 -- -------------------------------------
--- Oracle-Datenbankverbindung (Connection-String) 
--- in der Form <user-id>/<pwd>@<IP-Adresse>:<port>/<db-instanz>
--- für den SYS-Admin.
+-- Oracle-Database connection (Connection-String)
+-- in form <user-id>/<pwd>@<IP-Address>:<port>/<db-instanz>
+-- for SYS-Admin.
 DEFINE SYSADMIN_CONNECTION      = 'template';
 
--- Oracle-Datenbankverbindung (Connection-String) 
--- in der Form <user-id>/<pwd>@<IP-Adresse>:<port>/<db-instanz>
--- für den Benutzer des neu anzulegenden Schemas.
+-- Oracle-Database connection (Connection-String)
+-- in form <user-id>/<pwd>@<IP-Address>:<port>/<db-instanz>
+-- for the user of the new schema to be created.
 DEFINE USER_CONNECTION          = 'template';
 
 
 -- -------------------------------------
--- Konfiguration: Tablespace
+-- Configuration: User
 -- -------------------------------------
--- Name des Tablespace, in dem das Schema angelegt wird.
-DEFINE TABLESPACE_NAME          = 'template';
-
--- Quota des User für das Schema.
-DEFINE TABLESPACE_QUOTA         = 'template';
-
--- Name des Data-Files inklusiv vollständigen Pfad, 
--- das dem Tablespace zugeordnet wird.
-DEFINE DATAFILE_NAME            = 'template';
-
--- Größe des Data-Files incl. Einheit (z.B. 20G für 20 GB).
-DEFINE DATAFILE_SIZE            = 'template';
-
--- Größe des nächsten zu allokierenden Extends 
--- incl. Einheit (z.B. 5M für 5 MB).
-DEFINE AUTOEXTEND_NEXT_SIZE     = 'template'; 
-
--- Maximale Größe des Data-Files incl. Einheit (z.B. 100G für 100GB).
-DEFINE AUTOEXTEND_MAX_SIZE      = 'template';
-
-
--- -------------------------------------
--- Konfiguration: User
--- -------------------------------------
--- Name des Users für das Schema (ist gleich dem Schemanamen). 
--- Muss mit <user-id> im Parameter USER_CONNECTION übereinstimmen.
+-- Name of user for the schema (is the same as the schema name).
+-- Must match <user-id> in the USER_CONNECTION parameter.
 DEFINE USERNAME                 = 'template';
 
--- Kennwort des Users für das Schema. 
--- Muss mit <pwd> User im Parameter USER_CONNECTION übereinstimmen.
+-- Password of user for schema.
+-- Must match <pwd> User in the USER_CONNECTION parameter.
 DEFINE PASSWORD                 = 'template';
 
 -- -------------------------------------
--- Konfiguration: User_Protrech
+-- Configuration: User_Protrech
 -- -------------------------------------
--- Name des Users für die Protokollrecherche
+-- Name of user for Protokollrecherche
 DEFINE USERNAME_PROTRECH        = 'template';
 
--- Kennwort des Users  für die Protokollrecherche
+-- Password of user  for Protokollrecherche
 DEFINE PASSWORD_PROTRECH        = 'template';
 
 -- -------------------------------------
--- Konfiguration: NLS Einstellungen
+-- Configuration: NLS Settings
 -- -------------------------------------
 DEFINE NLS_LANG                 = '.UTF8';
 

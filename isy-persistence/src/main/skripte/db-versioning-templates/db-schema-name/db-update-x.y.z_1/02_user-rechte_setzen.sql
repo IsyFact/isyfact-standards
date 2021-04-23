@@ -15,29 +15,21 @@
  permissions and limitations under the License.
 */
 /*
- Dieses Skript erzeugt die benötigte Benutzer und Rechte für das System.
+ This script creates the required users and rights for the system.
 */
 
-CREATE USER &USERNAME IDENTIFIED BY &PASSWORD DEFAULT TABLESPACE &TABLESPACE_NAME QUOTA &TABLESPACE_QUOTA ON &TABLESPACE_NAME;
-
--- Explizit CREATE SESSION anstatt CONNECT-Rolle
+-- Explicitly CREATE SESSION instead of CONNECT-Rolle
 GRANT CREATE SESSION TO &USERNAME;
 
--- Temporär CREATE-Rechte setzen fuer initiales Anlegen.
+-- Set temporary CREATE rights for initial creation.
 GRANT CREATE TABLE TO &USERNAME;
 GRANT CREATE SEQUENCE TO &USERNAME;
 GRANT CREATE PROCEDURE TO &USERNAME;
 GRANT CREATE TRIGGER TO &USERNAME;
 GRANT CREATE VIEW TO &USERNAME;
 
--- Eventuell weitere Rechte (Queuing, Materialized View, ...)
+-- Possibly further rights (queuing, materialized view, ...)
 
 
-/*
-  Erzeugung des Protokollrecherche-Nutzers, wenn benötigt. Rechte auf Export-Tabelle 
-  werden in 05_Abschlussbearbeitung gesetzt.
-  
-  Wenn nicht benötigt, löschen.
- */
-CREATE USER &USERNAME_PROTRECH IDENTIFIED BY &PASSWORD_PROTRECH;
+-- Give Protkollrechecher user the rights to CREATE SESSION.
 GRANT CREATE SESSION TO &USERNAME_PROTRECH;
