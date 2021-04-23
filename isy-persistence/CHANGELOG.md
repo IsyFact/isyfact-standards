@@ -1,3 +1,6 @@
+# 1.11.0
+- `IFS-560`: Entferne das Anlegen von DB-User in Update-Skripten
+
 # 1.10.0
 - `IFS-461`: Anpassungen für Hibernate 5.4.8 
     * Hibernate-Entitymanager entfernt
