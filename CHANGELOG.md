@@ -4,7 +4,9 @@
 - `IFS-1004`: [isy-sonderzeichen]
     + Refactoring des DIN-SPEC-Packages von isy-sonderzeichen
     + Entfernen des `core`-Unterpakets des DIN-SPEC-Packages von isy-sonderzeichen
-- `IFS-978`: [isy-sst-bridge] ServiceApiMapper unterstützt Mapping von AufrufKontextTo auch in Gegenrichtung (IF1 zu IF2)
+- `IFS-978`: [isy-sst-bridge] Bridge-Erweiterung:
+    * ServiceApiMapper unterstützt Mapping von AufrufKontextTo auch in Gegenrichtung (IF1 zu IF2)
+    * AufrufKontextToResolver hinzugefügt, der sowohl mit IF1, als auch IF2-AufrufKontextTo umgehen kann
 
 # 2.2.0
 - `IFS-453`: [isy-ueberwachung] Loglevel für isAlive-Datei-Ereignisse erhöht.
