@@ -15,11 +15,11 @@ import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.DefaultAufrufKontextToR
 import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.DummyServiceRemoteBean;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = { IsyHttpInvokerClientInterceptorAutowiringTest.TestContext.class })
+@ContextConfiguration(classes = IsyHttpInvokerClientInterceptorAutowiringTest.TestContext.class)
 public class IsyHttpInvokerClientInterceptorAutowiringTest {
 
     @Autowired
-    IsyHttpInvokerClientInterceptor isyHttpInvokerClientInterceptor;
+    private IsyHttpInvokerClientInterceptor isyHttpInvokerClientInterceptor;
 
     /**
      * Tests that AufrufKontextToResolver gets autowired into isyHttpInvokerClientInterceptor

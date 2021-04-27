@@ -12,7 +12,7 @@ import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo
 
 public class DefaultAufrufKontextToResolverTest {
 
-    AufrufKontextToResolver resolver = new DefaultAufrufKontextToResolver();
+    private final AufrufKontextToResolver resolver = new DefaultAufrufKontextToResolver();
 
     @Test
     public void leseAufrufKontextToReadNull() {
@@ -79,7 +79,7 @@ public class DefaultAufrufKontextToResolverTest {
         assertEquals(aufrufKontextTo, opt.get());
     }
 
-    private AufrufKontextTo createDummyAufrufkontextTo() {
+    private static AufrufKontextTo createDummyAufrufkontextTo() {
         AufrufKontextTo aufrufKontextTo = new AufrufKontextTo();
         aufrufKontextTo.setDurchfuehrendeBehoerde("123456");
         aufrufKontextTo.setDurchfuehrenderBenutzerKennung("benutzer");

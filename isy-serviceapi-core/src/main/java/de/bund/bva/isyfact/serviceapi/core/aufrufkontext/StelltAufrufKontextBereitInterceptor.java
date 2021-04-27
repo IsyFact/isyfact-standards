@@ -73,7 +73,7 @@ public class StelltAufrufKontextBereitInterceptor<T extends AufrufKontext> imple
 
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
-        T alterAufrufKontext = this.aufrufKontextVerwalter.getAufrufKontext();
+        T alterAufrufKontext = aufrufKontextVerwalter.getAufrufKontext();
 
         Optional<AufrufKontextTo> aufrufKontextToOptional =
             aufrufKontextToResolver.leseAufrufKontextTo(invocation.getArguments());
@@ -86,17 +86,17 @@ public class StelltAufrufKontextBereitInterceptor<T extends AufrufKontext> imple
             .map(this::mapToGenericAufrufKontext)
             .orElse(null);
 
-        this.aufrufKontextVerwalter.setAufrufKontext(aufrufKontext);
+        aufrufKontextVerwalter.setAufrufKontext(aufrufKontext);
 
         try {
             return invocation.proceed();
         } finally {
-            this.aufrufKontextVerwalter.setAufrufKontext(alterAufrufKontext);
+            aufrufKontextVerwalter.setAufrufKontext(alterAufrufKontext);
         }
     }
 
     private T mapToGenericAufrufKontext(AufrufKontextTo aufrufKontextTo) {
-        T aufrufKontext = this.aufrufKontextFactory.erzeugeAufrufKontext();
+        T aufrufKontext = aufrufKontextFactory.erzeugeAufrufKontext();
 
         // map AufrufKontextTo to AufrufKontext
         aufrufKontext.setDurchfuehrendeBehoerde(aufrufKontextTo.getDurchfuehrendeBehoerde());
@@ -110,7 +110,7 @@ public class StelltAufrufKontextBereitInterceptor<T extends AufrufKontext> imple
         aufrufKontext.setRolle(aufrufKontextTo.getRolle());
         aufrufKontext.setRollenErmittelt(aufrufKontextTo.isRollenErmittelt());
 
-        this.aufrufKontextFactory.nachAufrufKontextVerarbeitung(aufrufKontext);
+        aufrufKontextFactory.nachAufrufKontextVerarbeitung(aufrufKontext);
         return aufrufKontext;
     }
 

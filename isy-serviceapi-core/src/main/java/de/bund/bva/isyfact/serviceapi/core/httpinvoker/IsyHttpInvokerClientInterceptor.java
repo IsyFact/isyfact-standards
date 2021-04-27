@@ -29,8 +29,8 @@ import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.util.LogHelper;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
-import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.AufrufKontextToResolver;
 import de.bund.bva.isyfact.serviceapi.common.konstanten.EreignisSchluessel;
+import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.AufrufKontextToResolver;
 import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 
 /**
@@ -55,14 +55,11 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
      * <p>
      * Beim Aufruf wird immer eine neue Korrelations-ID erzeugt und zu der bestehenden Korrelations-ID des
      * Aufrufkontextes hinzugefügt. Damit muss das aufrufende System
-     *
-     * @see org.springframework.remoting.httpinvoker.HttpInvokerClientInterceptor#invoke(org.aopalliance.intercept.MethodInvocation)
      */
     @Override
     public Object invoke(MethodInvocation methodInvocation) throws Throwable {
 
         String korrelationsId = UUID.randomUUID().toString();
-        boolean aufrufErfolgreich = false;
 
         Method methode = methodInvocation.getMethod();
 
@@ -88,10 +85,11 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
         }
 
         // Logging call of remote system
-        this.logHelper.loggeNachbarsystemAufruf(LOGGER, methode, this.remoteSystemName, getServiceUrl());
+        logHelper.loggeNachbarsystemAufruf(LOGGER, methode, remoteSystemName, getServiceUrl());
         long startzeit = 0;
+        boolean aufrufErfolgreich = false;
         try {
-            startzeit = this.logHelper.ermittleAktuellenZeitpunkt();
+            startzeit = logHelper.ermittleAktuellenZeitpunkt();
             Object ergebnis = super.invoke(methodInvocation);
 
             // call was executed without exceptions
@@ -99,11 +97,11 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
             return ergebnis;
 
         } finally {
-            long endezeit = this.logHelper.ermittleAktuellenZeitpunkt();
+            long endezeit = logHelper.ermittleAktuellenZeitpunkt();
             long dauer = endezeit - startzeit;
-            this.logHelper.loggeNachbarsystemErgebnis(LOGGER, methode, this.remoteSystemName, getServiceUrl(),
+            logHelper.loggeNachbarsystemErgebnis(LOGGER, methode, remoteSystemName, getServiceUrl(),
                 aufrufErfolgreich);
-            this.logHelper.loggeNachbarsystemDauer(LOGGER, methode, dauer, this.remoteSystemName,
+            logHelper.loggeNachbarsystemDauer(LOGGER, methode, dauer, remoteSystemName,
                 getServiceUrl(), aufrufErfolgreich);
 
             MdcHelper.entferneKorrelationsId();
@@ -111,18 +109,13 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
 
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
-     */
     @Override
     public void afterPropertiesSet() {
         super.afterPropertiesSet();
-        if (this.remoteSystemName == null) {
+        if (remoteSystemName == null) {
             throw new IllegalArgumentException("Property 'remoteSystemName' is required");
         }
-        if (this.aufrufKontextToResolver == null) {
+        if (aufrufKontextToResolver == null) {
             throw new IllegalArgumentException("Property 'aufrufKontextToResolver' is required");
         }
     }

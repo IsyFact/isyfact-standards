@@ -16,16 +16,10 @@
  */
 package de.bund.bva.isyfact.serviceapi.core.aufrufkontext;
 
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontextFactory;
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
-import de.bund.bva.isyfact.aufrufkontext.impl.AufrufKontextFactoryImpl;
-import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.helper.DebugAufrufKontextVerwalter;
-import de.bund.bva.isyfact.serviceapi.core.aop.test.AufrufKontextSstTestBean;
-import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
-import junit.framework.AssertionFailedError;
-import ma.glasnost.orika.MapperFacade;
-import ma.glasnost.orika.impl.DefaultMapperFactory;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,7 +34,17 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.*;
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontextFactory;
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
+import de.bund.bva.isyfact.aufrufkontext.impl.AufrufKontextFactoryImpl;
+import de.bund.bva.isyfact.serviceapi.core.aop.test.AufrufKontextSstTestBean;
+import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.helper.DebugAufrufKontextVerwalter;
+import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
+
+import junit.framework.AssertionFailedError;
+import ma.glasnost.orika.MapperFacade;
+import ma.glasnost.orika.impl.DefaultMapperFactory;
 
 /**
  * Tests functionality of {@link StelltAufrufKontextBereitInterceptor}.
@@ -64,7 +68,7 @@ public class AllgemeinerAufrufKontextInterceptorAnnotationTest {
      *
      * @return AufrufKontextTo containing dummy data
      */
-    private AufrufKontextTo createAufrufKontextTo() {
+    private static AufrufKontextTo createAufrufKontextTo() {
         AufrufKontextTo aufrufKontextTo = new AufrufKontextTo();
         aufrufKontextTo.setDurchfuehrendeBehoerde("TEST");
         aufrufKontextTo.setDurchfuehrenderBenutzerKennung("TEST");
@@ -84,7 +88,7 @@ public class AllgemeinerAufrufKontextInterceptorAnnotationTest {
      * @param to      transport object
      * @param kontext AufrufKontext
      */
-    private void assertEqualData(AufrufKontextTo to, AufrufKontext kontext) {
+    private static void assertEqualData(AufrufKontextTo to, AufrufKontext kontext) {
         assertEquals(to.getDurchfuehrendeBehoerde(), kontext.getDurchfuehrendeBehoerde());
         assertEquals(to.getDurchfuehrenderBenutzerKennung(), kontext.getDurchfuehrenderBenutzerKennung());
         assertEquals(to.getDurchfuehrenderSachbearbeiterName(),
@@ -104,7 +108,7 @@ public class AllgemeinerAufrufKontextInterceptorAnnotationTest {
     }
 
     @After
-    public void isAufrufKontextLeer() {
+    public void assertAufrufKontextLeer() {
         // the Aufrufkontext shouldn't be set after a test case
         assertNull(aufrufKontextVerwalter.getAufrufKontext());
     }

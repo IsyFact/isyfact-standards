@@ -29,8 +29,7 @@ import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.DefaultAufrufKontextToR
  * Tests for default order of StelltLoggingKontextBereit advisors
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = StelltLoggingKontextBereitAdvisorTest.TestConfig.class,
-        properties = {"isy.logging.autoconfiguration.enabled=false"})
+@SpringBootTest(classes = StelltLoggingKontextBereitAdvisorTest.TestConfig.class, properties = "isy.logging.autoconfiguration.enabled=false")
 public class StelltLoggingKontextBereitAdvisorTest {
 
     private static final List<String> executionOrder = new ArrayList<>(2);
@@ -91,8 +90,8 @@ public class StelltLoggingKontextBereitAdvisorTest {
             return new StelltLoggingKontextBereitInterceptor(new DefaultAufrufKontextToResolver()) {
                 @Override
                 public Object invoke(MethodInvocation invocation) throws Throwable {
-                    StelltLoggingKontextBereitAdvisorTest.executionOrder
-                            .add(this.toString());
+                    executionOrder
+                            .add(toString());
                     return invocation.proceed();
                 }
 
@@ -113,8 +112,8 @@ public class StelltLoggingKontextBereitAdvisorTest {
             return new MethodInterceptor() {
                 @Override
                 public Object invoke(MethodInvocation invocation) throws Throwable {
-                    StelltLoggingKontextBereitAdvisorTest.executionOrder
-                            .add(this.toString());
+                    executionOrder
+                            .add(toString());
                     return invocation.proceed();
                 }
 
@@ -127,9 +126,9 @@ public class StelltLoggingKontextBereitAdvisorTest {
 
         /**
          * Creates an advisor that is a pointcut for the Annotation
-         * {@link de.bund.bva.isyfact.serviceapi.core.aop.test.LoggingKontextAdvisorService.UnorderedDummyAnnotation}
+         * {@link LoggingKontextAdvisorService.UnorderedDummyAnnotation}
          * and executes DummyInterceptor.
-         * @return A DummyAdvisor for the annotation {@link de.bund.bva.isyfact.serviceapi.core.aop.test.LoggingKontextAdvisorService.UnorderedDummyAnnotation}
+         * @return A DummyAdvisor for the annotation {@link LoggingKontextAdvisorService.UnorderedDummyAnnotation}
          */
         @Bean
         public Advisor unorderedDummyAnnotationAdvisor() throws Throwable {

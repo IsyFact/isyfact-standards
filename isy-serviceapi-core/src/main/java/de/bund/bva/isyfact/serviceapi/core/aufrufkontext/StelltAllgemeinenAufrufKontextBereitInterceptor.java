@@ -75,13 +75,10 @@ public class StelltAllgemeinenAufrufKontextBereitInterceptor<T extends AufrufKon
         this.aufrufKontextToResolver = aufrufKontextToResolver;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
 
-        T alterAufrufKontext = this.aufrufKontextVerwalter.getAufrufKontext();
+        T alterAufrufKontext = aufrufKontextVerwalter.getAufrufKontext();
 
         Optional<AufrufKontextTo> aufrufKontextToOptional =
             aufrufKontextToResolver.leseAufrufKontextTo(invocation.getArguments());
@@ -94,20 +91,20 @@ public class StelltAllgemeinenAufrufKontextBereitInterceptor<T extends AufrufKon
             .map(this::mapToGenericAufrufKontext)
             .orElse(null);
 
-        this.aufrufKontextVerwalter.setAufrufKontext(aufrufKontext);
+        aufrufKontextVerwalter.setAufrufKontext(aufrufKontext);
 
         try {
             return invocation.proceed();
         } finally {
             // Reset to old AufrufKontext
-            this.aufrufKontextVerwalter.setAufrufKontext(alterAufrufKontext);
+            aufrufKontextVerwalter.setAufrufKontext(alterAufrufKontext);
         }
     }
 
     private T mapToGenericAufrufKontext(AufrufKontextTo aufrufKontextTo) {
-        T aufrufKontext = this.aufrufKontextFactory.erzeugeAufrufKontext();
-        this.mapper.map(aufrufKontextTo, aufrufKontext);
-        this.aufrufKontextFactory.nachAufrufKontextVerarbeitung(aufrufKontext);
+        T aufrufKontext = aufrufKontextFactory.erzeugeAufrufKontext();
+        mapper.map(aufrufKontextTo, aufrufKontext);
+        aufrufKontextFactory.nachAufrufKontextVerarbeitung(aufrufKontext);
         return aufrufKontext;
     }
 

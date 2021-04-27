@@ -64,9 +64,9 @@ public class StelltLoggingKontextBereitInterceptor implements MethodInterceptor 
         // The correlation ID is used to uniquely identify service calls.
         String korrelationsId;
 
-        //determine if StelltLoggingKontextBereit annotation was set on Method
+        // determine if StelltLoggingKontextBereit annotation was set on Method
         Class<?> targetClass =
-            (invocation.getThis() != null ? AopUtils.getTargetClass(invocation.getThis()) : null);
+                invocation.getThis() != null ? AopUtils.getTargetClass(invocation.getThis()) : null;
         StelltLoggingKontextBereit stelltLoggingKontextBereit =
             ermittleStelltLoggingKontextBereitAnnotation(invocation.getMethod(), targetClass);
 
@@ -95,7 +95,7 @@ public class StelltLoggingKontextBereitInterceptor implements MethodInterceptor 
      *
      * @throws IllegalArgumentException if "nutzeAufrufKontext" is true, but no AufrufKontext was found.
      */
-    public String determineKorrelationsIdAccordingToAnnotation(
+    private String determineKorrelationsIdAccordingToAnnotation(
         StelltLoggingKontextBereit stelltLoggingKontextBereit, MethodInvocation invocation) {
 
         if (stelltLoggingKontextBereit.nutzeAufrufKontext()) {
@@ -112,7 +112,7 @@ public class StelltLoggingKontextBereitInterceptor implements MethodInterceptor 
             return aufrufKontextToOptional
                 .map(AufrufKontextTo::getKorrelationsId)
                 .filter(kor -> !kor.isEmpty())
-                .orElseGet(this::createNewCorrelationID);
+                .orElseGet(StelltLoggingKontextBereitInterceptor::createNewCorrelationID);
         } else {
             return createNewCorrelationID();
         }
@@ -129,11 +129,11 @@ public class StelltLoggingKontextBereitInterceptor implements MethodInterceptor 
         return aufrufKontextToOptional
             .map(AufrufKontextTo::getKorrelationsId)
             .filter(kor -> !kor.isEmpty())
-            .orElseGet(this::createNewCorrelationID);
+            .orElseGet(StelltLoggingKontextBereitInterceptor::createNewCorrelationID);
     }
 
     /** Create correlation ID. */
-    private String createNewCorrelationID() {
+    private static String createNewCorrelationID() {
         LOG.debug(
             "Erzeuge neue Korrelations-ID.");
         return UUID.randomUUID().toString();

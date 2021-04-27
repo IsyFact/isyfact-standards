@@ -17,9 +17,9 @@
 package de.bund.bva.isyfact.serviceapi.core.aop;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.UUID;
@@ -29,8 +29,8 @@ import org.junit.Test;
 import org.springframework.aop.framework.ProxyFactory;
 
 import de.bund.bva.isyfact.logging.util.MdcHelper;
-import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.AufrufKontextToResolver;
 import de.bund.bva.isyfact.serviceapi.core.aop.test.LoggingKontextAspectService;
+import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.AufrufKontextToResolver;
 import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.DefaultAufrufKontextToResolver;
 import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 
@@ -116,7 +116,7 @@ public class StelltLoggingKontextBereitAspectTest {
         //assert MDC was correct during call
         String korrId = service.getKorrelationsIDLetzterAufruf();
         assertNotNull(korrId);
-        assertTrue(korrId.length() > 0);
+        assertFalse(korrId.isEmpty());
         //assert MDC state after call
         assertNull(MdcHelper.liesKorrelationsId());
     }
