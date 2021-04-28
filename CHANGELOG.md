@@ -4,6 +4,7 @@
     + Neue Implementierung in `de.bund.bva.pliscommon.plissonderzeichen.dinspec91379` erstellt
     + Neue Transformation und Kategorie Tabelle hinzugefügt
 - `IFS-928`: [isy-sonderzeichen] neue Resource und Regel für Transkription hinzugefügt
+- `IFS-560`: [isy-persistence] Entferne das Anlegen von DB-User in Update-Skripten
 
 # 1.8.3
 - `IFS-568`: [isy-util] Entfernt redundante Methode `getMessage(String schluessel)` aus dem MessageSourceHolder
@@ -13,7 +14,6 @@
 - `IFS-746`: [isy-task] Behebung von NullPointerException in TaskSchedulerImpl (wenn HostHandler false zurückgibt)
 - `IFS-785`: [isyfact-products-bom] Versionsupdate von XStream von 1.4.11 auf 1.4.14 wegen CVE
 - `IFS-783`: Konfiguration von Quality Gate 1; Umstellung auf GitLabCI Templates
-- `IFS-560`: [isy-persistence] Entferne das Anlegen von DB-User in Update-Skripten
 
 # 1.8.1
 - `IFS-453`: [isy-ueberwachung] Loglevel für isAlive-Datei-Ereignisse erhöht.
