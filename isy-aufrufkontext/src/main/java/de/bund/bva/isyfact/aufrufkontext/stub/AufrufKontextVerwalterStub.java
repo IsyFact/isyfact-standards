@@ -16,11 +16,11 @@
  */
 package de.bund.bva.isyfact.aufrufkontext.stub;
 
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
 import org.springframework.beans.factory.InitializingBean;
 
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontextFactory;
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
 
 /**
  * Stellt einer Anwendung einen festen AufrufKontext bereit.
@@ -62,7 +62,7 @@ public class AufrufKontextVerwalterStub<T extends AufrufKontext> implements Aufr
     /** aufrufKontext, der jedes mal zurückgegeben wird. */
     private T aufrufKontext;
 
-    private String bearerToken;
+    private String bearerToken = "AUFRUFKONTEXTVERWALTER_STUB_BEARER_TOKEN";
 
     /**
      * Setzt das Feld {@link #festerAufrufKontext}.

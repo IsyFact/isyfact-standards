@@ -1,5 +1,9 @@
 package de.bund.bva.isyfact.serviceapi.core.httpinvoker;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.InterruptedIOException;
 
 import de.bund.bva.isyfact.aufrufkontext.stub.AufrufKontextVerwalterStub;
@@ -15,13 +19,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean;
 import org.springframework.remoting.httpinvoker.HttpInvokerRequestExecutor;
 import org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.*;
+import de.bund.bva.isyfact.aufrufkontext.impl.AufrufKontextVerwalterImpl;
+import de.bund.bva.isyfact.aufrufkontext.stub.AufrufKontextVerwalterStub;
+import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.DummyServiceImpl;
+import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.DummyServiceRemoteBean;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = TimeoutWiederholungHttpInvokerRequestExecutorTest.TestConfig.class,
@@ -38,7 +44,7 @@ public class TimeoutWiederholungHttpInvokerRequestExecutorTest {
     private DummyServiceImpl dummyService;
 
     @Autowired
-    private HttpInvokerProxyFactoryBean serviceProxy;
+    private IsyHttpInvokerProxyFactoryBean serviceProxy;
 
     @Autowired
     @Qualifier("invoker")
@@ -56,6 +62,7 @@ public class TimeoutWiederholungHttpInvokerRequestExecutorTest {
     public void testTimeoutKurz() {
         dummyService.setWaitTime(0);
         executor.setTimeout(500);
+        executor.setAufrufKontextVerwalter(new AufrufKontextVerwalterStub<>());
         assertEquals("Hello", serviceRemoteBean.ping("Hello"));
         assertEquals(1, dummyService.getAnzahlAufrufe());
     }
@@ -64,6 +71,7 @@ public class TimeoutWiederholungHttpInvokerRequestExecutorTest {
     public void testTimeoutLang() {
         dummyService.setWaitTime(30000);
         executor.setTimeout(60000);
+        executor.setAufrufKontextVerwalter(new AufrufKontextVerwalterStub<>());
         assertEquals("Hello", serviceRemoteBean.ping("Hello"));
         assertEquals(1, dummyService.getAnzahlAufrufe());
     }
@@ -74,6 +82,7 @@ public class TimeoutWiederholungHttpInvokerRequestExecutorTest {
         executor.setTimeout(50);
         executor.setWiederholungenAbstand(500);
         executor.setAnzahlWiederholungen(10);
+        executor.setAufrufKontextVerwalter(new AufrufKontextVerwalterStub<>());
         long t0 = System.currentTimeMillis();
         try {
             serviceRemoteBean.ping("Hello");
@@ -92,18 +101,20 @@ public class TimeoutWiederholungHttpInvokerRequestExecutorTest {
 
         @Bean(name = "/dummyServiceBean_v1_0_0")
         HttpInvokerServiceExporter pingService(DummyServiceImpl dummyService) {
-            HttpInvokerServiceExporter exporter = new IsyHttpInvokerServiceExporter(new AufrufKontextVerwalterStub<>());
+            HttpInvokerServiceExporter exporter = new IsyHttpInvokerServiceExporter(new AufrufKontextVerwalterImpl<>());
             exporter.setService(dummyService);
             exporter.setServiceInterface(DummyServiceRemoteBean.class);
             return exporter;
         }
 
         @Bean
-        public HttpInvokerProxyFactoryBean invoker(HttpInvokerRequestExecutor executor) {
-            HttpInvokerProxyFactoryBean invoker = new HttpInvokerProxyFactoryBean();
+        public IsyHttpInvokerProxyFactoryBean invoker(HttpInvokerRequestExecutor executor) {
+            IsyHttpInvokerProxyFactoryBean invoker = new IsyHttpInvokerProxyFactoryBean();
             invoker.setServiceUrl("http://localhost:8080/dummyServiceBean_v1_0_0");
             invoker.setServiceInterface(DummyServiceRemoteBean.class);
+            invoker.setRemoteSystemName("DummyService");
             invoker.setHttpInvokerRequestExecutor(executor);
+
             return invoker;
         }
 
