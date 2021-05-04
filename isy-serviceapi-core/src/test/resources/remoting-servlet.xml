@@ -26,7 +26,14 @@
 
     <aop:aspectj-autoproxy/>
 
+    <bean id="aufrufKontextVerwalter" class="de.bund.bva.pliscommon.aufrufkontext.stub.AufrufKontextVerwalterStub">
+        <property name="aufrufKontextFactory">
+            <bean class="de.bund.bva.pliscommon.aufrufkontext.impl.AufrufKontextFactoryImpl"/>
+        </property>
+    </bean>
+
     <bean name="/dummyServiceBean_v1_0_0" class="de.bund.bva.pliscommon.serviceapi.core.httpinvoker.IsyHttpInvokerServiceExporter">
+        <constructor-arg name="aufrufKontextVerwalter" ref="aufrufKontextVerwalter"/>
         <property name="service" ref="dummyService"/>
         <property name="registerTraceInterceptor" value="false"/>
         <property name="serviceInterface"

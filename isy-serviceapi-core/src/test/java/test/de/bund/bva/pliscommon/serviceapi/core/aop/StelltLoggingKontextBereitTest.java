@@ -1,6 +1,9 @@
 package test.de.bund.bva.pliscommon.serviceapi.core.aop;
 
-import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
+import static org.junit.Assert.*;
+
+import java.util.UUID;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,16 +11,15 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
+
 import test.de.bund.bva.pliscommon.serviceapi.core.aop.service.httpinvoker.v1_0_0.DummyKontextServiceImpl;
 import test.de.bund.bva.pliscommon.serviceapi.core.aop.service.httpinvoker.v1_0_0.DummyKontextServiceRemoteBean;
 
-import java.util.UUID;
-
-import static org.junit.Assert.*;
-
 /**
- * Tested, ob der {@link StelltLoggingKontextBereitInterceptor} korrekt durch die Annnotation an der Methode
- * {@code ping()} der Klasse {@link DummyKontextServiceImpl} aufgerufen wird.
+ * Tested, ob der {@link de.bund.bva.pliscommon.serviceapi.core.aop.StelltLoggingKontextBereitInterceptor} korrekt
+ * durch die Annotation an der Methode {@code ping()} der Klasse {@link DummyKontextServiceImpl} aufgerufen wird.
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
