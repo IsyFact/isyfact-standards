@@ -18,15 +18,15 @@ package test.de.bund.bva.pliscommon.serviceapi.core.httpinvoker;
 
 import java.io.InterruptedIOException;
 
-import junit.framework.TestCase;
-
 import org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean;
 import org.springframework.remoting.httpinvoker.SimpleHttpInvokerRequestExecutor;
 
+import de.bund.bva.pliscommon.aufrufkontext.stub.AufrufKontextVerwalterStub;
+import de.bund.bva.pliscommon.serviceapi.core.httpinvoker.TimeoutWiederholungHttpInvokerRequestExecutor;
+
+import junit.framework.TestCase;
 import test.de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.DummyServiceImpl;
 import test.de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.DummyServiceRemoteBean;
-
-import de.bund.bva.pliscommon.serviceapi.core.httpinvoker.TimeoutWiederholungHttpInvokerRequestExecutor;
 
 public class TimeoutWiederholungTest extends TestCase {
     private DummyServer dummyServer;
@@ -63,8 +63,10 @@ public class TimeoutWiederholungTest extends TestCase {
 
     public void testTimeoutKurz() {
         dummyService.setWaitTime(0);
-        TimeoutWiederholungHttpInvokerRequestExecutor timeoutExecutor = new TimeoutWiederholungHttpInvokerRequestExecutor();
+        TimeoutWiederholungHttpInvokerRequestExecutor timeoutExecutor =
+                new TimeoutWiederholungHttpInvokerRequestExecutor(new AufrufKontextVerwalterStub<>());
         timeoutExecutor.setTimeout(100);
+
         DummyServiceRemoteBean dummyServiceRemoteBean = createHttpInvokerProxy(timeoutExecutor);
         assertEquals("Hello", dummyServiceRemoteBean.ping("Hello"));
         assertEquals(1, dummyService.getAnzahlAufrufe());
@@ -72,8 +74,10 @@ public class TimeoutWiederholungTest extends TestCase {
     
     public void testTimeoutLang() {
         dummyService.setWaitTime(30000);
-        TimeoutWiederholungHttpInvokerRequestExecutor timeoutExecutor = new TimeoutWiederholungHttpInvokerRequestExecutor();
+        TimeoutWiederholungHttpInvokerRequestExecutor timeoutExecutor =
+                new TimeoutWiederholungHttpInvokerRequestExecutor(new AufrufKontextVerwalterStub<>());
         timeoutExecutor.setTimeout(60000);
+
         DummyServiceRemoteBean dummyServiceRemoteBean = createHttpInvokerProxy(timeoutExecutor);
         assertEquals("Hello", dummyServiceRemoteBean.ping("Hello"));
         assertEquals(1, dummyService.getAnzahlAufrufe());        
@@ -81,10 +85,12 @@ public class TimeoutWiederholungTest extends TestCase {
     
     public void testAufrufWiederholung() {
         dummyService.setWaitTime(200);
-        TimeoutWiederholungHttpInvokerRequestExecutor timeoutExecutor = new TimeoutWiederholungHttpInvokerRequestExecutor();
+        TimeoutWiederholungHttpInvokerRequestExecutor timeoutExecutor =
+                new TimeoutWiederholungHttpInvokerRequestExecutor(new AufrufKontextVerwalterStub<>());
         timeoutExecutor.setTimeout(50);
         timeoutExecutor.setWiederholungenAbstand(500);
         timeoutExecutor.setAnzahlWiederholungen(10);
+
         long t0 = System.currentTimeMillis();
         try {
             DummyServiceRemoteBean dummyServiceRemoteBean = createHttpInvokerProxy(timeoutExecutor);

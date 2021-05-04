@@ -62,7 +62,7 @@ public class AufrufKontextVerwalterStub<T extends AufrufKontext> implements Aufr
     /** aufrufKontext, der jedes mal zurückgegeben wird. */
     private T aufrufKontext;
 
-    private String bearerToken;
+    private String bearerToken = "AUFRUFKONTEXTVERWALTER_STUB_BEARER_TOKEN";
 
     /**
      * Setzt das Feld {@link #festerAufrufKontext}.
