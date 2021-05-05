@@ -1,9 +1,8 @@
-package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.core.transformation.impl;
+package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.impl;
 
-import static de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.core.transformation.TestData.RANDOM_TESTDATA;
-import static de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.core.transformation.TestData.RANDOM_TESTDATA_EXPECTED;
+import static de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.TestData.RANDOM_TESTDATA;
+import static de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.TestData.RANDOM_TESTDATA_EXPECTED;
 
-import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.core.transformation.impl.TranskriptionTransformator;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -14,7 +14,7 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.core.transformation;
+package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -22,8 +22,8 @@ import static org.junit.Assert.assertNotEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.core.transformation.impl.AbstractTransformator;
-import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.core.transformation.impl.IdentischerTransformator;
+import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.impl.AbstractTransformator;
+import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.impl.IdentischerTransformator;
 
 public class TestTransformatorFactory {
 

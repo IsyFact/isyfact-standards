@@ -1,4 +1,4 @@
-package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.core.transformation.impl;
+package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.impl;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;

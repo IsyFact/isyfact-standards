@@ -14,7 +14,7 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.core.transformation;
+package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation;
 
 /**
  * Interface for all possible transformers. Defines methods that every transformer can offer.

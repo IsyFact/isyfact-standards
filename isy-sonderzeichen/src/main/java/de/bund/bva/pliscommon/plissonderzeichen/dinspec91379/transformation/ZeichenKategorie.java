@@ -14,12 +14,12 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.core.transformation;
+package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class ZeichenKategorie {
-    
+
     public final static String LETTER = "LETTER";
     public final static String NUMBER = "NUMBER";
     public final static String OTHER = "OTHER";

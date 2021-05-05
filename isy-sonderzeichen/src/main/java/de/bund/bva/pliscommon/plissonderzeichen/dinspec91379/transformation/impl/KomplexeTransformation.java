@@ -14,14 +14,14 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.core.transformation.impl;
+package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.core.transformation.Transformator;
+import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.Transformator;
 
 /**
  * This class maps transformations in which more than one character is transformed or in which special
@@ -37,7 +37,7 @@ public class KomplexeTransformation {
 
         /**
          * The numbers of the rules that if met, the replacement can be applied.
-         * 
+         *
          * If more than one rule is specified, the replacement is used if at least one of them is met.
          * If no rule is given, the replacement can always be used.
          */
