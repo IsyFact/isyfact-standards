@@ -15,6 +15,9 @@
 - `IFS-568`: [isy-util] Entfernt redundante Methode aus dem MessageSourceHolder
 - `IFS-693`: [isy-batchrahmen] Initialisierung des LoggerKontexts für Anwendungskontext
 - `IFS-741`: [isy-persistence] Entferne das Anlegen von DB-User in Update-Skripten
+- `IFS-676`: Versionsupdate von OpenCSV 3.8 auf 5.3
+    * Hinweise zu Breaking Changes s. Changelog.md der isyfact-products-bom
+
 
 # 2.1.0
 - `IFS-156`: [isy-sicherheit] Sonderlogik, die Underscores aus dem Attribut `durchfuehrenderSachbearbeiterName` des Aufrufkontextes entfernt erneut ausgebaut.
