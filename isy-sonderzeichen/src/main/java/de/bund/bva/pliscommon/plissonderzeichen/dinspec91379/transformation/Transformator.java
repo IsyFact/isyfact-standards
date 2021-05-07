@@ -37,7 +37,7 @@ public interface Transformator {
      *            The maximum length of the string
      * @return the transformed string, or null if null was passed
      */
-    public String transformiere(String zeichenkette, int maximaleLaenge);
+    String transformiere(String zeichenkette, int maximaleLaenge);
 
     /**
      * Transforms a string and returns it. Spaces at the beginning and at the end of the character string are
@@ -55,7 +55,7 @@ public interface Transformator {
      *            The string to transform
      * @return the transformed string, or null if null was passed
      */
-    public String transformiere(String zeichenkette);
+    String transformiere(String zeichenkette);
 
     /**
      * Transforms a string and returns it. Does not trim at the end.
@@ -66,7 +66,7 @@ public interface Transformator {
      *            The string to transform
      * @return the transformed string, or null if null was passed
      */
-    public String transformiereOhneTrim(String zeichenkette);
+    String transformiereOhneTrim(String zeichenkette);
 
     /**
      * Returns the regular expression for all allowed expressions within the character category.
@@ -74,7 +74,7 @@ public interface Transformator {
      *            the allowed expressions of the character category
      * @return the regular expression
      */
-    public String getRegulaererAusdruck(String[] kategorieListe);
+    String getRegulaererAusdruck(String[] kategorieListe);
 
     /**
      * Checks whether the transferred character string only contains characters that exist in the respective
@@ -86,7 +86,7 @@ public interface Transformator {
      *            the list of categories
      * @return true if the transferred character string only contains characters from the respective category
      */
-    public boolean isGueltigerString(String zeichenkette, String[] kategorieListe);
+    boolean isGueltigerString(String zeichenkette, String[] kategorieListe);
 
     /**
      * Returns all valid characters of the transformer.
@@ -94,7 +94,7 @@ public interface Transformator {
      *            the category
      * @return all valid characters of the transformer
      */
-    public String[] getGueltigeZeichen(String kategorie);
+    String[] getGueltigeZeichen(String kategorie);
 
     /**
      * Checks with the help of a rule whether a substring to be transliterated fulfills a certain condition.
@@ -109,6 +109,6 @@ public interface Transformator {
      *            Length of the substring.
      * @return true if the condition is met, otherwise false.
      */
-    public boolean werteRegelAus(int regel, String text, int position, int laenge);
+    boolean werteRegelAus(int regel, String text, int position, int laenge);
 
 }

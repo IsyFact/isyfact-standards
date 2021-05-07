@@ -41,12 +41,12 @@ public class TranskriptionTransformatorTest {
     /**
      * Current test data set by JUnit.
      */
-    private String testData;
+    private final String testData;
 
     /**
      * Current expected result to {@link #testData} set by JUnit.
      */
-    private String expected;
+    private final String expected;
 
     /**
      * Composes the different test data to a single collection used by JUnit.
@@ -70,8 +70,8 @@ public class TranskriptionTransformatorTest {
 
     /**
      * Constructor which sets {@link #testData} and {@link #expected}.
-     * @param testData
-     * @param expected
+     * @param testData current test data
+     * @param expected current expected result
      */
     public TranskriptionTransformatorTest(String testData, String expected){
         this.testData = testData;

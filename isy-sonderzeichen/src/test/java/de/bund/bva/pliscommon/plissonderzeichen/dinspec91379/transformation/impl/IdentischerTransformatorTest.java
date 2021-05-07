@@ -43,7 +43,7 @@ public class IdentischerTransformatorTest {
     public AbstractTransformator transformator;
 
     /** Logger. */
-    private static IsyLogger LOG = IsyLoggerFactory.getLogger(IdentischerTransformatorTest.class);
+    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(IdentischerTransformatorTest.class);
 
     @Before
     public void setUp() {

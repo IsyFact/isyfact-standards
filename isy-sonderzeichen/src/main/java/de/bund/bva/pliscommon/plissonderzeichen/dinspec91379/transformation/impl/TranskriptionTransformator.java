@@ -11,7 +11,7 @@ import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.konstanten.Transfor
 public class TranskriptionTransformator extends  AbstractTransformator {
 
     /** Logger. */
-    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(TranskriptionTransformator.class);;
+    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(TranskriptionTransformator.class);
 
     @Override
     protected String getStandardTransformationsTabelle() {

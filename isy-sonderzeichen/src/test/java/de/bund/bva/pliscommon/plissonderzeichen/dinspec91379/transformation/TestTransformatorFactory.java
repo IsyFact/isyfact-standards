@@ -16,14 +16,12 @@
  */
 package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-
 import org.junit.Before;
 import org.junit.Test;
 
-import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.impl.AbstractTransformator;
 import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.impl.IdentischerTransformator;
+
+import static org.junit.Assert.*;
 
 public class TestTransformatorFactory {
 
@@ -41,17 +39,17 @@ public class TestTransformatorFactory {
 	public void testGetObjectType() {
 		transformator = new IdentischerTransformator();
 		transFactory.setTransformator(transformator);
-		assertEquals(AbstractTransformator.class.getClass(), transFactory.getObjectType());
+		assertEquals(Transformator.class, transFactory.getObjectType());
 	}
 	
 	@Test
 	public void testGetObjectNullType() {
 		transFactory.setTransformator(transformator);
-		assertEquals(null, transFactory.getObjectType());
+		assertNull(transFactory.getObjectType());
 	}
 	
 	@Test
-	public void testGetObject() throws Exception {
+	public void testGetObject() {
 		transformator = new IdentischerTransformator();
 		transFactory.setTransformator(transformator);
 		assertEquals(transformator, transFactory.getObject());

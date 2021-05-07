@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Properties;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -42,28 +41,31 @@ import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.konstanten.Transfor
 public abstract class AbstractTransformator implements Transformator {
 
     /** The regular expression for spaces in the middle of a string. */
-    protected static final Pattern REG_EX_LEERZEICHEN = Pattern.compile("[  ]{2,}");
+    protected static final Pattern REG_EX_LEERZEICHEN = Pattern.compile("[ ]{2,}");
 
     /** The metacharacters of a regular expression. */
     private static final char[] REG_EX_META_CHARACTER = new char[] { '[', ']', '\\', '^', '$', '.', '|', '?',
         '*', '+', '-', (char) (Integer.valueOf("002D", 16).intValue()), '(', ')', '<', '>', '{', '}' };
 
-    /** Transformation table: Character -> StringBuffer. */
-    protected HashMap transformationsTabelle = new HashMap();
+    /**
+     * Transformation table: Character -> Object, where the Object is typically a StringBuffer or a
+     * KomplexeTransformation.
+     */
+    protected final HashMap<Character, Object> transformationsTabelle = new HashMap<>();
 
     /**
      * The category table with the valid characters of the transformer String(ZeichenKategorie) -> String[].
      */
-    protected HashMap kategorieGueltigeZeichenTabelle = new HashMap();
+    protected final HashMap<String, String[]> kategorieGueltigeZeichenTabelle = new HashMap<>();
 
     /** A map that sorts valid characters based on their length: Integer -> (String) ArrayList. */
-    protected HashMap laengeGueltigeZeichenMap = new HashMap();
+    protected final HashMap<Integer, ArrayList<String>> laengeGueltigeZeichenMap = new HashMap<>();
 
     /** The standard replacement (if no entry is found in the transformation table). */
     protected String standardErsetzung;
 
     /** The maximum length of valid characters (is set during initialization). */
-    protected int maximaleGueltigeZeichenlaenge = 0;
+    protected int maximaleGueltigeZeichenlaenge;
 
     /**
      * Returns the transformation table of the transformer.
@@ -118,9 +120,6 @@ public abstract class AbstractTransformator implements Transformator {
 
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String transformiereOhneTrim(String zeichenkette) {
 
@@ -133,9 +132,6 @@ public abstract class AbstractTransformator implements Transformator {
 
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String transformiere(String zeichenkette) {
 
@@ -157,30 +153,24 @@ public abstract class AbstractTransformator implements Transformator {
 
     @Override
     public String[] getGueltigeZeichen(String kategorie) {
-        return (String[]) this.kategorieGueltigeZeichenTabelle.get(kategorie);
+        return this.kategorieGueltigeZeichenTabelle.get(kategorie);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getRegulaererAusdruck(String[] kategorieListe) {
 
         // Build regular expression
-        StringBuffer regulaererAusdruck = new StringBuffer();
+        StringBuilder regulaererAusdruck = new StringBuilder();
         boolean first = true;
         regulaererAusdruck.append("(");
-        for (int i = 0; i < kategorieListe.length; i++) {
-            String kategorie = kategorieListe[i];
-            String[] strings = (String[]) this.kategorieGueltigeZeichenTabelle.get(kategorie);
-            for (int j = 0; j < strings.length; j++) {
-                String s = strings[j];
+        for (String kategorie : kategorieListe) {
+            String[] strings = this.kategorieGueltigeZeichenTabelle.get(kategorie);
+            for (String s : strings) {
                 if (!first) {
                     regulaererAusdruck.append("|");
                 }
                 first = false;
-                for (int k = 0; k < s.length(); k++) {
-                    char c = s.charAt(k);
+                for (char c : s.toCharArray()) {
                     if (containsChar(REG_EX_META_CHARACTER, c)) {
                         regulaererAusdruck.append("\\");
                     }
@@ -193,16 +183,13 @@ public abstract class AbstractTransformator implements Transformator {
         return regulaererAusdruck.toString();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public boolean isGueltigerString(String zeichenkette, String[] kategorieListe) {
 
         // Determine valid characters of the category
-        Set gueltigeZeichenSet = new HashSet();
-        for (int i = 0; i < kategorieListe.length; i++) {
-            gueltigeZeichenSet.addAll(Arrays.asList(getGueltigeZeichen(kategorieListe[i])));
+        Set<String> gueltigeZeichenSet = new HashSet<>();
+        for (String s : kategorieListe) {
+            gueltigeZeichenSet.addAll(Arrays.asList(getGueltigeZeichen(s)));
         }
 
         // Iterate through string
@@ -216,16 +203,14 @@ public abstract class AbstractTransformator implements Transformator {
                 this.maximaleGueltigeZeichenlaenge; laengeIteration > 0; laengeIteration--) {
                 if (zeichenketteIteration + laengeIteration <= zeichenkette.length()) {
                     // Enough characters left
-                    ArrayList gueltigeZeichenArrayList =
-                        (ArrayList) this.laengeGueltigeZeichenMap.get(new Integer(laengeIteration));
-                    Iterator gueltigeZeichenIterator = gueltigeZeichenArrayList.iterator();
-                    while (gueltigeZeichenIterator.hasNext()) {
-                        String gueltigesZeichen = (String) gueltigeZeichenIterator.next();
+                    ArrayList<String> gueltigeZeichenArrayList =
+                        this.laengeGueltigeZeichenMap.get(laengeIteration);
+                    for (String gueltigesZeichen : gueltigeZeichenArrayList) {
                         if (gueltigeZeichenSet.contains(gueltigesZeichen)) {
                             boolean komplettesZeichenTreffer = false;
-                            for (int gueltigesZeichenIteration =
-                                0; gueltigesZeichenIteration < gueltigesZeichen
-                                    .length(); gueltigesZeichenIteration++) {
+                            for (int gueltigesZeichenIteration = 0;
+                                 gueltigesZeichenIteration < gueltigesZeichen
+                                     .length(); gueltigesZeichenIteration++) {
                                 if (gueltigesZeichen.charAt(gueltigesZeichenIteration) == zeichenkette
                                     .charAt(zeichenketteIteration + gueltigesZeichenIteration)) {
                                     komplettesZeichenTreffer = true;
@@ -270,10 +255,10 @@ public abstract class AbstractTransformator implements Transformator {
     private String transformiereZeichenInZeichenkette(String zeichenkette) {
 
         // Step 1: Check the characters of the character string step by step for entries in the mapping table
-        StringBuffer filtered = new StringBuffer();
+        StringBuilder filtered = new StringBuilder();
 
         for (int i = 0; i < zeichenkette.length(); i++) {
-            Object object = this.transformationsTabelle.get(new Character(zeichenkette.charAt(i)));
+            Object object = this.transformationsTabelle.get(zeichenkette.charAt(i));
             if (object == null || object instanceof StringBuffer) {
                 if (object != null) {
                     filtered.append(object);
@@ -296,11 +281,7 @@ public abstract class AbstractTransformator implements Transformator {
         inputStream.close();
 
         // Parse each entry
-        Iterator propertyIterator = properties.keySet().iterator();
-        while (propertyIterator.hasNext()) {
-
-            Object key = propertyIterator.next();
-
+        for (Object key : properties.keySet()) {
             // Left side
             String links = (String) key;
             int linksHexChar;
@@ -330,11 +311,11 @@ public abstract class AbstractTransformator implements Transformator {
 
             // Right side
             String rechts = properties.getProperty(links);
-            StringBuffer rechtsString = new StringBuffer();
+            StringBuilder rechtsString = new StringBuilder();
             if (!"".equals(rechts)) {
                 String[] rechtsSplitted = rechts.split("[+]");
-                for (int i = 0; i < rechtsSplitted.length; i++) {
-                    String rechtsTeil = rechtsSplitted[i];
+                for (String s : rechtsSplitted) {
+                    String rechtsTeil = s;
                     rechtsTeil = rechtsTeil.trim();
                     int rechtsHexChar = Integer.parseInt(rechtsTeil, 16);
                     char rechtsTeilChar = (char) rechtsHexChar;
@@ -344,12 +325,12 @@ public abstract class AbstractTransformator implements Transformator {
 
             if (TransformationsKonstanten.EINTRAG_STANDARD.equals(links)) {
                 this.standardErsetzung = rechtsString.toString();
-                getLogger().debug("Transformation " + links + " -> " + rechtsString.toString() + " (" + rechts
+                getLogger().debug("Transformation " + links + " -> " + rechtsString + " (" + rechts
                     + ") geladen.");
             } else if ("".equals(rechts)) {
-                Object tabelleneintrag = this.transformationsTabelle.get(new Character(linksChar));
+                Object tabelleneintrag = this.transformationsTabelle.get(linksChar);
                 if (tabelleneintrag == null) {
-                    this.transformationsTabelle.put(new Character(linksChar),
+                    this.transformationsTabelle.put(linksChar,
                         new StringBuffer(TransformationsKonstanten.ZEICHEN_ENTFERNE));
                 } else {
                     KomplexeTransformation transformation = (KomplexeTransformation) tabelleneintrag;
@@ -359,18 +340,19 @@ public abstract class AbstractTransformator implements Transformator {
                 getLogger()
                     .debug("Transformation " + linksChar + " (" + links + ") -> <entferneZeichen> geladen.");
             } else {
-                Character linksKey = new Character(linksChar);
+                Character linksKey = linksChar;
                 Object tabelleneintrag = this.transformationsTabelle.get(linksKey);
                 if (linksSplitted.length == 1 && regeln.length == 0 && tabelleneintrag == null) {
                     // A simple transformation replaces one character with one or more others and has no
                     // special rules
                     this.transformationsTabelle.put(linksKey, new StringBuffer(rechtsString.toString()));
-                    getLogger().debug("Transformation " + linksChar + " (" + links + ") -> "
-                        + rechtsString.toString() + " (" + rechts + ") geladen.");
+                    getLogger().debug(
+                        "Transformation " + linksChar + " (" + links + ") -> " + rechtsString
+                            + " (" + rechts + ") geladen.");
                 } else {
                     // A complex transformation replaces several characters at once and / or has additional
                     // rules as to when the transformation is to be used.
-                    KomplexeTransformation transformation = null;
+                    KomplexeTransformation transformation;
                     if (tabelleneintrag == null) {
                         // New creation, if not already available
                         transformation = new KomplexeTransformation(this);
@@ -386,10 +368,11 @@ public abstract class AbstractTransformator implements Transformator {
                         transformation = (KomplexeTransformation) tabelleneintrag;
                     }
                     // Extend complex transformation with another replacement
-                    transformation.addErsetzung(new String(linksSplittedChar), rechtsString.toString(),
-                        regeln);
-                    getLogger().debug("Transformation " + new String(linksSplittedChar) + " (" + links
-                        + ") -> " + rechtsString.toString() + " (" + rechts + ") geladen.");
+                    transformation
+                        .addErsetzung(new String(linksSplittedChar), rechtsString.toString(), regeln);
+                    getLogger().debug(
+                        "Transformation " + new String(linksSplittedChar) + " (" + links + ") -> "
+                            + rechtsString + " (" + rechts + ") geladen.");
                 }
             }
 
@@ -405,15 +388,12 @@ public abstract class AbstractTransformator implements Transformator {
         inputStream.close();
 
         // Make a list of all character categories
-        for (int it = 0; it < ZeichenKategorie.ALLE_ZEICHEN_KATEGORIEN.length; it++) {
+        for (String kategorie : ZeichenKategorie.ALLE_ZEICHEN_KATEGORIEN) {
 
-            String kategorie = ZeichenKategorie.ALLE_ZEICHEN_KATEGORIEN[it];
+            HashSet<String> zeichenketteListe = new HashSet<>();
+            for (Object o : properties.keySet()) {
 
-            HashSet zeichenketteListe = new HashSet();
-            Iterator gueltigeZeichenIterator = properties.keySet().iterator();
-            while (gueltigeZeichenIterator.hasNext()) {
-
-                String gueltigerCharacter = (String) gueltigeZeichenIterator.next();
+                String gueltigerCharacter = (String) o;
 
                 boolean lade = false;
                 if (kategorie.equals(ZeichenKategorie.ALLE)) {
@@ -432,10 +412,7 @@ public abstract class AbstractTransformator implements Transformator {
 
             String[] zeichenketteArray = new String[zeichenketteListe.size()];
             int i = 0;
-            Iterator zeichenketteIterator = zeichenketteListe.iterator();
-            while (zeichenketteIterator.hasNext()) {
-                String zeichenkette = (String) zeichenketteIterator.next();
-
+            for (String zeichenkette : zeichenketteListe) {
                 zeichenketteArray[i] = zeichenkette;
                 i++;
 
@@ -448,13 +425,8 @@ public abstract class AbstractTransformator implements Transformator {
                     this.maximaleGueltigeZeichenlaenge = zeichenketteLaenge;
                 }
 
-                ArrayList existierendeLaengeArray =
-                    (ArrayList) this.laengeGueltigeZeichenMap.get(new Integer(zeichenketteLaenge));
-                if (existierendeLaengeArray == null) {
-                    existierendeLaengeArray = new ArrayList();
-                    this.laengeGueltigeZeichenMap.put(new Integer(zeichenketteLaenge),
-                        existierendeLaengeArray);
-                }
+                ArrayList<String> existierendeLaengeArray =
+                    this.laengeGueltigeZeichenMap.computeIfAbsent(zeichenketteLaenge, k -> new ArrayList<>());
                 existierendeLaengeArray.add(zeichenkette);
 
             }
@@ -489,8 +461,8 @@ public abstract class AbstractTransformator implements Transformator {
 
     private boolean containsChar(char[] charArray, char c) {
 
-        for (int i = 0; i < charArray.length; i++) {
-            if (c == charArray[i]) {
+        for (char value : charArray) {
+            if (c == value) {
                 return true;
             }
         }

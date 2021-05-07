@@ -26,7 +26,7 @@ import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.impl
  * The factory for the respective transformer.
  * 
  */
-public class TransformatorFactory implements FactoryBean, InitializingBean {
+public class TransformatorFactory implements FactoryBean<Object>, InitializingBean {
     
     /** The transformer is set via Spring. */
     private AbstractTransformator transformator;
@@ -34,10 +34,7 @@ public class TransformatorFactory implements FactoryBean, InitializingBean {
     /** Additional transformation table is set via Spring. */
     private String transformationsTabelle;
 
-    /**
-     * {@inheritDoc}
-     */
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         //Initialize transformer
         transformator.initialisiere(transformationsTabelle);
     }
@@ -50,27 +47,18 @@ public class TransformatorFactory implements FactoryBean, InitializingBean {
         this.transformator = transformator;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public Object getObject() throws Exception {
+    public Object getObject() {
         return transformator;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public Class getObjectType() {
+    public Class<?> getObjectType() {
         if (transformator == null) {
             return null;
         } else {
-            return Transformator.class.getClass();
+            return Transformator.class;
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public boolean isSingleton() {
         return true;
     }
