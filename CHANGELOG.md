@@ -1,3 +1,8 @@
+# 1.9.1
+- `IFS-1003`: [isy-sonderzeichen]
+  + Refactoring des DIN-SPEC-Packages von isy-sonderzeichen
+  + Entfernen des `core`-Unterpakets des DIN-SPEC-Packages von isy-sonderzeichen
+
 # 1.9.0
 - `IFS-849`: [isy-sonderzeichen] DIN SPEC: isy-sonderzeichen Transformation
     + Alte Implementierung in `de.bund.bva.pliscommon.plissonderzeichen.stringlatin1_1` verschoben

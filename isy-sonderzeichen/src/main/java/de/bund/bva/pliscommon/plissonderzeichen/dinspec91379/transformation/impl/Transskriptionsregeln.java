@@ -103,10 +103,7 @@ public abstract class Transskriptionsregeln {
      * @return true if the substring is in the middle of a word, otherwise false
      */
     public static boolean isVorZeichen(String text, int position, int laenge, Set<Character> pruefzeichen) {
-        if (text == null) {
-            return false;
-        }
-        if (position + laenge >= text.length()) {
+        if (text == null || position + laenge >= text.length()) {
             return false;
         }
         return pruefzeichen.contains((text.charAt(position + laenge)));

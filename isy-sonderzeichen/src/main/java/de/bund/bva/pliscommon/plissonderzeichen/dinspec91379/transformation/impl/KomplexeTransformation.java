@@ -111,25 +111,25 @@ public class KomplexeTransformation {
      */
     public String getErsetzung(String text, int position) {
         for (int laenge = maxKeyLaenge; laenge > 0; laenge--) {
-            if (position + laenge > text.length()) {
-                continue;
-            }
-            String sub = text.substring(position, position + laenge);
-            List<Ersetzung> varianten = ersetzungen.get(sub);
-            if (varianten == null) {
-                continue;
-            }
-            for (Ersetzung ersetzung : varianten) {
-                if (ersetzung.regeln.length > 0) {
-                    for (int regel = 0; regel < ersetzung.regeln.length; regel++) {
-                        if (transformator.werteRegelAus(ersetzung.regeln[regel], text, position, laenge)) {
+            // Go to the next loop iteration when the examined character would exceed the text.
+            if (position + laenge <= text.length()) {
+                String sub = text.substring(position, position + laenge);
+                List<Ersetzung> varianten = ersetzungen.get(sub);
+                // Go to the next loop iteration when no possible replacement exists.
+                if (varianten != null) {
+                    for (Ersetzung ersetzung : varianten) {
+                        if (ersetzung.regeln.length > 0) {
+                            for (int regel = 0; regel < ersetzung.regeln.length; regel++) {
+                                if (transformator.werteRegelAus(ersetzung.regeln[regel], text, position, laenge)) {
+                                    laengeLetzteErsetzung = laenge;
+                                    return ersetzung.ersatz;
+                                }
+                            }
+                        } else {
                             laengeLetzteErsetzung = laenge;
                             return ersetzung.ersatz;
                         }
                     }
-                } else {
-                    laengeLetzteErsetzung = laenge;
-                    return ersetzung.ersatz;
                 }
             }
         }
