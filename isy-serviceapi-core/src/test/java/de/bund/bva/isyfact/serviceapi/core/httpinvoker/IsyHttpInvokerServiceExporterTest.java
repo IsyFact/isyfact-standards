@@ -129,8 +129,7 @@ public class IsyHttpInvokerServiceExporterTest {
             AufrufKontextVerwalterStub<AufrufKontext> aufrufKontextVerwalterStub = new AufrufKontextVerwalterStub<>();
             aufrufKontextVerwalterStub.setBearerToken(TEST_BEARER_TOKEN);
 
-            TimeoutWiederholungHttpInvokerRequestExecutor reqExecutor = new TimeoutWiederholungHttpInvokerRequestExecutor();
-            reqExecutor.setAufrufKontextVerwalter(aufrufKontextVerwalterStub);
+            TimeoutWiederholungHttpInvokerRequestExecutor reqExecutor = new TimeoutWiederholungHttpInvokerRequestExecutor(aufrufKontextVerwalterStub);
             reqExecutor.setAnzahlWiederholungen(5);
             reqExecutor.setTimeout(20000);
             reqExecutor.setWiederholungenAbstand(200);

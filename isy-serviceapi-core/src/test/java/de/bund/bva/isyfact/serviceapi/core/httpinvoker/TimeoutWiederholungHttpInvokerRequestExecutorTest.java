@@ -6,9 +6,6 @@ import static org.junit.Assert.fail;
 
 import java.io.InterruptedIOException;
 
-import de.bund.bva.isyfact.aufrufkontext.stub.AufrufKontextVerwalterStub;
-import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.DummyServiceImpl;
-import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.DummyServiceRemoteBean;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -62,7 +59,6 @@ public class TimeoutWiederholungHttpInvokerRequestExecutorTest {
     public void testTimeoutKurz() {
         dummyService.setWaitTime(0);
         executor.setTimeout(500);
-        executor.setAufrufKontextVerwalter(new AufrufKontextVerwalterStub<>());
         assertEquals("Hello", serviceRemoteBean.ping("Hello"));
         assertEquals(1, dummyService.getAnzahlAufrufe());
     }
@@ -71,7 +67,6 @@ public class TimeoutWiederholungHttpInvokerRequestExecutorTest {
     public void testTimeoutLang() {
         dummyService.setWaitTime(30000);
         executor.setTimeout(60000);
-        executor.setAufrufKontextVerwalter(new AufrufKontextVerwalterStub<>());
         assertEquals("Hello", serviceRemoteBean.ping("Hello"));
         assertEquals(1, dummyService.getAnzahlAufrufe());
     }
@@ -82,7 +77,6 @@ public class TimeoutWiederholungHttpInvokerRequestExecutorTest {
         executor.setTimeout(50);
         executor.setWiederholungenAbstand(500);
         executor.setAnzahlWiederholungen(10);
-        executor.setAufrufKontextVerwalter(new AufrufKontextVerwalterStub<>());
         long t0 = System.currentTimeMillis();
         try {
             serviceRemoteBean.ping("Hello");
@@ -125,7 +119,7 @@ public class TimeoutWiederholungHttpInvokerRequestExecutorTest {
 
         @Bean
         public TimeoutWiederholungHttpInvokerRequestExecutor requestExecutor() {
-            return new TimeoutWiederholungHttpInvokerRequestExecutor();
+            return new TimeoutWiederholungHttpInvokerRequestExecutor(new AufrufKontextVerwalterStub<>());
         }
     }
 }

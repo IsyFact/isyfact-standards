@@ -21,14 +21,15 @@ import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.net.HttpURLConnection;
 
+import org.springframework.remoting.httpinvoker.HttpInvokerClientConfiguration;
+import org.springframework.remoting.httpinvoker.SimpleHttpInvokerRequestExecutor;
+import org.springframework.remoting.support.RemoteInvocationResult;
+
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.serviceapi.common.konstanten.EreignisSchluessel;
-import org.springframework.remoting.httpinvoker.HttpInvokerClientConfiguration;
-import org.springframework.remoting.httpinvoker.SimpleHttpInvokerRequestExecutor;
-import org.springframework.remoting.support.RemoteInvocationResult;
 
 /**
  * Erweiterung des {@link SimpleHttpInvokerRequestExecutor} von Spring. Diese Erweiterung erlaubt es den
@@ -53,6 +54,10 @@ public class TimeoutWiederholungHttpInvokerRequestExecutor extends SimpleHttpInv
 
     /** Pause zwischen Wiederholungen. */
     private int wiederholungenAbstand;
+
+    public TimeoutWiederholungHttpInvokerRequestExecutor(AufrufKontextVerwalter<?> aufrufKontextVerwalter) {
+        this.aufrufKontextVerwalter = aufrufKontextVerwalter;
+    }
 
     /**
      * {@inheritDoc}
@@ -99,16 +104,6 @@ public class TimeoutWiederholungHttpInvokerRequestExecutor extends SimpleHttpInv
         con.setRequestProperty("Authorization", aufrufKontextVerwalter.getBearerToken());
         con.setReadTimeout(this.timeout);
         con.setConnectTimeout(this.timeout);
-    }
-
-
-    /**
-     * Setzt den AufrufkontextVerwalter.
-     *
-     * @param aufrufKontextVerwalter der AufrufkontextVerwalter des aktuellen Requests.
-     */
-    public void setAufrufKontextVerwalter(AufrufKontextVerwalter<?> aufrufKontextVerwalter) {
-        this.aufrufKontextVerwalter = aufrufKontextVerwalter;
     }
 
     /**
