@@ -44,7 +44,7 @@ public class TimeoutWiederholungHttpInvokerRequestExecutor extends SimpleHttpInv
         .getLogger(TimeoutWiederholungHttpInvokerRequestExecutor.class);
 
     /** Aufrufkontextverwalter zum Setzen des Bearer Tokens. */
-    private AufrufKontextVerwalter<?> aufrufKontextVerwalter;
+    private final AufrufKontextVerwalter<?> aufrufKontextVerwalter;
 
     /** Timeout für Request. */
     private int timeout;
@@ -54,6 +54,10 @@ public class TimeoutWiederholungHttpInvokerRequestExecutor extends SimpleHttpInv
 
     /** Pause zwischen Wiederholungen. */
     private int wiederholungenAbstand;
+
+    public TimeoutWiederholungHttpInvokerRequestExecutor(AufrufKontextVerwalter<?> aufrufKontextVerwalter) {
+        this.aufrufKontextVerwalter = aufrufKontextVerwalter;
+    }
 
     /**
      * {@inheritDoc}
@@ -102,15 +106,6 @@ public class TimeoutWiederholungHttpInvokerRequestExecutor extends SimpleHttpInv
         con.setConnectTimeout(this.timeout);
     }
 
-
-    /**
-     * Setzt den AufrufkontextVerwalter.
-     *
-     * @param aufrufKontextVerwalter der AufrufkontextVerwalter des aktuellen Requests.
-     */
-    public void setAufrufKontextVerwalter(AufrufKontextVerwalter<?> aufrufKontextVerwalter) {
-        this.aufrufKontextVerwalter = aufrufKontextVerwalter;
-    }
 
     /**
      * Setzt den Timeout in Millisekunden. Der Timeout wird beim Aufbau und beim Lesen über die
