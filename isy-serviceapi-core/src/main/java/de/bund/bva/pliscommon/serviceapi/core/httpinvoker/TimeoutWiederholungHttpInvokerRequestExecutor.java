@@ -32,10 +32,8 @@ import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.pliscommon.serviceapi.common.konstanten.EreignisSchluessel;
 
 /**
- * Erweiterung des {@link SimpleHttpInvokerRequestExecutor} von Spring. Diese Erweiterung erlaubt es den
- * Timeout und eine Aufrufwiederholung zu konfigurieren.
- *
- *
+ * Extends Spring's {@link SimpleHttpInvokerRequestExecutor}, which allows configuring
+ * the timeout and the number of times a request should be retried.
  */
 public class TimeoutWiederholungHttpInvokerRequestExecutor extends SimpleHttpInvokerRequestExecutor {
 
@@ -43,28 +41,30 @@ public class TimeoutWiederholungHttpInvokerRequestExecutor extends SimpleHttpInv
     private static final IsyLogger LOG = IsyLoggerFactory
         .getLogger(TimeoutWiederholungHttpInvokerRequestExecutor.class);
 
-    /** Aufrufkontextverwalter zum Setzen des Bearer Tokens. */
+    /** AufrufKontextVerwalter for setting the bearer token. */
     private final AufrufKontextVerwalter<?> aufrufKontextVerwalter;
 
-    /** Timeout für Request. */
+    /** Timeout for the request. */
     private int timeout;
 
-    /** Anzahl Wiederholungen bei Timeouts. */
+    /** Number of times a request should be tried after a timeout. */
     private int anzahlWiederholungen;
 
-    /** Pause zwischen Wiederholungen. */
+    /** Pause between retries. */
     private int wiederholungenAbstand;
 
+    /**
+     * Creates a SimpleHttpInvokerRequestExecutor with configurable timeout and number of retries.
+     *
+     * @param aufrufKontextVerwalter for setting the bearer token
+     */
     public TimeoutWiederholungHttpInvokerRequestExecutor(AufrufKontextVerwalter<?> aufrufKontextVerwalter) {
         this.aufrufKontextVerwalter = aufrufKontextVerwalter;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     protected RemoteInvocationResult doExecuteRequest(HttpInvokerClientConfiguration config,
-        ByteArrayOutputStream baos) throws IOException, ClassNotFoundException {
+                                                      ByteArrayOutputStream baos) throws IOException, ClassNotFoundException {
         int versuch = 0;
         while (true) {
             try {
@@ -95,9 +95,6 @@ public class TimeoutWiederholungHttpInvokerRequestExecutor extends SimpleHttpInv
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     protected void prepareConnection(HttpURLConnection con, int contentLength) throws IOException {
         super.prepareConnection(con, contentLength);
@@ -108,34 +105,36 @@ public class TimeoutWiederholungHttpInvokerRequestExecutor extends SimpleHttpInv
 
 
     /**
-     * Setzt den Timeout in Millisekunden. Der Timeout wird beim Aufbau und beim Lesen über die
-     * HTTP-Connection verwendet.
+     * Sets the timeout in milliseconds. The timeout is used while establishing and reading via the HTTP connection.
+     *
+     * @param timeout
+     *         timeout in milliseconds
      * @see HttpURLConnection#setConnectTimeout(int)
      * @see HttpURLConnection#setReadTimeout(int)
-     * @param timeout
-     *            Timeout in Millisekunden.
      */
     public void setTimeout(int timeout) {
         this.timeout = timeout;
     }
 
     /**
-     * Hierüber wird festgelegt, wie oft der Aufruf bei einem Timeout wiederholt werden soll. Default ist 0.
+     * Sets number of times a request should be retried after a it timed out. The default is "0".
+     *
      * @param anzahlWiederholungen
-     *            Anzahl Wiederholungen bei Timeouts.
+     *         number of retries
      */
     public void setAnzahlWiederholungen(int anzahlWiederholungen) {
         this.anzahlWiederholungen = anzahlWiederholungen;
     }
 
     /**
-     * Hierüber wird festgelegt, wie lange zwischen zwei Aufrufwiederholungen gewartet werden soll. Default
-     * ist 0.
-     * @see #setAnzahlWiederholungen(int)
+     * Sets the time to wait between two retries. Default is "0".
+     *
      * @param wiederholungenAbstand
-     *            Pause zwischen den Wiederholungen in Millisekunden.
+     *         pause between two retries in milliseconds
+     * @see #setAnzahlWiederholungen(int)
      */
     public void setWiederholungenAbstand(int wiederholungenAbstand) {
         this.wiederholungenAbstand = wiederholungenAbstand;
     }
+
 }

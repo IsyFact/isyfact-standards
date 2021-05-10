@@ -44,7 +44,7 @@
     <bean id="dummyKontextService" class="test.de.bund.bva.pliscommon.serviceapi.core.aop.service.httpinvoker.v1_0_0.DummyKontextServiceImpl"/>
 
 
-    <!-- @StelltLoggingKontextBereit Annotation einschalten -->
+    <!-- Enable @StelltLoggingKontextBereit annotation -->
     <bean id="stelltLoggingKontextBereitInterceptor" class="de.bund.bva.pliscommon.serviceapi.core.aop.StelltLoggingKontextBereitInterceptor">
     </bean>
 

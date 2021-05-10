@@ -33,9 +33,6 @@ public class TimeoutWiederholungTest extends TestCase {
     private DummyServiceImpl dummyService;
     private String serviceUrl;
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     protected void setUp() throws Exception {
         dummyServer = new DummyServer();
@@ -43,9 +40,6 @@ public class TimeoutWiederholungTest extends TestCase {
         dummyService = dummyServer.getDummyService();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     protected void tearDown() throws Exception {
         Thread.sleep(1000);

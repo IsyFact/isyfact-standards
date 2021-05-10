@@ -14,7 +14,7 @@
     <name>IsyFact-Standards BOM</name>
     <description>Definiert die Versionen aller Bibliotheken der IsyFact-Standards.</description>
 
-    <!-- Dependency-Management für die Komponenten der IsyFact-Standards. -->
+    <!-- Dependency Management for the IsyFact-Standard components -->
     <dependencyManagement>
         <dependencies>
             <dependency>

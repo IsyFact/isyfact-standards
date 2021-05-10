@@ -7,6 +7,9 @@ import org.junit.Test;
 import de.bund.bva.pliscommon.aufrufkontext.impl.AufrufKontextImpl;
 import de.bund.bva.pliscommon.aufrufkontext.impl.AufrufKontextVerwalterImpl;
 
+/**
+ * Test for the handling of an OAuth 2 Bearer Token in the {@link AufrufKontextVerwalter}.
+ */
 public class TestBearerTokenHandling {
 
     private AufrufKontextVerwalter<AufrufKontextImpl> aufrufKontextVerwalter;
@@ -16,6 +19,9 @@ public class TestBearerTokenHandling {
         aufrufKontextVerwalter =new AufrufKontextVerwalterImpl<>();
     }
 
+    /**
+     * Tests the removal of the "bearer " prefix.
+     */
     @Test
     public void testCuttingOutBearer() {
         aufrufKontextVerwalter.setBearerToken("bearer 12345");

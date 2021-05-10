@@ -53,7 +53,7 @@
             <artifactId>spring-aspects</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <!-- IsyFact Komponenten -->
+        <!-- IsyFact Components -->
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-exception-core</artifactId>

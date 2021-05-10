@@ -88,8 +88,7 @@ public class IsyHttpInvokerServiceExporterTest {
         UserInvocationHandler uih = new UserInvocationHandler(b);
         User a = (User) Proxy.newProxyInstance(UserImpl.class.getClassLoader(), new Class[]{User.class}, uih);
         assertEquals("Added user successful.", serviceRemoteBean.addUser(a));
-        assertEquals(aufrufKontextVerwalter.getBearerToken(), TEST_BEARER_TOKEN);
-
+        assertEquals(TEST_BEARER_TOKEN, aufrufKontextVerwalter.getBearerToken());
     }
 
     @Configuration
@@ -114,7 +113,7 @@ public class IsyHttpInvokerServiceExporterTest {
         }
 
         @Bean(name = "/isyBearerTokenServiceBean_v1_0_0")
-        IsyHttpInvokerServiceExporter userServiceWithProxy(DummyServiceImpl dummyService, AufrufKontextVerwalter aufrufKontextVerwalter) {
+        IsyHttpInvokerServiceExporter userServiceWithProxy(DummyServiceImpl dummyService, AufrufKontextVerwalter<?> aufrufKontextVerwalter) {
             IsyHttpInvokerServiceExporter exporter = new IsyHttpInvokerServiceExporter(aufrufKontextVerwalter);
             exporter.setService(dummyService);
             exporter.setServiceInterface(DummyServiceRemoteBean.class);
@@ -155,4 +154,5 @@ public class IsyHttpInvokerServiceExporterTest {
         }
 
     }
+
 }

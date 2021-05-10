@@ -126,7 +126,7 @@
                         <artifactId>maven-antrun-plugin</artifactId>
                         <version>1.7</version>
                         <executions>
-                            <!-- Verschieben der Release-Konfigurationen in das Config-Verzeichnis. -->
+                            <!-- Move the release configuration to the config directory -->
                             <execution>
                                 <id>process-resources</id>
                                 <phase>process-resources</phase>

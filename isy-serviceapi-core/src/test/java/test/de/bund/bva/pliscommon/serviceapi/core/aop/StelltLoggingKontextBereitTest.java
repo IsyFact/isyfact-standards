@@ -18,9 +18,9 @@ import test.de.bund.bva.pliscommon.serviceapi.core.aop.service.httpinvoker.v1_0_
 import test.de.bund.bva.pliscommon.serviceapi.core.aop.service.httpinvoker.v1_0_0.DummyKontextServiceRemoteBean;
 
 /**
- * Tested, ob der {@link de.bund.bva.pliscommon.serviceapi.core.aop.StelltLoggingKontextBereitInterceptor} korrekt
- * durch die Annotation an der Methode {@code ping()} der Klasse {@link DummyKontextServiceImpl} aufgerufen wird.
- *
+ * Tests if the {@link de.bund.bva.pliscommon.serviceapi.core.aop.StelltLoggingKontextBereitInterceptor} is called
+ * correctly via the {@link de.bund.bva.pliscommon.serviceapi.core.aop.StelltLoggingKontextBereit} annotations on
+ * {@link DummyKontextServiceImpl}'s methods.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/remoting-servlet.xml" })
@@ -45,14 +45,14 @@ public class StelltLoggingKontextBereitTest {
     @Test
     public void testStelltLoggingKontextNichtBereitOhneAufrufKontext() {
         String korrelationsId = this.dummyService.stelltLoggingKontextNichtBereitOhneAufrufKontext();
-        assertEquals(korrelationsId, null);
+        assertNull(korrelationsId);
     }
 
     @Test
     public void testStelltLoggingKontextNichtBereitMitAufrufKontext() {
         String korrelationsId =
-            this.dummyService.stelltLoggingKontextNichtBereitMitAufrufKontext(this.aufrufKontext);
-        assertEquals(korrelationsId, null);
+                this.dummyService.stelltLoggingKontextNichtBereitMitAufrufKontext(this.aufrufKontext);
+        assertNull(korrelationsId);
     }
 
     @Test
@@ -70,7 +70,7 @@ public class StelltLoggingKontextBereitTest {
     @Test
     public void testStelltLoggingKontextBereitMitAufrufKontext() {
         String korrelationsId =
-            this.dummyService.stelltLoggingKontextBereitMitAufrufKontext(this.aufrufKontext);
+                this.dummyService.stelltLoggingKontextBereitMitAufrufKontext(this.aufrufKontext);
         assertEquals(korrelationsId, this.aufrufKontext.getKorrelationsId());
     }
 

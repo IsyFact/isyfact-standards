@@ -23,124 +23,127 @@ import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextFactory;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
 
 /**
- * Stellt einer Anwendung einen festen AufrufKontext bereit.
+ * Provides a fixed AufrufKontext to an application.
  * <p>
- * Diese Klasse kann in der Entwicklung verwendet werden - ist aber nicht für den Produktiven Einsatz gedacht.
+ * This class is meant for development purposes and should not be used in production.
  *
- *
+ * @param <T>
+ *         implementation of an {@link AufrufKontext}
  */
-public class AufrufKontextVerwalterStub<T extends AufrufKontext> implements AufrufKontextVerwalter<T>,
-    InitializingBean {
+public class AufrufKontextVerwalterStub<T extends AufrufKontext>
+        implements AufrufKontextVerwalter<T>, InitializingBean {
 
-    /** Wert für Durchführende Behörde. */
+    /** Value for the executing authority. */
     private String durchfuehrendeBehoerde = "123456";
 
-    /** Wert für Benutzerkennung. */
+    /** Value for the executing user's login. */
     private String durchfuehrenderBenutzerKennung = "martha.mustermann@bva.bund.de";
 
-    /** Wert für Passwort. */
+    /** Value for the executing user's password. */
     private String durchfuehrenderBenutzerPasswort = null;
 
-    /** Wert für Sachbearbeiter-Name. */
+    /** Value for the executing Sachbearbeiter's name. */
     private String durchfuehrenderSachbearbeiterName = "Martha Mustermann";
 
-    /** Wert für die interne Kennung des Benutzers (Unique-ID). */
+    /** Value for the executing user's internal unique id. */
     private String durchfuehrenderBenutzerInterneKennung = "Martha007";
 
-    /** Wert für Rollen. */
+    /** Value for roles. */
     private String[] rollen = new String[] {};
 
-    /**
-     * wenn {@code true}, dann wird bei jeder Abfrage ein neuer AufrufKontext erzeugt - somit ist dieser nicht
-     * veränderlich.
-     */
+    /** If {@code ture} a new AufrufKontext is created for each request, making it effectively immutable. */
     private boolean festerAufrufKontext;
 
-    /** Zugriff auf die AufrufKontextFactory, um anwendungsspezifische Kontexte herstellen zu können. */
+    /** Access to the AufrufKontextFactory, for creating application specific contexts. */
     private AufrufKontextFactory<T> aufrufKontextFactory;
 
-    /** aufrufKontext, der jedes mal zurückgegeben wird. */
+    /** AufrufKontext that will be returned. */
     private T aufrufKontext;
 
+    /** Dummy value for the OAuth 2 Bearer Token. */
     private String bearerToken = "AUFRUFKONTEXTVERWALTER_STUB_BEARER_TOKEN";
 
     /**
-     * Setzt das Feld {@link #festerAufrufKontext}.
+     * Sets the field {@link #festerAufrufKontext}.
+     *
      * @param festerAufrufKontext
-     *            Neuer Wert für festerAufrufKontext
+     *         {@code true} for a fixed AufrufKontext, otherwise {@code false}
      */
-
     public void setFesterAufrufKontext(boolean festerAufrufKontext) {
         this.festerAufrufKontext = festerAufrufKontext;
     }
 
     /**
-     * Setzt das Feld {@link #aufrufKontextFactory}.
+     * Sets the field {@link #aufrufKontextFactory}.
+     *
      * @param aufrufKontextFactory
-     *            Neuer Wert für aufrufKontextFactory
+     *         the AufrufKontextFactory to use
      */
-
     public void setAufrufKontextFactory(AufrufKontextFactory<T> aufrufKontextFactory) {
         this.aufrufKontextFactory = aufrufKontextFactory;
     }
 
     /**
-     * Setzt das Feld 'durchfuehrendeBehoerde'.
+     * Sets the field {@link #durchfuehrendeBehoerde}.
+     *
      * @param durchfuehrendeBehoerde
-     *            Neuer Wert für durchfuehrendeBehoerde
+     *         name of the executing authority
      */
     public void setDurchfuehrendeBehoerde(String durchfuehrendeBehoerde) {
         this.durchfuehrendeBehoerde = durchfuehrendeBehoerde;
     }
 
     /**
-     * Setzt das Feld 'durchfuehrenderBenutzerKennung'.
+     * Sets the field {@link #durchfuehrenderBenutzerKennung}.
+     *
      * @param durchfuehrenderBenutzerKennung
-     *            Neuer Wert für durchfuehrenderBenutzerKennung
+     *         login of the executing user
      */
     public void setDurchfuehrenderBenutzerKennung(String durchfuehrenderBenutzerKennung) {
         this.durchfuehrenderBenutzerKennung = durchfuehrenderBenutzerKennung;
     }
 
     /**
-     * Setzt das Feld 'durchfuehrenderBenutzerPasswort'.
+     * Sets the field {@link #durchfuehrenderBenutzerPasswort}.
+     *
      * @param durchfuehrenderBenutzerPasswort
-     *            Neuer Wert für durchfuehrenderBenutzerPasswort
+     *         password of the executing user
      */
     public void setDurchfuehrenderBenutzerPasswort(String durchfuehrenderBenutzerPasswort) {
         this.durchfuehrenderBenutzerPasswort = durchfuehrenderBenutzerPasswort;
     }
 
     /**
-     * Setzt das Feld 'durchfuehrenderSachbearbeiterName'.
+     * Sets the field {@link #durchfuehrenderSachbearbeiterName}.
+     *
      * @param durchfuehrenderSachbearbeiterName
-     *            Neuer Wert für durchfuehrenderSachbearbeiterName
+     *         name of the executing Sachbearbeiter
      */
     public void setDurchfuehrenderSachbearbeiterName(String durchfuehrenderSachbearbeiterName) {
         this.durchfuehrenderSachbearbeiterName = durchfuehrenderSachbearbeiterName;
     }
 
     /**
-     * Setzt das Feld 'durchfuehrenderBenutzerInterneKennung'.
+     * Sets the field {@link #durchfuehrenderBenutzerKennung}.
+     *
      * @param durchfuehrenderBenutzerInterneKennung
-     *            Neuer Wert für durchfuehrenderBenutzerInterneKennung
+     *         login for the executing user
      */
     public void setDurchfuehrenderBenutzerInterneKennung(String durchfuehrenderBenutzerInterneKennung) {
         this.durchfuehrenderBenutzerInterneKennung = durchfuehrenderBenutzerInterneKennung;
     }
 
     /**
-     * Setzt das Feld 'rollen'.
+     * Sets the field {@link #rollen}.
+     *
      * @param rollen
-     *            Neuer Wert für rollen
+     *         roles to set
      */
     public void setRollen(String... rollen) {
         this.rollen = rollen;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
     public T getAufrufKontext() {
         if (!this.festerAufrufKontext) {
             return this.aufrufKontext;
@@ -149,22 +152,20 @@ public class AufrufKontextVerwalterStub<T extends AufrufKontext> implements Aufr
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
     public void setAufrufKontext(T aufrufKontext) {
         this.aufrufKontext = aufrufKontext;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
     public void afterPropertiesSet() throws Exception {
         this.aufrufKontext = erzeugeAufrufKontext();
     }
 
     /**
+     * Creates the AufrufKontext with the configured values.
      *
+     * @return the AufrufKontext
      */
     private T erzeugeAufrufKontext() {
         T aufrufKontext = this.aufrufKontextFactory.erzeugeAufrufKontext();
@@ -191,4 +192,5 @@ public class AufrufKontextVerwalterStub<T extends AufrufKontext> implements Aufr
     public void setBearerToken(String bearerToken) {
         this.bearerToken = bearerToken;
     }
+
 }

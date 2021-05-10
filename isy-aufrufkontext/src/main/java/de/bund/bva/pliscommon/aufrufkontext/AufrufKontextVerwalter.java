@@ -16,47 +16,52 @@
  */
 package de.bund.bva.pliscommon.aufrufkontext;
 
-/** 
- * Container für den aktuellen Aufrufkontext.
- * 
- * Diese Klasse sollte als Bean mit dem scope "thread" verwendet werden:
- * 
- *  <aop:aspectj-autoproxy/>
- *  <bean id="aufrufKontextVerwalter" scope="thread" class="de.bund.bva.pliscommon.aufrufkontext.impl.AufrufKontextVerwalterImpl">
- *       <aop:scoped-proxy/>
- *  </bean>
- * 
+/**
+ * Container for the current Aufrufkontext.
  * <p>
- * Siehe: http://www.springbyexample.org/static/0.91/html/ar20.html für Spring 2.5.x
+ * This class should be used with the "thread" bean scope:
  *
+ * <pre>{@code
+ * <aop:aspectj-autoproxy/>
+ * <bean id="aufrufKontextVerwalter" scope="thread" class="de.bund.bva.pliscommon.aufrufkontext.impl.AufrufKontextVerwalterImpl">
+ *     <aop:scoped-proxy/>
+ * </bean>
+ * }</pre>
+ *
+ * <p>
+ * See http://www.springbyexample.org/static/0.91/html/ar20.html for Spring 2.5.x
+ *
+ * @param <T>
+ *         implementation of an {@link AufrufKontext}
  */
 public interface AufrufKontextVerwalter<T extends AufrufKontext> {
 
     /**
-     * Liefert den aktuellen AufrufKontext zurück.
+     * Returns the current AufrufKontext.
      *
-     * @return den aktuellen AufrufKontext.
+     * @return the current AufrufKontext
      */
     T getAufrufKontext();
 
     /**
-     * Setzt den aktuellen AufrufKontext.
+     * Sets the current AufrufKontext.
      *
-     * @param aufrufKontext das zu setzende Objekt.
+     * @param aufrufKontext the AufrufKontext to set
      */
     void setAufrufKontext(T aufrufKontext);
 
     /**
-     * Liefert das OAuth2 Bearer Token zurück.
+     * Returns the OAuth 2 Bearer Token.
      *
-     * @return das OAuth2 Bearer Token.
+     * @return the OAuth 2 Bearer Token
      */
     String getBearerToken();
 
     /**
-     * Setzt das OAuth2 Bearer Token. Schneidet das Präfix 'bearer ' ab, falls es vorhanden ist.
+     * Sets the OAuth 2 Bearer Token. Removes the prefix "bearer " if it exists.
      *
-     * @param bearerToken das base64-codierte OAuth2 Bearer Token
+     * @param bearerToken the Base64 encoded OAuth 2 bearer token
      */
     void setBearerToken(String bearerToken);
+
 }
