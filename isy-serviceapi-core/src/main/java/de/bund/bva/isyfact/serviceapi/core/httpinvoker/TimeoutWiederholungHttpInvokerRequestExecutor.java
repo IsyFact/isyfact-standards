@@ -32,10 +32,8 @@ import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.serviceapi.common.konstanten.EreignisSchluessel;
 
 /**
- * Erweiterung des {@link SimpleHttpInvokerRequestExecutor} von Spring. Diese Erweiterung erlaubt es den
- * Timeout und eine Aufrufwiederholung zu konfigurieren.
- *
- *
+ * Extension to the Spring {@link SimpleHttpInvokerRequestExecutor} which allows
+ * to configure the timeout and the times a call is repeated.
  */
 public class TimeoutWiederholungHttpInvokerRequestExecutor extends SimpleHttpInvokerRequestExecutor {
 
@@ -43,25 +41,26 @@ public class TimeoutWiederholungHttpInvokerRequestExecutor extends SimpleHttpInv
     private static final IsyLogger LOG = IsyLoggerFactory
         .getLogger(TimeoutWiederholungHttpInvokerRequestExecutor.class);
 
-    /** Aufrufkontextverwalter zum Setzen des Bearer Tokens. */
+    /** {@link AufrufKontextVerwalter} to set the OAuth2 Bearer Token. */
     private AufrufKontextVerwalter<?> aufrufKontextVerwalter;
 
-    /** Timeout für Request. */
+    /** Timeout for the request. */
     private int timeout;
 
-    /** Anzahl Wiederholungen bei Timeouts. */
+    /** Number of times the call is repeated in case of a timeout. */
     private int anzahlWiederholungen;
 
-    /** Pause zwischen Wiederholungen. */
+    /** Break between the call repetitions. */
     private int wiederholungenAbstand;
 
+    /**
+     * Constructor. Sets the {@link AufrufKontextVerwalter} bean.
+     * @param aufrufKontextVerwalter new value for the {@link AufrufKontextVerwalter}.
+     */
     public TimeoutWiederholungHttpInvokerRequestExecutor(AufrufKontextVerwalter<?> aufrufKontextVerwalter) {
         this.aufrufKontextVerwalter = aufrufKontextVerwalter;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     protected RemoteInvocationResult doExecuteRequest(HttpInvokerClientConfiguration config,
         ByteArrayOutputStream baos) throws IOException, ClassNotFoundException {
@@ -95,9 +94,6 @@ public class TimeoutWiederholungHttpInvokerRequestExecutor extends SimpleHttpInv
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     protected void prepareConnection(HttpURLConnection con, int contentLength) throws IOException {
         super.prepareConnection(con, contentLength);
@@ -107,32 +103,30 @@ public class TimeoutWiederholungHttpInvokerRequestExecutor extends SimpleHttpInv
     }
 
     /**
-     * Setzt den Timeout in Millisekunden. Der Timeout wird beim Aufbau und beim Lesen über die
-     * HTTP-Connection verwendet.
+     * Sets the timeout in milliseconds. The timeout is used when establishing and reading via the HTTP connection.
      * @see HttpURLConnection#setConnectTimeout(int)
      * @see HttpURLConnection#setReadTimeout(int)
      * @param timeout
-     *            Timeout in Millisekunden.
+     *            timeout in milliseconds.
      */
     public void setTimeout(int timeout) {
         this.timeout = timeout;
     }
 
     /**
-     * Hierüber wird festgelegt, wie oft der Aufruf bei einem Timeout wiederholt werden soll. Default ist 0.
+     * This defines how often the call is to be repeated in the event of a timeout. Default value is 0.
      * @param anzahlWiederholungen
-     *            Anzahl Wiederholungen bei Timeouts.
+     *            number of repetitions in case of a timeout.
      */
     public void setAnzahlWiederholungen(int anzahlWiederholungen) {
         this.anzahlWiederholungen = anzahlWiederholungen;
     }
 
     /**
-     * Hierüber wird festgelegt, wie lange zwischen zwei Aufrufwiederholungen gewartet werden soll. Default
-     * ist 0.
+     * This defines how long to wait between two call repetitions. Default value is 0.
      * @see #setAnzahlWiederholungen(int)
      * @param wiederholungenAbstand
-     *            Pause zwischen den Wiederholungen in Millisekunden.
+     *            break between repetitions in milliseconds.
      */
     public void setWiederholungenAbstand(int wiederholungenAbstand) {
         this.wiederholungenAbstand = wiederholungenAbstand;

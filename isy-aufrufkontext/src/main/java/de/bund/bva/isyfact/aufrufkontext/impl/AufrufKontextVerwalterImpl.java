@@ -20,18 +20,19 @@ import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
 
 /**
- * Stellt einer Anwendung den AufrufKontext bereit.
+ * Provides the call context to an application.
  *
  *
  */
 public class AufrufKontextVerwalterImpl<T extends AufrufKontext> implements AufrufKontextVerwalter<T> {
 
+    /** Matcher to truncate the prefix 'bearer ' if present. */
     private static final String BEARER_MATCHER = "[bB][eE][aA][rR][eE][rR] ";
 
-    /** der aktuelle AufrufKontext. */
+    /** The current call context ('AufrufKontext' object). */
     private T aufrufKontext;
 
-    /** das aktuelle OAuth2 Bearer Token. */
+    /** The current OAuth2 Bearer Token. */
     private String bearerToken;
 
     @Override

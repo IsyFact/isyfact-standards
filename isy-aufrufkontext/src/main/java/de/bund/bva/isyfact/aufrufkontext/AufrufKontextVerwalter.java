@@ -17,9 +17,9 @@
 package de.bund.bva.isyfact.aufrufkontext;
 
 /**
- * Container für den aktuellen Aufrufkontext.
+ * Container for the current call context ('AufrufKontext').
  *
- * Diese Klasse sollte als Bean mit dem scope "thread" verwendet werden:
+ * This class should be used as a bean with scope "thread":
  *
  * <aop:aspectj-autoproxy/>
  * <bean id="aufrufKontextVerwalter" scope="thread" class="de.bund.bva.isyfact.aufrufkontext.impl.AufrufKontextVerwalterImpl">
@@ -31,30 +31,30 @@ package de.bund.bva.isyfact.aufrufkontext;
 public interface AufrufKontextVerwalter<T extends AufrufKontext> {
 
     /**
-     * Liefert den aktuellen AufrufKontext zurück.
+     * Returns the current call context ('AufrufKontext').
      *
-     * @return den aktuellen AufrufKontext.
+     * @return the current call context ('AufrufKontext').
      */
     T getAufrufKontext();
 
     /**
-     * Setzt den aktuellen AufrufKontext.
+     * Sets the current call context ('AufrufKontext').
      *
-     * @param aufrufKontext das zu setzende Objekt.
+     * @param aufrufKontext new call context ("AufrufKontext').
      */
     void setAufrufKontext(T aufrufKontext);
 
     /**
-     * Liefert das OAuth2 Bearer Token zurück.
+     * Returns the OAuth2 Bearer Token.
      *
-     * @return das OAuth2 Bearer Token.
+     * @return the OAuth2 Bearer Token.
      */
     String getBearerToken();
 
     /**
-     * Setzt das OAuth2 Bearer Token. Schneidet das Präfix 'bearer ' ab, falls es vorhanden ist.
+     * Sets the OAuth2 Bearer Token. Truncates the prefix 'bearer ' if it is present.
      *
-     * @param bearerToken das base64-codierte OAuth2 Bearer Token
+     * @param bearerToken base64 OAuth2 Bearer Token
      */
     void setBearerToken(String bearerToken);
 }

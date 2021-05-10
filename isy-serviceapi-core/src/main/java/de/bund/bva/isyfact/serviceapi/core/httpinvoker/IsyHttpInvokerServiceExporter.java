@@ -12,7 +12,6 @@ import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
 
 /**
  * {@link HttpInvokerServiceExporter} with deactivated {@link #isAcceptProxyClasses()}.
- * {@link HttpInvokerServiceExporter} with deactivated {@link #acceptProxyClasses}.
  */
 public class IsyHttpInvokerServiceExporter extends HttpInvokerServiceExporter {
 
