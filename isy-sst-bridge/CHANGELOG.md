@@ -1,4 +1,5 @@
 # 2.2.0
+- `IFS-874`: Test an den veränderten `IsyHttpInvokerServiceExporter` angepasst.
 - `IFS-597`: Verwendung der Klasse `IsyHttpInvokerServiceExporter` anstatt `HttpInvokerServiceExporter`
   aus Tests entfernt
 
