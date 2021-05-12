@@ -1,5 +1,5 @@
 # 2.2.0
-- `IFS-874`: Umsetzung des Transport von OAuth 2 Bearer Tokens zwischen Schnittstellentechnologien
+- `IFS-874`: Umsetzung des Transports von OAuth 2 Bearer Tokens zwischen Schnittstellentechnologien
     - `IsyHttpInvokerServiceExporter` und `TimeoutWiederholungHttpInvokerRequestExecutor` um den `AufrufKontextVerwalter` erweitert.
     - Der OAuth2 Bearer Token wird über den HTTP Authentication Header transportiert bzw. aus diesem ausgelesen.
 - `IFS-564`: Deaktivieren von Proxy-Objekten in HttpInvoker Schnittstellen

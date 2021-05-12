@@ -84,8 +84,8 @@ public class IsyHttpInvokerServiceExporterTest {
         UserInvocationHandler uih = new UserInvocationHandler(b);
         User a = (User) Proxy.newProxyInstance(UserImpl.class.getClassLoader(), new Class[]{User.class}, uih);
         assertEquals("Added user successful.", serviceRemoteBean.addUser(a));
-        assertEquals(aufrufKontextVerwalter.getBearerToken(), TEST_BEARER_TOKEN);
 
+        assertEquals(TEST_BEARER_TOKEN, aufrufKontextVerwalter.getBearerToken());
     }
 
     @Configuration
