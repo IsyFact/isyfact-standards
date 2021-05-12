@@ -47,6 +47,6 @@ public class ZeichenKategorie {
             justification = "solved with IFS-804"
     )
     public static final String[] ALLE_ZEICHEN_KATEGORIEN =
-        new String[]{LETTER, NUMBER, OTHER, PUNCTUATION, SEPARATOR, SYMBOL, ALLE};
+            {LETTER, NUMBER, OTHER, PUNCTUATION, SEPARATOR, SYMBOL, ALLE};
 
 }

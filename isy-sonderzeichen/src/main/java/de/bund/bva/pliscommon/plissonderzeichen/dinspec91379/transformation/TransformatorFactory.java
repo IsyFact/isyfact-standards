@@ -24,21 +24,21 @@ import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.impl
 
 /**
  * The factory for the respective transformer.
- * 
  */
 public class TransformatorFactory implements FactoryBean<Object>, InitializingBean {
-    
+
     /** The transformer is set via Spring. */
     private AbstractTransformator transformator;
-    
+
     /** Additional transformation table is set via Spring. */
     private String transformationsTabelle;
 
+    @Override
     public void afterPropertiesSet() {
         //Initialize transformer
         transformator.initialisiere(transformationsTabelle);
     }
-    
+
     public void setTransformationsTabelle(String transformationsTabelle) {
         this.transformationsTabelle = transformationsTabelle;
     }
@@ -47,10 +47,12 @@ public class TransformatorFactory implements FactoryBean<Object>, InitializingBe
         this.transformator = transformator;
     }
 
+    @Override
     public Object getObject() {
         return transformator;
     }
 
+    @Override
     public Class<?> getObjectType() {
         if (transformator == null) {
             return null;
@@ -59,6 +61,7 @@ public class TransformatorFactory implements FactoryBean<Object>, InitializingBe
         }
     }
 
+    @Override
     public boolean isSingleton() {
         return true;
     }

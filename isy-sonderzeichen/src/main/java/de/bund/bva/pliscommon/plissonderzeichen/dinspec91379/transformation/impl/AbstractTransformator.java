@@ -23,17 +23,19 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.LogKategorie;
-import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.Transformator;
-import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.ZeichenKategorie;
 import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.konstanten.EreignisSchluessel;
 import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.konstanten.TransformationsKonstanten;
+import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.Transformator;
+import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.ZeichenKategorie;
 
 /**
  * Provides common methods for all transformers.
@@ -45,14 +47,14 @@ public abstract class AbstractTransformator implements Transformator {
     protected static final Pattern REG_EX_LEERZEICHEN = Pattern.compile("[ ]{2,}");
 
     /** The metacharacters of a regular expression. */
-    private static final char[] REG_EX_META_CHARACTER = new char[] { '[', ']', '\\', '^', '$', '.', '|', '?',
-        '*', '+', '-', (char) (Integer.valueOf("002D", 16).intValue()), '(', ')', '<', '>', '{', '}' };
+    private static final char[] REG_EX_META_CHARACTER = { '[', ']', '\\', '^', '$', '.', '|', '?',
+        '*', '+', '-', '(', ')', '<', '>', '{', '}' };
 
     /**
      * Transformation table: Character -> Object, where the Object is typically a StringBuilder or a
      * KomplexeTransformation.
      */
-    protected final HashMap<Character, Object> transformationsTabelle = new HashMap<>();
+    protected final Map<Character, Object> transformationsTabelle = new HashMap<>();
 
     /**
      * The category table with the valid characters of the transformer String(ZeichenKategorie) -> String[].
@@ -90,7 +92,7 @@ public abstract class AbstractTransformator implements Transformator {
      * Initializes the transformer. Optionally, an additional transformation table can be transferred, which is
      * also loaded and overwrites existing entries.
      * @param zusaetzlicheTransformationsTabelle
-     *            The path to the additional table, <code> null </code> if no additional table needs to be loaded
+     *            The path to the additional table, {@code null} if no additional table needs to be loaded
      */
     public void initialisiere(String zusaetzlicheTransformationsTabelle) {
 
@@ -116,7 +118,7 @@ public abstract class AbstractTransformator implements Transformator {
         } catch (IOException e) {
             getLogger().error(EreignisSchluessel.TRANSFORMATION,
                 "Fehler beim Laden der Transformationstabelle => Abbruch", e);
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
 
     }
@@ -154,64 +156,62 @@ public abstract class AbstractTransformator implements Transformator {
 
     @Override
     public String[] getGueltigeZeichen(String kategorie) {
-        return this.kategorieGueltigeZeichenTabelle.get(kategorie);
+        return kategorieGueltigeZeichenTabelle.get(kategorie);
     }
 
     @Override
     public String getRegulaererAusdruck(String[] kategorieListe) {
+        return Arrays.stream(kategorieListe)
+                .map(kategorieGueltigeZeichenTabelle::get)
+                .flatMap(Arrays::stream)
+                .map(AbstractTransformator::escapeRegexMetaChars)
+                .collect(Collectors.joining("|", "(", ")*"));
+    }
 
-        // Build regular expression
-        StringBuilder regulaererAusdruck = new StringBuilder();
-        boolean first = true;
-        regulaererAusdruck.append("(");
-        for (String kategorie : kategorieListe) {
-            String[] strings = this.kategorieGueltigeZeichenTabelle.get(kategorie);
-            for (String s : strings) {
-                if (!first) {
-                    regulaererAusdruck.append("|");
-                }
-                first = false;
-                for (char c : s.toCharArray()) {
-                    if (new String(REG_EX_META_CHARACTER).contains(Character.toString(c))) {
-                        regulaererAusdruck.append("\\");
-                    }
-                    regulaererAusdruck.append(c);
-                }
+    private static String escapeRegexMetaChars(String s) {
+        StringBuilder result = new StringBuilder(s.length());
+        for (char c : s.toCharArray()) {
+            if (isRegexMetaChar(c)) {
+                result.append('\\');
+            }
+            result.append(c);
+        }
+        return result.toString();
+    }
+
+    private static boolean isRegexMetaChar(char c) {
+        for (char metaChar : REG_EX_META_CHARACTER) {
+            if (c == metaChar) {
+                return true;
             }
         }
-        regulaererAusdruck.append(")*");
-
-        return regulaererAusdruck.toString();
+        return false;
     }
 
     @Override
     public boolean isGueltigerString(String zeichenkette, String[] kategorieListe) {
 
         // Determine valid characters of the category
-        Set<String> gueltigeZeichenSet = new HashSet<>();
-        for (String s : kategorieListe) {
-            gueltigeZeichenSet.addAll(Arrays.asList(getGueltigeZeichen(s)));
-        }
+        Set<String> gueltigeZeichenSet = Arrays.stream(kategorieListe)
+                .map(this::getGueltigeZeichen)
+                .flatMap(Arrays::stream)
+                .collect(Collectors.toSet());
 
         // Iterate through string
-        for (int zeichenketteIteration = 0; zeichenketteIteration < zeichenkette
-            .length(); zeichenketteIteration++) {
+        for (int zeichenketteIteration = 0; zeichenketteIteration < zeichenkette.length(); zeichenketteIteration++) {
 
             // Iterate step by step over the length of possible characters, length of the mappable characters
             // must be taken into account
             boolean treffer = false;
-            for (int laengeIteration =
-                this.maximaleGueltigeZeichenlaenge; laengeIteration > 0; laengeIteration--) {
+            for (int laengeIteration = maximaleGueltigeZeichenlaenge; laengeIteration > 0; laengeIteration--) {
                 if (zeichenketteIteration + laengeIteration <= zeichenkette.length()) {
                     // Enough characters left
-                    ArrayList<String> gueltigeZeichenArrayList =
-                        this.laengeGueltigeZeichenMap.get(laengeIteration);
+                    Iterable<String> gueltigeZeichenArrayList = laengeGueltigeZeichenMap.get(laengeIteration);
                     for (String gueltigesZeichen : gueltigeZeichenArrayList) {
                         if (gueltigeZeichenSet.contains(gueltigesZeichen)) {
                             boolean komplettesZeichenTreffer = false;
                             for (int gueltigesZeichenIteration = 0;
-                                 gueltigesZeichenIteration < gueltigesZeichen
-                                     .length(); gueltigesZeichenIteration++) {
+                                 gueltigesZeichenIteration < gueltigesZeichen.length(); gueltigesZeichenIteration++) {
                                 if (gueltigesZeichen.charAt(gueltigesZeichenIteration) == zeichenkette
                                     .charAt(zeichenketteIteration + gueltigesZeichenIteration)) {
                                     komplettesZeichenTreffer = true;
@@ -256,17 +256,18 @@ public abstract class AbstractTransformator implements Transformator {
     private String transformiereZeichenInZeichenkette(String zeichenkette) {
 
         // Step 1: Check the characters of the character string step by step for entries in the mapping table
-        StringBuilder filtered = new StringBuilder();
+        StringBuilder filtered = new StringBuilder(zeichenkette.length());
 
         for (int i = 0; i < zeichenkette.length(); i++) {
-            Object object = this.transformationsTabelle.get(zeichenkette.charAt(i));
+            Object object = transformationsTabelle.get(zeichenkette.charAt(i));
             if (object == null) {
-                filtered.append(this.standardErsetzung);
+                filtered.append(standardErsetzung);
             } else if (object instanceof StringBuilder) {
                 filtered.append(object);
             } else {
-                filtered.append(((KomplexeTransformation) object).getErsetzung(zeichenkette, i));
-                i += ((KomplexeTransformation) object).getLaengeLetzteErsetzung() - 1;
+                final KomplexeTransformation komplexeTransformation = (KomplexeTransformation) object;
+                filtered.append(komplexeTransformation.getErsetzung(zeichenkette, i));
+                i += komplexeTransformation.getLaengeLetzteErsetzung() - 1;
             }
         }
         return filtered.toString();
@@ -283,7 +284,6 @@ public abstract class AbstractTransformator implements Transformator {
         for (Object key : properties.keySet()) {
             // Left side
             String links = (String) key;
-            int linksHexChar;
             char linksChar = 0;
             String[] linksSplitted = new String[0];
             char[] linksSplittedChar = new char[0];
@@ -294,6 +294,7 @@ public abstract class AbstractTransformator implements Transformator {
                     regeln = linksRegel[1].split(",");
                 }
                 linksSplitted = linksRegel[0].split("[+]");
+                int linksHexChar;
                 if (linksSplitted.length == 1) {
                     linksHexChar = Integer.parseInt(links, 16);
                     linksChar = (char) linksHexChar;
@@ -310,8 +311,8 @@ public abstract class AbstractTransformator implements Transformator {
 
             // Right side
             String rechts = properties.getProperty(links);
-            StringBuilder rechtsString = new StringBuilder();
-            if (!"".equals(rechts)) {
+            StringBuilder rechtsString = new StringBuilder(0);
+            if (rechts != null && !rechts.isEmpty()) {
                 String[] rechtsSplitted = rechts.split("[+]");
                 for (String s : rechtsSplitted) {
                     String rechtsTeil = s;
@@ -323,31 +324,28 @@ public abstract class AbstractTransformator implements Transformator {
             }
 
             if (TransformationsKonstanten.EINTRAG_STANDARD.equals(links)) {
-                this.standardErsetzung = rechtsString.toString();
-                getLogger().debug("Transformation " + links + " -> " + rechtsString + " (" + rechts
-                    + ") geladen.");
-            } else if ("".equals(rechts)) {
-                Object tabelleneintrag = this.transformationsTabelle.get(linksChar);
+                standardErsetzung = rechtsString.toString();
+                getLogger().debug("Transformation {} -> {} ({}) geladen.", links, rechtsString, rechts);
+            } else if (rechts != null && rechts.isEmpty()) {
+                Object tabelleneintrag = transformationsTabelle.get(linksChar);
                 if (tabelleneintrag == null) {
-                    this.transformationsTabelle.put(linksChar,
+                    transformationsTabelle.put(linksChar,
                         new StringBuilder(TransformationsKonstanten.ZEICHEN_ENTFERNE));
                 } else {
                     KomplexeTransformation transformation = (KomplexeTransformation) tabelleneintrag;
                     transformation.addErsetzung(Character.toString(linksChar),
                         TransformationsKonstanten.ZEICHEN_ENTFERNE);
                 }
-                getLogger()
-                    .debug("Transformation " + linksChar + " (" + links + ") -> <entferneZeichen> geladen.");
+                getLogger().debug("Transformation {} ({}) -> <entferneZeichen> geladen.", linksChar, links);
             } else {
                 Character linksKey = linksChar;
-                Object tabelleneintrag = this.transformationsTabelle.get(linksKey);
+                Object tabelleneintrag = transformationsTabelle.get(linksKey);
                 if (linksSplitted.length == 1 && regeln.length == 0 && tabelleneintrag == null) {
                     // A simple transformation replaces one character with one or more others and has no
                     // special rules
-                    this.transformationsTabelle.put(linksKey, new StringBuilder(rechtsString.toString()));
-                    getLogger().debug(
-                        "Transformation " + linksChar + " (" + links + ") -> " + rechtsString
-                            + " (" + rechts + ") geladen.");
+                    transformationsTabelle.put(linksKey, new StringBuilder(rechtsString.toString()));
+                    getLogger().debug("Transformation {} ({}) -> {} ({}) geladen.",
+                            linksChar, links, rechtsString, rechts);
                 } else {
                     // A complex transformation replaces several characters at once and / or has additional
                     // rules as to when the transformation is to be used.
@@ -355,13 +353,13 @@ public abstract class AbstractTransformator implements Transformator {
                     if (tabelleneintrag == null) {
                         // New creation, if not already available
                         transformation = new KomplexeTransformation(this);
-                        this.transformationsTabelle.put(linksKey, transformation);
+                        transformationsTabelle.put(linksKey, transformation);
                     } else if (tabelleneintrag instanceof StringBuilder) {
                         // There is already a simple transformation -> convert to complex transformation
                         StringBuilder einfacheErsetzung = (StringBuilder) tabelleneintrag;
                         transformation = new KomplexeTransformation(this);
                         transformation.addErsetzung(linksKey.toString(), einfacheErsetzung.toString());
-                        this.transformationsTabelle.put(linksKey, transformation);
+                        transformationsTabelle.put(linksKey, transformation);
                     } else {
                         // A complex transformation already exists
                         transformation = (KomplexeTransformation) tabelleneintrag;
@@ -369,9 +367,8 @@ public abstract class AbstractTransformator implements Transformator {
                     // Extend complex transformation with another replacement
                     transformation
                         .addErsetzung(new String(linksSplittedChar), rechtsString.toString(), regeln);
-                    getLogger().debug(
-                        "Transformation " + new String(linksSplittedChar) + " (" + links + ") -> "
-                            + rechtsString + " (" + rechts + ") geladen.");
+                    getLogger().debug("Transformation {} ({}) -> {} ({}) geladen.",
+                            linksSplittedChar, links, rechtsString, rechts);
                 }
             }
 
@@ -389,7 +386,7 @@ public abstract class AbstractTransformator implements Transformator {
         // Make a list of all character categories
         for (String kategorie : ZeichenKategorie.ALLE_ZEICHEN_KATEGORIEN) {
 
-            HashSet<String> zeichenketteListe = new HashSet<>();
+            Set<String> zeichenketteListe = new HashSet<>();
             for (Object o : properties.keySet()) {
 
                 String gueltigerCharacter = (String) o;
@@ -416,21 +413,21 @@ public abstract class AbstractTransformator implements Transformator {
                 zeichenketteBlub.add(zeichenkette);
 
                 // Debug
-                getLogger().debug("Zeichen: " + zeichenkette + " in Kategorie " + kategorie + " geladen.");
+                getLogger().debug("Zeichen: {} in Kategorie {} geladen.", zeichenkette, kategorie);
 
                 // Update length table
                 int zeichenketteLaenge = zeichenkette.length();
-                if (zeichenkette.length() > this.maximaleGueltigeZeichenlaenge) {
-                    this.maximaleGueltigeZeichenlaenge = zeichenketteLaenge;
+                if (zeichenkette.length() > maximaleGueltigeZeichenlaenge) {
+                    maximaleGueltigeZeichenlaenge = zeichenketteLaenge;
                 }
 
-                ArrayList<String> existierendeLaengeArray =
-                    this.laengeGueltigeZeichenMap.computeIfAbsent(zeichenketteLaenge, k -> new ArrayList<>());
+                List<String> existierendeLaengeArray =
+                        laengeGueltigeZeichenMap.computeIfAbsent(zeichenketteLaenge, k -> new ArrayList<>());
                 existierendeLaengeArray.add(zeichenkette);
 
             }
 
-            this.kategorieGueltigeZeichenTabelle.put(kategorie, zeichenketteBlub.toArray(new String[0]));
+            kategorieGueltigeZeichenTabelle.put(kategorie, zeichenketteBlub.toArray(new String[0]));
 
         }
     }

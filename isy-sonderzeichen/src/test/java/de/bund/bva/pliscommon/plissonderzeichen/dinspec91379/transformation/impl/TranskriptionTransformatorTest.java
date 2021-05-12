@@ -3,14 +3,15 @@ package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.imp
 import static de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.TestData.RANDOM_TESTDATA;
 import static de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.TestData.RANDOM_TESTDATA_EXPECTED;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Locale;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 /**
  * Parametrized test class which tests the {@link TranskriptionTransformator}.
@@ -26,7 +27,7 @@ public class TranskriptionTransformatorTest {
     /**
      * Expected result for {@link #LOREM_IPSUM}.
      */
-    private static final String LORREM_IPSUM_EXPECTED = LOREM_IPSUM.toUpperCase();
+    private static final String LORREM_IPSUM_EXPECTED = LOREM_IPSUM.toUpperCase(Locale.GERMANY);
 
     /**
      * Test data involving german characters.

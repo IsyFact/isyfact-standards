@@ -47,18 +47,18 @@ public class IdentischerTransformatorTest {
 
     @Before
     public void setUp() {
-        this.transformator = new IdentischerTransformator();
+        transformator = new IdentischerTransformator();
     }
 
     @Test
     public void testInitialisierung() {
-        this.transformator.initialisiere(null);
+        transformator.initialisiere(null);
     }
 
     @Test
     public void testTransformiere() {
 
-        this.transformator.initialisiere(null);
+        transformator.initialisiere(null);
 
         String toTransform = "AaBZzöTä?/!$Ô+*#-";
         String expected = "AaBZzöTä?/!$Ô+*#-";
@@ -66,7 +66,7 @@ public class IdentischerTransformatorTest {
         LOG.debug("Eingabe: " + toTransform);
         LOG.debug("Erwartete Ausgabe: " + expected);
 
-        String transformed = this.transformator.transformiere(toTransform);
+        String transformed = transformator.transformiere(toTransform);
         LOG.debug("Ausgabe: " + transformed);
 
         assertEquals(expected, transformed);
@@ -75,12 +75,12 @@ public class IdentischerTransformatorTest {
     @Test
     public void testTransformiereDinspec91379() {
 
-        this.transformator.initialisiere(null);
+        transformator.initialisiere(null);
 
         for (int i = 0; i < TestData.RANDOM_TESTDATA.length; i++) {
             LOG.debug("Eingabe: " + TestData.RANDOM_TESTDATA[i]);
             LOG.debug("Erwartete Ausgabe: " + TestData.RANDOM_TESTDATA[i]);
-            String transformed = this.transformator.transformiere(TestData.RANDOM_TESTDATA[i]);
+            String transformed = transformator.transformiere(TestData.RANDOM_TESTDATA[i]);
             LOG.debug("Ausgabe: " + transformed);
 
             assertEquals(TestData.RANDOM_TESTDATA[i], transformed);
@@ -90,16 +90,16 @@ public class IdentischerTransformatorTest {
     @Test
     public void testGueltigeZeichen() {
 
-        this.transformator.initialisiere(null);
+        transformator.initialisiere(null);
 
     }
 
     @Test
     public void testRegulaererAusdruckSpeziell() {
 
-        this.transformator.initialisiere(null);
+        transformator.initialisiere(null);
 
-        String regex = this.transformator.getRegulaererAusdruck(new String[] { ZeichenKategorie.ALLE });
+        String regex = transformator.getRegulaererAusdruck(new String[] { ZeichenKategorie.ALLE });
 
         Pattern pattern = Pattern.compile(regex);
 
@@ -124,7 +124,7 @@ public class IdentischerTransformatorTest {
     @Test
     public void testIsGueltigesString() {
 
-        this.transformator.initialisiere(null);
+        transformator.initialisiere(null);
 
         String testpatternGueltig_1 = "Î";
         String testpatternGueltig_2 = "\u004A\u030C";
@@ -133,17 +133,17 @@ public class IdentischerTransformatorTest {
         String testpatternUngueltig_2 = "\u0302";
         String testpatternUngueltig_3 = "\u006C\u0302uivir%$";
 
-        assertTrue(this.transformator.isGueltigerString(testpatternGueltig_1,
+        assertTrue(transformator.isGueltigerString(testpatternGueltig_1,
             new String[] { ZeichenKategorie.ALLE }));
-        assertTrue(this.transformator.isGueltigerString(testpatternGueltig_2,
+        assertTrue(transformator.isGueltigerString(testpatternGueltig_2,
             new String[] { ZeichenKategorie.ALLE }));
-        assertTrue(this.transformator.isGueltigerString(testpatternGueltig_3,
+        assertTrue(transformator.isGueltigerString(testpatternGueltig_3,
             new String[] { ZeichenKategorie.ALLE }));
-        assertFalse(this.transformator.isGueltigerString(testpatternUngueltig_1,
+        assertFalse(transformator.isGueltigerString(testpatternUngueltig_1,
             new String[] { ZeichenKategorie.ALLE }));
-        assertFalse(this.transformator.isGueltigerString(testpatternUngueltig_2,
+        assertFalse(transformator.isGueltigerString(testpatternUngueltig_2,
             new String[] { ZeichenKategorie.ALLE }));
-        assertFalse(this.transformator.isGueltigerString(testpatternUngueltig_3,
+        assertFalse(transformator.isGueltigerString(testpatternUngueltig_3,
             new String[] { ZeichenKategorie.LETTER }));
     }
 
