@@ -16,18 +16,16 @@
  */
 package de.bund.bva.isyfact.aufrufkontext.impl;
 
+import static de.bund.bva.isyfact.aufrufkontext.common.konstanten.MatcherKonstanten.BEARER_MATCHER;
+
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
 
 /**
  * Provides the call context to an application.
- *
- *
+ * @param <T> the call context that the class manages.
  */
 public class AufrufKontextVerwalterImpl<T extends AufrufKontext> implements AufrufKontextVerwalter<T> {
-
-    /** Matcher to truncate the prefix 'bearer ' if present. */
-    private static final String BEARER_MATCHER = "[bB][eE][aA][rR][eE][rR] ";
 
     /** The current call context ('AufrufKontext' object). */
     private T aufrufKontext;
@@ -50,7 +48,7 @@ public class AufrufKontextVerwalterImpl<T extends AufrufKontext> implements Aufr
     }
 
     public void setBearerToken(String bearerToken) {
-        this.bearerToken = bearerToken.replaceFirst(BEARER_MATCHER, "");
+        this.bearerToken = bearerToken == null ? null : bearerToken.replaceFirst(BEARER_MATCHER, "");
     }
 
 }

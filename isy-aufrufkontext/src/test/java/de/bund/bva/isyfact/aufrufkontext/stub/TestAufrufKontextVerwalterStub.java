@@ -19,6 +19,8 @@ package de.bund.bva.isyfact.aufrufkontext.stub;
 import static org.junit.Assert.*;
 
 import de.bund.bva.isyfact.aufrufkontext.stub.AufrufKontextVerwalterStub;
+
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -91,5 +93,35 @@ public class TestAufrufKontextVerwalterStub {
 		AufrufKontext kontext = stub.getAufrufKontext();
 		
 		assertEquals(aKontext, kontext);
+	}
+
+	/**
+	 * Tests the truncation of the 'bearer ' prefix.
+	 */
+	@Test
+	public void testCuttingOutBearer() {
+		stub.setBearerToken("bearer 12345");
+		Assert.assertEquals("12345", stub.getBearerToken());
+
+		stub.setBearerToken("BEARER 2345");
+		Assert.assertEquals("2345", stub.getBearerToken());
+
+		stub.setBearerToken("Bearer 12345");
+		Assert.assertEquals("12345", stub.getBearerToken());
+
+		stub.setBearerToken("2345");
+		Assert.assertEquals("2345", stub.getBearerToken());
+	}
+
+	/**
+	 * Tests that null assignment works.
+	 */
+	@Test
+	public void testResettingToNull() {
+		stub.setBearerToken("bearer 12345");
+		Assert.assertEquals("12345", stub.getBearerToken());
+
+		stub.setBearerToken(null);
+		Assert.assertNull(stub.getBearerToken());
 	}
 }

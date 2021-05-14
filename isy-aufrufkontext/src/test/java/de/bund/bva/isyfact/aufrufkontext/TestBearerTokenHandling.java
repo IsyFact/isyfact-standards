@@ -31,11 +31,26 @@ public class TestBearerTokenHandling {
         aufrufKontextVerwalter.setBearerToken("bearer 12345");
         Assert.assertEquals("12345", aufrufKontextVerwalter.getBearerToken());
 
-        aufrufKontextVerwalter.setBearerToken("BEARER 12345");
-        Assert.assertEquals("12345", aufrufKontextVerwalter.getBearerToken());
+        aufrufKontextVerwalter.setBearerToken("BEARER 2345");
+        Assert.assertEquals("2345", aufrufKontextVerwalter.getBearerToken());
 
         aufrufKontextVerwalter.setBearerToken("Bearer 12345");
         Assert.assertEquals("12345", aufrufKontextVerwalter.getBearerToken());
+
+        aufrufKontextVerwalter.setBearerToken("2345");
+        Assert.assertEquals("2345", aufrufKontextVerwalter.getBearerToken());
+    }
+
+    /**
+     * Tests that null assignment works.
+     */
+    @Test
+    public void testResettingToNull() {
+        aufrufKontextVerwalter.setBearerToken("bearer 12345");
+        Assert.assertEquals("12345", aufrufKontextVerwalter.getBearerToken());
+
+        aufrufKontextVerwalter.setBearerToken(null);
+        Assert.assertNull(aufrufKontextVerwalter.getBearerToken());
     }
 
 }

@@ -16,6 +16,8 @@
  */
 package de.bund.bva.isyfact.aufrufkontext.stub;
 
+import static de.bund.bva.isyfact.aufrufkontext.common.konstanten.MatcherKonstanten.BEARER_MATCHER;
+
 import org.springframework.beans.factory.InitializingBean;
 
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
@@ -27,7 +29,7 @@ import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
  * <p>
  * This class is meant for testing and should not be used in productive system.
  *
- *
+ * @param <T> the call context that the class manages.
  */
 public class AufrufKontextVerwalterStub<T extends AufrufKontext> implements AufrufKontextVerwalter<T>,
     InitializingBean {
@@ -193,6 +195,6 @@ public class AufrufKontextVerwalterStub<T extends AufrufKontext> implements Aufr
 
     @Override
     public void setBearerToken(String bearerToken) {
-        this.bearerToken = bearerToken;
+        this.bearerToken = bearerToken == null ? null : bearerToken.replaceFirst(BEARER_MATCHER, "");
     }
 }
