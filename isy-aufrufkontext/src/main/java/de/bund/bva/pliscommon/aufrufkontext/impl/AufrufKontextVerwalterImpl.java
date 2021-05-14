@@ -16,6 +16,8 @@
  */
 package de.bund.bva.pliscommon.aufrufkontext.impl;
 
+import static de.bund.bva.pliscommon.aufrufkontext.common.konstanten.MatcherKonstanten.BEARER_MATCHER;
+
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
 
 /**
@@ -26,15 +28,13 @@ import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
  */
 public class AufrufKontextVerwalterImpl<T extends AufrufKontextImpl> implements AufrufKontextVerwalter<T> {
 
-    /** Matcher for the "bearer " prefix. */
-    private static final String BEARER_MATCHER = "[bB][eE][aA][rR][eE][rR] ";
-
     /** The current AufrufKontext. */
     private T aufrufKontext;
 
     /** The current OAuth 2 Bearer Token. */
     private String bearerToken;
 
+    @Override
     public T getAufrufKontext() {
         return aufrufKontext;
     }
@@ -51,7 +51,7 @@ public class AufrufKontextVerwalterImpl<T extends AufrufKontextImpl> implements 
 
     @Override
     public void setBearerToken(String bearerToken) {
-        this.bearerToken = bearerToken.replaceFirst(BEARER_MATCHER, "");
+        this.bearerToken = bearerToken == null ? null : bearerToken.replaceFirst(BEARER_MATCHER, "");
     }
 
 }

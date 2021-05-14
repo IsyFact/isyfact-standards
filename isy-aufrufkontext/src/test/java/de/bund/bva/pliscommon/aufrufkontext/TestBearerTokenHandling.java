@@ -1,6 +1,7 @@
 package de.bund.bva.pliscommon.aufrufkontext;
 
-import org.junit.Assert;
+import static org.junit.Assert.*;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,18 +21,33 @@ public class TestBearerTokenHandling {
     }
 
     /**
-     * Tests the removal of the "bearer " prefix.
+     * Tests the correct removal of the "Bearer " prefix.
      */
     @Test
     public void testCuttingOutBearer() {
         aufrufKontextVerwalter.setBearerToken("bearer 12345");
-        Assert.assertEquals("12345", aufrufKontextVerwalter.getBearerToken());
+        assertEquals("12345", aufrufKontextVerwalter.getBearerToken());
 
-        aufrufKontextVerwalter.setBearerToken("BEARER 12345");
-        Assert.assertEquals("12345", aufrufKontextVerwalter.getBearerToken());
+        aufrufKontextVerwalter.setBearerToken("BEARER 2345");
+        assertEquals("2345", aufrufKontextVerwalter.getBearerToken());
 
         aufrufKontextVerwalter.setBearerToken("Bearer 12345");
-        Assert.assertEquals("12345", aufrufKontextVerwalter.getBearerToken());
+        assertEquals("12345", aufrufKontextVerwalter.getBearerToken());
+
+        aufrufKontextVerwalter.setBearerToken("2345");
+        assertEquals("2345", aufrufKontextVerwalter.getBearerToken());
+    }
+
+    /**
+     * Tests that null assignment works.
+     */
+    @Test
+    public void testResettingToNull() {
+        aufrufKontextVerwalter.setBearerToken("bearer 12345");
+        assertEquals("12345", aufrufKontextVerwalter.getBearerToken());
+
+        aufrufKontextVerwalter.setBearerToken(null);
+        assertNull(aufrufKontextVerwalter.getBearerToken());
     }
 
 }
