@@ -24,7 +24,7 @@ import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
  * Provides the AufrufKontext to an application.
  *
  * @param <T>
- *         implementation of an {@link AufrufKontextImpl}
+ *         implementation of the {@link AufrufKontextImpl} that is managed by the class
  */
 public class AufrufKontextVerwalterImpl<T extends AufrufKontextImpl> implements AufrufKontextVerwalter<T> {
 

@@ -32,7 +32,7 @@ package de.bund.bva.pliscommon.aufrufkontext;
  * See http://www.springbyexample.org/static/0.91/html/ar20.html for Spring 2.5.x
  *
  * @param <T>
- *         implementation of an {@link AufrufKontext}
+ *         implementation of the {@link AufrufKontext} that is managed by the class
  */
 public interface AufrufKontextVerwalter<T extends AufrufKontext> {
 
@@ -58,7 +58,7 @@ public interface AufrufKontextVerwalter<T extends AufrufKontext> {
     String getBearerToken();
 
     /**
-     * Sets the OAuth 2 Bearer Token. Removes the prefix "bearer " if it exists.
+     * Sets the OAuth 2 Bearer Token. Removes the prefix "Bearer " if it exists.
      *
      * @param bearerToken the Base64 encoded OAuth 2 bearer token
      */

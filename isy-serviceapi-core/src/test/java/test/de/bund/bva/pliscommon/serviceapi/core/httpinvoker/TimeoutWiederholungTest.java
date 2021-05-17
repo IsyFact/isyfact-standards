@@ -16,8 +16,12 @@
  */
 package test.de.bund.bva.pliscommon.serviceapi.core.httpinvoker;
 
+import java.io.IOException;
 import java.io.InterruptedIOException;
+import java.net.HttpURLConnection;
+import java.util.List;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean;
 import org.springframework.remoting.httpinvoker.SimpleHttpInvokerRequestExecutor;
 
@@ -25,10 +29,13 @@ import de.bund.bva.pliscommon.aufrufkontext.stub.AufrufKontextVerwalterStub;
 import de.bund.bva.pliscommon.serviceapi.core.httpinvoker.TimeoutWiederholungHttpInvokerRequestExecutor;
 
 import junit.framework.TestCase;
+import test.de.bund.bva.pliscommon.serviceapi.core.httpinvoker.stub.HttpUrlConnectionStub;
+import test.de.bund.bva.pliscommon.serviceapi.core.httpinvoker.stub.TimeoutWiederholungHttpInvokerRequestExecutorStub;
 import test.de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.DummyServiceImpl;
 import test.de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.DummyServiceRemoteBean;
 
 public class TimeoutWiederholungTest extends TestCase {
+
     private DummyServer dummyServer;
     private DummyServiceImpl dummyService;
     private String serviceUrl;
@@ -96,6 +103,28 @@ public class TimeoutWiederholungTest extends TestCase {
             assertEquals(10, dummyService.getAnzahlAufrufe());
             assertTrue("Wiederholungspausen wurde nicht eingehalten: " + (t1 - t0), (t1 - t0) > 4000);
         }
+    }
+
+    public void testPrepareConnection() {
+        final int timeout = 50;
+
+        TimeoutWiederholungHttpInvokerRequestExecutorStub executorStub =
+                new TimeoutWiederholungHttpInvokerRequestExecutorStub(new AufrufKontextVerwalterStub<>());
+        executorStub.setTimeout(timeout);
+
+        HttpURLConnection connection = new HttpUrlConnectionStub(null);
+
+        try {
+            executorStub.prepareConnection(connection, 1);
+        } catch (IOException e) {
+            fail("Expected no exception.");
+        }
+
+        List<String> authHeader = connection.getRequestProperties().get(HttpHeaders.AUTHORIZATION);
+        assertEquals(1, authHeader.size());
+        assertEquals("Bearer AUFRUFKONTEXTVERWALTER_STUB_BEARER_TOKEN", authHeader.get(0));
+        assertEquals(timeout, connection.getConnectTimeout());
+        assertEquals(timeout, connection.getReadTimeout());
     }
 
 }
