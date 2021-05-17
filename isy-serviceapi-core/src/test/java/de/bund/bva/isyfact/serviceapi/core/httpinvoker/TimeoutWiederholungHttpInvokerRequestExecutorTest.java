@@ -1,10 +1,11 @@
 package de.bund.bva.isyfact.serviceapi.core.httpinvoker;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
+import java.io.IOException;
 import java.io.InterruptedIOException;
+import java.net.HttpURLConnection;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
 import org.springframework.remoting.httpinvoker.HttpInvokerRequestExecutor;
 import org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter;
 import org.springframework.test.annotation.DirtiesContext;
@@ -23,6 +25,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import de.bund.bva.isyfact.aufrufkontext.impl.AufrufKontextVerwalterImpl;
 import de.bund.bva.isyfact.aufrufkontext.stub.AufrufKontextVerwalterStub;
+import de.bund.bva.isyfact.serviceapi.core.httpinvoker.stub.HttpUrlConnectionStub;
+import de.bund.bva.isyfact.serviceapi.core.httpinvoker.stub.TimeoutWiederholungHttpInvokerRequestExecutorStub;
 import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.DummyServiceImpl;
 import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.DummyServiceRemoteBean;
 
@@ -89,6 +93,29 @@ public class TimeoutWiederholungHttpInvokerRequestExecutorTest {
         }
     }
 
+    @Test
+    public void testPrepareConnection() {
+        final int timeout = 50;
+
+        TimeoutWiederholungHttpInvokerRequestExecutorStub executorStub =
+                new TimeoutWiederholungHttpInvokerRequestExecutorStub(new AufrufKontextVerwalterStub<>());
+        executorStub.setTimeout(timeout);
+
+        HttpURLConnection connection = new HttpUrlConnectionStub(null);
+
+        try {
+            executorStub.prepareConnection(connection, 1);
+        } catch (IOException e) {
+            fail("Expected no exception.");
+        }
+
+        List<String> authHeader = connection.getRequestProperties().get(HttpHeaders.AUTHORIZATION);
+        assertEquals(1, authHeader.size());
+        assertEquals("Bearer AUFRUFKONTEXTVERWALTER_STUB_BEARER_TOKEN", authHeader.get(0));
+        assertEquals(timeout, connection.getConnectTimeout());
+        assertEquals(timeout, connection.getReadTimeout());
+    }
+
     @Configuration
     @EnableAutoConfiguration
     public static class TestConfig {
@@ -121,5 +148,7 @@ public class TimeoutWiederholungHttpInvokerRequestExecutorTest {
         public TimeoutWiederholungHttpInvokerRequestExecutor requestExecutor() {
             return new TimeoutWiederholungHttpInvokerRequestExecutor(new AufrufKontextVerwalterStub<>());
         }
+
     }
+
 }

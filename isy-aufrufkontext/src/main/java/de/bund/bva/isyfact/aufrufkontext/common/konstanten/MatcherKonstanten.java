@@ -7,6 +7,6 @@ public final class MatcherKonstanten {
     private MatcherKonstanten() {
     }
 
-    /** Matcher to find the prefix 'bearer '. */
+    /** Matcher to find the "Bearer " prefix. */
     public static final String BEARER_MATCHER = "[bB][eE][aA][rR][eE][rR] ";
 }

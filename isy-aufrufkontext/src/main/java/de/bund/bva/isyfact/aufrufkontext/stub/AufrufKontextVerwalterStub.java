@@ -29,10 +29,11 @@ import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
  * <p>
  * This class is meant for testing and should not be used in productive system.
  *
- * @param <T> the call context that the class manages.
+ * @param <T>
+ *         implementation of the {@link AufrufKontext} that is managed by the class
  */
-public class AufrufKontextVerwalterStub<T extends AufrufKontext> implements AufrufKontextVerwalter<T>,
-    InitializingBean {
+public class AufrufKontextVerwalterStub<T extends AufrufKontext>
+        implements AufrufKontextVerwalter<T>, InitializingBean {
 
     /** Value for the implementing authority ('Durchführende Behörde'). */
     private String durchfuehrendeBehoerde = "123456";
@@ -63,7 +64,7 @@ public class AufrufKontextVerwalterStub<T extends AufrufKontext> implements Aufr
     /** Call context which will be returned. */
     private T aufrufKontext;
 
-    /** Test value of the OAuth2 Bearer Token. */
+    /** Test value of the OAuth 2 Bearer Token. */
     private String bearerToken = "AUFRUFKONTEXTVERWALTER_STUB_BEARER_TOKEN";
 
     /**
@@ -197,4 +198,5 @@ public class AufrufKontextVerwalterStub<T extends AufrufKontext> implements Aufr
     public void setBearerToken(String bearerToken) {
         this.bearerToken = bearerToken == null ? null : bearerToken.replaceFirst(BEARER_MATCHER, "");
     }
+
 }

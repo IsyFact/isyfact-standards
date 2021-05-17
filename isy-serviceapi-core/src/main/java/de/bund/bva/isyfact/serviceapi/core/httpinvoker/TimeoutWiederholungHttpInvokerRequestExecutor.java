@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.net.HttpURLConnection;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.remoting.httpinvoker.HttpInvokerClientConfiguration;
 import org.springframework.remoting.httpinvoker.SimpleHttpInvokerRequestExecutor;
 import org.springframework.remoting.support.RemoteInvocationResult;
@@ -41,7 +42,7 @@ public class TimeoutWiederholungHttpInvokerRequestExecutor extends SimpleHttpInv
     private static final IsyLogger LOG = IsyLoggerFactory
         .getLogger(TimeoutWiederholungHttpInvokerRequestExecutor.class);
 
-    /** {@link AufrufKontextVerwalter} to set the OAuth2 Bearer Token. */
+    /** {@link AufrufKontextVerwalter} to set the OAuth 2 Bearer Token. */
     private AufrufKontextVerwalter<?> aufrufKontextVerwalter;
 
     /** Timeout for the request. */
@@ -97,7 +98,7 @@ public class TimeoutWiederholungHttpInvokerRequestExecutor extends SimpleHttpInv
     @Override
     protected void prepareConnection(HttpURLConnection con, int contentLength) throws IOException {
         super.prepareConnection(con, contentLength);
-        con.setRequestProperty("Authorization", aufrufKontextVerwalter.getBearerToken());
+        con.setRequestProperty(HttpHeaders.AUTHORIZATION, "Bearer " + aufrufKontextVerwalter.getBearerToken());
         con.setReadTimeout(this.timeout);
         con.setConnectTimeout(this.timeout);
     }

@@ -6,25 +6,24 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter;
 
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
 
 /**
- * {@link HttpInvokerServiceExporter} with deactivated {@link #isAcceptProxyClasses()}.
+ * {@link HttpInvokerServiceExporter} with disabled {@link #isAcceptProxyClasses()}.
  */
 public class IsyHttpInvokerServiceExporter extends HttpInvokerServiceExporter {
-
-    /** Constant for the name of the authorisation header. */
-    public static final String AUTHORIZATION_HEADER = "Authorization";
 
     /** Reference to the object managing the current call context. */
     private final AufrufKontextVerwalter<?> aufrufKontextVerwalter;
 
     /**
-     * Default Constructor.
+     * Creates a HttpInvokerServiceExporter with {@link #isAcceptProxyClasses()} set to {@code false}.
      *
-     * @param aufrufKontextVerwalter reference to the object managing the current call context.
+     * @param aufrufKontextVerwalter
+     *         for accessing the AufrufKontextVerwalter when handling requests
      */
     public IsyHttpInvokerServiceExporter(AufrufKontextVerwalter<?> aufrufKontextVerwalter) {
         super();
@@ -34,8 +33,8 @@ public class IsyHttpInvokerServiceExporter extends HttpInvokerServiceExporter {
 
     @Override
     public void handleRequest(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-        String token = request.getHeader(AUTHORIZATION_HEADER);
+            throws ServletException, IOException {
+        String token = request.getHeader(HttpHeaders.AUTHORIZATION);
         this.aufrufKontextVerwalter.setBearerToken(token);
         super.handleRequest(request, response);
     }

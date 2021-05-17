@@ -21,12 +21,15 @@ package de.bund.bva.isyfact.aufrufkontext;
  *
  * This class should be used as a bean with scope "thread":
  *
+ * <pre>{@code
  * <aop:aspectj-autoproxy/>
  * <bean id="aufrufKontextVerwalter" scope="thread" class="de.bund.bva.isyfact.aufrufkontext.impl.AufrufKontextVerwalterImpl">
- * <aop:scoped-proxy/>
+ *     <aop:scoped-proxy/>
  * </bean>
+ * }</pre>
  *
- * <p>
+ * @param <T>
+ *         implementation of the {@link AufrufKontext} that is managed by the class
  */
 public interface AufrufKontextVerwalter<T extends AufrufKontext> {
 
@@ -52,9 +55,10 @@ public interface AufrufKontextVerwalter<T extends AufrufKontext> {
     String getBearerToken();
 
     /**
-     * Sets the OAuth2 Bearer Token. Truncates the prefix 'bearer ' if it is present.
+     * Sets the OAuth 2 Bearer Token. Removes the prefix "Bearer " if it exists.
      *
-     * @param bearerToken base64 OAuth2 Bearer Token
+     * @param bearerToken the Base64 encoded OAuth 2 bearer token
      */
     void setBearerToken(String bearerToken);
+
 }

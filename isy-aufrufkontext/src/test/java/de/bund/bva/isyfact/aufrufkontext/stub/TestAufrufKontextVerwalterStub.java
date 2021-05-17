@@ -18,9 +18,6 @@ package de.bund.bva.isyfact.aufrufkontext.stub;
 
 import static org.junit.Assert.*;
 
-import de.bund.bva.isyfact.aufrufkontext.stub.AufrufKontextVerwalterStub;
-
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -34,8 +31,8 @@ public class TestAufrufKontextVerwalterStub {
 
 	@Before
 	public void setUp() {
-		stub = new AufrufKontextVerwalterStub<AufrufKontext>();
-		stub.setAufrufKontextFactory(new AufrufKontextFactoryImpl<AufrufKontext>());
+		stub = new AufrufKontextVerwalterStub<>();
+		stub.setAufrufKontextFactory(new AufrufKontextFactoryImpl<>());
 		stub.setFesterAufrufKontext(true);
 		aKontext = stub.getAufrufKontext();
 	}
@@ -56,7 +53,7 @@ public class TestAufrufKontextVerwalterStub {
 	}
 
 	@Test
-	public void testErzeugeAufrufKontext2() throws Exception {
+	public void testErzeugeAufrufKontext2() {
 
 		String durchfuehrendeBehoerde = "654321";
 		String durchfuehrenderBenutzerKennung = "max.mustermann@bva.bund.de";
@@ -96,21 +93,21 @@ public class TestAufrufKontextVerwalterStub {
 	}
 
 	/**
-	 * Tests the truncation of the 'bearer ' prefix.
+	 * Tests the removal of the "Bearer " prefix.
 	 */
 	@Test
 	public void testCuttingOutBearer() {
 		stub.setBearerToken("bearer 12345");
-		Assert.assertEquals("12345", stub.getBearerToken());
+		assertEquals("12345", stub.getBearerToken());
 
 		stub.setBearerToken("BEARER 2345");
-		Assert.assertEquals("2345", stub.getBearerToken());
+		assertEquals("2345", stub.getBearerToken());
 
 		stub.setBearerToken("Bearer 12345");
-		Assert.assertEquals("12345", stub.getBearerToken());
+		assertEquals("12345", stub.getBearerToken());
 
 		stub.setBearerToken("2345");
-		Assert.assertEquals("2345", stub.getBearerToken());
+		assertEquals("2345", stub.getBearerToken());
 	}
 
 	/**
@@ -119,9 +116,10 @@ public class TestAufrufKontextVerwalterStub {
 	@Test
 	public void testResettingToNull() {
 		stub.setBearerToken("bearer 12345");
-		Assert.assertEquals("12345", stub.getBearerToken());
+		assertEquals("12345", stub.getBearerToken());
 
 		stub.setBearerToken(null);
-		Assert.assertNull(stub.getBearerToken());
+		assertNull(stub.getBearerToken());
 	}
+
 }

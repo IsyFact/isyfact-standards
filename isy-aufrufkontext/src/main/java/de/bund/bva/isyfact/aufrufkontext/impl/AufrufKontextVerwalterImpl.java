@@ -23,14 +23,16 @@ import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
 
 /**
  * Provides the call context to an application.
- * @param <T> the call context that the class manages.
+ *
+ * @param <T>
+ *         implementation of the {@link AufrufKontext} that is managed by the class
  */
 public class AufrufKontextVerwalterImpl<T extends AufrufKontext> implements AufrufKontextVerwalter<T> {
 
     /** The current call context ('AufrufKontext' object). */
     private T aufrufKontext;
 
-    /** The current OAuth2 Bearer Token. */
+    /** The current OAuth 2 Bearer Token. */
     private String bearerToken;
 
     @Override
@@ -43,10 +45,12 @@ public class AufrufKontextVerwalterImpl<T extends AufrufKontext> implements Aufr
         this.aufrufKontext = aufrufKontext;
     }
 
+    @Override
     public String getBearerToken() {
         return this.bearerToken;
     }
 
+    @Override
     public void setBearerToken(String bearerToken) {
         this.bearerToken = bearerToken == null ? null : bearerToken.replaceFirst(BEARER_MATCHER, "");
     }
