@@ -48,14 +48,14 @@ public interface AufrufKontextVerwalter<T extends AufrufKontext> {
     void setAufrufKontext(T aufrufKontext);
 
     /**
-     * Returns the OAuth2 Bearer Token.
+     * Returns the OAuth 2 bearer token.
      *
-     * @return the OAuth2 Bearer Token.
+     * @return the Base64 encoded OAuth 2 bearer token, or {@code null} if it is not set
      */
     String getBearerToken();
 
     /**
-     * Sets the OAuth 2 Bearer Token. Removes the prefix "Bearer " if it exists.
+     * Sets the OAuth 2 bearer token. Removes the prefix "Bearer " if it exists.
      *
      * @param bearerToken the Base64 encoded OAuth 2 bearer token
      */
