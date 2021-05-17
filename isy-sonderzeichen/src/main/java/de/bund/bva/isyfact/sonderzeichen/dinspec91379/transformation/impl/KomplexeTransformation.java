@@ -14,14 +14,14 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.isyfact.sonderzeichen.dinspec91379.core.transformation.impl;
+package de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import de.bund.bva.isyfact.sonderzeichen.dinspec91379.core.transformation.Transformator;
+import de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.Transformator;
 
 /**
  * This class maps transformations in which more than one character is transformed or in which special

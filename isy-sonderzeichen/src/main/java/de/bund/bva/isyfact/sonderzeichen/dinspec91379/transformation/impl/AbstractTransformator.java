@@ -14,7 +14,7 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.isyfact.sonderzeichen.dinspec91379.core.transformation.impl;
+package de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,8 +31,8 @@ import java.util.regex.Pattern;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.LogKategorie;
-import de.bund.bva.isyfact.sonderzeichen.dinspec91379.core.transformation.Transformator;
-import de.bund.bva.isyfact.sonderzeichen.dinspec91379.core.transformation.ZeichenKategorie;
+import de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.Transformator;
+import de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.ZeichenKategorie;
 import de.bund.bva.isyfact.sonderzeichen.dinspec91379.konstanten.EreignisSchluessel;
 import de.bund.bva.isyfact.sonderzeichen.dinspec91379.konstanten.TransformationsKonstanten;
 

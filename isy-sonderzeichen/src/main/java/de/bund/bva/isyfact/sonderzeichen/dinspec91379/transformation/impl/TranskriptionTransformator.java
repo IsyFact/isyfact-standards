@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.sonderzeichen.dinspec91379.core.transformation.impl;
+package de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.impl;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;

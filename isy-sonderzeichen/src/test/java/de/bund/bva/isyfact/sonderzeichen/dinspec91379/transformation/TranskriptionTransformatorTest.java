@@ -1,9 +1,9 @@
-package de.bund.bva.isyfact.sonderzeichen.dinspec91379.core.transformation;
+package de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation;
 
-import static de.bund.bva.isyfact.sonderzeichen.dinspec91379.core.transformation.TestData.RANDOM_TESTDATA;
-import static de.bund.bva.isyfact.sonderzeichen.dinspec91379.core.transformation.TestData.RANDOM_TESTDATA_EXPECTED;
+import static de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.TestData.RANDOM_TESTDATA;
+import static de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.TestData.RANDOM_TESTDATA_EXPECTED;
 
-import de.bund.bva.isyfact.sonderzeichen.dinspec91379.core.transformation.impl.TranskriptionTransformator;
+import de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.impl.TranskriptionTransformator;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
