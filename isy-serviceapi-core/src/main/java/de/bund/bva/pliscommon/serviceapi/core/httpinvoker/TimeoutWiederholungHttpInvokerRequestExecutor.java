@@ -99,7 +99,9 @@ public class TimeoutWiederholungHttpInvokerRequestExecutor extends SimpleHttpInv
     @Override
     protected void prepareConnection(HttpURLConnection con, int contentLength) throws IOException {
         super.prepareConnection(con, contentLength);
-        con.setRequestProperty(HttpHeaders.AUTHORIZATION, "Bearer " + aufrufKontextVerwalter.getBearerToken());
+        if (aufrufKontextVerwalter.getBearerToken() != null) {
+            con.setRequestProperty(HttpHeaders.AUTHORIZATION, "Bearer " + aufrufKontextVerwalter.getBearerToken());
+        }
         con.setReadTimeout(this.timeout);
         con.setConnectTimeout(this.timeout);
     }

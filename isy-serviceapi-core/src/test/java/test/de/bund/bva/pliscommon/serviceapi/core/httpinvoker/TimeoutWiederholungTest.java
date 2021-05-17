@@ -25,6 +25,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean;
 import org.springframework.remoting.httpinvoker.SimpleHttpInvokerRequestExecutor;
 
+import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
 import de.bund.bva.pliscommon.aufrufkontext.stub.AufrufKontextVerwalterStub;
 import de.bund.bva.pliscommon.serviceapi.core.httpinvoker.TimeoutWiederholungHttpInvokerRequestExecutor;
 
@@ -105,11 +106,18 @@ public class TimeoutWiederholungTest extends TestCase {
         }
     }
 
-    public void testPrepareConnection() {
+    /**
+     * Test if the bearer token gets set in the Authorization header.
+     */
+    public void testPrepareConnectionWithToken() {
         final int timeout = 50;
+        final String bearerToken = "Bearer testToken1234";
+
+        AufrufKontextVerwalterStub<AufrufKontext> aufrufKontextVerwalterStub = new AufrufKontextVerwalterStub<>();
+        aufrufKontextVerwalterStub.setBearerToken(bearerToken);
 
         TimeoutWiederholungHttpInvokerRequestExecutorStub executorStub =
-                new TimeoutWiederholungHttpInvokerRequestExecutorStub(new AufrufKontextVerwalterStub<>());
+                new TimeoutWiederholungHttpInvokerRequestExecutorStub(aufrufKontextVerwalterStub);
         executorStub.setTimeout(timeout);
 
         HttpURLConnection connection = new HttpUrlConnectionStub(null);
@@ -122,7 +130,33 @@ public class TimeoutWiederholungTest extends TestCase {
 
         List<String> authHeader = connection.getRequestProperties().get(HttpHeaders.AUTHORIZATION);
         assertEquals(1, authHeader.size());
-        assertEquals("Bearer AUFRUFKONTEXTVERWALTER_STUB_BEARER_TOKEN", authHeader.get(0));
+        assertEquals(bearerToken, authHeader.get(0));
+        assertEquals(timeout, connection.getConnectTimeout());
+        assertEquals(timeout, connection.getReadTimeout());
+    }
+
+    /**
+     * Test if the Authorization header is not set if the bearer token is {@code null}.
+     */
+    public void testPrepareConnectionWithoutToken() {
+        final int timeout = 50;
+
+        AufrufKontextVerwalterStub<AufrufKontext> aufrufKontextVerwalterStub = new AufrufKontextVerwalterStub<>();
+        aufrufKontextVerwalterStub.setBearerToken(null);
+
+        TimeoutWiederholungHttpInvokerRequestExecutorStub executorStub =
+                new TimeoutWiederholungHttpInvokerRequestExecutorStub(aufrufKontextVerwalterStub);
+        executorStub.setTimeout(timeout);
+
+        HttpURLConnection connection = new HttpUrlConnectionStub(null);
+
+        try {
+            executorStub.prepareConnection(connection, 1);
+        } catch (IOException e) {
+            fail("Expected no exception.");
+        }
+
+        assertNull(connection.getRequestProperties().get(HttpHeaders.AUTHORIZATION));
         assertEquals(timeout, connection.getConnectTimeout());
         assertEquals(timeout, connection.getReadTimeout());
     }
