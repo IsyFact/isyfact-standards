@@ -100,10 +100,10 @@ public class TimeoutWiederholungHttpInvokerRequestExecutorTest {
     @Test
     public void testPrepareConnectionWithToken() {
         final int timeout = 50;
-        final String bearerToken = "Bearer testToken1234";
+        final String token = "testToken1234";
 
         AufrufKontextVerwalterStub<AufrufKontext> aufrufKontextVerwalterStub = new AufrufKontextVerwalterStub<>();
-        aufrufKontextVerwalterStub.setBearerToken(bearerToken);
+        aufrufKontextVerwalterStub.setBearerToken(token);
 
         TimeoutWiederholungHttpInvokerRequestExecutorStub executorStub =
                 new TimeoutWiederholungHttpInvokerRequestExecutorStub(aufrufKontextVerwalterStub);
@@ -119,7 +119,7 @@ public class TimeoutWiederholungHttpInvokerRequestExecutorTest {
 
         List<String> authHeader = connection.getRequestProperties().get(HttpHeaders.AUTHORIZATION);
         assertEquals(1, authHeader.size());
-        assertEquals(bearerToken, authHeader.get(0));
+        assertEquals("Bearer " + token, authHeader.get(0));
         assertEquals(timeout, connection.getConnectTimeout());
         assertEquals(timeout, connection.getReadTimeout());
     }

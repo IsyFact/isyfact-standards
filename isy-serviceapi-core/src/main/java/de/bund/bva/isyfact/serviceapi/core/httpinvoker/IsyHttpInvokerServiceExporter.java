@@ -10,11 +10,17 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter;
 
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
+import de.bund.bva.isyfact.logging.IsyLogger;
+import de.bund.bva.isyfact.logging.IsyLoggerFactory;
+import de.bund.bva.isyfact.serviceapi.common.konstanten.EreignisSchluessel;
 
 /**
  * {@link HttpInvokerServiceExporter} with disabled {@link #isAcceptProxyClasses()}.
  */
 public class IsyHttpInvokerServiceExporter extends HttpInvokerServiceExporter {
+
+    /** The Logger. */
+    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(IsyHttpInvokerServiceExporter.class);
 
     /** Reference to the object managing the current call context. */
     private final AufrufKontextVerwalter<?> aufrufKontextVerwalter;
@@ -34,9 +40,34 @@ public class IsyHttpInvokerServiceExporter extends HttpInvokerServiceExporter {
     @Override
     public void handleRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String token = request.getHeader(HttpHeaders.AUTHORIZATION);
-        this.aufrufKontextVerwalter.setBearerToken(token);
+        this.aufrufKontextVerwalter.setBearerToken(extractBearerToken(request));
         super.handleRequest(request, response);
+    }
+
+    /**
+     * Extracts the OAuth 2 bearer token from the request.
+     *
+     * @param request
+     *         the request to extract the token from
+     * @return the Base64 encoded token, or {@code null} if no token was found
+     */
+    private String extractBearerToken(HttpServletRequest request) {
+        String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+
+        String tokenString = null;
+        if (authHeader != null) {
+            String[] split = authHeader.trim().split("\\s+");
+            if (split.length == 2 && split[0].equalsIgnoreCase("Bearer")) {
+                tokenString = split[1];
+            }
+        }
+
+        if (tokenString == null) {
+            LOG.warn(EreignisSchluessel.KEIN_BEARER_TOKEN_UEBERMITTELT,
+                    "Keinen Authorization-Header mit Bearer-Token empfangen. Es wird nicht in den AufrufKontextVerwalter gesetzt.");
+        }
+
+        return tokenString;
     }
 
 }
