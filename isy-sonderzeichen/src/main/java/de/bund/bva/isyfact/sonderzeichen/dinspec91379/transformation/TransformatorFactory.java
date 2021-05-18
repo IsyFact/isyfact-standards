@@ -26,17 +26,14 @@ import de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.impl.Abstra
  * The factory for the respective transformer.
  * 
  */
-public class TransformatorFactory implements FactoryBean, InitializingBean {
+public class TransformatorFactory implements FactoryBean<Object>, InitializingBean {
     
-    /** The transformer is set via Spring */
+    /** The transformer is set via Spring. */
     private AbstractTransformator transformator;
     
-    /** Additional transformation table is set via Spring */
+    /** Additional transformation table is set via Spring. */
     private String transformationsTabelle;
 
-    /**
-     * {@inheritDoc}
-     */
     public void afterPropertiesSet() {
         transformator.initialisiere(transformationsTabelle);
     }
@@ -49,27 +46,18 @@ public class TransformatorFactory implements FactoryBean, InitializingBean {
         this.transformator = transformator;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public Object getObject() {
         return transformator;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public Class getObjectType() {
-        if(transformator == null){
+    public Class<?> getObjectType() {
+        if (transformator == null) {
             return null;
         } else {
-            return Transformator.class.getClass();
+            return Transformator.class;
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public boolean isSingleton() {
         return true;

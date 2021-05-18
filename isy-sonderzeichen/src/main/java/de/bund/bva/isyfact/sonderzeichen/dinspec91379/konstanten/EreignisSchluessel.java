@@ -18,6 +18,7 @@ package de.bund.bva.isyfact.sonderzeichen.dinspec91379.konstanten;
 
 public class EreignisSchluessel {
 
+    /** Event key for transformation. */
     public static final String TRANSFORMATION = "EPLSOND00001";
 
 }

@@ -33,7 +33,7 @@ public class KomplexeTransformation {
     /**
      * This class describes a possible replacement with the rules that may be necessary for this.
      */
-    private class Ersetzung {
+    private static class Ersetzung {
 
         /**
          * The numbers of the rules that if met, the replacement can be applied.
@@ -41,23 +41,23 @@ public class KomplexeTransformation {
          * If more than one rule is specified, the replacement is used if at least one of them is met.
          * If no rule is given, the replacement can always be used.
          */
-        int[] regeln = new int[0];
+        private int[] regeln = new int[0];
 
         /** The string to replace the original characters with. */
-        String ersatz;
+        private String ersatz;
     }
 
     /** The transformer to which the transformation is assigned. */
-    private Transformator transformator;
+    private final Transformator transformator;
 
     /** Contains all possible replacements that begin with a specific character. */
-    private Map ersetzungen = new HashMap();
+    private final Map<String, List<Ersetzung>> ersetzungen = new HashMap<>();
 
     /** The length of the longest character combination to replace. */
-    private int maxKeyLaenge = 0;
+    private int maxKeyLaenge;
 
     /** Number of characters that would have been replaced with the last character replacement determined. */
-    private int laengeLetzteErsetzung = 0;
+    private int laengeLetzteErsetzung;
 
     public KomplexeTransformation(Transformator transformator) {
         this.transformator = transformator;
@@ -111,26 +111,25 @@ public class KomplexeTransformation {
      */
     public String getErsetzung(String text, int position) {
         for (int laenge = maxKeyLaenge; laenge > 0; laenge--) {
-            if (position + laenge > text.length()) {
-                continue;
-            }
-            String sub = text.substring(position, position + laenge);
-            List varianten = (List) ersetzungen.get(sub);
-            if (varianten == null) {
-                continue;
-            }
-            for (int i = 0; i < varianten.size(); i++) {
-                Ersetzung ersetzung = (Ersetzung) varianten.get(i);
-                if (ersetzung.regeln.length > 0) {
-                    for (int regel = 0; regel < ersetzung.regeln.length; regel++) {
-                        if (transformator.werteRegelAus(ersetzung.regeln[regel], text, position, laenge)) {
+            // Go to the next loop iteration when the examined character would exceed the text.
+            if (position + laenge <= text.length()) {
+                String sub = text.substring(position, position + laenge);
+                List<Ersetzung> varianten = ersetzungen.get(sub);
+                // Go to the next loop iteration when no possible replacement exists.
+                if (varianten != null) {
+                    for (Ersetzung ersetzung : varianten) {
+                        if (ersetzung.regeln.length > 0) {
+                            for (int regel = 0; regel < ersetzung.regeln.length; regel++) {
+                                if (transformator.werteRegelAus(ersetzung.regeln[regel], text, position, laenge)) {
+                                    laengeLetzteErsetzung = laenge;
+                                    return ersetzung.ersatz;
+                                }
+                            }
+                        } else {
                             laengeLetzteErsetzung = laenge;
                             return ersetzung.ersatz;
                         }
                     }
-                } else {
-                    laengeLetzteErsetzung = laenge;
-                    return ersetzung.ersatz;
                 }
             }
         }
@@ -148,9 +147,9 @@ public class KomplexeTransformation {
     }
 
     private void addErsetzung(String ersetzenVon, Ersetzung ersetzung) {
-        List varianten = (List) ersetzungen.get(ersetzenVon);
+        List<Ersetzung> varianten = ersetzungen.get(ersetzenVon);
         if (varianten == null) {
-            varianten = new ArrayList();
+            varianten = new ArrayList<>();
             ersetzungen.put(ersetzenVon, varianten);
             if (maxKeyLaenge < ersetzenVon.length()) {
                 maxKeyLaenge = ersetzenVon.length();

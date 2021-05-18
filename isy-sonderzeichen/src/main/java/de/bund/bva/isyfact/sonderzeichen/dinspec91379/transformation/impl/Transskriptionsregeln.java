@@ -35,17 +35,14 @@ public abstract class Transskriptionsregeln {
      *            The set of all characters that are not considered part of a word.
      * @return true if the position is at the beginning of a word, otherwise false
      */
-    public static boolean isWortanfang(String text, int position, Set trennzeichen) {
+    public static boolean isWortanfang(String text, int position, Set<Character> trennzeichen) {
         if (text == null || position > text.length() - 1) {
             return false;
         }
         if (position <= 0) {
             return true;
         }
-        if (trennzeichen.contains((text.charAt(position - 1)))) {
-            return true;
-        }
-        return false;
+        return trennzeichen.contains((text.charAt(position - 1)));
     }
 
     /**
@@ -61,7 +58,7 @@ public abstract class Transskriptionsregeln {
      *            The set of all characters that are not considered part of a word.
      * @return true if the substring is at the end of a word, otherwise false
      */
-    public static boolean isWortende(String text, int position, int laenge, Set trennzeichen) {
+    public static boolean isWortende(String text, int position, int laenge, Set<Character> trennzeichen) {
         if (text == null) {
             return false;
         }
@@ -84,7 +81,7 @@ public abstract class Transskriptionsregeln {
      *            The set of all characters that are not considered part of a word.
      * @return true if the substring is in the middle of a word, otherwise false
      */
-    public static boolean isWortmitte(String text, int position, int laenge, Set trennzeichen) {
+    public static boolean isWortmitte(String text, int position, int laenge, Set<Character> trennzeichen) {
         if (text == null) {
             return false;
         }
@@ -105,17 +102,11 @@ public abstract class Transskriptionsregeln {
      *            The set of all characters that are not considered part of a word.
      * @return true if the substring is in the middle of a word, otherwise false
      */
-    public static boolean isVorZeichen(String text, int position, int laenge, Set pruefzeichen) {
-        if (text == null) {
+    public static boolean isVorZeichen(String text, int position, int laenge, Set<Character> pruefzeichen) {
+        if (text == null || position + laenge >= text.length()) {
             return false;
         }
-        if (position + laenge >= text.length()) {
-            return false;
-        }
-        if (pruefzeichen.contains((text.charAt(position + laenge)))) {
-            return true;
-        }
-        return false;
+        return pruefzeichen.contains((text.charAt(position + laenge)));
 
     }
 
