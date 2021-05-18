@@ -16,8 +16,6 @@
  */
 package de.bund.bva.pliscommon.aufrufkontext.impl;
 
-import static de.bund.bva.pliscommon.aufrufkontext.common.konstanten.MatcherKonstanten.BEARER_MATCHER;
-
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
 
 /**
@@ -51,7 +49,7 @@ public class AufrufKontextVerwalterImpl<T extends AufrufKontextImpl> implements 
 
     @Override
     public void setBearerToken(String bearerToken) {
-        this.bearerToken = bearerToken == null ? null : bearerToken.replaceFirst(BEARER_MATCHER, "");
+        this.bearerToken = bearerToken;
     }
 
 }

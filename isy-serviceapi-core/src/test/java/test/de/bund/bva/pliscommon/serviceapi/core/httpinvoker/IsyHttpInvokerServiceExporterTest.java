@@ -1,8 +1,11 @@
 package test.de.bund.bva.pliscommon.serviceapi.core.httpinvoker;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import java.lang.reflect.Proxy;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +16,7 @@ import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
 import org.springframework.remoting.RemoteAccessException;
 import org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter;
 import org.springframework.test.annotation.DirtiesContext;
@@ -88,7 +92,60 @@ public class IsyHttpInvokerServiceExporterTest {
         UserInvocationHandler uih = new UserInvocationHandler(b);
         User a = (User) Proxy.newProxyInstance(UserImpl.class.getClassLoader(), new Class[]{User.class}, uih);
         assertEquals("Added user successful.", serviceRemoteBean.addUser(a));
+
         assertEquals(TEST_BEARER_TOKEN, aufrufKontextVerwalter.getBearerToken());
+    }
+
+    /**
+     * Test if the bearer token is correctly extracted from the request and set in the AufrufKontextVerwalter.
+     */
+    @Test
+    public void testBearerTokenExtraction() {
+        final String testToken = "testToken12345";
+
+        AufrufKontextVerwalter<?> aufrufKontextVerwalterStub = new AufrufKontextVerwalterStub<>();
+        IsyHttpInvokerServiceExporter serviceExporter = new IsyHttpInvokerServiceExporter(aufrufKontextVerwalterStub);
+        HttpServletRequest requestMock = mock(HttpServletRequest.class);
+
+        // Test bearer token set in AufrufKontextVerwalter
+        aufrufKontextVerwalterStub.setBearerToken(null);
+        when(requestMock.getHeader(HttpHeaders.AUTHORIZATION)).thenReturn("Bearer " + testToken);
+        try {
+            serviceExporter.handleRequest(requestMock, null);
+            fail("Exception expected since the invoker can't connect to a remote.");
+        } catch (Exception e) {
+            assertEquals(testToken, aufrufKontextVerwalterStub.getBearerToken());
+        }
+
+        // Test bearer token set in AufrufKontextVerwalter with different scheme capitalization
+        aufrufKontextVerwalterStub.setBearerToken(null);
+        when(requestMock.getHeader(HttpHeaders.AUTHORIZATION)).thenReturn("bEAreR " + testToken);
+        try {
+            serviceExporter.handleRequest(requestMock, null);
+            fail("Exception expected since the invoker can't connect to a remote.");
+        } catch (Exception e) {
+            assertEquals(testToken, aufrufKontextVerwalterStub.getBearerToken());
+        }
+
+        // Test bearer token NOT set in AufrufKontextVerwalter when scheme is different (e.g. "Basic")
+        aufrufKontextVerwalterStub.setBearerToken(null);
+        when(requestMock.getHeader(HttpHeaders.AUTHORIZATION)).thenReturn("Basic " + testToken);
+        try {
+            serviceExporter.handleRequest(requestMock, null);
+            fail("Exception expected since the invoker can't connect to a remote.");
+        } catch (Exception e) {
+            assertNull(aufrufKontextVerwalterStub.getBearerToken());
+        }
+
+        // Test bearer token NOT set in AufrufKontextVerwalter when empty
+        aufrufKontextVerwalterStub.setBearerToken(null);
+        when(requestMock.getHeader(HttpHeaders.AUTHORIZATION)).thenReturn(null);
+        try {
+            serviceExporter.handleRequest(requestMock, null);
+            fail("Exception expected since the invoker can't connect to a remote.");
+        } catch (Exception e) {
+            assertNull(aufrufKontextVerwalterStub.getBearerToken());
+        }
     }
 
     @Configuration

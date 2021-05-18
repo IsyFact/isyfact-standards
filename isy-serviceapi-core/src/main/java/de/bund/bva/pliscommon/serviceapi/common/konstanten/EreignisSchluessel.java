@@ -17,7 +17,7 @@
 package de.bund.bva.pliscommon.serviceapi.common.konstanten;
 
 /**
- * Diese Klasse enthält Ereignisschlüssel für die isy-serviceapi-core.
+ * This class contains all event keys for isy-serviceapi-core.
  */
 public class EreignisSchluessel {
 
@@ -30,7 +30,7 @@ public class EreignisSchluessel {
     /** Fehler bei der Fehlerbehandlung. ODER Usprünglicher Fehler war {}. */
     public static final String FEHLER_FEHLERBEHANDLUNG = "EPLSAC00003";
 
-    /** Validiere Konfiguration für Service-Implementierung {} */
+    /** Validiere Konfiguration für Service-Implementierung {}. */
     public static final String VALIDIERUNG_KONFIGURATION = "EPLSAC00004";
 
     /** Beim Aufrufen des Services [{}] ist ein Timeout aufgetreten. */
@@ -42,7 +42,7 @@ public class EreignisSchluessel {
     /** Warte {}ms bis zur Wiederholung des Aufrufs. */
     public static final String TIMEOUT_WARTEZEIT = "EPLSAC00007";
 
-    /** Warten auf Aufrufwiederholung abgebrochen */
+    /** Warten auf Aufrufwiederholung abgebrochen. */
     public static final String TIMEOUT_WARTEZEIT_ABBRUCH = "EPLSAC00008";
 
     /** Wiederhole Aufruf... */
@@ -53,5 +53,11 @@ public class EreignisSchluessel {
      * übereinstimmt.
      */
     public static final String AUFRUFKONTEXT_KORRID_KORRIGIERT = "EPLSAC00010";
+
+    /** Keinen Authorization-Header mit Bearer-Token empfangen. Es wird nicht in den AufrufKontextVerwalter gesetzt. */
+    public static final String KEIN_BEARER_TOKEN_UEBERMITTELT = "EPLASC00012";
+
+    /** Kein Bearer-Token im AufrufKontextVerwalter. Der Authorization-Header wird nicht gesetzt. */
+    public static final String KEIN_BEARER_TOKEN_IM_AUFRUFKONTEXT = "EPLASC00013";
 
 }

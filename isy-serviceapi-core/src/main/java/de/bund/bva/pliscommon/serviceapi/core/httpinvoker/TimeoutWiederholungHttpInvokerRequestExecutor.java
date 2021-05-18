@@ -40,7 +40,7 @@ public class TimeoutWiederholungHttpInvokerRequestExecutor extends SimpleHttpInv
 
     /** Isy-Logger. */
     private static final IsyLogger LOG = IsyLoggerFactory
-        .getLogger(TimeoutWiederholungHttpInvokerRequestExecutor.class);
+            .getLogger(TimeoutWiederholungHttpInvokerRequestExecutor.class);
 
     /** AufrufKontextVerwalter for setting the bearer token. */
     private final AufrufKontextVerwalter<?> aufrufKontextVerwalter;
@@ -101,6 +101,9 @@ public class TimeoutWiederholungHttpInvokerRequestExecutor extends SimpleHttpInv
         super.prepareConnection(con, contentLength);
         if (aufrufKontextVerwalter.getBearerToken() != null) {
             con.setRequestProperty(HttpHeaders.AUTHORIZATION, "Bearer " + aufrufKontextVerwalter.getBearerToken());
+        } else {
+            LOG.warn(EreignisSchluessel.KEIN_BEARER_TOKEN_IM_AUFRUFKONTEXT,
+                    "Kein Bearer-Token im AufrufKontextVerwalter. Der Authorization-Header wird nicht gesetzt.");
         }
         con.setReadTimeout(this.timeout);
         con.setConnectTimeout(this.timeout);

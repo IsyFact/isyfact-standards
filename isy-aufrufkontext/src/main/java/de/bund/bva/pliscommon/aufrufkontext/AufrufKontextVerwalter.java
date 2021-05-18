@@ -58,7 +58,7 @@ public interface AufrufKontextVerwalter<T extends AufrufKontext> {
     String getBearerToken();
 
     /**
-     * Sets the OAuth 2 bearer token. Removes the prefix "Bearer " if it exists.
+     * Sets the OAuth 2 bearer token.
      *
      * @param bearerToken the Base64 encoded OAuth 2 bearer token
      */

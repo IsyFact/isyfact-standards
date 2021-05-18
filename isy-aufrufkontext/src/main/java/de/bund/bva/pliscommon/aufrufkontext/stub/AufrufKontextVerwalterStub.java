@@ -16,8 +16,6 @@
  */
 package de.bund.bva.pliscommon.aufrufkontext.stub;
 
-import static de.bund.bva.pliscommon.aufrufkontext.common.konstanten.MatcherKonstanten.BEARER_MATCHER;
-
 import org.springframework.beans.factory.InitializingBean;
 
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontext;
@@ -192,7 +190,7 @@ public class AufrufKontextVerwalterStub<T extends AufrufKontext>
 
     @Override
     public void setBearerToken(String bearerToken) {
-        this.bearerToken = bearerToken == null ? null : bearerToken.replaceFirst(BEARER_MATCHER, "");
+        this.bearerToken = bearerToken;
     }
 
 }
