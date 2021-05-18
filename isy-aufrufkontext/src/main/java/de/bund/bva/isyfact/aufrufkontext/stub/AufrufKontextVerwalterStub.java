@@ -49,7 +49,7 @@ public class AufrufKontextVerwalterStub<T extends AufrufKontext>
     private String durchfuehrenderBenutzerInterneKennung = "Martha007";
 
     /** Value for the roles of the user. */
-    private String[] rollen = new String[] {};
+    private String[] rollen = {};
 
     /**
      * If {@code true} then a new call context is created for each query - so it is not mutable.
@@ -143,10 +143,10 @@ public class AufrufKontextVerwalterStub<T extends AufrufKontext>
      * @return the current call context.
      */
     public T getAufrufKontext() {
-        if (!this.festerAufrufKontext) {
-            return this.aufrufKontext;
-        } else {
+        if (festerAufrufKontext) {
             return erzeugeAufrufKontext();
+        } else {
+            return aufrufKontext;
         }
     }
 
@@ -160,10 +160,9 @@ public class AufrufKontextVerwalterStub<T extends AufrufKontext>
 
     /**
      * Creates call context ('Aufrufkontext') after all properties are set.
-     * @throws Exception
      */
     public void afterPropertiesSet() {
-        this.aufrufKontext = erzeugeAufrufKontext();
+        aufrufKontext = erzeugeAufrufKontext();
     }
 
     /**
@@ -172,19 +171,19 @@ public class AufrufKontextVerwalterStub<T extends AufrufKontext>
      * @return the created call context ('AufrufKontext').
      */
     private T erzeugeAufrufKontext() {
-        T aufrufKontext = this.aufrufKontextFactory.erzeugeAufrufKontext();
+        T result = aufrufKontextFactory.erzeugeAufrufKontext();
 
-        aufrufKontext.setDurchfuehrendeBehoerde(this.durchfuehrendeBehoerde);
-        aufrufKontext.setDurchfuehrenderBenutzerKennung(this.durchfuehrenderBenutzerKennung);
-        aufrufKontext.setDurchfuehrenderBenutzerPasswort(this.durchfuehrenderBenutzerPasswort);
-        aufrufKontext.setDurchfuehrenderSachbearbeiterName(this.durchfuehrenderSachbearbeiterName);
-        aufrufKontext.setDurchfuehrenderBenutzerInterneKennung(this.durchfuehrenderBenutzerInterneKennung);
-        aufrufKontext.setRolle(this.rollen);
-        aufrufKontext.setRollenErmittelt(this.rollen != null);
+        result.setDurchfuehrendeBehoerde(durchfuehrendeBehoerde);
+        result.setDurchfuehrenderBenutzerKennung(durchfuehrenderBenutzerKennung);
+        result.setDurchfuehrenderBenutzerPasswort(durchfuehrenderBenutzerPasswort);
+        result.setDurchfuehrenderSachbearbeiterName(durchfuehrenderSachbearbeiterName);
+        result.setDurchfuehrenderBenutzerInterneKennung(durchfuehrenderBenutzerInterneKennung);
+        result.setRolle(rollen);
+        result.setRollenErmittelt(rollen != null);
 
-        this.aufrufKontextFactory.nachAufrufKontextVerarbeitung(aufrufKontext);
+        aufrufKontextFactory.nachAufrufKontextVerarbeitung(result);
 
-        return aufrufKontext;
+        return result;
     }
 
     @Override

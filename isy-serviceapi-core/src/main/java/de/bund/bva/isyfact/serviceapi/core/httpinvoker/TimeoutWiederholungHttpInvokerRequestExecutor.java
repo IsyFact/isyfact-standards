@@ -43,7 +43,7 @@ public class TimeoutWiederholungHttpInvokerRequestExecutor extends SimpleHttpInv
             .getLogger(TimeoutWiederholungHttpInvokerRequestExecutor.class);
 
     /** {@link AufrufKontextVerwalter} to set the OAuth 2 Bearer Token. */
-    private AufrufKontextVerwalter<?> aufrufKontextVerwalter;
+    private final AufrufKontextVerwalter<?> aufrufKontextVerwalter;
 
     /** Timeout for the request. */
     private int timeout;
@@ -73,16 +73,16 @@ public class TimeoutWiederholungHttpInvokerRequestExecutor extends SimpleHttpInv
                 LOG.info(LogKategorie.PROFILING, EreignisSchluessel.TIMEOUT,
                     "Beim Aufrufen des Services [{}] ist ein Timeout aufgetreten.", config.getServiceUrl());
                 versuch++;
-                if (versuch == this.anzahlWiederholungen) {
+                if (versuch == anzahlWiederholungen) {
                     LOG.info(LogKategorie.PROFILING, EreignisSchluessel.TIMEOUT_ABBRUCH,
                         "Aufruf nach Timeout abgebrochen.");
                     throw requestException;
                 }
                 try {
-                    if (this.wiederholungenAbstand > 0) {
+                    if (wiederholungenAbstand > 0) {
                         LOG.info(LogKategorie.PROFILING, EreignisSchluessel.TIMEOUT_WARTEZEIT,
-                            "Warte {}ms bis zur Wiederholung des Aufrufs.", this.wiederholungenAbstand);
-                        Thread.sleep(this.wiederholungenAbstand);
+                            "Warte {}ms bis zur Wiederholung des Aufrufs.", wiederholungenAbstand);
+                        Thread.sleep(wiederholungenAbstand);
                     }
                 } catch (InterruptedException ex) {
                     LOG.info(LogKategorie.PROFILING, EreignisSchluessel.TIMEOUT_WARTEZEIT_ABBRUCH,
@@ -104,8 +104,8 @@ public class TimeoutWiederholungHttpInvokerRequestExecutor extends SimpleHttpInv
             LOG.warn(EreignisSchluessel.KEIN_BEARER_TOKEN_IM_AUFRUFKONTEXT,
                     "Kein Bearer-Token im AufrufKontextVerwalter. Der Authorization-Header wird nicht gesetzt.");
         }
-        con.setReadTimeout(this.timeout);
-        con.setConnectTimeout(this.timeout);
+        con.setReadTimeout(timeout);
+        con.setConnectTimeout(timeout);
     }
 
     /**

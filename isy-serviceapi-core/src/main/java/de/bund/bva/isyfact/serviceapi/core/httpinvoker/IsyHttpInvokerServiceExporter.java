@@ -32,15 +32,14 @@ public class IsyHttpInvokerServiceExporter extends HttpInvokerServiceExporter {
      *         for accessing the AufrufKontextVerwalter when handling requests
      */
     public IsyHttpInvokerServiceExporter(AufrufKontextVerwalter<?> aufrufKontextVerwalter) {
-        super();
-        this.setAcceptProxyClasses(false);
+        setAcceptProxyClasses(false);
         this.aufrufKontextVerwalter = aufrufKontextVerwalter;
     }
 
     @Override
     public void handleRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        this.aufrufKontextVerwalter.setBearerToken(extractBearerToken(request));
+        aufrufKontextVerwalter.setBearerToken(extractBearerToken(request));
         super.handleRequest(request, response);
     }
 
