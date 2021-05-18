@@ -74,16 +74,16 @@ public class TimeoutWiederholungHttpInvokerRequestExecutor extends SimpleHttpInv
                 LOG.info(LogKategorie.PROFILING, EreignisSchluessel.TIMEOUT,
                     "Beim Aufrufen des Services [{}] ist ein Timeout aufgetreten.", config.getServiceUrl());
                 versuch++;
-                if (versuch == this.anzahlWiederholungen) {
+                if (versuch == anzahlWiederholungen) {
                     LOG.info(LogKategorie.PROFILING, EreignisSchluessel.TIMEOUT_ABBRUCH,
                         "Aufruf nach Timeout abgebrochen.");
                     throw requestException;
                 }
                 try {
-                    if (this.wiederholungenAbstand > 0) {
+                    if (wiederholungenAbstand > 0) {
                         LOG.info(LogKategorie.PROFILING, EreignisSchluessel.TIMEOUT_WARTEZEIT,
-                            "Warte {}ms bis zur Wiederholung des Aufrufs.", this.wiederholungenAbstand);
-                        Thread.sleep(this.wiederholungenAbstand);
+                            "Warte {}ms bis zur Wiederholung des Aufrufs.", wiederholungenAbstand);
+                        Thread.sleep(wiederholungenAbstand);
                     }
                 } catch (InterruptedException ex) {
                     LOG.info(LogKategorie.PROFILING, EreignisSchluessel.TIMEOUT_WARTEZEIT_ABBRUCH,
@@ -105,8 +105,8 @@ public class TimeoutWiederholungHttpInvokerRequestExecutor extends SimpleHttpInv
             LOG.warn(EreignisSchluessel.KEIN_BEARER_TOKEN_IM_AUFRUFKONTEXT,
                     "Kein Bearer-Token im AufrufKontextVerwalter. Der Authorization-Header wird nicht gesetzt.");
         }
-        con.setReadTimeout(this.timeout);
-        con.setConnectTimeout(this.timeout);
+        con.setReadTimeout(timeout);
+        con.setConnectTimeout(timeout);
     }
 
     /**
