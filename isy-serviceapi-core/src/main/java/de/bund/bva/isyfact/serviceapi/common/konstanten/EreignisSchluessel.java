@@ -22,45 +22,45 @@ package de.bund.bva.isyfact.serviceapi.common.konstanten;
 public class EreignisSchluessel {
 
     /**
-     * Für die Serviceoperation {} ist kein Exception-Mapping für Exceptionklasse {} definiert. Benutze
-     * stattdessen technische TO-Exception {}:
+     * There is no exception mapping defined for the {} service operation for exception class {}.
+     * Use technical TO exception {} instead.
      */
     public static final String KEIN_EXCEPTION_MAPPING_DEFINIERT = "EPLSAC00002";
 
-    /** Fehler bei der Fehlerbehandlung. ODER Usprünglicher Fehler war {}. */
+    /** Error in error handling. OR Original error was {}. */
     public static final String FEHLER_FEHLERBEHANDLUNG = "EPLSAC00003";
 
-    /** Validiere Konfiguration für Service-Implementierung {}. */
+    /** Validate configuration for service implementation {}. */
     public static final String VALIDIERUNG_KONFIGURATION = "EPLSAC00004";
 
-    /** Beim Aufrufen des Services [{}] ist ein Timeout aufgetreten. */
+    /** A timeout occurred when calling the service [{}]. */
     public static final String TIMEOUT = "EPLSAC00005";
 
-    /** Aufruf nach Timeout abgebrochen. */
+    /** Call aborted after timeout. */
     public static final String TIMEOUT_ABBRUCH = "EPLSAC00006";
 
-    /** Warte {}ms bis zur Wiederholung des Aufrufs. */
+    /** Wait {}ms until the call is repeated. */
     public static final String TIMEOUT_WARTEZEIT = "EPLSAC00007";
 
-    /** Warten auf Aufrufwiederholung abgebrochen. */
+    /** Waiting for call repetition canceled. */
     public static final String TIMEOUT_WARTEZEIT_ABBRUCH = "EPLSAC00008";
 
-    /** Wiederhole Aufruf... */
+    /** Repeat call... */
     public static final String TIMEOUT_WIEDERHOLUNG = "EPLSAC00009";
 
     /**
-     * Die Korrelations-Id {} im Aufrufkontext wurde korrigiert, da diese nicht mit der Korr-Id auf dem MDC {}
-     * übereinstimmt.
+     * Corrected the correlation id {} in the call context as it does not match
+     * the correlation id on the MDC {} is not the same.
      */
     public static final String AUFRUFKONTEXT_KORRID_KORRIGIERT = "EPLSAC00010";
 
-    /** Es wurde ein AufrufKontext ohne Korrelations-ID übermittelt. Erzeuge neue Korrelations-ID. */
+    /** A call context without correlation ID was sent. Create new correlation ID. */
     public static final String KEINE_KORRELATIONSID_IM_AUFRUFKONTEXT_UEBERMITTELT = "EPLASC00011";
 
-    /** Keinen Authorization-Header mit Bearer-Token empfangen. Es wird nicht in den AufrufKontextVerwalter gesetzt. */
+    /** No Authorization header with bearer token received. It is not set in the AufrufKontextVerwalter. */
     public static final String KEIN_BEARER_TOKEN_UEBERMITTELT = "EPLASC00012";
 
-    /** Kein Bearer-Token im AufrufKontextVerwalter. Der Authorization-Header wird nicht gesetzt. */
+    /** No bearer token in the AufrufKontextVerwalter. The Authorization header is not set. */
     public static final String KEIN_BEARER_TOKEN_IM_AUFRUFKONTEXT = "EPLASC00013";
 
 }
