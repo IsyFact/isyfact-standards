@@ -42,7 +42,7 @@ public abstract class Transskriptionsregeln {
         if (position <= 0) {
             return true;
         }
-        return trennzeichen.contains((text.charAt(position - 1)));
+        return trennzeichen.contains(text.charAt(position - 1));
     }
 
     /**
@@ -106,7 +106,7 @@ public abstract class Transskriptionsregeln {
         if (text == null || position + laenge >= text.length()) {
             return false;
         }
-        return pruefzeichen.contains((text.charAt(position + laenge)));
+        return pruefzeichen.contains(text.charAt(position + laenge));
 
     }
 

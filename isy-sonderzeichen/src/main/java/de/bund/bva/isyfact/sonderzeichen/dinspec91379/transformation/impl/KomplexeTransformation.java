@@ -119,8 +119,8 @@ public class KomplexeTransformation {
                 if (varianten != null) {
                     for (Ersetzung ersetzung : varianten) {
                         if (ersetzung.regeln.length > 0) {
-                            for (int regel = 0; regel < ersetzung.regeln.length; regel++) {
-                                if (transformator.werteRegelAus(ersetzung.regeln[regel], text, position, laenge)) {
+                            for (int regel : ersetzung.regeln) {
+                                if (transformator.werteRegelAus(regel, text, position, laenge)) {
                                     laengeLetzteErsetzung = laenge;
                                     return ersetzung.ersatz;
                                 }
