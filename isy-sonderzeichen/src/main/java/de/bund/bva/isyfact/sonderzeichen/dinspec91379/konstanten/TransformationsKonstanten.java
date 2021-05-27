@@ -18,9 +18,8 @@ package de.bund.bva.isyfact.sonderzeichen.dinspec91379.konstanten;
 
 /**
  * This class contains constants for the resources of the respective transformation table.
- *
  */
-public class TransformationsKonstanten {
+public final class TransformationsKonstanten {
 
     /** The string that describes the characters to remove */
     public static final String ZEICHEN_ENTFERNE = "";
@@ -40,4 +39,7 @@ public class TransformationsKonstanten {
 
     /** The path to the transformation transcription table */
     public static final String TRANSFORMATIONS_TABELLE_TRANSKRIPTION = "/resources/tabellen/transformation_din91379_transkription.transform";
+
+    private TransformationsKonstanten() {
+    }
 }

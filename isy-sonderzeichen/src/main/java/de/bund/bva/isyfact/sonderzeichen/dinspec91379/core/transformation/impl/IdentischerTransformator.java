@@ -41,7 +41,7 @@ public class IdentischerTransformator extends AbstractTransformator {
 
     @Override
     protected IsyLogger getLogger() {
-        return IdentischerTransformator.LOG;
+        return LOG;
     }
 
     @Override

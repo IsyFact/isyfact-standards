@@ -16,8 +16,10 @@
  */
 package de.bund.bva.isyfact.sonderzeichen.dinspec91379.konstanten;
 
-public class EreignisSchluessel {
+public final class EreignisSchluessel {
 
     public static final String TRANSFORMATION = "EPLSOND00001";
 
+    private EreignisSchluessel() {
+    }
 }
