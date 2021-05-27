@@ -3,15 +3,17 @@ package de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation;
 import static de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.TestData.RANDOM_TESTDATA;
 import static de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.TestData.RANDOM_TESTDATA_EXPECTED;
 
-import de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.impl.TranskriptionTransformator;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Locale;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.impl.TranskriptionTransformator;
 
 /**
  * Parametrized test class which tests the {@link TranskriptionTransformator}.
@@ -27,7 +29,7 @@ public class TranskriptionTransformatorTest {
     /**
      * Expected result for {@link #LOREM_IPSUM}.
      */
-    private static final String LORREM_IPSUM_EXPECTED = LOREM_IPSUM.toUpperCase();
+    private static final String LORREM_IPSUM_EXPECTED = LOREM_IPSUM.toUpperCase(Locale.GERMANY);
 
     /**
      * Test data involving german characters.
@@ -53,7 +55,7 @@ public class TranskriptionTransformatorTest {
      * Composes the different test data to a single collection used by JUnit.
      * @return collection of the test data.
      */
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "{index}: testData={0}\nexpected={1}")
     public static Collection<Object[]> data() {
         List<Object[]> testData = new ArrayList<>();
         for (int i = 0; i < RANDOM_TESTDATA.length; i++) {

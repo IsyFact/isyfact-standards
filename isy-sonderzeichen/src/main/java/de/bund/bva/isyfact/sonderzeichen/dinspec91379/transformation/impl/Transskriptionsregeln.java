@@ -20,13 +20,16 @@ import java.util.Set;
 
 /**
  * Methods for checking transcription rules.
- * 
+ *
  */
-public abstract class Transskriptionsregeln {
+public final class Transskriptionsregeln {
+
+    private Transskriptionsregeln() {
+    }
 
     /**
      * Checks whether a position in the text is at the beginning of a word.
-     * 
+     *
      * @param text
      *            The text in which to examine the position.
      * @param position
@@ -39,15 +42,12 @@ public abstract class Transskriptionsregeln {
         if (text == null || position > text.length() - 1) {
             return false;
         }
-        if (position <= 0) {
-            return true;
-        }
-        return trennzeichen.contains(text.charAt(position - 1));
+        return position <= 0 || trennzeichen.contains(text.charAt(position - 1));
     }
 
     /**
      * Checks whether a substring in the text ends at the end of a word.
-     * 
+     *
      * @param text
      *            The text in which to examine the position.
      * @param position
@@ -62,15 +62,12 @@ public abstract class Transskriptionsregeln {
         if (text == null) {
             return false;
         }
-        if (position + laenge == text.length()) {
-            return true;
-        }
-        return isVorZeichen(text, position, laenge, trennzeichen);
+        return position + laenge == text.length() || isVorZeichen(text, position, laenge, trennzeichen);
     }
 
     /**
      * Checks whether there is a substring in the text in the middle of a word.
-     * 
+     *
      * @param text
      *            The text in which to examine the position.
      * @param position
@@ -85,13 +82,12 @@ public abstract class Transskriptionsregeln {
         if (text == null) {
             return false;
         }
-        return (!isWortanfang(text, position, trennzeichen) && !isWortende(text, position, laenge,
-            trennzeichen));
+        return !(isWortanfang(text, position, trennzeichen) || isWortende(text, position, laenge, trennzeichen));
     }
 
     /**
      * Checks whether a certain substring in the text is followed by one of a set of characters.
-     * 
+     *
      * @param text
      *            The text in which to examine the position.
      * @param position

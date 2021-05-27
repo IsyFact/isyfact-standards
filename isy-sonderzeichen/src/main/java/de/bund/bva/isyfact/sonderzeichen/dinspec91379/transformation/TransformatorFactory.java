@@ -24,20 +24,20 @@ import de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.impl.Abstra
 
 /**
  * The factory for the respective transformer.
- * 
  */
 public class TransformatorFactory implements FactoryBean<Object>, InitializingBean {
-    
+
     /** The transformer is set via Spring. */
     private AbstractTransformator transformator;
-    
+
     /** Additional transformation table is set via Spring. */
     private String transformationsTabelle;
 
+    @Override
     public void afterPropertiesSet() {
         transformator.initialisiere(transformationsTabelle);
     }
-    
+
     public void setTransformationsTabelle(String transformationsTabelle) {
         this.transformationsTabelle = transformationsTabelle;
     }
@@ -46,10 +46,12 @@ public class TransformatorFactory implements FactoryBean<Object>, InitializingBe
         this.transformator = transformator;
     }
 
+    @Override
     public Object getObject() {
         return transformator;
     }
 
+    @Override
     public Class<?> getObjectType() {
         if (transformator == null) {
             return null;

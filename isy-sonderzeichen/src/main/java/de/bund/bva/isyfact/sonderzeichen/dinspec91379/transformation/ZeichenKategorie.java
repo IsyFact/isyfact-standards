@@ -18,7 +18,7 @@ package de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-public class ZeichenKategorie {
+public final class ZeichenKategorie {
 
     /** Character of the category 'letter'. */
     public static final String LETTER = "LETTER";
@@ -47,6 +47,8 @@ public class ZeichenKategorie {
             justification = "Solved with IFS-804"
     )
     public static final String[] ALLE_ZEICHEN_KATEGORIEN =
-        new String[]{LETTER, NUMBER, OTHER, PUNCTUATION, SEPARATOR, SYMBOL, ALLE};
+            {LETTER, NUMBER, OTHER, PUNCTUATION, SEPARATOR, SYMBOL, ALLE};
 
+    private ZeichenKategorie() {
+    }
 }
