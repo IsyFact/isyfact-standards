@@ -40,7 +40,9 @@ public interface RemoteBean {
 
     void methodeMitToException() throws IllegalStateException, PlisTechnicalToException;
 
-    void methodeMitZweiTechnicalToExceptions() throws IllegalStateException, PlisTechnicalToException;
+    @SuppressWarnings("DuplicateThrows") // PlisTechnicalToException & PlisTechnicalTestToException are both needed
+        // for test case TestReflectiveExceptionMappingSource.testGetGenericTechnicalToExceptionMehrereToExceptions()
+    void methodeMitZweiTechnicalToExceptions() throws IllegalStateException, PlisTechnicalToException, PlisTechnicalTestToException;
 
     void eineMethodeMitException() throws InvocationTargetException, PlisTechnicalToException;
 
