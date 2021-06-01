@@ -102,7 +102,7 @@ public class TimeoutWiederholungHttpInvokerRequestExecutor extends SimpleHttpInv
         if (aufrufKontextVerwalter.getBearerToken() != null) {
             con.setRequestProperty(HttpHeaders.AUTHORIZATION, "Bearer " + aufrufKontextVerwalter.getBearerToken());
         } else {
-            LOG.warn(EreignisSchluessel.KEIN_BEARER_TOKEN_IM_AUFRUFKONTEXT,
+            LOG.info(LogKategorie.JOURNAL, EreignisSchluessel.KEIN_BEARER_TOKEN_IM_AUFRUFKONTEXT,
                     "Kein Bearer-Token im AufrufKontextVerwalter. Der Authorization-Header wird nicht gesetzt.");
         }
         con.setReadTimeout(timeout);
