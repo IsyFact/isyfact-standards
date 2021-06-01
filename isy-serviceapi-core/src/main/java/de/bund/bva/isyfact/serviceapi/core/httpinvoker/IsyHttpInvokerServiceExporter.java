@@ -11,6 +11,7 @@ import org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter;
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
+import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.serviceapi.common.RequestUtil;
 import de.bund.bva.isyfact.serviceapi.common.konstanten.EreignisSchluessel;
 
@@ -43,7 +44,7 @@ public class IsyHttpInvokerServiceExporter extends HttpInvokerServiceExporter {
         if (bearerToken != null) {
             aufrufKontextVerwalter.setBearerToken(bearerToken);
         } else {
-            LOG.warn(EreignisSchluessel.KEIN_BEARER_TOKEN_UEBERMITTELT,
+            LOG.info(LogKategorie.JOURNAL, EreignisSchluessel.KEIN_BEARER_TOKEN_UEBERMITTELT,
                     "Keinen Authorization-Header mit Bearer-Token empfangen. Es wird nicht in den AufrufKontextVerwalter gesetzt.");
         }
 
