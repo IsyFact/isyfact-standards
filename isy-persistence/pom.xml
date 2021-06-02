@@ -5,11 +5,11 @@
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
         <artifactId>isyfact-standards</artifactId>
-        <version>1.9.0</version>
+        <version>1.9.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>isy-persistence</artifactId>
-    <version>1.11.0</version>
+    <version>1.11.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>IsyFact Persistence</name>
@@ -34,7 +34,7 @@
         </dependencies>
     </dependencyManagement>
     <dependencies>
-        <!-- ISY-Bibliotheken -->
+        <!-- ISY libraries -->
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-exception-core</artifactId>
@@ -72,7 +72,7 @@
         </dependency>
 
         <!-- Spring -->
-        <!-- Benötigt für Repository-Annotation -->
+        <!-- Required for Repository annotations -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
@@ -86,7 +86,7 @@
             <artifactId>spring-jdbc</artifactId>
         </dependency>
 
-        <!-- Test-Abhängigkeiten -->
+        <!-- Test dependencies -->
 
         <dependency>
             <groupId>junit</groupId>

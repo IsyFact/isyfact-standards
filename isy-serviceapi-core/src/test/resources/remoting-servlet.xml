@@ -26,18 +26,25 @@
 
     <aop:aspectj-autoproxy/>
 
+    <bean id="aufrufKontextVerwalter" class="de.bund.bva.pliscommon.aufrufkontext.stub.AufrufKontextVerwalterStub">
+        <property name="aufrufKontextFactory">
+            <bean class="de.bund.bva.pliscommon.aufrufkontext.impl.AufrufKontextFactoryImpl"/>
+        </property>
+    </bean>
+
     <bean name="/dummyServiceBean_v1_0_0" class="de.bund.bva.pliscommon.serviceapi.core.httpinvoker.IsyHttpInvokerServiceExporter">
+        <constructor-arg name="aufrufKontextVerwalter" ref="aufrufKontextVerwalter"/>
         <property name="service" ref="dummyService"/>
         <property name="registerTraceInterceptor" value="false"/>
         <property name="serviceInterface"
-            value="test.de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.DummyServiceRemoteBean"/>
+            value="de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.DummyServiceRemoteBean"/>
     </bean>
 
-    <bean id="dummyService" class="test.de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.DummyServiceImpl"/>
-    <bean id="dummyKontextService" class="test.de.bund.bva.pliscommon.serviceapi.core.aop.service.httpinvoker.v1_0_0.DummyKontextServiceImpl"/>
+    <bean id="dummyService" class="de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.DummyServiceImpl"/>
+    <bean id="dummyKontextService" class="de.bund.bva.pliscommon.serviceapi.core.aop.service.httpinvoker.v1_0_0.DummyKontextServiceImpl"/>
 
 
-    <!-- @StelltLoggingKontextBereit Annotation einschalten -->
+    <!-- Enable @StelltLoggingKontextBereit annotation -->
     <bean id="stelltLoggingKontextBereitInterceptor" class="de.bund.bva.pliscommon.serviceapi.core.aop.StelltLoggingKontextBereitInterceptor">
     </bean>
 

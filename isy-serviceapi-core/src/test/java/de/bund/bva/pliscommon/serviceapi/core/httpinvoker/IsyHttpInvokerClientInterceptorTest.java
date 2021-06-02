@@ -1,18 +1,21 @@
 package de.bund.bva.pliscommon.serviceapi.core.httpinvoker;
 
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.*;
+
 import java.lang.reflect.Method;
 
-import de.bund.bva.isyfact.logging.IsyLogger;
-import de.bund.bva.isyfact.logging.util.LogHelper;
-import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 import org.aopalliance.intercept.MethodInvocation;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.*;
+import de.bund.bva.isyfact.logging.IsyLogger;
+import de.bund.bva.isyfact.logging.util.LogHelper;
+import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 
 @RunWith(MockitoJUnitRunner.class)
 public class IsyHttpInvokerClientInterceptorTest {
@@ -30,12 +33,12 @@ public class IsyHttpInvokerClientInterceptorTest {
     public void invokeMitIsyFactLogging() throws Throwable {
 
         IsyHttpInvokerClientInterceptor isyHttpInvokerClientInterceptor =
-            new IsyHttpInvokerClientInterceptor();
+                new IsyHttpInvokerClientInterceptor();
 
         Method toStringMethod = Object.class.getMethod("toString");
 
         when(logHelper.ermittleAktuellenZeitpunkt()).thenReturn(1L).thenReturn(2L);
-        when(methodInvocation.getArguments()).thenReturn(new Object[] { aufrufKontextTo });
+        when(methodInvocation.getArguments()).thenReturn(new Object[]{ aufrufKontextTo });
         when(methodInvocation.getMethod()).thenReturn(toStringMethod);
         when(aufrufKontextTo.getKorrelationsId()).thenReturn("korrelationsId");
 
@@ -46,13 +49,14 @@ public class IsyHttpInvokerClientInterceptorTest {
 
         verify(aufrufKontextTo).setKorrelationsId(anyString());
         verify(logHelper)
-            .loggeNachbarsystemAufruf(any(IsyLogger.class), eq(toStringMethod), eq("remoteSystem"),
-                eq((String) null));
+                .loggeNachbarsystemAufruf(any(IsyLogger.class), eq(toStringMethod), eq("remoteSystem"),
+                        eq(null));
         verify(logHelper)
-            .loggeNachbarsystemErgebnis(any(IsyLogger.class), eq(toStringMethod), eq("remoteSystem"),
-                eq((String) null), eq(true));
+                .loggeNachbarsystemErgebnis(any(IsyLogger.class), eq(toStringMethod), eq("remoteSystem"),
+                        eq(null), eq(true));
         verify(logHelper)
-            .loggeNachbarsystemDauer(any(IsyLogger.class), eq(toStringMethod), eq(1L), eq("remoteSystem"),
-                eq((String) null), eq(true));
+                .loggeNachbarsystemDauer(any(IsyLogger.class), eq(toStringMethod), eq(1L), eq("remoteSystem"),
+                        eq(null), eq(true));
     }
+
 }
