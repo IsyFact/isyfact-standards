@@ -1,119 +1,93 @@
 package de.bund.bva.isyfact.serviceapi.core.httpinvoker;
 
-import java.io.InterruptedIOException;
-
-import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.DummyServiceImpl;
-import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.DummyServiceRemoteBean;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean;
-import org.springframework.remoting.httpinvoker.HttpInvokerRequestExecutor;
-import org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit4.SpringRunner;
-
 import static org.junit.Assert.*;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = TimeoutWiederholungHttpInvokerRequestExecutorTest.TestConfig.class,
-    properties = "isy.logging.autoconfiguration.enabled=false",
-    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.util.List;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.springframework.http.HttpHeaders;
+
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
+import de.bund.bva.isyfact.aufrufkontext.stub.AufrufKontextVerwalterStub;
+import de.bund.bva.isyfact.serviceapi.core.httpinvoker.stub.HttpUrlConnectionStub;
+import de.bund.bva.isyfact.serviceapi.core.httpinvoker.stub.TimeoutWiederholungHttpInvokerRequestExecutorStub;
+
+/**
+ * Plain unit tests for {@link TimeoutWiederholungHttpInvokerRequestExecutor}.
+ */
 public class TimeoutWiederholungHttpInvokerRequestExecutorTest {
 
-    @LocalServerPort
-    private int port;
+    /** Some value for the content length, doesn't get actually used. */
+    private static final int CONTENT_LENGTH = 1;
 
-    @Autowired
-    @Qualifier("dummyService")
-    private DummyServiceImpl dummyService;
+    /** AufrufKontextVerwalter to set bearer token in. */
+    private AufrufKontextVerwalter<?> aufrufKontextVerwalterStub;
 
-    @Autowired
-    private HttpInvokerProxyFactoryBean serviceProxy;
+    /** Stubbed request executor. */
+    private TimeoutWiederholungHttpInvokerRequestExecutor executorStub;
 
-    @Autowired
-    @Qualifier("invoker")
-    private DummyServiceRemoteBean serviceRemoteBean;
-
-    @Autowired
-    private TimeoutWiederholungHttpInvokerRequestExecutor executor;
+    /** Stubbed connection that doesn't connect to anything. */
+    private HttpURLConnection connection;
 
     @Before
-    public void setPort() {
-        serviceProxy.setServiceUrl("http://localhost:" + port + "/dummyServiceBean_v1_0_0");
+    public void setUp() {
+        aufrufKontextVerwalterStub = new AufrufKontextVerwalterStub<>();
+        aufrufKontextVerwalterStub.setBearerToken(null);
+        executorStub = new TimeoutWiederholungHttpInvokerRequestExecutorStub(aufrufKontextVerwalterStub);
+        connection = new HttpUrlConnectionStub(null);
     }
 
+    /**
+     * Test if the bearer token gets set in the Authorization header.
+     */
     @Test
-    public void testTimeoutKurz() {
-        dummyService.setWaitTime(0);
-        executor.setTimeout(500);
-        assertEquals("Hello", serviceRemoteBean.ping("Hello"));
-        assertEquals(1, dummyService.getAnzahlAufrufe());
-    }
+    public void testPrepareConnectionWithToken() {
+        final String token = "testToken1234";
 
-    @Test
-    public void testTimeoutLang() {
-        dummyService.setWaitTime(30000);
-        executor.setTimeout(60000);
-        assertEquals("Hello", serviceRemoteBean.ping("Hello"));
-        assertEquals(1, dummyService.getAnzahlAufrufe());
-    }
-
-    @Test
-    public void testAufrufWiederholung() {
-        dummyService.setWaitTime(200);
-        executor.setTimeout(50);
-        executor.setWiederholungenAbstand(500);
-        executor.setAnzahlWiederholungen(10);
-        long t0 = System.currentTimeMillis();
+        aufrufKontextVerwalterStub.setBearerToken(token);
         try {
-            serviceRemoteBean.ping("Hello");
-            fail("Exception erwartet");
-        } catch (Throwable t) {
-            long t1 = System.currentTimeMillis();
-            assertTrue(InterruptedIOException.class.isAssignableFrom(t.getCause().getClass()));
-            assertEquals(10, dummyService.getAnzahlAufrufe());
-            assertTrue("Wiederholungspausen wurde nicht eingehalten: " + (t1 - t0), (t1 - t0) > 4000);
+            executorStub.prepareConnection(connection, CONTENT_LENGTH);
+        } catch (IOException e) {
+            fail("Expected no exception.");
         }
+
+        List<String> authHeader = connection.getRequestProperties().get(HttpHeaders.AUTHORIZATION);
+        assertEquals(1, authHeader.size());
+        assertEquals("Bearer " + token, authHeader.get(0));
     }
 
-    @Configuration
-    @EnableAutoConfiguration
-    public static class TestConfig {
-
-        @Bean(name = "/dummyServiceBean_v1_0_0")
-        HttpInvokerServiceExporter pingService(DummyServiceImpl dummyService) {
-            HttpInvokerServiceExporter exporter = new IsyHttpInvokerServiceExporter();
-            exporter.setService(dummyService);
-            exporter.setServiceInterface(DummyServiceRemoteBean.class);
-            return exporter;
+    /**
+     * Test if the Authorization header is not set if the bearer token is {@code null}.
+     */
+    @Test
+    public void testPrepareConnectionWithoutToken() {
+        try {
+            executorStub.prepareConnection(connection, CONTENT_LENGTH);
+        } catch (IOException e) {
+            fail("Expected no exception.");
         }
 
-        @Bean
-        public HttpInvokerProxyFactoryBean invoker(HttpInvokerRequestExecutor executor) {
-            HttpInvokerProxyFactoryBean invoker = new HttpInvokerProxyFactoryBean();
-            invoker.setServiceUrl("http://localhost:8080/dummyServiceBean_v1_0_0");
-            invoker.setServiceInterface(DummyServiceRemoteBean.class);
-            invoker.setHttpInvokerRequestExecutor(executor);
-            return invoker;
-        }
-
-        @Bean
-        public DummyServiceImpl dummyService() {
-            return new DummyServiceImpl();
-        }
-
-        @Bean
-        public TimeoutWiederholungHttpInvokerRequestExecutor requestExecutor() {
-            return new TimeoutWiederholungHttpInvokerRequestExecutor();
-        }
+        assertNull(connection.getRequestProperties().get(HttpHeaders.AUTHORIZATION));
     }
+
+    /**
+     * Test if the read and connect timeouts get properly set.
+     */
+    @Test
+    public void testTimeoutsGetSet() {
+        final int timeout = 50;
+
+        executorStub.setTimeout(timeout);
+        try {
+            executorStub.prepareConnection(connection, CONTENT_LENGTH);
+        } catch (IOException e) {
+            fail("Expected no exception.");
+        }
+        assertEquals(timeout, connection.getConnectTimeout());
+        assertEquals(timeout, connection.getReadTimeout());
+    }
+
 }

@@ -1,4 +1,5 @@
 # 2.2.0
+- `IFS-874`: [isy-aufrufkontext], [isy-serviceapi-core] Umsetzung des Transports von OAuth 2 Bearer-Token zwischen Schnittstellentechnologien.
 - `IFS-453`: [isy-ueberwachung] Loglevel für isAlive-Datei-Ereignisse erhöht.
 - `IFS-465`: Profile zum Bauen mit Java 11 erstellt
 - `IFS-489`: [isy-logging] Entferne beim Loggen deklarierte Throwables in Methodensignaturen
