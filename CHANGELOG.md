@@ -1,5 +1,6 @@
 # 2.3.0
 - `IFS-874`: [isy-aufrufkontext], [isy-serviceapi-core] Umsetzung des Transports von OAuth 2 Bearer-Token zwischen Schnittstellentechnologien.
+- `IFS-686`: [isy-ueberwachung] Property-Dateien auf Unicode Escapes umgestellt
 
 # 2.2.0
 - `IFS-453`: [isy-ueberwachung] Loglevel für isAlive-Datei-Ereignisse erhöht.
