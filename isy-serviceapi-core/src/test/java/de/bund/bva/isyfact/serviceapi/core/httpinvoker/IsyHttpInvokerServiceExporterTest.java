@@ -1,104 +1,97 @@
 package de.bund.bva.isyfact.serviceapi.core.httpinvoker;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-import java.lang.reflect.Proxy;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.remoting.RemoteAccessException;
-import org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean;
-import org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.http.HttpHeaders;
 
-import de.bund.bva.isyfact.serviceapi.core.httpinvoker.user.User;
-import de.bund.bva.isyfact.serviceapi.core.httpinvoker.user.UserImpl;
-import de.bund.bva.isyfact.serviceapi.core.httpinvoker.user.UserInvocationHandler;
-import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.DummyServiceImpl;
-import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.DummyServiceRemoteBean;
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
+import de.bund.bva.isyfact.aufrufkontext.stub.AufrufKontextVerwalterStub;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = IsyHttpInvokerServiceExporterTest.TestConfig.class,
-        properties = "isy.logging.autoconfiguration.enabled=false",
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+/**
+ * Plain unit tests for {@link IsyHttpInvokerServiceExporter}.
+ */
 public class IsyHttpInvokerServiceExporterTest {
 
-    @LocalServerPort
-    private int port;
+    /** Test value for any tokens (Bearer, Basic). */
+    private static final String TEST_TOKEN = "testToken12345";
 
-    @Autowired
-    @Qualifier("dummyService")
-    private DummyServiceImpl userService;
+    /** AufrufKontextVerwalter to read the set bearer token. */
+    private AufrufKontextVerwalter<?> aufrufKontextVerwalterStub;
 
-    @Qualifier("invoker")
-    @Autowired
-    private HttpInvokerProxyFactoryBean serviceProxy;
+    /** The ServiceExporter that handles the requests. */
+    private IsyHttpInvokerServiceExporter serviceExporter;
 
-    @Autowired
-    @Qualifier("invoker")
-    private DummyServiceRemoteBean serviceRemoteBean;
+    /** Mocked request to set headers in. */
+    private HttpServletRequest requestMock;
 
-    @Test(expected = RemoteAccessException.class)
-    public void testAddUserNotAllowedProxyObject() {
-        serviceProxy.setServiceUrl("http://localhost:" + port + "/isyDummyServiceBean_v1_0_0");
-        userService.setWaitTime(0);
-        User b = new UserImpl();
-        UserInvocationHandler uih = new UserInvocationHandler(b);
-        User a = (User) Proxy.newProxyInstance(UserImpl.class.getClassLoader(), new Class[]{User.class}, uih);
-        serviceRemoteBean.addUser(a);
+    /** Mocked response. */
+    private HttpServletResponse responseMock;
+
+    @Before
+    public void setUp() {
+        aufrufKontextVerwalterStub = new AufrufKontextVerwalterStub<>();
+        aufrufKontextVerwalterStub.setBearerToken(null);
+        serviceExporter = new IsyHttpInvokerServiceExporter(aufrufKontextVerwalterStub);
+        requestMock = mock(HttpServletRequest.class);
+        responseMock = mock(HttpServletResponse.class);
     }
 
     @Test
-    public void testAddUserAllowedProxyObject() {
-        serviceProxy.setServiceUrl("http://localhost:" + port + "/dummyServiceBean_v1_0_0");
-        userService.setWaitTime(0);
-        User b = new UserImpl();
-        UserInvocationHandler uih = new UserInvocationHandler(b);
-        User a = (User) Proxy.newProxyInstance(UserImpl.class.getClassLoader(), new Class[]{User.class}, uih);
-        assertEquals("Added user successful.", serviceRemoteBean.addUser(a));
+    public void testBearerTokenExtracted() {
+        mockRequestAuthorizationHeader("Bearer " + TEST_TOKEN);
+
+        try {
+            serviceExporter.handleRequest(requestMock, responseMock);
+            fail("Exception expected since the invoker can't connect to a remote.");
+        } catch (Exception e) {
+            assertEquals(TEST_TOKEN, aufrufKontextVerwalterStub.getBearerToken());
+        }
     }
 
-    @Configuration
-    @EnableAutoConfiguration
-    public static class TestConfig {
+    @Test
+    public void testBearerTokenExtractedWithDifferentCapitalization() {
+        mockRequestAuthorizationHeader("bEAreR " + TEST_TOKEN);
 
-        @Bean(name = "/isyDummyServiceBean_v1_0_0")
-        IsyHttpInvokerServiceExporter userService(DummyServiceImpl dummyService) {
-            IsyHttpInvokerServiceExporter exporter = new IsyHttpInvokerServiceExporter();
-            exporter.setService(dummyService);
-            exporter.setServiceInterface(DummyServiceRemoteBean.class);
-            return exporter;
+        try {
+            serviceExporter.handleRequest(requestMock, responseMock);
+            fail("Exception expected since the invoker can't connect to a remote.");
+        } catch (Exception e) {
+            assertEquals(TEST_TOKEN, aufrufKontextVerwalterStub.getBearerToken());
         }
-
-        @Bean(name = "/dummyServiceBean_v1_0_0")
-        HttpInvokerServiceExporter userServiceWithProxy(DummyServiceImpl dummyService) {
-            HttpInvokerServiceExporter exporter = new HttpInvokerServiceExporter();
-            exporter.setService(dummyService);
-            exporter.setServiceInterface(DummyServiceRemoteBean.class);
-            return exporter;
-        }
-
-        @Bean
-        public HttpInvokerProxyFactoryBean invoker() {
-            HttpInvokerProxyFactoryBean invoker = new HttpInvokerProxyFactoryBean();
-            invoker.setServiceUrl("http://localhost:8080/dummyServiceBean_v1_0_0");
-            invoker.setServiceInterface(DummyServiceRemoteBean.class);
-            return invoker;
-        }
-
-        @Bean
-        public DummyServiceImpl dummyService() {
-            return new DummyServiceImpl();
-        }
-
     }
+
+    @Test
+    public void testBearerTokenNotExtractedWithInvalidScheme() {
+        mockRequestAuthorizationHeader("Basic " + TEST_TOKEN);
+
+        try {
+            serviceExporter.handleRequest(requestMock, responseMock);
+            fail("Exception expected since the invoker can't connect to a remote.");
+        } catch (Exception e) {
+            assertNull(aufrufKontextVerwalterStub.getBearerToken());
+        }
+    }
+
+    @Test
+    public void testBearerTokenNotExtractedWhenHeaderNotSet() {
+        mockRequestAuthorizationHeader(null);
+
+        try {
+            serviceExporter.handleRequest(requestMock, responseMock);
+            fail("Exception expected since the invoker can't connect to a remote.");
+        } catch (Exception e) {
+            assertNull(aufrufKontextVerwalterStub.getBearerToken());
+        }
+    }
+
+    private void mockRequestAuthorizationHeader(String headerValue) {
+        when(requestMock.getHeader(HttpHeaders.AUTHORIZATION)).thenReturn(headerValue);
+    }
+
 }

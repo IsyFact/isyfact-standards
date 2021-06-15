@@ -18,7 +18,6 @@ package de.bund.bva.isyfact.aufrufkontext.stub;
 
 import static org.junit.Assert.*;
 
-import de.bund.bva.isyfact.aufrufkontext.stub.AufrufKontextVerwalterStub;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,8 +31,8 @@ public class TestAufrufKontextVerwalterStub {
 
 	@Before
 	public void setUp() {
-		stub = new AufrufKontextVerwalterStub<AufrufKontext>();
-		stub.setAufrufKontextFactory(new AufrufKontextFactoryImpl<AufrufKontext>());
+		stub = new AufrufKontextVerwalterStub<>();
+		stub.setAufrufKontextFactory(new AufrufKontextFactoryImpl<>());
 		stub.setFesterAufrufKontext(true);
 		aKontext = stub.getAufrufKontext();
 	}
@@ -54,7 +53,7 @@ public class TestAufrufKontextVerwalterStub {
 	}
 
 	@Test
-	public void testErzeugeAufrufKontext2() throws Exception {
+	public void testErzeugeAufrufKontext2() {
 
 		String durchfuehrendeBehoerde = "654321";
 		String durchfuehrenderBenutzerKennung = "max.mustermann@bva.bund.de";
@@ -92,4 +91,5 @@ public class TestAufrufKontextVerwalterStub {
 		
 		assertEquals(aKontext, kontext);
 	}
+
 }

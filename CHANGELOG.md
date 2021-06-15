@@ -1,3 +1,6 @@
+# 2.3.0
+- `IFS-874`: [isy-aufrufkontext], [isy-serviceapi-core] Umsetzung des Transports von OAuth 2 Bearer-Token zwischen Schnittstellentechnologien.
+
 # 2.2.0
 - `IFS-453`: [isy-ueberwachung] Loglevel für isAlive-Datei-Ereignisse erhöht.
 - `IFS-465`: Profile zum Bauen mit Java 11 erstellt
@@ -23,6 +26,9 @@
         * `StelltAllgemeinenAufrufKontextBereitInterceptor`
         * `StelltLoggingKontextBereitInterceptor`
         * `IsyHttpInvokerClientInterceptor`
+- `IFS-676`: Versionsupdate von OpenCSV 3.8 auf 5.3
+    * Hinweise zu Breaking Changes s. Changelog.md der isyfact-products-bom
+
 
 # 2.1.0
 - `IFS-156`: [isy-sicherheit] Sonderlogik, die Underscores aus dem Attribut `durchfuehrenderSachbearbeiterName` des Aufrufkontextes entfernt erneut ausgebaut.

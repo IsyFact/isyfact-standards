@@ -7,6 +7,10 @@
 - `IFS-694`: Spring-Boot Versionsanhebung auf 2.2.9 und Fasterxml Jackson auf Version 2.10.5
 - `IFS-785`: Versionsupdate von XStream von 1.4.11 auf 1.4.14 wegen CVE
    - es gibt voraussichtlich keine Kompatibilitätsprobleme
+- `IFS-676`: Versionsupdate von OpenCSV 3.8 auf 5.3
+  - Breaking Changes in rf-asv und isy-outputmanagement:
+      - Die Methode readNext() der Klasse CSVReader wirft zusätzlich zu der IOException eine CsvValidationException
+      - Viele Konstruktoren wurden entfernt. Wichtig ist, dass der Konstruktor des CSVReader nur noch 1 Argument erwartet, da empfohlen wird, den CsvReaderBuilder zu nutzen
 
 # 2.1.0
 - `IFS-223`: Logging Bridges ergänzt: jcl-over-slf4j, slf4j-jcl

@@ -1,5 +1,30 @@
 = Changelog IsyFact Standards
 
+== Änderungen IsyFact 2.3.0
+
+// Beginn Übergreifende Änderungen
+// Ende übergreifende Änderungen
+
+include::isy-aufrufkontext/changelog.adoc[tag=release-2.3.0]
+include::isy-batchrahmen/changelog.adoc[tag=release-2.3.0]
+include::isy-datetime/changelog.adoc[tag=release-2.3.0]
+include::isy-exception-core/changelog.adoc[tag=release-2.3.0]
+include::isy-exception-sst/changelog.adoc[tag=release-2.3.0]
+include::isy-konfiguration/changelog.adoc[tag=release-2.3.0]
+include::isy-logging/changelog.adoc[tag=release-2.3.0]
+include::isy-persistence/changelog.adoc[tag=release-2.3.0]
+include::isy-logging/changelog.adoc[tag=release-2.3.0]
+include::isy-serviceapi-core/changelog.adoc[tag=release-2.3.0]
+include::isy-serviceapi-sst/changelog.adoc[tag=release-2.3.0]
+include::isy-sicherheit/changelog.adoc[tag=release-2.3.0]
+include::isy-sonderzeichen/changelog.adoc[tag=release-2.3.0]
+include::isy-sst-bridge/changelog.adoc[tag=release-2.3.0]
+include::isy-task/changelog.adoc[tag=release-2.3.0]
+include::isy-ueberwachung/changelog.adoc[tag=release-2.3.0]
+include::isy-util/changelog.adoc[tag=release-2.3.0]
+include::isyfact-products-bom/changelog.adoc[tag=release-2.3.0]
+include::isyfact-standards-bom/changelog.adoc[tag=release-2.3.0]
+
 == Änderungen IsyFact 2.2.0
 
 // Beginn Übergreifende Änderungen

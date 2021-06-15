@@ -4,6 +4,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import de.bund.bva.isyfact.aufrufkontext.stub.AufrufKontextVerwalterStub;
 import de.bund.bva.isyfact.serviceapi.core.httpinvoker.IsyHttpInvokerServiceExporter;
 import de.bund.bva.pliscommon.bridges.integration.sst.PlisTestRemoteBean;
 import de.bund.bva.pliscommon.bridges.integration.sst.impl.PlisTestExceptionFassade;
@@ -19,7 +20,7 @@ public class TestServiceConfiguration {
 
     @Bean("/TestService")
     public IsyHttpInvokerServiceExporter testService(PlisTestRemoteBean dummyServiceFassade) {
-        IsyHttpInvokerServiceExporter exporter = new IsyHttpInvokerServiceExporter();
+        IsyHttpInvokerServiceExporter exporter = new IsyHttpInvokerServiceExporter(new AufrufKontextVerwalterStub<>());
         exporter.setService(dummyServiceFassade);
         exporter.setServiceInterface(PlisTestRemoteBean.class);
         return exporter;
