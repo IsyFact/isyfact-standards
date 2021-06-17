@@ -97,27 +97,23 @@ public class TransskriptionsregelnTest {
 
     @Test
     public void testWortEndeNull(){
-        text = null;
         assertFalse(Transskriptionsregeln.isWortende(null, 1, 2, trennzeichen));
 
     }
 
     @Test
     public void testWortMitteNull(){
-        text = null;
         assertFalse(Transskriptionsregeln.isWortmitte(null, 1, 2, trennzeichen));
 
     }
 
     @Test
     public void testWortAnfangNull(){
-        text = null;
         assertFalse(Transskriptionsregeln.isWortanfang(null,0,trennzeichen));
 
     }
     @Test
     public void testVorZeichenNull() {
-        text = null;
         assertFalse(Transskriptionsregeln.isVorZeichen(null, 4, 2, pruefzeichen));
     }
 

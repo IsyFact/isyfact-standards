@@ -17,6 +17,7 @@
 package de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -118,14 +119,7 @@ public class KomplexeTransformation {
                 // Go to the next loop iteration when no possible replacement exists.
                 if (varianten != null) {
                     for (Ersetzung ersetzung : varianten) {
-                        if (ersetzung.regeln.length > 0) {
-                            for (int regel : ersetzung.regeln) {
-                                if (transformator.werteRegelAus(regel, text, position, laenge)) {
-                                    laengeLetzteErsetzung = laenge;
-                                    return ersetzung.ersatz;
-                                }
-                            }
-                        } else {
+                        if (isAnwendbareErsetzung(ersetzung, text, position, laenge)) {
                             laengeLetzteErsetzung = laenge;
                             return ersetzung.ersatz;
                         }
@@ -135,6 +129,24 @@ public class KomplexeTransformation {
         }
         laengeLetzteErsetzung = 1;
         return "";
+    }
+
+    /**
+     * Determines if 'ersetzung' is a valid character replacement at the given position in the given text.
+     *
+     * @param ersetzung
+     *            Candidate for a replacement
+     * @param text
+     *            Character string in which characters are to be replaced.
+     * @param position
+     *            Position within the character string at which characters are to be replaced.
+     * @param laenge
+     *            Length of the substring.
+     * @return 'true' if replacement is valid, otherwise 'false'
+     */
+    private boolean isAnwendbareErsetzung(Ersetzung ersetzung, String text, int position, int laenge) {
+        return ersetzung.regeln.length == 0 || Arrays.stream(ersetzung.regeln)
+            .anyMatch(r -> transformator.werteRegelAus(r, text, position, laenge));
     }
 
     /**
