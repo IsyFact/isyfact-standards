@@ -59,10 +59,10 @@ public abstract class AbstractTransformator implements Transformator {
     /**
      * The category table with the valid characters of the transformer String(ZeichenKategorie) -> String[].
      */
-    protected final HashMap<String, String[]> kategorieGueltigeZeichenTabelle = new HashMap<>();
+    protected final Map<String, String[]> kategorieGueltigeZeichenTabelle = new HashMap<>();
 
     /** A map that sorts valid characters based on their length: Integer -> (String) ArrayList. */
-    protected final HashMap<Integer, ArrayList<String>> laengeGueltigeZeichenMap = new HashMap<>();
+    protected final Map<Integer, ArrayList<String>> laengeGueltigeZeichenMap = new HashMap<>();
 
     /** The standard replacement (if no entry is found in the transformation table). */
     protected String standardErsetzung;
@@ -206,16 +206,16 @@ public abstract class AbstractTransformator implements Transformator {
             for (int laengeIteration = maximaleGueltigeZeichenlaenge; laengeIteration > 0; laengeIteration--) {
                 if (zeichenketteIteration + laengeIteration <= zeichenkette.length()) {
                     // Enough characters left
-                    Iterable<String> gueltigeZeichenArrayList = laengeGueltigeZeichenMap.get(laengeIteration);
+                    List<String> gueltigeZeichenArrayList =
+                        this.laengeGueltigeZeichenMap.get(laengeIteration);
                     for (String gueltigesZeichen : gueltigeZeichenArrayList) {
                         if (gueltigeZeichenSet.contains(gueltigesZeichen)) {
-                            boolean komplettesZeichenTreffer = false;
+                            boolean komplettesZeichenTreffer = !gueltigesZeichen.isEmpty();
                             for (int gueltigesZeichenIteration = 0;
-                                 gueltigesZeichenIteration < gueltigesZeichen.length(); gueltigesZeichenIteration++) {
-                                if (gueltigesZeichen.charAt(gueltigesZeichenIteration) == zeichenkette
-                                    .charAt(zeichenketteIteration + gueltigesZeichenIteration)) {
-                                    komplettesZeichenTreffer = true;
-                                } else {
+                                 gueltigesZeichenIteration < gueltigesZeichen.length();
+                                 gueltigesZeichenIteration++) {
+                                if (gueltigesZeichen.charAt(gueltigesZeichenIteration) !=
+                                    zeichenkette.charAt(zeichenketteIteration + gueltigesZeichenIteration)) {
                                     komplettesZeichenTreffer = false;
                                     break;
                                 }
@@ -315,9 +315,8 @@ public abstract class AbstractTransformator implements Transformator {
             if (rechts != null && !rechts.isEmpty()) {
                 String[] rechtsSplitted = rechts.split("[+]");
                 for (String s : rechtsSplitted) {
-                    String rechtsTeil = s;
-                    rechtsTeil = rechtsTeil.trim();
-                    int rechtsHexChar = Integer.parseInt(rechtsTeil, 16);
+                    s = s.trim();
+                    int rechtsHexChar = Integer.parseInt(s, 16);
                     char rechtsTeilChar = (char) rechtsHexChar;
                     rechtsString.append(rechtsTeilChar);
                 }
@@ -386,31 +385,27 @@ public abstract class AbstractTransformator implements Transformator {
         // Make a list of all character categories
         for (String kategorie : ZeichenKategorie.ALLE_ZEICHEN_KATEGORIEN) {
 
-            Set<String> zeichenketteListe = new HashSet<>();
+            Set<String> zeichenketteSet = new HashSet<>();
             for (Object o : properties.keySet()) {
 
                 String gueltigerCharacter = (String) o;
 
-                boolean lade = false;
-                if (kategorie.equals(ZeichenKategorie.ALLE)) {
-                    lade = true;
-                } else if (kategorie.equals(properties.getProperty(gueltigerCharacter))) {
-                    lade = true;
-                }
+                boolean lade = kategorie.equals(ZeichenKategorie.ALLE)
+                    || kategorie.equals(properties.getProperty(gueltigerCharacter));
 
                 if (lade) {
                     // Parsing the data
                     char[] zeichen = ladeCharArrayAusProperty(gueltigerCharacter);
                     if (zeichen != null) {
                         String newString = new String(zeichen);
-                        zeichenketteListe.add(newString);
+                        zeichenketteSet.add(newString);
                     }
                 }
             }
 
-            List<String> zeichenketteBlub = new ArrayList<>();
-            for (String zeichenkette : zeichenketteListe) {
-                zeichenketteBlub.add(zeichenkette);
+            List<String> zeichenketteList = new ArrayList<>();
+            for (String zeichenkette : zeichenketteSet) {
+                zeichenketteList.add(zeichenkette);
 
                 // Debug
                 getLogger().debug("Zeichen: {} in Kategorie {} geladen.", zeichenkette, kategorie);
@@ -422,12 +417,12 @@ public abstract class AbstractTransformator implements Transformator {
                 }
 
                 List<String> existierendeLaengeArray =
-                        laengeGueltigeZeichenMap.computeIfAbsent(zeichenketteLaenge, k -> new ArrayList<>());
+                    this.laengeGueltigeZeichenMap.computeIfAbsent(zeichenketteLaenge, k -> new ArrayList<>());
                 existierendeLaengeArray.add(zeichenkette);
 
             }
 
-            kategorieGueltigeZeichenTabelle.put(kategorie, zeichenketteBlub.toArray(new String[0]));
+            this.kategorieGueltigeZeichenTabelle.put(kategorie, zeichenketteList.toArray(new String[0]));
 
         }
     }
