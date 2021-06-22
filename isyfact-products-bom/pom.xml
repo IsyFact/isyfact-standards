@@ -15,31 +15,21 @@
     <description>Definiert die Versionen aller 3rd-Party Abhängigkeiten des Core Technology Stack der IsyFact.</description>
 
     <properties>
-        <spring.version>5.2.12.RELEASE</spring.version>
         <spring.boot.version>2.3.8.RELEASE</spring.boot.version>
         <spring.webflow.version>2.5.1.RELEASE</spring.webflow.version>
         <spring.security.version>5.1.6.RELEASE</spring.security.version>
-        <hibernate.orm.version>5.3.7.Final</hibernate.orm.version>
-        <jackson.version>2.11.2</jackson.version>
-        <querydsl.version>4.0.9</querydsl.version>
         <resilience4j.version>1.6.1</resilience4j.version>
-        <slf4j.version>1.7.25</slf4j.version>
     </properties>
 
     <!-- Dependency management for IsyFact core technology stack. -->
     <dependencyManagement>
         <dependencies>
-            <!-- Java extensions -->
+            <!-- JEE APIs -->
             <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
                 <version>3.1.0</version>
                 <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>javax.transaction</groupId>
-                <artifactId>jta</artifactId>
-                <version>1.1</version>
             </dependency>
 
             <!-- Web framework: Spring Webflow -->
@@ -88,14 +78,7 @@
             </dependency>
 
             <!-- Application core framework, remoting: Spring -->
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-framework-bom</artifactId>
-                <version>${spring.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
+            <!-- Managed by Spring Boot Dependencies -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -122,23 +105,8 @@
             </dependency>
 
             <!-- Persistence framework: Hibernate -->
-            <!-- Hibernate EntityManager for JPA -->
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-entitymanager</artifactId>
-                <version>${hibernate.orm.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.hibernate.javax.persistence</groupId>
-                <artifactId>hibernate-jpa-2.1-api</artifactId>
-                <version>1.0.0.Final</version>
-            </dependency>
-            <!-- Hibernate Core -->
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-core</artifactId>
-                <version>${hibernate.orm.version}</version>
-            </dependency>
+            <!-- Managed by Spring Boot Dependencies -->
+
             <!-- Web service framework (SOAP): Metro  -->
             <dependency>
                 <groupId>com.sun.xml.ws</groupId>
@@ -189,26 +157,9 @@
             </dependency>
 
             <!-- Logging: SLF4J -->
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>jcl-over-slf4j</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-jcl</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>log4j-over-slf4j</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
+            <!-- Managed by Spring Boot Dependencies -->
+
+            <!-- Logging: other frameworks -->
             <dependency>
                 <groupId>log4j</groupId>
                 <artifactId>log4j</artifactId>
@@ -219,11 +170,9 @@
                 <artifactId>commons-logging</artifactId>
                 <version>1.1.3</version>
             </dependency>
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-classic</artifactId>
-                <version>1.2.3</version>
-            </dependency>
+
+            <!-- Logging: Logback -->
+            <!-- Managed by Spring Boot Dependencies -->
             <dependency>
                 <groupId>ch.qos.logback.contrib</groupId>
                 <artifactId>logback-json-classic</artifactId>
@@ -299,43 +248,10 @@
             </dependency>
 
             <!-- JSON processing: Jackson -->
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-core</artifactId>
-                <version>${jackson.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-databind</artifactId>
-                <version>${jackson.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-annotations</artifactId>
-                <version>${jackson.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.dataformat</groupId>
-                <artifactId>jackson-dataformat-yaml</artifactId>
-                <version>${jackson.version}</version>
-            </dependency>
+            <!-- Managed by Spring Boot Dependencies -->
 
             <!-- Dynamic SQL query generation: QueryDSL -->
-            <dependency>
-                <groupId>com.querydsl</groupId>
-                <artifactId>querydsl-core</artifactId>
-                <version>${querydsl.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.querydsl</groupId>
-                <artifactId>querydsl-sql</artifactId>
-                <version>${querydsl.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.querydsl</groupId>
-                <artifactId>querydsl-jpa</artifactId>
-                <version>${querydsl.version}</version>
-            </dependency>
+            <!-- Managed by Spring Boot Dependencies -->
 
             <!-- Caching -->
             <dependency>
@@ -352,12 +268,7 @@
             </dependency>
 
             <!-- Testing, test framework: JUnit -->
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>4.12</version>
-                <scope>test</scope>
-            </dependency>
+            <!-- Managed by Spring Boot Dependencies -->
 
             <!-- Testing, load test driver: Apache JMeter -->
             <dependency>
@@ -368,12 +279,7 @@
             </dependency>
 
             <!-- Testing, mocking framework: Mockito -->
-            <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-all</artifactId>
-                <version>1.10.19</version>
-                <scope>test</scope>
-            </dependency>
+            <!-- Managed by Spring Boot Dependencies -->
 
             <!-- Testen, Mocking-Framework: WireMock -->
             <dependency>
@@ -382,6 +288,7 @@
                 <version>2.27.2</version>
                 <scope>test</scope>
             </dependency>
+            <!-- Managed by Spring Boot Dependencies -->
 
             <!-- Testing, test framework (addon): DBUnit -->
             <dependency>
@@ -392,20 +299,10 @@
             </dependency>
 
             <!-- Testing, assertion API: AssertJ -->
-            <dependency>
-                <groupId>org.assertj</groupId>
-                <artifactId>assertj-core</artifactId>
-                <version>3.12.0</version>
-                <scope>test</scope>
-            </dependency>
+            <!-- Managed by Spring Boot Dependencies -->
 
             <!-- Testing, in-memory database: H2 -->
-            <dependency>
-                <groupId>com.h2database</groupId>
-                <artifactId>h2</artifactId>
-                <version>1.4.196</version>
-                <scope>test</scope>
-            </dependency>
+            <!-- Managed by Spring Boot Dependencies -->
 
             <!-- Apache Commons-Validator -->
             <dependency>

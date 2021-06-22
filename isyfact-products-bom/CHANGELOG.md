@@ -1,4 +1,5 @@
 # 2.2.0
+- `IFS-601`: Einbindung folgender Produkte über die Spring Boot Dependencies: JPA, JTA, Spring, Hibernate, Jackson, QueryDSL, SLF4J, Logback, JUnit, Mockito, AssertJ, H2.
 - `IFS-643`: WireMock in products.bom ergänzt
 - `IFS-465`: Profile zum Bauen mit Java 11 erstellt
 - `IFS-491`: Jackson Version auf 2.10.1 angehoben

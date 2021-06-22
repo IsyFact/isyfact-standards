@@ -1,4 +1,5 @@
 # 2.2.0
+- `IFS-601`: [isy-products-bom] Einbindung folgender Produkte über die Spring Boot Dependencies: JPA, JTA, Spring, Hibernate, Jackson, QueryDSL, SLF4J, Logback, JUnit, Mockito, AssertJ, H2.
 - `IFS-453`: [isy-ueberwachung] Loglevel für isAlive-Datei-Ereignisse erhöht.
 - `IFS-465`: Profile zum Bauen mit Java 11 erstellt
 - `IFS-489`: [isy-logging] Entferne beim Loggen deklarierte Throwables in Methodensignaturen
