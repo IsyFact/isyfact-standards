@@ -14,23 +14,23 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.isyfact.sonderzeichen.dinspec91379.core.transformation;
+package de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation;
 
 /**
  * Interface for all possible transformers. Defines methods that every transformer can offer.
- * 
+ *
  */
 public interface Transformator {
 
     /**
      * Transforms a string. Ensures that the string has the specified length after the operation. There is no
      * distinction between whether the original string length has already exceeded the maximum or whether the
-     * string was only lengthened by a transformation. <br> Returns <code> null </code> if the string is
+     * string was only lengthened by a transformation. <br> Returns {@code null} if the string is
      * <code> null </ code > was passed.
-     * 
+     *
      * Important! The same restrictions apply to non-BMP characters as we do to
      * {@link #transformiere(String)}
-     * 
+     *
      * @param zeichenkette
      *            The string to transform
      * @param maximaleLaenge
@@ -41,9 +41,9 @@ public interface Transformator {
 
     /**
      * Transforms a string and returns it. Spaces at the beginning and at the end of the character string are
-     * cut off. Duplicate spaces within the string are converted to a space. <br> Returns <code> null </code>
-     * if the string was passed as <code> null </code>.
-     * 
+     * cut off. Duplicate spaces within the string are converted to a space. <br> Returns {@code null}
+     * if the string was passed as {@code null}.
+     *
      * Important! The transformation function processes the character string char for char. If a Unicode
      * character, which consists of several char objects, is defined (non-BMP character, e.g. I with appended
      * circumflex (\\u006C\\u0302), the transformation function delivers the correct result, but cannot
@@ -59,9 +59,9 @@ public interface Transformator {
 
     /**
      * Transforms a string and returns it. Does not trim at the end.
-     * 
+     *
      * Important! The same restrictions apply for non-BMP characters as for {@link #transformiere(String)}
-     * 
+     *
      * @param zeichenkette
      *            The string to transform
      * @return the transformed string, or null if null was passed
@@ -98,7 +98,7 @@ public interface Transformator {
 
     /**
      * Checks with the help of a rule whether a substring to be transliterated fulfills a certain condition.
-     * 
+     *
      * @param regel
      *            Number of the rule to be evaluated.
      * @param text

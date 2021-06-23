@@ -4,6 +4,9 @@
     + Neue Implementierung in `de.bund.bva.isyfact.sonderzeichen.dinspec91379` erstellt
     + Neue Transformation und Kategorie Tabelle hinzugefügt
     + Neue Resource und Regel für Transkription hinzugefügt
+- `IFS-1003`:
+    + Refactoring des DIN-SPEC-Packages von isy-sonderzeichen
+    + Entfernen des `core`-Unterpakets des DIN-SPEC-Packages von isy-sonderzeichen
 
 # 2.0.0
 - `IFS-32`: Package-Name auf de.bund.bva.isyfact geändert

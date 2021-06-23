@@ -14,7 +14,7 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.isyfact.sonderzeichen.dinspec91379.core.transformation.impl;
+package de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.impl;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
@@ -41,7 +41,7 @@ public class IdentischerTransformator extends AbstractTransformator {
 
     @Override
     protected IsyLogger getLogger() {
-        return IdentischerTransformator.LOG;
+        return LOG;
     }
 
     @Override
