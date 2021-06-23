@@ -2,11 +2,6 @@
 - `IFS-874`: Umsetzung des Transports von OAuth 2 Bearer Tokens zwischen Schnittstellentechnologien
     - `IsyHttpInvokerServiceExporter` und `TimeoutWiederholungHttpInvokerRequestExecutor` um den `AufrufKontextVerwalter` erweitert.
     - Der OAuth 2 Bearer Token wird über den HTTP Authentication Header transportiert bzw. aus diesem ausgelesen.
-
-# 2.2.0
-- `IFS-564`: Deaktivieren von Proxy-Objekten in HttpInvoker Schnittstellen
-- `IFS-597`: Verwendung der Klasse `IsyHttpInvokerServiceExporter` anstatt `HttpInvokerServiceExporter`
-  aus Tests entfernt
 - `IFS-977`: Statische Auflösung des AufrufKontextTo durch Bean-Lösung abgelöst
     * AufrufKontextToHelper ist deprecated -> stattdessen AufrufKontextToResolver verwenden
     * DefaultAufrufKontextToResolver wird auch in der Autoconfig automatisch erstellt und steht für Autowiring zur Verfügung
@@ -15,6 +10,11 @@
         * `StelltAllgemeinenAufrufKontextBereitInterceptor`
         * `StelltLoggingKontextBereitInterceptor`
         * `IsyHttpInvokerClientInterceptor`
+
+# 2.2.0
+- `IFS-564`: Deaktivieren von Proxy-Objekten in HttpInvoker Schnittstellen
+- `IFS-597`: Verwendung der Klasse `IsyHttpInvokerServiceExporter` anstatt `HttpInvokerServiceExporter`
+  aus Tests entfernt
 
 # 2.1.0
 - `IFS-378`: Reihenfolge der Schnittstellenannotationen angepasst
