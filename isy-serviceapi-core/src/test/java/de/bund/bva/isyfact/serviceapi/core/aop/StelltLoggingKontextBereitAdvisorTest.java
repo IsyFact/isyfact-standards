@@ -23,13 +23,13 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import de.bund.bva.isyfact.serviceapi.core.aop.test.LoggingKontextAdvisorService;
+import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.DefaultAufrufKontextToResolver;
 
 /**
- * Klasse zum Testen der Standardanwendungsreihenfolge des StelltLoggingKontextBereit Advisors
+ * Tests for default order of StelltLoggingKontextBereit advisors
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = StelltLoggingKontextBereitAdvisorTest.TestConfig.class,
-        properties = {"isy.logging.autoconfiguration.enabled=false"})
+@SpringBootTest(classes = StelltLoggingKontextBereitAdvisorTest.TestConfig.class, properties = "isy.logging.autoconfiguration.enabled=false")
 public class StelltLoggingKontextBereitAdvisorTest {
 
     private static final List<String> executionOrder = new ArrayList<>(2);
@@ -79,19 +79,19 @@ public class StelltLoggingKontextBereitAdvisorTest {
         }
 
         /**
-         * Erstellt einen angepassten {@link StelltLoggingKontextBereitInterceptor}, der sich selbst in die
-         * executionOrder einträgt. Diese Bean ist mit @Primary versehen, so dass sie
-         * standardmäßig von dem stelltAufrufKontextBereit Advisor in der Auto Configuration benutzt wird.
-         * @return Ein angepasster {@link StelltLoggingKontextBereitInterceptor}
+         * Creates a customized {@link StelltLoggingKontextBereitInterceptor}, which enters itself into
+         * the executionOrder. This Bean is marked as @Primary, so it will be used by the
+         * stelltAufrufKontextBereit Advisor in the Auto Configuration.
+         * @return A customized {@link StelltLoggingKontextBereitInterceptor}
          */
         @Bean(name = "CustomStelltLoggingKontextBereitInterceptor")
         @Primary
         public StelltLoggingKontextBereitInterceptor stelltLoggingKontextBereitInterceptorMock() {
-            return new StelltLoggingKontextBereitInterceptor() {
+            return new StelltLoggingKontextBereitInterceptor(new DefaultAufrufKontextToResolver()) {
                 @Override
                 public Object invoke(MethodInvocation invocation) throws Throwable {
-                    StelltLoggingKontextBereitAdvisorTest.executionOrder
-                            .add(this.toString());
+                    executionOrder
+                            .add(toString());
                     return invocation.proceed();
                 }
 
@@ -103,17 +103,17 @@ public class StelltLoggingKontextBereitAdvisorTest {
         }
 
         /**
-         * Erstellt einen DummyInterceptor, der sich selbst in die executionOrder einträgt.
-         * Dieser Interceptor wird in dem Dummy Advisor eingesetzt.
-         * @return Einen DummyInterceptor
+         * Creates a DummyInterceptor, which enters itself into the executionOrder
+         * This Interceptor is used by the Dummy Advisor.
+         * @return A dummy interceptor
          */
         @Bean(name = "UnorderedDummyAnnotationInterceptor")
         public MethodInterceptor unorderedDummyAnnotationInterceptor() {
             return new MethodInterceptor() {
                 @Override
                 public Object invoke(MethodInvocation invocation) throws Throwable {
-                    StelltLoggingKontextBereitAdvisorTest.executionOrder
-                            .add(this.toString());
+                    executionOrder
+                            .add(toString());
                     return invocation.proceed();
                 }
 
@@ -125,9 +125,10 @@ public class StelltLoggingKontextBereitAdvisorTest {
         }
 
         /**
-         * Erstellt einen Advisor der einen Pointcut für die Annotation {@link de.bund.bva.isyfact.serviceapi.core.aop.test.LoggingKontextAdvisorService.UnorderedDummyAnnotation}
-         * macht und den DummyInterceptor ausführt.
-         * @return Ein DummyAdvisor für die Annotation {@link de.bund.bva.isyfact.serviceapi.core.aop.test.LoggingKontextAdvisorService.UnorderedDummyAnnotation}
+         * Creates an advisor that is a pointcut for the Annotation
+         * {@link LoggingKontextAdvisorService.UnorderedDummyAnnotation}
+         * and executes DummyInterceptor.
+         * @return A DummyAdvisor for the annotation {@link LoggingKontextAdvisorService.UnorderedDummyAnnotation}
          */
         @Bean
         public Advisor unorderedDummyAnnotationAdvisor() throws Throwable {

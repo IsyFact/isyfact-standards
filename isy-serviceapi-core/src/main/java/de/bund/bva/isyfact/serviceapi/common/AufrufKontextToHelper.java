@@ -16,33 +16,27 @@
  */
 package de.bund.bva.isyfact.serviceapi.common;
 
+import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.AufrufKontextToResolver;
+import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.DefaultAufrufKontextToResolver;
 import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 
 /**
- * Hilfsklasse zum Ermitteln des AufrufKontextTo aus den Serviceparametern.
- * 
+ * Helperclass to resolve AufrufKontextTo from service parameters.
+ * @deprecated use non-static {@link AufrufKontextToResolver} as a bean instead.
  */
+@Deprecated
 public class AufrufKontextToHelper {
 
     /**
-     * Lädt den ersten gefundenen {@link AufrufKontextTo} aus den Parametern der aufgerufenen Funktion.
+     * Loads the first {@link AufrufKontextTo} found from the parameters of the called function.
      * 
      * @param args
-     *            die Argumente der Service-Operation
+     *            arguments of the service call
      * 
-     * @return das AufrufKontextTo Objekt
+     * @return the AufrufKontextTo object
      */
     public static AufrufKontextTo leseAufrufKontextTo(Object[] args) {
-        
-        if (args != null && args.length > 0) {
-            for (Object parameter : args) {
-                if (parameter instanceof AufrufKontextTo) {
-                    return (AufrufKontextTo) parameter;
-                }
-            }
-        }
-        
-        return null;
+        return new DefaultAufrufKontextToResolver().leseAufrufKontextTo(args).orElse(null);
     }
 
 }

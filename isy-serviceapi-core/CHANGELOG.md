@@ -7,6 +7,14 @@
 - `IFS-564`: Deaktivieren von Proxy-Objekten in HttpInvoker Schnittstellen
 - `IFS-597`: Verwendung der Klasse `IsyHttpInvokerServiceExporter` anstatt `HttpInvokerServiceExporter`
   aus Tests entfernt
+- `IFS-977`: Statische Auflösung des AufrufKontextTo durch Bean-Lösung abgelöst
+    * AufrufKontextToHelper ist deprecated -> stattdessen AufrufKontextToResolver verwenden
+    * DefaultAufrufKontextToResolver wird auch in der Autoconfig automatisch erstellt und steht für Autowiring zur Verfügung
+    * folgende Klassen benötigen jetzt den Resolver als Pflichtparameter:
+        * `StelltAufrufKontextBereitInterceptor`
+        * `StelltAllgemeinenAufrufKontextBereitInterceptor`
+        * `StelltLoggingKontextBereitInterceptor`
+        * `IsyHttpInvokerClientInterceptor`
 
 # 2.1.0
 - `IFS-378`: Reihenfolge der Schnittstellenannotationen angepasst

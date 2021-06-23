@@ -19,6 +19,14 @@
 - `IFS-568`: [isy-util] Entfernt redundante Methode aus dem MessageSourceHolder
 - `IFS-693`: [isy-batchrahmen] Initialisierung des LoggerKontexts für Anwendungskontext
 - `IFS-741`: [isy-persistence] Entferne das Anlegen von DB-User in Update-Skripten
+- `IFS-977`: [isy-serviceapi-core] Statische Auflösung des AufrufKontextTo durch Bean-Lösung abgelöst
+    * AufrufKontextToHelper ist deprecated -> stattdessen AufrufKontextToResolver verwenden
+    * DefaultAufrufKontextToResolver wird auch in der Autoconfig automatisch erstellt und steht für Autowiring zur Verfügung
+    * folgende Klassen benötigen jetzt den Resolver als Pflichtparameter:
+        * `StelltAufrufKontextBereitInterceptor`
+        * `StelltAllgemeinenAufrufKontextBereitInterceptor`
+        * `StelltLoggingKontextBereitInterceptor`
+        * `IsyHttpInvokerClientInterceptor`
 - `IFS-676`: Versionsupdate von OpenCSV 3.8 auf 5.3
     * Hinweise zu Breaking Changes s. Changelog.md der isyfact-products-bom
 - `IFS-1004`: [isy-sonderzeichen]
