@@ -84,7 +84,17 @@
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
-                <artifactId>isy-sst-bridge</artifactId>
+                <artifactId>isy-exception-sst-bridge</artifactId>
+                <version>${project.parent.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.bund.bva.isyfact</groupId>
+                <artifactId>isy-serviceapi-sst-bridge</artifactId>
+                <version>${project.parent.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.bund.bva.isyfact</groupId>
+                <artifactId>isy-serviceapi-core-bridge</artifactId>
                 <version>${project.parent.version}</version>
             </dependency>
             <dependency>

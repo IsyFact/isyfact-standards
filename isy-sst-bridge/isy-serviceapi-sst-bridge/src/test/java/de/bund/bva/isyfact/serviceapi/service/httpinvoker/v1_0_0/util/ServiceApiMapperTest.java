@@ -12,7 +12,7 @@ import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.ClientAufrufKon
 
 public class ServiceApiMapperTest {
 
-    private ServiceApiMapper mapper = new ServiceApiMapper();
+    private final ServiceApiMapper mapper = new ServiceApiMapper();
 
     @Test
     public void mapNullAufrufKontextTo() {
@@ -38,10 +38,41 @@ public class ServiceApiMapperTest {
     @Test
     public void mapClientAufrufKontextTo() {
         ClientAufrufKontextTo isyClientAufrufKontextTo = getIsyClientAufrufKontextToStub();
-        de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.ClientAufrufKontextTo plisClientAufrufKontextTo =
-                mapper.map(isyClientAufrufKontextTo);
+        de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.ClientAufrufKontextTo
+            plisClientAufrufKontextTo =
+            mapper.map(isyClientAufrufKontextTo);
         assertNotNull(plisClientAufrufKontextTo);
         assertTrue(areEqual(isyClientAufrufKontextTo, plisClientAufrufKontextTo));
+    }
+
+    @Test
+    public void mapReverseNullAufrufKontextTo() {
+        de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo plisAkTo = null;
+        assertNull(mapper.map(plisAkTo));
+    }
+
+    @Test
+    public void mapReverseNullClientAufrufKontextTo() {
+        de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.ClientAufrufKontextTo plisClientAkTo = null;
+        assertNull(mapper.map(plisClientAkTo));
+    }
+
+    @Test
+    public void mapReverseAufrufKontextTo() {
+        de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo plisAkTo = getPlisAufrufKontextToStub();
+        AufrufKontextTo isyAkTo =
+                mapper.map(plisAkTo);
+        assertNotNull(isyAkTo);
+        assertTrue(areEqual(isyAkTo, plisAkTo));
+    }
+
+    @Test
+    public void mapReverseClientAufrufKontextTo() {
+        de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.ClientAufrufKontextTo plisClientAkTo = getPlisClientAufrufKontextToStub();
+        ClientAufrufKontextTo isyClientAkTo =
+                mapper.map(plisClientAkTo);
+        assertNotNull(isyClientAkTo);
+        assertTrue(areEqual(isyClientAkTo, plisClientAkTo));
     }
 
     private AufrufKontextTo getIsyAufrufKontextToStub() {
@@ -57,6 +88,26 @@ public class ServiceApiMapperTest {
 
     private ClientAufrufKontextTo getIsyClientAufrufKontextToStub() {
         ClientAufrufKontextTo clientAufrufKontextTo = new ClientAufrufKontextTo();
+        clientAufrufKontextTo.setKennung("GEORGE123");
+        clientAufrufKontextTo.setKennwort("123");
+        clientAufrufKontextTo.setZertifikat(new byte[] {1, 2, 3, 4});
+        clientAufrufKontextTo.setZertifikatKennwort(null);
+        return clientAufrufKontextTo;
+        }
+
+    private de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo getPlisAufrufKontextToStub() {
+        de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo aufrufKontextTo = new de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo();
+        aufrufKontextTo.setDurchfuehrendeBehoerde("123456");
+        aufrufKontextTo.setDurchfuehrenderBenutzerKennung("plis.mustermann@bva.bund.de");
+        aufrufKontextTo.setDurchfuehrenderBenutzerPasswort(null);
+        aufrufKontextTo.setDurchfuehrenderSachbearbeiterName("Plis Mustermann");
+        aufrufKontextTo.setRolle(new String[] {});
+        aufrufKontextTo.setRollenErmittelt(aufrufKontextTo.getRolle() != null);
+        return aufrufKontextTo;
+    }
+
+    private de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.ClientAufrufKontextTo getPlisClientAufrufKontextToStub() {
+        de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.ClientAufrufKontextTo clientAufrufKontextTo = new de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.ClientAufrufKontextTo();
         clientAufrufKontextTo.setKennung("GEORGE123");
         clientAufrufKontextTo.setKennwort("123");
         clientAufrufKontextTo.setZertifikat(new byte[] {1, 2, 3, 4});

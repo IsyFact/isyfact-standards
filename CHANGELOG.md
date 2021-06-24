@@ -1,8 +1,14 @@
 # 2.3.0
+- `IFS-601`: [isy-products-bom] Einbindung folgender Produkte über die Spring Boot Dependencies: JPA, JTA, Spring, Hibernate, Jackson, QueryDSL, SLF4J, Logback, JUnit, Mockito, AssertJ, H2.
 - `IFS-874`: [isy-aufrufkontext], [isy-serviceapi-core] Umsetzung des Transports von OAuth 2 Bearer-Token zwischen Schnittstellentechnologien.
+- `IFS-1004`: [isy-sonderzeichen]
+    + Refactoring des DIN-SPEC-Packages von isy-sonderzeichen
+    + Entfernen des `core`-Unterpakets des DIN-SPEC-Packages von isy-sonderzeichen
+- `IFS-978`: [isy-sst-bridge] Bridge-Erweiterung:
+    * ServiceApiMapper unterstützt Mapping von AufrufKontextTo auch in Gegenrichtung (IF1 zu IF2)
+    * AufrufKontextToResolver hinzugefügt, der sowohl mit IF1, als auch IF2-AufrufKontextTo umgehen kann
 
 # 2.2.0
-- `IFS-601`: [isy-products-bom] Einbindung folgender Produkte über die Spring Boot Dependencies: JPA, JTA, Spring, Hibernate, Jackson, QueryDSL, SLF4J, Logback, JUnit, Mockito, AssertJ, H2.
 - `IFS-453`: [isy-ueberwachung] Loglevel für isAlive-Datei-Ereignisse erhöht.
 - `IFS-465`: Profile zum Bauen mit Java 11 erstellt
 - `IFS-489`: [isy-logging] Entferne beim Loggen deklarierte Throwables in Methodensignaturen
@@ -29,9 +35,6 @@
         * `IsyHttpInvokerClientInterceptor`
 - `IFS-676`: Versionsupdate von OpenCSV 3.8 auf 5.3
     * Hinweise zu Breaking Changes s. Changelog.md der isyfact-products-bom
-- `IFS-1004`: [isy-sonderzeichen]
-    + Refactoring des DIN-SPEC-Packages von isy-sonderzeichen
-    + Entfernen des `core`-Unterpakets des DIN-SPEC-Packages von isy-sonderzeichen
 
 # 2.1.0
 - `IFS-156`: [isy-sicherheit] Sonderlogik, die Underscores aus dem Attribut `durchfuehrenderSachbearbeiterName` des Aufrufkontextes entfernt erneut ausgebaut.
