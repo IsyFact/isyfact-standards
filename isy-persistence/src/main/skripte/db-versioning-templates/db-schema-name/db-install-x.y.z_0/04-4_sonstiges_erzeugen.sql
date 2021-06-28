@@ -21,9 +21,3 @@
 -- ----------------------------------------------------------------------------------------------------------------
 -- Beispiel: Erstellen einer Queue-Tabelle und einer Queue.
 -- ----------------------------------------------------------------------------------------------------------------
-
-begin
-    dbms_aqadm.create_queue_table(queue_table => 'XXX_queue_table', queue_payload_type => 'sys.aq$_jms_message');
-    dbms_aqadm.create_queue(queue_name => 'XXX_queue', queue_table => 'XXX_queue_table', max_retries => 2147483647, retry_delay => 10);
-end;
-/

@@ -39,17 +39,19 @@ SPOOL &P_LOG_DATEI
 @&P_ENVIRONMENT_SCRIPT
 
 -- Pruefen, dass der Status des Hauptschemas auf "bereit" steht
+CONNECT &SYSADMIN_CONNECTION
 declare
-  statushauptschema varchar2(6);
+statushauptschema varchar2(6);
 begin
-  SELECT STATUS into statushauptschema 
-  from &SCHEMA_NAME_HAUPTSCHEMA..m_schema_version 
-  where version_nummer = '&SCHEMA_VERSION' and update_nummer = '&SCHEMA_UPDATE' and status = 'bereit';
+SELECT STATUS into statushauptschema
+from &SCHEMA_NAME_HAUPTSCHEMA..m_schema_version
+where version_nummer = '&SCHEMA_VERSION' and update_nummer = '&SCHEMA_UPDATE' and status = 'bereit';
 exception
   when no_data_found
   then raise_application_error(-20000, 'Die übergreifenden Operationen konnten nicht ausgeführt werden, weil das Hauptschema nicht auf bereit steht.');
 end;
 /
+DISCONNECT
 
 -- Schritt 2: Schemaübergreifende Rechte setzen
 CONNECT &SYSADMIN_CONNECTION
@@ -63,13 +65,13 @@ CONNECT &SYSADMIN_CONNECTION
 DISCONNECT
 
 -- Schritt 4: Abschlussbearbeitung
-CONNECT &SYSADMIN_CONNECTION 
+CONNECT &SYSADMIN_CONNECTION
 @99_starte-skript-mit-logging.sql 94_abschlussbearbeitung.sql '94' 'Abschlussbearbeitung durchfuehren'
 COMMIT;
 DISCONNECT
 
 -- Schritt 5: Benutzerrechte entziehen
-CONNECT &SYSADMIN_CONNECTION 
+CONNECT &SYSADMIN_CONNECTION
 @99_starte-skript-mit-logging.sql 95_user_rechte_entziehen.sql '95' 'Benutzerrechte entziehen'
 
 -- Das Hauptschema auf 'gueltig' setzen.

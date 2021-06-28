@@ -20,7 +20,3 @@
  Das können bspw. Stammdaten-Importe oder das abschließende Setzen von Rechten auf Objekten, die es vorher
  nicht gab.
 */
-
--- Protkollrechecher Nutzer die Rechte auf die Export-Tabelle geben. Hier weil im Schritt 3 die Tabelle
--- noch nicht existiert.
-GRANT SELECT ON &USERNAME..protokolltrefferexport TO &USERNAME_PROTRECH;

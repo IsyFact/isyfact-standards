@@ -21,4 +21,4 @@
 --------------------------------------------------------
 --  Synonym für die Tabelle TABLEX erstellen.
 --------------------------------------------------------
-CREATE SYNONYM &SCHEMA_NAME_HAUPTSCHEMA..TABELX FOR &SCHEMA_NAME_NEBENSCHEMA..TABLEX;
+CREATE SYNONYM &SCHEMA_NAME_HAUPTSCHEMA..TABLE9 FOR &SCHEMA_NAME_NEBENSCHEMA..TABLE1;
