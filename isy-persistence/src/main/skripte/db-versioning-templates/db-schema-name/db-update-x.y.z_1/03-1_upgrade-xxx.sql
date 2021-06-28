@@ -22,4 +22,4 @@
 --  DDL for Table TABLE1
 --------------------------------------------------------
 ALTER TABLE TABLE1
-ADD COL_C VARCHAR2(255 CHAR) DEFAULT 'NEW COL';
+ADD COL_J VARCHAR2(255 CHAR) DEFAULT 'NEW COL';

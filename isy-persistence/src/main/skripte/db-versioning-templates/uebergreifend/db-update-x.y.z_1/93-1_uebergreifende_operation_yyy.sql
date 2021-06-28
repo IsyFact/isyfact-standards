@@ -21,4 +21,4 @@
 --------------------------------------------------------
 --  Synonym für die Sequence SEQ_TABLE2 erstellen.
 --------------------------------------------------------
-CREATE SYNONYM &SCHEMA_NAME_NEBENSCHEMA..SEQ_TABLE2 FOR &SCHEMA_NAME_HAUPTSCHEM..SEQ_TABLE2;
+CREATE SYNONYM &SCHEMA_NAME_NEBENSCHEMA..SEQ_TABLE9 FOR &SCHEMA_NAME_HAUPTSCHEMA..SEQ_TABLE2;
