@@ -1,3 +1,6 @@
+# 2.3.0
+- `IFS-970`: Spring-Boot Versionsanhebung auf 2.5.2 und Spring auf Version 5.3.8
+
 # 2.2.0
 - `IFS-601`: Einbindung folgender Produkte über die Spring Boot Dependencies: JPA, JTA, Spring, Hibernate, Jackson, QueryDSL, SLF4J, Logback, JUnit, Mockito, AssertJ, H2.
 - `IFS-643`: WireMock in products.bom ergänzt

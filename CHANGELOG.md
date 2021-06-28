@@ -7,6 +7,7 @@
 - `IFS-978`: [isy-sst-bridge] Bridge-Erweiterung:
     * ServiceApiMapper unterstützt Mapping von AufrufKontextTo auch in Gegenrichtung (IF1 zu IF2)
     * AufrufKontextToResolver hinzugefügt, der sowohl mit IF1, als auch IF2-AufrufKontextTo umgehen kann
+- `IFS-970`: [isy-products-bom] Spring-Boot Versionsanhebung auf 2.5.2 und Spring auf Version 5.3.8
 
 # 2.2.0
 - `IFS-453`: [isy-ueberwachung] Loglevel für isAlive-Datei-Ereignisse erhöht.
