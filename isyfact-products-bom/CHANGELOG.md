@@ -1,6 +1,7 @@
 # 2.3.0
 - `IFS-987`: Entferne log4j
 - `IFS-970`: Spring-Boot Versionsanhebung auf 2.5.2
+- `IFS-984`: Eigene Version von Ehcache durch Spring Boot Managed Dependencies ersetzt
 
 # 2.2.0
 - `IFS-601`: Einbindung folgender Produkte über die Spring Boot Dependencies: JPA, JTA, Spring, Hibernate, Jackson, QueryDSL, SLF4J, Logback, JUnit, Mockito, AssertJ, H2.
