@@ -1,6 +1,7 @@
 # 2.3.0
 - `IFS-601`: [isy-products-bom] Einbindung folgender Produkte über die Spring Boot Dependencies: JPA, JTA, Spring, Hibernate, Jackson, QueryDSL, SLF4J, Logback, JUnit, Mockito, AssertJ, H2.
 - `IFS-874`: [isy-aufrufkontext], [isy-serviceapi-core] Umsetzung des Transports von OAuth 2 Bearer-Token zwischen Schnittstellentechnologien.
+- `IFS-1066`: [isy-persistence] Protokollierung-Datenstrukturen aus den Template-DB-Skripten entfernt
 - `IFS-1004`: [isy-sonderzeichen]
     + Refactoring des DIN-SPEC-Packages von isy-sonderzeichen
     + Entfernen des `core`-Unterpakets des DIN-SPEC-Packages von isy-sonderzeichen
