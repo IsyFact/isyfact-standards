@@ -1,6 +1,7 @@
 # 1.9.1
 - `IFS-875`: [isy-aufrufkontext], [isy-serviceapi-core] Umsetzung des Transports von OAuth 2 Bearer-Token zwischen Schnittstellentechnologien
 - `IFS-1066`: [isy-persistence] Protokollierung-Datenstrukturen aus den Template-DB-Skripten entfernt
+- `IFS-1093`: [isyfact-products-bom] Anhebung von Oracle-JDBC und UCP auf 19.11
 
 
 # 1.9.0
