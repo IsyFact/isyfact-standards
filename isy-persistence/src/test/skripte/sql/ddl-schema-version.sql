@@ -18,8 +18,9 @@
 -- Dieses Skript erzeugt die für die Versionsüberwachung benötigte Tabelle.
 -- ------------------------------------------------------------------------
 
-create table m_schema_version (
-  version varchar2(25 char),
-  status varchar2(25 char),
-  constraint pk_m_schema_version primary key (version)
-};
+create table m_schema_version
+(
+    version_nummer varchar2(25 char),
+    status  varchar2(25 char),
+    constraint pk_m_schema_version primary key (version)
+);

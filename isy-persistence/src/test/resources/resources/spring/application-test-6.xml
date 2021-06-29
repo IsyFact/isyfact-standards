@@ -58,7 +58,6 @@
         </property>
         <property name="schemaVersion" value="1.2.3" />
         <property name="invalidSchemaVersionAction" value="fail"></property>
-        <property name="schema" value="${database.username}"/>
     </bean>
 
 </beans>

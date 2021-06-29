@@ -24,10 +24,12 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import de.bund.bva.pliscommon.persistence.KomponentenIntegrationsTest;
 
 /**
  * Test für die Überprüfung der DB-Schemaversion.
@@ -39,7 +41,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * Die DDL für diese Tabelle steht unter src/test/skripte/sql/ddl-schema-version.sql
  *
  */
-@Ignore("DB notwendig")
+@Category(KomponentenIntegrationsTest.class)
 public class SchemaVersionTest {
 
     /**

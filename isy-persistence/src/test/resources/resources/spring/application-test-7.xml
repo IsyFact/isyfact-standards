@@ -36,8 +36,8 @@
         <property name="targetDataSource" >
             <bean class="oracle.jdbc.pool.OracleDataSource" destroy-method="close">
                 <property name="URL" value="${database.url}" />
-                <property name="user" value="${database.username}" />
-                <property name="password" value="${database.password}" />
+                <property name="user" value="${database.username2}" />
+                <property name="password" value="${database.password2}" />
                 <property name="connectionCachingEnabled" value="true" />
                 <property name="connectionCacheProperties">
                     <props>
@@ -58,7 +58,6 @@
         </property>
         <property name="schemaVersion" value="1.2.3" />
         <property name="invalidSchemaVersionAction" value="fail"></property>
-        <property name="schema" value="${database.username2}"/>
     </bean>
 
 </beans>
