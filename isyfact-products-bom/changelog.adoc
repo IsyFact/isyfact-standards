@@ -1,6 +1,11 @@
 [[changelog]]
 = Changelog
 
+*Änderungen IsyFact 2.3.0*
+// tag::release-2.3.0[]
+- `IFS-985`: Spring Security entfernt (Verwaltung der Version über Spring Boot)
+// end::release-2.3.0[]
+
 *Änderungen IsyFact 2.2.0*
 // tag::release-2.2.0[]
 - `IFS-643`: WireMock in products.bom ergänzt
