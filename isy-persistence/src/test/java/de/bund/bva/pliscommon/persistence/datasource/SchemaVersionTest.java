@@ -32,21 +32,18 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import de.bund.bva.pliscommon.persistence.KomponentenIntegrationsTest;
 
 /**
- * Test für die Überprüfung der DB-Schemaversion.
+ * Test to verify the database schema version
  *
- * Testvorbereitung: Es werden 2 Datenbankschemas benötigt, die in jpa.properties angegeben werden. Das erste
- * Datenbankschema muss die Tabelle m_schema_version enthalten. Das zweite Datenbankschema darf diese Tabelle
- * nicht enthalten.
+ * Test preparation: Two database schemas need to be specified in the jpa.properties. The first database
+ * schema must contain the table m_schema_version, the second database schema must not contain this table.
  *
- * Die DDL für diese Tabelle steht unter src/test/skripte/sql/ddl-schema-version.sql
- *
+ * The DDL for this table is located here: src/test/skripte/sql/ddl-schema-version.sql
  */
 @Category(KomponentenIntegrationsTest.class)
 public class SchemaVersionTest {
 
     /**
-     * Test 1: Testet, dass der Application-Context richtig hochfährt, wenn keine Versionsnummer angegeben
-     * ist.
+     * Test 1: Tests if the application context starts correctly when no version number is defined.
      */
     @Test
     public void testKeineAngabeSchemaVersion() {
@@ -63,9 +60,9 @@ public class SchemaVersionTest {
     }
 
     /**
-     * Test 2: Testet, dass der Application-Context richtig hochfährt, wenn die korrekte Versionsnummer
-     * angegeben ist.
-     * @throws SQLException
+     * Test 2: Tests if the application context starts correctly when the version number is specified
+     * correctly.
+     * @throws SQLException Exception when setting the schema version fails
      */
     @Test
     public void testKorrekteSchemaVersion() throws SQLException {
@@ -78,9 +75,9 @@ public class SchemaVersionTest {
     }
 
     /**
-     * Test 3: Testet, dass der Application-Context richtig hochfährt, wenn die falsche Versionsnummer
-     * angegeben ist und eine Warnung geloggt wird.
-     * @throws SQLException
+     * Test 3: Tests if the application context starts correctly when a wrong version number is specified
+     * and that a warning is logged in that case.
+     * @throws SQLException Exception when setting the schema version fails
      */
     @Test
     public void testFalscheSchemaVersionWarn() throws SQLException {
@@ -89,16 +86,15 @@ public class SchemaVersionTest {
             new ClassPathXmlApplicationContext("resources/spring/application-test-3.xml");
         assertNotNull("appDataSource ist nicht im Application-Kontext",
             applicationContext.getBean("appDataSource", PlisDataSource.class));
-        // Ausgabe des Logs manuell prüfen.
-        // Erwartete Ausgabe:
+        // Output of the log must be checked manually.
+        // Expected output:
         // WARN Die Version des Datenbankschemas entspricht nicht der erwarteten Version (1.2.3).
         applicationContext.close();
     }
 
     /**
-     * Test 4: Testet, dass der Application-Context nicht hochfährt, wenn die falsche Versionsnummer angegeben
-     * ist.
-     * @throws SQLException
+     * Test 4: Tests if the application context fails to start when a wrong version number is specified.
+     * @throws SQLException Exception when setting the schema version fails
      */
     @Test
     public void testFalscheSchemaVersionFail() throws SQLException {
@@ -115,8 +111,8 @@ public class SchemaVersionTest {
     }
 
     /**
-     * test 5: Testet, dass der Application-Context nicht hochfährt, wenn ein SQL-Fehler auftreten.
-     * @throws SQLException
+     * Test 5: Tests if the application context fails to start when an SQL error occurs.
+     * @throws SQLException Exception when setting the schema version fails
      */
     @Test
     public void testSchemaVersionSQLError() throws SQLException {
@@ -133,9 +129,9 @@ public class SchemaVersionTest {
     }
 
     /**
-     * Test 6: Testet, dass der Application-Context richtig hochfährt, wenn die korrekte Versionsnummer
-     * angegeben ist und ein Schemaname spezifiziert wurde.
-     * @throws SQLException
+     * Test 6: Tests if the application context starts correctly when the version number is specified
+     * correctly and and a schema name has been specified.
+     * @throws SQLException Exception when setting the schema version fails
      */
     @Test
     public void testKorrekteSchemaVersionUndSchema() throws SQLException {
@@ -148,9 +144,8 @@ public class SchemaVersionTest {
     }
 
     /**
-     * Test 7: Testet, dass der Application-Context nicht hochfährt, wenn ein SQL-Fehler (falsches Schema)
-     * auftreten.
-     * @throws SQLException
+     * Test 7: Tests if the application context fails to start when an SQL error (invalid schema) occurs.
+     * @throws SQLException Exception when setting the schema version fails
      */
     @Test
     public void testSchemaVersionSQLErrorFalschesSchema() throws SQLException {
@@ -167,13 +162,13 @@ public class SchemaVersionTest {
     }
 
     /**
-     * Legt eine Schema-Version an.
+     * Creates a schema version.
      *
      * @param version
-     *            Die Versionsnummer.
+     *            The version number.
      * @param status
-     *            Der Status der Version ("gueltig" oder "ungueltig")
-     * @throws SQLException
+     *            Status of the version ("gueltig" or "ungueltig": 'valid' or 'invalid')
+     * @throws SQLException Exception when setting the schema version fails
      */
     protected void setzeSchemaVersion(String version, String status) throws SQLException {
         ClassPathXmlApplicationContext applicationContext =

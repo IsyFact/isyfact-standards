@@ -17,6 +17,8 @@
 -- ------------------------------------------------------------------------
 -- Dieses Skript erzeugt die für die Versionsüberwachung benötigte Tabelle.
 -- ------------------------------------------------------------------------
+-- This script creates the tables needed for version control.
+-- ------------------------------------------------------------------------
 
 create table m_schema_version
 (
