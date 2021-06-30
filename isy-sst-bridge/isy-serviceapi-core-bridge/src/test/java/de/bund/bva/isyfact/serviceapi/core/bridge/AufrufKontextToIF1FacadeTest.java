@@ -5,11 +5,14 @@ import static org.mockito.Mockito.verify;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 
+@RunWith(SpringRunner.class)
 @SuppressWarnings("ResultOfMethodCallIgnored")
 public class AufrufKontextToIF1FacadeTest {
 
@@ -20,7 +23,7 @@ public class AufrufKontextToIF1FacadeTest {
 
     @Before
     public void setup(){
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
         aufrufKontextToIf2 = new AufrufKontextToIF1Facade(aufrufKontextToIf1);
     }
 
