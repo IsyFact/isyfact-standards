@@ -1,34 +1,40 @@
 package de.bund.bva.isyfact.serviceapi.core.bridge;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 
-@RunWith(SpringRunner.class)
 @SuppressWarnings("ResultOfMethodCallIgnored")
 public class AufrufKontextToIF1FacadeTest {
 
     @Spy
-    AufrufKontextTo aufrufKontextToIf1 = createAufrufKontextToIf1();
+    private AufrufKontextTo aufrufKontextToIf1 = createAufrufKontextToIf1();
 
-    de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo aufrufKontextToIf2;
+    private AutoCloseable mocks;
+
+    private de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo aufrufKontextToIf2;
 
     @Before
-    public void setup(){
-        MockitoAnnotations.openMocks(this);
+    public void openMocks() {
+        mocks = MockitoAnnotations.openMocks(this);
         aufrufKontextToIf2 = new AufrufKontextToIF1Facade(aufrufKontextToIf1);
     }
 
+    @After
+    public void closeMocks() throws Exception {
+        mocks.close();
+    }
+
     @Test
-    public void testPassThroughGetters(){
+    public void testPassThroughGetters() {
         String if2Result = aufrufKontextToIf2.getKorrelationsId();
         verify(aufrufKontextToIf1).getKorrelationsId();
         assertEquals(aufrufKontextToIf1.getKorrelationsId(), if2Result);
@@ -59,7 +65,7 @@ public class AufrufKontextToIF1FacadeTest {
     }
 
     @Test
-    public void testPassThroughSetters(){
+    public void testPassThroughSetters() {
         String wert = "korrId";
         aufrufKontextToIf2.setKorrelationsId(wert);
         assertEquals(wert, aufrufKontextToIf1.getKorrelationsId());
@@ -96,7 +102,7 @@ public class AufrufKontextToIF1FacadeTest {
         aufrufKontextTo.setDurchfuehrenderBenutzerPasswort("TEST3");
         aufrufKontextTo.setDurchfuehrenderSachbearbeiterName("TEST4");
         aufrufKontextTo.setKorrelationsId("TEST5");
-        aufrufKontextTo.setRolle(new String[] { "TEST6" });
+        aufrufKontextTo.setRolle(new String[] {"TEST6"});
         aufrufKontextTo.setRollenErmittelt(true);
         return aufrufKontextTo;
     }
