@@ -1,4 +1,5 @@
 # 2.3.0
+- `IFS-987`: Entferne log4j
 - `IFS-970`: Spring-Boot Versionsanhebung auf 2.5.2
 
 # 2.2.0
