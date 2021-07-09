@@ -1,3 +1,6 @@
+# 1.11.1
+- `IFS-1066`: Protokollierung-Datenstrukturen aus den Template-DB-Skripten entfernt
+
 # 1.11.0
 - `IFS-560`: Entferne das Anlegen von DB-User in Update-Skripten
 

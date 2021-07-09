@@ -3,6 +3,7 @@
 - `IFS-1003`: [isy-sonderzeichen]
   + Refactoring des DIN-SPEC-Packages von isy-sonderzeichen
   + Entfernen des `core`-Unterpakets des DIN-SPEC-Packages von isy-sonderzeichen
+- `IFS-1066`: [isy-persistence] Protokollierung-Datenstrukturen aus den Template-DB-Skripten entfernt
 
 # 1.9.0
 - `IFS-849`: [isy-sonderzeichen] DIN SPEC: isy-sonderzeichen Transformation
