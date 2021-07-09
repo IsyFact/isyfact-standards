@@ -14,34 +14,31 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.core.transformation;
+package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation;
 
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 
-import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.core.transformation.impl.AbstractTransformator;
+import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.impl.AbstractTransformator;
 
 
 /**
  * The factory for the respective transformer.
- * 
  */
-public class TransformatorFactory implements FactoryBean, InitializingBean {
-    
+public class TransformatorFactory implements FactoryBean<Object>, InitializingBean {
+
     /** The transformer is set via Spring. */
     private AbstractTransformator transformator;
-    
+
     /** Additional transformation table is set via Spring. */
     private String transformationsTabelle;
 
-    /**
-     * {@inheritDoc}
-     */
-    public void afterPropertiesSet() throws Exception {
+    @Override
+    public void afterPropertiesSet() {
         //Initialize transformer
         transformator.initialisiere(transformationsTabelle);
     }
-    
+
     public void setTransformationsTabelle(String transformationsTabelle) {
         this.transformationsTabelle = transformationsTabelle;
     }
@@ -50,27 +47,21 @@ public class TransformatorFactory implements FactoryBean, InitializingBean {
         this.transformator = transformator;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public Object getObject() throws Exception {
+    @Override
+    public Object getObject() {
         return transformator;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public Class getObjectType() {
+    @Override
+    public Class<?> getObjectType() {
         if (transformator == null) {
             return null;
         } else {
-            return Transformator.class.getClass();
+            return Transformator.class;
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
     public boolean isSingleton() {
         return true;
     }
