@@ -5,7 +5,7 @@
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
         <artifactId>isy-sst-bridge</artifactId>
-        <version>1.9.0</version>
+        <version>1.9.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>bridge-documentation</artifactId>
@@ -173,7 +173,7 @@
                                 </sourceDirectory>
                                 <sourceDocumentName>master.adoc</sourceDocumentName>
                                 <outputFile>
-                                    ${project.build.directory}/IsyFact-Bridge_Guide/bridgeguide.html
+                                    ${project.build.directory}/IsyFact-Bridge_Guide/IsyFact-SST-Bridge_Guide.html
                                 </outputFile>
                             </configuration>
                         </execution>
@@ -191,7 +191,7 @@
                                 </sourceDirectory>
                                 <sourceDocumentName>master.adoc</sourceDocumentName>
                                 <outputFile>
-                                    ${project.build.directory}/IsyFact-Bridge_Guide/bridgeguide.pdf
+                                    ${project.build.directory}/IsyFact-Bridge_Guide/IsyFact-SST-Bridge_Guide.pdf
                                 </outputFile>
                             </configuration>
                         </execution>

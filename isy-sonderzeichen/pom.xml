@@ -5,11 +5,11 @@
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
         <artifactId>isyfact-standards</artifactId>
-        <version>1.9.0</version>
+        <version>1.9.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>isy-sonderzeichen</artifactId>
-    <version>1.10.0</version>
+    <version>1.10.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>IsyFact-Sonderzeichen</name>
@@ -34,14 +34,14 @@
         </dependencies>
     </dependencyManagement>
     <dependencies>
-        <!--JUnit-Dependency -->
+        <!-- JUnit dependency -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
 
-        <!-- Benoetigt fuer InitializingBeans -->
+        <!-- Required for InitializingBeans -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>

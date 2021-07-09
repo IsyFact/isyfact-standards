@@ -5,11 +5,11 @@
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
         <artifactId>isyfact-standards</artifactId>
-        <version>1.9.0</version>
+        <version>1.9.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>isy-util</artifactId>
-    <version>1.10.0</version>
+    <version>1.10.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>IsyFact-Utilities</name>
@@ -34,8 +34,8 @@
         </dependencies>
     </dependencyManagement>
     <dependencies>
-        <!-- ISY-Exception fuer FehlerTextProviderImpl. Wird dieser nicht verwendet, wird auch isy-exception
-            nicht benötigt, daher optional=true. -->
+        <!-- ISY-Exception for FehlerTextProviderImpl.
+             isy-exception isn't required if it is not used, that's why optional=true. -->
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-exception-core</artifactId>
@@ -52,12 +52,12 @@
             <artifactId>spring-beans</artifactId>
             <optional>true</optional>
         </dependency>
-        <!-- Fuer MessageSource im MessageSourceHolder -->
+        <!-- For MessageSource in MessageSourceHolder -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
         </dependency>
-        <!-- Benoetigt fuer AOP -->
+        <!-- Required for AOP -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
@@ -77,12 +77,12 @@
             <artifactId>javax.servlet-api</artifactId>
             <scope>provided</scope>
         </dependency>
-        <!-- Bean-Mapping: Dozer -->
+        <!-- Bean Mapping: Dozer -->
         <dependency>
             <groupId>com.github.dozermapper</groupId>
             <artifactId>dozer-core</artifactId>
         </dependency>
-        <!-- Tests -->
+        <!-- Test -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>

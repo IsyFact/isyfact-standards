@@ -31,8 +31,8 @@ public class TestAufrufKontextVerwalterStub {
 
 	@Before
 	public void setUp() {
-		stub = new AufrufKontextVerwalterStub<AufrufKontext>();
-		stub.setAufrufKontextFactory(new AufrufKontextFactoryImpl<AufrufKontext>());
+		stub = new AufrufKontextVerwalterStub<>();
+		stub.setAufrufKontextFactory(new AufrufKontextFactoryImpl<>());
 		stub.setFesterAufrufKontext(true);
 		aKontext = stub.getAufrufKontext();
 	}
@@ -91,4 +91,5 @@ public class TestAufrufKontextVerwalterStub {
 		
 		assertEquals(aKontext, kontext);
 	}
+
 }
