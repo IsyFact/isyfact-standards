@@ -34,6 +34,8 @@ import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.konstanten.EreignisSchluessel;
 import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.konstanten.TransformationsKonstanten;
+import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.TranformationMetadaten;
+import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.Transformation;
 import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.Transformator;
 import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.ZeichenKategorie;
 
@@ -126,24 +128,36 @@ public abstract class AbstractTransformator implements Transformator {
     @Override
     public String transformiereOhneTrim(String zeichenkette) {
 
-        if (zeichenkette == null) {
-            return null;
-        }
-
-        // Step 1: Transform characters into strings
-        return transformiereZeichenInZeichenkette(zeichenkette);
-
+        return transformiereOhneTrimMitMetadaten(zeichenkette).getTransformierterText();
     }
 
     @Override
     public String transformiere(String zeichenkette) {
 
+        return transformiereMitMetadaten(zeichenkette).getTransformierterText();
+    }
+
+    @Override
+    public Transformation transformiereOhneTrimMitMetadaten(String zeichenkette) {
+
         if (zeichenkette == null) {
-            return null;
+            return new Transformation(null, new ArrayList<>());
         }
 
         // Step 1: Transform characters into strings
-        String transformiert = transformiereZeichenInZeichenkette(zeichenkette);
+        return transformiereZeichenInZeichenkette(zeichenkette);
+    }
+
+    @Override
+    public Transformation transformiereMitMetadaten(String zeichenkette) {
+
+        if (zeichenkette == null) {
+            return new Transformation(null, new ArrayList<>());
+        }
+
+        // Step 1: Transform characters into strings
+        Transformation transformation = transformiereZeichenInZeichenkette(zeichenkette);
+        String transformiert = transformation.getTransformierterText();
 
         // Step 2: Remove spaces at the beginning and at the end
         StringBuilder filterBuffer = new StringBuilder(transformiert.trim());
@@ -151,7 +165,8 @@ public abstract class AbstractTransformator implements Transformator {
         // Step 3: replace multiple spaces into one
         Matcher matcher = REG_EX_LEERZEICHEN.matcher(filterBuffer);
 
-        return matcher.replaceAll(TransformationsKonstanten.STRING_SPACE);
+        transformation.setTransformierterText(matcher.replaceAll(TransformationsKonstanten.STRING_SPACE));
+        return transformation;
     }
 
     @Override
@@ -253,7 +268,10 @@ public abstract class AbstractTransformator implements Transformator {
         return true;
     }
 
-    private String transformiereZeichenInZeichenkette(String zeichenkette) {
+    private Transformation transformiereZeichenInZeichenkette(String zeichenkette) {
+
+        ArrayList<TranformationMetadaten> metadaten = new ArrayList<>();
+        int verschiebung = 0;
 
         // Step 1: Check the characters of the character string step by step for entries in the mapping table
         StringBuilder filtered = new StringBuilder(zeichenkette.length());
@@ -262,16 +280,31 @@ public abstract class AbstractTransformator implements Transformator {
             Object object = transformationsTabelle.get(zeichenkette.charAt(i));
             if (object == null) {
                 filtered.append(standardErsetzung);
+                String altesZeichen = String.valueOf(zeichenkette.charAt(i));
+                metadaten.add(new TranformationMetadaten(altesZeichen, getCodepoint(altesZeichen), standardErsetzung, getCodepoint(standardErsetzung), i, i+verschiebung));
             } else if (object instanceof StringBuilder) {
                 filtered.append(object);
+                String altesZeichen = String.valueOf(zeichenkette.charAt(i));
+                metadaten.add(new TranformationMetadaten(altesZeichen, getCodepoint(altesZeichen), object.toString(), getCodepoint(object.toString()), i, i+verschiebung));
             } else {
                 final KomplexeTransformation komplexeTransformation = (KomplexeTransformation) object;
-                filtered.append(komplexeTransformation.getErsetzung(zeichenkette, i));
+                String ersetzung = komplexeTransformation.getErsetzung(zeichenkette, i);
+                String altesZeichen = komplexeTransformation.getAltesZeichenLetzteErsetzung();
+                filtered.append(ersetzung);
+                metadaten.add(new TranformationMetadaten(altesZeichen, getCodepoint(altesZeichen), ersetzung, getCodepoint(ersetzung), i, i+verschiebung));
+                verschiebung += ersetzung.length() - altesZeichen.length();
                 i += komplexeTransformation.getLaengeLetzteErsetzung() - 1;
             }
         }
-        return filtered.toString();
+        return new Transformation(filtered.toString(), metadaten);
     }
+
+    private String getCodepoint(String text) {
+        return text.codePoints()
+            .mapToObj(e -> String.format("%04X", e))
+            .collect(Collectors.joining(" + "));
+    }
+
 
     private void ladeInTabelle(InputStream inputStream) throws IOException {
 
