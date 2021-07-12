@@ -40,6 +40,9 @@ public final class TransformationsKonstanten {
     /** The path to the transformation transcription table. */
     public static final String TRANSFORMATIONS_TABELLE_TRANSKRIPTION = "/resources/tabellen/transformation_din91379_transkription.transform";
 
+    /** The path to the legacy transcription table, tranforming DIN SPEC 91379 characters to StringLatin1.1. */
+    public static final String TRANSFORMATIONS_TABELLE_LEGACY = "/resources/tabellen/transformation_dinspec91379_zu_1_1.transform";
+
     private TransformationsKonstanten() {
     }
 }
