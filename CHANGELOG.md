@@ -4,6 +4,9 @@
   + Refactoring des DIN-SPEC-Packages von isy-sonderzeichen
   + Entfernen des `core`-Unterpakets des DIN-SPEC-Packages von isy-sonderzeichen
 - `IFS-1066`: [isy-persistence] Protokollierung-Datenstrukturen aus den Template-DB-Skripten entfernt
+- `IFS-1093`:
+    * [isyfact-products-bom] Anhebung von Oracle-JDBC und UCP auf 19.11
+    * [isy-persistence] Oracle-JDBC hinzugefügt
 
 # 1.9.0
 - `IFS-849`: [isy-sonderzeichen] DIN SPEC: isy-sonderzeichen Transformation
