@@ -10,6 +10,7 @@
     * AufrufKontextToResolver hinzugefügt, der sowohl mit IF1, als auch IF2-AufrufKontextTo umgehen kann
 - `IFS-987`: [isyfact-products-bom] Entferne log4j
 - `IFS-970`: [isy-products-bom] Spring-Boot Versionsanhebung auf 2.5.2
+- `IFS-1093`: [isy-persistence], [isyfact-products-bom] Anhebung von Oracle-JDBC und UCP auf 19.11
 
 # 2.2.0
 - `IFS-453`: [isy-ueberwachung] Loglevel für isAlive-Datei-Ereignisse erhöht.

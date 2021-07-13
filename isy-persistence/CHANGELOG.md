@@ -1,5 +1,6 @@
 # 2.3.0
 - `IFS-1066`: Protokollierung-Datenstrukturen aus den Template-DB-Skripten entfernt
+- `IFS-1093`: Anhebung von UCP auf 19.11
 
 # 2.2.0
 - `IFE-202`: Ergänzung von Equals und HashCode Methoden und Serializable Implementierung in @Embeddable-Typen
