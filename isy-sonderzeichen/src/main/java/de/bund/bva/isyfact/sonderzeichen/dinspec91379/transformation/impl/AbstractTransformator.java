@@ -160,10 +160,41 @@ public abstract class AbstractTransformator implements Transformator {
         String transformiert = transformation.getTransformierterText();
 
         // Step 2: Remove spaces at the beginning and at the end
-        StringBuilder filterBuffer = new StringBuilder(transformiert.trim());
+        int laengeTransformiert = transformiert.length();
+        transformiert = transformiert.replaceAll("^\\s+", "");
+        int fuehrendeLeerzeichen = laengeTransformiert - transformiert.length();
+        transformiert = transformiert.replaceAll("\\s+$", "");
+        StringBuilder filterBuffer = new StringBuilder(transformiert);
 
-        // Step 3: replace multiple spaces into one
+        // Adjust the new positions in the metadata after deleting leading and trailing spaces
+        transformation.getMetadatenList().forEach(e -> {
+            // Adjust metadata for deleted leading characters
+            int neuePosition = Math.max(-1, (e.getNeuePosition() - fuehrendeLeerzeichen));
+            // Adjust metadata for deleted trailing characters
+            if (neuePosition >= filterBuffer.length()) {
+                neuePosition  = -2;
+            }
+            e.setNeuePosition(neuePosition);
+        });
+
+        // Step 3: replace multiple consecutive spaces with a single space
         Matcher matcher = REG_EX_LEERZEICHEN.matcher(filterBuffer);
+        while (matcher.find()) {
+            int spacesStart = matcher.start();
+            int spacesEnd = matcher.end();
+            transformiert = matcher.replaceFirst(TransformationsKonstanten.STRING_SPACE);
+            matcher = REG_EX_LEERZEICHEN.matcher(transformiert);
+            // Adjust new positions in the metadata after replacing multiple consecutive spaces
+            transformation.getMetadatenList().forEach(e -> {
+                if (e.getNeuePosition() > spacesStart) {
+                    if (e.getNeuePosition() < spacesEnd) {
+                        e.setNeuePosition(spacesStart);
+                    } else {
+                        e.setNeuePosition(e.getNeuePosition() - (spacesEnd - spacesStart - 1));
+                    }
+                }
+            });
+        }
 
         transformation.setTransformierterText(matcher.replaceAll(TransformationsKonstanten.STRING_SPACE));
         return transformation;
@@ -266,6 +297,11 @@ public abstract class AbstractTransformator implements Transformator {
         return true;
     }
 
+    /**
+     * Transforms characters in a string.
+     * @param zeichenkette String to transform
+     * @return Transformation object containing the transformed string and the metadata of the transformation
+     */
     private Transformation transformiereZeichenInZeichenkette(String zeichenkette) {
 
         ArrayList<TranformationMetadaten> metadaten = new ArrayList<>();
@@ -278,18 +314,32 @@ public abstract class AbstractTransformator implements Transformator {
             Object object = transformationsTabelle.get(zeichenkette.charAt(i));
             if (object == null) {
                 filtered.append(standardErsetzung);
+                String ersetzung = standardErsetzung;
+                if (ersetzung == null) {
+                    ersetzung = "null";
+                }
                 String altesZeichen = String.valueOf(zeichenkette.charAt(i));
-                metadaten.add(new TranformationMetadaten(altesZeichen, getCodepoint(altesZeichen), standardErsetzung, getCodepoint(standardErsetzung), i, i+verschiebung));
+                metadaten.add(new TranformationMetadaten(
+                    altesZeichen, getCodepoint(altesZeichen), ersetzung, getCodepoint(standardErsetzung), i, i + verschiebung));
+                verschiebung += ersetzung.length() - altesZeichen.length();
             } else if (object instanceof StringBuilder) {
                 filtered.append(object);
+                String ersetzung = object.toString();
                 String altesZeichen = String.valueOf(zeichenkette.charAt(i));
-                metadaten.add(new TranformationMetadaten(altesZeichen, getCodepoint(altesZeichen), object.toString(), getCodepoint(object.toString()), i, i+verschiebung));
+                if (!altesZeichen.equals(ersetzung)) {
+                    metadaten.add(new TranformationMetadaten(
+                        altesZeichen, getCodepoint(altesZeichen), object.toString(), getCodepoint(object.toString()), i, i + verschiebung));
+                    verschiebung += ersetzung.length() - altesZeichen.length();
+                }
             } else {
                 final KomplexeTransformation komplexeTransformation = (KomplexeTransformation) object;
                 String ersetzung = komplexeTransformation.getErsetzung(zeichenkette, i);
                 String altesZeichen = komplexeTransformation.getAltesZeichenLetzteErsetzung();
                 filtered.append(ersetzung);
-                metadaten.add(new TranformationMetadaten(altesZeichen, getCodepoint(altesZeichen), ersetzung, getCodepoint(ersetzung), i, i+verschiebung));
+                if (!altesZeichen.equals(ersetzung)) {
+                    metadaten.add(new TranformationMetadaten(
+                        altesZeichen, getCodepoint(altesZeichen), ersetzung, getCodepoint(ersetzung), i, i + verschiebung));
+                }
                 verschiebung += ersetzung.length() - altesZeichen.length();
                 i += komplexeTransformation.getLaengeLetzteErsetzung() - 1;
             }
@@ -297,7 +347,17 @@ public abstract class AbstractTransformator implements Transformator {
         return new Transformation(filtered.toString(), metadaten);
     }
 
+    /**
+     * Returns unicode codepoints of the characters in a string. Multiple Codepoints are seperated by " + ".
+     * @param text Characters whose codepoints are returned.
+     * @return Codepoints
+     */
     private String getCodepoint(String text) {
+        if (text == null) {
+            return "null".codePoints()
+                .mapToObj(e -> String.format("%04X", e))
+                .collect(Collectors.joining(" + "));
+        }
         return text.codePoints()
             .mapToObj(e -> String.format("%04X", e))
             .collect(Collectors.joining(" + "));
