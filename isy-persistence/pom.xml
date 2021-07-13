@@ -100,8 +100,9 @@
             <groupId>javax.persistence</groupId>
             <artifactId>javax.persistence-api</artifactId>
         </dependency>
+
         <dependency>
-            <groupId>com.oracle.jdbc</groupId>
+            <groupId>com.oracle.database.jdbc</groupId>
             <artifactId>ucp</artifactId>
             <optional>true</optional>
         </dependency>
