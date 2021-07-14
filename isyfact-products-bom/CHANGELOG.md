@@ -1,5 +1,8 @@
 # 2.3.0
 - `IFS-985`: Spring Security entfernt (Verwaltung der Version über Spring Boot)
+- `IFS-987`: Entferne log4j
+- `IFS-970`: Spring-Boot Versionsanhebung auf 2.5.2
+- `IFS-1093`: Anhebung von Oracle-JDBC und UCP auf 19.11
 
 # 2.2.0
 - `IFS-601`: Einbindung folgender Produkte über die Spring Boot Dependencies: JPA, JTA, Spring, Hibernate, Jackson, QueryDSL, SLF4J, Logback, JUnit, Mockito, AssertJ, H2.
