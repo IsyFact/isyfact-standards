@@ -2,7 +2,10 @@
 - `IFS-1003`:
   + Refactoring des DIN-SPEC-Packages von isy-sonderzeichen
   + Entfernen des `core`-Unterpakets des DIN-SPEC-Packages von isy-sonderzeichen
-  
+- `IFS-1109`: DIN SPEC 91379:
+  * Erweiterung Transformator-Interface um Methoden, die Metadaten der Transformation tracken
+  * neuer LegacyTransformator, der Texte nach DIN-SPEC-91379 in String.Latin-1.1-konforme Texte transformiert
+
 # 2.2.0
 - `IFS-929`: 
     + Alte Implementierung in `de.bund.bva.isyfact.sonderzeichen.stringlatin1_1` verschoben
