@@ -1,9 +1,9 @@
-package de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.impl;
+package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.impl;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.isyfact.sonderzeichen.dinspec91379.konstanten.TransformationsKonstanten;
-import de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.Transformation;
+import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.konstanten.TransformationsKonstanten;
+import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.Transformation;
 
 /**
  * Legacy transformator that converts texts containing characters of the DIN SPEC 91379 into texts that

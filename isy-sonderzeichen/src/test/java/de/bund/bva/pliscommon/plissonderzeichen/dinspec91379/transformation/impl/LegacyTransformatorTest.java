@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.impl;
+package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.impl;
 
 import org.junit.Assert;
 import org.junit.Test;

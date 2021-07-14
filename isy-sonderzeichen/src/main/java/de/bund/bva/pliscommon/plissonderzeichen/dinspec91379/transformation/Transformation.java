@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation;
+package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation;
 
 import java.util.List;
 
