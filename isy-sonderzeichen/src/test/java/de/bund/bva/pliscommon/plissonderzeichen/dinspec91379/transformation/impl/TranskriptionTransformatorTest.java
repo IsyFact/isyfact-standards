@@ -40,6 +40,17 @@ public class TranskriptionTransformatorTest {
     private static final String[] UMLAUTE_EXPECTED = {"MUELLER", "MOELLER", "HAEUSER", "BARFUESSIG"};
 
     /**
+     * Test data for the case that that character is not part of the DIN SPEC 91379. Default transformation
+     * will be used.
+     */
+    private static final String UNBEKANNT = "ツ";
+
+    /**
+     * Expected result for {@link #UNBEKANNT}.
+     */
+    private static final String UNBEKANNT_EXPECTED = "";
+
+    /**
      * Current test data set by JUnit.
      */
     private final String testData;
@@ -65,6 +76,8 @@ public class TranskriptionTransformatorTest {
         for (int i = 0; i < UMLAUTE.length; i++) {
             testData.add(new String[]{UMLAUTE[i], UMLAUTE_EXPECTED[i]});
         }
+
+        testData.add(new String[]{UNBEKANNT, UNBEKANNT_EXPECTED});
 
         return testData;
     }
