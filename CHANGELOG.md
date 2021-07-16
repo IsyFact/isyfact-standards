@@ -8,6 +8,7 @@
 - `IFS-978`: [isy-sst-bridge] Bridge-Erweiterung:
     * ServiceApiMapper unterstützt Mapping von AufrufKontextTo auch in Gegenrichtung (IF1 zu IF2)
     * AufrufKontextToResolver hinzugefügt, der sowohl mit IF1, als auch IF2-AufrufKontextTo umgehen kann
+- `IFS-985`: [isyfact-products-bom] Entferne Spring Security (Verwaltung der Version über Spring Boot)
 - `IFS-987`: [isyfact-products-bom] Entferne log4j
 - `IFS-970`: [isy-products-bom] Spring-Boot Versionsanhebung auf 2.5.2
 - `IFS-1093`: [isy-persistence], [isyfact-products-bom] Anhebung von Oracle-JDBC und UCP auf 19.11
