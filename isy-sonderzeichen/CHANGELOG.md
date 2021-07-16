@@ -1,4 +1,9 @@
-# 2.2.0: 
+# 2.3.0
+- `IFS-1003`:
+  + Refactoring des DIN-SPEC-Packages von isy-sonderzeichen
+  + Entfernen des `core`-Unterpakets des DIN-SPEC-Packages von isy-sonderzeichen
+  
+# 2.2.0
 - `IFS-929`: 
     + Alte Implementierung in `de.bund.bva.isyfact.sonderzeichen.stringlatin1_1` verschoben
     + Neue Implementierung in `de.bund.bva.isyfact.sonderzeichen.dinspec91379` erstellt

@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.sonderzeichen.dinspec91379.core.transformation;
+package de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation;
 
 public class TestData {
 

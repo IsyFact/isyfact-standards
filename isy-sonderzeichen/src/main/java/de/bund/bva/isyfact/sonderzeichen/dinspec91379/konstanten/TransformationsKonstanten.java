@@ -21,23 +21,23 @@ package de.bund.bva.isyfact.sonderzeichen.dinspec91379.konstanten;
  */
 public final class TransformationsKonstanten {
 
-    /** The string that describes the characters to remove */
+    /** The string that describes the characters to remove. */
     public static final String ZEICHEN_ENTFERNE = "";
 
-    /** The entry in a transformation table that describes the standard case */
+    /** The entry in a transformation table that describes the standard case. */
     public static final String EINTRAG_STANDARD = "standard";
 
-    /** String representing the space */
+    /** String representing the space. */
     public static final String STRING_SPACE = " ";
 
-    /** The path to the transformation table identical */
+    /** The path to the transformation table identical. */
     public static final String TRANSFORMATIONS_TABELLE_IDENTISCH =
         "/resources/tabellen/transformation_dinspec91379.transform";
 
-    /** The path to the table identical category */
+    /** The path to the table identical category. */
     public static final String KATEGORIE_TABELLE = "/resources/tabellen/kategorie_dinspec91379.kat";
 
-    /** The path to the transformation transcription table */
+    /** The path to the transformation transcription table. */
     public static final String TRANSFORMATIONS_TABELLE_TRANSKRIPTION = "/resources/tabellen/transformation_din91379_transkription.transform";
 
     private TransformationsKonstanten() {

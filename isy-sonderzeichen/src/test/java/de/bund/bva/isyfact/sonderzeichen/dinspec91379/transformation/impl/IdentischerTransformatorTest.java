@@ -14,7 +14,7 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.isyfact.sonderzeichen.dinspec91379.core.transformation.impl;
+package de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -30,8 +30,8 @@ import org.junit.Test;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.isyfact.sonderzeichen.dinspec91379.core.transformation.ZeichenKategorie;
-import de.bund.bva.isyfact.sonderzeichen.dinspec91379.core.transformation.TestData;
+import de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.ZeichenKategorie;
+import de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.TestData;
 
 /**
  * Tests the IdentischerTransformator.
@@ -43,7 +43,7 @@ public class IdentischerTransformatorTest {
     public AbstractTransformator transformator;
 
     /** Logger. */
-    private static IsyLogger LOG = IsyLoggerFactory.getLogger(IdentischerTransformatorTest.class);
+    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(IdentischerTransformatorTest.class);
 
     @Before
     public void setUp() {
