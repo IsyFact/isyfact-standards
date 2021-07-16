@@ -86,6 +86,8 @@
                 <scope>import</scope>
             </dependency>
 
+<!-- Authentication/autorisation: Spring Security -->
+<!-- Managed by Spring Boot Dependencies -->
             <!-- Persistence framework: Hibernate -->
             <!-- Managed by Spring Boot Dependencies -->
 
