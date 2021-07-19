@@ -1,3 +1,8 @@
+# 2.3.0
+- `IFS-1003`:
+  * Refactoring des DIN-SPEC-Packages von isy-sonderzeichen
+  * Entfernen des `core`-Unterpakets des DIN-SPEC-Packages von isy-sonderzeichen
+
 # 2.2.0
 - `IFS-453`: [isy-ueberwachung] Loglevel für isAlive-Datei-Ereignisse erhöht.
 - `IFS-465`: Profile zum Bauen mit Java 11 erstellt
