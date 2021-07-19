@@ -8,12 +8,13 @@ import org.junit.Test;
 public class ZeichenValidatorTest {
 
     public static final String EMPTY_STRING = "";
-    public static final String ZEICHEN_A = "\u0041\u0027";
+    public static final String ZEICHEN_A = "\u0041\u0027R̥̄";
     public static final String ZEICHEN_B = "\u0041\u0027\u0033";
     public static final String ZEICHEN_C = "\u0041\u0027\u0033\u00BC\u00A0";
     public static final String ZEICHEN_D = "\u0041\u0027\u0033\u00BC\u2080\u03B9";
     public static final String ZEICHEN_E = "\u0041\u0027\u0033\u00BC\u00A0\u2080\u03B9\u0420";
     public static final String NON_DINSPEC_ZEICHEN = "\u0007\uFFED";
+    public static final String ZEICHEN_DIAKRIT = "\u035F";
 
     private ZeichenValidator validator;
 
@@ -34,6 +35,7 @@ public class ZeichenValidatorTest {
         assertFalse(validator.isGueltigerString(ZEICHEN_D, datentyp));
         assertFalse(validator.isGueltigerString(ZEICHEN_E, datentyp));
         assertFalse(validator.isGueltigerString(NON_DINSPEC_ZEICHEN, datentyp));
+        assertFalse(validator.isGueltigerString(ZEICHEN_DIAKRIT, datentyp));
     }
 
     @Test
@@ -48,6 +50,7 @@ public class ZeichenValidatorTest {
         assertFalse(validator.isGueltigerString(ZEICHEN_D, datentyp));
         assertFalse(validator.isGueltigerString(ZEICHEN_E, datentyp));
         assertFalse(validator.isGueltigerString(NON_DINSPEC_ZEICHEN, datentyp));
+        assertFalse(validator.isGueltigerString(ZEICHEN_DIAKRIT, datentyp));
     }
 
     @Test
@@ -62,6 +65,7 @@ public class ZeichenValidatorTest {
         assertFalse(validator.isGueltigerString(ZEICHEN_D, datentyp));
         assertFalse(validator.isGueltigerString(ZEICHEN_E, datentyp));
         assertFalse(validator.isGueltigerString(NON_DINSPEC_ZEICHEN, datentyp));
+        assertFalse(validator.isGueltigerString(ZEICHEN_DIAKRIT, datentyp));
     }
 
     @Test
@@ -76,6 +80,7 @@ public class ZeichenValidatorTest {
         assertFalse(validator.isGueltigerString(ZEICHEN_C, datentyp));
         assertFalse(validator.isGueltigerString(ZEICHEN_E, datentyp));
         assertFalse(validator.isGueltigerString(NON_DINSPEC_ZEICHEN, datentyp));
+        assertFalse(validator.isGueltigerString(ZEICHEN_DIAKRIT, datentyp));
     }
 
     @Test
@@ -90,6 +95,7 @@ public class ZeichenValidatorTest {
         assertTrue(validator.isGueltigerString(ZEICHEN_E, datentyp));
 
         assertFalse(validator.isGueltigerString(NON_DINSPEC_ZEICHEN, datentyp));
+        assertFalse(validator.isGueltigerString(ZEICHEN_DIAKRIT, datentyp));
     }
 
     @Test(expected = NullPointerException.class)
