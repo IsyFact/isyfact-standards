@@ -79,6 +79,8 @@
         <!-- Plugin versions used in several places -->
         <maven.enforcer.plugin.version>1.4.1</maven.enforcer.plugin.version>
         <maven.javadoc.plugin.version>2.10.4</maven.javadoc.plugin.version>
+
+        <license.dir>license</license.dir>
     </properties>
 
     <!-- TODO: Remove if Spotbug issues are fixed -->
@@ -97,7 +99,7 @@
             </resource>
             <resource>
                 <!-- License directory -->
-                <directory>license</directory>
+                <directory>${license.dir}</directory>
             </resource>
         </resources>
         <pluginManagement>
@@ -251,6 +253,25 @@
                             <goals>
                                 <goal>check</goal>
                             </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>license-maven-plugin</artifactId>
+                    <version>2.0.0</version>
+                    <executions>
+                        <execution>
+                            <id>add-third-party</id>
+                            <goals>
+                                <goal>add-third-party</goal>
+                            </goals>
+                            <configuration>
+                                <outputDirectory>${project.basedir}/${license.dir}</outputDirectory>
+                                <thirdPartyFilename>DEPENDENCIES</thirdPartyFilename>
+                                <sortArtifactByName>true</sortArtifactByName>
+                                <fileTemplate>/org/codehaus/mojo/license/third-party-file-groupByMultiLicense.ftl</fileTemplate>
+                            </configuration>
                         </execution>
                     </executions>
                 </plugin>
@@ -474,6 +495,10 @@
                             </execution>
                         </executions>
                     </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>license-maven-plugin</artifactId>
+                    </plugin>
                 </plugins>
             </build>
         </profile>
@@ -498,7 +523,7 @@
                                 <configuration>
                                     <target>
                                         <copy todir="${project.build.directory}/apidocs">
-                                            <fileset dir="${basedir}/license" includes="*"/>
+                                            <fileset dir="${project.basedir}/${license.dir}" includes="*"/>
                                         </copy>
                                     </target>
                                 </configuration>

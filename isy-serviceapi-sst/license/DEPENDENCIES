@@ -1,3 +1,11 @@
 
-List of third-party dependencies grouped by their license type. No warranty on correctness and completeness. /
-Liste aller Abhängigkeiten zu Drittsoftware gruppiert nach deren Lizenzen. Keine Gewähr für Korrektheit und Vollständigkeit.
+List of third-party dependencies grouped by their license type.
+
+
+    GNU LESSER GENERAL PUBLIC LICENSE, Version 2.1
+
+        * SpotBugs Annotations (com.github.spotbugs:spotbugs-annotations:4.2.1 - https://spotbugs.github.io/)
+
+    The Apache Software License, Version 2.0
+
+        * FindBugs-jsr305 (com.google.code.findbugs:jsr305:3.0.2 - http://findbugs.sourceforge.net/)

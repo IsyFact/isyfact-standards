@@ -5,13 +5,13 @@ List of third-party dependencies grouped by their license type.
     Apache License, Version 2.0
 
         * IsyFact-Fehlerbehandlung (Basisklassen) (de.bund.bva.isyfact:isy-exception-core:1.11.0 - http://isyfact.de/isy-exception-core)
+        * IsyFact-Logging (de.bund.bva.isyfact:isy-logging:1.11.0 - http://isyfact.de/isy-logging)
         * Spring AOP (org.springframework:spring-aop:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
         * Spring Aspects (org.springframework:spring-aspects:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
         * Spring Beans (org.springframework:spring-beans:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
         * Spring Context (org.springframework:spring-context:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
         * Spring Core (org.springframework:spring-core:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
         * Spring Expression Language (SpEL) (org.springframework:spring-expression:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
-        * Spring TestContext Framework (org.springframework:spring-test:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
 
     Eclipse Public License 1.0
 
