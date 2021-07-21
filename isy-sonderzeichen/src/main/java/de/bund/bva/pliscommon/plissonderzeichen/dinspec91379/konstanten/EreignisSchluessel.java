@@ -18,6 +18,7 @@ package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.konstanten;
 
 public class EreignisSchluessel {
 
+    /** Event key for transformation. */
     public static final String TRANSFORMATION = "EPLSOND00001";
 
 }

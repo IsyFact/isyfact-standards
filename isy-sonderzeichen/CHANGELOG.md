@@ -1,3 +1,8 @@
+# 1.11.0:
+- `IFS-1003`:
+  + Refactoring des DIN-SPEC-Packages von isy-sonderzeichen
+  + Entfernen des `core`-Unterpakets des DIN-SPEC-Packages von isy-sonderzeichen
+  
 # 1.10.0:
 - `IFS-849`: 
     + Alte Implementierung in `de.bund.bva.pliscommon.plissonderzeichen.stringlatin1_1` verschoben
@@ -7,8 +12,6 @@
 
 # 1.9.0
 - `IFS-468`: license/DEPENDENCIES überarbeitet und Dozer (nach Update auf 6.5.0) entfernt
-
-
 - `IFS-528`: Explizite Version für isy-logging entfernt und stattdessen isyfact-standards-bom importiert
 
 # 1.8.0

@@ -1,17 +1,17 @@
-package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.core.transformation.impl;
+package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.impl;
 
-import static de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.core.transformation.TestData.RANDOM_TESTDATA;
-import static de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.core.transformation.TestData.RANDOM_TESTDATA_EXPECTED;
-
-import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.core.transformation.impl.TranskriptionTransformator;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import static de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.TestData.RANDOM_TESTDATA;
+import static de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.TestData.RANDOM_TESTDATA_EXPECTED;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
+
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 /**
  * Parametrized test class which tests the {@link TranskriptionTransformator}.
@@ -27,7 +27,7 @@ public class TranskriptionTransformatorTest {
     /**
      * Expected result for {@link #LOREM_IPSUM}.
      */
-    private static final String LORREM_IPSUM_EXPECTED = LOREM_IPSUM.toUpperCase();
+    private static final String LORREM_IPSUM_EXPECTED = LOREM_IPSUM.toUpperCase(Locale.GERMANY);
 
     /**
      * Test data involving german characters.
@@ -42,12 +42,12 @@ public class TranskriptionTransformatorTest {
     /**
      * Current test data set by JUnit.
      */
-    private String testData;
+    private final String testData;
 
     /**
      * Current expected result to {@link #testData} set by JUnit.
      */
-    private String expected;
+    private final String expected;
 
     /**
      * Composes the different test data to a single collection used by JUnit.
@@ -71,8 +71,8 @@ public class TranskriptionTransformatorTest {
 
     /**
      * Constructor which sets {@link #testData} and {@link #expected}.
-     * @param testData
-     * @param expected
+     * @param testData current test data
+     * @param expected current expected result
      */
     public TranskriptionTransformatorTest(String testData, String expected){
         this.testData = testData;
