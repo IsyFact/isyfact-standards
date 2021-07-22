@@ -11,12 +11,12 @@ public class Transformation {
     private String transformierterText;
 
     /** Metadata of the transformation. */
-    private List<TranformationMetadaten> metadatenList;
+    private List<TransformationMetadaten> metadatenList;
 
     public Transformation() {
     }
 
-    public Transformation(String transformierterText, List<TranformationMetadaten> metadatenList) {
+    public Transformation(String transformierterText, List<TransformationMetadaten> metadatenList) {
         this.transformierterText = transformierterText;
         this.metadatenList = metadatenList;
     }
@@ -29,11 +29,11 @@ public class Transformation {
         this.transformierterText = transformierterText;
     }
 
-    public List<TranformationMetadaten> getMetadatenList() {
+    public List<TransformationMetadaten> getMetadatenList() {
         return metadatenList;
     }
 
-    public void setMetadatenList(List<TranformationMetadaten> metadatenList) {
+    public void setMetadatenList(List<TransformationMetadaten> metadatenList) {
         this.metadatenList = metadatenList;
     }
 }
