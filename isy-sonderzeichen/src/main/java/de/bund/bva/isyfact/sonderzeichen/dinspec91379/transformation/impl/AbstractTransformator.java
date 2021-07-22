@@ -34,8 +34,8 @@ import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.sonderzeichen.dinspec91379.konstanten.EreignisSchluessel;
 import de.bund.bva.isyfact.sonderzeichen.dinspec91379.konstanten.TransformationsKonstanten;
-import de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.TranformationMetadaten;
 import de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.Transformation;
+import de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.TransformationMetadaten;
 import de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.Transformator;
 import de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.ZeichenKategorie;
 
@@ -304,7 +304,7 @@ public abstract class AbstractTransformator implements Transformator {
      */
     private Transformation transformiereZeichenInZeichenkette(String zeichenkette) {
 
-        ArrayList<TranformationMetadaten> metadaten = new ArrayList<>();
+        ArrayList<TransformationMetadaten> metadaten = new ArrayList<>();
         int verschiebung = 0;
 
         // Step 1: Check the characters of the character string step by step for entries in the mapping table
@@ -319,7 +319,7 @@ public abstract class AbstractTransformator implements Transformator {
                     ersetzung = "null";
                 }
                 String altesZeichen = String.valueOf(zeichenkette.charAt(i));
-                metadaten.add(new TranformationMetadaten(
+                metadaten.add(new TransformationMetadaten(
                     altesZeichen, getCodepoint(altesZeichen), ersetzung, getCodepoint(standardErsetzung), i, i + verschiebung));
                 verschiebung += ersetzung.length() - altesZeichen.length();
             } else if (object instanceof StringBuilder) {
@@ -327,7 +327,7 @@ public abstract class AbstractTransformator implements Transformator {
                 String ersetzung = object.toString();
                 String altesZeichen = String.valueOf(zeichenkette.charAt(i));
                 if (!altesZeichen.equals(ersetzung)) {
-                    metadaten.add(new TranformationMetadaten(
+                    metadaten.add(new TransformationMetadaten(
                         altesZeichen, getCodepoint(altesZeichen), object.toString(), getCodepoint(object.toString()), i, i + verschiebung));
                     verschiebung += ersetzung.length() - altesZeichen.length();
                 }
@@ -337,7 +337,7 @@ public abstract class AbstractTransformator implements Transformator {
                 String altesZeichen = komplexeTransformation.getAltesZeichenLetzteErsetzung();
                 filtered.append(ersetzung);
                 if (!altesZeichen.equals(ersetzung)) {
-                    metadaten.add(new TranformationMetadaten(
+                    metadaten.add(new TransformationMetadaten(
                         altesZeichen, getCodepoint(altesZeichen), ersetzung, getCodepoint(ersetzung), i, i + verschiebung));
                 }
                 verschiebung += ersetzung.length() - altesZeichen.length();

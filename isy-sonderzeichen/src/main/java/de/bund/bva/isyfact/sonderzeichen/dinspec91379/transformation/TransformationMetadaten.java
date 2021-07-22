@@ -3,7 +3,7 @@ package de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation;
 /**
  * Metadata of a transformation.
  */
-public class TranformationMetadaten {
+public class TransformationMetadaten {
 
     /** Character before transformation. */
     private String altesZeichen;
@@ -23,7 +23,7 @@ public class TranformationMetadaten {
     /** Character's postion after transformation. */
     private int neuePosition;
 
-    public TranformationMetadaten(String altesZeichen, String alteCodepoints, String neuesZeichen,
+    public TransformationMetadaten(String altesZeichen, String alteCodepoints, String neuesZeichen,
         String neueCodepoints, int altePosition, int neuePosition) {
         this.altesZeichen = altesZeichen;
         this.alteCodepoints = alteCodepoints;
