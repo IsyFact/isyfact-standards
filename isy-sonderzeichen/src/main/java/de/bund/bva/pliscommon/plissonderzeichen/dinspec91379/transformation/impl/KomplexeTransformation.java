@@ -60,6 +60,9 @@ public class KomplexeTransformation {
     /** Number of characters that would have been replaced with the last character replacement determined. */
     private int laengeLetzteErsetzung;
 
+    /** Characters that would have been replaced with the last character replacement determined. */
+    private String altesZeichenLetzteErsetzung;
+
     public KomplexeTransformation(Transformator transformator) {
         this.transformator = transformator;
     }
@@ -121,6 +124,7 @@ public class KomplexeTransformation {
                     for (Ersetzung ersetzung : varianten) {
                         if (isAnwendbareErsetzung(ersetzung, text, position, laenge)) {
                             laengeLetzteErsetzung = laenge;
+                            altesZeichenLetzteErsetzung = text.substring(position, position + laenge);
                             return ersetzung.ersatz;
                         }
                     }
@@ -156,6 +160,15 @@ public class KomplexeTransformation {
      */
     public int getLaengeLetzteErsetzung() {
         return laengeLetzteErsetzung;
+    }
+
+    /**
+     * Returns the characters that would have been replaced by the last replacement found.
+     *
+     * @return Replaced Characters.
+     */
+    public String getAltesZeichenLetzteErsetzung() {
+        return altesZeichenLetzteErsetzung;
     }
 
     private void addErsetzung(String ersetzenVon, Ersetzung ersetzung) {
