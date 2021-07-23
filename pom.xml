@@ -256,25 +256,6 @@
                         </execution>
                     </executions>
                 </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>license-maven-plugin</artifactId>
-                    <version>2.0.0</version>
-                    <executions>
-                        <execution>
-                            <id>add-third-party</id>
-                            <goals>
-                                <goal>add-third-party</goal>
-                            </goals>
-                            <configuration>
-                                <outputDirectory>${project.basedir}/${license.dir}</outputDirectory>
-                                <thirdPartyFilename>DEPENDENCIES</thirdPartyFilename>
-                                <sortArtifactByName>true</sortArtifactByName>
-                                <fileTemplate>/org/codehaus/mojo/license/third-party-file-groupByMultiLicense.ftl</fileTemplate>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -494,10 +475,6 @@
                                 </configuration>
                             </execution>
                         </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>license-maven-plugin</artifactId>
                     </plugin>
                 </plugins>
             </build>
