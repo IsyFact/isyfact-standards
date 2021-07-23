@@ -37,7 +37,7 @@
                                     <artifactItem>
                                         <groupId>de.bund.bva.isyfact</groupId>
                                         <artifactId>isy-dokumentvorlagen</artifactId>
-                                        <version>${project.version}</version>
+                                        <version>2.1.0</version>
                                         <overWrite>true</overWrite>
                                     </artifactItem>
                                 </artifactItems>
