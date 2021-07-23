@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
@@ -32,6 +31,7 @@ import java.util.stream.Collectors;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.LogKategorie;
+import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.CharacterUtil;
 import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.konstanten.EreignisSchluessel;
 import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.konstanten.TransformationsKonstanten;
 import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.Transformation;
@@ -63,14 +63,8 @@ public abstract class AbstractTransformator implements Transformator {
      */
     protected final Map<String, String[]> kategorieGueltigeZeichenTabelle = new HashMap<>();
 
-    /** A map that sorts valid characters based on their length: Integer -> (String) ArrayList. */
-    protected final Map<Integer, ArrayList<String>> laengeGueltigeZeichenMap = new HashMap<>();
-
     /** The standard replacement (if no entry is found in the transformation table). */
     protected String standardErsetzung;
-
-    /** The maximum length of valid characters (is set during initialization). */
-    protected int maximaleGueltigeZeichenlaenge;
 
     /**
      * Returns the transformation table of the transformer.
@@ -236,57 +230,13 @@ public abstract class AbstractTransformator implements Transformator {
 
     @Override
     public boolean isGueltigerString(String zeichenkette, String[] kategorieListe) {
-
         // Determine valid characters of the category
         Set<String> gueltigeZeichenSet = Arrays.stream(kategorieListe)
                 .map(this::getGueltigeZeichen)
                 .flatMap(Arrays::stream)
                 .collect(Collectors.toSet());
 
-        // Iterate through string
-        for (int zeichenketteIteration = 0; zeichenketteIteration < zeichenkette.length(); zeichenketteIteration++) {
-
-            // Iterate step by step over the length of possible characters, length of the mappable characters
-            // must be taken into account
-            boolean treffer = false;
-            for (int laengeIteration = maximaleGueltigeZeichenlaenge; laengeIteration > 0; laengeIteration--) {
-                if (zeichenketteIteration + laengeIteration <= zeichenkette.length()) {
-                    // Enough characters left
-                    List<String> gueltigeZeichenArrayList =
-                        this.laengeGueltigeZeichenMap.get(laengeIteration);
-                    for (String gueltigesZeichen : gueltigeZeichenArrayList) {
-                        if (gueltigeZeichenSet.contains(gueltigesZeichen)) {
-                            boolean komplettesZeichenTreffer = !gueltigesZeichen.isEmpty();
-                            for (int gueltigesZeichenIteration = 0;
-                                 gueltigesZeichenIteration < gueltigesZeichen.length();
-                                 gueltigesZeichenIteration++) {
-                                if (gueltigesZeichen.charAt(gueltigesZeichenIteration) !=
-                                    zeichenkette.charAt(zeichenketteIteration + gueltigesZeichenIteration)) {
-                                    komplettesZeichenTreffer = false;
-                                    break;
-                                }
-                            }
-
-                            if (komplettesZeichenTreffer) {
-                                treffer = true;
-                                zeichenketteIteration = zeichenketteIteration + laengeIteration - 1;
-                                break;
-                            }
-                        }
-                    }
-                    if (treffer) {
-                        break;
-                    }
-                }
-            }
-
-            // If a character could not be mapped, this is an error
-            if (!treffer) {
-                return false;
-            }
-        }
-
-        return true;
+        return CharacterUtil.containsOnlyCharsFromSet(zeichenkette, gueltigeZeichenSet);
     }
 
     /**
@@ -408,8 +358,8 @@ public abstract class AbstractTransformator implements Transformator {
             if (rechts != null && !rechts.isEmpty()) {
                 String[] rechtsSplitted = rechts.split("[+]");
                 for (String s : rechtsSplitted) {
-                    s = s.trim();
-                    int rechtsHexChar = Integer.parseInt(s, 16);
+                    String rechtsTeil = s.trim();
+                    int rechtsHexChar = Integer.parseInt(rechtsTeil, 16);
                     char rechtsTeilChar = (char) rechtsHexChar;
                     rechtsString.append(rechtsTeilChar);
                 }
@@ -488,58 +438,19 @@ public abstract class AbstractTransformator implements Transformator {
 
                 if (lade) {
                     // Parsing the data
-                    char[] zeichen = ladeCharArrayAusProperty(gueltigerCharacter);
+                    char[] zeichen = CharacterUtil.parseString(gueltigerCharacter);
                     if (zeichen != null) {
                         String newString = new String(zeichen);
                         zeichenketteSet.add(newString);
+
+                        // Debug
+                        getLogger().debug("Zeichen: {} in Kategorie {} geladen.", newString, kategorie);
                     }
                 }
             }
 
-            List<String> zeichenketteList = new ArrayList<>();
-            for (String zeichenkette : zeichenketteSet) {
-                zeichenketteList.add(zeichenkette);
-
-                // Debug
-                getLogger().debug("Zeichen: {} in Kategorie {} geladen.", zeichenkette, kategorie);
-
-                // Update length table
-                int zeichenketteLaenge = zeichenkette.length();
-                if (zeichenkette.length() > maximaleGueltigeZeichenlaenge) {
-                    maximaleGueltigeZeichenlaenge = zeichenketteLaenge;
-                }
-
-                List<String> existierendeLaengeArray =
-                    this.laengeGueltigeZeichenMap.computeIfAbsent(zeichenketteLaenge, k -> new ArrayList<>());
-                existierendeLaengeArray.add(zeichenkette);
-
-            }
-
-            this.kategorieGueltigeZeichenTabelle.put(kategorie, zeichenketteList.toArray(new String[0]));
-
+            kategorieGueltigeZeichenTabelle.put(kategorie, zeichenketteSet.toArray(new String[0]));
         }
     }
 
-    private char[] ladeCharArrayAusProperty(String zeichenkette) {
-
-        // Parses the string on the defined chars
-
-        String[] zeichenketteSplitted = zeichenkette.split("[+]");
-
-        if (zeichenketteSplitted.length == 0) {
-            return null;
-        }
-
-        char[] toReturn = new char[zeichenketteSplitted.length];
-
-        for (int i = 0; i < zeichenketteSplitted.length; i++) {
-            String teil = zeichenketteSplitted[i];
-            teil = teil.trim();
-            int hexChar = Integer.parseInt(teil, 16);
-            char toChar = (char) hexChar;
-            toReturn[i] = toChar;
-        }
-
-        return toReturn;
-    }
 }
