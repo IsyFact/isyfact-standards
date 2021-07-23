@@ -6,17 +6,18 @@ import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.konstanten.Transfor
 import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.Transformation;
 
 /**
- * The transcription transformer.
- *
+ * Legacy transformator that converts texts containing characters of the DIN SPEC 91379 into texts that
+ * are compatible with String.Latin 1.1.
  */
-public class TranskriptionTransformator extends  AbstractTransformator {
+@Deprecated
+public class LegacyTransformator extends AbstractTransformator {
 
     /** Logger. */
-    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(TranskriptionTransformator.class);
+    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(LegacyTransformator.class);
 
     @Override
     protected String getStandardTransformationsTabelle() {
-        return TransformationsKonstanten.TRANSFORMATIONS_TABELLE_TRANSKRIPTION;
+        return TransformationsKonstanten.TRANSFORMATIONS_TABELLE_LEGACY;
     }
 
     @Override

@@ -34,6 +34,8 @@ import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.konstanten.EreignisSchluessel;
 import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.konstanten.TransformationsKonstanten;
+import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.Transformation;
+import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.TransformationMetadaten;
 import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.Transformator;
 import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.ZeichenKategorie;
 
@@ -126,32 +128,76 @@ public abstract class AbstractTransformator implements Transformator {
     @Override
     public String transformiereOhneTrim(String zeichenkette) {
 
-        if (zeichenkette == null) {
-            return null;
-        }
-
-        // Step 1: Transform characters into strings
-        return transformiereZeichenInZeichenkette(zeichenkette);
-
+        return transformiereOhneTrimMitMetadaten(zeichenkette).getTransformierterText();
     }
 
     @Override
     public String transformiere(String zeichenkette) {
 
+        return transformiereMitMetadaten(zeichenkette).getTransformierterText();
+    }
+
+    @Override
+    public Transformation transformiereOhneTrimMitMetadaten(String zeichenkette) {
+
         if (zeichenkette == null) {
-            return null;
+            return new Transformation(null, new ArrayList<>());
         }
 
         // Step 1: Transform characters into strings
-        String transformiert = transformiereZeichenInZeichenkette(zeichenkette);
+        return transformiereZeichenInZeichenkette(zeichenkette);
+    }
+
+    @Override
+    public Transformation transformiereMitMetadaten(String zeichenkette) {
+
+        if (zeichenkette == null) {
+            return new Transformation(null, new ArrayList<>());
+        }
+
+        // Step 1: Transform characters into strings
+        Transformation transformation = transformiereZeichenInZeichenkette(zeichenkette);
+        String transformiert = transformation.getTransformierterText();
 
         // Step 2: Remove spaces at the beginning and at the end
-        StringBuilder filterBuffer = new StringBuilder(transformiert.trim());
+        int laengeTransformiert = transformiert.length();
+        transformiert = transformiert.replaceAll("^\\s+", "");
+        int fuehrendeLeerzeichen = laengeTransformiert - transformiert.length();
+        transformiert = transformiert.replaceAll("\\s+$", "");
+        StringBuilder filterBuffer = new StringBuilder(transformiert);
 
-        // Step 3: replace multiple spaces into one
+        // Adjust the new positions in the metadata after deleting leading and trailing spaces
+        transformation.getMetadatenList().forEach(e -> {
+            // Adjust metadata for deleted leading characters
+            int neuePosition = Math.max(-1, (e.getNeuePosition() - fuehrendeLeerzeichen));
+            // Adjust metadata for deleted trailing characters
+            if (neuePosition >= filterBuffer.length()) {
+                neuePosition  = -2;
+            }
+            e.setNeuePosition(neuePosition);
+        });
+
+        // Step 3: replace multiple consecutive spaces with a single space
         Matcher matcher = REG_EX_LEERZEICHEN.matcher(filterBuffer);
+        while (matcher.find()) {
+            int spacesStart = matcher.start();
+            int spacesEnd = matcher.end();
+            transformiert = matcher.replaceFirst(TransformationsKonstanten.STRING_SPACE);
+            matcher = REG_EX_LEERZEICHEN.matcher(transformiert);
+            // Adjust new positions in the metadata after replacing multiple consecutive spaces
+            transformation.getMetadatenList().forEach(e -> {
+                if (e.getNeuePosition() > spacesStart) {
+                    if (e.getNeuePosition() < spacesEnd) {
+                        e.setNeuePosition(spacesStart);
+                    } else {
+                        e.setNeuePosition(e.getNeuePosition() - (spacesEnd - spacesStart - 1));
+                    }
+                }
+            });
+        }
 
-        return matcher.replaceAll(TransformationsKonstanten.STRING_SPACE);
+        transformation.setTransformierterText(matcher.replaceAll(TransformationsKonstanten.STRING_SPACE));
+        return transformation;
     }
 
     @Override
@@ -253,7 +299,15 @@ public abstract class AbstractTransformator implements Transformator {
         return true;
     }
 
-    private String transformiereZeichenInZeichenkette(String zeichenkette) {
+    /**
+     * Transforms characters in a string.
+     * @param zeichenkette String to transform
+     * @return Transformation object containing the transformed string and the metadata of the transformation
+     */
+    private Transformation transformiereZeichenInZeichenkette(String zeichenkette) {
+
+        ArrayList<TransformationMetadaten> metadaten = new ArrayList<>();
+        int verschiebung = 0;
 
         // Step 1: Check the characters of the character string step by step for entries in the mapping table
         StringBuilder filtered = new StringBuilder(zeichenkette.length());
@@ -262,16 +316,55 @@ public abstract class AbstractTransformator implements Transformator {
             Object object = transformationsTabelle.get(zeichenkette.charAt(i));
             if (object == null) {
                 filtered.append(standardErsetzung);
+                String ersetzung = standardErsetzung;
+                if (ersetzung == null) {
+                    ersetzung = "null";
+                }
+                String altesZeichen = String.valueOf(zeichenkette.charAt(i));
+                metadaten.add(new TransformationMetadaten(
+                    altesZeichen, getCodepoint(altesZeichen), ersetzung, getCodepoint(standardErsetzung), i, i + verschiebung));
+                verschiebung += ersetzung.length() - altesZeichen.length();
             } else if (object instanceof StringBuilder) {
                 filtered.append(object);
+                String ersetzung = object.toString();
+                String altesZeichen = String.valueOf(zeichenkette.charAt(i));
+                if (!altesZeichen.equals(ersetzung)) {
+                    metadaten.add(new TransformationMetadaten(
+                        altesZeichen, getCodepoint(altesZeichen), object.toString(), getCodepoint(object.toString()), i, i + verschiebung));
+                    verschiebung += ersetzung.length() - altesZeichen.length();
+                }
             } else {
                 final KomplexeTransformation komplexeTransformation = (KomplexeTransformation) object;
-                filtered.append(komplexeTransformation.getErsetzung(zeichenkette, i));
+                String ersetzung = komplexeTransformation.getErsetzung(zeichenkette, i);
+                String altesZeichen = komplexeTransformation.getAltesZeichenLetzteErsetzung();
+                filtered.append(ersetzung);
+                if (!altesZeichen.equals(ersetzung)) {
+                    metadaten.add(new TransformationMetadaten(
+                        altesZeichen, getCodepoint(altesZeichen), ersetzung, getCodepoint(ersetzung), i, i + verschiebung));
+                }
+                verschiebung += ersetzung.length() - altesZeichen.length();
                 i += komplexeTransformation.getLaengeLetzteErsetzung() - 1;
             }
         }
-        return filtered.toString();
+        return new Transformation(filtered.toString(), metadaten);
     }
+
+    /**
+     * Returns unicode codepoints of the characters in a string. Multiple Codepoints are seperated by " + ".
+     * @param text Characters whose codepoints are returned.
+     * @return Codepoints
+     */
+    private String getCodepoint(String text) {
+        if (text == null) {
+            return "null".codePoints()
+                .mapToObj(e -> String.format("%04X", e))
+                .collect(Collectors.joining(" + "));
+        }
+        return text.codePoints()
+            .mapToObj(e -> String.format("%04X", e))
+            .collect(Collectors.joining(" + "));
+    }
+
 
     private void ladeInTabelle(InputStream inputStream) throws IOException {
 

@@ -69,6 +69,54 @@ public interface Transformator {
     String transformiereOhneTrim(String zeichenkette);
 
     /**
+     * Transforms a string and returns the transformed string and the metadata of the transformation.
+     * Ensures that the string has the specified length after the operation. There is no distinction
+     * between whether the original string length has already exceeded the maximum or whether the
+     * string was only lengthened by a transformation. <br> Returns {@code null} if the string is
+     * <code> null </ code > was passed.
+     *
+     * Important! The same restrictions apply to non-BMP characters as we do to
+     * {@link #transformiere(String)}
+     *
+     * @param zeichenkette
+     *            The string to transform
+     * @param maximaleLaenge
+     *            The maximum length of the string
+     * @return a Transformation object conatining the transformed string (or null if null was passed) and
+     *              the metadata of the transformation
+     */
+    Transformation transformiereMitMetadaten(String zeichenkette, int maximaleLaenge);
+
+    /**
+     * Transforms a string and returns the transformed string and the metadata of the transformation.
+     * Spaces at the beginning and at the end of the character string are cut off. Duplicate spaces within
+     * the string are converted to a space. <br> Returns {@code null} if the string was passed as {@code null}.
+     *
+     * Important! The same restrictions apply to non-BMP characters as we do to
+     * {@link #transformiere(String)}
+     *
+     * {@link #isGueltigerString(String, String[])} can be used.
+     * @param zeichenkette
+     *            The string to transform
+     * @return a Transformation object conatining the transformed string (or null if null was passed) and
+     *            the metadata of the transformation
+     */
+    Transformation transformiereMitMetadaten(String zeichenkette);
+
+    /**
+     * Transforms a string and returns the transformed string and the metadata of the transformation.
+     * Does not trim at the end.
+     *
+     * Important! The same restrictions apply for non-BMP characters as for {@link #transformiere(String)}
+     *
+     * @param zeichenkette
+     *            The string to transform
+     * @return a Transformation object conatining the transformed string (or null if null was passed) and
+     *            the metadata of the transformation
+     */
+    Transformation transformiereOhneTrimMitMetadaten(String zeichenkette);
+
+    /**
      * Returns the regular expression for all allowed expressions within the character category.
      * @param kategorieListe
      *            the allowed expressions of the character category
