@@ -13,7 +13,9 @@
 - `IFS-970`: [isy-products-bom] Spring-Boot Versionsanhebung auf 2.5.2
 - `IFS-1093`: [isy-persistence], [isyfact-products-bom] Anhebung von Oracle-JDBC und UCP auf 19.11
 - `IFS-988`: [isy-products-bom] Apache Commons Logging entfernt
-
+- `IFS-1109`: [isy-sonderzeichen] DIN SPEC 91379:
+    * Erweiterung Transformator-Interface um Methoden, die Metadaten der Transformation tracken
+    * neuer LegacyTransformator, der Texte nach DIN-SPEC-91379 in String.Latin-1.1-konforme Texte transformiert
 
 # 2.2.0
 - `IFS-453`: [isy-ueberwachung] Loglevel für isAlive-Datei-Ereignisse erhöht.
