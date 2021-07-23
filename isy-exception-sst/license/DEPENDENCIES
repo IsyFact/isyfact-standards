@@ -1,11 +1,19 @@
 
-List of third-party dependencies grouped by their license type. No warranty on correctness and completeness. /
-Liste aller Abhängigkeiten zu Drittsoftware gruppiert nach deren Lizenzen. Keine Gewähr für Korrektheit und Vollständigkeit.
+List of third-party dependencies grouped by their license type.
 
-	(Eclipse Public License 1.0):
 
-		* JUnit (junit:junit:4.12 - http://junit.org)
+    Eclipse Public License 1.0
 
-	(New BSD License):
+        * JUnit (junit:junit:4.12 - http://junit.org)
 
-		* Hamcrest Core (org.hamcrest:hamcrest-core:1.3 - https://github.com/hamcrest/JavaHamcrest/hamcrest-core)
+    GNU LESSER GENERAL PUBLIC LICENSE, Version 2.1
+
+        * SpotBugs Annotations (com.github.spotbugs:spotbugs-annotations:4.2.1 - https://spotbugs.github.io/)
+
+    New BSD License
+
+        * Hamcrest Core (org.hamcrest:hamcrest-core:1.3 - https://github.com/hamcrest/JavaHamcrest/hamcrest-core)
+
+    The Apache Software License, Version 2.0
+
+        * FindBugs-jsr305 (com.google.code.findbugs:jsr305:3.0.2 - http://findbugs.sourceforge.net/)

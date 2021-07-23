@@ -1,8 +1,9 @@
-package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.core.transformation.impl;
+package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.impl;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.konstanten.TransformationsKonstanten;
+import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.Transformation;
 
 /**
  * The transcription transformer.
@@ -11,7 +12,7 @@ import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.konstanten.Transfor
 public class TranskriptionTransformator extends  AbstractTransformator {
 
     /** Logger. */
-    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(TranskriptionTransformator.class);;
+    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(TranskriptionTransformator.class);
 
     @Override
     protected String getStandardTransformationsTabelle() {
@@ -30,6 +31,11 @@ public class TranskriptionTransformator extends  AbstractTransformator {
 
     @Override
     public String transformiere(String zeichenkette, int maximaleLaenge) {
+        throw new UnsupportedOperationException("Diese Funktion wird nicht unterstützt.");
+    }
+
+    @Override
+    public Transformation transformiereMitMetadaten(String zeichenkette, int maximaleLaenge) {
         throw new UnsupportedOperationException("Diese Funktion wird nicht unterstützt.");
     }
 }

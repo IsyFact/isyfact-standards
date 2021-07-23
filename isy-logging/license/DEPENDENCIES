@@ -1,45 +1,50 @@
 
-List of third-party dependencies grouped by their license type. No warranty on correctness and completeness. /
-Liste aller Abhängigkeiten zu Drittsoftware gruppiert nach deren Lizenzen. Keine Gewähr für Korrektheit und Vollständigkeit.
+List of third-party dependencies grouped by their license type.
 
-	(Apache License, Version 2.0):
 
-		* IsyFact-Fehlerbehandlung (Basisklassen) (de.bund.bva.isyfact:isy-exception-core:1.10.0 - http://isyfact.de/isy-exception-core)
-		* Spring AOP (org.springframework:spring-aop:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
-		* Spring Aspects (org.springframework:spring-aspects:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
-		* Spring Beans (org.springframework:spring-beans:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
-		* Spring Context (org.springframework:spring-context:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
-		* Spring Core (org.springframework:spring-core:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
-		* Spring Expression Language (SpEL) (org.springframework:spring-expression:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
-		* Spring TestContext Framework (org.springframework:spring-test:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+    Apache License, Version 2.0
 
-	(Eclipse Public License - v 1.0):
+        * IsyFact-Fehlerbehandlung (Basisklassen) (de.bund.bva.isyfact:isy-exception-core:1.11.0 - http://isyfact.de/isy-exception-core)
+        * Spring AOP (org.springframework:spring-aop:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+        * Spring Aspects (org.springframework:spring-aspects:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+        * Spring Beans (org.springframework:spring-beans:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+        * Spring Context (org.springframework:spring-context:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+        * Spring Core (org.springframework:spring-core:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+        * Spring Expression Language (SpEL) (org.springframework:spring-expression:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
+        * Spring TestContext Framework (org.springframework:spring-test:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
 
-		* AspectJ weaver (org.aspectj:aspectjweaver:1.8.9 - http://www.aspectj.org)
+    Eclipse Public License 1.0
 
-	(Eclipse Public License - v 1.0) (GNU Lesser General Public License):
+        * JUnit (junit:junit:4.12 - http://junit.org)
 
-		* Logback Classic Module (ch.qos.logback:logback-classic:1.2.3 - http://logback.qos.ch/logback-classic)
-		* Logback Contrib :: JSON :: Classic (ch.qos.logback.contrib:logback-json-classic:0.1.5 - https://github.com/qos-ch/logback-contrib/wiki/logback-json-parent/logback-json-classic)
-		* Logback Contrib :: JSON :: Core (ch.qos.logback.contrib:logback-json-core:0.1.5 - https://github.com/qos-ch/logback-contrib/wiki/logback-json-parent/logback-json-core)
-		* Logback Contrib :: Jackson (ch.qos.logback.contrib:logback-jackson:0.1.5 - https://github.com/qos-ch/logback-contrib/wiki/logback-jackson)
-		* Logback Core Module (ch.qos.logback:logback-core:1.2.3 - http://logback.qos.ch/logback-core)
+    Eclipse Public License - v 1.0
 
-	(Eclipse Public License 1.0):
+        * AspectJ weaver (org.aspectj:aspectjweaver:1.8.9 - http://www.aspectj.org)
 
-		* JUnit (junit:junit:4.12 - http://junit.org)
+    Eclipse Public License - v 1.0, GNU Lesser General Public License
 
-	(MIT License):
+        * Logback Classic Module (ch.qos.logback:logback-classic:1.2.3 - http://logback.qos.ch/logback-classic)
+        * Logback Contrib :: Jackson (ch.qos.logback.contrib:logback-jackson:0.1.5 - https://github.com/qos-ch/logback-contrib/wiki/logback-jackson)
+        * Logback Contrib :: JSON :: Classic (ch.qos.logback.contrib:logback-json-classic:0.1.5 - https://github.com/qos-ch/logback-contrib/wiki/logback-json-parent/logback-json-classic)
+        * Logback Contrib :: JSON :: Core (ch.qos.logback.contrib:logback-json-core:0.1.5 - https://github.com/qos-ch/logback-contrib/wiki/logback-json-parent/logback-json-core)
+        * Logback Core Module (ch.qos.logback:logback-core:1.2.3 - http://logback.qos.ch/logback-core)
 
-		* SLF4J API Module (org.slf4j:slf4j-api:1.7.25 - http://www.slf4j.org)
+    GNU LESSER GENERAL PUBLIC LICENSE, Version 2.1
 
-	(New BSD License):
+        * SpotBugs Annotations (com.github.spotbugs:spotbugs-annotations:4.2.1 - https://spotbugs.github.io/)
 
-		* Hamcrest Core (org.hamcrest:hamcrest-core:1.3 - https://github.com/hamcrest/JavaHamcrest/hamcrest-core)
+    MIT License
 
-	(The Apache Software License, Version 2.0):
+        * SLF4J API Module (org.slf4j:slf4j-api:1.7.25 - http://www.slf4j.org)
 
-		* Commons Logging (commons-logging:commons-logging:1.1.3 - http://commons.apache.org/proper/commons-logging/)
-		* Jackson-annotations (com.fasterxml.jackson.core:jackson-annotations:2.9.10 - http://github.com/FasterXML/jackson)
-		* Jackson-core (com.fasterxml.jackson.core:jackson-core:2.9.10 - https://github.com/FasterXML/jackson-core)
-		* jackson-databind (com.fasterxml.jackson.core:jackson-databind:2.9.10.1 - http://github.com/FasterXML/jackson)
+    New BSD License
+
+        * Hamcrest Core (org.hamcrest:hamcrest-core:1.3 - https://github.com/hamcrest/JavaHamcrest/hamcrest-core)
+
+    The Apache Software License, Version 2.0
+
+        * Commons Logging (commons-logging:commons-logging:1.1.3 - http://commons.apache.org/proper/commons-logging/)
+        * FindBugs-jsr305 (com.google.code.findbugs:jsr305:3.0.2 - http://findbugs.sourceforge.net/)
+        * Jackson-annotations (com.fasterxml.jackson.core:jackson-annotations:2.9.10 - http://github.com/FasterXML/jackson)
+        * Jackson-core (com.fasterxml.jackson.core:jackson-core:2.9.10 - https://github.com/FasterXML/jackson-core)
+        * jackson-databind (com.fasterxml.jackson.core:jackson-databind:2.9.10.1 - http://github.com/FasterXML/jackson)

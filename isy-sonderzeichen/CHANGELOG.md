@@ -1,3 +1,12 @@
+# 1.11.0:
+- `IFS-1003`:
+  + Refactoring des DIN-SPEC-Packages von isy-sonderzeichen
+  + Entfernen des `core`-Unterpakets des DIN-SPEC-Packages von isy-sonderzeichen
+- `IFS-1109`: DIN SPEC 91379:
+  * Erweiterung Transformator-Interface um Methoden, die Metadaten der Transformation tracken
+  * neuer LegacyTransformator, der Texte nach DIN-SPEC-91379 in String.Latin-1.1-konforme Texte transformiert
+- `IFS-1035`: Funktion hinzugefügt, welche die Zugehörigkeit eines Strings zu einem DIN-SPEC-Datentyp prüft.
+  
 # 1.10.0:
 - `IFS-849`: 
     + Alte Implementierung in `de.bund.bva.pliscommon.plissonderzeichen.stringlatin1_1` verschoben
@@ -7,8 +16,6 @@
 
 # 1.9.0
 - `IFS-468`: license/DEPENDENCIES überarbeitet und Dozer (nach Update auf 6.5.0) entfernt
-
-
 - `IFS-528`: Explizite Version für isy-logging entfernt und stattdessen isyfact-standards-bom importiert
 
 # 1.8.0
