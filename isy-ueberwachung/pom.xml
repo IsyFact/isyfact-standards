@@ -5,11 +5,11 @@
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
         <artifactId>isyfact-standards</artifactId>
-        <version>1.9.0</version>
+        <version>1.9.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>isy-ueberwachung</artifactId>
-    <version>1.11.0</version>
+    <version>1.11.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>IsyFact-Überwachung</name>
@@ -33,7 +33,7 @@
         </dependencies>
     </dependencyManagement>
     <dependencies>
-        <!-- Fuer Unterscheidung fachliche vs. technische Fehler -->
+        <!-- For differentiating between technical and functional errors -->
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-exception-sst</artifactId>
@@ -42,12 +42,12 @@
             <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-serviceapi-sst</artifactId>
         </dependency>
-        <!-- Fuer das Auslesen des BHKZs aus dem Aufrufkontext -->
+        <!-- For reading the BHKNZ from the AufrufKontext -->
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-aufrufkontext</artifactId>
         </dependency>
-        <!-- Fuer JMX-Annotations -->
+        <!-- For JMX annotations -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
@@ -56,7 +56,7 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
         </dependency>
-        <!-- Für AOP-Interfaces -->
+        <!-- For AOP interfaces -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
@@ -65,20 +65,20 @@
             <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-logging</artifactId>
         </dependency>
-        <!-- Fuer die Task-Implementierung -->
+        <!-- For the Task implementation -->
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-task</artifactId>
         </dependency>
 
-        <!-- Servlet-API fuer Loadbalancing-Servlet. Wird nur zum Kompilieren benoetigt. -->
+        <!-- Servlet API for Loadbalancing-Servlet. Only used during compilation. -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <scope>provided</scope>
         </dependency>
 
-        <!--JUnit-Dependency -->
+        <!-- JUnit dependency -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

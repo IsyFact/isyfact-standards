@@ -1,7 +1,12 @@
 # 1.9.1
+- `IFS-875`: [isy-aufrufkontext], [isy-serviceapi-core] Umsetzung des Transports von OAuth 2 Bearer-Token zwischen Schnittstellentechnologien
 - `IFS-1003`: [isy-sonderzeichen]
   + Refactoring des DIN-SPEC-Packages von isy-sonderzeichen
   + Entfernen des `core`-Unterpakets des DIN-SPEC-Packages von isy-sonderzeichen
+- `IFS-1066`: [isy-persistence] Protokollierung-Datenstrukturen aus den Template-DB-Skripten entfernt
+- `IFS-1093`:
+    * [isyfact-products-bom] Anhebung von Oracle-JDBC und UCP auf 19.11
+    * [isy-persistence] Oracle-JDBC hinzugefügt
 - `IFS-1109`: [isy-sonderzeichen] DIN SPEC 91379:
   * Erweiterung Transformator-Interface um Methoden, die Metadaten der Transformation tracken
   * neuer LegacyTransformator, der Texte nach DIN-SPEC-91379 in String.Latin-1.1-konforme Texte transformiert

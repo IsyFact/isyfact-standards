@@ -26,11 +26,10 @@
        
     <!-- ======================================================================
         Spring Konfiguration für die Test-Cases.
-        
         ====================================================================== -->
     
     <!-- Verwende Stub Implementierung für die Tests -->
-    <bean id="aufrufKontextVerwalter" class="test.de.bund.bva.pliscommon.serviceapi.core.aufrufkontext.helper.DebugAufrufKontextVerwalter" />
+    <bean id="aufrufKontextVerwalter" class="de.bund.bva.pliscommon.serviceapi.core.aufrufkontext.helper.DebugAufrufKontextVerwalter" />
 
     <bean id="aufrufKontextFactory" class="de.bund.bva.pliscommon.aufrufkontext.impl.AufrufKontextFactoryImpl" />
 
@@ -48,7 +47,7 @@
         <property name="dozer" ref="dozerMapper" />
     </bean>
     
-    <bean id="bereitgestellteSchnittstelle" class="test.de.bund.bva.pliscommon.serviceapi.core.aop.test.AufrufKontextSstTestBean" />
+    <bean id="bereitgestellteSchnittstelle" class="de.bund.bva.pliscommon.serviceapi.core.aop.test.AufrufKontextSstTestBean" />
     
     <aop:config>
         <aop:pointcut id="stelltAllgemeinenAufrufKontextBereitPointcut"

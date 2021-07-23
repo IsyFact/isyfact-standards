@@ -19,29 +19,37 @@ package de.bund.bva.pliscommon.aufrufkontext.impl;
 import de.bund.bva.pliscommon.aufrufkontext.AufrufKontextVerwalter;
 
 /**
- * Stellt einer Anwendung den AufrufKontext bereit.
- * 
+ * Provides the AufrufKontext to an application.
  *
+ * @param <T>
+ *         implementation of the {@link AufrufKontextImpl} that is managed by the class
  */
 public class AufrufKontextVerwalterImpl<T extends AufrufKontextImpl> implements AufrufKontextVerwalter<T> {
 
-    /** der aktuelle AufrufKontext. */
+    /** The current AufrufKontext. */
     private T aufrufKontext;
 
-    /**
-     * Liefert das Feld 'aufrufKontext' zurück.
-     * @return Wert von aufrufKontext
-     */
+    /** The current OAuth 2 Bearer Token. */
+    private String bearerToken;
+
+    @Override
     public T getAufrufKontext() {
         return aufrufKontext;
     }
 
-    /**
-     * Setzt das Feld 'aufrufKontext'.
-     * @param aufrufKontext Neuer Wert für aufrufKontext
-     */
+    @Override
     public void setAufrufKontext(T aufrufKontext) {
         this.aufrufKontext = aufrufKontext;
+    }
+
+    @Override
+    public String getBearerToken() {
+        return this.bearerToken;
+    }
+
+    @Override
+    public void setBearerToken(String bearerToken) {
+        this.bearerToken = bearerToken;
     }
 
 }
