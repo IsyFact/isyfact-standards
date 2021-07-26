@@ -1,3 +1,12 @@
+# 2.3.0
+- `IFS-1004`: [isy-sonderzeichen]
+    * Refactoring des DIN-SPEC-Packages von isy-sonderzeichen
+    * Entfernen des `core`-Unterpakets des DIN-SPEC-Packages von isy-sonderzeichen
+- `IFS-1109`: [isy-sonderzeichen] DIN SPEC 91379:
+    * Erweiterung Transformator-Interface um Methoden, die Metadaten der Transformation tracken
+    * neuer LegacyTransformator, der Texte nach DIN-SPEC-91379 in String.Latin-1.1-konforme Texte transformiert
+- `IFS-1035`: [isy-sonderzeichen] Funktion hinzugefügt, welche die Zugehörigkeit eines Strings zu einem DIN-SPEC-Datentyp prüft.
+
 # 2.2.0
 - `IFS-453`: [isy-ueberwachung] Loglevel für isAlive-Datei-Ereignisse erhöht.
 - `IFS-465`: Profile zum Bauen mit Java 11 erstellt
@@ -17,8 +26,7 @@
 - `IFS-741`: [isy-persistence] Entferne das Anlegen von DB-User in Update-Skripten
 - `IFS-676`: Versionsupdate von OpenCSV 3.8 auf 5.3
     * Hinweise zu Breaking Changes s. Changelog.md der isyfact-products-bom
-
-
+    
 # 2.1.0
 - `IFS-156`: [isy-sicherheit] Sonderlogik, die Underscores aus dem Attribut `durchfuehrenderSachbearbeiterName` des Aufrufkontextes entfernt erneut ausgebaut.
 - `IFS-223`: [isy-products-bom] Logging Bridges in products-pom ergänzt: jcl-over-slf4j, slf4j-jcl
