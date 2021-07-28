@@ -32,24 +32,24 @@ import de.bund.bva.pliscommon.serviceapi.common.konstanten.EreignisSchluessel;
 import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 
 /**
- * HTTP-InvokerClientInterceptor zum Erzeugen IsyFact-konformer Loggingeinträge.
+ * HTTP-InvokerClientInterceptor to generate IsyFact compliant logging entries.
  */
 public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientInterceptor {
 
-    /** Logger der Klasse. */
+    /** Logger */
     private static final IsyLogger LOGGER = IsyLoggerFactory.getLogger(IsyHttpInvokerClientInterceptor.class);
 
-    /** Helper, zum Erzeugen der Logeinträge. */
+    /** Helper for creating Logentries. */
     private LogHelper logHelper = new LogHelper(false, false, true, false, false, 0);
 
-    /** Name des aufgerufenen Nachbarsystems. */
+    /** Name of the remote system that is being called. */
     private String remoteSystemName;
 
     /**
      * {@inheritDoc}
      *
-     * Beim Aufruf wird immer eine neue Korrelations-ID erzeugt und zu der bestehenden Korrelations-ID des
-     * Aufrufkontextes hinzugefügt. Damit muss das aufrufende System
+     * When called, a new correlation ID is always created and added to the existing correlation ID of the
+     * calling context.
      *
      * @see org.springframework.remoting.httpinvoker.HttpInvokerClientInterceptor#invoke(org.aopalliance.intercept.MethodInvocation)
      */
@@ -69,7 +69,7 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
 
         String oldKorrelationsIdOfKontext = null;
 
-        // Warnung bei falschem Setzen der Korr-Id im Aufrufkontext.
+        // Warning if there was already a Korr-Id in the AufrufkontextTo which didn't match
         if (aufrufKontextTo != null && aufrufKontextTo.getKorrelationsId() != null &&
             aufrufKontextTo.getKorrelationsId().length() != 0 &&
             !MdcHelper.liesKorrelationsId()
@@ -80,22 +80,20 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
                 aufrufKontextTo.getKorrelationsId(), MdcHelper.liesKorrelationsId());
         }
 
-        // Korrektlations-Id im Kontext setzen.
+        // set korrelationsId in the context
         if (Objects.nonNull(aufrufKontextTo)) {
             oldKorrelationsIdOfKontext = aufrufKontextTo.getKorrelationsId();
-            LOGGER.warn(EreignisSchluessel.AUFRUFKONTEXT_KORRID_KORRIGIERT, "Value: {}", oldKorrelationsIdOfKontext);
             aufrufKontextTo.setKorrelationsId(MdcHelper.liesKorrelationsId());
-            LOGGER.warn(EreignisSchluessel.AUFRUFKONTEXT_KORRID_KORRIGIERT, "Value: {}", MdcHelper.liesKorrelationsId());
         }
 
-        // Logge Aufruf Nachbarsystem.
+        // Logging call of remote system
         this.logHelper.loggeNachbarsystemAufruf(LOGGER, methode, this.remoteSystemName, getServiceUrl());
         long startzeit = 0;
         try {
             startzeit = this.logHelper.ermittleAktuellenZeitpunkt();
             Object ergebnis = super.invoke(methodInvocation);
 
-            // Aufruf ist ohne Exception verarbeitet worden.
+            // call was executed without exceptions
             aufrufErfolgreich = true;
             return ergebnis;
 
@@ -112,18 +110,12 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
             if (Objects.nonNull(aufrufKontextTo)) {
                 if (Objects.nonNull(oldKorrelationsIdOfKontext)) {
                     aufrufKontextTo.setKorrelationsId(oldKorrelationsIdOfKontext);
-                    LOGGER.warn(EreignisSchluessel.AUFRUFKONTEXT_KORRID_KORRIGIERT, "Value: {}", oldKorrelationsIdOfKontext);
                 }
             }
         }
 
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
-     */
     @Override
     public void afterPropertiesSet() {
         super.afterPropertiesSet();
@@ -133,20 +125,20 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
     }
 
     /**
-     * Setzt den Wert des Attributs 'remoteSystemName'.
+     * Sets value of attribute 'remoteSystemName'.
      *
      * @param remoteSystemName
-     *            Neuer Wert des Attributs.
+     *      New value of the attribute.
      */
     public void setRemoteSystemName(String remoteSystemName) {
         this.remoteSystemName = remoteSystemName;
     }
 
     /**
-     * Setzt den Wert des Attributs 'logHelper'.
+     * Sets value of attribute 'logHelper'.
      *
      * @param logHelper
-     *            Neuer Wert des Attributs.
+     *      New value of the attribute.
      */
     public void setLogHelper(LogHelper logHelper) {
         this.logHelper = logHelper;
