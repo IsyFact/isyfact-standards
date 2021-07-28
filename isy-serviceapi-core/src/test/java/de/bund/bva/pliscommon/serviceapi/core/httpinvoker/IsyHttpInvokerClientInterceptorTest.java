@@ -8,9 +8,11 @@ import static org.mockito.Mockito.*;
 import java.lang.reflect.Method;
 
 import org.aopalliance.intercept.MethodInvocation;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
@@ -29,25 +31,31 @@ public class IsyHttpInvokerClientInterceptorTest {
     @Mock
     private LogHelper logHelper;
 
-    @Test
-    public void invokeMitIsyFactLogging() throws Throwable {
+    private IsyHttpInvokerClientInterceptor isyHttpInvokerClientInterceptor;
+    private Method toStringMethod;
+    private final static String KORRELATIONS_ID = "korrelationsId";
+    private final static String REMOTE_SYSTEM = "remoteSystem";
+    private final static String REGEX_WITHOUT_KORRELATIONS = "[a-z0-9-]{36}";
 
-        IsyHttpInvokerClientInterceptor isyHttpInvokerClientInterceptor =
-                new IsyHttpInvokerClientInterceptor();
-
-        Method toStringMethod = Object.class.getMethod("toString");
+    @Before
+    public void init () throws Throwable{
+        isyHttpInvokerClientInterceptor = new IsyHttpInvokerClientInterceptor();
+        toStringMethod = Object.class.getMethod("toString");
 
         when(logHelper.ermittleAktuellenZeitpunkt()).thenReturn(1L).thenReturn(2L);
-        when(methodInvocation.getArguments()).thenReturn(new Object[]{ aufrufKontextTo });
+        when(methodInvocation.getArguments()).thenReturn(new Object[] { aufrufKontextTo });
         when(methodInvocation.getMethod()).thenReturn(toStringMethod);
-        when(aufrufKontextTo.getKorrelationsId()).thenReturn("korrelationsId");
+        when(aufrufKontextTo.getKorrelationsId()).thenReturn(KORRELATIONS_ID);
 
         isyHttpInvokerClientInterceptor.setLogHelper(logHelper);
-        isyHttpInvokerClientInterceptor.setRemoteSystemName("remoteSystem");
+        isyHttpInvokerClientInterceptor.setRemoteSystemName(REMOTE_SYSTEM);
+    }
 
+    @Test
+    public void invokeMitIsyFactLogging() throws Throwable {
         isyHttpInvokerClientInterceptor.invoke(methodInvocation);
 
-        verify(aufrufKontextTo).setKorrelationsId(anyString());
+        verify(aufrufKontextTo, Mockito.atLeast(1)).setKorrelationsId(anyString());
         verify(logHelper)
                 .loggeNachbarsystemAufruf(any(IsyLogger.class), eq(toStringMethod), eq("remoteSystem"),
                         eq(null));
@@ -57,6 +65,20 @@ public class IsyHttpInvokerClientInterceptorTest {
         verify(logHelper)
                 .loggeNachbarsystemDauer(any(IsyLogger.class), eq(toStringMethod), eq(1L), eq("remoteSystem"),
                         eq(null), eq(true));
+    }
+
+    @Test
+    public void invokeResetKorrelationId() throws Throwable {
+        isyHttpInvokerClientInterceptor.invoke(methodInvocation);
+
+        // The korrelationsSetter will be called 2 times
+        verify(aufrufKontextTo, Mockito.times(2)).setKorrelationsId(anyString());
+
+        // korrelationsId = UUID
+        verify(aufrufKontextTo).setKorrelationsId(Mockito.matches(REGEX_WITHOUT_KORRELATIONS));
+
+        // Reset of korrelationsId
+        verify(aufrufKontextTo).setKorrelationsId(KORRELATIONS_ID);
     }
 
 }

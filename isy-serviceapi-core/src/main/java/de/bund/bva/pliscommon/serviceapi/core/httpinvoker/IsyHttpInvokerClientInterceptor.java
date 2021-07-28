@@ -17,6 +17,7 @@
 package de.bund.bva.pliscommon.serviceapi.core.httpinvoker;
 
 import java.lang.reflect.Method;
+import java.util.Objects;
 import java.util.UUID;
 
 import de.bund.bva.pliscommon.serviceapi.common.AufrufKontextToHelper;
@@ -66,6 +67,8 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
         LOGGER.debug("Erzeuge neue Korrelations-ID {}", korrelationsId);
         MdcHelper.pushKorrelationsId(korrelationsId);
 
+        String oldKorrelationsIdOfKontext = null;
+
         // Warnung bei falschem Setzen der Korr-Id im Aufrufkontext.
         if (aufrufKontextTo != null && aufrufKontextTo.getKorrelationsId() != null &&
             aufrufKontextTo.getKorrelationsId().length() != 0 &&
@@ -78,8 +81,11 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
         }
 
         // Korrektlations-Id im Kontext setzen.
-        if (aufrufKontextTo != null) {
+        if (Objects.nonNull(aufrufKontextTo)) {
+            oldKorrelationsIdOfKontext = aufrufKontextTo.getKorrelationsId();
+            LOGGER.warn(EreignisSchluessel.AUFRUFKONTEXT_KORRID_KORRIGIERT, "Value: {}", oldKorrelationsIdOfKontext);
             aufrufKontextTo.setKorrelationsId(MdcHelper.liesKorrelationsId());
+            LOGGER.warn(EreignisSchluessel.AUFRUFKONTEXT_KORRID_KORRIGIERT, "Value: {}", MdcHelper.liesKorrelationsId());
         }
 
         // Logge Aufruf Nachbarsystem.
@@ -102,6 +108,13 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
                 getServiceUrl(), aufrufErfolgreich);
 
             MdcHelper.entferneKorrelationsId();
+
+            if (Objects.nonNull(aufrufKontextTo)) {
+                if (Objects.nonNull(oldKorrelationsIdOfKontext)) {
+                    aufrufKontextTo.setKorrelationsId(oldKorrelationsIdOfKontext);
+                    LOGGER.warn(EreignisSchluessel.AUFRUFKONTEXT_KORRID_KORRIGIERT, "Value: {}", oldKorrelationsIdOfKontext);
+                }
+            }
         }
 
     }
