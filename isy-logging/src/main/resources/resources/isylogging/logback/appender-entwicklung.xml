@@ -25,7 +25,9 @@
 
         <!-- Encoder zum Steuern des Schreibens der Logeinträge -->
         <encoder>
-            <pattern>[P: %-5p] [T: %t] [L: %c] - [M: %m] %n</pattern>
+            <!-- Datum ist bei Tests idR. konstant. -->
+            <!-- package-Namen abkürzen. -->
+            <pattern>%date{HH:mm:ss.SSS} %-5level %logger{15} - %msg %n</pattern>
         </encoder>
     </appender>
 
