@@ -39,20 +39,20 @@
         </dependencies>
     </dependencyManagement>
     <dependencies>
-        <!-- ISY-Sicherheit zur Benutzer-Authentifizierung -->
+        <!-- ISY-Sicherheit for user authentication -->
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-sicherheit</artifactId>
         </dependency>
 
         <!-- Logging -->
-        <!-- Aktuelles Logging-Framework einbinden -->
+        <!-- Include the current logging framework -->
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-logging</artifactId>
         </dependency>
 
-        <!-- Bridge Log4j über slf4j -->
+        <!-- Bridge Log4j over SLF4J -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>log4j-over-slf4j</artifactId>

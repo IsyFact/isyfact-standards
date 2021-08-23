@@ -16,31 +16,52 @@
  */
 package de.bund.bva.pliscommon.aufrufkontext;
 
-/** 
- * Container für den aktuellen Aufrufkontext.
- * 
- * Diese Klasse sollte als Bean mit dem scope "thread" verwendet werden:
- * 
- *  <aop:aspectj-autoproxy/>
- *  <bean id="aufrufKontextVerwalter" scope="thread" class="de.bund.bva.pliscommon.aufrufkontext.impl.AufrufKontextVerwalterImpl">
- *       <aop:scoped-proxy/>
- *  </bean>
- * 
+/**
+ * Container for the current Aufrufkontext.
  * <p>
- * Siehe: http://www.springbyexample.org/static/0.91/html/ar20.html für Spring 2.5.x
+ * This class should be used with the "thread" bean scope:
  *
+ * <pre>{@code
+ * <aop:aspectj-autoproxy/>
+ * <bean id="aufrufKontextVerwalter" scope="thread" class="de.bund.bva.pliscommon.aufrufkontext.impl.AufrufKontextVerwalterImpl">
+ *     <aop:scoped-proxy/>
+ * </bean>
+ * }</pre>
+ *
+ * <p>
+ * See http://www.springbyexample.org/static/0.91/html/ar20.html for Spring 2.5.x
+ *
+ * @param <T>
+ *         implementation of the {@link AufrufKontext} that is managed by the class
  */
 public interface AufrufKontextVerwalter<T extends AufrufKontext> {
 
     /**
-     * liefert den aktuellen AufrufKontext zurück.
-     * @return den aktuellen AufrufKontext
+     * Returns the current AufrufKontext.
+     *
+     * @return the current AufrufKontext
      */
     T getAufrufKontext();
 
     /**
-     * setzt den aktuellen AufrufKontext.
-     * @param aufrufKontext das zu setzende Objekt.
+     * Sets the current AufrufKontext.
+     *
+     * @param aufrufKontext the AufrufKontext to set
      */
     void setAufrufKontext(T aufrufKontext);
+
+    /**
+     * Returns the OAuth 2 bearer token.
+     *
+     * @return the Base64 encoded OAuth 2 bearer token, or {@code null} if it is not set
+     */
+    String getBearerToken();
+
+    /**
+     * Sets the OAuth 2 bearer token.
+     *
+     * @param bearerToken the Base64 encoded OAuth 2 bearer token
+     */
+    void setBearerToken(String bearerToken);
+
 }

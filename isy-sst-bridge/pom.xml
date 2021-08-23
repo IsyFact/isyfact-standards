@@ -39,7 +39,7 @@
         </dependencies>
     </dependencyManagement>
     <dependencies>
-        <!--    Tests    -->
+        <!-- Test -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

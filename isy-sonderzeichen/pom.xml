@@ -34,14 +34,14 @@
         </dependencies>
     </dependencyManagement>
     <dependencies>
-        <!--JUnit-Dependency -->
+        <!-- JUnit dependency -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
 
-        <!-- Benoetigt fuer InitializingBeans -->
+        <!-- Required for InitializingBeans -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>

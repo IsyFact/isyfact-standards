@@ -43,7 +43,7 @@
             <artifactId>jcl-over-slf4j</artifactId>
         </dependency>
 
-        <!-- Exception-Klassen -->
+        <!-- Exception classes -->
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-exception-core</artifactId>
@@ -59,7 +59,7 @@
             <artifactId>isy-serviceapi-sst</artifactId>
         </dependency>
 
-        <!-- PLIS-Sicherheit zur Autorisierung in der Service-Impl. -->
+        <!-- ISY-Sicherheit for authorization in the service implementations -->
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-sicherheit</artifactId>
@@ -70,7 +70,7 @@
             <artifactId>isy-aufrufkontext</artifactId>
         </dependency>
 
-        <!-- Dozer (Bean Mapping) für Parametertransformationen in der Service-Impl. -->
+        <!-- Dozer (Bean Mapping) for parameter transformations in the service implementations -->
         <dependency>
             <groupId>com.github.dozermapper</groupId>
             <artifactId>dozer-core</artifactId>
@@ -88,13 +88,13 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
         </dependency>
-        <!-- Benoetigt fuer HttpInvoker -->
+        <!-- Required for HttpInvoker -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
         </dependency>
 
-        <!-- Für HttpInvoker-Aufruf in JUnit-Tests und AopUtils -->
+        <!-- For HttpInvoker calls in JUnit tests and AopUtils -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
@@ -105,21 +105,21 @@
             <artifactId>spring-tx</artifactId>
         </dependency>
 
-        <!-- Für HttpInvoker-Service in JUnit-Tests -->
+        <!-- For HttpInvoker-Service in JUnit tests -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <scope>test</scope>
         </dependency>
 
-        <!-- Für Spring in JUnit-Tests -->
+        <!-- For Spring in JUnit tests -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
             <scope>test</scope>
         </dependency>
 
-        <!--JUnit-Dependency -->
+        <!-- JUnit dependency -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -132,7 +132,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!--Spring Boot Test -->
+        <!-- Spring Boot Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -156,7 +156,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Erlaubt Servlets in JUnits Tests zu starten -->
+        <!-- Enables starting of servlets in JUnit tests -->
         <dependency>
             <groupId>org.mortbay.jetty</groupId>
             <artifactId>jetty-servlet-tester</artifactId>
