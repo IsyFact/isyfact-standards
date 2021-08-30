@@ -5,6 +5,15 @@ include:
 build:
   extends: .maven-build
 
+build:doc:
+  extends: .maven-build
+  variables:
+    MAVEN_BUILD_OPTS: -Pbuild-docs
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - '**/target/doc/**'
+
 test:isy-aufrufkontext:
   extends: .maven-test
 
