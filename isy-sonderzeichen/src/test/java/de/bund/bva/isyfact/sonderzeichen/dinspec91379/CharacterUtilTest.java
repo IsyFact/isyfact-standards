@@ -1,6 +1,9 @@
 package de.bund.bva.isyfact.sonderzeichen.dinspec91379;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -15,18 +18,30 @@ public class CharacterUtilTest {
 
     @Test
     public void testParseString() {
-        assertThrows(NullPointerException.class, () -> CharacterUtil.parseString(null));
         assertNull(CharacterUtil.parseString(""));
         assertArrayEquals(new char[]{ '\u0042' }, CharacterUtil.parseString("0042"));
         assertArrayEquals(new char[]{ '\u005A', '\u0300' }, CharacterUtil.parseString("005A+0300"));
         assertArrayEquals(new char[]{ '\u0063', '\u0328', '\u0306' }, CharacterUtil.parseString("0063+0328+0306"));
     }
 
-    @Test
-    public void testNPEIfAnyArgIsNull() {
-        assertThrows(NullPointerException.class, () -> CharacterUtil.containsOnlyCharsFromSet(null, Collections.emptySet()));
-        assertThrows(NullPointerException.class, () -> CharacterUtil.containsOnlyCharsFromSet("", null));
-        assertThrows(NullPointerException.class, () -> CharacterUtil.containsOnlyCharsFromSet(null, null));
+    @Test(expected = NullPointerException.class)
+    public void testNPEIfParseNullString() {
+        CharacterUtil.parseString(null);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testNPEIfCollectionIsEmpty() {
+        CharacterUtil.containsOnlyCharsFromSet(null, Collections.emptySet());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testNPEIfCharactersAreNull() {
+        CharacterUtil.containsOnlyCharsFromSet("", null);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testNPEIfNull() {
+        CharacterUtil.containsOnlyCharsFromSet(null, null);
     }
 
     @Test

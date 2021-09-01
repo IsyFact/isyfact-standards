@@ -1,10 +1,15 @@
-# 2.3.0
+# 2.4.0
 - `IFS-601`: [isy-products-bom] Einbindung folgender Produkte über die Spring Boot Dependencies: JPA, JTA, Spring, Hibernate, Jackson, QueryDSL, SLF4J, Logback, JUnit, Mockito, AssertJ, H2.
 - `IFS-874`: [isy-aufrufkontext], [isy-serviceapi-core] Umsetzung des Transports von OAuth 2 Bearer-Token zwischen Schnittstellentechnologien.
 - `IFS-1066`: [isy-persistence] Protokollierung-Datenstrukturen aus den Template-DB-Skripten entfernt
-- `IFS-1004`: [isy-sonderzeichen]
-    + Refactoring des DIN-SPEC-Packages von isy-sonderzeichen
-    + Entfernen des `core`-Unterpakets des DIN-SPEC-Packages von isy-sonderzeichen
+- `IFS-977`: [isy-serviceapi-core] Statische Auflösung des AufrufKontextTo durch Bean-Lösung abgelöst
+    * AufrufKontextToHelper ist deprecated -> stattdessen AufrufKontextToResolver verwenden
+    * DefaultAufrufKontextToResolver wird auch in der Autoconfig automatisch erstellt und steht für Autowiring zur Verfügung
+    * folgende Klassen benötigen jetzt den Resolver als Pflichtparameter:
+        * `StelltAufrufKontextBereitInterceptor`
+        * `StelltAllgemeinenAufrufKontextBereitInterceptor`
+        * `StelltLoggingKontextBereitInterceptor`
+        * `IsyHttpInvokerClientInterceptor`
 - `IFS-978`: [isy-sst-bridge] Bridge-Erweiterung:
     * ServiceApiMapper unterstützt Mapping von AufrufKontextTo auch in Gegenrichtung (IF1 zu IF2)
     * AufrufKontextToResolver hinzugefügt, der sowohl mit IF1, als auch IF2-AufrufKontextTo umgehen kann
@@ -13,6 +18,11 @@
 - `IFS-970`: [isy-products-bom] Spring-Boot Versionsanhebung auf 2.5.2
 - `IFS-1093`: [isy-persistence], [isyfact-products-bom] Anhebung von Oracle-JDBC und UCP auf 19.11
 - `IFS-988`: [isy-products-bom] Apache Commons Logging entfernt
+
+# 2.3.0
+- `IFS-1004`: [isy-sonderzeichen]
+    * Refactoring des DIN-SPEC-Packages von isy-sonderzeichen
+    * Entfernen des `core`-Unterpakets des DIN-SPEC-Packages von isy-sonderzeichen
 - `IFS-1109`: [isy-sonderzeichen] DIN SPEC 91379:
     * Erweiterung Transformator-Interface um Methoden, die Metadaten der Transformation tracken
     * neuer LegacyTransformator, der Texte nach DIN-SPEC-91379 in String.Latin-1.1-konforme Texte transformiert
@@ -35,14 +45,6 @@
 - `IFS-568`: [isy-util] Entfernt redundante Methode aus dem MessageSourceHolder
 - `IFS-693`: [isy-batchrahmen] Initialisierung des LoggerKontexts für Anwendungskontext
 - `IFS-741`: [isy-persistence] Entferne das Anlegen von DB-User in Update-Skripten
-- `IFS-977`: [isy-serviceapi-core] Statische Auflösung des AufrufKontextTo durch Bean-Lösung abgelöst
-    * AufrufKontextToHelper ist deprecated -> stattdessen AufrufKontextToResolver verwenden
-    * DefaultAufrufKontextToResolver wird auch in der Autoconfig automatisch erstellt und steht für Autowiring zur Verfügung
-    * folgende Klassen benötigen jetzt den Resolver als Pflichtparameter:
-        * `StelltAufrufKontextBereitInterceptor`
-        * `StelltAllgemeinenAufrufKontextBereitInterceptor`
-        * `StelltLoggingKontextBereitInterceptor`
-        * `IsyHttpInvokerClientInterceptor`
 - `IFS-676`: Versionsupdate von OpenCSV 3.8 auf 5.3
     * Hinweise zu Breaking Changes s. Changelog.md der isyfact-products-bom
 
