@@ -22,6 +22,7 @@ import java.util.UUID;
 
 import de.bund.bva.pliscommon.serviceapi.common.AufrufKontextToHelper;
 import org.aopalliance.intercept.MethodInvocation;
+import org.apache.commons.codec.binary.StringUtils;
 import org.springframework.remoting.httpinvoker.HttpInvokerClientInterceptor;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
@@ -67,22 +68,19 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
         LOGGER.debug("Erzeuge neue Korrelations-ID {}", korrelationsId);
         MdcHelper.pushKorrelationsId(korrelationsId);
 
-        String oldKorrelationsIdOfKontext = null;
-
-        // Warning if there was already a Korr-Id in the AufrufkontextTo which didn't match
-        if (aufrufKontextTo != null && aufrufKontextTo.getKorrelationsId() != null &&
-            aufrufKontextTo.getKorrelationsId().length() != 0 &&
-            !MdcHelper.liesKorrelationsId()
-                .equals(aufrufKontextTo.getKorrelationsId() + ";" + korrelationsId)) {
-            LOGGER.warn(EreignisSchluessel.AUFRUFKONTEXT_KORRID_KORRIGIERT,
-                "Die Korrelations-Id {} im Aufrufkontext wurde korrigiert, "
-                    + "da diese nicht mit der Korr-Id auf dem MDC {} übereinstimmt.",
-                aufrufKontextTo.getKorrelationsId(), MdcHelper.liesKorrelationsId());
-        }
-
-        // set korrelationsId in the context
         if (Objects.nonNull(aufrufKontextTo)) {
-            oldKorrelationsIdOfKontext = aufrufKontextTo.getKorrelationsId();
+            // Warning if there was already a Korr-Id in the AufrufkontextTo which didn't match
+            if (Objects.nonNull(aufrufKontextTo.getKorrelationsId()) &&
+                !aufrufKontextTo.getKorrelationsId().isEmpty() &&
+                !MdcHelper.liesKorrelationsId()
+                    .equals(aufrufKontextTo.getKorrelationsId() + ";" + korrelationsId)) {
+                LOGGER.warn(EreignisSchluessel.AUFRUFKONTEXT_KORRID_KORRIGIERT,
+                    "Die Korrelations-Id {} im Aufrufkontext wurde korrigiert, "
+                        + "da diese nicht mit der Korr-Id auf dem MDC {} übereinstimmt.",
+                    aufrufKontextTo.getKorrelationsId(), MdcHelper.liesKorrelationsId());
+            }
+
+            // set korrelationsId in the context
             aufrufKontextTo.setKorrelationsId(MdcHelper.liesKorrelationsId());
         }
 
@@ -108,12 +106,9 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
             MdcHelper.entferneKorrelationsId();
 
             if (Objects.nonNull(aufrufKontextTo)) {
-                if (Objects.nonNull(oldKorrelationsIdOfKontext)) {
-                    aufrufKontextTo.setKorrelationsId(oldKorrelationsIdOfKontext);
-                }
+                aufrufKontextTo.setKorrelationsId(MdcHelper.liesKorrelationsId());
             }
         }
-
     }
 
     @Override
