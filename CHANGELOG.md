@@ -1,7 +1,5 @@
-# 1.12.1
-- `IFS-668`: [isy-serviceapi-core] Zurücksetzung der KorrelationsId des AnrufKontextTo bei einem Invoke
- 
 # 1.11.0
+- `IFS-668`: [isy-serviceapi-core] Zurücksetzung der KorrelationsId des AnrufKontextTo bei einem Invoke
 - `IFS-875`: [isy-aufrufkontext], [isy-serviceapi-core] Umsetzung des Transports von OAuth 2 Bearer-Token zwischen Schnittstellentechnologien
 - `IFS-1066`: [isy-persistence] Protokollierung-Datenstrukturen aus den Template-DB-Skripten entfernt
 - `IFS-1093`:
@@ -51,4 +49,3 @@
     *  Neue Option `wildcard-case-insensitive` löst Case-Sensitive-Problem
     *  GroupIDs in Submodulen wurde auf `com.github.dozermapper` umgestellt
 - `IFS-463`: Abwärtskompatibilität IsyFact 2 zu IsyFact 1 - Erstellung der Bridge
-
