@@ -78,7 +78,6 @@ public class IsyHttpInvokerClientInterceptorTest {
         verify(aufrufKontextTo).setKorrelationsId(Mockito.matches(REGEX_WITHOUT_KORRELATIONS));
 
         // Reset of korrelationsId
-        verify(aufrufKontextTo).setKorrelationsId(KORRELATIONS_ID);
+        verify(aufrufKontextTo).setKorrelationsId(null);
     }
-
 }
