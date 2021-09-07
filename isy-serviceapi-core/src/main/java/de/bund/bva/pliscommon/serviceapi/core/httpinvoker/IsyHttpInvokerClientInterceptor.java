@@ -21,6 +21,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 import de.bund.bva.pliscommon.serviceapi.common.AufrufKontextToHelper;
+
 import org.aopalliance.intercept.MethodInvocation;
 import org.apache.commons.codec.binary.StringUtils;
 import org.springframework.remoting.httpinvoker.HttpInvokerClientInterceptor;
@@ -37,18 +38,24 @@ import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontex
  */
 public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientInterceptor {
 
-    /** Logger */
+    /**
+     * Logger
+     */
     private static final IsyLogger LOGGER = IsyLoggerFactory.getLogger(IsyHttpInvokerClientInterceptor.class);
 
-    /** Helper for creating Logentries. */
+    /**
+     * Helper for creating Logentries.
+     */
     private LogHelper logHelper = new LogHelper(false, false, true, false, false, 0);
 
-    /** Name of the remote system that is being called. */
+    /**
+     * Name of the remote system that is being called.
+     */
     private String remoteSystemName;
 
     /**
      * {@inheritDoc}
-     *
+     * <p>
      * When called, a new correlation ID is always created and added to the existing correlation ID of the
      * calling context.
      *
@@ -70,10 +77,9 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
 
         if (Objects.nonNull(aufrufKontextTo)) {
             // Warning if there was already a Korr-Id in the AufrufkontextTo which didn't match
-            if (Objects.nonNull(aufrufKontextTo.getKorrelationsId()) &&
-                !aufrufKontextTo.getKorrelationsId().isEmpty() &&
-                !MdcHelper.liesKorrelationsId()
-                    .equals(aufrufKontextTo.getKorrelationsId() + ";" + korrelationsId)) {
+            if (Objects.nonNull(aufrufKontextTo.getKorrelationsId()) && !aufrufKontextTo.getKorrelationsId()
+                .isEmpty() && !MdcHelper.liesKorrelationsId()
+                .equals(aufrufKontextTo.getKorrelationsId() + ";" + korrelationsId)) {
                 LOGGER.warn(EreignisSchluessel.AUFRUFKONTEXT_KORRID_KORRIGIERT,
                     "Die Korrelations-Id {} im Aufrufkontext wurde korrigiert, "
                         + "da diese nicht mit der Korr-Id auf dem MDC {} übereinstimmt.",
@@ -122,8 +128,7 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
     /**
      * Sets value of attribute 'remoteSystemName'.
      *
-     * @param remoteSystemName
-     *      New value of the attribute.
+     * @param remoteSystemName New value of the attribute.
      */
     public void setRemoteSystemName(String remoteSystemName) {
         this.remoteSystemName = remoteSystemName;
@@ -132,8 +137,7 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
     /**
      * Sets value of attribute 'logHelper'.
      *
-     * @param logHelper
-     *      New value of the attribute.
+     * @param logHelper New value of the attribute.
      */
     public void setLogHelper(LogHelper logHelper) {
         this.logHelper = logHelper;

@@ -32,13 +32,17 @@ public class IsyHttpInvokerClientInterceptorTest {
     private LogHelper logHelper;
 
     private IsyHttpInvokerClientInterceptor isyHttpInvokerClientInterceptor;
+
     private Method toStringMethod;
+
     private final static String KORRELATIONS_ID = "korrelationsId";
+
     private final static String REMOTE_SYSTEM = "remoteSystem";
+
     private final static String REGEX_WITHOUT_KORRELATIONS = "[a-z0-9-]{36}";
 
     @Before
-    public void init () throws Throwable{
+    public void init() throws Throwable {
         isyHttpInvokerClientInterceptor = new IsyHttpInvokerClientInterceptor();
         toStringMethod = Object.class.getMethod("toString");
 
@@ -56,15 +60,12 @@ public class IsyHttpInvokerClientInterceptorTest {
         isyHttpInvokerClientInterceptor.invoke(methodInvocation);
 
         verify(aufrufKontextTo, Mockito.atLeast(1)).setKorrelationsId(anyString());
-        verify(logHelper)
-                .loggeNachbarsystemAufruf(any(IsyLogger.class), eq(toStringMethod), eq("remoteSystem"),
-                        eq(null));
-        verify(logHelper)
-                .loggeNachbarsystemErgebnis(any(IsyLogger.class), eq(toStringMethod), eq("remoteSystem"),
-                        eq(null), eq(true));
-        verify(logHelper)
-                .loggeNachbarsystemDauer(any(IsyLogger.class), eq(toStringMethod), eq(1L), eq("remoteSystem"),
-                        eq(null), eq(true));
+        verify(logHelper).loggeNachbarsystemAufruf(any(IsyLogger.class), eq(toStringMethod), eq("remoteSystem"),
+            eq(null));
+        verify(logHelper).loggeNachbarsystemErgebnis(any(IsyLogger.class), eq(toStringMethod),
+            eq("remoteSystem"), eq(null), eq(true));
+        verify(logHelper).loggeNachbarsystemDauer(any(IsyLogger.class), eq(toStringMethod), eq(1L),
+            eq("remoteSystem"), eq(null), eq(true));
     }
 
     @Test
