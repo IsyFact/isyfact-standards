@@ -20,16 +20,14 @@ import java.lang.reflect.Method;
 import java.util.Objects;
 import java.util.UUID;
 
-import de.bund.bva.pliscommon.serviceapi.common.AufrufKontextToHelper;
-
 import org.aopalliance.intercept.MethodInvocation;
-import org.apache.commons.codec.binary.StringUtils;
 import org.springframework.remoting.httpinvoker.HttpInvokerClientInterceptor;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.util.LogHelper;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
+import de.bund.bva.pliscommon.serviceapi.common.AufrufKontextToHelper;
 import de.bund.bva.pliscommon.serviceapi.common.konstanten.EreignisSchluessel;
 import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 
