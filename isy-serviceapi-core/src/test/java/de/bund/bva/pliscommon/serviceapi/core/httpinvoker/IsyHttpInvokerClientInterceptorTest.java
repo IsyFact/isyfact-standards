@@ -1,9 +1,14 @@
 package de.bund.bva.pliscommon.serviceapi.core.httpinvoker;
 
-import static org.mockito.Matchers.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.matches;
 import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.eq;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.lang.reflect.Method;
 
@@ -11,8 +16,8 @@ import org.aopalliance.intercept.MethodInvocation;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InOrder;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
@@ -35,11 +40,11 @@ public class IsyHttpInvokerClientInterceptorTest {
 
     private Method toStringMethod;
 
-    private final static String KORRELATIONS_ID = "korrelationsId";
+    private static final String KORRELATIONS_ID = "korrelationsId";
 
-    private final static String REMOTE_SYSTEM = "remoteSystem";
+    private static final String REMOTE_SYSTEM = "remoteSystem";
 
-    private final static String REGEX_WITHOUT_KORRELATIONS = "[a-z0-9-]{36}";
+    private static final String REGEX_WITHOUT_KORRELATIONS = "[a-z0-9-]{36}";
 
     @Before
     public void init() throws Throwable {
@@ -59,7 +64,7 @@ public class IsyHttpInvokerClientInterceptorTest {
     public void invokeMitIsyFactLogging() throws Throwable {
         isyHttpInvokerClientInterceptor.invoke(methodInvocation);
 
-        verify(aufrufKontextTo, Mockito.atLeast(1)).setKorrelationsId(anyString());
+        verify(aufrufKontextTo, atLeast(1)).setKorrelationsId(anyString());
         verify(logHelper).loggeNachbarsystemAufruf(any(IsyLogger.class), eq(toStringMethod), eq("remoteSystem"),
             eq(null));
         verify(logHelper).loggeNachbarsystemErgebnis(any(IsyLogger.class), eq(toStringMethod),
@@ -73,12 +78,14 @@ public class IsyHttpInvokerClientInterceptorTest {
         isyHttpInvokerClientInterceptor.invoke(methodInvocation);
 
         // The korrelationsSetter will be called 2 times
-        verify(aufrufKontextTo, Mockito.times(2)).setKorrelationsId(anyString());
+        verify(aufrufKontextTo, times(2)).setKorrelationsId(anyString());
+
+        InOrder inOrder = inOrder(aufrufKontextTo);
 
         // korrelationsId = UUID
-        verify(aufrufKontextTo).setKorrelationsId(Mockito.matches(REGEX_WITHOUT_KORRELATIONS));
+        inOrder.verify(aufrufKontextTo).setKorrelationsId(matches(REGEX_WITHOUT_KORRELATIONS));
 
         // Reset of korrelationsId
-        verify(aufrufKontextTo).setKorrelationsId(null);
+        inOrder.verify(aufrufKontextTo).setKorrelationsId(null);
     }
 }
