@@ -1,3 +1,6 @@
+# 1.11.1:
+- `IFS-1176`: Fehler gefixt, bei dem der LegacyTransformator Texte ausgibt, die nicht konform zu String.Latin 1.1 sind
+
 # 1.11.0:
 - `IFS-1003`:
   + Refactoring des DIN-SPEC-Packages von isy-sonderzeichen
