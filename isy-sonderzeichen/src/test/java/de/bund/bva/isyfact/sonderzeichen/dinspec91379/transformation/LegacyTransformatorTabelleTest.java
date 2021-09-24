@@ -1,6 +1,7 @@
 package de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -9,11 +10,7 @@ import java.util.stream.Collectors;
 import org.junit.Assert;
 import org.junit.Test;
 
-import de.bund.bva.isyfact.sonderzeichen.dinspec91379.konstanten.TransformationsKonstanten;
-
 public class LegacyTransformatorTabelleTest {
-
-    public static final String TRANSFORMATIONS_TABELLE_IDENTISCH_1_1 = "/resources/tabellen/kategorie_identisch.kat";
 
     /**
      * Test checks if "transformation_dinspec91379_zu_1_1.transform" only maps to valid String.Latin 1.1 characters.
@@ -24,15 +21,14 @@ public class LegacyTransformatorTabelleTest {
      * @throws IOException is thrown if file cannot be found
      */
     @Test
-    public void tabelleTest() throws IOException {
+    public void tabelleTest() throws IOException, URISyntaxException {
         // Load file containing all String.Latin 1.1 characters
-        List<String> identischLines = Files.readAllLines(Paths.get(LegacyTransformatorTabelleTest.class.getResource(
-            TRANSFORMATIONS_TABELLE_IDENTISCH_1_1).getPath()));
+        String path = Paths.get(ClassLoader.getSystemResource("resources/tabellen").toURI()).toString();
+        List<String> identischLines = Files.readAllLines(Paths.get(path, "kategorie_identisch.kat"));
         List<String> stringlatinChars = identischLines.stream().map(s->s.split(" = ")[0]).collect(Collectors.toList());
 
         // Load Legacy Transformation Table
-        List<String> transformationTabelle = Files.readAllLines(Paths.get(LegacyTransformatorTabelleTest.class.getResource(
-            TransformationsKonstanten.TRANSFORMATIONS_TABELLE_LEGACY).getPath()));
+        List<String> transformationTabelle = Files.readAllLines(Paths.get(path, "transformation_dinspec91379_zu_1_1.transform"));
 
         // Iterate over all entries in the transformation table
         for(int i = 0; i < transformationTabelle.size(); i++) {
