@@ -18,7 +18,9 @@ package de.bund.bva.isyfact.batchrahmen.core.launcher;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -114,10 +116,6 @@ public class BatchLauncher {
      * @param args command line parameters. For description see class comment.
      * @return return code of batch.
      */
-    @SuppressFBWarnings(
-            value = "DM_DEFAULT_ENCODING",
-            justification = "Solved with IFS-801"
-    )
     public static int run(final String[] args) {
         IsyLogger log = null;
         BatchKonfiguration rahmenKonfiguration = null;
@@ -211,14 +209,16 @@ public class BatchLauncher {
      * @param t Exception
      * @return String including stack trace without line breaks.
      */
-    @SuppressFBWarnings(
-            value = "DM_DEFAULT_ENCODING",
-            justification = "Solved with IFS-801"
-    )
     private static String exceptionToString(Throwable t) {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-        t.printStackTrace(new PrintStream(out));
-        return out.toString().replaceAll("\\r{0,1}\\n", " | ");
+        String exceptionString = "";
+        try {
+            t.printStackTrace(new PrintStream(out, false, StandardCharsets.UTF_8.name()));
+            exceptionString = out.toString(StandardCharsets.UTF_8.name()).replaceAll("\\r{0,1}\\n", " | ");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return exceptionString;
     }
 
     /**

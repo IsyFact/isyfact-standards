@@ -21,22 +21,22 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import de.bund.bva.isyfact.batchrahmen.batch.konstanten.BatchRahmenEreignisSchluessel;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchStartTyp;
+import de.bund.bva.isyfact.batchrahmen.core.launcher.BatchLauncher;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
-import de.bund.bva.isyfact.batchrahmen.core.launcher.BatchLauncher;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
- * Diese Klasse erlaubt das einfache Starten von Batches aus JUnit-Tests.
+ * This class allows batches to be started easily from JUnit tests.
  *
- * Beispiel:
+ * Example:
  *
  * <code><pre>
  * public void testBatch1() {
@@ -48,39 +48,35 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 public class TestBatchLauchner {
 
-    /** Der Logger. */
+    /** The Logger. */
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(TestBatchLauchner.class);
 
-    /** Property-Konfiguration des zu startenden Batches. */
+    /** Property configuration of the batch to be started. */
     private String batchKonfig;
 
     /**
-     * Erzeugt einen BatchLauncher für den angebenen Batch. Das JRE und der Classpath werden aus der aktuellen
-     * JRE gebildet.
+     * Generates a BatchLauncher for the specified batch. The JRE and the class path are formed from the
+     * current JRE.
      * @param batchKonfig
-     *            Konfigurationsdatei des Batches
+     *            Configuration file of the batch
      */
     public TestBatchLauchner(String batchKonfig) {
         this.batchKonfig = batchKonfig;
     }
 
     /**
-     * Startet den {@link BatchLauncher} mit den angegebenen Parametern. Das JRE und der Classpath werden aus
-     * der aktuellen JRE gebildet.
+     * Starts the {@link BatchLauncher} with the given parameters. The JRE and the class path are formed from
+     * the current JRE.
      * @param batchLauncherParams
-     *            Parameter für den BatchLauncher
+     *            Parameter for the BatchLauncher
      * @param batchParameter
-     *            Parameter für den Batch
-     * @return Den ReturnCode des Batch-Processes.
+     *            Parameter for the Batch
+     * @return The return code of the batch process.
      * @throws IOException
-     *             Wenn der Batch nicht gestartet werden konnte.
+     *             If the batch could not be started.
      */
-    @SuppressFBWarnings(
-            value = "DM_DEFAULT_ENCODING",
-            justification = "Solved with IFS-801"
-    )
     private int starteBatch(String[] batchLauncherParams, String[] batchParameter) throws IOException {
-        // Classpath von Maven Surefire übernehmen, falls gesetzt.
+        // Adopt the Maven Surefire classpath, if set.
         String classpath = System.getProperty("surefire.test.class.path");
         if (classpath == null) {
             classpath = System.getProperty("java.class.path");
@@ -111,7 +107,7 @@ public class TestBatchLauchner {
             "Die Kommandozeile ist:\n{}", cmdLine);
         Process batchProcess = processBuilder.start();
 
-        try (BufferedReader processIn = new BufferedReader(new InputStreamReader(batchProcess.getInputStream()))) {
+        try (BufferedReader processIn = new BufferedReader(new InputStreamReader(batchProcess.getInputStream(), StandardCharsets.UTF_8))) {
             Thread t = new Thread(() -> {
                 try {
                     while (!Thread.currentThread().isInterrupted()) {
@@ -121,7 +117,7 @@ public class TestBatchLauchner {
                         }
                     }
                 } catch (IOException ex) {
-                    // Thread beendet.
+                    // Thread terminated.
                 }
             });
             t.start();
@@ -137,30 +133,30 @@ public class TestBatchLauchner {
     }
 
     /**
-     * Startet einen Batch.
+     * Start a batch.
      * @param startTyp
-     *            StartModus
+     *            Start mode
      * @param parameter
-     *            Aufrufparamter des Batches
-     * @return Den ReturnCode des Batch-Processes.
+     *            Call parameters of the batch
+     * @return The return code of the batch process.
      * @throws IOException
-     *             Wenn der Batch nicht gestartet werden konnte.
+     *             If the batch could not be started.
      */
     public int starteBatch(BatchStartTyp startTyp, String[] parameter) throws IOException {
         return starteBatch(new String[] { getStartTypParam(startTyp), "-cfg", this.batchKonfig }, parameter);
     }
 
     /**
-     * Startet einen Batch.
+     * Start a batch.
      * @param startTyp
-     *            StartModus
+     *            Start mode
      * @param ergebnisProtokoll
-     *            Pfad in den das Ergebnisprotokoll geschrieben werden soll.
+     *            Path in which the result log is to be written.
      * @param parameter
-     *            Aufrufparamter des Batches
-     * @return Den ReturnCode des Batch-Processes.
+     *            Call parameters of the batch
+     * @return The return code of the batch process.
      * @throws IOException
-     *             Wenn der Batch nicht gestartet werden konnte.
+     *             If the batch could not be started.
      */
     public int starteBatch(BatchStartTyp startTyp, String ergebnisProtokoll, String[] parameter)
         throws IOException {
@@ -169,10 +165,10 @@ public class TestBatchLauchner {
     }
 
     /**
-     * Ermittelt den Kommandozeilen Parameter für den angegebene Start-Typ.
+     * Determines the command line parameters for the specified start type.
      * @param startTyp
-     *            Starttyp
-     * @return Kommandozeilenparameter für den Starttyp.
+     *            Start type
+     * @return Command line parameters for the start type.
      */
     private String getStartTypParam(BatchStartTyp startTyp) {
         switch (startTyp) {
