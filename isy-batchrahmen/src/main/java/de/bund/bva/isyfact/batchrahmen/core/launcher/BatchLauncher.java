@@ -53,7 +53,6 @@ import de.bund.bva.isyfact.sicherheit.common.exception.SicherheitTechnicalRuntim
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.joran.JoranConfigurator;
 import ch.qos.logback.core.joran.spi.JoranException;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * This class starts a batch (see {@link Batchrahmen} with the transferred configuration. The configuration

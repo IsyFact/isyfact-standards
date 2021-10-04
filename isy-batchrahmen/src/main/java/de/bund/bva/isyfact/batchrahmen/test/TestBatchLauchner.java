@@ -55,7 +55,7 @@ public class TestBatchLauchner {
     private String batchKonfig;
 
     /**
-     * Generates a BatchLauncher for the specified batch. The JRE and the class path are formed from the
+     * Creates a BatchLauncher for the specified batch. The JRE and the class path are formed from the
      * current JRE.
      * @param batchKonfig
      *            Configuration file of the batch
@@ -68,15 +68,15 @@ public class TestBatchLauchner {
      * Starts the {@link BatchLauncher} with the given parameters. The JRE and the class path are formed from
      * the current JRE.
      * @param batchLauncherParams
-     *            Parameter for the BatchLauncher
+     *            Parameters for the BatchLauncher
      * @param batchParameter
-     *            Parameter for the Batch
+     *            Parameters for the Batch
      * @return The return code of the batch process.
      * @throws IOException
      *             If the batch could not be started.
      */
     private int starteBatch(String[] batchLauncherParams, String[] batchParameter) throws IOException {
-        // Adopt the Maven Surefire classpath, if set.
+        // Use the Maven Surefire classpath, if set.
         String classpath = System.getProperty("surefire.test.class.path");
         if (classpath == null) {
             classpath = System.getProperty("java.class.path");
