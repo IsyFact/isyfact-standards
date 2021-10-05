@@ -36,6 +36,7 @@
 - `IFS-783`: Konfiguration von Quality Gate 1; Umstellung auf GitLabCI Templates
 - `IFS-801`: [isy-batchrahmen] SpotBugs Fehler behoben
 - `IFS-802`: [isy-logging] SpotBugs Fehler behoben
+- `IFS-803`: [isy-sicherheit] SpotBugs Fehler behoben
 
 # 1.8.1
 - `IFS-453`: [isy-ueberwachung] Loglevel für isAlive-Datei-Ereignisse erhöht.
