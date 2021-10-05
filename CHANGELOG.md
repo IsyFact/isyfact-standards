@@ -35,6 +35,7 @@
 - `IFS-785`: [isyfact-products-bom] Versionsupdate von XStream von 1.4.11 auf 1.4.14 wegen CVE
 - `IFS-783`: Konfiguration von Quality Gate 1; Umstellung auf GitLabCI Templates
 - `IFS-801`: [isy-batchrahmen] SpotBugs Fehler behoben
+- `IFS-802`: [isy-logging] SpotBugs Fehler behoben
 
 # 1.8.1
 - `IFS-453`: [isy-ueberwachung] Loglevel für isAlive-Datei-Ereignisse erhöht.
