@@ -4,7 +4,7 @@ List of third-party dependencies grouped by their license type.
 
     Apache License, Version 2.0
 
-        * IsyFact-Fehlerbehandlung (Basisklassen) (de.bund.bva.isyfact:isy-exception-core:1.11.0 - http://isyfact.de/isy-exception-core)
+        * IsyFact-Fehlerbehandlung (Basisklassen) (de.bund.bva.isyfact:isy-exception-core:1.11.1 - http://isyfact.de/isy-exception-core)
         * Spring AOP (org.springframework:spring-aop:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
         * Spring Aspects (org.springframework:spring-aspects:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
         * Spring Beans (org.springframework:spring-beans:4.3.22.RELEASE - https://github.com/spring-projects/spring-framework)
