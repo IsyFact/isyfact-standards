@@ -5,7 +5,7 @@
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
         <artifactId>isyfact-standards</artifactId>
-        <version>1.10.0</version>
+        <version>1.10.1</version>
     </parent>
 
     <artifactId>isyfact-standards-bom</artifactId>
@@ -20,87 +20,87 @@
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-aufrufkontext</artifactId>
-                <version>1.11.0</version>
+                <version>1.11.1</version>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-batchrahmen</artifactId>
-                <version>1.13.0</version>
+                <version>1.13.1</version>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-datetime</artifactId>
-                <version>1.6.0</version>
+                <version>1.6.1</version>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-exception-core</artifactId>
-                <version>1.11.0</version>
+                <version>1.11.1</version>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-exception-sst</artifactId>
-                <version>1.11.0</version>
+                <version>1.11.1</version>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-konfiguration</artifactId>
-                <version>1.11.0</version>
+                <version>1.11.1</version>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-logging</artifactId>
-                <version>1.11.0</version>
+                <version>1.11.1</version>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-persistence</artifactId>
-                <version>1.12.0</version>
+                <version>1.12.1</version>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-polling</artifactId>
-                <version>1.10.0</version>
+                <version>1.10.1</version>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-serviceapi-core</artifactId>
-                <version>1.12.0</version>
+                <version>1.12.1</version>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-serviceapi-sst</artifactId>
-                <version>1.11.0</version>
+                <version>1.11.1</version>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-sicherheit</artifactId>
-                <version>1.11.0</version>
+                <version>1.11.1</version>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-sonderzeichen</artifactId>
-                <version>1.11.0</version>
+                <version>1.11.1</version>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-sst-bridge</artifactId>
-                <version>1.10.0</version>
+                <version>1.10.1</version>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-task</artifactId>
-                <version>1.6.0</version>
+                <version>1.6.1</version>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-ueberwachung</artifactId>
-                <version>1.12.0</version>
+                <version>1.12.1</version>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-util</artifactId>
-                <version>1.11.0</version>
+                <version>1.11.1</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

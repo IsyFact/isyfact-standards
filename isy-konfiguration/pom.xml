@@ -5,11 +5,11 @@
     <parent>
         <groupId>de.bund.bva.isyfact</groupId>
         <artifactId>isyfact-standards</artifactId>
-        <version>1.10.0</version>
+        <version>1.10.1</version>
     </parent>
 
     <artifactId>isy-konfiguration</artifactId>
-    <version>1.11.0</version>
+    <version>1.11.1</version>
     <packaging>jar</packaging>
 
     <name>IsyFact-Konfiguration</name>
