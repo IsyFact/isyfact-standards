@@ -158,7 +158,7 @@ public class IsyJsonLayout extends JsonLayout {
      */
     @Override
     protected Map<String, Object> toJsonMap(ILoggingEvent event) {
-        // Create a map of JSON attributes. Only the slf4j standard attributes are filled in the super class.
+        // Creates a map of JSON attributes. Only the slf4j standard attributes are filled in the super class.
         // In particular, no markers are evaluated.
         Map<String, Object> jsonMap = new LinkedHashMap<>();
 
@@ -349,8 +349,8 @@ public class IsyJsonLayout extends JsonLayout {
         String logeintrag = getStringFromFormatter(map);
         int tatsaechlicheLaenge = logeintrag.getBytes(StandardCharsets.UTF_8).length;
 
-        // Determine the number of characters to be cut off
-        // Calculate bytes per character
+        // Determines the number of characters to be cut off
+        // Calculates bytes per character
         float byteZeichen = (float) tatsaechlicheLaenge / (float) logeintrag.length();
 
         // Overhang indicates the number of characters to be removed

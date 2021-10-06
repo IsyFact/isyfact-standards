@@ -133,7 +133,7 @@ public class TestBatchLauchner {
     }
 
     /**
-     * Start a batch.
+     * Starts a batch.
      * @param startTyp
      *            Start mode
      * @param parameter
@@ -147,7 +147,7 @@ public class TestBatchLauchner {
     }
 
     /**
-     * Start a batch.
+     * Starts a batch.
      * @param startTyp
      *            Start mode
      * @param ergebnisProtokoll
