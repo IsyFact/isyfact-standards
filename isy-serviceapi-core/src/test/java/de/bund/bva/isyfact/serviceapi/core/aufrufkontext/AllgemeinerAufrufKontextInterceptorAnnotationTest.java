@@ -16,16 +16,10 @@
  */
 package de.bund.bva.isyfact.serviceapi.core.aufrufkontext;
 
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontextFactory;
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
-import de.bund.bva.isyfact.aufrufkontext.impl.AufrufKontextFactoryImpl;
-import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.helper.DebugAufrufKontextVerwalter;
-import de.bund.bva.isyfact.serviceapi.core.aop.test.AufrufKontextSstTestBean;
-import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
-import junit.framework.AssertionFailedError;
-import ma.glasnost.orika.MapperFacade;
-import ma.glasnost.orika.impl.DefaultMapperFactory;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,32 +34,41 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.*;
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontextFactory;
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
+import de.bund.bva.isyfact.aufrufkontext.impl.AufrufKontextFactoryImpl;
+import de.bund.bva.isyfact.serviceapi.core.aop.test.AufrufKontextSstTestBean;
+import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.helper.DebugAufrufKontextVerwalter;
+import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
+
+import junit.framework.AssertionFailedError;
+import ma.glasnost.orika.MapperFacade;
+import ma.glasnost.orika.impl.DefaultMapperFactory;
 
 /**
- * Testet die Funktionalität von {@link StelltAufrufKontextBereitInterceptor}.
+ * Tests functionality of {@link StelltAufrufKontextBereitInterceptor}.
  */
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = AllgemeinerAufrufKontextInterceptorAnnotationTest.TestConfig.class)
 public class AllgemeinerAufrufKontextInterceptorAnnotationTest {
 
     /**
-     * Zugriff auf den AufrufKontextVerwalter, um zu überprüfen, ob der AufrufKontext korrekt gesetzt / nicht
-     * gesetzt wurde.
+     * Access to the AufrufKontextVerwalter to check if the call context is set / not set correctly.
      */
     @Autowired
     public DebugAufrufKontextVerwalter aufrufKontextVerwalter;
 
-    /** Simulation einer Service-Schnittstelle, auf die Aufrufe getätigt werden. */
+    /** Simulation of a service interface which is called. */
     @Autowired
     public AufrufKontextSstTestBean sst;
 
     /**
-     * erzeugt ein AufrufKontext Transport Objekt.
+     * Create a AufrufKontext transport object.
      *
-     * @return
+     * @return AufrufKontextTo containing dummy data
      */
-    private AufrufKontextTo createAufrufKontextTo() {
+    private static AufrufKontextTo createAufrufKontextTo() {
         AufrufKontextTo aufrufKontextTo = new AufrufKontextTo();
         aufrufKontextTo.setDurchfuehrendeBehoerde("TEST");
         aufrufKontextTo.setDurchfuehrenderBenutzerKennung("TEST");
@@ -78,14 +81,14 @@ public class AllgemeinerAufrufKontextInterceptorAnnotationTest {
     }
 
     /**
-     * Vergleicht ein AufrufKontextTo mit einem AufrufKontext.
+     * Compares an AufrufKontextTo with a AufrufKontext.
      * <p>
-     * Wirft einen {@link AssertionFailedError}, wenn die übergebenen Objekte nicht überein stimmen.
+     * Throws {@link AssertionFailedError}, if the parameters don't match.
      *
-     * @param to      Transportobjekt
+     * @param to      transport object
      * @param kontext AufrufKontext
      */
-    private void assertEqualData(AufrufKontextTo to, AufrufKontext kontext) {
+    private static void assertEqualData(AufrufKontextTo to, AufrufKontext kontext) {
         assertEquals(to.getDurchfuehrendeBehoerde(), kontext.getDurchfuehrendeBehoerde());
         assertEquals(to.getDurchfuehrenderBenutzerKennung(), kontext.getDurchfuehrenderBenutzerKennung());
         assertEquals(to.getDurchfuehrenderSachbearbeiterName(),
@@ -97,7 +100,7 @@ public class AllgemeinerAufrufKontextInterceptorAnnotationTest {
     }
 
     /**
-     * setzt den AufrufKontext vor jedem Test zurück.
+     * reset AufrufKontext before every test case
      */
     @Before
     public void leereAufrufKontext() {
@@ -105,8 +108,8 @@ public class AllgemeinerAufrufKontextInterceptorAnnotationTest {
     }
 
     @After
-    public void isAufrufKontextLeer() {
-        // der AufrufKontext darf nach Beendigung des Aufrufs nicht mehr gesetzt sein.
+    public void assertAufrufKontextLeer() {
+        // the Aufrufkontext shouldn't be set after a test case
         assertNull(aufrufKontextVerwalter.getAufrufKontext());
     }
 
@@ -155,14 +158,19 @@ public class AllgemeinerAufrufKontextInterceptorAnnotationTest {
     public static class TestConfig {
 
         @Bean
+        public AufrufKontextToResolver aufrufKontextToResolver() {
+            return new DefaultAufrufKontextToResolver();
+        }
+
+        @Bean
         public MapperFacade mapperFacade() {
             return new DefaultMapperFactory.Builder().build().getMapperFacade();
         }
 
         @Bean
         public StelltAllgemeinenAufrufKontextBereitInterceptor interceptor(AufrufKontextFactory factory,
-            AufrufKontextVerwalter verwalter, MapperFacade mapper) {
-            return new StelltAllgemeinenAufrufKontextBereitInterceptor(mapper, factory, verwalter);
+            AufrufKontextVerwalter verwalter, MapperFacade mapper, AufrufKontextToResolver aufrufKontextToResolver) {
+            return new StelltAllgemeinenAufrufKontextBereitInterceptor(mapper, factory, verwalter, aufrufKontextToResolver);
         }
 
         @Bean
