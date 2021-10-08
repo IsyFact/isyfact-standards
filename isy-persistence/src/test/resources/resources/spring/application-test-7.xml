@@ -24,20 +24,25 @@
 
     <!-- ======================================================================
         Diese Spring-Konfiguration importiert die Komponenten des Anwendungskerns,
-        der Persistenz und des Querschnitts. Dieses bildet die Basis der gesamten
-        Geschäftsanwendung.
-
+        der Persistenz und die Querschnittskomponenten. Dieses bildet die Basis
+        der gesamten Geschäftsanwendung.
+        ======================================================================
+        This spring configuration imports the components of the application core,
+        the persistence and the Querschnittskomponenten. This configuration is
+        the base of the entire business application.
         ====================================================================== -->
 
     <import resource="spring-context.xml" />
 
-    <!-- Wrapper um die OracleDataSource, um unschöne NPEs zu behandeln. -->
+    <!-- Wrapper um die OracleDataSource, um NPEs zu behandeln.
+        ======================================================================
+        Wrapper around the OracleDataSource to handle NPEs-->
     <bean id="appDataSource" class="de.bund.bva.pliscommon.persistence.datasource.PlisDataSource">
         <property name="targetDataSource" >
             <bean class="oracle.jdbc.pool.OracleDataSource" destroy-method="close">
                 <property name="URL" value="${database.url}" />
-                <property name="user" value="${database.username}" />
-                <property name="password" value="${database.password}" />
+                <property name="user" value="${database.username2}" />
+                <property name="password" value="${database.password2}" />
                 <property name="connectionCachingEnabled" value="true" />
                 <property name="connectionCacheProperties">
                     <props>
@@ -58,7 +63,6 @@
         </property>
         <property name="schemaVersion" value="1.2.3" />
         <property name="invalidSchemaVersionAction" value="fail"></property>
-        <property name="schema" value="${database.username2}"/>
     </bean>
 
 </beans>

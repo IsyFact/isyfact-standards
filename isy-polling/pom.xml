@@ -32,31 +32,31 @@
         </dependencies>
     </dependencyManagement>
     <dependencies>
-        <!-- Bibliothek für die Verwaltung der Anwendungskonfiguration -->
+        <!-- Library for managing the application konfiguration -->
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-konfiguration</artifactId>
         </dependency>
 
-        <!-- Fuer Isy-Exceptions -->
+        <!-- For ISY exceptions -->
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-exception-core</artifactId>
         </dependency>
 
-        <!-- Fuer JMX-Annotations -->
+        <!-- For JMX annotations -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
         </dependency>
 
-        <!-- Spring-AOP für Interceptor -->
+        <!-- Spring-AOP for Interceptor -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
         </dependency>
 
-        <!-- zusätzliche Bibliotheken -->
+        <!-- Additional libraries -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
@@ -76,9 +76,9 @@
             <artifactId>log4j-over-slf4j</artifactId>
         </dependency>
         <!-- =========================================================
-            Bibliotheken, die nur für die Tests benötigt werden.
-            ========================================================= -->
-        <!-- Testframework -->
+             Libraries only used in tests
+             ========================================================= -->
+        <!-- Test framework -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -98,7 +98,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Benoetigt fuer AOP (nur für den Test) -->
+        <!-- Required for AOP (test only) -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aspects</artifactId>

@@ -1,4 +1,9 @@
-# 1.10.1
+# 1.11.0
+- `IFS-875`: [isy-aufrufkontext], [isy-serviceapi-core] Umsetzung des Transports von OAuth 2 Bearer-Token zwischen Schnittstellentechnologien
+- `IFS-1066`: [isy-persistence] Protokollierung-Datenstrukturen aus den Template-DB-Skripten entfernt
+- `IFS-1093`:
+    * [isyfact-products-bom] Anhebung von Oracle-JDBC und UCP auf 19.11
+    * [isy-persistence] Oracle-JDBC hinzugefügt
 - `IFS-1176`: [isy-sonderzeichen] Fehler gefixt, bei dem der LegacyTransformator Texte ausgibt, die nicht konform zu String.Latin 1.1 sind
 
 # 1.10.0
@@ -44,4 +49,3 @@
     *  Neue Option `wildcard-case-insensitive` löst Case-Sensitive-Problem
     *  GroupIDs in Submodulen wurde auf `com.github.dozermapper` umgestellt
 - `IFS-463`: Abwärtskompatibilität IsyFact 2 zu IsyFact 1 - Erstellung der Bridge
-

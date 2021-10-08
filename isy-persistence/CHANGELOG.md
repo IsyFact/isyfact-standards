@@ -1,3 +1,7 @@
+# 1.11.1
+- `IFS-1066`: Protokollierung-Datenstrukturen aus den Template-DB-Skripten entfernt
+- `IFS-1093`: Oracle-JDBC hinzugefügt
+
 # 1.11.0
 - `IFS-560`: Entferne das Anlegen von DB-User in Update-Skripten
 
