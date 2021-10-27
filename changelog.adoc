@@ -7,6 +7,8 @@
 
 include::isy-util/changelog.adoc[tag=release-2.4.0]
 include::isy-sonderzeichen/changelog.adoc[tag=release-2.4.0]
+include::isy-task/changelog.adoc[tag=release-2.4.0]
+
 
 == Änderungen IsyFact 2.3.0
 
@@ -32,6 +34,7 @@ include::isy-ueberwachung/changelog.adoc[tag=release-2.3.0]
 include::isy-util/changelog.adoc[tag=release-2.3.0]
 include::isyfact-products-bom/changelog.adoc[tag=release-2.3.0]
 include::isyfact-standards-bom/changelog.adoc[tag=release-2.3.0]
+
 
 == Änderungen IsyFact 2.2.0
 

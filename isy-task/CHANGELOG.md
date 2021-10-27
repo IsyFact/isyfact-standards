@@ -1,3 +1,6 @@
+# 2.4.0
+- `IFS-1158`: Behebung der "Missing parameter metadata"-Warnung in dem mit dem "-parameters"-Flag compiliert wird
+
 # 2.3.0
 - `IFS-661`: CompletionWatchdog loggt Stacktrace bei Exception
 
