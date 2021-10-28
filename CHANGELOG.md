@@ -1,3 +1,6 @@
+# 2.3.2
+- `IFS-1133`: [isyfact-products-bom] Hibernate-Version wird nun automatisch durch Spring Boot angezogen
+
 # 2.3.1
 - `IFS-1176`: [isy-sonderzeichen] Fehler gefixt, bei dem der LegacyTransformator Texte ausgibt, die nicht konform zu String.Latin 1.1 sind.
 

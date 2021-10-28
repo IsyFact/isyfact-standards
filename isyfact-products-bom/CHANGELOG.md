@@ -1,3 +1,6 @@
+# 2.3.1
+- `IFS-1133`: Hibernate-Version wird nun automatisch durch Spring Boot angezogen
+
 # 2.2.0
 - `IFS-643`: WireMock in products.bom ergänzt
 - `IFS-465`: Profile zum Bauen mit Java 11 erstellt
