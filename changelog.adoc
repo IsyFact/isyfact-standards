@@ -1,5 +1,9 @@
 = Changelog IsyFact Standards
 
+== Änderungen IsyFact 2.3.2
+
+include::isyfact-products-bom/changelog.adoc[tag=release-2.3.2]
+
 == Änderungen IsyFact 2.2.0
 
 // Beginn Übergreifende Änderungen
