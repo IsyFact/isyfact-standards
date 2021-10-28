@@ -1,3 +1,6 @@
+# 2.3.0
+- `IFS-661`: CompletionWatchdog loggt Stacktrace bei Exception
+
 # 2.2.0
 - `IFS-746`: Behebung von NullPointerException in TaskSchedulerImpl (wenn HostHandler false zurückgibt)
 
