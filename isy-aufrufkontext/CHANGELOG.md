@@ -1,6 +1,12 @@
-# 1.10.1
+# 1.12.0
 - `IFS-875`: Umsetzung des Transports von OAuth 2 Bearer-Token zwischen Schnittstellentechnologien
     - `AufrufKontextVerwalter` wurde um ein Feld für das OAuth 2 Bearer-Token erweitert.
+
+# 1.11.0
+- enthält nur Versionsanhebung auf IFS 1.10.0
+
+# 1.10.0
+- enthält nur Versionsanhebung auf IFS 1.9.0
 
 # 1.9.0
 - `IFS-468`: license/DEPENDENCIES überarbeitet und Dozer (nach Update auf 6.5.0) entfernt

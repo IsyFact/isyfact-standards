@@ -1,3 +1,12 @@
+# 1.12.0
+- `IFS-802`: SpotBugs Fehler behoben
+
+# 1.11.0
+- enthält nur Versionsanhebung auf IFS 1.10.0
+
+# 1.10.0
+- enthält nur Versionsanhebung auf IFS 1.9.0
+
 # 1.9.1
 - `IFS-466`: Fix für fehlerhafte Mdc Formatierung
 

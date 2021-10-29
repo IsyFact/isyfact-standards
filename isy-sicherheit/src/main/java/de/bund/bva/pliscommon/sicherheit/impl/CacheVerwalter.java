@@ -16,7 +16,6 @@
  */
 package de.bund.bva.pliscommon.sicherheit.impl;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
@@ -28,38 +27,34 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.pliscommon.sicherheit.accessmgr.AuthentifzierungErgebnis;
 
 /**
- * Verwalter-Klasse für den Cache. Diese Implementierung kümmert sich auch um die Verwaltung des Status des
- * Caches.
- *
+ * Manager class for the cache. This implementation also takes care of managing the state of the cache.
  */
 public class CacheVerwalter<E extends AuthentifzierungErgebnis> {
 
-    /** Der Logger. */
+    /** The Logger. */
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(CacheVerwalter.class);
 
-    /** Name des Cache-Managers für die Sicherheitskomponente. */
+    /** Name of the cache manager for the security component. */
     private static final String CACHE_MANAGER_NAME = "de.bund.bva.pliscommon.sicherheit.client.cachemanager";
 
-    /** Name des Authentifizierungs-Caches. */
+    /** Name of the authentication cache. */
     private static final String AUTHENTIFIZIERUNGEN_CACHE_NAME = "authentifizierungen";
 
-    /**
-     * Pfad zur Standard-Konfiguration des Cache-Managers.
-     */
+    /** Path to the default configuration of the Cache Manager. */
     private static final String DEFAULT_CACHE_MANAGER_KONFIGURATION_PFAD =
         "/resources/plis-sicherheit/ehcache/sicherheitcache.default.xml";
 
-    /** Der Cache-Verwalter. */
+    /** The cache manager. */
     private CacheManager cacheManager;
 
-    /** Der Cache für die Authentifizierungen. */
+    /** The cache for the authentications. */
     private Cache authentifizierungenCache;
 
-    /** Kennzeichen, ob der Cache aktiviert ist. */
+    /** Indicator whether the cache is enabled. */
     private boolean cacheAktiviert = false;
 
     /**
-     * Standard-Konstruktor.
+     * Standard constructor.
      */
     public CacheVerwalter() {
         this.cacheManager = erzeugeCacheManager(DEFAULT_CACHE_MANAGER_KONFIGURATION_PFAD);
@@ -67,33 +62,35 @@ public class CacheVerwalter<E extends AuthentifzierungErgebnis> {
     }
 
     /**
-     * Liefert die Anzahl <em>nicht</em> abgelaufener Elemente im Cache. Hierbei werden zuvor auf dem Cache
-     * alle abgelaufenen Elemente enfernt. Dies ist notwendig, da das Entfernen von abgelaufenen Elementen aus
-     * einem Cache nur für DiskStoreage-Caches automatisch funktioniert. Für In-Memory-Caches muss dies
-     * explizit getan werden.
+     * Returns the number of <em>not</em> expired elements in the cache.
+     * <p>
+     * Here, all expired elements are removed from the cache beforehand. This is necessary because removing expired
+     * elements from a cache only works automatically for DiskStorage caches. For in-memory caches, this must be done
+     * explicitly.
      *
-     * @return Anzahl der Elemente im Cache.
+     * @return number of elements in the cache
      */
     public int getAnzahlElementeImCache() {
-        // Workaround: Cache säubern, da In-Memory-Caches nicht gesaeubert werden.
+        // Workaround: Clean cache, because in-memory caches are not cleaned.
         this.authentifizierungenCache.evictExpiredElements();
 
         return this.authentifizierungenCache.getSize();
     }
 
     /**
-     * Leert den Berechtigungen-Cache.
+     * Clears the permissions cache.
      */
     public void leereCache() {
         this.authentifizierungenCache.removeAll();
     }
 
     /**
-     * Holt ein Element aus dem Cache.
+     * Retrieves an item from the cache.
+     *
      * @param key
-     *            Cacheschlüssel.
-     * @return Die Sessiondaten des Access-Managers, wenn zum Schlüssel ein Eintrag im Cache enthalten ist.
-     *         Ansonsten <code>null</code>
+     *         Cache key
+     * @return the session data of the Access Manager if there is an entry in the cache for the key, otherwise {@code
+     * null}
      */
     @SuppressWarnings("unchecked")
     public E getFromCache(Object key) {
@@ -106,11 +103,12 @@ public class CacheVerwalter<E extends AuthentifzierungErgebnis> {
     }
 
     /**
-     * Legt ein neues Element im Cache ab.
+     * Puts a new item in the cache.
+     *
      * @param key
-     *            Cacheschlüssel
+     *         the cache key
      * @param authentifzierungErgebnis
-     *            Der Wert, der in dem Cache abgelegt wird.
+     *         the value that will be stored in the cache
      */
     public void putIntoCache(Object key, E authentifzierungErgebnis) {
         if (this.cacheAktiviert) {
@@ -119,13 +117,14 @@ public class CacheVerwalter<E extends AuthentifzierungErgebnis> {
     }
 
     /**
-     * Erzeugt einen neuen Cache-Manager mit der angegebenen Konfiguration.
+     * Creates a new cache manager with the specified configuration.
+     *
      * @param cacheKonfiguration
-     *            Die Cache-Konfiguration.
-     * @return Cache-Manager
+     *         the cache configuration
+     * @return the created cache manager
      */
     private CacheManager erzeugeCacheManager(String cacheKonfiguration) {
-        // Eindeutigen Namen für den Cache-Manager erzeugen.
+        // Create a unique name for the cache manager.
         String name = CACHE_MANAGER_NAME;
         int zaehler = 0;
         while (CacheManager.getCacheManager(name) != null) {
@@ -133,7 +132,7 @@ public class CacheVerwalter<E extends AuthentifzierungErgebnis> {
             name = CACHE_MANAGER_NAME + "-" + zaehler;
         }
 
-        // neuen Cache-Manager anlegen.
+        // create a new cache manager.
         ConfigurationSource configSource =
             ConfigurationSource.getConfigurationSource(getClass().getResource(cacheKonfiguration));
         Configuration config = configSource.createConfiguration();
@@ -144,48 +143,41 @@ public class CacheVerwalter<E extends AuthentifzierungErgebnis> {
     }
 
     /**
-     * Terminiert den Cache-Manager und initialisiert einen neuen Cache- Manager mit der übergebenen
-     * Cache-Konfiguration.
+     * Terminates the cache manager and initializes a new cache manager with the passed cache configuration.
      *
      * @param cacheKonfiguration
-     *            Die zu setzende Cache-Konfiguration.
+     *         the cache configuration to set
      */
-    @SuppressFBWarnings(
-            value = "ML_SYNC_ON_FIELD_TO_GUARD_CHANGING_THAT_FIELD",
-            justification = "solved with IFS-803"
-    )
-    public void setCacheKonfiguration(String cacheKonfiguration) {
-        synchronized (this.cacheManager) {
+    public synchronized void setCacheKonfiguration(String cacheKonfiguration) {
             LOG.debug("Setzen der Cache Konfiguration.");
 
-            // Cache-Manager herunterfahren.
+            // Shuts down Cache Manager.
             this.cacheManager.shutdown();
             LOG.debug("Cache-Manager herunterfahren.");
 
-            // neuen Cache-Manager anlegen.
+            // Creates a new cache manager.
             this.cacheManager = erzeugeCacheManager(cacheKonfiguration);
             LOG.debug("Neuer Cache-Manager angelegt.");
 
-            // Mapping Cache explizit speichern
+            // Explicitly save mapping cache
             this.authentifizierungenCache = this.cacheManager.getCache(AUTHENTIFIZIERUNGEN_CACHE_NAME);
-            // Falls Cache nicht vorhanden (er wurde nicht explizit
-            // konfiguriert): anlegen
+            // If cache does not exist (it has not been configured explicitly): create
             if (this.authentifizierungenCache == null) {
                 this.cacheManager.addCache(AUTHENTIFIZIERUNGEN_CACHE_NAME);
                 this.authentifizierungenCache = this.cacheManager.getCache(AUTHENTIFIZIERUNGEN_CACHE_NAME);
             }
             LOG.debug("Anwenderdaten-Cache angelegt.");
-        }
     }
 
     /**
-     * Setzt die Zeit, die ein Objekt innerhalb des Anwenderdaten-Caches gültig bleibt. Nach Ablauf dieser
-     * Zeit wird das Objekt ungültig und muss erneut aus der Datenquelle geladen werden.
+     * Sets the time an object remains valid within the user data cache.
      * <p>
-     * Die Zeit wird nur beachtet, wenn der Typ des Caches <b><u>nicht eternal</u></b> ist.
+     * After this time the object becomes invalid and must be reloaded from the data source.
+     * <p>
+     * The time is only observed if the type of the cache is <b><u>not eternal</u></b>.
      *
      * @param timeToLiveSeconds
-     *            Die Zeitspanne in Sekunden, für die Objekte gültig bleiben sollen.
+     *         the time span in seconds for which objects should remain valid
      */
     public void setTimeToLiveSeconds(int timeToLiveSeconds) {
         this.cacheManager.getCache(AUTHENTIFIZIERUNGEN_CACHE_NAME).getCacheConfiguration()
@@ -193,37 +185,29 @@ public class CacheVerwalter<E extends AuthentifzierungErgebnis> {
     }
 
     /**
-     * Setzt die maximale Anzahl der im Speicher gecachten Elemente.
+     * Sets the maximum number of elements cached in memory.
      *
      * @param maxEntriesLocalHeap
-     *            Die maximale Anzahl der im Speicher gecachten Elemente.
+     *         the maximum number of elements cached in memory
      */
     public void setMaxEntriesLocalHeap(int maxEntriesLocalHeap) {
         this.cacheManager.getCache(AUTHENTIFIZIERUNGEN_CACHE_NAME).getCacheConfiguration()
             .setMaxEntriesLocalHeap(maxEntriesLocalHeap);
     }
 
-    /**
-     * Liefert das Feld 'cacheAktiviert' zurück.
-     * @return Wert von cacheAktiviert
-     */
     public boolean isCacheAktiviert() {
         return this.cacheAktiviert;
     }
 
-    /**
-     * Setzt das Feld 'cacheAktiviert'.
-     * @param cacheAktiviert
-     *            Neuer Wert für cacheAktiviert
-     */
     public void setCacheAktiviert(boolean cacheAktiviert) {
         this.cacheAktiviert = cacheAktiviert;
     }
 
     /**
-     * Beendet den CacheManager. Diese Methode sollte nur in der <code>destroy()</code>-Methode der
-     * <code>DisposableBean</code> aufgerufen werden, welche die Referenz auf den <code>CacheVerwalter</code>
-     * hält.
+     * Terminates the CacheManager.
+     * <p>
+     * This method should only be called in the {@code destroy()} method of the {@code DisposableBean}, which holds the
+     * reference to the {@link CacheManager}.
      */
     public void shutdownManager() {
         this.cacheManager.shutdown();

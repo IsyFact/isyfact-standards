@@ -1,6 +1,9 @@
-# 1.11.1
+# 1.13.0
 - `IFS-1066`: Protokollierung-Datenstrukturen aus den Template-DB-Skripten entfernt
 - `IFS-1093`: Oracle-JDBC hinzugefügt
+
+# 1.12.0
+- enthält nur Versionsanhebung auf IFS 1.10.0
 
 # 1.11.0
 - `IFS-560`: Entferne das Anlegen von DB-User in Update-Skripten
@@ -13,7 +16,7 @@
     * Alte Tests als Deprecated markiert
 - `IFS-468`: license/DEPENDENCIES überarbeitet und Dozer (nach Update auf 6.5.0) entfernt
     * Dozer aus logback.xml entfernt, da es nicht mehr verwendet wird
-    
+
 # 1.9.0
 - `IFS-262`: `isyfact-masterpom` deprecated (Abschaffung mit IsyFact 2.0), `isyfact-masterpom-lib` aufgelöst, Bibliotheken benutzen `isyfact-standards` als Parent-POM
 - `IFS-347`: Abhängigkeiten zu `commons-lang3` aufgelöst.

@@ -4,6 +4,9 @@
 - `IFS-1093`:
     * [isyfact-products-bom] Anhebung von Oracle-JDBC und UCP auf 19.11
     * [isy-persistence] Oracle-JDBC hinzugefügt
+- `IFS-801`: [isy-batchrahmen] SpotBugs Fehler behoben
+- `IFS-802`: [isy-logging] SpotBugs Fehler behoben
+- `IFS-803`: [isy-sicherheit] SpotBugs Fehler behoben
 
 # 1.10.0
 - `IFS-1003`: [isy-sonderzeichen]
