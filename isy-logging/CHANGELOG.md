@@ -1,3 +1,6 @@
+# 2.4.0
+- `IFS-802`: SpotBugs Fehler behoben
+
 # 2.2.0
 - `IFS-489`: Entferne beim Loggen deklarierte Throwables in Methodensignaturen
 
