@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>isy-serviceapi-sst</artifactId>
-    <version>1.11.0</version>
+    <version>1.12.0-SNAPSHOT</version>
 
     <name>IsyFact Service-API Transport-Objekte</name>
 </project>

@@ -23,17 +23,15 @@ package de.bund.bva.isyfact.logging.layout;
  * #L%
  */
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import ch.qos.logback.classic.Level;
-import ch.qos.logback.classic.spi.ILoggingEvent;
-import ch.qos.logback.contrib.json.JsonFormatter;
-import ch.qos.logback.contrib.json.classic.JsonLayout;
-import ch.qos.logback.core.CoreConstants;
+import org.slf4j.Marker;
+
 import de.bund.bva.isyfact.logging.IsyMarker;
 import de.bund.bva.isyfact.logging.exceptions.FehlerhafterLogeintrag;
 import de.bund.bva.isyfact.logging.exceptions.LoggingTechnicalRuntimeException;
@@ -43,63 +41,66 @@ import de.bund.bva.isyfact.logging.impl.FehlerSchluessel;
 import de.bund.bva.isyfact.logging.impl.MarkerSchluessel;
 import de.bund.bva.isyfact.logging.util.LoggingKonstanten;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import org.slf4j.Marker;
+
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.contrib.json.JsonFormatter;
+import ch.qos.logback.contrib.json.classic.JsonLayout;
+import ch.qos.logback.core.CoreConstants;
 
 /**
- * Logback-Layout zum Aufbereiten der Logeinträge in JSON-Format. Das Layout übernimmt dabei insbesondere auch
- * die übergenenen Marker.
- *
+ * Logback layout for formatting log entries as JSON.
+ * <p>
+ * In particular, the layout includes the passed markers.
  */
 public class IsyJsonLayout extends JsonLayout {
 
-    /** Konstante für eine leere Korrelations-ID. */
+    /** Constant for an empty correlation ID. */
     private static final String LEERE_KORRELATIONSID = "none";
 
-    /** Attributname des Zeitstempels. */
+    /** Attribute name of the time stamp. */
     private static final String ZEITSTEMPEL_ATTR_NAME = "zeitstempel";
 
-    /** Attributname der Parameter einer Log-Nachricht. */
+    /** Attribute name of the parameters of a log message. */
     private static final String PARAMETER_ATTR_NAME = "parameter";
 
-    /** Attributname der Log-Nachricht. */
+    /** Attribute name of the log message. */
     private static final String NACHRICHT_ATTR_NAME = "nachricht";
 
-    /** Attributname der Log-Nachricht. */
+    /** Attribute name of the exception. */
     private static final String EXCEPTION_ATTR_NAME = "exception";
 
-    /** Attributname der Korrelations-Id. */
+    /** Attribute name of the correlation ID. */
     private static final String KORRELATIONSID_ATTR_NAME = "korrelationsid";
 
-    /** Attributname für allgemeine Marker. */
+    /** Attribute name for general markers. */
     private static final String MARKER_ATTR_NAME = "marker";
 
-    /** Attributname für gekürzte Log-Nachrichten. */
+    /** Attribute name for shortened log messages. */
     private static final String GEKUERZT_ATTR_NAME = "gekuerzt";
 
-    /** Maximale Groesse eines Loeintrags in Byte. */
+    /** Maximum size of a log entry in bytes. */
     private int maxLength = 32000;
 
 
      /**
-     * Konstruktor der Klasse.
+     * Class constructor.
      */
     public IsyJsonLayout() {
         super();
 
         includeLevel = true;
         includeThreadName = true;
-        // MDC wird nicht ausgegeben, da wir diesen als 'korrelationsid' aufnehmen.
+        // MDC is not output because we include it as 'korrelationsid'
         includeMDC = false;
         includeLoggerName = true;
-        // Message wird weder roh noch formatiert aufgenommen. Wir geben die formatierte Nachricht als
-        // 'nachricht' aus.
+        // Message is recorded neither raw nor formatted. We output the formatted message as a 'message'.
         includeFormattedMessage = false;
         includeMessage = false;
         includeException = true;
         includeContextName = true;
 
-        // Zeitstempel wird mauell als 'zeitstempel' ausgegeben.
+        // Timestamp is output manually as 'zeitstempel'
         includeTimestamp = false;
         appendLineSeparator = false;
     }
@@ -158,11 +159,11 @@ public class IsyJsonLayout extends JsonLayout {
      */
     @Override
     protected Map<String, Object> toJsonMap(ILoggingEvent event) {
-        // Erstellen einer Map von JSON-Attributen. In der Superklasse werden nur die sl4j-Standardattribute
-        // gefüllt. Es werden insbesondere keine Marker ausgewertet.
+        // Creates a map of JSON attributes. Only the slf4j standard attributes are filled in the super class.
+        // In particular, no markers are evaluated.
         Map<String, Object> jsonMap = new LinkedHashMap<>();
 
-        // Die Attribute werden im Log nach der Reihenfolge ihrer Hinzufügung sortiert.
+        // The attributes are sorted in the log in the order in which they were added.
         String zeitstempel = formatTimestamp(event.getTimeStamp());
         if (zeitstempel != null) {
             jsonMap.put(ZEITSTEMPEL_ATTR_NAME, zeitstempel);
@@ -172,27 +173,27 @@ public class IsyJsonLayout extends JsonLayout {
         Map<String, Object> defaultMap = super.toJsonMap(event);
         jsonMap.putAll(defaultMap);
 
-        // Nachricht übernehmen
+        // Include the message
         String msg = event.getFormattedMessage();
         if (msg != null) {
             jsonMap.put(NACHRICHT_ATTR_NAME, msg);
         }
 
-        // korrelationsid
+        // Include the correlation ID
         String korrelationsId = MdcHelper.liesKorrelationsId();
         if (korrelationsId == null) {
             korrelationsId = LEERE_KORRELATIONSID;
         }
         jsonMap.put(KORRELATIONSID_ATTR_NAME, korrelationsId);
 
-        // Auswerten der Marker
+        // Evaluate the markers
         Marker marker = event.getMarker();
 
-        // Marker durchlaufen und verarbeiten. IsyFact-Marker werden dabei direkt in die jsonMap übernommen.
+        // Process the markers recursively. IsyFact markers are transferred directly to the jsonMap.
         List<String> standardMarker = new ArrayList<>();
         processMarker(marker, jsonMap, standardMarker);
 
-        // Parameter der Nachricht (Platzhalter) als separate Attribute übernehmen.
+        // Include the parameters of the message (placeholders) as separate attributes.
         Object[] parameter = event.getArgumentArray();
         if (parameter != null) {
             for (int i = 0; i < parameter.length; i++) {
@@ -200,15 +201,15 @@ public class IsyJsonLayout extends JsonLayout {
             }
         }
 
-        // Standardmarker in einer einzelnen Liste übernehmen.
+        // Include standard markers as a single attribute.
         if (!standardMarker.isEmpty()) {
             jsonMap.put(MARKER_ATTR_NAME, standardMarker);
         }
 
-        // Fachdaten in MDC: Dadurch kann der Wert des Markers "Fachdaten" nochmals überschrieben werden.
+        // Technical data in MDC: This allows the value of the "Fachdaten" marker to be overwritten again.
         boolean enthaeltFachlicheDaten = MdcHelper.liesMarkerFachdaten();
         if (enthaeltFachlicheDaten) {
-            // Hierdurch wird der bisherige Datentyp des Logeintrags überschrieben!
+            // This overwrites the previous data type of the log entry!
             processMarker(new FachdatenMarker(), jsonMap, standardMarker);
             jsonMap.put(MarkerSchluessel.FACHDATEN.getWert(), LoggingKonstanten.TRUE);
         }
@@ -217,16 +218,17 @@ public class IsyJsonLayout extends JsonLayout {
     }
 
     /**
-     * Diese Methode verarbeitet den übergebenen Marker und durchläuft rekursiv dessen Referenzen.
-     * IsyFact-Marker werden dabei als Name/Wert-Paare in die jsonMap übernommen. Alle anderen
-     * "StandardMarker" werden in der Liste "standardMarker" gesammelt.
+     * This method processes the passed marker and recursively iterates through its references.
+     * <p>
+     * IsyFact markers are transferred to the {@code jsonMap} as name / value pairs. All other "StandardMarkers" are
+     * collected in the {@code standardMarker} list.
      *
      * @param marker
-     *            der zu verarbeitende Marker.
+     *         the marker to process
      * @param jsonMap
-     *            Map mit JSON-Attributen.
+     *         map to fill with IsyFact marker values by name
      * @param standardMarker
-     *            Liste, in der die Standard-Marker aufgenommen werden.
+     *         list to fill with the standard markers
      */
     private void processMarker(Marker marker, Map<String, Object> jsonMap, List<String> standardMarker) {
 
@@ -236,9 +238,9 @@ public class IsyJsonLayout extends JsonLayout {
 
         if (marker instanceof IsyMarker) {
             IsyMarker isyMarker = (IsyMarker) marker;
-            // Werte von Root-Markern werden nicht übernommen
+            // Values of root markers are not included
             if (!isyMarker.isRootMarker()) {
-                // Es werden auch Marker mit "NULL-Werten" übernommen".
+                // Markers with "NULL values" are also included.
                 jsonMap.put(isyMarker.getName(), isyMarker.getValue());
             }
         } else {
@@ -254,35 +256,38 @@ public class IsyJsonLayout extends JsonLayout {
 
 
     /**
-     * Diese Methode prüft, ob der übergebene String des Logeintrags die maximale Größe überschreitet und
-     * gekürzt werden muss. Ist der Logeintrag zu groß, wird der Logeintrag nach folgendem Ablauf gekürzt:
-     * 1. Alle Parameter aus dem Logeintrag entfernen.
-     * 2. Feld Exception kürzen, falls vorhanden
-     * 3. Feld Nachricht kürzen
+     * This method checks whether the transferred string of the log entry exceeds the maximum size and must be
+     * shortened.
+     * <p>
+     * If the log entry is too large, the log entry is shortened as follows:
+     * <ol>
+     * <li>Remove all parameters from the log entry</li>
+     * <li>Shorten the Exception field, if available</li>
+     * <li>Shorten the Message field</li>
+     * </ol>
+     * <p>
+     * If the log entry is still too long after it has been shortened, an exception is thrown.
      *
-     * Sollte der Logeintrag nach dem Kürzen immer noch zu lang sein, so wird eine Exception geworfen.
-     *
-     * @param map        die Map mit den Rohdaten des Log-Events
-     * @param logeintrag die Map in einen String gewandelt
-     * @param event      das Log-Event
-     * @return der geprüfte und eventuell gekürzte Logeintrag als String
+     * @param map
+     *         the map with the raw data of the log event
+     * @param logeintrag
+     *         the map formatted as a string, in order to check the length of the log entry
+     * @param event
+     *         the log event
+     * @return the checked and possibly shortened log entry as a string
      */
-    @SuppressFBWarnings(
-            value = "DM_DEFAULT_ENCODING",
-            justification = "solved with IFS-802"
-    )
     private String pruefeGroesse(Map<String, Object> map, String logeintrag, ILoggingEvent event) {
-        // Prüfen, ob eine maximale Länge definiert wurde (0=beliebig lang)
+        // Check whether a maximum length has been defined (0 = any length)
         if (maxLength > 0) {
-            // Nur Lognachrichten in Betracht ziehen, die Level INFO oder höher besitzen
+            // Consider only log messages that have level INFO or higher
             if (event.getLevel().isGreaterOrEqual(Level.INFO)) {
-                // Prüfen, ob die Lognachricht die maximale Größe in Bytes überhaupt mit ihrer Länge erreichen kann
+                // Check whether the log message can even reach the maximum size in bytes with its length
                 if (logeintrag.length() >= (maxLength / 2.0)) {
 
-                    byte[] zeichen = logeintrag.getBytes();
+                    byte[] zeichen = logeintrag.getBytes(StandardCharsets.UTF_8);
                     int tatsaechlicheLaenge = zeichen.length;
                     if (tatsaechlicheLaenge > maxLength) {
-                        // Zunächst alle Parameter des Logeintrags entfernen
+                        // First remove all parameters from the log entry
                         for (int i = 0; i < map.size(); i++) {
                             if (map.containsKey(PARAMETER_ATTR_NAME + (i + 1))) {
                                 map.put(PARAMETER_ATTR_NAME + (i + 1),
@@ -297,13 +302,13 @@ public class IsyJsonLayout extends JsonLayout {
 
                         if (ueberhang > 0) {
                             if (map.containsKey(EXCEPTION_ATTR_NAME)) {
-                                // Zuerst Exception kürzen, falls vorhanden, dann Nachricht, falls noch zu lang
+                                // First shorten exception if present, then message if still too long
                                 ueberhang = feldKuerzen(EXCEPTION_ATTR_NAME, map, ueberhang);
                                 if (ueberhang > 0) {
                                     feldKuerzen(NACHRICHT_ATTR_NAME, map, ueberhang);
                                 }
                             } else {
-                                // Ansonsten direkt die Nachricht kürzen
+                                // Otherwise directly shorten the message
                                 feldKuerzen(NACHRICHT_ATTR_NAME, map, ueberhang);
                             }
                         }
@@ -317,15 +322,17 @@ public class IsyJsonLayout extends JsonLayout {
     }
 
     /**
-     * Diese Methode kürzt den Inhalt eines Feldes einer Map anhand des übermittelten Überhangs,
-     * berechnet den Überhang nach der Kürzung und gibt diesen zurück.
+     * This method truncates the contents of a field of a map based on the passed overhang, calculates the new overhang
+     * after truncation, and returns it.
      *
-     * @param schluessel der Schluessel des Feldes in der Map, das gekürzt werden soll
-     * @param map        die Map mit den Rohdaten des Log-Events
-     * @param ueberhang  der Überhang als Anzahl Zeichen
-     * @return der aktualisierte Überhang nach der Kürzung
+     * @param schluessel
+     *         the key of the field in the map to be shortened
+     * @param map
+     *         the map with the raw data of the log event
+     * @param ueberhang
+     *         the overhang as number of characters
+     * @return the updated overhang after the the field was truncated
      */
-
     private int feldKuerzen(String schluessel, Map<String, Object> map, int ueberhang) {
         int neuerUeberhang = ueberhang;
         int vorherigerUeberhang;
@@ -335,6 +342,7 @@ public class IsyJsonLayout extends JsonLayout {
                 vorherigerUeberhang = neuerUeberhang;
                 feldlaenge = map.get(schluessel).toString().length();
                 if (neuerUeberhang >= feldlaenge) {
+                    // the field can't be truncated and is replaced with a message indicating this
                     map.put(schluessel, Ereignisschluessel.DEBUG_LOG_GEKUERZT.getNachricht());
                 } else {
                     map.put(schluessel,
@@ -348,25 +356,24 @@ public class IsyJsonLayout extends JsonLayout {
     }
 
     /**
-     * Diese Methode berechnet den Überhang eines Logeintrags, der als Map übermittelt wird.
-     * Der Überhang wird zunächst in Bytes berechnet und anschließend in eine Anzahl von Zeichen umgewandelt.
+     * This method calculates the overhang (number of characters that the log entry is longer than {@link #maxLength})
+     * of the log entry that is passed as a map.
+     * <p>
+     * The overhang is first calculated in bytes and then converted into a number of characters.
      *
-     * @param map die Map mit den Rohdaten des Log-Events
-     * @return der berechnete Ueberhang
+     * @param map
+     *         the map with the raw data of the log event
+     * @return the calculated overhang
      */
-    @SuppressFBWarnings(
-            value = "DM_DEFAULT_ENCODING",
-            justification = "solved with IFS-802"
-    )
     private int berechneUeberhang(Map<String, Object> map) {
         String logeintrag = getStringFromFormatter(map);
-        int tatsaechlicheLaenge = logeintrag.getBytes().length;
+        int tatsaechlicheLaenge = logeintrag.getBytes(StandardCharsets.UTF_8).length;
 
-        // Anzahl der abzuschneidenden Zeichen ermitteln (
-        // Berechne Bytes pro Zeichen
+        // Determines the number of characters to be cut off
+        // Calculates bytes per character
         float byteZeichen = (float) tatsaechlicheLaenge / (float) logeintrag.length();
 
-        // Ueberhang gibt die Anzahl zu entfernender Zeichen an
+        // Overhang indicates the number of characters to be removed
         return (int) ((tatsaechlicheLaenge - maxLength) / byteZeichen) + 1;
     }
 

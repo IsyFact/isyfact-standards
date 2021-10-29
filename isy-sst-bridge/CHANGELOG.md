@@ -1,5 +1,11 @@
-# 1.9.1
+# 1.11.0
 - `IFS-875`: Tests an den veränderten `AufrufKontextVerwalter` angepasst
+
+# 1.10.0
+- enthält nur Versionsanhebung auf IFS 1.10.0
+
+# 1.9.0
+- enthält nur Versionsanhebung auf IFS 1.9.0
 
 # 1.8.3
 - `IFS-597`: Verwendung der Klasse `IsyHttpInvokerServiceExporter` in Tests anstatt `HttpInvokerServiceExporter`

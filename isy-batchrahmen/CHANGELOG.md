@@ -1,3 +1,12 @@
+# 1.14.0
+- `IFS-801`: SpotBugs Fehler behoben
+
+# 1.13.0
+- enthält nur Versionsanhebung auf IFS 1.10.0
+
+# 1.12.0
+- enthält nur Versionsanhebung auf IFS 1.9.0
+
 # 1.11.0
 - `IFS-468`: license/DEPENDENCIES überarbeitet und Dozer (nach Update auf 6.5.0) entfernt
     * Dozer aus logback.xml entfernt, da es nicht mehr verwendet wird
