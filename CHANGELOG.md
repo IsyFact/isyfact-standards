@@ -18,6 +18,8 @@
 - `IFS-970`: [isy-products-bom] Spring-Boot Versionsanhebung auf 2.5.2
 - `IFS-1093`: [isy-persistence], [isyfact-products-bom] Anhebung von Oracle-JDBC und UCP auf 19.11
 - `IFS-988`: [isy-products-bom] Apache Commons Logging entfernt
+- `IFS-801`: [isy-batchrahmen] SpotBugs Fehler behoben
+- `IFS-802`: [isy-logging] SpotBugs Fehler behoben
 
 # 2.3.0
 - `IFS-1004`: [isy-sonderzeichen]

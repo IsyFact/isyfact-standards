@@ -1,3 +1,6 @@
+# 2.4.0
+- `IFS-801`: SpotBugs Fehler behoben
+
 # 2.2.0
 - `IFS-693`: Initialisierung des LoggerKontexts für Anwendungskontext
 - `IFS-542`: Fügt Korrelations-Id bei jeder Satzverarbeitung in Aufruf-Kontext hinzu
