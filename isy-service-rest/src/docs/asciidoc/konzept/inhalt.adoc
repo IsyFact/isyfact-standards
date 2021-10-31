@@ -129,6 +129,10 @@ Enthält eine Ressource wiederum mehrere Ressourcen, wird wieder der Plural verw
 ----
 /nachrichten/{id_m}/empfaenger/{id_r}
 ----
+wobei:
+
+* {id_m}: id der **m**essage
+* {id_r}: id des **r**eceivers
 
 ==== Adressierung von mehreren Ressourcen
 
@@ -189,7 +193,7 @@ Die Ressource wird dabei nicht verändert, wodurch diese Methode idempotent ist.
 .{desc-listing-get-anfrage-beispiele}
 [source]
 ----
-GET /kunden/1234
+GET /kunden/1234 HTTP/1.1
 accept: text/html, application/json, application/xhtml+xml, application/xml;q=0.9, */*;
 charset=utf-8
 HOST: xx.yy.zz
@@ -201,13 +205,13 @@ ACCEPT-ENCODING: gzip, deflate, br
 .{desc-listing-get-antwort-beispiele}
 [source]
 ----
-HTTP/1.1 201 Created
+HTTP/1.1 200 OK
 Content-Type: application/json; charset=utf-8
 {
     "id":1234,
     "name":"Mustermensch",
     "adresse":"Musterstraße 1",
-    "Ort":"Musterstadt"
+    "ort":"Musterstadt"
 }
 ----
 
@@ -222,13 +226,13 @@ Des Weiteren muss POST für komplexe Suchen und Suchen mit datenschutzrelevanten
 .{desc-listing-post-anfrage-beispiele}
 [source]
 ----
-POST /kunden
+POST /kunden HTTP/1.1
 HOST: xx.yy.zz
 Content-Type: application/json; charset=utf-8
 {
     "name":"Mustermensch",
     "adresse":"Musterstraße 1",
-    "Ort":"Musterstadt"
+    "ort":"Musterstadt"
 }
 ----
 
@@ -243,7 +247,7 @@ Content-Type: application/json; charset=utf-8
     "id":1234,
     "name":"Mustermensch",
     "adresse":"Musterstraße 1",
-    "Ort":"Musterstadt"
+    "ort":"Musterstadt"
 }
 ----
 
@@ -258,19 +262,20 @@ Ist die Ressource mit der gesendeten ID noch nicht vorhanden, wird diese durch P
 Dies ist aber zu vermeiden, da der Client keine IDs vergeben soll.
 PUT ist, da immer die gesamte Ressource geändert wird, bzw. die ID beim Erstellen schon vorgegeben ist, idempotent.
 Deshalb ist PUT PATCH beim Aktualisieren vorzuziehen.
+In Abhängigkeit davon, ob eine Ressource geändert oder neu erstellt wurde, wird der entsprechende Response Code (200 OK bzw. 201 Created) zurückgegeben.
 
 :desc-listing-put-anfrage-beispiele: Beispiele für PUT-Anfrage
 [id="listing-put-anfrage-beispiele",reftext = "{listing-caption} {counter:listings}"]
 .{desc-listing-put-anfrage-beispiele}
 [source]
 ----
-PUT /shop/products/11 HTTP/1.1
+PUT /kunden/1234 HTTP/1.1
 HOST: xx.yy.zz
 Content-Type: application/json; charset=utf-8
 {
     "name":"Mustermensch",
     "adresse":"Musterstraße 1",
-    "Ort":"Beispielort"
+    "ort":"Beispielort"
 }
 ----
 
@@ -279,13 +284,13 @@ Content-Type: application/json; charset=utf-8
 .{desc-listing-put-antwort-beispiele}
 [source]
 ----
-HTTP/1.1 201 Created
+HTTP/1.1 200 OK
 Content-Type: application/json; charset=utf-8
 {
     "id":1234,
     "name":"Mustermensch",
     "adresse":"Musterstraße 1",
-    "Ort":"Beispielort"
+    "ort":"Beispielort"
 }
 ----
 
@@ -318,7 +323,7 @@ Content-Type: application/json; charset=utf-8
     "id":1234,
     "name":"Mustermensch",
     "adresse":"Neue Straße 2",
-    "Ort":"Beispielort"
+    "ort":"Beispielort"
 }
 ----
 
@@ -507,7 +512,6 @@ Bei häufigen, parallelen Anfragen würde dieses Szenario dann einen hohen Overh
 Die IsyFact legt folgende Technologien für die Umsetzung von REST-Schnittstellen (vgl. <<table-frameworks>>) fest.
 
 :desc-table-frameworks: Frameworks für die Umsetzung
-
 [id="table-frameworks",reftext = "{table-caption} {counter:tables}"]
 .{desc-table-frameworks}
 [cols="1,2,2",options="header"]
@@ -522,7 +526,7 @@ Die IsyFact legt folgende Technologien für die Umsetzung von REST-Schnittstelle
 |Java/Spring
 |Umsetzung von REST-Services
 
-|isy-web-angular (isy-http.ts)
+|Angular Framework Modul: @angular/common/http
 |TypeScript/Angular
 |Umsetzung von REST-Clients
 
@@ -734,7 +738,6 @@ Details zur Implementierung können der https://docs.spring.io/spring-framework/
 Eine Fehlernachricht aus einer REST-Schnittstelle (egal ob Client oder Server Error) muss mindestens folgende Informationen beinhalten.
 
 :desc-table-error-fields: Standardfelder für Fehlernachrichten
-
 [id="table-error-fields",reftext = "{table-caption} {counter:tables}"]
 .{desc-table-error-fields}
 [cols="2,2,4",options="header"]
@@ -797,7 +800,7 @@ Die Authentifizierung wird nach OAuth2 sichergestellt.
 Hierfür muss der Client mit jeder Nachricht einen Bearer Token mitsenden.
 Dieser wird im Request-Header mit dem Tag "Authorization" versehen.
 Im Sicherheitsbaustein wird das Token an den `SecurityContextHolder` weitergegeben.
-Dort werden die Daten ausgelesen und der Token wird auf echtheit überprüft.
+Dort werden die Daten ausgelesen und der Token wird auf Echtheit überprüft.
 Bei einer reinen Weitergabe, greift die Bearer Propagation.
 
 [NOTE]
@@ -843,10 +846,10 @@ Wie auch serverseitig, sollen diese Log-Nachrichten möglichst automatisiert via
 
 Um die Nachrichten im Zuge der Log-Auswertung zu filtern, sind nachrichtenspezifische Ereignisschlüssel zu verwenden.
 
-Zusätzlich zu den Anforderungen an die Inhalte einer Log-Nachricht (<<KonzeptLoggging>> Kapitel 4.1.1), sollen folgende Informationen als Marker in der Log-Nachricht enthalten sein:
+Zusätzlich zu den Anforderungen an die Inhalte einer Log-Nachricht (<<KonzeptLogging>> Kapitel 4.1.1), sollen folgende Informationen als Marker in der Log-Nachricht enthalten sein:
 
 :desc-table-logging-data: Standard für zu erfassende Logging-Informationen
-[id="table-logging-fields",reftext = "{table-caption} {counter:tables}"]
+[id="table-logging-data",reftext = "{table-caption} {counter:tables}"]
 .{desc-table-logging-data}
 [cols="2,3",options="header"]
 |===
