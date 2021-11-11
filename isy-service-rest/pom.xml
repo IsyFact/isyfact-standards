@@ -49,6 +49,7 @@
                                 <revnumber>IF-${project.version}</revnumber>
                                 <revdate>${maven.build.timestamp}</revdate>
                                 <version-ifs>${project.version}</version-ifs>
+                                <vs-einstufung>open-source</vs-einstufung>
                             </attributes>
                         </configuration>
                         <executions>
@@ -63,6 +64,9 @@
                                     <sourceDirectory>${component.src}/konzept</sourceDirectory>
                                     <sourceDocumentName>master.adoc</sourceDocumentName>
                                     <outputFile>${html-output-base-directory}/Konzept_${component.name}.html</outputFile>
+                                    <attributes>
+                                        <factory>IsyFact-Standards</factory>
+                                    </attributes>  
                                 </configuration>
                             </execution>
                             <execution>
@@ -76,6 +80,9 @@
                                     <sourceDirectory>${component.src}/konzept</sourceDirectory>
                                     <sourceDocumentName>master.adoc</sourceDocumentName>
                                     <outputFile> ${pdf-output-base-directory}/Konzept_${component.name}.pdf</outputFile>
+                                    <attributes>
+                                        <factory>IsyFact-Standards</factory>
+                                    </attributes>                                   
                                 </configuration>
                             </execution>
                             <execution>
@@ -89,6 +96,9 @@
                                     <sourceDirectory>${component.src}/konzept</sourceDirectory>
                                     <sourceDocumentName>master.adoc</sourceDocumentName>
                                     <outputFile>${html-output-base-directory}/Nutzungsvorgaben_${component.name}.html</outputFile>
+                                    <attributes>
+                                        <factory>IsyFact-Standards</factory>
+                                    </attributes>  
                                 </configuration>
                             </execution>
                             <execution>
@@ -102,6 +112,9 @@
                                     <sourceDirectory>${component.src}/nutzungsvorgaben</sourceDirectory>
                                     <sourceDocumentName>master.adoc</sourceDocumentName>
                                     <outputFile> ${pdf-output-base-directory}/Nutzungsvorgaben_${component.name}.pdf</outputFile>
+                                    <attributes>
+                                        <factory>IsyFact-Standards</factory>
+                                    </attributes>  
                                 </configuration>
                             </execution>
                         </executions>
