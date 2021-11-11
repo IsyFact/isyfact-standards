@@ -514,17 +514,21 @@ Die IsyFact legt folgende Technologien für die Umsetzung von REST-Schnittstelle
 :desc-table-frameworks: Frameworks für die Umsetzung
 [id="table-frameworks",reftext = "{table-caption} {counter:tables}"]
 .{desc-table-frameworks}
-[cols="1,2,2",options="header"]
+[cols="2,2,3",options="header"]
 |===
 |Framework |Technologie-Stack |Beschreibung
 
-|Spring Webflux / Spring MVC
+|Spring Webflux
 |Java/Spring
 |Umsetzung von REST-Clients
+
+(unter Nutzung von Apache HTTPComponents)
 
 |Spring MVC
 |Java/Spring
 |Umsetzung von REST-Services
+
+(zur Nutzung mit Tomcat)
 
 |Angular Framework Modul: @angular/common/http
 |TypeScript/Angular
