@@ -268,11 +268,10 @@
                         </dependency>
                     </dependencies>
                     <configuration>
+                        <outputDirectory>${project.build.directory}</outputDirectory>
                         <attributes>
-                            <revnumber>${project.version}</revnumber>
+                            <revnumber>IF-${project.version}</revnumber>
                             <revdate>${maven.build.timestamp}</revdate>
-                            <factory>IsyFact</factory>
-                            <open-source>true</open-source>
                         </attributes>
                     </configuration>
                 </plugin>
