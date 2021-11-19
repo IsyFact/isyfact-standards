@@ -1,3 +1,6 @@
+# 2.3.1
+- `IFS-1175`: Erstelle eigenen TaskFehlertextProvider für Fehlermeldungen
+
 # 2.2.0
 - `IFS-746`: Behebung von NullPointerException in TaskSchedulerImpl (wenn HostHandler false zurückgibt)
 
