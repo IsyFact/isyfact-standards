@@ -1,3 +1,6 @@
+# 2.4.0
+- `IFS-798`: Pojobuilder zu Products-BOM hinzugefügt
+
 # 2.3.0
 - `IFS-985`: Spring Security entfernt (Verwaltung der Version über Spring Boot)
 - `IFS-987`: Entferne log4j

@@ -86,8 +86,8 @@
                 <scope>import</scope>
             </dependency>
 
-<!-- Authentication/autorisation: Spring Security -->
-<!-- Managed by Spring Boot Dependencies -->
+            <!-- Authentication/autorisation: Spring Security -->
+            <!-- Managed by Spring Boot Dependencies -->
             <!-- Persistence framework: Hibernate -->
             <!-- Managed by Spring Boot Dependencies -->
 
@@ -175,6 +175,13 @@
                 <groupId>ma.glasnost.orika</groupId>
                 <artifactId>orika-core</artifactId>
                 <version>1.5.4</version>
+            </dependency>
+
+            <!-- Bean mapping: pojobuilder -->
+            <dependency>
+                <groupId>net.karneim</groupId>
+                <artifactId>pojobuilder</artifactId>
+                <version>4.2.3</version>
             </dependency>
 
             <!-- XML serialization: XStream -->
