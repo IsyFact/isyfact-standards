@@ -177,7 +177,7 @@
                 <version>1.5.4</version>
             </dependency>
 
-            <!-- Bean mapping: pojobuilder -->
+            <!-- Code generation: pojobuilder -->
             <dependency>
                 <groupId>net.karneim</groupId>
                 <artifactId>pojobuilder</artifactId>
