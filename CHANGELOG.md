@@ -37,6 +37,7 @@
 - `IFS-801`: [isy-batchrahmen] SpotBugs Fehler behoben
 - `IFS-802`: [isy-logging] SpotBugs Fehler behoben
 - `IFS-803`: [isy-sicherheit] SpotBugs Fehler behoben
+- `RF-1040`: [isy-util], [isy-sonderzeichen] Scope für Spotbugs-Annotation Abhängigkeit auf provided gesetzt
 
 # 1.8.1
 - `IFS-453`: [isy-ueberwachung] Loglevel für isAlive-Datei-Ereignisse erhöht.
