@@ -1,8 +1,10 @@
 # 2.3.2
+- `IFS-1133`: [isyfact-products-bom] Hibernate-Version wird nun automatisch durch Spring Boot angezogen
 - `IFS-1158`: [isy-task] Behebung der "Missing parameter metadata"-Warnung in dem mit dem "-parameters"-Flag compiliert wird
 
 # 2.3.1
 - `IFS-1176`: [isy-sonderzeichen] Fehler gefixt, bei dem der LegacyTransformator Texte ausgibt, die nicht konform zu String.Latin 1.1 sind.
+- `IFS-1175`: [isy-task] Eigenen FehlertextProvider für isy-task erstellt
 
 # 2.3.0
 - `IFS-1004`: [isy-sonderzeichen]
