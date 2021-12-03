@@ -17,9 +17,9 @@
 package de.bund.bva.pliscommon.serviceapi.core.httpinvoker;
 
 import java.lang.reflect.Method;
+import java.util.Objects;
 import java.util.UUID;
 
-import de.bund.bva.pliscommon.serviceapi.common.AufrufKontextToHelper;
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.remoting.httpinvoker.HttpInvokerClientInterceptor;
 
@@ -27,28 +27,35 @@ import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.util.LogHelper;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
+import de.bund.bva.pliscommon.serviceapi.common.AufrufKontextToHelper;
 import de.bund.bva.pliscommon.serviceapi.common.konstanten.EreignisSchluessel;
 import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 
 /**
- * HTTP-InvokerClientInterceptor zum Erzeugen IsyFact-konformer Loggingeinträge.
+ * HTTP-InvokerClientInterceptor to generate IsyFact compliant logging entries.
  */
 public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientInterceptor {
 
-    /** Logger der Klasse. */
+    /**
+     * Logger
+     */
     private static final IsyLogger LOGGER = IsyLoggerFactory.getLogger(IsyHttpInvokerClientInterceptor.class);
 
-    /** Helper, zum Erzeugen der Logeinträge. */
+    /**
+     * Helper for creating Logentries.
+     */
     private LogHelper logHelper = new LogHelper(false, false, true, false, false, 0);
 
-    /** Name des aufgerufenen Nachbarsystems. */
+    /**
+     * Name of the remote system that is being called.
+     */
     private String remoteSystemName;
 
     /**
      * {@inheritDoc}
-     *
-     * Beim Aufruf wird immer eine neue Korrelations-ID erzeugt und zu der bestehenden Korrelations-ID des
-     * Aufrufkontextes hinzugefügt. Damit muss das aufrufende System
+     * <p>
+     * When called, a new correlation ID is always created and added to the existing correlation ID of the
+     * calling context.
      *
      * @see org.springframework.remoting.httpinvoker.HttpInvokerClientInterceptor#invoke(org.aopalliance.intercept.MethodInvocation)
      */
@@ -66,30 +73,29 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
         LOGGER.debug("Erzeuge neue Korrelations-ID {}", korrelationsId);
         MdcHelper.pushKorrelationsId(korrelationsId);
 
-        // Warnung bei falschem Setzen der Korr-Id im Aufrufkontext.
-        if (aufrufKontextTo != null && aufrufKontextTo.getKorrelationsId() != null &&
-            aufrufKontextTo.getKorrelationsId().length() != 0 &&
-            !MdcHelper.liesKorrelationsId()
+        if (Objects.nonNull(aufrufKontextTo)) {
+            // Warning if there was already a Korr-Id in the AufrufkontextTo which didn't match
+            if (Objects.nonNull(aufrufKontextTo.getKorrelationsId()) && !aufrufKontextTo.getKorrelationsId()
+                .isEmpty() && !MdcHelper.liesKorrelationsId()
                 .equals(aufrufKontextTo.getKorrelationsId() + ";" + korrelationsId)) {
-            LOGGER.warn(EreignisSchluessel.AUFRUFKONTEXT_KORRID_KORRIGIERT,
-                "Die Korrelations-Id {} im Aufrufkontext wurde korrigiert, "
-                    + "da diese nicht mit der Korr-Id auf dem MDC {} übereinstimmt.",
-                aufrufKontextTo.getKorrelationsId(), MdcHelper.liesKorrelationsId());
-        }
+                LOGGER.warn(EreignisSchluessel.AUFRUFKONTEXT_KORRID_KORRIGIERT,
+                    "Die Korrelations-Id {} im Aufrufkontext wurde korrigiert, "
+                        + "da diese nicht mit der Korr-Id auf dem MDC {} übereinstimmt.",
+                    aufrufKontextTo.getKorrelationsId(), MdcHelper.liesKorrelationsId());
+            }
 
-        // Korrektlations-Id im Kontext setzen.
-        if (aufrufKontextTo != null) {
+            // set korrelationsId in the context
             aufrufKontextTo.setKorrelationsId(MdcHelper.liesKorrelationsId());
         }
 
-        // Logge Aufruf Nachbarsystem.
+        // Logging call of remote system
         this.logHelper.loggeNachbarsystemAufruf(LOGGER, methode, this.remoteSystemName, getServiceUrl());
         long startzeit = 0;
         try {
             startzeit = this.logHelper.ermittleAktuellenZeitpunkt();
             Object ergebnis = super.invoke(methodInvocation);
 
-            // Aufruf ist ohne Exception verarbeitet worden.
+            // call was executed without exceptions
             aufrufErfolgreich = true;
             return ergebnis;
 
@@ -102,15 +108,13 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
                 getServiceUrl(), aufrufErfolgreich);
 
             MdcHelper.entferneKorrelationsId();
-        }
 
+            if (Objects.nonNull(aufrufKontextTo)) {
+                aufrufKontextTo.setKorrelationsId(MdcHelper.liesKorrelationsId());
+            }
+        }
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
-     */
     @Override
     public void afterPropertiesSet() {
         super.afterPropertiesSet();
@@ -120,20 +124,18 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
     }
 
     /**
-     * Setzt den Wert des Attributs 'remoteSystemName'.
+     * Sets value of attribute 'remoteSystemName'.
      *
-     * @param remoteSystemName
-     *            Neuer Wert des Attributs.
+     * @param remoteSystemName New value of the attribute.
      */
     public void setRemoteSystemName(String remoteSystemName) {
         this.remoteSystemName = remoteSystemName;
     }
 
     /**
-     * Setzt den Wert des Attributs 'logHelper'.
+     * Sets value of attribute 'logHelper'.
      *
-     * @param logHelper
-     *            Neuer Wert des Attributs.
+     * @param logHelper New value of the attribute.
      */
     public void setLogHelper(LogHelper logHelper) {
         this.logHelper = logHelper;
