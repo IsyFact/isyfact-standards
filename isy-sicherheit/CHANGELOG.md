@@ -1,3 +1,12 @@
+# 1.12.0
+- `IFS-803`: SpotBugs Fehler behoben
+
+# 1.11.0
+- enthält nur Versionsanhebung auf IFS 1.10.0
+
+# 1.10.0
+- enthält nur Versionsanhebung auf IFS 1.9.0
+
 # 1.9.0
 - `IFS-468`: license/DEPENDENCIES überarbeitet und Dozer (nach Update auf 6.5.0) entfernt
 - `IFS-496`: Update commons-codec auf 1.13

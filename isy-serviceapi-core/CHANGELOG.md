@@ -1,7 +1,13 @@
-# 1.11.1
+# 1.13.0
 - `IFS-875`: Umsetzung des Transports von OAuth 2 Bearer-Token zwischen Schnittstellentechnologien
     - `IsyHttpInvokerServiceExporter` und `TimeoutWiederholungHttpInvokerRequestExecutor` um den `AufrufKontextVerwalter` erweitert.
     - Das OAuth 2 Bearer Token wird über den HTTP-Authentication-Header transportiert bzw. aus diesem ausgelesen.
+
+# 1.12.0
+- enthält nur Versionsanhebung auf IFS 1.10.0
+
+# 1.11.0
+- enthält nur Versionsanhebung auf IFS 1.9.0
 
 # 1.10.2
 - `IFS-597`: Verwendung der Klasse `IsyHttpInvokerServiceExporter` in Tests anstatt `HttpInvokerServiceExporter`

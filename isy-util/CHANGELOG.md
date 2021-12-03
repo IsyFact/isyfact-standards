@@ -1,5 +1,6 @@
 # 1.9.2
 - `IFS-568`: Entfernt redundante Methode `getMessage(String schluessel)` aus dem MessageSourceHolder
+- `RF-1040`: Scope für Spotbugs-Annotation Abhängigkeit auf provided gesetzt
 
 # 1.9.0
 - `IFS-528`: Explizite Versionen für isy-exception-core und isy-logging entfernt und stattdessen isyfact-standards-bom importiert

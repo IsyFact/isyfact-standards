@@ -1,6 +1,12 @@
-# 1.9.1
+# 1.11.0
 - `IFS-796`: GreenMail als Test Suite für Mail-Server ist in isyfact-products-bom enthalten
 - `IFS-1093`: Anhebung von Oracle-JDBC und UCP auf 19.11
+
+# 1.10.0
+- Versionanhebung auf IFS 1.10.0
+
+# 1.9.0
+- Versionanhebung auf IFS 1.9.0
 
 # 1.8.3
 - `IFS-692`: Google Guava von 19.0 auf 29.0 angehoben
