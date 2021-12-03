@@ -5,6 +5,7 @@
 - `IFS-1093`:
     * [isyfact-products-bom] Anhebung von Oracle-JDBC und UCP auf 19.11
     * [isy-persistence] Oracle-JDBC hinzugefügt
+- `IFS-1176`: [isy-sonderzeichen] Fehler gefixt, bei dem der LegacyTransformator Texte ausgibt, die nicht konform zu String.Latin 1.1 sind
 - `IFS-801`: [isy-batchrahmen] SpotBugs Fehler behoben
 - `IFS-802`: [isy-logging] SpotBugs Fehler behoben
 - `IFS-803`: [isy-sicherheit] SpotBugs Fehler behoben
