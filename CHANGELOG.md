@@ -1,5 +1,6 @@
 # 2.4.0
 - `IFS-601`: [isy-products-bom] Einbindung folgender Produkte über die Spring Boot Dependencies: JPA, JTA, Spring, Hibernate, Jackson, QueryDSL, SLF4J, Logback, JUnit, Mockito, AssertJ, H2.
+- `IFS-661`: [isy-task] CompletionWatchdog loggt Stacktrace bei Exception
 - `IFS-874`: [isy-aufrufkontext], [isy-serviceapi-core] Umsetzung des Transports von OAuth 2 Bearer-Token zwischen Schnittstellentechnologien.
 - `IFS-1066`: [isy-persistence] Protokollierung-Datenstrukturen aus den Template-DB-Skripten entfernt
 - `IFS-977`: [isy-serviceapi-core] Statische Auflösung des AufrufKontextTo durch Bean-Lösung abgelöst
@@ -19,6 +20,9 @@
 - `IFS-1093`: [isy-persistence], [isyfact-products-bom] Anhebung von Oracle-JDBC und UCP auf 19.11
 - `IFS-988`: [isy-products-bom] Apache Commons Logging entfernt
 - `IFS-1176`: [isy-sonderzeichen] Fehler gefixt, bei dem der LegacyTransformator Texte ausgibt, die nicht konform zu String.Latin 1.1 sind.
+- `IFS-801`: [isy-batchrahmen] SpotBugs Fehler behoben
+- `IFS-802`: [isy-logging] SpotBugs Fehler behoben
+- `RF-1040`: [isy-util], [isy-sonderzeichen] Scope für Spotbugs-Annotations Abhängigkeit auf provided gesetzt
 
 # 2.3.0
 - `IFS-1004`: [isy-sonderzeichen]

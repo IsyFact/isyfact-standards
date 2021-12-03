@@ -1,5 +1,6 @@
 # 2.4.0
 - `IFS-1176`: Fehler gefixt, bei dem der LegacyTransformator Texte ausgibt, die nicht konform zu String.Latin 1.1 sind
+- `RF-1040`: Scope für Spotbugs-Annotations Abhängigkeit auf provided gesetzt
 
 # 2.3.0
 - `IFS-1003`:

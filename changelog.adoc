@@ -1,5 +1,13 @@
 = Changelog IsyFact Standards
 
+== Änderungen IsyFact 2.4.0
+
+// Beginn übergreifende Änderungen
+// Ende übergreifende Änderungen
+
+include::isy-util/changelog.adoc[tag=release-2.4.0]
+include::isy-sonderzeichen/changelog.adoc[tag=release-2.4.0]
+
 == Änderungen IsyFact 2.3.0
 
 // Beginn Übergreifende Änderungen

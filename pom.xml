@@ -88,15 +88,6 @@
         <isy.doku.standards.bausteine>10_IsyFact-Standards/20_Bausteine</isy.doku.standards.bausteine>
     </properties>
 
-    <!-- TODO: Remove if Spotbug issues are fixed -->
-    <dependencies>
-        <dependency>
-            <groupId>com.github.spotbugs</groupId>
-            <artifactId>spotbugs-annotations</artifactId>
-            <version>4.2.1</version>
-        </dependency>
-    </dependencies>
-
     <build>
         <resources>
             <resource>
@@ -277,11 +268,10 @@
                         </dependency>
                     </dependencies>
                     <configuration>
+                        <outputDirectory>${project.build.directory}</outputDirectory>
                         <attributes>
-                            <revnumber>${project.version}</revnumber>
+                            <revnumber>IF-${project.version}</revnumber>
                             <revdate>${maven.build.timestamp}</revdate>
-                            <factory>IsyFact</factory>
-                            <open-source>true</open-source>
                         </attributes>
                     </configuration>
                 </plugin>
