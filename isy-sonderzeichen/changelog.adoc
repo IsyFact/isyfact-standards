@@ -1,6 +1,12 @@
 [[changelog]]
 = Changelog
 
+*Änderungen IsyFact 2.4.0*
+
+// tag::release-2.4.0[]
+- `RF-1040`: Scope für Spotbugs-Annotation Abhängigkeit auf provided gesetzt
+// end::release-2.4.0[]
+
 *Änderungen IsyFact 2.3.0*
 
 // tag::release-2.3.0[]

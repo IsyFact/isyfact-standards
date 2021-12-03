@@ -1,3 +1,6 @@
+# 2.4.0
+- `RF-1040`: Scope für Spotbugs-Annotations Abhängigkeit auf provided gesetzt
+
 # 2.3.0
 - `IFS-1003`:
   + Refactoring des DIN-SPEC-Packages von isy-sonderzeichen

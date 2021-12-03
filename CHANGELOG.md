@@ -21,6 +21,7 @@
 - `IFS-988`: [isy-products-bom] Apache Commons Logging entfernt
 - `IFS-801`: [isy-batchrahmen] SpotBugs Fehler behoben
 - `IFS-802`: [isy-logging] SpotBugs Fehler behoben
+- `RF-1040`: [isy-util], [isy-sonderzeichen] Scope für Spotbugs-Annotations Abhängigkeit auf provided gesetzt
 
 # 2.3.0
 - `IFS-1004`: [isy-sonderzeichen]
