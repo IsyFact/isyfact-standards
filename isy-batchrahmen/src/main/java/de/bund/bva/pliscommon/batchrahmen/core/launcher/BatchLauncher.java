@@ -17,19 +17,15 @@
 package de.bund.bva.pliscommon.batchrahmen.core.launcher;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.env.PropertySource;
-
-import ch.qos.logback.classic.LoggerContext;
-import ch.qos.logback.classic.joran.JoranConfigurator;
-import ch.qos.logback.core.joran.spi.JoranException;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
@@ -52,69 +48,71 @@ import de.bund.bva.pliscommon.batchrahmen.core.rahmen.impl.BatchrahmenPropertySo
 import de.bund.bva.pliscommon.sicherheit.common.exception.AutorisierungFehlgeschlagenException;
 import de.bund.bva.pliscommon.sicherheit.common.exception.SicherheitTechnicalRuntimeException;
 
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.classic.joran.JoranConfigurator;
+import ch.qos.logback.core.joran.spi.JoranException;
+
 /**
- * Diese Klasse startet einen Batch (siehe {@link Batchrahmen} mit der ï¿½bergebenen Konfiguration. Die
- * Konfiguration erfolgt über Kommandozeilen-Argumente sowie über eine Property-Datei.
+ * This class starts a batch (see {@link Batchrahmen} with the transferred configuration. The configuration
+ * is done via command line arguments und a property file.
  * <p>
- * Die Verarbeitungs-Logik ist dabei auf einen Batchrahmen und eine Ausfuehrungsbean aufgeteilt. Siehe dazu
- * das Detailkonzept Batch der Migrationsstufe 1.
+ * The processing logic is divided into a Batchrahmen and a Ausführungsbean. See the Detailkonzept Batch
+ * of the Migrationsstufe 1.
  * <p>
- * Kommandozeilenargumente müssen stets die Form <tt>-ParameterName ParameterWert</tt> oder
- * <tt>-ParameterName</tt> besitzen. Folgende Parameter sind fuer den Batchrahmen relevant:
+ * Command line arguments must always have the form <tt>-ParameterName ParameterValue</tt> or
+ * <tt>-ParameterName</tt>. The following parameters are relevant for Batchrahmen:
  * <ul>
- * <li>cfg &lt;Dateiname&gt;: Name der Property-Datei
- * <li>start: Starten des Batches im "Start" Modus.
- * <li>restart: Starten des Batches im "Restart" Modus nach einem Fehler-Abbruch.
- * <li>ignoriereRestart: Auch bei Fehlern Start akzeptieren, nicht auf Restart beharren.
- * <li>ignoriereLauf: Auch bei Status "Laeuft" Start akzeptieren.
+ * <li>cfg &lt;Dateiname&gt;: Name of property file
+ * <li>start: Start batch in "Start" mode.
+ * <li>restart: Start batch in "Restart" mode after an abort with error.
+ * <li>ignoriereRestart: Accept start even in the event of errors, do not insist on restart.
+ * <li>ignoriereLauf: Accept start even with status "Laeuft".
  * </ul>
  * <p>
- * Die Property-Datei darf folgende Grüüe besitzen:
+ * The property file may have following values:
  * <ul>
- * <li>Batchrahmen.BeanName: Name der Batchrahmen-Bean.
- * <li>Anwendung.SpringDateien.&lt;N&gt;: Namen der Spring-Konfigurationsdateien des Systems.
- * <li>Batchrahmen.SpringDateien.&lt;N&gt;: Namen der Spring-Konfigurationsdateien des Batchrahmens.
- * <li>Batchrahmen.Log4JConfigFile: Pfad zur Log4J Konfigurationsdatei.
- * <li>Batchrahmen.CommitIntervall: Anzahl Satz-Verarbeitungen pro Commit.
- * <li>Batchrahmen.AnzahlZuVerarbeitendeDatensaetze: Anzahl zu verarbeitende Datensütze.
- * <li>AusfuehrungsBean: Name der Ausfuehrungsbean fuer die Batch-Logik.
- * <li>BatchId: ID des Batches (ID des Batch-Status-Datensatzes).
- * <li>BatchName: Name des Batches in der Batch-Status-Tabelle.
+ * <li>Batchrahmen.BeanName: Name of Batchrahmen-Bean.
+ * <li>Anwendung.SpringDateien.&lt;N&gt;: Names of spring configuration files of system.
+ * <li>Batchrahmen.SpringDateien.&lt;N&gt;: Names of spring configuration files of Batchrahmen.
+ * <li>Batchrahmen.Log4JConfigFile: Path to Log4J configuration file.
+ * <li>Batchrahmen.CommitIntervall: Number of record processes per commit.
+ * <li>Batchrahmen.AnzahlZuVerarbeitendeDatensaetze: Number of data record to be processed.
+ * <li>AusfuehrungsBean: Name of Ausfuehrungsbean for batch logic.
+ * <li>BatchId: ID of batch (ID of batch status data record).
+ * <li>BatchName: Name of batch in batch status table.
  * </ul>
  * <p>
- * Es künnen beliebige weitere Kommandozeilen-Parameter und Properties eingetragen werden. Die
- * Kommandozeilen-Parameter werden den Properties hinzugefügt und überschreiben sie ggf., bevor sie an die
- * Batchrahmen-Bean weitergegeben werden. Die Batchrahmen-Bean gibt die komplette Konfiguration an die
- * Ausfuehrungsbean weiter, welche sie zur Konfiguration verwenden kann.
- *
- *
+ * Any further command line parameters and properties can be entered. The command line parameters
+ * are added to the properties and overwrite them, if necessary, before they are passed on to the
+ * Batchrahmen-Bean. The Batchrahmen-Bean forwards the complete configuration to the Ausfuehrungsbean,
+ * which can use it for configuration.
  */
 public class BatchLauncher {
-    /** Die Konfiguration fuer den Batch-Rahmen. */
+    /**
+     * The configuration for Batch-Rahmen.
+     */
     private BatchKonfiguration rahmenKonfiguration;
 
     /**
-     * Das Protokoll, zur Speicherung von Meldungen und Statistiken der Batch-Ausfuehrung.
+     * The protocol, for storing messages und statistics of Batch-Ausfuehrung.
      */
     private BatchErgebnisProtokoll protokoll;
 
     /**
-     * Main-Methode zum Starten des Batches. Diese Methode ruft die Methode {@link #run(String[])} auf und
-     * liefert deren ReturnCode per System.exit() zurück.
+     * Main method for starting batch. This method calls the method {@link #run(String[])} und return its
+     * ReturnCode via System.exit().
      *
-     * @param args
-     *            Kommandozeilen-Parameter.
+     * @param args command line parameters.
      */
     public static void main(String[] args) {
         System.exit(BatchLauncher.run(args));
     }
 
     /**
-     * Startet den Batch. Zur Konfiguration siehe Klassen-Kommentar.
+     * Starts batch. For configuration see class comment.
      *
-     * @param args
-     *            Die Kommandozeilen-Argumente. Beschreibung siehe Klassen-Kommentar.
-     * @return Return-Code des Batches.
+     * @param args command line parameters. For description see class comment.
+     * @return return code of batch.
      */
     public static int run(final String[] args) {
         IsyLogger log = null;
@@ -177,15 +175,12 @@ public class BatchLauncher {
     }
 
     /**
-     * Protokolliert einen Fehler. Wenn möglich wird dieses über den {@link Logger} log durchgeführt. Auf
-     * jeden Fall erfolgt eine Ausgabe auf System.Err. Zusätzlich wird im ErgebnisProtokoll protokolliert.
-     * @param log
-     *            Der Logger.
-     * @param protokoll
-     *            Das DefaultBatchErgebnisProtokoll.
-     * @param ex
-     *            Die Aufgetretene Exception.
-     * @throws BatchAusfuehrungsException
+     * Logs an error. If possible, this is done via the {@link IsyLogger} log. In any case,
+     * there is an output on System.Err. In addition, it is recorded in ErgebnisProtokoll.
+     *
+     * @param log       Logger.
+     * @param protokoll DefaultBatchErgebnisProtokoll.
+     * @param ex        Occurred exception.
      */
     private static void protokolliereFehler(IsyLogger log, BatchErgebnisProtokoll protokoll, Throwable ex) {
         String nachricht = exceptionToString(ex);
@@ -212,35 +207,32 @@ public class BatchLauncher {
     }
 
     /**
-     * Konvertiert eine Exception inkl. Stacktrace in einen String.
-     * @param t
-     *            Exception
-     * @return String inkl. Stacktrace ohne Zeilenumbrüche.
+     * Converts an exception including a stack trace into a string.
+     *
+     * @param t Exception
+     * @return String including stack trace without line breaks.
      */
-    @SuppressFBWarnings(
-            value = "DM_DEFAULT_ENCODING",
-            justification = "Solved with IFS-801"
-    )
     private static String exceptionToString(Throwable t) {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-        t.printStackTrace(new PrintStream(out));
-        return out.toString().replaceAll("\\r{0,1}\\n", " | ");
+        String exceptionString = "";
+        try {
+            t.printStackTrace(new PrintStream(out, false, StandardCharsets.UTF_8.name()));
+            exceptionString = out.toString(StandardCharsets.UTF_8.name()).replaceAll("\\r{0,1}\\n", " | ");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return exceptionString;
     }
 
     /**
-     * initialisiert Logback mit der Log-Konfiguration, welche in der Property-Datei mit Schluessel
-     * {@link BatchKonfiguration#PROPERTY_BATCHRAHMEN_LOG_CONF} angegeben wurde. Als default wird
-     * /config/logback-batch.xml verwendet.
+     * Initializes Logback with the log configuration which was specified in the property file with key
+     * {@link KonfigurationSchluessel # PROPERTY_BATCHRAHMEN_LOGBACK_CONF}.
+     * /config/logback-batch.xml is used as default.
      *
-     * @param konf
-     *            die Batch-Konfiguration.
-     * @throws JoranException
-     *             Wenn der Logger nicht konfiguriert werden konnte.
-     * @throws FileNotFoundException
-     *             Wenn die Log Konfiguration nicht gefunden wurde.
+     * @param konf batch configuration.
+     * @throws JoranException If the Logger could not be configured.
      */
-    private static void initialisiereLogback(BatchKonfiguration konf) throws FileNotFoundException,
-        JoranException {
+    private static void initialisiereLogback(BatchKonfiguration konf) throws JoranException {
         String propertyFile =
             konf.getAsString(KonfigurationSchluessel.PROPERTY_BATCHRAHMEN_LOGBACK_CONF,
                 "/config/logback-batch.xml");
@@ -258,12 +250,10 @@ public class BatchLauncher {
     }
 
     /**
-     * erzeugt eine neue Instanz und setzt die Konfiguration.
+     * Creates a new instance and sets the configuration.
      *
-     * @param rahmenKonfiguration
-     *            die Konfiguration fuer den Batch-Rahmen.
-     * @param protokoll
-     *            das ErgebinsProtokoll.
+     * @param rahmenKonfiguration configuration for Batch-Rahmen.
+     * @param protokoll           ErgebinsProtokoll.
      */
     public BatchLauncher(BatchKonfiguration rahmenKonfiguration, BatchErgebnisProtokoll protokoll) {
         this.rahmenKonfiguration = rahmenKonfiguration;
@@ -271,11 +261,11 @@ public class BatchLauncher {
     }
 
     /**
-     * Erzeugt die Spring-Kontexte fuer die Anwendung sowie den Batchrahmen. Startet die Batchrahmen-Bean über
-     * Methode {@link Batchrahmen#runBatch(BatchKonfiguration)}.
-     * @throws BatchAusfuehrungsException
-     *             Wenn ein Fehler während der Batchausführung auftritt.
+     * Creates the spring contexts for the application and the Batchrahmen.
+     * Starts the Batchrahmen-Bean using the method
+     * {@link Batchrahmen#runBatch(BatchKonfiguration, BatchErgebnisProtokoll)}.
      *
+     * @throws BatchAusfuehrungsException When an error occurs during batch execution.
      */
     private void launch() throws BatchAusfuehrungsException {
         ClassPathXmlApplicationContext anwendung = new ClassPathXmlApplicationContext();
@@ -300,7 +290,7 @@ public class BatchLauncher {
     }
 
     /**
-     * Setzt die Spring-Profile im ApplicationContext über eine Property-Source.
+     * Sets the spring profile in the ApplicationContext via a property source.
      *
      * @param applicationContext
      *            Spring-ApplicationContext.
@@ -309,7 +299,7 @@ public class BatchLauncher {
         PropertySource<Properties> ps =
             new BatchrahmenPropertySource(this.rahmenKonfiguration.getSpringProfilesKonfigFiles(),
                 this.rahmenKonfiguration.getSpringProfilesProperties());
-        // aktive Profile werden nur über die Property-Source gesteurt, deshalb alle anderen entfernen
+        // active profiles are only controlled via the property source, therefore remove all others
         applicationContext.getEnvironment().setActiveProfiles(new String[] {});
         applicationContext.getEnvironment().getPropertySources().addFirst(ps);
     }

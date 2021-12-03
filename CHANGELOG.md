@@ -1,10 +1,14 @@
 # 1.11.0
 - `IFS-668`: [isy-serviceapi-core] Zurücksetzung der KorrelationsId des AnrufKontextTo bei einem Invoke
+- `IFS-661`: [isy-task] CompletionWatchdog loggt Stacktrace bei Exception
 - `IFS-875`: [isy-aufrufkontext], [isy-serviceapi-core] Umsetzung des Transports von OAuth 2 Bearer-Token zwischen Schnittstellentechnologien
 - `IFS-1066`: [isy-persistence] Protokollierung-Datenstrukturen aus den Template-DB-Skripten entfernt
 - `IFS-1093`:
     * [isyfact-products-bom] Anhebung von Oracle-JDBC und UCP auf 19.11
     * [isy-persistence] Oracle-JDBC hinzugefügt
+- `IFS-801`: [isy-batchrahmen] SpotBugs Fehler behoben
+- `IFS-802`: [isy-logging] SpotBugs Fehler behoben
+- `IFS-803`: [isy-sicherheit] SpotBugs Fehler behoben
 
 # 1.10.0
 - `IFS-1003`: [isy-sonderzeichen]
@@ -31,6 +35,10 @@
 - `IFS-746`: [isy-task] Behebung von NullPointerException in TaskSchedulerImpl (wenn HostHandler false zurückgibt)
 - `IFS-785`: [isyfact-products-bom] Versionsupdate von XStream von 1.4.11 auf 1.4.14 wegen CVE
 - `IFS-783`: Konfiguration von Quality Gate 1; Umstellung auf GitLabCI Templates
+- `IFS-801`: [isy-batchrahmen] SpotBugs Fehler behoben
+- `IFS-802`: [isy-logging] SpotBugs Fehler behoben
+- `IFS-803`: [isy-sicherheit] SpotBugs Fehler behoben
+- `RF-1040`: [isy-util], [isy-sonderzeichen] Scope für Spotbugs-Annotation Abhängigkeit auf provided gesetzt
 
 # 1.8.1
 - `IFS-453`: [isy-ueberwachung] Loglevel für isAlive-Datei-Ereignisse erhöht.

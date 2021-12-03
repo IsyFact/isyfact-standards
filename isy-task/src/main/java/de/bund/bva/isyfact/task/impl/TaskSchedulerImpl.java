@@ -253,7 +253,7 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
                 } catch (ExecutionException e) {
                     String nachricht = MessageSourceHolder
                         .getMessage(Ereignisschluessel.TASK_WURDE_FEHLERHAFT_BEENDET, taskId, e.getMessage());
-                    LOG.warn(Ereignisschluessel.TASK_WURDE_FEHLERHAFT_BEENDET, nachricht);
+                    LOG.warn(Ereignisschluessel.TASK_WURDE_FEHLERHAFT_BEENDET, nachricht, e);
 
                     if (scheduledExecutorService.isShutdown()) {
                         break;

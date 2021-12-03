@@ -83,15 +83,6 @@
         <license.dir>license</license.dir>
     </properties>
 
-    <!-- TODO: Remove if Spotbug issues are fixed -->
-    <dependencies>
-        <dependency>
-            <groupId>com.github.spotbugs</groupId>
-            <artifactId>spotbugs-annotations</artifactId>
-            <version>4.2.1</version>
-        </dependency>
-    </dependencies>
-
     <build>
         <resources>
             <resource>
