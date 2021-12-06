@@ -122,4 +122,10 @@
     <!-- ====================================================================== Die JMX-Bean des Batchrahmens.
         ====================================================================== -->
     <bean id="batchVerarbeitung" class="de.bund.bva.pliscommon.batchrahmen.core.rahmen.jmx.BatchRahmenMBean"/>
+
+    <!-- ====================================================================== Die Ausfuehrer-Bean fuer den Ausruf-Kontext
+        ====================================================================== -->
+    <bean id="aufrufKontextTestBatch" class="de.bund.bva.pliscommon.batchrahmen.batch.AufrufKontextTestBatch">
+        <property name="aufrufKontextVerwalter" ref="aufrufKontextVerwalter"/>
+    </bean>
 </beans>

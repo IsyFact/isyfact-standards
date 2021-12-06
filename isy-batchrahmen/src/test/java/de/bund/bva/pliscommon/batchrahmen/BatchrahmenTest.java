@@ -435,4 +435,13 @@ public class BatchrahmenTest {
                 batchLauncher.starteBatch(BatchStartTyp.START, null));
         assertEquals("beendet", getBatchStatus("returnCodeTestBatch-1").getBatchStatus());
     }
+
+    /**
+     * Test if correlation-id in AufrufKontext will be set accordingly to MDC Helper during batch execution
+     */
+    @Test
+    public void testAufrufKontextTestBatch() {
+        assertEquals(0, BatchLauncher.run(new String[]{"-start", "-cfg", "/resources/batch/aufruf-kontext-test-batch-1-config.properties"}));
+        assertEquals("beendet", getBatchStatus("aufrufKontextTestBatch").getBatchStatus());
+    }
 }

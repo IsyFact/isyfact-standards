@@ -190,6 +190,7 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
                 verarbInfo.incSatzNummer();
 
                 MdcHelper.pushKorrelationsId(UUID.randomUUID().toString());
+                aufrufKontext.setKorrelationsId(MdcHelper.liesKorrelationsId());
 
                 ergebnis = verarbInfo.getBean().verarbeiteSatz();
 
