@@ -13,6 +13,7 @@
 - `IFS-736`: [isy-logging] Aktive Log-Level im LogHelper prüfen
 - `IFS-686`: Property-Dateien auf Unicode Escapes umgestellt
 - `IFS-1175`: [isy-task] Eigenen FehlertextProvider fpr isy-task erstellt
+- `IFS-702`: [isy-batchrahmen] Fügt die KorrelationsId passend zum MDC dem AufrufKontext hinzu
 
 # 1.10.0
 - `IFS-1003`: [isy-sonderzeichen]
