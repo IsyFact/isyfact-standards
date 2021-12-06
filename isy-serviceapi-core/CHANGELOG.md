@@ -1,3 +1,6 @@
+# 2.4.0
+- `IFS-668`: Zurücksetzung der KorrelationsId des AnrufKontextTo bei einem Invoke
+
 # 2.3.0
 - `IFS-874`: Umsetzung des Transports von OAuth 2 Bearer Tokens zwischen Schnittstellentechnologien
     - `IsyHttpInvokerServiceExporter` und `TimeoutWiederholungHttpInvokerRequestExecutor` um den `AufrufKontextVerwalter` erweitert.
