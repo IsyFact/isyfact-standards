@@ -17,13 +17,13 @@
 package de.bund.bva.isyfact.serviceapi.core.httpinvoker;
 
 import java.lang.reflect.Method;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.remoting.httpinvoker.HttpInvokerClientInterceptor;
-import org.springframework.util.StringUtils;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
@@ -38,27 +38,34 @@ import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo
  */
 public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientInterceptor {
 
-    /** Logger. */
+    /**
+     * Logger.
+     */
     private static final IsyLogger LOGGER = IsyLoggerFactory.getLogger(IsyHttpInvokerClientInterceptor.class);
 
-    /** Helper for creating Logentries. */
+    /**
+     * Helper for creating Logentries.
+     */
     private LogHelper logHelper = new LogHelper(false, false, true, false, false, 0);
 
-    /** Name of the remote system that is being called. */
+    /**
+     * Name of the remote system that is being called.
+     */
     private String remoteSystemName;
 
-    /** Resolver for AufrufKontextTo from Parameter-Lists. */
+    /**
+     * Resolver for AufrufKontextTo from Parameter-Lists.
+     */
     private AufrufKontextToResolver aufrufKontextToResolver;
 
     /**
      * {@inheritDoc}
      * <p>
-     * Beim Aufruf wird immer eine neue Korrelations-ID erzeugt und zu der bestehenden Korrelations-ID des
-     * Aufrufkontextes hinzugefügt. Damit muss das aufrufende System
+     * When called, a new correlation ID is always created and added to the existing correlation ID of the
+     * calling context.
      */
     @Override
     public Object invoke(MethodInvocation methodInvocation) throws Throwable {
-
         String korrelationsId = UUID.randomUUID().toString();
 
         Method methode = methodInvocation.getMethod();
@@ -72,9 +79,9 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
             AufrufKontextTo aufrufKontextTo = aufrufKontextToOptional.get();
 
             // Warning if there was already a Korr-Id in the AufrufkontextTo which didn't match
-            if (!StringUtils.isEmpty(aufrufKontextTo.getKorrelationsId()) &&
-                !MdcHelper.liesKorrelationsId()
-                    .equals(aufrufKontextTo.getKorrelationsId() + ";" + korrelationsId)) {
+            if (Objects.nonNull(aufrufKontextTo.getKorrelationsId()) && !aufrufKontextTo.getKorrelationsId()
+                .isEmpty() && !MdcHelper.liesKorrelationsId()
+                .equals(aufrufKontextTo.getKorrelationsId() + ";" + korrelationsId)) {
                 LOGGER.warn(EreignisSchluessel.AUFRUFKONTEXT_KORRID_KORRIGIERT,
                     "Die Korrelations-Id {} im Aufrufkontext wurde korrigiert, "
                         + "da diese nicht mit der Korr-Id auf dem MDC {} übereinstimmt.",
@@ -101,12 +108,14 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
             long dauer = endezeit - startzeit;
             logHelper.loggeNachbarsystemErgebnis(LOGGER, methode, remoteSystemName, getServiceUrl(),
                 aufrufErfolgreich);
-            logHelper.loggeNachbarsystemDauer(LOGGER, methode, dauer, remoteSystemName,
-                getServiceUrl(), aufrufErfolgreich);
+            logHelper.loggeNachbarsystemDauer(LOGGER, methode, dauer, remoteSystemName, getServiceUrl(),
+                aufrufErfolgreich);
 
             MdcHelper.entferneKorrelationsId();
-        }
 
+            aufrufKontextToOptional.ifPresent(
+                aufrufKontextTo -> aufrufKontextTo.setKorrelationsId(MdcHelper.liesKorrelationsId()));
+        }
     }
 
     @Override
@@ -141,14 +150,14 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
     /**
      * Sets aufrufKontextToResolver. Resolver for reading AufrufKontextTo from Parameterlists.
      * Standard implementation is {@link AufrufKontextToResolver}
+     *
      * @param aufrufKontextToResolver New value of aufrufKontextToResolver
      */
     // Autowiring was used to provide an easier transition from static resolving of AufrufKontextTo.
     // Try to autowire as it requires users of the class to make less changes to their config
     // and this class is typically used as a Spring-Bean
     @Autowired
-    public void setAufrufKontextToResolver(
-        AufrufKontextToResolver aufrufKontextToResolver) {
+    public void setAufrufKontextToResolver(AufrufKontextToResolver aufrufKontextToResolver) {
         this.aufrufKontextToResolver = aufrufKontextToResolver;
     }
 
