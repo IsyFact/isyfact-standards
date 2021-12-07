@@ -1,4 +1,5 @@
 # 2.4.0
+- `IFS-590`: Instanziierung LogApplicationListener Parameter in korrekter Reihenfolge
 - `IFS-802`: SpotBugs Fehler behoben
 
 # 2.2.0
