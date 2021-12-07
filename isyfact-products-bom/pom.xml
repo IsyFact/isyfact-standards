@@ -248,6 +248,8 @@
             <!-- Dynamic SQL query generation: QueryDSL -->
             <!-- Managed by Spring Boot Dependencies -->
 
+<!-- Open Source Cache: ehcache -->
+<!-- Managed by Spring Boot Dependencies -->
             <!-- HTML sanitizer -->
             <dependency>
                 <groupId>org.jsoup</groupId>
