@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 /**
- * Spring-Autokonfiguration für das Einbinden der Bibliothek isy-logging in den Spring-Kontext.
+ * Spring autoconfiguration for including the isy-logging library in the Spring context.
  */
 @Configuration
 @ConditionalOnProperty(name = "isy.logging.autoconfiguration.enabled", matchIfMissing = true)
@@ -29,7 +29,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 public class IsyLoggingAutoConfiguration {
 
     /**
-     * Erzeugt eine Bean für die Konfigurationsparameter des Application-Loggers.
+     * Creates a bean for the configuration parameters of the application logger.
      *
      * @return Bean isyLoggingApplicationLoggerProperties.
      */
@@ -40,7 +40,7 @@ public class IsyLoggingAutoConfiguration {
     }
 
     /**
-     * Erzeugt eine Bean für die Konfigurationsparameter des Boundary-Loggers.
+     * Creates a bean for the boundary logger configuration parameters.
      *
      * @return Bean isyLoggingBoundaryLoggerProperties.
      */
@@ -51,7 +51,7 @@ public class IsyLoggingAutoConfiguration {
     }
 
     /**
-     * Erzeugt eine Bean für die Konfigurationsparameter des Component-Loggers.
+     * Creates a bean for the configuration parameters of the component logger.
      *
      * @return Bean isyMessageKafkaHealthIndicatorProperties.
      */
@@ -62,21 +62,21 @@ public class IsyLoggingAutoConfiguration {
     }
 
     /**
-     * Listener zum Loggen beim Hochfahren/Herunterfahren.
+     * Listener for logging during startup/shutdown.
      *
-     * @param properties Parameter für die Konfiguration des Status-Loggers.
-     * @return Listener zum Loggen beim Hochfahren/Herunterfahren.
+     * @param properties Parameters for the configuration of the status logger.
+     * @return Listener for logging during startup/shutdown.
      */
     @Bean
     public LogApplicationListener statusLogger(IsyLoggingApplicationLoggerProperties properties) {
-        return new LogApplicationListener(properties.getTyp(), properties.getName(), properties.getVersion());
+        return new LogApplicationListener(properties.getName(), properties.getTyp(), properties.getVersion());
     }
 
     /**
-     * Interceptor zum Loggen an Systemgrenzen.
+     * Interceptor for logging at system boundaries.
      *
-     * @param properties Parameter für die Konfiguration des Interceptors.
-     * @return Interceptor zum Loggen an Systemgrenzen.
+     * @param properties Parameters for the configuration of the interceptor.
+     * @return Interceptor for logging at system boundaries.
      */
     @Bean
     public LoggingMethodInterceptor boundaryLogInterceptor(IsyLoggingBoundaryLoggerProperties properties) {
@@ -84,10 +84,10 @@ public class IsyLoggingAutoConfiguration {
     }
 
     /**
-     * Interceptor zum Loggen an Komponentengrenzen.
+     * Interceptor for logging at component boundaries.
      *
-     * @param properties Parameter für die Konfiguration des Interceptors.
-     * @return Interceptor zum Loggen an Komponentengrenzen.
+     * @param properties Parameters for the configuration of the interceptor.
+     * @return Interceptor for logging at component boundaries.
      */
     @Bean
     public LoggingMethodInterceptor componentLogInterceptor(IsyLoggingComponentLoggerProperties properties) {
@@ -112,11 +112,11 @@ public class IsyLoggingAutoConfiguration {
     }
 
     /**
-     * Advisor für das Loggen an Systemgrenzen.
+     * Advisor for logging at system boundaries.
      *
-     * @param properties             Properties für die Konfiguration des Pointcuts.
-     * @param boundaryLogInterceptor Interceptor für das Logging.
-     * @return Advisor für das Loggen an Systemgrenzen.
+     * @param properties             Properties for the configuration of the pointcut.
+     * @param boundaryLogInterceptor Interceptor for logging.
+     * @return Advisor for logging at system boundaries.
      */
     @Bean
     public Advisor boundaryLogAdvisorByAnnotation(IsyLoggingBoundaryLoggerProperties properties,
@@ -125,11 +125,11 @@ public class IsyLoggingAutoConfiguration {
     }
 
     /**
-     * Advisor für das Loggen an Komponentengrenzen.
+     * Advisor for logging at component boundaries.
      *
-     * @param properties              Properties für die Konfiguration des Pointcuts.
-     * @param componentLogInterceptor Interceptor für das Logging.
-     * @return Advisor für das Loggen an Komponentengrenzen.
+     * @param properties              Properties for the configuration of the pointcut.
+     * @param componentLogInterceptor Interceptor for logging.
+     * @return Advisor for logging at component boundaries.
      */
     @Bean
     public Advisor componentLogAdvisorByAnnotation(IsyLoggingComponentLoggerProperties properties,
