@@ -232,13 +232,8 @@
             <!-- Dynamic SQL query generation: QueryDSL -->
             <!-- Managed by Spring Boot Dependencies -->
 
-            <!-- Caching -->
-            <dependency>
-                <groupId>org.ehcache</groupId>
-                <artifactId>ehcache</artifactId>
-                <version>3.1.4</version>
-            </dependency>
-
+<!-- Open Source Cache: ehcache -->
+<!-- Managed by Spring Boot Dependencies -->
             <!-- HTML sanitizer -->
             <dependency>
                 <groupId>org.jsoup</groupId>

@@ -5,6 +5,7 @@
 - `IFS-985`: Spring Security entfernt (Verwaltung der Version über Spring Boot)
 - `IFS-987`: Entferne log4j
 - `IFS-970`: Spring-Boot Versionsanhebung auf 2.5.2
+- `IFS-984`: Eigene Version von Ehcache durch Spring Boot Managed Dependencies ersetzt
 - `IFS-1093`: Anhebung von Oracle-JDBC und UCP auf 19.11
 - `IFS-988`: Apache-Commons-Logging entfernt
 

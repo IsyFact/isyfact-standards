@@ -18,6 +18,7 @@
 - `IFS-985`: [isyfact-products-bom] Entferne Spring Security (Verwaltung der Version über Spring Boot)
 - `IFS-987`: [isyfact-products-bom] Entferne log4j
 - `IFS-970`: [isy-products-bom] Spring-Boot Versionsanhebung auf 2.5.2
+- `IFS-984`: [isyfact-products-bom] Eigene Version von Ehcache durch Spring Boot Managed Dependencies ersetzt
 - `IFS-1093`: [isy-persistence], [isyfact-products-bom] Anhebung von Oracle-JDBC und UCP auf 19.11
 - `IFS-988`: [isy-products-bom] Apache Commons Logging entfernt
 - `IFS-688`: [isy-serviceapi-core] Zurücksetzung der KorrelationsId des AnrufKontextTo bei einem Invoke
