@@ -32,7 +32,7 @@ import de.bund.bva.isyfact.logging.util.MdcHelper;
 import de.bund.bva.isyfact.serviceapi.core.aop.test.LoggingKontextAspectService;
 import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.AufrufKontextToResolver;
 import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.DefaultAufrufKontextToResolver;
-import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
+import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 
 /**
  * Tests that the {@link StelltLoggingKontextBereitInterceptor} sets a KorrelationsID (AufrufKontextTO)

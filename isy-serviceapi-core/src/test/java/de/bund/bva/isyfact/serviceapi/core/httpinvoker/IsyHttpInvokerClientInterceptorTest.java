@@ -23,7 +23,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.util.LogHelper;
 import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.DefaultAufrufKontextToResolver;
-import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
+import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 
 @RunWith(MockitoJUnitRunner.class)
 public class IsyHttpInvokerClientInterceptorTest {

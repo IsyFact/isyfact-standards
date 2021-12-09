@@ -1,6 +1,11 @@
 package de.bund.bva.isyfact.serviceapi.core.aop;
 
-import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.util.UUID;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,12 +16,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit4.SpringRunner;
+
 import de.bund.bva.isyfact.serviceapi.core.aop.service.httpinvoker.v1_0_0.DummyKontextServiceImpl;
 import de.bund.bva.isyfact.serviceapi.core.aop.service.httpinvoker.v1_0_0.DummyKontextServiceRemoteBean;
-
-import java.util.UUID;
-
-import static org.junit.Assert.*;
+import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 
 /**
  * Tested, ob der {@link StelltLoggingKontextBereitInterceptor} korrekt durch die Annnotation an der Methode

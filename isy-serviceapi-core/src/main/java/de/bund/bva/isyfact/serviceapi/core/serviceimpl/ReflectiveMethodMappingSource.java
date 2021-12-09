@@ -25,7 +25,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.aop.support.AopUtils;
 
-import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
+import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 
 /**
  * Implementierung der {@link MethodMappingSource}, die per Reflection die passende Zielmethode ermittelt.
@@ -34,20 +34,17 @@ import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo
 public class ReflectiveMethodMappingSource implements MethodMappingSource {
 
     /** Methoden-Cache. */
-    private final Map<MethodHashKey, Method> methodCache = new ConcurrentHashMap<MethodHashKey, Method>();
+    private final Map<MethodHashKey, Method> methodCache = new ConcurrentHashMap<>();
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Method getTargetMethod(Method calledMethod, Class<?> targetClass) {
         MethodHashKey key = new MethodHashKey(calledMethod, targetClass);
-        Method method = this.methodCache.get(key);
+        Method method = methodCache.get(key);
         if (method != null) {
             return method;
         }
 
-        Map<Method, Method> matchesMap = new HashMap<Method, Method>();
+        Map<Method, Method> matchesMap = new HashMap<>();
         for (Class<?> intf : targetClass.getInterfaces()) {
             for (Method possibleMatch : intf.getMethods()) {
                 if (isMatch(calledMethod, possibleMatch)) {
@@ -59,12 +56,12 @@ public class ReflectiveMethodMappingSource implements MethodMappingSource {
 
         if (matchesMap.size() == 1) {
             Method targetMethod = matches.iterator().next();
-            this.methodCache.put(key, targetMethod);
+            methodCache.put(key, targetMethod);
             return targetMethod;
         } else if (matchesMap.size() > 1) {
             throw new IllegalArgumentException("Mehr als eine mögliche Zielmethode für "
                 + getMethodSignatureString(calledMethod) + " in "
-                + Arrays.toString(targetClass.getInterfaces()) + ": " + matches.toString());
+                + Arrays.toString(targetClass.getInterfaces()) + ": " + matches);
         } else {
             throw new IllegalArgumentException("Keine Zielmethode für "
                 + getMethodSignatureString(calledMethod) + " in "
@@ -80,7 +77,7 @@ public class ReflectiveMethodMappingSource implements MethodMappingSource {
      *            die gerufene Methode
      * @param possibleMatch
      *            eine mögliche Zielmethode
-     * @return <code>true</code> bei Übereinstimmung
+     * @return {@code true} bei Übereinstimmung
      */
     protected boolean isMatch(Method calledMethod, Method possibleMatch) {
         if (!calledMethod.getName().equals(possibleMatch.getName())) {
@@ -97,9 +94,6 @@ public class ReflectiveMethodMappingSource implements MethodMappingSource {
         return noOfParameters == possibleMatch.getParameterTypes().length;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public boolean skipParameter(Class<?> parameterType) {
         return AufrufKontextTo.class.isAssignableFrom(parameterType);

@@ -16,60 +16,57 @@
  */
 package de.bund.bva.isyfact.serviceapi.common.exception.test;
 
-import de.bund.bva.isyfact.exception.FehlertextProvider;
 import de.bund.bva.isyfact.exception.BusinessException;
+import de.bund.bva.isyfact.exception.FehlertextProvider;
 import de.bund.bva.isyfact.exception.TechnicalException;
 import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
-import de.bund.bva.isyfact.exception.service.BusinessToException;
-import de.bund.bva.isyfact.exception.service.TechnicalToException;
+import de.bund.bva.pliscommon.exception.service.PlisBusinessToException;
+import de.bund.bva.pliscommon.exception.service.PlisTechnicalToException;
 
 public class TestExceptionFactory {
-	
+
 	public static final String ausnahmeId = "BaseException";
 	public static final String parameter = "param";
-	public static final FehlertextProvider provider = new FehlertextProvider() {
-		@Override
-		public String getMessage(String schluessel, String... parameter) {
-			String message = schluessel;
-			for (String string : parameter) {
-				message += " " + string;
-			}
-			return message;
-		}
-	};
-	
+	public static final FehlertextProvider provider = (schluessel, parameter) -> {
+        String message = schluessel;
+        for (String string : parameter) {
+            message += " " + string;
+        }
+        return message;
+    };
+
 	private TestExceptionFactory(){}
-	
+
 	public static MyBusinessException getBusinessException(){
 		return new MyBusinessException();
 	}
-	
+
 	public static MyBusinessException getBusinessException(Throwable e){
 		return new MyBusinessException(e);
 	}
-	
+
 	public static MyTechnicalException getTechnicalException(){
 		return new MyTechnicalException();
-	}	
-	
+	}
+
 	public static MyTechnicalException getTechnicalException(Throwable e) {
 		return new MyTechnicalException(e);
 	}
-	
+
 	public static MyTechnicalRuntimeException getTechnicalRuntimeException(){
 		return new MyTechnicalRuntimeException();
 	}
-	
+
 	public static MyTechnicalRuntimeException getTechnicalRuntimeException(Throwable e){
 		return new MyTechnicalRuntimeException(e);
 	}
-	
+
 	public static class MyBusinessException extends BusinessException {
-		 
+
 		MyBusinessException(){
 			this(ausnahmeId, provider, parameter);
 		}
-		
+
 		MyBusinessException(Throwable t){
 			this(ausnahmeId, t, provider, parameter);
 		}
@@ -77,76 +74,76 @@ public class TestExceptionFactory {
 		MyBusinessException(String ausnahmeId, FehlertextProvider provider, String... parameters) {
 			super(ausnahmeId, provider, parameters);
 		}
-		
+
 		MyBusinessException(String ausnahmeId, Throwable t, FehlertextProvider provider, String... parameters) {
 			super(ausnahmeId, t, provider, parameters);
 		}
 	}
-	
+
 	public static class MyTechnicalException extends TechnicalException {
-		
+
 		MyTechnicalException(){
 			this(ausnahmeId, provider, parameter);
 		}
-		
+
 		MyTechnicalException(Throwable t){
 			this(ausnahmeId, t, provider, parameter);
 		}
-		
+
 		MyTechnicalException(String ausnahmeId, FehlertextProvider fehlertextProvider,
 		        String... parameter) {
 			super(ausnahmeId, fehlertextProvider, parameter);
 		}
-		
+
 		MyTechnicalException(String ausnahmeId, Throwable throwable,
 		        FehlertextProvider fehlertextProvider, String... parameter) {
 			super(ausnahmeId, throwable, fehlertextProvider, parameter);
 		}
 	}
-	
+
 	public static class MyTechnicalRuntimeException extends TechnicalRuntimeException {
-		
+
 		MyTechnicalRuntimeException(){
 			this(ausnahmeId, provider, parameter);
 		}
-		
+
 		MyTechnicalRuntimeException(Throwable t){
 			this(ausnahmeId, t, provider, parameter);
 		}
-		
+
 		MyTechnicalRuntimeException(String ausnahmeId, FehlertextProvider fehlertextProvider,
 		        String... parameter) {
 			super(ausnahmeId, fehlertextProvider, parameter);
 		}
-		
+
 		MyTechnicalRuntimeException(String ausnahmeId, Throwable throwable,
 		        FehlertextProvider fehlertextProvider, String... parameter) {
 			super(ausnahmeId, throwable, fehlertextProvider, parameter);
 		}
 	}
 
-	public static class MyBusinessToException extends BusinessToException {
+	public static class MyBusinessToException extends PlisBusinessToException {
 
 		public MyBusinessToException(String message, String ausnahmeId, String uniqueId) {
 			super(message, ausnahmeId, uniqueId);
 		}
 	}
-	
-	public static class MyTechnicalToException extends TechnicalToException {
+
+	public static class MyTechnicalToException extends PlisTechnicalToException {
 
 		public MyTechnicalToException(String message, String ausnahmeId, String uniqueId) {
 			super(message, ausnahmeId, uniqueId);
 		}
 	}
-	
-	public static class MyWrongConstructorToException extends TechnicalToException {
+
+	public static class MyWrongConstructorToException extends PlisTechnicalToException {
 		public MyWrongConstructorToException(){
 			super("message", ausnahmeId, "uniqueId");
 		}
 	}
-	
-	public static class MyWrongParameterToException extends TechnicalToException {
-		public MyWrongParameterToException(String message, String ausnahmeId, String uniqueId){			
+
+	public static class MyWrongParameterToException extends PlisTechnicalToException {
+		public MyWrongParameterToException(String message, String ausnahmeId, String uniqueId){
 			super(message, ausnahmeId, uniqueId);
 			if(ausnahmeId.equalsIgnoreCase("foo bar")){
 				throw new IllegalArgumentException("Ausnahme ID darf nicht null sein.");
