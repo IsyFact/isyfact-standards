@@ -16,26 +16,26 @@
  */
 package de.bund.bva.isyfact.serviceapi.core.serviceimpl;
 
-import java.lang.reflect.InvocationTargetException;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-import ch.qos.logback.classic.Level;
-import de.bund.bva.isyfact.aufrufkontext.common.exception.AufrufKontextFehlerhaftException;
-import de.bund.bva.isyfact.exception.BusinessException;
-import de.bund.bva.isyfact.exception.TechnicalException;
-import de.bund.bva.isyfact.exception.service.TechnicalToException;
-import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.TechnicalRuntimeTestException;
-import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.TechnicalTestToException;
-import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.RemoteBean;
-import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.ValidRemoteBean;
-import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.impl.RemoteBeanImpl;
-import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.impl.ValidRemoteBeanImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.aop.framework.ProxyFactory;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import de.bund.bva.isyfact.aufrufkontext.common.exception.AufrufKontextFehlerhaftException;
+import de.bund.bva.isyfact.exception.BusinessException;
+import de.bund.bva.isyfact.exception.TechnicalException;
+import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.RemoteBean;
+import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.TechnicalRuntimeTestException;
+import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.TechnicalTestToException;
+import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.ValidRemoteBean;
+import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.impl.RemoteBeanImpl;
+import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.impl.ValidRemoteBeanImpl;
+import de.bund.bva.pliscommon.exception.service.PlisTechnicalToException;
+
+import ch.qos.logback.classic.Level;
 
 public class TestServiceExceptionFassade {
 
@@ -65,9 +65,9 @@ public class TestServiceExceptionFassade {
     }
 
     @Test
-    public void testValidateConfiguration() throws SecurityException {
+    public void testValidateConfiguration() {
         when(exceptionMappingSource.getGenericTechnicalToException(any()))
-            .thenAnswer(invocation -> TechnicalToException.class);
+            .thenAnswer(invocation -> PlisTechnicalToException.class);
         when(exceptionMappingSource.getToExceptionClass(any(), any()))
             .thenAnswer(invocation -> TechnicalException.class);
 
@@ -75,18 +75,18 @@ public class TestServiceExceptionFassade {
     }
 
     @Test(expected = IllegalStateException.class)
-    public void testValidateConfigurationExceptionClassIsNull() throws SecurityException {
+    public void testValidateConfigurationExceptionClassIsNull() {
         when(exceptionMappingSource.getGenericTechnicalToException(any()))
-            .thenAnswer(invocation -> TechnicalToException.class);
+            .thenAnswer(invocation -> PlisTechnicalToException.class);
         when(exceptionMappingSource.getToExceptionClass(any(), any())).thenAnswer(invocation -> null);
 
         fassade.validateConfiguration(ValidRemoteBean.class, bean);
     }
 
     @Test(expected = IllegalStateException.class)
-    public void testValidateConfigurationExceptionClassIsNotOnMethod() throws SecurityException {
+    public void testValidateConfigurationExceptionClassIsNotOnMethod() {
         when(exceptionMappingSource.getGenericTechnicalToException(any()))
-            .thenAnswer(invocation -> TechnicalToException.class);
+            .thenAnswer(invocation -> PlisTechnicalToException.class);
         when(exceptionMappingSource.getToExceptionClass(any(), any()))
             .thenAnswer(invocation -> BusinessException.class);
 
@@ -103,13 +103,13 @@ public class TestServiceExceptionFassade {
     @Test(expected = IllegalStateException.class)
     public void testValidateConfigurationNoTechnicalToExceptionOnMethod() {
         when(exceptionMappingSource.getGenericTechnicalToException(any()))
-            .thenAnswer(invocation -> TechnicalToException.class);
+            .thenAnswer(invocation -> PlisTechnicalToException.class);
 
         fassade.validateConfiguration(RemoteBean.class, new RemoteBeanImpl());
     }
 
     @Test
-    public void testInvoke() throws Throwable {
+    public void testInvoke() throws Exception {
         ProxyFactory fac = new ProxyFactory(bean);
         fac.addAdvice(fassade);
         ValidRemoteBean proxy = (ValidRemoteBean) fac.getProxy();
@@ -117,8 +117,7 @@ public class TestServiceExceptionFassade {
     }
 
     private RemoteBean getProxyForRemoteBean() {
-        RemoteBean bean = new RemoteBeanImpl();
-        ProxyFactory fac = new ProxyFactory(bean);
+        ProxyFactory fac = new ProxyFactory(new RemoteBeanImpl());
         fac.addAdvice(fassade);
         return (RemoteBean) fac.getProxy();
     }
@@ -148,8 +147,7 @@ public class TestServiceExceptionFassade {
     }
 
     @Test(expected = TechnicalTestToException.class)
-    public void testInvokeIllegalArgumentException()
-        throws InvocationTargetException, TechnicalToException {
+    public void testInvokeIllegalArgumentException() throws Exception {
         when(exceptionMappingSource.getGenericTechnicalToException(any()))
             .thenAnswer(invocation -> TechnicalTestToException.class);
         RemoteBean proxy = getProxyForRemoteBean();

@@ -24,14 +24,14 @@ import java.lang.annotation.Target;
 
 import de.bund.bva.isyfact.exception.BaseException;
 import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
-import de.bund.bva.isyfact.exception.service.TechnicalToException;
-import de.bund.bva.isyfact.exception.service.ToException;
+import de.bund.bva.pliscommon.exception.service.PlisTechnicalToException;
+import de.bund.bva.pliscommon.exception.service.PlisToException;
 
 /**
  * Definiert, wie Exceptions des Anwendungskerns in einer Service-Komponente auf TO-Exceptions abgebildet
  * werden. Diese Annotation muss im Implementierungspackage der Service-Komponente verwendet werden
  * (Packagename = Packagename der RemoteBean-Schnittstelle + ".impl").
- * 
+ *
  */
 @Target(ElementType.PACKAGE)
 @Retention(RetentionPolicy.RUNTIME)
@@ -42,10 +42,10 @@ public @interface ExceptionMapping {
      * Die technische TO-Exception, auf die alle {@link TechnicalRuntimeException} und alle unchecked
      * Exceptions abgebildet werden.
      */
-    Class<? extends TechnicalToException> technicalToException();
+    Class<? extends PlisTechnicalToException> technicalToException();
 
     /**
-     * Die Abbildungen der {@link BaseException Exceptions} auf {@link ToException ToExceptions}.
+     * Die Abbildungen der {@link BaseException Exceptions} auf {@link PlisToException PlisToExceptions}.
      */
     Mapping[] mappings();
 }

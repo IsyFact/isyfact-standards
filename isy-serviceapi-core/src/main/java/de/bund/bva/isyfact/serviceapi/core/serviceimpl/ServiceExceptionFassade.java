@@ -21,19 +21,19 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Optional;
 
-import de.bund.bva.isyfact.exception.BaseException;
-import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
-import de.bund.bva.isyfact.exception.service.ToException;
-import de.bund.bva.isyfact.serviceapi.common.exception.ExceptionMapper;
-import de.bund.bva.isyfact.serviceapi.common.konstanten.EreignisSchluessel;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.aop.support.AopUtils;
 
+import de.bund.bva.isyfact.exception.BaseException;
+import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
-import de.bund.bva.isyfact.exception.service.TechnicalToException;
+import de.bund.bva.isyfact.serviceapi.common.exception.ExceptionMapper;
+import de.bund.bva.isyfact.serviceapi.common.konstanten.EreignisSchluessel;
+import de.bund.bva.pliscommon.exception.service.PlisTechnicalToException;
+import de.bund.bva.pliscommon.exception.service.PlisToException;
 
 
 /**
@@ -75,7 +75,7 @@ public class ServiceExceptionFassade implements MethodInterceptor, Validatable {
      * Exceptions sind vorhergesehene fachliche oder technische Fehler, die keinen unerwarteten
      * Betriebszustand darstellen. Sie sollen deshalb unter Umständen nicht ins ERROR-Log geschrieben werden,
      * um den Betrieb nicht grundlos zu alarmieren. Hier kann ein feinerer Log-Level konfiguriert werden oder
-     * <code>null</code>, um checked Exceptions gar nicht zu loggen.
+     * {@code null}, um checked Exceptions gar nicht zu loggen.
      */
     private String logLevelExceptions = "ERROR";
 
@@ -104,7 +104,7 @@ public class ServiceExceptionFassade implements MethodInterceptor, Validatable {
     private void setAppTechnicalRuntimeException(
         Class<? extends TechnicalRuntimeException> appTechnicalRuntimeException) {
         try {
-            this.appTechnicalRuntimeExceptionCon =
+            appTechnicalRuntimeExceptionCon =
                 appTechnicalRuntimeException.getConstructor(String.class, Throwable.class, String[].class);
         } catch (NoSuchMethodException e) {
             throw new IllegalArgumentException("Die Klasse " + appTechnicalRuntimeException.getName()
@@ -117,9 +117,6 @@ public class ServiceExceptionFassade implements MethodInterceptor, Validatable {
         this.logLevelExceptions = logLevelExceptions;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
 
@@ -128,9 +125,9 @@ public class ServiceExceptionFassade implements MethodInterceptor, Validatable {
         try {
             return invocation.proceed();
         } catch (BaseException e) {
-            if (this.logLevelExceptions != null) {
+            if (logLevelExceptions != null) {
                 // Workaround, da Isy-Logging keine Übergabe des Loglevels unterstützt.
-                switch (this.logLevelExceptions) {
+                switch (logLevelExceptions) {
                 case "INFO":
                     LOG.info(LogKategorie.JOURNAL, "Fehler in der Serviceoperation {}", e,
                         getMethodSignatureString(invocation));
@@ -155,11 +152,11 @@ public class ServiceExceptionFassade implements MethodInterceptor, Validatable {
                 }
             }
 
-            Class<? extends ToException> targetExceptionClass =
-                this.exceptionMappingSource.getToExceptionClass(remoteBeanMethod, e.getClass());
+            Class<? extends PlisToException> targetExceptionClass =
+                exceptionMappingSource.getToExceptionClass(remoteBeanMethod, e.getClass());
             if (targetExceptionClass == null) {
                 targetExceptionClass =
-                    this.exceptionMappingSource.getGenericTechnicalToException(remoteBeanMethod);
+                    exceptionMappingSource.getGenericTechnicalToException(remoteBeanMethod);
                 LOG.warn(EreignisSchluessel.KEIN_EXCEPTION_MAPPING_DEFINIERT,
                     "Für die Serviceoperation {} ist kein Exception-Mapping für Exceptionklasse {} definiert. Benutze stattdessen technische TO-Exception {}",
                     getMethodSignatureString(invocation), e.getClass(), targetExceptionClass.getName());
@@ -168,7 +165,7 @@ public class ServiceExceptionFassade implements MethodInterceptor, Validatable {
         } catch (TechnicalRuntimeException e) {
             LOG.error("Fehler in der Serviceoperation {}", e, getMethodSignatureString(invocation));
             throw ExceptionMapper.mapException(e,
-                this.exceptionMappingSource.getGenericTechnicalToException(remoteBeanMethod));
+                exceptionMappingSource.getGenericTechnicalToException(remoteBeanMethod));
         } catch (Throwable t) {
             // In seltenen Fällen trat bei Lasttests ein NoClassDefFound-Fehler beim Erzeugen der
             // RuntimeException auf. Da dabei der ursprüngliche Fehler verloren ging, wird hier nochmal
@@ -178,8 +175,8 @@ public class ServiceExceptionFassade implements MethodInterceptor, Validatable {
 
                 // Die gefangene Exception wird in eine generische RuntimeException gewrapped, damit die
                 // Ausnahme-ID und Unique-ID, die zum Client übermittelt werden, auch im Server-Log stehen.
-                runtimeException = this.appTechnicalRuntimeExceptionCon.newInstance(
-                    this.ausnahmeIdErmittler.ermittleAusnahmeId(t), t,
+                runtimeException = appTechnicalRuntimeExceptionCon.newInstance(
+                    ausnahmeIdErmittler.ermittleAusnahmeId(t), t,
                     new String[] { Optional.ofNullable(t.getMessage()).orElse("<Kein Fehlertext>") });
                 LOG.error("Fehler in der Serviceoperation ", runtimeException,
                     getMethodSignatureString(invocation));
@@ -192,7 +189,7 @@ public class ServiceExceptionFassade implements MethodInterceptor, Validatable {
             }
 
             throw ExceptionMapper.mapException(runtimeException,
-                this.exceptionMappingSource.getGenericTechnicalToException(remoteBeanMethod));
+                exceptionMappingSource.getGenericTechnicalToException(remoteBeanMethod));
         }
     }
 
@@ -221,17 +218,14 @@ public class ServiceExceptionFassade implements MethodInterceptor, Validatable {
         return method.getDeclaringClass().getName() + "." + method.getName();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void validateConfiguration(Class<?> remoteBeanInterface, Object target) {
 
         Class<?> targetClass = AopUtils.getTargetClass(target);
 
         for (Method remoteBeanMethod : remoteBeanInterface.getMethods()) {
-            Class<? extends TechnicalToException> genericTechnicalToExceptionClass =
-                this.exceptionMappingSource.getGenericTechnicalToException(remoteBeanMethod);
+            Class<? extends PlisTechnicalToException> genericTechnicalToExceptionClass =
+                exceptionMappingSource.getGenericTechnicalToException(remoteBeanMethod);
             if (genericTechnicalToExceptionClass == null) {
                 throw new IllegalStateException(
                     "Fehler in der statischen Konfiguration der Exception-Fassade für "
@@ -247,15 +241,15 @@ public class ServiceExceptionFassade implements MethodInterceptor, Validatable {
                         + " ist nicht im RemoteBean-Interface deklariert");
             }
 
-            Method coreMethod = this.methodMappingSource.getTargetMethod(remoteBeanMethod, targetClass);
+            Method coreMethod = methodMappingSource.getTargetMethod(remoteBeanMethod, targetClass);
 
             for (Class<?> exceptionClass : coreMethod.getExceptionTypes()) {
                 if (BaseException.class.isAssignableFrom(exceptionClass)) {
                     @SuppressWarnings("unchecked")
                     Class<? extends BaseException> isyExceptionClass =
                         (Class<? extends BaseException>) exceptionClass;
-                    Class<? extends ToException> toExceptionClass =
-                        this.exceptionMappingSource.getToExceptionClass(remoteBeanMethod, isyExceptionClass);
+                    Class<? extends PlisToException> toExceptionClass =
+                        exceptionMappingSource.getToExceptionClass(remoteBeanMethod, isyExceptionClass);
                     if (toExceptionClass == null) {
                         throw new IllegalStateException(
                             "Fehler in der statischen Konfiguration der Exception-Fassade für "

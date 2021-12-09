@@ -17,13 +17,13 @@
 package de.bund.bva.isyfact.serviceapi.core.aop.test;
 
 import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.StelltAufrufKontextBereit;
-import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
+import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 
 /**
  * Eine Klasse zum Testen der {@link StelltAufrufKontextBereit} Annotation.
  * <p>
  * Bietet Methoden mit verschiedenen Konfigurationen der Annotation an.
- * 
+ *
  */
 public class AufrufKontextSstTestBean {
 

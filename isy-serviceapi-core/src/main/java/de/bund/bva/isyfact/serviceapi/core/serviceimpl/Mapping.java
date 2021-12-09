@@ -23,12 +23,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import de.bund.bva.isyfact.exception.BaseException;
-import de.bund.bva.isyfact.exception.service.ToException;
+import de.bund.bva.pliscommon.exception.service.PlisToException;
 
 /**
  * Definiert eine Abbildung von einer {@link BaseException} des Anwendungskerns auf eine
  * {@link ToException} der Service-Schnittstelle.
- * 
+ *
  */
 @Target(ElementType.LOCAL_VARIABLE)
 @Retention(RetentionPolicy.RUNTIME)
@@ -41,8 +41,8 @@ public @interface Mapping {
     Class<? extends BaseException> exception();
 
     /**
-     * Die {@link ToException} der Service-Schnittstelle.
+     * Die {@link PlisToException} der Service-Schnittstelle.
      */
-    Class<? extends ToException> toException();
+    Class<? extends PlisToException> toException();
 
 }
