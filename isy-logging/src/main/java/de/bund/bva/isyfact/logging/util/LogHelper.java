@@ -4,7 +4,7 @@ package de.bund.bva.isyfact.logging.util;
  * #%L
  * isy-logging
  * %%
- * 
+ *
  * %%
  * See the NOTICE file distributed with this work for additional
  * information regarding copyright ownership.
@@ -12,9 +12,9 @@ package de.bund.bva.isyfact.logging.util;
  * licenses this file to you under the Apache License, Version 2.0 (the
  * License). You may not use this file except in compliance with the
  * License. You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
@@ -36,93 +36,80 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Helperklasse zum Erstellen von Logeinträgen. Sie stellt den anderen Hilfsklassen dieses Bausteins
- * einheitliche Mechanismen zur Logerzeugung bereit.
- *
+ * Helper class for creating log entries.
+ * It provides the other auxiliary classes of this module with uniform mechanisms for log generation.
  */
 public class LogHelper {
 
-    /** Flag zum Kennzeichnen, ob der Start eines Methodenaufrufs gelogged werden soll. */
+    /**
+     * Flag to indicate whether the start of a method call should be logged.
+     */
     private final boolean loggeAufruf;
 
-    /** Flag zum Kennzeichnen, ob das Ergebnis eines Aufrufs (Erfolg/Misserfolg) gelogged werden soll. */
+    /**
+     * Flag to indicate whether the result of a call (success/failure) should be logged.
+     */
     private final boolean loggeErgebnis;
 
-    /** Flag zum Kennzeichnen, ob die Dauer eines Aufrufs gelogged werden soll. */
+    /**
+     * Flag to indicate whether the duration of a call should be logged.
+     */
     private final boolean loggeDauer;
 
     /**
-     * Flag zum Kennzeichnen, ob sämtliche Daten gelogged werden sollen, die beim Aufruf der Methode übergeben
-     * wurden.
+     * Flag to indicate whether all data passed when the method is called should be logged.
      */
     private final boolean loggeDaten;
 
     /**
-     * Flag zum Kennzeichnen, ob die übergebenen Parameter des Aufrufs gelogged werden sollen, wenn eine
-     * Exception auftritt.
+     * Flag to indicate whether the passed parameters of the call should be logged if an exception occurs.
      */
     private final boolean loggeDatenBeiException;
 
     /**
-     * Konfigurationsparameter zum Festlegen der maximalen Größe von übergebenen Parameter des Aufrufs, mit
-     * der sie noch ins Log geschrieben werden.
+     * Configuration parameter to set the maximum size of passed parameters of the call, with which they are still written to the log.
      */
     private final long loggeMaximaleParameterGroesse;
 
-    /** Konverter, um Beans vor deren Serialisierung zu konvertieren. */
+    /**
+     * Converter to convert beans before serializing them.
+     */
     private BeanConverter konverter;
 
-    /** Prüfer, der Beans vor dem Loggen auf ihre Eignung als Parameter hin prüft. */
+    /**
+     * Checker that checks beans for their suitability as parameters before logging.
+     */
     private BeanGroessePruefer pruefer;
 
     /**
-     * Konstruktor der Klasse. Es werden die übergebenen Klassenattribute initialisiert.
+     * Constructor of the class. The passed class attributes are initialized.
      *
-     * @param loggeDauer
-     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
-     * @param loggeAufruf
-     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
-     * @param loggeErgebnis
-     *            Flag zum Kennzeichnen, ob das Ergebnis (Erfolg/Misserfolg) des Aufrufs gelogged werden soll.
-     * @param loggeDaten
-     *            Flag zum Kennzeichnen, ob die kompletten Anfragedaten gelogged werden sollen, wenn das
-     *            Ergebnis nicht erfolgreich war.
-     * @param loggeDatenBeiException
-     *            Flag zum Kennzeichnen, ob die kompletten Anfragedaten gelogged werden sollen, wenn das
-     *            Ergebnis nicht erfolgreich war.
-     * @param loggeMaximaleParameterGroesse
-     *            Konfigurationsparameter zum Festlegen der maximalen Größe von übergebenen Parameter des
-     *            Aufrufs, mit der sie noch ins Log geschrieben werden.
+     * @param loggeDauer                    Flag to indicate whether the duration of the call should be logged.
+     * @param loggeAufruf                   Flag to indicate whether the start of a method call should be logged.
+     * @param loggeErgebnis                 Flag to indicate whether the result (success/failure) of the call should be logged.
+     * @param loggeDaten                    Flag to indicate whether all data passed when the method is called should be logged.
+     * @param loggeDatenBeiException        Flag to indicate whether the passed parameters of the call should be logged if an exception occurs.
+     * @param loggeMaximaleParameterGroesse Configuration parameter to set the maximum size of passed parameters of the call, with which they are still written to the log.
      */
     public LogHelper(boolean loggeAufruf, boolean loggeErgebnis, boolean loggeDauer,
-        boolean loggeDaten, boolean loggeDatenBeiException, long loggeMaximaleParameterGroesse) {
+                     boolean loggeDaten, boolean loggeDatenBeiException, long loggeMaximaleParameterGroesse) {
         this(loggeAufruf, loggeErgebnis, loggeDauer, loggeDaten, loggeDatenBeiException,
-            loggeMaximaleParameterGroesse, null);
+                loggeMaximaleParameterGroesse, null);
     }
 
     /**
-     * Konstruktor der Klasse. Es werden die übergebenen Klassenattribute initialisiert.
+     * Constructor of the class. The passed class attributes are initialized.
      *
-     * @param loggeDauer
-     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
-     * @param loggeAufruf
-     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
-     * @param loggeErgebnis
-     *            Flag zum Kennzeichnen, ob das Ergebnis (Erfolg/Misserfolg) des Aufrufs gelogged werden soll.
-     * @param loggeDaten
-     *            Flag zum Kennzeichnen, ob die kompletten Anfragedaten gelogged werden sollen, wenn das
-     *            Ergebnis nicht erfolgreich war.
-     * @param loggeDatenBeiException
-     *            Flag zum Kennzeichnen, ob die kompletten Anfragedaten gelogged werden sollen, wenn das
-     *            Ergebnis nicht erfolgreich war.
-     * @param loggeMaximaleParameterGroesse
-     *            Konfigurationsparameter zum Festlegen der maximalen Größe von übergebenen Parameter des
-     *            Aufrufs, mit der sie noch ins Log geschrieben werden.
-     * @param konverter
-     *            Konverter, um Beans vor deren Serialisierung zu konvertieren.
+     * @param loggeDauer                    Flag to indicate whether the duration of the call should be logged.
+     * @param loggeAufruf                   Flag to indicate whether the start of a method call should be logged.
+     * @param loggeErgebnis                 Flag to indicate whether the result (success/failure) of the call should be logged.
+     * @param loggeDaten                    Flag to indicate whether all data passed when the method is called should be logged.
+     * @param loggeDatenBeiException        Flag to indicate whether the passed parameters of the call should be logged if an exception occurs.
+     * @param loggeMaximaleParameterGroesse Configuration parameter to set the maximum size of passed parameters of the call, with which they are still written to the log.
+     * @param konverter                     converter to convert beans before serializing them.
      */
     public LogHelper(boolean loggeAufruf, boolean loggeErgebnis, boolean loggeDauer, boolean loggeDaten,
-        boolean loggeDatenBeiException, long loggeMaximaleParameterGroesse, BeanConverter konverter) {
+                     boolean loggeDatenBeiException, long loggeMaximaleParameterGroesse, BeanConverter konverter) {
 
         if (konverter == null) {
             konverter = erstelleStandardKonverter();
@@ -139,120 +126,89 @@ public class LogHelper {
     }
 
     /**
-     * Konstruktor der Klasse. Es werden die übergebenen Klassenattribute initialisiert.
+     * Constructor of the class. The passed class attributes are initialized.
      *
-     * @deprecated Zukünftig muss der Konstruktor mit Parameter "loggeMaximaleParameterGroesse" verwendet werden.
-     * @param loggeDauer
-     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
-     * @param loggeAufruf
-     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
-     * @param loggeErgebnis
-     *            Flag zum Kennzeichnen, ob das Ergebnis (Erfolg/Misserfolg) des Aufrufs gelogged werden soll.
-     * @param loggeDaten
-     *            Flag zum Kennzeichnen, ob die kompletten Anfragedaten gelogged werden sollen, wenn das
-     *            Ergebnis nicht erfolgreich war.
-     * @param loggeDatenBeiException
-     *            Flag zum Kennzeichnen, ob die kompletten Anfragedaten gelogged werden sollen, wenn das
-     *            Ergebnis nicht erfolgreich war.
+     * @param loggeDauer             Flag to indicate whether the duration of the call should be logged.
+     * @param loggeAufruf            Flag to indicate whether the start of a method call should be logged.
+     * @param loggeErgebnis          Flag to indicate whether the result (success/failure) of the call should be logged.
+     * @param loggeDaten             Flag to indicate whether all data passed when the method is called should be logged.
+     * @param loggeDatenBeiException Flag to indicate whether the passed parameters of the call should be logged if an exception occurs.
+     * @deprecated In the future the constructor with parameter {@link #loggeMaximaleParameterGroesse} must be used.
      */
     @Deprecated
     public LogHelper(boolean loggeAufruf, boolean loggeErgebnis, boolean loggeDauer, boolean loggeDaten,
-        boolean loggeDatenBeiException) {
+                     boolean loggeDatenBeiException) {
         this(loggeAufruf, loggeErgebnis, loggeDauer, loggeDaten, loggeDatenBeiException, 0, null);
     }
 
     /**
-     * Konstruktor der Klasse. Es werden die übergebenen Klassenattribute initialisiert.
+     * Constructor of the class. The passed class attributes are initialized.
      *
-     * @deprecated Zukünftig muss der Konstruktor mit Parameter "loggeMaximaleParameterGroesse" verwendet werden.
-     * @param loggeDauer
-     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
-     * @param loggeAufruf
-     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
-     * @param loggeErgebnis
-     *            Flag zum Kennzeichnen, ob das Ergebnis (Erfolg/Misserfolg) des Aufrufs gelogged werden soll.
-     * @param loggeDaten
-     *            Flag zum Kennzeichnen, ob die kompletten Anfragedaten gelogged werden sollen, wenn das
-     *            Ergebnis nicht erfolgreich war.
-     * @param loggeDatenBeiException
-     *            Flag zum Kennzeichnen, ob die kompletten Anfragedaten gelogged werden sollen, wenn das
-     *            Ergebnis nicht erfolgreich war.
-     * @param konverter
-     *            Konverter, um Beans vor deren Serialisierung zu konvertieren.
+     * @param loggeDauer             Flag to indicate whether the duration of the call should be logged.
+     * @param loggeAufruf            Flag to indicate whether the start of a method call should be logged.
+     * @param loggeErgebnis          Flag to indicate whether the result (success/failure) of the call should be logged.
+     * @param loggeDaten             Flag to indicate whether all data passed when the method is called should be logged.
+     * @param loggeDatenBeiException Flag to indicate whether the passed parameters of the call should be logged if an exception occurs.
+     * @param konverter              converter to convert beans before serializing them.
+     * @deprecated In the future the constructor with parameter {@link #loggeMaximaleParameterGroesse} must be used.
      */
     @Deprecated
     public LogHelper(boolean loggeAufruf, boolean loggeErgebnis, boolean loggeDauer, boolean loggeDaten,
-        boolean loggeDatenBeiException, BeanConverter konverter) {
+                     boolean loggeDatenBeiException, BeanConverter konverter) {
         this(loggeAufruf, loggeErgebnis, loggeDauer, loggeDaten, loggeDatenBeiException, 0, konverter);
     }
 
     /**
-     * Konstruktor der Klasse. Es werden die übergebenen Klassenattribute initialisiert.
-     * Der Konstruktor setzt das Flag "loggeDaten" auf false.
+     * Constructor of the class. The passed class attributes are initialized.
+     * The constructor sets the flag {@link #loggeDaten} to {@code false}.
      *
-     * @deprecated Zukünftig muss der Konstruktor mit Flag "loggeDaten" sowie "loggeMaximaleParameterGroesse" verwendet werden
+     * @param loggeDauer             Flag to indicate whether the duration of the call should be logged.
+     * @param loggeAufruf            Flag to indicate whether the start of a method call should be logged.
+     * @param loggeErgebnis          Flag to indicate whether the result (success/failure) of the call should be logged.
+     * @param loggeDatenBeiException Flag to indicate whether the passed parameters of the call should be logged if an exception occurs.
      * @see #LogHelper(boolean, boolean, boolean, boolean, boolean)
-     *
-     * @param loggeDauer
-     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
-     * @param loggeAufruf
-     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
-     * @param loggeErgebnis
-     *            Flag zum Kennzeichnen, ob das Ergebnis (Erfolg/Misserfolg) des Aufrufs gelogged werden soll.
-     * @param loggeDatenBeiException
-     *            Flag zum Kennzeichnen, ob die kompletten Anfragedaten gelogged werden sollen, wenn das
-     *            Ergebnis nicht erfolgreich war.
+     * @deprecated In the future the constructor with flag {@link #loggeDaten} as well as {@link #loggeMaximaleParameterGroesse} must be used
      */
     @Deprecated
     public LogHelper(boolean loggeAufruf, boolean loggeErgebnis, boolean loggeDauer,
-            boolean loggeDatenBeiException) {
+                     boolean loggeDatenBeiException) {
         this(loggeAufruf, loggeErgebnis, loggeDauer, false, loggeDatenBeiException);
     }
 
     /**
-     * Konstruktor der Klasse. Es werden die übergebenen Klassenattribute initialisiert.
-     * Der Konstruktor setzt das Flag "loggeDaten" auf false.
+     * Constructor of the class. The passed class attributes are initialized.
+     * The constructor sets the flag {@link #loggeDaten} to {@code false}.
      *
-     * @deprecated Zukünftig muss der Konstruktor mit Flag "loggeDaten" sowie "loggeMaximaleParameterGroesse" verwendet werden
+     * @param loggeDauer             Flag to indicate whether the duration of the call should be logged.
+     * @param loggeAufruf            Flag to indicate whether the start of a method call should be logged.
+     * @param loggeErgebnis          Flag to indicate whether the result (success/failure) of the call should be logged.
+     * @param loggeDatenBeiException Flag to indicate whether the passed parameters of the call should be logged if an exception occurs.
+     * @param konverter              converter to convert beans before serializing them.
      * @see #LogHelper(boolean, boolean, boolean, boolean, BeanConverter)
-     *
-     * @param loggeDauer
-     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
-     * @param loggeAufruf
-     *            Flag zum Kennzeichnen, ob die Dauer des Aufrufs gelogged werden soll.
-     * @param loggeErgebnis
-     *            Flag zum Kennzeichnen, ob das Ergebnis (Erfolg/Misserfolg) des Aufrufs gelogged werden soll.
-     * @param loggeDatenBeiException
-     *            Flag zum Kennzeichnen, ob die kompletten Anfragedaten gelogged werden sollen, wenn das
-     *            Ergebnis nicht erfolgreich war.
-     * @param konverter
-     *            Konverter, um Beans vor deren Serialisierung zu konvertieren.
+     * @deprecated In the future the constructor with flag {@link #loggeDaten} as well as {@link #loggeMaximaleParameterGroesse} must be used
      */
     @Deprecated
     public LogHelper(boolean loggeAufruf, boolean loggeErgebnis, boolean loggeDauer,
-            boolean loggeDatenBeiException, BeanConverter konverter) {
+                     boolean loggeDatenBeiException, BeanConverter konverter) {
         this(loggeAufruf, loggeErgebnis, loggeDauer, false, loggeDatenBeiException, konverter);
     }
 
     /**
-     * Hilfmethode zum Erstellen eines BeanToMapConverters, falls beim Aufruf des Konstruktors dieser Klasse
-     * kein Konverter übergeben wurde.
+     * Auxiliary method to create a BeanToMapConverter if no converter was passed when calling the constructor of this class.
      *
-     * @return der zu verwendende Konverter.
+     * @return the converter to use.
      */
     public static BeanToMapConverter erstelleStandardKonverter() {
-        List<String> includes = new ArrayList<String>();
+        List<String> includes = new ArrayList<>();
         includes.add("de.bund.bva");
         return new BeanToMapConverter(includes, null);
     }
 
     /**
-     * Erstellt einen Logeintrag für den Aufruf der übergebenen Methode.
+     * Creates a log entry for the call of the passed method.
      *
-     * @param logger
-     *            der zu verwendende Logger.
-     * @param methode
-     *            die aufgerufene Methode.
+     * @param logger  the logger to be used.
+     * @param methode the called method.
      */
     public void loggeAufruf(IsyLogger logger, Method methode) {
         if (loggeAufruf) {
@@ -263,21 +219,16 @@ public class LogHelper {
     }
 
     /**
-     * Erstellt einen Logeintrag für das Aufrufergebnis der übergebenen Methode.
+     * Creates a log entry for the call result of the passed method.
      *
-     * @param logger
-     *            der zu verwendende Logger.
-     * @param methode
-     *            die aufgerufene Methode.
-     * @param erfolgreich
-     *            gibt an, ob der Auruf erfolgreich war (keine Exception aufgetreten ist).
-     * @param parameter
-     *            Methodenarameter.
-     * @param ergebnis
-     *            Ergebnis des Methodenaufrufs, dies kann auch eine Exception sein.
+     * @param logger      the logger to be used.
+     * @param methode     the called method.
+     * @param erfolgreich indicates whether the call was successful.
+     * @param parameter   Method parameters.
+     * @param ergebnis    Result of the method call, this can also be an exception.
      */
     public void loggeErgebnis(IsyLogger logger, Method methode, boolean erfolgreich, Object[] parameter,
-            Object ergebnis) {
+                              Object ergebnis) {
         if (loggeErgebnis) {
             if (erfolgreich) {
                 logger.info(LogKategorie.METRIK, Ereignisschluessel.EISYLO01002.name(),
@@ -289,9 +240,9 @@ public class LogHelper {
                         erstelleSignatur(methode));
             }
         }
-        // Ausgabe der Daten, wenn
-        // entweder "loggeDaten" gesetzt ist,
-        // oder der Aufruf nicht erfolgreich war und "loggeDatenBeiException" gesetzt ist.
+
+        // Output the data if either "loggeDaten" is set, or the call was not successful and
+        // "loggeDatenBeiException" is set.
         boolean loggeAufrufUndErgebnisdaten = loggeDaten || (!erfolgreich && loggeDatenBeiException);
         if (loggeAufrufUndErgebnisdaten) {
 
@@ -303,9 +254,9 @@ public class LogHelper {
                         parameterWerte.add(konverter.convert(parameter[index]));
                     } else {
                         parameterWerte
-                            .add(Ereignisschluessel.DEBUG_LOGGE_DATEN_PARAMETER_ZU_GROSS.getNachricht());
+                                .add(Ereignisschluessel.DEBUG_LOGGE_DATEN_PARAMETER_ZU_GROSS.getNachricht());
                         logger.debugFachdaten(Ereignisschluessel.DEBUG_LOGGE_DATEN_GROESSE.getNachricht(),
-                            erstelleMethodenname(methode), index + 1, parameterWerte.getClass().getName());
+                                erstelleMethodenname(methode), index + 1, parameterWerte.getClass().getName());
                     }
                 }
             }
@@ -316,16 +267,12 @@ public class LogHelper {
     }
 
     /**
-     * Logged die Dauer eines Methodenaufrufs und erstellt einen entsprechenden Logeintrag.
+     * Logged the duration of a method call and creates a corresponding log entry.
      *
-     * @param logger
-     *            der zu verwendende Logger.
-     * @param methode
-     *            die aufgerufene Methode.
-     * @param dauer
-     *            Dauer des Aufrufs.
-     * @param erfolgreich
-     *            gibt an, ob der Auruf erfolgreich war.
+     * @param logger      the logger to be used.
+     * @param methode     the called method.
+     * @param dauer       Duration of the call.
+     * @param erfolgreich indicates whether the call was successful.
      */
     public void loggeDauer(IsyLogger logger, Method methode, long dauer, boolean erfolgreich) {
 
@@ -343,19 +290,15 @@ public class LogHelper {
     }
 
     /**
-     * Erstellt einen Logeintrag für den Aufruf der übergebenen Methode eines Nachbarsystems.
+     * Creates a log entry for calling the passed method of a neighbor system.
      *
-     * @param logger
-     *            der zu verwendende Logger.
-     * @param methode
-     *            die aufgerufene Methode.
-     * @param nachbarsystemName
-     *            Name des Nachbarsystems.
-     * @param nachbarsystemUrl
-     *            URL des Nachbarsystems.
+     * @param logger            the logger to be used.
+     * @param methode           the called method.
+     * @param nachbarsystemName Name of the neighboring system.
+     * @param nachbarsystemUrl  URL of the neighboring system.
      */
     public void loggeNachbarsystemAufruf(IsyLogger logger, Method methode, String nachbarsystemName,
-            String nachbarsystemUrl) {
+                                         String nachbarsystemUrl) {
         if (loggeAufruf) {
             logger.info(LogKategorie.JOURNAL, Ereignisschluessel.EISYLO01011.name(),
                     Ereignisschluessel.EISYLO01011.getNachricht(), erstelleMethodenname(methode),
@@ -364,21 +307,16 @@ public class LogHelper {
     }
 
     /**
-     * Erstellt einen Logeintrag für das Aufrufergebnis der übergebenen Methode eines Nachbarsystems.
+     * Creates a log entry for the call result of the passed method of a neighbor system.
      *
-     * @param logger
-     *            der zu verwendende Logger.
-     * @param methode
-     *            die aufgerufene Methode.
-     * @param nachbarsystemName
-     *            Name des Nachbarsystems.
-     * @param nachbarsystemUrl
-     *            URL des Nachbarsystems.
-     * @param erfolgreich
-     *            gibt an, ob der Auruf erfolgreich war.
+     * @param logger            the logger to be used.
+     * @param methode           the called method.
+     * @param nachbarsystemName Name of the neighboring system.
+     * @param nachbarsystemUrl  URL of the neighboring system.
+     * @param erfolgreich       indicates whether the call was successful.
      */
     public void loggeNachbarsystemErgebnis(IsyLogger logger, Method methode, String nachbarsystemName,
-            String nachbarsystemUrl, boolean erfolgreich) {
+                                           String nachbarsystemUrl, boolean erfolgreich) {
         if (loggeErgebnis) {
             if (erfolgreich) {
                 logger.info(LogKategorie.METRIK, Ereignisschluessel.EISYLO01012.name(),
@@ -393,24 +331,17 @@ public class LogHelper {
     }
 
     /**
-     * Logged die Dauer eines Methodenaufrufs eines Nachbarsystems und erstellt einen entsprechenden
-     * Logeintrag.
+     * Notes the duration of a method call of a neighboring system and creates a corresponding log entry.
      *
-     * @param logger
-     *            der zu verwendende Logger.
-     * @param methode
-     *            die aufgerufene Methode.
-     * @param dauer
-     *            Dauer des Aufrufs.
-     * @param nachbarsystemName
-     *            Name des Nachbarsystems.
-     * @param nachbarsystemUrl
-     *            URL des Nachbarsystems.
-     * @param erfolgreich
-     *            gibt an, ob der Auruf erfolgreich war.
+     * @param logger            the logger to be used.
+     * @param methode           the called method.
+     * @param dauer             Duration of the call.
+     * @param nachbarsystemName Name of the neighboring system.
+     * @param nachbarsystemUrl  URL of the neighboring system.
+     * @param erfolgreich       indicates whether the call was successful.
      */
     public void loggeNachbarsystemDauer(IsyLogger logger, Method methode, long dauer,
-            String nachbarsystemName, String nachbarsystemUrl, boolean erfolgreich) {
+                                        String nachbarsystemName, String nachbarsystemUrl, boolean erfolgreich) {
         if (loggeDauer) {
             if (erfolgreich) {
                 logger.info(LogKategorie.PROFILING, Ereignisschluessel.EISYLO01014.name(),
@@ -427,51 +358,48 @@ public class LogHelper {
     }
 
     /**
-     * Hilfsmethode zum ermitteln des aktuellen Zeitstempels in Millisekunden. Dieser wird zur Berechnung der
-     * Dauer eines Aufrufs verwendet.
+     * Auxiliary method to determine the current timestamp in milliseconds.
+     * This is used to calculate the duration of a call.
      *
-     * @return den aktuellen Zeitstempel in Millisekunden.
+     * @return the current timestamp in milliseconds.
      */
     public long ermittleAktuellenZeitpunkt() {
         return new Date().getTime();
     }
 
     /**
-     * Bereitet die vollständige Signatur einer Methode als String auf.
+     * Prepares the complete signature of a method as a {@link String}.
      *
-     * @param methode
-     *            die Methode.
-     * @return die aufbereitete Signatur als String.
+     * @param methode the method.
+     * @return the processed signature as a {@link String}.
      */
     public IsyMarker erstelleSignatur(Method methode) {
         return new IsyMarkerImpl(MarkerSchluessel.METHODE, methode.toString());
     }
 
     /**
-     * Bereitet den Namen Methode in einer Kurzform (Klasse.name) als String auf.
+     * Prepares the name method in a short form (class.name) as a {@link String}.
      *
-     * @param methode
-     *            die Methode.
-     * @return die aufbereitete Signatur als String.
+     * @param methode the method.
+     * @return the processed signature as a {@link String}.
      */
     public String erstelleMethodenname(Method methode) {
         return methode.getDeclaringClass().getSimpleName() + "." + methode.getName();
     }
 
     /**
-     * Setzt den Wert des Attributs 'konverter'.
+     * Sets the value of the attribute {@link #konverter}.
      *
-     * @param konverter
-     *            Neuer Wert des Attributs.
+     * @param konverter New value of the attribute.
      */
     public void setKonverter(BeanToMapConverter konverter) {
         this.konverter = konverter;
     }
 
     /**
-     * Liefert den Wert des Attributs 'konverter'.
+     * Returns the value of the attribute {@link #konverter}.
      *
-     * @return Wert des Attributs.
+     * @return Value of the attribute.
      */
     public BeanConverter getKonverter() {
         return konverter;
