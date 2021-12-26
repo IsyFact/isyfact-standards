@@ -412,9 +412,8 @@ Dieser Wechsel lässt sich auch durch die spezielle Methode `isAlive()` der Klas
 Grundsätzlich kann der `Thread-State` folgende Werte einnehmen:
 
 
-:desc-table-StateVals: Thread-State Werte
+
 [id="table-StateVals",reftext="{table-caption} {counter:tables}"]
-.{desc-table-StateVals}
 [cols="1,4",options="header"]
 |====
 |Thread-State |Bedeutung
