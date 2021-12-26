@@ -1,0 +1,16 @@
+= Konzept Überwachung: Einleitung
+
+// tag::inhalt[]
+[[Einleitung]]
+== Einleitung
+
+Dieses Dokument enthält das technische Feinkonzept zur Überwachung von Anwendungen gemäß den <<glossar-IFS,IsyFact Standards>>.
+
+[[aufbau-und-zweck-des-dokuments]]
+== Aufbau und Zweck des Dokuments
+
+In diesem Dokument werden die Designvorgaben für die Überwachung von Anwendungen gemäß der <<IsyFactReferenzarchitektur>> vorgestellt.
+
+Die Realisierung einer einheitlichen Überwachungsschnittstelle erlaubt es dem Betrieb frühzeitig Probleme in der <<glossar-Anwendungslandschaft>> zu erkennen und darauf zu reagieren.
+Dadurch können Ausfallzeiten minimiert werden.
+// end::inhalt[]
