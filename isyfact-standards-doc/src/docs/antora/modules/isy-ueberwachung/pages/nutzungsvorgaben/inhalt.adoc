@@ -67,9 +67,8 @@ Die folgenden Metriken müssen durch Spring Boot automatisch registriert und ber
 <<table-StdueberServ>> zeigt eine Liste der zu überwachenden bzw. anzubietenden Informationen für die Services von Anwendungen.
 Die dort aufgelisteten Informationen müssen für jeden Service einzeln angeboten werden.
 
-:desc-table-StdueberServ: Standard Überwachungsinformationen für Services
+.Standard Überwachungsinformationen für Services
 [id="table-StdueberServ",reftext="{table-caption} {counter:tables}"]
-.{desc-table-StdueberServ}
 [cols=",",options="header"]
 |====
 2+m|Tags: anwendung = <Package der Anwendung>, servicestatistik = <Name des Service>
@@ -88,9 +87,8 @@ Die Aktualisierung der Daten in `ServiceStatistik` wird in der Service-Fassade d
 Dazu wird per Spring ein AOP-Advice für die Service-Methoden der Komponente definiert.
 Die Konfiguration für eine `ServiceStatistik`-Bean und den dazugehörigen AOP-Advice ist beispielhaft in <<listing-ServiceStatistikConfig>> dargestellt.
 
-:desc-listing-ServiceStatistikConfig: ServiceStatistik-Bean und AOP-Advice für die Service-Methoden der Komponente
+.ServiceStatistik-Bean und AOP-Advice für die Service-Methoden der Komponente
 [id="listing-ServiceStatistikConfig",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-ServiceStatistikConfig}
 [source,java]
 ----
 @Configuration
@@ -145,9 +143,8 @@ Ein Beispiel zur Registrierung und Verwendung eines `Meters` am Beispiel eines `
 Dort wird ein `Counter` mit dem Namen `eintrag.neu` mit einem Tag registriert, der aus einem Schlüssel `komponente` mit dem Wert `verwaltung` besteht.
 Zu den Namenskonventionen bei der Vergabe von Namen und Tags siehe <<namenskonventionen>>.
 
-:desc-listing-custommeter: Registierung und Verwendung eines Counters.
+.Registierung und Verwendung eines Counters.
 [id="listing-custommeter",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-custommeter}
 [source,java]
 ----
 @Component
@@ -235,9 +232,8 @@ Die Informationen müssen von der Anwendung explizit bereitgestellt werden.
 Es können z. B. Informationen über den Build und Quellcode-Stand (Git) der Anwendung geliefert werden. Durch die
 Einbindung von passenden Maven-Plugins können diese Informationen automatisch bei jedem Build erzeugt werden:
 
-:desc-listing-info-maven-config: Maven Konfiguration für Build- und GIT Informationen
+.Maven Konfiguration für Build- und GIT Informationen
 [id="listing-info-maven-config",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-info-maven-config}
 [source,xml]
 ----
 <plugin>
@@ -279,9 +275,8 @@ Zur Überwachung einer Anwendung werden die folgenden eingebauten Endpoints verw
 Diese sind bereits mit Standardwerten konfiguriert.
 Da der Endpoint `health` seine Informationen aus einem Cache abfragt, welcher von einem Task befüllt wird, werden die in <<listing-task-activation>> gezeigten Properties in `application.properties` gesetzt, um das Starten der Tasks zu aktivieren.
 
-:desc-listing-task-activation: Properties zur Aktivierung des Tasks
+.Properties zur Aktivierung des Tasks
 [id="listing-task-activation",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-task-activation}
 ----
 isy.task.autostart=true
 isy.task.default.host=
@@ -300,9 +295,8 @@ Durch das Caching ist gewährleistet, dass die wiederholte Abfrage des Endpoints
 Für diese Konfiguration sind die in <<listing-endpointconfig-defaults>> gezeigten Properties standardmäßig gesetzt.
 Diese können bei Bedarf in `application.properties` überschrieben werden.
 
-:desc-listing-endpointconfig-defaults: Properties zur Konfiguration der Endpoints
+.Properties zur Konfiguration der Endpoints
 [id="listing-endpointconfig-defaults",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-endpointconfig-defaults}
 ----
 management.endpoints.enabled-by-default=false
 management.endpoint.health.enabled=true
@@ -325,9 +319,8 @@ zeigt <<listing-endpointsecurityconfig>>.
 Der Benutzername und das Passwort werden in `application.properties` gepflegt.
 
 
-:desc-listing-endpointsecurityconfig: Absicherung der Endpoints mit Spring Security
+.Absicherung der Endpoints mit Spring Security
 [id="listing-endpointsecurityconfig",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-endpointsecurityconfig}
 [source,java]
 ----
 @Configuration
@@ -391,9 +384,8 @@ Isy-Ueberwachung liefert einen Nachbarsystem-Indikator mit, der den HealthEndpoi
 
 Dieser lässt sich wie folgt konfigurieren:
 
-:desc-listing-nachbarsysteme: Konfiguration des NachbarsystemIndicators
+.Konfiguration des NachbarsystemIndicators
 [id="listing-nachbarsysteme",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-nachbarsysteme}
 ----
 ## Konfiguration von Timeout und Retries bei der Abfrage von Nachbarsystemen
 isy.ueberwachung.nachbarsystemcheck.anzahlretries=1
@@ -448,9 +440,8 @@ Ist vor den LDAP-Server ein Loadbalancer geschaltet, so kann es nach einem Fail-
 Beispielanfrage endlos läuft.
 ====
 
-:desc-listing-Pruefmethode: Demonstration Future-Pattern
+.Demonstration Future-Pattern
 [id="listing-Pruefmethode",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-Pruefmethode}
 [source,java]
 ----
 boolean pruefeSystem() {
