@@ -1,23 +1,29 @@
-= Konzept Polling: Einleitung
+= Konzept Datum & Zeit: Einleitung
 
 // tag::inhalt[]
 [[einleitung]]
 == Einleitung
 
-Dieses Dokument beschreibt die konzeptionellen Grundlagen des Bausteins Polling.
+Dieses Dokument beschreibt die konzeptionellen Grundlagen der Verarbeitung von Datums- und Zeitwerten in der IsyFact.
+Es definiert Vorgaben für die einheitliche Verwendung von Datums- und Zeitfunktionen sowie die Behandlung von
+Datums- und Zeitwerten in Anwendungen und bildet so die Grundlage einer technisch und fachlich einheitlichen Umsetzung.
 
-In <<glossar-Geschaeftsanwendung,Geschäftsanwendungen>> und <<glossar-Service-Gateway,Service-Gateways>> müssen manchmal Polling-basierte Schnittstellen angesprochen werden.
-Polling bedeutet, dass in regelmäßigen Intervallen neue Daten zur Verarbeitung abgeholt werden.
-Die Schnittstellen nutzen unterschiedliche technische Verfahren wie IMAP, Web-Services oder proprietäre Datenbank-basierte Schnittstellen, weitere sind denkbar.
+Die aus diesem Dokument abgeleitete Umsetzung der Verarbeitung von Datums- und Zeitwerten im Rahmen der
+Anwendungsentwicklung ist in den Nutzungsvorgaben Datums- und Zeitfunktionen (siehe xref:nutzungsvorgaben/thisdoc.adoc#einleitung[NutzungsvorgabenDatumZeit]) beschrieben.
 
-Aus Gründen der Ausfallsicherheit soll die Abholung der Daten von mehreren Instanzen einer Anwendung durchgeführt werden.
-Diese Instanzen müssen synchronisiert werden, sodass Nachrichten nicht mehrfach verarbeitet werden.
-Die zugrunde liegenden Schnittstellen-Technologien bieten dafür kein Standardverfahren an.
+Sowohl dieses Dokument als auch das Umsetzungsdokument bedienen sich Projekterfahrungen sowie Best
+Practices und setzen auf die Datums- und Zeitfunktionen des JSR 310 („Date and Time API“), die mit Java 8 eingeführt wurden.
 
-In <<image-K001>> wird diese Situation dargestellt.
+NOTE: JSR 310: https://jcp.org/en/jsr/detail?id=310
 
-:desc-image-K001: Polling unter Verwendung eines Loadbalancers
-[id="image-K001",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-K001}
-image::polling_K001.png[align="center", width=55%, pdfwidth=55%]
+[[aufbau-und-zweck-des-dokuments]]
+== Aufbau und Zweck des Dokuments
+
+Ziel des Dokuments ist die Definition einheitlicher Vorgaben für die Verarbeitung von Datums- und Zeitwerten unter Berücksichtigung fachlicher und technischer Anforderungen.
+
+Das Dokument ist entsprechend dieser Zielsetzungen folgendermaßen aufgebaut:
+
+Zunächst werden die *Anforderungen* an die Verarbeitung von Datums- und Zeitwerten definiert, welche die Grundlage für das nachfolgende Kapitel bilden.
+
+Anschließend werden die *Vorgaben* zur Verwendung von Datums- und Zeitwerten innerhalb der Anwendungen sowie zur Umsetzung in der zu diesem Baustein gehörenden Bibliothek definiert.
 // end::inhalt[]

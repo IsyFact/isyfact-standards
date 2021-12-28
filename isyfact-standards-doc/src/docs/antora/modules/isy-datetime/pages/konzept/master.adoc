@@ -1,10 +1,10 @@
+:doctitle: Baustein Datum & Zeit
+[discrete]
+= Konzept
 
-:doctitle: Baustein Polling
-:document-type: Konzept
+:sectnums:
 
-toc::[]
-
-colophon::[]
+include::allgemein:partial$licence.adoc[]
 
 include::docinfo.adoc[]
 
