@@ -1,0 +1,8 @@
+// tag::it-sicherheitsregeln[]
+
+[[it-sicherheitsregeln-polling]]
+== IT-Sicherheitsregeln Polling
+
+include::inhalt.adoc[tags=sicherheit]
+include::../Konzept_Polling/inhalt.adoc[tags=sicherheit]
+// end::it-sicherheitsregeln[]

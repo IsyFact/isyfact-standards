@@ -1,10 +1,10 @@
-
 :doctitle: Baustein Polling
-:document-type: Konzept
+[discrete]
+= Konzept
 
-toc::[]
+:sectnums:
 
-colophon::[]
+include::allgemein:partial$licence.adoc[]
 
 include::docinfo.adoc[]
 

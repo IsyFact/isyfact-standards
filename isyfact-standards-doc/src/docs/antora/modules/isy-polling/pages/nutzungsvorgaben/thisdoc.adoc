@@ -1,0 +1,11 @@
+= Nutzungsvorgaben Polling: Einleitung
+
+// tag::inhalt[]
+[[einleitung]]
+== Einleitung
+
+Im Konzept _Polling_ <<KonzeptPolling>> werden die konzeptionellen Grundlagen und Vorgaben für Polling definiert, um eine einheitliche Umsetzung in der gesamten <<glossar-Anwendungslandschaft>> zu gewährleisten.
+Dieses Dokument beschreibt die Verwendung der <<glossar-Bibliothek>> `isy-polling`, die dieses Verfahren implementiert.
+
+Dieses Dokument richtet sich an Entwickler und Chefdesigner, die Polling-Funktionalität in eine Anwendung integrieren wollen.
+// end::inhalt[]

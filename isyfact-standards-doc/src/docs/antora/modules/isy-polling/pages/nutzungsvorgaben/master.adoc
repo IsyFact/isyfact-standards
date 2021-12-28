@@ -1,6 +1,6 @@
 
 :doctitle: Baustein Polling
-:document-type: Konzept
+:document-type: Nutzungsvorgaben
 
 toc::[]
 
