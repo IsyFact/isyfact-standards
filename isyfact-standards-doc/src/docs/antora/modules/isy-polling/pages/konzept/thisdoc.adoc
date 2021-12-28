@@ -19,5 +19,5 @@ In <<image-K001>> wird diese Situation dargestellt.
 :desc-image-K001: Polling unter Verwendung eines Loadbalancers
 [id="image-K001",reftext="{figure-caption} {counter:figures}"]
 .{desc-image-K001}
-image::polling_K001.png[align="center", width=55%, pdfwidth=55%]
+image::polling_loadbalancer-einfach.png[align="center", width=55%, pdfwidth=55%]
 // end::inhalt[]

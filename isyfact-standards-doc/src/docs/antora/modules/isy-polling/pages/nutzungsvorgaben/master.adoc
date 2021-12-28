@@ -1,10 +1,10 @@
-
 :doctitle: Baustein Polling
-:document-type: Nutzungsvorgaben
+[discrete]
+= Nutzungsvorgaben
 
-toc::[]
+:sectnums:
 
-colophon::[]
+include::allgemein:partial$licence.adoc[]
 
 include::docinfo.adoc[]
 

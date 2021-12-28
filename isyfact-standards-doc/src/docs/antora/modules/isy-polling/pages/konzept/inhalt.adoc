@@ -26,7 +26,10 @@ In <<image-002>> wird das Verfahren dargestellt.
 :desc-image-002: Angepasstes Verfahren zum Polling
 [id="image-002",reftext="{figure-caption} {counter:figures}"]
 .{desc-image-002}
-image::polling_002.png[align="center",width=50%,pdfwidth=50%]
+image::polling-loadbalancer-jmx.png[align="center",width=50%,pdfwidth=50%]
+
+
+
 
 Dieses Verfahren bietet im Regelfall einen sehr guten Schutz gegen Mehrfachverarbeitung.
 Es kann aber z.B. bei Netzproblemen dazu kommen, dass mehrere Instanzen parallel arbeiten.
@@ -49,9 +52,9 @@ In <<image-003>> wird das noch einmal illustriert.
 :desc-image-003: Nachrichten-Tabelle
 [id="image-003",reftext="{figure-caption} {counter:figures}"]
 .{desc-image-003}
-image::polling_003.png[align="center",width=50%,pdfwidth=50%]
+image::polling-nachrichten-tabelle.png[align="center",width=50%,pdfwidth=50%]
 
-Näheres zu den Nutzungsvorgaben des Bausteins findet sich in dem Dokument <<NutzungsvorgabenPolling>>.
+Näheres zu den Nutzungsvorgaben des Bausteins findet sich in dem xref:nutzungsvorgaben/master.adoc#einleitung[Polling - Nutzungsvorgaben].
 // end::inhalt[]
 
 // tag::architekturregel[]
