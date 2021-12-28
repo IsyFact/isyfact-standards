@@ -1,0 +1,27 @@
+= Nutzungsvorgaben Sicherheit: Einleitung
+
+// tag::inhalt[]
+[[einleitung]]
+== Einleitung
+
+Das Dokument <<KonzeptSicherheit>> konzentriert sich auf die konzeptionellen Aspekte der Authentifizierung und Autorisierung.
+
+Dieses Dokument beschreibt, wie der Baustein Sicherheit und die von ihm bereitgestellte Bibliothek `isy-sicherheit` verwendet werden, um die Autorisierung innerhalb von IT-Systemen umzusetzen.
+Es richtet sich an Entwickler, die ein <<glossar-IT-System>> gemäß den Vorgaben der IsyFact mit der Fähigkeit zur Autorisierung ausstatten müssen und beschreibt, wie und in welchen Teilen einer Anwendung die Autorisierung umzusetzen ist.
+
+Dazu beschreibt das Kapitel <<grundkonzepte-und-konfiguration>> zunächst die grundlegenden Konfiguration, um den Baustein in ein IT-System einzubinden.
+
+Die folgenden Kapitel leiten durch die Funktionen des Bausteins Sicherheit.
+Zuerst wird die wichtigste Funktion - die <<autorisierung>> in IT-Systemen - erklärt.
+Dann folgen weitere Themen:
+
+* <<aufrufen-von-nachbarsystemen>>,
+* <<verwendung-der-korrelations-id>>,
+* <<verwenden-anwendungsspezifischer-aufrufkontexte>>,
+* <<ueberwachung-baustein-sicherheit>>.
+
+Schließlich beschreibt das letzte Kapitel, wie <<entwickeln-und-testen>> mit dem Baustein Sicherheit möglich ist.
+
+Viele der in diesem Dokument beschriebenen Vorgaben sind in der <<Vorlageanwendung>> umgesetzt.
+
+// end::inhalt[]
