@@ -2,11 +2,9 @@
 [discrete]
 = Nutzungsvorgaben
 
-:secnums:
+:sectnums:
 
 include::allgemein:partial$licence.adoc[]
-
-include::docinfo.adoc[]
 
 include::thisdoc.adoc[tags=inhalt]
 

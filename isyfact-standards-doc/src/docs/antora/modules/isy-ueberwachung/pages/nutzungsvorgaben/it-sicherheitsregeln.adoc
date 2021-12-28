@@ -4,5 +4,5 @@
 == IT-Sicherheitsregeln Überwachung
 
 include::inhalt.adoc[tags=sicherheit]
-include::../Konzept_Ueberwachung/inhalt.adoc[tags=sicherheit]
+include::../konzept/inhalt.adoc[tags=sicherheit]
 // end::it-sicherheitsregeln[]
