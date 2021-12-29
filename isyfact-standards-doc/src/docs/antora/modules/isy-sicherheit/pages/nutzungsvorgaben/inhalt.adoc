@@ -30,7 +30,7 @@ Ein `Berechtigungsmanager` gibt Instanzen der Schnittstellen `Recht` und `Rolle`
 Anwender bekommen Rollen bereits an anderer Stelle zugewiesen.
 Für den Baustein Sicherheit ist diese Zuordnung fest vorgegeben und nicht änderbar.
 Anhand seiner Rollen werden dem Anwender durch das IT-System Rechte zugewiesen.
-Diese Zuordnung erfolgt über <<konfiguration-von-rollen-und-rechten,eine Konfigurationsdatei>>.
+Diese Zuordnung erfolgt über xref:nutzungsvorgaben/master.adoc#konfiguration-von-rollen-und-rechten[eine Konfigurationsdatei].
 
 Die Implementierung des Aufrufkontextes richtet sich nach dem verwendeten IsyFact-Baustein zur Authentifizierung.
 
@@ -309,7 +309,7 @@ Weitere Details zur Umsetzung der Autorisierung bei Batches sind in <<TODO ander
 Die Absicherung von Batches erfolgt über die betriebliche Konfiguration des Batches.
 Dazu muss die Implementierung des Batches über die Methode `getAuthenticationCredentials()` des Interfaces `BatchAusfuehrungsBean` die Daten zur Authentifizierung bereitstellen.
 Diese werden als Properties in die Property-Datei des Batches eingetragen.
-Ein Beispiel für Properties zur Absicherung eines Batches zeigt <<listing-batchbenutzer>>.
+Ein Beispiel für Properties zur Absicherung eines Batches zeigt siehe xref:nutzungsvorgaben/master.adoc#listing-batchbenutzer[Listing Batchbenutzer].
 
 .Konfiguration zur Autorisierung von Batches
 [id="listing-batchbenutzer",reftext="{listing-caption} {counter:listings }"]
@@ -375,7 +375,7 @@ Dazu benutzt der Serviceanbieter ein Client-Zertifikat, eine Benutzerkennung und
 Bei erfolgreicher Authentifizierung erstellt der Serviceanbieter einen neuen Aufrufkontext und speichert ihn im Verwalter.
 Der eigentliche Prozess der Authentifizierung sowie die Ermittlung der Rollen ist für Nutzer des Service-Gateways vollständig transparent.
 
-Das Service-Gateway übergibt den Geschäftsanwendungen bei der Weiterleitung der Anfragen den Aufrufkontext als Transportobjekt an die jeweilige Service-Schnittstelle (vgl. <<aufrufen-von-nachbarsystemen>>).
+Das Service-Gateway übergibt den Geschäftsanwendungen bei der Weiterleitung der Anfragen den Aufrufkontext als Transportobjekt an die jeweilige Service-Schnittstelle (vgl. siehe xref:nutzungsvorgaben/master.adoc#aufrufen-von-nachbarsystemen[Aufrufen von Nachbarsystemen]).
 
 [[awk-autorisierung]]
 === Autorisierung im Anwendungskern
@@ -387,7 +387,7 @@ Es ist jedoch bei Bedarf auch möglich, Prüfungen innerhalb des Anwendungskerns
 ==== Autorisierung an Methoden des Anwendungskerns
 
 An den Schnittstellen des Anwendungskerns können durch Verwendung der Annotation `@Gesichert` einzelne Methoden deklarativ abgesichert werden.
-Die Verwendung funktioniert genauso wie bei der <<service-autorisierung>>.
+Die Verwendung funktioniert genauso wie bei der xref:nutzungsvorgaben/master.adoc#service-autorisierung[service-autorisierung].
 Die wichtigste Voraussetzung für das Funktionieren dieses Ansatzes ist, dass im Rahmen des Aufrufs der Anwendung der Aufrufkontext bereits gefüllt wurde.
 
 [[awk-autorisierung-in-methoden]]
@@ -425,7 +425,7 @@ Hierbei handelt es sich meist nicht um eine Autorisierung gegen Rollen, sondern 
 Für diese Fälle stellt der Baustein Sicherheit keine Funktionalität bereit.
 Es wird empfohlen, solche Regeln direkt im Regelwerk zu hinterlegen.
 
-Soll in einem Regelwerk doch auf Rollen geprüft werden, bietet sich die Lösung aus dem Abschnitt <<awk-autorisierung-in-methoden>> an.
+Soll in einem Regelwerk doch auf Rollen geprüft werden, bietet sich die Lösung aus dem Abschnitt xref:nutzungsvorgaben/master.adoc#awk-autorisierung-in-methoden[Anwendungdkern - Autorisierung in Methoden] an.
 
 [[asynchrone-prozesse-autorisierung]]
 === Autorisierung in asynchronen Prozessen
@@ -435,7 +435,7 @@ Diese Prozesse starten nicht aufgrund einer Anfrage eines Anwenders, sondern ere
 Somit geht diesen Prozessen im Moment der Bearbeitung keine Benutzeranfrage voraus.
 Daher kann die Bearbeitung im Regelfall nicht mit dem Aufrufkontext eines anfragenden Benutzers durchgeführt werden.
 Stattdessen wird zum Start des Prozesses ein hinreichend berechtigter Anwender (technischer Anwender bzw. System) verwendet.
-Auch hier bietet sich die Lösung aus dem Abschnitt <<awk-autorisierung-in-methoden>> an.
+Auch hier bietet sich die Lösung aus dem Abschnitt xref:nutzungsvorgaben/master.adoc#awk-autorisierung-in-methoden[Anwendungdkern - Autorisierung in Methoden] an.
 
 [[aufrufen-von-nachbarsystemen]]
 == Aufrufen von Nachbarsystemen

@@ -22,7 +22,7 @@ Da das Berechtigungskonzept individuell für jede Anwendungslandschaft erstellt 
 [[authentifizierung]]
 === Authentifizierung
 
-In der Regel erfolgt die Authentifizierung von xref:glossary:glossary:master.adoc#glossar-Anwender[Anwender (Glossar)] über eine zentrale Komponente der Systemlandschaft, in welche das IT-System eingebettet ist.
+In der Regel erfolgt die Authentifizierung von xref:glossary:glossary:master.adoc#glossar-Anwender[Anwendern (Glossar)] über eine zentrale Komponente der Systemlandschaft, in welche das IT-System eingebettet ist.
 Die Authentifizierung darf auch lokal, d.h. vom IT-System selbst, durchgeführt werden, falls es beispielsweise nicht in eine Systemlandschaft eingebettet ist.
 
 Für die zentrale Authentifizierung wird üblicherweise ein IAM-System verwendet.
@@ -31,7 +31,7 @@ NOTE: IAM steht für https://en.wikipedia.org/wiki/Identity_management[Identity 
 
 Das IAM-System verwaltet *Anwender* und ihre *Rollen*.
 
-Die Authentifizierung und grobgranulare Autorisierung erfolgt, gemäß der <<prinzipien-der-sicherheitsarchitektur>>, an den Außenschnittstellen der Systemlandschaft.
+Die Authentifizierung und grobgranulare Autorisierung erfolgt, gemäß der siehe xref:konzept/master.adoc#prinzipien-der-sicherheitsarchitektur[Prinzipien der Sicherheitsarchitektur>], an den Außenschnittstellen der Systemlandschaft.
 Hierbei wird eine Session aufgebaut und das IAM-System ermittelt nach erfolgreicher Authentifizierung die Rollen des Anwenders.
 Die Rollen allein sind jedoch noch nicht ausreichend, um Anwender vollständig zu autorisieren.
 
@@ -42,7 +42,7 @@ Die Autorisierung geschieht in jedem Fall im jeweiligen IT-System.
 Nach der erfolgreichen Authentifizierung eines Anwenders leitet das IAM-System die Anfrage an das IT-System weiter.
 Hier wird die Anfrage – je nach Schutzbedarf und Funktionalität – autorisiert.
 Dazu weist das IT-System einem Anwender anhand seiner Rollen *Rechte* zu und prüft diese gegen die für die Anfrage benötigten Rechte.
-Wie genau Rollen und Rechte spezifiziert werden, beschreibt das Kapitel <<rollen-und-rechte>>.
+Wie genau Rollen und Rechte spezifiziert werden, beschreibt das Kapitel xref:konzept/master.adoc#rollen-und-rechte[Rollen und Rechte].
 
 
 [[sicherheitsarchitektur-eines-it-systems]]
@@ -215,7 +215,7 @@ Zum Schnitt von fachlichen und technischen Rollen gibt es Erfahrungswerte, welch
 Wichtig ist vor allem die Beziehung zwischen fachlichen und technischen Rollen.
 Des weiteren sollte die Menge der Rollen so klein wie möglich gehalten werden.
 
-<<image-rollen-beziehungen>> verdeutlicht den Inhalt der folgenden Abschnitte grafisch.
+Die Abbildung xref:konzept/master.adoc#image-rollen-beziehungen[Beziehungen zwischen fachlichen und technischen Rollen] verdeutlicht den Inhalt der folgenden Abschnitte grafisch.
 
 .Beziehungen zwischen fachlichen und technischen Rollen
 [id="image-rollen-beziehungen",reftext="{figure-caption} {counter:figures}"]
@@ -281,7 +281,7 @@ Die Rolle zur Verwendung der Schnittstelle Auskunft der Geschäftsanwendung Term
 
 Da die Rollen für fachliche Operationen angelegt werden, sollten sie unabhängig von technischen Aspekten gelten.
 So kann beispielsweise die Rolle `Terminfindung_Auskunft` unabhängig davon gelten, ob die Auskunft über ein Service Gateway oder das Portal durchgeführt wird.
-Dies kann durch die Verwendung spezieller technischer Rollen (s. <<technische-zugangsrollen>>) erreicht werden.
+Dies kann durch die Verwendung spezieller technischer Rollen (s. xref:konzept/master.adoc#technische-zugangsrollen[Technische Zugangsrollen]) erreicht werden.
 
 xref:glossary:glossary:master.adoc#glossar-IT-System[IT-Systeme (Glossar)] werden intern in Form von Batches oder Timer-Tasks aktiv.
 Auch hier findet ein Zugang zur Anwendungslandschaft statt.
