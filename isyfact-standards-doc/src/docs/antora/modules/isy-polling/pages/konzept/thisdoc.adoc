@@ -6,7 +6,7 @@
 
 Dieses Dokument beschreibt die konzeptionellen Grundlagen des Bausteins Polling.
 
-In <<glossar-Geschaeftsanwendung,Geschäftsanwendungen>> und <<glossar-Service-Gateway,Service-Gateways>> müssen manchmal Polling-basierte Schnittstellen angesprochen werden.
+In xref:glossary:glossary:master.adoc#glossar-Geschaeftsanwendung[Geschäftsanwendung (Glossar)] und xref:glossary:glossary:master.adoc#glossar-Service-Gateway[Service Gateway (Glossar)] müssen manchmal Polling-basierte Schnittstellen angesprochen werden.
 Polling bedeutet, dass in regelmäßigen Intervallen neue Daten zur Verarbeitung abgeholt werden.
 Die Schnittstellen nutzen unterschiedliche technische Verfahren wie IMAP, Web-Services oder proprietäre Datenbank-basierte Schnittstellen, weitere sind denkbar.
 

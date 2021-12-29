@@ -218,7 +218,7 @@ Sie sind vielmehr eng mit der Anwendungslogik verknüpft und sollten daher nicht
 
 In <<listing-BeispielPollingKonfigurationLastverteilung>> ist die Polling-Konfiguration für zwei zu pollende Datenquellen mit jeweils eigenem Polling-Cluster aufgeführt.
 Die beiden Cluster bestehen jeweils aus den zwei gleichen Instanzen der Anwendung.
-Wie in Kapitel <<lastverteilung-ueber-cluster-definition>> beschrieben, kann so eine Lastverteilung erfolgen.
+Wie in Kapitel xref:nutzungsvorgaben/master.adoc#lastverteilung-ueber-cluster-definition[Lastverteilung über Cluster Definition] beschrieben, kann so eine Lastverteilung erfolgen.
 
 :desc-listing-BeispielPollingKonfigurationLastverteilung: Beispiel Polling Konfiguration mit Lastverteilung
 [id="listing-BeispielPollingKonfigurationLastverteilung",reftext="{listing-caption} {counter:listings }"]
