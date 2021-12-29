@@ -15,7 +15,7 @@ Dieses Dokument konzentriert sich auf die konzeptionellen Aspekte der Authentifi
 Es sorgt dafür, dass Authentifizierung und Autorisierung in allen IT-Systemen gleichartig umgesetzt wird und grundlegende Anforderungen an die IT-Sicherheit eingehalten werden.
 Es richtet sich vor allem an Software-Architekten, die eine Geschäftsanwendung gemäß den Vorgaben der IsyFact absichern müssen und beschreibt, wie und in welchen Teilen eines IT-Systems die Authentifizierung und Autorisierung stattfindet.
 
-Dazu erläutert das Kapitel xref:glossary:glossary:master.adoc#prinzipien-der-sicherheitsarchitektur[Prinzipien der Sicherheitsarchitektur (Glossar)]  zunächst, wie sich die Sicherheitsarchitektur auf Ebene der Systemlandschaft und auf Ebene eines einzelnen IT-Systems darstellt.
+Dazu erläutert das Kapitel xref:konzept/master.adoc#prinzipien-der-sicherheitsarchitektur[Prinzipien der Sicherheitsarchitektur] zunächst, wie sich die Sicherheitsarchitektur auf Ebene der Systemlandschaft und auf Ebene eines einzelnen IT-Systems darstellt.
 
 Danach beleuchtet das Kapitel xref:konzept/master.adoc#sicherheitsarchitektur-eines-it-systems[Sicherheitsarchitektur eines IT Systems] die Einbettung des Bausteins Sicherheit in ein konkretes xref:glossary:glossary:master.adoc#glossar-IT-System[IT-System (Glossar)].
 Zentrale Schnittstellen beschreibt das Kapitel xref:konzept/master.adoc#aussensicht-der-komponente-sicherheit[Aussensicht der Komponente Sicherheit].

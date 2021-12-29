@@ -215,7 +215,7 @@ Zum Schnitt von fachlichen und technischen Rollen gibt es Erfahrungswerte, welch
 Wichtig ist vor allem die Beziehung zwischen fachlichen und technischen Rollen.
 Des weiteren sollte die Menge der Rollen so klein wie möglich gehalten werden.
 
-Die Abbildung xref:konzept/master.adoc#image-rollen-beziehungen[Beziehungen zwischen fachlichen und technischen Rollen] verdeutlicht den Inhalt der folgenden Abschnitte grafisch.
+Die Abbildung <<image-rollen-beziehungen>> verdeutlicht den Inhalt der folgenden Abschnitte grafisch.
 
 .Beziehungen zwischen fachlichen und technischen Rollen
 [id="image-rollen-beziehungen",reftext="{figure-caption} {counter:figures}"]
