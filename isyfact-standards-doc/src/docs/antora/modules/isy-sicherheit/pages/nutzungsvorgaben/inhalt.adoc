@@ -128,14 +128,15 @@ Bei der technischen Umsetzung müssen alle spezifizierten Rollen und Rechte konf
 Dies geschieht in der statischen Konfiguration in der Datei `/resources/sicherheit/rollenrechte.xml`.
 Der Baustein liefert ein xref:nutzungsvorgaben/master.adoc#einleitung[XML-Schema für den Aufbau der Konfigurationsdatei] mit.
 
-====rollen-rechte-schema
+[[rollen-rechte-schema]]
+==== rollen-rechte-schema
 Die Geschäftsanwendung X spezifiziert zwei Rechte, `DialogA.Aufrufen` und `DialogB.Aufrufen`.
 Aus diesen werden zwei fachliche Rollen gebildet:
 
 * `FAX_DialogNutzerA` darf nur Dialog A aufrufen,
 * `FAX_DialogNutzerAlle` darf Dialog A und Dialog B aufrufen.
 
-====
+
 
 Dieses Beispiel führt zu folgender Konfigurationsdatei.
 
@@ -559,6 +560,7 @@ public AufrufKontextVerwalter aufrufKontextVerwalterStub(AufrufKontextFactory au
 Neben den gezeigten Eigenschaften lassen sich auch alle weiteren Eigenschaften des Aufrufkontextes konfigurieren.
 Mit der Eigenschaft `festerAufrufKontext` lässt sich darüber hinaus steuern, ob bei jeder Anfrage derselbe Aufrufkontext (`true`) oder jedes Mal eine neue Instanz mit den gleichen, konfigurierten Werten (`false`) zurückgegeben wird.
 
+
 // tag::architekturregel[]
 
 // end::architekturregel[]
@@ -566,4 +568,6 @@ Mit der Eigenschaft `festerAufrufKontext` lässt sich darüber hinaus steuern, o
 // tag::sicherheit[]
 
 // end::sicherheit[]
+
+
 // end::inhalt[]

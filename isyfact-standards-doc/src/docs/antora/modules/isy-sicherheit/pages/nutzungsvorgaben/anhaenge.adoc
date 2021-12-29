@@ -40,7 +40,7 @@
 </ehcache>
 ----
 
-[[rollen-rechte-schema]]
+[[anhang-rollen-rechte-schema]]
 === Anhang B: Rollen-Rechte-Schema
 
 Im Folgenden ist der Inhalt der Datei `RollenRechteSchema.xsd` wiedergegeben, die das Format der Konfigurationsdatei für Rollen und Rechte (`rollenrechte.xml`) festlegt.
@@ -102,7 +102,7 @@ SVZ_Schnittstellennutzer
 |Del | |BNVZ_Rolle3 |  | 
 |====
 
-Zusätzlich zu den oben abgebildeten Spalten enthält das Excel-Dokument die folgenden weiteren Spalten, deren Inhalt bereits im <<KonzeptSicherheit>> beschrieben wurde:
+Zusätzlich zu den oben abgebildeten Spalten enthält das Excel-Dokument die folgenden weiteren Spalten, deren Inhalt bereits im Dokument xref:nutzungsvorgaben/master.adoc#einleitung[Sicherheit - Konzept] beschrieben wurde:
 
 * *Rollenbeschreibung*
 * *SichtbarkeitAnwender*
@@ -115,7 +115,7 @@ Bei allen anderen Werten in der Spalte „Aktion“ wird die Zeile ignoriert.
 
 Zusätzlich kann das Excel-Dokument ein weiteres Tabellenblatt „Systeme“ enthalten.
 Dieses folgt demselben Schema zum Hinzufügen (`Add`), Ändern (`Upd`) und Löschen (`Del`) von Einträgen.
-Es dient dazu, die Systeme (interne und ggf. auch externe) zu pflegen, wie im <<KonzeptSicherheit>> beschrieben.
+Es dient dazu, die Systeme (interne und ggf. auch externe) zu pflegen, wie im Dokument xref:nutzungsvorgaben/master.adoc#einleitung[Sicherheit - Konzept] beschrieben.
 Systeme sind im Benutzerverzeichnis spezialisierte Benutzer.
 Sie haben daher alle Attribute der Entitäten `ETY_Benutzer`, `ETY_System` und `ETY_Rollenträger`.
 
@@ -294,7 +294,7 @@ Hier wird festgelegt, dass ein Aufrufer gegen die im CAMS-Server konfigurierte S
 [[cams-authentifizierung-awk]]
 ==== Authentifizierung im Anwendungskern
 
-Ergänzend zur <<awk-autorisierung>> sei erwähnt, welche Informationen der CAMS-Server zur manuellen Authentifizierung beim Erstellen eines Berechtigungsmanagers benötigt:
+Ergänzend zur xref:nutzungsvorgaben/master.adoc#awk-autorisierung[Autorisierung im Anwendungskern] sei erwähnt, welche Informationen der CAMS-Server zur manuellen Authentifizierung beim Erstellen eines Berechtigungsmanagers benötigt:
 
 * Zertifikat (alternativ ZertifikatDn),
 * Kennung,

@@ -4,24 +4,24 @@
 [[einleitung]]
 == Einleitung
 
-Das Dokument <<KonzeptSicherheit>> konzentriert sich auf die konzeptionellen Aspekte der Authentifizierung und Autorisierung.
+Das Dokument xref:nutzungsvorgaben/master.adoc#einleitung[Sicherheit - Konzept] konzentriert sich auf die konzeptionellen Aspekte der Authentifizierung und Autorisierung.
 
 Dieses Dokument beschreibt, wie der Baustein Sicherheit und die von ihm bereitgestellte Bibliothek `isy-sicherheit` verwendet werden, um die Autorisierung innerhalb von IT-Systemen umzusetzen.
-Es richtet sich an Entwickler, die ein <<glossar-IT-System>> gemäß den Vorgaben der IsyFact mit der Fähigkeit zur Autorisierung ausstatten müssen und beschreibt, wie und in welchen Teilen einer Anwendung die Autorisierung umzusetzen ist.
+Es richtet sich an Entwickler, die ein xref:glossary:glossary:master.adoc#glossar-IT-System>[IT-Systeme (Glossar)] gemäß den Vorgaben der IsyFact mit der Fähigkeit zur Autorisierung ausstatten müssen und beschreibt, wie und in welchen Teilen einer Anwendung die Autorisierung umzusetzen ist.
 
-Dazu beschreibt das Kapitel <<grundkonzepte-und-konfiguration>> zunächst die grundlegenden Konfiguration, um den Baustein in ein IT-System einzubinden.
+Dazu beschreibt das Kapitel xref:nutzungsvorgaben/master.adoc#grundkonzepte-und-konfiguration[Grundkonzepte und Konfiguration] zunächst die grundlegenden Konfiguration, um den Baustein in ein IT-System einzubinden.
 
 Die folgenden Kapitel leiten durch die Funktionen des Bausteins Sicherheit.
-Zuerst wird die wichtigste Funktion - die <<autorisierung>> in IT-Systemen - erklärt.
+Zuerst wird die wichtigste Funktion - die xref:nutzungsvorgaben/master.adoc#autorisierung[Autorisierung] in IT-Systemen - erklärt.
 Dann folgen weitere Themen:
 
-* <<aufrufen-von-nachbarsystemen>>,
-* <<verwendung-der-korrelations-id>>,
-* <<verwenden-anwendungsspezifischer-aufrufkontexte>>,
-* <<ueberwachung-baustein-sicherheit>>.
+* siehe xref:nutzungsvorgaben/master.adoc#aufrufen-von-nachbarsystemen[Aufrufen von Nachbarsystemen],
+* siehe xref:nutzungsvorgaben/master.adoc#verwendung-der-korrelations-id[Verwendung der Korrelations-Id],
+* siehe xref:nutzungsvorgaben/master.adoc#verwenden-anwendungsspezifischer-aufrufkontexte[Verwenden anwendungsspezifischer Aufrufkontexte],
+* siehe xref:nutzungsvorgaben/master.adoc#ueberwachung-baustein-sicherheit[Überwachung Baustein Sicherheit].
 
-Schließlich beschreibt das letzte Kapitel, wie <<entwickeln-und-testen>> mit dem Baustein Sicherheit möglich ist.
+Schließlich beschreibt das letzte Kapitel, wie siehe xref:nutzungsvorgaben/master.adoc#entwickeln-und-testen[Entwickeln und Testen] mit dem Baustein Sicherheit möglich ist.
 
-Viele der in diesem Dokument beschriebenen Vorgaben sind in der <<Vorlageanwendung>> umgesetzt.
+Viele der in diesem Dokument beschriebenen Vorgaben sind in der <<TODO anderes Dokument: Vorlageanwendung>> umgesetzt.
 
 // end::inhalt[]

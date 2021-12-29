@@ -54,7 +54,7 @@ Für ein korrektes Funktionieren benötigt der Baustein die Komponente `AufrufKo
 
 Die Mechanismen zur Absicherung IsyFact-konformer IT-Systeme haben zum Ziel, die Autorisierung von Zugriffen _systematisch_, _einheitlich_ und _einfach_ umzusetzen.
 
-Die *Systematik* und Vollständigkeit der Berechtigungsprüfungen wird dadurch erreicht, dass Berechtigungsprüfungen in den IT-Systemen an definierten Stellen und auf identische Weise stattfinden.
+Die *Systematik* und Vollständigkeit der Berechtigungsprüfungen wird dadurch erreicht, dass Berechtigungsprüfungen in den IT-Systemen andefinierten Stellen und auf identische Weise stattfinden.
 
 Die *Einheitlichkeit* wird durch Bereitstellung der Bibliothek `isy-sicherheit` und Nutzungsvorgaben gewährleistet, die von allen IT-Systemen zu verwenden sind.
 Berechtigungsprüfungen erfolgen innerhalb eines IT-Systems immer über die Bibliothek `isy-sicherheit`.
@@ -234,7 +234,7 @@ Daher werden diesen technischen Rollen im Regelfall weitere technische Rollen un
 [[technische-zugangsrollen]]
 ==== Technische Zugangsrollen
 
-Anwender gelangen in der Regel entweder über das glossar-Querschnittskomponente xref:glossary:glossary:master.adoc#glossar-Portal[Portal (Glossar)] oder den xref:glossary:glossary:master.adoc#glossar-Service-Gateway[Service Gateway (Glossar)] in eine Anwendungslandschaft.
+Anwender gelangen in der Regel entweder über das xref:glossary:glossary:master.adoc#glossar-Portal[Portal (Glossar)] oder den xref:glossary:glossary:master.adoc#glossar-Service-Gateway[Service Gateway (Glossar)] in eine Anwendungslandschaft.
 Um den Zugriff über diese Schnittstellen zentral und einfach zu verwalten, können dafür entsprechende technische Rollen definiert werden (z.B. `Zugang_Portal` und `Zugang_Service_Gateway`).
 Diese Rollen können dann einfach fachlichen Rollen untergeordnet werden, um den jeweiligen Zugriff zu erlauben.
 
@@ -244,7 +244,7 @@ Diese Rollen können dann einfach fachlichen Rollen untergeordnet werden, um den
 Für xref:glossary:glossary:master.adoc#glossar-Service[Services (Glossar)] des Querschnitts, die nahezu alle Aufrufe benötigen und die keine sicherheitskritischen Operationen anbieten, kann eine zentrale Rolle (z.B. `Querschnitt_Nutzer`) angelegt werden.
 Diese Rolle berechtigt zur Durchführung von unkritischen Operationen im Querschnitt, wie beispielsweise dem Auslesen von Schlüsselwerten.
 
-Wenn die Querschnitts-Rolle den Zugangsrollen untergeordnet ist, darf jeder Anwender mit Zugriff automatich auch auf den Querschnitt zugreifen.
+Wenn die Querschnitts-Rolle den Zugangsrollen untergeordnet ist, darf jeder Anwender mit Zugriff automatisch auch auf den Querschnitt zugreifen.
 Dies reduziert die Anzahl der Rollen, die einem Nutzer zugewiesen sind, in der Regel deutlich.
 
 [[fachliche-rollen]]
@@ -303,7 +303,7 @@ Das Schema zur Benennung einer technischen Rolle kann folgendermaßen aussehen:
  <Technischer Systemname>_<Servicename>
 
 Die Namen technischer Rollen enthalten keine festen Bestandteile wie z.B. `SYSTEM`, da es sich immer um Services handelt.
-Der Servicename muss eindeutig und sprechend sein; vor allem wenn mehrere Services mit derselben Rolle gemeinsam abgesichert werden.
+Der Servicename muss eindeutig und sprechend sein; vor allem, wenn mehrere Services mit derselben Rolle gemeinsam abgesichert werden.
 Da die Rollen nur innerhalb der Anwendungslandschaft zum Einsatz kommen und nicht administriert werden müssen, wird der technische Systemname verwendet.
 Die Rolle zur Verwendung der Schnittstelle "Eintragen der Teilnahme" der Geschäftsanwendung Terminfindung lautet nach diesem Schema: `Terminfindung-FA_TeilnahmeEintragen`.
 Auch hier sollte auf die Länge des Namens geachtet werden und im entsprechenden Fall, wie bei fachlichen Rollen, eine Abkürzung des Namens mit sprechendem Label vorgenommen werden.
@@ -313,7 +313,7 @@ Auch hier sollte auf die Länge des Namens geachtet werden und im entsprechenden
 
 Wird ein neues IT-System entwickelt, sind die oben genannten Richtlinien zum Schnitt und zur Benennung der Rollen stärkstens empfohlen.
 Hierfür ist eine enge Abstimmung mit der Benutzeradministration und den jeweiligen fachlichen Ansprechpartnern erforderlich.
-Alle Parteien verfügen über unterschiedliches, sich ergänzendes Fachwissen, das essentiell für die Erstellung von Rollen ist.
+Alle Parteien verfügen über unterschiedliches, sich ergänzendes Fachwissen, das essenziell für die Erstellung von Rollen ist.
 
 Prinzipiell sollten so wenig Rollen wie möglich und so viele wie nötig vergeben werden.
 Der folgende Prozess bietet eine grobe Richtlinie:
@@ -353,7 +353,7 @@ Somit ist sichergestellt, dass beim Ablösen von alten Geschäftsanwendungen auc
 Genauso funktioniert auch das Freischalten einer neuen Geschäftsanwendung für einen zunächst kleinen Kreis von Anwendern.
 In beiden Fällen muss zur eigentlichen Inbetriebnahme, anstatt einer aufwändigen Migration, nur ein Schalter in der betrieblichen Konfiguration umgelegt werden.
 
-// end::inhalt[]
+
 
 // tag::architekturregel[]
 
@@ -362,3 +362,5 @@ In beiden Fällen muss zur eigentlichen Inbetriebnahme, anstatt einer aufwändig
 // tag::sicherheit[]
 
 // end::sicherheit[]
+
+// end::inhalt[]
