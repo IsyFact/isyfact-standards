@@ -1429,7 +1429,7 @@ Das Erstellen der Logeinträge erfolgt mittels der Methode: +
 `log.debug("<Nachricht>", "<Werte>");` +
 Sollte es zwingend notwendig sein, fachliche, datenschutzrelevante Daten in den Logeintrag zu schreiben, muss stattdessen die Methode +
 `log.debugFachdaten("<Nachricht>", "<Werte>");` +
-verwendet werden (vgl. <<TODO anderes Dokument: konzeptlogging>>). +
+verwendet werden (vgl. xref:konzept/master.adoc#einleitung[Logging - Konzept]). +
 Da dieses Szenario eine Vielzahl unterschiedlicher Fälle zusammenfasst, können hierfür keine konkreten Nachrichten vorformuliert werden.
 Zu beachten ist, dass die Nachrichten primär durch Entwickler im Falle eines Fehlers ausgewertet werden, meist aber nicht dem Entwickler, der den Code geschrieben hat. +
 Die jeweilige Nachricht *muss* daher *zwingend* so formuliert werden, dass das Ereignis auch ohne Kenntnis des Quellcodes verstanden werden kann – analog zu den in <<fachliche-korrelation-von-eintraegen>> definierten Lognachrichten.
