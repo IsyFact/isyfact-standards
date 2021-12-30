@@ -21,7 +21,7 @@ Kapitel xref:nutzungsvorgaben/master.adoc#programmatisches-anlegen-von-aufgaben[
 
 Kapitel xref:nutzungsvorgaben/master.adoc#einleitung[Konfigurationsschlüssel] bietet einen Überblick über die Konfigurationsschlüssel.
 
-Kapitel xref:nutzungsvorgaben/master.adoc#einleitung[Überwachung mit jmx]zeigt, wie die JMX-Überwachung eingebunden wird.
+Kapitel xref:nutzungsvorgaben/master.adoc#einleitung[Überwachung mit jmx] zeigt, wie die JMX-Überwachung eingebunden wird.
 
-Kapitel xref:nutzungsvorgaben/master.adoc#einleitung[Hinweise für den Task im Parallelbetrieb]gibt Anmerkungen für die Implementierung eines Tasks.
+Kapitel xref:nutzungsvorgaben/master.adoc#einleitung[Hinweise für den Task im Parallelbetrieb] gibt Anmerkungen für die Implementierung eines Tasks.
 // end::inhalt[]
