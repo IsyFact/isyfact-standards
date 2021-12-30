@@ -32,11 +32,10 @@ Der zugehörige Interceptor ist in der Klasse `PollingAktionInterceptor` impleme
 
 Schließlich ermöglicht die Klasse `PollingMBean` den anderen Instanzen, den seit der letzten Polling-Aktivität vergangenen Zeitraum über JMX abzufragen.
 
-In <<image-004>> ist das Klassendiagramm der Bibliothek `isy-polling` dargestellt.
+In <<polling-klassendiagramm>> ist das Klassendiagramm der Bibliothek `isy-polling` dargestellt.
 
-:desc-image-004: Klassendiagramm der Bibliothek isy-polling
-[id="image-004",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-004}
+.Klassendiagramm der Bibliothek isy-polling
+[id="polling-klassendiagramm",reftext="{figure-caption} {counter:figures}"]
 image::polling-klassendiagramm.png[align="center"]
 
 [[einbinden-der-bibliothek-in-die-anwendung]]
@@ -107,9 +106,8 @@ Das Beispiel in <<listing-PollingKonfiguration>> zeigt folgende Vorgaben:
 * Es gilt die Konvention, dass IDs für Ausprägungen großgeschrieben werden.
   Damit kann an einzelnen Konfigurationseinträgen sofort erkannt werden, dass sie zu einer Konfigurationsklasse gehören.
 
-:desc-listing-PollingKonfiguration: Polling Konfiguration
+.Polling Konfiguration
 [id="listing-PollingKonfiguration",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-PollingKonfiguration}
 [source,properties]
 ----
 isy.polling.jmx.verbindungen.SERVER1.host = host1
@@ -180,9 +178,8 @@ NOTE: Für das Polling der Anwendung wurden keine JMX-Verbindungsparameter angeg
 
 In <<listing-BeispielPollingKonfiguration>> ist eine vollständige Polling-Konfiguration für einen Cluster aufgeführt, der aus insgesamt zwei Instanzen der Anwendung besteht.
 
-:desc-listing-BeispielPollingKonfiguration: Beispiel Polling Konfiguration
+.Beispiel Polling Konfiguration
 [id="listing-BeispielPollingKonfiguration",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-BeispielPollingKonfiguration}
 [source,properties]
 ----
 # -----------------------------------------------------------
@@ -220,9 +217,8 @@ In <<listing-BeispielPollingKonfigurationLastverteilung>> ist die Polling-Konfig
 Die beiden Cluster bestehen jeweils aus den zwei gleichen Instanzen der Anwendung.
 Wie in Kapitel xref:nutzungsvorgaben/master.adoc#lastverteilung-ueber-cluster-definition[Lastverteilung über Cluster Definition] beschrieben, kann so eine Lastverteilung erfolgen.
 
-:desc-listing-BeispielPollingKonfigurationLastverteilung: Beispiel Polling Konfiguration mit Lastverteilung
+.Beispiel Polling Konfiguration mit Lastverteilung
 [id="listing-BeispielPollingKonfigurationLastverteilung",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-BeispielPollingKonfigurationLastverteilung}
 [source,properties]
 ----
 # -----------------------------------------------------------
@@ -265,9 +261,8 @@ Die Bean für den Polling-Verwalter wird automatisch durch `isy-polling` konfigu
 Der Interceptor, der zur Verwendung der `@PollingAktion`-Annotation notwendig, wird ebenfalls automatisch konfiguriert.
 Zusätzlich wird für jeden Cluster eine MBean konfiguriert (<<listing-KonfigurationMBeans>>).
 
-:desc-listing-KonfigurationMBeans: Konfiguration der MBeans
+.Konfiguration der MBeans
 [id="listing-KonfigurationMBeans",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-KonfigurationMBeans}
 [source, java]
 ----
 @Bean
@@ -284,9 +279,8 @@ public PollingMBean mailabrufClusterMonitor(PollingVerwalter pollingVerwalter) {
 
 Die Einbindung in JMX erfolgt über den MBean-Exporter dann wie in <<listing-EinbindungJMX>>.
 
-:desc-listing-EinbindungJMX: Einbindung in JMX
+.Einbindung in JMX
 [id="listing-EinbindungJMX",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-EinbindungJMX}
 [source, java]
 ----
 @Bean
@@ -316,12 +310,11 @@ Wie bereits erwähnt, wird Polling in der Regel in einem Verarbeitungszyklus imp
 Der Verarbeitungszyklus kann eine oder nacheinander mehrere Datenquellen abfragen, für die jeweils ein Polling-Cluster definiert sein kann.
 Für jeden Polling-Cluster werden in einem Verarbeitungszyklus die folgenden Schritte ausgeführt:
 
-. <<listing-AbfragePollingVerwalter>>, ob das Polling für den Cluster gestartet werden darf.
+<<listing-AbfragePollingVerwalter>>, ob das Polling für den Cluster gestartet werden darf.
 Ist das nicht der Fall, ist die Verarbeitung für den Cluster beendet.
 
-:desc-listing-AbfragePollingVerwalter: Abfrage des Polling-Verwalters
+.Abfrage des Polling-Verwalters
 [id="listing-AbfragePollingVerwalter",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-AbfragePollingVerwalter}
 [source, java]
 ----
 if(!pollingVerwalter.startePolling("MAILABRUF_CLUSTER")) {
@@ -338,9 +331,8 @@ fuehreVerarbeitungDurch();
 . Durchführen der Verarbeitung für jeden Datensatz.
 Am Ende der Verarbeitung eines Datensatzes wird der Zeitpunkt der letzten Polling-Aktivität aktualisiert.
 
-:desc-listing-VerarbeitungDatensatz: Verarbeitung für jeden Datensatz
+.Verarbeitung für jeden Datensatz
 [id="listing-VerarbeitungDatensatz",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-VerarbeitungDatensatz}
 [source, java]
 ----
 // ...
@@ -354,9 +346,8 @@ for (Datensatz datensatz: datensaetze) {
 
 oder
 
-:desc-listing-VerarbeitungPollingAktion: Verarbeitung mit Polling-Aktion
+.Verarbeitung mit Polling-Aktion
 [id="listing-VerarbeitungPollingAktion",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-VerarbeitungPollingAktion}
 [source, java]
 ----
 /**

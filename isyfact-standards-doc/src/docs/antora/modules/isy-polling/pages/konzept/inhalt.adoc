@@ -21,15 +21,11 @@ Der Ablauf des Pollings in jeder Instanz ist dann wie folgt:
 . Während der Verarbeitung der einzelnen Nachrichten wird der Zeitstempel aktualisiert.
 . Am Ende der Verarbeitung aller abgerufenen Nachrichten wird der Zeitstempel nochmals aktualisiert.
 
-In <<image-002>> wird das Verfahren dargestellt.
+In <<polling-loadbalancer-jmx>> wird das Verfahren dargestellt.
 
-:desc-image-002: Angepasstes Verfahren zum Polling
-[id="image-002",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-002}
+.Angepasstes Verfahren zum Polling
+[id="polling-loadbalancer-jmx",reftext="{figure-caption} {counter:figures}"]
 image::polling-loadbalancer-jmx.png[align="center",width=50%,pdfwidth=50%]
-
-
-
 
 Dieses Verfahren bietet im Regelfall einen sehr guten Schutz gegen Mehrfachverarbeitung.
 Es kann aber z.B. bei Netzproblemen dazu kommen, dass mehrere Instanzen parallel arbeiten.
@@ -47,11 +43,10 @@ So können datenbankseitig Duplikate sicher erkannt werden.
 Dafür ist es notwendig, diesen Fremdsystemschlüssel bis in die Geschäftsanwendung zu transportieren, also z.B. vom Mail-Server über das Mail-Gateway.
 Da nur die Datenbank als transaktionales System die Eindeutigkeit der IDs garantieren kann, wird dies in Kauf genommen.
 
-In <<image-003>> wird das noch einmal illustriert.
+In <<polling-nachrichten-tabelle> wird das noch einmal illustriert.
 
-:desc-image-003: Nachrichten-Tabelle
-[id="image-003",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-003}
+.Nachrichten-Tabelle
+[id="polling-nachrichten-tabelle",reftext="{figure-caption} {counter:figures}"]
 image::polling-nachrichten-tabelle.png[align="center",width=50%,pdfwidth=50%]
 
 Näheres zu den Nutzungsvorgaben des Bausteins findet sich in dem xref:nutzungsvorgaben/master.adoc#einleitung[Polling - Nutzungsvorgaben].
