@@ -377,7 +377,7 @@ Der MBean-Exporter wird gemäß dem <<TODO anderes Dokument: KonzeptUeberwachung
 == Hinweise für den Task im Parallelbetrieb
 
 Bei der Implementierung eines Tasks muss beachtet werden, dass ihn die Querschnittsbibliothek im Parallelbetrieb betreiben wird.
-Werden hierbei die Besonderheiten der Java Multithreading API nicht berücksichtigt, kann dies zu einem fehlerhaften Verhalten in der <<glossar-Geschaeftsanwendung>> führen.
+Werden hierbei die Besonderheiten der Java Multithreading API nicht berücksichtigt, kann dies zu einem fehlerhaften Verhalten in der xref:glossary:glossary:master.adoc#glossar-Geschaeftsanwendung[Geschäftsanwendung (Glossar)] führen.
 
 [[threadsicherheit]]
 === Threadsicherheit
