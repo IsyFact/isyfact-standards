@@ -8,17 +8,17 @@ An die Verarbeitung von Sonderzeichen nach den IsyFact-Standards bestehen die fo
 
 * Prinzipiell (technisch) muss jedes Sonderzeichen nutzbar sein.
 * Jedes System nach IsyFact-Standards muss die Sonderzeichen in gleicher Weise verarbeiten können.
-* Nach Erlass des BMI ist für das Personenstands,- Melde- und Ausländerwesen die Verarbeitung sämtlicher Zeichen gem. <<XOEVStringLatin>> vorgegeben.
+* Nach Erlass des BMI ist für das Personenstands,- Melde- und Ausländerwesen die Verarbeitung sämtlicher Zeichen gem. https://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project[OWASP Top 10 Project] vorgegeben.
 Weder mehr noch weniger Zeichen darf/muss das System verarbeiten können.
 
 [[festlegung-des-zeichensatzes-und-der-codierung]]
 == Festlegung des Zeichensatzes und der Codierung
 
-Laut der Architekturrichtlinie für die IT des Bundes <<ArchitekturRichtlinieITBund>> soll der Zeichensatz DIN SPEC 91379 (auch String.Latin 1.2) in der UTF-8-Codierung verwendet werden.
+Laut der https://www.cio.bund.de/SharedDocs/Publikationen/DE/Architekturen-und-Standards/architekturrichtlinie_it_bund_techn_spezif_2020.pdf[Architekturrichtlinie für die IT des Bundes - Technische Spezifikation zur Architekturrichtlinie (Version 2020)] soll der Zeichensatz DIN SPEC 91379 (auch String.Latin 1.2) in der UTF-8-Codierung verwendet werden.
 Das BMI hat als Rahmenbedingung für seinen Verantwortungsbereich festgelegt, für die Zeichencodierung in neuen Systemen ausschließlich UTF-8 zu nutzen.
 Dieser Zeichensatz stellt ausreichend viele der weltweit existierenden Buchstaben, Ziffern und Symbole zur Verfügung, um Daten in internationalen Schreibweisen abbilden zu können.
 
-Gemäß den Anforderungen des String.Latin Zeichensatzes des BMI <<XOEVStringLatin>> soll die IsyFact genau diesen Zeichensatz unterstützen.
+Gemäß den Anforderungen des String.Latin Zeichensatzes des BMI https://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project[OWASP Top 10 Project] soll die IsyFact genau diesen Zeichensatz unterstützen.
 Daher wird festgelegt, dass für IsyFact-Standard-basierte Anwendungen der Zeichensatz DIN SPEC 91379 in der UTF-8-Codierung zu verwenden ist.
 
 [[transformation-von-sonderzeichen]]
@@ -50,7 +50,7 @@ Im Rahmen der IsyFact werden zur Zeit von der Transkription nur kyrillische, gri
 Transkription ist an den folgenden Stellen von Bedeutung:
 
 *Datenaustausch mit anderen Systemen*::
-Für nach <<glossar-IFS,IsyFact Standards>> entwickelte Anwendungen ist der zu verwendende Zeichensatz festgelegt.
+Für nach xref:glossary:glossary:master.adoc#glossar-IFS[IsyFact Standards (Glossar)] entwickelte Anwendungen ist der zu verwendende Zeichensatz festgelegt.
 Andere Systeme, mit denen diese kommunizieren, können aber einen anderen Zeichensatz verwenden.
 Hier müssen die Daten zunächst in den Zeichensatz des Zielsystems umgewandelt werden.
 Die Umwandlung kann durch Transkription geschehen.
@@ -81,7 +81,7 @@ Für die Abbildung von griechischen Zeichen wird der Standard ISO-843 verwendet.
 Während der ISO-Standard (ISO-9) für die Transkription von kyrillischen Zeichen noch diakritische lateinische Zeichen verwendet, ist bei ICAO-MRTD das Ziel, diakritische Zeichen vollständig zu vermeiden, um eine Abbildung auf den ASCII-Zeichensatz zu ermöglichen.
 Eine bereits umgeschriebene Zeichenfolge wird durch eine erneute Transkription nicht mehr verändert.
 
-In <<table-transkription>> sind die Transkriptionsregeln für die verschiedenen Zeichen dargestellt.
+In der xref:nutzungsvorgaben/master.adoc#table-transkription[Tabelle Transkription] sind die Transkriptionsregeln für die verschiedenen Zeichen dargestellt.
 
 [[umsetzung-im-system]]
 ==== Umsetzung im System
@@ -91,10 +91,9 @@ Umgeschriebene Daten können bei Bedarf zusätzlich abgelegt werden.
 Dabei sind die der Transkription zugrunde liegenden Parameter ebenfalls mit abzulegen.
 Dies führt zu folgendem Datentyp für umgeschriebene Zeichenfolgen:
 
-:desc-image-001: Datentyp für umgeschriebene Texte
-[id="image-001",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-001}
-image::sonderzeichen_001.png[pdfwidth=35%,width=35%,align="center"]
+.Datentyp für umgeschriebene Texte
+[id="sonderzeichen_klasse_transtext",reftext="{figure-caption} {counter:figures}"]
+image::sonderzeichen_klasse_transtext.png[pdfwidth=35%,width=35%,align="center"]
 
 Die Attribute für den Datentyp „TransText“ haben die folgende Bedeutung:
 
@@ -116,10 +115,9 @@ Dabei sind die Transkriptionsregeln in einer oder mehreren Konfigurationsdateien
 Darüber wird auch eine einfache Erweiterbarkeit der Transkriptionsregeln gewährleistet.
 Es ist möglich, mehrere Sätze von Transkriptionsregeln zu hinterlegen, um so auch andere Standards für die Transkription verwenden zu können.
 
-:desc-image-002: Komponente Transkription
-[id="image-002",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-002}
-image::sonderzeichen_002.png[pdfwidth=50%,width=50%,align="center"]
+.Komponente Transkription
+[id="sonderzeichen_transkription.png",reftext="{figure-caption} {counter:figures}"]
+image::sonderzeichen_transkription.png[pdfwidth=50%,width=50%,align="center"]
 
 Die Komponente Transkription bietet nach außen nur die Methode
 
@@ -141,7 +139,7 @@ Ist die Sprache unbekannt, d.h. es wird kein Sprachcode übergeben, dann wird di
 Textdaten, die von der Anwendung aus einer Datei eingelesen werden oder über eine Programm-Schnittstelle übergeben werden, können eventuell nicht in UTF-8 codiert sein.
 
 Textdateien werden in der Standard-Zeichencodierung der JVM eingelesen und gespeichert.
-Die Standard-Zeichencodierung kann als Aufrufparameter in der JVM gesetzt werden (siehe auch Kapitel _Java_ in <<NutzungsvorgabenUmgangMitSonderzeichen>>).
+Die Standard-Zeichencodierung kann als Aufrufparameter in der JVM gesetzt werden (siehe auch Kapitel _Java_ im Dokument xref:nutzungsvorgaben/master.adoc#einleitung[Sonderzeichen - Nutzungsvorgaben].
 Sollte eine andere Zeichencodierung verwendet werden, so muss dies explizit im Code umgesetzt werden.
 
 Das kann z.B. erfolgen, indem die Dateien mit einem `InputStreamReader` gelesen werden bzw. mit einem `OutputStreamWriter` geschrieben werden.

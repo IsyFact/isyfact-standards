@@ -3,9 +3,8 @@
 == Transkriptionsregeln
 In <<table-transkription>> sind die Transkriptionsregeln für die verschiedenen Zeichen dargestellt.
 
-:desc-table-transkription: Transkriptionsregeln
+.Transkriptionsregeln
 [id="table-transkription",reftext="{table-caption} {counter:tables}"]
-.{desc-table-transkription}
 [cols="2,1,7,2,1",options="header"]
 |===
 |Unicode-Wert $$U+….$$ |Glyph |Unicode-Zeichenname |Unicode-Wert der Transkription |Transkription

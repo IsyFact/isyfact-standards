@@ -1,9 +1,8 @@
-
 :doctitle: Baustein Sonderzeichen
 [discrete]
 = Konzept
 
-:secnums:
+:sectnums:
 
 include::allgemein:partial$licence.adoc[]
 

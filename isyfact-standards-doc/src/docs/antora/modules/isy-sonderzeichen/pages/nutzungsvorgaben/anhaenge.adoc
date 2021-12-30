@@ -3,9 +3,8 @@
 == Zusätzliche Zeichen
 In <<table-zusaetzliche-zeichen>> sind die Zeichen dargestellt, die zusätzlich unterstützt werden.
 
-:desc-table-zusaetzliche-zeichen: Zusätzliche Zeichen
+.Zusätzliche Zeichen
 [id="table-zusaetzliche-zeichen",reftext="{table-caption} {counter:tables}"]
-.{desc-table-zusaetzliche-zeichen}
 [cols="2,1,7",options="header"]
 |===
 |Unicode-Wert $$U+….$$ |Glyph |Unicode-Zeichenname
