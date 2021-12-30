@@ -31,7 +31,7 @@ NOTE: Für eine Liste der unterstützten Monitoring-Systeme siehe http://microme
 [[festlegungen-und-ausgrenzungen]]
 === Festlegungen und Ausgrenzungen
 
-Die Nutzungsvorgaben finden sich im dem Dokument <<NutzungsvorgabenUeberwachung>>.
+Die Nutzungsvorgaben finden sich im dem Dokument xref:konzept/master.adoc#einleitung[Überwachung Nutzungsvorgaben]
 
 Das Konzept für die Prüfung der Verfügbarkeit ist:
 
