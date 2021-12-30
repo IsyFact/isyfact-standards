@@ -5,23 +5,23 @@
 == Einleitung
 
 Dieses Dokument beschreibt die konzeptionellen Grundlagen der Steuerung (d.h. Planung und Ausführung) von Aufgaben (Task Scheduling) in der IsyFact.
-Mit „Aufgaben“ sind hier periodisch wiederkehrende Tätigkeiten gemeint, die innerhalb einer <<glossar-Anwendungskomponente>> angesiedelt sind und zur Erfüllung der fachlichen oder technischen Anforderungen der Anwendung beitragen.
+Mit „Aufgaben“ sind hier periodisch wiederkehrende Tätigkeiten gemeint, die innerhalb einer xref:glossary:glossary:master.adoc#glossar-Anwendungskomponente[Anwendungskomponenten (Glossar)] angesiedelt sind und zur Erfüllung der fachlichen oder technischen Anforderungen der Anwendung beitragen.
 Das Dokument beschreibt die Anforderungen und Vorgaben zur Umsetzung der Steuerung von Aufgaben und bildet so die Grundlage einer technisch und fachlich einheitlichen Umsetzung.
 
-Die aus diesem Dokument abgeleitete Umsetzung der Steuerung von Aufgaben im Rahmen der Anwendungsentwicklung ist in den Nutzungsvorgaben Scheduling <<NutzungsvorgabenTaskScheduling>> beschrieben.
+Die aus diesem Dokument abgeleitete Umsetzung der Steuerung von Aufgaben im Rahmen der Anwendungsentwicklung ist in dem Dokument xref:nutzungsvorgaben/master.adoc#einleitung[Task-Scheduling - Nutzungsvorgaben] beschrieben.
 
-Sowohl dieses Dokument als auch das Umsetzungsdokument bedienen sich Erfahrungen sowie Best Practices aus erfolgreich abgeschlossenen Projekten.
+Sowohl dieses Dokument als auch das Umsetzungsdokument bedienen sich Erfahrungen sowie Best Practices aus erfolgreich abgeschlossenen Projekten.Nutzungsvorgaben Scheduling
 
 [[abgrenzung-zu-batches]]
 === Abgrenzung zu Batches
 
-Das <<DetailkonzeptKomponenteBatch>> definiert <<glossar-Batch,Batches>> wie folgt:
+Das <<TODO anderes Dokument: DetailkonzeptKomponenteBatch>> definiert xref:glossary:glossary:master.adoc#glossar-Batch[Batches (Glossar)] wie folgt:
 _„Der Begriff „Batch“ bedeutet im Kern lediglich „nicht interaktive Stapelverarbeitung“.
 Ein Batch teilt sich auf in einen „Batchrahmen“, die Batchlogik der einzelnen Batch-Anwendungen, sowie die von ihnen aufgerufenen Komponenten des Anwendungskerns. […]
 Typischerweise verarbeiten Batches dabei Dateilieferungen oder eine definierte Menge von Datensätzen aus dem Datenbestand.“_
 
 Die in diesem Konzept beschriebenen Aufgaben sind hingegen nicht die Grundlage einer eigenen (Batch-) Anwendung, sondern in die eigentliche Anwendung integriert.
-Die Aufgaben sind Teil einer Komponente des <<glossar-Anwendungskern,Anwendungskerns>>.
+Die Aufgaben sind Teil einer Komponente des xref:glossary:glossary:master.adoc#glossar-Anwendungskern[Anwendungskerns (Glossar)].
 Sie besitzen in der Regel einen kleineren Umfang als Batches und werden nicht manuell von außen gesteuert.
 Stattdessen werden sie durch die Anwendung selbst konfiguriert, zeitlich geplant und selbstständig ausgeführt.
 
@@ -32,7 +32,7 @@ Ziel des Dokuments ist die Definition einheitlicher Vorgaben für die Steuerung 
 
 Das Dokument ist entsprechend dieser Zielsetzungen folgendermaßen aufgebaut:
 
-Zunächst werden die <<anforderungen>> an die Steuerung von Aufgaben definiert, welche die Grundlage für das nachfolgende Kapitel bilden.
+Zunächst werden die xref:konzept/master.adoc#anforderungen[Anforderungen] an die Steuerung von Aufgaben definiert, welche die Grundlage für das nachfolgende Kapitel bilden.
 
-Anschließend werden die <<vorgaben>> zur Steuerung von Aufgaben innerhalb der Anwendungen sowie zur Umsetzung in der zu diesem <<glossar-Baustein>> gehörenden <<glossar-Bibliothek>> definiert.
+Anschließend werden die xref:konzept/master.adoc#vorgaben[Vorgaben] zur Steuerung von Aufgaben innerhalb der Anwendungen sowie zur Umsetzung in der zu diesem xref:glossary:glossary:master.adoc#glossar-Baustein[Baustein (Glossar)] gehörenden xref:glossary:glossary:master.adoc#glossar-Bibliothek[Bibliothek (Glossar)] definiert.
 // end::inhalt[]

@@ -57,7 +57,7 @@ Dazu gehören die folgenden Operationen:
 [[vorgaben]]
 == Vorgaben
 
-Die folgenden architektonischen und technischen Vorgaben beziehen sich auf die Umsetzung der in Kapitel <<anforderungen>>
+Die folgenden architektonischen und technischen Vorgaben beziehen sich auf die Umsetzung der in Kapitel siehe xref:konzept/master.adoc#anforderungen[Anforderungen]
 genannten Anforderungen in der zu diesem Baustein gehörenden Bibliothek.
 
 [[namenskonventionen]]
@@ -86,17 +86,17 @@ Die folgenden Klassen dürfen von der Bibliothek nicht verwendet werden:
 [[authentifizierung-1]]
 === Authentifizierung
 
-Die Bibliothek muss Aufgaben bei Bedarf über den Baustein Sicherheit (s. <<NutzungsvorgabenSicherheit>>) authentifizieren.
-Dazu ist ein Benutzername und ein Passwort nötig, dass die Bibliothek als betriebliche Konfiguration, wie im Baustein Konfiguration (s. <<KonzeptKonfiguration>>) vorgegeben, einlesen muss.
+Die Bibliothek muss Aufgaben bei Bedarf über den Baustein Sicherheit (s. <<TODO anderes Dokument: NutzungsvorgabenSicherheit>>) authentifizieren.
+Dazu ist ein Benutzername und ein Passwort nötig, dass die Bibliothek als betriebliche Konfiguration, wie im Baustein Konfiguration (s. <<TODO anderes Dokument: KonzeptKonfiguration>>) vorgegeben, einlesen muss.
 
 [[nachvollziehbarkeit-1]]
 === Nachvollziehbarkeit
 
 Die Bibliothek muss zur Sicherstellung der Nachvollziehbarkeit Korrelations-IDs verwenden.
-Das Konzept der Korrelations-ID ist im <<KonzeptLogging>> des Bausteins Logging beschrieben.
+Das Konzept der Korrelations-ID ist im<<TODO anderes Dokument: KonzeptLogging>> des Bausteins Logging beschrieben.
 
 Die Bibliothek muss für jede Ausführung einer Aufgabe eine Korrelations-ID erzeugen und sie im MDC von logback als auch, falls sich die Aufgabe authentifizieren muss, im Aufrufkontext setzen.
-Die Dokumente <<NutzungsvorgabenLogging>> sowie <<NutzungsvorgabenSicherheit>> der Bausteine Logging und Sicherheit beschreiben im Detail, wo und wie die Korrelations-ID gesetzt werden muss.
+Die Dokumente <<TODO anderes Dokument: NutzungsvorgabenLogging>> sowie <<TODO anderes Dokument: NutzungsvorgabenSicherheit>> der Bausteine Logging und Sicherheit beschreiben im Detail, wo und wie die Korrelations-ID gesetzt werden muss.
 
 [[ueberwachung]]
 === Überwachung
@@ -149,7 +149,7 @@ Alle Standardwerte entsprechen folgendem Schema:
 
 *isyfact.task.standard.<property>*
 
-Die Definition der Standardwerte ergänzt die Regelungen zu Default-Werten in der betrieblichen Konfiguration (s. <<KonzeptKonfiguration>>).
+Die Definition der Standardwerte ergänzt die Regelungen zu Default-Werten in der betrieblichen Konfiguration (s. <<TODO anderes Dokument: KonzeptKonfiguration>>).
 Während diese Default-Werte des Bausteins Konfiguration jeweils nur für eine konkrete Aufgabe gelten, sind die hier beschriebenen Standardwerte für alle in einer Anwendung definierten Aufgaben gültig.
 
 Zum Auslesen der Konfiguration einer Aufgabe wird die Klasse `TaskKonfiguration` definiert.

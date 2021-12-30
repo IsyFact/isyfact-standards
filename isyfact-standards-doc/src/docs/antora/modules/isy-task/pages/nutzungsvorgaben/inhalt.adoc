@@ -29,7 +29,7 @@ Sie sichert die Aufgaben selbst allerdings nicht gegen unerlaubte Ausführungen 
 Die Verantwortlichkeit dafür liegt bei den jeweiligen Fachkomponenten der Anwendungen, die sich gemäß den Sicherheitsrichtlinien der IsyFact und den Anforderungen an die Anwendung schützen müssen.
 Authentifizierung und Autorisierung finden nach den Vorgaben des Berechtigungskonzepts statt.
 Dazu wird die IsyFact-Bibliothek `isy-sicherheit` eingesetzt.
-Die Nutzung der Bibliothek wird im Dokument <<NutzungsvorgabenSicherheit>> beschrieben.
+Die Nutzung der Bibliothek wird im Dokument <<TODO anderes Dokument: NutzungsvorgabenSicherheit>> beschrieben.
 
 Um die Verwendung von `isy-sicherheit` für die Authentifizierung und Autorisierung zu konfigurieren, wird die Property `isy.task.authentication.enabled` in `application.properties` auf `true` oder `false` gesetzt.
 
@@ -140,7 +140,7 @@ taskScheduler.shutdownMitTimeout(10);
 [[verwendung-bereitgestellter-tasks]]
 === Verwendung der bereitgestellten Tasks
 
-Die Bibliothek `isy-task` enthält nützliche Tasks für die <<glossar-IFS,IsyFact Standards>>.
+Die Bibliothek `isy-task` enthält nützliche Tasks für die xref:glossary:glossary:master.adoc#glossar-IFS[Bibliothek (IsyFact Standards)].
 
 ==== Automatische Aktualisierung der Konfiguration
 Dieser Task dient der periodischen Prüfung der Konfigurationsdateien auf Änderungen sowie der automatischen Aktualisierung der Konfiguration bei Änderungen.
@@ -163,7 +163,7 @@ public class UpdateKonfigurationTaskConfiguration {
 }
 ----
 
-Der Task `KonfigurationUpdateTask` erwartet task-spezifische Konfigurationsparameter, wie sie im Kapitel <<aufgabenspezifische-konfiguration>> beschrieben werden:
+Der Task `KonfigurationUpdateTask` erwartet task-spezifische Konfigurationsparameter, wie sie im Kapitel xref:nutzungsvorgaben/master.adoc#aufgabenspezifische-konfiguration[Aufgabenspezifische Konfiguration] beschrieben werden:
 
 [source]
 ----
@@ -321,7 +321,7 @@ isy.task.tasks.<Task>.zeitpunkt
 ----
 
 Die Dauer, die zwischen dem Start des TaskSchedulers und der einmaligen Ausführung liegt.
-Die Dauer muss die Form eines Zeitraums gemäß dem <<KonzeptDatumZeit>> besitzen:
+Die Dauer muss die Form eines Zeitraums gemäß dem <<TODO anderes Dokument: KonzeptDatumZeit>> besitzen:
 
 [source]
 ----
@@ -329,7 +329,7 @@ isy.task.tasks.<Task>.initial-delay
 ----
 
 Die festgelegte Dauer zwischen zwei Starts einer Ausführung.
-Die Dauer muss die Form eines Zeitraums gemäß dem <<KonzeptDatumZeit>> besitzen:
+Die Dauer muss die Form eines Zeitraums gemäß dem <<TODO anderes Dokument: KonzeptDatumZeit>> besitzen:
 
 [source]
 ----
@@ -337,7 +337,7 @@ isy.task.tasks.<Task>.fixed-rate
 ----
 
 Die festgelegte Dauer zwischen dem Ende einer und dem Start der nächsten Ausführung.
-Die Dauer muss die Form eines Zeitraums gemäß dem <<KonzeptDatumZeit>> besitzen:
+Die Dauer muss die Form eines Zeitraums gemäß dem <<TODO anderes Dokument: KonzeptDatumZeit>> besitzen:
 
 [source]
 ----
@@ -371,7 +371,7 @@ public class TaskConfiguration {
 }
 ----
 
-Der MBean-Exporter wird gemäß dem <<KonzeptUeberwachung>> konfiguriert.
+Der MBean-Exporter wird gemäß dem <<TODO anderes Dokument: KonzeptUeberwachung>> konfiguriert.
 
 [[hinweise-fuer-den-task-im-parallelbetrieb]]
 == Hinweise für den Task im Parallelbetrieb
