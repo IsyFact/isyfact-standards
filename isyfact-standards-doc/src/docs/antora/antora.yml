@@ -1,6 +1,6 @@
 name: isyfact-standards-doku
 title: IsyFact Standards Dokumentation
 version: '2.4'
-start_page: isy-datetime:konzept/inhalt.adoc
+start_page: isy-util:nutzungsvorgaben/inhalt.adoc
 nav: 
-- modules/isy-datetime/nav.adoc
+- modules/isy-util/nav.adoc
