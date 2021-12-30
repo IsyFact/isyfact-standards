@@ -1,0 +1,41 @@
+= Nutzungsvorgaben Logging: Einleitung
+
+// tag::inhalt[]
+[[einleitung]]
+== Einleitung
+
+Im Dokument xref:nutzungsvorgaben/master.adoc#einleitung[Logging - Konzept] werden die Anforderungen und Vorgaben für das Logging der IsyFact definiert, um eine einheitliche Umsetzung in der gesamten xref:glossary:glossary:master.adoc#glossar-Anwendungslandschaft[Anwendungslandschaft (Glossar)] zu gewährleisten.
+
+Das vorliegende Dokument beschreibt alle Aspekte, die bei der Entwicklung einer Anwendung zu berücksichtigen sind, um die definierten Anforderungen zu erfüllen.
+Die IsyFact stellt eine eigene querschnittliche Bibliothek `isy-logging` bereit, um die Anforderungen einfach und einheitlich umsetzen zu können.
+Die Nutzung der Bibliothek ist ebenfalls in diesem Dokument beschrieben.
+Das Dokument richtet sich daher vorrangig an Entwickler, Konstrukteure und Technische Chefdesigner von Anwendungssystemen, die gemäß den Vorgaben der IsyFact umgesetzt werden.
+
+*Abgrenzung*
+
+Die Umsetzung bzw. Konfiguration des Loggings in Systemen, die nicht nach der IsyFact entwickelt wurden (bspw. Anwendungsservern), ist nicht Teil des Dokuments.
+Dies wird in den jeweiligen systemspezifischen Nutzungskonzepten adressiert.
+
+[[aufbau-und-zweck-des-dokuments]]
+== Aufbau und Zweck des Dokuments
+
+Zweck des Dokuments ist die Vereinheitlichung des Loggings in der Anwendungslandschaft, um eine effiziente Auswertbarkeit der Logeinträge durch die relevanten Parteien zu ermöglichen.
+Dies umfasst:
+
+* *technische Vereinheitlichung* des Loggings, also die einheitliche Konfiguration und Nutzung des Logging-Frameworks im Rahmen der Anwendungsentwicklung, sowie die
+* *fachliche Vereinheitlichung* des Loggings, also Vorgaben, _wann_ _welche_ Logeinträge mit _welchen Inhalten_ zu erstellen sind.
+
+Das Dokument ist entsprechend dieser Zielsetzungen in die folgenden Kapitel untergliedert:
+
+Im Kapitel *xref:nutzungsvorgaben/master.adoc#grundlagen[Grundlagen]* werden grundlegende Aspekte des Loggings beschrieben, die zum Verständnis der nachfolgenden Kapitel relevant sind und die Nutzungsvorgaben geprägt haben.
+
+Im Kapitel *xref:nutzungsvorgaben/master.adoc#einsatz-des-logging-frameworks[Einsatz des Logging-Frameworks]* wird die Konfiguration und Nutzung von `isy-logging`, dem Logging-Framework der IsyFact, beschrieben.
+
+Im Kapitel *xref:nutzungsvorgaben/master.adoc#vorgaben-zur-logerstellung[Vorgaben zur Logerstellung]* werden alle Aspekte beschrieben, die die fachlich / inhaltliche Umsetzung des Loggings betreffen.
+Dies beinhaltet die zu unterstützenden Auswertungsmöglichkeiten der Logeinträge sowie die konkreten Szenarien, in denen Logeinträge zu erstellen sind.
+
+Im Kapitel *xref:nutzungsvorgaben/master.adoc#ereignisschluessel-isy-logging[Ereignisschlüssel isy-logging]* ist eine Übersicht der verwendeten Ereignisschlüssel dargestellt.
+
+Das Dokument ist beim erstmaligen Lesen im Ganzen zu lesen und zu berücksichtigen, später dient es als Nachschlagewerk.
+Während der Anwendungsentwicklung ist insbesondere das Kapitel *xref:nutzungsvorgaben/master.adoc#vorgaben-zur-logerstellung[Vorgaben zur Logerstellung]*  relevant und darin im Speziellen die xref:nutzungsvorgaben/master.adoc#vorgaben-zur-logerstellung[Vorgaben zur Logerstellung], da die dort definierten Szenarien durch die Entwickler erkannt und gemäß den Vorgaben umgesetzt werden müssen.
+// end::inhalt[]
