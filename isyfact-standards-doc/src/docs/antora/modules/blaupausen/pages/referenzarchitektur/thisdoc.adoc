@@ -1,0 +1,154 @@
+= IsyFact-Referenzarchitektur: Einleitung
+
+// tag::inhalt[]
+[[einleitung]]
+== Einleitung
+
+Die *IsyFact* ist eine freie allgemeine <<glossar-Software-Factory>> zum Bau von <<glossar-IT-System,IT-Systemen>>, die vom Bundesverwaltungsamt bereitgestellt wird.
+Sie wurde entwickelt, um unterschiedliche <<glossar-Geschaeftsanwendung,Geschäftsanwendungen>> effizient entwerfen, realisieren und betreiben zu können.
+Der Begriff Factory steht für die schnelle Erzeugung neuer <<glossar-Anwendung,Anwendungen>> durch Anpassung und Ausgestaltung vorgefertigter Elemente, die in eine standardisierte <<glossar-Plattform>> integriert werden können.
+
+Die IsyFact besteht aus den IsyFact-Standards und IsyFact-Erweiterungen:
+
+Die *IsyFact-Standards* bilden das architektonische, technologische und methodische Fundament der IsyFact.
+Sie umfassen allgemeingültige und wiederverwendbare Konzepte und Komponenten, die für die Entwicklung beliebiger Geschäftsanwendungen relevant und verpflichtend sind.
+Bspw.: Allgemeine Softwarereferenzarchitektur, Vorgaben zur Fehlerbehandlung, Logging etc.
+
+Die *IsyFact-Erweiterungen* sind optionale wiederverwendbare Lösungen für verschiedene Problemstellungen, die aufgrund spezifischer Anforderungen des BVA oder seiner
+Kunden entwickelt wurden und
+[underline]#auf den IsyFact-Standards aufbauen.#
+Bspw.: Protokollierung, Regelwerk etc.
+
+Die in diesem Dokument beschriebene Referenzarchitektur ist ein zentraler Teil der IsyFact-Standards und erläutert auf einer allgemeinen Ebene, wie eine Anwendungslandschaft zu beschreiben und umzusetzen ist.
+
+[[kurzueberblick]]
+=== Kurzüberblick
+
+Dieser Abschnitt gibt einen zusammenfassenden Überblick über die wesentlichen Inhalte der Referenzarchitektur, die in späteren Kapiteln noch einmal ausführlich dargestellt werden.
+Dabei wird die Architektur aus drei verschiedenen Sichten betrachtet, die zunächst eingeführt werden.
+
+Die Referenzarchitektur unterscheidet zwischen den folgenden <<glossar-Architektursicht,Architektursichten>>:
+
+*Fachliche Referenzarchitektur:* Dies umfasst eine fachliche Beschreibung der Anwendungslandschaft.
+Diese wird in fachliche Komponenten zerlegt, die miteinander über fachliche Schnittstellen interagieren.
+
+*Software-Referenzarchitektur:* Dies ist eine software-technische Beschreibung der <<glossar-Systemlandschaft>>.
+Die gesamte Systemlandschaft wird in technische Komponenten mit technischen Schnittstellen zerlegt.
+
+*Referenzarchitektur der technischen Infrastruktur:* Hierunter fällt eine Beschreibung der Systemlandschaft aus dem Blickwinkel der technischen Infrastruktur.
+Es wird beschrieben, welche technischen Systeme existieren und welche technischen Komponenten auf ihnen laufen.
+
+Diese Architektursichten werden im Folgenden beschrieben.
+
+[[fachliche-referenzarchitektur]]
+==== Fachliche Referenzarchitektur
+
+Eine Anwendungslandschaft baut sich aus Anwendungsdomänen, Anwendungssystemen (Geschäftsanwendungen und Querschnittssystemen), dem Portal und den Service-Gateways auf.
+Dies ist in <<image-GA-AW>> dargestellt.
+
+
+:desc-image-GA-AW: Fachliche Architektur einer Anwendungslandschaft
+[id="image-GA-AW",reftext="{figure-caption} {counter:figures}"]
+.{desc-image-GA-AW}
+image::GA-AW.png[align="center"]
+
+*Anwendungsdomänen:* Eine <<glossar-Anwendungsdomaene>> gruppiert fachlich zusammengehörende Anwendungssysteme zur Unterstützung von Geschäftsprozessen, die als eine Einheit angesehen werden können.
+
+*Anwendungssysteme:* Ein <<glossar-Anwendungssystem>> ist eine zusammengehörende, logische Einheit aus Funktionen, Daten und Schnittstellen.
+Es besteht aus Anwendungskomponenten und Querschnittskomponenten.
+Anwendungssysteme unterstützen Geschäftsprozesse.
+Stellt ein Anwendungssystem eine Fachlogik dar, so handelt es sich um eine <<glossar-Geschaeftsanwendung>>.
+Ein Anwendungssystem ist Bestandteil der <<glossar-A-Architektur>>.
+Aus Sicht der <<glossar-T-Architektur>> bildet ein <<glossar-IT-System>> die software-technische Umsetzung eines Anwendungssystems ab.
+
+Ein häufig anzutreffendes Beispiel hierfür ist die Trennung in ein Anwendungssystem zur Bestandsverwaltung (Register) und einem Anwendungssystem für die Benutzerinteraktion, die auf die Bestandsverwaltung zugreift.
+Im Zuge einer solchen Aufgabenteilung werden auch weitergehende Regeln definiert, wie Anwendungssysteme aufeinander zugreifen dürfen.
+Derartige Strukturierungsprinzipien und Regeln sind jedoch immer spezifisch für den jeweiligen Kontext der Anwendungslandschaft und können nicht allgemeingültig festgelegt werden.
+Im vorliegenden Dokument verwenden wir daher den neutralen Begriff *<<glossar-Geschaeftsanwendung>>* für alle Arten von Anwendungssystemen, die eine bestimmte fachliche Funktionalität innerhalb einer Anwendungsdomäne realisieren.
+
+*Querschnittssysteme* sind Anwendungssysteme, die <<glossar-Basisdienst,Basisdienste>> für mehrere Geschäftsanwendungen bereitstellen.
+Diese Dienste sind oft technisch motiviert.
+
+*Portal:* Das <<glossar-Portal>> stellt den Benutzern eine einheitliche Dialogoberfläche für den Zugriff auf die Dienste der Anwendungslandschaft zur Verfügung.
+Einzelne Geschäftsanwendungen stellen Nutzerschnittstellen zur Verfügung, das Portal integriert diese, bildet einen zentralen Einstiegspunkt für alle Web-Anwendungen und übernimmt die Aufgabe der Authentifizierung und der Autorisierung auf Anwendungsebene.
+
+*Service-Gateway:* Im <<glossar-Service-Gateway>> werden alle Services der Anwendungssysteme bereitgestellt, die externe Nutzer direkt nutzen dürfen.
+Dazu führt das Service-Gateway die Authentifizierung und Autorisierung der Service-Aufrufer auf Anwendungsebene durch.
+Weiterhin transformiert das Service-Gateway das interne Kommunikationsprotokoll einer IsyFact-Systemlandschaft in das vom Service-Aufrufer erwartete Protokoll.
+Dies sind in der Regel Web Service-Aufrufe.
+
+[[software-referenzarchitektur]]
+==== Software Referenzarchitektur
+
+Die individuell erstellten Anwendungssysteme der Anwendungslandschaft sind technisch gleichartig aufgebaut.
+Daher wird eine Referenzarchitektur aufgestellt, nach denen Anwendungssysteme (Geschäftsanwendungen und Querschnittssysteme) software-technisch in <<glossar-IT-System,IT-Systeme>> umgesetzt werden.
+Das Dokument <<IsyFactReferenzarchitekturITSystem>> beschreibt diese Referenzarchitektur.
+
+Skalierbarkeit und Hochverfügbarkeit sind wichtige Anforderungen an die Referenzarchitektur.
+Dies wird unterstützt durch eine zustandslose Serverarchitektur.
+Der Zustand einer Anwendung wird in der Datenbank persistiert und bei jedem eintreffenden Service-Aufruf aus dieser gelesen und bei Beendigung des Service-Aufrufs wieder in die Datenbank geschrieben.
+
+:desc-image-horSkal: Horizontale Skalierung
+[id="image-horSkal",reftext="{figure-caption} {counter:figures}"]
+.{desc-image-horSkal}
+image::horSkal.png[align="center",pdfwidth=50%,width=50%]
+
+In der Referenzarchitektur erfolgt die Anpassung an steigende Anforderungen durch horizontale Skalierung auf der Ebene der Anwendungsserver.
+Ein (Hardware- oder Software-) Loadbalancer verteilt die eingehenden Anfragen auf die vorhandenen Anwendungsserver.
+Im Falle eines Serverausfalls kann die Aufgabe des ausgefallenen Servers durch einen anderen Server übernommen werden.
+Die Skalierung des Systems ist in <<image-horSkal>> dargestellt.
+
+Die Referenzarchitektur ist die Umsetzung einer Serviceorientierten Architektur.
+Im Design des <<glossar-Anwendungskern,Anwendungskerns>> (siehe <<DetailkonzeptKomponenteAnwendungskern>> ) finden sich explizit Komponenten und Services.
+Der Anwendungskern unterscheidet dabei noch zwischen Anwendungs-internen Services, die nur innerhalb der Anwendung aufgerufen werden und Anwendungs-externen Services, die über eine Nutzungsschnittstelle als Service anderen Anwendungen zur Verfügung gestellt werden.
+
+Der Entwurf der Services leitet sich in der Referenzarchitektur aus fachlichen Kriterien her.
+Services werden in der fachlichen Referenzarchitektur identifiziert und finden sich dann auch in der technischen Implementierung wieder.
+
+Die in diesem Dokument beschriebene Referenzarchitektur ist eine vollwertige JEE-Architektur.
+Jedoch wird eine zentrale Spezifikation von JEE nicht genutzt: die EJB-Spezifikation aus dem Bereich Enterprise Application.
+Dies hat vor allem Performance- und Komplexitätsgründe.
+Es hat zur Folge, dass als Application Server ein Servlet-Container ausreichend ist.
+
+[[referenzarchitektur-der-technischen-infrastruktur]]
+==== Referenzarchitektur der technischen Infrastruktur
+
+Im Bereich der technischen Infrastruktur (<<glossar-TI-Architektur>>) werden folgende Umgebungen beschrieben:
+
+* Produktionsumgebung,
+* Staging-Umgebung,
+* Schulungs- und externe Testumgebung,
+* Entwicklungs- und Abnahme-Testumgebung.
+
+Die Aufteilung in Zonen leitet sich aus dem SAGA 4-Standard ab <<SAGA40>>.
+
+NOTE: Wir orientieren uns hier nach wie vor am SAGA 4-Standard, da SAGA 5 kein Zonenmodell mehr enthält.
+
+<<image-RATIP>> skizziert die Referenzarchitektur der technischen Infrastruktur für die Produktionsumgebung. Die anderen Umgebungen sind vereinfachte und verkleinerte
+Abbilder der Produktionsumgebung.
+
+:desc-image-RATIP: Referenzarchitektur der technischen Infrastruktur für die Produktionsumgebung
+[id="image-RATIP",reftext="{figure-caption} {counter:figures}"]
+.{desc-image-RATIP}
+image::RATIP.png[align="center"]
+
+Um die Sicherheit in der Datenkommunikation zu gewährleisten, sind die Server unterschiedlichen Sicherheitszonen des Netzwerks zugeordnet.
+In <<image-RATIP>> ist eine Sicherheitszone durch ein gestricheltes Rechteck dargestellt.
+Zonenübergreifende Kommunikationsverbindungen werden von den Firewalls kontrolliert.
+
+Für die Datenhaltung wird ein auf einem relationalen Datenbank-Management-System (RDBMS) basierender Datenbank-Cluster im Hot-Standby eingesetzt.
+Um Auswertungen auf Stichtagsbeständen durchführen zu können, wird ein dedizierter Datenbankserver vorgesehen.
+
+[[inhaltsuebersicht]]
+=== Inhaltsübersicht
+
+Nachdem in Kapitel <<kurzueberblick>> die drei Sichten der Referenzarchitektur für eine Anwendungslandschaft kurz vorgestellt wurden, erfolgt nun eine
+Detaillierung der einzelnen Sichten:
+
+* Für die fachliche Sicht wird in Kapitel <<die-fachliche-referenzarchitektur>> eine fachliche Referenzarchitektur beschrieben.
+* Für die softwaretechnische Sicht wird in Kapitel <<die-software-referenzarchitektur>> die Einbindung der Software-Referenzarchitektur <<IsyFactReferenzarchitekturITSystem>> beschrieben.
+* Für die technische Infrastruktur wird in Kapitel <<die-referenzarchitektur-der-technischen-infrastruktur>> eine Referenzarchitektur vorgestellt.
+
+Im Rahmen dieser Referenzarchitektur werden auch betriebliche Aspekte betrachtet, da diese Auswirkungen auf Designentscheidungen haben können.
+Diese Aspekte werden in Kapitel <<betriebliche-aspekte>> beschrieben.
+// end::inhalt[]

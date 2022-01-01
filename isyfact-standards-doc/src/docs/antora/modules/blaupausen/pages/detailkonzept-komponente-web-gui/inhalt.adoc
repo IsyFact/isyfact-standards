@@ -1,0 +1,159 @@
+= Detailkonzept Komponente Web-GUI: Inhalt
+
+// tag::inhalt[]
+[[referenzarchitektur-einer-geschaeftsanwendung]]
+== Referenzarchitektur der Komponente Web-GUI
+
+<<image-RAFachAnw>> zeigt die Referenzarchitektur einer <<glossar-Geschaeftsanwendung>>.
+Die Referenzarchitektur ist eine Erweiterung der klassischen Drei-Schichten-Architektur, in der die oberste Schicht in GUI, Batch und Service differenziert wird.
+Die GUI ist hervorgehoben.
+
+:desc-image-RAGaAnw: Softwaretechnische Referenzarchitektur einer Geschäftsanwendung
+[id="image-RAGaAnw",reftext="{figure-caption} {counter:figures}"]
+.{desc-image-RAGaAnw}
+image::IFRefArcITSysGUI.png[align="center"]
+
+Das vorliegende Dokument beschreibt die Ausgestaltung der Komponente Web-GUI.
+Aufgabe der Komponente Web-GUI ist es, die Funktionalität der Anwendung für einen menschlichen Nutzer zur Verfügung zu stellen.
+
+Die Komponente Web-GUI gliedert sich in ein GUI-Framework und die Dialoglogik, welche die für die Anwendungsfälle notwendigen Dialoge und Masken umsetzt.
+
+Wie <<image-RAGaAnw>> zeigt, bilden die Fachkomponenten aus der Systemspezifikation in allen Schichten der Referenzarchitektur Komponenten aus;
+in der GUI heißen sie GUI-Komponenten.
+Die GUI-Komponenten umfassen für jeden Dialog aus der Systemspezifikation eine Sub-Komponente, sogenannte Dialog-Komponenten.
+
+<<image-KompDiazuGUI>> verdeutlicht die Architektur einer GUI-Komponente.
+
+:desc-image-KompDiazuGUI: Komposition von Dialogen zu GUI-Komponenten
+[id="image-KompDiazuGUI",reftext="{figure-caption} {counter:figures}"]
+.{desc-image-KompDiazuGUI}
+image::KompDiazuGUI.png[align="center",pdfwidth=80%,width=80%]
+
+=== Aufbau der Dialog-Komponenten
+
+Die Dialog-Komponenten verwenden zur Umsetzung das MVC-Muster.
+Dies bezeichnet ein Architekturmuster zur Strukturierung von Software in die drei Einheiten _Datenmodell_ (engl. _Model_), _Präsentation_ (engl. _View_) und _Programmsteuerung_ (engl. _Controller_).
+<<image-MVCPat>> zeigt das MVC-Muster.
+Die durchgehenden Pfeile zeigen eine direkte Assoziation (z.B. eine Aufrufbeziehung), die gestrichelten Pfeile eine indirekte Assoziation (z.B. über das Observer-Muster).
+
+:desc-image-MVCPat: MVC-Muster
+[id="image-MVCPat",reftext="{figure-caption} {counter:figures}"]
+.{desc-image-MVCPat}
+image::MVC.png[align="center"]
+
+Die Dialog-Komponenten definieren zentrale Klassen als Spring Beans (i.d.R. Controller) und binden alle Abhängigkeiten über Dependency Injection ein.
+
+=== Namenskonvention
+Folgende Namenskonventionen sind für die Klassen verpflichtend:
+
+//tag::namenskonvention[]
+[[modelklassen]]
+==== Modelklassen
+
+:desc-table-classnammodclass: Klassennamen Modelklassen
+[id="table-classnammodclass",reftext="{table-caption} {counter:tables}"]
+.{desc-table-classnammodclass}
+[cols="1,4",options="header"]
+|====
+2+|Klassennamen Modelklassen
+|*Schema* m|<Entitätsname>Model
+|*Beispiele* m|CdErwerbModel
+|====
+
+[[controllerklassen]]
+==== Controllerklassen
+
+:desc-table-classnamcontrclass: Klassennamen Controllerklassen
+[id="table-classnamcontrclass",reftext="{table-caption} {counter:tables}"]
+.{desc-table-classnamcontrclass}
+[cols="1,4",options="header"]
+|====
+2+|Klassennamen Controllerklassen
+|*Schema* m|<Maskenname>Controller
+|*Beispiele* m|CdErwerbController
+|====
+
+[[flows]]
+==== Flows
+
+:desc-table-flows1: Flows
+[id="table-flows1",reftext="{table-caption} {counter:tables}"]
+.{desc-table-flows1}
+[cols="1,4",options="header"]
+|====
+2+|Flows
+|*Schema* m|<Dialogname>Flow.xml
+|*Beispiele* m|cdErwerbFlow.xml
+|====
+
+[[main-view-von-flows]]
+==== Main-View von Flows
+
+:desc-table-mvvflow: Main View von Flows
+[id="table-mvvflow",reftext="{table-caption} {counter:tables}"]
+.{desc-table-mvvflow}
+[cols="1,4",options="header"]
+|====
+2+|Main View von Flows
+|*Schema* m|<Maskenname>ViewState.xhtml
+|*Beispiele* m|cdErwerbViewState.xhtml +
+cdSucheViewState.xhtml
+|====
+
+[[weitere-facelets]]
+==== Weitere Facelets
+
+:desc-table-facelets: Facelets
+[id="table-facelets",reftext="{table-caption} {counter:tables}"]
+.{desc-table-facelets}
+[cols="1,4",options="header"]
+|====
+2+|Facelets
+|*Schema* m|<maskenname><maskenteil>.xhtml
+|*Beispiele* m|cdErwerbFormular1.xhtml
+|====
+
+[[view-state-javascript-datei]]
+==== View-State Javascript-Datei
+
+:desc-table-vstatejsdat: View-State Javascript-Date
+[id="table-vstatejsdat",reftext="{table-caption} {counter:tables}"]
+.{desc-table-vstatejsdat}
+[cols="1,4",options="header"]
+|====
+2+|View-State Javascript-Datei
+|*Schema* m|<viewstatename>.js +
+<guikomponentenname>.js (bei übergreifenden, wiederverw.
+Dateien)
+|*Beispiele* m|cdErwerbFormular.js +
+cdErwerb.js (übergreifend)
+|====
+//end::namenskonvention[]
+
+=== Zugriff auf den Anwendungskern
+
+Dialog-Komponenten verwenden grundsätzlich keine Klassen des <<glossar-Anwendungskern,Anwendungskerns>>.
+Insbesondere verwenden ihre Models eigene Datentypen.
+Sämtliche Kommunikation mit dem Anwendungskern geschieht von den Controllern aus über den Anwendungskern-Wrapper (kurz: AWK-Wrapper).
+Die primäre Aufgabe des AWK-Wrappers ist es, das Datenmodell des Anwendungskerns in das Datenmodell der GUI-Komponente zu mappen und ggf. Transaktionsklammern über mehrere fachliche Operationen zu bilden.
+Damit der Datenzugriff in diesem Fall funktioniert, müssen die Spring Beans des AWK-Wrappers im selben Spring-Applikationskontext wie der Anwendungskern definiert werden.
+Nur dann ist der Transaktionskontext auch für den AWK-Wrapper nutzbar.
+
+Alle GUI-Komponenten können einen gemeinsamen AWK-Wrapper und in ihren Modellen gemeinsame Datentypen verwenden.
+Trotzdem sind die Dialog- und GUI-Komponenten zu kapseln, d.h. Controller- und Models dürfen nicht gemeinsam verwendet werden.
+Der Austausch von Informationen erfolgt stattdessen über definierte Schnittstellen zwischen den Dialog-Komponenten.
+Jeder GUI-Baustein der IsyFact kann selbst über die Form der Umsetzung entscheiden, solange sie sich an diese Vorgaben hält.
+
+=== Sicherheit
+
+Die Absicherung von Views (d.h. Masken) erfolgt auf Ebene des Dialogablaufs.
+Die GUI-Komponente verwendet zur Berechtigungsprüfung stets den Baustein Sicherheit.
+
+// tag::architekturregel[]
+
+// end::architekturregel[]
+
+// tag::sicherheit[]
+
+// end::sicherheit[]
+// end::inhalt[]
