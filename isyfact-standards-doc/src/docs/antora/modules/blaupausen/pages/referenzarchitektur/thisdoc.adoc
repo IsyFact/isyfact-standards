@@ -50,7 +50,7 @@ Dies ist in <<image-GA-AW>> dargestellt.
 :desc-image-GA-AW: Fachliche Architektur einer Anwendungslandschaft
 [id="image-GA-AW",reftext="{figure-caption} {counter:figures}"]
 .{desc-image-GA-AW}
-image::GA-AW.png[align="center"]
+image::../assets/images/GA-AW.png[align="center"]
 
 *Anwendungsdomänen:* Eine <<glossar-Anwendungsdomaene>> gruppiert fachlich zusammengehörende Anwendungssysteme zur Unterstützung von Geschäftsprozessen, die als eine Einheit angesehen werden können.
 
@@ -91,7 +91,7 @@ Der Zustand einer Anwendung wird in der Datenbank persistiert und bei jedem eint
 :desc-image-horSkal: Horizontale Skalierung
 [id="image-horSkal",reftext="{figure-caption} {counter:figures}"]
 .{desc-image-horSkal}
-image::horSkal.png[align="center",pdfwidth=50%,width=50%]
+image::../assets/images/horSkal.png[align="center",pdfwidth=50%,width=50%]
 
 In der Referenzarchitektur erfolgt die Anpassung an steigende Anforderungen durch horizontale Skalierung auf der Ebene der Anwendungsserver.
 Ein (Hardware- oder Software-) Loadbalancer verteilt die eingehenden Anfragen auf die vorhandenen Anwendungsserver.
@@ -130,7 +130,7 @@ Abbilder der Produktionsumgebung.
 :desc-image-RATIP: Referenzarchitektur der technischen Infrastruktur für die Produktionsumgebung
 [id="image-RATIP",reftext="{figure-caption} {counter:figures}"]
 .{desc-image-RATIP}
-image::RATIP.png[align="center"]
+image::../assets/images/RATIP.png[align="center"]
 
 Um die Sicherheit in der Datenkommunikation zu gewährleisten, sind die Server unterschiedlichen Sicherheitszonen des Netzwerks zugeordnet.
 In <<image-RATIP>> ist eine Sicherheitszone durch ein gestricheltes Rechteck dargestellt.
