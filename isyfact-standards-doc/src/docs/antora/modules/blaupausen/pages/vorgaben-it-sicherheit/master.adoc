@@ -1,9 +1,11 @@
-
 :doctitle: IsyFact IT-Sicherheitsregeln
+[discrete]
+= Vorgaben
 
-toc::[]
+:sectnums:
 
-colophon::[]
+include:isyfact-standards-doku:blaupausen\allgemein:partial$licence.adoc[]
+
 
 include::thisdoc.adoc[tags=inhalt]
 

@@ -1,10 +1,11 @@
-
 :doctitle: Komponente Service
-:document-type: Detailkonzept
+[discrete]
+= Detailkonzept
 
-toc::[]
+:sectnums:
 
-colophon::[]
+include:allgemein:partial$licence.adoc[]
+
 
 include::thisdoc.adoc[tags=inhalt]
 

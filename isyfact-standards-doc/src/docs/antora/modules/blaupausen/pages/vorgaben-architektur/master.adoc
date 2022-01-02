@@ -1,9 +1,11 @@
-
 :doctitle: IsyFact Architekturregeln
+[discrete]
+= Vorgaben
 
-toc::[]
+:sectnums:
 
-colophon::[]
+include:allgemein:partial$licence.adoc[]
+
 
 include::thisdoc.adoc[tags=inhalt]
 

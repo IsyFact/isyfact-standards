@@ -1,10 +1,11 @@
-
 :doctitle: Komponente Batch
-:document-type: Detailkonzept
+[discrete]
+= Detailkonzept
 
-toc::[]
+:sectnums:
 
-colophon::[]
+include:allgemein:partial$licence.adoc[]
+
 
 include::docinfo.adoc[]
 
@@ -12,5 +13,5 @@ include::thisdoc.adoc[tags=inhalt]
 
 include::inhalt.adoc[tags=inhalt]
 
-:sectnums!:
-include::changelog.adoc[leveloffset=1]
+#:sectnums!:
+#include::changelog.adoc[leveloffset=1]

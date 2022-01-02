@@ -1,3 +1,11 @@
-* xref:konzept/inhalt.adoc[IsyFact-Datetime]
+* xref:detailkonzept-komponente-anwendungskern/inhalt.adoc[Anwendungskern - Detailkonzept]
+* xref:detailkonzept-komponente-batch/inhalt.adoc[Batch - Detailkonzept]
+* xref:detailkonzept-komponente-datenzugriff/inhalt.adoc[Datenzugriff - Detailkonzept]
+* xref:detailkonzept-komponente-service/inhalt.adoc[Service - Detailkonzept]
+* xref:detailkonzept-komponente-web-gui/inhalt.adoc[Web GUI - Detailkonzept]
+* xref:referenzarchitektur/inhalt.adoc[Referenzarchitektur]
+* xref:referenzarchitektur-it-system/inhalt.adoc[Referenzarchitektur IT-System]
+* xref:vorgaben-architektur/inhalt.adoc[Anwendungskern - Architektur - Vorgaben]
+* xref:vorgaben-it-sicherheit/inhalt.adoc[Anwendungskern -IT-Sicherheit - Vorgaben]
 
 
