@@ -1,5 +1,6 @@
 # 1.12.0
 - `IFS-802`: SpotBugs Fehler behoben
+- `IFS-736`: Aktive Log-Level im LogHelper prüfen
 
 # 1.11.0
 - enthält nur Versionsanhebung auf IFS 1.10.0
