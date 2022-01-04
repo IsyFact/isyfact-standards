@@ -1,5 +1,4 @@
 = Detailkonzept Anwendungskern: Inhalt
-:imagesdir: images
 
 // tag::inhalt[]
 [[aufbau-des-anwendungskerns]]
@@ -17,7 +16,7 @@ Diese drei Aspekte werden im Folgenden im Detail beschrieben.
 :desc-image-IFBestAWK: Bestandteile des Anwendungskerns
 [id="image-IFBestAWK",reftext="{figure-caption} {counter:figures}"]
 .{desc-image-IFBestAWK}
-image::IFBestAWK.png[align="center",width=90%,pdfwidth=90%]
+image:: IFBestAWK.png[align="center",width=90%,pdfwidth=90%]
 
 [[die-fachkomponenten]]
 === Die Fachkomponenten

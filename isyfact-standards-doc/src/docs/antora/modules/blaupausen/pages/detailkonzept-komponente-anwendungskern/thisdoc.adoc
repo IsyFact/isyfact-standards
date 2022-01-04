@@ -1,5 +1,5 @@
 = Detailkonzept Anwendungskern: Einleitung
-include::{isy-dokumentvorlagen}/docs/common/isyfact-attributes.adoc[]
+//include::{isy-dokumentvorlagen}/docs/common/isyfact-attributes.adoc[]
 
 // tag::inhalt[]
 [[einleitung]]
@@ -37,9 +37,8 @@ In Richtung Nutzungsschicht bietet der Anwendungskern nur Funktionalitäten an, 
 
 In <<image-IFRefArcITSsys>> ist die Referenzarchitektur eines IT-Systems noch einmal dargestellt, wobei die Anwendungskernschicht mit der Komponente Anwendungskern hervorgehoben ist.
 
-:desc-image-IFRefArcITSsys: Referenzarchitektur eines IT-Systems
+.Referenzarchitektur eines IT-Systems
 [id="image-IFRefArcITSsys",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-IFRefArcITSsys}
 image::IFRefArcITSsys.png[align="center",width=90%,pdfwidth=90%]
 
 In diesem Dokument werden die Vorgaben zum Bau der Komponente Anwendungskern im Detail beschrieben.
