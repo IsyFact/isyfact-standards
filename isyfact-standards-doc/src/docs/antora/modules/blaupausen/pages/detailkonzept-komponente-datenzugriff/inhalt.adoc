@@ -1,5 +1,4 @@
 = Detailkonzept Datenzugriff: Inhalt
-:imagesdir: images
 
 // tag::inhalt[]
 [[anforderungen]]
@@ -640,9 +639,8 @@ Im Zweifel, insbesondere bei freien Anfragen, die aus Benutzereingaben erzeugt w
 
 Die DAOs- und Entitätsklassen sollen im Persistence-Package der entsprechenden Komponente implementiert werden.
 //tag::namenskonvention[]
-:desc-table-paketstruktur: Vorgaben zur Paketstruktur für Persistenzklassen
+.Vorgaben zur Paketstruktur für Persistenzklassen
 [id="table-paketstruktur",reftext="{table-caption} {counter:tables}"]
-.{desc-table-paketstruktur}
 [cols="1,3",options="header"]
 |===
 |Persistenzklasse |Paketstruktur

@@ -373,7 +373,6 @@ Der Sender enthält keine direkte Antwort vom Empfänger.
 .{desc-image-queueing}
 image::../assets/images/queueing.dn.png[align="center"]
 
-// tag::architekturregel[]
 
 Für das Queueing infrage kommende Message-Broker müssen *JMS* (Jakarta Messaging, ehemals _Java Message Service_) unterstützen.
 Queueing wird ausschließlich in der internen Servicekommunikation eingesetzt.
@@ -976,12 +975,12 @@ Dies umfasst:
 
 Diese Vereinfachungen sind für ein Kleinverfahren nicht zwingend, sondern sie dienen dazu, das Verfahren in einem angemessenen Kosten-Nutzen-Verhältnis zu erstellen.
 Falls die Kosten-Nutzen-Betrachtung es erlaubt, kann auf die Vereinfachungen natürlich auch verzichtet werden.
-// end::inhalt[]
 
-// tag::architekturregel[]
 
-// end::architekturregel[]
+
 
 // tag::sicherheit[]
 
 // end::sicherheit[]
+
+// end::inhalt[]

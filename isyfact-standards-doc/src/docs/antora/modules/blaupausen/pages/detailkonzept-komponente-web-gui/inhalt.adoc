@@ -148,6 +148,7 @@ Jeder GUI-Baustein der IsyFact kann selbst über die Form der Umsetzung entschei
 
 Die Absicherung von Views (d.h. Masken) erfolgt auf Ebene des Dialogablaufs.
 Die GUI-Komponente verwendet zur Berechtigungsprüfung stets den Baustein Sicherheit.
+// end::inhalt[]
 
 // tag::architekturregel[]
 
@@ -156,4 +157,3 @@ Die GUI-Komponente verwendet zur Berechtigungsprüfung stets den Baustein Sicher
 // tag::sicherheit[]
 
 // end::sicherheit[]
-// end::inhalt[]

@@ -128,10 +128,10 @@ Dies ist insbesondere dann angebracht, wenn die Komponente ausschließlich durch
 Da die Service-Schicht keine Logik enthält und daher ohnehin keine Änderung an solchen Entitäten vornehmen darf und eindeutig der Anwendungskern-Komponente zugeordnet ist, bedeutet dies keine Verletzung der Datenhoheit.
 Da die Anwendungskern-Komponente an Ihrer Schnittstelle nun potentiell persistente und nicht persistente Entitäten bereitstellt, müssen Verwechselungen vermieden werden, z.B. in dem solche Methoden in getrennten Interfaces deklariert werden.
 
-[ARCHITEKTURREGEL]
-====
+.icon:university[] Architekturregel
+****
 Persistente Entitäten dürfen nicht über den Anwendungskern hinaus herausgegeben werden. Sie haben im Anwendungskern zu verbleiben.
-====
+****
 
 *Komponenten-Framework:* Für querschnittliche Funktionalität innerhalb des Anwendungskerns wird das Spring-Framework genutzt.
 Hauptaufgabe des Frameworks ist es, die Komponenten zu konfigurieren und miteinander bekannt zu machen.
