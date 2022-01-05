@@ -4,7 +4,7 @@
 [[Einleitung]]
 == Einleitung
 
-Die <<IsyFactReferenzarchitekturITSystem>> beschreibt den Aufbau von <<glossar-Geschaeftsanwendung,Geschäftsanwendungen>> in fünf Komponenten.
+Die xref:referenzarchitektur-it-system/master.adoc#einleitung[Referenzarchitektur IT-Systeme] beschreibt den Aufbau von xref:glossary:glossary:master.adoc#glossar-Geschaeftsanwendung[Geschäftsanwendungen (Glossar)] in fünf Komponenten.
 Eine davon ist die Komponente Web-GUI.
 Das vorliegende Dokument enthält die Detailkonzeption dieser Komponente.
 Es enthält eine Detaillierung der Referenzarchitektur und zeigt, wie die Fachlichkeit in GUI- und Dialog-Komponenten geschnitten wird.
@@ -12,6 +12,6 @@ Darüber hinaus trifft es allgemeine Vorgaben für querschnittliche Aspekte, wie
 
 Zielgruppe dieses Dokuments sind Entwickler und Architekten, die Interesse an den allgemeinen Vorgaben der IsyFact in Bezug auf Web-GUIs haben.
 
-Allgemeine Angaben zur Gestaltung von Oberflächen finden sich im <<Styleguide>>.
+Allgemeine Angaben zur Gestaltung von Oberflächen finden sich im <<TODO anderes Dokument: Styleguide>>.
 Weitere Informationen zur Umsetzung von Oberflächen sind den konkreten GUI-Bausteinen zu entnehmen.
 // end::inhalt[]

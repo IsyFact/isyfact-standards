@@ -2,7 +2,7 @@
 
 // tag::inhalt[]
 == Technische Architektur
-Die technische Architektur (<<glossar-T-Architektur>>) beschreibt die Strukturierung der IsyFact-Plattform in IT-Systeme, den Aufbau einzelner IT-Systeme und die verwendeten übergreifenden technischen Konzepte.
+Die technische Architektur (xref:glossary:glossary:master.adoc#glossar-T-Architektur[T-Architektur (Glossar)]) beschreibt die Strukturierung der IsyFact-Plattform in IT-Systeme, den Aufbau einzelner IT-Systeme und die verwendeten übergreifenden technischen Konzepte.
 
 [[die-referenzarchitektur-eines-it-systems]]
 === Die Referenzarchitektur eines IT-Systems
@@ -10,9 +10,8 @@ Die technische Architektur (<<glossar-T-Architektur>>) beschreibt die Strukturie
 Die individuell erstellten Anwendungssysteme der Systemlandschaft müssen technisch gleichartig aufgebaut sein.
 Daher wird im Folgenden die Referenz-Architektur beschrieben, nach der diese Anwendungssysteme software-technisch in IT-Systeme umgesetzt werden.
 
-:desc-image-RAITSys: Referenzarchitektur eines IT-Systems
+.Referenzarchitektur eines IT-Systems
 [id="image-RAITSys",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-RAITSys}
 image::RAITSys.png[align="center"]
 
 In der *Persistentzschicht* ist alle Funktionalität enthalten, die zum Erzeugen, Suchen, Bearbeiten und Löschen von Datenobjekten benötigt wird.
@@ -40,7 +39,7 @@ Eine Besonderheit beim Batch ist, dass die Steuerung des Batch-Prozesses in der 
 Dieser Zugriff erfolgt nicht direkt auf den Anwendungskern, sondern über die Nutzungsschicht „Service“.
 Dadurch können auf einfache Art technische Attribute in die Außenschnittstelle aufgenommen werden und der Service des Anwendungskerns kann auf die Kommunikationstechnik abgebildet werden, die für die Kommunikation zwischen IT-Systemen verwendet wird.
 
-Details zur Konstruktion eines IT-Systems werden in <<IsyFactSystementwurf>> festgelegt und für das jeweilige IT-System dokumentiert.
+Details zur Konstruktion eines IT-Systems werden in <<TODO anderes Dokument: IsyFactSystementwurf>> festgelegt und für das jeweilige IT-System dokumentiert.
 
 [[uebergreifende-technische-konzeption]]
 === Übergreifende technische Konzeption
@@ -52,7 +51,7 @@ Um diese Komplexität beherrschen zu können, wird das IT-System in Komponenten 
 Damit die gesamte geforderte Funktionalität erreicht wird, müssen die einzelnen Komponenten miteinander kommunizieren und sich kennen.
 Dadurch entsteht ein Komponentengeflecht.
 Für die Verwaltung der Komponenten innerhalb des IT-Systems und deren Kopplung wird ein Framework verwendet.
-Details hierzu werden in <<DetailkonzeptKomponenteAnwendungskern>> festgelegt.
+Details hierzu werden in xref:detailkonzept-komponente-anwendungskern/master.adoc[Detailkonzept Komponente Anwendungskern] festgelegt.
 Technisch lässt sich ein IT-System in Schichten unterteilen, fachlich in Teilanwendungen.
 Details hierzu werden in Kapitel <<der-anwendungskern>> beschrieben.
 
@@ -83,7 +82,7 @@ Ein übliches Verhalten ist zum Beispiel das folgende: Erstreckt sich eine fachl
 Um zu prüfen, ob die Daten in der Zwischenzeit nicht durch einen anderen Anwender verändert worden sind, wird die Zugriffsschicht beim Schreiben Zeitstempel oder Versionszähler der Datensätze überprüfen.
 +
 Um diesen großen Funktionsumfang abzudecken, wird ein Produkt zum objekt-relationalen Mapping gemäß JPA-Standard eingesetzt.
-Details hierzu sind in <<DetailkonzeptKomponenteDatenzugriff>> dokumentiert.
+Details hierzu sind in  xref:detailkonzept-komponente-datenzugriff/master.adoc[Detailkonzept Komponente Datenzugriff] dokumentiert.
 
 [[der-anwendungskern]]
 === Der Anwendungskern
@@ -95,22 +94,21 @@ Innerhalb dieser Anwendungslogik befinden sich die Funktionalität, welche allge
 
 Daneben gibt es spezielle Dialogabläufe, zum Beispiel dialogspezifische Bearbeitungsverfahren wie die Anwenderführung über Wizards.
 Diese Prozesse, die nur durch einen einzigen Dialog genutzt werden, sind nicht Teil des Anwendungskerns, sondern Teil der Schicht Nutzung.
-Damit stellt der Anwendungskern innerhalb des Systems allgemein nutzbare <<glossar-Dienst,Dienste>> zur Verfügung.
-Weitere Details können auch dem Detailkonzept <<DetailkonzeptKomponenteAnwendungskern>> entnommen werden.
+Damit stellt der Anwendungskern innerhalb des Systems allgemein nutzbare xref:glossary:glossary:master.adoc#glossar-Dienst[Dienste (Glossar)] zur Verfügung.
+Weitere Details können auch dem Detailkonzept xref:detailkonzept-komponente-anwendungskern/master.adoc[Detailkonzept Komponente Anwendungskern] entnommen werden.
 
 In <<image-TeileAnwK>> sind drei Aspekte des Anwendungskerns dargestellt.
 Er besteht aus zwei wesentlichen Bestandteilen: Den Fachkomponenten und dem Anwendungskern-Framework.
 Weiterhin ist dort dargestellt, dass externe Services als Komponente in den Anwendungskern integriert sind.
 Diese drei Aspekte werden im Folgenden detailliert beschrieben.
 
-:desc-image-TeileAnwK: Bestandteile des Anwendungskerns
+.Bestandteile des Anwendungskerns
 [id="image-TeileAnwK",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-TeileAnwK}
 image::TeileAnwK.png[align="center",pdfwidth=80%,width=80%]
 
 *Fachkomponenten:* Die Fachkomponenten entsprechen dem fachlichen Komponentenschnitt aus der fachlichen Architektur.
 Diese Komponenten implementieren weitgehend reine Fachlichkeit und trennen so Anwendungslogik und Technologie.
-Die Umsetzung einer Komponente aus der fachlichen Architektur (<<glossar-A-Architektur>>) erfolgt durch eine Fachkomponente.
+Die Umsetzung einer Komponente aus der fachlichen Architektur (xref:glossary:glossary:master.adoc#glossar-A-Architektur[A-Architektur (Glossar)]) erfolgt durch eine Fachkomponente.
 Dies ist der Schlüssel für gute Wartbarkeit und einfache Weiterentwickelbarkeit des Anwendungskerns.
 Diese Struktur findet sich auch in anderen Schichten wieder:
 
@@ -123,7 +121,7 @@ In diesem Fall wäre nicht sichergestellt, dass keine Änderungen außerhalb der
 Für den Transfer über Komponentengrenzen hinweg müssen eigene, nicht-persistente Schnittstellen-Objekte erzeugt werden, die dann aus den persistenten Objekten mittels eines Bean-Mappers befüllt werden können. +
 Wenn Objekte von mehreren Komponenten genutzt werden und keiner einzelnen Komponente zugeordnet werden können, sollten sie in einem eigenen querschnittlichen Package abgelegt werden.
 
-Vereinfachend können Anwendungskern-Komponenten persistente Daten an die <<glossar-Service>>-Schicht (Kapitel <<servicezugriffe>>) weitergeben.
+Vereinfachend können Anwendungskern-Komponenten persistente Daten an die xref:glossary:glossary:master.adoc#glossar-Service[Service (Glossar)]-Schicht (Kapitel <<servicezugriffe>>) weitergeben.
 Dies ist insbesondere dann angebracht, wenn die Komponente ausschließlich durch eine Service-Komponente genutzt wird. +
 Da die Service-Schicht keine Logik enthält und daher ohnehin keine Änderung an solchen Entitäten vornehmen darf und eindeutig der Anwendungskern-Komponente zugeordnet ist, bedeutet dies keine Verletzung der Datenhoheit.
 Da die Anwendungskern-Komponente an Ihrer Schnittstelle nun potentiell persistente und nicht persistente Entitäten bereitstellt, müssen Verwechselungen vermieden werden, z.B. in dem solche Methoden in getrennten Interfaces deklariert werden.
@@ -138,7 +136,7 @@ Hauptaufgabe des Frameworks ist es, die Komponenten zu konfigurieren und miteina
 Dadurch wird die Trennung zwischen Fachlichkeit und Technik verbessert.
 Beispiel für querschnittliche Funktionalität ist die deklarative Steuerung von Transaktionen.
 
-*Externe Services:* Wenn der Anwendungskern fachliche Services benötigt, die von anderen IT-Systemen innerhalb der <<glossar-Plattform>> angeboten werden, so werden diese Services als Komponente im Anwendungskern abgebildet.
+*Externe Services:* Wenn der Anwendungskern fachliche Services benötigt, die von anderen IT-Systemen innerhalb der xref:glossary:glossary:master.adoc#glossar-Plattform[Plattform (Glossar)] angeboten werden, so werden diese Services als Komponente im Anwendungskern abgebildet.
 Dadurch ist die Funktionalität sauber gekapselt, was die Wartbarkeit erhöht.
 Wenn der externe Service ausgetauscht werden soll, ist keine Änderung der gesamten Anwendung notwendig – es ist lediglich eine interne Änderung der externen Service-Komponente notwendig.
 Für andere fachliche Komponenten des Anwendungskerns ist nicht zu unterscheiden, ob es sich beim Aufruf einer Komponentenschnittstelle um eine in dieser Komponente implementierte Funktion oder um einen Serviceaufruf handelt.
@@ -151,7 +149,7 @@ Diese Komponenten haben damit zwei Hauptaufgaben: Sie müssen die technische Asp
 Bei graphischen Benutzeroberflächen (engl. Graphical User Interface, GUI) gibt es eine Vielfalt unterschiedlichster Komplexitäten: von einfachen Stammdatensystemen über Dialogsysteme mit vielen einfachen Dialogen, die aber intensiv miteinander interagieren, bis zu Clients mit wenigen, aber sehr komplexen Dialogen.
 Eine gute Architektur muss für alle relevanten Varianten einen tragfähigen Rahmen schaffen.
 
-Im Wesentlichen müssen innerhalb einer <<glossar-GUI>> verschiedene Aufgaben erledigt werden:
+Im Wesentlichen müssen innerhalb einer xref:glossary:glossary:master.adoc#glossar-GUI[GUI (Glossar)] verschiedene Aufgaben erledigt werden:
 
 * Die Masken und Informationen müssen am Bildschirm angezeigt werden.
 * Der Dialog muss auf Benutzerinteraktionen reagieren.
@@ -162,8 +160,8 @@ Die Dialogabläufe bilden einen Workflow.
 Dieser ist in der Regel in der Dialogsteuerung abgebildet, er kann auch durch eine Workflow-Komponente gesteuert werden.
 * Der Dialog muss direkt mit dem Anwendungskern kommunizieren, um Daten zu lesen, die veränderten Daten zu speichern und komplexere fachliche Funktionen auszuführen.
 
-Vorgaben zum Layout sind in <<Styleguide>> beschrieben.
-Details zur Umsetzung von Berechtigungen sind in <<Berechtigungskonzept>> enthalten.
+Vorgaben zum Layout sind in <<TODO anderes Dokument: Styleguide>> beschrieben.
+Details zur Umsetzung von Berechtigungen sind in <<TODO anderes Dokument: Berechtigungskonzept>> enthalten.
 
 [[Web-GUI]]
 ==== Klassische Web-GUI
@@ -181,9 +179,8 @@ Der Dialograhmen kennt die Dialogabläufe und die notwendigen Kontextinformation
 *Dialoglogik:* Die Komponente Dialoglogik enthält die vom Dialog benötigten Fachklassen und übernimmt die direkte Kommunikation mit dem Anwendungskern.
 Liegt der Anwendungskern auf einem Server, so speichert der Anwendungskern auch Login-Informationen, Session-Daten und ähnliches.
 
-:desc-image-KompGUI: Komponenten der GUI-Architektur
+.Komponenten der GUI-Architektur
 [id="image-KompGUI",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-KompGUI}
 image::KompGUI.png[align="center",pdfwidth=60%,width=60%]
 
 Die GUI-Architektur setzt eine Trennung der Dialogsteuerung und des Layouts um.
@@ -204,7 +201,7 @@ Sobald ein Aufruf durch den Client erfolgt, muss der Server zunächst den aktuel
 Dies erfolgt dadurch, dass der Client eine Session-ID übergibt und der Server die benötigten Daten aus einem Datenbank-Zwischenspeicher unter diesem Schlüssel nachschlägt.
 Mit dieser Lösung lassen sich sehr einfach Loadbalancing- und Failover-Lösungen über Rechner-Cluster realisieren.
 
-Weiterführende technische Details zur GUI sind im Dokument <<DetailkonzeptKomponenteWebGUI>> enthalten.
+Weiterführende technische Details zur GUI sind im Dokument xref:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Komponente Web-GUI] enthalten.
 
 [[SPA]]
 ==== Single Page Application
@@ -223,13 +220,13 @@ Folgende Komponenten kommen in einer SPA normalerweise zum Einsatz:
 * GUI-Bibliothek(en): Die GUI-Bibliotheken bieten wiederverwendbare und stylebare Komponenten im Kontext des Frameworks an.
 * Dialoglogik: Die Dialoglogik liegt rein clientseitig vor; sie ist der Ort, an dem Front-End-Code entwickelt wird.
 
-Weitere technische Details zur SPA-GUI sind im Dokument <<KonzeptAngular>> enthalten.
+Weitere technische Details zur SPA-GUI sind im Dokument <<TODO anderes Dokument: KonzeptAngular>> enthalten.
 
 
 [[batch]]
 === Batch
 
-Ein <<glossar-Batch>> realisiert eine eigenständige Verarbeitung ohne direkten Benutzereingriff während des Ablaufes.
+Einxref:glossary:glossary:master.adoc#glossar-Batch[Batch (Glossar)] realisiert eine eigenständige Verarbeitung ohne direkten Benutzereingriff während des Ablaufes.
 An einen Batch werden verschiedene Anforderungen gestellt: Ausführungszeitpunkt, Abhängigkeiten, Datenvolumen, ausgeführte Funktionalität, Eingaben, Ausgaben usw.
 
 Aus Architektur-Sicht werden diese Anforderungen durch zwei Komponenten abgedeckt: der Batchrahmen und der Batchlogik.
@@ -242,9 +239,8 @@ Die Funktionalität, das heißt die fachliche Logik und die Arbeitsschritte eine
 Wenn diese Anwendungsfälle auch von anderen Nutzern benötigt werden, dann sind sie im Anwendungskern implementiert.
 
 
-:desc-image-TeileBat: Bestandteile von Batchverarbeitungsprogrammen
+. Bestandteile von Batchverarbeitungsprogrammen
 [id="image-TeileBat",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-TeileBat}
 image::TeileBat.png[align="center",pdfwidth=90%,width=90%]
 
 Batches werden als eigener Prozess auf einem eigenen Server ausgeführt, das heißt sie laufen nicht in der virtuellen Maschine des Application Servers ab.
@@ -262,13 +258,13 @@ Die Batch-Schritte haben eine genormte Schnittstelle für Aufruf und Rückgabewe
 Sie sind in der Regel restart-fähig.
 Es gibt einen Batch-Rahmen, der dies unterstützt.
 
-Weiterführende technische Details zum Batch sind im Dokument <<DetailkonzeptKomponenteBatch>> enthalten.
+Weiterführende technische Details zum Batch sind im Dokument xref:detailkonzept-komponente-batch/master.adoc[Detailkonzept Komponente Batch] enthalten.
 
 [[servicezugriffe]]
 === Servicezugriffe
 
 Services des Anwendungskerns, die vom IT-System zur Verfügung gestellt werden sollen, werden durch die Komponenten von „Service“ innerhalb der Schicht „Nutzung“ angereichert und nach außen gegeben.
-Dabei können alle Dienste des <<glossar-Anwendungskern,Anwendungskerns>> genutzt werden.
+Dabei können alle Dienste des xref:glossary:glossary:master.adoc#glossar-Anwendungskern[Anwendungskerns (Glossar)] genutzt werden.
 Die Service-Komponenten werden entsprechend den Anwendungskern-Komponente geschnitten, d.h. für jede Komponente des Kerns, die einen Service anbieten soll, wird eine eigene Service-Komponente implementiert.
 Service-Komponenten werden nicht mehrere Anwendungskern-Komponenten.
 Dies würde dem Gebot, in den Services keine Logik zu implementieren, widersprechen.
@@ -276,9 +272,8 @@ Dies würde dem Gebot, in den Services keine Logik zu implementieren, widersprec
 Der Aufbau der Komponente Service ist in <<image-TeileServ>> dargestellt.
 Intern besteht die Komponente „Service“ aus zwei Teilen: dem Service-Framework und der Service-Logik.
 
-:desc-image-TeileServ: Die Bestandteile von Services
+.Die Bestandteile von Services
 [id="image-TeileServ",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-TeileServ}
 image::TeileServ.png[align="center"]
 
 *Service-Framework:* Das Service-Framework ist die Bezeichnung für die Technologie, mit der die Services des Anwendungskerns zur Verfügung gestellt werden.
@@ -300,7 +295,7 @@ Dies liegt darin begründet, dass die Komponente Service-Logik die Funktionalit�
 Die Kernfunktionalität des Services ist also im Anwendungskern implementiert.
 Die Schnittstelle zwischen den Komponenten „Service“ und „Anwendungskern“ ist daher eine interne Schnittstelle.
 
-Weiterführende technische Details zu Services sind im Dokument <<DetailkonzeptKomponenteService>> enthalten.
+Weiterführende technische Details zu Services sind im Dokument xref:detailkonzept-komponente-service/master.adoc[Detailkonzept Komponente Service] enthalten.
 
 
 [[unterstuetzung-technischer-funktionalitaeten]]
@@ -308,8 +303,8 @@ Weiterführende technische Details zu Services sind im Dokument <<DetailkonzeptK
 
 Neben der GUI, Services, Batch, Anwendungskern und Persistenzschicht benötigt ein IT-System mehrere querschnittliche Funktionalitäten.
 Diese querschnittlichen Komponenten sind in jeweils eigenen Dokumenten beschrieben.
-Eine Übersicht dazu liefert das Dokument <<IsyFactEinstieg>>.
-// end::inhalt[]
+Eine Übersicht dazu liefert das Dokument<<TODO anderes Dokument: IsyFactEinstieg>>.
+
 
 // tag::architekturregel[]
 
@@ -319,3 +314,4 @@ Eine Übersicht dazu liefert das Dokument <<IsyFactEinstieg>>.
 // tag::sicherheit[]
 
 // end::sicherheit[]
+// end::inhalt[]

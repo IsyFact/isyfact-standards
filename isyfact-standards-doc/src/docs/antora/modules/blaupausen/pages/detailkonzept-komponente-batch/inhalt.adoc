@@ -26,12 +26,11 @@ Einige der Operationen von Anwendungskomponenten werden nur für Services, einig
 Mit vielen Systemen wird eine eigene Batch-Deploymenteinheit ausgeliefert.
 Diese wird folgendermaßen benannt.
 
-:desc-table-nambat:  Name einer Batchanwendung
+.Name einer Batchanwendung
 [id="table-nambat",reftext="{table-caption} {counter:tables}"]
-.{desc-table-nambat}
 [cols="1,4",options="header"]
 |====
-2+|{desc-table-nambat}
+2+|Name der Batchanwendung
 |*Schema* m|<anwendungsname>-batch
 |*Beispiele* m|xyz-ga-batch +
 xyz-register-batch
@@ -67,9 +66,8 @@ Diese Logik ist technisch gesehen keine Komponente, sondern eine Sammlung unabh�
 der Geschäftsanwendung.
 Im Dokument wird unter Batchlogik diese Klassensammlung und keine Komponente verstanden.
 
-:desc-image-AnwLogBat: Die Anwendungslogik eines Batches (Zielarchitektur)
+.Die Anwendungslogik eines Batches (Zielarchitektur)
 [id="image-AnwLogBat",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-AnwLogBat}
 image::AnwLogBat.png[align="center"]
 
 [[checkpoint-restart-logik]]
@@ -91,9 +89,8 @@ Abgelegt werden diese Daten in einer Batch-Statustabelle, welche für jeden Batc
 Die Verarbeitung von Massendaten durch einen Batch verläuft meist in mehreren Schritten: Die Verarbeitung einer Datei kann beispielsweise aus ihrer Übertragung auf einen internen Server, ihrer nachfolgenden Prüfung und der Verarbeitung ihres Inhalts bestehen.
 Diese Verarbeitungsschritte (_Batch-Schritte_) eines Batches bilden ein „Batch-Netz“. Jeder Schritt wird über den Aufruf eines Shell-Skripts gestartet.
 
-:desc-image-BatNetz: Ein Batch-Netz
+.Ein Batch-Netz
 [id="image-BatNetz",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-BatNetz}
 image::BatNetz.png[align="center"]
 
 Die meisten Batch-Schritte sind keine Anwendungen: Sie werden komplett über ein Skript umgesetzt.
@@ -142,9 +139,8 @@ Diese wird über eine Bibliothek bereitgestellt, welche in jede Geschäftsanwend
 
 Für den Batchrahmen wurde folgende grobe Architektur gewählt:
 
-:desc-image-GrobArchBatCanv: Grobe Architektur des Batchrahmens
+.Grobe Architektur des Batchrahmens
 [id="image-GrobArchBatCanv",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-GrobArchBatCanv}
 image::GrobArchBatCanv.png[align="center",width=80%,pdfwidth=80%]
 
 Der Batchrahmen besteht aus einem Startprogramm, welches notwendige Initialisierungen vornimmt, und einer Komponente Batchrahmen.
@@ -152,14 +148,14 @@ Die Komponente Batchrahmen übernimmt die Steuerung des Batches und den Aufruf d
 
 Die Komponenten einer Geschäftsanwendung werden für einen Batch, genau wie in der Webanwendung, über das Spring-Framework verwaltet.
 Damit die Konfigurationen für die Webanwendung und für die Batch-Implementierungen möglichst gleich sind, werden die Komponenten für den Batchrahmen und die Batchlogik in einer separaten Konfigurationsdatei und einem separaten Spring-Kontext abgelegt.
-Dieser Kontext ist ein Kind-Kontext des eigentlichen <<glossar-Anwendungskontext,Anwendungskontextes>> und kann alle Beans des Anwendungskontextes verwenden.
+Dieser Kontext ist ein Kind-Kontext des eigentlichen xref:glossary:glossary:master.adoc#glossar-Anwendungskontext[Anwendunskontextes (Glossar)] und kann alle Beans des Anwendungskontextes verwenden.
 So kann die Konfiguration der Webanwendung mit minimalen Anpassungen auch für den Batch verwendet werden.
 
 Der Batchrahmen benötigt für die Speicherung des Fortschritts und des Status der Batches eine Datenbankverbindung.
 In der Datei werden die vom Batchrahmen benötigten Informationen gespeichert, siehe <<die-tabellen-des-batchrahmens>>.
 
 Bei Bedarf können in einem Batch auch weitere Datenbankverbindungen genutzt werden.
-Die Einbindung weiterer Datenbanken ist in <<DetailkonzeptKomponenteDatenzugriff>> beschrieben.
+Die Einbindung weiterer Datenbanken ist in xref:detailkonzept-komponente-datenzugriff/master.adoc[Detailkonzept Komponente Datenzugriff] beschrieben.
 
 [[batches-als-eigenes-it-system]]
 === Batches als eigenes IT-System
@@ -276,13 +272,13 @@ Der Batchrahmen ruft (anhand einer Konfiguration) diese Logik auf.
 Da eine Batch-Anwendung über Spring verwaltet wird, wird die Batchlogik als Spring-Bean konfiguriert, als sogenannte _Ausführungsbean_.
 Diese Bean wiederum ruft die Geschäftsanwendungs-Komponenten auf, welche die fachliche Logik enthalten.
 
-Für die Vorlage-Anwendung <<Vorlageanwendung>> zeigt <<image-BeanGriffBat>> eine Auswahl der vorhandenen Beans.
+// Anmerkung: TODO - Die Vorlageanwendung ist eigentlich nicht mehr aktuell. Deswegen sollte der folgende Abschnitt überarbeitet oder ggf. entfernt werden.
+Für die Vorlage-Anwendung <<TODO anderes Dokument: Vorlageanwendung>> zeigt <<image-BeanGriffBat>> eine Auswahl der vorhandenen Beans.
 Wichtig ist ihre Verteilung auf zwei Anwendungskontexte: Der Batchrahmen und die Ausführungsbeans werden in einem eigenen Kontext konfiguriert.
 So müssen wenige Anpassungen vorgenommen werden, um aus der Anwendungskontext-Konfiguration als Webanwendung die Konfiguration für den Anwendungskontext im Batchbetrieb zu erhalten.
 
-:desc-image-BeanGriffBat: Bean-Zugriffe des Batchrahmens
+.Bean-Zugriffe des Batchrahmens
 [id="image-BeanGriffBat",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-BeanGriffBat}
 image::BeanGriffBat.png[align="center"]
 
 Für neue Batch-Implementierungen einer Geschäftsanwendung müssen ggf.
@@ -361,12 +357,11 @@ Konfigurationsparameter werden in der folgenden Reihenfolge im Spring-Kontext an
 ==== Kommandozeilen-Parameter
 ===== Namenskonvention
 //tag::namenskonvention[]
-:desc-table-batckonfig-konfigurationsparameter-kommandozeile: Batches: Konfigurationsparameter Kommandozeile
+.Batches: Konfigurationsparameter Kommandozeile
 [id="table-batckonfig-konfigurationsparameter-kommandozeile",reftext="{table-caption} {counter:tables}"]
-.{desc-table-batckonfig-konfigurationsparameter-kommandozeile}
 [cols="1,4",options="header"]
 |====
-2+|{desc-table-batckonfig-konfigurationsparameter-kommandozeile}
+2+|Batches: Konfigurationsparameter Kommandozeile
 |*Schema* m|-<Parametername> <Parameterwert>
 |*Beispiele* m|-laufzeit 10
 |====
@@ -375,9 +370,8 @@ Konfigurationsparameter werden in der folgenden Reihenfolge im Spring-Kontext an
 ===== Standard-Parameter
 Vom Batchrahmen werden folgende Kommandozeilen-Parameter interpretiert:
 
-:desc-table-CLIBATCanv: Kommandozeilen-Parameter des Batchrahmens
+.Kommandozeilen-Parameter des Batchrahmens
 [id="table-CLIBATCanv",reftext="{table-caption} {counter:tables}"]
-.{desc-table-CLIBATCanv}
 [cols="3,7",options="header"]
 |====
 |Parameter |Beschreibung
@@ -414,12 +408,11 @@ umgesetzt werden.
 
 ===== Namenskonvention
 
-:desc-table-batch-property-files: Batches: Benennung Konfigurationsdateien
+.Batches: Benennung Konfigurationsdateien
 [id="table-batch-property-files",reftext="{table-caption} {counter:tables}"]
-.{desc-table-batch-property-files}
 [cols="1,4",options="header"]
 |====
-2+|{desc-table-batch-property-files} (unter resources/resources/batch)
+2+|Batches: Benennung Konfigurationsdateien (unter resources/resources/batch)
 |*Schemata* m|<batchname-des-batches>.properties
 |*Beispiele* m|loeschfrist-pruefen.properties +
 import-bhknz-liste.properties
@@ -427,12 +420,11 @@ import-bhknz-liste.properties
 
 
 //tag::namenskonvention[]
-:desc-table-batckonfig-konfigurationsparameter-konfigurationsdatei: Batches: Konfigurationsparameter Konfigurationsdatei
+.Batches: Konfigurationsparameter Konfigurationsdatei
 [id="table-batckonfig-konfigurationsparameter-konfigurationsdatei",reftext="{table-caption} {counter:tables}"]
-.{desc-table-batckonfig-konfigurationsparameter-konfigurationsdatei}
 [cols="1,4",options="header"]
 |====
-2+|{desc-table-batckonfig-konfigurationsparameter-konfigurationsdatei}
+2+|Batches: Konfigurationsparameter Konfigurationsdatei
 |*Schema* m|<Parametername>=<Parameterwert> +
 <Parametername>.<Parametername>=<Parameterwert>
 |*Beispiele* m| BatchName=LoeschBatch +
@@ -447,9 +439,8 @@ Konfiguration in der Property-Datei hinzugefügt.
 
 Aus der Property-Datei werden durch den Batchrahmen folgende Properties gelesen:
 
-:desc-table-PropBATCanv: Die Properties des Batchrahmens
+.Die Properties des Batchrahmens
 [id="table-PropBATCanv",reftext="{table-caption} {counter:tables}"]
-.{desc-table-PropBATCanv}
 [cols="5,4",options="header"]
 |====
 |Property |Beschreibung
@@ -511,9 +502,8 @@ Um Beans gezielt aus der Spring-Konfiguration der Anwendung für die Ausführung
 Annotation `@ExludeFromBatchContext` verwendet werden.
 Damit werden mit `@Component` annotierte Klassen oder `@Bean`-Methoden in `@Configuration`-Klassen annotiert (<<listing-excludefrombatchcontext>>).
 
-:desc-listing-excludefrombatchcontext: Verwendung der Annotation @ExcludeFromBatchContext
+.Verwendung der Annotation @ExcludeFromBatchContext
 [id="listing-excludefrombatchcontext",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-excludefrombatchcontext}
 [source,java]
 ----
 @Component
@@ -537,9 +527,8 @@ Hierfür werden gesonderte `@Configuration`-Klassen erstellt.
 Der Batchrahmen benötigt für seine Checkpoint / Restart Funktionalität die Möglichkeit, bei jedem Commit den aktuellen Stand des Batches in einer Tabelle zu speichern.
 Dies wird über die Tabelle BatchStatus umgesetzt.
 
-:desc-image-SchemTabBatStat: Tabellen-Schema für die Batchrahmen-Tabelle
+.Tabellen-Schema für die Batchrahmen-Tabelle
 [id="image-SchemTabBatStat",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-SchemTabBatStat}
 image::SchemTabBatStat.png[align="center"]
 
 Die Tabelle BatchStatus enthält für jeden Batch eine Zeile.
@@ -547,9 +536,8 @@ Ein Batch ist nicht gleichzusetzen mit der Batch-Ausführungsbean.
 Für eine Bean darf es mehrere Batches geben, welche die Bean für die Ausführung jeweils anders konfigurieren.
 Für einen Batch werden folgende Informationen verwendet:
 
-:desc-table-SchemTabBatStat2: Das Schema der Tabelle BatchStatus
+.Das Schema der Tabelle BatchStatus
 [id="table-SchemTabBatStat2",reftext="{table-caption} {counter:tables}"]
-.{desc-table-SchemTabBatStat2}
 [cols="3,7",options="header"]
 |====
 |Spalte |Beschreibung
@@ -686,16 +674,14 @@ Für die Überwachung wird durch den Batchrahmen eine JMX-Bean bereitgestellt. �
 ----
 Über die Java Management Console kann man danach auf die Daten zugreifen:
 
-:desc-image-JMXOverBat: Die JMX Überwachung eines Batches
+.Die JMX Überwachung eines Batches
 [id="image-JMXOverBat",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-JMXOverBat}
 image::JMXOverBat.png[align="center"]
 
 Bereitgestellt werden folgende Informationen:
 
-:desc-table-JMXAttr: JMX-Attribute
+.JMX-Attribute
 [id="table-JMXAttr",reftext="{table-caption} {counter:tables}"]
-.{desc-table-JMXAttr}
 [cols="1,2",options="header"]
 |====
 |Property |Beschreibung
@@ -731,7 +717,7 @@ Datei `JRE_HOME/lib/management/jmxremote.access` readwrite-Zugriff erlaubt ist.
 Ein Batch wird innerhalb der Plattform gestartet.
 Dazu verwendet der Batch die Benutzerkennung eines technischen Benutzers „internes System“, die in seiner Startkonfiguration (als Konfigurationsdatei) hinterlegt und im Benutzerverzeichnis vorhanden ist.
 
-Der Batchrahmen nutzt die T-Komponente Sicherheit (siehe <<NutzungsvorgabenSicherheit>>), um den anfragenden Benutzer über den Access-Manager der Plattform zu authentifizieren.
+Der Batchrahmen nutzt die T-Komponente Sicherheit (siehe <<TODO anderes Dokument: NutzungsvorgabenSicherheit>>), um den anfragenden Benutzer über den Access-Manager der Plattform zu authentifizieren.
 Der Access-Manager authentifiziert den Benutzer anhand der angegebenen Benutzerkennung und des Passwortes, registriert alle Informationen zum Benutzer in der T-Komponente AufrufKontextVerwalter und schließt die Session des Benutzers im Access-Manager.
 
 Im Zuge des Batchlaufs können nun über die T-Komponente Sicherheit Berechtigungsprüfungen (z.B. im Anwendungskern) stattfinden.
@@ -747,9 +733,8 @@ public BatchAuthenticationCredentials getAuthenticationCredentials(
 
 Folgende Informationen zum Benutzer sind anzugeben
 
-:desc-table-CharBatUse: Die Eigenschaften des Batchbenutzers
+.Die Eigenschaften des Batchbenutzers
 [id="table-CharBatUse",reftext="{table-caption} {counter:tables}"]
-.{desc-table-CharBatUse}
 [cols="2,8",options="header"]
 |====
 |Property |Beschreibung
@@ -787,9 +772,8 @@ Dieses Startskript soll in der Batch-Anwendung unter `<batch-projekt>/src/main/r
 
 Ein beispielhaftes Shellskript zum Aufruf eines Batches kann dieses Skript dann nutzen und folgendermaßen aussehen:
 
-:desc-listing-BSPStartBAT: Beispielhaftes Startskript für einen Batch
+.Beispielhaftes Startskript für einen Batch
 [id="listing-BSPStartBAT",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-BSPStartBAT}
 [source,bash]
 ----
 #!/bin/bash
@@ -821,9 +805,8 @@ Der Pfad der Ergebnisdatei wird über einen Konfigurationsparameter des Batches 
 Kapitel <<konfigurationsdatei-und-kommandozeilen-parameter>>). Ist dieser Parameter nicht vorhanden, so wird auch keine Ergebnisdatei geschrieben.
 Die Ergebnisdatei hat den folgenden Aufbau:
 
-:desc-table-FormAusDat: Format der Ergebnisdatei
+.Format der Ergebnisdatei
 [id="table-FormAusDat",reftext="{table-caption} {counter:tables}"]
-.{desc-table-FormAusDat}
 [cols="4,2,1,6",options="header"]
 |====
 |XML-Pfad |Attribut |Typ |Bedeutung
@@ -887,9 +870,8 @@ Pro Batch müssen die möglichen Rückgabewerte definiert werden.
 Die folgenden Werte sind reserviert und müssen von jedem Batch zurückgegeben werden, wenn das entsprechende
 Ereignis eingetreten ist:
 
-:desc-table-GenRetCodeBatCanv: Allgemeine Return-Codes des Batchrahmens
+.Allgemeine Return-Codes des Batchrahmens
 [id="table-GenRetCodeBatCanv",reftext="{table-caption} {counter:tables}"]
-.{desc-table-GenRetCodeBatCanv}
 [cols=">1,5",options="header"]
 |====
 |Return-Code |Bedeutung
@@ -984,12 +966,11 @@ Ausführungsbeans folgend folegender Namenskonvention:
 //tag::namenskonvention[]
 Analog zu den Anwendungsfällen werden Batchklassen mit dem Präfix `Bat` gekennzeichnet.
 
-:desc-table-batclass2: Batches: Klassen
+.Batches: Klassen
 [id="table-batclass2",reftext="{table-caption} {counter:tables}"]
-.{desc-table-batclass2}
 [cols="1,4",options="header"]
 |====
-2+|{desc-table-batclass2}
+2+|Batches: Klassen
 |*Schema* m|Bat<Batchname>
 |*Beispiele* m|BatLoeschfristPruefen +
 BatSendenAllerInformationen
@@ -1200,12 +1181,11 @@ weiteren Dateien:
 Ein Shell-Skript muss folgender Namenskonvention folgen:
 //tag::namenskonvention[]
 
-:desc-table-shellskript: Batches: Shellskript
+.Batches: Shellskript
 [id="table-shellskript",reftext="{table-caption} {counter:tables}"]
-.{desc-table-shellskript}
 [cols="1,4",options="header"]
 |====
-2+|{desc-table-shellskript}
+2+|Batches: Shellskript
 |*Schemata* m|<batchname-des-batches>.sh
 |*Beispiele* m|loeschfrist-pruefen.sh +
 import-bhknz-liste.sh

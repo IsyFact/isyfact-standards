@@ -4,7 +4,7 @@
 [[Einleitung]]
 == Einleitung
 
-Gemäß den Vorgaben der <<IsyFactReferenzarchitektur>> basiert die Architektur eines IT-Systems auf der bekannten Drei-Schichten-Architektur.
+Gemäß den Vorgaben der xref:referenzarchitektur/master.adoc[Referenzarchitektur] basiert die Architektur eines IT-Systems auf der bekannten Drei-Schichten-Architektur.
 Eine dieser Schichten ist die Persistenzschicht.
 In dieser Schicht ist alle Funktionalität enthalten, die zum Erzeugen, Suchen, Bearbeiten und Löschen von Datensätzen benötigt wird.
 Der Zugriff auf eine relationale Datenbank ist in dieser Schicht vollständig gekapselt.
@@ -12,9 +12,8 @@ In Richtung Datenbank kommuniziert diese Schicht mittels JDBC und SQL, in Richtu
 
 In <<image-IFRefArcITSsysPers>> ist die Referenzarchitektur eines IT-Systems noch einmal dargestellt, wobei die Persistenzschicht mit der Komponente Datenhaltung hervorgehoben ist.
 
-:desc-image-IFRefArcITSsysPers: Referenzarchitektur eines IT-Systems
+.Referenzarchitektur eines IT-Systems
 [id="image-IFRefArcITSsysPers",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-IFRefArcITSsysPers}
 image::IFRefArcITSsysPers.png[align="center"]
 
 Dieses Dokument beschreibt die Vorgaben zur Umsetzung einer solchen Persistenzschicht im Detail.
@@ -27,10 +26,10 @@ Das Dokument legt außerdem allgemeine Vorgaben für das Persistenzmodell (die d
 Das Thema Transaktionssteuerung wird nicht im Rahmen des Datenzugriffs behandelt, da Transaktionen in der IsyFact über den Anwendungskern bzw. die Nutzungsschicht gesteuert werden.
 Mehr zu diesem Thema ist in den anderen Detailkonzepten enthalten:
 
-* <<DetailkonzeptKomponenteAnwendungskern>>
-* <<DetailkonzeptKomponenteBatch>>
-* <<DetailkonzeptKomponenteService>>
-* <<DetailkonzeptKomponenteWebGUI>>
+* xref:detailkonzept-komponente-anwendungskern/master.adoc[Detailkonzept Komponente Anwendungskern]
+* xref:detailkonzept-komponente-batch/master.adoc[Detailkonzept Komponente Batch]
+* xref:detailkonzept-komponente-service/master.adoc[Detailkonzept Komponente Service]
+* xref:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Komponente Web-GUI]
 
 ====
 
@@ -42,9 +41,10 @@ Die Vorgaben zum Thema JPA/Hibernate betreffen die folgenden Themenbereiche:
 * Die Verwendung von JPA in der Anwendung, vor allem das Zusammenspiel mit dem Spring Framework.
 
 NOTE: Dieses Dokument ist keine allgemeine Anleitung zur Verwendung von JPA.
-Für den Einstieg in JPA mit Hibernate ist das Buch „Java Persistence with Hibernate“ <<BaKi07>> sehr zu empfehlen.
+Für den Einstieg in JPA mit Hibernate ist das Buch „Java Persistence with Hibernate“ <<TODO BUCH BaKi07>> sehr zu empfehlen.
 
-Für ein Verständnis der in diesem Dokument geforderten JPA-Nutzung ist vor allem die <<Vorlageanwendung>> zu empfehlen.
+// TODO Frage: Ist hier ein Verweis auf die Vorlageanwendung noch sinnvoll
+Für ein Verständnis der in diesem Dokument geforderten JPA-Nutzung ist vor allem die <<TODO anderes Dokument: Vorlageanwendung>> zu empfehlen.
 Die:
 
 * Konfiguration in der Datei `application.properties`,
@@ -64,17 +64,17 @@ Auf Grund dieser Anforderungen wird versucht, möglichst ausschließlich die Mec
 Nur wo dies nicht möglich ist, darf auf die Hibernate-Implementierung zugegriffen werden.
 Dabei wird in diesem Dokument die Verwendung bestimmter Hibernate-Features verboten bzw. von ihrer Verwendung abgeraten.
 
-Abweichungen zu den Vorgaben dieses Dokuments müssen als Architekturentscheidung im <<IsyFactSystementwurf>> dokumentiert werden.
+Abweichungen zu den Vorgaben dieses Dokuments müssen als Architekturentscheidung im <<TODO anderes Dokument: IsyFactSystementwurf>> dokumentiert werden.
 
 Dieses Dokument ist wie folgt aufgebaut:
 
-* Zunächst werden in Kapitel <<anforderungen>> die Anforderungen an die Komponente Datenzugriff kurz motiviert.
-* Anschließend werden in Kapitel <<persistenz>> grundsätzliche Regeln vorgestellt, wie die Abbildung von Objekten auf Datenbanken stattfinden soll.
-* Das Kapitel <<die-definition-des-mappings-zwischen-objekten-und-datenbank>> vertieft anschließend das Thema Mapping, wobei konkrete Hinweise zur Abbildung von Attributen auf Datenbankfelder gegeben werden.
+* Zunächst werden im Kapitel xref:detailkonzept-komponente-datenzugriff/master.adoc#anforderungen[Anforderungen] die Anforderungen an die Komponente Datenzugriff kurz motiviert.
+* Anschließend werden im Kapitel xref:detailkonzept-komponente-datenzugriff/master.adoc#persistenz[Persistenz] grundsätzliche Regeln vorgestellt, wie die Abbildung von Objekten auf Datenbanken stattfinden soll.
+* Das Kapitel xref:detailkonzept-komponente-datenzugriff/master.adoc#die-definition-des-mappings-zwischen-objekten-und-datenbank[Die Definition des Mappings zwischen Objekten und Datenbank] vertieft anschließend das Thema Mapping, wobei konkrete Hinweise zur Abbildung von Attributen auf Datenbankfelder gegeben werden.
 * Im Anschluss daran wird die konkrete Nutzung des Datenbankzugriffs in der Anwendung beschrieben.
-Zunächst wird gezeigt, wie Spring Data JPA aus der Anwendung heraus genutzt werden soll (Kapitel <<verwendung-von-jpa-in-der-anwendung>>).
-Anschließend wird erläutert, wie Datenbank-Abfragen durchgeführt werden (Kapitel <<jpql-fuer-datenbank-abfragen-nutzen>>).
-* Die generelle Konfiguration von JPA und Hibernate ist in Kapitel <<konfiguration-von-jpa-und-hibernate-in-der-anwendung>> beschrieben.
-* Abschließend wird noch das Thema Historisierung (Kapitel <<historisierung>>) behandelt.
+Zunächst wird gezeigt, wie Spring Data JPA aus der Anwendung heraus genutzt werden soll (Kapitel xref:detailkonzept-komponente-datenzugriff/master.adoc#verwendung-von-jpa-in-der-anwendung[Verwendung von JPA in der Anwendung] ).
+Anschließend wird erläutert, wie Datenbank-Abfragen durchgeführt werden (Kapitel xref:detailkonzept-komponente-datenzugriff/master.adoc#jpql-fuer-datenbank-abfragen-nutzen[JPQL für Datenbankabfragen nutzen] ).
+* Die generelle Konfiguration von JPA und Hibernate ist im Kapitel xref:detailkonzept-komponente-datenzugriff/master.adoc#konfiguration-von-jpa-und-hibernate-in-der-anwendung[Konfiguration von JPA und Hibernate in der Anwendung] beschrieben.
+* Abschließend wird noch das Thema Historisierung (Kapitel xref:detailkonzept-komponente-datenzugriff/master.adoc#historisierung[Historisierung] ) behandelt.
 
 // end::inhalt[]

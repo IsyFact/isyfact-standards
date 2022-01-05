@@ -5,7 +5,7 @@
 * xref:detailkonzept-komponente-web-gui/master.adoc[Web GUI - Detailkonzept]
 * xref:referenzarchitektur/master.adoc[Referenzarchitektur]
 * xref:referenzarchitektur-it-system/master.adoc[Referenzarchitektur IT-System]
-* xref:vorgaben-architektur/master.adoc[Anwendungskern - Architektur - Vorgaben]
-* xref:vorgaben-it-sicherheit/master.adoc[Anwendungskern -IT-Sicherheit - Vorgaben]
+* xref:vorgaben-architektur/master.adoc[Architektur - Vorgaben]
+* xref:vorgaben-it-sicherheit/master.adoc[IT-Sicherheit - Vorgaben]
 
 

@@ -1,5 +1,4 @@
 = IsyFact-Referenzarchitektur: Inhalt
-#:imagesdir: images
 
 // tag::inhalt[]
 [[uebersicht]]
@@ -17,7 +16,7 @@ Im Folgenden wird beschrieben, was die Idee hinter der IsyFact ist und welche in
 [[die-idee-der-isyfact]]
 ==== Die Idee der IsyFact
 
-Beschäftigt man sich mit dem Entwurf und der Implementierung von Anwendungslandschaften, so stellt man fest, dass sich die einzelnen <<glossar-Geschaeftsanwendung,Geschäftsanwendungen>> im Allgemeinen sehr ähnlich sind.
+Beschäftigt man sich mit dem Entwurf und der Implementierung von Anwendungslandschaften, so stellt man fest, dass sich die einzelnen xref:glossary:glossary:master.adoc#glossar-Geschaeftsanwendung[Geschäftsanwendung (Glossar)] im Allgemeinen sehr ähnlich sind.
 Viele Problemstellungen müssen nur einmal gelöst werden und können dann wiederverwendet werden.
 
 Die IsyFact wurde entwickelt, um unterschiedliche Geschäftsanwendungen effizient entwerfen, realisieren und betreiben zu können.
@@ -31,34 +30,33 @@ Weitere Vorteile sind höhere Sicherheit und Softwarequalität durch Einsatz erp
 [[durch-die-isyfact-abgedeckte-bereiche]]
 ==== Durch die IsyFact abgedeckte Bereiche
 
-:desc-image-IFBereiche: Durch die IsyFact abgedeckte Bereiche
+.Durch die IsyFact abgedeckte Bereiche   (TODO Bild fehlt)
 [id="image-IFBereiche",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-IFBereiche}
-image::../assets/images/IFBereiche.png[align="center",pdfwidth=45%,width=45%]
+image::IFBereiche.png[align="center",pdfwidth=45%,width=45%]
 
 Die IsyFact bietet standardisierte Lösungen zu wichtigen Themen beim Bau von Geschäftsanwendungen.
 Der Entwickler kann sich dadurch ganz auf die strukturellen und operativen Besonderheiten seiner Geschäftsanwendung konzentrieren.
 
 Die Lösungen decken fünf Bereiche ab: Blaupausen, Bausteine, Betriebsplattform, Methodik und Werkzeuge.
 
-*Blaupausen:* <<glossar-Blaupause,Blaupausen>> beschreiben die vorgegebene Architektur und Konzepte einer Anwendungslandschaft für den Betrieb von Geschäftsanwendungen aus drei verschiedenen Sichten: der fachlichen Sicht, der Sicht der softwaretechnischen Umsetzung und der Sicht der technischen Infrastruktur.
+*Blaupausen:* xref:glossary:glossary:master.adoc#glossar-Blaupause[Blaupausen (Glossar)] beschreiben die vorgegebene Architektur und Konzepte einer Anwendungslandschaft für den Betrieb von Geschäftsanwendungen aus drei verschiedenen Sichten: der fachlichen Sicht, der Sicht der softwaretechnischen Umsetzung und der Sicht der technischen Infrastruktur.
 
-*Bausteine:* <<glossar-Baustein,Bausteine>> sind konkrete, strukturierte Lösungen zur Umsetzung der in den Blaupausen beschriebenen Architektur und Konzepte.
+*Bausteine:* xref:glossary:glossary:master.adoc#glossar-Baustein[Bausteine (Glossar)] sind konkrete, strukturierte Lösungen zur Umsetzung der in den Blaupausen beschriebenen Architektur und Konzepte.
 Bausteine sind wieder verwendbare Softwarelösungen, z.B. ein Regelwerk für fachliche Konsistenzprüfungen oder Komponenten zur Protokollierung.
 Diese Bausteine liegen in unterschiedlichen Formen vor: Es gibt fachliche und technische Services im Sinne einer serviceorientierten Architektur (SOA) und wieder verwendbare Bibliotheken und Programmiervorlagen.
 Dazu gehören auch am Markt verfügbare Fertigprodukte, für die detaillierte Nutzungsvorgaben erstellt wurden.
 
-*Betriebsplattform:* Die <<glossar-Plattform>> definiert allgemeine Vorgaben und Rahmenbedingungen für den Betrieb von Anwendungslandschaften, die sich aus der Verwendung der IsyFact ergeben.
+*Betriebsplattform:* Die xref:glossary:glossary:master.adoc#glossar-Portal[Portal (Glossar)] definiert allgemeine Vorgaben und Rahmenbedingungen für den Betrieb von Anwendungslandschaften, die sich aus der Verwendung der IsyFact ergeben.
 Es werden Rechner-, Unterstützungsprogramm- und Netzwerkstrukturen beschrieben.
 Die Betriebsplattform besteht aus Hardware und Netzen sowie der benötigten Middleware mit Anwendungsserver oder Datenbankserver und ist hochverfügbar.
 Diese Plattform ist über alle Geschäftsanwendungen einheitlich und ermöglicht so einen standardisierten und effizienten Systembetrieb.
 
-*Methodik:* Im Rahmen einer Software-Factory bildet die <<glossar-Methodik>> die Grundlage für die Umsetzung von Geschäftsanwendungen.
+*Methodik:* Im Rahmen einer Software-Factory bildet die xref:glossary:glossary:master.adoc#glossar-Methodik[Methodik (Glossar)] die Grundlage für die Umsetzung von Geschäftsanwendungen.
 Die Methodik der IsyFact bietet verschiedene Vorschläge zu allen Phasen des Software-Entwicklungsprozesses, wie z. B. Vorlagen für die Spezifikation oder die Programmierung.
 Dieses Dokument ist V-Modell®-XT konform.
 
 *Werkzeuge:* Die IsyFact setzt auf Automatisierung und Werkzeugunterstützung bei der Erstellung von Registern.
-Dazu bietet sie Konfigurationsanleitungen ausgewählter <<glossar-Werkzeug,Werkzeuge>>, z. B. für die Modellierung, die Programmierung, Tests oder die Fehlerverfolgung.
+Dazu bietet sie Konfigurationsanleitungen ausgewählter xref:glossary:glossary:master.adoc#glossar-Werkzeug[Werkzeug (Glossar)], z. B. für die Modellierung, die Programmierung, Tests oder die Fehlerverfolgung.
 
 [[einordnung-der-referenzarchitektur-in-die-isyfact]]
 === Einordnung der Referenzarchitektur in die IsyFact
@@ -77,15 +75,15 @@ Dabei wird die Referenzarchitektur als Ausgangspunkt genommen und an den Stellen
 Im Rahmen der Referenzarchitektur wird eine solche Anwendungslandschaft aus der fachlichen Sicht, der Sicht der softwaretechnischen Umsetzung und der Sicht der technischen Infrastruktur betrachtet.
 Für jede Sicht wird eine Referenzarchitektur definiert:
 
-*Fachliche Referenzarchitektur:* Hierunter fällt eine fachliche Beschreibung der <<glossar-Anwendungslandschaft>>.
+*Fachliche Referenzarchitektur:* Hierunter fällt eine fachliche Beschreibung der xref:glossary:glossary:master.adoc#glossar-Anwendungslandschaft[Anwendungslandschaft (Glossar)].
 Die gesamte Anwendungslandschaft wird in fachliche Komponenten zerlegt, die miteinander über fachliche Schnittstellen interagieren.
 Jegliche technischen Aspekte sind dabei nicht von Belang.
 Die fachliche Referenzarchitektur wird in Kapitel <<die-fachliche-referenzarchitektur>> definiert.
 
-*Software-Referenzarchitektur:* Hierunter fällt eine software-technische Beschreibung der <<glossar-Systemlandschaft>>.
+*Software-Referenzarchitektur:* Hierunter fällt eine software-technische Beschreibung der xref:glossary:glossary:master.adoc#glossar-Systemlandschaft[Systemlandschaft (Glossar)].
 Die gesamte Systemlandschaft wird in technische Komponenten zerlegt, die miteinander über technische Schnittstellen interagieren.
 Jegliche Abbildung auf physikalische Systeme und deren Infrastruktur sind dabei nicht von Belang.
-Die Software-Referenzarchitektur wird in der <<IsyFactReferenzarchitekturITSystem>> definiert.
+Die Software-Referenzarchitektur wird in der xref:referenzarchitektur-it-system/master.adoc#einleitung[Referenzarchitektur IT-Systeme] definiert.
 
 *Referenzarchitektur der technischen Infrastruktur:* Ist eine Beschreibung der Systemlandschaft aus dem Blickwinkel der technischen Infrastruktur.
 Es wird beschrieben, welche technischen Systeme existieren und welche technischen Komponenten auf ihnen laufen.
@@ -103,7 +101,7 @@ Hierdurch verbessert sich die Verständlichkeit, Wartbarkeit und Betreibbarkeit 
 *Effizienz:* Durch die Verwendung vorhandener Querschnittssysteme, Bibliotheken, Generatoren, Beispielanwendungen und die Vorgaben der Referenzarchitektur können die Anwendungssysteme effizienter entwickelt und gewartet werden.
 Durch die infrastrukturelle und betriebliche Gleichartigkeit der Anwendungssysteme können diese effizienter betrieben werden.
 
-*Sicherheit:* Die Referenzarchitektur sieht bewährte Technologien und Produkte, eine Infrastruktur nach der Architekturrichtlinie für die IT des Bundes <<ArchitekturRichtlinieITBund>>, und nach klaren architektonischen Vorgaben erstellte Anwendungssysteme vor.
+*Sicherheit:* Die Referenzarchitektur sieht bewährte Technologien und Produkte, eine Infrastruktur nach der Architekturrichtlinie für die IT des Bundes <<TODO anderes Dokument: ArchitekturRichtlinieITBund>>, und nach klaren architektonischen Vorgaben erstellte Anwendungssysteme vor.
 Die Risiken für Ausfälle, Fehler oder Sicherheitslücken wird hierdurch reduziert und die Zukunftssicherheit der Anwendungssysteme erhöht.
 
 *Erfahrung:* In die Definition der Referenzarchitektur sind wertvolle Erfahrungen zur Umsetzung großer und verteilter Softwaresysteme im Allgemeinen und Registern im Speziellen eingeflossen.
@@ -120,17 +118,16 @@ Die IsyFact-Referenzarchitektur hat das Ziel, eine möglichst große Bandbreite 
 Daher trifft sie zunächst kaum Annahmen über die Struktur der Systemlandschaft oder die Art der darin enthaltenen Systeme.
 Auf einer allgemeinen Ebene unterscheidet die IsyFact-Referenzarchitektur lediglich zwischen Geschäftsanwendungen, welche die Geschäftsprozesse innerhalb der Systemlandschaft implementieren einerseits, und andererseits den Querschnittssystemen, Service-Gateways und dem Portal, die als unterstützende Systeme wesentliche Strukturkonzepte der IsyFact umsetzen.
 
-In einem spezifischen <<glossar-Anwendungskontext>> wird man in der Regel jedoch viel weitergehende Festlegungen innerhalb der Anwendungs-Architektur treffen, die die Fachlichkeit des Kontexts abbilden.
-Diese kontextspezifischen Festlegungen werden in einem eigenen _Tailoring-Dokument_ <<TailoringVorlage>> festgehalten, das beschreibt, wie die IsyFact im betreffenden Anwendungskontext einzusetzen ist.
+In einem spezifischen xref:glossary:glossary:master.adoc#glossar-Anwendungskontext[Anwendunskontextes (Glossar)] wird man in der Regel jedoch viel weitergehende Festlegungen innerhalb der Anwendungs-Architektur treffen, die die Fachlichkeit des Kontexts abbilden.
+Diese kontextspezifischen Festlegungen werden in einem eigenen _Tailoring-Dokument_ <<TODO anderes Dokument: TailoringVorlage>> festgehalten, das beschreibt, wie die IsyFact im betreffenden Anwendungskontext einzusetzen ist.
 Insbesondere enthält das Tailoring-Dokument die Arten von Geschäftsanwendungen und ihre Beziehungen untereinander.
 
 Gemeinsam mit dem vorliegenden Dokument definiert das Tailoring Dokument die Referenzarchitektur für eine spezifische Fachlichkeit in einem Anwendungskontexts (Kontext-Fachlichkeit). Dadurch ist es möglich, die Software-Architektur und die Architektur der technischen Infrastruktur in unterschiedlichen Kontexten zu verwenden und auf eine spezifische Fachlichkeit anzupassen.
 Dies ist in <<image-AnptRAafK>> dargestellt.
 
-:desc-image-AnptRAafK: Anpassung der technischen Referenzarchitekturen auf den fachlichen Kontext
+.Anpassung der technischen Referenzarchitekturen auf den fachlichen Kontext
 [id="image-AnptRAafK",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-AnptRAafK}
-image::../assets/images/AnptRAafK.png[align="center"]
+image::AnptRAafK.png[align="center"]
 
 [[die-fachliche-referenzarchitektur]]
 == Die fachliche Referenzarchitektur
@@ -146,35 +143,34 @@ Die fachliche Architektur einer Anwendungslandschaft gibt hier die Strukturierun
 
 Diese fachliche Architektur einer Anwendungslandschaft ist in <<image-GA-AW2>> dargestellt.
 
-:desc-image-GA-AW2: Fachliche Architektur einer Anwendungslandschaft
+.Fachliche Architektur einer Anwendungslandschaft
 [id="image-GA-AW2",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-GA-AW2}
-image::../assets/images/GA-AW.png[align="center"]
+image::GA-AW.png[align="center"]
 
 [[die-strukturierung-der-anwendungslandschaft]]
 === Die Strukturierung der Anwendungslandschaft
 
-Zur Strukturierung der <<glossar-Anwendungslandschaft>> werden drei fachliche Hierarchieebenen festgelegt:
+Zur Strukturierung der xref:glossary:glossary:master.adoc#glossar-Anwendungslandschaft[Anwendungslandschaft (Glossar)] werden drei fachliche Hierarchieebenen festgelegt:
 
-*<<glossar-Anwendungsdomaene,Anwendungsdomaene>>:* Auf der obersten Hierarchieebene werden Anwendungsdomänen gebildet: Anwendungsdomänen sind fachlich eng zusammengehörige Mengen von Anwendungssystemen
+*xref:glossary:glossary:master.adoc#glossar-Anwendungsdomaenelandschaft[Anwendungsdomäne (Glossar)]:* Auf der obersten Hierarchieebene werden Anwendungsdomänen gebildet: Anwendungsdomänen sind fachlich eng zusammengehörige Mengen von Anwendungssystemen
 zur Unterstützung von Geschäftsprozessen, die als eine Einheit angesehen werden können.
 In <<image-GA-AW2>> wurden zwei Domänen gebildet, erkennbar an den unteren schwarzen Kästen mit der Beschriftung „Domäne“.
 
 Zwischen den Anwendungssystemen unterschiedlicher Anwendungsdomänen sollten nur wenige, klar definierte Nutzungsbeziehungen existieren.
 
-*<<glossar-Anwendungssystem,Anwendungssysteme>>:* Ein Anwendungssystem ist eine zusammengehörende, logische Einheit aus Funktionen, Daten und Benutzungsschnittstellen.
+*xref:glossary:glossary:master.adoc#glossar-Anwendungssystem[Anwendungssystem (Glossar)]:* Ein Anwendungssystem ist eine zusammengehörende, logische Einheit aus Funktionen, Daten und Benutzungsschnittstellen.
 Geschäftsprozesse werden durch Anwendungssysteme unterstützt.
 Anwendungssysteme sind einer Anwendungsdomäne zugeordnet.
 Anwendungssysteme setzen sich aus Anwendungskomponenten zusammen.
 Im Rahmen der allgemeinen Referenzarchitektur werden zunächst nur Geschäftsanwendungen und Querschnittssysteme als Typen von Anwendungssystemen unterschieden Eine weitergehende Unterscheidung der Geschäftsanwendungen muss im Rahmen des Tailorings der Referenzarchitektur erfolgen.
 
-* *<<glossar-Geschaeftsanwendung,Geschäftsanwendungen>>:* Eine Geschäftsanwendung implementiert für sich genommen oder im Zusammenspiel mit anderen Geschäftsanwendungen einen oder mehrere Geschäftsprozesse einer Anwendungsdomäne.
+* *xref:glossary:glossary:master.adoc#glossar-Geschaeftsanwendung[Geschäftsanwendung (Glossar)]:* Eine Geschäftsanwendung implementiert für sich genommen oder im Zusammenspiel mit anderen Geschäftsanwendungen einen oder mehrere Geschäftsprozesse einer Anwendungsdomäne.
 Sie implementiert entweder die gesamte hierfür notwendige Funktionalität (monolithisch), von der Benutzerschnittstelle über die fachliche Logik, die Prozesse bis hin zur Datenhaltung.
 Oder die Geschäftsanwendung implementiert nur einen Teilbereich der Funktionalität und greift für den Rest über Schnittstellen auf benachbarte Geschäftsanwendungen zu.
 
-* *<<glossar-Querschnittssystem,Querschnittssysteme>>* sind Anwendungssysteme, die Basisdienste für mehrere Geschäftsanwendungen bereitstellen, wie z. B. ein Behördenverzeichnis oder ein Outputmanagement.
+* *xref:glossary:glossary:master.adoc#glossar-Querschnittssystem[Querschnittssysteme(Glossar)]* sind Anwendungssysteme, die Basisdienste für mehrere Geschäftsanwendungen bereitstellen, wie z. B. ein Behördenverzeichnis oder ein Outputmanagement.
 
-*<<glossar-Anwendungskomponente,Anwendungskomponenten>>:* Eine Anwendungskomponente beschreibt eine Menge funktional zusammenhängender Anwendungsfälle.
+* *xref:glossary:glossary:master.adoc#glossar-Anwendungskomponente[Anwendungskomponenten(Glossar)]:* Eine Anwendungskomponente beschreibt eine Menge funktional zusammenhängender Anwendungsfälle.
 Anwendungskomponenten sind Bestandteile von Anwendungs­systemen.
 Im Rahmen weitergehender Architekturvorgaben beim Einsatz der IsyFact in einem konkreten Anwendungskontext wird man in der Regel auch vorgeben, welche Arten von Anwendungssystemen es in diesem Kontext geben soll und aus welchen Komponenten sie bestehen.
 
@@ -205,11 +201,11 @@ Die Besonderheit der Software-Referenzarchitektur ist, dass sie nicht zwischen S
 Obwohl unterschiedliche Systeme sehr unterschiedliche Fachlichkeiten umsetzen können, sind die Anforderungen an ihre technische Architektur gleich.
 
 Der Begriff der Anwendungslandschaft ist fachlich motiviert.
-Die technische Entsprechung hierfür ist der Begriff der <<glossar-Systemlandschaft>>.
+Die technische Entsprechung hierfür ist der Begriff der xref:glossary:glossary:master.adoc#glossar-Systemlandschaft[Systemlandschaft (Glossar)].
 Eine Systemlandschaft, die eine Anwendungslandschaft nach den IsyFact-Standards umsetzt, wird im Folgenden als _IsyFact-Systemlandschaft_ bezeichnet.
 Eine solche IsyFact-Systemlandschaft beinhaltet alle software-technisch umgesetzten Anwendungssysteme der Anwendungslandschaft sowie technische Systeme zur Unterstützung (z. B. Datenbanken, Web-Server, usw.).
 
-Die technische Architektur eines IT-Systems wird in <<IsyFactReferenzarchitekturITSystem>> definiert.
+Die technische Architektur eines IT-Systems wird in xref:referenzarchitektur-it-system/master.adoc#einleitung[Referenzarchitektur IT-Systeme] definiert.
 Im Folgenden wird, aufbauend auf diesem Konzept, beschrieben:
 
 * welche Eigenschaften bezogen auf die technische Referenzarchitektur die Typen von Anwendungssystemen in einer IsyFact-Systemlandschaft besitzen (Kapitel <<strukturierung-der-systemlandschaft>>),
@@ -227,7 +223,7 @@ Authentifizierung und Autorisierung als auch (bei automatisierten Schnittstellen
 
 Im Folgenden werden die Schnittstellen und Aufrufbeziehungen pro Anwendungssystemtyp erläutert.
 
-*Das <<glossar-Service-Gateway>>:* Service-Gateway-Systeme haben die Aufgabe, Aufrufe von internen Anwendungssystemen an externe Systeme und Aufrufe von externen Systemen
+*Das xref:glossary:glossary:master.adoc#glossar-Service-Gateway[Service Gateway (Glossar)]:* Service-Gateway-Systeme haben die Aufgabe, Aufrufe von internen Anwendungssystemen an externe Systeme und Aufrufe von externen Systemen
 an interne Anwendungssysteme weiterzuleiten und dabei unterschiedliche Schnittstellentechnologien zu überbrücken.
 
 Für die Weiterleitung von Aufrufen enthält ein Service-Gateway die folgenden Funktionalitäten:
@@ -238,8 +234,8 @@ Es kapselt die Webservice-Technologie vor den internen Systemen.
 
 Ein Service-Gateway-System besitzt weder eine eigene Datenhaltung noch eigene Fachlichkeit.
 
-*Die <<glossar-Geschaeftsanwendung>>*: Eine Geschäftsanwendung implementiert allgemein die Geschäftsprozesse einer Domäne.
-Geschäftsanwendungen können monolithisch strukturiert sein und alle Schichten der Software-Architektur umfassen, von der Benutzeroberfläche über Prozesse und <<glossar-Geschaeftslogik>> bis hin zur Datenspeicherung.
+*Die xref:glossary:glossary:master.adoc#glossar-Geschaeftsanwendung[Geschäftsanwendung (Glossar)]*: Eine Geschäftsanwendung implementiert allgemein die Geschäftsprozesse einer Domäne.
+Geschäftsanwendungen können monolithisch strukturiert sein und alle Schichten der Software-Architektur umfassen, von der Benutzeroberfläche über Prozesse und xref:glossary:glossary:master.adoc#glossar-Geschaeftslogik[Geschäftslogik (Glossar)] bis hin zur Datenspeicherung.
 Sie können aber auch jeweils nur Teile davon implementieren, sodass z.B. eine Geschäftsanwendung eine GUI bereitstellt, eine weitere die Fachlogik implementiert und eine dritte schließlich die Persistierung der Daten realisiert.
 In diesem Fall würde die Gesamtfunktionalität durch das Zusammenwirken der drei Geschäftsanwendungen erbracht.
 
@@ -251,7 +247,7 @@ Für die Kommunikation mit externen Systemen muss eine Geschäftsanwendung ein S
 Geschäftsanwendungen, die eine Benutzeroberfläche bereitstellen, dürfen aus Sicherheitsgründen nicht direkt vom Benutzer aufgerufen werden, sondern werden in das _Portal_ (siehe unten) der IsyFact-Systemlandschaft eingebunden.
 Die Kommunikation mit dem Browser des Nutzers muss immer über das Portal erfolgen.
 
-*Das <<glossar-Portal>>:* Die Referenzarchitektur sieht keinen Portal-Server im klassischen Sinne vor: Es gibt weder einen systemübergreifenden Rahmen noch eine systemübergreifende Navigation.
+*Das xref:glossary:glossary:master.adoc#glossar-Portal[Portal (Glossar)]:* Die Referenzarchitektur sieht keinen Portal-Server im klassischen Sinne vor: Es gibt weder einen systemübergreifenden Rahmen noch eine systemübergreifende Navigation.
 
 Ein Portal im Sinne der Referenzarchitektur besteht aus:
 
@@ -260,7 +256,7 @@ Ein Portal im Sinne der Referenzarchitektur besteht aus:
 
 Der Zweck eines Portals ist die gemeinsame Authentifizierung und Autorisierung für alle Geschäftsanwendungen und die Indirektion des Zugriffs von Nutzern auf die Geschäftsanwendungen.
 
-*Das <<glossar-Querschnittssystem>>:* Ein Querschnittssystem bietet Geschäftsanwendungen querschnittlich genutzte Funktionalitäten an, etwa für die Bereitstellung von Schlüsseldaten.
+*Das xref:glossary:glossary:master.adoc#glossar-Querschnittssystem[Querschnittssysteme(Glossar)]:* Ein Querschnittssystem bietet Geschäftsanwendungen querschnittlich genutzte Funktionalitäten an, etwa für die Bereitstellung von Schlüsseldaten.
 Querschnittssysteme können eine eigene Datenhaltung besitzen.
 
 Querschnittsysteme werden nur von internen Benutzern oder anderen IT-Systemen derselben Systemlandschaft aufgerufen. Sie rufen selbst nur andere Querschnittsysteme auf.
@@ -273,10 +269,9 @@ Wie in <<strukturierung-der-systemlandschaft>> beschrieben, kommunizieren IT-Sys
 Wenn ausschließlich IT-Systeme innerhalb der Systemlandschaft miteinander kommunizieren, spricht die Referenzarchitektur von *interner Servicekommunikation*.
 Wenn die Kommunikation auch IT-Systeme einschließt, die außerhalb liegen, verwendet die Referenzarchitektur den Begriff *externe Servicekommunikation*.
 
-:desc-image-servicekommunikation: Interne und externe Servicekommunikation
+.Interne und externe Servicekommunikation
 [id="image-servicekommunikation",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-servicekommunikation}
-image::../assets/images/servicekommunikation.dn.png[align="center"]
+image::servicekommunikation.dn.png[align="center"]
 
 IT-Systeme tauschen in der Kommunikation untereinander Daten aus.
 Diese lassen sich in Metadaten und Nutzdaten unterteilen.
@@ -314,10 +309,9 @@ Hierbei schickt der Sender eine Anfrage (engl. _request_) an den Empfänger.
 Der Empfänger bearbeitet die Anfrage und schickt eine Antwort (engl. _response_) an den Sender zurück.
 Der Sender wartet auf die Antwort, bevor er seine Verarbeitung fortsetzt.
 
-:desc-image-synchronous-call: Ablauf eines synchronen Service-Aufrufs
+.Ablauf eines synchronen Service-Aufrufs
 [id="image-synchronous-call",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-synchronous-call}
-image::../assets/images/synchroner-service-aufruf.dn.png[align="center"]
+image::synchroner-service-aufruf.dn.png[align="center"]
 
 Deswegen sind synchrone Service-Aufrufe in der Regel eine vergleichsweise zeitintensive Operation.
 Häufig ist es sinnvoll, Service-Aufrufe nach Möglichkeit einzusparen.
@@ -329,10 +323,9 @@ Die Abwägung darüber muss während der Erstellung des Systementwurfs geschehen
 Synchrone Service-Aufrufe finden über das Protokoll *HTTP* statt und werden sowohl zur internen als auch externen Servicekommunikation genutzt.
 HTTP-Anfragen bzw. HTTP-Antworten (s. <<image-http-messages>>) erlauben es an drei Stellen, anwendungsspezifische Daten zu übertragen: in der URL, in den Headern sowie im Body.
 
-:desc-image-http-messages: Aufbau von HTTP-Anfragen bzw. HTTP-Antworten
+.Aufbau von HTTP-Anfragen bzw. HTTP-Antworten
 [id="image-http-messages",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-http-messages}
-image::../assets/images/http-messages-aufbau.dn.png[align="center"]
+image::http-messages-aufbau.dn.png[align="center"]
 
 Header enthalten Metadaten.
 Der Body enthält Nutzdaten.
@@ -351,10 +344,9 @@ Für asynchrone Service-Aufrufe gelten dieselben Vorgaben wie für <<synchrone-s
 Sie unterscheiden sich im Ablauf dahingehend, dass der Sender nicht aktiv auf die Antwort des Empfängers wartet.
 Stattdessen wird die Verarbeitung erst durch die Antwort des Senders wieder aufgenommen, z.B. in Form eines Callbacks.
 
-:desc-image-asynchronous-call: Ablauf eines asynchronen Service-Aufrufs
+.Ablauf eines asynchronen Service-Aufrufs
 [id="image-asynchronous-call",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-asynchronous-call}
-image::../assets/images/asynchroner-service-aufruf.dn.png[align="center"]
+image::asynchroner-service-aufruf.dn.png[align="center"]
 
 Asynchrone Service-Aufrufe können z.B. dann eingesetzt werden, wenn eine länger dauernde Verarbeitung durch den Empfänger eine direkte Rückmeldung unmöglich macht.
 
@@ -368,10 +360,9 @@ Der Sender ist nun in der Lage, dem Empfänger über die Queue Nachrichten zu sc
 Die Nachrichten sind anhand eines zentral definierten Formats strukturiert.
 Der Sender enthält keine direkte Antwort vom Empfänger.
 
-:desc-image-queueing: Ablauf der Kommunikation beim Queueing
+.Ablauf der Kommunikation beim Queueing
 [id="image-queueing",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-queueing}
-image::../assets/images/queueing.dn.png[align="center"]
+image::queueing.dn.png[align="center"]
 
 
 Für das Queueing infrage kommende Message-Broker müssen *JMS* (Jakarta Messaging, ehemals _Java Message Service_) unterstützen.
@@ -380,10 +371,9 @@ Queueing wird ausschließlich in der internen Servicekommunikation eingesetzt.
 JMS-Nachrichten bestehen aus Header, Properties und einem Body (s. <<image-jms-message>>).
 Die Properties unterteilen sich noch einmal in applikationsspezifische Properties, die nur für Publisher und Subscriber Bedeutung haben, sowie provider-spezifische und Standard-Properties, die zur Verarbeitung der JMS-Nachrichten durch den Message-Broker gedacht sind.
 
-:desc-image-jms-message: Aufbau einer JMS-Nachricht
+.Aufbau einer JMS-Nachricht
 [id="image-jms-message",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-jms-message}
-image::../assets/images/jms-message-aufbau.dn.png[align="center"]
+image::jms-message-aufbau.dn.png[align="center"]
 
 Applikationsspezifische Properties enthalten Metadaten.
 Der Body enthält Nutzdaten.
@@ -419,7 +409,7 @@ Das interne IT-System ruft dann lediglich die Schnittstelle des Service-Consumer
 Für das interne IT-System ist dieser Aufruf nicht von einem Aufruf zu einem anderen internen IT-System zu unterscheiden.
 Für jeden Web-Service, der in die Systemlandschaft importiert werden soll, muss ein eigener Service-Consumer definiert werden.
 
-Die Gesamtheit aller Service-Provider und Service-Consumer eines internen IT-Systems wird als <<glossar-Service-Gateway>> bezeichnet.
+Die Gesamtheit aller Service-Provider und Service-Consumer eines internen IT-Systems wird als xref:glossary:glossary:master.adoc#glossar-Service-Gateway[Service Gateway (Glossar)] bezeichnet.
 Die Service-Gateways stellen somit die zentrale Schnittstelle einer IsyFact-Systemlandschaft zur Außenwelt dar.
 
 Wird ein Service von einem externen IT-System angeboten, wird er als „externer Service“ bezeichnet.
@@ -429,10 +419,9 @@ Wenn ein Service-Provider diesen „inneren Service“ einer Anwendung außerhal
 Dies ist in <<image-extintServ>> dargestellt.
 Die Unterscheidung zwischen „innere“ und „äußere“ ist analog für die Begriffe „Request“ und „Response“ zu verwenden.
 
-:desc-image-extintServ: Externe, äußere und innere Services
+.Externe, äußere und innere Services
 [id="image-extintServ",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-extintServ}
-image::../assets/images/extintServ.png[align="center"]
+image::extintServ.png[align="center"]
 
 ==== Umsetzung der Servicekommunikation
 
@@ -442,7 +431,7 @@ Zur Umsetzung der Servicekommunikation gibt es Service-Bausteine, die ausgewähl
 [[nutzungsarten-eines-anwendungssystems]]
 === Nutzungsarten eines Anwendungssystems
 
-Nachdem im Dokument <<IsyFactReferenzarchitekturITSystem>> die technische Architektur vorgestellt wurde, soll in diesem Abschnitt konkret vorgestellt werden, wie auf Basis dieser Architektur Anwendungen entworfen werden.
+Nachdem im Dokument xref:referenzarchitektur-it-system/master.adoc#einleitung[Referenzarchitektur IT-Systeme] die technische Architektur vorgestellt wurde, soll in diesem Abschnitt konkret vorgestellt werden, wie auf Basis dieser Architektur Anwendungen entworfen werden.
 
 Die Nutzungsschicht eines IT-Systems bietet anderen IT-Systemen über Services, dem Betrieb über Batches und menschlichen Nutzern über eine GUI Schnittstellen zur Nutzung der implementierten Fachlichkeit an.
 Im Folgenden wird ein Beispiel-Szenario zur Nutzung eines IT-Systems vorgestellt.
@@ -459,16 +448,16 @@ Sie implementiert dazu drei software-architektonische Schichten:
 * Der *Anwendungskern*, in dem die Geschäftslogik abgebildet ist.
 * Die *Persistenzschicht*, in der sowohl die Anwendungsdaten als auch der Zustand der Anwendungssitzung abgespeichert werden.
 
-Zur Implementierung der Geschäftslogik kann die Geschäftsanwendung auch <<glossar-Service,Services>> anderer Geschäftsanwendung aufrufen.
+Zur Implementierung der Geschäftslogik kann die Geschäftsanwendung auch xref:glossary:glossary:master.adoc#glossar-Service[Services (Glossar)] anderer Geschäftsanwendung aufrufen.
 
-*Das Portal:* Wie in Kapitel <<strukturierung-der-systemlandschaft>> beschrieben, nimmt das Portal die <<glossar-Anwender>>-Aufrufe entgegen und leitet sie an die Geschäftsanwendung weiter.
+*Das Portal:* Wie in Kapitel <<strukturierung-der-systemlandschaft>> beschrieben, nimmt das Portal die xref:glossary:glossary:master.adoc#glossar-Anwender[Anwender (Glossar)]-Aufrufe entgegen und leitet sie an die Geschäftsanwendung weiter.
 
 *Das Service-Gateway-System:* Wie in Kapitel <<strukturierung-der-systemlandschaft>> beschrieben, dient das Service-Gateway-System als Schnittstelle für die Kommunikation mit bzw. der Annahme der Aufrufe von externen Systemen.
 Im vorliegenden Fall wird nur ein Service-Provider benötigt, da nur Aufrufe entgegengenommen werden.
 Diese werden authentifiziert, autorisiert, und an das zugehörige IT-System weitergeleitet.
 
 Damit ergeben sich die in <<image-CallFAmGuX>> dargestellten IT-Systeme und Aufruf-Beziehungen.
-Die in dieser Abbildung angedeuteten Schichten eines IT-Systems (GUI, Batch, Service, Anwendungskern, Datenzugriff und Querschnitt) werden im Dokument <<IsyFactReferenzarchitekturITSystem>> erläutert.
+Die in dieser Abbildung angedeuteten Schichten eines IT-Systems (GUI, Batch, Service, Anwendungskern, Datenzugriff und Querschnitt) werden im Dokument xref:referenzarchitektur-it-system/master.adoc#einleitung[Referenzarchitektur IT-Systeme] erläutert.
 Wichtig in Hinblick auf diese Schichten sind folgende Punkte:
 
 * Die Komponente _Batch_ der Geschäftsanwendung wird im obigen Beispiel nicht implementiert, da die Geschäftsanwendung keine Schnittstelle für Batchläufe anbietet.
@@ -477,10 +466,9 @@ Wichtig in Hinblick auf diese Schichten sind folgende Punkte:
 Für derartige Aufrufe gibt es keine Vorgaben: Sie können aus beliebigen Schichten von Geschäftsanwendungen und Service Gateways aus aufgerufen werden.
 ====
 
-:desc-image-CallFAmGuX: Aufrufbeziehungen für eine Geschäftsanwendung mit GUI und XML-Schnittstelle
+.Aufrufbeziehungen für eine Geschäftsanwendung mit GUI und XML-Schnittstelle
 [id="image-CallFAmGuX",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-CallFAmGuX}
-image::../assets/images/CallFAmGuX.png[align="center"]
+image::CallFAmGuX.png[align="center"]
 
 [[verwendung-von-produkten]]
 === Verwendung von Produkten
@@ -502,12 +490,12 @@ Hierzu gehören z.B. das Betriebssystem, Web-Server, Application-Server, Access-
 *Bibliotheken für die Anwendungsentwicklung:* Die Anwendungs­entwicklung wird durch den Einsatz von Frameworks und entsprechenden Bibliotheken vereinfacht und beschleunigt.
 IsyFact verwendet insbesondere Spring, Hibernate und JSF.
 
-Eine detaillierte Liste der verbindlichen und empfohlenen Produkte sind im Dokument <<ProduktKatalog>> zu finden.
+Eine detaillierte Liste der verbindlichen und empfohlenen Produkte sind im Dokument <<TODO anderes Dokument: ProduktKatalog>> zu finden.
 
 [[die-referenzarchitektur-der-technischen-infrastruktur]]
 == Die Referenzarchitektur der technischen Infrastruktur
 
-Die Referenzarchitektur der technischen Infrastruktur, auch <<glossar-TI-Architektur>> genannt, beschreibt den Aufbau der Betriebsumgebung für die IT-Systeme einer IsyFact-Systemlandschaft.
+Die Referenzarchitektur der technischen Infrastruktur, auch xref:glossary:glossary:master.adoc#glossar-IT-Architektur>[IT-Architektur (Glossar)] genannt, beschreibt den Aufbau der Betriebsumgebung für die IT-Systeme einer IsyFact-Systemlandschaft.
 Dazu gehören die physischen Geräte (Rechnersysteme, Netzwerkverbindungen und -komponenten, Drucker etc.), die installierte Systemsoftware (Betriebssystem, Applikationsserver, Middleware, Datenbanksystem) und das Zusammenspiel von Hardware und Systemsoftware.
 
 Auf der Ebene der technischen Infrastruktur können mehrere Instanzen einer Komponente aus der technischen Architektur betrieben werden.
@@ -518,10 +506,9 @@ Auch können mehrere Komponenten auf einem gemeinsamen Rechnersystem laufen.
 
 Um neben dem operativen Betrieb einer IsyFact-Systemlandschaft parallel neue Versionen von Anwendungen entwickeln, testen und schulen zu können, sind mehrere Systemumgebungen notwendig, die in <<image-AlleSysUmgeb>> vereinfacht dargestellt sind.
 
-:desc-image-AlleSysUmgeb: Überblick Systemumgebungen
+.Überblick Systemumgebungen
 [id="image-AlleSysUmgeb",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-AlleSysUmgeb}
-image::../assets/images/AlleSysUmgeb.png[align="center"]
+image::AlleSysUmgeb.png[align="center"]
 
 Die IsyFact unterscheidet sechs Systemumgebungen:
 
@@ -553,10 +540,9 @@ Die Verbindungen zeigen die Kommunikation der Server untereinander.
 Der Datenfluss erfolgt in der Regel in beiden Richtungen.
 Geht eine Verbindung von beziehungsweise zu einem Cluster, so entspricht dies Verbindungen von beziehungsweise zu allen Servern im Cluster.
 
-:desc-image-TIArchPRU: TI-Architektur der Produktionsumgebung
+.TI-Architektur der Produktionsumgebung
 [id="image-TIArchPRU",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-TIArchPRU}
-image::../assets/images/TIArchPRU.png[align="center"]
+image::TIArchPRU.png[align="center"]
 
 Um die Sicherheit in der Datenkommunikation zu gewährleisten, sind die Server unterschiedlichen Sicherheitszonen des Netzwerks zugeordnet.
 In <<image-TIArchPRU>> ist eine Sicherheitszone durch ein gestricheltes Rechteck dargestellt.
@@ -602,10 +588,9 @@ Die Staging-Umgebung einer IsyFact-Systemumgebung ist in <<image-TIArchSTU>> dar
 Die Server der Staging-Umgebung stehen in eigenen Sicherheitszonen.
 Die Zonenaufteilung sollte vergleichbar zur Produktionsumgebung sein, da sonst Engpässe in der Netzwerkkommunikation (Bandbreite, Komponentendurchsatz) bei Tests nicht erkannt werden können.
 
-:desc-image-TIArchSTU: TI-Architektur Staging-Umgebung
+.TI-Architektur Staging-Umgebung
 [id="image-TIArchSTU",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-TIArchSTU}
-image::../assets/images/TIArchSTU.png[align="center"]
+image::TIArchSTU.png[align="center"]
 
 
 [[externe-schulungsumgebung-xsu]]
@@ -622,10 +607,9 @@ Die externe Testumgebung wird für Tests externer Nutzer verwendet.
 Damit ist diese Umgebung neben der Produktionsumgebung und der externen Schulungsumgebung die einzige von außen zugängliche Systemumgebung.
 <<image-TIArchETU>> gibt einen Überblick.
 
-:desc-image-TIArchETU: TI-Architektur externe Testumgebung
+.TI-Architektur externe Testumgebung
 [id="image-TIArchETU",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-TIArchETU}
-image::../assets/images/TIArchETU.png[align="center"]
+image::TIArchETU.png[align="center"]
 
 Im Vergleich zur Produktionsumgebung ist die Leistungsfähigkeit dieser Umgebung bei vollständiger Funktionalität deutlich reduziert.
 Da auch an die Verfügbarkeit der Umgebung geringere Anforderungen gestellt werden, wird auf die Aufteilung in verschiedene Netzwerkzonen und auf den Betrieb der Rechnersysteme im Cluster aus wirtschaftlichen Gründen verzichtet.
@@ -649,16 +633,15 @@ Die Rechnersysteme der Entwicklungstestumgebung werden nur vom internen LAN aus 
 Es gibt keine weitere Unterteilung in Sicherheitszonen.
 <<image-TIArchSWTU>> gibt einen Überblick.
 
-:desc-image-TIArchSWTU: TI-Architektur Entwicklungstestumgebung
+.TI-Architektur Entwicklungstestumgebung
 [id="image-TIArchSWTU",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-TIArchSWTU}
-image::../assets/images/TIArchSWTU.png[align="center",pdfwidth=80%,width=80%]
+image::TIArchSWTU.png[align="center",pdfwidth=80%,width=80%]
 
 [[minimalanforderungen-an-die-ablaufumgebung]]
 === Minimalanforderungen an die Ablaufumgebung
 
 Als Ablaufumgebung benötigen die gemäß der Referenzarchitektur (siehe Kapitel <<die-software-referenzarchitektur>>) erstellten IT-Systeme einen Tomcat Servlet-Container.
-Die Vorgaben zur Konfiguration des Tomcat sind im Dokument <<TomcatNutzungskonzept>> beschrieben.
+Die Vorgaben zur Konfiguration des Tomcat sind im Dokument <<TODO anderes Dokument: TomcatNutzungskonzept>> beschrieben.
 
 Service-Gateway-Systeme und das Portal benötigen zusätzlich noch einen Apache-Webserver.
 
@@ -674,10 +657,9 @@ Dazu gehören Verfügbarkeit, Ausfallsicherheit, Performance, Lastverteilung, Au
 Die Verfügbarkeit wird über einen Prozentwert gemessen, der unter Berücksichtigung von definierten Betriebs- und Wartungsfenstern angibt, wie ausfallsicher ein System sein soll und tatsächlich ist.
 <<image-verfuegbar>> gibt einen Überblick, was bei der Messung der Verfügbarkeit zu berücksichtigen ist.
 
-:desc-image-verfuegbar: Verfügbarkeit
+.Verfügbarkeit
 [id="image-verfuegbar",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-verfuegbar}
-image::../assets/images/verfuegbar.png[align="center"]
+image::verfuegbar.png[align="center"]
 
 Der Aufbau der Produktionsumgebung ist so gestaltet, dass eine Verfügbarkeit von 7x24 Stunden und eine auf den Monat berechnete Verfügbarkeit von über 99% erreicht werden kann.
 
@@ -744,7 +726,7 @@ Gleiches gilt, wenn sich zum Beispiel die Parameter eines Anwendungsservers änd
 Eine neue Version der Parameter liegt vor und damit liegt auch eine neue Konfiguration der Betriebsumgebung vor.
 Um nachvollziehen zu können, was sich wann warum geändert hat, ist es empfehlenswert, dass jede Veränderung an der Betriebsumgebung genehmigt und nachvollziehbar dokumentiert wird.
 
-*<<glossar-Auslieferung>>:* Mit dem Begriff „Auslieferung“ wird die Übergabe von Liefergegenständen aus der Hoheit der Software-Entwicklung in die Hoheit des Betriebs bezeichnet.
+*  *xref:glossary:glossary:master.adoc#glossar-Auslieferung[Auslieferung (Glossar)]:* Mit dem Begriff „Auslieferung“ wird die Übergabe von Liefergegenständen aus der Hoheit der Software-Entwicklung in die Hoheit des Betriebs bezeichnet.
 Dabei werden im allgemeinen Software, Parameter und eine Dokumentation ausgeliefert.
 Bei der Software wird eine ablauffähige Einheit (RPM-Paket) ausgeliefert.
 Dieses RPM-Paket wird durch das Installationsprogramm unter Angabe der Parameter installiert.
@@ -752,9 +734,9 @@ Anschließend wird die installierte Software gemäß der in der Auslieferungsdok
 Die Auslieferungs­dokumentation besteht aus einem Releaseletter, einem Betriebshandbuch und ggf. einem Benutzerhandbuch.
 Im Releaseletter werden Inhalt und Version der Pakete in Form einer Stückliste beschrieben.
 Weiterhin wird beschrieben, welche bekannten Fehler und Probleme es mit diesem Paket gibt.
-Im Releaseletter sind auch die Installationsanleitung inklusive der Parameter der Installation und die Aufstellung der mit dem <<glossar-Release>> geschlossenen Fehler-Meldungen enthalten.
+Im Releaseletter sind auch die Installationsanleitung inklusive der Parameter der Installation und die Aufstellung der mit dem xref:glossary:glossary:master.adoc#glossar-Release[Release (Glossar)] geschlossenen Fehler-Meldungen enthalten.
 Eine Auslieferung umfasst ebenfalls Ergänzungen und Anpassungen der betroffenen Betriebshandbücher.
-Details zum Deployment sind im Dokument <<DeploymentKonzept>> beschrieben.
+Details zum Deployment sind im Dokument <<TODO anderes Dokument: DeploymentKonzept>> beschrieben.
 
 Wie oben bereits erwähnt bezeichnet der Begriff Auslieferung einen Verantwortungsübergang zwischen zwei Organisationseinheiten.
 Die Entwicklung erstellt und testet die Software-Pakete und erzeugt die zugehörigen Dokumentationen.
@@ -769,7 +751,7 @@ Der Betrieb ist auch für die Dokumentation der Konfigurationsänderungen durch 
 === Betriebsüberwachung
 
 Um den Gesamt-Status eines Systems zu überwachen, sind die Überwachung der IT-Systeme sowie das Monitoring der Komponenten der technischen Infrastruktur notwendig.
-Auf die Überwachung der IT-Systeme wird im Dokument <<KonzeptUeberwachung>> im Detail eingegangen.
+Auf die Überwachung der IT-Systeme wird im Dokument<<TODO anderes Dokument: KonzeptUeberwachung>> im Detail eingegangen.
 Hier wird unter anderem festgelegt, welche Informationen ein nach der Referenzarchitektur erstelltes IT-System für die Überwachung mindestens bereitstellen muss.
 Die Schnittstellentechnologie, über die die Informationen der einzelnen Anwendungen zur Überwachung angeboten werden, ist dabei der Standard JMX, der in alle gängigen Überwachungstools integrierbar ist.
 
@@ -877,10 +859,9 @@ Dies ist sinnvoll, wenn der Funktionsumfang der Anwendung beschränkt ist, keine
 Dieses Szenario ist in <<image-einfachSOArch>> dargestellt.
 
 
-:desc-image-einfachSOArch: Vereinfachung der SOA-Architektur
+.Vereinfachung der SOA-Architektur
 [id="image-einfachSOArch",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-einfachSOArch}
-image::../assets/images/einfachsoArch.png[align="center"]
+image::einfachsoArch.png[align="center"]
 
 Links ist eine typische Umsetzung einer Geschäftsanwendung in der IsyFact-Systemlandschaft zu sehen.
 Sie ist über ein Portal in eine Unternehmenslandschaft integriert, hat Außenschnittstellen zu anderen Organisationen, die über ein Service Gateway angeboten werden und sie nutzen die zentralen Services „Output Management“, „Alphanumerisches Suchverfahren“ und das zentrale Schlüsselverzeichnis.
@@ -910,10 +891,9 @@ Dies wird im Folgenden ausgeführt.
 Bei geringeren nicht-funktionalen Anforderungen kann auch nur eine Anwendungsinstanz zum Einsatz kommen und kein Cluster für die Datenbank verwendet werden.
 Dies ist in <<image-noCluster>> dargestellt.
 
-:desc-image-noCluster: Vereinfachung durch Wegfall von Clustering
+.Vereinfachung durch Wegfall von Clustering
 [id="image-noCluster",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-noCluster}
-image::../assets/images/noCluster.png[align="center"]
+image::noCluster.png[align="center"]
 
 [[verzicht-auf-das-saga-zonenmodell]]
 ==== Verzicht auf das SAGA-Zonenmodell
@@ -976,7 +956,9 @@ Dies umfasst:
 Diese Vereinfachungen sind für ein Kleinverfahren nicht zwingend, sondern sie dienen dazu, das Verfahren in einem angemessenen Kosten-Nutzen-Verhältnis zu erstellen.
 Falls die Kosten-Nutzen-Betrachtung es erlaubt, kann auf die Vereinfachungen natürlich auch verzichtet werden.
 
+// tag::architekturregel[]
 
+// end::architekturregel[]
 
 
 // tag::sicherheit[]

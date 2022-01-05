@@ -15,9 +15,8 @@ Die individuell erstellten Anwendungssysteme der Systemlandschaft sollen technis
 Daher wird in diesem Dokument die Referenzarchitektur definiert (s. <<image-SchichtITS>>), nach der alle Anwendungssysteme der IsyFact software-technisch in IT-Systeme umgesetzt werden.
 
 
-:desc-image-SchichtITS: Schichten eines IT-Systems
+.Schichten eines IT-Systems
 [id="image-SchichtITS",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-SchichtITS}
 image::SchichtITS.png[align="center",width=80%,pdfwidth=80%]
 
 

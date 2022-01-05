@@ -1,5 +1,4 @@
 = Detailkonzept Service: Inhalt
-:imagesdir: images
 
 // tag::inhalt[]
 [[ueberblick]]
@@ -7,9 +6,8 @@
 
 Services gliedern sich über eine technische Komponente „Service“ in die T-Architektur von IT-Systemen ein (siehe <<image-IFRefArcITSysServ>>).
 
-:desc-image-IFRefArcITSysServ: Referenzarchitektur eines IT-Systems
+.Referenzarchitektur eines IT-Systems
 [id="image-IFRefArcITSysServ",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-IFRefArcITSysServ}
 image::IFRefArcITSysServ.png[align="center"]
 
 Diese technische Komponente besteht aus zwei Teilen: dem Service-Framework und der Service-Logik.
@@ -61,12 +59,11 @@ Die Maven Artefakt-ID von Schnittstellen ist nach dem folgenden Muster aufgebaut
 Die ersten beiden Teile der Versionsnummer sind Teil der Artefakt-ID, um mehrere Versionen einer Schnittstelle gleichzeitig einbinden zu können.
 An dritter Stelle steht die Maven-Versionsnummer des Artefakts.
 
-:desc-table-artIFvss: Artefakt-ID von Schnittstellen
+.Artefakt-ID von Schnittstellen
 [id="table-artIFvss",reftext="{table-caption} {counter:tables}"]
-.{desc-table-artIFvss}
 [cols="1,4",options="header"]
 |====
-2+|{desc-table-artIFvss}
+2+|Artefakt-ID von Schnittstellen
 |*Schema* m|<Anwendungsname>-<protokoll>-sst-<sstname>-<version>
 |*Beispiele* m|xyz-ga-rest-sst-auskunft-v29.1
 |====
@@ -81,7 +78,7 @@ Hierzu wird in der Regel ein Bean Mapper verwendet.
 In Einzelfällen können Teile der Transformation auch programmiert werden, sofern der Nutzen daraus den Aufwand nicht übersteigt.
 
 Die Service-Fassade übernimmt auch die Autorisierung des Aufrufs.
-Dazu nutzt sie die Möglichkeiten des Bausteins Sicherheit (siehe <<NutzungsvorgabenSicherheit>>).
+Dazu nutzt sie die Möglichkeiten des Bausteins Sicherheit (siehe  <<TODO anderes Dokument: NutzungsvorgabenSicherheit>>).
 Voraussetzung für die Autorisierung ist die Auswertung des mitgelieferten Aufrufkontextes über die Annotation `@StelltAufrufKontextBereit` an der Methode oder an der Service-Fassade selbst.
 Anschließend wird über die Annotation `@Gesichert` die Berechtigung zum Zugriff auf die Methode anhand der Rechte des Aufrufers geprüft.
 Alternativ kann die Annotation `@Gesichert` auch an der Service-Fassade selbst verwendet werden, wenn alle Methoden die gleichen Rechte erfordern.
@@ -99,7 +96,7 @@ Diese Reihenfolge wird durch Einfügen des Orders für den Advisor `stelltLoggin
 [NOTE]
 ====
 Die weiteren Inhalte zum Aufbau, zur Realisierung und zur Nutzung von Service-Schnittstellen wurden wegen ihrer Abhängigkeit zur konkreten Schnittstellentechnologie HTTP Invoker in den Baustein HTTP Invoker verschoben.
-Die Inhalte finden sich in den Dokumenten <<KonzeptHttpInvoker>> sowie <<NutzungsvorgabenHttpInvoker>>.
+Die Inhalte finden sich in den Dokumenten  <<TODO anderes Dokument: KonzeptHttpInvoker>> sowie  <<TODO anderes Dokument: NutzungsvorgabenHttpInvoker>>.
 ====
 
 
@@ -114,9 +111,8 @@ Nur so ist gewährleistet, dass auch Fehler, die beim Commit entstehen, von der 
 Die Transaktionssteuerung wird an der jeweiligen Service-Methode angesetzt.
 Für das obige Beispiel verdeutlicht dies <<listing-service-fassade-tx>>.
 
-:desc-listing-service-fassade-tx: Transaktionssteuerung in der Service-Fassade
+.Transaktionssteuerung in der Service-Fassade
 [id="listing-service-fassade-tx",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-service-fassade-tx}
 [source,java]
 ----
 public class BeispielServiceFassade {
@@ -138,9 +134,8 @@ Eine Sonderstellung nehmen Services ein, die im Fehlerfall keinen Fehler zurück
 Der AOP-Transaktionsmanager wird niemals ein Rollback durchführen, da alle Exceptions abgefangen werden, auf die er reagieren könnte.
 Um auch in diesem Fall ein Rollback der Transaktion zu erzwingen, ist folgender Aufruf durchzuführen:
 
-:desc-listing-service-fassade-tx-rollback-only: Rollback von Transaktionen im Fehlerfall ohne Exceptions
+.Rollback von Transaktionen im Fehlerfall ohne Exceptions
 [id="listing-service-fassade-tx-rollback-only",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-service-fassade-tx-rollback-only}
 [source,java]
 ----
 TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
@@ -161,7 +156,7 @@ Es kann vorkommen, dass in _einem_ Systemrelease neue Versionen von _mehreren_ S
 === Architektur
 
 IT-Systeme bieten pro Service-Version eine eigene Service-Schnittstelle an.
-Die Services verwenden alle denselben <<glossar-Anwendungskern>>.
+Die Services verwenden alle denselben xref:glossary:glossary:master.adoc#glossar-Anwendungskern[Anwendungskerns (Glossar)].
 Die für die Versionierung notwendigen Transformationen sind Teil der jeweiligen Service-Schnittstelle (z.B. das Einfügen eines Standardwerts für neu hinzugefügte Attribute).
 In komplexen Fällen kann es auch notwendig sein, den Anwendungskern zu erweitern und die Versionierung dort zu behandeln.
 Die Entscheidung dafür ist im Systementwurf zu dokumentieren.
@@ -173,9 +168,8 @@ Im Service-Gateway erfolgt daher immer nur ein einfaches Mapping auf die entspre
 Der Ausgleich der Versionsunterschiede erfolgt ausschließlich im IT-System und nicht im Service-Gateway.
 Es ist möglich, pro Service-Version ein eigenes Service-Gateway zu erstellen (siehe <<image-archversServ>>).
 
-:desc-image-archversServ: Architektur versionierter Services
+.Architektur versionierter Services
 [id="image-archversServ",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-archversServ}
 image::archversServ.png[align="center",width=60%,pdfwidth=60%]
 
 [[einfachster-fall-kompatible-erweiterung-eines-services]]
@@ -204,14 +198,13 @@ Auch hier enthält das Service-Gateway keine Geschäftslogik.
 Die Java-Klassen und -Interfaces eines Services existieren in allen Versionen der Service-Schnittstelle und unterscheiden sich inhaltlich
 durch die in der neuen Version durchgeführten Änderungen.
 
-NOTE: Für die Versionierung von Schnittstellen gelten gesonderte Vorgaben, die in <<IsyFactVersionierung>> definiert sind.
+NOTE: Für die Versionierung von Schnittstellen gelten gesonderte Vorgaben, die in  <<TODO anderes Dokument: IsyFactVersionierung>> definiert sind.
 
 Zur Veröffentlichung von API-kompatiblen Änderungen wird im Maven `pom.xml` eine einstellige Versionsnummer (Minor) gesetzt.
 Kompatible Änderungen sind beispielsweise Bugfixes, neue Operationen in der Schnittstelle oder neue, optionale Attribute im Datenmodell.
 
-:desc-listing-versioning-pom: Realisierung der Versionierungsvorgaben für Schnittstellen bei HTTP Invoker
+.Realisierung der Versionierungsvorgaben für Schnittstellen bei HTTP Invoker
 [id="listing-versioning-pom", reftext="reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-versioning-pom}
 [source,xml]
 ----
 <dependencies>
@@ -267,9 +260,8 @@ Durch eine Verfügbarkeit von 99,7 % pro System kann im Beispiel also eine Gesam
 Eine Berechnung der Gesamtverfügbarkeit nach dem Schema von <<table-GMTMT>> muss für jedes IT-System einzeln durchgeführt werden.
 Dabei müssen die berechneten oder gemessenen Verfügbarkeiten aller IT-Systeme zugrunde gelegt werden, die das IT-System aufruft.
 
-:desc-table-GMTMT: Beispielrechnung der Verfügbarkeit
+.Beispielrechnung der Verfügbarkeit
 [id="table-GMTMT",reftext="{table-caption} {counter:tables}"]
-.{desc-table-GMTMT}
 [cols=",",options="header"]
 |====
 |System |Verfügbarkeit
@@ -332,7 +324,7 @@ Dies verschlimmert die Antwortzeiten der Service-Aufrufe und führt eventuell zu
 Eine weitere bekannte Ursache für Nichtverfügbarkeit ist die Umgebungskonfiguration, Firewall-Verbindungen nach einer definierten Zeit automatisch zu schließen.
 Zustandsbehaftete Verbindungen wie sie bei LDAP- und Datenbank-Clients eingesetzt werden, sind von dieser Restriktion betroffen.
 Diese Clients müssen vorsehen, dass Sie eine von der Firewall geschlossene Verbindung erkennen und wieder neu aufbauen.
-Dieses Thema wird in den entsprechenden Nutzungskonzepten wie <<DetailkonzeptKomponenteDatenzugriff>> und <<NutzungsvorgabenSpringLDAP>> behandelt.
+Dieses Thema wird in den entsprechenden Nutzungskonzepten wie xref:detailkonzept-komponente-datenzugriff/master.adoc[Detailkonzept Komponente Datenzugriff] und  <<TODO anderes Dokument: NutzungsvorgabenSpringLDAP>> behandelt.
 
 Die IsyFact setzt als Transportprotokoll für Service-Kommunikation durchgängig HTTP ein.
 HTTP ist ein zustandsloses Protokoll und baut bei jeder Anfrage eine neue Verbindung zwischen Client und Server auf.
@@ -361,7 +353,7 @@ Während des Deployments des Knotens verarbeiten die restlichen Knoten alle anko
 Nach Abschluss des Deployments des Knotens wird dem Loadbalancer mitgeteilt, dass der Knoten wieder zur Verfügung steht.
 Dann kann das Deployment des nächsten Knotens nach dem gleichen Schema erfolgen.
 Dadurch können Services im Zeitraum von Wartungsarbeiten voll verfügbar gehalten werden.
-Dieser „Web-Off-Mechanismus“ wird in <<DeploymentKonzept>> im Detail beschreiben.
+Dieser „Web-Off-Mechanismus“ wird in  <<TODO anderes Dokument: DeploymentKonzept>> im Detail beschreiben.
 
 ==== Time-To-Live
 
@@ -404,7 +396,7 @@ Diese ist sinnvoll über die folgenden Parameter konfigurierbar:
 * Maximale Anzahl von Retries,
 * Timeout für Anfragen.
 
-Die Parameter sind Bestandteil der betrieblichen Konfiguration (s. <<KonzeptKonfiguration>>).
+Die Parameter sind Bestandteil der betrieblichen Konfiguration (s.  <<TODO anderes Dokument: KonzeptKonfiguration>>).
 ====
 
 ==== Deaktivierung von Services

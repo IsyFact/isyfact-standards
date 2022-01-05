@@ -37,12 +37,11 @@ Das zu persistierende Objekt (Entität) wird nach der Namenskonvention für Enti
 In der Persistenz wird der Name der Entität ohne Präfix verwendet.
 
 //tag::namenskonvention[]
-:desc-table-entity:  Namenskonvention Persistenz : Entity
+.Namenskonvention Persistenz : Entity
 [id="table-entity",reftext="{table-caption} {counter:tables}"]
-.{desc-table-entity}
 [cols="1,4",options="header"]
 |====
-2+|{desc-table-entity}
+2+|Namenskonvention Persistenz : Entity
 |*Schema* m|<Entitaetsname>
 |*Beispiele* m| Termin
 |====
@@ -54,9 +53,8 @@ Der Name einer DatenzugriffsKlasse setzt sich aus dem Namen der Entität und dem
 Die konkrete Implementierung leitet von dem Interface ab, das aus dem Namen der Entität und dem Suffix "Dao" zusammengesetzt ist.
 //tag::namenskonvention[]
 
-:desc-table-daossimpl: Data Access Objects: Interfaces + Implementierung
+.Data Access Objects: Interfaces + Implementierung
 [id="table-daossimpl",reftext="{table-caption} {counter:tables}"]
-.{desc-table-daossimpl}
 [cols="1,4",options="header"]
 |====
 2+|Data Access Objects: Interfaces + Implementierung
@@ -75,9 +73,8 @@ AkteDaoImpl
 Der Name eines Persistenz-Funktionsinterface wird vom Namen der Entität bestimmt, die darüber "bearbeitet" wird,
 und mit dem Suffix "Repository" versehen.
 
-:desc-table-repossimpl: Repositories: Interfaces + Implementierung
+.Repositories: Interfaces + Implementierung
 [id="table-repossimpl",reftext="{table-caption} {counter:tables}"]
-.{desc-table-repossimpl}
 [cols="1,4",options="header"]
 |====
 2+|Data Access Objects:  Abgeleitet von Interface CrudRepository
@@ -309,9 +306,8 @@ Aufgrund der genannten Schwächen werden in der Bibliothek `isy-persistence` zwe
 
 Beispiel für eine Enum-Klasse mit annotierten Persistenzwerten:
 
-:desc-listing-enum-annotated: Enum-Klasse mit annotierten Persistenzwerten
+.Enum-Klasse mit annotierten Persistenzwerten
 [id="listing-enum-annotated",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-enum-annotated}
 [source,java]
 ----
 public enum Geschlecht {
@@ -324,9 +320,8 @@ public enum Geschlecht {
 
 Beispiel für eine Enum-Klasse mit natürlichem Schlüssel:
 
-:desc-listing-enum-natural-key: Enum-Klasse mit natürlichem Schlüssel
+.Enum-Klasse mit natürlichem Schlüssel
 [id="listing-enum-natural-key",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-enum-natural-key}
 [source,java]
 ----
 public enum Geschlecht {
@@ -347,9 +342,8 @@ public enum Geschlecht {
 
 Beispiel für eine persistente Entität, die ein Enum-Feld enthält:
 
-:desc-listing-entity-enum-field: Enum-Feld an einer persistenten Entität
+.Enum-Feld an einer persistenten Entität
 [id="listing-entity-enum-field",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-entity-enum-field}
 [source,java]
 ----
 @Entity
@@ -420,9 +414,8 @@ Um den Anteil an Boilerplate Code bei der Implementierung von Data Access Object
 Die häufig verwendeten CRUD-Methoden (Create, Read, Update, Delete) werden vom Interface `CrudRepository` (siehe <<listing-crudrepository>>) aus Spring Data zur direkten Verwendung angeboten.
 Zur Implementierung werden zwei Typparameter benötigt: der Entitätstyp `T` und der Typ des Primärschlüssels `ID`.
 
-:desc-listing-crudrepository: Methoden von CrudRepository
+.Methoden von CrudRepository
 [id="listing-crudrepository",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-crudrepository}
 [source,java]
 ----
 public interface CrudRepository<T,ID> {
@@ -447,9 +440,8 @@ Ein Beispiel hierfür ist in <<listing-beispielrepository>> zu sehen.
 
 Weiterhin ist das eigene Interface mit der Annotation `@Repository` zu versehen, damit alle vom Entity Manager erzeugten Exceptions in die besser auszuwertenden Spring-`DataAccessExceptions` umgewandelt werden.
 
-:desc-listing-beispielrepository: Beispiel für ein eigenes Data Access Object
+.Beispiel für ein eigenes Data Access Object
 [id="listing-beispielrepository",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-beispielrepository}
 [source,java]
 ----
 @Repository
@@ -461,9 +453,8 @@ public interface EintragDao extends CrudRepository<Eintrag, Long> {
 
 Damit die DAOs von Spring automatisch als Beans erzeugt werden, muss eine Konfigurationsklasse der Anwendung mit der Annotation `@EnableJpaRepositories` annotiert werden.
 
-:desc-listing-enablejparepositories: Automatische Erstellung von DAO-Beans durch Spring
+.Automatische Erstellung von DAO-Beans durch Spring
 [id="listing-enablejparepositories",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-enablejparepositories}
 [source,java]
 ----
 @Configuration
@@ -494,9 +485,8 @@ Der von Spring Data erzeugte Proxy für das Repository Interface kann die Querie
 
 1. Ableitung des Queries über den Namen der Methode. <<listing-querymethodenname>> zeigt ein Beispiel hierfür.
 +
-:desc-listing-querymethodenname: Beispiele für die Ableitung des Queries aus dem Methodennamen.
+.Beispiele für die Ableitung des Queries aus dem Methodennamen.
 [id="listing-querymethodenname",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-querymethodenname}
 [source,java]
 ----
 interface PersonRepository extends Repository<Person, Long> {
@@ -530,9 +520,8 @@ https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories
 2. Ableitung über eine manuell definierte Query.
 Die Query wird über die `@Query`-Annotation in JPQL direkt an die Methode des DAO geschrieben.
 +
-:desc-listing-queryannotation: Beispiele für die Ableitung des Queries aus dem Methodennamen.
+.Beispiele für die Ableitung des Queries aus dem Methodennamen.
 [id="listing-queryannotation",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-queryannotation}
 [source,java]
 ----
 public interface PersonRepository extends Repository<Person, Long> {
@@ -568,9 +557,8 @@ Die Queries sind als native SQL-Queries in der XML Konfigurationsdatei abzulegen
 
 Ein Beispiel für einen Oracle-Hint in einer SQL-Query:
 
-:desc-listing-query-oracle-hint: Beispiel für einen Oracle-Hint in einer SQL-Query
+.Beispiel für einen Oracle-Hint in einer SQL-Query
 [id="listing-query-oracle-hint",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-query-oracle-hint}
 [source]
 ----
 select /*+ INDEX(aendno AENDERUNGS_NOTIFIKATION_STATUS) */ aendno from AENDERUNGS_NOTIFIKATION aendno where aendno.status = ?1 and aendno.zeitpunktNotifikation > :datumVon and aendno.zeitpunktNotifikation < :datumBis
@@ -674,9 +662,8 @@ Der EntityManager wird von Spring Boot automatisch konfiguriert.
 Eine zusätzliche Konfiguration kann über `application.properties` erfolgen.
 Grundsätzlich können nach dem Schema `spring.jpa.properties.<Schlüssel>=<Wert>` beliebige native Properties für Hibernate gesetzt werden (<<listing-configentitymanager>>).
 
-:desc-listing-configentitymanager: Konfiguration des EntityManagers in application.properties
+.Konfiguration des EntityManagers in application.properties
 [id="listing-configentitymanager",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-configentitymanager}
 [source]
 ----
 spring.jpa.hibernate.ddl-auto=update
@@ -718,9 +705,8 @@ Die zu setzenden Parameter können der folgenden Vorlage entnommen werden, wobei
 
 Die Konfiguration des UCP erfolgt in `application.properties` über die Properties in <<listing-configpropertiesucp>>.
 
-:desc-listing-configpropertiesucp: Properties zur Konfiguration des UCP
+.Properties zur Konfiguration des UCP
 [id="listing-configpropertiesucp",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-configpropertiesucp}
 [source,ruby]
 ----
 # Connection-String für die Datenbankverbindung
@@ -871,9 +857,8 @@ Dabei erfolgt der Zugriff auf die zweite Datenbank getrennt über einen weiteren
 Die Beans für die `EntityManagerFactory` und den `TransactionManager` müssen manuell konfiguriert werden <<listing-datasource1>>.
 Als `DataSource` wird hier die von `isy-persistence` automatisch konfigurierte `appDataSource` verwendet.
 
-:desc-listing-datasource1: Konfiguration der ersten DataSource
+.Konfiguration der ersten DataSource
 [id="listing-datasource1",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-datasource1}
 [source,java]
 ----
 @Configuration
@@ -907,9 +892,8 @@ public class PersistenceConfig {
 
 Für die zweite Datenbankanbindung wird eine weitere Konfiguration angelegt <<listing-datasource2>>.
 
-:desc-listing-datasource2: Konfiguration der zweiten DataSource
+.Konfiguration der zweiten DataSource
 [id="listing-datasource2",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-datasource2}
 [source,java]
 ----
 @Configuration
@@ -1110,12 +1094,11 @@ Das auf die Entität bezogene DAO wird wie folgt angepasst und erweitert:
 Die Funkion liefert die zu dem übergebenen Zeitpunkt (Parameter calendar) gültige Entität.
 //tag::namenskonvention[]
 
-:desc-table-dao-ext-lese-valid-entity-by-date:  DAO: Erweiterung: Lesen der zu dem Datum gültigen Entität
+.DAO: Erweiterung: Lesen der zu dem Datum gültigen Entität
 [id="table-dao-ext-lese-valid-entity-by-date",reftext="{table-caption} {counter:tables}"]
-.{desc-table-dao-ext-lese-valid-entity-by-date}
 [cols="1,4",options="header"]
 |====
-2+|{desc-table-dao-ext-lese-valid-entity-by-date}
+2+|DAO: Erweiterung: Lesen der zu dem Datum gültigen Entität
 |*Schema* m|<Entity> lese<Entity>(<Schluessel>, Calendar)`
 |*Beispiele* m|AkteDao leseAkte(id, Calendar)
 |====
@@ -1129,12 +1112,11 @@ Dies ist das Objekt mit den übergebenen Schlüsselattributen, dessen `aktuellBi
 
 //tag::namenskonvention[]
 
-:desc-table-dao-ext-lese-current-valid-entity:  Data Access Objects: Anpassung: Lesen der aktuell gültigen Entität
+.Data Access Objects: Anpassung: Lesen der aktuell gültigen Entität
 [id="table-dao-ext-lese-current-valid-entity",reftext="{table-caption} {counter:tables}"]
-.{desc-table-dao-ext-lese-current-valid-entity}
 [cols="1,4",options="header"]
 |====
-2+|{desc-table-dao-ext-lese-current-valid-entity}
+2+|Data Access Objects: Anpassung: Lesen der aktuell gültigen Entität
 |*Schema* m|<Entity> lese<Entity>(<Schluessel>)`
 |*Beispiele* m|AkteDao  leseAkte(id)
 |====
@@ -1146,12 +1128,11 @@ Diese Methode liefert die gesamte Historie eines Datensatzes.
 
 //tag::namenskonvention[]
 
-:desc-table-dao-ext-lese-Historie-von-entitaet:  Data Access Objects: Erweiterung: Lesen der Historie einer Entität
+.Data Access Objects: Erweiterung: Lesen der Historie einer Entität
 [id="table-dao-ext-lese-Historie-von-entitaet",reftext="{table-caption} {counter:tables}"]
-.{desc-table-dao-ext-lese-Historie-von-entitaet}
 [cols="1,4",options="header"]
 |====
-2+|{desc-table-dao-ext-lese-Historie-von-entitaet}
+2+|Data Access Objects: Erweiterung: Lesen der Historie einer Entität
 |*Schema* m|List<Entität> lese<Enitität>Historie(Schluessel)
 |*Beispiele* m|List<AkteDao> leseAkteHistorie(id)
 |====
@@ -1169,22 +1150,20 @@ Die Idee dabei ist, dass das bisher aktuelle Objekt einen Nachfolger erhält.
 
 //tag::namenskonvention[]
 
-:desc-table-dao-neue-methode:  Data Access Objects: Erweiterung: Erzeugen einer neuen Version einer Entität
+.Data Access Objects: Erweiterung: Erzeugen einer neuen Version einer Entität
 [id="table-dao-neue-methode",reftext="{table-caption} {counter:tables}"]
-.{desc-table-dao-neue-methode}
 [cols="1,4",options="header"]
 |====
-2+|{desc-table-dao-neue-methode}
+2+|Data Access Objects: Erweiterung: Erzeugen einer neuen Version einer Entität
 |*Schema* m|Entität erzeugeNeueVersion(Entität)
 |*Beispiele* m|AkteDao leseAkteHistorie(AkteDao)
 |====
 
-:desc-table-dao-max-anzahl:  Data Access Objects: optionale Erweiterung: Maximale Anzahl der gespeicherten Versionen
+.Data Access Objects: optionale Erweiterung: Maximale Anzahl der gespeicherten Versionen
 [id="table-dao-max-anzahl",reftext="{table-caption} {counter:tables}"]
-.{desc-table-dao-max-anzahl}
 [cols="1,4",options="header"]
 |====
-2+|{desc-table-dao-max-anzahl}
+2+|Data Access Objects: optionale Erweiterung: Maximale Anzahl der gespeicherten Versionen
 |*Schema* m|MAX_EINTRAEGE_HISTORIE
 |====
 
@@ -1237,9 +1216,8 @@ Schritt 1: Ergänzen von Datumsattributen
 
 Der Bestand der CDs ist ohne Historisierung wie in <<image-BestandCDoH>> modelliert.
 
-:desc-image-BestandCDoH: Modellierung des Bestands ohne Historisierung
+.Modellierung des Bestands ohne Historisierung
 [id="image-BestandCDoH",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-BestandCDoH}
 image::BestandCDoH.png[align="center",width=70%,pdfwidth=70%]
 
 Es gibt eine Entität `CD`, die eine konkrete CD repräsentiert.
@@ -1252,18 +1230,16 @@ Um den Bestand historisierbar zu machen, müsste diese Tabelle in zwei Tabellen 
 In die Entität Bestand werden die Attribute `aktuellVon` und `aktuellBis` eingefügt.
 Dies ist in <<image-BestandCD>> dargestellt.
 
-:desc-image-BestandCD: Modellierung des Bestands mit Historisierung
-[id="image-BestandCD",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-BestandCD}
+.Modellierung des Bestands mit Historisierung
+[id="image-BestandCD",reftext="{
 image::BestandCD.png[align="center",width=70%,pdfwidth=70%]
 
 Schritt 2: Erweiterung des DAOs
 
 Das DAO für die Entität Bestand ohne Historisierung ist in <<image-BestandDaooFzH>> dargestellt.
 
-:desc-image-BestandDaooFzH: BestandDao ohne Funktionen zur Historisierung
+.BestandDao ohne Funktionen zur Historisierung
 [id="image-BestandDaooFzH",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-BestandDaooFzH}
 image::BestandDaooFzH.png[align="center",width=50%,pdfwidth=50%]
 
 Um ein neues Objekt Bestand zu persistieren, wird eine Instanz von Bestand erzeugt und anschließend `speichereBestand(Bestand)` aufgerufen.
@@ -1271,9 +1247,8 @@ Die Methode `leseBestand(String)` liest den Bestand einer CD, die durch den übe
 Die Methode `loescheBestand(Bestand)` löscht den Datensatz aus der Datenbank.
 Um den Bestand historisierbar zu machen, werden die folgenden Erweiterungen vorgenommen, die in <<image-BestandDao>> dargestellt sind.
 
-:desc-image-BestandDao: BestandDao mit Erweiterungen für Historisierung
+.BestandDao mit Erweiterungen für Historisierung
 [id="image-BestandDao",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-BestandDao}
 image::BestandDao.png[align="center",width=50%,pdfwidth=50%]
 
 Die Methode `erzeugeNeueVersionBestand(Bestand)` wurde eingefügt.
@@ -1336,9 +1311,8 @@ Die Tabelle M_SCHEMA_VERSION enthält die Information über die aktuelle Version
 Die Tabelle hat die folgende Struktur:
 
 //tag::namenskonvention[]
-:desc-table-TabMSHEVERS: Tabelle M_SCHEMA_VERSION
+.Tabelle M_SCHEMA_VERSION
 [id="table-TabMSHEVERS",reftext="{table-caption} {counter:tables}"]
-.{desc-table-TabMSHEVERS}
 [cols="2,2,3",options="header"]
 |====
 |Spalte |Typ |Beschreibung
@@ -1362,9 +1336,8 @@ Die Tabelle M_SCHEMA_LOG enthält Information über eingespielte Skripte zur Anp
 Die Tabelle hat die folgende Struktur:
 
 //tag::namenskonvention[]
-:desc-table-TabMSHELOG: Tabelle M_SCHEMA_LOG
+.Tabelle M_SCHEMA_LOG
 [id="table-TabMSHELOG",reftext="{table-caption} {counter:tables}"]
-.{desc-table-TabMSHELOG}
 [cols="2,2,3",options="header"]
 |====
 |Spalte |Typ |Beschreibung
@@ -1415,9 +1388,8 @@ Falls den Benutzern im Schritt 3 Rechte zugewiesen wurden, die nur für die Inst
 
 Die nachfolgende Abbildung zeigt noch einmal die einzelnen Schritte der Installation.
 
-:desc-image-instbeineuan: Installationsablauf bei der Neuanlage
+.Installationsablauf bei der Neuanlage
 [id="image-instbeineuan",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-instbeineuan}
 image::instbeineuan.png[align="center"]
 
 [[struktur-der-installationsskripte-fuer-die-neuanlage]]
@@ -1446,9 +1418,8 @@ Der Name kann frei vergeben werden, sollte aber sprechend sein.
 
 Die nachfolgende Abbildung zeigt noch einmal die Beziehung zwischen den einzelnen Skripten.
 
-:desc-image-BezzwischInst: Beziehungen zwischen den Installationsskripten
+.Beziehungen zwischen den Installationsskripten
 [id="image-BezzwischInst",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-BezzwischInst}
 image::BezzwischInst.png[align="center"]
 
 Templates für die Skripte sind als Ressourcen in der Bibliothek `isy-persistence` abgelegt.
@@ -1479,9 +1450,8 @@ Falls in Schritt 2 für Benutzer Rechte gesetzt wurden, die nur für die Durchf�
 
 Die nachfolgende Abbildung zeigt noch einmal die einzelnen Schritte der Installation.
 
-:desc-image-instbeineuan2: Ablauf bei der Schemaänderung
+.Ablauf bei der Schemaänderung
 [id="image-instbeineuan2",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-instbeineuan2}
 image::instbeineuan.png[align="center"]
 
 [[struktur-der-aenderungsskripte]]
@@ -1511,9 +1481,8 @@ Der Name kann frei vergeben werden, sollte aber sprechend sein.
 
 Die nachfolgende Abbildung zeigt noch einmal die Beziehung zwischen den einzelnen Skripten.
 
-:desc-image-bezzwischenAend: Beziehungen zwischen den Änderungsskripten
+.Beziehungen zwischen den Änderungsskripten
 [id="image-bezzwischenAend",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-bezzwischenAend}
 image::bezzwischenAend.png[align="center"]
 
 Templates für die Skripte sind als Ressourcen in der Bibliothek `isy-persistence` abgelegt.
@@ -1593,9 +1562,8 @@ Der Wert `warn` legt fest, dass lediglich eine Warnung in die Log-Datei geschrie
 Bei Datenmigrationen muss jedes Skript vor der Ausführung prüfen, ob die Datenbank die erwartete Version hat.
 Das kann mit dem folgenden SQL-Statement durchgeführt werden:
 
-:desc-listing-pruefung-schema-version: SQL-Query zur Prüfung der Schema-Version
+.SQL-Query zur Prüfung der Schema-Version
 [id="listing-pruefung-schema-version",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-pruefung-schema-version}
 [source]
 ----
 SELECT version

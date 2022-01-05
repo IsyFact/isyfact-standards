@@ -4,8 +4,7 @@
 
 :sectnums:
 
-include:allgemein:partial$licence.adoc[]
-
+include::allgemein:partial$licence.adoc[]
 
 include::thisdoc.adoc[tags=inhalt]
 
