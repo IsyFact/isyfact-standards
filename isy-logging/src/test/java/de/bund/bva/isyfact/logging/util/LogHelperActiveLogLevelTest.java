@@ -59,7 +59,7 @@ public class LogHelperActiveLogLevelTest {
 
     @Test
     public void testLoggeAufrufCheckINFOLogLevel() throws NoSuchMethodException {
-        // log with level OFF, exect 0 additional log entrys
+        // log with level OFF, expect 0 additional log entrys
         logger.setLevel(Level.OFF);
         assertThat(appender.list).isEmpty();
         logHelper.loggeAufruf(isyLogger, TestBeanEinfach.class.getMethod("setEinString", String.class));
