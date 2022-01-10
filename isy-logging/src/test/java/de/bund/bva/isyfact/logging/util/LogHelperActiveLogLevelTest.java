@@ -59,7 +59,7 @@ public class LogHelperActiveLogLevelTest {
 
     @Test
     public void testLoggeAufrufCheckINFOLogLevel() throws NoSuchMethodException {
-        // log with level OFF, exect 0 additional log entrys
+        // log with level OFF, expect 0 additional log entrys
         logger.setLevel(Level.OFF);
         assertThat(appender.list).isEmpty();
         logHelper.loggeAufruf(isyLogger, TestBeanEinfach.class.getMethod("setEinString", String.class));
@@ -72,7 +72,7 @@ public class LogHelperActiveLogLevelTest {
         );
         assertThat(appender.list).isEmpty();
 
-        // log with level INFO, exect 1 additional log entry
+        // log with level INFO, expect 1 additional log entry
         logger.setLevel(Level.INFO);
         logHelper.loggeAufruf(isyLogger, TestBeanEinfach.class.getMethod("setEinString", String.class));
         verify(isyLogger, atLeastOnce()).info(
@@ -91,7 +91,7 @@ public class LogHelperActiveLogLevelTest {
 
     @Test
     public void testLoggeErgebnisCheckINFOLogLevel() throws NoSuchMethodException {
-        // log with level OFF, exect 0 additional log entry
+        // log with level OFF, expect 0 additional log entry
         logger.setLevel(Level.OFF);
         assertThat(appender.list).isEmpty();
         logHelper.loggeErgebnis(
@@ -110,7 +110,7 @@ public class LogHelperActiveLogLevelTest {
         );
         assertThat(appender.list).isEmpty();
 
-        // log with level INFO, exect 2 additional log entrys
+        // log with level INFO, expect 1 additional log entry
         logger.setLevel(Level.INFO);
         logHelper.loggeErgebnis(
                 isyLogger,
@@ -135,7 +135,7 @@ public class LogHelperActiveLogLevelTest {
 
     @Test
     public void testLoggeErgebnisCheckDEBUGLogLevel() throws NoSuchMethodException {
-        // log with level OFF, exect 0 additional log entry
+        // log with level OFF, expect 0 additional log entry
         logger.setLevel(Level.OFF);
         assertThat(appender.list).isEmpty();
         logHelper.loggeErgebnis(
@@ -154,7 +154,7 @@ public class LogHelperActiveLogLevelTest {
         );
         assertThat(appender.list).isEmpty();
 
-        // log with level DEBUG, exect 2 additional log entrys
+        // log with level DEBUG, expect 2 additional log entrys
         logger.setLevel(Level.DEBUG);
         logHelper.loggeErgebnis(
                 isyLogger,
@@ -179,7 +179,7 @@ public class LogHelperActiveLogLevelTest {
 
     @Test
     public void testLoggeDauerCheckINFOLogLevel() throws NoSuchMethodException {
-        // log with level OFF, exect 0 additional log entrys
+        // log with level OFF, expect 0 additional log entrys
         logger.setLevel(Level.OFF);
         assertThat(appender.list).isEmpty();
         logHelper.loggeDauer(
@@ -198,7 +198,7 @@ public class LogHelperActiveLogLevelTest {
         );
         assertThat(appender.list).isEmpty();
 
-        // log with level INFO, exect 1 additional log entry
+        // log with level INFO, expect 1 additional log entry
         logger.setLevel(Level.INFO);
         logHelper.loggeDauer(isyLogger,
                 TestBeanEinfach.class.getMethod("setEinString", String.class),
@@ -223,7 +223,7 @@ public class LogHelperActiveLogLevelTest {
 
     @Test
     public void testLoggeNachbarsystemAufrufCheckINFOLogLevel() throws NoSuchMethodException {
-        // log with level OFF, exect 0 additional log entrys
+        // log with level OFF, expect 0 additional log entrys
         logger.setLevel(Level.OFF);
         assertThat(appender.list).isEmpty();
         logHelper.loggeNachbarsystemAufruf(
@@ -243,7 +243,7 @@ public class LogHelperActiveLogLevelTest {
         );
         assertThat(appender.list).isEmpty();
 
-        // log with level INFO, exect 1 additional log entry
+        // log with level INFO, expect 1 additional log entry
         logger.setLevel(Level.INFO);
         logHelper.loggeNachbarsystemAufruf(isyLogger,
                 TestBeanEinfach.class.getMethod("setEinString", String.class),
@@ -268,7 +268,7 @@ public class LogHelperActiveLogLevelTest {
 
     @Test
     public void testLoggeNachbarsystemErgebnisCheckINFOLogLevel() throws NoSuchMethodException {
-        // log with level OFF, exect 0 additional log entrys
+        // log with level OFF, expect 0 additional log entrys
         logger.setLevel(Level.OFF);
         assertThat(appender.list).isEmpty();
         logHelper.loggeNachbarsystemErgebnis(
@@ -289,7 +289,7 @@ public class LogHelperActiveLogLevelTest {
         );
         assertThat(appender.list).isEmpty();
 
-        // log with level INFO, exect 1 additional log entry
+        // log with level INFO, expect 1 additional log entry
         logger.setLevel(Level.INFO);
         logHelper.loggeNachbarsystemErgebnis(isyLogger,
                 TestBeanEinfach.class.getMethod("setEinString", String.class),
@@ -315,7 +315,7 @@ public class LogHelperActiveLogLevelTest {
 
     @Test
     public void testLoggeNachbarsystemDauerCheckINFOLogLevel() throws NoSuchMethodException {
-        // log with level OFF, exect 0 additional log entrys
+        // log with level OFF, expect 0 additional log entrys
         logger.setLevel(Level.OFF);
         assertThat(appender.list).isEmpty();
         logHelper.loggeNachbarsystemDauer(
@@ -338,7 +338,7 @@ public class LogHelperActiveLogLevelTest {
         );
         assertThat(appender.list).isEmpty();
 
-        // log with level INFO, exect 1 additional log entry
+        // log with level INFO, expect 1 additional log entry
         logger.setLevel(Level.INFO);
         logHelper.loggeNachbarsystemDauer(isyLogger,
                 TestBeanEinfach.class.getMethod("setEinString", String.class),
