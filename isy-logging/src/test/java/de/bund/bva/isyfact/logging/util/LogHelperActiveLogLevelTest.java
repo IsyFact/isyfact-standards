@@ -110,7 +110,7 @@ public class LogHelperActiveLogLevelTest {
         );
         assertThat(appender.list).isEmpty();
 
-        // log with level INFO, expect 2 additional log entrys
+        // log with level INFO, expect 1 additional log entry
         logger.setLevel(Level.INFO);
         logHelper.loggeErgebnis(
                 isyLogger,
