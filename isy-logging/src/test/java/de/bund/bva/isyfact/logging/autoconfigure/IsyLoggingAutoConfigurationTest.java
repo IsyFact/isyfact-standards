@@ -6,6 +6,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -46,5 +47,19 @@ public class IsyLoggingAutoConfigurationTest {
         contextRunner.withPropertyValues("isy.logging.anwendung.name=test", "isy.logging.anwendung.typ=test",
             "isy.logging.anwendung.version=test", "isy.logging.performancelogging.enabled=true")
             .run(context -> assertThat(context).hasBean("performanceLogInterceptor"));
+    }
+
+    /**
+     * Checks if the parameters are passed in the correct order when initializing LogApplicationListener
+     */
+    @Test
+    public void isyLoggingAutoConfigurationParameter() {
+        contextRunner.withPropertyValues("isy.logging.anwendung.name=testName", "isy.logging.anwendung.typ=testTyp",
+                "isy.logging.anwendung.version=testVersion").run(context -> {
+            assertThat(context).hasSingleBean(LogApplicationListener.class);
+            assertThat(ReflectionTestUtils.getField(context.getBean(LogApplicationListener.class), "systemname")).isEqualTo("testName");
+            assertThat(ReflectionTestUtils.getField(context.getBean(LogApplicationListener.class), "systemart")).isEqualTo("testTyp");
+            assertThat(ReflectionTestUtils.getField(context.getBean(LogApplicationListener.class), "systemversion")).isEqualTo("testVersion");
+        });
     }
 }

@@ -1,4 +1,16 @@
+# 2.4.0
+- `IFS-798`: Pojobuilder zu Products-BOM hinzugefügt
+
+# 2.3.0
+- `IFS-985`: Spring Security entfernt (Verwaltung der Version über Spring Boot)
+- `IFS-987`: Entferne log4j
+- `IFS-970`: Spring-Boot Versionsanhebung auf 2.5.2
+- `IFS-984`: Eigene Version von Ehcache durch Spring Boot Managed Dependencies ersetzt
+- `IFS-1093`: Anhebung von Oracle-JDBC und UCP auf 19.11
+- `IFS-988`: Apache-Commons-Logging entfernt
+
 # 2.2.0
+- `IFS-601`: Einbindung folgender Produkte über die Spring Boot Dependencies: JPA, JTA, Spring, Hibernate, Jackson, QueryDSL, SLF4J, Logback, JUnit, Mockito, AssertJ, H2.
 - `IFS-643`: WireMock in products.bom ergänzt
 - `IFS-465`: Profile zum Bauen mit Java 11 erstellt
 - `IFS-491`: Jackson Version auf 2.10.1 angehoben

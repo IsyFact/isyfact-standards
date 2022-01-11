@@ -1,0 +1,10 @@
+:doctitle: Baustein Datum & Zeit
+:document-type: Konzept
+
+toc::[]
+
+colophon::[]
+
+include::thisdoc.adoc[tags=inhalt]
+
+include::inhalt.adoc[tags=inhalt]

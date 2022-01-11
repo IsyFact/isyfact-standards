@@ -1,3 +1,6 @@
+# 2.4.0
+- `RF-1040`: Scope für Spotbugs-Annotations Abhängigkeit auf provided gesetzt
+
 # 2.2.0
 - `IFS-568`: Entfernt redundante Methode `getMessage(String schluessel)` aus dem MessageSourceHolder
 

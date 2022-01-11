@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>de.bund.bva.isyfact</groupId>
+        <artifactId>isyfact-standards</artifactId>
+        <version>2.4.0-RC1</version>
+    </parent>
+
+    <artifactId>isy-service-rest</artifactId>
+    <packaging>pom</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <html-output-base-directory>${project.build.directory}/doc/html</html-output-base-directory>
+        <pdf-output-base-directory>${project.build.directory}/doc/pdf</pdf-output-base-directory>
+        <maven.build.timestamp.format>dd.MM.yyyy</maven.build.timestamp.format>
+        <component.src>src/docs/asciidoc/</component.src>
+        <component.name>Interne_REST-Services</component.name>
+    </properties>
+
+    <profiles>
+        <profile>
+            <id>build-docs</id>
+            <build>
+                <defaultGoal>compile</defaultGoal>
+                <plugins>
+                    <plugin>
+                        <groupId>org.asciidoctor</groupId>
+                        <artifactId>asciidoctor-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>konzept-html</id>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>process-asciidoc</goal>
+                                </goals>
+                                <configuration>
+                                    <backend>html</backend>
+                                    <sourceDirectory>${component.src}/konzept</sourceDirectory>
+                                    <sourceDocumentName>master.adoc</sourceDocumentName>
+                                    <outputFile>${html-output-base-directory}/Konzept_${component.name}.html</outputFile>
+                                    <attributes>
+                                        <factory>IsyFact-Standards</factory>
+                                    </attributes>  
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>konzept-pdf</id>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>process-asciidoc</goal>
+                                </goals>
+                                <configuration>
+                                    <backend>pdf</backend>
+                                    <sourceDirectory>${component.src}/konzept</sourceDirectory>
+                                    <sourceDocumentName>master.adoc</sourceDocumentName>
+                                    <outputFile> ${pdf-output-base-directory}/Konzept_${component.name}.pdf</outputFile>
+                                    <attributes>
+                                        <factory>IsyFact-Standards</factory>
+                                    </attributes>                                   
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>nutzungsvorgaben-html</id>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>process-asciidoc</goal>
+                                </goals>
+                                <configuration>
+                                    <backend>html</backend>
+                                    <sourceDirectory>${component.src}/konzept</sourceDirectory>
+                                    <sourceDocumentName>master.adoc</sourceDocumentName>
+                                    <outputFile>${html-output-base-directory}/Nutzungsvorgaben_${component.name}.html</outputFile>
+                                    <attributes>
+                                        <factory>IsyFact-Standards</factory>
+                                    </attributes>  
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>nutzungsvorgaben-pdf</id>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>process-asciidoc</goal>
+                                </goals>
+                                <configuration>
+                                    <backend>pdf</backend>
+                                    <sourceDirectory>${component.src}/nutzungsvorgaben</sourceDirectory>
+                                    <sourceDocumentName>master.adoc</sourceDocumentName>
+                                    <outputFile> ${pdf-output-base-directory}/Nutzungsvorgaben_${component.name}.pdf</outputFile>
+                                    <attributes>
+                                        <factory>IsyFact-Standards</factory>
+                                    </attributes>  
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>

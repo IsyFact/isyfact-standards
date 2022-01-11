@@ -1,7 +1,18 @@
+# 2.4.0
+- `IFS-668`: Zurücksetzung der KorrelationsId des AnrufKontextTo bei einem Invoke
+
 # 2.3.0
 - `IFS-874`: Umsetzung des Transports von OAuth 2 Bearer Tokens zwischen Schnittstellentechnologien
     - `IsyHttpInvokerServiceExporter` und `TimeoutWiederholungHttpInvokerRequestExecutor` um den `AufrufKontextVerwalter` erweitert.
     - Der OAuth 2 Bearer Token wird über den HTTP Authentication Header transportiert bzw. aus diesem ausgelesen.
+- `IFS-977`: Statische Auflösung des AufrufKontextTo durch Bean-Lösung abgelöst
+    * AufrufKontextToHelper ist deprecated -> stattdessen AufrufKontextToResolver verwenden
+    * DefaultAufrufKontextToResolver wird auch in der Autoconfig automatisch erstellt und steht für Autowiring zur Verfügung
+    * folgende Klassen benötigen jetzt den Resolver als Pflichtparameter:
+        * `StelltAufrufKontextBereitInterceptor`
+        * `StelltAllgemeinenAufrufKontextBereitInterceptor`
+        * `StelltLoggingKontextBereitInterceptor`
+        * `IsyHttpInvokerClientInterceptor`
 
 # 2.2.0
 - `IFS-564`: Deaktivieren von Proxy-Objekten in HttpInvoker Schnittstellen

@@ -1,6 +1,42 @@
-# 2.3.0
+# 2.4.0
+- `IFS-590`: [isy-logging] Instanziierung LogApplicationListener Parameter in korrekter Reihenfolge
+- `IFS-601`: [isy-products-bom] Einbindung folgender Produkte über die Spring Boot Dependencies: JPA, JTA, Spring, Hibernate, Jackson, QueryDSL, SLF4J, Logback, JUnit, Mockito, AssertJ, H2.
+- `IFS-661`: [isy-task] CompletionWatchdog loggt Stacktrace bei Exception
 - `IFS-874`: [isy-aufrufkontext], [isy-serviceapi-core] Umsetzung des Transports von OAuth 2 Bearer-Token zwischen Schnittstellentechnologien.
 - `IFS-686`: [isy-ueberwachung] Property-Dateien auf Unicode Escapes umgestellt
+- `IFS-1066`: [isy-persistence] Protokollierung-Datenstrukturen aus den Template-DB-Skripten entfernt
+- `IFS-977`: [isy-serviceapi-core] Statische Auflösung des AufrufKontextTo durch Bean-Lösung abgelöst
+    * AufrufKontextToHelper ist deprecated -> stattdessen AufrufKontextToResolver verwenden
+    * DefaultAufrufKontextToResolver wird auch in der Autoconfig automatisch erstellt und steht für Autowiring zur Verfügung
+    * folgende Klassen benötigen jetzt den Resolver als Pflichtparameter:
+        * `StelltAufrufKontextBereitInterceptor`
+        * `StelltAllgemeinenAufrufKontextBereitInterceptor`
+        * `StelltLoggingKontextBereitInterceptor`
+        * `IsyHttpInvokerClientInterceptor`
+- `IFS-978`: [isy-sst-bridge] Bridge-Erweiterung:
+    * ServiceApiMapper unterstützt Mapping von AufrufKontextTo auch in Gegenrichtung (IF1 zu IF2)
+    * AufrufKontextToResolver hinzugefügt, der sowohl mit IF1, als auch IF2-AufrufKontextTo umgehen kann
+- `IFS-985`: [isyfact-products-bom] Entferne Spring Security (Verwaltung der Version über Spring Boot)
+- `IFS-987`: [isyfact-products-bom] Entferne log4j
+- `IFS-970`: [isy-products-bom] Spring-Boot Versionsanhebung auf 2.5.2
+- `IFS-984`: [isyfact-products-bom] Eigene Version von Ehcache durch Spring Boot Managed Dependencies ersetzt
+- `IFS-1093`: [isy-persistence], [isyfact-products-bom] Anhebung von Oracle-JDBC und UCP auf 19.11
+- `IFS-988`: [isy-products-bom] Apache Commons Logging entfernt
+- `IFS-688`: [isy-serviceapi-core] Zurücksetzung der KorrelationsId des AnrufKontextTo bei einem Invoke
+- `IFS-1176`: [isy-sonderzeichen] Fehler gefixt, bei dem der LegacyTransformator Texte ausgibt, die nicht konform zu String.Latin 1.1 sind.
+- `IFS-801`: [isy-batchrahmen] SpotBugs Fehler behoben
+- `IFS-802`: [isy-logging] SpotBugs Fehler behoben
+- `RF-1040`: [isy-util], [isy-sonderzeichen] Scope für Spotbugs-Annotations Abhängigkeit auf provided gesetzt
+- `IFS-1158`: [isy-task] Behebung der "Missing parameter metadata"-Warnung in dem mit dem "-parameters"-Flag compiliert wird
+
+# 2.3.0
+- `IFS-1004`: [isy-sonderzeichen]
+    * Refactoring des DIN-SPEC-Packages von isy-sonderzeichen
+    * Entfernen des `core`-Unterpakets des DIN-SPEC-Packages von isy-sonderzeichen
+- `IFS-1109`: [isy-sonderzeichen] DIN SPEC 91379:
+    * Erweiterung Transformator-Interface um Methoden, die Metadaten der Transformation tracken
+    * neuer LegacyTransformator, der Texte nach DIN-SPEC-91379 in String.Latin-1.1-konforme Texte transformiert
+- `IFS-1035`: [isy-sonderzeichen] Funktion hinzugefügt, welche die Zugehörigkeit eines Strings zu einem DIN-SPEC-Datentyp prüft.
 
 # 2.2.0
 - `IFS-453`: [isy-ueberwachung] Loglevel für isAlive-Datei-Ereignisse erhöht.
@@ -21,7 +57,6 @@
 - `IFS-741`: [isy-persistence] Entferne das Anlegen von DB-User in Update-Skripten
 - `IFS-676`: Versionsupdate von OpenCSV 3.8 auf 5.3
     * Hinweise zu Breaking Changes s. Changelog.md der isyfact-products-bom
-
 
 # 2.1.0
 - `IFS-156`: [isy-sicherheit] Sonderlogik, die Underscores aus dem Attribut `durchfuehrenderSachbearbeiterName` des Aufrufkontextes entfernt erneut ausgebaut.

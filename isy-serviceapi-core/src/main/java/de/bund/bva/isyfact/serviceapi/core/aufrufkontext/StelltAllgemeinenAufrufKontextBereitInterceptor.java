@@ -16,82 +16,96 @@
  */
 package de.bund.bva.isyfact.serviceapi.core.aufrufkontext;
 
+import java.util.Optional;
+
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
+import org.springframework.core.Ordered;
 
-import ma.glasnost.orika.MapperFacade;
-
-import de.bund.bva.isyfact.logging.IsyLogger;
-import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontextFactory;
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
-import de.bund.bva.isyfact.serviceapi.common.AufrufKontextToHelper;
+import de.bund.bva.isyfact.logging.IsyLogger;
+import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
-import org.springframework.core.Ordered;
+
+import ma.glasnost.orika.MapperFacade;
 
 /**
- * Ein Interceptor, welcher den AufrufKontext auf Basis eines Mappings bereit stellt.
+ * An interceptor that provides the calling context based on a mapping.
+ * @param <T> Implementation of AufrufKontext that should be mapped to.
  */
 public class StelltAllgemeinenAufrufKontextBereitInterceptor<T extends AufrufKontext> implements
     MethodInterceptor, Ordered {
 
-    private final MapperFacade mapper;
-
+    /** Logger. */
     private static final IsyLogger LOGISY = IsyLoggerFactory
         .getLogger(StelltAllgemeinenAufrufKontextBereitInterceptor.class);
 
-    /** Standard-Reihenfolge für die Intercepter-Ausführung, wenn kein anderer gesetzt wird.
-     * Muss vor GesichertInterceptor ausgeführt werden. */
+    /**
+     * Default order for interceptor execution if no other is set.
+     * Must be executed before GesichertInterceptor.
+     */
     private static final int DEFAULT_ORDER = 9_000;
 
-    /** Reihenfolge für die Interceptor-Ausführung. */
-    private int order = DEFAULT_ORDER;
+    /** Mapper. */
+    private final MapperFacade mapper;
 
     /**
-     * Zugriff auf die AufrufKontextFactory zum Mappen des empfangenen AufrufKontextTo auf den
-     * Anwendungsspezifischen AufrufKontext.
+     * Access the AufrufKontextFactory to create the application specific AufrufKontext.
      */
     private final AufrufKontextFactory<T> aufrufKontextFactory;
 
-    /** Zugriff auf den AufrufKontextVerwalter, um den AufrufKontext zu setzten. */
+    /** Access to AufrufKontextVerwalter, to set the AufrufKontext. */
     private final AufrufKontextVerwalter<T> aufrufKontextVerwalter;
 
+    /** Resolver for AufrufKontextTo from parameter list. */
+    private final AufrufKontextToResolver aufrufKontextToResolver;
+
+    /** Order for interceptor execution. */
+    private int order = DEFAULT_ORDER;
+
     public StelltAllgemeinenAufrufKontextBereitInterceptor(MapperFacade mapper,
-        AufrufKontextFactory<T> aufrufKontextFactory, AufrufKontextVerwalter<T> aufrufKontextVerwalter) {
+        AufrufKontextFactory<T> aufrufKontextFactory,
+        AufrufKontextVerwalter<T> aufrufKontextVerwalter,
+        AufrufKontextToResolver aufrufKontextToResolver) {
         this.mapper = mapper;
         this.aufrufKontextFactory = aufrufKontextFactory;
         this.aufrufKontextVerwalter = aufrufKontextVerwalter;
+        this.aufrufKontextToResolver = aufrufKontextToResolver;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
 
-        T alterAufrufKontext = this.aufrufKontextVerwalter.getAufrufKontext();
+        T alterAufrufKontext = aufrufKontextVerwalter.getAufrufKontext();
 
-        AufrufKontextTo aufrufKontextTo =
-            AufrufKontextToHelper.leseAufrufKontextTo(invocation.getArguments());
+        Optional<AufrufKontextTo> aufrufKontextToOptional =
+            aufrufKontextToResolver.leseAufrufKontextTo(invocation.getArguments());
 
-        if (aufrufKontextTo == null) {
+        if (!aufrufKontextToOptional.isPresent()) {
             LOGISY.debug("Es wurde kein AufrufKontext uebermittelt.");
-            this.aufrufKontextVerwalter.setAufrufKontext(null);
-        } else {
-            T aufrufKontext = this.aufrufKontextFactory.erzeugeAufrufKontext();
-            this.mapper.map(aufrufKontextTo, aufrufKontext);
-            this.aufrufKontextFactory.nachAufrufKontextVerarbeitung(aufrufKontext);
-
-            this.aufrufKontextVerwalter.setAufrufKontext(aufrufKontext);
         }
+
+        T aufrufKontext = aufrufKontextToOptional
+            .map(this::mapToGenericAufrufKontext)
+            .orElse(null);
+
+        aufrufKontextVerwalter.setAufrufKontext(aufrufKontext);
 
         try {
             return invocation.proceed();
         } finally {
-            // Setze alten AufrufKontext zurueck
-            this.aufrufKontextVerwalter.setAufrufKontext(alterAufrufKontext);
+            // Reset to old AufrufKontext
+            aufrufKontextVerwalter.setAufrufKontext(alterAufrufKontext);
         }
+    }
+
+    private T mapToGenericAufrufKontext(AufrufKontextTo aufrufKontextTo) {
+        T aufrufKontext = aufrufKontextFactory.erzeugeAufrufKontext();
+        mapper.map(aufrufKontextTo, aufrufKontext);
+        aufrufKontextFactory.nachAufrufKontextVerarbeitung(aufrufKontext);
+        return aufrufKontext;
     }
 
     @Override

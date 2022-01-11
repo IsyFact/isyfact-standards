@@ -18,7 +18,9 @@ package de.bund.bva.isyfact.batchrahmen.core.launcher;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -51,21 +53,20 @@ import de.bund.bva.isyfact.sicherheit.common.exception.SicherheitTechnicalRuntim
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.joran.JoranConfigurator;
 import ch.qos.logback.core.joran.spi.JoranException;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * This class starts a batch (see {@link Batchrahmen} with the transferred configuration. The configuration
  * is done via command line arguments und a property file.
  * <p>
  * The processing logic is divided into a Batchrahmen and a Ausführungsbean. See the Detailkonzept Batch
- * der Migrationsstufe 1.
+ * of the Migrationsstufe 1.
  * <p>
  * Command line arguments must always have the form <tt>-ParameterName ParameterValue</tt> oder
  * <tt>-ParameterName</tt>. The following parameters are relevant for Batchrahmen:
  * <ul>
  * <li>cfg &lt;filename&gt;: Name of property file
  * <li>start: Start batch in "Start" mode.
- * <li>restart: Start batch im "Restart" mode after an abort with error.
+ * <li>restart: Start batch in "Restart" mode after an abort with error.
  * <li>ignoriereRestart: Accept start even in the event of errors, do not insist on restart.
  * <li>ignoriereLauf: Accept start even with status "Laeuft".
  * </ul>
@@ -73,20 +74,20 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * The property file may have following values:
  * <ul>
  * <li>Batchrahmen.BeanName: Name of Batchrahmen-Bean.
- * <li>Anwendung.SpringDateien.&lt;N&gt;: Namen of spring configuration files of system.
- * <li>Batchrahmen.SpringDateien.&lt;N&gt;: Namen of spring configuration files of Batchrahmen.
+ * <li>Anwendung.SpringDateien.&lt;N&gt;: Names of spring configuration files of system.
+ * <li>Batchrahmen.SpringDateien.&lt;N&gt;: Names of spring configuration files of Batchrahmen.
  * <li>Batchrahmen.LogbackConfigFile: Path to Log4J configuration file.
  * <li>Batchrahmen.CommitIntervall: Number of record processes per commit.
  * <li>Batchrahmen.AnzahlZuVerarbeitendeDatensaetze: Number of data record to be processed.
  * <li>AusfuehrungsBean: Name of Ausfuehrungsbean for batch logic.
- * <li>BatchId: ID of batche (ID of batch status data record).
+ * <li>BatchId: ID of batch (ID of batch status data record).
  * <li>BatchName: Name of batch in batch status table.
  * </ul>
  * <p>
  * Any further command line parameters and properties can be entered. The command line parameters
  * are added to the properties and overwrite them, if necessary, before they are passed on to the
  * Batchrahmen-Bean. The Batchrahmen-Bean forwards the complete configuration to the Ausfuehrungsbean,
- * which it can use for configuration.
+ * which can use it for configuration.
  */
 public class BatchLauncher {
     /**
@@ -109,15 +110,11 @@ public class BatchLauncher {
     }
 
     /**
-     * Start batch. For configuration see class comment.
+     * Starts batch. For configuration see class comment.
      *
      * @param args command line parameters. For description see class comment.
      * @return return code of batch.
      */
-    @SuppressFBWarnings(
-            value = "DM_DEFAULT_ENCODING",
-            justification = "Solved with IFS-801"
-    )
     public static int run(final String[] args) {
         IsyLogger log = null;
         BatchKonfiguration rahmenKonfiguration = null;
@@ -211,18 +208,20 @@ public class BatchLauncher {
      * @param t Exception
      * @return String including stack trace without line breaks.
      */
-    @SuppressFBWarnings(
-            value = "DM_DEFAULT_ENCODING",
-            justification = "Solved with IFS-801"
-    )
     private static String exceptionToString(Throwable t) {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-        t.printStackTrace(new PrintStream(out));
-        return out.toString().replaceAll("\\r{0,1}\\n", " | ");
+        String exceptionString = "";
+        try {
+            t.printStackTrace(new PrintStream(out, false, StandardCharsets.UTF_8.name()));
+            exceptionString = out.toString(StandardCharsets.UTF_8.name()).replaceAll("\\r{0,1}\\n", " | ");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return exceptionString;
     }
 
     /**
-     * initializes Logback with the log configuration which was specified in the property file with key
+     * Initializes Logback with the log configuration which was specified in the property file with key
      * {@link KonfigurationSchluessel # PROPERTY_BATCHRAHMEN_LOGBACK_CONF}.
      * /config/logback-batch.xml is used as default.
      *
@@ -247,7 +246,7 @@ public class BatchLauncher {
     }
 
     /**
-     * creates a new instance and sets the configuration.
+     * Creates a new instance and sets the configuration.
      *
      * @param rahmenKonfiguration configuration for Batch-Rahmen.
      * @param protokoll           ErgebinsProtokoll.
@@ -258,7 +257,7 @@ public class BatchLauncher {
     }
 
     /**
-     * Generates the spring contexts for the application and the Batchrahmen.
+     * Creates the spring contexts for the application and the Batchrahmen.
      * Starts the Batchrahmen-Bean using the method
      * {@link Batchrahmen#runBatch(BatchKonfiguration, BatchErgebnisProtokoll)}.
      *
