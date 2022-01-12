@@ -1,0 +1,21 @@
+= IsyFact-Einstieg: Einleitung
+
+// tag::inhalt[]
+[[einleitung]]
+== Einleitung
+
+Dieses Dokument gibt einen Überblick über die Dokumente und Vorgaben für die Entwicklung von <<glossar-IT-System,IT-Systemen>> gemäß der <<glossar-Konzept,Konzepte>> der <<glossar-IFS,IsyFact Standards>>.
+Dabei werden die für die Entwicklung relevanten Dokumente referenziert. 
+Es werden Grundlagen zum Aufbau von <<glossar-Geschaeftsanwendung,Geschäftsanwendungen>> nach <<glossar-IsyFact>>-Referenzarchitektur kurz eingeführt.
+Detaillierte Inhalte der referenzierten Dokumente werden allerdings nicht wiederholt.
+
+Das Dokument ist wie folgt unterteilt:
+
+Im Kapitel <<vorstellung-der-isyfact>> werden die grundlegenden Aspekte und die Vision der IsyFact dargestellt, deren Fundament die IsyFact-Standards (IFS) bilden.
+
+Im Kapitel <<rahmenbedingungen>> werden querschnittliche Aspekte beschrieben, die beim Einsatz der IsyFact zu beachten sind.
+
+In den darauffolgenden Kapiteln werden die Inhalte der <<cisyfact-standards>> dargestellt und einen Ausblick auf die <<cisyfact-erweiterungen>> geliefert.
+
+Im Kapitel <<erste-schritte>> werden die konkreten Schritte dargestellt, die zur Einführung der IsyFact in einem neuen Kontext durchzuführen sind.
+// end::inhalt[]
