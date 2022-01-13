@@ -4,9 +4,9 @@
 [[einleitung]]
 == Einleitung
 
-Dieses Dokument gibt einen Überblick über die Dokumente und Vorgaben für die Entwicklung von xref:glossary:glossary:master.adoc#glossar-IT-System>[IT-Systeme (Glossar)] gemäß der xref:glossary:glossary:master.adoc#glossar-Konzept[Konzepte (Glossar)] der xref:glossary:glossary:master.adoc#glossar-IFS[IsyFact Standards (Glossar)].
+Dieses Dokument gibt einen Überblick über die Dokumente und Vorgaben für die Entwicklung von xref:glossary:glossary:master.adoc#glossar-IT-System>[IT-Systeme ] gemäß der xref:glossary:glossary:master.adoc#glossar-Konzept[Konzepte ] der xref:glossary:glossary:master.adoc#glossar-IFS[IsyFact Standards].
 Dabei werden die für die Entwicklung relevanten Dokumente referenziert.
-Es werden Grundlagen zum Aufbau von xref:glossary:glossary:master.adoc#glossar-Geschaeftsanwendung[Geschäftsanwendungen (Glossar)] nach xref:glossary:glossary:master.adoc#glossar-IsyFact[IsyFact (Glossar)] Rerenzarchitektur kurz eingeführt.
+Es werden Grundlagen zum Aufbau von xref:glossary:glossary:master.adoc#glossar-Geschaeftsanwendung[Geschäftsanwendungen ] nach xref:glossary:glossary:master.adoc#glossar-IsyFact[IsyFact] Rerenzarchitektur kurz eingeführt.
 Detaillierte Inhalte der referenzierten Dokumente werden allerdings nicht wiederholt.
 
 Das Dokument ist wie folgt unterteilt:

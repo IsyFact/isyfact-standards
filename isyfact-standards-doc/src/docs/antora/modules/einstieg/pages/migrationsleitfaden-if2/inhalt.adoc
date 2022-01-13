@@ -315,8 +315,8 @@ Bei der Umsetzung von Geschäftsanwendungen in IT-Systeme wird ein Großteil der
 Gerade bei einer Migration von einer IsyFact Version kleiner als v1.8 ist zu prüfen, ob alle aktuellen sicherheitsrelevanten Vorgaben erfüllt werden.
 Die IsyFact richtet sich beim Thema Sicherheit nach behördlichen Standards sowie De-Facto-Standards aus der Industrie:
 
-* <<ITGrundschutz>>
-* <<OWASP10>>
+* https://www.example.com/gundschutz.html[IT-Grundschutz]
+* https://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project[OWASP Top 10 Project]
 
 
 [[kapitel-isyfact-Referenzarchitektur]]

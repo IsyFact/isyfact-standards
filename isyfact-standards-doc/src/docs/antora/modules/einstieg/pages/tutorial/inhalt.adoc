@@ -107,7 +107,7 @@ Wird als Deep-Copy durch Bean-Mapper erzeugt.
 Im Normalfall verwenden Komponenten die Daten anderer Komponenten über deren Schnittstelle.
 Der direkte Zugriff auf die DAOs ist verboten.
 
-Entitäten, die von mehreren xref:glossary:glossary:master.adoc#glossar-Anwendungskomponente[Anwendungskomponenten (Glossar)] verwendet werden, bietet die Komponente Basisdaten an.
+Entitäten, die von mehreren xref:glossary:glossary:master.adoc#glossar-Anwendungskomponente[Anwendungskomponenten] verwendet werden, bietet die Komponente Basisdaten an.
 Die Komponente Basisdaten ist keine vollständige Komponente, sie bietet keine Schnittstellen an.
 Ausnahmsweise verwenden Komponenten stattdessen direkt die zugehörigen DAOs der Basisdaten.
 Dieser Fall ist auch in <<image-Datenhaltung>> dargestellt.
