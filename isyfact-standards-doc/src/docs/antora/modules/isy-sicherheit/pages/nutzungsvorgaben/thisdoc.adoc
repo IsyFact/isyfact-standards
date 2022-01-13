@@ -7,7 +7,7 @@
 Das Dokument xref:nutzungsvorgaben/master.adoc#einleitung[Sicherheit - Konzept] konzentriert sich auf die konzeptionellen Aspekte der Authentifizierung und Autorisierung.
 
 Dieses Dokument beschreibt, wie der Baustein Sicherheit und die von ihm bereitgestellte Bibliothek `isy-sicherheit` verwendet werden, um die Autorisierung innerhalb von IT-Systemen umzusetzen.
-Es richtet sich an Entwickler, die ein xref:glossary:glossary:master.adoc#glossar-IT-System>[IT-Systeme (Glossar)] gemäß den Vorgaben der IsyFact mit der Fähigkeit zur Autorisierung ausstatten müssen und beschreibt, wie und in welchen Teilen einer Anwendung die Autorisierung umzusetzen ist.
+Es richtet sich an Entwickler, die ein xref:glossary:glossary:master.adoc#glossar-IT-System>[IT-Systeme] gemäß den Vorgaben der IsyFact mit der Fähigkeit zur Autorisierung ausstatten müssen und beschreibt, wie und in welchen Teilen einer Anwendung die Autorisierung umzusetzen ist.
 
 Dazu beschreibt das Kapitel xref:nutzungsvorgaben/master.adoc#grundkonzepte-und-konfiguration[Grundkonzepte und Konfiguration] zunächst die grundlegenden Konfiguration, um den Baustein in ein IT-System einzubinden.
 
