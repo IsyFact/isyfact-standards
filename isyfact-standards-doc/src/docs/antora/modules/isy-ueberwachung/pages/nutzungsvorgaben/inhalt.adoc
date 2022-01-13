@@ -220,9 +220,9 @@ gesetzt.
 Die im Konzept beschriebenen Überwachungsfunktionen dürfen keinen relevanten negativen Einfluss auf die Performance der Anwendung haben.
 Dazu sind neben der Einhaltung der in dem Dokument xref:nutzungsvorgaben/master.adoc#einleitung[Überwachung - Konzept] beschriebenen Vorgaben noch einige grundlegende  Regeln zu beachten:
 
-* Da nicht auszuschließen ist, dass ein Überwachungswerkzeug sehr häufig Informationen aus den Endpoints abruft, darf das Bereitstellen der Informationen keine zeitaufwändigen Aktionen im xref:glossary:glossary:master.adoc#glossar-Anwendungssystem[Anwendungssystem (Glossar)] veranlassen.
+* Da nicht auszuschließen ist, dass ein Überwachungswerkzeug sehr häufig Informationen aus den Endpoints abruft, darf das Bereitstellen der Informationen keine zeitaufwändigen Aktionen im xref:glossary:glossary:master.adoc#glossar-Anwendungssystem[Anwendungssystem] veranlassen.
 * Bei der Bereitstellung weiterer Überwachungsinformationen ist darauf zu achten, dass die Ermittlung der Kennzahlen keinen relevanten negativen Einfluss auf die Anwendungs-Performance hat.
-Insbesondere dürfen keine fachlichen Funktionen des xref:glossary:glossary:master.adoc#glossar-Anwendungskern[Anwendungskerns (Glossar)] aufgerufen werden.
+Insbesondere dürfen keine fachlichen Funktionen des xref:glossary:glossary:master.adoc#glossar-Anwendungskern[Anwendungskerns] aufgerufen werden.
 
 [[statische-informationen-ueber-die-anwendung]]
 ==== Statische Informationen über die Anwendung

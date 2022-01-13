@@ -11,6 +11,6 @@ Dieses Dokument enthält das technische Feinkonzept zur Überwachung von Anwendu
 
 In diesem Dokument werden die Designvorgaben für die Überwachung von Anwendungen gemäß der <<TODO anderes Dokument: IsyFactReferenzarchitektur>> vorgestellt.
 
-Die Realisierung einer einheitlichen Überwachungsschnittstelle erlaubt es dem Betrieb frühzeitig Probleme in der xref:glossary:glossary:master.adoc#glossar-Anwendungslandschaft[Anwendungslandschaft (Glossar)] zu erkennen und darauf zu reagieren.
+Die Realisierung einer einheitlichen Überwachungsschnittstelle erlaubt es dem Betrieb frühzeitig Probleme in der xref:glossary:glossary:master.adoc#glossar-Anwendungslandschaft[Anwendungslandschaft] zu erkennen und darauf zu reagieren.
 Dadurch können Ausfallzeiten minimiert werden.
 // end::inhalt[]
