@@ -50,7 +50,7 @@ Im Rahmen der IsyFact werden zur Zeit von der Transkription nur kyrillische, gri
 Transkription ist an den folgenden Stellen von Bedeutung:
 
 *Datenaustausch mit anderen Systemen*::
-Für nach xref:glossary:glossary:master.adoc#glossar-IFS[IsyFact Standards (Glossar)] entwickelte Anwendungen ist der zu verwendende Zeichensatz festgelegt.
+Für nach xref:glossary:glossary:master.adoc#glossar-IFS[IsyFact Standards] entwickelte Anwendungen ist der zu verwendende Zeichensatz festgelegt.
 Andere Systeme, mit denen diese kommunizieren, können aber einen anderen Zeichensatz verwenden.
 Hier müssen die Daten zunächst in den Zeichensatz des Zielsystems umgewandelt werden.
 Die Umwandlung kann durch Transkription geschehen.
