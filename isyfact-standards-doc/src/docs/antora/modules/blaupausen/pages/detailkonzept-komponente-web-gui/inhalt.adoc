@@ -4,7 +4,7 @@
 [[referenzarchitektur-einer-geschaeftsanwendung]]
 == Referenzarchitektur der Komponente Web-GUI
 
-<<image-RAGaAnw>> zeigt die Referenzarchitektur einer xref:glossary:glossary:master.adoc#glossar-Geschaeftsanwendung[Geschäftsanwendung (Glossar)].
+<<image-RAGaAnw>> zeigt die Referenzarchitektur einer xref:glossary:glossary:master.adoc#glossar-Geschaeftsanwendung[Geschäftsanwendung].
 Die Referenzarchitektur ist eine Erweiterung der klassischen Drei-Schichten-Architektur, in der die oberste Schicht in GUI, Batch und Service differenziert wird.
 Die GUI ist hervorgehoben.
 
@@ -123,7 +123,7 @@ cdErwerb.js (übergreifend)
 
 === Zugriff auf den Anwendungskern
 
-Dialog-Komponenten verwenden grundsätzlich keine Klassen des xref:glossary:glossary:master.adoc#glossar-Anwendungskern[Anwendungskerns (Glossar)].
+Dialog-Komponenten verwenden grundsätzlich keine Klassen des xref:glossary:glossary:master.adoc#glossar-Anwendungskern[Anwendungskerns].
 Insbesondere verwenden ihre Models eigene Datentypen.
 Sämtliche Kommunikation mit dem Anwendungskern geschieht von den Controllern aus über den Anwendungskern-Wrapper (kurz: AWK-Wrapper).
 Die primäre Aufgabe des AWK-Wrappers ist es, das Datenmodell des Anwendungskerns in das Datenmodell der GUI-Komponente zu mappen und ggf. Transaktionsklammern über mehrere fachliche Operationen zu bilden.

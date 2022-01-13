@@ -4,9 +4,9 @@
 [[einleitung]]
 == Einleitung
 
-Die *IsyFact* ist eine freie allgemeine xref:glossary:glossary:master.adoc#glossar-Software-Factory[Software Factory (Glossar)] zum Bau von xref:glossary:glossary:master.adoc#glossar-IT-System>[IT-Systeme (Glossar)], die vom Bundesverwaltungsamt bereitgestellt wird.
-Sie wurde entwickelt, um unterschiedliche xref:glossary:glossary:master.adoc#glossar-Geschaeftsanwendung[Geschäftsanwendungen (Glossar)] effizient entwerfen, realisieren und betreiben zu können.
-Der Begriff Factory steht für die schnelle Erzeugung neuer xref:glossary:glossary:master.adoc#glossar-Anwendung[Anwendungen (Glossar)] durch Anpassung und Ausgestaltung vorgefertigter Elemente, die in eine standardisierte xref:glossary:glossary:master.adoc#glossar-Plattform>[Plattform (Glossar)] integriert werden können.
+Die *IsyFact* ist eine freie allgemeine xref:glossary:glossary:master.adoc#glossar-Software-Factory[Software Factory] zum Bau von xref:glossary:glossary:master.adoc#glossar-IT-System>[IT-Systeme], die vom Bundesverwaltungsamt bereitgestellt wird.
+Sie wurde entwickelt, um unterschiedliche xref:glossary:glossary:master.adoc#glossar-Geschaeftsanwendung[Geschäftsanwendungen] effizient entwerfen, realisieren und betreiben zu können.
+Der Begriff Factory steht für die schnelle Erzeugung neuer xref:glossary:glossary:master.adoc#glossar-Anwendung[Anwendungen] durch Anpassung und Ausgestaltung vorgefertigter Elemente, die in eine standardisierte xref:glossary:glossary:master.adoc#glossar-Plattform>[Plattform] integriert werden können.
 
 Die IsyFact besteht aus den IsyFact-Standards und IsyFact-Erweiterungen:
 
@@ -27,12 +27,12 @@ Die in diesem Dokument beschriebene Referenzarchitektur ist ein zentraler Teil d
 Dieser Abschnitt gibt einen zusammenfassenden Überblick über die wesentlichen Inhalte der Referenzarchitektur, die in späteren Kapiteln noch einmal ausführlich dargestellt werden.
 Dabei wird die Architektur aus drei verschiedenen Sichten betrachtet, die zunächst eingeführt werden.
 
-Die Referenzarchitektur unterscheidet zwischen den folgenden xref:glossary:glossary:master.adoc#glossar-Architektursicht[Architektursichten (Glossar)]:
+Die Referenzarchitektur unterscheidet zwischen den folgenden xref:glossary:glossary:master.adoc#glossar-Architektursicht[Architektursichten]:
 
 *Fachliche Referenzarchitektur:* Dies umfasst eine fachliche Beschreibung der Anwendungslandschaft.
 Diese wird in fachliche Komponenten zerlegt, die miteinander über fachliche Schnittstellen interagieren.
 
-*Software-Referenzarchitektur:* Dies ist eine software-technische Beschreibung der xref:glossary:glossary:master.adoc#glossar-Systemlandschaft[Systemlandschaft (Glossar)].
+*Software-Referenzarchitektur:* Dies ist eine software-technische Beschreibung der xref:glossary:glossary:master.adoc#glossar-Systemlandschaft[Systemlandschaft].
 Die gesamte Systemlandschaft wird in technische Komponenten mit technischen Schnittstellen zerlegt.
 
 *Referenzarchitektur der technischen Infrastruktur:* Hierunter fällt eine Beschreibung der Systemlandschaft aus dem Blickwinkel der technischen Infrastruktur.
@@ -51,27 +51,27 @@ Dies ist in <<image-GA-AW>> dargestellt.
 [id="image-GA-AW",reftext="{figure-caption} {counter:figures}"]
 image::GA-AW.png[align="center"]
 
-*Anwendungsdomänen:* Eine xref:glossary:glossary:master.adoc#glossar-Anwendungsdomaene[Anwendungsdomäne (Glossar)] gruppiert fachlich zusammengehörende Anwendungssysteme zur Unterstützung von Geschäftsprozessen, die als eine Einheit angesehen werden können.
+*Anwendungsdomänen:* Eine xref:glossary:glossary:master.adoc#glossar-Anwendungsdomaene[Anwendungsdomäne] gruppiert fachlich zusammengehörende Anwendungssysteme zur Unterstützung von Geschäftsprozessen, die als eine Einheit angesehen werden können.
 
-*Anwendungssysteme:* Ein xref:glossary:glossary:master.adoc#glossar-Anwendungssystem[Anwendungssystem (Glossar)] ist eine zusammengehörende, logische Einheit aus Funktionen, Daten und Schnittstellen.
+*Anwendungssysteme:* Ein xref:glossary:glossary:master.adoc#glossar-Anwendungssystem[Anwendungssystem] ist eine zusammengehörende, logische Einheit aus Funktionen, Daten und Schnittstellen.
 Es besteht aus Anwendungskomponenten und Querschnittskomponenten.
 Anwendungssysteme unterstützen Geschäftsprozesse.
-Stellt ein Anwendungssystem eine Fachlogik dar, so handelt es sich um eine xref:glossary:glossary:master.adoc#glossar-Geschaeftsanwendung[Geschäftsanwendung (Glossar)].
-Ein Anwendungssystem ist Bestandteil der xref:glossary:glossary:master.adoc#glossar-A-Architektur[A-Architektur (Glossar)].
-Aus Sicht der xref:glossary:glossary:master.adoc#glossar-T-Architektur[T-Architektur (Glossar)] bildet ein xref:glossary:glossary:master.adoc#glossar-IT-System>[IT-Systeme (Glossar)] die software-technische Umsetzung eines Anwendungssystems ab.
+Stellt ein Anwendungssystem eine Fachlogik dar, so handelt es sich um eine xref:glossary:glossary:master.adoc#glossar-Geschaeftsanwendung[Geschäftsanwendung].
+Ein Anwendungssystem ist Bestandteil der xref:glossary:glossary:master.adoc#glossar-A-Architektur[A-Architektur].
+Aus Sicht der xref:glossary:glossary:master.adoc#glossar-T-Architektur[T-Architektur] bildet ein xref:glossary:glossary:master.adoc#glossar-IT-System>[IT-Systeme] die software-technische Umsetzung eines Anwendungssystems ab.
 
 Ein häufig anzutreffendes Beispiel hierfür ist die Trennung in ein Anwendungssystem zur Bestandsverwaltung (Register) und einem Anwendungssystem für die Benutzerinteraktion, die auf die Bestandsverwaltung zugreift.
 Im Zuge einer solchen Aufgabenteilung werden auch weitergehende Regeln definiert, wie Anwendungssysteme aufeinander zugreifen dürfen.
 Derartige Strukturierungsprinzipien und Regeln sind jedoch immer spezifisch für den jeweiligen Kontext der Anwendungslandschaft und können nicht allgemeingültig festgelegt werden.
-Im vorliegenden Dokument verwenden wir daher den neutralen Begriff *xref:glossary:glossary:master.adoc#glossar-Geschaeftsanwendung[Geschäftsanwendung (Glossar)]* für alle Arten von Anwendungssystemen, die eine bestimmte fachliche Funktionalität innerhalb einer Anwendungsdomäne realisieren.
+Im vorliegenden Dokument verwenden wir daher den neutralen Begriff *xref:glossary:glossary:master.adoc#glossar-Geschaeftsanwendung[Geschäftsanwendung]* für alle Arten von Anwendungssystemen, die eine bestimmte fachliche Funktionalität innerhalb einer Anwendungsdomäne realisieren.
 
-*Querschnittssysteme* sind Anwendungssysteme, die xref:glossary:glossary:master.adoc#glossar-Basisdienst[Basisdienste (Glossar)] für mehrere Geschäftsanwendungen bereitstellen.
+*Querschnittssysteme* sind Anwendungssysteme, die xref:glossary:glossary:master.adoc#glossar-Basisdienst[Basisdienste] für mehrere Geschäftsanwendungen bereitstellen.
 Diese Dienste sind oft technisch motiviert.
 
-*Portal:* Das xref:glossary:glossary:master.adoc#glossar-Portal[Portal (Glossar)] stellt den Benutzern eine einheitliche Dialogoberfläche für den Zugriff auf die Dienste der Anwendungslandschaft zur Verfügung.
+*Portal:* Das xref:glossary:glossary:master.adoc#glossar-Portal[Portal] stellt den Benutzern eine einheitliche Dialogoberfläche für den Zugriff auf die Dienste der Anwendungslandschaft zur Verfügung.
 Einzelne Geschäftsanwendungen stellen Nutzerschnittstellen zur Verfügung, das Portal integriert diese, bildet einen zentralen Einstiegspunkt für alle Web-Anwendungen und übernimmt die Aufgabe der Authentifizierung und der Autorisierung auf Anwendungsebene.
 
-*Service-Gateway:* Im xref:glossary:glossary:master.adoc#glossar-Service-Gateway[Service Gateway (Glossar)] werden alle Services der Anwendungssysteme bereitgestellt, die externe Nutzer direkt nutzen dürfen.
+*Service-Gateway:* Im xref:glossary:glossary:master.adoc#glossar-Service-Gateway[Service Gateway] werden alle Services der Anwendungssysteme bereitgestellt, die externe Nutzer direkt nutzen dürfen.
 Dazu führt das Service-Gateway die Authentifizierung und Autorisierung der Service-Aufrufer auf Anwendungsebene durch.
 Weiterhin transformiert das Service-Gateway das interne Kommunikationsprotokoll einer IsyFact-Systemlandschaft in das vom Service-Aufrufer erwartete Protokoll.
 Dies sind in der Regel Web Service-Aufrufe.
@@ -80,7 +80,7 @@ Dies sind in der Regel Web Service-Aufrufe.
 ==== Software Referenzarchitektur
 
 Die individuell erstellten Anwendungssysteme der Anwendungslandschaft sind technisch gleichartig aufgebaut.
-Daher wird eine Referenzarchitektur aufgestellt, nach denen Anwendungssysteme (Geschäftsanwendungen und Querschnittssysteme) software-technisch in xref:glossary:glossary:master.adoc#glossar-IT-System>[IT-Systeme (Glossar)] umgesetzt werden.
+Daher wird eine Referenzarchitektur aufgestellt, nach denen Anwendungssysteme (Geschäftsanwendungen und Querschnittssysteme) software-technisch in xref:glossary:glossary:master.adoc#glossar-IT-System>[IT-Systeme] umgesetzt werden.
 Das Dokument xref:referenzarchitektur-it-system/master.adoc[Referenzarchitektur IT-Systeme] beschreibt diese Referenzarchitektur.
 
 Skalierbarkeit und Hochverfügbarkeit sind wichtige Anforderungen an die Referenzarchitektur.
@@ -97,7 +97,7 @@ Im Falle eines Serverausfalls kann die Aufgabe des ausgefallenen Servers durch e
 Die Skalierung des Systems ist in <<image-horSkal>> dargestellt.
 
 Die Referenzarchitektur ist die Umsetzung einer Serviceorientierten Architektur.
-Im Design des xref:glossary:glossary:master.adoc#glossar-Anwendungskern[Anwendungskerns (Glossar)] (siehe xref:detailkonzept-komponente-anwendungskern/master.adoc[Detailkonzept Komponente Anwendungskern] ) finden sich explizit Komponenten und Services.
+Im Design des xref:glossary:glossary:master.adoc#glossar-Anwendungskern[Anwendungskerns] (siehe xref:detailkonzept-komponente-anwendungskern/master.adoc[Detailkonzept Komponente Anwendungskern] ) finden sich explizit Komponenten und Services.
 Der Anwendungskern unterscheidet dabei noch zwischen Anwendungs-internen Services, die nur innerhalb der Anwendung aufgerufen werden und Anwendungs-externen Services, die über eine Nutzungsschnittstelle als Service anderen Anwendungen zur Verfügung gestellt werden.
 
 Der Entwurf der Services leitet sich in der Referenzarchitektur aus fachlichen Kriterien her.
@@ -111,7 +111,7 @@ Es hat zur Folge, dass als Application Server ein Servlet-Container ausreichend 
 [[referenzarchitektur-der-technischen-infrastruktur]]
 ==== Referenzarchitektur der technischen Infrastruktur
 
-Im Bereich der technischen Infrastruktur (xref:glossary:glossary:master.adoc#glossar-TI-Architektur>[IT-Architektur (Glossar)] <<>>) werden folgende Umgebungen beschrieben:
+Im Bereich der technischen Infrastruktur (xref:glossary:glossary:master.adoc#glossar-TI-Architektur>[IT-Architektur] <<>>) werden folgende Umgebungen beschrieben:
 
 * Produktionsumgebung,
 * Staging-Umgebung,
