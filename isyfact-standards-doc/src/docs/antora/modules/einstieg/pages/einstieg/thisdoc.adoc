@@ -4,18 +4,18 @@
 [[einleitung]]
 == Einleitung
 
-Dieses Dokument gibt einen Überblick über die Dokumente und Vorgaben für die Entwicklung von <<glossar-IT-System,IT-Systemen>> gemäß der <<glossar-Konzept,Konzepte>> der <<glossar-IFS,IsyFact Standards>>.
-Dabei werden die für die Entwicklung relevanten Dokumente referenziert. 
-Es werden Grundlagen zum Aufbau von <<glossar-Geschaeftsanwendung,Geschäftsanwendungen>> nach <<glossar-IsyFact>>-Referenzarchitektur kurz eingeführt.
+Dieses Dokument gibt einen Überblick über die Dokumente und Vorgaben für die Entwicklung von xref:glossary:glossary:master.adoc#glossar-IT-System>[IT-Systeme (Glossar)] gemäß der xref:glossary:glossary:master.adoc#glossar-Konzept[Konzepte (Glossar)] der xref:glossary:glossary:master.adoc#glossar-IFS[IsyFact Standards (Glossar)].
+Dabei werden die für die Entwicklung relevanten Dokumente referenziert.
+Es werden Grundlagen zum Aufbau von xref:glossary:glossary:master.adoc#glossar-Geschaeftsanwendung[Geschäftsanwendungen (Glossar)] nach xref:glossary:glossary:master.adoc#glossar-IsyFact[IsyFact (Glossar)] Rerenzarchitektur kurz eingeführt.
 Detaillierte Inhalte der referenzierten Dokumente werden allerdings nicht wiederholt.
 
 Das Dokument ist wie folgt unterteilt:
 
-Im Kapitel <<vorstellung-der-isyfact>> werden die grundlegenden Aspekte und die Vision der IsyFact dargestellt, deren Fundament die IsyFact-Standards (IFS) bilden.
+Im Kapitel xref:einstieg/master.adoc#vorstellung-der-isyfact[Vorstellung der IsyFact] werden die grundlegenden Aspekte und die Vision der IsyFact dargestellt, deren Fundament die IsyFact-Standards (IFS) bilden.
 
-Im Kapitel <<rahmenbedingungen>> werden querschnittliche Aspekte beschrieben, die beim Einsatz der IsyFact zu beachten sind.
+Im Kapitel xref:einstieg/master.adoc#rahmenbedingungen[Rahmenbedingungen] werden querschnittliche Aspekte beschrieben, die beim Einsatz der IsyFact zu beachten sind.
 
-In den darauffolgenden Kapiteln werden die Inhalte der <<cisyfact-standards>> dargestellt und einen Ausblick auf die <<cisyfact-erweiterungen>> geliefert.
+In den darauffolgenden Kapiteln werden die Inhalte der xref:einstieg/master.adoc#cisyfact-standards[IsyFact Standards] dargestellt und einen Ausblick auf die xref:einstieg/master.adoc#cisyfact-standards[IsyFact Standards]  geliefert.
 
-Im Kapitel <<erste-schritte>> werden die konkreten Schritte dargestellt, die zur Einführung der IsyFact in einem neuen Kontext durchzuführen sind.
+Im Kapitel xref:einstieg/master.adoc#erste-schritte[Erste Schritte] werden die konkreten Schritte dargestellt, die zur Einführung der IsyFact in einem neuen Kontext durchzuführen sind.
 // end::inhalt[]

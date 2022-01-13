@@ -53,10 +53,9 @@ Sowohl die IsyFact, also auch die IsyFact-Standards orientieren sich an dieser S
 * Konventionen und Vorgaben für die Spezifikation und Programmierung sowie das Projektvorgehen nach V-Modell XT: der *Methodik* und
 * Tools für teilweise Automatisierung von Modellierung, Programmierung, Tests und Fehlerverfolgung: den *Werkzeugen*
 
-:desc-image-IFBereiche: Die fünf Säulen der IsyFact
+.Die fünf Säulen der IsyFact
 [id="image-IFBereiche",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-IFBereiche}
-image::../../common/images/IFBereiche.png[align="center",width=60%,pdfwidth=60%]
+image::IFBereiche.png[align="center",width=60%,pdfwidth=60%]
 
 Die Säulen werden nachfolgend im Detail beschrieben.
 
@@ -71,9 +70,8 @@ Diese beinhaltet die Architekturen einer Geschäftsanwendung auf fachlicher Eben
 
 Die fachliche Architektur strukturiert die Anwendungslandschaft hierarchisch in Domänen, Systeme und Komponenten.
 
-:desc-image-AnwendungslandschaftIF: Die Anwendungslandschaft
+.Die Anwendungslandschaft
 [id="image-AnwendungslandschaftIF",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-AnwendungslandschaftIF}
 image::AnwendungslandschaftIF.png[align="center"]
 
 Anwendungssysteme bieten dabei eine zusammengehörige, logische Einheit aus Funktionen, Daten und Schnittstellen.
@@ -88,9 +86,8 @@ Ein Anwendungssystem besteht aus Anwendungskomponenten, die eine Menge funktiona
 <<image-fachref>> zeigt beispielhaft die Aufteilung einer Geschäftsanwendung mit Benutzerschnittstelle.
 
 
-:desc-image-fachref: Fachliche Referenzarchitektur eines Anwendungssystems
+.Fachliche Referenzarchitektur eines Anwendungssystems
 [id="image-fachref",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-fachref}
 image::fachref.png[align="center"]
 
 Für den Zugriff der Anwender auf die Anwendungssysteme gibt es eine **Portaloberfläche**. Externen Anwendungssystemen stellen *Service-Gateways* die entsprechenden Schnittstellen über Web-Services zur Verfügung.
@@ -102,9 +99,8 @@ Die Software-Architektur beschreibt die in der fachlichen Architektur definierte
 
 Die Referenzarchitektur für IT-Systeme der IsyFact basiert auf der bekannten Drei-Schicht-Architektur.
 
-:desc-image-RAITSys: Software-technische Referenzarchitektur
+.Software-technische Referenzarchitektur
 [id="image-RAITSys",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-RAITSys}
 image::RAITSys.png[align="center"]
 
 Die *Persistenz-Schicht* kapselt alle Funktionen zum Zugriff auf die Datenbanken.
@@ -134,9 +130,8 @@ Die T-Ebene enthält gegebenenfalls zusätzliche technische Komponenten.
 Auf der TI-Ebene können mehrere Instanzen einer technischen Komponente betrieben werden.
 Auch können mehrere technische Komponenten auf einer gemeinsamen Hardware laufen.
 
-:desc-image-archsichten: Architektur-Sichten
+.Architektur-Sichten
 [id="image-archsichten",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-archsichten}
 image::archsichten.png[align="center"]
 
 Ziel ist es, in jeder Sicht auf die Gesamtarchitektur eine für diese Sicht adäquate Zerlegung zu finden.
@@ -150,18 +145,16 @@ Die Bausteine liegen als wieder verwendbare Basisbibliotheken und Programmiervor
 Sie können auch am Markt verfügbare Fertigprodukte enthalten.
 Bei diesen kann es sich sowohl um proprietäre als auch Open Source Software handeln.
 
-:desc-image-Bausteine: Bausteine der IsyFact
+.Bausteine der IsyFact
 [id="image-Bausteine",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-Bausteine}
 image::Bausteine.png[align="center"]
 
 <<image-Bausteine>> zeigt einen Überblick über die Bausteine im aktuellen Release der IsyFact-Standards.
 
 In der nachfolgenden Tabelle werden die einzelnen Bausteine kurz beschrieben.
 
-:desc-table-shortBS: Bausteinkurzbeschreibung
+.Bausteinkurzbeschreibung
 [id="table-shortBS",reftext="{table-caption} {counter:tables}"]	
-.{desc-table-shortBS}
 [options="header",cols="1e,4"]
 |====
 |Baustein|Funktion
@@ -189,9 +182,8 @@ Es handelt sich dabei um kleinere Utility-Klassen, wie z.B. Interzeptoren, mit d
 
 *Eine einheitliche Plattform über alle Geschäftsanwendungen ermöglicht einen standardisierten und effizienten Systembetrieb.*
 
-:desc-image-plattform: Betriebsplattform der IsyFact
+.Betriebsplattform der IsyFact
 [id="image-plattform",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-plattform}
 image::plattform.png[align="center"]
 
 Die Betriebsplattform der IsyFact besteht aus Hardware und Netzen sowie der benötigten Middleware mit Anwendungs- und Datenbankservern.
@@ -201,7 +193,7 @@ Neben der reinen technischen Plattform sieht die Plattform der IsyFact auch Konz
 
 Die Plattform entspricht dem SAGA/BSI Netzkonzept mit drei Zonen:
 
-NOTE: SAGA sind die „Standards und Architekturen für E-Government“ der deutschen Bundesverwaltung, siehe: http://www.cio.bund.de/saga - seit SAGA 5 wird bzgl. des Netzkonzeptes auf das BSI verwiesen.
+NOTE: SAGA sind die „Standards und Architekturen für E-Government“ der deutschen Bundesverwaltung, siehe: http://www.cio.bund.de/saga[SAGA]  - seit SAGA 5 wird bzgl. des Netzkonzeptes auf das BSI verwiesen.
 
 * Nutzerebene (Informations- und Dienstezone)
 * Logikebene (Logik- und Verarbeitungszone)
@@ -215,7 +207,7 @@ Soweit möglich werden Produkte aus dem Open Source-Umfeld eingesetzt, wie beisp
 
 *Grundlage für die Umsetzung von Projekten mit der IsyFact ist eine standardisierte Vorgehensweise nach dem V-Modell XT.*
 
-NOTE: V-Modell XT ist als Vorgehensmodell für Systementwicklungsprojekte in deutschen Bundesbehörden vorgeschrieben, siehe http://www.cio.bund.de/v-modell-xt.
+NOTE: V-Modell XT ist als Vorgehensmodell für Systementwicklungsprojekte in deutschen Bundesbehörden vorgeschrieben, siehe http://www.cio.bund.de/v-modell-xt[V-Modell XT] .
 
 Die spezifische Methodik der IsyFact umfasst:
 
@@ -225,9 +217,8 @@ Die spezifische Methodik der IsyFact umfasst:
 * Methodik für Systemspezifikation und Systementwurf mit entsprechenden Dokumentvorlagen
 * Eine einheitliche Vorgehensweise zur Auswahl von Fremdprodukten
 
-:desc-image-Methodik_V-Modell: Methodik: Vorgehen auf Basis von V-Modell XT
+.Methodik: Vorgehen auf Basis von V-Modell XT
 [id="image-Methodik_V-Modell",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-Methodik_V-Modell}
 image::Methodik_V-Modell.png[align="center"]
 
 [[werkzeuge]]
@@ -270,9 +261,8 @@ Soweit möglich nutzt die IsyFact etablierte Softwareprodukte, Frameworks und Bi
 Die nachfolgende Tabelle gibt einen Überblick über die in der IsyFact vorgegebenen bzw.
 empfohlenen Produkte.
 
-:desc-table-prodover: Produktempfehlungen
+.Produktempfehlungen
 [id="table-prodover",reftext="{table-caption} {counter:tables}"]	
-.{desc-table-prodover}
 [cols="28,22"]
 |====
 2+|*Basistechnologien*
@@ -307,9 +297,8 @@ empfohlenen Produkte.
 
 Die IsyFact-Standards umfassen die folgenden Dokumente und Komponenten:
 
-:desc-table-doccomp: Dokumente zu Komponenten
+.Dokumente zu Komponenten
 [id="table-doccomp",reftext="{table-caption} {counter:tables}"]	
-.{desc-table-doccomp}
 [cols="4,9,1",options="header"]
 |====
 |Ordner |Dokument |Typ
