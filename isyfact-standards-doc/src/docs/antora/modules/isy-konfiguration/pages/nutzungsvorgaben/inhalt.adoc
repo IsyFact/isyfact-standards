@@ -334,7 +334,7 @@ Dort wird die Datei automatisch von Tomcat gefunden und verwendet.
 [[umsetzen-des-auskunftsmodus]]
 ==== Umsetzen des Auskunftsmodus
 
-In jeder xref:glossary:glossary:master.adoc#glossar-Geschaeftsanwendung[Geschäftsanwendung (Glossar)] muss ein Auskunftsmodus implementiert werden.
+In jeder xref:glossary:glossary:master.adoc#glossar-Geschaeftsanwendung[Geschäftsanwendung] muss ein Auskunftsmodus implementiert werden.
 In diesem Modus dürfen keine bestandsverändernden Aktionen möglich sein.
 Rein lesende Operationen sind weiterhin erlaubt.
 
