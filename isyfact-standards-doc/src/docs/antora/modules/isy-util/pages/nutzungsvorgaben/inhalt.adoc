@@ -17,7 +17,7 @@ Zurzeit besteht sie aus folgender Klasse:
 
 In `de.bund.bva.isyfact.util.exception` sind Klassen enthalten, die für die Fehlerbehandlung einzusetzen sind:
 
-* `MessageSourceFehlertextProvider`: Durch diese Klasse wird der `FehlertextProvider` implementiert, der sich im Package `de.bund.bva.isyfact.exception` der xref:glossary:glossary:master.adoc#glossar-Bibliothek[Bibliothek (Glossar)] isy-exception-core befindet.
+* `MessageSourceFehlertextProvider`: Durch diese Klasse wird der `FehlertextProvider` implementiert, der sich im Package `de.bund.bva.isyfact.exception` der xref:glossary:glossary:master.adoc#glossar-Bibliothek[Bibliothek] isy-exception-core befindet.
 Der `FehlertextProvider` beschreibt Methoden zum Auslesen von Fehlertexten auf Basis von IDs der Ausnahmen und Parameter, sofern welche vorhanden sind.
 
 [[package-spring]]

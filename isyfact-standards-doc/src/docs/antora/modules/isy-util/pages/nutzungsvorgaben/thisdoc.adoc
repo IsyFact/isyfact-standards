@@ -4,7 +4,7 @@
 [[einleitung]]
 == Einleitung
 
-Die xref:glossary:glossary:master.adoc#glossar-Bibliothek[Bibliothek (Glossar)] `isy-util` bietet nützliche Hilfsmittel, die von den Anwendungen der IsyFact genutzt werden können.
+Die xref:glossary:glossary:master.adoc#glossar-Bibliothek[Bibliothek] `isy-util` bietet nützliche Hilfsmittel, die von den Anwendungen der IsyFact genutzt werden können.
 Es handelt sich dabei um kleinere Utility-Klassen, welche die Implementierung vereinfachen.
 Diese werden im Folgenden überblicksartig beschrieben.
 Details sind den JavaDoc der einzelnen Klassen zu entnehmen.
