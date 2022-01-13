@@ -610,7 +610,7 @@ Ist der Header nicht gesetzt, wird eine neue Korrelations-ID generiert.
 [[diagnosekontext-korrelations-id]]
 ==== Diagnosekontext / Korrelations-ID
 
-Die Korrelations-ID (siehe xref:nutzungsvorgaben/master.adoc#einleitung[Logging - Konzept]) ist in jedem Eintrag mitzuloggen, damit die Logeinträge einzelnen Aufrufen zugeordnet und über die Komponenten der xref:glossary:glossary:master.adoc#glossar-Anwendungslandschaft[Anwendungslandschaft (Glossar)] verfolgt werden können.
+Die Korrelations-ID (siehe xref:nutzungsvorgaben/master.adoc#einleitung[Logging - Konzept]) ist in jedem Eintrag mitzuloggen, damit die Logeinträge einzelnen Aufrufen zugeordnet und über die Komponenten der xref:glossary:glossary:master.adoc#glossar-Anwendungslandschaft[Anwendungslandschaft] verfolgt werden können.
 Das Ermitteln der Korrelations-ID erfolgt automatisch durch `isy-logging`.
 Hierzu wird der Mapped Diagnostic Context (MDC) verwendet, der durch SLF4J bzw. logback zur Verfügung gestellt wird.
 Der MDC wird über eine statische Methode gesetzt, und zwar pro Thread:
@@ -897,7 +897,7 @@ So können z.B. auch die Aufrufe fremder RemoteBean-Schnittstellen geloggt werde
 Es muss sichergestellt werden, dass alle Bibliotheken – auch solche die nicht nach den Vorgaben der IsyFact entwickelt wurden – logback, mit der in <<logback-konfiguration>> definierten Konfiguration, nutzen.
 Dadurch wird gewährleistet, dass die definierten Vorgaben zu Logdateien und Struktur der Logeinträge einheitlich  umgesetzt werden.
 
-Beim Einsatz von xref:glossary:glossary:master.adoc#glossar-Bibliothek[Bibliotheken (Glossar)], die nicht nach der IsyFact entwickelt wurden, muss daher unterschieden werden:
+Beim Einsatz von xref:glossary:glossary:master.adoc#glossar-Bibliothek[Bibliotheken], die nicht nach der IsyFact entwickelt wurden, muss daher unterschieden werden:
 
 * **Die Bibliothek loggt mittels logback oder SLF4J**: Es sind keine Maßnahmen notwendig.
 
@@ -962,7 +962,7 @@ Die konkreten Szenarien, in denen Logeinträge zu erstellen sind, werden in <<lo
 [[auswertungen]]
 === Auswertungen
 
-In diesem Abschnitt werden Auswertungen beschrieben, die auf den Logs der xref:glossary:glossary:master.adoc#glossar-Anwendungslandschaft[Anwendungslandschaft (Glossar)] durchgeführt werden können müssen.
+In diesem Abschnitt werden Auswertungen beschrieben, die auf den Logs der xref:glossary:glossary:master.adoc#glossar-Anwendungslandschaft[Anwendungslandschaft] durchgeführt werden können müssen.
 Die Auswertung erfolgt dabei meist durch den Betrieb und nicht durch die Entwickler.
 Es ist jedoch Aufgabe der Entwickler sämtliche Informationen in den Logs bereitzustellen, so dass die Szenarien effizient durchgeführt werden können.
 
