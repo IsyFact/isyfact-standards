@@ -30,9 +30,10 @@ Weitere Vorteile sind höhere Sicherheit und Softwarequalität durch Einsatz erp
 [[durch-die-isyfact-abgedeckte-bereiche]]
 ==== Durch die IsyFact abgedeckte Bereiche
 
-.Durch die IsyFact abgedeckte Bereiche   (TODO Bild fehlt)
+.Durch die IsyFact abgedeckte Bereiche
 [id="image-IFBereiche",reftext="{figure-caption} {counter:figures}"]
 image::IFBereiche.png[align="center",pdfwidth=45%,width=45%]
+
 
 Die IsyFact bietet standardisierte Lösungen zu wichtigen Themen beim Bau von Geschäftsanwendungen.
 Der Entwickler kann sich dadurch ganz auf die strukturellen und operativen Besonderheiten seiner Geschäftsanwendung konzentrieren.
