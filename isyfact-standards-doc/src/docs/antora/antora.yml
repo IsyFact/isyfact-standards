@@ -4,4 +4,5 @@ version: '2.4'
 start_page: isy-datetime:konzept/inhalt.adoc
 nav: 
 - modules/isy-konfiguration/nav.adoc
+- modules/isy-exception-core/nav.adoc
 - modules/isy-serviceapi-core/nav.adoc
