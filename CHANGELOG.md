@@ -10,6 +10,7 @@
 - `IFS-801`: [isy-batchrahmen] SpotBugs Fehler behoben
 - `IFS-802`: [isy-logging] SpotBugs Fehler behoben
 - `IFS-803`: [isy-sicherheit] SpotBugs Fehler behoben
+- `IFS-736`: [isy-logging] Aktive Log-Level im LogHelper prüfen
 
 # 1.10.0
 - `IFS-1003`: [isy-sonderzeichen]
