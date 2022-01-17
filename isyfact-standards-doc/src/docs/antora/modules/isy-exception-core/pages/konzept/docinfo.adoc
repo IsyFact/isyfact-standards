@@ -1,0 +1,8 @@
+*Java Bibliothek / IT-System*
+
+[cols="5,2,3",options="header"]
+|====
+|Name |Art |Version
+|isy-exception-core |Bibliothek |sv{version-ifs}
+|isy-exception-sst |Bibliothek |v{version-ifs}
+|====

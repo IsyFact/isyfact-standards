@@ -1,0 +1,6 @@
+* xref:einstieg/master.adoc[IsyFact - Einstieg]
+* xref:migrationsleitfaden-if2/master.adoc[IsyFact - 1.x auf 2.x Migrationsleitfaden]
+* xref:tutorial/master.adoc[IsyFact - Tutorial]
+* xref:whitepaper/master.adoc[IsyFact - Whitepaper]
+
+

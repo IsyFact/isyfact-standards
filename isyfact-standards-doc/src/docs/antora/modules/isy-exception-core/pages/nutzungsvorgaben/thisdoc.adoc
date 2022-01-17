@@ -1,0 +1,21 @@
+= Nutzungsvorgaben Fehlerbehandlung: Einleitung
+
+// tag::inhalt[]
+[[einleitung]]
+== Einleitung
+
+Dieses Dokument enthält die Nutzungsvorgaben zur Fehlerbehandlung für alle Anwendungen gemäß Referenzarchitektur der IsyFact.
+
+[[aufbau-und-zweck-des-dokuments]]
+== Aufbau und Zweck des Dokuments
+
+Ziel dieses Dokumentes ist es, eine Anleitung für die korrekte Verwendung von Exceptions zu geben.
+
+Es werden Vorgaben zur Nutzung der Isyfact-Fehlerbehandlung gegegen und zur deren Umsetzung und Anwendung.
+Die von den Anwendungen benötigten Exception-Klassen sind von der konkreten Anwendung abhängig und müssen im entsprechenden Projekt, unter Berücksichtigung der in diesem Feinkonzept gemachten Vorgaben, erstellt werden.
+Zur Umsetzung werden ausführliche Beispiele gegeben.
+
+Im Kapitel xref::nutzungsvorgaben/inhalt.adoc#implementierung-der-fehlerbehandlung[Implementierung der Fehlerbehandlung] werden die Nutzungsvorgaben definiert, wie Exceptions zu erstellen sind und wie sie behandelt werden müssen.
+Konkrete Beispiele stammen aus der xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung], die eine Anwendung gemäß den xref:glossary:glossary:master.adoc#glossar-IFS[IsyFact Standards] (und somit gemäß den Vorgaben aus diesem Konzept) beispielhaft implementiert.
+Abschließend werden in Kapitel xref::nutzungsvorgaben/inhalt.adoc#dos-und-donts[DO's und DON'Ts] typische DO's und DON'Ts erläutert, die bei der Fehlerbehandlung beachtet werden müssen.
+// end::inhalt[]

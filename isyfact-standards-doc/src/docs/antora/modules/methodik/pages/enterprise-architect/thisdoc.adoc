@@ -1,0 +1,15 @@
+= Nutzung Enterprise Architect: Einleitung
+
+// tag::inhalt[]
+[[einleitung]]
+== Einleitung
+
+Die folgende Anleitung beschreibt Details zur Nutzung des Enterprise Architect, insbesondere zur Erstellung von Spezifikationsdokumenten.
+
+[[aufbau-und-zweck-des-dokuments]]
+=== Aufbau und Zweck des Dokuments
+
+Das erste Kapitel beschreibt kurz die Einbindung des Enterprise Architect in das Vorgehen zur Erstellung der Systemspezifikation.
+Das zweite Kapitel beschreibt die konkrete Nutzung des Enterprise Architect als Spezifikationswerkzeug.
+Schließlich enthält das letzte Kapitel vermischte Tipps zur Arbeit mit dem Enterprise Architect.
+// end::inhalt[]

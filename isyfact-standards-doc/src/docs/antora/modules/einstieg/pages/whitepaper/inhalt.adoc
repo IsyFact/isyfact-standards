@@ -1,0 +1,366 @@
+= Whitepaper: Inhalt
+
+// tag::inhalt[]
+[[standardisierung-durch-software-factories]]
+== Standardisierung durch Software Factories
+
+Bei der Entwicklung von Anwendungssystemen ist eine Vielzahl von Detailproblemen zu lösen.
+Dies beginnt bei der allgemeinen Systemarchitektur, setzt sich fort über die Kommunikationsmechanismen zwischen Systemen, die Oberflächengestaltung, die Benutzerverwaltung, das Monitoring und den Betrieb und geht bis hin zur Auswahl konkreter Frameworks, mit denen die Systeme implementiert werden.
+Mit einer Software Factory werden alle diese „Zutaten“ strukturiert zusammengefasst und in geeigneter Weise bereitgestellt.
+
+*Modularisierung und Standardisierung der Softwareentwicklung*
+
+Wenn unterschiedliche Informationssysteme Teil einer Anwendungslandschaft in einem Unternehmen oder einer Behörde sind, ist es nicht nur sinnvoll, sondern auch notwendig, in allen diesen Bereichen Standards zu schaffen.
+Neue Anwendungen oder neue Anforderung an bestehende Anwendungen müssen zunehmend kurzfristig und mit begrenzten Mitteln umgesetzt werden.
+Mit der Erfahrung aus Entwicklung und Betrieb einer komplexen Anwendungslandschaft hat das Bundesverwaltungsamt mit der IsyFact eine Software-Factory entwickelt um Anwendungen effizienter zu bauen und zu betreiben.
+
+Die IsyFact ist eine Sammlung von Architektur-Blaupausen, Bausteinen, einer Plattform, Methoden und Werkzeugen, die es erlaubt, Anwendungen weitgehend „automatisiert“ und standardisiert zu entwickeln.
+Dabei bedeutet „automatisiert“ hier nicht, dass der Quelltext des Software-Systems ohne menschliches Zutun durch einen Automaten erzeugt würde.
+Es bezieht sich vielmehr darauf, dass alle wesentlichen technischen Architekturentscheidungen bereits durch die IsyFact getroffen sind, und die IsyFact auch entsprechende Komponenten zur Implementierung dieser Architektur bereithält.
+Architekten und Entwickler können sich damit im Normalfall auf die Umsetzung der jeweiligen Fachlichkeit der Anwendung konzentrieren.
+Da die Anwendung jedoch nach wie vor manuell entwickelt (und nicht generiert wird), ist es aber jederzeit möglich, dort von den Vorgaben der IsyFact abzuweichen, wo dies erforderlich ist.
+
+*IsyFact-Standards als Open Source-Projekt*
+
+Das Bundesverwaltungsamt stellt die IsyFact bereits seit geraumer Zeit anderen Behörden für ihre Softwareentwicklungsprojekte zu Verfügung.
+Die IsyFact enthält viele Bausteine, die speziell auf die Anforderungen auf die Software-Entwicklung im Behördenkontext zugeschnitten sind.
+Die Grundlagen der IsyFact sind jedoch so allgemein, dass sie sich für die Entwicklung von Informationssystemen in beliebigen Anwendungskontexten eignen.
+
+Anfang 2015 hat das Bundesverwaltungsamt die Grundlagen der IsyFact als IsyFact-Standards ausgekoppelt.
+Mit der damit einhergehenden Open-Source-Stellung der IsyFact-Standards soll zum einen das Verfahren zur Bereitstellung vereinfacht werden.
+Interessenten können die IsyFact-Standards selbstständig aus dem Repository beziehen.
+Dies beschleunigt den Prozess der Bereitstellung und verringert die Einstiegshürde für potentielle Anwender.
+
+Zum anderen sollen die IsyFact-Standards auch einem größeren Kreis von Anwendern zur Verfügung gestellt werden.
+Auch wenn die IsyFact ursprünglich im Kontext der öffentlichen Verwaltung entwickelt wurde, so können mit ihr Anwendungslandschaften in anderen Bereichen ohne weiteres erstellt werden.
+Jeder Anwender kann für eigene Zwecke die IsyFact nach seinen Bedürfnissen anpassen und eigene Erweiterungen schreiben.
+
+Darüber hinaus nimmt das Bundesverwaltungsamt gerne Feedback zur IsyFact entgegen und ist an Korrekturen, Aktualisierungen und Erweiterungen der IsyFact und der IsyFact-Standards interessiert.
+Entsprechende Vorschläge (Pull-Requests) können gerne angeregt oder eingereicht werden.
+Das BVA behält sich vor, diese nach eigenem Ermessen in den Standard aufzunehmen.
+
+Nicht zuletzt soll durch die Vergrößerung des Anwenderkreises der Umfang und die Qualität der IsyFact gesteigert werden.
+
+[[die-fuenf-saeulen]]
+== Die fünf Säulen
+
+Eine Software Factory stellt Ihre Inhalte strukturiert in 5 Bereichen zur Verfügung.
+Sowohl die IsyFact, also auch die IsyFact-Standards orientieren sich an dieser Struktur und bieten Ihre Hilfsmittel in fünf Bereichen, den fünf Säulen der IsyFact an:
+
+* Vorlagen für die Erstellung von Geschäftsanwendungen auf fachlicher, software-technischer und technisch-infrastruktureller Ebene: den *Blaupausen*
+* Wieder verwendbare Softwarelösungen, querschnittliche Systeme sowie Programmierbibliotheken und -vorlagen: den *Bausteinen*
+* Eine einheitliche, hochverfügbare Betriebsumgebung mit leistungsfähiger Hardware und der benötigten Systemsoftware: der *Plattform*
+* Konventionen und Vorgaben für die Spezifikation und Programmierung sowie das Projektvorgehen nach V-Modell XT: der *Methodik* und
+* Tools für teilweise Automatisierung von Modellierung, Programmierung, Tests und Fehlerverfolgung: den *Werkzeugen*
+
+.Die fünf Säulen der IsyFact
+[id="image-IFBereiche",reftext="{figure-caption} {counter:figures}"]
+image::IFBereiche.png[align="center",width=60%,pdfwidth=60%]
+
+Die Säulen werden nachfolgend im Detail beschrieben.
+
+[[blaupausen]]
+=== Blaupausen
+
+Die Blaupausen beschreiben die Architektur und Konzepte der Anwendungslandschaft.
+Diese beinhaltet die Architekturen einer Geschäftsanwendung auf fachlicher Ebene (A-Architektur), die software-technische Umsetzung (T-Architektur) sowie die darunter liegende Hardware und Systemsoftware (TI-Architektur).
+
+[[fachliche-referenzarchitektur-a-architektur]]
+==== Fachliche Referenzarchitektur (A-Architektur)
+
+Die fachliche Architektur strukturiert die Anwendungslandschaft hierarchisch in Domänen, Systeme und Komponenten.
+
+.Die Anwendungslandschaft
+[id="image-AnwendungslandschaftIF",reftext="{figure-caption} {counter:figures}"]
+image::AnwendungslandschaftIF.png[align="center"]
+
+Anwendungssysteme bieten dabei eine zusammengehörige, logische Einheit aus Funktionen, Daten und Schnittstellen.
+Es werden zwei Typen unterschieden:
+
+* *Geschäftsanwendungen* implementieren fachliche Logik, Prozesse oder speichern Daten.
+Sie können Präsentationslogik enthalten, oder reine Datenspeicher im Hintergrund sein, die anderen Geschäftsanwendungen ihre Daten bereitstellen.
+Je nach Anwendungsdomäne kann es unterschiedliche Arten von Geschäftsanwendungen geben, die spezielle Aufgaben wahrnehmen.
+* *Querschnittssysteme* stellen Dienste für mehrere Geschäftsanwendungen bereit, beispielsweise ein Suchverfahren oder die Anwenderverwaltung.
+
+Ein Anwendungssystem besteht aus Anwendungskomponenten, die eine Menge funktional zusammenhängender Anwendungsfälle beschreiben.
+<<image-fachref>> zeigt beispielhaft die Aufteilung einer Geschäftsanwendung mit Benutzerschnittstelle.
+
+
+.Fachliche Referenzarchitektur eines Anwendungssystems
+[id="image-fachref",reftext="{figure-caption} {counter:figures}"]
+image::fachref.png[align="center"]
+
+Für den Zugriff der Anwender auf die Anwendungssysteme gibt es eine **Portaloberfläche**. Externen Anwendungssystemen stellen *Service-Gateways* die entsprechenden Schnittstellen über Web-Services zur Verfügung.
+
+[[software-technische-referenzarchitektur-t-architektur]]
+==== Software-technische Referenzarchitektur (T-Architektur)
+
+Die Software-Architektur beschreibt die in der fachlichen Architektur definierten Elemente in technischer Form von IT-Systemen, Komponenten, Klassen, Datenmodellen etc.
+
+Die Referenzarchitektur für IT-Systeme der IsyFact basiert auf der bekannten Drei-Schicht-Architektur.
+
+.Software-technische Referenzarchitektur
+[id="image-RAITSys",reftext="{figure-caption} {counter:figures}"]
+image::RAITSys.png[align="center"]
+
+Die *Persistenz-Schicht* kapselt alle Funktionen zum Zugriff auf die Datenbanken.
+
+Die *Schicht des Anwendungskerns* umfasst die fachliche Logik zur Datenbearbeitung des Systems, beispielsweise Validierungen, spezielle Dialogfunktionen oder Verarbeitung von Geschäftsobjekten.
+
+Die *Nutzungsschicht* bietet Funktionen der Anwendungen für menschliche und technische Nutzer.
+Menschliche Nutzer greifen über eine grafische Nutzeroberfläche (GUI) auf das System zu.
+Technische Nutzer über Batches für Stapelverarbeitung oder als Service für eine Außenschnittstelle mit anderen IT-Systemen.
+
+Ergänzend zu GUI, Service, Batch, Anwendungskern und Datenhaltung gibt es in den IT-Systemen *querschnittliche Funktionalitäten* wie beispielsweise Fehlerbehandlung, Logging oder Authentifizierung und Autorisierung.
+
+Die IsyFact enthält Blaupausen für die Nutzungsschichten GUI, Batch, Servicekommunikationen sowie für den Anwendungskern und den Datenzugriff.
+
+[[die-referenzarchitektur-der-technischen-infrastruktur-ti-architektur]]
+==== Die Referenzarchitektur der technischen Infrastruktur (TI-Architektur)
+
+Die Referenzarchitektur der technischen Infrastruktur, auch TI-Architektur genannt, beschreibt den Aufbau der Betriebsumgebung für die IT-Systeme einer IsyFact-konformen Anwendungslandschaft.
+Dazu gehören die physischen Geräte (Rechnersysteme, Netzwerkverbindungen und -komponenten, Drucker etc.), die installierte Systemsoftware (Betriebssystem, Applikationsserver, Middleware, Datenbanksystem) und das Zusammenspiel von Hardware und Systemsoftware.
+
+[[strukturierungsrahmen-der-isyfact]]
+==== Strukturierungsrahmen der IsyFact
+
+Ziel der IsyFact ist ein klarer Strukturierungsrahmen zwischen den drei Architektursichten.
+Die fachlichen Komponenten der A-Architektur werden dabei im Software-Entwicklungsprozess auf die Komponenten der T-Architektur abgebildet, welche wiederum Elementen der TI-Architektur zugeordnet sind.
+Die T-Ebene enthält gegebenenfalls zusätzliche technische Komponenten.
+Auf der TI-Ebene können mehrere Instanzen einer technischen Komponente betrieben werden.
+Auch können mehrere technische Komponenten auf einer gemeinsamen Hardware laufen.
+
+.Architektur-Sichten
+[id="image-archsichten",reftext="{figure-caption} {counter:figures}"]
+image::archsichten.png[align="center"]
+
+Ziel ist es, in jeder Sicht auf die Gesamtarchitektur eine für diese Sicht adäquate Zerlegung zu finden.
+
+[[bausteine]]
+=== Bausteine
+
+*Die Bausteine der IsyFact-Standards sind wieder verwendbare Softwarelösungen.*
+
+Die Bausteine liegen als wieder verwendbare Basisbibliotheken und Programmiervorlagen vor.
+Sie können auch am Markt verfügbare Fertigprodukte enthalten.
+Bei diesen kann es sich sowohl um proprietäre als auch Open Source Software handeln.
+
+.Bausteine der IsyFact
+[id="image-Bausteine",reftext="{figure-caption} {counter:figures}"]
+image::Bausteine.png[align="center"]
+
+<<image-Bausteine>> zeigt einen Überblick über die Bausteine im aktuellen Release der IsyFact-Standards.
+
+In der nachfolgenden Tabelle werden die einzelnen Bausteine kurz beschrieben.
+
+.Bausteinkurzbeschreibung
+[id="table-shortBS",reftext="{table-caption} {counter:tables}"]	
+[options="header",cols="1e,4"]
+|====
+|Baustein|Funktion
+|Fehlerbehandlung |Der Baustein Fehlerbehandlung enthält das technische Konzept und eine Bibliothek zur einheitlichen Implementierung der Fehlerbehandlung für alle Anwendungen nach IsyFact-Architektur.
+|LDAP-Zugriffe |Der Baustein LDAP-Zugriffe bietet ein Nutzungskonzept für Spring-LDAP, das in der IsyFact verwendet wird, um auf den LDAP-Verzeichnisdienst zuzugreifen.
+Der LDAP-Verzeichnisdienst hält die Daten und Berechtigungen der verschiedenen Nutzer der Anwendungen bereit.
+|Logging |Der Baustein Logging enthält das technische Konzept für die Bereitstellung von Laufzeitinformationen der Anwendungen der IsyFact.
+Dies ermöglicht eine einheitliche und vereinfachte Auswertung von Log-Dateien, Fehlern und Systemzuständen über Komponenten hinweg.
+|Sicherheits­komponente |Der Baustein Sicherheitskomponente ist eine Bibliothek.
+Sie enthält einen Berechtigungsmanager zur Verwaltung von Rollen und Rechten eines Benutzers in den Anwendungen der IsyFact.
+|Sonderzeichen |Der Baustein Sonderzeichen implementiert Transkriptionsregeln zur Übertragung von nichtlateinischen Zeichen.
+|Überwachung|Der Baustein Überwachung enthält ein technisches Konzept mit Designvorgaben und Bibliotheken für die Überwachung von Anwendungen der IsyFact.
+Die einheitliche Überwachungsschnittstelle erlaubt die frühzeitige Erkennung von Problemen im IT-Betrieb.
+|Konfiguration |Der Baustein Konfiguration enthält ein technisches Konzept mit Designvorgaben und Bibliotheken für die Handhabung von Konfigurationen von Anwendungen der IsyFact.
+Eine Vereinheitlichung der Konfiguration erleichtert die Entwicklung und den Betrieb der Anwendungen.
+|Polling |Der Baustein Polling implementiert Verfahren zum koordinierten, regelmäßigen Abholen von Daten (Polling) durch mehrere redundant ausgelegte Instanzen einer Anwendung.
+Der Baustein unterstützt unterschiedliche Arten von Schnittstellen und sorgt dafür, dass Daten jeweils nur von einer Instanz der Anwendung verarbeitet werden.
+|Util |Der Baustein Util bietet nützliche Hilfsmittel, die von den Anwendungen der IsyFact genutzt werden können.
+Es handelt sich dabei um kleinere Utility-Klassen, wie z.B. Interzeptoren, mit denen sich das Laufzeitverhalten von Anwendungen nachvollziehen lässt.
+|====
+
+
+[[plattform]]
+=== Plattform
+
+*Eine einheitliche Plattform über alle Geschäftsanwendungen ermöglicht einen standardisierten und effizienten Systembetrieb.*
+
+.Betriebsplattform der IsyFact
+[id="image-plattform",reftext="{figure-caption} {counter:figures}"]
+image::plattform.png[align="center"]
+
+Die Betriebsplattform der IsyFact besteht aus Hardware und Netzen sowie der benötigten Middleware mit Anwendungs- und Datenbankservern.
+Sie sieht eine hochverfügbare Produktionsumgebung sowie Entwicklungs- und verschiedene Testumgebungen vor.
+
+Neben der reinen technischen Plattform sieht die Plattform der IsyFact auch Konzepte zur Administration mit entsprechenden einheitlichen Werkzeugen zum Monitoring und Management der Plattform vor.
+
+Die Plattform entspricht dem SAGA/BSI Netzkonzept mit drei Zonen:
+
+NOTE: SAGA sind die „Standards und Architekturen für E-Government“ der deutschen Bundesverwaltung, siehe: http://www.cio.bund.de/saga[SAGA]  - seit SAGA 5 wird bzgl. des Netzkonzeptes auf das BSI verwiesen.
+
+* Nutzerebene (Informations- und Dienstezone)
+* Logikebene (Logik- und Verarbeitungszone)
+* Datenhaltungsebene (Datenzone)
+
+Die Plattform definiert einen allgemeinen Rahmen für den Anwendungsbetrieb und kann an die speziellen Anforderungen unterschiedlicher Betriebsorganisationen angepasst werden.
+Soweit möglich werden Produkte aus dem Open Source-Umfeld eingesetzt, wie beispielsweise Apache Webserver oder Tomcat Applikationsserver.
+
+[[methodik]]
+=== Methodik
+
+*Grundlage für die Umsetzung von Projekten mit der IsyFact ist eine standardisierte Vorgehensweise nach dem V-Modell XT.*
+
+NOTE: V-Modell XT ist als Vorgehensmodell für Systementwicklungsprojekte in deutschen Bundesbehörden vorgeschrieben, siehe http://www.cio.bund.de/v-modell-xt[V-Modell XT] .
+
+Die spezifische Methodik der IsyFact umfasst:
+
+* Richtlinien und Methodiken für fachliche und technische Modellierung
+* Richtlinien und Vorgaben für Generierung von Code und Konzepten
+* Konventionen für die Implementierung
+* Methodik für Systemspezifikation und Systementwurf mit entsprechenden Dokumentvorlagen
+* Eine einheitliche Vorgehensweise zur Auswahl von Fremdprodukten
+
+.Methodik: Vorgehen auf Basis von V-Modell XT
+[id="image-Methodik_V-Modell",reftext="{figure-caption} {counter:figures}"]
+image::Methodik_V-Modell.png[align="center"]
+
+[[werkzeuge]]
+=== Werkzeuge
+
+*Die IsyFact setzt auf Automatisierung und Werkzeugunterstützung bei der Erstellung von Geschäftsanwendungen.
+Dazu bietet sie vorkonfigurierte Werkzeuge für Modellierung, Programmierung, Installation, Tests oder die Fehlerverfolgung.*
+
+Für die Softwareentwicklung setzt die IsyFact auf das Programmierwerkzeug Eclipse und bietet entsprechende Generatoren dafür an.
+Maven unterstützt Build und Deployment der Softwarepakete.
+
+Für Softwaretests wird eine Eigenentwicklung genutzt.
+Das Fehler- und Änderungsmanagement wird unterstützt durch das Tool Jira.
+
+[[vorteile-nutzen]]
+== Vorteile / Nutzen
+
+Die IsyFact wird seit 2007 durch das Bundesverwaltungsamt entwickelt und in unterschiedlichen Projekten in der Praxis eingesetzt.
+Das BVA bietet die IsyFact als Einer-für-Alle-System auch anderen Behörden zur Nutzung und Weiterentwicklung an.
+Die Weitergabe erfolgt unter anderem im Rahmen der "Kieler Beschlüsse" kostenfrei an Einrichtungen der öffentlichen Hand.
+
+NOTE: Die Kieler Beschlüsse regeln die „Kostenverteilung bei Weitergabe sowie gemeinsamer Entwicklung und Pflege von automatisierten Verfahren“ zwischen Bund, Ländern und Kommunen in Deutschland.
+
+Die IsyFact-Standards stellt das Bundesverwaltungsamt seit Januar 2015 auch für nicht-behördliche Anwender als Open Source zu Verfügung und ermöglicht somit die Nutzung zum Bau von Informationssystemen direkt auf Basis der IsyFact-Standards und die Erstellung von eigenen Bausteinen basierend auf diesen Standards.
+
+Die Vorteile bei Nutzung der IsyFact-Standards sind:
+
+* *Festes Fundament durch fünf Säulen:* Blaupausen, Bausteine, Plattform, Methodik, Werkzeuge
+* *Universelle Vorbereitung für verschiedenste Geschäftsanwendungen:* Nutzung der Gemeinsamkeiten von Geschäftsanwendungen
+* *Effizienter Bau von Geschäftsanwendungen:* Schneller und kostengünstiger als ohne IsyFact-Standards
+* *Effizienter Betrieb von Geschäftsanwendungen:* Vorteile durch Standardisierung und Nutzungsvorgaben
+* *In der Praxis erprobtes Verfahren:* Migration bestehender und Umsetzung neuer Geschäftsanwendungen im Bundesverwaltungsamt
+* *Austausch von Komponenten:* Ermöglicht den Austausch von Bausteinen und Komponenten mit anderen Nutzern der IsyFact-Standards.
+
+[[produktueberblick]]
+== Produktüberblick
+
+Basistechnologie der IsyFact ist die Programmiersprache Java.
+Soweit möglich nutzt die IsyFact etablierte Softwareprodukte, Frameworks und Bibliotheken.
+Die nachfolgende Tabelle gibt einen Überblick über die in der IsyFact vorgegebenen bzw.
+empfohlenen Produkte.
+
+.Produktempfehlungen
+[id="table-prodover",reftext="{table-caption} {counter:tables}"]	
+[cols="28,22"]
+|====
+2+|*Basistechnologien*
+|Programmiersprache |Java 8
+|Web-Technologie |XHTML
+|Architekturmuster |Service Orientierte Architektur (SOA)
+2+|*Systemsoftware*
+|Server-Betriebssystem |SuSE Linux Enterprise Server
+|Datenbankmanagementsystem |Oracle 11g
+|JEE-Applikationsserver |Apache Tomcat v8.5
+|Webserver |Apache
+2+|*Bibliotheken für die Anwendungsentwicklung*
+.2+|Web-Framework |Apache MyFaces
+|Spring MVC/Webflow
+|Anwendungskern-Framework |Spring 3.1
+|Persistenz-Framework |Hibernate
+|Schnittstellen-Framework |Metro 2.0
+|Logging-Framework |Apache Log4J
+|LDAP-Framework |Spring-LDAP
+2+|*Spezielle Software und Bibliotheken*
+|Überwachung / Monitoring |Nagios
+|Regel-Management |JBoss Drools
+|Testframework |FIT basiertes Testframework, {asterisk}Unit
+2+|*Werkzeuge und Methodiken*
+|Programmierung |Eclipse
+|Build und Deployment |Maven
+|Fehler- und Änderungsmanagement |Jira
+|====
+
+[[uebersicht-isyfact-standards]]
+== Übersicht IsyFact-Standards
+
+Die IsyFact-Standards umfassen die folgenden Dokumente und Komponenten:
+
+.Dokumente zu Komponenten
+[id="table-doccomp",reftext="{table-caption} {counter:tables}"]	
+[cols="4,9,1",options="header"]
+|====
+|Ordner |Dokument |Typ
+3+|*00 Allgemeine Dokumente*
+2+|IsyFact – Dokumentenübersicht |PDF
+2+|IsyFact – Namenskonventionen |PDF
+2+|IsyFact – Einstieg |PDF
+2+|IsyFact – Tutorial |PDF
+2+|IsyFact – Überblick |PDF
+2+|IsyFact – Versionierung |PDF
+2+|IsyFact – Glossar |PDF
+2+|IsyFact – Tailoring |DOT
+3+|*10 Blaupausen*
+2+|IsyFact – Referenzarchitektur |PDF
+.6+|*Technische Architektur* |IsyFact – Referenzarchitektur IT-System |PDF
+|Detailkonzept Komponente Web-GUI |PDF
+|Detailkonzept Komponente Batch |PDF
+|Detailkonzept Komponente Service |PDF
+|Detailkonzept Komponente Anwendungskern |PDF
+|Detailkonzept Komponente Datenzugriff |PDF
+|*Integrationsplattform* |Grundlagen der Servicekommunikation innerhalb der Plattform |PDF
+3+|*20 Bausteine*
+.2+|*Datum und Zeit* |Konzept Datum und Zeit |PDF
+|Nutzungsvorgaben Datum und Zeit |PDF
+.2+|*Fehlerbehandlung* |Konzept Fehlerbehandlung |PDF
+|Nutzungsvorgaben Fehlerbehandlung |PDF
+|*LDAP-Zugriffe* |Nutzungsvorgaben Spring LDAP |PDF
+.2+|*Logging* |Konzept Logging |PDF
+|Nutzungsvorgaben Logging |PDF
+.2+|*Polling* |Konzept Polling |PDF
+|Nutzerdokumentation Polling |PDF
+.3+|*Sicherheit* |Konzept Sicherheit |PDF
+|Nutzungsvorgaben Sicherheit |PDF
+|Rollen und Rechte Schema |XSD
+.4+|*Sonderzeichen* |Konzept Umgang mit Sonderzeichen |PDF
+|Nutzungsvorgaben Umgang mit Sonderzeichen |PDF
+|Mapping-Tabelle |XLS
+|Transkriptionsregeln |XLS
+.2+|*Task Scheduling* |Konzept Task Scheduling |PDF
+|Nutzungsvorgaben Task Scheduling |PDF
+.2+|*Überwachung* |Konzept Überwachung |PDF
+|Nutzungsvorgaben Überwachung |PDF
+.2+|*Konfiguration* |Konzept Konfiguration |PDF
+|Nutzungsvorgaben Konfiguration |PDF
+|*Util* |Nutzungsvorgaben IsyFact Util |PDF
+3+|*40 Methodik*
+.3+|*Systemspezifikation* |Vorlage Systemspezifikation |DOT
+|Vorlage Anforderungsliste |XLS
+|Anleitung zu Datenflussdiagrammen |PDF
+|*Systementwurf* |Vorlage Systementwurf |DOT
+.3+|*Implementierung* |IsyFact Vorlage Systemhandbuch |DOT
+|Java-Programmierkonventionen |PDF
+|Nutzung Enterprise Architect |PDF
+|*Produktauswahl* |Vorlage Produktauswahl |DOT
+|====
+
+// end::inhalt[]
+
+// tag::architekturregel[]
+
+// end::architekturregel[]
+
+// tag::sicherheit[]
+
+// end::sicherheit[]

@@ -1,0 +1,7 @@
+// tag::architekturregeln[]
+
+[[architekturregeln-service]]
+== Architekturregeln Komponente Service
+
+include::inhalt.adoc[tags=architekturregel]
+// end::architekturregeln[]

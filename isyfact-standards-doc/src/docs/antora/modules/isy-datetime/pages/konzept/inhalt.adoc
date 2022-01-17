@@ -219,7 +219,7 @@ Die Bibliothek muss die folgenden Berechnungen auf Datums- & Zeitwerten ermögli
 
 * Chronologische Sortierung einer Menge von Datums- und Zeitwerten
 * Chronologische Vergleiche zwischen Datums- und Zeitwerten +
-(„früher als“, „später als“, „gleichzeitig“)
+ („früher als“, „später als“, „gleichzeitig“)
 * Ermittlung des „Tagesdatums“ (der zeitliche Anteil eines Datumswerts wird auf 0, d.h. auf Mitternacht, gestellt)
 * Berechnung des Abstands („Dauer“) zwischen zwei Datums- oder Zeitwerten
 * Addition und Subtraktion von Datums- und Zeitwerten mit einer Dauer

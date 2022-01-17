@@ -1,0 +1,7 @@
+// tag::it-sicherheitsregeln[]
+
+[[it-sicherheitsregeln-isyfact-referenzarchitektur-it-system]]
+== IT-Sicherheitsregeln IsyFact-Referenzarchitektur eines IT-Systems
+
+include::inhalt.adoc[tags=sicherheit]
+// end::it-sicherheitsregeln[]
