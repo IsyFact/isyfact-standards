@@ -3,6 +3,7 @@
 - `IFS-601`: [isy-products-bom] Einbindung folgender Produkte über die Spring Boot Dependencies: JPA, JTA, Spring, Hibernate, Jackson, QueryDSL, SLF4J, Logback, JUnit, Mockito, AssertJ, H2.
 - `IFS-661`: [isy-task] CompletionWatchdog loggt Stacktrace bei Exception
 - `IFS-874`: [isy-aufrufkontext], [isy-serviceapi-core] Umsetzung des Transports von OAuth 2 Bearer-Token zwischen Schnittstellentechnologien.
+- `IFS-686`: [isy-ueberwachung] Property-Dateien auf Unicode Escapes umgestellt
 - `IFS-1066`: [isy-persistence] Protokollierung-Datenstrukturen aus den Template-DB-Skripten entfernt
 - `IFS-977`: [isy-serviceapi-core] Statische Auflösung des AufrufKontextTo durch Bean-Lösung abgelöst
     * AufrufKontextToHelper ist deprecated -> stattdessen AufrufKontextToResolver verwenden
@@ -27,6 +28,7 @@
 - `IFS-802`: [isy-logging] SpotBugs Fehler behoben
 - `RF-1040`: [isy-util], [isy-sonderzeichen] Scope für Spotbugs-Annotations Abhängigkeit auf provided gesetzt
 - `IFS-1158`: [isy-task] Behebung der "Missing parameter metadata"-Warnung in dem mit dem "-parameters"-Flag compiliert wird
+- `IFS-734`: [isy-logging] Aktive Log-Level im LogHelper prüfen
 
 # 2.3.0
 - `IFS-1004`: [isy-sonderzeichen]
