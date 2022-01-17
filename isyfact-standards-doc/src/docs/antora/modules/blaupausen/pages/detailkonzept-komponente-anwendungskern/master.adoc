@@ -1,0 +1,11 @@
+:doctitle: Komponente Anwendungskern
+[discrete]
+= Detailkonzept
+
+:sectnums:
+
+include::allgemein:partial$licence.adoc[]
+
+include::thisdoc.adoc[tags=inhalt]
+
+include::inhalt.adoc[tags=inhalt]

@@ -1,0 +1,11 @@
+:doctitle: Baustein Datum & Zeit
+[discrete]
+= Nutzungsvorgaben
+
+:sectnums:
+
+include::allgemein:partial$licence.adoc[]
+
+include::thisdoc.adoc[tags=inhalt]
+
+include::inhalt.adoc[tags=inhalt]

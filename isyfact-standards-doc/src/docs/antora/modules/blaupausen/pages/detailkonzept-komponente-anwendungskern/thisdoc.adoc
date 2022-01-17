@@ -1,0 +1,50 @@
+= Detailkonzept Anwendungskern: Einleitung
+//include::{isy-dokumentvorlagen}/docs/common/isyfact-attributes.adoc[]
+
+// tag::inhalt[]
+[[einleitung]]
+== Einleitung
+
+Im Anwendungskern werden die fachlichen Funktionen der Anwendung realisiert.
+Diese Funktionen sind im Anwendungskern genau einmal implementiert und können von unterschiedlichen Komponenten einer Anwendung genutzt werden.
+Eine Meldung in einer Geschäftsanwendung kann z.B. sowohl über die GUI als auch über einen Batch oder einen Serviceaufruf vorgenommen werden.
+Alle diese Aufrufer nutzen dieselbe Implementierung.
+Der Anwendungskern wird aus Fachkomponenten und Komponenten zur Nutzung externer Services aufgebaut.
+
+Die Implementierung wird durch die Verwendung eines Anwendungskern-Frameworks unterstützt.
+Die Hauptaufgabe des Anwendungskern-Frameworks ist es, die Komponenten zu konfigurieren und miteinander bekannt zu machen.
+Als zentrales Framework für die Implementierung des Anwendungskerns wird das Spring-Framework verwendet.
+
+Neben der Verwendung als Anwendungskern-Framework, bietet das Spring-Framework auch weitere Funktionalität, die die Entwicklung von Anwendungen für die Plattform vereinfacht.
+
+Dieses Dokument richtet sich an Architekten und Entwickler.
+Neben der Festlegung der Architektur des Anwendungskerns ist die Hauptaufgabe dieses Dokuments, die Verwendung von Spring als Anwendungskern-Framework zu erläutern.
+Daher werden im Folgenden Spring-Kenntnisse vorausgesetzt.
+
+// TODO Der Hinweis passt nicht, da die Vorlageanwendung noch auf IsyFact 1.7 basiert und die Spring-Nutzung daher nicht mit diesem Dokument übereinstimmt. Er sollte wieder eingefügt werden, sobald es eine aktuellere Vorlageanwendung gibt.
+// Für ein Verständnis der in diesem Dokument geforderten Spring-Nutzung ist vor allem die <<Vorlageanwendung>> zu empfehlen.
+
+[[ueberblick]]
+== Überblick
+
+Gemäß den Vorgaben der Referenzarchitektur der xref:referenzarchitektur/master.adoc[Referenzarchitektur] basiert die Architektur eines IT-Systems auf der bekannten Drei-Schichten-Architektur.
+Eine dieser Schichten ist die Anwendungskernschicht mit der Komponente Anwendungskern.
+
+Im Anwendungskern werden die fachlichen Funktionen der Anwendung realisiert.
+Dazu gehören zum Beispiel Datenvalidierungen oder Funktionen zum Verarbeiten von Geschäftsobjekten, die über die Komponente Datenzugriff geladen wurden.
+Außerdem übernimmt der Anwendungskern die Transaktionssteuerung.
+In Richtung Nutzungsschicht bietet der Anwendungskern nur Funktionalitäten an, die allgemein verwendbar sind und die im Prinzip von mehreren Nutzern verwendet werden könnten.
+
+In <<image-IFRefArcITSsys>> ist die Referenzarchitektur eines IT-Systems noch einmal dargestellt, wobei die Anwendungskernschicht mit der Komponente Anwendungskern hervorgehoben ist.
+
+.Referenzarchitektur eines IT-Systems
+[id="image-IFRefArcITSsys",reftext="{figure-caption} {counter:figures}"]
+image::IFRefArcITSsys.png[align="center",width=90%,pdfwidth=90%]
+
+In diesem Dokument werden die Vorgaben zum Bau der Komponente Anwendungskern im Detail beschrieben.
+Als zentrales Framework für die Implementierung des Anwendungskerns wird das Spring-Framework verwendet.
+
+Neben der Verwendung als Anwendungskern-Framework bietet das Spring-Framework auch weitere Funktionalität, die die Entwicklung von Anwendungen für die Plattform vereinfacht.
+Daher werden in diesem Dokument auch Aspekte des Spring-Frameworks behandelt, die über die Verwendung im Anwendungskern hinausgehen.
+
+// end::inhalt[]

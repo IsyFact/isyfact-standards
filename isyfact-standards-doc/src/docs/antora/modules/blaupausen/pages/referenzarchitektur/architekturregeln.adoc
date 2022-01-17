@@ -1,0 +1,7 @@
+// tag::architekturregeln[]
+
+[[architekturregeln-isyfact-referenzarchitektur]]
+== Architekturregeln IsyFact-Referenzarchitektur
+
+include::inhalt.adoc[tags=architekturregel]
+// end::architekturregeln[]

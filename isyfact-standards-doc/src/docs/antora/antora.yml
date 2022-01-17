@@ -4,3 +4,15 @@ version: '2.4'
 start_page: einstieg:einstieg/inhalt.adoc
 nav: 
 - modules/einstieg/nav.adoc
+- modules/blaupausen/nav.adoc
+- modules/isy-exception-core/nav.adoc
+- modules/isy-konfiguration/nav.adoc
+- modules/isy-logging/nav.adoc
+- modules/isy-sicherheit/nav.adoc
+- modules/isy-sonderzeichen/nav.adoc
+- modules/isy-task/nav.adoc
+- modules/isy-ueberwachung/nav.adoc
+- modules/isy-serviceapi-core/nav.adoc
+- modules/isy-util/nav.adoc
+- modules/methodik/nav.adoc
+- modules/werkzeuge/nav.adoc

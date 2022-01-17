@@ -1,0 +1,8 @@
+= Architekturregeln: Einleitung
+
+// tag::inhalt[]
+[[einleitung]]
+== Einleitung
+
+Dieses Dokument gibt einen Überblick über alle in der IsyFact verwendeten Architekturregeln und listet diese nach Baustein sortiert auf.
+// end::inhalt[]
