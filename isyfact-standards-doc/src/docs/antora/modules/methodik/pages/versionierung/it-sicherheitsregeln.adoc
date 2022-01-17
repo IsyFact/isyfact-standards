@@ -1,0 +1,7 @@
+// tag::it-sicherheitsregeln[]
+
+[[it-sicherheitsregeln-isyfact-versionierung]]
+== IT-Sicherheitsregeln IsyFact–Versionierung
+
+include::inhalt.adoc[tags=sicherheit]
+// end::it-sicherheitsregeln[]

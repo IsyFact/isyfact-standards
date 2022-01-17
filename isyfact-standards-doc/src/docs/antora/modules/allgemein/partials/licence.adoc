@@ -2,6 +2,7 @@
 image:allgemein:IFS-Logo.png[IFS-Logo,150,float="left"] Dieses Dokument ist ein Teil der IsyFact-Standards. Alle Inhalte dieses Dokuments, insbesondere Texte und Grafiken, sind urheberrechtlich geschützt. Alle urheberrechtlichen Nutzungs- und Verwertungsrechte liegen beim Bundesverwaltungsamt.
 
 image:allgemein:CC-BY.png[Creative Commons Namensnennung,100,float="right"]
+
 Die Nutzung ist unter den Lizenzbedingungen der Creative Commons Namensnennung 4.0 International gestattet.
 Die Lizenzbestimmungen sind unter folgender URL erhältlich:
 

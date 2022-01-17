@@ -6,3 +6,5 @@ nav:
 - modules/isy-konfiguration/nav.adoc
 - modules/isy-exception-core/nav.adoc
 - modules/isy-serviceapi-core/nav.adoc
+- modules/methodik/nav.adoc
+- modules/werkzeuge/nav.adoc
