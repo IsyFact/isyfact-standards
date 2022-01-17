@@ -7,5 +7,6 @@ nav:
 - modules/isy-konfiguration/nav.adoc
 - modules/isy-logging/nav.adoc
 - modules/isy-serviceapi-core/nav.adoc
+- modules/isy-util/nav.adoc
 - modules/methodik/nav.adoc
 - modules/werkzeuge/nav.adoc
