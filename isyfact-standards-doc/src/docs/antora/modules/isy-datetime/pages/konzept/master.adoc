@@ -1,9 +1,10 @@
 :doctitle: Baustein Datum & Zeit
-:document-type: Konzept
+[discrete]
+= Konzept
 
-toc::[]
+:sectnums:
 
-colophon::[]
+include::allgemein:partial$licence.adoc[]
 
 include::thisdoc.adoc[tags=inhalt]
 

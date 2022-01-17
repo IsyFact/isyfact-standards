@@ -1,0 +1,305 @@
+= Nutzungsvorgaben Sicherheit: Anhänge
+
+// tag::inhalt[]
+== Anhang
+
+[[konfigurationsdateien]]
+=== Anhang A: Konfigurationsdateien
+
+[[standard-cache-konfiguration]]
+==== Standard-Cache-Konfiguration
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="false" monitoring="autodetect" dynamicConfig="true">
+  <!--
+  Pflicht: Standard-Einstellungen fuer Caches.
+  Diese Einstellungen werden verwendet,
+  sofern Caches programmatisch erzeugt werden mit Hilfe von
+  CacheManager.add(String cacheName).
+  Der defaultCache hat den impliziten Namen "default",
+  welcher einer reservierter
+  cache-Name ist.
+  -->
+  <defaultCache
+    maxEntriesLocalHeap="1000"
+    eternal="false"
+    timeToLiveSeconds="300"
+    timeToIdleSeconds="0"
+    overflowToDisk="false"
+    memoryStoreEvictionPolicy="LRU" />
+  <cache
+    name="authentifizierungen"
+    maxEntriesLocalHeap="1000"
+    eternal="false"
+    timeToLiveSeconds="300"
+    timeToIdleSeconds="0"
+    overflowToDisk="false"
+    memoryStoreEvictionPolicy="LRU" />
+</ehcache>
+----
+
+[[anhang-rollen-rechte-schema]]
+=== Anhang B: Rollen-Rechte-Schema
+
+Im Folgenden ist der Inhalt der Datei `RollenRechteSchema.xsd` wiedergegeben, die das Format der Konfigurationsdatei für Rollen und Rechte (`rollenrechte.xml`) festlegt.
+
+[source, xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://www.isyfact.de/RollenRechteSchema"
+    xmlns:tns="http://www.isyfact.de/RollenRechteSchema"
+    elementFormDefault="qualified">
+  <include schemaLocation=""></include>
+  <complexType name="Rolle">
+    <sequence>
+      <element name="rechtId" type="tns:RechtId" minOccurs="0" maxOccurs="unbounded"/>
+    </sequence>
+    <attribute name="RolleId" type="string" use="required"/>
+  </complexType>
+  <complexType name="Recht">
+    <sequence>
+      <element name="rechtId" type="tns:RechtId" minOccurs="1" maxOccurs="1"/>
+    </sequence>
+  </complexType>
+  <element name="Anwendung" type="tns:Anwendung"/>
+  <complexType name="Anwendung">
+    <sequence>
+      <element name="rollen" type="tns:Rolle" minOccurs="1" maxOccurs="unbounded"/>
+      <element name="rechte" type="tns:Recht" minOccurs="0" maxOccurs="unbounded"/>
+    </sequence>
+    <attribute name="AnwendungsId" type="string" use="required"/>
+  </complexType>
+  <complexType name="RechtId">
+    <attribute name="Id" type="string" use="required"/>
+  </complexType>
+</schema>
+----
+
+[[verwaltung-von-rollen-im-benutzerverzeichnis]]
+=== Anhang C: Verwaltung von Rollen im Benutzerverzeichnis
+
+Damit Rollen auch an Benutzer im Benutzerverzeichnis vergeben werden können, müssen die Rollen in das Benutzerverzeichnis eingespielt werden.
+
+Dies erfolgt für Testsysteme und das Produktivsystem (im Rahmen von Inbetriebnahmen) per Import-Batch, bei dem ein Excel-Dokument mit zu importierenden Rollen in das Benutzerverzeichnis geladen wird.
+Der Import ist der einzige Weg, um Rollen hinzuzufügen.
+
+Mit dem Batch ist es möglich Rollen hinzuzufügen (`Add`), zu verändern (`Upd`) oder zu löschen (`Del`).
+
+Das Excel-Dokument zum Einspielen von Rollen benötigt ein Arbeitsblatt „Rollen“ und hat folgendes Format:
+
+:desc-table-EinspielenVonRollen: Einspielen von Rollen in das Benutzerverzeichnis (Beispiel)
+[id="table-EinspielenVonRollen",reftext="{table-caption} {counter:tables}"]
+.{desc-table-EinspielenVonRollen}
+[cols="1,2,2,2,3",options="header"]
+|====
+|*Aktion* |*Rollenlabel* |*Rollenname* |*Rollentyp* |*Unterrollen*
+|Add |BNVZ_Rolle1 |BNVZ_Rolle1 |fachlich |BHVZ_Schnittstellennutzer
+|Upd |BNVZ_Rolle2 |BNVZ_Rolle2 |fachlich |BHVZ_Schnittstellennutzer, +
+SVZ_Schnittstellennutzer
+|Del | |BNVZ_Rolle3 |  | 
+|====
+
+Zusätzlich zu den oben abgebildeten Spalten enthält das Excel-Dokument die folgenden weiteren Spalten, deren Inhalt bereits im Dokument xref:nutzungsvorgaben/master.adoc#einleitung[Sicherheit - Konzept] beschrieben wurde:
+
+* *Rollenbeschreibung*
+* *SichtbarkeitAnwender*
+* *SichtbarkeitSystemeExtern*
+* *SichtbarkeitSystemeIntern*
+
+Nach der letzten zu importierenden Zeile des Arbeitsblatts sollte eine Zeile mit der Aktion `End` eingefügt werden.
+Dies verbessert die Performance beim Import.
+Bei allen anderen Werten in der Spalte „Aktion“ wird die Zeile ignoriert.
+
+Zusätzlich kann das Excel-Dokument ein weiteres Tabellenblatt „Systeme“ enthalten.
+Dieses folgt demselben Schema zum Hinzufügen (`Add`), Ändern (`Upd`) und Löschen (`Del`) von Einträgen.
+Es dient dazu, die Systeme (interne und ggf. auch externe) zu pflegen, wie im Dokument xref:nutzungsvorgaben/master.adoc#einleitung[Sicherheit - Konzept] beschrieben.
+Systeme sind im Benutzerverzeichnis spezialisierte Benutzer.
+Sie haben daher alle Attribute der Entitäten `ETY_Benutzer`, `ETY_System` und `ETY_Rollenträger`.
+
+Das Tabellenblatt „Systeme“ enthält die folgenden Spalten, deren Inhalte in den Attributbeschreibungen im Datenmodell des Benutzerverzeichnisses erklärt werden:
+
+* *Aktion*: `Add`, `Upd`, `Del` oder `End`
+* *InterneKennung*
+* *Name*
+* *Status*: `gueltig` oder `ungueltig`
+* *BHKNZ*: Kennzeichen der Organisation (Behördenkennzeichen) durch die das System genutzt wird.
+* *Anbieter*
+* *Intern*: `true` oder `false`
+* *PasswortPlain*: Passwort im Klartext, wird beim Import verschlüsselt
+* *Anlagedatum*
+* *PasswortLaeuftAb*: `true` oder `false` (für Systeme sinnvollerweise `false`)
+* *PasswortLetzteAenderung*
+* *PasswortMussGeaendertWerden*: `true` oder `false`
+* *Beschreibung*
+* *LetzteAenderung*
+* *LetzteAenderungDurch*
+* *RollenDirekt*: Kommaseparierte Liste der direkt zugeordneten fachlichen Rollen des Systems
+
+*Motivation für die Updatefunktion*
+
+Die Löschung einer bereits verwendeten Rolle kann große Auswirkungen auf die Rollenzuordnung des Benutzerbestandes haben, da diese allen besitzenden Benutzern weggenommen werden muss.
+Eine nachträgliche hinzugefügte Ersatzrolle müsste dann manuell administrativ den Benutzern wieder zugeordnet werden.
+Das ist nicht praktikabel.
+Daher wird für eine Aktualisierung einer Rolle das Ändern einer Rolle (`Upd`) angeboten.
+Die Rollendefinition wird dabei verändert, während die Rolle allen Benutzern und Nutzergruppen zugeordnet bleibt.
+
+*Einschränkungen für den Rollenimport*
+
+Folgende Einschränkungen bestehen beim Import von Rollen:
+
+* Erzeugen einer Rolle:
+** Der Name der Rolle darf noch nicht vergeben sein.
+** Eine fachliche Rolle darf nur technische Unterrollen haben.
+Im Excel-Dokument referenzierte Unterrollen müssen im Datenbestand bereits bekannt sein, bzw.
+im Excel-Dokument weiter oben stehen.
+* Ändern einer Rolle
+** Der Typ der Rolle (fachlich, technisch) kann nicht geändert werden.
+** Der (neue) Name der Rolle darf nicht bereits an eine andere Rolle vergeben sein.
+* Löschen der Rolle: Handelt es sich um eine technische Rolle, so darf diese Rolle zum Zeitpunkt der Löschung nicht mehr in einer anderen Rolle als Unterrolle verwendet werden.
+Die fachliche Rolle ist zunächst explizit zu löschen.
+
+[[verwaltung-des-rollen-masters]]
+==== Verwaltung des Rollen-Masters
+
+Die Rollendefinition der Anwendungslandschaft (in Form eines Excel-Dokuments) ist ein zentral zu verwaltendes Dokument, welches zur Befüllung von Testumgebungen verwendet wird.
+Es repräsentiert den insgesamt verfügbaren Rollenvorrat über alle Anwendungssysteme.
+Das Dokument trägt den Namen **Rollen-Master**.
+
+Änderungen am Rollenmodell im Rahmen von Wartungsarbeiten werden in dieses Dokument übertragen.
+Zum Einspielen einer Rollenänderung in ein produktiv- oder Testsystem wird jedoch ein passendes *Rollen-Delta* (ebenfalls Excel) verwendet, welches nach einer Inbetriebnahme gelöscht wird.
+
+Die Koordination der Änderungen am Rollen-Master obliegt dem Release-Verantwortlichen.
+
+[[releases-und-rollen-deltas]]
+==== Releases und Rollen-Deltas
+
+Für jedes Release, welches Änderungen an dem Rollenbestand der Anwendungslandschaft vornimmt, werden ein oder mehrere Rollen-Deltas aufbauend auf dem Rollen-Master erstellt, die das Rollenmodell vom Ist-Zustand in den Soll-Zustand überführen.
+Die Rollen-Deltas werden in den Sourcen des zugehörigen IT-Systems im Verzeichnis `/src/main/skripte/sicherheit` abgelegt
+
+Diese Rollen-Deltas werden auf Testumgebungen im Rahmen der Integrationstests getestet und mit dem Release ausgeliefert.
+Die Reihenfolge, in der sie eingespielt werden müssen, wird im Releaseletter für die Rollendeltas definiert.
+Sie hängt von den Abhängigkeiten der Systeme ab, die in den Releaselettern der jeweiligen Systeme beschrieben sind.
+
+
+[[cams-konfiguration]]
+=== Anhang D: Konfiguration des CAMS Single-Sign On Servers
+
+Standardmäßig wird CAMS als IAM-System unterstützt.
+In diesem Anhang wird die spezifische Konfiguration für den CAMS-Server beschrieben.
+
+[[cams-access-manager]]
+==== Konfiguration des Access Managers
+
+Die Bibliothek `rf-sicherheit-cams` enthält eine Implementierung der Schnittstelle `AccessManager`, die als Spring Bean konfiguriert werden muss.
+
+:desc-listing-konfiguration-cams: Grundlegende Konfiguration des CAMS-Servers
+[id="listing-konfiguration-cams",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-konfiguration-cams}
+[source, xml]
+----
+<beans>
+    <bean id="camsAccessManager"
+        class="de.bund.bva.pliscommon.sicherheit.cams.CamsAccessManagerImpl"
+        depends-on="konfiguration">
+        <constructor-arg index="0">
+            <value>classpath:/config/cams-webagent.conf</value>
+        </constructor-arg>
+        <constructor-arg index="1">
+            <ref bean="konfiguration"/>
+        </constructor-arg>
+    </bean>
+</beans>
+----
+
+Zusätzlich zur Spring-Konfiguration muss die betriebliche Konfigurationsdatei `/config/cams-webagent.conf` angelegt werden.
+Da diese Konfiguration in der Regel langjährig unverändert verwendet wird und lediglich die Aufrufadresse anzupassen ist, wird auf die Darstellung der Konfiguration hier verzichtet.
+
+[[cams-autorisierung-gui]]
+==== Autorisierung in der GUI: Spring Konfiguration
+
+Die Aufrufe der GUI erfolgen über HTTP.
+Der CAMS-Server stellt am Webserver vor Weiterleitung der Anfrage an eine Geschäftsanwendung sicher, dass diese erfolgreich authentifiziert wurde.
+Mit der Authentifizierung des Anwenders fügt der CAMS-Server HTTP-Header in die Anfrage ein.
+Diese Header enthalten neben Informationen der Identifikation des anfragenden Anwenders auch die Gesamtheit seiner Rollen.
+Die Informationen aus dem HTTP-Header werden in den Aufrufkontext übertragen.
+
+Die Bibliothek `rf-sicherheit-cams` enthält den `CamsAuthentication­ProcessingFilter`, der den Aufrufkontext bei jeder Anfrage an die GUI aus dem HTTP-Header heraus ermittelt und damit den Verwalter füllt.
+Einmal konfiguriert, erfolgt die Erstellung des Aufrufkontextes transparent für sämtliche Aufrufe der GUI.
+
+:desc-listing-konfiguration-gui-cams: Spring-Konfiguration für Autorisierung in der GUI mit CAMS
+[id="listing-konfiguration-gui-cams",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-konfiguration-gui-cams}
+[source, xml]
+----
+<beans>
+    <bean id="authenticationProvider"
+        class="de.bund.bva.pliscommon.sicherheit.cams.web.CamsAuthenticationProvider"/>
+
+    <bean id="processingFilter"
+        class="de.bund.bva.pliscommon.sicherheit.cams.web.CamsAuthenticationProcessingFilter">
+        <property name="authenticationManager" ref="authenticationManager"/>
+        <property name="aufrufKontextVerwalter" ref="aufrufKontextVerwalter"/>
+        <property name="httpHeaderParser">
+            <bean class="de.bund.bva.pliscommon.sicherheit.cams.web.HttpHeaderParser">
+                <property name="aufrufKontextFactory" ref="aufrufKontextFactory"/>
+            </bean>
+        </property>
+    </bean>
+----
+
+[[cams-entgegennahme-der-korrelations-id-in-der-gui]]
+==== Entgegennahme der Korrelations-ID in der GUI
+
+Die Neuerzeugung und Registrierung der Korrelations-ID im MDC (_Mapped Diagnostic Context_) erfolgt automatisch innerhalb des Spring Beans `HttpHeaderParser` der Bibliothek `rf-sicherheit-cams`.
+
+
+[[cams-authentifizierung-batch]]
+==== Authentifizierung in Batches: Konfiguration
+
+Damit eine Authentifizierung in Batches über den CAMS-Server möglich ist, sind einige zusätzliche Konfigurationen erforderlich.
+
+:desc-listing-konfiguration-batch-cams: Konfiguration zur Authentifizierung in Batches mit CAMS
+[id="listing-konfiguration-batch-cams",reftext="{listing-caption} {counter:listings }"]
+.{desc-listing-konfiguration-batch-cams}
+[source,java]
+----
+sic.camsagent.login.config.entry=applicationplatform
+sic.camsagent.login.medium=applicationplatform
+sic.camsagent.security.domain=applicationplatform
+sic.camsagent.nutzertyp=unbekannt
+----
+
+Hier wird festgelegt, dass ein Aufrufer gegen die im CAMS-Server konfigurierte Security-Domain `applicationplatform` authentifiziert wird.
+
+[[cams-authentifizierung-sgw]]
+==== Authentifizierung im Service-Gateway: Konfiguration
+
+Damit eine Authentifizierung im Service-Gateway über den CAMS-Server möglich ist, sind einige zusätzliche Konfigurationen erforderlich.
+
+.Konfiguration zur Authentifizierung im Service-Gateway mit CAMS
+[id="listing-konfiguration-sgw-cams",reftext="{listing-caption} {counter:listings }"]
+[source,java]
+----
+sic.camsagent.login.config.entry=servicegateway
+sic.camsagent.login.medium=servicegateway
+sic.camsagent.security.domain=servicegateway
+sic.camsagent.nutzertyp=unbekannt
+----
+
+Hier wird festgelegt, dass ein Aufrufer gegen die im CAMS-Server konfigurierte Security-Domain `servicegateway` authentifiziert wird.
+
+[[cams-authentifizierung-awk]]
+==== Authentifizierung im Anwendungskern
+
+Ergänzend zur xref:nutzungsvorgaben/master.adoc#awk-autorisierung[Autorisierung im Anwendungskern] sei erwähnt, welche Informationen der CAMS-Server zur manuellen Authentifizierung beim Erstellen eines Berechtigungsmanagers benötigt:
+
+* Zertifikat (alternativ ZertifikatDn),
+* Kennung,
+* Passwort.
+
+
+
+// end::inhalt[]

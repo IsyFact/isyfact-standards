@@ -155,7 +155,7 @@ public class LogHelper {
      *            The invoked method.
      */
     public void loggeAufruf(IsyLogger logger, Method methode) {
-        if (loggeAufruf) {
+        if (logger.isInfoEnabled() && loggeAufruf) {
             logger.info(LogKategorie.JOURNAL, Ereignisschluessel.EISYLO01001.name(),
                     Ereignisschluessel.EISYLO01001.getNachricht(), erstelleMethodenname(methode),
                     erstelleSignatur(methode));
@@ -178,7 +178,7 @@ public class LogHelper {
      */
     public void loggeErgebnis(IsyLogger logger, Method methode, boolean erfolgreich, Object[] parameter,
             Object ergebnis) {
-        if (loggeErgebnis) {
+        if (logger.isInfoEnabled() && loggeErgebnis) {
             if (erfolgreich) {
                 logger.info(LogKategorie.METRIK, Ereignisschluessel.EISYLO01002.name(),
                         Ereignisschluessel.EISYLO01002.getNachricht(), erstelleMethodenname(methode),
@@ -193,7 +193,7 @@ public class LogHelper {
         // either "loggeDaten" is set to true
         // or the invocation was not successful and "loggeDatenBeiException" is set to true.
         boolean loggeAufrufUndErgebnisdaten = loggeDaten || !erfolgreich && loggeDatenBeiException;
-        if (loggeAufrufUndErgebnisdaten) {
+        if (logger.isDebugEnabled() && loggeAufrufUndErgebnisdaten) {
 
             List<Object> parameterWerte = null;
             if (parameter != null) {
@@ -229,7 +229,7 @@ public class LogHelper {
      */
     public void loggeDauer(IsyLogger logger, Method methode, long dauer, boolean erfolgreich) {
 
-        if (loggeDauer) {
+        if (logger.isInfoEnabled() && loggeDauer) {
             if (erfolgreich) {
                 logger.info(LogKategorie.PROFILING, Ereignisschluessel.EISYLO01004.name(),
                         Ereignisschluessel.EISYLO01004.getNachricht(), erstelleMethodenname(methode),
@@ -256,7 +256,7 @@ public class LogHelper {
      */
     public void loggeNachbarsystemAufruf(IsyLogger logger, Method methode, String nachbarsystemName,
             String nachbarsystemUrl) {
-        if (loggeAufruf) {
+        if (logger.isInfoEnabled() && loggeAufruf) {
             logger.info(LogKategorie.JOURNAL, Ereignisschluessel.EISYLO01011.name(),
                     Ereignisschluessel.EISYLO01011.getNachricht(), erstelleMethodenname(methode),
                     nachbarsystemName, nachbarsystemUrl, erstelleSignatur(methode));
@@ -279,7 +279,7 @@ public class LogHelper {
      */
     public void loggeNachbarsystemErgebnis(IsyLogger logger, Method methode, String nachbarsystemName,
             String nachbarsystemUrl, boolean erfolgreich) {
-        if (loggeErgebnis) {
+        if (logger.isInfoEnabled() && loggeErgebnis) {
             if (erfolgreich) {
                 logger.info(LogKategorie.METRIK, Ereignisschluessel.EISYLO01012.name(),
                         Ereignisschluessel.EISYLO01012.getNachricht(), erstelleMethodenname(methode),
@@ -310,7 +310,7 @@ public class LogHelper {
      */
     public void loggeNachbarsystemDauer(IsyLogger logger, Method methode, long dauer,
             String nachbarsystemName, String nachbarsystemUrl, boolean erfolgreich) {
-        if (loggeDauer) {
+        if (logger.isInfoEnabled() && loggeDauer) {
             if (erfolgreich) {
                 logger.info(LogKategorie.PROFILING, Ereignisschluessel.EISYLO01014.name(),
                         Ereignisschluessel.EISYLO01014.getNachricht(), erstelleMethodenname(methode),
