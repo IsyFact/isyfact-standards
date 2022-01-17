@@ -1,6 +1,14 @@
 name: isyfact-standards-doku
 title: IsyFact Standards Dokumentation
 version: '2.4'
-start_page: isy-task:konzept/inhalt.adoc
+start_page: isy-logging:konzept/inhalt.adoc
 nav: 
+- modules/isy-exception-core/nav.adoc
+- modules/isy-konfiguration/nav.adoc
+- modules/isy-logging/nav.adoc
+- modules/isy-sonderzeichen/nav.adoc
 - modules/isy-task/nav.adoc
+- modules/isy-serviceapi-core/nav.adoc
+- modules/isy-util/nav.adoc
+- modules/methodik/nav.adoc
+- modules/werkzeuge/nav.adoc
