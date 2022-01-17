@@ -4,8 +4,7 @@
 [[anforderungen]]
 == Anforderungen
 
-Im  Folgenden werden die Anforderungen an die Verarbeitung von Datums- und Zeitwerten definiert.
-Diese bilden die Grundlage für die Vorgaben im darauffolgenden Kapitel.
+Im  Folgenden werden die Anforderungen an die Verarbeitung von Datums- und Zeitwerten definiert. Diese bilden die Grundlage für die Vorgaben im darauffolgenden Kapitel.
 
 [[definitionen]]
 === Definitionen
@@ -44,9 +43,8 @@ Eine Dauer ist eine quantifizierte Menge einer Zeiteinheit (z.B. 37 Sekunden, 14
 Für die Zeiteinheiten gelten folgende Abkürzungen, welche für Ein- und Ausgabe benutzt werden können:
 
 //Tab1
-:desc-table-AbkZeitEin: Abkürzungen für Zeiteinheiten
+.Abkürzungen für Zeiteinheiten
 [id="table-AbkZeitEin",reftext="{table-caption} {counter:tables}"]
-.{desc-table-AbkZeitEin}
 [cols="4,6",options="header"]
 |====
 |Abkürzung |Zeiteinheit
@@ -107,9 +105,8 @@ Eingaben von Datumswerten müssen Zeichenketten in folgendem Format sein:
 |====
 
 //Tab2
-:desc-table-InpFormDat: Eingabeformate der Felder von Datumswerten
+.Eingabeformate der Felder von Datumswerten
 [id="table-InpFormDat",reftext="{table-caption} {counter:tables}"]
-.{desc-table-InpFormDat}
 [cols="1,3,1,1",options="header"]
 |====
 |Feld |Format |Beispiel |Pflichtfeld
@@ -122,8 +119,7 @@ Eingaben von Datumswerten müssen Zeichenketten in folgendem Format sein:
 |====
 
 <<table-InpFormDat>> zeigt die möglichen Formate der einzelnen Felder.
-Anders als in der Anzeige sind keine textuellen Formate für z.B. Wochentage („Montag“) oder Monate („Dezember“) erlaubt.
-Das Jahr wird immer vollständig interpretiert und darf nicht verkürzt eingegeben werden (z.B. „69“ für „1969“). Anwendungen können eine solche Logik vorsehen, müssen die Jahreszahlen allerdings immer vollständig an den Baustein übergeben.
+Anders als in der Anzeige sind keine textuellen Formate für z.B. Wochentage („Montag“) oder Monate („Dezember“) erlaubt. Das Jahr wird immer vollständig interpretiert und darf nicht verkürzt eingegeben werden (z.B. „69“ für „1969“). Anwendungen können eine solche Logik vorsehen, müssen die Jahreszahlen allerdings immer vollständig an den Baustein übergeben.
 
 [[zeitwert-1]]
 ==== Zeitwert
@@ -136,9 +132,8 @@ Eingaben von Zeitwerten müssen Zeichenketten in folgendem Format sein:
 |====
 
 //tab3
-:desc-table-InpFormZeit: Eingabeformate der Felder von Zeitwerten
+.Eingabeformate der Felder von Zeitwerten
 [id="table-InpFormZeit",reftext="{table-caption} {counter:tables}"]
-.{desc-table-InpFormZeit}
 [cols="1,2,2,1",options="header"]
 |====
 |Feld |Format |Beispiel |Pflichtfeld
@@ -170,9 +165,8 @@ Eingaben einer Dauer müssen Zeichenketten in folgendem Format sein:
 |====
 
 //Tab4
-:desc-table-InpFormdauer: Eingabeformate der Felder von Zeitwerten
+.Eingabeformate der Felder von Zeitwerten
 [id="table-InpFormdauer",reftext="{table-caption} {counter:tables}"]
-.{desc-table-InpFormdauer}
 [cols="1,3",options="header"]
 |====
 |Feld |Format
@@ -196,9 +190,8 @@ deren Format gemäß der Anforderungen der Kapitel <<datumswert-1>> bis <<dauer-
 <<table-InpFormZRaum>> zeigt Beispiele für die Eingabewerte von Zeiträumen.
 
 //Tab5
-:desc-table-InpFormZRaum: Eingabewerte für Zeiträume
+.Eingabewerte für Zeiträume
 [id="table-InpFormZRaum",reftext="{table-caption} {counter:tables}"]
-.{desc-table-InpFormZRaum}
 [cols="1,1,2",options="header"]
 |====
 |1. Wert |2. Wert |Beispiel
@@ -212,7 +205,7 @@ deren Format gemäß der Anforderungen der Kapitel <<datumswert-1>> bis <<dauer-
 === Persistierung
 
 Die Persistierung von Angaben zu Datum, Zeit, Dauer, Zeiträumen und ungewissen Datums- und Zeitangaben (siehe <<ungewisse-datums-und-zeitwerte>>) wird durch die Bibliothek `isy-persistence` behandelt.
-Weitere Details dazu beschreibt das <<DetailkonzeptKomponenteDatenzugriff>>.
+Weitere Details dazu beschreibt das <<TODO DetailkonzeptKomponenteDatenzugriff>>.
 
 [[berechnungen]]
 === Berechnungen
@@ -225,7 +218,8 @@ Die Bibliothek muss bestimmte Berechnungen auf Datumswerten, Zeitwerten und Zeit
 Die Bibliothek muss die folgenden Berechnungen auf Datums- & Zeitwerten ermöglichen:
 
 * Chronologische Sortierung einer Menge von Datums- und Zeitwerten
-* Chronologische Vergleiche zwischen Datums- und Zeitwerten („früher als“, „später als“, „gleichzeitig“)
+* Chronologische Vergleiche zwischen Datums- und Zeitwerten +
+ („früher als“, „später als“, „gleichzeitig“)
 * Ermittlung des „Tagesdatums“ (der zeitliche Anteil eines Datumswerts wird auf 0, d.h. auf Mitternacht, gestellt)
 * Berechnung des Abstands („Dauer“) zwischen zwei Datums- oder Zeitwerten
 * Addition und Subtraktion von Datums- und Zeitwerten mit einer Dauer
@@ -249,9 +243,8 @@ Dabei sind Teile eines Datums- oder Zeitwerts zunächst ungewiss.
 Die Bibliothek muss die Möglichkeit vorsehen, solche ungewissen Angaben später zu konkretisieren.
 
 //tab 6
-:desc-table-KonkretunDat: Konkretisierung eines ungewissen Datums
+.Konkretisierung eines ungewissen Datums
 [id="table-KonkretunDat",reftext="{table-caption} {counter:tables}"]
-.{desc-table-KonkretunDat}
 [cols="3,2",options="header"]
 |====
 |Erkenntnisse |Wert
@@ -275,9 +268,8 @@ eines beliebigen Monats des Jahres 1976“, da dies nicht als Zeitraum darstellb
 Die Anforderungen zur Konkretisierung gelten ebenso für Zeitangaben.
 <<table-KonkretunZeit>> verdeutlicht dies in einem beispielhaften Verlauf.
 
-:desc-table-KonkretunZeit: Konkretisierung einer ungewissen Zeit
+.Konkretisierung einer ungewissen Zeit
 [id="table-KonkretunZeit",reftext="{table-caption} {counter:tables}"]
-.{desc-table-KonkretunZeit}
 [cols="3,2",options="header"]
 |====
 |Erkenntnisse |Wert
@@ -311,7 +303,7 @@ Das Stammpackage für alle Klassen der Umsetzung setzt sich aus Group-ID und Art
 === Bedeutung der Standardbibliothek
 
 Die Bibliothek muss zur Umsetzung der Anforderungen so stark wie möglich auf die im JSR 310 beschriebene API setzen.
-Falls einige der Anforderungen aus dem Kapitel <<anforderungen>> komplett durch die Funktionalität dieser API abgedeckt sind, wird in den <<NutzungsvorgabenDatumZeit>> die entsprechende Verwendung der API mit Verweis auf die Standarddokumentation knapp erläutert.
+Falls einige der Anforderungen aus dem Kapitel <<anforderungen>> komplett durch die Funktionalität dieser API abgedeckt sind, wird in den xref:nutzungsvorgaben/thisdoc.adoc#einleitung[NutzungsvorgabenDatumZeit] die entsprechende Verwendung der API mit Verweis auf die Standarddokumentation knapp erläutert.
 Abweichungen von der API oder eigene Implementierungen bereits vorhandener Funktionalität müssen in den Nutzungsvorgaben begründet und beschrieben werden.
 
 [[verwendung-der-standardbibliothek]]
@@ -346,9 +338,8 @@ Die Bibliothek muss zur Behandlung ungewisser Datums- und Zeitwerte die folgende
 Bisherige Implementierungen ungewisser Datumswerte setzen immer den Sonderfall um, bei dem entweder der Tag, Tag und Monat oder alle Teile eines Datumswerts unbekannt sind.
 Die Anzeige und Eingabe dieser unbekannten Werte erfolgt hierbei über Nullen, wie <<table-OldUmunZeitw>> zeigt.
 
-:desc-table-OldUmunZeitw: Bisherige Umsetzung ungewisser Datumswerte
+.Bisherige Umsetzung ungewisser Datumswerte
 [id="table-OldUmunZeitw",reftext="{table-caption} {counter:tables}"]
-.{desc-table-OldUmunZeitw}
 [cols=",,",options="header"]
 |====
 |Sonderfall |Eingabe / Darstellung |Intern
@@ -363,9 +354,8 @@ Trotzdem muss die Bibliothek ungewisse Datumswerte dieser Art einlesen und ausge
 Die Werte werden beim Einlesen intern in entsprechende Zeiträume umgewandelt und bei der Darstellung wieder in die ursprüngliche Form überführt.
 Eine Übersicht dieses Vorgangs zeigt <<table-UmsSonderNull>>.
 
-:desc-table-UmsSonderNull: Umsetzung der Sonderfälle (mit Nullen)
+.Umsetzung der Sonderfälle (mit Nullen)
 [id="table-UmsSonderNull",reftext="{table-caption} {counter:tables}"]
-.{desc-table-UmsSonderNull}
 [cols=",,",options="header"]
 |====
 |Sonderfall |Eingabe / Darstellung |Intern
@@ -379,9 +369,8 @@ Diese Möglichkeit wird die Eingabe unbekannter Datums- oder Zeitbestandteile mi
 Die Eingabe mittels „x“ ermöglicht die oben genannten Sonderfälle auch für Zeitwerte, bei denen im Unterschied zu Datumswerten „0“ ein korrekter Wert für die jeweiligen Bestandteile (Stunde, Minute und Sekunde) ist.
 Eine Übersicht der so umgesetzten Spezialfälle zeigt <<table-UmsSonderX>>.
 
-:desc-table-UmsSonderX: Umsetzung der Sonderfälle (mit „x“)
+.Umsetzung der Sonderfälle (mit „x“)
 [id="table-UmsSonderX",reftext="{table-caption} {counter:tables}"]
-.{desc-table-UmsSonderX}
 [cols=",,",options="header"]
 |====
 |Sonderfall |Eingabe / Darstellung |Intern

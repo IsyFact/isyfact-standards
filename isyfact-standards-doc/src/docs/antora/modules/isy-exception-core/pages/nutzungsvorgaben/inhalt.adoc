@@ -1,0 +1,705 @@
+= Nutzungsvorgaben Fehlerbehandlung: Inhalt
+
+// tag::inhalt[]
+[[implementierung-der-fehlerbehandlung]]
+== Implementierung der Fehlerbehandlung
+
+Für die Beschreibung des Konzeptes der Fehlerbehandlung sei auf Dokument xref:konzept/master.adoc[KonzeptFehlerbehandlung] verwiesen.
+
+[[design-von-fehlerklassen]]
+=== Design von Fehlerklassen
+
+Exceptions werden in erwartete und unerwartete Exceptions unterteilt.
+Technisch werden diese beiden Arten in Java als checked (erwartete) bzw. unchecked (unerwartete) Exceptions abgebildet.
+Aus Sicht der Anwendung werden Exceptions in fachliche und technische Exceptions unterteilt.
+
+Aus der Tatsache, dass fachliche Fehler nie unerwartet sein können und behandelt werden müssen, ergibt sich, dass es keine fachlichen unerwarteten Exceptions geben darf.
+Technische Fehler sind dagegen nur manchmal sinnvoll behandelbar.
+Sie sind somit in der Regel unerwartet.
+
+Technische erwartete Exceptions sind einzusetzen, sofern mit einem technischen Fehler zu rechnen ist, welcher sinnvoll behandelt werden kann.
+
+Dadurch ergibt sich folgende Exception-Hierarchie:
+
+.Abstrakte Exception Hierarchie
+[id="image-004",reftext="{figure-caption} {counter:figures}"]
+image::fehlerbehandlung004.png[align="center",width=60%,pdfwidth=60%]
+
+Grundsätzlich lassen sich also folgende Regeln für die Verwendung festhalten:
+
+* Fachliche Exceptions sind immer checked.
+* Behandelbare technische Exceptions sind checked.
+* Nicht behandelbare technische Exceptions sind unchecked.
+
+Neben der oben aufgeführten Hierarchie, in die sich alle Exceptions einteilen lassen, haben alle Exceptions eine gemeinsame Menge an Attributen, siehe <<image-005>>.
+
+* Fehlertext, mit der Information was passiert ist.
+* Ausnahme-ID: referenziert den Fehler(-text) und dient als Referenz für die Art des Fehlers.
+* Unique-ID: eineindeutige Nummer in der Anwendungslandschaft und dient als Referenz für die Instanz des Fehlers.
+Sie ist eine Referenz auf den aufgetretenen Fehler.
+
+.Attribute von Fehlern
+[id="image-005",reftext="{figure-caption} {counter:figures}"]
+image::fehlerbehandlung005.png[align="center",width=20%,pdfwidth=20%]
+
+[[erstellen-von-exceptions]]
+=== Erstellen von Exceptions
+
+[[exceptions-des-anwendungskerns]]
+==== Exceptions des Anwendungskerns
+
+Aus den Vorgaben zum Design der Fehlerklassen in Abschnitt xref::nutzungsvorgaben/inhalt.adoc#design-von-fehlerklassen[Design von Fehlerklassen], resultiert die folgende Exception-Hierarchie, die beispielhaft Exceptions der Beispiel-Anwendung definiert:
+
+.Exception-Hierarchie innerhalb einer Anwendung
+[id="image-006",reftext="{figure-caption} {counter:figures}"]
+image::fehlerbehandlung006.png[align="center",width=100%,pdfwidth=100%]
+
+<<image-006>> zeigt die verschiedenen Hierarchiestufen von Fehlern.
+Auf oberster Ebene befinden sich die abstrakten Implementierungen für checked (`BaseException`) und unchecked (`TechnicalRuntimeException`) Exceptions.
+Diese Oberklassen sind für alle Exceptions innerhalb einer Anwendung zu verwenden.
+Diese werden als eigenständige Bibliothek (`isy-exception-core`) angeboten und befinden sich im Paket `de.bund.bva.isyfact.exception`.
+Sie verwalten die Ausnahme-ID, generieren eine UUID und laden den Fehlertext.
+Die Ausnahme-ID referenziert den Fehler(-text) und unterstützt den Nutzer bzw. den Betrieb beim Erkennen der Fehlerart, da ein bestimmter Fehler immer die gleiche Ausnahme-ID besitzt.
+Die generierte UUID ist eine im System eineindeutige Nummer, die beim Erstellen der Exception vergeben wird.
+Sie ist, wie die Ausnahme-ID, Teil der Fehlernachricht und dient dazu, einen aufgetretenen Fehler im System eindeutig zu referenzieren.
+Tritt nun ein Fehler bei mehreren Nutzern des Systems auf, kann mit Hilfe dieser UUID der Fehler, der bei einem bestimmten Nutzer auftrat, in den Log-Dateien der Anwendung identifiziert werden.
+
+Werden in einer Anwendung Exceptions benötigt, so müssen zuerst vier eigene abstrakte Oberklassen für die Anwendungs-Exceptions abgeleitet werden.
+Hier im Beispiel sind das:
+
+* `TerminfindungException`: Abstrakte Oberklasse innerhalb einer Anwendung für checked Exceptions
+* `TerminfindungTechnicalRuntimeException`: Abstrakte Oberklasse innerhalb einer Anwendung für unchecked Exceptions
+* `TerminfindungBusinessException`: Kindklasse von `TerminfindungException` für fachliche Exceptions
+* `TerminfindungTechnicalException`: Kindklasse von `TerminfindungException` für technische Exceptions
+
+Die Anwendungsoberklassen besitzen jeweils eine Referenz auf einen anwendungsspezifischen `FehlertextProvider`.
+Dieser wird benötigt, um die Fehlertexte zu laden.
+Diese vier Exceptions sind ebenfalls abstrakt, da auch diese Exceptions rein zur Unterscheidung der Art der Exception innerhalb der Anwendung dienen.
+
+Die letztlich in einer Anwendung eingesetzten Exceptions werden dann von den genannten Klassen `TerminfindungBusinessException`, `TerminfindungTechnicalException` und `TerminfindungTechnicalRuntimeException` abgeleitet.
+
+Die gezeigten Basis-Exceptions der xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung] sind im Paket `de.msg.terminfindung.common.exception` abgelegt.
+
+Eine Anwendung besitzt Exceptions auf zwei Ebenen.
+Auf der Anwendungsebene liegen alle Exceptions die querschnittlich, also von mehreren Komponenten, genutzt werden.
+Diese Exceptions gehören in das Paket:
+
+`<organisation>.<domäne>.<anwendung>.common.exception`
+
+NOTE: <organisation> z.B. de.bund.bva
+
+Die zweite Ebene der Exceptions ist die Komponentenebene.
+Hier liegen alle Exceptions die komponentenspezifisch sind, also nur von einer einzigen Komponente genutzt werden.
+Diese Exceptions gehören in das Paket:
+
+`<organisation>.<domäne>.<anwendung>.core.<komponente>`
+
+**Konstruktoren**
+
+Die abstrakten Exceptions einer Anwendung müssen alle vier Konstruktoren implementieren.
+Die letztlich eingesetzten Exceptions implementieren nur die Konstruktoren, die benötigt werden.
+Eine Beispiel-Implementierung hierfür befindet sich in der xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung].
+Dies ist sinnvoll, um Aufwände bei der Erstellung von Exceptions zu sparen, da in diesem Fall lediglich der Konstruktor der Oberklasse aufgerufen werden muss.
+
+Beispiel für eine fachliche Exception Hierarchie:
+
+.Beispiel fachliche Exception Hierarchie
+[id="image-007",reftext="{figure-caption} {counter:figures}"]
+image::fehlerbehandlung007.png[align="center",width=50%,pdfwidth=70%]
+
+Das Beispiel in <<image-007>> zeigt eine fachliche Exception der Vorlageanwendung.
+Die fachliche Exception `TerminfindungNichtGefundenException` besitzt in diesem Beispiel nicht alle möglichen Konstruktoren.
+Dies dient lediglich der Veranschaulichung.
+Wie oben erwähnt ist es nicht notwendig, immer alle Konstruktoren zu implementieren.
+Voraussetzung für das Erstellen dieser Exception sind die Basis-Exceptions der Anwendung (hier `TerminfindungException` und `TerminfindungBusinessException`).
+
+Die <<table-001>> erläutert die Bedeutung der Argumente der Konstruktoren.
+
+.Argumente der Konstruktoren von Exceptions des Anwendungskerns
+[id="table-001",reftext="{table-caption} {counter:tables}"]
+[options="header",cols="3,2,2,3"]
+|====
+|Exception|String|Throwable (optional)|String... (optional)
+|`TerminfindungNichtGefundenException` |Ausnahme-ID |Original-Exception, die gefangen wurde. |String oder String-Array mit Variablenwerten, für Platzhalter in parametrisierten Fehlertexten.
+|====
+
+Beispiel für eine technische Runtime-Exception Hierarchie:
+
+.Beispiel technische Runtime-Exception Hierarchie
+[id="image-008",reftext="{figure-caption} {counter:figures}"]
+image::fehlerbehandlung008.png[align="center",width=45%,pdfwidth=65%]
+
+Die <<image-008>> zeigt die technische Runtime-Exception `KonfigurationException`.
+Diese Exception könnte dafür verwendet werden, um bei einem Konfigurationsfehler z.B. "Konfigurationsparameter nicht gesetzt" geworfen zu werden.
+Die Exception ist eine `RuntimeException`, da ein solcher Fehler nicht behandelbar wäre.
+Um nun eine solche Klasse zu erstellen, muss zuvor nach obigem Schema (siehe <<image-006>>) die entsprechende Oberklasse erstellt worden sein.
+
+Das Beispiel enthält wiederum alle möglichen Konstruktoren.
+Dies dient jedoch auch hier nur der Veranschaulichung.
+Es ist für Exceptions im xref:glossary:glossary:master.adoc#glossar-Anwendungskern[Anwendungskern] nicht notwendig, alle Konstruktoren zur Verfügung zu stellen.
+Eine Beschreibung der Argumente der Konstruktoren befindet sich in <<table-001>>.
+
+Die unter <<image-007>> und <<image-008>> dargestellten Konstruktoren sind notwendig, um zu gewährleisten, dass alle Exceptions immer eine Ausnahme-ID besitzen, die den Fehlertext identifiziert, d.h. andere Konstruktoren sind nicht gestattet.
+
+*Dokumentation*
+
+Checked Exceptions sind in Methoden-Signaturen zu deklarieren und im JavaDoc-Kommentar mittels `@throws` zu dokumentieren.
+Unchecked Exceptions sind nicht in den Methoden-Signaturen zu deklarieren, aber mittels `@throws` im JavaDoc-Kommentar zu dokumentieren.
+
+[[werfen-einer-exception]]
+==== Werfen einer Exception
+
+Der folgende Abschnitt beschreibt das Werfen einer technischen checked Exception.
+Das Vorgehen wird nur für technische checked Exceptions beschrieben, da das Vorgehen für alle Arten von Exceptions gleich ist.
+
+Gemäß der Anforderungen aus xref::konzept/inhalt.adoc#anforderungen-an-die-fehlerbehandlung[Anforderungen an die Fehlerbehandlung] sollte die Fehlerbehandlung übersichtlich sein.
+Zur Sicherstellung der Übersichtlichkeit darf die Anzahl der verwendeten Exceptions die Anzahl möglicher Behandlungen nicht überschreiten.
+Es sollte also für jede mögliche Fehlerbehandlung auch nur eine Exception geworfen werden.
+Sofern sie nicht behandelbar sind, sind hierfür technische unchecked Exceptions zu verwenden.
+Wenn mehrere Exceptions zur gleichen Fehlerbehandlung führen, macht es keinen Sinn, mehr als eine Exception hierfür zu deklarieren.
+
+In einer Anwendung gibt es nun unter Umständen aber eine größere Anzahl an technischen Fehlern, die die Anwendung nie verlassen.
+Dies würde zu einer entsprechenden großen Anzahl an Fehlertexten führen, die nicht mehr verwaltbar wäre.
+Daher muss es in jeder Anwendung eine Ausnahme-ID geben mit einem generischen Fehlertext, der einen Platzhalter besitzt.
+Als feste Nummer wird für alle Anwendungen die `0001` festgelegt.
+Ein Aufruf einer solchen Exception mit einem generischen Fehlertext sieht dann wie folgt aus:
+
+.Erstellen einer Exception mit generischem Fehlertext
+[id="listing-ExceptionGenerischerFehlertext",reftext="{listing-caption} {counter:listings }"]
+[source,java]
+----
+new MeineTechnischeException(FehlerSchluessel.MSG_ALLGEMEINER_FEHLER, "XYZ");
+----
+
+Die Konstante `FehlerSchluessel.MSG_ALLGEMEINER_FEHLER` referenziert einen generischen Fehlerstring, welcher einen Platzhalter besitzt:
+
+.Konstante für den generischen Fehlertext
+[id="listing-KonstanteGenerischerFehlertext",reftext="{listing-caption} {counter:listings }"]
+[source,java]
+----
+/** Generische Exception für alle unbekannten Fehler. */
+
+public static final String MSG_ALLGEMEINER_FEHLER = "TRMIN90001";
+----
+
+.Generischer Fehlertext
+[id="listing-GenerischerFehlertext",reftext="{listing-caption} {counter:listings }"]
+[source,properties]
+----
+TRMIN90001 = Es ist ein allgemeiner Fehler im Modul Terminfindung aufgetreten.
+----
+
+Beim Einsatz von Exceptions muss immer eine Konstante zur Referenzierung von Fehlern verwendet werden.
+Die Fehlertexte dürfen nicht direkt mit dem String referenziert werden (z. B. hier `TRMIN90001`).
+
+Beim Aufruf einer Exception wird im einfachsten Fall lediglich eine Ausnahme-ID übergeben, welche den Fehlertext identifiziert:
+
+.Übergabe einer Ausnahme-ID
+[id="listing-UebergabeAusnahmeId",reftext="{listing-caption} {counter:listings }"]
+[source,java]
+----
+new TerminfindungNichtGefundenException(
+    FehlerSchluessel.MSG_TERMINFINDUNG_NICHT_GEFUNDEN);
+----
+
+Der Konstruktor der Exception ruft den Konstruktor der abstrakten Eltern-Klasse auf (hier `TerminfindungBusinessException`):
+
+.Konstruktor
+[id="listing-Konstruktur",reftext="{listing-caption} {counter:listings }"]
+[source,java]
+----
+public TerminfindungNichtGefundenException(String ausnahmeID) {
+    super(ausnahmeID);
+}
+
+protected TerminfindungBusinessException(String ausnahmeID) {
+    super(ausnahmeID);
+}
+----
+
+Dieser Konstruktor wiederum ruft den Konstruktor seiner Eltern-Klasse auf (hier `TerminfindungException`), welcher die oberste Exception-Hierarchie-Stufe einer Anwendung darstellt:
+
+.Konstruktor der obersten Exception
+[id="listing-ObersterKonstruktur",reftext="{listing-caption} {counter:listings }"]
+[source,java]
+----
+protected TerminfindungException(String ausnahmeID) {
+    super(ausnahmeID, FEHLERTEXT_PROVIDER);
+}
+----
+
+Die weitere Kommunikation bis zur Erstellung des eigentlichen Fehlertextes ist in der <<image-009>> skizziert.
+
+.Abstrakter Ablauf der Erstellung einer Exception
+[id="image-009",reftext="{figure-caption} {counter:figures}"]
+image::fehlerbehandlung009.png[align="center"]
+
+Die `TerminfindungException` hält eine Referenz zu einem FehlertextProvider (siehe xref::nutzungsvorgaben/inhalt.adoc#fehlertextprovider[Fehlertextprovider]), welcher die Möglichkeit bietet Fehlertexte auszulesen.
+Diese Referenz und die übergebene `Ausnahme-ID` werden an den Konstruktor der `BaseException` übergeben, welcher nun den Fehlertext lädt.
+Hierzu ruft er auf dem `FehlertextProvider` die `getMessage()`-Methode auf und bekommt den Fehlertext zurückgeliefert.
+Durch einen Aufruf des Konstruktors der Oberklasse `Exception` wird der Fehlertext gesetzt.
+
+Bis dato hat der Text den Aufbau:
+
+*Fehlertext*
+
+Die IsyFact-Exception-Klassen überschreiben aber die `getMessage()`-Methoden von `Exception` und erweitern den Fehlertext bei einem lesenden Zugriff.
+Der Fehlertext wird um die Ausnahme-ID und die UUID erweitert.
+Dies geschieht über die Klasse `FehlertextUtil`, damit die Formatierung der Fehlertexte an einer zentralen Stelle gekapselt ist.
+
+Der Text hat dann folgenden Aufbau:
+
+.Aufbau des Fehlertexts
+[id="listing-AufbauFehlertext",reftext="{listing-caption} {counter:listings }"]
+[source, text]
+----
+#AusnahmeId Fehlertext #UUID
+----
+
+Der Fehlertext wird in dieser Form aufbereitet, um sicherzustellen, dass sowohl die Ausnahme-ID als auch die UUID
+
+* beim Loggen der Exception immer in die Log-Datei der Anwendung geschrieben werden, ohne dass eine spezielle Implementierung des Loggings notwendig ist,
+* beim Loggen der Exception durch den Aufrufer einer Schnittstelle immer in die Log-Datei der aufrufenden Anwendung geschrieben werden, ohne dass eine spezielle Implementierung des Loggings notwendig ist und
+* der Anwender, sofern er den Fehlertext angezeigt bekommt, auch immer die Ausnahme-ID und die UUID sieht, um diese gegebenenfalls direkt weitergeben zu können.
+
+[[exceptions-fuer-anwendungsschnittstellen]]
+==== Exceptions für Anwendungsschnittstellen
+
+In den vorhergehenden Kapiteln wurde das Werfen von Fehlern in der Anwendung beschrieben.
+In diesem Kapitel geht es um Exceptions, die zur Schnittstelle einer Anwendung gehören und vom Aufrufer verarbeitet werden.
+Diese werden in IsyFact als Transport-Exceptions bezeichnet.
+
+Neben den Vorgaben zum Design der Fehlerklassen in xref::nutzungsvorgaben/inhalt.adoc#design-von-fehlerklassen[Design von Fehlerklassen] gelten für Transport-Exceptions noch weitere Vorgaben, da diese an die Aufrufer weitergereicht werden.
+
+Für Exceptions an den Anwendungsschnittstellen gelten weitere Vorgaben:
+
+* Sie erben immer von `BusinessToException` oder `TechnicalToException` und implementieren somit immer `Serializable`,
+* stellen die Felder Ausnahme-ID, UUID und Fehlernachricht zur Verfügung und
+* erben nicht von internen Anwendungsexceptions.
+
+Daraus ergibt sich für Transport-Exceptions folgende Hierarchie:
+
+.Exception Hierarchie für Transport-Exceptions
+[id="image-010",reftext="{figure-caption} {counter:figures}"]
+image::fehlerbehandlung010.png[align="center"]
+
+Weiterhin werden für die genannten Technologien, welche für die
+Anwendungsschnittstellen verwendet werden, folgende Vorgaben gemacht:
+
+* *SOAP* (pro Operation)
+** Definition von 0..1 technischen Exceptions (gleich für alle Operationen einer Schnittstelle)
+** Definition von 0..n fachlichen Exceptions
+** Übermittlung der Ausnahme-ID
+** Übermittlung der UUID
+** Übermittlung des Fehler-Typs („Name“ der Exception)
+** Übermittlung der Fehlernachricht (kein Stack-Trace)
+* *REST* (keine Exceptions)
+** Übermittlung der Ausnahme-ID
+** Übermittlung der UUID
+** Übermittlung von Fehler-Kategorie (technisch/Art des fachlichen Fehlers)
+** Übermittlung von Fehlernachricht (kein Stack-Trace!)
+
+Die Vorgaben für HTTP Invoker sind im <<TODONutzungsvorgabenHttpInvoker>> beschrieben.
+
+Unabhängig von der eingesetzten Technologie gelten für die Antworten an das aufrufende Nachbarsystem folgende Anforderungen:
+
+*Technische Exeptions*
+
+Technische Exceptions sind mit einer allgemeinen Fehler-Nachricht an das aufrufende Nachbarsystem zurückzugeben.
+Zudem muss die Ausnahme-ID und die UUID übermittelt werden, damit der Fehler in der aufgerufenen Anwendung gefunden werden kann.
+Der tatsächliche Fehler wird im Error-Log der aufgerufenden Anwendung gespeichert und muss nachvollziehbar sein, sodass eine Fehlerbehebung möglich ist.
+
+*Fachliche Exceptions*
+
+Fachliche Exceptions sind mit einer ausführlichen und für den Fehler spezifischen Fehler-Nachricht an das aufrufende Nachbarsystem zurückzugeben.
+Die Fehler-Nachricht muss für den Anwender verständlich sein und sollte zur Lösung/Vermeidung des Fehlers beitragen.
+
+
+[[isyfact-bibliotheken-fuer-fehlerbehandlung]]
+==== IsyFact-Bibliotheken für Fehlerbehandlung
+
+Die in den vorigen Abschnitten beschriebenen abstrakten Oberklassen, die zur Umsetzung der Exception-Hierarchie notwendig sind, werden über die IsyFact-Bibliotheken `isy-exception-core` und `isy-exception-sst` in neue Anwendungen integriert.
+
+Dabei enthält die Bibliothek `isy-exception-core` die notwendigen Klassen für den Anwendungskern, die Bibliothek `isy-exception-sst` die Klassen für die Schnittstellen (Transport-Exceptions).
+
+[[behandlung-von-exceptions]]
+=== Behandlung von Exceptions
+
+Die in xref::nutzungsvorgaben/inhalt.adoc#exceptions-des-anwendungskerns[Exceptions des Anwendungskerns] aufgeführten Fehlerarten müssen (irgendwann) behandelt werden.
+Der Zeitpunkt hängt von den Möglichkeiten der Fehlerbehandlung ab, die zum Zeitpunkt des Auftretens des Fehlers existieren.
+
+Grundsätzlich gilt, dass der Aufrufer alle Fehler behandelt, die er behandeln kann, und alle übrigen weiterreicht.
+
+Die Fehlerbehandlung besitzt folgende Ausprägungen:
+
+* Protokollieren und Ignorieren
+* Protokollieren und Schaden begrenzen, z.B. DB-Verbindung freigeben
+* Protokollieren, Warten und erneut Versuchen
+* Original-Exception weiterwerfen
+* Protokollieren und endgültige Exception erzeugen
+
+Wann bzw. ob ein Fehler behandelt werden kann, ist im Einzelfall zu entscheiden.
+Die ersten vier Ausprägungen sind Möglichkeiten innerhalb einer Komponente oder einer Anwendung.
+Die Fehlerbehandlung entspricht den gängigen `try-catch`-Blöcken mit entsprechender Verarbeitung der Exception, z. B. Weiterreichen oder Behandeln und Loggen.
+<<listing-Weiterwerfen>> zeigt das Weiterwerfen der Original-Exception:
+
+.Weiterwerfen der Original-Exception
+[id="listing-Weiterwerfen",reftext="{listing-caption} {counter:listings }"]
+[source,java]
+----
+try {
+    verwaltung.leseTerminfindung(terminfindungsRefNr);
+} catch (TerminfindungNichtGefundenException ex) {
+    // Exception kann nicht behandelt werden, also wird sie weitergereicht
+    throw ex;
+}
+----
+
+Die letzte Variante ist die endgültige Fehlerbehandlung, die meistens in einer Komponente der Nutzungsschicht geschieht: GUI, Batch oder Service.
+Beschreibungen dazu finden sich in den jeweiligen Detailkonzepten oder den Bausteinen zur Umsetzung der Komponenten, d.h. zu GUI- oder Service-Frameworks.
+
+[[fehlertexte-und-deren-einsatz]]
+=== Fehlertexte und deren Einsatz
+
+Fehlertexte müssen in `ResourceBundles` abgelegt werden.
+Die Ablage der Fehlertexte wird durch das <<TODOKonzeptUeberwachungKonfiguration>> vorgegeben, das Laden der Dateien wird in Spring durch Holder-Klassen realisiert und ist im <<TODODetailkonzeptKomponenteAnwendungskern>> erläutert.
+
+Als Schlüssel werden die Ausnahme-IDs verwendet.
+Diese setzen sich aus fünf Buchstaben und fünf numerischen Zeichen zusammen:
+
+[source,text]
+----
+[A-Z]\{5}[0-9]\{5}
+----
+
+Ausnahme-IDs der Geschäftsanwendung „ABCDE“ könnten dann z.B. wie folgt aussehen: `ABCDE10034`
+
+Die Ausnahme-IDs sind in Nummernkreise für die einzelnen Komponenten unterteilt.
+Ein Nummernkreis umfasst immer 1000 Nummern, d. h. es gibt die Kreise 00xxx bis 99xxx.
+Bei der Erstellung einer neuen Anwendung ist in der Spezifikations- bzw.
+Konstruktionsphase festzulegen, welche Komponente welchen Nummernkreis verwenden muss.
+
+Die Ausnahme-IDs referenzieren immer einen Fehlertext.
+Die referenzierten Fehlertexte können mit Platzhaltern versehen werden (`{1}`, `{2}` etc.), um den Text um kontextbezogene Daten zu erweitern, z. B.
+
+[frame="none"]
+|====
+^|Der Konfigurationsparameter {0} enthält ungültigen Wert {1}.
+|====
+
+Hierzu wird dem Konstruktor der zugehörigen Exception ein String oder String-Array mit den Werten für die Platzhalter übergeben (<<listing-UebergabePlatzhalter>>).
+
+.Übergabe von Werten für Platzhalter
+[id="listing-UebergabePlatzhalter",reftext="{listing-caption} {counter:listings }"]
+[source,java]
+----
+new TerminfindungNichtGefundenException(
+    VerwaltungFehlerSchluessel.MSG_TERMINFINDUNG_NICHT-GEFUNDEN,
+    terminfindungRef.toString());
+----
+
+Die Verwendung der Fehlertexte geschieht über Konstanten der Klassen.
+Jede Komponente besitzt eine eigene Schlüsselklasse, welche die komponentenspezifischen Ausnahme-IDs beinhaltet.
+Diese Klasse ist abstrakt, muss dem Namensschema `<Komponente>FehlerSchluessel` entsprechen und im Paket
+
+`<organisation>.<domäne>.<anwendung>.core.<komponente>.konstanten`
+
+abgelegt werden.
+Die Klasse erbt außerdem noch von der Schlüsselklasse für die gesamte Anwendung, um Zugriff auf allgemeine Ausnahme-IDs, wie z. B. Datenbank-Fehler zu haben, da diese in der Anwendungsklasse spezifiziert sind und für alle Komponenten gleich sind.
+Die Anwendungsklasse ist im Paket
+
+`<organisation>.<domäne>.<anwendung>.common.konstanten`
+
+abzulegen und muss in jeder Anwendung `FehlerSchluessel` heißen.
+
+Kommen neue Fehlertexte hinzu, so müssen die Schlüssel in einer der oben genannten Klassen als Konstanten hinzugefügt werden.
+Ausnahme-IDs für allgemeine Fehler müssen in die Anwendungsklasse, komponentenspezifische in die Komponentenklasse.
+Wie in <<listing-FehlerSchluessel>> gezeigt, müssen die Konstanten einen sprechenden Namen tragen und z.B. immer mit `MSG_` beginnen.
+
+.Fehlerschlüssel
+[id="listing-FehlerSchluessel",reftext="{listing-caption} {counter:listings }"]
+[source,java]
+----
+/** Die im Parameter {0} übergebene Liste ist leer. */
+public static final String MSG_LISTE_LEER = "TRMIN90004";
+----
+
+[[fehlertextprovider]]
+==== Fehlertextprovider
+
+Das Auslesen von Fehlertexten wird durch einen `FehlertextProvider` implementiert.
+Dieser `FehlertextProvider` ist pro Anwendung zu implementieren und befindet sich im Paket:
+
+`<organisation>.<domäne>.<anwendung>.common.exception`
+
+Zu implementieren sind die zwei `getMessage()`-Methoden des Interfaces `FehlertextProvider` aus der Bbliothek `isy-exception-core`, siehe <<image-014>>.
+
+.Fehlertextprovider
+[id="image-014",reftext="{figure-caption} {counter:figures}"]
+image::fehlerbehandlung014.png[align="center",width=40%,pdfwidth=40%]
+
+Die Implementierung muss Spring-Mechanismen verwenden, um die Fehlertexte aus einem `ResourceBundle` auszulesen.
+Dies führt zu einer Vereinheitlichung der Fehlerbehandlung, da sich das Laden von Fehlertexten in den einzelnen Anwendungen nicht unterscheidet.
+Eine Beispiel-Implementierung hierfür befindet sich in der xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung].
+
+[[dos-und-donts]]
+== DO's und DON'Ts
+
+NOTE: xref:glossary:literaturextern:inhalt.adoc#litextern-exceptions[Exceptions] +
+xref:glossary:literaturextern:inhalt.adoc#litextern-antipattern-exceptions[Antipatterns Exceptions]
+
+Im Folgenden werden Vorgaben gemacht, wie Fehler behandelt werden müssen und wie Fehler nicht behandelt werden dürfen.
+
+[[dos]]
+=== DO's
+
+*Log it or throw it* +
+Exceptions sind in der Regel zu behandeln und zu loggen.
+Ist es nicht möglich die Exception zu behandeln, muss sie an den Aufrufer weitergegeben werden.
+Die Exception wird im Fall eines Weiterwerfens nicht geloggt.
+Details zum Logging befinden sich im <<TODOKonzeptLogging>>.
+
+*Nur vorkommende Exceptions verwenden* +
+Nur Exceptions in Methodensignaturen verwenden, die auch vorkommen können.
+Dies führt sonst zu leeren `catch`-Blöcken oder der Behandlung aller Fehler über das Fangen einer globalen Exception.
+
+*Rollback durch Besitzer der Transaktionsklammer* +
+Das Rollback geschieht durch die Schnittstelle, den Dialog oder den Batch, welcher die Transaktionsklammer bildet.
+
+*Aufräumen* +
+Bei der Behandlung von Fehlern ist ein geordneter Systemzustand herzustellen, z. B. das Schließen der Datenbankverbindung über einen `finally`-Block.
+
+*Throw Early / Failing fast* +
+Fehler sollten früh erkannt werden und zu entsprechenden Ausnahmen führen, bevor sich der Aufruf in tieferen Schichten befindet.
+Beispiel: Übergibt man `null` an `FileInputStream` wird eine `NullPointerException` in `java.io` geworfen.
+Passender wäre es aber gleich in der Methode, die `FileInputStream` verwendet auf `null` zu prüfen und eine `Exception` zu werfen.
+
+[[donts]]
+=== DON'Ts
+
+Neben den oben genannten Punkten, wie man Exceptions richtig verwendet, gibt es auch eine Liste von Anti-Patterns, die bei der Verwendung von Exceptions zu Problemen führen und daher vermieden werden sollten:
+
+*Interne Exceptions in der Schnittstelle* +
+Interne Exceptions dürfen in der Schnittstelle nicht vorkommen, da diese ansonsten dem Aufrufer bekannt sein müssen.
+Dies würde zu einer engeren Kopplung von Aufrufer und Aufgerufenem führen und dem Komponentengeheimnis widersprechen.
+
+*Flusssteuerung über Exceptions* +
+Catch-Blöcke dienen der Fehlerbehandlung und dürfen nicht als `else`-Zweig genutzt werden.
+
+.DON'T: Flusssteuerung über Exceptions
+[id="listing-FlusssteuerungExceptions",reftext="{listing-caption} {counter:listings }"]
+[source,java]
+----
+try {
+    obj = mgr.getObject(id);
+} catch (NotFoundException e) {
+    obj = mgr.createObject(id);
+}
+----
+
+Ebenso sind GoTos über `catch`/`throw`-Konstrukte zu vermeiden.
+
+.DON'T: GoTo über catch/throw
+[id="listing-FlusssteuerungExceptions2",reftext="{listing-caption} {counter:listings }"]
+[source,java]
+----
+public void useExceptionsForFlowControl() {
+try {
+    while(true) {
+        increaseCount();
+    }
+} catch (MaximumCountReachedException ex) {}
+   //weitere Verarbeitung
+}
+
+public void increaseCount() throws MaximumCountReachedException {
+    if (count >= 5000) throw new MaximumCountReachedException();
+}
+----
+
+*Leere catch-Blöcke* +
+Wenn dies der Fall ist, dann ist die Exception unnötig oder die Ausnahme muss behandelt werden.
+Siehe auch xref::nutzungsvorgaben/inhalt.adoc#isyfact-bibliotheken-fuer-fehlerbehandlung[IsyFact-Bibliotheken für Fehlerbehandlung].
+
+.DON'T: Leerer catch-Block
+[id="listing-LeererCatchBlock2",reftext="{listing-caption} {counter:listings }"]
+[source,java]
+----
+try {
+    myMethod();
+} catch (MyException me) {}
+//weitere Verarbeitung
+----
+
+In Ausnahmefällen, (z. B. `InterruptedException`) kann ein leerer `catch`-Block durchaus sinnvoll sein.
+In diesem Fall ist ein entsprechender Kommentar im `catch`-Block zu hinterlegen, warum die Exception nicht behandelt wird.
+
+*Destruktives Wrappen* +
+Das destruktive Wrappen einer Exception zerstört den StackTrace und ist nur für Exceptions an den Außen-Schnittstellen sinnvoll.
+Destruktiv gewrappte Exceptions sind in jedem Fall vor dem Wrappen zu loggen.
+
+.DON'T: Destruktives Wrappen
+[id="listing-DestruktivesWrappen",reftext="{listing-caption} {counter:listings }"]
+[source,java]
+----
+catch (NoSuchMethodException e) {
+    throw new MyServiceException("Fehlernachricht: " + e.getMessage());
+}
+----
+
+**Catch Exception** +
+Global die Elternklasse einer Exception zu fangen ist zu unspezifisch.
+Dadurch entfällt die Möglichkeit, auf verschiedene Ausnahmen unterschiedlich reagieren zu können.
+
+.DON'T: Elternklasse einer Exception fangen
+[id="listing-CatchException",reftext="{listing-caption} {counter:listings }"]
+[source,java]
+----
+try {
+    foo();
+} catch (Exception e) {
+    LOG.error("Foo failed", e);
+}
+----
+
+[NOTE]
+====
+Wenn so etwas sinnvoll ist, dann ist die Signatur der aufgerufenen Methode zu überdenken.
+Ist es nicht möglich die Exceptions der Methode (`foo()`) unterschiedlich zu behandeln, so ist die Methode auf sinnvoll behandelbare Exceptions einzuschränken.
+====
+
+*Exception Flut* +
+Nur Exceptions werfen, die auch sinnvoll zu behandeln sind.
+
+.DON'T: Exception Flut
+[id="listing-ExceptionFlut",reftext="{listing-caption} {counter:listings }"]
+[source,java]
+----
+public void zuViel() throws
+    MeineException,
+    NeAndereException,
+    AuchNeAndereException,
+    NochNeAndereException {
+    ...
+}
+----
+
+*Throw Exception* +
+Es sollten aussagekräftige Exceptions verwendet werden, um dem Aufrufer eine adäquate Fehlerbehandlung zu ermöglichen.
+
+.DON'T: Throw Exception
+[id="listing-ThrowException",reftext="{listing-caption} {counter:listings }"]
+[source,java]
+----
+public void eineMethode() throws Exception {
+    ...
+}
+----
+
+*Log and throw* +
+Das Loggen und Weiterwerfen von Exceptions führt zu unbrauchbaren Log-Dateien.
+Tritt eine Exception in einer tiefen Aufrufhierarchie auf, wird ein und dieselbe Exception mehrmals in einer Log-Dateien gespeichert.
+Dies behindert bei der Fehlersuche.
+Daher gilt die Regel aus <<dos>> (_Log it or throw it_), d. h. entweder man behandelt und loggt die Exception oder man reicht sie weiter.
+
+.DON'T: Log and throw
+[id="listing-LogAndThrow",reftext="{listing-caption} {counter:listings }"]
+[source,java]
+----
+catch (NoSuchMethodException e) {
+    LOG.error("Foo", e); throw e;
+}
+
+catch (NoSuchMethodException e) {
+    LOG.error("Blah", e);
+    throw new MyServiceException("Foo", e);
+}
+
+catch (NoSuchMethodException e) {
+    e.printStackTrace();
+    throw new MyServiceException("Foo", e);
+}
+----
+
+*Log and return null / Catch and Ignore* +
+Das Ignorieren von Fehlern ist zu vermeiden, da der Aufrufer sonst keinen Fehler bemerkt, den man unter Umständen in der weiteren Verarbeitung berücksichtigen müsste.
+
+.DON'T: Log and return null / Catch and Ignore
+[id="listing-LogAndReturnNull",reftext="{listing-caption} {counter:listings }"]
+[source,java]
+----
+catch (NoSuchMethodException e) { return null; }
+
+catch (NoSuchMethodException e) { LOG.error("Foo", e); return null; }
+----
+
+NOTE: Exceptions sollten weitergereicht werden, außer es handelt sich nicht um eine Ausnahme, z. B. `return null` für den Fall, dass nichts gefunden wurde.
+
+*throw im finally-Block* +
+Exceptions in `finally`-Blöcken führen zu einem Verlust des Original-Fehlers:
+
+.DON'T: throw im finally-Block
+[id="listing-ThrowInFinally",reftext="{listing-caption} {counter:listings }"]
+[source,java]
+----
+try { myMethod(); } finally { cleanUp(); }
+----
+
+[NOTE]
+====
+ Wirft `cleanUp()` eine Exception, ist die original Exception von `myMethod()` verloren.
+Es ist somit nicht gestattet in `finally`-Blöcken Methoden aufzurufen, welche potentiell Exceptions werfen.
+====
+
+*Nicht unterstützte Methode gibt null zurück* +
+Null als Rückgabewert einer Methode, sofern sie nicht unterstützt wird, deckt sich mit dem oben aufgeführten Punkt "Catch and Ignore".
+Der Aufrufer hat in diesem Fall nicht mitbekommen, dass die Methode eigentlich gar nicht unterstützt wird.
+Im einfachsten Fall tritt eine `NullPointerException` auf, welche aber nicht den eigentlichen Fehlergrund widerspiegelt.
+
+.DON'T: Nicht unterstützte Methode gibt null zurück
+[id="listing-ThrowNotSupported",reftext="{listing-caption} {counter:listings }"]
+[source,java]
+----
+public String myMethod() { // Nicht unterstützt.
+    return null;
+}
+----
+
+In diesem Fall sollte eine entsprechende `UnsupportedOperationException` geworfen werden:
+
+.DO: Nicht unterstützte Methode wirft UnsupportedOperationException
+[id="listing-ThrowUnsupported",reftext="{listing-caption} {counter:listings }"]
+[source,java]
+----
+public String myMethod() { // Nicht unterstützt.
+    throw new UnsupportedOperationException();
+}
+----
+
+*Sich auf getCause() verlassen* +
+Dies führt zu Problemen bei gewrappten Exceptions (`getCause().getCause()` notwendig).
+Exceptions sollten zu einer eindeutigen Behandlung führen.
+Das Code-Fragment in <<listing-GetCause>> unterscheidet die Fehlerbehandlung anhand des Grundes der gefangenen Exception.
+
+.DON'T: Sich auf getCause() verlassen
+[id="listing-GetCause",reftext="{listing-caption} {counter:listings }"]
+[source,java]
+----
+catch (MyException e) {if (e.getCause() instanceof FooException) {
+----
+
+[NOTE]
+====
+Dies funktioniert nur, sofern eine Exception nicht mehrmals gewrappt wurde.
+Es dürfen nur die für die Schnittstelle spezifizierten Exceptions behandelt werden.
+Ist auf der Aufruferseite eine Auswertung mittels `getCause()` notwendig, so ist die Schnittstelle zu überarbeiten.
+Der Grund hierfür ist die Anforderung des Aufrufers an die Schnittstelle, die Fehler genauer unterscheiden und unterschiedlich behandeln zu können.
+====
+
+*Technische checked Exceptions zur Schnittstelle durchreichen* +
+Technische checked Exceptions sind zu verwenden, um den Aufrufer zur Fehlerbehandlung zu zwingen.
+Der Aufrufer muss den Fehler behandeln und nicht in eine technische unchecked Exception wrappen.
+In Einzelfällen mag dies notwendig sein, muss dann aber mit dem Chefarchitekt abgestimmt werden.
+
+
+// end::inhalt[]
