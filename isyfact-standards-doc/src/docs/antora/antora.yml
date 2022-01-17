@@ -1,8 +1,9 @@
 name: isyfact-standards-doku
 title: IsyFact Standards Dokumentation
 version: '2.4'
-start_page: isy-logging:konzept/inhalt.adoc
+start_page: blaupausen:detailkonzept-komponente-anwendungskern/master.adoc
 nav: 
+- modules/blaupausen/nav.adoc
 - modules/isy-exception-core/nav.adoc
 - modules/isy-konfiguration/nav.adoc
 - modules/isy-logging/nav.adoc
