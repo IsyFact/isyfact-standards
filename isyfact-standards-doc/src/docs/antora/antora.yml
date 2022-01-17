@@ -9,6 +9,7 @@ nav:
 - modules/isy-sicherheit/nav.adoc
 - modules/isy-sonderzeichen/nav.adoc
 - modules/isy-task/nav.adoc
+- modules/isy-ueberwachung/nav.adoc
 - modules/isy-serviceapi-core/nav.adoc
 - modules/isy-util/nav.adoc
 - modules/methodik/nav.adoc
