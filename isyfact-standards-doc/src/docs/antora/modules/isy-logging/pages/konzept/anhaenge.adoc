@@ -1,0 +1,33 @@
+
+[[anhang-a-logging-glossar]]
+= Anhang A: Logging - Glossar
+
+[cols="1,2,1",options="header"]
+|====
+|Begriff |Erläuterung |Synonym(e) oder Übersetzung(en)
+|Log |Speicherort (Datenbank, Datei, Log-Server) der aufgezeichneten Ereignisse. |
+|Log-Aufbereitung |Mechanismus innerhalb des Logging-Frameworks zur Umwandlung des Logeintrags in ein bestimmtes Format (bspw. JSON). |Log-Layout
+|Log-Auswertung |Analyse und Bewertung der in den Logeinträgen enthaltenen Informationen. |
+|Log-Infrastruktur |IT-Systeme und Mechanismen, die zur Verteilung, Verarbeitung, Auswertung und Archivierung der erstellten Logdateien eingesetzt werden und deren Zusammenspiel untereinander |
+|Log-Inhalte |Definition der Informationen, die in die Logs geschrieben werden. |
+|Log-Kategorie |Klassifizierung eines Logeintrags im Hinblick auf dessen Zweck (FEHLERANZEIGE, PROFILING, JOURNAL etc.). |
+|Log-Level |Klassifizierung eines Logeintrags im Hinblick auf dessen Wichtigkeit (FATAL, ERROR, WARN, INFO, DEBUG, TRACE). |
+|Log-Quelle |Knoten (System oder Datei) in der Log-Infrastruktur, aus dem Log-Einträge gelesen werden. |
+|Log-Rotation |Zeit- oder größenbasiertes „rotieren“ von Logdateien. „Rotieren“ bedeutet hierbei, dass die vorhandene Datei verschoben bzw. umbenannt (i.d.R. mit einem Index oder Zeitstempel versehen) und eine neue Logdatei begonnen wird. |
+|Ereignisschlüssel |Eindeutige Identifikation des Ereignisses und dem damit verbundenen Zweck, auf Grund dessen ein Logeintrag im Log-Level INFO erstellt wurde. |
+|Log-Ziel |Knoten (System oder Datei) in der Log-Infrastruktur, in den Log-Einträge geschrieben werden. |
+|Logausgabe |Sammelbegriff für alle Mechanismen und Vorgaben der Ausgabe (Format, Medium etc.) von Logeinträgen in einer Anwendung. |
+|Logdatei |Datei, in die die aufgezeichneten Ereignisse geschrieben werden. |
+|Logeintrag |Entität des Logs.
+Beim Aufzeichnen eines Ereignisses wird ein einzelner abgeschlossener Logeintrag geschrieben. |
+|Logerstellung |Sammelbegriff für alle Mechanismen und Vorgaben der Erstellung von Logeinträgen in einer Anwendung (Log-Inhalte, Logausgabe und Logging-Framework). |
+|Logformat |Format/Struktur in der die Logeinträge abgelegt werden. |
+|Logging |Aufzeichnung von Ereignissen eines Systems zur Analyse von System-, Nutzerverhalten oder Systemzuständen. |
+|Logging-Framework |Framework, welches zum Schreiben der Logeinträge innerhalb der Anwendungen verwendet wird (bspw. logback). |
+|Lognachricht |Menschenlesbare Nachricht, welches ein geloggtes Ereignis näher beschreibt.
+Fester Bestandteil jedes Logeintrags. |
+|Protokollierung |Mitschreiben von Informationen zu durchgeführten Geschäftsvorfällen auf Grund fachlicher Anforderungen. +
+Eine detaillierte Abgrenzung zum Logging befindet sich in der <<abgrenzung-logging-protokollierung,Einleitung>> |
+|Monitoring |Betriebliche Überwachung der Anwendungslandschaft zur frühzeitigen Eskalation von Problemen. +
+Eine detaillierte Abgrenzung zum Logging befindet sich in der <<abgrenzung-logging-protokollierung,Einleitung>>. |Überwachung
+|====
