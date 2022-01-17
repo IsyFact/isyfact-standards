@@ -1,0 +1,8 @@
+// tag::it-sicherheitsregeln[]
+
+[[it-sicherheitsregeln-task]]
+== IT-Sicherheitsregeln Task Scheduling
+
+include::inhalt.adoc[tags=sicherheit]
+include::../konzept/inhalt.adoc[tags=sicherheit]
+// end::it-sicherheitsregeln[]
