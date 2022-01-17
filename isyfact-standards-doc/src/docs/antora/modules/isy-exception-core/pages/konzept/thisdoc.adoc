@@ -1,0 +1,20 @@
+= Konzept Fehlerbehandlung: Einleitung
+
+// tag::inhalt[]
+[[einleitung]]
+== Einleitung
+
+Dieses Dokument enthält das technische Feinkonzept zur Fehlerbehandlung für alle Anwendungen gemäß Referenzarchitektur der IsyFact.
+
+[[aufbau-und-zweck-des-dokuments]]
+== Aufbau und Zweck des Dokuments
+
+Die prinzipiellen Anforderungen bei der Verarbeitung von Exceptions und das Fehlerbehandlungskonzept werden beschrieben.
+Es werden hierbei die Anforderungen von Betrieb, Nutzern und Softwarelieferanten berücksichtigt.
+
+Ziel der im Kapitel xref::konzept/inhalt.adoc#anforderungen-an-die-fehlerbehandlung[Anforderungen an die Fehlerbehandlung] beschriebenen Fehlerbehandlung ist:
+
+* das Erreichen eines effizienten und einheitlichen Umgangs mit Fehlern
+* die Gewährleistung der Wartbarkeit von Anwendungen durch aussagekräftige Fehler
+* die einfachere Wartung durch einen standardisierten Einsatz von Fehlerbehandlung und Fehlern
+// end::inhalt[]

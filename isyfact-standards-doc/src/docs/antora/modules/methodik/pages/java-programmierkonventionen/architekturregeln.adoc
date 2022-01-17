@@ -1,0 +1,7 @@
+// tag::architekturregeln[]
+
+[[architekturregeln-programmierkonventionen]]
+== Architekturregeln Java Programmierkonventionen
+
+include::inhalt.adoc[tags=architekturregel]
+// end::architekturregeln[]
