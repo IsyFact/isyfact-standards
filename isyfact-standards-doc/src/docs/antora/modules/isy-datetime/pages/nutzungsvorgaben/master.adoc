@@ -1,6 +1,6 @@
 :doctitle: Baustein Datum & Zeit
 [discrete]
-= Konzept
+= Nutzungsvorgaben
 
 :sectnums:
 
