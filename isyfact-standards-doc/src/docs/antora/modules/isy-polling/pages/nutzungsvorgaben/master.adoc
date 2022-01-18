@@ -1,6 +1,6 @@
-:doctitle: Baustein Datum & Zeit
+:doctitle: Baustein Polling
 [discrete]
-= Konzept
+= Nutzungsvorgaben
 
 :sectnums:
 
