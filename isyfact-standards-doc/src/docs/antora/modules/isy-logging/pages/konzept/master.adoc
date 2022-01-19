@@ -3,6 +3,7 @@
 = Konzept
 
 :sectnums:
+:sectnumlevels: 4
 
 include::allgemein:partial$licence.adoc[]
 

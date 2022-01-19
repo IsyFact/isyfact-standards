@@ -2,6 +2,7 @@
 :doctitle: Java Programmierkonventionen
 
 :sectnums:
+:sectnumlevels: 4
 
 include::allgemein:partial$licence.adoc[]
 

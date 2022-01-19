@@ -4,6 +4,7 @@
 = Handbuch
 
 :sectnums:
+:sectnumlevels: 4
 
 :experimental:
 

@@ -3,6 +3,7 @@
 = Grundlagen
 
 :sectnums:
+:sectnumlevels: 5
 
 include::allgemein:partial$licence.adoc[]
 
