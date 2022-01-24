@@ -443,7 +443,6 @@ include::../../10_Blaupausen/Detailkonzept_Komponente_Web_GUI/inhalt.adoc[tag=na
 
 [[deploymentbetrieb-von-anwendungen]]
 === Deployment/Betrieb von Anwendungen
-TODO
-include::../../20_Bausteine/Konzept_Deployment/inhalt.adoc[tag=namenskonvention]
+include::deployment.adoc[tag=namenskonvention]
 
 // end::inhalt[]
