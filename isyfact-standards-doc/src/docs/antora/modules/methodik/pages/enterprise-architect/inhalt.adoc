@@ -27,11 +27,11 @@ Nun fügt man die UML-Profile hinzu.
 Hierzu nutzt man den „Resource Browser“ (menu:View[Resources]).
 Dort wählt man im Kontextmenü der UML-Profile btn:[Import Profile] aus und importiert so nacheinander alle Dateien.
 
-Danach sollte der Resource Browser etwa wie folgt aussehen:
+Danach sollte der Resource Browser etwa wie folgt aussehen: LL2
 
 .Resource Browser mit hinzugefügten UML-Profilen
 [id="image-resbrowser",reftext="{figure-caption} {counter:figures}"]
-image::resbrowser.png[align="center"]
+image::methodik:enterprise-architect/resbrowser.png[align="center"]
 
 Nun kann man die einzelnen Elemente aus den UML-Profilen nutzen.
 Elemente wie Anwendungsfälle erzeugt man, indem man sie in ein Diagramm zieht und benennt.

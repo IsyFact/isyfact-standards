@@ -5,5 +5,5 @@ image:allgemein:CC-BY.png[Creative Commons Namensnennung,100,float="right"]
 Die Nutzung ist unter den Lizenzbedingungen der Creative Commons Namensnennung 4.0 International gestattet.
 Die Lizenzbestimmungen sind unter folgender URL erhältlich:
 
-https://creativecommons.org/licenses/by/4.0/legalcode.de
+xref:glossary:literaturextern:inhalt.adoc#litextern-cc-licence[Creative-Commons-Lizenz]
 
