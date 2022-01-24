@@ -86,7 +86,7 @@ Ansonsten wird ein künstlicher technischer Primärschlüssel verwendet.
 
 .Klassendesign für die Datenhaltung
 [id="image-Datenhaltung",reftext="{figure-caption} {counter:figures}"]
-image::Datenhaltung.png[align="center"]
+image::einstieg:tutorial/Datenhaltung.png[align="center"]
 
 
 .Klassenbeschreibung für die Datenhaltung
@@ -209,7 +209,7 @@ Für fachliche Komponenten wird eine Basisimplementierung in <<TODO anderes Doku
 
 .Klassendesign für Fachkomponenten
 [id="image-Fachliche_Komponente",reftext="{figure-caption} {counter:figures}"]
-image::Fachliche_Komponente.png[align="center"]
+image::einstieg:tutorial/Fachliche_Komponente.png[align="center"]
 
 .Klassenbeschreibung für Komponenten Datenhaltung
 [id="table-Datenhaltung1",reftext="{table-caption} {counter:tables}"]
@@ -258,9 +258,9 @@ In diesem Kapitel wird die Realisierung von verschiedenen, technischen Zugangswe
 Das Thema umfasst das Anbieten von internen Service-Schnittstellen per HTTP Invoker, das Nutzen derselben und die Nutzung des Anwendungskerns im
 Rahmen der Batch-Verarbeitung.
 
-. Referenzarchitektur eines IT-Systems
+.Referenzarchitektur eines IT-Systems
 [id="image-RAIT",reftext="{figure-caption} {counter:figures}"]
-image::RAIT.png[align="center"]
+image::einstieg:tutorial/RAIT.png[align="center"]
 
 [[anbieten-von-service-schnittstellen]]
 === Anbieten von Service-Schnittstellen
@@ -317,7 +317,7 @@ NOTE: Das sind genau die Inhalte, die im eigenen Projekt `<system>-httpinvoker-s
 
 .Klassendesign für HTTP Invoker Service-Schnittstellen
 [id="image-KDServiceSS",reftext="{figure-caption} {counter:figures}"]
-image::KDServiceSS.png[align="center"]
+image::einstieg:tutorial/KDServiceSS.png[align="center"]
 
 .Klassenbeschreibung für Service-Schnittstellen
 [id="table-KDServiceSS",reftext="{table-caption} {counter:tables}"]
@@ -520,7 +520,7 @@ Dazu wird ein Wrapper um die Schnittstelle implementiert.
 
 .Beispiel für die Implementierung eines Client-Adapters
 [id="image-implClntAd",reftext="{figure-caption} {counter:figures}"]
-image::implClntAd.png[align="center"]
+image::einstieg:tutorial/implClntAd.png[align="center"]
 
 Zum Zugriff auf den Service wird im Normalfall ein Adapter im Client implementiert (`AuskunftAdapter`). Dieser Adapter entkoppelt den Anwendungskern des Clients vom Service.
 
@@ -671,7 +671,7 @@ Die Ausführungs-Bean übermittelt dem Batchrahmen Status-Informationen für das
 
 Klassendesign eines Batches
 [id="image-KDBatch",reftext="{figure-caption} {counter:figures}"]
-image::KDBatch.png[align="center",width=80%,pdfwidth=80%]
+image::einstieg:tutorial/KDBatch.png[align="center",width=80%,pdfwidth=80%]
 
 <<image-KDBatch>> zeigt eine beispielhafte Implementierung eines Batches, der die Komponenten `Auskunft` und `Basisdaten` verwendet.
 

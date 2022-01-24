@@ -72,7 +72,7 @@ Um zu verdeutlichen, dass es sich bei Logeinträgen um Entitäten – und nicht 
 
 .ETY_Logeintrag und ETY_Marker
 [id="image-ETYlogmark",reftext="{figure-caption} {counter:figures}"]
-image::ETYlogmark.png[align="center"]
+image::isy-logging:konzept/ETYlogmark.png[align="center"]
 
 Jeder Logeintrag muss gewisse Standardinformationen enthalten.
 Diese sind in der Entität ETY_Logeintrag zusammengefasst.
@@ -290,7 +290,7 @@ In <<image-logfass>> ist eine Übersicht der Implementierung der Fassade dargest
 
 .Logging-Fassade
 [id="image-logfass",reftext="{figure-caption} {counter:figures}"]
-image::logfass.png[align="center"]
+image::isy-logging:konzept/logfass.png[align="center"]
 
 Die Klassen der Fassade sind in <<table-KlassenFassade>> beschrieben.
 
@@ -326,7 +326,7 @@ Es ist in <<image-interface-isylogger>> dargestellt.
 
 .Interface von IsyLogger
 [id="image-interface-isylogger",reftext="{figure-caption} {counter:figures}"]
-image::interface-isylogger.png[align="center",width=80%,pdfwidth=80%]
+image::isy-logging:konzept/interface-isylogger.png[align="center",width=80%,pdfwidth=80%]
 
 Das Interface wird in dem Dokument xref:nutzungsvorgaben/master.adoc#einleitung[Logging - Nutzungsvorgaben] detailliert beschrieben.
 
@@ -352,7 +352,7 @@ In <<image-aufbvLogent>> ist das Zusammenspiel der verschiedenen Klassen zur Auf
 
 .Übersicht der Aufbereitung von Logeinträgen
 [id="image-aufbvLogent",reftext="{figure-caption} {counter:figures}"]
-image::iaufbvLogent.png[align="center"]
+image::isy-logging:konzept/iaufbvLogent.png[align="center"]
 
 [[hilfsklassen]]
 ==== Hilfsklassen
@@ -368,7 +368,7 @@ Die Informationen zur Konfiguration und Verwendung der beiden Klassen sind in de
 
 .Hilfsklassen
 [id="image-hilfklas",reftext="{figure-caption} {counter:figures}"]
-image::hilfklas.png[align="center"]
+image::isy-logging:konzept/hilfklas.png[align="center"]
 
 [[logging-externer-bibliotheken]]
 ==== Logging externer Bibliotheken

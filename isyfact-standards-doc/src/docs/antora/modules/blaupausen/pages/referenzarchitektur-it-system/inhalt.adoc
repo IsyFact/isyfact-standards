@@ -12,7 +12,7 @@ Daher wird im Folgenden die Referenz-Architektur beschrieben, nach der diese Anw
 
 .Referenzarchitektur eines IT-Systems
 [id="image-RAITSys",reftext="{figure-caption} {counter:figures}"]
-image::RAITSys.png[align="center"]
+image::blaupausen:referenzarchitektur-it-system/RAITSys.png[align="center"]
 
 In der *Persistentzschicht* ist alle Funktionalität enthalten, die zum Erzeugen, Suchen, Bearbeiten und Löschen von Datenobjekten benötigt wird.
 Der Datenzugriff auf das DBMS ist in dieser Schicht vollständig gekapselt.
@@ -104,7 +104,7 @@ Diese drei Aspekte werden im Folgenden detailliert beschrieben.
 
 .Bestandteile des Anwendungskerns
 [id="image-TeileAnwK",reftext="{figure-caption} {counter:figures}"]
-image::TeileAnwK.png[align="center",pdfwidth=80%,width=80%]
+image::blaupausen:referenzarchitektur-it-system/TeileAnwK.png[align="center",pdfwidth=80%,width=80%]
 
 *Fachkomponenten:* Die Fachkomponenten entsprechen dem fachlichen Komponentenschnitt aus der fachlichen Architektur.
 Diese Komponenten implementieren weitgehend reine Fachlichkeit und trennen so Anwendungslogik und Technologie.
@@ -181,7 +181,7 @@ Liegt der Anwendungskern auf einem Server, so speichert der Anwendungskern auch 
 
 .Komponenten der GUI-Architektur
 [id="image-KompGUI",reftext="{figure-caption} {counter:figures}"]
-image::KompGUI.png[align="center",pdfwidth=60%,width=60%]
+image::blaupausen:referenzarchitektur-it-system/KompGUI.png[align="center",pdfwidth=60%,width=60%]
 
 Die GUI-Architektur setzt eine Trennung der Dialogsteuerung und des Layouts um.
 Diese Trennung hat den Vorteil, dass das Layout der Bildschirmmasken bei Bedarf relativ einfach ausgetauscht werden kann.
@@ -239,9 +239,9 @@ Die Funktionalität, das heißt die fachliche Logik und die Arbeitsschritte eine
 Wenn diese Anwendungsfälle auch von anderen Nutzern benötigt werden, dann sind sie im Anwendungskern implementiert.
 
 
-. Bestandteile von Batchverarbeitungsprogrammen
+.Bestandteile von Batchverarbeitungsprogrammen
 [id="image-TeileBat",reftext="{figure-caption} {counter:figures}"]
-image::TeileBat.png[align="center",pdfwidth=90%,width=90%]
+image::blaupausen:referenzarchitektur-it-system/TeileBat.png[align="center",pdfwidth=90%,width=90%]
 
 Batches werden als eigener Prozess auf einem eigenen Server ausgeführt, das heißt sie laufen nicht in der virtuellen Maschine des Application Servers ab.
 Batches werden somit in einer eigenen Ablaufumgebung ausgeführt und greifen direkt auf die Datenbank oder auch auf Dateien zu.
@@ -274,7 +274,7 @@ Intern besteht die Komponente „Service“ aus zwei Teilen: dem Service-Framewo
 
 .Die Bestandteile von Services
 [id="image-TeileServ",reftext="{figure-caption} {counter:figures}"]
-image::TeileServ.png[align="center"]
+image::blaupausen:referenzarchitektur-it-system/TeileServ.png[align="center"]
 
 *Service-Framework:* Das Service-Framework ist die Bezeichnung für die Technologie, mit der die Services des Anwendungskerns zur Verfügung gestellt werden.
 

@@ -10,7 +10,7 @@ Die GUI ist hervorgehoben.
 
 .Softwaretechnische Referenzarchitektur einer Geschäftsanwendung
 [id="image-RAGaAnw",reftext="{figure-caption} {counter:figures}"]
-image::IFRefArcITSysGUI.png[align="center"]
+image::blaupausen:detailkonzept-web-gui/IFRefArcITSysGUI.png[align="center"]
 
 Das vorliegende Dokument beschreibt die Ausgestaltung der Komponente Web-GUI.
 Aufgabe der Komponente Web-GUI ist es, die Funktionalität der Anwendung für einen menschlichen Nutzer zur Verfügung zu stellen.
@@ -25,7 +25,7 @@ Die GUI-Komponenten umfassen für jeden Dialog aus der Systemspezifikation eine 
 
 .Komposition von Dialogen zu GUI-Komponenten
 [id="image-KompDiazuGUI",reftext="{figure-caption} {counter:figures}"]
-image::KompDiazuGUI.png[align="center",pdfwidth=80%,width=80%]
+image::blaupausen:detailkonzept-web-gui/KompDiazuGUI.png[align="center",pdfwidth=80%,width=80%]
 
 === Aufbau der Dialog-Komponenten
 
@@ -36,7 +36,7 @@ Die durchgehenden Pfeile zeigen eine direkte Assoziation (z.B. eine Aufrufbezieh
 
 .MVC-Muster
 [id="image-MVCPat",reftext="{figure-caption} {counter:figures}"]
-image::MVC.png[align="center"]
+image::blaupausen:detailkonzept-web-gui/MVC.png[align="center"]
 
 Die Dialog-Komponenten definieren zentrale Klassen als Spring Beans (i.d.R. Controller) und binden alle Abhängigkeiten über Dependency Injection ein.
 

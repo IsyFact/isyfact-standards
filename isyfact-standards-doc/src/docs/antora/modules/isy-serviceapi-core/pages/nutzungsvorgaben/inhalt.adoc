@@ -209,7 +209,7 @@ Daraus ergibt sich für Transport-Exceptions folgende Hierarchie:
 
 .Vererbungshierarchie für Transport-Exceptions
 [id="image-010",reftext="{figure-caption} {counter:figures}"]
-image::fehlerbehandlung010.png[align="center"]
+image::isy-serviceapi-core:nutzungsvorgaben/fehlerbehandlung010.png[align="center"]
 
 Weiterhin gelten pro Service-Methode folgende Vorgaben:
 
@@ -226,7 +226,7 @@ Die Fehlerbehandlung geschieht in der Exception-Fassade, die einen Service-Aufru
 
 .Aufrufkette von der Service-Schnittstelle zum Anwendungskern
 [id="image-011",reftext="{figure-caption} {counter:figures}"]
-image::fehlerbehandlung011.png[align="center",width=80%,pdfwidth=80%]
+image::isy-serviceapi-core:nutzungsvorgaben/fehlerbehandlung011.png[align="center",width=80%,pdfwidth=80%]
 
 Die Exception-Fassade bildet die Klammer um einen Aufruf an die Anwendung und ist für die Top-Level Fehlerbehandlung zuständig.
 Sie leitet den Aufruf an die Service-Fassade weiter, die wiederum den Anwendungskern aufruft.
@@ -309,7 +309,7 @@ Zur Umwandlung von internen Exceptions in Transport-Exceptions stellt die Biblio
 
 .Methoden der Klasse ExceptionMapper
 [id="image-012",reftext="{figure-caption} {counter:figures}"]
-image::fehlerbehandlung012.png[align="center",width=50%,pdfwidth=60%]
+image::isy-serviceapi-core:nutzungsvorgaben/fehlerbehandlung012.png[align="center",width=50%,pdfwidth=60%]
 
 Die Klasse `ExceptionMapper` bietet zwei statische Methoden an, um aus fachlichen oder technischen Exceptions entsprechende Transport-Exceptions zu erstellen.
 Hierfür muss lediglich die umzuwandelnde Exception und die Klasse der gewünschten Transport-Exception mitgegeben werden.

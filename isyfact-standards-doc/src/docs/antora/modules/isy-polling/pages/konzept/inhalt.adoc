@@ -25,7 +25,7 @@ In <<polling-loadbalancer-jmx>> wird das Verfahren dargestellt.
 
 .Angepasstes Verfahren zum Polling
 [id="polling-loadbalancer-jmx",reftext="{figure-caption} {counter:figures}"]
-image::polling-loadbalancer-jmx.png[align="center",width=50%,pdfwidth=50%]
+image::isy-polling:konzept/polling-loadbalancer-jmx.png[align="center",width=50%,pdfwidth=50%]
 
 Dieses Verfahren bietet im Regelfall einen sehr guten Schutz gegen Mehrfachverarbeitung.
 Es kann aber z.B. bei Netzproblemen dazu kommen, dass mehrere Instanzen parallel arbeiten.
@@ -47,7 +47,7 @@ In <<polling-nachrichten-tabelle> wird das noch einmal illustriert.
 
 .Nachrichten-Tabelle
 [id="polling-nachrichten-tabelle",reftext="{figure-caption} {counter:figures}"]
-image::polling-nachrichten-tabelle.png[align="center",width=50%,pdfwidth=50%]
+image::isy-polling:konzept/polling-nachrichten-tabelle.png[align="center",width=50%,pdfwidth=50%]
 
 Näheres zu den Nutzungsvorgaben des Bausteins findet sich in dem xref:nutzungsvorgaben/master.adoc#einleitung[Polling - Nutzungsvorgaben].
 // end::inhalt[]

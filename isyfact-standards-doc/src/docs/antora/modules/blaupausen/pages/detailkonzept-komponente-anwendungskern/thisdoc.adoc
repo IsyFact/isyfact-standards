@@ -39,7 +39,7 @@ In <<image-IFRefArcITSsys>> ist die Referenzarchitektur eines IT-Systems noch ei
 
 .Referenzarchitektur eines IT-Systems
 [id="image-IFRefArcITSsys",reftext="{figure-caption} {counter:figures}"]
-image::IFRefArcITSsys.png[align="center",width=90%,pdfwidth=90%]
+image::blaupausen:detailkonzept-anwendungskern/IFRefArcITSsys.png[align="center",width=90%,pdfwidth=90%]
 
 In diesem Dokument werden die Vorgaben zum Bau der Komponente Anwendungskern im Detail beschrieben.
 Als zentrales Framework für die Implementierung des Anwendungskerns wird das Spring-Framework verwendet.

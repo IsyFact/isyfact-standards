@@ -18,5 +18,5 @@ In <<polling_loadbalancer-einfach>> wird diese Situation dargestellt.
 
 .Polling unter Verwendung eines Loadbalancers
 [id="polling_loadbalancer-einfach",reftext="{figure-caption} {counter:figures}"]
-image::polling_loadbalancer-einfach.png[align="center", width=55%, pdfwidth=55%]
+image::isy-polling:konzept/polling_loadbalancer-einfach.png[align="center", width=55%, pdfwidth=55%]
 // end::inhalt[]

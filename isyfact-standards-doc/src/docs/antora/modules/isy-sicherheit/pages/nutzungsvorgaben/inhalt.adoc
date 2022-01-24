@@ -24,7 +24,7 @@ Instanzen dieser Schnittstelle zur Autorisierung einer Anfrage werden über die 
 
 .Schnittstellen des Bausteins Sicherheit
 [id="image-schnittstellen-baustein",reftext="{figure-caption} {counter:figures}"]
-image::sicherheit-schnittstellen.png[align="center"]
+image::isy-sicherheit:nutzungsvorgaben/sicherheit-schnittstellen.png[align="center"]
 
 Ein `Berechtigungsmanager` gibt Instanzen der Schnittstellen `Recht` und `Rolle` zurück.
 Anwender bekommen Rollen bereits an anderer Stelle zugewiesen.

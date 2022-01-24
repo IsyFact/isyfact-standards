@@ -14,7 +14,7 @@ In <<image-IFRefArcITSsysPers>> ist die Referenzarchitektur eines IT-Systems noc
 
 .Referenzarchitektur eines IT-Systems
 [id="image-IFRefArcITSsysPers",reftext="{figure-caption} {counter:figures}"]
-image::IFRefArcITSsysPers.png[align="center"]
+image::blaupausen:detailkonzept-datenzugriff/IFRefArcITSsysPers.png[align="center"]
 
 Dieses Dokument beschreibt die Vorgaben zur Umsetzung einer solchen Persistenzschicht im Detail.
 Die Implementierung der Zugriffsschicht wird durch die Verwendung eines standardisierten Frameworks erleichtert.

@@ -82,7 +82,7 @@ Die folgende Abbildung zeigt den logischen Aufbau für die Authentifizierung und
 
 .Software-Architektur der Berechtigungsprüfung
 [id="image-Berechtigungspruefung",reftext="{figure-caption} {counter:figures}"]
-image::software-architektur-berechtigungspruefung.png[align="center"]
+image::isy-sicherheit:konzept/software-architektur-berechtigungspruefung.png[align="center"]
 
 Im Folgenden werden die Aufgaben und grobe Funktionsweise der Komponenten für die Autorisierung von Anfragen in einer xref:glossary:glossary:master.adoc#glossar-Geschaeftsanwendung[Geschäftsanwendung]  erläutert.
 
@@ -219,7 +219,7 @@ Die Abbildung <<image-rollen-beziehungen>> verdeutlicht den Inhalt der folgenden
 
 .Beziehungen zwischen fachlichen und technischen Rollen
 [id="image-rollen-beziehungen",reftext="{figure-caption} {counter:figures}"]
-image::rollen-beziehungen.png[align="center",pdfwidth=70%,width=70%]
+image::isy-sicherheit:konzept/rollen-beziehungen.png[align="center",pdfwidth=70%,width=70%]
 
 [[technische-rollen]]
 ==== Technische Rollen
@@ -323,7 +323,7 @@ Der folgende Prozess bietet eine grobe Richtlinie:
 
 .Absicherung durch Rechte und Aggregation in Rollen
 [id="image-rollen-erstellung",reftext="{figure-caption} {counter:figures}"]
-image::rollen-erstellung.png[align="center",pdfwidth=70%,width=70%]]
+image::isy-sicherheit:konzept/rollen-erstellung.png[align="center",pdfwidth=70%,width=70%]]
 
 [start=3]
 . In Abstimmung mit den fachlichen Ansprechpartnern und der Benutzeradministration wird ermittelt, ob und welche zusätzlichen technischen Anwender benötigt werden.

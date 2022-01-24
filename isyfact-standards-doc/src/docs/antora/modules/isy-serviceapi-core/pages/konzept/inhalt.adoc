@@ -24,7 +24,7 @@ Es ergibt sich so folgendes Szenario für einen Aufruf einer HTTP Invoker Schnit
 
 .Aufbau der Kommunikation über HTTP Invoker
 [id="image-KapsCallInvoke",reftext="{figure-caption} {counter:figures}"]
-image::KapsCallInvoke.png[align="center",width=90%,pdfwidth=90%]
+image::isy-serviceapi-core:konzept/KapsCallInvoke.png[align="center",width=90%,pdfwidth=90%]
 
 [[kompatibilitaet-zu-weiteren-iam-systemen]]
 === Kompatibilität zu OAuth 2
@@ -41,7 +41,7 @@ Der Aufbau der Service-Logik ist in <<image-AufbauServLogik>> dargestellt.
 
 .Aufbau der Service-Logik mit HTTP Invoker
 [id="image-AufbauServLogik",reftext="{figure-caption} {counter:figures}"]
-image::AufbauServLogik.png[align="center",width=80%,pdfwidth=80%]
+image::isy-serviceapi-core:konzept/AufbauServLogik.png[align="center",width=80%,pdfwidth=80%]
 
 Im Wesentlichen besteht die Service-Logik also aus drei Klassen, die im Folgenden näher beleuchtet werden.
 

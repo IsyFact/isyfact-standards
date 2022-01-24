@@ -8,7 +8,7 @@ Services gliedern sich über eine technische Komponente „Service“ in die T-A
 
 .Referenzarchitektur eines IT-Systems
 [id="image-IFRefArcITSysServ",reftext="{figure-caption} {counter:figures}"]
-image::IFRefArcITSysServ.png[align="center"]
+image::blaupausen:detailkonzept-service/IFRefArcITSysServ.png[align="center"]
 
 Diese technische Komponente besteht aus zwei Teilen: dem Service-Framework und der Service-Logik.
 
@@ -170,7 +170,7 @@ Es ist möglich, pro Service-Version ein eigenes Service-Gateway zu erstellen (s
 
 .Architektur versionierter Services
 [id="image-archversServ",reftext="{figure-caption} {counter:figures}"]
-image::archversServ.png[align="center",width=60%,pdfwidth=60%]
+image::blaupausen:detailkonzept-service/archversServ.png[align="center",width=60%,pdfwidth=60%]
 
 [[einfachster-fall-kompatible-erweiterung-eines-services]]
 === Einfacher Fall: Kompatible Erweiterung eines Services

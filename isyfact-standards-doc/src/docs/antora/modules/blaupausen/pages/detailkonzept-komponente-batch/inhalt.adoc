@@ -68,7 +68,7 @@ Im Dokument wird unter Batchlogik diese Klassensammlung und keine Komponente ver
 
 .Die Anwendungslogik eines Batches (Zielarchitektur)
 [id="image-AnwLogBat",reftext="{figure-caption} {counter:figures}"]
-image::AnwLogBat.png[align="center"]
+image::blaupausen:detailkonzept-batch/AnwLogBat.png[align="center"]
 
 [[checkpoint-restart-logik]]
 ==== Checkpoint / Restart Logik
@@ -91,7 +91,7 @@ Diese Verarbeitungsschritte (_Batch-Schritte_) eines Batches bilden ein „Batch
 
 .Ein Batch-Netz
 [id="image-BatNetz",reftext="{figure-caption} {counter:figures}"]
-image::BatNetz.png[align="center"]
+image::blaupausen:detailkonzept-batch/BatNetz.png[align="center"]
 
 Die meisten Batch-Schritte sind keine Anwendungen: Sie werden komplett über ein Skript umgesetzt.
 Nur die Schritte, welche die Verarbeitung in der Geschäftsanwendung durchführen, sind Anwendungen und besitzen eine Java-Implementierung (die _Batchschritt-Implementierung_). In obiger Abbildung wird die Verarbeitung in der Geschäftsanwendung durch drei Batch-Schritte parallel durchgeführt.
@@ -141,7 +141,7 @@ Für den Batchrahmen wurde folgende grobe Architektur gewählt:
 
 .Grobe Architektur des Batchrahmens
 [id="image-GrobArchBatCanv",reftext="{figure-caption} {counter:figures}"]
-image::GrobArchBatCanv.png[align="center",width=80%,pdfwidth=80%]
+image::blaupausen:detailkonzept-batch/GrobArchBatCanv.png[align="center",width=80%,pdfwidth=80%]
 
 Der Batchrahmen besteht aus einem Startprogramm, welches notwendige Initialisierungen vornimmt, und einer Komponente Batchrahmen.
 Die Komponente Batchrahmen übernimmt die Steuerung des Batches und den Aufruf der Batchlogik.
@@ -279,7 +279,7 @@ So müssen wenige Anpassungen vorgenommen werden, um aus der Anwendungskontext-K
 
 .Bean-Zugriffe des Batchrahmens
 [id="image-BeanGriffBat",reftext="{figure-caption} {counter:figures}"]
-image::BeanGriffBat.png[align="center"]
+image::blaupausen:detailkonzept-batch/BeanGriffBat.png[align="center"]
 
 Für neue Batch-Implementierungen einer Geschäftsanwendung müssen ggf.
 Geschäftsanwendungs-Komponenten angepasst, Ausführungsbeans erstellt und diese im Batch-Springkontext konfiguriert werden.
@@ -529,7 +529,7 @@ Dies wird über die Tabelle BatchStatus umgesetzt.
 
 .Tabellen-Schema für die Batchrahmen-Tabelle
 [id="image-SchemTabBatStat",reftext="{figure-caption} {counter:figures}"]
-image::SchemTabBatStat.png[align="center"]
+image::blaupausen:detailkonzept-batch/SchemTabBatStat.png[align="center"]
 
 Die Tabelle BatchStatus enthält für jeden Batch eine Zeile.
 Ein Batch ist nicht gleichzusetzen mit der Batch-Ausführungsbean.
@@ -676,7 +676,7 @@ Für die Überwachung wird durch den Batchrahmen eine JMX-Bean bereitgestellt. �
 
 .Die JMX Überwachung eines Batches
 [id="image-JMXOverBat",reftext="{figure-caption} {counter:figures}"]
-image::JMXOverBat.png[align="center"]
+image::blaupausen:detailkonzept-batch/JMXOverBat.png[align="center"]
 
 Bereitgestellt werden folgende Informationen:
 

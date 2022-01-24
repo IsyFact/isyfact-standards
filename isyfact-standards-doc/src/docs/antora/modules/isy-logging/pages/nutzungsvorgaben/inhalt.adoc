@@ -296,7 +296,7 @@ Zum Loggen von technischen und nicht datenschutzrelevanten Daten bietet `isy-log
 
 .Schnittstelle IsyLoggerStandard
 [id="image-SS-IsyLoggerStandard",reftext="{figure-caption} {counter:figures}"]
-image::SS-IsyLoggerStandard.png[align="center"]
+image::isy-logging:nutzungsvorgaben/SS-IsyLoggerStandard.png[align="center"]
 
 [[loggen-einfacher-nachrichten-tracedebugwarninfo]]
 ===== Loggen einfacher Nachrichten (TRACE/DEBUG/WARN/INFO)
@@ -388,7 +388,7 @@ Zum Loggen fachlicher Daten bietet `isy-logging` die Schnittstelle `IsyLoggerFac
 
 .Schnittstelle IsyLoggerFachdaten
 [id="image-SS-IsyLoggerFachdaten",reftext="{figure-caption} {counter:figures}"]
-image::SS-IsyLoggerFachdaten.png[align="center"]
+image::isy-logging:nutzungsvorgaben/SS-IsyLoggerFachdaten.png[align="center"]
 
 Zu allen Methoden, die in <<loggen-von-technischen-daten>> beschrieben wurden, bietet die Schnittstelle `IsyLoggerFachdaten` eine äquivalente Methode mit gleicher Signatur an, die zum Loggen fachlicher Daten im jeweiligen Log-Level verwendet wird.
 Die Methoden tragen dabei jeweils das Suffix `Fachdaten` im Namen.
@@ -404,7 +404,7 @@ Zum beliebigen Markieren von Logeinträgen bietet `isy-logging` die Schnittstell
 
 .Schnittstelle IsyLoggerTypisiert
 [id="image-SS-IsyLoggerTypisiert",reftext="{figure-caption} {counter:figures}"]
-image::SS-IsyLoggerTypisiert.png[align="center"]
+image::isy-logging:nutzungsvorgaben/SS-IsyLoggerTypisiert.png[align="center"]
 
 Die in <<loggen-fachlicher-daten>> beschriebene Funktionalität verwendet intern einen festen Marker, um einen Logeintrag als datenschutzrelevant („Fachdaten“) zu kennzeichnen.
 Die Schnittstelle `IsyLoggerTypisiert` ermöglicht es Anwendungen darüber hinaus, Logeinträge mit beliebigen Markern zu versehen.

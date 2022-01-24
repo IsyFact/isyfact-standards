@@ -1218,7 +1218,7 @@ Der Bestand der CDs ist ohne Historisierung wie in <<image-BestandCDoH>> modelli
 
 .Modellierung des Bestands ohne Historisierung
 [id="image-BestandCDoH",reftext="{figure-caption} {counter:figures}"]
-image::BestandCDoH.png[align="center",width=70%,pdfwidth=70%]
+image::blaupausen:detailkonzept-datenzugriff/BestandCDoH.png[align="center",width=70%,pdfwidth=70%]
 
 Es gibt eine Entität `CD`, die eine konkrete CD repräsentiert.
 Der Schlüssel dieser `CD` ist die `isbn`.
@@ -1232,7 +1232,7 @@ Dies ist in <<image-BestandCD>> dargestellt.
 
 .Modellierung des Bestands mit Historisierung
 [id="image-BestandCD",reftext="{
-image::BestandCD.png[align="center",width=70%,pdfwidth=70%]
+image::blaupausen:detailkonzept-datenzugriff/BestandCD.png[align="center",width=70%,pdfwidth=70%]
 
 Schritt 2: Erweiterung des DAOs
 
@@ -1240,7 +1240,7 @@ Das DAO für die Entität Bestand ohne Historisierung ist in <<image-BestandDaoo
 
 .BestandDao ohne Funktionen zur Historisierung
 [id="image-BestandDaooFzH",reftext="{figure-caption} {counter:figures}"]
-image::BestandDaooFzH.png[align="center",width=50%,pdfwidth=50%]
+image::blaupausen:detailkonzept-datenzugriff/BestandDaooFzH.png[align="center",width=50%,pdfwidth=50%]
 
 Um ein neues Objekt Bestand zu persistieren, wird eine Instanz von Bestand erzeugt und anschließend `speichereBestand(Bestand)` aufgerufen.
 Die Methode `leseBestand(String)` liest den Bestand einer CD, die durch den übergebenen String (die isbn) identifiziert wird.
@@ -1249,7 +1249,7 @@ Um den Bestand historisierbar zu machen, werden die folgenden Erweiterungen vorg
 
 .BestandDao mit Erweiterungen für Historisierung
 [id="image-BestandDao",reftext="{figure-caption} {counter:figures}"]
-image::BestandDao.png[align="center",width=50%,pdfwidth=50%]
+image::blaupausen:detailkonzept-datenzugriff/BestandDao.png[align="center",width=50%,pdfwidth=50%]
 
 Die Methode `erzeugeNeueVersionBestand(Bestand)` wurde eingefügt.
 
@@ -1390,7 +1390,7 @@ Die nachfolgende Abbildung zeigt noch einmal die einzelnen Schritte der Installa
 
 .Installationsablauf bei der Neuanlage
 [id="image-instbeineuan",reftext="{figure-caption} {counter:figures}"]
-image::instbeineuan.png[align="center"]
+image::blaupausen:detailkonzept-datenzugriff/instbeineuan.png[align="center"]
 
 [[struktur-der-installationsskripte-fuer-die-neuanlage]]
 ==== Struktur der Installationsskripte für die Neuanlage
@@ -1420,7 +1420,7 @@ Die nachfolgende Abbildung zeigt noch einmal die Beziehung zwischen den einzelne
 
 .Beziehungen zwischen den Installationsskripten
 [id="image-BezzwischInst",reftext="{figure-caption} {counter:figures}"]
-image::BezzwischInst.png[align="center"]
+image::blaupausen:detailkonzept-datenzugriff/BezzwischInst.png[align="center"]
 
 Templates für die Skripte sind als Ressourcen in der Bibliothek `isy-persistence` abgelegt.
 
@@ -1452,7 +1452,7 @@ Die nachfolgende Abbildung zeigt noch einmal die einzelnen Schritte der Installa
 
 .Ablauf bei der Schemaänderung
 [id="image-instbeineuan2",reftext="{figure-caption} {counter:figures}"]
-image::instbeineuan.png[align="center"]
+image::blaupausen:detailkonzept-datenzugriff/instbeineuan.png[align="center"]
 
 [[struktur-der-aenderungsskripte]]
 ==== Struktur der Änderungsskripte
@@ -1483,7 +1483,7 @@ Die nachfolgende Abbildung zeigt noch einmal die Beziehung zwischen den einzelne
 
 .Beziehungen zwischen den Änderungsskripten
 [id="image-bezzwischenAend",reftext="{figure-caption} {counter:figures}"]
-image::bezzwischenAend.png[align="center"]
+image::blaupausen:detailkonzept-datenzugriff/bezzwischenAend.png[align="center"]
 
 Templates für die Skripte sind als Ressourcen in der Bibliothek `isy-persistence` abgelegt.
 

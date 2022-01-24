@@ -31,7 +31,7 @@ Sie umfasst Standards und Erweiterungen.
 
 .Die verschiedenen Ebenen der IsyFact
 [id="image-IFS-IFE",reftext="{figure-caption} {counter:figures}"]
-image::IFS-IFE.png[align="center"]
+image::einstieg:einstieg/IFS-IFE.png[align="center"]
 
 Die *IsyFact-Standards* bilden das architektonische, technologische und methodische Fundament der IsyFact.
 Sie umfassen allgemeingültige und wiederverwendbare Konzepte und Komponenten, die für die Entwicklung beliebiger Geschäftsanwendungen relevant sind.
@@ -44,7 +44,7 @@ Die Artefakte der IsyFact-Standards und IsyFact-Erweiterungen werden in gleicher
 
 .Die 5 Säulen der IsyFact
 [id="image-IFBereiche",reftext="{figure-caption} {counter:figures}"]
-image::IFBereiche.png[align="center",width=60%,pdfwidth=60%]
+image::einstieg:einstieg/IFBereiche.png[align="center",width=60%,pdfwidth=60%]
 
 Die einzelnen Säulen sind:
 
@@ -73,7 +73,7 @@ Insgesamt gibt es vier mögliche Nutzungsszenarien, die in <<image-IsyFact-Produ
 
 .Nutzungsszenarien der IsyFact
 [id="image-IsyFact-Produkte",reftext="{figure-caption} {counter:figures}"]
-image::IsyFact-Produkte.png[align="center",width=70%,pdfwidth=70%]
+image::einstieg:einstieg/IsyFact-Produkte.png[align="center",width=70%,pdfwidth=70%]
 
 * **Szenario 1 – Direkte Nutzung der IsyFact-Standards**: Die direkte Nutzung des Standards ermöglicht es, von den Vorteilen der bewährten Standards der Factory unmittelbar zu profitieren.
 Dieses Szenario ist insbesondere immer dann sinnvoll, wenn einzelne Systeme und keine komplette Anwendungslandschaft gleichartiger zusammenhängender Systeme umgesetzt werden sollen.
@@ -112,7 +112,7 @@ Langfristig ist das Ziel, zusätzlich einen Marktplatz zu etablieren, auf dem je
 
 .Mitarbeit an der IsyFact
 [id="image-vision",reftext="{figure-caption} {counter:figures}"]
-image::Vision.png[align="center",width=80%,pdfwidth=80%]
+image::einstieg:einstieg/Vision.png[align="center",width=80%,pdfwidth=80%]
 
 Für die Beteiligung an der Weiterentwicklung der IsyFact gibt es zwei Möglichkeiten (siehe <<image-vision>>):
 
@@ -143,7 +143,7 @@ Um die Artefakte der Register Factory auch in anderen Kontexten zur Verfügung z
 
 .Aufteilung der Register Factory zur IsyFact
 [id="image-RF-Aufteilung",reftext="{figure-caption} {counter:figures}"]
-image::RF-Aufteilung.png[align="center",width=80%,pdfwidth=80%]
+image::einstieg:einstieg/RF-Aufteilung.png[align="center",width=80%,pdfwidth=80%]
 
 Die IsyFact enthält ausschließlich allgemeingültige „register-neutrale“ Konzepte und Komponenten.
 Die Register Factory ist seit deren Umstellung eine spezifische Factory, die auf der IsyFact aufbaut (vergleiche die verschiedenen Nutzungsszenarien in Abschnitt 2.3). Sie wird durch das BVA ebenfalls aktiv weiterentwickelt.
@@ -333,7 +333,7 @@ Ein IT-System basiert auf einer Drei-Schichten-Architektur und besteht aus den K
 
 .Softwaretechnische Referenzarchitektur eines IT-Systems
 [id="image-image008",reftext="{figure-caption} {counter:figures}"]
-image::image008.png[align="center"]
+image::einstieg:einstieg/image008.png[align="center"]
 
 Die Abbildung der fachlichen Architektur wird vor allem durch die Fachkomponenten sichtbar.
 Jede Fachkomponente besitzt, soweit sinnvoll, eine Entsprechung in jeder Komponente des IT-Systems.
@@ -550,7 +550,7 @@ Um die IsyFact als Ganzes kennenzulernen, zu verstehen und einzusetzen, empfehle
 
 .Einarbeitung in die IsyFact
 [id="image-IF-Factory",reftext="{figure-caption} {counter:figures}"]
-image::IF-Factory.png[align="center",width=70%,pdfwidth=70%]
+image::einstieg:einstieg/IF-Factory.png[align="center",width=70%,pdfwidth=70%]
 
 Während der gesamten Einarbeitung dient außerdem das <<TODO anderes Dokument: IsyFactGlossar>> dazu, zentrale Begriffe der IsyFact nachzuschlagen.
 

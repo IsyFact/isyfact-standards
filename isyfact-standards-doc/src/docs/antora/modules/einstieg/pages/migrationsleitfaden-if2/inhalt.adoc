@@ -50,7 +50,7 @@ Bei einer Migraton von einer IsyFact 1.x Version auf IsyFact 2.x sind Änderunge
 +
 .Spring Kontext Deklaration entfällt
 [id="image-webxml-spring-context",reftext="{figure-caption} {counter:figures}"]
-image::webxml-spring-context.png[align="center"]
+image::einstieg:migrationsleitfaden-if2/webxml-spring-context.png[align="center"]
 
 [[web-xml-logging, Logging]]
 ==== Logging
@@ -61,7 +61,7 @@ Siehe Kapitel <<kapitel-logging>>.
 
 .Logging Deklaration entfällt
 [id="image-webxml-logging",reftext="{figure-caption} {counter:figures}"]
-image::webxml-logging.png[align="center"]
+image::einstieg:migrationsleitfaden-if2/webxml-logging.png[align="center"]
 
 [[spring-context-loader, Spring Context Loader]]
 ==== Spring Context Loader
@@ -72,7 +72,7 @@ Siehe Kapitel <<Applikationsklasse>>.
 +
 .ContextLoaderListener entfällt
 [id="image-webxml-contextloader",reftext="{figure-caption} {counter:figures}"]
-image::webxml-contextloader.png[align="center"]
+image::einstieg:migrationsleitfaden-if2/webxml-contextloader.png[align="center"]
 
 [[dispatcher-servlet, Dispatcher Servlet]]
 ==== Dispatcher Servlet
@@ -82,7 +82,7 @@ Die Trennung von Web- und Anwendungskontext entfällt.
 +
 .DispatcherServlet entfällt
 [id="image-webxml-dispatcher",reftext="{figure-caption} {counter:figures}"]
-image::webxml-dispatcher-servlet.png[align="center"]
+image::einstieg:migrationsleitfaden-if2/webxml-dispatcher-servlet.png[align="center"]
 
 [[loadbalancer, Loadbalancer]]
 ==== Loadbalancer
@@ -93,7 +93,7 @@ Siehe Kapitel <<kapitel-ueberwachung>>.
 +
 .LoadBalancer entfällt
 [id="image-webxml-loadbalancer",reftext="{figure-caption} {counter:figures}"]
-image::webxml-loadbalancer.png[align="center"]
+image::einstieg:migrationsleitfaden-if2/webxml-loadbalancer.png[align="center"]
 
 [[http-invoker-service-exporter, HttpInvokerServiceExporter ]]
 ==== HttpInvokerServiceExporter
@@ -102,7 +102,7 @@ image::webxml-loadbalancer.png[align="center"]
 +
 .HttpInvokerServiceExporter Servlets entfallen
 [id="image-webxml-remoting",reftext="{figure-caption} {counter:figures}"]
-image::webxml-remoting.png[align="center"]
+image::einstieg:migrationsleitfaden-if2/webxml-remoting.png[align="center"]
 +
 Der Pfad für das Mapping wird vom Namen der Bean abgeleitet.
 +
@@ -110,11 +110,11 @@ Siehe Kapitel <<kapitel-service>>.
 +
 .Bean Deklaration von HttpInvokerServiceExporter
 [id="image-webxml-httpinvoker-bean",reftext="{figure-caption} {counter:figures}"]
-image::webxml-httpinvoker-bean.png[align="center"]
+image::einstieg:migrationsleitfaden-if2/webxml-httpinvoker-bean.png[align="center"]
 +
 .httpInvokerService entfällt
 [id="image-webxml-httpInvokerService",reftext="{figure-caption} {counter:figures}"]
-image::webxml-httpinvoker.png[align="center"]
+image::einstieg:migrationsleitfaden-if2/webxml-httpinvoker.png[align="center"]
 
 
 [[kapitel-unittests]]
@@ -287,7 +287,7 @@ Sollten sich durch die Versionsanhebung Änderungen, z.B. bei der Konfiguration 
 
 .Einheitliche Dokumenten-Versionsnummer innerhalb eines Releases
 [id="image-dokumentenversion",reftext="{figure-caption} {counter:figures}"]
-image::dokumentenversion.png[align="center"]
+image::einstieg:migrationsleitfaden-if2/dokumentenversion.png[align="center"]
 
 Auf folgende Dokumentenänderungen (seit IsyFact IF-1.8) soll besonders hingewiesen werden:
 

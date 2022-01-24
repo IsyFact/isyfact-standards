@@ -17,7 +17,7 @@ Daher wird in diesem Dokument die Referenzarchitektur definiert (s. <<image-Schi
 
 .Schichten eines IT-Systems
 [id="image-SchichtITS",reftext="{figure-caption} {counter:figures}"]
-image::SchichtITS.png[align="center",width=80%,pdfwidth=80%]
+image::blaupausen:referenzarchitektur-it-system/SchichtITS.png[align="center",width=80%,pdfwidth=80%]
 
 
 Die Referenzarchitektur für ein IT-System basiert auf der bekannten Drei-Schichten-Architektur:

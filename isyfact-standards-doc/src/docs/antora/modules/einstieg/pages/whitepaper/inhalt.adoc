@@ -55,7 +55,7 @@ Sowohl die IsyFact, also auch die IsyFact-Standards orientieren sich an dieser S
 
 .Die fünf Säulen der IsyFact
 [id="image-IFBereiche",reftext="{figure-caption} {counter:figures}"]
-image::IFBereiche.png[align="center",width=60%,pdfwidth=60%]
+image::einstieg:whitepaper/IFBereiche.png[align="center",width=60%,pdfwidth=60%]
 
 Die Säulen werden nachfolgend im Detail beschrieben.
 
@@ -72,7 +72,7 @@ Die fachliche Architektur strukturiert die Anwendungslandschaft hierarchisch in 
 
 .Die Anwendungslandschaft
 [id="image-AnwendungslandschaftIF",reftext="{figure-caption} {counter:figures}"]
-image::AnwendungslandschaftIF.png[align="center"]
+image::einstieg:whitepaper/AnwendungslandschaftIF.png[align="center"]
 
 Anwendungssysteme bieten dabei eine zusammengehörige, logische Einheit aus Funktionen, Daten und Schnittstellen.
 Es werden zwei Typen unterschieden:
@@ -88,7 +88,7 @@ Ein Anwendungssystem besteht aus Anwendungskomponenten, die eine Menge funktiona
 
 .Fachliche Referenzarchitektur eines Anwendungssystems
 [id="image-fachref",reftext="{figure-caption} {counter:figures}"]
-image::fachref.png[align="center"]
+image::einstieg:whitepaper/fachref.png[align="center"]
 
 Für den Zugriff der Anwender auf die Anwendungssysteme gibt es eine **Portaloberfläche**. Externen Anwendungssystemen stellen *Service-Gateways* die entsprechenden Schnittstellen über Web-Services zur Verfügung.
 
@@ -101,7 +101,7 @@ Die Referenzarchitektur für IT-Systeme der IsyFact basiert auf der bekannten Dr
 
 .Software-technische Referenzarchitektur
 [id="image-RAITSys",reftext="{figure-caption} {counter:figures}"]
-image::RAITSys.png[align="center"]
+image::einstieg:whitepaper/RAITSys.png[align="center"]
 
 Die *Persistenz-Schicht* kapselt alle Funktionen zum Zugriff auf die Datenbanken.
 
@@ -132,7 +132,7 @@ Auch können mehrere technische Komponenten auf einer gemeinsamen Hardware laufe
 
 .Architektur-Sichten
 [id="image-archsichten",reftext="{figure-caption} {counter:figures}"]
-image::archsichten.png[align="center"]
+image::einstieg:whitepaper/archsichten.png[align="center"]
 
 Ziel ist es, in jeder Sicht auf die Gesamtarchitektur eine für diese Sicht adäquate Zerlegung zu finden.
 
@@ -147,7 +147,7 @@ Bei diesen kann es sich sowohl um proprietäre als auch Open Source Software han
 
 .Bausteine der IsyFact
 [id="image-Bausteine",reftext="{figure-caption} {counter:figures}"]
-image::Bausteine.png[align="center"]
+image::einstieg:whitepaper/Bausteine.png[align="center"]
 
 <<image-Bausteine>> zeigt einen Überblick über die Bausteine im aktuellen Release der IsyFact-Standards.
 
@@ -184,7 +184,7 @@ Es handelt sich dabei um kleinere Utility-Klassen, wie z.B. Interzeptoren, mit d
 
 .Betriebsplattform der IsyFact
 [id="image-plattform",reftext="{figure-caption} {counter:figures}"]
-image::plattform.png[align="center"]
+image::einstieg:whitepaper/plattform.png[align="center"]
 
 Die Betriebsplattform der IsyFact besteht aus Hardware und Netzen sowie der benötigten Middleware mit Anwendungs- und Datenbankservern.
 Sie sieht eine hochverfügbare Produktionsumgebung sowie Entwicklungs- und verschiedene Testumgebungen vor.
@@ -219,7 +219,7 @@ Die spezifische Methodik der IsyFact umfasst:
 
 .Methodik: Vorgehen auf Basis von V-Modell XT
 [id="image-Methodik_V-Modell",reftext="{figure-caption} {counter:figures}"]
-image::Methodik_V-Modell.png[align="center"]
+image::einstieg:whitepaper/Methodik_V-Modell.png[align="center"]
 
 [[werkzeuge]]
 === Werkzeuge
