@@ -4,7 +4,7 @@
 
 :sectnums:
 
-include::allgemein:partial$licence.adoc[]
+include::glossary:licence:partial$licence.adoc[]
 
 include::docinfo.adoc[]
 
