@@ -1,0 +1,11 @@
+
+:doctitle: Enterprise Architect
+[discrete]
+= Handbuch
+
+:sectnums:
+
+:experimental:
+
+include::allgemein:partial$licence.adoc[]
+
