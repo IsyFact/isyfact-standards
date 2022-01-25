@@ -1,5 +1,5 @@
 
-:doctitle: Enterprise Architect
+:doctitle: Modellierung und Diagrammerstellung
 [discrete]
 = Handbuch
 
@@ -8,4 +8,6 @@
 :experimental:
 
 include::allgemein:partial$licence.adoc[]
+
+include::inhalt.adoc[tags=inhalt]
 

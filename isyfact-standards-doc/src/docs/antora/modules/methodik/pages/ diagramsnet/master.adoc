@@ -1,5 +1,5 @@
 
-:doctitle: Enterprise Architect
+:doctitle: diagrams.net
 [discrete]
 = Handbuch
 
@@ -9,3 +9,4 @@
 
 include::allgemein:partial$licence.adoc[]
 
+include::inhalt.adoc[tags=inhalt]

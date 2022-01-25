@@ -1,0 +1,64 @@
+= Modellierung und Diagrammerstellung: Inhalt
+
+// tag::inhalt[]
+[[modellierung-und-diagrammerstellung]]
+== Modellierung und Diagrammerstellung
+Abbildungen, Schaubilder oder grafische Modelle unterstützen das Verständnis eines Dokuments. 
+Die Ausprägungen von Abbildungen sind vielfältig.  
+Insbesondere grenzen sich 
+
+- modellgetriebene stark formalisierte Darstellungen/Diagramme von
+- sonstigen freieren Schaubildern ab.
+
+Es kommen zur jeweiligen Erzeugung unterschiedliche Kategorien von Werkzeugen mit unterschiedlichen Stärken und Schwächen in Frage.
+Hiermit wir eine Empfehlung für die Verwendung von _diagrams.net_ und/oder _Enterprise Architect_ ausgesprochen. Eine Vorgabe durch den IsyFact-Standards erfolgt nicht.  
+
+<<table-anforderungen>> zeigt Anforderungen und den Erfüllungsgrad durch die Werkzeuge.
+
+:desc-table-anforderungen: Mapping Anforderungen auf Werkzeuge
+[id="table-anforderungen",reftext="{table-caption} {counter:tables}"]
+.{desc-table-anforderungen}
+[cols="5,1,1",options="header"]
+|===
+|Anforderung|EA|DN
+|Einheitlichkeit der Diagramme (z.B. über Schablonen)|ja|eingeschränkt¹
+|Diagramme können in AsciiDoc integriert werden|ja|ja
+|Quelldateien können einzeln als Teil des Quellcodes abgelegt werden|ja²|ja
+|Bilder für Diagramme können automatisch gebaut werden|nein³|ja
+|Unterstützung von UML-Daten-Modellen|ja|nein
+|Einfachheit der Bedienung|nein|ja
+|Keine Abhängigkeiten zu Arbeitsplatzumgebungen|nein|ja
+|===
+¹    Bietet nur Grafikvorlagen - Keine echten UML Profile
+
+²    Möglich, aber wiederspricht dem Modellansatz
+
+³    Automatisches Bauen nur über Frameworks wie docToolchain; bisher kein Plan zur Standardisierung
+
+Einsatzszenarien des Werkzeugs _diagrams.net_ sind 
+
+* Diagramme und Schaubilder, die nicht UML-konform sein müssen
+* Mockups und andere Diagrammtypen
+
+(+) Stärke des Werkzeugs ist die Speicherung des editierbaren Quellmodells im Zielbild.
+Durch direktes Ablegen der Datei beim Code ist keine getrennte Datenhaltung oder Generierung erforderlich. Die Datei kann direkt eingebunden werden.
+
+(+) Für das Wiki System _Confluence_ sowie das Ticket System _Jira_ der Firma _Atlassian_ gibt es das Add-on _draw.io_, welches das Erstellen und Bearbeiten von Abbildungen erlaubt und im Kern _diagrams.net_ entspricht. 
+Abbildungserzeugung im Kontext Wiki getriebener Dokumentation erfolgt somit voll integriert. 
+
+Einsatzszenarien von _Enterprise Architect_ sind modellgetriebene Diagramme in Referenzarchitekturen, Systemspezifikationen und Systementwürfen sowie entspr. Dokumentvorlagen, da diese Dokumentausprägungen 
+
+* hauptsächlich UML und ERM Diagramme enthalten,
+* UML-Profil-fähig und konform sein sollen und
+* die Verwendung eines UML-Datenmodells die Wartung und Sicherstellung der Konsistenz der Daten und Diagramme gewährleistet.
+
+Herausforderungen dieses Werkzeugs sind
+
+(-) Trennung von zentralem Modell und i.d.R. manueller Generierung der erforderlichen Diagrammabbildungen
+
+(-) Für werkzeug-unerfahrene Diagrammerstellende komplex zu bedienen
+
+(-) Einschränkungen und längere Bearbeitungszeit bei freien Schaubildern
+
+Die Wahl des Werkzeugs hängt somit von den Anforderungen an die Dokumenterstellung und Modellierung ab und muss individuell getroffen werden. 
+// end::inhalt[]
