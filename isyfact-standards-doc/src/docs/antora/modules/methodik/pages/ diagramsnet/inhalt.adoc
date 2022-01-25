@@ -1,0 +1,80 @@
+= Nutzung diagrams.net
+
+// tag::inhalt[]
+[[diagrams-net-fuer-abbildungen-und-einfache-modelle]]
+== diagrams.net für Abbildungen und einfache Modelle
+_diagrams.net_ ist ein Werkzeug zur flexiblen und leichtgewichtigen Erzeugung von Abbildungen. 
+Dabei kann auf bestehende Grafik-Okjekte (Shapes genannt) unterschiedlicher Notationen (z.B. UML oder BPMN) zurückgegriffen werden.  
+Grafik-Objekte sind als Bibliotheken zusammengefasst. 
+Default Bibliotheken können im linken Bereich unten unter  btn:[+ Mehr Shapes] hinzugeladen und dann verwendet werden.
+ 
+:desc-image-dn-diagramsnet-gui: diagrams.net Benutzeroberfläche
+[id="image-dn-diagramsnet-gui",reftext="{figure-caption} {counter:figures}"]	 
+.{desc-image-dn-diagramsnet-gui}
+image::diagramsnet/dn-diagramsnet-gui.png[align="center"]
+
+[[IsyFact-Standards-Grafik-Bibliothek-einbinden]]
+=== IsyFact-Standards-Grafik-Bibliothek einbinden
+Die IsyFact stellt eine eigene Bibliothek bereit. 
+Diese enthält u.a. Grafik-Objekte in Anlehnung an die Systemspezifikation-, Systementwurf- und Referenzarchitektur-Diagramme des Standards.
+
+:desc-image-dn-bibliothek-isyfact-uebersicht: diagrams.net IsyFact Bibliothek
+[id="image-dn-bibliothek-isyfact-uebersicht",reftext="{figure-caption} {counter:figures}"]	 
+.{desc-image-dn-bibliothek-isyfact-uebersicht}
+image::diagramsnet/dn-bibliothek-isyfact-uebersicht.dn.svg[align="center"]
+
+Über das Menü menu:Datei[Bibliothek öffen...] kann die link:{attachmentsdir}/IsyFact.drawiolib.xml[XML-Konfiguration] eingebunden werden.
+Die Bibliothek stellt keine verbindliche Vorgabe für Nutzer des Standards dar, wird aber in der Dokumentation der Standards verwendet.
+
+[[IsyFact-Konfiguration-einbinden]]
+=== IsyFact Konfiguration einbinden
+Mit einer diagrams.net-Konfigurationsdatei können darüber hinaus u.a. Farbpaletten mit vordefinierten Werten belegt oder Standards für Verbinder gesetzt werden. 
+Die IsyFact stellt eine beispielhafte Konfiguration bereit. 
+Diese enthält u.a. Farbvorgaben in Anlehnung an die Systemspezifikation-, Systementwurf- und Referenzarchitektur-Diagramme des Standards.
+
+:desc-image-dn-custom-farbpalette: diagrams.net IsyFact Farbpalette
+[id="image-dn-custom-farbpalette",reftext="{figure-caption} {counter:figures}"]	 
+.{desc-image-dn-custom-farbpalette}
+image::diagramsnet/dn-custom-farbpalette.png[align="center"]
+
+Über das Menü menu:Extras[Configuration...] kann die link:{attachmentsdir}/diagrams_net_standalone_configuration.json[JSON-Konfiguration] eingebunden werden.
+
+[[Installation-diagrams.net]]
+=== Installation von diagrams.net
+diagrams.net kann auf unterschiedliche Weise verwendet werden. 
+Ohne Installation kann die Browser-Variante über https://diagrams.net direkt aufgerufen werden. 
+Für unterschiedliche Betriebssystem-Plattformen stehen zahlreiche Installationsmedien bereit. 
+Darüber hinaus stehen für weit verbreitete Entwicklungswerkzeuge Add-ons zur Verfügung, wie beispielsweise https://plugins.jetbrains.com/plugin/15635-diagrams-net-integration[IntelliJ IDE] oder https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio[Visual Studio Code]. 
+Spezifische Add-on Konfigurationen erlauben die Einbindung oben erwähnter Konfigurationen und Bibliotheken. 
+
+* link:{attachmentsdir}/diagrams_net_vs_studio_code_settings.json[VS Studio Code Settings]
+
+
+[[erstellung-einer-neuen-abbildung]]
+=== Erstellung einer neuen Abbildung
+Beim Start der Anwendung erscheint ein Dialog, der das Neuerstellen einer Abbildung über btn:[Neues Diagramm erstellen] erlaubt.
+
+:desc-image-dn-abb-erstellen-startauswahl: Dialog "Neues Diagramm erstellen"
+[id="image-dn-abb-erstellen-startauswahl",reftext="{figure-caption} {counter:figures}"]	 
+.{desc-image-dn-abb-erstellen-startauswahl}
+image::diagramsnet/dn-abb-erstellen-startauswahl.png[align="center"]
+
+Im folgenden Dialog lassen sich Voreinstellung für die neu zu erstellende Abbildung festlegen. 
+
+:desc-image-dn-abb-erstellen-eigenschaften: Voreinstellungen für Abbildung
+[id="image-dn-abb-erstellen-eigenschaften",reftext="{figure-caption} {counter:figures}"]	 
+.{desc-image-dn-abb-erstellen-eigenschaften}
+image::diagramsnet/dn-abb-erstellen-eigenschaften.dn.svg[align="center"]
+
+1. Auswahl eines Beispieldiagramms; Empfehlung btn:[leeres Diagramm]
+2. Auswahl des Speicherformats; Empfehlung btn:[Editierbares Vektor Bild .svg] welches neben dem Zielbild die Modell-Source in den Metadaten des Bildes vorhält und damit editierbar macht
+3. Vergabe des Dateinamens; Empfehlung: Suffix zur Kennzeichnung der im Zielbild enthaltenen diagrams.net Modell-Sourcen (`<Dateiname>.dn.svg`)
+4. Mit btn:[Erstellen] wird dann eine Abbildung initialisiert aber noch nicht der Ablageort festgelegt
+
+Dafür ist im menu:Datei[Speichern unter]-Dialog der Ablageort zu wählen und als Dateityp btn:[Editierbares Vektor Bild (.svg (*.svg)] zu bestätigen.
+Der Ablageort sollte beim Quellcode liegen.
+
+[[bearbeitung-einer-bestehenden-diagrams-net-abbildung]]
+=== Bearbeitung einer bestehenden diagrams.net Abbildung
+Sofern die zu editierende Abbildungs-Datei die Modell-Sourcen enthält (gemäß obiger Konvention am suffix `.dn.` zu erkennen), kann die Datei über menu:Datei[Öffnen...] ausgewählt und editierbar geöffnet werden.
+// end::inhalt[]
