@@ -29,14 +29,14 @@ image::isy-serviceapi-core:konzept/KapsCallInvoke.png[align="center",width=90%,p
 [[kompatibilitaet-zu-weiteren-iam-systemen]]
 === Kompatibilität zu OAuth 2
 
-Um die Kompatibilität zu OAuth 2 (siehe <<TODOKonzeptSicherheit>>) zu gewährleisten, wird das Bearer Token von allen HTTP Invoker Schnittstellen verarbeitet und weitergeleitet.
+Um die Kompatibilität zu OAuth 2 (siehe xref:isy-sicherheit:konzept/master.adoc[Konzept Sicherheit]) zu gewährleisten, wird das Bearer Token von allen HTTP Invoker Schnittstellen verarbeitet und weitergeleitet.
 Das Bearer Token wird dabei im `AufrufkontextVerwalter` abgelegt und ist so jeder Methode des Remote-Beans zugänglich (siehe <<aufbau-des-remote-beans>>).
 Die Weiterleitung des Bearer Tokens erfolgt über einen HTTP-Header und ist so für existierende Schnittstellen transparent.
 
 [[aufbau-der-service-logik]]
 == Aufbau der Service-Logik
 
-Die Service-Logik besteht, wie im <<TODODetailkonzeptKomponenteService>> beschrieben, aus einem Remote-Bean, einer Exception-Fassade und einer Service-Fassade pro Service.
+Die Service-Logik besteht, wie im xref:blaupausen:detailkonzept-komponente-service/master.adoc[Detailkonzept Komponente Service] beschrieben, aus einem Remote-Bean, einer Exception-Fassade und einer Service-Fassade pro Service.
 Der Aufbau der Service-Logik ist in <<image-AufbauServLogik>> dargestellt.
 
 .Aufbau der Service-Logik mit HTTP Invoker
@@ -72,7 +72,7 @@ Die zur Verwendung der Annotation notwendige Konfiguration wird durch die Autoko
 Die Service-Fassade übernimmt die restlichen Aufgaben der Service-Logik.
 Sie transformiert die Transportobjekte der Service-Schnittstelle in Objekte des Anwendungskerns und umgekehrt, in der Regel mithilfe eines Bean Mappers.
 Sie führt außerdem die Autorisierung des Aufrufs aus.
-Hierzu verwendet sie den Baustein Sicherheit (siehe <<TODOKonzeptSicherheit>>).
+Hierzu verwendet sie den Baustein Sicherheit (siehe xref:isy-sicherheit:konzept/master.adoc[Konzept Sicherheit]).
 
 [[auslieferung-einer-service-schnittstelle]]
 == Auslieferung einer Service-Schnittstelle
@@ -83,8 +83,7 @@ IT-Systeme teilen sich folgende Java-Klassen der HTTP Invoker Schnittstelle:
 * Java-Klassen der Transportobjekte,
 * Java-Klassen der Transport-Exceptions.
 
-Diese Klassen werden üblicherweise in einer Bibliothek pro Service bereitgestellt, deren Benennung in
-<<TODOIsyFactNamenskonventionen, TODO Namenskonvention>> im Abschnitt der Paketierung als Bibliothek spezifiziert wird.
+Diese Klassen werden üblicherweise in einer Bibliothek pro Service bereitgestellt, deren Benennung in xref:methodik:namenskonventionen/master.adoc[Namenskonventionen] im Abschnitt der Paketierung als Bibliothek spezifiziert wird.
 
 Durch diese enge Kopplung zwischen mehreren IT-Systemen spielt die Java-Version, mit der die Schnittstellen-Bibliotheken kompiliert wurden, eine zentrale Rolle.
 Sie darf nicht neuer sein als die Java-Version aller beteiligter IT-Systeme.
@@ -112,7 +111,7 @@ $$htt(s)://qs-xyz.test.de/isy-benutzerverzeichnis/AuskunftBean_v4_1$$
 |*Variable*        | *Mögliche Ausprägungen*
 m|<Hostname>       | Der Hostname des Servers
 m|<Anwendungsname> | Der Name der Anwendung.
-Siehe Kapitel <<TODOnamen-von-anwendungssystemen>>. Wenn es sich um eine Querschnittskomponente handelt, muss dieser mit dem Präfix „isy-“ beginnen.
+Siehe Kapitel xref:methodik:namenskonventionen/inhalt.adoc#namen-von-anwendungssystemen[Namen von Anwendungssystemen]. Wenn es sich um eine Querschnittskomponente handelt, muss dieser mit dem Präfix „isy-“ beginnen.
 m|<Servicename>    | Der Name des Services.
 m|<Version>       a| Die Versionsnummer des Service, die zweielementig und aufsteigend vergeben wird.
 Hierbei wird sich am Schema Major- und Minor-Level orientiert. Beispiele:

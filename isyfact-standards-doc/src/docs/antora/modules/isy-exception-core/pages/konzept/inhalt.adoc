@@ -69,7 +69,7 @@ Die hier weitergereichten Exceptions werden als Transport-Exceptions bezeichnet.
 Wie in der <<image-003>> zu sehen, werden Fehler spätestens auf der Schnittstellenebene behandelt und geloggt.
 Bei aufgetretenen Datenbank-Fehlern liefert die Datenbank-Schicht die Datenbank-Fehlermeldung als Teil der Fehlermeldung zurück.
 Spätestens an dieser Stelle wird also der Fehler in das Anwendungslog geschrieben, inklusive eines Zeitstempels und des Stack-Traces.
-Nähere Details zum Logging finden sich im Technischen Feinkonzept <<TODOKonzeptLogging>>.
+Nähere Details zum Logging finden sich im Technischen Feinkonzept xref:isy-logging:konzept/master.adoc[Konzept Logging].
 Mit Hilfe des Zeitstempels, der Datenbank-Fehlermeldung und des Stack-Traces kann dann die Verbindung zur Fehlermeldung im Datenbank-Log hergestellt werden.
 
 Die Verknüpfung von Anwendungsfehlern über mehrere Anwendungen bzw. deren Log-Dateien hinweg geschieht über zwei IDs, die in dem Dokument xref:nutzungsvorgaben/master.adoc[NutzungsvorgabenFehlerbehandlung] beschrieben sind.
