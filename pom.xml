@@ -73,7 +73,7 @@
         <maven.jacoco.argLine/>
 
         <!-- maven-surefire-plugin configuration -->
-        <maven.surefire.argline>-Xmx1g -XX:MaxPermSize=256m -Dfile.encoding=${project.build.sourceEncoding} @{maven.jacoco.argLine}
+        <maven.surefire.argline>-Xmx1g -Dfile.encoding=${project.build.sourceEncoding} @{maven.jacoco.argLine}
         </maven.surefire.argline>
 
 
@@ -383,7 +383,7 @@
                 <artifactId>maven-site-plugin</artifactId>
                 <version>3.7.1</version>
             </plugin>
-<!-- Quality Gates 1 -->
+            <!-- Quality Gates 1 -->
             <!-- Check if all POMs are formatted according to the Maven-Team-Standard. -->
             <!-- Use mvn tidy:pom in order to tidy up the POM. -->
             <plugin>
