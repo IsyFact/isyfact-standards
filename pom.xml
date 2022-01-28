@@ -275,6 +275,18 @@
                         </attributes>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${maven.javadoc.plugin.version}</version>
+                    <configuration>
+                        <!-- The encoding is important for the representation of special characters. -->
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                        <charset>${project.build.sourceEncoding}</charset>
+                        <doclint>none</doclint>
+                        <quiet>true</quiet>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -298,12 +310,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${maven.javadoc.plugin.version}</version>
-                <configuration>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                    <charset>${project.build.sourceEncoding}</charset>
-                    <additionalOptions>-Xdoclint:none</additionalOptions>
-                </configuration>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
@@ -431,16 +437,9 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
             </plugin>
-            <!-- Create javadocs. Providing the encoding ensures correct character representation in the javadocs. -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${maven.javadoc.plugin.version}</version>
-                <configuration>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                    <charset>${project.build.sourceEncoding}</charset>
-                    <additionalOptions>-Xdoclint:none</additionalOptions>
-                </configuration>
             </plugin>
             <!-- Allows cross-reference of the project's sources in maven reports. -->
             <plugin>
@@ -673,12 +672,8 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>${maven.javadoc.plugin.version}</version>
                         <configuration>
                             <source>8</source>
-                            <encoding>${project.build.sourceEncoding}</encoding>
-                            <charset>${project.build.sourceEncoding}</charset>
-                            <doclint>none</doclint>
                         </configuration>
                         <executions>
                             <execution>
@@ -709,12 +704,8 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>${maven.javadoc.plugin.version}</version>
                         <configuration>
                             <source>11</source>
-                            <encoding>${project.build.sourceEncoding}</encoding>
-                            <charset>${project.build.sourceEncoding}</charset>
-                            <doclint>none</doclint>
                         </configuration>
                         <executions>
                             <execution>
