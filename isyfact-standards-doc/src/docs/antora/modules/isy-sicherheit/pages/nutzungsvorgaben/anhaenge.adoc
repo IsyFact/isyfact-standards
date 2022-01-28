@@ -1,305 +1,224 @@
-= Nutzungsvorgaben Sicherheit: Anhänge
+[[einbindung_und_konfiguration]]
+= Einbindung und Konfiguration
 
-// tag::inhalt[]
-== Anhang
+In diesem Abschnitt wird die Einbindung und Konfiguration von *isy-sicherheit-keycloak* beschrieben.
 
-[[konfigurationsdateien]]
-=== Anhang A: Konfigurationsdateien
 
-[[standard-cache-konfiguration]]
-==== Standard-Cache-Konfiguration
+
+[[maven-dependency]]
+== Maven Dependency
+
+In der pom.xml der Anwendung muss folgende Abhängigkeit ergänzt werden:
 
 [source,xml]
 ----
-<?xml version="1.0" encoding="UTF-8"?>
-<ehcache xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="false" monitoring="autodetect" dynamicConfig="true">
-  <!--
-  Pflicht: Standard-Einstellungen fuer Caches.
-  Diese Einstellungen werden verwendet,
-  sofern Caches programmatisch erzeugt werden mit Hilfe von
-  CacheManager.add(String cacheName).
-  Der defaultCache hat den impliziten Namen "default",
-  welcher einer reservierter
-  cache-Name ist.
-  -->
-  <defaultCache
-    maxEntriesLocalHeap="1000"
-    eternal="false"
-    timeToLiveSeconds="300"
-    timeToIdleSeconds="0"
-    overflowToDisk="false"
-    memoryStoreEvictionPolicy="LRU" />
-  <cache
-    name="authentifizierungen"
-    maxEntriesLocalHeap="1000"
-    eternal="false"
-    timeToLiveSeconds="300"
-    timeToIdleSeconds="0"
-    overflowToDisk="false"
-    memoryStoreEvictionPolicy="LRU" />
-</ehcache>
+<dependency>
+  <groupId>de.bund.bva.isyfact</groupId>
+  <artifactId>isy-sicherheit-keycloak</artifactId>
+</dependency>
 ----
 
-[[anhang-rollen-rechte-schema]]
-=== Anhang B: Rollen-Rechte-Schema
-
-Im Folgenden ist der Inhalt der Datei `RollenRechteSchema.xsd` wiedergegeben, die das Format der Konfigurationsdatei für Rollen und Rechte (`rollenrechte.xml`) festlegt.
-
-[source, xml]
-----
-<?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema"
-    targetNamespace="http://www.isyfact.de/RollenRechteSchema"
-    xmlns:tns="http://www.isyfact.de/RollenRechteSchema"
-    elementFormDefault="qualified">
-  <include schemaLocation=""></include>
-  <complexType name="Rolle">
-    <sequence>
-      <element name="rechtId" type="tns:RechtId" minOccurs="0" maxOccurs="unbounded"/>
-    </sequence>
-    <attribute name="RolleId" type="string" use="required"/>
-  </complexType>
-  <complexType name="Recht">
-    <sequence>
-      <element name="rechtId" type="tns:RechtId" minOccurs="1" maxOccurs="1"/>
-    </sequence>
-  </complexType>
-  <element name="Anwendung" type="tns:Anwendung"/>
-  <complexType name="Anwendung">
-    <sequence>
-      <element name="rollen" type="tns:Rolle" minOccurs="1" maxOccurs="unbounded"/>
-      <element name="rechte" type="tns:Recht" minOccurs="0" maxOccurs="unbounded"/>
-    </sequence>
-    <attribute name="AnwendungsId" type="string" use="required"/>
-  </complexType>
-  <complexType name="RechtId">
-    <attribute name="Id" type="string" use="required"/>
-  </complexType>
-</schema>
-----
-
-[[verwaltung-von-rollen-im-benutzerverzeichnis]]
-=== Anhang C: Verwaltung von Rollen im Benutzerverzeichnis
-
-Damit Rollen auch an Benutzer im Benutzerverzeichnis vergeben werden können, müssen die Rollen in das Benutzerverzeichnis eingespielt werden.
-
-Dies erfolgt für Testsysteme und das Produktivsystem (im Rahmen von Inbetriebnahmen) per Import-Batch, bei dem ein Excel-Dokument mit zu importierenden Rollen in das Benutzerverzeichnis geladen wird.
-Der Import ist der einzige Weg, um Rollen hinzuzufügen.
-
-Mit dem Batch ist es möglich Rollen hinzuzufügen (`Add`), zu verändern (`Upd`) oder zu löschen (`Del`).
-
-Das Excel-Dokument zum Einspielen von Rollen benötigt ein Arbeitsblatt „Rollen“ und hat folgendes Format:
-
-:desc-table-EinspielenVonRollen: Einspielen von Rollen in das Benutzerverzeichnis (Beispiel)
-[id="table-EinspielenVonRollen",reftext="{table-caption} {counter:tables}"]
-.{desc-table-EinspielenVonRollen}
-[cols="1,2,2,2,3",options="header"]
-|====
-|*Aktion* |*Rollenlabel* |*Rollenname* |*Rollentyp* |*Unterrollen*
-|Add |BNVZ_Rolle1 |BNVZ_Rolle1 |fachlich |BHVZ_Schnittstellennutzer
-|Upd |BNVZ_Rolle2 |BNVZ_Rolle2 |fachlich |BHVZ_Schnittstellennutzer, +
-SVZ_Schnittstellennutzer
-|Del | |BNVZ_Rolle3 |  | 
-|====
-
-Zusätzlich zu den oben abgebildeten Spalten enthält das Excel-Dokument die folgenden weiteren Spalten, deren Inhalt bereits im Dokument xref:nutzungsvorgaben/master.adoc#einleitung[Sicherheit - Konzept] beschrieben wurde:
-
-* *Rollenbeschreibung*
-* *SichtbarkeitAnwender*
-* *SichtbarkeitSystemeExtern*
-* *SichtbarkeitSystemeIntern*
-
-Nach der letzten zu importierenden Zeile des Arbeitsblatts sollte eine Zeile mit der Aktion `End` eingefügt werden.
-Dies verbessert die Performance beim Import.
-Bei allen anderen Werten in der Spalte „Aktion“ wird die Zeile ignoriert.
-
-Zusätzlich kann das Excel-Dokument ein weiteres Tabellenblatt „Systeme“ enthalten.
-Dieses folgt demselben Schema zum Hinzufügen (`Add`), Ändern (`Upd`) und Löschen (`Del`) von Einträgen.
-Es dient dazu, die Systeme (interne und ggf. auch externe) zu pflegen, wie im Dokument xref:nutzungsvorgaben/master.adoc#einleitung[Sicherheit - Konzept] beschrieben.
-Systeme sind im Benutzerverzeichnis spezialisierte Benutzer.
-Sie haben daher alle Attribute der Entitäten `ETY_Benutzer`, `ETY_System` und `ETY_Rollenträger`.
-
-Das Tabellenblatt „Systeme“ enthält die folgenden Spalten, deren Inhalte in den Attributbeschreibungen im Datenmodell des Benutzerverzeichnisses erklärt werden:
-
-* *Aktion*: `Add`, `Upd`, `Del` oder `End`
-* *InterneKennung*
-* *Name*
-* *Status*: `gueltig` oder `ungueltig`
-* *BHKNZ*: Kennzeichen der Organisation (Behördenkennzeichen) durch die das System genutzt wird.
-* *Anbieter*
-* *Intern*: `true` oder `false`
-* *PasswortPlain*: Passwort im Klartext, wird beim Import verschlüsselt
-* *Anlagedatum*
-* *PasswortLaeuftAb*: `true` oder `false` (für Systeme sinnvollerweise `false`)
-* *PasswortLetzteAenderung*
-* *PasswortMussGeaendertWerden*: `true` oder `false`
-* *Beschreibung*
-* *LetzteAenderung*
-* *LetzteAenderungDurch*
-* *RollenDirekt*: Kommaseparierte Liste der direkt zugeordneten fachlichen Rollen des Systems
-
-*Motivation für die Updatefunktion*
-
-Die Löschung einer bereits verwendeten Rolle kann große Auswirkungen auf die Rollenzuordnung des Benutzerbestandes haben, da diese allen besitzenden Benutzern weggenommen werden muss.
-Eine nachträgliche hinzugefügte Ersatzrolle müsste dann manuell administrativ den Benutzern wieder zugeordnet werden.
-Das ist nicht praktikabel.
-Daher wird für eine Aktualisierung einer Rolle das Ändern einer Rolle (`Upd`) angeboten.
-Die Rollendefinition wird dabei verändert, während die Rolle allen Benutzern und Nutzergruppen zugeordnet bleibt.
-
-*Einschränkungen für den Rollenimport*
-
-Folgende Einschränkungen bestehen beim Import von Rollen:
-
-* Erzeugen einer Rolle:
-** Der Name der Rolle darf noch nicht vergeben sein.
-** Eine fachliche Rolle darf nur technische Unterrollen haben.
-Im Excel-Dokument referenzierte Unterrollen müssen im Datenbestand bereits bekannt sein, bzw.
-im Excel-Dokument weiter oben stehen.
-* Ändern einer Rolle
-** Der Typ der Rolle (fachlich, technisch) kann nicht geändert werden.
-** Der (neue) Name der Rolle darf nicht bereits an eine andere Rolle vergeben sein.
-* Löschen der Rolle: Handelt es sich um eine technische Rolle, so darf diese Rolle zum Zeitpunkt der Löschung nicht mehr in einer anderen Rolle als Unterrolle verwendet werden.
-Die fachliche Rolle ist zunächst explizit zu löschen.
-
-[[verwaltung-des-rollen-masters]]
-==== Verwaltung des Rollen-Masters
-
-Die Rollendefinition der Anwendungslandschaft (in Form eines Excel-Dokuments) ist ein zentral zu verwaltendes Dokument, welches zur Befüllung von Testumgebungen verwendet wird.
-Es repräsentiert den insgesamt verfügbaren Rollenvorrat über alle Anwendungssysteme.
-Das Dokument trägt den Namen **Rollen-Master**.
-
-Änderungen am Rollenmodell im Rahmen von Wartungsarbeiten werden in dieses Dokument übertragen.
-Zum Einspielen einer Rollenänderung in ein produktiv- oder Testsystem wird jedoch ein passendes *Rollen-Delta* (ebenfalls Excel) verwendet, welches nach einer Inbetriebnahme gelöscht wird.
-
-Die Koordination der Änderungen am Rollen-Master obliegt dem Release-Verantwortlichen.
-
-[[releases-und-rollen-deltas]]
-==== Releases und Rollen-Deltas
-
-Für jedes Release, welches Änderungen an dem Rollenbestand der Anwendungslandschaft vornimmt, werden ein oder mehrere Rollen-Deltas aufbauend auf dem Rollen-Master erstellt, die das Rollenmodell vom Ist-Zustand in den Soll-Zustand überführen.
-Die Rollen-Deltas werden in den Sourcen des zugehörigen IT-Systems im Verzeichnis `/src/main/skripte/sicherheit` abgelegt
-
-Diese Rollen-Deltas werden auf Testumgebungen im Rahmen der Integrationstests getestet und mit dem Release ausgeliefert.
-Die Reihenfolge, in der sie eingespielt werden müssen, wird im Releaseletter für die Rollendeltas definiert.
-Sie hängt von den Abhängigkeiten der Systeme ab, die in den Releaselettern der jeweiligen Systeme beschrieben sind.
 
 
-[[cams-konfiguration]]
-=== Anhang D: Konfiguration des CAMS Single-Sign On Servers
+[[spring-konfiguration]]
+== Spring Konfiguration
 
-Standardmäßig wird CAMS als IAM-System unterstützt.
-In diesem Anhang wird die spezifische Konfiguration für den CAMS-Server beschrieben.
+Die Spring-Konfiguration von isy-sicherheit-keycloak baut auf der Konfiguration von isy-sicherheit auf (siehe <<NutzungsvorgabenSicherheit, Nutzungsvorgaben Sicherheit>>).
+Lediglich alle dort beschriebenen CAMS-spezifischen Konfigurationen müssen entfallen.
+In IsyFact 2 bringt isy-sicherheit-keycloak eine Autokonfiguration für Spring Boot mit.
+Die Bean für den AccessManager für Keycloak wird damit automatisch konfiguriert, wenn keine andere AccessManager-Bean im Kontext vorhanden ist.
 
-[[cams-access-manager]]
-==== Konfiguration des Access Managers
+Zur Absicherung von Rest-Services in Spring sind weitere Konfigurationen erforderlich.
+Insbesondere muss die Spring-Security-Chain korrekt initialisiert werden.
+Dies geschieht am einfachsten per Konfiguration nicht in XML sondern im Java-Code.
+Hierzu muss in der Anwendung eine Konfigurationsklasse definiert werden, welche von `IsyKeycloakWebSecurityConfigurerAdapter` ableitet:
 
-Die Bibliothek `rf-sicherheit-cams` enthält eine Implementierung der Schnittstelle `AccessManager`, die als Spring Bean konfiguriert werden muss.
-
-:desc-listing-konfiguration-cams: Grundlegende Konfiguration des CAMS-Servers
-[id="listing-konfiguration-cams",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-konfiguration-cams}
-[source, xml]
-----
-<beans>
-    <bean id="camsAccessManager"
-        class="de.bund.bva.pliscommon.sicherheit.cams.CamsAccessManagerImpl"
-        depends-on="konfiguration">
-        <constructor-arg index="0">
-            <value>classpath:/config/cams-webagent.conf</value>
-        </constructor-arg>
-        <constructor-arg index="1">
-            <ref bean="konfiguration"/>
-        </constructor-arg>
-    </bean>
-</beans>
-----
-
-Zusätzlich zur Spring-Konfiguration muss die betriebliche Konfigurationsdatei `/config/cams-webagent.conf` angelegt werden.
-Da diese Konfiguration in der Regel langjährig unverändert verwendet wird und lediglich die Aufrufadresse anzupassen ist, wird auf die Darstellung der Konfiguration hier verzichtet.
-
-[[cams-autorisierung-gui]]
-==== Autorisierung in der GUI: Spring Konfiguration
-
-Die Aufrufe der GUI erfolgen über HTTP.
-Der CAMS-Server stellt am Webserver vor Weiterleitung der Anfrage an eine Geschäftsanwendung sicher, dass diese erfolgreich authentifiziert wurde.
-Mit der Authentifizierung des Anwenders fügt der CAMS-Server HTTP-Header in die Anfrage ein.
-Diese Header enthalten neben Informationen der Identifikation des anfragenden Anwenders auch die Gesamtheit seiner Rollen.
-Die Informationen aus dem HTTP-Header werden in den Aufrufkontext übertragen.
-
-Die Bibliothek `rf-sicherheit-cams` enthält den `CamsAuthentication­ProcessingFilter`, der den Aufrufkontext bei jeder Anfrage an die GUI aus dem HTTP-Header heraus ermittelt und damit den Verwalter füllt.
-Einmal konfiguriert, erfolgt die Erstellung des Aufrufkontextes transparent für sämtliche Aufrufe der GUI.
-
-:desc-listing-konfiguration-gui-cams: Spring-Konfiguration für Autorisierung in der GUI mit CAMS
-[id="listing-konfiguration-gui-cams",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-konfiguration-gui-cams}
-[source, xml]
-----
-<beans>
-    <bean id="authenticationProvider"
-        class="de.bund.bva.pliscommon.sicherheit.cams.web.CamsAuthenticationProvider"/>
-
-    <bean id="processingFilter"
-        class="de.bund.bva.pliscommon.sicherheit.cams.web.CamsAuthenticationProcessingFilter">
-        <property name="authenticationManager" ref="authenticationManager"/>
-        <property name="aufrufKontextVerwalter" ref="aufrufKontextVerwalter"/>
-        <property name="httpHeaderParser">
-            <bean class="de.bund.bva.pliscommon.sicherheit.cams.web.HttpHeaderParser">
-                <property name="aufrufKontextFactory" ref="aufrufKontextFactory"/>
-            </bean>
-        </property>
-    </bean>
-----
-
-[[cams-entgegennahme-der-korrelations-id-in-der-gui]]
-==== Entgegennahme der Korrelations-ID in der GUI
-
-Die Neuerzeugung und Registrierung der Korrelations-ID im MDC (_Mapped Diagnostic Context_) erfolgt automatisch innerhalb des Spring Beans `HttpHeaderParser` der Bibliothek `rf-sicherheit-cams`.
-
-
-[[cams-authentifizierung-batch]]
-==== Authentifizierung in Batches: Konfiguration
-
-Damit eine Authentifizierung in Batches über den CAMS-Server möglich ist, sind einige zusätzliche Konfigurationen erforderlich.
-
-:desc-listing-konfiguration-batch-cams: Konfiguration zur Authentifizierung in Batches mit CAMS
-[id="listing-konfiguration-batch-cams",reftext="{listing-caption} {counter:listings }"]
-.{desc-listing-konfiguration-batch-cams}
 [source,java]
 ----
-sic.camsagent.login.config.entry=applicationplatform
-sic.camsagent.login.medium=applicationplatform
-sic.camsagent.security.domain=applicationplatform
-sic.camsagent.nutzertyp=unbekannt
+@Configuration
+public class BeispielAnwendungSecurityConfig extends IsyKeycloakWebSecurityConfigurerAdapter {
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        super.configure(http);
+
+        http.authorizeRequests().anyRequest().authenticated();
+    }
+}
 ----
 
-Hier wird festgelegt, dass ein Aufrufer gegen die im CAMS-Server konfigurierte Security-Domain `applicationplatform` authentifiziert wird.
+Die `HttpSecurity`-Konfiguration in dem Beispiel oben stellt sicher, dass der Nutzer bei allen Requests authentifiziert ist.
+Regeln zur Autorisierung werden hier nicht definiert, da dies in isy-sicherheit über die `Gesichert`-Annotation an den abzusichernden Services erfolgt.
 
-[[cams-authentifizierung-sgw]]
-==== Authentifizierung im Service-Gateway: Konfiguration
+Die Konfigurationsklasse wird als Import in die Hauptklasse in der Anwendung eingebunden:
 
-Damit eine Authentifizierung im Service-Gateway über den CAMS-Server möglich ist, sind einige zusätzliche Konfigurationen erforderlich.
-
-.Konfiguration zur Authentifizierung im Service-Gateway mit CAMS
-[id="listing-konfiguration-sgw-cams",reftext="{listing-caption} {counter:listings }"]
 [source,java]
 ----
-sic.camsagent.login.config.entry=servicegateway
-sic.camsagent.login.medium=servicegateway
-sic.camsagent.security.domain=servicegateway
-sic.camsagent.nutzertyp=unbekannt
+@Configuration
+@EnableAutoConfiguration
+@Import({ BeispielAnwendungSecurityConfig.class /*, ggf weitere Config*/ })
+
+public class BeispielAnwendungApplication extends SpringBootServletInitializer {
+//...
+}
 ----
 
-Hier wird festgelegt, dass ein Aufrufer gegen die im CAMS-Server konfigurierte Security-Domain `servicegateway` authentifiziert wird.
+[[konfigurationsparameter]]
+== Konfigurationsparameter
 
-[[cams-authentifizierung-awk]]
-==== Authentifizierung im Anwendungskern
+Für die korrekte Anbindung an Keycloak ist die Angabe einiger Konfigurationsparameter notwendig.
+Die in den <<NutzungsvorgabenSicherheit, Nutzungsvorgaben Sicherheit>> beschriebenen Parameter für CAMS (`sic.camsagent.*` und `cams.*`) sind nicht mehr relevant.
 
-Ergänzend zur xref:nutzungsvorgaben/master.adoc#awk-autorisierung[Autorisierung im Anwendungskern] sei erwähnt, welche Informationen der CAMS-Server zur manuellen Authentifizierung beim Erstellen eines Berechtigungsmanagers benötigt:
+Der Präfix sämtlicher Konfigurationsparameter `isy.sicherheit.keycloak` wird zur Vereinfachung in der Liste unten weggelassen.
 
-* Zertifikat (alternativ ZertifikatDn),
-* Kennung,
-* Passwort.
+Einige Konfigurationsparameter sind mit einem Zähler versehen.
+Diese beinhalten mit `instances[0]` und können für mehr als eine Sicherheitsdomäne und/oder Keycloak-Installation definiert werden.
+Die Parameter für eine zweite Konfiguration müssen mit `instances[1]` ergänzt werden.
+Weitere Konfigurationen werden demzufolge mit Parametern konfiguriert, die mit `instances[2]`, `instances[3]`, etc. enthalten.
+Dies ist dann sinnvoll, wenn eine Anwendung nicht nur Access-Tokens einer Sicherheitsdomäne in einer Keycloak-Installation akzeptieren soll, sondern verschiedene.
+Ein Beispiel für eine Anwendung mit zwei Realms ist eine Geschäftsanwendung,
+welche einen Realm zur Prüfung der Tokens benötigt mit denen es aus dem Portal heraus über den Proxy aufgerufen wird und
+einen zweiten Realm zur Initiierung der Authentifizierung eines Timer-Tasks oder Batch.
+
+:desc-table-parameter: Konfigurationsparameter
+[id="table-parameter",reftext="Konfigurationsparameter"]
+.{desc-table-parameter}
+[cols="3m,2m,2m,8",options="header"]
+|===
+|Parameter |Wertebereich |Default |Beschreibung
+4+|*Parameter pro Sicherheitsdomäne und/oder Keycloak-Installation*
+|instances[0].realm |String |_keiner_ |Der Realm bei Keycloak (=Sicherheitsdomäne)
+|instances[0].realmKey |String |_keiner_ |Der Public-Key zur Überprüfung der Token-Signatur.
+    Der Wert hier kann der Realm-Konfiguration in Keycloak entnommen werden.
+    Wird i.d.R. nicht gesetzt, damit der Key automatisch von Keycloak bezogen wird.
+|instances[0].auth-server-url |String |_keiner_ |Link auf die betreffende Keycloak-Instanz (Beispiel: http://keycloak:8080/auth).
+    Der Link dient dazu die Keycloak-Instanzen zu unterscheiden und wird zur Kommunikation dieser Anwendung mit Keycloak benötigt;
+    beispielsweise zur Abfrage des Public-Key zur Überprüfung der Token-Signatur.
+    Der Link muss mit dem Aussteller des Tokens übereinstimmen.
+|instances[0].ext-auth-server-url |String |_keiner_ |Alternativer Link auf die betreffende Keycloak-Instanz (Beispiel: http://proxy/keycloak/auth).
+    Der Link wird nur zur Token-Prüfung verwendet, es werden keine Anfragen über die URL gesendet.
+    Tokens bei denen dieser Link als Aussteller im Token steht, werden auch akzeptiert.
+|instances[0].default-instance |boolean |false |Markiert eine Keycloak-Instanz als Default.
+    Falls keine Instanz explizit als Default markiert ist, wird die erste Instanz genommen.
+    Die Default-Instanz ist relevant, wenn die Anwendung eine Authentifizierung bei Keycloak initiieren will.
+|instances[0].bearer-only |boolean |true |Bearer-only Anwendungen können nur Tokens prüfen, aber selbst keine Authentifizierung bei Keycloak initiieren.
+    In der Regel ist dies bei GUI-Anwendungen der Fall, bei denen das Token durch einen vorgeschalteten Apache ermittelt wird.
+|instances[0].resource |String |bearer-only |Der Name des Clients, der für die Authentifizierung bei Keycloak verwendet wird.
+    Für bearer-only Anwendungen ist keine Konfiguration notwendig.
+|instances[0].credentials-secret |String |_keiner_ |Passwort mit dem sich die Anwendung / der Client bei Keycloak authentifiziert.
+    Für bearer-only Anwendungen ist keine Konfiguration notwendig.
+|instances[0].enable-basic-auth |boolean |false | Aktivierung von HTTP Basic-Authentication.
+    Funktioniert nur, wenn der Keycloak Client auch entsprechend konfiguriert ist.
+    Wird bereits auf einen sinnvollen Standardwert gesetzt.
+    Anpassungen sind i.d.R. nicht notwendig.
+|instances[0].public-client |boolean |false |Bei Public-Clients wird kein Client-Secret benötigt, um eine Authentifizierung bei Keycloak zu initiieren.
+    Funktioniert nur, wenn der Keycloak Client auch entsprechend konfiguriert ist.
+    Wird bereits auf einen sinnvollen Standardwert gesetzt.
+    Anpassungen sind i.d.R. nicht notwendig.
+|instances[0].ssl-required |String |external |Definiert, wann eine SSL Verbindung verpflichtend ist.
+    Wird bereits auf einen sinnvollen Standardwert gesetzt.
+    Anpassungen sind i.d.R. nicht notwendig.
+|instances[0].principal-attribute |String |sub |Definiert, welches Token-Attribut als User-Name genutzt wird.
 
 
 
-// end::inhalt[]
+4+|*Allgemeine Parameter*:
+|cert-header-name |String |x-client-cert |
+Als zusätzliche Sicherheitsmaßnahme ist zur Authentifizierung in Keycloak ein Behördenkennzeichen erforderlich, welches zu dem Behördenkennzeichen passen muss, dass im Nutzerprofil hinterlegt ist.
+Das Behördenkennzeichen wird von Keycloak aus dem Zertifikat ausgelesen.
+Der Name des HTTP-Headers, der das Zertifikat enthält ist konfigurierbar.
+|cert-dn-header-name |String |x-client-cert-dn |
+Alternativ kann statt des Zertifikats auch nur der DN aus dem Zertifikat an Keycloak weitergeleitet werden.
+Hierfür wird ein anderer HTTP-Header verwendet.
+|bhknz-header-name |String |x-client-cert-bhknz |
+Alternativ kann statt des Zertifikats oder DN auch nur das Behördenkennzeichen an Keycloak weitergeleitet werden.
+Hierfür wird ein anderer HTTP-Header verwendet.
+Dies wird zum Test, aber auch in Produktion beispielsweise bei Batches verwendet.
+|standard-zertifikat-ou |String |AZRVISAPORTAL |Der Wert wird verwendet, wenn ein Aufruf mit BHKNZ jedoch ohne Zertifikat-OU eingeht.
+|korrelations-id-header-name |String |correlationid |Der Name des Korrelations-ID-Headers in Anfragen an Keycloak.
+|bhknz-attribute-name |String |bhknz |Der Attributname der Behördenkennzeichen in den Userdaten in den Antworten von Keycloak.
+|interne-kennung-attribute-name |String |internekennung |Der Name des Claims im Token, aus dem die interneKennung für den Aufrufkontext entnommen wird
+|===
+
+
+[[authentifizierung]]
+= Authentifizierung
+
+Die Authentifizierung erfolgt über Keycloak.
+Keycloak greift hierbei auf die Benutzerdaten im Benutzerverzeichnis zu.
+Nach erfolgreicher Authentifizierung stellt Keycloak ein Access-Token aus, welches die benötigten Informationen zum angemeldeten Nutzer enthält.
+Dies sind beispielsweise die Rollen des Nutzers, das Kennzeichen der Behörde, welcher er zugeordnet ist, sowie der Nutzername.
+
+
+
+[[authentifizierung_in_der_gui]]
+== Authentifizierung in der GUI
+
+Die Authentifizierung in der GUI erfolgt über ein Modul im Apache, welches prüft, ob bereits eine gültige Session vorhanden ist.
+Falls nein, wird der Nutzer auf die Login-Seite von Keycloak umgeleitet und kann dort seine Credentials eingeben.
+Wenn die Authentifizierung bei Keycloak erfolgreich war, liefert Keycloak ein Access-Token zurück.
+Dies wird in der Session gespeichert und bei jedem Request an die nachgelagerten Anwendungen über einen HTTP-Header mitgeschickt.
+
+Im der aufgerufenen Anwendung wird durch isy-sicherheit-keycloak geprüft, ob das Token gültig ist.
+Hierzu wird der Public-Key des Realm in Keycloak benötigt.
+Dieser wird automatisch (über einen öffentlichen Rest-Endpunkt) bei Keycloak abgefragt und in einem Cache in der Anwendung vorgehalten.
+Wenn die Token-Prüfung erfolgreich war, werden die Daten aus dem Token in einem `AufrufKontext` im `AufrufKontextVerwalter` gespeichert.
+Zusätzlich werden die Daten auch im Spring-Security-Context gespeichert.
+Dies ermöglicht Autorisierungsprüfungen sowohl über die `Gesichert`-Annotation aus isy-sicherheit,
+als auch über die entsprechenden Mechanismen in Spring-Security, beispielsweise die `Secured`-Annotation.
+
+
+
+[[authentifizierung_innerhalb_einer_anwendung]]
+== Authentifizierung innerhalb einer Anwendung
+
+Zur Authentifizierung innerhalb einer Anwendung muss ein `AufrufKontext` oder `ZertifikatInfoAufrufKontext` erzeugt werden, in dem Kennung, Passwort und Behördenkennzeichen oder Zertifikat gefüllt sind.
+Über die Komponente `Sicherheit` kann dann die Authentifizierung bei Keycloak angestoßen werden.
+Der Aufruf an Keycloak erfolgt dabei über den `KeycloakAccessManager`.
+Wenn die Authentifizierung bei Keycloak erfolgreich war, liefert Keycloak ein Access-Token zurück.
+Die Daten aus dem Token werden in einem `AufrufKontext` im `AufrufKontextVerwalter` gespeichert.
+Zusätzlich werden die Daten auch im Spring-Security-Context gespeichert.
+
+
+
+[[autorisierung]]
+= Autorisierung
+
+[[autorisierung_eines_rest_service]]
+== Autorisierung eines REST Service
+
+Bei REST Services wird erwartet, dass der Aufrufer ein gültiges Access-Token mitschickt.
+Das Token wird als Bearer-Token im Authorization Header des Http-Requests erwartet.
+Hieraus erzeugt isy-sicherheit-keycloak (wie oben beschrieben) einen `AufrufKontext`.
+Die Autorisierungsprüfung erfolgt dann, entsprechend dem Konzept von isy-sicherheit, über die `Gesichert`-Annotation an der Service-Implementierung.
+
+
+
+[[autorisierung_eines_httpinvoker_service]]
+== Autorisierung eines HttpInvoker Service
+
+Bei HttpInvoker Services wird erwartet, dass der `AufrufKontext` als erster Parameter mitgesendet wird.
+Dieser wird dann zur Autorisierungsprüfung herangezogen.
+
+Aktuell gibt es noch keine Festlegungen zur Nutzung von Tokens auch bei HttpInvoker.
+
+
+
+[[testunterstuetzung]]
+= Testunterstützung
+
+In diesem Abschnitt wird *isy-sicherheit-keycloak-test* beschrieben.
+
+Isy-sicherheit-test enthält Hilfsklassen zum Erstellen von (automatisierten) Tests, in welchen isy-sicherheit-keycloak benötigt wird.
+Das Projekt enthält eine Mock-Implementierung von Keycloak.
+Zur Simulation des REST-Services wird WireMock verwendet.
+
+Isy-sicherheit-test wird auch in den Unit-Tests des Projekts isy-sicherheit-keycloak verwendet.
+
+Das folgende Beispiel zeigt die einfache Initialisierung eines Mocks für Keycloak, mit genau einem Nutzer mit genau einer Rolle:
+
+[source,java]
+----
+EmbeddedKeycloakMock embeddedKeycloak = new EmbeddedKeycloakMock("localhost", 9095, "testRealm", new RsaKeyGenerator());
+embeddedKeycloak.addUser("testUser", "testPwd", "testBhknz", Collections.singleton("testRolle"));
+----
