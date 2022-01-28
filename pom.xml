@@ -73,7 +73,7 @@
         <maven.jacoco.argLine/>
 
         <!-- maven-surefire-plugin configuration -->
-        <maven.surefire.argline>-Xmx1g -XX:MaxPermSize=256m -Dfile.encoding=${project.build.sourceEncoding} @{maven.jacoco.argLine}
+        <maven.surefire.argline>-Xmx1g -Dfile.encoding=${project.build.sourceEncoding} @{maven.jacoco.argLine}
         </maven.surefire.argline>
 
 
