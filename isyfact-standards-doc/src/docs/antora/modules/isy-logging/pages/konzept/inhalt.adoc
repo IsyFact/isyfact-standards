@@ -521,7 +521,7 @@ Da der HTTP-Server ein anderes Zeitstempel-Format verwendet, werden folgende Fel
 |====
 
 **Wichtig**: In den Apache-Logs werden die aufgerufenen URLs inkl. Requestparameter gelogged.
-Sollten die Requestparameter fachliche Daten enthalten (bspw. weil Suchanfragen über einen REST-Webservice realisiert wurden), so sind alle Apache-Logs des jeweiligen Webservers als „Fachdaten“ zu kennzeichnen (siehe <<NutzungsvorgabenLogging>>).
+Sollten die Requestparameter fachliche Daten enthalten (bspw. weil Suchanfragen über einen REST-Webservice realisiert wurden), so sind alle Apache-Logs des jeweiligen Webservers als „Fachdaten“ zu kennzeichnen (siehe xref:nutzungsvorgaben/master.adoc#einleitung[Logging - Nutzungsvorgaben]).
 
 [[mailserver-log]]
 === Mailserver-log

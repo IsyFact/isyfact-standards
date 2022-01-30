@@ -78,7 +78,7 @@ Hierzu wird in der Regel ein Bean Mapper verwendet.
 In Einzelfällen können Teile der Transformation auch programmiert werden, sofern der Nutzen daraus den Aufwand nicht übersteigt.
 
 Die Service-Fassade übernimmt auch die Autorisierung des Aufrufs.
-Dazu nutzt sie die Möglichkeiten des Bausteins Sicherheit (siehe  <<TODO anderes Dokument: NutzungsvorgabenSicherheit>>).
+Dazu nutzt sie die Möglichkeiten des Bausteins Sicherheit (siehe  xref:isy-sicherheit:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Sicherheit]).
 Voraussetzung für die Autorisierung ist die Auswertung des mitgelieferten Aufrufkontextes über die Annotation `@StelltAufrufKontextBereit` an der Methode oder an der Service-Fassade selbst.
 Anschließend wird über die Annotation `@Gesichert` die Berechtigung zum Zugriff auf die Methode anhand der Rechte des Aufrufers geprüft.
 Alternativ kann die Annotation `@Gesichert` auch an der Service-Fassade selbst verwendet werden, wenn alle Methoden die gleichen Rechte erfordern.
@@ -96,7 +96,7 @@ Diese Reihenfolge wird durch Einfügen des Orders für den Advisor `stelltLoggin
 [NOTE]
 ====
 Die weiteren Inhalte zum Aufbau, zur Realisierung und zur Nutzung von Service-Schnittstellen wurden wegen ihrer Abhängigkeit zur konkreten Schnittstellentechnologie HTTP Invoker in den Baustein HTTP Invoker verschoben.
-Die Inhalte finden sich in den Dokumenten  <<TODO anderes Dokument: KonzeptHttpInvoker>> sowie  <<TODO anderes Dokument: NutzungsvorgabenHttpInvoker>>.
+Die Inhalte finden sich in den Dokumenten  xref:isy-serviceapi-core:konzept/master.adoc#einleitung[Konzept HTTP-Invoker] sowie xref:isy-serviceapi-core:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben HTTP-Invoker].
 ====
 
 
@@ -198,7 +198,7 @@ Auch hier enthält das Service-Gateway keine Geschäftslogik.
 Die Java-Klassen und -Interfaces eines Services existieren in allen Versionen der Service-Schnittstelle und unterscheiden sich inhaltlich
 durch die in der neuen Version durchgeführten Änderungen.
 
-NOTE: Für die Versionierung von Schnittstellen gelten gesonderte Vorgaben, die in  <<TODO anderes Dokument: IsyFactVersionierung>> definiert sind.
+NOTE: Für die Versionierung von Schnittstellen gelten gesonderte Vorgaben, die in  xref:werkzeuge:versionskontrolle/master.adoc#einleitung[IsyFact Versionierung] definiert sind.
 
 Zur Veröffentlichung von API-kompatiblen Änderungen wird im Maven `pom.xml` eine einstellige Versionsnummer (Minor) gesetzt.
 Kompatible Änderungen sind beispielsweise Bugfixes, neue Operationen in der Schnittstelle oder neue, optionale Attribute im Datenmodell.
@@ -396,7 +396,7 @@ Diese ist sinnvoll über die folgenden Parameter konfigurierbar:
 * Maximale Anzahl von Retries,
 * Timeout für Anfragen.
 
-Die Parameter sind Bestandteil der betrieblichen Konfiguration (s.  <<TODO anderes Dokument: KonzeptKonfiguration>>).
+Die Parameter sind Bestandteil der betrieblichen Konfiguration (s.  xref:isy-konfiguration:konzept/master.adoc#einleitung[Konzept Konfiguration]).
 ====
 
 ==== Deaktivierung von Services

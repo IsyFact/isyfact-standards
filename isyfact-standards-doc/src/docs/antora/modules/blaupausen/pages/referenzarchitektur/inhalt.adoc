@@ -752,7 +752,7 @@ Der Betrieb ist auch für die Dokumentation der Konfigurationsänderungen durch 
 === Betriebsüberwachung
 
 Um den Gesamt-Status eines Systems zu überwachen, sind die Überwachung der IT-Systeme sowie das Monitoring der Komponenten der technischen Infrastruktur notwendig.
-Auf die Überwachung der IT-Systeme wird im Dokument<<TODO anderes Dokument: KonzeptUeberwachung>> im Detail eingegangen.
+Auf die Überwachung der IT-Systeme wird im Dokument xref:isy-ueberwachung:konzept/master.adoc#einleitung[Konzept Überwachung] im Detail eingegangen.
 Hier wird unter anderem festgelegt, welche Informationen ein nach der Referenzarchitektur erstelltes IT-System für die Überwachung mindestens bereitstellen muss.
 Die Schnittstellentechnologie, über die die Informationen der einzelnen Anwendungen zur Überwachung angeboten werden, ist dabei der Standard JMX, der in alle gängigen Überwachungstools integrierbar ist.
 

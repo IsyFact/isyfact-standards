@@ -57,7 +57,7 @@ Batchlogik wird in Punkt 1 dargestellt, die fachlichen Operationen der Komponent
 Die querschnittliche Logik wird lediglich als Bibliothek eingebunden und ist in der Abbildung nicht dargestellt.
 
 Die Komponente „Batchsteuerung“ der Zielarchitektur bezieht sich auf die Steuerung eines Batch-Netzes (siehe <<image-BatNetz>>) und
-wird über UC4 (siehe auch <<KonzeptKonfiguration>>) umgesetzt.
+wird über UC4 (siehe auch xref:isy-konfiguration:konzept/master.adoc#einleitung[Konzept Konfiguration]) umgesetzt.
 Sie wird in diesem Dokument nicht betrachtet.
 
 Die Komponente „Batchlogik“ der Zielarchitektur ist eine logische Komponente, welche die technische Logik der
@@ -717,7 +717,7 @@ Datei `JRE_HOME/lib/management/jmxremote.access` readwrite-Zugriff erlaubt ist.
 Ein Batch wird innerhalb der Plattform gestartet.
 Dazu verwendet der Batch die Benutzerkennung eines technischen Benutzers „internes System“, die in seiner Startkonfiguration (als Konfigurationsdatei) hinterlegt und im Benutzerverzeichnis vorhanden ist.
 
-Der Batchrahmen nutzt die T-Komponente Sicherheit (siehe <<TODO anderes Dokument: NutzungsvorgabenSicherheit>>), um den anfragenden Benutzer über den Access-Manager der Plattform zu authentifizieren.
+Der Batchrahmen nutzt die T-Komponente Sicherheit (siehe xref:isy-sicherheit:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Sicherheit]), um den anfragenden Benutzer über den Access-Manager der Plattform zu authentifizieren.
 Der Access-Manager authentifiziert den Benutzer anhand der angegebenen Benutzerkennung und des Passwortes, registriert alle Informationen zum Benutzer in der T-Komponente AufrufKontextVerwalter und schließt die Session des Benutzers im Access-Manager.
 
 Im Zuge des Batchlaufs können nun über die T-Komponente Sicherheit Berechtigungsprüfungen (z.B. im Anwendungskern) stattfinden.

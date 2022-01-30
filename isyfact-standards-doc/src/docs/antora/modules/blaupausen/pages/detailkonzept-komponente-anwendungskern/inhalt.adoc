@@ -167,9 +167,9 @@ Die IsyFact verwendet ausgewählte Funktionalitäten des Spring-Frameworks in de
 Die Verwendung dieser Funktionalitäten ist in den Blaupausen und Bausteinen wie folgt beschrieben:
 
 * Die Konfiguration der Datenzugriffsschicht, beschrieben im xref:detailkonzept-komponente-datenzugriff/master.adoc[Detailkonzept Komponente Datenzugriff].
-* Die Konfiguration des Loggings über Spring, beschrieben im Konzept <<TODO anderes Dokument: NutzungsvorgabenLogging>>.
-* Die Bereitstellung von Metriken zur Überwachung, beschrieben im Konzept <<TODO anderes Dokument: KonzeptUeberwachung>>.
-* Die Verwendung der Schnittstellentechnologie HTTP Invoker, beschrieben im Konzept <<TODO anderes Dokument: KonzeptHttpInvoker>>.
+* Die Konfiguration des Loggings über Spring, beschrieben im Konzept xref:isy-logging:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Logging].
+* Die Bereitstellung von Metriken zur Überwachung, beschrieben im Konzept xref:isy-ueberwachung:konzept/master.adoc#einleitung[Konzept Überwachung].
+* Die Verwendung der Schnittstellentechnologie HTTP Invoker, beschrieben im Konzept xref:isy-serviceapi-core:konzept/master.adoc#einleitung[Konzept HTTP-Invoker].
 * Die Zugriffe auf ein LDAP erfolgen über Spring-LDAP, beschrieben im Konzept <<TODO anderes Dokument: NutzungsvorgabenSpringLDAP>>.
 * Die Implementierung von Dialogen und Masken erfolgt mit JSF und Spring-Webflow, beschrieben im Dokument  xref:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Komponente Web-GUI].
 
@@ -319,7 +319,7 @@ public class CoreConfig {
 [[konfigurationsparameter-ueber-property-objekte-konfigurieren]]
 ==== Konfigurationsparameter über Property-Objekte konfigurieren
 
-Die Konfiguration der Anwendung wird (wie im Konzept Konfiguration <<TODO anderes Dokument: KonzeptKonfiguration>> beschrieben) über die Datei `application.properties` durchgeführt.
+Die Konfiguration der Anwendung wird (wie im Konzept xref:isy-konfiguration:konzept/master.adoc#einleitung[Konzept Konfiguration]  beschrieben) über die Datei `application.properties` durchgeführt.
 Diese Datei enthält sämtliche Konfigurationsparameter der Anwendung.
 Das Setzen einzelner Konfigurationsparameter über `set`-Methoden ist nur in Ausnahmefällen erlaubt.
 
@@ -403,9 +403,8 @@ Neben der Konfiguration der Beans enthält eine Anwendung kaum Abhängigkeiten v
 
 In einigen Fällen existieren jedoch weitere Abhängigkeiten von Spring:
 
-* Für die Bereitstellung von JMX-Beans wird der Spring-MbeanExporter Mechanismus verwendet (siehe <<TODO anderes Dokument: KonzeptKonfiguration>>).
-
-* Bei HTTP Invoker Schnittstellen-Beans muss explizit eine Bean des eigentlichen Anwendungskontextes aufgerufen werden (siehe <<TODO anderes Dokument: NutzungsvorgabenHttpInvoker>>).
+* Für die Bereitstellung von JMX-Beans wird der Spring-MbeanExporter Mechanismus verwendet (siehe xref:isy-konfiguration:konzept/master.adoc#einleitung[Konzept Konfiguration]).
+* Bei HTTP Invoker Schnittstellen-Beans muss explizit eine Bean des eigentlichen Anwendungskontextes aufgerufen werden (siehe xref:isy-serviceapi-core:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben HTTP-Invoker]).
 
 * Beans werden per Namen aus dem Anwendungskontext ausgelesen.
 
@@ -543,7 +542,7 @@ Zusammengefasst gilt:
 [[aop-fuer-berechtigungspruefungen-verwenden]]
 ==== AOP für Berechtigungsprüfungen verwenden
 
-Die Berechtigungsprüfung wird über Spring AOP mit den vom Baustein „Sicherheit“ angebotenen Annotationen umgesetzt (siehe <<TODO anderes Dokument: NutzungsvorgabenSicherheit>>).
+Die Berechtigungsprüfung wird über Spring AOP mit den vom Baustein „Sicherheit“ angebotenen Annotationen umgesetzt (siehe xref:isy-sicherheit:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Sicherheit]).
 
 [[aop-nicht-fuer-das-logging-von-exceptions-verwenden]]
 ==== AOP nicht für das Logging von Exceptions verwenden

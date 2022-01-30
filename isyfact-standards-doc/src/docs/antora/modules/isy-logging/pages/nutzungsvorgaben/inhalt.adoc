@@ -166,7 +166,7 @@ Dieses setzt sich aus den folgenden Elementen zusammen:
 
 * Jedem Schlüssel wird die feste Zeichenkette „**E**“ vorangestellt, um den Eintrag als Ereignisschlüssel zu Kennzeichnen und zu verhindern, dass dieser mit Fehler- oder Hinweisschlüsseln verwechselt wird.
 * *5 Buchstaben*, zur Identifikation des Systems.
-Diese ist analog zur Identifikation, die auch bei den Ausnahme-IDs (siehe <<TODO anderes Dokument: KonzeptFehlerbehandlung>>) verwendet wird.
+Diese ist analog zur Identifikation, die auch bei den Ausnahme-IDs (siehe xref:isy-exception-core:konzept/master.adoc#einleitung[Konzept Fehlerbehandlung]) verwendet wird.
 +
 Anmerkung: Die Systemidentifikation ist Teil des Ereignisschlüssels, um sicherzustellen, dass systemspezifische / bibliotheksspezifische Schlüssel nicht in mehreren Komponenten redundant vergeben werden.
 * *2 Ziffern*, zur eindeutigen Identifikation der Komponente, in der der Logeintrag erstellt wird (Komponenten-ID).
@@ -209,7 +209,7 @@ Die einzelnen Platzhalter im Namensschema sind in folgender Tabelle beschrieben:
 |====
 |Bestandteil |Werte |Beschreibung
 |HOST |z.B. xyzweb01 |Name des Servers, auf dem die Logs entstehen
-|SYSTEM-ID |_Durch den Technischen Chefdesigner für die jeweilige Anwendung in Abstimmung mit dem Auftraggeber festzulegen (siehe <<TODO anderes Dokument: IsyFactNamenskonventionen>>)._ a|Name der Anwendung bzw. des Batches.
+|SYSTEM-ID |Durch den Technischen Chefdesigner für die jeweilige Anwendung in Abstimmung mit dem Auftraggeber festzulegen (siehe xref:methodik:namenskonventionen/master.adoc#einleitung[IsyFact Namenskonventionen]) a|Name der Anwendung bzw. des Batches.
 _Anwendung bezieht sich hierbei auf die Anwendungen, die im Tomcat laufen, in Abgrenzung zu Batches._
 |ZEITSTEMPEL |YYYY-MM-DD_HH00 |Datum der Logdateien inkl. stundengenauer Uhrzeit.
 Zu beachten ist, dass der Zeitstempel erst beim Rotieren der Logs an die Datei angehängt wird (siehe <<log-rotation-und-komprimierung>>).
@@ -544,7 +544,7 @@ Daher stellt der Invoker für Methodenaufrufe von Nachbarsystemen einen eigenen 
 * `LoggingMethodInvoker(Method methode, IsyLogger logger, boolean loggeAufruf, boolean loggeErgebnis, boolean loggeDauer, boolean loggeDaten, boolean loggeDatenBeiException , long loggeMaximaleParameterGroesse, String nachbarsystemName, String nachbarsystemUrl)`: Analog zu oben, nur das der Name und die URL des aufgerufenen Nachbarsystems übergeben wird.
 
 Dieser Konstruktor ist beim Aufruf einer Service-Schnittstelle eines Nachbarsystems zu verwenden (vgl. auch Szenario „Performance überwachen“ in <<performance-ueberwachen>>).
-Zu beachten ist, dass die Klasse `IsyHttpInvokerClientInterceptor`, welche durch den Baustein Service bereitgestellt wird (siehe <<TODO anderes Dokument: DetailkonzeptKomponenteService>>), bereits einen entsprechenden Aufruf des Invokers durchführt.
+Zu beachten ist, dass die Klasse `IsyHttpInvokerClientInterceptor`, welche durch den Baustein Service bereitgestellt wird (siehe xref:blaupausen:detailkonzept-komponente-service/master.adoc#einleitung[Detailkonzept Komponente Service]), bereits einen entsprechenden Aufruf des Invokers durchführt.
 Bei Verwendung dieses Konstruktors werden die Logeinträge mit folgenden Ereignisschlüsseln erstellt:
 
 Ereignisschlüssel LoggingMethodInvoker (Nachbarsystemaufruf)
@@ -651,7 +651,7 @@ Folgende Aspekte sind bei der Logback-Konfiguration zu beachten:
 
 Alle Anwendungen dürfen ihre Logging-Konfiguration ausschließlich über die Konfigurationsdateien `logback.xml` und `application.properties` vornehmen.
 Die Auslieferung der Logging-Konfiguration geschieht mit den applikationsspezifischen Konfigurationsdateien für die jeweilige Umgebung.
-Die Ablage der Konfigurationsdatei in Sourcen und Kompilaten ist durch das Konzept <<TODO anderes Dokument: KonzeptKonfiguration>> definiert.
+Die Ablage der Konfigurationsdatei in Sourcen und Kompilaten ist durch das xref:isy-konfiguration:konzept/master.adoc#einleitung[Konzept Konfiguration]) definiert.
 Die Konfigurationsdateien dürfen nicht in einem Archiv (JAR-Bibliothek) abgelegt werden, sondern müssen als einzelne Dateien installiert werden.
 
 [underline]#Konfiguration des Log-Levels#
@@ -1058,7 +1058,7 @@ Die folgenden Auswertungen werden dazu durchgeführt:
 * Ermittlung der Anzahl der Aufrufe eines Services, die einen Fehler erzeugt haben, innerhalb der letzten Minute.
 * Ermittlung der Durchschnittsdauer der letzten Aufrufe eines Services.
 * Ermittlung des Zeitpunkts, wann die letzte Prüfung des Systems durchgeführt wurde und wann die letzte Prüfung erfolgreich war.
-Detaillierte Informationen zur Systemprüfung und der zu erstellenden Logeinträge ist in <<TODO anderes Dokument: KonzeptUeberwachung>> beschrieben.
+Detaillierte Informationen zur Systemprüfung und der zu erstellenden Logeinträge ist im xref:isy-ueberwachung:konzept/master.adoc#einleitung[Konzept Überwachung] beschrieben.
 |====
 
 [[performance-ueberwachen]]
@@ -1261,7 +1261,7 @@ Dieser muss gemäß <<loggingmethodinterceptor>> für alle Komponentenschnittste
 |Beschreibung |Es wird ein entfernter Service eines Nachbarsystems aufgerufen.
 |Logging |Der Aufruf der Methode wird mit Hilfe des `LogInterceptor` geloggt.
 Dazu muss in der aufrufenden Klasse gemäß <<loggingmethodinterceptor-und-loggingmethodinvoker>> eine Instanz der Klasse erstellt und das Remote-Interface des Nachbarsystems mit Hilfe der Methode `rufeNachbarsystemAuf` aufgerufen werden.
-Dies wird bereits durch den Baustein HTTP Invoker umgesetzt (siehe <<TODO anderes Dokument: NutzungsvorgabenHttpInvoker>>), sodass hierfür keine Anpassung notwendig ist.
+Dies wird bereits durch den Baustein HTTP Invoker umgesetzt (siehe xref:isy-serviceapi-core:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben HTTP-Invoker]), sodass hierfür keine Anpassung notwendig ist.
 Bei Nachbarsystemen, die selbst kein IsyFact-konformes Logging umsetzen (Drittsoftware wie bspw. ein Suchverfahren), kann es notwendig sein, zusätzliche Informationen in der aufrufenden Anwendung zu loggen.
 Entsprechende Vorgaben werden in den Nutzungskonzepten der jeweiligen Bausteine definiert.
 |Auswertungsszenario a|
