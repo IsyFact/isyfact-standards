@@ -299,7 +299,7 @@ Anwendungsschnittstellen verwendet werden, folgende Vorgaben gemacht:
 ** Übermittlung von Fehler-Kategorie (technisch/Art des fachlichen Fehlers)
 ** Übermittlung von Fehlernachricht (kein Stack-Trace!)
 
-Die Vorgaben für HTTP Invoker sind im <<TODONutzungsvorgabenHttpInvoker>> beschrieben.
+Die Vorgaben für HTTP Invoker sind im xref:isy-serviceapi-core:nutzungsvorgaben/master.adoc[Nutzungsvorgaben HttpInvoker] beschrieben.
 
 Unabhängig von der eingesetzten Technologie gelten für die Antworten an das aufrufende Nachbarsystem folgende Anforderungen:
 
@@ -362,7 +362,7 @@ Beschreibungen dazu finden sich in den jeweiligen Detailkonzepten oder den Baust
 === Fehlertexte und deren Einsatz
 
 Fehlertexte müssen in `ResourceBundles` abgelegt werden.
-Die Ablage der Fehlertexte wird durch das <<TODOKonzeptUeberwachungKonfiguration>> vorgegeben, das Laden der Dateien wird in Spring durch Holder-Klassen realisiert und ist im <<TODODetailkonzeptKomponenteAnwendungskern>> erläutert.
+Die Ablage der Fehlertexte wird durch das xref:isy-ueberwachung:konzept/master.adoc[Konzept Überwachung] vorgegeben, das Laden der Dateien wird in Spring durch Holder-Klassen realisiert und ist im xref:blaupausen:detailkonzept-komponente-anwendungskern/master.adoc[Detailkonzept Komponente Anwendungskern] erläutert.
 
 Als Schlüssel werden die Ausnahme-IDs verwendet.
 Diese setzen sich aus fünf Buchstaben und fünf numerischen Zeichen zusammen:
@@ -457,7 +457,7 @@ Im Folgenden werden Vorgaben gemacht, wie Fehler behandelt werden müssen und wi
 Exceptions sind in der Regel zu behandeln und zu loggen.
 Ist es nicht möglich die Exception zu behandeln, muss sie an den Aufrufer weitergegeben werden.
 Die Exception wird im Fall eines Weiterwerfens nicht geloggt.
-Details zum Logging befinden sich im <<TODOKonzeptLogging>>.
+Details zum Logging befinden sich im xref:isy-logging:konzept/master.adoc[Konzept Logging].
 
 *Nur vorkommende Exceptions verwenden* +
 Nur Exceptions in Methodensignaturen verwenden, die auch vorkommen können.
