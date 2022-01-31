@@ -44,10 +44,11 @@ image::diagramsnet/dn-custom-farbpalette.png[align="center"]
 diagrams.net kann auf unterschiedliche Weise verwendet werden. 
 Ohne Installation kann die Browser-Variante über https://diagrams.net direkt aufgerufen werden. 
 Für unterschiedliche Betriebssystem-Plattformen stehen zahlreiche Installationsmedien bereit. 
-Darüber hinaus stehen für weit verbreitete Entwicklungswerkzeuge Add-ons zur Verfügung, wie beispielsweise https://plugins.jetbrains.com/plugin/15635-diagrams-net-integration[IntelliJ IDE] oder https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio[Visual Studio Code]. 
-Spezifische Add-on Konfigurationen erlauben die Einbindung oben erwähnter Konfigurationen und Bibliotheken. 
+Darüber hinaus stehen für weit verbreitete Entwicklungswerkzeuge Add-ons zur Verfügung, wie beispielsweise
 
-* link:{attachmentsdir}/diagrams_net_vs_studio_code_settings.json[VS Studio Code Settings]
+* https://plugins.jetbrains.com/plugin/15635-diagrams-net-integration[IntelliJ IDE] ohne Konfigurationsmöglichkeit oder 
+* https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio[Visual Studio Code] mit spezifischer Add-on Konfiguration zur Einbindung oben erwähnter Konfigurationen und Bibliotheken. 
+link:{attachmentsdir}/diagrams_net_vs_studio_code_settings.json[VS Studio Code Settings]
 
 
 [[erstellung-einer-neuen-abbildung]]
@@ -71,7 +72,7 @@ image::diagramsnet/dn-abb-erstellen-eigenschaften.dn.svg[align="center"]
 3. Vergabe des Dateinamens; Empfehlung: Suffix zur Kennzeichnung der im Zielbild enthaltenen diagrams.net Modell-Sourcen (`<Dateiname>.dn.svg`)
 4. Mit btn:[Erstellen] wird dann eine Abbildung initialisiert aber noch nicht der Ablageort festgelegt
 
-Dafür ist im menu:Datei[Speichern unter]-Dialog der Ablageort zu wählen und als Dateityp btn:[Editierbares Vektor Bild (.svg (*.svg)] zu bestätigen.
+Zum Speichern ist im menu:Datei[Speichern unter]-Dialog der Ablageort zu wählen und als Dateityp btn:[Editierbares Vektor Bild (.svg (*.svg)] zu bestätigen.
 Der Ablageort sollte beim Quellcode liegen.
 
 [[bearbeitung-einer-bestehenden-diagrams-net-abbildung]]
