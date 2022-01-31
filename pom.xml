@@ -389,7 +389,7 @@
                 <artifactId>maven-site-plugin</artifactId>
                 <version>3.10.0</version>
             </plugin>
-<!-- Quality Gates 1 -->
+            <!-- Quality Gates 1 -->
             <!-- Check if all POMs are formatted according to the Maven-Team-Standard. -->
             <!-- Use mvn tidy:pom in order to tidy up the POM. -->
             <plugin>
