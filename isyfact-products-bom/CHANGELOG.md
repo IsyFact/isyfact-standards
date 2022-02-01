@@ -1,5 +1,4 @@
 # 2.4.0
-
 - `IFS-1264`:
     - Apache Poi OOXML 4.1.2 zu Products-BOM hinzugefügt
     - Versionsanhebung von Spring Boot auf 2.5.9
@@ -24,7 +23,6 @@
 - `IFS-798`: Pojobuilder zu Products-BOM hinzugefügt
 
 # 2.3.0
-
 - `IFS-985`: Spring Security entfernt (Verwaltung der Version über Spring Boot)
 - `IFS-987`: Entferne log4j
 - `IFS-970`: Spring-Boot Versionsanhebung auf 2.5.2
@@ -33,7 +31,6 @@
 - `IFS-988`: Apache-Commons-Logging entfernt
 
 # 2.2.0
-
 - `IFS-601`: Einbindung folgender Produkte über die Spring Boot Dependencies: JPA, JTA, Spring, Hibernate, Jackson,
   QueryDSL, SLF4J, Logback, JUnit, Mockito, AssertJ, H2.
 - `IFS-643`: WireMock in products.bom ergänzt
@@ -51,7 +48,6 @@
           erwartet, da empfohlen wird, den CsvReaderBuilder zu nutzen
 
 # 2.1.0
-
 - `IFS-223`: Logging Bridges ergänzt: jcl-over-slf4j, slf4j-jcl
 - `IFS-385`: jackson-databind auf 2.9.9.3 angehoben.
 - `IFS-418`: Spring auf 5.1.9.RELEASE angehoben. Spring Security auf 5.1.6.RELEASE angehoben.
@@ -64,28 +60,22 @@
 - `IFS-509`: Update AssertJ auf 3.12.0
 
 # 2.0.0
-
 - `IFS-228`: Einführung von Spring Boot
 - `IFS-353`: Ablösung von Dozer durch Orika
 
 # 1.7.0
-
 - `IFS-262`: `isyfact-masterpom` deprecated (Abschaffung mit IsyFact 2.0), `isyfact-masterpom-lib` aufgelöst,
   Bibliotheken benutzen `isyfact-standards` als Parent-POM
 - `IFS-274`: Spring-Framework auf 4.3.22 angehoben
 - `IFS-307`: Referenz zu javax.el:el-api auf Tomcat 8.5.x angehoben
 
 # 1.6.0
-
 - `IFS-272`: Maven-Koordinaten der Oracle-Bibliotheken angepasst
 - `IFS-117`: Spring Web Flow auf Version 2.4.8 angehoben
 - `IFS-189`: Repositories der IsyFact-Standards zusammengeführt, Bibliotheken benutzen wieder gemeinsames Produkt-BOM
   und werden zentral über das POM isyfact-standards versioniert
-
 ## Migrationshinweise
-
 - Wegen `IFS-272` müssen die Maven-Koordinaten der Oracle-Bibliotheken angepasst werden.
 
 # 1.5.0
-
 - `IFS-138`: Jackson auf Version 2.8.11 angehoben
