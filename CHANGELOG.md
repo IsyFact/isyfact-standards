@@ -29,6 +29,9 @@
 - `RF-1040`: [isy-util], [isy-sonderzeichen] Scope für Spotbugs-Annotations Abhängigkeit auf provided gesetzt
 - `IFS-1158`: [isy-task] Behebung der "Missing parameter metadata"-Warnung in dem mit dem "-parameters"-Flag compiliert wird
 - `IFS-734`: [isy-logging] Aktive Log-Level im LogHelper prüfen
+- `IFE-477`:
+    * PluginManagement Versionen aktualisiert
+    * Build-Plugin Versionen aktualisiert
 
 # 2.3.0
 - `IFS-1004`: [isy-sonderzeichen]
