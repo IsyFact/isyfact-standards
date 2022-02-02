@@ -28,6 +28,7 @@
 - `IFS-802`: [isy-logging] SpotBugs Fehler behoben
 - `RF-1040`: [isy-util], [isy-sonderzeichen] Scope für Spotbugs-Annotations Abhängigkeit auf provided gesetzt
 - `IFS-1158`: [isy-task] Behebung der "Missing parameter metadata"-Warnung in dem mit dem "-parameters"-Flag compiliert wird
+- `IFS-744`: [isy-task] Namensänderung des Beans "taskScheduler" in "isyTaskScheduler"
 - `IFS-734`: [isy-logging] Aktive Log-Level im LogHelper prüfen
 - `IFE-477`:
     * PluginManagement Versionen aktualisiert
@@ -79,7 +80,7 @@
 - `IFS-429`: JAR signer in Phase 'deploy' verschoben
 - `IFS-437`: [isy-products-bom] `com.thoughtworks.xstream:xstream` auf 1.4.11.1 angehoben
 - `IFS-436`: [isy-ueberwachung] Entkopplung Health-Endpoint und hinzufügen Nachbarsystem-Check
-- `IFS-444`: [isy-logging] Anpassung der Klasse `BeanToMapConverter` damit die Verwendung von TreeMaps keine Exceptions auslöst 
+- `IFS-444`: [isy-logging] Anpassung der Klasse `BeanToMapConverter` damit die Verwendung von TreeMaps keine Exceptions auslöst
 - `IFS-454`: Maven Enforcer Rule: dependency-convergence ergänzt.
 - `IFS-458`: Tidy-maven-plugin auf `validate` gesetzt und POMs aufgeräumt. Zulieferung von Github getestet und übernommen. (Versionsanhebungen rausgenommen.)
 - `IFS-459`: Die Klasse `AufrufKontextVerwalterImpl` verwendet nun das Interface `AufrufKontext` anstatt der Implementierung `AufrufKontextImpl`
