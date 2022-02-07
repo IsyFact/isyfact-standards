@@ -35,7 +35,10 @@ Hiermit wir eine Empfehlung für die Verwendung von _diagrams.net_ und/oder _Ent
 
 ³    Automatisches Bauen nur über Frameworks wie docToolchain; bisher kein Plan zur Standardisierung
 
-Einsatzszenarien des Werkzeugs _diagrams.net_ sind 
+[[einsatzszenarien_diagrams_net]]
+== Einsatzszenarien diagrams.net
+
+_diagrams.net_ eignet sich insbesondere für
 
 * Diagramme und Schaubilder, die nicht UML-konform sein müssen
 * Mockups und andere Diagrammtypen
@@ -46,7 +49,12 @@ Durch direktes Ablegen der Datei beim Code ist keine getrennte Datenhaltung oder
 (+) Für das Wiki System _Confluence_ sowie das Ticket System _Jira_ der Firma _Atlassian_ gibt es das Add-on _draw.io_, welches das Erstellen und Bearbeiten von Abbildungen erlaubt und im Kern _diagrams.net_ entspricht. 
 Abbildungserzeugung im Kontext Wiki getriebener Dokumentation erfolgt somit voll integriert. 
 
-Einsatzszenarien von _Enterprise Architect_ sind modellgetriebene Diagramme in Referenzarchitekturen, Systemspezifikationen und Systementwürfen sowie entspr. Dokumentvorlagen, da diese Dokumentausprägungen 
+xref:diagramsnet/master.adoc[Hier] geht es zu weiterführenden Hinweisen.
+
+[[einsatzszenarien_enterprise_architect]]
+== Einsatzszenarien Enterprise Architect
+
+_Enterprise Architect_ wird häufig verwendet, um modellgetriebene Diagramme für Referenzarchitekturen, Systemspezifikationen und Systementwürfen zu erstellen, da diese Dokumentausprägungen 
 
 * hauptsächlich UML und ERM Diagramme enthalten,
 * UML-Profil-fähig und konform sein sollen und
@@ -59,6 +67,8 @@ Herausforderungen dieses Werkzeugs sind
 (-) Für werkzeug-unerfahrene Diagrammerstellende komplex zu bedienen
 
 (-) Einschränkungen und längere Bearbeitungszeit bei freien Schaubildern
+
+xref:enterprise-architect/master.adoc[Hier] geht es zu weiterführenden Hinweisen. 
 
 Die Wahl des Werkzeugs hängt somit von den Anforderungen an die Dokumenterstellung und Modellierung ab und muss individuell getroffen werden. 
 // end::inhalt[]

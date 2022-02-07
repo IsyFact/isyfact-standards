@@ -1,6 +1,12 @@
 = Nutzung Enterprise Architect: Inhalt
 
 // tag::inhalt[]
+[[enterprise-architect-für-die-modellierung]]
+== Enterprise Architect für die Modellierung
+Enterprise Architect ist ein Werkzeug mit dem Schwerpunkt Prozess- und Systemmodellierung. 
+Die folgende Dokumentation beschreibt den optionalen Einsatz des Werkzeugs im Zuge der Systemspezifikation. 
+Darüber hinaus wird das Werkzeug häufig auch für Systementwürfe oder Deployment- und Verteilungsdarstellungen genutzt, auf die hier allerdings nicht näher eingegangen wird.  
+
 [[vorgehen-zur-erstellung-der-spezifikationsdokumente]]
 == Vorgehen zur Erstellung der Spezifikationsdokumente
 
@@ -29,8 +35,9 @@ Dort wählt man im Kontextmenü der UML-Profile btn:[Import Profile] aus und imp
 
 Danach sollte der Resource Browser etwa wie folgt aussehen:
 
+
+[[image-resbrowser]]
 .Resource Browser mit hinzugefügten UML-Profilen
-[id="image-resbrowser",reftext="{figure-caption} {counter:figures}"]
 image::resbrowser.png[align="center"]
 
 Nun kann man die einzelnen Elemente aus den UML-Profilen nutzen.
@@ -43,32 +50,33 @@ Verbinder erzeugt man, indem man sie im UML-Profil auswählt und dann die Verbin
 Generell orientiert sich die Struktur im EA am Aufbau des zu erstellenden Dokuments.
 Die folgende Struktur muss man beim Aufbau des EA-Modells der Geschäftsprozesse und der Systemspezifikation im EA einhalten.
 
+
+[[image-eastructgpm]]
 .EA-Struktur der Geschäftsprozessmodellierung
-[id="image-eastructgpm",reftext="{figure-caption} {counter:figures}"]
 image::eastructgpm.png[align="center"]
 
+[[image-eastructanwcomp]]
 .EA-Struktur der Spezifikation: Anwendungskomponenten
-[id="image-eastructanwcomp",reftext="{figure-caption} {counter:figures}"]
 image::eastructanwcomp.png[align="center"]
 
+[[image-eastructdatmod]]
 .EA-Struktur der Spezifikation: Datenmodell
-[id="image-eastructdatmod",reftext="{figure-caption} {counter:figures}"]
 image::eastructdatmod.png[align="center"]
 
+[[image-eastructdialog]]
 .EA-Struktur der Spezifikation: Dialoge
-[id="image-eastructdialog",reftext="{figure-caption} {counter:figures}"]
 image::eastructdialog.png[align="center"]
 
+[[image-eastructdruck]]
 .EA-Struktur der Spezifikation: Druckausgaben
-[id="image-eastructdruck",reftext="{figure-caption} {counter:figures}"]
 image::eastructdruck.png[align="center"]
 
+[[image-eastructschnitt]]
 .EA-Struktur der Spezifikation: Schnittstellen
-[id="image-eastructschnitt",reftext="{figure-caption} {counter:figures}"]
 image::eastructschnitt.png[align="center"]
 
+[[image-eastructnfa]]
 .EA-Struktur der Spezifikation: Nichtfunktionale Anforderungen
-[id="image-eastructnfa",reftext="{figure-caption} {counter:figures}"]
 image::eastructnfa.png[align="center"]
 
 Elemente, die in der Systemspezifikation benannt werden (z.B. Anwendungsfälle, Entitätstypen, usw.) dürfen nur einmal im EA-Modell enthalten sein.
@@ -87,20 +95,20 @@ Wenn diese verändert werden soll, dann muss man hierzu die Elemente im Diagramm
 Damit kann man die Standarddarstellung der markierten Elemente für alle Diagramme setzen.
 Nun kann man RGB-Farbwerte eingeben.
 
+[[image-guidefault]]
 .Dialog "Default Appearance“
-[id="image-guidefault",reftext="{figure-caption} {counter:figures}"]
 image::guidefault.png[align="center"]
 
 Alternativ kann man seit EA Version 7 die Farbe des Elements für ein einzelnes Diagramm setzen, indem man den Pinsel neben dem markierten Element anklickt und das Farbwahl-Feld nutzt (siehe <<image-guiselectcol>>).
 
+[[image-guiselectcol]]
 .Farbwahl-Feld
-[id="image-guiselectcol",reftext="{figure-caption} {counter:figures}"]
 image::guiselectcol.png[align="center"]
 
 Die genutzten Farbwerte in RGB werden in folgendem Diagramm gezeigt.
 
+[[image-colorval]]
 .Farbwerte
-[id="image-colorval",reftext="{figure-caption} {counter:figures}"]
 image::colorval.png[align="center"]
 
 
@@ -109,8 +117,8 @@ image::colorval.png[align="center"]
 
 Seit der EA Version 7 kann man die Schriftart eines Elements für ein einzelnes Diagramm setzen, indem man den Pinsel neben dem markierten Element anklickt und das Schriftart-Feld nutzt (siehe <<image-guiselectfnt>>).
 
+[[image-guiselectfnt]]
 .Schriftwahl-Feld
-[id="image-guiselectfnt",reftext="{figure-caption} {counter:figures}"]
 image::guiselectfnt.png[align="center"]
 
 
@@ -119,8 +127,8 @@ image::guiselectfnt.png[align="center"]
 
 Standardmäßig zeichnet der EA Diagrammelemente aus anderen Ordnern als dem des Diagramms speziell aus.
 
+[[image-annootherele]]
 .Auszeichnung von Elementen aus anderen Ordnern im Diagramm
-[id="image-annootherele",reftext="{figure-caption} {counter:figures}"]
 image::annootherele.png[align="center"]
 
 Man muss dies je Diagramm wie folgt abschalten: Mit der rechten Maustaste auf den Diagramm-Hintergrund klicken und dann menu:Properties...[Diagram > Show Namespace] auswählen.
