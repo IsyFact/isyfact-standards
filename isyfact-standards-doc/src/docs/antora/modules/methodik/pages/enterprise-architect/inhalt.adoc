@@ -31,7 +31,7 @@ Danach sollte der Resource Browser etwa wie folgt aussehen:
 
 .Resource Browser mit hinzugefügten UML-Profilen
 [id="image-resbrowser",reftext="{figure-caption} {counter:figures}"]
-image::resbrowser.png[align="center"]
+image::methodik:enterprise-architect/resbrowser.png[align="center"]
 
 Nun kann man die einzelnen Elemente aus den UML-Profilen nutzen.
 Elemente wie Anwendungsfälle erzeugt man, indem man sie in ein Diagramm zieht und benennt.
@@ -45,31 +45,31 @@ Die folgende Struktur muss man beim Aufbau des EA-Modells der Geschäftsprozesse
 
 .EA-Struktur der Geschäftsprozessmodellierung
 [id="image-eastructgpm",reftext="{figure-caption} {counter:figures}"]
-image::eastructgpm.png[align="center"]
+image::methodik:enterprise-architect/eastructgpm.png[align="center"]
 
 .EA-Struktur der Spezifikation: Anwendungskomponenten
 [id="image-eastructanwcomp",reftext="{figure-caption} {counter:figures}"]
-image::eastructanwcomp.png[align="center"]
+image::methodik:enterprise-architect/eastructanwcomp.png[align="center"]
 
 .EA-Struktur der Spezifikation: Datenmodell
 [id="image-eastructdatmod",reftext="{figure-caption} {counter:figures}"]
-image::eastructdatmod.png[align="center"]
+image::methodik:enterprise-architect/eastructdatmod.png[align="center"]
 
 .EA-Struktur der Spezifikation: Dialoge
 [id="image-eastructdialog",reftext="{figure-caption} {counter:figures}"]
-image::eastructdialog.png[align="center"]
+image::methodik:enterprise-architect/eastructdialog.png[align="center"]
 
 .EA-Struktur der Spezifikation: Druckausgaben
 [id="image-eastructdruck",reftext="{figure-caption} {counter:figures}"]
-image::eastructdruck.png[align="center"]
+image::methodik:enterprise-architect/eastructdruck.png[align="center"]
 
 .EA-Struktur der Spezifikation: Schnittstellen
 [id="image-eastructschnitt",reftext="{figure-caption} {counter:figures}"]
-image::eastructschnitt.png[align="center"]
+image::methodik:enterprise-architect/eastructschnitt.png[align="center"]
 
 .EA-Struktur der Spezifikation: Nichtfunktionale Anforderungen
 [id="image-eastructnfa",reftext="{figure-caption} {counter:figures}"]
-image::eastructnfa.png[align="center"]
+image::methodik:enterprise-architect/eastructnfa.png[align="center"]
 
 Elemente, die in der Systemspezifikation benannt werden (z.B. Anwendungsfälle, Entitätstypen, usw.) dürfen nur einmal im EA-Modell enthalten sein.
 Wird dieselbe Entität in mehreren Diagrammen verwendet, erzeugt man sie initial durch Ziehen aus den UML-Profilen in das erste Diagramm.
@@ -89,19 +89,19 @@ Nun kann man RGB-Farbwerte eingeben.
 
 .Dialog "Default Appearance“
 [id="image-guidefault",reftext="{figure-caption} {counter:figures}"]
-image::guidefault.png[align="center"]
+image::methodik:enterprise-architect/guidefault.png[align="center"]
 
 Alternativ kann man seit EA Version 7 die Farbe des Elements für ein einzelnes Diagramm setzen, indem man den Pinsel neben dem markierten Element anklickt und das Farbwahl-Feld nutzt (siehe <<image-guiselectcol>>).
 
 .Farbwahl-Feld
 [id="image-guiselectcol",reftext="{figure-caption} {counter:figures}"]
-image::guiselectcol.png[align="center"]
+image::methodik:enterprise-architect/guiselectcol.png[align="center"]
 
 Die genutzten Farbwerte in RGB werden in folgendem Diagramm gezeigt.
 
 .Farbwerte
 [id="image-colorval",reftext="{figure-caption} {counter:figures}"]
-image::colorval.png[align="center"]
+image::methodik:enterprise-architect/colorval.png[align="center"]
 
 
 [[schriftart-von-elementen-anpassen]]
@@ -111,7 +111,7 @@ Seit der EA Version 7 kann man die Schriftart eines Elements für ein einzelnes 
 
 .Schriftwahl-Feld
 [id="image-guiselectfnt",reftext="{figure-caption} {counter:figures}"]
-image::guiselectfnt.png[align="center"]
+image::methodik:enterprise-architect/guiselectfnt.png[align="center"]
 
 
 [[markierung-von-elementen-aus-anderen-ordnern-im-ea-abschalten]]
@@ -121,7 +121,7 @@ Standardmäßig zeichnet der EA Diagrammelemente aus anderen Ordnern als dem des
 
 .Auszeichnung von Elementen aus anderen Ordnern im Diagramm
 [id="image-annootherele",reftext="{figure-caption} {counter:figures}"]
-image::annootherele.png[align="center"]
+image::methodik:enterprise-architect/annootherele.png[align="center"]
 
 Man muss dies je Diagramm wie folgt abschalten: Mit der rechten Maustaste auf den Diagramm-Hintergrund klicken und dann menu:Properties...[Diagram > Show Namespace] auswählen.
 

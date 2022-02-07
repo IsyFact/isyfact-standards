@@ -36,7 +36,7 @@ In <<polling-klassendiagramm>> ist das Klassendiagramm der Bibliothek `isy-polli
 
 .Klassendiagramm der Bibliothek isy-polling
 [id="polling-klassendiagramm",reftext="{figure-caption} {counter:figures}"]
-image::polling-klassendiagramm.png[align="center"]
+image::isy-polling:nutzungsvorgaben/polling-klassendiagramm.png[align="center"]
 
 [[einbinden-der-bibliothek-in-die-anwendung]]
 == Einbinden der Bibliothek in die Anwendung

@@ -22,6 +22,6 @@ Dann folgen weitere Themen:
 
 Schließlich beschreibt das letzte Kapitel, wie siehe xref:nutzungsvorgaben/master.adoc#entwickeln-und-testen[Entwickeln und Testen] mit dem Baustein Sicherheit möglich ist.
 
-Viele der in diesem Dokument beschriebenen Vorgaben sind in der <<TODO anderes Dokument: Vorlageanwendung>> umgesetzt.
+Viele der in diesem Dokument beschriebenen Vorgaben sind in der xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung] umgesetzt.
 
 // end::inhalt[]

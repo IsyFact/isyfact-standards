@@ -122,10 +122,10 @@ Abweichungen sind nur für eine Reduzierung der Komplexität des Persistenz-Klas
 
 Falls Vererbung im Persistenz-Klassenmodell eingesetzt wird, ist sie im Datenbank-Schema auf folgende Weise umzusetzen:
 
-* Über eine Tabelle, welche die Daten aller Klassen der Hierarchie („Table per class hierarchy“, siehe <<BaKi07>> Kapitel 5.1.3) enthält.
+* Über eine Tabelle, welche die Daten aller Klassen der Hierarchie („Table per class hierarchy“, siehe xref:glossary:literaturextern:inhalt.adoc#litextern-JPA-Hibernate[„Java Persistence with Hibernate“] Kapitel 5.1.3) enthält.
 Diese Art der Abbildung ist vorzuziehen.
 Falls sie aufgrund vieler unterschiedlicher Felder oder Problemen mit Pflichtfeldern in den Klassen nicht verwendbar ist, können auch andere Strategien verwendet werden.
-Die Vor- und Nachteile der einzelnen Strategien sind in <<BaKi07>> beschrieben.
+Die Vor- und Nachteile der einzelnen Strategien sind in xref:glossary:literaturextern:inhalt.adoc#litextern-JPA-Hibernate[„Java Persistence with Hibernate“] beschrieben.
 
 Die Klassenhierarchie ist in jedem Fall möglichst flach zu halten: Soweit möglich sollen nur zwei Stufen verwendet werden.
 
@@ -143,10 +143,10 @@ Zur Fachlogik gehören auch Validierungen.
 
 Im Normalfall müssen für Entitätsklassen die Methoden `equals` und `hashCode` nicht überschrieben werden.
 
-Nur für Embeddable-Klassen (siehe <<BaKi07>> Kapitel 4.4.2) müssen die Methoden `equals` und `hashCode` implementiert werden.
+Nur für Embeddable-Klassen (siehe xref:glossary:literaturextern:inhalt.adoc#litextern-JPA-Hibernate[„Java Persistence with Hibernate“] Kapitel 4.4.2) müssen die Methoden `equals` und `hashCode` implementiert werden.
 Die Methoden müssen dafür sämtliche Attribute mit einbeziehen Zusätzlich muss das Interface `Serializable` implementiert werden.
 
-Für Beispiele zu den `equals-` und `hashCode-`Implementierungen siehe die Klasse `Organisator` der Vorlage-Anwendung <<Vorlageanwendung>>.
+Für Beispiele zu den `equals-` und `hashCode-`Implementierungen siehe die Klasse `Organisator` der xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlage-Anwendung].
 
 [[initialisieren-von-string-feldern]]
 === Initialisieren von String-Feldern
@@ -173,7 +173,7 @@ In diesem Kapitel wird die Abbildung dieses Modells auf ein Datenbankschema in J
 
 Die Definition des Mappings wird über Annotationen in den Persistenzklassen (Entitätsklassen) durchgeführt.
 Pro Klasse wird über die Annotationen definiert, auf welche Tabelle sie abgebildet werden und wie ihre Variablen auf Datenbank-Felder abgebildet werden.
-Für Beispiele zu Annotationen siehe die Klassen `Terminfindung`, `Tag` und `Zeitraum` in der <<Vorlageanwendung>>.
+Für Beispiele zu Annotationen siehe die Klassen `Terminfindung`, `Tag` und `Zeitraum` in der xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung].
 
 Über Annotationen können einige wenige Mappings nicht definiert werden, welche über eine XML-Konfigurationsdatei definierbar sind.
 Ein Beispiel dafür ist das Mapping einer Klasse auf zwei verschiedene Tabellen.
@@ -184,7 +184,7 @@ Diese wird automatisch von JPA verwendet.
 [[n-assoziationen-in-der-regel-als-set-ohne-reihenfolge-definieren]]
 === 1:n Assoziationen in der Regel als Set (ohne Reihenfolge) definieren
 
-Beim Abbilden einer 1:n Assoziation („Collection Mapping“, siehe <<Collections>>) ist in der Regel als Java-Typ `Set` zu definieren, da in einem `Set` keine Reihenfolge definiert ist.
+Beim Abbilden einer 1:n Assoziation („Collection Mapping“, siehe xref:glossary:literaturextern:inhalt.adoc#litextern-Collection-Mapping[Collections]) ist in der Regel als Java-Typ `Set` zu definieren, da in einem `Set` keine Reihenfolge definiert ist.
 
 [source,java]
 ----
@@ -228,8 +228,8 @@ Hierfür sind zwei 1:n (bzw. n:1) Mappings zu definieren.
 === Behandlung von Datums- und Zeitangaben
 
 Es werden die Datums- und Zeitklassen aus der _Java 8 Date Time API_ verwendet.
-Hinweise zu deren Verwendung finden sich im <<KonzeptDatumZeit>>.
-Zur Persistierung von Zeiträumen und ungewissen Datums- und Zeitangaben im Sinne des <<KonzeptDatumZeit>> werden die `@Entity`-Klasse `ZeitraumEntitaet` und die `@Embeddable`-Klassen `UngewisseZeitEntitaet` und `UngewissesDatumEntitaet` bereitgestellt.
+Hinweise zu deren Verwendung finden sich im xref:isy-datetime:konzept/master.adoc[Konzept Datum Zeit].
+Zur Persistierung von Zeiträumen und ungewissen Datums- und Zeitangaben im Sinne des xref:isy-datetime:konzept/master.adoc[Konzept Datum Zeit] werden die `@Entity`-Klasse `ZeitraumEntitaet` und die `@Embeddable`-Klassen `UngewisseZeitEntitaet` und `UngewissesDatumEntitaet` bereitgestellt.
 
 ==== Altanwendungen
 
@@ -462,21 +462,21 @@ Damit die DAOs von Spring automatisch als Beans erzeugt werden, muss eine Konfig
 class PersistenceConfiguration { }
 ----
 
-Der Zugriff auf die Datenbank aus dem <<glossar-Anwendungskern>> heraus erfolgt immer über die DAOs.
+Der Zugriff auf die Datenbank aus dem xref:glossary:glossary:master.adoc#glossar-Anwendungskern[Anwendungskern] heraus erfolgt immer über die DAOs.
 Die DAOs werden als Spring-Beans in den Anwendungskern injiziert.
 Zudem wird für jedes DAO ein Interface angelegt.
 
-DAOs werden im Persistenzpaket der Komponente abgelegt, welche die Datenhoheit über die Tabelle(n) des DAOs besitzt (zum Thema Datenhoheit siehe <<IsyFactReferenzarchitekturITSystem>>).
-Falls die Datenhoheit keiner einzelnen Komponente zugewiesen werden kann, erhält die Komponente Basisdaten die Datenhoheit (siehe auch <<DetailkonzeptKomponenteAnwendungskern>>).
+DAOs werden im Persistenzpaket der Komponente abgelegt, welche die Datenhoheit über die Tabelle(n) des DAOs besitzt (zum Thema Datenhoheit siehe xref:blaupausen:referenzarchitektur-it-system/master.adoc#einleitung[IsyFact Referenzarchitektur IT-Systeme]).
+Falls die Datenhoheit keiner einzelnen Komponente zugewiesen werden kann, erhält die Komponente Basisdaten die Datenhoheit (siehe auch xref:blaupausen:detailkonzept-komponente-anwendungskern/master.adoc[Detailkonzept Komponente Anwendungskern]).
 Die DAOs werden nur von Klassen der Komponente mit Datenhoheit aufgerufen.
 
 Während über DAOs Persistenzobjekte aus der Datenbank gelesen und in die Datenbank eingefügt werden, können sie auch außerhalb dieser Klassen verändert bzw. befüllt werden.
-Dies darf jedoch gemäß der Referenzarchitektur <<IsyFactReferenzarchitektur>> nur von Klassen innerhalb der gleichen Teilanwendung  erfolgen: Komponenten anderer Teilanwendungen dürfen sie nicht verändern oder befüllen.
+Dies darf jedoch gemäß der xref:blaupausen:referenzarchitektur/master.adoc#einleitung[IsyFact Referenzarchitektur] nur von Klassen innerhalb der gleichen Teilanwendung  erfolgen: Komponenten anderer Teilanwendungen dürfen sie nicht verändern oder befüllen.
 Sie erhalten daher lediglich Deep-Copies bzw. nicht änderbare Varianten der Entitäten.
 
 Eine Ausnahme hierzu bildet die Komponente Basisdaten: Sie gibt die Entitäten an andere Komponenten weiter, welche diese verändern und befüllen dürfen.
 
-Als Beispiel für DAOs siehe die Klassen `TerminfindungDao` und `TeilnehmerDao` der Vorlage-Anwendung <<Vorlageanwendung>>.
+Als Beispiel für DAOs siehe die Klassen `TerminfindungDao` und `TeilnehmerDao` der Vorlage-Anwendung xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung].
 
 [[definition-von-query-methoden]]
 === Definition von Query Methoden
@@ -513,9 +513,8 @@ Nach dem ersten `By` beginnen die eigentlichen Abfragekriterien.
 In den Abfragekriterien werden Bedingungen auf Feldern der Entität definiert und diese können mit 'And' und 'Or'
 verknüpft werden.
 +
-NOTE: Eine Übersicht zur Ableitung von Queries aus Methodennamen findet in der Referenzdokumentation zu Spring Data JPA:
-https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.query-methods.details[https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.query-methods.details]
-
+NOTE: Eine Übersicht zur Ableitung von Queries aus Methodennamen befindet sich in der Referenzdokumentation zu Spring Data JPA:
+xref:glossary:literaturextern:inhalt.adoc#litextern-Spring-Data-JPA[Spring-Data-JPA]
 
 2. Ableitung über eine manuell definierte Query.
 Die Query wird über die `@Query`-Annotation in JPQL direkt an die Methode des DAO geschrieben.
@@ -601,7 +600,7 @@ Sofern bei solchen Bulk-Operationen kaskadierende Änderungen benötigt werden (
 
 Begründung: Hibernate erzeugt bei der Ausführung von `BULK`-Queries unter bestimmten Umständen zur Laufzeit implizit Hilfstabellen (temporäre Tabellen mit dem Präfix HT_).
 
-NOTE: siehe http://in.relation.to/Bloggers/MultitableBulkOperations
+NOTE: siehe xref:glossary:literaturextern:inhalt.adoc#litextern-Multitable-Bulk-Operations[Multitable Bulk Operations]
 
 Dies führt dazu, dass der Datenbank-User der Anwendung entsprechende `CREATE TABLE`-Rechte benötigt, was i. d. R. nicht zugelassen ist.
 Weiterhin führt die Nutzung der temporären Tabellen in vielen Fällen zu Performance-Problemen.
@@ -701,7 +700,7 @@ Dieser kann auf der Oracle Website heruntergeladen werden.
 Zur Laufzeit bietet der Pool Informationen per JMX an, die zur Überwachung der Poolaktivität nützlich sind.
 Dazu zählt unter anderem die Anzahl aktuell ausgeliehener Verbindungen.
 
-Die zu setzenden Parameter können der folgenden Vorlage entnommen werden, wobei die genaue Bedeutung der Parameter der Oracle Dokumentation <<Ucp15>> entnommen werden kann:
+Die zu setzenden Parameter können der folgenden Vorlage entnommen werden, wobei die genaue Bedeutung der Parameter der Oracle Dokumentation xref:glossary:literaturextern:inhalt.adoc#litextern-UCP[Ucp15] entnommen werden kann:
 
 Die Konfiguration des UCP erfolgt in `application.properties` über die Properties in <<listing-configpropertiesucp>>.
 
@@ -962,7 +961,7 @@ Ein Konfigurationsbeispiel kann folgendermaßen aussehen:
 [[grundlagen]]
 === Grundlagen
 
-Unter Historisierung (auch temporale Datenhaltung genannt <<Deme05>>) versteht man das Festhalten der zeitlichen Entwicklung von Daten durch Speichern in einer Datenbank.
+Unter Historisierung (auch xref:glossary:literaturextern:inhalt.adoc#litextern-Temporale-Datenhaltung[temporale Datenhaltung] genannt) versteht man das Festhalten der zeitlichen Entwicklung von Daten durch Speichern in einer Datenbank.
 Bei den Datensätzen gibt es zwei relevante Aspekte: den Gültigkeitszeitraum eines Datensatzes und den Bearbeitungszeitpunkt eines Datensatzes.
 
 Der Gültigkeitszeitraum gibt an, wie lange ein Datensatz gültig ist.
@@ -978,7 +977,7 @@ Eine Historisierung von Datensätzen wird durchgeführt, wenn Fragen über den W
 
 Bei der Archivierung handelt es sich um die Aufbewahrung eines Datensatzes über eine längere Zeit.
 Dies ist meist aus rechtlichen Gründen notwendig z. B. wegen gesetzlicher Aufbewahrungsfristen.
-Bei der Archivierung sind dementsprechend Randbedingungen wie Integrität, Unveränderlichkeit und Vertraulichkeit einzuhalten <<ITGrundschutz>>.
+Bei der Archivierung sind dementsprechend Randbedingungen wie Integrität, Unveränderlichkeit und Vertraulichkeit einzuhalten xref:glossary:literaturextern:inhalt.adoc#litextern-IT-Grundschutz-BSI[IT-Grundschutz BSI].
 
 [[abgrenzung-datensicherung-backup]]
 ==== Abgrenzung Datensicherung (Backup)
@@ -1218,7 +1217,7 @@ Der Bestand der CDs ist ohne Historisierung wie in <<image-BestandCDoH>> modelli
 
 .Modellierung des Bestands ohne Historisierung
 [id="image-BestandCDoH",reftext="{figure-caption} {counter:figures}"]
-image::BestandCDoH.png[align="center",width=70%,pdfwidth=70%]
+image::blaupausen:detailkonzept-datenzugriff/BestandCDoH.png[align="center",width=70%,pdfwidth=70%]
 
 Es gibt eine Entität `CD`, die eine konkrete CD repräsentiert.
 Der Schlüssel dieser `CD` ist die `isbn`.
@@ -1231,8 +1230,8 @@ In die Entität Bestand werden die Attribute `aktuellVon` und `aktuellBis` einge
 Dies ist in <<image-BestandCD>> dargestellt.
 
 .Modellierung des Bestands mit Historisierung
-[id="image-BestandCD",reftext="{
-image::BestandCD.png[align="center",width=70%,pdfwidth=70%]
+[id="image-BestandCD",reftext="{figure-caption} {counter:figures}"]
+image::blaupausen:detailkonzept-datenzugriff/BestandCD.png[align="center",width=70%,pdfwidth=70%]
 
 Schritt 2: Erweiterung des DAOs
 
@@ -1240,7 +1239,7 @@ Das DAO für die Entität Bestand ohne Historisierung ist in <<image-BestandDaoo
 
 .BestandDao ohne Funktionen zur Historisierung
 [id="image-BestandDaooFzH",reftext="{figure-caption} {counter:figures}"]
-image::BestandDaooFzH.png[align="center",width=50%,pdfwidth=50%]
+image::blaupausen:detailkonzept-datenzugriff/BestandDaooFzH.png[align="center",width=50%,pdfwidth=50%]
 
 Um ein neues Objekt Bestand zu persistieren, wird eine Instanz von Bestand erzeugt und anschließend `speichereBestand(Bestand)` aufgerufen.
 Die Methode `leseBestand(String)` liest den Bestand einer CD, die durch den übergebenen String (die isbn) identifiziert wird.
@@ -1249,7 +1248,7 @@ Um den Bestand historisierbar zu machen, werden die folgenden Erweiterungen vorg
 
 .BestandDao mit Erweiterungen für Historisierung
 [id="image-BestandDao",reftext="{figure-caption} {counter:figures}"]
-image::BestandDao.png[align="center",width=50%,pdfwidth=50%]
+image::blaupausen:detailkonzept-datenzugriff/BestandDao.png[align="center",width=50%,pdfwidth=50%]
 
 Die Methode `erzeugeNeueVersionBestand(Bestand)` wurde eingefügt.
 
@@ -1390,7 +1389,7 @@ Die nachfolgende Abbildung zeigt noch einmal die einzelnen Schritte der Installa
 
 .Installationsablauf bei der Neuanlage
 [id="image-instbeineuan",reftext="{figure-caption} {counter:figures}"]
-image::instbeineuan.png[align="center"]
+image::blaupausen:detailkonzept-datenzugriff/instbeineuan.png[align="center"]
 
 [[struktur-der-installationsskripte-fuer-die-neuanlage]]
 ==== Struktur der Installationsskripte für die Neuanlage
@@ -1420,7 +1419,7 @@ Die nachfolgende Abbildung zeigt noch einmal die Beziehung zwischen den einzelne
 
 .Beziehungen zwischen den Installationsskripten
 [id="image-BezzwischInst",reftext="{figure-caption} {counter:figures}"]
-image::BezzwischInst.png[align="center"]
+image::blaupausen:detailkonzept-datenzugriff/BezzwischInst.png[align="center"]
 
 Templates für die Skripte sind als Ressourcen in der Bibliothek `isy-persistence` abgelegt.
 
@@ -1452,7 +1451,7 @@ Die nachfolgende Abbildung zeigt noch einmal die einzelnen Schritte der Installa
 
 .Ablauf bei der Schemaänderung
 [id="image-instbeineuan2",reftext="{figure-caption} {counter:figures}"]
-image::instbeineuan.png[align="center"]
+image::blaupausen:detailkonzept-datenzugriff/instbeineuan.png[align="center"]
 
 [[struktur-der-aenderungsskripte]]
 ==== Struktur der Änderungsskripte
@@ -1483,7 +1482,7 @@ Die nachfolgende Abbildung zeigt noch einmal die Beziehung zwischen den einzelne
 
 .Beziehungen zwischen den Änderungsskripten
 [id="image-bezzwischenAend",reftext="{figure-caption} {counter:figures}"]
-image::bezzwischenAend.png[align="center"]
+image::blaupausen:detailkonzept-datenzugriff/bezzwischenAend.png[align="center"]
 
 Templates für die Skripte sind als Ressourcen in der Bibliothek `isy-persistence` abgelegt.
 
@@ -1533,7 +1532,7 @@ Auf diese Weise legt das Anwendungssystem selbst fest, welche anderen Systeme Zu
 
 Im Gegensatz zu schemaübergreifenden Operationen wird von datenbankübergreifenden Operationen dringlichst abgeraten.
 Nur eine Lösung, Oracle Database Links, bietet im Zusammenspiel mit Oracle-Datenbanken eine generische, transaktionssichere Lösung für dieses Problem an.
-Allerdings sind Oracle Database Links laut Maßnahme M 4.71 des IT-Grundschutzes (<<ITGrundschutzM471>>) nur unter strengen Auflagen zulässig, die eine Verwendung erheblich erschweren.
+Allerdings sind Oracle Database Links laut Maßnahme M 4.71 des IT-Grundschutzes (xref:glossary:literaturextern:inhalt.adoc#litextern-IT-Grundschutz-M471[IT-Grundschutz M471]) nur unter strengen Auflagen zulässig, die eine Verwendung erheblich erschweren.
 
 Mit dem Wegfall dieser Lösung gibt es aus Sicht der IsyFact keine geeignete Lösung, um Daten zwischen mehreren Schemata auf unterschiedlichen Datenbank-Instanzen zu bearbeiten.
 Unabhängig von der Lösung erschweren datenbankübergreifende Operationen die Fehlersuche im Falle einer fehlgeschlagenen Installation oder Aktualisierung wesentlich.

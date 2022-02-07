@@ -10,7 +10,7 @@ Die GUI ist hervorgehoben.
 
 .Softwaretechnische Referenzarchitektur einer Geschäftsanwendung
 [id="image-RAGaAnw",reftext="{figure-caption} {counter:figures}"]
-image::IFRefArcITSysGUI.png[align="center"]
+image::blaupausen:detailkonzept-web-gui/IFRefArcITSysGUI.png[align="center"]
 
 Das vorliegende Dokument beschreibt die Ausgestaltung der Komponente Web-GUI.
 Aufgabe der Komponente Web-GUI ist es, die Funktionalität der Anwendung für einen menschlichen Nutzer zur Verfügung zu stellen.
@@ -25,7 +25,7 @@ Die GUI-Komponenten umfassen für jeden Dialog aus der Systemspezifikation eine 
 
 .Komposition von Dialogen zu GUI-Komponenten
 [id="image-KompDiazuGUI",reftext="{figure-caption} {counter:figures}"]
-image::KompDiazuGUI.png[align="center",pdfwidth=80%,width=80%]
+image::blaupausen:detailkonzept-web-gui/KompDiazuGUI.png[align="center",pdfwidth=80%,width=80%]
 
 === Aufbau der Dialog-Komponenten
 
@@ -36,17 +36,17 @@ Die durchgehenden Pfeile zeigen eine direkte Assoziation (z.B. eine Aufrufbezieh
 
 .MVC-Muster
 [id="image-MVCPat",reftext="{figure-caption} {counter:figures}"]
-image::MVC.png[align="center"]
+image::blaupausen:detailkonzept-web-gui/MVC.png[align="center"]
 
 Die Dialog-Komponenten definieren zentrale Klassen als Spring Beans (i.d.R. Controller) und binden alle Abhängigkeiten über Dependency Injection ein.
 
 === Namenskonvention
 Folgende Namenskonventionen sind für die Klassen verpflichtend:
 
-//tag::namenskonvention[]
 [[modelklassen]]
 ==== Modelklassen
 
+//tag::namenskonvention[]
 .Klassennamen Modelklassen
 [id="table-classnammodclass",reftext="{table-caption} {counter:tables}"]
 [cols="1,4",options="header"]
@@ -55,10 +55,12 @@ Folgende Namenskonventionen sind für die Klassen verpflichtend:
 |*Schema* m|<Entitätsname>Model
 |*Beispiele* m|CdErwerbModel
 |====
+//end::namenskonvention[]
 
 [[controllerklassen]]
 ==== Controllerklassen
 
+//tag::namenskonvention[]
 .Klassennamen Controllerklassen
 [id="table-classnamcontrclass",reftext="{table-caption} {counter:tables}"]
 [cols="1,4",options="header"]
@@ -67,10 +69,12 @@ Folgende Namenskonventionen sind für die Klassen verpflichtend:
 |*Schema* m|<Maskenname>Controller
 |*Beispiele* m|CdErwerbController
 |====
+//end::namenskonvention[]
 
 [[flows]]
 ==== Flows
 
+//tag::namenskonvention[]
 .Flows
 [id="table-flows1",reftext="{table-caption} {counter:tables}"]
 [cols="1,4",options="header"]
@@ -79,10 +83,12 @@ Folgende Namenskonventionen sind für die Klassen verpflichtend:
 |*Schema* m|<Dialogname>Flow.xml
 |*Beispiele* m|cdErwerbFlow.xml
 |====
+//end::namenskonvention[]
 
 [[main-view-von-flows]]
 ==== Main-View von Flows
 
+//tag::namenskonvention[]
 .Main View von Flows
 [id="table-mvvflow",reftext="{table-caption} {counter:tables}"]
 [cols="1,4",options="header"]
@@ -92,10 +98,12 @@ Folgende Namenskonventionen sind für die Klassen verpflichtend:
 |*Beispiele* m|cdErwerbViewState.xhtml +
 cdSucheViewState.xhtml
 |====
+//end::namenskonvention[]
 
 [[weitere-facelets]]
 ==== Weitere Facelets
 
+//tag::namenskonvention[]
 .Facelets
 [id="table-facelets",reftext="{table-caption} {counter:tables}"]
 [cols="1,4",options="header"]
@@ -104,10 +112,12 @@ cdSucheViewState.xhtml
 |*Schema* m|<maskenname><maskenteil>.xhtml
 |*Beispiele* m|cdErwerbFormular1.xhtml
 |====
+//end::namenskonvention[]
 
 [[view-state-javascript-datei]]
 ==== View-State Javascript-Datei
 
+//tag::namenskonvention[]
 .View-State Javascript-Date
 [id="table-vstatejsdat",reftext="{table-caption} {counter:tables}"]
 [cols="1,4",options="header"]

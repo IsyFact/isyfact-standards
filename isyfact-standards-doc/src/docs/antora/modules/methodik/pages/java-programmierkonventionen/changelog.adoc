@@ -1,5 +1,4 @@
 = Java-Programmierkonventionen: Changelog
-include::{isy-dokumentvorlagen}/docs/common/isyfact-attributes.adoc[]
 
 // tag::inhalt[]
 [[changelog]]

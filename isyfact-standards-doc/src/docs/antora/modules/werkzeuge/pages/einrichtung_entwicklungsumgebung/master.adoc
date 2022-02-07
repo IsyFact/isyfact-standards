@@ -4,10 +4,11 @@
 = Handbuch
 
 :sectnums:
+:sectnumlevels: 4
 
 :experimental:
 
-include::allgemein:partial$licence.adoc[]
+include::glossary:licence:partial$licence.adoc[]
 
 include::thisdoc.adoc[tags=inhalt]
 

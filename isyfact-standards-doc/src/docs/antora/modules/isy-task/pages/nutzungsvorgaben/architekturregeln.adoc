@@ -4,6 +4,5 @@
 == Architekturregeln Task Scheduling
 
 include::inhalt.adoc[tags=architekturregel]
-// TODO bei Antora-Umstellung
-//include::../Konzept_Task_Scheduling/inhalt.adoc[tags=architekturregel]
+include::../konzept/inhalt.adoc[tags=architekturregel]
 // end::architekturregeln[]

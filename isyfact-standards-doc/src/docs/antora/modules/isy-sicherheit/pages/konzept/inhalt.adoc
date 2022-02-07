@@ -48,7 +48,7 @@ Wie genau Rollen und Rechte spezifiziert werden, beschreibt das Kapitel xref:kon
 [[sicherheitsarchitektur-eines-it-systems]]
 == Sicherheitsarchitektur eines IT-Systems
 
-Der Baustein Sicherheit bildet eine Komponente des Querschnitts der <<TODO anderes Dokument: IsyFactReferenzarchitekturITSystem>>.
+Der Baustein Sicherheit bildet eine Komponente des Querschnitts der xref:blaupausen:referenzarchitektur-it-system/master.adoc#einleitung[IsyFact Referenzarchitektur IT-Systeme].
 Er ist von jedem IT-System zur Autorisierung von Zugriffen und Vorgängen zu verwenden.
 Für ein korrektes Funktionieren benötigt der Baustein die Komponente `AufrufKontextVerwalter`, deren Verwendung ebenfalls in diesem Kapitel erläutert wird.
 
@@ -82,7 +82,7 @@ Die folgende Abbildung zeigt den logischen Aufbau für die Authentifizierung und
 
 .Software-Architektur der Berechtigungsprüfung
 [id="image-Berechtigungspruefung",reftext="{figure-caption} {counter:figures}"]
-image::software-architektur-berechtigungspruefung.png[align="center"]
+image::isy-sicherheit:konzept/software-architektur-berechtigungspruefung.png[align="center"]
 
 Im Folgenden werden die Aufgaben und grobe Funktionsweise der Komponenten für die Autorisierung von Anfragen in einer xref:glossary:glossary:master.adoc#glossar-Geschaeftsanwendung[Geschäftsanwendung]  erläutert.
 
@@ -106,7 +106,7 @@ Die gewonnenen Informationen werden im `AufrufKontextVerwalter` hinterlegt.
 Für den `Sicherheit-Adapter` wird ein eigenes Modul/Artefakt empfohlen. Dieser `Sicherheit-Adapter` bildet anschließend die Verbindung zu dem IAM-System (Authentifizierungssystem in obiger Abbildung).
 
 Die Authentifizierung und Autorisierung von Web-Zugriffen wird über Spring Security durchgeführt.
-Die Integration von Spring Security und des Bausteins Sicherheit wird im <<TODO anderes Dokument: DetailkonzeptKomponenteWebGUI>> beschrieben.
+Die Integration von Spring Security und des Bausteins Sicherheit wird im xref:blaupausen:detailkonzept-komponente-web-gui/master.adoc#_detailkonzept[Detailkonzept Komponente WebGUI]) beschrieben.
 
 [[aussensicht-der-komponente-sicherheit]]
 === Schnittstelle des Bausteins Sicherheit
@@ -115,7 +115,7 @@ Im Folgenden wird die Schnittstelle des Bausteins Sicherheit beschrieben.
 
 .Schnittstelle des Bausteins Sicherheit
 [id="image-schnittstelle-sicherheit",reftext="{figure-caption} {counter:figures}"]
-image::sicherheit-schnittstellen.png[align="center"]
+image::nutzungsvorgaben/sicherheit-schnittstellen.png[align="center"]
 
 Die zentrale Schnittstelle für den Zugriff auf Rollen und Rechte eines Anwenders ist `Berechtigungsmanager`.
 Instanzen des Berechtigungsmanagers zur Autorisierung einer Anfrage werden über die Schnittstelle `Sicherheit` erzeugt.
@@ -219,7 +219,7 @@ Die Abbildung <<image-rollen-beziehungen>> verdeutlicht den Inhalt der folgenden
 
 .Beziehungen zwischen fachlichen und technischen Rollen
 [id="image-rollen-beziehungen",reftext="{figure-caption} {counter:figures}"]
-image::rollen-beziehungen.png[align="center",pdfwidth=70%,width=70%]
+image::isy-sicherheit:konzept/rollen-beziehungen.png[align="center",pdfwidth=70%,width=70%]
 
 [[technische-rollen]]
 ==== Technische Rollen
@@ -323,7 +323,7 @@ Der folgende Prozess bietet eine grobe Richtlinie:
 
 .Absicherung durch Rechte und Aggregation in Rollen
 [id="image-rollen-erstellung",reftext="{figure-caption} {counter:figures}"]
-image::rollen-erstellung.png[align="center",pdfwidth=70%,width=70%]]
+image::isy-sicherheit:konzept/rollen-erstellung.png[align="center",pdfwidth=70%,width=70%]]
 
 [start=3]
 . In Abstimmung mit den fachlichen Ansprechpartnern und der Benutzeradministration wird ermittelt, ob und welche zusätzlichen technischen Anwender benötigt werden.
