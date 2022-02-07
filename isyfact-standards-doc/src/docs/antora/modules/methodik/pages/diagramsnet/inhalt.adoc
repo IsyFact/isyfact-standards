@@ -63,7 +63,7 @@ image::diagramsnet/dn-abb-erstellen-eigenschaften.dn.svg[align="center"]
 1. Auswahl eines Beispieldiagramms; Empfehlung btn:[leeres Diagramm]
 2. Auswahl des Speicherformats; Empfehlung btn:[Editierbares Vektor Bild .svg] welches neben dem Zielbild die Modell-Source in den Metadaten des Bildes vorhält und damit editierbar macht
 3. Vergabe des Dateinamens; Empfehlung: Suffix zur Kennzeichnung der im Zielbild enthaltenen diagrams.net Modell-Sourcen (`<Dateiname>.dn.svg`)
-4. Mit btn:[Erstellen] wird dann eine Abbildung initialisiert aber noch nicht der Ablageort festgelegt
+4. Mit btn:[Erstellen] wird dann eine Abbildung initialisiert, aber noch nicht der Ablageort festgelegt
 
 Zum Speichern ist im menu:Datei[Speichern unter]-Dialog der Ablageort zu wählen und als Dateityp btn:[Editierbares Vektor Bild (.svg (*.svg)] zu bestätigen.
 Der Ablageort sollte beim Quellcode liegen.
