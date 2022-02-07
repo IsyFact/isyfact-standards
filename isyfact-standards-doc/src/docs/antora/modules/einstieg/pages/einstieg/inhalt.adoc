@@ -65,7 +65,7 @@ Diesen Vorgang bezeichnet man insgesamt als __Tailoring__.
 Das Resultat des Tailorings ist eine spezifische Factory für einen Anwendungskontext, wie sie z.B. beim Bundesverwaltungsamt in
 Form der Register Factory für den Kontext der Register Anwendungen erstellt wurde.
 
-NOTE: https://http://www.register-factory.de[register-factory.de]
+NOTE: xref:glossary:literaturextern:inhalt.adoc#litextern-Register-Factory[Register Factory]
 
 Das Tailoring ist ein sinnvoller Schritt, um möglichst viel Wissen über die Entwicklung von Anwendungen in Form einer Factory vorzuhalten.
 Es ist für die Nutzung der IsyFact jedoch nicht erforderlich.
@@ -341,7 +341,7 @@ Somit bedingt die Architektur einer Geschäftsanwendung maßgeblich die Struktur
 
 Zu den dargestellten softwaretechnischen Komponenten gibt es jeweils ein Detailkonzept, das die technische Umsetzung der Komponente beschreibt.
 Dazu bietet die IsyFact fertige Bausteine an, die bei der Umsetzung helfen.
-Eine beispielhafte Umsetzung eines IT-Systems zeigt die <<TODO anderes Dokument: Vorlageanwendung>>.
+Eine beispielhafte Umsetzung eines IT-Systems zeigt die xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung].
 
 Datenzugriff::
 Der Datenzugriff erfolgt über JPA.
@@ -397,12 +397,12 @@ Sie enthält außerdem das Vorgehen zur Erstellung und Beispiele für die zu bes
 === Vorgaben für die Realisierung
 
 Die Realisierung hat gemäß den xref:methodik:java-programmierkonventionen/master.adoc#einleitung[Java Programmierkonventionen] zu erfolgen.
-Die Versionierung von Bibliotheken und Anwendungen muss sich nach den Vorgaben zur xref:werkzeuge:versionierungskontrolle/master.adoc#maven-plugin-versionierungskontrolle[IsyFact Versionierung] richten, die im Wesentlichen auf https://semver.org[Semantic Versioning] basieren.
+Die Versionierung von Bibliotheken und Anwendungen muss sich nach den Vorgaben zur xref:werkzeuge:versionierungskontrolle/master.adoc#maven-plugin-versionierungskontrolle[IsyFact Versionierung] richten, die im Wesentlichen auf xref:glossary:literaturextern:inhalt.adoc#litextern-Semantic-Versioning[Semantic Versioning] basieren.
 Für die Entwicklungsumgebung gelten wenige Vorgaben, die in xref:werkzeuge:einrichtung_entwicklungsumgebung/master.adoc#einleitung[IsyFact Einrichtung Entwicklungsumgebung] zusammengefasst sind.
 
 Die Bibliotheken der IsyFact werden als JAR (Java Archive) bereitgestellt und können über ihre Maven-Koordinaten leicht als Abhängigkeit in die Anwendungsentwicklung eingebunden werden.
 
-Darüber hinaus existiert eine <<TODO anderes Dokument: Vorlageanwendung>>, die eine einfache Geschäftsanwendung („Terminfindung“) auf Grundlage der IsyFact implementiert.
+Darüber hinaus existiert eine xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung], die eine einfache Geschäftsanwendung („Terminfindung“) auf Grundlage der IsyFact implementiert.
 
 Neben der Vorlageanwendung gibt es mit dem IsyFact-Tutorial xref:einstieg:tutorial/master.adoc#einleitung[IsyFact Tutorial] eine weitere Handreichung, um sich in die Implementierungsvorgaben einzuarbeiten.
 
@@ -491,7 +491,7 @@ Diese werden in xref:isy-util:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvo
 == IsyFact-Erweiterungen
 
 Aktuell werden nur wenige Erweiterungen unter einer Open-Source-Lizenz zur Verfügung gestellt (siehe auch Kapitel <<aktueller-stand-und-weiterentwicklung>>).
-Auf den https://www.bva.bund.de/DE/Das-BVA/Aufgaben/I/Informationstechnik/RegisterFactory/Produkt/produkt_rf_node.html#doc241990bodyText6[Webseiten der Register Factory] befindet sich eine Übersicht über vorhandene Bausteine, die in Zukunft potentiell als IsyFact-Erweiterung zur Verfügung gestellt werden.
+Auf den xref:glossary:literaturextern:inhalt.adoc#litextern-Webseiten-Register-Factory[Webseiten der Register Factory] befindet sich eine Übersicht über vorhandene Bausteine, die in Zukunft potentiell als IsyFact-Erweiterung zur Verfügung gestellt werden.
 Teilweise können diese auf Anfrage herausgegeben werden.
 
 NOTE: Bei Interesse wenden Sie sich bitte per E-Mail (isyfact@bva.bund.de) an uns.
@@ -512,7 +512,7 @@ Die <<TODO anderes Dokument: NutzungsvorgabenBenutzerverwaltung>> zeigen, wie di
 [[styleguide]]
 ==== Styleguide
 Der Baustein Styleguide beschreibt die Gestaltung grafischer Oberflächen nach einheitlichen Gesichtspunkten.
-Das zentrale Dokument, der <<Styleguide>>, enthält Vorgaben zu Aufbau und Gestaltung von Web-GUIs.
+Das zentrale Dokument, der <<TODOStyleguide>>, enthält Vorgaben zu Aufbau und Gestaltung von Web-GUIs.
 Der Styleguide definiert ebenfalls Form und Funktion der in der IsyFact verfügbaren Anzeige- und Bedienelemente.
 Neben dem Dokument beinhaltet der Baustein eine Software-Bibliothek, welche die Vorgaben als CSS-Stile zur Nutzung bereitstellt.
 

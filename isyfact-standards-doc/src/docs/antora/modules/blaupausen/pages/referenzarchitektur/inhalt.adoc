@@ -102,6 +102,7 @@ Hierdurch verbessert sich die Verständlichkeit, Wartbarkeit und Betreibbarkeit 
 *Effizienz:* Durch die Verwendung vorhandener Querschnittssysteme, Bibliotheken, Generatoren, Beispielanwendungen und die Vorgaben der Referenzarchitektur können die Anwendungssysteme effizienter entwickelt und gewartet werden.
 Durch die infrastrukturelle und betriebliche Gleichartigkeit der Anwendungssysteme können diese effizienter betrieben werden.
 
+//Dokument existiert auch in der alten Doku nicht
 *Sicherheit:* Die Referenzarchitektur sieht bewährte Technologien und Produkte, eine Infrastruktur nach der Architekturrichtlinie für die IT des Bundes <<TODO anderes Dokument: ArchitekturRichtlinieITBund>>, und nach klaren architektonischen Vorgaben erstellte Anwendungssysteme vor.
 Die Risiken für Ausfälle, Fehler oder Sicherheitslücken wird hierdurch reduziert und die Zukunftssicherheit der Anwendungssysteme erhöht.
 
@@ -642,6 +643,7 @@ image::blaupausen:referenzarchitektur/TIArchSWTU.png[align="center",pdfwidth=80%
 === Minimalanforderungen an die Ablaufumgebung
 
 Als Ablaufumgebung benötigen die gemäß der Referenzarchitektur (siehe Kapitel <<die-software-referenzarchitektur>>) erstellten IT-Systeme einen Tomcat Servlet-Container.
+//Dokument existiert auch in der alten Doku nicht
 Die Vorgaben zur Konfiguration des Tomcat sind im Dokument <<TODO anderes Dokument: TomcatNutzungskonzept>> beschrieben.
 
 Service-Gateway-Systeme und das Portal benötigen zusätzlich noch einen Apache-Webserver.

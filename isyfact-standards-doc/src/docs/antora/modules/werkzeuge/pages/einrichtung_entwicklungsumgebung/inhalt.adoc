@@ -581,7 +581,7 @@ Die Einbindung und Konfiguration von Checkstyle erfolgt über Plugins in der ver
 * Neben dem Eingabefeld _Work With:_ auf die Schaltfläche btn:[Add...] klicken und folgende Daten eintragen: +
 +
 _Name_: Eclipse Checkstyle Plugin +
-_Location_: https://checkstyle.github.io/eclipse-cs/update
+_Location_: xref:glossary:literaturextern:inhalt.adoc#litextern-Eclipse-Checkstyle-Plugin[Eclipse Checkstyle Plugin]
 
 .Installationsquelle für Checkstyle hinzufügen
 [id="image-checkstyle-source",reftext="{figure-caption} {counter:figures}"]

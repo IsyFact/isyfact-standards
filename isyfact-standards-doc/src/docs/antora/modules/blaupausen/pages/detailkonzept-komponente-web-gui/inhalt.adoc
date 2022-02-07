@@ -43,10 +43,10 @@ Die Dialog-Komponenten definieren zentrale Klassen als Spring Beans (i.d.R. Cont
 === Namenskonvention
 Folgende Namenskonventionen sind für die Klassen verpflichtend:
 
-//tag::namenskonvention[]
 [[modelklassen]]
 ==== Modelklassen
 
+//tag::namenskonvention[]
 .Klassennamen Modelklassen
 [id="table-classnammodclass",reftext="{table-caption} {counter:tables}"]
 [cols="1,4",options="header"]
@@ -55,10 +55,12 @@ Folgende Namenskonventionen sind für die Klassen verpflichtend:
 |*Schema* m|<Entitätsname>Model
 |*Beispiele* m|CdErwerbModel
 |====
+//end::namenskonvention[]
 
 [[controllerklassen]]
 ==== Controllerklassen
 
+//tag::namenskonvention[]
 .Klassennamen Controllerklassen
 [id="table-classnamcontrclass",reftext="{table-caption} {counter:tables}"]
 [cols="1,4",options="header"]
@@ -67,10 +69,12 @@ Folgende Namenskonventionen sind für die Klassen verpflichtend:
 |*Schema* m|<Maskenname>Controller
 |*Beispiele* m|CdErwerbController
 |====
+//end::namenskonvention[]
 
 [[flows]]
 ==== Flows
 
+//tag::namenskonvention[]
 .Flows
 [id="table-flows1",reftext="{table-caption} {counter:tables}"]
 [cols="1,4",options="header"]
@@ -79,10 +83,12 @@ Folgende Namenskonventionen sind für die Klassen verpflichtend:
 |*Schema* m|<Dialogname>Flow.xml
 |*Beispiele* m|cdErwerbFlow.xml
 |====
+//end::namenskonvention[]
 
 [[main-view-von-flows]]
 ==== Main-View von Flows
 
+//tag::namenskonvention[]
 .Main View von Flows
 [id="table-mvvflow",reftext="{table-caption} {counter:tables}"]
 [cols="1,4",options="header"]
@@ -92,10 +98,12 @@ Folgende Namenskonventionen sind für die Klassen verpflichtend:
 |*Beispiele* m|cdErwerbViewState.xhtml +
 cdSucheViewState.xhtml
 |====
+//end::namenskonvention[]
 
 [[weitere-facelets]]
 ==== Weitere Facelets
 
+//tag::namenskonvention[]
 .Facelets
 [id="table-facelets",reftext="{table-caption} {counter:tables}"]
 [cols="1,4",options="header"]
@@ -104,10 +112,12 @@ cdSucheViewState.xhtml
 |*Schema* m|<maskenname><maskenteil>.xhtml
 |*Beispiele* m|cdErwerbFormular1.xhtml
 |====
+//end::namenskonvention[]
 
 [[view-state-javascript-datei]]
 ==== View-State Javascript-Datei
 
+//tag::namenskonvention[]
 .View-State Javascript-Date
 [id="table-vstatejsdat",reftext="{table-caption} {counter:tables}"]
 [cols="1,4",options="header"]

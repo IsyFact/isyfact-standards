@@ -9,13 +9,12 @@
 ==== RPM-Pakete
 
 Für die Benennung von RPM-Paketen existiert eine Konvention, welche durch den RPM-Standard vorgeben wird.
-Diese Vorgaben sind ebenfalls im <<DeploymentKonzept>> zu finden.
+Diese Vorgaben sind ebenfalls im <<TODODeploymentKonzept>> zu finden.
 
-NOTE: Siehe https://rpm-packaging-guide.github.io/#what-is-a-spec-file[RPM Packaging Guide]
+NOTE: Siehe xref:glossary:literaturextern:inhalt.adoc#litextern-RPM-Packaging-Guide[RPM Packaging Guide]
 
-:desc-table-rpmpak: RPM-Pakete
+.RPM-Pakete
 [id="table-rpmpak",reftext="{table-caption} {counter:tables}"]
-.{desc-table-rpmpak}
 [cols="1,4",options="header"]
 |====
 2+|RPM-Pakete
@@ -32,7 +31,7 @@ Beispiel:
 * `<awl>-fachanwendung-gk-...`
 * `<awl>-fachanwendung-gkbatch-...`
 
-m|<versionsnummer> |Versionsnummer der Deployment-Einheit, z.B. „1.2.0“. Die Versionierung basiert auf Semantic Versioning und ist im Konzept <<IsyFactVersionierung>> beschrieben.
+m|<versionsnummer> |Versionsnummer der Deployment-Einheit, z.B. „1.2.0“. Die Versionierung basiert auf Semantic Versioning und ist im Konzept xref:methodik:versionierung/master.adoc[IsyFact Versionierung] beschrieben.
 m|<build-version> a|
 Hier wird die Build-Nummer eingesetzt.
 Sie wird bei dem Bau jeder Auslieferungsversion (insbesondere auch bei Nachlieferungen) erhöht.
@@ -49,9 +48,8 @@ Sollten Anwendungen Architektur-spezifische Bestandteile enthalten, wird hier di
 
 Die Installationspfade sind ausführlich im Konzept beschrieben.
 
-:desc-table-instpathanw: Installationspfade – Anwendung
+.Installationspfade – Anwendung
 [id="table-instpathanw",reftext="{table-caption} {counter:tables}"]
-.{desc-table-instpathanw}
 [cols="1,4",options="header"]
 |====
 2+|Installationspfade – Anwendung

@@ -295,15 +295,14 @@ Einige der hier genannten Namenskonventionen sind von denen der Spezifikation ab
 [[artefakte-module]]
 ==== Maven-Artefakte und -Module
 
-TODO
-include::../../40_Methodik/Java-Programmierkonventionen/inhalt.adoc[tag=namenskonvention]
+include::methodik:page$java-programmierkonventionen/inhalt.adoc[tag=namenskonvention]
 
 
 [[technische-systemnamen]]
 ==== Technische Systemnamen
 
 Die technischen Systemnamen entsprechen der technischen Bezeichnung für ein IsyFact-konformes Anwendungssystem.
-Sie werden unter anderem für Projektnamen in Eclipse, Dokument Basis / Context Root bei Schnittstellen-URLs und als Namen von Deployment-Einheiten (vgl. Kapitel <<TODOrpm-pakete>>) verwendet.
+Sie werden unter anderem für Projektnamen in Eclipse, Dokument Basis / Context Root bei Schnittstellen-URLs und als Namen von Deployment-Einheiten (vgl. Kapitel <<rpm-pakete>>) verwendet.
 
 [[geschaeftsanwendung-1]]
 ===== Geschäftsanwendung
@@ -335,7 +334,6 @@ m|<verfahren> |Der (Kurz)name des Verfahrens/Anwendungsbereichs.
 
 [[servicegateway]]
 ===== Servicegateway
-
 
 TODO
 include::../../20_Bausteine/Konzept_Servicegateway/inhalt.adoc[tag=namenskonvention]
@@ -416,30 +414,23 @@ Der Name einer Web-Applikation (Webapp-Root) ist immer gleich dem technischen Sy
 
 [[persistenz]]
 ==== Persistenz
-TODO
-include::../../10_Blaupausen/Detailkonzept_Komponente_Datenzugriff/inhalt.adoc[tag=namenskonvention]
+include::blaupausen:page$detailkonzept-komponente-datenzugriff/inhalt.adoc[tag=namenskonvention]
 
 ===  Anwendungskern
-TODO
-include::../../10_Blaupausen/Detailkonzept_Komponente_Anwendungskern/inhalt.adoc[tag=namenskonvention]
+include::blaupausen:page$detailkonzept-komponente-anwendungskern/inhalt.adoc[tag=namenskonvention]
 
 [[batches]]
 === Batchbereich
-TODO
-include::../../10_Blaupausen/Detailkonzept_Komponente_Batch/inhalt.adoc[tag=namenskonvention]
-
+include::blaupausen:page$detailkonzept-komponente-batch/inhalt.adoc[tag=namenskonvention]
 
 [[schnittstellen]]
 === Externe Schnittstellen aus Sicht der Anwendung
-TODO
-include::../../10_Blaupausen/Detailkonzept_Komponente_Service/inhalt.adoc[tag=namenskonvention]
-include::../../20_Bausteine/Konzept_HttpInvoker/inhalt.adoc[tag=namenskonvention]
+include::blaupausen:page$detailkonzept-komponente-service/inhalt.adoc[tag=namenskonvention]
+include::isy-serviceapi-core:page$konzept/inhalt.adoc[tag=namenskonvention]
 
 [[web-gui]]
 ==== Web-GUI
-TODO
-include::../../10_Blaupausen/Detailkonzept_Komponente_Web_GUI/inhalt.adoc[tag=namenskonvention]
-
+include::blaupausen:page$detailkonzept-komponente-web-gui/inhalt.adoc[tag=namenskonvention]
 
 [[deploymentbetrieb-von-anwendungen]]
 === Deployment/Betrieb von Anwendungen

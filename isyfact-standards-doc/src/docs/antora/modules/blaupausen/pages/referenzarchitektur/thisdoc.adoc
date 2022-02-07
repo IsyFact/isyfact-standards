@@ -111,14 +111,14 @@ Es hat zur Folge, dass als Application Server ein Servlet-Container ausreichend 
 [[referenzarchitektur-der-technischen-infrastruktur]]
 ==== Referenzarchitektur der technischen Infrastruktur
 
-Im Bereich der technischen Infrastruktur (xref:glossary:glossary:master.adoc#glossar-TI-Architektur>[IT-Architektur] <<>>) werden folgende Umgebungen beschrieben:
+Im Bereich der technischen Infrastruktur (xref:glossary:glossary:master.adoc#glossar-TI-Architektur>[IT-Architektur]) werden folgende Umgebungen beschrieben:
 
 * Produktionsumgebung,
 * Staging-Umgebung,
 * Schulungs- und externe Testumgebung,
 * Entwicklungs- und Abnahme-Testumgebung.
 
-Die Aufteilung in Zonen leitet sich aus dem SAGA 4-Standard ab <<TODO anderes Dokument: AGA40>>.
+Die Aufteilung in Zonen leitet sich aus dem SAGA 4-Standard ab xref:glossary:literaturextern:inhalt.adoc#litextern-SAGA_4.0[SAGA 4.0].
 
 NOTE: Wir orientieren uns hier nach wie vor am SAGA 4-Standard, da SAGA 5 kein Zonenmodell mehr enthält.
 

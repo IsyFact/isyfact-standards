@@ -198,7 +198,7 @@ Auch hier enthält das Service-Gateway keine Geschäftslogik.
 Die Java-Klassen und -Interfaces eines Services existieren in allen Versionen der Service-Schnittstelle und unterscheiden sich inhaltlich
 durch die in der neuen Version durchgeführten Änderungen.
 
-NOTE: Für die Versionierung von Schnittstellen gelten gesonderte Vorgaben, die in  xref:werkzeuge:versionskontrolle/master.adoc#einleitung[IsyFact Versionierung] definiert sind.
+NOTE: Für die Versionierung von Schnittstellen gelten gesonderte Vorgaben, die in  xref:werkzeuge:versionierungskontrolle/master.adoc#einleitung[IsyFact Versionierung] definiert sind.
 
 Zur Veröffentlichung von API-kompatiblen Änderungen wird im Maven `pom.xml` eine einstellige Versionsnummer (Minor) gesetzt.
 Kompatible Änderungen sind beispielsweise Bugfixes, neue Operationen in der Schnittstelle oder neue, optionale Attribute im Datenmodell.

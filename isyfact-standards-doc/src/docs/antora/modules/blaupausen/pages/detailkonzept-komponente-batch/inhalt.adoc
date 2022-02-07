@@ -273,7 +273,7 @@ Da eine Batch-Anwendung über Spring verwaltet wird, wird die Batchlogik als Spr
 Diese Bean wiederum ruft die Geschäftsanwendungs-Komponenten auf, welche die fachliche Logik enthalten.
 
 // Anmerkung: TODO - Die Vorlageanwendung ist eigentlich nicht mehr aktuell. Deswegen sollte der folgende Abschnitt überarbeitet oder ggf. entfernt werden.
-Für die Vorlage-Anwendung <<TODO anderes Dokument: Vorlageanwendung>> zeigt <<image-BeanGriffBat>> eine Auswahl der vorhandenen Beans.
+Für die xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlage-Anwendung] zeigt <<image-BeanGriffBat>> eine Auswahl der vorhandenen Beans.
 Wichtig ist ihre Verteilung auf zwei Anwendungskontexte: Der Batchrahmen und die Ausführungsbeans werden in einem eigenen Kontext konfiguriert.
 So müssen wenige Anpassungen vorgenommen werden, um aus der Anwendungskontext-Konfiguration als Webanwendung die Konfiguration für den Anwendungskontext im Batchbetrieb zu erhalten.
 

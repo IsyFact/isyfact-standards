@@ -8,5 +8,5 @@ Versionen von Bibliotheken, Schnittstellen und Anwendungen dienen zur eindeutige
 Dieses Konzept trifft Vorgaben und Empfehlungen zum Aufbau der Versionsnummern, um eine bessere Einheitlichkeit und Vergleichbarkeit zu gewährleisten.
 
 *Die Isyfact bietet mit dem Maven-Plugin zur Versionierungskontrolle ein Werkzeug, um die Versionierung automatisch zu überprüfen.
-Eine Anleitung zur Einbindung und Nutzung des Maven-Plugins findet sich in <<TODOMavenPluginVersionierungskontrolle>>.*
+Eine Anleitung zur Einbindung und Nutzung des Maven-Plugins findet sich in xref:werkzeuge:versionierungskontrolle/master.adoc[Maven-Plugin zur Versionierungskontrolle].*
 // end::inhalt[]

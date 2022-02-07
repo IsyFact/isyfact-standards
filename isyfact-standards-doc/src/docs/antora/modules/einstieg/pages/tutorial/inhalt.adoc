@@ -4,7 +4,7 @@
 [[bezug-isyfact]]
 == Bezug und Nutzung der IsyFact
 
-Alle Bibliotheken der IsyFact stehen über <<TODO Linkziel: MavenCentral>> zum Download bereit.
+Alle Bibliotheken der IsyFact stehen über xref:glossary:literaturextern:inhalt.adoc#litextern-Maven-Central[Maven Central] zum Download bereit.
 Zur Nutzung der Bibliotheken in der Anwendungsentwicklung steht ein zentrales BOM (Bill Of Materials) zur Verfügung, das Teil der Maven-Konfiguration (`pom.xml`) wird:
 
 .Einbindung des IsyFact-BOM
@@ -123,14 +123,14 @@ Zur Realisierung der Datenhaltung müssen folgende Aktivitäten durchgeführt we
 
 Das Datenbankschema muss angelegt werden.
 Dazu werden die benötigten DDL-Anweisungen, wie im xref:blaupausen:detailkonzept-komponente-datenzugriff/master.adoc#_detailkonzept_datenzugriff_einleitung[Detailkonzept Komponente Datenzugriff] beschrieben, in einem Verzeichnis abgelegt.
-Die <<TODO anderes Dokument: Vorlageanwendung>> enthält diese Anweisungen im Verzeichnis `src/main/skripte/sql/terminfindung`.
+Die xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung] enthält diese Anweisungen im Verzeichnis `src/main/skripte/sql/terminfindung`.
 
 Das initiale Datenmodell kann über das Tool `hbm2ddl` erzeugt werden.
 Dieses muss anschließend noch bearbeitet werden.
 
 NOTE: hbm2ddl ist Teil der Hibernate Tools und gehört zum Umfang der Standard-Hibernate Bibliothek.
 Nutzungsdokumentation unter:
-http://docs.jboss.org/hibernate/orm/4.3/manual/en-US/html_single/#toolsetguide[http://docs.jboss.org/hibernate/orm/4.3/manual/en-US/html_single/#toolsetguide]
+xref:glossary:literaturextern:inhalt.adoc#litextern-Hibernate-Toolset-Guide[Hibernate Toolset Guide]
 
 [[einbinden-der-bibliotheken]]
 ==== Einbinden der Bibliotheken
@@ -151,7 +151,7 @@ Die benötigten Bibliotheken müssen als Abhängigkeiten in die Maven-Konfigurat
 </dependencies>
 ----
 
-Eine passende Beispielkonfiguration findet sich in der Maven-Konfiguration der <<TODO anderes Dokument: Vorlageanwendung>>.
+Eine passende Beispielkonfiguration findet sich in der Maven-Konfiguration der xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung].
 
 [[implementierung-der-entitätsklassen-und-daos]]
 ==== Implementierung der Entitätsklassen und DAOs
@@ -265,7 +265,7 @@ image::einstieg:tutorial/RAIT.png[align="center"]
 [[anbieten-von-service-schnittstellen]]
 === Anbieten von Service-Schnittstellen
 
-Dieser Abschnitt beschreibt die Realisierung von HTTP Invoker Schnittstellen (siehe <<TODO Linkprüfung: Spring>>).
+Dieser Abschnitt beschreibt die Realisierung von HTTP Invoker Schnittstellen (siehe xref:glossary:literaturextern:inhalt.adoc#litextern-Spring[Spring]).
 HTTP Invoker Schnittstellen sind interne Service-Schnittstellen, die innerhalb der Anwendungslandschaft durch andere Anwendungen genutzt werden dürfen.
 
 [NOTE]
@@ -378,7 +378,7 @@ Wichtig ist, dass darin die Compiler-Version so festgelegt wird, wie es im Dokum
 
 Das Projekt muss ein Jar erzeugen, das von anderen Systemen zur Nutzung der Service-Schnittstelle benötigt wird.
 In der Pom-Datei muss konfiguriert werden, dass das Jar in das Verzeichnis `repository-deploy` (Deployment-Repository) deployt wird.
-Ein Beispiel dafür findet sich in <<TODO anderes Dokument: Vorlageanwendung>>.
+Ein Beispiel dafür findet sich in xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung].
 
 Das Schnittstellen-Projekt erhält dieselbe Group-ID wie das eigentliche Anwendungsprojekt.
 Die Artifact-ID ist `<system>-httpinvoker-sst`.
@@ -405,7 +405,7 @@ Vor der Exception-Fassade wird mit Hilfe der Annotation `@StelltLoggingKontextBe
 
 An den Methoden der Service-Implementierung werden die Annotationen `@StelltAufrufKontextBereit` und `@Gesichert` gemäß xref:isy-sicherheit:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Sicherheit] verwendet, um den Zugriff auf die Service-Methode zu autorisieren.
 
-Beispiele dafür finden sich in <<TODO anderes Dokument: Vorlageanwendung>>.
+Beispiele dafür finden sich in xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung].
 
 [[konfigurieren-der-service-schnittstelle]]
 ===== Konfigurieren der Service-Schnittstelle
@@ -760,7 +760,7 @@ Dieses hat die Aufgabe das Deployment-Paket für den Batch zusammenzustellen.
 
 Dazu wird eine neue pom.xml angelegt, die als Ziel-Typ ein Jar mit allen Dateien des Batches erzeugt.
 Zusätzlich können in diesem Projekt Shell-Skripte und ähnliches für den Batch abgelegt werden.
-Ein Beispiel ist in <<TODO anderes Dokument: Vorlageanwendung>> enthalten.
+Ein Beispiel ist in xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung] enthalten.
 
 Das Batch-Projekt enthält keinen Java-Code.
 Die Batch-Beans liegen im normalen Anwendungsprojekt.
@@ -972,7 +972,7 @@ Diese erbt von der entsprechenden Klasse aus `isy-exception-core`. Zum Laden der
  Fehlertexte wird das Interface FehlertextProvider aus derselben Bibliothek verwendet.
 In `isy-util` ist die Implementierung `MessageSourceFehlertextProvider` enthalten.
 Diese unterstützt das Laden von Fehlertexten aus einer Spring-Message-Source.
-Ein Beispiel für die Verwendung ist in der <<TODO anderes Dokument: Vorlageanwendung>> enthalten.
+Ein Beispiel für die Verwendung ist in der xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung] enthalten.
 
 [[fehlerbehandlung-an-der-anwendungsschnittstelle]]
 ===== Fehlerbehandlung an der Anwendungsschnittstelle
@@ -999,7 +999,7 @@ Vor dem Werfen der so erzeugten Exception über die Schnittstelle wird ein Log-E
 
 Beim Umwandeln der internen Exceptions in Transport-Exceptions wird der Stack-Trace der internen Exceptions verworfen.
 
-Ein Beispiel hierfür ist wieder in <<TODO anderes Dokument: Vorlageanwendung>> enthalten.
+Ein Beispiel hierfür ist wieder in xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung] enthalten.
 
 [[protokollierung]]
 === Protokollierung

@@ -7,7 +7,7 @@
 Dieses Dokument beschreibt die konzeptionellen Grundlagen des Loggings in der IsyFact.
 Es adressiert die einheitliche Erstellung von Logs in den entwickelten Anwendungen sowie deren Auswertung.
 Es bildet damit die Grundlage der technisch und fachlich einheitlichen Umsetzung des Loggings in der gesamten xref:glossary:glossary:master.adoc#glossar-Anwendungslandschaft[Anwendungslandschaft] und die davon abhängige effiziente Auswertung der Logeinträge.
-Der Aufbau einer Log-Infrastruktur zur Verarbeitung der erstellen Logdateien ist im Dokument xref:konzept/master.adoc#[Konzept Logging] <<TODO anderes Dokument: KonzeptLoggingInfrastrukturELK>> beschrieben.
+Der Aufbau einer Log-Infrastruktur zur Verarbeitung der erstellten Logdateien ist im Dokument <<TODO anderes Dokument: KonzeptLoggingInfrastrukturELK>> beschrieben.
 
 Die daraus abgeleitete Umsetzung des Loggings im Rahmen einer Anwendungsentwicklung und die möglichen Auswertungen der Logs sind in den xref:isy-logging:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Logging] beschrieben.
 Zu beachten ist, dass die Nutzungsvorgaben an einen größeren Leserkreis gerichtet sind und einige Aspekte, sind nicht nur für das Logging-Konzept sondern auch für die Nutzungsvorgaben relevant.

@@ -100,7 +100,7 @@ Durchführung eines Retries (bspw. auf Grund eines OptimisticLocking-Fehlers)
 [underline]#Hinweis zum Log-Level FATAL#: SLF4J und damit auch logback (welches `isy-logging` zugrunde liegt) besitzen kein Log-Level FATAL.
 Die Unterscheidung, ob ein Error-Logeintrag „FATAL“ ist oder nicht, kann mit Hilfe von Markern umgesetzt werden.
 
-NOTE: Siehe auch bei http://slf4j.org/faq.html#fatal
+NOTE: Siehe auch bei xref:glossary:literaturextern:inhalt.adoc#litextern-slf4j-fatal[SLF4J FATAL]
 
 `isy-logging` stellt Methoden zum Schreiben von Logeinträgen im Level ERROR als auch in FATAL bereit.
 Bei beiden wird ein Logeintrag im Level ERROR erzeugt, dieser aber je nach verwendeter Methode mit der Kategorie „FATAL“ oder „ERROR“ versehen.
