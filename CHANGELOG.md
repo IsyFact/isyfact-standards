@@ -12,6 +12,7 @@
 - `IFS-803`: [isy-sicherheit] SpotBugs Fehler behoben
 - `IFS-736`: [isy-logging] Aktive Log-Level im LogHelper prüfen
 - `IFS-686`: Property-Dateien auf Unicode Escapes umgestellt
+- `IFS-1175`: [isy-task] Eigenen FehlertextProvider fpr isy-task erstellt
 
 # 1.10.0
 - `IFS-1003`: [isy-sonderzeichen]
