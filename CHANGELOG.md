@@ -1,3 +1,6 @@
+# 2.2.1
+- `IFS-1133`: [isyfact-products-bom] Versioniere Hibernate über Spring Boot Dependencies
+
 # 2.2.0
 - `IFS-453`: [isy-ueberwachung] Loglevel für isAlive-Datei-Ereignisse erhöht.
 - `IFS-465`: Profile zum Bauen mit Java 11 erstellt
