@@ -10,8 +10,8 @@ Zu beachten ist, dass die Komponente „Service“ die Services eines IT-Systems
 Um diese Services auch externen Anwendungen zur Verfügung zu stellen, müssen die Services durch ein sogenanntes Service-Gateway exportiert werden.
 Dies ist jedoch nicht Inhalt des vorliegenden Dokuments, sondern wird im Dokument <<TODO anderes Dokument: SystemdokumentationServiceGateway>> ausführlich beschrieben.
 
-Das Dokument gliedert sich wie folgt.
+Das Dokument gliedert sich wie folgt:
 Im Abschnitt xref:detailkonzept-komponente-service/master.adoc#ueberblick[Überblick] wird kurz beschrieben, wie sich Services als eigene Komponente “Service“ in ein IT-System integrieren.
-Im Abschnitt xref:detailkonzept-komponente-service/master.adoc#aufgaben-der-service-logik[Aufgaben der Servicelogik] werden dann die Aufgaben der Komponente erläutert und Abschnitt xref:detailkonzept-komponente-service/master.adoc#aufbau-der-service-logik[Aufbau der Servicelogik] stellt den Standard-Aufbau der Komponente dar.
+Im Abschnitt xref:detailkonzept-komponente-service/master.adoc#servicelogik[Servicelogik] werden dann  Aufgaben und Aufbau der Servicelogik beschrieben.
 Die restlichen Abschnitte widmen sich fortgeschrittenen Aspekten wie xref:detailkonzept-komponente-service/master.adoc#transaktionssteuerung[Transaktionssteuerung], xref:detailkonzept-komponente-service/master.adoc#versionierung[Versionierung] und xref:detailkonzept-komponente-service/master.adoc#verfuegbarkeit[Verfügbarkeit].
 // end::inhalt[]
