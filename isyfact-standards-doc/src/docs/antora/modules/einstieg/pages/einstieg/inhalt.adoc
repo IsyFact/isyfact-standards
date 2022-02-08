@@ -456,7 +456,7 @@ Die xref:isy-task:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Task 
 
 [[ldap-zugriffe]]
 ==== LDAP-Zugriffe
-Der Zugriff auf Daten in einem Verzeichnisdienst, welches über das Lightweight Directory Access Protocol (LDAP) ist, ist im <<NutzungsvorgabenSpringLDAP>> beschrieben.
+Der Zugriff auf Daten in einem Verzeichnisservice, welches über das Lightweight Directory Access Protocol (LDAP) ist, ist im <<NutzungsvorgabenSpringLDAP>> beschrieben.
 
 [[polling]]
 ==== Polling

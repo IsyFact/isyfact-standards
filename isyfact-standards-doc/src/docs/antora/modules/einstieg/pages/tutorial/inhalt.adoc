@@ -602,7 +602,7 @@ NOTE: Die URL wird als betriebliche Konfiguration in `application.properties` au
 [[erweiterung-um-die-aufrufwiederholung-mittels-service-utilities]]
 ===== Erweiterung um die Aufrufwiederholung mittels Service Utilities
 
-Die in diesem Kapitel aufgeführte Konfiguration eines aufzurufenden Dienstes kann durch die Verwendung einer Aufruf-Wiederholungsimplementierung
+Die in diesem Kapitel aufgeführte Konfiguration eines aufzurufenden Services kann durch die Verwendung einer Aufruf-Wiederholungsimplementierung
 erweitert werden, so dass Aufrufe bei Timeouts wiederholt werden.
 Dies ist nur notwendig, sofern eine Aufrufwiederholung eine Anforderung an die Anwendung ist.
 Für die Aufruf-Wiederholung ist lediglich die Spring-Konfiguration des Proxies anzupassen:
@@ -1257,7 +1257,7 @@ Dieser Advice wird so konfiguriert, dass bei jedem Aufruf einer Methode der Serv
 === LDAP-Zugriff
 
 In diesem Abschnitt wird beschrieben, wie LDAP-Zugriffe in einer Anwendung realisiert werden.
-Dies kann notwendig sein, wenn ein Zugriff auf Daten notwendig ist, die noch nicht über eine querschnittliche Bibliothek oder einen Querschnittsdienst (z.B. Schlüsselverzeichnis) angeboten werden.
+Dies kann notwendig sein, wenn ein Zugriff auf Daten notwendig ist, die noch nicht über eine querschnittliche Bibliothek oder einen Querschnittsservice (z.B. Schlüsselverzeichnis) angeboten werden.
 
 Für die Realisierung der LDAP-Zugriffe wird Spring-LDAP verwendet.
 Daher muss die in <<listing-bib-ldap>> aufgelistete Bibliothek eingebunden werden.

@@ -193,7 +193,7 @@ Technische Rollen können fachlichen Rollen allerdings untergeordnet werden (sie
 *Enthaltene Rechte:* Die Ausstattung einer fachlichen Rolle mit Rechten beschreibt den Funktionsumfang, den diese Rolle bei Nutzung der Geschäftsanwendung ermöglicht.
 
 *Untergeordnete Rollen:* Optional können fachliche Rollen untergeordnete technische Rollen besitzen.
-Dies ist z.B. immer dann notwendig, wenn ein Anwendungsfall die Dienste eines Nachbarsystems verwendet.
+Dies ist z.B. immer dann notwendig, wenn ein Anwendungsfall die Services eines Nachbarsystems verwendet.
 Somit muss im Rahmen des Anwendungsfalls die Service-Schnittstelle des Nachbarsystems aufgerufen werden.
 Die dazu benötigte, technische Rolle muss der fachlichen Rolle untergeordnet werden, damit dies funktioniert.
 
