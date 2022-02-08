@@ -497,7 +497,7 @@ Eine detaillierte Liste der verbindlichen und empfohlenen Produkte sind im Dokum
 [[die-referenzarchitektur-der-technischen-infrastruktur]]
 == Die Referenzarchitektur der technischen Infrastruktur
 
-Die Referenzarchitektur der technischen Infrastruktur, auch xref:glossary:glossary:master.adoc#glossar-IT-Architektur>[IT-Architektur] genannt, beschreibt den Aufbau der Betriebsumgebung für die IT-Systeme einer IsyFact-Systemlandschaft.
+Die Referenzarchitektur der technischen Infrastruktur, auch xref:glossary:glossary:master.adoc#glossar-TI-Architektur[TI-Architektur] genannt, beschreibt den Aufbau der Betriebsumgebung für die IT-Systeme einer IsyFact-Systemlandschaft.
 Dazu gehören die physischen Geräte (Rechnersysteme, Netzwerkverbindungen und -komponenten, Drucker etc.), die installierte Systemsoftware (Betriebssystem, Applikationsserver, Middleware, Datenbanksystem) und das Zusammenspiel von Hardware und Systemsoftware.
 
 Auf der Ebene der technischen Infrastruktur können mehrere Instanzen einer Komponente aus der technischen Architektur betrieben werden.
@@ -647,6 +647,23 @@ Als Ablaufumgebung benötigen die gemäß der Referenzarchitektur (siehe Kapitel
 Die Vorgaben zur Konfiguration des Tomcat sind im Dokument <<TODO anderes Dokument: TomcatNutzungskonzept>> beschrieben.
 
 Service-Gateway-Systeme und das Portal benötigen zusätzlich noch einen Apache-Webserver.
+
+[[ti-architektur-anwendung]]
+=== TI-Architektur einer Anwendung
+
+Auf der Ebene einzelner Anwendungen beschreibt die TI-Architektur:
+
+* in welchen Zonen sich die IT-Systeme einer Anwendung befinden,
+* welche Kommunikationsverbindungen und -protokolle sie zu welchen Nachbarsystemen benötigen,
+* ob eine Skalierung vorgesehen bzw. möglich ist und
+* welche Anforderungen an die Systemumgebung (z.B. ein Applikationsserver) bestehen.
+
+Die konkrete Ausprägung der TI-Architektur wird im <<TODO anderes Dokument: IsyFactVorlageSystemhandbuch>> beschrieben.
+Die <<ti-architektur-ga,folgende Abbildung>> zeigt die TI-Architektur einer beispielhaften Geschäftsanwendung.
+
+[[ti-architektur-ga]]
+.TI-Architektur einer Geschäftsanwendung mit Batch-Anwendung
+image::blaupausen:referenzarchitektur/ti-architektur-ga.dn.svg[]
 
 [[betriebliche-aspekte]]
 == Betriebliche Aspekte
