@@ -24,69 +24,81 @@ Unnötige Zugriffe und doppelte Zugriffe sollen vermieden werden.
 *Einheitlichkeit der Verwendung von JPA:* Die Konfiguration und Programmierung der JPA-Zugriffe soll zum einen
 über die gleichen Mechanismen und zum anderen an den gleichen Stellen vorgenommen werden.
 
-[[persistenz]]
-== Persistenz
 
-Ein Persistenz-Klassenmodell ist das Modell der Entitäten, welche dauerhaft abgespeichert werden sollen.
-Bevor auf den Einsatz von JPA eingegangen wird, werden in diesem Kapitel gewünschte Eigenschaften des Persistenz-Klassenmodells beschrieben.
-Für das Modell werden Verwendungsregeln aufgestellt.
+[[persistenzlogik]]
+== Persistenzlogik
 
+Die Persistenzlogik gliedert sich, wie der Anwendungskern, in *Fachkomponenten*.
+Im Normalfall ist der Funktionsumfang dieser Fachkomponenten viel geringer als der Funktionsumfang der Entsprechungen im Anwendungskern.
+Dies liegt darin begründet, dass sich die Persistenzlogik ausschließlich um die Speicherung von Geschäftsobjekten in einer Datenbank kümmert und selbst keinerlei Geschäftslogik beinhaltet.
 
-=== Namenskonvention Entity
-Das zu persistierende Objekt (Entität) wird nach der Namenskonvention für Entitäten benannt.
-In der Persistenz wird der Name der Entität ohne Präfix verwendet.
+Die Fachkomponenten bestehen wiederum aus einer Schnittstelle und den persistenten Objekten.
+Die Schnittstelle bildet in der Regel ein Data Access Object ab.
+Persistente Objekte werden Entitäten genannt.
+
+Die <<aufbau-fachkomponente-datenzugriff,folgende Abbildung>> zeigt den Aufbau einer Fachkomponente im Datenzugriff.
+
+[[aufbau-fachkomponente-datenzugriff]]
+.Aufbau einer Fachkomponente des Datenzugriffs
+image::blaupausen:detailkonzept-datenzugriff/aufbau_fachkomponente_datenzugriff.dn.svg[]
+
+Ein *Data Access Object (DAO)* beschreibt die Schnittstelle der Fachkomponente, d.h. die Operationen, die zum Speichern und Lesen der Entitäten aus der Datenbank nötig sind.
+DAOs werden über _Spring Data Repositories_ abgebildet.
+Der Name eines Repositories leitet sich von derjenigen Entität ab, die über das Repository bearbeitet wird.
 
 //tag::namenskonvention[]
-.Namenskonvention Persistenz : Entity
-[id="table-entity",reftext="{table-caption} {counter:tables}"]
-[cols="1,4",options="header"]
+
+[[namenskonvention-spring-data-repository]]
+.Namenskonvention DAO: Spring Data Repository
+[id="table-repossimpl",reftext="{table-caption} {counter:tables}"]
+[cols="1s,4m",options="header"]
 |====
-2+|Namenskonvention Persistenz : Entity
-|*Schema* m|<Entitaetsname>
-|*Beispiele* m| Termin
+2+|Data Access Object: Spring Data Repository
+|Schema |<Entität>Repository
+|Beispiele |AkteRepository
 |====
+
 //end::namenskonvention[]
 
-=== Namenskonvention Persistenz
+WARNING: Der folgende Absatz wird nur noch aus historischen Gründen erwähnt und ist obsolet.
 
-Der Name einer DatenzugriffsKlasse setzt sich aus dem Namen der Entität und dem Suffix "DaoImpl" zusammen.
-Die konkrete Implementierung leitet von dem Interface ab, das aus dem Namen der Entität und dem Suffix "Dao" zusammengesetzt ist.
+Vor der Verwendung von Spring Data wurden DAOs mithilfe von zwei Klassen umgesetzt: einem Interface und einer Implementierung.
+Der Name eines DAO-Interfaces leitet sich von derjenigen Entität ab, die über das DAO bearbeitet wird.
+
 //tag::namenskonvention[]
 
-.Data Access Objects: Interfaces + Implementierung
+[[namenskonvention-dao-interface]]
+.Namenskonvention DAO: Interface + Implementierung
 [id="table-daossimpl",reftext="{table-caption} {counter:tables}"]
-[cols="1,4",options="header"]
+[cols="1s,4m",options="header"]
 |====
-2+|Data Access Objects: Interfaces + Implementierung
-|*Schema* m|<Entitaetsname>Dao +
-<Entitaetsname>DaoImpl
-|*Beispiele* m|AkteDao +
+2+|Data Access Object: Interface + Implementierung
+|Schema |<Entität>Dao +
+<Entität>DaoImpl
+|Beispiele |AkteDao +
 AkteDaoImpl
 |====
 
 //end::namenskonvention[]
 
-[[namenskonvention-spring-data]]
-=== Namenskonvention bei Verwendung von Spring-Data
+*Entitäten* bilden Geschäftsobjekte ab und werden in der Regel nach ihnen benannt.
+
 //tag::namenskonvention[]
 
-Der Name eines Persistenz-Funktionsinterface wird vom Namen der Entität bestimmt, die darüber "bearbeitet" wird,
-und mit dem Suffix "Repository" versehen.
-
-.Repositories: Interfaces + Implementierung
-[id="table-repossimpl",reftext="{table-caption} {counter:tables}"]
-[cols="1,4",options="header"]
+.Namenskonvention Entität
+[id="table-entity",reftext="{table-caption} {counter:tables}"]
+[cols="1s,4m",options="header"]
 |====
-2+|Data Access Objects:  Abgeleitet von Interface CrudRepository
-|*Schema* m|<Entitaetsname>Repository
-|*Beispiele* m|AkteRepository
+2+|Entität
+|Schema |<Geschäftsobjekt>
+|Beispiele |Termin
 |====
-
 //end::namenskonvention[]
 
+Ein *Persistenz-Klassenmodell* ist das Modell der Entitäten, welche dauerhaft abgespeichert werden sollen.
+Die folgenden Abschnitte beschreiben gewünschte Eigenschaften des Persistenz-Klassenmodells sowie Verwendungsregeln.
 
 [[persistenz-klassenmodell-und-datenbank-schema-sollen-moeglichst-aehnlich-sein]]
-
 === Persistenz-Klassenmodell und Datenbank-Schema sollen möglichst ähnlich sein
 
 Im Idealfall wird jedes Persistenzobjekt auf eine Tabelle des Datenbankschemas abgebildet.
@@ -401,7 +413,7 @@ Initial sind folgende Indizes vorzusehen:
 == Verwendung von JPA in der Anwendung
 
 Nachdem ein Persistenzmodell erstellt und das Mapping auf ein Datenbankschema definiert wurde
-(siehe Kapitel <<persistenz>> und <<die-definition-des-mappings-zwischen-objekten-und-datenbank>>),
+(siehe Kapitel <<persistenzlogik>> und <<die-definition-des-mappings-zwischen-objekten-und-datenbank>>),
 können die Persistenzobjekte in der Anwendung verwendet werden.
 In diesem Kapitel wird der Zugriff auf Persistenzobjekte mit der Hilfe von Spring Data beschrieben.
 
@@ -615,7 +627,7 @@ Bei der Formulierung von Anfragen sind einige Aspekte zu beachten, da ansonsten 
 * Der %-Operator ist nach Möglichkeit zu vermeiden, da hiermit leicht lang laufende Abfragen erzeugt werden können, die die Anwendung blockieren und die Datenbank unnötig belasten können.
 * Für rein lesende Zugriffe und feste Auswertungen sind nach Möglichkeit Views zu verwenden und die Berechtigungen entsprechend zu setzen.
 Dadurch kann der Zugriff auf die tatsächlich benötigten Daten gesteuert und eingeschränkt werden.
-* Bei der Formulierung von Anfragen sind die Eigenheiten des Optimizers des eingesetzten DMBS zu beachten.
+* Bei der Formulierung von Anfragen sind die Eigenheiten des Optimizers des eingesetzten DBMS zu beachten.
 * Es ist darauf zu achten, dass Datenbankabfragen in Anwendungen durch Indizes in der Datenbank unterstützt werden.
 * Bei der Definition von Anfragen ist darauf zu achten, dass nicht zu viele Daten selektiert werden.
 Im Zweifel, insbesondere bei freien Anfragen, die aus Benutzereingaben erzeugt werden, sollte die Anzahl der selektierten Datensätze beschränkt werden.
