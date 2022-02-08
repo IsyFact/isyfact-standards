@@ -256,7 +256,7 @@ Einbindung von passenden Maven-Plugins können diese Informationen automatisch b
 
 Bei Bedarf können weitere statische Informationen von der Anwendung bereitgestellt werden.
 
-NOTE: Weiterführende Informationen enthält die https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-features.html#production-ready-application-info[Dokumentation von Spring Boot zum Info-Endpoint].
+NOTE: Weiterführende Informationen enthält die xref:glossary:literaturextern:inhalt.adoc#litextern-Spring-Boot-Info-Endpoint[Dokumentation von Spring Boot zum Info-Endpoint].
 
 [[konfiguration-und-absicherung-von-endpoints]]
 ==== Konfiguration und Absicherung von Endpoints
@@ -479,7 +479,7 @@ Soll beispielweise _Prometheus_ angebunden werden, muss die folgende Dependecy e
 ----
 
 Häufig ist keine weitere Konfiguration notwendig, da die Anbindung durch Spring Boot automatische konfiguriert wird.
-Die Konfiguration für die unterstützten Monitoring-System ist in http://micrometer.io/docs beschrieben.
+Die Konfiguration für die unterstützten Monitoring-System ist in xref:glossary:literaturextern:inhalt.adoc#litextern-Monitoring-Systeme[Monitoring-Systeme] beschrieben.
 
 [[anwendungen-deaktivierbar-machen]]
 === Anwendungen deaktivierbar machen
