@@ -1,5 +1,6 @@
 # 1.14.0
 - `IFS-801`: SpotBugs Fehler behoben
+- `IFS-702`: Fügt die KorrelationsId passend zum MDC dem AufrufKontext hinzu
 
 # 1.13.0
 - enthält nur Versionsanhebung auf IFS 1.10.0
