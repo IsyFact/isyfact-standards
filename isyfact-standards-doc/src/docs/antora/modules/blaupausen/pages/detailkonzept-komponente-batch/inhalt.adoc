@@ -1169,7 +1169,8 @@ Die Dokumentation der abweichenden Batchimplementierung erfolgt im Systementwurf
 [[was-ist-ein-shell-batch]]
 === Was ist ein Shell-Batch?
 
-Als Shell-Batch wird ein Shell-Skript bezeichnet, das Stapelverarbeitungsbefehle ausführt, die direkt in diesem Skript definiert sind. Damit fallen sie unter die Ausnahmeregelungen des vorherigen Kapitels <<ausnahmeregelungen>>.
+Als Shell-Batch wird ein Shell-Skript bezeichnet, das Stapelverarbeitungsbefehle ausführt, die direkt in diesem Skript definiert sind. 
+Damit fallen sie unter die Ausnahmeregelungen des vorherigen Kapitels <<ausnahmeregelungen>>.
 Reguläre Batches werden meist ebenfalls über ein Shell-Skript gestartet, ihre Logik ist aber in Java programmiert.
 Das Skript startet also nur das zugehörige Programm.
 
@@ -1179,8 +1180,7 @@ Komplexe fachliche Logik sollte aber immer als dediziertes Batchprogramm umgeset
 Ein Beispiel für Shell-Batches sind einmalige SQL-Migrationen.
 Das Shell-Skript baut dabei eine Verbindung mit dem Datenbank-Server auf und führt eine SQL-Datei aus.
 
-Es gibt aber auch Systeme die im regulären Wirkbetrieb regelmäßig Shell-Batches ausführen; bspw.
-um Datenbankabzüge für statistische Auswertungen zu erstellen.
+Es gibt aber auch Systeme die im regulären Wirkbetrieb regelmäßig Shell-Batches ausführen; bspw. um Datenbankabzüge für statistische Auswertungen zu erstellen.
 
 [[aufbau-von-shell-batches]]
 === Aufbau von Shell-Batches
