@@ -1155,8 +1155,7 @@ In bestimmten Situationen, z. B. bei der Verarbeitung extrem großer Datenmenge
 In solchen Fällen muss dann eine Sonderlösung, wie z. B. ein SQL-Skript oder ein Shell-Skript, gefunden werden. Shell-Skripte sind in dem folgenden Kapitel <<shell-batches>> beschrieben.
 
 
-Die Entscheidung, ob in einem solchen Einzelfall eine Sonderlösung gewählt werden kann, muss zwingend in Absprache mit dem Chefarchitekten bzw.
-Architekturboard erfolgen.
+Die Entscheidung, ob in einem solchen Einzelfall eine Sonderlösung gewählt werden kann, muss zwingend in einer Architekturentscheidung erfolgen.
 Eine solche Abweichung von der Referenzarchitektur muss im Systementwurf in der Liste der Abweichungen aufgeführt und begründet werden.
 Dabei muss die Abwägung getroffen werden zwischen der Einhaltung der nicht-funktionalen Anforderungen und der Verringerung der Wartbarkeit durch mehrfach implementierte Funktionalität.
 
