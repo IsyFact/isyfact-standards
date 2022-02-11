@@ -662,7 +662,7 @@ Die konkrete Ausprägung der TI-Architektur wird im <<TODO anderes Dokument: Isy
 Die <<ti-architektur-ga,folgende Abbildung>> zeigt die TI-Architektur einer beispielhaften Geschäftsanwendung.
 
 [[ti-architektur-ga]]
-.TI-Architektur einer Geschäftsanwendung mit Batch-Anwendung
+.TI-Architektur einer Geschäftsanwendung mit Batch-Anwendung und Service-Gateway
 image::blaupausen:referenzarchitektur/ti-architektur-ga.dn.svg[]
 
 [[betriebliche-aspekte]]
