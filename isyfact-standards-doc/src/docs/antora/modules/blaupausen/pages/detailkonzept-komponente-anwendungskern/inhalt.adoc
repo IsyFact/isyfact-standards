@@ -170,7 +170,6 @@ Die Verwendung dieser Funktionalitäten ist in den Blaupausen und Bausteinen wie
 * Die Konfiguration des Loggings über Spring, beschrieben im Konzept xref:isy-logging:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Logging].
 * Die Bereitstellung von Metriken zur Überwachung, beschrieben im Konzept xref:isy-ueberwachung:konzept/master.adoc#einleitung[Konzept Überwachung].
 * Die Verwendung der Schnittstellentechnologie HTTP Invoker, beschrieben im Konzept xref:isy-serviceapi-core:konzept/master.adoc#einleitung[Konzept HTTP-Invoker].
-* Die Zugriffe auf ein LDAP erfolgen über Spring-LDAP, beschrieben im Konzept <<TODO anderes Dokument: NutzungsvorgabenSpringLDAP>>.
 * Die Implementierung von Dialogen und Masken erfolgt mit JSF und Spring-Webflow, beschrieben im Dokument  xref:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Komponente Web-GUI].
 
 Alle anderen Spring-Funktionalitäten (Validierung über Spring, Emailing, Thread Pooling, Scripting) werden nicht verwendet.
