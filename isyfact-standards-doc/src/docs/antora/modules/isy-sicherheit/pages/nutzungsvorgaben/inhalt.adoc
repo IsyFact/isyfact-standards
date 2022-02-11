@@ -370,7 +370,7 @@ Er verwendet dazu die Bibliothek `rf-sgw-util`, in der `isy-sicherheit` eingebun
 
 Ein Service eines Service-Gateways wird aufgerufen.
 Mit der Anfrage wird die Benutzerkennung des anfragenden Benutzers übermittelt.
-Die im Service-Gateway verwendete Komponente Serviceanbieter nutzt den Baustein Sicherheit, um den anfragenden Benutzer bereits in der Informations- und Servicezone zu authentifizieren.
+Die im Service-Gateway verwendete Komponente Serviceanbieter nutzt den Baustein Sicherheit, um den anfragenden Benutzer bereits in der Informations- und Dienstezone zu authentifizieren.
 Dazu benutzt der Serviceanbieter ein Client-Zertifikat, eine Benutzerkennung und ein Passwort.
 Bei erfolgreicher Authentifizierung erstellt der Serviceanbieter einen neuen Aufrufkontext und speichert ihn im Verwalter.
 Der eigentliche Prozess der Authentifizierung sowie die Ermittlung der Rollen ist für Nutzer des Service-Gateways vollständig transparent.

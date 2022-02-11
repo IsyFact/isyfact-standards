@@ -450,7 +450,7 @@ Sie implementiert dazu drei software-architektonische Schichten:
 * Der *Anwendungskern*, in dem die Geschäftslogik abgebildet ist.
 * Die *Persistenzschicht*, in der sowohl die Anwendungsdaten als auch der Zustand der Anwendungssitzung abgespeichert werden.
 
-Zur Implementierung der Geschäftslogik kann die Geschäftsanwendung auch xref:glossary:glossary:master.adoc#glossar-ServiceFachlich[Services] anderer Geschäftsanwendung aufrufen.
+Zur Implementierung der Geschäftslogik kann die Geschäftsanwendung auch xref:glossary:glossary:master.adoc#glossar-ServiceFachlich[Services] anderer Geschäftsanwendungen aufrufen.
 
 *Das Portal:* Wie in Kapitel <<strukturierung-der-systemlandschaft>> beschrieben, nimmt das Portal die xref:glossary:glossary:master.adoc#glossar-Anwender[Anwender]-Aufrufe entgegen und leitet sie an die Geschäftsanwendung weiter.
 
@@ -903,7 +903,7 @@ image::blaupausen:referenzarchitektur/noCluster.png[align="center"]
 
 Weiterhin sieht die Referenzarchitektur der technischen Infrastruktur ein Zonenmodell gemäß SAGA vor.
 Dieses Zonenmodell unterstützt eine klare Sicherheitsarchitektur und ist in Kapitel <<die-referenzarchitektur-der-technischen-infrastruktur>> beschrieben.
-Durch die Aufteilung in Informations- & Servicezone, Logik- & Verarbeitungszone sowie Datenzone sind die Grundlagen geschaffen, um z.B. E-Government-Anwendungen sicher betreiben zu können.
+Durch die Aufteilung in Informations- & Dienstezone, Logik- & Verarbeitungszone sowie Datenzone sind die Grundlagen geschaffen, um z.B. E-Government-Anwendungen sicher betreiben zu können.
 
 Der SAGA-Standard in der Version 4 gilt grundsätzlich für E-Government-Anwendungen.
 In anderen Bereichen wird der SAGA-Standard nur dann empfohlen, wenn die Kosten/Nutzen-Betrachtung positiv ausfällt.

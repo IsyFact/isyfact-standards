@@ -1257,7 +1257,7 @@ Dieser Advice wird so konfiguriert, dass bei jedem Aufruf einer Methode der Serv
 === LDAP-Zugriff
 
 In diesem Abschnitt wird beschrieben, wie LDAP-Zugriffe in einer Anwendung realisiert werden.
-Dies kann notwendig sein, wenn ein Zugriff auf Daten notwendig ist, die noch nicht über eine querschnittliche Bibliothek oder einen Querschnittsservice (z.B. Schlüsselverzeichnis) angeboten werden.
+Dies kann notwendig sein, wenn ein Zugriff auf Daten notwendig ist, die noch nicht über eine querschnittliche Bibliothek oder eine Querschnittsanwendung (z.B. Schlüsselverzeichnis) angeboten werden.
 
 Für die Realisierung der LDAP-Zugriffe wird Spring-LDAP verwendet.
 Daher muss die in <<listing-bib-ldap>> aufgelistete Bibliothek eingebunden werden.

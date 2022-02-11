@@ -159,8 +159,8 @@ In der nachfolgenden Tabelle werden die einzelnen Bausteine kurz beschrieben.
 |====
 |Baustein|Funktion
 |Fehlerbehandlung |Der Baustein Fehlerbehandlung enthält das technische Konzept und eine Bibliothek zur einheitlichen Implementierung der Fehlerbehandlung für alle Anwendungen nach IsyFact-Architektur.
-|LDAP-Zugriffe |Der Baustein LDAP-Zugriffe bietet ein Nutzungskonzept für Spring-LDAP, das in der IsyFact verwendet wird, um auf den LDAP-Verzeichnisservice zuzugreifen.
-Der LDAP-Verzeichnisservice hält die Daten und Berechtigungen der verschiedenen Nutzer der Anwendungen bereit.
+|LDAP-Zugriffe |Der Baustein LDAP-Zugriffe bietet ein Nutzungskonzept für Spring-LDAP, das in der IsyFact verwendet wird, um auf den LDAP-Verzeichnisdienst zuzugreifen.
+Der LDAP-Verzeichnisdienst hält die Daten und Berechtigungen der verschiedenen Nutzer der Anwendungen bereit.
 |Logging |Der Baustein Logging enthält das technische Konzept für die Bereitstellung von Laufzeitinformationen der Anwendungen der IsyFact.
 Dies ermöglicht eine einheitliche und vereinfachte Auswertung von Log-Dateien, Fehlern und Systemzuständen über Komponenten hinweg.
 |Sicherheits­komponente |Der Baustein Sicherheitskomponente ist eine Bibliothek.
@@ -195,7 +195,7 @@ Die Plattform entspricht dem SAGA/BSI Netzkonzept mit drei Zonen:
 
 NOTE: SAGA sind die „Standards und Architekturen für E-Government“ der deutschen Bundesverwaltung, siehe: xref:glossary:literaturextern:inhalt.adoc#litextern-SAGA_5[SAGA]  - seit SAGA 5 wird bzgl. des Netzkonzeptes auf das BSI verwiesen.
 
-* Nutzerebene (Informations- und Servicezone)
+* Nutzerebene (Informations- und Dienstezone)
 * Logikebene (Logik- und Verarbeitungszone)
 * Datenhaltungsebene (Datenzone)
 
