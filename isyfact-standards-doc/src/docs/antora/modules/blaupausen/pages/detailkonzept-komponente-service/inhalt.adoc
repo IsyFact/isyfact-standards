@@ -20,28 +20,25 @@ Die *Servicelogik* enthält Daten und Funktionalität, die für die Bereitstellu
 == Servicelogik
 
 Die Servicelogik gliedert sich, wie der Anwendungskern, in *Fachkomponenten*.
-Im Normalfall ist der Funktionsumfang dieser Fachkomponenten viel geringer als der Funktionsumfang der Entsprechungen im Anwendungskern.
-Dies liegt darin begründet, dass die Servicelogik die Funktionalität des Anwendungskerns nutzt, um den Service bereitzustellen, und selbst keinerlei Geschäftslogik beinhaltet.
-Die Schnittstelle zwischen Fachkomponenten im Service und Anwendungskern ist daher eine interne Schnittstelle.
-
-Die Fachkomponenten der Servicelogik decken vier wesentliche Aufgaben ab.
+Die Fachkomponenten setzen im wesentlichen *Service-Schnittstellen* um.
+Sie decken vier wesentliche Aufgaben ab.
 
 Transformation:: Bei einem Service-Aufruf müssen die Transportobjekte der Service-Schnittstelle in passende Objekte des Anwendungskerns umgewandelt werden.
 Außerdem muss das Ergebnis des Anwendungskerns wieder in ein Transportobjekt der Service-Schnittstelle umgewandelt werden.
 Transportobjekte sind Klassen, deren einziger Zweck es ist, Daten zu transportieren.
 Sie definieren lediglich eine Datenstruktur.
 
-Fehlerbehandlung:: Tritt bei der Verarbeitung eines Service-Aufrufs im Anwendungskern oder in der Servicelogik selbst eine Exception auf, so muss diese Exception in eine Exception der Service-Schnittstelle umgewandelt werden.
+Fehlerbehandlung:: Ausnahme, die bei der Verarbeitung eines Service-Aufrufs oder im Anwendungskern  auftreten, werden in eine Ausnahme der Service-Schnittstelle umgewandelt.
 
 Autorisierung:: Für einen Service-Aufruf muss eine Anwendung überprüfen, ob der Aufrufer autorisiert ist die Service-Operation auszuführen.
 
 Logging:: Die Komponente muss die Korrelations-ID in den Logging-Kontext einfügen.
 
-[[servicelogik-fachkomponenten]]
-=== Fachkomponenten
+IMPORTANT: Im Normalfall ist der Funktionsumfang der Fachkomponenten viel geringer als der Funktionsumfang der Entsprechungen im Anwendungskern.
+Dies liegt darin begründet, dass die Servicelogik die Funktionalität des Anwendungskerns nutzt, um den Service bereitzustellen, und selbst keinerlei Geschäftslogik beinhaltet.
+Die Schnittstelle zwischen Fachkomponenten im Service und Anwendungskern ist daher eine interne Schnittstelle.
 
-Die Fachkomponenten setzen im Kern *Service-Schnittstellen* um.
-Sie bestehen aus einer *Service-Fassade* und einer *Exception-Fassade*.
+Die Service-Schnittstellen bestehen aus einer *Service-Fassade* und einer *Exception-Fassade*.
 
 === Service-Fassade
 Die Service-Fassade implementiert die Service-Operationen als Methoden.

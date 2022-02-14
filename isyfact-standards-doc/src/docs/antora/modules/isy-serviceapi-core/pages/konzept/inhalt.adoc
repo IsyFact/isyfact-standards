@@ -36,7 +36,7 @@ Die Weiterleitung des Bearer Tokens erfolgt über einen HTTP-Header und ist so f
 [[aufbau-der-servicelogik]]
 == Aufbau der Servicelogik
 
-Der Baustein Http Invoker ergänzt den xref:blaupausen:detailkonzept-komponente-service/master.adoc#servicelogik-fachkomponenten[Aufbau der Servicelogik] um ein Remote-Bean.
+Der Baustein Http Invoker ergänzt die xref:blaupausen:detailkonzept-komponente-service/master.adoc#servicelogik[Servicelogik] um ein Remote-Bean.
 Der Aufbau der Servicelogik ist in <<image-AufbauServLogik>> dargestellt.
 
 .Aufbau der Servicelogik mit HTTP Invoker

@@ -38,11 +38,12 @@ Die Aufgaben der Schnittstelle sind:
 * Aufrufe von außen entgegenzunehmen,
 * Aufrufe an die entsprechenden Anwendungsfallklassen weiterzuleiten,
 * Antworten der Anwendungsfallklassen an den Aufrufer zurück zu übermitteln,
-* Ausnahmen der Anwendungsfallklassen ggf. in eine Ausnahme der Fachkomponente zu übersetzen.
+* Ausnahmen der Anwendungsfallklassen in Ausnahmen der Schnittstelle zu übersetzen.
 
 *Geschäftsobjekte* dienen zur Kommunikation der Fachkomponente nach außen sowie zur Umsetzung der Fachlichkeit (z.B. für interne Berechnungen).
-Geschäftsobjekte sind nicht persistent und genau einer Fachkomponente zugeordnet, welche die Hoheit über dieses Geschäftsobjekt besitzt und seinen Lebenszyklus verwaltet.
-Sie werden primär nach ihrer Funktion benannt (s. <<namenskonvention-geschaeftsobjekt>>).
+Sie werden im Anwendungskern definiert, sind nicht persistent und können in der Nutzungsschicht wiederverwendet werden, sofern hierfür keine Anpassungen durch Mappings o.ä. nötig sind.
+Ein Geschäftsobjekt ist genau einer Fachkomponente zugeordnet, welche die Hoheit über es besitzt und seinen Lebenszyklus verwaltet.
+Sie werden primär nach ihrer Funktion benannt.
 
 // tag::namenskonvention[]
 
@@ -52,19 +53,20 @@ Sie werden primär nach ihrer Funktion benannt (s. <<namenskonvention-geschaefts
 |====
 2+|Geschäftsobjekt
 |Schema |<Entitaetsname>Bo
-|Beispiele |AkteBo
+|Beispiel |AkteBo
 |====
 
 // end::namenskonvention[]
 
+
 In der Vorlageanwendung gibt es z.B. die Geschäftsobjekte `Terminfindung`, `Tag` und `Teilnehmer`.
 
 In Ausnahmefällen können Geschäftsobjekte fachlich nicht genau einer Komponente zugeordnet werden.
-Hierfür wird die Komponente _Basisdaten_ definiert, die nur die eine Aufgabe hat, solche Geschäftsobjekte an zentraler Stelle effizient zu verwalten.
+Hierfür wird die Komponente _Basisdaten_ definiert, die nur die eine Aufgabe hat, solche Geschäftsobjekte an zentraler Stelle zu verwalten.
 
 Eine *Anwendungsfallklasse* setzt genau einen Anwendungsfall um.
 Ihr Schnitt ergibt sich aus der fachlichen Architektur.
-Anwendungsfallklassen werden anhand des Namens des Anwendungsfalls aus der Spezifikation benannt und mit dem Präfix `Awf` gekennzeichnet (s. <<namenskonvention-anwendungsfallklassen>>).
+Anwendungsfallklassen werden anhand des Namens des Anwendungsfalls aus der Spezifikation benannt und mit dem Präfix `Awf` gekennzeichnet.
 
 // tag::namenskonvention[]
 
@@ -82,7 +84,7 @@ AwfEntscheidungDurchfuehren
 
 Eine *Anwendungsfunktion* setzt Teil-Abläufe um, die in mehreren Anwendungsfällen verwendet werden.
 Anwendungsfunktionen werden somit von Anwendungsfallklassen aufgerufen.
-Anwendungsfunktionen werden anhand des Namen der Anwendungsfunktion aus der Spezifikation benannt und mit dem Präfix `Afu` gekennzeichnet (s. <<namenskonvention-anwendungsfunktion>>).
+Anwendungsfunktionen werden anhand des Namen der Anwendungsfunktion aus der Spezifikation benannt und mit dem Präfix `Afu` gekennzeichnet.
 
 // tag::namenskonvention[]
 
@@ -579,7 +581,6 @@ Es existieren drei verschiedene Verfahren der _Dependency Injection_:
 Da die _Constructor Injection_ diverse Vorteile gegenüber den beiden anderen Techniken liefert, empfiehlt die IsyFact die Verwendung von  _Constructor Injection_.
 
 .Vergleich der Verfahren zur Dependency Injection
-[id="table-dependeny-injection",reftext="{table-caption} {counter:tables}"]
 |===
 |DI-Methode |Einsatzszenario |Bemerkung
 
