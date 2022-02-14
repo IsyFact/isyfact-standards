@@ -4,6 +4,8 @@
 [[aufbau-des-anwendungskerns]]
 == Aufbau des Anwendungskerns
 
+// tag::anwendungskern-definition[]
+
 Der Anwendungskern ist der zentrale Baustein eines IT-Systems.
 Hier werden die fachlichen Funktionen der Anwendung realisiert.
 
@@ -17,17 +19,23 @@ Diese drei Aspekte werden im Folgenden im Detail beschrieben.
 [id="image-IFBestAWK",reftext="{figure-caption} {counter:figures}"]
 image::blaupausen:detailkonzept-anwendungskern/IFBestAWK.png[align="center",width=90%,pdfwidth=90%]
 
+// end::anwendungskern-definition[]
+
 [[fachkomponenten]]
 === Fachkomponenten
 
+// tag::fachkomponente-definition[]
+
 *Fachkomponenten* setzen die Anwendungskomponenten aus der fachlichen Architektur um.
 Sie bilden damit den Schnitt der Anwendungskomponenten in die technische Architektur ab.
-Fachkomponenten beinhalten möglichst wenig Technik und trennen so Geschäftslogik von Technologie.
+Fachkomponenten beinhalten möglichst wenig Technik und trennen so Anwendungslogik von Technologie.
 
 Die Vorlageanwendung enthält die Fachkomponenten _Erstellung_, _Teilnahme_ und _Verwaltung_.
 
 TIP: Fachkomponenten sind der Schlüssel für gute Wartbarkeit und einfache Weiterentwickelbarkeit des Anwendungskerns.
-Die Trennung von Geschäftslogik und Technik ist deshalb auch in anderen Schichten der technischen Architektur vorgesehen, z. B. in der Persistenz.
+Die Trennung von Anwendungslogik und Technik ist deshalb auch in anderen Schichten der technischen Architektur vorgesehen, z. B. in der Persistenz.
+
+// end::fachkomponente-definition[]
 
 Von außen betrachtet besteht jede Fachkomponente aus einer Schnittstelle (Interface) und den von ihr verwendeten Geschäftsobjekten (Model) sowie Ausnahmen (Exceptions).
 Alle Zugriffe auf die Fachkomponente von außen, auch von anderen Fachkomponenten aus, geschehen über die Schnittstelle.

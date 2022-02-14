@@ -87,30 +87,30 @@ Details hierzu sind in  xref:detailkonzept-komponente-datenzugriff/master.adoc[D
 [[der-anwendungskern]]
 === Der Anwendungskern
 
-Zentraler Baustein eines IT-Systems ist der Anwendungskern.
-Im Anwendungskern werden die fachlichen Funktionen (Anwendungslogik) der Anwendung realisiert.
-Dazu gehören zum Beispiel Datenvalidierungen oder Funktionen zum Verarbeiten von Geschäftsobjekten, die über den Datenzugriff geladen wurden.
-Innerhalb dieser Anwendungslogik befinden sich die Funktionalität, welche allgemein verwendbar ist.
+include::blaupausen:page$detailkonzept-komponente-anwendungskern/inhalt.adoc[tags=anwendungskern-definition]
 
-Daneben gibt es spezielle Dialogabläufe, zum Beispiel dialogspezifische Bearbeitungsverfahren wie die Anwenderführung über Wizards.
-Diese Prozesse, die nur durch einen einzigen Dialog genutzt werden, sind nicht Teil des Anwendungskerns, sondern Teil der Schicht Nutzung.
-Damit stellt der Anwendungskern innerhalb des Systems allgemein nutzbare xref:glossary:glossary:master.adoc#glossar-Dienst[Dienste] zur Verfügung.
-Weitere Details können auch dem Detailkonzept xref:detailkonzept-komponente-anwendungskern/master.adoc[Detailkonzept Komponente Anwendungskern] entnommen werden.
+Nicht Teil des Anwendungskerns sind spezielle Dialogabläufe, z.B. dialogspezifische Bearbeitungsverfahren wie die Anwenderführung über Wizards.
+Diese Prozesse, die nur durch einen einzigen Dialog genutzt werden, sind Teil der Schicht Nutzung.
+Der Anwendungskern stellt somit im wesentlichen allgemein nutzbare xref:glossary:glossary:master.adoc#glossar-Dienst[Dienste] zur Verfügung.
 
-In <<image-TeileAnwK>> sind drei Aspekte des Anwendungskerns dargestellt.
-Er besteht aus zwei wesentlichen Bestandteilen: Den Fachkomponenten und dem Anwendungskern-Framework.
-Weiterhin ist dort dargestellt, dass externe Services als Komponente in den Anwendungskern integriert sind.
-Diese drei Aspekte werden im Folgenden detailliert beschrieben.
+include::blaupausen:page$detailkonzept-komponente-anwendungskern/inhalt.adoc[tags=fachkomponente-definition]
 
-.Bestandteile des Anwendungskerns
-[id="image-TeileAnwK",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:referenzarchitektur-it-system/TeileAnwK.png[align="center",pdfwidth=80%,width=80%]
+*Komponenten-Framework:* Für querschnittliche Funktionalität innerhalb des Anwendungskerns wird das Spring-Framework genutzt.
+Hauptaufgabe des Frameworks ist es, die Komponenten zu konfigurieren und miteinander bekannt zu machen.
+Dadurch wird die Trennung zwischen Fachlichkeit und Technik verbessert.
+Beispiel für querschnittliche Funktionalität ist die deklarative Steuerung von Transaktionen.
 
-*Fachkomponenten:* Die Fachkomponenten entsprechen dem fachlichen Komponentenschnitt aus der fachlichen Architektur.
-Diese Komponenten implementieren weitgehend reine Fachlichkeit und trennen so Anwendungslogik und Technologie.
-Die Umsetzung einer Komponente aus der fachlichen Architektur (xref:glossary:glossary:master.adoc#glossar-A-Architektur[A-Architektur]) erfolgt durch eine Fachkomponente.
-Dies ist der Schlüssel für gute Wartbarkeit und einfache Weiterentwickelbarkeit des Anwendungskerns.
-Diese Struktur findet sich auch in anderen Schichten wieder:
+*Externe Services:* Wenn der Anwendungskern fachliche Services benötigt, die von anderen IT-Systemen innerhalb der xref:glossary:glossary:master.adoc#glossar-Plattform[Plattform] angeboten werden, so werden diese Services als Komponente im Anwendungskern abgebildet.
+Dadurch ist die Funktionalität sauber gekapselt, was die Wartbarkeit erhöht.
+Wenn der externe Service ausgetauscht werden soll, ist keine Änderung der gesamten Anwendung notwendig – es ist lediglich eine interne Änderung der externen Service-Komponente notwendig.
+Für andere fachliche Komponenten des Anwendungskerns ist nicht zu unterscheiden, ob es sich beim Aufruf einer Komponentenschnittstelle um eine in dieser Komponente implementierte Funktion oder um einen Serviceaufruf handelt.
+Komponenten, die externe Services kapseln, sind im Idealfall von außen nicht von fachlichen Komponenten des Anwendungskerns unterscheidbar.
+Diese Komponenten haben damit zwei Hauptaufgaben: Sie müssen die technische Aspekte der Kommunikation umsetzen und sie müssen Schnittstellendaten und Exceptions der aufgerufenen Services in die Datenformate der Anwendung transformieren.
+
+Weitere Details können dem xref:detailkonzept-komponente-anwendungskern/master.adoc[Detailkonzept Komponente Anwendungskern] entnommen werden.
+
+[[datenzugriff]]
+=== Datenzugriff
 
 In der Persistenz-Schicht sind die Fachkomponenten auch gemäß den Komponenten aus der fachlichen Architektur strukturiert.
 Die Komponenten des Anwendungskerns besitzen die Datenhoheit auf Objekte, die ihnen eindeutig zuzuordnen sind.
@@ -131,17 +131,6 @@ Da die Anwendungskern-Komponente an Ihrer Schnittstelle nun potentiell persisten
 Persistente Entitäten dürfen nicht über den Anwendungskern hinaus herausgegeben werden. Sie haben im Anwendungskern zu verbleiben.
 ****
 
-*Komponenten-Framework:* Für querschnittliche Funktionalität innerhalb des Anwendungskerns wird das Spring-Framework genutzt.
-Hauptaufgabe des Frameworks ist es, die Komponenten zu konfigurieren und miteinander bekannt zu machen.
-Dadurch wird die Trennung zwischen Fachlichkeit und Technik verbessert.
-Beispiel für querschnittliche Funktionalität ist die deklarative Steuerung von Transaktionen.
-
-*Externe Services:* Wenn der Anwendungskern fachliche Services benötigt, die von anderen IT-Systemen innerhalb der xref:glossary:glossary:master.adoc#glossar-Plattform[Plattform] angeboten werden, so werden diese Services als Komponente im Anwendungskern abgebildet.
-Dadurch ist die Funktionalität sauber gekapselt, was die Wartbarkeit erhöht.
-Wenn der externe Service ausgetauscht werden soll, ist keine Änderung der gesamten Anwendung notwendig – es ist lediglich eine interne Änderung der externen Service-Komponente notwendig.
-Für andere fachliche Komponenten des Anwendungskerns ist nicht zu unterscheiden, ob es sich beim Aufruf einer Komponentenschnittstelle um eine in dieser Komponente implementierte Funktion oder um einen Serviceaufruf handelt.
-Komponenten, die externe Services kapseln, sind im Idealfall von außen nicht von fachlichen Komponenten des Anwendungskerns unterscheidbar.
-Diese Komponenten haben damit zwei Hauptaufgaben: Sie müssen die technische Aspekte der Kommunikation umsetzen und sie müssen Schnittstellendaten und Exceptions der aufgerufenen Services in die Datenformate der Anwendung transformieren.
 
 [[gui]]
 === GUI
