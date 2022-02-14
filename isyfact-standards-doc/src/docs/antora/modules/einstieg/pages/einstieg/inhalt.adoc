@@ -44,7 +44,7 @@ Die Artefakte der IsyFact-Standards und IsyFact-Erweiterungen werden in gleicher
 
 .Die 5 Säulen der IsyFact
 [id="image-IFBereiche",reftext="{figure-caption} {counter:figures}"]
-image::einstieg:einstieg/IFBereiche.png[align="center",width=60%,pdfwidth=60%]
+image::einstieg:sf-saeulen.dn.svg[]
 
 Die einzelnen Säulen sind:
 
@@ -146,7 +146,7 @@ Um die Artefakte der Register Factory auch in anderen Kontexten zur Verfügung z
 image::einstieg:einstieg/RF-Aufteilung.png[align="center",width=80%,pdfwidth=80%]
 
 Die IsyFact enthält ausschließlich allgemeingültige „register-neutrale“ Konzepte und Komponenten.
-Die Register Factory ist seit deren Umstellung eine spezifische Factory, die auf der IsyFact aufbaut (vergleiche die verschiedenen Nutzungsszenarien in Abschnitt 2.3). Sie wird durch das BVA ebenfalls aktiv weiterentwickelt.
+Die Register Factory ist seit deren Umstellung eine spezifische Factory, die auf der IsyFact aufbaut (s. <<nutzungsszenarien-und-tailoring>>). Sie wird durch das BVA ebenfalls aktiv weiterentwickelt.
 
 [[rahmenbedingungen]]
 == Rahmenbedingungen
