@@ -215,7 +215,7 @@ Weitere technische Details zur SPA-GUI sind im Dokument <<TODO anderes Dokument:
 [[batch]]
 === Batch
 
-Einxref:glossary:glossary:master.adoc#glossar-Batch[Batch] realisiert eine eigenständige Verarbeitung ohne direkten Benutzereingriff während des Ablaufes.
+Ein xref:glossary:glossary:master.adoc#glossar-Batch[Batch] realisiert eine eigenständige Verarbeitung ohne direkten Benutzereingriff während des Ablaufes.
 An einen Batch werden verschiedene Anforderungen gestellt: Ausführungszeitpunkt, Abhängigkeiten, Datenvolumen, ausgeführte Funktionalität, Eingaben, Ausgaben usw.
 
 Aus Architektur-Sicht werden diese Anforderungen durch zwei Komponenten abgedeckt: der Batchrahmen und der Batchlogik.
