@@ -14,7 +14,7 @@ Daher wird im Folgenden die Referenz-Architektur beschrieben, nach der diese Anw
 [id="image-RAITSys",reftext="{figure-caption} {counter:figures}"]
 image::blaupausen:referenzarchitektur-it-system/RAITSys.png[align="center"]
 
-In der *Persistentzschicht* ist alle Funktionalität enthalten, die zum Erzeugen, Suchen, Bearbeiten und Löschen von Datenobjekten benötigt wird.
+In der *Persistenzschicht* ist alle Funktionalität enthalten, die zum Erzeugen, Suchen, Bearbeiten und Löschen von Datenobjekten benötigt wird.
 Der Datenzugriff auf das DBMS ist in dieser Schicht vollständig gekapselt.
 In Richtung Datenbank kommuniziert diese Schicht mittels JDBC und SQL, in Richtung des Anwendungskerns stellt die Schicht Geschäftsobjekte zur Verfügung.
 Die Persistenz nutzt dazu das Persistenzframework Hibernate über die Java Persistence API (JPA).
