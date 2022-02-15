@@ -126,9 +126,9 @@ Die folgende Abbildung zeigt beispielhaft das EA-Modell für die Vorlage-Anwendu
 
 ====
 
-.Packetstruktur des Enterprise Architect Modells
+.Paketstruktur des Enterprise Architect Modells
 [id="image-packetstruktur-enterprise-architect-modells", reftext = "{figure-caption} {counter:figures}"]
-image::methodik:vorlage-systementwurf/packetstruktur-enterprise-architect-modells.pngresbrowser.png[align="center", title-align=center]
+image::methodik:vorlage-systementwurf/packetstruktur-enterprise-architect-modells.png[align="center", title-align=center]
 
 
 [[zusammenfassung]]
@@ -1055,5 +1055,5 @@ _Diese Kapitel sind daher **nicht manuell anzulegen!**_
 
 ====
 
-
+Download xref:methodik:attachment$vorlage-generated/Vorlage-Systementwurf.zip[Systementwurf]
 // end::inhalt[]
