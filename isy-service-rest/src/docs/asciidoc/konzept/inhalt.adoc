@@ -92,6 +92,14 @@ Ressourcen repräsentieren Objekte und werden deshalb als Substantiv beschrieben
 Die Bezeichnung muss möglichst einfach gewählt werden (z. B. der Name der Entität oder die Aufgabe der Ressource).
 Repräsentiert die Ressource eine Menge von Objekten, wird der Plural verwendet.
 
+Der hierarchische Aufbau von Ressourcen ist explizit erwünscht:
+
+Schema: /<ressource>/<id>/<ressource>/<id>/<...>
+
+----
+Beispiel: /kunden/12345/bestellungen/123/artikel
+----
+
 Die Bezeichnung der Ressource beinhaltet ausschließlich Kleinbuchstaben.
 Zwischen Teilen zusammengesetzter Begriffe steht jeweils ein Bindestrich.
 Beinhaltet die Bezeichnung Sonderzeichen, müssen sie gemäß üblicher Transkriptionsregeln ersetzt werden (z. B. "ae" statt "ä").
@@ -113,6 +121,21 @@ Die Ressource liefert alle Objekte zurück.
 Die Ressource liefert ein eindeutig identifizierbares Objekt zurück.
 3. Beispiel für zusammengesetzte Begriffe.
 4. Beispiel für die Ersetzung von Sonderzeichen.
+
+[[prozessorientierte-aufrufe]]
+*Prozessorientierte Aufrufe - Geschäftsvorfälle*
+
+Wird über die Schnittstelle ein Geschäftsvorfall angestoßen, ist der Geschäftsvorfall in der URI zu adressieren (Level 0):
+
+Schema: /<geschaeftsvorfall>/<geschaeftsprozess>
+
+----
+Beispiel: /auskunft/personaliensuche
+Beispiel: /auskunft/dokumentensuche
+Beispiel: /auskunft/schluesselsuche
+Beispiel: /meldung/erstmeldung
+Beispiel: /meldung/aenderung
+----
 
 ==== Beziehungen zwischen Ressourcen
 
