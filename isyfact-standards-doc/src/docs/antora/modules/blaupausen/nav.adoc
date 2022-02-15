@@ -1,11 +1,12 @@
-* xref:detailkonzept-komponente-anwendungskern/master.adoc[Anwendungskern - Detailkonzept]
-* xref:detailkonzept-komponente-batch/master.adoc[Batch - Detailkonzept]
-* xref:detailkonzept-komponente-datenzugriff/master.adoc[Datenzugriff - Detailkonzept]
-* xref:detailkonzept-komponente-service/master.adoc[Service - Detailkonzept]
-* xref:detailkonzept-komponente-web-gui/master.adoc[Web GUI - Detailkonzept]
-* xref:referenzarchitektur/master.adoc[Referenzarchitektur]
-* xref:referenzarchitektur-it-system/master.adoc[Referenzarchitektur IT-System]
-* xref:vorgaben-architektur/master.adoc[Architektur - Vorgaben]
-* xref:vorgaben-it-sicherheit/master.adoc[IT-Sicherheit - Vorgaben]
+* Blaupausen
+** xref:detailkonzept-komponente-anwendungskern/master.adoc[Anwendungskern - Detailkonzept]
+** xref:detailkonzept-komponente-batch/master.adoc[Batch - Detailkonzept]
+** xref:detailkonzept-komponente-datenzugriff/master.adoc[Datenzugriff - Detailkonzept]
+** xref:detailkonzept-komponente-service/master.adoc[Service - Detailkonzept]
+** xref:detailkonzept-komponente-web-gui/master.adoc[Web GUI - Detailkonzept]
+** xref:referenzarchitektur/master.adoc[Referenzarchitektur]
+** xref:referenzarchitektur-it-system/master.adoc[Referenzarchitektur IT-System]
+** xref:vorgaben-architektur/master.adoc[Architektur - Vorgaben]
+** xref:vorgaben-it-sicherheit/master.adoc[IT-Sicherheit - Vorgaben]
 
 

@@ -3,41 +3,45 @@
 == Architekturregeln der IsyFact
 
 :leveloffset: +1
-# TODO Anmerkung von MRO:  Die ganzen folgenden Links können nicht aufgelöst werden und werden daher zunächst auskommentiert
-#include::../../../10_IsyFact-Standards/00_Allgemein/IsyFact-Einstieg/architekturregeln.adoc[tags=architekturregeln]
-include::../referenzarchitektur/architekturregeln.adoc[tags=architekturregeln]
-include::../referenzarchitektur-it-system/architekturregeln.adoc[tags=architekturregeln]
-include::../../../10_IsyFact-Standards/00_Allgemein/IsyFact-Tutorial/architekturregeln.adoc[tags=architekturregeln]
-include::../../../10_IsyFact-Standards/00_Allgemein/IsyFact-Whitepaper/architekturregeln.adoc[tags=architekturregeln]
+include::einstieg:page$einstieg/inhalt.adoc[tags=architekturregeln]
+include::blaupausen:page$referenzarchitektur/inhalt.adoc[tags=architekturregeln]
+include::blaupausen:page$referenzarchitektur-it-system/inhalt.adoc[tags=architekturregeln]
+include::einstieg:page$tutorial/inhalt.adoc[tags=architekturregeln]
+include::einstieg:page$whitepaper/inhalt.adoc[tags=architekturregeln]
 
-include::../detailkonzept-komponente-anwendungskern/architekturregeln.adoc[tags=architekturregeln]
-include::../detailkonzept-komponente-batch/architekturregeln.adoc[tags=architekturregeln]
-include::../detailkonzept-komponente-datenzugriff/architekturregeln.adoc[tags=architekturregeln]
-include::../detailkonzept-komponente-service/architekturregeln.adoc[tags=architekturregeln]
-include::../detailkonzept-komponente-web-gui/architekturregeln.adoc[tags=architekturregeln]
+include::blaupausen:page$detailkonzept-komponente-anwendungskern/inhalt.adoc[tags=architekturregeln]
+include::blaupausen:page$detailkonzept-komponente-batch/inhalt.adoc[tags=architekturregeln]
+include::blaupausen:page$detailkonzept-komponente-datenzugriff/inhalt.adoc[tags=architekturregeln]
+include::blaupausen:page$detailkonzept-komponente-service/inhalt.adoc[tags=architekturregeln]
+include::blaupausen:page$detailkonzept-komponente-web-gui/inhalt.adoc[tags=architekturregeln]
 
-include::../../../isy-exception-core/pages/architekturregeln.adoc[tags=architekturregeln]
-include::../../../isy-sonderzeichen/pages/architekturregeln.adoc[tags=architekturregeln]
+include::isy-exception-core:page$konzept/inhalt.adoc[tags=architekturregeln]
+include::isy-exception-core:page$nutzungsvorgaben/inhalt.adoc[tags=architekturregeln]
+include::isy-sonderzeichen:page$konzept/inhalt.adoc[tags=architekturregeln]
+include::isy-sonderzeichen:page$nutzungsvorgaben/inhalt.adoc[tags=architekturregeln]
 
-include::../../../isy-datetime/pages/architekturregeln.adoc[tags=architekturregeln]
-include::../../../isy-util/pages/architekturregeln.adoc[tags=architekturregeln]
-include::../../../isy-konfiguration/pages/nutzungsvorgaben/architekturregeln.adoc[tags=architekturregeln]
-include::../../../isy-logging/pages/nutzungsvorgaben/architekturregeln.adoc[tags=architekturregeln]
-include::../../../isy-polling/pages/nutzungsvorgaben/architekturregeln.adoc[tags=architekturregeln]
-include::../../../isy-sicherheit/pages/nutzungsvorgaben/architekturregeln.adoc[tags=architekturregeln]
-#include::../../../10_IsyFact-Standards/20_Bausteine/Nutzungsvorgaben_Spring_LDAP/architekturregeln.adoc[tags=architekturregeln]
-include::../../../isy-task/pages/nutzungsvorgaben/architekturregeln.adoc[tags=architekturregeln]
-include::../../../isy-ueberwachung/pages/nutzungsvorgaben/architekturregeln.adoc[tags=architekturregeln]
+include::isy-datetime:page$konzept/inhalt.adoc[tags=architekturregeln]
+include::isy-datetime:page$nutzungsvorgaben/inhalt.adoc[tags=architekturregeln]
+include::isy-util:page$nutzungsvorgaben/inhalt.adoc[tags=architekturregeln]
+include::isy-konfiguration:page$konzept/inhalt.adoc[tags=architekturregeln]
+include::isy-konfiguration:page$nutzungsvorgaben/inhalt.adoc[tags=architekturregeln]
+include::isy-logging:page$konzept/inhalt.adoc[tags=architekturregeln]
+include::isy-logging:page$nutzungsvorgaben/inhalt.adoc[tags=architekturregeln]
+include::isy-polling:page$konzept/inhalt.adoc[tags=architekturregeln]
+include::isy-polling:page$nutzungsvorgaben/inhalt.adoc[tags=architekturregeln]
+include::isy-sicherheit:page$konzept/inhalt.adoc[tags=architekturregeln]
+include::isy-sicherheit:page$nutzungsvorgaben/inhalt.adoc[tags=architekturregeln]
+include::isy-task:page$konzept/inhalt.adoc[tags=architekturregeln]
+include::isy-task:page$nutzungsvorgaben/inhalt.adoc[tags=architekturregeln]
+include::isy-ueberwachung:page$konzept/inhalt.adoc[tags=architekturregeln]
+include::isy-ueberwachung:page$nutzungsvorgaben/inhalt.adoc[tags=architekturregeln]
 
-include::../../../10_IsyFact-Standards/40_Methodik/IsyFact-Versionierung/architekturregeln.adoc[tags=architekturregeln]
-include::../../../10_IsyFact-Standards/40_Methodik/Java-Programmierkonventionen/architekturregeln.adoc[tags=architekturregeln]
+include::methodik:page$versionierung/inhalt.adoc[tags=architekturregeln]
+include::methodik:page$java-programmierkonventionen/inhalt.adoc[tags=architekturregeln]
 
 include::../../../20_IsyFact-Erweiterungen/20_Bausteine/Nutzungsvorgaben_IsyFact-Benutzerverwaltung/architekturregeln.adoc[tags=architekturregeln]
 
 include::../../../20_IsyFact-Erweiterungen/30_Plattform/Konzept_Logging_Infrastruktur_ELK/architekturregeln.adoc[tags=architekturregeln]
 include::../../../20_IsyFact-Erweiterungen/30_Plattform/Nutzungsvorgaben_Redis/architekturregeln.adoc[tags=architekturregeln]
-
-
-
 
 // end::inhalt[]

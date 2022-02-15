@@ -1,0 +1,13 @@
+:doctitle: IsyFact Systementwurf <System>
+[discrete]
+= Vorlage
+
+:sectnums:
+
+include::glossary:licence:partial$licence.adoc[]
+
+// Inhalt
+include::inhalt.adoc[tags=inhalt]
+
+// Kapitelnummerierung ausschalten
+:sectnums!:

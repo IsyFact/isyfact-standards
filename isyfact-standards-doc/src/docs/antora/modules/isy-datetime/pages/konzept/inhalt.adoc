@@ -205,7 +205,7 @@ deren Format gemäß der Anforderungen der Kapitel <<datumswert-1>> bis <<dauer-
 === Persistierung
 
 Die Persistierung von Angaben zu Datum, Zeit, Dauer, Zeiträumen und ungewissen Datums- und Zeitangaben (siehe <<ungewisse-datums-und-zeitwerte>>) wird durch die Bibliothek `isy-persistence` behandelt.
-Weitere Details dazu beschreibt das <<TODO DetailkonzeptKomponenteDatenzugriff>>.
+Weitere Details dazu beschreibt das xref:isyfact-standards-doku:blaupausen:detailkonzept-komponente-datenzugriff/master.adoc[Detailkonzept Komponente Datenzugriff].
 
 [[berechnungen]]
 === Berechnungen

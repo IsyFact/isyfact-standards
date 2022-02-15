@@ -1,6 +1,8 @@
 * Methodik
 ** Systemspezifikation
 ** Systementwurf
+*** xref:vorlage-systementwurf/master.adoc[Vorlage Systementwurf]
+*** xref:vorlage-systemhandbuch/master.adoc[Vorlage Systemhandbuch]
 ** Implementierung
 *** xref:namenskonventionen/master.adoc[Namenskonventionen]
 *** xref:versionierung/master.adoc[Versionierung]

@@ -49,7 +49,7 @@ Dies ist in <<image-GA-AW>> dargestellt.
 
 .Fachliche Architektur einer Anwendungslandschaft
 [id="image-GA-AW",reftext="{figure-caption} {counter:figures}"]
-image::GA-AW.png[align="center"]
+image::blaupausen:referenzarchitektur/GA-AW.png[align="center"]
 
 *Anwendungsdomänen:* Eine xref:glossary:glossary:master.adoc#glossar-Anwendungsdomaene[Anwendungsdomäne] gruppiert fachlich zusammengehörende Anwendungssysteme zur Unterstützung von Geschäftsprozessen, die als eine Einheit angesehen werden können.
 
@@ -89,7 +89,7 @@ Der Zustand einer Anwendung wird in der Datenbank persistiert und bei jedem eint
 
 .Horizontale Skalierung
 [id="image-horSkal",reftext="{figure-caption} {counter:figures}"]
-image::horSkal.png[align="center",pdfwidth=50%,width=50%]
+image::blaupausen:referenzarchitektur/horSkal.png[align="center",pdfwidth=50%,width=50%]
 
 In der Referenzarchitektur erfolgt die Anpassung an steigende Anforderungen durch horizontale Skalierung auf der Ebene der Anwendungsserver.
 Ein (Hardware- oder Software-) Loadbalancer verteilt die eingehenden Anfragen auf die vorhandenen Anwendungsserver.
@@ -111,14 +111,14 @@ Es hat zur Folge, dass als Application Server ein Servlet-Container ausreichend 
 [[referenzarchitektur-der-technischen-infrastruktur]]
 ==== Referenzarchitektur der technischen Infrastruktur
 
-Im Bereich der technischen Infrastruktur (xref:glossary:glossary:master.adoc#glossar-TI-Architektur>[IT-Architektur] <<>>) werden folgende Umgebungen beschrieben:
+Im Bereich der technischen Infrastruktur (xref:glossary:glossary:master.adoc#glossar-TI-Architektur>[IT-Architektur]) werden folgende Umgebungen beschrieben:
 
 * Produktionsumgebung,
 * Staging-Umgebung,
 * Schulungs- und externe Testumgebung,
 * Entwicklungs- und Abnahme-Testumgebung.
 
-Die Aufteilung in Zonen leitet sich aus dem SAGA 4-Standard ab <<TODO anderes Dokument: AGA40>>.
+Die Aufteilung in Zonen leitet sich aus dem SAGA 4-Standard ab xref:glossary:literaturextern:inhalt.adoc#litextern-SAGA_4.0[SAGA 4.0].
 
 NOTE: Wir orientieren uns hier nach wie vor am SAGA 4-Standard, da SAGA 5 kein Zonenmodell mehr enthält.
 
@@ -127,7 +127,7 @@ Abbilder der Produktionsumgebung.
 
 .Referenzarchitektur der technischen Infrastruktur für die Produktionsumgebung
 [id="image-RATIP",reftext="{figure-caption} {counter:figures}"]
-image::RATIP.png[align="center"]
+image::blaupausen:referenzarchitektur/RATIP.png[align="center"]
 
 Um die Sicherheit in der Datenkommunikation zu gewährleisten, sind die Server unterschiedlichen Sicherheitszonen des Netzwerks zugeordnet.
 In <<image-RATIP>> ist eine Sicherheitszone durch ein gestricheltes Rechteck dargestellt.

@@ -3,8 +3,9 @@
 = Nutzungsvorgaben
 
 :sectnums:
+:sectnumlevels: 4
 
-include::allgemein:partial$licence.adoc[]
+include::glossary:licence:partial$licence.adoc[]
 
 include::thisdoc.adoc[tags=inhalt]
 

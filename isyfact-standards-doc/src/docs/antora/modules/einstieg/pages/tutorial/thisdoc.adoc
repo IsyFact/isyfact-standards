@@ -12,7 +12,7 @@ einer zur IsyFact konformen Anwendungslandschaft.
 Im Sinne einer Referenz enthält es jedoch nicht alle Details der zugrunde liegenden Konzepte.
 Der Fokus liegt darauf, einen schnellen Überblick über die einzelnen Themen zu geben und die wichtigsten Realisierungsaufgaben
 zusammenfassend darzustellen.
-An vielen Stellen bezieht sich das Tutorial auf die <<TODO anderes Dokument: Vorlageanwendung>>, die eine kleine Geschäftsanwendung beispielhaft implementiert sind.
+An vielen Stellen bezieht sich das Tutorial auf die xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung], die eine kleine Geschäftsanwendung beispielhaft implementiert sind.
 
 Zunächst beschreibt das Kapitel *xref:tutorial/master.adoc#bezug-isyfact[Bezug IsyFact]*, wie sich die IsyFact in Entwicklungsprojekte einbinden lässt.
 Danach beleuchten die Kapitel *xref:tutorial/master.adoc#datenhaltung[Datenhaltung]* , *xref:tutorial/master.adoc#fachkomponenten-der-anwendung[Fachkomponenten der Anwendung]* und *xref:tutorial/master.adoc#anwendungsnutzung[Anwendungsnutzung]* jeweils einzelne Kernthemen der Anwendungsentwicklung.

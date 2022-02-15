@@ -32,7 +32,7 @@ Weitere Vorteile sind höhere Sicherheit und Softwarequalität durch Einsatz erp
 
 .Durch die IsyFact abgedeckte Bereiche
 [id="image-IFBereiche",reftext="{figure-caption} {counter:figures}"]
-image::IFBereiche.png[align="center",pdfwidth=45%,width=45%]
+image::blaupausen:referenzarchitektur/IFBereiche.png[align="center",pdfwidth=45%,width=45%]
 
 
 Die IsyFact bietet standardisierte Lösungen zu wichtigen Themen beim Bau von Geschäftsanwendungen.
@@ -102,6 +102,7 @@ Hierdurch verbessert sich die Verständlichkeit, Wartbarkeit und Betreibbarkeit 
 *Effizienz:* Durch die Verwendung vorhandener Querschnittssysteme, Bibliotheken, Generatoren, Beispielanwendungen und die Vorgaben der Referenzarchitektur können die Anwendungssysteme effizienter entwickelt und gewartet werden.
 Durch die infrastrukturelle und betriebliche Gleichartigkeit der Anwendungssysteme können diese effizienter betrieben werden.
 
+//Dokument existiert auch in der alten Doku nicht
 *Sicherheit:* Die Referenzarchitektur sieht bewährte Technologien und Produkte, eine Infrastruktur nach der Architekturrichtlinie für die IT des Bundes <<TODO anderes Dokument: ArchitekturRichtlinieITBund>>, und nach klaren architektonischen Vorgaben erstellte Anwendungssysteme vor.
 Die Risiken für Ausfälle, Fehler oder Sicherheitslücken wird hierdurch reduziert und die Zukunftssicherheit der Anwendungssysteme erhöht.
 
@@ -128,7 +129,7 @@ Dies ist in <<image-AnptRAafK>> dargestellt.
 
 .Anpassung der technischen Referenzarchitekturen auf den fachlichen Kontext
 [id="image-AnptRAafK",reftext="{figure-caption} {counter:figures}"]
-image::AnptRAafK.png[align="center"]
+image::blaupausen:referenzarchitektur/AnptRAafK.png[align="center"]
 
 [[die-fachliche-referenzarchitektur]]
 == Die fachliche Referenzarchitektur
@@ -146,7 +147,7 @@ Diese fachliche Architektur einer Anwendungslandschaft ist in <<image-GA-AW2>> d
 
 .Fachliche Architektur einer Anwendungslandschaft
 [id="image-GA-AW2",reftext="{figure-caption} {counter:figures}"]
-image::GA-AW.png[align="center"]
+image::blaupausen:referenzarchitektur/GA-AW.png[align="center"]
 
 [[die-strukturierung-der-anwendungslandschaft]]
 === Die Strukturierung der Anwendungslandschaft
@@ -272,7 +273,7 @@ Wenn die Kommunikation auch IT-Systeme einschließt, die außerhalb liegen, verw
 
 .Interne und externe Servicekommunikation
 [id="image-servicekommunikation",reftext="{figure-caption} {counter:figures}"]
-image::servicekommunikation.dn.png[align="center"]
+image::blaupausen:referenzarchitektur/servicekommunikation.dn.png[align="center"]
 
 IT-Systeme tauschen in der Kommunikation untereinander Daten aus.
 Diese lassen sich in Metadaten und Nutzdaten unterteilen.
@@ -312,7 +313,7 @@ Der Sender wartet auf die Antwort, bevor er seine Verarbeitung fortsetzt.
 
 .Ablauf eines synchronen Service-Aufrufs
 [id="image-synchronous-call",reftext="{figure-caption} {counter:figures}"]
-image::synchroner-service-aufruf.dn.png[align="center"]
+image::blaupausen:referenzarchitektur/synchroner-service-aufruf.dn.png[align="center"]
 
 Deswegen sind synchrone Service-Aufrufe in der Regel eine vergleichsweise zeitintensive Operation.
 Häufig ist es sinnvoll, Service-Aufrufe nach Möglichkeit einzusparen.
@@ -326,7 +327,7 @@ HTTP-Anfragen bzw. HTTP-Antworten (s. <<image-http-messages>>) erlauben es an dr
 
 .Aufbau von HTTP-Anfragen bzw. HTTP-Antworten
 [id="image-http-messages",reftext="{figure-caption} {counter:figures}"]
-image::http-messages-aufbau.dn.png[align="center"]
+image::blaupausen:referenzarchitektur/http-messages-aufbau.dn.png[align="center"]
 
 Header enthalten Metadaten.
 Der Body enthält Nutzdaten.
@@ -347,7 +348,7 @@ Stattdessen wird die Verarbeitung erst durch die Antwort des Senders wieder aufg
 
 .Ablauf eines asynchronen Service-Aufrufs
 [id="image-asynchronous-call",reftext="{figure-caption} {counter:figures}"]
-image::asynchroner-service-aufruf.dn.png[align="center"]
+image::blaupausen:referenzarchitektur/asynchroner-service-aufruf.dn.png[align="center"]
 
 Asynchrone Service-Aufrufe können z.B. dann eingesetzt werden, wenn eine länger dauernde Verarbeitung durch den Empfänger eine direkte Rückmeldung unmöglich macht.
 
@@ -363,7 +364,7 @@ Der Sender enthält keine direkte Antwort vom Empfänger.
 
 .Ablauf der Kommunikation beim Queueing
 [id="image-queueing",reftext="{figure-caption} {counter:figures}"]
-image::queueing.dn.png[align="center"]
+image::blaupausen:referenzarchitektur/queueing.dn.png[align="center"]
 
 
 Für das Queueing infrage kommende Message-Broker müssen *JMS* (Jakarta Messaging, ehemals _Java Message Service_) unterstützen.
@@ -374,7 +375,7 @@ Die Properties unterteilen sich noch einmal in applikationsspezifische Propertie
 
 .Aufbau einer JMS-Nachricht
 [id="image-jms-message",reftext="{figure-caption} {counter:figures}"]
-image::jms-message-aufbau.dn.png[align="center"]
+image::blaupausen:referenzarchitektur/jms-message-aufbau.dn.png[align="center"]
 
 Applikationsspezifische Properties enthalten Metadaten.
 Der Body enthält Nutzdaten.
@@ -422,7 +423,7 @@ Die Unterscheidung zwischen „innere“ und „äußere“ ist analog für die 
 
 .Externe, äußere und innere Services
 [id="image-extintServ",reftext="{figure-caption} {counter:figures}"]
-image::extintServ.png[align="center"]
+image::blaupausen:referenzarchitektur/extintServ.png[align="center"]
 
 ==== Umsetzung der Servicekommunikation
 
@@ -469,7 +470,7 @@ Für derartige Aufrufe gibt es keine Vorgaben: Sie können aus beliebigen Schich
 
 .Aufrufbeziehungen für eine Geschäftsanwendung mit GUI und XML-Schnittstelle
 [id="image-CallFAmGuX",reftext="{figure-caption} {counter:figures}"]
-image::CallFAmGuX.png[align="center"]
+image::blaupausen:referenzarchitektur/CallFAmGuX.png[align="center"]
 
 [[verwendung-von-produkten]]
 === Verwendung von Produkten
@@ -509,7 +510,7 @@ Um neben dem operativen Betrieb einer IsyFact-Systemlandschaft parallel neue Ver
 
 .Überblick Systemumgebungen
 [id="image-AlleSysUmgeb",reftext="{figure-caption} {counter:figures}"]
-image::AlleSysUmgeb.png[align="center"]
+image::blaupausen:referenzarchitektur/AlleSysUmgeb.png[align="center"]
 
 Die IsyFact unterscheidet sechs Systemumgebungen:
 
@@ -543,7 +544,7 @@ Geht eine Verbindung von beziehungsweise zu einem Cluster, so entspricht dies Ve
 
 .TI-Architektur der Produktionsumgebung
 [id="image-TIArchPRU",reftext="{figure-caption} {counter:figures}"]
-image::TIArchPRU.png[align="center"]
+image::blaupausen:referenzarchitektur/TIArchPRU.png[align="center"]
 
 Um die Sicherheit in der Datenkommunikation zu gewährleisten, sind die Server unterschiedlichen Sicherheitszonen des Netzwerks zugeordnet.
 In <<image-TIArchPRU>> ist eine Sicherheitszone durch ein gestricheltes Rechteck dargestellt.
@@ -591,7 +592,7 @@ Die Zonenaufteilung sollte vergleichbar zur Produktionsumgebung sein, da sonst E
 
 .TI-Architektur Staging-Umgebung
 [id="image-TIArchSTU",reftext="{figure-caption} {counter:figures}"]
-image::TIArchSTU.png[align="center"]
+image::blaupausen:referenzarchitektur/TIArchSTU.png[align="center"]
 
 
 [[externe-schulungsumgebung-xsu]]
@@ -610,7 +611,7 @@ Damit ist diese Umgebung neben der Produktionsumgebung und der externen Schulung
 
 .TI-Architektur externe Testumgebung
 [id="image-TIArchETU",reftext="{figure-caption} {counter:figures}"]
-image::TIArchETU.png[align="center"]
+image::blaupausen:referenzarchitektur/TIArchETU.png[align="center"]
 
 Im Vergleich zur Produktionsumgebung ist die Leistungsfähigkeit dieser Umgebung bei vollständiger Funktionalität deutlich reduziert.
 Da auch an die Verfügbarkeit der Umgebung geringere Anforderungen gestellt werden, wird auf die Aufteilung in verschiedene Netzwerkzonen und auf den Betrieb der Rechnersysteme im Cluster aus wirtschaftlichen Gründen verzichtet.
@@ -636,12 +637,13 @@ Es gibt keine weitere Unterteilung in Sicherheitszonen.
 
 .TI-Architektur Entwicklungstestumgebung
 [id="image-TIArchSWTU",reftext="{figure-caption} {counter:figures}"]
-image::TIArchSWTU.png[align="center",pdfwidth=80%,width=80%]
+image::blaupausen:referenzarchitektur/TIArchSWTU.png[align="center",pdfwidth=80%,width=80%]
 
 [[minimalanforderungen-an-die-ablaufumgebung]]
 === Minimalanforderungen an die Ablaufumgebung
 
 Als Ablaufumgebung benötigen die gemäß der Referenzarchitektur (siehe Kapitel <<die-software-referenzarchitektur>>) erstellten IT-Systeme einen Tomcat Servlet-Container.
+//Dokument existiert auch in der alten Doku nicht
 Die Vorgaben zur Konfiguration des Tomcat sind im Dokument <<TODO anderes Dokument: TomcatNutzungskonzept>> beschrieben.
 
 Service-Gateway-Systeme und das Portal benötigen zusätzlich noch einen Apache-Webserver.
@@ -660,7 +662,7 @@ Die Verfügbarkeit wird über einen Prozentwert gemessen, der unter Berücksicht
 
 .Verfügbarkeit
 [id="image-verfuegbar",reftext="{figure-caption} {counter:figures}"]
-image::verfuegbar.png[align="center"]
+image::blaupausen:referenzarchitektur/verfuegbar.png[align="center"]
 
 Der Aufbau der Produktionsumgebung ist so gestaltet, dass eine Verfügbarkeit von 7x24 Stunden und eine auf den Monat berechnete Verfügbarkeit von über 99% erreicht werden kann.
 
@@ -752,7 +754,7 @@ Der Betrieb ist auch für die Dokumentation der Konfigurationsänderungen durch 
 === Betriebsüberwachung
 
 Um den Gesamt-Status eines Systems zu überwachen, sind die Überwachung der IT-Systeme sowie das Monitoring der Komponenten der technischen Infrastruktur notwendig.
-Auf die Überwachung der IT-Systeme wird im Dokument<<TODO anderes Dokument: KonzeptUeberwachung>> im Detail eingegangen.
+Auf die Überwachung der IT-Systeme wird im Dokument xref:isy-ueberwachung:konzept/master.adoc#einleitung[Konzept Überwachung] im Detail eingegangen.
 Hier wird unter anderem festgelegt, welche Informationen ein nach der Referenzarchitektur erstelltes IT-System für die Überwachung mindestens bereitstellen muss.
 Die Schnittstellentechnologie, über die die Informationen der einzelnen Anwendungen zur Überwachung angeboten werden, ist dabei der Standard JMX, der in alle gängigen Überwachungstools integrierbar ist.
 
@@ -862,7 +864,7 @@ Dieses Szenario ist in <<image-einfachSOArch>> dargestellt.
 
 .Vereinfachung der SOA-Architektur
 [id="image-einfachSOArch",reftext="{figure-caption} {counter:figures}"]
-image::einfachsoArch.png[align="center"]
+image::blaupausen:referenzarchitektur/einfachsoArch.png[align="center"]
 
 Links ist eine typische Umsetzung einer Geschäftsanwendung in der IsyFact-Systemlandschaft zu sehen.
 Sie ist über ein Portal in eine Unternehmenslandschaft integriert, hat Außenschnittstellen zu anderen Organisationen, die über ein Service Gateway angeboten werden und sie nutzen die zentralen Services „Output Management“, „Alphanumerisches Suchverfahren“ und das zentrale Schlüsselverzeichnis.
@@ -894,7 +896,7 @@ Dies ist in <<image-noCluster>> dargestellt.
 
 .Vereinfachung durch Wegfall von Clustering
 [id="image-noCluster",reftext="{figure-caption} {counter:figures}"]
-image::noCluster.png[align="center"]
+image::blaupausen:referenzarchitektur/noCluster.png[align="center"]
 
 [[verzicht-auf-das-saga-zonenmodell]]
 ==== Verzicht auf das SAGA-Zonenmodell

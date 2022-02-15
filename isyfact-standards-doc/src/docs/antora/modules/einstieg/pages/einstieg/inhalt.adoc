@@ -31,7 +31,7 @@ Sie umfasst Standards und Erweiterungen.
 
 .Die verschiedenen Ebenen der IsyFact
 [id="image-IFS-IFE",reftext="{figure-caption} {counter:figures}"]
-image::IFS-IFE.png[align="center"]
+image::einstieg:einstieg/IFS-IFE.png[align="center"]
 
 Die *IsyFact-Standards* bilden das architektonische, technologische und methodische Fundament der IsyFact.
 Sie umfassen allgemeingültige und wiederverwendbare Konzepte und Komponenten, die für die Entwicklung beliebiger Geschäftsanwendungen relevant sind.
@@ -44,7 +44,7 @@ Die Artefakte der IsyFact-Standards und IsyFact-Erweiterungen werden in gleicher
 
 .Die 5 Säulen der IsyFact
 [id="image-IFBereiche",reftext="{figure-caption} {counter:figures}"]
-image::IFBereiche.png[align="center",width=60%,pdfwidth=60%]
+image::einstieg:einstieg/IFBereiche.png[align="center",width=60%,pdfwidth=60%]
 
 Die einzelnen Säulen sind:
 
@@ -65,7 +65,7 @@ Diesen Vorgang bezeichnet man insgesamt als __Tailoring__.
 Das Resultat des Tailorings ist eine spezifische Factory für einen Anwendungskontext, wie sie z.B. beim Bundesverwaltungsamt in
 Form der Register Factory für den Kontext der Register Anwendungen erstellt wurde.
 
-NOTE: https://http://www.register-factory.de[register-factory.de]
+NOTE: xref:glossary:literaturextern:inhalt.adoc#litextern-Register-Factory[Register Factory]
 
 Das Tailoring ist ein sinnvoller Schritt, um möglichst viel Wissen über die Entwicklung von Anwendungen in Form einer Factory vorzuhalten.
 Es ist für die Nutzung der IsyFact jedoch nicht erforderlich.
@@ -73,7 +73,7 @@ Insgesamt gibt es vier mögliche Nutzungsszenarien, die in <<image-IsyFact-Produ
 
 .Nutzungsszenarien der IsyFact
 [id="image-IsyFact-Produkte",reftext="{figure-caption} {counter:figures}"]
-image::IsyFact-Produkte.png[align="center",width=70%,pdfwidth=70%]
+image::einstieg:einstieg/IsyFact-Produkte.png[align="center",width=70%,pdfwidth=70%]
 
 * **Szenario 1 – Direkte Nutzung der IsyFact-Standards**: Die direkte Nutzung des Standards ermöglicht es, von den Vorteilen der bewährten Standards der Factory unmittelbar zu profitieren.
 Dieses Szenario ist insbesondere immer dann sinnvoll, wenn einzelne Systeme und keine komplette Anwendungslandschaft gleichartiger zusammenhängender Systeme umgesetzt werden sollen.
@@ -112,7 +112,7 @@ Langfristig ist das Ziel, zusätzlich einen Marktplatz zu etablieren, auf dem je
 
 .Mitarbeit an der IsyFact
 [id="image-vision",reftext="{figure-caption} {counter:figures}"]
-image::Vision.png[align="center",width=80%,pdfwidth=80%]
+image::einstieg:einstieg/Vision.png[align="center",width=80%,pdfwidth=80%]
 
 Für die Beteiligung an der Weiterentwicklung der IsyFact gibt es zwei Möglichkeiten (siehe <<image-vision>>):
 
@@ -143,7 +143,7 @@ Um die Artefakte der Register Factory auch in anderen Kontexten zur Verfügung z
 
 .Aufteilung der Register Factory zur IsyFact
 [id="image-RF-Aufteilung",reftext="{figure-caption} {counter:figures}"]
-image::RF-Aufteilung.png[align="center",width=80%,pdfwidth=80%]
+image::einstieg:einstieg/RF-Aufteilung.png[align="center",width=80%,pdfwidth=80%]
 
 Die IsyFact enthält ausschließlich allgemeingültige „register-neutrale“ Konzepte und Komponenten.
 Die Register Factory ist seit deren Umstellung eine spezifische Factory, die auf der IsyFact aufbaut (vergleiche die verschiedenen Nutzungsszenarien in Abschnitt 2.3). Sie wird durch das BVA ebenfalls aktiv weiterentwickelt.
@@ -278,7 +278,7 @@ Darüber hinaus werden die Bausteine der IsyFact-Standards kurz beschrieben.
 [[vorgaben-architektur]]
 === Vorgaben für die Architektur
 
-Die <<TODO anderes Dokument: IsyFactReferenzarchitektur>> definiert die Architektur einzelner Anwendungssysteme bis hin zu Anwendungslandschaften.
+Die xref:blaupausen:referenzarchitektur/master.adoc#einleitung[IsyFact Referenzarchitektur] definiert die Architektur einzelner Anwendungssysteme bis hin zu Anwendungslandschaften.
 Dazu beschreibt sie drei Architektursichten:
 
 * Fachliche Architektur (A-Architektur),
@@ -313,8 +313,8 @@ Die fachliche Architektur der Geschäftsanwendungen wird in Spezifikationen doku
 
 Systemspezifikationen besitzen eine festgelegte Form und beschreiben stets gleichartige Inhalte.
 Die Vorgaben dazu befinden sich mitsamt Vorgehen und Beispielen in der Vorlage für die Systemspezifikation (<<TODO anderes Dokument: IsyFactSystemspezifikation>>).
-Bereits bei der Systemspezifikation ist auf die Einhaltung der <<TODO anderes Dokument: IsyFactNamenskonventionen>> zu achten.
-Bei der Erstellung von Diagrammen mit dem Enterprise Architect hilft das Dokument <<TODO anderes Dokument: NutzungEnterpriseArchitect>>.
+Bereits bei der Systemspezifikation ist auf die Einhaltung der xref:methodik:namenskonventionen/master.adoc#einleitung[IsyFact Namenskonventionen] zu achten.
+Bei der Erstellung von Diagrammen mit dem Enterprise Architect hilft das Dokument xref:methodik:enterprise-architect/master.adoc#einleitung[Nutzungsvorgaben Enterprise Architect].
 
 Für die Erfassung von Anforderungslisten gibt es ebenfalls eine Vorlage (<<TODO anderes Dokument: IsyFactVorlageAnforderungsliste>>).
 Die Anforderungsliste ist ein Instrument, um die Übersicht und die Nachvollziehbarkeit des Umsetzungsstatus aller Anforderungen an ein System im gesamten Projektlebenszyklus zu erhalten.
@@ -326,14 +326,14 @@ Im Dokument <<TODO anderes Dokument: AnleitungDatenflussdiagramme>> wird die Ers
 ==== Vorgaben für die T-Architektur
 Die softwaretechnische Architektur wird auf Basis der Spezifikation aus der fachlichen Architektur entwickelt.
 
-Im Dokument <<TODO anderes Dokument: IsyFactReferenzarchitekturITSystem>> wird die softwaretechnische Architektur eingeführt und erläutert.
+Im Dokument xref:blaupausen:referenzarchitektur-it-system/master.adoc#einleitung[IsyFact Referenzarchitektur IT-Systeme] wird die softwaretechnische Architektur eingeführt und erläutert.
 Die technischen Entsprechungen für die fachlich motivierte Anwendungslandschaft und das Anwendungssystem sind die technisch motivierten Begriffe der Systemlandschaft und respektive des IT-Systems.
 
 Ein IT-System basiert auf einer Drei-Schichten-Architektur und besteht aus den Komponenten, die in <<image-image008>> dargestellt sind.
 
 .Softwaretechnische Referenzarchitektur eines IT-Systems
 [id="image-image008",reftext="{figure-caption} {counter:figures}"]
-image::image008.png[align="center"]
+image::einstieg:einstieg/image008.png[align="center"]
 
 Die Abbildung der fachlichen Architektur wird vor allem durch die Fachkomponenten sichtbar.
 Jede Fachkomponente besitzt, soweit sinnvoll, eine Entsprechung in jeder Komponente des IT-Systems.
@@ -341,31 +341,31 @@ Somit bedingt die Architektur einer Geschäftsanwendung maßgeblich die Struktur
 
 Zu den dargestellten softwaretechnischen Komponenten gibt es jeweils ein Detailkonzept, das die technische Umsetzung der Komponente beschreibt.
 Dazu bietet die IsyFact fertige Bausteine an, die bei der Umsetzung helfen.
-Eine beispielhafte Umsetzung eines IT-Systems zeigt die <<TODO anderes Dokument: Vorlageanwendung>>.
+Eine beispielhafte Umsetzung eines IT-Systems zeigt die xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung].
 
 Datenzugriff::
 Der Datenzugriff erfolgt über JPA.
-Das <<<<TODO anderes Dokument: DetailkonzeptKomponenteDatenzugriff>> legt die genaue Verwendung von JPA fest und beschreibt die Prinzipien sowie das Vorgehen zur Persistierung von Datenmodellen.
+Das xref:blaupausen:detailkonzept-komponente-datenzugriff/master.adoc#_detailkonzept_datenzugriff_einleitung[Detailkonzept Komponente Datenzugriff] legt die genaue Verwendung von JPA fest und beschreibt die Prinzipien sowie das Vorgehen zur Persistierung von Datenmodellen.
 
 Anwendungskern::
 Der Anwendungskern setzt die Fachlichkeit mittels Fachkomponenten um.
 Der Schnitt der Fachkomponenten ist durch die fachliche Referenzarchitektur vorgegeben.
-Die Ergänzung durch technische Komponenten und weitere Vorgaben, z.B. zur Konfiguration der Komponenten, sind in <<TODO anderes Dokument: DetailkonzeptKomponenteAnwendungskern>> festgelegt.
+Die Ergänzung durch technische Komponenten und weitere Vorgaben, z.B. zur Konfiguration der Komponenten, sind in xref:blaupausen:detailkonzept-komponente-anwendungskern/master.adoc#einleitung[Detailkonzept Komponente Anwendungskern] festgelegt.
 
 Batch::
 Batches sind eine Möglichkeit zur Nutzung von IT-Systemen über zeitgesteuerte und automatisch ablaufende, fachliche Operationen.
-Das <<TODO anderes Dokument: DetailkonzeptKomponenteBatch>> beschreibt die Vorgaben für Batches sowie den Aufbau der Batch-Komponente.
+Das xref:blaupausen:detailkonzept-komponente-batch/master.adoc#_einführung[Detailkonzept Komponente Batch] beschreibt die Vorgaben für Batches sowie den Aufbau der Batch-Komponente.
 Zur Umsetzung von Batches wird der Batchrahmen der IsyFact vorgeschrieben.
 
 Service::
 Services bieten fachliche Operationen nach außen an und stellen sie anderen IT-Systemen zur Nutzung bereit.
-Das <<TODO anderes Dokument: DetailkonzeptKomponenteService>> beschreibt die Vorgaben für Services sowie den Aufbau der Service-Komponente.
-Die konkrete Umsetzung mit dem Service-Framework HTTP Invoker sind im <<TODO anderes Dokument: KonzeptHttpInvoker>> sowie den <<TODO anderes Dokument: NutzungsvorgabenHttpInvoker>> beschrieben.
+Das xref:blaupausen:detailkonzept-komponente-service/master.adoc#einleitung[Detailkonzept Komponente Service] beschreibt die Vorgaben für Services sowie den Aufbau der Service-Komponente.
+Die konkrete Umsetzung mit dem Service-Framework HTTP Invoker sind im xref:isy-serviceapi-core:konzept/master.adoc#einleitung[Konzept HTTP-Invoker] sowie den xref:isy-serviceapi-core:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben HTTP-Invoker] beschrieben.
 
 GUI::
 Grafische Oberflächen bieten fachliche Operationen nach außen an und stellen sie Anwendern zur Nutzung bereit.
 Ihre Umsetzung geschieht als Web-GUI und folgt dem MVC-Pattern.
-Die genauen Festlegungen zur Web-GUI-Entwicklung finden sich im Dokument <<TODO anderes Dokument: DetailkonzeptKomponenteWebGUI>>.
+Die genauen Festlegungen zur Web-GUI-Entwicklung finden sich im Dokument xref:blaupausen:detailkonzept-komponente-web-gui/master.adoc#_detailkonzept[Detailkonzept Komponente WebGUI].
 
 Die Erstellung von IT-Systemen wird durch einen Systementwurf konkretisiert und dokumentiert.
 
@@ -384,7 +384,7 @@ IT-Systeme müssen auf Basis dieser Produkte und Bibliotheken gebaut werden.
 ==== Vorgaben für die TI-Architektur
 Die Architektur der technischen Infrastruktur wird auf Grundlage der Spezifikation und des Entwurfs entwickelt.
 
-Die Grundlagen der TI-Architektur auf Ebene von Anwendungslandschaften und Anwendungssystemen ist in <<TODO anderes Dokument: IsyFactReferenzarchitektur>> beschrieben.
+Die Grundlagen der TI-Architektur auf Ebene von Anwendungslandschaften und Anwendungssystemen ist in xref:blaupausen:referenzarchitektur/master.adoc#einleitung[IsyFact Referenzarchitektur] beschrieben.
 Die zu verwendende Infrastruktur ist zum Teil durch den <<TODO anderes Dokument: ProduktKatalog>> vorgegeben.
 
 [[vorgaben-fuer-das-systemhandbuch]]
@@ -396,15 +396,15 @@ Sie enthält außerdem das Vorgehen zur Erstellung und Beispiele für die zu bes
 [[vorgaben-fuer-die-realisierung]]
 === Vorgaben für die Realisierung
 
-Die Realisierung hat gemäß den <<TODO anderes Dokument: JavaProgrammierkonventionen>> zu erfolgen.
-Die Versionierung von Bibliotheken und Anwendungen muss sich nach den Vorgaben zur <<TODO anderes Dokument: IsyFactVersionierung>> richten, die im Wesentlichen auf https://semver.org[Semantic Versioning] basieren.
-Für die Entwicklungsumgebung gelten wenige Vorgaben, die in <<TODO anderes Dokument: EinrichtungEntwicklungsumgebung>> zusammengefasst sind.
+Die Realisierung hat gemäß den xref:methodik:java-programmierkonventionen/master.adoc#einleitung[Java Programmierkonventionen] zu erfolgen.
+Die Versionierung von Bibliotheken und Anwendungen muss sich nach den Vorgaben zur xref:werkzeuge:versionierungskontrolle/master.adoc#maven-plugin-versionierungskontrolle[IsyFact Versionierung] richten, die im Wesentlichen auf xref:glossary:literaturextern:inhalt.adoc#litextern-Semantic-Versioning[Semantic Versioning] basieren.
+Für die Entwicklungsumgebung gelten wenige Vorgaben, die in xref:werkzeuge:einrichtung_entwicklungsumgebung/master.adoc#einleitung[IsyFact Einrichtung Entwicklungsumgebung] zusammengefasst sind.
 
 Die Bibliotheken der IsyFact werden als JAR (Java Archive) bereitgestellt und können über ihre Maven-Koordinaten leicht als Abhängigkeit in die Anwendungsentwicklung eingebunden werden.
 
-Darüber hinaus existiert eine <<TODO anderes Dokument: Vorlageanwendung>>, die eine einfache Geschäftsanwendung („Terminfindung“) auf Grundlage der IsyFact implementiert.
+Darüber hinaus existiert eine xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung], die eine einfache Geschäftsanwendung („Terminfindung“) auf Grundlage der IsyFact implementiert.
 
-Neben der Vorlageanwendung gibt es mit dem IsyFact-Tutorial <<TODO anderes Dokument: IsyFactTutorial>> eine weitere Handreichung, um sich in die Implementierungsvorgaben einzuarbeiten.
+Neben der Vorlageanwendung gibt es mit dem IsyFact-Tutorial xref:einstieg:tutorial/master.adoc#einleitung[IsyFact Tutorial] eine weitere Handreichung, um sich in die Implementierungsvorgaben einzuarbeiten.
 
 [[bausteine-der-isyfact-standards]]
 === Bausteine der IsyFact-Standards
@@ -413,46 +413,46 @@ Diese werden im Folgenden dargestellt:
 
 [[fehlerbehandlung]]
 ==== Fehlerbehandlung
-Im Dokument <<TODO anderes Dokument: KonzeptFehlerbehandlung>> ist beschrieben, in welchen Fällen und in welcher Form die Fehler- und Ausnahmebehandlung stattfinden soll.
+Im Dokument xref:isy-exception-core:konzept/master.adoc#einleitung[Konzept Fehlerbehandlung] ist beschrieben, in welchen Fällen und in welcher Form die Fehler- und Ausnahmebehandlung stattfinden soll.
 
 [[datum-zeit]]
 ==== Datum & Zeit
 Der Baustein Datum & Zeit beschreibt die Verwendung der _Java 8 Date & Time API_ (`java.time`) in der IsyFact.
-Das <<TODO anderes Dokument: KonzeptDatumZeit>> beschreibt die konzeptionellen Grundlagen der Verarbeitung von Datums- und Zeitwerten.
-Die <<TODO anderes Dokument: NutzungsvorgabenDatumZeit>> beschreiben alle Aspekte, die bei der Entwicklung einer Anwendung zu berücksichtigen sind.
+Das xref:isy-datetime:konzept/master.adoc#einleitung[Konzept Datum/Zeit] beschreibt die konzeptionellen Grundlagen der Verarbeitung von Datums- und Zeitwerten.
+Die xref:isy-datetime:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Datum/Zeit] beschreiben alle Aspekte, die bei der Entwicklung einer Anwendung zu berücksichtigen sind.
 
 [[administrative-überwachung-und-konfiguration]]
 ==== Administrative Überwachung und Konfiguration
-Das Dokument <<TODO anderes Dokument: KonzeptUeberwachungKonfiguration>> beschreibt, welche Arten von Konfiguration für eine Anwendung vorgesehen sind und wie diese umgesetzt werden sollen.
+Das Dokument xref:isy-ueberwachung:konzept/master.adoc#einleitung[Konzept Überwachung] beschreibt, welche Arten von Konfiguration für eine Anwendung vorgesehen sind und wie diese umgesetzt werden sollen.
 Weiterhin wird in diesem Dokument gezeigt, wie die Überwachung und Administration einer Anwendung seitens des Systembetriebs erfolgt und welche Schnittstellen dazu durch die Anwendung zur Verfügung gestellt werden müssen.
 
 [[behandlung-von-internationalen-sonderzeichen]]
 ==== Behandlung von internationalen Sonderzeichen
 Geschäftsanwendungen müssen zum Teil mit Einträgen umgehen, die nicht den geläufigen Zeichenstandards und Codierungen unterliegen.
-Im Dokument <<TODO anderes Dokument: NutzungsvorgabenUmgangMitSonderzeichen>> werden Festlegungen getroffen, wie mit daraus resultierenden Problemstellungen umgegangen wird.
+Im Dokument xref:isy-sonderzeichen:konzept/master.adoc#einleitung[Konzept Sonderzeichen] werden Festlegungen getroffen, wie mit daraus resultierenden Problemstellungen umgegangen wird.
 In diesem Zusammenhang müssen oft auch Namen transkribiert werden.
 Die dafür zu verwendenden Regeln sind ebenfalls im Dokument enthalten.
 
 [[logging]]
 ==== Logging
 Geschäftsanwendungen sollten Logs einheitlich erstellen und auswerten können.
-Das <<TODO anderes Dokument: KonzeptLogging>> beschreibt die einheitliche Erstellung von Logs in Anwendungen sowie deren Auswertung auf fachlicher Ebene.
-Die <<TODO anderes Dokument: NutzungsvorgabenLogging>> beschreiben die technische Umsetzung des Loggings und die technischen Möglichkeiten der Auswertung.
+Das xref:isy-logging:konzept/master.adoc#einleitung[Konzept Logging] beschreibt die einheitliche Erstellung von Logs in Anwendungen sowie deren Auswertung auf fachlicher Ebene.
+Die xref:isy-logging:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Logging] beschreiben die technische Umsetzung des Loggings und die technischen Möglichkeiten der Auswertung.
 
 [[berechtigungen]]
 ==== Berechtigungen
 Zum Zugriff auf Informationen zu Berechtigungen eines Nutzers ist der Baustein Sicherheit zu nutzen.
-Das <<TODO anderes Dokument: KonzeptSicherheit>> beschreibt die konzeptionellen Festlegungen hinsichtlich der Authentifizierung und Autorisierung.
-Die <<TODO anderes Dokument: NutzungsvorgabenSicherheit>> beschreiben den Einsatz des Bausteins bei der Anwendungsentwicklung.
+Das xref:isy-sicherheit:konzept/master.adoc#einleitung[Konzept Sicherheit] beschreibt die konzeptionellen Festlegungen hinsichtlich der Authentifizierung und Autorisierung.
+Die xref:isy-sicherheit:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Sicherheit] beschreiben den Einsatz des Bausteins bei der Anwendungsentwicklung.
 Zur Nutzung dieser Komponente ist es erforderlich, dass die Rollen und Rechte einer Anwendung in einem speziellen Format abgelegt werden.
-Ein XML-Schema dazu findet sich im Anhang von <<TODO anderes Dokument: NutzungsvorgabenSicherheit>>.
+Ein XML-Schema dazu findet sich im Anhang von xref:isy-sicherheit:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Sicherheit].
 
 [[task-scheduling]]
 ==== Task Scheduling
 Der Baustein verwendet die _Java Concurrency API_ (`java.util.concurrent`) für die Steuerung (d.h. Planung und Ausführung) periodisch wiederkehrender Aufgaben.
 Aufgaben sind (in Abgrenzung zu Batches) innerhalb einer Anwendungskomponente angesiedelt und werden von der Anwendung selbstständig ausgeführt.
-Das <<TODO anderes Dokument: KonzeptTaskScheduling>> beschreibt die konzeptionellen Grundlagen der Steuerung von Aufgaben.
-Die <<TODO anderes Dokument: NutzungsvorgabenTaskScheduling>> beschreiben alle Aspekte, die bei der Entwicklung einer Anwendung zu berücksichtigen sind, und alle bereits in der IsyFact definierten Aufgaben (wie z.B. das periodische Neuladen der Anwendungskonfiguration).
+Das xref:isy-task:konzept/master.adoc#einleitung[Konzept Task Scheduling] beschreibt die konzeptionellen Grundlagen der Steuerung von Aufgaben.
+Die xref:isy-task:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Task Scheduling] beschreiben alle Aspekte, die bei der Entwicklung einer Anwendung zu berücksichtigen sind, und alle bereits in der IsyFact definierten Aufgaben (wie z.B. das periodische Neuladen der Anwendungskonfiguration).
 
 [[ldap-zugriffe]]
 ==== LDAP-Zugriffe
@@ -464,19 +464,19 @@ Der Zugriff auf Daten in einem Verzeichnisdienst, welches über das Lightweight 
 In Geschäftsanwendungen müssen manchmal Polling-basierte Schnittstellen angesprochen werden.
 Polling bedeutet, dass in regelmäßigen Intervallen neue Daten zur Verarbeitung abgeholt werden sollen.
 Die Schnittstellen nutzen unterschiedliche technische Verfahren wie IMAP, Web-Services oder proprietäre Datenbank-basierte Schnittstellen; weitere sind denkbar.
-Das Konzept findet sich in <<KonzeptPolling>>.
+Das Konzept findet sich in xref:isy-polling:konzept/master.adoc#einleitung[Konzept Polling].
 
 Aus Gründen der Ausfallsicherheit soll die Abholung der Daten von mehreren Instanzen einer Anwendung durchgeführt werden.
 Diese Instanzen müssen synchronisiert werden, sodass Nachrichten nicht mehrfach verarbeitet werden.
 Die zugrunde liegenden Schnittstellen-Technologien bieten dafür kein Standardverfahren an.
 Der Baustein Polling definiert ein solches Verfahren.
-Die Nutzerdokumentation befindet sich unter <<TODO anderes Dokument: NutzungsvorgabenPolling>>.
+Die Nutzerdokumentation befindet sich unter xref:isy-polling:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Polling].
 
 [[http-invoker]]
 ==== HTTP-Invoker
 Für den externen Zugriff auf Anwendungskomponenten werden deren Schnittstellen über das HTTP(S)-Protokoll exponiert.
 Dies ermöglicht eine standardisierte und lose Kopplung der Anwendungen untereinander, insbesondere da die Schnittstellen in verschiedenen, zeitgleich verfügbaren Versionen ausgeliefert werden.
-Dazu wird der HTTP-Invoker von Spring verwendet. Details sind zu finden unter <<TODO anderes Dokument: Konzept_HttpInvoker>>.
+Dazu wird der HTTP-Invoker von Spring verwendet. Details sind zu finden unter xref:isy-serviceapi-core:konzept/master.adoc#einleitung[Konzept HTTP-Invoker].
 
 
 
@@ -485,13 +485,13 @@ Dazu wird der HTTP-Invoker von Spring verwendet. Details sind zu finden unter <<
 
 Die Bibliothek isy-util bietet nützliche Hilfsmittel, die von den Anwendungen der IsyFact genutzt werden können.
 Es handelt sich dabei um kleinere Utility-Klassen, welche die Implementierung vereinfachen.
-Diese werden in <<TODO anderes Dokument: NutzungsvorgabenIsyUtil>> überblicksartig beschrieben.
+Diese werden in xref:isy-util:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben isy-util] überblicksartig beschrieben.
 
 [[cisyfact-erweiterungen]]
 == IsyFact-Erweiterungen
 
 Aktuell werden nur wenige Erweiterungen unter einer Open-Source-Lizenz zur Verfügung gestellt (siehe auch Kapitel <<aktueller-stand-und-weiterentwicklung>>).
-Auf den https://www.bva.bund.de/DE/Das-BVA/Aufgaben/I/Informationstechnik/RegisterFactory/Produkt/produkt_rf_node.html#doc241990bodyText6[Webseiten der Register Factory] befindet sich eine Übersicht über vorhandene Bausteine, die in Zukunft potentiell als IsyFact-Erweiterung zur Verfügung gestellt werden.
+Auf den xref:glossary:literaturextern:inhalt.adoc#litextern-Webseiten-Register-Factory[Webseiten der Register Factory] befindet sich eine Übersicht über vorhandene Bausteine, die in Zukunft potentiell als IsyFact-Erweiterung zur Verfügung gestellt werden.
 Teilweise können diese auf Anfrage herausgegeben werden.
 
 NOTE: Bei Interesse wenden Sie sich bitte per E-Mail (isyfact@bva.bund.de) an uns.
@@ -512,7 +512,7 @@ Die <<TODO anderes Dokument: NutzungsvorgabenBenutzerverwaltung>> zeigen, wie di
 [[styleguide]]
 ==== Styleguide
 Der Baustein Styleguide beschreibt die Gestaltung grafischer Oberflächen nach einheitlichen Gesichtspunkten.
-Das zentrale Dokument, der <<Styleguide>>, enthält Vorgaben zu Aufbau und Gestaltung von Web-GUIs.
+Das zentrale Dokument, der <<TODOStyleguide>>, enthält Vorgaben zu Aufbau und Gestaltung von Web-GUIs.
 Der Styleguide definiert ebenfalls Form und Funktion der in der IsyFact verfügbaren Anzeige- und Bedienelemente.
 Neben dem Dokument beinhaltet der Baustein eine Software-Bibliothek, welche die Vorgaben als CSS-Stile zur Nutzung bereitstellt.
 
@@ -550,9 +550,9 @@ Um die IsyFact als Ganzes kennenzulernen, zu verstehen und einzusetzen, empfehle
 
 .Einarbeitung in die IsyFact
 [id="image-IF-Factory",reftext="{figure-caption} {counter:figures}"]
-image::IF-Factory.png[align="center",width=70%,pdfwidth=70%]
+image::einstieg:einstieg/IF-Factory.png[align="center",width=70%,pdfwidth=70%]
 
-Während der gesamten Einarbeitung dient außerdem das <<TODO anderes Dokument: IsyFactGlossar>> dazu, zentrale Begriffe der IsyFact nachzuschlagen.
+Während der gesamten Einarbeitung dient außerdem das xref:glossary:master.adoc#startpoint[IsyFact Glossar] dazu, zentrale Begriffe der IsyFact nachzuschlagen.
 
 // Die unten stehenden Tags architekturregel[] und sicherheit[] muessen bestehen bleiben, solange die Tags nicht im Inhalt verwendet werden.
 

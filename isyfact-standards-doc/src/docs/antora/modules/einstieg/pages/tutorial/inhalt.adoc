@@ -4,7 +4,7 @@
 [[bezug-isyfact]]
 == Bezug und Nutzung der IsyFact
 
-Alle Bibliotheken der IsyFact stehen über <<TODO Linkziel: MavenCentral>> zum Download bereit.
+Alle Bibliotheken der IsyFact stehen über xref:glossary:literaturextern:inhalt.adoc#litextern-Maven-Central[Maven Central] zum Download bereit.
 Zur Nutzung der Bibliotheken in der Anwendungsentwicklung steht ein zentrales BOM (Bill Of Materials) zur Verfügung, das Teil der Maven-Konfiguration (`pom.xml`) wird:
 
 .Einbindung des IsyFact-BOM
@@ -52,7 +52,7 @@ Es reicht also folgender Abschnitt, um eine Bibliothek einzubinden:
 
 In diesem Kapitel wird die Implementierung der Datenhaltung einer Anwendung beschrieben.
 Die Datenhaltung besteht im Wesentlichen aus den Entitätsklassen (Entity) und den zugehörigen Data Access Objects (DAOs).
-Alle Konzepte und Vorgaben zum Thema Persistenz und Datenzugriff stehen im <<TODO anderes Dokument: DetailkonzeptKomponenteDatenzugriff>>.
+Alle Konzepte und Vorgaben zum Thema Persistenz und Datenzugriff stehen im Dokument xref:blaupausen:detailkonzept-komponente-datenzugriff/master.adoc#_detailkonzept_datenzugriff_einleitung[Detailkonzept Komponente Datenzugriff].
 
 [[designvorgaben]]
 === Designvorgaben
@@ -68,7 +68,7 @@ Als Implementierung für die JPA wird Hibernate verwendet.
 * Der Datenzugriff erfolgt entweder über die Komponenten-Schnittstelle oder im Fall der Basisdaten direkt über die Basisdaten-DAOs.
 * Für persistente Entitäten, die über eine Komponentenschnittstelle angeboten werden, werden eigene Schnittstellenobjekte definiert, die per Deep-Copy gefüllt werden. Hierfür wird ein Bean-Mapper verwendet.
 Innerhalb einer Teilanwendung dürfen persistente Entitäten allerdings über Komponentengrenzen hinweg genutzt werden.
-* DAOs und Entitätsklassen werden in einer bestimmten Packetstrucktur abgelegt (siehe <<TODO anderes Dokument: DetailkonzeptKomponenteDatenzugriff>>).
+* DAOs und Entitätsklassen werden in einer bestimmten Packetstrucktur abgelegt (siehe xref:blaupausen:detailkonzept-komponente-datenzugriff/master.adoc#_detailkonzept_datenzugriff_einleitung[Detailkonzept Komponente Datenzugriff]).
 * Die Transaktionssteuerung wird per AOP in der Service-Schicht durchgeführt (siehe Kapitel <<anbieten-von-service-schnittstellen>>).
 +
 [NOTE]
@@ -86,7 +86,7 @@ Ansonsten wird ein künstlicher technischer Primärschlüssel verwendet.
 
 .Klassendesign für die Datenhaltung
 [id="image-Datenhaltung",reftext="{figure-caption} {counter:figures}"]
-image::Datenhaltung.png[align="center"]
+image::einstieg:tutorial/Datenhaltung.png[align="center"]
 
 
 .Klassenbeschreibung für die Datenhaltung
@@ -111,7 +111,7 @@ Entitäten, die von mehreren xref:glossary:glossary:master.adoc#glossar-Anwendun
 Die Komponente Basisdaten ist keine vollständige Komponente, sie bietet keine Schnittstellen an.
 Ausnahmsweise verwenden Komponenten stattdessen direkt die zugehörigen DAOs der Basisdaten.
 Dieser Fall ist auch in <<image-Datenhaltung>> dargestellt.
-Weitere Details können <<TODO anderes Dokument: IsyFactReferenzarchitektur>> entnommen werden.
+Weitere Details können der xref:blaupausen:referenzarchitektur/master.adoc#einleitung[IsyFact Referenzarchitektur] entnommen werden.
 
 [[realisierung]]
 === Realisierung
@@ -122,15 +122,15 @@ Zur Realisierung der Datenhaltung müssen folgende Aktivitäten durchgeführt we
 ==== Anlegen des Datenbankschemas
 
 Das Datenbankschema muss angelegt werden.
-Dazu werden die benötigten DDL-Anweisungen, wie im <<TODO anderes Dokument: DetailkonzeptKomponenteDatenzugriff>> beschrieben, in einem Verzeichnis abgelegt.
-Die <<TODO anderes Dokument: Vorlageanwendung>> enthält diese Anweisungen im Verzeichnis `src/main/skripte/sql/terminfindung`.
+Dazu werden die benötigten DDL-Anweisungen, wie im xref:blaupausen:detailkonzept-komponente-datenzugriff/master.adoc#_detailkonzept_datenzugriff_einleitung[Detailkonzept Komponente Datenzugriff] beschrieben, in einem Verzeichnis abgelegt.
+Die xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung] enthält diese Anweisungen im Verzeichnis `src/main/skripte/sql/terminfindung`.
 
 Das initiale Datenmodell kann über das Tool `hbm2ddl` erzeugt werden.
 Dieses muss anschließend noch bearbeitet werden.
 
 NOTE: hbm2ddl ist Teil der Hibernate Tools und gehört zum Umfang der Standard-Hibernate Bibliothek.
 Nutzungsdokumentation unter:
-http://docs.jboss.org/hibernate/orm/4.3/manual/en-US/html_single/#toolsetguide[http://docs.jboss.org/hibernate/orm/4.3/manual/en-US/html_single/#toolsetguide]
+xref:glossary:literaturextern:inhalt.adoc#litextern-Hibernate-Toolset-Guide[Hibernate Toolset Guide]
 
 [[einbinden-der-bibliotheken]]
 ==== Einbinden der Bibliotheken
@@ -151,7 +151,7 @@ Die benötigten Bibliotheken müssen als Abhängigkeiten in die Maven-Konfigurat
 </dependencies>
 ----
 
-Eine passende Beispielkonfiguration findet sich in der Maven-Konfiguration der <<TODO anderes Dokument: Vorlageanwendung>>.
+Eine passende Beispielkonfiguration findet sich in der Maven-Konfiguration der xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung].
 
 [[implementierung-der-entitätsklassen-und-daos]]
 ==== Implementierung der Entitätsklassen und DAOs
@@ -202,14 +202,14 @@ Für jeden Entitätstyp wird eine nicht-persistente Schnittstellenklasse erstell
 Das Komponenten Interface wird von einer Java-Klasse implementiert.
 Diese Klasse kann die Anwendungsfälle im einfachen Fall direkt implementieren oder an Anwendungsfall-Klassen delegieren.
 * Die interne Strukturierung von Komponenten ist nicht im Detail vorgeben.
-Für fachliche Komponenten wird eine Basisimplementierung in <<TODO anderes Dokument: IsyFactReferenzarchitektur>> beschrieben.
+Für fachliche Komponenten wird eine Basisimplementierung in xref:blaupausen:referenzarchitektur/master.adoc#einleitung[IsyFact Referenzarchitektur] beschrieben.
 
 [[klassendesign-1]]
 === Klassendesign
 
 .Klassendesign für Fachkomponenten
 [id="image-Fachliche_Komponente",reftext="{figure-caption} {counter:figures}"]
-image::Fachliche_Komponente.png[align="center"]
+image::einstieg:tutorial/Fachliche_Komponente.png[align="center"]
 
 .Klassenbeschreibung für Komponenten Datenhaltung
 [id="table-Datenhaltung1",reftext="{table-caption} {counter:tables}"]
@@ -258,14 +258,14 @@ In diesem Kapitel wird die Realisierung von verschiedenen, technischen Zugangswe
 Das Thema umfasst das Anbieten von internen Service-Schnittstellen per HTTP Invoker, das Nutzen derselben und die Nutzung des Anwendungskerns im
 Rahmen der Batch-Verarbeitung.
 
-. Referenzarchitektur eines IT-Systems
+.Referenzarchitektur eines IT-Systems
 [id="image-RAIT",reftext="{figure-caption} {counter:figures}"]
-image::RAIT.png[align="center"]
+image::einstieg:tutorial/RAIT.png[align="center"]
 
 [[anbieten-von-service-schnittstellen]]
 === Anbieten von Service-Schnittstellen
 
-Dieser Abschnitt beschreibt die Realisierung von HTTP Invoker Schnittstellen (siehe <<TODO Linkprüfung: Spring>>).
+Dieser Abschnitt beschreibt die Realisierung von HTTP Invoker Schnittstellen (siehe xref:glossary:literaturextern:inhalt.adoc#litextern-Spring[Spring]).
 HTTP Invoker Schnittstellen sind interne Service-Schnittstellen, die innerhalb der Anwendungslandschaft durch andere Anwendungen genutzt werden dürfen.
 
 [NOTE]
@@ -317,7 +317,7 @@ NOTE: Das sind genau die Inhalte, die im eigenen Projekt `<system>-httpinvoker-s
 
 .Klassendesign für HTTP Invoker Service-Schnittstellen
 [id="image-KDServiceSS",reftext="{figure-caption} {counter:figures}"]
-image::KDServiceSS.png[align="center"]
+image::einstieg:tutorial/KDServiceSS.png[align="center"]
 
 .Klassenbeschreibung für Service-Schnittstellen
 [id="table-KDServiceSS",reftext="{table-caption} {counter:tables}"]
@@ -330,7 +330,7 @@ Die Methoden dieser Komponente verwenden ausschließlich Transportobjekte und -E
 Die Überwachung der Service-Aufrufe (siehe Kapitel <<überwachung>>) wird als Aspekt der RemoteBean konfiguriert.
 |*AuskunftToException* |Transport-Exception der Auskunft.
 Jede Komponente darf ausschließlich Transport-Exceptions an ihrer Service-Schnittstelle werfen.
-Details sind in <<TODO anderes Dokument: KonzeptFehlerbehandlung>> nachzulesen.
+Details sind in xref:isy-exception-core:konzept/master.adoc#einleitung[Konzept Fehlerbehandlung] nachzulesen.
 |*AufrufKontextTo* |`AufrufKontext` der Service-Utilities mit den Informationen zum Aufrufer (Name, Passwort, Rollen…).
 |*RegisterEintragTo* |Transportobjekt für Register-Eintrag-Entitäten.
 |*AuskunftExceptionFassade* a|
@@ -339,7 +339,7 @@ Die Exception-Fassade erhält damit alle Aufrufe der Auskunft-Service-Schnittste
 Diese werden an die Auskunft-Service-Implementierung (`AuskunftServiceImpl`) delegiert.
 Die Aufgabe der Exception-Fassaden ist das Exception-Handling und -Mapping durchzuführen. +
 Wichtig ist, einen Catch-Throwable-Block um den Aufruf der `AuskunftService`-Implementierung zu machen, um sicherzustellen, dass alle auftretenden Fehler gefangen werden.
-Die Implementierung der Fehlerbehandlung wird im Detail in <<TODO anderes Dokument: KonzeptFehlerbehandlung>> beschrieben. +
+Die Implementierung der Fehlerbehandlung wird im Detail in xref:isy-exception-core:konzept/master.adoc#einleitung[Konzept Fehlerbehandlung] beschrieben. +
 In der Exception-Fassade muss die Correlation-ID aus dem AufrufKontext in den Logging-Kontext gesetzt werden (siehe Kapitel <<logging>>).
 |*AuskunftService* |Internes Interface für den Auskunft-Service.
 Diese Schnittstelle verwendet Transportobjekte aber noch die internen Exceptions.
@@ -378,7 +378,7 @@ Wichtig ist, dass darin die Compiler-Version so festgelegt wird, wie es im Dokum
 
 Das Projekt muss ein Jar erzeugen, das von anderen Systemen zur Nutzung der Service-Schnittstelle benötigt wird.
 In der Pom-Datei muss konfiguriert werden, dass das Jar in das Verzeichnis `repository-deploy` (Deployment-Repository) deployt wird.
-Ein Beispiel dafür findet sich in <<TODO anderes Dokument: Vorlageanwendung>>.
+Ein Beispiel dafür findet sich in xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung].
 
 Das Schnittstellen-Projekt erhält dieselbe Group-ID wie das eigentliche Anwendungsprojekt.
 Die Artifact-ID ist `<system>-httpinvoker-sst`.
@@ -403,9 +403,9 @@ Genauso erhält die Service-Implementierung eine Referenz auf den Bean Mapper pe
 
 Vor der Exception-Fassade wird mit Hilfe der Annotation `@StelltLoggingKontextBereit` die mit dem Aufrufkontext mitkommende Correlation-Id für das Logging registriert.
 
-An den Methoden der Service-Implementierung werden die Annotationen `@StelltAufrufKontextBereit` und `@Gesichert` gemäß <<TODO anderes Dokument: NutzungsvorgabenSicherheit>> verwendet, um den Zugriff auf die Service-Methode zu autorisieren.
+An den Methoden der Service-Implementierung werden die Annotationen `@StelltAufrufKontextBereit` und `@Gesichert` gemäß xref:isy-sicherheit:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Sicherheit] verwendet, um den Zugriff auf die Service-Methode zu autorisieren.
 
-Beispiele dafür finden sich in <<TODO anderes Dokument: Vorlageanwendung>>.
+Beispiele dafür finden sich in xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung].
 
 [[konfigurieren-der-service-schnittstelle]]
 ===== Konfigurieren der Service-Schnittstelle
@@ -520,7 +520,7 @@ Dazu wird ein Wrapper um die Schnittstelle implementiert.
 
 .Beispiel für die Implementierung eines Client-Adapters
 [id="image-implClntAd",reftext="{figure-caption} {counter:figures}"]
-image::implClntAd.png[align="center"]
+image::einstieg:tutorial/implClntAd.png[align="center"]
 
 Zum Zugriff auf den Service wird im Normalfall ein Adapter im Client implementiert (`AuskunftAdapter`). Dieser Adapter entkoppelt den Anwendungskern des Clients vom Service.
 
@@ -671,7 +671,7 @@ Die Ausführungs-Bean übermittelt dem Batchrahmen Status-Informationen für das
 
 Klassendesign eines Batches
 [id="image-KDBatch",reftext="{figure-caption} {counter:figures}"]
-image::KDBatch.png[align="center",width=80%,pdfwidth=80%]
+image::einstieg:tutorial/KDBatch.png[align="center",width=80%,pdfwidth=80%]
 
 <<image-KDBatch>> zeigt eine beispielhafte Implementierung eines Batches, der die Komponenten `Auskunft` und `Basisdaten` verwendet.
 
@@ -725,7 +725,7 @@ Der Parameter `BatchErgebnisProtokoll` enthält eine Referenz auf ein Protokollo
 
 Für jeden Batch muss eine Property-Datei in `/src/main/resources/resources/batch` angelegt werden.
 In dieser statischen Konfiguration werden unter anderem die Batch-ID und die Transaktionssteuerung konfiguriert.
-Eine Beschreibung der Parameter ist in <<TODO anderes Dokument: DetailkonzeptKomponenteBatch>> enthalten.
+Eine Beschreibung der Parameter ist in xref:blaupausen:detailkonzept-komponente-batch/master.adoc#_einführung[Detailkonzept Komponente Batch] enthalten.
 
 Die betriebliche Konfiguration des Batches ist identisch zu derjenigen der zugehörigen Anwendung.
 Auch Parameter, die nur für den Batch benötigt werden, werden in die betriebliche Konfiguration der Geschäftsanwendung aufgenommen.
@@ -760,7 +760,7 @@ Dieses hat die Aufgabe das Deployment-Paket für den Batch zusammenzustellen.
 
 Dazu wird eine neue pom.xml angelegt, die als Ziel-Typ ein Jar mit allen Dateien des Batches erzeugt.
 Zusätzlich können in diesem Projekt Shell-Skripte und ähnliches für den Batch abgelegt werden.
-Ein Beispiel ist in <<TODO anderes Dokument: Vorlageanwendung>> enthalten.
+Ein Beispiel ist in xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung] enthalten.
 
 Das Batch-Projekt enthält keinen Java-Code.
 Die Batch-Beans liegen im normalen Anwendungsprojekt.
@@ -780,7 +780,7 @@ In diesem Abschnitt wird beschrieben, wie das Logging umzusetzen und zu konfigur
 
 * Für Logging wird die Bibliothek `isy-logging` verwendet.
 * Es wird ein Debug-, Info- und ein Error-Log geführt.
-  Die Zuordnung der Log-Levels auf diese Log-Arten wird in <<TODO anderes Dokument: KonzeptLogging>> definiert.
+  Die Zuordnung der Log-Levels auf diese Log-Arten wird im Dokument xref:isy-logging:konzept/master.adoc#einleitung[Konzept Logging] definiert.
   Ebenso welche Informationen mit welchem Log-Level ausgeben werden sollen.
 * Für das Logging wird die im Rahmen der IsyFact erstellten Layouts für Entwicklung und Produktion verwendet.
 * In jeder Log-Meldung ist eine Correlation-ID mitzuloggen.
@@ -855,7 +855,7 @@ In diesem Kapitel wird die Verarbeitung von Konfigurationen in Anwendungen besch
 ==== Designvorgaben
 
 * Für die Konfiguration werden betriebliche, statische und Benutzerkonfigurationen unterschieden.
-Eine Definition und Kriterien zur Typisierung können in <<TODO anderes Dokument: KonzeptKonfiguration>> nachgelesen werden.
+Eine Definition und Kriterien zur Typisierung können in xref:isy-konfiguration:konzept/master.adoc#einleitung[Konzept Konfiguration] nachgelesen werden.
 * Die betriebliche Konfiguration wird in `/src/main/resources/config/application.properties` abgelegt.
 * Statische Konfigurationen werden als Datei in `/src/main/resources/resources` abgelegt.
 * Benutzerkonfigurationen werden in der Datenbank abgelegt.
@@ -873,7 +873,7 @@ der Anwendung mit den Werten aus `application.properties` befüllt werden.
 Der Zugriff auf diese Klassen ist typsicher und die Werte können zusätzlich mit Bean Validierung überprüft werden.
 Zur Verwendung in den Komponenten der Anwendung oder zur Konfiguration von Spring Beans werden diese Klassen per
 Dependendy Injection verfügbar gemacht.
-Details zur Implementierung siehe<<TODO anderes Dokument: KonzeptKonfiguration>>.
+Details zur Implementierung siehe xref:isy-konfiguration:konzept/master.adoc#einleitung[Konzept Konfiguration].
 
 [[fehlerbehandlung]]
 === Fehlerbehandlung
@@ -906,7 +906,7 @@ der Datenbankverbindung über einen `finally`-Block.
 * Das destruktive Wrappen einer Exception zerstört den StackTrace und ist nur für Exceptions an den Außen-Schnittstellen sinnvoll.
 Destruktiv gewrappte Exceptions sind in jedem Fall vor dem Wrappen zu loggen.
 
-Weitere Hinweise für die richtige Behandlung von Fehlern sind in <<TODO anderes Dokument: KonzeptFehlerbehandlung>> enthalten.
+Weitere Hinweise für die richtige Behandlung von Fehlern sind in xref:isy-exception-core:konzept/master.adoc#einleitung[Konzept Fehlerbehandlung] enthalten.
 
 [[paketstruktur]]
 ==== Paketstruktur
@@ -972,7 +972,7 @@ Diese erbt von der entsprechenden Klasse aus `isy-exception-core`. Zum Laden der
  Fehlertexte wird das Interface FehlertextProvider aus derselben Bibliothek verwendet.
 In `isy-util` ist die Implementierung `MessageSourceFehlertextProvider` enthalten.
 Diese unterstützt das Laden von Fehlertexten aus einer Spring-Message-Source.
-Ein Beispiel für die Verwendung ist in der <<TODO anderes Dokument: Vorlageanwendung>> enthalten.
+Ein Beispiel für die Verwendung ist in der xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung] enthalten.
 
 [[fehlerbehandlung-an-der-anwendungsschnittstelle]]
 ===== Fehlerbehandlung an der Anwendungsschnittstelle
@@ -999,7 +999,7 @@ Vor dem Werfen der so erzeugten Exception über die Schnittstelle wird ein Log-E
 
 Beim Umwandeln der internen Exceptions in Transport-Exceptions wird der Stack-Trace der internen Exceptions verworfen.
 
-Ein Beispiel hierfür ist wieder in <<TODO anderes Dokument: Vorlageanwendung>> enthalten.
+Ein Beispiel hierfür ist wieder in xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung] enthalten.
 
 [[protokollierung]]
 === Protokollierung
@@ -1119,7 +1119,7 @@ Der vom AufrufKontextVerwalter verwaltete AufrufKontext wird beim Aufruf der Anw
 Komponenten, die diese Informationen benötigen, erhalten dazu einfach eine Referenz auf den `AufrufKontextVerwalter` per Dependency Injection.
 
 Zur Entgegennahme des Aufrufkontextes an der Service-Schnittstelle wird die Annotation `@StelltAufrufKontextBereit` verwendet.
-Die Konfiguration ist in <<TODO anderes Dokument: NutzungsvorgabenSicherheit>> beschrieben.
+Die Konfiguration ist im Dokument xref:isy-sicherheit:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Sicherheit] beschrieben.
 
 [[authentifizierung-und-autorisierung]]
 === Authentifizierung und Autorisierung
@@ -1185,7 +1185,7 @@ Die einer Rolle zugeordneten Rechte werden in der Datei `/src/main/resources/res
 ===== Prüfen der Berechtigung
 
 Die Berechtigungsprüfung erfolgt in der Regel vor der fachlichen Verarbeitung in der Service-Schnittstelle oder im Dialog-Controller einer Anwendung.
-Dies erfolgt über Annotationen oder im Webflow (siehe <<TODO anderes Dokument: NutzungsvorgabenSicherheit>>).
+Dies erfolgt über Annotationen oder im Webflow (siehe xref:isy-sicherheit:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Sicherheit]).
 Es kann auch jederzeit auf das Bean Sicherheit zugegriffen werden, um einen Berechtigungsmanager zu verwenden.
 
 [source,java]
@@ -1202,8 +1202,8 @@ die Autorisierung durchführen.
 
 In diesem Abschnitt wird beschrieben, wie die Überwachung einer Anwendung realisiert wird.
 
-NOTE: Detaillierte Informationen zur Überwachung sind im <<TODO anderes Dokument: KonzeptUeberwachung>> und den
-<<TODO anderes Dokument: NutzungsvorgabenUeberwachung>> enthalten.
+NOTE: Detaillierte Informationen zur Überwachung sind im Dokument xref:isy-ueberwachung:konzept/master.adoc#einleitung[Konzept Überwachung] und in
+xref:isy-ueberwachung:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Überwachung] enthalten.
 
 [[designvorgaben-11]]
 ==== Designvorgaben
