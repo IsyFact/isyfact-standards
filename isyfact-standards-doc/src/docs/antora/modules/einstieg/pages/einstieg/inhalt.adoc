@@ -29,9 +29,10 @@ Da die Anwendung jedoch nach wie vor manuell entwickelt (und nicht generiert wir
 Die *IsyFact* ist eine freie allgemeine Software Factory zum Bau von IT-Systemen, die vom Bundesverwaltungsamt (BVA) bereitgestellt wird.
 Sie umfasst Standards und Erweiterungen.
 
-.Die verschiedenen Ebenen der IsyFact
+.Aufbau der IsyFact
 [id="image-IFS-IFE",reftext="{figure-caption} {counter:figures}"]
-image::einstieg:einstieg/IFS-IFE.png[align="center"]
+image::einstieg:einstieg/if-factory.dn.svg[]
+
 
 Die *IsyFact-Standards* bilden das architektonische, technologische und methodische Fundament der IsyFact.
 Sie umfassen allgemeingültige und wiederverwendbare Konzepte und Komponenten, die für die Entwicklung beliebiger Geschäftsanwendungen relevant sind.
@@ -92,7 +93,7 @@ So entstehen für nachfolgende Anwendungs-Entwicklungen eine spezifische Referen
 Die folgenden Entwicklungen sind wiederum der Prüfstein für die Qualität und Reife der spezifischen Factory und liefern neue Erkenntnisse für ihre Fortschreibung.
 Auf diese Weise stabilisiert sich mit der Zeit die Factory für die eigene Anwendungsdomäne.
 
-[[festlegungen-der-isyfact-konformität]]
+[[festlegungen-der-isyfact-konformitaet]]
 === Festlegungen der IsyFact-Konformität
 
 Durch die unterschiedlichen Nutzungsszenarien der IsyFact existieren mehrere Varianten, die den Grad der Verwendung von IsyFact in einer Anwendung beschreiben.
@@ -141,9 +142,9 @@ Die Anwendungsarchitektur der Register Factory und deren Bausteine und Methoden 
 Register sind lediglich Spezialfälle solcher Geschäftsanwendungen.
 Um die Artefakte der Register Factory auch in anderen Kontexten zur Verfügung zu stellen, wurden die bestehenden Artefakte der Register Factory umstrukturiert und neu aufgeteilt in IsyFact (Standards und Erweiterungen) und Register Factory.
 
-.Aufteilung der Register Factory zur IsyFact
+.Entstehung der IsyFact aus der Register Factory
 [id="image-RF-Aufteilung",reftext="{figure-caption} {counter:figures}"]
-image::einstieg:einstieg/RF-Aufteilung.png[align="center",width=80%,pdfwidth=80%]
+image::einstieg:einstieg/entstehung-if-aus-rf.dn.svg[]
 
 Die IsyFact enthält ausschließlich allgemeingültige „register-neutrale“ Konzepte und Komponenten.
 Die Register Factory ist seit deren Umstellung eine spezifische Factory, die auf der IsyFact aufbaut (s. <<nutzungsszenarien-und-tailoring>>). Sie wird durch das BVA ebenfalls aktiv weiterentwickelt.
@@ -236,7 +237,7 @@ für eines oder mehrere IT-Systeme.
 * **Architekturboard**: Das Architekturboard ist ein Gremium, welches die konzeptionelle Weiterentwicklung einer spezifischen Factory steuert.
 Es tritt regelmäßig zusammen, um aktuelle Anforderungen und Problemstellungen zu diskutieren und die langfristige Tragfähigkeit der Factory sicherzustellen.
 
-[[styleguides-und-die-gestaltung-von-benutzeroberflächen]]
+[[styleguides-und-die-gestaltung-von-benutzeroberflaechen]]
 === Styleguides und die Gestaltung von Benutzeroberflächen
 
 Bei der Entwicklung einer Anwendungslandschaft sollten nicht nur die Architektur der einzelnen Anwendungen, sondern auch die Benutzeroberflächen einheitlichen Standards folgen.
