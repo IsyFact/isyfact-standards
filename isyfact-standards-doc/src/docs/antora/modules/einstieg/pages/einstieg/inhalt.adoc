@@ -18,7 +18,7 @@ Erst durch die Wiederverwendung von bereits entwickelten Komponenten und die Sta
 Die Herausforderung bei der Wiederverwendung besteht darin, das einmal erworbene Wissen über die Anwendungsentwicklung in einer Domäne so zu strukturieren, zu dokumentieren und vorzuhalten, dass nachfolgende Projekte einfach und verlässlich darauf zugreifen können, und damit die Einhaltung des einmal definierten Architekturrahmens sichergestellt ist.
 Software Factories sind ein Mittel, dies zu erreichen.
 Eine Software Factory ist eine Sammlung von Architektur-Blaupausen, Bausteinen, einer Plattform, Methoden und Werkzeugen, die es erlaubt, Anwendungen weitgehend „automatisiert“ und standardisiert zu entwickeln.
-Dabei bedeutet „automatisiert“ hier nicht, dass der Quelltext des Software Systems ohne menschliches Zutun durch einen Automaten erzeugt würde.
+Dabei bedeutet „automatisiert“ hier nicht, dass der Quelltext des Softwaresystems ohne menschliches Zutun durch einen Automaten erzeugt würde.
 Es bezieht sich vielmehr darauf, dass alle wesentlichen technischen Architekturentscheidungen bereits durch die Software Factory getroffen sind, und diese auch entsprechende Komponenten zur Implementierung dieser Architektur bereithält.
 Architekten und Entwickler können sich damit im Normalfall auf die Umsetzung der jeweiligen Fachlichkeit der Anwendung konzentrieren.
 Da die Anwendung jedoch nach wie vor manuell entwickelt (und nicht generiert wird), ist es aber jederzeit möglich, dort von den Vorgaben der Software Factory abzuweichen, wo dies erforderlich ist.
@@ -45,7 +45,7 @@ Die Artefakte der IsyFact-Standards und IsyFact-Erweiterungen werden in gleicher
 
 .Die 5 Säulen der IsyFact
 [id="image-IFBereiche",reftext="{figure-caption} {counter:figures}"]
-image::einstieg:sf-saeulen.dn.svg[]
+image::einstieg/if-factory-beschriftung.dn.svg[]
 
 Die einzelnen Säulen sind:
 
@@ -63,10 +63,7 @@ Da spezifisches Domänenwissen jedoch per Definition nicht Teil der IsyFact sein
 Dabei wird zunächst beschrieben, welche Teile der IsyFact für die jeweilige Domäne überhaupt relevant sind und zum Einsatz kommen sollen.
 Dann werden die Konzepte der IsyFact konkretisiert, und domänenspezifische Bausteine und Architekturen werden hinzugefügt.
 Diesen Vorgang bezeichnet man insgesamt als __Tailoring__.
-Das Resultat des Tailorings ist eine spezifische Factory für einen Anwendungskontext, wie sie z.B. beim Bundesverwaltungsamt in
-Form der Register Factory für den Kontext der Register Anwendungen erstellt wurde.
-
-NOTE: xref:glossary:literaturextern:inhalt.adoc#litextern-Register-Factory[Register Factory]
+Das Resultat des Tailorings ist eine spezifische Factory für einen Anwendungskontext, wie sie z.B. beim Bundesverwaltungsamt in Form der xref:glossary:literaturextern:inhalt.adoc#litextern-Register-Factory[Register Factory] für den Kontext der Register Anwendungen erstellt wurde.
 
 Das Tailoring ist ein sinnvoller Schritt, um möglichst viel Wissen über die Entwicklung von Anwendungen in Form einer Factory vorzuhalten.
 Es ist für die Nutzung der IsyFact jedoch nicht erforderlich.
@@ -161,10 +158,10 @@ Ihre Umstellung zu einer allgemeinen, von diesem Entstehungskontext losgelösten
 [id="auswirkung-der-historie-der-isyfact",reftext="Auswirkung der Historie der IsyFact"]
 === Auswirkung der Historie der IsyFact
 
-Auf Grund der Historie der IsyFact (siehe Kapitel <<historie-der-isyfact>>), besitzen die Artefakte der IsyFact teilweise noch Bezug zum Kontext der Register Factory: Die enthaltenen Dokumente der IsyFact beschreiben allgemein die Entwicklung von Geschäftsanwendungen.
+Aufgrund der Historie der IsyFact (siehe Kapitel <<historie-der-isyfact>>), besitzen die Artefakte der IsyFact teilweise noch Bezug zum Kontext der Register Factory: Die enthaltenen Dokumente der IsyFact beschreiben allgemein die Entwicklung von Geschäftsanwendungen.
 Die verwendeten Beispiele stammen jedoch zum Teil aus dem Kontext der Registeranwendungen.
 Daher finden sich Begriffe wie „Register“ vielfach noch in Beispielquelltexten wieder. Ähnliches gilt auch für Pfadangaben, Parameternamen oder Variablen, die insbesondere in den Konzepten für den Betrieb der Systemlandschaft auftauchen.
-Die entsprechenden Bezeichner sind nicht als zwingende Vorgaben zu verstehen, sondern spiegeln einfach die Historie und den aktuellen Stand der IsyFact wieder.
+Die entsprechenden Bezeichner sind nicht als zwingende Vorgaben zu verstehen, sondern spiegeln einfach die Historie und den aktuellen Stand der IsyFact wider.
 Unter anderem wurden bestehende Konventionen auch deshalb nicht verändert, um die Konsistenz der Dokumentation mit bestehenden IsyFact-konformen Systemlandschaften zu wahren.
 
 Eine andere, ebenfalls historisch bedingte Bezeichnung für eine IsyFact-Systemlandschaft ist „Plattform für Informationssysteme“, kurz __PLIS__.
@@ -334,7 +331,7 @@ Ein IT-System basiert auf einer Drei-Schichten-Architektur und besteht aus den K
 
 .Softwaretechnische Referenzarchitektur eines IT-Systems
 [id="image-image008",reftext="{figure-caption} {counter:figures}"]
-image::einstieg:einstieg/image008.png[align="center"]
+image::blaupausen:referenzarchitektur-it-system/RAITSys.png[]
 
 Die Abbildung der fachlichen Architektur wird vor allem durch die Fachkomponenten sichtbar.
 Jede Fachkomponente besitzt, soweit sinnvoll, eine Entsprechung in jeder Komponente des IT-Systems.
@@ -346,7 +343,7 @@ Eine beispielhafte Umsetzung eines IT-Systems zeigt die xref:glossary:literature
 
 Datenzugriff::
 Der Datenzugriff erfolgt über JPA.
-Das xref:blaupausen:detailkonzept-komponente-datenzugriff/master.adoc#_detailkonzept_datenzugriff_einleitung[Detailkonzept Komponente Datenzugriff] legt die genaue Verwendung von JPA fest und beschreibt die Prinzipien sowie das Vorgehen zur Persistierung von Datenmodellen.
+Das xref:blaupausen:detailkonzept-komponente-datenzugriff/master.adoc#Einleitung[Detailkonzept Komponente Datenzugriff] legt die genaue Verwendung von JPA fest und beschreibt die Prinzipien sowie das Vorgehen zur Persistierung von Datenmodellen.
 
 Anwendungskern::
 Der Anwendungskern setzt die Fachlichkeit mittels Fachkomponenten um.
@@ -355,7 +352,7 @@ Die Ergänzung durch technische Komponenten und weitere Vorgaben, z.B. zur Konfi
 
 Batch::
 Batches sind eine Möglichkeit zur Nutzung von IT-Systemen über zeitgesteuerte und automatisch ablaufende, fachliche Operationen.
-Das xref:blaupausen:detailkonzept-komponente-batch/master.adoc#_einführung[Detailkonzept Komponente Batch] beschreibt die Vorgaben für Batches sowie den Aufbau der Batch-Komponente.
+Das xref:blaupausen:detailkonzept-komponente-batch/master.adoc#einfuehrung[Detailkonzept Komponente Batch] beschreibt die Vorgaben für Batches sowie den Aufbau der Batch-Komponente.
 Zur Umsetzung von Batches wird der Batchrahmen der IsyFact vorgeschrieben.
 
 Service::
@@ -366,7 +363,7 @@ Die konkrete Umsetzung mit dem Service-Framework HTTP Invoker sind im xref:isy-s
 GUI::
 Grafische Oberflächen bieten fachliche Operationen nach außen an und stellen sie Anwendern zur Nutzung bereit.
 Ihre Umsetzung geschieht als Web-GUI und folgt dem MVC-Pattern.
-Die genauen Festlegungen zur Web-GUI-Entwicklung finden sich im Dokument xref:blaupausen:detailkonzept-komponente-web-gui/master.adoc#_detailkonzept[Detailkonzept Komponente WebGUI].
+Die genauen Festlegungen zur Web-GUI-Entwicklung finden sich im Dokument xref:blaupausen:detailkonzept-komponente-web-gui/master.adoc#Einleitung[Detailkonzept Komponente Web-GUI].
 
 Die Erstellung von IT-Systemen wird durch einen Systementwurf konkretisiert und dokumentiert.
 
@@ -422,7 +419,7 @@ Der Baustein Datum & Zeit beschreibt die Verwendung der _Java 8 Date & Time API_
 Das xref:isy-datetime:konzept/master.adoc#einleitung[Konzept Datum/Zeit] beschreibt die konzeptionellen Grundlagen der Verarbeitung von Datums- und Zeitwerten.
 Die xref:isy-datetime:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Datum/Zeit] beschreiben alle Aspekte, die bei der Entwicklung einer Anwendung zu berücksichtigen sind.
 
-[[administrative-überwachung-und-konfiguration]]
+[[administrative-ueberwachung-und-konfiguration]]
 ==== Administrative Überwachung und Konfiguration
 Das Dokument xref:isy-ueberwachung:konzept/master.adoc#einleitung[Konzept Überwachung] beschreibt, welche Arten von Konfiguration für eine Anwendung vorgesehen sind und wie diese umgesetzt werden sollen.
 Weiterhin wird in diesem Dokument gezeigt, wie die Überwachung und Administration einer Anwendung seitens des Systembetriebs erfolgt und welche Schnittstellen dazu durch die Anwendung zur Verfügung gestellt werden müssen.
@@ -492,7 +489,7 @@ Diese werden in xref:isy-util:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvo
 == IsyFact-Erweiterungen
 
 Aktuell werden nur wenige Erweiterungen unter einer Open-Source-Lizenz zur Verfügung gestellt (siehe auch Kapitel <<aktueller-stand-und-weiterentwicklung>>).
-Auf den xref:glossary:literaturextern:inhalt.adoc#litextern-Webseiten-Register-Factory[Webseiten der Register Factory] befindet sich eine Übersicht über vorhandene Bausteine, die in Zukunft potentiell als IsyFact-Erweiterung zur Verfügung gestellt werden.
+Auf den xref:glossary:literaturextern:inhalt.adoc#litextern-Webseiten-Register-Factory[Webseiten der Register Factory] befindet sich eine Übersicht über vorhandene Bausteine, die in Zukunft potenziell als IsyFact-Erweiterung zur Verfügung gestellt werden.
 Teilweise können diese auf Anfrage herausgegeben werden.
 
 NOTE: Bei Interesse wenden Sie sich bitte per E-Mail (isyfact@bva.bund.de) an uns.
@@ -519,9 +516,9 @@ Neben dem Dokument beinhaltet der Baustein eine Software-Bibliothek, welche die 
 
 [[sessionmanagement]]
 ==== Session Management
-Für das Session Management wird in IsyFact basierten Anwendungen Spring Session eingesetzt.
+Für das Session Management wird in IsyFact-basierten Anwendungen Spring Session eingesetzt.
 Der Baustein Session Management erleichtert die Konfiguration von Spring Session gemäß den Vorgaben und Anforderungen der IsyFact.
-Die <<TODO anderes Dokument: NutzungsvorgabenSessionManagement>> zeigen, wie mit Hilfe dieser Erweiterung Sessions in IsyFact Anwendungen verwaltet werden.
+Die <<TODO anderes Dokument: NutzungsvorgabenSessionManagement>> zeigen, wie mithilfe dieser Erweiterung Sessions in IsyFact Anwendungen verwaltet werden.
 
 [[webjsf]]
 ==== Web JSF
@@ -551,11 +548,11 @@ Um die IsyFact als Ganzes kennenzulernen, zu verstehen und einzusetzen, empfehle
 
 .Einarbeitung in die IsyFact
 [id="image-IF-Factory",reftext="{figure-caption} {counter:figures}"]
-image::einstieg:einstieg/IF-Factory.png[align="center",width=70%,pdfwidth=70%]
+image::einstieg/isyfact-einarbeitung.dn.svg[]
 
 Während der gesamten Einarbeitung dient außerdem das xref:glossary:master.adoc#startpoint[IsyFact Glossar] dazu, zentrale Begriffe der IsyFact nachzuschlagen.
 
-// Die unten stehenden Tags architekturregel[] und sicherheit[] muessen bestehen bleiben, solange die Tags nicht im Inhalt verwendet werden.
+// Die unten stehenden Tags architekturregel[] und sicherheit[] müssen bestehen bleiben, solange die Tags nicht im Inhalt verwendet werden.
 
 // tag::architekturregel[]
 

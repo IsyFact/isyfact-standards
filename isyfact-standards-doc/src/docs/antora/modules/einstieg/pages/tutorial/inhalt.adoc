@@ -26,7 +26,7 @@ Zur Nutzung der Bibliotheken in der Anwendungsentwicklung steht ein zentrales BO
 
 Somit kann zentral eine zu nutzende Version der IsyFact festgelegt werden.
 Diese legt ebenfalls die Versionen aller Drittprodukte fest, die im <<TODO anderes Dokument: ProduktKatalog>> der IsyFact enthalten sind.
-Aktualisierungen geschehen ebenfalls zentral, durch der Erhöhung der Versionsnummer des IsyFact-BOM.
+Aktualisierungen geschehen ebenfalls zentral, durch die Erhöhung der Versionsnummer des IsyFact-BOM.
 
 Durch die Nutzung des IsyFact-BOM ist es nicht mehr notwendig, die IsyFact-Bibliotheken mit einzelnen Versionsnummern einzubinden.
 Die Versionsnummer ermittelt Maven zentral über das BOM.
@@ -68,7 +68,7 @@ Als Implementierung für die JPA wird Hibernate verwendet.
 * Der Datenzugriff erfolgt entweder über die Komponenten-Schnittstelle oder im Fall der Basisdaten direkt über die Basisdaten-DAOs.
 * Für persistente Entitäten, die über eine Komponentenschnittstelle angeboten werden, werden eigene Schnittstellenobjekte definiert, die per Deep-Copy gefüllt werden. Hierfür wird ein Bean-Mapper verwendet.
 Innerhalb einer Teilanwendung dürfen persistente Entitäten allerdings über Komponentengrenzen hinweg genutzt werden.
-* DAOs und Entitätsklassen werden in einer bestimmten Packetstrucktur abgelegt (siehe xref:blaupausen:detailkonzept-komponente-datenzugriff/master.adoc#_detailkonzept_datenzugriff_einleitung[Detailkonzept Komponente Datenzugriff]).
+* DAOs und Entitätsklassen werden in einer bestimmten Paketstruktur abgelegt (siehe xref:blaupausen:detailkonzept-komponente-datenzugriff/master.adoc#_detailkonzept_datenzugriff_einleitung[Detailkonzept Komponente Datenzugriff]).
 * Die Transaktionssteuerung wird per AOP in der Service-Schicht durchgeführt (siehe Kapitel <<anbieten-von-service-schnittstellen>>).
 +
 [NOTE]
@@ -156,7 +156,7 @@ Eine passende Beispielkonfiguration findet sich in der Maven-Konfiguration der x
 [[implementierung-der-entitätsklassen-und-daos]]
 ==== Implementierung der Entitätsklassen und DAOs
 
-Die Entitäts-Klassen und Schnittstellen-Klassen müssen implementiert werden.
+Die Entitätsklassen und Schnittstellen-Klassen müssen implementiert werden.
 In den Entitätsklassen müssen die Mapping-Informationen für JPA als Annotationen eingetragen werden.
 Die Implementierung der DAOs wird automatisch generiert.
 
@@ -199,7 +199,7 @@ Diese Komponente verwaltet gemeinsam genutzte Daten und bietet keine eigene Schn
 Der Zugriff erfolgt hier direkt über die DAOs (siehe Kapitel <<klassendesign>>).
 * Komponenten bieten an ihrer Schnittstelle eine Nur-Lese-Sicht auf ihre Daten an.
 Für jeden Entitätstyp wird eine nicht-persistente Schnittstellenklasse erstellt.
-Das Komponenten Interface wird von einer Java-Klasse implementiert.
+Die Komponentenschnittstelle wird von einer Java-Klasse implementiert.
 Diese Klasse kann die Anwendungsfälle im einfachen Fall direkt implementieren oder an Anwendungsfall-Klassen delegieren.
 * Die interne Strukturierung von Komponenten ist nicht im Detail vorgeben.
 Für fachliche Komponenten wird eine Basisimplementierung in xref:blaupausen:referenzarchitektur/master.adoc#einleitung[IsyFact Referenzarchitektur] beschrieben.
@@ -216,7 +216,7 @@ image::einstieg:tutorial/Fachliche_Komponente.png[align="center"]
 [cols="2,3"]
 |====
 |*Auskunft*
-a| Interfaces zur Definitionen der Schnittstelle der Komponente "Auskunft". +
+a| Interfaces zur Definition der Schnittstelle der Komponente "Auskunft". +
 Zu beachten ist, dass über die Schnittstelle keine Entitäten der Komponente herausgegeben werden.
 Es darf immer nur eine Nur-Lese-Sicht (nicht-persistente Schnittstellen-Objekte) herausgegeben werden. +
 Die Umwandlung der internen (`RegisterEintrag`) auf die externe Sicht erfolgt per Bean-Mapper.
@@ -370,7 +370,7 @@ Zur Realisierung einer Service-Schnittstelle müssen einige Aktivitäten ausgef�
 Diese werden im Folgenden beschrieben.
 
 [[anlegen-des-schnittstellen-projekts]]
-===== Anlegen des Schnittstellen Projekts
+===== Anlegen des Schnittstellenprojekts
 
 Das neue Projekt `<system>-httpinvoker-sst` muss angelegt werden.
 Dazu wird eine neue `pom.xml` angelegt.
@@ -401,7 +401,7 @@ Die Exception-Fassade und die Service-Implementierung werden als Spring-Beans ko
 Die Exception-Fassade erhält eine Referenz auf die Service-Implementierung per Dependency Injection.
 Genauso erhält die Service-Implementierung eine Referenz auf den Bean Mapper per Dependency Injection.
 
-Vor der Exception-Fassade wird mit Hilfe der Annotation `@StelltLoggingKontextBereit` die mit dem Aufrufkontext mitkommende Correlation-Id für das Logging registriert.
+Vor der Exception-Fassade wird mithilfe der Annotation `@StelltLoggingKontextBereit` die mit dem Aufrufkontext mitkommende Correlation-Id für das Logging registriert.
 
 An den Methoden der Service-Implementierung werden die Annotationen `@StelltAufrufKontextBereit` und `@Gesichert` gemäß xref:isy-sicherheit:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Sicherheit] verwendet, um den Zugriff auf die Service-Methode zu autorisieren.
 
@@ -603,9 +603,9 @@ NOTE: Die URL wird als betriebliche Konfiguration in `application.properties` au
 ===== Erweiterung um die Aufrufwiederholung mittels Service Utilities
 
 Die in diesem Kapitel aufgeführte Konfiguration eines aufzurufenden Dienstes kann durch die Verwendung einer Aufruf-Wiederholungsimplementierung
-erweitert werden, so dass Aufrufe bei Timeouts wiederholt werden.
+erweitert werden, sodass Aufrufe bei Timeouts wiederholt werden.
 Dies ist nur notwendig, sofern eine Aufrufwiederholung eine Anforderung an die Anwendung ist.
-Für die Aufruf-Wiederholung ist lediglich die Spring-Konfiguration des Proxies anzupassen:
+Für die Aufrufwiederholung ist lediglich die Spring-Konfiguration des Proxies anzupassen:
 
 .Konfiguration der Service-API mit Aufruf-Wiederholungen
 [id="listing-KDmSAWied",reftext="{listing-caption} {counter:listings}"]
@@ -714,7 +714,7 @@ Zur Realisierung von Batches muss die in <<listing-bib-batch>> aufgelistete Bibl
 Die Batch-Logik wird implementiert, in dem eine Batch-Bean im Package `<organisation>.<domäne>.<anwendung>.batch` implementiert wird.
 Für die Realisierung ist es notwendig, dass die Batch-Bean das Interface `BatchAusfuehrungsBean` aus der Bibliothek `isy-batchrahmen` implementiert.
 
-Der Batchrahmen ruft als erstes die Methode `initialisieren` auf.
+Der Batchrahmen ruft als Erstes die Methode `initialisieren` auf.
 Dabei werden alle zur Initialisierung benötigten Informationen übergeben.
 Details dazu werden im JavaDoc der Methode beschrieben.
 
@@ -735,7 +735,7 @@ Auch Parameter, die nur für den Batch benötigt werden, werden in die betriebli
 
 Für den Batchrahmen werden in der Konfigurationsklasse der Batch-Schicht die Spring-Beans des Batchrahmens und für jeden existierenden Batch die Ausführungs-Bean als Spring-Bean definiert.
 
-Zustätzlich müssen folgende Beans erstellt werden:
+Zusätzlich müssen folgende Beans erstellt werden:
 
 * Eine Bean vom Typ `BatchRahmenMBean` zur Überwachung des Batchrahmens.
   Diese muss über den Spring MBeanExporter exportiert werden.
@@ -872,7 +872,7 @@ Für den Zugriff auf Konfigurationsparameter in `application.properties` werden 
 der Anwendung mit den Werten aus `application.properties` befüllt werden.
 Der Zugriff auf diese Klassen ist typsicher und die Werte können zusätzlich mit Bean Validierung überprüft werden.
 Zur Verwendung in den Komponenten der Anwendung oder zur Konfiguration von Spring Beans werden diese Klassen per
-Dependendy Injection verfügbar gemacht.
+Dependency Injection verfügbar gemacht.
 Details zur Implementierung siehe xref:isy-konfiguration:konzept/master.adoc#einleitung[Konzept Konfiguration].
 
 [[fehlerbehandlung]]
@@ -890,7 +890,7 @@ Diese Ober-Exceptions sind als abstrakt zu kennzeichnen.
 Die zugrundeliegenden Designprinzipien sind jedoch identisch umzusetzen.
 So wird für jede Bibliothek eine abstrakte Ober-Exception angelegt.
 Diese sorgt für das Laden der Nachrichten, erbt aber direkt von einer der `java.lang.Exception` bzw. `java.lang.RuntimeException`.
-* Fehlertexte werden in Resource-Bundles ausgelagert und über eine Fehler-ID indentifiziert.
+* Fehlertexte werden in Resource-Bundles ausgelagert und über eine Fehler-ID identifiziert.
 Die Schlüssel der Fehler-IDs werden in einer Konstantenklasse zusammengefasst.
 * Exceptions werden grundsätzlich nur zur Signalisierung abnormer Ergebnisse bzw. Situationen eingesetzt.
 * Exceptions sind in der Regel zu behandeln und zu loggen.
@@ -988,7 +988,7 @@ Dazu wird das im Folgenden beschrieben Muster verwendet.
 Es wird ein Catch-Block für alle auftretenden eigenen Exceptions angelegt.
 In jedem Catch-Block wird die Exception geloggt und über `ExceptionMapper.mapException()`
 in eine passende Transport-Exception umgewandelt.
-Als letztes wird ein Catch-Throwable-Block eingefügt.
+Als Letztes wird ein Catch-Throwable-Block eingefügt.
 
 Hier wird für die aufgetretene Exception über `ExceptionMapper.createToException()`
 eine neue Transport-Exception erzeugt.
@@ -1051,7 +1051,7 @@ Es wird keine Basisimplementierung dafür vorgeben.
 Es müssen eigene Entitätsklassen für die Protokolleinträge angelegt werden.
 Diese müssen von der abstrakten Entitätsklasse aus `rf-protokollierung` erben.
 
-Ein Klassendiagram ist in <<TODO anderes Dokument: ProtokollierungKonzept>> enthalten.
+Ein Klassendiagramm ist in <<TODO anderes Dokument: ProtokollierungKonzept>> enthalten.
 
 Die Protokollierungskomponente benötigt in der Regel Kontextinformationen über den Aufrufer.
 Dazu wird in der Anwendung eine Aufrufkontext-Komponente (siehe <<aufrufkontextverwaltung>>) eingebunden.
@@ -1129,7 +1129,7 @@ Dieses Kapitel beschreibt die Realisierung der Authentifizierung und Autorisieru
 [[designvorgaben-10]]
 ==== Designvorgaben
 
-* Die Authentifizierung von Anfragen wird im Servicegateway und im Portal mit Hilfe des Access Managers durchgeführt.
+* Die Authentifizierung von Anfragen wird im Servicegateway und im Portal mithilfe des Access Managers durchgeführt.
 * Prozesse, die innerhalb des Anwendungssystems oder der Anwendungslandschaft starten (z.B. Timertasks, Batches) verwenden einen technischen Benutzer und authentifizieren diesen selbständig gegen den Access Manager.
 * Die Berechtigungsprüfung ist in der Anwendung deklarativ zu definieren bzw.
 zu programmieren.
@@ -1208,7 +1208,7 @@ xref:isy-ueberwachung:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben �
 [[designvorgaben-11]]
 ==== Designvorgaben
 
-* Die Erreichbarkeit der Systems wird über einen HealthCheck von Spring Boot Actuator realisiert.
+* Die Erreichbarkeit des Systems wird über einen HealthCheck von Spring Boot Actuator realisiert.
 * Server-Metriken werden anbieterneutral mit Micrometer angeboten.
 * Einzelne Services können detailliert überwacht werden. Dazu stellen die Services Statistiken über ihre Nutzung
 als Metriken bereit.
@@ -1246,7 +1246,7 @@ erfolgen, damit der Health-Status automatisch aktualisiert wird.
 
 Die im Detail zu überwachenden Services müssen explizit konfiguriert werden. Dazu werden die Service-Beans in
 Service-Statistik-Beans gekapselt, und jeder Service-Aufruf wird durch die Service-Statistik-Beans delegiert. Die
-Konfiguration besteht aus aus zwei Teilen:
+Konfiguration besteht aus zwei Teilen:
 
 * Konfigurieren der Service-Statistik-Beans als Spring Beans.
 * Anbinden der Service-Statistik-Beans an die Service-Beans durch einen AOP-Advice.
@@ -1373,7 +1373,7 @@ private static class RollenContextMapper extends AbstractContextMapper {
 }
 ----
 
-Aufgerufen wird in diesem Beispiel die obere Methode mit `uid` (User-ID) und orgknz (Organisationskennzeichen) eines Anwenders, womit ein Anwender eindeutig identifiziert ist.
+Aufgerufen wird in diesem Beispiel die obere Methode mit `uid` (User-ID) und `orgknz` (Organisationskennzeichen) eines Anwenders, womit ein Anwender eindeutig identifiziert ist.
 
 In den ersten drei Zeilen wird die Suchbedingung definiert, wobei `uid` und `orgknz` die Namen der entsprechenden Felder im LDAP sind.
 
@@ -1397,7 +1397,7 @@ Zusammengefasst sucht diese Methode einen Benutzer, der durch seinen Anmeldename
 
 Als Beispiel zum Speichern wird hier das Neuanlegen eines Anwenders gezeigt.
 
-Die Klasse Anwender ist ein reines Transportobjekt mit Getter- und Setter- Methoden und wird nicht weiter erläutert.
+Die Klasse Anwender ist ein reines Transportobjekt mit Getter- und Setter-Methoden und wird nicht weiter erläutert.
 
 .exemplarisch: Speichern eines Anwenders
 [id="listing-SpeichAnw",reftext="{listing-caption} {counter:listings}"]
