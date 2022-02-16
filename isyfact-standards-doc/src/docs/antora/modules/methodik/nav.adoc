@@ -2,11 +2,11 @@
 ** Systemspezifikation
 ** Systementwurf
 *** xref:vorlage-systementwurf/master.adoc[Vorlage Systementwurf]
-*** xref:vorlage-systemhandbuch/master.adoc[Vorlage Systemhandbuch]
 ** Implementierung
 *** xref:namenskonventionen/master.adoc[Namenskonventionen]
 *** xref:versionierung/master.adoc[Versionierung]
 *** xref:java-programmierkonventionen/master.adoc[Java-Programmierkonventionen]
+*** xref:vorlage-systemhandbuch/master.adoc[Vorlage Systemhandbuch]
 ** Produktauswahl
 ** xref:diagrammerstellung/master.adoc[Diagrammerstellung und Modellierung]
 *** xref:diagramsnet/master.adoc[diagrams.net]

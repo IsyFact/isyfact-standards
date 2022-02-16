@@ -5,7 +5,7 @@
 == diagrams.net für Abbildungen und einfache Diagramme
 _diagrams.net_ ist ein Werkzeug zur flexiblen und leichtgewichtigen Erzeugung von Abbildungen. 
 Dabei kann auf bestehende Grafik-Okjekte (Shapes genannt) unterschiedlicher Notationen (z.B. UML oder BPMN) zurückgegriffen werden.  
-Grafik-Objekte sind als Bibliotheken zusammengefasst. 
+Grafik-Objekte sind als Bibliotheken zusammengefasst.
 Default Bibliotheken können im linken Bereich unten unter btn:[+ Mehr Shapes] hinzugeladen und dann verwendet werden.
  
 [[image-dn-diagramsnet-gui]]	 
@@ -39,12 +39,12 @@ image::diagramsnet/dn-custom-farbpalette.png[align="center"]
 [[Installation-diagrams.net]]
 === Installation von diagrams.net
 diagrams.net kann auf unterschiedliche Weise verwendet werden. 
-Ohne Installation kann die Browser-Variante über https://diagrams.net direkt aufgerufen werden. 
+Ohne Installation kann die Browser-Variante über xref:glossary:literaturextern:inhalt.adoc#litextern-diagrams.net[diagrams.net] direkt aufgerufen werden.
 Für unterschiedliche Betriebssystem-Plattformen stehen zahlreiche Installationspakete bereit. 
 Darüber hinaus stehen für weit verbreitete IDEs Add-ons zur Verfügung, wie beispielsweise
 
-* https://plugins.jetbrains.com/plugin/15635-diagrams-net-integration[IntelliJ IDE] allerdings ohne Konfigurationsmöglichkeit oder 
-* https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio[Visual Studio Code] mit spezifischer Add-on Konfiguration zur Einbindung oben erwähnter Konfigurationen und Bibliotheken (xref:attachment$diagrams_net_vs_studio_code_settings.json[VS Studio Code Settings]).
+* xref:glossary:literaturextern:inhalt.adoc#litextern-diagrams.net-IntelliJ[IntelliJ IDE] allerdings ohne Konfigurationsmöglichkeit oder
+* xref:glossary:literaturextern:inhalt.adoc#litextern-diagrams.net-VS-Code[Visual Studio Code] mit spezifischer Add-on Konfiguration zur Einbindung oben erwähnter Konfigurationen und Bibliotheken (xref:attachment$diagrams_net_vs_studio_code_settings.json[VS Studio Code Settings]).
 
 [[erstellung-einer-neuen-abbildung]]
 === Erstellung einer neuen Abbildung
