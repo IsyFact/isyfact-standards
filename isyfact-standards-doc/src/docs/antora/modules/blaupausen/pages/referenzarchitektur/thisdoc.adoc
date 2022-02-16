@@ -43,7 +43,7 @@ Diese Architektursichten werden im Folgenden beschrieben.
 [[fachliche-referenzarchitektur]]
 ==== Fachliche Referenzarchitektur
 
-Eine Anwendungslandschaft baut sich aus Anwendungsdomänen, Anwendungssystemen (Geschäftsanwendungen und Querschnittssystemen), dem Portal und den Service-Gateways auf.
+Eine Anwendungslandschaft baut sich aus Anwendungsdomänen, Anwendungssystemen (Geschäftsanwendungen und Querschnittsanwendungen), dem Portal und den Service-Gateways auf.
 Dies ist in <<image-GA-AW>> dargestellt.
 
 
@@ -65,7 +65,7 @@ Im Zuge einer solchen Aufgabenteilung werden auch weitergehende Regeln definiert
 Derartige Strukturierungsprinzipien und Regeln sind jedoch immer spezifisch für den jeweiligen Kontext der Anwendungslandschaft und können nicht allgemeingültig festgelegt werden.
 Im vorliegenden Dokument verwenden wir daher den neutralen Begriff *xref:glossary:glossary:master.adoc#glossar-Geschaeftsanwendung[Geschäftsanwendung]* für alle Arten von Anwendungssystemen, die eine bestimmte fachliche Funktionalität innerhalb einer Anwendungsdomäne realisieren.
 
-*Querschnittssysteme* sind Anwendungssysteme, die xref:glossary:glossary:master.adoc#glossar-Basisdienst[Basisdienste] für mehrere Geschäftsanwendungen bereitstellen.
+*Querschnittsanwendungen* sind Anwendungssysteme, die xref:glossary:glossary:master.adoc#glossar-Basisdienst[Basisdienste] für mehrere Geschäftsanwendungen bereitstellen.
 Diese Dienste sind oft technisch motiviert.
 
 *Portal:* Das xref:glossary:glossary:master.adoc#glossar-Portal[Portal] stellt den Benutzern eine einheitliche Dialogoberfläche für den Zugriff auf die Dienste der Anwendungslandschaft zur Verfügung.
@@ -80,7 +80,7 @@ Dies sind in der Regel Web Service-Aufrufe.
 ==== Software Referenzarchitektur
 
 Die individuell erstellten Anwendungssysteme der Anwendungslandschaft sind technisch gleichartig aufgebaut.
-Daher wird eine Referenzarchitektur aufgestellt, nach denen Anwendungssysteme (Geschäftsanwendungen und Querschnittssysteme) software-technisch in xref:glossary:glossary:master.adoc#glossar-IT-System>[IT-Systeme] umgesetzt werden.
+Daher wird eine Referenzarchitektur aufgestellt, nach denen Anwendungssysteme (Geschäftsanwendungen und Querschnittsanwendungen) software-technisch in xref:glossary:glossary:master.adoc#glossar-IT-System>[IT-Systeme] umgesetzt werden.
 Das Dokument xref:referenzarchitektur-it-system/master.adoc[Referenzarchitektur IT-Systeme] beschreibt diese Referenzarchitektur.
 
 Skalierbarkeit und Hochverfügbarkeit sind wichtige Anforderungen an die Referenzarchitektur.

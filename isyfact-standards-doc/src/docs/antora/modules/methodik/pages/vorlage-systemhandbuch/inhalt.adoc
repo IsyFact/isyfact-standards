@@ -27,7 +27,7 @@ Die Abgrenzung, welche Systeme zusammen beschrieben werden, ist ggf. im Einzelfa
 Typischerweise werden eine Geschäftsanwendung und ein zugehöriges Service Gateway gemeinsam beschrieben, aber z.B. nicht zwei Geschäftsanwendungen die zu unterschiedlichen Fachverfahren gehören, auch wenn Sie sich gegenseitig aufrufen.
 Ein wichtiges Kriterium für die Auswahl der Systeme ist deren Entwicklungszyklus.
 Systeme die immer gemeinsam weiterentwickelt werden, können gut in einem gemeinsamen Dokument beschrieben werden.
-Querschnittssysteme werden in eigenen Dokumenten beschrieben._
+Querschnittsanwendungen werden in eigenen Dokumenten beschrieben._
 
 _Die Vorlage enthält bewusst auch Kapitel für Themen, die nicht für alle Systeme benötigt werden.
 Dies soll eine möglichst große Vollständigkeit der damit erstellten Dokumentationen begünstigen._

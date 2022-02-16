@@ -80,7 +80,7 @@ Es werden zwei Typen unterschieden:
 * *Geschäftsanwendungen* implementieren fachliche Logik, Prozesse oder speichern Daten.
 Sie können Präsentationslogik enthalten, oder reine Datenspeicher im Hintergrund sein, die anderen Geschäftsanwendungen ihre Daten bereitstellen.
 Je nach Anwendungsdomäne kann es unterschiedliche Arten von Geschäftsanwendungen geben, die spezielle Aufgaben wahrnehmen.
-* *Querschnittssysteme* stellen Dienste für mehrere Geschäftsanwendungen bereit, beispielsweise ein Suchverfahren oder die Anwenderverwaltung.
+* *Querschnittsanwendungen* stellen Dienste für mehrere Geschäftsanwendungen bereit, beispielsweise ein Suchverfahren oder die Anwenderverwaltung.
 
 Ein Anwendungssystem besteht aus Anwendungskomponenten, die eine Menge funktional zusammenhängender Anwendungsfälle beschreiben.
 <<image-fachref>> zeigt beispielhaft die Aufteilung einer Geschäftsanwendung mit Benutzerschnittstelle.

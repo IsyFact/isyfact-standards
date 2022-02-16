@@ -376,7 +376,7 @@ _Die Farbgebung für ein Teilsystem-Element orientiert sich an der fachlichen Re
 
 * _Blau für Geschäftsanwendungen (R/G/B: 153 / 204 / 255)_
 * _Orange für Register (R/G/B: 255 / 204 / 153)_
-* _Gelb für Querschnittssysteme (R/G/B: 255 / 255 / 153)_
+* _Gelb für Querschnittsanwendungen (R/G/B: 255 / 255 / 153)_
 * _Violett für das Service-Gateway (R/G/B: 255 / 153 / 204)_
 * _Hellgrün für Portal-Systeme (R/G/B: 204 / 255 / 204)_
 * _Weiß für externe Systeme oder Produkte (LDAP, Datenbank etc.) (R/G/B: 255 / 255 / 255)_
