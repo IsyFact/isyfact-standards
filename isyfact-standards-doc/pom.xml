@@ -41,7 +41,7 @@
                                     <descriptors>
                                         <descriptor>${basedir}/assembly-systementwurf.xml</descriptor>
                                     </descriptors>
-                                    <finalName>Vorlage-Systementwurf</finalName>
+                                    <finalName>IsyFact-Vorlage-Systementwurf</finalName>
                                     <appendAssemblyId>false</appendAssemblyId>
                                 </configuration>
                             </execution>
@@ -55,7 +55,7 @@
                                     <descriptors>
                                         <descriptor>${basedir}/assembly-systemhandbuch.xml</descriptor>
                                     </descriptors>
-                                    <finalName>Vorlage-Systemhandbuch</finalName>
+                                    <finalName>IsyFact-Vorlage-Systemhandbuch</finalName>
                                     <appendAssemblyId>false</appendAssemblyId>
                                 </configuration>
                             </execution>

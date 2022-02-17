@@ -6,10 +6,22 @@
     <formats>
         <format>zip</format>
     </formats>
+
+    <files>
+        <file>
+            <source>src/docs/antora/modules/methodik/pages/vorlage-systementwurf/master.adoc</source>
+            <outputDirectory>/</outputDirectory>
+        </file>
+        <file>
+            <source>src/docs/antora/modules/methodik/pages/vorlage-systementwurf/inhalt.adoc</source>
+            <outputDirectory>/</outputDirectory>
+        </file>
+    </files>
+
     <fileSets>
         <fileSet>
-            <directory>src/docs/antora/modules/methodik/pages/vorlage-systementwurf</directory>
-            <outputDirectory>/</outputDirectory>
+            <directory>src/docs/antora/modules/methodik/images/vorlage-systementwurf</directory>
+            <outputDirectory>/images/vorlage-systementwurf</outputDirectory>
         </fileSet>
     </fileSets>
 </assembly>

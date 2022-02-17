@@ -126,9 +126,11 @@ Die folgende Abbildung zeigt beispielhaft das EA-Modell für die Vorlage-Anwendu
 
 ====
 
-.Paketstruktur des Enterprise Architect Modells
+:desc-image-packetstruktur-enterprise-architect-modells: Paketstruktur des Enterprise Architect Modells
 [id="image-packetstruktur-enterprise-architect-modells", reftext = "{figure-caption} {counter:figures}"]
-image::methodik:vorlage-systementwurf/packetstruktur-enterprise-architect-modells.png[align="center", title-align=center]
+.{desc-image-packetstruktur-enterprise-architect-modells}
+image::vorlage-systementwurf/packetstruktur-enterprise-architect-modells.png[align = center, title-align=center]
+
 
 
 [[zusammenfassung]]
@@ -187,7 +189,7 @@ Sollte eine Verfeinerung oder spezifische Ergänzung der Referenzarchitektur not
 Die konkreten Schnittstellen des Systems und ggf. von Teilsystemen sind im Kapitel <<systemarchitektur-gesamtsystems, Systemarchitektur des Gesamtsystems/Systemüberblick>> beschrieben.
 Die Details zur Implementierung und Dateninhalten der Schnittstellen finden sich in der Konstruktion der jeweiligen Services unter <<service, Architektur des Teilsystems A/Service>>.
 +
-** Die zu spezifizierenden Systemelemente sind der Gegenstand von Kapitel <<systemarchitektur-gesamtsystems>>, insbesondere in den Kapiteln <<architektur-teilsystems-a, Architektur des Teilsystems A (ff)>>.
+** Die zu spezifizierenden Systemelemente sind der Gegenstand von Kapitel <<systemarchitektur-gesamtsystems>>, insbesondere in den Kapiteln <<architektur-teilsystems-a, Architektur des Teilsystems (ff)>>.
 
 * *Unterstützungs-Systemarchitektur:* Unterstützungssysteme sind in der Regel durch die IsyFact vorgegeben.
 Sollte es trotzdem nötig sein, ein neues Unterstützungssystem zu konstruieren, erfolgt dies in einem eigenen Dokument nach dieser Vorlage.
@@ -240,9 +242,11 @@ _Zur Einordnung in die Systemlandschaft kann eine Abbildung ähnlich der folgend
 Für konkrete Entwürfe muss die Grafik durch eine nicht anonymisierte aktuelle Version der zugehörigen Systemlandschaft ersetzt werden._
 ====
 
-.Einbettung von <Anwendungssystem (roten Rahmen platzieren)> in die Systemlandschaft.
+:desc-image-einbettung-anwendungssystem: Einbettung von <Anwendungssystem (roten Rahmen platzieren)> in die Systemlandschaft.
+
 [id="image-einbettung-anwendungssystem", reftext = "{figure-caption} {counter:figures}"]
-image::methodik:vorlage-systementwurf/einbettung-anwendungssystem.png[align = center, title-align=center]
+.{desc-image-einbettung-anwendungssystem}
+image::vorlage-systementwurf/einbettung-anwendungssystem.png[align = center, title-align=center]
 
 
 
@@ -276,13 +280,14 @@ Das IT-System <System> wird konform zur Referenzarchitektur der IsyFact Version 
 Die folgende Tabelle führt die vom IT-System verwendeten Elemente der IsyFact auf.
 
 
-.Verwendete Elemente der IsyFact (Standards und Erweiterungen)
+:desc-table-verwendete-elemente-isyfact-standards-erweiterungen: Verwendete Elemente der IsyFact (Standards und Erweiterungen)
 [id="table-verwendete-elemente-isyfact-standards-erweiterungen", reftext = "{table-caption} {counter:tables}"]
+.{desc-table-verwendete-elemente-isyfact-standards-erweiterungen}
 [cols="4,2,2,3", options="header"]
 |===
 |Thema |Status |Version |Referenz
 4+|*Allgemein*  {set:cellbgcolor:#D9D9D9}
-| {set:cellbgcolor} IsyFact-Referenzarchitektur |berücksichtigt |1.0 |xref:blaupausen:referenzarchitektur/master.adoc[IsyFact Referenzarchitektur]
+| {set:cellbgcolor} IsyFact-Referenzarchitektur |berücksichtigt |1.0 |<<IsyFactReferenzarchitektur>>
 4+|*Blaupausen* {set:cellbgcolor:#D9D9D9}
 |Anwendungskern {set:cellbgcolor}|berücksichtigt |_Standard_ |
 |Batch |berücksichtigt |_Standard_ |
@@ -294,7 +299,7 @@ Die folgende Tabelle führt die vom IT-System verwendeten Elemente der IsyFact a
 | {set:cellbgcolor} Fehlerbehandlung |berücksichtigt |_Standard_ |
 |LDAP-Zugriffe |berücksichtigt |_Standard_ |
 |Logging |berücksichtigt |_Standard_ |
-|Sicherheitskomponente |Abweichungen |_Standard_ |xref:isy-logging:konzept/master.adoc[Konzept Logging] xref:isy-logging:nutzungsvorgaben/master.adoc[Nutzungsvorgaben Logging]
+|Sicherheitskomponente |Abweichungen |_Standard_ |<<KonzeptLogging>> <<NutzungsvorgabenLogging>>
 |Überwachung und Konfiguration |berücksichtigt |_Standard_ |
 4+|*Bausteine (Erweiterungen)* {set:cellbgcolor:#D9D9D9}
 | {set:cellbgcolor}  Alphanumerisches Suchverfahren |berücksichtigt |_Standard_ |
@@ -324,8 +329,9 @@ Die folgende Tabelle führt die vom IT-System verwendeten Elemente der IsyFact a
 Abweichungen zur Referenzarchitektur sind in Tabelle 2 dokumentiert und begründet.
 
 
-.Abweichungen zur Referenzarchitektur
+:desc-table-abweichungen-zur-referenzarchitektur: Abweichungen zur Referenzarchitektur
 [id="table-abweichungen-zur-referenzarchitektur", reftext = "{table-caption} {counter:tables}"]
+.{desc-table-abweichungen-zur-referenzarchitektur}
 [cols="3,3,3", options="header"]
 |===
 |Thema |Abweichung |Begründung
@@ -367,9 +373,10 @@ _In der Beschreibung der Grafik ist folgendes beschrieben:_
 _Ein Beispiel für ein solches Diagramm ist:_
 ====
 
-.Teilsysteme
+:desc-image-teilsysteme: Teilsysteme
 [id="image-teilsysteme", reftext = "{figure-caption} {counter:figures}"]
-image::methodik:vorlage-systementwurf/teilsysteme.png[align = center, title-align=center]
+.{desc-image-teilsysteme}
+image::vorlage-systementwurf/teilsysteme.png[align = center, title-align=center]
 
 ====
 _Die Farbgebung für ein Teilsystem-Element orientiert sich an der fachlichen Referenzarchitektur. Für die verschiedenen Systeme sind folgende Hintergründe zu verwenden:_
@@ -386,7 +393,7 @@ _Die Farbgebung für ein Teilsystem-Element orientiert sich an der fachlichen Re
 ====
 *Orange für Register:*
 
-spezifische Festlegung für Registeranwendungen. Siehe Dokument xref:einstieg:einstieg/master.adoc[IsyFact Einstieg>]
+spezifische Festlegung für Registeranwendungen. Siehe Dokument <<IsyFactEinstieg>>
 ====
 
 
@@ -468,9 +475,10 @@ _TI-Diagramme sind als Deployment Diagramme umzusetzen. Diese enthalten die Elem
 * _Boundaries für Netzsegmente_
 ====
 
-.Deployment Diagramm
+:desc-image-deployment-diagramm: Deployment Diagramm
 [id="image-deployment-diagramm", reftext = "{figure-caption} {counter:figures}"]
-image::methodik:vorlage-systementwurf/deployment-diagramm.png[align = center, title-align=center]
+.{desc-image-deployment-diagramm}
+image::vorlage-systementwurf/deployment-diagramm.png[align = center, title-align=center]
 
 ====
 _Wichtige Inhalte:_
@@ -497,8 +505,9 @@ Für die Laufzeitumgebung wird ein Default-Tomcat bereitgestellt._
 _Die Laufzeitumgebung für das IT-System [yellow]#<SYSTEM># besteht gemäß Produktkatalog der Referenzarchitektur aus den folgenden Produkten:_
 
 
-.Laufzeitumgebung für <SYSTEM>
+:desc-table-laufzeitumgebung: Laufzeitumgebung für <SYSTEM>
 [id="table-laufzeitumgebung", reftext = "{table-caption} {counter:tables}"]
+.{desc-table-laufzeitumgebung}
 [cols="4,2,2,4", options="header"]
 |===
 |Kategorie |Name |Version |Bemerkung
@@ -528,8 +537,9 @@ Hier ist allerdings nur die Größe der Rohdaten angegeben.
 Für eine Berechnung der Größe der Table-Spaces müssen noch Spezifika der konkret verwendeten Datenbank berücksichtigt werden.
 Die Berechnung der Größe der Table-Spaces erfolgt durch die Datenbank-Administration auf der Basis der hier genannten Zeilenanzahl je Tabelle.
 
-.Mengengerüst für die Datenbank
+:desc-table-mengengeruest-datenbank: Mengengerüst für die Datenbank
 [id="table-mengengeruest-datenbank", reftext = "{table-caption} {counter:tables}"]
+.{desc-table-mengengeruest-datenbank}
 [cols=",,,,,", options="header"]
 |===
 | Tabelle/Index | Typ | Anzahl/Zeilen 2+| Größe Rohdaten | Bemerkung
@@ -546,8 +556,9 @@ Platzbedarf für Dateien
 _<erläuternder Text>_
 ====
 
-.Mengengerüst für die Dateien auf dem lokalen Laufwerk
+:desc-table-mengengeruest-dateien-auf-dem-lokalen-laufwerk: Mengengerüst für die Dateien auf dem lokalen Laufwerk
 [id="table-mengengeruest-dateien-auf-dem-lokalen-laufwerk", reftext = "{table-caption} {counter:tables}"]
+.{desc-table-mengengeruest-dateien-auf-dem-lokalen-laufwerk}
 [cols="3,2,4", options="header"]
 |===
 |Datei |Größe |Bemerkung|
@@ -568,8 +579,9 @@ _tabellarische Darstellung_
 Das IT-System [yellow]#<SYSTEM># benötigt gemäß Produktkatalog der Referenzarchitektur die folgenden Bibliotheken bzw. Drittsoftware:
 
 
-.Benötigte Bibliotheken und Drittsoftware
+:desc-table-benoetigte-bibliotheken-drittsoftware: Benötigte Bibliotheken und Drittsoftware
 [id="table-benoetigte-bibliotheken-drittsoftware", reftext = "{table-caption} {counter:tables}"]
+.{desc-table-benoetigte-bibliotheken-drittsoftware}
 [cols="3,2,1,4", options="header"]
 |===
 |Kategorie |Name |Version |Bemerkung
@@ -605,9 +617,10 @@ _Schließlich finden sich in diesem Kapitel noch Details, auf die der Chefdesign
 _Die Teilsysteme haben (soweit es sich um Geschäftsanwendungen handelt) folgende, fest vorgegebene T-Architektur:_
 ====
 
-.Darstellung der Teilsysteme
+:desc-image-darstellung-teilsysteme: Darstellung der Teilsysteme
 [id="image-darstellung-teilsysteme", reftext = "{figure-caption} {counter:figures}"]
-image::methodik:vorlage-systementwurf/darstellung-teilsysteme.png[align = center, title-align=center, width=75%]
+.{desc-image-darstellung-teilsysteme}
+image::vorlage-systementwurf/darstellung-teilsysteme.png[align = center, title-align=center, width=75%]
 
 ====
 _Die konkrete Ausgestaltung dieser Architektur mit den konkreten Komponenten ist Inhalt dieses Unterkapitels._
@@ -646,9 +659,10 @@ Keine Zusatzinformationen tragende Stereotypen wie << use >> sind explizit zu ve
 * _Für Eingabedateien ist das Stereotyp Eingabedatei zu verwenden._
 ====
 
-.Überblick über die Teilsysteme
+:desc-image-ueberblick-teilsysteme: Überblick über die Teilsysteme
 [id="image-ueberblick-teilsysteme", reftext = "{figure-caption} {counter:figures}"]
-image::methodik:vorlage-systementwurf/ueberblick-teilsysteme.png[align = center, title-align=center]
+.{desc-image-ueberblick-teilsysteme}
+image::vorlage-systementwurf/ueberblick-teilsysteme.png[align = center, title-align=center]
 
 ====
 _Die Komponentenstruktur des Anwendungskerns findet sich in der GUI, Batch, Service und Persistenz wieder.
@@ -714,9 +728,10 @@ _Sehr Umfangreiche Datenstrukturen für Ein- und Ausgaben können bei Bedarf in 
 _Beispiel für das Diagramm:_
 ====
 
-.UML-Komponentendiagramm
+:desc-image-uml-komponentendiagramm: UML-Komponentendiagramm
 [id="image-uml-komponentendiagramm", reftext = "{figure-caption} {counter:figures}"]
-image::methodik:vorlage-systementwurf/uml-komponentendiagramm.png[align = center, title-align=center]
+.{desc-image-uml-komponentendiagramm}
+image::vorlage-systementwurf/uml-komponentendiagramm.png[align = center, title-align=center]
 
 ====
 _Hier ist sowohl die innere Struktur der Komponente als auch die Beziehung zu aufrufenden/aufgerufenen Komponenten dargestellt._
@@ -743,9 +758,10 @@ _Dargestellt werden:_
 * _Eine Boundary, welche die Elemente der Systemspezifikation beinhaltet._
 ====
 
-.Komponenten Zusammenhänge
+:desc-image-komponenten-zusammenhaenge: Komponenten Zusammenhänge
 [id="image-komponenten-zusammenhaenge", reftext = "{figure-caption} {counter:figures}"]
-image::methodik:vorlage-systementwurf/komponenten-zusammenhaenge.png[align = center, title-align=center]
+.{desc-image-komponenten-zusammenhaenge}
+image::vorlage-systementwurf/komponenten-zusammenhaenge.png[align = center, title-align=center]
 
 
 [[komponente-y]]
@@ -925,9 +941,10 @@ Die Optimierung des Diagramms in Hinblick auf den benötigten Platz ist nicht ge
 
 _Beispiel für ein logisches Datenmodell_
 
-.Logisches Datenmodell
+:desc-image-logisches-datenmodell: Logisches Datenmodell
 [id="image-logisches-datenmodell", reftext = "{figure-caption} {counter:figures}"]
-image::methodik:vorlage-systementwurf/logisches-datenmodell.png[align = center, title-align=center]
+.{desc-image-logisches-datenmodell}
+image::vorlage-systementwurf/logisches-datenmodell.png[align = center, title-align=center]
 
 <<<
 [[physisches-datenmodell]]
@@ -1055,5 +1072,5 @@ _Diese Kapitel sind daher **nicht manuell anzulegen!**_
 
 ====
 
-Download xref:methodik:attachment$vorlage-generated/Vorlage-Systementwurf.zip[Systementwurf]
+
 // end::inhalt[]
