@@ -38,7 +38,7 @@ Danach sollte der Resource Browser etwa wie folgt aussehen:
 
 [[image-resbrowser]]
 .Resource Browser mit hinzugefügten UML-Profilen
-image::resbrowser.png[align="center"]
+image::methodik:enterprise-architect/resbrowser.png[align="center"]
 
 Nun kann man die einzelnen Elemente aus den UML-Profilen nutzen.
 Elemente wie Anwendungsfälle erzeugt man, indem man sie in ein Diagramm zieht und benennt.
@@ -53,31 +53,31 @@ Die folgende Struktur muss man beim Aufbau des EA-Modells der Geschäftsprozesse
 
 [[image-eastructgpm]]
 .EA-Struktur der Geschäftsprozessmodellierung
-image::eastructgpm.png[align="center"]
+image::methodik:enterprise-architect/eastructgpm.png[align="center"]
 
 [[image-eastructanwcomp]]
 .EA-Struktur der Spezifikation: Anwendungskomponenten
-image::eastructanwcomp.png[align="center"]
+image::methodik:enterprise-architect/eastructanwcomp.png[align="center"]
 
 [[image-eastructdatmod]]
 .EA-Struktur der Spezifikation: Datenmodell
-image::eastructdatmod.png[align="center"]
+image::methodik:enterprise-architect/eastructdatmod.png[align="center"]
 
 [[image-eastructdialog]]
 .EA-Struktur der Spezifikation: Dialoge
-image::eastructdialog.png[align="center"]
+image::methodik:enterprise-architect/eastructdialog.png[align="center"]
 
 [[image-eastructdruck]]
 .EA-Struktur der Spezifikation: Druckausgaben
-image::eastructdruck.png[align="center"]
+image::methodik:enterprise-architect/eastructdruck.png[align="center"]
 
 [[image-eastructschnitt]]
 .EA-Struktur der Spezifikation: Schnittstellen
-image::eastructschnitt.png[align="center"]
+image::methodik:enterprise-architect/eastructschnitt.png[align="center"]
 
 [[image-eastructnfa]]
 .EA-Struktur der Spezifikation: Nichtfunktionale Anforderungen
-image::eastructnfa.png[align="center"]
+image::methodik:enterprise-architect/eastructnfa.png[align="center"]
 
 Elemente, die in der Systemspezifikation benannt werden (z.B. Anwendungsfälle, Entitätstypen, usw.) dürfen nur einmal im EA-Modell enthalten sein.
 Wird dieselbe Entität in mehreren Diagrammen verwendet, erzeugt man sie initial durch Ziehen aus den UML-Profilen in das erste Diagramm.
@@ -97,19 +97,19 @@ Nun kann man RGB-Farbwerte eingeben.
 
 [[image-guidefault]]
 .Dialog "Default Appearance“
-image::guidefault.png[align="center"]
+image::methodik:enterprise-architect/guidefault.png[align="center"]
 
 Alternativ kann man seit EA Version 7 die Farbe des Elements für ein einzelnes Diagramm setzen, indem man den Pinsel neben dem markierten Element anklickt und das Farbwahl-Feld nutzt (siehe <<image-guiselectcol>>).
 
 [[image-guiselectcol]]
 .Farbwahl-Feld
-image::guiselectcol.png[align="center"]
+image::methodik:enterprise-architect/guiselectcol.png[align="center"]
 
 Die genutzten Farbwerte in RGB werden in folgendem Diagramm gezeigt.
 
 [[image-colorval]]
 .Farbwerte
-image::colorval.png[align="center"]
+image::methodik:enterprise-architect/colorval.png[align="center"]
 
 
 [[schriftart-von-elementen-anpassen]]
@@ -119,7 +119,7 @@ Seit der EA Version 7 kann man die Schriftart eines Elements für ein einzelnes 
 
 [[image-guiselectfnt]]
 .Schriftwahl-Feld
-image::guiselectfnt.png[align="center"]
+image::methodik:enterprise-architect/guiselectfnt.png[align="center"]
 
 
 [[markierung-von-elementen-aus-anderen-ordnern-im-ea-abschalten]]
@@ -129,7 +129,7 @@ Standardmäßig zeichnet der EA Diagrammelemente aus anderen Ordnern als dem des
 
 [[image-annootherele]]
 .Auszeichnung von Elementen aus anderen Ordnern im Diagramm
-image::annootherele.png[align="center"]
+image::methodik:enterprise-architect/annootherele.png[align="center"]
 
 Man muss dies je Diagramm wie folgt abschalten: Mit der rechten Maustaste auf den Diagramm-Hintergrund klicken und dann menu:Properties...[Diagram > Show Namespace] auswählen.
 

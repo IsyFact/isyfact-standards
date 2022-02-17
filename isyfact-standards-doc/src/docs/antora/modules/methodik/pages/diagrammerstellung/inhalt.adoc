@@ -15,9 +15,8 @@ Hiermit wir eine Empfehlung für die Verwendung von _diagrams.net_ und/oder _Ent
 
 <<table-anforderungen>> zeigt Anforderungen und den Erfüllungsgrad durch die Werkzeuge.
 
-:desc-table-anforderungen: Mapping Anforderungen auf Werkzeuge
+.Mapping Anforderungen auf Werkzeuge
 [id="table-anforderungen",reftext="{table-caption} {counter:tables}"]
-.{desc-table-anforderungen}
 [cols="5,1,1",options="header"]
 |===
 |Anforderung|EA|DN

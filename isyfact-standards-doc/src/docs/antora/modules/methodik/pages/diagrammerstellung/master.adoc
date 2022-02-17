@@ -1,7 +1,5 @@
 
 :doctitle: Modellierung und Diagrammerstellung
-[discrete]
-= Handbuch
 
 :sectnums:
 

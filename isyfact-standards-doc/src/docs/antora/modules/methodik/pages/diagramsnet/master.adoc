@@ -1,7 +1,5 @@
 
 :doctitle: diagrams.net
-[discrete]
-= Handbuch
 
 :sectnums:
 
