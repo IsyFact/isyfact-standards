@@ -68,7 +68,7 @@ Im vorliegenden Dokument verwenden wir daher den neutralen Begriff *xref:glossar
 *Querschnittsanwendungen* sind Anwendungssysteme, die xref:glossary:glossary:master.adoc#glossar-Basisdienst[Basisdienste] für mehrere Geschäftsanwendungen bereitstellen.
 Diese Dienste sind oft technisch motiviert.
 
-*Portal:* Das xref:glossary:glossary:master.adoc#glossar-Portal[Portal] stellt den Benutzern eine einheitliche Dialogoberfläche für den Zugriff auf die Dienste der Anwendungslandschaft zur Verfügung.
+*Portal:* Das xref:glossary:glossary:master.adoc#glossar-Portal[Portal] stellt den Benutzern eine einheitliche Dialogoberfläche für den Zugriff auf die Services der Anwendungslandschaft zur Verfügung.
 Einzelne Geschäftsanwendungen stellen Nutzerschnittstellen zur Verfügung, das Portal integriert diese, bildet einen zentralen Einstiegspunkt für alle Web-Anwendungen und übernimmt die Aufgabe der Authentifizierung und der Autorisierung auf Anwendungsebene.
 
 *Service-Gateway:* Im xref:glossary:glossary:master.adoc#glossar-Service-Gateway[Service Gateway] werden alle Services der Anwendungssysteme bereitgestellt, die externe Nutzer direkt nutzen dürfen.

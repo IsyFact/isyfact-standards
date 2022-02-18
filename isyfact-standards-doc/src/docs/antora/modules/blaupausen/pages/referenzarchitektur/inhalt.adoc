@@ -25,7 +25,7 @@ Der Begriff Factory steht für die schnelle Erzeugung neuer Anwendungen durch An
 
 Die Vorteile des IsyFact-Ansatzes sind vielfältig: Die zügige und effiziente Einrichtung neuer Geschäftsanwendungen erhöht die Wirtschaftlichkeit.
 Durch Homogenisierung der Anwendungslandschaft werden Administration und Wartung vereinfacht.
-Weitere Vorteile sind höhere Sicherheit und Softwarequalität durch Einsatz erprobter Komponenten und Dienste sowie mehr Nachhaltigkeit durch eine zukunftssichere, weitgehend herstellerneutrale Software-Architektur und Plattform.
+Weitere Vorteile sind höhere Sicherheit und Softwarequalität durch Einsatz erprobter Komponenten und Services sowie mehr Nachhaltigkeit durch eine zukunftssichere, weitgehend herstellerneutrale Software-Architektur und Plattform.
 
 [[durch-die-isyfact-abgedeckte-bereiche]]
 ==== Durch die IsyFact abgedeckte Bereiche
@@ -450,7 +450,7 @@ Sie implementiert dazu drei software-architektonische Schichten:
 * Der *Anwendungskern*, in dem die Geschäftslogik abgebildet ist.
 * Die *Persistenzschicht*, in der sowohl die Anwendungsdaten als auch der Zustand der Anwendungssitzung abgespeichert werden.
 
-Zur Implementierung der Geschäftslogik kann die Geschäftsanwendung auch xref:glossary:glossary:master.adoc#glossar-Service[Services] anderer Geschäftsanwendung aufrufen.
+Zur Implementierung der Geschäftslogik kann die Geschäftsanwendung auch xref:glossary:glossary:master.adoc#glossar-ServiceFachlich[Services] anderer Geschäftsanwendungen aufrufen.
 
 *Das Portal:* Wie in Kapitel <<strukturierung-der-systemlandschaft>> beschrieben, nimmt das Portal die xref:glossary:glossary:master.adoc#glossar-Anwender[Anwender]-Aufrufe entgegen und leitet sie an die Geschäftsanwendung weiter.
 
@@ -486,7 +486,7 @@ Die für die Umsetzung der Architektur verwendeten Produkte lassen sich in die K
 
 *Basistechnologien:* Basistechnologien legen grundlegende technische Entscheidungen fest, wie z.B. die Programmiersprache und die verwendete Web-Technologie.
 
-*Systemsoftware:* Die Systemsoftware legt die technische Ablaufumgebung für die Software fest und bietet grundlegende Dienste für eine IsyFact-Systemlandschaft an.
+*Systemsoftware:* Die Systemsoftware legt die technische Ablaufumgebung für die Software fest und bietet grundlegende Services für eine IsyFact-Systemlandschaft an.
 Hierzu gehören z.B. das Betriebssystem, Web-Server, Application-Server, Access-Manager, LDAP und die Datenbank.
 
 *Bibliotheken für die Anwendungsentwicklung:* Die Anwendungs­entwicklung wird durch den Einsatz von Frameworks und entsprechenden Bibliotheken vereinfacht und beschleunigt.
