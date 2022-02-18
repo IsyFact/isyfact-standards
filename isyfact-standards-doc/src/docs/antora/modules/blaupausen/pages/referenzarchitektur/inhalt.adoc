@@ -170,7 +170,7 @@ Im Rahmen der allgemeinen Referenzarchitektur werden zunächst nur Geschäftsanw
 Sie implementiert entweder die gesamte hierfür notwendige Funktionalität (monolithisch), von der Benutzerschnittstelle über die fachliche Logik, die Prozesse bis hin zur Datenhaltung.
 Oder die Geschäftsanwendung implementiert nur einen Teilbereich der Funktionalität und greift für den Rest über Schnittstellen auf benachbarte Geschäftsanwendungen zu.
 
-* *xref:glossary:glossary:master.adoc#glossar-Querschnittssystem[Querschnittssysteme]* sind Anwendungssysteme, die Basisdienste für mehrere Geschäftsanwendungen bereitstellen, wie z. B. ein Behördenverzeichnis oder ein Outputmanagement.
+* *xref:glossary:glossary:master.adoc#glossar-Querschnittssystem[Querschnittsanwendungen]* sind Anwendungssysteme, die Basisdienste für mehrere Geschäftsanwendungen bereitstellen, wie z. B. ein Behördenverzeichnis oder ein Outputmanagement.
 
 * *xref:glossary:glossary:master.adoc#glossar-Anwendungskomponente[Anwendungskomponenten]:* Eine Anwendungskomponente beschreibt eine Menge funktional zusammenhängender Anwendungsfälle.
 Anwendungskomponenten sind Bestandteile von Anwendungs­systemen.
@@ -258,7 +258,7 @@ Ein Portal im Sinne der Referenzarchitektur besteht aus:
 
 Der Zweck eines Portals ist die gemeinsame Authentifizierung und Autorisierung für alle Geschäftsanwendungen und die Indirektion des Zugriffs von Nutzern auf die Geschäftsanwendungen.
 
-*Das xref:glossary:glossary:master.adoc#glossar-Querschnittssystem[Querschnittssysteme]:* Eine Querschnittsanwendung bietet Geschäftsanwendungen querschnittlich genutzte Funktionalitäten an, etwa für die Bereitstellung von Schlüsseldaten.
+*Das xref:glossary:glossary:master.adoc#glossar-Querschnittssystem[Querschnittsanwendungen]:* Eine Querschnittsanwendung bietet Geschäftsanwendungen querschnittlich genutzte Funktionalitäten an, etwa für die Bereitstellung von Schlüsseldaten.
 Querschnittsanwendungen können eine eigene Datenhaltung besitzen.
 
 Querschnittsanwendungen werden nur von internen Benutzern oder anderen IT-Systemen derselben Systemlandschaft aufgerufen. Sie rufen selbst nur andere Querschnittsanwendungen auf.
@@ -464,7 +464,7 @@ Wichtig in Hinblick auf diese Schichten sind folgende Punkte:
 
 * Die Komponente _Batch_ der Geschäftsanwendung wird im obigen Beispiel nicht implementiert, da die Geschäftsanwendung keine Schnittstelle für Batchläufe anbietet.
 * Alle externen Aufrufe an die Geschäftsanwendung werden durch eine _Service-Komponente_ verarbeitet: Keine andere Komponente darf externe Schnittstellen bereitstellen, insbesondere nicht in den _Anwendungskern_.
-* Es wurden keine Aufrufe von Querschnittskomponenten eingezeichnet.
+* Es wurden keine Aufrufe von Querschnittsanwendungen eingezeichnet.
 Für derartige Aufrufe gibt es keine Vorgaben: Sie können aus beliebigen Schichten von Geschäftsanwendungen und Service Gateways aus aufgerufen werden.
 ====
 

@@ -144,7 +144,7 @@ Für die Technologie Spring HTTP Invoker stellt die IsyFact passende Transportob
 
 Die Vergabe von Rollen ist _das_ Mittel der Benutzeradministration, um Anwender der xref:glossary:glossary:master.adoc#glossar-Anwendungslandschaft[Anwendungslandschaft] mit Berechtigungen auszustatten.
 Die Vergabe von Rollen an einen Anwender (menschliche und technische) erfolgt im Querschnitt:
-entweder in der Querschnittsanwendung Benutzerverzeichnis oder in der xref:glossary:glossary:master.adoc#glossar-Querschnittskomponente[Querschnittskomponente] Benutzerverwaltung.
+entweder in der Querschnittsanwendung Benutzerverzeichnis oder in der xref:glossary:glossary:master.adoc#glossar-Querschnittskomponente[Querschnittsanwendung] Benutzerverwaltung.
 
 Es ist konzeptionell beabsichtigt, dass die Administration per Rollen recht grobgranular erfolgt.
 Eine administrative Vergabe feingranularer Rechte ist konzeptionell nicht erwünscht.
