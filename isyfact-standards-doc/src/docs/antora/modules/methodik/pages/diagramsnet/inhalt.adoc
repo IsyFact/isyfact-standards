@@ -1,74 +1,94 @@
 = Nutzung diagrams.net
 
 // tag::inhalt[]
-[[diagrams-net-fuer-abbildungen-und-einfache-diagramme]]
-== diagrams.net für Abbildungen und einfache Diagramme
-_diagrams.net_ ist ein Werkzeug zur flexiblen und leichtgewichtigen Erzeugung von Abbildungen. 
-Dabei kann auf bestehende Grafik-Okjekte (Shapes genannt) unterschiedlicher Notationen (z.B. UML oder BPMN) zurückgegriffen werden.  
-Grafik-Objekte sind als Bibliotheken zusammengefasst.
-Default Bibliotheken können im linken Bereich unten unter btn:[+ Mehr Shapes] hinzugeladen und dann verwendet werden.
+
+_diagrams.net_ ist ein Werkzeug zur flexiblen und leichtgewichtigen Erzeugung von Diagrammen.
+Dabei kann auf bestehende Grafik-Objekte (_Shapes_ genannt) unterschiedlicher Notationen (z.B. UML oder BPMN) zurückgegriffen werden.
+Grafik-Objekte sind in Bibliotheken zusammengefasst.
+Bibliotheken können im linken Bereich unten unter btn:[+ Mehr Shapes] hinzugeladen und dann verwendet werden.
  
 [[image-dn-diagramsnet-gui]]	 
 .diagrams.net Benutzeroberfläche
-image::diagramsnet/dn-diagramsnet-gui.png[align="center"]
+image::diagramsnet/dn-diagramsnet-gui.png[]
+
+[[Installation-diagrams.net]]
+== Einrichtung von diagrams.net
+diagrams.net kann auf vielfältige Weise verwendet werden.
+Ohne Installation kann die Browser-Variante über xref:glossary:literaturextern:inhalt.adoc#litextern-diagrams.net[diagrams.net] direkt aufgerufen werden.
+Für zahlreiche Betriebssystem-Plattformen stehen außerdem Installationspakete bereit.
+Darüber hinaus gibt es Unterstützung für weit verbreitete IDEs, beispielsweise für xref:glossary:literaturextern:inhalt.adoc#litextern-diagrams.net-IntelliJ[IntelliJ IDEA], allerdings ohne Konfigurationsmöglichkeit, oder xref:glossary:literaturextern:inhalt.adoc#litextern-diagrams.net-VS-Code[Visual Studio Code].
 
 [[IsyFact-Standards-Grafik-Bibliothek-einbinden]]
-=== IsyFact-Standards-Grafik-Bibliothek einbinden
+=== IsyFact-Bibliothek einbinden
 Die IsyFact stellt eine eigene Bibliothek bereit. 
-Diese enthält u.a. Grafik-Objekte in Anlehnung an die Systemspezifikation-, Systementwurf- und Referenzarchitektur-Diagramme des Standards.
+Diese enthält u.a. Grafik-Objekte in Anlehnung an die Systemspezifikation-, Systementwurf- und Referenzarchitektur-Diagramme des IsyFact.
+Die Bibliothek stellt eine Empfehlung für Nutzer der IsyFact dar.
+Sie wird intensiv zur Dokumentation der IsyFact verwendet.
 
 [[image-dn-bibliothek-isyfact-uebersicht]]	 
 .diagrams.net IsyFact Bibliothek
-image::diagramsnet/dn-bibliothek-isyfact-uebersicht.dn.svg[align="center"]
+image::diagramsnet/dn-bibliothek-isyfact-uebersicht.dn.svg[]
 
-Über das Menü menu:Datei[Bibliothek öffen...] kann die xref:attachment$IsyFact.drawiolib.xml[XML-Konfiguration] eingebunden werden.
-Die Bibliothek stellt keine verbindliche Vorgabe für Nutzer des Standards dar, wird aber in der Dokumentation der Standards verwendet.
+Über das Menü menu:Datei[Bibliothek öffen...] kann die xref:attachment$IsyFact.drawiolib.xml[Bibliothek (Download)] eingebunden werden.
+In der Visual Studio Code Extension muss die Bibliothek <<vs-code-extension-bibliothek-konfiguration,wie folgt>> manuell konfiguriert werden.
+
+[[vs-code-extension-bibliothek-konfiguration]]
+.Visual Studio Code Extension: Konfiguration der Bibliothek
+[source,json]
+----
+{
+  "hediet.vscode-drawio.customLibraries": [
+    {
+      "file": "<Dateipfad>/IsyFact.drawiolib.xml",
+      "libName": "IsyFact",
+      "entryId": "IsyFact"
+    }
+  ]
+}
+----
 
 [[IsyFact-Konfiguration-einbinden]]
-=== IsyFact Konfiguration einbinden
+=== IsyFact-Konfiguration einbinden
 Mit einer diagrams.net-Konfigurationsdatei können darüber hinaus u.a. Farbpaletten mit vordefinierten Werten belegt oder Standards für Verbinder gesetzt werden. 
 Die IsyFact stellt eine beispielhafte Konfiguration bereit. 
-Diese enthält u.a. Farbvorgaben in Anlehnung an die Systemspezifikation-, Systementwurf- und Referenzarchitektur-Diagramme des Standards.
+Diese enthält u.a. Farbvorgaben in Anlehnung an die Systemspezifikation-, Systementwurf- und Referenzarchitektur-Diagramme der IsyFact.
 
-[[image-dn-custom-farbpalette]]	 
+[[image-dn-custom-farbpalette]]
 .diagrams.net IsyFact Farbpalette
-image::diagramsnet/dn-custom-farbpalette.png[align="center"]
+image::diagramsnet/dn-custom-farbpalette.png[]
 
-Über das Menü menu:Extras[Configuration...] kann die xref:attachment$diagrams_net_standalone_configuration.json[JSON-Konfiguration] eingebunden werden.
+Über das Menü menu:Extras[Configuration...] kann die xref:attachment$diagrams_net_standalone_configuration.json[Konfiguration (Download)] eingebunden werden.
+Im Fall der Visual Studio Code Extension wird eine angepasste xref:attachment$diagrams_net_vs_studio_code_settings.json[Extension-Konfiguration (Download)] benötigt.
 
-[[Installation-diagrams.net]]
-=== Installation von diagrams.net
-diagrams.net kann auf unterschiedliche Weise verwendet werden. 
-Ohne Installation kann die Browser-Variante über xref:glossary:literaturextern:inhalt.adoc#litextern-diagrams.net[diagrams.net] direkt aufgerufen werden.
-Für unterschiedliche Betriebssystem-Plattformen stehen zahlreiche Installationspakete bereit. 
-Darüber hinaus stehen für weit verbreitete IDEs Add-ons zur Verfügung, wie beispielsweise
-
-* xref:glossary:literaturextern:inhalt.adoc#litextern-diagrams.net-IntelliJ[IntelliJ IDE] allerdings ohne Konfigurationsmöglichkeit oder
-* xref:glossary:literaturextern:inhalt.adoc#litextern-diagrams.net-VS-Code[Visual Studio Code] mit spezifischer Add-on Konfiguration zur Einbindung oben erwähnter Konfigurationen und Bibliotheken (xref:attachment$diagrams_net_vs_studio_code_settings.json[VS Studio Code Settings]).
-
-[[erstellung-einer-neuen-abbildung]]
-=== Erstellung einer neuen Abbildung
-Beim Start der Anwendung erscheint ein Dialog, der das Neuerstellen einer Abbildung über btn:[Neues Diagramm erstellen] erlaubt.
+[[arbeiten-mit-diagrams.net]]
+== Arbeiten mit diagrams.net
+Beim Start der Anwendung erscheint ein Dialog, der das Neuerstellen eines Diagramms sowie das Öffnen eines vorhandenen Diagramms ermöglicht.
 
 [[image-dn-abb-erstellen-startauswahl]]
-.Dialog "Neues Diagramm erstellen"
-image::diagramsnet/dn-abb-erstellen-startauswahl.png[align="center"]
+.Startdialog
+image::diagramsnet/dn-abb-erstellen-startauswahl.png[]
 
-Im folgenden Dialog lassen sich Voreinstellungen für die neu zu erstellende Abbildung festlegen. 
+[[erstellung-eines-neuen-diagramm]]
+=== Erstellung eines neuen Diagramms
+
+Die Erstellung eines neuen Diagramms geschieht über btn:[Neues Diagramm erstellen] im Startdialog.
+Im folgenden Dialog lassen sich Voreinstellungen für das neu zu erstellende Diagramm festlegen.
 
 [[image-dn-abb-erstellen-eigenschaften]]	 
-.Voreinstellungen für Abbildung
-image::diagramsnet/dn-abb-erstellen-eigenschaften.dn.svg[align="center"]
+.Voreinstellungen für Diagramme
+image::diagramsnet/dn-abb-erstellen-eigenschaften.dn.svg[]
 
 1. Auswahl eines Beispieldiagramms; Empfehlung btn:[leeres Diagramm]
 2. Auswahl des Speicherformats; Empfehlung btn:[Editierbares Vektor Bild .svg] welches neben dem Zielbild die Modell-Source in den Metadaten des Bildes vorhält und damit editierbar macht
-3. Vergabe des Dateinamens; Empfehlung: Suffix zur Kennzeichnung der im Zielbild enthaltenen diagrams.net Modell-Sourcen (`<Dateiname>.dn.svg`)
-4. Mit btn:[Erstellen] wird dann eine Abbildung initialisiert, aber noch nicht der Ablageort festgelegt
+3. Vergabe des Dateinamens; Empfehlung: Suffix zur Kennzeichnung der in der Datei enthaltenen Quelldaten (`<Dateiname>.dn.<Dateityp>`)
+4. Mit btn:[Erstellen] wird dann ein Diagramm initialisiert, aber noch nicht der Ablageort festgelegt.
 
-Zum Speichern ist im menu:Datei[Speichern unter]-Dialog der Ablageort zu wählen und als Dateityp btn:[Editierbares Vektor Bild (.svg (*.svg)] zu bestätigen.
+Zum Speichern ist im menu:Datei[Speichern unter]-Dialog der Ablageort zu wählen und als Dateityp btn:[Editierbares Vektor Bild (.svg) (*.svg)] zu bestätigen.
 Der Ablageort sollte beim Quellcode liegen.
 
-[[bearbeitung-einer-bestehenden-diagrams-net-abbildung]]
-=== Bearbeitung einer bestehenden diagrams.net Abbildung
-Sofern die zu editierende Abbildungs-Datei die Modell-Sourcen enthält (gemäß obiger Konvention am suffix `.dn.` zu erkennen), kann die Datei über menu:Datei[Öffnen...] ausgewählt und editierbar geöffnet werden.
+[[bearbeitung-einer-bestehenden-diagrams-net-diagramms]]
+=== Bearbeitung eines bestehenden Diagramms
+
+Die Bearbeitung eines bestehenden Diagramms geschieht über btn:[Vorhandenes Diagramm öffnen] im Startdialog oder über menu:Datei[Öffnen...] auf der Benutzeroberfläche.
+Sofern die zu editierende Datei die Quelldaten enthält, kann die Datei direkt editierbar geöffnet werden.
 // end::inhalt[]

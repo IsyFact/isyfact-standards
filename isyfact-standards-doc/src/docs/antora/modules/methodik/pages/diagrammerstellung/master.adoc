@@ -1,5 +1,4 @@
-
-:doctitle: Modellierung und Diagrammerstellung
+= Diagrammerstellung und Modellierung
 
 :sectnums:
 

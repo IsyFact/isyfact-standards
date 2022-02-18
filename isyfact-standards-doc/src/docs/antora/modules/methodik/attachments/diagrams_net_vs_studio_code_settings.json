@@ -1,3 +1,4 @@
+{
     "workbench.editorAssociations": {
         "*.dn.svg": "hediet.vscode-drawio-text"
     },
@@ -88,7 +89,6 @@
         "EA6B66"
     ],
     "hediet.vscode-drawio.defaultEdgeStyle": {
-        
         "edgeStyle": "orthogonalEdgeStyle",
         "rounded": "0",
         "jettySize": "auto",
@@ -96,13 +96,5 @@
         "endArrow": "blockThin",
         "strokeWidth": 2,
         "strokeColor": "#576164"
-        },
-    "hediet.vscode-drawio.customLibraries": [
-
-        {
-            "file": "C:\\BVAGitLab\\IsyFact\\isyfact-standards\\isyfact-standards-doc\\src\\docs\\antora\\modules\\methodik\\attachments\\IsyFact.drawiolib.xml",
-            "libName": "IsyFact",
-            "entryId": "IsyFact"
-        }
-    ],
-    "hediet.vscode-drawio.theme": "atlas"
+    }
+}
