@@ -1,24 +1,19 @@
 package de.bund.bva.isyfact.task.exception;
 
 import de.bund.bva.isyfact.task.konstanten.FehlerSchluessel;
-import de.bund.bva.isyfact.exception.FehlertextProvider;
-import de.bund.bva.isyfact.exception.TechnicalException;
-import de.bund.bva.isyfact.util.exception.MessageSourceFehlertextProvider;
 
 /**
- * Die Exception wird geworfen, wenn ein TaskRunner auf einem bestimmten Ziel-Host ausgeführt werden soll,
- * der aktuelle Hostname, aber nicht dem Hostnamen des Ziel-Hosts entspricht.
+ * This exception is thrown if a TaskRunner is to be executed on a specific target host, but the current
+ * host does not match the target host.
  */
-public class HostNotApplicableException extends TechnicalException {
-
-    private static final FehlertextProvider FEHLERTEXT_PROVIDER = new MessageSourceFehlertextProvider();
+public class HostNotApplicableException extends TaskException {
 
     public HostNotApplicableException(String hostname) {
-        super(FehlerSchluessel.HOSTNAME_STIMMT_NICHT_UEBEREIN, FEHLERTEXT_PROVIDER, hostname);
+        super(FehlerSchluessel.HOSTNAME_STIMMT_NICHT_UEBEREIN, hostname);
     }
 
     public HostNotApplicableException(String hostname, Throwable cause) {
-        super(FehlerSchluessel.HOSTNAME_STIMMT_NICHT_UEBEREIN, cause, FEHLERTEXT_PROVIDER, hostname);
+        super(FehlerSchluessel.HOSTNAME_STIMMT_NICHT_UEBEREIN, cause, hostname);
     }
 
 }

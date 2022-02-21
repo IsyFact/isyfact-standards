@@ -39,8 +39,8 @@ public class TestConfig {
     @Bean
     public MessageSourceHolder messageSourceHolder() {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasenames("resources/isy-task/nachrichten/fehler",
-            "resources/isy-task/nachrichten/ereignisse", "resources/isy-task/nachrichten/hinweise");
+        messageSource.setBasenames("resources/isy-task/nachrichten/ereignisse",
+                "resources/isy-task/nachrichten/hinweise");
 
         MessageSourceHolder messageSourceHolder = new MessageSourceHolder();
         messageSourceHolder.setMessageSource(messageSource);
