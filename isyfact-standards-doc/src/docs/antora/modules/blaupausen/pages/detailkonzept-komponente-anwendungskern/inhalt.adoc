@@ -241,11 +241,11 @@ Im Zweifel sollte die Konfiguration über Spring bevorzugt werden.
 Wenn eine Klasse nur an einer Stelle genutzt wird, kann sie als Kompromiss auch als anonyme Spring Bean definiert werden.
 Sind Klassen nicht von relevanter Bedeutung, so können sie beim Erzeugen der Spring Bean programmatisch erzeugt werden.
 
-[[querschnittsdienste-als-beans-konfigurieren]]
-===== Querschnittsdienste als Beans konfigurieren
+[[querschnittsservices-als-beans-konfigurieren]]
+===== Querschnittsservices als Beans konfigurieren
 
-Querschnittsdienste (etwa für JMX, für Nachrichten, für die Versendung von Mails) sind als Beans zu konfigurieren.
-Dies gilt unabhängig davon, ob die Querschnittsdienste statisch verfügbar sind oder über Dependency Injection gesetzt werden (siehe Kapitel <<statischer-zugriff-auf-bean-instanzen-nur-in-sonderfaellen>>).
+Querschnittsservices (etwa für JMX, für Nachrichten, für die Versendung von Mails) sind als Beans zu konfigurieren.
+Dies gilt unabhängig davon, ob die Querschnittsservices statisch verfügbar sind oder über Dependency Injection gesetzt werden (siehe Kapitel <<statischer-zugriff-auf-bean-instanzen-nur-in-sonderfaellen>>).
 
 Ebenfalls über Beans durchzuführen ist die Konfiguration diverser Frameworks, z.B. Hibernate.
 Die Konfiguration dieser Frameworks wird in ihren Nutzungsvorgaben beschrieben.
