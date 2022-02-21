@@ -68,9 +68,6 @@ test:isy-util:
 package:
   extends: .maven-package
 
-deploy-snapshot:
-  extends: .maven-deploy-snapshot
-
 deploy:
   extends: .maven-deploy
 
