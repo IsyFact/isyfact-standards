@@ -10,75 +10,45 @@ Services gliedern sich über eine technische Komponente „Service“ in die T-A
 [id="image-IFRefArcITSysServ",reftext="{figure-caption} {counter:figures}"]
 image::blaupausen:detailkonzept-service/IFRefArcITSysServ.png[align="center"]
 
-Diese technische Komponente besteht aus zwei Teilen: dem Service-Framework und der Service-Logik.
+Diese technische Komponente besteht aus zwei Teilen: dem Service-Framework und der Servicelogik.
 
 Das *Service-Framework* bezeichnet die konkrete Technologie, mit der die Services des Anwendungskerns zur Verfügung gestellt werden.
 
-Die *Service-Logik* enthält Daten und Funktionalität, die für die Bereitstellung des Services relevant sind.
-Im Normalfall ist der Funktionsumfang der Komponente Service-Logik viel geringer als der Funktionsumfang der Entsprechungen im Anwendungskern.
-Dies liegt darin begründet, dass die Komponente Service-Logik die Funktionalität des Anwendungskerns nutzt, um den Service bereitzustellen.
-Die Kernfunktionalität des Services ist also im Anwendungskern implementiert.
-Die Schnittstelle zwischen den Komponenten „Service“ und „Anwendungskern“ ist daher eine interne Schnittstelle.
+Die *Servicelogik* enthält Daten und Funktionalität, die für die Bereitstellung des Services relevant sind.
 
+[[servicelogik]]
+== Servicelogik
 
-[[aufgaben-der-service-logik]]
-== Aufgaben der Service-Logik
+Die Servicelogik gliedert sich, wie der Anwendungskern, in *Fachkomponenten*.
+Die Fachkomponenten setzen im wesentlichen *Service-Schnittstellen* um.
+Sie decken vier wesentliche Aufgaben ab.
 
-Die Service-Logik hat die folgenden Aufgaben:
-
-*Transformation:* Bei einem Service-Aufruf müssen die Transportobjekte der Service-Schnittstelle in passende Objekte des Anwendungskerns umgewandelt werden.
+Transformation:: Bei einem Service-Aufruf müssen die Transportobjekte der Service-Schnittstelle in passende Objekte des Anwendungskerns umgewandelt werden.
 Außerdem muss das Ergebnis des Anwendungskerns wieder in ein Transportobjekt der Service-Schnittstelle umgewandelt werden.
 Transportobjekte sind Klassen, deren einziger Zweck es ist, Daten zu transportieren.
 Sie definieren lediglich eine Datenstruktur.
 
-*Exception-Behandlung:* Tritt bei der Verarbeitung eines Service-Aufrufs im Anwendungskern oder in der Komponente "Service" eine Exception auf, so muss diese Exception in eine Exception der Service-Schnittstelle umgewandelt werden.
+Fehlerbehandlung:: Ausnahme, die bei der Verarbeitung eines Service-Aufrufs oder im Anwendungskern  auftreten, werden in eine Ausnahme der Service-Schnittstelle umgewandelt.
 
-*Autorisierung:* Für einen Service-Aufruf muss eine Anwendung überprüfen, ob der Aufrufer autorisiert ist die Service-Operation auszuführen.
+Autorisierung:: Für einen Service-Aufruf muss eine Anwendung überprüfen, ob der Aufrufer autorisiert ist die Service-Operation auszuführen.
 
-*Logging:* Die Komponente muss die Korrelations-ID in den Logging-Kontext einfügen.
+Logging:: Die Komponente muss die Korrelations-ID in den Logging-Kontext einfügen.
 
+IMPORTANT: Im Normalfall ist der Funktionsumfang der Fachkomponenten viel geringer als der Funktionsumfang der Entsprechungen im Anwendungskern.
+Dies liegt darin begründet, dass die Servicelogik die Funktionalität des Anwendungskerns nutzt, um den Service bereitzustellen, und selbst keinerlei Geschäftslogik beinhaltet.
+Die Schnittstelle zwischen Fachkomponenten im Service und Anwendungskern ist daher eine interne Schnittstelle.
 
-[[aufbau-der-service-logik]]
-== Aufbau der Service-Logik
-
-Service-Schnittstellen bestehen in der Regel aus einem _Remote-Bean_, einer _Service-Fassade_ und einer _Exception-Fassade_.
-
-=== Remote-Bean
-
-Das Remote-Bean ist ein Interface, welches die Service-Operationen als Methoden definiert.
-Es definiert ebenfalls die für den Service-Aufruf und die Antwort nötigen Transportobjekte sowie fachliche Exceptions.
-
-Das Remote-Bean soll zusammen mit allen direkt oder indirekt verwendeten Transportobjekten in einer eigenständigen Bibliothek paketiert werden, damit IT-Systeme die Schnittstellendefinitionen direkt mit ihren Aufrufern austauschen können.
-Die Bibliothek verwendet folgendes Namensschema:
-
-//tag::namenskonvention[]
-[[projektname-artefakt-id]]
-
-
-Die Maven Artefakt-ID von Schnittstellen ist nach dem folgenden Muster aufgebaut.
-Die ersten beiden Teile der Versionsnummer sind Teil der Artefakt-ID, um mehrere Versionen einer Schnittstelle gleichzeitig einbinden zu können.
-An dritter Stelle steht die Maven-Versionsnummer des Artefakts.
-
-.Artefakt-ID von Schnittstellen
-[id="table-artIFvss",reftext="{table-caption} {counter:tables}"]
-[cols="1,4",options="header"]
-|====
-2+|Artefakt-ID von Schnittstellen
-|*Schema* m|<Anwendungsname>-<protokoll>-sst-<sstname>-<version>
-|*Beispiele* m|xyz-ga-rest-sst-auskunft-v29.1
-|====
-
-//end::namenskonvention[]
+Die Service-Schnittstellen bestehen aus einer *Service-Fassade* und einer *Exception-Fassade*.
 
 === Service-Fassade
-Die Service-Fassade ist eine Klasse, welche die Service-Operationen als Methoden implementiert.
+Die Service-Fassade implementiert die Service-Operationen als Methoden.
 Ihre Hauptaufgabe ist die Transformation der Service-Aufrufe in interne Aufrufe des Anwendungskerns sowie die Transformation dessen Antworten in Antworten der Service-Schnittstelle.
 Dabei transformiert sie die Geschäftsobjekte des Anwendungskerns in Transportobjekte der Service-Schnittstelle und umgekehrt.
 Hierzu wird in der Regel ein Bean Mapper verwendet.
 In Einzelfällen können Teile der Transformation auch programmiert werden, sofern der Nutzen daraus den Aufwand nicht übersteigt.
 
 Die Service-Fassade übernimmt auch die Autorisierung des Aufrufs.
-Dazu nutzt sie die Möglichkeiten des Bausteins Sicherheit (siehe  xref:isy-sicherheit:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Sicherheit]).
+Dazu nutzt sie die xref:isy-sicherheit:nutzungsvorgaben/master.adoc#autorisierung[Möglichkeiten des Bausteins Sicherheit].
 Voraussetzung für die Autorisierung ist die Auswertung des mitgelieferten Aufrufkontextes über die Annotation `@StelltAufrufKontextBereit` an der Methode oder an der Service-Fassade selbst.
 Anschließend wird über die Annotation `@Gesichert` die Berechtigung zum Zugriff auf die Methode anhand der Rechte des Aufrufers geprüft.
 Alternativ kann die Annotation `@Gesichert` auch an der Service-Fassade selbst verwendet werden, wenn alle Methoden die gleichen Rechte erfordern.
@@ -198,7 +168,7 @@ Auch hier enthält das Service-Gateway keine Geschäftslogik.
 Die Java-Klassen und -Interfaces eines Services existieren in allen Versionen der Service-Schnittstelle und unterscheiden sich inhaltlich
 durch die in der neuen Version durchgeführten Änderungen.
 
-NOTE: Für die Versionierung von Schnittstellen gelten gesonderte Vorgaben, die in  xref:werkzeuge:versionierungskontrolle/master.adoc#einleitung[IsyFact Versionierung] definiert sind.
+NOTE: Für die Versionierung von Schnittstellen gelten gesonderte Vorgaben, die in  xref:werkzeuge:versionierungskontrolle/master.adoc[IsyFact Versionierung] definiert sind.
 
 Zur Veröffentlichung von API-kompatiblen Änderungen wird im Maven `pom.xml` eine einstellige Versionsnummer (Minor) gesetzt.
 Kompatible Änderungen sind beispielsweise Bugfixes, neue Operationen in der Schnittstelle oder neue, optionale Attribute im Datenmodell.

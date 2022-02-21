@@ -131,6 +131,7 @@ cdErwerb.js (übergreifend)
 |====
 //end::namenskonvention[]
 
+[[zugriff-awk]]
 === Zugriff auf den Anwendungskern
 
 Dialog-Komponenten verwenden grundsätzlich keine Klassen des xref:glossary:glossary:master.adoc#glossar-Anwendungskern[Anwendungskerns].
