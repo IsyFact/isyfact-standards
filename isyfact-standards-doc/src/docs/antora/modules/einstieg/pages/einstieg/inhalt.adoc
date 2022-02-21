@@ -31,8 +31,7 @@ Sie umfasst Standards und Erweiterungen.
 
 [[isyfact-aufbau]]
 .Aufbau der IsyFact
-image::einstieg:einstieg/isyfact-aufbau.svg[]
-
+image::einstieg:einstieg/isyfact-aufbau.dn.svg[]
 
 Die *IsyFact-Standards* bilden das architektonische, technologische und methodische Fundament der IsyFact.
 Sie umfassen allgemeingültige und wiederverwendbare Konzepte und Komponenten, die für die Entwicklung beliebiger Geschäftsanwendungen relevant sind.
@@ -45,7 +44,7 @@ Die Artefakte der IsyFact-Standards und IsyFact-Erweiterungen werden in gleicher
 
 [[isyfact-saeulen]]
 .Die 5 Säulen der IsyFact
-image::einstieg/isyfact-saeulen.svg[]
+image::einstieg/isyfact-saeulen.dn.svg[]
 
 Die einzelnen Säulen sind:
 
@@ -110,7 +109,7 @@ Langfristig ist das Ziel, zusätzlich einen Marktplatz zu etablieren, auf dem je
 
 [[isyfact-marktplatz]]
 .Mitarbeit an der IsyFact
-image::einstieg/isyfact-marktplatz.svg[]
+image::einstieg/isyfact-marktplatz.dn.svg[]
 
 Für die Beteiligung an der Weiterentwicklung der IsyFact gibt es <<isyfact-marktplatz,zwei Möglichkeiten>>:
 
