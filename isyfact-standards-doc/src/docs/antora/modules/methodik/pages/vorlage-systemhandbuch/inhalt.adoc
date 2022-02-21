@@ -149,72 +149,97 @@ _Deployment-Diagramme, Tabellen, Freitext_
 [[bauen-systems]]
 == Bauen des Systems
 
-[[einrichtung-build-umgebung]]
-=== Einrichtung der Build-Umgebung
+Das Bauen des Systems erfolgt über einen standardisierten Build-Mechanismus.
+Der Build benötigt die in <<table-build-tools>> aufgelisteten Werkzeuge und Technologien.
+Weitere Abhängigkeiten werden durch die erforderlichen Build-Werkzeuge selbstständig nachgeladen.
 
-Maven ist standardmäßig so konfiguriert, dass während des Build-Prozesses neue Bibliotheken und Maven-Plugins unkontrolliert aus dem Internet heruntergeladen werden.
-Die heruntergeladenen Dateien werden in einem lokalen Maven Repository zur späteren Verwendung abgelegt.
+:desc-table-build-tools: Erforderliche Build-Werkzeuge und Technologien
+[id="table-build-tools", reftext = "{table-caption} {counter:tables}"]
+.{desc-table-build-tools}
+[cols="5,5",options="header"]
+|===
+|Werkzeug
+|Version
 
-Das zuvor beschriebene Verhalten ist jedoch nicht erwünscht.
-Stattdessen wird Maven so konfiguriert, dass alle Anfragen auf ein eigenes Maven-Repository umgeleitet werden.
-Dieses Maven-Repository muss über einen geeigneten Prozess mit einem qualitätsgesicherten Stand aller Bibliotheken und Maven-Plugins befüllt werden, die für den Build-Prozess benötigt werden.
-Die Definition eines solchen Prozesses ist nicht Gegenstand dieses Dokuments.
+|Maven
+|3.x
 
-Die Datei settings.xml von Maven ist durch folgende Konfiguration für die Verwendung eines Mirrors für alle Anfragen zu erweitern:
+|(RPM)
+| ...
 
-.Datei settings.xml von Maven
-[id="listing-settings-von-maven",reftext="{listing-caption} {counter:listings}"]
-[source,xml,subs="verbatim,attributes"]
-----
-<mirror>
-    <mirrorOf>*</mirrorOf>
-    <name>repositoryurl</repositoryurl>
-    <url>URL zum eigenen Repository</url>+
-    <id>RF</id>
-</mirror>
-----
+|Oracle Java SE Development Kit (JDK)
+|1.8.0_x
 
-[[durchfuehren-builds]]
-=== Durchführen des Builds
+|(node.js)
+| ...
+
+|===
 
 ====
-_Inhalt:_::
-_Build-Anleitung für alle IT-Systeme.
-Dazu ggf. weitere Unterkapitel anlegen. +
-Die Anleitung soll hier vollständig sein und nicht auf andere Dokumentationen z.B. das IsyFact-Deployment-Konzept verweisen._
+_Inhalt_::
+_Falls nötig, Tabelle mit weiteren Werkzeugen und Technologien vervollständigen._
+_Die obige Tabelle ist mit Vorgaben aus dem Produktkatalog gefüllt._
 
-_Quelle:_::
+_Dokumentationsform_::
+_Tabelle_
+====
+
+
+[[bau-xxx-ga-batches]]
+=== Bau der ISY-XXX-GA und Batches
+
+Zum Erzeugen der RPM-Pakete wird das Werkzeug Maven benutzt.
+Dies setzt ein Artefakt-Repository zum Auflösen von Paketabhängigkeiten voraus.
+
+Der Build wird folgendermaßen ausgeführt:
+
+:desc-listing-maven-build: Maven-Befehl zum Build der ISY-XXX-GA & Batches
+[id="listing-maven-build",reftext="{listing-caption} {counter:listings}"]
+.{desc-listing-maven-build}
+[source]
+----
+mvn -Dbuild.number=<Build-Nummer> -Dtest=false -DfailIfNoTests=false clean package
+----
+
+TIP: Die Build-Nummer (Argument `-Dbuild.number`) wird üblicherweise mit der Lieferungsnummer belegt.
+Das bedeutet z. B.: `1.0.0_14` wird zu `14`, oder allgemein: `1.0.0_x` wird zu `x`.
+
+Nach erfolgreichem Build befinden sich im Ordner `isy-xxx-ga-deployment/target/RPMS/noarch` folgende RPM-Pakete:
+
+* `isy-xxx-ga-<VERSION>.noarch.rpm`: ISY XXX GA,
+* `isy-xxx-batch-<VERSION>.noarch.rpm`: ISY XXX Batches.
+
+Damit werden alle Anwendungen mit einem Aufruf gebaut.
+In den folgenden Kapiteln wird die Installation der einzelnen Pakete näher beschrieben.
+
+====
+_Inhalt_::
+_Für weitere Build-Schritte ggf. weitere Unterkapitel anlegen. +
+Die Anleitung soll hier vollständig sein und darf nicht auf andere Dokumente der IsyFact verweisen._
+
+_Quelle_::
 _Entwicklerhandbuch_
 
-_Dokumentationsform:_::
+_Dokumentationsform_::
 _Freitext_
 ====
 
-[[xxx-ga-batches]]
-==== XXX-GA und Batches
-
-Die Tomcat-Applikation _XXX_ und die Batch-Anwendung _XXX-Batch_ werden auf einem Linux-Server im ausgecheckten Verzeichnis wie folgt gebaut:
-
-
-.Maven Build Anweisung
-[id="listing-maven-build-statement",reftext="{listing-caption} {counter:listings}"]
-[source,xml,subs="verbatim,attributes"]
-----
-mvn -Dtest=false -DfailIfNoTests=false -Dbuild.number=<build-number> package
-----
-
-Die `build-number` muss auf den letzten Teil der Versionsnummer des Tags gesetzt werden.
-Für das Tag 1.0.0_23 auf „23“.
-
-Es werden zwei rpm-Pakete erstellt:
-
-* `xxx-deployment/target/RPMS/noarch/isy-xxx-<version>-<build-number>.noarch.rpm`
-* `xxx-deployment/target/RPMS/noarch/isy-xxx-batch-<version>-<build-number>.noarch.rpm`
-
-[[xxx-service-gateway]]
-==== XXX-Service Gateway
-
+[[bau-xxx-sgw]]
+=== Bau des ISY-XXX-SGW
 …
+
+====
+_Inhalt_::
+_Build beschreiben, sofern er sich maßgeblich vom Build der GA unterscheidet. +
+Die Anleitung soll auch hier vollständig sein und darf nicht auf andere Dokumente der IsyFact verweisen._
+
+_Quelle_::
+_Entwicklerhandbuch_
+
+_Dokumentationsform_::
+_Freitext_
+====
+
 
 [[installation-konfiguration-systems]]
 == Installation und Konfiguration des Systems
@@ -487,8 +512,9 @@ Eine ausführliche Erläuterung der einzelnen Parameter ist ebenfalls in der Dat
 
 Folgende Werte müssen nach der Erstinstallation angepasst werden:
 
-.Konfigurationsparameter .ga.properties
+:desc-table-parameter-ga-properties: Konfigurationsparameter ISY-XXX-GA
 [id="table-parameter-ga-properties", reftext = "{table-caption} {counter:tables}"]
+.{desc-table-parameter-ga-properties}
 [cols="5,5",options="header"]
 |===
 |Konfigurationsparameter |Beschreibung
