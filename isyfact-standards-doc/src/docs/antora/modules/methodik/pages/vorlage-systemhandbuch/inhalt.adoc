@@ -459,43 +459,34 @@ Nach der Installation liegen die Konfigurationsdateien von `_XXX-GA_` unter
 
 Folgende Konfigurationsdateien müssen für die Konfiguration angepasst werden:
 
-* `log4j.properties`
-* `jpa.properties`
-* `.ga.properties`
-* `cams-webagent.conf`
+* `logback.xml`,
+* `jpa.properties`,
+* (Liste der Konfigurationsdateien der Tomcat-Anwendung).
 
-Änderungen an den Einstellungen müssen bei heruntergefahrener Anwendung durchgeführt werden.
-Dieses Verhalten gilt nicht für
+Änderungen an den Konfigurationsdateien müssen bei heruntergefahrener Anwendung durchgeführt werden.
 
-* alle Einstellungen der Datei `log4j.properties`
+IMPORTANT: Dieses Verhalten gilt nicht für die Konfigurationsdatei `logback.xml`.
+Änderungen an dieser Konfigurationsdatei können bei laufender Anwendung ausgeführt werden.
 
-Änderungen an diesen Einstellungen können bei laufender Anwendung ausgeführt werden.
+[[konfigurationsdatei-logback]]
+===== Konfigurationsdatei `logback.xml`
 
-[[konfigurationsdatei-log4j-properties]]
-===== Konfigurationsdatei log4j.properties
+Die Konfigurationsdatei `logback.xml` enthält die Logging-Einstellungen und ist nach den Logging-Vorgaben aufgebaut.
+Nach der Installation muss dort der Name der künftigen Log-Datei angegeben werden.
+Dazu ist in den folgenden Zeilen der `HOSTNAME` durch den tatsächlichen Hostnamen zu ersetzen.
 
-Die `log4j.properties`-Datei bestimmt die Logging-Einstellungen und ist nach den Logging-Vorgaben aufgebaut.
-
-Nach der Installation müssen in dieser Datei die Namen der künftigen Log-Dateien (Error, Info und Debug) angegeben werden.
-Dazu ist in den folgenden Zeilen der [.underline]#HOSTNAME# durch den tatsächlichen Hostnamen zu ersetzen.
-
-.Konfiguration log4j.appender
-[id="listing-apache-tomcat-workerlogforj",reftext="{listing-caption} {counter:listings}"]
-[source,xml,subs="verbatim,attributes"]
+:desc-listing-logging-konfiguration-dateiname: Konfiguration Logging ISY-XXX-GA: Log-Dateiname
+[id="listing-logging-konfiguration-dateiname",reftext="{listing-caption} {counter:listings}"]
+.{desc-listing-logging-konfiguration-dateiname}
+[source,xml]
 ----
-log4j.appender.ERROR_APPENDER.File=/var/log/isy-xxx-ga/error_log_*[.underline]#HOSTNAME#*_xxx-ga
-
-log4j.appender.INFO_APPENDER.File=/var/log/isy-xxx-ga /info_log_*[.underline]#HOSTNAME#*_xxx-ga
-
-log4j.appender.
-DEBUG_APPENDER.
-File=/var/log/isy-xxx-ga /debug_log_*[.underline]#HOSTNAME#*_xxx-ga
+<property name="LOGFILE_PATH" value="/var/log/isy-xxx-ga/HOSTNAME_isy-xxx-ga" />
 ----
 
-Die Log-Dateien werden mit diesen Einstellungen nach `/var/log/isy-xxx-ga` für `_XXX-GA_` geschrieben.
+Die Logs werden nach `/var/log/isy-xxx-ga` geschrieben.
 
-[[konfigurationsdatei-gaproperties]]
-===== Konfigurationsdatei xxx.ga.properties
+[[konfigurationsdatei-ga]]
+===== Konfigurationsdatei `isy-xxx-ga.properties`
 
 Die Datei `xxx.ga.properties` enthält alle weiteren Konfigurationseinstellungen von `_XXX-GA_`.
 
@@ -586,20 +577,31 @@ Nach der Installation liegen die Konfigurationsdateien der Batch-Anwendung unter
 
 Die Konfiguration der Batch-Anwendung erfolgt analog zur Konfiguration der Tomcat-Anwendung im Kapitel <<installation-von-xxx-service-gateway>>:
 
-Die Konfigurationsdateien der Batch-Anwendungen sind nach der Erstinstallation mit den Konfigurationsdateien der Tomcat-Anwendung identisch mit Ausnahme der speziellen Logging-Konfiguration für die Batches in der Datei `log4j-batch.properties` (siehe Kapitel <<konfigurationsdatei-log4j-batchproperties>>). Es ist möglich die bereits angepassten Konfigurationsdateien der Tomcat-Anwendung in die Konfigurationsverzeichnisse der Batch-Anwendungen zu kopieren. Anschließend müssen dort nur noch die abweichenden Einstellungen angepasst werden.
+Die Konfigurationsdateien der Batch-Anwendungen sind nach der Erstinstallation mit den Konfigurationsdateien der Tomcat-Anwendung bis auf eine Ausnahme identisch: der Logging-Konfiguration für die Batches.
+Es ist möglich die bereits angepassten Konfigurationsdateien der Tomcat-Anwendung in die Konfigurationsverzeichnisse der Batch-Anwendungen zu kopieren.
+Anschließend müssen dort nur noch die abweichenden Einstellungen angepasst werden.
 
-[[konfigurationsdatei-log4j-batchproperties]]
-===== Konfigurationsdatei log4j-batch.properties
+[[konfigurationsdatei-logging-batch]]
+===== Konfigurationsdatei `logback-batch.xml`
 
-Diese Konfigurationsdatei ist analog zur Datei `log4j.properties` aufgebaut.
+Diese Konfigurationsdatei ist analog zur Datei `logback.xml` aufgebaut.
 Sie wird für das Logging der Batches verwendet.
-Der Unterschied zur `log4j.properties` liegt darin, dass ein eigener Pfad für das Logging verwendet wird und dass die Batch-Id an den Namen der Log-Datei angehängt wird.
+Der Unterschied zur `logback.xml` der Tomcat-Anwendung liegt darin, dass ein eigener Pfad für das Logging verwendet wird und dass die Batch-Id an den Namen der Log-Datei angehängt wird.
 Außerdem werden die Log-Dateien nicht rolliert.
 
-[[konfigurationsdatei-jpaproperties-gateway]]
-===== Konfigurationsdatei `jpa.properties`
+[[konfigurationsdatei-ga-batch]]
+===== Konfigurationsdatei `isy-xxx-ga.properties`
 
-Die Konfiguration ist identisch zu Kapitel <<konfigurationsdatei-jpaproperties-batch, Installation von XXX-GA und XXX-GA-Batch/Konfigurationssdatei jpa.properties>>.
+====
+_Inhalt_::
+_Beschreibung der Unterschiede bei der Konfiguration der Batch-Anwendung_
+
+_Quelle_::
+_Systementwurf_
+
+_Dokumentationsform_::
+_Freitext_
+====
 
 [[starten-tomcat-anwendung-jpa-properties]]
 ==== Starten der Tomcat Anwendung
@@ -678,35 +680,30 @@ Nach der Installation liegen die Konfigurationsdateien des `_XXX-SGW_ unter
 
 Folgende Konfigurationsdateien müssen für die Konfiguration angepasst werden:
 
-* log4j.properties
-* servicegateway.properties
-* cams-webagent.conf
+* `logback.xml`,
+* `servicegateway.properties`.
 
-Änderungen an den Einstellungen müssen bei heruntergefahrener Anwendung durchgeführt werden. Dieses Verhalten gilt nicht für
+Änderungen an den Konfigurationsdateien müssen bei heruntergefahrener Anwendung durchgeführt werden.
 
-* alle Einstellungen der Datei log4j.properties
+IMPORTANT: Dieses Verhalten gilt nicht für die Konfigurationsdatei `logback.xml`.
+Änderungen an dieser Konfigurationsdatei können bei laufender Anwendung ausgeführt werden.
 
-Änderungen an diesen Einstellungen können bei laufender Anwendung ausgeführt werden.
+[[konfigurationsdatei-logback-sgw]]
+===== Konfigurationsdatei `logback.xml`
 
-[[konfigurationsdatei-log4jproperties]]
-===== Konfigurationsdatei log4j.properties
+Die Konfigurationsdatei `logback.xml` enthält die Logging-Einstellungen und ist nach den Logging-Vorgaben aufgebaut.
+Nach der Installation muss dort der Name der künftigen Log-Datei angegeben werden.
+Dazu ist in den folgenden Zeilen der `HOSTNAME` durch den tatsächlichen Hostnamen zu ersetzen.
 
-Die `log4j.properties`-Datei bestimmt die Logging-Einstellungen und ist nach den Logging-Vorgaben aufgebaut.
-
-Nach der Installation müssen in dieser Datei die Namen der künftigen Log-Dateien (Error, Info und Debug) angegeben werden. Dazu ist in den folgenden Zeilen der [.underline]#HOSTNAME# durch den tatsächlichen Hostnamen zu ersetzen.
-
-.Logging Einstellungen nach Logging-Vorgaben
-[id="listing-log4j-einstellungen",reftext="{listing-caption} {counter:listings}"]
-[source,xml,subs="verbatim,attributes"]
+:desc-listing-logging-konfiguration-dateiname-sgw: Konfiguration Logging ISY-XXX-SGW: Log-Dateiname
+[id="listing-logging-konfiguration-dateiname-sgw",reftext="{listing-caption} {counter:listings}"]
+.{desc-listing-logging-konfiguration-dateiname-sgw}
+[source,xml]
 ----
-log4j.appender.ERROR_APPENDER.File=/var/log/isy-xxx-sgw/error_log_*[.underline]#HOSTNAME#*_xxx-sgw
-
-log4j.appender.INFO_APPENDER.File=/var/log/isy-xxx-sgw /info_log_*[.underline]#HOSTNAME#*_xxx-sgw
-
-log4j.appender.DEBUG_APPENDER.File=/var/log/isy-xxx-sgw /debug_log_*[.underline]#HOSTNAME#*_xxx-sgw
+<property name="LOGFILE_PATH" value="/var/log/isy-xxx-sgw/HOSTNAME_isy-xxx-sgw" />
 ----
 
-Die Log-Dateien werden mit diesen Einstellungen nach `/var/log/isy-xxx-sgw` für das _XXX-SGW_ geschrieben.
+Die Logs werden nach `/var/log/isy-xxx-sgw` geschrieben.
 
 [[konfigurationsdatei-servicegatewayproperties]]
 ===== Konfigurationsdatei servicegateway.properties
@@ -770,7 +767,7 @@ In allen anderen Umgebungen wird das Skript von Hand aufgerufen. Ein Eintrag in 
 
 .Log-Dateien
 [id="table-log-dateien", reftext = "{table-caption} {counter:tables}"]
-[cols="2,6", options="header"]
+[cols="4,4", options="header"]
 |===
 h|Log-Datei h|Inhalt / Bemerkung
 2+^|*XXX-GA*
@@ -785,20 +782,20 @@ h|Log-Datei h|Inhalt / Bemerkung
 
 .Konfigurationsdateien
 [id="table-konfigurationsdateien", reftext = "{table-caption} {counter:tables}"]
-[cols="2,6", options="header"]
+[cols="4,4", options="header"]
 |===
 h|Konfigurationsdatei h|Inhalt / Bemerkung
 2+^|*XXX-GA*
 |`/etc/isy-xxx-ga/isAlive` |Steuerdatei für Loadbalancer
 |`/etc/isy-xxx-ga/xxxga.properties` |Konfiguration der Anwendung
 |`/etc/isy-xxx-ga/jpa.properties` |Konfiguration der Datenbank-Verbindung
-|`/etc/isy-xxx-ga/log4j.properties` |Logging-Konfiguration
+|`/etc/isy-xxx-ga/logback.xml` |Logging-Konfiguration
 |`/etc/isy-xxx-ga/cams-webagent.conf` |Konfiguration des CAMS
 2+^|*XXX-SGW*
 |`/etc/isy-xxx-sgw/isAlive` |Steuerdatei für Loadbalancer
 |`/etc/isy-xxx-sgw/xxxsgw.properties` |Konfiguration der Anwendung
 |`/etc/isy-xxx-sgw/jpa.properties` |Konfiguration der Datenbank-Verbindung
-|`/etc/isy-xxx-sgw/log4j.properties` |Logging-Konfiguration
+|`/etc/isy-xxx-sgw/logback.xml` |Logging-Konfiguration
 |`/etc/isy-xxx-sgw/cams-webagent.conf` |Konfiguration des CAMS
 |===
 
@@ -1187,20 +1184,20 @@ Das Error-Log darf keine Fehler enthalten.
 [[debug-logging]]
 ==== Debug-Logging
 
-Die Konfiguration wird mit Log-Level INFO ausgeliefert, d.h. das Loggen von Debug-Ausgaben ist ausgeschaltet. Es kann aber wie folgt eingeschaltet werden:
+Die Konfiguration wird mit Log-Level `INFO` ausgeliefert, d.h. das Loggen von Debug-Ausgaben ist ausgeschaltet. Es kann aber wie folgt eingeschaltet werden:
 
-Die erste Zeile der `log4j.properties-Datei` (bzw. `log4j-batch.properties`) bestimmt den Log-Level:
+Die Konfigurationsdatei `logback.xml` (bzw. `logback-batch.xml`) enthält folgende Zeile:
 
- log4j.rootLogger=INFO, ERROR_APPENDER, INFO_APPENDER, DEBUG_APPENDER
+ <root level="INFO">
 
-Wird der Eintrag INFO auf DEBUG umgestellt, so werden auch Debug-Meldungen geschrieben.
+Wird der Eintrag `INFO` auf `DEBUG` umgestellt, so werden auch Debug-Meldungen geschrieben.
 
-Das Logging sollte auf der Produktiv-Umgebung nie auf DEBUG gestellt werden. Aufgrund der zahlreichen und umfangreichen Datenausgabe könnte es zu Performance-Problemen kommen. Gleichzeitig ist nicht sichergestellt, dass keine sicherheitsrelevanten Daten ausgegeben werden.
+CAUTION: Das Logging sollte auf der Produktiv-Umgebung nie auf `DEBUG` gestellt werden.
+Aufgrund der umfangreichen Datenausgabe könnte es zu Performance-Problemen kommen.
+Gleichzeitig ist nicht sichergestellt, dass keine sicherheitsrelevanten Daten ausgegeben werden.
 
 [[fehler-fehlerbehebungsmassnahmen]]
 === Fehler und Fehlerbehebungsmaßnahmen
-
-
 
 ====
 *_Ausfüllhinweise_*
