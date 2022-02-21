@@ -314,13 +314,6 @@ Das Schlüsselverzeichnis muss mindestens in der Version `x.y.z_nn` installiert 
 Es wird angenommen, dass die XXX-spezifischen Schlüssel und Mappings in das Schlüsselverzeichnis importiert worden sind.
 Die entsprechende Datei ist mit den Schlüsseln und Mappings im Releaseletter der `_XXX-GA_` angegeben.
 
-[[konfigurationsdatei-cams-webagentconf]]
-==== Konfigurationsdatei `cams-webagent.conf`
-
-Über diese Datei wird der CAMS-Web-Agent konfiguriert.
-
-…
-
 [[apache-konfiguration]]
 ==== Apache Konfiguration
 
@@ -363,13 +356,13 @@ Nach der Änderung sollte der Apache neu gestartet werden.
 ==== Mail-Server Konfiguration
 
 ====
-_Inhalt:_::
+_Inhalt_::
 _Beschreibung der Einrichtung des Mail-Servers, z.B. benötigte Postfächer etc._
 
-_Quelle:_::
+_Quelle_::
 _Entwicklerhandbuch, Systementwurf._
 
-_Dokumentationsform:_::
+_Dokumentationsform_::
 _Freitext_
 ====
 
@@ -521,6 +514,48 @@ Beispiel: +
 |`batch.benutzer.passwort` |Passwort des System-Benutzers zum Ausführen der Batches.
 |... |
 |===
+
+====
+_Inhalt_::
+_Weitere Möglichkeiten der Konfiguration werden ab hier beschrieben, thematisch abgegrenzt und jeweils mit einer eigenen Tabelle._
+
+_Quelle_::
+_Systementwurf._
+
+_Dokumentationsform_::
+_Freitext & Tabellen_
+====
+
+Die Anbindung an den IAM-Service wird wie folgt konfiguriert:
+
+:desc-table-config-ga-keycloak: Konfiguration des IAM-Service
+[id="table-config-ga-keycloak", reftext = "{table-caption} {counter:tables}"]
+.{desc-table-config-ga-keycloak}
+[cols="2m,3a",options="header"]
+|===
+|Konfigurationsparameter |Beschreibung
+
+|sic.keycloak.auth-server-url.0
+|Basis-URL des IAM-Service. +
+Schema: `http(s)://<keycloak-host>:<keycloak-port>/auth/`
+
+|sic.keycloak.realm.0
+|Realm der Client zur Anmeldung. +
+Schema: `<realm-name>`
+
+|sic.keycloak.resource.0
+|Name des Clients, der die Authentifizierung des Benutzers durchführen wird. +
+Schema: `<client-name>`
+
+|sic.keycloak.bearer-only.0
+|Auf `false` gesetzt, da ein "Bearer"-Client keine Authentifizierung für andere vornehmen darf. +
+Default: `false`
+
+|sic.keycloak.credentials-secret.0
+|Per Vorgabe sind Clients vertrauenswürdig ("confidential"), weswegen ein "client secret" angegeben werden muss. +
+Schema: `<client-secret>`
+|===
+
 
 [[konfigurationsdatei-jpaproperties-batch]]
 ===== Konfigurationsdatei jpa.properties
@@ -790,13 +825,11 @@ h|Konfigurationsdatei h|Inhalt / Bemerkung
 |`/etc/isy-xxx-ga/xxxga.properties` |Konfiguration der Anwendung
 |`/etc/isy-xxx-ga/jpa.properties` |Konfiguration der Datenbank-Verbindung
 |`/etc/isy-xxx-ga/logback.xml` |Logging-Konfiguration
-|`/etc/isy-xxx-ga/cams-webagent.conf` |Konfiguration des CAMS
 2+^|*XXX-SGW*
 |`/etc/isy-xxx-sgw/isAlive` |Steuerdatei für Loadbalancer
 |`/etc/isy-xxx-sgw/xxxsgw.properties` |Konfiguration der Anwendung
 |`/etc/isy-xxx-sgw/jpa.properties` |Konfiguration der Datenbank-Verbindung
 |`/etc/isy-xxx-sgw/logback.xml` |Logging-Konfiguration
-|`/etc/isy-xxx-sgw/cams-webagent.conf` |Konfiguration des CAMS
 |===
 
 
