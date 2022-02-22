@@ -868,37 +868,33 @@ In allen anderen Umgebungen wird das Skript von Hand aufgerufen. Ein Eintrag in 
 [[log-konfigurationsdateien]]
 === Log- und Konfigurationsdateien
 
-
 .Log-Dateien
 [id="table-log-dateien", reftext = "{table-caption} {counter:tables}"]
-[cols="4,4", options="header"]
+[cols="2m,1", options="header"]
 |===
-h|Log-Datei h|Inhalt / Bemerkung
-2+^|*XXX-GA*
-|/var/log/isy-xxx-ga/debug_log_HOSTNAME_xxx-ga |Debug-Log der XXX-GA
-|/var/log/isy-xxx-ga/info_log_HOSTNAME_xxx-ga |Info-Log der XXX-GA
-|/var/log/isy-xxx-ga/error_log_HOSTNAME_xxx-ga |Error-Log der XXX-GA
-2+^|*XXX-SGW*
-|/var/log/isy-xxx-sgw/debug_log_HOSTNAME_xxx-sgw |Debug-Log des XXX Geschäftsanwendung
-|/var/log/isy-xxx-sgw/info_log_HOSTNAME_xxx-sgw |Info-Log des XXX-Service-Gateway
-|/var/log/isy-xxx-sgw/error_log_HOSTNAME_xxx-sgw |Error-Log des XXX-Service-Gateway
+|Log-Datei |Inhalt / Bemerkung
+
+|/var/log/isy-xxx-ga/HOSTNAME_isy-xxx-ga.log |Logdatei ISY-XXX-GA
+|/var/log/isy-xxx-sgw/HOSTNAME_isy-xxx-sgw.log |Logdatei ISY-XXX-SGW
 |===
+
+Der Platzhalter `HOSTNAME` im Dateinamen steht für den Namen des Servers, auf dem das IT-System ausgeführt wird.
 
 .Konfigurationsdateien
 [id="table-konfigurationsdateien", reftext = "{table-caption} {counter:tables}"]
-[cols="4,4", options="header"]
+[cols="1,1", options="header"]
 |===
 h|Konfigurationsdatei h|Inhalt / Bemerkung
-2+^|*XXX-GA*
-|`/etc/isy-xxx-ga/isAlive` |Steuerdatei für Loadbalancer
-|`/etc/isy-xxx-ga/xxxga.properties` |Konfiguration der Anwendung
-|`/etc/isy-xxx-ga/jpa.properties` |Konfiguration der Datenbank-Verbindung
-|`/etc/isy-xxx-ga/logback.xml` |Logging-Konfiguration
-2+^|*XXX-SGW*
-|`/etc/isy-xxx-sgw/isAlive` |Steuerdatei für Loadbalancer
-|`/etc/isy-xxx-sgw/xxxsgw.properties` |Konfiguration der Anwendung
-|`/etc/isy-xxx-sgw/jpa.properties` |Konfiguration der Datenbank-Verbindung
-|`/etc/isy-xxx-sgw/logback.xml` |Logging-Konfiguration
+2+^|*ISY-XXX-GA*
+m|/etc/isy-xxx-ga/isAlive |Steuerdatei für Loadbalancer
+m|/etc/isy-xxx-ga/isy-xxx-ga.properties |Konfiguration der Anwendung
+m|/etc/isy-xxx-ga/jpa.properties |Konfiguration der Datenbank-Verbindung
+m|/etc/isy-xxx-ga/logback.xml |Logging-Konfiguration
+2+^|*ISY-XXX-SGW*
+m|/etc/isy-xxx-sgw/isAlive |Steuerdatei für Loadbalancer
+m|/etc/isy-xxx-sgw/isy-xxx-sgw.properties |Konfiguration der Anwendung
+m|/etc/isy-xxx-sgw/jpa.properties |Konfiguration der Datenbank-Verbindung
+m|/etc/isy-xxx-sgw/logback.xml |Logging-Konfiguration
 |===
 
 
