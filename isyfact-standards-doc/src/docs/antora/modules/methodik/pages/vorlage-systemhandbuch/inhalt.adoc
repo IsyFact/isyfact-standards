@@ -185,10 +185,10 @@ _Tabelle_
 ====
 
 
-[[bau-xxx-ga-batches]]
+[[bau-xxx-ga-batches-legacy]]
 === Bau der ISY-XXX-GA und Batches
 
-Zum Erzeugen der RPM-Pakete wird das Werkzeug Maven benutzt.
+Zum Erzeugen der RPM-Pakete wird das Werkzeug `rpmbuild` mithilfe von Ant über Maven benutzt.
 Dies setzt ein Artefakt-Repository zum Auflösen von Paketabhängigkeiten voraus.
 
 Der Build wird folgendermaßen ausgeführt:
@@ -213,6 +213,49 @@ Damit werden alle Anwendungen mit einem Aufruf gebaut.
 In den folgenden Kapiteln wird die Installation der einzelnen Pakete näher beschrieben.
 
 ====
+*Falls die Anwendung den traditionellen RPM Build (via `ant` und `rpmbuild`) nicht verwendet, kann dieser Abschnitt entfallen.*
+
+_Inhalt_::
+_Für weitere Build-Schritte ggf. weitere Unterkapitel anlegen. +
+Die Anleitung soll hier vollständig sein und darf nicht auf andere Dokumente der IsyFact verweisen._
+
+_Quelle_::
+_Entwicklerhandbuch_
+
+_Dokumentationsform_::
+_Freitext_
+====
+
+[[bau-xxx-ga-batches]]
+=== Bau der ISY-XXX-GA und Batches
+
+Zum Erzeugen der RPM-Pakete wird ein Maven-Plugin benutzt.
+Dies setzt ein Artefakt-Repository zum Auflösen von Paketabhängigkeiten voraus.
+
+Der Build wird folgendermaßen ausgeführt:
+
+:desc-listing-maven-build: Maven-Befehl zum Build der ISY-XXX-GA & Batches
+[id="listing-maven-build",reftext="{listing-caption} {counter:listings}"]
+.{desc-listing-maven-build}
+[source]
+----
+mvn -Drpm.release=<Build-Nummer> -Dtest=false -DfailIfNoTests=false clean package
+----
+
+TIP: Das Feld `release` (Argument `-Drpm.release`) wird üblicherweise mit der Lieferungsnummer belegt.
+Das bedeutet z. B.: `1.0.0_14` wird zu `14`, oder allgemein: `1.0.0_x` wird zu `x`.
+
+Nach erfolgreichem Build befinden sich im jeweiligen Modul unter `target` die RPM-Pakete:
+
+* `isy-xxx-ga-<VERSION>.noarch.rpm`: ISY XXX GA,
+* `isy-xxx-batch-<VERSION>.noarch.rpm`: ISY XXX Batches.
+
+Damit werden alle Anwendungen mit einem Aufruf gebaut.
+In den folgenden Kapiteln wird die Installation der einzelnen Pakete näher beschrieben.
+
+====
+*Falls die Anwendung den neuen RPM Build (via Maven-Plugin) nicht verwendet, kann dieser Abschnitt entfallen.*
+
 _Inhalt_::
 _Für weitere Build-Schritte ggf. weitere Unterkapitel anlegen. +
 Die Anleitung soll hier vollständig sein und darf nicht auf andere Dokumente der IsyFact verweisen._
