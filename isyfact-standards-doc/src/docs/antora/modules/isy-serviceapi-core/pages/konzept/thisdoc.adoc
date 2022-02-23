@@ -22,7 +22,7 @@ Das Dokument richtet sich vor allem an Software-Architekten und beschreibt, wie 
 Dabei vertieft es die Grundlagen, die im xref:blaupausen:detailkonzept-komponente-service/master.adoc[Detailkonzept Komponente Service] beschrieben werden und wendet sie auf das Service-Framework HTTP Invoker an.
 
 Das Dokument erläutert im Kapitel xref::konzept/inhalt.adoc#kommunikation-mit-http-invoker[Kommunikation mit HTTP Invoker] zunächst die Grundlagen, Rahmenbedingungen und Beschränkungen des Einsatzes von HTTP Invoker.
-Danach beleuchtet das Kapitel xref::konzept/inhalt.adoc#aufbau-der-service-logik[Aufbau der Service-Logik], wie die Komponente Service architektonisch mit HTTP Invoker aufgebaut ist.
+Danach beleuchtet das Kapitel xref::konzept/inhalt.adoc#aufbau-der-servicelogik[Aufbau der Servicelogik], wie die Komponente Service architektonisch mit HTTP Invoker aufgebaut ist.
 Im Kapitel xref::konzept/inhalt.adoc#auslieferung-einer-service-schnittstelle[Auslieferung einer Service-Schnittstelle] geht es darum, wie HTTP Invoker Schnittstellen ausgeliefert werden und was dabei zu beachten ist.
 Schließlich zeigt das Dokument noch Vorgaben zu den Themen xref::konzept/inhalt.adoc#versionierung[Versionierung] und xref::konzept/inhalt.adoc#namenskonventionen[Namenskonventionen] auf.
 // end::inhalt[]

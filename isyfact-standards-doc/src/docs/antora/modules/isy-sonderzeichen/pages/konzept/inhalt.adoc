@@ -110,7 +110,7 @@ Verschiedene Versionen der gleichen Transkriptionsregeln können durch eigene Ke
 |====
 
 
-Die Transkription soll nicht als zentraler Dienst sondern als Komponente umgesetzt werden, die bei Bedarf in die Anwendungen eingebunden wird.
+Die Transkription soll nicht als zentraler Service sondern als Komponente umgesetzt werden, die bei Bedarf in die Anwendungen eingebunden wird.
 Dabei sind die Transkriptionsregeln in einer oder mehreren Konfigurationsdateien hinterlegt, die von der Komponente eingelesen werden.
 Darüber wird auch eine einfache Erweiterbarkeit der Transkriptionsregeln gewährleistet.
 Es ist möglich, mehrere Sätze von Transkriptionsregeln zu hinterlegen, um so auch andere Standards für die Transkription verwenden zu können.

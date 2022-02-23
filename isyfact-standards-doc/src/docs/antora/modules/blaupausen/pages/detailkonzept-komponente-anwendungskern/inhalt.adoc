@@ -4,6 +4,8 @@
 [[aufbau-des-anwendungskerns]]
 == Aufbau des Anwendungskerns
 
+// tag::anwendungskern-definition[]
+
 Der Anwendungskern ist der zentrale Baustein eines IT-Systems.
 Hier werden die fachlichen Funktionen der Anwendung realisiert.
 
@@ -17,100 +19,110 @@ Diese drei Aspekte werden im Folgenden im Detail beschrieben.
 [id="image-IFBestAWK",reftext="{figure-caption} {counter:figures}"]
 image::blaupausen:detailkonzept-anwendungskern/IFBestAWK.png[align="center",width=90%,pdfwidth=90%]
 
-[[die-fachkomponenten]]
-=== Die Fachkomponenten
+// end::anwendungskern-definition[]
 
-Die Umsetzung einer Komponente aus der fachlichen Architektur erfolgt durch eine Fachkomponente.
-Damit entsprechen die Fachkomponenten dem fachlichen Komponentenschnitt aus der fachlichen Architektur.
-Diese Komponenten implementieren weitgehend reine Fachlichkeit und trennen so Anwendungslogik und Technologie.
-Das ist der Schlüssel für gute Wartbarkeit und einfache Weiterentwickelbarkeit des Anwendungskerns.
-Diese Struktur findet sich auch in anderen Schichten wieder, z. B. in der Persistenz: dort sind die Fachkomponenten auch gemäß den Komponenten aus der fachlichen Architektur strukturiert.
-In der Vorlageanwendung sind z. B. die Komponenten _Erstellung_, _Teilnahme_ und _Verwaltung_ Fachkomponenten.
+[[fachkomponenten]]
+=== Fachkomponenten
 
-==== Interner Aufbau
-Jede Fachkomponente besitzt ein Interface, über das auf die Komponente ausschließlich zugegriffen wird. Dieses Komponenten-Interface wird auch Verwalter-Klasse genannt.
-Das Interface realisiert eine Fassade für eine oder mehrere sogenannte Anwendungsfallklassen und stellt alle öffentlichen Funktionen einer Anwendungsfallklasse für den Aufrufer bereit. Gedanklich leitet es die Aufrufe an eine Anwendungsfallklasse weiter.
-Die Funktionalität der Anwendungsfallklasse ergibt sich aus der fachlichen Architektur.
+// tag::fachkomponente-definition[]
 
-Dies wird in der folgenden Abbildung dargestellt.
+*Fachkomponenten* setzen die Anwendungskomponenten aus der fachlichen Architektur um.
+Sie bilden damit den Schnitt der Anwendungskomponenten in die technische Architektur ab.
+Fachkomponenten beinhalten möglichst wenig Technik und trennen so Anwendungslogik von Technologie.
 
-.Komponenten: Ihre Interfaces und ihre als Beans konfigurierten Implementierungen
-[id="image-KompSSBImp",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:detailkonzept-anwendungskern/KompSSBImp.png[align="center"]
+Die Vorlageanwendung enthält die Fachkomponenten _Erstellung_, _Teilnahme_ und _Verwaltung_.
 
-In obiger Abbildung ist das Komponenten-Interface grün dargestellt.
-Diese Klasse referenziert die weiteren zentralen Klassen der Komponente, insbesondere die Anwendungsfallklassen.
+TIP: Fachkomponenten sind der Schlüssel für gute Wartbarkeit und einfache Weiterentwickelbarkeit des Anwendungskerns.
+Die Trennung von Anwendungslogik und Technik ist deshalb auch in anderen Schichten der technischen Architektur vorgesehen, z. B. in der Persistenz.
 
-===== Namenskonventionen
+// end::fachkomponente-definition[]
 
-Anwendungsfallklassen werden durch das Präfix `Awf` gekennzeichnet.
-Der weitere Teil des Klassennamens leitet sich aus dem Namen des Anwendungsfalls aus der Spezifikation ab, in CamelCase-Schreibweise.
+Von außen betrachtet besteht jede Fachkomponente aus einer Schnittstelle (Interface) und den von ihr verwendeten Geschäftsobjekten (Model) sowie Ausnahmen (Exceptions).
+Alle Zugriffe auf die Fachkomponente von außen, auch von anderen Fachkomponenten aus, geschehen über die Schnittstelle.
+
+Die *Schnittstelle* stellt eine Fassade (Facade) für mindestens eine Anwendungsfallklasse dar.
+Die Aufgaben der Schnittstelle sind:
+
+* Aufrufe von außen entgegenzunehmen,
+* Aufrufe an die entsprechenden Anwendungsfallklassen weiterzuleiten,
+* Antworten der Anwendungsfallklassen an den Aufrufer zurück zu übermitteln,
+* Ausnahmen der Anwendungsfallklassen in Ausnahmen der Schnittstelle zu übersetzen.
+
+*Geschäftsobjekte* dienen zur Kommunikation der Fachkomponente nach außen sowie zur Umsetzung der Fachlichkeit (z.B. für interne Berechnungen).
+Sie werden im Anwendungskern definiert, sind nicht persistent und können in der Nutzungsschicht wiederverwendet werden, sofern hierfür keine Anpassungen durch Mappings o.ä. nötig sind.
+Ein Geschäftsobjekt ist genau einer Fachkomponente zugeordnet, welche die Hoheit über es besitzt und seinen Lebenszyklus verwaltet.
+Sie werden primär nach ihrer Funktion benannt.
 
 // tag::namenskonvention[]
 
-.Anwendungsfallklassen
-[id="table-anwcases",reftext="{table-caption} {counter:tables}"]
-[cols="1,4",options="header"]
+[[namenskonvention-geschaeftsobjekt]]
+.Namenskonvention Geschäftsobjekt
+[cols="1s,4m",options="header"]
 |====
-2+|Anwendungsfallnamen
-|*Schema* m|Awf<AnwendungsfallName>
-|*Beispiele* m|AwfAntragVerarbeiten +
+2+|Geschäftsobjekt
+|Schema |<Entitaetsname>Bo
+|Beispiel |AkteBo
+|====
+
+// end::namenskonvention[]
+
+
+In der Vorlageanwendung gibt es z.B. die Geschäftsobjekte `Terminfindung`, `Tag` und `Teilnehmer`.
+
+In Ausnahmefällen können Geschäftsobjekte fachlich nicht genau einer Komponente zugeordnet werden.
+Hierfür wird die Komponente _Basisdaten_ definiert, die nur die eine Aufgabe hat, solche Geschäftsobjekte an zentraler Stelle zu verwalten.
+
+Eine *Anwendungsfallklasse* setzt genau einen Anwendungsfall um.
+Ihr Schnitt ergibt sich aus der fachlichen Architektur.
+Anwendungsfallklassen werden anhand des Namens des Anwendungsfalls aus der Spezifikation benannt und mit dem Präfix `Awf` gekennzeichnet.
+
+// tag::namenskonvention[]
+
+[[namenskonvention-anwendungsfallklassen]]
+.Namenskonvention Anwendungsfallklassen
+[cols="1s,4m",options="header"]
+|====
+2+|Anwendungsfallklassen
+|Schema |Awf<Anwendungsfall>
+|Beispiele |AwfAntragVerarbeiten +
 AwfEntscheidungDurchfuehren
 |====
 
 // end::namenskonvention[]
 
-[[anwendungsfunktionen]]
-===== Anwendungsfunktionen
-Die Funktionältität wird in Form von Anwendungsfunktionen aus der fachlichen Architektur abgeleitet.
-Analog zu den Anwendungsfällen werden Anwendungsfunktionen mit dem Präfix `Afu` gekennzeichnet.
+Eine *Anwendungsfunktion* setzt Teil-Abläufe um, die in mehreren Anwendungsfällen verwendet werden.
+Anwendungsfunktionen werden somit von Anwendungsfallklassen aufgerufen.
+Anwendungsfunktionen werden anhand des Namen der Anwendungsfunktion aus der Spezifikation benannt und mit dem Präfix `Afu` gekennzeichnet.
 
 // tag::namenskonvention[]
-.Anwendungsfunktionen
-[id="table-anwfkt2",reftext="{table-caption} {counter:tables}"]
-[cols="1,4",options="header"]
+
+[[namenskonvention-anwendungsfunktion]]
+.Namenskonvention Anwendungsfunktion
+[cols="1s,4m",options="header"]
 |====
-2+|Anwendungsfunktionen
-|*Schema* m|Afu<Anwendungsfunktionsname>
-|*Beispiele* m|AfuBerechnungFristdatum +
+2+|Anwendungsfunktion
+|Schema |Afu<Anwendungsfunktion>
+|Beispiele |AfuBerechnungFristdatum +
 AfuErmittlungEntscheidungsrelevanz
 |====
 
 // end::namenskonvention[]
 
+Die <<aufbau-fachkomponente, folgende Abbildung>> fasst den Aufbau einer Fachkomponente noch einmal grafisch zusammen.
 
-==== Geschäftsobjekte
-Die Fachkomponenten operieren auf Geschäftsobjekten (Entitäten), die nicht-persistiert sind und in Schnittstellen verwendet werden.
-Jedes Geschäftsobjekt ist genau einer Komponente zugeordnet,
-die die Datenhoheit über dieses Geschäftsobjekt besitzt und seinen Lebenszyklus verwaltet.
-
-===== Namenskonvention für Geschäftsobjekte
-// tag::namenskonvention[]
-.Business-Objekte
-[id="table-busiobj",reftext="{table-caption} {counter:tables}"]
-[cols="1,4",options="header"]
-|====
-2+|Business-Objekte
-|*Schema* m|<Entitaetsname>Bo
-|*Beispiele* m|AkteBo
-|====
-// end::namenskonvention[]
-
-In der Vorlageanwendung gibt es z.B. die Entitäten `Terminfindung`, `Tag` und `Teilnehmer`.
-
-Es kann aber auch den Fall geben, dass ein Geschäftsobjekt fachlich nicht genau einer Komponente zugeordnet werden kann.
-Hierfür wird die Komponente _Basisdaten_ definiert, die nur die eine Aufgabe hat, solche Geschäftsobjekte an zentraler Stelle effizient zu verwalten.
+[[aufbau-fachkomponente]]
+.Aufbau einer Fachkomponente
+image::blaupausen:detailkonzept-anwendungskern/aufbau_fachkomponente_awk.dn.svg[]
 
 [[das-anwendungskern-framework]]
-=== Das Anwendungskern-Framework
+=== Anwendungskern-Framework
 
 Für querschnittliche Funktionalität innerhalb des Anwendungskerns wird das Spring-Framework genutzt.
 Hauptaufgabe des Frameworks ist es, die Komponenten zu konfigurieren und miteinander bekanntzumachen.
 Dadurch wird die Trennung zwischen Fachlichkeit und Technik verbessert.
 Beispiel für querschnittliche Funktionalität ist die deklarative Steuerung von Transaktionen.
 
-Die Vorgaben zur Nutzung und Konfiguration des Spring-Frameworks werden in Kapitel <<verwendung-des-spring-frameworks>>
-beschrieben.
+Die Vorgaben zur Nutzung und Konfiguration des Spring-Frameworks werden in Kapitel <<verwendung-des-spring-frameworks>> beschrieben.
 
 [[externe-services]]
 === Externe Services
@@ -241,11 +253,11 @@ Im Zweifel sollte die Konfiguration über Spring bevorzugt werden.
 Wenn eine Klasse nur an einer Stelle genutzt wird, kann sie als Kompromiss auch als anonyme Spring Bean definiert werden.
 Sind Klassen nicht von relevanter Bedeutung, so können sie beim Erzeugen der Spring Bean programmatisch erzeugt werden.
 
-[[querschnittsdienste-als-beans-konfigurieren]]
-===== Querschnittsdienste als Beans konfigurieren
+[[querschnittsservices-als-beans-konfigurieren]]
+===== Querschnittsservices als Beans konfigurieren
 
-Querschnittsdienste (etwa für JMX, für Nachrichten, für die Versendung von Mails) sind als Beans zu konfigurieren.
-Dies gilt unabhängig davon, ob die Querschnittsdienste statisch verfügbar sind oder über Dependency Injection gesetzt werden (siehe Kapitel <<statischer-zugriff-auf-bean-instanzen-nur-in-sonderfaellen>>).
+Querschnittsservices (etwa für JMX, für Nachrichten, für die Versendung von Mails) sind als Beans zu konfigurieren.
+Dies gilt unabhängig davon, ob die Querschnittsservices statisch verfügbar sind oder über Dependency Injection gesetzt werden (siehe Kapitel <<statischer-zugriff-auf-bean-instanzen-nur-in-sonderfaellen>>).
 
 Ebenfalls über Beans durchzuführen ist die Konfiguration diverser Frameworks, z.B. Hibernate.
 Die Konfiguration dieser Frameworks wird in ihren Nutzungsvorgaben beschrieben.
@@ -262,13 +274,13 @@ Wo technisch erforderlich können auch andere Scopes verwendet werden.
 
 Die Spring-Konfiguration der Anwendung ist nach folgenden Vorgaben zu erstellen.
 
-. Der zentrale Ausgangspunkt für die Spring-Konfiguration ist die Applikationsklasse der Anwendung (<<listing-applikationsklasse>>).
+Der zentrale Ausgangspunkt für die Spring-Konfiguration ist die Applikationsklasse der Anwendung (<<listing-applikationsklasse>>).
 Diese wird im Wurzelpackage der Anwendung (`<org>.<domäne>.<anwendung>.<anwendung>Application`) erstellt.
 Sie ist mit `@Configuration` und `@EnableAutoConfiguration` annotiert.
 Damit wird die Autokonfiguration von Spring Boot eingeschaltet.
 Zusätzlich erbt die Klasse von `SpringBootServletInitializer`, damit die Anwendung im Tomcat deployt werden kann.
 Die Konfigurationsklassen der Schichten werden per `@Import`-Annotation eingebunden.
-+
+
 .Applikationsklasse der Anwendung
 [id="listing-applikationsklasse",reftext="{listing-caption} {counter:listings }"]
 [source,java]
@@ -289,12 +301,11 @@ public class IsyFactApplication extends SpringBootServletInitializer {
 }
 ----
 
-
-2. Für jede Schicht wird im Stammpackage `<org>.<domäne>.<anwendung>.<schicht>` parallel zu den Interfaces der Komponentenschnittstellen eine mit `@Configuration` annotierte Konfigurationsklasse erstellt (<<listing-konfigurationsklasse>>).
+Für jede Schicht wird im Stammpackage `<org>.<domäne>.<anwendung>.<schicht>` parallel zu den Interfaces der Komponentenschnittstellen eine mit `@Configuration` annotierte Konfigurationsklasse erstellt (<<listing-konfigurationsklasse>>).
 Diese wird zusätzlich mit `@ComponentScan` annotiert;
 durch die Positionierung im Stammpackage entfällt der Bedarf, ein Attribut zu übergeben.
 Annotationen, die querschnittliche Aspekte konfigurieren (z.B. `@EnableTransactionManagement`), werden an die Konfigurationsklasse der inhaltlich passenden Schicht geschrieben.
-+
+
 .Konfigurationsklasse innerhalb einer Schicht
 [id="listing-konfigurationsklasse",reftext="{listing-caption} {counter:listings }"]
 [source,java]
@@ -313,7 +324,7 @@ public class CoreConfig {
 }
 ----
 
-. Die Beans der Komponenten werden mit der Annotation `@Component` bzw. deren Spezialisierungen (`@Repository`, `@Service`, `@Controller` etc.) versehen.
+Die Beans der Komponenten werden mit der Annotation `@Component` bzw. deren Spezialisierungen (`@Repository`, `@Service`, `@Controller` etc.) versehen.
    Externe Beans, die nicht annotiert werden können, werden in der Konfigurationsklasse der Schicht per `@Bean-Methoden` konfiguriert.
 
 [[konfigurationsparameter-ueber-property-objekte-konfigurieren]]
@@ -578,7 +589,6 @@ Es existieren drei verschiedene Verfahren der _Dependency Injection_:
 Da die _Constructor Injection_ diverse Vorteile gegenüber den beiden anderen Techniken liefert, empfiehlt die IsyFact die Verwendung von  _Constructor Injection_.
 
 .Vergleich der Verfahren zur Dependency Injection
-[id="table-dependeny-injection",reftext="{table-caption} {counter:tables}"]
 |===
 |DI-Methode |Einsatzszenario |Bemerkung
 
