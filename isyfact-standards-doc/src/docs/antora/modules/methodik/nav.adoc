@@ -8,6 +8,6 @@
 *** xref:java-programmierkonventionen/master.adoc[Java-Programmierkonventionen]
 *** xref:vorlage-systemhandbuch/master.adoc[Vorlage Systemhandbuch]
 ** Produktauswahl
-** xref:diagrammerstellung/master.adoc[Diagrammerstellung und Modellierung]
-*** xref:diagramsnet/master.adoc[diagrams.net]
-*** xref:enterprise-architect/master.adoc[Enterprise Architect]
+** xref:diagrammerstellung.adoc[Diagrammerstellung und Modellierung]
+*** xref:diagrammerstellung/diagramsnet.adoc[diagrams.net]
+*** xref:diagrammerstellung/enterprise-architect.adoc[Enterprise Architect]

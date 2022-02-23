@@ -1,6 +1,9 @@
-= Modellierung und Diagrammerstellung: Inhalt
+= Diagrammerstellung und Modellierung
+:sectnums:
+:experimental:
 
-// tag::inhalt[]
+include::glossary:licence:partial$licence.adoc[]
+
 [[modellierung-und-diagrammerstellung]]
 == Modellierung und Diagrammerstellung
 Schaubilder, Diagramme und grafische Modelle unterstützen das Verständnis von Inhalten.
@@ -43,7 +46,7 @@ Die Datei kann direkt eingebunden werden.
 NOTE: Für das Wiki-System _Confluence_ sowie das Ticket-System _Jira_ der Firma _Atlassian_ gibt es das Add-on _draw.io_, welches das Erstellen und Bearbeiten von Diagrammen erlaubt und im Kern _diagrams.net_ entspricht.
 Die Erstellung von Diagrammen im Kontext Wiki-getriebener Dokumentation erfolgt somit voll integriert.
 
-Die IsyFact bietet xref:diagramsnet/master.adoc[eine Konfiguration sowie vorgefertigte Elemente] für die Erstellung von Diagrammen mit diagrams.net.
+Die IsyFact bietet xref:diagrammerstellung/diagramsnet.adoc[eine Konfiguration sowie vorgefertigte Elemente] für die Erstellung von Diagrammen mit diagrams.net.
 
 [[einsatzszenarien_enterprise_architect]]
 == Einsatzszenarien Enterprise Architect
@@ -60,5 +63,4 @@ Die Herausforderungen dieses Werkzeugs sind:
 * die steile Lernkurve und komplexe Bedienung,
 * Einschränkungen und längere Bearbeitungszeit bei freien Schaubildern.
 
-Die IsyFact bietet xref:enterprise-architect/master.adoc#uml-profile-einbinden[UML-Profile] an und unterstützt die xref:enterprise-architect/master.adoc#vorgehen-zur-erstellung-der-spezifikationsdokumente[Erstellung von Systemspezifikationen] mit dem Enterprise Architect.
-// end::inhalt[]
+Die IsyFact bietet xref:diagrammerstellung/enterprise-architect.adoc#uml-profile-einbinden[UML-Profile] an und unterstützt die xref:diagrammerstellung/enterprise-architect.adoc#vorgehen-zur-erstellung-der-spezifikationsdokumente[Erstellung von Systemspezifikationen] mit dem Enterprise Architect.

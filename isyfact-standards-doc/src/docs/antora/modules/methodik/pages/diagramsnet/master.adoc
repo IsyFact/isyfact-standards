@@ -1,9 +1,0 @@
-= Handbuch diagrams.net
-
-:sectnums:
-
-:experimental:
-
-include::glossary:licence:partial$licence.adoc[]
-
-include::inhalt.adoc[tags=inhalt]

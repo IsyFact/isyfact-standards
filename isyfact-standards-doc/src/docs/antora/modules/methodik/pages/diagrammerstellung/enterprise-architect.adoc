@@ -1,23 +1,26 @@
-= Nutzung Enterprise Architect: Inhalt
+= Handbuch Enterprise Architect
+:sectnums:
+:experimental:
 
-// tag::inhalt[]
-[[enterprise-architect-für-die-modellierung]]
+include::glossary:licence:partial$licence.adoc[]
+
+[[enterprise-architect-fuer-die-modellierung]]
 == Enterprise Architect für die Modellierung
-Enterprise Architect ist ein Werkzeug mit dem Schwerpunkt Prozess- und Systemmodellierung. 
-Die folgende Dokumentation beschreibt den optionalen Einsatz des Werkzeugs im Zuge der Systemspezifikation. 
-Darüber hinaus wird das Werkzeug häufig auch für Systementwürfe oder Deployment- und Verteilungsdarstellungen genutzt, auf die hier allerdings nicht näher eingegangen wird.  
+Enterprise Architect ist ein Werkzeug mit dem Schwerpunkt Prozess- und Systemmodellierung.
+Die folgende Dokumentation beschreibt den optionalen Einsatz des Werkzeugs im Zuge der Systemspezifikation.
+Darüber hinaus wird das Werkzeug häufig auch für Systementwürfe oder Deployment- und Verteilungsdarstellungen genutzt, auf die hier allerdings nicht näher eingegangen wird.
 
 [[vorgehen-zur-erstellung-der-spezifikationsdokumente]]
 == Vorgehen zur Erstellung der Spezifikationsdokumente
 
-Man erstellt die Dokumente Systemspezifikation und Geschäftsprozesse nach den hier beschriebenen Vorgaben in Microsoft Word (oder einer dazu kompatiblen Textverarbeitung). 
+Man erstellt die Dokumente Systemspezifikation und Geschäftsprozesse nach den hier beschriebenen Vorgaben in Microsoft Word (oder einer dazu kompatiblen Textverarbeitung).
 Diagramme aus dem Enterprise Architect kopiert man nach der Erstellung / Aktualisierung in MS Word.
 Die beschriebenen Aufzählungen der Elemente unter den Diagrammen dienen dazu, Querverweise auf die Spezifikationselemente hinzufügen zu können.
 
 [[nutzung-des-enterprise-architect-zur-erstellung-von-systemspezifikationen]]
 == Nutzung des Enterprise Architect zur Erstellung von Systemspezifikationen
 
-Die Software „Enterprise Architect“ (nachfolgend kurz „EA“) der Firma SparxSystems ist für die Erstellung der Systemspezifikation und der zugehörigen Geschäftsprozesse in der im Projekt abgestimmten Version zu verwenden (Diese Dokumentation wurde für EA 7.5 erstellt). 
+Die Software „Enterprise Architect“ (nachfolgend kurz „EA“) der Firma SparxSystems ist für die Erstellung der Systemspezifikation und der zugehörigen Geschäftsprozesse in der im Projekt abgestimmten Version zu verwenden (Diese Dokumentation wurde für EA 7.5 erstellt).
 Die Anleitungen in diesem Dokument sollen dafür sorgen, dass alle damit erstellten Modelle einer einheitlichen Methodik folgen.
 Dies verringert den Einarbeitungsaufwand für neue Projektmitarbeiter, verbessert die Wartbarkeit der erstellten Modelle und erleichtert die Übernahme von Spezifikationen in die Masterspezifikation.
 
@@ -166,7 +169,7 @@ Für die Übernahme von Teilen eines Modells in ein anderes geht man wie folgt v
 . Import in das zweite Modell: Man wählt im Kontextmenü des Ordners, in den importiert werden soll, menu:Import/Export[Import Package From XMI File...] aus.
 Hier kann man sich entscheiden:
 .. Setzt man das Häkchen bei btn:[Strip GUIDs], dann werden die eindeutigen IDs der Elemente verworfen und neu vergeben.
-Falls die Elemente in einer früheren Version bereits im Modell sind, dann werden Kopien der Elemente danebengelegt.
+Falls die Elemente in einer früheren Version bereits im Modell sind, dann werden Kopien der Elemente daneben gelegt.
 .. Entfernt man das Häkchen bei btn:[Strip GUIDs], dann werden die eindeutigen IDs der Elemente beibehalten.
 Falls Elemente mit denselben GUIDs bereits im Modell sind, dann werden sie durch die neuen Versionen überschrieben.
 
@@ -177,4 +180,3 @@ Will man ein in einem Teilprojekt verändertes System hingegen zurück in ein ze
 Dadurch werden die alten Versionen der Elemente durch die neuen ersetzt.
 Dieses Vorgehen muss man sich aber vor Beginn der Änderungsspezifikation überlegen und bei den Änderungen beachten, wie der Rückimport später funktioniert.
 Im Normalfall ist eine manuelle Übernahme der Änderungen hier der weniger fehleranfällige Weg.
-// end::inhalt[]
