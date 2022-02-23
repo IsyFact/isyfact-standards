@@ -703,3 +703,11 @@ In Einzelfällen mag dies notwendig sein, muss dann aber mit dem Chefarchitekt a
 
 
 // end::inhalt[]
+
+// tag::architekturregel[]
+
+// end::architekturregel[]
+
+// tag::sicherheit[]
+
+// end::sicherheit[]
