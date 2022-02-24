@@ -90,11 +90,11 @@ _Sehr kurze zusammenfassende fachliche Darstellung des Verfahrens.
 Darstellung der Einbettung in die Anwendungslandschaft.
 Verweis auf die aktuelle Version der Systemspezifikation._
 
-_Quelle:_::
+_Quelle_::
 _Einbettung des Systems in die Anwendungslandschaft (aus Systementwurf).
-             Extrakt aus Einleitung / Überblick aus Systemspezifikation. Einbettung_
-_Dokumentationsform:_::
-_Bild der Anwendungslandschaft gemäß Ist- bzw. Referenzarchitektur mit hervorgehobenem neuem System, Freitext_
+             Extrakt aus Einleitung / Überblick aus Systemspezifikation._
+_Dokumentationsform_::
+_Bild der Anwendungslandschaft gemäß Ist- bzw. Referenzarchitektur mit hervorgehobenem neuen System, Freitext._
 ====
 
 Details können in der Systemspezifikation [_SysSpez(Referenzlink anpassen)_] nachgelesen werden.
@@ -108,17 +108,17 @@ In diesem Kapitel werden IT Produkte, Techniken und Architekturen aufgeführt, d
 ==== Übersicht der technischen Verfahrensbeschreibung
 
 ====
-_Inhalt:_::
+_Inhalt_::
 _An dieser Stelle befindet sich eine Übersichtsgrafik, die darstellt, aus welchen Teilsystemen das Gesamtsystem besteht, wie diese sich gegenseitig aufrufen und welche Nachbarsysteme und Querschnittsfunktionen aufgerufen werden.
 Zur besseren Orientierung sind der Farbcode und das Layout der Referenzarchitektur zu beachten._
 +
 _Für die Schnittstellen und Services soll ein geeigneter Abstraktionsgrad gewählt werden.
 Zweck dieser Übersicht ist es, einen prinzipiellen Überblick zu geben und nicht jedes Detail zu beschreiben._
 
-_Quelle:_::
+_Quelle_::
 _Extrakt aus Einleitung / Überblick aus Systementwurf._
 
-_Dokumentationsform:_::
+_Dokumentationsform_::
 _Freitext, Grafiken, UML-Diagramme, …_
 ====
 
@@ -126,7 +126,7 @@ _Freitext, Grafiken, UML-Diagramme, …_
 ==== Architekturkomponenten des technischen Verfahrens
 
 ====
-_Inhalt:_::
+_Inhalt_::
 _Deployment-Diagramm des Systems mit grober Erklärung, Auflistung der Produkte der Laufzeitumgebung (Kategorie, Name, Version, Bemerkung)._
 +
 _Folgende Aspekte sind darzustellen:_ +
@@ -142,7 +142,7 @@ Clustering von Nachbarsystemen kann vereinfacht dargestellt werden._
 _Quelle_::
 _Systementwurf_
 
-_Dokumentationsform:_::
+_Dokumentationsform_::
 _Deployment-Diagramme, Tabellen, Freitext_
 ====
 
@@ -188,6 +188,8 @@ _Tabelle_
 [[bau-xxx-ga-batches-legacy]]
 === Bau der ISY-XXX-GA und Batches
 
+NOTE: *Falls die Anwendung den traditionellen RPM Build (via `ant` und `rpmbuild`) nicht verwendet, kann dieser Abschnitt entfallen.*
+
 Zum Erzeugen der RPM-Pakete wird das Werkzeug `rpmbuild` mithilfe von Ant über Maven benutzt.
 Dies setzt ein Artefakt-Repository zum Auflösen von Paketabhängigkeiten voraus.
 
@@ -213,8 +215,6 @@ Damit werden alle Anwendungen mit einem Aufruf gebaut.
 In den folgenden Kapiteln wird die Installation der einzelnen Pakete näher beschrieben.
 
 ====
-*Falls die Anwendung den traditionellen RPM Build (via `ant` und `rpmbuild`) nicht verwendet, kann dieser Abschnitt entfallen.*
-
 _Inhalt_::
 _Für weitere Build-Schritte ggf. weitere Unterkapitel anlegen. +
 Die Anleitung soll hier vollständig sein und darf nicht auf andere Dokumente der IsyFact verweisen._
@@ -228,6 +228,8 @@ _Freitext_
 
 [[bau-xxx-ga-batches]]
 === Bau der ISY-XXX-GA und Batches
+
+NOTE: *Falls die Anwendung den neuen RPM Build (via Maven-Plugin) nicht verwendet, kann dieser Abschnitt entfallen.*
 
 Zum Erzeugen der RPM-Pakete wird ein Maven-Plugin benutzt.
 Dies setzt ein Artefakt-Repository zum Auflösen von Paketabhängigkeiten voraus.
@@ -254,8 +256,6 @@ Damit werden alle Anwendungen mit einem Aufruf gebaut.
 In den folgenden Kapiteln wird die Installation der einzelnen Pakete näher beschrieben.
 
 ====
-*Falls die Anwendung den neuen RPM Build (via Maven-Plugin) nicht verwendet, kann dieser Abschnitt entfallen.*
-
 _Inhalt_::
 _Für weitere Build-Schritte ggf. weitere Unterkapitel anlegen. +
 Die Anleitung soll hier vollständig sein und darf nicht auf andere Dokumente der IsyFact verweisen._
@@ -299,13 +299,13 @@ Dazu gehören Systembenutzer, sofern sie für mehrere Systeme benötigt werden._
 +
 _Ebenso werden in eigenen Kapiteln die Einrichtung bzw. Konfiguration von technischen Systemen (Webserver, Mail-Server, Datenbank usw.) beschrieben._
 +
-_Sofern Lizenz-Dateien o.Ä. benötigt werden, sollen diese ebenfalls hier aufgeführt werden +
+_Sofern Lizenz-Dateien o.Ä. benötigt werden, sollen diese ebenfalls hier aufgeführt werden. +
 Falls einzelne technische Systeme von sehr vielen Verfahren benötigt werden, ist es zweckmäßig, diese in eigene Dokumente auszulagern._
 
-_Quelle:_::
+_Quelle_::
 _Entwicklerhandbuch, Systementwurf._
 
-_Dokumentationsform:_::
+_Dokumentationsform_::
 _Freitext_
 ====
 
@@ -314,8 +314,8 @@ In diesem Kapitel werden allgemeine Konfigurationen für die Systemumgebungen be
 [[anlegen-betriebssystemnutzer-gruppen]]
 ==== Anlegen der Betriebssystemnutzer und -gruppen
 
-Die Anwendungen `_XXX-GA_` und `_XXX-SGW_` benötigen den Betriebssystembenutzer „tomcat“ in der Benutzergruppe „tomcat“.
-Die Batch-Anwendung `_XXX-GA-Batch_` benötigt den Betriebssystembenutzer „batch“ in der Benutzergruppe „batch“.
+Die Anwendungen `_XXX-GA_` und `_XXX-SGW_` benötigen den Betriebssystemnutzer „tomcat“ in der Benutzergruppe „tomcat“.
+Die Batch-Anwendung `_XXX-GA-Batch_` benötigt den Betriebssystemnutzer „batch“ in der Benutzergruppe „batch“.
 
 Die Nutzer und Gruppen werden mit den betriebssystemüblichen Programmen angelegt.
 Das Kennwort wird vom Betrieb vergeben.
@@ -451,21 +451,17 @@ Die Tomcat-Basisinstallation kann nur von dem root-Benutzer installiert werden.
 
 Für die Erstinstallation:
 
- rpm -i isy-xxx-ga-tomcat-sieben.0.59-111.x86_6vier.rpm
+ 'rpm -i isy-xxx-ga-tomcat-{version}.x86_64.rpm'
 
-Für die nachfolgenden Schritte ist erforderlich, dass Java 1.7 installiert ist.
-Die Umgebungsvariable `JAVA7_HOME` muss auf den Installationspfad von Java 1.7 verweisen.
+Für die nachfolgenden Schritte ist erforderlich, dass Java installiert ist.
+Die Umgebungsvariable `JAVA<X>_HOME` muss auf den Installationspfad von Java verweisen. <X> muss durch die Java-Versionsnummer ersetzt werden, z.B. 8.
 
-In der Datei `/opt/plis-xxx-ga/tomcat/conf/wrapper.conf` sind alle Vorkommen von `JAVA_HOME` durch `JAVA6_HOME` zu ersetzen (siehe auch [NutzungTomcat]).
+In der Datei `/opt/isy-xxx-ga/tomcat/conf/wrapper.conf` sind alle Vorkommen von `JAVA_HOME` durch `JAVA<X>_HOME` zu ersetzen (siehe auch [NutzungTomcat]).
 
 Außerdem müssen hier noch die Werte für die Heap-Size erhöht werden:
 
  wrapper.java.initmemory=128
  wrapper.java.maxmemory=512
-
-und ein zusätzliches Attribut für den Perm-Size gesetzt werden:
-
- wrapper.java.additional.<lfd.Nummer>=-XX:MaxPermSize=256m
 
 Die Anwendung `_XXX-GA_` wird von anderen Anwendungen über den konfigurierten Tomcat-Port aufgerufen.
 
@@ -521,6 +517,7 @@ Nach der Installation liegen die Konfigurationsdateien von `_XXX-GA_` unter
 Folgende Konfigurationsdateien müssen für die Konfiguration angepasst werden:
 
 * `logback.xml`,
+* `isy-xxx-ga.properties`,
 * `jpa.properties`,
 * (Liste der Konfigurationsdateien der Tomcat-Anwendung).
 
@@ -586,7 +583,7 @@ Beispiel: +
 
 ====
 _Inhalt_::
-_Weitere Möglichkeiten der Konfiguration werden ab hier beschrieben, thematisch abgegrenzt und jeweils mit einer eigenen Tabelle._
+_Weitere Möglichkeiten der Konfiguration werden ab hier beschrieben, thematisch abgegrenzt und jeweils mit einer eigenen Tabelle dokumentiert._
 
 _Quelle_::
 _Systementwurf._
@@ -679,7 +676,7 @@ Nach der Installation liegen die Konfigurationsdateien der Batch-Anwendung unter
 
  /etc/isy-xxx-ga-batch
 
-Die Konfiguration der Batch-Anwendung erfolgt analog zur Konfiguration der Tomcat-Anwendung im Kapitel <<installation-von-xxx-service-gateway>>:
+Die Konfiguration der Batch-Anwendung erfolgt analog zur Konfiguration der Tomcat-Anwendung im Kapitel <<konfiguration-tomcat-anwendung>>:
 
 Die Konfigurationsdateien der Batch-Anwendungen sind nach der Erstinstallation mit den Konfigurationsdateien der Tomcat-Anwendung bis auf eine Ausnahme identisch: der Logging-Konfiguration für die Batches.
 Es ist möglich die bereits angepassten Konfigurationsdateien der Tomcat-Anwendung in die Konfigurationsverzeichnisse der Batch-Anwendungen zu kopieren.
@@ -732,19 +729,15 @@ Es muss eine Tomcat-Basisinstallation für die Anwendung _XXX-SGW_
 
  /opt/isy-xxx-sgw/tomcat
 
-Die Tomcat-Basisinstallation kann nur von dem root-Benutzer installiert werden.
+vorliegen. Die Tomcat-Basisinstallation kann nur von dem root-Benutzer installiert werden.
 
 Für die Erstinstallation:
 
- 'rpm -i plis-xxx-sgw-tomcat-6.0.18-111.x86_64.rpm'
+ 'rpm -i isy-xxx-ga-tomcat-{version}.x86_64.rpm'
 
-Für die nachfolgenden Schritte ist erforderlich, dass Java 1.6 installiert ist. Es muss die Umgebungsvariable JAVA6_HOME auf den Installationspfad von Java 1.6 verweisen.
+Für die nachfolgenden Schritte ist erforderlich, dass Java installiert ist. Die Umgebungsvariable JAVA<X>_HOME muss auf den Installationspfad von Java verweisen. <X> muss durch die Java-Versionsnummer ersetzt werden, z.B. 8.
 
-In der Datei
-
- /opt/plis-xxx-sgw/tomcat/conf/wrapper.conf
-
-alle Vorkommen von `JAVA_HOME` durch `JAVA6_HOME` ersetzen.
+In der Datei `/opt/isy-xxx-sgw/tomcat/conf/wrapper.conf` sind alle Vorkommen von `JAVA_HOME` durch `JAVA<X>_HOME` ersetzen.
 
 Die Anwendung `_XXX-SGW_` wird von anderen Anwendungen über den konfigurierten Tomcat-Port aufgerufen.
 
@@ -902,13 +895,13 @@ m|/etc/isy-xxx-sgw/logback.xml |Logging-Konfiguration
 === Dokumentation des Datenbankschemas
 ====
 _Sofern eine Anwendung eine eigene Datenhaltung besitzt, wird die tatsächliche Datenhaltung in Form von Tabellen dokumentiert.
-Jede Datenbanktabelle als eigenes Unterkapitel in Form einer kurzen Beschreibung und einer Tabelle mit den wichtigsten Informationen zu der Datenbanktabelle beschrieben._
+Jede Datenbanktabelle ist als eigenes Unterkapitel in Form einer kurzen Beschreibung und einer Tabelle mit den wichtigsten Informationen zu der Datenbanktabelle beschrieben._
 
 *_Darstellung_*
 
 • _Für jede Datenbanktabelle wird kurz beschrieben was darin enthalten ist._
 
-• _Jede Datenbanktabelle wird in einer eigenen Tabelle, bestehend aus den Spalten Feld, Datentyp, Beschreibung, PK (Primary Key), FK (Foreign Key) und Indexiert, beschrieben._
+• _Jede Datenbanktabelle wird in einer eigenen Tabelle, bestehend aus den Spalten Feld, Datentyp, Beschreibung, PK (Primary Key), FK (Foreign Key) und Indizes, beschrieben._
 
 • _Enthält eine Spalte in der Datenbank Aufzählungstypen, so sind alle Ausprägungen des Aufzählungstyps in der Beschreibung der Spalte anzugeben._
 
@@ -1051,11 +1044,11 @@ _Tabelle, Freitext, Diagramme_
 In diesem Abschnitt wird das Ausführen der Batch-Anwendung beschrieben. Die Batches sind unabhängig voneinander, d.h. sie können in beliebiger Reihenfolge ausgeführt werden.
 
 [[setzen-umgebungsvariable-java7home]]
-==== Setzen der Umgebungsvariable JAVA7_HOME
+==== Setzen der Umgebungsvariable JAVA<X>_HOME
 
-Die Ausführung der Batchanwendung setzt eine installierte Java 7 Runtime voraus. Für die Ausführung der Batch-Anwendung muss die Umgebungsvariable JAVA7_HOME korrekt gesetzt sein und auf das Java-Verzeichnis verweisen. Die Variable wird wie folgt auf der Kommandozeile gesetzt. (Bitte Verzeichnis der Java-Runtime überprüfen.)
+Die Ausführung der Batchanwendung setzt eine installierte Java Runtime voraus. Für die Ausführung der Batch-Anwendung muss die Umgebungsvariable JAVA<X>_HOME (<X> ist durch die Java-Versionsnummer zu ersetzen, z.B. 8) korrekt gesetzt sein und auf das Java-Verzeichnis verweisen. Die Variable wird wie folgt auf der Kommandozeile gesetzt. (Bitte Verzeichnis der Java-Runtime überprüfen.)
 
- export JAVA6_HOME=/usr/lib/java7
+ export JAVA<X>_HOME=/usr/lib/java<X>
 
 
 
@@ -1137,7 +1130,7 @@ Dokumentationsform:::
 _Tabelle, Freitext_
 ====
 
-Die Überwachung der Anwendung erfolgt per JMX. Die nachfolgenden Tabellen listen die - von der Anwendung bzw. der Laufzeitumgebung bereitgestellten Parameter auf.
+Die Überwachung der Anwendung erfolgt per JMX. Die nachfolgenden Tabellen listen die von der Anwendung bzw. der Laufzeitumgebung bereitgestellten Parameter auf.
 
 [[monitoring-tomcat-anwendungen]]
 ==== Monitoring der Tomcat-Anwendungen
@@ -1154,7 +1147,7 @@ h|Attribut-Name h|Beschreibung
 2+|{set:cellbgcolor:#F6F4F4}java.lang:type=OperatingSystem
 |{set:cellbgcolor}FreePhysicalMemorySize |Liefert den freien physikalischen Arbeitsspeicher in Byte.
 |FreeSwapSpaceSize |Liefert den freien Auslagerungsspeicher in Byte.
-|OpenfileDescriptorCount |Liefert die Anzahl der offenen Datei-Deskriptoren
+|OpenfileDescriptorCount |Liefert die Anzahl der offenen Datei-Deskriptoren.
 2+|{set:cellbgcolor:#F6F4F4} java.lang:type=Memory
 |{set:cellbgcolor}HeapMemoryUsage.used |Liefert den Java-Heap-Speicherverbrauch in Byte.
 |===
@@ -1213,7 +1206,7 @@ Nach Aktivierung von JMX stellt jeder Batch-Prozess folgende Informationen per J
 |SaetzeVerarbeitet |Die Anzahl bereits verarbeiteter Sätze.
 |SchluesselLetzterSatz |Schlüssel des letzten verarbeiteten Satzes.
 |ZeitSeitLetztemSatz |Zeitraum in Millisekunden, der bereits für den aktuellen Satz benötigt wurde.
-|BatchId |Die ID des aktuellen Batches
+|BatchId |Die ID des aktuellen Batches.
 |===
 
 
@@ -1339,7 +1332,7 @@ In der folgenden Tabelle sind die im System möglichen grundsätzlichen Fehlersi
 |Nr. |Fehlersituation |Ort der +
 Entstehung |Behandlung und Reaktion +
 des Systems
-a ^|
+^|
 1
 
 a| _Nachbarsystem nicht erreichbar_
@@ -1350,22 +1343,22 @@ a| _Nachbarsystem nicht erreichbar_
 
 |_XXX -GA , +
 XXX -GA Batch_ |_Das System schreibt den Fehler in das Error-Log und gibt den für den Anwender maskierten Fehler als XXXXX99999 über die Außenschnittstelle an den Aufrufer zurück._
-a ^|
+^|
 2
 
 |_Authentifizierung schlägt fehl (fehlende Zugangsberechtigung)_ |_XXX -GA , +
 XXX -GA Batch_ |_Das System schreibt den Fehler in das Error-Log und gibt einen Berechtigungsfehler über die Außenschnittstelle an den Aufrufer zurück._
-a ^|
+^|
 3
 
 |_Autorisierung schlägt fehl (fehlende Nutzungsberechtigung)_ |_XXX -GA , +
 XXX -GA Batch_ |_Das System schreibt den Fehler in das Error-Log und gibt einen Berechtigungsfehler über die Außenschnittstelle an den Aufrufer zurück._
-a ^|
+^|
 4
 
 |_Konfigurationsfehler_ |_XXX -GA , +
 XXX -GA Batch_ |_Abhängig vom Konfigurationsfehler startet die Anwendung nicht oder führt zu einem anderen Fehlertyp (z.B. falsche Angabe der Schlüsselverzeichnis-Url)_
-a ^|
+^|
 5
 
 |_Technischer Fehler in der Verarbeitung (z.B. Datenbank nicht verfügbar)_ |_XXX -GA , +
