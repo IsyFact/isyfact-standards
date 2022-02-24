@@ -81,5 +81,11 @@
             <artifactId>tomcat-embed-core</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- used for scope test because bean validation api does not deliver an ValidationProvider -->
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>
