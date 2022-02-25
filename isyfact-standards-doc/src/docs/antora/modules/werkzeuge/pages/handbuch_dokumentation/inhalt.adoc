@@ -43,7 +43,7 @@ Damit diese Skripte während der Dokumenterzeugung ausgeführt werden, sind die 
 [[git-installieren]]
 === Git installieren
 
-Git wird von der Webseite http://www.git-scm.com heruntergeladen.
+Git wird von der Webseite xref:glossary:literaturextern:inhalt.adoc#litextern-Git[Git] heruntergeladen.
 
 .Webseite des Versionierungssystems Git
 [id="image-git1",reftext="{figure-caption} {counter:figures}"]
@@ -68,7 +68,7 @@ Sollten Sie lokal mit Windows arbeiten, selektieren Sie also die erste Option.
 Zur Ablage großer Dateien, wie z.B. Bildern, wird in einigen Repositories Git Large File Storage (LFS) verwendet.
 Dabei werden die großen Dateien durch sehr kleine sogenannte "pointer files" ersetzt, die auf die echten Dateien verweisen.
 Damit das funktioniert muss auch client-seitig Git LFS installiert sein.
-Die Installation geht sehr einfach in wenigen Schritten und ist für Linux, Windows und Mac hier beschrieben: https://help.github.com/de/github/managing-large-files/installing-git-large-file-storage
+Die Installation geht sehr einfach in wenigen Schritten und ist für Linux, Windows und Mac hier beschrieben: xref:glossary:literaturextern:inhalt.adoc#litextern-Git-LFS[Git LFS]
 
 [[vsc-installieren]]
 === VS Code installieren
@@ -865,7 +865,7 @@ Eine Referenz auf die Literatur erfolgt über doppelte spitze Klammerpaare.
 
 Das Ergebnis sieht so aus:
 
-`Hier ist das <<TODOHandbuch_fuer_technische_Autoren,Handbuch für technische Autoren>>.`
+`Hier ist das <<Handbuch_fuer_technische_Autoren,Handbuch für technische Autoren>>.`
 
 [[glossar]]
 === Glossar
@@ -893,7 +893,7 @@ Eine Referenz auf einen Begriff des Glossars erfolgt über doppelte spitze Klamm
 
 Das Ergebnis sieht wie folgt aus:
 
-`Hier wurde ein <<TODOglossar-halloweltbeispiel, Hallo Welt Beispiel>> verwendet.`
+`Hier wurde ein <<glossar-halloweltbeispiel, Hallo Welt Beispiel>> verwendet.`
 
 [[asccidoc-zu-pdf-html]]
 == PDF- und HTML-Dokumente erzeugen

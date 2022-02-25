@@ -93,7 +93,7 @@ Dies führt zu folgendem Datentyp für umgeschriebene Zeichenfolgen:
 
 .Datentyp für umgeschriebene Texte
 [id="sonderzeichen_klasse_transtext",reftext="{figure-caption} {counter:figures}"]
-image::sonderzeichen_klasse_transtext.png[pdfwidth=35%,width=35%,align="center"]
+image::isy-sonderzeichen:konzept/sonderzeichen_klasse_transtext.png[pdfwidth=35%,width=35%,align="center"]
 
 Die Attribute für den Datentyp „TransText“ haben die folgende Bedeutung:
 
@@ -110,14 +110,14 @@ Verschiedene Versionen der gleichen Transkriptionsregeln können durch eigene Ke
 |====
 
 
-Die Transkription soll nicht als zentraler Dienst sondern als Komponente umgesetzt werden, die bei Bedarf in die Anwendungen eingebunden wird.
+Die Transkription soll nicht als zentraler Service sondern als Komponente umgesetzt werden, die bei Bedarf in die Anwendungen eingebunden wird.
 Dabei sind die Transkriptionsregeln in einer oder mehreren Konfigurationsdateien hinterlegt, die von der Komponente eingelesen werden.
 Darüber wird auch eine einfache Erweiterbarkeit der Transkriptionsregeln gewährleistet.
 Es ist möglich, mehrere Sätze von Transkriptionsregeln zu hinterlegen, um so auch andere Standards für die Transkription verwenden zu können.
 
 .Komponente Transkription
 [id="sonderzeichen_transkription.png",reftext="{figure-caption} {counter:figures}"]
-image::sonderzeichen_transkription.png[pdfwidth=50%,width=50%,align="center"]
+image::isy-sonderzeichen:konzept/sonderzeichen_transkription.png[pdfwidth=50%,width=50%,align="center"]
 
 Die Komponente Transkription bietet nach außen nur die Methode
 

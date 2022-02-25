@@ -1,4 +1,5 @@
-* xref:konzept/master.adoc[Logging - Konzept]
-* xref:nutzungsvorgaben/master.adoc[Logging - Nutzungsvorgaben]
+* Logging
+** xref:konzept/master.adoc[Logging - Konzept]
+** xref:nutzungsvorgaben/master.adoc[Logging - Nutzungsvorgaben]
 
 

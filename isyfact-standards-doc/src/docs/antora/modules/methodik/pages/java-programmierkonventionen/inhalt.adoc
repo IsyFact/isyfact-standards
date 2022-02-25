@@ -11,9 +11,9 @@ Hält sie sich noch an allgemein etablierte und bekannte Standards, verkürzt si
 Um das zu erreichen, müssen Konventionen für die Programmierung festgelegt werden.
 
 Die in diesem Dokument beschriebenen Richtlinien sind für die Erstellung von Programmen mit der IsyFact verbindlich.
-Die Strukturen zur Ablage des Quellcodes richten sich nach der Empfehlung von <<TODOApacheMavenStandardDirectoryLayout>> und wurden für die IsyFact erweitert.
-Die Programmierkonventionen basieren auf xref:glossary:literaturextern:inhalt.adoc#litextern-Vermeulen2000[Vermeulen2000] und präzisieren sie an einigen Stellen.
-Die in xref:glossary:literaturextern:inhalt.adoc#litextern-Vermeulen2000[Vermeulen2000] beschriebenen Konventionen beruhen auf den Sun Coding Conventions <<TODOSun1997>> und den Coding Standards der Firma Ambysoft xref:glossary:literaturextern:inhalt.adoc#litextern-Ambler1999[Ambler1999].
+Die Strukturen zur Ablage des Quellcodes richten sich nach der Empfehlung von xref:glossary:literaturextern:inhalt.adoc#litextern-Maven-Standard-Directory-Layout[Apache Maven Standard Directory Layout] und wurden für die IsyFact erweitert.
+Die Programmierkonventionen basieren auf Synopse und präzisieren sie an einigen Stellen.
+Die in xref:glossary:literaturextern:inhalt.adoc#litextern-Vermeulen2000[Vermeulen2000] beschriebenen Konventionen beruhen auf den Sun Coding Conventions xref:glossary:literaturextern:inhalt.adoc#litextern-Sun1997-Code-Conventions[Sun 1997] und den Coding Standards der Firma Ambysoft xref:glossary:literaturextern:inhalt.adoc#litextern-Ambler1999[Ambler1999].
 
 [[vorgaben-fuer-die-quellcodeablage]]
 == Vorgaben für die Quellcodeablage
@@ -128,7 +128,7 @@ Ebenso verhält es sich mit Ressourcen und Skripten.
 Diese sind Teil der Implementierung, die in der Regel Teil eines Anwendungsprojekts ist.
 
 Schnittstellenprojekte besitzen unter dem Wurzelverzeichnis (`project-root`) die Verzeichnisse `src/main/java` und `src/docs/asciidoc/`.
-Der Aufbau des Verzeichnisses wird im <<TODODetailkonzeptKomponenteService>> beschrieben.
+Der Aufbau des Verzeichnisses wird im xref:blaupausen:detailkonzept-komponente-service/master.adoc[Detailkonzept Komponente Service] beschrieben.
 
 .Struktur eines Schnittstellenprojekts
 [id="listing-Projektstruktur-Schnittstellen",reftext="{listing-caption} {counter:listings }"]
@@ -157,7 +157,7 @@ Die Implementierung der Batches geschieht in der Anwendung, welche die Batches b
 Daher enthalten Batch-Projekte weder Quellcode, noch Tests.
 
 Batch-Projekte besitzen unter dem Wurzelverzeichnis (`project-root`) ein einzelnes Unterverzeichnis `src/main/resources/`.
-Der Aufbau des Verzeichnisses wird im <<TODODetailkonzeptKomponenteBatch>> beschrieben.
+Der Aufbau des Verzeichnisses wird im xref:blaupausen:detailkonzept-komponente-batch/master.adoc[Detailkonzept Komponente Batch] beschrieben.
 
 .Struktur eines Batch-Projekts
 [id="listing-Projektstruktur-Batch",reftext="{listing-caption} {counter:listings }"]
@@ -215,7 +215,7 @@ Beispiele dafür sind Dokumente übergreifender Natur aus architektonischer, tec
 Dokumentationsprojekte besitzen unter dem Wurzelverzeichnis (`project-root`) ein einzelnes Unterverzeichnis `src/docs/asciidoc/`.
 In diesem finden sich weitere Verzeichnisse, z. B. für Inhalte allgemeiner Natur, sowie für die Dokumente.
 Es empfiehlt sich, für jedes Dokument ein eigenes Verzeichnis zur Ablage spezifischer Inhalte (neben Texten z. B. auch Bilder und Diagramme) anzulegen.
-Vorgaben für die Struktur einzelner Dokumente finden sich im <<TODOHandbuchFuerTechnischeAutoren>>.
+Vorgaben für die Struktur einzelner Dokumente finden sich im xref:werkzeuge:handbuch_dokumentation/master.adoc[Handbuch für technische Autoren].
 
 .Struktur eines Dokumentationsprojekts
 [id="listing-Projektstruktur-Dokumentation",reftext="{listing-caption} {counter:listings }"]
@@ -852,7 +852,7 @@ Kommentare werden nicht dazu verwendet, alte Versionen des Codes zu deaktivieren
 Wenn man alte Versionen wiederherstellen möchte, so ist dazu auf das Konfigurationsmanagement zurückzugreifen.
 Für die Analyse von Codeänderungen sind die bekannten DIFF-Werkzeuge einzusetzen.
 
-NOTE: Werkzeug, mit dem sich Unterschiede zwischen zwei Textdateien http://de.wikipedia.org/wiki/Synopse[synoptisch] darstellen lassen (diff unter http://de.wikipedia.org/wiki/Unix[Unix]; .UltraEdit)
+NOTE: Werkzeug, mit dem sich Unterschiede zwischen zwei Textdateien xref:glossary:literaturextern:inhalt.adoc#litextern-Synopse[synoptisch] darstellen lassen (diff unter xref:glossary:literaturextern:inhalt.adoc#litextern-Unix[Unix]; .UltraEdit)
 
 Änderungen werden mittels eines Version Control System (z. B. Subversion) nachverfolgt.
 Dazu ist es zwingend erforderlich, die durchgeführten Änderungen bzw. die Ursache dafür beim Check-in ausreichend zu dokumentieren.

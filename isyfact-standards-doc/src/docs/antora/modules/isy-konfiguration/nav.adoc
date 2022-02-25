@@ -1,4 +1,5 @@
-* xref:konzept/master.adoc[Konfiguration - Konzept]
-* xref:nutzungsvorgaben/master.adoc[Konfiguration - Nutzungsvorgaben]
+* Konfiguration
+** xref:konzept/master.adoc[Konfiguration - Konzept]
+** xref:nutzungsvorgaben/master.adoc[Konfiguration - Nutzungsvorgaben]
 
 

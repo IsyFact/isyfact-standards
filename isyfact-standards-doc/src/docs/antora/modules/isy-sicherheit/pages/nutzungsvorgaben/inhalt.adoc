@@ -24,7 +24,7 @@ Instanzen dieser Schnittstelle zur Autorisierung einer Anfrage werden über die 
 
 .Schnittstellen des Bausteins Sicherheit
 [id="image-schnittstellen-baustein",reftext="{figure-caption} {counter:figures}"]
-image::sicherheit-schnittstellen.png[align="center"]
+image::isy-sicherheit:nutzungsvorgaben/sicherheit-schnittstellen.png[align="center"]
 
 Ein `Berechtigungsmanager` gibt Instanzen der Schnittstellen `Recht` und `Rolle` zurück.
 Anwender bekommen Rollen bereits an anderer Stelle zugewiesen.
@@ -189,7 +189,7 @@ Werden im Lebenszyklus der Geschäftsanwendung weitere Rollen (z.B. für neu hin
 [[autorisierung]]
 == Umsetzung der Autorisierung
 
-Die <<TODO anderes Dokument: IsyFactReferenzarchitekturITSystem>> beschreibt drei Möglichkeiten des Zugriffs auf ein IT-System: Grafische Oberflächen (GUIs), Services und Batches.
+Im Dokument xref:blaupausen:referenzarchitektur-it-system/master.adoc#einleitung[IsyFact Referenzarchitektur IT-Systeme] werden drei Möglichkeiten des Zugriffs auf ein IT-System: Grafische Oberflächen (GUIs), Services und Batches beschrieben.
 Für alle diese Möglichkeiten gilt, dass der Aufrufkontext so früh wie möglich aus der eingehenden Anfrage auszulesen und im Verwalter (d.h. dem Spring Bean `AufrufKontextVerwalter`) zu speichern ist.
 Nur so kann sichergestellt werden, dass alle Prüfungen auf Rechte korrekt funktionieren.
 Dazu bietet der Baustein Sicherheit einige Hilfsmittel an.
@@ -202,7 +202,7 @@ Fachliche Schnittstellen werden von Parametern befreit und Prüfungen auf vorhan
 
 Beim Aufruf grafischer Oberflächen wird der Aufrufkontext über einen `AbstractAuthenticationProcessingFilter` aus Spring Security ausgelesen.
 Die Autorisierung geschieht auf Ebene der Flows aus Spring Webflow.
-Weitere Details zur Umsetzung der Autorisierung in der GUI sind in <<TODO anderes Dokument: DetailkonzeptKomponenteWebGUI>> beschrieben.
+Weitere Details zur Umsetzung der Autorisierung in der GUI sind im Dokument xref:blaupausen:detailkonzept-komponente-web-gui/master.adoc#_detailkonzept[Detailkonzept Komponente WebGUI]) beschrieben.
 
 [[gui-spring-konfiguration]]
 ==== Spring-Konfiguration
@@ -301,7 +301,7 @@ Weitere Details zur Umsetzung der Autorisierung an Service-Schnittstellen sind i
 
 Beim Aufruf von Batches stellt der Batchrahmen das Auslesen des Aufrufkontextes und die Autorisierung des Batches sicher.
 Zur Autorisierung ist im Batchrahmen bereits die Möglichkeit enthalten, einen Anwender zu konfigurieren.
-Weitere Details zur Umsetzung der Autorisierung bei Batches sind in <<TODO anderes Dokument: DetailkonzeptKomponenteBatch>> beschrieben.
+Weitere Details zur Umsetzung der Autorisierung bei Batches sind im Dokument xref:blaupausen:detailkonzept-komponente-batch/master.adoc#_einführung[Detailkonzept Komponente Batch] beschrieben.
 
 [[batch-konfiguration]]
 ==== Konfiguration
@@ -469,7 +469,7 @@ nachbarService.aufruf(transportobjekt, weitere, parameter);
 
 Der Aufrufkontext enthält neben Informationen zur Authentifizierung und Rollen auch die Korrelations-ID, die alle Log-Ausgaben einer Anfrage durch eine gemeinsame ID kennzeichnet – auch wenn die Anfrage mehrere IT-Systeme durchläuft.
 Dies erfordert eine korrekte Entgegennahme, Verwendung und Weiterleitung der Korrelations-ID über alle Service-Aufrufe hinweg.
-Details zum Aufbau der Korrelations-ID sind in <<TODO anderes Dokument: NutzungsvorgabenLogging>> beschrieben.
+Details zum Aufbau der Korrelations-ID sind im Dokument xref:isy-logging:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Logging] beschrieben.
 
 Eine Korrelations-ID wird entweder bereits im eingehenden Aufruf mitgeliefert, oder muss neu erzeugt werden.
 Sie wird stets im MDC (_Mapped Diagnostic Context_) der IT-Systeme abgelegt.
@@ -527,7 +527,7 @@ Dazu gibt es folgende Methode:
 
 `boolean pingAccessManager()`:: Prüft die Erreichbarkeit des `AccessManager` mittels einer trivialen Anfrage.
 
-Diese Methode kann in den Watchdog des IT-Systems (siehe <<TODO anderes Dokument: KonzeptUeberwachung>>) eingebunden werden.
+Diese Methode kann in den Watchdog des IT-Systems (siehe xref:isy-ueberwachung:konzept/master.adoc#einleitung[Konzept Überwachung]) eingebunden werden.
 
 
 [[entwickeln-und-testen]]

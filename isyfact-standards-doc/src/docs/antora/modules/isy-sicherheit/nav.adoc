@@ -1,2 +1,3 @@
-* xref:konzept/master.adoc[Sicherheit - Konzept]
-* xref:nutzungsvorgaben/master.adoc[Sicherheit - Nutzungsvorgaben]
+* Sicherheit
+** xref:konzept/master.adoc[Sicherheit - Konzept]
+** xref:nutzungsvorgaben/master.adoc[Sicherheit - Nutzungsvorgaben]

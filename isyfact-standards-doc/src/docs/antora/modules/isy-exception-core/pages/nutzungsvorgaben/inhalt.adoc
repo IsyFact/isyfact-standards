@@ -23,7 +23,7 @@ Dadurch ergibt sich folgende Exception-Hierarchie:
 
 .Abstrakte Exception Hierarchie
 [id="image-004",reftext="{figure-caption} {counter:figures}"]
-image::fehlerbehandlung004.png[align="center",width=60%,pdfwidth=60%]
+image::isy-exception-core:nutzungsvorgaben/fehlerbehandlung004.png[align="center",width=60%,pdfwidth=60%]
 
 Grundsätzlich lassen sich also folgende Regeln für die Verwendung festhalten:
 
@@ -40,7 +40,7 @@ Sie ist eine Referenz auf den aufgetretenen Fehler.
 
 .Attribute von Fehlern
 [id="image-005",reftext="{figure-caption} {counter:figures}"]
-image::fehlerbehandlung005.png[align="center",width=20%,pdfwidth=20%]
+image::isy-exception-core:nutzungsvorgaben/fehlerbehandlung005.png[align="center",width=20%,pdfwidth=20%]
 
 [[erstellen-von-exceptions]]
 === Erstellen von Exceptions
@@ -52,7 +52,7 @@ Aus den Vorgaben zum Design der Fehlerklassen in Abschnitt xref::nutzungsvorgabe
 
 .Exception-Hierarchie innerhalb einer Anwendung
 [id="image-006",reftext="{figure-caption} {counter:figures}"]
-image::fehlerbehandlung006.png[align="center",width=100%,pdfwidth=100%]
+image::isy-exception-core:nutzungsvorgaben/fehlerbehandlung006.png[align="center",width=100%,pdfwidth=100%]
 
 <<image-006>> zeigt die verschiedenen Hierarchiestufen von Fehlern.
 Auf oberster Ebene befinden sich die abstrakten Implementierungen für checked (`BaseException`) und unchecked (`TechnicalRuntimeException`) Exceptions.
@@ -105,7 +105,7 @@ Beispiel für eine fachliche Exception Hierarchie:
 
 .Beispiel fachliche Exception Hierarchie
 [id="image-007",reftext="{figure-caption} {counter:figures}"]
-image::fehlerbehandlung007.png[align="center",width=50%,pdfwidth=70%]
+image::isy-exception-core:nutzungsvorgaben/fehlerbehandlung007.png[align="center",width=50%,pdfwidth=70%]
 
 Das Beispiel in <<image-007>> zeigt eine fachliche Exception der Vorlageanwendung.
 Die fachliche Exception `TerminfindungNichtGefundenException` besitzt in diesem Beispiel nicht alle möglichen Konstruktoren.
@@ -127,7 +127,7 @@ Beispiel für eine technische Runtime-Exception Hierarchie:
 
 .Beispiel technische Runtime-Exception Hierarchie
 [id="image-008",reftext="{figure-caption} {counter:figures}"]
-image::fehlerbehandlung008.png[align="center",width=45%,pdfwidth=65%]
+image::isy-exception-core:nutzungsvorgaben/fehlerbehandlung008.png[align="center",width=45%,pdfwidth=65%]
 
 Die <<image-008>> zeigt die technische Runtime-Exception `KonfigurationException`.
 Diese Exception könnte dafür verwendet werden, um bei einem Konfigurationsfehler z.B. "Konfigurationsparameter nicht gesetzt" geworfen zu werden.
@@ -232,7 +232,7 @@ Die weitere Kommunikation bis zur Erstellung des eigentlichen Fehlertextes ist i
 
 .Abstrakter Ablauf der Erstellung einer Exception
 [id="image-009",reftext="{figure-caption} {counter:figures}"]
-image::fehlerbehandlung009.png[align="center"]
+image::isy-exception-core:nutzungsvorgaben/fehlerbehandlung009.png[align="center"]
 
 Die `TerminfindungException` hält eine Referenz zu einem FehlertextProvider (siehe xref::nutzungsvorgaben/inhalt.adoc#fehlertextprovider[Fehlertextprovider]), welcher die Möglichkeit bietet Fehlertexte auszulesen.
 Diese Referenz und die übergebene `Ausnahme-ID` werden an den Konstruktor der `BaseException` übergeben, welcher nun den Fehlertext lädt.
@@ -281,7 +281,7 @@ Daraus ergibt sich für Transport-Exceptions folgende Hierarchie:
 
 .Exception Hierarchie für Transport-Exceptions
 [id="image-010",reftext="{figure-caption} {counter:figures}"]
-image::fehlerbehandlung010.png[align="center"]
+image::isy-exception-core:nutzungsvorgaben/fehlerbehandlung010.png[align="center"]
 
 Weiterhin werden für die genannten Technologien, welche für die
 Anwendungsschnittstellen verwendet werden, folgende Vorgaben gemacht:
@@ -299,7 +299,7 @@ Anwendungsschnittstellen verwendet werden, folgende Vorgaben gemacht:
 ** Übermittlung von Fehler-Kategorie (technisch/Art des fachlichen Fehlers)
 ** Übermittlung von Fehlernachricht (kein Stack-Trace!)
 
-Die Vorgaben für HTTP Invoker sind im <<TODONutzungsvorgabenHttpInvoker>> beschrieben.
+Die Vorgaben für HTTP Invoker sind im xref:isy-serviceapi-core:nutzungsvorgaben/master.adoc[Nutzungsvorgaben HttpInvoker] beschrieben.
 
 Unabhängig von der eingesetzten Technologie gelten für die Antworten an das aufrufende Nachbarsystem folgende Anforderungen:
 
@@ -362,7 +362,7 @@ Beschreibungen dazu finden sich in den jeweiligen Detailkonzepten oder den Baust
 === Fehlertexte und deren Einsatz
 
 Fehlertexte müssen in `ResourceBundles` abgelegt werden.
-Die Ablage der Fehlertexte wird durch das <<TODOKonzeptUeberwachungKonfiguration>> vorgegeben, das Laden der Dateien wird in Spring durch Holder-Klassen realisiert und ist im <<TODODetailkonzeptKomponenteAnwendungskern>> erläutert.
+Die Ablage der Fehlertexte wird durch das xref:isy-ueberwachung:konzept/master.adoc[Konzept Überwachung] vorgegeben, das Laden der Dateien wird in Spring durch Holder-Klassen realisiert und ist im xref:blaupausen:detailkonzept-komponente-anwendungskern/master.adoc[Detailkonzept Komponente Anwendungskern] erläutert.
 
 Als Schlüssel werden die Ausnahme-IDs verwendet.
 Diese setzen sich aus fünf Buchstaben und fünf numerischen Zeichen zusammen:
@@ -436,7 +436,7 @@ Zu implementieren sind die zwei `getMessage()`-Methoden des Interfaces `Fehlerte
 
 .Fehlertextprovider
 [id="image-014",reftext="{figure-caption} {counter:figures}"]
-image::fehlerbehandlung014.png[align="center",width=40%,pdfwidth=40%]
+image::isy-exception-core:nutzungsvorgaben/fehlerbehandlung014.png[align="center",width=40%,pdfwidth=40%]
 
 Die Implementierung muss Spring-Mechanismen verwenden, um die Fehlertexte aus einem `ResourceBundle` auszulesen.
 Dies führt zu einer Vereinheitlichung der Fehlerbehandlung, da sich das Laden von Fehlertexten in den einzelnen Anwendungen nicht unterscheidet.
@@ -457,7 +457,7 @@ Im Folgenden werden Vorgaben gemacht, wie Fehler behandelt werden müssen und wi
 Exceptions sind in der Regel zu behandeln und zu loggen.
 Ist es nicht möglich die Exception zu behandeln, muss sie an den Aufrufer weitergegeben werden.
 Die Exception wird im Fall eines Weiterwerfens nicht geloggt.
-Details zum Logging befinden sich im <<TODOKonzeptLogging>>.
+Details zum Logging befinden sich im xref:isy-logging:konzept/master.adoc[Konzept Logging].
 
 *Nur vorkommende Exceptions verwenden* +
 Nur Exceptions in Methodensignaturen verwenden, die auch vorkommen können.
@@ -703,3 +703,11 @@ In Einzelfällen mag dies notwendig sein, muss dann aber mit dem Chefarchitekt a
 
 
 // end::inhalt[]
+
+// tag::architekturregel[]
+
+// end::architekturregel[]
+
+// tag::sicherheit[]
+
+// end::sicherheit[]

@@ -90,7 +90,7 @@ Die Konfigurationswerte werden dabei in Java Standard-Typen (`String`, `int`, `b
 Für Zeitdauern, Zeitperioden und Dateigrößen wird eine erweiterte Syntax für die Konfigurationswerte verwendet.
 Die Werte dieser Konfigurationstypen werden automatisch in die komplexen Datentypen `Duration`, `Period` und `DataSize` umgewandelt.
 
-NOTE: Details hierzu können in der https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.external-config.typesafe-configuration-properties.conversion[Spring Boot Dokumentation zu „Properties Conversion"] nachgelesen werden.
+NOTE: Details hierzu können in der xref:glossary:literaturextern:inhalt.adoc#litextern-Spring-Boot-Properties-Conversion[Spring Boot Dokumentation zu „Properties Conversion"] nachgelesen werden.
 
 Zur Überprüfung der Konfigurationswerte sollte Bean Validation eingesetzt werden.
 Damit können Werte auf Vorhandensein und korrektes Format geprüft werden.
@@ -186,7 +186,7 @@ Fehlende Einstellungen werden so beim Programmstart erkannt.
 Konfigurationen, welche durch die Anwendung geschrieben werden, sind in der Datenbank abzulegen.
 Die Tabellen hierfür sind Teil des Datenmodells der Anwendung.
 Der Zugriff erfolgt genau wie der auf die übrigen Entitätstypen.
-Für weitere Details siehe <<TODO anderes Dokument: DetailkonzeptKomponenteDatenzugriff>>.
+Für weitere Details siehe xref:blaupausen:detailkonzept-komponente-datenzugriff/master.adoc#_detailkonzept_datenzugriff_einleitung[Detailkonzept Komponente Datenzugriff].
 
 [[verwendung-von-isy-konfiguration]]
 === Verwendung von isy-konfiguration
@@ -262,7 +262,7 @@ sorgt beim Aufruf dafür, dass alle Konfigurationsdateien auf Änderungen geprü
 
 Die zuvor genannte Methode muss regelmäßig aufgerufen werden.
 Dazu stellt die Bibliothek `isy-task` einen Task bereit.
-Die Konfiguration dieses Tasks ist in <<TODO anderes Dokument: NutzungsvorgabenTaskScheduling>> beschrieben.
+Die Konfiguration dieses Tasks ist im Dokument xref:isy-task:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Task-Schedulung] beschrieben.
 
 [[reagieren-auf-konfigurationsaenderungen]]
 ===== Reagieren auf Konfigurationsänderungen

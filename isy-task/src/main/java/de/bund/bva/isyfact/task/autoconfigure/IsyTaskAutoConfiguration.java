@@ -31,7 +31,7 @@ public class IsyTaskAutoConfiguration {
     }
 
     @Bean
-    public TaskScheduler taskScheduler(IsyTaskConfigurationProperties configurationProperties,
+    public TaskScheduler isyTaskScheduler(IsyTaskConfigurationProperties configurationProperties,
         TaskKonfigurationVerwalter taskKonfigurationVerwalter, HostHandler hostHandler) {
         return new TaskSchedulerImpl(configurationProperties, taskKonfigurationVerwalter, hostHandler);
     }
