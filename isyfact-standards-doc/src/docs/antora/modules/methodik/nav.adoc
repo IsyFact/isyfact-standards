@@ -3,7 +3,7 @@
 ** xref:versionierung/master.adoc[Versionierung]
 ** xref:java-programmierkonventionen/master.adoc[Java-Programmierkonventionen]
 ** xref:enterprise-architect/master.adoc[Enterprise Architect]
-** xref:vorlagen/inhalt.adoc[Vorlagen]
+** xref:vorlagen.adoc[Vorlagen]
 *** xref:vorlage-systementwurf/antora-master.adoc[Vorlage Systementwurf]
 *** xref:methodik:attachment$vorlage-generated/IsyFact-Vorlage-Systementwurf.zip[Download Systementwurf]
 *** xref:vorlage-systemhandbuch/antora-master.adoc[Vorlage Systemhandbuch]
