@@ -868,10 +868,13 @@ In allen anderen Umgebungen wird das Skript von Hand aufgerufen. Ein Eintrag in 
 |Log-Datei |Inhalt / Bemerkung
 
 |/var/log/isy-xxx-ga/HOSTNAME_isy-xxx-ga.log |Logdatei ISY-XXX-GA
+|/var/log/isy-xxx-ga/HOSTNAME_isy-xxx-ga_ZEITSTEMPEL.log |Rotierte Logdatei ISY-XXX-GA
 |/var/log/isy-xxx-sgw/HOSTNAME_isy-xxx-sgw.log |Logdatei ISY-XXX-SGW
+|/var/log/isy-xxx-sgw/HOSTNAME_isy-xxx-sgw_ZEITSTEMPEL.log |Rotierte Logdatei ISY-XXX-SGW
 |===
 
 Der Platzhalter `HOSTNAME` im Dateinamen steht für den Namen des Servers, auf dem das IT-System ausgeführt wird.
+Die `ZEITSTEMPEL` werden durch die Log-Rotation erzeugt und markieren ältere Log-Dateien.
 
 .Konfigurationsdateien
 [id="table-konfigurationsdateien", reftext = "{table-caption} {counter:tables}"]
