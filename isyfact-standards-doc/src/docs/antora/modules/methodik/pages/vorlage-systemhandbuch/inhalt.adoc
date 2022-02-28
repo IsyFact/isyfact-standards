@@ -1,14 +1,12 @@
 ﻿// tag::inhalt[]
 
 // Hinweis für den AsciiDoc-Autor dieses Dokuments
-// Die automatische Generierung des Kapitels "Literaturverweise", basiert darauf, dass diese
+// Die automatische Generierung des Kapitels "Literaturverweise" basiert darauf, dass diese
 // Datei nach Literaturverweislinks durchsucht wird.
-// Datei werden die in inhalt.adoc explizit aufgeführten Links benutzt, aber auch die Links, die
+// Dabei werden die in inhalt.adoc explizit aufgeführten Links benutzt, aber auch die Links, die
 // innerhalb eines Kommentars in dieser inhalt.adoc Datei stehen.
 // Dies kann sehr nützlich sein, da man sich dann keinen Prosatext (künstlich) ausdenken muss, nur
 // um auf diese Art und Weise einen Link zu erzeugen.
-//
-// Durch die folgenden beiden Zeilen entstehen die
 
 ====
 [.underline]#Allgemeine Hinweise zur Dokumentvorlage#

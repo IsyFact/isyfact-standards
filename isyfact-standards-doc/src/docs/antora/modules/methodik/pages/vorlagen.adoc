@@ -1,4 +1,4 @@
-= Vorlagen Übersicht
+= Vorlagen
 :icons: font
 :sectnums:
 
@@ -7,29 +7,31 @@ include::glossary:licence:partial$licence.adoc[]
 [[einleitung]]
 == Einleitung
 
-An dieser Stelle werden Vorlagen für den xref:vorlage-systementwurf/antora-master.adoc[Systementwurf] und das xref:vorlage-systemhandbuch/antora-master.adoc[Systemhandbuch] angeboten.
-Die Vorlagen können sowohl direkt aufgerufen als auch im ZIP-Format heruntergeladen werden.
+An dieser Stelle werden Vorlagen für den Systementwurf und das Systemhandbuch angeboten.
+Die Vorlagen können sowohl direkt aufgerufen als auch im ZIP- oder PDF-Format heruntergeladen werden.
 
-Die Seite beschreibt im Folgenden, wie aus den Vorlagen PDF-Dokumente erstellt werden und wie Änderungen an den Vorlagen selbst vorzunehmen sind.
+.Vorlagen
+[id="table-Vorlagen",reftext="Vorlagen"]
+[cols="1,1"]
+|====
+|xref:vorlage-systementwurf/antora-master.adoc[Systementwurf ansehen icon:file-text-o[]]
+|xref:vorlage-systemhandbuch/antora-master.adoc[Systemhandbuch ansehen icon:file-text-o[]]
+|xref:methodik:attachment$vorlage-generated/IsyFact-Vorlage-Systementwurf.zip[Download Systementwurf icon:file-archive-o[]]
+|xref:methodik:attachment$vorlage-generated/IsyFact-Vorlage-Systemhandbuch.zip[Download Systemhandbuch icon:file-archive-o[]]
+|xref:methodik:attachment$vorlage-generated/IsyFact-Vorlage-Systementwurf.pdf[Download Systementwurf icon:file-pdf-o[]]
+|xref:methodik:attachment$vorlage-generated/IsyFact-Vorlage-Systemhandbuch.pdf[Download Systemhandbuch icon:file-pdf-o[]]
+|====
 
-[[erstellung-pdf]]
-== Erstellung von PDF-Dokumenten
+[[bearbeitung-vorlagen-projektspezifisch]]
+== Projektspezifische Bearbeitung der Vorlagen
 
 Die Vorlagen enthalten Asciidoc-Dateien, die projektspezifisch ergänzt werden müssen.
 Nach Bedarf kann aus den Asciidoc-Dateien für jede Vorlage ein PDF erstellt werden.
-Das Modul `isy-documentation` bietet diese Erstellung an.
-Die Vorgehensweise wird anhand der Vorlage für den Systementwurf beschrieben.
-Analoges gilt für das Systemhandbuch.
+Die PDF-Generierung mittels AsciidoctorJ-Extensions wird in xref:werkzeuge:handbuch_dokumentation/inhalt.adoc#asccidoc-zu-pdf-html[Dokumentation der IsyFact] erklärt.
 
-Zunächst wird die heruntergeladene Datei entpackt.
-Der gesamte Inhalt des Archivs wird in `isy-documentation` in den Ordner `src/docs/vorlagen/isyfact-vorlage-systementwurf` kopiert.
-Danach wird `mvn generate-resources` ausgeführt.
-Der generierte Systementwurf im PDF-Format befindet sich nun unter `target/doc/pdf/vorlagen/isyfact-vorlage-systementwurf`.
+[[bearbeitung-vorlagen-selbst]]
+== Bearbeitung der Vorlagen selbst
 
-
-[[erzeugung-zip]]
-== Bearbeitung der Vorlagen
-
-Wenn die Vorlagen in `isyfact-standards` geändert wird, müssen auch die Downloads im ZIP-Format erneut generiert werden.
+Wenn die Vorlagen in `isyfact-standards` geändert werden, müssen auch die Downloads im ZIP- und PDF-Format erneut generiert werden.
 Dazu wird im Maven Submodul `isyfact-standards-doc` der Maven-Befehl `mvn package` ausgeführt.
-Die ZIP-Archive der Vorlagen befinden sich nun in `isyfact-standards-doc` im Ordner `src/docs/antora/modules/methodik/attachments/vorlage-generated`.
+Die ZIP-Archive und PDF-Dokumente der Vorlagen befinden sich nun in `isyfact-standards-doc` im Ordner `src/docs/antora/modules/methodik/attachments/vorlage-generated`.

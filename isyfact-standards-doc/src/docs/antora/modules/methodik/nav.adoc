@@ -4,7 +4,3 @@
 ** xref:java-programmierkonventionen/master.adoc[Java-Programmierkonventionen]
 ** xref:enterprise-architect/master.adoc[Enterprise Architect]
 ** xref:vorlagen.adoc[Vorlagen]
-*** xref:vorlage-systementwurf/antora-master.adoc[Vorlage Systementwurf]
-*** xref:methodik:attachment$vorlage-generated/IsyFact-Vorlage-Systementwurf.zip[Download Systementwurf]
-*** xref:vorlage-systemhandbuch/antora-master.adoc[Vorlage Systemhandbuch]
-*** xref:methodik:attachment$vorlage-generated/IsyFact-Vorlage-Systemhandbuch.zip[Download Systemhandbuch]
