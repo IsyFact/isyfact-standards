@@ -894,69 +894,16 @@ m|/etc/isy-xxx-sgw/logback.xml |Logging-Konfiguration
 |===
 
 
-[[dokumentation-datenbankschemas]]
-=== Dokumentation des Datenbankschemas
-====
-_Sofern eine Anwendung eine eigene Datenhaltung besitzt, wird die tatsächliche Datenhaltung in Form von Tabellen dokumentiert.
-Jede Datenbanktabelle ist als eigenes Unterkapitel in Form einer kurzen Beschreibung und einer Tabelle mit den wichtigsten Informationen zu der Datenbanktabelle beschrieben._
+[[datenbankschema]]
+=== Datenbankschema
 
-*_Darstellung_*
+NOTE: *Falls die Anwendung kein Datenbankschema enthält, kann dieser Abschnitt entfallen.*
 
-• _Für jede Datenbanktabelle wird kurz beschrieben was darin enthalten ist._
+Das Datenbankschema ist vollständig im <<SystementwurfIsyXxx>> enthalten.
 
-• _Jede Datenbanktabelle wird in einer eigenen Tabelle, bestehend aus den Spalten Feld, Datentyp, Beschreibung, PK (Primary Key), FK (Foreign Key) und Indizes, beschrieben._
+NOTE: *Falls die Anwendung ein Datenbankschema enthält, kann dieser Abschnitt entfallen.*
 
-• _Enthält eine Spalte in der Datenbank Aufzählungstypen, so sind alle Ausprägungen des Aufzählungstyps in der Beschreibung der Spalte anzugeben._
-
-• _Beschreibungen von trivialen Attributen können entfallen (z.B. Vorname, Straße, …)._
-
-• _Besondere Formate, z.B. wenn Datumsangaben in Varchar-Feldern gespeichert werden, sollen dokumentiert werden(Beispiel Geburtsdatum)._
-
-• _Für Fremdschlüssel (FK) soll die Zieltabelle in der Beschreibung genannt werden (Beispiel GRUPPE_ID)_
-
-• _Datenbanktabellen, die für die Verwendung von Bibliotheken (Batchrahmen, Protokollierung, Oracle AQ) notwendig sind, werden aufgelistet.
-Eine detaillierte Beschreibung der einzelnen Attribute kann entfallen. Es genügen eine Kurzbeschreibung und ein Verweis auf die zugehörige Dokumentation._
-====
-
-[[tabelle-person]]
-==== Tabelle PERSON
-
-Tabelle für die Verwaltung von Mitarbeitern. Jeder Mitarbeiter wird eindeutig über seinen Login identifiziert.
-
-.Datenbankfelder Tabelle Mitarbeiter
-[id="table-mitarbeiterverwaltung", reftext = "{table-caption} {counter:tables}"]
-[cols="3,3,5,1,1", options="header"]
-|===
-|Feld |Datentyp |Beschreibung |PK |FK
-|ID |Number(10, 0) |Technische ID der Person ^.^a|image::methodik:vorlage-systemhandbuch/checkmark.png[align = center, width=40%]|
-|VORNAME |Varchar2 (250 Char) | | |
-|NACHNAME |Varchar2 (250 Char) | | |
-|GEBURTSDATUM |Varchar2 (10 Char) |Geburtsdatum im Format JJJJ-MM-TT | |
-|GESCHLECHT |Number (1,0) |1: Männlich, 2: Weiblich, 3: Unbekannt | |
-|VERSION |Number (10,0) |Für optimistisches Sperren der Zugriffe | |
-|GRUPPE_ID |Number (10, 0) |Verweis auf die Gruppe, zu der die Person gehört (siehe Tabelle GRUPPE) | ^.^a|image::methodik:vorlage-systemhandbuch/checkmark.png[align = center, width=40%]
-|===
-
-
-[[tablle-xyz]]
-==== Tablle XYZ
-
-…
-
-[[indizes]]
-==== Indizes
-
-.Datenbankfelder Indizes
-[id="table-indizes", reftext = "{table-caption} {counter:tables}"]
-[cols="4,4,5,1", options="header"]
-|===
-|Name |Tabelle |Felder |Unique
-|IDX_NAME |BENUTZER |VORNAME, +
-NACHNACHME |
-|… | | ^.^a|image::methodik:vorlage-systemhandbuch/checkmark.png[align = center, width=40%]
-||
-|===
-
+Die Anwendung ISY-XXX enthält kein Datenbankschema.
 
 
 [[start-stopp-statuspruefung-server-prozesse]]
