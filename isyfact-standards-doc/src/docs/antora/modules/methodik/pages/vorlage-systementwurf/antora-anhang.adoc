@@ -1,0 +1,15 @@
+// tag::inhalt[]
+== Literaturverweise
+
+[[IsyFactReferenzarchitektur]]
+xref:blaupausen:referenzarchitektur/master.adoc[IsyFact Referenzarchitektur]
+
+[[KonzeptLogging]]
+xref:isy-logging:konzept/master.adoc[Konzept Logging]
+
+[[NutzungsvorgabenLogging]]
+xref:isy-logging:nutzungsvorgaben/master.adoc[Nutzungsvorgaben Logging]
+
+[[IsyFactEinstieg]]
+xref:einstieg:einstieg/master.adoc[IsyFact Einstieg]
+// end::inhalt[]
