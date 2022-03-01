@@ -1,13 +1,8 @@
 * Methodik
-** Systemspezifikation
-** Systementwurf
-*** xref:vorlage-systementwurf/master.adoc[Vorlage Systementwurf]
-** Implementierung
-*** xref:namenskonventionen/master.adoc[Namenskonventionen]
-*** xref:versionierung/master.adoc[Versionierung]
-*** xref:java-programmierkonventionen/master.adoc[Java-Programmierkonventionen]
-*** xref:vorlage-systemhandbuch/master.adoc[Vorlage Systemhandbuch]
-** Produktauswahl
+** xref:namenskonventionen/master.adoc[Namenskonventionen]
+** xref:versionierung/master.adoc[Versionierung]
+** xref:java-programmierkonventionen/master.adoc[Java-Programmierkonventionen]
 ** xref:diagrammerstellung.adoc[Diagrammerstellung und Modellierung]
 *** xref:diagrammerstellung/diagramsnet.adoc[diagrams.net]
 *** xref:diagrammerstellung/enterprise-architect.adoc[Enterprise Architect]
+** xref:vorlagen.adoc[Vorlagen]
