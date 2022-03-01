@@ -1,14 +1,12 @@
 ﻿// tag::inhalt[]
 
 // Hinweis für den AsciiDoc-Autor dieses Dokuments
-// Die automatische Generierung des Kapitels "Literaturverweise", basiert darauf, dass diese
+// Die automatische Generierung des Kapitels "Literaturverweise" basiert darauf, dass diese
 // Datei nach Literaturverweislinks durchsucht wird.
-// Datei werden die in inhalt.adoc explizit aufgeführten Links benutzt, aber auch die Links, die
+// Dabei werden die in inhalt.adoc explizit aufgeführten Links benutzt, aber auch die Links, die
 // innerhalb eines Kommentars in dieser inhalt.adoc Datei stehen.
 // Dies kann sehr nützlich sein, da man sich dann keinen Prosatext (künstlich) ausdenken muss, nur
 // um auf diese Art und Weise einen Link zu erzeugen.
-//
-// Durch die folgenden beiden Zeilen entstehen die
 
 ====
 [.underline]#Allgemeine Hinweise zur Dokumentvorlage#
@@ -328,8 +326,9 @@ Im Folgenden wird beschrieben, wie die Datenbank für `XXX` vorbereitet wird. +
 
 Die DB-Skripte liegen im Verzeichnis
 
-.Pfad für die Datenbankskripte
+:desc-listing-pfad-datenbankskripte: Pfad für die Datenbankskripte
 [id="listing-pfad-datenbankskripte",reftext="{listing-caption} {counter:listings}"]
+.{desc-listing-pfad-datenbankskripte}
 [source,xml,subs="verbatim,attributes"]
 ----
  `XXX_GA_ROOT/xxx-ga/src/main/skripte/sql/`
@@ -359,8 +358,9 @@ Die Datei `xxx-benutzer.xls` ist vor dem Einspielen noch anzupassen, da hier noc
 
 . *XXX spezifische Rollen und Nutzer anlegen*
 
-.Benutzerverzeichnisrollen anlegen
+:desc-listing-benutzerverzeichnis-rollen: Benutzerverzeichnisrollen anlegen
 [id="listing-benutzerverzeichnis-rollen",reftext="{listing-caption} {counter:listings}"]
+.{desc-listing-benutzerverzeichnis-rollen}
 [source,xml,subs="verbatim,attributes"]
 ----
 cd /opt/plis-benutzerverzeichnis-batch/bin
@@ -394,8 +394,9 @@ Im conf-Ordner des Apache Servers (`/usr/local/apache2/conf`) sind folgende Date
 
 *httpd.conf:*
 
-.Apache Request Weiterleitung an Tomcat
+:desc-listing-apache-request-tomcat: Apache Request Weiterleitung an Tomcat
 [id="listing-apache-request-tomcat",reftext="{listing-caption} {counter:listings}"]
+.{desc-listing-apache-request-tomcat}
 [source,xml,subs="verbatim,attributes"]
 ----
  JkMount /xxx-ga/* isy-xxx-gaWorker
@@ -403,8 +404,9 @@ Im conf-Ordner des Apache Servers (`/usr/local/apache2/conf`) sind folgende Date
 
 *workers.properties:*
 
-.Apache Request Weiterleitung an Tomcat (Worker)
+:desc-listing-apache-request-tomcat-worker: Apache Request Weiterleitung an Tomcat (Worker)
 [id="listing-apache-request-tomcat-worker",reftext="{listing-caption} {counter:listings}"]
+.{desc-listing-apache-request-tomcat-worker}
 [source,xml,subs="verbatim,attributes"]
 ----
 worker.list=…, isy-xxx-gaWorker
@@ -630,8 +632,9 @@ Die Datei `jpa.properties` enthält die Konfiguration der Datenbank-Verbindung.
 
 Folgende Werte müssen nach der Erstinstallation angepasst werden:
 
-.Konfigurationsparameter jpa.properties
+:desc-table-parameter-jpa-properties: Konfigurationsparameter jpa.properties
 [id="table-parameter-jpa-properties", reftext = "{table-caption} {counter:tables}"]
+.{desc-table-parameter-jpa-properties}
 [cols="5,5",options="header"]
 
 |===
@@ -811,8 +814,9 @@ Eine ausführliche Erläuterung der einzelnen Parameter ist ebenfalls in der Dat
 
 Folgende Werte müssen nach der Erstinstallation angepasst werden:
 
-.Konfigurationsparameter servicegateway.properties
+:desc-table-parameter-servicegateway-properties: Konfigurationsparameter servicegateway.properties
 [id="table-parameter-servicegateway-properties", reftext = "{table-caption} {counter:tables}"]
+.{desc-table-parameter-servicegateway-properties}
 [cols="5,5",options="header"]
 |===
 |Konfigurationsparameter |Beschreibung
@@ -923,18 +927,19 @@ Eine detaillierte Beschreibung der einzelnen Attribute kann entfallen. Es genüg
 
 Tabelle für die Verwaltung von Mitarbeitern. Jeder Mitarbeiter wird eindeutig über seinen Login identifiziert.
 
-.Datenbankfelder Tabelle Mitarbeiter
+:desc-table-mitarbeiterverwaltung: Datenbankfelder Tabelle Mitarbeiter
 [id="table-mitarbeiterverwaltung", reftext = "{table-caption} {counter:tables}"]
+.{desc-table-mitarbeiterverwaltung}
 [cols="3,3,5,1,1", options="header"]
 |===
 |Feld |Datentyp |Beschreibung |PK |FK
-|ID |Number(10, 0) |Technische ID der Person ^.^a|image::methodik:vorlage-systemhandbuch/checkmark.png[align = center, width=40%]|
+|ID |Number(10, 0) |Technische ID der Person ^.^a|image::vorlage-systemhandbuch/checkmark.png[align = center, width=40%]|
 |VORNAME |Varchar2 (250 Char) | | |
 |NACHNAME |Varchar2 (250 Char) | | |
 |GEBURTSDATUM |Varchar2 (10 Char) |Geburtsdatum im Format JJJJ-MM-TT | |
 |GESCHLECHT |Number (1,0) |1: Männlich, 2: Weiblich, 3: Unbekannt | |
 |VERSION |Number (10,0) |Für optimistisches Sperren der Zugriffe | |
-|GRUPPE_ID |Number (10, 0) |Verweis auf die Gruppe, zu der die Person gehört (siehe Tabelle GRUPPE) | ^.^a|image::methodik:vorlage-systemhandbuch/checkmark.png[align = center, width=40%]
+|GRUPPE_ID |Number (10, 0) |Verweis auf die Gruppe, zu der die Person gehört (siehe Tabelle GRUPPE) | ^.^a|image::vorlage-systemhandbuch/checkmark.png[align = center, width=40%]
 |===
 
 
@@ -946,14 +951,15 @@ Tabelle für die Verwaltung von Mitarbeitern. Jeder Mitarbeiter wird eindeutig �
 [[indizes]]
 ==== Indizes
 
-.Datenbankfelder Indizes
+:desc-table-indizes: Datenbankfelder Indizes
 [id="table-indizes", reftext = "{table-caption} {counter:tables}"]
+.{desc-table-indizes}
 [cols="4,4,5,1", options="header"]
 |===
 |Name |Tabelle |Felder |Unique
 |IDX_NAME |BENUTZER |VORNAME, +
 NACHNACHME |
-|… | | ^.^a|image::methodik:vorlage-systemhandbuch/checkmark.png[align = center, width=40%]
+|… | | ^.^a|image::vorlage-systemhandbuch/checkmark.png[align = center, width=40%]
 ||
 |===
 
@@ -981,8 +987,9 @@ und
 
 
 
-.Standardprüfung der Tomcat Serverprozesse
+:desc-listing-status-serverprozesse: Standardprüfung der Tomcat Serverprozesse
 [id="listing-status-serverprozesse",reftext="{listing-caption} {counter:listings}"]
+.{desc-listing-status-serverprozesse}
 [source,xml,subs="verbatim,attributes"]
 ====
 # ps -ef
@@ -1101,8 +1108,9 @@ Aufruf:
 
 *Rückgabewerte:*
 
-.Rückgabewerte von Batch-Aufrufen
+:desc-listing-rueckgabe-batch: Rückgabewerte von Batch-Aufrufen
 [id="listing-rueckgabe-batch",reftext="{listing-caption} {counter:listings}"]
+.{desc-listing-rueckgabe-batch}
 [source,xml,subs="verbatim,attributes"]
 ----
     0: Verarbeitung ohne Fehler durchgeführt
@@ -1141,8 +1149,9 @@ Die Überwachung der Anwendung erfolgt per JMX. Die nachfolgenden Tabellen liste
 In diesem Kapitel werden die per JMX bereitgestellten Monitoring-Parameter für die Tomcat-Anwendungen beschrieben.
 
 
-.Standard Überwachungsinformationen
+:desc-table-standard-ueberwachungsinformationen: Standard Überwachungsinformationen
 [id="table-standard-ueberwachungsinformationen", reftext = "{table-caption} {counter:tables}"]
+.{desc-table-standard-ueberwachungsinformationen}
 [cols="3,7", options="header"]
 |===
 2+|MBean-Name
@@ -1167,8 +1176,9 @@ Für Attributwerte die zusammengesetzte Werte zurückliefern (CompositeData) wir
 
 
 
-.Anwendungsspezifische Überwachungsinformation für XXX-GA
+:desc-table-anwendungsspezifische-ueberwachungsinformation-xxx-ga: Anwendungsspezifische Überwachungsinformation für XXX-GA
 [id="table-anwendungsspezifische-ueberwachungsinformation-xxx-ga", reftext = "{table-caption} {counter:tables}"]
+.{desc-table-anwendungsspezifische-ueberwachungsinformation-xxx-ga}
 [cols="3,7", options="header"]
 |===
 2+|MBean-Name
@@ -1199,8 +1209,9 @@ Nach dem Aufruf des Skriptes sollte die Variable `JAVA_OPTS` auf leer gesetzt we
 Nach Aktivierung von JMX stellt jeder Batch-Prozess folgende Informationen per JMX bereit:
 
 
-.Überwachungsinformation der Batches
+:desc-table-ueberwachungsinformation-batches: Überwachungsinformation der Batches
 [id="table-ueberwachungsinformation-batches", reftext = "{table-caption} {counter:tables}"]
+.{desc-table-ueberwachungsinformation-batches}
 [cols="2,6", options="header"]
 |===
 |Bezeichnung |Beschreibung
@@ -1246,8 +1257,9 @@ Folgender Test kann ausgeführt werden, um zu prüfen ob die Anwendung läuft:
 
 Im Info-Log (siehe Kapitel <<log-konfigurationsdateien>>) kann der Start des Systems nachvollzogen werden. Außerdem werden Fehlermeldungen des Selbsttests der Anwendung dort sowie im Error-Log geloggt.
 
-.Fehlercodes Smoke-Tests
+:desc-table-smoketest: Fehlercodes Smoke-Tests
 [id="table-smoketest", reftext = "{table-caption} {counter:tables}"]
+.{desc-table-smoketest}
 [cols="8,2", options="header"]
 |===
 |Smoketest Checkliste |Erledigt
@@ -1311,8 +1323,9 @@ _Tabelle_
 [[fehlercodes]]
 ==== Fehlercodes
 
-.Fehlercodes Datenbank
+:desc-table-fehlercodes: Fehlercodes Datenbank
 [id="table-fehlercodes", reftext = "{table-caption} {counter:tables}"]
+.{desc-table-fehlercodes}
 [cols="2,3,3", options="header"]
 |===
 |Fehler |Mögliche Ursachen |Identifikation und Behebung
@@ -1328,8 +1341,9 @@ _Tabelle_
 In der folgenden Tabelle sind die im System möglichen grundsätzlichen Fehlersituationen, der Ort ihrer Entstehung und die Mechanismen für deren Behandlung bzw. Verarbeitung dargestellt.
 
 
-.Fehlerszenarien
+:desc-table-fehlerszenarien: Fehlerszenarien
 [id="table-fehlerszenarien", reftext = "{table-caption} {counter:tables}"]
+.{desc-table-fehlerszenarien}
 [cols="1,4,3,5", options="header"]
 |===
 |Nr. |Fehlersituation |Ort der +
