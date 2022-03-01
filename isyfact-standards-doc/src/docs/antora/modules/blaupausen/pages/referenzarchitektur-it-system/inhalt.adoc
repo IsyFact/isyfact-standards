@@ -39,7 +39,7 @@ Eine Besonderheit beim Batch ist, dass die Steuerung des Batch-Prozesses in der 
 Dieser Zugriff erfolgt nicht direkt auf den Anwendungskern, sondern über die Nutzungsschicht „Service“.
 Dadurch können auf einfache Art technische Attribute in die Außenschnittstelle aufgenommen werden und der Service des Anwendungskerns kann auf die Kommunikationstechnik abgebildet werden, die für die Kommunikation zwischen IT-Systemen verwendet wird.
 
-Details zur Konstruktion eines IT-Systems werden in <<TODO anderes Dokument: IsyFactSystementwurf>> festgelegt und für das jeweilige IT-System dokumentiert.
+Details zur Konstruktion eines IT-Systems werden in xref:methodik:vorlage-systementwurf/antora-master.adoc[IsyFact Systementwurf] festgelegt und für das jeweilige IT-System dokumentiert.
 
 [[uebergreifende-technische-konzeption]]
 === Übergreifende technische Konzeption
@@ -150,7 +150,6 @@ Dieser ist in der Regel in der Dialogsteuerung abgebildet, er kann auch durch ei
 * Der Dialog muss direkt mit dem Anwendungskern kommunizieren, um Daten zu lesen, die veränderten Daten zu speichern und komplexere fachliche Funktionen auszuführen.
 
 Vorgaben zum Layout sind in <<TODO anderes Dokument: Styleguide>> beschrieben.
-Details zur Umsetzung von Berechtigungen sind in <<TODO anderes Dokument: Berechtigungskonzept>> enthalten.
 
 [[Web-GUI]]
 ==== Klassische Web-GUI
@@ -209,7 +208,6 @@ Folgende Komponenten kommen in einer SPA normalerweise zum Einsatz:
 * GUI-Bibliothek(en): Die GUI-Bibliotheken bieten wiederverwendbare und stylebare Komponenten im Kontext des Frameworks an.
 * Dialoglogik: Die Dialoglogik liegt rein clientseitig vor; sie ist der Ort, an dem Front-End-Code entwickelt wird.
 
-Weitere technische Details zur SPA-GUI sind im Dokument <<TODO anderes Dokument: KonzeptAngular>> enthalten.
 
 
 [[batch]]

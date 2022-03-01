@@ -642,8 +642,6 @@ image::blaupausen:referenzarchitektur/TIArchSWTU.png[align="center",pdfwidth=80%
 === Minimalanforderungen an die Ablaufumgebung
 
 Als Ablaufumgebung benötigen die gemäß der Referenzarchitektur (siehe Kapitel <<die-software-referenzarchitektur>>) erstellten IT-Systeme einen Tomcat Servlet-Container.
-//Dokument existiert auch in der alten Doku nicht
-Die Vorgaben zur Konfiguration des Tomcat sind im Dokument <<TODO anderes Dokument: TomcatNutzungskonzept>> beschrieben.
 
 Service-Gateway-Systeme und das Portal benötigen zusätzlich noch einen Apache-Webserver.
 
@@ -657,7 +655,7 @@ Auf der Ebene einzelner Anwendungen beschreibt die TI-Architektur:
 * ob eine Skalierung vorgesehen bzw. möglich ist und
 * welche Anforderungen an die Systemumgebung (z.B. ein Applikationsserver) bestehen.
 
-Die konkrete Ausprägung der TI-Architektur wird im <<TODO anderes Dokument: IsyFactVorlageSystemhandbuch>> beschrieben.
+Die konkrete Ausprägung der TI-Architektur wird im xref:methodik:vorlage-systemhandbuch/antora-master.adoc[IsyFact Systemhandbuch (Vorlage)] beschrieben.
 Die <<ti-architektur-ga,folgende Abbildung>> zeigt die TI-Architektur einer beispielhaften Geschäftsanwendung.
 
 [[ti-architektur-ga]]
@@ -755,7 +753,6 @@ Im Releaseletter werden Inhalt und Version der Pakete in Form einer Stückliste 
 Weiterhin wird beschrieben, welche bekannten Fehler und Probleme es mit diesem Paket gibt.
 Im Releaseletter sind auch die Installationsanleitung inklusive der Parameter der Installation und die Aufstellung der mit dem xref:glossary:glossary:master.adoc#glossar-Release[Release] geschlossenen Fehler-Meldungen enthalten.
 Eine Auslieferung umfasst ebenfalls Ergänzungen und Anpassungen der betroffenen Betriebshandbücher.
-Details zum Deployment sind im Dokument <<TODO anderes Dokument: DeploymentKonzept>> beschrieben.
 
 Wie oben bereits erwähnt bezeichnet der Begriff Auslieferung einen Verantwortungsübergang zwischen zwei Organisationseinheiten.
 Die Entwicklung erstellt und testet die Software-Pakete und erzeugt die zugehörigen Dokumentationen.

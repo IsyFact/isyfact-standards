@@ -490,7 +490,7 @@ Für die Durchführung von Updates beim Deployment ist es notwendig, einzelne Kn
 ==== Beschreibung des Loadbalancer-Servlets
 
 Zur Realisierung dieser Anforderung wird als Teil jeder Webanwendung ein sog. Loadbalancer-Servlet ausgeliefert.
-Das Servlet prüft beim Aufrufen seiner URL, ob eine IsAlive-Datei im Konfigurationsverzeichnis (siehe <<TODO anderes Dokument: DeploymentKonzept>> ) vorhanden ist.
+Das Servlet prüft beim Aufrufen seiner URL, ob eine IsAlive-Datei im Konfigurationsverzeichnis vorhanden ist.
 Ist eine solche Datei vorhanden, liefert das Servlet den HTTP-Statuscode HTTP OK (200) zurück.
 Falls keine IsAlive-Datei gefunden wird liefert das Servlet den Code HTTP FORBIDDEN (403) zurück.
 
@@ -517,7 +517,7 @@ Durch die oben beschriebene Konfiguration kann die gewünschte Verfügbarkeit de
 
 Zur Steuerung des Loadbalancing-Servlets muss die IsAlive-Datei im Konfigurationsverzeichnis der Anwendung durch den Betrieb angelegt bzw. entfernt werden.
 Der Standardname für die IsAlive-Datei ist `/etc/<anwendungsname>/isAlive`.
-Dieses kann der Betrieb bei Bedarf über ein Shell-Skript automatisieren. Die Verwendung des Servlets im Rahmen des Deployments wird in <<TODO anderes Dokument: DeploymentKonzept>> beschrieben.
+Dieses kann der Betrieb bei Bedarf über ein Shell-Skript automatisieren.
 
 // tag::architekturregel[]
 

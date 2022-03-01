@@ -275,26 +275,12 @@ Hierdurch öffnen Sie den Ordner Ihres IsyFact-Dokuments als VS Code Projekt.
 [id="image-vs_code_projekt_oeffnen",reftext="{figure-caption} {counter:figures}"]
 image::handbuch/vs_code_projekt_oeffnen.png[align="center"]
 
-Auf der linken Seite erscheint die Projektansicht mit dem Verzeichnis Ihres IsyFact-Dokuments (<<image-vs_code_projektstruktur>>).
-
-.Die Projektansicht mit dem Verzeichnis Ihres IsyFact-Dokuments
-[id="image-vs_code_projektstruktur",reftext="{figure-caption} {counter:figures}"]
-image::handbuch/vs_code_projektstruktur.png[align="center"]
+Auf der linken Seite erscheint die Projektansicht mit dem Verzeichnis Ihres IsyFact-Dokuments.
 
 Sie können sich nun bereits die Dokument-Vorlage in der Vorschau ansehen.
 Hierfür öffnen Sie zunächst die zentrale Datei `master.adoc`.
-Dann drücken Sie entweder kbd:[Strg + K] und anschließend kbd:[V] oder Sie klicken im oberen rechten Ecke des Editors auf das Symbol mit der blauen Lupe (<<image-vs_code_vorschau1>>).
-
-
-.Die geöffnete AsciiDoc-Datei mit Button zur Vorschau
-[id="image-vs_code_vorschau1",reftext="{figure-caption} {counter:figures}"]
-image::handbuch/vs_code_vorschau1.png[align="center"]
-
-Dabei sollte auf der rechten Seite die Vorschau erscheinen (<<image-vs_code_vorschau2>>).
-
-.Gerenderte Vorschau der Asciidoc-Datei
-[id="image-vs_code_vorschau2",reftext="{figure-caption} {counter:figures}"]
-image::handbuch/vs_code_vorschau2.png[align="center"]
+Dann drücken Sie entweder kbd:[Strg + K] und anschließend kbd:[V] oder Sie klicken in der oberen rechten Ecke des Editors auf das Symbol mit der blauen Lupe.
+Dabei sollte auf der rechten Seite die Vorschau erscheinen.
 
 Die Vorschau dient lediglich einer groben Orientierung, da weder die Isyfact-Stylesheets für die Dokumente genutzt werden, noch die Skripte zur Erzeugung von Glossar, Inhaltsverzeichnis und Verlinkungen ausgeführt werden.
 Ein vollständige gerenderte Ansicht wird erst durch den Maven-Build Vorgang erzeugt.
