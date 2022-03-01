@@ -10,16 +10,22 @@ include::glossary:licence:partial$licence.adoc[]
 An dieser Stelle werden Vorlagen für den Systementwurf und das Systemhandbuch angeboten.
 Die Vorlagen können sowohl direkt aufgerufen als auch im ZIP- oder PDF-Format heruntergeladen werden.
 
+[[table-vorlagen]]
 .Vorlagen
-[id="table-Vorlagen",reftext="Vorlagen"]
-[cols="1,1"]
+[cols="1s,1,1,1",options="header"]
 |====
-|xref:vorlage-systementwurf/antora-master.adoc[Systementwurf ansehen icon:file-text-o[]]
-|xref:vorlage-systemhandbuch/antora-master.adoc[Systemhandbuch ansehen icon:file-text-o[]]
-|xref:methodik:attachment$vorlage-generated/IsyFact-Vorlage-Systementwurf.zip[Download Systementwurf icon:file-archive-o[]]
-|xref:methodik:attachment$vorlage-generated/IsyFact-Vorlage-Systemhandbuch.zip[Download Systemhandbuch icon:file-archive-o[]]
-|xref:methodik:attachment$vorlage-generated/IsyFact-Vorlage-Systementwurf.pdf[Download Systementwurf icon:file-pdf-o[]]
-|xref:methodik:attachment$vorlage-generated/IsyFact-Vorlage-Systemhandbuch.pdf[Download Systemhandbuch icon:file-pdf-o[]]
+|Vorlage
+3+^|Quelldatei (AsciiDoc) & Downloads (ZIP & PDF)
+
+|Systementwurf
+|xref:vorlage-systementwurf/antora-master.adoc[Ansehen icon:file-text-o[]]
+|xref:methodik:attachment$vorlage-generated/IsyFact-Vorlage-Systementwurf.zip[Download icon:file-archive-o[]]
+|xref:methodik:attachment$vorlage-generated/IsyFact-Vorlage-Systementwurf.pdf[Download icon:file-pdf-o[]]
+
+|Systemhandbuch
+|xref:vorlage-systemhandbuch/antora-master.adoc[Ansehen icon:file-text-o[]]
+|xref:methodik:attachment$vorlage-generated/IsyFact-Vorlage-Systemhandbuch.zip[Download icon:file-archive-o[]]
+|xref:methodik:attachment$vorlage-generated/IsyFact-Vorlage-Systemhandbuch.pdf[Download icon:file-pdf-o[]]
 |====
 
 [[bearbeitung-vorlagen-projektspezifisch]]
