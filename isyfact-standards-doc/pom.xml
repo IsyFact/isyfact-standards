@@ -1,9 +1,198 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>de.bund.bva.isyfact</groupId>
     <artifactId>isyfact-standards-doc</artifactId>
+    <version>2.4.0</version>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.build.timestamp.format>dd.MM.yyyy</maven.build.timestamp.format>
+        <asciidoctorj-extensions.version>2.3.0</asciidoctorj-extensions.version>
+        <pfad.methodik>src/docs/antora/modules/methodik</pfad.methodik>
+    </properties>
+
+    <profiles>
+        <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <!-- Do not create jar. -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jar-plugin</artifactId>
+                        <version>3.2.2</version>
+                        <configuration>
+                            <skipIfEmpty>true</skipIfEmpty>
+                        </configuration>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.asciidoctor</groupId>
+                        <artifactId>asciidoctor-maven-plugin</artifactId>
+                        <version>2.2.2</version>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.asciidoctor</groupId>
+                                <artifactId>asciidoctorj-pdf</artifactId>
+                                <version>1.6.0</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>de.bund.bva.isyfact</groupId>
+                                <artifactId>isy-asciidoctorj-extensions</artifactId>
+                                <version>${asciidoctorj-extensions.version}</version>
+                            </dependency>
+                        </dependencies>
+
+                        <configuration>
+                            <outputDirectory>${project.build.directory}</outputDirectory>
+                            <attributes>
+                                <revnumber>IF-${project.version}</revnumber>
+                                <revdate>${maven.build.timestamp}</revdate>
+                                <version-ifs>${project.version}</version-ifs>
+                                <vs-einstufung>open-source</vs-einstufung>
+                            </attributes>
+                        </configuration>
+
+                        <executions>
+                            <execution>
+                                <id>IsyFact-Vorlage-Systementwurf-pdf</id>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>process-asciidoc</goal>
+                                </goals>
+                                <configuration>
+                                    <backend>pdf</backend>
+                                    <sourceDirectory>
+                                        src/docs/antora/modules/methodik/pages/vorlage-systementwurf
+                                    </sourceDirectory>
+                                    <sourceDocumentName>master.adoc</sourceDocumentName>
+                                    <outputFile>
+                                        ${project.build.directory}/IsyFact-Vorlage-Systementwurf.pdf
+                                    </outputFile>
+                                </configuration>
+                            </execution>
+
+                            <execution>
+                                <id>IsyFact-Vorlage-Systemhandbuch-pdf</id>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>process-asciidoc</goal>
+                                </goals>
+                                <configuration>
+                                    <backend>pdf</backend>
+                                    <sourceDirectory>
+                                        src/docs/antora/modules/methodik/pages/vorlage-systemhandbuch
+                                    </sourceDirectory>
+                                    <sourceDocumentName>master.adoc</sourceDocumentName>
+                                    <outputFile>
+                                        ${project.build.directory}/IsyFact-Vorlage-Systemhandbuch.pdf
+                                    </outputFile>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <version>3.3.0</version>
+                        <executions>
+                            <execution>
+                                <id>zip-systementwurf</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                                <configuration>
+                                    <descriptors>
+                                        <descriptor>${basedir}/assembly-systementwurf.xml</descriptor>
+                                    </descriptors>
+                                    <finalName>IsyFact-Vorlage-Systementwurf</finalName>
+                                    <appendAssemblyId>false</appendAssemblyId>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>zip-systemhandbuch</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                                <configuration>
+                                    <descriptors>
+                                        <descriptor>${basedir}/assembly-systemhandbuch.xml</descriptor>
+                                    </descriptors>
+                                    <finalName>IsyFact-Vorlage-Systemhandbuch</finalName>
+                                    <appendAssemblyId>false</appendAssemblyId>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>1.7</version>
+                        <executions>
+
+                            <execution>
+                                <id>copy-images-for-pdf-generation</id>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <copy todir="${project.basedir}/${pfad.methodik}/pages/vorlage-systementwurf/images/vorlage-systementwurf">
+                                            <fileset dir="${project.basedir}/${pfad.methodik}/images/vorlage-systementwurf" />
+                                        </copy>
+                                        <copy todir="${project.basedir}/${pfad.methodik}/pages/vorlage-systemhandbuch/images/vorlage-systemhandbuch">
+                                            <fileset dir="${project.basedir}/${pfad.methodik}/images/vorlage-systemhandbuch" />
+                                        </copy>
+                                    </target>
+                                </configuration>
+                            </execution>
+
+                            <execution>
+                                <id>copy-generated-to-docs</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <delete dir="${project.basedir}/${pfad.methodik}/attachments/vorlage-generated"/>
+                                        <copy todir="${project.basedir}/${pfad.methodik}/attachments/vorlage-generated">
+                                            <fileset dir="${project.build.directory}" includes="*.zip,*.pdf"/>
+                                        </copy>
+                                        <delete dir="${project.basedir}/${pfad.methodik}/pages/vorlage-systementwurf/images"/>
+                                        <delete dir="${project.basedir}/${pfad.methodik}/pages/vorlage-systemhandbuch/images"/>
+                                    </target>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- Sicherstellen, dass alle POMs Maven-Team-Standard konform sortiert sind. -->
+                    <!-- Um eine POM korrekt zu sortieren, mvn tidy:pom ausführen. -->
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>tidy-maven-plugin</artifactId>
+                        <version>1.1.0</version>
+                        <executions>
+                            <execution>
+                                <id>check-pom-style</id>
+                                <phase>validate</phase>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

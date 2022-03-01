@@ -33,6 +33,7 @@
 - `IFE-477`:
     * PluginManagement Versionen aktualisiert
     * Build-Plugin Versionen aktualisiert
+- `IFS-1175`: [isy-task] Eigenen FehlertextProvider für isy-task erstellt
 
 # 2.3.0
 - `IFS-1004`: [isy-sonderzeichen]

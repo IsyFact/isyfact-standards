@@ -1,0 +1,14 @@
+:doctitle: IsyFact Systementwurf <System>
+:document-type: Vorlage
+
+// Mögliche VS-Einstufungswerte = [open-source | offen | einstufung-fehlt | vs-nfd | vs-vertraulich | geheim | streng-geheim]
+:vs-einstufung: OPEN-SOURCE
+
+toc::[]
+colophon::[factory="IsyFact-Standards", open-source="true"]
+
+// Inhalt
+include::inhalt.adoc[tags=inhalt]
+
+// Kapitelnummerierung ausschalten
+:sectnums!:

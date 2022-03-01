@@ -14,7 +14,7 @@ Daher wird im Folgenden die Referenz-Architektur beschrieben, nach der diese Anw
 [id="image-RAITSys",reftext="{figure-caption} {counter:figures}"]
 image::blaupausen:referenzarchitektur-it-system/RAITSys.png[align="center"]
 
-In der *Persistentzschicht* ist alle Funktionalität enthalten, die zum Erzeugen, Suchen, Bearbeiten und Löschen von Datenobjekten benötigt wird.
+In der *Persistenzschicht* ist alle Funktionalität enthalten, die zum Erzeugen, Suchen, Bearbeiten und Löschen von Datenobjekten benötigt wird.
 Der Datenzugriff auf das DBMS ist in dieser Schicht vollständig gekapselt.
 In Richtung Datenbank kommuniziert diese Schicht mittels JDBC und SQL, in Richtung des Anwendungskerns stellt die Schicht Geschäftsobjekte zur Verfügung.
 Die Persistenz nutzt dazu das Persistenzframework Hibernate über die Java Persistence API (JPA).
@@ -51,7 +51,7 @@ Um diese Komplexität beherrschen zu können, wird das IT-System in Komponenten 
 Damit die gesamte geforderte Funktionalität erreicht wird, müssen die einzelnen Komponenten miteinander kommunizieren und sich kennen.
 Dadurch entsteht ein Komponentengeflecht.
 Für die Verwaltung der Komponenten innerhalb des IT-Systems und deren Kopplung wird ein Framework verwendet.
-Details hierzu werden in xref:detailkonzept-komponente-anwendungskern/master.adoc[Detailkonzept Komponente Anwendungskern] festgelegt.
+Details hierzu werden im xref:detailkonzept-komponente-anwendungskern/master.adoc[Detailkonzept Komponente Anwendungskern] festgelegt.
 Technisch lässt sich ein IT-System in Schichten unterteilen, fachlich in Teilanwendungen.
 Details hierzu werden in Kapitel <<der-anwendungskern>> beschrieben.
 
@@ -82,54 +82,18 @@ Ein übliches Verhalten ist zum Beispiel das folgende: Erstreckt sich eine fachl
 Um zu prüfen, ob die Daten in der Zwischenzeit nicht durch einen anderen Anwender verändert worden sind, wird die Zugriffsschicht beim Schreiben Zeitstempel oder Versionszähler der Datensätze überprüfen.
 +
 Um diesen großen Funktionsumfang abzudecken, wird ein Produkt zum objekt-relationalen Mapping gemäß JPA-Standard eingesetzt.
-Details hierzu sind in  xref:detailkonzept-komponente-datenzugriff/master.adoc[Detailkonzept Komponente Datenzugriff] dokumentiert.
+Details hierzu sind im  xref:detailkonzept-komponente-datenzugriff/master.adoc[Detailkonzept Komponente Datenzugriff] dokumentiert.
 
 [[der-anwendungskern]]
 === Der Anwendungskern
 
-Zentraler Baustein eines IT-Systems ist der Anwendungskern.
-Im Anwendungskern werden die fachlichen Funktionen (Anwendungslogik) der Anwendung realisiert.
-Dazu gehören zum Beispiel Datenvalidierungen oder Funktionen zum Verarbeiten von Geschäftsobjekten, die über den Datenzugriff geladen wurden.
-Innerhalb dieser Anwendungslogik befinden sich die Funktionalität, welche allgemein verwendbar ist.
+include::blaupausen:page$detailkonzept-komponente-anwendungskern/inhalt.adoc[tags=anwendungskern-definition]
 
-Daneben gibt es spezielle Dialogabläufe, zum Beispiel dialogspezifische Bearbeitungsverfahren wie die Anwenderführung über Wizards.
-Diese Prozesse, die nur durch einen einzigen Dialog genutzt werden, sind nicht Teil des Anwendungskerns, sondern Teil der Schicht Nutzung.
-Damit stellt der Anwendungskern innerhalb des Systems allgemein nutzbare xref:glossary:glossary:master.adoc#glossar-Dienst[Dienste] zur Verfügung.
-Weitere Details können auch dem Detailkonzept xref:detailkonzept-komponente-anwendungskern/master.adoc[Detailkonzept Komponente Anwendungskern] entnommen werden.
+Nicht Teil des Anwendungskerns sind spezielle Dialogabläufe, z.B. dialogspezifische Bearbeitungsverfahren wie die Anwenderführung über Wizards.
+Diese Prozesse, die nur durch einen einzigen Dialog genutzt werden, sind Teil der Schicht Nutzung.
+Der Anwendungskern stellt somit im wesentlichen allgemein nutzbare xref:glossary:glossary:master.adoc#glossar-Dienst[Dienste] zur Verfügung.
 
-In <<image-TeileAnwK>> sind drei Aspekte des Anwendungskerns dargestellt.
-Er besteht aus zwei wesentlichen Bestandteilen: Den Fachkomponenten und dem Anwendungskern-Framework.
-Weiterhin ist dort dargestellt, dass externe Services als Komponente in den Anwendungskern integriert sind.
-Diese drei Aspekte werden im Folgenden detailliert beschrieben.
-
-.Bestandteile des Anwendungskerns
-[id="image-TeileAnwK",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:referenzarchitektur-it-system/TeileAnwK.png[align="center",pdfwidth=80%,width=80%]
-
-*Fachkomponenten:* Die Fachkomponenten entsprechen dem fachlichen Komponentenschnitt aus der fachlichen Architektur.
-Diese Komponenten implementieren weitgehend reine Fachlichkeit und trennen so Anwendungslogik und Technologie.
-Die Umsetzung einer Komponente aus der fachlichen Architektur (xref:glossary:glossary:master.adoc#glossar-A-Architektur[A-Architektur]) erfolgt durch eine Fachkomponente.
-Dies ist der Schlüssel für gute Wartbarkeit und einfache Weiterentwickelbarkeit des Anwendungskerns.
-Diese Struktur findet sich auch in anderen Schichten wieder:
-
-In der Persistenz-Schicht sind die Fachkomponenten auch gemäß den Komponenten aus der fachlichen Architektur strukturiert.
-Die Komponenten des Anwendungskerns besitzen die Datenhoheit auf Objekte, die ihnen eindeutig zuzuordnen sind.
-Diese Objekte stammen aus den korrespondierenden Komponenten in der Persistenz-Schicht.
-Nur die korrespondierende Anwendungskern-Komponente darf Änderungen an den entsprechenden persistenten Objekten vornehmen.
-Die persistenten Objekte dürfen nicht über Komponentengrenzen hinweg herausgegeben werden.
-In diesem Fall wäre nicht sichergestellt, dass keine Änderungen außerhalb der Komponente passieren.
-Für den Transfer über Komponentengrenzen hinweg müssen eigene, nicht-persistente Schnittstellen-Objekte erzeugt werden, die dann aus den persistenten Objekten mittels eines Bean-Mappers befüllt werden können. +
-Wenn Objekte von mehreren Komponenten genutzt werden und keiner einzelnen Komponente zugeordnet werden können, sollten sie in einem eigenen querschnittlichen Package abgelegt werden.
-
-Vereinfachend können Anwendungskern-Komponenten persistente Daten an die xref:glossary:glossary:master.adoc#glossar-Service[Service]-Schicht (Kapitel <<servicezugriffe>>) weitergeben.
-Dies ist insbesondere dann angebracht, wenn die Komponente ausschließlich durch eine Service-Komponente genutzt wird. +
-Da die Service-Schicht keine Logik enthält und daher ohnehin keine Änderung an solchen Entitäten vornehmen darf und eindeutig der Anwendungskern-Komponente zugeordnet ist, bedeutet dies keine Verletzung der Datenhoheit.
-Da die Anwendungskern-Komponente an Ihrer Schnittstelle nun potentiell persistente und nicht persistente Entitäten bereitstellt, müssen Verwechselungen vermieden werden, z.B. in dem solche Methoden in getrennten Interfaces deklariert werden.
-
-.icon:university[] Architekturregel
-****
-Persistente Entitäten dürfen nicht über den Anwendungskern hinaus herausgegeben werden. Sie haben im Anwendungskern zu verbleiben.
-****
+include::blaupausen:page$detailkonzept-komponente-anwendungskern/inhalt.adoc[tags=fachkomponente-definition]
 
 *Komponenten-Framework:* Für querschnittliche Funktionalität innerhalb des Anwendungskerns wird das Spring-Framework genutzt.
 Hauptaufgabe des Frameworks ist es, die Komponenten zu konfigurieren und miteinander bekannt zu machen.
@@ -142,6 +106,31 @@ Wenn der externe Service ausgetauscht werden soll, ist keine Änderung der gesam
 Für andere fachliche Komponenten des Anwendungskerns ist nicht zu unterscheiden, ob es sich beim Aufruf einer Komponentenschnittstelle um eine in dieser Komponente implementierte Funktion oder um einen Serviceaufruf handelt.
 Komponenten, die externe Services kapseln, sind im Idealfall von außen nicht von fachlichen Komponenten des Anwendungskerns unterscheidbar.
 Diese Komponenten haben damit zwei Hauptaufgaben: Sie müssen die technische Aspekte der Kommunikation umsetzen und sie müssen Schnittstellendaten und Exceptions der aufgerufenen Services in die Datenformate der Anwendung transformieren.
+
+Weitere Details können dem xref:detailkonzept-komponente-anwendungskern/master.adoc[Detailkonzept Komponente Anwendungskern] entnommen werden.
+
+[[datenzugriff]]
+=== Datenzugriff
+
+In der Persistenz-Schicht sind die Fachkomponenten auch gemäß den Komponenten aus der fachlichen Architektur strukturiert.
+Die Komponenten des Anwendungskerns besitzen die Datenhoheit auf Objekte, die ihnen eindeutig zuzuordnen sind.
+Diese Objekte stammen aus den korrespondierenden Komponenten in der Persistenz-Schicht.
+Nur die korrespondierende Anwendungskern-Komponente darf Änderungen an den entsprechenden persistenten Objekten vornehmen.
+Die persistenten Objekte dürfen nicht über Komponentengrenzen hinweg herausgegeben werden.
+In diesem Fall wäre nicht sichergestellt, dass keine Änderungen außerhalb der Komponente passieren.
+Für den Transfer über Komponentengrenzen hinweg müssen eigene, nicht-persistente Schnittstellen-Objekte erzeugt werden, die dann aus den persistenten Objekten mittels eines Bean-Mappers befüllt werden können. +
+Wenn Objekte von mehreren Komponenten genutzt werden und keiner einzelnen Komponente zugeordnet werden können, sollten sie in einem eigenen querschnittlichen Package abgelegt werden.
+
+Vereinfachend können Anwendungskern-Komponenten persistente Daten an die xref:glossary:glossary:master.adoc#glossar-Service[Service]-Schicht (s. Kapitel <<servicezugriffe>>) weitergeben.
+Dies ist insbesondere dann angebracht, wenn die Komponente ausschließlich durch eine Service-Komponente genutzt wird. +
+Da die Service-Schicht keine Logik enthält und daher ohnehin keine Änderung an solchen Entitäten vornehmen darf und eindeutig der Anwendungskern-Komponente zugeordnet ist, bedeutet dies keine Verletzung der Datenhoheit.
+Da die Anwendungskern-Komponente an Ihrer Schnittstelle nun potentiell persistente und nicht persistente Entitäten bereitstellt, müssen Verwechselungen vermieden werden, z.B. in dem solche Methoden in getrennten Interfaces deklariert werden.
+
+.icon:university[] Architekturregel
+****
+Persistente Entitäten dürfen nicht über den Anwendungskern hinaus herausgegeben werden. Sie haben im Anwendungskern zu verbleiben.
+****
+
 
 [[gui]]
 === GUI
@@ -201,7 +190,7 @@ Sobald ein Aufruf durch den Client erfolgt, muss der Server zunächst den aktuel
 Dies erfolgt dadurch, dass der Client eine Session-ID übergibt und der Server die benötigten Daten aus einem Datenbank-Zwischenspeicher unter diesem Schlüssel nachschlägt.
 Mit dieser Lösung lassen sich sehr einfach Loadbalancing- und Failover-Lösungen über Rechner-Cluster realisieren.
 
-Weiterführende technische Details zur GUI sind im Dokument xref:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Komponente Web-GUI] enthalten.
+Weiterführende technische Details zur GUI sind im xref:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Komponente Web-GUI] enthalten.
 
 [[SPA]]
 ==== Single Page Application
@@ -226,7 +215,7 @@ Weitere technische Details zur SPA-GUI sind im Dokument <<TODO anderes Dokument:
 [[batch]]
 === Batch
 
-Einxref:glossary:glossary:master.adoc#glossar-Batch[Batch] realisiert eine eigenständige Verarbeitung ohne direkten Benutzereingriff während des Ablaufes.
+Ein xref:glossary:glossary:master.adoc#glossar-Batch[Batch] realisiert eine eigenständige Verarbeitung ohne direkten Benutzereingriff während des Ablaufes.
 An einen Batch werden verschiedene Anforderungen gestellt: Ausführungszeitpunkt, Abhängigkeiten, Datenvolumen, ausgeführte Funktionalität, Eingaben, Ausgaben usw.
 
 Aus Architektur-Sicht werden diese Anforderungen durch zwei Komponenten abgedeckt: der Batchrahmen und der Batchlogik.
@@ -258,13 +247,13 @@ Die Batch-Schritte haben eine genormte Schnittstelle für Aufruf und Rückgabewe
 Sie sind in der Regel restart-fähig.
 Es gibt einen Batch-Rahmen, der dies unterstützt.
 
-Weiterführende technische Details zum Batch sind im Dokument xref:detailkonzept-komponente-batch/master.adoc[Detailkonzept Komponente Batch] enthalten.
+Weiterführende technische Details zum Batch sind im xref:detailkonzept-komponente-batch/master.adoc[Detailkonzept Komponente Batch] enthalten.
 
 [[servicezugriffe]]
 === Servicezugriffe
 
 Services des Anwendungskerns, die vom IT-System zur Verfügung gestellt werden sollen, werden durch die Komponenten von „Service“ innerhalb der Schicht „Nutzung“ angereichert und nach außen gegeben.
-Dabei können alle Dienste des xref:glossary:glossary:master.adoc#glossar-Anwendungskern[Anwendungskerns] genutzt werden.
+Dabei können alle Funktionen des xref:glossary:glossary:master.adoc#glossar-Anwendungskern[Anwendungskerns] genutzt werden.
 Die Service-Komponenten werden entsprechend den Anwendungskern-Komponente geschnitten, d.h. für jede Komponente des Kerns, die einen Service anbieten soll, wird eine eigene Service-Komponente implementiert.
 Service-Komponenten werden nicht mehrere Anwendungskern-Komponenten.
 Dies würde dem Gebot, in den Services keine Logik zu implementieren, widersprechen.
@@ -295,7 +284,7 @@ Dies liegt darin begründet, dass die Komponente Service-Logik die Funktionalit�
 Die Kernfunktionalität des Services ist also im Anwendungskern implementiert.
 Die Schnittstelle zwischen den Komponenten „Service“ und „Anwendungskern“ ist daher eine interne Schnittstelle.
 
-Weiterführende technische Details zu Services sind im Dokument xref:detailkonzept-komponente-service/master.adoc[Detailkonzept Komponente Service] enthalten.
+Weiterführende technische Details zu Services sind im xref:detailkonzept-komponente-service/master.adoc[Detailkonzept Komponente Service] enthalten.
 
 
 [[unterstuetzung-technischer-funktionalitaeten]]

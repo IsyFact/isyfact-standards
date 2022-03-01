@@ -193,7 +193,7 @@ Technische Rollen können fachlichen Rollen allerdings untergeordnet werden (sie
 *Enthaltene Rechte:* Die Ausstattung einer fachlichen Rolle mit Rechten beschreibt den Funktionsumfang, den diese Rolle bei Nutzung der Geschäftsanwendung ermöglicht.
 
 *Untergeordnete Rollen:* Optional können fachliche Rollen untergeordnete technische Rollen besitzen.
-Dies ist z.B. immer dann notwendig, wenn ein Anwendungsfall die Dienste eines Nachbarsystems verwendet.
+Dies ist z.B. immer dann notwendig, wenn ein Anwendungsfall die Services eines Nachbarsystems verwendet.
 Somit muss im Rahmen des Anwendungsfalls die Service-Schnittstelle des Nachbarsystems aufgerufen werden.
 Die dazu benötigte, technische Rolle muss der fachlichen Rolle untergeordnet werden, damit dies funktioniert.
 
@@ -241,7 +241,7 @@ Diese Rollen können dann einfach fachlichen Rollen untergeordnet werden, um den
 [[technische-querschnitts-rolle]]
 ==== Technische Querschnitts-Rolle
 
-Für xref:glossary:glossary:master.adoc#glossar-Service[Services] des Querschnitts, die nahezu alle Aufrufe benötigen und die keine sicherheitskritischen Operationen anbieten, kann eine zentrale Rolle (z.B. `Querschnitt_Nutzer`) angelegt werden.
+Für xref:glossary:glossary:master.adoc#glossar-ServiceFachlich[Services] des Querschnitts, die nahezu alle Aufrufe benötigen und die keine sicherheitskritischen Operationen anbieten, kann eine zentrale Rolle (z.B. `Querschnitt_Nutzer`) angelegt werden.
 Diese Rolle berechtigt zur Durchführung von unkritischen Operationen im Querschnitt, wie beispielsweise dem Auslesen von Schlüsselwerten.
 
 Wenn die Querschnitts-Rolle den Zugangsrollen untergeordnet ist, darf jeder Anwender mit Zugriff automatisch auch auf den Querschnitt zugreifen.

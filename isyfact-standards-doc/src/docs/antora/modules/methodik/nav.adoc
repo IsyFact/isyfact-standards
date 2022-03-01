@@ -3,3 +3,4 @@
 ** xref:versionierung/master.adoc[Versionierung]
 ** xref:java-programmierkonventionen/master.adoc[Java-Programmierkonventionen]
 ** xref:enterprise-architect/master.adoc[Enterprise Architect]
+** xref:vorlagen.adoc[Vorlagen]
