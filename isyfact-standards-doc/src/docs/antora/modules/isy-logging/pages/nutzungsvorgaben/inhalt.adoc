@@ -925,9 +925,9 @@ SLF4J stellt für die java.util.logging API ebenfalls eine Bridge zur Verfügung
 Um die Bridge zu aktivieren müssen zunächst alle vorhandenen Log-Handler entfernt und danach ein Handler
 zum Weiterleiten der Log-Aufrufe an SLF4J installiert werden.
 
-NOTE: Weitere Informationen über SLF4J unter http://www.slf4j.org/api/org/slf4j/bridge/SLF4JBridgeHandler.html
+NOTE: Weitere Informationen über SLF4J unter xref:glossary:literaturextern:inhalt.adoc#litextern-slf4j-bridge-handler[SLF4JBridgeHandler]
 
-Diese kann wie folgt umgesetzt werden:
+Dies kann wie folgt umgesetzt werden:
 
 . `jul-to-slf4j.jar` in die Anwendung ergänzen
 . Den folgenden Abschnitt in die Spring-Konfiguration der Anwendung ergänzen:
