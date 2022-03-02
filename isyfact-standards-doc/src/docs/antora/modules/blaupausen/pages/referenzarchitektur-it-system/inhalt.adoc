@@ -142,7 +142,6 @@ Im Wesentlichen müssen innerhalb einer xref:glossary:glossary:master.adoc#gloss
 
 * Die Masken und Informationen müssen am Bildschirm angezeigt werden.
 * Der Dialog muss auf Benutzerinteraktionen reagieren.
-Die Validierung von Eingabewerten erfolgt in der Regel aber im Anwendungskern.
 * Einzelne Dialoge müssen ggf.
 zu Dialogabläufen zusammengefasst werden und benötigen Kontext-Informationen wie den aktuell angemeldeten Benutzer.
 Die Dialogabläufe bilden einen Workflow.
@@ -151,6 +150,13 @@ Dieser ist in der Regel in der Dialogsteuerung abgebildet, er kann auch durch ei
 
 Vorgaben zum Layout sind in <<TODO anderes Dokument: Styleguide>> beschrieben.
 Details zur Umsetzung von Berechtigungen sind in <<TODO anderes Dokument: Berechtigungskonzept>> enthalten.
+
+[ARCHITEKTURREGEL]
+====
+Die GUI-Validierung ist optional, wenn sie die Benutzererfahrung verbessert. Bei Syntaxfehlern kann GUI beispielsweise dem Benutzer einen Hinweis anzeigen, ohne den Server aufzurufen, wodurch Zeit gespart und die Leistung verbessert wird. Die Abwehr gegen Injection-Angriffen, beispielsweise Cross-Side-Scripting, wird im GUI dringend empfohlen.
+
+Trotzdem sollte sich der Anwendungskern niemals auf die syntaktische Validierung der GUI verlassen und auch potenziell schädliche Eingabewerte berücksichtigen. Die fachliche Validierung der Eingabewerte erfolgt ebenfalls im Anwendungskern, da es sich um Geschäftslogik handelt und oft Datenbankabfragen erforderlich sind.
+====
 
 [[Web-GUI]]
 ==== Klassische Web-GUI
