@@ -255,7 +255,7 @@ Die Dokumentation der *Blaupausen* enthält je ein Detailkonzept pro Blaupause.
 
 Die *Bausteine* sind jeder für sich ausführlich dokumentiert.
 Wird der Baustein mittels einer Bibliothek realisiert, umfasst die Dokumentation ein Konzept, Nutzungsvorgaben sowie ein Changelog.
-Besteht der Baustein aus einer eigenständigen Querschnittsanwendungen, enthält die Dokumentation zusätzlich ein Betriebshandbuch (Nutzungsvorgaben für den Betrieb des IT-Systems in einer Anwendungslandschaft) und ein Anwenderhandbuch (insofern die Querschnittsanwendung über eine Benutzeroberfläche verfügt).
+Besteht der Baustein aus einer eigenständigen Querschnittsanwendung, enthält die Dokumentation zusätzlich ein Systemhandbuch (Nutzungsvorgaben für den Betrieb des IT-Systems in einer Anwendungslandschaft) und ein Anwenderhandbuch (insofern die Querschnittsanwendung über eine Benutzeroberfläche verfügt).
 
 Die Dokumentation der *Plattform* enthält Nutzungsvorgaben für jede von der IsyFact empfohlene oder eingesetzte Technologie zum Betrieb von IT-Systemen (z.B. HTTP- und Applikationsserver, Datenbanken).
 
@@ -528,7 +528,7 @@ Der Baustein Web JSF enthält alle notwendigen Abhängigkeiten, Spring-Konfigura
 
 [[webangular]]
 ==== Web Angular
-Der Baustein Web Angular stellt querschnittlich nutzbare Anwendungen und Services zur Verwendung mit dem Angular Web Framework zur Verfügung.
+Der Baustein Web Angular stellt querschnittlich nutzbare Komponenten und Services zur Verwendung mit dem Angular Web Framework zur Verfügung.
 
 [[sicherheitkeycloak]]
 ==== Sicherheit Keycloak

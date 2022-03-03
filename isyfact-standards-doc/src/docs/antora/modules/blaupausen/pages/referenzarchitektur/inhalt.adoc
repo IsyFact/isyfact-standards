@@ -170,7 +170,7 @@ Im Rahmen der allgemeinen Referenzarchitektur werden zunächst nur Geschäftsanw
 Sie implementiert entweder die gesamte hierfür notwendige Funktionalität (monolithisch), von der Benutzerschnittstelle über die fachliche Logik, die Prozesse bis hin zur Datenhaltung.
 Oder die Geschäftsanwendung implementiert nur einen Teilbereich der Funktionalität und greift für den Rest über Schnittstellen auf benachbarte Geschäftsanwendungen zu.
 
-* *xref:glossary:glossary:master.adoc#glossar-Querschnittsanwendung[Querschnittsanwendungen]* sind Anwendungssysteme, die Basisdienste für mehrere Geschäftsanwendungen bereitstellen, wie z. B. ein Behördenverzeichnis oder ein Outputmanagement.
+* *xref:glossary:glossary:master.adoc#glossar-Querschnittsanwendung[Querschnittsanwendungen]* sind Anwendungssysteme, die Basisservices für mehrere Geschäftsanwendungen bereitstellen, wie z. B. ein Behördenverzeichnis oder ein Outputmanagement.
 
 * *xref:glossary:glossary:master.adoc#glossar-Anwendungskomponente[Anwendungskomponenten]:* Eine Anwendungskomponente beschreibt eine Menge funktional zusammenhängender Anwendungsfälle.
 Anwendungskomponenten sind Bestandteile von Anwendungs­systemen.

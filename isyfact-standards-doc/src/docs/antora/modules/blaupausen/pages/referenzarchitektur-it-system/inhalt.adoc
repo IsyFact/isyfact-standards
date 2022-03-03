@@ -265,7 +265,7 @@ Weiterführende technische Details zum Batch sind im xref:detailkonzept-komponen
 
 Services des Anwendungskerns, die vom IT-System zur Verfügung gestellt werden sollen, werden durch die Komponenten von „Service“ innerhalb der Schicht „Nutzung“ angereichert und nach außen gegeben.
 Dabei können alle Funktionen des xref:glossary:glossary:master.adoc#glossar-Anwendungskern[Anwendungskerns] genutzt werden.
-Die Service-Komponenten werden entsprechend den Anwendungskern-Komponente geschnitten, d.h. für jede Komponente des Kerns, die einen Service anbieten soll, wird eine eigene Service-Komponente implementiert.
+Die Service-Komponenten werden entsprechend den Anwendungskern-Komponenten geschnitten, d.h. für jede Komponente des Kerns, die einen Service anbieten soll, wird eine eigene Service-Komponente implementiert.
 Service-Komponenten werden nicht mehrere Anwendungskern-Komponenten.
 Dies würde dem Gebot, in den Services keine Logik zu implementieren, widersprechen.
 
@@ -302,7 +302,7 @@ Weiterführende technische Details zu Services sind im xref:detailkonzept-kompon
 === Unterstützung technischer Funktionalitäten
 
 Neben der GUI, Services, Batch, Anwendungskern und Persistenzschicht benötigt ein IT-System mehrere querschnittliche Funktionalitäten.
-Diese querschnittlichen Anwendungen sind in jeweils eigenen Dokumenten beschrieben.
+Diese querschnittlichen Funktionalitäten sind in jeweils eigenen Dokumenten beschrieben.
 Eine Übersicht dazu liefert das Dokument xref:einstieg:einstieg/master.adoc#einleitung[IsyFact Einstieg].
 
 
