@@ -72,7 +72,7 @@ Die fachliche Architektur strukturiert die Anwendungslandschaft hierarchisch in 
 
 .Die Anwendungslandschaft
 [id="image-AnwendungslandschaftIF",reftext="{figure-caption} {counter:figures}"]
-image::einstieg:whitepaper/AnwendungslandschaftIF.png[align="center"]
+image::blaupausen:referenzarchitektur/fachliche-referenzarchitektur-anwendungslandschaft.dn.svg[]
 
 Anwendungssysteme bieten dabei eine zusammengehörige, logische Einheit aus Funktionen, Daten und Schnittstellen.
 Es werden zwei Typen unterschieden:

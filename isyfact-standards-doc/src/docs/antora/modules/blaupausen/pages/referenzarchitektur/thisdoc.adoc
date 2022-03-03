@@ -49,7 +49,7 @@ Dies ist in <<image-GA-AW>> dargestellt.
 
 .Fachliche Architektur einer Anwendungslandschaft
 [id="image-GA-AW",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:referenzarchitektur/GA-AW.png[align="center"]
+image::referenzarchitektur/fachliche-referenzarchitektur-anwendungslandschaft.dn.svg[]
 
 *Anwendungsdomänen:* Eine xref:glossary:glossary:master.adoc#glossar-Anwendungsdomaene[Anwendungsdomäne] gruppiert fachlich zusammengehörende Anwendungssysteme zur Unterstützung von Geschäftsprozessen, die als eine Einheit angesehen werden können.
 
@@ -65,8 +65,8 @@ Im Zuge einer solchen Aufgabenteilung werden auch weitergehende Regeln definiert
 Derartige Strukturierungsprinzipien und Regeln sind jedoch immer spezifisch für den jeweiligen Kontext der Anwendungslandschaft und können nicht allgemeingültig festgelegt werden.
 Im vorliegenden Dokument verwenden wir daher den neutralen Begriff *xref:glossary:glossary:master.adoc#glossar-Geschaeftsanwendung[Geschäftsanwendung]* für alle Arten von Anwendungssystemen, die eine bestimmte fachliche Funktionalität innerhalb einer Anwendungsdomäne realisieren.
 
-*Querschnittsanwendungen* sind Anwendungssysteme, die xref:glossary:glossary:master.adoc#glossar-Basisdienst[Basisdienste] für mehrere Geschäftsanwendungen bereitstellen.
-Diese Dienste sind oft technisch motiviert.
+*Querschnittsanwendungen* sind Anwendungssysteme, die Basisservices für mehrere Geschäftsanwendungen bereitstellen.
+Diese Services sind oft technisch motiviert.
 
 *Portal:* Das xref:glossary:glossary:master.adoc#glossar-Portal[Portal] stellt den Benutzern eine einheitliche Dialogoberfläche für den Zugriff auf die Services der Anwendungslandschaft zur Verfügung.
 Einzelne Geschäftsanwendungen stellen Nutzerschnittstellen zur Verfügung, das Portal integriert diese, bildet einen zentralen Einstiegspunkt für alle Web-Anwendungen und übernimmt die Aufgabe der Authentifizierung und der Autorisierung auf Anwendungsebene.
