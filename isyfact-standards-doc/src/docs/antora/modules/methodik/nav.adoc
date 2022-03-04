@@ -2,5 +2,7 @@
 ** xref:namenskonventionen/master.adoc[Namenskonventionen]
 ** xref:versionierung/master.adoc[Versionierung]
 ** xref:java-programmierkonventionen/master.adoc[Java-Programmierkonventionen]
-** xref:enterprise-architect/master.adoc[Enterprise Architect]
+** xref:diagrammerstellung.adoc[Diagrammerstellung und Modellierung]
+*** xref:diagrammerstellung/diagramsnet.adoc[diagrams.net]
+*** xref:diagrammerstellung/enterprise-architect.adoc[Enterprise Architect]
 ** xref:vorlagen.adoc[Vorlagen]
