@@ -5,6 +5,7 @@
 
 // tag::release-2.4.0[]
 - `IFS-992`: Der Abschnitt "IsyFact-konforme Anwendungen" wurde bearbeitet
+- `IFS-995`: Das Attribut "gekuerzt" wurde in einen anderen Abschnitt verschoben
 // end::release-2.4.0[]
 
 *Änderungen IsyFact 2.3.0*
