@@ -151,35 +151,6 @@ Konfigurationsparameter, die nicht zur Laufzeit änderbar sind (siehe Kapitel <<
 zur Performance-Optimierung in Instanzvariablen gehalten werden.
 Dabei kann auch gleich das Vorhandensein der Einstellung geprüft werden, d.h., die Komponente liest bereits bei Ihrer Initialisierung den Parameterwert aus und speichert ihn in einer Instanzvariablen.
 
-[[deployment-von-konfigurationsdateien]]
-===== Deployment von Konfigurationsdateien
-
-Für das Deployment von Konfigurationen ist zu beachten, dass der Resources-Ordner und der Config-Ordner in den Klassenpfad der Anwendung kopiert werden.
-Der Ordner `config` muss nach dem Deployment ungepackt auf dem Dateisystem liegen, er darf z.B. nicht in ein Jar verpackt werden.
-
-Der Inhalt des Resources-Ordners wird beim Deployment in das Verzeichnis `/classes/resources` kopiert.
-Der Config-Ordner wird beim Deployment aus der eigentliche Anwendung herausgezogen und der Inhalt in `/etc/<Anwendungsname>` abgelegt.
-Zusätzlich wird ein symbolischer Link von `/classes/config` auf `/etc/<Anwendungsname>/` angelegt, so dass auch diese Inhalte Teil des Klassenpfads der Anwendung sind.
-Details dazu können dem Konzept <<TODO anderes Dokument: DeploymentKonzept>> entnommen werden.
-
-In einigen Fällen wird die für die Entwicklung benötigte Konfiguration von der Release-Version abweichen.
-Für jede Konfiguration aus `config` kann es eine Entwicklungs- und genau eine Release-Variante geben: Es werden keine umgebungsabhängigen Varianten in den Sourcen abgelegt.
-Für die Release-Varianten wird in der Entwicklung ein Unterordner:
-
-`src/main/resources/config/release`
-
-angelegt.
-Beim Bauen des Release-Pakets werden alle Dateien aus dem Release-Unterordner in den übergeordneten Ordner verschoben und der Release-Ordner gelöscht.
-Der Config-Ordner enthält dann die Release-Konfigurationen.
-Diese werden wie oben beschrieben deployt.
-
-Beim Deployment einer Anwendung werden alle auf dem Zielsystem liegenden Dateien des Resources-Ordners überschrieben.
-Die Dateien aus dem config-Ordner werden beim Deployment nicht überschrieben.
-Neue Parameter müssen dem Betrieb mitgeteilt werden.
-Für nicht systemabhängige Werte wird ein Default entweder im Java-Code oder in einer Property-Datei aus `resources/default-config` ausgeliefert.
-Für systemabhängige Werte existiert kein Default, diese werden aber bereits während der Initialisierung der Anwendung geprüft (siehe Kapitel <<handhabung-von-default-werten>>).
-Fehlende Einstellungen werden so beim Programmstart erkannt.
-
 [[datenbank-basierte-konfigurationen]]
 ==== Datenbank-basierte Konfigurationen
 
