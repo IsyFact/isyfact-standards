@@ -3,14 +3,12 @@
 // tag::inhalt[]
 
 // Hinweis für den AsciiDoc-Autor dieses Dokuments
-// Die automatische Generierung des Kapitels "Literaturverweise", basiert darauf, dass diese
+// Die automatische Generierung des Kapitels "Literaturverweise" basiert darauf, dass diese
 // Datei nach Literaturverweislinks durchsucht wird.
-// Datei werden die in inhalt.adoc explizit aufgeführten Links benutzt, aber auch die Links, die
+// Dabei werden die in inhalt.adoc explizit aufgeführten Links benutzt, aber auch die Links, die
 // innerhalb eines Kommentars in dieser inhalt.adoc Datei stehen.
 // Dies kann sehr nützlich sein, da man sich dann keinen Prosatext (künstlich) ausdenken muss, nur
 // um auf diese Art und Weise einen Link zu erzeugen.
-//
-// Durch die folgenden beiden Zeilen entstehen die
 
 ====
 [.underline]#Allgemeine Hinweise zur Dokumentvorlage#
@@ -29,7 +27,7 @@ Die Abgrenzung, welche Systeme zusammen beschrieben werden, ist ggf. im Einzelfa
 Typischerweise werden eine Geschäftsanwendung und ein zugehöriges Service Gateway gemeinsam beschrieben, aber z.B. nicht zwei Geschäftsanwendungen die zu unterschiedlichen Fachverfahren gehören, auch wenn Sie sich gegenseitig aufrufen.
 Ein wichtiges Kriterium für die Auswahl der Systeme ist deren Entwicklungszyklus.
 Systeme die immer gemeinsam weiterentwickelt werden, können gut in einem gemeinsamen Dokument beschrieben werden.
-Querschnittssysteme werden in eigenen Dokumenten beschrieben._
+Querschnittsanwendungen werden in eigenen Dokumenten beschrieben._
 
 _Die Vorlage enthält bewusst auch Kapitel für Themen, die nicht für alle Systeme benötigt werden.
 Dies soll eine möglichst große Vollständigkeit der damit erstellten Dokumentationen begünstigen._
@@ -330,8 +328,9 @@ Im Folgenden wird beschrieben, wie die Datenbank für `XXX` vorbereitet wird. +
 
 Die DB-Skripte liegen im Verzeichnis
 
-.Pfad für die Datenbankskripte
+:desc-listing-pfad-datenbankskripte: Pfad für die Datenbankskripte
 [id="listing-pfad-datenbankskripte",reftext="{listing-caption} {counter:listings}"]
+.{desc-listing-pfad-datenbankskripte}
 [source,xml,subs="verbatim,attributes"]
 ----
  `XXX_GA_ROOT/xxx-ga/src/main/skripte/sql/`
@@ -361,8 +360,9 @@ Die Datei `xxx-benutzer.xls` ist vor dem Einspielen noch anzupassen, da hier noc
 
 . *XXX spezifische Rollen und Nutzer anlegen*
 
-.Benutzerverzeichnisrollen anlegen
+:desc-listing-benutzerverzeichnis-rollen: Benutzerverzeichnisrollen anlegen
 [id="listing-benutzerverzeichnis-rollen",reftext="{listing-caption} {counter:listings}"]
+.{desc-listing-benutzerverzeichnis-rollen}
 [source,xml,subs="verbatim,attributes"]
 ----
 cd /opt/plis-benutzerverzeichnis-batch/bin
@@ -396,8 +396,9 @@ Im conf-Ordner des Apache Servers (`/usr/local/apache2/conf`) sind folgende Date
 
 *httpd.conf:*
 
-.Apache Request Weiterleitung an Tomcat
+:desc-listing-apache-request-tomcat: Apache Request Weiterleitung an Tomcat
 [id="listing-apache-request-tomcat",reftext="{listing-caption} {counter:listings}"]
+.{desc-listing-apache-request-tomcat}
 [source,xml,subs="verbatim,attributes"]
 ----
  JkMount /xxx-ga/* isy-xxx-gaWorker
@@ -405,8 +406,9 @@ Im conf-Ordner des Apache Servers (`/usr/local/apache2/conf`) sind folgende Date
 
 *workers.properties:*
 
-.Apache Request Weiterleitung an Tomcat (Worker)
+:desc-listing-apache-request-tomcat-worker: Apache Request Weiterleitung an Tomcat (Worker)
 [id="listing-apache-request-tomcat-worker",reftext="{listing-caption} {counter:listings}"]
+.{desc-listing-apache-request-tomcat-worker}
 [source,xml,subs="verbatim,attributes"]
 ----
 worker.list=…, isy-xxx-gaWorker
@@ -632,8 +634,9 @@ Die Datei `jpa.properties` enthält die Konfiguration der Datenbank-Verbindung.
 
 Folgende Werte müssen nach der Erstinstallation angepasst werden:
 
-.Konfigurationsparameter jpa.properties
+:desc-table-parameter-jpa-properties: Konfigurationsparameter jpa.properties
 [id="table-parameter-jpa-properties", reftext = "{table-caption} {counter:tables}"]
+.{desc-table-parameter-jpa-properties}
 [cols="5,5",options="header"]
 
 |===
@@ -813,8 +816,9 @@ Eine ausführliche Erläuterung der einzelnen Parameter ist ebenfalls in der Dat
 
 Folgende Werte müssen nach der Erstinstallation angepasst werden:
 
-.Konfigurationsparameter servicegateway.properties
+:desc-table-parameter-servicegateway-properties: Konfigurationsparameter servicegateway.properties
 [id="table-parameter-servicegateway-properties", reftext = "{table-caption} {counter:tables}"]
+.{desc-table-parameter-servicegateway-properties}
 [cols="5,5",options="header"]
 |===
 |Konfigurationsparameter |Beschreibung
@@ -930,8 +934,9 @@ und
 
 
 
-.Standardprüfung der Tomcat Serverprozesse
+:desc-listing-status-serverprozesse: Standardprüfung der Tomcat Serverprozesse
 [id="listing-status-serverprozesse",reftext="{listing-caption} {counter:listings}"]
+.{desc-listing-status-serverprozesse}
 [source,xml,subs="verbatim,attributes"]
 ====
 # ps -ef
@@ -1050,8 +1055,9 @@ Aufruf:
 
 *Rückgabewerte:*
 
-.Rückgabewerte von Batch-Aufrufen
+:desc-listing-rueckgabe-batch: Rückgabewerte von Batch-Aufrufen
 [id="listing-rueckgabe-batch",reftext="{listing-caption} {counter:listings}"]
+.{desc-listing-rueckgabe-batch}
 [source,xml,subs="verbatim,attributes"]
 ----
     0: Verarbeitung ohne Fehler durchgeführt
@@ -1090,8 +1096,9 @@ Die Überwachung der Anwendung erfolgt per JMX. Die nachfolgenden Tabellen liste
 In diesem Kapitel werden die per JMX bereitgestellten Monitoring-Parameter für die Tomcat-Anwendungen beschrieben.
 
 
-.Standard Überwachungsinformationen
+:desc-table-standard-ueberwachungsinformationen: Standard Überwachungsinformationen
 [id="table-standard-ueberwachungsinformationen", reftext = "{table-caption} {counter:tables}"]
+.{desc-table-standard-ueberwachungsinformationen}
 [cols="3,7", options="header"]
 |===
 2+|MBean-Name
@@ -1116,8 +1123,9 @@ Für Attributwerte die zusammengesetzte Werte zurückliefern (CompositeData) wir
 
 
 
-.Anwendungsspezifische Überwachungsinformation für XXX-GA
+:desc-table-anwendungsspezifische-ueberwachungsinformation-xxx-ga: Anwendungsspezifische Überwachungsinformation für XXX-GA
 [id="table-anwendungsspezifische-ueberwachungsinformation-xxx-ga", reftext = "{table-caption} {counter:tables}"]
+.{desc-table-anwendungsspezifische-ueberwachungsinformation-xxx-ga}
 [cols="3,7", options="header"]
 |===
 2+|MBean-Name
@@ -1148,8 +1156,9 @@ Nach dem Aufruf des Skriptes sollte die Variable `JAVA_OPTS` auf leer gesetzt we
 Nach Aktivierung von JMX stellt jeder Batch-Prozess folgende Informationen per JMX bereit:
 
 
-.Überwachungsinformation der Batches
+:desc-table-ueberwachungsinformation-batches: Überwachungsinformation der Batches
 [id="table-ueberwachungsinformation-batches", reftext = "{table-caption} {counter:tables}"]
+.{desc-table-ueberwachungsinformation-batches}
 [cols="2,6", options="header"]
 |===
 |Bezeichnung |Beschreibung
@@ -1195,8 +1204,9 @@ Folgender Test kann ausgeführt werden, um zu prüfen ob die Anwendung läuft:
 
 Im Info-Log (siehe Kapitel <<log-konfigurationsdateien>>) kann der Start des Systems nachvollzogen werden. Außerdem werden Fehlermeldungen des Selbsttests der Anwendung dort sowie im Error-Log geloggt.
 
-.Fehlercodes Smoke-Tests
+:desc-table-smoketest: Fehlercodes Smoke-Tests
 [id="table-smoketest", reftext = "{table-caption} {counter:tables}"]
+.{desc-table-smoketest}
 [cols="8,2", options="header"]
 |===
 |Smoketest Checkliste |Erledigt
