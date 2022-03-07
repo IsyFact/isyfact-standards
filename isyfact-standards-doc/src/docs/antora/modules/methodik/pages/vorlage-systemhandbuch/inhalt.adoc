@@ -25,7 +25,7 @@ Die Abgrenzung, welche Systeme zusammen beschrieben werden, ist ggf. im Einzelfa
 Typischerweise werden eine Geschäftsanwendung und ein zugehöriges Service Gateway gemeinsam beschrieben, aber z.B. nicht zwei Geschäftsanwendungen die zu unterschiedlichen Fachverfahren gehören, auch wenn Sie sich gegenseitig aufrufen.
 Ein wichtiges Kriterium für die Auswahl der Systeme ist deren Entwicklungszyklus.
 Systeme die immer gemeinsam weiterentwickelt werden, können gut in einem gemeinsamen Dokument beschrieben werden.
-Querschnittssysteme werden in eigenen Dokumenten beschrieben._
+Querschnittsanwendungen werden in eigenen Dokumenten beschrieben._
 
 _Die Vorlage enthält bewusst auch Kapitel für Themen, die nicht für alle Systeme benötigt werden.
 Dies soll eine möglichst große Vollständigkeit der damit erstellten Dokumentationen begünstigen._
@@ -88,11 +88,11 @@ _Sehr kurze zusammenfassende fachliche Darstellung des Verfahrens.
 Darstellung der Einbettung in die Anwendungslandschaft.
 Verweis auf die aktuelle Version der Systemspezifikation._
 
-_Quelle:_::
+_Quelle_::
 _Einbettung des Systems in die Anwendungslandschaft (aus Systementwurf).
-             Extrakt aus Einleitung / Überblick aus Systemspezifikation. Einbettung_
-_Dokumentationsform:_::
-_Bild der Anwendungslandschaft gemäß Ist- bzw. Referenzarchitektur mit hervorgehobenem neuem System, Freitext_
+             Extrakt aus Einleitung / Überblick aus Systemspezifikation._
+_Dokumentationsform_::
+_Bild der Anwendungslandschaft gemäß Ist- bzw. Referenzarchitektur mit hervorgehobenem neuen System, Freitext._
 ====
 
 Details können in der Systemspezifikation [_SysSpez(Referenzlink anpassen)_] nachgelesen werden.
@@ -106,17 +106,17 @@ In diesem Kapitel werden IT Produkte, Techniken und Architekturen aufgeführt, d
 ==== Übersicht der technischen Verfahrensbeschreibung
 
 ====
-_Inhalt:_::
+_Inhalt_::
 _An dieser Stelle befindet sich eine Übersichtsgrafik, die darstellt, aus welchen Teilsystemen das Gesamtsystem besteht, wie diese sich gegenseitig aufrufen und welche Nachbarsysteme und Querschnittsfunktionen aufgerufen werden.
 Zur besseren Orientierung sind der Farbcode und das Layout der Referenzarchitektur zu beachten._
 +
 _Für die Schnittstellen und Services soll ein geeigneter Abstraktionsgrad gewählt werden.
 Zweck dieser Übersicht ist es, einen prinzipiellen Überblick zu geben und nicht jedes Detail zu beschreiben._
 
-_Quelle:_::
+_Quelle_::
 _Extrakt aus Einleitung / Überblick aus Systementwurf._
 
-_Dokumentationsform:_::
+_Dokumentationsform_::
 _Freitext, Grafiken, UML-Diagramme, …_
 ====
 
@@ -124,7 +124,7 @@ _Freitext, Grafiken, UML-Diagramme, …_
 ==== Architekturkomponenten des technischen Verfahrens
 
 ====
-_Inhalt:_::
+_Inhalt_::
 _Deployment-Diagramm des Systems mit grober Erklärung, Auflistung der Produkte der Laufzeitumgebung (Kategorie, Name, Version, Bemerkung)._
 +
 _Folgende Aspekte sind darzustellen:_ +
@@ -140,81 +140,147 @@ Clustering von Nachbarsystemen kann vereinfacht dargestellt werden._
 _Quelle_::
 _Systementwurf_
 
-_Dokumentationsform:_::
+_Dokumentationsform_::
 _Deployment-Diagramme, Tabellen, Freitext_
 ====
 
 [[bauen-systems]]
 == Bauen des Systems
 
-[[einrichtung-build-umgebung]]
-=== Einrichtung der Build-Umgebung
+Das Bauen des Systems erfolgt über einen standardisierten Build-Mechanismus.
+Der Build benötigt die in <<table-build-tools>> aufgelisteten Werkzeuge und Technologien.
+Weitere Abhängigkeiten werden durch die erforderlichen Build-Werkzeuge selbstständig nachgeladen.
 
-Maven ist standardmäßig so konfiguriert, dass während des Build-Prozesses neue Bibliotheken und Maven-Plugins unkontrolliert aus dem Internet heruntergeladen werden.
-Die heruntergeladenen Dateien werden in einem lokalen Maven Repository zur späteren Verwendung abgelegt.
+:desc-table-build-tools: Erforderliche Build-Werkzeuge und Technologien
+[id="table-build-tools", reftext = "{table-caption} {counter:tables}"]
+.{desc-table-build-tools}
+[cols="5,5",options="header"]
+|===
+|Werkzeug
+|Version
 
-Das zuvor beschriebene Verhalten ist jedoch nicht erwünscht.
-Stattdessen wird Maven so konfiguriert, dass alle Anfragen auf ein eigenes Maven-Repository umgeleitet werden.
-Dieses Maven-Repository muss über einen geeigneten Prozess mit einem qualitätsgesicherten Stand aller Bibliotheken und Maven-Plugins befüllt werden, die für den Build-Prozess benötigt werden.
-Die Definition eines solchen Prozesses ist nicht Gegenstand dieses Dokuments.
+|Maven
+|3.x
 
-Die Datei settings.xml von Maven ist durch folgende Konfiguration für die Verwendung eines Mirrors für alle Anfragen zu erweitern:
+|(RPM)
+| ...
 
-:desc-listing-settings-von-maven: Datei settings.xml von Maven
-[id="listing-settings-von-maven",reftext="{listing-caption} {counter:listings}"]
-.{desc-listing-settings-von-maven}
-[source,xml,subs="verbatim,attributes"]
-----
-<mirror>
-    <mirrorOf>*</mirrorOf>
-    <name>repositoryurl</repositoryurl>
-    <url>URL zum eigenen Repository</url>+
-    <id>RF</id>
-</mirror>
-----
+|Oracle Java SE Development Kit (JDK)
+|1.8.0_x
 
-[[durchfuehren-builds]]
-=== Durchführen des Builds
+|(node.js)
+| ...
+
+|===
 
 ====
-_Inhalt:_::
-_Build-Anleitung für alle IT-Systeme.
-Dazu ggf. weitere Unterkapitel anlegen. +
-Die Anleitung soll hier vollständig sein und nicht auf andere Dokumentationen z.B. das IsyFact-Deployment-Konzept verweisen._
+_Inhalt_::
+_Falls nötig, Tabelle mit weiteren Werkzeugen und Technologien vervollständigen._
+_Die obige Tabelle ist mit Vorgaben aus dem Produktkatalog gefüllt._
 
-_Quelle:_::
+_Dokumentationsform_::
+_Tabelle_
+====
+
+
+[[bau-xxx-ga-batches-legacy]]
+=== Bau der ISY-XXX-GA und Batches
+
+NOTE: *Falls die Anwendung den traditionellen RPM Build (via `ant` und `rpmbuild`) nicht verwendet, kann dieser Abschnitt entfallen.*
+
+Zum Erzeugen der RPM-Pakete wird das Werkzeug `rpmbuild` mithilfe von Ant über Maven benutzt.
+Dies setzt ein Artefakt-Repository zum Auflösen von Paketabhängigkeiten voraus.
+
+Der Build wird folgendermaßen ausgeführt:
+
+:desc-listing-maven-build: Maven-Befehl zum Build der ISY-XXX-GA & Batches
+[id="listing-maven-build",reftext="{listing-caption} {counter:listings}"]
+.{desc-listing-maven-build}
+[source]
+----
+mvn -Dbuild.number=<Build-Nummer> -Dtest=false -DfailIfNoTests=false clean package
+----
+
+TIP: Die Build-Nummer (Argument `-Dbuild.number`) wird üblicherweise mit der Lieferungsnummer belegt.
+Das bedeutet z. B.: `1.0.0_14` wird zu `14`, oder allgemein: `1.0.0_x` wird zu `x`.
+
+Nach erfolgreichem Build befinden sich im Ordner `isy-xxx-ga-deployment/target/RPMS/noarch` folgende RPM-Pakete:
+
+* `isy-xxx-ga-<VERSION>.noarch.rpm`: ISY XXX GA,
+* `isy-xxx-batch-<VERSION>.noarch.rpm`: ISY XXX Batches.
+
+Damit werden alle Anwendungen mit einem Aufruf gebaut.
+In den folgenden Kapiteln wird die Installation der einzelnen Pakete näher beschrieben.
+
+====
+_Inhalt_::
+_Für weitere Build-Schritte ggf. weitere Unterkapitel anlegen. +
+Die Anleitung soll hier vollständig sein und darf nicht auf andere Dokumente der IsyFact verweisen._
+
+_Quelle_::
 _Entwicklerhandbuch_
 
-_Dokumentationsform:_::
+_Dokumentationsform_::
 _Freitext_
 ====
 
-[[xxx-ga-batches]]
-==== XXX-GA und Batches
+[[bau-xxx-ga-batches]]
+=== Bau der ISY-XXX-GA und Batches
 
-Die Tomcat-Applikation _XXX_ und die Batch-Anwendung _XXX-Batch_ werden auf einem Linux-Server im ausgecheckten Verzeichnis wie folgt gebaut:
+NOTE: *Falls die Anwendung den neuen RPM Build (via Maven-Plugin) nicht verwendet, kann dieser Abschnitt entfallen.*
 
+Zum Erzeugen der RPM-Pakete wird ein Maven-Plugin benutzt.
+Dies setzt ein Artefakt-Repository zum Auflösen von Paketabhängigkeiten voraus.
 
-:desc-listing-maven-build-statement: Maven Build Anweisung
-[id="listing-maven-build-statement",reftext="{listing-caption} {counter:listings}"]
-.{desc-listing-maven-build-statement}
-[source,xml,subs="verbatim,attributes"]
+Der Build wird folgendermaßen ausgeführt:
+
+:desc-listing-maven-build: Maven-Befehl zum Build der ISY-XXX-GA & Batches
+[id="listing-maven-build",reftext="{listing-caption} {counter:listings}"]
+.{desc-listing-maven-build}
+[source]
 ----
-mvn -Dtest=false -DfailIfNoTests=false -Dbuild.number=<build-number> package
+mvn -Drpm.release=<Build-Nummer> -Dtest=false -DfailIfNoTests=false clean package
 ----
 
-Die `build-number` muss auf den letzten Teil der Versionsnummer des Tags gesetzt werden.
-Für das Tag 1.0.0_23 auf „23“.
+TIP: Das Feld `release` (Argument `-Drpm.release`) wird üblicherweise mit der Lieferungsnummer belegt.
+Das bedeutet z. B.: `1.0.0_14` wird zu `14`, oder allgemein: `1.0.0_x` wird zu `x`.
 
-Es werden zwei rpm-Pakete erstellt:
+Nach erfolgreichem Build befinden sich im jeweiligen Modul unter `target` die RPM-Pakete:
 
-* `xxx-deployment/target/RPMS/noarch/isy-xxx-<version>-<build-number>.noarch.rpm`
-* `xxx-deployment/target/RPMS/noarch/isy-xxx-batch-<version>-<build-number>.noarch.rpm`
+* `isy-xxx-ga-<VERSION>.noarch.rpm`: ISY XXX GA,
+* `isy-xxx-batch-<VERSION>.noarch.rpm`: ISY XXX Batches.
 
-[[xxx-service-gateway]]
-==== XXX-Service Gateway
+Damit werden alle Anwendungen mit einem Aufruf gebaut.
+In den folgenden Kapiteln wird die Installation der einzelnen Pakete näher beschrieben.
 
+====
+_Inhalt_::
+_Für weitere Build-Schritte ggf. weitere Unterkapitel anlegen. +
+Die Anleitung soll hier vollständig sein und darf nicht auf andere Dokumente der IsyFact verweisen._
+
+_Quelle_::
+_Entwicklerhandbuch_
+
+_Dokumentationsform_::
+_Freitext_
+====
+
+[[bau-xxx-sgw]]
+=== Bau des ISY-XXX-SGW
 …
+
+====
+_Inhalt_::
+_Build beschreiben, sofern er sich maßgeblich vom Build der GA unterscheidet. +
+Die Anleitung soll auch hier vollständig sein und darf nicht auf andere Dokumente der IsyFact verweisen._
+
+_Quelle_::
+_Entwicklerhandbuch_
+
+_Dokumentationsform_::
+_Freitext_
+====
+
 
 [[installation-konfiguration-systems]]
 == Installation und Konfiguration des Systems
@@ -231,13 +297,13 @@ Dazu gehören Systembenutzer, sofern sie für mehrere Systeme benötigt werden._
 +
 _Ebenso werden in eigenen Kapiteln die Einrichtung bzw. Konfiguration von technischen Systemen (Webserver, Mail-Server, Datenbank usw.) beschrieben._
 +
-_Sofern Lizenz-Dateien o.Ä. benötigt werden, sollen diese ebenfalls hier aufgeführt werden +
+_Sofern Lizenz-Dateien o.Ä. benötigt werden, sollen diese ebenfalls hier aufgeführt werden. +
 Falls einzelne technische Systeme von sehr vielen Verfahren benötigt werden, ist es zweckmäßig, diese in eigene Dokumente auszulagern._
 
-_Quelle:_::
+_Quelle_::
 _Entwicklerhandbuch, Systementwurf._
 
-_Dokumentationsform:_::
+_Dokumentationsform_::
 _Freitext_
 ====
 
@@ -246,8 +312,8 @@ In diesem Kapitel werden allgemeine Konfigurationen für die Systemumgebungen be
 [[anlegen-betriebssystemnutzer-gruppen]]
 ==== Anlegen der Betriebssystemnutzer und -gruppen
 
-Die Anwendungen `_XXX-GA_` und `_XXX-SGW_` benötigen den Betriebssystembenutzer „tomcat“ in der Benutzergruppe „tomcat“.
-Die Batch-Anwendung `_XXX-GA-Batch_` benötigt den Betriebssystembenutzer „batch“ in der Benutzergruppe „batch“.
+Die Anwendungen `_XXX-GA_` und `_XXX-SGW_` benötigen den Betriebssystemnutzer „tomcat“ in der Benutzergruppe „tomcat“.
+Die Batch-Anwendung `_XXX-GA-Batch_` benötigt den Betriebssystemnutzer „batch“ in der Benutzergruppe „batch“.
 
 Die Nutzer und Gruppen werden mit den betriebssystemüblichen Programmen angelegt.
 Das Kennwort wird vom Betrieb vergeben.
@@ -316,13 +382,6 @@ Das Schlüsselverzeichnis muss mindestens in der Version `x.y.z_nn` installiert 
 Es wird angenommen, dass die XXX-spezifischen Schlüssel und Mappings in das Schlüsselverzeichnis importiert worden sind.
 Die entsprechende Datei ist mit den Schlüsseln und Mappings im Releaseletter der `_XXX-GA_` angegeben.
 
-[[konfigurationsdatei-cams-webagentconf]]
-==== Konfigurationsdatei `cams-webagent.conf`
-
-Über diese Datei wird der CAMS-Web-Agent konfiguriert.
-
-…
-
 [[apache-konfiguration]]
 ==== Apache Konfiguration
 
@@ -367,13 +426,13 @@ Nach der Änderung sollte der Apache neu gestartet werden.
 ==== Mail-Server Konfiguration
 
 ====
-_Inhalt:_::
+_Inhalt_::
 _Beschreibung der Einrichtung des Mail-Servers, z.B. benötigte Postfächer etc._
 
-_Quelle:_::
+_Quelle_::
 _Entwicklerhandbuch, Systementwurf._
 
-_Dokumentationsform:_::
+_Dokumentationsform_::
 _Freitext_
 ====
 
@@ -394,21 +453,17 @@ Die Tomcat-Basisinstallation kann nur von dem root-Benutzer installiert werden.
 
 Für die Erstinstallation:
 
- rpm -i isy-xxx-ga-tomcat-sieben.0.59-111.x86_6vier.rpm
+ 'rpm -i isy-xxx-ga-tomcat-{version}.x86_64.rpm'
 
-Für die nachfolgenden Schritte ist erforderlich, dass Java 1.7 installiert ist.
-Die Umgebungsvariable `JAVA7_HOME` muss auf den Installationspfad von Java 1.7 verweisen.
+Für die nachfolgenden Schritte ist erforderlich, dass Java installiert ist.
+Die Umgebungsvariable `JAVA<X>_HOME` muss auf den Installationspfad von Java verweisen. <X> muss durch die Java-Versionsnummer ersetzt werden, z.B. 8.
 
-In der Datei `/opt/plis-xxx-ga/tomcat/conf/wrapper.conf` sind alle Vorkommen von `JAVA_HOME` durch `JAVA6_HOME` zu ersetzen (siehe auch [NutzungTomcat]).
+In der Datei `/opt/isy-xxx-ga/tomcat/conf/wrapper.conf` sind alle Vorkommen von `JAVA_HOME` durch `JAVA<X>_HOME` zu ersetzen (siehe auch [NutzungTomcat]).
 
 Außerdem müssen hier noch die Werte für die Heap-Size erhöht werden:
 
  wrapper.java.initmemory=128
  wrapper.java.maxmemory=512
-
-und ein zusätzliches Attribut für den Perm-Size gesetzt werden:
-
- wrapper.java.additional.<lfd.Nummer>=-XX:MaxPermSize=256m
 
 Die Anwendung `_XXX-GA_` wird von anderen Anwendungen über den konfigurierten Tomcat-Port aufgerufen.
 
@@ -463,44 +518,35 @@ Nach der Installation liegen die Konfigurationsdateien von `_XXX-GA_` unter
 
 Folgende Konfigurationsdateien müssen für die Konfiguration angepasst werden:
 
-* `log4j.properties`
-* `jpa.properties`
-* `.ga.properties`
-* `cams-webagent.conf`
+* `logback.xml`,
+* `isy-xxx-ga.properties`,
+* `jpa.properties`,
+* (Liste der Konfigurationsdateien der Tomcat-Anwendung).
 
-Änderungen an den Einstellungen müssen bei heruntergefahrener Anwendung durchgeführt werden.
-Dieses Verhalten gilt nicht für
+Änderungen an den Konfigurationsdateien müssen bei heruntergefahrener Anwendung durchgeführt werden.
 
-* alle Einstellungen der Datei `log4j.properties`
+IMPORTANT: Dieses Verhalten gilt nicht für die Konfigurationsdatei `logback.xml`.
+Änderungen an dieser Konfigurationsdatei können bei laufender Anwendung ausgeführt werden.
 
-Änderungen an diesen Einstellungen können bei laufender Anwendung ausgeführt werden.
+[[konfigurationsdatei-logback]]
+===== Konfigurationsdatei `logback.xml`
 
-[[konfigurationsdatei-log4j-properties]]
-===== Konfigurationsdatei log4j.properties
+Die Konfigurationsdatei `logback.xml` enthält die Logging-Einstellungen und ist nach den Logging-Vorgaben aufgebaut.
+Nach der Installation muss dort der Name der künftigen Log-Datei angegeben werden.
+Dazu ist in den folgenden Zeilen der `HOSTNAME` durch den tatsächlichen Hostnamen zu ersetzen.
 
-Die `log4j.properties`-Datei bestimmt die Logging-Einstellungen und ist nach den Logging-Vorgaben aufgebaut.
-
-Nach der Installation müssen in dieser Datei die Namen der künftigen Log-Dateien (Error, Info und Debug) angegeben werden.
-Dazu ist in den folgenden Zeilen der [.underline]#HOSTNAME# durch den tatsächlichen Hostnamen zu ersetzen.
-
-:desc-listing-apache-tomcat-workerlogforj: Konfiguration log4j.appender
-[id="listing-apache-tomcat-workerlogforj",reftext="{listing-caption} {counter:listings}"]
-.{desc-listing-apache-tomcat-workerlogforj}
-[source,xml,subs="verbatim,attributes"]
+:desc-listing-logging-konfiguration-dateiname: Konfiguration Logging ISY-XXX-GA: Log-Dateiname
+[id="listing-logging-konfiguration-dateiname",reftext="{listing-caption} {counter:listings}"]
+.{desc-listing-logging-konfiguration-dateiname}
+[source,xml]
 ----
-log4j.appender.ERROR_APPENDER.File=/var/log/isy-xxx-ga/error_log_*[.underline]#HOSTNAME#*_xxx-ga
-
-log4j.appender.INFO_APPENDER.File=/var/log/isy-xxx-ga /info_log_*[.underline]#HOSTNAME#*_xxx-ga
-
-log4j.appender.
-DEBUG_APPENDER.
-File=/var/log/isy-xxx-ga /debug_log_*[.underline]#HOSTNAME#*_xxx-ga
+<property name="LOGFILE_PATH" value="/var/log/isy-xxx-ga/HOSTNAME_isy-xxx-ga" />
 ----
 
-Die Log-Dateien werden mit diesen Einstellungen nach `/var/log/isy-xxx-ga` für `_XXX-GA_` geschrieben.
+Die Logs werden nach `/var/log/isy-xxx-ga` geschrieben.
 
-[[konfigurationsdatei-gaproperties]]
-===== Konfigurationsdatei xxx.ga.properties
+[[konfigurationsdatei-ga]]
+===== Konfigurationsdatei `isy-xxx-ga.properties`
 
 Die Datei `xxx.ga.properties` enthält alle weiteren Konfigurationseinstellungen von `_XXX-GA_`.
 
@@ -508,7 +554,7 @@ Eine ausführliche Erläuterung der einzelnen Parameter ist ebenfalls in der Dat
 
 Folgende Werte müssen nach der Erstinstallation angepasst werden:
 
-:desc-table-parameter-ga-properties: Konfigurationsparameter .ga.properties
+:desc-table-parameter-ga-properties: Konfigurationsparameter ISY-XXX-GA
 [id="table-parameter-ga-properties", reftext = "{table-caption} {counter:tables}"]
 .{desc-table-parameter-ga-properties}
 [cols="5,5",options="header"]
@@ -536,6 +582,48 @@ Beispiel: +
 |`batch.benutzer.passwort` |Passwort des System-Benutzers zum Ausführen der Batches.
 |... |
 |===
+
+====
+_Inhalt_::
+_Weitere Möglichkeiten der Konfiguration werden ab hier beschrieben, thematisch abgegrenzt und jeweils mit einer eigenen Tabelle dokumentiert._
+
+_Quelle_::
+_Systementwurf._
+
+_Dokumentationsform_::
+_Freitext & Tabellen_
+====
+
+Die Anbindung an den IAM-Service wird wie folgt konfiguriert:
+
+:desc-table-config-ga-keycloak: Konfiguration des IAM-Service
+[id="table-config-ga-keycloak", reftext = "{table-caption} {counter:tables}"]
+.{desc-table-config-ga-keycloak}
+[cols="2m,3a",options="header"]
+|===
+|Konfigurationsparameter |Beschreibung
+
+|sic.keycloak.auth-server-url.0
+|Basis-URL des IAM-Service. +
+Schema: `http(s)://<keycloak-host>:<keycloak-port>/auth/`
+
+|sic.keycloak.realm.0
+|Realm der Client zur Anmeldung. +
+Schema: `<realm-name>`
+
+|sic.keycloak.resource.0
+|Name des Clients, der die Authentifizierung des Benutzers durchführen wird. +
+Schema: `<client-name>`
+
+|sic.keycloak.bearer-only.0
+|Auf `false` gesetzt, da ein "Bearer"-Client keine Authentifizierung für andere vornehmen darf. +
+Default: `false`
+
+|sic.keycloak.credentials-secret.0
+|Per Vorgabe sind Clients vertrauenswürdig ("confidential"), weswegen ein "client secret" angegeben werden muss. +
+Schema: `<client-secret>`
+|===
+
 
 [[konfigurationsdatei-jpaproperties-batch]]
 ===== Konfigurationsdatei jpa.properties
@@ -591,22 +679,33 @@ Nach der Installation liegen die Konfigurationsdateien der Batch-Anwendung unter
 
  /etc/isy-xxx-ga-batch
 
-Die Konfiguration der Batch-Anwendung erfolgt analog zur Konfiguration der Tomcat-Anwendung im Kapitel <<installation-von-xxx-service-gateway>>:
+Die Konfiguration der Batch-Anwendung erfolgt analog zur Konfiguration der Tomcat-Anwendung im Kapitel <<konfiguration-tomcat-anwendung>>:
 
-Die Konfigurationsdateien der Batch-Anwendungen sind nach der Erstinstallation mit den Konfigurationsdateien der Tomcat-Anwendung identisch mit Ausnahme der speziellen Logging-Konfiguration für die Batches in der Datei `log4j-batch.properties` (siehe Kapitel <<konfigurationsdatei-log4j-batchproperties>>). Es ist möglich die bereits angepassten Konfigurationsdateien der Tomcat-Anwendung in die Konfigurationsverzeichnisse der Batch-Anwendungen zu kopieren. Anschließend müssen dort nur noch die abweichenden Einstellungen angepasst werden.
+Die Konfigurationsdateien der Batch-Anwendungen sind nach der Erstinstallation mit den Konfigurationsdateien der Tomcat-Anwendung bis auf eine Ausnahme identisch: der Logging-Konfiguration für die Batches.
+Es ist möglich die bereits angepassten Konfigurationsdateien der Tomcat-Anwendung in die Konfigurationsverzeichnisse der Batch-Anwendungen zu kopieren.
+Anschließend müssen dort nur noch die abweichenden Einstellungen angepasst werden.
 
-[[konfigurationsdatei-log4j-batchproperties]]
-===== Konfigurationsdatei log4j-batch.properties
+[[konfigurationsdatei-logging-batch]]
+===== Konfigurationsdatei `logback-batch.xml`
 
-Diese Konfigurationsdatei ist analog zur Datei `log4j.properties` aufgebaut.
+Diese Konfigurationsdatei ist analog zur Datei `logback.xml` aufgebaut.
 Sie wird für das Logging der Batches verwendet.
-Der Unterschied zur `log4j.properties` liegt darin, dass ein eigener Pfad für das Logging verwendet wird und dass die Batch-Id an den Namen der Log-Datei angehängt wird.
+Der Unterschied zur `logback.xml` der Tomcat-Anwendung liegt darin, dass ein eigener Pfad für das Logging verwendet wird und dass die Batch-Id an den Namen der Log-Datei angehängt wird.
 Außerdem werden die Log-Dateien nicht rolliert.
 
-[[konfigurationsdatei-jpaproperties-gateway]]
-===== Konfigurationsdatei `jpa.properties`
+[[konfigurationsdatei-ga-batch]]
+===== Konfigurationsdatei `isy-xxx-ga.properties`
 
-Die Konfiguration ist identisch zu Kapitel <<konfigurationsdatei-jpaproperties-batch, Installation von XXX-GA und XXX-GA-Batch/Konfigurationssdatei jpa.properties>>.
+====
+_Inhalt_::
+_Beschreibung der Unterschiede bei der Konfiguration der Batch-Anwendung_
+
+_Quelle_::
+_Systementwurf_
+
+_Dokumentationsform_::
+_Freitext_
+====
 
 [[starten-tomcat-anwendung-jpa-properties]]
 ==== Starten der Tomcat Anwendung
@@ -633,19 +732,15 @@ Es muss eine Tomcat-Basisinstallation für die Anwendung _XXX-SGW_
 
  /opt/isy-xxx-sgw/tomcat
 
-Die Tomcat-Basisinstallation kann nur von dem root-Benutzer installiert werden.
+vorliegen. Die Tomcat-Basisinstallation kann nur von dem root-Benutzer installiert werden.
 
 Für die Erstinstallation:
 
- 'rpm -i plis-xxx-sgw-tomcat-6.0.18-111.x86_64.rpm'
+ 'rpm -i isy-xxx-ga-tomcat-{version}.x86_64.rpm'
 
-Für die nachfolgenden Schritte ist erforderlich, dass Java 1.6 installiert ist. Es muss die Umgebungsvariable JAVA6_HOME auf den Installationspfad von Java 1.6 verweisen.
+Für die nachfolgenden Schritte ist erforderlich, dass Java installiert ist. Die Umgebungsvariable JAVA<X>_HOME muss auf den Installationspfad von Java verweisen. <X> muss durch die Java-Versionsnummer ersetzt werden, z.B. 8.
 
-In der Datei
-
- /opt/plis-xxx-sgw/tomcat/conf/wrapper.conf
-
-alle Vorkommen von `JAVA_HOME` durch `JAVA6_HOME` ersetzen.
+In der Datei `/opt/isy-xxx-sgw/tomcat/conf/wrapper.conf` sind alle Vorkommen von `JAVA_HOME` durch `JAVA<X>_HOME` ersetzen.
 
 Die Anwendung `_XXX-SGW_` wird von anderen Anwendungen über den konfigurierten Tomcat-Port aufgerufen.
 
@@ -685,36 +780,30 @@ Nach der Installation liegen die Konfigurationsdateien des `_XXX-SGW_ unter
 
 Folgende Konfigurationsdateien müssen für die Konfiguration angepasst werden:
 
-* log4j.properties
-* servicegateway.properties
-* cams-webagent.conf
+* `logback.xml`,
+* `servicegateway.properties`.
 
-Änderungen an den Einstellungen müssen bei heruntergefahrener Anwendung durchgeführt werden. Dieses Verhalten gilt nicht für
+Änderungen an den Konfigurationsdateien müssen bei heruntergefahrener Anwendung durchgeführt werden.
 
-* alle Einstellungen der Datei log4j.properties
+IMPORTANT: Dieses Verhalten gilt nicht für die Konfigurationsdatei `logback.xml`.
+Änderungen an dieser Konfigurationsdatei können bei laufender Anwendung ausgeführt werden.
 
-Änderungen an diesen Einstellungen können bei laufender Anwendung ausgeführt werden.
+[[konfigurationsdatei-logback-sgw]]
+===== Konfigurationsdatei `logback.xml`
 
-[[konfigurationsdatei-log4jproperties]]
-===== Konfigurationsdatei log4j.properties
+Die Konfigurationsdatei `logback.xml` enthält die Logging-Einstellungen und ist nach den Logging-Vorgaben aufgebaut.
+Nach der Installation muss dort der Name der künftigen Log-Datei angegeben werden.
+Dazu ist in den folgenden Zeilen der `HOSTNAME` durch den tatsächlichen Hostnamen zu ersetzen.
 
-Die `log4j.properties`-Datei bestimmt die Logging-Einstellungen und ist nach den Logging-Vorgaben aufgebaut.
-
-Nach der Installation müssen in dieser Datei die Namen der künftigen Log-Dateien (Error, Info und Debug) angegeben werden. Dazu ist in den folgenden Zeilen der [.underline]#HOSTNAME# durch den tatsächlichen Hostnamen zu ersetzen.
-
-:desc-listing-log4j-einstellungen: Logging Einstellungen nach Logging-Vorgaben
-[id="listing-log4j-einstellungen",reftext="{listing-caption} {counter:listings}"]
-.{desc-listing-log4j-einstellungen}
-[source,xml,subs="verbatim,attributes"]
+:desc-listing-logging-konfiguration-dateiname-sgw: Konfiguration Logging ISY-XXX-SGW: Log-Dateiname
+[id="listing-logging-konfiguration-dateiname-sgw",reftext="{listing-caption} {counter:listings}"]
+.{desc-listing-logging-konfiguration-dateiname-sgw}
+[source,xml]
 ----
-log4j.appender.ERROR_APPENDER.File=/var/log/isy-xxx-sgw/error_log_*[.underline]#HOSTNAME#*_xxx-sgw
-
-log4j.appender.INFO_APPENDER.File=/var/log/isy-xxx-sgw /info_log_*[.underline]#HOSTNAME#*_xxx-sgw
-
-log4j.appender.DEBUG_APPENDER.File=/var/log/isy-xxx-sgw /debug_log_*[.underline]#HOSTNAME#*_xxx-sgw
+<property name="LOGFILE_PATH" value="/var/log/isy-xxx-sgw/HOSTNAME_isy-xxx-sgw" />
 ----
 
-Die Log-Dateien werden mit diesen Einstellungen nach `/var/log/isy-xxx-sgw` für das _XXX-SGW_ geschrieben.
+Die Logs werden nach `/var/log/isy-xxx-sgw` geschrieben.
 
 [[konfigurationsdatei-servicegatewayproperties]]
 ===== Konfigurationsdatei servicegateway.properties
@@ -776,41 +865,36 @@ In allen anderen Umgebungen wird das Skript von Hand aufgerufen. Ein Eintrag in 
 [[log-konfigurationsdateien]]
 === Log- und Konfigurationsdateien
 
-
-:desc-table-log-dateien: Log-Dateien
+.Log-Dateien
 [id="table-log-dateien", reftext = "{table-caption} {counter:tables}"]
-.{desc-table-log-dateien}
-[cols="2,6", options="header"]
+[cols="2m,1", options="header"]
 |===
-h|Log-Datei h|Inhalt / Bemerkung
-2+^|*XXX-GA*
-|/var/log/isy-xxx-ga/debug_log_HOSTNAME_xxx-ga |Debug-Log der XXX-GA
-|/var/log/isy-xxx-ga/info_log_HOSTNAME_xxx-ga |Info-Log der XXX-GA
-|/var/log/isy-xxx-ga/error_log_HOSTNAME_xxx-ga |Error-Log der XXX-GA
-2+^|*XXX-SGW*
-|/var/log/isy-xxx-sgw/debug_log_HOSTNAME_xxx-sgw |Debug-Log des XXX Geschäftsanwendung
-|/var/log/isy-xxx-sgw/info_log_HOSTNAME_xxx-sgw |Info-Log des XXX-Service-Gateway
-|/var/log/isy-xxx-sgw/error_log_HOSTNAME_xxx-sgw |Error-Log des XXX-Service-Gateway
+|Log-Datei |Inhalt / Bemerkung
+
+|/var/log/isy-xxx-ga/HOSTNAME_isy-xxx-ga.log |Logdatei ISY-XXX-GA
+|/var/log/isy-xxx-ga/HOSTNAME_isy-xxx-ga_ZEITSTEMPEL.log |Rotierte Logdatei ISY-XXX-GA
+|/var/log/isy-xxx-sgw/HOSTNAME_isy-xxx-sgw.log |Logdatei ISY-XXX-SGW
+|/var/log/isy-xxx-sgw/HOSTNAME_isy-xxx-sgw_ZEITSTEMPEL.log |Rotierte Logdatei ISY-XXX-SGW
 |===
 
-:desc-table-konfigurationsdateien: Konfigurationsdateien
+Der Platzhalter `HOSTNAME` im Dateinamen steht für den Namen des Servers, auf dem das IT-System ausgeführt wird.
+Die `ZEITSTEMPEL` werden durch die Log-Rotation erzeugt und markieren ältere Log-Dateien.
+
+.Konfigurationsdateien
 [id="table-konfigurationsdateien", reftext = "{table-caption} {counter:tables}"]
-.{desc-table-konfigurationsdateien}
-[cols="2,6", options="header"]
+[cols="1,1", options="header"]
 |===
 h|Konfigurationsdatei h|Inhalt / Bemerkung
-2+^|*XXX-GA*
-|`/etc/isy-xxx-ga/isAlive` |Steuerdatei für Loadbalancer
-|`/etc/isy-xxx-ga/xxxga.properties` |Konfiguration der Anwendung
-|`/etc/isy-xxx-ga/jpa.properties` |Konfiguration der Datenbank-Verbindung
-|`/etc/isy-xxx-ga/log4j.properties` |Logging-Konfiguration
-|`/etc/isy-xxx-ga/cams-webagent.conf` |Konfiguration des CAMS
-2+^|*XXX-SGW*
-|`/etc/isy-xxx-sgw/isAlive` |Steuerdatei für Loadbalancer
-|`/etc/isy-xxx-sgw/xxxsgw.properties` |Konfiguration der Anwendung
-|`/etc/isy-xxx-sgw/jpa.properties` |Konfiguration der Datenbank-Verbindung
-|`/etc/isy-xxx-sgw/log4j.properties` |Logging-Konfiguration
-|`/etc/isy-xxx-sgw/cams-webagent.conf` |Konfiguration des CAMS
+2+^|*ISY-XXX-GA*
+m|/etc/isy-xxx-ga/isAlive |Steuerdatei für Loadbalancer
+m|/etc/isy-xxx-ga/isy-xxx-ga.properties |Konfiguration der Anwendung
+m|/etc/isy-xxx-ga/jpa.properties |Konfiguration der Datenbank-Verbindung
+m|/etc/isy-xxx-ga/logback.xml |Logging-Konfiguration
+2+^|*ISY-XXX-SGW*
+m|/etc/isy-xxx-sgw/isAlive |Steuerdatei für Loadbalancer
+m|/etc/isy-xxx-sgw/isy-xxx-sgw.properties |Konfiguration der Anwendung
+m|/etc/isy-xxx-sgw/jpa.properties |Konfiguration der Datenbank-Verbindung
+m|/etc/isy-xxx-sgw/logback.xml |Logging-Konfiguration
 |===
 
 
@@ -818,13 +902,13 @@ h|Konfigurationsdatei h|Inhalt / Bemerkung
 === Dokumentation des Datenbankschemas
 ====
 _Sofern eine Anwendung eine eigene Datenhaltung besitzt, wird die tatsächliche Datenhaltung in Form von Tabellen dokumentiert.
-Jede Datenbanktabelle als eigenes Unterkapitel in Form einer kurzen Beschreibung und einer Tabelle mit den wichtigsten Informationen zu der Datenbanktabelle beschrieben._
+Jede Datenbanktabelle ist als eigenes Unterkapitel in Form einer kurzen Beschreibung und einer Tabelle mit den wichtigsten Informationen zu der Datenbanktabelle beschrieben._
 
 *_Darstellung_*
 
 • _Für jede Datenbanktabelle wird kurz beschrieben was darin enthalten ist._
 
-• _Jede Datenbanktabelle wird in einer eigenen Tabelle, bestehend aus den Spalten Feld, Datentyp, Beschreibung, PK (Primary Key), FK (Foreign Key) und Indexiert, beschrieben._
+• _Jede Datenbanktabelle wird in einer eigenen Tabelle, bestehend aus den Spalten Feld, Datentyp, Beschreibung, PK (Primary Key), FK (Foreign Key) und Indizes, beschrieben._
 
 • _Enthält eine Spalte in der Datenbank Aufzählungstypen, so sind alle Ausprägungen des Aufzählungstyps in der Beschreibung der Spalte anzugeben._
 
@@ -970,11 +1054,11 @@ _Tabelle, Freitext, Diagramme_
 In diesem Abschnitt wird das Ausführen der Batch-Anwendung beschrieben. Die Batches sind unabhängig voneinander, d.h. sie können in beliebiger Reihenfolge ausgeführt werden.
 
 [[setzen-umgebungsvariable-java7home]]
-==== Setzen der Umgebungsvariable JAVA7_HOME
+==== Setzen der Umgebungsvariable JAVA<X>_HOME
 
-Die Ausführung der Batchanwendung setzt eine installierte Java 7 Runtime voraus. Für die Ausführung der Batch-Anwendung muss die Umgebungsvariable JAVA7_HOME korrekt gesetzt sein und auf das Java-Verzeichnis verweisen. Die Variable wird wie folgt auf der Kommandozeile gesetzt. (Bitte Verzeichnis der Java-Runtime überprüfen.)
+Die Ausführung der Batchanwendung setzt eine installierte Java Runtime voraus. Für die Ausführung der Batch-Anwendung muss die Umgebungsvariable JAVA<X>_HOME (<X> ist durch die Java-Versionsnummer zu ersetzen, z.B. 8) korrekt gesetzt sein und auf das Java-Verzeichnis verweisen. Die Variable wird wie folgt auf der Kommandozeile gesetzt. (Bitte Verzeichnis der Java-Runtime überprüfen.)
 
- export JAVA6_HOME=/usr/lib/java7
+ export JAVA<X>_HOME=/usr/lib/java<X>
 
 
 
@@ -1057,7 +1141,7 @@ Dokumentationsform:::
 _Tabelle, Freitext_
 ====
 
-Die Überwachung der Anwendung erfolgt per JMX. Die nachfolgenden Tabellen listen die - von der Anwendung bzw. der Laufzeitumgebung bereitgestellten Parameter auf.
+Die Überwachung der Anwendung erfolgt per JMX. Die nachfolgenden Tabellen listen die von der Anwendung bzw. der Laufzeitumgebung bereitgestellten Parameter auf.
 
 [[monitoring-tomcat-anwendungen]]
 ==== Monitoring der Tomcat-Anwendungen
@@ -1075,7 +1159,7 @@ h|Attribut-Name h|Beschreibung
 2+|{set:cellbgcolor:#F6F4F4}java.lang:type=OperatingSystem
 |{set:cellbgcolor}FreePhysicalMemorySize |Liefert den freien physikalischen Arbeitsspeicher in Byte.
 |FreeSwapSpaceSize |Liefert den freien Auslagerungsspeicher in Byte.
-|OpenfileDescriptorCount |Liefert die Anzahl der offenen Datei-Deskriptoren
+|OpenfileDescriptorCount |Liefert die Anzahl der offenen Datei-Deskriptoren.
 2+|{set:cellbgcolor:#F6F4F4} java.lang:type=Memory
 |{set:cellbgcolor}HeapMemoryUsage.used |Liefert den Java-Heap-Speicherverbrauch in Byte.
 |===
@@ -1136,7 +1220,7 @@ Nach Aktivierung von JMX stellt jeder Batch-Prozess folgende Informationen per J
 |SaetzeVerarbeitet |Die Anzahl bereits verarbeiteter Sätze.
 |SchluesselLetzterSatz |Schlüssel des letzten verarbeiteten Satzes.
 |ZeitSeitLetztemSatz |Zeitraum in Millisekunden, der bereits für den aktuellen Satz benötigt wurde.
-|BatchId |Die ID des aktuellen Batches
+|BatchId |Die ID des aktuellen Batches.
 |===
 
 
@@ -1206,20 +1290,20 @@ Das Error-Log darf keine Fehler enthalten.
 [[debug-logging]]
 ==== Debug-Logging
 
-Die Konfiguration wird mit Log-Level INFO ausgeliefert, d.h. das Loggen von Debug-Ausgaben ist ausgeschaltet. Es kann aber wie folgt eingeschaltet werden:
+Die Konfiguration wird mit Log-Level `INFO` ausgeliefert, d.h. das Loggen von Debug-Ausgaben ist ausgeschaltet. Es kann aber wie folgt eingeschaltet werden:
 
-Die erste Zeile der `log4j.properties-Datei` (bzw. `log4j-batch.properties`) bestimmt den Log-Level:
+Die Konfigurationsdatei `logback.xml` (bzw. `logback-batch.xml`) enthält folgende Zeile:
 
- log4j.rootLogger=INFO, ERROR_APPENDER, INFO_APPENDER, DEBUG_APPENDER
+ <root level="INFO">
 
-Wird der Eintrag INFO auf DEBUG umgestellt, so werden auch Debug-Meldungen geschrieben.
+Wird der Eintrag `INFO` auf `DEBUG` umgestellt, so werden auch Debug-Meldungen geschrieben.
 
-Das Logging sollte auf der Produktiv-Umgebung nie auf DEBUG gestellt werden. Aufgrund der zahlreichen und umfangreichen Datenausgabe könnte es zu Performance-Problemen kommen. Gleichzeitig ist nicht sichergestellt, dass keine sicherheitsrelevanten Daten ausgegeben werden.
+CAUTION: Das Logging sollte auf der Produktiv-Umgebung nie auf `DEBUG` gestellt werden.
+Aufgrund der umfangreichen Datenausgabe könnte es zu Performance-Problemen kommen.
+Gleichzeitig ist nicht sichergestellt, dass keine sicherheitsrelevanten Daten ausgegeben werden.
 
 [[fehler-fehlerbehebungsmassnahmen]]
 === Fehler und Fehlerbehebungsmaßnahmen
-
-
 
 ====
 *_Ausfüllhinweise_*
@@ -1265,7 +1349,7 @@ In der folgenden Tabelle sind die im System möglichen grundsätzlichen Fehlersi
 |Nr. |Fehlersituation |Ort der +
 Entstehung |Behandlung und Reaktion +
 des Systems
-a ^|
+^|
 1
 
 a| _Nachbarsystem nicht erreichbar_
@@ -1276,22 +1360,22 @@ a| _Nachbarsystem nicht erreichbar_
 
 |_XXX -GA , +
 XXX -GA Batch_ |_Das System schreibt den Fehler in das Error-Log und gibt den für den Anwender maskierten Fehler als XXXXX99999 über die Außenschnittstelle an den Aufrufer zurück._
-a ^|
+^|
 2
 
 |_Authentifizierung schlägt fehl (fehlende Zugangsberechtigung)_ |_XXX -GA , +
 XXX -GA Batch_ |_Das System schreibt den Fehler in das Error-Log und gibt einen Berechtigungsfehler über die Außenschnittstelle an den Aufrufer zurück._
-a ^|
+^|
 3
 
 |_Autorisierung schlägt fehl (fehlende Nutzungsberechtigung)_ |_XXX -GA , +
 XXX -GA Batch_ |_Das System schreibt den Fehler in das Error-Log und gibt einen Berechtigungsfehler über die Außenschnittstelle an den Aufrufer zurück._
-a ^|
+^|
 4
 
 |_Konfigurationsfehler_ |_XXX -GA , +
 XXX -GA Batch_ |_Abhängig vom Konfigurationsfehler startet die Anwendung nicht oder führt zu einem anderen Fehlertyp (z.B. falsche Angabe der Schlüsselverzeichnis-Url)_
-a ^|
+^|
 5
 
 |_Technischer Fehler in der Verarbeitung (z.B. Datenbank nicht verfügbar)_ |_XXX -GA , +

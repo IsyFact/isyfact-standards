@@ -228,7 +228,7 @@ Die jeweiligen Aufgaben sind durch die entsprechende Rolle im konkreten Projektk
 
 * **Chefarchitekt**: Der Chefarchitekt verantwortet den adäquaten Technikeinsatz und die Architektur im Gesamtprojekt bzw.
 auf Ebene der Anwendungslandschaft.
-* **Fachlicher Architekt**: Der Fachliche Architekt verantwortet die Struktur der einzelnen Systeme und Querschnittskomponenten in einer Anwendungslandschaft aus fachlicher Sicht.
+* **Fachlicher Architekt**: Der Fachliche Architekt verantwortet die Struktur der einzelnen Systeme und Querschnittsanwendungen in einer Anwendungslandschaft aus fachlicher Sicht.
 * **Systemarchitekt (Technischer Chefdesigner)**: Die Systemarchitekten, oder auch Technische Chefdesigner genannt, verantworten den adäquaten Technikeinsatz und die Architektur in einem Teilprojekt bzw.
 für eines oder mehrere IT-Systeme.
 * **SW-Entwickler**: Die SW-Entwickler sind zuständig für die Realisierung der IT-Systeme.
@@ -255,7 +255,7 @@ Die Dokumentation der *Blaupausen* enthält je ein Detailkonzept pro Blaupause.
 
 Die *Bausteine* sind jeder für sich ausführlich dokumentiert.
 Wird der Baustein mittels einer Bibliothek realisiert, umfasst die Dokumentation ein Konzept, Nutzungsvorgaben sowie ein Changelog.
-Besteht der Baustein aus einem eigenständigen Querschnittssystem, enthält die Dokumentation zusätzlich ein Betriebshandbuch (Nutzungsvorgaben für den Betrieb des IT-Systems in einer Anwendungslandschaft) und ein Anwenderhandbuch (insofern das Querschnittssystem über eine Benutzeroberfläche verfügt).
+Besteht der Baustein aus einer eigenständigen Querschnittsanwendung, enthält die Dokumentation zusätzlich ein Systemhandbuch (Nutzungsvorgaben für den Betrieb des IT-Systems in einer Anwendungslandschaft) und ein Anwenderhandbuch (insofern die Querschnittsanwendung über eine Benutzeroberfläche verfügt).
 
 Die Dokumentation der *Plattform* enthält Nutzungsvorgaben für jede von der IsyFact empfohlene oder eingesetzte Technologie zum Betrieb von IT-Systemen (z.B. HTTP- und Applikationsserver, Datenbanken).
 

@@ -341,12 +341,8 @@ Marker können jedoch aneinandergehängt werden (Methode add am Marker), so dass
 Zur Aufbereitung der Logeinträge im JSON-Layout (Siehe Kapitel <<logformat>>) steht die Klasse `IsyJsonLayout` zur Verfügung.
 Diese erweitert die Klasse `JsonLayout` von _logback_ um die Auswertung der `IsyMarker`.
 Wird ein entsprechender Marker übergeben, so schreibt die Klasse diesen und alle enthaltenen Marker als Name/Wert-Paare (JSON-Attribute) in das Log.
-Diese Klasse übernimmt außerdem die Funktion zur Kontrolle der Länge eines Logeintrags und kürzt den Logeintrag, falls dieser die maximale Länge überschreitet.
-Die Kürzung eines zu langen Logeintrags findet auf Attributebene in folgender Reihenfolge statt: Kürzung von Parameter (bereits in Nachricht enthalten), Exception, Nachricht.
-Gekürzte Logeinträge erhalten einen zusätzlichen Schlüssel `gekuerzt` mit dem Wert `true`.
-Es werden nur Logeinträge der Levels `INFO`, `WARN` und `ERROR` gekürzt.
 
-Nähere Informationen zur Festlegung der maximalen Länge von Logeinträgen finden sich in dem Dokument xref:nutzungsvorgaben/master.adoc#einleitung[Logging - Nutzungsvorgaben].
+Die zusätzliche Inhalte, die mithilfe von IsyMarker gespeichert werden, werden im Abschnitt <<zusaetzliche-marker-von-isy-logging>> beschrieben.
 
 In <<image-aufbvLogent>> ist das Zusammenspiel der verschiedenen Klassen zur Aufbereitung der Logeinträge dargestellt.
 
@@ -424,7 +420,8 @@ Die folgenden Attribute werden automatisch durch logstash gesetzt und sind in je
 [[zusaetzliche-marker-von-isy-logging]]
 === Zusätzliche Inhalte mit isy-logging
 
-Durch die Anwendungen geloggte Attribute werden durch die Entität `ETY_Logeintrag` in <<entitaeten>> beschrieben.
+Durch die Anwendungen geloggte Attribute werden durch die Entität `ETY_Logeintrag` beschrieben. Die zusätzliche Attribute werden durch `ETY_Marker` beschrieben (Siehe <<entitaeten>>).
+
 Zusätzlich erhält man die Attribute: `parameter` und `gekuerzt`.
 Darüber hinaus werden beim Einsatz von `LoggingMethodInvoker` und `LoggingMethodInterceptor` die Attribute `methode` und `dauer` gesetzt.
 
@@ -439,6 +436,11 @@ Informiert über die Kürzung eines Logeintrags.
 
 Das Attribut wird gesetzt, wenn der Logeintrag die maximale Länge eines Logeintrags überschritten hatte und aus diesem Grund gekürzt wurde.
 Das Attribut wird in diesem Fall immer auf den Wert `true` gesetzt. Bei konformen Logeinträgen wird der Marker nicht gesetzt.
+
+Die Kürzung eines zu langen Logeintrags findet auf Attributebene in folgender Reihenfolge statt: Kürzung von Parameter (bereits in Nachricht enthalten), Exception, Nachricht.
+Es werden nur Logeinträge der Levels `INFO`, `WARN` und `ERROR` gekürzt.
+
+Nähere Informationen zur Festlegung der maximalen Länge von Logeinträgen finden sich in dem Dokument xref:nutzungsvorgaben/master.adoc#einleitung[Logging - Nutzungsvorgaben].
 
 |`true`
 |methode a|
