@@ -411,6 +411,11 @@ Für jeden Schlüssel sind folgende Properties zu setzen:
 * `essentiell` (`true`/`false`) : Ist ein essentielles Nachbarsystem nicht erreichbar, wird der Status des Nachbarsystem-Indikators auf DOWN gesetzt und ein Error geloggt.
 Nicht essentielle Nachbarsysteme beeinflussen den Status nicht und werden, falls sie nicht erreichbar sind, nur als Warning geloggt.
 
+==== Besonderheit bei einem Nachbarsystem-HealthIndicator
+Bei und nur bei einer Nachbarsystemprüfung muss eine Korrelations-ID erzeugt und übergeben werden.
+Der jeweilige `HealthIndicator` muss dazu zu Beginn eine Korrelations-ID erzeugen, die im Logging-Kontext gesetzt werden muss.
+Bei jedem Aufruf an ein Nachbarsystem ist diese ID anschließend zu übergeben.
+
 ==== Implementierung weiterer eigener Health-Indikatoren
 
 Es können weitere Indikatoren zur Überprüfung anderer Komponenten implementiert werden.
@@ -423,8 +428,6 @@ Hierfür gelten folgende Richtlinien:
 
 * Der `HealthIndicator` wird als Teil der Administrationskomponente implementiert.
 * Der `HealthIndicator` darf keine fachlich relevanten Daten verändern.
-* Der `HealthIndicator` muss zu Beginn eine Korrelations-ID erzeugen, die im Logging-Kontext gesetzt werden muss.
-Bei jedem Aufruf an ein Nachbarsystem ist diese zu übergeben.
 
 Neben den Nachbarsystemen sind weitere Überprüfungen sinnvoll:
 
