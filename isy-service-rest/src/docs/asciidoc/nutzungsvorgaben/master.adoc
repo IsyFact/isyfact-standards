@@ -2,7 +2,7 @@
 :document-type: Nutzungsvorgaben
 :xrefstyle: short
 
-colophon::[]
+colophon::[factory="IsyFact-Standards", open-source="true"]
 
 include::thisdoc.adoc[tags=inhalt]
 
