@@ -64,7 +64,7 @@ Auf Grund dieser Anforderungen wird versucht, möglichst ausschließlich die Mec
 Nur wo dies nicht möglich ist, darf auf die Hibernate-Implementierung zugegriffen werden.
 Dabei wird in diesem Dokument die Verwendung bestimmter Hibernate-Features verboten bzw. von ihrer Verwendung abgeraten.
 
-Abweichungen zu den Vorgaben dieses Dokuments müssen als Architekturentscheidung im <<TODO anderes Dokument: IsyFactSystementwurf>> dokumentiert werden.
+Abweichungen zu den Vorgaben dieses Dokuments müssen als Architekturentscheidung im xref:methodik:vorlage-systementwurf/antora-master.adoc[IsyFact Systementwurf] dokumentiert werden.
 
 Dieses Dokument ist wie folgt aufgebaut:
 

@@ -28,8 +28,6 @@ Alle datei-basierten Konfigurationen werden im Klassenpfad abgelegt.
 Dazu werden die Ordner `config` und `resources` verwendet.
 Alle Konfigurationen werden in der Entwicklung unterhalb von `src/main/resources` abgelegt.
 
-NOTE: Die Ablage der Konfigurationsdateien zur Laufzeit wird im Kapitel <<deployment-von-konfigurationsdateien>> beschrieben.
-
 Dort werden Unterordner wie folgt angelegt:
 
 * *Resources-Ordner:* In `src/main/resources/resources/` liegen die statischen Konfigurationen.
@@ -64,7 +62,7 @@ Die Sprache sollte deutsch sein, sofern es sich nicht um feststehende englische 
 
 In Kapitel <<handhabung-von-default-werten>> wird beschrieben, wie Default-Werte zu handhaben sind.
 Damit wird gleichzeitig eine sinnvolle Dokumentation von Default-Werten sichergestellt.
-Davon abgesehen kann es hilfreich sein, zu wissen ob ein Konfigurationsparameter zur Laufzeit änderbar ist (siehe Kapitel <<konfigurationsaenderungen-zur-laufzeit>>), oder für die Änderung ein Neustart der Anwendung nötig ist.
+Davon abgesehen kann es hilfreich sein zu wissen, ob ein Konfigurationsparameter zur Laufzeit änderbar ist (siehe Kapitel <<konfigurationsaenderungen-zur-laufzeit>>), oder für die Änderung ein Neustart der Anwendung nötig ist.
 Außerdem ist die Angabe eines gültigen Wertebereichs bei vielen Konfigurationsparametern sinnvoll.
 
 Die fachliche Beschreibung, die in Form eines Kommentars für jeden Konfigurationsparameter angegeben sein sollte, soll um folgende Angaben ergänzt werden (variable Werte sind in `<>` dargestellt):
@@ -90,7 +88,7 @@ Die Konfigurationswerte werden dabei in Java Standard-Typen (`String`, `int`, `b
 Für Zeitdauern, Zeitperioden und Dateigrößen wird eine erweiterte Syntax für die Konfigurationswerte verwendet.
 Die Werte dieser Konfigurationstypen werden automatisch in die komplexen Datentypen `Duration`, `Period` und `DataSize` umgewandelt.
 
-NOTE: Details hierzu können in der xref:glossary:literaturextern:inhalt.adoc#litextern-Spring-Boot-Properties-Conversion[Spring Boot Dokumentation zu „Properties Conversion"] nachgelesen werden.
+NOTE: Details hierzu können in der xref:glossary:literaturextern:inhalt.adoc#litextern-Spring-Boot-Properties-Conversion[Spring Boot Dokumentation zu "Properties Conversion"] nachgelesen werden.
 
 Zur Überprüfung der Konfigurationswerte sollte Bean Validation eingesetzt werden.
 Damit können Werte auf Vorhandensein und korrektes Format geprüft werden.
@@ -151,42 +149,13 @@ Konfigurationsparameter, die nicht zur Laufzeit änderbar sind (siehe Kapitel <<
 zur Performance-Optimierung in Instanzvariablen gehalten werden.
 Dabei kann auch gleich das Vorhandensein der Einstellung geprüft werden, d.h., die Komponente liest bereits bei Ihrer Initialisierung den Parameterwert aus und speichert ihn in einer Instanzvariablen.
 
-[[deployment-von-konfigurationsdateien]]
-===== Deployment von Konfigurationsdateien
-
-Für das Deployment von Konfigurationen ist zu beachten, dass der Resources-Ordner und der Config-Ordner in den Klassenpfad der Anwendung kopiert werden.
-Der Ordner `config` muss nach dem Deployment ungepackt auf dem Dateisystem liegen, er darf z.B. nicht in ein Jar verpackt werden.
-
-Der Inhalt des Resources-Ordners wird beim Deployment in das Verzeichnis `/classes/resources` kopiert.
-Der Config-Ordner wird beim Deployment aus der eigentliche Anwendung herausgezogen und der Inhalt in `/etc/<Anwendungsname>` abgelegt.
-Zusätzlich wird ein symbolischer Link von `/classes/config` auf `/etc/<Anwendungsname>/` angelegt, so dass auch diese Inhalte Teil des Klassenpfads der Anwendung sind.
-Details dazu können dem Konzept <<TODO anderes Dokument: DeploymentKonzept>> entnommen werden.
-
-In einigen Fällen wird die für die Entwicklung benötigte Konfiguration von der Release-Version abweichen.
-Für jede Konfiguration aus `config` kann es eine Entwicklungs- und genau eine Release-Variante geben: Es werden keine umgebungsabhängigen Varianten in den Sourcen abgelegt.
-Für die Release-Varianten wird in der Entwicklung ein Unterordner:
-
-`src/main/resources/config/release`
-
-angelegt.
-Beim Bauen des Release-Pakets werden alle Dateien aus dem Release-Unterordner in den übergeordneten Ordner verschoben und der Release-Ordner gelöscht.
-Der Config-Ordner enthält dann die Release-Konfigurationen.
-Diese werden wie oben beschrieben deployt.
-
-Beim Deployment einer Anwendung werden alle auf dem Zielsystem liegenden Dateien des Resources-Ordners überschrieben.
-Die Dateien aus dem config-Ordner werden beim Deployment nicht überschrieben.
-Neue Parameter müssen dem Betrieb mitgeteilt werden.
-Für nicht systemabhängige Werte wird ein Default entweder im Java-Code oder in einer Property-Datei aus `resources/default-config` ausgeliefert.
-Für systemabhängige Werte existiert kein Default, diese werden aber bereits während der Initialisierung der Anwendung geprüft (siehe Kapitel <<handhabung-von-default-werten>>).
-Fehlende Einstellungen werden so beim Programmstart erkannt.
-
 [[datenbank-basierte-konfigurationen]]
 ==== Datenbank-basierte Konfigurationen
 
 Konfigurationen, welche durch die Anwendung geschrieben werden, sind in der Datenbank abzulegen.
 Die Tabellen hierfür sind Teil des Datenmodells der Anwendung.
 Der Zugriff erfolgt genau wie der auf die übrigen Entitätstypen.
-Für weitere Details siehe xref:blaupausen:detailkonzept-komponente-datenzugriff/master.adoc#_detailkonzept_datenzugriff_einleitung[Detailkonzept Komponente Datenzugriff].
+Für weitere Details siehe xref:blaupausen:detailkonzept-komponente-datenzugriff/master.adoc#Einleitung[Detailkonzept Komponente Datenzugriff].
 
 [[verwendung-von-isy-konfiguration]]
 === Verwendung von isy-konfiguration
@@ -215,7 +184,7 @@ Die Klasse `[...].konfiguration.common.impl.ReloadablePropertyKonfiguration` ste
 Alle Parameter aus den in der Liste aufgeführten Property-Dateien werden der Anwendung als eine gemeinsame Sicht aller Konfigurationsparameter zur Verfügung gestellt.
 Sind Parameter in mehreren Dateien aufgeführt, so überschreiben Werte aus Dateien, die in der Liste hinten stehen, solche von Dateien, die zuvor aufgelistet wurden.
 
-Die Konfigurations-Bean wird den Komponenten per Spring-Dependecy-Injection bereitgestellt.
+Die Konfigurations-Bean wird den Komponenten per Spring-Dependency-Injection bereitgestellt.
 
 Für den Fall, dass sehr viele Konfigurationsparameter benötigt werden, können komponentenspezifische Konfigurations-Beans verwendet werden.
 
@@ -247,7 +216,7 @@ Sollen Konfigurationsparameter zur Laufzeit änderbar sein, müssen besondere Vo
 * Solche Konfigurationsparameter werden vorzugsweise nicht in Instanz-Variablen gehalten, sondern bei jeder Verwendung aus der Konfigurations-Bean ausgelesen.
 * Falls aufwändige Initialisierungen bei Konfigurationsänderungen durchgeführt werden müssen, kann die entsprechende Komponente sich als Listener bei der Konfigurations-Bean registrieren und so aktiv über Konfigurationsänderungen informiert werden (siehe Kapitel <<reagieren-auf-konfigurationsaenderungen>>).
 
-[[konfigurationsdateien-auf-änderungen-pruefen]]
+[[konfigurationsdateien-auf-aenderungen-pruefen]]
 ===== Konfigurationsdateien auf Änderungen prüfen
 
 Damit die Anwendung Änderungen an betrieblichen Konfigurationsdateien erfährt, wird ein Polling auf die betrieblichen Konfigurationsdateien durchgeführt.
@@ -262,7 +231,7 @@ sorgt beim Aufruf dafür, dass alle Konfigurationsdateien auf Änderungen geprü
 
 Die zuvor genannte Methode muss regelmäßig aufgerufen werden.
 Dazu stellt die Bibliothek `isy-task` einen Task bereit.
-Die Konfiguration dieses Tasks ist im Dokument xref:isy-task:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Task-Schedulung] beschrieben.
+Die Konfiguration dieses Tasks ist im Dokument xref:isy-task:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Task-Scheduling] beschrieben.
 
 [[reagieren-auf-konfigurationsaenderungen]]
 ===== Reagieren auf Konfigurationsänderungen
@@ -270,26 +239,34 @@ Die Konfiguration dieses Tasks ist im Dokument xref:isy-task:nutzungsvorgaben/ma
 Wie zu Beginn des Abschnittes beschrieben, sollen Konfigurationsparameter, für die Änderungen zur Laufzeit zugelassen sind, vorzugsweise bei jeder Verwendung aus der Konfigurations-Bean ausgelesen werden.
 Somit wird automatisch immer der aktuelle Wert verwendet.
 
-In einigen Fällen sind auf Grund von Konfigurationsänderungen jedoch aufwändige Initialisierungen notwendig.
+In einigen Fällen sind aufgrund von Konfigurationsänderungen jedoch aufwändige Initialisierungen notwendig.
 Ein Beispiel hierfür wäre das Reinitialisieren von Connection-Pools, wenn eine URL geändert wurde.
 In solchen Ausnahmefällen kann daher das im Folgenden beschriebene und von der Konfigurationsbibliothek realisierte Listener-Pattern angewandt werden.
 
 Um bei Änderungen informiert zu werden, registriert sich die betroffene Komponente als Listener bei der Konfigurations-Bean.
-Dafür bietet das von der Konfigurations-Bean implementierte Interface `[...].isyfact.konfiguration.common.ReloadableKonfiguration` die Methode an:
+Dafür bietet das von der Konfigurations-Bean implementierte Interface `ReloadableKonfiguration` die Methode an:
 
 [source,java]
 ----
-public void addKonfigurationChangeListener(KonfigurationChangeListener listener);
+public class ReloadableKonfiguration {
+    // ...
+    public void addKonfigurationChangeListener(KonfigurationChangeListener listener);
+    // ...
+}
 ----
 
-Die Komponente muss ihrerseits das Interface `[...].isyfact.konfiguration.common.KonfigurationChangelistener` implementieren und die zuvor genannte Methode aufrufen.
+Die Komponente muss ihrerseits das Interface `KonfigurationChangeListener` implementieren und die zuvor genannte Methode aufrufen.
 Als Parameter wird die eigene Instanz übergeben.
 
 Bei Änderung der Konfiguration ruft die Konfigurationsbibliothek nun automatisch die Methode
 
 [source,java]
 ----
-public void onKonfigurationChanged(Set<String> changedKeys);
+public class KonfigurationChangeListener {
+    // ...
+    public void onKonfigurationChanged(Set<String> changedKeys);
+    // ...
+}
 ----
 
 der registrierten Listener auf.
@@ -302,10 +279,7 @@ Ein Beispiel dafür findet sich in der Vorlage-Anwendung in der Klasse `…regis
 [[spezielle-konfigurationen]]
 === Spezielle Konfigurationen
 
-In diesem Kapitel werden einige spezielle Aspekte der Konfiguration bzw. Konfigurierbarkeit der entwickelten Anwendungssysteme beschrieben.
-Dazu gehört z.B. die Konfiguration von Frameworks oder die Konfiguration des Tomcat-Kontexts.
-
-Eine detaillierte Beschreibung der Konfiguration einzelner Frameworks findet sich in deren jeweiliger Dokumentation.
+In diesem Kapitel werden einige spezielle Aspekte der Konfiguration von Anwendungen beschrieben.
 
 [[web-kontext-konfiguration-web.xml]]
 ==== Web-Kontext-Konfiguration (web.xml)
@@ -318,15 +292,18 @@ Sie wird daher direkt im Ordner `WEB-INF/` abgelegt.
 [[tomcat-kontext-konfiguration-context.xml]]
 ==== Tomcat-Kontext-Konfiguration (context.xml)
 
-Tomcat verwaltet für jede Webanwendung eine eigene Konfiguration.
-In dieser Datei werden in einem <context>-Tag spezielle Einstellungen für diese Webanwendung konfiguriert.
-Wird keine Datei ausgeliefert gelten die Standardeinstellungen von Tomcat.
+IMPORTANT: Diese Konfiguration ist nur notwendig, wenn die Anwendung über symbolische Links auf Dateien außerhalb des Verzeichnisses zugreift, in dem sie deployt ist.
 
-Für das Deployment (siehe <<TODO anderes Dokument: DeploymentKonzept>>) ist es notwendig, dass symbolische Links im Dateisystem aufgelöst werden.
+Zur Auflösung von symbolischen Links muss der Tomcat, auf dem die Anwendung deployt wird, konfiguriert werden.
 Dazu wird eine Datei (`META-INF/context.xml`) mit jeder Webanwendung ausgeliefert.
 Für die Vorlage-Anwendung hat die Datei folgenden Inhalt:
 
-`<Context path="/cd-register" allowLinking="true" />`
+[source,xml]
+----
+<Context>
+    <Resources allowLinking="true" />
+</Context>
+----
 
 Zur Vereinfachung des Deployments wird die Datei nicht im Tomcat-Installationsverzeichnis abgelegt, sondern als Datei `context.xml` im Verzeichnis `META-INF` der Webanwendung abgelegt.
 Dort wird die Datei automatisch von Tomcat gefunden und verwendet.
@@ -340,7 +317,7 @@ Rein lesende Operationen sind weiterhin erlaubt.
 
 Der Modus wird genutzt, um während längerer Datenmigrationen Änderungen der Bestandsdaten zu unterbinden, während gleichzeitig Auskünfte möglich sind.
 
-Die Anforderung wird durch Einfügen eines Konfigurationsparameter `anwendung.auskunftsmodus.aktiviert` in die betriebliche Konfigurationsdatei umgesetzt.
+Die Anforderung wird durch Einfügen eines Konfigurationsparameters `anwendung.auskunftsmodus.aktiviert` in die betriebliche Konfigurationsdatei umgesetzt.
 
 Die Option kann die Ausprägungen `false` (Alle Funktionen sind aktiv) und `true` (Schreibzugriffe sind deaktiviert) annehmen.
 
