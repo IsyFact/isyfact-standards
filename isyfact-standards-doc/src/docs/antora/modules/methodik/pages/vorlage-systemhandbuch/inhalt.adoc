@@ -245,7 +245,8 @@ Die Anwendung {anwendung} benötigt die folgenden Nachbarsysteme, um alle Anwend
 ====
 _Inhalt_::
 _Übersicht über alle Nachbarsystemen, die zum Betrieb der Anwendung nötig sind.
-Essenzielle Abhängigkeiten sind nötig, um die Kernfunktionalität der Anwendung bereitzustellen.
+Neben der Tabelle sollte in einem kurzen Text für jedes Nachbarsystem der Grund der Abhängigkeit beschrieben sein._ +
+_Essenzielle Abhängigkeiten sind nötig, um die Kernfunktionalität der Anwendung bereitzustellen.
 Nicht essenzielle Abhängigkeiten hingegen bieten zusätzliche Funktionalität, falls benötigt._
 
 _Quelle_::
@@ -280,10 +281,10 @@ _Deployment-Diagramme, Tabellen, Freitext_
 ====
 
 
-[[bauen-systems]]
-== Bauen des Systems
+[[bau-anwendung]]
+== Bau der Anwendung
 
-Das Bauen des Systems erfolgt über einen standardisierten Build-Mechanismus.
+Das Bauen der Anwendung erfolgt über einen standardisierten Build-Mechanismus.
 Der Build benötigt die in <<table-build-tools>> aufgelisteten Werkzeuge und Technologien.
 Weitere Abhängigkeiten werden durch die erforderlichen Build-Werkzeuge selbstständig nachgeladen.
 
@@ -319,8 +320,8 @@ _Tabelle_
 ====
 
 
-[[bau-xxx-ga-batches-legacy]]
-=== Bau der ISY-XXX-GA und Batches
+[[bau-ga-batches-legacy]]
+=== Bau der {anwendung-ga} und {anwendung-batch}
 
 NOTE: *Falls die Anwendung den traditionellen RPM Build (via `ant` und `rpmbuild`) nicht verwendet, kann dieser Abschnitt entfallen.*
 
@@ -329,7 +330,7 @@ Dies setzt ein Artefakt-Repository zum Auflösen von Paketabhängigkeiten voraus
 
 Der Build wird folgendermaßen ausgeführt:
 
-:desc-listing-maven-build-legacy: Maven-Befehl zum Build der ISY-XXX-GA & Batches
+:desc-listing-maven-build-legacy: Maven-Befehl zum Build der {anwendung-ga} & {anwendung-batch}
 [id="listing-maven-build-legacy",reftext="{listing-caption} {counter:listings}"]
 .{desc-listing-maven-build-legacy}
 [source]
@@ -340,12 +341,11 @@ mvn -Dbuild.number=<Build-Nummer> -Dtest=false -DfailIfNoTests=false clean packa
 TIP: Die Build-Nummer (Argument `-Dbuild.number`) wird üblicherweise mit der Lieferungsnummer belegt.
 Das bedeutet z. B.: `1.0.0_14` wird zu `14`, oder allgemein: `1.0.0_x` wird zu `x`.
 
-Nach erfolgreichem Build befinden sich im Ordner `isy-xxx-ga-deployment/target/RPMS/noarch` folgende RPM-Pakete:
+Nach erfolgreichem Build befinden sich im Ordner `{it-system-ga}-deployment/target/RPMS/noarch` folgende RPM-Pakete:
 
-* `isy-xxx-ga-<VERSION>.noarch.rpm`: ISY XXX GA,
-* `isy-xxx-batch-<VERSION>.noarch.rpm`: ISY XXX Batches.
+* `{it-system-ga}-<VERSION>.noarch.rpm`: {anwendung-ga},
+* `{it-system-batch}-<VERSION>.noarch.rpm`: {anwendung-batch}.
 
-Damit werden alle Anwendungen mit einem Aufruf gebaut.
 In den folgenden Kapiteln wird die Installation der einzelnen Pakete näher beschrieben.
 
 ====
@@ -360,8 +360,8 @@ _Dokumentationsform_::
 _Freitext_
 ====
 
-[[bau-xxx-ga-batches]]
-=== Bau der ISY-XXX-GA und Batches
+[[bau-ga-batches]]
+=== Bau der {anwendung-ga} und {anwendung-batch}
 
 NOTE: *Falls die Anwendung den neuen RPM Build (via Maven-Plugin) nicht verwendet, kann dieser Abschnitt entfallen.*
 
@@ -383,10 +383,9 @@ Das bedeutet z. B.: `1.0.0_14` wird zu `14`, oder allgemein: `1.0.0_x` wird zu 
 
 Nach erfolgreichem Build befinden sich im jeweiligen Modul unter `target` die RPM-Pakete:
 
-* `isy-xxx-ga-<VERSION>.noarch.rpm`: ISY XXX GA,
-* `isy-xxx-batch-<VERSION>.noarch.rpm`: ISY XXX Batches.
+* `{it-system-ga}-<VERSION>.noarch.rpm`: {anwendung-ga},
+* `{it-system-batch}-<VERSION>.noarch.rpm`: {anwendung-batch}.
 
-Damit werden alle Anwendungen mit einem Aufruf gebaut.
 In den folgenden Kapiteln wird die Installation der einzelnen Pakete näher beschrieben.
 
 ====
@@ -401,13 +400,12 @@ _Dokumentationsform_::
 _Freitext_
 ====
 
-[[bau-xxx-sgw]]
-=== Bau des ISY-XXX-SGW
-…
+[[bau-sgw]]
+=== Bau des {anwendung-sgw}
 
 ====
 _Inhalt_::
-_Build beschreiben, sofern er sich maßgeblich vom Build der GA unterscheidet. +
+_Build beschreiben, sofern er sich maßgeblich vom Build der GA und der Batches unterscheidet. +
 Die Anleitung soll auch hier vollständig sein und darf nicht auf andere Dokumente der IsyFact verweisen._
 
 _Quelle_::
@@ -418,56 +416,51 @@ _Freitext_
 ====
 
 
-[[installation-konfiguration-systems]]
-== Installation und Konfiguration des Systems
+[[vorbereitung-systemumgebung]]
+== Vorbereitung der Systemumgebung
 
-Der Ablageort der einzelnen Anwendungen wird in den jeweiligen Releaselettern angegeben und im Folgenden entsprechend mit `XXX_GA_ROOT` und `XXX_SGW_ROOT` bezeichnet.
-
-[[konfiguration-systemumgebung]]
-=== Konfiguration der Systemumgebung
+Dieses Kapitel beschreibt, welche Vorbereitungen für den Betrieb der Anwendung {anwendung} in der Systemumgebung nötig sind.
 
 ====
 _Inhalt_::
 _Beschreibung grundsätzlicher Konfigurationen der Systemumgebung.
 Dazu gehören Systembenutzer, sofern sie für mehrere Systeme benötigt werden._
 +
-_Ebenso werden in eigenen Kapiteln die Einrichtung bzw. Konfiguration von technischen Systemen (Webserver, Mail-Server, Datenbank usw.) beschrieben._
+_Ebenso werden in eigenen Kapiteln die Einrichtung bzw. Konfiguration von technischen Systemen bzw. von benötigten Nachbarsystemen beschrieben._
 +
 _Sofern Lizenz-Dateien o.Ä. benötigt werden, sollen diese ebenfalls hier aufgeführt werden. +
 Falls einzelne technische Systeme von sehr vielen Verfahren benötigt werden, ist es zweckmäßig, diese in eigene Dokumente auszulagern._
 
 _Quelle_::
-_Entwicklerhandbuch, Systementwurf._
+_Entwicklerhandbuch, Systementwurf_
 
 _Dokumentationsform_::
 _Freitext_
 ====
 
-In diesem Kapitel werden allgemeine Konfigurationen für die Systemumgebungen beschrieben.
-
 [[anlegen-betriebssystemnutzer-gruppen]]
-==== Anlegen der Betriebssystemnutzer und -gruppen
+=== Anlegen der Betriebssystemnutzer und -gruppen
 
-Die Anwendungen `_XXX-GA_` und `_XXX-SGW_` benötigen den Betriebssystemnutzer „tomcat“ in der Benutzergruppe „tomcat“.
-Die Batch-Anwendung `_XXX-GA-Batch_` benötigt den Betriebssystemnutzer „batch“ in der Benutzergruppe „batch“.
+Die Anwendungen {anwendung-ga} und {anwendung-sgw} benötigen den Betriebssystemnutzer `tomcat` in der Benutzergruppe `tomcat`.
+Die Batch-Anwendung {anwendung-batch} benötigt den Betriebssystemnutzer `batch` in der Benutzergruppe `batch`.
 
-Die Nutzer und Gruppen werden mit den betriebssystemüblichen Programmen angelegt.
+Die Erzeugung der Nutzer und Gruppen ist abhängig vom verwendeten Betriebssystem.
 Das Kennwort wird vom Betrieb vergeben.
-Der Tomcat-Nutzer und der Batch-Nutzer haben nicht das Recht sich am System einzuloggen, siehe auch [NutzungTomcat].
+Der Tomcat-Nutzer und der Batch-Nutzer dürfen nicht das Recht besitzen, sich am System anzumelden.
 
 [[einrichten-datenbank]]
-==== Einrichten der Datenbank
+=== Einrichten der Datenbank
 
-Im Folgenden wird beschrieben, wie die Datenbank für `XXX` vorbereitet wird. +
+Im Folgenden wird beschrieben, wie die Datenbank für die Anwendung {anwendung} vorbereitet wird.
 
 Die DB-Skripte liegen im Verzeichnis
 
 :desc-listing-pfad-datenbankskripte: Pfad für die Datenbankskripte
 [id="listing-pfad-datenbankskripte",reftext="{listing-caption} {counter:listings}"]
 .{desc-listing-pfad-datenbankskripte}
-[source,xml,subs="verbatim,attributes"]
+[source,subs="attributes"]
 ----
- `XXX_GA_ROOT/xxx-ga/src/main/skripte/sql/`
+{it-system-ga}/src/main/skripte/sql/
 ----
 
 Zum Anlegen des Datenbankschemas steht das Skript `install-db-schema.sh` zur Verfügung.
@@ -477,27 +470,24 @@ Zur Aktualisierung des Datenbankschemas steht das Skript `update-db-schema.sh` b
 Auch hier gibt es ein Skript für die Umgebungsvariablen (`01_environment.sql`), das angepasst werden muss.
 
 ====
-*_Ausfüllhinweise_*
-
+_Ausfüllhinweise_::
 _Benutzt die Anwendung die Versionierung von Datenbankschemas gemäß Detailkonzept Datenzugriff *nicht*, muss statt der Kurzzusammenfassung der genaue Ablauf zum Anlegen bzw. Aktualisieren des Datenbankschemas beschrieben werden._
 ====
 
 [[konfiguration-benutzer-behoerdenverzeichnis]]
-==== Konfiguration Benutzer- und Behördenverzeichnis
+=== Konfiguration Benutzer- und Behördenverzeichnis
 
 Zur Nutzung des Verfahrens werden diverse Nutzer benötigt.
 Im Folgenden wird beschrieben wie die Nutzer mit den benötigten Rollen im BBV angelegt werden.
 Die Anpassungen erfolgen über die Kommandozeile.
-Die benötigten `*.xls` Dateien befinden sich im Verzeichnis `XXX_GA_ROOT/xxx-ga/src/main/skripte/bbv/`.
-Es wird angenommen, dass diese Dateien in ein Verzeichnis kopiert wurden, das nachfolgend mit `BBV_FILES` bezeichnet wird.
-Die Datei `xxx-benutzer.xls` ist vor dem Einspielen noch anzupassen, da hier noch Testbenutzer enthalten sind.
+Die benötigten Dateien befinden sich im Verzeichnis `{it-system-ga}/src/main/skripte/bbv/`.
 
-. *XXX spezifische Rollen und Nutzer anlegen*
+Es wird angenommen, dass diese Dateien in ein Verzeichnis kopiert wurden, das nachfolgend mit `BBV_FILES` bezeichnet wird.
 
 :desc-listing-benutzerverzeichnis-rollen: Benutzerverzeichnisrollen anlegen
 [id="listing-benutzerverzeichnis-rollen",reftext="{listing-caption} {counter:listings}"]
 .{desc-listing-benutzerverzeichnis-rollen}
-[source,xml,subs="verbatim,attributes"]
+[source,subs="attributes"]
 ----
 cd /opt/plis-benutzerverzeichnis-batch/bin
 
@@ -508,154 +498,165 @@ cd /opt/plis-benutzerverzeichnis-batch/bin
 
 Sollten die Passwörter für die Benutzer geändert werden, sind folgende Punkte zu beachten:
 
-* Bei Änderung der Passwörter für externe Behörden müssen diese entsprechend in den Anfragen an `_XXX-SGW_` von den Behörden angepasst werden.
-* Das Passwort des Nutzers `XXX_Batch_Launcher` muss mit dem Konfigurationsparameter ´batch.benutzer.passwort` in der Datei `/etc/isy-xxx-ga/xxx.properties` übereinstimmen.
+* Bei Änderung der Passwörter für externe Behörden müssen diese entsprechend in den Anfragen an {anwendung-sgw} von den Behörden angepasst werden.
+* Das Passwort des Nutzers `XXX_Batch_Launcher` muss mit dem Konfigurationsparameter `batch.benutzer.passwort` in der Datei `/etc/{it-system-ga}/{it-system-ga}.properties` übereinstimmen.
+
+====
+_Ausfüllhinweise_::
+_Spezifische Änderungen an den Dateien (z.B. Entfernen von Testbenutzern oder Anpassungen an das konkrete Deployment) müssen beschrieben werden._
+====
 
 [[schluesselverzeichnis]]
-==== Schlüsselverzeichnis
+=== Schlüsselverzeichnis
 
-Das Schlüsselverzeichnis muss mindestens in der Version `x.y.z_nn` installiert sein.
-Es wird angenommen, dass die XXX-spezifischen Schlüssel und Mappings in das Schlüsselverzeichnis importiert worden sind.
-Die entsprechende Datei ist mit den Schlüsseln und Mappings im Releaseletter der `_XXX-GA_` angegeben.
+Die Schlüssel und Mappings der Anwendung {anwendung} müssen in das Schlüsselverzeichnis importiert werden.
+Die entsprechende Datei ist mit den Schlüsseln und Mappings im Releaseletter der {anwendung-ga} angegeben.
 
 [[apache-konfiguration]]
-==== Apache Konfiguration
+=== Apache Konfiguration
 
-Nach dem Loadbalancer vor der Informations- & Dienstezone gelangen die HTTP-Requests zu einem Apache Web Server in der Informations- & Dienstezone.
+NOTE: *Falls die Anwendung keine GUI besitzt, kann dieser Abschnitt entfallen.*
 
-Der Apache Server muss konfiguriert werden, um die Requests an den Tomcat der XXX-Geschäftsanwendung in der Logik- und Verarbeitungszone weiterzuleiten.
-Die Weiterleitung geschieht mithilfe des Apache Tomcat Connectors (mod_jk).
+Vor der {anwendung-ga} ist in der Informations- & Dienstezone ein Apache HTTP-Server geschaltet.
+Dieser muss konfiguriert werden, um die Requests an die {anwendung-ga} in der Logik- und Verarbeitungszone weiterzuleiten.
+Die Weiterleitung geschieht mithilfe des Apache Tomcat Connectors (`mod_jk`).
 
-Im conf-Ordner des Apache Servers (`/usr/local/apache2/conf`) sind folgende Dateien anzupassen:
+Im Konfigurationsordner des Apache HTTP Servers (`/usr/local/apache2/conf`) sind mehrere Dateien anzupassen.
 
-*httpd.conf:*
+==== `httpd.conf`
 
 :desc-listing-apache-request-tomcat: Apache Request Weiterleitung an Tomcat
 [id="listing-apache-request-tomcat",reftext="{listing-caption} {counter:listings}"]
 .{desc-listing-apache-request-tomcat}
-[source,xml,subs="verbatim,attributes"]
+[source,subs="attributes"]
 ----
- JkMount /xxx-ga/* isy-xxx-gaWorker
+JkMount /{it-system-ga}/* {it-system-ga}Worker
 ----
 
-*workers.properties:*
+==== `workers.properties`
 
 :desc-listing-apache-request-tomcat-worker: Apache Request Weiterleitung an Tomcat (Worker)
 [id="listing-apache-request-tomcat-worker",reftext="{listing-caption} {counter:listings}"]
 .{desc-listing-apache-request-tomcat-worker}
-[source,xml,subs="verbatim,attributes"]
+[source,subs="attributes"]
 ----
-worker.list=…, isy-xxx-gaWorker
+worker.list=..., {it-system-ga}Worker
 
-# XXX-GA isy-xxx-gaWorker
-worker.isy-xxx-gaWorker.type=ajp13
-worker.isy-xxx-gaWorker.host=<Host>
-worker.isy-xxx-gaWorker.port=<IP>
-worker.isy-xxx-gaWorker.cachesize=5
-worker.isy-xxx-gaWorker.lbfactor=50
-worker.isy-xxx-gaWorker.local_worker=1
+# {anwendung-ga}: {it-system-ga}Worker
+worker.{it-system-ga}Worker.type=ajp13
+worker.{it-system-ga}Worker.host=<Host>
+worker.{it-system-ga}Worker.port=<IP>
+worker.{it-system-ga}Worker.cachesize=5
+worker.{it-system-ga}Worker.lbfactor=50
+worker.{it-system-ga}Worker.local_worker=1
 ----
 
-Nach der Änderung sollte der Apache neu gestartet werden.
+Nach der Änderung muss der Apache neu gestartet werden.
 
 [[mail-server-konfiguration]]
-==== Mail-Server Konfiguration
+=== Mail-Server Konfiguration
 
 ====
 _Inhalt_::
 _Beschreibung der Einrichtung des Mail-Servers, z.B. benötigte Postfächer etc._
 
 _Quelle_::
-_Entwicklerhandbuch, Systementwurf._
+_Entwicklerhandbuch, Systementwurf_
 
 _Dokumentationsform_::
 _Freitext_
 ====
 
-[[installation-von-xxx-ga-xxx-ga-batch]]
-=== Installation von ´XXX-GA` und ´XXX-GA-Batch`
 
-Dieser Abschnitt beschreibt die Installation der Tomcat-Anwendung _XXX-GA_ und der Batch-Anwendung _XXX-GA-Batch_.
+[[installation-anwendung]]
+== Installation der Anwendung
 
-[[tomcat-basisinstallation-ga]]
-==== Tomcat Basisinstallation (GA)
+Als Ablageort und Stammverzeichnis der relativen Pfade in diesem Kapitel dient das Quellcode-Repository der Anwendung {anwendung}.
 
-Es muss eine Tomcat-Basisinstallation für die Anwendung `_XXX-GA_`
+[[installation-default-tomcat]]
+=== Installation der Default-Tomcats
 
- /opt/isy-xxx-ga/tomcat
+Es müssen Tomcat-Basisinstallationen für die Anwendung vorliegen.
 
-vorliegen.
-Die Tomcat-Basisinstallation kann nur von dem root-Benutzer installiert werden.
+:desc-table-tomcat-installationspfade: Installationspfade der Tomcats
+[id="table-tomcat-installationspfade",reftext="{table-caption} {counter:tables}"]
+.{desc-table-tomcat-installationspfade}
+[cols="1m,2m",options="header"]
+|===
+|IT-System | Tomcat-Installationspfad
+|{anwendung-ga} | /opt/{it-system-ga}/tomcat
+|{anwendung-sgw} | /opt/{it-system-sgw}/tomcat
+|===
 
-Für die Erstinstallation:
+Die Tomcat-Basisinstallation kann nur von einem Benutzer mit Root-Rechten vorgenommen werden.
 
- 'rpm -i isy-xxx-ga-tomcat-{version}.x86_64.rpm'
+Für die Erstinstallation muss der zum {anwendung} gehörende Default-Tomcat installiert werden:
 
-Für die nachfolgenden Schritte ist erforderlich, dass Java installiert ist.
-Die Umgebungsvariable `JAVA<X>_HOME` muss auf den Installationspfad von Java verweisen. <X> muss durch die Java-Versionsnummer ersetzt werden, z.B. 8.
+:desc-listing-tomcat-install: Installation der Tomcats via RPM
+[id="listing-tomcat-install",reftext="{listing-caption} {counter:listings}"]
+.{desc-listing-tomcat-install}
+[source,subs="attributes"]
+----
+rpm -i {it-system-ga}-tomcat-(version).x86_64.rpm
+rpm -i {it-system-sgw}-tomcat-(version).x86_64.rpm
+----
 
-In der Datei `/opt/isy-xxx-ga/tomcat/conf/wrapper.conf` sind alle Vorkommen von `JAVA_HOME` durch `JAVA<X>_HOME` zu ersetzen (siehe auch [NutzungTomcat]).
+Nach der Installation muss ggf. die Konfiguration des Wrappers angepasst werden.
+Dazu ist die Datei `/opt/{it-system-ga}/tomcat/conf/wrapper.conf` anzupassen.
 
-Außerdem müssen hier noch die Werte für die Heap-Size erhöht werden:
+Wichtige Einstellungen umfassen:
 
- wrapper.java.initmemory=128
- wrapper.java.maxmemory=512
+* das Setzen der Umgebungsvariable `JAVA<X>_HOME` auf den korrekten Wert (vor allem, wenn mehrere Java-Versionen installiert sind),
+* das Setzen von sinnvollen Werten für die Heap-Size (siehe Parameter `wrapper.java.initmemory` und `wrapper.java.maxmemory`).
 
-Die Anwendung `_XXX-GA_` wird von anderen Anwendungen über den konfigurierten Tomcat-Port aufgerufen.
 
-Die Tomcat-Anwendung `_XXX-GA_´ wird auf dem Applikationsserver installiert.
-Das rpm-Paket der `_XXX-GA_` muss als Nutzer „root“ wie folgt installiert werden:
+[[installation-it-systeme]]
+=== Installation der IT-Systeme
 
-Für die Erstinstallation:
+NOTE: *Falls die Anwendung den traditionellen RPM Build (via `ant` und `rpmbuild`) verwendet, liegen die RPMs in einem zentralen Deployment-Modul.*
 
- rpm -i isy-xxx-ga-<version>.noarch.rpm
+Die RPM-Pakete können direkt über Kommandozeile installiert werden.
+Hierzu sind Root-Rechte erforderlich.
+Ein laufender Tomcat muss gegebenenfalls zuvor gestoppt werden.
 
-Für ein Update:
+:desc-listing-rpm-install: Manuelle Installation der IT-Systeme
+[id="listing-rpm-install",reftext="{listing-caption} {counter:listings}"]
+.{desc-listing-rpm-install}
+[source,subs="attributes"]
+----
+rpm -fUhv {it-system-ga}/target/RPMS/noarch/{it-system-ga}-(version).noarch.rpm
+rpm -fUhv {it-system-sgw}/target/RPMS/noarch/{it-system-sgw}-(version).noarch.rpm
+rpm -fUhv {it-system-batch}/target/RPMS/noarch/{it-system-batch}-(version).noarch.rpm
+----
 
- rpm -U isy-xxx-ga-<version>.noarch.rpm
+TIP: Die Option `-U` kann auch für die erstmalige Installation, nicht nur für Upgrades, verwendet werden.
 
-Die Anwendung `_XXX-GA_` wird in das Verzeichnis
+:desc-table-rpm-installationspfade: Installationspfade der IT-Systeme
+[id="table-rpm-installationspfade",reftext="{table-caption} {counter:tables}"]
+.{desc-table-rpm-installationspfade}
+[cols="3m,4m,1m",options="header"]
+|===
+|IT-System | RPM-Installationspfad | Owner
+|{anwendung-ga} |/opt/{it-system-ga} | tomcat
+|{anwendung-sgw} |/opt/{it-system-sgw} | tomcat
+|{anwendung-batch} |/opt/{it-system-batch} | batch
+|===
 
- /opt/isy-xxx-ga
 
-installiert und gehört dem Benutzer „tomcat“ in der Gruppe „tomcat“.
-Der Nutzer „tomcat“ muss vor der Installation vorhanden sein.
-Es sind keine Anpassungen am Tomcat notwendig.
-Die Anwendung `_XXX-GA_` wird von anderen Anwendungen über den konfigurierten Tomcat-Port aufgerufen.
+[[konfiguration-anwendung]]
+== Konfiguration der Anwendung
 
-[[installation-batch-anwendung]]
-==== Installation der Batch-Anwendung
+Als Ablageort und Stammverzeichnis der relativen Pfade in diesem Kapitel dient das Quellcode-Repository der Anwendung {anwendung}.
 
-Die Batch-Anwendung `_XXX-GA-Batch_` wird auf dem Workserver installiert.
+[[konfiguration-ga]]
+=== Konfiguration der {anwendung-ga}
 
-Das rpm-Paket der `_XXX-GA-Batch_` Anwendung muss als Nutzer „root“ wie folgt installiert werden:
-
-Für die Erstinstallation:
-
- rpm -i isy-xxx-ga-batch-<version>.noarch.rpm
-
-Für ein Update:
-
- rpm -U isy-xxx-ga-batch-<version>.noarch.rpm
-
-Die Anwendung `_XXX-GA-Batch_` wird in das Verzeichnis
-
- /opt/isy-xxx-ga-batch
-
-installiert und gehört dem Benutzer „batch“ in der Gruppe „batch“.
-Der Nutzer „batch“ muss vor der Installation vorhanden sein.
-
-[[konfiguration-tomcat-anwendung]]
-==== Konfiguration der Tomcat-Anwendung
-
-Nach der Installation liegen die Konfigurationsdateien von `_XXX-GA_` unter
-
- /etc/isy-xxx-ga
+Nach der Installation liegen die Konfigurationsdateien der {it-system-ga} unter `/etc/{it-system-ga}`.
 
 Folgende Konfigurationsdateien müssen für die Konfiguration angepasst werden:
 
 * `logback.xml`,
-* `isy-xxx-ga.properties`,
+* `{it-system-ga}.properties`,
 * `jpa.properties`,
 * (Liste der Konfigurationsdateien der Tomcat-Anwendung).
 
@@ -665,58 +666,63 @@ IMPORTANT: Dieses Verhalten gilt nicht für die Konfigurationsdatei `logback.xml
 Änderungen an dieser Konfigurationsdatei können bei laufender Anwendung ausgeführt werden.
 
 [[konfigurationsdatei-logback]]
-===== Konfigurationsdatei `logback.xml`
+==== Konfigurationsdatei `logback.xml`
 
 Die Konfigurationsdatei `logback.xml` enthält die Logging-Einstellungen und ist nach den Logging-Vorgaben aufgebaut.
 Nach der Installation muss dort der Name der künftigen Log-Datei angegeben werden.
 Dazu ist in den folgenden Zeilen der `HOSTNAME` durch den tatsächlichen Hostnamen zu ersetzen.
 
-:desc-listing-logging-konfiguration-dateiname: Konfiguration Logging ISY-XXX-GA: Log-Dateiname
+:desc-listing-logging-konfiguration-dateiname: {anwendung-ga}: Log-Dateiname
 [id="listing-logging-konfiguration-dateiname",reftext="{listing-caption} {counter:listings}"]
 .{desc-listing-logging-konfiguration-dateiname}
-[source,xml]
+[source,xml,subs="verbatim,attributes"]
 ----
-<property name="LOGFILE_PATH" value="/var/log/isy-xxx-ga/HOSTNAME_isy-xxx-ga" />
+<property name="LOGFILE_PATH" value="/var/log/{it-system-ga}/HOSTNAME_{it-system-ga}" />
 ----
 
-Die Logs werden nach `/var/log/isy-xxx-ga` geschrieben.
+Die Logs werden nach `/var/log/{it-system-ga}` geschrieben.
 
 [[konfigurationsdatei-ga]]
-===== Konfigurationsdatei `isy-xxx-ga.properties`
+==== Konfigurationsdatei `{it-system-ga}.properties`
 
-Die Datei `xxx.ga.properties` enthält alle weiteren Konfigurationseinstellungen von `_XXX-GA_`.
+Die Datei `{it-system-ga}.properties` enthält alle weiteren Konfigurationseinstellungen der {anwendung-ga}.
 
 Eine ausführliche Erläuterung der einzelnen Parameter ist ebenfalls in der Datei selbst enthalten.
 
 Folgende Werte müssen nach der Erstinstallation angepasst werden:
 
-:desc-table-parameter-ga-properties: Konfigurationsparameter ISY-XXX-GA
+:desc-table-parameter-ga-properties: Konfigurationsparameter {anwendung-ga}
 [id="table-parameter-ga-properties", reftext = "{table-caption} {counter:tables}"]
 .{desc-table-parameter-ga-properties}
-[cols="5,5",options="header"]
+[cols="2m,3a",options="header"]
 |===
 |Konfigurationsparameter |Beschreibung
-|`behoerdenverzeichnis.service.url` a|
-Die Adresse des Behördenverzeichnisses.
+|behoerdenverzeichnis.service.url
+|Die Adresse des Behördenverzeichnisses.
 
 Beispiel: +
 `http(s)://isy.local.vm:50001/plis-behoerdenverzeichnis`
 
-|`gui.behoerdenverzeichnis.url` a|
-Die Adresse der GUI des Behördenverzeichnisses.
+|gui.behoerdenverzeichnis.url
+|Die Adresse der GUI des Behördenverzeichnisses.
 
 Beispiel: +
 `http(s)://isy.local.vm/plis-behoerdenverzeichnis`
 
-|`schluesselverzeichnis.service.url` a|
-Die Adresse des Schlüsselverzeichnisses.
+|schluesselverzeichnis.service.url
+|Die Adresse des Schlüsselverzeichnisses.
 
 Beispiel: +
 `http(s)://isy.local.vm:50002/plis-schluesselverzeichnis`
 
-|`batch.benutzer.kennung` |System-Benutzer zum Ausführen der Batches.
-|`batch.benutzer.passwort` |Passwort des System-Benutzers zum Ausführen der Batches.
-|... |
+|batch.benutzer.kennung
+|System-Benutzer zum Ausführen der Batches.
+
+|batch.benutzer.passwort
+|Passwort des System-Benutzers zum Ausführen der Batches.
+
+|...
+|...
 |===
 
 ====
@@ -760,9 +766,8 @@ Default: `false`
 Schema: `<client-secret>`
 |===
 
-
-[[konfigurationsdatei-jpaproperties-batch]]
-===== Konfigurationsdatei jpa.properties
+[[konfigurationsdatei-jpa]]
+==== Konfigurationsdatei jpa.properties
 
 Die Datei `jpa.properties` enthält die Konfiguration der Datenbank-Verbindung.
 
@@ -771,66 +776,73 @@ Folgende Werte müssen nach der Erstinstallation angepasst werden:
 :desc-table-parameter-jpa-properties: Konfigurationsparameter jpa.properties
 [id="table-parameter-jpa-properties", reftext = "{table-caption} {counter:tables}"]
 .{desc-table-parameter-jpa-properties}
-[cols="5,5",options="header"]
+[cols="2m,3a",options="header"]
 
 |===
 |Konfigurationsparameter |Beschreibung
-|`database.url` a|
-Gibt die Adresse, den Port und die SID der Datenbank an.
+|database.url
+|Gibt die Adresse, den Port und die SID der Datenbank an.
 
 Beispiel: `jdbc:oracle:thin:@<Datenbankserver-Adresse>:<Datenbankport>:<SID>`
 
-|`database.username` a|
-Gibt den technischen Benutzernamen für den Zugriff auf die Datenbank an.
+|database.username
+|Name des technischen Benutzers für den Zugriff auf die Datenbank.
 
-Beispiel: xxx
+|database.password
+|Name des Passworts des technischen Benutzers für die Datenbank.
+Das Passwort ist nicht verschlüsselt.
 
-|`database.password` |Gibt das Passwort des technischen Benutzers für die Datenbank an. Das Passwort ist nicht verschlüsselt.
-|`database.schema.default` a|
-Beschreibt das Schema für xxx.
-
-Beispiel: xxx
-
+|database.schema.default
+|Name des Datenbank-Schemas.
 |===
 
-[[konfigurationsdatei-isalive-batch]]
-===== Konfigurationsdatei isAlive
+[[konfigurationsdatei-isalive]]
+==== Konfigurationsdatei isAlive
 
 Für Wartungszwecke kann es notwendig sein, dass die Anwendung keine weiteren Anfragen vom Loadbalancer mehr zugewiesen bekommt.
 
-Dazu überprüft das Loadbalancer-Servlet regelmäßig ob die (leere) Datei
+Dazu überprüft das Loadbalancer-Servlet regelmäßig, ob die folgende (leere) Datei existiert.
 
- /opt/isy-xxx-ga/etc/isAlive
+[source,subs="attributes"]
+----
+/opt/{it-system-ga}/etc/isAlive
+----
 
-existiert. Nach der Erstinstallation ist diese Datei noch nicht vorhanden. Die Datei muss als Nutzer „tomcat“ wie folgt angelegt werden:
+Nach der Erstinstallation ist diese Datei noch nicht vorhanden. Sie muss so angelegt werden, dass der Nutzer `tomcat` die Datei lesen kann, z. B. wie folgt:
 
- touch /opt/isy-xxx-ga/etc/isAlive
+[source,subs="attributes"]
+----
+touch /opt/{it-system-ga}/etc/isAlive
+----
 
-Die erzeugte `isAlive`-Datei muss von dem Loadbalancer-Servlet gelesen werden können. Daher ist es notwendig die Datei mit dem Benutzer „tomcat“ anzulegen.
+Im Regelbetrieb ist das Loadbalancer-Servlet unter folgender URL erreichbar:
 
-[[konfiguration-batch-anwendung]]
-==== Konfiguration der Batch-Anwendung
+ http(s)://<host>:<port>/Loadbalancer
 
-Nach der Installation liegen die Konfigurationsdateien der Batch-Anwendung unter
+[[konfiguration-batch]]
+=== Konfiguration der {anwendung-batch}
 
- /etc/isy-xxx-ga-batch
+Nach der Installation liegen die Konfigurationsdateien der Batch-Anwendung unter `/etc/{it-system-batch}`.
 
-Die Konfiguration der Batch-Anwendung erfolgt analog zur Konfiguration der Tomcat-Anwendung im Kapitel <<konfiguration-tomcat-anwendung>>:
-
-Die Konfigurationsdateien der Batch-Anwendungen sind nach der Erstinstallation mit den Konfigurationsdateien der Tomcat-Anwendung bis auf eine Ausnahme identisch: der Logging-Konfiguration für die Batches.
-Es ist möglich die bereits angepassten Konfigurationsdateien der Tomcat-Anwendung in die Konfigurationsverzeichnisse der Batch-Anwendungen zu kopieren.
+Die Konfiguration der {anwendung-batch} erfolgt analog zur <<konfiguration-ga>>:
+Allein die Logging-Konfiguration unterscheidet sich minimal.
+Es ist daher möglich, die bereits angepassten Konfigurationsdateien der {anwendung-ga} in die Konfigurationsverzeichnisse der {anwendung-batch} zu kopieren.
 Anschließend müssen dort nur noch die abweichenden Einstellungen angepasst werden.
 
 [[konfigurationsdatei-logging-batch]]
-===== Konfigurationsdatei `logback-batch.xml`
+==== Konfigurationsdatei `logback-batch.xml`
 
 Diese Konfigurationsdatei ist analog zur Datei `logback.xml` aufgebaut.
 Sie wird für das Logging der Batches verwendet.
-Der Unterschied zur `logback.xml` der Tomcat-Anwendung liegt darin, dass ein eigener Pfad für das Logging verwendet wird und dass die Batch-Id an den Namen der Log-Datei angehängt wird.
-Außerdem werden die Log-Dateien nicht rolliert.
+Die Unterschiede zur `logback.xml` der {anwendung-ga} liegen darin:
+
+* dass ein eigener Pfad für das Logging verwendet wird und
+* dass die Batch-Id an den Namen der Log-Datei angehängt wird.
+
+Außerdem ist für die Batches keine Log-Rotation aktiviert.
 
 [[konfigurationsdatei-ga-batch]]
-===== Konfigurationsdatei `isy-xxx-ga.properties`
+==== Konfigurationsdatei `{it-system-ga}.properties`
 
 ====
 _Inhalt_::
@@ -843,76 +855,10 @@ _Dokumentationsform_::
 _Freitext_
 ====
 
-[[starten-tomcat-anwendung-jpa-properties]]
-==== Starten der Tomcat Anwendung
+[[konfiguration-sgw]]
+=== Konfiguration des {anwendung-sgw}
 
-Das Starten und Stoppen einer Tomcat-Instanz wird über ein Start-Skript in /etc/init.d durchgeführt:
-
-|===
-h|Befehl h|Beschreibung
-|`/etc/init.d/isy-xxx-ga-tomcat start` |Starten des Tomcat.
-|`/etc/init.d/isy-xxx-ga-tomcat stop` |Stoppen des Tomcat.
-|===
-
-Beide Aufrufe werden in der Produktionsumgebung über die Batchsteuerung in die betrieblichen Abläufe integriert. Das Skript wird dabei nicht in die Runlevel des Betriebssystems integriert. Start und Stop des Tomcat wird ausschließlich über die betriebliche Batchsteuerung gesteuert.
-
-In allen anderen Umgebungen wird das Skript von Hand aufgerufen. Ein Eintrag in die Runlevel kann bei Bedarf erfolgen.
-
-[[installation-von-xxx-service-gateway]]
-=== Installation von XXX-Service Gateway
-
-[[tomcat-basisinstallation-sgw]]
-==== Tomcat Basisinstallation (SGW)
-
-Es muss eine Tomcat-Basisinstallation für die Anwendung _XXX-SGW_
-
- /opt/isy-xxx-sgw/tomcat
-
-vorliegen. Die Tomcat-Basisinstallation kann nur von dem root-Benutzer installiert werden.
-
-Für die Erstinstallation:
-
- 'rpm -i isy-xxx-ga-tomcat-{version}.x86_64.rpm'
-
-Für die nachfolgenden Schritte ist erforderlich, dass Java installiert ist. Die Umgebungsvariable JAVA<X>_HOME muss auf den Installationspfad von Java verweisen. <X> muss durch die Java-Versionsnummer ersetzt werden, z.B. 8.
-
-In der Datei `/opt/isy-xxx-sgw/tomcat/conf/wrapper.conf` sind alle Vorkommen von `JAVA_HOME` durch `JAVA<X>_HOME` ersetzen.
-
-Die Anwendung `_XXX-SGW_` wird von anderen Anwendungen über den konfigurierten Tomcat-Port aufgerufen.
-
-[[installation]]
-==== Installation
-
-Die Tomcat-Anwendung `_XXX-SGW_` wird auf dem Applikationsserver installiert. Das rpm-Paket des `_XXX-SGW_` muss als Nutzer „root“ wie folgt installiert werden:
-
-Erstinstallation `_XXX-SGW_`:
-
- rpm -i xxx-deployment/target/RPMS/noarch/isy-xxx-sgw-<version>.noarch.rpm
-
-Alternativ Update:
-
- rpm -U xxx-deployment/target/RPMS/noarch/isy-xxx-sgw-<versionr>.noarch.rpm
-
-Die Installation von `_XXX-SGW_` erfolgt in dem Verzeichnis
-
- /opt/isy-xxx-sgw/tomcat/webapps/xxx-sgw
-
-unter dem Benutzer „tomcat“ in der Gruppe „tomcat“. Der Nutzer „tomcat“ muss bei der Installation vorhanden sein.
-
-Nach erfolgreicher Installation ist der folgende Ordner anzulegen:
-
- /opt/isy-xxx-sgw/tomcat/common/endorsed
-
-In diesen Ordner muss das Archiv `webservices-api.jar` kopiert werden. Dieses befindet sich im Ordner
-
- /XXX_SGW_ROOT/src/main/resources/endorsed
-
-[[konfiguration-service-gateway]]
-==== Konfiguration
-
-Nach der Installation liegen die Konfigurationsdateien des `_XXX-SGW_ unter
-
- /etc/isy-xxx-sgw
+Nach der Installation liegen die Konfigurationsdateien des {anwendung-sgw} unter `/etc/{it-system-sgw}`.
 
 Folgende Konfigurationsdateien müssen für die Konfiguration angepasst werden:
 
@@ -925,26 +871,26 @@ IMPORTANT: Dieses Verhalten gilt nicht für die Konfigurationsdatei `logback.xml
 Änderungen an dieser Konfigurationsdatei können bei laufender Anwendung ausgeführt werden.
 
 [[konfigurationsdatei-logback-sgw]]
-===== Konfigurationsdatei `logback.xml`
+==== Konfigurationsdatei `logback.xml`
 
 Die Konfigurationsdatei `logback.xml` enthält die Logging-Einstellungen und ist nach den Logging-Vorgaben aufgebaut.
 Nach der Installation muss dort der Name der künftigen Log-Datei angegeben werden.
 Dazu ist in den folgenden Zeilen der `HOSTNAME` durch den tatsächlichen Hostnamen zu ersetzen.
 
-:desc-listing-logging-konfiguration-dateiname-sgw: Konfiguration Logging ISY-XXX-SGW: Log-Dateiname
+:desc-listing-logging-konfiguration-dateiname-sgw: {anwendung-sgw}: Log-Dateiname
 [id="listing-logging-konfiguration-dateiname-sgw",reftext="{listing-caption} {counter:listings}"]
 .{desc-listing-logging-konfiguration-dateiname-sgw}
 [source,xml]
 ----
-<property name="LOGFILE_PATH" value="/var/log/isy-xxx-sgw/HOSTNAME_isy-xxx-sgw" />
+<property name="LOGFILE_PATH" value="/var/log/{it-system-sgw}/HOSTNAME_{it-system-sgw}" />
 ----
 
-Die Logs werden nach `/var/log/isy-xxx-sgw` geschrieben.
+Die Logs werden nach `/var/log/{it-system-sgw}` geschrieben.
 
-[[konfigurationsdatei-servicegatewayproperties]]
-===== Konfigurationsdatei servicegateway.properties
+[[konfigurationsdatei-sgw]]
+==== Konfigurationsdatei servicegateway.properties
 
-Die Datei servicegateway.properties enthält alle weiteren Konfigurationseinstellungen von _XXX-SGW_.
+Die Datei `servicegateway.properties` enthält alle weiteren Konfigurationseinstellungen von {anwendung-sgw}.
 
 Eine ausführliche Erläuterung der einzelnen Parameter ist ebenfalls in der Datei selbst enthalten.
 
@@ -953,47 +899,40 @@ Folgende Werte müssen nach der Erstinstallation angepasst werden:
 :desc-table-parameter-servicegateway-properties: Konfigurationsparameter servicegateway.properties
 [id="table-parameter-servicegateway-properties", reftext = "{table-caption} {counter:tables}"]
 .{desc-table-parameter-servicegateway-properties}
-[cols="5,5",options="header"]
+[cols="2m,3a",options="header"]
 |===
 |Konfigurationsparameter |Beschreibung
-|`xxx.service.url` a|
-Die Adresse der XXX-Geschäftsanwendung.
+|ga.service.url
+|Die Adresse der {anwendung-ga}.
 
 Beispiel: +
-`http(s)://isy.local.vm:50001/xxx-ga`
+`http(s)://isy.local.vm:50001/{it-system-ga}`
 
-|… |
+|...
+|...
 |===
 
-[[konfigurationsdatei-isalive-gateway]]
-===== Konfigurationsdatei isAlive
+[[konfigurationsdatei-isalive-sgw]]
+==== Konfigurationsdatei isAlive
 
-Für Wartungszwecke kann es notwendig sein, dass das Service Gateway keine weiteren Anfragen vom Loadbalancer mehr zugewiesen bekommt.
+Für Wartungszwecke kann es notwendig sein, dass die Anwendung keine weiteren Anfragen vom Loadbalancer mehr zugewiesen bekommt.
+Dazu überprüft das Loadbalancer-Servlet regelmäßig, ob die folgende (leere) Datei existiert.
 
-Dafür ist die (leere) Datei
+[source,subs="attributes"]
+----
+/opt/{it-system-sgw}/etc/isAlive
+----
 
- /opt/isy-xxx-sgw/etc/isAlive
+Nach der Erstinstallation ist diese Datei noch nicht vorhanden. Sie muss so angelegt werden, dass der Nutzer `tomcat` die Datei lesen kann, z. B. wie folgt:
 
-vorgesehen. Die Datei kann z.B. von einem Loadbalancer(-Servlet) benutzt werden, um zu prüfen, ob die Instanz aktiv ist. Nach der Erstinstallation ist diese Datei noch nicht vorhanden. Die Datei muss als Nutzer „tomcat“ wie folgt angelegt werden:
+[source,subs="attributes"]
+----
+touch /opt/{it-system-sgw}/etc/isAlive
+----
 
- touch /opt/isy-xxx-sgw/etc/isAlive
+Im Regelbetrieb ist das Loadbalancer-Servlet unter folgender URL erreichbar:
 
-Die erzeugte `isAlive`-Datei muss von dem Loadbalancer-Servlet gelesen werden können. Daher ist es notwendig die Datei mit dem Benutzer „tomcat“ anzulegen.
-
-[[starten-tomcat-anwendung]]
-==== Starten der Tomcat Anwendung
-
-Das Starten und Stoppen einer Tomcat-Instanz wird über ein Start-Skript in /etc/init.d durchgeführt:
-
-|===
-h|Befehl h|Beschreibung
-|`/etc/init.d/isy-xxx-tomcat start` |Starten des Tomcat.
-|`/etc/init.d/isy-xxx-tomcat stop` |Stoppen des Tomcat.
-|===
-
-Beide Aufrufe werden in der Produktionsumgebung über die Batchsteuerung in die betrieblichen Abläufe integriert. Das Skript wird dabei nicht in die Runlevel des Betriebssystems integriert. Start und Stop des Tomcat werden ausschließlich über die Batchsteuerung gesteuert.
-
-In allen anderen Umgebungen wird das Skript von Hand aufgerufen. Ein Eintrag in die Runlevel kann bei Bedarf erfolgen.
+ http(s)://<host>:<port>/Loadbalancer
 
 [[regulaerer-wirkbetrieb]]
 == Regulärer Wirkbetrieb
@@ -1038,8 +977,9 @@ m|/etc/isy-xxx-sgw/logback.xml |Logging-Konfiguration
 === Datenbankschema
 
 NOTE: *Falls die Anwendung kein Datenbankschema enthält, kann dieser Abschnitt entfallen.*
+Andernfalls ist der Verweis auf den Systementwurf der Anwendung zu korrigieren.
 
-Das Datenbankschema ist vollständig im <<Systementwurf>> dokumentiert.
+Das Datenbankschema ist vollständig im xref:vorlage-systementwurf/master.adoc[Systementwurf] dokumentiert.
 
 NOTE: *Falls die Anwendung ein Datenbankschema enthält, kann dieser Abschnitt entfallen.*
 
@@ -1049,66 +989,43 @@ Die Anwendung ISY-XXX enthält kein Datenbankschema.
 [[start-stopp-statuspruefung-server-prozesse]]
 === Start, Stopp, Statusprüfung der Server-Prozesse
 
-Die Anwendung bietet die Standard-Möglichkeiten des Tomcats zu dessen Prüfung.
+Das Starten, Stoppen und die Statusüberprüfung der Tomcat-Installationen wird über ein Skript in `/etc/init.d` durchgeführt.
 
-Start:
+[id="table-start-stop-script", reftext = "{table-caption} {counter:tables}"]
+.Funktionen des Start-/Stopp-Skripts
+[cols="1m,1", options="header"]
+|===
+|Befehl |Beschreibung
 
- # /etc/init.d/isy-…-tomcat start
+|/etc/init.d/{it-system-ga}-tomcat start
+|Start der {anwendung-ga}
 
-Stop:
+|/etc/init.d/{it-system-ga}-tomcat stop
+|Stopp der {anwendung-ga}
 
- # /etc/init.d/isy-…-tomcat stop
+|/etc/init.d/{it-system-ga}-tomcat status
+|Statusüberprüfung der {anwendung-ga}
 
-Statusüberprüfung:
+|/etc/init.d/{it-system-sgw}-tomcat start
+|Start des {anwendung-sgw}
 
- # /etc/init.d/isy-…-tomcat status
+|/etc/init.d/{it-system-sgw}-tomcat stop
+|Stopp des {anwendung-sgw}
 
-und
+|/etc/init.d/{it-system-sgw}-tomcat status
+|Statusüberprüfung des {anwendung-sgw}
+|===
 
+Die Aufrufe werden in der Produktionsumgebung über die Batch-Steuerung in die betrieblichen Abläufe integriert.
+Das Skript wird dabei nicht in die Runlevel des Betriebssystems integriert.
+Die Tomcats werden ausschließlich über die betriebliche Batch-Steuerung gestartet und gestoppt.
 
+In allen anderen Umgebungen wird das Skript von Hand aufgerufen.
+Ein Eintrag in die Runlevel kann bei Bedarf erfolgen.
 
+Eine weitere Möglichkeit zur Überprüfung der Tomcat-Prozesse bietet folgender Befehl:
 
-:desc-listing-status-serverprozesse: Standardprüfung der Tomcat Serverprozesse
-[id="listing-status-serverprozesse",reftext="{listing-caption} {counter:listings}"]
-.{desc-listing-status-serverprozesse}
-[source,xml,subs="verbatim,attributes"]
-====
-# ps -ef
-
-tomcat 5409 5345 0 May11 ? 00:06:39 /usr/java/jdk1.7.0_xx/bin/java +
--Djava.endorsed.dirs=../common/endorsed +
--Dcatalina.base=/opt/isy-…/tomcat +
--Dcatalina.home=/opt/isy-…/tomcat +
--Djava.io.tmpdir=/opt/isy-…/tomcat/temp +
--Dcom.sun.management.jmxremote +
--Dcom.sun.management.jmxremote.port=… +
--Dcom.sun.management.jmxremote.ssl=false +
--Dcom.sun.management.jmxremote.authenticate=true +
--Dcom.sun.management.jmxremote.password.file=/opt/isy-…/tomcat/conf/jmxremote.password +
--Djava.util.logging.config.file=/opt/isy-…/tomcat/conf/logging.properties +
--Duser.language=de +
--Duser.region=DE +
--Dfile.encoding=UTF-8 +
--Dorg.tanukisoftware.wrapper.WrapperManager.mbean=true +
--Dorg.tanukisoftware.wrapper.WrapperManager.mbean.testing=false +
--D32 +
--Xdebug +
--Xrunjdwp:transport=dt_socket,address=50002,server=y,suspend=n +
--Xms64m +
--Xmx128m +
--Djava.library.path=../common/lib:/opt/oracle/product/11.1/db_1/lib +
--classpath ../common/lib/wrapper.jar:/usr/java/jdk1.7.0_xx/lib/tools.jar:../bin/bootstrap.jar +
--Dwrapper.key=… +
--Dwrapper.port=… +
--Dwrapper.jvm.port.min=… +
--Dwrapper.jvm.port.max=… +
--Dwrapper.pid=… +
--Dwrapper.version=3.3.2 +
--Dwrapper.native_library=wrapper +
--Dwrapper.service=TRUE +
--Dwrapper.cpu.timeout=30 +
--Dwrapper.jvmid=1 org.tanukisoftware.wrapper.WrapperStartStopApp org.apache.catalina.startup.Bootstrap 1 start org.apache.catalina.startup.Bootstrap true 1 stop
-====
+ ps -u tomcat -f
 
 [[batch-prozesse]]
 === Batch-Prozesse
