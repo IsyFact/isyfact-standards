@@ -1,6 +1,13 @@
 ﻿:sectnums:
 
 // tag::inhalt[]
+:anwendung: Beispielverzeichnis
+:anwendung-ga: Beispielverzeichnis-GA
+:anwendung-sgw: Beispielverzeichnis-SGW
+:anwendung-batch: Beispielverzeichnis-Batch
+:it-system-ga: isy-bsp-ga
+:it-system-sgw: isy-bsp-sgw
+:it-system-batch: isy-bsp-batch
 
 // Hinweis für den AsciiDoc-Autor dieses Dokuments
 // Die automatische Generierung des Kapitels "Literaturverweise" basiert darauf, dass diese
@@ -16,17 +23,17 @@
 *_Zweck dieses Dokuments_*
 
 _Die Dokumentvorlage enthält die Gliederung für ein Systemhandbuch.
-Das Systemhandbuch ist die Dokumentation eines IT-System aus betrieblicher Sicht.
+Das Systemhandbuch ist die Dokumentation eines IT-Systems aus betrieblicher Sicht.
 Dazu gehören insbesondere Informationen zur Installation, Konfiguration, Batches, Fehleranalyse und Backup._
 
 _Das Dokument wird durch die Entwickler der Software erstellt und gepflegt.
 Es enthält nur solche Informationen, welche die eigentliche Software betreffen, Informationen zu Systemumgebungen, Hardware usw. werden vom Betrieb in separaten Dokumenten gepflegt._
 
-_In diesem Dokument werden alle Systeme eines Verfahrens gemeinsam beschrieben.
-Die Abgrenzung, welche Systeme zusammen beschrieben werden, ist ggf. im Einzelfall abzuwägen.
+_In diesem Dokument werden alle IT-Systeme einer Anwendung gemeinsam beschrieben.
+Die Abgrenzung, welche IT-Systeme zusammen beschrieben werden, ist ggf. im Einzelfall abzuwägen.
 Typischerweise werden eine Geschäftsanwendung und ein zugehöriges Service Gateway gemeinsam beschrieben, aber z.B. nicht zwei Geschäftsanwendungen die zu unterschiedlichen Fachverfahren gehören, auch wenn Sie sich gegenseitig aufrufen.
-Ein wichtiges Kriterium für die Auswahl der Systeme ist deren Entwicklungszyklus.
-Systeme die immer gemeinsam weiterentwickelt werden, können gut in einem gemeinsamen Dokument beschrieben werden.
+Ein wichtiges Kriterium für die Auswahl der IT-Systeme ist deren Entwicklungszyklus.
+IT-Systeme, die immer gemeinsam weiterentwickelt werden, können gut in einem gemeinsamen Dokument beschrieben werden.
 Querschnittsanwendungen werden in eigenen Dokumenten beschrieben._
 
 _Die Vorlage enthält bewusst auch Kapitel für Themen, die nicht für alle Systeme benötigt werden.
@@ -37,32 +44,26 @@ _Bei Bedarf können Kapitel entfernt werden._
 
 ====
 
-[NOTE]
+[TIP]
 ====
-*_Verwendung von Systemtypen-Bezeichnungen_*
+*_Verwendung von Namenskonventionen_*
 
-_In diesem Dokument werden die Systemtypen und Kürzel der Vorlage-Anwendung der IsyFact durchgängig eingesetzt:_
-
-**GA** _für Geschäftsanwendung_
-
-**REG** _für Register und_
-
-**SGW** _für Service-Gateway._
-
-_Dies sind lediglich Beispiele und müssen an die Namenskonventionen angepasst werden, die im jeweiligen Kontext gelten, in der die IsyFact eingesetzt wird._
+_In diesem Dokument werden die Namenskonventionen der IsyFact verwendet.
+Die Namenskonventionen können dem jeweiligen Kontext, in dem die IsyFact eingesetzt wird, angepasst werden._
 ====
 
 [[einleitung]]
 == Einleitung
 
-_Dieses Dokument enthält die Systemdokumentation für XXX.
-Es umfasst die folgenden IT-Systeme:_
+Dieses Dokument enthält das Systemhandbuch für die Anwendung {anwendung}.
 
-*  _XXX-GA_
-*  _XXX-SGW_
+Es umfasst die folgenden IT-Systeme:
 
-_**Kapitel 2** bietet einen groben Überblick über das Verfahren und liefert Verweise für weitergehende Dokumente.
-Es ist für alle Leser des Dokuments relevant._
+* {anwendung-ga} (technischer Name: `{it-system-ga}`),
+* {anwendung-sgw} (technischer Name: `{it-system-sgw}`),
+* {anwendung-batch} (technischer Name: `{it-system-batch}`).
+
+Der <<systemueberblick>> bietet einen groben fachlichen, technischen sowie betrieblichen Überblick über die Anwendung und liefert Verweise auf weitergehende Dokumente. Das Kapitel ist für alle Leser des Dokuments relevant.
 
 _**Kapitel 3** beschreibt den Bau der zum Verfahren gehörenden Systeme.
 Dieses Kapitel ist im Wesentlichen für die Softwareentwicklungsabteilung relevant._
@@ -79,65 +80,197 @@ Dieses Kapitel ist für den Betrieb und die Softwareentwicklung relevant._
 [[systemueberblick]]
 == Systemüberblick
 
-In diesem Kapitel wird aus fachlicher und technischer Sicht ein Überblick über die Geschäftsprozesse gegeben, die mit Hilfe des bereitgestellten Verfahrens durchgeführt werden.
+In diesem Kapitel wird aus fachlicher und technischer Sicht ein Überblick über die Geschäftsprozesse gegeben, die mithilfe der Anwendung {anwendung} durchgeführt werden.
 
-[[fachliche-verfahrensbeschreibung]]
-=== Fachliche Verfahrensbeschreibung
+[[fachliche-beschreibung]]
+=== Fachliche Beschreibung
+
+_Kurze, prägnante fachliche Darstellung der Anwendung. [...]_
+
+[[fachlicher-kontext]]
+.{anwendung}: Fachlicher Kontext
+image::methodik:vorlage-systemhandbuch/fachlicher-kontext.dn.svg[]
+
+NOTE: Weitere fachliche Details können in der <<Systemspezifikation>> nachgelesen werden.
 
 ====
 _Inhalt_::
-_Sehr kurze zusammenfassende fachliche Darstellung des Verfahrens.
-Darstellung der Einbettung in die Anwendungslandschaft.
-Verweis auf die aktuelle Version der Systemspezifikation._
+
+* _Sehr kurze zusammenfassende fachliche Darstellung der Anwendung._
+* _Darstellung des fachlichen Kontextes._
+* _Verweis auf aktuelle Version der Systemspezifikation._
 
 _Quelle_::
-_Einbettung des Systems in die Anwendungslandschaft (aus Systementwurf).
-             Extrakt aus Einleitung / Überblick aus Systemspezifikation._
+_Systemspezifikation (Extrakt aus Einleitung / Überblick & fachlicher Kontext)_
+
 _Dokumentationsform_::
-_Bild der Anwendungslandschaft gemäß Ist- bzw. Referenzarchitektur mit hervorgehobenem neuen System, Freitext._
+_Freitext, fachliches Kontextdiagramm_
 ====
 
-Details können in der Systemspezifikation [_SysSpez(Referenzlink anpassen)_] nachgelesen werden.
 
-[[technische-verfahrensbeschreibung]]
-=== Technische Verfahrensbeschreibung
+[[anwendergruppen]]
+==== Anwendergruppen
 
-In diesem Kapitel werden IT Produkte, Techniken und Architekturen aufgeführt, die zur Unterstützung der Geschäftsprozesse genutzt werden.
+Die Anwendung {anwendung} hat folgende Anwendergruppen:
 
-[[uebersicht-technischen-verfahrensbeschreibung]]
-==== Übersicht der technischen Verfahrensbeschreibung
+* [Name der Anwendergruppe, aus fachlichem Kontext] ([wichtigster Anwendungsfall]),
+* ...
 
 ====
 _Inhalt_::
-_An dieser Stelle befindet sich eine Übersichtsgrafik, die darstellt, aus welchen Teilsystemen das Gesamtsystem besteht, wie diese sich gegenseitig aufrufen und welche Nachbarsysteme und Querschnittsfunktionen aufgerufen werden.
-Zur besseren Orientierung sind der Farbcode und das Layout der Referenzarchitektur zu beachten._
-+
-_Für die Schnittstellen und Services soll ein geeigneter Abstraktionsgrad gewählt werden.
-Zweck dieser Übersicht ist es, einen prinzipiellen Überblick zu geben und nicht jedes Detail zu beschreiben._
+_Sehr knappe Zusammenfassung der Anwendergruppen und ihrer wichtigsten Anwendungsfälle.
+Ergänzungen können unterhalb der Liste vorgenommen werden, falls nötig._
 
 _Quelle_::
-_Extrakt aus Einleitung / Überblick aus Systementwurf._
+_Systemspezifikation_
 
 _Dokumentationsform_::
-_Freitext, Grafiken, UML-Diagramme, …_
+_Liste, Freitext_
 ====
 
-[[architekturkomponenten-technischen-verfahrens]]
-==== Architekturkomponenten des technischen Verfahrens
+[[anwendungsfaelle]]
+==== Anwendungsfälle
+
+Die Anwendung {anwendung} setzt die folgenden Anwendungsfälle um.
+
+[Name des Anwendungsfalls]:: [Beschreibung des Anwendungsfalls in einem Satz].
 
 ====
 _Inhalt_::
-_Deployment-Diagramm des Systems mit grober Erklärung, Auflistung der Produkte der Laufzeitumgebung (Kategorie, Name, Version, Bemerkung)._
-+
-_Folgende Aspekte sind darzustellen:_ +
+_Sehr knappe Zusammenfassung der Anwendungsfälle: Name und ein beschreibender Satz._
 
-- _Verteilung der Teilsysteme auf Server, also das Clustering der Teilsysteme.
-Clustering von Nachbarsystemen kann vereinfacht dargestellt werden._
-- _Laufzeitumgebungen (Tomcat)_
-- _Genutzte andere Systeme und deren Kommunikationsbeziehungen_
-- _Genutzte technische System, z.B. Datenbank_
-- _Firewalls bzw. Netzwerkzonen_
-- _Kommunikationsprotokolle_
+_Quelle_::
+_Systemspezifikation_
+
+_Dokumentationsform_::
+_Liste_
+====
+
+[[technische-beschreibung]]
+=== Technische Beschreibung
+
+_Kurze, prägnante technische Darstellung der Anwendung. [...]_
+
+[[technischer-kontext]]
+.{anwendung}: Technischer Kontext
+image::vorlage-systemhandbuch/technischer-kontext.dn.svg[]
+
+NOTE: Weitere technische Details können im <<Systementwurf>> nachgelesen werden.
+
+====
+_Inhalt_::
+* _Sehr kurze zusammenfassende technische Darstellung der Anwendung._
+* _Darstellung des technischen Kontextes._
+* _Verweis auf aktuelle Version der Systemspezifikation._
+
+_Quelle_::
+_Systementwurf (Extrakt aus Einleitung / Überblick & technischer Kontext)_
+
+_Dokumentationsform_::
+_Freitext, technisches Kontextdiagramm_
+====
+
+[[laufzeitumgebung]]
+==== Laufzeitumgebung
+
+Die Laufzeitumgebung für das {anwendung} besteht aus den Produkten, die in folgender Tabelle dargestellt sind.
+
+[[laufzeitumgebung-produkte]]
+.{anwendung}: Produkte der Laufzeitumgebung
+[cols="2,2,1,1", options="header"]
+|===
+|Kategorie |Name |Version |Bemerkung
+
+|Java Virtual Machine
+|Oracle JDK 8
+|1.8.x
+|
+
+|Servlet-Container
+|Apache Tomcat
+|8.5.x
+|
+
+|RDBMS
+|(Datenbank)
+|(Version)
+|
+
+|...
+|...
+|...
+|
+|===
+
+====
+_Inhalt_::
+_Übersicht über alle Bestandteile der Laufzeitumgebung, die zum Betrieb der Anwendung nötig sind.
+Hierbei sind nur die direkten Abhängigkeiten aufzulisten.
+Transitive Abhängigkeiten, wie sie u.a. Betriebssysteme in der Regel darstellen, müssen nicht angegeben werden._
+
+_Quelle_::
+_Systementwurf, Produktkatalog IsyFact_
+
+_Dokumentationsform_::
+_Tabelle, Freitext (für weitergehende Bemerkungen)_
+====
+
+[[nachbarsysteme]]
+==== Nachbarsysteme
+
+Die Anwendung {anwendung} benötigt die folgenden Nachbarsysteme, um alle Anwendungsfälle erfolgreich durchführen zu können.
+
+[[nachbarsysteme-auflistung]]
+.{anwendung}: Benötigte Nachbarsysteme
+[cols="2m,2,1,1", options="header"]
+|===
+|Nachbarsystem |Schnittstelle |Version |Essenziell?
+
+|isy-nachbar-b-gk
+|(Schnittstelle)
+|(Version)
+|nein
+
+|isy-nachbar-c-qk
+|(Schnittstelle)
+|(Version)
+|ja
+
+|...
+|...
+|...
+|
+|===
+
+====
+_Inhalt_::
+_Übersicht über alle Nachbarsystemen, die zum Betrieb der Anwendung nötig sind.
+Essenzielle Abhängigkeiten sind nötig, um die Kernfunktionalität der Anwendung bereitzustellen.
+Nicht essenzielle Abhängigkeiten hingegen bieten zusätzliche Funktionalität, falls benötigt._
+
+_Quelle_::
+_Systementwurf_
+
+_Dokumentationsform_::
+_Tabelle, Freitext (für weitergehende Bemerkungen)_
+====
+
+[[verteilungssicht]]
+==== Verteilungssicht
+
+====
+_Inhalt_::
+_Deployment-Diagramm des Systems mit grober Erklärung. +
+Folgende Aspekte sind im Diagramm darzustellen:_
+
+* _Verteilung der IT-Systeme der Anwendung auf Server, also das Clustering der IT-Systeme,_
+* _Laufzeitumgebungen (Tomcat),_
+* _Genutzte andere Systeme und deren Kommunikationsbeziehungen,_
+* _Genutzte technische System, z.B. Datenbank,_
+* _Firewalls bzw. Netzwerkzonen,_
+* _Kommunikationsprotokolle._
+
+_Hinweis: Das Clustering von Nachbarsystemen kann vereinfacht dargestellt werden._
 
 _Quelle_::
 _Systementwurf_
@@ -145,6 +278,7 @@ _Systementwurf_
 _Dokumentationsform_::
 _Deployment-Diagramme, Tabellen, Freitext_
 ====
+
 
 [[bauen-systems]]
 == Bauen des Systems
@@ -905,7 +1039,7 @@ m|/etc/isy-xxx-sgw/logback.xml |Logging-Konfiguration
 
 NOTE: *Falls die Anwendung kein Datenbankschema enthält, kann dieser Abschnitt entfallen.*
 
-Das Datenbankschema ist vollständig im <<SystementwurfIsyXxx>> dokumentiert.
+Das Datenbankschema ist vollständig im <<Systementwurf>> dokumentiert.
 
 NOTE: *Falls die Anwendung ein Datenbankschema enthält, kann dieser Abschnitt entfallen.*
 
@@ -1442,3 +1576,15 @@ _Tabelle_
 
 // end::inhalt[]
 
+// tag::quellen[]
+
+== Quellen
+Dieses Kapitel gehört nicht zum Inhalt und listet die Dokumente auf, auf die das Systemhandbuch verweist.
+
+[[Systemspezifikation]]
+=== Systemspezifikation
+
+[[Systementwurf]]
+=== Systementwurf
+
+// end::quellen[]
