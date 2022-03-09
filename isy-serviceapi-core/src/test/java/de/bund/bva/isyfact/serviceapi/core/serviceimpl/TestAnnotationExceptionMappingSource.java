@@ -43,7 +43,7 @@ public class TestAnnotationExceptionMappingSource {
 
 	@Test
 	public void testGetToExceptionClass() {
-		// Braucht man, damit der ClassLoader das entsprechende Package und Implementierungsklasse lädt.
+		// Needed to make the ClassLoader load the appropriate package and implementation class.
 		Class<?> implClass = RemoteBeanImpl.class;
 
 		Class<?> exceptionClass = mappingSource.getToExceptionClass(method, TechnicalException.class);
@@ -52,7 +52,7 @@ public class TestAnnotationExceptionMappingSource {
 
 	@Test
 	public void testGetToExceptionClassExceptionNotInMapping() {
-		// Braucht man, damit der ClassLoader das entsprechende Package und Implementierungsklasse lädt.
+		// Needed to make the ClassLoader load the appropriate package and implementation class.
 		Class<?> implClass = RemoteBeanImpl.class;
 
 		Class<?> exceptionClass = mappingSource.getToExceptionClass(method, SicherheitTechnicalException.class);
@@ -66,7 +66,7 @@ public class TestAnnotationExceptionMappingSource {
 
 	@Test
 	public void testGetGenericTechnicalToException() {
-		// Braucht man, damit der ClassLoader das entsprechende Package und Implementierungsklasse lädt.
+		// Needed to make the ClassLoader load the appropriate package and implementation class.
 		Class<?> implClass = RemoteBeanImpl.class;
 
 		Class<?> exceptionClass = mappingSource.getGenericTechnicalToException(method);
