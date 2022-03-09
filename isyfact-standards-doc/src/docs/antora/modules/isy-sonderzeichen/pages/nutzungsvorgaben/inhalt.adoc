@@ -25,7 +25,7 @@ auch für jeden Benutzer individuell gesetzt werden.
 Die Zeichencodierung aller in der Plattform verwendeten Datenbanken muss ebenfalls einheitlich auf die Verwendung von Unicode v4.x in der UTF-8-Codierung gesetzt werden.
 
 Als Beispiel wird hier die Datenbank Oracle 11g betrachtet.
-Oracle unterstützt ab Version 10g Release 2 Unicode v4.0. Oracle empfiehlt http://download.oracle.com/docs/cd/B19306_01/server.102/b14225.pdf[Oracle, Globalization Support Guide 10g Release 2 (10.2)], neue Datenbanken als Unicode-Datenbanken anzulegen.
+Oracle unterstützt ab Version 10g Release 2 Unicode v4.0. Oracle empfiehlt xref:glossary:literaturextern:inhalt.adoc#litextern-Oracle-Globalization-Support[Oracle, Globalization Support Guide 10g Release 2 (10.2)], neue Datenbanken als Unicode-Datenbanken anzulegen.
 Hierzu muss beim CREATE DATABASE die folgende Eigenschaft gesetzt werden:
 
 `CHARACTER SET AL32UTF8`
@@ -162,14 +162,13 @@ Damit dürfen auch keine HTML-Sonderzeichen mehr verwendet werden, sondern nur n
 [[bibliothek-isy-sonderzeichen]]
 == Bibliothek „isy-sonderzeichen“
 
-Dieses Kapitel beschreibt die Verwendung des Bausteins `isy-sonderzeichen`.
+Dieses Kapitel beschreibt die Verwendung der Bibliothek `isy-sonderzeichen`.
+Sie stellt anderen Anwendungen Services zur Transformation und Validierung von Zeichenketten zur Verfügung.
+Dies geschieht mittels einer festen Anzahl von Transformatoren, die für eine einheitliche Transformation von Zeichenketten innerhalb der Systemumgebung sorgen.
 
-Der Baustein `isy-sonderzeichen` ist eine Querschnittskomponente, die anderen Anwendungen Services zur Transformation und Validierung von Zeichenketten zur Verfügung stellt.
-Die Bibliothek stellt dabei eine feste Anzahl von Transformatoren zur Verfügung, die für eine einheitliche Transformation von Zeichenketten innerhalb der Systemumgebung sorgen.
-
-Im Zuge der Umsetzung der DIN Spezifikation 91 379 wurde `isy-sonderzeichen` erweitert. Um die ursprüngliche Funktionalität zu erhalten,
+Im Zuge der Umsetzung der DIN SPEC 91379 wurde `isy-sonderzeichen` erweitert. Um die ursprüngliche Funktionalität zu erhalten,
 wurde die Bibliothek in zwei Packages aufgeteilt. Das _stringlatin1_1_ Package enthält die ursprüngliche Funktionalität. Die Umsetzung der
-DIN Spezifikation wurde im Package _dinspec91379_ umgesetzt. Die Architektur und Funktionsweise der Komponente wurde im Zuge der
+DIN SPEC 91379 wurde im Package _dinspec91379_ umgesetzt. Die Architektur und Funktionsweise der Komponente wurde im Zuge der
 Umsetzung nicht verändert.
 
 [[funktionsweise]]
@@ -208,7 +207,7 @@ Die Transformationregeln sind der  xref:nutzungsvorgaben/master.adoc#table-legac
 Dieser Transformator ermöglicht keine Vorgabe der maximalen Zeichenlänge.
 Es ist also möglich, dass transformierte Texte nicht mehr vom System verarbeitet werden können, wenn diese nicht mehr die maximale Zeichenlänge einhalten können.
 
-Der Transformator dient dazu die Kompatibilität zu Systemen herzustellen, die noch nicht auf die DIN SPEC umgestellt sind.
+Der Transformator dient dazu die Kompatibilität zu Systemen herzustellen, die noch nicht auf die DIN SPEC 91379 umgestellt sind.
 Die Frist zur Umstellung endet im November 2024.
 Danach soll auch der Legacy Transformator aus isy-sonderzeichen entfernt werden.
 Er ist deswegen bereits als `Deprecated` markiert.
@@ -216,7 +215,7 @@ Er ist deswegen bereits als `Deprecated` markiert.
 [[funktionsweise-zeichen-validator]]
 ==== Zeichen-Validator
 
-Der Zeichen-Validator kann verwendet werden, um zu überprüfen, ob eine Zeichenkette nur Zeichen eines bestimmten Datentyps der DIN Spezifikation 91 379 enthält.
+Der Zeichen-Validator kann verwendet werden, um zu überprüfen, ob eine Zeichenkette nur Zeichen eines bestimmten Datentyps der DIN SPEC 91379 enthält.
 
 [[einbindung-der-bibliothek-in-eine-anwendung]]
 === Einbindung der Bibliothek in eine Anwendung
@@ -263,7 +262,7 @@ Bei der Konfiguration der _TransformatorFactory_ kann die zusätzliche (optional
 Die Regeln in dieser Tabelle überschreiben dabei existierende alte Regeln.
 Es findet also eine Ergänzung der existierenden Regeln statt.
 
-Das Vorgehen für die Komponenten der DIN Spezifikation 91 379 ist analog. Es müssen lediglich die Package-Pfade der Klassen aktualisiert werden.
+Das Vorgehen für die Komponenten der DIN SPEC 91379 ist analog. Es müssen lediglich die Package-Pfade der Klassen aktualisiert werden.
 
 [[instanziierung-des-zeichen-validators]]
 ==== Instanziierung des Zeichen-Validators
@@ -453,7 +452,7 @@ Folgende Methoden stehen zur Verfügung:
 a|
 `isGueltigerString`
 
-Überprüft, ob eine Zeichenkette nur Zeichen eines in der DIN Spezifikation 91 379 definierten Datentyps enthält.
+Überprüft, ob eine Zeichenkette nur Zeichen eines in der DIN SPEC 91379 definierten Datentyps enthält.
 
 Leerzeichen am Anfang und am Ende der Zeichenkette werden entfernt.
 
@@ -492,7 +491,7 @@ Die für die IsyFact zulässigen Zeichen werden im Folgenden aufgeführt. (Siehe
 === Zusätzliche Zeichen
 
 In der xref:nutzungsvorgaben/master.adoc#table-zusaetzliche-zeichen[Tabelle für zusätzliche Zeichen] sind die Zeichen dargestellt, die zusätzlich unterstützt werden.
-Damit die Zeichen in der Spalte „Glyph“ korrekt dargestellt werden, muss ein Font installiert sein, der alle Zeichen unterstützt. (z.B. Code2000, erhältlich unter http://www.code2000.net).
+Damit die Zeichen in der Spalte „Glyph“ korrekt dargestellt werden, muss ein Font installiert sein, der alle Zeichen unterstützt. (z.B. Code2000, erhältlich unter xref:glossary:literaturextern:inhalt.adoc#litextern-Code2000[Code2000]).
 
 // end::inhalt[]
 
