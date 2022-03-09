@@ -445,9 +445,6 @@ Eine Beispiel-Implementierung hierfür befindet sich in der xref:glossary:litera
 [[dos-und-donts]]
 == DO's und DON'Ts
 
-NOTE: xref:glossary:literaturextern:inhalt.adoc#litextern-exceptions[Exceptions] +
-xref:glossary:literaturextern:inhalt.adoc#litextern-antipattern-exceptions[Antipatterns Exceptions]
-
 Im Folgenden werden Vorgaben gemacht, wie Fehler behandelt werden müssen und wie Fehler nicht behandelt werden dürfen.
 
 [[dos]]
@@ -703,3 +700,11 @@ In Einzelfällen mag dies notwendig sein, muss dann aber mit dem Chefarchitekt a
 
 
 // end::inhalt[]
+
+// tag::architekturregel[]
+
+// end::architekturregel[]
+
+// tag::sicherheit[]
+
+// end::sicherheit[]

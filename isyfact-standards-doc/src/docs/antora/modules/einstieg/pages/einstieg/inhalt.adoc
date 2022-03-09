@@ -225,7 +225,7 @@ Die jeweiligen Aufgaben sind durch die entsprechende Rolle im konkreten Projektk
 
 * **Chefarchitekt**: Der Chefarchitekt verantwortet den adäquaten Technikeinsatz und die Architektur im Gesamtprojekt bzw.
 auf Ebene der Anwendungslandschaft.
-* **Fachlicher Architekt**: Der Fachliche Architekt verantwortet die Struktur der einzelnen Systeme und Querschnittskomponenten in einer Anwendungslandschaft aus fachlicher Sicht.
+* **Fachlicher Architekt**: Der Fachliche Architekt verantwortet die Struktur der einzelnen Systeme und Querschnittsanwendungen in einer Anwendungslandschaft aus fachlicher Sicht.
 * **Systemarchitekt (Technischer Chefdesigner)**: Die Systemarchitekten, oder auch Technische Chefdesigner genannt, verantworten den adäquaten Technikeinsatz und die Architektur in einem Teilprojekt bzw.
 für eines oder mehrere IT-Systeme.
 * **SW-Entwickler**: Die SW-Entwickler sind zuständig für die Realisierung der IT-Systeme.
@@ -246,13 +246,13 @@ Es wird jedoch vorausgesetzt, dass jeder Anwender der IsyFact einen eigenen Styl
 
 Die Dokumentation der IsyFact folgt einer festgelegten Struktur.
 Dokumente wie dieser Einstieg liegen im *allgemeinen* Teil der Dokumentation.
-Der Teil enthält außerdem das xref:tutorial/master.adoc#einleitung[Tutorial], grundlegende Dokumente wie den <<TODO anderes Dokument: ProduktKatalog>> und die <<TODO anderes Dokument: Aenderungshistorie>> sowie die Beschreibungen der Referenzarchitektur.
+Der Teil enthält außerdem das xref:tutorial/master.adoc#einleitung[Tutorial].
 
 Die Dokumentation der *Blaupausen* enthält je ein Detailkonzept pro Blaupause.
 
 Die *Bausteine* sind jeder für sich ausführlich dokumentiert.
 Wird der Baustein mittels einer Bibliothek realisiert, umfasst die Dokumentation ein Konzept, Nutzungsvorgaben sowie ein Changelog.
-Besteht der Baustein aus einem eigenständigen Querschnittssystem, enthält die Dokumentation zusätzlich ein Betriebshandbuch (Nutzungsvorgaben für den Betrieb des IT-Systems in einer Anwendungslandschaft) und ein Anwenderhandbuch (insofern das Querschnittssystem über eine Benutzeroberfläche verfügt).
+Besteht der Baustein aus einer eigenständigen Querschnittsanwendung, enthält die Dokumentation zusätzlich ein Systemhandbuch (Nutzungsvorgaben für den Betrieb des IT-Systems in einer Anwendungslandschaft) und ein Anwenderhandbuch (insofern die Querschnittsanwendung über eine Benutzeroberfläche verfügt).
 
 Die Dokumentation der *Plattform* enthält Nutzungsvorgaben für jede von der IsyFact empfohlene oder eingesetzte Technologie zum Betrieb von IT-Systemen (z.B. HTTP- und Applikationsserver, Datenbanken).
 
@@ -369,7 +369,7 @@ Die Erstellung von IT-Systemen wird durch einen Systementwurf konkretisiert und 
 [[vorgaben-fuer-den-systementwurf]]
 ===== Vorgaben für den Systementwurf
 Systementwürfe besitzen, genau wie Spezifikationen, eine festgelegte Form und beschreiben stets gleichartige Inhalte.
-Die Vorgaben dazu befinden sich mitsamt Vorgehen und Beispielen in der Vorlage für den Systementwurf (<<TODO anderes Dokument: IsyFactSystementwurf>>).
+Die Vorgaben dazu befinden sich mitsamt Vorgehen und Beispielen in der Vorlage für den Systementwurf (xref:methodik:vorlage-systementwurf/antora-master.adoc[IsyFact Systementwurf]).
 
 Zur Konstruktion des IT-Systems, also den eigentlichen Inhalten des Systementwurfs, existieren eine Reihe von Dokumenten, die inhaltliche Vorgaben machen.
 Neben der Referenzarchitektur sind dies vor allem die <<bausteine-der-isyfact-standards,Bausteine>>, die wesentliche Vorgaben zur technischen Umsetzung ihrer jeweiligen Funktionalität enthalten.
@@ -386,7 +386,7 @@ Die zu verwendende Infrastruktur ist zum Teil durch den <<TODO anderes Dokument:
 
 [[vorgaben-fuer-das-systemhandbuch]]
 ===== Vorgaben für das Systemhandbuch
-Das Systemhandbuch ist gemäß der <<TODO anderes Dokument: IsyFactVorlageSystemhandbuch>> zu erstellen und beschreibt die Installation, Konfiguration und den Betrieb eines IT-Systems.
+Das Systemhandbuch ist gemäß der xref:methodik:vorlage-systemhandbuch/antora-master.adoc[IsyFact Vorlage Systemhandbuch] zu erstellen und beschreibt die Installation, Konfiguration und den Betrieb eines IT-Systems.
 Die Vorlage legt die äußere Form sowie die Gliederung des Dokuments fest.
 Sie enthält außerdem das Vorgehen zur Erstellung und Beispiele für die zu beschreibenden Inhalte.
 
@@ -512,12 +512,6 @@ Der Baustein Styleguide beschreibt die Gestaltung grafischer Oberflächen nach e
 Das zentrale Dokument, der <<TODOStyleguide>>, enthält Vorgaben zu Aufbau und Gestaltung von Web-GUIs.
 Der Styleguide definiert ebenfalls Form und Funktion der in der IsyFact verfügbaren Anzeige- und Bedienelemente.
 Neben dem Dokument beinhaltet der Baustein eine Software-Bibliothek, welche die Vorgaben als CSS-Stile zur Nutzung bereitstellt.
-
-[[sessionmanagement]]
-==== Session Management
-Für das Session Management wird in IsyFact-basierten Anwendungen Spring Session eingesetzt.
-Der Baustein Session Management erleichtert die Konfiguration von Spring Session gemäß den Vorgaben und Anforderungen der IsyFact.
-Die <<TODO anderes Dokument: NutzungsvorgabenSessionManagement>> zeigen, wie mithilfe dieser Erweiterung Sessions in IsyFact Anwendungen verwaltet werden.
 
 [[webjsf]]
 ==== Web JSF

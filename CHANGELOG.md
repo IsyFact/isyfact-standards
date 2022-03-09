@@ -1,3 +1,6 @@
+# 2.5.0
+- `IFS-1282`: Einführung von Maven CI-friendly Versionen
+
 # 2.4.0
 - `IFS-590`: [isy-logging] Instanziierung LogApplicationListener Parameter in korrekter Reihenfolge
 - `IFS-601`: [isy-products-bom] Einbindung folgender Produkte über die Spring Boot Dependencies: JPA, JTA, Spring, Hibernate, Jackson, QueryDSL, SLF4J, Logback, JUnit, Mockito, AssertJ, H2.

@@ -40,8 +40,9 @@ Die eigentliche Auswertung mit Hilfe von Analysetools ist nicht Teil des Dokumen
 * Konfiguration von Drittsystemen: Die Konfiguration des Loggings von Systemen, die nicht mit der IsyFact entwickelt wurden (bspw.
 Apache Webserver, Apache Tomcat, Mailserver), wird in den Konzepten der einzelnen Systeme adressiert.
 Das Logging-Konzept definiert jedoch, welche Informationen durch die einzelnen Systeme bereitgestellt werden (Kapitel *xref:konzept/master.adoc#log-auswertung[Log Auswertung]*).
-* Monitoring, Logging, Protokollierung: Unter „Logging“ wird in diesem Dokument „Logging zu technischen Zwecken verstanden“.
-Anforderungen bezüglich der Protokollierung (das Mitschreiben von Informationen zu durchgeführten Geschäftsvorfällen auf Grund fachlicher Anforderungen werden im  <<TODO anderes Dokument: ProtokollierungKonzept>>) behandelt.
+* Monitoring, Logging, Protokollierung: Unter „Logging“ wird in diesem Dokument „Logging zu technischen Zwecken“ verstanden.
++
+Die Protokollierung behandelt das Mitschreiben von Informationen zu durchgeführten Geschäftsvorfällen auf Grund fachlicher Anforderungen.
 +
 Das Monitoring zur betrieblichen Überwachung der Anwendungslandschaft und frühzeitigen Eskalation von Problemen ist im  xref:isy-ueberwachung:konzept/master.adoc#einleitung[Konzept Überwachung] beschrieben.
 +

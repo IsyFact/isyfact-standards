@@ -26,10 +26,10 @@ Das Dokument legt außerdem allgemeine Vorgaben für das Persistenzmodell (die d
 Das Thema Transaktionssteuerung wird nicht im Rahmen des Datenzugriffs behandelt, da Transaktionen in der IsyFact über den Anwendungskern bzw. die Nutzungsschicht gesteuert werden.
 Mehr zu diesem Thema ist in den anderen Detailkonzepten enthalten:
 
-* xref:detailkonzept-komponente-anwendungskern/master.adoc[Detailkonzept Komponente Anwendungskern]
-* xref:detailkonzept-komponente-batch/master.adoc[Detailkonzept Komponente Batch]
-* xref:detailkonzept-komponente-service/master.adoc[Detailkonzept Komponente Service]
-* xref:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Komponente Web-GUI]
+* xref:detailkonzept-komponente-anwendungskern/master.adoc#transaktionssteuerung[Detailkonzept Komponente Anwendungskern]
+* xref:detailkonzept-komponente-batch/master.adoc#die-transaktionssteuerung[Detailkonzept Komponente Batch]
+* xref:detailkonzept-komponente-service/master.adoc#transaktionssteuerung[Detailkonzept Komponente Service]
+* xref:detailkonzept-komponente-web-gui/master.adoc#zugriff-awk[Detailkonzept Komponente Web-GUI]
 
 ====
 
@@ -64,12 +64,12 @@ Auf Grund dieser Anforderungen wird versucht, möglichst ausschließlich die Mec
 Nur wo dies nicht möglich ist, darf auf die Hibernate-Implementierung zugegriffen werden.
 Dabei wird in diesem Dokument die Verwendung bestimmter Hibernate-Features verboten bzw. von ihrer Verwendung abgeraten.
 
-Abweichungen zu den Vorgaben dieses Dokuments müssen als Architekturentscheidung im <<TODO anderes Dokument: IsyFactSystementwurf>> dokumentiert werden.
+Abweichungen zu den Vorgaben dieses Dokuments müssen als Architekturentscheidung im xref:methodik:vorlage-systementwurf/antora-master.adoc[IsyFact Systementwurf] dokumentiert werden.
 
 Dieses Dokument ist wie folgt aufgebaut:
 
 * Zunächst werden im Kapitel xref:detailkonzept-komponente-datenzugriff/master.adoc#anforderungen[Anforderungen] die Anforderungen an die Komponente Datenzugriff kurz motiviert.
-* Anschließend werden im Kapitel xref:detailkonzept-komponente-datenzugriff/master.adoc#persistenz[Persistenz] grundsätzliche Regeln vorgestellt, wie die Abbildung von Objekten auf Datenbanken stattfinden soll.
+* Anschließend werden im Kapitel xref:detailkonzept-komponente-datenzugriff/master.adoc#persistenzlogik[Persistenzlogik] grundsätzliche Regeln vorgestellt, wie die Abbildung von Objekten auf Datenbanken stattfinden soll.
 * Das Kapitel xref:detailkonzept-komponente-datenzugriff/master.adoc#die-definition-des-mappings-zwischen-objekten-und-datenbank[Die Definition des Mappings zwischen Objekten und Datenbank] vertieft anschließend das Thema Mapping, wobei konkrete Hinweise zur Abbildung von Attributen auf Datenbankfelder gegeben werden.
 * Im Anschluss daran wird die konkrete Nutzung des Datenbankzugriffs in der Anwendung beschrieben.
 Zunächst wird gezeigt, wie Spring Data JPA aus der Anwendung heraus genutzt werden soll (Kapitel xref:detailkonzept-komponente-datenzugriff/master.adoc#verwendung-von-jpa-in-der-anwendung[Verwendung von JPA in der Anwendung] ).

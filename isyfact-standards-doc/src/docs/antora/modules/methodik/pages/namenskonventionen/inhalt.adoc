@@ -335,8 +335,7 @@ m|<verfahren> |Der (Kurz)name des Verfahrens/Anwendungsbereichs.
 [[servicegateway]]
 ===== Servicegateway
 
-TODO
-include::../../20_Bausteine/Konzept_Servicegateway/inhalt.adoc[tag=namenskonvention]
+include::servicegateway.adoc[tag=namenskonvention]
 
 [[mailgateway]]
 ===== Mailgateway

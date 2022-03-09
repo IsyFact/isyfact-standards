@@ -1,0 +1,34 @@
+= Konzept Servicegateway
+
+// tag::inhalt[]
+== Namenskonvention
+// tag::namenskonvention[]
+
+
+.Name eines Servicegateways
+[id="table-namsgw",reftext="{table-caption} {counter:tables}"]
+[cols="1,4",options="header"]
+|====
+2+|{desc-table-namsgw}
+|*Schemata* m|<verfahren>-sgw +
+<verfahren>-<zielverfahren>-sgw
+|*Beispiele* m|xyz-sgw +
+xyz-dienstabc-sgw
+|*Variable* |*Mögliche Ausprägungen*
+m|<verfahren> |Der (Kurz)name des Verfahrens/Anwendungsbereichs.
+m|<zielverfahren> |Der (Kurz)name des Verfahrens/Anwendungsbereichs, mit dem dieser SGW kommuniziert bzw. für den er eine Schnittstelle bereitstellt.
+|====
+// end::namenskonvention[]
+
+
+// end::inhalt[]
+
+// tag::architekturregel[]
+
+// end::architekturregel[]
+
+
+
+// tag::sicherheit[]
+
+// end::sicherheit[]

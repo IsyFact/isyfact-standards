@@ -1001,60 +1001,6 @@ Beim Umwandeln der internen Exceptions in Transport-Exceptions wird der Stack-Tr
 
 Ein Beispiel hierfür ist wieder in xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung] enthalten.
 
-[[protokollierung]]
-=== Protokollierung
-
-In diesem Kapitel wird beschrieben, wie eine fachliche Protokollierung umzusetzen ist.
-
-[[designvorgaben-8]]
-==== Designvorgaben
-
-* Protokolleinträge und Daten des Anwendungsfalls (Meldung, Auskunft…) werden innerhalb derselben
-Transaktion geschrieben.
-* Protokoll-Tabellen werden im Datenbank-Schema der Anwendung abgelegt.
-* Binärdaten werden nicht protokolliert.
-Es wird lediglich eine Referenz auf den entsprechenden Datensatz gespeichert.
-* Referenzierte Binärdaten, dürfen erst dann physikalisch gelöscht werden, wenn auch der Protokolldatensatz entfernt wird.
-Bis dahin werden die Binärdaten mit einem Lösch-Flag versehen und stehen nur noch für die Protokollrecherche zur Verfügung, nicht mehr in der eigentlichen Anwendung.
-Dies kann über ein eigenes Feld in den Protokoll-Daten und einem Foreign-Key-Constraint in der Datenbank sichergestellt werden.
-
-[[realisierung-8]]
-==== Realisierung
-
-[[einbinden-der-bibliothek-2]]
-===== Einbinden der Bibliothek
-
-Zur Realisierung der Protokollierung muss die in <<listing-bib-protokollierung>> aufgelisteten Bibliothek eingebunden werden.
-
-.Einbindung der Bibliotheken zur Nutzung der Protokollierung
-[id="listing-bib-protokollierung",reftext="{listing-caption} {counter:listings}"]
-[source,xml]
-----
-<dependencies>
-    ...
-    <dependency>
-        <groupId>de.bund.bva.registerfactory</groupId>
-        <artifactId>rf-protokollierung</artifactId>
-    </dependency>
-    ...
-</dependencies>
-----
-
-Die Bibliothek enthält Basis-Entitäten, von denen eigene Protokollentitäten erben müssen.
-
-[[implementierung-der-protokollierungskomponente]]
-===== Implementierung der Protokollierungskomponente
-
-Die Protokollierungskomponente wird analog zu den übrigen fachlichen Komponenten entwickelt.
-Es wird keine Basisimplementierung dafür vorgeben.
-
-Es müssen eigene Entitätsklassen für die Protokolleinträge angelegt werden.
-Diese müssen von der abstrakten Entitätsklasse aus `rf-protokollierung` erben.
-
-Ein Klassendiagramm ist in <<TODO anderes Dokument: ProtokollierungKonzept>> enthalten.
-
-Die Protokollierungskomponente benötigt in der Regel Kontextinformationen über den Aufrufer.
-Dazu wird in der Anwendung eine Aufrufkontext-Komponente (siehe <<aufrufkontextverwaltung>>) eingebunden.
 
 [[aufrufkontextverwaltung]]
 === Aufrufkontextverwaltung

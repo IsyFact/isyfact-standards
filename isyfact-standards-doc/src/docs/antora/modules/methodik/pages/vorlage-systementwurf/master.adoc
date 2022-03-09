@@ -1,10 +1,11 @@
 :doctitle: IsyFact Systementwurf <System>
-[discrete]
-= Vorlage
+:document-type: Vorlage
 
-:sectnums:
+// Mögliche VS-Einstufungswerte = [open-source | offen | einstufung-fehlt | vs-nfd | vs-vertraulich | geheim | streng-geheim]
+:vs-einstufung: OPEN-SOURCE
 
-include::glossary:licence:partial$licence.adoc[]
+toc::[]
+colophon::[factory="IsyFact-Standards", open-source="true"]
 
 // Inhalt
 include::inhalt.adoc[tags=inhalt]
