@@ -16,7 +16,7 @@ Im Folgenden wird beschrieben, was die Idee hinter der IsyFact ist und welche in
 [[die-idee-der-isyfact]]
 ==== Die Idee der IsyFact
 
-Beschäftigt man sich mit dem Entwurf und der Implementierung von Anwendungslandschaften, so stellt man fest, dass sich die einzelnen xref:glossary:glossary:master.adoc#glossar-Geschaeftsanwendung[Geschäftsanwendung] im Allgemeinen sehr ähnlich sind.
+Beschäftigt man sich mit dem Entwurf und der Implementierung von Anwendungslandschaften, so stellt man fest, dass sich die einzelnen xref:glossary:glossary:master.adoc#glossar-Geschaeftsanwendung[Geschäftsanwendungen] im Allgemeinen sehr ähnlich sind.
 Viele Problemstellungen müssen nur einmal gelöst werden und können dann wiederverwendet werden.
 
 Die IsyFact wurde entwickelt, um unterschiedliche Geschäftsanwendungen effizient entwerfen, realisieren und betreiben zu können.
@@ -32,8 +32,7 @@ Weitere Vorteile sind höhere Sicherheit und Softwarequalität durch Einsatz erp
 
 .Durch die IsyFact abgedeckte Bereiche
 [id="image-IFBereiche",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:referenzarchitektur/IFBereiche.png[align="center",pdfwidth=45%,width=45%]
-
+image::einstieg:sf-saeulen.dn.svg[]
 
 Die IsyFact bietet standardisierte Lösungen zu wichtigen Themen beim Bau von Geschäftsanwendungen.
 Der Entwickler kann sich dadurch ganz auf die strukturellen und operativen Besonderheiten seiner Geschäftsanwendung konzentrieren.
@@ -47,7 +46,7 @@ Bausteine sind wieder verwendbare Softwarelösungen, z.B. ein Regelwerk für fac
 Diese Bausteine liegen in unterschiedlichen Formen vor: Es gibt fachliche und technische Services im Sinne einer serviceorientierten Architektur (SOA) und wieder verwendbare Bibliotheken und Programmiervorlagen.
 Dazu gehören auch am Markt verfügbare Fertigprodukte, für die detaillierte Nutzungsvorgaben erstellt wurden.
 
-*Betriebsplattform:* Die xref:glossary:glossary:master.adoc#glossar-Portal[Portal] definiert allgemeine Vorgaben und Rahmenbedingungen für den Betrieb von Anwendungslandschaften, die sich aus der Verwendung der IsyFact ergeben.
+*Betriebsplattform:* Das xref:glossary:glossary:master.adoc#glossar-Portal[Portal] definiert allgemeine Vorgaben und Rahmenbedingungen für den Betrieb von Anwendungslandschaften, die sich aus der Verwendung der IsyFact ergeben.
 Es werden Rechner-, Unterstützungsprogramm- und Netzwerkstrukturen beschrieben.
 Die Betriebsplattform besteht aus Hardware und Netzen sowie der benötigten Middleware mit Anwendungsserver oder Datenbankserver und ist hochverfügbar.
 Diese Plattform ist über alle Geschäftsanwendungen einheitlich und ermöglicht so einen standardisierten und effizienten Systembetrieb.
@@ -119,7 +118,7 @@ Die IsyFact-Referenzarchitektur hat das Ziel, eine möglichst große Bandbreite 
 Daher trifft sie zunächst kaum Annahmen über die Struktur der Systemlandschaft oder die Art der darin enthaltenen Systeme.
 Auf einer allgemeinen Ebene unterscheidet die IsyFact-Referenzarchitektur lediglich zwischen Geschäftsanwendungen, welche die Geschäftsprozesse innerhalb der Systemlandschaft implementieren einerseits, und andererseits den Querschnittsanwendungen, Service-Gateways und dem Portal, die als unterstützende Systeme wesentliche Strukturkonzepte der IsyFact umsetzen.
 
-In einem spezifischen xref:glossary:glossary:master.adoc#glossar-Anwendungskontext[Anwendunskontextes] wird man in der Regel jedoch viel weitergehende Festlegungen innerhalb der Anwendungs-Architektur treffen, die die Fachlichkeit des Kontexts abbilden.
+In einem spezifischen xref:glossary:glossary:master.adoc#glossar-Anwendungskontext[Anwendungskontext] wird man in der Regel jedoch viel weitergehende Festlegungen innerhalb der Anwendungsarchitektur treffen, die die Fachlichkeit des Kontexts abbilden.
 Diese kontextspezifischen Festlegungen werden in einem eigenen _Tailoring-Dokument_ <<TODO anderes Dokument: TailoringVorlage>> festgehalten, das beschreibt, wie die IsyFact im betreffenden Anwendungskontext einzusetzen ist.
 Insbesondere enthält das Tailoring-Dokument die Arten von Geschäftsanwendungen und ihre Beziehungen untereinander.
 
@@ -146,7 +145,7 @@ Diese fachliche Architektur einer Anwendungslandschaft ist in <<image-GA-AW2>> d
 
 .Fachliche Architektur einer Anwendungslandschaft
 [id="image-GA-AW2",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:referenzarchitektur/GA-AW.png[align="center"]
+image::blaupausen:referenzarchitektur/fachliche-referenzarchitektur-anwendungslandschaft.dn.svg[]
 
 [[die-strukturierung-der-anwendungslandschaft]]
 === Die Strukturierung der Anwendungslandschaft
@@ -163,7 +162,8 @@ Zwischen den Anwendungssystemen unterschiedlicher Anwendungsdomänen sollten nur
 Geschäftsprozesse werden durch Anwendungssysteme unterstützt.
 Anwendungssysteme sind einer Anwendungsdomäne zugeordnet.
 Anwendungssysteme setzen sich aus Anwendungskomponenten zusammen.
-Im Rahmen der allgemeinen Referenzarchitektur werden zunächst nur Geschäftsanwendungen und Querschnittsanwendungen als Typen von Anwendungssystemen unterschieden Eine weitergehende Unterscheidung der Geschäftsanwendungen muss im Rahmen des Tailorings der Referenzarchitektur erfolgen.
+Im Rahmen der allgemeinen Referenzarchitektur werden zunächst nur Geschäftsanwendungen und Querschnittsanwendungen als Typen von Anwendungssystemen unterschieden.
+Eine weitergehende Unterscheidung der Geschäftsanwendungen muss im Rahmen des Tailorings der Referenzarchitektur erfolgen.
 
 * *xref:glossary:glossary:master.adoc#glossar-Geschaeftsanwendung[Geschäftsanwendung]:* Eine Geschäftsanwendung implementiert für sich genommen oder im Zusammenspiel mit anderen Geschäftsanwendungen einen oder mehrere Geschäftsprozesse einer Anwendungsdomäne.
 Sie implementiert entweder die gesamte hierfür notwendige Funktionalität (monolithisch), von der Benutzerschnittstelle über die fachliche Logik, die Prozesse bis hin zur Datenhaltung.
@@ -172,7 +172,7 @@ Oder die Geschäftsanwendung implementiert nur einen Teilbereich der Funktionali
 * *xref:glossary:glossary:master.adoc#glossar-Querschnittsanwendung[Querschnittsanwendungen]* sind Anwendungssysteme, die Basisservices für mehrere Geschäftsanwendungen bereitstellen, wie z. B. ein Behördenverzeichnis oder ein Outputmanagement.
 
 * *xref:glossary:glossary:master.adoc#glossar-Anwendungskomponente[Anwendungskomponenten]:* Eine Anwendungskomponente beschreibt eine Menge funktional zusammenhängender Anwendungsfälle.
-Anwendungskomponenten sind Bestandteile von Anwendungs­systemen.
+Anwendungskomponenten sind Bestandteile von Anwendungssystemen.
 Im Rahmen weitergehender Architekturvorgaben beim Einsatz der IsyFact in einem konkreten Anwendungskontext wird man in der Regel auch vorgeben, welche Arten von Anwendungssystemen es in diesem Kontext geben soll und aus welchen Komponenten sie bestehen.
 
 In <<image-GA-AW2>> werden Anwendungskomponenten nicht dargestellt: Sie wären die Bestandteile der blauen und gelben Kästen.
@@ -191,7 +191,7 @@ Als Teil der fachlichen Architektur ist unter anderem folgendes zu definieren:
 
 * Der daraus resultierende interne Aufbau der Geschäftsanwendungen aus Komponenten.
 
-* Die Interaktion und die Abhängigkeiten zwischen den Geschäftsanwendungen, insbesondere die zulässigen Kommunikations-Beziehungen.
+* Die Interaktion und die Abhängigkeiten zwischen den Geschäftsanwendungen, insbesondere die zulässigen Kommunikationsbeziehungen.
 
 [[die-software-referenzarchitektur]]
 == Die Software-Referenzarchitektur
@@ -199,12 +199,12 @@ Als Teil der fachlichen Architektur ist unter anderem folgendes zu definieren:
 Eine Software-Architektur beschreibt, wie die in einer fachlichen Architektur definierten Elemente (Anwendungssysteme, Anwendungskomponenten, fachliche Entitäten, Anwendungsfälle etc.) software-technisch in Form von IT-Systemen, Komponenten, Klassen, physischen Datenmodellen etc. umgesetzt werden.
 
 Die Besonderheit der Software-Referenzarchitektur ist, dass sie nicht zwischen Systemarten (Geschäftsanwendungen, Querschnittsanwendungen, usw.) unterscheidet.
-Obwohl unterschiedliche Systeme sehr unterschiedliche Fachlichkeiten umsetzen können, sind die Anforderungen an ihre technische Architektur gleich.
+Obwohl unterschiedliche Systeme stark unterschiedliche Fachlichkeit umsetzen können, sind die Anforderungen an ihre technische Architektur gleich.
 
 Der Begriff der Anwendungslandschaft ist fachlich motiviert.
 Die technische Entsprechung hierfür ist der Begriff der xref:glossary:glossary:master.adoc#glossar-Systemlandschaft[Systemlandschaft].
 Eine Systemlandschaft, die eine Anwendungslandschaft nach den IsyFact-Standards umsetzt, wird im Folgenden als _IsyFact-Systemlandschaft_ bezeichnet.
-Eine solche IsyFact-Systemlandschaft beinhaltet alle software-technisch umgesetzten Anwendungssysteme der Anwendungslandschaft sowie technische Systeme zur Unterstützung (z. B. Datenbanken, Web-Server, usw.).
+Eine solche IsyFact-Systemlandschaft beinhaltet alle software-technisch umgesetzten Anwendungssysteme der Anwendungslandschaft sowie technische Systeme zur Unterstützung (z. B. Datenbanken, Web-Server, usw).
 
 Die technische Architektur eines IT-Systems wird in xref:referenzarchitektur-it-system/master.adoc#einleitung[Referenzarchitektur IT-Systeme] definiert.
 Im Folgenden wird, aufbauend auf diesem Konzept, beschrieben:
@@ -257,7 +257,7 @@ Ein Portal im Sinne der Referenzarchitektur besteht aus:
 
 Der Zweck eines Portals ist die gemeinsame Authentifizierung und Autorisierung für alle Geschäftsanwendungen und die Indirektion des Zugriffs von Nutzern auf die Geschäftsanwendungen.
 
-*Das xref:glossary:glossary:master.adoc#glossar-Querschnittsanwendung[Querschnittsanwendungen]:* Eine Querschnittsanwendung bietet Geschäftsanwendungen querschnittlich genutzte Funktionalitäten an, etwa für die Bereitstellung von Schlüsseldaten.
+*Die xref:glossary:glossary:master.adoc#glossar-Querschnittsanwendung[Querschnittsanwendung]:* Eine Querschnittsanwendung bietet Geschäftsanwendungen querschnittlich genutzte Funktionalitäten an, etwa für die Bereitstellung von Schlüsseldaten.
 Querschnittsanwendungen können eine eigene Datenhaltung besitzen.
 
 Querschnittsanwendungen werden nur von internen Benutzern oder anderen IT-Systemen derselben Systemlandschaft aufgerufen. Sie rufen selbst nur andere Querschnittsanwendungen auf.
@@ -488,10 +488,10 @@ Die für die Umsetzung der Architektur verwendeten Produkte lassen sich in die K
 *Systemsoftware:* Die Systemsoftware legt die technische Ablaufumgebung für die Software fest und bietet grundlegende Services für eine IsyFact-Systemlandschaft an.
 Hierzu gehören z.B. das Betriebssystem, Web-Server, Application-Server, Access-Manager, LDAP und die Datenbank.
 
-*Bibliotheken für die Anwendungsentwicklung:* Die Anwendungs­entwicklung wird durch den Einsatz von Frameworks und entsprechenden Bibliotheken vereinfacht und beschleunigt.
+*Bibliotheken für die Anwendungsentwicklung:* Die Anwendungsentwicklung wird durch den Einsatz von Frameworks und entsprechenden Bibliotheken vereinfacht und beschleunigt.
 IsyFact verwendet insbesondere Spring, Hibernate und JSF.
 
-Eine detaillierte Liste der verbindlichen und empfohlenen Produkte sind im Dokument <<TODO anderes Dokument: ProduktKatalog>> zu finden.
+Eine detaillierte Liste der verbindlichen und empfohlenen Produkte ist im Dokument <<TODO anderes Dokument: ProduktKatalog>> zu finden.
 
 [[die-referenzarchitektur-der-technischen-infrastruktur]]
 == Die Referenzarchitektur der technischen Infrastruktur
@@ -628,7 +628,7 @@ Aus diesem Grund wird hier auf Abschnitt <<entwicklungstestumgebung-etu>> verwie
 
 Die Entwicklungstestumgebung (ETU) wird zur Durchführung von technischen Tests genutzt.
 An diese Umgebung sind keine Anforderungen an hohe Ausfallsicherheit und Leistungsfähigkeit gestellt.
-Die Leistungsfähigkeit kann sogar noch unter der der Schulungs- und externen Testumgebung liegen, da davon auszugehen ist, dass die Tests nur von sehr wenigen gleichzeitig aktiven Benutzern durchgeführt werden.
+Die Leistungsfähigkeit kann sogar noch unter der Schulungs- und externen Testumgebung liegen, da davon auszugehen ist, dass die Tests nur von sehr wenigen gleichzeitig aktiven Benutzern durchgeführt werden.
 
 Die Rechnersysteme der Entwicklungstestumgebung werden nur vom internen LAN aus genutzt.
 Es gibt keine weitere Unterteilung in Sicherheitszonen.
@@ -678,7 +678,7 @@ Die Verfügbarkeit wird über einen Prozentwert gemessen, der unter Berücksicht
 [id="image-verfuegbar",reftext="{figure-caption} {counter:figures}"]
 image::blaupausen:referenzarchitektur/verfuegbar.png[align="center"]
 
-Der Aufbau der Produktionsumgebung ist so gestaltet, dass eine Verfügbarkeit von 7x24 Stunden und eine auf den Monat berechnete Verfügbarkeit von über 99% erreicht werden kann.
+Der Aufbau der Produktionsumgebung ist so gestaltet, dass eine Verfügbarkeit von 7x24 Stunden und eine auf den Monat berechnete Verfügbarkeit von über 99 % erreicht werden kann.
 
 In der Produktionsumgebung einer IsyFact-Systemlandschaft wird die geforderte Verfügbarkeit über das Mittel der Redundanz realisiert.
 Jede Komponente der technischen Infrastruktur ist mindestens zweimal vorhanden.
@@ -748,7 +748,7 @@ Dabei werden im allgemeinen Software, Parameter und eine Dokumentation ausgelief
 Bei der Software wird eine ablauffähige Einheit (RPM-Paket) ausgeliefert.
 Dieses RPM-Paket wird durch das Installationsprogramm unter Angabe der Parameter installiert.
 Anschließend wird die installierte Software gemäß der in der Auslieferungsdokumentation angegebenen Parameter konfiguriert.
-Die Auslieferungs­dokumentation besteht aus einem Releaseletter, einem Betriebshandbuch und ggf. einem Benutzerhandbuch.
+Die Auslieferungsdokumentation besteht aus einem Releaseletter, einem Betriebshandbuch und ggf. einem Benutzerhandbuch.
 Im Releaseletter werden Inhalt und Version der Pakete in Form einer Stückliste beschrieben.
 Weiterhin wird beschrieben, welche bekannten Fehler und Probleme es mit diesem Paket gibt.
 Im Releaseletter sind auch die Installationsanleitung inklusive der Parameter der Installation und die Aufstellung der mit dem xref:glossary:glossary:master.adoc#glossar-Release[Release] geschlossenen Fehler-Meldungen enthalten.
@@ -853,7 +853,7 @@ Abschließend werden die Vereinfachungen am Beispiel von Kleinverfahren dargeste
 
 In der bisher vorgestellten Form ist die Referenzarchitektur für die Umsetzung großer Systemlandschaften ausgelegt, also für den Einsatz in großen Anwendungen mit hohem Funktionsumfang und hohen Anforderungen an Verfügbarkeit, Performance und Lastverhalten.
 Deshalb folgt sie einem serviceorientierten Plattformansatz.
-Bei geringeren Anforderungen an die Ausbaufähigkeit und geringeren nichtfunktionalen Anforderungen können hier Vereinfachungen vorgenommen werden, die im Folgenden dargestellt werden: der Verzicht auf eine SOA-Plattform und eine vereinfachte technische Infrastruktur.
+Bei geringeren Anforderungen an die Ausbaufähigkeit und geringeren nichtfunktionalen Anforderungen können hier Vereinfachungen vorgenommen werden, die im Folgenden dargestellt werden: Der Verzicht auf eine SOA-Plattform und eine vereinfachte technische Infrastruktur.
 
 [[vereinfachung-durch-verzicht-auf-eine-soa-plattform]]
 === Vereinfachung durch Verzicht auf eine SOA-Plattform
@@ -887,7 +887,7 @@ In der Mitte ist dargestellt, dass es Anwendungen gibt, die diese Anforderungen 
 * Sie werden stand-alone genutzt und sind nicht in ein Portal integriert.
 * Sie haben keine externen Schnittstellen.
 * Sie greifen nicht auf zentrale Schlüsseldaten zu.
-* Sie benötigen kein Alphanumerisches Suchverfahren.
+* Sie benötigen kein alphanumerisches Suchverfahren.
 * Das Output Management wird lediglich dazu benötigt, PDF-Dokumente zu erzeugen.
 Ein Ausdruck über eine zentrale Druckstraße erfolgt nicht.
 
@@ -902,7 +902,7 @@ Zum einen ist es möglich, auf den Clusterbetrieb zu verzichten, zum anderen kan
 Dies wird im Folgenden ausgeführt.
 
 [[installation-ohne-clusterung]]
-==== Installation ohne Clusterung
+==== Installation ohne Clustering
 
 Bei geringeren nicht-funktionalen Anforderungen kann auch nur eine Anwendungsinstanz zum Einsatz kommen und kein Cluster für die Datenbank verwendet werden.
 Dies ist in <<image-noCluster>> dargestellt.
