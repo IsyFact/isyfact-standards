@@ -25,21 +25,20 @@ import de.bund.bva.pliscommon.exception.service.PlisTechnicalToException;
 import de.bund.bva.pliscommon.exception.service.PlisToException;
 
 /**
- * Ermittelt die Abbildung von Exceptions per Reflection.
+ * Determines the mapping of exceptions by reflection.
  *
  * <p>
- * Diese Klasse erwartet, dass zu jeder AWK-Exception genau eine zugehörige TO-Exception in der
- * RemoteBean-Operation deklariert ist, die sich nur im Namenssuffix "ToException" (vs. "Exception")
- * unterscheidet. Weiterhin erwartet sie, dass in der RemoteBean-Operation genau eine TechnicalToException
- * deklariert ist, die als generische technische Exception fungiert.
+ * This class expects that for each AWK exception exactly one associated TO exception is declared in the
+ * RemoteBean operation, differing only in the name suffix "ToException" (vs. "Exception").
+ * Furthermore, it expects that in the RemoteBean operation exactly one TechnicalToException
+ * is declared in the RemoteBean operation, which acts as a generic technical exception.
  * </p>
- *
  */
 public class ReflectiveExceptionMappingSource implements ExceptionMappingSource {
 
     @Override
     public Class<? extends PlisToException> getToExceptionClass(Method remoteBeanMethod,
-        Class<? extends BaseException> exceptionClass) {
+                                                                Class<? extends BaseException> exceptionClass) {
 
         String coreExceptionName = removeEnd(exceptionClass.getSimpleName(), "Exception");
 
@@ -49,14 +48,14 @@ public class ReflectiveExceptionMappingSource implements ExceptionMappingSource 
                 if (coreExceptionName.equals(toExceptionName)) {
                     @SuppressWarnings("unchecked")
                     Class<? extends PlisToException> castToExceptionClass =
-                        (Class<? extends PlisToException>) toExceptionClass;
+                            (Class<? extends PlisToException>) toExceptionClass;
                     return castToExceptionClass;
                 }
             }
         }
 
         throw new IllegalStateException("Keine TO-Exception für die AWK-Exception " + exceptionClass
-            + " in Serviceoperation " + getMethodSignatureString(remoteBeanMethod));
+                + " in Serviceoperation " + getMethodSignatureString(remoteBeanMethod));
     }
 
     @Override
@@ -66,12 +65,12 @@ public class ReflectiveExceptionMappingSource implements ExceptionMappingSource 
             if (PlisTechnicalToException.class.isAssignableFrom(toExceptionClass)) {
                 if (genericTechnicalToException != null) {
                     throw new IllegalStateException(
-                        "Mehr als eine Technical-TO-Exception in Serviceoperation "
-                            + getMethodSignatureString(remoteBeanMethod));
+                            "Mehr als eine Technical-TO-Exception in Serviceoperation "
+                                    + getMethodSignatureString(remoteBeanMethod));
                 }
                 @SuppressWarnings("unchecked")
                 Class<? extends PlisTechnicalToException> castToExceptionClass =
-                    (Class<? extends PlisTechnicalToException>) toExceptionClass;
+                        (Class<? extends PlisTechnicalToException>) toExceptionClass;
                 genericTechnicalToException = castToExceptionClass;
             }
         }
@@ -81,15 +80,14 @@ public class ReflectiveExceptionMappingSource implements ExceptionMappingSource 
         }
 
         throw new IllegalStateException("Keine Technical-TO-Exception in Serviceoperation "
-            + getMethodSignatureString(remoteBeanMethod));
+                + getMethodSignatureString(remoteBeanMethod));
     }
 
     /**
-     * Liefert die Methodensignatur als String.
+     * Returns the method signature as a string.
      *
-     * @param method
-     *            die Methode
-     * @return die Methodensignatur als String.
+     * @param method the method
+     * @return the method signature as a string.
      */
     protected String getMethodSignatureString(Method method) {
         return method.getDeclaringClass().getName() + "." + method.getName();
@@ -118,6 +116,4 @@ public class ReflectiveExceptionMappingSource implements ExceptionMappingSource 
         }
         return str;
     }
-
-
 }

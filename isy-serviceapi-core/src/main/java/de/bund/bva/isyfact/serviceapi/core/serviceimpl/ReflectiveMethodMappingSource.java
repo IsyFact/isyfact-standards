@@ -28,12 +28,13 @@ import org.springframework.aop.support.AopUtils;
 import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 
 /**
- * Implementierung der {@link MethodMappingSource}, die per Reflection die passende Zielmethode ermittelt.
- *
+ * Implementation of {@link MethodMappingSource}, which uses reflection to determine the appropriate target method.
  */
 public class ReflectiveMethodMappingSource implements MethodMappingSource {
 
-    /** Methoden-Cache. */
+    /**
+     * Method Cache.
+     */
     private final Map<MethodHashKey, Method> methodCache = new ConcurrentHashMap<>();
 
     @Override
@@ -60,24 +61,22 @@ public class ReflectiveMethodMappingSource implements MethodMappingSource {
             return targetMethod;
         } else if (matchesMap.size() > 1) {
             throw new IllegalArgumentException("Mehr als eine mögliche Zielmethode für "
-                + getMethodSignatureString(calledMethod) + " in "
-                + Arrays.toString(targetClass.getInterfaces()) + ": " + matches);
+                    + getMethodSignatureString(calledMethod) + " in "
+                    + Arrays.toString(targetClass.getInterfaces()) + ": " + matches);
         } else {
             throw new IllegalArgumentException("Keine Zielmethode für "
-                + getMethodSignatureString(calledMethod) + " in "
-                + Arrays.toString(targetClass.getInterfaces()));
+                    + getMethodSignatureString(calledMethod) + " in "
+                    + Arrays.toString(targetClass.getInterfaces()));
         }
     }
 
     /**
-     * Prüft, ob eine mögliche Zielmethode zur gerufenen Methode passt. Diese Implementierung prüft auf
-     * Namensgleichheit und Anzahl der Parameter.
+     * Checks if a possible target method matches the called method. This implementation checks for
+     * Name match and number of parameters.
      *
-     * @param calledMethod
-     *            die gerufene Methode
-     * @param possibleMatch
-     *            eine mögliche Zielmethode
-     * @return {@code true} bei Übereinstimmung
+     * @param calledMethod  the called method
+     * @param possibleMatch a possible target method
+     * @return {@code true} on match
      */
     protected boolean isMatch(Method calledMethod, Method possibleMatch) {
         if (!calledMethod.getName().equals(possibleMatch.getName())) {
@@ -100,11 +99,10 @@ public class ReflectiveMethodMappingSource implements MethodMappingSource {
     }
 
     /**
-     * Liefert die Methodensignatur als String.
+     * Returns the method signature as a string.
      *
-     * @param method
-     *            die Methode
-     * @return die Methodensignatur als String.
+     * @param method the method
+     * @return the method signature as a string.
      */
     protected String getMethodSignatureString(Method method) {
         return method.getDeclaringClass().getName() + "." + method.getName();

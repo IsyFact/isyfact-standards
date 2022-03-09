@@ -28,10 +28,9 @@ import de.bund.bva.pliscommon.exception.service.PlisTechnicalToException;
 import de.bund.bva.pliscommon.exception.service.PlisToException;
 
 /**
- * Definiert, wie Exceptions des Anwendungskerns in einer Service-Komponente auf TO-Exceptions abgebildet
- * werden. Diese Annotation muss im Implementierungspackage der Service-Komponente verwendet werden
- * (Packagename = Packagename der RemoteBean-Schnittstelle + ".impl").
- *
+ * Defines how exceptions of the application core are mapped to TO exceptions in a service component.
+ * This annotation must be used in the implementation package
+ * of the service component (package name = package name of the RemoteBean interface + ".impl").
  */
 @Target(ElementType.PACKAGE)
 @Retention(RetentionPolicy.RUNTIME)
@@ -39,13 +38,12 @@ import de.bund.bva.pliscommon.exception.service.PlisToException;
 public @interface ExceptionMapping {
 
     /**
-     * Die technische TO-Exception, auf die alle {@link TechnicalRuntimeException} und alle unchecked
-     * Exceptions abgebildet werden.
+     * The technical TO exception to which all {@link TechnicalRuntimeException} and all unchecked exceptions are mapped.
      */
     Class<? extends PlisTechnicalToException> technicalToException();
 
     /**
-     * Die Abbildungen der {@link BaseException Exceptions} auf {@link PlisToException PlisToExceptions}.
+     * Images from {@link BaseException Exceptions} at {@link PlisToException PlisToExceptions}.
      */
     Mapping[] mappings();
 }

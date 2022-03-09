@@ -22,7 +22,7 @@ import de.bund.bva.isyfact.serviceapi.core.aop.StelltLoggingKontextBereit;
 import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 
 /**
- * Implementierung des DummyServices.
+ * Implementation of the DummyService.
  */
 public class DummyKontextServiceImpl implements DummyKontextServiceRemoteBean {
 

@@ -23,14 +23,13 @@ import de.bund.bva.pliscommon.exception.service.PlisTechnicalToException;
 import de.bund.bva.pliscommon.exception.service.PlisToException;
 
 /**
- * Ermittelt Abbildungsregeln für Exceptions, die über Annotationen definiert sind.
+ * Determines mapping rules for exceptions defined via annotations.
  *
  * <p>
- * Diese Klasse erwartet, dass ein Implementierungspackage für die Service-Schnittstelle existiert
- * (Packagename = Packagename der RemoteBean-Schnittstelle + ".impl"), und dass dieses Package mit der
- * Annotation {@link ExceptionMapping} versehen ist.
+ * This class expects that an implementation package for the service interface
+ * exists (package name = package name of the RemoteBean interface + ".impl"), and
+ * that this package is annotated with {@link ExceptionMapping}.
  * </p>
- *
  */
 public class AnnotationExceptionMappingSource implements ExceptionMappingSource {
 
@@ -63,18 +62,17 @@ public class AnnotationExceptionMappingSource implements ExceptionMappingSource 
     }
 
     /**
-     * Liest die {@link ExceptionMapping}-Annotation aus dem Implementierungspackage des Services.
+     * Reads the {@link ExceptionMapping} annotation from the service's implementation package.
      *
-     * @param remoteBeanInterface
-     *            das RemoteBean-Interface
-     * @return die Annotation
+     * @param remoteBeanInterface the RemoteBean interface
+     * @return the annotation
      */
     private static ExceptionMapping getExceptionMapping(Class<?> remoteBeanInterface) {
         String implPackageName = remoteBeanInterface.getPackage().getName() + ".impl";
         Package implPackage = Package.getPackage(implPackageName);
         if (implPackage == null) {
             throw new IllegalStateException("Für den Service " + remoteBeanInterface.getName()
-                + " fehlt das erwartete Implementierungspackage " + implPackageName);
+                    + " fehlt das erwartete Implementierungspackage " + implPackageName);
         }
         return implPackage.getAnnotation(ExceptionMapping.class);
     }

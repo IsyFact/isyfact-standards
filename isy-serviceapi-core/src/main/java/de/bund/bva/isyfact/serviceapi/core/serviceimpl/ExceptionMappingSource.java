@@ -23,31 +23,26 @@ import de.bund.bva.pliscommon.exception.service.PlisTechnicalToException;
 import de.bund.bva.pliscommon.exception.service.PlisToException;
 
 /**
- * Über diese Schnittstelle können die Abbildungsregeln für Exceptions in einer Serviceimplementierung
- * ermittelt werden.
- *
+ * This interface can be used to determine the mapping rules for exceptions in a service implementation.
  */
 public interface ExceptionMappingSource {
 
     /**
-     * Ermittelt die Transport-Exceptionklasse (To-Exception) zu einer Exceptionklasse des Anwendungskerns.
+     * Determines the transport exception class (To-Exception) for an exception class of the application core.
      *
-     * @param remoteBeanMethod
-     *            die RemoteBean-Methode, in der die Exception geworfen wurde
-     * @param exceptionClass
-     *            die Klasse der im Anwendungskern geworfenen Exception
-     * @return die Transport-Exceptionklasse
+     * @param remoteBeanMethod the RemoteBean method in which the exception was thrown
+     * @param exceptionClass   the class of the exception thrown in the application core.
+     * @return the transport exception class
      */
     Class<? extends PlisToException> getToExceptionClass(
             Method remoteBeanMethod, Class<? extends BaseException> exceptionClass);
 
     /**
-     * Ermittelt die generische, technische Transport-Exceptionklasse, auf die alle technischen Exceptions
-     * abgebildet werden, für die keine spezifische Abbildungsregel existiert.
+     * Determines the generic, technical transport exception class to which all technical exceptions are
+     * mapped for which no specific mapping rule exists.
      *
-     * @param remoteBeanMethod
-     *            die RemoteBean-Methode, in der die Exception geworfen wurde
-     * @return die generische, technische Transport-Exceptionklasse
+     * @param remoteBeanMethod the RemoteBean method in which the exception was thrown
+     * @return the generic, technical transport exception class
      */
     Class<? extends PlisTechnicalToException> getGenericTechnicalToException(Method remoteBeanMethod);
 
