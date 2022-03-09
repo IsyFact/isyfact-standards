@@ -370,7 +370,7 @@ Dies setzt ein Artefakt-Repository zum Auflösen von Paketabhängigkeiten voraus
 
 Der Build wird folgendermaßen ausgeführt:
 
-:desc-listing-maven-build: Maven-Befehl zum Build der ISY-XXX-GA & Batches
+:desc-listing-maven-build: Maven-Befehl zum Build der {anwendung-ga} & {anwendung-batch}
 [id="listing-maven-build",reftext="{listing-caption} {counter:listings}"]
 .{desc-listing-maven-build}
 [source]
@@ -946,10 +946,10 @@ Im Regelbetrieb ist das Loadbalancer-Servlet unter folgender URL erreichbar:
 |===
 |Log-Datei |Inhalt / Bemerkung
 
-|/var/log/isy-xxx-ga/HOSTNAME_isy-xxx-ga.log |Logdatei ISY-XXX-GA
-|/var/log/isy-xxx-ga/HOSTNAME_isy-xxx-ga_ZEITSTEMPEL.log |Rotierte Logdatei ISY-XXX-GA
-|/var/log/isy-xxx-sgw/HOSTNAME_isy-xxx-sgw.log |Logdatei ISY-XXX-SGW
-|/var/log/isy-xxx-sgw/HOSTNAME_isy-xxx-sgw_ZEITSTEMPEL.log |Rotierte Logdatei ISY-XXX-SGW
+|/var/log/{it-system-ga}/HOSTNAME_{it-system-ga}.log |Logdatei {anwendung-ga}
+|/var/log/{it-system-ga}/HOSTNAME_{it-system-ga}_ZEITSTEMPEL.log |Rotierte Logdatei {anwendung-ga}
+|/var/log/{it-system-sgw}/HOSTNAME_{it-system-sgw}.log |Logdatei {anwendung-sgw}
+|/var/log/{it-system-sgw}/HOSTNAME_{it-system-sgw}_ZEITSTEMPEL.log |Rotierte Logdatei {anwendung-sgw}
 |===
 
 Der Platzhalter `HOSTNAME` im Dateinamen steht für den Namen des Servers, auf dem das IT-System ausgeführt wird.
@@ -960,16 +960,16 @@ Die `ZEITSTEMPEL` werden durch die Log-Rotation erzeugt und markieren ältere Lo
 [cols="1,1", options="header"]
 |===
 h|Konfigurationsdatei h|Inhalt / Bemerkung
-2+^|*ISY-XXX-GA*
-m|/etc/isy-xxx-ga/isAlive |Steuerdatei für Loadbalancer
-m|/etc/isy-xxx-ga/isy-xxx-ga.properties |Konfiguration der Anwendung
-m|/etc/isy-xxx-ga/jpa.properties |Konfiguration der Datenbank-Verbindung
-m|/etc/isy-xxx-ga/logback.xml |Logging-Konfiguration
-2+^|*ISY-XXX-SGW*
-m|/etc/isy-xxx-sgw/isAlive |Steuerdatei für Loadbalancer
-m|/etc/isy-xxx-sgw/isy-xxx-sgw.properties |Konfiguration der Anwendung
-m|/etc/isy-xxx-sgw/jpa.properties |Konfiguration der Datenbank-Verbindung
-m|/etc/isy-xxx-sgw/logback.xml |Logging-Konfiguration
+2+^|*{anwendung-ga}*
+m|/etc/{it-system-ga}/isAlive |Steuerdatei für Loadbalancer
+m|/etc/{it-system-ga}/{it-system-ga}.properties |Konfiguration der Anwendung
+m|/etc/{it-system-ga}/jpa.properties |Konfiguration der Datenbank-Verbindung
+m|/etc/{it-system-ga}/logback.xml |Logging-Konfiguration
+2+^|*{anwendung-sgw}*
+m|/etc/{it-system-sgw}/isAlive |Steuerdatei für Loadbalancer
+m|/etc/{it-system-sgw}/{it-system-sgw}.properties |Konfiguration der Anwendung
+m|/etc/{it-system-sgw}/jpa.properties |Konfiguration der Datenbank-Verbindung
+m|/etc/{it-system-sgw}/logback.xml |Logging-Konfiguration
 |===
 
 
@@ -983,7 +983,7 @@ Das Datenbankschema ist vollständig im xref:vorlage-systementwurf/master.adoc[S
 
 NOTE: *Falls die Anwendung ein Datenbankschema enthält, kann dieser Abschnitt entfallen.*
 
-Die Anwendung ISY-XXX enthält kein Datenbankschema.
+Die Anwendung {anwendung} enthält kein Datenbankschema.
 
 
 [[start-stopp-statuspruefung-server-prozesse]]
@@ -1065,7 +1065,10 @@ Die Ausführung der Batchanwendung setzt eine installierte Java Runtime voraus. 
 
 Die Batch-Anwendungen werden auf der Kommandozeile über ein Startskript gestartet. Das Startskript batch-ausfuehren.sh liegt in dem Verzeichnis
 
- /opt/isy-xxx-ga-batch/bin/
+[source,subs="attributes"]
+----
+/opt/{it-system-batch}/bin/
+----
 
 
 [[batch-xyz]]
@@ -1313,7 +1316,7 @@ Die folgende Tabelle beschreibt alle betrieblich relevanten Fehlercodes, möglic
 
 IMPORTANT: Eine Übersicht aller Fehlercodes der IT-Systeme findet sich im <<anhang-fehlercodes>>.
 
-.Fehlercodes ISY-XXX-GA
+.Fehlercodes {anwendung-ga}
 [id="table-fehlercodes", reftext = "{table-caption} {counter:tables}"]
 [cols="1s,2,2",options="header"]
 |===
@@ -1349,7 +1352,7 @@ _Tabelle_
 
 Die folgende Tabelle beschreibt alle betrieblich relevanten Fehlersituationen, ihre Entstehungsorte sowie Hinweise darauf, wie die IT-Systeme mit diesem Fehlerszenario umgehen und reagieren.
 
-.Fehlerszenarien ISY-XXX
+.Fehlerszenarien {anwendung}
 [id="table-fehlerszenarien", reftext = "{table-caption} {counter:tables}"]
 [cols="^1,3,3,4", options="header"]
 |===
@@ -1360,28 +1363,28 @@ Die folgende Tabelle beschreibt alle betrieblich relevanten Fehlersituationen, i
 
 |1
 | _Nachbarsystem nicht erreichbar_
-|_ISY-XXX-GA, +
-ISY-XXX-BATCH_
+|_{anwendung-ga}, +
+{anwendung-batch}_
 |_Das System schreibt den Fehler in das Error-Log und gibt den für den Anwender maskierten Fehler als XXXXX99999 über die Außenschnittstelle an den Aufrufer zurück._ +
 _Interne Fehlercodes: ..._
 
 |2
 |_Konfigurationsfehler_
-|_ISY-XXX-GA, +
-ISY-XXX-BATCH_
+|_{anwendung-ga}, +
+{anwendung-batch}_
 |_Die Anwendung startet nicht. Fehlercode: ..._
 
 |3
 |_Konfigurationsfehler_
-|_ISY-XXX-GA, +
-ISY-XXX-BATCH_
+|_{anwendung-ga}, +
+{anwendung-batch}_
 |_Die Anwendung startet.
 Zur Laufzeit kommt es vermehrt zum Fehlercode ..._
 
 |4
 |_Technischer Fehler in der Verarbeitung_
-|_ISY-XXX-GA, +
-ISY-XXX-BATCH_
+|_{anwendung-ga}, +
+{anwendung-batch}_
 |_Das System schreibt den Fehler in das Error-Log und gibt den für den Anwender maskierten Fehler als XXXXX99999 über die Außenschnittstelle an den Aufrufer zurück._ +
 _Interne Fehlercodes: ..._
 |===
@@ -1408,9 +1411,9 @@ _Tabelle_
 [[anhang-historie]]
 === Anhang A: Historie
 
-Die folgende Tabelle zeigt eine grobe Historie der Anwendung ISY-XXX.
+Die folgende Tabelle zeigt eine grobe Historie der Anwendung {anwendung}.
 
-.Historie ISY-XXX
+.Historie {anwendung}
 [id="table-historie"]
 [cols="1s,1,3", options="header"]
 |===
@@ -1459,7 +1462,7 @@ _Tabelle, Liste, Freitext_
 [[anhang-fehlercodes]]
 === Anhang C: Vollständige Liste der Fehlercodes
 
-.Fehlercodes ISY-XXX-GA
+.Fehlercodes {anwendung-ga}
 [id="table-fehlercodes-referenz", reftext = "{table-caption} {counter:tables}"]
 [cols="2s,3,3", options="header"]
 |===
