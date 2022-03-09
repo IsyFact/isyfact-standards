@@ -1,0 +1,19 @@
+// tag::inhalt[]
+== Literaturverweise
+
+[[RestKonzept]]
+xref:isy-service-rest:konzept/master.adoc[Rest Konzept]
+
+[[SwaggerEditorIntellij]]
+https://plugins.jetbrains.com/plugin/14837-openapi-swagger-editor[Swagger Editor für Intellij]
+
+[[SwaggerEditorEclipse]]
+https://marketplace.eclipse.org/content/openapi-swagger-editor[Swagger Editor für Eclipse]
+
+[[SwaggerSpezifikation]]
+https://swagger.io/specification/[Swagger Spezifikation]
+
+[[SystemspezifikationBehoerdenverzeichnis]]
+TODO[Systemspezifikation Behoerdenverzeichnis]
+
+// end::inhalt[]

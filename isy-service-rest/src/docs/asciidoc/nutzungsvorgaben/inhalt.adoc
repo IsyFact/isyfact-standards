@@ -12,15 +12,15 @@ Wir empfehlen den Einsatz eines Swagger-Editors, der sowohl die syntaktische Kor
 
 Swagger Editor ist ein Tool zum Bearbeiten von OpenAPI-Spezifikationen und unterstützt OpenAPI 3.0.
 Swagger Editor validiert die eingegebene Spezifikation und bietet darüber hinaus weitere Funktionalität, wie z.B. Auto-Completion.
-Wir empfehlen das entsprechende IntelliJ und Eclipse Plugins dieses Editors (TODO Verweis).
+Wir empfehlen das entsprechende IntelliJ und Eclipse Plugins dieses Editors (siehe <<SwaggerEditorIntellij>> und <<SwaggerEditorEclipse>>).
 Die Verwendung dieser Plugins ist besonders sinnvoll, da sie die Integration der Spezifikation in das Projekt ermöglicht und die Verwaltung mit Version Control erleichtert.
 
-Weitere Informationen zu OpenApi 3.0 (Beschreibung und Vorgaben) finden Sie unter (TODO-Referenz).
+Weitere Informationen zu OpenApi 3.0 (Beschreibung und Vorgaben) finden Sie unter <<SwaggerSpezifikation>>). Bei der Erstellung der Spezifikation sind die Regeln des IsyFact REST-Konzepts (siehe <<RestKonzept>>) zu beachten.
 
 [[mapping-fachlichen-schnittstellen]]
 === Mapping von fachlichen Schnittstellen Beschreibungen auf OpenAPI-Spezifikation
 Die Schnittstellenbeschreibung, die im Rahmen der Systemspezifikation erstellt wird, spezifiziert die angebotene(n) Nachbarsystemschnittstelle(n) (NST) aus fachlicher Sicht und gibt keine Auskunft über technische Details.
-Für das Erstellen dieser fachlichen Schnittstellenbeschreibung wird die IsyFact-Vorlage <<Namen einfügen>> verwendet.
+Für das Erstellen dieser fachlichen Schnittstellenbeschreibung wird die IsyFact-Vorlage <<SystemspezifikationBehoerdenverzeichnis>> verwendet.
 Die fachlichen Schnittstellenbeschreibungen nach den Vorgaben der IsyFact enthalten in erster Linie die verwendeten Entitäten sowie Eingabe und Ausgabe Parameter. Ergänzt werden diese durch weitere Spezifika (z.B. Kurzbeschreibung, Synchron/Asynchron, Online/Offline…).
 Diese Schnittstellenbeschreibung soll im Rahmen des Systementwurfs technisch als eine OpenAPI-Spezifikation konzipiert und bereitgestellt werden.
 
@@ -89,11 +89,25 @@ parameters:
 
 |Es wird empfohlen, die Attribute der Eingabe-Entitäten, die als Abfrageparameter (z. B. Suchkriterien) verwendet werden, als Query Parameters zu definieren. Es ist jedoch möglich, Entitäten mit komplexen Suchkriterien direkt als Entität einzugeben.
 
-Die Eingabe-Entitäten, die als Ganzes verarbeitet werden (z. B. Hinzufügen einer neuen Entität oder Bearbeiten einer vorhandenen Entität), werden als Schema definiert.
+Die Eingabe-Entitäten, die im Body verarbeitet werden (z. B. Hinzufügen einer neuen Entität oder Bearbeiten einer vorhandenen Entität), werden als Schema definiert.
 
 |NSE_Entität (Output)
-|schema
-a|NSE_Mitarbeiter:
+|responses mit schema
+a|[source,yaml]
+----
+responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mitarbeiter'
+        '405':
+          description: "Ungültige Suchkriterien"
+----
+mit schema für NSE_Mitarbeiter:
 [source,yaml]
 ----
 Mitarbeiter:
@@ -161,7 +175,8 @@ a|DTY_Bundesland
 ----
 |
 
-|Kurzbeschreibung
+|Kurz-
+beschreibung
 |description
 a|
 [source,yaml]
@@ -172,7 +187,22 @@ info:
 
 |
 
+|Offline/Online
+|nichts gleichwertiges
+|
+|
 
+|Synchron/
+Asynchron
+|nichts gleichwertiges
+|
+|
+
+|Schnittstellen-
+typ
+|verb
+|get, post, put, delete
+|Das passende Verb, um die Art der Transaktion zu beschreiben. (Lese-, Schreib- oder Löschvorgang). Weitere Informationen finden Sie unter <<RestKonzept>>
 |===
 
 ==== Zusammenfassung des Beispiels (NST_Mitarbeiter_suchen):
@@ -321,7 +351,7 @@ components:
 === Eingabe von weiteren Parametern beim GET und DELETE Requests
 Bei manchen Fällen ist es möglich, dass der Server Schreiboperationen ausführt, obwohl wir nur eine GET- oder DELETE-Anfrage gesendet haben.
 Ein mögliches Szenario wäre die Protokollierung der Zugriffshistorie, wobei Metadaten wie Nutzername oder Aktenzeichen für die Protokollierung gebraucht werden.
-Jedoch werden die GET und DELETE Requests nach dem REST-Konzept (VERWEIS: IsyFact REST-Konzept) ohne Body versendet.
+Jedoch werden die GET und DELETE Requests nach dem REST-Konzept (siehe <<RestKonzept>>) ohne Body versendet.
 Normalerweise sollen Parameter für Schreiboperationen im Body gesendet werden.
 In diesem speziellen Fall wird jedoch entschieden, dass wir die erforderlichen Parameter für Schreiboperationen als Header-Parameter senden.
 
@@ -358,5 +388,134 @@ paths:
  …
 ----
 
+[[Verwendung_von_OpenAPI_Generator]]
+== Verwendung von OpenAPI Generator
+Es ist möglich, automatisch Code aus einer OpenAPI 3.0-Spezifikation zu generieren. Die IsyFact sieht den Einsatz des OpenAPI-Generators vor.
+Für die automatische Generierung muss eine gültige OpenAPI 3.0-Spezifikation als Eingabe bereitgestellt werden.
+Der Generator liest diese Spezifikation ein und generiert daraus automatisch eine entsprechende Client- oder Server-Implementierung.
+Der Generator unterstützt alle verwendeten REST-Frameworks der IsyFact: Angular (Client), Spring Web Webflux (Client) und Spring MVC (Server).
+
+Wir empfehlen, den Generator über Maven oder direkt über die Konsole zu verwenden. Die Verwendung von maven ist sinnvoll, wenn wir eine neue Anwendung von Grund auf neu erstellen oder die Generierung in einen bestehenden Prozess integrieren möchten, z. B. einen automatischen Prozess zur Generierung von fachlicher Dokumentation.
+Aber da wir normalerweise keine neue Anwendung erstellen, sondern neue Schnittstellen zu einer bereits bestehenden Anwendung hinzufügen, ist es normalerweise einfacher, den Generator von der Konsole aus auszuführen und die benötigten Teile aus dem Generat in die Anwendung zu kopieren.
+
+[[die_konsole]]
+=== Die Konsole
+Über die Konsole ist es erforderlich, die Generator-JAR-Datei von der Website des Generators zu installieren. Der Befehl besteht aus folgenden Teilen:
+java -jar <Pfad der Jar-Datei OpenAPI-generator-cli.jar> generate
+-i <Pfad der Input-Datei (OpenAPI 3.0 Spezifikation)>
+-g <der Name des Generators>
+-o <Pfad für den zu erstellenden Code>
+
+Beispiele für die verwendeten Frameworks:
+
+Angular:
+
+[source,shell script]
+----
+java -jar …/OpenAPI-generator-cli.jar generate
+-i …/mitarbeiter_suche.yaml
+-g typescript-angular
+-o …/mitarbeiter_suche/Angular
+----
+
+Spring MVC:
+
+[source,shell script]
+----
+java -jar …/OpenAPI-generator-cli.jar generate
+-i …/mitarbeiter_suche.yaml
+-g spring --library spring-mvc
+-o …/mitarbeiter_suche/Angular
+----
+
+Spring Web Webflux:
+
+[source,shell script]
+----
+java -jar …/OpenAPI-generator-cli.jar generate
+-i …/mitarbeiter_suche.yaml
+-g java --library webclient
+-o …/mitarbeiter_suche/Angular
+----
+
+Danach kann man des erstellten Codes ins Projekt manuell einführen, wobei man die notwendigen Klassen manuell übernimmt.
+
+[[maven]]
+=== Maven
+Auch in einem bereit vorhandenen Maven-Projekt kann man den OpenAPI Generator aufrufen.
+Es ist jedoch wichtig zu beachten, dass der OpenAPI-Generator den Code erstellt, der bereits ein separates Projekt ist.
+Daher sollte die Integration des neuen Codes in das bereits bestehende Projekt noch manuell erfolgen.
+Ein Beispiel für die Maven-Konfiguration:
+
+[source,xml]
+----
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.OpenAPItools</groupId>
+            <artifactId>OpenAPI-generator-maven-plugin</artifactId>
+            <version>5.3.0</version>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>generate</goal>
+                    </goals>
+                    <configuration>
+                        <inputSpec>.../mitarbeiter_suche.yaml</inputSpec>
+                        <generatorName>spring</generatorName>
+                        <library>spring-mvc</library>
+                        <generateModelTests>true</generateModelTests>
+                        <generateApiTests>true</generateApiTests>
+                        <configOptions>
+                            <sourceFolder>src/gen/java/main</sourceFolder>
+                        </configOptions>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
+----
+
+Die Konfigurationsparameter für den Generator sind die Tags „generatorName“ und der Tag „library“. Die Parameter für die verwendeten Frameworks sind folgende:
+
+|===
+||generatorName|library
+
+|Spring MVC
+|spring
+|spring-mvc
+
+|Spring Web Webflux
+|java
+|webclient
+
+|Angular
+|typescript-angular
+| -
+|===
+
+Die anderen Parameter für die Basis-Nutzung sind in der folgenden Auflistung beschrieben:
+
+[cols="h,3"]
+|===
+
+|inputSpec
+|Der Pfad von der eingegebenen OpenAPI 3.0 Spezifikation
+
+|generateModelTests
+|Gibt an, ob Tests für Model generiert werden sollen.
+Es ist möglich, dass keine Tests generiert werden.
+Die Ergebnisse hängen davon ab, ob das verwendete Template diese Funktionalität unterstützt oder nicht.
+
+|generateApiTests
+|Gibt an, ob Tests für Api generiert werden sollen.
+Es ist möglich, dass keine Tests generiert werden.
+Die Ergebnisse hängen davon ab, ob das verwendete Template diese Funktionalität unterstützt oder nicht
+
+|configOptions/
+sourceFolder
+|Der Pfad für den zu generierenden Code
+|===
 
 // end::inhalt[]
