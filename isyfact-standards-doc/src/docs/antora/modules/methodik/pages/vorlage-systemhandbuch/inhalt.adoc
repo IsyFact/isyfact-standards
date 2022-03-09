@@ -1,5 +1,4 @@
-﻿:sectnums:
-
+﻿
 // tag::inhalt[]
 :anwendung: Beispielverzeichnis
 :anwendung-ga: Beispielverzeichnis-GA
@@ -9,48 +8,79 @@
 :it-system-sgw: isy-bsp-sgw
 :it-system-batch: isy-bsp-batch
 
-// Hinweis für den AsciiDoc-Autor dieses Dokuments
-// Die automatische Generierung des Kapitels "Literaturverweise" basiert darauf, dass diese
-// Datei nach Literaturverweislinks durchsucht wird.
-// Dabei werden die in inhalt.adoc explizit aufgeführten Links benutzt, aber auch die Links, die
-// innerhalb eines Kommentars in dieser inhalt.adoc Datei stehen.
-// Dies kann sehr nützlich sein, da man sich dann keinen Prosatext (künstlich) ausdenken muss, nur
-// um auf diese Art und Weise einen Link zu erzeugen.
+:!sectnums:
+== Allgemeine Hinweise zur Dokumentvorlage
 
-====
-[.underline]#Allgemeine Hinweise zur Dokumentvorlage#
+IMPORTANT: Dieses Kapitel wird in der finalen Fassung des Systemhandbuchs entfernt.
 
-*_Zweck dieses Dokuments_*
+=== Zweck dieses Dokuments
 
-_Die Dokumentvorlage enthält die Gliederung für ein Systemhandbuch.
+Die Dokumentvorlage enthält die Gliederung für ein Systemhandbuch.
 Das Systemhandbuch ist die Dokumentation eines IT-Systems aus betrieblicher Sicht.
-Dazu gehören insbesondere Informationen zur Installation, Konfiguration, Batches, Fehleranalyse und Backup._
+Dazu gehören insbesondere Informationen zur Installation, Konfiguration, Batches, Fehleranalyse und Backup.
 
-_Das Dokument wird durch die Entwickler der Software erstellt und gepflegt.
-Es enthält nur solche Informationen, welche die eigentliche Software betreffen, Informationen zu Systemumgebungen, Hardware usw. werden vom Betrieb in separaten Dokumenten gepflegt._
+Das Dokument wird durch die Entwickler der Software erstellt und gepflegt.
+Es enthält nur solche Informationen, welche die eigentliche Software betreffen, Informationen zu Systemumgebungen, Hardware usw. werden vom Betrieb in separaten Dokumenten gepflegt.
 
-_In diesem Dokument werden alle IT-Systeme einer Anwendung gemeinsam beschrieben.
+In diesem Dokument werden alle IT-Systeme einer Anwendung gemeinsam beschrieben.
 Die Abgrenzung, welche IT-Systeme zusammen beschrieben werden, ist ggf. im Einzelfall abzuwägen.
 Typischerweise werden eine Geschäftsanwendung und ein zugehöriges Service Gateway gemeinsam beschrieben, aber z.B. nicht zwei Geschäftsanwendungen die zu unterschiedlichen Fachverfahren gehören, auch wenn Sie sich gegenseitig aufrufen.
 Ein wichtiges Kriterium für die Auswahl der IT-Systeme ist deren Entwicklungszyklus.
 IT-Systeme, die immer gemeinsam weiterentwickelt werden, können gut in einem gemeinsamen Dokument beschrieben werden.
-Querschnittsanwendungen werden in eigenen Dokumenten beschrieben._
+Querschnittsanwendungen werden in eigenen Dokumenten beschrieben.
 
-_Die Vorlage enthält bewusst auch Kapitel für Themen, die nicht für alle Systeme benötigt werden.
-Dies soll eine möglichst große Vollständigkeit der damit erstellten Dokumentationen begünstigen._
+Die Vorlage enthält bewusst auch Kapitel für Themen, die nicht für alle Systeme benötigt werden.
+Dies soll eine möglichst große Vollständigkeit der damit erstellten Dokumentationen begünstigen.
 
-_Bei Bedarf können Kapitel entfernt werden._
+Bei Bedarf können Kapitel entfernt werden.
 
+=== Verwendung von Dokumentattributen
 
-====
+Die Vorlage verwendet für zentrale Begriffe Dokumentattribute, damit diese an zentraler Stelle änderbar sind.
 
-[TIP]
-====
-*_Verwendung von Namenskonventionen_*
+[[dokumentattribute]]
+.Dokumentattribute der Vorlage für das Systemhandbuch
+[cols="2m,4,3", options="header"]
+|===
+|Attribut
+|Bedeutung
+|Standardwert
 
-_In diesem Dokument werden die Namenskonventionen der IsyFact verwendet.
-Die Namenskonventionen können dem jeweiligen Kontext, in dem die IsyFact eingesetzt wird, angepasst werden._
-====
+|anwendung
+|Fachlicher Name der Anwendung
+|{anwendung}
+
+|anwendung-ga
+|Fachlicher Name der Geschäftsanwendung
+|{anwendung-ga}
+
+|anwendung-sgw
+|Fachlicher Name des Service Gateways
+|{anwendung-sgw}
+
+|anwendung-batch
+|Fachlicher Name der Batch-Anwendung
+|{anwendung-batch}
+
+|it-system-ga
+|Technischer Name der Geschäftsanwendung
+|`{it-system-ga}`
+
+|it-system-sgw
+|Technischer Name des Service Gateways
+|`{it-system-sgw}`
+
+|it-system-batch
+|Technischer Name der Batch-Anwendung
+|`{it-system-batch}`
+|===
+
+=== Verwendung von Namenskonventionen
+
+In diesem Dokument werden die Namenskonventionen der IsyFact verwendet.
+Die Namenskonventionen können dem jeweiligen Kontext, in dem die IsyFact eingesetzt wird, angepasst werden.
+
+:sectnums:
 
 [[einleitung]]
 == Einleitung
@@ -63,22 +93,28 @@ Es umfasst die folgenden IT-Systeme:
 * {anwendung-sgw} (technischer Name: `{it-system-sgw}`),
 * {anwendung-batch} (technischer Name: `{it-system-batch}`).
 
-Der <<systemueberblick>> bietet einen groben fachlichen, technischen sowie betrieblichen Überblick über die Anwendung und liefert Verweise auf weitergehende Dokumente. Das Kapitel ist für alle Leser des Dokuments relevant.
+Das Kapitel <<ueberblick>> bietet einen groben fachlichen, technischen sowie betrieblichen Überblick über die Anwendung und liefert Verweise auf weitergehende Dokumente.
+Es ist für alle Leser des Dokuments relevant.
 
-_**Kapitel 3** beschreibt den Bau der zum Verfahren gehörenden Systeme.
-Dieses Kapitel ist im Wesentlichen für die Softwareentwicklungsabteilung relevant._
+Das Kapitel <<bau-anwendung>> beschreibt, wie aus dem Quellcode die Deployment-Einheiten (RPMs) entstehen.
+Es ist im Wesentlichen für die Softwareentwicklungsabteilung relevant.
 
-_**Kapitel 4** beschreibt die Installation und Konfiguration des Systems.
-Dieses Kapitel ist für den Betrieb und die Softwareentwicklung relevant._
+Das Kapitel <<vorbereitung-systemumgebung>> beschreibt, wie die Systemumgebung auf den Betrieb der Anwendung hin zu konfigurieren ist.
+Es ist für den Betrieb und die Softwareentwicklung relevant.
 
-_**Kapitel 5** liefert Informationen für den Betrieb der Anwendung.
-Dieses Kapitel ist für den Betrieb relevant._
+Die Kapitel <<installation-anwendung>> sowie <<konfiguration-anwendung>> beschreiben die Installation und Konfiguration der Anwendung auf der Systemumgebung.
+Sie sind wiederum für den Betrieb und die Softwareentwicklung relevant.
 
-_**Kapitel 6** liefert Informationen zur Fehleranalyse.
-Dieses Kapitel ist für den Betrieb und die Softwareentwicklung relevant._
+Das Kapitel <<regulaerer-wirkbetrieb>> liefert Informationen für den Betrieb der Anwendung.
+Es ist für den Betrieb relevant.
 
-[[systemueberblick]]
-== Systemüberblick
+Das Kapitel <<hinweise-stoerungsdiagnose-behandlung>> schließlich liefer Informationen zur Fehleranalyse.
+Es ist für den Betrieb und die Softwareentwicklung relevant.
+
+Der <<anhang>> bietet zusätzliche Informationen wie eine Historie der Anwendung, ein fachliches Glossar und eine vollständige Liste der Fehlercodes anhand von Tabellen an.
+
+[[ueberblick]]
+== Überblick
 
 In diesem Kapitel wird aus fachlicher und technischer Sicht ein Überblick über die Geschäftsprozesse gegeben, die mithilfe der Anwendung {anwendung} durchgeführt werden.
 
@@ -517,25 +553,21 @@ Die entsprechende Datei ist mit den Schlüsseln und Mappings im Releaseletter de
 
 NOTE: *Falls die Anwendung keine GUI besitzt, kann dieser Abschnitt entfallen.*
 
-Vor der {anwendung-ga} ist in der Informations- & Dienstezone ein Apache HTTP-Server geschaltet.
-Dieser muss konfiguriert werden, um die Requests an die {anwendung-ga} in der Logik- und Verarbeitungszone weiterzuleiten.
-Die Weiterleitung geschieht mithilfe des Apache Tomcat Connectors (`mod_jk`).
+Die {anwendung-ga} ist in der `mod_jk`-Konfiguration des Apache HTTP-Servers einzubinden.
 
-Im Konfigurationsordner des Apache HTTP Servers (`/usr/local/apache2/conf`) sind mehrere Dateien anzupassen.
+==== `uriworkermap.properties`
 
-==== `httpd.conf`
-
-:desc-listing-apache-request-tomcat: Apache Request Weiterleitung an Tomcat
+:desc-listing-apache-request-tomcat: Redirect an den Worker
 [id="listing-apache-request-tomcat",reftext="{listing-caption} {counter:listings}"]
 .{desc-listing-apache-request-tomcat}
 [source,subs="attributes"]
 ----
-JkMount /{it-system-ga}/* {it-system-ga}Worker
+/{it-system-ga}/={it-system-ga}Worker;use_server_errors=400
 ----
 
 ==== `workers.properties`
 
-:desc-listing-apache-request-tomcat-worker: Apache Request Weiterleitung an Tomcat (Worker)
+:desc-listing-apache-request-tomcat-worker: Worker-Konfiguration
 [id="listing-apache-request-tomcat-worker",reftext="{listing-caption} {counter:listings}"]
 .{desc-listing-apache-request-tomcat-worker}
 [source,subs="attributes"]
@@ -544,8 +576,8 @@ worker.list=..., {it-system-ga}Worker
 
 # {anwendung-ga}: {it-system-ga}Worker
 worker.{it-system-ga}Worker.type=ajp13
-worker.{it-system-ga}Worker.host=<Host>
-worker.{it-system-ga}Worker.port=<IP>
+worker.{it-system-ga}Worker.host=(Host)
+worker.{it-system-ga}Worker.port=(IP)
 worker.{it-system-ga}Worker.cachesize=5
 worker.{it-system-ga}Worker.lbfactor=50
 worker.{it-system-ga}Worker.local_worker=1
@@ -608,7 +640,6 @@ Wichtige Einstellungen umfassen:
 
 * das Setzen der Umgebungsvariable `JAVA<X>_HOME` auf den korrekten Wert (vor allem, wenn mehrere Java-Versionen installiert sind),
 * das Setzen von sinnvollen Werten für die Heap-Size (siehe Parameter `wrapper.java.initmemory` und `wrapper.java.maxmemory`).
-
 
 [[installation-it-systeme]]
 === Installation der IT-Systeme
@@ -972,7 +1003,6 @@ m|/etc/{it-system-sgw}/jpa.properties |Konfiguration der Datenbank-Verbindung
 m|/etc/{it-system-sgw}/logback.xml |Logging-Konfiguration
 |===
 
-
 [[datenbankschema]]
 === Datenbankschema
 
@@ -984,7 +1014,6 @@ Das Datenbankschema ist vollständig im xref:vorlage-systementwurf/master.adoc[S
 NOTE: *Falls die Anwendung ein Datenbankschema enthält, kann dieser Abschnitt entfallen.*
 
 Die Anwendung {anwendung} enthält kein Datenbankschema.
-
 
 [[start-stopp-statuspruefung-server-prozesse]]
 === Start, Stopp, Statusprüfung der Server-Prozesse
@@ -1029,13 +1058,27 @@ Eine weitere Möglichkeit zur Überprüfung der Tomcat-Prozesse bietet folgender
 
 [[batch-prozesse]]
 === Batch-Prozesse
+
+In diesem Abschnitt wird das Ausführen der Batch-Anwendung beschrieben.
+Die Batches sind unabhängig voneinander, d.h. sie können in beliebiger Reihenfolge ausgeführt werden.
+
+Die Batch-Anwendungen werden auf der Kommandozeile über ein Startskript gestartet. Das Startskript `batch-ausfuehren.sh` liegt in dem Verzeichnis
+
+[source,subs="attributes"]
+----
+/opt/{it-system-batch}/bin/
+----
+
+IMPORTANT: Eine wichtige Voraussetzung für die Ausführung von Batches ist das Setzen der Variable `JAVA<X>_HOME`.
+Dieser Schritt ist in <<installation-default-tomcat>> beschrieben.
+
 ====
 *_Ausfüllhinweise_*
 
 _Inhalt_::
 _Beschreibung aller Batches zu den einzelnen IT-Systemen. +
 Wichtig ist, Abhängigkeiten zwischen den Batches zu beschreiben.
-Komplexere Abläufe sollen in Form von Batchketten beschrieben werden._ +
+Komplexere Abläufe sollen in Form von Batch-Ketten beschrieben werden._ +
 +
 _In der Regel wird pro Batch ein Unterkapitel angelegt._
 
@@ -1046,33 +1089,8 @@ _Dokumentationsform_::
 _Tabelle, Freitext, Diagramme_
 ====
 
-[[ausfuehren-batch-anwendung]]
-=== Ausführen der Batch-Anwendung
-
-In diesem Abschnitt wird das Ausführen der Batch-Anwendung beschrieben. Die Batches sind unabhängig voneinander, d.h. sie können in beliebiger Reihenfolge ausgeführt werden.
-
-[[setzen-umgebungsvariable-java7home]]
-==== Setzen der Umgebungsvariable JAVA<X>_HOME
-
-Die Ausführung der Batchanwendung setzt eine installierte Java Runtime voraus. Für die Ausführung der Batch-Anwendung muss die Umgebungsvariable JAVA<X>_HOME (<X> ist durch die Java-Versionsnummer zu ersetzen, z.B. 8) korrekt gesetzt sein und auf das Java-Verzeichnis verweisen. Die Variable wird wie folgt auf der Kommandozeile gesetzt. (Bitte Verzeichnis der Java-Runtime überprüfen.)
-
- export JAVA<X>_HOME=/usr/lib/java<X>
-
-
-
-[[aufrufen-batch-anwendung]]
-==== Aufrufen der Batch-Anwendung
-
-Die Batch-Anwendungen werden auf der Kommandozeile über ein Startskript gestartet. Das Startskript batch-ausfuehren.sh liegt in dem Verzeichnis
-
-[source,subs="attributes"]
-----
-/opt/{it-system-batch}/bin/
-----
-
-
-[[batch-xyz]]
-==== Batch: …
+[[batch-beispiel]]
+==== Batch: Beispiel
 ====
 *_Ausfüllhinweise_*
 
@@ -1091,25 +1109,27 @@ _Bezug zur Spezifikation: Batch BAT__...
 
 Dieser Batch prüft …
 
-Aufruf:
+===== Aufruf
 
  batch-ausfuehren.sh STARTART KONFIGURATION [ERGEBNIS]
 
-*STARTART*:: -start oder –restart
+===== Parameter
 
-* Gibt an, ob das Skript neu gestartet wird oder ein abgebrochener Batch-Lauf fortgesetzt werden soll.
+STARTART:: `-start` oder `–restart`
 
-*KONFIGURATION*:: -cfg /resources/batch/fd-konsultation-fristablauf-pruefen-batch-config.properties
+Gibt an, ob das Skript neu gestartet wird oder ein abgebrochener Batch-Lauf fortgesetzt werden soll.
 
-* Gibt den auszuführenden Batch an.
+KONFIGURATION:: `-cfg /resources/batch/beispiel.properties`
 
-*ERGEBNIS*:: -Batchrahmen.Ergebnisdatei <ergebnisdatei.xml>
+Gibt den auszuführenden Batch an.
 
-* Gibt die XML-Datei an, in der die Ergebnisse gespeichert werden. Diese Angabe ist optional.
+ERGEBNIS:: `-Batchrahmen.Ergebnisdatei <ergebnisdatei.xml>`
 
-*Rückgabewerte:*
+Gibt die XML-Datei an, in der die Ergebnisse gespeichert werden. Diese Angabe ist optional.
 
-:desc-listing-rueckgabe-batch: Rückgabewerte von Batch-Aufrufen
+===== Rückgabewerte
+
+:desc-listing-rueckgabe-batch: Rückgabewerte des Beispiel-Batches
 [id="listing-rueckgabe-batch",reftext="{listing-caption} {counter:listings}"]
 .{desc-listing-rueckgabe-batch}
 [source,xml,subs="verbatim,attributes"]
@@ -1124,6 +1144,25 @@ Aufruf:
   143: Batch wurde vom Benutzer abgebrochen.
 ----
 
+===== Ergebnis
+
+Die Ergebnisdatei mit dem Verarbeitungsergebnis liegt im Ordner:
+
+[source,subs="verbatim,attributes"]
+----
+/opt/{it-system-batch}/out/batch-beispiel_out.xml
+----
+
+Datei(en) mit Log-Informationen liegen im Ordner:
+
+[source,subs="verbatim,attributes"]
+----
+/var/log/{it-system-batch}
+----
+
+oder an dem in der <<konfigurationsdatei-logging-batch>> definierten Ort.
+
+
 [[monitoring]]
 === Monitoring
 
@@ -1131,8 +1170,8 @@ Aufruf:
 *_Ausfüllhinweise_*
 
 Inhalt:::
-_In diesem Kapitel wird beschrieben welche Monitoring-Schnittstellen das System für den Betrieb anbietet.
-Im Wesentlichen sind dies die von der IsyFact bereitgestellten Standardkennzahlen für JMX.
+_In diesem Kapitel wird beschrieben, welche Monitoring-Schnittstellen das System für den Betrieb anbietet.
+Im Wesentlichen sind dies die von der IsyFact über Micrometer bereitgestellten Metriken.
 Nicht beschrieben werden soll die konkrete Einbindung des Systems in die betriebliche Überwachung._
 
 Quelle:::
@@ -1142,57 +1181,98 @@ Dokumentationsform:::
 _Tabelle, Freitext_
 ====
 
-Die Überwachung der Anwendung erfolgt per JMX. Die nachfolgenden Tabellen listen die von der Anwendung bzw. der Laufzeitumgebung bereitgestellten Parameter auf.
-
 [[monitoring-tomcat-anwendungen]]
-==== Monitoring der Tomcat-Anwendungen
+==== Standard-Metriken
 
-In diesem Kapitel werden die per JMX bereitgestellten Monitoring-Parameter für die Tomcat-Anwendungen beschrieben.
+Die Anwendung {anwendung} stellt folgende Standard-Metriken über den Endpunkt `/actuator/metrics` zur Verfügung.
 
-
-:desc-table-standard-ueberwachungsinformationen: Standard Überwachungsinformationen
-[id="table-standard-ueberwachungsinformationen", reftext = "{table-caption} {counter:tables}"]
-.{desc-table-standard-ueberwachungsinformationen}
-[cols="3,7", options="header"]
+:desc-table-standard-metriken: Standard-Metriken
+[id="table-standard-metriken", reftext = "{table-caption} {counter:tables}"]
+.{desc-table-standard-metriken}
+[cols="1s,2,2m", options="header"]
 |===
-2+|MBean-Name
-h|Attribut-Name h|Beschreibung
-2+|{set:cellbgcolor:#F6F4F4}java.lang:type=OperatingSystem
-|{set:cellbgcolor}FreePhysicalMemorySize |Liefert den freien physikalischen Arbeitsspeicher in Byte.
-|FreeSwapSpaceSize |Liefert den freien Auslagerungsspeicher in Byte.
-|OpenfileDescriptorCount |Liefert die Anzahl der offenen Datei-Deskriptoren.
-2+|{set:cellbgcolor:#F6F4F4} java.lang:type=Memory
-|{set:cellbgcolor}HeapMemoryUsage.used |Liefert den Java-Heap-Speicherverbrauch in Byte.
+|Metriken
+|Beschreibung
+|Namespace
+
+|JVM
+|Metriken zum Speicherverbrauch, zur Garbage Collection, Threads und geladenen Klassen.
+|jvm.
+
+|System
+|Metriken zur CPU-Auslastung, dem Dateisystem und der Uptime der Anwendung.
+|system. +
+process. +
+disk.
+
+|Application Startup
+|Metriken zur Startzeit der Anwendung.
+|application.
+
+|Logger
+|Metriken zu Logging-Events.
+|logback.events.
+
+|Task Scheduling
+|Metriken zu ausgeführten Tasks.
+|...
+
+|REST Services
+|Metriken zu aufgerufenen REST-Services.
+|http.server.requests
+
+|HTTP Client
+|Metriken zum Aufruf Services via HTTP.
+Ausgenommen hiervon ist der Aufruf von HTTP Invoker Services!
+|http.client.requests
+
+|Cache
+|Metriken zu applikationsspezifischen Caches.
+|cache
+
+|Hibernate
+|Metriken zu Datenbankzugriffen.
+|hibernate
+
+|Spring Data
+|Metriken zu Zugriffen über Repositories.
+|spring.data.repository.invocations
 |===
 
-[NOTE]
 ====
-HeapMemoryUsage:::
-
-Für Attributwerte die zusammengesetzte Werte zurückliefern (CompositeData) wird Attributname und Composite-Key-Name durch Punkt getrennt.
+_Ausfüllhinweise_::
+_Metriken, die nicht angeboten werden, müssen aus der Tabelle entfernt werden._
+_Ebenso müssen Lücken gefüllt werden, da sie anwendungsspezifisch sind._
 ====
-[[informationen-xxx-ga-xxx-sgw]]
-==== Informationen der XXX-GA und des XXX-SGW
 
+[[informationen-ga-sgw]]
+==== Informationen der {anwendung-ga} und des {anwendung-sgw}
 
-
-
-:desc-table-anwendungsspezifische-ueberwachungsinformation-xxx-ga: Anwendungsspezifische Überwachungsinformation für XXX-GA
-[id="table-anwendungsspezifische-ueberwachungsinformation-xxx-ga", reftext = "{table-caption} {counter:tables}"]
-.{desc-table-anwendungsspezifische-ueberwachungsinformation-xxx-ga}
-[cols="3,7", options="header"]
+:desc-table-service-metriken: Metriken für HTTP Invoker Services
+[id="table-service-metriken", reftext = "{table-caption} {counter:tables}"]
+.{desc-table-service-metriken}
+[cols="2s,2,2m", options="header"]
 |===
-2+|MBean-Name
-h|Attribut-Name h|Beschreibung
-2+|{set:cellbgcolor:#F6F4F4}de.bund.bva.xxx:type=ServiceStatistik,name="XXX"
-|{set:cellbgcolor}AnzahlAufrufeLetzteMinute |Liefert die Anzahl der Aufrufe aller Methoden des Services.
-|AnzahlFehlerLetzteMinute |Liefert die Anzahl der Aufrufe, die mit einem Fehler beendet wurden.
-|DurchschnittlicheDauerLetzteAufrufe |Liefert die durchschnittliche Dauer der letzten Aufrufe in Millisekunden (ms).
-2+|{set:cellbgcolor:#F6F4F4}de.bund.bva.xxx:type=StatusMonitor,name="Status-Ueberwachung"
-|{set:cellbgcolor}LetztePruefungErfolgreich |Gibt an ob der letzte Selbsttest des Systems erfolgreich war.
-|ZeitpunktLetztePruefung |Der Zeitpunkt des letzten Selbsttests.
-|===
+|Metrik
+|Beschreibung
+|Namespace
 
+|Erfolgreiche Aufrufe
+|Liefert die Anzahl der nicht fehlerhaften Aufrufe in der letzten Minute.
+|anzahlAufrufe.LetzteMinute
+
+|Fehlerhafte Aufrufe
+|Liefert die Anzahl der fehlerhaften Aufrufe in der letzten Minute.
+|anzahlFehler.LetzteMinute
+
+|Fachlich fehlerhafte Aufrufe
+|Liefert die Anzahl der fachlich fehlerhaften Aufrufe in der letzten Minute.
+|anzahlFachlicheFehler.LetzteMinute
+
+|Durchschnittliche Dauer der Aufrufe
+|Liefert die durchschnittliche Dauer der letzten 10 Aufrufe in Millisekunden.
+|durchschnittsDauer.LetzteAufrufe
+|===
 
 [[monitoring-batches]]
 ==== Monitoring Batches
@@ -1209,11 +1289,10 @@ Nach dem Aufruf des Skriptes sollte die Variable `JAVA_OPTS` auf leer gesetzt we
 
 Nach Aktivierung von JMX stellt jeder Batch-Prozess folgende Informationen per JMX bereit:
 
-
 :desc-table-ueberwachungsinformation-batches: Überwachungsinformation der Batches
 [id="table-ueberwachungsinformation-batches", reftext = "{table-caption} {counter:tables}"]
 .{desc-table-ueberwachungsinformation-batches}
-[cols="2,6", options="header"]
+[cols="2m,6", options="header"]
 |===
 |Bezeichnung |Beschreibung
 2+|{set:cellbgcolor:#F6F4F4}de.bund.bva.visa.common:type=Batchrahmen,name=“Batchrahmen-Verarbeitung“
@@ -1224,16 +1303,15 @@ Nach Aktivierung von JMX stellt jeder Batch-Prozess folgende Informationen per J
 |BatchId |Die ID des aktuellen Batches.
 |===
 
-
-
 [[backup-recovery]]
 === Backup und Recovery
 
-*_Ausfüllhinweise_*
 ====
+*_Ausfüllhinweise_*
+
 Inhalt:::
 _Auflistung von Dateien, Datenbank-Schemata, die zum Verfahren gehören und die mit in das Backup einbezogen werden müssen.
-Dateien, die durch eine Neuinstallation des Verfahrens wiederhergestellt werden können sind hier nicht aufzuführen._
+Dateien, die durch eine Neuinstallation des Verfahrens wiederhergestellt werden können, sind hier nicht aufzuführen._
 +
 _Die Informationen in diesem Kapitel dienen als Grundlage für die Erstellung des Datensicherungskonzeptes, in dem dann
 Details zu Sicherungsintervallen, Abhängigkeiten zu anderen Systemen usw. beschrieben werden._
@@ -1254,37 +1332,31 @@ _Tabelle, Freitext_
 [[smoke-test]]
 ==== Smoke-Test
 
-Folgender Test kann ausgeführt werden, um zu prüfen ob die Anwendung läuft:
+Folgender Test kann ausgeführt werden, um zu prüfen, ob die Anwendung läuft:
 
-Im Info-Log (siehe Kapitel <<log-konfigurationsdateien>>) kann der Start des Systems nachvollzogen werden. Außerdem werden Fehlermeldungen des Selbsttests der Anwendung dort sowie im Error-Log geloggt.
+In der Log-Datei (siehe Kapitel <<log-konfigurationsdateien>>) kann der Start des Systems nachvollzogen werden.
+Außerdem werden Fehlermeldungen des Selbsttests der Anwendung dort ausgegeben.
 
 :desc-table-smoketest: Fehlercodes Smoke-Tests
 [id="table-smoketest", reftext = "{table-caption} {counter:tables}"]
 .{desc-table-smoketest}
-[cols="8,2", options="header"]
+[cols="4a,^1", options="header"]
 |===
-|Smoketest Checkliste |Erledigt
-a|
-*Prüfen der Logdateien der Anwendung:*
-
-Das Error-Log der Anwendung darf nach dem Starten des Tomcats keine Fehler enthalten. Außerdem sollte die Wrapper-Logdatei als letzte Zeile folgenden Hinweis enthalten:
-
-INFO: Server startup in <ZAHL> ms
-
+|Smoke-Test Checkliste |Erledigt
+|*Prüfen der Log-Datei:* +
+Die Log-Datei der Anwendung darf nach dem Starten des Tomcats keine Fehler enthalten.
+Außerdem sollte die Wrapper-Logdatei als letzte Zeile folgenden Hinweis enthalten: +
+`INFO: Server startup in <ZAHL> ms`
 |
-a|
-*Verfügbarkeit der Services prüfen:*
 
-Mit einem JMX-Client (z.B. jconsole) die MBean <Anwendungspfad>.StatusMonitor prüfen. Der Wert LetztePruefungErfolgreich muss true sein; ZeitpunktLetzterPruefung muss aktuell sein.
-
+|*Verfügbarkeit der Services prüfen:* +
+Mit einem REST-Client den Endpunkt `/actuator/health` aufrufen. +
+Die Health muss `UP` betragen.
 |
-a|
-*Test der Batches*
 
-. <Anwendungsspezifisch Batches ausführen>
-
-Das Error-Log darf keine Fehler enthalten.
-
+|*Test der Batches:* +
+Alle Batches ausführen.
+Die Log-Datei der Batch-Anwendung darf keine Fehler enthalten.
 |
 |===
 
@@ -1323,7 +1395,7 @@ IMPORTANT: Eine Übersicht aller Fehlercodes der IT-Systeme findet sich im <<anh
 |Fehler |Mögliche Ursachen |Identifikation und Behebung
 |XXXXX50000
 |_Die Datenbank ist nicht erreichbar._
-|_Error-Log analysieren._
+|_Log-Datei analysieren._
 
 |...
 |...
@@ -1365,7 +1437,7 @@ Die folgende Tabelle beschreibt alle betrieblich relevanten Fehlersituationen, i
 | _Nachbarsystem nicht erreichbar_
 |_{anwendung-ga}, +
 {anwendung-batch}_
-|_Das System schreibt den Fehler in das Error-Log und gibt den für den Anwender maskierten Fehler als XXXXX99999 über die Außenschnittstelle an den Aufrufer zurück._ +
+|_Das System schreibt den Fehler in die Log-Datei und gibt den für den Anwender maskierten Fehler als XXXXX99999 über die Außenschnittstelle an den Aufrufer zurück._ +
 _Interne Fehlercodes: ..._
 
 |2
@@ -1385,7 +1457,7 @@ Zur Laufzeit kommt es vermehrt zum Fehlercode ..._
 |_Technischer Fehler in der Verarbeitung_
 |_{anwendung-ga}, +
 {anwendung-batch}_
-|_Das System schreibt den Fehler in das Error-Log und gibt den für den Anwender maskierten Fehler als XXXXX99999 über die Außenschnittstelle an den Aufrufer zurück._ +
+|_Das System schreibt den Fehler in die Log-Datei und gibt den für den Anwender maskierten Fehler als XXXXX99999 über die Außenschnittstelle an den Aufrufer zurück._ +
 _Interne Fehlercodes: ..._
 |===
 
