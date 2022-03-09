@@ -255,7 +255,7 @@ Ein tatsächlicher Logeintrag (ohne zusätzliche Leerzeichen und Zeilenumbrüche
 [[logdateien-log-rotation-und-komprimierung]]
 ==== Logdateien, Log-Rotation und Komprimierung
 
-Die Vorgaben zu Logdateien sowie deren Rotation und Komprimierung sind in den Nutzungsvorgaben _Logging_  xref:nutzungsvorgaben/master.adoc#einleitung[Logging - Nutzungsvorgaben] beschrieben.
+Die Vorgaben zu Logdateien sowie deren Rotation und Komprimierung sind in den xref:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Logging] beschrieben.
 
 [[logging-framework]]
 === Logging-Framework
@@ -470,23 +470,23 @@ Die Logeinträge der Tomcat access-logs, die konform zur IsyFact konfiguriert si
 
 .Informationen für Tomcat access-log
 [id="table-LogeintragTomcat",reftext="{table-caption} {counter:tables}"]
-[cols="3m,2,3",options="header"]
+[cols="2m,4,3",options="header"]
 |====
 |Bestandteil |Beschreibung |Format / Beispiel
-|Tomcathost |Remote Hostname, bzw. IP-Adresse falls der Hostname nicht verfügbar ist a| Bspw.: `appserver01`
-|Tomcatthread |Der Thread-Name über den der Request verarbeitet wird |Bspw.: `main`
+|Tomcathost |Remote Hostname bzw. IP-Adresse, falls der Hostname nicht verfügbar ist a| Beispiel: `appserver01`
+|Tomcatthread |Der Thread-Name über den der Request verarbeitet wird |Beispiel: `main`
 |Benutzername |Der Remote Benutzername |
 |zeitstempelroh |Datum und Uhrzeit |02/Feb/2012:00:02:50Z
 |zeitstempel |Datum und Uhrzeit im ISO-8601 Format |2012-02-02T00:02:50.000Z
 |request |Erste Zeile des Request.
-Hieraus ist ersichtlich ob es eine GET/POST ist, welche URI aufgerufen wurde und welches Protokoll verwendet wurde |
-|statuscode |HTTP-Status Code des Response |Bspw.: `200`
+Hieraus ist ersichtlich, ob es eine GET/POST ist, welche URI aufgerufen wurde und welches Protokoll verwendet wurde |
+|statuscode |HTTP-Status Code des Response |Beispiel: `200`
 |anzahlbytes |Anzahl der Bytes |Ganzzahl
-|thread |Name des Threads, durch den der Logeintrag erstellt wurde. |Bspw.: `main`
+|thread |Name des Threads, durch den der Logeintrag erstellt wurde. |Beispiel: `main`
 |verarbeitungszeit |Verarbeitungszeit in Millisekunden |Ganzzahl
 |uniqueid |Die vom Apache generierte Correlation-ID.
-Diese wird von mod_jk im Request mitgeliefert. |24 Zeichen. Bspw.: `U08ZosCoAAM-AAC9CATgFAAAA`
-|Apachename |Im Request von mod_jk wird der Name des Apaches geliefert, über den die Anfrage verarbeitet wurde. a| Bspw.: `webserver01`
+Diese wird von mod_jk im Request mitgeliefert. |24 Zeichen. Beispiel: `U08ZosCoAAM-AAC9CATgFAAAA`
+|Apachename |Im Request von mod_jk wird der Name des Apaches geliefert, über den die Anfrage verarbeitet wurde. a| Beispiel: `webserver01`
 |====
 
 [[wrapper-log]]
@@ -497,28 +497,26 @@ Die Logeinträge des Wrapper-Logs, die konform zur IsyFact konfiguriert sind, st
 
 .Informationen für Wrapper-log
 [id="table-LogeintragWrapper",reftext="{table-caption} {counter:tables}"]
-[cols="3m,2,3",options="header"]
+[cols="2m,4,3",options="header"]
 |====
 |Bestandteil |Beschreibung |Format / Beispiel
 |zeitstempelroh |Datum und Uhrzeit im Original des Logeintrags |2014/10/14 11:40:27.630
 |zeitstempel |Datum und Uhrzeit im ISO-8601 Format |2012-02-02T00:02:50.000Z
-|prefix |Präfix des Logeintrags. |Bspw.: `jvm 1`
-|level |Log-Level analog zu analog zu <<entitaeten>> |Bspw.: `INFO`
+|prefix |Präfix des Logeintrags. |Beispiel: `jvm 1`
+|level |Log-Level analog zu analog zu <<entitaeten>> |Beispiel: `INFO`
 |====
 
 [[apache-access-log-und-error-log]]
 === Apache access-log und error-log
 
-Die in den Logs der Apache HTTP-Server bereitgestellten Informationen werden im Konzept HTTP-Server Apache <<TODO anderes Dokument: NutzungskonzeptHTTPServer>> beschrieben.
-
-Da der HTTP-Server ein anderes Zeitstempel-Format verwendet, werden folgende Felder durch die Loginfrastruktur geändert bzw. ergänzt:
+Da der Apache HTTP-Server ein anderes Format für Zeitstempel verwendet, werden folgende Felder durch die Log-Infrastruktur geändert bzw. ergänzt:
 
 .Informationen für Apache access-log und error-log
 [id="table-LogeintragApache",reftext="{table-caption} {counter:tables}"]
-[cols="3m,2,3",options="header"]
+[cols="2m,4,3",options="header"]
 |====
 |Bestandteil |Beschreibung |Format / Beispiel
-|zeitstempelroh |Datum und Uhrzeit, des ursprünglichen Felds „zeitstempel“ des Logeintrags. |12/Feb/2012:00:02:50 +0000
+|zeitstempelroh |Datum und Uhrzeit, des ursprünglichen Felds `zeitstempel` des Logeintrags. |12/Feb/2012:00:02:50 +0000
 |zeitstempel |Datum und Uhrzeit im ISO-8601 Format |2012-02-02T00:02:50.000Z
 |====
 
@@ -532,11 +530,11 @@ Die Logs des Mailservers stellen neben der Lognachricht, die folgenden Informati
 
 .Informationen für Mailserver-log
 [id="table-LogeintragMailserver",reftext="{table-caption} {counter:tables}"]
-[cols="3m,2,3",options="header"]
+[cols="2m,4,3",options="header"]
 |====
 |Bestandteil |Beschreibung |Format / Beispiel
 |zeitstempelroh |Datum und Uhrzeit im Original des Logeintrags |Dec 12 10:03:28
-|mailserver |Identifikation des Mailservers |mailserver01
+|mailserver |Identifikation des Mailservers |`mailserver01`
 |====
 
 [[logstash-log]]
@@ -546,7 +544,7 @@ Logstash stellt neben der Lognachricht, die folgenden Informationen bereit:
 
 .Informationen für logstash-log
 [id="table-LogeintragLogstash",reftext="{table-caption} {counter:tables}"]
-[cols="3m,2,3",options="header"]
+[cols="2m,4,3",options="header"]
 |====
 |Bestandteil |Beschreibung |Format / Beispiel
 |zeitstempelroh |Datum und Uhrzeit im Original des Logeintrags |2014-12-11T12:18:19.580000Z
