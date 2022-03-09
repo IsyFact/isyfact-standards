@@ -867,7 +867,7 @@ Diese Konfigurationsdatei ist analog zur Datei `logback.xml` aufgebaut.
 Sie wird für das Logging der Batches verwendet.
 Die Unterschiede zur `logback.xml` der {anwendung-ga} liegen darin:
 
-* dass ein eigener Pfad für das Logging verwendet wird und
+* dass ein eigener Pfad für das Logging verwendet wird und,
 * dass die Batch-Id an den Namen der Log-Datei angehängt wird.
 
 Außerdem ist für die Batches keine Log-Rotation aktiviert.
@@ -976,11 +976,12 @@ Im Regelbetrieb ist das Loadbalancer-Servlet unter folgender URL erreichbar:
 [cols="2m,1", options="header"]
 |===
 |Log-Datei |Inhalt / Bemerkung
-
-|/var/log/{it-system-ga}/HOSTNAME_{it-system-ga}.log |Logdatei {anwendung-ga}
-|/var/log/{it-system-ga}/HOSTNAME_{it-system-ga}_ZEITSTEMPEL.log |Rotierte Logdatei {anwendung-ga}
-|/var/log/{it-system-sgw}/HOSTNAME_{it-system-sgw}.log |Logdatei {anwendung-sgw}
-|/var/log/{it-system-sgw}/HOSTNAME_{it-system-sgw}_ZEITSTEMPEL.log |Rotierte Logdatei {anwendung-sgw}
+2+^d|*{anwendung-ga}* (`/var/log/{it-system-ga}`)
+|HOSTNAME_{it-system-ga}.log |Log-Datei
+|HOSTNAME_{it-system-ga}_ZEITSTEMPEL.log |Rotierte Log-Datei
+2+^d|*{anwendung-sgw}* (`/var/log/{it-system-sgw}`)
+|HOSTNAME_{it-system-sgw}.log |Log-Datei
+|HOSTNAME_{it-system-sgw}_ZEITSTEMPEL.log |Rotierte Log-Datei
 |===
 
 Der Platzhalter `HOSTNAME` im Dateinamen steht für den Namen des Servers, auf dem das IT-System ausgeführt wird.
@@ -988,19 +989,19 @@ Die `ZEITSTEMPEL` werden durch die Log-Rotation erzeugt und markieren ältere Lo
 
 .Konfigurationsdateien
 [id="table-konfigurationsdateien", reftext = "{table-caption} {counter:tables}"]
-[cols="1,1", options="header"]
+[cols="1m,1", options="header"]
 |===
-h|Konfigurationsdatei h|Inhalt / Bemerkung
-2+^|*{anwendung-ga}*
-m|/etc/{it-system-ga}/isAlive |Steuerdatei für Loadbalancer
-m|/etc/{it-system-ga}/{it-system-ga}.properties |Konfiguration der Anwendung
-m|/etc/{it-system-ga}/jpa.properties |Konfiguration der Datenbank-Verbindung
-m|/etc/{it-system-ga}/logback.xml |Logging-Konfiguration
-2+^|*{anwendung-sgw}*
-m|/etc/{it-system-sgw}/isAlive |Steuerdatei für Loadbalancer
-m|/etc/{it-system-sgw}/{it-system-sgw}.properties |Konfiguration der Anwendung
-m|/etc/{it-system-sgw}/jpa.properties |Konfiguration der Datenbank-Verbindung
-m|/etc/{it-system-sgw}/logback.xml |Logging-Konfiguration
+|Konfigurationsdatei |Inhalt / Bemerkung
+2+^d|*{anwendung-ga}* (`/etc/{it-system-ga}`)
+|isAlive |Steuerdatei für Loadbalancer
+|{it-system-ga}.properties |Konfiguration der Anwendung
+|jpa.properties |Konfiguration der Datenbank-Verbindung
+|logback.xml |Logging-Konfiguration
+2+^d|*{anwendung-sgw}* (`/etc/{it-system-sgw}`)
+|isAlive |Steuerdatei für Loadbalancer
+|{it-system-sgw}.properties |Konfiguration der Anwendung
+|jpa.properties |Konfiguration der Datenbank-Verbindung
+|logback.xml |Logging-Konfiguration
 |===
 
 [[datenbankschema]]
@@ -1062,7 +1063,8 @@ Eine weitere Möglichkeit zur Überprüfung der Tomcat-Prozesse bietet folgender
 In diesem Abschnitt wird das Ausführen der Batch-Anwendung beschrieben.
 Die Batches sind unabhängig voneinander, d.h. sie können in beliebiger Reihenfolge ausgeführt werden.
 
-Die Batch-Anwendungen werden auf der Kommandozeile über ein Startskript gestartet. Das Startskript `batch-ausfuehren.sh` liegt in dem Verzeichnis
+Die Batch-Anwendungen werden auf der Kommandozeile über ein Startskript gestartet.
+Das Startskript `batch-ausfuehren.sh` liegt in dem Verzeichnis:
 
 [source,subs="attributes"]
 ----
@@ -1277,13 +1279,16 @@ _Ebenso müssen Lücken gefüllt werden, da sie anwendungsspezifisch sind._
 [[monitoring-batches]]
 ==== Monitoring Batches
 
-Die Batch-Anwendungen werden durch die Skripte zunächst ohne JMX gestartet. Wenn diese mit JMX verwaltet und beobachtet werden, so muss *vor* dem Aufruf des Startskriptes auf der Kommandozeile folgendes aufgerufen werden:
+Die Batch-Anwendungen werden durch die Skripte zunächst ohne JMX gestartet.
+Wenn diese mit JMX verwaltet und beobachtet werden, so muss *vor* dem Aufruf des Startskriptes auf der Kommandozeile folgendes aufgerufen werden:
 
  export JAVA_OPTS= "-Dcom.sun.management.jmxremote.port=28000"
 
-Obiges Beispiel startet einen JMX-Agenten für den Port 28000. Der Port kann vom Betrieb frei gewählt werden.
+Obiges Beispiel startet einen JMX-Agenten für den Port 28000.
+Der Port kann vom Betrieb frei gewählt werden.
 
-Nach dem Aufruf des Skriptes sollte die Variable `JAVA_OPTS` auf leer gesetzt werden. Damit wird verhindert, dass andere Java-Programme die ggf. die gleiche Variable verwenden, automatisch ebenfalls über JMX gesteuert werden können.
+Nach dem Aufruf des Skriptes sollte die Variable `JAVA_OPTS` auf leer gesetzt werden.
+Damit wird verhindert, dass andere Java-Programme die ggf. die gleiche Variable verwenden, automatisch ebenfalls über JMX gesteuert werden können.
 
  export JAVA_OPTS=
 
@@ -1295,7 +1300,7 @@ Nach Aktivierung von JMX stellt jeder Batch-Prozess folgende Informationen per J
 [cols="2m,6", options="header"]
 |===
 |Bezeichnung |Beschreibung
-2+|{set:cellbgcolor:#F6F4F4}de.bund.bva.visa.common:type=Batchrahmen,name=“Batchrahmen-Verarbeitung“
+2+d|{set:cellbgcolor:#F6F4F4}de.bund.bva.visa.common:type=Batchrahmen,name=“Batchrahmen-Verarbeitung“
 |{set:cellbgcolor}SaetzeGesamt |Die Gesamtanzahl der zu bearbeitenden Sätze. Falls diese nicht bekannt ist: -1
 |SaetzeVerarbeitet |Die Anzahl bereits verarbeiteter Sätze.
 |SchluesselLetzterSatz |Schlüssel des letzten verarbeiteten Satzes.
@@ -1345,7 +1350,7 @@ Außerdem werden Fehlermeldungen des Selbsttests der Anwendung dort ausgegeben.
 |Smoke-Test Checkliste |Erledigt
 |*Prüfen der Log-Datei:* +
 Die Log-Datei der Anwendung darf nach dem Starten des Tomcats keine Fehler enthalten.
-Außerdem sollte die Wrapper-Logdatei als letzte Zeile folgenden Hinweis enthalten: +
+Außerdem sollte die Wrapper-Log-Datei als letzte Zeile folgenden Hinweis enthalten: +
 `INFO: Server startup in <ZAHL> ms`
 |
 
@@ -1363,7 +1368,8 @@ Die Log-Datei der Batch-Anwendung darf keine Fehler enthalten.
 [[debug-logging]]
 ==== Debug-Logging
 
-Die Konfiguration wird mit Log-Level `INFO` ausgeliefert, d.h. das Loggen von Debug-Ausgaben ist ausgeschaltet. Es kann aber wie folgt eingeschaltet werden:
+Die Konfiguration wird mit Log-Level `INFO` ausgeliefert, d.h. das Loggen von Debug-Ausgaben ist ausgeschaltet.
+Es kann aber wie folgt eingeschaltet werden:
 
 Die Konfigurationsdatei `logback.xml` (bzw. `logback-batch.xml`) enthält folgende Zeile:
 
