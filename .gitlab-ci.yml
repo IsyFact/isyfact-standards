@@ -26,9 +26,6 @@ test:isy-datetime:
 test:isy-exception-core:
   extends: .maven-test
 
-test:isy-exception-sst:
-  extends: .maven-test
-
 test:isy-konfiguration:
   extends: .maven-test
 
@@ -44,16 +41,10 @@ test:isy-polling:
 test:isy-serviceapi-core:
   extends: .maven-test
 
-test:isy-serviceapi-sst:
-  extends: .maven-test
-
 test:isy-sicherheit:
   extends: .maven-test
 
 test:isy-sonderzeichen:
-  extends: .maven-test
-
-test:isy-sst-bridge:
   extends: .maven-test
 
 test:isy-task:
