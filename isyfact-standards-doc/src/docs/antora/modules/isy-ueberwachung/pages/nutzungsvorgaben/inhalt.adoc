@@ -414,8 +414,8 @@ Nicht essentielle Nachbarsysteme beeinflussen den Status nicht und werden, falls
 ==== Korrelations-ID bei einem Nachbarsystem-HealthIndicator
 Eine Korrelations-ID muss gesetzt werden, wenn ein `HealthIndicator` ein Nachbarsystem aufruft.
 Diese wird im Logging Kontext benötigt.
-Konkret wird die Korrelations-ID im task-scheduling gesetzt. isy-ueberwachung liefert
-hierfür nur eine Default Konfiguration für einen `HealthIndicator`.
+Konkret wird die Korrelations-ID im Task Scheduling gesetzt. `isy-ueberwachung` liefert
+nur eine Default-Konfiguration für einen `HealthIndicator`.
 
 ==== Implementierung weiterer eigener Health-Indikatoren
 
