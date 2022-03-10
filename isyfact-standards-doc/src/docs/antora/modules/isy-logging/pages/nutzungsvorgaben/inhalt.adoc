@@ -857,7 +857,7 @@ isy.logging.anwendung.version=<SYSTEMVERSION>
 
 Die Platzhalter müssen dabei wie folgt ersetzt werden:
 
-* `SYSTEMART`: Kürzel der Systemart gemäß den Namenskonventionen (siehe ) – bspw. `REG` bei einem Register, `GA` bei einer Geschäftsanwendung, `QK` bei einer Querschnittskomponente, `BAT` bei einem Batch.
+* `SYSTEMART`: Kürzel der Systemart gemäß den Namenskonventionen – bspw. `REG` bei einem Register, `GA` bei einer Geschäftsanwendung, `QA` bei einer Querschnittsanwendung, `BAT` bei einem Batch.
 * `SYSTEMNAME`: Name der Anwendung analog zu <<anwendungen-zeitbasiertes-rollieren>>.
 * `VERSIONSNUMMER`: Versionsnummer der Anwendung.
 Diese ist als interner Konfigurationsparameter in der Anwendung abzulegen.
