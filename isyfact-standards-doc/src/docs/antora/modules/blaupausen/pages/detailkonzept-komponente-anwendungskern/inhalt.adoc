@@ -108,7 +108,7 @@ AfuErmittlungEntscheidungsrelevanz
 
 // end::namenskonvention[]
 
-Die <<aufbau-fachkomponente, folgende Abbildung>> fasst den Aufbau einer Fachkomponente noch einmal grafisch zusammen.
+Die <<aufbau-fachkomponente,folgende Abbildung>> fasst den Aufbau einer Fachkomponente noch einmal grafisch zusammen.
 
 [[aufbau-fachkomponente]]
 .Aufbau einer Fachkomponente
@@ -179,10 +179,10 @@ Die IsyFact verwendet ausgewählte Funktionalitäten des Spring-Frameworks in de
 Die Verwendung dieser Funktionalitäten ist in den Blaupausen und Bausteinen wie folgt beschrieben:
 
 * Die Konfiguration der Datenzugriffsschicht, beschrieben im xref:detailkonzept-komponente-datenzugriff/master.adoc[Detailkonzept Komponente Datenzugriff].
-* Die Konfiguration des Loggings über Spring, beschrieben im Konzept xref:isy-logging:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Logging].
-* Die Bereitstellung von Metriken zur Überwachung, beschrieben im Konzept xref:isy-ueberwachung:konzept/master.adoc#einleitung[Konzept Überwachung].
-* Die Verwendung der Schnittstellentechnologie HTTP Invoker, beschrieben im Konzept xref:isy-serviceapi-core:konzept/master.adoc#einleitung[Konzept HTTP-Invoker].
-* Die Implementierung von Dialogen und Masken erfolgt mit JSF und Spring-Webflow, beschrieben im Dokument  xref:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Komponente Web-GUI].
+* Die Konfiguration des Loggings über Spring, beschrieben in den xref:isy-logging:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Logging].
+* Die Bereitstellung von Metriken zur Überwachung, beschrieben im xref:isy-ueberwachung:konzept/master.adoc#einleitung[Konzept Überwachung].
+* Die Verwendung der Schnittstellentechnologie HTTP Invoker, beschrieben im xref:isy-serviceapi-core:konzept/master.adoc#einleitung[Konzept HTTP-Invoker].
+* Die Implementierung von Dialogen und Masken erfolgt mit JSF und Spring-Webflow, beschrieben im Dokument xref:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Komponente Web-GUI].
 
 Alle anderen Spring-Funktionalitäten (Validierung über Spring, Emailing, Thread Pooling, Scripting) werden nicht verwendet.
 
@@ -218,7 +218,7 @@ Diese Konfigurationsarten werden in den folgenden Kapiteln beschrieben.
 [[die-konfiguration-von-spring-beans]]
 ==== Die Konfiguration von Spring-Beans
 
-Spring ist ein Applikationskontainer, welcher sogenannte Spring-Beans instanziiert, per _Dependency Injection_ konfiguriert und bereitstellt.
+Spring ist ein Applikations-Container, welcher sogenannte Spring-Beans instanziiert, per _Dependency Injection_ konfiguriert und bereitstellt.
 Spring-Beans sind beliebige Java-Klassen.
 Für diese Klassen kann man benötigte andere Beans oder Konfigurationsparameter konfigurieren, welche der Klasse daraufhin im Konstruktor oder per `set`-Methode übergeben werden.
 
@@ -236,7 +236,7 @@ image::blaupausen:detailkonzept-anwendungskern/SpringBeansVorlag.png[align="cent
 `Verwaltung` wird eine Klasse als Bean konfiguriert, welche die Funktionalität der Komponente bereitstellt.
 Generell gilt, dass jede zentrale und wichtige Klasse aber als Spring Bean konfiguriert werden sollte.
 
-Für die Modellierung und Konfiguration der Spring-Beans werden im Folgenden Vorgaben aufgestellt.
+Für die Modellierung und Konfiguration der Spring-Beans werden im folgenden Vorgaben aufgestellt.
 
 [[konfiguration-einer-komponente]]
 ===== Konfiguration einer Fachkomponente
@@ -252,7 +252,7 @@ Im Zweifel sollte die Konfiguration über Spring bevorzugt werden.
 Wenn eine Klasse nur an einer Stelle genutzt wird, kann sie als Kompromiss auch als anonyme Spring Bean definiert werden.
 Sind Klassen nicht von relevanter Bedeutung, so können sie beim Erzeugen der Spring Bean programmatisch erzeugt werden.
 
-[[querschnittsservices-als-beans-konfigurieren]]
+[[querschnitt-als-beans-konfigurieren]]
 ===== Querschnittliche Funktionalität als Beans konfigurieren
 
 Querschnittliche Funktionalität (etwa für JMX, für Nachrichten, für die Versendung von Mails) sind als Beans zu konfigurieren.
@@ -327,11 +327,11 @@ Die Beans der Komponenten werden mit der Annotation `@Component` bzw. deren Spez
 [[konfigurationsparameter-ueber-property-objekte-konfigurieren]]
 ==== Konfigurationsparameter über Property-Objekte konfigurieren
 
-Die Konfiguration der Anwendung wird (wie im Konzept xref:isy-konfiguration:konzept/master.adoc#einleitung[Konzept Konfiguration]  beschrieben) über die Datei `application.properties` durchgeführt.
+Die Konfiguration der Anwendung wird (wie im xref:isy-konfiguration:konzept/master.adoc#einleitung[Konzept Konfiguration]  beschrieben) über die Datei `application.properties` durchgeführt.
 Diese Datei enthält sämtliche Konfigurationsparameter der Anwendung.
 Das Setzen einzelner Konfigurationsparameter über `set`-Methoden ist nur in Ausnahmefällen erlaubt.
 
-.Beispiel für Konfiguration des Anwendungskern mittels Konfigurations-Bean
+.Beispiel für Konfiguration des Anwendungskerns mittels Konfigurations-Bean
 [id="listing-konfigurationsbean",reftext="{listing-caption} {counter:listings }"]
 [source, java]
 ----
@@ -405,7 +405,7 @@ In einigen Fällen existieren jedoch weitere Abhängigkeiten von Spring:
 * Beans werden nicht per Dependency Injection, sondern über statische Methoden bereitgestellt.
 Hierüber entstehen Abhängigkeiten zur Instanziierungsreihenfolge der Beans durch Spring.
 
-Für die noch nicht in anderen Konzepten besprochenen (letzten beiden) Themen werden im Folgenden Vorgaben aufgestellt.
+Für die noch nicht in anderen Konzepten besprochenen (letzten beiden) Themen werden im folgenden Vorgaben aufgestellt.
 
 [[keine-beans-per-namen-auslesen]]
 ==== Keine Beans per Namen auslesen
@@ -571,7 +571,7 @@ Da die _Constructor Injection_ diverse Vorteile gegenüber den beiden anderen Te
 
 |Constructor-Injection
 |Für alle Beans, welche keine dynamische Anpassung zur Laufzeit benötigen.
-|Kann in Produktiv-Code eingesetzt werden. Ist der Standard von Spring.
+|Kann in Produktiv-Code eingesetzt werden und ist der Standard von Spring.
 |===
 
 
