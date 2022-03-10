@@ -389,7 +389,7 @@ m|<fachlichkeit> |Der Name der Fachkomponente, welche aus der Geschäftsanwendun
 Wenn eine Geschäftsanwendung oder Fachkomponente technisch in mehrere IT-Systeme getrennt wird,
 dann werden diese Systeme wie folgt genannt:
 
-.Name einer ausgelagerten technsichen Geschäftskomponente
+.Name einer ausgelagerten technischen Geschäftskomponente
 [id="table-techGK",reftext="{table-caption} {counter:tables}"]
 [cols="1,4",options="header"]
 |====
@@ -424,7 +424,6 @@ include::blaupausen:page$detailkonzept-komponente-batch/inhalt.adoc[tag=namensko
 
 [[schnittstellen]]
 === Externe Schnittstellen aus Sicht der Anwendung
-include::blaupausen:page$detailkonzept-komponente-service/inhalt.adoc[tag=namenskonvention]
 include::isy-serviceapi-core:page$konzept/inhalt.adoc[tag=namenskonvention]
 
 [[web-gui]]
