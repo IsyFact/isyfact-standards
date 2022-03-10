@@ -55,7 +55,7 @@ Sowohl die IsyFact, also auch die IsyFact-Standards orientieren sich an dieser S
 
 .Die fünf Säulen der IsyFact
 [id="image-IFBereiche",reftext="{figure-caption} {counter:figures}"]
-image::einstieg:whitepaper/IFBereiche.png[align="center",width=60%,pdfwidth=60%]
+image::einstieg:sf-saeulen.dn.svg[]
 
 Die Säulen werden nachfolgend im Detail beschrieben.
 

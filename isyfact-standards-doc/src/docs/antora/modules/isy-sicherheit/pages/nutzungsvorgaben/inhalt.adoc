@@ -202,7 +202,7 @@ Fachliche Schnittstellen werden von Parametern befreit und Prüfungen auf vorhan
 
 Beim Aufruf grafischer Oberflächen wird der Aufrufkontext über einen `AbstractAuthenticationProcessingFilter` aus Spring Security ausgelesen.
 Die Autorisierung geschieht auf Ebene der Flows aus Spring Webflow.
-Weitere Details zur Umsetzung der Autorisierung in der GUI sind im Dokument xref:blaupausen:detailkonzept-komponente-web-gui/master.adoc#_detailkonzept[Detailkonzept Komponente WebGUI]) beschrieben.
+Weitere Details zur Umsetzung der Autorisierung in der GUI sind im Dokument xref:blaupausen:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Komponente WebGUI]) beschrieben.
 
 [[gui-spring-konfiguration]]
 ==== Spring-Konfiguration
@@ -270,7 +270,7 @@ Ein Webflow wird durch das Tag `<secured/>` abgesichert.
 Das Tag kann den ganzen Flow, einzelne Zustände oder einzelne Transitionen betreffen und ermöglicht so eine feingranulare Vergabe von Rechten.
 Im Parameter `attributes` stehen die für den Zugriff erforderlichen Rechte.
 
-.Absichern eines Flow, Zustands und einer Transition
+.Absichern eines Flows, Zustands und einer Transition
 [id="listing-absichern-eines-flow",reftext="{listing-caption} {counter:listings }"]
 [source, xml]
 ----
@@ -301,7 +301,7 @@ Weitere Details zur Umsetzung der Autorisierung an Service-Schnittstellen sind i
 
 Beim Aufruf von Batches stellt der Batchrahmen das Auslesen des Aufrufkontextes und die Autorisierung des Batches sicher.
 Zur Autorisierung ist im Batchrahmen bereits die Möglichkeit enthalten, einen Anwender zu konfigurieren.
-Weitere Details zur Umsetzung der Autorisierung bei Batches sind im Dokument xref:blaupausen:detailkonzept-komponente-batch/master.adoc#_einführung[Detailkonzept Komponente Batch] beschrieben.
+Weitere Details zur Umsetzung der Autorisierung bei Batches sind im Dokument xref:blaupausen:detailkonzept-komponente-batch/master.adoc[Detailkonzept Komponente Batch] beschrieben.
 
 [[batch-konfiguration]]
 ==== Konfiguration
@@ -327,7 +327,7 @@ Neben der Kennung und dem Passwort kann auch eine Behörde (über eine ID oder K
 
 Damit der Benutzer bei der Ausführung des Batches authentifiziert wird, muss die Methode `initialisieren` der Klasse `BatchAusfuehrungsBean`  mittels der Annotation `@Gesichert` geschützt werden.
 Der Batchrahmen authentifiziert den Benutzer anhand der betrieblichen Konfiguration, erstellt einen neuen Aufrufkontext und speichert ihn im Verwalter.
-Der eigentliche Prozess der Authentifizierung sowie die Ermittlung der Rollen ist für Nutzer des Batchrahmens vollständig transparent.
+Der eigentliche Prozess der Authentifizierung sowie die Ermittlung der Rollen sind für Nutzer des Batchrahmens vollständig transparent.
 
 Des Weiteren muss die Methode `getAuthenticationCredentials` der Klasse `BatchAusfuehrungsBean` implementiert werden, damit der Batchrahmen den korrekten Anwender zur Authentifizierung nutzt.
 So ist es möglich, neben dem üblichen Auslesen der Information aus der Konfiguration weitere Berechnungen oder Default-Werte anzugeben.
@@ -353,7 +353,7 @@ public AuthenticationCredentials getAuthenticationCredentials(
 }
 ----
 
-Ab diesem Punkt kann der xref:glossary:glossary:master.adoc#glossar-Batch[Batch] jederzeit auf den Aufrufkontext zugreifen, um im Zuge des Batchlaufes Berechtigungsprüfungen vorzunehmen oder Services von Nachbarsystemen (vgl. xref::nutzungsvorgaben/master.adoc#aufrufen-von-nachbarsystemen[Aufruf von Nachbarsystemen] ) unter Bereitstellung des Aufrufkontextes aufzurufen.
+Ab diesem Punkt kann der xref:glossary:glossary:master.adoc#glossar-Batch[Batch] jederzeit auf den Aufrufkontext zugreifen, um im Zuge des Batchlaufes Berechtigungsprüfungen vorzunehmen oder Services von Nachbarsystemen (vgl. xref::nutzungsvorgaben/master.adoc#aufrufen-von-nachbarsystemen[Aufruf von Nachbarsystemen]) unter Bereitstellung des Aufrufkontextes aufzurufen.
 
 [TIP]
 ====
@@ -361,21 +361,6 @@ In Ausnahmefällen ist es auch möglich, einen Batch zu implementieren, der ohne
 Dies ist allerdings nur möglich, wenn bei Aufrufen des Anwendungskerns keine Berechtigungsprüfungen stattfinden und keine Nachbarsystemschnittstellen aufgerufen werden.
 In diesem Fall muss die Methode `getAuthenticationCredentials` so implementiert werden, dass sie `null` zurückgibt.
 ====
-
-[[sgw-autorisierung]]
-=== Autorisierung im Service-Gateway
-
-Der Serviceanbieter eines Service-Gateways <<TODO anderes Dokument: ServiceGatewaySystementwurf>> verwendet den Baustein Sicherheit, um den Benutzer einer eingehenden Anfrage zu authentifizieren und zu autorisieren.
-Er verwendet dazu die Bibliothek `rf-sgw-util`, in der `isy-sicherheit` eingebunden ist.
-
-Ein Service eines Service-Gateways wird aufgerufen.
-Mit der Anfrage wird die Benutzerkennung des anfragenden Benutzers übermittelt.
-Die im Service-Gateway verwendete Komponente Serviceanbieter nutzt den Baustein Sicherheit, um den anfragenden Benutzer bereits in der Informations- und Dienstezone zu authentifizieren.
-Dazu benutzt der Serviceanbieter ein Client-Zertifikat, eine Benutzerkennung und ein Passwort.
-Bei erfolgreicher Authentifizierung erstellt der Serviceanbieter einen neuen Aufrufkontext und speichert ihn im Verwalter.
-Der eigentliche Prozess der Authentifizierung sowie die Ermittlung der Rollen ist für Nutzer des Service-Gateways vollständig transparent.
-
-Das Service-Gateway übergibt den Geschäftsanwendungen bei der Weiterleitung der Anfragen den Aufrufkontext als Transportobjekt an die jeweilige Service-Schnittstelle (vgl. siehe xref:nutzungsvorgaben/master.adoc#aufrufen-von-nachbarsystemen[Aufrufen von Nachbarsystemen]).
 
 [[awk-autorisierung]]
 === Autorisierung im Anwendungskern
@@ -415,17 +400,17 @@ Zur Formulierung von Berechtigungsprüfungen stehen folgende Methoden des Berech
 `Set<Recht> getRechte()`:: Liefert die Menge aller Rechte des Anwenders.
 `Recht getRecht(String recht)`:: Gibt das Recht mit dem angegebenen Namen zurück, falls es der Anwender besitzt.
 `boolean hatRecht(String recht)`:: Ermittelt, ob der Anwender ein bestimmtes Recht besitzt.
-`void pruefeRecht(String recht)`:: Prüft, ob der Anwender das angegebene Recht hat und erzeugt einen Fehler vom Typ `AutorisierungFehlgeschlagenException`, wenn das nicht der Fall ist.
+`void pruefeRecht(String recht)`:: Prüft, ob der Anwender das angegebene Recht besitzt und erzeugt einen Fehler vom Typ `AutorisierungFehlgeschlagenException`, wenn das nicht der Fall ist.
 
 [[regelwerk-autorisierung]]
-=== Autorisierung innerhalb des Regelwerk
+=== Autorisierung innerhalb des Regelwerks
 
 In einem Regelwerk sind oft Prüfungen zur Sichtbarkeit, Melde- und Auskunftsrechten sowie von Primärdaten abhängigen Rechten umzusetzen.
 Hierbei handelt es sich meist nicht um eine Autorisierung gegen Rollen, sondern um datenbezogene Prüfungen (z.B. Prüfung der Behördengruppe des Anwenders).
 Für diese Fälle stellt der Baustein Sicherheit keine Funktionalität bereit.
 Es wird empfohlen, solche Regeln direkt im Regelwerk zu hinterlegen.
 
-Soll in einem Regelwerk doch auf Rollen geprüft werden, bietet sich die Lösung aus dem Abschnitt xref:nutzungsvorgaben/master.adoc#awk-autorisierung-in-methoden[Anwendungdkern - Autorisierung in Methoden] an.
+Soll in einem Regelwerk doch auf Rollen geprüft werden, bietet sich die Lösung aus dem Abschnitt xref:nutzungsvorgaben/master.adoc#awk-autorisierung-in-methoden[Anwendungskern - Autorisierung in Methoden] an.
 
 [[asynchrone-prozesse-autorisierung]]
 === Autorisierung in asynchronen Prozessen
@@ -435,7 +420,7 @@ Diese Prozesse starten nicht aufgrund einer Anfrage eines Anwenders, sondern ere
 Somit geht diesen Prozessen im Moment der Bearbeitung keine Benutzeranfrage voraus.
 Daher kann die Bearbeitung im Regelfall nicht mit dem Aufrufkontext eines anfragenden Benutzers durchgeführt werden.
 Stattdessen wird zum Start des Prozesses ein hinreichend berechtigter Anwender (technischer Anwender bzw. System) verwendet.
-Auch hier bietet sich die Lösung aus dem Abschnitt xref:nutzungsvorgaben/master.adoc#awk-autorisierung-in-methoden[Anwendungdkern - Autorisierung in Methoden] an.
+Auch hier bietet sich die Lösung aus dem Abschnitt xref:nutzungsvorgaben/master.adoc#awk-autorisierung-in-methoden[Anwendungskern - Autorisierung in Methoden] an.
 
 [[aufrufen-von-nachbarsystemen]]
 == Aufrufen von Nachbarsystemen
