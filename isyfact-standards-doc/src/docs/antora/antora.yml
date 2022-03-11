@@ -18,3 +18,4 @@ nav:
 - modules/isy-serviceapi-core/nav.adoc
 - modules/isy-util/nav.adoc
 - modules/isy-polling/nav.adoc
+- modules/changelog/nav.adoc

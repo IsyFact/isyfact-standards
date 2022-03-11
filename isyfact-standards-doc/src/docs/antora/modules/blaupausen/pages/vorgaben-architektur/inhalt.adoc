@@ -39,4 +39,7 @@ include::isy-ueberwachung:page$nutzungsvorgaben/inhalt.adoc[tags=architekturrege
 include::methodik:page$versionierung/inhalt.adoc[tags=architekturregel]
 include::methodik:page$java-programmierkonventionen/inhalt.adoc[tags=architekturregel]
 
+include::isyfact-erweiterungen-doku:bausteine:benutzerverwaltung/inhalt.adoc[tags=architekturregel]
+include::isyfact-erweiterungen-doku:plattform:logging-elk/inhalt.adoc[tags=architekturregel]
+include::isyfact-erweiterungen-doku:plattform:redis/inhalt.adoc[tags=architekturregel]
 // end::inhalt[]
