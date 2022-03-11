@@ -1,6 +1,7 @@
 = Detailkonzept Batch: Inhalt
 
 // tag::inhalt[]
+[[einfuehrung]]
 == Einführung
 
 [[vorgehen]]
