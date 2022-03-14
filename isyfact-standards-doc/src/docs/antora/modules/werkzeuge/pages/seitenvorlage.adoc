@@ -1,0 +1,226 @@
+= Seitenvorlage
+// tag::attributes[]
+:icons: font
+:sectnums:
+// end::attributes[]
+
+include::glossary:licence:partial$licence.adoc[]
+
+[[struktur-thema]]
+== Struktur eines Themas
+
+*Eine Seite behandelt ein bestimmtes, in sich selbst abgeschlossenes Thema.*
+Führt die Beschreibung des Themas zu einer zu langen Seite, sollten einzelne Teilaspekte auf in sich selbst abgeschlossene Seiten ausgelagert werden.
+_In sich selbst abgeschlossen_ bedeutet, dass zum grundlegenden Verständnis des Themas selbst (abzüglich der ausgelagerten Teilaspekte) nur die Seite selbst notwendig ist.
+
+[[dateien-thema]]
+.Dateiablage eines Themas
+----
+📄 thema.adoc <.>
+📂 thema
+  📄 teilaspekt-1.adoc <.>
+  📄 teilaspekt-2.adoc
+  📂 teilaspekt-2
+      📄 teilaspekt-2-1.adoc
+      📄 teilaspekt-2-2.adoc
+  📄 ...
+  📄 teilaspekt-n.adoc
+----
+<.> Hauptseite eines Themas.
+<.> Seite zu einem Teilaspekt des Themas.
+
+Diese Struktur kann rekursiv angewendet werden.
+Allerdings ist zu beachten, dass der Navigationsbaum hierdurch schnell unübersichtlich wird.
+Daher sollte es maximal zwei Ebenen unterhalb eines Themas geben.
+
+[[navigation-thema]]
+.Navigationsbaum eines Themas
+----
+▼ Thema
+    Teilaspekt 1
+  ▼ Teilaspekt 2
+        Teilaspekt-2-1
+        Teilaspekt-2-2
+    ...
+    Teilaspekt-n.adoc
+----
+
+[[struktur-seite]]
+== Struktur einer Seite
+
+*Innerhalb einer Seite sollten nicht mehr als drei Gliederungsebenen benutzt werden.*
+Eine tiefere Gliederung deutet darauf hin, dass die Seite:
+
+* zu umfangreich ist und aufgeteilt werden sollte, oder
+* dass Inhalte zu fein zerteilt werden.
+
+*Eine Seite enthält keine Beschreibung über sich selbst (z.B. in Form einer Einleitung).*
+Das Inhaltsverzeichnis der Seite muss als "roter Faden" durch das Thema führen.
+
+[[struktur-seitentitel]]
+=== Seitentitel
+
+Antora zeigt den Seitentitel an drei Stellen an:
+
+* als Überschrift der Seite,
+* im Breadcrumb darüber,
+* im Navigationsmenü am linken Rand.
+
+*Seitentitel sollten daher so kurz wie möglich und so lang wie nötig sein.*
+Ist der Seitentitel für das Navigationsmenü zu lang, sollte in der Navigationsdatei (`nav.adoc`) des Antora-Moduls ein abgekürzter Seitentitel gesetzt werden.
+
+[[struktur-lizenzhinweis]]
+=== Lizenzhinweis
+
+Direkt nach dem Seitentitel steht der Lizenzhinweis.
+Dieser ist zentral definiert und kann einfach in die Seite eingebettet werden.
+
+ include::glossary:licence:partial$licence.adoc[]
+
+[[struktur-verweise]]
+=== Verweise
+
+Verweise auf andere Seiten dienen in der Regel einem der folgenden Zwecke:
+
+* Sie verknüpfen Teilaspekte des Themas mit der entsprechenden Seite.
+* Sie machen auf Verbindungen zu anderen Themen aufmerksam.
+* Sie benennen externe Seiten, die der Vertiefung des Themas dienen.
+
+Verweise sollten mit Bedacht eingesetzt werden.
+Zu viele Verweise stören den Lesefluss der Seite und lenken vom eigentlichen Thema ab.
+Ein gutes Format für optionale Verweise sind <<formatierung-admonitions>>.
+
+// tag::template[]
+[[formatierung]]
+== Formatierung
+
+Der Quelltext einer Seite bricht gemäß der Regel _one sentence per line_ nach jedem Satz um.
+
+Mehr zu xref:werkzeuge:handbuch_dokumentation/master.adoc#ein-satz-pro-zeile[Zeilenumbrüchen im Handbuch der Dokumentation].
+
+[[formatierung-verweise]]
+=== Verweise
+
+Es folgen Beispiele für seiteninterne Verweise auf <<formatierung,Überschriften>>, ein <<beispiel-abbildung>>, ein <<beispiel-tabelle>> oder ein <<beispiel-listing>>.
+
+Interne Verweise auf andere Seiten derselben Dokumentation nutzen die xref:seitenvorlage.adoc#formatierung-verweise[Syntax des Xref-Makros von Antora].
+
+[NOTE]
+====
+Die xref:glossary:literaturextern:inhalt.adoc#litextern-AntoraXrefMacroStructure[Beschreibung der Struktur des Xref-Makros] zeigt weitere, interessante Anwendungsfälle für diese Art von Verweisen.
+====
+
+Externe Verweise werden in einer xref:glossary:literaturextern:inhalt.adoc[zentralen Liste] gepflegt und müssen über diese angesprungen werden.
+Ein Beispiel dafür gibt es in dem Admonition Block oberhalb dieses Absatzes.
+
+Verweise auf das xref:glossary:glossary:master.adoc[Glossar] dürfen nur bei der ersten Verwendung eines entsprechenden Begriffs geschehen.
+Alle weitere Vorkommen eines Begriffs werden aus Gründen des Leseflusses nicht mit einem Verweis hinterlegt.
+Es folgt ein Beispiel für den Eintrag der xref:glossary:glossary:master.adoc#glossar-IsyFact[IsyFact] im Glossar.
+
+[[formatierung-abbildungen]]
+=== Abbildungen
+
+[[beispiel-abbildung]]
+.Beispiel einer Abbildung
+image::einstieg:sf-saeulen.dn.svg[]
+
+Mehr zu xref:werkzeuge:handbuch_dokumentation/master.adoc#bilder[Abbildungen im Handbuch der Dokumentation].
+
+[[formatierung-tabellen]]
+=== Tabellen
+
+[[beispiel-tabelle]]
+.Beispiel einer Tabelle
+[cols="1s,1,1,1",options="header"]
+|===
+|Spalte 1|Spalte 2|Spalte 3|Spalte 4
+
+|Zelle 11|Zelle 12|Zelle 13|Zelle 14
+|Zelle 21|Zelle 22|Zelle 23|Zelle 24
+|Zelle 31|Zelle 32|Zelle 33|Zelle 34
+|===
+
+Mehr zu xref:werkzeuge:handbuch_dokumentation/master.adoc#tabellen[Tabellen im Handbuch der Dokumentation].
+
+[[formatierung-listings]]
+=== Listings
+
+[[beispiel-listing]]
+.Beispiel eines Listings
+[source,java]
+----
+public class HalloWelt {
+    public static void main(String[] args) {
+        System.out.println("Hallo Welt");
+    }
+}
+----
+
+Mehr zu xref:werkzeuge:handbuch_dokumentation/master.adoc#listings[Listings im Handbuch der Dokumentation].
+
+[[formatierung-admonitions]]
+=== Admonition Blocks
+
+[NOTE]
+====
+Optionale Ergänzungen des Textes wie weiterführende Links, Dokumente, Artikel, etc.
+====
+
+[TIP]
+====
+Optionale Inhalte, die eigene Erfahrungswerte (Good / Best Practices, Tipps & Tricks, ...) einbringen.
+====
+
+[IMPORTANT]
+====
+Allgemeine Vorgaben der IsyFact.
+====
+
+[WARNING]
+====
+Typische Fallstricke bei der Nutzung der IsyFact.
+====
+
+[CAUTION]
+====
+Typische Fehler bei der Nutzung der IsyFact.
+====
+
+.icon:cogs[] Anwendungsanforderung: Anforderung
+****
+Anforderungen an die Entwicklung von Anwendungen und IT-Systemen.
+****
+
+.icon:university[] Architekturregel: Vorgabe
+****
+Regeln an die Architektur von Anwendungen und IT-Systemen.
+****
+
+.icon:shield[] Sicherheit: Vorgabe
+****
+Regel an die Sicherheit von IT-Systemen.
+****
+
+.icon:paint-brush[] Styleguide: Vorgabe
+****
+Regel zur Gestaltung von grafischen Oberflächen.
+****
+
+Mehr zu xref:werkzeuge:handbuch_dokumentation/master.adoc#admonition-blocks[Admonition Blocks im Handbuch der Dokumentation].
+
+// end::template[]
+
+[[kopiervorlage]]
+== Kopiervorlage
+
+Der folgende Quelltext dient als Kopiervorlage für neue Seiten.
+
+[source,asciidoc]
+....
+= Titel der Seite
+include::seitenvorlage.adoc[tags=attributes]
+
+\include::glossary:licence:partial$licence.adoc[]
+
+include::seitenvorlage.adoc[tags=template]
+....
