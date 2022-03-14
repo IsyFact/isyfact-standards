@@ -1,6 +1,6 @@
 :doctitle: Baustein Sicherheit
 [discrete]
-= Konzept
+=== Konzept
 
 :sectnums:
 

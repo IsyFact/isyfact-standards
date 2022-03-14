@@ -7,6 +7,12 @@
 - `IFS-1278`: Neue Vorlage für Antora-Seiten erstellt.
 // end::release-2.5.0[]
 
+// *Änderungen IsyFact 2.4.0*
+
+// tag::release-2.4.0[]
+
+// end::release-2.4.0[]
+
 *Änderungen IsyFact 2.3.0*
 
 // tag::release-2.3.0[]

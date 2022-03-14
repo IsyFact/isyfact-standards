@@ -1,6 +1,6 @@
 :doctitle: Baustein Polling
 [discrete]
-= Konzept
+=== Konzept
 
 :sectnums:
 

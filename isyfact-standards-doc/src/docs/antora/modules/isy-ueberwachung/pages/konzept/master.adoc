@@ -1,6 +1,6 @@
 :doctitle: Baustein Überwachung
 [discrete]
-= Konzept
+=== Konzept
 
 :sectnums:
 
