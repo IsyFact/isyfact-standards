@@ -1,6 +1,6 @@
 :doctitle: Komponente Batch
 [discrete]
-= Detailkonzept
+=== Detailkonzept
 
 :sectnums:
 :sectnumlevels: 4

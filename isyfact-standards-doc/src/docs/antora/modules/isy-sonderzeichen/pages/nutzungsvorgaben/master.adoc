@@ -1,6 +1,6 @@
 :doctitle: Baustein Sonderzeichen
 [discrete]
-= Nutzungsvorgaben
+=== Nutzungsvorgaben
 
 :sectnums:
 

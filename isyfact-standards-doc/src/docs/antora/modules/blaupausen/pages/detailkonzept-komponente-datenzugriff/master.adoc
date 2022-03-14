@@ -1,6 +1,6 @@
 :doctitle: Komponente Datenzugriff
 [discrete]
-= Detailkonzept
+=== Detailkonzept
 
 :sectnums:
 :sectnumlevels: 4

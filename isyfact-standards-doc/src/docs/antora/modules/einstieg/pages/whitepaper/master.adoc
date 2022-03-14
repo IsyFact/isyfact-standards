@@ -1,6 +1,6 @@
 :doctitle: Whitepaper
 [discrete]
-= Grundlagen
+=== Grundlagen
 
 :sectnums:
 

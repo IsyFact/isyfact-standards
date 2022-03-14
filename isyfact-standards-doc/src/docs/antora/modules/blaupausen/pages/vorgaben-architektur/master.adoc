@@ -1,6 +1,6 @@
 :doctitle: IsyFact Architekturregeln
 [discrete]
-= Vorgaben
+=== Vorgaben
 
 :sectnums:
 

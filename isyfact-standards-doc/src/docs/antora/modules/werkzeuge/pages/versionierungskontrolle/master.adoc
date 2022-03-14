@@ -1,7 +1,7 @@
 
 :doctitle: Versionierungskontrolle
 [discrete]
-= Handbuch
+=== Handbuch
 // Verhindert Interpretation der AsciiDoc-Beispiele durch Skripte
 :id-equals: id=
 
