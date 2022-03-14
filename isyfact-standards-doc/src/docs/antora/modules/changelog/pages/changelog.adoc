@@ -6,7 +6,7 @@
 
 // Ende übergreifende Änderungen
 
-include::isyfact-standards-doku:einstieg:einstieg/changelog.adoc[tag=release-2.4.0]
+include::isyfact-standards-doku:einstieg:changelog.adoc[tag=release-2.4.0]
 include::isyfact-standards-doku:methodik:namenskonventionen/changelog.adoc[tag=release-2.4.0]
 include::isyfact-standards-doku:blaupausen:referenzarchitektur/changelog.adoc[tag=release-2.4.0]
 include::isyfact-standards-doku:blaupausen:referenzarchitektur-it-system/changelog.adoc[tag=release-2.4.0]
@@ -40,8 +40,6 @@ include::isyfact-standards-doku:werkzeuge:einrichtung_entwicklungsumgebung/chang
 include::isyfact-standards-doku:werkzeuge:handbuch_dokumentation/changelog.adoc[tag=release-2.4.0]
 include::isyfact-standards-doku:werkzeuge:versionierungskontrolle/changelog.adoc[tag=release-2.4.0]
 include::isyfact-erweiterungen-doku:bausteine:benutzerverwaltung/changelog.adoc[tag=release-2.4.0]
-include::isyfact-erweiterungen-doku:plattform:logging-elk/changelog.adoc[tag=release-2.4.0]
-include::isyfact-erweiterungen-doku:plattform:redis/changelog.adoc[tag=release-2.4.0]
 
 == Änderungen IsyFact 2.3.0
 
@@ -49,7 +47,7 @@ include::isyfact-erweiterungen-doku:plattform:redis/changelog.adoc[tag=release-2
 
 // Ende übergreifende Änderungen
 
-include::isyfact-standards-doku:einstieg:einstieg/changelog.adoc[tag=release-2.3.0]
+include::isyfact-standards-doku:einstieg:changelog.adoc[tag=release-2.3.0]
 include::isyfact-standards-doku:methodik:namenskonventionen/changelog.adoc[tag=release-2.3.0]
 include::isyfact-standards-doku:blaupausen:referenzarchitektur/changelog.adoc[tag=release-2.3.0]
 include::isyfact-standards-doku:blaupausen:referenzarchitektur-it-system/changelog.adoc[tag=release-2.3.0]
@@ -83,8 +81,6 @@ include::isyfact-standards-doku:werkzeuge:einrichtung_entwicklungsumgebung/chang
 include::isyfact-standards-doku:werkzeuge:handbuch_dokumentation/changelog.adoc[tag=release-2.3.0]
 include::isyfact-standards-doku:werkzeuge:versionierungskontrolle/changelog.adoc[tag=release-2.3.0]
 include::isyfact-erweiterungen-doku:bausteine:benutzerverwaltung/changelog.adoc[tag=release-2.3.0]
-include::isyfact-erweiterungen-doku:plattform:logging-elk/changelog.adoc[tag=release-2.3.0]
-include::isyfact-erweiterungen-doku:plattform:redis/changelog.adoc[tag=release-2.3.0]
 
 == Änderungen IsyFact 2.2.0
 
@@ -93,7 +89,7 @@ include::isyfact-erweiterungen-doku:plattform:redis/changelog.adoc[tag=release-2
 - `IFE-223`: Umzug der Session-Dokumentation in den Baustein 'isy-session'
 // Ende übergreifende Änderungen
 
-include::isyfact-standards-doku:einstieg:einstieg/changelog.adoc[tag=release-2.2.0]
+include::isyfact-standards-doku:einstieg:changelog.adoc[tag=release-2.2.0]
 include::isyfact-standards-doku:methodik:namenskonventionen/changelog.adoc[tag=release-2.2.0]
 include::isyfact-standards-doku:blaupausen:referenzarchitektur/changelog.adoc[tag=release-2.2.0]
 include::isyfact-standards-doku:blaupausen:referenzarchitektur-it-system/changelog.adoc[tag=release-2.2.0]
@@ -127,8 +123,6 @@ include::isyfact-standards-doku:werkzeuge:einrichtung_entwicklungsumgebung/chang
 include::isyfact-standards-doku:werkzeuge:handbuch_dokumentation/changelog.adoc[tag=release-2.2.0]
 include::isyfact-standards-doku:werkzeuge:versionierungskontrolle/changelog.adoc[tag=release-2.2.0]
 include::isyfact-erweiterungen-doku:bausteine:benutzerverwaltung/changelog.adoc[tag=release-2.2.0]
-include::isyfact-erweiterungen-doku:plattform:logging-elk/changelog.adoc[tag=release-2.2.0]
-include::isyfact-erweiterungen-doku:plattform:redis/changelog.adoc[tag=release-2.2.0]
 
 == Änderungen IsyFact 2.1.0
 
@@ -139,7 +133,7 @@ include::isyfact-erweiterungen-doku:plattform:redis/changelog.adoc[tag=release-2
 - `IFS-458`: Tidy-Plugin eingebunden, sodass immer ein Check ausgeführt wird. Alle pom.xml Dateien mit tidy:pom formatiert und getestet.
 // Ende übergreifende Änderungen
 
-include::isyfact-standards-doku:einstieg:einstieg/changelog.adoc[tag=release-2.1.0]
+include::isyfact-standards-doku:einstieg:changelog.adoc[tag=release-2.1.0]
 include::isyfact-standards-doku:methodik:namenskonventionen/changelog.adoc[tag=release-2.1.0]
 include::isyfact-standards-doku:blaupausen:referenzarchitektur/changelog.adoc[tag=release-2.1.0]
 include::isyfact-standards-doku:blaupausen:referenzarchitektur-it-system/changelog.adoc[tag=release-2.1.0]
@@ -173,8 +167,6 @@ include::isyfact-standards-doku:werkzeuge:einrichtung_entwicklungsumgebung/chang
 include::isyfact-standards-doku:werkzeuge:handbuch_dokumentation/changelog.adoc[tag=release-2.1.0]
 include::isyfact-standards-doku:werkzeuge:versionierungskontrolle/changelog.adoc[tag=release-2.1.0]
 include::isyfact-erweiterungen-doku:bausteine:benutzerverwaltung/changelog.adoc[tag=release-2.1.0]
-include::isyfact-erweiterungen-doku:plattform:logging-elk/changelog.adoc[tag=release-2.1.0]
-include::isyfact-erweiterungen-doku:plattform:redis/changelog.adoc[tag=release-2.1.0]
 
 == Änderungen IsyFact 2.0.0
 
@@ -182,7 +174,7 @@ include::isyfact-erweiterungen-doku:plattform:redis/changelog.adoc[tag=release-2
 - `IFS-228`: Einführung von Spring Boot in die Bausteine der IsyFact-Standards
 // Ende übergreifende Änderungen
 
-include::isyfact-standards-doku:einstieg:einstieg/changelog.adoc[tag=release-2.0.0]
+include::isyfact-standards-doku:einstieg:changelog.adoc[tag=release-2.0.0]
 include::isyfact-standards-doku:methodik:namenskonventionen/changelog.adoc[tag=release-2.0.0]
 include::isyfact-standards-doku:blaupausen:referenzarchitektur/changelog.adoc[tag=release-2.0.0]
 include::isyfact-standards-doku:blaupausen:referenzarchitektur-it-system/changelog.adoc[tag=release-2.0.0]
@@ -216,8 +208,6 @@ include::isyfact-standards-doku:werkzeuge:einrichtung_entwicklungsumgebung/chang
 include::isyfact-standards-doku:werkzeuge:handbuch_dokumentation/changelog.adoc[tag=release-2.0.0]
 include::isyfact-standards-doku:werkzeuge:versionierungskontrolle/changelog.adoc[tag=release-2.0.0]
 include::isyfact-erweiterungen-doku:bausteine:benutzerverwaltung/changelog.adoc[tag=release-2.0.0]
-include::isyfact-erweiterungen-doku:plattform:logging-elk/changelog.adoc[tag=release-2.0.0]
-include::isyfact-erweiterungen-doku:plattform:redis/changelog.adoc[tag=release-2.0.0]
 
 == Änderungen IsyFact 1.7.0
 
@@ -231,7 +221,7 @@ include::isyfact-erweiterungen-doku:plattform:redis/changelog.adoc[tag=release-2
 - `IFS-175`: Transaktionssteuerung auf Ebene des Anwendungskerns statt in der Nutzungsschicht
 // Ende übergreifende Änderungen
 
-include::isyfact-standards-doku:einstieg:einstieg/changelog.adoc[tag=release-1.7.0]
+include::isyfact-standards-doku:einstieg:changelog.adoc[tag=release-1.7.0]
 include::isyfact-standards-doku:methodik:namenskonventionen/changelog.adoc[tag=release-1.7.0]
 include::isyfact-standards-doku:blaupausen:referenzarchitektur/changelog.adoc[tag=release-1.7.0]
 include::isyfact-standards-doku:blaupausen:referenzarchitektur-it-system/changelog.adoc[tag=release-1.7.0]
@@ -264,8 +254,6 @@ include::isyfact-standards-doku:werkzeuge:einrichtung_entwicklungsumgebung/chang
 include::isyfact-standards-doku:werkzeuge:handbuch_dokumentation/changelog.adoc[tag=release-1.7.0]
 include::isyfact-standards-doku:werkzeuge:versionierungskontrolle/changelog.adoc[tag=release-1.7.0]
 include::isyfact-erweiterungen-doku:bausteine:benutzerverwaltung/changelog.adoc[tag=release-1.7.0]
-include::isyfact-erweiterungen-doku:plattform:logging-elk/changelog.adoc[tag=release-1.7.0]
-include::isyfact-erweiterungen-doku:plattform:redis/changelog.adoc[tag=release-1.7.0]
 
 == Änderungen IsyFact 1.6.0
 
@@ -273,7 +261,7 @@ include::isyfact-erweiterungen-doku:plattform:redis/changelog.adoc[tag=release-1
 - `IFS-189`: Dokumentation an neues Repository `isyfact-standards` angepasst
 // Ende übergreifende Änderungen
 
-include::isyfact-standards-doku:einstieg:einstieg/changelog.adoc[tag=release-1.6.0]
+include::isyfact-standards-doku:einstieg:changelog.adoc[tag=release-1.6.0]
 include::isyfact-standards-doku:methodik:namenskonventionen/changelog.adoc[tag=release-1.6.0]
 include::isyfact-standards-doku:blaupausen:referenzarchitektur/changelog.adoc[tag=release-1.6.0]
 include::isyfact-standards-doku:blaupausen:referenzarchitektur-it-system/changelog.adoc[tag=release-1.6.0]
@@ -306,5 +294,3 @@ include::isyfact-standards-doku:werkzeuge:einrichtung_entwicklungsumgebung/chang
 include::isyfact-standards-doku:werkzeuge:handbuch_dokumentation/changelog.adoc[tag=release-1.6.0]
 include::isyfact-standards-doku:werkzeuge:versionierungskontrolle/changelog.adoc[tag=release-1.6.0]
 include::isyfact-erweiterungen-doku:bausteine:benutzerverwaltung/changelog.adoc[tag=release-1.6.0]
-include::isyfact-erweiterungen-doku:plattform:logging-elk/changelog.adoc[tag=release-1.6.0]
-include::isyfact-erweiterungen-doku:plattform:redis/changelog.adoc[tag=release-1.6.0]
