@@ -1,6 +1,6 @@
 :doctitle: Einstieg
 [discrete]
-= Grundlagen
+=== Grundlagen
 
 :sectnums:
 :sectnumlevels: 4

@@ -1,6 +1,6 @@
 :doctitle: Baustein Sonderzeichen
 [discrete]
-= Konzept
+=== Konzept
 
 :sectnums:
 

@@ -1,6 +1,6 @@
 :doctitle: Softwaretechnische Architektur
 [discrete]
-= Referenzarchitektur
+=== Referenzarchitektur
 
 :sectnums:
 

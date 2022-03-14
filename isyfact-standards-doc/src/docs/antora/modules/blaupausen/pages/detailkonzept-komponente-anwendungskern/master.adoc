@@ -1,6 +1,6 @@
 :doctitle: Komponente Anwendungskern
 [discrete]
-= Detailkonzept
+=== Detailkonzept
 
 :sectnums:
 :sectnumlevels: 4

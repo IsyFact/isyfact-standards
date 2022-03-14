@@ -1,6 +1,6 @@
 :doctitle: Tutorial
 [discrete]
-= Grundlagen
+=== Grundlagen
 
 :sectnums:
 :sectnumlevels: 5

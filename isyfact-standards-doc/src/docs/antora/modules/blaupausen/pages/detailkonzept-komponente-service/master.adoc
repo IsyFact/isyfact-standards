@@ -1,6 +1,6 @@
 :doctitle: Komponente Service
 [discrete]
-= Detailkonzept
+=== Detailkonzept
 
 :sectnums:
 

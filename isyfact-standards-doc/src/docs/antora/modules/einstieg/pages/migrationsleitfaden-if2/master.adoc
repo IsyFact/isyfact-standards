@@ -1,6 +1,6 @@
 :doctitle: Migrationsleitfaden
 [discrete]
-= Grundlagen
+=== Grundlagen
 
 :sectnums:
 

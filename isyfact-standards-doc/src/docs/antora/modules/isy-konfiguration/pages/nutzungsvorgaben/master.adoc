@@ -1,6 +1,6 @@
 :doctitle: Baustein Konfiguration
 [discrete]
-= Nutzungsvorgaben
+=== Nutzungsvorgaben
 
 :sectnums:
 :sectnumlevels: 4
