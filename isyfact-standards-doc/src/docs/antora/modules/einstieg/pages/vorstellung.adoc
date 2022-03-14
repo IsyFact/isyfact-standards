@@ -1,0 +1,169 @@
+= Vorstellung der IsyFact
+:icons: font
+:sectnums:
+
+include::glossary:licence:partial$licence.adoc[]
+
+[[einfuehrung-in-software-factories]]
+== Einführung in Software Factories
+
+Bei der Entwicklung von Anwendungssystemen für eine bestimmte Domäne stehen Architekten und Entwickler häufig vor denselben, wiederkehrenden Problemen.
+Zwar unterscheiden sich je nach Anwendung die Datenstrukturen, die Geschäftslogik und die Benutzeroberflächen, aber die allgemeinen Prinzipien der Architektur, der Datenhaltung und der Gestaltung von Benutzerschnittstellen, sind in der Regel für alle Anwendungen identisch und somit wiederverwendbar.
+Ebenso lässt sich eine Vielzahl von Detailvorgaben, z.B. für den Betrieb von Anwendungen, das Logging, die Benutzerverwaltung oder für die Kommunikation von Systemen untereinander standardisieren.
+Dies ist nicht nur sinnvoll, sondern auch notwendig, wenn die verschiedenen Anwendungssysteme Teil einer Anwendungslandschaft in einem Unternehmen oder einer Behörde sind.
+Erst durch die Wiederverwendung von bereits entwickelten Komponenten und die Standardisierung von Entwicklungsmethoden wird es möglich, eine komplexe Anwendungslandschaft mit geringem Aufwand bzw. kostengünstig zu entwickeln und effizient zu betreiben.
+
+Die Herausforderung bei der Wiederverwendung besteht darin, das einmal erworbene Wissen über die Anwendungsentwicklung in einer Domäne so zu strukturieren, zu dokumentieren und vorzuhalten, dass nachfolgende Projekte einfach und verlässlich darauf zugreifen können, und damit die Einhaltung des einmal definierten Architekturrahmens sichergestellt ist.
+Software Factories sind ein Mittel, dies zu erreichen.
+Eine Software Factory ist eine Sammlung von Architektur-Blaupausen, Bausteinen, einer Plattform, Methoden und Werkzeugen, die es erlaubt, Anwendungen weitgehend „automatisiert“ und standardisiert zu entwickeln.
+Dabei bedeutet „automatisiert“ hier nicht, dass der Quelltext des Softwaresystems ohne menschliches Zutun durch einen Automaten erzeugt würde.
+Es bezieht sich vielmehr darauf, dass alle wesentlichen technischen Architekturentscheidungen bereits durch die Software Factory getroffen sind, und diese auch entsprechende Komponenten zur Implementierung dieser Architektur bereithält.
+Architekten und Entwickler können sich damit im Normalfall auf die Umsetzung der jeweiligen Fachlichkeit der Anwendung konzentrieren.
+Da die Anwendung jedoch nach wie vor manuell entwickelt (und nicht generiert wird), ist es aber jederzeit möglich, dort von den Vorgaben der Software Factory abzuweichen, wo dies erforderlich ist.
+
+[[isyfact-standards-und-erweiterungen]]
+== IsyFact: Standards und Erweiterungen
+
+Die *IsyFact* ist eine freie allgemeine Software Factory zum Bau von IT-Systemen, die vom Bundesverwaltungsamt (BVA) bereitgestellt wird.
+Sie umfasst Standards und Erweiterungen.
+
+[[isyfact-aufbau]]
+.Aufbau der IsyFact
+image::einstieg:einstieg/isyfact-aufbau.dn.svg[]
+
+Die *IsyFact-Standards* bilden das architektonische, technologische und methodische Fundament der IsyFact.
+Sie umfassen allgemeingültige und wiederverwendbare Konzepte und Komponenten, die für die Entwicklung beliebiger Geschäftsanwendungen relevant sind. +
+Beispiele: Allgemeine Softwarereferenzarchitektur, Vorgaben zur Fehlerbehandlung, Logging etc.
+
+Die *IsyFact-Erweiterungen* sind optionale wiederverwendbare Lösungen für verschiedene Problemstellungen, die aufgrund spezifischer Anforderungen des BVA oder seiner Kunden entwickelt wurden und _auf den IsyFact-Standards aufbauen_. +
+Beispiele: Protokollierung, Regelwerk etc.
+
+Die Artefakte der IsyFact-Standards und IsyFact-Erweiterungen werden in gleicher Weise in 5 Säulen klassifiziert, die der Strukturierung der Inhalte der Factory dienen.
+
+[[isyfact-saeulen]]
+.Die 5 Säulen der IsyFact
+image::einstieg/isyfact-saeulen.dn.svg[]
+
+Die einzelnen Säulen sind wie folgt definiert.
+
+Blaupausen::
+Die Blaupausen beschreiben die Architektur und Konzepte der Anwendungslandschaft.
+
+Bausteine::
+Die Bausteine der IsyFact sind wieder verwendbare Softwarelösungen.
+
+Plattform::
+Eine einheitliche Plattform über alle IT-Systeme, die einen standardisierten und effizienten Systembetrieb ermöglicht.
+
+Methodik::
+Grundlage für die Umsetzung von Systemen mit der IsyFact ist eine standardisierte Vorgehensweise nach dem V-Modell XT.
+
+Werkzeuge::
+Die IsyFact setzt auf Automatisierung und Werkzeugunterstützung bei der Erstellung von IT-Systemen.
+Dazu bietet sie vorkonfigurierte Werkzeuge für Modellierung, Programmierung, Installation, Tests oder die Fehlerverfolgung.
+
+[[nutzungsszenarien-und-tailoring]]
+== Nutzungsszenarien und Tailoring
+Hinter der IsyFact steht der Gedanke, die Anwendungsentwicklung für eine bestimmte Domäne zu vereinfachen, indem man das Wissen über diese Domäne und die dort benötigten Anwendungen systematisiert und dokumentiert und in Form einer für die Domäne spezifischen Software Factory bereitstellt.
+Da spezifisches Domänenwissen jedoch per Definition nicht Teil der IsyFact sein kann, muss es aus dem jeweiligen Anwendungskontext heraus ergänzt werden.
+Dabei wird zunächst beschrieben, welche Teile der IsyFact für die jeweilige Domäne überhaupt relevant sind und zum Einsatz kommen sollen.
+Dann werden die Konzepte der IsyFact konkretisiert, und domänenspezifische Bausteine und Architekturen werden hinzugefügt.
+Diesen Vorgang bezeichnet man insgesamt als _Tailoring_.
+Das Resultat des Tailoring ist eine spezifische Factory für einen Anwendungskontext, wie sie z.B. beim Bundesverwaltungsamt in Form der xref:glossary:literaturextern:inhalt.adoc#litextern-Register-Factory[Register Factory] für den Kontext der Register Anwendungen erstellt wurde.
+
+Das Tailoring ist ein sinnvoller Schritt, um möglichst viel Wissen über die Entwicklung von Anwendungen in Form einer Factory vorzuhalten.
+Es ist für die Nutzung der IsyFact jedoch nicht erforderlich.
+Insgesamt gibt es vier mögliche <<isyfact-nutzungsszenarien,Nutzungsszenarien>>, die im Folgenden erläutert werden.
+
+[[isyfact-nutzungsszenarien]]
+.Nutzungsszenarien der IsyFact
+image::einstieg/isyfact-nutzung.dn.svg[]
+
+Szenario 1 – Nutzung der IsyFact-Standards::
+Die direkte Nutzung des Standards ermöglicht es, von den Vorteilen der bewährten Standards der Factory unmittelbar zu profitieren.
+Dieses Szenario ist insbesondere immer dann sinnvoll, wenn einzelne Systeme und keine komplette Anwendungslandschaft gleichartiger zusammenhängender Systeme umgesetzt werden sollen.
+
+Szenario 2 – Nutzung der IsyFact-Erweiterungen::
+Die IsyFact-Erweiterungen sind fertige Speziallösungen, die in „beliebigen“ Verfahren zum Einsatz kommen können.
+Dies ist oft sogar dann möglich, wenn die IsyFact-Standards im jeweiligen Verfahren nicht angewandt werden.
+Der Einsatz der Standards wird jedoch empfohlen.
+In diesem Szenario findet ein „leichtgewichtiges Tailoring“ statt, in dem die relevanten Erweiterungen ausgewählt werden.
+
+Szenario 3 – Nutzung einer bestehenden spezifischen Factory::
+Wenn für denselben oder einen ähnlichen Anwendungskontext bereits eine spezifische Factory zur Verfügung steht (wie z.B. die Register Factory) kann diese direkt verwendet werden.
+Eine spezifische Factory ist eine durch Tailoring zugeschnittene Variante der IsyFact, die diese um spezifische Aspekte des jeweiligen Kontextes erweitert.
+
+Szenario 4 – Definition einer neuen spezifischen Factory::
+Die IsyFact ermöglicht und fördert die Definition von neuen spezifischen Factories.
+Dies ist dann sinnvoll, wenn eine große homogene Anwendungslandschaft in einem spezifischen Kontext aufgebaut werden soll, für den bisher keine spezifische Factory existiert.
++
+Dabei empfiehlt es sich, nach einer initialen Analyse und Auswahl der einzusetzenden IsyFact-Komponenten im Weiteren iterativ vorzugehen.
+Parallel zur Entwicklung der ersten Geschäftsanwendung auf der Basis der IsyFact fließen die dabei gewonnenen Erfahrungen in das Tailoring ein.
+So entstehen für nachfolgende Anwendungsentwicklungen eine spezifische Referenzarchitektur und die Komponenten, mit denen sie implementiert werden kann.
+Die folgenden Entwicklungen sind wiederum der Prüfstein für die Qualität und Reife der spezifischen Factory und liefern neue Erkenntnisse für ihre Fortschreibung.
+Auf diese Weise stabilisiert sich mit der Zeit die spezifische Factory für den eigenen Anwendungskontext.
+
+[[festlegungen-der-isyfact-konformitaet]]
+== Festlegungen der IsyFact-Konformität
+
+Durch die unterschiedlichen Nutzungsszenarien der IsyFact existieren mehrere Varianten, die den Grad der Verwendung von IsyFact in einer Anwendung beschreiben.
+Zur einfacheren Handhabung der Abhängigkeiten definieren wir folgende Begriffe, die in den Dokumenten der IsyFact verwendet werden.
+
+IsyFact-konform::
+Anwendungen, die vollständig und ohne Ausnahmen auf den IsyFact-Standards aufbauen.
+
+IsyFact-kompatibel::
+Anwendungen, deren Außenverhalten sich nach IsyFact-Standards richtet und ohne Anpassungen in einer Systemlandschaft mit IsyFact-konformen Anwendungen betreibbar ist.
+
+IsyFact-basierend::
+Anwendungen, die Teile der IsyFact-Standards verwenden, aber nicht kompatibel sind.
+
+IsyFact-Anwendung::
+Anwendungen, die mindestens IsyFact-kompatibel sind und ggf. IsyFact-Erweiterungen nutzen.
+Im Prinzip ist jede IsyFact-Anwendung auch eine IsyFact-Erweiterung, bietet aber i.d.R. keine querschnittliche Funktionalität für andere Anwendungen an und ist dementsprechend nicht synonym zu verwenden.
+
+[[mitarbeit-an-der-isyfact]]
+== Mitarbeit an der IsyFact
+
+Das Bundesverwaltungsamt hat sich entschlossen, die IsyFact-Standards als Open Source zu veröffentlichen damit zum einen ein möglichst großer Kreis von Anwendern von der bisherigen Entwicklung profitiert.
+Langfristig ist das Ziel, zusätzlich einen Marktplatz zu etablieren, auf dem jeder Anwender seine Weiterentwicklungen und neuen Komponenten mit anderen Anwendern teilen kann.
+
+[[isyfact-marktplatz]]
+.Mitarbeit an der IsyFact
+image::einstieg/isyfact-marktplatz.dn.svg[]
+
+Für die Beteiligung an der Weiterentwicklung der IsyFact gibt es <<isyfact-marktplatz,zwei Möglichkeiten>>.
+
+Die *IsyFact-Standards* bilden eine feste Basis, die nur vom BVA selbst weiterentwickelt wird.
+Anwender können aber jederzeit Verbesserungsvorschläge oder Alternativen für bestehende Komponenten einbringen.
+Das BVA wird diese Vorschläge sammeln, bewerten und konsolidiert in die Weiterentwicklung der IsyFact einfließen lassen.
+Diese moderierende Rolle ist wichtig, damit die gemeinsame Basis, auf der letztlich auch das Funktionieren der Factory und aller Erweiterungen beruht, erhalten bleibt.
+
+*Neue IsyFact-Erweiterungen* kann jeder Anwender beitragen, veröffentlichen und auf dem zukünftigen Marktplatz bereitstellen.
+Voraussetzung ist dabei lediglich, dass diese IsyFact-kompatibel sind. (Vision)
+
+[id="historie-der-isyfact",reftext="Historie der IsyFact"]
+== Historie der IsyFact
+
+In diesem Abschnitt wird ein Einblick in die Entstehung der IsyFact gegeben.
+Dies ist relevant, da die vorhandenen Konzepte durch deren Historie geprägt wurden und sich darin teilweise
+noch „historisch bedingte“ Formulierungen befinden (mehr dazu in den xref:vorstellung/rahmenbedingungen.adoc#auswirkung-der-historie-der-isyfact[Rahmenbedingungen]).
+
+Die IsyFact ist aus der Register Factory entstanden, die eine Software Factory für die Entwicklung großer, Anwendungs- und Registerlandschaften im Behördenumfeld ist.
+Die Register Factory ist über mehrere Jahre hinweg beim Bundesverwaltungsamt (BVA) entwickelt worden und Grundlage für geschäftskritische Anwendungen verschiedener Behörden, deren Anwendungslandschaften das BVA nach den Vorgaben der Register Factory entwickelt hat und betreibt.
+Darüber hinaus stellt das BVA die Register Factory auf Anfrage auch anderen Behörden zu Verfügung, die darauf eigenständig ihre Anwendungen entwickeln und betreiben.
+
+In diesem Kontext wird zwischen den Systemtypen _Register_ und _Geschäftsanwendungen_ unterschieden.
+Register dienen der Sammlung von Informationen und besitzen keine Präsentationslogik oder fachlichen Prozesse.
+Geschäftsanwendungen implementieren fachliche Logik, Prozesse und präsentieren die Daten aus den Registern.
+Die Anwendungsarchitektur der Register Factory und deren Bausteine und Methoden ließen sich aber ohne weiteres zur Entwicklung beliebiger fachlicher Anwendungen (_Geschäftsanwendungen_) benutzen.
+Register sind lediglich Spezialfälle solcher Geschäftsanwendungen.
+Um die Artefakte der Register Factory auch in anderen Kontexten zur Verfügung zu stellen, wurden die bestehenden Artefakte der Register Factory umstrukturiert und neu aufgeteilt in IsyFact (Standards und Erweiterungen) und Register Factory.
+
+[[isyfact-entstehung]]
+.Entstehung der IsyFact aus der Register Factory
+image::einstieg:einstieg/isyfact-entstehung-aus-rf.dn.svg[]
+
+Die IsyFact enthält ausschließlich allgemeingültige „register-neutrale“ Konzepte und Komponenten.
+Die Register Factory ist seit deren Umstellung eine spezifische Factory, die <<nutzungsszenarien-und-tailoring,auf der IsyFact aufbaut>>.
+Sie wird durch das BVA ebenfalls aktiv weiterentwickelt.

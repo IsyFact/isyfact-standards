@@ -3,7 +3,6 @@
 == Architekturregeln der IsyFact
 
 :leveloffset: +1
-include::einstieg:page$einstieg/inhalt.adoc[tags=architekturregel]
 include::blaupausen:page$referenzarchitektur/inhalt.adoc[tags=architekturregel]
 include::blaupausen:page$referenzarchitektur-it-system/inhalt.adoc[tags=architekturregel]
 include::einstieg:page$tutorial/inhalt.adoc[tags=architekturregel]
