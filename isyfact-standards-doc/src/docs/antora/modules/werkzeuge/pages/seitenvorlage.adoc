@@ -1,10 +1,11 @@
 = Seitenvorlage
-// tag::attributes[]
-:icons: font
-:sectnums:
-// end::attributes[]
 
 include::glossary:licence:partial$licence.adoc[]
+
+[TIP]
+====
+Zum schnellen Anlegen einer neuen Seite steht eine xref:kopiervorlage.adoc[Kopiervorlage] bereit.
+====
 
 [[struktur-thema]]
 == Struktur eines Themas
@@ -39,10 +40,10 @@ Daher sollte es maximal zwei Ebenen unterhalb eines Themas geben.
 ▼ Thema
     Teilaspekt 1
   ▼ Teilaspekt 2
-        Teilaspekt-2-1
-        Teilaspekt-2-2
+        Teilaspekt 2-1
+        Teilaspekt 2-2
     ...
-    Teilaspekt-n.adoc
+    Teilaspekt n
 ----
 
 [[struktur-seite]]
@@ -78,7 +79,7 @@ Dieser ist zentral definiert und kann einfach in die Seite eingebettet werden.
  include::glossary:licence:partial$licence.adoc[]
 
 [[struktur-verweise]]
-=== Verweise
+=== Verweise auf andere Seiten
 
 Verweise auf andere Seiten dienen in der Regel einem der folgenden Zwecke:
 
@@ -101,9 +102,18 @@ Mehr zu xref:werkzeuge:handbuch_dokumentation/master.adoc#ein-satz-pro-zeile[Zei
 [[formatierung-verweise]]
 === Verweise
 
-Es folgen Beispiele für seiteninterne Verweise auf <<formatierung,Überschriften>>, ein <<beispiel-abbildung>>, ein <<beispiel-tabelle>> oder ein <<beispiel-listing>>.
+Es folgen Beispiele für seiteninterne Verweise auf eine <<formatierung,Überschrift>>, ein <<beispiel-abbildung>>, ein <<beispiel-tabelle>> oder ein <<beispiel-listing>>.
 
-Interne Verweise auf andere Seiten derselben Dokumentation nutzen die xref:seitenvorlage.adoc#formatierung-verweise[Syntax des Xref-Makros von Antora].
+Verweise auf Seiten innerhalb derselben Dokumentation sind auf drei Ebenen möglich: innerhalb desselben Moduls, zwischen zwei Modulen und zwischen zwei Komponenten.
+Verweise enthalten nur die absolut nötigsten Informationen, um das Ziel aufzulösen.
+
+Es folgt ein Beispiel für einen Verweis:
+
+* innerhalb desselben Moduls: xref:kopiervorlage.adoc[],
+* zwischen zwei Modulen: xref:einstieg:erste-schritte.adoc[Erste Schritte im Modul "Einstieg"],
+* zwischen zwei Komponenten: xref:glossary:glossary:master.adoc[Glossar].
+
+Alle Verweise auf andere Seiten derselben Dokumentation nutzen die Syntax des Xref-Makros von Antora.
 
 [NOTE]
 ====
@@ -171,10 +181,14 @@ Optionale Ergänzungen des Textes wie weiterführende Links, Dokumente, Artikel,
 Optionale Inhalte, die eigene Erfahrungswerte (Good / Best Practices, Tipps & Tricks, ...) einbringen.
 ====
 
+// tag::important[]
+
 [IMPORTANT]
 ====
 Allgemeine Vorgaben der IsyFact.
 ====
+
+// end::important[]
 
 [WARNING]
 ====
@@ -186,41 +200,39 @@ Typische Fallstricke bei der Nutzung der IsyFact.
 Typische Fehler bei der Nutzung der IsyFact.
 ====
 
+// tag::anwendungsanforderung[]
+
 .icon:cogs[] Anwendungsanforderung: Anforderung
 ****
 Anforderungen an die Entwicklung von Anwendungen und IT-Systemen.
 ****
 
+// end::anwendungsanforderung[]
+// tag::architekturregel[]
+
 .icon:university[] Architekturregel: Vorgabe
 ****
-Regeln an die Architektur von Anwendungen und IT-Systemen.
+Regeln für die Architektur von Anwendungen und IT-Systemen.
 ****
+
+// end::architekturregel[]
+// tag::sicherheit[]
 
 .icon:shield[] Sicherheit: Vorgabe
 ****
-Regel an die Sicherheit von IT-Systemen.
+Regeln für die Sicherheit von IT-Systemen.
 ****
+
+// end::sicherheit[]
+// tag::styleguide[]
 
 .icon:paint-brush[] Styleguide: Vorgabe
 ****
-Regel zur Gestaltung von grafischen Oberflächen.
+Regeln zur Gestaltung von grafischen Oberflächen.
 ****
+
+// end::styleguide[]
 
 Mehr zu xref:werkzeuge:handbuch_dokumentation/master.adoc#admonition-blocks[Admonition Blocks im Handbuch der Dokumentation].
 
 // end::template[]
-
-[[kopiervorlage]]
-== Kopiervorlage
-
-Der folgende Quelltext dient als Kopiervorlage für neue Seiten.
-
-[source,asciidoc]
-....
-= Titel der Seite
-include::seitenvorlage.adoc[tags=attributes]
-
-\include::glossary:licence:partial$licence.adoc[]
-
-include::seitenvorlage.adoc[tags=template]
-....

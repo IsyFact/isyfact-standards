@@ -1,0 +1,14 @@
+= Kopiervorlage für neue Seiten
+
+include::glossary:licence:partial$licence.adoc[]
+
+Der folgende Quelltext dient als Kopiervorlage für neue Seiten.
+
+[source,asciidoc]
+....
+= Titel der Seite
+
+\include::glossary:licence:partial$licence.adoc[]
+
+include::seitenvorlage.adoc[tags=template]
+....

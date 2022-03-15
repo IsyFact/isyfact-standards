@@ -3,3 +3,4 @@
 ** xref:versionierungskontrolle/master.adoc[Versionierungskontrolle]
 ** xref:handbuch_dokumentation/master.adoc[Dokumentation der IsyFact]
 *** xref:werkzeuge:seitenvorlage.adoc[]
+*** xref:werkzeuge:kopiervorlage.adoc[]

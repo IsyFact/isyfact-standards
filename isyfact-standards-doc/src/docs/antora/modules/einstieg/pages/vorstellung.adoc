@@ -31,12 +31,12 @@ Sie umfasst Standards und Erweiterungen.
 .Aufbau der IsyFact
 image::einstieg:einstieg/isyfact-aufbau.dn.svg[]
 
-Die *IsyFact-Standards* bilden das architektonische, technologische und methodische Fundament der IsyFact.
+Die *xref:vorstellung/isyfact-standards.adoc[]* bilden das architektonische, technologische und methodische Fundament der IsyFact.
 Sie umfassen allgemeingültige und wiederverwendbare Konzepte und Komponenten, die für die Entwicklung beliebiger Geschäftsanwendungen relevant sind. +
-Beispiele: Allgemeine Softwarereferenzarchitektur, Vorgaben zur Fehlerbehandlung, Logging etc.
+*Beispiele:* Allgemeine Softwarereferenzarchitektur, Vorgaben zur Fehlerbehandlung, Logging etc.
 
-Die *IsyFact-Erweiterungen* sind optionale wiederverwendbare Lösungen für verschiedene Problemstellungen, die aufgrund spezifischer Anforderungen des BVA oder seiner Kunden entwickelt wurden und _auf den IsyFact-Standards aufbauen_. +
-Beispiele: Protokollierung, Regelwerk etc.
+Die *xref:vorstellung/isyfact-erweiterungen.adoc[]* sind optionale wiederverwendbare Lösungen für verschiedene Problemstellungen, die aufgrund spezifischer Anforderungen des BVA oder seiner Kunden entwickelt wurden und _auf den IsyFact-Standards aufbauen_. +
+*Beispiele:* Protokollierung, Regelwerk etc.
 
 Die Artefakte der IsyFact-Standards und IsyFact-Erweiterungen werden in gleicher Weise in 5 Säulen klassifiziert, die der Strukturierung der Inhalte der Factory dienen.
 
