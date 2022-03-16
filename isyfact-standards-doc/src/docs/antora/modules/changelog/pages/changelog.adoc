@@ -39,9 +39,8 @@ include::isyfact-standards-doku:methodik:diagrammerstellung/changelog.adoc[tag=r
 include::isyfact-standards-doku:werkzeuge:einrichtung_entwicklungsumgebung/changelog.adoc[tag=release-2.4.0]
 include::isyfact-standards-doku:werkzeuge:handbuch_dokumentation/changelog.adoc[tag=release-2.4.0]
 include::isyfact-standards-doku:werkzeuge:versionierungskontrolle/changelog.adoc[tag=release-2.4.0]
-include::isyfact-erweiterungen-doku:bausteine:benutzerverwaltung/changelog.adoc[tag=release-2.4.0]
-include::isyfact-erweiterungen-doku:plattform:logging-elk/changelog.adoc[tag=release-2.4.0]
-include::isyfact-erweiterungen-doku:plattform:redis/changelog.adoc[tag=release-2.4.0]
+include::isyfact-benutzerverwaltung-doku:benutzerverwaltung:changelog.adoc[tag=release-2.4.0]
+
 
 == Änderungen IsyFact 2.3.0
 
@@ -82,9 +81,7 @@ include::isyfact-standards-doku:methodik:diagrammerstellung/changelog.adoc[tag=r
 include::isyfact-standards-doku:werkzeuge:einrichtung_entwicklungsumgebung/changelog.adoc[tag=release-2.3.0]
 include::isyfact-standards-doku:werkzeuge:handbuch_dokumentation/changelog.adoc[tag=release-2.3.0]
 include::isyfact-standards-doku:werkzeuge:versionierungskontrolle/changelog.adoc[tag=release-2.3.0]
-include::isyfact-erweiterungen-doku:bausteine:benutzerverwaltung/changelog.adoc[tag=release-2.3.0]
-include::isyfact-erweiterungen-doku:plattform:logging-elk/changelog.adoc[tag=release-2.3.0]
-include::isyfact-erweiterungen-doku:plattform:redis/changelog.adoc[tag=release-2.3.0]
+include::isyfact-benutzerverwaltung-doku:benutzerverwaltung:changelog.adoc[tag=release-2.3.0]
 
 == Änderungen IsyFact 2.2.0
 
@@ -126,9 +123,7 @@ include::isyfact-standards-doku:methodik:diagrammerstellung/changelog.adoc[tag=r
 include::isyfact-standards-doku:werkzeuge:einrichtung_entwicklungsumgebung/changelog.adoc[tag=release-2.2.0]
 include::isyfact-standards-doku:werkzeuge:handbuch_dokumentation/changelog.adoc[tag=release-2.2.0]
 include::isyfact-standards-doku:werkzeuge:versionierungskontrolle/changelog.adoc[tag=release-2.2.0]
-include::isyfact-erweiterungen-doku:bausteine:benutzerverwaltung/changelog.adoc[tag=release-2.2.0]
-include::isyfact-erweiterungen-doku:plattform:logging-elk/changelog.adoc[tag=release-2.2.0]
-include::isyfact-erweiterungen-doku:plattform:redis/changelog.adoc[tag=release-2.2.0]
+include::isyfact-benutzerverwaltung-doku:benutzerverwaltung:changelog.adoc[tag=release-2.2.0]
 
 == Änderungen IsyFact 2.1.0
 
@@ -172,9 +167,7 @@ include::isyfact-standards-doku:methodik:diagrammerstellung/changelog.adoc[tag=r
 include::isyfact-standards-doku:werkzeuge:einrichtung_entwicklungsumgebung/changelog.adoc[tag=release-2.1.0]
 include::isyfact-standards-doku:werkzeuge:handbuch_dokumentation/changelog.adoc[tag=release-2.1.0]
 include::isyfact-standards-doku:werkzeuge:versionierungskontrolle/changelog.adoc[tag=release-2.1.0]
-include::isyfact-erweiterungen-doku:bausteine:benutzerverwaltung/changelog.adoc[tag=release-2.1.0]
-include::isyfact-erweiterungen-doku:plattform:logging-elk/changelog.adoc[tag=release-2.1.0]
-include::isyfact-erweiterungen-doku:plattform:redis/changelog.adoc[tag=release-2.1.0]
+include::isyfact-benutzerverwaltung-doku:benutzerverwaltung:changelog.adoc[tag=release-2.1.0]
 
 == Änderungen IsyFact 2.0.0
 
@@ -215,9 +208,7 @@ include::isyfact-standards-doku:methodik:diagrammerstellung/changelog.adoc[tag=r
 include::isyfact-standards-doku:werkzeuge:einrichtung_entwicklungsumgebung/changelog.adoc[tag=release-2.0.0]
 include::isyfact-standards-doku:werkzeuge:handbuch_dokumentation/changelog.adoc[tag=release-2.0.0]
 include::isyfact-standards-doku:werkzeuge:versionierungskontrolle/changelog.adoc[tag=release-2.0.0]
-include::isyfact-erweiterungen-doku:bausteine:benutzerverwaltung/changelog.adoc[tag=release-2.0.0]
-include::isyfact-erweiterungen-doku:plattform:logging-elk/changelog.adoc[tag=release-2.0.0]
-include::isyfact-erweiterungen-doku:plattform:redis/changelog.adoc[tag=release-2.0.0]
+include::isyfact-benutzerverwaltung-doku:benutzerverwaltung:changelog.adoc[tag=release-2.0.0]
 
 == Änderungen IsyFact 1.7.0
 
@@ -263,9 +254,7 @@ include::isyfact-standards-doku:methodik:diagrammerstellung/changelog.adoc[tag=r
 include::isyfact-standards-doku:werkzeuge:einrichtung_entwicklungsumgebung/changelog.adoc[tag=release-1.7.0]
 include::isyfact-standards-doku:werkzeuge:handbuch_dokumentation/changelog.adoc[tag=release-1.7.0]
 include::isyfact-standards-doku:werkzeuge:versionierungskontrolle/changelog.adoc[tag=release-1.7.0]
-include::isyfact-erweiterungen-doku:bausteine:benutzerverwaltung/changelog.adoc[tag=release-1.7.0]
-include::isyfact-erweiterungen-doku:plattform:logging-elk/changelog.adoc[tag=release-1.7.0]
-include::isyfact-erweiterungen-doku:plattform:redis/changelog.adoc[tag=release-1.7.0]
+include::isyfact-benutzerverwaltung-doku:benutzerverwaltung:changelog.adoc[tag=release-1.7.0]
 
 == Änderungen IsyFact 1.6.0
 
@@ -305,6 +294,5 @@ include::isyfact-standards-doku:methodik:diagrammerstellung/changelog.adoc[tag=r
 include::isyfact-standards-doku:werkzeuge:einrichtung_entwicklungsumgebung/changelog.adoc[tag=release-1.6.0]
 include::isyfact-standards-doku:werkzeuge:handbuch_dokumentation/changelog.adoc[tag=release-1.6.0]
 include::isyfact-standards-doku:werkzeuge:versionierungskontrolle/changelog.adoc[tag=release-1.6.0]
-include::isyfact-erweiterungen-doku:bausteine:benutzerverwaltung/changelog.adoc[tag=release-1.6.0]
-include::isyfact-erweiterungen-doku:plattform:logging-elk/changelog.adoc[tag=release-1.6.0]
-include::isyfact-erweiterungen-doku:plattform:redis/changelog.adoc[tag=release-1.6.0]
+include::isyfact-benutzerverwaltung-doku:benutzerverwaltung:changelog.adoc[tag=release-1.6.0]
+
