@@ -1,5 +1,0 @@
-* HttpInvoker
-** xref:konzept/master.adoc[IsyFact-HttpInvoker Konzept]
-** xref:nutzungsvorgaben/master.adoc[IsyFact-HttpInvoker Nutzungsvorgaben]
-
-
