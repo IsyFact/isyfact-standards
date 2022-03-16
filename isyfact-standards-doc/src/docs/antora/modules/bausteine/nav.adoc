@@ -39,7 +39,7 @@
 *** xref:isy-ueberwachung:konzept/master.adoc[Konzept]
 *** xref:isy-ueberwachung:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
 
-** Isy-Util
+** Util
 *** xref:isy-util:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
 
 
