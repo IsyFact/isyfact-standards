@@ -1,6 +1,6 @@
 :doctitle: IsyFact IT-Sicherheitsregeln
 [discrete]
-= Vorgaben
+=== Vorgaben
 
 :sectnums:
 

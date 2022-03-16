@@ -7,6 +7,12 @@
 - `IFS-938`: Neue Architekturregel zur GUI-Validierung wurde hinzugefügt.
 // end::release-2.4.0[]
 
+// *Änderungen IsyFact 2.3.0*
+
+// tag::release-2.3.0[]
+
+// end::release-2.3.0[]
+
 *Änderungen IsyFact 2.2.0*
 
 // tag::release-2.2.0[]

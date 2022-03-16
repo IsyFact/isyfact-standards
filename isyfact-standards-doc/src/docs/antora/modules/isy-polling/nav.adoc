@@ -1,5 +1,0 @@
-* Polling
-** xref:konzept/master.adoc[Polling - Konzept]
-** xref:nutzungsvorgaben/master.adoc[Polling - Nutzungsvorgaben]
-
-

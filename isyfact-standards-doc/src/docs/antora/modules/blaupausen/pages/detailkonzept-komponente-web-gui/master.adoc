@@ -1,6 +1,6 @@
 :doctitle: Komponente Web-GUI
 [discrete]
-= Detailkonzept
+=== Detailkonzept
 
 :sectnums:
 

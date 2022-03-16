@@ -1,6 +1,6 @@
 :doctitle: Baustein Polling
 [discrete]
-= Nutzungsvorgaben
+=== Nutzungsvorgaben
 
 :sectnums:
 :sectnumlevels: 4

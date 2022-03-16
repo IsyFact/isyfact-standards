@@ -1,6 +1,6 @@
 :doctitle: Baustein Konfiguration
 [discrete]
-= Konzept
+=== Konzept
 
 :sectnums:
 

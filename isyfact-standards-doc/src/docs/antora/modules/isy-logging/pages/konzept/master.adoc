@@ -1,6 +1,6 @@
 :doctitle: Baustein Logging
 [discrete]
-= Konzept
+=== Konzept
 
 :sectnums:
 :sectnumlevels: 4

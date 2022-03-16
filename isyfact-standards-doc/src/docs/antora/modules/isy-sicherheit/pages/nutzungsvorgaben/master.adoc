@@ -1,6 +1,6 @@
 :doctitle: Baustein Sicherheit
 [discrete]
-= Nutzungsvorgaben
+=== Nutzungsvorgaben
 
 :sectnums:
 

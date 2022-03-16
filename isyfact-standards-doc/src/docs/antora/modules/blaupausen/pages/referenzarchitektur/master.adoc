@@ -1,6 +1,6 @@
 :doctitle: Referenzarchitektur
 [discrete]
-= Vorgaben
+=== Vorgaben
 
 :sectnums:
 

@@ -18,7 +18,7 @@ Erst durch die Wiederverwendung von bereits entwickelten Komponenten und die Sta
 Die Herausforderung bei der Wiederverwendung besteht darin, das einmal erworbene Wissen über die Anwendungsentwicklung in einer Domäne so zu strukturieren, zu dokumentieren und vorzuhalten, dass nachfolgende Projekte einfach und verlässlich darauf zugreifen können, und damit die Einhaltung des einmal definierten Architekturrahmens sichergestellt ist.
 Software Factories sind ein Mittel, dies zu erreichen.
 Eine Software Factory ist eine Sammlung von Architektur-Blaupausen, Bausteinen, einer Plattform, Methoden und Werkzeugen, die es erlaubt, Anwendungen weitgehend „automatisiert“ und standardisiert zu entwickeln.
-Dabei bedeutet „automatisiert“ hier nicht, dass der Quelltext des Software Systems ohne menschliches Zutun durch einen Automaten erzeugt würde.
+Dabei bedeutet „automatisiert“ hier nicht, dass der Quelltext des Softwaresystems ohne menschliches Zutun durch einen Automaten erzeugt würde.
 Es bezieht sich vielmehr darauf, dass alle wesentlichen technischen Architekturentscheidungen bereits durch die Software Factory getroffen sind, und diese auch entsprechende Komponenten zur Implementierung dieser Architektur bereithält.
 Architekten und Entwickler können sich damit im Normalfall auf die Umsetzung der jeweiligen Fachlichkeit der Anwendung konzentrieren.
 Da die Anwendung jedoch nach wie vor manuell entwickelt (und nicht generiert wird), ist es aber jederzeit möglich, dort von den Vorgaben der Software Factory abzuweichen, wo dies erforderlich ist.
@@ -29,22 +29,22 @@ Da die Anwendung jedoch nach wie vor manuell entwickelt (und nicht generiert wir
 Die *IsyFact* ist eine freie allgemeine Software Factory zum Bau von IT-Systemen, die vom Bundesverwaltungsamt (BVA) bereitgestellt wird.
 Sie umfasst Standards und Erweiterungen.
 
-.Die verschiedenen Ebenen der IsyFact
-[id="image-IFS-IFE",reftext="{figure-caption} {counter:figures}"]
-image::einstieg:einstieg/IFS-IFE.png[align="center"]
+[[isyfact-aufbau]]
+.Aufbau der IsyFact
+image::einstieg:einstieg/isyfact-aufbau.dn.svg[]
 
 Die *IsyFact-Standards* bilden das architektonische, technologische und methodische Fundament der IsyFact.
 Sie umfassen allgemeingültige und wiederverwendbare Konzepte und Komponenten, die für die Entwicklung beliebiger Geschäftsanwendungen relevant sind.
 Beispielsweise: Allgemeine Softwarereferenzarchitektur, Vorgaben zur Fehlerbehandlung, Logging etc.
 
-Die *IsyFact-Erweiterungen* sind optionale wiederverwendbare Lösungen für verschiedene Problemstellungen, die aufgrund spezifischer Anforderungen des BVA oder seiner Kunden entwickelt wurden und __auf den IsyFact-Standards aufbauen__.
-Bspw.: Protokollierung, Regelwerk etc.
+Die *IsyFact-Erweiterungen* sind optionale wiederverwendbare Lösungen für verschiedene Problemstellungen, die aufgrund spezifischer Anforderungen des BVA oder seiner Kunden entwickelt wurden und __auf den IsyFact-Standards aufbauen__. +
+Beispiele: Protokollierung, Regelwerk etc.
 
 Die Artefakte der IsyFact-Standards und IsyFact-Erweiterungen werden in gleicher Weise in 5 Säulen klassifiziert, die der Strukturierung der Inhalte der Factory dienen.
 
+[[isyfact-saeulen]]
 .Die 5 Säulen der IsyFact
-[id="image-IFBereiche",reftext="{figure-caption} {counter:figures}"]
-image::einstieg:einstieg/IFBereiche.png[align="center",width=60%,pdfwidth=60%]
+image::einstieg/isyfact-saeulen.dn.svg[]
 
 Die einzelnen Säulen sind:
 
@@ -62,37 +62,34 @@ Da spezifisches Domänenwissen jedoch per Definition nicht Teil der IsyFact sein
 Dabei wird zunächst beschrieben, welche Teile der IsyFact für die jeweilige Domäne überhaupt relevant sind und zum Einsatz kommen sollen.
 Dann werden die Konzepte der IsyFact konkretisiert, und domänenspezifische Bausteine und Architekturen werden hinzugefügt.
 Diesen Vorgang bezeichnet man insgesamt als __Tailoring__.
-Das Resultat des Tailorings ist eine spezifische Factory für einen Anwendungskontext, wie sie z.B. beim Bundesverwaltungsamt in
-Form der Register Factory für den Kontext der Register Anwendungen erstellt wurde.
-
-NOTE: xref:glossary:literaturextern:inhalt.adoc#litextern-Register-Factory[Register Factory]
+Das Resultat des Tailorings ist eine spezifische Factory für einen Anwendungskontext, wie sie z.B. beim Bundesverwaltungsamt in Form der xref:glossary:literaturextern:inhalt.adoc#litextern-Register-Factory[Register Factory] für den Kontext der Register Anwendungen erstellt wurde.
 
 Das Tailoring ist ein sinnvoller Schritt, um möglichst viel Wissen über die Entwicklung von Anwendungen in Form einer Factory vorzuhalten.
 Es ist für die Nutzung der IsyFact jedoch nicht erforderlich.
-Insgesamt gibt es vier mögliche Nutzungsszenarien, die in <<image-IsyFact-Produkte>> beschrieben und im Folgenden erläutert werden:
+Insgesamt gibt es vier mögliche <<isyfact-nutzungsszenarien,Nutzungsszenarien>>, die im Folgenden erläutert werden:
 
+[[isyfact-nutzungsszenarien]]
 .Nutzungsszenarien der IsyFact
-[id="image-IsyFact-Produkte",reftext="{figure-caption} {counter:figures}"]
-image::einstieg:einstieg/IsyFact-Produkte.png[align="center",width=70%,pdfwidth=70%]
+image::einstieg/isyfact-nutzung.dn.svg[]
 
-* **Szenario 1 – Direkte Nutzung der IsyFact-Standards**: Die direkte Nutzung des Standards ermöglicht es, von den Vorteilen der bewährten Standards der Factory unmittelbar zu profitieren.
+* **Szenario 1 – Nutzung der IsyFact-Standards:** Die direkte Nutzung des Standards ermöglicht es, von den Vorteilen der bewährten Standards der Factory unmittelbar zu profitieren.
 Dieses Szenario ist insbesondere immer dann sinnvoll, wenn einzelne Systeme und keine komplette Anwendungslandschaft gleichartiger zusammenhängender Systeme umgesetzt werden sollen.
-* **Szenario 2 – Nutzung von IsyFact-Erweiterungen**: Die IsyFact-Erweiterungen sind fertige Speziallösungen, die in „beliebigen“ Verfahren zum Einsatz kommen können.
+* **Szenario 2 – Nutzung der IsyFact-Erweiterungen:** Die IsyFact-Erweiterungen sind fertige Speziallösungen, die in „beliebigen“ Verfahren zum Einsatz kommen können.
 Dies ist oft sogar dann möglich, wenn die IsyFact-Standards im jeweiligen Verfahren nicht angewandt werden.
 Der Einsatz der Standards wird jedoch empfohlen.
 In diesem Szenario findet ein „leichtgewichtiges Tailoring“ statt, in dem die relevanten Erweiterungen ausgewählt werden.
-* **Szenario 3 – Nutzung einer bestehenden spezifischen Factory**: Wenn für denselben oder einen ähnlichen Anwendungskontext bereits eine spezifische Factory zur Verfügung steht (wie bspw.
-die Register Factory) kann diese direkt verwendet werden.
+* **Szenario 3 – Nutzung einer bestehenden spezifischen Factory:** Wenn für denselben oder einen ähnlichen Anwendungskontext bereits eine spezifische Factory zur Verfügung steht (wie z.B. die Register Factory) kann diese direkt verwendet werden.
 Eine spezifische Factory ist eine durch Tailoring zugeschnittene Variante der IsyFact, die diese um spezifische Aspekte des jeweiligen Kontextes erweitert.
-* **Szenario 4 – Definition einer neuen spezifischen Factory**: Die IsyFact ermöglicht und fördert die Definition von neuen spezifischen Factories.
+* **Szenario 4 – Definition einer neuen spezifischen Factory:** Die IsyFact ermöglicht und fördert die Definition von neuen spezifischen Factories.
 Dies ist dann sinnvoll, wenn eine große homogene Anwendungslandschaft in einem spezifischen Kontext aufgebaut werden soll, für den bisher keine spezifische Factory existiert.
-
-Dabei empfiehlt es sich, nach einer initialen Analyse und Auswahl der einzusetzenden IsyFact-Komponenten im Weiteren iterativ vorzugehen: Parallel zur Entwicklung der ersten Geschäftsanwendung auf der Basis der IsyFact fließen die dabei gewonnenen Erfahrungen in das Tailoring ein.
++
+Dabei empfiehlt es sich, nach einer initialen Analyse und Auswahl der einzusetzenden IsyFact-Komponenten im Weiteren iterativ vorzugehen.
+Parallel zur Entwicklung der ersten Geschäftsanwendung auf der Basis der IsyFact fließen die dabei gewonnenen Erfahrungen in das Tailoring ein.
 So entstehen für nachfolgende Anwendungs-Entwicklungen eine spezifische Referenzarchitektur und die Komponenten, mit denen sie implementiert werden kann.
 Die folgenden Entwicklungen sind wiederum der Prüfstein für die Qualität und Reife der spezifischen Factory und liefern neue Erkenntnisse für ihre Fortschreibung.
-Auf diese Weise stabilisiert sich mit der Zeit die Factory für die eigene Anwendungsdomäne.
+Auf diese Weise stabilisiert sich mit der Zeit die spezifische Factory für den eigenen Anwendungskontext.
 
-[[festlegungen-der-isyfact-konformität]]
+[[festlegungen-der-isyfact-konformitaet]]
 === Festlegungen der IsyFact-Konformität
 
 Durch die unterschiedlichen Nutzungsszenarien der IsyFact existieren mehrere Varianten, die den Grad der Verwendung von IsyFact in einer Anwendung beschreiben.
@@ -110,11 +107,11 @@ Im Prinzip ist jede IsyFact-Anwendung auch eine IsyFact-Erweiterung, bietet aber
 Das Bundesverwaltungsamt hat sich entschlossen, die IsyFact-Standards als Open Source zu veröffentlichen damit zum einen ein möglichst großer Kreis von Anwendern von der bisherigen Entwicklung profitiert.
 Langfristig ist das Ziel, zusätzlich einen Marktplatz zu etablieren, auf dem jeder Anwender seine Weiterentwicklungen und neuen Komponenten mit anderen Anwendern teilen kann.
 
+[[isyfact-marktplatz]]
 .Mitarbeit an der IsyFact
-[id="image-vision",reftext="{figure-caption} {counter:figures}"]
-image::einstieg:einstieg/Vision.png[align="center",width=80%,pdfwidth=80%]
+image::einstieg/isyfact-marktplatz.dn.svg[]
 
-Für die Beteiligung an der Weiterentwicklung der IsyFact gibt es zwei Möglichkeiten (siehe <<image-vision>>):
+Für die Beteiligung an der Weiterentwicklung der IsyFact gibt es <<isyfact-marktplatz,zwei Möglichkeiten>>:
 
 * Die *IsyFact-Standards* bilden eine feste Basis, die nur vom BVA selbst weiterentwickelt wird.
 Anwender können aber jederzeit Verbesserungsvorschläge oder Alternativen für bestehende Komponenten einbringen.
@@ -141,12 +138,12 @@ Die Anwendungsarchitektur der Register Factory und deren Bausteine und Methoden 
 Register sind lediglich Spezialfälle solcher Geschäftsanwendungen.
 Um die Artefakte der Register Factory auch in anderen Kontexten zur Verfügung zu stellen, wurden die bestehenden Artefakte der Register Factory umstrukturiert und neu aufgeteilt in IsyFact (Standards und Erweiterungen) und Register Factory.
 
-.Aufteilung der Register Factory zur IsyFact
-[id="image-RF-Aufteilung",reftext="{figure-caption} {counter:figures}"]
-image::einstieg:einstieg/RF-Aufteilung.png[align="center",width=80%,pdfwidth=80%]
+[[isyfact-entstehung]]
+.Entstehung der IsyFact aus der Register Factory
+image::einstieg:einstieg/isyfact-entstehung-aus-rf.dn.svg[]
 
 Die IsyFact enthält ausschließlich allgemeingültige „register-neutrale“ Konzepte und Komponenten.
-Die Register Factory ist seit deren Umstellung eine spezifische Factory, die auf der IsyFact aufbaut (vergleiche die verschiedenen Nutzungsszenarien in Abschnitt 2.3). Sie wird durch das BVA ebenfalls aktiv weiterentwickelt.
+Die Register Factory ist seit deren Umstellung eine spezifische Factory, die auf der IsyFact aufbaut (s. <<nutzungsszenarien-und-tailoring>>). Sie wird durch das BVA ebenfalls aktiv weiterentwickelt.
 
 [[rahmenbedingungen]]
 == Rahmenbedingungen
@@ -160,10 +157,10 @@ Ihre Umstellung zu einer allgemeinen, von diesem Entstehungskontext losgelösten
 [id="auswirkung-der-historie-der-isyfact",reftext="Auswirkung der Historie der IsyFact"]
 === Auswirkung der Historie der IsyFact
 
-Auf Grund der Historie der IsyFact (siehe Kapitel <<historie-der-isyfact>>), besitzen die Artefakte der IsyFact teilweise noch Bezug zum Kontext der Register Factory: Die enthaltenen Dokumente der IsyFact beschreiben allgemein die Entwicklung von Geschäftsanwendungen.
+Aufgrund der Historie der IsyFact (siehe Kapitel <<historie-der-isyfact>>), besitzen die Artefakte der IsyFact teilweise noch Bezug zum Kontext der Register Factory: Die enthaltenen Dokumente der IsyFact beschreiben allgemein die Entwicklung von Geschäftsanwendungen.
 Die verwendeten Beispiele stammen jedoch zum Teil aus dem Kontext der Registeranwendungen.
 Daher finden sich Begriffe wie „Register“ vielfach noch in Beispielquelltexten wieder. Ähnliches gilt auch für Pfadangaben, Parameternamen oder Variablen, die insbesondere in den Konzepten für den Betrieb der Systemlandschaft auftauchen.
-Die entsprechenden Bezeichner sind nicht als zwingende Vorgaben zu verstehen, sondern spiegeln einfach die Historie und den aktuellen Stand der IsyFact wieder.
+Die entsprechenden Bezeichner sind nicht als zwingende Vorgaben zu verstehen, sondern spiegeln einfach die Historie und den aktuellen Stand der IsyFact wider.
 Unter anderem wurden bestehende Konventionen auch deshalb nicht verändert, um die Konsistenz der Dokumentation mit bestehenden IsyFact-konformen Systemlandschaften zu wahren.
 
 Eine andere, ebenfalls historisch bedingte Bezeichnung für eine IsyFact-Systemlandschaft ist „Plattform für Informationssysteme“, kurz __PLIS__.
@@ -236,7 +233,7 @@ für eines oder mehrere IT-Systeme.
 * **Architekturboard**: Das Architekturboard ist ein Gremium, welches die konzeptionelle Weiterentwicklung einer spezifischen Factory steuert.
 Es tritt regelmäßig zusammen, um aktuelle Anforderungen und Problemstellungen zu diskutieren und die langfristige Tragfähigkeit der Factory sicherzustellen.
 
-[[styleguides-und-die-gestaltung-von-benutzeroberflächen]]
+[[styleguides-und-die-gestaltung-von-benutzeroberflaechen]]
 === Styleguides und die Gestaltung von Benutzeroberflächen
 
 Bei der Entwicklung einer Anwendungslandschaft sollten nicht nur die Architektur der einzelnen Anwendungen, sondern auch die Benutzeroberflächen einheitlichen Standards folgen.
@@ -249,7 +246,7 @@ Es wird jedoch vorausgesetzt, dass jeder Anwender der IsyFact einen eigenen Styl
 
 Die Dokumentation der IsyFact folgt einer festgelegten Struktur.
 Dokumente wie dieser Einstieg liegen im *allgemeinen* Teil der Dokumentation.
-Der Teil enthält außerdem das xref:tutorial/master.adoc#einleitung[IsyFact - Tutorial].
+Der Teil enthält außerdem das xref:tutorial/master.adoc#einleitung[Tutorial].
 
 Die Dokumentation der *Blaupausen* enthält je ein Detailkonzept pro Blaupause.
 
@@ -329,11 +326,11 @@ Die softwaretechnische Architektur wird auf Basis der Spezifikation aus der fach
 Im Dokument xref:blaupausen:referenzarchitektur-it-system/master.adoc#einleitung[IsyFact Referenzarchitektur IT-Systeme] wird die softwaretechnische Architektur eingeführt und erläutert.
 Die technischen Entsprechungen für die fachlich motivierte Anwendungslandschaft und das Anwendungssystem sind die technisch motivierten Begriffe der Systemlandschaft und respektive des IT-Systems.
 
-Ein IT-System basiert auf einer Drei-Schichten-Architektur und besteht aus den Komponenten, die in <<image-image008>> dargestellt sind.
+Ein IT-System basiert auf einer Drei-Schichten-Architektur und besteht aus den Komponenten, die in <<refarch-technisch,der softwaretechnischen Referenzarchitektur eines IT-Systems>> dargestellt sind.
 
+[[refarch-technisch]]
 .Softwaretechnische Referenzarchitektur eines IT-Systems
-[id="image-image008",reftext="{figure-caption} {counter:figures}"]
-image::einstieg:einstieg/image008.png[align="center"]
+image::blaupausen:referenzarchitektur-it-system/RAITSys.png[]
 
 Die Abbildung der fachlichen Architektur wird vor allem durch die Fachkomponenten sichtbar.
 Jede Fachkomponente besitzt, soweit sinnvoll, eine Entsprechung in jeder Komponente des IT-Systems.
@@ -345,7 +342,7 @@ Eine beispielhafte Umsetzung eines IT-Systems zeigt die xref:glossary:literature
 
 Datenzugriff::
 Der Datenzugriff erfolgt über JPA.
-Das xref:blaupausen:detailkonzept-komponente-datenzugriff/master.adoc#_detailkonzept_datenzugriff_einleitung[Detailkonzept Komponente Datenzugriff] legt die genaue Verwendung von JPA fest und beschreibt die Prinzipien sowie das Vorgehen zur Persistierung von Datenmodellen.
+Das xref:blaupausen:detailkonzept-komponente-datenzugriff/master.adoc#Einleitung[Detailkonzept Komponente Datenzugriff] legt die genaue Verwendung von JPA fest und beschreibt die Prinzipien sowie das Vorgehen zur Persistierung von Datenmodellen.
 
 Anwendungskern::
 Der Anwendungskern setzt die Fachlichkeit mittels Fachkomponenten um.
@@ -354,7 +351,7 @@ Die Ergänzung durch technische Komponenten und weitere Vorgaben, z.B. zur Konfi
 
 Batch::
 Batches sind eine Möglichkeit zur Nutzung von IT-Systemen über zeitgesteuerte und automatisch ablaufende, fachliche Operationen.
-Das xref:blaupausen:detailkonzept-komponente-batch/master.adoc#_einführung[Detailkonzept Komponente Batch] beschreibt die Vorgaben für Batches sowie den Aufbau der Batch-Komponente.
+Das xref:blaupausen:detailkonzept-komponente-batch/master.adoc#einfuehrung[Detailkonzept Komponente Batch] beschreibt die Vorgaben für Batches sowie den Aufbau der Batch-Komponente.
 Zur Umsetzung von Batches wird der Batchrahmen der IsyFact vorgeschrieben.
 
 Service::
@@ -365,7 +362,7 @@ Die konkrete Umsetzung mit dem Service-Framework HTTP Invoker sind im xref:isy-s
 GUI::
 Grafische Oberflächen bieten fachliche Operationen nach außen an und stellen sie Anwendern zur Nutzung bereit.
 Ihre Umsetzung geschieht als Web-GUI und folgt dem MVC-Pattern.
-Die genauen Festlegungen zur Web-GUI-Entwicklung finden sich im Dokument xref:blaupausen:detailkonzept-komponente-web-gui/master.adoc#_detailkonzept[Detailkonzept Komponente WebGUI].
+Die genauen Festlegungen zur Web-GUI-Entwicklung finden sich im Dokument xref:blaupausen:detailkonzept-komponente-web-gui/master.adoc#Einleitung[Detailkonzept Komponente Web-GUI].
 
 Die Erstellung von IT-Systemen wird durch einen Systementwurf konkretisiert und dokumentiert.
 
@@ -404,7 +401,7 @@ Die Bibliotheken der IsyFact werden als JAR (Java Archive) bereitgestellt und k�
 
 Darüber hinaus existiert eine xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung], die eine einfache Geschäftsanwendung („Terminfindung“) auf Grundlage der IsyFact implementiert.
 
-Neben der Vorlageanwendung gibt es mit dem IsyFact-Tutorial xref:einstieg:tutorial/master.adoc#einleitung[IsyFact Tutorial] eine weitere Handreichung, um sich in die Implementierungsvorgaben einzuarbeiten.
+Neben der Vorlageanwendung gibt es mit dem xref:einstieg:tutorial/master.adoc#einleitung[Tutorial] eine weitere Handreichung, um sich in die Implementierungsvorgaben einzuarbeiten.
 
 [[bausteine-der-isyfact-standards]]
 === Bausteine der IsyFact-Standards
@@ -421,7 +418,7 @@ Der Baustein Datum & Zeit beschreibt die Verwendung der _Java 8 Date & Time API_
 Das xref:isy-datetime:konzept/master.adoc#einleitung[Konzept Datum/Zeit] beschreibt die konzeptionellen Grundlagen der Verarbeitung von Datums- und Zeitwerten.
 Die xref:isy-datetime:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Datum/Zeit] beschreiben alle Aspekte, die bei der Entwicklung einer Anwendung zu berücksichtigen sind.
 
-[[administrative-überwachung-und-konfiguration]]
+[[administrative-ueberwachung-und-konfiguration]]
 ==== Administrative Überwachung und Konfiguration
 Das Dokument xref:isy-ueberwachung:konzept/master.adoc#einleitung[Konzept Überwachung] beschreibt, welche Arten von Konfiguration für eine Anwendung vorgesehen sind und wie diese umgesetzt werden sollen.
 Weiterhin wird in diesem Dokument gezeigt, wie die Überwachung und Administration einer Anwendung seitens des Systembetriebs erfolgt und welche Schnittstellen dazu durch die Anwendung zur Verfügung gestellt werden müssen.
@@ -491,7 +488,7 @@ Diese werden in xref:isy-util:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvo
 == IsyFact-Erweiterungen
 
 Aktuell werden nur wenige Erweiterungen unter einer Open-Source-Lizenz zur Verfügung gestellt (siehe auch Kapitel <<aktueller-stand-und-weiterentwicklung>>).
-Auf den xref:glossary:literaturextern:inhalt.adoc#litextern-Webseiten-Register-Factory[Webseiten der Register Factory] befindet sich eine Übersicht über vorhandene Bausteine, die in Zukunft potentiell als IsyFact-Erweiterung zur Verfügung gestellt werden.
+Auf den xref:glossary:literaturextern:inhalt.adoc#litextern-Webseiten-Register-Factory[Webseiten der Register Factory] befindet sich eine Übersicht über vorhandene Bausteine, die in Zukunft potenziell als IsyFact-Erweiterung zur Verfügung gestellt werden.
 Teilweise können diese auf Anfrage herausgegeben werden.
 
 NOTE: Bei Interesse wenden Sie sich bitte per E-Mail (isyfact@bva.bund.de) an uns.
@@ -507,7 +504,7 @@ Diese werden im Folgenden dargestellt:
 
 Der Baustein Benutzerverwaltung stellt eine leichtgewichtige Anwendungskomponente zur lokalen Verwaltung von Benutzern und Rollen bereit und ist vor allem für kleine, eigenständige Anwendungen gedacht.
 Anwendungen können mithilfe der Komponente auf einfache Weise Benutzer und Rollen verwalten, die Anwendung absichern sowie auf eine vorgefertigte grafische Oberfläche zurückgreifen.
-Die <<TODO anderes Dokument: NutzungsvorgabenBenutzerverwaltung>> zeigen, wie die Anwendungskomponente in eine Anwendung integriert und genutzt werden kann.
+Die xref:isyfact-benutzerverwaltung-doku:benutzerverwaltung:master.adoc[Nutzungsvorgaben Benutzerverwaltung] zeigen, wie die Anwendungskomponente in eine Anwendung integriert und genutzt werden kann.
 
 [[styleguide]]
 ==== Styleguide
@@ -535,20 +532,24 @@ Konkret beinhaltet die Erweiterung die Implementierung des Access Managers für 
 IsyFact ist modular aufgebaut und gibt keine strikte Lese-Reihenfolge vor.
 Um die IsyFact als Ganzes kennenzulernen, zu verstehen und einzusetzen, empfehlen wir das Folgende an den 5 Säulen orientierte Vorgehen:
 
-.  **IsyFact-Tutorial**: Das Tutorial gibt einen Überblick über wichtige Aspekte der IsyFact-konformen Anwendungsentwicklung. Es erleichtert dem Nutzer, die für ihn relevanten Aspekte der IsyFact zu identifizieren, die im Detail durchgearbeitet werden sollten.
-.  **Blaupausen**: Die Blaupausen beschreiben auf mehreren Ebenen die Architektur, die allen anderen Konzepten der IsyFact zugrunde liegt und führen häufig verwendete Begriffe ein. Es bietet sich daher an, bei der Einarbeitung mit dieser „Säule“ zu beginnen.
-.  **Bausteine**: Danach sollten die _relevanten_ Bausteine im Detail gelesen werden.
-.  **Plattform und Methodik**: Plattform und Methodik sollten wiederum im Ganzen gelesen werden, da sie querschnittlich die Basis des Systembetriebs bzw. der angewandten Methodik beschreiben.
-.  **Werkzeuge:** Die Werkzeuge sind erst bei der tatsächlichen Realisierung der Systeme relevant. Es ist jedoch sinnvoll sich im Voraus einen Überblick zu verschaffen.
-.  **Tailoring**: Das Tailoring-Dokument bietet einen Überblick über die Zuschneidbarkeit der Factory. Dies ist insbesondere dann relevant, wenn eine eigene Factory etabliert werden soll.
+. Das *Tutorial* gibt einen Überblick über wichtige Aspekte der IsyFact-konformen Anwendungsentwicklung.
+Es erleichtert dem Nutzer, die für ihn relevanten Aspekte der IsyFact zu identifizieren, die im Detail durchgearbeitet werden sollten.
+. Die *Blaupausen* beschreiben auf mehreren Ebenen die Architektur, die allen anderen Konzepten der IsyFact zugrunde liegt und führen häufig verwendete Begriffe ein.
+Es bietet sich daher an, bei der Einarbeitung mit dieser „Säule“ zu beginnen.
+. Danach sollten die _relevanten_ *Bausteine* im Detail gelesen werden.
+. *Plattform und Methodik* sollten wiederum im Ganzen gelesen werden, da sie querschnittlich die Basis des Systembetriebs bzw. der angewandten Methodik beschreiben.
+. Die *Werkzeuge* sind erst bei der tatsächlichen Realisierung der Systeme relevant.
+Es ist jedoch sinnvoll sich im Voraus einen Überblick zu verschaffen.
+. Das *Tailoring*-Dokument bietet einen Überblick über die Zuschneidbarkeit der Factory.
+Dies ist insbesondere dann relevant, wenn eine eigene Factory etabliert werden soll.
 
+[[isyfact-einarbeitung]]
 .Einarbeitung in die IsyFact
-[id="image-IF-Factory",reftext="{figure-caption} {counter:figures}"]
-image::einstieg:einstieg/IF-Factory.png[align="center",width=70%,pdfwidth=70%]
+image::einstieg/isyfact-einarbeitung.dn.svg[]
 
 Während der gesamten Einarbeitung dient außerdem das xref:glossary:master.adoc#startpoint[IsyFact Glossar] dazu, zentrale Begriffe der IsyFact nachzuschlagen.
 
-// Die unten stehenden Tags architekturregel[] und sicherheit[] muessen bestehen bleiben, solange die Tags nicht im Inhalt verwendet werden.
+// Die unten stehenden Tags architekturregel[] und sicherheit[] müssen bestehen bleiben, solange die Tags nicht im Inhalt verwendet werden.
 
 // tag::architekturregel[]
 
