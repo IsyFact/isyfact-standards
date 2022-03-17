@@ -16,13 +16,6 @@ NOTE: Bei Interesse wenden Sie sich bitte per E-Mail (isyfact@bva.bund.de) an un
 Die IsyFact-Erweiterungen stellen eine Reihe von Bausteine zur Verfügung, die bei Bedarf eingesetzt werden können.
 Diese werden im Folgenden dargestellt:
 
-[[benutzerverwaltung]]
-=== Benutzerverwaltung
-
-Der Baustein Benutzerverwaltung stellt eine leichtgewichtige Anwendungskomponente zur lokalen Verwaltung von Benutzern und Rollen bereit und ist vor allem für kleine, eigenständige Anwendungen gedacht.
-Anwendungen können mithilfe der Komponente auf einfache Weise Benutzer und Rollen verwalten, die Anwendung absichern sowie auf eine vorgefertigte grafische Oberfläche zurückgreifen.
-Die xref:isyfact-benutzerverwaltung-doku:benutzerverwaltung:master.adoc[Nutzungsvorgaben Benutzerverwaltung] zeigen, wie die Anwendungskomponente in eine Anwendung integriert und genutzt werden kann.
-
 [[styleguide]]
 === Styleguide
 Der Baustein Styleguide beschreibt die Gestaltung grafischer Oberflächen nach einheitlichen Gesichtspunkten.
