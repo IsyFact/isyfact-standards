@@ -224,27 +224,6 @@ Die _Dokument-ID_ des Konzepts des Bausteins ´isy-persistence´ ist zum Beispie
 
 Das Verzeichnis ist nun angelegt und die Asciidoc-Dateien aus der Mustervorlage können nun abgelegt werden.
 
-[[die-mustervorlage-vorbereiten]]
-=== Die Mustervorlage vorbereiten
-
-Um Sie (als technischen Autor) bei der Erstellung des neuen IsyFact-Dokuments zu unterstützen, wurde die Dokumentenvorlage (isy-dokumentenvorlagen) erstellt.
-Die Dokumentenvorlage enthält Musterinhalte, die Sie als Grundlage für Ihr neues Dokument verwenden können.
-
-Es gibt zwei verschiedene Wege, um auf die Dokumentvorlage zuzugreifen:
-
-*1. Klonen des Projektes isy-dokumentvorlagen*
-Hierfür wechseln Sie auf der Kommandozeile auf eine geeignete Stelle Ihrer lokalen Festplatte und geben dort folgendes Kommando ein.
-====
-C:\tmp\> *git clone* https://github.com/IsyFact/isy-dokumentvorlagen
-====
-Nun werden die Dokumentvorlagen heruntergeladen.
-Die Musterdateien befinden sich anschließend im Verzeichnis unter `isy-dokumentvorlagen/docs/Dokument-Vorlage`.
-
-*2. Nutzung der Dokumentvorlagen aus dem Build der Dokumentation/des Bausteins*
-Während des Build-Vorgangs werden die Dokumentvorlagen automatisch geladen und im `target` Verzeichnis der Dokumentation abgelegt.
-Um den Build-Vorgang zu starten, wird mit der Konsole in das Verzeichnis `isy-documentation` oder den jeweiligen Baustein navigiert und der Befehl `mvn install` ausgeführt.
-Der Build-Vorgang nimmt einige Zeit in Anspruch, da gleichzeitig auch die Dokumentation neu gerendert wird.
-Die Musterdateien befinden sich anschließend im Verzeichnis unter `/target/isy-dokumentvorlagen/docs/Dokument-Vorlage`.
 
 Nun kopieren Sie die Musterdateien in das neu angelegte Zielverzeichnis und erstellen ein neues Unterverzeichnis mit der Bezeichnung `images`.
 In dem neu erzeugten Verzeichnis `images` werden Bilder und Grafiken abgelegt, die im neu zu erstellenden Dokument verwendet werden sollen.
@@ -1472,4 +1451,186 @@ und
 
 An die Changelogeintrag gelten die in Kapitel <<inhalt-komponentenchangelog>> beschriebenen Anforderungen.
 Komponentenübergreifende Einträge sind dem gekennzeichneten Bereich hinzuzufügen (vgl. <<listing-projektchangelog_einbindung_komponentenchangelog>>).
+
+
+[[inhalt-isy-asciidoctorj-extensions]]
+== isy-asciidoctorj-extensions
+
+`isy-asciidoctorj-extensions` ist eine Sammlung von verschiedenen https://asciidoctor.org/docs/asciidoctorj/[AsciidoctorJ] Extensions welche die Wartung der IsyFact-Dokumentation erleichtern.
+Eine Liste aller IsyFact Extensions befindet sich im Abschnitt <<isyfact-extensions,IsyFact Extensions>>
+
+
+=== Installation
+
+Die Extensions können über das `asciidoctor-maven-plugin` eingebunden werden.
+Folgendes Listing zeigt die Konfiguration für einen lauffähigen Asciidoctor Build inklusive `isy-asciidoctorj-extensions`.
+
+[source,xml]
+----
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.asciidoctor</groupId>
+            <artifactId>asciidoctor-maven-plugin</artifactId>
+            <version>2.1.0</version> (1)
+            <dependencies>
+                <dependency>
+                    <groupId>org.asciidoctor</groupId>
+                    <artifactId>asciidoctorj-pdf</artifactId>
+                    <version>1.5.3</version>
+                </dependency>
+                <dependency>
+                    <groupId>de.bund.bva.isyfact</groupId> (2)
+                    <artifactId>isy-asciidoctorj-extensions</artifactId>
+                    <version>2.2.0</version>
+                </dependency>
+            </dependencies>
+            <configuration>
+                <sourceDirectory>src/docs</sourceDirectory>
+                <sourceDocumentName>master.adoc</sourceDocumentName>
+                <attributes>
+                    <revnumber>IF-${project.version}</revnumber>
+                    <revdate>${maven.build.timestamp}</revdate>
+                    <version-ifs>2.0.x</version-ifs>
+                </attributes>
+            </configuration>
+            <executions>
+                <execution>
+                    <id>html-build</id>
+                    <phase>generate-resources</phase>
+                    <goals>
+                        <goal>process-asciidoc</goal>
+                    </goals>
+                    <configuration>
+                        <backend>html</backend>
+                        <outputFile>${project.build.directory}/docs/Dokument.html</outputFile>
+                    </configuration>
+                </execution>
+                <execution>
+                    <id>pdf-build</id>
+                    <phase>generate-resources</phase>
+                    <goals>
+                        <goal>process-asciidoc</goal>
+                    </goals>
+                    <configuration>
+                        <backend>pdf</backend>
+                        <outputFile>${project.build.directory}/docs/Dokument.pdf</outputFile>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
+
+----
+
+|||
+| — | ———— |
+| (1) | Es wird die aktuellste Version des Maven Plugins benötigt |
+| (2) | Einfügen der `isy-asciidoctorj-extensions` als Dependencies des Maven Plugins |
+
+
+== IsyFact Extensions
+
+Die IsyFact bietet derzeit folgende AsciidoctorJ Extensions an.
+
+|===
+|Extension |Kasse |<div style="width: 60%">Beschreibung</div>
+
+|<<IsyAttributesPreprocessor,`IsyAttributesPreprocessor`>> |`de.bund.bva.isyfact.attributes.IsyAttributesPreprocessor` |Fügt alle IsyFact Attribute am Anfang eines Dokuments ein. Erzeugt den Titel und wählt das passende Theme für ein Dokument.
+|`BibliographyPreprocessor` |`de.bund.bva.isyfact.bibliography.BibliographyPreprocessor` |Erzeugt ein Literaturverzeichnis aus allen bekannten Quellen die im Dokument enthalten und als Referenz markiert sind.
+|<<ColophonBlockMacroProcessor,`ColophonBlockMacroProcessor`>> |`de.bund.bva.isyfact.colophon.ColophonBlockMacroProcessor` |Erzeugt allgemeine Dokumentinformationen durch Verarbeiten des `colophon::[]` Blocks.
+|<<IsyGlossaryBlockMacroProcessorTest,`IsyGlossaryBlockMacroProcessorTest`>> |`de.bund.bva.isyfact.glossary.IsyGlossaryBlockMacroProcessorTest` |Erzeugt das zentrale Glossar durch Verarbeiten des `isy-glossary::[]` Blocks.
+|`GlossaryPreprocessor` |`de.bund.bva.isyfact.glossary.GlossaryPreprocessor` |Erzeugt ein Glossar mit allen bekannten Begriffen, die im Dokument enthalten und als Referenz markiert sind.
+|`ListOfPreprocessor` |`de.bund.bva.isyfact.listof.ListOfPreprocessor` |Erzeugt ein Abbildungs- Tabellen- und Listenverzeichnis für alle Elemente die entsprechend markiert sind.
+|===
+
+
+=== IsyAttributesPreprocessor
+
+Der `IsyAttributesPreprocessor` fügt die Standard IsyFact Attribute in jedes Dokument ein. Er berücksichtigt dabei alle
+alle benutzerdefinierten Attribute, die am Anfang eines AsciiDoc Dokuments definiert werden (Leerzeichen und Kommentare werden ignoriert).
+
+Mit Hilfe der Attribute wird der Titel mit optionalem Untertitel generiert, sowie das passende Theme für das Dokument
+ausgewählt. Dabei können folgende Attribute angepasst werden.
+
+|===
+|Attribut |Beschreibung |Default
+
+|`factory` |Wählt das passende Logo und Deckblatt für die Factory. Es kann gewählt werden zwischen `&quot;IsyFact-Standards&quot;`, `&quot;IsyFact-Erweiterungen&quot;` und `&quot;Register Factory&quot;` |`&quot;IsyFact-Standards&quot;`
+|`open-source` |Beschreibt ob das Dokument unter der Open Source (`true`) oder Closed Source (`false`) Lizenz der IsyFact veröffentlicht wird |`true`
+|===
+
+Standardmäßig sind die Extensions auf den Bau von IsyFact Bausteinen mit einer OpenSource Lizenz konfiguriert.
+Folgendes Beispiel zeigt den Bau einer Register Factory Dokumentation.
+
+[source,xml]
+----
+<plugin>
+    <groupId>org.asciidoctor</groupId>
+    <artifactId>asciidoctor-maven-plugin</artifactId>
+    <version>2.1.0</version>
+    <dependencies>
+        <dependency>
+            <groupId>org.asciidoctor</groupId>
+            <artifactId>asciidoctorj-pdf</artifactId>
+            <version>1.5.3</version>
+        </dependency>
+        <dependency>
+            <groupId>de.bund.bva.isyfact</groupId>
+            <artifactId>isy-asciidoctorj-extensions</artifactId>
+            <version>2.2.0</version>
+        </dependency>
+    </dependencies>
+
+    <configuration>
+        <outputDirectory>${project.build.directory}</outputDirectory>
+        <attributes>
+            <revnumber>RF 1.18</revnumber>
+            <revdate>${maven.build.timestamp}</revdate>
+        </attributes>
+    </configuration>
+
+    <executions>
+        <execution>
+            <id>Mein-RF-Dokument-pdf</id>
+            <phase>generate-resources</phase>
+            <goals>
+                <goal>process-asciidoc</goal>
+            </goals>
+            <configuration>
+                <backend>pdf</backend>
+                <sourceDirectory>src/docs/asciidoc/Dokument</sourceDirectory>
+                <sourceDocumentName>master.adoc</sourceDocumentName>
+                <attributes>
+                    <factory>Register Factory</factory>
+                </attributes>
+                <outputFile>
+                    ${project.build.directory}/pdf/Dokument.pdf
+                </outputFile>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
+----
+
+=== ColophonBlockMacroProcessor
+
+Der `ColophonBlockMacroProcessor` erkennt `colophon::[]` Blöcke im Asciidoc Code und ersetzt diese durch die allgemeinen
+Dokumentinformationen der IsyFact. Dabei können noch folgende optionalen Attribute angegeben werden.
+
+|===
+|Attribut |Beschreibung |Default
+
+|`factory` |Gibt den namen der Factory des Dokuments an. Es kann gewählt werden zwischen `&quot;IsyFact-Standards&quot;`, `&quot;IsyFact-Erweiterungen&quot;` und `&quot;Register Factory&quot;` |`&quot;IsyFact-Standards&quot;`
+|`open-source` |Beschreibt ob das Dokument unter der Open Source (`true`) oder Closed Source (`false`) Lizenz der IsyFact veröffentlicht wird |`true`
+|===
+
+Folgendes Listings zeigt die beispielhafte Verwendung des `colophon::[]` blocks in einem Asciidoc Dokument.
+
+
+=== IsyGlossaryBlockMacroProcessorTest
+
+Der `IsyGlossaryBlockMacroProcessorTest` erkennt `isy-glossary::[]` im Asciidoc Quellcode und fügt an der Stelle des Blocks das zentrale Glossar der IsyFact als Tabelle ein.
+
 // end::inhalt[]
