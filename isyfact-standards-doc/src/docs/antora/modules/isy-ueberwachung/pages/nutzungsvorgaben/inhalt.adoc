@@ -411,6 +411,12 @@ Für jeden Schlüssel sind folgende Properties zu setzen:
 * `essentiell` (`true`/`false`) : Ist ein essentielles Nachbarsystem nicht erreichbar, wird der Status des Nachbarsystem-Indikators auf DOWN gesetzt und ein Error geloggt.
 Nicht essentielle Nachbarsysteme beeinflussen den Status nicht und werden, falls sie nicht erreichbar sind, nur als Warning geloggt.
 
+==== Korrelations-ID bei einem Nachbarsystem-HealthIndicator
+Eine Korrelations-ID muss gesetzt werden, wenn ein `HealthIndicator` ein Nachbarsystem aufruft.
+Diese wird im Logging Kontext benötigt.
+Konkret wird die Korrelations-ID im Task Scheduling gesetzt. `isy-ueberwachung` liefert
+nur eine Default-Konfiguration für einen `HealthIndicator`.
+
 ==== Implementierung weiterer eigener Health-Indikatoren
 
 Es können weitere Indikatoren zur Überprüfung anderer Komponenten implementiert werden.
@@ -423,8 +429,6 @@ Hierfür gelten folgende Richtlinien:
 
 * Der `HealthIndicator` wird als Teil der Administrationskomponente implementiert.
 * Der `HealthIndicator` darf keine fachlich relevanten Daten verändern.
-* Der `HealthIndicator` muss zu Beginn eine Korrelations-ID erzeugen, die im Logging-Kontext gesetzt werden muss.
-Bei jedem Aufruf an ein Nachbarsystem ist diese zu übergeben.
 
 Neben den Nachbarsystemen sind weitere Überprüfungen sinnvoll:
 
