@@ -54,7 +54,6 @@ image::referenzarchitektur/fachliche-referenzarchitektur-anwendungslandschaft.dn
 *Anwendungsdomänen:* Eine xref:glossary:glossary:master.adoc#glossar-Anwendungsdomaene[Anwendungsdomäne] gruppiert fachlich zusammengehörende Anwendungssysteme zur Unterstützung von Geschäftsprozessen, die als eine Einheit angesehen werden können.
 
 *Anwendungssysteme:* Ein xref:glossary:glossary:master.adoc#glossar-Anwendungssystem[Anwendungssystem] ist eine zusammengehörende, logische Einheit aus Funktionen, Daten und Schnittstellen.
-Es besteht aus Anwendungskomponenten und Querschnittskomponenten.
 Anwendungssysteme unterstützen Geschäftsprozesse.
 Stellt ein Anwendungssystem eine Fachlogik dar, so handelt es sich um eine xref:glossary:glossary:master.adoc#glossar-Geschaeftsanwendung[Geschäftsanwendung].
 Ein Anwendungssystem ist Bestandteil der xref:glossary:glossary:master.adoc#glossar-A-Architektur[A-Architektur].
@@ -65,7 +64,7 @@ Im Zuge einer solchen Aufgabenteilung werden auch weitergehende Regeln definiert
 Derartige Strukturierungsprinzipien und Regeln sind jedoch immer spezifisch für den jeweiligen Kontext der Anwendungslandschaft und können nicht allgemeingültig festgelegt werden.
 Im vorliegenden Dokument verwenden wir daher den neutralen Begriff *xref:glossary:glossary:master.adoc#glossar-Geschaeftsanwendung[Geschäftsanwendung]* für alle Arten von Anwendungssystemen, die eine bestimmte fachliche Funktionalität innerhalb einer Anwendungsdomäne realisieren.
 
-*Querschnittsanwendungen* sind Anwendungssysteme, die Basisservices für mehrere Geschäftsanwendungen bereitstellen.
+*Querschnittsanwendungen* sind Anwendungssysteme, die Services für mehrere Geschäftsanwendungen bereitstellen.
 Diese Services sind oft technisch motiviert.
 
 *Portal:* Das xref:glossary:glossary:master.adoc#glossar-Portal[Portal] stellt den Benutzern eine einheitliche Dialogoberfläche für den Zugriff auf die Services der Anwendungslandschaft zur Verfügung.
