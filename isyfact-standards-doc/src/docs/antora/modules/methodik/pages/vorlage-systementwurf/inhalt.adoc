@@ -389,14 +389,6 @@ _Die Farbgebung für ein Teilsystem-Element orientiert sich an der fachlichen Re
 * _Weiß für externe Systeme oder Produkte (LDAP, Datenbank etc.) (R/G/B: 255 / 255 / 255)_
 ====
 
-[NOTE]
-====
-*Orange für Register:*
-
-spezifische Festlegung für Registeranwendungen. Siehe Dokument <<IsyFactEinstieg>>
-====
-
-
 [[anforderungen]]
 === Anforderungen
 ====

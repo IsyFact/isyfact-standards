@@ -479,6 +479,7 @@ Der erzeugte Text sieht wie folgt aus:
 _Zum xref::handbuch_dokumentation/inhalt.adoc#ueberschriften[Beispiel-Kapitel] gelangen Sie über einen Mausklick._
 _Im Übrigen handelt es sich bei dem Beispiel-Kapitel um das Kapitel xref::handbuch_dokumentation/inhalt.adoc#ueberschriften[Überschriften]._
 
+[[admonition-blocks]]
 === Admonition-Blocks
 
 Mit Admonition Blocks können Inhalte in Dokumenten exponiert dargestellt werden, sodass ihnen besondere Aufmerksamkeit zuteil wird.
