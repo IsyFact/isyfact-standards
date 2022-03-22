@@ -449,7 +449,7 @@ Aus der Property-Datei werden durch den Batchrahmen folgende Properties gelesen:
 |`Anwendung.SpringDateien.<N>` |Vollqualifizierte Namen der Spring-Konfigurationsklassen der Geschäftsanwendung
 |`Batchrahmen.SpringDateien.<N>` |Vollqualifizierte Namen der Spring-Konfigurationsklassen des Batchrahmens
 |`Batchrahmen.CommitIntervall` |Anzahl Satz-Verarbeitungen pro Commit
-|`Batchrahmen.ClearIntervall`| Anzahl Satz-Verarbeitungen bis zum Löschen des Hibernate session cache. Dies dient Perfomancegründen und der Vermeidung von out of memory Fehler.
+|`Batchrahmen.ClearIntervall`| Anzahl Satz-Verarbeitungen bis zum Löschen des Hibernate session cache. Dies dient Perfomancegründen und der Vermeidung von out of memory Fehlern.
 |`AusfuehrungsBean`|Name der Ausführungsbean für die Batchlogik
 |`BatchId` |ID des Batches (ID des Batch-Status-Datensatzes)
 |`BatchName` |Name des Batches in der Batch-Statustabelle
