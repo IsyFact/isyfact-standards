@@ -1,6 +1,12 @@
 [[changelog]]
 = Changelog
 
+*Änderungen IsyFact 2.5.0*
+
+// tag::release-2.5.0[]
+- `IFS-1278`: Dokument IsyFact-Einstieg aufgetrennt und an neue Seitenvorlage angepasst.
+// end::release-2.5.0[]
+
 // *Änderungen IsyFact 2.4.0*
 
 // tag::release-2.4.0[]
@@ -13,10 +19,10 @@
 
 // end::release-2.3.0[]
 
-// *Änderungen IsyFact 2.2.0*
+*Änderungen IsyFact 2.2.0*
 
 // tag::release-2.2.0[]
-- `IFS-472`: Dokument IF-Einstieg überarbeiten
+- `IFS-472`: Dokument IsyFact-Einstieg überarbeitet.
 // end::release-2.2.0[]
 
 // *Änderungen IsyFact 2.1.0*

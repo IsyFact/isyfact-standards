@@ -47,15 +47,15 @@ Hierzu sind diese Einstellungen in der entsprechenden Konfigurationsdatei `jpa.x
 
 [source,xml]
 ----
-<property
-    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-  <property name="jpaProperties">
-    <props>
-      …
-      <prop key="hibernate.connection.useUnicode">true</prop>
-      <prop key="hibernate.connection.characterEncoding">utf-8</prop>
-  </property>
-
+<bean id="entityManagerFactory"
+    class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+    <property name="jpaProperties">
+        <props>
+            <!--> ... <!-->
+            <prop key="hibernate.connection.useUnicode">true</prop>
+            <prop key="hibernate.connection.characterEncoding">utf-8</prop>
+        </props>
+    </property>
 </bean>
 ----
 
@@ -236,7 +236,6 @@ In der POM der Anwendung muss die Abhängigkeit hinzugefügt werden:
 <dependency>
   <groupId>de.bund.bva.isyfact</groupId>
   <artifactId>isy-sonderzeichen</artifactId>
-  <version><aktueller Version der Bibliothek></version>
 </dependency>
 ----
 
@@ -247,12 +246,14 @@ Die Transformator-Factory und ein konkreter Transformator werden über Spring in
 
 [source,xml]
 ----
+<beans>
 <bean id="sonderzeichenTransformatorFactory" class="de.bund.bva.isyfact.sonderzeichen.stringlatin1_1.core.transformation.TransformatorFactory">
   <property name="transformator" ref="sonderzeichenTransformator"/>
   <property name="transformationsTabelle" value="${Pfad_zu_einerzusaetzlichenTabelle}"/>
 </bean>
 
 <bean id="sonderzeichenTransformator" class="de.bund.bva.isyfact.sonderzeichen.stringlatin1_1.core.transformation.impl.IdentischerTransformator"/>
+</beans>
 ----
 
 In obigem Beispiel wird dabei der Transformator _IdentischerTransformator_ aus der ursprünglichen Umsetzung geladen.
@@ -410,7 +411,7 @@ Die Transformationsfunktion arbeitet die Zeichenkette char für char ab.
 Sollte ein Unicode-Character, welcher aus mehreren char Objekten besteht definiert sein (non-BMP character, z.B. I mit angehängtem Circumflex (\\u006C\\u0302), so liefert die Transformationsfunktion das korrekte Ergebnis, kann aber nicht zwischen String.Latin- und Nicht-String.Latin-Zeichen unterscheiden.
 So könnten Zeichen außerhalb des Definitionsbereichs (z.B. alle \\u\####\\u0302) der Transformation transformiert werden.
 
-Zur Überprüfung ob eine Zeichenkette innerhalb des für den Transformator gültigen Bereichs liegt, sollte daher die Funktion `getRegulaererAusdruck(String[])` benutzt werden um einen regulären Ausdruck für alle gültigen Zeichen zu erstellen.
+Zur Überprüfung, ob eine Zeichenkette innerhalb des für den Transformator gültigen Bereichs liegt, sollte daher die Funktion `getRegulaererAusdruck(String[])` benutzt werden um einen regulären Ausdruck für alle gültigen Zeichen zu erstellen.
 
 [[metadaten-einer-transformation]]
 === Metadaten einer Transformation
@@ -419,7 +420,7 @@ Alle Transformatoren der isyfact erlauben neben der Transformation auch die Ausg
 Dafür müssen die Funktionen mit dem Suffix `MitMetadaten` genutzt werden.
 Diese geben ein Objekt vom Typ `Transformation` zurück.
 
-Mit der Funktion `getTransformierterText()` erhält man daraus den transformierten Text, wie man ihn auch aus den `transformiere`-Methoden ohne der Speicherung von Metadaten erhält.
+Mit der Funktion `getTransformierterText()` erhält man daraus den transformierten Text, wie man ihn auch aus den `transformiere`-Methoden ohne die Speicherung von Metadaten erhält.
 Mit `getMetadatenList()` erhält man eine Liste von `TransformationMetadaten`-Objekten zurück.
 Ein solches Objekt enthält folgende Attribute:
 
@@ -477,7 +478,7 @@ Die Standardzeichen müssen von jeder Anwendung immer unterstützt werden.
 Die zusätzlichen Zeichen müssen nur unterstützt werden, wenn dies entsprechend vereinbart wurde.
 Die Festlegungen für die zulässigen Zeichen orientieren sich an den Festlegungen, die für das Meldewesen getroffen wurden.
 
-Die für die IsyFact zulässigen Zeichen werden im Folgenden aufgeführt. (Siehe Kapitel _Festlegung des Zeichensatzes und der Codierung_ in xref:konzept/master.adoc#einleitung[Sonderzeichen - Konzept)
+Die für die IsyFact zulässigen Zeichen werden im Folgenden aufgeführt (s. Kapitel xref:konzept/master.adoc#festlegung-des-zeichensatzes-und-der-codierung[Festlegung des Zeichensatzes und der Codierung des Konzepts]).
 
 [[standardzeichen]]
 === Standardzeichen
