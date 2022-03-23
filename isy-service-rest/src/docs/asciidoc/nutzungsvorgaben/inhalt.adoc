@@ -20,15 +20,15 @@ Weitere Informationen zu OpenApi 3.0 (Beschreibung und Vorgaben) finden Sie unte
 [[mapping-fachlichen-schnittstellen]]
 === Mapping von fachlichen Schnittstellen Beschreibungen auf OpenAPI-Spezifikation
 Die Schnittstellenbeschreibung, die im Rahmen der Systemspezifikation erstellt wird, spezifiziert die angebotene(n) Nachbarsystemschnittstelle(n) (NST) aus fachlicher Sicht und gibt keine Auskunft über technische Details.
-Für das Erstellen dieser fachlichen Schnittstellenbeschreibung wird die IsyFact-Vorlage <<SystemspezifikationBehoerdenverzeichnis>> verwendet.
+Für das Erstellen dieser fachlichen Schnittstellenbeschreibung wird die IsyFact-Vorlage <<VorlageSchnittstellendokumentation>> verwendet.
 Die fachlichen Schnittstellenbeschreibungen nach den Vorgaben der IsyFact enthalten in erster Linie die verwendeten Entitäten sowie Eingabe und Ausgabe Parameter. Ergänzt werden diese durch weitere Spezifika (z.B. Kurzbeschreibung, Synchron/Asynchron, Online/Offline…).
 Diese Schnittstellenbeschreibung soll im Rahmen des Systementwurfs technisch als eine OpenAPI-Spezifikation konzipiert und bereitgestellt werden.
 
 Im Folgenden stellen wir ein Vorgehen zum Mappen der fachlichen Schnittstellenbeschreibung auf eine OpenAPI-Spezifikation vor.
-Alle Schnittstellen einer Anwendung werden in einer einzigen OpenAPI 3 Spezifikation beschrieben.
+Alle Schnittstellen einer Anwendung sollen in einer einzigen OpenAPI 3 Spezifikation beschrieben.
 
 Die **Entitäten und die Datentypen** in den fachlichen Schnittstellenbeschreibungen werden mithilfe der OpenAPI Schemaobjekte definiert werden.
-Schemaobjekte können Objekte, aber auch Primitive und Arrays sein.
+Schemaobjekte können Objekte, aber auch primitive Datentypen und Listen (Arrays) sein.
 Die Schemaobjekte unterstützen auch Polymorphismus.
 Dies ermöglicht auch Vererbung- und Kompositionsrelationen zwischen den Objekten.
 Diese Entitäten können so an beliebiger Stelle in der Spezifikation als Referenzobjekt referenziert werden.
@@ -37,9 +37,9 @@ Die **Eingabe/Ausgabe Parameter** in den fachlichen Schnittstellenbeschreibungen
 Diese Parameter werden zuerst als Schemaobjekte definiert.
 Anschließend werden sie als Parameterobjekte oder als Request-Body-Objekte den Schnittstellen zugewiesen, je nachdem wie sie bei der Eingabe/Ausgabe benötigt werden.
 
-[cols="2,2,5,3"]
+[cols="2,2,8"]
 |===
-|IsyFact Schnittstellen-beschreibung|OpenAPI 3 Spezifikation|Beispiel|Bemerkung
+|IsyFact Schnittstellen-beschreibung|OpenAPI 3 Spezifikation|Beispiel und Bemerkung
 
 |NST_Schnittstelle
 |path
@@ -50,7 +50,7 @@ paths:
   /mitarbeiter/sucheNachSuchkriterien:
 ----
 
-|Es gibt keine bestimmten Vorgaben, um Pfadnamen aus dem Namen der Schnittstelle abzubilden. Es ist jedoch wichtig, einen aussagekräftigen Namen für den Pfad zu wählen, damit er leicht verständlich ist.
+Es gibt keine bestimmten Vorgaben, um Pfadnamen aus dem Namen der Schnittstelle abzubilden. Es ist jedoch wichtig, einen aussagekräftigen Namen für den Pfad zu wählen, damit er leicht verständlich ist.
 
 |NSE_Entität (Input)
 |schema oder type
@@ -87,7 +87,7 @@ parameters:
       type: "integer"
 ----
 
-|Es wird empfohlen, die Attribute der Eingabe-Entitäten, die als Abfrageparameter (z. B. Suchkriterien) verwendet werden, als Query Parameters zu definieren. Es ist jedoch möglich, Entitäten mit komplexen Suchkriterien direkt als Entität einzugeben.
+Es wird empfohlen, die Attribute der Eingabe-Entitäten, die als Abfrageparameter (z. B. Suchkriterien) verwendet werden, als Query Parameters zu definieren. Es ist jedoch möglich, Entitäten mit komplexen Suchkriterien direkt als Entität einzugeben.
 
 Die Eingabe-Entitäten, die im Body verarbeitet werden (z. B. Hinzufügen einer neuen Entität oder Bearbeiten einer vorhandenen Entität), werden als Schema definiert.
 
@@ -126,8 +126,6 @@ Mitarbeiter:
       type: "string"
 ----
 
-|
-
 |NSA_Attribut
 |property
 a|
@@ -137,7 +135,6 @@ id:
   type: "integer"
   format: "int64"
 ----
-|
 
 |DTY_Datentyp (einfach)
 |type
@@ -146,7 +143,6 @@ a|DTY_Ganzzahl:
 ----
 type: "integer"
 ----
-|
 
 |DTY_Datentyp (komplex)
 |schema
@@ -173,7 +169,6 @@ a|DTY_Bundesland
         - SH
         - TH
 ----
-|
 
 |Kurz-
 beschreibung
@@ -185,26 +180,25 @@ info:
   description: "Ein Beispiel für das Mapping einer fachlichen Schnittstelle"
 ----
 
-|
 
 |Offline/Online
 |nichts gleichwertiges
-|
 |
 
 |Synchron/
 Asynchron
 |nichts gleichwertiges
 |
-|
 
 |Schnittstellen-
 typ
 |verb
 |get, post, put, delete
-|Das passende Verb, um die Art der Transaktion zu beschreiben. (Lese-, Schreib- oder Löschvorgang). Weitere Informationen finden Sie unter <<RestKonzept>>
+
+Das passende Verb, um die Art der Transaktion zu beschreiben. (Lese-, Schreib- oder Löschvorgang). Weitere Informationen finden Sie unter <<RestKonzept>>.
 |===
 
+[[zusammenfassung-beispiel]]
 ==== Zusammenfassung des Beispiels (NST_Mitarbeiter_suchen):
 
 [cols="h,1"]
@@ -222,6 +216,7 @@ typ
 |AWF_Mitarbeiter_suchen
 |===
 
+[[eingabeparameter]]
 ===== Eingabeparameter
 [cols="h,1"]
 |===
@@ -245,6 +240,7 @@ typ
 |DTY_Ganzzahl
 |===
 
+[[ausgabeparameter]]
 ===== Ausgabeparameter
 [cols="h,1"]
 |===
@@ -272,6 +268,7 @@ typ
 |DTY_Zeichenkette
 |===
 
+[[ergebnis-vom-mapping]]
 ===== Das Ergebnis vom Mapping zur OpenAPI 3.0 Spezifikation:
 
 [source,yaml]
@@ -348,20 +345,28 @@ components:
         - TH
 ----
 
-=== Eingabe von weiteren Parametern beim GET und DELETE Requests
+[[metadaten]]
+=== Metadaten
+Metadaten werden als Header-Parameter übertragen.
+Zu Metadaten gehören u.a. Daten wie Benutzerkennung, Rolle, Tags, externe IDs.
+Nur die Metadaten, die nicht durch die IsyFact standardisiert werden, sind Teil der Schnittstellendefinition.
+Deswegen sollen die Metadaten, die bei allen Anfragen mitgesendet werden, nicht in der OpenApi Spezifikation definiert werden.
+
+[[eingabe-mehrerer-parametern]]
+==== Eingabe von weiteren Parametern beim GET und DELETE Requests
 Bei manchen Fällen ist es möglich, dass der Server Schreiboperationen ausführt, obwohl wir nur eine GET- oder DELETE-Anfrage gesendet haben.
-Ein mögliches Szenario wäre die Protokollierung der Zugriffshistorie, wobei Metadaten wie Nutzername oder Aktenzeichen für die Protokollierung gebraucht werden.
+Ein mögliches Szenario wäre die Protokollierung der Zugriffshistorie, wobei der Grund des Zugriffs gebraucht werden.
 Jedoch werden die GET und DELETE Requests nach dem REST-Konzept (siehe <<RestKonzept>>) ohne Body versendet.
 Normalerweise sollen Parameter für Schreiboperationen im Body gesendet werden.
-In diesem speziellen Fall wird jedoch entschieden, dass wir die erforderlichen Parameter für Schreiboperationen als Header-Parameter senden.
+In diesem speziellen Fall wird jedoch entschieden, dass wir die erforderlichen Parameter für Schreiboperationen als URL-Parameter senden.
 
-In OpenAPI 3.0 gibt es die Möglichkeit, die Parametern als Header-Parameter zu definieren.
-Dafür verwendet man das Keyword „in: header“.
+In OpenAPI 3.0 gibt es die Möglichkeit, die Parametern als URL-Parameter zu definieren.
+Dafür verwendet man das Keyword „in: path“.
 
 *Beispiel:* Protokollierung beim NST_Mitarbeiter_suchen.
 
 Anforderung: Es muss immer ein Protokolleintrag erstellt werden, wenn die Schnittstelle für die Mitarbeitersuche aufgerufen wurde.
-Für die Protokollierung wird zusätzlich der Nutzername benötigt.
+Für die Protokollierung dieser Schnittstelle wird zusätzlich der Grund der Suche (grundSuche) benötigt.
 
 [source,yaml]
 ----
@@ -373,16 +378,8 @@ paths:
       description: "Diese Schnittstelle bietet Nachbarsystemen die Möglichkeit, Mitarbeiter zu suchen und deren Daten abzufragen. Die Auswahl der Mitarbeiter erfolgt anhand einer Reihe von optionalen Suchkriterien."
       operationId: "sucheMitarbeiterNachSuchkriterien"
       parameters:
-        - name: "nutzername"
-          in: "header"
-          schema:
-            type: "string"
-        - name: "bundeslandSchluessel"
-          in: "query"
-          schema:
-            $ref: '#/components/schemas/Bundesland'
-        - name: "ort"
-          in: "query"
+        - name: "grundSuche"
+          in: "path"
           schema:
             type: "string"
  …
@@ -400,11 +397,15 @@ Aber da wir normalerweise keine neue Anwendung erstellen, sondern neue Schnittst
 
 [[die_konsole]]
 === Die Konsole
-Über die Konsole ist es erforderlich, die Generator-JAR-Datei von der Website des Generators zu installieren. Der Befehl besteht aus folgenden Teilen:
+Für die Nutzung über die Konsole ist es erforderlich, vorher die Generator-JAR-Datei von der Website des Generators zu installieren. Der Befehl besteht aus folgenden Teilen:
+
+[source,shell script]
+----
 java -jar <Pfad der Jar-Datei OpenAPI-generator-cli.jar> generate
 -i <Pfad der Input-Datei (OpenAPI 3.0 Spezifikation)>
 -g <der Name des Generators>
 -o <Pfad für den zu erstellenden Code>
+----
 
 Beispiele für die verwendeten Frameworks:
 
@@ -501,21 +502,21 @@ Die anderen Parameter für die Basis-Nutzung sind in der folgenden Auflistung be
 |===
 
 |inputSpec
-|Der Pfad von der eingegebenen OpenAPI 3.0 Spezifikation
+|Der Pfad von der eingegebenen OpenAPI 3.0 Spezifikation.
 
 |generateModelTests
-|Gibt an, ob Tests für Model generiert werden sollen.
+|Gibt an, ob Tests für das Model generiert werden sollen.
 Es ist möglich, dass keine Tests generiert werden.
 Die Ergebnisse hängen davon ab, ob das verwendete Template diese Funktionalität unterstützt oder nicht.
 
 |generateApiTests
-|Gibt an, ob Tests für Api generiert werden sollen.
+|Gibt an, ob Tests für die Api generiert werden sollen.
 Es ist möglich, dass keine Tests generiert werden.
-Die Ergebnisse hängen davon ab, ob das verwendete Template diese Funktionalität unterstützt oder nicht
+Die Ergebnisse hängen davon ab, ob das verwendete Template diese Funktionalität unterstützt oder nicht.
 
 |configOptions/
 sourceFolder
-|Der Pfad für den zu generierenden Code
+|Der Pfad für den zu generierenden Code.
 |===
 
 // end::inhalt[]

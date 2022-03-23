@@ -13,7 +13,7 @@ https://marketplace.eclipse.org/content/openapi-swagger-editor[Swagger Editor f√
 [[SwaggerSpezifikation]]
 https://swagger.io/specification/[Swagger Spezifikation]
 
-[[SystemspezifikationBehoerdenverzeichnis]]
-TODO[Systemspezifikation Behoerdenverzeichnis]
+[[VorlageSchnittstellendokumentation]]
+40_Methodik/20_Systementwurf/IsyFact-Vorlage_Schnittstellendokumentation.docx
 
 // end::inhalt[]
