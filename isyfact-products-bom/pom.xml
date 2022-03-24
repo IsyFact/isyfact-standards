@@ -20,6 +20,7 @@
         <resilience4j.version>1.7.1</resilience4j.version>
         <apache.poi.version>4.1.2</apache.poi.version>
         <greenmail.version>1.6.5</greenmail.version>
+        <selenium.version>3.141.59</selenium.version>
     </properties>
 
     <!-- Dependency management for IsyFact core technology stack. -->
@@ -326,6 +327,43 @@
                 <groupId>com.icegreen</groupId>
                 <artifactId>greenmail-junit4</artifactId>
                 <version>${greenmail.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <!-- Selenium for gui-tests -->
+            <dependency>
+                <groupId>org.seleniumhq.selenium</groupId>
+                <artifactId>selenium-java</artifactId>
+                <version>${selenium.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.seleniumhq.selenium</groupId>
+                <artifactId>selenium-api</artifactId>
+                <version>${selenium.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.seleniumhq.selenium</groupId>
+                <artifactId>selenium-support</artifactId>
+                <version>${selenium.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.seleniumhq.selenium</groupId>
+                <artifactId>selenium-remote-driver</artifactId>
+                <version>${selenium.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.seleniumhq.selenium</groupId>
+                <artifactId>selenium-firefox-driver</artifactId>
+                <version>${selenium.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.seleniumhq.selenium</groupId>
+                <artifactId>selenium-htmlunit-driver</artifactId>
+                <version>${selenium.version}</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>

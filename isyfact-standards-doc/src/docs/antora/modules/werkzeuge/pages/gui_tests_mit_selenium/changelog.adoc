@@ -1,0 +1,5 @@
+[[changelog]]
+// tag::inhalt[]
+== Changelog
+
+// end::inhalt[]
