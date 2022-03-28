@@ -159,8 +159,6 @@ In der nachfolgenden Tabelle werden die einzelnen Bausteine kurz beschrieben.
 |====
 |Baustein|Funktion
 |Fehlerbehandlung |Der Baustein Fehlerbehandlung enthält das technische Konzept und eine Bibliothek zur einheitlichen Implementierung der Fehlerbehandlung für alle Anwendungen nach IsyFact-Architektur.
-|LDAP-Zugriffe |Der Baustein LDAP-Zugriffe bietet ein Nutzungskonzept für Spring-LDAP, das in der IsyFact verwendet wird, um auf den LDAP-Verzeichnisdienst zuzugreifen.
-Der LDAP-Verzeichnisdienst hält die Daten und Berechtigungen der verschiedenen Nutzer der Anwendungen bereit.
 |Logging |Der Baustein Logging enthält das technische Konzept für die Bereitstellung von Laufzeitinformationen der Anwendungen der IsyFact.
 Dies ermöglicht eine einheitliche und vereinfachte Auswertung von Log-Dateien, Fehlern und Systemzuständen über Komponenten hinweg.
 |Sicherheits­komponente |Der Baustein Sicherheitskomponente ist eine Bibliothek.
@@ -281,7 +279,6 @@ empfohlenen Produkte.
 |Persistenz-Framework |Hibernate
 |Schnittstellen-Framework |Metro 2.0
 |Logging-Framework |Apache Log4J
-|LDAP-Framework |Spring-LDAP
 2+|*Spezielle Software und Bibliotheken*
 |Überwachung / Monitoring |Nagios
 |Regel-Management |JBoss Drools
@@ -325,7 +322,6 @@ Die IsyFact-Standards umfassen die folgenden Dokumente und Komponenten:
 |Nutzungsvorgaben Datum und Zeit |PDF
 .2+|*Fehlerbehandlung* |Konzept Fehlerbehandlung |PDF
 |Nutzungsvorgaben Fehlerbehandlung |PDF
-|*LDAP-Zugriffe* |Nutzungsvorgaben Spring LDAP |PDF
 .2+|*Logging* |Konzept Logging |PDF
 |Nutzungsvorgaben Logging |PDF
 .2+|*Polling* |Konzept Polling |PDF
