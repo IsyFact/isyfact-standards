@@ -14,6 +14,7 @@
 - `IFS-686`: Property-Dateien auf Unicode Escapes umgestellt
 - `IFS-1175`: [isy-task] Eigenen FehlertextProvider fpr isy-task erstellt
 - `IFS-702`: [isy-batchrahmen] Fügt die KorrelationsId passend zum MDC dem AufrufKontext hinzu
+- `IFS-1196`: [isyfact-products-bom] Spring Framework BOM Version von 4.3.22.RELEASE auf 4.3.23.RELEASE angehoben
 
 # 1.10.0
 - `IFS-1003`: [isy-sonderzeichen]
