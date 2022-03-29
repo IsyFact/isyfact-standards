@@ -70,7 +70,7 @@
                                 </goals>
                                 <configuration>
                                     <backend>html</backend>
-                                    <sourceDirectory>${component.src}/konzept</sourceDirectory>
+                                    <sourceDirectory>${component.src}/nutzungsvorgaben</sourceDirectory>
                                     <sourceDocumentName>master.adoc</sourceDocumentName>
                                     <outputFile>${html-output-base-directory}/Nutzungsvorgaben_${component.name}.html</outputFile>
                                     <attributes>

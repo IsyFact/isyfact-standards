@@ -2,42 +2,45 @@
 
 
 [[vorgehen]]
-== Vorgehen
+== Erstellung von OpenAPI-Spezifikationen
 
 [[tools]]
-=== Tools
-Die OpenAPI-Spezifikation wird im yaml-Format erstellt, weil YAML leichter und schneller zu erfassen ist, da die Syntaxregeln von YAML nicht vor allem Einzüge umfasst anstatt Klammern und Anführungszeichen, wie in JSON.
-Für die Bearbeitung ist keine IDE erforderlich, ein einfacher Texteditor (z.B. Notepad++) würde ausreichen.
-Wir empfehlen den Einsatz eines Swagger-Editors, der sowohl die syntaktische Korrektheit der yaml-Vorgaben, als der OpenAPI-Vorgaben prüft und mögliche Fehler in der Spezifikation in Echtzeit aufdeckt.
+=== Toolauswahl
+Die OpenAPI-Spezifikation wird im yaml-Format erstellt, da YAML aufgrund der übersichtlichen Syntax leichter und schneller zu erfassen ist.
+Für die Bearbeitung ist keine IDE zwingend erforderlich, ein einfacher Texteditor (z.B. Notepad++) reicht aus.
+Wir empfehlen jedoch den Einsatz des Swagger-Editors, der sowohl die syntaktische Korrektheit der yaml-Vorgaben, als der OpenAPI-Vorgaben prüft und mögliche Fehler in der Spezifikation in Echtzeit aufdeckt.
 
 Swagger Editor ist ein Tool zum Bearbeiten von OpenAPI-Spezifikationen und unterstützt OpenAPI 3.0.
 Swagger Editor validiert die eingegebene Spezifikation und bietet darüber hinaus weitere Funktionalität, wie z.B. Auto-Completion.
 Wir empfehlen das entsprechende IntelliJ und Eclipse Plugins dieses Editors (siehe <<SwaggerEditorIntellij>> und <<SwaggerEditorEclipse>>).
 Die Verwendung dieser Plugins ist besonders sinnvoll, da sie die Integration der Spezifikation in das Projekt ermöglicht und die Verwaltung mit Version Control erleichtert.
 
-Weitere Informationen zu OpenApi 3.0 (Beschreibung und Vorgaben) finden Sie unter <<SwaggerSpezifikation>>). Bei der Erstellung der Spezifikation sind die Regeln des IsyFact REST-Konzepts (siehe <<RestKonzept>>) zu beachten.
+Weitere Informationen zu OpenApi 3.0 (Beschreibung und Vorgaben) finden Sie unter <<SwaggerSpezifikation>>).
+Bei der Erstellung der Spezifikation sind die Vorgaben der IsyFact (siehe <<KonzeptRest>>) zu beachten.
+Relevante Vorgaben beziehen sich u.a. auf den Aufbau der URls und der Anfrage, die Verwendung der http-Verben und Statuscodes.
 
 [[mapping-fachlichen-schnittstellen]]
-=== Mapping von fachlichen Schnittstellen Beschreibungen auf OpenAPI-Spezifikation
+=== Mapping von fachlicher Schnittstellenbeschreibung auf OpenAPI-Spezifikation
 Die Schnittstellenbeschreibung, die im Rahmen der Systemspezifikation erstellt wird, spezifiziert die angebotene(n) Nachbarsystemschnittstelle(n) (NST) aus fachlicher Sicht und gibt keine Auskunft über technische Details.
-Für das Erstellen dieser fachlichen Schnittstellenbeschreibung wird die IsyFact-Vorlage <<VorlageSchnittstellendokumentation>> verwendet.
-Die fachlichen Schnittstellenbeschreibungen nach den Vorgaben der IsyFact enthalten in erster Linie die verwendeten Entitäten sowie Eingabe und Ausgabe Parameter. Ergänzt werden diese durch weitere Spezifika (z.B. Kurzbeschreibung, Synchron/Asynchron, Online/Offline…).
+Für das Erstellen dieser fachlichen Schnittstellenbeschreibung wird die IsyFact-Vorlage <<IsyFactVorlageSchnittstellendokumentation>> verwendet.
+Die fachlichen Schnittstellenbeschreibungen nach den Vorgaben der IsyFact enthalten in erster Linie die verwendeten Entitäten sowie Eingabe und Ausgabe Parameter.
+Ergänzt werden diese durch weitere Spezifika (z.B. Kurzbeschreibung, Synchron/Asynchron, Online/Offline…).
 Diese Schnittstellenbeschreibung soll im Rahmen des Systementwurfs technisch als eine OpenAPI-Spezifikation konzipiert und bereitgestellt werden.
 
 Im Folgenden stellen wir ein Vorgehen zum Mappen der fachlichen Schnittstellenbeschreibung auf eine OpenAPI-Spezifikation vor.
-Alle Schnittstellen einer Anwendung sollen in einer einzigen OpenAPI 3 Spezifikation beschrieben.
+Alle Schnittstellen einer Anwendung sollen in einer einzigen OpenAPI-Spezifikation beschrieben werden.
 
-Die **Entitäten und die Datentypen** in den fachlichen Schnittstellenbeschreibungen werden mithilfe der OpenAPI Schemaobjekte definiert werden.
+Die **Entitäten und die Datentypen** in den fachlichen Schnittstellenbeschreibungen werden mithilfe der OpenAPI Schemaobjekte definiert.
 Schemaobjekte können Objekte, aber auch primitive Datentypen und Listen (Arrays) sein.
-Die Schemaobjekte unterstützen auch Polymorphismus.
+Schemaobjekte unterstützen auch Polymorphismus.
 Dies ermöglicht auch Vererbung- und Kompositionsrelationen zwischen den Objekten.
-Diese Entitäten können so an beliebiger Stelle in der Spezifikation als Referenzobjekt referenziert werden.
+Diese Entitäten können so an beliebiger Stelle in der Spezifikation als Referenzobjekte genutzt werden.
 
 Die **Eingabe/Ausgabe Parameter** in den fachlichen Schnittstellenbeschreibungen sind Entitäten oder Datentypen.
 Diese Parameter werden zuerst als Schemaobjekte definiert.
 Anschließend werden sie als Parameterobjekte oder als Request-Body-Objekte den Schnittstellen zugewiesen, je nachdem wie sie bei der Eingabe/Ausgabe benötigt werden.
 
-[cols="2,2,8"]
+[cols="3,2,6"]
 |===
 |IsyFact Schnittstellen-beschreibung|OpenAPI 3 Spezifikation|Beispiel und Bemerkung
 
@@ -50,7 +53,8 @@ paths:
   /mitarbeiter/sucheNachSuchkriterien:
 ----
 
-Es gibt keine bestimmten Vorgaben, um Pfadnamen aus dem Namen der Schnittstelle abzubilden. Es ist jedoch wichtig, einen aussagekräftigen Namen für den Pfad zu wählen, damit er leicht verständlich ist.
+Der Pfadname muss den Vorgaben zur Ressourcenorientierung im <<KonzeptRest>> entsprechen.
+
 
 |NSE_Entität (Input)
 |schema oder type
@@ -87,9 +91,10 @@ parameters:
       type: "integer"
 ----
 
-Es wird empfohlen, die Attribute der Eingabe-Entitäten, die als Abfrageparameter (z. B. Suchkriterien) verwendet werden, als Query Parameters zu definieren. Es ist jedoch möglich, Entitäten mit komplexen Suchkriterien direkt als Entität einzugeben.
+Es wird empfohlen, die Attribute der Eingabe-Entitäten, die als Abfrageparameter (z.B. Suchkriterien) verwendet werden, als Query Parameters zu definieren.
+Es wird empfohlen, Entitäten mit komplexen oder vertraulichen Suchkriterien als Schemaobjekt zu spezifizieren, um das Erfassen dieser Informationen, z.B. durch Logger, zu vermeiden.
 
-Die Eingabe-Entitäten, die im Body verarbeitet werden (z. B. Hinzufügen einer neuen Entität oder Bearbeiten einer vorhandenen Entität), werden als Schema definiert.
+Die Eingabe-Entitäten, die im Body verarbeitet werden (z.B. Hinzufügen einer neuen Entität oder Bearbeiten einer vorhandenen Entität), werden als Schemaobjekt definiert.
 
 |NSE_Entität (Output)
 |responses mit schema
@@ -107,7 +112,7 @@ responses:
         '405':
           description: "Ungültige Suchkriterien"
 ----
-mit schema für NSE_Mitarbeiter:
+Mit Schemaobjekt für NSE_Mitarbeiter:
 [source,yaml]
 ----
 Mitarbeiter:
@@ -182,12 +187,12 @@ info:
 
 
 |Offline/Online
-|nichts gleichwertiges
+|keine Entsprechung
 |
 
 |Synchron/
 Asynchron
-|nichts gleichwertiges
+|keine Entsprechung
 |
 
 |Schnittstellen-
@@ -195,178 +200,34 @@ typ
 |verb
 |get, post, put, delete
 
-Das passende Verb, um die Art der Transaktion zu beschreiben. (Lese-, Schreib- oder Löschvorgang). Weitere Informationen finden Sie unter <<RestKonzept>>.
+Das passende Verb, um die Art der Transaktion zu beschreiben (Lese-, Schreib- oder Löschvorgang).
+Vorgaben zur Wahl des Verbs finden sich im <<KonzeptRest>>.
 |===
 
-[[zusammenfassung-beispiel]]
-==== Zusammenfassung des Beispiels (NST_Mitarbeiter_suchen):
-
-[cols="h,1"]
-|===
-|Kurzbeschreibung
-|Diese Schnittstelle bietet Nachbarsystemen die Möglichkeit, Mitarbeiter zu suchen und deren Daten abzufragen. Die Auswahl der Mitarbeiter erfolgt anhand einer Reihe von optionalen Suchkriterien.
-
-|Verwendete Entitätstypen (Input)
-|NSE_Mitarbeiter_Suchkriterien
-
-|Verwendete Entitätstypen (Output)
-|NSE_Mitarbeiterdaten
-
-|Aufgerufene Anwendungsfälle
-|AWF_Mitarbeiter_suchen
-|===
-
-[[eingabeparameter]]
-===== Eingabeparameter
-[cols="h,1"]
-|===
-|Name
-|NSE_Mitarbeiter_Suchkriterien
-
-|Kurzbeschreibung
-|Die Kriterien zur Selektion von Mitarbeiter. Alle Attribute dieses Typs sind optional. Nicht befüllte Attribute werden daher nicht in die Suche einbezogen. Es dürfen beliebige Kombinationen von Attributen angegeben werden.
-|===
-
-|===
-|Name|Datentyp
-
-|NSA_Bundesland_Schlüssel
-|DTY_Bundesland
-
-|NSA_Ort
-|DTY_Zeichenkette
-
-|NSA_Treffer_Anzahl
-|DTY_Ganzzahl
-|===
-
-[[ausgabeparameter]]
-===== Ausgabeparameter
-[cols="h,1"]
-|===
-|Name
-|NSE_Mitarbeiterdaten
-
-|Kurzbeschreibung
-|Dies ist die Rückgabeentität mit den Daten eines Mitarbeiters.
-
-|===
-
-|===
-|Name|Datentyp
-
-|NSA_Name
-|DTY_Zeichenkette
-
-|NSA_Vorname
-|DTY_Zeichenkette
-
-|NSA_Bundesland_Schlüssel
-|DTY_Bundesland
-
-|NSA_Telefonnummer
-|DTY_Zeichenkette
-|===
-
-[[ergebnis-vom-mapping]]
-===== Das Ergebnis vom Mapping zur OpenAPI 3.0 Spezifikation:
-
-[source,yaml]
-----
-OpenAPI: 3.0.0
-info:
-  description: "Ein Beispiel für das Mapping einer fachlichen Schnittstelle"
-  version: "1.0.0"
-  title: "Beispiel Anwendung"
-paths:
-  /mitarbeiter/sucheNachSuchkriterien:
-    get:
-      summary: "Suche Mitarbeiter nach Suchkriterien"
-      description: "Diese Schnittstelle bietet Nachbarsystemen die Möglichkeit, Mitarbeiter zu suchen und deren Daten abzufragen. Die Auswahl der Mitarbeiter erfolgt anhand einer Reihe von optionalen Suchkriterien."
-      operationId: "sucheMitarbeiterNachSuchkriterien"
-      parameters:
-        - in: "query"
-          name: "bundeslandSchluessel"
-          schema:
-            $ref: '#/components/schemas/Bundesland'
-        - name: "ort"
-          in: "query"
-          schema:
-            type: "string"
-        - name: "trefferAnzahl"
-          in: "query"
-          schema:
-            type: "integer"
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Mitarbeiter'
-        '405':
-          description: "Ungültige Suchkriterien"
-components:
-  schemas:
-    Mitarbeiter:
-      type: "object"
-      properties:
-        id:
-          type: "integer"
-          format: "int64"
-        name:
-          type: "string"
-        vorname:
-          type: "string"
-        bundeslandSchluessel:
-          $ref: '#/components/schemas/Bundesland'
-        telefonnummer:
-          type: "string"
-    Bundesland:
-      type: string
-      enum:
-        - BW
-        - BY
-        - BE
-        - BB
-        - HB
-        - HH
-        - HE
-        - MV
-        - NI
-        - NW
-        - RP
-        - SL
-        - SN
-        - ST
-        - SH
-        - TH
-----
+Die für die Mapping-Tabelle genutzte Beispiel-Schnittstellenbeschreibung und das Ergebnis als OpenAPI-Spezifikation ist in <<zusammenfassung-beispiel>> zusammenfassend dargestellt.
 
 [[metadaten]]
-=== Metadaten
+=== Übertragung von Metadaten
 Metadaten werden als Header-Parameter übertragen.
 Zu Metadaten gehören u.a. Daten wie Benutzerkennung, Rolle, Tags, externe IDs.
-Nur die Metadaten, die nicht durch die IsyFact standardisiert werden, sind Teil der Schnittstellendefinition.
-Deswegen sollen die Metadaten, die bei allen Anfragen mitgesendet werden, nicht in der OpenApi Spezifikation definiert werden.
+Nur die Metadaten, die nicht durch die IsyFact standardisiert werden, sind Teil der OpenApi-Spezifikation.
 
-[[eingabe-mehrerer-parametern]]
-==== Eingabe von weiteren Parametern beim GET und DELETE Requests
-Bei manchen Fällen ist es möglich, dass der Server Schreiboperationen ausführt, obwohl wir nur eine GET- oder DELETE-Anfrage gesendet haben.
-Ein mögliches Szenario wäre die Protokollierung der Zugriffshistorie, wobei der Grund des Zugriffs gebraucht werden.
-Jedoch werden die GET und DELETE Requests nach dem REST-Konzept (siehe <<RestKonzept>>) ohne Body versendet.
-Normalerweise sollen Parameter für Schreiboperationen im Body gesendet werden.
-In diesem speziellen Fall wird jedoch entschieden, dass wir die erforderlichen Parameter für Schreiboperationen als URL-Parameter senden.
+//ToDo: Beispiel für Header-Metadaten (z.B. externeID)
 
-In OpenAPI 3.0 gibt es die Möglichkeit, die Parametern als URL-Parameter zu definieren.
-Dafür verwendet man das Keyword „in: path“.
+[[fachliche_info_get_delete]]
+=== Übertragung fachlicher Informationen bei GET- und DELETE-Anfragen
 
-*Beispiel:* Protokollierung beim NST_Mitarbeiter_suchen.
+Bei Anfragen zum Lesen (GET) oder Löschen (DELETE) werden gemäß REST-Konzept (siehe <<KonzeptRest>>) keine Informationen im Body übertragen.
+In einigen Fällen kann es jedoch vorkommen, dass der Server weitere Informationen benötigt, um die Anfrage erfolgreich bearbeiten zu können.
+Ein mögliches Szenario ist die Protokollierung der Zugriffshistorie inkl. Zugriffsgrund.
+Daher sollen in diesem Szenario die erforderlichen Informationen als URL-Parameter gesendet werden.
 
-Anforderung: Es muss immer ein Protokolleintrag erstellt werden, wenn die Schnittstelle für die Mitarbeitersuche aufgerufen wurde.
-Für die Protokollierung dieser Schnittstelle wird zusätzlich der Grund der Suche (grundSuche) benötigt.
+Zur Spezifizierung von URL-Parametern wird der Eintrag „in: path“ genutzt, wie das unten stehenden Beispiel zeigt.
+
+*Beispiel:* Protokollierung in NST_Mitarbeiter_suchen.
+
+Anforderung: Es muss immer der Zugriffsgrund protokolliert werden, wenn die Schnittstelle der Mitarbeitersuche aufgerufen wurde.
+Für die Protokollierung dieser Schnittstelle wird zusätzlich der Zugriffsgrund benötigt.
 
 [source,yaml]
 ----
@@ -378,26 +239,31 @@ paths:
       description: "Diese Schnittstelle bietet Nachbarsystemen die Möglichkeit, Mitarbeiter zu suchen und deren Daten abzufragen. Die Auswahl der Mitarbeiter erfolgt anhand einer Reihe von optionalen Suchkriterien."
       operationId: "sucheMitarbeiterNachSuchkriterien"
       parameters:
-        - name: "grundSuche"
+        - name: "zugriffsgrund"
           in: "path"
           schema:
             type: "string"
  …
 ----
 
+Falls die zu übermittelnden Informationen vertraulich sind, sollte ein Wechsel des http-Verbs zu POST und die Übermittlung der Informationen im Body statt in der URL eruiert werden.
+
 [[Verwendung_von_OpenAPI_Generator]]
 == Verwendung von OpenAPI Generator
-Es ist möglich, automatisch Code aus einer OpenAPI 3.0-Spezifikation zu generieren. Die IsyFact sieht den Einsatz des OpenAPI-Generators vor.
+Es ist möglich, automatisch Code aus einer OpenAPI 3.0-Spezifikation zu generieren.
+Die IsyFact sieht den Einsatz des OpenAPI-Generators vor.
 Für die automatische Generierung muss eine gültige OpenAPI 3.0-Spezifikation als Eingabe bereitgestellt werden.
 Der Generator liest diese Spezifikation ein und generiert daraus automatisch eine entsprechende Client- oder Server-Implementierung.
 Der Generator unterstützt alle verwendeten REST-Frameworks der IsyFact: Angular (Client), Spring Web Webflux (Client) und Spring MVC (Server).
 
-Wir empfehlen, den Generator über Maven oder direkt über die Konsole zu verwenden. Die Verwendung von maven ist sinnvoll, wenn wir eine neue Anwendung von Grund auf neu erstellen oder die Generierung in einen bestehenden Prozess integrieren möchten, z. B. einen automatischen Prozess zur Generierung von fachlicher Dokumentation.
-Aber da wir normalerweise keine neue Anwendung erstellen, sondern neue Schnittstellen zu einer bereits bestehenden Anwendung hinzufügen, ist es normalerweise einfacher, den Generator von der Konsole aus auszuführen und die benötigten Teile aus dem Generat in die Anwendung zu kopieren.
+Der präferierte Weg ist, den Generator über Maven oder direkt über die Konsole zu verwenden.
+Die Verwendung von Maven ist sinnvoll, wenn eine neue Anwendung von Grund auf neu entwickelt wird oder die Generierung in einen bestehenden Prozess integriert werden soll, z.B. in einen automatischen Prozess zur Generierung von fachlicher Dokumentation.
+Sollen neue Schnittstellen zu einer bereits bestehenden Anwendung hinzufügt werden, wird empfohlen, den Generator von der Konsole aus auszuführen und die benötigten Teile aus dem Generat in die Anwendung zu kopieren.
 
 [[die_konsole]]
 === Die Konsole
-Für die Nutzung über die Konsole ist es erforderlich, vorher die Generator-JAR-Datei von der Website des Generators zu installieren. Der Befehl besteht aus folgenden Teilen:
+Für die Nutzung über die Konsole ist es erforderlich, vorher die Generator-JAR-Datei von der Website des Generators zu installieren.
+Der Befehl besteht aus folgenden Teilen:
 
 [source,shell script]
 ----
@@ -439,12 +305,12 @@ java -jar …/OpenAPI-generator-cli.jar generate
 -o …/mitarbeiter_suche/Angular
 ----
 
-Danach kann man des erstellten Codes ins Projekt manuell einführen, wobei man die notwendigen Klassen manuell übernimmt.
+Anschließend kann der generierte Code in das Projekt manuell übernommen werden.
 
 [[maven]]
 === Maven
-Auch in einem bereit vorhandenen Maven-Projekt kann man den OpenAPI Generator aufrufen.
-Es ist jedoch wichtig zu beachten, dass der OpenAPI-Generator den Code erstellt, der bereits ein separates Projekt ist.
+Auch in bereits existierenden Maven-Projekt kann der OpenAPI-Generator aufgerufen werden.
+Es ist jedoch wichtig zu beachten, dass der generierte Code ein eigenes Projekt darstellt.
 Daher sollte die Integration des neuen Codes in das bereits bestehende Projekt noch manuell erfolgen.
 Ein Beispiel für die Maven-Konfiguration:
 
@@ -478,7 +344,8 @@ Ein Beispiel für die Maven-Konfiguration:
 </build>
 ----
 
-Die Konfigurationsparameter für den Generator sind die Tags „generatorName“ und der Tag „library“. Die Parameter für die verwendeten Frameworks sind folgende:
+Die Konfigurationsparameter für den Generator sind die Tags „generatorName“ und der Tag „library“.
+Die Parameter für die verwendeten Frameworks sind folgende:
 
 |===
 ||generatorName|library
@@ -518,5 +385,6 @@ Die Ergebnisse hängen davon ab, ob das verwendete Template diese Funktionalitä
 sourceFolder
 |Der Pfad für den zu generierenden Code.
 |===
+
 
 // end::inhalt[]

@@ -1,7 +1,161 @@
 // tag::inhalt[]
-== Literaturverweise
 
-[[RestKonzept]]
+
+:sectnums!:
+
+[[anhang]]
+== Anhang
+
+[[zusammenfassung-beispiel]]
+=== Anhang A: Zusammenfassung des Beispiels (NST_Mitarbeiter_suchen):
+
+[cols="h,1"]
+|===
+|Kurzbeschreibung
+|Diese Schnittstelle bietet Nachbarsystemen die Möglichkeit, Mitarbeiter zu suchen und deren Daten abzufragen. Die Auswahl der Mitarbeiter erfolgt anhand einer Reihe von optionalen Suchkriterien.
+
+|Verwendete Entitätstypen (Input)
+|NSE_Mitarbeiter_Suchkriterien
+
+|Verwendete Entitätstypen (Output)
+|NSE_Mitarbeiterdaten
+
+|Aufgerufene Anwendungsfälle
+|AWF_Mitarbeiter_suchen
+|===
+
+*Eingabeparameter*
+
+[cols="h,1"]
+|===
+|Name
+|NSE_Mitarbeiter_Suchkriterien
+
+|Kurzbeschreibung
+|Die Kriterien zur Selektion von Mitarbeiter. Alle Attribute dieses Typs sind optional. Nicht befüllte Attribute werden daher nicht in die Suche einbezogen. Es dürfen beliebige Kombinationen von Attributen angegeben werden.
+|===
+
+|===
+|Name|Datentyp
+
+|NSA_Bundesland_Schlüssel
+|DTY_Bundesland
+
+|NSA_Ort
+|DTY_Zeichenkette
+
+|NSA_Treffer_Anzahl
+|DTY_Ganzzahl
+|===
+
+
+*Ausgabeparameter*
+
+[cols="h,1"]
+|===
+|Name
+|NSE_Mitarbeiterdaten
+
+|Kurzbeschreibung
+|Dies ist die Rückgabeentität mit den Daten eines Mitarbeiters.
+
+|===
+
+|===
+|Name|Datentyp
+
+|NSA_Name
+|DTY_Zeichenkette
+
+|NSA_Vorname
+|DTY_Zeichenkette
+
+|NSA_Bundesland_Schlüssel
+|DTY_Bundesland
+
+|NSA_Telefonnummer
+|DTY_Zeichenkette
+|===
+
+*Das Ergebnis vom Mapping zur OpenAPI 3.0 Spezifikation:*
+
+[source,yaml]
+----
+OpenAPI: 3.0.0
+info:
+  description: "Ein Beispiel für das Mapping einer fachlichen Schnittstelle"
+  version: "1.0.0"
+  title: "Beispiel Anwendung"
+paths:
+  /mitarbeiter/sucheNachSuchkriterien:
+    get:
+      summary: "Suche Mitarbeiter nach Suchkriterien"
+      description: "Diese Schnittstelle bietet Nachbarsystemen die Möglichkeit, Mitarbeiter zu suchen und deren Daten abzufragen. Die Auswahl der Mitarbeiter erfolgt anhand einer Reihe von optionalen Suchkriterien."
+      operationId: "sucheMitarbeiterNachSuchkriterien"
+      parameters:
+        - in: "query"
+          name: "bundeslandSchluessel"
+          schema:
+            $ref: '#/components/schemas/Bundesland'
+        - name: "ort"
+          in: "query"
+          schema:
+            type: "string"
+        - name: "trefferAnzahl"
+          in: "query"
+          schema:
+            type: "integer"
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mitarbeiter'
+        '405':
+          description: "Ungültige Suchkriterien"
+components:
+  schemas:
+    Mitarbeiter:
+      type: "object"
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+        name:
+          type: "string"
+        vorname:
+          type: "string"
+        bundeslandSchluessel:
+          $ref: '#/components/schemas/Bundesland'
+        telefonnummer:
+          type: "string"
+    Bundesland:
+      type: string
+      enum:
+        - BW
+        - BY
+        - BE
+        - BB
+        - HB
+        - HH
+        - HE
+        - MV
+        - NI
+        - NW
+        - RP
+        - SL
+        - SN
+        - ST
+        - SH
+        - TH
+----
+
+== Externe Literaturverweise
+
+[[KonzeptRest]]
 xref:isy-service-rest:konzept/master.adoc[Rest Konzept]
 
 [[SwaggerEditorIntellij]]
@@ -13,7 +167,7 @@ https://marketplace.eclipse.org/content/openapi-swagger-editor[Swagger Editor f�
 [[SwaggerSpezifikation]]
 https://swagger.io/specification/[Swagger Spezifikation]
 
-[[VorlageSchnittstellendokumentation]]
+[[IsyFactVorlageSchnittstellendokumentation]]
 40_Methodik/20_Systementwurf/IsyFact-Vorlage_Schnittstellendokumentation.docx
 
 // end::inhalt[]

@@ -1,4 +1,4 @@
-:doctitle: REST
+:doctitle: Interne REST-Services
 :document-type: Nutzungsvorgaben
 :xrefstyle: short
 
@@ -8,3 +8,4 @@ include::thisdoc.adoc[tags=inhalt]
 
 include::inhalt.adoc[tags=inhalt]
 
+include::anhaenge.adoc[tags=inhalt]
