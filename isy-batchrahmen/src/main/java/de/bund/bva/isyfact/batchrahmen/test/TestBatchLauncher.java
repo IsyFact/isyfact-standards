@@ -40,16 +40,16 @@ import de.bund.bva.isyfact.logging.LogKategorie;
  *
  * <code><pre>
  * public void testBatch1() {
- *   TestBatchLauchner batchLauncher = new TestBatchLauchner("/resources/batch/batch-1-config.properties");
+ *   TestBatchLauncher batchLauncher = new TestBatchLauncher("/resources/batch/batch-1-config.properties");
  *   assertEquals(0, batchLauncher.starteBatch(BatchStartTyp.START, "/batch-1_out.xml", null ));
  * }
  * </pre></code>
  *
  */
-public class TestBatchLauchner {
+public class TestBatchLauncher {
 
     /** The Logger. */
-    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(TestBatchLauchner.class);
+    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(TestBatchLauncher.class);
 
     /** Property configuration of the batch to be started. */
     private String batchKonfig;
@@ -60,7 +60,7 @@ public class TestBatchLauchner {
      * @param batchKonfig
      *            Configuration file of the batch
      */
-    public TestBatchLauchner(String batchKonfig) {
+    public TestBatchLauncher(String batchKonfig) {
         this.batchKonfig = batchKonfig;
     }
 
