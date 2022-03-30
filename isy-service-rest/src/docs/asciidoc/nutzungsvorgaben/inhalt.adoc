@@ -16,13 +16,13 @@ Wir empfehlen das entsprechende IntelliJ und Eclipse Plugins dieses Editors (sie
 Die Verwendung dieser Plugins ist besonders sinnvoll, da sie die Integration der Spezifikation in das Projekt ermöglicht und die Verwaltung mit Version Control erleichtert.
 
 Weitere Informationen zu OpenApi 3.0 (Beschreibung und Vorgaben) finden Sie unter <<SwaggerSpezifikation>>).
-Bei der Erstellung der Spezifikation sind die Vorgaben der IsyFact (siehe <<KonzeptRest>>) zu beachten.
+Bei der Erstellung der Spezifikation sind die Vorgaben der IsyFact (siehe <<KonzeptInterneRestServices>>) zu beachten.
 Relevante Vorgaben beziehen sich u.a. auf den Aufbau der URls und der Anfrage, die Verwendung der http-Verben und Statuscodes.
 
 [[mapping-fachlichen-schnittstellen]]
 === Mapping von fachlicher Schnittstellenbeschreibung auf OpenAPI-Spezifikation
 Die Schnittstellenbeschreibung, die im Rahmen der Systemspezifikation erstellt wird, spezifiziert die angebotene(n) Nachbarsystemschnittstelle(n) (NST) aus fachlicher Sicht und gibt keine Auskunft über technische Details.
-Für das Erstellen dieser fachlichen Schnittstellenbeschreibung wird die IsyFact-Vorlage <<IsyFactVorlageSchnittstellendokumentation>> verwendet.
+Für das Erstellen dieser fachlichen Schnittstellenbeschreibung wird die IsyFact-Vorlage <<VorlageSchnittstellendokumentation>> verwendet.
 Die fachlichen Schnittstellenbeschreibungen nach den Vorgaben der IsyFact enthalten in erster Linie die verwendeten Entitäten sowie Eingabe und Ausgabe Parameter.
 Ergänzt werden diese durch weitere Spezifika (z.B. Kurzbeschreibung, Synchron/Asynchron, Online/Offline…).
 Diese Schnittstellenbeschreibung soll im Rahmen des Systementwurfs technisch als eine OpenAPI-Spezifikation konzipiert und bereitgestellt werden.
@@ -53,7 +53,7 @@ paths:
   /mitarbeiter/sucheNachSuchkriterien:
 ----
 
-Der Pfadname muss den Vorgaben zur Ressourcenorientierung im <<KonzeptRest>> entsprechen.
+Der Pfadname muss den Vorgaben zur Ressourcenorientierung im <<KonzeptInterneRestServices>> entsprechen.
 
 
 |NSE_Entität (Input)
@@ -201,7 +201,7 @@ typ
 |get, post, put, delete
 
 Das passende Verb, um die Art der Transaktion zu beschreiben (Lese-, Schreib- oder Löschvorgang).
-Vorgaben zur Wahl des Verbs finden sich im <<KonzeptRest>>.
+Vorgaben zur Wahl des Verbs finden sich im <<KonzeptInterneRestServices>>.
 |===
 
 Die für die Mapping-Tabelle genutzte Beispiel-Schnittstellenbeschreibung und das Ergebnis als OpenAPI-Spezifikation ist in <<zusammenfassung-beispiel>> zusammenfassend dargestellt.
@@ -217,7 +217,7 @@ Nur die Metadaten, die nicht durch die IsyFact standardisiert werden, sind Teil 
 [[fachliche_info_get_delete]]
 === Übertragung fachlicher Informationen bei GET- und DELETE-Anfragen
 
-Bei Anfragen zum Lesen (GET) oder Löschen (DELETE) werden gemäß REST-Konzept (siehe <<KonzeptRest>>) keine Informationen im Body übertragen.
+Bei Anfragen zum Lesen (GET) oder Löschen (DELETE) werden gemäß REST-Konzept (siehe <<KonzeptInterneRestServices>>) keine Informationen im Body übertragen.
 In einigen Fällen kann es jedoch vorkommen, dass der Server weitere Informationen benötigt, um die Anfrage erfolgreich bearbeiten zu können.
 Ein mögliches Szenario ist die Protokollierung der Zugriffshistorie inkl. Zugriffsgrund.
 Daher sollen in diesem Szenario die erforderlichen Informationen als URL-Parameter gesendet werden.

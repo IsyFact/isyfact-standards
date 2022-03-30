@@ -155,9 +155,6 @@ components:
 
 == Externe Literaturverweise
 
-[[KonzeptRest]]
-xref:isy-service-rest:konzept/master.adoc[Rest Konzept]
-
 [[SwaggerEditorIntellij]]
 https://plugins.jetbrains.com/plugin/14837-openapi-swagger-editor[Swagger Editor f√ºr Intellij]
 
@@ -166,8 +163,5 @@ https://marketplace.eclipse.org/content/openapi-swagger-editor[Swagger Editor f√
 
 [[SwaggerSpezifikation]]
 https://swagger.io/specification/[Swagger Spezifikation]
-
-[[IsyFactVorlageSchnittstellendokumentation]]
-40_Methodik/20_Systementwurf/IsyFact-Vorlage_Schnittstellendokumentation.docx
 
 // end::inhalt[]
