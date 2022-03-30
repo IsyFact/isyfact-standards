@@ -17,6 +17,7 @@
 package de.bund.bva.isyfact.batchrahmen.test;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.management.ManagementFactory;
@@ -25,6 +26,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import de.bund.bva.isyfact.batchrahmen.batch.konstanten.BatchRahmenEreignisSchluessel;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchStartTyp;
@@ -52,7 +57,7 @@ public class TestBatchLauncher {
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(TestBatchLauncher.class);
 
     /** Property configuration of the batch to be started. */
-    private String batchKonfig;
+    private final String batchKonfig;
 
     /**
      * Creates a BatchLauncher for the specified batch. The JRE and the class path are formed from the
@@ -90,8 +95,6 @@ public class TestBatchLauncher {
         RuntimeMXBean runtimeMxBean = ManagementFactory.getRuntimeMXBean();
         List<String> arguments = runtimeMxBean.getInputArguments();
         params.addAll(arguments);
-        params.add("-classpath");
-        params.add(classpath);
         params.add(BatchLauncher.class.getName()); // Main-Class
         params.addAll(Arrays.asList(batchLauncherParams));
 
@@ -100,6 +103,7 @@ public class TestBatchLauncher {
         }
 
         ProcessBuilder processBuilder = new ProcessBuilder(params);
+        setClasspathOn(processBuilder, classpath);
         processBuilder.redirectErrorStream(true);
         LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001, "Starte Batch...");
         String cmdLine = String.join(" ", params);
@@ -143,7 +147,7 @@ public class TestBatchLauncher {
      *             If the batch could not be started.
      */
     public int starteBatch(BatchStartTyp startTyp, String[] parameter) throws IOException {
-        return starteBatch(new String[] { getStartTypParam(startTyp), "-cfg", this.batchKonfig }, parameter);
+        return starteBatch(new String[] { getStartTypParam(startTyp), "-cfg", batchKonfig }, parameter);
     }
 
     /**
@@ -160,7 +164,7 @@ public class TestBatchLauncher {
      */
     public int starteBatch(BatchStartTyp startTyp, String ergebnisProtokoll, String[] parameter)
         throws IOException {
-        return starteBatch(new String[] { getStartTypParam(startTyp), "-cfg", this.batchKonfig,
+        return starteBatch(new String[] { getStartTypParam(startTyp), "-cfg", batchKonfig,
             "-Batchrahmen.Ergebnisdatei", ergebnisProtokoll }, parameter);
     }
 
@@ -180,4 +184,28 @@ public class TestBatchLauncher {
             return null;
         }
     }
+
+    /**
+     * Configures system process before execution so that at execution time
+     * a particular Classpath is added to the CLASSPATH environment variable.
+     * <p>
+     * Since the length of command line parameters is limited under Windows
+     * it might be beneficial configure classpath that contains many run time dependencies
+     * via the environment variables
+     *
+     * @param processBuilder
+     *              The ProcessBuilder
+     * @param classpath
+     *              Classpath to add to environment variables
+     */
+    private static void setClasspathOn(final ProcessBuilder processBuilder, final String classpath) {
+        final Map<String, String> env = processBuilder.environment();
+        final String initialClasspath = env.get("CLASSPATH");
+        final String newClasspath = Stream.of(classpath, initialClasspath)
+                .filter(Objects::nonNull)
+                .collect(Collectors.joining(File.pathSeparator));
+        LOG.debug("Setze für nachfolgenden Befehl/Prozess {}={}", "CLASSPATH", newClasspath);
+        env.put("CLASSPATH", newClasspath);
+    }
+
 }
