@@ -433,16 +433,15 @@ Hierfür gelten folgende Richtlinien:
 
 Neben den Nachbarsystemen sind weitere Überprüfungen sinnvoll:
 
-* Verfügbarkeit weiterer genutzter Ressourcen, wie beispielsweise der IAM-Server oder genutzte FTP-Verzeichnisse.
+* Verfügbarkeit weiterer genutzter Ressourcen, wie beispielsweise das IAM-System oder genutzte FTP-Verzeichnisse.
 Bei der Prüfung der genutzten Ressourcen ist zu beachten, dass sich die Implementierung nicht aufhängt und somit die Prüfung nicht weiterläuft.
 Um dies zu vermeiden, sollte zur Prüfung der genutzten Ressourcen das Future-Pattern wie in <<listing-Pruefmethode>> gezeigt, verwendet werden.
 +
 [NOTE]
 ====
-Als Beispiel sei hier der IAM-Server genannt. Zur Prüfung des IAM-Servers wird in der Regel eine Beispielanfrage
-an den Server gesendet.
-Ist vor den IAM-Server ein Loadbalancer geschaltet, so kann es nach einem Fail-Over passieren, dass diese
-Beispielanfrage endlos läuft.
+Als Beispiel sei hier das IAM-System genannt.
+Zur Prüfung des IAM-Systems wird in der Regel eine Beispielanfrage an den Server gesendet.
+Ist vor das IAM-System ein Loadbalancer geschaltet, so kann es nach einem Fail-Over passieren, dass diese Beispielanfrage endlos läuft.
 ====
 
 .Demonstration Future-Pattern

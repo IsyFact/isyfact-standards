@@ -486,7 +486,7 @@ Die für die Umsetzung der Architektur verwendeten Produkte lassen sich in die K
 *Basistechnologien:* Basistechnologien legen grundlegende technische Entscheidungen fest, wie z.B. die Programmiersprache und die verwendete Web-Technologie.
 
 *Systemsoftware:* Die Systemsoftware legt die technische Ablaufumgebung für die Software fest und bietet grundlegende Services für eine IsyFact-Systemlandschaft an.
-Hierzu gehören z.B. das Betriebssystem, Web-Server, Application-Server, Access-Manager, IAM und die Datenbank.
+Hierzu gehören z.B. das Betriebssystem, der Web-Server, der Application-Server, der Access-Manager und die Datenbank.
 
 *Bibliotheken für die Anwendungsentwicklung:* Die Anwendungsentwicklung wird durch den Einsatz von Frameworks und entsprechenden Bibliotheken vereinfacht und beschleunigt.
 IsyFact verwendet insbesondere Spring, Hibernate und JSF.
@@ -823,7 +823,7 @@ Eine angemessene Datensicherung ist daher unerlässlich.
 Da nur die Produktionsumgebung Echtdaten verarbeitet, beschränken wir uns nachfolgend auf die Datensicherung in der Produktionsumgebung.
 Die Sicherung der Daten in den anderen Systemumgebungen muss nicht regelmäßig erfolgen, sondern kann punktuell je nach Bedarf durchgeführt werden.
 Der durchgängige Einsatz eines Datenbanksystems vereinfacht dabei die Datensicherung.
-Neben den in der Datenbank gespeicherten Daten müssen auch andere Datenspeicher, wie z.B. die IAM-Daten oder Sourcen bei der Datensicherung berücksichtigt werden.
+Neben den in der Datenbank gespeicherten Daten müssen auch andere Datenspeicher, wie z.B. die Sourcen bei der Datensicherung berücksichtigt werden.
 
 Alle Geschäftsdaten werden redundant in Primär- und Standby-Datenbanken gehalten. Zu jeder Primärdatenbank wird mindestens eine Standby-Datenbank eingerichtet.
 
