@@ -5,7 +5,7 @@
 == Standardisierung durch Software Factories
 
 Bei der Entwicklung von Anwendungssystemen ist eine Vielzahl von Detailproblemen zu lösen.
-Dies beginnt bei der allgemeinen Systemarchitektur, setzt sich fort über die Kommunikationsmechanismen zwischen Systemen, die Oberflächengestaltung, das IAM, das Monitoring und den Betrieb und geht bis hin zur Auswahl konkreter Frameworks, mit denen die Systeme implementiert werden.
+Dies beginnt bei der allgemeinen Systemarchitektur, setzt sich fort über die Kommunikationsmechanismen zwischen Systemen, die Oberflächengestaltung, die Benutzerverwaltung, das Monitoring und den Betrieb und geht bis hin zur Auswahl konkreter Frameworks, mit denen die Systeme implementiert werden.
 Mit einer Software Factory werden alle diese „Zutaten“ strukturiert zusammengefasst und in geeigneter Weise bereitgestellt.
 
 *Modularisierung und Standardisierung der Softwareentwicklung*

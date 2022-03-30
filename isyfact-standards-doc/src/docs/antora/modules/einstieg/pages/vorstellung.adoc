@@ -9,7 +9,7 @@ include::glossary:licence:partial$licence.adoc[]
 
 Bei der Entwicklung von Anwendungssystemen für eine bestimmte Domäne stehen Architekten und Entwickler häufig vor denselben, wiederkehrenden Problemen.
 Zwar unterscheiden sich je nach Anwendung die Datenstrukturen, die Geschäftslogik und die Benutzeroberflächen, aber die allgemeinen Prinzipien der Architektur, der Datenhaltung und der Gestaltung von Benutzerschnittstellen, sind in der Regel für alle Anwendungen identisch und somit wiederverwendbar.
-Ebenso lässt sich eine Vielzahl von Detailvorgaben, z.B. für den Betrieb von Anwendungen, das Logging, das IAM oder für die Kommunikation von Systemen untereinander standardisieren.
+Ebenso lässt sich eine Vielzahl von Detailvorgaben, z.B. für den Betrieb von Anwendungen, das Logging, die Benutzerverwaltung oder für die Kommunikation von Systemen untereinander standardisieren.
 Dies ist nicht nur sinnvoll, sondern auch notwendig, wenn die verschiedenen Anwendungssysteme Teil einer Anwendungslandschaft in einem Unternehmen oder einer Behörde sind.
 Erst durch die Wiederverwendung von bereits entwickelten Komponenten und die Standardisierung von Entwicklungsmethoden wird es möglich, eine komplexe Anwendungslandschaft mit geringem Aufwand bzw. kostengünstig zu entwickeln und effizient zu betreiben.
 
