@@ -1,5 +1,6 @@
 # 2.5.0
 - `IFS-1282`: Einführung von Maven CI-friendly Versionen
+- `IFS-1397`: [isyfact-products-bom] Spring Boot Versionsanhebung auf 2.5.12
 
 # 2.4.0
 - `IFS-590`: [isy-logging] Instanziierung LogApplicationListener Parameter in korrekter Reihenfolge
