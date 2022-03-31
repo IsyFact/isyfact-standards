@@ -212,7 +212,29 @@ Metadaten werden als Header-Parameter übertragen.
 Zu Metadaten gehören u.a. Daten wie Benutzerkennung, Rolle, Tags, externe IDs.
 Nur die Metadaten, die nicht durch die IsyFact standardisiert werden, sind Teil der OpenApi-Spezifikation.
 
-//ToDo: Beispiel für Header-Metadaten (z.B. externeID)
+Zur Spezifizierung von Header-Parametern wird der Eintrag „in: header“ genutzt, wie das unten stehenden Beispiel zeigt.
+
+*Beispiel:* Eine externe Id in NST_Mitarbeiter_suchen.
+
+Anforderung: Es muss immer eine externe Id mitgeschickt werden, wenn die Mitarbeitersuche aufgerufen wurde.
+
+[source,yaml]
+----
+…
+paths:
+  /mitarbeiter/sucheNachSuchkriterien:
+    get:
+      summary: "Suche Mitarbeiter nach Suchkriterien"
+      description: "Diese Schnittstelle bietet Nachbarsystemen die Möglichkeit, Mitarbeiter zu suchen und deren Daten abzufragen. Die Auswahl der Mitarbeiter erfolgt anhand einer Reihe von optionalen Suchkriterien."
+      operationId: "sucheMitarbeiterNachSuchkriterien"
+      parameters:
+        - name: "externeId"
+          in: "header"
+          schema:
+            type: "integer"
+            format: "int64"
+ …
+----
 
 [[fachliche_info_get_delete]]
 === Übertragung fachlicher Informationen bei GET- und DELETE-Anfragen
