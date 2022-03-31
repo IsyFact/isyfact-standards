@@ -187,10 +187,10 @@ public class TestBatchLauncher {
 
     /**
      * Configures system process before execution so that at execution time
-     * a particular Classpath is added to the CLASSPATH environment variable.
+     * a particular classpath is added to the CLASSPATH environment variable.
      * <p>
      * Since the length of command line parameters is limited under Windows
-     * it might be beneficial configure classpath that contains many run time dependencies
+     * it might be beneficial to configure classpath that contains many run time dependencies
      * via the environment variables
      *
      * @param processBuilder
