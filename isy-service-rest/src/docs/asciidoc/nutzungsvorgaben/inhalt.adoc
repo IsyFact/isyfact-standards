@@ -216,7 +216,7 @@ Zur Spezifizierung von Header-Parametern wird der Eintrag „in: header“ genut
 
 *Beispiel:* Eine externe Id in NST_Mitarbeiter_suchen.
 
-Anforderung: Es muss immer eine externe Id mitgeschickt werden, wenn die Mitarbeitersuche aufgerufen wurde.
+Anforderung: Es muss immer eine externe Id mitgeschickt werden, wenn eine Schnittstelle der Anwendung aufgerufen wurde.
 
 [source,yaml]
 ----
