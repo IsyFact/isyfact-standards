@@ -99,7 +99,12 @@ isy.task.tasks.halloWeltTask.passwort=TestPasswort1
 isy.task.tasks.halloWeltTask.bhkz=BHKZ1
 isy.task.tasks.halloWeltTask.ausfuehrung=ONCE
 isy.task.tasks.halloWeltTask.initial-delay=10s
+isy.task.tasks.halloWeltTask.host=ComputerName
+isy.logging.anwendung.typ=GA
+isy.logging.anwendung.name=Beispiel
+isy.logging.anwendung.version=0.0.1
 ----
+`ComputerName` ist der Name der Maschine, auf der der Task läuft.
 
 Ein Task wird grundsätzlich als Spring Bean konfiguriert.
 
