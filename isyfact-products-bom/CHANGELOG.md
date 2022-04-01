@@ -1,3 +1,6 @@
+# 2.2.2
+- `IFS-1398`: Update auf Spring Framework 5.2.20 und Spring Boot 2.3.12 (CVE-2022-22965)
+
 # 2.2.1
 - `IFS-1133`: Versioniere Hibernate über Spring Boot Dependencies
 
