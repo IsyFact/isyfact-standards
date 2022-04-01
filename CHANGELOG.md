@@ -1,3 +1,6 @@
+# 2.4.1
+- `IFS-1397`: Versionsanhebung von Spring Boot auf 2.5.12 (Fix CVE-2022-22965)
+
 # 2.4.0
 - `IFS-590`: [isy-logging] Instanziierung LogApplicationListener Parameter in korrekter Reihenfolge
 - `IFS-601`: [isy-products-bom] Einbindung folgender Produkte über die Spring Boot Dependencies: JPA, JTA, Spring, Hibernate, Jackson, QueryDSL, SLF4J, Logback, JUnit, Mockito, AssertJ, H2.
