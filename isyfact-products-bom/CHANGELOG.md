@@ -1,3 +1,6 @@
+# 2.3.2
+- `IFS-1398`: Update auf Spring Framework 5.2.20 und Spring Boot 2.3.12 (CVE-2022-22965)
+
 # 2.2.0
 - `IFS-643`: WireMock in products.bom ergänzt
 - `IFS-465`: Profile zum Bauen mit Java 11 erstellt

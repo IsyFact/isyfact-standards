@@ -1,3 +1,6 @@
+# 2.3.2
+- `IFS-1398`: [isyfact-products-bom] Update auf Spring Framework 5.2.20 und Spring Boot 2.3.12 (CVE-2022-22965)
+
 # 2.3.1
 - `IFS-1176`: [isy-sonderzeichen] Fehler gefixt, bei dem der LegacyTransformator Texte ausgibt, die nicht konform zu String.Latin 1.1 sind.
 
