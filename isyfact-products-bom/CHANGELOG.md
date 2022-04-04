@@ -1,5 +1,9 @@
+# 2.3.2
+- `IFS-1398`: Update auf Spring Framework 5.2.20 und Spring Boot 2.3.12 (CVE-2022-22965)
+
 # 2.3.1
 - `IFS-1133`: Hibernate-Version wird nun automatisch durch Spring Boot angezogen
+
 
 # 2.2.0
 - `IFS-643`: WireMock in products.bom ergänzt
