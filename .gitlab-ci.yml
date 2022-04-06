@@ -56,6 +56,15 @@ test:isy-sonderzeichen:
 test:isy-sst-bridge:
   extends: .maven-test
 
+test:isy-sst-bridge/isy-exception-sst-bridge:
+  extends: .maven-test
+
+test:isy-sst-bridge/isy-serviceapi-sst-bridge:
+  extends: .maven-test
+
+test:isy-sst-bridge/isy-serviceapi-core-bridge:
+  extends: .maven-test
+
 test:isy-task:
   extends: .maven-test
 
