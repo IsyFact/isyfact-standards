@@ -8,11 +8,12 @@ build:
 build:doc:
   extends: .maven-build
   variables:
-    MAVEN_BUILD_OPTS: -Pbuild-docs
+    MAVEN_BUILD_OPTS: -pl isy-service-rest,isy-sst-bridge/bridge-documentation -Pbuild-docs,build-bridge-guide
   artifacts:
     expire_in: 1 day
     paths:
       - '**/target/doc/**'
+      - '**/target/IsyFact-Bridge_Guide/**'
 
 test:isy-aufrufkontext:
   extends: .maven-test
