@@ -1,6 +1,7 @@
 # 1.11.0
 - `IFS-796`: GreenMail als Test Suite für Mail-Server ist in isyfact-products-bom enthalten
 - `IFS-1093`: Anhebung von Oracle-JDBC und UCP auf 19.11
+- `IFS-1196`: Spring Framework BOM Version von 4.3.22.RELEASE auf 4.3.23.RELEASE angehoben
 
 # 1.10.0
 - Versionanhebung auf IFS 1.10.0
