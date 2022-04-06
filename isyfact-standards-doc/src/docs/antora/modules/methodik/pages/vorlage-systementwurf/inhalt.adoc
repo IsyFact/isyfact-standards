@@ -297,9 +297,8 @@ Die folgende Tabelle führt die vom IT-System verwendeten Elemente der IsyFact a
 |Interne Servicekommunikation |berücksichtigt |_Standard_ |
 4+|*Bausteine (Standard)*  {set:cellbgcolor:#D9D9D9}
 | {set:cellbgcolor} Fehlerbehandlung |berücksichtigt |_Standard_ |
-|LDAP-Zugriffe |berücksichtigt |_Standard_ |
-|Logging |berücksichtigt |_Standard_ |
-|Sicherheitskomponente |Abweichungen |_Standard_ |<<KonzeptLogging>> <<NutzungsvorgabenLogging>>
+|Logging |berücksichtigt |_Standard_ |<<KonzeptLogging>> <<NutzungsvorgabenLogging>>
+|Sicherheitskomponente |Abweichungen |_Standard_ |
 |Überwachung und Konfiguration |berücksichtigt |_Standard_ |
 4+|*Bausteine (Erweiterungen)* {set:cellbgcolor:#D9D9D9}
 | {set:cellbgcolor}  Alphanumerisches Suchverfahren |berücksichtigt |_Standard_ |
@@ -386,7 +385,7 @@ _Die Farbgebung für ein Teilsystem-Element orientiert sich an der fachlichen Re
 * _Gelb für Querschnittsanwendungen (R/G/B: 255 / 255 / 153)_
 * _Violett für das Service-Gateway (R/G/B: 255 / 153 / 204)_
 * _Hellgrün für Portal-Systeme (R/G/B: 204 / 255 / 204)_
-* _Weiß für externe Systeme oder Produkte (LDAP, Datenbank etc.) (R/G/B: 255 / 255 / 255)_
+* _Weiß für externe Systeme oder Produkte (Datenbank etc.) (R/G/B: 255 / 255 / 255)_
 ====
 
 [[anforderungen]]
