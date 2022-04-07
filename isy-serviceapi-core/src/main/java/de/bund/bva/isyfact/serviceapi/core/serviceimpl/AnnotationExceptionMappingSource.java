@@ -19,26 +19,24 @@ package de.bund.bva.isyfact.serviceapi.core.serviceimpl;
 import java.lang.reflect.Method;
 
 import de.bund.bva.isyfact.exception.BaseException;
-import de.bund.bva.isyfact.exception.service.TechnicalToException;
-import de.bund.bva.isyfact.exception.service.ToException;
+import de.bund.bva.pliscommon.exception.service.PlisTechnicalToException;
+import de.bund.bva.pliscommon.exception.service.PlisToException;
 
 /**
- * Ermittelt Abbildungsregeln für Exceptions, die über Annotationen definiert sind.
- * 
+ * Determines mapping rules for exceptions defined via annotations.
+ *
  * <p>
- * Diese Klasse erwartet, dass ein Implementierungspackage für die Service-Schnittstelle existiert
- * (Packagename = Packagename der RemoteBean-Schnittstelle + ".impl"), und dass dieses Package mit der
- * Annotation {@link ExceptionMapping} versehen ist.
+ * This class expects that an implementation package for the service interface
+ * exists (package name = package name of the RemoteBean interface + ".impl"), and
+ * that this package is annotated with {@link ExceptionMapping}.
  * </p>
- * 
  */
 public class AnnotationExceptionMappingSource implements ExceptionMappingSource {
 
-    /**
-     * {@inheritDoc}
-     */
-    public Class<? extends ToException> getToExceptionClass(Method remoteBeanMethod,
-        Class<? extends BaseException> exceptionClass) {
+    @Override
+    public Class<? extends PlisToException> getToExceptionClass(
+            Method remoteBeanMethod,
+            Class<? extends BaseException> exceptionClass) {
 
         Class<?> remoteBeanInterface = remoteBeanMethod.getDeclaringClass();
 
@@ -53,10 +51,8 @@ public class AnnotationExceptionMappingSource implements ExceptionMappingSource 
         return null;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public Class<? extends TechnicalToException> getGenericTechnicalToException(Method remoteBeanMethod) {
+    @Override
+    public Class<? extends PlisTechnicalToException> getGenericTechnicalToException(Method remoteBeanMethod) {
 
         Class<?> remoteBeanInterface = remoteBeanMethod.getDeclaringClass();
 
@@ -66,21 +62,19 @@ public class AnnotationExceptionMappingSource implements ExceptionMappingSource 
     }
 
     /**
-     * Liest die {@link ExceptionMapping}-Annotation aus dem Implementierungspackage des Services.
-     * 
-     * @param remoteBeanInterface
-     *            das RemoteBean-Interface
-     * @return die Annotation
+     * Reads the {@link ExceptionMapping} annotation from the service's implementation package.
+     *
+     * @param remoteBeanInterface the RemoteBean interface
+     * @return the annotation
      */
-    private ExceptionMapping getExceptionMapping(Class<?> remoteBeanInterface) {
+    private static ExceptionMapping getExceptionMapping(Class<?> remoteBeanInterface) {
         String implPackageName = remoteBeanInterface.getPackage().getName() + ".impl";
         Package implPackage = Package.getPackage(implPackageName);
         if (implPackage == null) {
             throw new IllegalStateException("Für den Service " + remoteBeanInterface.getName()
-                + " fehlt das erwartete Implementierungspackage " + implPackageName);
+                    + " fehlt das erwartete Implementierungspackage " + implPackageName);
         }
-        ExceptionMapping exceptionMapping = implPackage.getAnnotation(ExceptionMapping.class);
-        return exceptionMapping;
+        return implPackage.getAnnotation(ExceptionMapping.class);
     }
 
 }
