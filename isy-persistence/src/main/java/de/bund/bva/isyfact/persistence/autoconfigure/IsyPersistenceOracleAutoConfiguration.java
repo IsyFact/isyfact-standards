@@ -15,9 +15,11 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.sql.init.dependency.DatabaseInitializationDependencyConfigurer;
 import org.springframework.boot.sql.init.dependency.DependsOnDatabaseInitialization;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Primary;
 
 /**
@@ -26,6 +28,7 @@ import org.springframework.context.annotation.Primary;
 @Configuration
 @ConditionalOnProperty(name = "isy.persistence.oracle.datasource.databaseurl")
 @EnableConfigurationProperties
+@Import(DatabaseInitializationDependencyConfigurer.class)
 public class IsyPersistenceOracleAutoConfiguration {
 
     /**
@@ -106,17 +109,18 @@ public class IsyPersistenceOracleAutoConfiguration {
     @Primary
     @Bean
     @DependsOnDatabaseInitialization
-    public IsyDataSource appDataSource(@Qualifier("dataSource") DataSource dataSource,
+    public DataSource appDataSource(@Qualifier("dataSource") DataSource dataSource,
         DatabaseProperties databaseProperties) {
-        IsyDataSource plisDataSource = new IsyDataSource();
-        plisDataSource.setSchemaVersion(databaseProperties.getSchemaVersion());
-        plisDataSource.setInvalidSchemaVersionAction(databaseProperties.getInvalidSchemaVersionAction());
-        plisDataSource.setTargetDataSource(dataSource);
-        return plisDataSource;
+        IsyDataSource isyDataSource = new IsyDataSource();
+        isyDataSource.setSchemaVersion(databaseProperties.getSchemaVersion());
+        isyDataSource.setInvalidSchemaVersionAction(databaseProperties.getInvalidSchemaVersionAction());
+        isyDataSource.setTargetDataSource(dataSource);
+        return isyDataSource;
     }
 
     @Primary
     @Bean
+    @ConditionalOnMissingBean
     @ConfigurationProperties(prefix = "isy.persistence.datasource")
     public DatabaseProperties databaseProperties() {
         return new DatabaseProperties();
