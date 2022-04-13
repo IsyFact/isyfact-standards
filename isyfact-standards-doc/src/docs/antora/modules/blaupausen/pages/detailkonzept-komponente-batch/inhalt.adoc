@@ -718,12 +718,12 @@ Datei `JRE_HOME/lib/management/jmxremote.access` readwrite-Zugriff erlaubt ist.
 Ein Batch wird innerhalb der Plattform gestartet.
 Dazu verwendet der Batch die Benutzerkennung eines technischen Benutzers „internes System“, die in seiner Startkonfiguration (als Konfigurationsdatei) hinterlegt und im Benutzerverzeichnis vorhanden ist.
 
-Der Batchrahmen nutzt die T-Komponente Sicherheit (siehe xref:isy-sicherheit:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Sicherheit]), um den anfragenden Benutzer über den Access-Manager der Plattform zu authentifizieren.
-Der Access-Manager authentifiziert den Benutzer anhand der angegebenen Benutzerkennung und des Passwortes, registriert alle Informationen zum Benutzer in der T-Komponente AufrufKontextVerwalter und schließt die Session des Benutzers im Access-Manager.
+Der Batchrahmen nutzt die T-Komponente Sicherheit (siehe xref:isy-sicherheit:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Sicherheit]), um den anfragenden Benutzer über den IAM-Service der Plattform zu authentifizieren.
+Das IAM-System authentifiziert den Benutzer anhand der angegebenen Benutzerkennung und des Passwortes, registriert alle Informationen zum Benutzer in der T-Komponente AufrufKontextVerwalter und schließt die Session des Benutzers im IAM-System.
 
 Im Zuge des Batchlaufs können nun über die T-Komponente Sicherheit Berechtigungsprüfungen (z.B. im Anwendungskern) stattfinden.
 
-Der Batchrahmen fordert vom BatchAusführungsBean die Implementierung der Methode: getAuthenticationCredentials(), in der dem Batchrahmen bekanntgegeben wird, mit welchem Benutzer der Batch laufen soll.
+Der Batchrahmen fordert vom BatchAusführungsBean die Implementierung der Methode: getAuthenticationCredentials(), in der dem Batchrahmen bekannt gegeben wird, mit welchem Benutzer der Batch laufen soll.
 
 [source,Java]
 ----

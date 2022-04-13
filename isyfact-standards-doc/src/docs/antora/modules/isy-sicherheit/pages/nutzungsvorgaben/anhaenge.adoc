@@ -26,7 +26,7 @@ In der pom.xml der Anwendung muss folgende Abhängigkeit ergänzt werden:
 Die Spring-Konfiguration von isy-sicherheit-keycloak baut auf der Konfiguration von isy-sicherheit auf (siehe <<NutzungsvorgabenSicherheit, Nutzungsvorgaben Sicherheit>>).
 Lediglich alle dort beschriebenen CAMS-spezifischen Konfigurationen müssen entfallen.
 In IsyFact 2 bringt isy-sicherheit-keycloak eine Autokonfiguration für Spring Boot mit.
-Die Bean für den AccessManager für Keycloak wird damit automatisch konfiguriert, wenn keine andere AccessManager-Bean im Kontext vorhanden ist.
+Die Bean für das IAM-System für Keycloak wird damit automatisch konfiguriert, wenn keine andere IAM-System-Bean im Kontext vorhanden ist.
 
 Zur Absicherung von Rest-Services in Spring sind weitere Konfigurationen erforderlich.
 Insbesondere muss die Spring-Security-Chain korrekt initialisiert werden.

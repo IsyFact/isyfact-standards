@@ -237,7 +237,7 @@ geändert
 
 * Bei der Überführung in Java-Config können bestimmte Beans entfernt werden.
 Automatisch konfiguriert werden die `@Gesichert`-Annotation, die `AufrufKontextFactory` und die Thread-Scopes `thread` und `request` für Spring.
-* In der Anwendung müssen die Beans für `AufrufKontextVerwalter`, `Sicherheit` und `AccessManager` konfiguriert werden.
+* In der Anwendung müssen die Beans für `AufrufKontextVerwalter`, `Sicherheit` und `IAM-System` konfiguriert werden.
 +
 Siehe xref:isy-sicherheit:nutzungsvorgaben/master.adoc#grundkonzepte-und-konfiguration[Nutzungsvorgaben Sicherheit - Kapitel: Grundkonzepte und Konfiguration].
 * Die Konfiguration des Caches für Authentifizierungen erfolgt in `application.properties`.

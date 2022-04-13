@@ -486,7 +486,7 @@ Die für die Umsetzung der Architektur verwendeten Produkte lassen sich in die K
 *Basistechnologien:* Basistechnologien legen grundlegende technische Entscheidungen fest, wie z.B. die Programmiersprache und die verwendete Web-Technologie.
 
 *Systemsoftware:* Die Systemsoftware legt die technische Ablaufumgebung für die Software fest und bietet grundlegende Services für eine IsyFact-Systemlandschaft an.
-Hierzu gehören z.B. das Betriebssystem, Web-Server, Application-Server, Access-Manager, LDAP und die Datenbank.
+Hierzu gehören z.B. das Betriebssystem, Web-Server, Application-Server, IAM-System, LDAP und die Datenbank.
 
 *Bibliotheken für die Anwendungsentwicklung:* Die Anwendungsentwicklung wird durch den Einsatz von Frameworks und entsprechenden Bibliotheken vereinfacht und beschleunigt.
 IsyFact verwendet insbesondere Spring, Hibernate und JSF.

@@ -65,12 +65,12 @@ Die Autokonfiguration von `isy-sicherheit` führt die folgende Konfiguration dur
 * Der zur Verwendung der Annotation `@Gesichert` notwendige Interceptor wird konfiguriert.
 * Die normalerweise in Spring nicht verfügbaren Bean Scopes `thread` und `request` werden registriert.
 * Die Bean für die `AufrufKontextFactory` wird konfiguriert.
-* Die Bean für die Komponente `SicherheitAdmin` wird konfiguriert, wenn eine AccessManager-Bean vorhanden ist.
+* Die Bean für die Komponente `SicherheitAdmin` wird konfiguriert, wenn ein IAM-System-Bean vorhanden ist.
 
 Die Beans für Sicherheit und den AufrufKontextVerwalter werden in einer separaten Spring-Konfigurationsklasse manuell konfiguriert.
 Ein Beispiel dazu findet sich in <<listing-konfiguration-fuer-spring>>.
 Die fehlenden Typparameter sind in der echten Konfiguration zu ergänzen.
-Des Weiteren muss eine Bean für den verwendeten `AccessManager` existieren.
+Des Weiteren muss eine Bean für den verwendeten `IAM-System` existieren.
 
 .Konfiguration für Spring
 [id="listing-konfiguration-fuer-spring",reftext="{listing-caption} {counter:listings }"]
@@ -96,7 +96,7 @@ Hierbei werden auch direkt die Spring Beans zur Verwaltung der Aufrufkontexte un
 // tag::important[]
 [IMPORTANT]
 ====
-Die Implementierung der Schnittstelle `AccessManager` stellt einer der IsyFact-Bausteine für die Authentifizierung bereit.
+Die Implementierung der Schnittstelle `IAM-System` stellt einer der IsyFact-Bausteine für die Authentifizierung bereit.
 Eine Beschreibung der Konfiguration findet sich in den jeweiligen Nutzungsvorgaben.
 ====
 
