@@ -16,11 +16,11 @@
  */
 package de.bund.bva.isyfact.serviceapi.core.aufrufkontext;
 
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
-import de.bund.bva.isyfact.serviceapi.core.aop.test.AufrufKontextSstTestBean;
-import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.helper.DebugAufrufKontextVerwalter;
-import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
-import junit.framework.AssertionFailedError;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,31 +29,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.*;
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
+import de.bund.bva.isyfact.serviceapi.core.aop.test.AufrufKontextSstTestBean;
+import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.helper.DebugAufrufKontextVerwalter;
+import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
+
+import junit.framework.AssertionFailedError;
 
 /**
- * Testet die Funktionalität von {@link StelltAufrufKontextBereitInterceptor}.
+ * Tests the functionality of {@link StelltAufrufKontextBereitInterceptor}.
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = TestConfig.class, webEnvironment = SpringBootTest.WebEnvironment.NONE,
-properties = {"isy.logging.autoconfiguration.enabled=false"})
+        properties = {"isy.logging.autoconfiguration.enabled=false"})
 public class AufrufKontextInterceptorAnnotationTest {
 
     /**
-     * Zugriff auf den AufrufKontextVerwalter, um zu überprüfen, ob der AufrufKontext korrekt gesetzt / nicht
-     * gesetzt wurde.
+     * Access to the {@link de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter} to check if the {@link AufrufKontext} is set / not set correctly.
      */
     @Autowired
     public DebugAufrufKontextVerwalter aufrufKontextVerwalter;
 
-    /** Simulation einer Service-Schnittstelle, auf die Aufrufe getätigt werden. */
+    /**
+     * Simulation of a service interface to which calls are made.
+     */
     @Autowired
     public AufrufKontextSstTestBean sst;
 
     /**
-     * erzeugt ein AufrufKontext Transport Objekt.
-     *
-     * @return
+     * creates a {@link AufrufKontextTo}.
      */
     private AufrufKontextTo createAufrufKontextTo() {
         AufrufKontextTo aufrufKontextTo = new AufrufKontextTo();
@@ -62,24 +66,24 @@ public class AufrufKontextInterceptorAnnotationTest {
         aufrufKontextTo.setDurchfuehrenderBenutzerPasswort("TEST");
         aufrufKontextTo.setDurchfuehrenderSachbearbeiterName("TEST");
         aufrufKontextTo.setKorrelationsId("TEST");
-        aufrufKontextTo.setRolle(new String[] { "TEST" });
+        aufrufKontextTo.setRolle(new String[]{"TEST"});
         aufrufKontextTo.setRollenErmittelt(true);
         return aufrufKontextTo;
     }
 
     /**
-     * Vergleicht ein AufrufKontextTo mit einem AufrufKontext.
+     * Compares a {@link AufrufKontextTo} with a {@link AufrufKontext}.
      * <p>
-     * Wirft einen {@link AssertionFailedError}, wenn die übergebenen Objekte nicht überein stimmen.
+     * Throws a {@link AssertionFailedError} if the passed objects does not match.
      *
-     * @param to      Transportobjekt
-     * @param kontext AufrufKontext
+     * @param to      Transport object
+     * @param kontext context
      */
     private void assertEqualData(AufrufKontextTo to, AufrufKontext kontext) {
         assertEquals(to.getDurchfuehrendeBehoerde(), kontext.getDurchfuehrendeBehoerde());
         assertEquals(to.getDurchfuehrenderBenutzerKennung(), kontext.getDurchfuehrenderBenutzerKennung());
         assertEquals(to.getDurchfuehrenderSachbearbeiterName(),
-            kontext.getDurchfuehrenderSachbearbeiterName());
+                kontext.getDurchfuehrenderSachbearbeiterName());
         assertEquals(to.getDurchfuehrenderBenutzerPasswort(), kontext.getDurchfuehrenderBenutzerPasswort());
         assertEquals(to.getKorrelationsId(), kontext.getKorrelationsId());
         assertArrayEquals(to.getRolle(), kontext.getRolle());
@@ -87,7 +91,7 @@ public class AufrufKontextInterceptorAnnotationTest {
     }
 
     /**
-     * setzt den AufrufKontext vor jedem Test zurück.
+     * resets the context before each test.
      */
     @Before
     public void leereAufrufKontext() {
@@ -96,7 +100,7 @@ public class AufrufKontextInterceptorAnnotationTest {
 
     @After
     public void isAufrufKontextLeer() {
-        // der AufrufKontext darf nach Beendigung des Aufrufs nicht mehr gesetzt sein.
+        // the context must not be set after the call is finished.
         assertNull(aufrufKontextVerwalter.getAufrufKontext());
     }
 
@@ -132,7 +136,7 @@ public class AufrufKontextInterceptorAnnotationTest {
     public void stelltAufrufKontextBereitMitMehrerenParameterMehrereKontexte() {
         AufrufKontextTo aufrufKontextTo = createAufrufKontextTo();
         sst.stelltAufrufKontextBereitMitMehrerenParameterMehrereKontexte(aufrufKontextTo,
-            createAufrufKontextTo());
+                createAufrufKontextTo());
         assertEqualData(aufrufKontextTo, aufrufKontextVerwalter.getLetzterAufrufKontext());
     }
 

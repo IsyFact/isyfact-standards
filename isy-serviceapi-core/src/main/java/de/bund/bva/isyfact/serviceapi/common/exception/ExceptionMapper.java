@@ -20,223 +20,195 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.UUID;
 
-import de.bund.bva.isyfact.logging.IsyLogger;
-import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.isyfact.exception.FehlertextProvider;
 import de.bund.bva.isyfact.exception.BaseException;
+import de.bund.bva.isyfact.exception.FehlertextProvider;
 import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
 import de.bund.bva.isyfact.exception.common.konstanten.EreignisSchluessel;
-import de.bund.bva.isyfact.exception.service.ToException;
+import de.bund.bva.isyfact.logging.IsyLogger;
+import de.bund.bva.isyfact.logging.IsyLoggerFactory;
+import de.bund.bva.pliscommon.exception.service.PlisToException;
 
 /**
- * Diese Klasse bietet Methoden zur Uebernahme von Inhalten von Anwendungsexceptions in Schnittstellen bzw.
- * Transportexceptions.
+ * This class provides methods for transferring the contents of application exceptions to interfaces or transport exceptions.
  * <p>
- * Ausserdem bietet es die Möglichkeit SchnittstellenException zu erzeugen mit Hilfe einer Ausnahme-ID und
- * einerm {@link FehlertextProvider}.
- *
+ * It also provides the ability to throw an interface exception using an exception ID and a {@link FehlertextProvider}.
  */
 public class ExceptionMapper {
 
-    /** Isy-Logger. */
+    /**
+     * Isy-Logger.
+     */
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(ExceptionMapper.class);
 
     /**
-     * erzeugt und füllt eine TransportExcpetion-Klasse vom übergebenen Typ mit den Werten aus der übergebenen
-     * AnwendungsException.
+     * creates and populates a TransportExcpetion class of the passed type with the values from the passed ApplicationException.
      *
-     * @param <T>
-     *            Typ der zu erzeugenden TransportExcpetion
-     * @param exception
-     *            Die originale BaseException
-     * @param transportExceptionClass
-     *            die fachliche oder technische TransportException
-     * @return Die TransportException.
-     * @throws IllegalArgumentException
-     *             falls <em>null</em> als Wert für den Parameter <code>transportExceptionClass</code>
-     *             übergeben wurde.
+     * @param <T>Type                 of the TransportExcpetion to be created
+     * @param exception               The original BaseException
+     * @param transportExceptionClass the business or technical TransportException
+     * @return The TransportException.
+     * @throws IllegalArgumentException if {@code null} was passed as value for the parameter {@code transportExceptionClass}.
      */
-    public static <T extends ToException> T mapException(BaseException exception,
-        Class<T> transportExceptionClass) {
+    public static <T extends PlisToException> T mapException(BaseException exception,
+                                                             Class<T> transportExceptionClass) {
 
-        // IllegalArgumentException, wenn die Transport-Exception nicht gesetzt wurde.
+        // IllegalArgumentException if the transport exception was not set.
         if (transportExceptionClass == null) {
             throw new IllegalArgumentException("null ist kein zulaessiger Wert fuer eine TransportException");
         }
 
         try {
             Constructor<T> con =
-                transportExceptionClass.getConstructor(String.class, String.class, String.class);
+                    transportExceptionClass.getConstructor(String.class, String.class, String.class);
 
-            // Exception erzeugen
-            T ex = con.newInstance(exception.getFehlertext(), exception.getAusnahmeId(),
-                exception.getUniqueId());
+            // Create exception
 
-            return ex;
+            return con.newInstance(exception.getFehlertext(), exception.getAusnahmeId(),
+                    exception.getUniqueId());
         } catch (Throwable t) {
             LOG.error(EreignisSchluessel.KONSTRUKTOR_NICHT_IMPLEMENTIERT,
-                "Die TransportException ({}) konnte nicht mit den Werten aus der  AnwendungsException ({}), mit den Werten AusnahmeId: {}, Fehlertext: {} und UUID: {} gefuellt werden! Die TransportException implementiert nicht den benoetigten Konstruktor mit den Parametern: String message, String ausnahmeId, String uniqueId",
-                t, transportExceptionClass.getClass(), exception.getClass(),
-                exception.getAusnahmeId(), exception.getFehlertext(), exception.getUniqueId());
+                    "Die TransportException ({}) konnte nicht mit den Werten aus der  AnwendungsException ({}), mit den Werten AusnahmeId: {}, Fehlertext: {} und UUID: {} gefuellt werden! Die TransportException implementiert nicht den benoetigten Konstruktor mit den Parametern: String message, String ausnahmeId, String uniqueId",
+                    t, transportExceptionClass.getClass(), exception.getClass(),
+                    exception.getAusnahmeId(), exception.getFehlertext(), exception.getUniqueId());
             throw new IllegalArgumentException(
-                "Die TransportException implementiert nicht den benoetigten Konstruktor mit den "
-                    + "Parametern: String message, String ausnahmeId, String uniqueId");
+                    "Die TransportException implementiert nicht den benoetigten Konstruktor mit den "
+                            + "Parametern: String message, String ausnahmeId, String uniqueId");
         }
     }
 
     /**
-     * erzeugt und füllt eine TransportExcpetion-Klasse vom übergebenen Typ mit den Werten aus der übergebenen
-     * AnwendungsException.
+     * creates and populates a TransportExcpetion class of the passed type with the values from the passed ApplicationException.
      *
-     * @param <T>
-     *            Typ der zu erzeugenden TransportExcpetion
-     * @param technicalRuntimeException
-     *            Die original TechnicalRuntimeException
-     * @param transportExceptionClass
-     *            die fachliche oder technische TransportException
-     * @return Die TransportException.
-     * @throws IllegalArgumentException
-     *             falls <em>null</em> als Wert für den Parameter <code>transportExceptionClass</code>
-     *             übergeben wurde oder die transportException keinen Konstruktor mit den Parametern
-     *             (String.class, String.class, String.class).
+     * @param <T>Type                   of the TransportExcpetion to be created
+     * @param technicalRuntimeException The original TechnicalRuntimeException
+     * @param transportExceptionClass   the business or technical TransportException
+     * @return The TransportException.
+     * @throws IllegalArgumentException if {@code null} was passed as value for the parameter {@code transportExceptionClass}
+     *                                  or the transportException does not have a constructor with the parameters (String.class, String.class, String.class).
      */
-    public static <T extends ToException> T mapException(
-        TechnicalRuntimeException technicalRuntimeException, Class<T> transportExceptionClass) {
+    public static <T extends PlisToException> T mapException(
+            TechnicalRuntimeException technicalRuntimeException, Class<T> transportExceptionClass) {
 
-        // IllegalArgumentException, wenn die Transport-Exception nicht gesetzt wurde.
+        // IllegalArgumentException if the transport exception was not set.
         if (transportExceptionClass == null) {
             throw new IllegalArgumentException("null ist kein zulaessiger Wert fuer eine TransportException");
         }
 
         try {
             Constructor<T> con =
-                transportExceptionClass.getConstructor(String.class, String.class, String.class);
+                    transportExceptionClass.getConstructor(String.class, String.class, String.class);
 
-            // Exception erzeugen
-            T ex = con.newInstance(technicalRuntimeException.getFehlertext(),
-                technicalRuntimeException.getAusnahmeId(), technicalRuntimeException.getUniqueId());
+            // Create exception
 
-            return ex;
+            return con.newInstance(technicalRuntimeException.getFehlertext(),
+                    technicalRuntimeException.getAusnahmeId(), technicalRuntimeException.getUniqueId());
         } catch (Throwable t) {
             LOG.error(EreignisSchluessel.KONSTRUKTOR_NICHT_IMPLEMENTIERT,
-                "Die TransportException ({}) konnte nicht mit den Werten aus der AnwendungsException ({}), "
-                    + "mit den Werten AusnahmeId: {}, Fehlertext: {} und UUID: {} gefuellt werden! "
-                    + "Die TransportException implementiert nicht den benoetigten Konstruktor mit den Parametern: "
-                    + "String message, String ausnahmeId, String uniqueId",
-                t, transportExceptionClass.getClass(), technicalRuntimeException.getClass(),
-                technicalRuntimeException.getAusnahmeId(), technicalRuntimeException.getFehlertext(),
-                technicalRuntimeException.getUniqueId());
+                    "Die TransportException ({}) konnte nicht mit den Werten aus der AnwendungsException ({}), "
+                            + "mit den Werten AusnahmeId: {}, Fehlertext: {} und UUID: {} gefuellt werden! "
+                            + "Die TransportException implementiert nicht den benoetigten Konstruktor mit den Parametern: "
+                            + "String message, String ausnahmeId, String uniqueId",
+                    t, transportExceptionClass.getClass(), technicalRuntimeException.getClass(),
+                    technicalRuntimeException.getAusnahmeId(), technicalRuntimeException.getFehlertext(),
+                    technicalRuntimeException.getUniqueId());
             throw new IllegalArgumentException(
-                "Die TransportException implementiert nicht den benoetigten Konstruktor mit den "
-                    + "Parametern: String message, String ausnahmeId, String uniqueId");
+                    "Die TransportException implementiert nicht den benoetigten Konstruktor mit den "
+                            + "Parametern: String message, String ausnahmeId, String uniqueId");
         }
     }
 
     /**
-     * erstellt eine Transport-Exception aus den &uumlbergebenen Werten.
-     * @param <T>
-     *            Typ der zu erzeugenden Exception
-     * @param ausnahmeId
-     *            Die Ausnahme-ID
-     * @param fehlertextProvider
-     *            Der Fehlertext-Provider
-     * @param transportExceptionClass
-     *            Die fachliche oder technische TransportException
-     * @param parameter
-     *            Variable Anzahl an Parameterwerten. Parameterwert f&uml;r die mögliche Variable in einer
-     *            Fehler-Nachricht.
-     * @return Die TransportException.
-     * @throws IllegalArgumentException
-     *             In Ausnahmefällen kann diese Exception auftreten, sofern eine der folgenden Bedingungen
-     *             erfüllt ist:
-     *             <li><em>null</em> als Wert für den Parameter <code>transportExceptionClass</code> übergeben
-     *             wurde
-     *             <li><code>fehlertextProvider</code>
-     *             <li>die TransportException keinen Konstruktor mit den Parametern (String.class,
-     *             String.class, String.class) besitzt
-     *             <li>die TransportException ein Interface oder eine abstrakte Implementierung ist
-     *             <li>der Zugriff auf die TransportException gegen die Java-Sicherheitsrichtlinien verstösst
-     *             <li>eine Exception innerhalb des Konstruktors der zu erzeugenden TransportException
-     *             auftritt
+     * creates a transport exception from the passed values.
+     *
+     * @param <T>Type                 of the exception to be created
+     * @param ausnahmeId              The exception ID
+     * @param fehlertextProvider      The Error Text Provider
+     * @param transportExceptionClass The business or technical TransportException
+     * @param parameter               Variable number of parameter values. Parameter value for the possible variable in an error message.
+     * @return The TransportException.
+     * @throws IllegalArgumentException In exceptional cases this exception can occur if one of the following conditions is met:
+     *                                  <li>{@code null} was passed as the value for the parameter {@code transportExceptionClass}.</li>
+     *                                  <li>{@code fehlertextProvider}</li>
+     *                                  <li>the TransportException has no constructor with the parameters (String.class, String.class, String.class).</li>
+     *                                  <li>the TransportException is an interface or an abstract implementation.</li>
+     *                                  <li>access to the TransportException violates the Java security policy.</li>
+     *                                  <li>an exception occurs within the constructor of the TransportException to be created.</li>
      */
-    public static <T extends ToException> T createToException(String ausnahmeId,
-        FehlertextProvider fehlertextProvider, Class<T> transportExceptionClass, String... parameter) {
+    public static <T extends PlisToException> T createToException(String ausnahmeId,
+                                                                  FehlertextProvider fehlertextProvider, Class<T> transportExceptionClass, String... parameter) {
 
-        // IllegalArgumentException, wenn die Transport-Exception nicht gesetzt wurde.
+        // IllegalArgumentException if the transport exception was not set.
         if (transportExceptionClass == null) {
             throw new IllegalArgumentException("null ist kein zulaessiger Wert fuer die TransportException");
         }
 
-        Constructor<T> toException;
-        T ex = null;
         String uuid = null;
         String fehlertext = null;
         try {
-            // Konstruktor laden
-            toException = transportExceptionClass.getConstructor(String.class, String.class, String.class);
+            // Load constructor
+            Constructor<T> toException = transportExceptionClass.getConstructor(String.class, String.class, String.class);
 
-            // Exception-Informationen erzeugen
+            // Create exception information
             uuid = UUID.randomUUID().toString();
             fehlertext = fehlertextProvider.getMessage(ausnahmeId, parameter);
 
-            // TransportException instanziieren
-            ex = toException.newInstance(fehlertext, ausnahmeId, uuid);
+            // Instantiate TransportException
 
-            // TransportException zurueckgeben
-            return ex;
+            // Return TransportException
+            return toException.newInstance(fehlertext, ausnahmeId, uuid);
         } catch (SecurityException se) {
-            // Der Zugriff auf den Konstruktur verstoesst gegen die Sicherheitsrichtlinien von Java
+            // Accessing the constructed structure violates Java's security policy.
             LOG.error(EreignisSchluessel.KONSTRUKTOR_SICHERHEITSRICHTLINIEN,
-                "Der Zugriff auf den Konstruktur der TransportException {} verstoesst gegen die Java-Sicherheitsrichtlinien.",
-                se, transportExceptionClass.getClass());
+                    "Der Zugriff auf den Konstruktur der TransportException {} verstoesst gegen die Java-Sicherheitsrichtlinien.",
+                    se, transportExceptionClass.getClass());
             throw new IllegalArgumentException(
-                "Der Aufruf des Konstruktors der TransportException " + transportExceptionClass.getClass()
-                    + "fuehrte innerhalb des aufgerufenen Konstruktors zu einer Exception.");
+                    "Der Aufruf des Konstruktors der TransportException " + transportExceptionClass.getClass()
+                            + "fuehrte innerhalb des aufgerufenen Konstruktors zu einer Exception.");
         } catch (NoSuchMethodException nsme) {
-            // Der Konstruktor ist nicht vorhanden
+            // The constructor is not present
             LOG.error(EreignisSchluessel.KONSTRUKTOR_NICHT_IMPLEMENTIERT,
-                "Die TransportException {} konnte nicht erzeugt werden. Die TransportException"
-                    + " implementiert nicht den benoetigten Konstruktor mit den Parametern: "
-                    + "String message, String ausnahmeId, String uniqueId.",
-                nsme, transportExceptionClass.getClass());
+                    "Die TransportException {} konnte nicht erzeugt werden. Die TransportException"
+                            + " implementiert nicht den benoetigten Konstruktor mit den Parametern: "
+                            + "String message, String ausnahmeId, String uniqueId.",
+                    nsme, transportExceptionClass.getClass());
             throw new IllegalArgumentException(
-                "Die TransportException implementiert nicht den benoetigten Konstruktor mit den "
-                    + "Parametern: String message, String ausnahmeId, String uniqueId.");
+                    "Die TransportException implementiert nicht den benoetigten Konstruktor mit den "
+                            + "Parametern: String message, String ausnahmeId, String uniqueId.");
         } catch (IllegalArgumentException iae) {
-            // Die Parameterwerte sind nicht zulaessig
+            // The parameter values are not allowed
             LOG.error(EreignisSchluessel.PARAMETER_FALSCH,
-                "Die TransportException {} konnte nicht erzeugt werden. Die Parameterwerte ({}, {}, {}) entsprechen nicht den benoetigten "
-                    + "Werten: String message, String ausnahmeId, String uniqueId.",
-                iae, transportExceptionClass.getClass(), fehlertext, ausnahmeId, uuid);
+                    "Die TransportException {} konnte nicht erzeugt werden. Die Parameterwerte ({}, {}, {}) entsprechen nicht den benoetigten "
+                            + "Werten: String message, String ausnahmeId, String uniqueId.",
+                    iae, transportExceptionClass.getClass(), fehlertext, ausnahmeId, uuid);
             throw new IllegalArgumentException(
-                "Die Parameterwerte sind nicht zulaessig zur Erzeugung einer TransportException.");
+                    "Die Parameterwerte sind nicht zulaessig zur Erzeugung einer TransportException.");
         } catch (InstantiationException ie) {
-            // Die ?bergebene Klasse ist ein Interface oder eine abstrakte Klasse
+            // The passed class is an interface or an abstract class
             LOG.error(EreignisSchluessel.TRANSPORT_EXCEPTION_INTERFACE_ABSTRAKT,
-                "Die TransportException {} konnte nicht erzeugt werden. Sie ist entweder ein Interface oder aber"
-                    + " eine abstrakte Klasse. Sie TransportException muss aber eine konkrete"
-                    + " Implementierung sein",
-                ie, transportExceptionClass.getClass());
+                    "Die TransportException {} konnte nicht erzeugt werden. Sie ist entweder ein Interface oder aber"
+                            + " eine abstrakte Klasse. Sie TransportException muss aber eine konkrete"
+                            + " Implementierung sein",
+                    ie, transportExceptionClass.getClass());
             throw new IllegalArgumentException(
-                "Die Uebergebene TransportException-Klasse ist ein Interface oder eine abstrakte Klasse.");
+                    "Die Uebergebene TransportException-Klasse ist ein Interface oder eine abstrakte Klasse.");
         } catch (IllegalAccessException iae) {
-            // Der Konstruktor ist nicht vorhanden
+            // The constructor is not present
             LOG.error(EreignisSchluessel.KONSTRUKTOR_NICHT_IMPLEMENTIERT,
-                "Die TransportException {} konnte nicht erzeugt werden. Die TransportException"
-                    + " implementiert nicht den benoetigten Konstruktor mit den Parametern: "
-                    + "String message, String ausnahmeId, String uniqueId.",
-                iae, transportExceptionClass.getClass());
+                    "Die TransportException {} konnte nicht erzeugt werden. Die TransportException"
+                            + " implementiert nicht den benoetigten Konstruktor mit den Parametern: "
+                            + "String message, String ausnahmeId, String uniqueId.",
+                    iae, transportExceptionClass.getClass());
             throw new IllegalArgumentException(
-                "Die TransportException implementiert nicht den benoetigten Konstruktor mit den "
-                    + "Parametern: String message, String ausnahmeId, String uniqueId");
+                    "Die TransportException implementiert nicht den benoetigten Konstruktor mit den "
+                            + "Parametern: String message, String ausnahmeId, String uniqueId");
         } catch (InvocationTargetException ite) {
-            // Der Aufruf des Konstruktors fuehrte innerhalb des Konstruktors zu einer Exception
+            // The call of the constructor led to an exception inside the constructor
             LOG.error(EreignisSchluessel.KONSTRUKTOR_EXCEPTION,
-                "Der Aufruf des Konstruktors der TransportException {} fuehrte innerhalb des aufgerufenen Konstruktors zu einer Exception.",
-                ite, transportExceptionClass.getClass());
+                    "Der Aufruf des Konstruktors der TransportException {} fuehrte innerhalb des aufgerufenen Konstruktors zu einer Exception.",
+                    ite, transportExceptionClass.getClass());
             throw new IllegalArgumentException(
-                "Der Aufruf des Konstruktors der TransportException" + transportExceptionClass.getClass()
-                    + "fuehrte innerhalb des aufgerufenen Konstruktors zu einer Exception.");
+                    "Der Aufruf des Konstruktors der TransportException" + transportExceptionClass.getClass()
+                            + "fuehrte innerhalb des aufgerufenen Konstruktors zu einer Exception.");
         }
     }
 }

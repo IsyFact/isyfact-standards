@@ -1,3 +1,6 @@
+# 2.5.0
+- `IFS-1148`: Fehler wegen zu langem Klassenpfad unter Windows behoben
+
 # 2.4.0
 - `IFS-801`: SpotBugs Fehler behoben
 

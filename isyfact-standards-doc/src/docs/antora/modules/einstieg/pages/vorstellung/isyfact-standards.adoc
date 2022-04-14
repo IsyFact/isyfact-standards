@@ -187,10 +187,6 @@ Aufgaben sind (in Abgrenzung zu Batches) innerhalb einer Anwendungskomponente an
 Das xref:isy-task:konzept/master.adoc#einleitung[Konzept Task Scheduling] beschreibt die konzeptionellen Grundlagen der Steuerung von Aufgaben.
 Die xref:isy-task:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Task Scheduling] beschreiben alle Aspekte, die bei der Entwicklung einer Anwendung zu berücksichtigen sind, und alle bereits in der IsyFact definierten Aufgaben (wie z.B. das periodische Neuladen der Anwendungskonfiguration).
 
-[[ldap-zugriffe]]
-=== LDAP-Zugriffe
-Der Zugriff auf Daten in einem Verzeichnisdienst, welches über das Lightweight Directory Access Protocol (LDAP) ist, ist im <<NutzungsvorgabenSpringLDAP>> beschrieben.
-
 [[polling]]
 === Polling
 

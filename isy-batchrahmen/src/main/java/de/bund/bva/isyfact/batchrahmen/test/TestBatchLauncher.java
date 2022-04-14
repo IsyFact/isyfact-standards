@@ -17,6 +17,7 @@
 package de.bund.bva.isyfact.batchrahmen.test;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.management.ManagementFactory;
@@ -25,6 +26,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import de.bund.bva.isyfact.batchrahmen.batch.konstanten.BatchRahmenEreignisSchluessel;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchStartTyp;
@@ -40,19 +45,19 @@ import de.bund.bva.isyfact.logging.LogKategorie;
  *
  * <code><pre>
  * public void testBatch1() {
- *   TestBatchLauchner batchLauncher = new TestBatchLauchner("/resources/batch/batch-1-config.properties");
+ *   TestBatchLauncher batchLauncher = new TestBatchLauncher("/resources/batch/batch-1-config.properties");
  *   assertEquals(0, batchLauncher.starteBatch(BatchStartTyp.START, "/batch-1_out.xml", null ));
  * }
  * </pre></code>
  *
  */
-public class TestBatchLauchner {
+public class TestBatchLauncher {
 
     /** The Logger. */
-    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(TestBatchLauchner.class);
+    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(TestBatchLauncher.class);
 
     /** Property configuration of the batch to be started. */
-    private String batchKonfig;
+    private final String batchKonfig;
 
     /**
      * Creates a BatchLauncher for the specified batch. The JRE and the class path are formed from the
@@ -60,7 +65,7 @@ public class TestBatchLauchner {
      * @param batchKonfig
      *            Configuration file of the batch
      */
-    public TestBatchLauchner(String batchKonfig) {
+    public TestBatchLauncher(String batchKonfig) {
         this.batchKonfig = batchKonfig;
     }
 
@@ -90,8 +95,6 @@ public class TestBatchLauchner {
         RuntimeMXBean runtimeMxBean = ManagementFactory.getRuntimeMXBean();
         List<String> arguments = runtimeMxBean.getInputArguments();
         params.addAll(arguments);
-        params.add("-classpath");
-        params.add(classpath);
         params.add(BatchLauncher.class.getName()); // Main-Class
         params.addAll(Arrays.asList(batchLauncherParams));
 
@@ -100,6 +103,7 @@ public class TestBatchLauchner {
         }
 
         ProcessBuilder processBuilder = new ProcessBuilder(params);
+        setClasspathOn(processBuilder, classpath);
         processBuilder.redirectErrorStream(true);
         LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001, "Starte Batch...");
         String cmdLine = String.join(" ", params);
@@ -143,7 +147,7 @@ public class TestBatchLauchner {
      *             If the batch could not be started.
      */
     public int starteBatch(BatchStartTyp startTyp, String[] parameter) throws IOException {
-        return starteBatch(new String[] { getStartTypParam(startTyp), "-cfg", this.batchKonfig }, parameter);
+        return starteBatch(new String[] { getStartTypParam(startTyp), "-cfg", batchKonfig }, parameter);
     }
 
     /**
@@ -160,7 +164,7 @@ public class TestBatchLauchner {
      */
     public int starteBatch(BatchStartTyp startTyp, String ergebnisProtokoll, String[] parameter)
         throws IOException {
-        return starteBatch(new String[] { getStartTypParam(startTyp), "-cfg", this.batchKonfig,
+        return starteBatch(new String[] { getStartTypParam(startTyp), "-cfg", batchKonfig,
             "-Batchrahmen.Ergebnisdatei", ergebnisProtokoll }, parameter);
     }
 
@@ -180,4 +184,28 @@ public class TestBatchLauchner {
             return null;
         }
     }
+
+    /**
+     * Configures system process before execution so that at execution time
+     * a particular classpath is added to the CLASSPATH environment variable.
+     * <p>
+     * Since the length of command line parameters is limited under Windows
+     * it might be beneficial to configure classpath that contains many run time dependencies
+     * via the environment variables
+     *
+     * @param processBuilder
+     *              The ProcessBuilder
+     * @param classpath
+     *              Classpath to add to environment variables
+     */
+    private static void setClasspathOn(final ProcessBuilder processBuilder, final String classpath) {
+        final Map<String, String> env = processBuilder.environment();
+        final String initialClasspath = env.get("CLASSPATH");
+        final String newClasspath = Stream.of(classpath, initialClasspath)
+                .filter(Objects::nonNull)
+                .collect(Collectors.joining(File.pathSeparator));
+        LOG.debug("Setze für nachfolgenden Befehl/Prozess {}={}", "CLASSPATH", newClasspath);
+        env.put("CLASSPATH", newClasspath);
+    }
+
 }

@@ -18,62 +18,59 @@ package de.bund.bva.isyfact.serviceapi.core.serviceimpl;
 
 import java.lang.reflect.Method;
 
+import javax.annotation.Nullable;
+
 import de.bund.bva.isyfact.exception.BaseException;
-import de.bund.bva.isyfact.exception.service.TechnicalToException;
-import de.bund.bva.isyfact.exception.service.ToException;
+import de.bund.bva.pliscommon.exception.service.PlisTechnicalToException;
+import de.bund.bva.pliscommon.exception.service.PlisToException;
 
 /**
- * Ermittelt die Abbildung von Exceptions per Reflection.
- * 
+ * Determines the mapping of exceptions by reflection.
+ *
  * <p>
- * Diese Klasse erwartet, dass zu jeder AWK-Exception genau eine zugehörige TO-Exception in der
- * RemoteBean-Operation deklariert ist, die sich nur im Namenssuffix "ToException" (vs. "Exception")
- * unterscheidet. Weiterhin erwartet sie, dass in der RemoteBean-Operation genau eine TechnicalToException
- * deklariert ist, die als generische technische Exception fungiert.
+ * This class expects that for each AWK exception exactly one associated TO exception is declared in the
+ * RemoteBean operation, differing only in the name suffix "ToException" (vs. "Exception").
+ * Furthermore, it expects that in the RemoteBean operation exactly one TechnicalToException
+ * is declared in the RemoteBean operation, which acts as a generic technical exception.
  * </p>
- * 
  */
 public class ReflectiveExceptionMappingSource implements ExceptionMappingSource {
 
-    /**
-     * {@inheritDoc}
-     */
-    public Class<? extends ToException> getToExceptionClass(Method remoteBeanMethod,
-        Class<? extends BaseException> exceptionClass) {
+    @Override
+    public Class<? extends PlisToException> getToExceptionClass(Method remoteBeanMethod,
+                                                                Class<? extends BaseException> exceptionClass) {
 
         String coreExceptionName = removeEnd(exceptionClass.getSimpleName(), "Exception");
 
         for (Class<?> toExceptionClass : remoteBeanMethod.getExceptionTypes()) {
-            if (ToException.class.isAssignableFrom(toExceptionClass)) {
-                String toExceptionName = removeEnd(toExceptionClass.getSimpleName(), "ToException");
+            if (PlisToException.class.isAssignableFrom(toExceptionClass)) {
+                String toExceptionName = strip(toExceptionClass.getSimpleName(), "Plis", "ToException");
                 if (coreExceptionName.equals(toExceptionName)) {
                     @SuppressWarnings("unchecked")
-                    Class<? extends ToException> castToExceptionClass =
-                        (Class<? extends ToException>) toExceptionClass;
+                    Class<? extends PlisToException> castToExceptionClass =
+                            (Class<? extends PlisToException>) toExceptionClass;
                     return castToExceptionClass;
                 }
             }
         }
 
         throw new IllegalStateException("Keine TO-Exception für die AWK-Exception " + exceptionClass
-            + " in Serviceoperation " + getMethodSignatureString(remoteBeanMethod));
+                + " in Serviceoperation " + getMethodSignatureString(remoteBeanMethod));
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public Class<? extends TechnicalToException> getGenericTechnicalToException(Method remoteBeanMethod) {
-        Class<? extends TechnicalToException> genericTechnicalToException = null;
+    @Override
+    public Class<? extends PlisTechnicalToException> getGenericTechnicalToException(Method remoteBeanMethod) {
+        Class<? extends PlisTechnicalToException> genericTechnicalToException = null;
         for (Class<?> toExceptionClass : remoteBeanMethod.getExceptionTypes()) {
-            if (TechnicalToException.class.isAssignableFrom(toExceptionClass)) {
+            if (PlisTechnicalToException.class.isAssignableFrom(toExceptionClass)) {
                 if (genericTechnicalToException != null) {
                     throw new IllegalStateException(
-                        "Mehr als eine Technical-TO-Exception in Serviceoperation "
-                            + getMethodSignatureString(remoteBeanMethod));
+                            "Mehr als eine Technical-TO-Exception in Serviceoperation "
+                                    + getMethodSignatureString(remoteBeanMethod));
                 }
                 @SuppressWarnings("unchecked")
-                Class<? extends TechnicalToException> castToExceptionClass =
-                    (Class<? extends TechnicalToException>) toExceptionClass;
+                Class<? extends PlisTechnicalToException> castToExceptionClass =
+                        (Class<? extends PlisTechnicalToException>) toExceptionClass;
                 genericTechnicalToException = castToExceptionClass;
             }
         }
@@ -83,22 +80,35 @@ public class ReflectiveExceptionMappingSource implements ExceptionMappingSource 
         }
 
         throw new IllegalStateException("Keine Technical-TO-Exception in Serviceoperation "
-            + getMethodSignatureString(remoteBeanMethod));
+                + getMethodSignatureString(remoteBeanMethod));
     }
 
     /**
-     * Liefert die Methodensignatur als String.
-     * 
-     * @param method
-     *            die Methode
-     * @return die Methodensignatur als String.
+     * Returns the method signature as a string.
+     *
+     * @param method the method
+     * @return the method signature as a string.
      */
     protected String getMethodSignatureString(Method method) {
         return method.getDeclaringClass().getName() + "." + method.getName();
     }
 
-    private static String removeEnd(String str, String remove) {
-        if (str == null || str.length() == 0 || remove == null || remove.length() == 0) {
+    private static String strip(@Nullable String str, @Nullable String prefix, @Nullable String suffix) {
+        return removeEnd(removeStart(str, prefix), suffix);
+    }
+
+    private static String removeStart(@Nullable String str, @Nullable String remove) {
+        if (str == null || str.isEmpty() || remove == null || remove.isEmpty()) {
+            return str;
+        }
+        if (str.startsWith(remove)) {
+            return str.substring(remove.length());
+        }
+        return str;
+    }
+
+    private static String removeEnd(@Nullable String str, @Nullable String remove) {
+        if (str == null || str.isEmpty() || remove == null || remove.isEmpty()) {
             return str;
         }
         if (str.endsWith(remove)) {
@@ -106,6 +116,4 @@ public class ReflectiveExceptionMappingSource implements ExceptionMappingSource 
         }
         return str;
     }
-
-
 }

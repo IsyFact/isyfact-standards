@@ -8,7 +8,7 @@ import java.util.Optional;
 
 import org.junit.Test;
 
-import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
+import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 
 public class DefaultAufrufKontextToResolverTest {
 

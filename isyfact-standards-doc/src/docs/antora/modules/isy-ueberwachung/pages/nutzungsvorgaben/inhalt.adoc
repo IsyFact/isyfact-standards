@@ -75,6 +75,7 @@ Die dort aufgelisteten Informationen müssen für jeden Service einzeln angebote
 m|AnzahlAufrufeLetzteMinute |Liefert die Anzahl der in der letzten Minute erfolgten Aufrufe des Services insgesamt.
 m|AnzahlFehlerLetzteMinute |Liefert die Anzahl der in der letzten Minute erfolgten Aufrufe des Services, bei denen ein technischer Fehler aufgetreten ist.
 m|DurchschnittsDauerLetzteAufrufe |Liefert die durchschnittliche Bearbeitungsdauer der letzten 10 Aufrufe der Services in Millisekunden (einfacher gleitender Durchschnitt).
+m|ServiceStatistic|Stellt Informationen über den Dienstnamen und die Version bereit.
 |====
 
 NOTE: Die Summe der Aufrufe wird alle 60 Sekunden aktualisiert.
@@ -432,16 +433,15 @@ Hierfür gelten folgende Richtlinien:
 
 Neben den Nachbarsystemen sind weitere Überprüfungen sinnvoll:
 
-* Verfügbarkeit weiterer genutzter Ressourcen, wie beispielsweise der LDAP-Server oder genutzte FTP-Verzeichnisse.
+* Verfügbarkeit weiterer genutzter Ressourcen, wie beispielsweise das IAM-System oder genutzte FTP-Verzeichnisse.
 Bei der Prüfung der genutzten Ressourcen ist zu beachten, dass sich die Implementierung nicht aufhängt und somit die Prüfung nicht weiterläuft.
 Um dies zu vermeiden, sollte zur Prüfung der genutzten Ressourcen das Future-Pattern wie in <<listing-Pruefmethode>> gezeigt, verwendet werden.
 +
 [NOTE]
 ====
-Als Beispiel sei hier der LDAP-Server genannt. Zur Prüfung des LDAP-Servers wird in der Regel eine Beispielanfrage
-an den Server gesendet.
-Ist vor den LDAP-Server ein Loadbalancer geschaltet, so kann es nach einem Fail-Over passieren, dass diese
-Beispielanfrage endlos läuft.
+Als Beispiel sei hier das IAM-System genannt.
+Zur Prüfung des IAM-Systems wird in der Regel eine Beispielanfrage an den Server gesendet.
+Ist vor das IAM-System ein Loadbalancer geschaltet, so kann es nach einem Fail-Over passieren, dass diese Beispielanfrage endlos läuft.
 ====
 
 .Demonstration Future-Pattern
