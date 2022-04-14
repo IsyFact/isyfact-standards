@@ -171,7 +171,7 @@ public class UeberwachungConfig {
 
 === 3.6.2 Konfiguration
 * Automatisch konfiguriert werden die `@Gesichert`-Annotation, die `AufrufKontextFactory` und Thread-Scope für Spring.
-* In der Anwendung müssen die Beans für `AufrufKontextVerwalter`, `Sicherheit` und `IAM-System` konfiguriert werden.
+* In der Anwendung müssen die Beans für `AufrufKontextVerwalter`, `Sicherheit` und `AccessManager` konfiguriert werden.
 
 === 3.6.5 Konfiguration des Caches
 * Die Properties für die Konfiguration des Caches lauten `isy.sicherheit.cache.ttl` und `isy.sicherheit.cache.maxelements`.
