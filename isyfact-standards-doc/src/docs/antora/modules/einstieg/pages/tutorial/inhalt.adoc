@@ -1083,7 +1083,7 @@ zu programmieren.
 Es wird geprüft, ob der Aufrufer den Service oder den Dialog überhaupt verwenden darf.
 * In jeder Service-Methode wird ein Parameter `AufrufKontext` mit den Daten des aufrufenden Benutzers übermittelt.
 Dieser Parameter wird im `AufrufKontextVerwalter` hinterlegt und beim Aufruf weiterer Nachbarsysteme durchgereicht.
-* In der Web-GUI wird ein vom IAM-System bereitgestellter HTTP-Header mit den
+* In der Web-GUI wird ein vom IAM-Service bereitgestellter HTTP-Header mit den
 Daten des aufrufenden Benutzers entgegengenommen und in einen `AufrufKontext` gewandelt.
 Dieser Parameter wird im `AufrufKontextVerwalter` hinterlegt und beim Aufruf weiterer Nachbarsysteme durchgereicht.
 
