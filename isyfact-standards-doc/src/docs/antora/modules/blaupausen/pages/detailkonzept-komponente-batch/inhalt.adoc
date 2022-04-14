@@ -719,7 +719,7 @@ Ein Batch wird innerhalb der Plattform gestartet.
 Dazu verwendet der Batch die Benutzerkennung eines technischen Benutzers „internes System“, die in seiner Startkonfiguration (als Konfigurationsdatei) hinterlegt und im Benutzerverzeichnis vorhanden ist.
 
 Der Batchrahmen nutzt die T-Komponente Sicherheit (siehe xref:isy-sicherheit:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Sicherheit]), um den anfragenden Benutzer über den IAM-Service der Plattform zu authentifizieren.
-Das IAM-System authentifiziert den Benutzer anhand der angegebenen Benutzerkennung und des Passwortes, registriert alle Informationen zum Benutzer in der T-Komponente AufrufKontextVerwalter und schließt die Session des Benutzers im IAM-System.
+Das IAM-Service authentifiziert den Benutzer anhand der angegebenen Benutzerkennung und des Passwortes, registriert alle Informationen zum Benutzer in der T-Komponente AufrufKontextVerwalter und schließt die Session des Benutzers im IAM-System.
 
 Im Zuge des Batchlaufs können nun über die T-Komponente Sicherheit Berechtigungsprüfungen (z.B. im Anwendungskern) stattfinden.
 

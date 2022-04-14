@@ -1075,8 +1075,8 @@ Dieses Kapitel beschreibt die Realisierung der Authentifizierung und Autorisieru
 [[designvorgaben-10]]
 ==== Designvorgaben
 
-* Die Authentifizierung von Anfragen wird im Servicegateway und im Portal mithilfe des IAM-Systems durchgeführt.
-* Prozesse, die innerhalb des Anwendungssystems oder der Anwendungslandschaft starten (z.B. Timertasks, Batches) verwenden einen technischen Benutzer und authentifizieren diesen selbständig gegen das IAM-System.
+* Die Authentifizierung von Anfragen wird im Servicegateway und im Portal mithilfe des IAM-Services durchgeführt.
+* Prozesse, die innerhalb des Anwendungssystems oder der Anwendungslandschaft starten (z.B. Timertasks, Batches) verwenden einen technischen Benutzer und authentifizieren diesen selbständig gegen den IAM-Service.
 * Die Berechtigungsprüfung ist in der Anwendung deklarativ zu definieren bzw.
 zu programmieren.
 * Eine erste Berechtigungsprüfung erfolgt in der Service-Schnittstelle oder im Web-GUI-Dialogcontroller jeder Anwendung.
