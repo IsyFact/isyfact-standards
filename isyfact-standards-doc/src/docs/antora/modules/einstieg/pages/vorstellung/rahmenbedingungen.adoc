@@ -1,0 +1,116 @@
+= Rahmenbedingungen
+:icons: font
+:sectnums:
+
+include::glossary:licence:partial$licence.adoc[]
+
+[[auswirkung-der-historie-der-isyfact]]
+== Auswirkung der Historie der IsyFact
+
+Die IsyFact wurde ursprünglich zur internen Verwendung beim Bundesverwaltungsamt entwickelt.
+Ihre Umstellung zu einer allgemeinen, von diesem Entstehungskontext losgelösten Software Factory ist ein Prozess, der noch nicht vollständig abgeschlossen ist.
+
+Aufgrund dessen besitzen die Artefakte der IsyFact teilweise noch Bezug zum Kontext der Register Factory: Die enthaltenen Dokumente der IsyFact beschreiben allgemein die Entwicklung von Geschäftsanwendungen.
+Die verwendeten Beispiele stammen jedoch zum Teil aus dem Kontext der Registeranwendungen.
+Daher finden sich Begriffe wie „Register“ vielfach noch in Beispielquelltexten wieder. Ähnliches gilt auch für Pfadangaben, Parameternamen oder Variablen, die insbesondere in den Konzepten für den Betrieb der Systemlandschaft auftauchen.
+Die entsprechenden Bezeichner sind nicht als zwingende Vorgaben zu verstehen, sondern spiegeln einfach die Historie und den aktuellen Stand der IsyFact wider.
+Unter anderem wurden bestehende Konventionen auch deshalb nicht verändert, um die Konsistenz der Dokumentation mit bestehenden IsyFact-konformen Systemlandschaften zu wahren.
+
+Eine andere, ebenfalls historisch bedingte Bezeichnung für eine IsyFact-Systemlandschaft ist „Plattform für Informationssysteme“, kurz _PLIS_.
+Diese Abkürzung findet sich noch als Präfix in den Namen mancher Java-Packages innerhalb der Bibliotheken (`de.bund.bva.pliscommon`) wieder.
+
+[[aktueller-stand-und-weiterentwicklung]]
+== Aktueller Stand und Weiterentwicklung
+
+Die veröffentlichten IsyFact-Standards bilden ein umfassendes Fundament für den effizienten Bau und Betrieb homogener Anwendungen.
+Darauf aufbauend sind als Nächstes die folgenden Schritte geplant.
+
+Veröffentlichung weiterer Standards und Erweiterungen::
+Die Veröffentlichung weiterer Standards und Erweiterungen ist geplant, erfordert jedoch eine Überarbeitung und Qualitätskontrolle, die nur schrittweise erfolgen kann.
+Aus diesem Grund werden zunächst die IsyFact-Standards veröffentlicht, später dann nach und nach Erweiterungen, sofern deren Veröffentlichung möglich ist und diese für andere Kontexte von Nutzen sind.
+Die Dokumentation der IsyFact-Standards referenziert an einigen Stellen auf Bausteine der IsyFact-Erweiterungen.
+Diese Referenzen wurden, im Vorgriff auf die bevorstehende Veröffentlichung der Erweiterungen, in der Dokumentation belassen.
++
+Bisher unveröffentlichte Erweiterungen können Bundesbehörden im Rahmen von Verwaltungsvereinbarungen und anderen Behörden im Rahmen der Kieler Beschlüsse auf Anfrage bereitgestellt werden.
+
+Anpassung der Terminologie::
+Langfristig ist es geplant die in <<auswirkung-der-historie-der-isyfact>> angesprochenen Bezeichner anzupassen.
+Vorrang hat hierbei jedoch die Kompatibilität zu bestehenden Systemlandschaften, die mit der IsyFact bereits erstellt wurden.
+
+Einführung eines Marktplatzes::
+Die Einführung des xref:einstieg:vorstellung.adoc#isyfact-marktplatz[Marktplatzes] ist ebenfalls ein langfristiges Ziel.
+
+[[verwendete-software-produkte]]
+== Verwendete Software-Produkte
+
+Die IsyFact basiert auf einer Reihe von etablierten Software-Produkten, die die unterschiedlichen funktionalen Anforderungen eines Anwendungssystems realisieren.
+In den meisten Fällen sind dies kostenfreie Open-Source-Lösungen, in einigen Fällen, z.B. im Bereich Datenbanken, wird jedoch auch auf *kommerzielle Produkte* verwiesen.
+In solchen Fällen beziehen sich auch ggf. mitgelieferte Anleitungen und Skripte auf diese kommerziellen Produkte.
+Der Einsatz des jeweils genannten Produktes ist zwar in IsyFact vorgesehen, aber der Einsatz alternativer Produkte sollte mit überschaubarem Aufwand möglich sein.
+
+Wenn Sie uns eine Ergänzung zum jeweiligen Konzept zukommen lassen, die den Einsatz eines alternativen kostenpflichtigen oder kostenfreien Produkts beschreibt, werden wir die Aufnahme in den Standard prüfen.
+
+Unser Ziel ist es, einen möglichst „freien“ Standard zu etablieren (sowohl kostenfrei als auch Open-Source), der zwar einheitliche Vorgaben definiert, aber auch Spielräume lässt, wo diese sinnvoll und möglich sind.
+
+[[annahmen-zu-projektrollen]]
+== Annahmen zu Projektrollen
+
+Die IsyFact ermöglicht den Betrieb der Systeme einer Anwendungslandschaft auf einer gemeinsamen Plattform.
+Die einzelnen Anwendungen werden dabei meist in getrennten Projekten entwickelt.
+Projekte können dabei sowohl sequentiell als auch parallel ablaufen.
+Die Factory garantiert dabei, dass die Anwendungen zum einen auf der Plattform betreibbar sind und dass sie zum anderen effizient und nach einheitlichen Standards entwickelt werden.
+
+Durch die gemeinsame Plattform und die Schnittstellen der Anwendungen untereinander ergeben sich Abhängigkeiten zwischen den Projekten.
+Aus organisatorischer Sicht handelt es sich dabei um ein Multi-Projekt, für das eine geeignete Struktur mit entsprechenden Rollen zu schaffen ist.
+Diese kann nicht im Rahmen der IsyFact vorgegeben werden, sondern muss in jedem Umfeld, in dem die IsyFact eingesetzt wird, nach den dort geltenden Regeln definiert werden.
+Allerdings macht die IsyFact an einigen Stellen Annahmen darüber, welche Rollen es im jeweiligen Projekt gibt und welche Verantwortlichkeiten diesen Rollen zugeordnet sind.
+Beispiele hierfür sind die Verantwortung für die Einhaltung der Architektur bzw. die Entscheidungskompetenz, davon abzuweichen.
+
+Im Folgenden werden die verschiedenen Rollen und deren Verantwortlichkeiten aufgeführt, die in den Konzepten verwendet werden.
+Die jeweiligen Aufgaben sind durch die entsprechende Rolle im konkreten Projektkontext zu übernehmen:
+
+Chefarchitekt::
+Der Chefarchitekt verantwortet den adäquaten Technikeinsatz und die Architektur im Gesamtprojekt bzw. auf Ebene der Anwendungslandschaft.
+
+Fachlicher Architekt::
+Der fachliche Architekt verantwortet die Struktur der einzelnen Systeme und Querschnittsanwendungen in einer Anwendungslandschaft aus fachlicher Sicht.
+
+Systemarchitekt (Technischer Chefdesigner)::
+Die Systemarchitekten, oder auch Technische Chefdesigner genannt, verantworten den adäquaten Technikeinsatz und die Architektur in einem Teilprojekt bzw. für eines oder mehrere IT-Systeme.
+
+SW-Entwickler::
+Die SW-Entwickler sind zuständig für die Realisierung der IT-Systeme.
+
+Change Control Board::
+Das Change Control Board ist ein Gremium, das bei wichtigen Änderungen einberufen wird und entscheidet, wie über eine oder mehrere zusammenhängende Änderungen verfahren werden soll.
+
+Architekturboard::
+Das Architekturboard ist ein Gremium, welches die konzeptionelle Weiterentwicklung einer spezifischen Factory steuert.
+Es tritt regelmäßig zusammen, um aktuelle Anforderungen und Problemstellungen zu diskutieren und die langfristige Tragfähigkeit der Factory sicherzustellen.
+
+[[styleguides-und-die-gestaltung-von-benutzeroberflaechen]]
+== Styleguides und die Gestaltung von Benutzeroberflächen
+
+Bei der Entwicklung einer Anwendungslandschaft sollten nicht nur die Architektur der einzelnen Anwendungen, sondern auch die Benutzeroberflächen einheitlichen Standards folgen.
+Die Standards für die Benutzeroberflächen werden üblicherweise durch einen Styleguide vorgegeben, der u.a. beschreibt, welche Elemente eine grafische Benutzeroberfläche besitzt, wie diese zu gestalten sind und wie sie miteinander kombinieren werden, um bestimmte Funktionen zu realisieren.
+
+Die Dokumente der IsyFact verweisen an verschiedenen Stellen auf den Styleguide und dort zu definierende Regeln.
+Es wird jedoch vorausgesetzt, dass jeder Anwender der IsyFact einen eigenen Styleguide erstellt, der spezifisch auf seinen Anwendungskontext abgestimmt ist.
+
+== Struktur der Dokumentation
+
+Die Dokumentation der IsyFact folgt einer festgelegten Struktur.
+Dokumente wie dieser Einstieg liegen im *allgemeinen* Teil der Dokumentation.
+Der Teil enthält außerdem das xref:tutorial/master.adoc[Tutorial], das xref:whitepaper/master.adoc[Whitepaper] und den xref:migrationsleitfaden-if2/master.adoc[Migrationsleitfaden zur IsyFact 2].
+
+Die Dokumentation der *Blaupausen* enthält je ein Detailkonzept pro Blaupause.
+
+Die *Bausteine* sind jeder für sich ausführlich dokumentiert.
+Wird der Baustein mittels einer Bibliothek realisiert, umfasst die Dokumentation ein Konzept, Nutzungsvorgaben sowie ein Changelog.
+Besteht der Baustein aus einer eigenständigen Querschnittsanwendung, enthält die Dokumentation zusätzlich ein Systemhandbuch (Nutzungsvorgaben für den Betrieb des IT-Systems in einer Anwendungslandschaft) und ein Anwenderhandbuch (insofern die Querschnittsanwendung über eine Benutzeroberfläche verfügt).
+
+Die Dokumentation der *Plattform* enthält Nutzungsvorgaben für jede von der IsyFact empfohlene oder eingesetzte Technologie zum Betrieb von IT-Systemen (z.B. HTTP- und Applikationsserver, Datenbanken).
+
+Die Dokumentation der *Methodik* bietet neben Konzepten und Nutzungsvorgaben zu methodischem Vorgehen Vorlagen zu Dokumenten gemäß V-Modell XT sowie hilfreiche Dokumente zur Durchführung eines IsyFact-Projektes.
+
+Schließlich umfasst die Dokumentation der *Werkzeuge* ein Dokument pro Werkzeug, das die Nutzung begründet und Nutzungsvorgaben festlegt.

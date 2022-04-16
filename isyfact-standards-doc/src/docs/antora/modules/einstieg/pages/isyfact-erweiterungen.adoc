@@ -1,0 +1,44 @@
+= IsyFact-Erweiterungen
+:icons: font
+:sectnums:
+
+include::glossary:licence:partial$licence.adoc[]
+
+Aktuell werden nur wenige Erweiterungen, wie in den xref:vorstellung/rahmenbedingungen.adoc#aktueller-stand-und-weiterentwicklung[Rahmenbedingungen] beschrieben, unter einer Open-Source-Lizenz zur Verfügung gestellt.
+Auf den xref:glossary:literaturextern:inhalt.adoc#litextern-Webseiten-Register-Factory[Webseiten der Register Factory] befindet sich eine Übersicht über vorhandene Bausteine, die in Zukunft potenziell als IsyFact-Erweiterung zur Verfügung gestellt werden.
+Teilweise können diese auf Anfrage herausgegeben werden.
+
+NOTE: Bei Interesse wenden Sie sich bitte per E-Mail (isyfact@bva.bund.de) an uns.
+
+[[bausteine-der-isyfact-erweiterungen]]
+== Bausteine der IsyFact-Erweiterungen
+
+Die IsyFact-Erweiterungen stellen eine Reihe von Bausteine zur Verfügung, die bei Bedarf eingesetzt werden können.
+Diese werden im Folgenden dargestellt:
+
+[[benutzerverwaltung]]
+=== Benutzerverwaltung
+
+Der Baustein Benutzerverwaltung stellt eine leichtgewichtige Anwendungskomponente zur lokalen Verwaltung von Benutzern und Rollen bereit und ist vor allem für kleine, eigenständige Anwendungen gedacht.
+Anwendungen können mithilfe der Komponente auf einfache Weise Benutzer und Rollen verwalten, die Anwendung absichern sowie auf eine vorgefertigte grafische Oberfläche zurückgreifen.
+Die xref:isyfact-benutzerverwaltung-doku:benutzerverwaltung:master.adoc[Nutzungsvorgaben Benutzerverwaltung] zeigen, wie die Anwendungskomponente in eine Anwendung integriert und genutzt werden kann.
+
+[[styleguide]]
+=== Styleguide
+Der Baustein Styleguide beschreibt die Gestaltung grafischer Oberflächen nach einheitlichen Gesichtspunkten.
+Das zentrale Dokument, der <<TODOStyleguide>>, enthält Vorgaben zu Aufbau und Gestaltung von Web-GUIs.
+Der Styleguide definiert ebenfalls Form und Funktion der in der IsyFact verfügbaren Anzeige- und Bedienelemente.
+Neben dem Dokument beinhaltet der Baustein eine Software-Bibliothek, welche die Vorgaben als CSS-Stile zur Nutzung bereitstellt.
+
+[[webjsf]]
+=== Web JSF
+Der Baustein Web JSF enthält alle notwendigen Abhängigkeiten, Spring-Konfigurationen, JSF-Komponenten (Composite Components) sowie zugehörige XHTML-Templates zur Erstellung einer GUI mit JSF.
+
+[[webangular]]
+=== Web Angular
+Der Baustein Web Angular stellt querschnittlich nutzbare Komponenten und Services zur Verwendung mit dem Angular Web Framework zur Verfügung.
+
+[[sicherheitkeycloak]]
+=== Sicherheit Keycloak
+Der Baustein Sicherheit Keycloak erweitert den Baustein Sicherheit um Funktionalität zur Verwendung des Keycloak Authorization Servers.
+Konkret beinhaltet die Erweiterung die Implementierung des Access Managers für Keycloak sowie einen Filter zur Authentifizierung von REST-Aufrufen.

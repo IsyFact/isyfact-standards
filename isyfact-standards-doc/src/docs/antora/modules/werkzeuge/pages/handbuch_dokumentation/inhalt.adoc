@@ -4,19 +4,41 @@
 [[aufbau-der-dokumentation]]
 == Architektur der Dokumentation
 
-Die Architektur der IsyFact-Dokumentation besteht aus zwei Kernkomponenten:
+Die Architektur der IsyFact-Dokumentation besteht aus zwei Kernbestandteilen:
 
-. Zentrale Dokumentation (isy-documentation)
+. Zentrale Dokumentation (bis IsyFact 2.4.x isy-documentation, ab IsyFact 2.5.0 isyfact-standards-doc)
 . Bausteindokumentation
 
-Im Folgenden werden die Komponenten erläutert.
+Die zentrale Dokumentation wurde ab IsyFact 2.5.0 verschoben in das Repository isyfact-standards im Zuge der Migration der Dokumentation zum Code.
+
+// tag::important[]
+[IMPORTANT]
+====
+Die Dokumentation in isy-documentation wird mit Hilfe der AsciidoctorJ Extensions als PDF- und HTML generiert.
+Dieses Handbuch beschreibt die Generierung und die Vorbereitung dafür.
+Wenn die Generierung von PDF unverzichtbar ist, muss die Dokumentation per AsciidoctorJ Extensions erstellt werden.
+====
+
+// end::important[]
+
+// tag::important[]
+[IMPORTANT]
+====
+Die Dokumentation in isyfact-standards-doc wird mit Hilfe von Antora als HTML generiert.
+Eine andere Version des Handbuchs beschreibt die Generierung und Vorbereitung dafür.
+Es wird empfohlen, für die Dokumentengenerierung Antora zu verwenden.
+====
+
+// end::important[]
+
+Im Folgenden werden die Bestandteile erläutert.
 
 
 [[zentrale-dokumentation]]
 === Zentrale Dokumentation
 
-Die zentrale Dokumentation (isy-documentation) bietet Informationen, Nutzungsvorgaben und Anleitungen zu zentralen Themen der IsyFact.
-Dazu zählt das Einstiegsdokument, das Whitepaper oder auch das Tutorial.
+Die zentrale Dokumentation bietet Informationen, Nutzungsvorgaben und Anleitungen zu zentralen Themen der IsyFact.
+Dazu zählt der Einstieg, das Whitepaper oder auch das Tutorial.
 
 [[baustein-dokumentation]]
 === Bausteindokumentation
@@ -26,7 +48,7 @@ Hierzu gehören die Nutzungsvorgaben zur Verwendung des Bausteins und das zugrun
 Die Nutzungsvorgaben richten sich in erster Linie an Entwickler, die die IsyFact nutzen.
 Das Konzept richtet sich an Architekten und Entwickler, die die IsyFact weiterentwickeln.
 Wird ein neuer Baustein angelegt, so muss auch eine entsprechende Dokumentation erstellt werden.
-Die Dokumentation des Bausteins ist als Verzeichnis mit Asciidoc-Dateien im Baustein immer unter `src/docs/asciidoc` abgelegt.
+Die Dokumentation des Bausteins ist als Verzeichnis mit Asciidoc-Dateien im Baustein immer unter `src/docs` abgelegt.
 
 [[die-arbeitsumgebung-einrichten]]
 == Die Arbeitsumgebung einrichten
@@ -134,104 +156,79 @@ export PATH=/opt/apache-maven-3.6.2/bin:$PATH+
 [[ein-neues-dokument-anlegen]]
 == Ein neues Dokument anlegen
 
-Nach der Einrichtung der Arbeitsumgebung kann es mit der Bearbeitung der IsyFact-Dokumentation losgehen.
-Allerdings ist schon beim Anlegen der ersten Dateien einiges zu beachten, denn ein IsyFact-Dokument muss der festgelegten Struktur entsprechen.
-In diesem Kapitel wird jeweils für die zentrale Dokumentation, als auch für die Bausteindokumentation gezeigt, wie zunächst das Projekt Git-Repository heruntergeladen wird, um anschließend das eigene IsyFact-Dokument vorzubereiten und zu bearbeiten.
+In diesem Kapitel wird jeweils für die <<zentrale-dokumentation>>, als auch für die <<baustein-dokumentation>> gezeigt, wie die erforderliche Verzeichnisstruktur aussieht und wie ein neues Dokument dort einsortiert wird.
 
 [[neues-verzeichnis-zentrale-dokumentation-anlegen]]
 === Zentrale Dokumentation: Ein neues Verzeichnis anlegen
 
-Das neue IsyFact-Dokument muss in einem bestimmten Ordner der vorhandenen Verzeichnisstruktur abgelegt werden.
-Dies setzt voraus, dass die zentrale Dokumentation als Gesamtprojekt zunächst vom Git-Repository heruntergeladen wird.
-Hierfür wechseln Sie auf der Kommandozeile auf eine geeignete Stelle Ihrer lokalen Festplatte und geben dort folgendes Kommando ein.
+Die zentrale Dokumentation hat im Vergleich zur Bausteindokumentation eine erweiterte Verzeichnisstruktur.
+Die zentrale Dokumentation der IsyFact-Standards gliedert sich nach den Säulen der IsyFact.
 
-====
-C:\tmp\> *git clone* https://github.com/IsyFact/isy-documentation
-====
+Allgemein;; Einstiegsdokumente, Tutorial, Konventionen
+Blaupausen;; Grundlagendokumente und Detailkonzepte für Architektur und Anwendungslandschaft
+Bausteine;; Dokumente für die jeweilig wiederverwendbaren Softwarelösungen
+Methodik;; Methodische Dokumente bspw. zu Programmierkonventionen und Systemhandbuch und -entwurf
+Werkzeuge;; Dokumente zur Verwendung von Werkzeugen und der Einrichtung der Entwicklungsumgebung (hierzu gehört auch dieses Dokument)
 
-Beim Herunterladen des Git-Projekts wird an der betroffenen Stelle das Verzeichnis isy-documentation angelegt, das einen einzigen Ordner enthält, nämlich den Ordner `/src`.
-Unterhalb von `/src` befindet sich das Verzeichnis `/docs`, das die Verzeichnisse der IsyFact-Dokumentation beinhaltet.
-
-.Die Verzeichnisse der IsyFact-Dokumentation
-[id="image-verzeichnis1",reftext="{figure-caption} {counter:figures}"]
-image::handbuch/verzeichnis1.png[align="center"]
-
-Bei den Verzeichnissen der IsyFact-Dokumentation wird darin unterschieden, ob es sich bei dem Dokument thematisch um ein Modul der _IsyFact-Standards_  (das Fundament von IsyFact) oder ein Modul der _IsyFact-Erweiterungen_ (die optionalen wiederverwendbaren Lösungen) handelt.
-Entsprechend beinhaltet das Verzeichnis `/docs` die zwei Verzeichnisse `10_IsyFact_Standards` und `20_IsyFact_Erweiterungen`.
-Die Unterordner der beiden Verzeichnisse `10_IsyFact_Standards` und `20_IsyFact_Erweiterung` gliedern sich nach den Säulen der IsyFact.
-
-00_Allgemein;; Einstiegsdokumente, Tutorial, Konventionen
-10_Blaupausen;; Grundlagendokumente und Detailkonzepte für Architektur und Anwendungslandschaft
-20_Bausteine;; Dokumente für die jeweilig wiederverwendbaren Softwarelösungen
-30_Plattform;; Dokumente zum Betrieb und Inbetriebnahme
-40_Methodik;; Methodische Dokumente bspw. zum V-Model XT oder Programmierkonventionen
-50_Werkzeuge;; Dokumente zur Verwendung von Werkzeugen und der Einrichtung der Entwicklungsumgebung (hierzu gehört auch dieses Dokument)
-
-Unterhalb der Säulen werden in der Regel die Verzeichnisse der IsyFact-Dokumente angelegt.
-In der folgenden Abbildung sehen Sie beispielsweise, dass das "Handbuch für technische Autoren" unterhalb der Säule 50_Werkzeuge angelegt wurde.
-
-.Die Verzeichnisse der IsyFact-Dokumentation mit den IsyFact-Säulen
-[id="image-verzeichnis3",reftext="{figure-caption} {counter:figures}"]
-image::handbuch/verzeichnis3.png[align="center"]
-
-Genauso wie in der obigen Abbildung für das IsyFact-Dokument "Handbuch_fuer_technische_Autoren", so muss auch für Ihr IsyFact-Dokument ein neues Verzeichnis innerhalb der korrekt zugeordneten Säule erstellt werden.
-
-Wenn Sie das neue Verzeichnis anlegen, stellt sich als nächstes die Frage, wie das Verzeichnis benannt werden soll.
-Dazu vergeben Sie eine neue _Dokument-ID_.
-Die _Dokument-ID_ ist ein eindeutiger Bezeichner, der durchgängig als Verzeichnis- und Dateiname für ein IsyFact-Dokument verwendet wird.
-Die _Dokument-ID_ dieses Handbuchs ist zum Beispiel "Handbuch_fuer_technische_Autoren".
+Ein neues IsyFact-Dokument muss unterhalb einer geeigneten Säule abgelegt werden.
+Dazu wird unterhalb des Verzeichnisses, das die Säule repräsentiert, ein neues Verzeichnis
+angelegt, dessen Name den Inhalt des Dokuments widerspiegelt.
 
 
 [[neues-verzeichnis-bausteindokumentation-anlegen]]
 === Bausteindokumentation: Ein neues Verzeichnis anlegen
 
-Soll für einen Baustein eine neue Dokumentation angelegt werden oder die bestehende Dokumentation um ein Dokument erweitert werden, so gilt es zunächst die Verzeichnisse richtig anzulegen.
-In einem Baustein wird die Dokumentation in einem eigenen Verzeichnis unter dem Pfad `src/docs/asciidoc` abgelegt.
+Soll für einen Baustein eine neue Dokumentation angelegt werden oder die bestehende Dokumentation um ein Dokument erweitert werden, so muss zunächst der geeignete Ort zur Ablage bestimmt werden.
+I.d.R. ist dies das Repository, in dem sich der Baustein befindet, da die Dokumentation nah beim Code abgelegt werden soll.
+Bis zur IsyFact 2.4.x befindet sich jedoch ein großer Teil der Bausteindokumentation im Repository isy-documentation.
 
-<<image-verzeichnis_bausteindokumentation>> zeigt die Verzeichnisstruktur für die Dokumentation des Bausteins `isy-persistence`.
+Ab IsyFact 2.5.0 liegt dieser Teil der Bausteindokumentation im Repository isyfact-standards im Submodul isyfact-standards-doc.
+Der Code dieser Bausteine befindet sich ebenfalls im Repository isyfact-standards, wodurch die Architekturregel "Dokumentation nah beim Code" erfüllt ist.
 
-.Die Verzeichnisse der Bausteindokumentation von Isy-Persistence
-[id="image-verzeichnis_bausteindokumentation",reftext="{figure-caption} {counter:figures}"]
-image::handbuch/verzeichnis_bausteindokumentation.png[align="center"]
-
-Dies setzt voraus, dass der Baustein zunächst vom Git-Repository heruntergeladen wird.
-Hierfür wechseln Sie auf der Kommandozeile auf eine geeignete Stelle Ihrer lokalen Festplatte und geben dort folgendes Kommando ein.
+Zunächst muss der Baustein vom Git-Repository heruntergeladen werden.
+Hierfür muss auf der Kommandozeile auf eine geeignete Stelle der lokalen Festplatte gewechselt werden und folgendes Kommando eingegeben werden.
 
 ====
-C:\tmp\> *git clone* https://github.com/IsyFact/[baustein]
+C:\tmp\> *git clone* https://github.com/IsyFact/<Repository>
 
-z.B. C:\tmp\> *git clone* https://github.com/IsyFact/isy-persistence
+z.B. C:\tmp\> *git clone* https://github.com/IsyFact/isy-baustein
 ====
 
-Sollte für den Baustein noch keine Dokumentation vorhanden sein und so im Projektverzeichnis das Verzeichnis `src/docs/asciidoc` fehlen, so muss dies zunächst manuell angelegt werden.
-Dazu müssen Sie im Verzeichnis `src` das Verzeichnis `docs` und darin das Verzeichnis `asciidoc` erstellen.
+Bei <Repository> kann es sich um einen einzelnen Baustein handeln oder um ein Repository mit zentraler Dokumentation wie isy-documentation (bis IsyFact 2.4.x) oder isyfact-standards (ab IsyFact 2.5.0).
 
-Im Verzeichnis `asciidoc` wird anschließend ein weiteres Verzeichnis für das Dokumentationsdokument erstellt.
+In einem Baustein wird die Dokumentation in einem eigenen Maven-Submodul unter dem Pfad `src/docs` abgelegt.
 
-Wenn Sie dieses Verzeichnis anlegen, stellt sich als Nächstes die Frage, wie das Verzeichnis benannt werden soll.
-Dazu vergeben Sie eine neue _Dokument-ID_.
-Die _Dokument-ID_ ist ein eindeutiger Bezeichner, der durchgängig als Verzeichnis- und Dateiname für ein IsyFact-Dokument verwendet wird.
-Die _Dokument-ID_ des Konzepts des Bausteins ´isy-persistence´ ist zum Beispiel "Detailkonzept_Komponente_Datenzugriff".
+<<verzeichnisstruktur-baustein>> zeigt die Verzeichnisstruktur für die Dokumentation des fiktiven Bausteins `isy-baustein` zusammen mit den Asciidoc-Dateien für ein Dokument.
 
-Das Verzeichnis ist nun angelegt und die Asciidoc-Dateien können nun abgelegt werden.
+[[verzeichnisstruktur-baustein]]
+.Verzeichnisse der Bausteindokumentation
+----
+📂 isy-baustein
+  📂 isy-baustein-doc <1>
+    📂 src
+        📂 docs
+            📂 Konzept <2>
+                📄 anhaenge.adoc  <3>
+                📄 inhalt.adoc    <4>
+                📄 master.adoc    <5>
+                📄 thisdoc.adoc   <6>
+                📂 images <4>
+            📂 Nutzungsvorgaben <2>
+                📄 anhaenge.adoc
+                📄 inhalt.adoc
+                📄 master.adoc
+                📄 thisdoc.adoc
+                📂 images
+----
+<1> Maven-Submodul für die Dokumentation.
+<2> Jeweils ein Dokument; bei Bausteinen findet sich häufig die Unterteilung in Konzept und Nutzungsvorgaben.
+<3> Auflistung der Anhänge des IsyFact-Dokuments.
+<4> Inhalte des IsyFact-Dokuments.
+<5> Zentrale Datei, die alle anderen Dateien über spezielle Verweise (`include`) einbindet.
+Eine vollständige Vorschau des IsyFact-Dokuments wird angezeigt, wenn die Datei `master.adoc` im Editor geöffnet und die Vorschaufunktion verwendet wird.
+<6> Einleitendes Kapitel des IsyFact-Dokuments, das den Inhalt zusammenfasst sowie den Aufbau und Zweck des Dokuments erläutert.
+<7> Bilder und Grafiken, die im neu zu erstellenden Dokument verwendet werden sollen.
 
-Nun erstellen Sie ein neues Unterverzeichnis mit der Bezeichnung `images`.
-In dem neu erzeugten Verzeichnis `images` werden Bilder und Grafiken abgelegt, die im neu zu erstellenden Dokument verwendet werden sollen.
-
-Bei den anzulegenden Dateien handelt sich um folgende AsciiDoc-Dokumente:
-
-anhaenge.adoc::
-In der Datei `anhaenge.adoc` werden Anhänge des IsyFact-Dokuments aufgelistet.
-
-inhalt.adoc::
-`inhalt.adoc` enthält alle Inhaltskapitel des IsyFact-Dokuments.
-
-master.adoc::
-`master.adoc` ist die zentrale Datei, die alle anderen Dateien über spezielle Verweise (`include`) einbindet.
-Wenn Sie sich eine vollständige Vorschau Ihres Dokuments anschauen möchten, können Sie die Datei `master.adoc` in Ihrem Editor öffnen und die Vorschaufunktion verwenden.
-
-thisdoc.adoc::
-`thisdoc.adoc` enthält das einleitende Kapitel des IsyFact-Dokuments, das den Inhalt zusammenfasst sowie den Aufbau und Zweck des Dokuments erläutert.
 
 [[vsc-einsetzen]]
 === VS Code einsetzen
@@ -384,8 +381,8 @@ Im Folgenden wird die Inhaltserstellung erläutert.
 [[ein-dokument-bearbeiten]]
 == Ein Dokument bearbeiten
 
-Wenn das neue Verzeichnis mit den oben genannten Dateien erstellt worden ist, besteht für die weitere Bearbeitung kein Unterschied darin, ob es sich um frisch angelegte oder bereits bestehende Dokumente handelt.
-In beiden Fällen bearbeiten Sie in den meisten Fällen die Dateien `thisdoc.adoc`, `inhalt.adoc` und `anhaenge.adoc`.
+Dieses Kapitel beschreibt die inhaltliche Bearbeitung und die dabei zu verwendenden Konventionen der IsyFact für die in <<verzeichnisstruktur-baustein>> beschriebenen Dateien.
+Es handelt sich dabei vorrangig um die Datei `inhalt.adoc`.
 
 Außer diesem Handbuch sind hierzu Kenntnisse der AsciiDoc-Syntax erforderlich.
 
@@ -522,84 +519,48 @@ BLOCKTYP: Hier steht der Text.
 Den folgenden, vordefinierten Blöcken fallen in der IsyFact-Dokumentation einheitliche Bedeutungen zu.
 Sie helfen dabei, optionale oder ergänzende Inhalte zu markieren, geben Erfahrungswerte weiter und warnen vor typischen Fehlersituationen oder Fallstricken.
 
-[NOTE]
-====
-Der Block NOTE enthält weiterführenden Inhalte, die optionale Ergänzungen des Textes darstellen.
-Dies können z.B. interessante Randnotizen oder weiterführende Links, Dokumente sowie Artikel sein.
-Der Inhalt der Verweise ist in jedem Fall für die Nutzung der IsyFact optional.
+[[note-admonition]]
+.NOTE Admonition
+image::handbuch/note.dn.svg[align="center"]
 
-Die Verwendung ist ähnlich zu einer Fußnote gedacht, wobei Verweise von einem erklärenden Satz begleitet sein sollten.
-====
+[[tip-admonition]]
+.TIP Admonition
+image::handbuch/tip.dn.svg[align="center"]
 
-[TIP]
-====
-Der Block TIP enthält optionale Inhalte, die eigene Erfahrungswerte (Good / Best Practices, Tipps & Tricks, ...) einbringen.
-Die Inhalte stellen Empfehlungen, aber keine verpflichtenden Regeln dar.
-Allgemeine Vorgaben oder Regeln zur Anwendungsentwicklung, Architektur, Sicherheit oder das Styling müssen in jedem Fall über die jeweils dafür gedachten Blöcke formuliert werden!
-====
+[[important-admonition]]
+.IMPORTANT Admonition
+image::handbuch/important.dn.svg[align="center"]
 
-[IMPORTANT]
-====
-Der Block IMPORTANT beschreibt allgemeine Vorgaben der IsyFact, die sich nicht einem der selbst definierten Blöcke zuordnen lassen.
-Die Inhalte stellen verpflichtende Regeln oder Konventionen dar und können bei Nichtbeachtung, je nach Kontext, zu Fehlern, Workarounds oder eingeschränkter Funktionalität führen.
-====
+[[warning-admonition]]
+.WARNING Admonition
+image::handbuch/warning.dn.svg[align="center"]
 
-[WARNING]
-====
-Der Block WARNING beschreibt typische Fallstricke, die sich bei der Nutzung der IsyFact (z.B. der beschriebenen Blaupause oder eines Bausteins) ergeben können.
-Er warnt davor und bietet Lösungsmöglichkeiten oder hilft, den Fallstrick aktiv zu vermeiden.
-====
+[[caution-admonition]]
+.CAUTION Admonition
+image::handbuch/caution.dn.svg[align="center"]
 
-[CAUTION]
-====
-Der Block CAUTION beschreibt typische Fehler, die bei der Nutzung der IsyFact passieren können oder in der Vergangenheit häufiger aufgetreten sind.
-Die Inhalte sollen diesen Fehlern vorbeugen, um Mehraufwände insbesondere durch subtile Unterschiede, "false friends" oder dergleichen zu vermeiden.
-
-In der Abgrenzung zum Block WARNING stellen die Situationen, die in Blöcken des Typs CAUTION beschrieben werden, entweder eine größere Bedrohung für die korrekte oder rechtzeitige Umsetzung von Anforderungen dar, oder sind, gemessen an ihren Auswirkungen, in der Regel schwer oder erst (zu) spät zu erkennen.
-====
 
 ==== Selbst definierte Blöcke
 
 Die folgenden, selbst definierten Blöcke, bilden Regeln und Vorgaben der IsyFact ab, die verpflichtend einzuhalten sind.
 Sie bilden die Grundlage für eine zur IsyFact konforme Umsetzung von Anforderungen und definieren so maßgeblich, wie Konformität zur IsyFact erzielt wird.
 
-.icon:cogs[] Anwendungsanforderung: Beispiel für Anwendungsanforderung
-****
-Der Block ANWENDUNGSANFORDERUNG beschreibt Anforderungen, welche die IsyFact an die Entwicklung von IT-Systemen stellt.
-Die Anforderungen kommen typischerweise aus den Bereichen:
+[[anwendungsanforderung-admonition]]
+.ANWENDUNGSANFORDERUNG Admonition
+image::handbuch/anwendungsanforderung.dn.svg[align="center"]
 
-* Struktur des Quellcodes oder der Quellcodeablage,
-* Format und Inhalt der Auslieferung,
-* Detailaspekte der Verwendung von Bausteinen.
+[[architekturregel-admonition]]
+.ARCHITEKTURREGEL Admonition
+image::handbuch/architekturregel.dn.svg[align="center"]
 
-Sie bilden die Grundlage für eine einheitliche Umsetzung von Anforderungen, die in gleichartig strukturierten IT-Systemen münden.
-****
+[[sicherheit-admonition]]
+.SICHERHEIT Admonition
+image::handbuch/sicherheit.dn.svg[align="center"]
 
-.icon:university[] Architekturregel: Beispiel für Architekturregel
-****
-Der Block ARCHITEKTURREGEL beschreibt Regeln, welche die IsyFact an die Architektur von mit ihr entwickelten IT-Systemen stellt.
-Die Regeln zielen somit vor allem auf eine korrekte Umsetzung der Referenzarchitektur ab und sind fast ausschließlich technischer Natur.
-Sie bilden die Grundlage für eine einheitliche softwaretechnische Architektur der IT-Systeme.
-****
+[[styleguide-admonition]]
+.STYLEGUIDE Admonition
+image::handbuch/styleguide.dn.svg[align="center"] +
 
-.icon:shield[] Sicherheit: Beispiel für Sicherheitshinweis
-****
-Der Block SICHERHEIT beschreibt Regeln, welche die IsyFact an die IT-Sicherheit von mit ihr entwickelten IT-Systemen stellt.
-Die Regeln stellen vor allem eine, vom festgestellten Schutzbedarf abhängige, sichere Umsetzung der IT-Systeme sicher.
-****
-
-.icon:paint-brush[] Styleguide: Beispiel für Styleguide
-****
-Der Block STYLEGUIDE beschreibt Regeln, welche die IsyFact an die Gestaltung der grafischen Oberflächen stellt.
-Die Regeln kommen typischerweise aus den Bereichen:
-
-* Allgemeine Gestaltungsrichtlinien,
-* Grundlegender Aufbau von Masken,
-* Vorgaben zur Ein- und Ausgabe von Daten sowie zu Interaktionsmustern,
-* Barrierefreiheit und Usability.
-
-Die Regeln stellen vor allem sicher, dass grafische Oberflächen ein einheitliches Look&Feel besitzen und gleichartig bedient werden.
-****
 
 ==== Verwendung von Tags zur Kennzeichnung
 
@@ -834,58 +795,32 @@ Ferner kann das Listing im AsciiDoc-Text über seine ID referenziert werden:
 [[literaturverzeichnis]]
 === Literaturverzeichnis
 
-Für Referenzen auf das Literaturverzeichnis müssen alle referenzierten Dokumente jeweils mit einem eigenen Eintrag in der Datei
+Am Ende eines Dokuments wird automatisch ein Literaturverzeichnis erstellt.
+Voraussetzung für die Aufnahme eines Eintrags in das lokale Literaturverzeichnis ist die Referenzierung des entsprechenden Dokuments und das Vorhandensein der referenzierten Id in der Literaturverzeichnis-Konfigurationsdatei in <<isy-asciidoctorj-extensions>>.
 
-`/common/bibliography.adoc`
+Eine Referenz auf einen Literatureintrag erfolgt über doppelte spitze Klammerpaare, wobei der erste Eintrag die Id in der Literaturverzeichnis-Konfigurationsdatei in isy-asciidoctorj-extensions ist.
 
-aufgeführt sein.
-
-Beispielsweise muss für die Referenzierung dieses Dokuments folgender Eintrag in die Datei aufgenommen werden.
-
-.Literaturverzeichnis
-[id="listing-literaturverzeichnis",reftext="{listing-caption} {counter:listings }"]
-[source,asciidoc,indent=0]
-----
- - [[[Handbuch_fuer_technische_Autoren]]] +
-   Handbuch für technische Autoren +
-   50_Werkzeuge\Handbuch_fuer_technische_Autoren.pdf
-----
-
-Eine Referenz auf die Literatur erfolgt über doppelte spitze Klammerpaare.
-
- Hier ist das <<Handbuch_fuer_technische_Autoren,Handbuch für technische Autoren>>.
+Ein Beispiel für referenzierte Literatur: \<<AsciiDocRecommendedPractices,AsciiDoc Recommended Practices>>.
 
 Das Ergebnis sieht so aus:
 
-`Hier ist das <<Handbuch_fuer_technische_Autoren,Handbuch für technische Autoren>>.`
+Ein Beispiel für referenzierte Literatur: `<<AsciiDocRecommendedPractices,AsciiDoc Recommended Practices>>.`
 
 [[glossar]]
 === Glossar
 
-Für Referenzen auf Fachwörter müssen referenzierte Begriffe jeweils mit einem eigenen Eintrag in der Datei
+Am Ende eines Dokuments wird automatisch ein Glossar erstellt.
+Voraussetzung für die Aufnahme eines Eintrags in das lokale Glossar ist die Referenzierung des entsprechenden Eintrags und das Vorhandensein des Eintrags mit der referenzierten Id im zentralen Glossar in <<isy-asciidoctorj-extensions>>.
 
-`/common/glossary.adoc`
-
-aufgeführt sein.
-
-Der ID soll mit dem Bezeichner `glossar-` beginnen.
-Beispielsweise muss für die Referenzierung des Fachausdrucks `Hallo Welt Beispiel` folgender Eintrag in die Datei `/common/glossary.adoc` aufgenommen werden.
-
-.Glossar
-[{id-equals}"listing-glossar",reftext="{listing-caption} {counter:listings }"]
-[source,asciidoc,subs="attributes+"]
-----
-[{id-equals}"glossar-halloweltbeispiel",reftext="Hallo Welt Beispiel"]
-Hallo Welt Beispiel:: Ein Hallo Welt Beispiel enthält einen denkbar einfachen Quelltext.
-----
-
-Eine Referenz auf einen Begriff des Glossars erfolgt über doppelte spitze Klammerpaare.
+Eine Referenz auf einen Begriff des Glossars erfolgt über doppelte spitze Klammerpaare, wobei der erste Eintrag die Id im zentralen Glossar in isy-asciidoctorj-extensions ist.
+Die ID soll mit dem Bezeichner `glossar-` beginnen.
 
  Hier wurde ein <<glossar-halloweltbeispiel, Hallo Welt Beispiel>> verwendet.
 
 Das Ergebnis sieht wie folgt aus:
 
 `Hier wurde ein <<glossar-halloweltbeispiel, Hallo Welt Beispiel>> verwendet.`
+{empty} +
 
 [[asccidoc-zu-pdf-html]]
 == PDF- und HTML-Dokumente erzeugen
@@ -1356,7 +1291,7 @@ Komponentenübergreifende Einträge sind dem gekennzeichneten Bereich hinzuzufü
 
 
 //fix Links in Examples
-[[Handbuch_fuer_technische_Autoren]]
+[[AsciiDocRecommendedPractices]]
 
 [[glossar-halloweltbeispiel]]
 // end::inhalt[]
