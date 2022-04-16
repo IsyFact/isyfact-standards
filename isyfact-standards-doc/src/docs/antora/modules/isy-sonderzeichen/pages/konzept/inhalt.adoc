@@ -8,7 +8,7 @@ An die Verarbeitung von Sonderzeichen nach den IsyFact-Standards bestehen die fo
 
 * Prinzipiell (technisch) muss jedes Sonderzeichen nutzbar sein.
 * Jedes System nach IsyFact-Standards muss die Sonderzeichen in gleicher Weise verarbeiten können.
-* Nach Erlass des BMI ist für das Personenstands,- Melde- und Ausländerwesen die Verarbeitung sämtlicher Zeichen gem. xref:glossary:literaturextern:inhalt.adoc#litextern-OWASP[OWASP Top 10 Project] vorgegeben.
+* Nach Erlass des BMI ist für das Personenstands-, Melde- und Ausländerwesen die Verarbeitung sämtlicher Zeichen gem. xref:glossary:literaturextern:inhalt.adoc#litextern-OWASP[OWASP Top 10 Project] vorgegeben.
 Weder mehr noch weniger Zeichen darf/muss das System verarbeiten können.
 
 [[festlegung-des-zeichensatzes-und-der-codierung]]
@@ -20,6 +20,8 @@ Dieser Zeichensatz stellt ausreichend viele der weltweit existierenden Buchstabe
 
 Gemäß den Anforderungen des String.Latin Zeichensatzes des BMI xref:glossary:literaturextern:inhalt.adoc#litextern-OWASP[OWASP Top 10 Project] soll die IsyFact genau diesen Zeichensatz unterstützen.
 Daher wird festgelegt, dass für IsyFact-Standard-basierte Anwendungen der Zeichensatz DIN SPEC 91379 in der UTF-8-Codierung zu verwenden ist.
+
+NOTE: Die Webseiten der KoSIT bieten weitere Informationen zu xref:glossary:literaturextern:inhalt.adoc#litextern-string.latin-1.2[String.Latin 1.2] sowie einen xref:glossary:literaturextern:inhalt.adoc#litextern-string.latin-1.2-download[Download] der entsprechenden Spezifikation.
 
 [[transformation-von-sonderzeichen]]
 == Transformation von Sonderzeichen
@@ -110,7 +112,7 @@ Verschiedene Versionen der gleichen Transkriptionsregeln können durch eigene Ke
 |====
 
 
-Die Transkription soll nicht als zentraler Service sondern als Komponente umgesetzt werden, die bei Bedarf in die Anwendungen eingebunden wird.
+Die Transkription soll nicht als zentraler Service, sondern als Komponente umgesetzt werden, die bei Bedarf in die Anwendungen eingebunden wird.
 Dabei sind die Transkriptionsregeln in einer oder mehreren Konfigurationsdateien hinterlegt, die von der Komponente eingelesen werden.
 Darüber wird auch eine einfache Erweiterbarkeit der Transkriptionsregeln gewährleistet.
 Es ist möglich, mehrere Sätze von Transkriptionsregeln zu hinterlegen, um so auch andere Standards für die Transkription verwenden zu können.
@@ -146,7 +148,7 @@ Das kann z.B. erfolgen, indem die Dateien mit einem `InputStreamReader` gelesen 
 In beiden Klassen kann im Konstruktor der Zeichensatz angegeben werden.
 Beim Lesen werden die Daten dann automatisch decodiert bzw. beim Schreiben codiert.
 
-Dieses Verfahren kann für beliebige Byte-Arrays verwendet werden, so dass auch Daten, die über eine Programm-Schnittstelle übergeben werden, so umcodiert werden können.
+Dieses Verfahren kann für beliebige Byte-Arrays verwendet werden, sodass auch Daten, die über eine Programm-Schnittstelle übergeben werden, so umcodiert werden können.
 
 [[filtern-von-zeichen]]
 === Filtern von Zeichen
