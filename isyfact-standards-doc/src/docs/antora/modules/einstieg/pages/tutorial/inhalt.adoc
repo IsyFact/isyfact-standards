@@ -663,7 +663,7 @@ Diese Query soll die (fachlichen) Schlüssel von Entitäten, nicht Entitäten se
 * Batches erzeugen ein Ausführungsprotokoll.
 Der Batchrahmen, die Steuerungsimplementierung, die jeden Batch und dessen Arbeitsschritte steuert, stellt die notwendige Implementierung bereit.
 Die Ausführungs-Bean übermittelt dem Batchrahmen Status-Informationen für das Protokoll.
-* Batches verwenden einen (konfigurierten) technischen Benutzer, um sich vor Start der fachlichen Verarbeitung am Access-Manager des Anwendungssystems oder der Anwendungslandschaft zu authentifizieren.
+* Batches verwenden einen (konfigurierten) technischen Benutzer, um sich vor Start der fachlichen Verarbeitung am IAM-Service des Anwendungssystems oder der Anwendungslandschaft zu authentifizieren.
 * Alle Batches zu einer Anwendung werden als eigenständige Deployment-Einheit ausgeliefert.
 
 [[klassendesign-4]]
@@ -1075,15 +1075,15 @@ Dieses Kapitel beschreibt die Realisierung der Authentifizierung und Autorisieru
 [[designvorgaben-10]]
 ==== Designvorgaben
 
-* Die Authentifizierung von Anfragen wird im Servicegateway und im Portal mithilfe des Access Managers durchgeführt.
-* Prozesse, die innerhalb des Anwendungssystems oder der Anwendungslandschaft starten (z.B. Timertasks, Batches) verwenden einen technischen Benutzer und authentifizieren diesen selbständig gegen den Access Manager.
+* Die Authentifizierung von Anfragen wird im Servicegateway und im Portal mithilfe des IAM-Services durchgeführt.
+* Prozesse, die innerhalb des Anwendungssystems oder der Anwendungslandschaft starten (z.B. Timertasks, Batches) verwenden einen technischen Benutzer und authentifizieren diesen selbständig gegen den IAM-Service.
 * Die Berechtigungsprüfung ist in der Anwendung deklarativ zu definieren bzw.
 zu programmieren.
 * Eine erste Berechtigungsprüfung erfolgt in der Service-Schnittstelle oder im Web-GUI-Dialogcontroller jeder Anwendung.
 Es wird geprüft, ob der Aufrufer den Service oder den Dialog überhaupt verwenden darf.
 * In jeder Service-Methode wird ein Parameter `AufrufKontext` mit den Daten des aufrufenden Benutzers übermittelt.
 Dieser Parameter wird im `AufrufKontextVerwalter` hinterlegt und beim Aufruf weiterer Nachbarsysteme durchgereicht.
-* In der Web-GUI wird ein vom Access-Manager bereitgestellter HTTP-Header mit den
+* In der Web-GUI wird ein vom IAM-Service bereitgestellter HTTP-Header mit den
 Daten des aufrufenden Benutzers entgegengenommen und in einen `AufrufKontext` gewandelt.
 Dieser Parameter wird im `AufrufKontextVerwalter` hinterlegt und beim Aufruf weiterer Nachbarsysteme durchgereicht.
 
