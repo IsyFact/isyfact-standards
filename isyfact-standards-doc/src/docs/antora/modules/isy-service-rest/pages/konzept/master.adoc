@@ -1,9 +1,12 @@
-:doctitle: Interne REST-Services
-:document-type: Konzept
+:doctitle: Konzept REST
+[discrete]
+= Konzept
 
-toc::[]
+:sectnums:
 
-colophon::[factory="IsyFact-Standards", open-source="true"]
+include::glossary:licence:partial$licence.adoc[]
+
+include::docinfo.adoc[]
 
 include::thisdoc.adoc[tags=inhalt]
 

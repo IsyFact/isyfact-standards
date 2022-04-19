@@ -1,5 +1,5 @@
 = Konzept REST-Services: Inhalt
-:imagesdir: images
+
 
 // tag::inhalt[]
 
@@ -49,17 +49,16 @@ Für einen tiefen Einstieg in die Grundlagen bietet sich die https://www.ics.uci
 
 Das Reifegradmodell von Leonard Richardson (*Richardson Maturity Model*, s. <<image-richard-maturity-model>>) ordnet diese Eigenschaften vier Reifegraden zu.
 
-:desc-image-richard-maturity-model: Richardson Maturity Model
+.Richardson Maturity Model
 [id="image-richard-maturity-model", reftext = "{figure-caption} {counter:figures}"]
-.{desc-image-richard-maturity-model}
-image::richard-maturity-model.dn.png[align = center, title-align=center]
+image::isy-service-rest:konzept/richard-maturity-model.dn.png[align = center, title-align=center]
 
 Die IsyFact zielt auf eine möglichst vollständige Umsetzung der Eigenschaften und peilt daher einen hohen Reifegrad für ihre REST-Services an.
 
-[ARCHITEKTURREGEL]
-====
-Ein auf der IsyFact basierendes IT-System muss seine REST-Services mindestens anhand Stufe zwei des Richardson Maturity Models umsetzen.
-====
+.icon:university[] Architekturvorgabe
+****
+Ein auf der IsyFact basierendes IT-System muss seine REST-Services mindestens anhand Stufe zwei des Richardson Maturity Models umsetzen.t
+****
 
 Konkret stellt Stufe 2 des Richardson Maturity Models folgende Anforderungen:
 
@@ -129,9 +128,8 @@ Die Bezeichnung der Ressource beinhaltet ausschließlich Kleinbuchstaben.
 Zwischen Teilen zusammengesetzter Begriffe steht jeweils ein Bindestrich.
 Beinhaltet die Bezeichnung Sonderzeichen, müssen sie gemäß üblicher Transkriptionsregeln ersetzt werden (z. B. "ae" statt "ä").
 
-:desc-listing-ressourcen-uri-beispiele: Beispiele für Ressourcen-URIs
+.Beispiele für Ressourcen-URIs
 [id="listing-ressourcen-uri-beispiele",reftext = "{listing-caption} {counter:listings}"]
-.{desc-listing-ressourcen-uri-beispiele}
 [source]
 ----
 1. /nachrichten
@@ -201,10 +199,10 @@ Query Parameter werden ausschließlich für das *Sortieren*, *Paginierung* und *
 /nachrichten?page=5&pageSize=15
 ----
 
-[ARCHITEKTURREGEL]
-====
+.icon:university[] Architekturvorgabe
+****
 Es dürfen nur nicht datenschutzrelevante Informationen in Query Parametern verwendet werden, um das Loggen von datenschutzrelevanten Daten zu verhindern.
-====
+****
 
 Für alle anderen Suchen sind POST-Requests zu verwenden, siehe <<post-suche-filterung>>.
 
@@ -223,9 +221,8 @@ Die übrigen HTTP-Methoden werden nicht verwendet.
 *GET* wird verwendet, um eine Ressource zu lesen.
 Die Ressource wird dabei nicht verändert, wodurch diese Methode idempotent ist.
 
-:desc-listing-get-anfrage-beispiele: Beispiele für GET-Anfrage
+.Beispiele für GET-Anfrage
 [id="listing-get-anfrage-beispiele",reftext = "{listing-caption} {counter:listings}"]
-.{desc-listing-get-anfrage-beispiele}
 [source]
 ----
 GET /kunden/1234 HTTP/1.1
@@ -235,9 +232,8 @@ HOST: xx.yy.zz
 ACCEPT-ENCODING: gzip, deflate, br
 ----
 
-:desc-listing-get-antwort-beispiele: Beispiele für GET-Antwort
+.Beispiele für GET-Antwort
 [id="listing-get-antwort-beispiele",reftext = "{listing-caption} {counter:listings}"]
-.{desc-listing-get-antwort-beispiele}
 [source]
 ----
 HTTP/1.1 200 OK
@@ -256,9 +252,8 @@ Es ist beim Erstellen von Datensätzen in den meisten Fällen das Mittel der Wah
 Dadurch, dass die Datensätze mit neuen IDs angelegt werden, wird bei jedem weiteren senden des Requests ein neuer Datensatz angelegt und die Methode ist nicht idempotent.
 Des Weiteren muss POST für komplexe Suchen und Suchen mit datenschutzrelevanten Informationen verwendet werden, siehe <<post-suche-filterung>>.
 
-:desc-listing-post-anfrage-beispiele: Beispiele für POST-Anfrage
+.Beispiele für POST-Anfrage
 [id="listing-post-anfrage-beispiele",reftext = "{listing-caption} {counter:listings}"]
-.{desc-listing-post-anfrage-beispiele}
 [source]
 ----
 POST /kunden HTTP/1.1
@@ -271,9 +266,8 @@ Content-Type: application/json; charset=utf-8
 }
 ----
 
-:desc-listing-post-antwort-beispiele: Beispiele für POST-Antwort
+.Beispiele für POST-Antwort
 [id="listing-post-antwort-beispiele",reftext = "{listing-caption} {counter:listings}"]
-.{desc-listing-post-antwort-beispiele}
 [source]
 ----
 HTTP/1.1 201 Created
@@ -286,10 +280,11 @@ Content-Type: application/json; charset=utf-8
 }
 ----
 
-[ARCHITEKTURREGEL]
-====
+
+.icon:university[] Architekturvorgabe
+****
 POST wird auch für fachliche Operationen genutzt, die keiner der anderen HTTP-Methoden zugeordnet werden können (z. B. Verifikation eines Antrags).
-====
+****
 
 *PUT* wird verwendet, um eine Ressource zu ändern oder zu erstellen.
 Beim Ändern wird die gesamte Ressource mitgesendet und nicht nur der zu ändernde Teil wie bei PATCH.
@@ -299,9 +294,8 @@ PUT ist, da immer die gesamte Ressource geändert wird, bzw. die ID beim Erstell
 Deshalb ist PUT PATCH beim Aktualisieren vorzuziehen.
 In Abhängigkeit davon, ob eine Ressource geändert oder neu erstellt wurde, wird der entsprechende Response Code (200 OK bzw. 201 Created) zurückgegeben.
 
-:desc-listing-put-anfrage-beispiele: Beispiele für PUT-Anfrage
+.Beispiele für PUT-Anfrage
 [id="listing-put-anfrage-beispiele",reftext = "{listing-caption} {counter:listings}"]
-.{desc-listing-put-anfrage-beispiele}
 [source]
 ----
 PUT /kunden/1234 HTTP/1.1
@@ -314,9 +308,8 @@ Content-Type: application/json; charset=utf-8
 }
 ----
 
-:desc-listing-put-antwort-beispiele: Beispiele für PUT-Antwort
+.Beispiele für PUT-Antwort
 [id="listing-put-antwort-beispiele",reftext = "{listing-caption} {counter:listings}"]
-.{desc-listing-put-antwort-beispiele}
 [source]
 ----
 HTTP/1.1 200 OK
@@ -334,9 +327,8 @@ Hierbei werden nur die Felder gesendet, die geändert werden sollen und nicht di
 Das kann bei Ressourcen mit beispielsweise einem Auto-Increment Feld dazu führen, dass bei mehreren Patches unterschiedliche Ergebnisse erzielt werden.
 Deswegen kann Patch idempotent sein, muss aber nicht.
 
-:desc-listing-patch-anfrage-beispiele: Beispiele für PATCH-Anfrage
+.Beispiele für PATCH-Anfrage
 [id="listing-patch-anfrage-beispiele",reftext = "{listing-caption} {counter:listings}"]
-.{desc-listing-patch-anfrage-beispiele}
 [source]
 ----
 PATCH /kunden/1234 HTTP/1.1
@@ -347,9 +339,9 @@ Content-Type: application/json; charset=utf-8
 }
 ----
 
-:desc-listing-patch-antwort-beispiele: Beispiele für PATCH-Antwort
+.Beispiele für PATCH-Antwort
 [id="listing-patch-antwort-beispiele",reftext = "{listing-caption} {counter:listings}"]
-.{desc-listing-patch-antwort-beispiele}
+
 [source]
 ----
 HTTP/1.1 200 OK
@@ -362,10 +354,10 @@ Content-Type: application/json; charset=utf-8
 }
 ----
 
-[ARCHITEKTURREGEL]
-====
+.icon:university[] Architekturvorgabe
+****
 PATCH ist nur zu verwenden, wenn PUT aus triftigen Gründen nicht funktioniert.
-====
+****
 
 *DELETE* wird verwendet zum Löschen einer Ressource.
 Da jede Ressource nur einmal gelöscht werden kann, ist diese Methode idempotent.
@@ -385,7 +377,7 @@ Es ist idempotent, da nichts verändert wird.
 OPTIONS /kunden
 ----
 
-NOTE: Eine Übersicht über die HTTP-Methoden und ihre Eigenschaften, findet sich in <<anhang-http-methoden>>
+NOTE: Eine Übersicht über die HTTP-Methoden und ihre Eigenschaften, findet sich in xref:konzept/anhaenge.adoc#anhang-http-methoden[Anhang: http-Methoden]
 
 [[post-suche-filterung]]
 ==== Suche und Filterung mittels POST
@@ -448,10 +440,12 @@ Nicht erlaubt ist eine Einbettung einer binären Ressource in eine textbasierte 
 Ist eine binäre Ressource Teil einer textbasierten Ressource, so wird eine Einbettung ebenfalls nicht empfohlen.
 Stattdessen sollte der URI der binären Ressource in der textbasierten Ressource enthalten sein, um sie bei Bedarf direkt abzufragen.
 
-[ARCHITEKTURREGEL]
-====
-Alle REST-Services innerhalb einer Systemlandschaft nutzen eine einheitliche, textbasierte Repräsentationsform. Binäre Daten werden über direkte Anfragen binär ohne Transformation zurückgeliefert.
-====
+
+.icon:university[] Architekturvorgabe
+****
+Alle REST-Services innerhalb einer Systemlandschaft nutzen eine einheitliche, textbasierte Repräsentationsform.
+Binäre Daten werden über direkte Anfragen binär ohne Transformation zurückgeliefert.
+****
 
 Diese Regel reduziert die Komplexität der internen Services und erhöht die Homogenität der Systemlandschaft.
 Ebenso fällt der Aufwand zur Pflege mehrerer, inhaltlich identischer Repräsentationsformen weg.
@@ -479,7 +473,7 @@ Wenn für eine Repräsentation mehr als ein Inhaltstyp üblich ist, reagiert ein
 
 Anfragen geben ihre inhaltlichen Präferenzen im HTTP-Header `Accept` mit.
 Der REST-Service setzt den Inhaltstyp der Antworten im HTTP-Header `Content-Type`.
-Für die häufigsten Repräsentationen legt <<anhang-content-types>> die erwarteten und zurückgegebenen Inhaltstypen fest.
+Für die häufigsten Repräsentationen legt xref:konzept/anhaenge.adoc#anhang-content-types[Anhang: Content types] die erwarteten und zurückgegebenen Inhaltstypen fest.
 
 === Metadaten
 
@@ -503,17 +497,15 @@ Dieser reduziert allerdings nur die genutzte Netzwerk-Kommunikation, nicht aber 
 
 Weitere Caching-Methoden, die auch die Serverlast reduzieren, sind möglich.
 
-NOTE: Eine Übersicht, welche HTTP-Methoden Caching-Fähig sind, findet sich unter <<anhang-http-methoden>>
+NOTE: Eine Übersicht, welche HTTP-Methoden Caching-Fähig sind, findet sich unter xref:konzept/anhaenge.adoc#anhang-http-methoden[Anhang: http-Methoden]
 
 [[hateoas]]
 === HATEOAS
 
 Nach dem HATEOAS-Paradigma soll eine zurückgelieferte Ressourcen weiterführende URLs (vergleichbar mit HTML-Links) zu verwandten Ressourcen enthalten, anstelle die verwandten Ressourcen mit der angefragten Ressource zusammengeführt zu übermitteln.
 
-:desc-listing-hateoas-beispiel: Beispiel für eine HATEOAS-konforme Resource mit URIs zu weiterer Resource
-
+.Beispiel für eine HATEOAS-konforme Resource mit URIs zu weiterer Resource
 [id="listing-hateoas-beispiel",reftext = "{listing-caption} {counter:listings}"]
-.{desc-listing-hateoas-beispiel}
 [source,json]
 ----
 {
@@ -546,9 +538,8 @@ Bei häufigen, parallelen Anfragen würde dieses Szenario dann einen hohen Overh
 
 Die IsyFact legt folgende Technologien für die Umsetzung von REST-Schnittstellen (vgl. <<table-frameworks>>) fest.
 
-:desc-table-frameworks: Frameworks für die Umsetzung
+.Frameworks für die Umsetzung
 [id="table-frameworks",reftext = "{table-caption} {counter:tables}"]
-.{desc-table-frameworks}
 [cols="2,2,3",options="header"]
 |===
 |Framework |Technologie-Stack |Beschreibung
@@ -678,10 +669,10 @@ Gängige Clients im Kontext der IsyFact sind Java (Spring) und Javascript (Angul
 
 === Verwendung von Transportobjekten
 
-[ARCHITEKTURREGEL]
-====
+.icon:university[] Architekturvorgabe
+****
 REST-Schnittstellen verwenden ausschließlich Transferobjekte (Data Transfer Objects, DTOs).
-====
+****
 
 Die DTOs werden ebenfalls innerhalb der Schnittstellenbeschreibung schematisch beschrieben.
 
@@ -739,10 +730,10 @@ Die technische Exception muss für alle Service-Methoden einer Service-Schnittst
 *Definition von fachlichen Exceptions*: Service-Methoden können beliebig viele fachliche Exceptions deklarieren.
 Diese können spezifisch für jede Service-Methode sein.
 
-*Übermittlung von Daten*: Die Felder Ausnahme-ID, UUID und Fehlernachricht, wie in den <<NutzungsvorgabenFehlerbehandlung>> beschrieben, müssen stets übertragen werden.
+*Übermittlung von Daten*: Die Felder Ausnahme-ID, UUID und Fehlernachricht, wie in den xref:isy-exception-core:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Fehlerbehandlung] beschrieben, müssen stets übertragen werden.
 Weiterhin darf kein Stack-Trace übertragen werden.
 
-Grundsätzlich sind die Vorgaben aus den <<NutzungsvorgabenFehlerbehandlung>> zu beachten.
+Grundsätzlich sind die Vorgaben aus den xref:isy-exception-core:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Fehlerbehandlung] zu beachten.
 Im Anschluss folgen REST-Spezifische Regeln.
 
 Technische Fehler werden in der HTTP-Response immer mit dem HTTP-Code 500 gesendet.
@@ -758,10 +749,9 @@ Fachlichen Fehlern muss ein entsprechend passender Fehlercode im Bereich 4xx zug
 Die Fehlerbehandlung erfolgt nicht in der REST-Schnittstelle, sondern in einem separaten `RestExceptionHandler`, welcher die Exception Fassade für REST-Schnittstellen repräsentiert (vgl. <<image-fehlerbehandlung>>).
 
 
-:desc-image-fehlerbehandlung: Entkopplung Fehlerbehandlung und Service-Logik
+.Entkopplung Fehlerbehandlung und Service-Logik
 [id="image-fehlerbehandlung",reftext = "{figure-caption} {counter:figures}"]
-.{desc-image-fehlerbehandlung}
-image::fehlerbehandlung.dn.svg[align = center,title-align=center]
+image::isy-service-rest:konzept/fehlerbehandlung.dn.svg[align = center,title-align=center]
 
 Spring Webflux unterstützt ebenso wie Spring MVC die Annotation @RestControllerAdvice.
 Die Implementierung des RestExceptionsHandler kann daher über die Annotation einer Klasse mit @RestControllerAdvice erfolgen.
@@ -776,9 +766,8 @@ Details zur Implementierung können der https://docs.spring.io/spring-framework/
 
 Eine Fehlernachricht aus einer REST-Schnittstelle (egal ob Client oder Server Error) muss mindestens folgende Informationen beinhalten.
 
-:desc-table-error-fields: Standardfelder für Fehlernachrichten
+.Standardfelder für Fehlernachrichten
 [id="table-error-fields",reftext = "{table-caption} {counter:tables}"]
-.{desc-table-error-fields}
 [cols="2,2,4",options="header"]
 |===
 |Feld |Datentyp |Beschreibung
@@ -800,7 +789,7 @@ Eine Fehlernachricht aus einer REST-Schnittstelle (egal ob Client oder Server Er
 |Detailbeschreibung des Fehlers.
 Bei Client Errors sollte beschrieben werden wie der Client den Fehler beheben kann.
 Es sollen keine technischen/internen Details (z. B. Stacktrace) in der Beschreibung enthalten sein.
-Die message setzt sich, wie in den <<NutzungsvorgabenFehlerbehandlung>> beschrieben, folgendermaßen zusammen:
+Die message setzt sich, wie in den xref:isy-exception-core:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Fehlerbehandlung] beschrieben, folgendermaßen zusammen:
 
 `#AusnahmeId Fehlertext #UUID`
 
@@ -830,7 +819,7 @@ Fehler werden in einem Array zurückgegeben um auch das Senden mehrerer Fehler, 
 Sollten bei der Verarbeitung mehrere Fehler auftreten, sind alle Fehler zurückzugeben.
 
 Exceptions werden im `RestExceptionHandler` auf den jeweiligen HTTP-Statuscode und die entsprechende Nachricht gemapped.
-Welche Informationen enthalten sein dürfen wird im <<NutzungsvorgabenFehlerbehandlung>> genauer beschrieben.
+Welche Informationen enthalten sein dürfen wird im xref:isy-exception-core:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Fehlerbehandlung] genauer beschrieben.
 
 [[sicherheit]]
 === Sicherheit
@@ -851,7 +840,7 @@ Informationen zur Bearer Propagation gibt es in der https://docs.spring.io/sprin
 
 Um eine Klasse oder einzelne Methoden zu sichern, ist die `@Gesichert` Annotation des Bausteins Sicherheit zu verwendet.
 
-Generell ist das <<KonzeptSicherheit>> zu beachten.
+Generell ist das xref:isy-sicherheit:konzept/master.adoc#einleitung[Konzept Sicherheit] zu beachten.
 
 [[logging]]
 === Logging
@@ -861,7 +850,7 @@ Für die Erstellung der Log-Einträge ist der Baustein Isy-Logging zu verwenden.
 
 ==== Server / Service-Provider
 Der Baustein bietet mit `@Systemgrenze` eine Annotation, die einen Interceptor aufruft, der automatisch Aufrufe aller Methoden in der annotierten Klasse (z. B. Controller) fachlich loggt.
-(vgl. <<NutzungsvorgabenLogging>> Kapitel 4.2.2.1)
+(vgl. xref:isy-logging:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Logging] Kapitel 4.2.2.1)
 Für ein technisches Logging soll zusätzlich ein weiterer Interceptor verwendet werden.
 
 Dieser Interceptor soll folgende Nachrichten am Controller loggen:
@@ -885,11 +874,10 @@ Wie auch serverseitig, sollen diese Log-Nachrichten möglichst automatisiert via
 
 Um die Nachrichten im Zuge der Log-Auswertung zu filtern, sind nachrichtenspezifische Ereignisschlüssel zu verwenden.
 
-Zusätzlich zu den Anforderungen an die Inhalte einer Log-Nachricht (<<KonzeptLogging>> Kapitel 4.1.1), sollen folgende Informationen als Marker in der Log-Nachricht enthalten sein:
+Zusätzlich zu den Anforderungen an die Inhalte einer Log-Nachricht xref:isy-logging:konzept/master.adoc#einleitung[Konzept Logging] Kapitel 4.1.1), sollen folgende Informationen als Marker in der Log-Nachricht enthalten sein:
 
-:desc-table-logging-data: Standard für zu erfassende Logging-Informationen
+.Standard für zu erfassende Logging-Informationen
 [id="table-logging-data",reftext = "{table-caption} {counter:tables}"]
-.{desc-table-logging-data}
 [cols="2,3",options="header"]
 |===
 2+|Die zu protokollierende Information ist abhängig, ob es ein Request oder Response ist
@@ -945,7 +933,7 @@ Zusätzlich zu den Anforderungen an die Inhalte einer Log-Nachricht (<<KonzeptLo
 
 *Konfigurationsparameter*
 
-Diese Konfigurationsparameter aus Kapitel 4.2.2.1 <<NutzungsvorgabenLogging>> sollen für den neuen Interceptor ebenfalls existieren:
+Diese Konfigurationsparameter aus Kapitel 4.2.2.1 xref:isy-logging:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Logging] sollen für den neuen Interceptor ebenfalls existieren:
 
 * loggeDauer
 * loggeDaten
@@ -963,9 +951,10 @@ Das Aktivieren dieses Loggings ist über einen Konfigurationsparameter steuerbar
 
 Die IsyFact stellt zur Überwachung von Anwendungen den Baustein Überwachung bereit.
 
-Die Grundlagen der Überwachung von IsyFact basierten Anwendungen werden im <<KonzeptUeberwachung>> beschrieben.
+Die Grundlagen der Überwachung von IsyFact basierten Anwendungen werden im xref:isy-ueberwachung:konzept/master.adoc#einleitung[Konzept Überwachung] beschrieben.
 
-Detailliertere Informationen zur Konfiguration und zur Verwendung des Bausteins Überwachung findet man in den <<NutzungsvorgabenUeberwachung>>.
+
+Detailliertere Informationen zur Konfiguration und zur Verwendung des Bausteins Überwachung findet man in den xref:isy-ueberwachung:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Überwachung].
 Dieses Dokument beinhaltet auch das Kapitel "Informationen von Services".
 Dieses Kapitel beinhaltet eine Liste der zu überwachenden bzw. anzubietenden Informationen für die Services von Anwendungen.
 Die dort aufgelisteten Informationen müssen für jeden Service einzeln angeboten werden.
