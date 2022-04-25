@@ -474,16 +474,16 @@ Einen Querverweis auf eine Überschrift setzt man über zwei Paare spitzer Klamm
 [id="listing-querverweis",reftext="{listing-caption} {counter:listings }"]
 [source,asciidoc]
 ----
-Zum xref::handbuch_dokumentation/inhalt.adoc#ueberschriften[Beispiel-Kapitel] gelangen Sie über einen Mausklick.
-Im Übrigen handelt es sich bei dem Beispiel-Kapitel um das Kapitel xref::handbuch_dokumentation/inhalt.adoc#ueberschriften[Überschriften].
+Zum <<ueberschriften, Beispiel-Kapitel>> gelangen Sie über einen Mausklick.
+Im Übrigen handelt es sich bei dem Beispiel-Kapitel um das Kapitel <<ueberschriften>>.
 ----
 
 Der erste Parameter in dem Klammer-Paar legt die ID des Querverweises fest.
 Der zweite Parameter kann gesetzt werden, wenn statt dem Namen des Kapitels ein eigener Text verwendet werden soll.
 Der erzeugte Text sieht wie folgt aus:
 
-_Zum xref::handbuch_dokumentation/inhalt.adoc#ueberschriften[Beispiel-Kapitel] gelangen Sie über einen Mausklick._
-_Im Übrigen handelt es sich bei dem Beispiel-Kapitel um das Kapitel xref::handbuch_dokumentation/inhalt.adoc#ueberschriften[Überschriften]._
+_Zum <<ueberschriften, Beispiel-Kapitel>> gelangen Sie über einen Mausklick._
+_Im Übrigen handelt es sich bei dem Beispiel-Kapitel um das Kapitel <<ueberschriften>>._
 
 [[admonition-blocks]]
 === Admonition-Blocks
