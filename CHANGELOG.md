@@ -6,6 +6,8 @@
     * isy-exception-sst
     * isy-sst-bridge
 - `IFS-1148`: [isy-batchrahmen] Fehler wegen zu langem Klassenpfad unter Windows behoben
+- `IFS-1354`: [isy-persistence] Autokonfiguration mit initialisierbarer Datenbank
+    * Für die Konfiguration der DataSource wurde zu den DataSourceProperties von Spring Boot gewechselt. Hierdurch haben sich die Namen der Konfigurationsschlüssel geändert und müssen angepasst werden.
 
 # 2.4.0
 - `IFS-590`: [isy-logging] Instanziierung LogApplicationListener Parameter in korrekter Reihenfolge
