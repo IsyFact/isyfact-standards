@@ -285,6 +285,7 @@ public class BatchLauncher {
         ConfigurableApplicationContext
                 rahmen = new SpringApplicationBuilder().sources(configs.toArray(new Class[0]))
                 .bannerMode(Banner.Mode.OFF)
+                .properties("isy.batchrahmen.batch-context=true")
                 .registerShutdownHook(true)
                 .profiles(rahmenKonfiguration.getSpringProfiles())
                 .initializers(applicationContext -> {
