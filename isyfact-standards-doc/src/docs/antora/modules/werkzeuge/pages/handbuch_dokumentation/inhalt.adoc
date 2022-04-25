@@ -559,7 +559,8 @@ image::handbuch/sicherheit.dn.svg[align="center"]
 
 [[styleguide-admonition]]
 .STYLEGUIDE Admonition
-image::handbuch/styleguide.dn.svg[align="center"] +
+image::handbuch/styleguide.dn.svg[align="center"]
+{empty} +
 
 
 ==== Verwendung von Tags zur Kennzeichnung
