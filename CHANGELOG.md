@@ -6,6 +6,7 @@
     * isy-exception-sst
     * isy-sst-bridge
 - `IFS-1148`: [isy-batchrahmen] Fehler wegen zu langem Klassenpfad unter Windows behoben
+`IFS-1166`: [isy-serviceapi-core] Autokonfiguration von isy-serviceapi-core nach isy-sicherheit
 
 # 2.4.0
 - `IFS-590`: [isy-logging] Instanziierung LogApplicationListener Parameter in korrekter Reihenfolge
