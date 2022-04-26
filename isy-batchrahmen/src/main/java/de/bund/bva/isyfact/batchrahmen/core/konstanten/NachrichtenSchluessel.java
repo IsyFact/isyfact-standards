@@ -17,84 +17,87 @@
 package de.bund.bva.isyfact.batchrahmen.core.konstanten;
 
 /**
- * Enthï¿½lt Konstanten für Nachrichten des Batchrahmens.
+ * Contains constants for messages of the batch frame.
  * 
  * 
  */
 public abstract class NachrichtenSchluessel {
 
-    // **** Fehler in der Konfiguration ****
-    /** Parameter fehlt. */
+    // **** Error in the configuration ****
+    /** Parameter missing. */
     public static final String ERR_KONF_PARAMETER_FEHLT = "BAT100";
 
-    /** Parameter ungültig. */
+    /** Parameter invalid. */
     public static final String ERR_KONF_PARAMETER_UNGUELTIG = "BAT110";
 
-    /** Konfigurationsdatei konnte nicht gelesen werden. */
+    /** Configuration file could not be read. */
     public static final String ERR_KONF_DATEI_LESEN = "BAT120";
 
-    /** Batch-Bean muss konfiguriert werden. */
+    /** Batch bean must be configured. */
     public static final String ERR_KONF_BEAN_PFLICHT = "BAT130";
 
-    // **** Fehler in den Kommandozeilenparametern ****
-    /** Kommandozeilenparameter ungültig. */
+    // **** Error in the command line parameters ****
+    /** Command line parameters invalid. */
     public static final String ERR_KOMMANDO_PARAMETER_UNGUELTIG = "BAT200";
 
-    /** Konfigurationsdatei nicht angegeben. */
+    /** Configuration file not specified. */
     public static final String ERR_KOMMANDO_PARAMETER_KEINE_CONFIG = "BAT210";
 
-    /** Zwei ausschlieï¿½ende Parameter wurden angegeben. */
+    /** Two exclusionary parameters were specified. */
     public static final String ERR_KOMMANDO_PARAMETER_KONFLIKT = "BAT220";
 
-    /** Von zwei Parametern muss einer gesetzt sein. */
+    /** One of two parameters must be set. */
     public static final String ERR_KOMMANDO_PARAMETER_NOETIG = "BAT230";
 
-    /** Parameter muss mit - beginnen. */
+    /** Parameter must start with -. */
     public static final String ERR_KOMMANDO_PARAMETER_PRAEFIX = "BAT240";
     
-    /** Fuer den Kommandozeilenparameter {0} ist kein Wert angegeben. */
+    /** No value is specified for the command line parameter {0}. */
     public static final String ERR_KOMMANDO_PARAMETER_WERT_NOETIG = "BAT250";
 
-    // **** Fehler bei der Initialisierung ****
-    /** Statuseintrag schon in DB. */
+    // **** Error during initialization ****
+    /** Status entry already in DB. */
     public static final String ERR_BATCH_IN_DB = "BAT300";
 
-    /** Letzter Lauf ist abgebrochen. */
+    /** Last run is canceled. */
     public static final String ERR_IGNORIERE_RESTART = "BAT320";
 
-    /** Batch läuft schon. */
+    /** Batch is already running. */
     public static final String ERR_BATCH_AKTIV = "BAT310";
 
-    /** Restart nicht möglich. */
+    /** Restart not possible. */
     public static final String ERR_BATCH_INIT_ABGEBR = "BAT330";
 
-    // **** Fehler bei der Ausführung ****
-    /** Nicht alle Datensätze wurden verarbeitet. */
+    // **** Error during execution ****
+    /** Not all records were processed. */
     public static final String ERR_BATCH_UNVOLLSTAENDIG = "BAT400";
-    
-    /** Fehler bei der Verarbeitung des Ergebnis-Protokolls. */
+
+    /** Error while processing the result log. */
     public static final String ERR_BATCH_PROTOKOLL = "BAT410";
 
-    // **** Nachrichten fuer ReturnCodes ****
+    /** Class could not be found */
+    public static final String ERR_KLASSE_NICHT_GEFUNDEN = "BAT420";
+
+    // **** Messages for ReturnCodes ****
     /** OK. */
     public static final String MSG_RC_OK = "RC_OK";
 
-    /** Ausgeführt mit Fehlern. */
+    /** Executed with errors. */
     public static final String MSG_RC_FEHLER_AUSGEFUEHRT = "RC_FEHLER_AUSGEFUEHRT";
 
-    /** Abbruch. */
+    /** Abort. */
     public static final String MSG_RC_FEHLER_ABBRUCH = "RC_FEHLER_ABBRUCH";
 
-    /** Fehler in den Aufrufparametern. */
+    /** Error in the call parameters. */
     public static final String MSG_RC_FEHLER_PARAMETER = "RC_FEHLER_PARAMETER";
 
-    /** Fehler in der Konfiguration. */
+    /** Error in the configuration. */
     public static final String MSG_RC_FEHLER_KONFIGURATION = "RC_FEHLER_KONFIGURATION";
-    
-    /** Fehler in der Konfiguration. */
+
+    /** Manual abort */
     public static final String MSG_RC_FEHLER_MANUELLER_ABBRUCH = "RC_FEHLER_MANUELLER_ABBRUCH";
 
-    /** Abbruch wegen Laufzeitüberchreitung.. */
+    /** Abort due to runtime overrun.. */
     public static final String MSG_RC_FEHLER_MAX_LAUFZEIT_UEBERSCHRITTEN =
         "RC_FEHLER_MAX_LAUFZEIT_UEBERSCHRITTEN";
     
