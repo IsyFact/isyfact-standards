@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.Banner;
@@ -264,23 +265,19 @@ public class BatchLauncher {
      * @throws BatchAusfuehrungsException When an error occurs during batch execution.
      */
     private void launch() throws BatchAusfuehrungsException {
-        Function<String, Class> loadClass = name -> {
-            try {
-                return Class.forName(name);
-            } catch (ClassNotFoundException e) {
-                System.err.println(e.getMessage());
-                System.exit(1);
+
+        List<Class> configs = new ArrayList<>();
+
+        try {
+            for (final String name : rahmenKonfiguration.getAnwendungSpringKonfigFiles()) {
+                configs.add(Class.forName(name));
             }
-            return null;
-        };
-
-        List<Class> anwendungContextConfigs = rahmenKonfiguration.getAnwendungSpringKonfigFiles().stream().map(loadClass).collect(
-                Collectors.toList());
-        List<Class> batchContextConfigs = rahmenKonfiguration.getBatchRahmenSpringKonfigFiles().stream().map(loadClass).collect(
-                Collectors.toList());
-
-        List<Class> configs = new ArrayList<>(anwendungContextConfigs);
-        configs.addAll(batchContextConfigs);
+            for (final String name : rahmenKonfiguration.getBatchRahmenSpringKonfigFiles()) {
+                configs.add(Class.forName(name));
+            }
+        } catch(ClassNotFoundException e) {
+            throw new BatchAusfuehrungsException(NachrichtenSchluessel.ERR_KLASSE_NICHT_GEFUNDEN, e);
+        }
 
         ConfigurableApplicationContext
                 rahmen = new SpringApplicationBuilder().sources(configs.toArray(new Class[0]))
