@@ -80,7 +80,7 @@
         <maven.javadoc.plugin.version>3.3.2</maven.javadoc.plugin.version>
         <asciidoctor.maven.plugin.version>2.0.0</asciidoctor.maven.plugin.version>
         <asciidoctorj.pdf.version>1.5.3</asciidoctorj.pdf.version>
-        <isy.asciidoctor.extensions.version>2.3.0</isy.asciidoctor.extensions.version>
+        <isy.asciidoctor.extensions.version>2.4.0</isy.asciidoctor.extensions.version>
 
         <!-- Pfade für Dokumentation -->
         <isy.doku.standards.bausteine>10_IsyFact-Standards/20_Bausteine</isy.doku.standards.bausteine>

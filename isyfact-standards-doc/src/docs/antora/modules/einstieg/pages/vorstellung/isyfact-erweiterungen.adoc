@@ -34,4 +34,4 @@ Der Baustein Web Angular stellt querschnittlich nutzbare Komponenten und Service
 [[sicherheitkeycloak]]
 === Sicherheit Keycloak
 Der Baustein Sicherheit Keycloak erweitert den Baustein Sicherheit um Funktionalität zur Verwendung des Keycloak Authorization Servers.
-Konkret beinhaltet die Erweiterung die Implementierung des Access Managers für Keycloak sowie einen Filter zur Authentifizierung von REST-Aufrufen.
+Konkret beinhaltet die Erweiterung die Implementierung des IAM-Services für Keycloak sowie einen Filter zur Authentifizierung von REST-Aufrufen.
