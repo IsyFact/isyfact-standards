@@ -60,7 +60,7 @@ Git wird von der Webseite xref:glossary:literaturextern:inhalt.adoc#litextern-Gi
 
 .Webseite des Versionierungssystems Git
 [id="image-git1",reftext="{figure-caption} {counter:figures}"]
-image::handbuch/git1.png[align="center",pdfwidth=80%,width=80%]
+image::handbuch/git1.png[align="center",scaledwidth=80%]
 
 Weil das Git-Repository auf einem Unix-basierten Betriebssystem installiert ist, technische Autoren aber eventuell auf einem Windows-Betriebssystem arbeiten, besteht eine Diskrepanz bei den Zeilenumbrüchen.
 Denn während Windows die Zeichen Carriage-Return (`'\r'`) und New-Line (`'\n'`) einsetzt, um das Zeilenende anzuzeigen, verwendet Unix lediglich ein New-Line (`'\n'`).
@@ -93,7 +93,7 @@ Im Folgenden wird die Installation, Konfiguration und Nutzung von VS Code beschr
 
 .Webseite des Texteditors VS Code
 [id="image-vs_code",reftext="{figure-caption} {counter:figures}"]
-image::handbuch/vs_code.png[align="center",pdfwidth=80%,width=80%]
+image::handbuch/vs_code.png[align="center",scaledwidth=80%]
 
 Nach der Installation wird noch ein Plugin benötigt, um AsciiDoc-Dateien in Echtzeit im Texteditor zu rendern und eine Vorschau zu erzeugen.
 Dazu VS Code starten und links am Rand des Editor auf den Menüpunkt für `Extensions` klicken (siehe  <<image-vs_code_plugin_suche>>).
@@ -102,7 +102,7 @@ Anschließend in das Suchfeld "AsciiDoc" eingeben, um passende AsciiDoc-Plugins 
 
 .Auswahl des AsciiDoc-Plugins
 [id="image-vs_code_plugin_suche",reftext="{figure-caption} {counter:figures}"]
-image::handbuch/vs_code_plugin1.png[align="center",pdfwidth=80%,width=80%]
+image::handbuch/vs_code_plugin1.png[align="center",scaledwidth=80%]
 
 Die Suche wird automatisch gestartet und listet zahlreiche AsciiDoc-Plugins auf.
 Wir nutzen das Plugin `AsciiDoc` von João Pinto, da dies den größten Funktionsumfang bietet.
@@ -111,13 +111,13 @@ Das Plugin wird nun installiert.
 
 .Installation des AsciiDoc-Plugins
 [id="image-vs_code_plugin_installation",reftext="{figure-caption} {counter:figures}"]
-image::handbuch/vs_code_plugin2.png[align="center",pdfwidth=80%,width=80%]
+image::handbuch/vs_code_plugin2.png[align="center",scaledwidth=80%]
 
 Nach der Installation wieder in den Explorer-Modus (siehe <<image-vs_code_plugin_explorer>>) wechseln.
 
 .Wechsel in den Explorer-Modus
 [id="image-vs_code_plugin_explorer",reftext="{figure-caption} {counter:figures}"]
-image::handbuch/vs_code_plugin3.png[align="center",pdfwidth=80%,width=80%]
+image::handbuch/vs_code_plugin3.png[align="center",scaledwidth=80%]
 
 In xref::handbuch_dokumentation/inhalt.adoc#vsc-einsetzen[VS Code einsetzen] wird die Nutzung von VS Code erläutert.
 
@@ -801,11 +801,11 @@ Voraussetzung für die Aufnahme eines Eintrags in das lokale Literaturverzeichni
 
 Eine Referenz auf einen Literatureintrag erfolgt über doppelte spitze Klammerpaare, wobei der erste Eintrag die Id in der Literaturverzeichnis-Konfigurationsdatei in isy-asciidoctorj-extensions ist.
 
-Ein Beispiel für referenzierte Literatur: \<<AsciiDocRecommendedPractices,AsciiDoc Recommended Practices>>.
+Ein Beispiel für referenzierte Literatur: \<<AsciiDocRecommendedPractices, AsciiDoc Recommended Practices>>.
 
 Das Ergebnis sieht so aus:
 
-Ein Beispiel für referenzierte Literatur: `<<AsciiDocRecommendedPractices,AsciiDoc Recommended Practices>>.`
+Ein Beispiel für referenzierte Literatur: `<<AsciiDocRecommendedPractices, AsciiDoc Recommended Practices>>.`
 
 [[glossar]]
 === Glossar
@@ -1057,7 +1057,7 @@ Auf diese Weise besitzt jedes Projekt ein zentrales Changelog und (je nach Proje
 
 .Zusammenführung der einzelnen Komponentenchangelogs
 [id="image-architektur_changelogs",reftext="{figure-caption} {counter:figures}"]
-image::handbuch/architektur_changelog.png[align="center",width=80%,pdfwidth=80%]
+image::handbuch/architektur_changelog.png[align="center",scaledwidth=80%]
 
 Zum Erstellen und Bearbeiten wird empfohlen, einen Texteditor zu verwenden, der das AsciiDoc Format unterstützt (siehe Kapitel <<vsc-installieren>>).
 
@@ -1077,13 +1077,13 @@ Bei Dokumenten wird diese Datei im gleichen Verzeichnis wie das Dokument selbst 
 
 .Ablageort des Komponentenchangelog für ein Dokument
 [id="image-ablage_komponentenchangelog_dokument",reftext="{figure-caption} {counter:figures}"]
-image::handbuch/ablage_komponentenchangelog_dokument.png[align="center",width=60%,pdfwidth=60%]
+image::handbuch/ablage_komponentenchangelog_dokument.png[align="center",scaledwidth=60%]
 
 Bei Komponenten wird diese Datei im root-Verzeichnis der Komponente abgelegt:
 
 .Ablageort des Komponentenchangelog für eine Komponente
 [id="image-ablage_komponentenchangelog_komponente",reftext="{figure-caption} {counter:figures}"]
-image::handbuch/ablage_komponentenchangelog_komponente.png[align="center",width=60%,pdfwidth=60%]
+image::handbuch/ablage_komponentenchangelog_komponente.png[align="center",scaledwidth=60%]
 
 In die Datei wird die Überschrift "Changelog" eingefügt:
 
@@ -1102,7 +1102,7 @@ Die zentrale Projektchangelog-Datei `changelog.adoc` wird im root-Verzeichnis de
 
 .Ablageort des zentralen Projektchangelogs
 [id="image-ablage_projektchangelog",reftext="{figure-caption} {counter:figures}"]
-image::handbuch/ablage_projektchangelog.png[align="center",width=60%,pdfwidth=60%]
+image::handbuch/ablage_projektchangelog.png[align="center",scaledwidth=60%]
 
 Initial wird die Datei ebenfalls mit der Überschrift "Changelog" befüllt:
 
