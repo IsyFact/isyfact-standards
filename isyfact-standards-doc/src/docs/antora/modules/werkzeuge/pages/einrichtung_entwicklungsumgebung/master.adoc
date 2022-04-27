@@ -3,9 +3,6 @@
 [discrete]
 === Handbuch
 
-:sectnums:
-:sectnumlevels: 4
-
 :experimental:
 
 include::glossary:licence:partial$licence.adoc[]

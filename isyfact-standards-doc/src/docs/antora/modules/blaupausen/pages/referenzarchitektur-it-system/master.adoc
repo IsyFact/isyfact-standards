@@ -2,8 +2,6 @@
 [discrete]
 === Referenzarchitektur
 
-:sectnums:
-
 include::glossary:licence:partial$licence.adoc[]
 
 include::thisdoc.adoc[tags=inhalt]

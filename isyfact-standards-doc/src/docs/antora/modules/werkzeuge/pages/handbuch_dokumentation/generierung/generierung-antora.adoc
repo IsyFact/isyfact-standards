@@ -1,0 +1,10 @@
+// tag::inhalt[]
+
+[[asccidoc-zu-html]]
+== HTML-Dokumente erzeugen
+
+Ist das zu bearbeitende Dokument fertiggestellt, so kann es nun vollständig als HTML-Datei gerendert werden.
+Dies geschieht mithilfe von Antora, einem Open-Source-Tool zur Generierung von HTML-Dokumentation aus Asciidoc-Dateien.
+Die Asciidoc-Dateien dürfen in verschiedenen Repositories liegen.
+
+

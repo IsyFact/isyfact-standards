@@ -48,6 +48,9 @@ Verweise auf das xref:glossary:glossary:master.adoc[Glossar] dürfen nur bei der
 Alle weitere Vorkommen eines Begriffs werden aus Gründen des Leseflusses nicht mit einem Verweis hinterlegt.
 Es folgt ein Beispiel für den Eintrag der xref:glossary:glossary:master.adoc#glossar-IsyFact[IsyFact] im Glossar.
 
+Mehr zu xref:werkzeuge:handbuch_dokumentation/master.adoc#querverweise[Verweisen im Handbuch der Dokumentation]. +
+{empty} +
+
 [[formatierung-abbildungen]]
 === Abbildungen
 

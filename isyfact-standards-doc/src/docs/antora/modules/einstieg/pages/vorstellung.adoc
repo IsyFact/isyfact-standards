@@ -1,6 +1,4 @@
 = Vorstellung der IsyFact
-:icons: font
-:sectnums:
 
 include::glossary:licence:partial$licence.adoc[]
 
