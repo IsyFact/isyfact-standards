@@ -446,6 +446,7 @@ Das Ergebnis sieht wie folgt aus:
 {empty} +
 
 //fix Links in Examples
+[[AsciiDocRecommendedPractices]]
 [[glossar-halloweltbeispiel]]
 
 // end::inhalt[]

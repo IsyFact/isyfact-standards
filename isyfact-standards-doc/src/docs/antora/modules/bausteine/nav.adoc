@@ -28,7 +28,7 @@
 *** xref:isy-sicherheit:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
 
 ** Sonderzeichen
-*** xref:isy-sonderzeichen:konzept/master.adoc[Konzept]
+*** xref:isy-sonderzeichen:konzept/sonderzeichen.adoc[Konzept]
 *** xref:isy-sonderzeichen:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
 
 ** Task Scheduling

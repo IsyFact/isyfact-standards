@@ -1,0 +1,40 @@
+// tag::inhalt[]
+
+[[architektur-dokumentation]]
+== Architektur der Dokumentation
+
+Die Architektur der IsyFact-Dokumentation besteht aus zwei Kernbestandteilen:
+
+. Zentrale Dokumentation (bis IsyFact 2.4.x isy-documentation, ab IsyFact 2.5.0 isyfact-standards-doc)
+. Bausteindokumentation
+
+Die Bausteindokumentation befindet sich i.d.R. im Repository, in dem sich der zu dokumentierende Baustein befindet, da die Dokumentation nah beim Code abgelegt werden soll.
+Bis zur IsyFact 2.4.x befindet sich jedoch ein großer Teil der Bausteindokumentation im Repository isy-documentation.
+Ab der IsyFact 2.5.0 befindet sich dieser Teil der Bausteindokumentation im Repository isyfact-standards, wodurch die Architekturregel "Dokumentation nah beim Code" erfüllt ist.
+
+Im Folgenden werden die Bestandteile erläutert.
+
+[[zentrale-dokumentation]]
+=== Zentrale Dokumentation
+
+Die zentrale Dokumentation bietet Informationen, Nutzungsvorgaben und Anleitungen zu zentralen Themen der IsyFact.
+Dazu zählt der Einstieg, das Whitepaper oder auch das Tutorial.
+
+Die zentrale Dokumentation der IsyFact-Standards gliedert sich nach den Säulen der IsyFact.
+
+Allgemein;; Einstiegsdokumente, Tutorial, Konventionen +
+Blaupausen;; Grundlagendokumente und Detailkonzepte für Architektur und Anwendungslandschaft +
+Bausteine;; Dokumente für die jeweilig wiederverwendbaren Softwarelösungen +
+Methodik;; Methodische Dokumente bspw. zu Programmierkonventionen und Systemhandbuch und -entwurf +
+Werkzeuge;; Dokumente zur Verwendung von Werkzeugen und der Einrichtung der Entwicklungsumgebung (hierzu gehört auch dieses Dokument)
+
+[[baustein-dokumentation]]
+=== Bausteindokumentation
+
+Jeder Baustein der IsyFact enthält eine eigene Dokumentation.
+Hierzu gehören die Nutzungsvorgaben zur Verwendung des Bausteins und das zugrundeliegende Konzept.
+Die Nutzungsvorgaben richten sich in erster Linie an Entwickler, die die IsyFact nutzen.
+Das Konzept richtet sich an Architekten und Entwickler, die die IsyFact weiterentwickeln.
+Wird ein neuer Baustein angelegt, so muss auch eine entsprechende Dokumentation erstellt werden.
+
+// end::inhalt[]

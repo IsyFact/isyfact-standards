@@ -1,6 +1,27 @@
-= Konzept Umgang mit Sonderzeichen: Inhalt
+= Baustein Sonderzeichen - Konzept
 
-// tag::inhalt[]
+include::glossary:licence:partial$licence.adoc[]
+
+[[einleitung]]
+== Einleitung
+
+In Anwendungen nach den IsyFact-Standards werden Daten in internationaler Schreibweise erfasst und gespeichert.
+Dies sind z.B. die Namen von Personen und Orten.
+Während die Eingabe von internationalen Sonderzeichen über eine deutsche Tastatur nur einen beschränkten Umfang an Sonderzeichen erlaubt, werden möglicherweise auch Daten abgelegt, die international landesspezifisch erfasst wurden.
+Hierin können alle landestypischen Sonderzeichen enthalten sein.
+Insbesondere also auch solche, die nicht über eine deutsche Tastatur eingegeben werden können.
+
+Eine auf den IsyFact-Standards aufsetzende Architektur umfasst mehrere technische Systeme in einer Umgebung.
+Für jedes dieser Systeme muss sichergestellt werden, dass die benötigten Sonderzeichen durchgängig verarbeitet werden können und beim Datenaustausch zwischen diesen Systemen einheitlich durchgereicht und korrekt interpretiert werden.
+
+[[aufbau-und-zweck-des-dokuments]]
+== Aufbau und Zweck des Dokuments
+
+In diesem Dokument werden zunächst die Anforderungen aufgeführt, die an die Verarbeitung von Sonderzeichen innerhalb von auf IsyFact-Standards basierenden Anwendungen gestellt werden.
+
+Internationalisierung bedeutet, ein Programm so zu entwerfen und umzusetzen, dass die Anpassung an andere Sprachen möglich ist, ohne den Quellcode zu ändern.
+Jedoch ist Internationalisierung nicht Bestandteil dieses Dokuments.
+
 [[anforderungen-und-randbedingungen]]
 == Anforderungen und Randbedingungen
 
@@ -168,7 +189,7 @@ Nur so können die entsprechenden Validierungen konzipiert und umgesetzt werden.
 Hier ist der Datentyp String bzw. Alpha in der Regel zu grob.
 Hier müssen abgestufte Typen für Textinhalte definiert werden, z.B. Alpha-Latein-Basis (alle großen und kleinen lateinischen Buchstaben ohne diakritische Zeichen), Alpha-Latein-Diakrit (alle großen und kleinen lateinischen Buchstaben inklusiv diakritische Zeichen), Alpha-Europa (alle großen und kleinen lateinischen, griechischen und kyrillischen Zeichen, inklusiv diakritischer Zeichen).
 
-// end::inhalt[]
+include::anhaenge.adoc[leveloffset=1]
 
 // tag::architekturregel[]
 

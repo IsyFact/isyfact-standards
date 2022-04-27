@@ -3,5 +3,5 @@
 [[architekturregeln-sonderzeichen]]
 == Architekturregeln Umgang mit Sonderzeichen
 
-include::inhalt.adoc[tags=architekturregel]
+include::sonderzeichen.adoc[tags=architekturregel]
 // end::architekturregeln[]
