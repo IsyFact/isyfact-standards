@@ -1,5 +1,6 @@
 # 2.5.0
 - `IFS-1148`: Fehler wegen zu langem Klassenpfad unter Windows behoben
+- `IFS-1356`: Manuelles Herunterfahren in isy-batchrahmen ausgebaut, stattdessen hochpropagieren der BatchAusfuehrungsException, wenn ClassNotFoundException abgefangen wird.
 
 # 2.4.0
 - `IFS-801`: SpotBugs Fehler behoben
