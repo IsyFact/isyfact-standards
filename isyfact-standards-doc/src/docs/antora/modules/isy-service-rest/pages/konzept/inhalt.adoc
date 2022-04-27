@@ -43,8 +43,8 @@ Aufrufe ändern sich nicht durch Änderungen an der Infrastruktur (z. B. durch 
 
 [NOTE]
 ====
-Einen guten Überblick und Verweise auf detailliertere Beschreibungen bietet die https://de.wikipedia.org/wiki/Representational_State_Transfer[Wikipedia-Seite zu REST].
-Für einen tiefen Einstieg in die Grundlagen bietet sich die https://www.ics.uci.edu/~fielding/pubs/dissertation/fielding_dissertation_2up.pdf[Dissertation von Roy Fielding] an.
+Einen guten Überblick und Verweise auf detailliertere Beschreibungen bietet die xref:glossary:literaturextern:inhalt.adoc#litextern-wiki-rest[Wikipedia-Seite zu REST].
+Für einen tiefen Einstieg in die Grundlagen bietet sich die xref:glossary:literaturextern:inhalt.adoc#litextern-dissertation-roy-fielding[Dissertation von Roy Fielding] an.
 ====
 
 Das Reifegradmodell von Leonard Richardson (*Richardson Maturity Model*, s. <<image-richard-maturity-model>>) ordnet diese Eigenschaften vier Reifegraden zu.
@@ -57,7 +57,7 @@ Die IsyFact zielt auf eine möglichst vollständige Umsetzung der Eigenschaften 
 
 .icon:university[] Architekturvorgabe
 ****
-Ein auf der IsyFact basierendes IT-System muss seine REST-Services mindestens anhand Stufe zwei des Richardson Maturity Models umsetzen.t
+Ein auf der IsyFact basierendes IT-System muss seine REST-Services mindestens anhand Stufe zwei des Richardson Maturity Models umsetzen.
 ****
 
 Konkret stellt Stufe 2 des Richardson Maturity Models folgende Anforderungen:
@@ -102,6 +102,7 @@ Beispiel: /meldung/aenderung
 [[eigenschaften-rest-schnittstellen]]
 == Eigenschaften von REST-Schnittstellen
 
+[[aufbau-ressourcen-uris]]
 === Aufbau der Ressourcen-URIs
 
 Jede Ressource eines REST-Services ist über einen URI eindeutig adressierbar.
@@ -146,7 +147,7 @@ Die Ressource liefert ein eindeutig identifizierbares Objekt zurück.
 4. Beispiel für die Ersetzung von Sonderzeichen.
 
 
-
+[[beziehungen-zwischen-ressourcen]]
 ==== Beziehungen zwischen Ressourcen
 
 Beziehungen zwischen Ressourcen können entweder über <<hateoas, HATEOAS>> (vgl.
@@ -167,6 +168,7 @@ wobei:
 * {id_m}: id der **m**essage
 * {id_r}: id des **r**eceivers
 
+[[adressierung-mehrerer-ressourcen]]
 ==== Adressierung von mehreren Ressourcen
 
 Der Zugriff auf mehrere Ressourcen aus einer Menge erfolgt über eine kommaseparierte Liste von IDs.
@@ -175,6 +177,7 @@ Der Zugriff auf mehrere Ressourcen aus einer Menge erfolgt über eine kommasepar
 /nachrichten/{id1},{id2}
 ----
 
+[[query-parameter]]
 ==== Query Parameter
 
 Query Parameter werden ausschließlich für das *Sortieren*, *Paginierung* und *Filtern* von Ressourcen verwendet.
@@ -395,7 +398,7 @@ In diesen Fällen muss die HTTP-Methode "POST" verwendet werden.
 Die Filter- und Suchkriterien werden in den Body der Anfrage aufgenommen.
 
 
-[[http-statuscodes]]
+[[verwendung-http-statuscodes]]
 === Verwendung von HTTP-Statuscodes
 
 Im Folgenden werden die HTTP-Statuscodes dargestellt, die zu verwenden sind.
@@ -422,8 +425,8 @@ Weitere Statuscodes sind in Abhängigkeit vom Fachverfahren möglich.
 
 [NOTE]
 ====
-Für die Auswahl weiterer Statuscodes bietet die entsprechende https://de.wikipedia.org/wiki/HTTP-Statuscode[Wikipedia-Seite] einen guten Startpunkt.
-Empfehlenswert ist außerdem diese https://www.restapitutorial.com/httpstatuscodes.html[gut strukturierte Übersicht], die Informationen von Wikipedia und des IETF übersichtlich aufbereitet.
+Für die Auswahl weiterer Statuscodes bietet die entsprechende xref:glossary:literaturextern:inhalt.adoc#litextern-wikipedia-http-statuscode[Wikipedia-Seite zu HTTP-Statuscodes] einen guten Startpunkt.
+Empfehlenswert ist außerdem diese gut strukturierte Übersicht von xref:glossary:literaturextern:inhalt.adoc#litextern-restapitutorial-uebersicht-http-statuscodes[openapi-generator.tech], die Informationen von Wikipedia und des IETF übersichtlich aufbereitet.
 ====
 
 [[repraesentationen]]
@@ -458,13 +461,14 @@ Hier sind jedoch gesetzliche Vorgaben, Rahmenbedingungen und die Anforderungen d
 Ein typisches Beispiel ist eine Systemlandschaft, die intern JSON als Repräsentation nutzt, nach außen hin aber XÖV-konforme Nachrichten schicken muss und daher teilweise XML als Repräsentation nutzt.
 ====
 
+[[content-negotiation]]
 ==== Content Negotiation
 
 Liegen Ressourcen in mehreren Repräsentationen vor (z. B. als JSON- und XML-Dokumente oder Medien in Form von komprimierten Daten oder Rohdaten), geschieht die Auslieferung einer konkreten Repräsentation über HTTP Content Negotiation.
 
 [NOTE]
 ====
-Weitere Details zu Content Negotiation bietet die entsprechende https://de.wikipedia.org/wiki/Content_Negotiation[Wikipedia-Seite].
+Weitere Details zu Content Negotiation bietet die entsprechende xref:glossary:literaturextern:inhalt.adoc#litextern-spring-content-negotiation[Spring Wikipedia-Seite].
 ====
 
 REST-Services setzen in ihren Antworten einen fest definierten Inhaltstyp pro Repräsentation.
@@ -475,6 +479,7 @@ Anfragen geben ihre inhaltlichen Präferenzen im HTTP-Header `Accept` mit.
 Der REST-Service setzt den Inhaltstyp der Antworten im HTTP-Header `Content-Type`.
 Für die häufigsten Repräsentationen legt xref:konzept/anhaenge.adoc#anhang-content-types[Anhang: Content types] die erwarteten und zurückgegebenen Inhaltstypen fest.
 
+[[metadaten]]
 === Metadaten
 
 Der Bereich Metadaten kann optional implementiert werden.
@@ -483,6 +488,7 @@ Zum Erhalten von Metadaten wird die HEAD-Methode verwendet.
 Die HEAD-Methode ist identisch zu GET, außer, dass sie keinen Response-Body zurückgibt.
 //HEAD Aufruf
 
+[[caching]]
 === Caching
 
 Caching ist eine optionale Technik.
@@ -534,6 +540,7 @@ Bei häufigen, parallelen Anfragen würde dieses Szenario dann einen hohen Overh
 [[festlegung-umsetzung]]
 == Festlegungen zur Umsetzung
 
+[[technologieauswahl]]
 === Technologieauswahl
 
 Die IsyFact legt folgende Technologien für die Umsetzung von REST-Schnittstellen (vgl. <<table-frameworks>>) fest.
@@ -567,10 +574,11 @@ Die IsyFact legt folgende Technologien für die Umsetzung von REST-Schnittstelle
 |===
 ////
 |OpenAPI Generator
-|diverse Technologien werden unterstützt, darunter Java/Spring und Angular. Eine vollständige Liste ist unter https://openapi-generator.tech/docs/generators verfügbar.
+|diverse Technologien werden unterstützt, darunter Java/Spring und Angular. Eine vollständige Liste ist unter xref:glossary:literaturextern:inhalt.adoc#litextern-openapi-generator-tech[openapi-generator.tech] verfügbar.
 |Code Generator (Client/Server)
 ////
 
+[[spring-mvc-vergleich-webflux]]
 === Spring MVC im Vergleich zu Spring Webflux
 
 Das Spring Framework stellt seit Version 5 Spring Webflux als reaktive Alternative zu Spring MVC bereit.
@@ -599,9 +607,10 @@ Alle auf IsyFact basierten Anwendungen müssen ihre REST-Schnittstellen mit der 
 Sowohl YAML als auch JSON sind als Format der Schnittstellendokumentation zulässig.
 Für die Erstellung der Schnittstellendokumentation ist grundsätzlich kein besonderes Tool erforderlich, ein Texteditor ist ausreichend.
 Das OpenAPI Format wird jedoch von diversen Entwicklungsumgebungen (z. B. IntelliJ) unterstützt, was die Bearbeitung erleichtert.
-//Alternativ kann auch der Editor unter http://api.openapi-generator.tech/index.html verwendet werden, _OpenAPI 3.x_ wird hier ebenfalls unterstützt.
+//Alternativ kann auch der Editor unter xref:glossary:literaturextern:inhalt.adoc#litextern-openapi-generator-tech[openapi-generator.tech] verwendet werden, _OpenAPI 3.x_ wird hier ebenfalls unterstützt.
 //Die Schnittstellendokumetation wird im zugehörigen Projekt im Ressources-Verzeichnis abgelegt.
 
+[[code-generierung]]
 ==== Code-Generierung
 
 Bei der Erstellung von REST-APIs gibt es grundsätzlich 2 Ansätze: _Contract/API First_ oder _Code First_.
@@ -661,12 +670,14 @@ Für die Generierung des Codes von Server und Client sind die Standards von Open
 //....
 //====
 
+[[bereitstellen-generierte-clients]]
 ==== Bereitstellen von generierten Clients
 
 Wie beschrieben können aus der OpenAPI Schnittstellenbeschreibung Services und Clients für diverse Plattformen generiert werden.
 Aus Convenience-Gründen wird empfohlen, dass Anbieter von Schnittstellen fertig generierte Clients für die gängigen Plattformen zur Verfügung stellen.
 Gängige Clients im Kontext der IsyFact sind Java (Spring) und Javascript (Angular).
 
+[[verwendung-transportobjekte]]
 === Verwendung von Transportobjekten
 
 .icon:university[] Architekturvorgabe
@@ -715,7 +726,7 @@ Daher ist die formale Prüfung der erste Schritt in der Verarbeitung von Daten u
 Eine geeignete Methode zur Prüfung der Daten auf formale Korrektheit ist die Validierung gegen das vorhandene Schema der Schnittstellenbeschreibung.
 Atlassian bietet den Swagger Request Validator als freie Software an (Apache 2.0 Lizenz).
 Damit lassen sich HTTP Requests und Responses gegen eine OpenAPI bzw. Swagger Spezifikation prüfen, OpenAPI v3 wird dabei bereits unterstützt.
-Der https://bitbucket.org/atlassian/swagger-request-validator[Swagger Request Validator] hat keine weiteren Abhängigkeiten und kann somit unabhängig von HTTP APIs oder Frameworks verwendet werden.
+Der xref:glossary:literaturextern:inhalt.adoc#litextern-swagger-request-validator[Swagger Request Validator] hat keine weiteren Abhängigkeiten und kann somit unabhängig von HTTP APIs oder Frameworks verwendet werden.
 
 [[fehlerbehandlung]]
 === Fehlerbehandlung
@@ -758,7 +769,7 @@ Die Implementierung des RestExceptionsHandler kann daher über die Annotation ei
 
 [NOTE]
 ====
-Details zur Implementierung können der https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/web-reactive.html#webflux-ann-rest-exceptions[offiziellen Spring Dokumentation] entnommen werden.
+Details zur Implementierung können der xref:glossary:literaturextern:inhalt.adoc#litextern-spring-webflux-exceptions[offiziellen Spring Dokumentation] entnommen werden.
 ====
 
 [[einheitliche-fehlermeldungen]]
@@ -833,9 +844,10 @@ Bei einer reinen Weitergabe, greift die Bearer Propagation.
 
 [NOTE]
 ====
-Nähere Informationen zu OAuth2 gibt es auf https://oauth.net/2/[oauth.net].
+Nähere Informationen zu OAuth2 gibt es auf der xref:glossary:literaturextern:inhalt.adoc#litextern-Git-LFS[OAuth Homepage].
+.
 
-Informationen zur Bearer Propagation gibt es in der https://docs.spring.io/spring-security/site/docs/5.2.x/reference/html/oauth2.html#oauth2resourceserver-bearertoken-resolver[offiziellen Spring Dokumentation].
+Informationen zur Bearer Propagation gibt es in der xref:glossary:literaturextern:inhalt.adoc#litextern-spring-oauth2-bearertoken-resolver[offiziellen Spring Dokumentation].
 ====
 
 Um eine Klasse oder einzelne Methoden zu sichern, ist die `@Gesichert` Annotation des Bausteins Sicherheit zu verwendet.
@@ -848,6 +860,7 @@ Generell ist das xref:isy-sicherheit:konzept/master.adoc#einleitung[Konzept Sich
 Eingehende und ausgehende Nachrichten sind an der Systemgrenze zu loggen.
 Für die Erstellung der Log-Einträge ist der Baustein Isy-Logging zu verwenden. Abweichungen zum Konzept von Isy-Logging sind im Folgenden aufgeführt.
 
+[[server-service-provider]]
 ==== Server / Service-Provider
 Der Baustein bietet mit `@Systemgrenze` eine Annotation, die einen Interceptor aufruft, der automatisch Aufrufe aller Methoden in der annotierten Klasse (z. B. Controller) fachlich loggt.
 (vgl. xref:isy-logging:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Logging] Kapitel 4.2.2.1)
@@ -858,7 +871,7 @@ Dieser Interceptor soll folgende Nachrichten am Controller loggen:
 * eingehende Anfragen (eingehende Nachrichten),
 * ausgehende Antworten (ausgehende Nachrichten).
 
-
+[[client-service-provider]]
 ==== Client / Service-Consumer
 
 In der Klasse, welche die Aufrufe an den Service-Provider stellt, sollen
@@ -870,6 +883,7 @@ geloggt werden.
 
 Wie auch serverseitig, sollen diese Log-Nachrichten möglichst automatisiert via AOP erstellt werden.
 
+[[inhalt-log-eintrag-nachricht]]
 ==== Inhalt des Log-Eintrags für eine Nachricht
 
 Um die Nachrichten im Zuge der Log-Auswertung zu filtern, sind nachrichtenspezifische Ereignisschlüssel zu verwenden.
@@ -930,7 +944,6 @@ Zusätzlich zu den Anforderungen an die Inhalte einer Log-Nachricht xref:isy-log
 |===
 
 
-
 *Konfigurationsparameter*
 
 Diese Konfigurationsparameter aus Kapitel 4.2.2.1 xref:isy-logging:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Logging] sollen für den neuen Interceptor ebenfalls existieren:
@@ -961,7 +974,7 @@ Die dort aufgelisteten Informationen müssen für jeden Service einzeln angebote
 Die dort beschriebenen Informationen zur Überwachung gelten in gleichem Maße auch für REST Services.
 
 
-[[ressilience]]
+[[versionierung]]
 === Versionierung
 
 Versionierung kann auf verschiedene Weisen stattfinden.
