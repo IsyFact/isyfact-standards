@@ -25,6 +25,7 @@
     * spring-boot-maven-plugin (Version von spring-boot verwaltet)
 - `IFS-1628`: [isy-überwachung] Standardmetriken bei Anbinden von ServiceStatistik vorhanden
 - `IFS-1161`: [isy-aufrufkontext] `HttpHeaderNestedDiagnosticContextFilter` Priorität erhöht
+- `IFS-1356`: [isy-batchrahmen] Manuelles Herunterfahren in isy-batchrahmen ausgebaut, stattdessen hochpropagieren der BatchAusfuehrungsException, wenn ClassNotFoundException abgefangen wird.
 
 # 2.4.2
 - `IFS-1529`: Einführung der Flatten-Konfigurationen für Maven CI-friendly Versionen
