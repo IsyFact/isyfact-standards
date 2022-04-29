@@ -6,6 +6,7 @@
     * isy-exception-sst
     * isy-sst-bridge
 - `IFS-1148`: [isy-batchrahmen] Fehler wegen zu langem Klassenpfad unter Windows behoben
+- `IFS-1466`: [isyfact-products-bom] Spring Boot Versionsanhebung auf 2.5.13
 
 # 2.4.0
 - `IFS-590`: [isy-logging] Instanziierung LogApplicationListener Parameter in korrekter Reihenfolge
