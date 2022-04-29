@@ -1,3 +1,9 @@
+# 2.4.2
+- Versionsanhebung von Spring Boot auf 2.5.13
+
+# 2.4.1
+- Versionsanhebung von Spring Boot auf 2.5.12 (Fix CVE-2022-22965)
+
 # 2.4.0
 - `IFS-1264`:
     - Apache Poi OOXML 4.1.2 zu Products-BOM hinzugefügt

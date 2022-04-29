@@ -1,5 +1,8 @@
+# 2.4.2
+- `IFS-1466`: [isy-products-bom] Versionsanhebung von Spring Boot auf 2.5.13
+
 # 2.4.1
-- `IFS-1397`: Versionsanhebung von Spring Boot auf 2.5.12 (Fix CVE-2022-22965)
+- `IFS-1397`: [isy-products-bom] Versionsanhebung von Spring Boot auf 2.5.12 (Fix CVE-2022-22965)
 
 # 2.4.0
 - `IFS-590`: [isy-logging] Instanziierung LogApplicationListener Parameter in korrekter Reihenfolge
