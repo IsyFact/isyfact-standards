@@ -94,10 +94,10 @@ public abstract class NachrichtenSchluessel {
     /** Error in the configuration. */
     public static final String MSG_RC_FEHLER_KONFIGURATION = "RC_FEHLER_KONFIGURATION";
 
-    /** Manual abort */
+    /** Manual abort. */
     public static final String MSG_RC_FEHLER_MANUELLER_ABBRUCH = "RC_FEHLER_MANUELLER_ABBRUCH";
 
-    /** Abort due to runtime overrun.. */
+    /** Abort due to runtime overrun. */
     public static final String MSG_RC_FEHLER_MAX_LAUFZEIT_UEBERSCHRITTEN =
         "RC_FEHLER_MAX_LAUFZEIT_UEBERSCHRITTEN";
     
