@@ -41,6 +41,7 @@
         <module>isy-logging</module>
         <module>isy-persistence</module>
         <module>isy-polling</module>
+        <module>isy-service-rest</module>
         <module>isy-serviceapi-core</module>
         <module>isy-sicherheit</module>
         <module>isy-task</module>
