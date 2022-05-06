@@ -6,14 +6,14 @@
 
 Dieses Handbuch dient technischen Autoren von IsyFact-Dokumenten als Wegweiser.
 
-Festgelegte Ordnung::
+Festgelegte Struktur::
 
-IsyFact bietet eine geordnete Sammlung vielfältiger Dokumente, um die Entwicklung von xref:glossary:glossary:master.adoc#glossar-IsyFact[IsyFact]-basierenden Anwendungen zu beschreiben.
+IsyFact bietet eine strukturierte Sammlung vielfältiger Dokumente, um die Entwicklung von xref:glossary:glossary:master.adoc#glossar-IsyFact[IsyFact]-basierenden Anwendungen zu beschreiben.
 Für jeden Teilbereich, sei es für den Einstieg, über die xref:glossary:glossary:master.adoc#glossar-Konzept[Konzepte] bis hin zu den xref:glossary:glossary:master.adoc#glossar-Nutzungsvorgaben[Nutzungsvorgaben] einzelner Module, wird jeweils ein eigenes Dokument bereitgestellt.
 Zur Vereinheitlichung werden alle Dokumente gemäß festgelegten Regeln und nach einem bestimmten Grundschema angefertigt.
 Beispielsweise zeichnet sich jedes Dokument durch einen ähnlichen Aufbau aus, um dem Nutzer eine intuitive Handhabe zu gewährleisten.
-Weil IsyFact häufig aktualisiert wird und immer mal wieder auch neue IsyFact-Module hinzugefügt werden, müssen regelmäßig Änderungen in die vorhandenen Dokumente eingepflegt und auch stetig neue Dokumente zur Gesamtdokumentation beigefügt werden.
-Dabei sollen nicht nur vorhandene Dokumente, sondern auch neue Dokumente dem gleichen Grundschema und derselben spezifizierten Form gerecht werden, damit die festgelegte Ordnung weiterhin beibehalten bleibt.
+Weil IsyFact häufig aktualisiert wird und immer wieder auch neue IsyFact-Module hinzugefügt werden, müssen regelmäßig Änderungen in die vorhandenen Dokumente eingepflegt und auch stetig neue Dokumente zur Gesamtdokumentation beigefügt werden.
+Dabei sollen nicht nur vorhandene Dokumente, sondern auch neue Dokumente dem gleichen Grundschema und derselben spezifizierten Form gerecht werden, damit die festgelegte Struktur weiterhin beibehalten bleibt.
 
 AsciiDoc::
 
@@ -38,7 +38,7 @@ Bei der IsyFact-Dokumentation sorgen Skripte dafür, dass die erstellten HTML- u
 === Aufbau und Zweck des Dokuments
 
 Dieses Dokument ist eine Anleitung für technische Autoren.
-Es ermöglicht ihnen, die vorhandene IsyFact-Dokumentation gemäß der festgelegten Ordnung zu aktualisieren und zu erweitern.
+Es ermöglicht ihnen, die vorhandene IsyFact-Dokumentation gemäß der festgelegten Struktur zu aktualisieren und zu erweitern.
 Gleichzeitig geht es auf die Besonderheiten ein, die bei der Verwendung der Auszeichnungssprache AsciiDoc im Rahmen der IsyFact-Dokumentation zu beachten sind.
 
 Das Handbuch ist in folgende Bereiche untergliedert:

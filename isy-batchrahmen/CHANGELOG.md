@@ -1,5 +1,6 @@
 # 2.5.0
 - `IFS-1148`: Fehler wegen zu langem Klassenpfad unter Windows behoben
+- `IFS-1091`: Fehlerhafte ExcludeFromBatchContext-Annotation behoben
 
 # 2.4.0
 - `IFS-801`: SpotBugs Fehler behoben

@@ -5,12 +5,14 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
-import org.springframework.core.annotation.AliasFor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 
+/**
+ * Annotation for marking beans which are to be excluded from the batch context.
+ */
 @Target({ ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-@ConditionalOnMissingClass("de.bund.bva.isyfact.batchrahmen.core.launcher.BatchLauncher")
+@ConditionalOnProperty(value = "isy.batchrahmen.batch-context", havingValue = "false", matchIfMissing = true)
 public @interface ExcludeFromBatchContext {
-    @AliasFor(annotation = ConditionalOnMissingClass.class, attribute = "value") String[] value() default {"de.bund.bva.isyfact.batchrahmen.core.launcher.BatchLauncher"};
+
 }
