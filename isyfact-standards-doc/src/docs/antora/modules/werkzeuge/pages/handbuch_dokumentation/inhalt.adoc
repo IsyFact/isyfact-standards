@@ -4,20 +4,41 @@
 [[aufbau-der-dokumentation]]
 == Architektur der Dokumentation
 
-Die Architektur der IsyFact-Dokumentation besteht aus drei Kernkomponenten:
+Die Architektur der IsyFact-Dokumentation besteht aus zwei Kernbestandteilen:
 
-. Zentrale Dokumentation (isy-documentation)
+. Zentrale Dokumentation (bis IsyFact 2.4.x isy-documentation, ab IsyFact 2.5.0 isyfact-standards-doc)
 . Bausteindokumentation
-. Dokumentvorlagen (isy-dokumentvorlagen)
 
-Im Folgenden werden die Komponenten erläutert.
+Die zentrale Dokumentation wurde ab IsyFact 2.5.0 verschoben in das Repository isyfact-standards im Zuge der Migration der Dokumentation zum Code.
+
+// tag::important[]
+[IMPORTANT]
+====
+Die Dokumentation in isy-documentation wird mit Hilfe der AsciidoctorJ Extensions als PDF- und HTML generiert.
+Dieses Handbuch beschreibt die Generierung und die Vorbereitung dafür.
+Wenn die Generierung von PDF unverzichtbar ist, muss die Dokumentation per AsciidoctorJ Extensions erstellt werden.
+====
+
+// end::important[]
+
+// tag::important[]
+[IMPORTANT]
+====
+Die Dokumentation in isyfact-standards-doc wird mit Hilfe von Antora als HTML generiert.
+Eine andere Version des Handbuchs beschreibt die Generierung und Vorbereitung dafür.
+Es wird empfohlen, für die Dokumentengenerierung Antora zu verwenden.
+====
+
+// end::important[]
+
+Im Folgenden werden die Bestandteile erläutert.
 
 
 [[zentrale-dokumentation]]
 === Zentrale Dokumentation
 
-Die zentrale Dokumentation (isy-documentation) bietet Informationen, Nutzungsvorgaben und Anleitungen zu zentralen Themen der IsyFact.
-Dazu zählt das Einstiegsdokument, das Whitepaper oder auch das Tutorial.
+Die zentrale Dokumentation bietet Informationen, Nutzungsvorgaben und Anleitungen zu zentralen Themen der IsyFact.
+Dazu zählt der Einstieg, das Whitepaper oder auch das Tutorial.
 
 [[baustein-dokumentation]]
 === Bausteindokumentation
@@ -27,15 +48,7 @@ Hierzu gehören die Nutzungsvorgaben zur Verwendung des Bausteins und das zugrun
 Die Nutzungsvorgaben richten sich in erster Linie an Entwickler, die die IsyFact nutzen.
 Das Konzept richtet sich an Architekten und Entwickler, die die IsyFact weiterentwickeln.
 Wird ein neuer Baustein angelegt, so muss auch eine entsprechende Dokumentation erstellt werden.
-Die Dokumentation des Bausteins ist als Verzeichnis mit Asciidoc-Dateien im Baustein immer unter `src/docs/asciidoc` abgelegt.
-
-[[dokumentvorlagen]]
-=== Dokumentvorlagen
-
-Die Dokumentvorlagen (isy-dokumentvorlagen) werden getrennt von der Dokumentation verwaltet und bieten Zugriff auf die einzelnen Vorlagedateien eines Dokuments.
-Diese Vorlagedateien können kopiert und benutzt werden, um ein neues Dokument zu Erstellen und der IsyFact Dokumentation hinzuzufügen.
-Zudem beinhalten die Dokumentvorlagen auch globale Einstellungen und Skripte, die während der Dokumentenerzeugung ausgeführt werden und dynamisch Inhalte, wie das Glossar oder das Abbildungsverzeichnis, erstellen.
-Damit diese Skripte während der Dokumenterzeugung ausgeführt werden, sind die Vorlagen (isy-dokumentvorlagen) in die zentrale Dokumentation und die einzelnen Bausteine eingebunden.
+Die Dokumentation des Bausteins ist als Verzeichnis mit Asciidoc-Dateien im Baustein immer unter `src/docs` abgelegt.
 
 [[die-arbeitsumgebung-einrichten]]
 == Die Arbeitsumgebung einrichten
@@ -47,7 +60,7 @@ Git wird von der Webseite xref:glossary:literaturextern:inhalt.adoc#litextern-Gi
 
 .Webseite des Versionierungssystems Git
 [id="image-git1",reftext="{figure-caption} {counter:figures}"]
-image::handbuch/git1.png[align="center",pdfwidth=80%,width=80%]
+image::handbuch/git1.png[align="center",scaledwidth=80%]
 
 Weil das Git-Repository auf einem Unix-basierten Betriebssystem installiert ist, technische Autoren aber eventuell auf einem Windows-Betriebssystem arbeiten, besteht eine Diskrepanz bei den Zeilenumbrüchen.
 Denn während Windows die Zeichen Carriage-Return (`'\r'`) und New-Line (`'\n'`) einsetzt, um das Zeilenende anzuzeigen, verwendet Unix lediglich ein New-Line (`'\n'`).
@@ -80,7 +93,7 @@ Im Folgenden wird die Installation, Konfiguration und Nutzung von VS Code beschr
 
 .Webseite des Texteditors VS Code
 [id="image-vs_code",reftext="{figure-caption} {counter:figures}"]
-image::handbuch/vs_code.png[align="center",pdfwidth=80%,width=80%]
+image::handbuch/vs_code.png[align="center",scaledwidth=80%]
 
 Nach der Installation wird noch ein Plugin benötigt, um AsciiDoc-Dateien in Echtzeit im Texteditor zu rendern und eine Vorschau zu erzeugen.
 Dazu VS Code starten und links am Rand des Editor auf den Menüpunkt für `Extensions` klicken (siehe  <<image-vs_code_plugin_suche>>).
@@ -89,7 +102,7 @@ Anschließend in das Suchfeld "AsciiDoc" eingeben, um passende AsciiDoc-Plugins 
 
 .Auswahl des AsciiDoc-Plugins
 [id="image-vs_code_plugin_suche",reftext="{figure-caption} {counter:figures}"]
-image::handbuch/vs_code_plugin1.png[align="center",pdfwidth=80%,width=80%]
+image::handbuch/vs_code_plugin1.png[align="center",scaledwidth=80%]
 
 Die Suche wird automatisch gestartet und listet zahlreiche AsciiDoc-Plugins auf.
 Wir nutzen das Plugin `AsciiDoc` von João Pinto, da dies den größten Funktionsumfang bietet.
@@ -98,13 +111,13 @@ Das Plugin wird nun installiert.
 
 .Installation des AsciiDoc-Plugins
 [id="image-vs_code_plugin_installation",reftext="{figure-caption} {counter:figures}"]
-image::handbuch/vs_code_plugin2.png[align="center",pdfwidth=80%,width=80%]
+image::handbuch/vs_code_plugin2.png[align="center",scaledwidth=80%]
 
 Nach der Installation wieder in den Explorer-Modus (siehe <<image-vs_code_plugin_explorer>>) wechseln.
 
 .Wechsel in den Explorer-Modus
 [id="image-vs_code_plugin_explorer",reftext="{figure-caption} {counter:figures}"]
-image::handbuch/vs_code_plugin3.png[align="center",pdfwidth=80%,width=80%]
+image::handbuch/vs_code_plugin3.png[align="center",scaledwidth=80%]
 
 In xref::handbuch_dokumentation/inhalt.adoc#vsc-einsetzen[VS Code einsetzen] wird die Nutzung von VS Code erläutert.
 
@@ -143,131 +156,84 @@ export PATH=/opt/apache-maven-3.6.2/bin:$PATH+
 [[ein-neues-dokument-anlegen]]
 == Ein neues Dokument anlegen
 
-Nach der Einrichtung der Arbeitsumgebung kann es mit der Bearbeitung der IsyFact-Dokumentation losgehen.
-Allerdings ist schon beim Anlegen der ersten Dateien einiges zu beachten, denn ein IsyFact-Dokument muss der festgelegten Struktur entsprechen.
-In diesem Kapitel wird jeweils für die zentrale Dokumentation, als auch für die Bausteindokumentation gezeigt, wie zunächst das Projekt Git-Repository heruntergeladen wird, um anschließend die darin enthaltene Dokument-Vorlage für das eigene IsyFact-Dokument vorzubereiten.
+In diesem Kapitel wird jeweils für die <<zentrale-dokumentation>>, als auch für die <<baustein-dokumentation>> gezeigt, wie die erforderliche Verzeichnisstruktur aussieht und wie ein neues Dokument dort einsortiert wird.
 
 [[neues-verzeichnis-zentrale-dokumentation-anlegen]]
 === Zentrale Dokumentation: Ein neues Verzeichnis anlegen
 
-Das neue IsyFact-Dokument muss in einem bestimmten Ordner der vorhandenen Verzeichnisstruktur abgelegt werden.
-Dies setzt voraus, dass die zentrale Dokumentation als Gesamtprojekt zunächst vom Git-Repository heruntergeladen wird.
-Hierfür wechseln Sie auf der Kommandozeile auf eine geeignete Stelle Ihrer lokalen Festplatte und geben dort folgendes Kommando ein.
+Die zentrale Dokumentation hat im Vergleich zur Bausteindokumentation eine erweiterte Verzeichnisstruktur.
+Die zentrale Dokumentation der IsyFact-Standards gliedert sich nach den Säulen der IsyFact.
 
-====
-C:\tmp\> *git clone* https://github.com/IsyFact/isy-documentation
-====
+Allgemein;; Einstiegsdokumente, Tutorial, Konventionen
+Blaupausen;; Grundlagendokumente und Detailkonzepte für Architektur und Anwendungslandschaft
+Bausteine;; Dokumente für die jeweilig wiederverwendbaren Softwarelösungen
+Methodik;; Methodische Dokumente bspw. zu Programmierkonventionen und Systemhandbuch und -entwurf
+Werkzeuge;; Dokumente zur Verwendung von Werkzeugen und der Einrichtung der Entwicklungsumgebung (hierzu gehört auch dieses Dokument)
 
-Beim Herunterladen des Git-Projekts wird an der betroffenen Stelle das Verzeichnis isy-documentation angelegt, das einen einzigen Ordner enthält, nämlich den Ordner `/src`.
-Unterhalb von `/src` befindet sich das Verzeichnis `/docs`, das die Verzeichnisse der IsyFact-Dokumentation beinhaltet.
-
-.Die Verzeichnisse der IsyFact-Dokumentation
-[id="image-verzeichnis1",reftext="{figure-caption} {counter:figures}"]
-image::handbuch/verzeichnis1.png[align="center"]
-
-Bei den Verzeichnissen der IsyFact-Dokumentation wird darin unterschieden, ob es sich bei dem Dokument thematisch um ein Modul der _IsyFact-Standards_  (das Fundament von IsyFact) oder ein Modul der _IsyFact-Erweiterungen_ (die optionalen wiederverwendbaren Lösungen) handelt.
-Entsprechend beinhaltet das Verzeichnis `/docs` die zwei Verzeichnisse `10_IsyFact_Standards` und `20_IsyFact_Erweiterungen`.
-Die Unterordner der beiden Verzeichnisse `10_IsyFact_Standards` und `20_IsyFact_Erweiterung` gliedern sich nach den Säulen der IsyFact.
-
-00_Allgemein;; Einstiegsdokumente, Tutorial, Konventionen
-10_Blaupausen;; Grundlagendokumente und Detailkonzepte für Architektur und Anwendungslandschaft
-20_Bausteine;; Dokumente für die jeweilig wiederverwendbaren Softwarelösungen
-30_Plattform;; Dokumente zum Betrieb und Inbetriebnahme
-40_Methodik;; Methodische Dokumente bspw. zum V-Model XT oder Programmierkonventionen
-50_Werkzeuge;; Dokumente zur Verwendung von Werkzeugen und der Einrichtung der Entwicklungsumgebung (hierzu gehört auch dieses Dokument)
-
-Unterhalb der Säulen werden in der Regel die Verzeichnisse der IsyFact-Dokumente angelegt.
-In der folgenden Abbildung sehen Sie beispielsweise, dass das "Handbuch für technische Autoren" unterhalb der Säule 50_Werkzeuge angelegt wurde.
-
-.Die Verzeichnisse der IsyFact-Dokumentation mit den IsyFact-Säulen
-[id="image-verzeichnis3",reftext="{figure-caption} {counter:figures}"]
-image::handbuch/verzeichnis3.png[align="center"]
-
-Genauso wie in der obigen Abbildung für das IsyFact-Dokument "Handbuch_fuer_technische_Autoren", so muss auch für Ihr IsyFact-Dokument ein neues Verzeichnis innerhalb der korrekt zugeordneten Säule erstellt werden.
-
-Wenn Sie das neue Verzeichnis anlegen, stellt sich als nächstes die Frage, wie das Verzeichnis benannt werden soll.
-Dazu vergeben Sie eine neue _Dokument-ID_.
-Die _Dokument-ID_ ist ein eindeutiger Bezeichner, der durchgängig als Verzeichnis- und Dateiname für ein IsyFact-Dokument verwendet wird.
-Die _Dokument-ID_ dieses Handbuchs ist zum Beispiel "Handbuch_fuer_technische_Autoren".
+Ein neues IsyFact-Dokument muss unterhalb einer geeigneten Säule abgelegt werden.
+Dazu wird unterhalb des Verzeichnisses, das die Säule repräsentiert, ein neues Verzeichnis
+angelegt, dessen Name den Inhalt des Dokuments widerspiegelt.
 
 
 [[neues-verzeichnis-bausteindokumentation-anlegen]]
 === Bausteindokumentation: Ein neues Verzeichnis anlegen
 
-Soll für einen Baustein eine neue Dokumentation angelegt werden oder die bestehende Dokumentation um ein Dokument erweitert werden, so gilt es zunächst die Verzeichnisse richtig anzulegen.
-In einem Baustein wird die Dokumentation in einem eigenen Verzeichnis unter dem Pfad `src/docs/asciidoc` abgelegt.
+Soll für einen Baustein eine neue Dokumentation angelegt werden oder die bestehende Dokumentation um ein Dokument erweitert werden, so muss zunächst der geeignete Ort zur Ablage bestimmt werden.
+I.d.R. ist dies das Repository, in dem sich der Baustein befindet, da die Dokumentation nah beim Code abgelegt werden soll.
+Bis zur IsyFact 2.4.x befindet sich jedoch ein großer Teil der Bausteindokumentation im Repository isy-documentation.
 
-<<image-verzeichnis_bausteindokumentation>> zeigt die Verzeichnisstruktur für die Dokumentation des Bausteins `isy-persistence`.
+Ab IsyFact 2.5.0 liegt dieser Teil der Bausteindokumentation im Repository isyfact-standards im Submodul isyfact-standards-doc.
+Der Code dieser Bausteine befindet sich ebenfalls im Repository isyfact-standards, wodurch die Architekturregel "Dokumentation nah beim Code" erfüllt ist.
 
-.Die Verzeichnisse der Bausteindokumentation von Isy-Persistence
-[id="image-verzeichnis_bausteindokumentation",reftext="{figure-caption} {counter:figures}"]
-image::handbuch/verzeichnis_bausteindokumentation.png[align="center"]
-
-Dies setzt voraus, dass der Baustein zunächst vom Git-Repository heruntergeladen wird.
-Hierfür wechseln Sie auf der Kommandozeile auf eine geeignete Stelle Ihrer lokalen Festplatte und geben dort folgendes Kommando ein.
+Zunächst muss der Baustein vom Git-Repository heruntergeladen werden.
+Hierfür muss auf der Kommandozeile auf eine geeignete Stelle der lokalen Festplatte gewechselt werden und folgendes Kommando eingegeben werden.
 
 ====
-C:\tmp\> *git clone* https://github.com/IsyFact/[baustein]
+C:\tmp\> *git clone* https://github.com/IsyFact/<Repository>
 
-z.B. C:\tmp\> *git clone* https://github.com/IsyFact/isy-persistence
+z.B. C:\tmp\> *git clone* https://github.com/IsyFact/isy-baustein
 ====
 
-Sollte für den Baustein noch keine Dokumentation vorhanden sein und so im Projektverzeichnis das Verzeichnis `src/docs/asciidoc` fehlen, so muss dies zunächst manuell angelegt werden.
-Dazu müssen Sie im Verzeichnis `src` das Verzeichnis `docs` und darin das Verzeichnis `asciidoc` erstellen.
+Bei <Repository> kann es sich um einen einzelnen Baustein handeln oder um ein Repository mit zentraler Dokumentation wie isy-documentation (bis IsyFact 2.4.x) oder isyfact-standards (ab IsyFact 2.5.0).
 
-Im Verzeichnis `asciidoc` wird anschließend ein weiteres Verzeichnis für das Dokumentationsdokument erstellt.
+In einem Baustein wird die Dokumentation in einem eigenen Maven-Submodul unter dem Pfad `src/docs` abgelegt.
 
-Wenn Sie dieses Verzeichnis anlegen, stellt sich als Nächstes die Frage, wie das Verzeichnis benannt werden soll.
-Dazu vergeben Sie eine neue _Dokument-ID_.
-Die _Dokument-ID_ ist ein eindeutiger Bezeichner, der durchgängig als Verzeichnis- und Dateiname für ein IsyFact-Dokument verwendet wird.
-Die _Dokument-ID_ des Konzepts des Bausteins ´isy-persistence´ ist zum Beispiel "Detailkonzept_Komponente_Datenzugriff".
+<<verzeichnisstruktur-baustein>> zeigt die Verzeichnisstruktur für die Dokumentation des fiktiven Bausteins `isy-baustein` zusammen mit den Asciidoc-Dateien für ein Dokument.
 
-Das Verzeichnis ist nun angelegt und die Asciidoc-Dateien aus der Mustervorlage können nun abgelegt werden.
+[[verzeichnisstruktur-baustein]]
+.Verzeichnisse der Bausteindokumentation
+----
+📂 isy-baustein
+  📂 isy-baustein-doc <1>
+    📂 src
+        📂 docs
+            📂 Konzept <2>
+                📄 anhaenge.adoc  <3>
+                📄 inhalt.adoc    <4>
+                📄 master.adoc    <5>
+                📄 thisdoc.adoc   <6>
+                📂 images <4>
+            📂 Nutzungsvorgaben <2>
+                📄 anhaenge.adoc
+                📄 inhalt.adoc
+                📄 master.adoc
+                📄 thisdoc.adoc
+                📂 images
+----
+<1> Maven-Submodul für die Dokumentation.
+<2> Jeweils ein Dokument; bei Bausteinen findet sich häufig die Unterteilung in Konzept und Nutzungsvorgaben.
+<3> Auflistung der Anhänge des IsyFact-Dokuments.
+<4> Inhalte des IsyFact-Dokuments.
+<5> Zentrale Datei, die alle anderen Dateien über spezielle Verweise (`include`) einbindet.
+Eine vollständige Vorschau des IsyFact-Dokuments wird angezeigt, wenn die Datei `master.adoc` im Editor geöffnet und die Vorschaufunktion verwendet wird.
+<6> Einleitendes Kapitel des IsyFact-Dokuments, das den Inhalt zusammenfasst sowie den Aufbau und Zweck des Dokuments erläutert.
+<7> Bilder und Grafiken, die im neu zu erstellenden Dokument verwendet werden sollen.
 
-[[die-mustervorlage-vorbereiten]]
-=== Die Mustervorlage vorbereiten
-
-Um Sie (als technischen Autor) bei der Erstellung des neuen IsyFact-Dokuments zu unterstützen, wurde die Dokumentenvorlage (isy-dokumentenvorlagen) erstellt.
-Die Dokumentenvorlage enthält Musterinhalte, die Sie als Grundlage für Ihr neues Dokument verwenden können.
-
-Es gibt zwei verschiedene Wege, um auf die Dokumentvorlage zuzugreifen:
-
-*1. Klonen des Projektes isy-dokumentvorlagen*
-Hierfür wechseln Sie auf der Kommandozeile auf eine geeignete Stelle Ihrer lokalen Festplatte und geben dort folgendes Kommando ein.
-====
-C:\tmp\> *git clone* https://github.com/IsyFact/isy-dokumentvorlagen
-====
-Nun werden die Dokumentvorlagen heruntergeladen.
-Die Musterdateien befinden sich anschließend im Verzeichnis unter `isy-dokumentvorlagen/docs/Dokument-Vorlage`.
-
-*2. Nutzung der Dokumentvorlagen aus dem Build der Dokumentation/des Bausteins*
-Während des Build-Vorgangs werden die Dokumentvorlagen automatisch geladen und im `target` Verzeichnis der Dokumentation abgelegt.
-Um den Build-Vorgang zu starten, wird mit der Konsole in das Verzeichnis `isy-documentation` oder den jeweiligen Baustein navigiert und der Befehl `mvn install` ausgeführt.
-Der Build-Vorgang nimmt einige Zeit in Anspruch, da gleichzeitig auch die Dokumentation neu gerendert wird.
-Die Musterdateien befinden sich anschließend im Verzeichnis unter `/target/isy-dokumentvorlagen/docs/Dokument-Vorlage`.
-
-Nun kopieren Sie die Musterdateien in das neu angelegte Zielverzeichnis und erstellen ein neues Unterverzeichnis mit der Bezeichnung `images`.
-In dem neu erzeugten Verzeichnis `images` werden Bilder und Grafiken abgelegt, die im neu zu erstellenden Dokument verwendet werden sollen.
-
-Bei den Musterdateien handelt sich um folgende AsciiDoc-Dokumente:
-
-anhaenge.adoc::
-In der Datei `anhaenge.adoc` werden Anhänge des IsyFact-Dokuments aufgelistet.
-
-inhalt.adoc::
-`inhalt.adoc` enthält alle Inhaltskapitel des IsyFact-Dokuments.
-
-master.adoc::
-`master.adoc` ist die zentrale Datei, die alle anderen Dateien der Dokument-Vorlage über spezielle Verweise (`include`) einbindet.
-Wenn Sie sich eine vollständige Vorschau Ihres Dokuments anschauen möchten, können Sie die Datei `master.adoc` in Ihrem Editor öffnen und die Vorschaufunktion verwenden.
-
-thisdoc.adoc::
-`thisdoc.adoc` enthält das einleitende Kapitel des IsyFact-Dokuments, das den Inhalt zusammenfasst sowie den Aufbau und Zweck des Dokuments erläutert.
 
 [[vsc-einsetzen]]
 === VS Code einsetzen
 
-Für die Bearbeitung der Dokument-Vorlagen öffnen Sie VS Code über das Startmenü.
+Für die Bearbeitung der Dokumente öffnen Sie VS Code über das Startmenü.
 Innerhalb von VS Code öffnen Sie im Hauptmenü unter menu:File[Open Folder] das neu erstellte oder ein bestehendes Verzeichnis.
 Hierdurch öffnen Sie den Ordner Ihres IsyFact-Dokuments als VS Code Projekt.
 
@@ -277,7 +243,7 @@ image::handbuch/vs_code_projekt_oeffnen.png[align="center"]
 
 Auf der linken Seite erscheint die Projektansicht mit dem Verzeichnis Ihres IsyFact-Dokuments.
 
-Sie können sich nun bereits die Dokument-Vorlage in der Vorschau ansehen.
+Sie können sich nun bereits das Dokument in der Vorschau ansehen.
 Hierfür öffnen Sie zunächst die zentrale Datei `master.adoc`.
 Dann drücken Sie entweder kbd:[Strg + K] und anschließend kbd:[V] oder Sie klicken in der oberen rechten Ecke des Editors auf das Symbol mit der blauen Lupe.
 Dabei sollte auf der rechten Seite die Vorschau erscheinen.
@@ -288,36 +254,46 @@ Dies ist später in diesem Dokument unter xref::handbuch_dokumentation/inhalt.ad
 
 Im Folgenden wird mit dem Bearbeiten der Dokumentbestandteile fortgefahren.
 
-[[vorlagedateien-bearbeiten]]
-=== Dateien der Vorlage bearbeiten
+[[dateien-bearbeiten]]
+=== Dateien bearbeiten
 
-Dieser Abschnitt beschreibt, welche Attribute und Inhalte in den den Vorlagedateien (vgl. xref::handbuch_dokumentation/inhalt.adoc#die-mustervorlage-vorbereiten[Die Mustervorlage vorbereiten]) angepasst werden können.
+Dieser Abschnitt beschreibt, welche Attribute und Inhalte in den Dateien angepasst werden können.
 
 [[master.adoc-bearbeiten]]
 ==== master.adoc bearbeiten
 
-Zunächst werden die globalen Attribute aus der Dokumentenvorlage inkludiert, anschließend können einzelne Attribute gesetzt bzw. überschrieben werden (vgl. <<listing-master>>).
-Daraufhin werden die vorgefertigten Abschnitte `title.adoc` und `colophon.adoc` eingebunden.
-In `title.adoc` wird ein einheitlicher Titel aus den Attributen `doctitle` und `document-type` erzeugt.
-Die Datei `colophon.adoc` erzeugt einen einheitlichen Abschnitt mit Metadaten des Dokuments und die Lizenzbestimmungen.
+Zunächst werden die Attribute `doctitle` und `document-type` gesetzt, aus denen ein einheitlicher Titel erzeugt wird, vgl. <<listing-master>>.
+
+Dann wird die Vertraulichkeits-Einstufung `vs-einstufung` angegeben.
+Dadurch wird ggf. ein Vertraulichkeitshinweis in das Dokument eingefügt und ggf. das Layout angepasst.
+Die möglichen Werte für `vs-einstufung` finden sich in <<table-master-attributes>>.
+Die `vs-einstufung` kann auch in der pom.xml als globales Attribut für alle zu generierenden Dokumente angegeben werden.
+Ein Beispiel findet sich in <<listing-pom-asciidoc>>.
+
+Daraufhin wird die Colophon-Angabe eingebunden.
+Dadurch wird ein einheitlicher Abschnitt mit Metadaten des Dokuments und Lizenzbestimmungen erzeugt.
+Dabei können noch die optionalen Attribute `factory` und `open-source` angegeben werden.
+Sie sind in <<table-master-attributes>> näher beschrieben.
+
+Weitere Erläuterungen zum Colophon Block finden sich im Abschnitt <<colophon-block>>.
 
 .master.adoc
 [id="listing-master",reftext="{listing-caption} {counter:listings }"]
 [source,asciidoc,indent=0]
 ----
- include::{isy-dokumentvorlagen}/docs/common/isyfact-attributes.adoc[]
-
  :doctitle: Super tolles Feature
  :document-type: Konzept
- :license-oss!:
- :factory: IsyFact-Erweiterungen
+ :vs-einstufung: offen
+
+colophon::[factory="IsyFact-Erweiterungen", open-source="false"]
 
  // Wird normalerweise vom Maven-Plugin gesetzt
  // :revnumber: 1.0.5
  // :revdate: 2020-01-01
 
- include::{isy-dokumentvorlagen}/docs/common/title.adoc[]
- include::{isy-dokumentvorlagen}/docs/common/colophon.adoc[]
+\include::thisdoc.adoc[tags=inhalt]
+
+\include::inhalt.adoc[tags=inhalt]
 ----
 
 NOTE: Die manuelle Vergabe von Revisionsnummer und -datum betrifft nur Dokumente, die nicht mit Hilfe des Maven-Plugins erzeugt werden.
@@ -327,21 +303,51 @@ Ansonsten werden diese Attribute über das Maven-Plugin bereitgestellt (siehe <<
 
 .Attribute der master.adoc
 [id="table-master-attributes",reftext="{table-caption} {counter:tables}"]
-[cols="2,1,1,3",options="header"]
+[cols="1,1,1,3,1",options="header"]
 |===
-|Attribut|Optional|Default|Beschreibung
-|`doctitle`|Nein||Titel des Dokuments
-|`document-type`|Ja||Dokumententyp (z.B. Konzept), welcher als Untertitel angezeigt wird
-|`factory`|Nein|IsyFact-Standards|Definiert, ob das Dokument zu den IsyFact-Standards oder IsyFact-Erweiterungen gehört
-|`license-oss`|Ja|true|Klassifiziert das Dokument entweder als Open Source oder als Closed Source
-|`revdate`|Nein||Release Datum des Bausteins oder Dokuments
-|`revnumber`|Nein||Versionsnummer des Bausteins oder Dokuments
+|Attribut|Optional|Default|Beschreibung|Werte
+|`doctitle`|Nein||Titel des Dokuments|
+|`document-type`|Ja||Dokumententyp (z.B. Konzept), welcher als Untertitel angezeigt wird|
+|`vs-einstufung`|Nein||Vertraulichkeits-Einstufung
+a|
+* open-source
+* offen
+* einstufung-fehlt
+* vs-nfd
+* vs-vertraulich
+* geheim
+* streng-geheim
+|`colophon`|Nein|colophon::[]|Metadaten des Dokuments und Lizenzbestimmungen|
+|`factory` als Attribut zu `colophon`|Ja|IsyFact-Standards|Definiert, ob das Dokument zu den IsyFact-Standards oder IsyFact-Erweiterungen gehört. Wählt das passende Logo und Deckblatt für die Factory.
+a|
+* IsyFact-Standards
+* IsyFact-Erweiterungen
+* Register Factory
+|`open-source` als Attribut zu `colophon`|Ja|true|Beschreibt, ob das Dokument unter der Open Source (true) oder Closed Source (false) Lizenz der IsyFact veröffentlicht wird.|
+|`revdate`|Nein||Release Datum des Bausteins oder Dokuments|
+|`revnumber`|Nein||Versionsnummer des Bausteins oder Dokuments|
 |===
 
-Bezieht sich das zu erstellende Dokument auf einen Baustein (Bibliothek) der IsyFact, so ist dieser Baustein inklusive der Version ebenfalls in der master.adoc anzugeben.
+Zuletzt werden die übrigen Asciidoc Dateien in master.adoc inkludiert.
+Leere Dateien können ausgelassen werden.
+Inkludiert wird der Inhaltsbereich innerhalb der Dateien, der mit
+
+`// tag::inhalt[]`
+
+Dateiinhalt
+
+`// end::inhalt[]`
+
+getaggt ist.
+
+
+[[docinfo.adoc-bearbeiten]]
+==== docinfo.adoc bearbeiten
+
+Bezieht sich das zu erstellende Dokument auf einen Baustein (Bibliothek) der IsyFact, so ist dieser Baustein inklusive der Version in einer eigenen Datei docinfo.adoc anzugeben und in master.adoc zu inkludieren.
 In <<listing-master-bib>> wird beispielsweise auf den Baustein `isy-web` verwiesen.
 
-.master.adoc - Angabe des zugehörigen Bausteins
+.docinfo.adoc - Angabe des zugehörigen Bausteins
 [id="listing-master-bib",reftext="{listing-caption} {counter:listings }"]
 [source,asciidoc,indent=0]
 ----
@@ -351,7 +357,7 @@ In <<listing-master-bib>> wird beispielsweise auf den Baustein `isy-web` verwies
 [cols="5,2,3",options="header"]
 |====
 |Name |Art |Version
-|isy-web |Bibliothek |v{version-ifs}
+|isy-web |Bibliothek |{version-ifs}
 |====
 ----
 
@@ -375,23 +381,23 @@ Im Folgenden wird die Inhaltserstellung erläutert.
 [[ein-dokument-bearbeiten]]
 == Ein Dokument bearbeiten
 
-Wenn das neue Verzeichnis mit den oben genannten Dateien erstellt worden ist, besteht für die weitere Bearbeitung kein Unterschied darin, ob es sich um frisch angelegte oder bereits bestehende Dokumente handelt.
-In beiden Fällen bearbeiten Sie in den meisten Fällen die Dateien `thisdoc.adoc`, `inhalt.adoc` und `anhaenge.adoc`.
+Dieses Kapitel beschreibt die inhaltliche Bearbeitung und die dabei zu verwendenden Konventionen der IsyFact für die in <<verzeichnisstruktur-baustein>> beschriebenen Dateien.
+Es handelt sich dabei vorrangig um die Datei `inhalt.adoc`.
 
 Außer diesem Handbuch sind hierzu Kenntnisse der AsciiDoc-Syntax erforderlich.
 
 [NOTE]
 ====
 Dieses Handbuch erklärt die Grundlagen der AsciiDoc-Syntax nicht weiter.
-Die folgenden Webseiten bieten ausführliche Tutorials und weiterführende Informationen an:
-* xref:glossary:literaturextern:inhalt.adoc#litextern-AsciiDoc[What is AsciiDoc? Why do we need it?]
-* xref:glossary:literaturextern:inhalt.adoc#litextern-AsciidoctorUserManual[Asciidoctor User Manual]
-* xref:glossary:literaturextern:inhalt.adoc#litextern-AsciiDocSyntax[AsciiDoc Syntax Quick Reference]
+Die folgenden Webseiten bieten ausführliche Tutorials und weiterführende Informationen an: +
+* xref:glossary:literaturextern:inhalt.adoc#litextern-AsciiDoc[What is AsciiDoc? Why do we need it?] +
+* xref:glossary:literaturextern:inhalt.adoc#litextern-AsciidoctorUserManual[Asciidoctor User Manual] +
+* xref:glossary:literaturextern:inhalt.adoc#litextern-AsciiDocSyntax[AsciiDoc Syntax Quick Reference] +
 * xref:glossary:literaturextern:inhalt.adoc#litextern-AsciiDocTutorial[Tutorial: Using AsciiDoc and Asciidoctor to write documentation]
 ====
 
 Des Weiteren sind in IsyFact-Dokumenten bestimmte Besonderheiten zu beachten.
-Eine wichtige Besonderheit ist beispielsweise, dass man auf Kapitelüberschriften, aber auch auf Einträge wie Quellen, Fachbegriffen, Abbildungen oder Tabellen über einen Querverweis referenzieren können muss.
+Eine wichtige Besonderheit ist beispielsweise, dass man auf Kapitelüberschriften, aber auch auf Einträge wie Quellen, Fachbegriffe, Abbildungen oder Tabellen über einen Querverweis referenzieren können muss.
 Das setzt voraus, dass dafür zu sorgen ist, dass jeder Eintrag einen eindeutigen _Inline-Anchor_ erhält.
 Hinzu kommt, dass bei der Umwandlung in die Ausgabeformate HTML und PDF vorgefertigte Skripte ausgeführt werden, die automatisch Verzeichnisse am Ende des Dokuments einfügen und man auch auf die Einträge dieser Verzeichnisse per Querverweis referenzieren können muss.
 Bei den automatisch erzeugten Verzeichnissen handelt es sich um folgende:
@@ -404,7 +410,7 @@ Tabellenverzeichnis:: enthaltene Tabellen mit Tabellennummer und Tabellenuntersc
 
 Die Verzeichnisse listen ihre jeweiligen Einträge entweder nach der Position im Dokument oder alphanumerisch auf und dienen so vor allem dazu, Einträge nachzuschlagen.
 Die Skripte gehen hierbei von einer bestimmten Syntax aus, die in den folgenden Abschnitten erläutert wird.
-Je nachdem, ob es sich um eine Abbildung, eine Tabelle, ein Begriff oder ein referenziertes Medium handelt, werden jeweils unterschiedliche Bestandteile vorgesehen, die gesetzt werden müssen.
+Je nachdem, ob es sich um eine Abbildung, eine Tabelle, einen Begriff oder ein referenziertes Medium handelt, werden jeweils unterschiedliche Bestandteile vorgesehen, die gesetzt werden müssen.
 
 [[ein-satz-pro-zeile]]
 === Zeilenumbrüche
@@ -468,16 +474,16 @@ Einen Querverweis auf eine Überschrift setzt man über zwei Paare spitzer Klamm
 [id="listing-querverweis",reftext="{listing-caption} {counter:listings }"]
 [source,asciidoc]
 ----
-Zum xref::handbuch_dokumentation/inhalt.adoc#ueberschriften[Beispiel-Kapitel] gelangen Sie über einen Mausklick.
-Im Übrigen handelt es sich bei dem Beispiel-Kapitel um das Kapitel xref::handbuch_dokumentation/inhalt.adoc#ueberschriften[Überschriften].
+Zum <<ueberschriften, Beispiel-Kapitel>> gelangen Sie über einen Mausklick.
+Im Übrigen handelt es sich bei dem Beispiel-Kapitel um das Kapitel <<ueberschriften>>.
 ----
 
 Der erste Parameter in dem Klammer-Paar legt die ID des Querverweises fest.
 Der zweite Parameter kann gesetzt werden, wenn statt dem Namen des Kapitels ein eigener Text verwendet werden soll.
 Der erzeugte Text sieht wie folgt aus:
 
-_Zum xref::handbuch_dokumentation/inhalt.adoc#ueberschriften[Beispiel-Kapitel] gelangen Sie über einen Mausklick._
-_Im Übrigen handelt es sich bei dem Beispiel-Kapitel um das Kapitel xref::handbuch_dokumentation/inhalt.adoc#ueberschriften[Überschriften]._
+_Zum <<ueberschriften, Beispiel-Kapitel>> gelangen Sie über einen Mausklick._
+_Im Übrigen handelt es sich bei dem Beispiel-Kapitel um das Kapitel <<ueberschriften>>._
 
 [[admonition-blocks]]
 === Admonition-Blocks
@@ -513,84 +519,49 @@ BLOCKTYP: Hier steht der Text.
 Den folgenden, vordefinierten Blöcken fallen in der IsyFact-Dokumentation einheitliche Bedeutungen zu.
 Sie helfen dabei, optionale oder ergänzende Inhalte zu markieren, geben Erfahrungswerte weiter und warnen vor typischen Fehlersituationen oder Fallstricken.
 
-[NOTE]
-====
-Der Block NOTE enthält weiterführenden Inhalte, die optionale Ergänzungen des Textes darstellen.
-Dies können z.B. interessante Randnotizen oder weiterführende Links, Dokumente sowie Artikel sein.
-Der Inhalt der Verweise ist in jedem Fall für die Nutzung der IsyFact optional.
+[[note-admonition]]
+.NOTE Admonition
+image::handbuch/note.dn.svg[align="center"]
 
-Die Verwendung ist ähnlich zu einer Fußnote gedacht, wobei Verweise von einem erklärenden Satz begleitet sein sollten.
-====
+[[tip-admonition]]
+.TIP Admonition
+image::handbuch/tip.dn.svg[align="center"]
 
-[TIP]
-====
-Der Block TIP enthält optionale Inhalte, die eigene Erfahrungswerte (Good / Best Practices, Tipps & Tricks, ...) einbringen.
-Die Inhalte stellen Empfehlungen, aber keine verpflichtenden Regeln dar.
-Allgemeine Vorgaben oder Regeln zur Anwendungsentwicklung, Architektur, Sicherheit oder das Styling müssen in jedem Fall über die jeweils dafür gedachten Blöcke formuliert werden!
-====
+[[important-admonition]]
+.IMPORTANT Admonition
+image::handbuch/important.dn.svg[align="center"]
 
-[IMPORTANT]
-====
-Der Block IMPORTANT beschreibt allgemeine Vorgaben der IsyFact, die sich nicht einem der selbst definierten Blöcke zuordnen lassen.
-Die Inhalte stellen verpflichtende Regeln oder Konventionen dar und können bei Nichtbeachtung, je nach Kontext, zu Fehlern, Workarounds oder eingeschränkter Funktionalität führen.
-====
+[[warning-admonition]]
+.WARNING Admonition
+image::handbuch/warning.dn.svg[align="center"]
 
-[WARNING]
-====
-Der Block WARNING beschreibt typische Fallstricke, die sich bei der Nutzung der IsyFact (z.B. der beschriebenen Blaupause oder eines Bausteins) ergeben können.
-Er warnt davor und bietet Lösungsmöglichkeiten oder hilft, den Fallstrick aktiv zu vermeiden.
-====
+[[caution-admonition]]
+.CAUTION Admonition
+image::handbuch/caution.dn.svg[align="center"]
 
-[CAUTION]
-====
-Der Block CAUTION beschreibt typische Fehler, die bei der Nutzung der IsyFact passieren können oder in der Vergangenheit häufiger aufgetreten sind.
-Die Inhalte sollen diesen Fehlern vorbeugen, um Mehraufwände insbesondere durch subtile Unterschiede, "false friends" oder dergleichen zu vermeiden.
-
-In der Abgrenzung zum Block WARNING stellen die Situationen, die in Blöcken des Typs CAUTION beschrieben werden, entweder eine größere Bedrohung für die korrekte oder rechtzeitige Umsetzung von Anforderungen dar, oder sind, gemessen an ihren Auswirkungen, in der Regel schwer oder erst (zu) spät zu erkennen.
-====
 
 ==== Selbst definierte Blöcke
 
 Die folgenden, selbst definierten Blöcke, bilden Regeln und Vorgaben der IsyFact ab, die verpflichtend einzuhalten sind.
 Sie bilden die Grundlage für eine zur IsyFact konforme Umsetzung von Anforderungen und definieren so maßgeblich, wie Konformität zur IsyFact erzielt wird.
 
-.icon:cogs[] Anwendungsanforderung: Beispiel für Anwendungsanforderung
-****
-Der Block ANWENDUNGSANFORDERUNG beschreibt Anforderungen, welche die IsyFact an die Entwicklung von IT-Systemen stellt.
-Die Anforderungen kommen typischerweise aus den Bereichen:
+[[anwendungsanforderung-admonition]]
+.ANWENDUNGSANFORDERUNG Admonition
+image::handbuch/anwendungsanforderung.dn.svg[align="center"]
 
-* Struktur des Quellcodes oder der Quellcodeablage,
-* Format und Inhalt der Auslieferung,
-* Detailaspekte der Verwendung von Bausteinen.
+[[architekturregel-admonition]]
+.ARCHITEKTURREGEL Admonition
+image::handbuch/architekturregel.dn.svg[align="center"]
 
-Sie bilden die Grundlage für eine einheitliche Umsetzung von Anforderungen, die in gleichartig strukturierten IT-Systemen münden.
-****
+[[sicherheit-admonition]]
+.SICHERHEIT Admonition
+image::handbuch/sicherheit.dn.svg[align="center"]
 
-.icon:university[] Architekturregel: Beispiel für Architekturregel
-****
-Der Block ARCHITEKTURREGEL beschreibt Regeln, welche die IsyFact an die Architektur von mit ihr entwickelten IT-Systemen stellt.
-Die Regeln zielen somit vor allem auf eine korrekte Umsetzung der Referenzarchitektur ab und sind fast ausschließlich technischer Natur.
-Sie bilden die Grundlage für eine einheitliche softwaretechnische Architektur der IT-Systeme.
-****
+[[styleguide-admonition]]
+.STYLEGUIDE Admonition
+image::handbuch/styleguide.dn.svg[align="center"]
+{empty} +
 
-.icon:shield[] Sicherheit: Beispiel für Sicherheitshinweis
-****
-Der Block SICHERHEIT beschreibt Regeln, welche die IsyFact an die IT-Sicherheit von mit ihr entwickelten IT-Systemen stellt.
-Die Regeln stellen vor allem eine, vom festgestellten Schutzbedarf abhängige, sichere Umsetzung der IT-Systeme sicher.
-****
-
-.icon:paint-brush[] Styleguide: Beispiel für Styleguide
-****
-Der Block STYLEGUIDE beschreibt Regeln, welche die IsyFact an die Gestaltung der grafischen Oberflächen stellt.
-Die Regeln kommen typischerweise aus den Bereichen:
-
-* Allgemeine Gestaltungsrichtlinien,
-* Grundlegender Aufbau von Masken,
-* Vorgaben zur Ein- und Ausgabe von Daten sowie zu Interaktionsmustern,
-* Barrierefreiheit und Usability.
-
-Die Regeln stellen vor allem sicher, dass grafische Oberflächen ein einheitliches Look&Feel besitzen und gleichartig bedient werden.
-****
 
 ==== Verwendung von Tags zur Kennzeichnung
 
@@ -604,20 +575,16 @@ Folgende Blöcke sind zusätzlich mit einem Tag zu kennzeichnen:
 
 Damit lassen sich die Regeln oder Anforderungen aus der gesamten Dokumentation zusammenziehen und gebündelt bereitstellen, z.B. als Checklisten oder zur Grundlage automatischer Überprüfungen.
 
-Die Tags werden jeweils am Anfang und am Ende des Blocks gesetzt (<<listing-tags>>).
+Die Tags werden jeweils am Anfang und am Ende des Blocks gesetzt. Setzen des Tags am Beispiel einer Architekturregel:
 
-.Setzen des Tags am Beispiel einer Architekturregel
-[id="listing-tags",reftext="{listing-caption} {counter:listings }"]
-[source,asciidoc]
-----
-// tag::architekturregel[]
-[ARCHITEKTURREGEL]
-====
-Hier steht der Text.
-====
+`// tag::architekturregel[]` +
+`[ARCHITEKTURREGEL]` +
+`====` +
+Hier steht der Text. +
+`====`
 
-// end::architekturregel[]
-----
+`// end::architekturregel[]`
+
 
 WARNING: Die Leerzeile zwischen dem Block und dem Ende des Tags ist wichtig, damit die Bündelung der Inhalte korrekt funktioniert.
 
@@ -829,364 +796,154 @@ Ferner kann das Listing im AsciiDoc-Text über seine ID referenziert werden:
 [[literaturverzeichnis]]
 === Literaturverzeichnis
 
-Für Referenzen auf das Literaturverzeichnis müssen alle referenzierten Dokumente jeweils mit einem eigenen Eintrag in der Datei
+Am Ende eines Dokuments wird automatisch ein Literaturverzeichnis erstellt.
+Voraussetzung für die Aufnahme eines Eintrags in das lokale Literaturverzeichnis ist die Referenzierung des entsprechenden Dokuments und das Vorhandensein der referenzierten Id in der Literaturverzeichnis-Konfigurationsdatei in <<isy-asciidoctorj-extensions>>.
 
-`/common/bibliography.adoc`
+Eine Referenz auf einen Literatureintrag erfolgt über doppelte spitze Klammerpaare, wobei der erste Eintrag die Id in der Literaturverzeichnis-Konfigurationsdatei in isy-asciidoctorj-extensions ist.
 
-aufgeführt sein.
-
-Beispielsweise muss für die Referenzierung dieses Dokuments folgender Eintrag in die Datei aufgenommen werden.
-
-.Literaturverzeichnis
-[id="listing-literaturverzeichnis",reftext="{listing-caption} {counter:listings }"]
-[source,asciidoc,indent=0]
-----
- - [[[Handbuch_fuer_technische_Autoren]]] +
-   Handbuch für technische Autoren +
-   50_Werkzeuge\Handbuch_fuer_technische_Autoren.pdf
-----
-
-Eine Referenz auf die Literatur erfolgt über doppelte spitze Klammerpaare.
-
- Hier ist das <<Handbuch_fuer_technische_Autoren,Handbuch für technische Autoren>>.
+Ein Beispiel für referenzierte Literatur: \<<AsciiDocRecommendedPractices, AsciiDoc Recommended Practices>>.
 
 Das Ergebnis sieht so aus:
 
-`Hier ist das <<Handbuch_fuer_technische_Autoren,Handbuch für technische Autoren>>.`
+Ein Beispiel für referenzierte Literatur: `<<AsciiDocRecommendedPractices, AsciiDoc Recommended Practices>>.`
 
 [[glossar]]
 === Glossar
 
-Für Referenzen auf Fachwörter müssen referenzierte Begriffe jeweils mit einem eigenen Eintrag in der Datei
+Am Ende eines Dokuments wird automatisch ein Glossar erstellt.
+Voraussetzung für die Aufnahme eines Eintrags in das lokale Glossar ist die Referenzierung des entsprechenden Eintrags und das Vorhandensein des Eintrags mit der referenzierten Id im zentralen Glossar in <<isy-asciidoctorj-extensions>>.
 
-`/common/glossary.adoc`
-
-aufgeführt sein.
-
-Der ID soll mit dem Bezeichner `glossar-` beginnen.
-Beispielsweise muss für die Referenzierung des Fachausdrucks `Hallo Welt Beispiel` folgender Eintrag in die Datei `/common/glossary.adoc` aufgenommen werden.
-
-.Glossar
-[{id-equals}"listing-glossar",reftext="{listing-caption} {counter:listings }"]
-[source,asciidoc,subs="attributes+"]
-----
-[{id-equals}"glossar-halloweltbeispiel",reftext="Hallo Welt Beispiel"]
-Hallo Welt Beispiel:: Ein Hallo Welt Beispiel enthält einen denkbar einfachen Quelltext.
-----
-
-Eine Referenz auf einen Begriff des Glossars erfolgt über doppelte spitze Klammerpaare.
+Eine Referenz auf einen Begriff des Glossars erfolgt über doppelte spitze Klammerpaare, wobei der erste Eintrag die Id im zentralen Glossar in isy-asciidoctorj-extensions ist.
+Die ID soll mit dem Bezeichner `glossar-` beginnen.
 
  Hier wurde ein <<glossar-halloweltbeispiel, Hallo Welt Beispiel>> verwendet.
 
 Das Ergebnis sieht wie folgt aus:
 
 `Hier wurde ein <<glossar-halloweltbeispiel, Hallo Welt Beispiel>> verwendet.`
+{empty} +
 
 [[asccidoc-zu-pdf-html]]
 == PDF- und HTML-Dokumente erzeugen
 
 Ist das zu bearbeitende Dokument fertiggestellt, so kann es nun vollständig gerendert und in eine PDF- und HTML-Datei exportiert werden.
-Damit die Dokumentation innerhalb des Build-Prozesses gerendert wird, muss die Dokumentation in die `pom.xml` aufgenommen werden.
-
-Die geschieht in zwei Schritten.
-Sollte es sich um ein Dokument der zentralen Dokumentation handeln oder um ein Dokument, das eine bestehende Bausteindokumentation erweitert, so kann der erste Schritt <<asciidoc-in-pom-einbinden>>  übersprungen werden.
+Dies geschieht mithilfe des Asciidoctor Maven Plugins und der `isy-asciidoctorj-extensions`.
+`isy-asciidoctorj-extensions` ist eine Sammlung von verschiedenen xref:glossary:literaturextern:inhalt.adoc#litextern-asciidoctorj-extensions[AsciidoctorJ Extensions], welche die Wartung der IsyFact-Dokumentation erleichtern.
+Eine Liste aller IsyFact Extensions befindet sich im Abschnitt <<isy-asciidoctorj-extensions>>.
 
 [[asciidoc-in-pom-einbinden]]
-=== Asciidoc in Pom integrieren
+=== Maven-Konfiguration
 
-Damit überhaupt während des Build-Prozesses Asciidoc-Dateien gerendert werden, muss das Asciidoc-Maven-Plugin in die `pom.xml` aufgenommen werden.
-Zudem sind noch weitere Anpassungen nötig, die in den nächsten Abschnitten beschrieben sind.
-Zunächst sind mehrere Code-Snippets dargestellt, die in die `pom.xml` integriert werden müssen.
+Die `isy-asciidoctorj-extensions` können über das `asciidoctor-maven-plugin` in der pom.xml eingebunden werden.
+Zunächst sind folgende Properties dem Element `<properties></properties>` hinzuzufügen:
 
-*Neue Properties*
-
-Folgende Properties sind dem Element `<properties></properties>` hinzuzufügen
+*Properties*
 
 .Hinzuzufügende Properties
 [{id-equals}"listing-pom-properties",reftext="{listing-caption} {counter:listings }"]
 [source,xml,subs="attributes+"]
 ----
-<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-<html-output-base-directory>${project.build.directory}/html</html-output-base-directory>
-<pdf-output-base-directory>${project.build.directory}/pdf</pdf-output-base-directory>
-<maven.build.timestamp.format>dd.MM.yyyy</maven.build.timestamp.format>
+<properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <html-output-base-directory>${project.build.directory}/doc/html</html-output-base-directory>
+    <pdf-output-base-directory>${project.build.directory}/doc/pdf</pdf-output-base-directory>
+    <maven.build.timestamp.format>dd.MM.yyyy</maven.build.timestamp.format>
+    <asciidoctorj-extensions.version>2.3.0</asciidoctorj-extensions.version>
+</properties>
 ----
 
-*Integration Dokumentvorlagen*
+Folgendes Listing zeigt die Konfiguration für einen lauffähigen Asciidoctor Build inklusive `isy-asciidoctorj-extensions`.
 
-Damit die Dokumentvorlagen integriert werden, muss folgendes Plugin dem Element `<build><plugins>...</plugins></build>` hinzugefügt werden.
+*Integration Asciidoctor Maven Plugin*
 
-.Integration Dokumentvorlagen
-[{id-equals}"listing-pom-dokumentvorlagen",reftext="{listing-caption} {counter:listings }"]
-[source,xml,subs="attributes+"]
-----
-<plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-dependency-plugin</artifactId>
-    <executions>
-        <execution>
-            <id>copy-assets</id>
-            <phase>generate-sources</phase>
-            <goals>
-            <goal>unpack</goal>
-            </goals>
-            <configuration>
-                <outputDirectory>${project.build.directory}/isy-dokumentvorlagen</outputDirectory>
-                <artifactItems>
-                    <artifactItem>
-                        <groupId>de.bund.bva.isyfact</groupId>
-                        <artifactId>isy-dokumentvorlagen</artifactId>
-                        <version>${project.version}</version>
-                        <overWrite>true</overWrite>
-                    </artifactItem>
-                </artifactItems>
-            </configuration>
-        </execution>
-    </executions>
-</plugin>
-----
-
-*Integration der Skripte unter anderem zur Erstellung von Glossar und Literaturverzeichnis*
-
-Folgendes Plugin muss dem Element `<build><plugins>...</plugins></build>` hinzugefügt werden:
-
-.Integration der Skripte
-[{id-equals}"listing-pom-skripte",reftext="{listing-caption} {counter:listings }"]
-[source,xml,subs="attributes+"]
-----
-<plugin>
-    <groupId>org.codehaus.mojo</groupId>
-    <artifactId>exec-maven-plugin</artifactId>
-    <version>1.6.0</version>
-    <executions>
-        <!-- Erzeugt das Glossar -->
-        <execution>
-            <id>generate-glossary</id>
-            <phase>generate-sources</phase>
-            <goals>
-                <goal>exec</goal>
-            </goals>
-            <configuration>
-                <executable>bash</executable>
-                <workingDirectory>${project.build.directory}/isy-dokumentvorlagen/docs</workingDirectory>
-                <arguments>
-                    <argument>${project.build.directory}/isy-dokumentvorlagen/scripts/glossary.sh</argument>
-                    <argument>${basedir}/src/docs</argument>
-                </arguments>
-            </configuration>
-        </execution>
-        <!-- Erzeugt das Literaturverzeichnis -->
-        <execution>
-            <id>generate-bibliography</id>
-            <phase>generate-sources</phase>
-            <goals>
-                <goal>exec</goal>
-            </goals>
-            <configuration>
-                <executable>bash</executable>
-                <workingDirectory>${project.build.directory}/isy-dokumentvorlagen/docs</workingDirectory>
-                <arguments>
-                    <argument>${project.build.directory}/isy-dokumentvorlagen/scripts/bibliography.sh</argument>
-                    <argument>${basedir}/src/docs</argument>
-                </arguments>
-            </configuration>
-        </execution>
-        <!-- Erzeugt ... -->
-        <execution>
-            <id>generate-lists</id>
-            <phase>generate-sources</phase>
-            <goals>
-                <goal>exec</goal>
-            </goals>
-            <configuration>
-                <executable>bash</executable>
-                <workingDirectory>${project.build.directory}/isy-dokumentvorlagen/docs</workingDirectory>
-                <arguments>
-                    <argument>${project.build.directory}/isy-dokumentvorlagen/scripts/listof.sh</argument>
-                    <argument>${basedir}/src/docs</argument>
-                </arguments>
-            </configuration>
-        </execution>
-        <execution>
-            <id>post-process-html</id>
-            <phase>process-resources</phase>
-            <goals>
-                <goal>exec</goal>
-            </goals>
-            <configuration>
-                <executable>bash</executable>
-                <workingDirectory>${html-output-base-directory}</workingDirectory>
-                <arguments>
-                    <argument>${project.build.directory}/isy-dokumentvorlagen/scripts/postprocesshtml.sh</argument>
-                </arguments>
-            </configuration>
-        </execution>
-    </executions>
-</plugin>
-----
-
-*Asciidoc-Maven-Plugin integrieren*
-Abschließend wird in die `pom.xml` das Asciidoc-Maven-Plugin integriert, welches das Rendern der Dokumente übernimmt.
-Dazu ist folgendes Code-Snippet in das Element `<build><plugins>...</plugins></build>` einzufügen.
-
-.Integration des Asciidoc-Maven-Plugins
+.Integration der `isy-asciidoctorj-extensions` in das Asciidoctor Maven Plugin
 [id="listing-pom-asciidoc",reftext="{listing-caption} {counter:listings }"]
 [source,xml,subs="attributes+"]
 ----
- <plugin>
-    <groupId>org.asciidoctor</groupId>
-    <artifactId>asciidoctor-maven-plugin</artifactId>
-    <version>2.0.0-RC.1</version>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.asciidoctor</groupId>
+                <artifactId>asciidoctor-maven-plugin</artifactId>
+                <version>2.1.0</version> <1>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.asciidoctor</groupId>
+                        <artifactId>asciidoctorj-pdf</artifactId>
+                        <version>1.5.3</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>de.bund.bva.isyfact</groupId> <2>
+                        <artifactId>isy-asciidoctorj-extensions</artifactId>
+                        <version>${isy-asciidoctorj-extensions.version}</version>
+                    </dependency>
+                </dependencies>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.asciidoctor</groupId>
-            <artifactId>asciidoctorj-pdf</artifactId>
-            <version>1.5.0-beta.4</version>
-        </dependency>
-    </dependencies>
+                <configuration>
+                    <outputDirectory>${project.build.directory}</outputDirectory>
+                    <attributes>
+                        <revnumber>IF-${project.version}</revnumber>
+                        <revdate>${maven.build.timestamp}</revdate>
+                        <version-ifs>${project.version}</version-ifs>
+                        <vs-einstufung>offen</vs-einstufung> <3>
+                    </attributes>
+                </configuration>
 
-    <configuration>
-        <outputDirectory>${project.build.directory}</outputDirectory>
-
-        <requires>
-            <require>${project.build.directory}/isy-dokumentvorlagen/docs/common/lib/isyfact-admonitions.rb</require>
-        </requires>
-
-        <attributes>
-            <revnumber>IF-${project.version}</revnumber>
-            <revdate>${maven.build.timestamp}</revdate>
-            <icons>font</icons>
-            <sectanchors>true</sectanchors>
-            <!-- set the idprefix to blank -->
-            <idprefix/>
-            <data-uri/>
-            <idseparator>-</idseparator>
-            <docinfo1>true</docinfo1>
-            <stylesdir>${project.build.directory}/isy-dokumentvorlagen/theme</stylesdir>
-            <stylesheet>isyfact.css</stylesheet>
-            <pdf-stylesdir>${project.build.directory}/isy-dokumentvorlagen/theme</pdf-stylesdir>
-            <pdf-style>isyfact</pdf-style>
-            <pdf-fontsdir>${project.build.directory}/isy-dokumentvorlagen/theme/fonts</pdf-fontsdir>
-            <version-ifs>2.0.x</version-ifs>
-            <isy-dokumentvorlagen>${project.build.directory}/isy-dokumentvorlagen</isy-dokumentvorlagen>
-        </attributes>
-    </configuration>
-
-    <executions>
-        <execution>
-            <id>Detailkonzept_Komponente_Datenzugriff-html</id>
-            <phase>generate-resources</phase>
-            <goals>
-                <goal>process-asciidoc</goal>
-            </goals>
-            <configuration>
-                <backend>html</backend>
-                <sourceDirectory>
-                    src/docs/asciidoc/Detailkonzept_Komponente_Datenzugriff
-                </sourceDirectory>
-                <sourceDocumentName>master.adoc</sourceDocumentName>
-                <outputFile>
-                    ${html-output-base-directory}/DetailkonzeptKomponenteDatenzugriff.html
-                </outputFile>
-            </configuration>
-        </execution>
-        <execution>
-            <id>Detailkonzept_Komponente_Datenzugriff-pdf</id>
-            <phase>generate-resources</phase>
-            <goals>
-                <goal>process-asciidoc</goal>
-            </goals>
-            <configuration>
-                <backend>pdf</backend>
-                <sourceDirectory>
-                    src/docs/asciidoc/Detailkonzept_Komponente_Datenzugriff
-                </sourceDirectory>
-                <sourceDocumentName>master.adoc</sourceDocumentName>
-                <outputFile>
-                    ${pdf-output-base-directory}/Detailkonzept_Komponente_Datenzugriff.pdf
-                </outputFile>
-            </configuration>
-        </execution>
-    </executions>
-
-</plugin>
+                <executions>
+                    <execution> <4>
+                        <id>html-build</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>process-asciidoc</goal>
+                        </goals>
+                        <configuration>
+                            <backend>html</backend>
+                            <sourceDirectory>src/docs/OrdnerDokument</sourceDirectory>
+                            <sourceDocumentName>master.adoc</sourceDocumentName>
+                            <outputFile>${project.build.directory}/doc/Dokument.html</outputFile>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>pdf-build</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>process-asciidoc</goal>
+                        </goals>
+                        <configuration>
+                            <backend>pdf</backend>
+                            <sourceDirectory>src/docs/OrdnerDokument</sourceDirectory>
+                            <sourceDocumentName>master.adoc</sourceDocumentName>
+                            <outputFile>${project.build.directory}/doc/Dokument.pdf</outputFile>
+                            <attributes>
+                                <pdf-style>isyfact-closed</pdf-style>
+                            </attributes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 ----
 
-Es ist zu beachten, dass die Konfigurationen im Element `<executions></executions>` zu editieren sind.
-Dies ist im nächsten Kapitel beschrieben.
-Es ist kein Kopieren von Code, wie es in <<listing-pom>> beschrieben ist, nötig.
+<1> Es wird die aktuellste Version des Maven Plugins benötigt.
+<2> Einfügen der `isy-asciidoctorj-extensions` als Dependency des Maven Plugins.
+<3> Die Angabe der `vs-einstufung` ist an dieser Stelle optional und gilt für alle Dokumente. Üblicherweise wird die `vs-einstufung` in master.adoc gesetzt, dort ist sie verpflichtend, wenn sie nicht schon wie hier in der pom.xml gesetzt wurde. Vgl. <<listing-master>>.
+<4> Es ist zu beachten, dass die Konfigurationen im Element `<executions></executions>` zu editieren sind, siehe <<dokument-pom-aufnehmen>>.
+
 
 [[dokument-pom-aufnehmen]]
 === Integration in den Build-Prozess
 
 Jedes Dokument, das während des Build-Prozesses gerendert werden soll, muss dafür in die `pom.xml` aufgenommen werden.
-Die `pom.xml` liegt im Root-Verzeichnis der isy-documentation und wird in VS Code im Explorer auf der linken Seite aufgelistet.
 
-:desc-image-pom_oeffnen: Ablageort der pom.xml
-[id="image-pom_oeffnen",reftext="{figure-caption} {counter:figures}"]
-.{desc-image-pom_oeffnen}
-image::handbuch/pom_oeffnen.png[align="center"]
-
-Zum Bearbeiten wird die `pom.xml` mit einem Doppelklick geöffnet.
-Anschließend bis zum Element `<executions>` scrollen.
 Innerhalb von `<executions></executions>` werden die zu rendernden Dokumente definiert.
-Für jedes zu rendernde Dokumente müssen zwei `<execution>`-Elemente vorhanden werden.
+Für jedes zu rendernde Dokumente müssen zwei `<execution>`-Elemente vorhanden sein.
 Das erste `<execution>`-Element definiert die Erzeugung der HTML-Datei.
 Das zweite `<execution>`-Element definiert die Erzeugung der PDF-Datei.
 
-In <<image-pom_editieren>> ist dies anhand des Einstiegsdokuments gezeigt.
+<<listing-pom-asciidoc>> zeigt ein Beispiel.
 
-.Definition des zu rendernden Dokuments in der pom.xml
-[id="image-pom_editieren",reftext="{figure-caption} {counter:figures}"]
-image::handbuch/pom_editieren.png[align="center"]
-
-Wenn Sie mit dem Kapitel <<asciidoc-in-pom-einbinden>> begonnen haben, ist das nachfolgende Kopieren von Code nicht nötig.
-Sie können direkt mit der Konfigurationsänderung (<<table-pom_parameter>>) fortfahren.
-Der einfachste Weg ein weiteres Dokument in die `pom.xml`  aufzunehmen besteht darin, die Definition eines bestehenden Dokuments zu kopieren und anzupassen.
-Dies bedeutet im Genauen, dass beispielweise folgender Code-Abschnitt dupliziert wird:
-
-.Zu kopierender Code-Auschnitt
-[id="listing-pom",reftext="{listing-caption} {counter:listings }"]
-[source,xml,indent=0]
-----
-<execution>
-    <id>IsyFact-Einstieg-html</id>
-    <phase>generate-resources</phase>
-    <goals>
-        <goal>process-asciidoc</goal>
-    </goals>
-    <configuration>
-        <backend>html</backend>
-        <sourceDirectory>
-            src/docs/10_IsyFact-Standards/00_Allgemein/IsyFact-Einstieg
-        </sourceDirectory>
-        <sourceDocumentName>master.adoc</sourceDocumentName>
-        <outputFile>
-            ${html-output-base-directory}/IsyFact-Standards/Allgemein/IsyFactEinstieg.html
-        </outputFile>
-    </configuration>
-</execution>
-<execution>
-    <id>IsyFact-Einstieg-pdf</id>
-    <phase>generate-resources</phase>
-    <goals>
-        <goal>process-asciidoc</goal>
-    </goals>
-    <configuration>
-        <backend>pdf</backend>
-        <sourceDirectory>
-            src/docs/10_IsyFact-Standards/00_Allgemein/IsyFact-Einstieg
-        </sourceDirectory>
-        <sourceDocumentName>master.adoc</sourceDocumentName>
-        <outputFile>
-            ${pdf-output-base-directory}/10_IsyFact-Standards/00_Allgemein/IsyFact-Einstieg.pdf
-        </outputFile>
-    </configuration>
-</execution>
-----
-
-Nach dem Kopieren müssen folgende Parameter angepasst werden:
+Folgende Parameter müssen angepasst werden:
 
 .Anzupassende Parameter
 [id="table-pom_parameter",reftext="{table-caption} {counter:tables}"]
@@ -1194,8 +951,8 @@ Nach dem Kopieren müssen folgende Parameter angepasst werden:
 |====
 |Parameter|Beschreibung|Beispiel
 |<id></id>| Eine eindeutige Kennung des Dokuments. Sollte Aufschluss über das Dokument und das Ausgabeformat geben.| `mein-dokument-pdf` oder `mein-dokument-html`
-|<sourceDirectory></sourceDirectory>| Definiert den Pfad zum Verzeichnis in dem die master.adoc Datei liegt,| `src/docs/10_IsyFact-Standards/00_Allgemein/Mein-Dokument`
-|<outputFile></outputFile>| Definiert Pfad und Dateinamen der Ausgabedatei. | `${pdf-output-base-directory}/10_IsyFact-Standards/00_Allgemein/Mein-Dokument.pdf`
+|<sourceDirectory></sourceDirectory>| Definiert den Pfad zum Verzeichnis, in dem die master.adoc Datei liegt.| `src/docs/OrdnerDokument`
+|<outputFile></outputFile>| Definiert Pfad und Dateinamen der Ausgabedatei. | `${project.build.directory}/doc/Dokument.pdf`
 |====
 
 Anschließend kann der Build-Vorgang ausgeführt und die PDF- und HTML Dokumente erzeugt werden.
@@ -1205,8 +962,8 @@ Anschließend kann der Build-Vorgang ausgeführt und die PDF- und HTML Dokumente
 
 Um den Build-Vorgang zu starten, wird in der Konsole in das Verzeichnis gewechselt, in dem auch die bearbeitete `pom.xml` liegt.
 Anschließend wird mit dem Befehl `mvn install` der Build-Vorgang gestartet.
-Aufgrund der Vielzahl der zu rendernden Dokumente und auszuführenden Skripte, kann der Build-Vorgang einige Zeit in Anspruch nehmen.
-Für Test-Zwecke können in der `pom.xml` nicht relevante Dokumente übersprungen werden, in dem die zugehörigen Ausführungsdefinitionen (`<execution></execution>`) auskommentiert werden.
+Aufgrund der Vielzahl der zu rendernden Dokumente und auszuführenden Skripte kann der Build-Vorgang einige Zeit in Anspruch nehmen.
+Für Test-Zwecke können in der `pom.xml` nicht relevante Dokumente übersprungen werden, indem die zugehörigen Ausführungsdefinitionen (`<execution></execution>`) auskommentiert werden.
 
 ==== Fehlerszenarien beim Generieren
 
@@ -1228,6 +985,66 @@ Der Grund hierfür ist, dass der vom System zur Verfügung gestellte Speicher na
 Tritt der Fehler deswegen auf, sollten Bilder nach Möglichkeit in Vektorgrafiken umgewandelt bzw. neu gezeichnet werden.
 |====
 
+[[isy-asciidoctorj-extensions]]
+== IsyFact Extensions
+
+Die IsyFact Extensions 'isy-asciidoctorj-extensions` sind eine Sammlung von verschiedenen AsciidoctorJ Extensions, welche die Wartung der IsyFact-Dokumentation erleichtern.
+Die IsyFact bietet derzeit folgende AsciidoctorJ Extensions an:
+
+|===
+|Extension/Klasse |Beschreibung |Referenzbeispiel
+
+|<<IsyAttributesPreprocessor,IsyAttributesPreprocessor>>
+
+`de.bund.bva.isyfact.attributes` `.IsyAttributesPreprocessor`
+|Erzeugt Metainformationen am Anfang eines Dokuments. Erzeugt den Titel und wählt das passende Theme für ein Dokument.
+|siehe <<listing-master>>
+|BibliographyPreprocessor
+
+`de.bund.bva.isyfact.bibliography` `.BibliographyPreprocessor`
+|Erzeugt ein Literaturverzeichnis aus allen bekannten Quellen, die im Dokument enthalten und als Referenz markiert sind.
+|siehe <<literaturverzeichnis>>
+|<<ColophonBlockMacroProcessor,ColophonBlockMacroProcessor>>
+
+`de.bund.bva.isyfact.colophon` `.ColophonBlockMacroProcessor`
+|Erzeugt allgemeine Dokumentinformationen durch Verarbeiten des `colophon::[]` Blocks.
+|`colophon::[]`
+|IsyGlossaryBlockMacroProcessor
+
+`de.bund.bva.isyfact.glossary` `.IsyGlossaryBlockMacroProcessor`
+|Erkennt `isy-glossary::[]` im Asciidoc Quellcode und fügt an der Stelle des Blocks das zentrale Glossar der IsyFact als Tabelle ein.
+|`isy-glossary::[]`
+|GlossaryPreprocessor
+
+`de.bund.bva.isyfact.glossary` `.GlossaryPreprocessor`
+|Erzeugt ein Glossar für das jeweilige Dokument mit allen bekannten Begriffen, die im Dokument enthalten und als Referenz markiert sind.
+|siehe <<glossar>>
+|ListOfPreprocessor
+
+`de.bund.bva.isyfact.listof` `.ListOfPreprocessor`
+|Erzeugt ein Abbildungs- Tabellen- und Listenverzeichnis für das jeweilige Dokument für alle Elemente im Dokument, die entsprechend markiert sind.
+|siehe <<bilder>>, <<tabellen>> und <<listings>>
+|===
+
+[[isy-attributes-preprocessor]]
+=== IsyAttributesPreprocessor
+
+Der `IsyAttributesPreprocessor` wertet alle IsyFact Attribute am Anfang eines master.adoc aus (Leerzeichen und Kommentare werden ignoriert) und fügt die entsprechenden Metainformationen in jedes Dokument ein.
+
+Mit Hilfe der Attribute wird der Titel mit optionalem Untertitel generiert, sowie das passende Theme für das Dokument
+ausgewählt. Dabei können folgende Attribute angepasst werden <<table-master-attributes>>.
+
+Standardmäßig sind die Extensions auf den Bau von IsyFact-Standards Bausteinen mit einer Open Source Lizenz konfiguriert.
+
+[[colophon-block]]
+=== ColophonBlockMacroProcessor
+
+Der `ColophonBlockMacroProcessor` erkennt `colophon::[]` Blöcke im Asciidoc Code und ersetzt diese durch die allgemeinen
+Dokumentinformationen der IsyFact.
+Dabei können noch die optionalen Attribute `factory` und `open-source` angegeben werden.
+<<listing-master>> zeigt die beispielhafte Verwendung des `colophon::[]` blocks in einem Asciidoc Dokument.
+
+
 [[vorgaben-changelog]]
 == Zentralisiertes und automatisiertes Changelog
 
@@ -1240,7 +1057,7 @@ Auf diese Weise besitzt jedes Projekt ein zentrales Changelog und (je nach Proje
 
 .Zusammenführung der einzelnen Komponentenchangelogs
 [id="image-architektur_changelogs",reftext="{figure-caption} {counter:figures}"]
-image::handbuch/architektur_changelog.png[align="center",width=80%,pdfwidth=80%]
+image::handbuch/architektur_changelog.png[align="center",scaledwidth=80%]
 
 Zum Erstellen und Bearbeiten wird empfohlen, einen Texteditor zu verwenden, der das AsciiDoc Format unterstützt (siehe Kapitel <<vsc-installieren>>).
 
@@ -1260,13 +1077,13 @@ Bei Dokumenten wird diese Datei im gleichen Verzeichnis wie das Dokument selbst 
 
 .Ablageort des Komponentenchangelog für ein Dokument
 [id="image-ablage_komponentenchangelog_dokument",reftext="{figure-caption} {counter:figures}"]
-image::handbuch/ablage_komponentenchangelog_dokument.png[align="center",width=60%,pdfwidth=60%]
+image::handbuch/ablage_komponentenchangelog_dokument.png[align="center",scaledwidth=60%]
 
 Bei Komponenten wird diese Datei im root-Verzeichnis der Komponente abgelegt:
 
 .Ablageort des Komponentenchangelog für eine Komponente
 [id="image-ablage_komponentenchangelog_komponente",reftext="{figure-caption} {counter:figures}"]
-image::handbuch/ablage_komponentenchangelog_komponente.png[align="center",width=60%,pdfwidth=60%]
+image::handbuch/ablage_komponentenchangelog_komponente.png[align="center",scaledwidth=60%]
 
 In die Datei wird die Überschrift "Changelog" eingefügt:
 
@@ -1285,7 +1102,7 @@ Die zentrale Projektchangelog-Datei `changelog.adoc` wird im root-Verzeichnis de
 
 .Ablageort des zentralen Projektchangelogs
 [id="image-ablage_projektchangelog",reftext="{figure-caption} {counter:figures}"]
-image::handbuch/ablage_projektchangelog.png[align="center",width=60%,pdfwidth=60%]
+image::handbuch/ablage_projektchangelog.png[align="center",scaledwidth=60%]
 
 Initial wird die Datei ebenfalls mit der Überschrift "Changelog" befüllt:
 
@@ -1472,4 +1289,10 @@ und
 
 An die Changelogeintrag gelten die in Kapitel <<inhalt-komponentenchangelog>> beschriebenen Anforderungen.
 Komponentenübergreifende Einträge sind dem gekennzeichneten Bereich hinzuzufügen (vgl. <<listing-projektchangelog_einbindung_komponentenchangelog>>).
+
+
+//fix Links in Examples
+[[AsciiDocRecommendedPractices]]
+
+[[glossar-halloweltbeispiel]]
 // end::inhalt[]
