@@ -23,6 +23,10 @@
 *** xref:isy-polling:konzept/master.adoc[Konzept]
 *** xref:isy-polling:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
 
+** REST
+*** xref:isy-service-rest:konzept/master.adoc[Konzept]
+*** xref:isy-service-rest:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
+
 ** Sicherheit
 *** xref:isy-sicherheit:konzept/master.adoc[Konzept]
 *** xref:isy-sicherheit:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
