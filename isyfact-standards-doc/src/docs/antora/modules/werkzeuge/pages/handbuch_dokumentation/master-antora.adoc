@@ -8,7 +8,6 @@
 include::glossary:licence:partial$licence.adoc[]
 
 include::einleitung/einleitung-antora.adoc[tags=inhalt]
-include::installationen/arbeitsumgebung.adoc[tags=inhalt]
 include::erstellung/erstellung-antora.adoc[tags=inhalt]
 include::bearbeitung/bearbeitung-antora.adoc[tags=inhalt]
 include::generierung/generierung-antora.adoc[tags=inhalt]

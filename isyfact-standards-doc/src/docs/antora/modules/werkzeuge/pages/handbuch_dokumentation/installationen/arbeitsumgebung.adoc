@@ -1,3 +1,7 @@
+= Einrichtung Arbeitsumgebung Dokumentation
+
+include::glossary:licence:partial$licence.adoc[]
+
 // tag::inhalt[]
 
 [[die-arbeitsumgebung-einrichten]]
