@@ -31,7 +31,7 @@ Die Vorlagen können sowohl direkt aufgerufen als auch im ZIP- oder PDF-Format h
 
 Die Vorlagen enthalten Asciidoc-Dateien, die projektspezifisch ergänzt werden müssen.
 Nach Bedarf kann aus den Asciidoc-Dateien für jede Vorlage ein PDF erstellt werden.
-Die PDF-Generierung mittels AsciidoctorJ-Extensions wird in xref:werkzeuge:handbuch_dokumentation/inhalt.adoc#asccidoc-zu-pdf-html[Dokumentation der IsyFact] erklärt.
+Die PDF-Generierung mittels AsciidoctorJ-Extensions wird in xref:werkzeuge:dokumentation/inhalt.adoc#asccidoc-zu-pdf-html[Dokumentation der IsyFact] erklärt.
 
 [[bearbeitung-vorlagen-selbst]]
 == Bearbeitung der Vorlagen selbst

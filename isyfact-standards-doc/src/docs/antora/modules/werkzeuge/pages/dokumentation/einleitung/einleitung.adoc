@@ -1,4 +1,4 @@
-:doctitle: Dokumentation der IsyFact
+:doctitle: Dokumentation gemäß IsyFact
 
 include::glossary:licence:partial$licence.adoc[]
 
@@ -18,12 +18,12 @@ Allen Versionen gemeinsam ist die Verwendung von AsciiDoc als Grundlage zur Doku
 
 === Dokumentation ab IsyFact 2.5.0
 
-Das Open Source Tool Antora wird zur Generierung der HTML-Dokumentation verwendet.
+Das Open Source Tool Antora wird zur Generierung der HTML-Gesamtdokumentation verwendet.
 Daraus ergibt sich eine gegenüber der bisherigen Dokumentation deutlich veränderte Verzeichnisstruktur der Ablage der Dokumentationsseiten und teilweise der Inhalte.
 
 [NOTE]
 ====
-Einzelheiten zur Dokumentation mit Antora, u.a. zur Verzeichnisstruktur, finden sich in der xref:handbuch_dokumentation/master-antora.adoc[Dokumentation der IsyFact - Antora].
+Einzelheiten zur Dokumentation mit Antora, u.a. zur Verzeichnisstruktur, finden sich in der xref:dokumentation/master-antora.adoc[Dokumentation gemäß IsyFact - Projektseite mit Antora].
 ====
 
 Die <<zentrale-dokumentation, zentrale Dokumentation>> und die <<baustein-dokumentation>> aus dem Repository isy-documentation wurde ab IsyFact 2.5.0 verschoben in das Repository isyfact-standards im Submodul isyfact-standards-doc.
@@ -35,13 +35,13 @@ Es wird z.B. auf ein zentrales Glossar verlinkt.
 
 === Dokumentation IsyFact 2.x vor IsyFact 2.5.0
 
-Zur Generierung der HTML- und PDF-Dokumentation werden AsciidoctorJ-Extensions verwendet.
+Zur Generierung der einzelnen HTML- und PDF-Dokumente werden AsciidoctorJ-Extensions verwendet.
 Empfohlen wird jedoch, die Generierung der Dokumentation mit Antora durchzuführen, wie es ab der IsyFact Version 2.5.0 der Fall ist.
 Wenn die Generierung von PDF unverzichtbar ist, muss die Dokumentation per AsciidoctorJ Extensions erstellt werden.
 
 [NOTE]
 ====
-Einzelheiten zur Dokumentation mit AsciidoctorJ Extensions finden sich in der xref:handbuch_dokumentation/master-asciidoctorJ.adoc[Dokumentation der IsyFact - AsciidoctorJ Extensions].
+Einzelheiten zur Dokumentation mit AsciidoctorJ Extensions finden sich in der xref:dokumentation/master-asciidoctorJ.adoc[Dokumentation gemäß IsyFact - Dokumente mit AsciidoctorJ Extensions].
 ====
 
 Die zentrale Dokumentation und ein Großteil der Bausteindokumentation befinden sich im Repository isy-documentation.
@@ -66,10 +66,12 @@ Eine AsciiDoc-Datei ist nicht binär, sondern besteht aus Klartext, ganz ohne pr
 Einer der Vorteile der AsciiDoc-Syntax ist die leichte Erlernbarkeit, denn AsciiDoc benötigt denkbar wenige Markups.
 AsciiDoc lässt sich zudem problemlos in moderne Versionsverwaltungssysteme integrieren, so dass alle Vorteile solcher Systeme wie z.B. paralleles Arbeiten in Branches, Pull/Merge Requests oder Continuous Integration nun auch auf Dokumente anwendbar sind.
 
-=== VS Code (Visual Studio Code)
+=== Erforderliche und empfohlene Werkzeuge
 
-Zum Erstellen und Bearbeiten von AsciiDoc-Dateien wird ein Texteditor benötigt.
-Für die Dokumentation der IsyFact wird VS Code als Editor empfohlen.
+Als Arbeitsumgebung müssen Git, Git LFS und Maven installiert sein.
+Für die Generierung mit Antora müssen Node.js und Antora installiert werden, siehe xref:dokumentation/generierung/generierung-antora.adoc#antora-werkzeuge[Installation Antora Werkzeuge].
+
+Zum Erstellen und Bearbeiten von AsciiDoc-Dateien wird ein Texteditor benötigt, empfohlen wird VS Code (Visual Studio Code), sofern nicht der Editor der Entwicklungsumgebung verwendet wird.
 VS Code ist ein Texteditor, der von Microsoft entwickelt wird und plattformübergreifend für die Betriebssysteme Windows, macOS und Linux verfügbar ist.
 Neben den ausgereiften Plugins für die Bearbeitung von AsciiDoc-Dokumenten unterstützt VS Code Git-basierte Projekte mit vielfältigen Funktionen.
 

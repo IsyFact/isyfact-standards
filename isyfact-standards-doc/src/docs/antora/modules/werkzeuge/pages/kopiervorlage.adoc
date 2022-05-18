@@ -18,7 +18,7 @@ Der folgende Quelltext dient als Kopiervorlage für neue Seiten.
 
 Der Quelltext einer Seite bricht gemäß der Regel _one sentence per line_ nach jedem Satz um.
 
-Mehr zu xref:werkzeuge:handbuch_dokumentation/master.adoc#ein-satz-pro-zeile[Zeilenumbrüchen im Handbuch der Dokumentation].
+Mehr zu xref:werkzeuge:dokumentation/master.adoc#ein-satz-pro-zeile[Zeilenumbrüchen im Handbuch der Dokumentation].
 
 [[formatierung-verweise]]
 === Verweise
@@ -48,7 +48,7 @@ Verweise auf das xref:glossary:glossary:master.adoc[Glossar] dürfen nur bei der
 Alle weitere Vorkommen eines Begriffs werden aus Gründen des Leseflusses nicht mit einem Verweis hinterlegt.
 Es folgt ein Beispiel für den Eintrag der xref:glossary:glossary:master.adoc#glossar-IsyFact[IsyFact] im Glossar.
 
-Mehr zu xref:werkzeuge:handbuch_dokumentation/master.adoc#querverweise[Verweisen im Handbuch der Dokumentation]. +
+Mehr zu xref:werkzeuge:dokumentation/master.adoc#querverweise[Verweisen im Handbuch der Dokumentation]. +
 {empty} +
 
 [[formatierung-abbildungen]]
@@ -58,7 +58,7 @@ Mehr zu xref:werkzeuge:handbuch_dokumentation/master.adoc#querverweise[Verweisen
 .Beispiel einer Abbildung
 image::einstieg:sf-saeulen.dn.svg[]
 
-Mehr zu xref:werkzeuge:handbuch_dokumentation/master.adoc#bilder[Abbildungen im Handbuch der Dokumentation].
+Mehr zu xref:werkzeuge:dokumentation/master.adoc#bilder[Abbildungen im Handbuch der Dokumentation].
 
 [[formatierung-tabellen]]
 === Tabellen
@@ -74,7 +74,7 @@ Mehr zu xref:werkzeuge:handbuch_dokumentation/master.adoc#bilder[Abbildungen im 
 |Zelle 31|Zelle 32|Zelle 33|Zelle 34
 |===
 
-Mehr zu xref:werkzeuge:handbuch_dokumentation/master.adoc#tabellen[Tabellen im Handbuch der Dokumentation].
+Mehr zu xref:werkzeuge:dokumentation/master.adoc#tabellen[Tabellen im Handbuch der Dokumentation].
 
 [[formatierung-listings]]
 === Listings
@@ -90,7 +90,7 @@ public class HalloWelt {
 }
 ----
 
-Mehr zu xref:werkzeuge:handbuch_dokumentation/master.adoc#listings[Listings im Handbuch der Dokumentation].
+Mehr zu xref:werkzeuge:dokumentation/master.adoc#listings[Listings im Handbuch der Dokumentation].
 
 [[formatierung-admonitions]]
 === Admonition Blocks
@@ -157,7 +157,7 @@ Regeln zur Gestaltung von grafischen Oberflächen.
 
 // end::styleguide[]
 
-Mehr zu xref:werkzeuge:handbuch_dokumentation/master.adoc#admonition-blocks[Admonition Blocks im Handbuch der Dokumentation].
+Mehr zu xref:werkzeuge:dokumentation/master.adoc#admonition-blocks[Admonition Blocks im Handbuch der Dokumentation].
 
 // end::template[]
 ....

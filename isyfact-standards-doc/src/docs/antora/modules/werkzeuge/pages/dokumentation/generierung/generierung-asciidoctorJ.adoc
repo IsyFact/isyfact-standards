@@ -3,7 +3,7 @@
 [[asccidoc-zu-pdf-html]]
 == PDF- und HTML-Dokumente erzeugen
 
-Ist das zu bearbeitende Dokument fertiggestellt, so kann es nun vollständig gerendert und in eine PDF- und HTML-Datei exportiert werden.
+Ist das zu bearbeitende Dokument fertiggestellt, so kann daraus eine PDF- und HTML-Datei generiert werden.
 Dies geschieht mithilfe des Asciidoctor Maven Plugins und der `isy-asciidoctorj-extensions`.
 `isy-asciidoctorj-extensions` ist eine Sammlung von verschiedenen xref:glossary:literaturextern:inhalt.adoc#litextern-asciidoctorj-extensions[AsciidoctorJ Extensions], welche die Wartung der IsyFact-Dokumentation erleichtern.
 Eine Liste aller IsyFact Extensions befindet sich im Abschnitt <<isy-asciidoctorj-extensions>>.
@@ -33,8 +33,8 @@ Folgendes Listing zeigt die Konfiguration für einen lauffähigen Asciidoctor Bu
 
 *Integration Asciidoctor Maven Plugin*
 
+[[listing-pom-asciidoc]]
 .Integration der `isy-asciidoctorj-extensions` in das Asciidoctor Maven Plugin
-[id="listing-pom-asciidoc",reftext="{listing-caption} {counter:listings }"]
 [source,xml,subs="attributes+"]
 ----
     <build>
@@ -111,10 +111,10 @@ Folgendes Listing zeigt die Konfiguration für einen lauffähigen Asciidoctor Bu
 [[dokument-pom-aufnehmen]]
 === Integration in den Build-Prozess
 
-Jedes Dokument, das während des Build-Prozesses gerendert werden soll, muss dafür in die `pom.xml` aufgenommen werden.
+Jedes Dokument, das während des Build-Prozesses generiert werden soll, muss dafür in die `pom.xml` aufgenommen werden.
 
-Innerhalb von `<executions></executions>` werden die zu rendernden Dokumente definiert.
-Für jedes zu rendernde Dokumente müssen zwei `<execution>`-Elemente vorhanden sein.
+Innerhalb von `<executions></executions>` werden die zu generierenden Dokumente definiert.
+Für jedes zu generierende Dokument müssen zwei `<execution>`-Elemente vorhanden sein.
 Das erste `<execution>`-Element definiert die Erzeugung der HTML-Datei.
 Das zweite `<execution>`-Element definiert die Erzeugung der PDF-Datei.
 
@@ -122,8 +122,8 @@ Das zweite `<execution>`-Element definiert die Erzeugung der PDF-Datei.
 
 Folgende Parameter müssen angepasst werden:
 
+[[table-pom_parameter]]
 .Anzupassende Parameter
-[id="table-pom_parameter",reftext="{table-caption} {counter:tables}"]
 [options="header"]
 |====
 |Parameter|Beschreibung|Beispiel
@@ -134,18 +134,18 @@ Folgende Parameter müssen angepasst werden:
 
 Anschließend kann der Build-Vorgang ausgeführt und die PDF- und HTML Dokumente erzeugt werden.
 
-[[dokument-rendern]]
-=== Gerendertes Dokument erstellen
+[[dokument-generieren]]
+=== Dokument erstellen
 
 Um den Build-Vorgang zu starten, wird in der Konsole in das Verzeichnis gewechselt, in dem auch die bearbeitete `pom.xml` liegt.
 Anschließend wird mit dem Befehl `mvn install` der Build-Vorgang gestartet.
-Aufgrund der Vielzahl der zu rendernden Dokumente und auszuführenden Skripte kann der Build-Vorgang einige Zeit in Anspruch nehmen.
+Aufgrund der Vielzahl der zu generierenden Dokumente und auszuführenden Skripte kann der Build-Vorgang einige Zeit in Anspruch nehmen.
 Für Test-Zwecke können in der `pom.xml` nicht relevante Dokumente übersprungen werden, indem die zugehörigen Ausführungsdefinitionen (`<execution></execution>`) auskommentiert werden.
 
 ==== Fehlerszenarien beim Generieren
 
+[[table-table-asciidoc-fehler]]
 .Fehlerszenarien, Ursachen und Lösungen bei der Generierung
-[id="table-table-asciidoc-fehler",reftext="{table-caption} {counter:tables}"]
 [options="header"]
 [cols="3,8a",options="header"]
 |====

@@ -62,8 +62,8 @@ Sie sind daher leicht verständlich, lokal begrenzt und daher in den meisten Fä
 Bei einem IsyFact-Dokument ist hingegen stets die Variante zu wählen, bei der die Anzahl der vorgesetzten Gleichheitszeichen die Ebene der Überschrift anzeigt.
 Das folgende Beispiel definiert ein Kapitel und ein Unterkapitel.
 
+[[listing-ueberschriften]]
 .Syntax von Überschriften
-[id="listing-ueberschriften",reftext="{listing-caption} {counter:listings }"]
 [source,asciidoc]
 ----
 == Hallo Welt Kapitel
@@ -77,8 +77,8 @@ Für ein IsyFact-Dokument sind diese Überschriften aber noch nicht vollkommen, 
 Der Inline-Anchor wird über eckige Klammern gesetzt.
 Ferner muss die ID des Anchors durchgängig mit kleinen Buchstaben geschrieben werden und darf keine Leer- oder Sonderzeichen enthalten.
 
+[[listing-ueberschriften-final]]
 .Überschriften mit Inline Anchors
-[id="listing-ueberschriften-final",reftext="{listing-caption} {counter:listings }"]
 [source,asciidoc]
 ----
 [[beispiel-kapitel]]
@@ -92,8 +92,8 @@ Das ist ein Beispieltext zum Unterkapitel.
 
 Einen Querverweis auf eine Überschrift setzt man über zwei Paare spitzer Klammern.
 
+[[listing-querverweis]]
 .Querverweis auf eine Überschrift
-[id="listing-querverweis",reftext="{listing-caption} {counter:listings }"]
 [source,asciidoc]
 ----
 Zum <<ueberschriften, Beispiel-Kapitel>> gelangen Sie über einen Mausklick.
@@ -117,8 +117,8 @@ Die IsyFact-Dokumentation erweitert diese Liste um weitere Blöcke für verbindl
 Es gibt zwei Möglichkeiten zur Definition von Admonition Blocks.
 Die syntaktisch ausführlichere Variante funktioniert sowohl mit den vordefinierten, als auch mit den selbst definierten Blöcken.
 
+[[listing-admonition-block]]
 .Definition eines Admonition Blocks (als Block)
-[id="listing-admonition-block",reftext="{listing-caption} {counter:listings }"]
 [source,asciidoc]
 ----
 [BLOCKTYP]
@@ -129,8 +129,8 @@ Hier steht der Text.
 
 Die syntaktisch schlankere Variante funktioniert nur mit den vordefinierten Blöcken (NOTE, TIP, IMPORTANT, WARNING und CAUTION).
 
+[[listing-admonition-inline]]
 .Definition eines Admonition Blocks (inline)
-[id="listing-admonition-inline",reftext="{listing-caption} {counter:listings }"]
 [source,asciidoc]
 ----
 BLOCKTYP: Hier steht der Text.
@@ -213,8 +213,8 @@ WARNING: Die Leerzeile zwischen dem Block und dem Ende des Tags ist wichtig, dam
 Zur Bündelung von Inhalten wird das entsprechende Dokument eingebettet.
 Über den Parameter `tags` werden nur die Inhalte eingefügt, die von den entsprechenden Tags umgeben sind.
 
+[[listing-include-tags]]
 .Bündelung von Inhalten anhand von Tags
-[id="listing-include-tags",reftext="{listing-caption} {counter:listings }"]
 [source,asciidoc]
 ----
 \include::pfad_zum_dokument.adoc[tags=beispiel;...]
@@ -226,8 +226,8 @@ Zur Bündelung von Inhalten wird das entsprechende Dokument eingebettet.
 
 Das Einbinden von Abbildungen gelingt in AsciiDoc über die folgende Syntax:
 
+[[listing-bild-einfuegen]]
 .Abbildung einfügen (AsciiDoc)
-[id="listing-bild-einfuegen",reftext="{listing-caption} {counter:listings }"]
 [source,asciidoc]
 ----
 image::beispiel.png
@@ -241,8 +241,8 @@ In einem IsyFact-Dokument muss eine Abbildung zusätzlich:
 
 Deswegen werden Abbildungen in IsyFact-Dokumenten wie folgt definiert:
 
+[[listing-bild-einfuegen2]]
 .Abbildung einfügen (IsyFact)
-[id="listing-bild-einfuegen2",reftext="{listing-caption} {counter:listings }"]
 [source,asciidoc,subs="attributes+"]
 ----
 :desc-image-beispiel: Beispiel
@@ -269,8 +269,8 @@ Abbildungen können wie üblich über einen Querverweis referenziert werden:
 
 Wenn die Abbildung zentriert werden soll, fügt man das Attribut `[align="center"]` hinzu.
 
+[[listing-bild-einfuegen3]]
 .Abbildung zentriert einfügen
-[id="listing-bild-einfuegen3",reftext="{listing-caption} {counter:listings }"]
 [source,asciidoc,subs="attributes+"]
 ----
 :desc-image-beispiel: Beispiel
@@ -284,8 +284,8 @@ Im folgenden Beispiel wird die Abbildung auf 80% skaliert.
 Die doppelte Angabe der Breite ist leider nötig, damit die Abbildung in allen Ausgabeformaten richtig skaliert wird.
 HTML-Dokumente benötigen die Angabe von `scaledwidth`, PDF-Dokumente wiederum `pdfwidth`.
 
+[[listing-bild-einfuegen4]]
 .Abbildung zentriert und skaliert einfügen
-[id="listing-bild-einfuegen4",reftext="{listing-caption} {counter:listings }"]
 [source,asciidoc,subs="attributes+"]
 ----
 :desc-image-beispiel: Beispiel
@@ -300,8 +300,8 @@ image::beispiel.png[align="center",pdfwidth=80%,scaledwidth=80%]
 
 In AsciiDoc wird eine Tabelle über folgende Syntax definiert:
 
+[[listing-tabelle1]]
 .Tabelle einfügen
-[id="listing-tabelle1",reftext="{listing-caption} {counter:listings }"]
 [source,asciidoc]
 ----
 |====
@@ -327,8 +327,8 @@ In einem IsyFact-Dokument muss eine Tabelle aber auch:
 
 Hierfür soll folgende Syntax verwendet werden:
 
+[[listing-tabelle2]]
 .Tabelle einfügen in IsyFact
-[id="listing-tabelle2",reftext="{listing-caption} {counter:listings }"]
 [source,asciidoc,subs="attributes+"]
 ----
 :desc-table-beispiel: Beispiel-Tabelle
@@ -345,8 +345,8 @@ Hierfür soll folgende Syntax verwendet werden:
 
 Das Ergebnis sieht dann so aus:
 
+[[table-beispiel]]
 .Beispiel-Tabelle
-[id="table-beispiel",reftext="{table-caption} {counter:tables}"]
 [options="header"]
 |====
 |Spalte 1|Spalte 2|Spalte 3|Spalte 4
@@ -365,8 +365,8 @@ Die Tabelle kann im AsciiDoc-Text über ihre ID referenziert werden:
 
 Quelltexte können bei AsciiDoc auf folgende Weise mit Syntaxhighlighting angezeigt werden.
 
+[[listing-quelltext1]]
 .Quelltext einfügen
-[id="listing-quelltext1",reftext="{listing-caption} {counter:listings }"]
 [source,asciidoc,indent=0]
 ----
  [source,java]
@@ -392,8 +392,8 @@ public class HalloWelt {
 
 Auch hier wird noch eine Listing-Überschrift und eine ID benötigt:
 
+[[listing-quelltext2]]
 .Quelltext einfügen in IsyFact
-[id="listing-quelltext2",reftext="{listing-caption} {counter:listings }"]
 [source,asciidoc,subs="attributes+",indent=0]
 ----
  :desc-listing-hallowelt: HalloWelt.java

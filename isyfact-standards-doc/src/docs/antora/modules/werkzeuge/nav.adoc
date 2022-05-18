@@ -1,10 +1,9 @@
 * Werkzeuge
-** xref:einrichtung_entwicklungsumgebung/master.adoc[Entwicklungsumgebung]
+** xref:entwicklungsumgebung/master.adoc[Entwicklungsumgebung]
 ** xref:versionierungskontrolle/master.adoc[Versionierungskontrolle]
-** xref:handbuch_dokumentation/einleitung/einleitung.adoc[Dokumentation der IsyFact]
-*** xref:handbuch_dokumentation/installationen/arbeitsumgebung.adoc[Arbeitsumgebung Dokumentation]
-*** xref:handbuch_dokumentation/master-antora.adoc[Projektseite mit Antora (empfohlen)]
+** xref:dokumentation/einleitung/einleitung.adoc[Dokumentation gemäß IsyFact]
+*** xref:dokumentation/master-antora.adoc[Projektseite mit Antora (empfohlen)]
 **** xref:werkzeuge:seitenvorlage.adoc[]
 **** xref:werkzeuge:kopiervorlage.adoc[]
-*** xref:handbuch_dokumentation/master-asciidoctorJ.adoc[Dokumente mit AsciidoctorJ Extensions]
+*** xref:dokumentation/master-asciidoctorJ.adoc[Dokumente mit AsciidoctorJ Extensions]
 

@@ -4,7 +4,7 @@
 == Dokumentationsseite anlegen
 
 Soll eine neue Dokumentation angelegt werden oder die bestehende Dokumentation um eine Seite erweitert werden, so muss zunächst der geeignete Ort zur Ablage bestimmt werden.
-I.d.R. ist dies das Repository, in dem sich der zu dokumentierende Baustein befindet, da die Dokumentation nah beim Code abgelegt werden soll, oder der Baustein liegt im Repository isyfact-standards im Submodul isyfact-standards-doc, siehe auch xref:handbuch_dokumentation/architektur/architektur-antora.adoc#aufbau-dokumentation[Architektur der Dokumentation].
+I.d.R. ist dies das Repository, in dem sich der zu dokumentierende Baustein befindet, da die Dokumentation nah beim Code abgelegt werden soll, oder der Baustein liegt im <<verzeichnisstruktur-baustein, Repository isyfact-standards im Submodul isyfact-standards-doc>>.
 
 [[repository-klonen]]
 === Klonen Repository

@@ -3,7 +3,7 @@
 [[ein-neues-dokument-anlegen]]
 == Ein neues Dokument anlegen
 
-In diesem Kapitel wird jeweils für die <<zentrale-dokumentation>>, als auch für die <<baustein-dokumentation>> gezeigt, wie die erforderliche Verzeichnisstruktur aussieht und wie ein neues Dokument dort einsortiert wird.
+In diesem Kapitel wird jeweils für die xref:dokumentation/einleitung/einleitung.adoc#zentrale-dokumentation[Zentrale Dokumentation], als auch für die  xref:dokumentation/einleitung/einleitung.adoc#baustein-dokumentation[Bausteindokumentation] gezeigt, wie die erforderliche Verzeichnisstruktur aussieht und wie ein neues Dokument dort einsortiert wird.
 
 [[neues-verzeichnis-zentrale-dokumentation-anlegen]]
 === Zentrale Dokumentation: Ein neues Verzeichnis anlegen
@@ -77,30 +77,6 @@ Eine vollständige Vorschau des IsyFact-Dokuments wird angezeigt, wenn die Datei
 <7> Bilder und Grafiken, die im neu zu erstellenden Dokument verwendet werden sollen.
 
 
-[[vsc-einsetzen]]
-=== VS Code einsetzen
-
-Für die Bearbeitung der Dokumente öffnen Sie VS Code über das Startmenü.
-Innerhalb von VS Code öffnen Sie im Hauptmenü unter menu:File[Open Folder] das neu erstellte oder ein bestehendes Verzeichnis.
-Hierdurch öffnen Sie den Ordner Ihres IsyFact-Dokuments als VS Code Projekt.
-
-.Den Ordner des IsyFact-Dokuments öffnen
-[id="image-vs_code_projekt_oeffnen",reftext="{figure-caption} {counter:figures}"]
-image::handbuch/vs_code_projekt_oeffnen.png[align="center"]
-
-Auf der linken Seite erscheint die Projektansicht mit dem Verzeichnis Ihres IsyFact-Dokuments.
-
-Sie können sich nun bereits das Dokument in der Vorschau ansehen.
-Hierfür öffnen Sie zunächst die zentrale Datei `master.adoc`.
-Dann drücken Sie entweder kbd:[Strg + K] und anschließend kbd:[V] oder Sie klicken in der oberen rechten Ecke des Editors auf das Symbol mit der blauen Lupe.
-Dabei sollte auf der rechten Seite die Vorschau erscheinen.
-
-Die Vorschau dient lediglich einer groben Orientierung, da weder die Isyfact-Stylesheets für die Dokumente genutzt werden, noch die Skripte zur Erzeugung von Glossar, Inhaltsverzeichnis und Verlinkungen ausgeführt werden.
-Ein vollständige gerenderte Ansicht wird erst durch den Maven-Build Vorgang erzeugt.
-Dies ist später in diesem Dokument unter xref::handbuch_dokumentation/inhalt.adoc#asccidoc-zu-pdf-html[PDF- und HTML-Dokumente erzeugen] erläutert.
-
-Im Folgenden wird mit dem Bearbeiten der Dokumentbestandteile fortgefahren.
-
 [[dateien-bearbeiten]]
 === Dateien bearbeiten
 
@@ -124,8 +100,8 @@ Sie sind in <<table-master-attributes>> näher beschrieben.
 
 Weitere Erläuterungen zum Colophon Block finden sich im Abschnitt <<colophon-block>>.
 
+[[listing-master]]
 .master.adoc
-[id="listing-master",reftext="{listing-caption} {counter:listings }"]
 [source,asciidoc,indent=0]
 ----
  :doctitle: Super tolles Feature
@@ -148,8 +124,8 @@ Ansonsten werden diese Attribute über das Maven-Plugin bereitgestellt (siehe <<
 
 <<table-master-attributes>> zeigt alle Attribute, die in der `master.adoc` Datei angepasst werden können.
 
+[[table-master-attributes]]
 .Attribute der master.adoc
-[id="table-master-attributes",reftext="{table-caption} {counter:tables}"]
 [cols="1,1,1,3,1",options="header"]
 |===
 |Attribut|Optional|Default|Beschreibung|Werte
@@ -194,8 +170,8 @@ getaggt ist.
 Bezieht sich das zu erstellende Dokument auf einen Baustein (Bibliothek) der IsyFact, so ist dieser Baustein inklusive der Version in einer eigenen Datei docinfo.adoc anzugeben und in master.adoc zu inkludieren.
 In <<listing-master-bib>> wird beispielsweise auf den Baustein `isy-web` verwiesen.
 
+[[listing-master-bib]]
 .docinfo.adoc - Angabe des zugehörigen Bausteins
-[id="listing-master-bib",reftext="{listing-caption} {counter:listings }"]
 [source,asciidoc,indent=0]
 ----
 // Einbindung Bibliotheken, wenn nicht genutzt, entfernen
@@ -214,13 +190,13 @@ In der Vorschau sollten die Änderungen unmittelbar erscheinen. Ihre Änderungen
 ==== thisdoc.adoc bearbeiten
 
 Die Datei `thisdoc.adoc` ist optional auszufüllen und sollte eine Einleitung in das Dokument bieten und den Aufbau und Zweck des Dokuments erläutern.
-Diese Datei ist in der `master.adoc` integriert und wird beim Rendern in das Gesamtdokument eingefügt.
+Diese Datei ist in der `master.adoc` integriert und wird beim Generieren in das vollständige Dokument eingefügt.
 
 [[inhalt.adoc-bearbeiten]]
 ==== inhalt.adoc bearbeiten
 
 In `inhalt.adoc` wird der eigentliche Inhalt des Dokuments verfasst.
-Diese Datei wird in der `master.adoc` beim Rendern nach der Datei `thisdoc.adoc` geladen.
+Diese Datei wird in der `master.adoc` nach der Datei `thisdoc.adoc` inkludiert.
 
 Im Folgenden wird die Inhaltserstellung erläutert.
 

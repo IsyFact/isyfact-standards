@@ -74,7 +74,7 @@ Das ist ein Text zum Seitentitel.
 [[querverweise]]
 === Querverweise
 
-Antora bietet die Möglichkeit, innerhalb einer Gesamtdokumentation beliebige Querverweise zu setzen, auch über xref:handbuch_dokumentation/erstellung/erstellung-antora.adoc#antora-modul[Antora-Modul] - und xref:handbuch_dokumentation/erstellung/erstellung-antora.adoc#antora-komponente[Antora-Komponenten] - Grenzen hinweg.
+Antora bietet die Möglichkeit, innerhalb einer Gesamtdokumentation beliebige Querverweise zu setzen, auch über xref:dokumentation/erstellung/erstellung-antora.adoc#antora-modul[Antora-Modul] - und xref:dokumentation/erstellung/erstellung-antora.adoc#antora-komponente[Antora-Komponenten] - Grenzen hinweg.
 Davon sollte jedoch mit Bedacht Gebrauch gemacht werden, denn sehr starke Verlinkungen der Seiten untereinander bewirken auch eine starke Abhängigkeit.
 Jegliche Umbenennungen oder Löschungen von Sprungzielen, dazu gehören auch Seitendatei-, Modul- und Komponentennamen, machen die Querverweise darauf ungültig.
 Allerdings weist Antora bei der Generierung der Dokumentation im Log auf nicht auflösbare Querverweise hin.
@@ -131,7 +131,7 @@ Verweise können auch auf andere Sprungziele zeigen als Überschriften, wie Abbi
 [[verweise-gesamtdoku]]
 ==== Verweise innerhalb der Antora-Dokumentation
 
-In diesem Abschnitt werden Verweise auf Inline-Anchor beschrieben, die nicht innerhalb derselben Seite in derselben Datei liegen, sondern in anderen Seiten oder anderen xref:handbuch_dokumentation/erstellung/erstellung-antora.adoc#antora-modul[Antora-Modulen] oder xref:handbuch_dokumentation/erstellung/erstellung-antora.adoc#antora-komponente[Antora-Komponenten].
+In diesem Abschnitt werden Verweise auf Inline-Anchor beschrieben, die nicht innerhalb derselben Seite in derselben Datei liegen, sondern in anderen Seiten oder anderen xref:dokumentation/erstellung/erstellung-antora.adoc#antora-modul[Antora-Modulen] oder xref:dokumentation/erstellung/erstellung-antora.adoc#antora-komponente[Antora-Komponenten].
 Diese Verweise nutzen die Syntax des Xref-Makros von Antora.
 
 Ein xref-Verweis ist bei Antora immer gleich aufgebaut:
@@ -367,7 +367,12 @@ Beispiele für alle selbstdefinierten Admonitions-Blocks finden sich außerdem i
 === Abbildungen
 
 // tag::important[]
-IMPORTANT: Abbildungen zu einer Seite werden stets im Unterordner `/images` unterhalb des Antora-Moduls abgelegt, in dem sich die Seite befindet, siehe auch xref:handbuch_dokumentation/erstellung/erstellung-antora.adoc#struktur-dokuseite[Struktur Dokumentation].
+IMPORTANT: Abbildungen zu einer Seite werden stets im Unterordner `/images` unterhalb des Antora-Moduls abgelegt, in dem sich die Seite befindet, siehe auch xref:dokumentation/erstellung/erstellung-antora.adoc#struktur-dokuseite[Struktur Dokumentation].
+
+// end::important[]
+
+// tag::important[]
+IMPORTANT: Abbildungen sollten mit diagrams.net als <Name Abbildung>.dn.svg erstellt werden, siehe auch xref:methodik:diagrammerstellung/diagramsnet.adoc#arbeiten-mit-diagrams.net[Arbeiten mit diagrams.net].
 
 // end::important[]
 
@@ -562,7 +567,7 @@ Beispiele für Listings finden sich außerdem in xref:seitenvorlage.adoc#formati
 === Glossar
 
 Die IsyFact Dokumentation beinhaltet auch ein Glossar.
-Es befindet sich im Repository `isy-documentation` in der xref:handbuch_dokumentation/erstellung/erstellung-antora.adoc#antora-komponente[Antora-Komponente] `glossary`.
+Es befindet sich im Repository `isy-documentation` in der xref:dokumentation/erstellung/erstellung-antora.adoc#antora-komponente[Antora-Komponente] `glossary`.
 In der HTML-Dokumentation ist es über die Liste der Antora-Komponenten aufrufbar.
 
 Im Glossar sind alle Einträge mit einem Sprungziel (Anchor) versehen.

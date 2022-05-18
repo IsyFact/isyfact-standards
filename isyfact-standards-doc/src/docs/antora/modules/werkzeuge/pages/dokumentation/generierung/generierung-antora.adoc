@@ -3,7 +3,7 @@
 [[asccidoc-zu-html]]
 == HTML-Dokumente erzeugen
 
-Ist das zu bearbeitende Dokument fertiggestellt, so kann es als HTML-Datei gerendert werden.
+Ist das zu bearbeitende Dokument fertiggestellt, so kann es als HTML-Datei als Teil der Gesamtdokumentation generiert werden.
 Dies geschieht mithilfe von Antora, einem Open-Source-Tool zur Generierung von HTML-Dokumentation aus Asciidoc-Dateien.
 Die Asciidoc-Dateien dürfen in verschiedenen Repositories liegen.
 
@@ -17,6 +17,7 @@ Für interne Nutzer ist deshalb die auf dieser Seite beschriebene Anleitung eine
 Für externe Nutzer werden auf dieser Seite die zur Generierung notwendigen Schritte kurz vorgestellt, allerdings auch auf die externe Literatur verwiesen.
 Ein paar Besonderheiten bei der Generierung der IsyFact-Gesamtdokumentation werden dennoch vorgestellt.
 
+[[antora-werkzeuge]]
 === Installation der benötigten Werkzeuge
 
 Node.js und Antora müssen auf dem lokalen Rechner installiert werden.
