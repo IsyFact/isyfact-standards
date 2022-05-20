@@ -29,6 +29,7 @@ import java.util.stream.Stream;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.Banner;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
@@ -283,6 +284,7 @@ public class BatchLauncher {
                 rahmen = new SpringApplicationBuilder().sources(configs.toArray(new Class[0]))
                 .bannerMode(Banner.Mode.OFF)
                 .properties("isy.batchrahmen.batch-context=true")
+                .web(WebApplicationType.NONE)
                 .registerShutdownHook(true)
                 .profiles(rahmenKonfiguration.getSpringProfiles())
                 .initializers(applicationContext -> {
