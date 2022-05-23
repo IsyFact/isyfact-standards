@@ -1,5 +1,7 @@
 :doctitle: Changelog IsyFact Dokumentation
 
+include::isyfact-standards-doku:methodik:spezifikation/changelog.adoc[tag=release-2.5.0]
+
 == Änderungen IsyFact 2.4.0
 
 // Beginn übergreifende Änderungen
