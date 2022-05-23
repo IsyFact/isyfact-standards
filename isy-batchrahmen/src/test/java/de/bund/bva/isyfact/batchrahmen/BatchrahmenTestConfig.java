@@ -15,6 +15,7 @@ import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
 public class BatchrahmenTestConfig {
@@ -25,9 +26,9 @@ public class BatchrahmenTestConfig {
     }
 
     @Bean
-    public Batchrahmen batchrahmen(JpaTransactionManager jpaTransactionManager, AufrufKontextVerwalter aufrufKontextVerwalter, AufrufKontextFactory aufrufKontextFactory) {
+    public Batchrahmen batchrahmen(PlatformTransactionManager platformTransactionManager, AufrufKontextVerwalter aufrufKontextVerwalter, AufrufKontextFactory aufrufKontextFactory) {
         BatchrahmenImpl batchrahmen = new BatchrahmenImpl();
-        batchrahmen.setTransactionManager(jpaTransactionManager);
+        batchrahmen.setTransactionManager(platformTransactionManager);
         batchrahmen.setAufrufKontextFactory(aufrufKontextFactory);
         batchrahmen.setAufrufKontextVerwalter(aufrufKontextVerwalter);
         batchrahmen.setJmxBean(batchRahmenMBean());

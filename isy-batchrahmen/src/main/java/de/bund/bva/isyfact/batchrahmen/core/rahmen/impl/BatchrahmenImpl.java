@@ -19,6 +19,7 @@ package de.bund.bva.isyfact.batchrahmen.core.rahmen.impl;
 import java.util.Date;
 import java.util.UUID;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import de.bund.bva.isyfact.batchrahmen.batch.exception.BatchAusfuehrungsException;
 import de.bund.bva.isyfact.batchrahmen.batch.konfiguration.BatchKonfiguration;
@@ -49,8 +50,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.orm.jpa.EntityManagerFactoryUtils;
-import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
@@ -68,8 +68,11 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
     /** Logger. */
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(BatchrahmenImpl.class);
 
+    @PersistenceContext
+    private EntityManager entityManager;
+
     /** Reference to TransaktionsManager. */
-    private JpaTransactionManager transactionManager;
+    private PlatformTransactionManager transactionManager;
 
     /** The capsule around the BatchStatus table. */
     private StatusHandler statusHandler;
@@ -189,9 +192,9 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
                 if ((verarbInfo.getClearIntervall() > 0)
                     && (verarbInfo.getSatzNummer() % verarbInfo.getClearIntervall() == 0)) {
                     // Get the latest EntityManager
-                    EntityManager entityManager =
-                        EntityManagerFactoryUtils.getTransactionalEntityManager(this.transactionManager
-                            .getEntityManagerFactory());
+//                    EntityManager entityManager =
+//                        EntityManagerFactoryUtils.getTransactionalEntityManager(this.transactionManager
+//                            .getEntityManagerFactory());
                     // Clear Session-Cache
                     entityManager.flush();
                     entityManager.clear();
@@ -460,7 +463,7 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
      * @param transactionManager
      *            the transaction manager.
      */
-    public void setTransactionManager(JpaTransactionManager transactionManager) {
+    public void setTransactionManager(PlatformTransactionManager transactionManager) {
         this.transactionManager = transactionManager;
     }
 
@@ -486,7 +489,7 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
      * {@inheritDoc}
      */
     public void afterPropertiesSet() throws Exception {
-        this.statusHandler = new StatusHandler(this.transactionManager.getEntityManagerFactory());
+        this.statusHandler = new StatusHandler(entityManager.getEntityManagerFactory());
     }
 
     /**
