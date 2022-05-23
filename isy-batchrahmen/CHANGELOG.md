@@ -3,6 +3,7 @@
 - `IFS-1356`: Manuelles Herunterfahren in isy-batchrahmen ausgebaut, stattdessen hochpropagieren der BatchAusfuehrungsException, wenn ClassNotFoundException abgefangen wird.
 - `IFS-1091`: Fehlerhafte ExcludeFromBatchContext-Annotation behoben
 - `IFS-1355`: WebApplication.None für ConfigurableApplicationContext im BatchLauncher hinzugefügt
+- `IFS-1170`: JpaTransactionManager aus BatchrahmenImpl ausgebaut; PlatformTransactionManager wird anstelle des JpaTransactionManagers verwendet
 
 # 2.4.0
 - `IFS-801`: SpotBugs Fehler behoben
