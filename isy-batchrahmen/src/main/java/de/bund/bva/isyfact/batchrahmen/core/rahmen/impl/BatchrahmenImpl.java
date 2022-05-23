@@ -191,11 +191,6 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
                 }
                 if ((verarbInfo.getClearIntervall() > 0)
                     && (verarbInfo.getSatzNummer() % verarbInfo.getClearIntervall() == 0)) {
-                    // Get the latest EntityManager
-//                    EntityManager entityManager =
-//                        EntityManagerFactoryUtils.getTransactionalEntityManager(this.transactionManager
-//                            .getEntityManagerFactory());
-                    // Clear Session-Cache
                     entityManager.flush();
                     entityManager.clear();
                 }
