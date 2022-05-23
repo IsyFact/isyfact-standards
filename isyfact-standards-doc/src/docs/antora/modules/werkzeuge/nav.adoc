@@ -1,9 +1,8 @@
 * Werkzeuge
-** xref:entwicklungsumgebung/master.adoc[Entwicklungsumgebung]
-** xref:versionierungskontrolle/master.adoc[Versionierungskontrolle]
 ** xref:dokumentation/einleitung/einleitung.adoc[Dokumentation gemäß IsyFact]
 *** xref:dokumentation/master-antora.adoc[Projektseite mit Antora (empfohlen)]
 **** xref:werkzeuge:seitenvorlage.adoc[]
 **** xref:werkzeuge:kopiervorlage.adoc[]
 *** xref:dokumentation/master-asciidoctorJ.adoc[Dokumente mit AsciidoctorJ Extensions]
-
+** xref:entwicklungsumgebung/master.adoc[Entwicklungsumgebung]
+** xref:versionierungskontrolle/master.adoc[Versionierungskontrolle]
