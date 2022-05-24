@@ -10,6 +10,5 @@ Eine Anwendungslandschaft besteht aus mehreren Anwendungssystemen, die Daten unt
 
 == Download Anleitung Datenflussdiagramme
 
-An dieser Stelle kann das Dokument _Anleitung zu Datenflussdiagrammen_ heruntergeladen werden.
+An dieser Stelle kann das Dokument xref:methodik:attachment$spezifikation/Anleitung_zu_Datenflussdiagrammen.dotx[Anleitung zu Datenflussdiagrammen - Download icon:file-word-o[]] heruntergeladen werden.
 
-xref:methodik:attachment$spezifikation/Anleitung_zu_Datenflussdiagrammen.dotx[Anleitung zu Datenflussdiagrammen - Download icon:file-word-o[]]

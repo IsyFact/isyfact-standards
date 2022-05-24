@@ -10,6 +10,5 @@ Die Dokumentvorlage Systemspezifikation enthält die Gliederung für eine V-Mode
 [[download-spezifikation]]
 == Download Vorlage Systemspezifikation
 
-An dieser Stelle kann das Dokument _Vorlage Systemspezifikation_ heruntergeladen werden.
+An dieser Stelle kann das Dokument xref:methodik:attachment$spezifikation/IsyFact-Vorlage_Systemspezifikation.dotx[Vorlage Systemspezifikation - Download icon:file-word-o[]] heruntergeladen werden.
 
-xref:methodik:attachment$spezifikation/IsyFact-Vorlage_Systemspezifikation.dotx[Vorlage Systemspezifikation - Download icon:file-word-o[]]

@@ -10,6 +10,5 @@ Die Anforderungsliste ist ein Instrument, um die Übersicht und die Nachvollzieh
 [[download-spezifikation]]
 == Download Vorlage Anforderungsliste
 
-An dieser Stelle kann das Dokument _Vorlage Anforderungsliste_ heruntergeladen werden.
+An dieser Stelle kann das Dokument xref:methodik:attachment$spezifikation/IsyFact-Vorlage-Anforderungsliste.xlsx[Vorlage Anforderungsliste - Download icon:file-excel-o[]] heruntergeladen werden.
 
-xref:methodik:attachment$spezifikation/IsyFact-Vorlage-Anforderungsliste.xlsx[Vorlage Anforderungsliste - Download icon:file-excel-o[]]
