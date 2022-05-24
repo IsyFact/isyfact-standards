@@ -49,7 +49,7 @@ Die Vorgaben dazu befinden sich mitsamt Vorgehen und Beispielen in der Vorlage f
 Bereits bei der Systemspezifikation ist auf die Einhaltung der xref:methodik:namenskonventionen/master.adoc#einleitung[Namenskonventionen] zu achten.
 Bei der Erstellung von Diagrammen mit dem Enterprise Architect helfen die xref:methodik:diagrammerstellung/enterprise-architect.adoc[Nutzungsvorgaben Enterprise Architect].
 
-Für die Erfassung von Anforderungslisten gibt es ebenfalls eine Vorlage (<<TODO anderes Dokument: IsyFactVorlageAnforderungsliste>>).
+Für die Erfassung von Anforderungslisten gibt es ebenfalls eine xref:methodik:spezifikation/anforderungsliste.adoc[Vorlage Anforderungsliste].
 Die Anforderungsliste ist ein Instrument, um die Übersicht und die Nachvollziehbarkeit des Umsetzungsstatus aller Anforderungen an ein System im gesamten Projektlebenszyklus zu erhalten.
 Weitere Erläuterungen finden sich in der Vorlage.
 

@@ -8,7 +8,7 @@ include::glossary:licence:partial$licence.adoc[]
 Die Dokumentvorlage Systemspezifikation enthält die Gliederung für eine V-Modell-konforme Gesamtsystemspezifikation (Pflichtenheft) eines Softwaresystems (Software-Entwicklungsprojekts) mitsamt Ausfüllhinweisen und Beispielen.
 
 [[download-spezifikation]]
-== Download der Vorlage Systemspezifikation
+== Download Vorlage Systemspezifikation
 
 An dieser Stelle kann das Dokument _Vorlage Systemspezifikation_ heruntergeladen werden.
 
