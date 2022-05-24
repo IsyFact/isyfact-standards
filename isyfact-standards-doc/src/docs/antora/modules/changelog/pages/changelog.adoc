@@ -1,6 +1,8 @@
 :doctitle: Changelog IsyFact Dokumentation
 
+include::isyfact-standards-doku:methodik:produktauswahl/changelog.adoc[tag=release-2.5.0]
 include::isyfact-standards-doku:methodik:spezifikation/changelog.adoc[tag=release-2.5.0]
+
 
 == Änderungen IsyFact 2.4.0
 
