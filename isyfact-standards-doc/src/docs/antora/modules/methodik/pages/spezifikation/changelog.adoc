@@ -4,6 +4,7 @@
 *Änderungen IsyFact 2.5.0*
 
 // tag::release-2.5.0[]
+- `IFS-1520`: Vorlage Systemspezifikation Dokument angefügt.
 - `IFS-1519`: Datenflussdiagramme-Dokument angefügt.
 // end::release-2.5.0[]
 

@@ -54,7 +54,7 @@ m|<verfahren> |Der (Kurz)name des Verfahrens/Anwendungsbereichs.
 === Spezifikation
 
 In diesem Kapitel werden die Namenskonventionen der Spezifikation festgehalten.
-Sie sind vor allem der Systemspezifikationsvorlage <<TODOIsyFactSystemspezifikation>> entnommen.
+Sie sind vor allem der xref:spezifikation/systemspezifikation.adoc[Systemspezifikationsvorlage] entnommen.
 
 [[geschäftsprozess]]
 ==== Geschäftsprozess
