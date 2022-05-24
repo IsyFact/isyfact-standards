@@ -412,4 +412,90 @@ sourceFolder
 |===
 
 
+[[openapi-schnittstellenspezifikationen]]
+== OpenAPI 3.0 Schnittstellenspezifikationen
+
+[[openapi-spezifikationen]]
+=== OpenAPI 3.0 Spezifikation
+
+Eine OpenAPI Spezifikation ist eine standardisierte, sprachunabhängige Schnittstellenbeschreibung für RESTful-APIs, die es sowohl Menschen als auch Computern ermöglicht, die Schnittstellen des Dienstes ohne Zugriff auf Quellcode oder Dokumentation zu entdecken und zu verstehen.
+
+Im folgenden Kapitel werden die verfügbaren und relevanten Möglichkeiten zur Generierung aufgelistet und beschrieben.
+
+[[openapi-spezifikation-gebotene-moeglichkeiten]]
+=== Gebotene Möglichkeiten
+
+[[openapi-spezifikation-moeglichkeit1]]
+==== Möglichkeit 1: Neben dem Quellcode speichern
+Um diese Möglichkeit nutzen zu können, wird der Zugriff über das Artifactory oder GitLab/GitHub benötigt und die Auslieferung muss als ein Teil vom Artefakt erfolgen.
+
+[[openapi-spezifikation-moeglichkeit2]]
+==== Möglichkeit 2: OpenApi 3.0 Repository
+Um diese Möglichkeit nutzen zu können, wird der Zugriff über das Artifactory oder GitLab/GitHub benötigt und die Auslieferung muss als ein Teil von einem separaten OpenAPI-Artefakt erfolgen.
+
+[[openapi-spezifikation-moeglichkeit3]]
+==== Möglichkeit 3: Statisches Hosting
+Um diese Möglichkeit nutzen zu können, wird der Zugriff über eine Webseite benötigt und die Auslieferung muss als verständliche HTML Dateien (erstellt durch den OpenAPI Generator, in den Build Prozess integrierbar) erfolgen.
+
+[[openapi-spezifikation-moeglichkeit3a]]
+==== Möglichkeit 3a: Statisches Hosting mit Antora
+Um diese Möglichkeit nutzen zu können, muss erst eine Integration in den Antora Build erfolgen.
+
+Anschließend, erfolgt die Auslieferung als HTML Dateien (OpenAPI Generator erstellt AsciiDoc oder direkt HTML-Dateien) und die ursprünglichen YAML-Dateien können als Antora-Anhang hinzugefügt werden (einfacher Zugriff für Entwickler).
+
+[[openapi-spezifikation-moeglichkeit3b]]
+==== Möglichkeit 3b: SwaggerHub
+SwaggerHub ist eine integrierte API-Design- und Dokumentationsplattform, die für Teams entwickelt wurde, um Konsistenz und Disziplin im gesamten API-Entwicklungsworkflow zu fördern.
+
+Eine On-Premise Installation ist nur bei der Enterprise Version möglich.
+
+Um diese Möglichkeit nutzen zu können, wird ein Budget und ein Überblick über die finanziellen Kosten benötigt.
+
+:desc-table-swaggerhub-kostenuebersicht: SwaggerHub Kostenübersicht
+[id="table-swaggerhub-kostenuebersicht",reftext="{table-caption} {counter:tables}"]
+.{desc-table-swaggerhub-kostenuebersicht}
+[options="header"]
+[cols="5%,25%,60%"]
+|====
+|#|Version|Kosten/Monat
+|1 | Teams | Für 10 Nutzer €267/Monat
+|2 | Teams | Preis wird auf Anfrage mitgeteilt
+|====
+
+[[openapi-spezifikation-moeglichkeit4]]
+==== Möglichkeit 4: Endpunkt in der Anwendung
+Um diese Möglichkeit nutzen zu können, muss für alle Anwendungen *ein Endpunkt* (z.B. Path: /openapi3) für die OpenAPI-Spezifikation reserviert werden.
+
+Außerdem kann eine YAML oder HTML Datei zur Verfügung stehen.
+
+Die Variante ist besonders nützliche für die Entwickler und den Betrieb.
+
+[[openapi-schnittstellenspezifikation-entscheidung]]
+=== Entscheidung
+Es wurde entschieden, dass innerhalb der Isyfact die Möglichkeit 3a (statisches Hosting mit Antora) verwendet wird.
+Zusätzlich, was aber keine Pflicht darstellt, soll ein Endpunkt in der Anwendung definiert werden.
+
+Genauere Informationen zum Beschluss dieser Entscheidung befinden sich in den nächsten zwei Unterkapiteln.
+
+
+
+[[openapi-schnittstellenspezifikation-entscheidung-ablage]]
+==== Ablage
+Es wurde entschieden, dass der Ablageort der Quellcode im Artifactory sein soll.
+
+Dies wurde so beschlossen, weil:
+
+1. der direkte Zugriff auf die Spezifikation aus dem Codeartefakt möglich ist
+2. ein geringer Synchronisationsaufwand zwischen Quellcode und Spezifikation existiert
+3. Geringe oder gar keine Entstehung von Kosten
+
+[[openapi-schnittstellenspezifikation-entscheidung-veroeffentlichung]]
+==== Veröffentlichung
+Es wurde entschieden, dass für die Veröffentlichung statisches Hosting mit Antora verwendet wird, weil:
+
+1. der Zugriff auf verschiedene Versionen der Spezifikationen einfach ist
+2. die Spezifikationen zum Herunterladen durch technische Benutzer möglich ist
+3. Geringe oder gar keine Entstehung von Kosten
+4. Zugang für nicht-technische Benutzer ist gewährleistet
+
 // end::inhalt[]
