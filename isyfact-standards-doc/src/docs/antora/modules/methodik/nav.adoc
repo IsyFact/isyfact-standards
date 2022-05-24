@@ -1,5 +1,4 @@
 * Methodik
-** xref:tailoring/tailoring.adoc[IsyFact-Tailoring]
 ** xref:namenskonventionen/master.adoc[Namenskonventionen]
 ** xref:versionierung/master.adoc[Versionierung]
 ** xref:java-programmierkonventionen/master.adoc[Java-Programmierkonventionen]
@@ -7,3 +6,4 @@
 *** xref:diagrammerstellung/diagramsnet.adoc[diagrams.net]
 *** xref:diagrammerstellung/enterprise-architect.adoc[Enterprise Architect]
 ** xref:vorlagen.adoc[Vorlagen]
+*** xref:tailoring/tailoring.adoc[Tailoring]

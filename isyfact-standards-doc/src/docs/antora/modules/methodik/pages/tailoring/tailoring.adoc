@@ -14,9 +14,6 @@ Alle im Tailoring-Dokument beschriebenen Sachverhalte beziehen sich auf die xref
 
 == Download des Tailoring-Dokuments
 
-An dieser Stelle kann eine Vorlage für das Tailoring-Dokument heruntergeladen werden.
-
-xref:methodik:attachment$IsyFact-Tailoring.dotx[IsyFact-Tailoring Download icon:file-word-o[]]
-
+An dieser Stelle kann eine Vorlage für das xref:methodik:attachment$IsyFact-Tailoring.dotx[IsyFact-Tailoring-Dokument Download icon:file-word-o[]] heruntergeladen werden.
 
 
