@@ -18,8 +18,19 @@ package de.bund.bva.isyfact.batchrahmen.core.rahmen.impl;
 
 import java.util.Date;
 import java.util.UUID;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Required;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import de.bund.bva.isyfact.batchrahmen.batch.exception.BatchAusfuehrungsException;
 import de.bund.bva.isyfact.batchrahmen.batch.konfiguration.BatchKonfiguration;
@@ -45,22 +56,10 @@ import de.bund.bva.isyfact.logging.util.MdcHelper;
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontextFactory;
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
-import org.springframework.beans.factory.DisposableBean;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Required;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 /**
  * Implementation of the 'Batchrahmen-Funktionalitaet'.
- * <p>
- * T is the type of 'AufrufKontextes' to be used.
- *
- *
+ * @param <T> is the type of 'AufrufKontextes' to be used.
  */
 public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, InitializingBean,
     ApplicationContextAware, DisposableBean {
@@ -68,6 +67,7 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
     /** Logger. */
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(BatchrahmenImpl.class);
 
+    /** Access to the EntityManager. */
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -89,13 +89,13 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
     /** Indicates whether the batch was completed. */
     private volatile boolean batchLaeuft;
 
-    /* Flag if the maximum runtime was exceeded. */
+    /** Flag if the maximum runtime was exceeded. */
     private boolean maximaleLaufzeitUeberschritten;
 
     /** Saves the previous batch status. **/
     private String vorigerBatchStatus;
 
-    /** Reference to component 'AufrufKontextVerwalter' */
+    /** Reference to component 'AufrufKontextVerwalter'. */
     private AufrufKontextVerwalter<T> aufrufKontextVerwalter;
 
     /** Reference to 'AufrufKontextFactory'. */
@@ -228,6 +228,7 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
 
     /**
      * Checks if the runtime has been exceeded, if the runtime is configured.
+     * @param verarbInfo the processing information.
      * @return true, if the runtime is configured and exceeded; otherwise false
      */
     private boolean istMaximaleLaufzeitUeberschritten(VerarbeitungsInformationen verarbInfo) {
@@ -327,6 +328,8 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
      *
      * @param verarbInfo
      *            the processing information.
+     * @param protokoll
+     *            the result protocol
      * @param dbschl
      *            the database key that was last processed.
      */
