@@ -412,90 +412,74 @@ sourceFolder
 |===
 
 
-[[openapi-schnittstellenspezifikationen]]
-== OpenAPI 3.0 Schnittstellenspezifikationen
+[[openapi-schnittstellenspezifikation]]
+== Veröffentlichung und Verwaltung der OpenAPI 3.0 Spezifikation
 
-[[openapi-spezifikationen]]
-=== OpenAPI 3.0 Spezifikation
+[[openapi-schnittstellenspezifikation-vorteile]]
+=== Verwaltung
+Die OpenApi Schnittstellenspezifikation ist jeweils Bestandteil der spezifischen Projektdokumentation.
 
-Eine OpenAPI Spezifikation ist eine standardisierte, sprachunabhängige Schnittstellenbeschreibung für RESTful-APIs, die es sowohl Menschen als auch Computern ermöglicht, die Schnittstellen des Dienstes ohne Zugriff auf Quellcode oder Dokumentation zu entdecken und zu verstehen.
+Damit die OpenApi Schnittstellenspezifikation verfügbar sein kann, muss diese auch verwaltet werden.
+In den jeweiligen Spring Projekten wird die OpenApi Schnittstellenspezifikation unter folgendem Pfad gespeichert: *_/src/main/resources/openapi.yml_*.
 
-Im folgenden Kapitel werden die verfügbaren und relevanten Möglichkeiten zur Generierung aufgelistet und beschrieben.
+Falls es Änderungen innerhalb der OpenApi Schnittstellenspezifikation geben sollte, werden diese vom Versionskontrollsystem verwaltet.
 
-[[openapi-spezifikation-gebotene-moeglichkeiten]]
-=== Gebotene Möglichkeiten
+Ein Versionskontrollsystem ist ein System, das für die Kontrolle der verschiedenen Versionen einer Software zuständig ist.
 
-[[openapi-spezifikation-moeglichkeit1]]
-==== Möglichkeit 1: Neben dem Quellcode speichern
-Um diese Möglichkeit nutzen zu können, wird der Zugriff über das Artifactory oder GitLab/GitHub benötigt und die Auslieferung muss als ein Teil vom Artefakt erfolgen.
+[[openapi-schnittstellenspezifikation-veroeffentlichung]]
+=== Veröffentlichung
+Die OpenAPI Spezifikationen werden mit jeder Veröffentlichung (Release) ausgeliefert.
 
-[[openapi-spezifikation-moeglichkeit2]]
-==== Möglichkeit 2: OpenApi 3.0 Repository
-Um diese Möglichkeit nutzen zu können, wird der Zugriff über das Artifactory oder GitLab/GitHub benötigt und die Auslieferung muss als ein Teil von einem separaten OpenAPI-Artefakt erfolgen.
+Die OpenAPI Spezifikationen ist eine YAML Datei.
 
-[[openapi-spezifikation-moeglichkeit3]]
-==== Möglichkeit 3: Statisches Hosting
-Um diese Möglichkeit nutzen zu können, wird der Zugriff über eine Webseite benötigt und die Auslieferung muss als verständliche HTML Dateien (erstellt durch den OpenAPI Generator, in den Build Prozess integrierbar) erfolgen.
+[[openapi-schnittstellenspezifikation-artifactory]]
+==== Artifactory
+Die Auslieferung erfolgt als ein Teil vom zentral generierten Artefakt.
+Der Zugriff auf das Artefakt ist für die Entwickler und Architekten der Isyfact über das Maven Artifactory oder GitLab/GitHub möglich.
 
-[[openapi-spezifikation-moeglichkeit3a]]
-==== Möglichkeit 3a: Statisches Hosting mit Antora
-Um diese Möglichkeit nutzen zu können, muss erst eine Integration in den Antora Build erfolgen.
+[[openapi-schnittstellenspezifikation-antora]]
+==== Antora
+Der Build Prozess, ob lokal oder innerhalb der GitLab CI/CD Pipeline ist im Repository *_isy-antora-playbook_* implementiert und dokumentiert.
 
-Anschließend, erfolgt die Auslieferung als HTML Dateien (OpenAPI Generator erstellt AsciiDoc oder direkt HTML-Dateien) und die ursprünglichen YAML-Dateien können als Antora-Anhang hinzugefügt werden (einfacher Zugriff für Entwickler).
+Dieser Pipeline Job generiert nach erfolgreichem Ablauf ein Artefakt neben dem Quellcode.
+Dieses Verfahren ist auch als Antora Build bekannt.
 
-[[openapi-spezifikation-moeglichkeit3b]]
-==== Möglichkeit 3b: SwaggerHub
-SwaggerHub ist eine integrierte API-Design- und Dokumentationsplattform, die für Teams entwickelt wurde, um Konsistenz und Disziplin im gesamten API-Entwicklungsworkflow zu fördern.
+Zusätzlich werden die technischen Spezifikationen im darüber beschriebenen Verfahren mitgeliefert.
+Somit können technische Benutzer Zugriff auf die technischen Spezifikationen bekommen und diese dann anschließend herunterladen.
 
-Eine On-Premise Installation ist nur bei der Enterprise Version möglich.
+Es wird statisches Hosting über Antora verwendet, weil:
 
-Um diese Möglichkeit nutzen zu können, wird ein Budget und ein Überblick über die finanziellen Kosten benötigt.
+1. ein einfacher Zugriff auf verschiedene Versionen der OpenAPI Spezifikationen möglich ist
+2. das Herunterladen der OpenAPI Spezifikationen für technische Benutzer ermöglicht wird
+3. geringe/keine Kosten entstehen
+4. Zugang für nicht technische Benutzer gewährleistet wird
 
-:desc-table-swaggerhub-kostenuebersicht: SwaggerHub Kostenübersicht
-[id="table-swaggerhub-kostenuebersicht",reftext="{table-caption} {counter:tables}"]
-.{desc-table-swaggerhub-kostenuebersicht}
-[options="header"]
-[cols="5%,25%,60%"]
-|====
-|#|Version|Kosten/Monat
-|1 | Teams | Für 10 Nutzer €267/Monat
-|2 | Teams | Preis wird auf Anfrage mitgeteilt
-|====
+Somit ist dann der Zugriff direkt über den Browser via statisches Hosting über Antora möglich.
 
-[[openapi-spezifikation-moeglichkeit4]]
-==== Möglichkeit 4: Endpunkt in der Anwendung
-Um diese Möglichkeit nutzen zu können, muss für alle Anwendungen *ein Endpunkt* (z.B. Path: /openapi3) für die OpenAPI-Spezifikation reserviert werden.
+[[openapi-schnittstellenspezifikation-eigener-endpunkt]]
+==== Definition eines Endpunktes
+Ein Endpunkt, der im Softwarebereich als Softwareschnittstelle oder softwareseitige Datenschnittstelle bezeichnet wird, stellt einen logischen Berührungspunkt innerhalb eines IT-Systems dar.
+Ein IT-System kann selbstverständlich über mehrere Endpunkte verfügen.
+Durch sie wird der Austausch von Kommandos und Daten zwischen verschiedenen Prozessen und Komponenten ermöglicht und geregelt.
 
-Außerdem kann eine YAML oder HTML Datei zur Verfügung stehen.
+Ein Endpunkt ist sozusagen eine Übergangsstelle zwischen verschiedenen Komponenten eines IT-Systems, über die der Datenaustausch oder die Datenverarbeitung realisiert werden kann.
 
-Die Variante ist besonders nützliche für die Entwickler und den Betrieb.
+Die Endung einer URL z.B. *_/openapi-spezifikationen_* ist ein gutes optisches Erkennungsmerkmal.
 
-[[openapi-schnittstellenspezifikation-entscheidung]]
-=== Entscheidung
-Es wurde entschieden, dass innerhalb der Isyfact die Möglichkeit 3a (statisches Hosting mit Antora) verwendet wird.
-Zusätzlich, was aber keine Pflicht darstellt, soll ein Endpunkt in der Anwendung definiert werden.
+In unserem Fall besteht die optionale Möglichkeit einen Endpunkt zu errichten, der den Datenaustausch der OpenAPI Spezifikationen über das Herunterladen der Datei ermöglicht.
 
-Genauere Informationen zum Beschluss dieser Entscheidung befinden sich in den nächsten zwei Unterkapiteln.
+Die heruntergeladene Datei kann dann anschließend geöffnet werden.
 
+[[openapi-schnittstellenspezifikation-url]]
+==== Definition einer URL
+Durch die Verwendung vom statischen Hosting über Antora können statische Webseiten generiert werden.
 
+Die OpenAPI Spezifikationen können über Antora als statische Webseite generiert werden.
 
-[[openapi-schnittstellenspezifikation-entscheidung-ablage]]
-==== Ablage
-Es wurde entschieden, dass der Ablageort der Quellcode im Artifactory sein soll.
+Um eine statische Webseite mit Inhalt aufrufen zu können, wird die Verwendung eines Browsers und die Verfügbarkeit einer korrekten URL vorausgesetzt.
 
-Dies wurde so beschlossen, weil:
+Damit der Inhalt der zuvor generierten statischen Webseite auch aus der Benutzeroberfläche erreichbar ist, muss die Webseite auf dem Server hinterlegt werden.
 
-1. der direkte Zugriff auf die Spezifikation aus dem Codeartefakt möglich ist
-2. ein geringer Synchronisationsaufwand zwischen Quellcode und Spezifikation existiert
-3. Geringe oder gar keine Entstehung von Kosten
-
-[[openapi-schnittstellenspezifikation-entscheidung-veroeffentlichung]]
-==== Veröffentlichung
-Es wurde entschieden, dass für die Veröffentlichung statisches Hosting mit Antora verwendet wird, weil:
-
-1. der Zugriff auf verschiedene Versionen der Spezifikationen einfach ist
-2. die Spezifikationen zum Herunterladen durch technische Benutzer möglich ist
-3. Geringe oder gar keine Entstehung von Kosten
-4. Zugang für nicht-technische Benutzer ist gewährleistet
+Es besteht somit die optionale Möglichkeit eine URL auf dem Server zu "reservieren", die beim Aufruf aus der Benutzeroberfläche, den Nutzer auf die OpenAPI Spezifikation weiterleitet, damit dieser dann Zugriff und somit Einsicht auf die statische Webseite, die die OpenAPI Spezifikation beinhaltet, erhält.
 
 // end::inhalt[]
