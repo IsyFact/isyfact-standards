@@ -9,7 +9,7 @@
 Auf dieser Seite wird die Dokumentation der IsyFact 2.x bis Version 2.4.x mit AsciidoctorJ Extensions beschrieben.
 ====
 
-Eine Einführung in die Dokumentation der IsyFact findet sich in der xref:dokumentation/einleitung/einleitung.adoc[allgemeinen Einleitung].
+Eine Einführung in die Dokumentation der IsyFact findet sich in der xref:dokumentation/einleitung/einfuehrung.adoc[allgemeinen Einleitung].
 
 // end::inhalt[]
 

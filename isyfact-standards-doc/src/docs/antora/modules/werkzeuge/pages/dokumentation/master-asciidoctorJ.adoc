@@ -7,8 +7,8 @@
 
 include::glossary:licence:partial$licence.adoc[]
 
-include::einleitung/einleitung-asciidoctorJ.adoc[tags=inhalt]
-include::erstellung/erstellung-asciidoctorJ.adoc[tags=inhalt]
-include::bearbeitung/bearbeitung-asciidoctorJ.adoc[tags=inhalt]
-include::generierung/generierung-asciidoctorJ.adoc[tags=inhalt]
+include::einleitung/einleitung-asciidoctorj.adoc[tags=inhalt]
+include::erstellung/erstellung-asciidoctorj.adoc[tags=inhalt]
+include::bearbeitung/bearbeitung-asciidoctorj.adoc[tags=inhalt]
+include::generierung/generierung-asciidoctorj.adoc[tags=inhalt]
 include::changelog/changelog-doku.adoc[tags=inhalt]

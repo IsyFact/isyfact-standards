@@ -12,10 +12,10 @@ Außer diesem Handbuch sind hierzu Kenntnisse der AsciiDoc-Syntax erforderlich.
 ====
 Dieses Handbuch erklärt die Grundlagen der AsciiDoc-Syntax nicht weiter.
 Die folgenden Webseiten bieten ausführliche Tutorials und weiterführende Informationen an: +
-* xref:glossary:literaturextern:inhalt.adoc#litextern-AsciiDoc[What is AsciiDoc? Why do we need it?] +
-* xref:glossary:literaturextern:inhalt.adoc#litextern-AsciidoctorUserManual[Asciidoctor User Manual] +
-* xref:glossary:literaturextern:inhalt.adoc#litextern-AsciiDocSyntax[AsciiDoc Syntax Quick Reference] +
-* xref:glossary:literaturextern:inhalt.adoc#litextern-AsciiDocTutorial[Tutorial: Using AsciiDoc and Asciidoctor to write documentation]
+* xref:glossary:literaturextern:inhalt.adoc#litextern-asciidoc[What is AsciiDoc? Why do we need it?] +
+* xref:glossary:literaturextern:inhalt.adoc#litextern-asciidoctor-usermanual[Asciidoctor User Manual] +
+* xref:glossary:literaturextern:inhalt.adoc#litextern-asciidoc-syntax[AsciiDoc Syntax Quick Reference] +
+* xref:glossary:literaturextern:inhalt.adoc#litextern-asciidoc-tutorial[Tutorial: Using AsciiDoc and Asciidoctor to write documentation]
 ====
 
 Des Weiteren sind in IsyFact-Dokumenten bestimmte Besonderheiten zu beachten.
@@ -39,7 +39,7 @@ Je nachdem, ob es sich um eine Abbildung, eine Tabelle, einen Begriff oder ein r
 
 Der Quelltext eines Dokuments bricht nach jedem Satz um.
 Er orientiert sich nicht anhand einer fixen Spaltenbreite.
-Diese Regel wird "ein Satz pro Zeile" (_one sentence per line_, s. xref:glossary:literaturextern:inhalt.adoc#litextern-AsciiDocRecommendedPractices[AsciiDoc Recommended Practices]) genannt und orientiert sich an der Art und Weise, wie Quellcode organisiert ist (eine Anweisung pro Zeile).
+Diese Regel wird "ein Satz pro Zeile" (_one sentence per line_, s. xref:glossary:literaturextern:inhalt.adoc#litextern-asciidoc-recommended-practices[AsciiDoc Recommended Practices]) genannt und orientiert sich an der Art und Weise, wie Quellcode organisiert ist (eine Anweisung pro Zeile).
 
 Die Anwendung der Regel "ein Satz pro Zeile" bringt unter anderem folgende Vorteile mit sich:
 

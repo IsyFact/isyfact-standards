@@ -14,10 +14,10 @@ Außer diesem Handbuch sind Kenntnisse der AsciiDoc-Syntax erforderlich.
 ====
 Dieses Handbuch erklärt die Grundlagen der AsciiDoc-Syntax nicht weiter.
 Die folgenden Webseiten bieten ausführliche Tutorials und weiterführende Informationen an: +
-* xref:glossary:literaturextern:inhalt.adoc#litextern-AsciiDoc[What is AsciiDoc? Why do we need it?] +
-* xref:glossary:literaturextern:inhalt.adoc#litextern-AsciidoctorUserManual[Asciidoctor User Manual] +
-* xref:glossary:literaturextern:inhalt.adoc#litextern-AsciiDocSyntax[AsciiDoc Syntax Quick Reference] +
-* xref:glossary:literaturextern:inhalt.adoc#litextern-AsciiDocTutorial[Tutorial: Using AsciiDoc and Asciidoctor to write documentation]
+* xref:glossary:literaturextern:inhalt.adoc#litextern-asciidoc[What is AsciiDoc? Why do we need it?] +
+* xref:glossary:literaturextern:inhalt.adoc#litextern-asciidoctor-usermanual[Asciidoctor User Manual] +
+* xref:glossary:literaturextern:inhalt.adoc#litextern-asciidoc-syntax[AsciiDoc Syntax Quick Reference] +
+* xref:glossary:literaturextern:inhalt.adoc#litextern-asciidoc-tutorial[Tutorial: Using AsciiDoc and Asciidoctor to write documentation]
 ====
 
 
@@ -26,7 +26,7 @@ Die folgenden Webseiten bieten ausführliche Tutorials und weiterführende Infor
 
 Der Quelltext eines Dokuments bricht nach jedem Satz um.
 Er orientiert sich nicht anhand einer fixen Spaltenbreite.
-Diese Regel wird "ein Satz pro Zeile" (_one sentence per line_, s. xref:glossary:literaturextern:inhalt.adoc#litextern-AsciiDocRecommendedPractices[AsciiDoc Recommended Practices]) genannt und orientiert sich an der Art und Weise, wie Quellcode organisiert ist (eine Anweisung pro Zeile).
+Diese Regel wird "ein Satz pro Zeile" (_one sentence per line_, s. xref:glossary:literaturextern:inhalt.adoc#litextern-asciidoc-recommended-practices[AsciiDoc Recommended Practices]) genannt und orientiert sich an der Art und Weise, wie Quellcode organisiert ist (eine Anweisung pro Zeile).
 
 Die Anwendung der Regel "ein Satz pro Zeile" bringt unter anderem folgende Vorteile mit sich:
 
@@ -86,7 +86,7 @@ Generelle Hinweise zur Verwendung von Verweisen siehe xref:seitenvorlage.adoc#st
 
 Für eine <<ueberschriften, Überschrift>> einer IsyFact-Seite fehlen noch die _Inline-Anchor_, damit durch Klick auf Verweise auf diese Inline-Anchor gesprungen werden kann.
 Ein Inline-Anchor wird über eckige Klammern gesetzt.
-Ferner muss die ID des Anchors durchgängig mit kleinen Buchstaben geschrieben werden und darf keine Leer- oder Sonderzeichen außer Bindestriche enthalten.
+Außerdem muss die ID des Anchors der xref:methodik:namenskonventionen/inhalt.adoc#dokumentation[Namenskonvention für Namen in Dokumenten] folgen.
 
 [[listing-ueberschriften-final]]
 .Überschriften mit Inline Anchors
@@ -102,6 +102,8 @@ Das ist ein Beispieltext zum Unterkapitel.
 ----
 
 Auch Abbildungen, Tabellen und Listings müssen mit einem Anchor versehen werden, damit sie als Sprungziel dienen können.
+
+Besonderheiten ergeben sich für Anchor für <<glossar, Glossareinträge>> und <<verweise-extern, externe Verweise>>.
 
 [[verweise-lokal]]
 ==== Verweise innerhalb einer Seite
@@ -148,11 +150,11 @@ Ein Beispiel: +
 .Verweis auf einen Glossareintrag
 [source,asciidoc]
 ----
-xref:glossary:glossary:master.adoc#glossar-IsyFact[IsyFact]
+xref:glossary:glossary:master.adoc#glossar-isyfact[IsyFact]
 ----
 
 Für eine Erläuterung der einzelnen Abschnitte eines xref-Verweises wird auf die Antora-Dokumentation verwiesen:
-xref:glossary:literaturextern:inhalt.adoc#litextern-AntoraXrefMacroStructure[Beschreibung der Struktur des Xref-Makros].
+xref:glossary:literaturextern:inhalt.adoc#litextern-antora-xref-macro-structure[Beschreibung der Struktur des Xref-Makros].
 Hier werden dagegen die Konventionen für die Dokumentation der IsyFact beschrieben.
 
 [WARNING]
@@ -190,9 +192,21 @@ Damit die externen Verweise leichter auf ihre Gültigkeit überprüft werden kö
 
 Dort sind alle Einträge mit einem Sprungziel (Anchor) versehen.
 In der Dokumentation müssen alle externen Verweise eines dieser Sprungziele referenzieren anstatt direkt die URL.
+Der Anchor beginnt immer mit dem Bezeichner `litextern-`.
+
+// tag::namenskonvention[]
+[[table-litextern-anchor]]
+.Namensschema für Anchor von externen Verweisen (externes Literaturverzeichnis in `isy-documentation`)
+[cols="1s,4m",options="header"]
+|====
+2+|Namen für Anchor im externen Literaturverzeichnis
+|Schema |litextern-<Name gemäß allgemeinem Namensschema für Dokumentation>
+|Beispiel |litextern-isyfact
+|====
+
+// end::namenskonvention[]
 
 Eine Referenz auf einen Eintrag des externen Literaturverzeichnisses erfolgt über einen <<listing-xref, Antora xref-Link>>, wobei der Eintrag nach dem `#` der Anchor im Literaturverzeichnis in isy-documentation ist.
-Der Anchor beginnt immer mit dem Bezeichner `litextern-`.
 Der Text innerhalb der Klammern [] definiert den Linktext.
 
 Ein Beispiel: +
@@ -200,10 +214,10 @@ Ein Beispiel: +
 .externer Verweis
 [source,asciidoc]
 ----
-xref:glossary:literaturextern:inhalt.adoc#litextern-AsciidoctorUserManual[Asciidoctor User Manual]
+xref:glossary:literaturextern:inhalt.adoc#litextern-asciidoctor-usermanual[Asciidoctor User Manual]
 ----
 
-Der Link auf einen Literatureintrag sieht wie folgt aus: xref:glossary:literaturextern:inhalt.adoc#litextern-AsciidoctorUserManual[Asciidoctor User Manual]
+Der Link auf einen Literatureintrag sieht wie folgt aus: xref:glossary:literaturextern:inhalt.adoc#litextern-asciidoctor-usermanual[Asciidoctor User Manual]
 {empty} +
 
 [[admonition-blocks]]
@@ -331,6 +345,7 @@ Folgende Blöcke sind zusätzlich mit einem Tag zu kennzeichnen:
 * ARCHITEKTURREGEL (Tag-Name: `architekturregel`)
 * SICHERHEIT (Tag-Name: `sicherheit`)
 * STYLEGUIDE (Tag-Name: `styleguide`)
+* NAMENSKONVENTION (Tag-Name: `namenskonvention`)
 
 Damit lassen sich die Regeln oder Anforderungen aus der gesamten Dokumentation zusammenziehen und gebündelt bereitstellen, z.B. als Checklisten oder zur Grundlage automatischer Überprüfungen.
 
@@ -376,20 +391,24 @@ IMPORTANT: Abbildungen sollten mit diagrams.net als <Name Abbildung>.dn.svg erst
 
 // end::important[]
 
+Diagramme, die mit dem xref:methodik:diagrammerstellung/enterprise-architect.adoc[Enterprise Architect] erstellt werden, oder Screenshots, dürfen auch weiterhin als .png eingebunden werden.
+
+// tag::namenskonvention[]
+[[table-namenskonvention-bilder]]
+.Namensschema für Namen von Abbildungen aus diagrams.net
+[cols="1s,4m",options="header"]
+|====
+2+|Namen für Abbildungen
+|Schema |<Name Abbildung gemäß allgemeinem Namensschema für Dokumentation>.dn.svg
+|Beispiel |beispiel.dn.svg
+|Hinweis | dn bedeutet: erstellt mit diagrams.net
+|====
+
+// end::namenskonvention[]
+
 Wenn ein Antora-Modul sehr viele Bilder enthält, kann auch eine Unterstruktur unterhalb von /images angelegt werden, z.B. /images/unterordner.
 
-Das Einbinden von Abbildungen gelingt in AsciiDoc über die folgende Syntax:
-
-[[listing-bild-einfuegen]]
-.Abbildung einfügen (AsciiDoc)
-[source,asciidoc]
-----
-image::beispiel.dn.svg
-
-image::unterordner/beispiel2.dn.svg
-----
-
-In einem IsyFact-Dokument muss eine Abbildung zusätzlich:
+In einem IsyFact-Dokument muss eine Abbildung:
 
 * eine Beschreibung enthalten,
 * eindeutig identifizierbar und referenzierbar sein.
@@ -402,7 +421,9 @@ Deswegen werden Abbildungen in IsyFact-Dokumenten wie folgt definiert:
 ----
 [[beispiel-abbildung]]
 .Beispiel
-image::beispiel.dn.svg
+ image::beispiel.dn.svg
+
+ image::unterordner/beispiel2.dn.svg
 ----
 
 Eingebundene Abbildungen können wie üblich über einen Querverweis referenziert werden:
@@ -421,7 +442,7 @@ Wenn die Abbildung zentriert werden soll, fügt man das Attribut `[align="center
 ----
 [[beispiel-abbildung]]
 .Beispiel
-image::beispiel.dn.svg[align="center"]
+ image::beispiel.dn.svg[align="center"]
 ----
 
 Eine Skalierung der Abbildung ist auch möglich.
@@ -433,7 +454,7 @@ Im folgenden Beispiel wird die Abbildung auf 80% skaliert.
 ----
 [[beispiel-abbildung]]
 .Beispiel
-image::beispiel.dn.svg[align="center",scaledwidth=80%]
+ image::beispiel.dn.svg[align="center",scaledwidth=80%]
 ----
 
 Beispiele für Abbildungen finden sich außerdem in xref:seitenvorlage.adoc#formatierung-abbildungen[Seitenvorlage Abbildungen]. +
@@ -570,9 +591,31 @@ Die IsyFact Dokumentation beinhaltet auch ein Glossar.
 Es befindet sich im Repository `isy-documentation` in der xref:dokumentation/erstellung/erstellung-antora.adoc#antora-komponente[Antora-Komponente] `glossary`.
 In der HTML-Dokumentation ist es über die Liste der Antora-Komponenten aufrufbar.
 
+// tag::important[]
+[IMPORTANT]
+====
+Neue Glossareinträge sollten alphabetisch einsortiert werden.
+Dadurch werden auch doppelte Einträge verhindert.
+====
+
+// end::important[]
+
 Im Glossar sind alle Einträge mit einem Sprungziel (Anchor) versehen.
-Eine Referenz auf einen Begriff des Glossars erfolgt über einen <<listing-xref, Antora Verweis>>, wobei der Eintrag nach dem `#` der Anchor im Glossar in isy-documentation ist.
 Der Anchor beginnt immer mit dem Bezeichner `glossar-`.
+
+// tag::namenskonvention[]
+[[table-glossar-anchor]]
+.Namensschema für Anchor von Glossareinträgen (Glossar in `isy-documentation`)
+[cols="1s,4m",options="header"]
+|====
+2+|Namen für Anchor im Glossar
+|Schema |glossar-<Name gemäß allgemeinem Namensschema für Dokumentation>
+|Beispiel |glossar-isyfact
+|====
+
+// end::namenskonvention[]
+
+Eine Referenz auf einen Begriff des Glossars erfolgt über einen <<listing-xref, Antora Verweis>>, wobei der Eintrag nach dem `#` der Anchor im Glossar in isy-documentation ist.
 Der Text innerhalb der Klammern [] definiert den Linktext.
 
 Ein Beispiel: +
@@ -580,9 +623,9 @@ Ein Beispiel: +
 .Verweis auf Glossareintrag
 [source,asciidoc]
 ----
-xref:glossary:glossary:master.adoc#glossar-IsyFact[IsyFact]
+xref:glossary:glossary:master.adoc#glossar-isyfact[IsyFact]
 ----
 
-Der Link auf einen Glossareintrag sieht wie folgt aus: xref:glossary:glossary:master.adoc#glossar-IsyFact[IsyFact]
+Der Link auf einen Glossareintrag sieht wie folgt aus: xref:glossary:glossary:master.adoc#glossar-isyfact[IsyFact]
 
 // end::inhalt[]

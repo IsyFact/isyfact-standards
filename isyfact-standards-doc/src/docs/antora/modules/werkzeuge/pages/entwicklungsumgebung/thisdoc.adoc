@@ -3,7 +3,7 @@
 // tag::inhalt[]
 [[einleitung]]
 == Einleitung
-In diesem Dokument wird die Installation einer Entwicklungsumgebung erläutert, um Anwendungen mit der IsyFact zu entwickeln. Es richtet sich an Entwickler, die zum ersten Mal mit der xref:glossary:glossary:master.adoc#glossar-IsyFact[IsyFact] in Berührung kommen und möglichst schnell mit der Entwicklung einer Anwendung auf Basis der IsyFact beginnen möchten.
+In diesem Dokument wird die Installation einer Entwicklungsumgebung erläutert, um Anwendungen mit der IsyFact zu entwickeln. Es richtet sich an Entwickler, die zum ersten Mal mit der xref:glossary:glossary:master.adoc#glossar-isyfact[IsyFact] in Berührung kommen und möglichst schnell mit der Entwicklung einer Anwendung auf Basis der IsyFact beginnen möchten.
 
 Bei der Softwareentwicklung werden Entwicklungsumgebungen (IDEs) wie Eclipse oder IntelliJ IDEA verwendet, welche die Anwendungsentwicklung in vielfältiger Weise unterstützen und effektiver gestalten.
 

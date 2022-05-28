@@ -67,7 +67,7 @@ Da spezifisches Domänenwissen jedoch per Definition nicht Teil der IsyFact sein
 Dabei wird zunächst beschrieben, welche Teile der IsyFact für die jeweilige Domäne überhaupt relevant sind und zum Einsatz kommen sollen.
 Dann werden die Konzepte der IsyFact konkretisiert, und domänenspezifische Bausteine und Architekturen werden hinzugefügt.
 Diesen Vorgang bezeichnet man insgesamt als _Tailoring_.
-Das Resultat des Tailoring ist eine spezifische Factory für einen Anwendungskontext, wie sie z.B. beim Bundesverwaltungsamt in Form der xref:glossary:literaturextern:inhalt.adoc#litextern-Register-Factory[Register Factory] für den Kontext der Register Anwendungen erstellt wurde.
+Das Resultat des Tailoring ist eine spezifische Factory für einen Anwendungskontext, wie sie z.B. beim Bundesverwaltungsamt in Form der xref:glossary:literaturextern:inhalt.adoc#litextern-register-factory[Register Factory] für den Kontext der Register Anwendungen erstellt wurde.
 
 Das Tailoring ist ein sinnvoller Schritt, um möglichst viel Wissen über die Entwicklung von Anwendungen in Form einer Factory vorzuhalten.
 Es ist für die Nutzung der IsyFact jedoch nicht erforderlich.

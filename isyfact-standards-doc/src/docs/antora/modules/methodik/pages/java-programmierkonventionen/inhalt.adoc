@@ -11,9 +11,9 @@ Hält sie sich noch an allgemein etablierte und bekannte Standards, verkürzt si
 Um das zu erreichen, müssen Konventionen für die Programmierung festgelegt werden.
 
 Die in diesem Dokument beschriebenen Richtlinien sind für die Erstellung von Programmen mit der IsyFact verbindlich.
-Die Strukturen zur Ablage des Quellcodes richten sich nach der Empfehlung von xref:glossary:literaturextern:inhalt.adoc#litextern-Maven-Standard-Directory-Layout[Apache Maven Standard Directory Layout] und wurden für die IsyFact erweitert.
+Die Strukturen zur Ablage des Quellcodes richten sich nach der Empfehlung von xref:glossary:literaturextern:inhalt.adoc#litextern-maven-standard-directory-layout[Apache Maven Standard Directory Layout] und wurden für die IsyFact erweitert.
 Die Programmierkonventionen basieren auf Synopse und präzisieren sie an einigen Stellen.
-Die in xref:glossary:literaturextern:inhalt.adoc#litextern-Vermeulen2000[Vermeulen2000] beschriebenen Konventionen beruhen auf den Sun Coding Conventions xref:glossary:literaturextern:inhalt.adoc#litextern-Sun1997-Code-Conventions[Sun 1997] und den Coding Standards der Firma Ambysoft xref:glossary:literaturextern:inhalt.adoc#litextern-Ambler1999[Ambler1999].
+Die in xref:glossary:literaturextern:inhalt.adoc#litextern-vermeulen2000[Vermeulen2000] beschriebenen Konventionen beruhen auf den Sun Coding Conventions xref:glossary:literaturextern:inhalt.adoc#litextern-sun1997-code-conventions[Sun 1997] und den Coding Standards der Firma Ambysoft xref:glossary:literaturextern:inhalt.adoc#litextern-ambler1999[Ambler1999].
 
 [[vorgaben-fuer-die-quellcodeablage]]
 == Vorgaben für die Quellcodeablage
@@ -852,7 +852,7 @@ Kommentare werden nicht dazu verwendet, alte Versionen des Codes zu deaktivieren
 Wenn man alte Versionen wiederherstellen möchte, so ist dazu auf das Konfigurationsmanagement zurückzugreifen.
 Für die Analyse von Codeänderungen sind die bekannten DIFF-Werkzeuge einzusetzen.
 
-NOTE: Werkzeug, mit dem sich Unterschiede zwischen zwei Textdateien xref:glossary:literaturextern:inhalt.adoc#litextern-Synopse[synoptisch] darstellen lassen (diff unter xref:glossary:literaturextern:inhalt.adoc#litextern-Unix[Unix]; .UltraEdit)
+NOTE: Werkzeug, mit dem sich Unterschiede zwischen zwei Textdateien xref:glossary:literaturextern:inhalt.adoc#litextern-synopse[synoptisch] darstellen lassen (diff unter xref:glossary:literaturextern:inhalt.adoc#litextern-unix[Unix]; .UltraEdit)
 
 Änderungen werden mittels eines Version Control System (z. B. Subversion) nachverfolgt.
 Dazu ist es zwingend erforderlich, die durchgeführten Änderungen bzw. die Ursache dafür beim Check-in ausreichend zu dokumentieren.
@@ -917,7 +917,7 @@ Diese Methoden sind bewusst als _non-final_ Methoden angelegt, damit sie klassen
 Die von der Klasse `Object` vererbte Implementierung für die Methoden `equals()` und `hashCode()` stellt nur eine Basisimplementierung dar, die für alle Klassen genügt, deren Identität auf Objektgleichheit (gleiche Speicheradresse) basiert.
 Klassen, die eine eigene Identität, unabhängig von der Objektgleichheit, besitzen, müssen `equals()` und `hashCode()` implementieren.
 Dabei können leicht schwer identifizierbare Fehler auftreten.
-Die Implementierung von `equals()` und `hashCode()` ist nicht trivial, da sie bestimmte Eigenschaften (Reflexivity, Symmetry, Transitivity, Consistency und Non-nullity, s. xref:glossary:literaturextern:inhalt.adoc#litextern-Bloch2008[Bloch2008]) erfüllen müssen.
+Die Implementierung von `equals()` und `hashCode()` ist nicht trivial, da sie bestimmte Eigenschaften (Reflexivity, Symmetry, Transitivity, Consistency und Non-nullity, s. xref:glossary:literaturextern:inhalt.adoc#litextern-bloch2008[Bloch2008]) erfüllen müssen.
 
 Zur Implementierung von `equals()` und `hashCode()` müssen die Möglichkeiten der Hilfsklasse `java.util.Objects` verwendet werden, insbesondere die Methoden:
 

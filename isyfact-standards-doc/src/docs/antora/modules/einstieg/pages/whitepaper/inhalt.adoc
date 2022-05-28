@@ -191,7 +191,7 @@ Neben der reinen technischen Plattform sieht die Plattform der IsyFact auch Konz
 
 Die Plattform entspricht dem SAGA/BSI Netzkonzept mit drei Zonen:
 
-NOTE: SAGA sind die „Standards und Architekturen für E-Government“ der deutschen Bundesverwaltung, siehe: xref:glossary:literaturextern:inhalt.adoc#litextern-SAGA_5[SAGA]  - seit SAGA 5 wird bzgl. des Netzkonzeptes auf das BSI verwiesen.
+NOTE: SAGA sind die „Standards und Architekturen für E-Government“ der deutschen Bundesverwaltung, siehe: xref:glossary:literaturextern:inhalt.adoc#litextern-saga-5[SAGA]  - seit SAGA 5 wird bzgl. des Netzkonzeptes auf das BSI verwiesen.
 
 * Nutzerebene (Informations- und Dienstezone)
 * Logikebene (Logik- und Verarbeitungszone)

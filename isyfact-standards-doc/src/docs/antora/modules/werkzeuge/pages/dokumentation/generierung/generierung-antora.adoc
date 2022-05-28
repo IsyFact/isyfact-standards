@@ -21,14 +21,14 @@ Ein paar Besonderheiten bei der Generierung der IsyFact-Gesamtdokumentation werd
 === Installation der benötigten Werkzeuge
 
 Node.js und Antora müssen auf dem lokalen Rechner installiert werden.
-Eine gute Anleitung bietet die xref:glossary:literaturextern:inhalt.adoc#litextern-Antora-Installationen[Antora-Dokumentation].
+Eine gute Anleitung bietet die xref:glossary:literaturextern:inhalt.adoc#litextern-antora-installationen[Antora-Dokumentation].
 
 Eine andere Möglichkeit besteht darin, über das `frontend-maven-plugin` Node.js und Antora im lokalen Projekt zu installieren und über das `exec-maven-plugin` die Generierung der Gesamtdokumentation mit Antora auszuführen.
-Eine Anleitung findet sich in xref:glossary:literaturextern:inhalt.adoc#litextern-Antora-Maven[Antora mit Maven].
+Eine Anleitung findet sich in xref:glossary:literaturextern:inhalt.adoc#litextern-antora-maven[Antora mit Maven].
 
 === Antora Konfigurationsdatei playbook.yml
 
-Die offizielle Antora-Dokumentation beschreibt die xref:glossary:literaturextern:inhalt.adoc#litextern-Antora-Playbook[Konfigurationsdatei playbook.yml].
+Die offizielle Antora-Dokumentation beschreibt die xref:glossary:literaturextern:inhalt.adoc#litextern-antora-playbook[Konfigurationsdatei playbook.yml].
 Deshalb wird hier nur auf die IsyFact-Besonderheiten eingegangen.
 
 [[listing-playbook]]
@@ -74,7 +74,7 @@ ui:
 output:
   dir: ./public
 ----
-<1> Die Git-Repositories `isy-documentation` und `isyfact-standards` enthalten xref:glossary:glossary:master.adoc#glossar-Antora-Dokumentations-Komponente[Antora-Komponenten] für die Gesamtdokumentation.
+<1> Die Git-Repositories `isy-documentation` und `isyfact-standards` enthalten xref:glossary:glossary:master.adoc#glossar-antora-dokumentations-komponente[Antora-Komponenten] für die Gesamtdokumentation.
 <2> Auf dem lokal ausgecheckten Branch des angegebenen Repositories wird nach Antora-Komponenten gesucht.
 <3> Selbstdefiniertes Attribut.
 <4> Abschnitte sollen nummeriert werden.
@@ -90,7 +90,7 @@ output:
 Unter dem im Playbook unter `supplemental_files` angegebenen Pfad kann das Standard-UI von Antora leicht mit CSS und JavaScript überschrieben werden.
 Dies sollte jedoch nur bei kleineren Änderungen genutzt werden, bei größeren Änderungen empfiehlt es sich, ein eigenes UI zu schreiben, ggf. auf Basis des Standard-UIs.
 
-Eine wichtige Änderung der IsyFact am Standard-UI ist die Verwendung von xref:glossary:literaturextern:inhalt.adoc#litextern-Font-Awesome[Font Awesome]. Eine weitere nützliche CSS-Änderung betrifft den standardmäßigen Nichtumbruch in Listings, der durch folgendes CSS trotzdem durchgeführt wird:
+Eine wichtige Änderung der IsyFact am Standard-UI ist die Verwendung von xref:glossary:literaturextern:inhalt.adoc#litextern-font-awesome[Font Awesome]. Eine weitere nützliche CSS-Änderung betrifft den standardmäßigen Nichtumbruch in Listings, der durch folgendes CSS trotzdem durchgeführt wird:
 
 [[listing-css]]
 .Zeilenumbruch in Listings

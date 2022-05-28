@@ -3,7 +3,7 @@
 [[ein-neues-dokument-anlegen]]
 == Ein neues Dokument anlegen
 
-In diesem Kapitel wird jeweils für die xref:dokumentation/einleitung/einleitung.adoc#zentrale-dokumentation[Zentrale Dokumentation], als auch für die  xref:dokumentation/einleitung/einleitung.adoc#baustein-dokumentation[Bausteindokumentation] gezeigt, wie die erforderliche Verzeichnisstruktur aussieht und wie ein neues Dokument dort einsortiert wird.
+In diesem Kapitel wird jeweils für die xref:dokumentation/einleitung/einfuehrung.adoc#zentrale-dokumentation[Zentrale Dokumentation], als auch für die  xref:dokumentation/einleitung/einfuehrung.adoc#baustein-dokumentation[Bausteindokumentation] gezeigt, wie die erforderliche Verzeichnisstruktur aussieht und wie ein neues Dokument dort einsortiert wird.
 
 [[neues-verzeichnis-zentrale-dokumentation-anlegen]]
 === Zentrale Dokumentation: Ein neues Verzeichnis anlegen

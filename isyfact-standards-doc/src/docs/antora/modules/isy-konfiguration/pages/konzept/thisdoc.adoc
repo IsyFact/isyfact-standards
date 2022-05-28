@@ -4,7 +4,7 @@
 [[einleitung]]
 == Einleitung
 
-Dieses Dokument enthält das technische Feinkonzept zur Konfiguration von Anwendungen gemäß den xref:glossary:glossary:master.adoc#glossar-IFS[IsyFact Standards].
+Dieses Dokument enthält das technische Feinkonzept zur Konfiguration von Anwendungen gemäß den xref:glossary:glossary:master.adoc#glossar-ifs[IsyFact Standards].
 
 [[aufbau-und-zweck-des-dokuments]]
 == Aufbau und Zweck des Dokuments

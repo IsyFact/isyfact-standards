@@ -38,7 +38,7 @@ Alle Verweise auf andere Seiten derselben Dokumentation nutzen die Syntax des Xr
 
 [NOTE]
 ====
-Die xref:glossary:literaturextern:inhalt.adoc#litextern-AntoraXrefMacroStructure[Beschreibung der Struktur des Xref-Makros] zeigt weitere, interessante Anwendungsfälle für diese Art von Verweisen.
+Die xref:glossary:literaturextern:inhalt.adoc#litextern-antora-xref-macro-structure[Beschreibung der Struktur des Xref-Makros] zeigt weitere, interessante Anwendungsfälle für diese Art von Verweisen.
 ====
 
 Externe Verweise werden in einer xref:glossary:literaturextern:inhalt.adoc[zentralen Liste] gepflegt und müssen über diese angesprungen werden.
@@ -46,7 +46,7 @@ Ein Beispiel dafür gibt es in dem Admonition Block oberhalb dieses Absatzes.
 
 Verweise auf das xref:glossary:glossary:master.adoc[Glossar] dürfen nur bei der ersten Verwendung eines entsprechenden Begriffs geschehen.
 Alle weitere Vorkommen eines Begriffs werden aus Gründen des Leseflusses nicht mit einem Verweis hinterlegt.
-Es folgt ein Beispiel für den Eintrag der xref:glossary:glossary:master.adoc#glossar-IsyFact[IsyFact] im Glossar.
+Es folgt ein Beispiel für den Eintrag der xref:glossary:glossary:master.adoc#glossar-isyfact[IsyFact] im Glossar.
 
 Mehr zu xref:werkzeuge:dokumentation/master.adoc#querverweise[Verweisen im Handbuch der Dokumentation]. +
 {empty} +

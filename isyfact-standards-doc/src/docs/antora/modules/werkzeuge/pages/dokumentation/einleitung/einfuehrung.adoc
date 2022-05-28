@@ -37,7 +37,7 @@ Es wird z.B. auf ein zentrales Glossar verlinkt.
 
 Zur Generierung der einzelnen HTML- und PDF-Dokumente werden AsciidoctorJ-Extensions verwendet.
 Empfohlen wird jedoch, die Generierung der Dokumentation mit Antora durchzuführen, wie es ab der IsyFact Version 2.5.0 der Fall ist.
-Wenn die Generierung von PDF unverzichtbar ist, muss die Dokumentation per AsciidoctorJ Extensions erstellt werden.
+Wenn die Generierung von PDF unverzichtbar ist, sollte die Dokumentation derzeit per AsciidoctorJ Extensions erstellt werden.
 
 [NOTE]
 ====
@@ -52,8 +52,8 @@ Bei der Dokumentation vor IsyFact 2.5.0 sorgen Skripte dafür, dass die erstellt
 
 === Festgelegte Struktur
 
-IsyFact bietet eine strukturierte Sammlung vielfältiger Dokumente, um die Entwicklung von xref:glossary:glossary:master.adoc#glossar-IsyFact[IsyFact]-basierenden Anwendungen zu beschreiben.
-Für jeden Teilbereich, sei es für den Einstieg, über die xref:glossary:glossary:master.adoc#glossar-Konzept[Konzepte] bis hin zu den xref:glossary:glossary:master.adoc#glossar-Nutzungsvorgaben[Nutzungsvorgaben] einzelner Module, wird jeweils eine eigene Dokumentation bereitgestellt.
+IsyFact bietet eine strukturierte Sammlung vielfältiger Dokumente, um die Entwicklung von xref:glossary:glossary:master.adoc#glossar-isyfact[IsyFact]-basierenden Anwendungen zu beschreiben.
+Für jeden Teilbereich, sei es für den Einstieg, über die xref:glossary:glossary:master.adoc#glossar-konzept[Konzepte] bis hin zu den xref:glossary:glossary:master.adoc#glossar-nutzungsvorgaben[Nutzungsvorgaben] einzelner Module, wird jeweils eine eigene Dokumentation bereitgestellt.
 Zur Vereinheitlichung werden alle Dokumentenseiten gemäß festgelegten Regeln und nach einem bestimmten Grundschema angefertigt.
 Beispielsweise zeichnet sich jede Dokumentseite durch einen ähnlichen Aufbau aus, um dem Nutzer eine intuitive Handhabe zu gewährleisten.
 Weil IsyFact häufig aktualisiert wird und immer wieder auch neue IsyFact-Module hinzugefügt werden, müssen regelmäßig Änderungen in die vorhandenen Dokumentseiten eingepflegt und auch stetig neue Dokumentseiten zur Gesamtdokumentation beigefügt werden.
