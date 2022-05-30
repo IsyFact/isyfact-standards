@@ -439,8 +439,11 @@ Der Zugriff auf das Artefakt ist für die Entwickler und Architekten der Isyfact
 ==== Antora
 Antora ist eine Dokumentationspipeline, die es Dokumentations-, Produkt- und Entwicklungsteams ermöglicht, Dokumentationsseiten zu erstellen, zu verwalten und zu veröffentlichen, die in AsciiDoc erstellt und aus mehreren versionierten Repositories bezogen wurden.
 
-Mithilfe des OpenApi Generators kann aus der OpenApi Spezifikation AsciiDoc generiert/erstellt werden.
-Weitere Informationen zu der Verwendung und den Befehlen des OpenApi Generators befinden sich unter folgendem <<Verwendung_von_OpenAPI_Generator,Kapitel>>.
+Mithilfe des OpenApi Generators kann aus der OpenApi Spezifikation (YAML Datei) AsciiDoc generiert/erstellt werden.
+Für die Generierung von AsciiDoc wird der OpenApi Generator verwendet.
+Nähere und detailliertere Informationen dazu befinden sich unter dem Kapitel <<Verweis_auf_Kapitel>>.
+Wichtig zu beachten ist, dass der Parameter für den Namen des Generators als _asciidoc_ konfiguriert werden muss.
+Ohne diesen Parameter weiß der Generator nicht in welches Dateiformat die YAML Datei generiert werden soll.
 
 Der Build Prozess, ob lokal oder innerhalb der GitLab CI/CD Pipeline ist im Repository *_isy-antora-playbook_* implementiert und dokumentiert.
 
