@@ -430,8 +430,6 @@ Ein Versionskontrollsystem ist ein System, das für die Kontrolle der verschiede
 === Veröffentlichung
 Die OpenAPI Spezifikationen werden mit jeder Veröffentlichung (Release) ausgeliefert.
 
-Die OpenAPI Spezifikationen ist eine YAML Datei.
-
 [[openapi-schnittstellenspezifikation-artifactory]]
 ==== Artifactory
 Die Auslieferung erfolgt als ein Teil vom zentral generierten Artefakt.
@@ -454,7 +452,7 @@ Es wird statisches Hosting über Antora verwendet, weil:
 3. geringe/keine Kosten entstehen
 4. Zugang für nicht technische Benutzer gewährleistet wird
 
-Somit ist dann der Zugriff direkt über den Browser via statisches Hosting über Antora möglich.
+Somit ist dann der Zugriff direkt über den Browser via statisches Hosting über Antora möglich, da die technische Spezifikation (die YAML Datei) zuvor als Antora-Anhang hinzugefügt wurde.
 
 [[openapi-schnittstellenspezifikation-eigener-endpunkt]]
 ==== Definition eines Endpunktes
