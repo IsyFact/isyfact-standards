@@ -437,6 +437,10 @@ Der Zugriff auf das Artefakt ist für die Entwickler und Architekten der Isyfact
 
 [[openapi-schnittstellenspezifikation-antora]]
 ==== Antora
+Antora ist eine Dokumentationspipeline, die es Dokumentations-, Produkt- und Entwicklungsteams ermöglicht, Dokumentationsseiten zu erstellen, zu verwalten und zu veröffentlichen, die in AsciiDoc erstellt und aus mehreren versionierten Repositories bezogen wurden.
+
+Mithilfe des OpenApi Generators kann aus der OpenApi Spezifikation AsciiDoc generiert/erstellt werden.
+
 Der Build Prozess, ob lokal oder innerhalb der GitLab CI/CD Pipeline ist im Repository *_isy-antora-playbook_* implementiert und dokumentiert.
 
 Dieser Pipeline Job generiert nach erfolgreichem Ablauf ein Artefakt neben dem Quellcode.
