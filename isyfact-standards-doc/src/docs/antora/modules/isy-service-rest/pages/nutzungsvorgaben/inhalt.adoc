@@ -460,7 +460,10 @@ Es wird statisches Hosting über Antora verwendet, weil:
 3. geringe/keine Kosten entstehen
 4. Zugang für nicht technische Benutzer gewährleistet wird
 
-Somit ist dann der Zugriff direkt über den Browser via statisches Hosting über Antora möglich, da die technische Spezifikation (die YAML Datei) zuvor als Antora-Anhang hinzugefügt wurde.
+Somit ist der Zugriff direkt über den Browser via statisches Hosting über Antora möglich.
+Die Schnittstellenbeschreibung wird dabei lesbar als Webseite in Github/Gitlab Pages angezeigt.
+Dabei wird auch die technische Spezifikation (die YAML Datei) als Antora-Anhang hinzugefügt.
+Dadurch ist es möglich, sie herunterzuladen.
 
 [[openapi-schnittstellenspezifikation-eigener-endpunkt]]
 ==== Definition eines Endpunktes
