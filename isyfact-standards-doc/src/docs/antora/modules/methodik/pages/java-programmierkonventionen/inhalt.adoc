@@ -215,7 +215,7 @@ Beispiele dafür sind Dokumente übergreifender Natur aus architektonischer, tec
 Dokumentationsprojekte besitzen unter dem Wurzelverzeichnis (`project-root`) ein einzelnes Unterverzeichnis `src/docs/asciidoc/`.
 In diesem finden sich weitere Verzeichnisse, z. B. für Inhalte allgemeiner Natur, sowie für die Dokumente.
 Es empfiehlt sich, für jedes Dokument ein eigenes Verzeichnis zur Ablage spezifischer Inhalte (neben Texten z. B. auch Bilder und Diagramme) anzulegen.
-Vorgaben für die Struktur einzelner Dokumente finden sich im xref:werkzeuge:dokumentation/master.adoc[Handbuch für technische Autoren].
+Vorgaben für die Struktur einzelner Dokumente finden sich in der xref:werkzeuge:dokumentation/einleitung/einfuehrung.adoc[Dokumentation gemäß IsyFact].
 
 .Struktur eines Dokumentationsprojekts
 [id="listing-Projektstruktur-Dokumentation",reftext="{listing-caption} {counter:listings }"]

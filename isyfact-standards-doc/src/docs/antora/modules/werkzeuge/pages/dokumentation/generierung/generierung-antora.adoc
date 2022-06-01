@@ -1,7 +1,7 @@
 // tag::inhalt[]
 
 [[asccidoc-zu-html]]
-== HTML-Dokumente erzeugen
+== HTML-Seiten erzeugen
 
 Ist das zu bearbeitende Dokument fertiggestellt, so kann es als HTML-Datei als Teil der Gesamtdokumentation generiert werden.
 Dies geschieht mithilfe von Antora, einem Open-Source-Tool zur Generierung von HTML-Dokumentation aus Asciidoc-Dateien.
@@ -26,9 +26,9 @@ Eine gute Anleitung bietet die xref:glossary:literaturextern:inhalt.adoc#litexte
 Eine andere Möglichkeit besteht darin, über das `frontend-maven-plugin` Node.js und Antora im lokalen Projekt zu installieren und über das `exec-maven-plugin` die Generierung der Gesamtdokumentation mit Antora auszuführen.
 Eine Anleitung findet sich in xref:glossary:literaturextern:inhalt.adoc#litextern-antora-maven[Antora mit Maven].
 
-=== Antora Konfigurationsdatei playbook.yml
+=== Antora Konfigurationsdatei `playbook.yml`
 
-Die offizielle Antora-Dokumentation beschreibt die xref:glossary:literaturextern:inhalt.adoc#litextern-antora-playbook[Konfigurationsdatei playbook.yml].
+Die offizielle Antora-Dokumentation beschreibt die xref:glossary:literaturextern:inhalt.adoc#litextern-antora-playbook[Konfigurationsdatei `playbook.yml`].
 Deshalb wird hier nur auf die IsyFact-Besonderheiten eingegangen.
 
 [[listing-playbook]]

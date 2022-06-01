@@ -11,7 +11,8 @@ Außer diesem Handbuch sind hierzu Kenntnisse der AsciiDoc-Syntax erforderlich.
 [NOTE]
 ====
 Dieses Handbuch erklärt die Grundlagen der AsciiDoc-Syntax nicht weiter.
-Die folgenden Webseiten bieten ausführliche Tutorials und weiterführende Informationen an: +
+Die folgenden Webseiten bieten ausführliche Tutorials und weiterführende Informationen an:
+
 * xref:glossary:literaturextern:inhalt.adoc#litextern-asciidoc[What is AsciiDoc? Why do we need it?] +
 * xref:glossary:literaturextern:inhalt.adoc#litextern-asciidoctor-usermanual[Asciidoctor User Manual] +
 * xref:glossary:literaturextern:inhalt.adoc#litextern-asciidoc-syntax[AsciiDoc Syntax Quick Reference] +

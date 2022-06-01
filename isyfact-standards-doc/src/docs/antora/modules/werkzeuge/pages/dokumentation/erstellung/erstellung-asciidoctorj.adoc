@@ -3,12 +3,11 @@
 [[ein-neues-dokument-anlegen]]
 == Ein neues Dokument anlegen
 
-In diesem Kapitel wird jeweils für die xref:dokumentation/einleitung/einfuehrung.adoc#zentrale-dokumentation[Zentrale Dokumentation], als auch für die  xref:dokumentation/einleitung/einfuehrung.adoc#baustein-dokumentation[Bausteindokumentation] gezeigt, wie die erforderliche Verzeichnisstruktur aussieht und wie ein neues Dokument dort einsortiert wird.
+In diesem Kapitel wird für die xref:dokumentation/einleitung/einfuehrung.adoc#zentrale-dokumentation[Zentrale Dokumentation] gezeigt, wie die erforderliche Verzeichnisstruktur aussieht und wie ein neues Dokument dort einsortiert wird.
 
 [[neues-verzeichnis-zentrale-dokumentation-anlegen]]
 === Zentrale Dokumentation: Ein neues Verzeichnis anlegen
 
-Die zentrale Dokumentation hat im Vergleich zur Bausteindokumentation eine erweiterte Verzeichnisstruktur.
 Die zentrale Dokumentation der IsyFact-Standards gliedert sich nach den Säulen der IsyFact.
 
 Allgemein;; Einstiegsdokumente, Tutorial, Konventionen
@@ -23,14 +22,14 @@ angelegt, dessen Name den Inhalt des Dokuments widerspiegelt.
 
 
 [[neues-verzeichnis-bausteindokumentation-anlegen]]
-=== Bausteindokumentation: Ein neues Verzeichnis anlegen
+==== Dokumentation eines Bausteins: Ein neues Verzeichnis anlegen
 
 Soll für einen Baustein eine neue Dokumentation angelegt werden oder die bestehende Dokumentation um ein Dokument erweitert werden, so muss zunächst der geeignete Ort zur Ablage bestimmt werden.
 I.d.R. ist dies das Repository, in dem sich der Baustein befindet, da die Dokumentation nah beim Code abgelegt werden soll.
-Bis zur IsyFact 2.4.x befindet sich jedoch ein großer Teil der Bausteindokumentation im Repository isy-documentation.
+Bis zur IsyFact 2.4.x befindet sich jedoch ein großer Teil der Bausteindokumentation im Repository `isy-documentation`.
 
-Ab IsyFact 2.5.0 liegt dieser Teil der Bausteindokumentation im Repository isyfact-standards im Submodul isyfact-standards-doc.
-Der Code dieser Bausteine befindet sich ebenfalls im Repository isyfact-standards, wodurch die Architekturregel "Dokumentation nah beim Code" erfüllt ist.
+Ab IsyFact 2.5 liegt dieser Teil der Bausteindokumentation im Repository `isyfact-standards` im Submodul `isyfact-standards-doc`.
+Der Code dieser Bausteine befindet sich ebenfalls im Repository `isyfact-standards`, wodurch die Architekturregel "Dokumentation nah beim Code" erfüllt ist.
 
 Zunächst muss der Baustein vom Git-Repository heruntergeladen werden.
 Hierfür muss auf der Kommandozeile auf eine geeignete Stelle der lokalen Festplatte gewechselt werden und folgendes Kommando eingegeben werden.
@@ -41,7 +40,7 @@ C:\tmp\> *git clone* https://github.com/IsyFact/<Repository>
 z.B. C:\tmp\> *git clone* https://github.com/IsyFact/isy-baustein
 ====
 
-Bei <Repository> kann es sich um einen einzelnen Baustein handeln oder um ein Repository mit zentraler Dokumentation wie isy-documentation (bis IsyFact 2.4.x) oder isyfact-standards (ab IsyFact 2.5.0).
+Bei <Repository> kann es sich um einen einzelnen Baustein handeln oder um ein Repository mit zentraler Dokumentation wie `isy-documentation` (bis IsyFact 2.4.x) oder `isyfact-standards` (ab IsyFact 2.5).
 
 In einem Baustein wird die Dokumentation in einem eigenen Maven-Submodul unter dem Pfad `src/docs` abgelegt.
 
@@ -151,7 +150,7 @@ a|
 |`revnumber`|Nein||Versionsnummer des Bausteins oder Dokuments|
 |===
 
-Zuletzt werden die übrigen Asciidoc Dateien in master.adoc inkludiert.
+Zuletzt werden die übrigen Asciidoc Dateien in `master.adoc` inkludiert.
 Leere Dateien können ausgelassen werden.
 Inkludiert wird der Inhaltsbereich innerhalb der Dateien, der mit
 

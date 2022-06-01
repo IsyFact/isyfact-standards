@@ -5,12 +5,11 @@
 
 Die Architektur der IsyFact-Dokumentation besteht aus zwei Kernbestandteilen:
 
-. Zentrale Dokumentation (bis IsyFact 2.4.x isy-documentation, ab IsyFact 2.5.0 isyfact-standards-doc)
-. Bausteindokumentation
+. Zentrale Dokumentation
+. Dokumentation der IsyFact Erweiterungen
 
-Die Bausteindokumentation befindet sich i.d.R. im Repository, in dem sich der zu dokumentierende Baustein befindet, da die Dokumentation nah beim Code abgelegt werden soll.
-Bis zur IsyFact 2.4.x befindet sich jedoch ein großer Teil der Bausteindokumentation im Repository isy-documentation.
-Ab der IsyFact 2.5.0 befindet sich dieser Teil der Bausteindokumentation im Repository isyfact-standards, wodurch die Architekturregel "Dokumentation nah beim Code" erfüllt ist.
+Die zentrale Dokumentation befindet sich ab IsyFact 2.5 in `isyfact-standards`, vor IsyFact 2.5 in `isy-documentation`.
+Die Dokumentation der IsyFact Erweiterungen befindet sich im Repository, in dem sich der zu dokumentierende Baustein befindet, da die Dokumentation nah beim Code abgelegt werden soll.
 
 Im Folgenden werden die Bestandteile erläutert.
 
@@ -22,19 +21,26 @@ Dazu zählt der Einstieg, das Whitepaper oder auch das Tutorial.
 
 Die zentrale Dokumentation der IsyFact-Standards gliedert sich nach den Säulen der IsyFact.
 
-Allgemein;; Einstiegsdokumente, Tutorial, Konventionen +
+Allgemein;; Einstiegsdokumente und Tutorials +
 Blaupausen;; Grundlagendokumente und Detailkonzepte für Architektur und Anwendungslandschaft +
 Bausteine;; Dokumente für die jeweilig wiederverwendbaren Softwarelösungen +
 Methodik;; Methodische Dokumente bspw. zu Programmierkonventionen und Systemhandbuch und -entwurf +
 Werkzeuge;; Dokumente zur Verwendung von Werkzeugen und der Einrichtung der Entwicklungsumgebung (hierzu gehört auch dieses Dokument)
 
 [[baustein-dokumentation]]
-=== Bausteindokumentation
+==== Dokumentation der Bausteine
 
-Jeder Baustein der IsyFact enthält eine eigene Dokumentation.
+Jeder Baustein aus der Säule _Bausteine_ der IsyFact Standards enthält eine eigene Dokumentation.
 Hierzu gehören die Nutzungsvorgaben zur Verwendung des Bausteins und das zugrundeliegende Konzept.
 Die Nutzungsvorgaben richten sich in erster Linie an Entwickler, die die IsyFact nutzen.
 Das Konzept richtet sich an Architekten und Entwickler, die die IsyFact weiterentwickeln.
 Wird ein neuer Baustein angelegt, so muss auch eine entsprechende Dokumentation erstellt werden.
 
+[[dokumentation-erweiterungen]]
+=== Dokumentation der IsyFact Erweiterungen
+
+IsyFact Erweiterungen können als Bausteine optional in einem xref:glossary:glossary:master.adoc#glossar-anwendungssystem[IsyFact Anwendungssystem] verwendet werden.
+Ein Beispiel ist der Erweiterungsbaustein `isy-style`, der Styleguide der IsyFact.
+Sie enthalten ebenfalls ihre eigene Dokumentation.
+I.d.R. werden auch hier zugrundeliegende Konzepte sowie Nutzungsvorgaben für Entwickler beschrieben.
 // end::inhalt[]

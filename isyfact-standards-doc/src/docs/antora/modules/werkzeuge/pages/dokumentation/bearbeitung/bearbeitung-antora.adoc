@@ -13,7 +13,8 @@ Außer diesem Handbuch sind Kenntnisse der AsciiDoc-Syntax erforderlich.
 [NOTE]
 ====
 Dieses Handbuch erklärt die Grundlagen der AsciiDoc-Syntax nicht weiter.
-Die folgenden Webseiten bieten ausführliche Tutorials und weiterführende Informationen an: +
+Die folgenden Webseiten bieten ausführliche Tutorials und weiterführende Informationen an:
+
 * xref:glossary:literaturextern:inhalt.adoc#litextern-asciidoc[What is AsciiDoc? Why do we need it?] +
 * xref:glossary:literaturextern:inhalt.adoc#litextern-asciidoctor-usermanual[Asciidoctor User Manual] +
 * xref:glossary:literaturextern:inhalt.adoc#litextern-asciidoc-syntax[AsciiDoc Syntax Quick Reference] +
@@ -168,7 +169,7 @@ Explizit angegebene Versionen müssten bei Aktualisierungen angepasst werden, wa
 Anmerkung: Wenn absichtlich eine bestimmte Version referenziert werden soll und diese sich nie mehr ändert, kann von dieser Konvention abgewichen werden.
 Allerdings wird der Verweis ungültig, wenn die referenzierte Version irgendwann als veraltete Version aus der Dokumentation herausgenommen wird.
 
-Die Angaben component und module im xref-Verweis sind ebenfalls optional und sollten nur genutzt werden, wenn sie zur Referenzierung nötig sind, d.h. wenn auf eine andere Antora-Komponente oder ein anderes Antora-Modul verwiesen wird, siehe auch xref:seitenvorlage.adoc#struktur-verweise[Seitenvorlage Verweise].
+Die Angaben component und module im xref-Verweis sind ebenfalls optional und sollten nur genutzt werden, wenn sie zur Referenzierung nötig sind, d.h. wenn auf eine andere Antora-Komponente oder ein anderes Antora-Modul verwiesen wird, siehe auch xref:seitenvorlage.adoc#struktur-verweise[Verweise auf andere Seiten].
 
 Beispiele für die Verwendung von xref-Verweisen finden sich hier: xref:seitenvorlage.adoc#formatierung-verweise[Seitenvorlage Verweise].
 
@@ -206,7 +207,7 @@ Der Anchor beginnt immer mit dem Bezeichner `litextern-`.
 
 // end::namenskonvention[]
 
-Eine Referenz auf einen Eintrag des externen Literaturverzeichnisses erfolgt über einen <<listing-xref, Antora xref-Link>>, wobei der Eintrag nach dem `#` der Anchor im Literaturverzeichnis in isy-documentation ist.
+Eine Referenz auf einen Eintrag des externen Literaturverzeichnisses erfolgt über einen <<listing-xref, Antora xref-Link>>, wobei der Eintrag nach dem `#` der Anchor im Literaturverzeichnis in `isy-documentation` ist.
 Der Text innerhalb der Klammern [] definiert den Linktext.
 
 Ein Beispiel: +
@@ -415,11 +416,11 @@ In einem IsyFact-Dokument muss eine Abbildung:
 
 Deswegen werden Abbildungen in IsyFact-Dokumenten wie folgt definiert:
 
-[[beispiel-abbildung]]
+[[image-beispiel]]
 .Abbildung einfügen (IsyFact)
 [source,asciidoc]
 ----
-[[beispiel-abbildung]]
+[[image-beispiel]]
 .Beispiel
  image::beispiel.dn.svg
 
@@ -428,34 +429,11 @@ Deswegen werden Abbildungen in IsyFact-Dokumenten wie folgt definiert:
 
 Eingebundene Abbildungen können wie üblich über einen Querverweis referenziert werden:
 
- <<beispiel-abbildung>>
+ <<image-beispiel>>
 
 oder, wenn das eingebundene Bild in einer Seite in einem anderen Modul oder einer anderen Komponente liegt:
 
-  xref:component:module:file.adoc#beispiel-abbildung[Text].
-
-Wenn die Abbildung zentriert werden soll, fügt man das Attribut `[align="center"]` hinzu.
-
-[[listing-bild-einfuegen3]]
-.Abbildung zentriert einfügen
-[source,asciidoc]
-----
-[[beispiel-abbildung]]
-.Beispiel
- image::beispiel.dn.svg[align="center"]
-----
-
-Eine Skalierung der Abbildung ist auch möglich.
-Im folgenden Beispiel wird die Abbildung auf 80% skaliert.
-
-[[listing-bild-einfuegen4]]
-.Abbildung zentriert und skaliert einfügen
-[source,asciidoc]
-----
-[[beispiel-abbildung]]
-.Beispiel
- image::beispiel.dn.svg[align="center",scaledwidth=80%]
-----
+  xref:component:module:file.adoc#image-beispiel[Text].
 
 Beispiele für Abbildungen finden sich außerdem in xref:seitenvorlage.adoc#formatierung-abbildungen[Seitenvorlage Abbildungen]. +
 {empty} +
@@ -615,7 +593,7 @@ Der Anchor beginnt immer mit dem Bezeichner `glossar-`.
 
 // end::namenskonvention[]
 
-Eine Referenz auf einen Begriff des Glossars erfolgt über einen <<listing-xref, Antora Verweis>>, wobei der Eintrag nach dem `#` der Anchor im Glossar in isy-documentation ist.
+Eine Referenz auf einen Begriff des Glossars erfolgt über einen <<listing-xref, Antora Verweis>>, wobei der Eintrag nach dem `#` der Anchor im Glossar in `isy-documentation` ist.
 Der Text innerhalb der Klammern [] definiert den Linktext.
 
 Ein Beispiel: +

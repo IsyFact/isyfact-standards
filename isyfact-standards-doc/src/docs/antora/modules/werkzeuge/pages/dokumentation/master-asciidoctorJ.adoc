@@ -1,4 +1,4 @@
-:doctitle: Dokumentation gemäß IsyFact - Dokumente mit AsciidoctorJ Extensions
+:doctitle: Dokumente mit AsciidoctorJ Extensions
 
 // Verhindert Interpretation der AsciiDoc-Beispiele durch Scripte
 :id-equals: id=
