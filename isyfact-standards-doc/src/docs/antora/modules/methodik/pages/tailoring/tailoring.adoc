@@ -1,0 +1,20 @@
+= Tailoring
+
+include::glossary:licence:partial$licence.adoc[]
+
+[[ziel-tailoring]]
+== Ziel des Tailoring-Dokuments
+
+Das Tailoring-Dokument beschreibt die Anpassung der IsyFact-Referenzarchitektur auf einen bestimmten Anwendungskontext.
+
+Auf der Ebene der fachlichen Architektur ist die IsyFact kontext-neutral, um ein möglichst breites Spektrum von Anwendungskontexten abzudecken.
+Damit die IsyFact in einem bestimmten Anwendungskontext als praktischer Leitfaden und Vorlage für die Entwicklung dienen kann, sind weitere Festlegungen und Anpassungen der IsyFact an die Gegebenheiten des jeweiligen Anwendungskontexts notwendig. Dieser Vorgang wird als Tailoring bezeichnet, sein Ergebnis ist ein Tailoring-Dokument zur IsyFact für den Anwendungskontext.
+
+Alle im Tailoring-Dokument beschriebenen Sachverhalte beziehen sich auf die xref:blaupausen:referenzarchitektur/master.adoc[IsyFact Referenzarchitektur]. Sofern im Tailoring-Dokument nichts anderes definiert wird, gelten die Festlegungen der IsyFact-Referenzarchitektur unverändert.
+
+
+== Download des Tailoring-Dokuments
+
+An dieser Stelle kann eine Vorlage für das xref:methodik:attachment$IsyFact-Tailoring.dotx[IsyFact-Tailoring-Dokument Download icon:file-word-o[]] heruntergeladen werden.
+
+

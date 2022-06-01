@@ -1,5 +1,46 @@
 :doctitle: Changelog IsyFact Dokumentation
 
+== Änderungen IsyFact 2.5.0
+
+// Beginn übergreifende Änderungen
+- Umstellung auf Antora-Dokumentation.
+// Ende übergreifende Änderungen
+
+include::isyfact-standards-doku:einstieg:changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:methodik:namenskonventionen/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:blaupausen:referenzarchitektur/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:blaupausen:referenzarchitektur-it-system/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:einstieg:tutorial/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:einstieg:whitepaper/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:blaupausen:detailkonzept-komponente-anwendungskern/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:blaupausen:detailkonzept-komponente-batch/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:blaupausen:detailkonzept-komponente-datenzugriff/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:blaupausen:detailkonzept-komponente-service/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:blaupausen:detailkonzept-komponente-web-gui/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:isy-datetime:konzept/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:isy-exception-core:konzept/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:isy-konfiguration:konzept/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:isy-logging:konzept/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:isy-sicherheit:konzept/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:isy-task:konzept/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:isy-ueberwachung:konzept/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:isy-sonderzeichen:konzept/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:isy-datetime:nutzungsvorgaben/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:isy-util:nutzungsvorgaben/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:isy-konfiguration:nutzungsvorgaben/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:isy-logging:nutzungsvorgaben/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:isy-polling:nutzungsvorgaben/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:isy-sicherheit:nutzungsvorgaben/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:isy-task:nutzungsvorgaben/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:isy-ueberwachung:nutzungsvorgaben/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:methodik:versionierung/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:methodik:java-programmierkonventionen/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:methodik:diagrammerstellung/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:methodik:tailoring/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:werkzeuge:einrichtung_entwicklungsumgebung/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:werkzeuge:handbuch_dokumentation/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:werkzeuge:versionierungskontrolle/changelog.adoc[tag=release-2.5.0]
+
 include::isyfact-standards-doku:methodik:produktauswahl/changelog.adoc[tag=release-2.5.0]
 include::isyfact-standards-doku:methodik:spezifikation/changelog.adoc[tag=release-2.5.0]
 
