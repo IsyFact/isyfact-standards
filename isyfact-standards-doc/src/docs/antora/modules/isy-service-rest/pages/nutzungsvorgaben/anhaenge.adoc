@@ -1,12 +1,11 @@
 // tag::inhalt[]
 
-
 :sectnums!:
 
 [[anhang]]
 == Anhang
 
-[[zusammenfassung-beispiel]]
+[[zusammenfassung-beispiel-mitarbeiter]]
 === Anhang A: Zusammenfassung des Beispiels (NST_Mitarbeiter_suchen):
 
 [cols="h,1"]
@@ -153,15 +152,13 @@ components:
         - TH
 ----
 
+[[anhang-externe-literaturverweise]]
 == Externe Literaturverweise
 
-[[SwaggerEditorIntellij]]
-https://plugins.jetbrains.com/plugin/14837-openapi-swagger-editor[Swagger Editor für Intellij]
+xref:glossary:literaturextern:inhalt.adoc#litextern-swagger-editor-intellij[Swagger Editor für IntelliJ]
 
-[[SwaggerEditorEclipse]]
-https://marketplace.eclipse.org/content/openapi-swagger-editor[Swagger Editor für Eclipse]
+xref:glossary:literaturextern:inhalt.adoc#litextern-swagger-editor-eclipse[Swagger Editor für Eclipse]
 
-[[SwaggerSpezifikation]]
-https://swagger.io/specification/[Swagger Spezifikation]
+xref:glossary:literaturextern:inhalt.adoc#litextern-swagger-spezification[Swagger Spezifikation]
 
 // end::inhalt[]

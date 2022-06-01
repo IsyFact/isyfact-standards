@@ -1,5 +1,8 @@
 # 2.5.0
 - `IFS-1148`: Fehler wegen zu langem Klassenpfad unter Windows behoben
+- `IFS-1356`: Manuelles Herunterfahren in isy-batchrahmen ausgebaut, stattdessen hochpropagieren der BatchAusfuehrungsException, wenn ClassNotFoundException abgefangen wird.
+- `IFS-1091`: Fehlerhafte ExcludeFromBatchContext-Annotation behoben
+- `IFS-1355`: WebApplication.None für ConfigurableApplicationContext im BatchLauncher hinzugefügt
 
 # 2.4.0
 - `IFS-801`: SpotBugs Fehler behoben

@@ -11,30 +11,44 @@ import org.springframework.context.annotation.Configuration;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
+/**
+ * Test class for the ExcludeFromBatchContext annotation.
+ */
 public class ExcludeFromBatchContextTest {
 
     private final ApplicationContextRunner contextRunner =
         new ApplicationContextRunner().withConfiguration(UserConfigurations.of(AppConfig.class));
 
+    /**
+     * Verifies that no beans are excluded when running without the batch-context property set.
+     */
     @Test
-    public void annotatedBeansNotInContextWhenRunningAsBatch() {
+    public void annotatedBeansInContextWhenNotRunningAsBatch() {
         contextRunner.run(context -> {
             assertThat(context).hasBean("coreBean");
-            assertThat(context).doesNotHaveBean("webGuiBean");
+            assertThat(context).hasBean("webGuiBean");
         });
     }
 
+    /**
+     * Verifies that the 'webGuiBean' is excluded when running with the batch-context property set.
+     */
     @Test
-    public void annotatedBeanInContextWhenNotRunningAsBatch() {
-        contextRunner.withClassLoader(new FilteredClassLoader(BatchLauncher.class))
+    public void annotatedBeanNotInContextWhenRunningAsBatch() {
+        contextRunner.withPropertyValues("isy.batchrahmen.batch-context", "true")
                      .run(context -> {
                          assertThat(context).hasBean("coreBean");
-                         assertThat(context).hasBean("webGuiBean");
+                         assertThat(context).doesNotHaveBean("webGuiBean");
                      });
     }
 
+    @Test
+    public void runBatchWithAnnotatedBean() {
+
+    }
+
     @Configuration
-    static class AppConfig {
+    public static class AppConfig {
 
         @Bean
         public String coreBean() {

@@ -1,5 +1,4 @@
 = Konzept REST-Services: Anhänge
-:imagesdir: images
 
 // tag::inhalt[]
 [[anhang-content-types]]
@@ -7,9 +6,8 @@
 
 Die folgende Tabelle enthält alle Inhaltstypen, die vom Baustein REST der IsyFact vorgesehen und unterstützt sind.
 
-:desc-table-content-types: Zuordnung von Repräsentationen zu Content-Type- und Accept-Headern
+.Zuordnung von Repräsentationen zu Content-Type- und Accept-Headern
 [id="table-content-types", reftext = "{table-caption} {counter:tables}"]
-.{desc-table-content-types}
 [cols="1,1,1a"]
 |===
 |Repräsentation | Content-Type | Accept
@@ -44,9 +42,8 @@ Die folgende Tabelle enthält alle Inhaltstypen, die vom Baustein REST der IsyFa
 [[anhang-http-methoden]]
 == Anhang B: HTTP-Methoden
 
-:desc-table-http-methoden: Übersicht HTTP-Methoden und ihre Eigenschaften
+.Übersicht HTTP-Methoden und ihre Eigenschaften
 [id="table-http-methoden", reftext = "{table-caption} {counter:tables}"]
-.{desc-table-http-methoden}
 [cols="1,2,2"]
 |===
 h|Methode h|Idempotent h|Cacheable

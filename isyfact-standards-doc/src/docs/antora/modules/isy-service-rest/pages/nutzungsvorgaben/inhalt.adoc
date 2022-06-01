@@ -1,10 +1,10 @@
 // tag::inhalt[]
 
 
-[[vorgehen]]
+[[erstellung-openapi-spezifikation]]
 == Erstellung von OpenAPI-Spezifikationen
 
-[[tools]]
+[[toolauswahl]]
 === Toolauswahl
 Die OpenAPI-Spezifikation wird im yaml-Format erstellt, da YAML aufgrund der übersichtlichen Syntax leichter und schneller zu erfassen ist.
 Für die Bearbeitung ist keine IDE zwingend erforderlich, ein einfacher Texteditor (z.B. Notepad++) reicht aus.
@@ -12,17 +12,20 @@ Wir empfehlen jedoch den Einsatz des Swagger-Editors, der sowohl die syntaktisch
 
 Swagger Editor ist ein Tool zum Bearbeiten von OpenAPI-Spezifikationen und unterstützt OpenAPI 3.0.
 Swagger Editor validiert die eingegebene Spezifikation und bietet darüber hinaus weitere Funktionalität, wie z.B. Auto-Completion.
-Wir empfehlen das entsprechende IntelliJ und Eclipse Plugins dieses Editors (siehe <<SwaggerEditorIntellij>> und <<SwaggerEditorEclipse>>).
+Wir empfehlen das entsprechende IntelliJ und Eclipse Plugins dieses Editors (siehe xref:glossary:literaturextern:inhalt.adoc#litextern-swagger-editor-intellij[Swagger Editor für IntelliJ] und xref:glossary:literaturextern:inhalt.adoc#litextern-swagger-editor-eclipse[Swagger Editor für Eclipse]).
 Die Verwendung dieser Plugins ist besonders sinnvoll, da sie die Integration der Spezifikation in das Projekt ermöglicht und die Verwaltung mit Version Control erleichtert.
 
-Weitere Informationen zu OpenApi 3.0 (Beschreibung und Vorgaben) finden Sie unter <<SwaggerSpezifikation>>).
-Bei der Erstellung der Spezifikation sind die Vorgaben der IsyFact (siehe <<KonzeptInterneRestServices>>) zu beachten.
+Weitere Informationen zu OpenApi 3.0 (Beschreibung und Vorgaben) finden Sie unter xref:glossary:literaturextern:inhalt.adoc#litextern-swagger-spezification[Swagger Spezifikation]).
+Bei der Erstellung der Spezifikation sind die Vorgaben der IsyFact (siehe xref:isy-service-rest:konzept/master.adoc#einleitung[Konzept REST]) zu beachten.
 Relevante Vorgaben beziehen sich u.a. auf den Aufbau der URls und der Anfrage, die Verwendung der http-Verben und Statuscodes.
 
 [[mapping-fachlichen-schnittstellen]]
 === Mapping von fachlicher Schnittstellenbeschreibung auf OpenAPI-Spezifikation
+// TODO: Der Begriff _IsyFact-Vorlage Schnittstellendokumentation_ ist durch einen externen Link zu ersetzen.
+// Dieses Dokument ist zur Zeit noch ein Word-Dokument.
+// Dieses soll noch als Binärdatei zu isyfact-standards-doc wandern. Das Ticket ist aber noch nicht umgesetzt.
 Die Schnittstellenbeschreibung, die im Rahmen der Systemspezifikation erstellt wird, spezifiziert die angebotene(n) Nachbarsystemschnittstelle(n) (NST) aus fachlicher Sicht und gibt keine Auskunft über technische Details.
-Für das Erstellen dieser fachlichen Schnittstellenbeschreibung wird die IsyFact-Vorlage <<VorlageSchnittstellendokumentation>> verwendet.
+Für das Erstellen dieser fachlichen Schnittstellenbeschreibung wird die _IsyFact-Vorlage Schnittstellendokumentation_ verwendet.
 Die fachlichen Schnittstellenbeschreibungen nach den Vorgaben der IsyFact enthalten in erster Linie die verwendeten Entitäten sowie Eingabe und Ausgabe Parameter.
 Ergänzt werden diese durch weitere Spezifika (z.B. Kurzbeschreibung, Synchron/Asynchron, Online/Offline…).
 Diese Schnittstellenbeschreibung soll im Rahmen des Systementwurfs technisch als eine OpenAPI-Spezifikation konzipiert und bereitgestellt werden.
@@ -53,7 +56,7 @@ paths:
   /mitarbeiter/sucheNachSuchkriterien:
 ----
 
-Der Pfadname muss den Vorgaben zur Ressourcenorientierung im <<KonzeptInterneRestServices>> entsprechen.
+Der Pfadname muss den Vorgaben zur Ressourcenorientierung im xref:isy-service-rest:konzept/master.adoc#einleitung[REST Konzept] entsprechen.
 
 
 |NSE_Entität (Input)
@@ -201,10 +204,10 @@ typ
 |get, post, put, delete
 
 Das passende Verb, um die Art der Transaktion zu beschreiben (Lese-, Schreib- oder Löschvorgang).
-Vorgaben zur Wahl des Verbs finden sich im <<KonzeptInterneRestServices>>.
+Vorgaben zur Wahl des Verbs finden sich im xref:isy-service-rest:konzept/master.adoc#einleitung[Konzept REST].
 |===
 
-Die für die Mapping-Tabelle genutzte Beispiel-Schnittstellenbeschreibung und das Ergebnis als OpenAPI-Spezifikation ist in <<zusammenfassung-beispiel>> zusammenfassend dargestellt.
+Die für die Mapping-Tabelle genutzte Beispiel-Schnittstellenbeschreibung und das Ergebnis als OpenAPI-Spezifikation ist als im xref:isy-service-rest:nutzungsvorgaben/anhaenge.adoc#zusammenfassung-beispiel-mitarbeiter[Beispiel im Anhang] zusammenfassend dargestellt.
 
 [[metadaten]]
 === Übertragung von Metadaten
@@ -239,7 +242,7 @@ paths:
 [[fachliche_info_get_delete]]
 === Übertragung fachlicher Informationen bei GET- und DELETE-Anfragen
 
-Bei Anfragen zum Lesen (GET) oder Löschen (DELETE) werden gemäß REST-Konzept (siehe <<KonzeptInterneRestServices>>) keine Informationen im Body übertragen.
+Bei Anfragen zum Lesen (GET) oder Löschen (DELETE) werden gemäß REST-Konzept (siehe xref:isy-service-rest:konzept/master.adoc#einleitung[Konzept REST]) keine Informationen im Body übertragen.
 In einigen Fällen kann es jedoch vorkommen, dass der Server weitere Informationen benötigt, um die Anfrage erfolgreich bearbeiten zu können.
 Ein mögliches Szenario ist die Protokollierung der Zugriffshistorie inkl. Zugriffsgrund.
 Daher sollen in diesem Szenario die erforderlichen Informationen als URL-Parameter gesendet werden.
@@ -282,7 +285,7 @@ Der präferierte Weg ist, den Generator über Maven oder direkt über die Konsol
 Die Verwendung von Maven ist sinnvoll, wenn eine neue Anwendung von Grund auf neu entwickelt wird oder die Generierung in einen bestehenden Prozess integriert werden soll, z.B. in einen automatischen Prozess zur Generierung von fachlicher Dokumentation.
 Sollen neue Schnittstellen zu einer bereits bestehenden Anwendung hinzufügt werden, wird empfohlen, den Generator von der Konsole aus auszuführen und die benötigten Teile aus dem Generat in die Anwendung zu kopieren.
 
-[[die_konsole]]
+[[konsole]]
 === Die Konsole
 Für die Nutzung über die Konsole ist es erforderlich, vorher die Generator-JAR-Datei von der Website des Generators zu installieren.
 Der Befehl besteht aus folgenden Teilen:
