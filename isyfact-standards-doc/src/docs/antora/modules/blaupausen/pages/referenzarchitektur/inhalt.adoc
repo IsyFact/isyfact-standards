@@ -152,7 +152,7 @@ image::blaupausen:referenzarchitektur/fachliche-referenzarchitektur-anwendungsla
 
 Zur Strukturierung der xref:glossary:glossary:master.adoc#glossar-anwendungslandschaft[Anwendungslandschaft] werden drei fachliche Hierarchieebenen festgelegt:
 
-*xref:glossary:glossary:master.adoc#glossar-Anwendungsdomaenelandschaft[Anwendungsdomäne]:* Auf der obersten Hierarchieebene werden Anwendungsdomänen gebildet: Anwendungsdomänen sind fachlich eng zusammengehörige Mengen von Anwendungssystemen
+*xref:glossary:glossary:master.adoc#glossar-anwendungsdomaene[Anwendungsdomäne]:* Auf der obersten Hierarchieebene werden Anwendungsdomänen gebildet: Anwendungsdomänen sind fachlich eng zusammengehörige Mengen von Anwendungssystemen
 zur Unterstützung von Geschäftsprozessen, die als eine Einheit angesehen werden können.
 In <<image-GA-AW2>> wurden zwei Domänen gebildet, erkennbar an den unteren schwarzen Kästen mit der Beschriftung „Domäne“.
 
