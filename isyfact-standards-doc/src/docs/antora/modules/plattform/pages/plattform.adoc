@@ -4,7 +4,7 @@ include::glossary:licence:partial$licence.adoc[]
 
 // tag::whitepaper[]
 
-*Eine einheitliche Plattform über alle Geschäftsanwendungen ermöglicht einen standardisierten und effizienten Systembetrieb.*
+*Eine einheitliche Plattform, die einen standardisierten und effizienten Betrieb von Geschäftsanwendungen ermöglicht.*
 
 Die Betriebsplattform der IsyFact besteht aus Hardware und Netzen sowie der benötigten Middleware mit Anwendungs- und Datenbankservern.
 Sie sieht eine hochverfügbare Produktionsumgebung sowie Entwicklungs- und verschiedene Testumgebungen vor.

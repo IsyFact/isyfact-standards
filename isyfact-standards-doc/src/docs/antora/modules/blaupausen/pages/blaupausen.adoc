@@ -4,8 +4,7 @@ include::glossary:licence:partial$licence.adoc[]
 
 // tag::whitepaper[]
 
-Blaupausen beschreiben die Architektur und Konzepte der Anwendungslandschaft.
-Diese beinhaltet die Architektur einer Fachanwendung auf fachlicher Ebene (A-Architektur), die software-technische Umsetzung (T-Architektur) sowie die darunter liegende Hardware und Systemsoftware (TI-Architektur).
+*Blaupausen beschreiben die Konzepte, Architektur sowie Erstellung von Anwendungslandschaften und Geschäftsanwendungen auf fachlicher, software-technischer und technisch-infrastruktureller Ebene.*
 
 == Fachliche Referenzarchitektur (A-Architektur)
 

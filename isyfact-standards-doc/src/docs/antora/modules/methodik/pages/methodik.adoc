@@ -4,7 +4,7 @@ include::glossary:licence:partial$licence.adoc[]
 
 // tag::whitepaper[]
 
-*Grundlage für die Umsetzung von Projekten mit der IsyFact ist eine standardisierte Vorgehensweise nach dem V-Modell XT.*
+*Konventionen und Vorgaben für die Spezifikation und Programmierung sowie das Projektvorgehen nach V-Modell XT.*
 
 NOTE: Das xref:glossary:literaturextern:inhalt.adoc#litextern-v-modell-xt[V-Modell XT] ist als Vorgehensmodell für Systementwicklungsprojekte in deutschen Bundesbehörden vorgeschrieben.
 

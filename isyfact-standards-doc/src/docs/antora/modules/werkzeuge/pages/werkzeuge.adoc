@@ -4,8 +4,7 @@ include::glossary:licence:partial$licence.adoc[]
 
 // tag::whitepaper[]
 
-*Die IsyFact setzt auf Automatisierung und Werkzeugunterstützung bei der Erstellung von Registern.
-Dazu bietet sie vorkonfigurierte Werkzeuge für Modellierung, Programmierung, Installation, Tests oder die Fehlerverfolgung.*
+*Vorkonfigurierte Werkzeuge und Handbücher zu Werkzeugen zur Modellierung, Programmierung, Installation, Tests und Fehlerverfolgung.*
 
 Für die Softwareentwicklung setzt die IsyFact auf die IDEs Eclipse sowie IntelliJ IDEA und bietet punktuelle Unterstützung, z.B. bei der Generierung von Quellcode sowie der Überprüfung der Code-Qualität.
 

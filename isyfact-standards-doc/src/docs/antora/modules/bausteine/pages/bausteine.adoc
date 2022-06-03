@@ -4,7 +4,7 @@ include::glossary:licence:partial$licence.adoc[]
 
 // tag::whitepaper[]
 
-*Die Bausteine der IsyFact sind wiederverwendbare Softwarelösungen.*
+*Wiederverwendbare Softwarelösungen, querschnittliche Anwendungen sowie Programmierbibliotheken und -vorlagen zur Erstellung von Geschäftsanwendungen.*
 
 Diese Bausteine liegen in unterschiedlichen Formen vor: es gibt fachliche und technische Services im Sinne einer Service-Orientierten Architektur (SOA), querschnittlich nutzbare Komponenten sowie wiederverwendbare Bibliotheken und Programmiervorlagen.
 
@@ -31,11 +31,11 @@ Die nachfolgende Tabelle beschreibt die Bausteine. Sie stellen in der Regel ein 
 |Http Invoker
 |Der Baustein Http Invoker bietet die Möglichkeit, interne Services der Anwendungslandschaft mit der Technologie Spring Http Invoker zu realisieren.
 
-//|JSF
-//|Der Baustein JSF ermöglicht es Anwendungen, grafische Oberflächen auf Basis von Java Server Faces umzusetzen.
-//Er enthält architektonische sowie technische Vorgaben und beschreibt die konkrete Umsetzung.
-//Dabei integriert er den Styleguide und stellt auf dessen Grundlage wiederverwendbare Widgets bereit.
-//Der Baustein basiert auf JSF und Spring Webflow.
+|JSF
+|Der Baustein JSF ermöglicht es Anwendungen, grafische Oberflächen auf Basis von Java Server Faces umzusetzen.
+Er enthält architektonische sowie technische Vorgaben und beschreibt die konkrete Umsetzung.
+Dabei integriert er den Styleguide und stellt auf dessen Grundlage wiederverwendbare Widgets bereit.
+Der Baustein basiert auf JSF und Spring Webflow.
 
 |Konfiguration
 |Der Baustein beschreibt typische Arten von Konfiguration und macht Vorgaben für deren Erstellung, Handhabung und Pflege.
@@ -53,13 +53,13 @@ Der Baustein unterstützt unterschiedliche Arten von Schnittstellen und sorgt da
 |Sicherheit
 |Der Baustein übernimmt die Autorisierung von Anfragen, sowohl von menschlichen Anwendern als auch externen Systemen, und dient zur Verwaltung von Rollen und Rechten innerhalb von IT-Systemen.
 
-//|Styleguide
-//|Der Styleguide beschreibt die Gestaltungsregeln, nach denen grafische Oberflächen von Geschäftsanwendungen zu erstellen sind.
-//Basis des Styleguides sind der Styleguide der Bundesregierung und Gestaltungsregeln für Internetauftritte des Bundesverwaltungsamtes.
-
 |Sonderzeichen
 |Der Baustein bietet wichtige Hinweise für den Umgang mit Sonderzeichen und enthält Transkriptionsregeln zur Übertragung von nicht-lateinischen Zeichen.
 Unterstützt werden die Standards String Latin 1.1 und String Latin 1.2 („DIN SPEC 91379“) und eine generelle Kompatibilität zu UTF-8.
+
+|Styleguide
+|Der Styleguide beschreibt die Gestaltungsregeln, nach denen grafische Oberflächen von Geschäftsanwendungen zu erstellen sind.
+Basis des Styleguides sind der Styleguide der Bundesregierung und Gestaltungsregeln für Internetauftritte des Bundesverwaltungsamtes.
 
 |Task Scheduling
 |Der Baustein ermöglicht die Ausführung regelmäßiger Aufgaben innerhalb von IT-Systemen mit voller Integration anderer Bausteine wie Konfiguration, Logging, Sicherheit und Überwachung.

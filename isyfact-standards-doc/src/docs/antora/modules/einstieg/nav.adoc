@@ -1,4 +1,4 @@
-* Einstieg
+* xref:einstieg.adoc[]
 ** xref:vorstellung.adoc[]
 *** xref:vorstellung/isyfact-standards.adoc[]
 *** xref:vorstellung/isyfact-erweiterungen.adoc[]

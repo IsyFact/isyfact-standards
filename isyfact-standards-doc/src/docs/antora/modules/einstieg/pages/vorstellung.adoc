@@ -7,14 +7,6 @@ include::glossary:licence:partial$licence.adoc[]
 [[einfuehrung-in-software-factories]]
 == Einführung in Software Factories
 
-Bei der Entwicklung von Anwendungssystemen für eine bestimmte Domäne stehen Architekten und Entwickler häufig vor denselben, wiederkehrenden Problemen.
-Zwar unterscheiden sich je nach Anwendung die Datenstrukturen, die Geschäftslogik und die Benutzeroberflächen, aber die allgemeinen Prinzipien der Architektur, der Datenhaltung und der Gestaltung von Benutzerschnittstellen, sind in der Regel für alle Anwendungen identisch und somit wiederverwendbar.
-Ebenso lässt sich eine Vielzahl von Detailvorgaben, z.B. für den Betrieb von Anwendungen, das Logging, die Benutzerverwaltung oder für die Kommunikation von Systemen untereinander standardisieren.
-Dies ist nicht nur sinnvoll, sondern auch notwendig, wenn die verschiedenen Anwendungssysteme Teil einer Anwendungslandschaft in einem Unternehmen oder einer Behörde sind.
-Erst durch die Wiederverwendung von bereits entwickelten Komponenten und die Standardisierung von Entwicklungsmethoden wird es möglich, eine komplexe Anwendungslandschaft mit geringem Aufwand bzw. kostengünstig zu entwickeln und effizient zu betreiben.
-
-Die Herausforderung bei der Wiederverwendung besteht darin, das einmal erworbene Wissen über die Anwendungsentwicklung in einer Domäne so zu strukturieren, zu dokumentieren und vorzuhalten, dass nachfolgende Projekte einfach und verlässlich darauf zugreifen können, und damit die Einhaltung des einmal definierten Architekturrahmens sichergestellt ist.
-Software Factories sind ein Mittel, dies zu erreichen.
 Eine Software Factory ist eine Sammlung von Architektur-Blaupausen, Bausteinen, einer Plattform, Methoden und Werkzeugen, die es erlaubt, Anwendungen weitgehend „automatisiert“ und standardisiert zu entwickeln.
 Dabei bedeutet „automatisiert“ hier nicht, dass der Quelltext des Softwaresystems ohne menschliches Zutun durch einen Automaten erzeugt würde.
 Es bezieht sich vielmehr darauf, dass alle wesentlichen technischen Architekturentscheidungen bereits durch die Software Factory getroffen sind, und diese auch entsprechende Komponenten zur Implementierung dieser Architektur bereithält.
@@ -38,29 +30,30 @@ Sie umfassen allgemeingültige und wiederverwendbare Konzepte und Komponenten, d
 Die *xref:vorstellung/isyfact-erweiterungen.adoc[]* sind optionale wiederverwendbare Lösungen für verschiedene Problemstellungen, die aufgrund spezifischer Anforderungen des BVA oder seiner Kunden entwickelt wurden und _auf den IsyFact-Standards aufbauen_. +
 *Beispiele:* Protokollierung, Regelwerk etc.
 
-Die Artefakte der IsyFact-Standards und IsyFact-Erweiterungen werden in gleicher Weise in 5 Säulen klassifiziert, die der Strukturierung der Inhalte der Factory dienen.
+Die Inhalte der IsyFact-Standards und IsyFact-Erweiterungen werden in gleicher Weise in fünf Säulen strukturiert.
 
-[[isyfact-saeulen]]
-.Die 5 Säulen der IsyFact
-image::einstieg/isyfact-saeulen.dn.svg[]
-
-Die einzelnen Säulen sind wie folgt definiert.
+// tag::whitepaper[]
 
 Blaupausen::
-Die Blaupausen beschreiben die Architektur und Konzepte der Anwendungslandschaft.
+Blaupausen beschreiben die Konzepte, Architektur sowie Erstellung von Anwendungslandschaften und Geschäftsanwendungen auf fachlicher, software-technischer und technisch-infrastruktureller Ebene.
 
 Bausteine::
-Die Bausteine der IsyFact sind wieder verwendbare Softwarelösungen.
+Wiederverwendbare Softwarelösungen, querschnittliche Anwendungen sowie Programmierbibliotheken und -vorlagen zur Erstellung von Geschäftsanwendungen.
 
 Plattform::
-Eine einheitliche Plattform über alle IT-Systeme, die einen standardisierten und effizienten Systembetrieb ermöglicht.
+Eine einheitliche Plattform, die einen standardisierten und effizienten Betrieb von Geschäftsanwendungen ermöglicht.
 
 Methodik::
-Grundlage für die Umsetzung von Systemen mit der IsyFact ist eine standardisierte Vorgehensweise nach dem V-Modell XT.
+Konventionen und Vorgaben für die Spezifikation und Programmierung sowie das Projektvorgehen nach V-Modell XT.
 
 Werkzeuge::
-Die IsyFact setzt auf Automatisierung und Werkzeugunterstützung bei der Erstellung von IT-Systemen.
-Dazu bietet sie vorkonfigurierte Werkzeuge für Modellierung, Programmierung, Installation, Tests oder die Fehlerverfolgung.
+Vorkonfigurierte Werkzeuge und Handbücher zu Werkzeugen zur Modellierung, Programmierung, Installation, Tests und Fehlerverfolgung.
+
+// end::whitepaper[]
+
+.Die fünf Säulen der IsyFact
+image::einstieg/isyfact-saeulen.dn.svg[]
+
 
 [[nutzungsszenarien-und-tailoring]]
 == Nutzungsszenarien und Tailoring

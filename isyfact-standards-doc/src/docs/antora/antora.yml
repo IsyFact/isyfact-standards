@@ -1,7 +1,7 @@
 name: isyfact-standards-doku
 title: IsyFact Standards
 version: '2.5-SNAPSHOT'
-start_page: einstieg:vorstellung.adoc
+start_page: einstieg:einstieg.adoc
 nav:
 - modules/einstieg/nav.adoc
 - modules/blaupausen/nav.adoc

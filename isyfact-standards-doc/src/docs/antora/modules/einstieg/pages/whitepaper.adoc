@@ -6,69 +6,16 @@ include::glossary:licence:partial$licence.adoc[]
 
 == IsyFact: eine Software Factory zur effizienten Entwicklung von Anwendungen
 
-*Das Bundesverwaltungsamt stellt seinen in einer Vielzahl von Projekten eingesetzten und etablierten Standard für die Erstellung von betrieblichen Informationssystemen als Open Source zur Verfügung.*
-
-Bei der Entwicklung von Anwendungen für eine bestimmte Domäne stehen Architekten und Entwickler häufig vor denselben, wiederkehrenden Problemen.
-Zwar unterscheiden sich je nach Anwendung die Datenstrukturen, die Geschäftslogik und die Benutzeroberflächen, aber die allgemeinen Prinzipien, z.B. der Datenhaltung, der Architektur und der Gestaltung von Benutzerschnittstellen, sind in der Regel für alle Anwendungen identisch und somit wiederverwendbar.
-
-Die Herausforderung bei der Wiederverwendung besteht darin, das einmal erworbene Wissen über die Anwendungsentwicklung in einer Domäne zu strukturieren, zu dokumentieren und vorzuhalten, sodass nachfolgende Projekte einfach und verlässlich darauf zugreifen können, und damit die Einhaltung des definierten Architekturrahmens sicherzustellen.
-
-Eine *Software Factory* ist ein Mittel, um dieses Ziel zu erreichen.
-
-=== Standardisierung und Modularisierung der Softwareentwicklung
-
-Die *IsyFact* ist eine Software Factory für den Bau von Informationssystemen in komplexen IT-Anwendungslandschaften.
-Sie bündelt bestehendes technisches Know-how, um Anwendungssysteme effizienter entwickeln und betreiben zu können.
-Wie in einer Fabrik, in der gleichartige Teile durch standardisierte Fertigkomponenten gefertigt werden, bietet die IsyFact einen Ansatz in der Informationstechnik.
-Architektur, Konzepte, technische Infrastruktur, Querschnittsanwendungen, Programmierbibliotheken und Middleware sind standardisiert und können wiederverwendet werden.
-
-=== IsyFact-Standards als Open Source-Projekt
-
-Das Bundesverwaltungsamt stellt die IsyFact bereits seit geraumer Zeit anderen Behörden für ihre Softwareentwicklungsprojekte zur Verfügung.
-Die Grundlagen der IsyFact sind jedoch so allgemein, dass sie sich für die Entwicklung von Informationssystemen in beliebigen Anwendungskontexten eignen.
-
-Das Bundesverwaltungsamt hat deswegen 2015 die Grundlagen der IsyFact als IsyFact-Standards ausgekoppelt und stellt sie auch nicht-behördlichen Nutzern als Open-Source-Software bereit.
-Interessenten können die IsyFact-Standards selbstständig aus dem GitHub-Repository beziehen.
-Dies beschleunigt den Prozess der Bereitstellung und verringert die Einstiegshürde für potenzielle Nutzer.
-
-Durch die Open-Source-Stellung stehen die IsyFact-Standards einem größeren Kreis von Nutzern zur Verfügung.
-Auch wenn sie ursprünglich im Kontext der öffentlichen Verwaltung entwickelt wurde, können mit ihnen Anwendungslandschaften in anderen Anwendungskontexten ohne weiteres erstellt werden.
-Jeder Nutzer kann die IsyFact nach seinen Bedürfnissen anpassen und eigene Erweiterungen schreiben.
-
-Das Bundesverwaltungsamt nimmt gerne Feedback zur IsyFact entgegen und ist an Korrekturen, Aktualisierungen und Erweiterungen interessiert.
-Entsprechende Vorschläge können gerne angeregt oder in Form von Pull Requests eingereicht werden.
-Das Bundesverwaltungsamt behält sich vor, diese nach eigenem Ermessen in die IsyFact aufzunehmen.
-
-=== Vorteile / Nutzen
-
-Die IsyFact wird seit 2007 durch das Bundesverwaltungsamt entwickelt und in unterschiedlichen Projekten in der Praxis eingesetzt.
-Sie ist mittlerweile ein wertvoller Know-how-Baustein des Bundesverwaltungsamts geworden.
-
-Die Vorteile bei Nutzung der IsyFact sind:
-
-Festes Fundament durch fünf Säulen:: Blaupausen, Bausteine, Plattform, Methodik, Werkzeuge
-Universelle Vorbereitung für verschiedenste Geschäftsanwendungen:: Nutzung der Gemeinsamkeiten von Geschäftsanwendungen
-Effizienter Bau von Geschäftsanwendungen:: Schneller und kostengünstiger als ohne IsyFact-Standards
-Effizienter Betrieb von Geschäftsanwendungen:: Vorteile durch Standardisierung und Nutzungsvorgaben
-In der Praxis erprobtes Verfahren:: Migration bestehender und Umsetzung neuer Geschäftsanwendungen im Bundesverwaltungsamt
-
+include::einstieg:page$einstieg.adoc[tags=whitepaper,leveloffset=1]
 
 [[die-fuenf-saeulen]]
 == Die fünf Säulen der IsyFact
 
 *Die IsyFact umfasst: Blaupausen, Bausteine, eine Betriebsplattform, methodische Vorgaben zum Software-Engineering und Entwicklungswerkzeuge.*
 
-Die IsyFact stellt Ihre Inhalte strukturiert in fünf *Säulen* zur Verfügung:
+Die IsyFact stellt Ihre Inhalte strukturiert in fünf *Säulen* zur Verfügung.
 
-<<blaupausen>>:: Vorlagen für die Erstellung von Geschäftsanwendungen auf fachlicher, software-technischer und technisch-infrastruktureller Ebene.
-
-<<bausteine>>:: Wiederverwendbare Softwarelösungen, querschnittliche Systeme sowie Programmierbibliotheken und -vorlagen.
-
-<<plattform>>:: Eine einheitliche, hochverfügbare Betriebsumgebung mit leistungsfähiger Hardware und der benötigten Systemsoftware.
-
-<<methodik>>:: Konventionen und Vorgaben für die Spezifikation und Programmierung sowie das Projektvorgehen nach V-Modell XT.
-
-<<werkzeuge>>:: Tools für teilweise Automatisierung von Modellierung, Programmierung, Tests und Fehlerverfolgung.
+include::einstieg:page$vorstellung.adoc[tags=whitepaper]
 
 .Die fünf Säulen der IsyFact
 image::einstieg:sf-saeulen.dn.svg[]
