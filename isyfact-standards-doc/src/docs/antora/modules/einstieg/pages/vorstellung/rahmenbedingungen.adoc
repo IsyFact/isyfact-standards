@@ -101,7 +101,7 @@ Es wird jedoch vorausgesetzt, dass jeder Anwender der IsyFact einen eigenen Styl
 
 Die Dokumentation der IsyFact folgt einer festgelegten Struktur.
 Dokumente wie dieser Einstieg liegen im *allgemeinen* Teil der Dokumentation.
-Der Teil enthält außerdem das xref:tutorial/master.adoc[Tutorial], das xref:whitepaper/inhalt.adoc[Whitepaper] und den xref:migrationsleitfaden-if2/master.adoc[Migrationsleitfaden zur IsyFact 2].
+Der Teil enthält außerdem das xref:tutorial/master.adoc[Tutorial], das xref:whitepaper.adoc[Whitepaper] und den xref:migrationsleitfaden-if2/master.adoc[Migrationsleitfaden zur IsyFact 2].
 
 Die Dokumentation der *Blaupausen* enthält je ein Detailkonzept pro Blaupause.
 

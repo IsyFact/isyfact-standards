@@ -6,7 +6,6 @@
 include::blaupausen:page$referenzarchitektur/inhalt.adoc[tags=architekturregel]
 include::blaupausen:page$referenzarchitektur-it-system/inhalt.adoc[tags=architekturregel]
 include::einstieg:page$tutorial/inhalt.adoc[tags=architekturregel]
-include::einstieg:page$whitepaper/inhalt.adoc[tags=architekturregel]
 
 include::blaupausen:page$detailkonzept-komponente-anwendungskern/inhalt.adoc[tags=architekturregel]
 include::blaupausen:page$detailkonzept-komponente-batch/inhalt.adoc[tags=architekturregel]

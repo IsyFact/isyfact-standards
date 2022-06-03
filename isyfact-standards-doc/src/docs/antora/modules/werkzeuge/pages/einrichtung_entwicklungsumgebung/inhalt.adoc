@@ -666,8 +666,7 @@ Benötigte Bibliotheken werden während des Build-Vorgangs automatisch herunterg
 
 [TIP]
 ====
-Das IsyFact-Framework besteht aus einer Reihe von GitHub-Repositories, die wiederum jeweils eines oder mehrere Maven-Projekte enthalten.
-Die URL zu den GitHub-Repositories lautet: xref:glossary:literaturextern:inhalt.adoc#litextern-url-isyfact[IsyFact].
+Das IsyFact-Framework besteht aus einer Reihe von xref:glossary:literaturextern:inhalt.adoc#litextern-url-isyfact-github[GitHub-Repositories], die wiederum jeweils eines oder mehrere Maven-Projekte enthalten.
 ====
 
 Um das GitHub-Repository für den IsyFact Projektgenerator zu klonen, könnten Sie Git auf der Kommandozeile einsetzen.
