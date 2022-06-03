@@ -1,0 +1,22 @@
+= Methodik
+
+include::glossary:licence:partial$licence.adoc[]
+
+// tag::whitepaper[]
+
+*Grundlage für die Umsetzung von Projekten mit der IsyFact ist eine standardisierte Vorgehensweise nach dem V-Modell XT.*
+
+NOTE: Das xref:glossary:literaturextern:inhalt.adoc#litextern-v-modell-xt[V-Modell XT] ist als Vorgehensmodell für Systementwicklungsprojekte in deutschen Bundesbehörden vorgeschrieben.
+
+Die spezifische Methodik der IsyFact umfasst:
+
+* Richtlinien und Methodiken für fachliche und technische Modellierung,
+* Richtlinien und Vorgaben für Generierung von Code und Konzepten,
+* Konventionen für die Implementierung,
+* Methodik für Systemspezifikation und Systementwurf mit entsprechenden Dokumentvorlagen,
+* eine einheitliche Vorgehensweise zur Auswahl von Fremdprodukten.
+
+.Methodik: Vorgehen auf Basis von V-Modell XT
+image::methodik:Methodik_V-Modell.png[]
+
+// end::whitepaper[]

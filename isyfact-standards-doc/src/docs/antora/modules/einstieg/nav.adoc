@@ -1,9 +1,9 @@
 * Einstieg
 ** xref:vorstellung.adoc[]
-*** xref:isyfact-standards.adoc[]
-*** xref:isyfact-erweiterungen.adoc[]
+*** xref:vorstellung/isyfact-standards.adoc[]
+*** xref:vorstellung/isyfact-erweiterungen.adoc[]
 *** xref:vorstellung/rahmenbedingungen.adoc[]
 ** xref:erste-schritte.adoc[]
 ** xref:tutorial/master.adoc[Tutorial]
-** xref:whitepaper/master.adoc[Whitepaper]
+** xref:whitepaper/inhalt.adoc[Whitepaper]
 ** xref:migrationsleitfaden-if2/master.adoc[Migrationsleitfaden IsyFact 2]

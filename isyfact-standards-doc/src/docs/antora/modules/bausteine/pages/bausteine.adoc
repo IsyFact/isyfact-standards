@@ -1,0 +1,76 @@
+= Bausteine
+
+include::glossary:licence:partial$licence.adoc[]
+
+// tag::whitepaper[]
+
+*Die Bausteine der IsyFact sind wiederverwendbare Softwarelösungen.*
+
+Diese Bausteine liegen in unterschiedlichen Formen vor: es gibt fachliche und technische Services im Sinne einer Service-Orientierten Architektur (SOA), querschnittlich nutzbare Komponenten sowie wiederverwendbare Bibliotheken und Programmiervorlagen.
+
+Die Bausteine können auch am Markt verfügbare Fertigprodukte enthalten, dabei sowohl proprietäre als auch Open-Source-Software.
+
+Die folgende Abbildung zeigt einen Überblick über die Bausteine im aktuellen Release der IsyFact.
+
+.Bausteine der IsyFact
+image::bausteine:bausteine.dn.svg[]
+
+Die nachfolgende Tabelle beschreibt die Bausteine. Sie stellen in der Regel ein Dokument aus architektonischer Sicht – das Konzept – und ein Dokument aus technischer Sicht – die Nutzungsvorgaben – sowie eine Software-Bibliothek zur Integration in eigene Anwendungssysteme bereit.
+
+[cols="1s,3a",options="header"]
+|===
+|Baustein
+|Funktion
+
+|Datum & Zeit
+|Der Baustein stellt Vorgaben für die Anzeige, Eingabe und persistenter Speicherung von Datums- und Zeitwerten bereit.
+
+|Fehlerbehandlung
+|Der Baustein Fehlerbehandlung enthält das technische Konzept und eine Bibliothek zur einheitlichen Implementierung der Fehlerbehandlung.
+
+|Http Invoker
+|Der Baustein Http Invoker bietet die Möglichkeit, interne Services der Anwendungslandschaft mit der Technologie Spring Http Invoker zu realisieren.
+
+//|JSF
+//|Der Baustein JSF ermöglicht es Anwendungen, grafische Oberflächen auf Basis von Java Server Faces umzusetzen.
+//Er enthält architektonische sowie technische Vorgaben und beschreibt die konkrete Umsetzung.
+//Dabei integriert er den Styleguide und stellt auf dessen Grundlage wiederverwendbare Widgets bereit.
+//Der Baustein basiert auf JSF und Spring Webflow.
+
+|Konfiguration
+|Der Baustein beschreibt typische Arten von Konfiguration und macht Vorgaben für deren Erstellung, Handhabung und Pflege.
+
+|Logging
+|Der Baustein ermöglicht die einheitliche Erstellung und vereinfachte Auswertung von Log-Dateien, Fehlern und Systemzuständen über Komponentengrenzen hinweg.
+
+|Polling
+|Der Baustein Polling implementiert Verfahren zum koordinierten, regelmäßigen Abholen von Daten (Polling) durch mehrere redundant ausgelegte Instanzen einer Anwendung.
+Der Baustein unterstützt unterschiedliche Arten von Schnittstellen und sorgt dafür, dass Daten jeweils nur von einer Instanz der Anwendung verarbeitet werden.
+
+|REST
+|Der Baustein REST bietet die Möglichkeit, interne Services der Anwendungslandschaft als REST-Services zu realisieren.
+
+|Sicherheit
+|Der Baustein übernimmt die Autorisierung von Anfragen, sowohl von menschlichen Anwendern als auch externen Systemen, und dient zur Verwaltung von Rollen und Rechten innerhalb von IT-Systemen.
+
+//|Styleguide
+//|Der Styleguide beschreibt die Gestaltungsregeln, nach denen grafische Oberflächen von Geschäftsanwendungen zu erstellen sind.
+//Basis des Styleguides sind der Styleguide der Bundesregierung und Gestaltungsregeln für Internetauftritte des Bundesverwaltungsamtes.
+
+|Sonderzeichen
+|Der Baustein bietet wichtige Hinweise für den Umgang mit Sonderzeichen und enthält Transkriptionsregeln zur Übertragung von nicht-lateinischen Zeichen.
+Unterstützt werden die Standards String Latin 1.1 und String Latin 1.2 („DIN SPEC 91379“) und eine generelle Kompatibilität zu UTF-8.
+
+|Task Scheduling
+|Der Baustein ermöglicht die Ausführung regelmäßiger Aufgaben innerhalb von IT-Systemen mit voller Integration anderer Bausteine wie Konfiguration, Logging, Sicherheit und Überwachung.
+
+|Überwachung
+|Der Baustein macht Vorgaben für die Überwachung von IT-Systemen und stellt grundlegende Funktionalität bereit, so z.B. für die Überwachung von Komponentengrenzen.
+Die einheitliche Überwachungsschnittstelle erlaubt die frühzeitige Erkennung von Problemen im IT-Betrieb.
+
+|Util
+|Der Baustein Util bietet nützliche Hilfsmittel, die von den Anwendungen der IsyFact genutzt werden können.
+Es handelt sich dabei um kleinere Utility-Klassen, wie z.B. Interzeptoren, mit denen sich das Laufzeitverhalten von Anwendungen nachvollziehen lässt.
+|===
+
+// end::whitepaper[]

@@ -1,4 +1,4 @@
-* Methodik
+* xref:methodik.adoc[]
 ** xref:namenskonventionen/master.adoc[Namenskonventionen]
 ** xref:versionierung/master.adoc[Versionierung]
 ** xref:java-programmierkonventionen/master.adoc[Java-Programmierkonventionen]

@@ -1,4 +1,4 @@
-* Bausteine
+* xref:bausteine.adoc[]
 ** Datum & Zeit
 *** xref:isy-datetime:konzept/master.adoc[Konzept]
 *** xref:isy-datetime:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
