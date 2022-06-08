@@ -2,18 +2,45 @@
 
 include::glossary:licence:partial$licence.adoc[]
 
-[[einleitung]]
-== Einleitung
+[[bearbeitung-vorlagen-projektspezifisch]]
+== Allgemeines
 
-An dieser Stelle werden Vorlagen für den Systementwurf und das Systemhandbuch angeboten.
-Die Vorlagen können sowohl direkt aufgerufen als auch im ZIP- oder PDF-Format heruntergeladen werden.
+Die Vorlagen unterstützen die Erstellung projektspezifischer Dokumentation wesentlich.
+Sie enthalten Word-, Excel- oder AsciiDoc-Dateien, die im Projektverlauf gefüllt werden müssen.
 
-[[table-vorlagen]]
-.Vorlagen
+Nach Bedarf können für die dauerhafte Ablage aus Word- und AsciiDoc-Vorlagen PDF-Dokumente erzeugt werden.
+Für Word-Vorlagen wird hierzu die integrierte Funktion von Word genutzt.
+Für AsciiDoc-Vorlagen kann die PDF-Generierung mittels AsciidoctorJ verwendet werden, wie im xref:werkzeuge:handbuch_dokumentation/master.adoc#asccidoc-zu-pdf-html[Handbuch zur Dokumentation der IsyFact] erklärt.
+
+Word- und Excel-Vorlagen können direkt von dieser Seite als Download bezogen werden.
+AsciiDoc-Vorlagen können sowohl direkt aufgerufen als auch im ZIP- oder PDF-Format heruntergeladen werden.
+
+
+[[dokumentation-anwendung]]
+== Dokumentation einer Anwendung
+
+Die Vorlagen zur Dokumentation einer Anwendung beschreiben diese aus den drei aus der Referenzarchitektur bekannten Sichten:
+
+* Systemspezifikation: fachliche Sicht,
+* Systementwurf: software-technische Sicht,
+* Systemhandbuch: Sicht der technischen Infrastruktur.
+
+Alle Vorlagen enthalten Ausfüllhinweise und Beispiele.
+
+Die Vorlage Systemspezifikation enthält die Gliederung für eine V-Modell-konforme Gesamtsystemspezifikation (Pflichtenheft) eines Softwaresystems (Software-Entwicklungsprojekts).
+
+[[table-dokumentation-anwendung]]
+.Vorlagen zur Dokumentation einer Anwendung
 [cols="1s,1,1,1",options="header"]
 |====
-|Vorlage
-3+^|Quelldatei (AsciiDoc) & Downloads (ZIP & PDF)
+.^|Vorlage
+.^|Quelldatei +
+(AsciiDoc / Word)
+2+^.^|Downloads (ZIP & PDF)
+
+|Systemspezifikation
+|xref:methodik:attachment$spezifikation/IsyFact-Vorlage_Systemspezifikation.dotx[Download icon:file-word-o[]]
+2+|
 
 |Systementwurf
 |xref:vorlage-systementwurf/antora-master.adoc[Ansehen icon:file-text-o[]]
@@ -26,16 +53,98 @@ Die Vorlagen können sowohl direkt aufgerufen als auch im ZIP- oder PDF-Format h
 |xref:methodik:attachment$vorlage-generated/IsyFact-Vorlage-Systemhandbuch.pdf[Download icon:file-pdf-o[]]
 |====
 
-[[bearbeitung-vorlagen-projektspezifisch]]
-== Projektspezifische Bearbeitung der Vorlagen
 
-Die Vorlagen enthalten Asciidoc-Dateien, die projektspezifisch ergänzt werden müssen.
-Nach Bedarf kann aus den Asciidoc-Dateien für jede Vorlage ein PDF erstellt werden.
-Die PDF-Generierung mittels AsciidoctorJ Extensions wird in xref:werkzeuge:dokumentation/generierung/generierung-asciidoctorj.adoc#asccidoc-zu-pdf-html[Dokumentation der IsyFact] erklärt.
+[[schnittstellendokumentation]]
+== Schnittstellendokumentation
 
-[[bearbeitung-vorlagen-selbst]]
-== Bearbeitung der Vorlagen selbst
+Die Vorlage enthält die Gliederung für eine V-Modell-konforme Schnittstellendokumentation eines Softwaresystems (Software-Entwicklungsprojekts) mitsamt Ausfüllhinweisen und Beispielen.
 
-Wenn die Vorlagen in `isyfact-standards` geändert werden, müssen auch die Downloads im ZIP- und PDF-Format erneut generiert werden.
-Dazu wird im Maven Submodul `isyfact-standards-doc` der Maven-Befehl `mvn package` ausgeführt.
-Die ZIP-Archive und PDF-Dokumente der Vorlagen befinden sich nun in `isyfact-standards-doc` im Ordner `src/docs/antora/modules/methodik/attachments/vorlage-generated`.
+[[table-schnittstellendokumentation]]
+.Vorlage zur Schnittstellendokumentation
+[cols="1s,1",options="header"]
+|====
+.^|Vorlage
+.^|Quelldatei (Word)
+
+|Schnittstellendokumentation
+|xref:methodik:attachment$spezifikation/IsyFact-Vorlage_Schnittstellendokumentation.dotx[Download icon:file-word-o[]]
+|====
+
+
+[[datenflussdiagramm]]
+== Datenflussdiagramm
+
+Eine Anwendungslandschaft besteht aus mehreren Anwendungen, die Daten untereinander und mit ihren Anwendern austauschen.
+Die Anleitung zu Datenflussdiagrammen hilft bei der Erstellung von Datenflussdiagrammen und gibt Best Practices zur strukturierten Beschreibung dieses Datenflusses.
+
+[[table-datenflussdiagramm]]
+.Vorlage zu Datenflussdiagrammen
+[cols="1s,1",options="header"]
+|====
+.^|Vorlage
+.^|Quelldatei (Word)
+
+|Datenflussdiagramm
+|xref:methodik:attachment$spezifikation/Anleitung_zu_Datenflussdiagrammen.dotx[Download icon:file-word-o[]]
+|====
+
+
+[[anforderungsliste]]
+== Anforderungsliste
+
+Die Anforderungsliste ist ein Instrument, um die Übersicht und die Nachvollziehbarkeit des Umsetzungsstatus aller Anforderungen an ein System im gesamten Projektlebenszyklus zu erhalten.
+Die Anforderungsliste beschreibt mit jeder Anforderung eine Eigenschaft, die eine Anwendung haben soll.
+Dies kann eine bestimmte Funktionalität oder auch eine Anforderung in Hinblick auf die Qualität sein, zum Beispiel die maximale Reaktionszeit bei einer Eingabe.
+Die Anforderungsliste ist bei ihrer Erstellung und bei jeder Versionierung ein Mittel der Kommunikation zwischen Auftraggeber und Auftragnehmer.
+
+[[table-anforderungsliste]]
+.Vorlage zur Anforderungsliste
+[cols="1s,1",options="header"]
+|====
+.^|Vorlage
+.^|Quelldatei (Excel)
+
+|Anforderungsliste
+|xref:methodik:attachment$spezifikation/IsyFact-Vorlage-Anforderungsliste.xlsx[Download icon:file-excel-o[]]
+|====
+
+
+[[produktauswahl]]
+== Produktauswahl
+
+Das Template Produktauswahl liefert eine Vorlage zur Beschreibung der Hintergründe zur Auswahl eines Produkts in Projekten.
+
+[[table-produktauswahl]]
+.Vorlage zur Produktauswahl
+[cols="1s,1",options="header"]
+|====
+.^|Vorlage
+.^|Quelldatei (Word)
+
+|Produktauswahl
+|xref:methodik:attachment$produktauswahl/Template_Produktauswahl.dotx[Download icon:file-word-o[]]
+|====
+
+
+[[tailoring]]
+== Tailoring-Dokument
+
+Das Tailoring-Dokument beschreibt die Anpassung der IsyFact-Referenzarchitektur auf einen bestimmten Anwendungskontext.
+
+Auf der Ebene der fachlichen Architektur ist die IsyFact kontext-neutral, um ein möglichst breites Spektrum von Anwendungskontexten abzudecken.
+Damit die IsyFact in einem bestimmten Anwendungskontext als praktischer Leitfaden und Vorlage für die Entwicklung dienen kann, sind weitere Festlegungen und Anpassungen der IsyFact an die Gegebenheiten des jeweiligen Anwendungskontexts notwendig.
+Dieser Vorgang wird als Tailoring bezeichnet, sein Ergebnis ist ein Tailoring-Dokument zur IsyFact für den Anwendungskontext.
+
+Alle im Tailoring-Dokument beschriebenen Sachverhalte beziehen sich auf die xref:blaupausen:referenzarchitektur/master.adoc[IsyFact Referenzarchitektur].
+Sofern im Tailoring-Dokument nichts anderes definiert wird, gelten die Festlegungen der IsyFact-Referenzarchitektur unverändert.
+
+[[table-tailoring]]
+.Vorlage zum Tailoring-Dokument
+[cols="1s,1",options="header"]
+|====
+.^|Vorlage
+.^|Quelldatei (Word)
+
+|Tailoring
+|xref:methodik:attachment$IsyFact-Tailoring.dotx[Download icon:file-word-o[]]
+|====
