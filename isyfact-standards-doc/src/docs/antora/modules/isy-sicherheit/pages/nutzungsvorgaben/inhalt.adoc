@@ -353,7 +353,7 @@ public AuthenticationCredentials getAuthenticationCredentials(
 }
 ----
 
-Ab diesem Punkt kann der xref:glossary:glossary:master.adoc#glossar-Batch[Batch] jederzeit auf den Aufrufkontext zugreifen, um im Zuge des Batchlaufes Berechtigungsprüfungen vorzunehmen oder Services von Nachbarsystemen (vgl. xref::nutzungsvorgaben/master.adoc#aufrufen-von-nachbarsystemen[Aufruf von Nachbarsystemen]) unter Bereitstellung des Aufrufkontextes aufzurufen.
+Ab diesem Punkt kann der xref:glossary:glossary:master.adoc#glossar-batch[Batch] jederzeit auf den Aufrufkontext zugreifen, um im Zuge des Batchlaufes Berechtigungsprüfungen vorzunehmen oder Services von Nachbarsystemen (vgl. xref::nutzungsvorgaben/master.adoc#aufrufen-von-nachbarsystemen[Aufruf von Nachbarsystemen]) unter Bereitstellung des Aufrufkontextes aufzurufen.
 
 [TIP]
 ====

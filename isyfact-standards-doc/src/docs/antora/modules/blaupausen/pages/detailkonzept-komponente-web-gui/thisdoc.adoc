@@ -4,7 +4,7 @@
 [[Einleitung]]
 == Einleitung
 
-Die xref:referenzarchitektur-it-system/master.adoc#einleitung[Referenzarchitektur IT-Systeme] beschreibt den Aufbau von xref:glossary:glossary:master.adoc#glossar-Geschaeftsanwendung[Geschäftsanwendungen] in fünf Komponenten.
+Die xref:referenzarchitektur-it-system/master.adoc#einleitung[Referenzarchitektur IT-Systeme] beschreibt den Aufbau von xref:glossary:glossary:master.adoc#glossar-geschaeftsanwendung[Geschäftsanwendungen] in fünf Komponenten.
 Eine davon ist die Komponente Web-GUI.
 Das vorliegende Dokument enthält die Detailkonzeption dieser Komponente.
 Es enthält eine Detaillierung der Referenzarchitektur und zeigt, wie die Fachlichkeit in GUI- und Dialog-Komponenten geschnitten wird.

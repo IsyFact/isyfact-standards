@@ -1,6 +1,4 @@
 = Erste Schritte
-:icons: font
-:sectnums:
 
 include::glossary:licence:partial$licence.adoc[]
 

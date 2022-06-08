@@ -5,7 +5,7 @@
 == Namenskonventionen
 
 Dieser Abschnitt beschreibt die Namenskonventionen der IsyFact.
-In komplexen Anwendungslandschaften werden xref:glossary:glossary:master.adoc#glossar-Anwendungssystem[Anwendungssysteme] in der Regel in funktionale Kategorien eingeordnet und typisiert (bspw. Register und Geschäftsanwendungen).
+In komplexen Anwendungslandschaften werden xref:glossary:glossary:master.adoc#glossar-anwendungssystem[Anwendungssysteme] in der Regel in funktionale Kategorien eingeordnet und typisiert (bspw. Register und Geschäftsanwendungen).
 Bei weniger komplexen Kontexten, in denen nur eine einzige oder wenige Geschäftsanwendungen existieren, wird meist allgemein von „Geschäftsanwendungen“ gesprochen.
 
 In folgenden Vorgaben wird daher zwischen Geschäftsanwendungen und Registern unterschieden.
@@ -54,9 +54,9 @@ m|<verfahren> |Der (Kurz)name des Verfahrens/Anwendungsbereichs.
 === Spezifikation
 
 In diesem Kapitel werden die Namenskonventionen der Spezifikation festgehalten.
-Sie sind vor allem der Systemspezifikationsvorlage <<TODOIsyFactSystemspezifikation>> entnommen.
+Sie sind vor allem der xref:vorlagen.adoc#dokumentation-anwendung[Vorlage zur Systemspezifikation] entnommen.
 
-[[geschäftsprozess]]
+[[geschaeftsprozess]]
 ==== Geschäftsprozess
 
 .Geschäftsprozess
@@ -68,7 +68,7 @@ Sie sind vor allem der Systemspezifikationsvorlage <<TODOIsyFactSystemspezifikat
 |*Beispiele* |GEP_Akte_Suchen
 |====
 
-[[geschäftsvorfall]]
+[[geschaeftsvorfall]]
 ==== Geschäftsvorfall
 
 .Geschäftsvorfall
@@ -80,7 +80,7 @@ Sie sind vor allem der Systemspezifikationsvorlage <<TODOIsyFactSystemspezifikat
 |*Beispiele* |GVF_Akte_Suchen
 |====
 
-[[aktivität]]
+[[aktivitaet]]
 ==== Aktivität
 
 .Aktivität
@@ -200,7 +200,7 @@ Sie sind vor allem der Systemspezifikationsvorlage <<TODOIsyFactSystemspezifikat
 |*Beispiele* |MKO_Basisdaten
 |====
 
-[[entitätstyp]]
+[[entitaetstyp]]
 ==== Entitätstyp
 
 .Entitätstyp
@@ -236,7 +236,7 @@ Sie sind vor allem der Systemspezifikationsvorlage <<TODOIsyFactSystemspezifikat
 |*Beispiele* |MAS_Treffer_Anzeige
 |====
 
-[[druckstück]]
+[[druckstueck]]
 ==== Druckstück
 
 .Druckstück
@@ -260,7 +260,7 @@ Sie sind vor allem der Systemspezifikationsvorlage <<TODOIsyFactSystemspezifikat
 |*Beispiele* |NST_Meldung
 |====
 
-[[schnittstellenentitätstyp]]
+[[schnittstellenentitaetstyp]]
 ==== Schnittstellenentitätstyp
 
 .Schnittstellenentitätstyp
@@ -433,5 +433,31 @@ include::blaupausen:page$detailkonzept-komponente-web-gui/inhalt.adoc[tag=namens
 [[deploymentbetrieb-von-anwendungen]]
 === Deployment/Betrieb von Anwendungen
 include::deployment.adoc[tag=namenskonvention]
+
+
+[[dokumentation]]
+=== Dokumentation
+
+Auch für die Dokumentation gelten Namenskonventionen.
+Wenn nicht gesondert beschrieben, gelten folgende Konventionen für alle Namen, die der Ablage der Dokumentation dienen und keine Anzeigenamen sind, also z.B. Dateinamen inkl. Asciidoc- und Bild-Dateien, Verzeichnisnamen, Namen für Antora-Komponenten und -Module und Anchor.
+Mit Kleinbuchstaben sind Kleinbuchstaben ohne Umlaute und Sonderzeichen gemeint.
+Ferner sind keine Füllwörter erlaubt (wie z.B. und, oder, fuer).
+Die Namen sollten den Inhalt widerspiegeln.
+
+NOTE: Bei einigen Namen in der IsyFact-Dokumentation ist die Umstellung der Namen gemäß Namenskonvention noch in Arbeit.
+
+[[table-namenskonvention-dokumentation]]
+.Namensschema für Dokumentation (keine Anzeigenamen)
+[cols="1s,4m",options="header"]
+|====
+2+|Namen in Dokumentation
+|Schema |Kleinbuchstabe<beliebig: Kleinbuchstaben, Bindestriche, einzelne Ziffern, wenn unbedingt nötig>
+|Beispiel |isyfact-standards
+|falsch |_isyfact, IsyFact, isyfact standards, lösung, standards-und-erweiterungen
+|====
+
+[[dokumentation-glossar]]
+==== Spezielle Namensschemata Dokumentation
+include::werkzeuge:page$dokumentation/bearbeitung/bearbeitung-antora.adoc[tag=namenskonvention]
 
 // end::inhalt[]

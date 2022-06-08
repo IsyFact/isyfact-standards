@@ -1,11 +1,9 @@
 = IsyFact-Erweiterungen
-:icons: font
-:sectnums:
 
 include::glossary:licence:partial$licence.adoc[]
 
 Aktuell werden nur wenige Erweiterungen, wie in den xref:vorstellung/rahmenbedingungen.adoc#aktueller-stand-und-weiterentwicklung[Rahmenbedingungen] beschrieben, unter einer Open-Source-Lizenz zur Verfügung gestellt.
-Auf den xref:glossary:literaturextern:inhalt.adoc#litextern-Webseiten-Register-Factory[Webseiten der Register Factory] befindet sich eine Übersicht über vorhandene Bausteine, die in Zukunft potenziell als IsyFact-Erweiterung zur Verfügung gestellt werden.
+Auf den xref:glossary:literaturextern:inhalt.adoc#litextern-webseiten-register-factory[Webseiten der Register Factory] befindet sich eine Übersicht über vorhandene Bausteine, die in Zukunft potenziell als IsyFact-Erweiterung zur Verfügung gestellt werden.
 Teilweise können diese auf Anfrage herausgegeben werden.
 
 NOTE: Bei Interesse wenden Sie sich bitte per E-Mail (isyfact@bva.bund.de) an uns.

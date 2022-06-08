@@ -1,9 +1,6 @@
 
 :doctitle: Namenskonventionen
 
-:sectnums:
-:sectnumlevels: 4
-
 include::glossary:licence:partial$licence.adoc[]
 
 include::thisdoc.adoc[tags=inhalt]

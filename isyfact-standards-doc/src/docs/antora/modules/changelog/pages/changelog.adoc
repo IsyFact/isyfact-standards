@@ -37,9 +37,12 @@ include::isyfact-standards-doku:methodik:versionierung/changelog.adoc[tag=releas
 include::isyfact-standards-doku:methodik:java-programmierkonventionen/changelog.adoc[tag=release-2.5.0]
 include::isyfact-standards-doku:methodik:diagrammerstellung/changelog.adoc[tag=release-2.5.0]
 include::isyfact-standards-doku:methodik:tailoring/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:methodik:produktauswahl/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:methodik:page$changelog.adoc[tag=release-2.5.0]
 include::isyfact-standards-doku:werkzeuge:einrichtung_entwicklungsumgebung/changelog.adoc[tag=release-2.5.0]
 include::isyfact-standards-doku:werkzeuge:handbuch_dokumentation/changelog.adoc[tag=release-2.5.0]
 include::isyfact-standards-doku:werkzeuge:versionierungskontrolle/changelog.adoc[tag=release-2.5.0]
+
 
 == Änderungen IsyFact 2.4.0
 
@@ -77,8 +80,8 @@ include::isyfact-standards-doku:isy-ueberwachung:nutzungsvorgaben/changelog.adoc
 include::isyfact-standards-doku:methodik:versionierung/changelog.adoc[tag=release-2.4.0]
 include::isyfact-standards-doku:methodik:java-programmierkonventionen/changelog.adoc[tag=release-2.4.0]
 include::isyfact-standards-doku:methodik:diagrammerstellung/changelog.adoc[tag=release-2.4.0]
-include::isyfact-standards-doku:werkzeuge:einrichtung_entwicklungsumgebung/changelog.adoc[tag=release-2.4.0]
-include::isyfact-standards-doku:werkzeuge:handbuch_dokumentation/changelog.adoc[tag=release-2.4.0]
+include::isyfact-standards-doku:werkzeuge:entwicklungsumgebung/changelog.adoc[tag=release-2.4.0]
+include::isyfact-standards-doku:werkzeuge:dokumentation/changelog.adoc[tag=release-2.4.0]
 include::isyfact-standards-doku:werkzeuge:versionierungskontrolle/changelog.adoc[tag=release-2.4.0]
 
 
@@ -118,8 +121,8 @@ include::isyfact-standards-doku:isy-ueberwachung:nutzungsvorgaben/changelog.adoc
 include::isyfact-standards-doku:methodik:versionierung/changelog.adoc[tag=release-2.3.0]
 include::isyfact-standards-doku:methodik:java-programmierkonventionen/changelog.adoc[tag=release-2.3.0]
 include::isyfact-standards-doku:methodik:diagrammerstellung/changelog.adoc[tag=release-2.3.0]
-include::isyfact-standards-doku:werkzeuge:einrichtung_entwicklungsumgebung/changelog.adoc[tag=release-2.3.0]
-include::isyfact-standards-doku:werkzeuge:handbuch_dokumentation/changelog.adoc[tag=release-2.3.0]
+include::isyfact-standards-doku:werkzeuge:entwicklungsumgebung/changelog.adoc[tag=release-2.3.0]
+include::isyfact-standards-doku:werkzeuge:dokumentation/changelog.adoc[tag=release-2.3.0]
 include::isyfact-standards-doku:werkzeuge:versionierungskontrolle/changelog.adoc[tag=release-2.3.0]
 
 
@@ -160,8 +163,8 @@ include::isyfact-standards-doku:isy-ueberwachung:nutzungsvorgaben/changelog.adoc
 include::isyfact-standards-doku:methodik:versionierung/changelog.adoc[tag=release-2.2.0]
 include::isyfact-standards-doku:methodik:java-programmierkonventionen/changelog.adoc[tag=release-2.2.0]
 include::isyfact-standards-doku:methodik:diagrammerstellung/changelog.adoc[tag=release-2.2.0]
-include::isyfact-standards-doku:werkzeuge:einrichtung_entwicklungsumgebung/changelog.adoc[tag=release-2.2.0]
-include::isyfact-standards-doku:werkzeuge:handbuch_dokumentation/changelog.adoc[tag=release-2.2.0]
+include::isyfact-standards-doku:werkzeuge:entwicklungsumgebung/changelog.adoc[tag=release-2.2.0]
+include::isyfact-standards-doku:werkzeuge:dokumentation/changelog.adoc[tag=release-2.2.0]
 include::isyfact-standards-doku:werkzeuge:versionierungskontrolle/changelog.adoc[tag=release-2.2.0]
 
 
@@ -204,8 +207,8 @@ include::isyfact-standards-doku:isy-ueberwachung:nutzungsvorgaben/changelog.adoc
 include::isyfact-standards-doku:methodik:versionierung/changelog.adoc[tag=release-2.1.0]
 include::isyfact-standards-doku:methodik:java-programmierkonventionen/changelog.adoc[tag=release-2.1.0]
 include::isyfact-standards-doku:methodik:diagrammerstellung/changelog.adoc[tag=release-2.1.0]
-include::isyfact-standards-doku:werkzeuge:einrichtung_entwicklungsumgebung/changelog.adoc[tag=release-2.1.0]
-include::isyfact-standards-doku:werkzeuge:handbuch_dokumentation/changelog.adoc[tag=release-2.1.0]
+include::isyfact-standards-doku:werkzeuge:entwicklungsumgebung/changelog.adoc[tag=release-2.1.0]
+include::isyfact-standards-doku:werkzeuge:dokumentation/changelog.adoc[tag=release-2.1.0]
 include::isyfact-standards-doku:werkzeuge:versionierungskontrolle/changelog.adoc[tag=release-2.1.0]
 
 
@@ -245,8 +248,8 @@ include::isyfact-standards-doku:isy-ueberwachung:nutzungsvorgaben/changelog.adoc
 include::isyfact-standards-doku:methodik:versionierung/changelog.adoc[tag=release-2.0.0]
 include::isyfact-standards-doku:methodik:java-programmierkonventionen/changelog.adoc[tag=release-2.0.0]
 include::isyfact-standards-doku:methodik:diagrammerstellung/changelog.adoc[tag=release-2.0.0]
-include::isyfact-standards-doku:werkzeuge:einrichtung_entwicklungsumgebung/changelog.adoc[tag=release-2.0.0]
-include::isyfact-standards-doku:werkzeuge:handbuch_dokumentation/changelog.adoc[tag=release-2.0.0]
+include::isyfact-standards-doku:werkzeuge:entwicklungsumgebung/changelog.adoc[tag=release-2.0.0]
+include::isyfact-standards-doku:werkzeuge:dokumentation/changelog.adoc[tag=release-2.0.0]
 include::isyfact-standards-doku:werkzeuge:versionierungskontrolle/changelog.adoc[tag=release-2.0.0]
 
 
@@ -291,8 +294,8 @@ include::isyfact-standards-doku:isy-ueberwachung:nutzungsvorgaben/changelog.adoc
 include::isyfact-standards-doku:methodik:versionierung/changelog.adoc[tag=release-1.7.0]
 include::isyfact-standards-doku:methodik:java-programmierkonventionen/changelog.adoc[tag=release-1.7.0]
 include::isyfact-standards-doku:methodik:diagrammerstellung/changelog.adoc[tag=release-1.7.0]
-include::isyfact-standards-doku:werkzeuge:einrichtung_entwicklungsumgebung/changelog.adoc[tag=release-1.7.0]
-include::isyfact-standards-doku:werkzeuge:handbuch_dokumentation/changelog.adoc[tag=release-1.7.0]
+include::isyfact-standards-doku:werkzeuge:entwicklungsumgebung/changelog.adoc[tag=release-1.7.0]
+include::isyfact-standards-doku:werkzeuge:dokumentation/changelog.adoc[tag=release-1.7.0]
 include::isyfact-standards-doku:werkzeuge:versionierungskontrolle/changelog.adoc[tag=release-1.7.0]
 
 
@@ -331,8 +334,8 @@ include::isyfact-standards-doku:isy-ueberwachung:nutzungsvorgaben/changelog.adoc
 include::isyfact-standards-doku:methodik:versionierung/changelog.adoc[tag=release-1.6.0]
 include::isyfact-standards-doku:methodik:java-programmierkonventionen/changelog.adoc[tag=release-1.6.0]
 include::isyfact-standards-doku:methodik:diagrammerstellung/changelog.adoc[tag=release-1.6.0]
-include::isyfact-standards-doku:werkzeuge:einrichtung_entwicklungsumgebung/changelog.adoc[tag=release-1.6.0]
-include::isyfact-standards-doku:werkzeuge:handbuch_dokumentation/changelog.adoc[tag=release-1.6.0]
+include::isyfact-standards-doku:werkzeuge:entwicklungsumgebung/changelog.adoc[tag=release-1.6.0]
+include::isyfact-standards-doku:werkzeuge:dokumentation/changelog.adoc[tag=release-1.6.0]
 include::isyfact-standards-doku:werkzeuge:versionierungskontrolle/changelog.adoc[tag=release-1.6.0]
 
 

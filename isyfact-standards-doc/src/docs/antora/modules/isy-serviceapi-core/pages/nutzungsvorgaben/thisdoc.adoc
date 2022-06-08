@@ -15,7 +15,7 @@ Er wird in einem der nächsten Major Releases aus der IsyFact entfernt.
 Das Dokument xref:konzept/master.adoc[KonzeptHttpInvoker] konzentriert sich auf die konzeptionellen Aspekte von Services mit HTTP Invoker.
 
 Dieses Dokument beschreibt, wie diese Services konkret umgesetzt werden.
-Es richtet sich an Entwickler, die ein xref:glossary:glossary:master.adoc#glossar-IT-System[IT-System] gemäß den Vorgaben der IsyFact mit der Fähigkeit zur Kommunikation mit anderen IT-Systemen ausstatten müssen und beschreibt, was bei der Umsetzung zu bedenken ist.
+Es richtet sich an Entwickler, die ein xref:glossary:glossary:master.adoc#glossar-it-system[IT-System] gemäß den Vorgaben der IsyFact mit der Fähigkeit zur Kommunikation mit anderen IT-Systemen ausstatten müssen und beschreibt, was bei der Umsetzung zu bedenken ist.
 
 Dazu beschreibt das Kapitel xref::nutzungsvorgaben/inhalt.adoc#maven-konfiguration[Maven-Konfiguration] zunächst die grundlegende Konfiguration, um den Baustein in ein IT-System einzubinden.
 Danach beschreibt das Dokument die Realisierung eines Services in den Kapiteln:

@@ -4,16 +4,16 @@
 [[einleitung]]
 == Einleitung
 
-Dieses Dokument beschreibt alle Aspekte, die bei der Verwendung der `isy-task` xref:glossary:glossary:master.adoc#glossar-Bibliothek[Bibliothek] zu berücksichtigen sind.
+Dieses Dokument beschreibt alle Aspekte, die bei der Verwendung der `isy-task` xref:glossary:glossary:master.adoc#glossar-bibliothek[Bibliothek] zu berücksichtigen sind.
 
 Die `isy-task` Bibliothek wurde im Dokument xref:konzept/master.adoc#einleitung[Task Scheduling - Konzept]  konzipiert.
 
 [[aufbau-und-zweck-des-dokuments]]
 == Aufbau und Zweck des Dokuments
 
-Die `isy-task` Bibliothek wird im Rahmen der IsyFact Software Factory zur automatisierten Ausführung von wiederkehrenden Aufgaben innerhalb von fachlichen xref:glossary:glossary:master.adoc#glossar-Anwendungskomponente[Anwendungskomponenten] eingesetzt.
+Die `isy-task` Bibliothek wird im Rahmen der IsyFact Software Factory zur automatisierten Ausführung von wiederkehrenden Aufgaben innerhalb von fachlichen xref:glossary:glossary:master.adoc#glossar-anwendungskomponente[Anwendungskomponenten] eingesetzt.
 Der Zweck dieses Dokuments ist Vorgaben zur Nutzung der querschnittlichen Bibliothek `isy-task` zu geben.
-Das Dokument richtet sich somit vorrangig an Entwickler, Konstrukteure und technische Chefarchitekten von Anwendungssystemen, die gemäß den Vorgaben der xref:glossary:glossary:master.adoc#glossar-IsyFact[IsyFact] umgesetzt werden.
+Das Dokument richtet sich somit vorrangig an Entwickler, Konstrukteure und technische Chefarchitekten von Anwendungssystemen, die gemäß den Vorgaben der xref:glossary:glossary:master.adoc#glossar-isyfact[IsyFact] umgesetzt werden.
 
 Kapitel xref:nutzungsvorgaben/master.adoc#verwendung-der-querschnittsbibliothek-isy-task[Verwendung der Querschnittsbibliothek isy-task] beschreibt das Arbeiten mit der Querschnittsbibliothek `isy-task`.
 

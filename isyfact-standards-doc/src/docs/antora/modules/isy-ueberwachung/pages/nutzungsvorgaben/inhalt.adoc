@@ -221,9 +221,9 @@ gesetzt.
 Die im Konzept beschriebenen Überwachungsfunktionen dürfen keinen relevanten negativen Einfluss auf die Performance der Anwendung haben.
 Dazu sind neben der Einhaltung der in dem Dokument xref:nutzungsvorgaben/master.adoc#einleitung[Überwachung - Konzept] beschriebenen Vorgaben noch einige grundlegende  Regeln zu beachten:
 
-* Da nicht auszuschließen ist, dass ein Überwachungswerkzeug sehr häufig Informationen aus den Endpoints abruft, darf das Bereitstellen der Informationen keine zeitaufwändigen Aktionen im xref:glossary:glossary:master.adoc#glossar-Anwendungssystem[Anwendungssystem] veranlassen.
+* Da nicht auszuschließen ist, dass ein Überwachungswerkzeug sehr häufig Informationen aus den Endpoints abruft, darf das Bereitstellen der Informationen keine zeitaufwändigen Aktionen im xref:glossary:glossary:master.adoc#glossar-anwendungssystem[Anwendungssystem] veranlassen.
 * Bei der Bereitstellung weiterer Überwachungsinformationen ist darauf zu achten, dass die Ermittlung der Kennzahlen keinen relevanten negativen Einfluss auf die Anwendungs-Performance hat.
-Insbesondere dürfen keine fachlichen Funktionen des xref:glossary:glossary:master.adoc#glossar-Anwendungskern[Anwendungskerns] aufgerufen werden.
+Insbesondere dürfen keine fachlichen Funktionen des xref:glossary:glossary:master.adoc#glossar-anwendungskern[Anwendungskerns] aufgerufen werden.
 
 [[statische-informationen-ueber-die-anwendung]]
 ==== Statische Informationen über die Anwendung
@@ -257,7 +257,7 @@ Einbindung von passenden Maven-Plugins können diese Informationen automatisch b
 
 Bei Bedarf können weitere statische Informationen von der Anwendung bereitgestellt werden.
 
-NOTE: Weiterführende Informationen enthält die xref:glossary:literaturextern:inhalt.adoc#litextern-Spring-Boot-Info-Endpoint[Dokumentation von Spring Boot zum Info-Endpoint].
+NOTE: Weiterführende Informationen enthält die xref:glossary:literaturextern:inhalt.adoc#litextern-spring-boot-info-endpoint[Dokumentation von Spring Boot zum Info-Endpoint].
 
 [[konfiguration-und-absicherung-von-endpoints]]
 ==== Konfiguration und Absicherung von Endpoints
@@ -483,7 +483,7 @@ Soll beispielweise _Prometheus_ angebunden werden, muss die folgende Dependecy e
 ----
 
 Häufig ist keine weitere Konfiguration notwendig, da die Anbindung durch Spring Boot automatische konfiguriert wird.
-Die Konfiguration für die unterstützten Monitoring-System ist in xref:glossary:literaturextern:inhalt.adoc#litextern-Monitoring-Systeme[Monitoring-Systeme] beschrieben.
+Die Konfiguration für die unterstützten Monitoring-System ist in xref:glossary:literaturextern:inhalt.adoc#litextern-monitoring-systeme[Monitoring-Systeme] beschrieben.
 
 [[anwendungen-deaktivierbar-machen]]
 === Anwendungen deaktivierbar machen
