@@ -12,3 +12,4 @@
 *** xref:spezifikation/schnittstellendokumentation.adoc[Schnittstellen-dokumentation]
 *** xref:spezifikation/datenflussdiagramme.adoc[Datenflussdiagramme]
 *** xref:tailoring/tailoring.adoc[Tailoring]
+*** xref:spezifikation/datenflussdiagramme.adoc[Datenflussdiagramme]
