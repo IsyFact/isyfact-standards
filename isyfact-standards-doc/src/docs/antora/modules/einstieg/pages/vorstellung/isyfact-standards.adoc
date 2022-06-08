@@ -45,15 +45,14 @@ Die fachliche Architektur der Geschäftsanwendungen wird in Spezifikationen doku
 ==== Vorgaben für die Spezifikation
 
 Systemspezifikationen besitzen eine festgelegte Form und beschreiben stets gleichartige Inhalte.
-Die Vorgaben dazu befinden sich mitsamt Vorgehen und Beispielen in der Vorlage für die Systemspezifikation (<<TODO anderes Dokument: IsyFactSystemspezifikation>>).
+Die Vorgaben dazu befinden sich mitsamt Vorgehen und Beispielen in der Vorlage für die xref:methodik:vorlagen.adoc#dokumentation-anwendung[Systemspezifikation].
 Bereits bei der Systemspezifikation ist auf die Einhaltung der xref:methodik:namenskonventionen/master.adoc#einleitung[Namenskonventionen] zu achten.
 Bei der Erstellung von Diagrammen mit dem Enterprise Architect helfen die xref:methodik:diagrammerstellung/enterprise-architect.adoc[Nutzungsvorgaben Enterprise Architect].
 
-Für die Erfassung von Anforderungslisten gibt es ebenfalls eine Vorlage (<<TODO anderes Dokument: IsyFactVorlageAnforderungsliste>>).
+Für die Erfassung von Anforderungslisten gibt es ebenfalls eine xref:methodik:vorlagen.adoc#anforderungsliste[Vorlage] mit Erläuterungen.
 Die Anforderungsliste ist ein Instrument, um die Übersicht und die Nachvollziehbarkeit des Umsetzungsstatus aller Anforderungen an ein System im gesamten Projektlebenszyklus zu erhalten.
-Weitere Erläuterungen finden sich in der Vorlage.
 
-Im Dokument xref:methodik:spezifikation/datenflussdiagramme.adoc[Anleitung zu Datenflussdiagrammen] wird die Erstellung von Datenflussdiagrammen beschrieben und eine Leseanleitung dazu geliefert.
+Die xref:methodik:vorlagen.adoc#datenflussdiagramm[Vorlage zu Datenflussdiagrammen] beschreibt die Erstellung von Datenflussdiagrammen und liefert eine Leseanleitung dazu.
 
 [[vorgaben-fuer-die-t-architektur]]
 === Vorgaben für die T-Architektur

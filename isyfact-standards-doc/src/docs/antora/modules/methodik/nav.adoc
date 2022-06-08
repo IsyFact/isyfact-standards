@@ -6,5 +6,4 @@
 *** xref:diagrammerstellung/diagramsnet.adoc[diagrams.net]
 *** xref:diagrammerstellung/enterprise-architect.adoc[Enterprise Architect]
 ** xref:vorlagen.adoc[Vorlagen]
-*** xref:tailoring/tailoring.adoc[Tailoring]
-*** xref:spezifikation/datenflussdiagramme.adoc[Datenflussdiagramme]
+*** xref:vorlagen/bearbeitung.adoc[]

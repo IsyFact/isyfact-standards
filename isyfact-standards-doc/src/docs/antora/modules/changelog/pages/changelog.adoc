@@ -37,10 +37,12 @@ include::isyfact-standards-doku:methodik:versionierung/changelog.adoc[tag=releas
 include::isyfact-standards-doku:methodik:java-programmierkonventionen/changelog.adoc[tag=release-2.5.0]
 include::isyfact-standards-doku:methodik:diagrammerstellung/changelog.adoc[tag=release-2.5.0]
 include::isyfact-standards-doku:methodik:tailoring/changelog.adoc[tag=release-2.5.0]
-include::isyfact-standards-doku:methodik:spezifikation/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:methodik:produktauswahl/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:methodik:page$changelog.adoc[tag=release-2.5.0]
 include::isyfact-standards-doku:werkzeuge:einrichtung_entwicklungsumgebung/changelog.adoc[tag=release-2.5.0]
 include::isyfact-standards-doku:werkzeuge:handbuch_dokumentation/changelog.adoc[tag=release-2.5.0]
 include::isyfact-standards-doku:werkzeuge:versionierungskontrolle/changelog.adoc[tag=release-2.5.0]
+
 
 == Änderungen IsyFact 2.4.0
 
