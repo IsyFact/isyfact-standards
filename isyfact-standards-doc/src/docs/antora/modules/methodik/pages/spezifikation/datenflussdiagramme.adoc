@@ -5,7 +5,7 @@ include::glossary:licence:partial$licence.adoc[]
 [[ziel-datenflussdiagramme]]
 == Ziel der Anleitung zu Datenflussdiagrammen
 
-Eine Anwendungslandschaft besteht aus mehreren Anwendungssystemen, die Daten untereinander und mit ihren Nutzern austauschen. Die Anleitung zu Datenflussdiagrammen hilft bei der Erstellung von Datenflussdiagrammen und gibt Best Practices zur strukturierten Beschreibung dieses Datenflusses.
+Eine Anwendungslandschaft besteht aus mehreren Anwendungen, die Daten untereinander und mit ihren Anwendern austauschen. Die Anleitung zu Datenflussdiagrammen hilft bei der Erstellung von Datenflussdiagrammen und gibt Best Practices zur strukturierten Beschreibung dieses Datenflusses.
 
 
 == Download der Anleitung zu Datenflussdiagrammen
