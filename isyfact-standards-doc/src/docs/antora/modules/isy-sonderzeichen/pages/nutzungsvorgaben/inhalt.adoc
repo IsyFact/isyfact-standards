@@ -478,7 +478,7 @@ Die Standardzeichen müssen von jeder Anwendung immer unterstützt werden.
 Die zusätzlichen Zeichen müssen nur unterstützt werden, wenn dies entsprechend vereinbart wurde.
 Die Festlegungen für die zulässigen Zeichen orientieren sich an den Festlegungen, die für das Meldewesen getroffen wurden.
 
-Die für die IsyFact zulässigen Zeichen werden im Folgenden aufgeführt (s. Kapitel xref:konzept/master.adoc#festlegung-des-zeichensatzes-und-der-codierung[Festlegung des Zeichensatzes und der Codierung des Konzepts]).
+Die für die IsyFact zulässigen Zeichen werden im Folgenden aufgeführt (s. Kapitel xref:konzept/sonderzeichen.adoc#festlegung-des-zeichensatzes-und-der-codierung[Festlegung des Zeichensatzes und der Codierung des Konzepts]).
 
 [[standardzeichen]]
 === Standardzeichen
