@@ -439,11 +439,43 @@ Der Zugriff auf das Artefakt ist für die Entwickler und Architekten der Isyfact
 ==== Antora
 Antora ist eine Dokumentationspipeline, die es Dokumentations-, Produkt- und Entwicklungsteams ermöglicht, Dokumentationsseiten zu erstellen, zu verwalten und zu veröffentlichen, die in AsciiDoc erstellt und aus mehreren versionierten Repositories bezogen wurden.
 
-Mithilfe des OpenApi Generators kann aus der OpenApi Spezifikation (YAML Datei) AsciiDoc generiert/erstellt werden.
+Mithilfe des OpenApi Generators kann aus der xref:glossary:literaturextern:inhalt.adoc#litextern-openapi-spezifikation[OpenAPI Spezifikation] (YAML Datei) EXTERNER_LINK AsciiDoc generiert/erstellt werden.
 Für die Generierung von AsciiDoc wird der OpenApi Generator verwendet.
-Nähere und detailliertere Informationen dazu befinden sich unter dem Kapitel <<Verweis_auf_Kapitel>>.
+Nähere und detailliertere Informationen dazu befinden sich unter dem Kapitel <<Verwendung_von_OpenAPI_Generator,Kapitel>>.
 Wichtig zu beachten ist, dass der Parameter für den Namen des Generators als _asciidoc_ konfiguriert werden muss.
 Ohne diesen Parameter weiß der Generator nicht in welches Dateiformat die YAML Datei generiert werden soll.
+
+:desc-table-openapi-asciidoc-generator-metadata: OpenApi AsciiDoc Generator Metadata
+[id="table-openapi-asciidoc-generator-metadata", reftext = "{table-caption} {counter:tables}"]
+.{desc-table-openapi-asciidoc-generator-metadata}
+[cols="1,2,^1", options="header"]
+|===
+|Property | Wert | Notizen
+
+|generator name
+|asciidoc
+|muss an den Befehl "generate" nach dem -g übergeben werden.
+
+|generator stability
+|STABLE
+|
+
+|generator type
+|DOCUMENTATION
+|
+
+|generator language
+|Java
+|
+
+|generator default templating engine
+|mustache
+|
+
+|helpTxt
+|Generiert asciidoc-Markup-basierte Dokumentation.
+|
+|===
 
 Der Build Prozess, ob lokal oder innerhalb der GitLab CI/CD Pipeline ist im Repository *_isy-antora-playbook_* implementiert und dokumentiert.
 
@@ -453,7 +485,7 @@ Dieses Verfahren ist auch als Antora Build bekannt.
 Zusätzlich werden die technischen Spezifikationen im darüber beschriebenen Verfahren mitgeliefert.
 Somit können technische Benutzer Zugriff auf die technischen Spezifikationen bekommen und diese dann anschließend herunterladen.
 
-Es wird statisches Hosting über Antora verwendet, weil:
+Es wird eine Integration in den Antora-Build verwendet, weil:
 
 1. ein einfacher Zugriff auf verschiedene Versionen der OpenAPI Spezifikationen möglich ist
 2. das Herunterladen der OpenAPI Spezifikationen für technische Benutzer ermöglicht wird
