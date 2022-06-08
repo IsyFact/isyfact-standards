@@ -5,7 +5,7 @@
 == Namenskonventionen
 
 Dieser Abschnitt beschreibt die Namenskonventionen der IsyFact.
-In komplexen Anwendungslandschaften werden xref:glossary:glossary:master.adoc#glossar-Anwendungssystem[Anwendungssysteme] in der Regel in funktionale Kategorien eingeordnet und typisiert (bspw. Register und Geschäftsanwendungen).
+In komplexen Anwendungslandschaften werden xref:glossary:glossary:master.adoc#glossar-anwendungssystem[Anwendungssysteme] in der Regel in funktionale Kategorien eingeordnet und typisiert (bspw. Register und Geschäftsanwendungen).
 Bei weniger komplexen Kontexten, in denen nur eine einzige oder wenige Geschäftsanwendungen existieren, wird meist allgemein von „Geschäftsanwendungen“ gesprochen.
 
 In folgenden Vorgaben wird daher zwischen Geschäftsanwendungen und Registern unterschieden.
@@ -433,5 +433,31 @@ include::blaupausen:page$detailkonzept-komponente-web-gui/inhalt.adoc[tag=namens
 [[deploymentbetrieb-von-anwendungen]]
 === Deployment/Betrieb von Anwendungen
 include::deployment.adoc[tag=namenskonvention]
+
+
+[[dokumentation]]
+=== Dokumentation
+
+Auch für die Dokumentation gelten Namenskonventionen.
+Wenn nicht gesondert beschrieben, gelten folgende Konventionen für alle Namen, die der Ablage der Dokumentation dienen und keine Anzeigenamen sind, also z.B. Dateinamen inkl. Asciidoc- und Bild-Dateien, Verzeichnisnamen, Namen für Antora-Komponenten und -Module und Anchor.
+Mit Kleinbuchstaben sind Kleinbuchstaben ohne Umlaute und Sonderzeichen gemeint.
+Ferner sind keine Füllwörter erlaubt (wie z.B. und, oder, fuer).
+Die Namen sollten den Inhalt widerspiegeln.
+
+NOTE: Bei einigen Namen in der IsyFact-Dokumentation ist die Umstellung der Namen gemäß Namenskonvention noch in Arbeit.
+
+[[table-namenskonvention-dokumentation]]
+.Namensschema für Dokumentation (keine Anzeigenamen)
+[cols="1s,4m",options="header"]
+|====
+2+|Namen in Dokumentation
+|Schema |Kleinbuchstabe<beliebig: Kleinbuchstaben, Bindestriche, einzelne Ziffern, wenn unbedingt nötig>
+|Beispiel |isyfact-standards
+|falsch |_isyfact, IsyFact, isyfact standards, lösung, standards-und-erweiterungen
+|====
+
+[[dokumentation-glossar]]
+==== Spezielle Namensschemata Dokumentation
+include::werkzeuge:page$dokumentation/bearbeitung/bearbeitung-antora.adoc[tag=namenskonvention]
 
 // end::inhalt[]

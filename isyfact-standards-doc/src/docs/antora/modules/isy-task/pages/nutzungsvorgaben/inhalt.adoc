@@ -140,7 +140,7 @@ taskScheduler.shutdownMitTimeout(10);
 [[verwendung-bereitgestellter-tasks]]
 === Verwendung der bereitgestellten Tasks
 
-Die Bibliothek `isy-task` enthält nützliche Tasks für die xref:glossary:glossary:master.adoc#glossar-IFS[Bibliothek (IsyFact Standards)].
+Die Bibliothek `isy-task` enthält nützliche Tasks für die xref:glossary:glossary:master.adoc#glossar-ifs[Bibliothek (IsyFact Standards)].
 
 ==== Automatische Aktualisierung der Konfiguration
 Dieser Task dient der periodischen Prüfung der Konfigurationsdateien auf Änderungen sowie der automatischen Aktualisierung der Konfiguration bei Änderungen.
@@ -377,7 +377,7 @@ Der MBean-Exporter wird gemäß dem xref:isy-ueberwachung:konzept/master.adoc#ei
 == Hinweise für den Task im Parallelbetrieb
 
 Bei der Implementierung eines Tasks muss beachtet werden, dass ihn die Querschnittsbibliothek im Parallelbetrieb betreiben wird.
-Werden hierbei die Besonderheiten der Java Multithreading API nicht berücksichtigt, kann dies zu einem fehlerhaften Verhalten in der xref:glossary:glossary:master.adoc#glossar-Geschaeftsanwendung[Geschäftsanwendung] führen.
+Werden hierbei die Besonderheiten der Java Multithreading API nicht berücksichtigt, kann dies zu einem fehlerhaften Verhalten in der xref:glossary:glossary:master.adoc#glossar-geschaeftsanwendung[Geschäftsanwendung] führen.
 
 [[threadsicherheit]]
 === Threadsicherheit

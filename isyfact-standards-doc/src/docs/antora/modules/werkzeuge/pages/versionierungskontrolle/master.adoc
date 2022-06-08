@@ -5,8 +5,6 @@
 // Verhindert Interpretation der AsciiDoc-Beispiele durch Skripte
 :id-equals: id=
 
-:sectnums:
-
 include::glossary:licence:partial$licence.adoc[]
 
 include::inhalt.adoc[tags=inhalt]

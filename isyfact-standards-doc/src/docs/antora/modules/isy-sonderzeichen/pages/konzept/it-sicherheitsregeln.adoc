@@ -3,5 +3,5 @@
 [[it-sicherheitsregeln-sonderzeichen]]
 == Architekturregeln Umgang mit Sonderzeichen
 
-include::inhalt.adoc[tags=sicherheit]
+include::sonderzeichen.adoc[tags=sicherheit]
 // end::it-sicherheitsregeln[]

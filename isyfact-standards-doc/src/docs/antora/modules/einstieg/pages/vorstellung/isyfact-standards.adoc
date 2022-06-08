@@ -1,6 +1,4 @@
 = IsyFact-Standards
-:icons: font
-:sectnums:
 
 include::glossary:licence:partial$licence.adoc[]
 
@@ -129,8 +127,8 @@ Sie enthält außerdem das Vorgehen zur Erstellung und Beispiele für die zu bes
 == Vorgaben für die Realisierung
 
 Die Realisierung hat gemäß den xref:methodik:java-programmierkonventionen/master.adoc#einleitung[Java Programmierkonventionen] zu erfolgen.
-Die Versionierung von Bibliotheken und Anwendungen muss sich nach den Vorgaben zur xref:werkzeuge:versionierungskontrolle/master.adoc#maven-plugin-versionierungskontrolle[IsyFact Versionierung] richten, die im Wesentlichen auf xref:glossary:literaturextern:inhalt.adoc#litextern-Semantic-Versioning[Semantic Versioning] basieren.
-Für die Entwicklungsumgebung gelten wenige Vorgaben, die in xref:werkzeuge:einrichtung_entwicklungsumgebung/master.adoc#einleitung[IsyFact Einrichtung Entwicklungsumgebung] zusammengefasst sind.
+Die Versionierung von Bibliotheken und Anwendungen muss sich nach den Vorgaben zur xref:werkzeuge:versionierungskontrolle/master.adoc#maven-plugin-versionierungskontrolle[IsyFact Versionierung] richten, die im Wesentlichen auf xref:glossary:literaturextern:inhalt.adoc#litextern-semantic-versioning[Semantic Versioning] basieren.
+Für die Entwicklungsumgebung gelten wenige Vorgaben, die in xref:werkzeuge:entwicklungsumgebung/master.adoc#einleitung[IsyFact Einrichtung Entwicklungsumgebung] zusammengefasst sind.
 
 Die Bibliotheken der IsyFact werden als JAR (Java Archive) bereitgestellt und können über ihre Maven-Koordinaten leicht als Abhängigkeit in die Anwendungsentwicklung eingebunden werden.
 
@@ -161,7 +159,7 @@ Weiterhin wird in diesem Dokument gezeigt, wie die Überwachung und Administrati
 [[behandlung-von-internationalen-sonderzeichen]]
 === Behandlung von internationalen Sonderzeichen
 Geschäftsanwendungen müssen zum Teil mit Einträgen umgehen, die nicht den geläufigen Zeichenstandards und Codierungen unterliegen.
-Im Dokument xref:isy-sonderzeichen:konzept/master.adoc#einleitung[Konzept Sonderzeichen] werden Festlegungen getroffen, wie mit daraus resultierenden Problemstellungen umgegangen wird.
+Im Dokument xref:isy-sonderzeichen:konzept/sonderzeichen.adoc#einleitung[Konzept Sonderzeichen] werden Festlegungen getroffen, wie mit daraus resultierenden Problemstellungen umgegangen wird.
 In diesem Zusammenhang müssen oft auch Namen transkribiert werden.
 Die dafür zu verwendenden Regeln sind ebenfalls im Dokument enthalten.
 

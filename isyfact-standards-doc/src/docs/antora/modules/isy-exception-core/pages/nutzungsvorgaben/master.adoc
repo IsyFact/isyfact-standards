@@ -3,8 +3,6 @@
 [discrete]
 === Nutzungsvorgaben
 
-:sectnums:
-
 include::glossary:licence:partial$licence.adoc[]
 
 include::docinfo.adoc[]

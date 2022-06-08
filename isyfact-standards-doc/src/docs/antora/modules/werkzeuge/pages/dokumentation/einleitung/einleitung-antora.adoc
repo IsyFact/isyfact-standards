@@ -1,0 +1,16 @@
+:doctitle: Dokumentation der IsyFact - Projektseite mit Antora
+
+// tag::inhalt[]
+[[einleitung]]
+== Einleitung
+
+[CAUTION]
+====
+Auf dieser Seite wird die Dokumentation der IsyFact ab Version 2.5 mit Antora beschrieben.
+====
+
+Eine Einführung in die Dokumentation der IsyFact findet sich in der xref:dokumentation/einleitung/einfuehrung.adoc[allgemeinen Einleitung].
+
+// end::inhalt[]
+
+

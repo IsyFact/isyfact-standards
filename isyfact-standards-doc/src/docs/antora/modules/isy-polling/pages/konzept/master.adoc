@@ -2,8 +2,6 @@
 [discrete]
 === Konzept
 
-:sectnums:
-
 include::glossary:licence:partial$licence.adoc[]
 
 

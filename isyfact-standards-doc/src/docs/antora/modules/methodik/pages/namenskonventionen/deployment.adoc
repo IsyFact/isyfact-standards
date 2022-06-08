@@ -11,7 +11,7 @@
 Für die Benennung von RPM-Paketen existiert eine Konvention, welche durch den RPM-Standard vorgeben wird.
 Diese Vorgaben sind ebenfalls im <<TODODeploymentKonzept>> zu finden.
 
-NOTE: Siehe xref:glossary:literaturextern:inhalt.adoc#litextern-RPM-Packaging-Guide[RPM Packaging Guide]
+NOTE: Siehe xref:glossary:literaturextern:inhalt.adoc#litextern-rpm-packaging-guide[RPM Packaging Guide]
 
 .RPM-Pakete
 [id="table-rpmpak",reftext="{table-caption} {counter:tables}"]

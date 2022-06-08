@@ -12,7 +12,7 @@ Versionen müssen nach dem folgenden Format aufgebaut sein (Inhalte in eckigen K
 |====
 
 
-Die meisten der hier genannten Vorgaben sind unverändert aus „Semantic Versioning 2.0“ xref:glossary:literaturextern:inhalt.adoc#litextern-SemanticVersioning[Semantic Versioning] übernommen, einige wurden leicht verändert.
+Die meisten der hier genannten Vorgaben sind unverändert aus „Semantic Versioning 2.0“ xref:glossary:literaturextern:inhalt.adoc#litextern-semantic-versioning[Semantic Versioning] übernommen, einige wurden leicht verändert.
 
 Die Terme “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, und “OPTIONAL” in
 diesem Dokument sind, wie in RFC 2119 beschrieben, zu interpretieren.
@@ -151,7 +151,7 @@ Auf Grundlage einer Versionsnummer von MAJOR.MINOR.PATCH werden die einzelnen El
 .  *MINOR* wird erhöht, wenn neue Funktionalitäten, welche kompatibel zur bisherigen API sind, veröffentlicht werden, und
 .  *PATCH* wird erhöht, wenn die Änderungen ausschließlich API-kompatible Bugfixes umfassen.
 
-Das bedeutet, dass die Regeln des xref:glossary:literaturextern:inhalt.adoc#litextern-SemanticVersioning[Semantic Versioning 2.0] anzuwenden sind.
+Das bedeutet, dass die Regeln des xref:glossary:literaturextern:inhalt.adoc#litextern-semantic-versioning[Semantic Versioning 2.0] anzuwenden sind.
 
 Zusätzlich gilt:
 
