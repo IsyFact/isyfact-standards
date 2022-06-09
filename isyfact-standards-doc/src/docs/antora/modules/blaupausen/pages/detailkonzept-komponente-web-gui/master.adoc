@@ -1,4 +1,4 @@
-= Detailkonzept Komponente Web-GUI
+= Detailkonzept Web-GUI
 
 include::glossary:licence:partial$licence.adoc[]
 

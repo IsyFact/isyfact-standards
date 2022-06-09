@@ -1,4 +1,4 @@
-= Detailkonzept Komponente Anwendungskern
+= Detailkonzept Anwendungskern
 
 include::glossary:licence:partial$licence.adoc[]
 

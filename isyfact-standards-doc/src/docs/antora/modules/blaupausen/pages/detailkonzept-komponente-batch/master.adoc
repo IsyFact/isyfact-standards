@@ -1,4 +1,4 @@
-= Detailkonzept Komponente Batch
+= Detailkonzept Batch
 
 include::glossary:licence:partial$licence.adoc[]
 

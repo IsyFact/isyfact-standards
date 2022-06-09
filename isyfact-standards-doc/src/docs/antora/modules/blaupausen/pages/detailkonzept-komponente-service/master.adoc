@@ -1,4 +1,4 @@
-= Detailkonzept Komponente Service
+= Detailkonzept Service
 
 include::glossary:licence:partial$licence.adoc[]
 

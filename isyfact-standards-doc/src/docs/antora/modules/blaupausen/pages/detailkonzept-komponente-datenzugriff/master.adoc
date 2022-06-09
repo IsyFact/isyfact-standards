@@ -1,4 +1,4 @@
-= Detailkonzept Komponente Datenzugriff
+= Detailkonzept Datenzugriff
 
 include::glossary:licence:partial$licence.adoc[]
 
