@@ -1,4 +1,4 @@
-:doctitle: Dokumente mit AsciidoctorJ Extensions
+= Dokumente mit AsciidoctorJ Extensions
 
 :experimental:
 

@@ -1,4 +1,4 @@
-:doctitle: Changelog IsyFact Dokumentation
+= Changelog IsyFact Dokumentation
 
 == Änderungen IsyFact 2.5.0
 

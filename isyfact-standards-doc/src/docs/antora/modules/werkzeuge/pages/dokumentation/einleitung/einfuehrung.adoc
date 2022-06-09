@@ -1,4 +1,4 @@
-:doctitle: Dokumentation gemäß IsyFact
+= Dokumentation gemäß IsyFact
 
 include::glossary:licence:partial$licence.adoc[]
 

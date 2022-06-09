@@ -1,6 +1,4 @@
-:doctitle: Referenzarchitektur
-[discrete]
-=== Vorgaben
+= Referenzarchitektur
 
 include::glossary:licence:partial$licence.adoc[]
 

@@ -1,9 +1,6 @@
-:doctitle: Komponente Service
-[discrete]
-=== Detailkonzept
+= Detailkonzept Komponente Service
 
 include::glossary:licence:partial$licence.adoc[]
-
 
 include::thisdoc.adoc[tags=inhalt]
 

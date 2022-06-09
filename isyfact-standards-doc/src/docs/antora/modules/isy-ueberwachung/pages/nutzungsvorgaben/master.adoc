@@ -1,6 +1,4 @@
-:doctitle: Baustein Überwachung
-[discrete]
-=== Nutzungsvorgaben
+= Nutzungsvorgaben Überwachung
 
 include::glossary:licence:partial$licence.adoc[]
 

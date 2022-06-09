@@ -1,4 +1,4 @@
-:doctitle: Projektseite mit Antora (empfohlen)
+= Projektseite mit Antora (empfohlen)
 
 :experimental:
 

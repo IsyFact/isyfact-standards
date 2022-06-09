@@ -1,6 +1,4 @@
-:doctitle: Baustein Sonderzeichen
-[discrete]
-=== Nutzungsvorgaben
+= Nutzungsvorgaben Sonderzeichen
 
 include::glossary:licence:partial$licence.adoc[]
 

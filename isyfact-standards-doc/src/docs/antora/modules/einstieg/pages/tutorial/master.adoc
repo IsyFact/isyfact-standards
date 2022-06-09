@@ -1,6 +1,4 @@
-:doctitle: Tutorial
-[discrete]
-=== Grundlagen
+= Tutorial
 
 include::glossary:licence:partial$licence.adoc[]
 

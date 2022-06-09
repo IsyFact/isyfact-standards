@@ -1,7 +1,4 @@
-
-:doctitle: Versionierungskontrolle
-[discrete]
-=== Handbuch
+= Versionierungskontrolle
 
 include::glossary:licence:partial$licence.adoc[]
 

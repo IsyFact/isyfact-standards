@@ -1,6 +1,4 @@
-:doctitle: Baustein Konfiguration
-[discrete]
-=== Konzept
+= Konzept Konfiguration
 
 include::glossary:licence:partial$licence.adoc[]
 

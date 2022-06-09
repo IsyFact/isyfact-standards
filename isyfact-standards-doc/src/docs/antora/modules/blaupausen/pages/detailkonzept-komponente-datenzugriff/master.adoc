@@ -1,9 +1,6 @@
-:doctitle: Komponente Datenzugriff
-[discrete]
-=== Detailkonzept
+= Detailkonzept Komponente Datenzugriff
 
 include::glossary:licence:partial$licence.adoc[]
-
 
 include::docinfo.adoc[]
 

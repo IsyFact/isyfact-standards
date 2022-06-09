@@ -1,6 +1,4 @@
-:doctitle: Komponente Anwendungskern
-[discrete]
-=== Detailkonzept
+= Detailkonzept Komponente Anwendungskern
 
 include::glossary:licence:partial$licence.adoc[]
 

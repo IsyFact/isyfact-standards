@@ -1,6 +1,4 @@
-:doctitle: Baustein Logging
-[discrete]
-=== Konzept
+= Konzept Logging
 
 include::glossary:licence:partial$licence.adoc[]
 

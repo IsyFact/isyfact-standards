@@ -1,6 +1,4 @@
-:doctitle: Baustein Datum & Zeit
-[discrete]
-=== Nutzungsvorgaben
+= Nutzungsvorgaben Datum & Zeit
 
 include::glossary:licence:partial$licence.adoc[]
 
