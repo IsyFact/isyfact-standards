@@ -1,0 +1,18 @@
+= Werkzeuge
+
+include::glossary:licence:partial$licence.adoc[]
+
+// tag::whitepaper[]
+
+*Vorkonfigurierte Werkzeuge und Handbücher zu Werkzeugen zur Modellierung, Programmierung, Installation, Tests und Fehlerverfolgung.*
+
+Für die Softwareentwicklung setzt die IsyFact auf die IDEs Eclipse sowie IntelliJ IDEA und bietet punktuelle Unterstützung, z.B. bei der Generierung von Quellcode sowie der Überprüfung der Code-Qualität.
+
+Des Weiteren gibt es Generatoren für z.B. die Erstellung eines neuen Projekts.
+Für die Modellierung wird diagrams.net und Enterprise Architect genutzt.
+Maven unterstützt Build und Deployment der Softwarepakete.
+
+Für Softwaretests werden, neben JUnit und Frameworks zum Mocking, in Teilen Eigenentwicklungen genutzt.
+Das Fehler- und Änderungsmanagement wird unterstützt durch das Tool Jira.
+
+// end::whitepaper[]

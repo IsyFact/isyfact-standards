@@ -1,4 +1,4 @@
-* Werkzeuge
+* xref:werkzeuge.adoc[]
 ** xref:dokumentation/einleitung/einfuehrung.adoc[Dokumentation gemäß IsyFact]
 *** xref:dokumentation/master-antora.adoc[Projektseite mit Antora (empfohlen)]
 **** xref:werkzeuge:seitenvorlage.adoc[]
