@@ -1,4 +1,4 @@
-= Baustein Sonderzeichen - Konzept
+= Konzept Sonderzeichen
 
 include::glossary:licence:partial$licence.adoc[]
 
