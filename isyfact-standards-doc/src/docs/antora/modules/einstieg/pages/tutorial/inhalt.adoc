@@ -16,7 +16,7 @@ Zur Nutzung der Bibliotheken in der Anwendungsentwicklung steht ein zentrales BO
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isyfact-bom</artifactId>
-            <version>{version-ifs}</version>
+            <version>{page-component-version}</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
