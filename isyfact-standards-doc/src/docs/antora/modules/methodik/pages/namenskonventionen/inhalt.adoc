@@ -335,7 +335,19 @@ m|<verfahren> |Der (Kurz)name des Verfahrens/Anwendungsbereichs.
 [[servicegateway]]
 ===== Servicegateway
 
-include::servicegateway.adoc[tag=namenskonvention]
+.Name eines Servicegateways
+[id="table-namsgw",reftext="{table-caption} {counter:tables}"]
+[cols="1,4",options="header"]
+|====
+2+|Name eines Servicegateways
+|*Schemata* m|<verfahren>-sgw +
+<verfahren>-<zielverfahren>-sgw
+|*Beispiele* m|xyz-sgw +
+xyz-dienstabc-sgw
+|*Variable* |*Mögliche Ausprägungen*
+m|<verfahren> |Der (Kurz)name des Verfahrens/Anwendungsbereichs.
+m|<zielverfahren> |Der (Kurz)name des Verfahrens/Anwendungsbereichs, mit dem dieser SGW kommuniziert bzw. für den er eine Schnittstelle bereitstellt.
+|====
 
 [[mailgateway]]
 ===== Mailgateway
@@ -432,8 +444,69 @@ include::blaupausen:page$detailkonzept-komponente-web-gui/inhalt.adoc[tag=namens
 
 [[deploymentbetrieb-von-anwendungen]]
 === Deployment/Betrieb von Anwendungen
-include::deployment.adoc[tag=namenskonvention]
 
+[[rpm-pakete]]
+==== RPM-Pakete
+
+Für die Benennung von RPM-Paketen existiert eine Konvention, welche durch den RPM-Standard vorgeben wird.
+
+NOTE: Siehe xref:glossary:literaturextern:inhalt.adoc#litextern-rpm-packaging-guide[RPM Packaging Guide]
+
+.RPM-Pakete
+[id="table-rpmpak",reftext="{table-caption} {counter:tables}"]
+[cols="1,4",options="header"]
+|====
+2+|RPM-Pakete
+|*Schema* m|<paketname>-<versionsnummer>-<build-version>.<architektur>.rpm
+|*Beispiele* m|isy-geschaeftsanwendung-batch-1.2.0-01.noarch.rpm
+|*Variable* |*Mögliche Ausprägungen*
+m|<paketname> a|
+Name der Deployment-Einheit.
+Setzt sich in der Regel aus einem Präfix für die Anwendungslandschaft (<awl>) und dem Anwendungsnamen (siehe Kapitel 2.1.1) zusammen.
+Deployment-Einheiten der Anwendungslandschaft IsyFact besitzen z.B. das Präfix „isy“.
+
+Beispiel:
+
+* `<awl>-fachanwendung-gk-...`
+* `<awl>-fachanwendung-gkbatch-...`
+
+m|<versionsnummer> |Versionsnummer der Deployment-Einheit, z.B. „1.2.0“. Die Versionierung basiert auf Semantic Versioning und ist im Konzept xref:methodik:versionierung/master.adoc[IsyFact Versionierung] beschrieben.
+m|<build-version> a|
+Hier wird die Build-Nummer eingesetzt.
+Sie wird bei dem Bau jeder Auslieferungsversion (insbesondere auch bei Nachlieferungen) erhöht.
+
+Während der Entwicklung (Continuous Integration) wird hier eine laufende Nummer (Revisionsnummer der Versionsverwaltung, laufende Buildnummer des CI-Servers etc.) eingesetzt.
+
+m|<architektur> |Gibt die Systemarchitektur an, für welche das Paket erstellt wurde.
+Da IsyFact-konforme Anwendungen in Java erstellt werden, wird hier immer „noarch“ eingesetzt.
+Sollten Anwendungen Architektur-spezifische Bestandteile enthalten, wird hier die vom RPM-Standard vorgegebene Architektur-Bezeichnung eingesetzt.
+|====
+
+[[installationspfade]]
+==== Installationspfade
+
+Die Installationspfade sind ausführlich im Konzept beschrieben.
+
+.Installationspfade – Anwendung
+[id="table-instpathanw",reftext="{table-caption} {counter:tables}"]
+[cols="1,4",options="header"]
+|====
+2+|Installationspfade – Anwendung
+|*Schema* m|/opt/<rpm-paketname> (Anwendungsbasis) +
+/opt/<rpm-paketname>/bin (Skript-Verzeichnis) +
+/opt/<rpm-paketname>/tomcat (Tomcat) +
+/opt/<rpm-paketname>/tomcat/webapps/<name> (Basis der Webapp)
+|*Beispiele* m|/opt/isy-xyz-anwendung +
+/opt/isy-xyz-anwendung /bin +
+/opt/isy-xyz-anwendung /tomcat +
+/opt/isy-xyz-anwendung /tomcat/webapp/xyz-anwendung
+2+|*Installationspfade – Logdateien*
+|*Schema* m|/var/log/<rpm-paketname>
+|*Beispiele* m|/var/log/isy-xyz-anwendung
+2+|*Installationspfade – Betriebliche Konfiguration*
+|*Schema* m|/etc/<rpm-paketname>
+|*Beispiele* m|/etc/isy-xyz-anwendung
+|====
 
 [[dokumentation]]
 === Dokumentation
