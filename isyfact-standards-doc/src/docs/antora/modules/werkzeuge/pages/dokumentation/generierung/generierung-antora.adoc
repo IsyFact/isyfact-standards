@@ -52,11 +52,10 @@ runtime:
   fetch: true
 asciidoc:
   attributes:
-    version-ifs: 2.5-SNAPSHOT  <3>
     page-toctitle: Inhalt
-    sectnums: true             <4>
-    sectnumlevels: 5           <5>
-    caution-caption: Achtung   <6>
+    sectnums: true             <3>
+    sectnumlevels: 5           <4>
+    caution-caption: Achtung   <5>
     important-caption: Wichtig
     note-caption: Hinweis
     tip-caption: Tip
@@ -68,21 +67,20 @@ asciidoc:
     listing-caption: Listing
 ui:
   bundle:
-    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable              <7>
-    snapshot: false                       <8>
-  supplemental_files: ./supplemental-ui   <9>
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable <6>
+    snapshot: false                       <7>
+  supplemental_files: ./supplemental-ui   <8>
 output:
   dir: ./public
 ----
 <1> Die Git-Repositories `isy-documentation` und `isyfact-standards` enthalten xref:glossary:glossary:master.adoc#glossar-antora-dokumentations-komponente[Antora-Komponenten] für die Gesamtdokumentation.
 <2> Auf dem lokal ausgecheckten Branch des angegebenen Repositories wird nach Antora-Komponenten gesucht.
-<3> Selbstdefiniertes Attribut.
-<4> Abschnitte sollen nummeriert werden.
-<5> Die Abschnitte dürfen bis Level 5 geschachtelt sein (möglich, aber nicht empfohlen).
-<6> Vordefinierte Captions auf deutsch.
-<7> Standard-UI von Antora.
-<8> Ein stabiles UI ist hilfreich.
-<9> Ergänzungen der IsyFact zum Standard-UI.
+<3> Abschnitte sollen nummeriert werden.
+<4> Die Abschnitte dürfen bis Level 5 geschachtelt sein (möglich, aber nicht empfohlen).
+<5> Vordefinierte Captions auf Deutsch.
+<6> Standard-UI von Antora.
+<7> Ein stabiles UI ist hilfreich.
+<8> Ergänzungen der IsyFact zum Standard-UI.
 
 
 === Supplemental UI

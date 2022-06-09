@@ -58,7 +58,7 @@ In einem Baustein wird die Dokumentation in einem eigenen Maven-Submodul unter d
                 📄 inhalt.adoc    <4>
                 📄 master.adoc    <5>
                 📄 thisdoc.adoc   <6>
-                📂 images <4>
+                📂 images <7>
             📂 Nutzungsvorgaben <2>
                 📄 anhaenge.adoc
                 📄 inhalt.adoc
@@ -179,7 +179,7 @@ In <<listing-master-bib>> wird beispielsweise auf den Baustein `isy-web` verwies
 [cols="5,2,3",options="header"]
 |====
 |Name |Art |Version
-|isy-web |Bibliothek |{version-ifs}
+|isy-web |Bibliothek |v{version-ifs}
 |====
 ----
 

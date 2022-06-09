@@ -244,12 +244,12 @@ Deswegen werden Abbildungen in IsyFact-Dokumenten wie folgt definiert:
 
 [[listing-bild-einfuegen2]]
 .Abbildung einfügen (IsyFact)
-[source,asciidoc,subs="attributes+"]
+[source,asciidoc]
 ----
 :desc-image-beispiel: Beispiel
-[{id-equals}"image-beispiel",reftext="{figure-caption} {counter:figures}"]
+[id="image-beispiel",reftext="{figure-caption} {counter:figures}"]
 .{desc-image-beispiel}
-image::beispiel.png
+image::beispiel.png[]
 ----
 
 Das Skript für die automatische Erstellung des Abbildungsverzeichnisses sucht alle Abbildungen im Dokument und erstellt hieraus ein Verzeichnis am Ende des Dokuments.
@@ -272,10 +272,10 @@ Wenn die Abbildung zentriert werden soll, fügt man das Attribut `[align="center
 
 [[listing-bild-einfuegen3]]
 .Abbildung zentriert einfügen
-[source,asciidoc,subs="attributes+"]
+[source,asciidoc]
 ----
 :desc-image-beispiel: Beispiel
-[{id-equals}"image-beispiel",reftext="{figure-caption} {counter:figures}"]
+[id="image-beispiel",reftext="{figure-caption} {counter:figures}"]
 .{desc-image-beispiel}
 image::beispiel.png[align="center"]
 ----
@@ -287,10 +287,10 @@ HTML-Dokumente benötigen die Angabe von `scaledwidth`, PDF-Dokumente wiederum `
 
 [[listing-bild-einfuegen4]]
 .Abbildung zentriert und skaliert einfügen
-[source,asciidoc,subs="attributes+"]
+[source,asciidoc]
 ----
 :desc-image-beispiel: Beispiel
-[{id-equals}"image-beispiel",reftext="{figure-caption} {counter:figures}"]
+[id="image-beispiel",reftext="{figure-caption} {counter:figures}"]
 .{desc-image-beispiel}
 image::beispiel.png[align="center",pdfwidth=80%,scaledwidth=80%]
 ----
@@ -330,10 +330,10 @@ Hierfür soll folgende Syntax verwendet werden:
 
 [[listing-tabelle2]]
 .Tabelle einfügen in IsyFact
-[source,asciidoc,subs="attributes+"]
+[source,asciidoc]
 ----
 :desc-table-beispiel: Beispiel-Tabelle
-[{id-equals}"table-beispiel",reftext="{table-caption} {counter:tables}"]
+[id="table-beispiel",reftext="{table-caption} {counter:tables}"]
 .{desc-table-beispiel}
 [options="header"]
 |====
@@ -395,10 +395,10 @@ Auch hier wird noch eine Listing-Überschrift und eine ID benötigt:
 
 [[listing-quelltext2]]
 .Quelltext einfügen in IsyFact
-[source,asciidoc,subs="attributes+",indent=0]
+[source,asciidoc,indent=0]
 ----
  :desc-listing-hallowelt: HalloWelt.java
- [{id-equals}"listing-hallowelt",reftext="{listing-caption} {counter:listings }"]
+ [id="listing-hallowelt",reftext="{listing-caption} {counter:listings}"]
  .{desc-listing-hallowelt}
  [source,java]
  ----

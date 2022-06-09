@@ -2,8 +2,6 @@
 :doctitle: Versionierungskontrolle
 [discrete]
 === Handbuch
-// Verhindert Interpretation der AsciiDoc-Beispiele durch Skripte
-:id-equals: id=
 
 include::glossary:licence:partial$licence.adoc[]
 

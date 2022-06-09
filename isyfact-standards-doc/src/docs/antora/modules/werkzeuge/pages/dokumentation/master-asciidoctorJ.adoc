@@ -1,8 +1,5 @@
 :doctitle: Dokumente mit AsciidoctorJ Extensions
 
-// Verhindert Interpretation der AsciiDoc-Beispiele durch Scripte
-:id-equals: id=
-
 :experimental:
 
 include::glossary:licence:partial$licence.adoc[]
