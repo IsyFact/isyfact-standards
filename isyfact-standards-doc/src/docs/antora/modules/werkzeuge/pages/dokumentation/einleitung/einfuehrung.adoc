@@ -15,7 +15,7 @@ Die Art der Dokumentation hat sich seit der IsyFact Version 2.5 stark geändert.
 
 Im Folgenden werden die Unterschiede der Dokumentation vor und ab der IsyFact Version 2.5 aufgeführt.
 Allen Versionen gemeinsam ist die Verwendung von AsciiDoc als Grundlage zur Dokumentation.
-Die Dokumentation ab der IsyFact Version 2.5 verwendet das Open Source Tool Antora zur Generierung der HTML-Gesamtdokumentation.
+Die Dokumentation ab der IsyFact Version 2.5 verwendet das Open-Source-Tool Antora zur Generierung der HTML-Gesamtdokumentation.
 Die Dokumentation vor der IsyFact Version 2.5 verwendet AsciidoctorJ Extensions zur Generierung der einzelnen HTML- und PDF-Dokumente.
 
 === Generierung mit Antora
@@ -27,7 +27,7 @@ Durch die Verwendung von Antora zur Generierung der HTML-Gesamtdokumentation erg
 Einzelheiten zur Dokumentation mit Antora, u.a. zur Verzeichnisstruktur, finden sich in der xref:dokumentation/master-antora.adoc[Projektseite mit Antora].
 ====
 
-Die <<zentrale-dokumentation, zentrale Dokumentation>> aus dem Repository `isy-documentation` wurde verschoben in das Repository `isyfact-standards` im Submodul `isyfact-standards-doc`.
+Die <<zentrale-dokumentation,zentrale Dokumentation>> aus dem Repository `isy-documentation` wurde verschoben in das Repository `isyfact-standards` im Submodul `isyfact-standards-doc`.
 
 Eine weitere Änderung gegenüber früheren Versionen der IsyFact besteht darin, dass keine Verzeichnisse wie z.B. ein Abbildungsverzeichnis am Ende eines Dokuments mehr erstellt werden.
 Stattdessen werden die Inhalte stärker verlinkt, auch auf Inhalte in anderen Repositories.
@@ -63,16 +63,17 @@ Dabei sollen nicht nur vorhandene Dokumentseiten, sondern auch neue Dokumentseit
 Die IsyFact-Dokumentation wird in der vereinfachten Auszeichnungssprache AsciiDoc verfasst.
 Eine AsciiDoc-Datei ist nicht binär, sondern besteht aus Klartext, ganz ohne proprietäre Technologie.
 Einer der Vorteile der AsciiDoc-Syntax ist die leichte Erlernbarkeit, denn AsciiDoc benötigt denkbar wenige Markups.
-AsciiDoc lässt sich zudem problemlos in moderne Versionsverwaltungssysteme integrieren, so dass alle Vorteile solcher Systeme wie z.B. paralleles Arbeiten in Branches, Pull/Merge Requests oder Continuous Integration nun auch auf Dokumente anwendbar sind.
+AsciiDoc lässt sich zudem problemlos in moderne Versionsverwaltungssysteme integrieren, sodass alle Vorteile solcher Systeme wie z.B. paralleles Arbeiten in Branches, Pull/Merge Requests oder Continuous Integration nun auch auf Dokumente anwendbar sind.
 
+[[werkzeuge]]
 === Erforderliche und empfohlene Werkzeuge
 
 Als Arbeitsumgebung müssen Git, Git LFS und Maven installiert sein.
 Für die Generierung mit Antora müssen außerdem Node.js und Antora installiert werden, siehe xref:dokumentation/generierung/generierung-antora.adoc#antora-werkzeuge[Installation Antora Werkzeuge].
 
-Zum Erstellen und Bearbeiten von AsciiDoc-Dateien wird ein Texteditor benötigt, empfohlen wird xref:glossary:glossary:master.adoc#glossar-vs-code[VS Code (Visual Studio Code)], sofern nicht der Editor der Entwicklungsumgebung verwendet wird.
+Zum Erstellen und Bearbeiten von AsciiDoc-Dateien wird ein Texteditor benötigt, empfohlen wird xref:glossary:literaturextern:inhalt.adoc#litextern-vs-code[Visual Studio Code (VS Code)], sofern nicht der Editor der Entwicklungsumgebung verwendet wird.
 VS Code ist ein Texteditor, der von Microsoft entwickelt wird und plattformübergreifend für die Betriebssysteme Windows, macOS und Linux verfügbar ist.
-Neben den ausgereiften Plugins für die Bearbeitung von AsciiDoc-Dokumenten:  xref:glossary:glossary:master.adoc#glossar-vs-code-asciidoc-erweiterung[AsciiDoc Erweiterung für VS Code] unterstützt VS Code Git-basierte Projekte mit vielfältigen Funktionen.
+Neben den ausgereiften Plugins für die Bearbeitung von AsciiDoc-Dokumenten: xref:glossary:literaturextern:inhalt.adoc#litextern-vs-code-asciidoc-erweiterung[AsciiDoc Erweiterung für VS Code] unterstützt VS Code Git-basierte Projekte mit vielfältigen Funktionen.
 
 // end::inhalt[]
 

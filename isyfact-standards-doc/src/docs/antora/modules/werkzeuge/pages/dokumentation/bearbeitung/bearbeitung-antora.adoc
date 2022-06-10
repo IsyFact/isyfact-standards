@@ -392,7 +392,7 @@ IMPORTANT: Abbildungen sollten mit diagrams.net als <Name Abbildung>.dn.svg erst
 
 // end::important[]
 
-Diagramme, die mit dem xref:methodik:diagrammerstellung/enterprise-architect.adoc[Enterprise Architect] erstellt werden, oder Screenshots, dürfen auch weiterhin als .png eingebunden werden.
+Diagramme, die mit dem xref:methodik:diagrammerstellung/enterprise-architect.adoc[Enterprise Architect] erstellt werden, oder Screenshots, dürfen auch weiterhin im PNG-Format eingebunden werden.
 
 // tag::namenskonvention[]
 [[table-namenskonvention-bilder]]
@@ -407,24 +407,31 @@ Diagramme, die mit dem xref:methodik:diagrammerstellung/enterprise-architect.ado
 
 // end::namenskonvention[]
 
-Wenn ein Antora-Modul sehr viele Bilder enthält, kann auch eine Unterstruktur unterhalb von /images angelegt werden, z.B. /images/unterordner.
+Wenn ein Antora-Modul sehr viele Bilder enthält, kann auch eine Unterstruktur unterhalb von `/images` angelegt werden, z.B. `/images/unterordner`.
 
-In einem IsyFact-Dokument muss eine Abbildung:
+Eine Abbildung muss folgende Informationen enthalten:
 
-* eine Beschreibung enthalten,
-* eindeutig identifizierbar und referenzierbar sein.
+* eine Beschreibung,
+* einen für die Seite eindeutigen Anker,
+* (optional) eine Angabe über die anzuzeigende Breite.
 
-Deswegen werden Abbildungen in IsyFact-Dokumenten wie folgt definiert:
+Die folgenden Beispiele zeigen, wie Abbildungen in Seiten aussehen können.
 
 [[image-beispiel]]
-.Abbildung einfügen (IsyFact)
-[source,asciidoc]
+.Beispiele für Abbildungen
+[source,asciidoc,indent=0]
 ----
-[[image-beispiel]]
-.Beispiel
- image::beispiel.dn.svg
+ [[image-beispiel]]
+ .Beispiel
+ image::beispiel.dn.svg[]
 
- image::unterordner/beispiel2.dn.svg
+ [[image-beispiel-unterordner]]
+ .Beispiel mit Unterordner
+ image::unterordner/beispiel.dn.svg[]
+
+ [[image-beispiel-skaliert]]
+ .Beispiel mit Skalierung
+ image::unterordner/beispiel.dn.svg[width="400"]
 ----
 
 Eingebundene Abbildungen können wie üblich über einen Querverweis referenziert werden:
@@ -433,10 +440,9 @@ Eingebundene Abbildungen können wie üblich über einen Querverweis referenzier
 
 oder, wenn das eingebundene Bild in einer Seite in einem anderen Modul oder einer anderen Komponente liegt:
 
-  xref:component:module:file.adoc#image-beispiel[Text].
+ xref:component:module:file.adoc#image-beispiel[Text].
 
-Beispiele für Abbildungen finden sich außerdem in xref:seitenvorlage.adoc#formatierung-abbildungen[Seitenvorlage Abbildungen]. +
-{empty} +
+Beispiele für Abbildungen finden sich außerdem in xref:seitenvorlage.adoc#formatierung-abbildungen[Seitenvorlage Abbildungen].
 
 [[tabellen]]
 === Tabellen
