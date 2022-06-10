@@ -1,8 +1,4 @@
-:doctitle: Softwaretechnische Architektur
-[discrete]
-=== Referenzarchitektur
-
-:sectnums:
+= Softwaretechnische Referenzarchitektur
 
 include::glossary:licence:partial$licence.adoc[]
 

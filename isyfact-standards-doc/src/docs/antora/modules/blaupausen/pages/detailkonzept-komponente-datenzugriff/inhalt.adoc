@@ -136,10 +136,10 @@ Abweichungen sind nur für eine Reduzierung der Komplexität des Persistenz-Klas
 
 Falls Vererbung im Persistenz-Klassenmodell eingesetzt wird, ist sie im Datenbank-Schema auf folgende Weise umzusetzen:
 
-* Über eine Tabelle, welche die Daten aller Klassen der Hierarchie („Table per class hierarchy“, siehe xref:glossary:literaturextern:inhalt.adoc#litextern-JPA-Hibernate[„Java Persistence with Hibernate“] Kapitel 5.1.3) enthält.
+* Über eine Tabelle, welche die Daten aller Klassen der Hierarchie („Table per class hierarchy“, siehe xref:glossary:literaturextern:inhalt.adoc#litextern-jpa-hibernate[„Java Persistence with Hibernate“] Kapitel 5.1.3) enthält.
 Diese Art der Abbildung ist vorzuziehen.
 Falls sie aufgrund vieler unterschiedlicher Felder oder Problemen mit Pflichtfeldern in den Klassen nicht verwendbar ist, können auch andere Strategien verwendet werden.
-Die Vor- und Nachteile der einzelnen Strategien sind in xref:glossary:literaturextern:inhalt.adoc#litextern-JPA-Hibernate[„Java Persistence with Hibernate“] beschrieben.
+Die Vor- und Nachteile der einzelnen Strategien sind in xref:glossary:literaturextern:inhalt.adoc#litextern-jpa-hibernate[„Java Persistence with Hibernate“] beschrieben.
 
 Die Klassenhierarchie ist in jedem Fall möglichst flach zu halten: Soweit möglich sollen nur zwei Stufen verwendet werden.
 
@@ -157,7 +157,7 @@ Zur Fachlogik gehören auch Validierungen.
 
 Im Normalfall müssen für Entitätsklassen die Methoden `equals` und `hashCode` nicht überschrieben werden.
 
-Nur für Embeddable-Klassen (siehe xref:glossary:literaturextern:inhalt.adoc#litextern-JPA-Hibernate[„Java Persistence with Hibernate“] Kapitel 4.4.2) müssen die Methoden `equals` und `hashCode` implementiert werden.
+Nur für Embeddable-Klassen (siehe xref:glossary:literaturextern:inhalt.adoc#litextern-jpa-hibernate[„Java Persistence with Hibernate“] Kapitel 4.4.2) müssen die Methoden `equals` und `hashCode` implementiert werden.
 Die Methoden müssen dafür sämtliche Attribute mit einbeziehen Zusätzlich muss das Interface `Serializable` implementiert werden.
 
 Für Beispiele zu den `equals-` und `hashCode-`Implementierungen siehe die Klasse `Organisator` der xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlage-Anwendung].
@@ -198,7 +198,7 @@ Diese wird automatisch von JPA verwendet.
 [[n-assoziationen-in-der-regel-als-set-ohne-reihenfolge-definieren]]
 === 1:n Assoziationen in der Regel als Set (ohne Reihenfolge) definieren
 
-Beim Abbilden einer 1:n Assoziation („Collection Mapping“, siehe xref:glossary:literaturextern:inhalt.adoc#litextern-Collection-Mapping[Collections]) ist in der Regel als Java-Typ `Set` zu definieren, da in einem `Set` keine Reihenfolge definiert ist.
+Beim Abbilden einer 1:n Assoziation („Collection Mapping“, siehe xref:glossary:literaturextern:inhalt.adoc#litextern-collection-mapping[Collections]) ist in der Regel als Java-Typ `Set` zu definieren, da in einem `Set` keine Reihenfolge definiert ist.
 
 [source,java]
 ----
@@ -476,7 +476,7 @@ Damit die DAOs von Spring automatisch als Beans erzeugt werden, muss eine Konfig
 class PersistenceConfiguration { }
 ----
 
-Der Zugriff auf die Datenbank aus dem xref:glossary:glossary:master.adoc#glossar-Anwendungskern[Anwendungskern] heraus erfolgt immer über die DAOs.
+Der Zugriff auf die Datenbank aus dem xref:glossary:glossary:master.adoc#glossar-anwendungskern[Anwendungskern] heraus erfolgt immer über die DAOs.
 Die DAOs werden als Spring-Beans in den Anwendungskern injiziert.
 Zudem wird für jedes DAO ein Interface angelegt.
 
@@ -528,7 +528,7 @@ In den Abfragekriterien werden Bedingungen auf Feldern der Entität definiert un
 verknüpft werden.
 +
 NOTE: Eine Übersicht zur Ableitung von Queries aus Methodennamen befindet sich in der Referenzdokumentation zu Spring Data JPA:
-xref:glossary:literaturextern:inhalt.adoc#litextern-Spring-Data-JPA[Spring-Data-JPA]
+xref:glossary:literaturextern:inhalt.adoc#litextern-spring-data-jpa[Spring-Data-JPA]
 
 2. Ableitung über eine manuell definierte Query.
 Die Query wird über die `@Query`-Annotation in JPQL direkt an die Methode des DAO geschrieben.
@@ -614,7 +614,7 @@ Sofern bei solchen Bulk-Operationen kaskadierende Änderungen benötigt werden (
 
 Begründung: Hibernate erzeugt bei der Ausführung von `BULK`-Queries unter bestimmten Umständen zur Laufzeit implizit Hilfstabellen (temporäre Tabellen mit dem Präfix HT_).
 
-NOTE: siehe xref:glossary:literaturextern:inhalt.adoc#litextern-Multitable-Bulk-Operations[Multitable Bulk Operations]
+NOTE: siehe xref:glossary:literaturextern:inhalt.adoc#litextern-multitable-bulk-operations[Multitable Bulk Operations]
 
 Dies führt dazu, dass der Datenbank-User der Anwendung entsprechende `CREATE TABLE`-Rechte benötigt, was i. d. R. nicht zugelassen ist.
 Weiterhin führt die Nutzung der temporären Tabellen in vielen Fällen zu Performance-Problemen.
@@ -714,7 +714,7 @@ Dieser kann auf der Oracle Website heruntergeladen werden.
 Zur Laufzeit bietet der Pool Informationen per JMX an, die zur Überwachung der Poolaktivität nützlich sind.
 Dazu zählt unter anderem die Anzahl aktuell ausgeliehener Verbindungen.
 
-Die zu setzenden Parameter können der folgenden Vorlage entnommen werden, wobei die genaue Bedeutung der Parameter der Oracle Dokumentation xref:glossary:literaturextern:inhalt.adoc#litextern-UCP[Ucp15] entnommen werden kann:
+Die zu setzenden Parameter können der folgenden Vorlage entnommen werden, wobei die genaue Bedeutung der Parameter der Oracle Dokumentation xref:glossary:literaturextern:inhalt.adoc#litextern-ucp[Ucp15] entnommen werden kann:
 
 Die Konfiguration des UCP erfolgt in `application.properties` über die Properties in <<listing-configpropertiesucp>>.
 
@@ -975,7 +975,7 @@ Ein Konfigurationsbeispiel kann folgendermaßen aussehen:
 [[grundlagen]]
 === Grundlagen
 
-Unter Historisierung (auch xref:glossary:literaturextern:inhalt.adoc#litextern-Temporale-Datenhaltung[temporale Datenhaltung] genannt) versteht man das Festhalten der zeitlichen Entwicklung von Daten durch Speichern in einer Datenbank.
+Unter Historisierung (auch xref:glossary:literaturextern:inhalt.adoc#litextern-temporale-datenhaltung[temporale Datenhaltung] genannt) versteht man das Festhalten der zeitlichen Entwicklung von Daten durch Speichern in einer Datenbank.
 Bei den Datensätzen gibt es zwei relevante Aspekte: den Gültigkeitszeitraum eines Datensatzes und den Bearbeitungszeitpunkt eines Datensatzes.
 
 Der Gültigkeitszeitraum gibt an, wie lange ein Datensatz gültig ist.
@@ -991,7 +991,7 @@ Eine Historisierung von Datensätzen wird durchgeführt, wenn Fragen über den W
 
 Bei der Archivierung handelt es sich um die Aufbewahrung eines Datensatzes über eine längere Zeit.
 Dies ist meist aus rechtlichen Gründen notwendig z. B. wegen gesetzlicher Aufbewahrungsfristen.
-Bei der Archivierung sind dementsprechend Randbedingungen wie Integrität, Unveränderlichkeit und Vertraulichkeit einzuhalten xref:glossary:literaturextern:inhalt.adoc#litextern-IT-Grundschutz-BSI[IT-Grundschutz BSI].
+Bei der Archivierung sind dementsprechend Randbedingungen wie Integrität, Unveränderlichkeit und Vertraulichkeit einzuhalten xref:glossary:literaturextern:inhalt.adoc#litextern-it-grundschutz-bsi[IT-Grundschutz BSI].
 
 [[abgrenzung-datensicherung-backup]]
 ==== Abgrenzung Datensicherung (Backup)
@@ -1546,7 +1546,7 @@ Auf diese Weise legt das Anwendungssystem selbst fest, welche anderen Systeme Zu
 
 Im Gegensatz zu schemaübergreifenden Operationen wird von datenbankübergreifenden Operationen dringlichst abgeraten.
 Nur eine Lösung, Oracle Database Links, bietet im Zusammenspiel mit Oracle-Datenbanken eine generische, transaktionssichere Lösung für dieses Problem an.
-Allerdings sind Oracle Database Links laut Maßnahme M 4.71 des IT-Grundschutzes (xref:glossary:literaturextern:inhalt.adoc#litextern-IT-Grundschutz-M471[IT-Grundschutz M471]) nur unter strengen Auflagen zulässig, die eine Verwendung erheblich erschweren.
+Allerdings sind Oracle Database Links laut Maßnahme M 4.71 des IT-Grundschutzes (xref:glossary:literaturextern:inhalt.adoc#litextern-it-grundschutz-m471[IT-Grundschutz M471]) nur unter strengen Auflagen zulässig, die eine Verwendung erheblich erschweren.
 
 Mit dem Wegfall dieser Lösung gibt es aus Sicht der IsyFact keine geeignete Lösung, um Daten zwischen mehreren Schemata auf unterschiedlichen Datenbank-Instanzen zu bearbeiten.
 Unabhängig von der Lösung erschweren datenbankübergreifende Operationen die Fehlersuche im Falle einer fehlgeschlagenen Installation oder Aktualisierung wesentlich.

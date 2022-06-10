@@ -1,4 +1,4 @@
-* Bausteine
+* xref:bausteine.adoc[]
 ** Datum & Zeit
 *** xref:isy-datetime:konzept/master.adoc[Konzept]
 *** xref:isy-datetime:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
@@ -32,7 +32,7 @@
 *** xref:isy-sicherheit:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
 
 ** Sonderzeichen
-*** xref:isy-sonderzeichen:konzept/master.adoc[Konzept]
+*** xref:isy-sonderzeichen:konzept/sonderzeichen.adoc[Konzept]
 *** xref:isy-sonderzeichen:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
 
 ** Task Scheduling

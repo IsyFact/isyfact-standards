@@ -1,7 +1,4 @@
-:doctitle: Konzept REST
-[discrete]
-= Konzept
-
+=  Konzept REST
 :sectnums:
 
 include::glossary:licence:partial$licence.adoc[]

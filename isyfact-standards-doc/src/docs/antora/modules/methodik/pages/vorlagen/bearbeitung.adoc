@@ -1,0 +1,12 @@
+= Bearbeitung der AsciiDoc-Vorlagen
+:icons: font
+:sectnums:
+
+include::glossary:licence:partial$licence.adoc[]
+
+Bei Änderungen an den AsciiDoc-Vorlagen in `isyfact-standards` müssen auch die Downloads im ZIP- und PDF-Format erneut generiert und committet werden.
+
+Dazu wird im Maven-Submodul `isyfact-standards-doc` der Maven-Befehl `mvn package` ausgeführt.
+Die ZIP-Archive und PDF-Dokumente der Vorlagen befinden sich nun im Ordner `src/docs/antora/modules/methodik/attachments/vorlage-generated` des Submoduls.
+
+Aktuell ist dieses Vorgehen für Änderungen an den Vorlagen zum Systementwurf und Systemhandbuch nötig.

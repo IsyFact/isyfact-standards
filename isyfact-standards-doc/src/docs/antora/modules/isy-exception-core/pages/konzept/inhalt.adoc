@@ -14,7 +14,7 @@ Aus den genannten Anforderungen ergeben sich entsprechende Detailvorgaben, die z
 **Nutzen stiftende Fehlermeldungen**: Eine Fehlermeldung muss klar verständlich sein, vor allem, wenn sie dem Benutzer angezeigt wird.
 Außerdem müssen die Fehlertexte so aufgebaut sein, dass sie sowohl den Betrieb als auch die Entwickler bei der Ursachenforschung und der schnellen Bearbeitung unterstützen.
 
-**Zuordnung von Fehlern**: Die IsyFact-Architektur beschreibt eine serviceorientierte xref:glossary:glossary:master.adoc#glossar-Anwendungslandschaft[Anwendungslandschaft].
+**Zuordnung von Fehlern**: Die IsyFact-Architektur beschreibt eine serviceorientierte xref:glossary:glossary:master.adoc#glossar-anwendungslandschaft[Anwendungslandschaft].
 Das Ergebnis, das einem Nutzer angezeigt wird, entsteht durch das Zusammenspiel verschiedener Anwendungen, die jeweils Services anbieten.
 Ein gemeldeter Fehler muss in dieser Landschaft einer Anwendung zuzuordnen sein.
 

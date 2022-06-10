@@ -1,8 +1,4 @@
-
-:doctitle: Namenskonventionen
-
-:sectnums:
-:sectnumlevels: 4
+= Namenskonventionen
 
 include::glossary:licence:partial$licence.adoc[]
 
