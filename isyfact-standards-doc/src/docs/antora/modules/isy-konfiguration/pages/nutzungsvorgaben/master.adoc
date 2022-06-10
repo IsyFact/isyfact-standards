@@ -1,6 +1,4 @@
-:doctitle: Baustein Konfiguration
-[discrete]
-=== Nutzungsvorgaben
+= Nutzungsvorgaben Konfiguration
 
 include::glossary:licence:partial$licence.adoc[]
 

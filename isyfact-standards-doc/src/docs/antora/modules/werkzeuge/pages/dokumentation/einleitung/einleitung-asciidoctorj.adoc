@@ -1,4 +1,4 @@
-:doctitle: Dokumentation der IsyFact - AsciidoctorJ Extensions
+= Dokumentation der IsyFact - AsciidoctorJ Extensions
 
 // tag::inhalt[]
 [[einleitung]]

@@ -1,6 +1,4 @@
-:doctitle: Baustein Logging
-[discrete]
-=== Nutzungsvorgaben
+= Nutzungsvorgaben Logging
 
 include::glossary:licence:partial$licence.adoc[]
 

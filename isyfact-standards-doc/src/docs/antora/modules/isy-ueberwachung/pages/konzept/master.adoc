@@ -1,6 +1,4 @@
-:doctitle: Baustein Überwachung
-[discrete]
-=== Konzept
+= Konzept Überwachung
 
 include::glossary:licence:partial$licence.adoc[]
 

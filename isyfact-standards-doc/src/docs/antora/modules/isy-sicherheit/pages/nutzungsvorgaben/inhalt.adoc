@@ -104,7 +104,7 @@ Eine Beschreibung der Konfiguration findet sich in den jeweiligen Nutzungsvorgab
 
 ==== Caching von Authentifizierungen
 
-Der Baustein liefert eine xref::isy-datetime:nutzungsvorgaben/master.adoc#standard-cache-konfiguration[Standard-Konfiguration für das Caching von Authentifizierungen] an.
+Der Baustein liefert eine xref:nutzungsvorgaben/master.adoc#standard-cache-konfiguration[Standard-Konfiguration für das Caching von Authentifizierungen] an.
 Der Standardwert für die Lebensdauer von Cache-Elementen liegt bei 5 Minuten (300 Sekunden), die maximale Anzahl an Elementen im Cache bei 1000.
 Wird die maximale Anzahl an Elementen überschritten, löscht der Cache die am längsten nicht mehr verwendeten Elemente zuerst.
 

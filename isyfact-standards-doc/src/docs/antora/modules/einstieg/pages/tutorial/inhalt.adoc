@@ -16,7 +16,7 @@ Zur Nutzung der Bibliotheken in der Anwendungsentwicklung steht ein zentrales BO
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isyfact-bom</artifactId>
-            <version>{version-ifs}</version>
+            <version>{page-component-version}</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -52,7 +52,7 @@ Es reicht also folgender Abschnitt, um eine Bibliothek einzubinden:
 
 In diesem Kapitel wird die Implementierung der Datenhaltung einer Anwendung beschrieben.
 Die Datenhaltung besteht im Wesentlichen aus den Entitätsklassen (Entity) und den zugehörigen Data Access Objects (DAOs).
-Alle Konzepte und Vorgaben zum Thema Persistenz und Datenzugriff stehen im Dokument xref:blaupausen:detailkonzept-komponente-datenzugriff/master.adoc#_detailkonzept_datenzugriff_einleitung[Detailkonzept Komponente Datenzugriff].
+Alle Konzepte und Vorgaben zum Thema Persistenz und Datenzugriff stehen im Dokument xref:blaupausen:detailkonzept-komponente-datenzugriff/master.adoc[Detailkonzept Komponente Datenzugriff].
 
 [[designvorgaben]]
 === Designvorgaben
@@ -68,7 +68,7 @@ Als Implementierung für die JPA wird Hibernate verwendet.
 * Der Datenzugriff erfolgt entweder über die Komponenten-Schnittstelle oder im Fall der Basisdaten direkt über die Basisdaten-DAOs.
 * Für persistente Entitäten, die über eine Komponentenschnittstelle angeboten werden, werden eigene Schnittstellenobjekte definiert, die per Deep-Copy gefüllt werden. Hierfür wird ein Bean-Mapper verwendet.
 Innerhalb einer Teilanwendung dürfen persistente Entitäten allerdings über Komponentengrenzen hinweg genutzt werden.
-* DAOs und Entitätsklassen werden in einer bestimmten Paketstruktur abgelegt (siehe xref:blaupausen:detailkonzept-komponente-datenzugriff/master.adoc#_detailkonzept_datenzugriff_einleitung[Detailkonzept Komponente Datenzugriff]).
+* DAOs und Entitätsklassen werden in einer bestimmten Paketstruktur abgelegt (siehe xref:blaupausen:detailkonzept-komponente-datenzugriff/master.adoc[Detailkonzept Komponente Datenzugriff]).
 * Die Transaktionssteuerung wird per AOP in der Service-Schicht durchgeführt (siehe Kapitel <<anbieten-von-service-schnittstellen>>).
 +
 [NOTE]
@@ -122,7 +122,7 @@ Zur Realisierung der Datenhaltung müssen folgende Aktivitäten durchgeführt we
 ==== Anlegen des Datenbankschemas
 
 Das Datenbankschema muss angelegt werden.
-Dazu werden die benötigten DDL-Anweisungen, wie im xref:blaupausen:detailkonzept-komponente-datenzugriff/master.adoc#_detailkonzept_datenzugriff_einleitung[Detailkonzept Komponente Datenzugriff] beschrieben, in einem Verzeichnis abgelegt.
+Dazu werden die benötigten DDL-Anweisungen, wie im xref:blaupausen:detailkonzept-komponente-datenzugriff/master.adoc[Detailkonzept Komponente Datenzugriff] beschrieben, in einem Verzeichnis abgelegt.
 Die xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung] enthält diese Anweisungen im Verzeichnis `src/main/skripte/sql/terminfindung`.
 
 Das initiale Datenmodell kann über das Tool `hbm2ddl` erzeugt werden.
@@ -153,7 +153,7 @@ Die benötigten Bibliotheken müssen als Abhängigkeiten in die Maven-Konfigurat
 
 Eine passende Beispielkonfiguration findet sich in der Maven-Konfiguration der xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung].
 
-[[implementierung-der-entitätsklassen-und-daos]]
+[[implementierung-der-entitaetsklassen-und-daos]]
 ==== Implementierung der Entitätsklassen und DAOs
 
 Die Entitätsklassen und Schnittstellen-Klassen müssen implementiert werden.
@@ -435,10 +435,10 @@ public class ServiceConfiguration {
 
 `IsyHttpInvokerServiceExporter` ist eine Erweiterung von `HttpInvokerServiceExporter` und deaktiviert standardmäßig die Verwendung von Proxy-Klassen.
 
-[[einbinden-der-benötigten-bibliotheken]]
+[[einbinden-der-benoetigten-bibliotheken]]
 ===== Einbinden der benötigten Bibliotheken
 
-[[bibliotheken-für-das-service-schnittstellen-projekt]]
+[[bibliotheken-fuer-das-service-schnittstellen-projekt]]
 ====== Bibliotheken für das Service-Schnittstellen-Projekt
 
 Das Projekt der Service-Schnittstelle benötigt die in <<listing-bib-sst>> aufgelisteten Bibliotheken:
@@ -461,7 +461,7 @@ Das Projekt der Service-Schnittstelle benötigt die in <<listing-bib-sst>> aufge
 </dependencies>
 ----
 
-[[bibliotheken-für-die-implementierung-der-service-schnittstelle]]
+[[bibliotheken-fuer-die-implementierung-der-service-schnittstelle]]
 ====== Bibliotheken für die Implementierung der Service-Schnittstelle
 
 In die Build-Konfiguration des Hauptprojekts des Anwendungssystems müssen folgende Bibliotheken aufgenommen werden:
@@ -569,10 +569,10 @@ Eine vollständige Liste zeigt <<listing-bib-sst-nutzung>>.
 
 [NOTE]
 ====
-`{systemname}-httpinvoker-sst` fügt das Schnittstellen-Projekt der zu nutzenden Schnittstelle als Abhängigkeit hinzu.
+`\{systemname}-httpinvoker-sst` fügt das Schnittstellen-Projekt der zu nutzenden Schnittstelle als Abhängigkeit hinzu.
 ====
 
-[[durchführen-der-konfiguration]]
+[[durchfuehren-der-konfiguration]]
 ===== Durchführen der Konfiguration
 
 Spring erzeugt anhand des Service-Interfaces HTTP Invoker Proxies, die den eigentlichen Aufruf durchführen.
@@ -725,7 +725,7 @@ Der Parameter `BatchErgebnisProtokoll` enthält eine Referenz auf ein Protokollo
 
 Für jeden Batch muss eine Property-Datei in `/src/main/resources/resources/batch` angelegt werden.
 In dieser statischen Konfiguration werden unter anderem die Batch-ID und die Transaktionssteuerung konfiguriert.
-Eine Beschreibung der Parameter ist in xref:blaupausen:detailkonzept-komponente-batch/master.adoc#_einführung[Detailkonzept Komponente Batch] enthalten.
+Eine Beschreibung der Parameter ist in xref:blaupausen:detailkonzept-komponente-batch/master.adoc[Detailkonzept Komponente Batch] enthalten.
 
 Die betriebliche Konfiguration des Batches ist identisch zu derjenigen der zugehörigen Anwendung.
 Auch Parameter, die nur für den Batch benötigt werden, werden in die betriebliche Konfiguration der Geschäftsanwendung aufgenommen.
@@ -933,9 +933,9 @@ Die explizite Einbindung von `isy-exception-sst` sollte dann entfernt werden.
 
 Die Core-Bibliothek wird im Wesentlichen im Anwendungskern bzw.
 der Service-Schnittstellen-Implementierung benötigt
-(siehe <<bibliotheken-für-die-implementierung-der-service-schnittstelle>>). Für Service-Schnittstellen
+(siehe <<bibliotheken-fuer-die-implementierung-der-service-schnittstelle>>). Für Service-Schnittstellen
 werden lediglich die Transport-Exceptions aus `isy-exception-sst` benötigt
-(siehe Kapitel <<bibliotheken-für-das-service-schnittstellen-projekt>>).
+(siehe Kapitel <<bibliotheken-fuer-das-service-schnittstellen-projekt>>).
 
 [[einbinden-der-bibliothek-1]]
 ===== Einbinden der Bibliothek
@@ -1127,7 +1127,7 @@ Die Komponente Sicherheit wird als Spring-Bean in einer Konfigurationsklasse kon
 
 Die einer Rolle zugeordneten Rechte werden in der Datei `/src/main/resources/resources/rollenrechte.xml` konfiguriert.
 
-[[prüfen-der-berechtigung]]
+[[pruefen-der-berechtigung]]
 ===== Prüfen der Berechtigung
 
 Die Berechtigungsprüfung erfolgt in der Regel vor der fachlichen Verarbeitung in der Service-Schnittstelle oder im Dialog-Controller einer Anwendung.
@@ -1143,7 +1143,7 @@ manager.pruefeRecht(RechteSchluessel.RECHT_MELDEN);
 Über die Methoden des Berechtigungsmanagers (z.B. `hatRecht`, `pruefeRecht`) kann die Anwendung
 die Autorisierung durchführen.
 
-[[überwachung]]
+[[ueberwachung]]
 === Überwachung
 
 In diesem Abschnitt wird beschrieben, wie die Überwachung einer Anwendung realisiert wird.
@@ -1183,7 +1183,7 @@ Zur Realisierung der Überwachung muss die in <<listing-bib-ueberwachung>> aufge
 </dependencies>
 ----
 
-[[konfiguration-der-überwachungsschnittstelle]]
+[[konfiguration-der-ueberwachungsschnittstelle]]
 ===== Konfiguration der Überwachungsschnittstelle
 
 Der HealthCheck, die Server-Metriken und das Loadbalancing Servlet werden automatisch durch die Verwendung der Bibliothek

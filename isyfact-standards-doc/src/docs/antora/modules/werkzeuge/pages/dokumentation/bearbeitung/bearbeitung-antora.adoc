@@ -85,7 +85,7 @@ Generelle Hinweise zur Verwendung von Verweisen siehe xref:seitenvorlage.adoc#st
 [[anchors]]
 ==== Sprungziele (Anchor)
 
-Für eine <<ueberschriften, Überschrift>> einer IsyFact-Seite fehlen noch die _Inline-Anchor_, damit durch Klick auf Verweise auf diese Inline-Anchor gesprungen werden kann.
+Für eine <<ueberschriften,Überschrift>> einer IsyFact-Seite fehlen noch die _Inline-Anchor_, damit durch Klick auf Verweise auf diese Inline-Anchor gesprungen werden kann.
 Ein Inline-Anchor wird über eckige Klammern gesetzt.
 Außerdem muss die ID des Anchors der xref:methodik:namenskonventionen/inhalt.adoc#dokumentation[Namenskonvention für Namen in Dokumenten] folgen.
 
@@ -104,7 +104,7 @@ Das ist ein Beispieltext zum Unterkapitel.
 
 Auch Abbildungen, Tabellen und Listings müssen mit einem Anchor versehen werden, damit sie als Sprungziel dienen können.
 
-Besonderheiten ergeben sich für Anchor für <<glossar, Glossareinträge>> und <<verweise-extern, externe Verweise>>.
+Besonderheiten ergeben sich für Anchor für <<glossar,Glossareinträge>> und <<verweise-extern,externe Verweise>>.
 
 [[verweise-lokal]]
 ==== Verweise innerhalb einer Seite
@@ -117,7 +117,7 @@ Ein Querverweis auf eine Überschrift wird über zwei Paare spitzer Klammern ges
 .Querverweis auf eine Überschrift
 [source,asciidoc]
 ----
-Zum <<ueberschriften, Beispiel-Kapitel>> gelangen Sie über einen Mausklick.
+Zum <<ueberschriften,Beispiel-Kapitel>> gelangen Sie über einen Mausklick.
 Im Übrigen handelt es sich bei dem Beispiel-Kapitel um das Kapitel <<ueberschriften>>.
 ----
 
@@ -125,7 +125,7 @@ Der erste Parameter in dem Klammer-Paar referenziert die ID des Querverweises.
 Der zweite Parameter kann gesetzt werden, wenn statt dem Namen des Kapitels ein eigener Text verwendet werden soll.
 Der erzeugte Text sieht wie folgt aus:
 
-_Zum <<ueberschriften, Beispiel-Kapitel>> gelangen Sie über einen Mausklick._
+_Zum <<ueberschriften,Beispiel-Kapitel>> gelangen Sie über einen Mausklick._
 _Im Übrigen handelt es sich bei dem Beispiel-Kapitel um das Kapitel <<ueberschriften>>._
 
 Verweise können auch auf andere Sprungziele zeigen als Überschriften, wie Abbildungen, Tabellen und Listings, siehe auch xref:seitenvorlage.adoc#formatierung-verweise[Beispiele für Verweise auf Abbildungen, Tabellen und Listings].
@@ -207,8 +207,8 @@ Der Anchor beginnt immer mit dem Bezeichner `litextern-`.
 
 // end::namenskonvention[]
 
-Eine Referenz auf einen Eintrag des externen Literaturverzeichnisses erfolgt über einen <<listing-xref, Antora xref-Link>>, wobei der Eintrag nach dem `#` der Anchor im Literaturverzeichnis in `isy-documentation` ist.
-Der Text innerhalb der Klammern [] definiert den Linktext.
+Eine Referenz auf einen Eintrag des externen Literaturverzeichnisses erfolgt über einen <<listing-xref,Antora xref-Link>>, wobei der Eintrag nach dem `#` der Anchor im Literaturverzeichnis in `isy-documentation` ist.
+Der Text innerhalb der eckigen Klammern definiert den Linktext.
 
 Ein Beispiel: +
 [[listing-literaturextern-verweis]]
@@ -224,7 +224,7 @@ Der Link auf einen Literatureintrag sieht wie folgt aus: xref:glossary:literatur
 [[admonition-blocks]]
 === Admonition-Blocks
 
-Mit Admonition Blocks können Inhalte in Dokumenten exponiert dargestellt werden, sodass ihnen besondere Aufmerksamkeit zuteil wird.
+Mit Admonition Blocks können Inhalte in Dokumenten exponiert dargestellt werden, sodass ihnen besondere Aufmerksamkeit zuteilwird.
 Standardmäßig werden fünf verschiedene Blöcke angeboten.
 Die IsyFact-Dokumentation erweitert diese Liste um weitere Blöcke für verbindliche Regeln.
 
@@ -509,7 +509,7 @@ Beispiele für Tabellen finden sich außerdem in xref:seitenvorlage.adoc#formati
 [[listings]]
 === Listings
 
-Quelltexte können bei AsciiDoc auf folgende Weise mit Syntaxhighlighting angezeigt werden.
+Quelltexte können bei AsciiDoc auf folgende Weise mit Syntax-Highlighting angezeigt werden.
 
 [[listing-quelltext1]]
 .Quelltext einfügen
@@ -593,11 +593,11 @@ Der Anchor beginnt immer mit dem Bezeichner `glossar-`.
 
 // end::namenskonvention[]
 
-Eine Referenz auf einen Begriff des Glossars erfolgt über einen <<listing-xref, Antora Verweis>>, wobei der Eintrag nach dem `#` der Anchor im Glossar in `isy-documentation` ist.
-Der Text innerhalb der Klammern [] definiert den Linktext.
+Eine Referenz auf einen Begriff des Glossars erfolgt über einen <<listing-xref,Antora Verweis>>, wobei der Eintrag nach dem `#` der Anchor im Glossar in `isy-documentation` ist.
+Der Text innerhalb der eckigen Klammern definiert den Linktext.
 
 Ein Beispiel: +
-[[listing-glossar-verweis]]
+[[listing-glossar-verweis-2]]
 .Verweis auf Glossareintrag
 [source,asciidoc]
 ----

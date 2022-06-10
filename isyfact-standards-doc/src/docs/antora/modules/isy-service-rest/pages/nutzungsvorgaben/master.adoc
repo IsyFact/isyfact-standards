@@ -1,6 +1,4 @@
-:doctitle: Baustein REST
-[discrete]
-=== Nutzungsvorgaben
+= Nutzungsvorgaben REST
 
 :sectnums:
 

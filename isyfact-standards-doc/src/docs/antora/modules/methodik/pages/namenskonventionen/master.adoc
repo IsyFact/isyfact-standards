@@ -1,5 +1,4 @@
-
-:doctitle: Namenskonventionen
+= Namenskonventionen
 
 include::glossary:licence:partial$licence.adoc[]
 

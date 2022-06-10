@@ -1,5 +1,4 @@
-
-:doctitle: Java Programmierkonventionen
+= Java Programmierkonventionen
 
 include::glossary:licence:partial$licence.adoc[]
 

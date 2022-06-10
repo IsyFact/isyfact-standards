@@ -1,7 +1,4 @@
-
-:doctitle: Baustein Fehlerbehandlung
-[discrete]
-=== Konzept
+= Konzept Fehlerbehandlung
 
 include::glossary:licence:partial$licence.adoc[]
 

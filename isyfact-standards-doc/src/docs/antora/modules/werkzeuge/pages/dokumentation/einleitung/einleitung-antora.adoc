@@ -1,4 +1,4 @@
-:doctitle: Dokumentation der IsyFact - Projektseite mit Antora
+= Dokumentation der IsyFact - Projektseite mit Antora
 
 // tag::inhalt[]
 [[einleitung]]

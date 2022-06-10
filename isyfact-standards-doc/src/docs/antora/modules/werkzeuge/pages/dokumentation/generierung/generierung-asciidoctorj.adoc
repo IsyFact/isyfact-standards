@@ -17,8 +17,8 @@ Zunächst sind folgende Properties dem Element `<properties></properties>` hinzu
 *Properties*
 
 .Hinzuzufügende Properties
-[{id-equals}"listing-pom-properties",reftext="{listing-caption} {counter:listings }"]
-[source,xml,subs="attributes+"]
+[id="listing-pom-properties",reftext="{listing-caption} {counter:listings }"]
+[source,xml]
 ----
 <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -37,71 +37,70 @@ Folgendes Listing zeigt die Konfiguration für einen lauffähigen Asciidoctor Bu
 .Integration der `isy-asciidoctorj-extensions` in das Asciidoctor Maven Plugin
 [source,xml,subs="attributes+"]
 ----
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.asciidoctor</groupId>
-                <artifactId>asciidoctor-maven-plugin</artifactId>
-                <version>2.1.0</version> <1>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.asciidoctor</groupId>
-                        <artifactId>asciidoctorj-pdf</artifactId>
-                        <version>1.5.3</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>de.bund.bva.isyfact</groupId> <2>
-                        <artifactId>isy-asciidoctorj-extensions</artifactId>
-                        <version>${isy-asciidoctorj-extensions.version}</version>
-                    </dependency>
-                </dependencies>
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.asciidoctor</groupId>
+            <artifactId>asciidoctor-maven-plugin</artifactId>
+            <version>2.1.0</version> <1>
+            <dependencies>
+                <dependency>
+                    <groupId>org.asciidoctor</groupId>
+                    <artifactId>asciidoctorj-pdf</artifactId>
+                    <version>1.5.3</version>
+                </dependency>
+                <dependency>
+                    <groupId>de.bund.bva.isyfact</groupId> <2>
+                    <artifactId>isy-asciidoctorj-extensions</artifactId>
+                    <version>${isy-asciidoctorj-extensions.version}</version>
+                </dependency>
+            </dependencies>
 
-                <configuration>
-                    <outputDirectory>${project.build.directory}</outputDirectory>
-                    <attributes>
-                        <revnumber>IF-${project.version}</revnumber>
-                        <revdate>${maven.build.timestamp}</revdate>
-                        <version-ifs>${project.version}</version-ifs>
-                        <vs-einstufung>offen</vs-einstufung> <3>
-                    </attributes>
-                </configuration>
+            <configuration>
+                <outputDirectory>${project.build.directory}</outputDirectory>
+                <attributes>
+                    <revnumber>IF-${project.version}</revnumber>
+                    <revdate>${maven.build.timestamp}</revdate>
+                    <version-ifs>${project.version}</version-ifs>
+                    <vs-einstufung>offen</vs-einstufung> <3>
+                </attributes>
+            </configuration>
 
-                <executions>
-                    <execution> <4>
-                        <id>html-build</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>process-asciidoc</goal>
-                        </goals>
-                        <configuration>
-                            <backend>html</backend>
-                            <sourceDirectory>src/docs/OrdnerDokument</sourceDirectory>
-                            <sourceDocumentName>master.adoc</sourceDocumentName>
-                            <outputFile>${project.build.directory}/doc/Dokument.html</outputFile>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>pdf-build</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>process-asciidoc</goal>
-                        </goals>
-                        <configuration>
-                            <backend>pdf</backend>
-                            <sourceDirectory>src/docs/OrdnerDokument</sourceDirectory>
-                            <sourceDocumentName>master.adoc</sourceDocumentName>
-                            <outputFile>${project.build.directory}/doc/Dokument.pdf</outputFile>
-                            <attributes>
-                                <pdf-style>isyfact-closed</pdf-style>
-                            </attributes>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+            <executions>
+                <execution> <4>
+                    <id>html-build</id>
+                    <phase>generate-resources</phase>
+                    <goals>
+                        <goal>process-asciidoc</goal>
+                    </goals>
+                    <configuration>
+                        <backend>html</backend>
+                        <sourceDirectory>src/docs/OrdnerDokument</sourceDirectory>
+                        <sourceDocumentName>master.adoc</sourceDocumentName>
+                        <outputFile>${project.build.directory}/doc/Dokument.html</outputFile>
+                    </configuration>
+                </execution>
+                <execution>
+                    <id>pdf-build</id>
+                    <phase>generate-resources</phase>
+                    <goals>
+                        <goal>process-asciidoc</goal>
+                    </goals>
+                    <configuration>
+                        <backend>pdf</backend>
+                        <sourceDirectory>src/docs/OrdnerDokument</sourceDirectory>
+                        <sourceDocumentName>master.adoc</sourceDocumentName>
+                        <outputFile>${project.build.directory}/doc/Dokument.pdf</outputFile>
+                        <attributes>
+                            <pdf-style>isyfact-closed</pdf-style>
+                        </attributes>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
 ----
-
 <1> Es wird die aktuellste Version des Maven Plugins benötigt.
 <2> Einfügen der `isy-asciidoctorj-extensions` als Dependency des Maven Plugins.
 <3> Die Angabe der `vs-einstufung` ist an dieser Stelle optional und gilt für alle Dokumente. Üblicherweise wird die `vs-einstufung` in master.adoc gesetzt, dort ist sie verpflichtend, wenn sie nicht schon wie hier in der pom.xml gesetzt wurde. Vgl. <<listing-master>>.

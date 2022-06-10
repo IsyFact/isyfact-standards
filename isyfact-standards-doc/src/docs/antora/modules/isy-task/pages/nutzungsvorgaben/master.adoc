@@ -1,6 +1,4 @@
-:doctitle: Baustein Task Scheduling
-[discrete]
-=== Nutzungsvorgaben
+= Nutzungsvorgaben Task Scheduling
 
 include::glossary:licence:partial$licence.adoc[]
 

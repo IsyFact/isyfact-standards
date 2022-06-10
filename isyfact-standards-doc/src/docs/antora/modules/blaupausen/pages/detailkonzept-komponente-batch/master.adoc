@@ -1,9 +1,6 @@
-:doctitle: Komponente Batch
-[discrete]
-=== Detailkonzept
+= Detailkonzept Batch
 
 include::glossary:licence:partial$licence.adoc[]
-
 
 include::docinfo.adoc[]
 

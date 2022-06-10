@@ -3,6 +3,5 @@
 [cols="5,2,3",options="header"]
 |====
 |Name |Art |Version
-|isy-exception-core |Bibliothek |v{version-ifs}
-|isy-exception-sst |Bibliothek |v{version-ifs}
+m|isy-exception-core |Bibliothek |v{page-component-version}
 |====

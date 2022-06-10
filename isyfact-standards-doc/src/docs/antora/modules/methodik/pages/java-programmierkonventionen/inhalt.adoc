@@ -261,7 +261,7 @@ project-root/
   |- pom.xml
   |- README.md
 ----
-<1> Der Platzhalter `{anwendung}` steht für den Namen oder das Kürzel der umzusetzenden Anwendung
+<1> Der Platzhalter `\{anwendung}` steht für den Namen oder das Kürzel der umzusetzenden Anwendung
 
 Grundsätzlich können bei diesem Aufbau redundante Dateien in den Wurzelverzeichnissen der Module (z.B. `.gitignore`) entfallen, wenn sie bereits im Wurzelverzeichnis des Multi-Modul-Projekts vorhanden sind.
 
@@ -697,7 +697,7 @@ Beim Schreiben der Dokumentation sollte man immer davon ausgehen, dass der Leser
 Wenn die Software lange nicht mehr "angefasst" werden musste, kann das sogar der Autor der Software selbst sein, der sich anhand der Dokumentation wieder "hineindenken" muss.
 ====
 
-In Java wird zwischen Dokumentationskommentaren (`$$*/**...*/*$$`) und Implementierungskommentaren (`$$*/*...*/*, *//*$$`) unterschieden.
+In Java wird zwischen Dokumentationskommentaren (`+/**...**/+`) und Implementierungskommentaren (`+/*...*/+`, `+//+`) unterschieden.
 
 [[dokumentationskommentare-javadoc]]
 ==== Dokumentationskommentare (Javadoc)
@@ -776,7 +776,7 @@ Kommentare zu Attributen sehen zum Beispiel wie folgt aus:
 ----
 
 `@see`-Tags sind sparsam zu verwenden, denn diese Verlinkung muss manuell gepflegt werden.
-Mehrere `@see`-Tags werden gemäß ihrer „Entfernung" von der aktuellen Stelle aufgeführt (Dokumenten-Navigation, Namensqualifikation).
+Mehrere `@see`-Tags werden gemäß ihrer "Entfernung" von der aktuellen Stelle aufgeführt (Dokumenten-Navigation, Namensqualifikation).
 Innerhalb einer Gruppe überladener Methoden werden die Methoden gemäß der Anzahl Parameter aufgelistet.
 
 Beispiel:
@@ -852,7 +852,7 @@ Kommentare werden nicht dazu verwendet, alte Versionen des Codes zu deaktivieren
 Wenn man alte Versionen wiederherstellen möchte, so ist dazu auf das Konfigurationsmanagement zurückzugreifen.
 Für die Analyse von Codeänderungen sind die bekannten DIFF-Werkzeuge einzusetzen.
 
-NOTE: Werkzeug, mit dem sich Unterschiede zwischen zwei Textdateien xref:glossary:literaturextern:inhalt.adoc#litextern-synopse[synoptisch] darstellen lassen (diff unter xref:glossary:literaturextern:inhalt.adoc#litextern-unix[Unix]; .UltraEdit)
+NOTE: Werkzeug, mit dem sich Unterschiede zwischen zwei Textdateien xref:glossary:literaturextern:inhalt.adoc#litextern-synopse[synoptisch] darstellen lassen (`diff` unter xref:glossary:literaturextern:inhalt.adoc#litextern-unix[Unix] oder UltraEdit).
 
 Änderungen werden mittels eines Version Control System (z. B. Subversion) nachverfolgt.
 Dazu ist es zwingend erforderlich, die durchgeführten Änderungen bzw. die Ursache dafür beim Check-in ausreichend zu dokumentieren.

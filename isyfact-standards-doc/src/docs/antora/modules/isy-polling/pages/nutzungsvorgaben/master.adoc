@@ -1,6 +1,4 @@
-:doctitle: Baustein Polling
-[discrete]
-=== Nutzungsvorgaben
+= Nutzungsvorgaben Polling
 
 include::glossary:licence:partial$licence.adoc[]
 

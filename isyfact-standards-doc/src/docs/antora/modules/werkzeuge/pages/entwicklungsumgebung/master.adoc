@@ -1,7 +1,4 @@
-
-:doctitle: Entwicklungsumgebung
-[discrete]
-=== Handbuch
+= Handbuch Entwicklungsumgebung
 
 :experimental:
 
