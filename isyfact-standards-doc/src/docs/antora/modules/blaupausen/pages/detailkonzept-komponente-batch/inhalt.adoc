@@ -149,7 +149,7 @@ Die Komponente Batchrahmen übernimmt die Steuerung des Batches und den Aufruf d
 
 Die Komponenten einer Geschäftsanwendung werden für einen Batch, genau wie in der Webanwendung, über das Spring-Framework verwaltet.
 Damit die Konfigurationen für die Webanwendung und für die Batch-Implementierungen möglichst gleich sind, werden die Komponenten für den Batchrahmen und die Batchlogik in einer separaten Konfigurationsdatei und einem separaten Spring-Kontext abgelegt.
-Dieser Kontext ist ein Kind-Kontext des eigentlichen xref:glossary:glossary:master.adoc#glossar-Anwendungskontext[Anwendunskontextes] und kann alle Beans des Anwendungskontextes verwenden.
+Dieser Kontext ist ein Kind-Kontext des eigentlichen xref:glossary:glossary:master.adoc#glossar-anwendungskontext[Anwendunskontextes] und kann alle Beans des Anwendungskontextes verwenden.
 So kann die Konfiguration der Webanwendung mit minimalen Anpassungen auch für den Batch verwendet werden.
 
 Der Batchrahmen benötigt für die Speicherung des Fortschritts und des Status der Batches eine Datenbankverbindung.

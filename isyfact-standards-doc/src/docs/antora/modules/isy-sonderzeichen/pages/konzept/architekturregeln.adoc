@@ -1,7 +1,0 @@
-// tag::architekturregeln[]
-
-[[architekturregeln-sonderzeichen]]
-== Architekturregeln Umgang mit Sonderzeichen
-
-include::inhalt.adoc[tags=architekturregel]
-// end::architekturregeln[]

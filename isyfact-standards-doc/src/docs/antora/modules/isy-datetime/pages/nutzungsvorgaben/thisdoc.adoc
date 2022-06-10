@@ -8,10 +8,10 @@ Im Konzept _Datum und Zeit_ xref:konzept/thisdoc.adoc#einleitung[KonzeptDatumZei
 
 Dieses Dokument beschreibt alle Aspekte, die bei der Entwicklung einer Anwendung zu berücksichtigen sind, um die definierten Anforderungen zu erfüllen.
 Die IsyFact stellt eine eigene querschnittliche
-xref:glossary:glossary:master.adoc#glossar-Bibliothek[Bibliothek]
+xref:glossary:glossary:master.adoc#glossar-bibliothek[Bibliothek]
 _isy-datetime_ bereit, um die Anforderungen einheitlich umsetzen zu können.
 Kern dieses Dokuments sind Vorgaben zur Nutzung der _Java 8 Date and Time API_ des JSR 310 und die Verwendung der zuvor genannten Querschnittsbibliothek.
-Das Dokument richtet sich daher vorrangig an Entwickler, Konstrukteure und Technische Chefdesigner von xref:glossary:glossary:master.adoc#glossar-Anwendungssystem[Anwendungssystemen], die gemäß den Vorgaben der IsyFact umgesetzt werden.
+Das Dokument richtet sich daher vorrangig an Entwickler, Konstrukteure und Technische Chefdesigner von xref:glossary:glossary:master.adoc#glossar-anwendungssystem[Anwendungssystemen], die gemäß den Vorgaben der IsyFact umgesetzt werden.
 
 [[aufbau-und-zweck-des-dokuments]]
 == Aufbau und Zweck des Dokuments

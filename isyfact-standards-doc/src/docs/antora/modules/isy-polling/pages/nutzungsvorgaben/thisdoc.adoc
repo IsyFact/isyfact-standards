@@ -4,8 +4,8 @@
 [[einleitung]]
 == Einleitung
 
-In xref:nutzungsvorgaben/thisdoc.adoc#einleitung[Polling - Konzept] werden die konzeptionellen Grundlagen und Vorgaben für Polling definiert, um eine einheitliche Umsetzung in der gesamten xref:glossary:glossary:master.adoc#glossar-Anwendungslandschaft[Anwendungslandschaft] zu gewährleisten.
-Dieses Dokument beschreibt die Verwendung der xref:glossary:glossary:master.adoc#glossar-Bibliothek[Bibliothek] `isy-polling`, die dieses Verfahren implementiert.
+In xref:nutzungsvorgaben/thisdoc.adoc#einleitung[Polling - Konzept] werden die konzeptionellen Grundlagen und Vorgaben für Polling definiert, um eine einheitliche Umsetzung in der gesamten xref:glossary:glossary:master.adoc#glossar-anwendungslandschaft[Anwendungslandschaft] zu gewährleisten.
+Dieses Dokument beschreibt die Verwendung der xref:glossary:glossary:master.adoc#glossar-bibliothek[Bibliothek] `isy-polling`, die dieses Verfahren implementiert.
 
 Dieses Dokument richtet sich an Entwickler und Chefdesigner, die Polling-Funktionalität in eine Anwendung integrieren wollen.
 // end::inhalt[]

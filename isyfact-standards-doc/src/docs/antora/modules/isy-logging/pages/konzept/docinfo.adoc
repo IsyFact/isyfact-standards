@@ -3,5 +3,5 @@
 [options="header",cols="3,1,2"]
 |====
 |Name |Art |Version
-|isy-logging |Bibliothek |v{version-ifs}
+m|isy-logging |Bibliothek |v{page-component-version}
 |====

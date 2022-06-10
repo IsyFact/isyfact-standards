@@ -11,9 +11,9 @@ Hält sie sich noch an allgemein etablierte und bekannte Standards, verkürzt si
 Um das zu erreichen, müssen Konventionen für die Programmierung festgelegt werden.
 
 Die in diesem Dokument beschriebenen Richtlinien sind für die Erstellung von Programmen mit der IsyFact verbindlich.
-Die Strukturen zur Ablage des Quellcodes richten sich nach der Empfehlung von xref:glossary:literaturextern:inhalt.adoc#litextern-Maven-Standard-Directory-Layout[Apache Maven Standard Directory Layout] und wurden für die IsyFact erweitert.
+Die Strukturen zur Ablage des Quellcodes richten sich nach der Empfehlung von xref:glossary:literaturextern:inhalt.adoc#litextern-maven-standard-directory-layout[Apache Maven Standard Directory Layout] und wurden für die IsyFact erweitert.
 Die Programmierkonventionen basieren auf Synopse und präzisieren sie an einigen Stellen.
-Die in xref:glossary:literaturextern:inhalt.adoc#litextern-Vermeulen2000[Vermeulen2000] beschriebenen Konventionen beruhen auf den Sun Coding Conventions xref:glossary:literaturextern:inhalt.adoc#litextern-Sun1997-Code-Conventions[Sun 1997] und den Coding Standards der Firma Ambysoft xref:glossary:literaturextern:inhalt.adoc#litextern-Ambler1999[Ambler1999].
+Die in xref:glossary:literaturextern:inhalt.adoc#litextern-vermeulen2000[Vermeulen2000] beschriebenen Konventionen beruhen auf den Sun Coding Conventions xref:glossary:literaturextern:inhalt.adoc#litextern-sun1997-code-conventions[Sun 1997] und den Coding Standards der Firma Ambysoft xref:glossary:literaturextern:inhalt.adoc#litextern-ambler1999[Ambler1999].
 
 [[vorgaben-fuer-die-quellcodeablage]]
 == Vorgaben für die Quellcodeablage
@@ -215,7 +215,7 @@ Beispiele dafür sind Dokumente übergreifender Natur aus architektonischer, tec
 Dokumentationsprojekte besitzen unter dem Wurzelverzeichnis (`project-root`) ein einzelnes Unterverzeichnis `src/docs/asciidoc/`.
 In diesem finden sich weitere Verzeichnisse, z. B. für Inhalte allgemeiner Natur, sowie für die Dokumente.
 Es empfiehlt sich, für jedes Dokument ein eigenes Verzeichnis zur Ablage spezifischer Inhalte (neben Texten z. B. auch Bilder und Diagramme) anzulegen.
-Vorgaben für die Struktur einzelner Dokumente finden sich im xref:werkzeuge:handbuch_dokumentation/master.adoc[Handbuch für technische Autoren].
+Vorgaben für die Struktur einzelner Dokumente finden sich in der xref:werkzeuge:dokumentation/einleitung/einfuehrung.adoc[Dokumentation gemäß IsyFact].
 
 .Struktur eines Dokumentationsprojekts
 [id="listing-Projektstruktur-Dokumentation",reftext="{listing-caption} {counter:listings }"]
@@ -261,7 +261,7 @@ project-root/
   |- pom.xml
   |- README.md
 ----
-<1> Der Platzhalter `{anwendung}` steht für den Namen oder das Kürzel der umzusetzenden Anwendung
+<1> Der Platzhalter `\{anwendung}` steht für den Namen oder das Kürzel der umzusetzenden Anwendung
 
 Grundsätzlich können bei diesem Aufbau redundante Dateien in den Wurzelverzeichnissen der Module (z.B. `.gitignore`) entfallen, wenn sie bereits im Wurzelverzeichnis des Multi-Modul-Projekts vorhanden sind.
 
@@ -697,7 +697,7 @@ Beim Schreiben der Dokumentation sollte man immer davon ausgehen, dass der Leser
 Wenn die Software lange nicht mehr "angefasst" werden musste, kann das sogar der Autor der Software selbst sein, der sich anhand der Dokumentation wieder "hineindenken" muss.
 ====
 
-In Java wird zwischen Dokumentationskommentaren (`$$*/**...*/*$$`) und Implementierungskommentaren (`$$*/*...*/*, *//*$$`) unterschieden.
+In Java wird zwischen Dokumentationskommentaren (`+/**...**/+`) und Implementierungskommentaren (`+/*...*/+`, `+//+`) unterschieden.
 
 [[dokumentationskommentare-javadoc]]
 ==== Dokumentationskommentare (Javadoc)
@@ -776,7 +776,7 @@ Kommentare zu Attributen sehen zum Beispiel wie folgt aus:
 ----
 
 `@see`-Tags sind sparsam zu verwenden, denn diese Verlinkung muss manuell gepflegt werden.
-Mehrere `@see`-Tags werden gemäß ihrer „Entfernung" von der aktuellen Stelle aufgeführt (Dokumenten-Navigation, Namensqualifikation).
+Mehrere `@see`-Tags werden gemäß ihrer "Entfernung" von der aktuellen Stelle aufgeführt (Dokumenten-Navigation, Namensqualifikation).
 Innerhalb einer Gruppe überladener Methoden werden die Methoden gemäß der Anzahl Parameter aufgelistet.
 
 Beispiel:
@@ -852,7 +852,7 @@ Kommentare werden nicht dazu verwendet, alte Versionen des Codes zu deaktivieren
 Wenn man alte Versionen wiederherstellen möchte, so ist dazu auf das Konfigurationsmanagement zurückzugreifen.
 Für die Analyse von Codeänderungen sind die bekannten DIFF-Werkzeuge einzusetzen.
 
-NOTE: Werkzeug, mit dem sich Unterschiede zwischen zwei Textdateien xref:glossary:literaturextern:inhalt.adoc#litextern-Synopse[synoptisch] darstellen lassen (diff unter xref:glossary:literaturextern:inhalt.adoc#litextern-Unix[Unix]; .UltraEdit)
+NOTE: Werkzeug, mit dem sich Unterschiede zwischen zwei Textdateien xref:glossary:literaturextern:inhalt.adoc#litextern-synopse[synoptisch] darstellen lassen (`diff` unter xref:glossary:literaturextern:inhalt.adoc#litextern-unix[Unix] oder UltraEdit).
 
 Änderungen werden mittels eines Version Control System (z. B. Subversion) nachverfolgt.
 Dazu ist es zwingend erforderlich, die durchgeführten Änderungen bzw. die Ursache dafür beim Check-in ausreichend zu dokumentieren.
@@ -917,7 +917,7 @@ Diese Methoden sind bewusst als _non-final_ Methoden angelegt, damit sie klassen
 Die von der Klasse `Object` vererbte Implementierung für die Methoden `equals()` und `hashCode()` stellt nur eine Basisimplementierung dar, die für alle Klassen genügt, deren Identität auf Objektgleichheit (gleiche Speicheradresse) basiert.
 Klassen, die eine eigene Identität, unabhängig von der Objektgleichheit, besitzen, müssen `equals()` und `hashCode()` implementieren.
 Dabei können leicht schwer identifizierbare Fehler auftreten.
-Die Implementierung von `equals()` und `hashCode()` ist nicht trivial, da sie bestimmte Eigenschaften (Reflexivity, Symmetry, Transitivity, Consistency und Non-nullity, s. xref:glossary:literaturextern:inhalt.adoc#litextern-Bloch2008[Bloch2008]) erfüllen müssen.
+Die Implementierung von `equals()` und `hashCode()` ist nicht trivial, da sie bestimmte Eigenschaften (Reflexivity, Symmetry, Transitivity, Consistency und Non-nullity, s. xref:glossary:literaturextern:inhalt.adoc#litextern-bloch2008[Bloch2008]) erfüllen müssen.
 
 Zur Implementierung von `equals()` und `hashCode()` müssen die Möglichkeiten der Hilfsklasse `java.util.Objects` verwendet werden, insbesondere die Methoden:
 

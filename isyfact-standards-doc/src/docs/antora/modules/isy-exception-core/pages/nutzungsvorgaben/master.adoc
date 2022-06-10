@@ -1,9 +1,4 @@
-
-:doctitle: Baustein Fehlerbehandlung
-[discrete]
-=== Nutzungsvorgaben
-
-:sectnums:
+= Nutzungsvorgaben Fehlerbehandlung
 
 include::glossary:licence:partial$licence.adoc[]
 

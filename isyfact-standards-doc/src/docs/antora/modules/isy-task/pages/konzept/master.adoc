@@ -1,8 +1,4 @@
-:doctitle: Baustein Task Scheduling
-[discrete]
-=== Konzept
-
-:sectnums:
+= Konzept Task Scheduling
 
 include::glossary:licence:partial$licence.adoc[]
 

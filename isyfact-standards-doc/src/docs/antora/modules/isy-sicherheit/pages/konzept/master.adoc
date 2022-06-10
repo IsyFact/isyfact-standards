@@ -1,8 +1,4 @@
-:doctitle: Baustein Sicherheit
-[discrete]
-=== Konzept
-
-:sectnums:
+= Konzept Sicherheit
 
 include::glossary:licence:partial$licence.adoc[]
 
