@@ -51,7 +51,7 @@ Das Reifegradmodell von Leonard Richardson (*Richardson Maturity Model*, s. <<im
 
 .Richardson Maturity Model
 [id="image-richard-maturity-model", reftext = "{figure-caption} {counter:figures}"]
-image::isy-service-rest:konzept/richard-maturity-model.dn.png[align = center, title-align=center]
+image::isy-service-rest:konzept/richard-maturity-model.dn.svg[align = center, title-align=center]
 
 Die IsyFact zielt auf eine möglichst vollständige Umsetzung der Eigenschaften und peilt daher einen hohen Reifegrad für ihre REST-Services an.
 

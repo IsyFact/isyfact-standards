@@ -272,7 +272,7 @@ Wenn die Kommunikation auch IT-Systeme einschließt, die außerhalb liegen, verw
 
 .Interne und externe Servicekommunikation
 [id="image-servicekommunikation",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:referenzarchitektur/servicekommunikation.dn.png[align="center"]
+image::blaupausen:referenzarchitektur/servicekommunikation.dn.svg[align="center"]
 
 IT-Systeme tauschen in der Kommunikation untereinander Daten aus.
 Diese lassen sich in Metadaten und Nutzdaten unterteilen.
@@ -312,7 +312,7 @@ Der Sender wartet auf die Antwort, bevor er seine Verarbeitung fortsetzt.
 
 .Ablauf eines synchronen Service-Aufrufs
 [id="image-synchronous-call",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:referenzarchitektur/synchroner-service-aufruf.dn.png[align="center"]
+image::blaupausen:referenzarchitektur/synchroner-service-aufruf.dn.svg[align="center"]
 
 Deswegen sind synchrone Service-Aufrufe in der Regel eine vergleichsweise zeitintensive Operation.
 Häufig ist es sinnvoll, Service-Aufrufe nach Möglichkeit einzusparen.
@@ -326,7 +326,7 @@ HTTP-Anfragen bzw. HTTP-Antworten (s. <<image-http-messages>>) erlauben es an dr
 
 .Aufbau von HTTP-Anfragen bzw. HTTP-Antworten
 [id="image-http-messages",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:referenzarchitektur/http-messages-aufbau.dn.png[align="center"]
+image::blaupausen:referenzarchitektur/http-messages-aufbau.dn.svg[align="center"]
 
 Header enthalten Metadaten.
 Der Body enthält Nutzdaten.
@@ -347,7 +347,7 @@ Stattdessen wird die Verarbeitung erst durch die Antwort des Senders wieder aufg
 
 .Ablauf eines asynchronen Service-Aufrufs
 [id="image-asynchronous-call",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:referenzarchitektur/asynchroner-service-aufruf.dn.png[align="center"]
+image::blaupausen:referenzarchitektur/asynchroner-service-aufruf.dn.svg[align="center"]
 
 Asynchrone Service-Aufrufe können z.B. dann eingesetzt werden, wenn eine länger dauernde Verarbeitung durch den Empfänger eine direkte Rückmeldung unmöglich macht.
 
@@ -363,7 +363,7 @@ Der Sender enthält keine direkte Antwort vom Empfänger.
 
 .Ablauf der Kommunikation beim Queueing
 [id="image-queueing",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:referenzarchitektur/queueing.dn.png[align="center"]
+image::blaupausen:referenzarchitektur/queueing.dn.svg[align="center"]
 
 
 Für das Queueing infrage kommende Message-Broker müssen *JMS* (Jakarta Messaging, ehemals _Java Message Service_) unterstützen.
@@ -374,7 +374,7 @@ Die Properties unterteilen sich noch einmal in applikationsspezifische Propertie
 
 .Aufbau einer JMS-Nachricht
 [id="image-jms-message",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:referenzarchitektur/jms-message-aufbau.dn.png[align="center"]
+image::blaupausen:referenzarchitektur/jms-message-aufbau.dn.svg[align="center"]
 
 Applikationsspezifische Properties enthalten Metadaten.
 Der Body enthält Nutzdaten.
