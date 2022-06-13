@@ -14,7 +14,7 @@ Auf diese Weise besitzt jedes Projekt ein zentrales Changelog und (je nach Proje
 [id="image-architektur_changelogs",reftext="{figure-caption} {counter:figures}"]
 image::handbuch/architektur_changelog.png[align="center",scaledwidth=80%]
 
-Zum Erstellen und Bearbeiten wird empfohlen, einen Texteditor zu verwenden, der das AsciiDoc Format unterstützt (siehe Kapitel <<vsc-installieren>>).
+Zum Erstellen und Bearbeiten wird empfohlen, einen xref:dokumentation/einleitung/einfuehrung.adoc#werkzeuge[Texteditor] zu verwenden, der das AsciiDoc Format unterstützt.
 
 Im Folgenden wird beschrieben, wie die einzelnen Changelog-Dateien erstellt und welche Anforderungen an die Struktur und den Inhalt der Changelogs gestellt werden.
 
@@ -73,7 +73,7 @@ Der Komponentenchangelog enthält die Changelog-Einträge nach Release gruppiert
 Dazu wird für jedes Release ein eigener Release-Tag definiert:
 
 .Erstellung Release-Tag im Komponentenchangelog
-[id="listing-komponentenchangelog_release",reftext="{listing-caption} {counter:listings }"]
+[[listing-komponentenchangelog_release]]
 [source,adoc]
 ----
 // tag::release-2.1.0[]
@@ -95,7 +95,7 @@ Jeder Release-Tag enthält die Versionsnummer des Releases und eine entsprechend
 Somit ergibt sich folgender Gesamtaufbau des Komponentenchangelogs:
 
 .Gesamtstruktur Komponentenchangelog
-[id="listing-komponentenchangelog_gesamt",reftext="{listing-caption} {counter:listings }"]
+[[listing-komponentenchangelog_gesamt]]
 [source,adoc]
 ----
 [[changelog]]
@@ -127,7 +127,7 @@ Im Projektchangelog sollten nach Möglichkeit keine Changelog-Einträge verfasst
 Dazu wird für jedes Release ein eigener Abschnitt erstellt:
 
 .Erstellung Release
-[id="listing-projektchangelog_release",reftext="{listing-caption} {counter:listings }"]
+[[listing-projektchangelog_release]]
 [source,adoc]
 ----
 === Änderungen IsyFact 2.1.0
@@ -147,7 +147,7 @@ Anschließend werden die Komponentenchangelogs in das Projektchangelog eingebund
 Dazu wird für jedes Release nur der mit dem Release getaggte Abschnitt der Komponentenchangelogs importiert:
 
 .Einbindung der Komponentenchangelogs
-[id="listing-projektchangelog_einbindung_komponentenchangelog",reftext="{listing-caption} {counter:listings }"]
+[[listing-projektchangelog_einbindung_komponentenchangelog]]
 [source,adoc]
 ----
 === Änderungen IsyFact 2.1.0
@@ -164,7 +164,7 @@ Dazu wird für jedes Release nur der mit dem Release getaggte Abschnitt der Komp
 Mehrere Releases werden wie folgt angelegt:
 
 .Gesamtstruktur Projektchangelog
-[id="listing-projektchangelog_einbindung_releases",reftext="{listing-caption} {counter:listings }"]
+[[listing-projektchangelog_einbindung_releases]]
 [source,adoc]
 ----
 [[changelog]]
