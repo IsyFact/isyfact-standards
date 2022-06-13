@@ -21,11 +21,11 @@ Dazu zählt der Einstieg, das Whitepaper oder auch das Tutorial.
 
 Die zentrale Dokumentation der IsyFact-Standards gliedert sich nach den Säulen der IsyFact.
 
-Allgemein;; Einstiegsdokumente und Tutorials +
-Blaupausen;; Grundlagendokumente und Detailkonzepte für Architektur und Anwendungslandschaft +
-Bausteine;; Dokumente für die jeweilig wiederverwendbaren Softwarelösungen +
-Methodik;; Methodische Dokumente bspw. zu Programmierkonventionen und Systemhandbuch und -entwurf +
-Werkzeuge;; Dokumente zur Verwendung von Werkzeugen und der Einrichtung der Entwicklungsumgebung (hierzu gehört auch dieses Dokument)
+Allgemein:: Einstiegsdokumente und Tutorials
+Blaupausen:: Grundlagendokumente und Detailkonzepte für Architektur und Anwendungslandschaft
+Bausteine:: Dokumente für die jeweils wiederverwendbaren Softwarelösungen
+Methodik:: Methodische Dokumente, z.B. zu Programmierkonventionen und Systemhandbuch und -entwurf
+Werkzeuge:: Dokumente zur Verwendung von Werkzeugen und der Einrichtung der Entwicklungsumgebung (hierzu gehört auch dieses Dokument)
 
 [[baustein-dokumentation]]
 ==== Dokumentation der Bausteine

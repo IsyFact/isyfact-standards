@@ -4,7 +4,7 @@
 == Dokumentationsseite anlegen
 
 Soll eine neue Dokumentation angelegt werden oder die bestehende Dokumentation um eine Seite erweitert werden, so muss zunächst der geeignete Ort zur Ablage bestimmt werden.
-I.d.R. ist dies das Repository, in dem sich der zu dokumentierende Erweiterungs-Baustein befindet, da die Dokumentation nah beim Code abgelegt werden soll, oder der Baustein liegt im <<verzeichnisstruktur-baustein, Repository `isyfact-standards` im Submodul `isyfact-standards-doc`>>.
+I.d.R. ist dies das Repository, in dem sich der zu dokumentierende Erweiterungs-Baustein befindet, da die Dokumentation nah beim Code abgelegt werden soll, oder der Baustein liegt im <<verzeichnisstruktur-antora-komponente,Repository `isyfact-standards` im Submodul `isyfact-standards-doc`>>.
 
 [[repository-klonen]]
 === Klonen Repository
@@ -47,7 +47,7 @@ Innerhalb des Submoduls wird der Pfad `src/docs/antora` angelegt.
 Unterhalb dieses Pfades liegt die Antora-Dokumentations-Komponente, repräsentiert durch die Konfigurationsdatei `antora.yml`.
 In Repositories, die noch keine Antora-Komponente enthalten, muss diese Konfigurationsdatei noch angelegt werden.
 Ein Repository sollte jedoch nur eine Antora-Komponente enthalten.
-(Mehrere Antora-Komponenten hätten unterschiedliche Versionierungen, die evtl. nicht mehr synchron zum Versionsstand des Repositories gehalten werden könnten.)
+(Mehrere Antora-Komponenten hätten unterschiedliche Versionen, die eventuell nicht mehr synchron zum Versionsstand des Repositories gehalten werden könnten.)
 
 Das folgende Listing <<verzeichnisstruktur-antora-komponente>> zeigt die Verzeichnisstruktur bis zur Antora-Dokumentations-Komponente.
 
@@ -109,12 +109,12 @@ An diesem Ort werden die Dokumentationsseiten als .adoc abgelegt mit einem Namen
 
 Außer dem Verzeichnis `pages` kann es bei Bedarf noch weitere Verzeichnisse geben wie `images` und `attachments`.
 Siehe dazu ebenfalls xref:glossary:literaturextern:inhalt.adoc#litextern-antora-verzeichnisstruktur[Antora-Verzeichnisstruktur].
-Unterhalb von `images` und `attachments` kann eine weitere Strukturierung erfolgen, die sich an der Struktur unter `pages` orientiert, siehe auch <<verzeichnisstruktur-baustein>>.
+Unterhalb von `images` und `attachments` kann eine weitere Strukturierung erfolgen, die sich an der Struktur unter `pages` orientiert, siehe auch <<verzeichnisstruktur-pages-images>>.
 
-Wenn unter `pages` viele Dokumentationsseiten abzulegen sind, können sie noch weiter strukturiert werden, siehe auch <<verzeichnisstruktur-baustein>> und  xref:seitenvorlage.adoc#dateien-thema[Dateiablage].
+Wenn unter `pages` viele Dokumentationsseiten abzulegen sind, können sie noch weiter strukturiert werden, siehe auch <<verzeichnisstruktur-pages-images>> und  xref:seitenvorlage.adoc#dateien-thema[Dateiablage].
 Für Bausteine wird häufig die Strukturierung `konzept` und `nutzungsvorgaben` gewählt.
 
-Das folgende <<verzeichnisstruktur-pages-images, Listing>> zeigt die Verzeichnisstruktur innerhalb eines Antora-Moduls.
+Das folgende <<verzeichnisstruktur-pages-images,Listing>> zeigt die Verzeichnisstruktur innerhalb eines Antora-Moduls.
 
 [[verzeichnisstruktur-pages-images]]
 .Verzeichnisstruktur innerhalb eines Antora-Moduls
@@ -155,7 +155,7 @@ Der Aufbau einer Dokumentationsseite ist in der xref:seitenvorlage.adoc[Seitenvo
 
 [[linksnavigation-antora]]
 === Navigationsdatei `nav.adoc`
-Nach der Erstellung der Dokumentationsseiten in .adoc-Dateien muss dafür gesorgt werden, dass sie aufrufbar sind, üblicherweise über die Linksnavigation von Antora.
+Nach der Erstellung der Dokumentationsseiten in `.adoc`-Dateien muss dafür gesorgt werden, dass sie aufrufbar sind, üblicherweise über die Linksnavigation von Antora.
 In der Antora-Datei `nav.adoc` wird die Linksnavigation bzgl. einer xref:glossary:glossary:master.adoc#glossar-antora-dokumentations-komponente[Antora-Dokumentations-Komponente] festgelegt, siehe auch xref:seitenvorlage.adoc#navigation-thema[Navigationsstruktur].
 
 Die Top-Level Linksnavigation der Antora-Komponente `IsyFact Standards` spiegelt die Säulen der IsyFact wider.
@@ -186,12 +186,12 @@ nav:
 .Beispiel Modul `Werkzeuge`, Verlinkung in `nav.adoc`
 [source,asciidoc]
 ----
-* Werkzeuge
-** xref:werkzeuge:dokumentation/einleitung/einfuehrung.adoc[Dokumentation gemäß IsyFact]
-*** xref:werkzeuge:dokumentation/master-antora.adoc[Projektseite mit Antora (empfohlen)]
-*** xref:werkzeuge:dokumentation/master-asciidoctorJ.adoc[Dokumente mit AsciidoctorJ Extensions]
+* xref:werkzeuge:werkzeuge.adoc[]
+** xref:werkzeuge:dokumentation/einleitung/einfuehrung.adoc[]
+*** xref:werkzeuge:dokumentation/master-antora.adoc[]
+*** xref:werkzeuge:dokumentation/master-asciidoctorJ.adoc[]
 ** xref:werkzeuge:entwicklungsumgebung/master.adoc[Entwicklungsumgebung]
-** xref:werkzeuge:versionierungskontrolle/master.adoc[Versionierungskontrolle]
+** xref:werkzeuge:versionierungskontrolle/master.adoc[]
 ----
 
 Die durch Antora generierte HTML-Dokumentation hat im Beispiel folgende Linksnavigation:
@@ -199,7 +199,6 @@ Die durch Antora generierte HTML-Dokumentation hat im Beispiel folgende Linksnav
 [[image-linksnavigation]]
 .Linksnavigation
 image::handbuch/leftnavigation.png[width=80%]
-{empty} +
 
 [[konfiguration-antora]]
 === Konfigurationsdateien `playbook.yml` und `pom.xml`
