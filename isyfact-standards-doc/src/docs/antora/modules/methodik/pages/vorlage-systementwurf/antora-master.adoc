@@ -2,8 +2,6 @@
 [discrete]
 === Vorlage
 
-:sectnums:
-
 include::glossary:licence:partial$licence.adoc[]
 
 // Inhalt

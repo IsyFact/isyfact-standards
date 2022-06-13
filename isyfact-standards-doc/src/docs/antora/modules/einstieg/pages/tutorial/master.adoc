@@ -1,9 +1,4 @@
-:doctitle: Tutorial
-[discrete]
-=== Grundlagen
-
-:sectnums:
-:sectnumlevels: 5
+= Tutorial
 
 include::glossary:licence:partial$licence.adoc[]
 

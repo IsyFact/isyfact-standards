@@ -4,7 +4,11 @@
 [[changelog]]
 == Changelog
 
-=== IsyFact 2.2
+// *Änderungen IsyFact 2.5.0*
+
+// tag::release-2.5.0[]
+
+// end::release-2.5.0[]
 
 // *Änderungen IsyFact 2.4.0*
 
@@ -17,6 +21,8 @@
 // tag::release-2.3.0[]
 
 // end::release-2.3.0[]
+
+*Änderungen IsyFact 2.2.0*
 
 // tag::release-2.2.0[]
 Die bereits etablierten Vorgaben zur Quellcodeablage wurden dem Dokument hinzugefügt und Neuerungen wie die Ablage von Dokumenten im AsciiDoc-Format ergänzt.

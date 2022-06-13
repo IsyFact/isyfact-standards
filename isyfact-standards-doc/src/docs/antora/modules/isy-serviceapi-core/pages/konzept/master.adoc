@@ -1,9 +1,4 @@
-
-:doctitle: HTTP Invoker
-[discrete]
-=== Konzept
-
-:sectnums:
+= Konzept HttpInvoker
 
 include::glossary:licence:partial$licence.adoc[]
 

@@ -4,12 +4,12 @@
 [[einleitung]]
 == Einleitung
 
-Sicherheit ist ein zentrales Thema einer jeder  xref:glossary:glossary:master.adoc#glossar-Geschaeftsanwendung[Geschäftsanwendung].
+Sicherheit ist ein zentrales Thema einer jeder  xref:glossary:glossary:master.adoc#glossar-geschaeftsanwendung[Geschäftsanwendung].
 Bei der Umsetzung von Geschäftsanwendungen in IT-Systeme werden ein Gutteil der Anforderungen an die Sicherheit durch Maßnahmen der IT-Sicherheit abgedeckt.
 Die IsyFact richtet sich beim Thema Sicherheit nach behördlichen Standards sowie De-Facto-Standards aus der Industrie:
 
-* xref:glossary:literaturextern:inhalt.adoc#litextern-IT-Grundschutz-BSI[IT-Grundschutz]
-* xref:glossary:literaturextern:inhalt.adoc#litextern-OWASP[OWASP Top Ten Project]
+* xref:glossary:literaturextern:inhalt.adoc#litextern-it-grundschutz-bsi[IT-Grundschutz]
+* xref:glossary:literaturextern:inhalt.adoc#litextern-owasp[OWASP Top Ten Project]
 
 Dieses Dokument konzentriert sich auf die konzeptionellen Aspekte der Authentifizierung und Autorisierung.
 Es sorgt dafür, dass Authentifizierung und Autorisierung in allen IT-Systemen gleichartig umgesetzt wird und grundlegende Anforderungen an die IT-Sicherheit eingehalten werden.
@@ -17,7 +17,7 @@ Es richtet sich vor allem an Software-Architekten, die eine Geschäftsanwendung 
 
 Dazu erläutert das Kapitel xref:konzept/master.adoc#prinzipien-der-sicherheitsarchitektur[Prinzipien der Sicherheitsarchitektur] zunächst, wie sich die Sicherheitsarchitektur auf Ebene der Systemlandschaft und auf Ebene eines einzelnen IT-Systems darstellt.
 
-Danach beleuchtet das Kapitel xref:konzept/master.adoc#sicherheitsarchitektur-eines-it-systems[Sicherheitsarchitektur eines IT Systems] die Einbettung des Bausteins Sicherheit in ein konkretes xref:glossary:glossary:master.adoc#glossar-IT-System[IT-System].
+Danach beleuchtet das Kapitel xref:konzept/master.adoc#sicherheitsarchitektur-eines-it-systems[Sicherheitsarchitektur eines IT Systems] die Einbettung des Bausteins Sicherheit in ein konkretes xref:glossary:glossary:master.adoc#glossar-it-system[IT-System].
 Zentrale Schnittstellen beschreibt das Kapitel xref:konzept/master.adoc#aussensicht-der-komponente-sicherheit[Aussensicht der Komponente Sicherheit].
 Das Kapitel xref:konzept/master.adoc#rollen-und-rechte[Rollen und Rechte]. xref:konzept/master.adoc#aufruf-von-nachbarsystemen[Aufruf von Nachbarsystemen] befasst sicht mit Vorgaben und Konventionen beim Einbinden von Nachbarsystemen.
 

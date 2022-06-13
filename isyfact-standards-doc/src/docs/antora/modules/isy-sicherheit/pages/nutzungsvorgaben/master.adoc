@@ -1,8 +1,4 @@
-:doctitle: Baustein Sicherheit
-[discrete]
-=== Nutzungsvorgaben
-
-:sectnums:
+= Nutzungsvorgaben Sicherheit
 
 include::glossary:licence:partial$licence.adoc[]
 

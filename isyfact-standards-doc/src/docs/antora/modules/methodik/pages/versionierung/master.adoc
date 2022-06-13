@@ -1,7 +1,4 @@
-
-:doctitle: Versionierung
-
-:sectnums:
+= Versionierung
 
 include::glossary:licence:partial$licence.adoc[]
 

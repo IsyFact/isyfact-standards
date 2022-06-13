@@ -1,0 +1,113 @@
+= IsyFact-Whitepaper
+:icons: font
+:sectnums:
+
+include::glossary:licence:partial$licence.adoc[]
+
+== IsyFact: eine Software Factory zur effizienten Entwicklung von Anwendungen
+
+include::einstieg:page$einstieg.adoc[tags=whitepaper,leveloffset=1]
+
+[[die-fuenf-saeulen]]
+== Die fünf Säulen der IsyFact
+
+*Die IsyFact umfasst: Blaupausen, Bausteine, eine Betriebsplattform, methodische Vorgaben zum Software-Engineering und Entwicklungswerkzeuge.*
+
+Die IsyFact stellt Ihre Inhalte strukturiert in fünf *Säulen* zur Verfügung.
+
+include::einstieg:page$vorstellung.adoc[tags=whitepaper]
+
+.Die fünf Säulen der IsyFact
+image::einstieg:sf-saeulen.dn.svg[]
+
+Die folgenden Abschnitte beschreiben die einzelnen Säulen im Detail.
+
+[[blaupausen]]
+=== Blaupausen
+
+include::blaupausen:page$blaupausen.adoc[tag=whitepaper,leveloffset=2]
+
+[[bausteine]]
+=== Bausteine
+
+include::bausteine:page$bausteine.adoc[tag=whitepaper,leveloffset=2]
+
+[[plattform]]
+=== Plattform
+
+include::plattform:page$plattform.adoc[tag=whitepaper,leveloffset=2]
+
+[[methodik]]
+=== Methodik
+
+include::methodik:page$methodik.adoc[tag=whitepaper,leveloffset=2]
+
+[[werkzeuge]]
+=== Werkzeuge
+
+include::werkzeuge:page$werkzeuge.adoc[tag=whitepaper,leveloffset=2]
+
+[[produktueberblick]]
+== Produktüberblick
+
+*Basistechnologie der IsyFact sind die Programmiersprache Java und das Anwendungsframework Spring Boot.
+Soweit möglich nutzt die IsyFact etablierte Softwareprodukte, Frameworks und Bibliotheken.*
+
+Die nachfolgende Tabelle gibt einen Überblick über die in der IsyFact vorgegebenen bzw. empfohlenen Produkte.
+
+[cols="1,1",options="header"]
+|====
+2+|Basistechnologien
+|Programmiersprache |Java
+|Web-Technologie |XHTML
+|Architekturmuster |Service-orientierte Architektur (SOA)
+|====
+
+[cols="1,1",options="header"]
+|====
+2+|Systemsoftware
+|JEE-Applikationsserver | Apache Tomcat
+|Authentifizierung / Autorisierung | OAuth2 / OpenID Connect +
+Keycloak
+|Webserver |Apache HTTP Server
+|====
+
+[cols="1,1",options="header"]
+|====
+2+|Bibliotheken für die Anwendungsentwicklung
+|Web-Framework |JSF/Spring MVC/Webflow +
+Angular
+|Anwendungskern-Framework |Spring Boot
+|Persistenz-Framework |Spring Data & JPA/Hibernate
+|Logging-Framework |Logback
+|====
+
+[cols="1,1",options="header"]
+|====
+2+|Spezielle Software und Bibliotheken
+|Überwachung / Monitoring |Micrometer
+|Test-Framework | JUnit, Mockito
+|====
+
+[cols="1,1",options="header"]
+|====
+2+|Werkzeuge und Methodiken
+|Programmierung |Eclipse, IntelliJ IDEA
+|Modellierung|diagrams.net, Enterprise Architect
+|====
+
+[cols="1,1",options="header"]
+|====
+2+|Basistechnologien
+|Build und Deployment |Maven
+|Fehler- und Änderungsmanagement |Jira
+|====
+
+[[uebersicht-isyfact-standards]]
+== Übersicht IsyFact-Standards
+
+Die IsyFact-Standards sind an folgenden Orten dokumentiert:
+
+* xref:glossary:literaturextern:inhalt.adoc#litextern-url-isyfact-bva[Webseite des Bundesverwaltungsamts zur IsyFact],
+* xref:glossary:literaturextern:inhalt.adoc#litextern-url-isyfact-online-docs[Online-Dokumentation der IsyFact],
+* xref:glossary:literaturextern:inhalt.adoc#litextern-url-isyfact-github[Quellcode der IsyFact auf GitHub].

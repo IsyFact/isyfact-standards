@@ -2,9 +2,6 @@
 [discrete]
 === Vorlage
 
-:sectnums:
-:sectnumlevels: 4
-
 include::glossary:licence:partial$licence.adoc[]
 
 // Inhalt
