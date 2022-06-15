@@ -25,7 +25,7 @@ Zur Nutzung der Bibliotheken in der Anwendungsentwicklung steht ein zentrales BO
 ----
 
 Somit kann zentral eine zu nutzende Version der IsyFact festgelegt werden.
-Diese legt ebenfalls die Versionen aller Drittprodukte fest, die im <<TODO anderes Dokument: ProduktKatalog>> der IsyFact enthalten sind.
+Diese legt ebenfalls die Versionen aller Drittprodukte fest, die im xref:einstieg:produkte.adoc#produktkatalog[Produktkatalog] der IsyFact enthalten sind.
 Aktualisierungen geschehen ebenfalls zentral, durch die Erhöhung der Versionsnummer des IsyFact-BOM.
 
 Durch die Nutzung des IsyFact-BOM ist es nicht mehr notwendig, die IsyFact-Bibliotheken mit einzelnen Versionsnummern einzubinden.
@@ -327,7 +327,7 @@ image::einstieg:tutorial/KDServiceSS.png[align="center"]
 Externes Interface für den Zugriff auf die Auskunft-Komponente per HTTP Invoker.
 Bei Nutzung einer Service-Schnittstelle generiert Spring auf Basis dieses Interfaces einen Proxy für den Remote-Zugriff. +
 Die Methoden dieser Komponente verwenden ausschließlich Transportobjekte und -Exceptions. +
-Die Überwachung der Service-Aufrufe (siehe Kapitel <<überwachung>>) wird als Aspekt der RemoteBean konfiguriert.
+Die Überwachung der Service-Aufrufe (siehe Kapitel <<ueberwachung>>) wird als Aspekt der RemoteBean konfiguriert.
 |*AuskunftToException* |Transport-Exception der Auskunft.
 Jede Komponente darf ausschließlich Transport-Exceptions an ihrer Service-Schnittstelle werfen.
 Details sind in xref:isy-exception-core:konzept/master.adoc#einleitung[Konzept Fehlerbehandlung] nachzulesen.
@@ -374,7 +374,7 @@ Diese werden im Folgenden beschrieben.
 
 Das neue Projekt `<system>-httpinvoker-sst` muss angelegt werden.
 Dazu wird eine neue `pom.xml` angelegt.
-Wichtig ist, dass darin die Compiler-Version so festgelegt wird, wie es im Dokument <<TODO anderes Dokument: ProduktKatalog>> vorgegeben ist.
+Wichtig ist, dass darin die Compiler-Version so festgelegt wird, wie es im xref:einstieg:produkte.adoc#produktkatalog[Produktkatalog] vorgegeben ist.
 
 Das Projekt muss ein Jar erzeugen, das von anderen Systemen zur Nutzung der Service-Schnittstelle benötigt wird.
 In der Pom-Datei muss konfiguriert werden, dass das Jar in das Verzeichnis `repository-deploy` (Deployment-Repository) deployt wird.
