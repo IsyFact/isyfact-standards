@@ -50,58 +50,7 @@ include::werkzeuge:page$werkzeuge.adoc[tag=whitepaper,leveloffset=2]
 [[produktueberblick]]
 == Produktüberblick
 
-*Basistechnologie der IsyFact sind die Programmiersprache Java und das Anwendungsframework Spring Boot.
-Soweit möglich nutzt die IsyFact etablierte Softwareprodukte, Frameworks und Bibliotheken.*
-
-Die nachfolgende Tabelle gibt einen Überblick über die in der IsyFact vorgegebenen bzw. empfohlenen Produkte.
-
-[cols="1,1",options="header"]
-|====
-2+|Basistechnologien
-|Programmiersprache |Java
-|Web-Technologie |XHTML
-|Architekturmuster |Service-orientierte Architektur (SOA)
-|====
-
-[cols="1,1",options="header"]
-|====
-2+|Systemsoftware
-|JEE-Applikationsserver | Apache Tomcat
-|Authentifizierung / Autorisierung | OAuth2 / OpenID Connect +
-Keycloak
-|Webserver |Apache HTTP Server
-|====
-
-[cols="1,1",options="header"]
-|====
-2+|Bibliotheken für die Anwendungsentwicklung
-|Web-Framework |JSF/Spring MVC/Webflow +
-Angular
-|Anwendungskern-Framework |Spring Boot
-|Persistenz-Framework |Spring Data & JPA/Hibernate
-|Logging-Framework |Logback
-|====
-
-[cols="1,1",options="header"]
-|====
-2+|Spezielle Software und Bibliotheken
-|Überwachung / Monitoring |Micrometer
-|Test-Framework | JUnit, Mockito
-|====
-
-[cols="1,1",options="header"]
-|====
-2+|Werkzeuge und Methodiken
-|Programmierung |Eclipse, IntelliJ IDEA
-|Modellierung|diagrams.net, Enterprise Architect
-|====
-
-[cols="1,1",options="header"]
-|====
-2+|Basistechnologien
-|Build und Deployment |Maven
-|Fehler- und Änderungsmanagement |Jira
-|====
+include::einstieg:page$produkte.adoc[tag=whitepaper]
 
 [[uebersicht-isyfact-standards]]
 == Übersicht IsyFact-Standards

@@ -25,7 +25,7 @@ Als letzte Projektart sind Multi-Modulprojekte beschrieben, die aus Kombinatione
 [[anwendungsprojekte]]
 === Anwendungsprojekte
 ==== Maven
-Der <<TODOProduktKatalog>> gibt die Nutzung von Maven vor.
+Der xref:einstieg:produkte.adoc#produktkatalog[Produktkatalog] gibt die Nutzung von Maven vor.
 Daher ist für Anwendungen eine Entwicklung mittels einem oder mehrerer Maven-Module strengstens empfohlen.
 
 ===== Artefakte
@@ -41,7 +41,7 @@ Als Beispiel für diese Dokumentation wird `isy-documentation` als Artefakt-ID a
 [cols="1,4",options="header"]
 |====
 2+|Group-ID von Maven-Modulen/-Artefakten
-|*Schema Group-ID* m|<sprach-kuerzel>.<organisation>.<firma>.<domaene>
+|*Schema Group-ID* m|<sprach-kürzel>.<organisation>.<firma>.<domäne>
 |*Beispiel* m|de.bund.bva.isyfact
 |====
 //end::namenskonvention[]
@@ -57,8 +57,8 @@ So haben alle IsyFact-Artefakte das Präfix `isy-` in ihrer Artefakt-ID.
 [cols="1,4",options="header"]
 |====
 2+|Artefakt-ID von maven-Modulen/-Artefakten
-|*Schema Artifakt-ID* m|<praefix>-<funktion/komponente> +
-<praefix>-<funktion/komponente>-<teilkomponente>
+|*Schema Artefakt-ID* m|<präfix>-<funktion/komponente> +
+<präfix>-<funktion/komponente>-<teilkomponente>
 |*Beispiel* m|isy-documentation +
 isy-documentation-core
 |====
@@ -359,7 +359,7 @@ Es dürfen nicht mehrere Namen verwendet werden, die sich ausschließlich durch 
 Um Einheitlichkeit bei den Dateinamen sicherzustellen, sind Namenskonventionen für Dateiendungen und gebräuchliche Dateinamen notwendig.
 
 Dateinamen enthalten keine Sonderzeichen, Umlaute oder Leerzeichen.
-Erlaubt sind die Buchstaben von A-Z (groß und klein), Ziffern, der Unterstrich, der Mittelstrich und der Punkt.
+Erlaubt sind die Buchstaben von A bis Z (groß und klein), Ziffern, der Unterstrich, der Mittelstrich und der Punkt.
 Datumsangaben werden dem Dateinamen vorangestellt und erfolgen im Format `<JJJJ-MM-TT_Dateiname>`.
 
 .Dateiendungen
@@ -597,8 +597,8 @@ Die Formatierung des Quellcodes gemäß der nachfolgenden Regeln kann durch den 
 ==== Einrückungen und Klammerposition
 
 Für das Einrücken sind immer *vier Leerzeichen* zu verwenden.
-Bei Code-Blöcken wird die öffnende Klammer „*{*" immer als letztes Zeichen der Zeile gesetzt, die den Codeblock einleitet.
-Die schließende Klammer „*}*" wird immer in einer neuen Zeile nach dem Block positioniert und links an dem ersten Zeichen der einleitenden Zeile ausgerichtet.
+Bei Code-Blöcken wird die öffnende Klammer "*{*" immer als letztes Zeichen der Zeile gesetzt, die den Code-Block einleitet.
+Die schließende Klammer "*}*" wird immer in einer neuen Zeile nach dem Block positioniert und links an dem ersten Zeichen der einleitenden Zeile ausgerichtet.
 
 Zur Einrückung des Textes *niemals Tabulatoren*, sondern immer Leerzeichen verwenden, da Tabulatoren von verschiedenen Werkzeugen unterschiedlich interpretiert werden können.
 
@@ -627,18 +627,13 @@ if·(condition)·{
 
 Es wird empfohlen, Leerzeichen wie folgt zu verwenden:
 
-* zwischen einem Schlüsselwort und einer direkt darauf folgenden „*{*" Klammer
-* zwischen der Klammer „*)*" bzw. „*}*" und einem direkt darauf folgenden Schlüsselwort
-* zwischen einer Klammer „*)*" und einer direkt darauf folgenden Klammer „*{*"
+* zwischen einem Schlüsselwort und einer direkt darauf folgenden "*{*" Klammer
+* zwischen der Klammer "*)*" bzw. "*}*" und einem direkt darauf folgenden Schlüsselwort
+* zwischen einer Klammer "*)*" und einer direkt darauf folgenden Klammer "*{*"
 * nach einem Komma (z. B. bei einer Methode mit mehreren Parametern)
-* zwischen einem binären (ternären) Operator (außer dem Punktoperator) und dem vorausgehenden und dem nachfolgenden Ausdruck +
-Beispiel: `+double·length·=·Math.sqrt(x·*·x·+·y·*·y);+`
-+
-[frame="none",width="57%"]
-|====
-^|Dies gilt insbesondere für `·=·` und `·==·`
-|====
-
+* zwischen einem binären (ternären) Operator (außer dem Punktoperator) und dem vorausgehenden und dem nachfolgenden Ausdruck. +
+Beispiel: `+double·length·=·Math.sqrt(x·*·x·+·y·*·y);+` +
+Dies gilt insbesondere für `·=·` und `·==·`
 
 Leerzeilen eignen sich zur Trennung logischer unabhängiger Teile des Codes.
 Methoden werden durch eine Leerzeile voneinander getrennt.
