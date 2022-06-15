@@ -422,9 +422,7 @@ Die OpenApi Schnittstellenspezifikation ist jeweils Bestandteil der spezifischen
 Damit die OpenApi Schnittstellenspezifikation verfügbar sein kann, muss diese auch verwaltet werden.
 In den jeweiligen Spring Projekten wird die OpenApi Schnittstellenspezifikation unter folgendem Pfad gespeichert: *_/src/main/resources/openapi.yml_*.
 
-Falls es Änderungen innerhalb der OpenApi Schnittstellenspezifikation geben sollte, werden diese vom Versionskontrollsystem verwaltet.
-
-Ein Versionskontrollsystem ist ein System, das für die Kontrolle der verschiedenen Versionen einer Software zuständig ist.
+Falls es Änderungen innerhalb der OpenApi Schnittstellenspezifikation geben sollte, werden diese automatisch vom Versionskontrollsystem verwaltet.
 
 [[openapi-schnittstellenspezifikation-veroeffentlichung]]
 === Veröffentlichung
@@ -433,17 +431,17 @@ Die OpenAPI Spezifikationen werden mit jeder Veröffentlichung (Release) ausgeli
 [[openapi-schnittstellenspezifikation-artifactory]]
 ==== Artifactory
 Die Auslieferung erfolgt als ein Teil vom zentral generierten Artefakt.
-Der Zugriff auf das Artefakt ist für die Entwickler und Architekten der Isyfact über das Maven Artifactory oder GitLab/GitHub möglich.
+Der Zugriff auf das Artefakt ist über das entsprechende Artifactory und/oder GitHub (für Open-Source gestellte Bausteine) möglich.
 
 [[openapi-schnittstellenspezifikation-antora]]
 ==== Antora
 Antora ist eine Dokumentationspipeline, die es Dokumentations-, Produkt- und Entwicklungsteams ermöglicht, Dokumentationsseiten zu erstellen, zu verwalten und zu veröffentlichen, die in AsciiDoc erstellt und aus mehreren versionierten Repositories bezogen wurden.
 
-Mithilfe des OpenApi Generators kann aus der xref:glossary:literaturextern:inhalt.adoc#litextern-openapi-spezifikation[OpenAPI Spezifikation] (YAML Datei) EXTERNER_LINK AsciiDoc generiert/erstellt werden.
-Für die Generierung von AsciiDoc wird der OpenApi Generator verwendet.
+Mithilfe des OpenApi Generators kann aus der (YAML Datei) xref:glossary:literaturextern:inhalt.adoc#litextern-openapi-spezifikation[OpenAPI Spezifikation] AsciiDoc generiert/erstellt werden.
+Für die Generierung von AsciiDoc-Dateien wird der OpenApi Generator verwendet.
 Nähere und detailliertere Informationen dazu befinden sich unter dem Kapitel <<Verwendung_von_OpenAPI_Generator,Kapitel>>.
-Wichtig zu beachten ist, dass der Parameter für den Namen des Generators als _asciidoc_ konfiguriert werden muss.
-Ohne diesen Parameter weiß der Generator nicht in welches Dateiformat die YAML Datei generiert werden soll.
+
+Für die Generierung der Schnittstellenbeschreibung im AsciiDoc-Format ist der Generator „asciidoc“ zu wählen. Folgende Konfigurationsparameter sind im Generator zu setzen.
 
 :desc-table-openapi-asciidoc-generator-metadata: OpenApi AsciiDoc Generator Metadata
 [id="table-openapi-asciidoc-generator-metadata", reftext = "{table-caption} {counter:tables}"]
@@ -477,20 +475,19 @@ Ohne diesen Parameter weiß der Generator nicht in welches Dateiformat die YAML 
 |
 |===
 
-Der Build Prozess, ob lokal oder innerhalb der GitLab CI/CD Pipeline ist im Repository *_isy-antora-playbook_* implementiert und dokumentiert.
+Der Build Prozess ist im Repository *_isy-antora-playbook_* implementiert und dokumentiert.
 
 Dieser Pipeline Job generiert nach erfolgreichem Ablauf ein Artefakt neben dem Quellcode.
 Dieses Verfahren ist auch als Antora Build bekannt.
 
 Zusätzlich werden die technischen Spezifikationen im darüber beschriebenen Verfahren mitgeliefert.
-Somit können technische Benutzer Zugriff auf die technischen Spezifikationen bekommen und diese dann anschließend herunterladen.
+Somit können technische Benutzer Zugriff auf die technischen Schnittstellen-Spezifikationen im OpenAPI-Standard erhalten.
 
-Es wird eine Integration in den Antora-Build verwendet, weil:
+Die Integration in den Antora-Build ermöglicht:
 
-1. ein einfacher Zugriff auf verschiedene Versionen der OpenAPI Spezifikationen möglich ist
-2. das Herunterladen der OpenAPI Spezifikationen für technische Benutzer ermöglicht wird
-3. geringe/keine Kosten entstehen
-4. Zugang für nicht technische Benutzer gewährleistet wird
+1. einen einfachen Zugriff auf verschiedene Versionen der OpenAPI Spezifikationen
+2. das Herunterladen der OpenAPI Spezifikationen für technische Benutzer
+3. den Zugang zu einer verständlichen Schnittstellen-Spezifikation für nicht technisch versierte Benutzer
 
 Somit ist der Zugriff direkt über den Browser via statisches Hosting über Antora möglich.
 Die Schnittstellenbeschreibung wird dabei lesbar als Webseite in Github/Gitlab Pages angezeigt.
@@ -499,17 +496,9 @@ Dadurch ist es möglich, sie herunterzuladen.
 
 [[openapi-schnittstellenspezifikation-eigener-endpunkt]]
 ==== Definition eines Endpunktes
-Ein Endpunkt, der im Softwarebereich als Softwareschnittstelle oder softwareseitige Datenschnittstelle bezeichnet wird, stellt einen logischen Berührungspunkt innerhalb eines IT-Systems dar.
-Ein IT-System kann selbstverständlich über mehrere Endpunkte verfügen.
-Durch sie wird der Austausch von Kommandos und Daten zwischen verschiedenen Prozessen und Komponenten ermöglicht und geregelt.
-
-Ein Endpunkt ist sozusagen eine Übergangsstelle zwischen verschiedenen Komponenten eines IT-Systems, über die der Datenaustausch oder die Datenverarbeitung realisiert werden kann.
-
 Die Endung einer URL z.B. *_/openapi-spezifikationen_* ist ein gutes optisches Erkennungsmerkmal.
 
 In unserem Fall besteht die optionale Möglichkeit einen Endpunkt zu errichten, der den Datenaustausch der OpenAPI Spezifikationen über das Herunterladen der Datei ermöglicht.
-
-Die heruntergeladene Datei kann dann anschließend geöffnet werden.
 
 [[openapi-schnittstellenspezifikation-url]]
 ==== Definition einer URL
