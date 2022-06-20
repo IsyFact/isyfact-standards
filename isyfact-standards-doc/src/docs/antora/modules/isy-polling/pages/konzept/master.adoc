@@ -1,12 +1,6 @@
-:doctitle: Baustein Polling
-[discrete]
-=== Konzept
-
-:sectnums:
+= Konzept Polling
 
 include::glossary:licence:partial$licence.adoc[]
-
-
 
 include::docinfo.adoc[]
 

@@ -1,0 +1,29 @@
+= Plattform
+
+include::glossary:licence:partial$licence.adoc[]
+
+// tag::whitepaper[]
+
+*Eine einheitliche Plattform, die einen standardisierten und effizienten Betrieb von Geschäftsanwendungen ermöglicht.*
+
+Die Betriebsplattform der IsyFact besteht aus Hardware und Netzen sowie der benötigten Middleware mit Anwendungs- und Datenbankservern.
+Sie sieht eine hochverfügbare Produktionsumgebung sowie Entwicklungs- und verschiedene Testumgebungen vor.
+
+Neben der reinen technischen Plattform sieht die Plattform der IsyFact auch Konzepte zur Administration mit entsprechenden einheitlichen Werkzeugen zum Monitoring und Management der Plattform vor.
+
+.Betriebsplattform der IsyFact
+[id="image-plattform",reftext="{figure-caption} {counter:figures}"]
+image::blaupausen:referenzarchitektur/RATIP.png[]
+
+Die Plattform entspricht dem SAGA/BSI Netzkonzept mit drei Zonen:
+
+* Nutzerebene (Informations- und Dienstezone)
+* Logikebene (Logik- und Verarbeitungszone)
+* Datenhaltungsebene (Datenzone)
+
+NOTE: SAGA sind die „Standards und Architekturen für E-Government“ der deutschen Bundesverwaltung, siehe: xref:glossary:literaturextern:inhalt.adoc#litextern-saga-5[SAGA] - seit SAGA 5 wird bzgl. des Netzkonzeptes auf das BSI verwiesen.
+
+Die Plattform definiert einen allgemeinen Rahmen für den Anwendungsbetrieb und kann an die speziellen Anforderungen unterschiedlicher Betriebsorganisationen angepasst werden.
+Soweit möglich werden Produkte aus dem Open Source-Umfeld eingesetzt, wie beispielsweise der Apache HTTP Server als Webserver oder Apache Tomcat als Applikationsserver.
+
+// end::whitepaper[]

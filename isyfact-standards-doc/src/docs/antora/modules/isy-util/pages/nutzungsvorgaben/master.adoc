@@ -1,8 +1,4 @@
-:doctitle: Baustein Util
-[discrete]
-=== Nutzungsvorgaben
-
-:sectnums:
+= Nutzungsvorgaben Util
 
 include::glossary:licence:partial$licence.adoc[]
 

@@ -1,8 +1,4 @@
-:doctitle: Migrationsleitfaden
-[discrete]
-=== Grundlagen
-
-:sectnums:
+= Migrationsleitfaden IsyFact 2
 
 include::glossary:licence:partial$licence.adoc[]
 

@@ -1,4 +1,4 @@
-* Blaupausen
+* xref:blaupausen.adoc[]
 ** xref:referenzarchitektur/master.adoc[Referenzarchitektur]
 
 ** xref:referenzarchitektur-it-system/master.adoc[Referenzarchitektur IT-System]

@@ -1,8 +1,4 @@
-:doctitle: IsyFact Architekturregeln
-[discrete]
-=== Vorgaben
-
-:sectnums:
+= IsyFact Architekturregeln
 
 include::glossary:licence:partial$licence.adoc[]
 

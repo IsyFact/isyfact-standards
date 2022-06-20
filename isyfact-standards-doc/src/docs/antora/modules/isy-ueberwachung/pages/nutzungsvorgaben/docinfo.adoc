@@ -3,5 +3,5 @@
 [cols="5,2,3",options="header"]
 |====
 |Name |Art |Version
-|isy-ueberwachung |Bibliothek |v{version-ifs}
+m|isy-ueberwachung |Bibliothek |v{page-component-version}
 |====

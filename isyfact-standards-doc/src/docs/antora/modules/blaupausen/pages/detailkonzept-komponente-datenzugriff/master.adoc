@@ -1,12 +1,6 @@
-:doctitle: Komponente Datenzugriff
-[discrete]
-=== Detailkonzept
-
-:sectnums:
-:sectnumlevels: 4
+= Detailkonzept Datenzugriff
 
 include::glossary:licence:partial$licence.adoc[]
-
 
 include::docinfo.adoc[]
 

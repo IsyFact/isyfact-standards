@@ -1,4 +1,49 @@
-:doctitle: Changelog IsyFact Dokumentation
+= Changelog IsyFact Dokumentation
+
+== Änderungen IsyFact 2.5.0
+
+// Beginn übergreifende Änderungen
+- Umstellung auf Antora-Dokumentation.
+// Ende übergreifende Änderungen
+
+include::isyfact-standards-doku:einstieg:page$changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:einstieg:page$tutorial/changelog.adoc[tag=release-2.5.0]
+
+include::isyfact-standards-doku:blaupausen:page$referenzarchitektur/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:blaupausen:page$referenzarchitektur-it-system/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:blaupausen:page$detailkonzept-komponente-anwendungskern/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:blaupausen:page$detailkonzept-komponente-batch/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:blaupausen:page$detailkonzept-komponente-datenzugriff/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:blaupausen:page$detailkonzept-komponente-service/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:blaupausen:page$detailkonzept-komponente-web-gui/changelog.adoc[tag=release-2.5.0]
+
+include::isyfact-standards-doku:isy-datetime:page$konzept/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:isy-datetime:page$nutzungsvorgaben/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:isy-exception-core:page$konzept/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:isy-konfiguration:page$konzept/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:isy-konfiguration:page$nutzungsvorgaben/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:isy-logging:page$konzept/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:isy-logging:page$nutzungsvorgaben/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:isy-polling:page$nutzungsvorgaben/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:isy-sicherheit:page$konzept/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:isy-sicherheit:page$nutzungsvorgaben/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:isy-sonderzeichen:page$konzept/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:isy-task:page$konzept/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:isy-task:page$nutzungsvorgaben/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:isy-ueberwachung:page$konzept/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:isy-ueberwachung:page$nutzungsvorgaben/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:isy-util:page$nutzungsvorgaben/changelog.adoc[tag=release-2.5.0]
+
+include::isyfact-standards-doku:methodik:page$changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:methodik:page$diagrammerstellung/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:methodik:page$java-programmierkonventionen/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:methodik:page$namenskonventionen/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:methodik:page$versionierung/changelog.adoc[tag=release-2.5.0]
+
+include::isyfact-standards-doku:werkzeuge:page$entwicklungsumgebung/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:werkzeuge:page$dokumentation/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:werkzeuge:page$versionierungskontrolle/changelog.adoc[tag=release-2.5.0]
+
 
 == Änderungen IsyFact 2.4.0
 
@@ -11,7 +56,6 @@ include::isyfact-standards-doku:methodik:namenskonventionen/changelog.adoc[tag=r
 include::isyfact-standards-doku:blaupausen:referenzarchitektur/changelog.adoc[tag=release-2.4.0]
 include::isyfact-standards-doku:blaupausen:referenzarchitektur-it-system/changelog.adoc[tag=release-2.4.0]
 include::isyfact-standards-doku:einstieg:tutorial/changelog.adoc[tag=release-2.4.0]
-include::isyfact-standards-doku:einstieg:whitepaper/changelog.adoc[tag=release-2.4.0]
 include::isyfact-standards-doku:blaupausen:detailkonzept-komponente-anwendungskern/changelog.adoc[tag=release-2.4.0]
 include::isyfact-standards-doku:blaupausen:detailkonzept-komponente-batch/changelog.adoc[tag=release-2.4.0]
 include::isyfact-standards-doku:blaupausen:detailkonzept-komponente-datenzugriff/changelog.adoc[tag=release-2.4.0]
@@ -36,8 +80,8 @@ include::isyfact-standards-doku:isy-ueberwachung:nutzungsvorgaben/changelog.adoc
 include::isyfact-standards-doku:methodik:versionierung/changelog.adoc[tag=release-2.4.0]
 include::isyfact-standards-doku:methodik:java-programmierkonventionen/changelog.adoc[tag=release-2.4.0]
 include::isyfact-standards-doku:methodik:diagrammerstellung/changelog.adoc[tag=release-2.4.0]
-include::isyfact-standards-doku:werkzeuge:einrichtung_entwicklungsumgebung/changelog.adoc[tag=release-2.4.0]
-include::isyfact-standards-doku:werkzeuge:handbuch_dokumentation/changelog.adoc[tag=release-2.4.0]
+include::isyfact-standards-doku:werkzeuge:entwicklungsumgebung/changelog.adoc[tag=release-2.4.0]
+include::isyfact-standards-doku:werkzeuge:dokumentation/changelog.adoc[tag=release-2.4.0]
 include::isyfact-standards-doku:werkzeuge:versionierungskontrolle/changelog.adoc[tag=release-2.4.0]
 
 
@@ -52,7 +96,6 @@ include::isyfact-standards-doku:methodik:namenskonventionen/changelog.adoc[tag=r
 include::isyfact-standards-doku:blaupausen:referenzarchitektur/changelog.adoc[tag=release-2.3.0]
 include::isyfact-standards-doku:blaupausen:referenzarchitektur-it-system/changelog.adoc[tag=release-2.3.0]
 include::isyfact-standards-doku:einstieg:tutorial/changelog.adoc[tag=release-2.3.0]
-include::isyfact-standards-doku:einstieg:whitepaper/changelog.adoc[tag=release-2.3.0]
 include::isyfact-standards-doku:blaupausen:detailkonzept-komponente-anwendungskern/changelog.adoc[tag=release-2.3.0]
 include::isyfact-standards-doku:blaupausen:detailkonzept-komponente-batch/changelog.adoc[tag=release-2.3.0]
 include::isyfact-standards-doku:blaupausen:detailkonzept-komponente-datenzugriff/changelog.adoc[tag=release-2.3.0]
@@ -77,8 +120,8 @@ include::isyfact-standards-doku:isy-ueberwachung:nutzungsvorgaben/changelog.adoc
 include::isyfact-standards-doku:methodik:versionierung/changelog.adoc[tag=release-2.3.0]
 include::isyfact-standards-doku:methodik:java-programmierkonventionen/changelog.adoc[tag=release-2.3.0]
 include::isyfact-standards-doku:methodik:diagrammerstellung/changelog.adoc[tag=release-2.3.0]
-include::isyfact-standards-doku:werkzeuge:einrichtung_entwicklungsumgebung/changelog.adoc[tag=release-2.3.0]
-include::isyfact-standards-doku:werkzeuge:handbuch_dokumentation/changelog.adoc[tag=release-2.3.0]
+include::isyfact-standards-doku:werkzeuge:entwicklungsumgebung/changelog.adoc[tag=release-2.3.0]
+include::isyfact-standards-doku:werkzeuge:dokumentation/changelog.adoc[tag=release-2.3.0]
 include::isyfact-standards-doku:werkzeuge:versionierungskontrolle/changelog.adoc[tag=release-2.3.0]
 
 
@@ -94,7 +137,6 @@ include::isyfact-standards-doku:methodik:namenskonventionen/changelog.adoc[tag=r
 include::isyfact-standards-doku:blaupausen:referenzarchitektur/changelog.adoc[tag=release-2.2.0]
 include::isyfact-standards-doku:blaupausen:referenzarchitektur-it-system/changelog.adoc[tag=release-2.2.0]
 include::isyfact-standards-doku:einstieg:tutorial/changelog.adoc[tag=release-2.2.0]
-include::isyfact-standards-doku:einstieg:whitepaper/changelog.adoc[tag=release-2.2.0]
 include::isyfact-standards-doku:blaupausen:detailkonzept-komponente-anwendungskern/changelog.adoc[tag=release-2.2.0]
 include::isyfact-standards-doku:blaupausen:detailkonzept-komponente-batch/changelog.adoc[tag=release-2.2.0]
 include::isyfact-standards-doku:blaupausen:detailkonzept-komponente-datenzugriff/changelog.adoc[tag=release-2.2.0]
@@ -119,8 +161,8 @@ include::isyfact-standards-doku:isy-ueberwachung:nutzungsvorgaben/changelog.adoc
 include::isyfact-standards-doku:methodik:versionierung/changelog.adoc[tag=release-2.2.0]
 include::isyfact-standards-doku:methodik:java-programmierkonventionen/changelog.adoc[tag=release-2.2.0]
 include::isyfact-standards-doku:methodik:diagrammerstellung/changelog.adoc[tag=release-2.2.0]
-include::isyfact-standards-doku:werkzeuge:einrichtung_entwicklungsumgebung/changelog.adoc[tag=release-2.2.0]
-include::isyfact-standards-doku:werkzeuge:handbuch_dokumentation/changelog.adoc[tag=release-2.2.0]
+include::isyfact-standards-doku:werkzeuge:entwicklungsumgebung/changelog.adoc[tag=release-2.2.0]
+include::isyfact-standards-doku:werkzeuge:dokumentation/changelog.adoc[tag=release-2.2.0]
 include::isyfact-standards-doku:werkzeuge:versionierungskontrolle/changelog.adoc[tag=release-2.2.0]
 
 
@@ -138,7 +180,6 @@ include::isyfact-standards-doku:methodik:namenskonventionen/changelog.adoc[tag=r
 include::isyfact-standards-doku:blaupausen:referenzarchitektur/changelog.adoc[tag=release-2.1.0]
 include::isyfact-standards-doku:blaupausen:referenzarchitektur-it-system/changelog.adoc[tag=release-2.1.0]
 include::isyfact-standards-doku:einstieg:tutorial/changelog.adoc[tag=release-2.1.0]
-include::isyfact-standards-doku:einstieg:whitepaper/changelog.adoc[tag=release-2.1.0]
 include::isyfact-standards-doku:blaupausen:detailkonzept-komponente-anwendungskern/changelog.adoc[tag=release-2.1.0]
 include::isyfact-standards-doku:blaupausen:detailkonzept-komponente-batch/changelog.adoc[tag=release-2.1.0]
 include::isyfact-standards-doku:blaupausen:detailkonzept-komponente-datenzugriff/changelog.adoc[tag=release-2.1.0]
@@ -163,8 +204,8 @@ include::isyfact-standards-doku:isy-ueberwachung:nutzungsvorgaben/changelog.adoc
 include::isyfact-standards-doku:methodik:versionierung/changelog.adoc[tag=release-2.1.0]
 include::isyfact-standards-doku:methodik:java-programmierkonventionen/changelog.adoc[tag=release-2.1.0]
 include::isyfact-standards-doku:methodik:diagrammerstellung/changelog.adoc[tag=release-2.1.0]
-include::isyfact-standards-doku:werkzeuge:einrichtung_entwicklungsumgebung/changelog.adoc[tag=release-2.1.0]
-include::isyfact-standards-doku:werkzeuge:handbuch_dokumentation/changelog.adoc[tag=release-2.1.0]
+include::isyfact-standards-doku:werkzeuge:entwicklungsumgebung/changelog.adoc[tag=release-2.1.0]
+include::isyfact-standards-doku:werkzeuge:dokumentation/changelog.adoc[tag=release-2.1.0]
 include::isyfact-standards-doku:werkzeuge:versionierungskontrolle/changelog.adoc[tag=release-2.1.0]
 
 
@@ -179,7 +220,6 @@ include::isyfact-standards-doku:methodik:namenskonventionen/changelog.adoc[tag=r
 include::isyfact-standards-doku:blaupausen:referenzarchitektur/changelog.adoc[tag=release-2.0.0]
 include::isyfact-standards-doku:blaupausen:referenzarchitektur-it-system/changelog.adoc[tag=release-2.0.0]
 include::isyfact-standards-doku:einstieg:tutorial/changelog.adoc[tag=release-2.0.0]
-include::isyfact-standards-doku:einstieg:whitepaper/changelog.adoc[tag=release-2.0.0]
 include::isyfact-standards-doku:blaupausen:detailkonzept-komponente-anwendungskern/changelog.adoc[tag=release-2.0.0]
 include::isyfact-standards-doku:blaupausen:detailkonzept-komponente-batch/changelog.adoc[tag=release-2.0.0]
 include::isyfact-standards-doku:blaupausen:detailkonzept-komponente-datenzugriff/changelog.adoc[tag=release-2.0.0]
@@ -204,8 +244,8 @@ include::isyfact-standards-doku:isy-ueberwachung:nutzungsvorgaben/changelog.adoc
 include::isyfact-standards-doku:methodik:versionierung/changelog.adoc[tag=release-2.0.0]
 include::isyfact-standards-doku:methodik:java-programmierkonventionen/changelog.adoc[tag=release-2.0.0]
 include::isyfact-standards-doku:methodik:diagrammerstellung/changelog.adoc[tag=release-2.0.0]
-include::isyfact-standards-doku:werkzeuge:einrichtung_entwicklungsumgebung/changelog.adoc[tag=release-2.0.0]
-include::isyfact-standards-doku:werkzeuge:handbuch_dokumentation/changelog.adoc[tag=release-2.0.0]
+include::isyfact-standards-doku:werkzeuge:entwicklungsumgebung/changelog.adoc[tag=release-2.0.0]
+include::isyfact-standards-doku:werkzeuge:dokumentation/changelog.adoc[tag=release-2.0.0]
 include::isyfact-standards-doku:werkzeuge:versionierungskontrolle/changelog.adoc[tag=release-2.0.0]
 
 
@@ -226,7 +266,6 @@ include::isyfact-standards-doku:methodik:namenskonventionen/changelog.adoc[tag=r
 include::isyfact-standards-doku:blaupausen:referenzarchitektur/changelog.adoc[tag=release-1.7.0]
 include::isyfact-standards-doku:blaupausen:referenzarchitektur-it-system/changelog.adoc[tag=release-1.7.0]
 include::isyfact-standards-doku:einstieg:tutorial/changelog.adoc[tag=release-1.7.0]
-include::isyfact-standards-doku:einstieg:whitepaper/changelog.adoc[tag=release-1.7.0]
 include::isyfact-standards-doku:blaupausen:detailkonzept-komponente-anwendungskern/changelog.adoc[tag=release-1.7.0]
 include::isyfact-standards-doku:blaupausen:detailkonzept-komponente-batch/changelog.adoc[tag=release-1.7.0]
 include::isyfact-standards-doku:blaupausen:detailkonzept-komponente-datenzugriff/changelog.adoc[tag=release-1.7.0]
@@ -250,8 +289,8 @@ include::isyfact-standards-doku:isy-ueberwachung:nutzungsvorgaben/changelog.adoc
 include::isyfact-standards-doku:methodik:versionierung/changelog.adoc[tag=release-1.7.0]
 include::isyfact-standards-doku:methodik:java-programmierkonventionen/changelog.adoc[tag=release-1.7.0]
 include::isyfact-standards-doku:methodik:diagrammerstellung/changelog.adoc[tag=release-1.7.0]
-include::isyfact-standards-doku:werkzeuge:einrichtung_entwicklungsumgebung/changelog.adoc[tag=release-1.7.0]
-include::isyfact-standards-doku:werkzeuge:handbuch_dokumentation/changelog.adoc[tag=release-1.7.0]
+include::isyfact-standards-doku:werkzeuge:entwicklungsumgebung/changelog.adoc[tag=release-1.7.0]
+include::isyfact-standards-doku:werkzeuge:dokumentation/changelog.adoc[tag=release-1.7.0]
 include::isyfact-standards-doku:werkzeuge:versionierungskontrolle/changelog.adoc[tag=release-1.7.0]
 
 
@@ -266,7 +305,6 @@ include::isyfact-standards-doku:methodik:namenskonventionen/changelog.adoc[tag=r
 include::isyfact-standards-doku:blaupausen:referenzarchitektur/changelog.adoc[tag=release-1.6.0]
 include::isyfact-standards-doku:blaupausen:referenzarchitektur-it-system/changelog.adoc[tag=release-1.6.0]
 include::isyfact-standards-doku:einstieg:tutorial/changelog.adoc[tag=release-1.6.0]
-include::isyfact-standards-doku:einstieg:whitepaper/changelog.adoc[tag=release-1.6.0]
 include::isyfact-standards-doku:blaupausen:detailkonzept-komponente-anwendungskern/changelog.adoc[tag=release-1.6.0]
 include::isyfact-standards-doku:blaupausen:detailkonzept-komponente-batch/changelog.adoc[tag=release-1.6.0]
 include::isyfact-standards-doku:blaupausen:detailkonzept-komponente-datenzugriff/changelog.adoc[tag=release-1.6.0]
@@ -290,8 +328,8 @@ include::isyfact-standards-doku:isy-ueberwachung:nutzungsvorgaben/changelog.adoc
 include::isyfact-standards-doku:methodik:versionierung/changelog.adoc[tag=release-1.6.0]
 include::isyfact-standards-doku:methodik:java-programmierkonventionen/changelog.adoc[tag=release-1.6.0]
 include::isyfact-standards-doku:methodik:diagrammerstellung/changelog.adoc[tag=release-1.6.0]
-include::isyfact-standards-doku:werkzeuge:einrichtung_entwicklungsumgebung/changelog.adoc[tag=release-1.6.0]
-include::isyfact-standards-doku:werkzeuge:handbuch_dokumentation/changelog.adoc[tag=release-1.6.0]
+include::isyfact-standards-doku:werkzeuge:entwicklungsumgebung/changelog.adoc[tag=release-1.6.0]
+include::isyfact-standards-doku:werkzeuge:dokumentation/changelog.adoc[tag=release-1.6.0]
 include::isyfact-standards-doku:werkzeuge:versionierungskontrolle/changelog.adoc[tag=release-1.6.0]
 
 

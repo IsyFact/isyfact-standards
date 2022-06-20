@@ -51,7 +51,7 @@ Das Reifegradmodell von Leonard Richardson (*Richardson Maturity Model*, s. <<im
 
 .Richardson Maturity Model
 [id="image-richard-maturity-model", reftext = "{figure-caption} {counter:figures}"]
-image::isy-service-rest:konzept/richard-maturity-model.dn.png[align = center, title-align=center]
+image::isy-service-rest:konzept/richard-maturity-model.dn.svg[align = center, title-align=center]
 
 Die IsyFact zielt auf eine möglichst vollständige Umsetzung der Eigenschaften und peilt daher einen hohen Reifegrad für ihre REST-Services an.
 
@@ -89,7 +89,7 @@ Diese http-Aufrufe entsprechen zwar nicht dem Reifegradmodell (Level 2), sind ab
 
 Wird über die Schnittstelle ein Geschäftsvorfall angestoßen, ist der Geschäftsvorfall in der URI zu adressieren:
 
-Schema: /<geschaeftsvorfall>/<geschaeftsprozess>
+Schema: `+/{geschaeftsvorfall}/{geschaeftsprozess}+`
 
 ----
 Beispiel: /auskunft/personaliensuche
@@ -119,7 +119,7 @@ Repräsentiert die Ressource eine Menge von Objekten, wird der Plural verwendet.
 
 Der hierarchische Aufbau von Ressourcen ist explizit erwünscht:
 
-Schema: /<ressource>/<id>/<ressource>/<id>/<...>
+Schema: `+/{ressource}/{id}/{ressource}/{id}/{...}+`
 
 ----
 Beispiel: /kunden/12345/bestellungen/123/artikel
@@ -150,7 +150,7 @@ Die Ressource liefert ein eindeutig identifizierbares Objekt zurück.
 [[beziehungen-zwischen-ressourcen]]
 ==== Beziehungen zwischen Ressourcen
 
-Beziehungen zwischen Ressourcen können entweder über <<hateoas, HATEOAS>> (vgl.
+Beziehungen zwischen Ressourcen können entweder über <<hateoas,HATEOAS>> (vgl.
 Stufe 3 in <<image-richard-maturity-model>>) oder über die URI selber abgebildet werden.
 Folgende URI adressiert beispielsweise den Absender einer bestimmten Nachricht.
 
@@ -165,8 +165,8 @@ Enthält eine Ressource wiederum mehrere Ressourcen, wird wieder der Plural verw
 ----
 wobei:
 
-* {id_m}: id der **m**essage
-* {id_r}: id des **r**eceivers
+* `\{id_m}`: id der **m**essage
+* `\{id_r}`: id des **r**eceivers
 
 [[adressierung-mehrerer-ressourcen]]
 ==== Adressierung von mehreren Ressourcen
@@ -380,7 +380,7 @@ Es ist idempotent, da nichts verändert wird.
 OPTIONS /kunden
 ----
 
-NOTE: Eine Übersicht über die HTTP-Methoden und ihre Eigenschaften, findet sich in xref:konzept/anhaenge.adoc#anhang-http-methoden[Anhang: http-Methoden]
+NOTE: Eine Übersicht über die HTTP-Methoden und ihre Eigenschaften findet sich in xref:konzept/anhaenge.adoc#anhang-http-methoden[Anhang: http-Methoden]
 
 [[post-suche-filterung]]
 ==== Suche und Filterung mittels POST
@@ -593,7 +593,7 @@ Webflux basiert auf einem Event-Loop Mechanismus, während Spring MVC auf Thread
 Der Performance Vorteil von Webflux macht sich insbesondere bei vielen gleichzeiten Service-Aufrufen und/oder der Übertragung größerer Datenmengen bei einem Service-Aufruf bemerkbar.
 
 Trotzdem empfiehlt die IsyFact grundsätzlich, Spring MVC für die Umsetzung von REST-Services einzusetzen.
-Die Vorteile der reaktiven Programmierparadigma erfüllen sich nur, wenn alle Teile der Umsetzung entsprechend gestaltet sind.
+Die Vorteile des reaktiven Programmierparadigmas erfüllen sich nur, wenn alle Teile der Umsetzung entsprechend gestaltet sind.
 Dies ist aktuell nicht der Fall.
 
 Für REST-Clients wiederum empfiehlt die IsyFact die Verwendung des `WebClient` anstatt des `RestTemplate`, da letzteres nicht mehr aktiv weiterentwickelt wird.
@@ -608,17 +608,17 @@ Sowohl YAML als auch JSON sind als Format der Schnittstellendokumentation zuläs
 Für die Erstellung der Schnittstellendokumentation ist grundsätzlich kein besonderes Tool erforderlich, ein Texteditor ist ausreichend.
 Das OpenAPI Format wird jedoch von diversen Entwicklungsumgebungen (z. B. IntelliJ) unterstützt, was die Bearbeitung erleichtert.
 //Alternativ kann auch der Editor unter xref:glossary:literaturextern:inhalt.adoc#litextern-openapi-generator-tech[openapi-generator.tech] verwendet werden, _OpenAPI 3.x_ wird hier ebenfalls unterstützt.
-//Die Schnittstellendokumetation wird im zugehörigen Projekt im Ressources-Verzeichnis abgelegt.
+//Die Schnittstellendokumentation wird im zugehörigen Projekt im Ressources-Verzeichnis abgelegt.
 
 [[code-generierung]]
 ==== Code-Generierung
 
 Bei der Erstellung von REST-APIs gibt es grundsätzlich 2 Ansätze: _Contract/API First_ oder _Code First_.
 Bei _Contract/API First_ wird zunächst die Schnittstellenbeschreibung erstellt und daraus der Code (Server und Client) generiert.
-Bei _Code First_ wird zuerst das API implementiert und mit Annotationen für die Schnittstellenbeschreibung versehen.
+Bei _Code First_ wird zuerst die API implementiert und mit Annotationen für die Schnittstellenbeschreibung versehen.
 Aus den Annotationen wird dann die Schnittstellenbeschreibung generiert.
 
-Die Isyfact empfiehlt den _Contract/API First_ Ansatz.
+Die IsyFact empfiehlt den _Contract/API First_ Ansatz.
 
 Für die Generierung des Codes von Server und Client sind die Standards von OpenApi 3.x zu beachten.
 //Für die Generierung des Codes wird das Tool _OpenAPI Generator_ verwendet.
@@ -633,7 +633,7 @@ Für die Generierung des Codes von Server und Client sind die Standards von Open
 //
 //====
 //Bei der Generierung von server-seitigem Java/Spring-Code wird standardmäßig Spring MVC als Basis des generierten Codes verwendet.
-//Da in der Isyfact aber Webflux als Framework vorgesehen ist, muss für die Generierung der Parameter _reactive_ auf true gesetzt werden innerhalb der configOptions des Generator PlugIns.
+//Da in der IsyFact aber Webflux als Framework vorgesehen ist, muss für die Generierung der Parameter _reactive_ auf true gesetzt werden innerhalb der configOptions des Generator PlugIns.
 //Beispiel:
 //
 //[source, xml]
@@ -775,7 +775,7 @@ Details zur Implementierung können der xref:glossary:literaturextern:inhalt.ado
 [[einheitliche-fehlermeldungen]]
 ==== Einheitliche Fehlermeldungen
 
-Eine Fehlernachricht aus einer REST-Schnittstelle (egal ob Client oder Server Error) muss mindestens folgende Informationen beinhalten.
+Eine Fehlernachricht aus einer REST-Schnittstelle (egal, ob Client oder Server Error) muss mindestens folgende Informationen beinhalten.
 
 .Standardfelder für Fehlernachrichten
 [id="table-error-fields",reftext = "{table-caption} {counter:tables}"]
@@ -840,12 +840,11 @@ Hierfür muss der Client mit jeder Nachricht einen Bearer Token mitsenden.
 Dieser wird im Request-Header mit dem Tag "Authorization" versehen.
 Im Sicherheitsbaustein wird das Token an den `SecurityContextHolder` weitergegeben.
 Dort werden die Daten ausgelesen und der Token wird auf Echtheit überprüft.
-Bei einer reinen Weitergabe, greift die Bearer Propagation.
+Bei einer reinen Weitergabe greift die Bearer Propagation.
 
 [NOTE]
 ====
 Nähere Informationen zu OAuth2 gibt es auf der xref:glossary:literaturextern:inhalt.adoc#litextern-Git-LFS[OAuth Homepage].
-.
 
 Informationen zur Bearer Propagation gibt es in der xref:glossary:literaturextern:inhalt.adoc#litextern-spring-oauth2-bearertoken-resolver[offiziellen Spring Dokumentation].
 ====

@@ -1,8 +1,4 @@
-:doctitle: IsyFact IT-Sicherheitsregeln
-[discrete]
-=== Vorgaben
-
-:sectnums:
+= IsyFact IT-Sicherheitsregeln
 
 include::glossary:licence:partial$licence.adoc[]
 

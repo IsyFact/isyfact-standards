@@ -2,7 +2,7 @@
 
 // tag::inhalt[]
 == Technische Architektur
-Die technische Architektur (xref:glossary:glossary:master.adoc#glossar-T-Architektur[T-Architektur]) beschreibt die Strukturierung der IsyFact-Plattform in IT-Systeme, den Aufbau einzelner IT-Systeme und die verwendeten übergreifenden technischen Konzepte.
+Die technische Architektur (xref:glossary:glossary:master.adoc#glossar-t-architektur[T-Architektur]) beschreibt die Strukturierung der IsyFact-Plattform in IT-Systeme, den Aufbau einzelner IT-Systeme und die verwendeten übergreifenden technischen Konzepte.
 
 [[die-referenzarchitektur-eines-it-systems]]
 === Die Referenzarchitektur eines IT-Systems
@@ -100,7 +100,7 @@ Hauptaufgabe des Frameworks ist es, die Komponenten zu konfigurieren und miteina
 Dadurch wird die Trennung zwischen Fachlichkeit und Technik verbessert.
 Beispiel für querschnittliche Funktionalität ist die deklarative Steuerung von Transaktionen.
 
-*Externe Services:* Wenn der Anwendungskern fachliche Services benötigt, die von anderen IT-Systemen innerhalb der xref:glossary:glossary:master.adoc#glossar-Plattform[Plattform] angeboten werden, so werden diese Services als Komponente im Anwendungskern abgebildet.
+*Externe Services:* Wenn der Anwendungskern fachliche Services benötigt, die von anderen IT-Systemen innerhalb der xref:glossary:glossary:master.adoc#glossar-plattform[Plattform] angeboten werden, so werden diese Services als Komponente im Anwendungskern abgebildet.
 Dadurch ist die Funktionalität sauber gekapselt, was die Wartbarkeit erhöht.
 Wenn der externe Service ausgetauscht werden soll, ist keine Änderung der gesamten Anwendung notwendig – es ist lediglich eine interne Änderung der externen Service-Komponente notwendig.
 Für andere fachliche Komponenten des Anwendungskerns ist nicht zu unterscheiden, ob es sich beim Aufruf einer Komponentenschnittstelle um eine in dieser Komponente implementierte Funktion oder um einen Serviceaufruf handelt.
@@ -121,7 +121,7 @@ In diesem Fall wäre nicht sichergestellt, dass keine Änderungen außerhalb der
 Für den Transfer über Komponentengrenzen hinweg müssen eigene, nicht-persistente Schnittstellen-Objekte erzeugt werden, die dann aus den persistenten Objekten mittels eines Bean-Mappers befüllt werden können. +
 Wenn Objekte von mehreren Komponenten genutzt werden und keiner einzelnen Komponente zugeordnet werden können, sollten sie in einem eigenen querschnittlichen Package abgelegt werden.
 
-Vereinfachend können Anwendungskern-Komponenten persistente Daten an die xref:glossary:glossary:master.adoc#glossar-Service[Service]-Schicht (s. Kapitel <<servicezugriffe>>) weitergeben.
+Vereinfachend können Anwendungskern-Komponenten persistente Daten an die xref:glossary:glossary:master.adoc#glossar-service[Service]-Schicht (s. Kapitel <<servicezugriffe>>) weitergeben.
 Dies ist insbesondere dann angebracht, wenn die Komponente ausschließlich durch eine Service-Komponente genutzt wird. +
 Da die Service-Schicht keine Logik enthält und daher ohnehin keine Änderung an solchen Entitäten vornehmen darf und eindeutig der Anwendungskern-Komponente zugeordnet ist, bedeutet dies keine Verletzung der Datenhoheit.
 Da die Anwendungskern-Komponente an Ihrer Schnittstelle nun potentiell persistente und nicht persistente Entitäten bereitstellt, müssen Verwechselungen vermieden werden, z.B. in dem solche Methoden in getrennten Interfaces deklariert werden.
@@ -138,7 +138,7 @@ Persistente Entitäten dürfen nicht über den Anwendungskern hinaus herausgegeb
 Bei grafischen Benutzeroberflächen (englisch: Graphical User Interface, GUI) gibt es eine Vielfalt unterschiedlichster Komplexitäten: von einfachen Stammdatensystemen über Dialogsysteme mit vielen einfachen Dialogen, die aber intensiv miteinander interagieren, bis zu Clients mit wenigen, aber sehr komplexen Dialogen.
 Eine gute Architektur muss für alle relevanten Varianten einen tragfähigen Rahmen schaffen.
 
-Im Wesentlichen müssen innerhalb einer xref:glossary:glossary:master.adoc#glossar-GUI[GUI] verschiedene Aufgaben erledigt werden:
+Im Wesentlichen müssen innerhalb einer xref:glossary:glossary:master.adoc#glossar-gui[GUI] verschiedene Aufgaben erledigt werden:
 
 * Die Masken und Informationen müssen am Bildschirm angezeigt werden.
 * Der Dialog muss auf Benutzerinteraktionen reagieren.
@@ -148,7 +148,7 @@ Die Dialogabläufe bilden einen Workflow.
 Dieser ist in der Regel in der Dialogsteuerung abgebildet, er kann auch durch eine Workflow-Komponente gesteuert werden.
 * Der Dialog muss direkt mit dem Anwendungskern kommunizieren, um Daten zu lesen, die veränderten Daten zu speichern und komplexere fachliche Funktionen auszuführen.
 
-Vorgaben zum Layout sind in <<TODO anderes Dokument: Styleguide>> beschrieben.
+Vorgaben zum Layout sind im xref:isyfact-style-doku:isy-style:styleguide.adoc[Styleguide] beschrieben.
 
 Die Validierung auf GUI-Ebene ist optional.
 Sie wird empfohlen, wenn sie die Benutzererfahrung verbessert.
@@ -220,7 +220,7 @@ Folgende Komponenten kommen in einer SPA normalerweise zum Einsatz:
 [[batch]]
 === Batch
 
-Ein xref:glossary:glossary:master.adoc#glossar-Batch[Batch] realisiert eine eigenständige Verarbeitung ohne direkten Benutzereingriff während des Ablaufes.
+Ein xref:glossary:glossary:master.adoc#glossar-batch[Batch] realisiert eine eigenständige Verarbeitung ohne direkten Benutzereingriff während des Ablaufes.
 An einen Batch werden verschiedene Anforderungen gestellt: Ausführungszeitpunkt, Abhängigkeiten, Datenvolumen, ausgeführte Funktionalität, Eingaben, Ausgaben usw.
 
 Aus Architektur-Sicht werden diese Anforderungen durch zwei Komponenten abgedeckt: der Batchrahmen und der Batchlogik.
@@ -258,7 +258,7 @@ Weiterführende technische Details zum Batch sind im xref:detailkonzept-komponen
 === Servicezugriffe
 
 Services des Anwendungskerns, die vom IT-System zur Verfügung gestellt werden sollen, werden durch die Komponenten von „Service“ innerhalb der Schicht „Nutzung“ angereichert und nach außen gegeben.
-Dabei können alle Funktionen des xref:glossary:glossary:master.adoc#glossar-Anwendungskern[Anwendungskerns] genutzt werden.
+Dabei können alle Funktionen des xref:glossary:glossary:master.adoc#glossar-anwendungskern[Anwendungskerns] genutzt werden.
 Die Service-Komponenten werden entsprechend den Anwendungskern-Komponenten geschnitten, d.h. für jede Komponente des Kerns, die einen Service anbieten soll, wird eine eigene Service-Komponente implementiert.
 Service-Komponenten werden nicht mehrere Anwendungskern-Komponenten.
 Dies würde dem Gebot, in den Services keine Logik zu implementieren, widersprechen.

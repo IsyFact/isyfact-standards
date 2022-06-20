@@ -18,7 +18,7 @@ Der folgende Quelltext dient als Kopiervorlage für neue Seiten.
 
 Der Quelltext einer Seite bricht gemäß der Regel _one sentence per line_ nach jedem Satz um.
 
-Mehr zu xref:werkzeuge:handbuch_dokumentation/master.adoc#ein-satz-pro-zeile[Zeilenumbrüchen im Handbuch der Dokumentation].
+Mehr zu xref:werkzeuge:dokumentation/bearbeitung/bearbeitung-antora.adoc#ein-satz-pro-zeile[Zeilenumbrüchen im Handbuch der Dokumentation].
 
 [[formatierung-verweise]]
 === Verweise
@@ -30,7 +30,7 @@ Verweise enthalten nur die absolut nötigsten Informationen, um das Ziel aufzul�
 
 Es folgt ein Beispiel für einen Verweis:
 
-* innerhalb desselben Moduls: xref:kopiervorlage.adoc[],
+* innerhalb desselben Moduls: xref:/kopiervorlage.adoc[],
 * zwischen zwei Modulen: xref:einstieg:erste-schritte.adoc[Erste Schritte im Modul "Einstieg"],
 * zwischen zwei Komponenten: xref:glossary:glossary:master.adoc[Glossar].
 
@@ -38,7 +38,7 @@ Alle Verweise auf andere Seiten derselben Dokumentation nutzen die Syntax des Xr
 
 [NOTE]
 ====
-Die xref:glossary:literaturextern:inhalt.adoc#litextern-AntoraXrefMacroStructure[Beschreibung der Struktur des Xref-Makros] zeigt weitere, interessante Anwendungsfälle für diese Art von Verweisen.
+Die xref:glossary:literaturextern:inhalt.adoc#litextern-antora-xref-macro-structure[Beschreibung der Struktur des Xref-Makros] zeigt weitere, interessante Anwendungsfälle für diese Art von Verweisen.
 ====
 
 Externe Verweise werden in einer xref:glossary:literaturextern:inhalt.adoc[zentralen Liste] gepflegt und müssen über diese angesprungen werden.
@@ -46,7 +46,10 @@ Ein Beispiel dafür gibt es in dem Admonition Block oberhalb dieses Absatzes.
 
 Verweise auf das xref:glossary:glossary:master.adoc[Glossar] dürfen nur bei der ersten Verwendung eines entsprechenden Begriffs geschehen.
 Alle weitere Vorkommen eines Begriffs werden aus Gründen des Leseflusses nicht mit einem Verweis hinterlegt.
-Es folgt ein Beispiel für den Eintrag der xref:glossary:glossary:master.adoc#glossar-IsyFact[IsyFact] im Glossar.
+Es folgt ein Beispiel für den Eintrag der xref:glossary:glossary:master.adoc#glossar-isyfact[IsyFact] im Glossar.
+
+Mehr zu xref:werkzeuge:dokumentation/bearbeitung/bearbeitung-antora.adoc#querverweise[Verweisen im Handbuch der Dokumentation]. +
+{empty} +
 
 [[formatierung-abbildungen]]
 === Abbildungen
@@ -55,7 +58,7 @@ Es folgt ein Beispiel für den Eintrag der xref:glossary:glossary:master.adoc#gl
 .Beispiel einer Abbildung
 image::einstieg:sf-saeulen.dn.svg[]
 
-Mehr zu xref:werkzeuge:handbuch_dokumentation/master.adoc#bilder[Abbildungen im Handbuch der Dokumentation].
+Mehr zu xref:werkzeuge:dokumentation/bearbeitung/bearbeitung-antora.adoc#bilder[Abbildungen im Handbuch der Dokumentation].
 
 [[formatierung-tabellen]]
 === Tabellen
@@ -71,7 +74,7 @@ Mehr zu xref:werkzeuge:handbuch_dokumentation/master.adoc#bilder[Abbildungen im 
 |Zelle 31|Zelle 32|Zelle 33|Zelle 34
 |===
 
-Mehr zu xref:werkzeuge:handbuch_dokumentation/master.adoc#tabellen[Tabellen im Handbuch der Dokumentation].
+Mehr zu xref:werkzeuge:dokumentation/bearbeitung/bearbeitung-antora.adoc#tabellen[Tabellen im Handbuch der Dokumentation].
 
 [[formatierung-listings]]
 === Listings
@@ -87,7 +90,7 @@ public class HalloWelt {
 }
 ----
 
-Mehr zu xref:werkzeuge:handbuch_dokumentation/master.adoc#listings[Listings im Handbuch der Dokumentation].
+Mehr zu xref:werkzeuge:dokumentation/bearbeitung/bearbeitung-antora.adoc#listings[Listings im Handbuch der Dokumentation].
 
 [[formatierung-admonitions]]
 === Admonition Blocks
@@ -154,7 +157,7 @@ Regeln zur Gestaltung von grafischen Oberflächen.
 
 // end::styleguide[]
 
-Mehr zu xref:werkzeuge:handbuch_dokumentation/master.adoc#admonition-blocks[Admonition Blocks im Handbuch der Dokumentation].
+Mehr zu xref:werkzeuge:dokumentation/bearbeitung/bearbeitung-antora.adoc#admonition-blocks[Admonition Blocks im Handbuch der Dokumentation].
 
 // end::template[]
 ....

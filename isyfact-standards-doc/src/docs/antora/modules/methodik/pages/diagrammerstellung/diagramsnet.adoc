@@ -1,5 +1,5 @@
 = Handbuch diagrams.net
-:sectnums:
+
 :experimental:
 
 include::glossary:licence:partial$licence.adoc[]
@@ -16,9 +16,9 @@ image::diagramsnet/dn-diagramsnet-gui.png[]
 [[Installation-diagrams.net]]
 == Einrichtung von diagrams.net
 diagrams.net kann auf vielfältige Weise verwendet werden.
-Ohne Installation kann die Browser-Variante über xref:glossary:literaturextern:inhalt.adoc#litextern-diagrams.net[diagrams.net] direkt aufgerufen werden.
+Ohne Installation kann die Browser-Variante über xref:glossary:literaturextern:inhalt.adoc#litextern-diagrams-net[diagrams.net] direkt aufgerufen werden.
 Für zahlreiche Betriebssystem-Plattformen stehen außerdem Installationspakete bereit.
-Darüber hinaus gibt es Unterstützung für weit verbreitete IDEs, beispielsweise für xref:glossary:literaturextern:inhalt.adoc#litextern-diagrams.net-IntelliJ[IntelliJ IDEA], allerdings ohne Konfigurationsmöglichkeit, oder xref:glossary:literaturextern:inhalt.adoc#litextern-diagrams.net-VS-Code[Visual Studio Code].
+Darüber hinaus gibt es Unterstützung für weit verbreitete IDEs, beispielsweise für xref:glossary:literaturextern:inhalt.adoc#litextern-diagrams-net-intellij[IntelliJ IDEA], allerdings ohne Konfigurationsmöglichkeit, oder xref:glossary:literaturextern:inhalt.adoc#litextern-diagrams-net-vs-code[Visual Studio Code].
 
 [[IsyFact-Standards-Grafik-Bibliothek-einbinden]]
 === IsyFact-Bibliothek einbinden

@@ -1,5 +1,5 @@
 = Handbuch Enterprise Architect
-:sectnums:
+
 :experimental:
 
 include::glossary:licence:partial$licence.adoc[]
