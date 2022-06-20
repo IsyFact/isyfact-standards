@@ -10,6 +10,7 @@
 - `IFS-1356`: [isy-batchrahmen] Manuelles Herunterfahren in isy-batchrahmen ausgebaut, stattdessen hochpropagieren der BatchAusfuehrungsException, wenn ClassNotFoundException abgefangen wird.
 - `IFS-1091`: [isy-batchrahmen] Fehlerhafte ExcludeFromBatchContext-Annotation behoben
 - `IFS-1466`: [isyfact-products-bom] Spring Boot Versionsanhebung auf 2.5.13
+- `IFS-1050`: [isy-batchrahmen] Stelle Beispiel-SQL-Skripte wieder her, sodass diese mit der Oracle-Datenbank kompatibel sind 
 
 # 2.4.0
 - `IFS-590`: [isy-logging] Instanziierung LogApplicationListener Parameter in korrekter Reihenfolge
