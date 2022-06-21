@@ -329,7 +329,7 @@ HTTP-Anfragen bzw. HTTP-Antworten (s. <<image-http-messages>>) erlauben es an dr
 image::blaupausen:referenzarchitektur/http-messages-aufbau.dn.svg[align="center"]
 Header enthalten Metadaten.
 Der Body enthält Nutzdaten.
-Bei Anfragen mittels `GET` und `DELETE`, die keinen Body erwarten, enthalten URL-Parameter Nutzdaten..
+Bei Anfragen mittels `GET` und `DELETE`, die keinen Body erwarten, enthalten URL-Parameter Nutzdaten.
 ****
 // end::architekturregel[]
 
