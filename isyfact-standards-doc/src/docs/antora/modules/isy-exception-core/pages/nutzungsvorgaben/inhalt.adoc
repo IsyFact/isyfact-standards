@@ -136,7 +136,7 @@ Um nun eine solche Klasse zu erstellen, muss zuvor nach obigem Schema (siehe <<i
 
 Das Beispiel enthält wiederum alle möglichen Konstruktoren.
 Dies dient jedoch auch hier nur der Veranschaulichung.
-Es ist für Exceptions im xref:glossary:glossary:master.adoc#glossar-Anwendungskern[Anwendungskern] nicht notwendig, alle Konstruktoren zur Verfügung zu stellen.
+Es ist für Exceptions im xref:glossary:glossary:master.adoc#glossar-anwendungskern[Anwendungskern] nicht notwendig, alle Konstruktoren zur Verfügung zu stellen.
 Eine Beschreibung der Argumente der Konstruktoren befindet sich in <<table-001>>.
 
 Die unter <<image-007>> und <<image-008>> dargestellten Konstruktoren sind notwendig, um zu gewährleisten, dass alle Exceptions immer eine Ausnahme-ID besitzen, die den Fehlertext identifiziert, d.h. andere Konstruktoren sind nicht gestattet.
@@ -362,7 +362,7 @@ Beschreibungen dazu finden sich in den jeweiligen Detailkonzepten oder den Baust
 === Fehlertexte und deren Einsatz
 
 Fehlertexte müssen in `ResourceBundles` abgelegt werden.
-Die Ablage der Fehlertexte wird durch das xref:isy-ueberwachung:konzept/master.adoc[Konzept Überwachung] vorgegeben, das Laden der Dateien wird in Spring durch Holder-Klassen realisiert und ist im xref:blaupausen:detailkonzept-komponente-anwendungskern/master.adoc[Detailkonzept Komponente Anwendungskern] erläutert.
+Die Ablage der Fehlertexte wird durch das xref:isy-ueberwachung:konzept/master.adoc[Konzept Überwachung] vorgegeben, das Laden der Dateien wird in Spring durch Holder-Klassen realisiert.
 
 Als Schlüssel werden die Ausnahme-IDs verwendet.
 Diese setzen sich aus fünf Buchstaben und fünf numerischen Zeichen zusammen:
@@ -380,11 +380,11 @@ Bei der Erstellung einer neuen Anwendung ist in der Spezifikations- bzw.
 Konstruktionsphase festzulegen, welche Komponente welchen Nummernkreis verwenden muss.
 
 Die Ausnahme-IDs referenzieren immer einen Fehlertext.
-Die referenzierten Fehlertexte können mit Platzhaltern versehen werden (`{1}`, `{2}` etc.), um den Text um kontextbezogene Daten zu erweitern, z. B.
+Die referenzierten Fehlertexte können mit Platzhaltern versehen werden (`\{1}`, `\{2}` etc.), um den Text um kontextbezogene Daten zu erweitern, z. B.
 
 [frame="none"]
 |====
-^|Der Konfigurationsparameter {0} enthält ungültigen Wert {1}.
+^|Der Konfigurationsparameter \{0} enthält ungültigen Wert \{1}.
 |====
 
 Hierzu wird dem Konstruktor der zugehörigen Exception ein String oder String-Array mit den Werten für die Platzhalter übergeben (<<listing-UebergabePlatzhalter>>).

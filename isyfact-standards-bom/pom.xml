@@ -40,7 +40,7 @@
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-exception-sst</artifactId>
-                <version>${project.parent.version}</version>
+                <version>1.11.1</version>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
@@ -70,7 +70,7 @@
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-serviceapi-sst</artifactId>
-                <version>${project.parent.version}</version>
+                <version>1.11.1</version>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
@@ -80,21 +80,6 @@
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-sonderzeichen</artifactId>
-                <version>${project.parent.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>de.bund.bva.isyfact</groupId>
-                <artifactId>isy-exception-sst-bridge</artifactId>
-                <version>${project.parent.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>de.bund.bva.isyfact</groupId>
-                <artifactId>isy-serviceapi-sst-bridge</artifactId>
-                <version>${project.parent.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>de.bund.bva.isyfact</groupId>
-                <artifactId>isy-serviceapi-core-bridge</artifactId>
                 <version>${project.parent.version}</version>
             </dependency>
             <dependency>

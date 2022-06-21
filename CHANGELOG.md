@@ -1,5 +1,16 @@
 # 2.5.0
 - `IFS-1282`: Einführung von Maven CI-friendly Versionen
+- `IFS-1397`: [isyfact-products-bom] Spring Boot Versionsanhebung auf 2.5.12
+- `IFS-1157`: [isyfact-standards-bom] Module und Sub-Module entfernt:
+    * isy-serviceapi-sst
+    * isy-exception-sst
+    * isy-sst-bridge
+- `IFS-1148`: [isy-batchrahmen] Fehler wegen zu langem Klassenpfad unter Windows behoben
+- `IFS-1166`: [isy-serviceapi-core] Autokonfiguration von isy-serviceapi-core nach isy-sicherheit
+- `IFS-1356`: [isy-batchrahmen] Manuelles Herunterfahren in isy-batchrahmen ausgebaut, stattdessen hochpropagieren der BatchAusfuehrungsException, wenn ClassNotFoundException abgefangen wird.
+- `IFS-1091`: [isy-batchrahmen] Fehlerhafte ExcludeFromBatchContext-Annotation behoben
+- `IFS-1466`: [isyfact-products-bom] Spring Boot Versionsanhebung auf 2.5.13
+- `IFS-1050`: [isy-batchrahmen] Stelle Beispiel-SQL-Skripte wieder her, sodass diese mit der Oracle-Datenbank kompatibel sind 
 
 # 2.4.0
 - `IFS-590`: [isy-logging] Instanziierung LogApplicationListener Parameter in korrekter Reihenfolge

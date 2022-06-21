@@ -24,12 +24,6 @@ import static org.junit.Assert.fail;
 import java.io.File;
 import java.net.URISyntaxException;
 
-import ch.qos.logback.classic.LoggerContext;
-import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchReturnCode;
-import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchStartTyp;
-import de.bund.bva.isyfact.batchrahmen.core.launcher.BatchLauncher;
-import de.bund.bva.isyfact.batchrahmen.test.BatchProtokollTester;
-import de.bund.bva.isyfact.batchrahmen.test.TestBatchLauchner;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -39,6 +33,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchReturnCode;
+import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchStartTyp;
+import de.bund.bva.isyfact.batchrahmen.core.launcher.BatchLauncher;
+import de.bund.bva.isyfact.batchrahmen.test.BatchProtokollTester;
+import de.bund.bva.isyfact.batchrahmen.test.TestBatchLauncher;
+
+import ch.qos.logback.classic.LoggerContext;
 
 
 @RunWith(SpringRunner.class)
@@ -73,8 +75,8 @@ public class BatchrahmenTest {
      */
     @Test
     public void testBatchrahmenMitTestBatchLauncher() throws Exception {
-        TestBatchLauchner batchLauncher =
-            new TestBatchLauchner("/resources/batch/basic-test-batch-1-config.properties");
+        TestBatchLauncher batchLauncher =
+            new TestBatchLauncher("/resources/batch/basic-test-batch-1-config.properties");
         assertEquals(0, batchLauncher.starteBatch(BatchStartTyp.START, null));
         assertEquals("beendet", getBatchStatus("basicTestBatch-1"));
     }
@@ -86,6 +88,16 @@ public class BatchrahmenTest {
     public void testBatchrahmen() throws Exception {
         assertEquals(0, BatchLauncher
             .run(new String[] { "-start", "-cfg", "/resources/batch/basic-test-batch-1-config.properties" }));
+        assertEquals("beendet", getBatchStatus("basicTestBatch-1"));
+    }
+
+    /**
+     * Tests the exclusion of a bean in the batch context while executing the batch frame.
+     */
+    @Test
+    public void testBatchrahmenWithExclusion() {
+        assertEquals(0, BatchLauncher
+                .run(new String[] { "-start", "-cfg", "/resources/batch/basic-test-batch-2-config.properties" }));
         assertEquals("beendet", getBatchStatus("basicTestBatch-1"));
     }
 
@@ -215,8 +227,8 @@ public class BatchrahmenTest {
     @Test
     @Ignore("Erfordert manuelles 'kill -15' von außen")
     public void testShutdown() throws Exception {
-        TestBatchLauchner batchLauncher =
-            new TestBatchLauchner("/resources/batch/infinite-test-batch-1-config.properties");
+        TestBatchLauncher batchLauncher =
+            new TestBatchLauncher("/resources/batch/infinite-test-batch-1-config.properties");
         batchLauncher.starteBatch(BatchStartTyp.START, "/batch-2_out.xml", null);
         // assertEquals(143, batchLauncher.starteBatch(BatchStartTyp.START, "/batch-2_out.xml", null));
         BatchProtokollTester bpt = new BatchProtokollTester("/batch-2_out.xml");
@@ -233,8 +245,8 @@ public class BatchrahmenTest {
             + "werden, ob im Log die Meldung Batch beendet geschrieben wurde und der Status in der DB auf abgebrochen "
             + "steht.")
     public void testLaufzeitParameter() throws Exception {
-        TestBatchLauchner batchLauncher =
-            new TestBatchLauchner("/resources/batch/infinite-test-batch-1-config.properties");
+        TestBatchLauncher batchLauncher =
+            new TestBatchLauncher("/resources/batch/infinite-test-batch-1-config.properties");
         assertEquals(144, batchLauncher
             .starteBatch(BatchStartTyp.START, "/laufzeit_out.xml", new String[] { "-laufzeit", "1" }));
         BatchProtokollTester bpt = new BatchProtokollTester("/laufzeit_out.xml");
@@ -247,8 +259,8 @@ public class BatchrahmenTest {
      */
     @Test
     public void testLaufzeitParameterOhneMinuten() throws Exception {
-        TestBatchLauchner batchLauncher =
-            new TestBatchLauchner("/resources/batch/basic-test-batch-1-config.properties");
+        TestBatchLauncher batchLauncher =
+            new TestBatchLauncher("/resources/batch/basic-test-batch-1-config.properties");
         assertEquals(3, batchLauncher
             .starteBatch(BatchStartTyp.START, "/laufzeit_out.xml", new String[] { "-laufzeit" }));
     }
@@ -259,8 +271,8 @@ public class BatchrahmenTest {
      */
     @Test
     public void testLaufzeitParameterOhneMinutenIgnoriereTestlauf() throws Exception {
-        TestBatchLauchner batchLauncher =
-            new TestBatchLauchner("/resources/batch/basic-test-batch-1-config.properties");
+        TestBatchLauncher batchLauncher =
+            new TestBatchLauncher("/resources/batch/basic-test-batch-1-config.properties");
         assertEquals(3, batchLauncher.starteBatch(BatchStartTyp.START, "/laufzeit_out.xml",
             new String[] { "-laufzeit", "-ignoriereLauf" }));
     }
@@ -281,8 +293,8 @@ public class BatchrahmenTest {
      */
     @Test
     public void testLaufzeitParameterMinutenNichtNumerisch() throws Exception {
-        TestBatchLauchner batchLauncher =
-            new TestBatchLauchner("/resources/batch/basic-test-batch-1-config.properties");
+        TestBatchLauncher batchLauncher =
+            new TestBatchLauncher("/resources/batch/basic-test-batch-1-config.properties");
         assertEquals(4, batchLauncher.starteBatch(BatchStartTyp.START, new String[] { "-laufzeit", "ABC" }));
     }
 
@@ -364,8 +376,8 @@ public class BatchrahmenTest {
      */
     @Test
     public void testReturnCodeTestBatch() throws Exception {
-        TestBatchLauchner batchLauncher =
-            new TestBatchLauchner("/resources/batch/returnCode-test-batch-1-config.properties");
+        TestBatchLauncher batchLauncher =
+            new TestBatchLauncher("/resources/batch/returnCode-test-batch-1-config.properties");
         assertEquals(BatchReturnCode.FEHLER_AUSGEFUEHRT.getWert(),
             batchLauncher.starteBatch(BatchStartTyp.START, null));
         assertEquals("beendet", getBatchStatus("returnCodeTestBatch-1"));

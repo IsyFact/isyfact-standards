@@ -6,7 +6,7 @@
 
 Die IsyFact-Referenzarchitektur beinhaltet auf der technischen Ebene Vorgaben für die Sicherheitsarchitektur und für die Prinzipien, nach denen sie aufgebaut ist.
 
-Die konkrete Sicherheitsarchitektur einer xref:glossary:glossary:master.adoc#glossar-Systemlandschaft[Systemlandschaft] muss nach folgenden Prinzipien gestaltet sein:
+Die konkrete Sicherheitsarchitektur einer xref:glossary:glossary:master.adoc#glossar-systemlandschaft[Systemlandschaft] muss nach folgenden Prinzipien gestaltet sein:
 
 * IsyFact-konforme IT-Systeme sind gegen nicht autorisierte Nutzung zu schützen.
 * Die Authentifizierung und grobgranulare Autorisierung erfolgt an den Außenschnittstellen der Systemlandschaft (Portal, Service-Gateway).
@@ -22,12 +22,12 @@ Da das Berechtigungskonzept individuell für jede Anwendungslandschaft erstellt 
 [[authentifizierung]]
 === Authentifizierung
 
-In der Regel erfolgt die Authentifizierung von xref:glossary:glossary:master.adoc#glossar-Anwender[Anwendern] über eine zentrale Komponente der Systemlandschaft, in welche das IT-System eingebettet ist.
+In der Regel erfolgt die Authentifizierung von xref:glossary:glossary:master.adoc#glossar-anwender[Anwendern] über eine zentrale Komponente der Systemlandschaft, in welche das IT-System eingebettet ist.
 Die Authentifizierung darf auch lokal, d.h. vom IT-System selbst, durchgeführt werden, falls es beispielsweise nicht in eine Systemlandschaft eingebettet ist.
 
 Für die zentrale Authentifizierung wird üblicherweise ein IAM-System verwendet.
 
-NOTE: IAM steht für xref:glossary:literaturextern:inhalt.adoc#litextern-Identity_management[Identity and Access Management].
+NOTE: IAM steht für xref:glossary:literaturextern:inhalt.adoc#litextern-identity_management[Identity and Access Management].
 
 Das IAM-System verwaltet *Anwender* und ihre *Rollen*.
 
@@ -84,7 +84,7 @@ Die folgende Abbildung zeigt den logischen Aufbau für die Authentifizierung und
 [id="image-Berechtigungspruefung",reftext="{figure-caption} {counter:figures}"]
 image::isy-sicherheit:konzept/software-architektur-berechtigungspruefung.png[align="center"]
 
-Im Folgenden werden die Aufgaben und grobe Funktionsweise der Komponenten für die Autorisierung von Anfragen in einer xref:glossary:glossary:master.adoc#glossar-Geschaeftsanwendung[Geschäftsanwendung]  erläutert.
+Im Folgenden werden die Aufgaben und grobe Funktionsweise der Komponenten für die Autorisierung von Anfragen in einer xref:glossary:glossary:master.adoc#glossar-geschaeftsanwendung[Geschäftsanwendung]  erläutert.
 
 Die Komponente `AufrufKontextVerwalter` stellt für eine laufende Anfrage Kontextinformationen zur Anfrage bereit, die in einem `AufrufKontext` hinterlegt werden.
 Das sind insbesondere die mit der Anfrage über die Außenschnittstelle eingehenden Informationen zum Anwender und dessen Rollen, die Korrelations-ID und anwendungsspezifisch ggf. weitere Informationen.
@@ -142,9 +142,9 @@ Für die Technologie Spring HTTP Invoker stellt die IsyFact passende Transportob
 [[rollen-und-rechte]]
 == Rollen & Rechte
 
-Die Vergabe von Rollen ist _das_ Mittel der Benutzeradministration, um Anwender der xref:glossary:glossary:master.adoc#glossar-Anwendungslandschaft[Anwendungslandschaft] mit Berechtigungen auszustatten.
-Die Vergabe von Rollen an einen Anwender (menschliche und technische) erfolgt im Querschnitt:
-entweder in der Querschnittsanwendung Benutzerverzeichnis oder im Baustein Benutzerverwaltung.
+Die Vergabe von Rollen ist _das_ Mittel der Benutzeradministration, um Anwender der xref:glossary:glossary:master.adoc#glossar-anwendungslandschaft[Anwendungslandschaft] mit Berechtigungen auszustatten.
+Die Vergabe von Rollen an einen Anwender (menschlicher und technischer) erfolgt im Querschnitt:
+in der Querschnittsanwendung Benutzerverzeichnis.
 
 Es ist konzeptionell beabsichtigt, dass die Administration per Rollen recht grobgranular erfolgt.
 Eine administrative Vergabe feingranularer Rechte ist konzeptionell nicht erwünscht.
@@ -234,14 +234,14 @@ Daher werden diesen technischen Rollen im Regelfall weitere technische Rollen un
 [[technische-zugangsrollen]]
 ==== Technische Zugangsrollen
 
-Anwender gelangen in der Regel entweder über das xref:glossary:glossary:master.adoc#glossar-Portal[Portal] oder den xref:glossary:glossary:master.adoc#glossar-Service-Gateway[Service Gateway] in eine Anwendungslandschaft.
+Anwender gelangen in der Regel entweder über das xref:glossary:glossary:master.adoc#glossar-portal[Portal] oder den xref:glossary:glossary:master.adoc#glossar-service-gateway[Service Gateway] in eine Anwendungslandschaft.
 Um den Zugriff über diese Schnittstellen zentral und einfach zu verwalten, können dafür entsprechende technische Rollen definiert werden (z.B. `Zugang_Portal` und `Zugang_Service_Gateway`).
 Diese Rollen können dann einfach fachlichen Rollen untergeordnet werden, um den jeweiligen Zugriff zu erlauben.
 
 [[technische-querschnitts-rolle]]
 ==== Technische Querschnitts-Rolle
 
-Für xref:glossary:glossary:master.adoc#glossar-ServiceFachlich[Services] des Querschnitts, die nahezu alle Aufrufe benötigen und die keine sicherheitskritischen Operationen anbieten, kann eine zentrale Rolle (z.B. `Querschnitt_Nutzer`) angelegt werden.
+Für xref:glossary:glossary:master.adoc#glossar-service-fachlich[Services] des Querschnitts, die nahezu alle Aufrufe benötigen und die keine sicherheitskritischen Operationen anbieten, kann eine zentrale Rolle (z.B. `Querschnitt_Nutzer`) angelegt werden.
 Diese Rolle berechtigt zur Durchführung von unkritischen Operationen im Querschnitt, wie beispielsweise dem Auslesen von Schlüsselwerten.
 
 Wenn die Querschnitts-Rolle den Zugangsrollen untergeordnet ist, darf jeder Anwender mit Zugriff automatisch auch auf den Querschnitt zugreifen.
@@ -283,7 +283,7 @@ Da die Rollen für fachliche Operationen angelegt werden, sollten sie unabhängi
 So kann beispielsweise die Rolle `Terminfindung_Auskunft` unabhängig davon gelten, ob die Auskunft über ein Service Gateway oder das Portal durchgeführt wird.
 Dies kann durch die Verwendung spezieller technischer Rollen (s. xref:konzept/master.adoc#technische-zugangsrollen[Technische Zugangsrollen]) erreicht werden.
 
-xref:glossary:glossary:master.adoc#glossar-IT-System[IT-Systeme] werden intern in Form von Batches oder Timer-Tasks aktiv.
+xref:glossary:glossary:master.adoc#glossar-it-system[IT-Systeme] werden intern in Form von Batches oder Timer-Tasks aktiv.
 Auch hier findet ein Zugang zur Anwendungslandschaft statt.
 Das Schema zur Benennung einer fachlichen Rolle für IT-Systeme kann folgendermaßen aussehen:
 

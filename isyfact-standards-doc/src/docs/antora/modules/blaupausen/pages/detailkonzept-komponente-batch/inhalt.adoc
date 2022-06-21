@@ -149,7 +149,7 @@ Die Komponente Batchrahmen übernimmt die Steuerung des Batches und den Aufruf d
 
 Die Komponenten einer Geschäftsanwendung werden für einen Batch, genau wie in der Webanwendung, über das Spring-Framework verwaltet.
 Damit die Konfigurationen für die Webanwendung und für die Batch-Implementierungen möglichst gleich sind, werden die Komponenten für den Batchrahmen und die Batchlogik in einer separaten Konfigurationsdatei und einem separaten Spring-Kontext abgelegt.
-Dieser Kontext ist ein Kind-Kontext des eigentlichen xref:glossary:glossary:master.adoc#glossar-Anwendungskontext[Anwendunskontextes] und kann alle Beans des Anwendungskontextes verwenden.
+Dieser Kontext ist ein Kind-Kontext des eigentlichen xref:glossary:glossary:master.adoc#glossar-anwendungskontext[Anwendunskontextes] und kann alle Beans des Anwendungskontextes verwenden.
 So kann die Konfiguration der Webanwendung mit minimalen Anpassungen auch für den Batch verwendet werden.
 
 Der Batchrahmen benötigt für die Speicherung des Fortschritts und des Status der Batches eine Datenbankverbindung.
@@ -449,7 +449,8 @@ Aus der Property-Datei werden durch den Batchrahmen folgende Properties gelesen:
 |`Anwendung.SpringDateien.<N>` |Vollqualifizierte Namen der Spring-Konfigurationsklassen der Geschäftsanwendung
 |`Batchrahmen.SpringDateien.<N>` |Vollqualifizierte Namen der Spring-Konfigurationsklassen des Batchrahmens
 |`Batchrahmen.CommitIntervall` |Anzahl Satz-Verarbeitungen pro Commit
-|`AusfuehrungsBean` |Name der Ausführungsbean für die Batchlogik
+|`Batchrahmen.ClearIntervall`| Anzahl Satz-Verarbeitungen bis zum Löschen des Hibernate session cache. Dies dient Perfomancegründen und der Vermeidung von out of memory Fehlern.
+|`AusfuehrungsBean`|Name der Ausführungsbean für die Batchlogik
 |`BatchId` |ID des Batches (ID des Batch-Status-Datensatzes)
 |`BatchName` |Name des Batches in der Batch-Statustabelle
 |`Batchrahmen.AnzahlZuVerarbeitendeDatensaetze` |Falls nicht die ganze Datei verarbeitet werden soll, sondern nur eine gewisse Anzahl an Datensätzen.
@@ -718,12 +719,12 @@ Datei `JRE_HOME/lib/management/jmxremote.access` readwrite-Zugriff erlaubt ist.
 Ein Batch wird innerhalb der Plattform gestartet.
 Dazu verwendet der Batch die Benutzerkennung eines technischen Benutzers „internes System“, die in seiner Startkonfiguration (als Konfigurationsdatei) hinterlegt und im Benutzerverzeichnis vorhanden ist.
 
-Der Batchrahmen nutzt die T-Komponente Sicherheit (siehe xref:isy-sicherheit:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Sicherheit]), um den anfragenden Benutzer über den Access-Manager der Plattform zu authentifizieren.
-Der Access-Manager authentifiziert den Benutzer anhand der angegebenen Benutzerkennung und des Passwortes, registriert alle Informationen zum Benutzer in der T-Komponente AufrufKontextVerwalter und schließt die Session des Benutzers im Access-Manager.
+Der Batchrahmen nutzt die T-Komponente Sicherheit (siehe xref:isy-sicherheit:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Sicherheit]), um den anfragenden Benutzer über den IAM-Service der Plattform zu authentifizieren.
+Das IAM-Service authentifiziert den Benutzer anhand der angegebenen Benutzerkennung und des Passwortes, registriert alle Informationen zum Benutzer in der T-Komponente AufrufKontextVerwalter und schließt die Session des Benutzers im IAM-System.
 
 Im Zuge des Batchlaufs können nun über die T-Komponente Sicherheit Berechtigungsprüfungen (z.B. im Anwendungskern) stattfinden.
 
-Der Batchrahmen fordert vom BatchAusführungsBean die Implementierung der Methode: getAuthenticationCredentials(), in der dem Batchrahmen bekanntgegeben wird, mit welchem Benutzer der Batch laufen soll.
+Der Batchrahmen fordert vom BatchAusführungsBean die Implementierung der Methode: getAuthenticationCredentials(), in der dem Batchrahmen bekannt gegeben wird, mit welchem Benutzer der Batch laufen soll.
 
 [source,Java]
 ----
@@ -1148,13 +1149,29 @@ Um dieser Problematik zu begegnen, kann in der Satzverarbeitung selbst die Trans
 
 In diesem Fall sollte der Commit-Intervall des Batchrahmens entsprechend hoch konfiguriert werden, um unnötige Commits zu vermeiden, auch wenn in dieser Transaktion nichts passiert.
 
+[[ausnahmeregelungen]]
+== Ausnahmeregelungen
+
+In bestimmten Situationen, z. B. bei der Verarbeitung extrem großer Datenmengen, kann der Fall auftreten, dass die Implementierung eines Batchschritts in Java nicht sinnvoll ist.
+In solchen Fällen muss dann eine Sonderlösung, wie z. B. ein SQL-Skript oder ein Shell-Skript, gefunden werden. Shell-Skripte sind in dem folgenden Kapitel <<shell-batches>> beschrieben.
+
+
+Die Entscheidung, ob in einem solchen Einzelfall eine Sonderlösung gewählt werden kann, muss zwingend in einer Architekturentscheidung erfolgen.
+Eine solche Abweichung von der Referenzarchitektur muss im Systementwurf in der Liste der Abweichungen aufgeführt und begründet werden.
+Dabei muss die Abwägung getroffen werden zwischen der Einhaltung der nicht-funktionalen Anforderungen und der Verringerung der Wartbarkeit durch mehrfach implementierte Funktionalität.
+
+Wichtig ist, dass die einheitliche Außenschnittstelle der Batchschritte erhalten bleibt, d. h. anhand der übergebenen Parameter, Rückgabewerte, geloggten Daten darf für den Nutzer des Batchschritts nicht erkennbar sein, dass dieser in einer anderen Technologie umgesetzt ist.
+
+Die Dokumentation der abweichenden Batchimplementierung erfolgt im Systementwurf und wird daraus in die Systemdokumentation übernommen.
+
 [[shell-batches]]
 == Shell-Batches
 
 [[was-ist-ein-shell-batch]]
 === Was ist ein Shell-Batch?
 
-Als Shell-Batch wird ein Shell-Skript bezeichnet, das Stapelverarbeitungsbefehle ausführt, die direkt in diesem Skript definiert sind.
+Als Shell-Batch wird ein Shell-Skript bezeichnet, das Stapelverarbeitungsbefehle ausführt, die direkt in diesem Skript definiert sind. 
+Damit fallen sie unter die Ausnahmeregelungen des vorherigen Kapitels <<ausnahmeregelungen>>.
 Reguläre Batches werden meist ebenfalls über ein Shell-Skript gestartet, ihre Logik ist aber in Java programmiert.
 Das Skript startet also nur das zugehörige Programm.
 
@@ -1164,8 +1181,7 @@ Komplexe fachliche Logik sollte aber immer als dediziertes Batchprogramm umgeset
 Ein Beispiel für Shell-Batches sind einmalige SQL-Migrationen.
 Das Shell-Skript baut dabei eine Verbindung mit dem Datenbank-Server auf und führt eine SQL-Datei aus.
 
-Es gibt aber auch Systeme die im regulären Wirkbetrieb regelmäßig Shell-Batches ausführen; bspw.
-um Datenbankabzüge für statistische Auswertungen zu erstellen.
+Es gibt aber auch Systeme die im regulären Wirkbetrieb regelmäßig Shell-Batches ausführen; bspw. um Datenbankabzüge für statistische Auswertungen zu erstellen.
 
 [[aufbau-von-shell-batches]]
 === Aufbau von Shell-Batches
@@ -1314,20 +1330,7 @@ Eine funktionsfähige Version dieses Beispiels ist im isy-batchrahmen
 unter `src/main/skripte/shellbatch_template/` eingecheckt.
 Um dieses ausführen zu können, muss eine funktionierende Datenbankverbindung auf ein leeres Schema in der jpa.properties Datei angegeben werden.
 
-[[ausnahmeregelungen]]
-== Ausnahmeregelungen
-
-In bestimmten Situationen, z. B. bei der Verarbeitung extrem großer Datenmengen, kann der Fall auftreten, dass die Implementierung eines Batchschritts in Java nicht sinnvoll ist.
-In solchen Fällen muss dann eine Sonderlösung, wie z. B. ein SQL-Skript, gefunden werden.
-
-Die Entscheidung, ob in einem solchen Einzelfall eine Sonderlösung gewählt werden kann, muss zwingend in Absprache mit dem Chefarchitekten bzw.
-Architekturboard erfolgen.
-Eine solche Abweichung von der Referenzarchitektur muss im Systementwurf in der Liste der Abweichungen aufgeführt und begründet werden.
-Dabei muss die Abwägung getroffen werden zwischen der Einhaltung der nicht-funktionalen Anforderungen und der Verringerung der Wartbarkeit durch mehrfach implementierte Funktionalität.
-
-Wichtig ist, dass die einheitliche Außenschnittstelle der Batchschritte erhalten bleibt, d. h. anhand der übergebenen Parameter, Rückgabewerte, geloggten Daten darf für den Nutzer des Batchschritts nicht erkennbar sein, dass dieser in einer anderen Technologie umgesetzt ist.
-
-Die Dokumentation der abweichenden Batchimplementierung erfolgt im Systementwurf und wird daraus in die Systemdokumentation übernommen.
+Details zu dem Datenzugriff, welcher in diesem Beispiel aufgeführt ist, oder alternative Datenzugriffe, befinden sich in dem Dokument <<DetailkonzeptKomponenteDatenzugriff>>.
 
 // tag::architekturregel[]
 

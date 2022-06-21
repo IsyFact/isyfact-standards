@@ -75,6 +75,7 @@ Die dort aufgelisteten Informationen müssen für jeden Service einzeln angebote
 m|AnzahlAufrufeLetzteMinute |Liefert die Anzahl der in der letzten Minute erfolgten Aufrufe des Services insgesamt.
 m|AnzahlFehlerLetzteMinute |Liefert die Anzahl der in der letzten Minute erfolgten Aufrufe des Services, bei denen ein technischer Fehler aufgetreten ist.
 m|DurchschnittsDauerLetzteAufrufe |Liefert die durchschnittliche Bearbeitungsdauer der letzten 10 Aufrufe der Services in Millisekunden (einfacher gleitender Durchschnitt).
+m|ServiceStatistic|Stellt Informationen über den Dienstnamen und die Version bereit.
 |====
 
 NOTE: Die Summe der Aufrufe wird alle 60 Sekunden aktualisiert.
@@ -220,9 +221,9 @@ gesetzt.
 Die im Konzept beschriebenen Überwachungsfunktionen dürfen keinen relevanten negativen Einfluss auf die Performance der Anwendung haben.
 Dazu sind neben der Einhaltung der in dem Dokument xref:nutzungsvorgaben/master.adoc#einleitung[Überwachung - Konzept] beschriebenen Vorgaben noch einige grundlegende  Regeln zu beachten:
 
-* Da nicht auszuschließen ist, dass ein Überwachungswerkzeug sehr häufig Informationen aus den Endpoints abruft, darf das Bereitstellen der Informationen keine zeitaufwändigen Aktionen im xref:glossary:glossary:master.adoc#glossar-Anwendungssystem[Anwendungssystem] veranlassen.
+* Da nicht auszuschließen ist, dass ein Überwachungswerkzeug sehr häufig Informationen aus den Endpoints abruft, darf das Bereitstellen der Informationen keine zeitaufwändigen Aktionen im xref:glossary:glossary:master.adoc#glossar-anwendungssystem[Anwendungssystem] veranlassen.
 * Bei der Bereitstellung weiterer Überwachungsinformationen ist darauf zu achten, dass die Ermittlung der Kennzahlen keinen relevanten negativen Einfluss auf die Anwendungs-Performance hat.
-Insbesondere dürfen keine fachlichen Funktionen des xref:glossary:glossary:master.adoc#glossar-Anwendungskern[Anwendungskerns] aufgerufen werden.
+Insbesondere dürfen keine fachlichen Funktionen des xref:glossary:glossary:master.adoc#glossar-anwendungskern[Anwendungskerns] aufgerufen werden.
 
 [[statische-informationen-ueber-die-anwendung]]
 ==== Statische Informationen über die Anwendung
@@ -256,7 +257,7 @@ Einbindung von passenden Maven-Plugins können diese Informationen automatisch b
 
 Bei Bedarf können weitere statische Informationen von der Anwendung bereitgestellt werden.
 
-NOTE: Weiterführende Informationen enthält die xref:glossary:literaturextern:inhalt.adoc#litextern-Spring-Boot-Info-Endpoint[Dokumentation von Spring Boot zum Info-Endpoint].
+NOTE: Weiterführende Informationen enthält die xref:glossary:literaturextern:inhalt.adoc#litextern-spring-boot-info-endpoint[Dokumentation von Spring Boot zum Info-Endpoint].
 
 [[konfiguration-und-absicherung-von-endpoints]]
 ==== Konfiguration und Absicherung von Endpoints
@@ -411,6 +412,12 @@ Für jeden Schlüssel sind folgende Properties zu setzen:
 * `essentiell` (`true`/`false`) : Ist ein essentielles Nachbarsystem nicht erreichbar, wird der Status des Nachbarsystem-Indikators auf DOWN gesetzt und ein Error geloggt.
 Nicht essentielle Nachbarsysteme beeinflussen den Status nicht und werden, falls sie nicht erreichbar sind, nur als Warning geloggt.
 
+==== Korrelations-ID bei einem Nachbarsystem-HealthIndicator
+Eine Korrelations-ID muss gesetzt werden, wenn ein `HealthIndicator` ein Nachbarsystem aufruft.
+Diese wird im Logging Kontext benötigt.
+Konkret wird die Korrelations-ID im Task Scheduling gesetzt. `isy-ueberwachung` liefert
+nur eine Default-Konfiguration für einen `HealthIndicator`.
+
 ==== Implementierung weiterer eigener Health-Indikatoren
 
 Es können weitere Indikatoren zur Überprüfung anderer Komponenten implementiert werden.
@@ -423,21 +430,18 @@ Hierfür gelten folgende Richtlinien:
 
 * Der `HealthIndicator` wird als Teil der Administrationskomponente implementiert.
 * Der `HealthIndicator` darf keine fachlich relevanten Daten verändern.
-* Der `HealthIndicator` muss zu Beginn eine Korrelations-ID erzeugen, die im Logging-Kontext gesetzt werden muss.
-Bei jedem Aufruf an ein Nachbarsystem ist diese zu übergeben.
 
 Neben den Nachbarsystemen sind weitere Überprüfungen sinnvoll:
 
-* Verfügbarkeit weiterer genutzter Ressourcen, wie beispielsweise der LDAP-Server oder genutzte FTP-Verzeichnisse.
+* Verfügbarkeit weiterer genutzter Ressourcen, wie beispielsweise das IAM-System oder genutzte FTP-Verzeichnisse.
 Bei der Prüfung der genutzten Ressourcen ist zu beachten, dass sich die Implementierung nicht aufhängt und somit die Prüfung nicht weiterläuft.
 Um dies zu vermeiden, sollte zur Prüfung der genutzten Ressourcen das Future-Pattern wie in <<listing-Pruefmethode>> gezeigt, verwendet werden.
 +
 [NOTE]
 ====
-Als Beispiel sei hier der LDAP-Server genannt. Zur Prüfung des LDAP-Servers wird in der Regel eine Beispielanfrage
-an den Server gesendet.
-Ist vor den LDAP-Server ein Loadbalancer geschaltet, so kann es nach einem Fail-Over passieren, dass diese
-Beispielanfrage endlos läuft.
+Als Beispiel sei hier das IAM-System genannt.
+Zur Prüfung des IAM-Systems wird in der Regel eine Beispielanfrage an den Server gesendet.
+Ist vor das IAM-System ein Loadbalancer geschaltet, so kann es nach einem Fail-Over passieren, dass diese Beispielanfrage endlos läuft.
 ====
 
 .Demonstration Future-Pattern
@@ -479,7 +483,7 @@ Soll beispielweise _Prometheus_ angebunden werden, muss die folgende Dependecy e
 ----
 
 Häufig ist keine weitere Konfiguration notwendig, da die Anbindung durch Spring Boot automatische konfiguriert wird.
-Die Konfiguration für die unterstützten Monitoring-System ist in xref:glossary:literaturextern:inhalt.adoc#litextern-Monitoring-Systeme[Monitoring-Systeme] beschrieben.
+Die Konfiguration für die unterstützten Monitoring-System ist in xref:glossary:literaturextern:inhalt.adoc#litextern-monitoring-systeme[Monitoring-Systeme] beschrieben.
 
 [[anwendungen-deaktivierbar-machen]]
 === Anwendungen deaktivierbar machen

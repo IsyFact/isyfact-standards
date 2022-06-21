@@ -1,7 +1,0 @@
-// tag::it-sicherheitsregeln[]
-
-[[it-sicherheitsregeln-isyfact-einstieg]]
-== IT-Sicherheitsregeln IsyFact-Einstieg
-
-include::inhalt.adoc[tags=sicherheit]
-// end::it-sicherheitsregeln[]

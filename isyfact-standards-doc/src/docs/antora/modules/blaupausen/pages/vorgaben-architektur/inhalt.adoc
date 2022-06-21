@@ -3,11 +3,9 @@
 == Architekturregeln der IsyFact
 
 :leveloffset: +1
-include::einstieg:page$einstieg/inhalt.adoc[tags=architekturregel]
 include::blaupausen:page$referenzarchitektur/inhalt.adoc[tags=architekturregel]
 include::blaupausen:page$referenzarchitektur-it-system/inhalt.adoc[tags=architekturregel]
 include::einstieg:page$tutorial/inhalt.adoc[tags=architekturregel]
-include::einstieg:page$whitepaper/inhalt.adoc[tags=architekturregel]
 
 include::blaupausen:page$detailkonzept-komponente-anwendungskern/inhalt.adoc[tags=architekturregel]
 include::blaupausen:page$detailkonzept-komponente-batch/inhalt.adoc[tags=architekturregel]
@@ -17,7 +15,7 @@ include::blaupausen:page$detailkonzept-komponente-web-gui/inhalt.adoc[tags=archi
 
 include::isy-exception-core:page$konzept/inhalt.adoc[tags=architekturregel]
 include::isy-exception-core:page$nutzungsvorgaben/inhalt.adoc[tags=architekturregel]
-include::isy-sonderzeichen:page$konzept/inhalt.adoc[tags=architekturregel]
+include::isy-sonderzeichen:page$konzept/sonderzeichen.adoc[tags=architekturregel]
 include::isy-sonderzeichen:page$nutzungsvorgaben/inhalt.adoc[tags=architekturregel]
 
 include::isy-datetime:page$konzept/inhalt.adoc[tags=architekturregel]
@@ -38,6 +36,4 @@ include::isy-ueberwachung:page$nutzungsvorgaben/inhalt.adoc[tags=architekturrege
 
 include::methodik:page$versionierung/inhalt.adoc[tags=architekturregel]
 include::methodik:page$java-programmierkonventionen/inhalt.adoc[tags=architekturregel]
-
-include::isyfact-benutzerverwaltung-doku:benutzerverwaltung:inhalt.adoc[tags=architekturregel]
 // end::inhalt[]

@@ -1,8 +1,4 @@
-
-:doctitle: Java Programmierkonventionen
-
-:sectnums:
-:sectnumlevels: 4
+= Java Programmierkonventionen
 
 include::glossary:licence:partial$licence.adoc[]
 

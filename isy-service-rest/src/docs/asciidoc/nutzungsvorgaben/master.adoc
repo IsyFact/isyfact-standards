@@ -1,9 +1,0 @@
-:doctitle: REST
-:document-type: Nutzungsvorgaben
-:xrefstyle: short
-
-colophon::[]
-
-include::thisdoc.adoc[tags=inhalt]
-
-include::inhalt.adoc[tags=inhalt]

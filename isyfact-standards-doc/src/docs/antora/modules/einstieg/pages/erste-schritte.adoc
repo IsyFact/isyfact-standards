@@ -1,0 +1,24 @@
+= Erste Schritte
+
+include::glossary:licence:partial$licence.adoc[]
+
+IsyFact ist modular aufgebaut und gibt keine strikte Lese-Reihenfolge vor.
+Um die IsyFact als Ganzes kennenzulernen, zu verstehen und einzusetzen, empfehlen wir das Folgende an den 5 Säulen orientierte Vorgehen:
+
+. Die *xref:vorstellung.adoc[]* sowie die Beschreibungen der *xref:vorstellung/isyfact-standards.adoc[]* und *xref:vorstellung/isyfact-erweiterungen.adoc[]* vermitteln einen ersten, konkreten Überblick der IsyFact.
+. Das *xref:tutorial/master.adoc[]* gibt einen Überblick über wichtige Aspekte der IsyFact-konformen Anwendungsentwicklung.
+Es erleichtert dem Nutzer, die für ihn relevanten Aspekte der IsyFact zu identifizieren, die im Detail durchgearbeitet werden sollten.
+. Die *xref:blaupausen:blaupausen.adoc[]* beschreiben auf mehreren Ebenen die Architektur, die allen anderen Konzepten der IsyFact zugrunde liegt und führen häufig verwendete Begriffe ein.
+Es bietet sich daher an, bei der Einarbeitung mit dieser „Säule“ zu beginnen.
+. Danach sollten die _relevanten_ *xref:bausteine:bausteine.adoc[]* im Detail gelesen werden.
+. *xref:plattform:plattform.adoc[] und xref:methodik:methodik.adoc[]* sollten wiederum im Ganzen gelesen werden, da sie querschnittlich die Basis des Systembetriebs bzw. der angewandten Methodik beschreiben.
+. Die *xref:werkzeuge:werkzeuge.adoc[]* sind erst bei der tatsächlichen Realisierung der Systeme relevant.
+Es ist jedoch sinnvoll sich im Voraus einen Überblick zu verschaffen.
+. Das *Tailoring*-Dokument bietet einen Überblick über die Zuschneidbarkeit der Factory.
+Dies ist insbesondere dann relevant, wenn eine eigene Factory etabliert werden soll.
+
+[[isyfact-einarbeitung]]
+.Einarbeitung in die IsyFact anhand der 5 Säulen
+image::einstieg/isyfact-einarbeitung.dn.svg[]
+
+Während der gesamten Einarbeitung dient außerdem das xref:glossary:glossary:master.adoc[Glossar] dazu, zentrale Begriffe der IsyFact nachzuschlagen.

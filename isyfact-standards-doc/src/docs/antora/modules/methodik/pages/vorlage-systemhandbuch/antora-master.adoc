@@ -2,9 +2,6 @@
 [discrete]
 === Vorlage
 
-:sectnums:
-:sectnumlevels: 4
-
 include::glossary:licence:partial$licence.adoc[]
 
 // Inhalt
@@ -12,3 +9,5 @@ include::inhalt.adoc[tags=inhalt]
 
 // Kapitelnummerierung ausschalten
 :sectnums!:
+
+include::inhalt.adoc[tags=quellen]

@@ -40,7 +40,7 @@ import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.isyfact.aufrufkontext.impl.AufrufKontextFactoryImpl;
 import de.bund.bva.isyfact.serviceapi.core.aop.test.AufrufKontextSstTestBean;
 import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.helper.DebugAufrufKontextVerwalter;
-import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
+import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 
 import junit.framework.AssertionFailedError;
 import ma.glasnost.orika.MapperFacade;

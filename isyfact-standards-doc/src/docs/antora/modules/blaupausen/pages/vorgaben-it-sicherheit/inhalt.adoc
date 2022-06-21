@@ -3,11 +3,9 @@
 == IT-Sicherheitsregeln der IsyFact
 
 :leveloffset: +1
-include::einstieg:page$einstieg/inhalt.adoc[tags=sicherheit]
 include::blaupausen:page$referenzarchitektur/inhalt.adoc[tags=sicherheit]
 include::blaupausen:page$referenzarchitektur-it-system/inhalt.adoc[tags=sicherheit]
 include::einstieg:page$tutorial/inhalt.adoc[tags=sicherheit]
-include::einstieg:page$whitepaper/inhalt.adoc[tags=sicherheit]
 
 include::blaupausen:page$detailkonzept-komponente-anwendungskern/inhalt.adoc[tags=sicherheit]
 include::blaupausen:page$detailkonzept-komponente-batch/inhalt.adoc[tags=sicherheit]
@@ -17,7 +15,7 @@ include::blaupausen:page$detailkonzept-komponente-web-gui/inhalt.adoc[tags=siche
 
 include::isy-exception-core:page$konzept/inhalt.adoc[tags=sicherheit]
 include::isy-exception-core:page$nutzungsvorgaben/inhalt.adoc[tags=sicherheit]
-include::isy-sonderzeichen:page$konzept/inhalt.adoc[tags=sicherheit]
+include::isy-sonderzeichen:page$konzept/sonderzeichen.adoc[tags=sicherheit]
 include::isy-sonderzeichen:page$nutzungsvorgaben/inhalt.adoc[tags=sicherheit]
 
 include::isy-datetime:page$konzept/inhalt.adoc[tags=sicherheit]
@@ -38,6 +36,4 @@ include::isy-ueberwachung:page$nutzungsvorgaben/inhalt.adoc[tags=sicherheit]
 
 include::methodik:page$versionierung/inhalt.adoc[tags=sicherheit]
 include::methodik:page$java-programmierkonventionen/inhalt.adoc[tags=sicherheit]
-
-include::isyfact-benutzerverwaltung-doku:benutzerverwaltung:inhalt.adoc[tags=sicherheit]
 // end::inhalt[]

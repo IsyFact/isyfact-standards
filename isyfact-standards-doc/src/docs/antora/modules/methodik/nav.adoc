@@ -1,4 +1,4 @@
-* Methodik
+* xref:methodik.adoc[]
 ** xref:namenskonventionen/master.adoc[Namenskonventionen]
 ** xref:versionierung/master.adoc[Versionierung]
 ** xref:java-programmierkonventionen/master.adoc[Java-Programmierkonventionen]
@@ -6,3 +6,4 @@
 *** xref:diagrammerstellung/diagramsnet.adoc[diagrams.net]
 *** xref:diagrammerstellung/enterprise-architect.adoc[Enterprise Architect]
 ** xref:vorlagen.adoc[Vorlagen]
+*** xref:vorlagen/bearbeitung.adoc[]

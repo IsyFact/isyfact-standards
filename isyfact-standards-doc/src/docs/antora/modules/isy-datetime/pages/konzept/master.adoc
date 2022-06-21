@@ -1,8 +1,4 @@
-:doctitle: Baustein Datum & Zeit
-[discrete]
-=== Konzept
-
-:sectnums:
+= Konzept Datum & Zeit
 
 include::glossary:licence:partial$licence.adoc[]
 

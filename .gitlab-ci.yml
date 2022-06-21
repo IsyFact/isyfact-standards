@@ -5,15 +5,6 @@ include:
 build:
   extends: .maven-build
 
-build:doc:
-  extends: .maven-build
-  variables:
-    MAVEN_BUILD_OPTS: -Pbuild-docs
-  artifacts:
-    expire_in: 1 day
-    paths:
-      - '**/target/doc/**'
-
 test:isy-aufrufkontext:
   extends: .maven-test
 
@@ -24,9 +15,6 @@ test:isy-datetime:
   extends: .maven-test
 
 test:isy-exception-core:
-  extends: .maven-test
-
-test:isy-exception-sst:
   extends: .maven-test
 
 test:isy-konfiguration:
@@ -44,16 +32,10 @@ test:isy-polling:
 test:isy-serviceapi-core:
   extends: .maven-test
 
-test:isy-serviceapi-sst:
-  extends: .maven-test
-
 test:isy-sicherheit:
   extends: .maven-test
 
 test:isy-sonderzeichen:
-  extends: .maven-test
-
-test:isy-sst-bridge:
   extends: .maven-test
 
 test:isy-task:

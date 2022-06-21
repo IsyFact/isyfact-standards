@@ -1,0 +1,1 @@
+* xref:plattform.adoc[]

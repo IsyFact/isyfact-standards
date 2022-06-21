@@ -1,9 +1,4 @@
-:doctitle: Baustein Konfiguration
-[discrete]
-=== Nutzungsvorgaben
-
-:sectnums:
-:sectnumlevels: 4
+= Nutzungsvorgaben Konfiguration
 
 include::glossary:licence:partial$licence.adoc[]
 

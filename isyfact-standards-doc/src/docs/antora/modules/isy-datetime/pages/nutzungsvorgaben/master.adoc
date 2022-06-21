@@ -1,9 +1,4 @@
-:doctitle: Baustein Datum & Zeit
-[discrete]
-=== Nutzungsvorgaben
-
-:sectnums:
-:sectnumlevels: 4
+= Nutzungsvorgaben Datum & Zeit
 
 include::glossary:licence:partial$licence.adoc[]
 

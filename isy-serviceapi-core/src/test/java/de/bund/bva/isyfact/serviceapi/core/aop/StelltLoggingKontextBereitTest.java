@@ -1,6 +1,11 @@
 package de.bund.bva.isyfact.serviceapi.core.aop;
 
-import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.util.UUID;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,21 +16,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit4.SpringRunner;
+
 import de.bund.bva.isyfact.serviceapi.core.aop.service.httpinvoker.v1_0_0.DummyKontextServiceImpl;
 import de.bund.bva.isyfact.serviceapi.core.aop.service.httpinvoker.v1_0_0.DummyKontextServiceRemoteBean;
-
-import java.util.UUID;
-
-import static org.junit.Assert.*;
+import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 
 /**
- * Tested, ob der {@link StelltLoggingKontextBereitInterceptor} korrekt durch die Annnotation an der Methode
- * {@code ping()} der Klasse {@link DummyKontextServiceImpl} aufgerufen wird.
- *
+ * Tests if the {@link StelltLoggingKontextBereitInterceptor} is correctly
+ * called by the annotation on the {@code ping()} method of the {@link DummyKontextServiceImpl} class.
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = StelltLoggingKontextBereitTest.TestConfig.class,
-properties = {"isy.logging.autoconfiguration.enabled=false"})
+        properties = {"isy.logging.autoconfiguration.enabled=false"})
 public class StelltLoggingKontextBereitTest {
 
     @Autowired
@@ -53,7 +55,7 @@ public class StelltLoggingKontextBereitTest {
     @Test
     public void testStelltLoggingKontextNichtBereitMitAufrufKontext() {
         String korrelationsId =
-            this.dummyService.stelltLoggingKontextNichtBereitMitAufrufKontext(this.aufrufKontext);
+                this.dummyService.stelltLoggingKontextNichtBereitMitAufrufKontext(this.aufrufKontext);
         assertEquals(korrelationsId, null);
     }
 
@@ -72,7 +74,7 @@ public class StelltLoggingKontextBereitTest {
     @Test
     public void testStelltLoggingKontextBereitMitAufrufKontext() {
         String korrelationsId =
-            this.dummyService.stelltLoggingKontextBereitMitAufrufKontext(this.aufrufKontext);
+                this.dummyService.stelltLoggingKontextBereitMitAufrufKontext(this.aufrufKontext);
         assertEquals(korrelationsId, this.aufrufKontext.getKorrelationsId());
     }
 

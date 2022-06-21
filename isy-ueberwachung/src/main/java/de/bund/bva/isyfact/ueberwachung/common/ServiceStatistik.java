@@ -34,10 +34,10 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.ClassUtils;
 
 import de.bund.bva.isyfact.datetime.util.DateTimeUtil;
-import de.bund.bva.isyfact.exception.service.BusinessToException;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.isyfact.serviceapi.annotations.FachlicherFehler;
+import de.bund.bva.pliscommon.exception.service.PlisBusinessToException;
+import de.bund.bva.pliscommon.serviceapi.annotations.FachlicherFehler;
 
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -73,7 +73,7 @@ public class ServiceStatistik implements MethodInterceptor, InitializingBean {
     /**
      * Duration of the last search calls (in milliseconds).
      */
-    private List<Long> letzteSuchdauern = new LinkedList<>();
+    private final List<Long> letzteSuchdauern = new LinkedList<>();
 
     /**
      * Flag for the minute in which values of the last minute were determined.
@@ -151,7 +151,7 @@ public class ServiceStatistik implements MethodInterceptor, InitializingBean {
      * Specifies whether the return object structures should be checked for technical errors. May
      * have performance implications.
      *
-     * @param fachlicheFehlerpruefung <code>true</code> if the return object structure should be checked for technical errors, otherwise <code>false</code>.
+     * @param fachlicheFehlerpruefung {@code true} if the return object structure should be checked for technical errors, otherwise {@code false}.
      */
     public void setFachlicheFehlerpruefung(boolean fachlicheFehlerpruefung) {
         this.fachlicheFehlerpruefung = fachlicheFehlerpruefung;
@@ -163,9 +163,9 @@ public class ServiceStatistik implements MethodInterceptor, InitializingBean {
      * the duration and whether the call failed.
      *
      * @param dauer               The duration of the call in milliseconds.
-     * @param erfolgreich         Indicator whether the call was successful (<code>true</code>) or a technical error
-     *                            occurred (<code>false</code>).
-     * @param fachlichErfolgreich Flag indicating whether the call was technical successful (<code>true</code>) or a technical * error occurred (<code>false</code>).
+     * @param erfolgreich         Indicator whether the call was successful ({@code true}) or a technical error
+     *                            occurred ({@code false}).
+     * @param fachlichErfolgreich Flag indicating whether the call was technical successful ({@code true}) or a technical * error occurred ({@code false}).
      */
     public synchronized void zaehleAufruf(long dauer, boolean erfolgreich, boolean fachlichErfolgreich) {
         aktualisiereZeitfenster();
@@ -275,13 +275,9 @@ public class ServiceStatistik implements MethodInterceptor, InitializingBean {
         try {
             Object result = invocation.proceed();
             erfolgreich = true;
-            if (fachlicheFehlerpruefung) {
-                fachlichErfolgreich = !sindFachlicheFehlerVorhanden(result);
-            } else {
-                fachlichErfolgreich = true;
-            }
+            fachlichErfolgreich = !fachlicheFehlerpruefung || !sindFachlicheFehlerVorhanden(result);
             return result;
-        } catch (BusinessToException t) {
+        } catch (PlisBusinessToException t) {
             // BusinessExceptions are not counted as technical errors.
             erfolgreich = true;
             throw t;
@@ -298,7 +294,7 @@ public class ServiceStatistik implements MethodInterceptor, InitializingBean {
      * @param result The return object of the call.
      * @return true if errors, false otherwise.
      */
-    private boolean sindFachlicheFehlerVorhanden(final Object result) {
+    private static boolean sindFachlicheFehlerVorhanden(final Object result) {
         return pruefeObjektAufFehler(result, null, 1);
     }
 
@@ -313,9 +309,9 @@ public class ServiceStatistik implements MethodInterceptor, InitializingBean {
      *               start, but can be used to check for superclasses of an object.
      * @param tiefe  tiefe  Specifies the current depth of the call. Must be incremented when traversing the
      *               class structure downwards.
-     * @return <code>true</code> if error found, otherwise <code>false</code>.
+     * @return {@code true} if error found, otherwise {@code false}.
      */
-    boolean pruefeObjektAufFehler(final Object result, Class<?> clazz, int tiefe) {
+    static boolean pruefeObjektAufFehler(final Object result, Class<?> clazz, int tiefe) {
         // If max. depth reached, do not check further
         if (tiefe > MAXTIEFE) {
             LOGISY.trace("Max. Tiefe erreicht, prüfe nicht weiter auf fachliche Fehler");
@@ -390,18 +386,20 @@ public class ServiceStatistik implements MethodInterceptor, InitializingBean {
         return fehlerGefunden;
     }
 
-    private boolean typeHasSuperClass(Class clazz) {
+    private static boolean typeHasSuperClass(Class clazz) {
         return clazz.getSuperclass() != null && !clazz.getSuperclass().equals(Object.class);
     }
 
-    private boolean fieldIsNotACollection(Field field) {
+    private static boolean fieldIsNotACollection(Field field) {
         return !Collection.class.isAssignableFrom(field.getType());
     }
 
     @Override
     public void afterPropertiesSet() {
-        LOGISY.debug("ServiceStatistik " + (fachlicheFehlerpruefung ?
-                " mit erweiterter fachlicher Fehlerprüfung " :
-                "") + " initialisiert.");
+        if (fachlicheFehlerpruefung) {
+            LOGISY.debug("ServiceStatistik mit erweiterter fachlicher Fehlerprüfung initialisiert.");
+        } else {
+            LOGISY.debug("ServiceStatistik initialisiert.");
+        }
     }
 }

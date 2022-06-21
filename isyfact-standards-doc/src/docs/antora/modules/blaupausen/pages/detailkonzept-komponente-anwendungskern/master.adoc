@@ -1,9 +1,4 @@
-:doctitle: Komponente Anwendungskern
-[discrete]
-=== Detailkonzept
-
-:sectnums:
-:sectnumlevels: 4
+= Detailkonzept Anwendungskern
 
 include::glossary:licence:partial$licence.adoc[]
 
