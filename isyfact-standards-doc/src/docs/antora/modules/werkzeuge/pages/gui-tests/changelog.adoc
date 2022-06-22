@@ -1,0 +1,6 @@
+[[gui-tests-changelog]]
+
+== Changelog
+
+
+- initiale Aufsetzung
