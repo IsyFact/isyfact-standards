@@ -1,4 +1,5 @@
 # 1.13.0
+- `IFS-1073`: Logausgabe zur Korrektur der Korrelations-Id entfernt
 - `IFS-668`: Zurücksetzung der KorrelationsId des AnrufKontextTo bei einem Invoke
 - `IFS-875`: Umsetzung des Transports von OAuth 2 Bearer-Token zwischen Schnittstellentechnologien
     - `IsyHttpInvokerServiceExporter` und `TimeoutWiederholungHttpInvokerRequestExecutor` um den `AufrufKontextVerwalter` erweitert.
