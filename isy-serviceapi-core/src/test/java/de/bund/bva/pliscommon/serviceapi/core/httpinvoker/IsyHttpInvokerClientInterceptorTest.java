@@ -54,7 +54,6 @@ public class IsyHttpInvokerClientInterceptorTest {
         when(logHelper.ermittleAktuellenZeitpunkt()).thenReturn(1L).thenReturn(2L);
         when(methodInvocation.getArguments()).thenReturn(new Object[] { aufrufKontextTo });
         when(methodInvocation.getMethod()).thenReturn(toStringMethod);
-        when(aufrufKontextTo.getKorrelationsId()).thenReturn(KORRELATIONS_ID);
 
         isyHttpInvokerClientInterceptor.setLogHelper(logHelper);
         isyHttpInvokerClientInterceptor.setRemoteSystemName(REMOTE_SYSTEM);

@@ -74,16 +74,6 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
         MdcHelper.pushKorrelationsId(korrelationsId);
 
         if (Objects.nonNull(aufrufKontextTo)) {
-            // Warning if there was already a Korr-Id in the AufrufkontextTo which didn't match
-            if (Objects.nonNull(aufrufKontextTo.getKorrelationsId()) && !aufrufKontextTo.getKorrelationsId()
-                .isEmpty() && !MdcHelper.liesKorrelationsId()
-                .equals(aufrufKontextTo.getKorrelationsId() + ";" + korrelationsId)) {
-                LOGGER.warn(EreignisSchluessel.AUFRUFKONTEXT_KORRID_KORRIGIERT,
-                    "Die Korrelations-Id {} im Aufrufkontext wurde korrigiert, "
-                        + "da diese nicht mit der Korr-Id auf dem MDC {} übereinstimmt.",
-                    aufrufKontextTo.getKorrelationsId(), MdcHelper.liesKorrelationsId());
-            }
-
             // set korrelationsId in the context
             aufrufKontextTo.setKorrelationsId(MdcHelper.liesKorrelationsId());
         }
