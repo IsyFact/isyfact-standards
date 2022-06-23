@@ -17,7 +17,6 @@
 package de.bund.bva.isyfact.serviceapi.core.httpinvoker;
 
 import java.lang.reflect.Method;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -29,7 +28,6 @@ import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.util.LogHelper;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
-import de.bund.bva.isyfact.serviceapi.common.konstanten.EreignisSchluessel;
 import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.AufrufKontextToResolver;
 import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 
@@ -74,22 +72,10 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
         MdcHelper.pushKorrelationsId(korrelationsId);
 
         Optional<AufrufKontextTo> aufrufKontextToOptional =
-            aufrufKontextToResolver.leseAufrufKontextTo(methodInvocation.getArguments());
-        if (aufrufKontextToOptional.isPresent()) {
-            AufrufKontextTo aufrufKontextTo = aufrufKontextToOptional.get();
-
-            // Warning if there was already a Korr-Id in the AufrufkontextTo which didn't match
-            if (Objects.nonNull(aufrufKontextTo.getKorrelationsId()) && !aufrufKontextTo.getKorrelationsId()
-                .isEmpty() && !MdcHelper.liesKorrelationsId()
-                .equals(aufrufKontextTo.getKorrelationsId() + ";" + korrelationsId)) {
-                LOGGER.warn(EreignisSchluessel.AUFRUFKONTEXT_KORRID_KORRIGIERT,
-                    "Die Korrelations-Id {} im Aufrufkontext wurde korrigiert, "
-                        + "da diese nicht mit der Korr-Id auf dem MDC {} übereinstimmt.",
-                    aufrufKontextTo.getKorrelationsId(), MdcHelper.liesKorrelationsId());
-            }
-
-            aufrufKontextTo.setKorrelationsId(MdcHelper.liesKorrelationsId());
-        }
+                aufrufKontextToResolver.leseAufrufKontextTo(methodInvocation.getArguments());
+        aufrufKontextToOptional.ifPresent(
+                aufrufKontextTo -> aufrufKontextTo.setKorrelationsId(MdcHelper.liesKorrelationsId())
+        );
 
         // Logging call of remote system
         logHelper.loggeNachbarsystemAufruf(LOGGER, methode, remoteSystemName, getServiceUrl());
@@ -107,14 +93,14 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
             long endezeit = logHelper.ermittleAktuellenZeitpunkt();
             long dauer = endezeit - startzeit;
             logHelper.loggeNachbarsystemErgebnis(LOGGER, methode, remoteSystemName, getServiceUrl(),
-                aufrufErfolgreich);
+                    aufrufErfolgreich);
             logHelper.loggeNachbarsystemDauer(LOGGER, methode, dauer, remoteSystemName, getServiceUrl(),
-                aufrufErfolgreich);
+                    aufrufErfolgreich);
 
             MdcHelper.entferneKorrelationsId();
 
             aufrufKontextToOptional.ifPresent(
-                aufrufKontextTo -> aufrufKontextTo.setKorrelationsId(MdcHelper.liesKorrelationsId()));
+                    aufrufKontextTo -> aufrufKontextTo.setKorrelationsId(MdcHelper.liesKorrelationsId()));
         }
     }
 
