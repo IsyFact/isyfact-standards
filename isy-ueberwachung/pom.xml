@@ -13,6 +13,11 @@
 
     <name>IsyFact-Überwachung</name>
 
+    <properties>
+        <mockwebserver.version>4.4.0</mockwebserver.version>
+        <kotlin-stdlib.version>1.3.61</kotlin-stdlib.version>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -158,7 +163,7 @@
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>mockwebserver</artifactId>
-            <version>4.4.0</version>
+            <version>${mockwebserver.version}</version>
             <scope>test</scope>
             <exclusions>
                 <exclusion>
@@ -170,7 +175,7 @@
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib</artifactId>
-            <version>1.3.61</version>
+            <version>${kotlin-stdlib.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
