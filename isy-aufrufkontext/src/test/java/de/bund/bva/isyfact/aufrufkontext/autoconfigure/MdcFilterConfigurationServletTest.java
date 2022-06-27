@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.core.Ordered;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import de.bund.bva.isyfact.aufrufkontext.http.HttpHeaderNestedDiagnosticContextFilter;
@@ -27,7 +28,7 @@ public class MdcFilterConfigurationServletTest {
         FilterRegistrationBean<HttpHeaderNestedDiagnosticContextFilter> mdcFilter =
                 this.httpHeaderNestedDiagnosticContextFilter;
 
-        assertEquals(1, mdcFilter.getOrder());
+        assertEquals(Ordered.HIGHEST_PRECEDENCE, mdcFilter.getOrder());
         assertEquals(1, mdcFilter.getUrlPatterns().size());
         assertTrue(mdcFilter.getUrlPatterns().contains("/*"));
     }

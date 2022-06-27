@@ -4,6 +4,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplicat
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 
 import de.bund.bva.isyfact.aufrufkontext.http.HttpHeaderNestedDiagnosticContextFilter;
 
@@ -24,7 +25,7 @@ public class MdcFilterConfiguration {
                 new FilterRegistrationBean<>();
         registrationBean.setFilter(new HttpHeaderNestedDiagnosticContextFilter());
         registrationBean.addUrlPatterns("/*");
-        registrationBean.setOrder(1);
+        registrationBean.setOrder(Ordered.HIGHEST_PRECEDENCE);
         return registrationBean;
     }
 
