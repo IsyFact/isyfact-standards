@@ -417,12 +417,12 @@ sourceFolder
 
 [[openapi-schnittstellenspezifikation-vorteile]]
 === Verwaltung
-Die OpenApi Schnittstellenspezifikation ist jeweils Bestandteil der spezifischen Projektdokumentation.
+Die OpenAPI Schnittstellenspezifikation ist jeweils Bestandteil der spezifischen Projektdokumentation.
 
-Damit die OpenApi Schnittstellenspezifikation verfügbar sein kann, muss diese auch verwaltet werden.
-In den jeweiligen Spring Projekten wird die OpenApi Schnittstellenspezifikation unter folgendem Pfad gespeichert: *_/src/main/resources/openapi.yml_*.
+Damit die OpenAPI Schnittstellenspezifikation verfügbar sein kann, muss diese auch verwaltet werden.
+In den jeweiligen Spring Projekten wird die OpenAPI Schnittstellenspezifikation unter folgendem Pfad gespeichert: *_/src/main/resources/openapi.yml_*.
 
-Falls es Änderungen innerhalb der OpenApi Schnittstellenspezifikation geben sollte, werden diese automatisch vom Versionskontrollsystem verwaltet.
+Falls es Änderungen innerhalb der OpenAPI Schnittstellenspezifikation geben sollte, werden diese automatisch vom Versionskontrollsystem verwaltet.
 
 [[openapi-schnittstellenspezifikation-veroeffentlichung]]
 === Veröffentlichung
@@ -438,7 +438,7 @@ Der Zugriff auf das Artefakt ist über das entsprechende Artifactory und/oder Gi
 Antora ist eine Dokumentationspipeline, die es Dokumentations-, Produkt- und Entwicklungsteams ermöglicht, Dokumentationsseiten zu erstellen, zu verwalten und zu veröffentlichen, die in AsciiDoc erstellt und aus mehreren versionierten Repositories bezogen wurden.
 
 Mithilfe des OpenApi Generators kann aus der (YAML Datei) xref:glossary:literaturextern:inhalt.adoc#litextern-openapi-spezifikation[OpenAPI Spezifikation] AsciiDoc generiert/erstellt werden.
-Für die Generierung von AsciiDoc-Dateien wird der OpenApi Generator verwendet.
+Für die Generierung von AsciiDoc-Dateien wird der OpenAPI Generator verwendet.
 Nähere und detailliertere Informationen dazu befinden sich unter dem Kapitel <<Verwendung_von_OpenAPI_Generator,Verwendung von OpenAPI Generator>>.
 
 Für die Generierung der Schnittstellenbeschreibung im AsciiDoc-Format ist der Generator „asciidoc“ zu wählen. Folgende Konfigurationsparameter sind im Generator zu setzen.
@@ -494,7 +494,7 @@ Die Schnittstellenbeschreibung wird dabei lesbar als Webseite in GitHub/GitLab P
 Dabei wird auch die technische Spezifikation (die YAML Datei) als Antora-Anhang hinzugefügt.
 Dadurch ist es möglich, sie herunterzuladen.
 
-Sind GitHub/GitLab Pages nicht erreichbar, können auch die OpenApi Spezifikationen nicht heruntergeladen werden.
+Sind GitHub/GitLab Pages nicht erreichbar, können auch die OpenAPI Spezifikationen nicht heruntergeladen werden.
 
 [[openapi-schnittstellenspezifikation-eigener-endpunkt]]
 ==== Definition eines Endpunktes
