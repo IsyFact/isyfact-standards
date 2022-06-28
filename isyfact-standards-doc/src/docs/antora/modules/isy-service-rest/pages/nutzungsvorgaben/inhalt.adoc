@@ -15,7 +15,7 @@ Swagger Editor validiert die eingegebene Spezifikation und bietet darüber hinau
 Wir empfehlen das entsprechende IntelliJ und Eclipse Plugins dieses Editors (siehe xref:glossary:literaturextern:inhalt.adoc#litextern-swagger-editor-intellij[Swagger Editor für IntelliJ] und xref:glossary:literaturextern:inhalt.adoc#litextern-swagger-editor-eclipse[Swagger Editor für Eclipse]).
 Die Verwendung dieser Plugins ist besonders sinnvoll, da sie die Integration der Spezifikation in das Projekt ermöglicht und die Verwaltung mit Version Control erleichtert.
 
-Weitere Informationen zu OpenApi 3.0 (Beschreibung und Vorgaben) finden Sie unter xref:glossary:literaturextern:inhalt.adoc#litextern-swagger-spezification[Swagger Spezifikation]).
+Weitere Informationen zu OpenAPI 3.0 (Beschreibung und Vorgaben) finden Sie unter xref:glossary:literaturextern:inhalt.adoc#litextern-swagger-spezification[Swagger Spezifikation]).
 Bei der Erstellung der Spezifikation sind die Vorgaben der IsyFact (siehe xref:isy-service-rest:konzept/master.adoc#einleitung[Konzept REST]) zu beachten.
 Relevante Vorgaben beziehen sich u.a. auf den Aufbau der URls und der Anfrage, die Verwendung der http-Verben und Statuscodes.
 
@@ -213,7 +213,7 @@ Die für die Mapping-Tabelle genutzte Beispiel-Schnittstellenbeschreibung und da
 === Übertragung von Metadaten
 Metadaten werden als Header-Parameter übertragen.
 Zu Metadaten gehören u.a. Daten wie Benutzerkennung, Rolle, Tags, externe IDs.
-Nur die Metadaten, die nicht durch die IsyFact standardisiert werden, sind Teil der OpenApi-Spezifikation.
+Nur die Metadaten, die nicht durch die IsyFact standardisiert werden, sind Teil der OpenAPI-Spezifikation.
 
 Zur Spezifizierung von Header-Parametern wird der Eintrag „in: header“ genutzt, wie das unten stehenden Beispiel zeigt.
 
@@ -437,13 +437,13 @@ Der Zugriff auf das Artefakt ist über das entsprechende Artifactory und/oder Gi
 ==== Antora
 Antora ist eine Dokumentationspipeline, die es Dokumentations-, Produkt- und Entwicklungsteams ermöglicht, Dokumentationsseiten zu erstellen, zu verwalten und zu veröffentlichen, die in AsciiDoc erstellt und aus mehreren versionierten Repositories bezogen wurden.
 
-Mithilfe des OpenApi Generators kann aus der (YAML Datei) xref:glossary:literaturextern:inhalt.adoc#litextern-openapi-spezifikation[OpenAPI Spezifikation] AsciiDoc generiert/erstellt werden.
+Mithilfe des OpenAPI Generators kann aus der (YAML Datei) xref:glossary:literaturextern:inhalt.adoc#litextern-openapi-spezifikation[OpenAPI Spezifikation] AsciiDoc generiert/erstellt werden.
 Für die Generierung von AsciiDoc-Dateien wird der OpenAPI Generator verwendet.
 Nähere und detailliertere Informationen dazu befinden sich unter dem Kapitel <<Verwendung_von_OpenAPI_Generator,Verwendung von OpenAPI Generator>>.
 
 Für die Generierung der Schnittstellenbeschreibung im AsciiDoc-Format ist der Generator „asciidoc“ zu wählen. Folgende Konfigurationsparameter sind im Generator zu setzen.
 
-:desc-table-openapi-asciidoc-generator-metadata: OpenApi AsciiDoc Generator Metadata
+:desc-table-openapi-asciidoc-generator-metadata: OpenAPI AsciiDoc Generator Metadata
 [id="table-openapi-asciidoc-generator-metadata", reftext = "{table-caption} {counter:tables}"]
 .{desc-table-openapi-asciidoc-generator-metadata}
 [cols="1,2,^1", options="header"]
