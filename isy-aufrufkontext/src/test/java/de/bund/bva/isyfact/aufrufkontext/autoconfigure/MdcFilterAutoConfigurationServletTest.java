@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
         properties = { "isy.logging.anwendung.name=test",
                 "isy.logging.anwendung.typ=test",
                 "isy.logging.anwendung.version=test" })
-public class MdcFilterConfigurationServletTest {
+public class MdcFilterAutoConfigurationServletTest {
 
     @Autowired
     private FilterRegistrationBean<HttpHeaderNestedDiagnosticContextFilter> httpHeaderNestedDiagnosticContextFilter;
