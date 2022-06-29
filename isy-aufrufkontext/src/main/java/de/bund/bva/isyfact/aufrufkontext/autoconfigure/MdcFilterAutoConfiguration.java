@@ -14,7 +14,7 @@ import de.bund.bva.isyfact.aufrufkontext.http.HttpHeaderNestedDiagnosticContextF
  */
 @Configuration
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
-public class MdcFilterConfiguration {
+public class MdcFilterAutoConfiguration {
 
     /**
      * Automatisches setzen der Korrelations-ID.

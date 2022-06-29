@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.filter.AbstractRequestLoggingFilter;
 
+import de.bund.bva.isyfact.aufrufkontext.autoconfigure.MdcFilterAutoConfiguration;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
@@ -37,7 +38,7 @@ import de.bund.bva.isyfact.logging.util.MdcHelper;
  * </p>
  *
  * <p>
- * Die Konfiguration erfolgt automatisch durch {@link de.bund.bva.isyfact.aufrufkontext.autoconfigure.MdcFilterConfiguration}.
+ * Die Konfiguration erfolgt automatisch durch {@link MdcFilterAutoConfiguration}.
  * </p>
  *
  */
