@@ -301,13 +301,7 @@
             <!-- Managed by Spring Boot Dependencies -->
 
             <!-- Testing, in-memory database: H2 -->
-            <!-- Self managed because of CVEs -->
-            <dependency>
-                <groupId>com.h2database</groupId>
-                <artifactId>h2</artifactId>
-                <version>2.1.210</version>
-                <scope>test</scope>
-            </dependency>
+            <!-- Managed by Spring Boot Dependencies -->
 
             <!-- GreenMail test suite for mail servers -->
             <dependency>
