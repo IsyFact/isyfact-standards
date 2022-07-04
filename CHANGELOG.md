@@ -1,3 +1,6 @@
+# 3.0.0
+- `IFS-1465`: [isyfact-products-bom] Spring Boot Versionsanhebung auf 2.7.1
+
 # 2.5.0
 - `IFS-1282`: Einführung von Maven CI-friendly Versionen
 - `IFS-1397`: [isyfact-products-bom] Spring Boot Versionsanhebung auf 2.5.12
