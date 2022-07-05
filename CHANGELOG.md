@@ -12,6 +12,8 @@
 - `IFS-1466`: [isyfact-products-bom] Spring Boot Versionsanhebung auf 2.5.13
 - `IFS-1050`: [isy-batchrahmen] Stelle Beispiel-SQL-Skripte wieder her, sodass diese mit der Oracle-Datenbank kompatibel sind 
 - `IFS-1548`: [isyfact-standards-doc] Anleitung zum Formatieren und Einrichten des Checkstyle Plugins angepasst
+- `IFS-1546`: Hinzufügen des Profils zum automatischen Kopieren von Release-Konfigurationen
+
 # 2.4.0
 - `IFS-590`: [isy-logging] Instanziierung LogApplicationListener Parameter in korrekter Reihenfolge
 - `IFS-601`: [isy-products-bom] Einbindung folgender Produkte über die Spring Boot Dependencies: JPA, JTA, Spring, Hibernate, Jackson, QueryDSL, SLF4J, Logback, JUnit, Mockito, AssertJ, H2.
