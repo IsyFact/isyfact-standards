@@ -345,11 +345,8 @@ public class ActuatorSecurityProduktionConfig extends WebSecurityConfigurerAdapt
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.requestMatcher(EndpointRequest.toAnyEndpoint())
-            .authorizeRequests()
-            .anyRequest()
-            .hasRole(ENDPOINT_ROLE)
-            .and()
-            .httpBasic();
+                .authorizeHttpRequests(requests -> requests.anyRequest().hasRole(ENDPOINT_ROLE))
+                .httpBasic();
     }
 
     @Bean
