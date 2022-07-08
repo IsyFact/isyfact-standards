@@ -1,5 +1,6 @@
 # 2.4.2
 - `IFS-1466`: [isy-products-bom] Versionsanhebung von Spring Boot auf 2.5.13
+- `IFS-1525`: [isy-products-bom] Versionsanhebung von Spring Boot auf 2.5.14
 - `IFS-1546`: Hinzufügen des Profils zum automatischen Kopieren von Release-Konfigurationen
 
 # 2.4.1
