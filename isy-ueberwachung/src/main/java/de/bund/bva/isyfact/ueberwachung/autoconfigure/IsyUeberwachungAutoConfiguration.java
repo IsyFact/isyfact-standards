@@ -11,13 +11,16 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
+import de.bund.bva.isyfact.ueberwachung.config.LoadbalancerSecurityConfiguration;
 import de.bund.bva.isyfact.ueberwachung.config.LoadbalancerServletConfigurationProperties;
 import de.bund.bva.isyfact.ueberwachung.service.loadbalancer.LoadbalancerServlet;
 
 @Configuration
 @EnableConfigurationProperties
 @ConditionalOnClass(ServletRegistration.class)
+@Import(LoadbalancerSecurityConfiguration.class)
 public class IsyUeberwachungAutoConfiguration {
 
     @Bean
@@ -28,11 +31,11 @@ public class IsyUeberwachungAutoConfiguration {
 
     @Bean
     public ServletRegistrationBean<LoadbalancerServlet> loadbalancerservlet(
-        LoadbalancerServletConfigurationProperties properties) {
+            LoadbalancerServletConfigurationProperties properties) {
         ServletRegistrationBean<LoadbalancerServlet> loadbalancerServlet =
-            new ServletRegistrationBean<>(new LoadbalancerServlet());
+                new ServletRegistrationBean<>(new LoadbalancerServlet());
         loadbalancerServlet.setLoadOnStartup(1);
-        loadbalancerServlet.addUrlMappings("/Loadbalancer");
+        loadbalancerServlet.addUrlMappings(LoadbalancerSecurityConfiguration.LOADBALANCER_SERVLET_PATH);
 
         Map<String, String> initParameters = new HashMap<>();
         initParameters.put("isAliveFileLocation", properties.getIsAliveFileLocation());
@@ -41,5 +44,4 @@ public class IsyUeberwachungAutoConfiguration {
 
         return loadbalancerServlet;
     }
-
 }
