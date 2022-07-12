@@ -41,8 +41,6 @@ public class IsyHttpInvokerClientInterceptorTest {
 
     private Method toStringMethod;
 
-    private static final String KORRELATIONS_ID = "korrelationsId";
-
     private static final String REMOTE_SYSTEM = "remoteSystem";
 
     private static final String REGEX_WITHOUT_KORRELATIONS = "[a-z0-9-]{36}";
