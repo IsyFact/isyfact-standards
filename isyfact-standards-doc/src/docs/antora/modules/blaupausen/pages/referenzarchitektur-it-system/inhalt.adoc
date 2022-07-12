@@ -91,7 +91,7 @@ include::blaupausen:page$detailkonzept-komponente-anwendungskern/inhalt.adoc[tag
 
 Nicht Teil des Anwendungskerns sind spezielle Dialogabläufe, z.B. dialogspezifische Bearbeitungsverfahren wie die Anwenderführung über Wizards.
 Diese Prozesse, die nur durch einen einzigen Dialog genutzt werden, sind Teil der Schicht Nutzung.
-Der Anwendungskern stellt somit im wesentlichen allgemein nutzbare xref:glossary:glossary:master.adoc#glossar-Dienst[Dienste] zur Verfügung.
+Der Anwendungskern stellt somit im wesentlichen allgemein nutzbare xref:glossary:glossary:master.adoc#glossar-service[Service] zur Verfügung.
 
 include::blaupausen:page$detailkonzept-komponente-anwendungskern/inhalt.adoc[tags=fachkomponente-definition]
 

@@ -50,7 +50,6 @@ Der Name eines Repositories leitet sich von derjenigen Entität ab, die über da
 
 [[namenskonvention-spring-data-repository]]
 .Namenskonvention DAO: Spring Data Repository
-[id="table-repossimpl",reftext="{table-caption} {counter:tables}"]
 [cols="1s,4m",options="header"]
 |====
 2+|Data Access Object: Spring Data Repository
@@ -70,7 +69,6 @@ Der Name eines DAO-Interfaces leitet sich von derjenigen Entität ab, die über 
 
 [[namenskonvention-dao-interface]]
 .Namenskonvention DAO: Interface + Implementierung
-[id="table-daossimpl",reftext="{table-caption} {counter:tables}"]
 [cols="1s,4m",options="header"]
 |====
 2+|Data Access Object: Interface + Implementierung
