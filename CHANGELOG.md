@@ -1,4 +1,5 @@
 # 1.11.0
+- `IFS-1073`: [isy-serviceapi-core] Logausgabe zur Korrektur der Korrelations-Id entfernt
 - `IFS-668`: [isy-serviceapi-core] Zurücksetzung der KorrelationsId des AnrufKontextTo bei einem Invoke
 - `IFS-661`: [isy-task] CompletionWatchdog loggt Stacktrace bei Exception
 - `IFS-875`: [isy-aufrufkontext], [isy-serviceapi-core] Umsetzung des Transports von OAuth 2 Bearer-Token zwischen Schnittstellentechnologien
