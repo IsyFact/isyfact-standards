@@ -59,8 +59,8 @@ public class MetricsTest {
 @EnableAutoConfiguration(exclude = IsyLoggingAutoConfiguration.class)
 class TestConfig {
     @Bean
-    ServiceStatistik serviceStatistikMBean(MeterRegistry meterRegistry) {
-        return new ServiceStatistik(meterRegistry, Tags.of("testKey", "testValue"));
+    ServiceStatistik serviceStatistikMBean() {
+        return new ServiceStatistik(Tags.of("testKey", "testValue"));
     }
 
     @Bean
