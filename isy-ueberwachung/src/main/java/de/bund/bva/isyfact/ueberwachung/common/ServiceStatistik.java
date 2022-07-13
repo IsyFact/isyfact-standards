@@ -42,12 +42,13 @@ import de.bund.bva.isyfact.serviceapi.annotations.FachlicherFehler;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tags;
+import io.micrometer.core.instrument.binder.MeterBinder;
 
 /**
  * This class implements a monitoring bean for services. It provides the monitoring options,
  * which each service must provide according to IsyFact.
  */
-public class ServiceStatistik implements MethodInterceptor, InitializingBean {
+public class ServiceStatistik implements MethodInterceptor, InitializingBean, MeterBinder {
     /**
      * Default value for number of searches used to calculate the average.
      */
@@ -116,26 +117,11 @@ public class ServiceStatistik implements MethodInterceptor, InitializingBean {
      */
     private volatile int anzahlFachlicheFehlerAktuelleMinute;
 
-    public ServiceStatistik(MeterRegistry meterRegistry, Tags tags) {
-        Gauge.builder("anzahlAufrufe.LetzteMinute", this, ServiceStatistik::getAnzahlAufrufeLetzteMinute)
-                .tags(tags)
-                .description("Liefert die Anzahl der nicht fehlerhaften Aufrufe in der letzten Minute")
-                .register(meterRegistry);
+    /** Micrometer tags. */
+    private final Tags tags;
 
-        Gauge.builder("anzahlFehler.LetzteMinute", this, ServiceStatistik::getAnzahlFehlerLetzteMinute)
-                .tags(tags)
-                .description("Liefert die Anzahl der fehlerhaften Aufrufe in der letzten Minute")
-                .register(meterRegistry);
-
-        Gauge.builder("anzahlFachlicheFehler.LetzteMinute", this, ServiceStatistik::getAnzahlFachlicheFehlerLetzteMinute)
-                .tags(tags)
-                .description("Liefert die Anzahl der fachlich fehlerhaften Aufrufe in der letzten Minute")
-                .register(meterRegistry);
-
-        Gauge.builder("durchschnittsDauer.LetzteAufrufe", this, ServiceStatistik::getDurchschnittsDauerLetzteAufrufe)
-                .tags(tags)
-                .description("Liefert die durchschnittliche Dauer der letzten 10 Aufrufe in ms")
-                .register(meterRegistry);
+    public ServiceStatistik(Tags tags) {
+        this.tags = tags;
     }
 
     /**
@@ -403,5 +389,28 @@ public class ServiceStatistik implements MethodInterceptor, InitializingBean {
         LOGISY.debug("ServiceStatistik " + (fachlicheFehlerpruefung ?
                 " mit erweiterter fachlicher Fehlerprüfung " :
                 "") + " initialisiert.");
+    }
+
+    @Override
+    public void bindTo(MeterRegistry meterRegistry) {
+        Gauge.builder("anzahlAufrufe.LetzteMinute", this, ServiceStatistik::getAnzahlAufrufeLetzteMinute)
+                .tags(tags)
+                .description("Liefert die Anzahl der nicht fehlerhaften Aufrufe in der letzten Minute")
+                .register(meterRegistry);
+
+        Gauge.builder("anzahlFehler.LetzteMinute", this, ServiceStatistik::getAnzahlFehlerLetzteMinute)
+                .tags(tags)
+                .description("Liefert die Anzahl der fehlerhaften Aufrufe in der letzten Minute")
+                .register(meterRegistry);
+
+        Gauge.builder("anzahlFachlicheFehler.LetzteMinute", this, ServiceStatistik::getAnzahlFachlicheFehlerLetzteMinute)
+                .tags(tags)
+                .description("Liefert die Anzahl der fachlich fehlerhaften Aufrufe in der letzten Minute")
+                .register(meterRegistry);
+
+        Gauge.builder("durchschnittsDauer.LetzteAufrufe", this, ServiceStatistik::getDurchschnittsDauerLetzteAufrufe)
+                .tags(tags)
+                .description("Liefert die durchschnittliche Dauer der letzten 10 Aufrufe in ms")
+                .register(meterRegistry);
     }
 }
