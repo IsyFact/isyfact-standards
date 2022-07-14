@@ -14,6 +14,8 @@
 - `IFS-1525`: [isyfact-products-bom] Spring Boot Versionsanhebung auf 2.5.14
 - `IFS-1050`: [isy-batchrahmen] Stelle Beispiel-SQL-Skripte wieder her, sodass diese mit der Oracle-Datenbank kompatibel sind 
 - `IFS-1546`: Hinzufügen des Profils zum automatischen Kopieren von Release-Konfigurationen
+- `IFS-1504`: [isy-sonderzeichen] Transformator für die normative Abbildung lateinischer Buchstaben auf Grundbuchstaben (Suchform) hinzugefügt
+    * Integration von zugeliefertem Code aus `IFS-1270`
 
 # 2.4.0
 - `IFS-590`: [isy-logging] Instanziierung LogApplicationListener Parameter in korrekter Reihenfolge
