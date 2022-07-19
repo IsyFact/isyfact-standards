@@ -196,12 +196,12 @@ Die IsyFact bietet derzeit folgende AsciidoctorJ Extensions an:
 
 `de.bund.bva.isyfact.glossary` `.GlossaryPreprocessor`
 |Erzeugt ein Glossar für das jeweilige Dokument mit allen bekannten Begriffen, die im Dokument enthalten und als Referenz markiert sind.
-|siehe xref:dokumentation/bearbeitung/bearbeitung-asciidoctorj.adoc#tabellen[glossar]
+|siehe xref:dokumentation/master-asciidoctorJ.adoc#glossar[Glossar]
 |ListOfPreprocessor
 
 `de.bund.bva.isyfact.listof` `.ListOfPreprocessor`
 |Erzeugt ein Abbildungs- Tabellen- und Listenverzeichnis für das jeweilige Dokument für alle Elemente im Dokument, die entsprechend markiert sind.
-|siehe xref:dokumentation/bearbeitung/bearbeitung-asciidoctorj.adoc#bilder[bilder], xref:dokumentation/bearbeitung/bearbeitung-asciidoctorj.adoc#tabellen[tabellen] und xref:dokumentation/bearbeitung/bearbeitung-asciidoctorj.adoc#listings[listings]
+|siehe xref:dokumentation/master-asciidoctorJ.adoc#bilder[Bilder], xref:dokumentation/master-asciidoctorJ.adoc#tabellen[Tabellen] und xref:dokumentation/master-asciidoctorJ.adoc#listings[Listings]
 |===
 
 [[isy-attributes-preprocessor]]
