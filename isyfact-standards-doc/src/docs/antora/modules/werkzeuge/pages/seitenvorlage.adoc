@@ -1,4 +1,3 @@
-[[seitenvorlage]]
 = Seitenvorlage
 
 include::glossary:licence:partial$licence.adoc[]

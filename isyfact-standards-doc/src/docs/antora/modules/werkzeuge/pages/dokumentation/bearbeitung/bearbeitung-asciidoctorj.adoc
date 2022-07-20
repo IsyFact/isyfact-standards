@@ -427,8 +427,7 @@ Ein Beispiel für referenzierte Literatur: \<<AsciiDocRecommendedPractices, Asci
 
 Das Ergebnis sieht so aus:
 
-Ein Beispiel für referenzierte Literatur: `<<AsciiDocRecommendedPractices, AsciiDoc Recommended Practices>>.`
-{empty} +
+Ein Beispiel für referenzierte Literatur: xref:glossary:literaturextern:inhalt.adoc#litextern-asciidoc-recommended-practices[AsciiDoc Recommended Practices]
 
 [[glossar]]
 === Glossar
@@ -447,7 +446,6 @@ Das Ergebnis sieht wie folgt aus:
 {empty} +
 
 //fix Links in Examples
-[[AsciiDocRecommendedPractices]]
 [[glossar-halloweltbeispiel]]
 
 // end::inhalt[]

@@ -265,7 +265,7 @@ image::einstieg:tutorial/RAIT.png[align="center"]
 [[anbieten-von-service-schnittstellen]]
 === Anbieten von Service-Schnittstellen
 
-Dieser Abschnitt beschreibt die Realisierung von HTTP Invoker Schnittstellen (siehe xref:glossary:literaturextern:inhalt.adoc#litextern-Spring[Spring]).
+Dieser Abschnitt beschreibt die Realisierung von HTTP Invoker Schnittstellen (siehe xref:glossary:literaturextern:inhalt.adoc#litextern-spring[Spring]).
 HTTP Invoker Schnittstellen sind interne Service-Schnittstellen, die innerhalb der Anwendungslandschaft durch andere Anwendungen genutzt werden dürfen.
 
 [NOTE]
