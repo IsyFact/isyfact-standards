@@ -6,3 +6,4 @@
 *** xref:dokumentation/master-asciidoctorJ.adoc[]
 ** xref:entwicklungsumgebung/master.adoc[Entwicklungsumgebung]
 ** xref:versionierungskontrolle/master.adoc[]
+** xref:gui-tests/gui-tests-mit-selenium.adoc[GUI-Tests mit Selenium]
