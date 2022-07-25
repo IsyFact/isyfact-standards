@@ -93,7 +93,7 @@ Wird über die Schnittstelle ein Geschäftsvorfall angestoßen, ist der Geschäf
 
 [[namenskonvention-prozessorientierte-uris]]
 .Namenskonvention prozessorientierter URIs
-[cols="1s,4m",options="header"]
+[cols="1s,4",options="header"]
 |====
 2+|Prozessorientierte URIs
 |Schema |`+/{geschaeftsvorfall}/{geschaeftsprozess}+`
@@ -134,16 +134,16 @@ Der hierarchische Aufbau von Ressourcen ist explizit erwünscht:
 
 [[namenskonvention-ressourcen-uris]]
 .Namenskonvention Ressourcen-URIs
-[cols="1s,4m",options="header"]
+[cols="1s,4",options="header"]
 |====
 2+|Ressourcen-URIs
 |Schema |`+/{ressource}/{id}/{ressource}/{id}/{...}+`
-|Regeln |Die Bezeichnung der Ressource beinhaltet ausschließlich Kleinbuchstaben.
+|Regeln | Die Bezeichnung der Ressource beinhaltet ausschließlich Kleinbuchstaben.
 
 Zwischen Teilen zusammengesetzter Begriffe steht jeweils ein Bindestrich.
 
 Beinhaltet die Bezeichnung Sonderzeichen, müssen sie gemäß üblicher Transkriptionsregeln ersetzt werden (z. B. "ae" statt "ä").
-|Beispiele |/kunden/12345/bestellungen/123/artikel
+|Beispiele |`/kunden/12345/bestellungen/123/artikel`
 
 `/nachrichten`
 
@@ -177,7 +177,7 @@ Stufe 3 in <<image-richard-maturity-model>>) oder über die URI selber abgebilde
 
 [[namenskonvention-beziehungen-zwischen-ressourcen]]
 .Namenskonvention Beziehungen zwischen Ressourcen
-[cols="1s,4m",options="header"]
+[cols="1s,4",options="header"]
 |====
 2+|Beziehungen zwischen Ressourcen
 |Schema |`+/{ressourcen A}/{id von einem Ressource A}/{ressource(n) B}/{...}+`
@@ -202,7 +202,7 @@ Der Zugriff auf mehrere Ressourcen aus einer Menge erfolgt über eine kommasepar
 
 [[namenskonvention-addressierung-mehrerer-ressourcen]]
 .Namenskonvention Adressierung von mehreren Ressourcen
-[cols="1s,4m",options="header"]
+[cols="1s,4",options="header"]
 |====
 2+|Adressierung von mehreren Ressourcen
 |Schema |`+/{ressourcen}/{id1},{id2}+`

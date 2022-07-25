@@ -433,15 +433,17 @@ include::blaupausen:page$detailkonzept-komponente-anwendungskern/inhalt.adoc[tag
 include::blaupausen:page$detailkonzept-komponente-batch/inhalt.adoc[tag=namenskonvention]
 
 [[schnittstellen]]
-=== Externe Schnittstellen aus Sicht der Anwendung
-include::isy-serviceapi-core:page$konzept/inhalt.adoc[tag=namenskonvention]
-
+=== Externe Schnittstellen
 [[rest-schnittstellen]]
-=== REST-Schnittstellen
+==== REST-Schnittstellen
 include::isy-service-rest:page$konzept/inhalt.adoc[tag=namenskonvention]
 
+[[http-invoker-schnittstellen]]
+==== Http-Invoker Schnittstellen
+include::isy-serviceapi-core:page$konzept/inhalt.adoc[tag=namenskonvention]
+
 [[web-gui]]
-==== Web-GUI
+=== Web-GUI
 include::blaupausen:page$detailkonzept-komponente-web-gui/inhalt.adoc[tag=namenskonvention]
 
 [[deploymentbetrieb-von-anwendungen]]
