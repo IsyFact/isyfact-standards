@@ -320,18 +320,17 @@ Das Sparen von Aufrufen kann jedoch auch Nachteile in Bezug auf Wartbarkeit bede
 Die Abwägung darüber muss während der Erstellung des Systementwurfs geschehen.
 
 // tag::architekturregel[]
-
+.icon:university[] Architekturregel: Vorgabe
+****
 Synchrone Service-Aufrufe finden über das Protokoll *HTTP* statt und werden sowohl zur internen als auch externen Servicekommunikation genutzt.
 HTTP-Anfragen bzw. HTTP-Antworten (s. <<image-http-messages>>) erlauben es an drei Stellen, anwendungsspezifische Daten zu übertragen: in der URL, in den Headern sowie im Body.
-
 .Aufbau von HTTP-Anfragen bzw. HTTP-Antworten
 [id="image-http-messages",reftext="{figure-caption} {counter:figures}"]
 image::blaupausen:referenzarchitektur/http-messages-aufbau.dn.svg[align="center"]
-
 Header enthalten Metadaten.
 Der Body enthält Nutzdaten.
 Bei Anfragen mittels `GET` und `DELETE`, die keinen Body erwarten, enthalten URL-Parameter Nutzdaten.
-
+****
 // end::architekturregel[]
 
 Allerdings gilt zu beachten, dass URLs (und damit auch die URL-Parameter) an vielen Stellen aufgezeichnet und in Logs geschrieben oder in Caches gehalten werden.
@@ -491,7 +490,7 @@ Hierzu gehören z.B. das Betriebssystem, der Web-Server, der Application-Server,
 *Bibliotheken für die Anwendungsentwicklung:* Die Anwendungsentwicklung wird durch den Einsatz von Frameworks und entsprechenden Bibliotheken vereinfacht und beschleunigt.
 IsyFact verwendet insbesondere Spring, Hibernate und JSF.
 
-Eine detaillierte Liste der verbindlichen und empfohlenen Produkte ist im Dokument <<TODO anderes Dokument: ProduktKatalog>> zu finden.
+Eine detaillierte Liste der verbindlichen und empfohlenen Produkte ist im xref:einstieg:produkte.adoc#produktkatalog[Produktkatalog] zu finden.
 
 [[die-referenzarchitektur-der-technischen-infrastruktur]]
 == Die Referenzarchitektur der technischen Infrastruktur

@@ -260,7 +260,7 @@ Die Vorgaben zu Logdateien sowie deren Rotation und Komprimierung sind in den xr
 [[logging-framework]]
 === Logging-Framework
 
-Als Logging-Framework wird in der IsyFact _logback_ eingesetzt (Siehe <<TODO anderes Dokument: ProduktKatalog>>).
+Als Logging-Framework wird in der IsyFact _logback_ eingesetzt (siehe xref:einstieg:produkte.adoc#produktkatalog[Produktkatalog]).
 
 NOTE: Für mehr Informationen zu logback siehe http://logback.qos.ch/
 
@@ -492,7 +492,7 @@ Diese wird von mod_jk im Request mitgeliefert. |24 Zeichen. Beispiel: `U08ZosCoA
 [[wrapper-log]]
 === Wrapper-Log
 
-Die Wrapper-Logs sind Teil des Drittsystem Tomcats (siehe Tanuki Service Wrapper im <<TODO anderes Dokument: ProduktKatalog>>).
+Die Wrapper-Logs sind Teil des Drittsystems Tomcat (siehe Tanuki Service Wrapper im xref:einstieg:produkte.adoc#produktkatalog[Produktkatalog]).
 Die Logeinträge des Wrapper-Logs, die konform zur IsyFact konfiguriert sind, stellen neben der Lognachricht die folgenden Informationen bereit:
 
 .Informationen für Wrapper-log

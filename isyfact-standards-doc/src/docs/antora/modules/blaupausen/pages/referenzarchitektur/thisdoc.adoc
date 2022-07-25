@@ -4,9 +4,9 @@
 [[einleitung]]
 == Einleitung
 
-Die *IsyFact* ist eine freie allgemeine xref:glossary:glossary:master.adoc#glossar-software-factory[Software Factory] zum Bau von xref:glossary:glossary:master.adoc#glossar-it-system>[IT-Systeme], die vom Bundesverwaltungsamt bereitgestellt wird.
+Die *IsyFact* ist eine freie allgemeine xref:glossary:glossary:master.adoc#glossar-software-factory[Software Factory] zum Bau von xref:glossary:glossary:master.adoc#glossar-it-system[IT-Systeme], die vom Bundesverwaltungsamt bereitgestellt wird.
 Sie wurde entwickelt, um unterschiedliche xref:glossary:glossary:master.adoc#glossar-geschaeftsanwendung[Geschäftsanwendungen] effizient entwerfen, realisieren und betreiben zu können.
-Der Begriff Factory steht für die schnelle Erzeugung neuer xref:glossary:glossary:master.adoc#glossar-anwendung[Anwendungen] durch Anpassung und Ausgestaltung vorgefertigter Elemente, die in eine standardisierte xref:glossary:glossary:master.adoc#glossar-plattform>[Plattform] integriert werden können.
+Der Begriff Factory steht für die schnelle Erzeugung neuer xref:glossary:glossary:master.adoc#glossar-anwendung[Anwendungen] durch Anpassung und Ausgestaltung vorgefertigter Elemente, die in eine standardisierte xref:glossary:glossary:master.adoc#glossar-plattform[Plattform] integriert werden können.
 
 Die IsyFact besteht aus den IsyFact-Standards und IsyFact-Erweiterungen:
 
@@ -57,7 +57,7 @@ image::referenzarchitektur/fachliche-referenzarchitektur-anwendungslandschaft.dn
 Anwendungssysteme unterstützen Geschäftsprozesse.
 Stellt ein Anwendungssystem eine Fachlogik dar, so handelt es sich um eine xref:glossary:glossary:master.adoc#glossar-geschaeftsanwendung[Geschäftsanwendung].
 Ein Anwendungssystem ist Bestandteil der xref:glossary:glossary:master.adoc#glossar-a-architektur[A-Architektur].
-Aus Sicht der xref:glossary:glossary:master.adoc#glossar-t-architektur[T-Architektur] bildet ein xref:glossary:glossary:master.adoc#glossar-it-system>[IT-Systeme] die software-technische Umsetzung eines Anwendungssystems ab.
+Aus Sicht der xref:glossary:glossary:master.adoc#glossar-t-architektur[T-Architektur] bildet ein xref:glossary:glossary:master.adoc#glossar-it-system[IT-Systeme] die software-technische Umsetzung eines Anwendungssystems ab.
 
 Ein häufig anzutreffendes Beispiel hierfür ist die Trennung in ein Anwendungssystem zur Bestandsverwaltung (Register) und einem Anwendungssystem für die Benutzerinteraktion, die auf die Bestandsverwaltung zugreift.
 Im Zuge einer solchen Aufgabenteilung werden auch weitergehende Regeln definiert, wie Anwendungssysteme aufeinander zugreifen dürfen.
@@ -79,7 +79,7 @@ Dies sind in der Regel Web Service-Aufrufe.
 ==== Software Referenzarchitektur
 
 Die individuell erstellten Anwendungssysteme der Anwendungslandschaft sind technisch gleichartig aufgebaut.
-Daher wird eine Referenzarchitektur aufgestellt, nach denen Anwendungssysteme (Geschäftsanwendungen und Querschnittsanwendungen) software-technisch in xref:glossary:glossary:master.adoc#glossar-it-system>[IT-Systeme] umgesetzt werden.
+Daher wird eine Referenzarchitektur aufgestellt, nach denen Anwendungssysteme (Geschäftsanwendungen und Querschnittsanwendungen) software-technisch in xref:glossary:glossary:master.adoc#glossar-it-system[IT-Systeme] umgesetzt werden.
 Das Dokument xref:referenzarchitektur-it-system/master.adoc[Referenzarchitektur IT-Systeme] beschreibt diese Referenzarchitektur.
 
 Skalierbarkeit und Hochverfügbarkeit sind wichtige Anforderungen an die Referenzarchitektur.
@@ -110,7 +110,7 @@ Es hat zur Folge, dass als Application Server ein Servlet-Container ausreichend 
 [[referenzarchitektur-der-technischen-infrastruktur]]
 ==== Referenzarchitektur der technischen Infrastruktur
 
-Im Bereich der technischen Infrastruktur (xref:glossary:glossary:master.adoc#glossar-ti-architektur>[IT-Architektur]) werden folgende Umgebungen beschrieben:
+Im Bereich der technischen Infrastruktur (xref:glossary:glossary:master.adoc#glossar-ti-architektur[IT-Architektur]) werden folgende Umgebungen beschrieben:
 
 * Produktionsumgebung,
 * Staging-Umgebung,

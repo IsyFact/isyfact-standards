@@ -107,7 +107,7 @@ Die Vorgaben dazu befinden sich mitsamt Vorgehen und Beispielen in der Vorlage f
 Zur Konstruktion des IT-Systems, also den eigentlichen Inhalten des Systementwurfs, existieren eine Reihe von Dokumenten, die inhaltliche Vorgaben machen.
 Neben der Referenzarchitektur sind dies vor allem die <<bausteine-der-isyfact-standards,Bausteine>>, die wesentliche Vorgaben zur technischen Umsetzung ihrer jeweiligen Funktionalität enthalten.
 
-Die wichtigsten Entscheidungen zu den zu nutzenden Produkten sind im <<TODO anderes Dokument: ProduktKatalog>> festgelegt.
+Die wichtigsten Entscheidungen zu den zu nutzenden Produkten sind im xref:einstieg:produkte.adoc#produktkatalog[Produktkatalog] festgelegt.
 IT-Systeme müssen auf Basis dieser Produkte und Bibliotheken gebaut werden.
 
 [[vorgaben-fuer-die-ti-architektur]]
@@ -115,7 +115,7 @@ IT-Systeme müssen auf Basis dieser Produkte und Bibliotheken gebaut werden.
 Die Architektur der technischen Infrastruktur wird auf Grundlage der Spezifikation und des Entwurfs entwickelt.
 
 Die Grundlagen der TI-Architektur auf Ebene von Anwendungslandschaften und Anwendungssystemen ist in  der xref:blaupausen:referenzarchitektur/master.adoc#einleitung[Referenzarchitektur] beschrieben.
-Die zu verwendende Infrastruktur ist zum Teil durch den <<TODO anderes Dokument: ProduktKatalog>> vorgegeben.
+Die zu verwendende Infrastruktur ist zum Teil durch den xref:einstieg:produkte.adoc#produktkatalog[Produktkatalog] vorgegeben.
 
 [[vorgaben-fuer-das-systemhandbuch]]
 ==== Vorgaben für das Systemhandbuch

@@ -803,7 +803,7 @@ Die Implementierung des RestExceptionsHandler kann daher über die Annotation ei
 
 [NOTE]
 ====
-Details zur Implementierung können der xref:glossary:literaturextern:inhalt.adoc#litextern-spring-webflux-exceptions[offiziellen Spring Dokumentation] entnommen werden.
+Details zur Implementierung können der xref:glossary:literaturextern:inhalt.adoc#litextern-spring-webflux[offiziellen Spring Dokumentation] entnommen werden.
 ====
 
 [[einheitliche-fehlermeldungen]]
@@ -878,7 +878,7 @@ Bei einer reinen Weitergabe greift die Bearer Propagation.
 
 [NOTE]
 ====
-Nähere Informationen zu OAuth2 gibt es auf der xref:glossary:literaturextern:inhalt.adoc#litextern-Git-LFS[OAuth Homepage].
+Nähere Informationen zu OAuth2 gibt es auf der xref:glossary:literaturextern:inhalt.adoc#litextern-oauth-homepage[OAuth Homepage].
 
 Informationen zur Bearer Propagation gibt es in der xref:glossary:literaturextern:inhalt.adoc#litextern-spring-oauth2-bearertoken-resolver[offiziellen Spring Dokumentation].
 ====

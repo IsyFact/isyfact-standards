@@ -1,4 +1,5 @@
 # 2.5.0
+- `IFS-1073`: Logausgabe zur Korrektur der Korrelations-Id entfernt
 - `IFS-1166`: Autokonfiguration von isy-serviceapi-core nach isy-sicherheit
 
 # 2.4.0

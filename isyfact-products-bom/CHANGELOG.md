@@ -1,6 +1,7 @@
 # 2.5.0
 - `IFS-1397`: Versionsanhebung von Spring Boot auf 2.5.12 (CVE-2022-22965)
 - `IFS-1466`: Versionsanhebung von Spring Boot auf 2.5.13
+- `IFS-1525`: Versionsanhebung von Spring Boot auf 2.5.14
 
 # 2.4.0
 - `IFS-1264`:
