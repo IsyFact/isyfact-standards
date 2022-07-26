@@ -1,11 +1,18 @@
+# 2.4.3
+
+- `IFS-1161`: [isy-aufrufkontext] `HttpHeaderNestedDiagnosticContextFilter` Priorität erhöht
+
 # 2.4.2
+
 - `IFS-1529`: Einführung der Flatten-Konfigurationen für Maven CI-friendly Versionen
 - `IFS-1466`: [isy-products-bom] Versionsanhebung von Spring Boot auf 2.5.13
 - `IFS-1525`: [isy-products-bom] Versionsanhebung von Spring Boot auf 2.5.14
 - `IFS-1546`: Hinzufügen des Profils zum automatischen Kopieren von Release-Konfigurationen
-- `IFS-1165`: [isy-überwachung] Standardmäßig wird die "/Loadbalancer" Schnittstelle durch die Autokonfiguration freigegeben, wenn spring-security aktiviert ist.
+- `IFS-1165`: [isy-überwachung] Standardmäßig wird die "/Loadbalancer" Schnittstelle durch die Autokonfiguration
+  freigegeben, wenn spring-security aktiviert ist.
 
 # 2.4.1
+
 - `IFS-1397`: [isy-products-bom] Versionsanhebung von Spring Boot auf 2.5.12 (Fix CVE-2022-22965)
 
 # 2.4.0
