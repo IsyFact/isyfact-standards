@@ -42,12 +42,11 @@ import de.bund.bva.isyfact.logging.util.MdcHelper;
  * </p>
  *
  */
-// REVIEW (JM) Sollte in HttpHeaderMappedDiagnosticContextFilter umbenannt werden
-public class HttpHeaderNestedDiagnosticContextFilter extends AbstractRequestLoggingFilter {
+public class HttpHeaderMappedDiagnosticContextFilter extends AbstractRequestLoggingFilter {
 
     /** Logger. */
     private static final IsyLogger LOG =
-        IsyLoggerFactory.getLogger(HttpHeaderNestedDiagnosticContextFilter.class);
+        IsyLoggerFactory.getLogger(HttpHeaderMappedDiagnosticContextFilter.class);
 
     /** Der Name des HTTP-Headers mit der Correlation-ID. */
     private String correlationIdHttpHeaderName = "X-Correlation-Id";
@@ -74,15 +73,15 @@ public class HttpHeaderNestedDiagnosticContextFilter extends AbstractRequestLogg
     protected String getNestedDiagnosticContextMessage(HttpServletRequest request) {
 
         String correlationId = null;
-        if (this.correlationIdHttpHeaderName != null) {
-            correlationId = request.getHeader(this.correlationIdHttpHeaderName);
+        if (correlationIdHttpHeaderName != null) {
+            correlationId = request.getHeader(correlationIdHttpHeaderName);
         }
 
         if (correlationId == null || correlationId.isEmpty()) {
             correlationId = UUID.randomUUID().toString();
 
-            if (this.correlationIdHttpHeaderName != null) {
-                LOG.debug("HTTP-Header " + this.correlationIdHttpHeaderName + " enthält keine "
+            if (correlationIdHttpHeaderName != null) {
+                LOG.debug("HTTP-Header " + correlationIdHttpHeaderName + " enthält keine "
                     + "Correlation-ID. Neue Correlation-ID {} erzeugt.", correlationId);
             } else {
                 LOG.debug("Name des HTTP-Header mit Correlation-ID ist nicht definiert. "
@@ -90,7 +89,7 @@ public class HttpHeaderNestedDiagnosticContextFilter extends AbstractRequestLogg
             }
         } else {
             LOG.debug("Übernehme Correlation-ID {} aus HTTP-Header ", correlationId,
-                this.correlationIdHttpHeaderName);
+                correlationIdHttpHeaderName);
         }
         return correlationId;
     }
