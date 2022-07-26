@@ -68,7 +68,7 @@ AsciiDoc lässt sich zudem problemlos in moderne Versionsverwaltungssysteme inte
 [[werkzeuge]]
 === Erforderliche und empfohlene Werkzeuge
 
-Als Arbeitsumgebung müssen Git, Git LFS und Maven installiert sein.
+Als Arbeitsumgebung müssen Git und Git LFS installiert sein. Für die Generierung mit AsciidoctorJ Extensions muss außerdem Maven installiert sein. Für die Generierung mit Antora wird Maven empfohlen, da die Generierung im Repository isy-antora-playbook angestossen wird und dort eine vorbereitete pom.xml dafür bereitgestellt wird. Es ist aber auch möglich, die Generierung lokal durchzuführen, wenn die entsprechenden Werkzeuge lokal installiert sind.
 Für die Generierung mit Antora müssen außerdem Node.js und Antora installiert werden, siehe xref:dokumentation/generierung/generierung-antora.adoc#antora-werkzeuge[Installation Antora Werkzeuge].
 
 Zum Erstellen und Bearbeiten von AsciiDoc-Dateien wird ein Texteditor benötigt, empfohlen wird xref:glossary:literaturextern:inhalt.adoc#litextern-vs-code[Visual Studio Code (VS Code)], sofern nicht der Editor der Entwicklungsumgebung verwendet wird.

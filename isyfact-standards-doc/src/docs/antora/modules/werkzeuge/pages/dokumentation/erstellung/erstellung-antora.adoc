@@ -22,22 +22,22 @@ Bei <Repository> kann es sich um einen einzelnen xref:dokumentation/architektur/
 
 Danach werden die Schritte durchlaufen, die in den folgenden Kapiteln beschrieben sind.
 
-[[maven-submodul]]
-=== Maven Submodul
+[[submodul]]
+=== Submodul
 
 Als Beispiel dient das Repository `isyfact-standards`.
-Es enthält ein Maven Submodul zur Dokumentation: `isyfact-standards-doc`.
-In Repositories, die noch keine Dokumentation enthalten, muss ein derartiges Submodul noch angelegt werden.
+Es enthält ein Submodul zur Dokumentation: `isyfact-standards-doc`.
+In Repositories, die noch keine Dokumentation enthalten, muss ein derartiges Submodul zur besseren Strukturierung noch angelegt werden.
 
-Das folgende Listing <<verzeichnisstruktur-submodul>> zeigt die Verzeichnisstruktur bis zum Maven Submodul.
+Das folgende Listing <<verzeichnisstruktur-submodul>> zeigt die Verzeichnisstruktur bis zum Submodul.
 
 [[verzeichnisstruktur-submodul]]
-.Repository mit Maven Submodul zur Dokumentation
+.Repository mit Submodul zur Dokumentation
 ----
 📂 isyfact-standards
   📂 isyfact-standards-doc <.>
 ----
-<.> Maven-Submodul für die Dokumentation.
+<.> Submodul für die Dokumentation.
 
 
 [[antora-komponente]]
