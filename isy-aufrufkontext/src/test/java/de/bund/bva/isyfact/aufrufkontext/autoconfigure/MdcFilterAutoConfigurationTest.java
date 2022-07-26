@@ -27,7 +27,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import de.bund.bva.isyfact.aufrufkontext.http.HttpHeaderNestedDiagnosticContextFilter;
+import de.bund.bva.isyfact.aufrufkontext.http.HttpHeaderMappedDiagnosticContextFilter;
 import de.bund.bva.isyfact.aufrufkontext.test.config.LeereTestConfig;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
 
@@ -47,7 +47,7 @@ import de.bund.bva.isyfact.logging.util.MdcHelper;
 public class MdcFilterAutoConfigurationTest {
 
     @Autowired
-    private FilterRegistrationBean<HttpHeaderNestedDiagnosticContextFilter> mdcFilter;
+    private FilterRegistrationBean<HttpHeaderMappedDiagnosticContextFilter> mdcFilter;
 
     @Autowired
     private TestRestTemplate testRestTemplate;
