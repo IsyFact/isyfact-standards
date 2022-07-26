@@ -81,15 +81,15 @@ public class HttpHeaderMappedDiagnosticContextFilter extends AbstractRequestLogg
             correlationId = UUID.randomUUID().toString();
 
             if (correlationIdHttpHeaderName != null) {
-                LOG.debug("HTTP-Header " + correlationIdHttpHeaderName + " enthält keine "
-                    + "Correlation-ID. Neue Correlation-ID {} erzeugt.", correlationId);
+                LOG.debug("HTTP-Header {} enthält keine Correlation-ID. Neue Correlation-ID {} erzeugt.",
+                        correlationIdHttpHeaderName, correlationId);
             } else {
                 LOG.debug("Name des HTTP-Header mit Correlation-ID ist nicht definiert. "
                     + "Neue Correlation-ID {} erzeugt.", correlationId);
             }
         } else {
-            LOG.debug("Übernehme Correlation-ID {} aus HTTP-Header ", correlationId,
-                correlationIdHttpHeaderName);
+            LOG.debug("Übernehme Correlation-ID {} aus HTTP-Header {}", correlationId,
+                    correlationIdHttpHeaderName);
         }
         return correlationId;
     }
