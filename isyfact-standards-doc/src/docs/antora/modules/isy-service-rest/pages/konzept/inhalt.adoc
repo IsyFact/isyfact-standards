@@ -583,7 +583,7 @@ Die IsyFact legt folgende Technologien für die Umsetzung von REST-Schnittstelle
 
 Das Spring Framework stellt seit Version 5 Spring Webflux als reaktive Alternative zu Spring MVC bereit.
 
-Mit Webflux ist es möglich reaktive REST APIs zu implementieren.
+Mit Webflux ist es möglich, reaktive REST APIs zu implementieren.
 Beim reaktiven Programmierparadigma geht es um die Reaktion auf Veränderungen (Observer Pattern), im Fall von REST APIs um die Reaktion auf gesendete Daten.
 Das ist hilfreich, wenn man große Datenmengen (z. B. Mediendateien oder größere Ergebnismengen aus einer Datenbankabfrage) über das REST API übertragen möchte.
 Die Daten werden dann in mehreren Paketen gesendet, der Empfänger reagiert jeweils auf den Erhalt eines Pakets.
