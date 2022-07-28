@@ -1,18 +1,17 @@
-// tag::inhalt[]
+= Neue Dokumente anlegen
 
-[[ein-neues-dokument-anlegen]]
-== Ein neues Dokument anlegen
+include::glossary:licence:partial$licence.adoc[]
 
 In diesem Kapitel wird für die xref:dokumentation/einleitung/einfuehrung.adoc#zentrale-dokumentation[Zentrale Dokumentation] gezeigt, wie die erforderliche Verzeichnisstruktur aussieht und wie ein neues Dokument dort einsortiert wird.
 
 [[neues-verzeichnis-zentrale-dokumentation-anlegen]]
-=== Zentrale Dokumentation: Ein neues Verzeichnis anlegen
+== Zentrale Dokumentation: Ein neues Verzeichnis anlegen
 
 Die zentrale Dokumentation der IsyFact-Standards gliedert sich nach den Säulen der IsyFact.
 
 Allgemein;; Einstiegsdokumente, Tutorial, Konventionen
 Blaupausen;; Grundlagendokumente und Detailkonzepte für Architektur und Anwendungslandschaft
-Bausteine;; Dokumente für die jeweilig wiederverwendbaren Softwarelösungen
+Bausteine;; Dokumente für die jeweiligen wiederverwendbaren Softwarelösungen
 Methodik;; Methodische Dokumente bspw. zu Programmierkonventionen und Systemhandbuch und -entwurf
 Werkzeuge;; Dokumente zur Verwendung von Werkzeugen und der Einrichtung der Entwicklungsumgebung (hierzu gehört auch dieses Dokument)
 
@@ -22,13 +21,13 @@ angelegt, dessen Name den Inhalt des Dokuments widerspiegelt.
 
 
 [[neues-verzeichnis-bausteindokumentation-anlegen]]
-==== Dokumentation eines Bausteins: Ein neues Verzeichnis anlegen
+=== Dokumentation eines Bausteins: Ein neues Verzeichnis anlegen
 
 Soll für einen Baustein eine neue Dokumentation angelegt werden oder die bestehende Dokumentation um ein Dokument erweitert werden, so muss zunächst der geeignete Ort zur Ablage bestimmt werden.
 I.d.R. ist dies das Repository, in dem sich der Baustein befindet, da die Dokumentation nah beim Code abgelegt werden soll.
-Bis zur IsyFact 2.4.x befindet sich jedoch ein großer Teil der Bausteindokumentation im Repository `isy-documentation`.
+Früher befand sich jedoch ein großer Teil der Bausteindokumentation im Repository `isy-documentation`.
 
-Ab IsyFact 2.5 liegt dieser Teil der Bausteindokumentation im Repository `isyfact-standards` im Submodul `isyfact-standards-doc`.
+Aktuell liegt dieser Teil der Bausteindokumentation im Repository `isyfact-standards` im Submodul `isyfact-standards-doc`.
 Der Code dieser Bausteine befindet sich ebenfalls im Repository `isyfact-standards`, wodurch die Architekturregel "Dokumentation nah beim Code" erfüllt ist.
 
 Zunächst muss der Baustein vom Git-Repository heruntergeladen werden.
@@ -77,49 +76,49 @@ Eine vollständige Vorschau des IsyFact-Dokuments wird angezeigt, wenn die Datei
 
 
 [[dateien-bearbeiten]]
-=== Dateien bearbeiten
+== Dateien bearbeiten
 
 Dieser Abschnitt beschreibt, welche Attribute und Inhalte in den Dateien angepasst werden können.
 
 [[master.adoc-bearbeiten]]
-==== master.adoc bearbeiten
+=== `master.adoc` bearbeiten
 
 Zunächst werden die Attribute `doctitle` und `document-type` gesetzt, aus denen ein einheitlicher Titel erzeugt wird, vgl. <<listing-master>>.
 
 Dann wird die Vertraulichkeits-Einstufung `vs-einstufung` angegeben.
 Dadurch wird ggf. ein Vertraulichkeitshinweis in das Dokument eingefügt und ggf. das Layout angepasst.
 Die möglichen Werte für `vs-einstufung` finden sich in <<table-master-attributes>>.
-Die `vs-einstufung` kann auch in der pom.xml als globales Attribut für alle zu generierenden Dokumente angegeben werden.
-Ein Beispiel findet sich in <<listing-pom-asciidoc>>.
+Die `vs-einstufung` kann auch xref:dokumentation/generierung/generierung-asciidoctorj.adoc#listing-pom-asciidoc[im Maven-POM] als globales Attribut für alle zu generierenden Dokumente angegeben werden.
 
-Daraufhin wird die Colophon-Angabe eingebunden.
+Daraufhin wird der Kolophon eingebunden.
 Dadurch wird ein einheitlicher Abschnitt mit Metadaten des Dokuments und Lizenzbestimmungen erzeugt.
 Dabei können noch die optionalen Attribute `factory` und `open-source` angegeben werden.
 Sie sind in <<table-master-attributes>> näher beschrieben.
 
-Weitere Erläuterungen zum Colophon Block finden sich im Abschnitt <<colophon-block>>.
-
 [[listing-master]]
 .master.adoc
-[source,asciidoc,indent=0]
+[source,asciidoc]
 ----
- :doctitle: Super tolles Feature
- :document-type: Konzept
- :vs-einstufung: offen
+:doctitle: Super tolles Feature
+:document-type: Konzept
+:vs-einstufung: offen
 
 colophon::[factory="IsyFact-Erweiterungen", open-source="false"]
 
- // Wird normalerweise vom Maven-Plugin gesetzt
- // :revnumber: 1.0.5
- // :revdate: 2020-01-01
+// Wird normalerweise vom Maven-Plugin gesetzt
+// :revnumber: 1.0.5
+// :revdate: 2020-01-01
 
 \include::thisdoc.adoc[tags=inhalt]
 
 \include::inhalt.adoc[tags=inhalt]
 ----
 
-NOTE: Die manuelle Vergabe von Revisionsnummer und -datum betrifft nur Dokumente, die nicht mit Hilfe des Maven-Plugins erzeugt werden.
-Ansonsten werden diese Attribute über das Maven-Plugin bereitgestellt (siehe <<listing-pom-asciidoc>>).
+[NOTE]
+====
+Die manuelle Vergabe von Revisionsnummer und -datum betrifft nur Dokumente, die nicht mithilfe des Maven-Plugins erzeugt werden.
+Ansonsten werden diese Attribute xref:dokumentation/generierung/generierung-asciidoctorj.adoc#listing-pom-asciidoc[über das Maven-Plugin] bereitgestellt.
+====
 
 <<table-master-attributes>> zeigt alle Attribute, die in der `master.adoc` Datei angepasst werden können.
 
@@ -164,9 +163,9 @@ getaggt ist.
 
 
 [[docinfo.adoc-bearbeiten]]
-==== docinfo.adoc bearbeiten
+=== `docinfo.adoc` bearbeiten
 
-Bezieht sich das zu erstellende Dokument auf einen Baustein (Bibliothek) der IsyFact, so ist dieser Baustein inklusive der Version in einer eigenen Datei docinfo.adoc anzugeben und in master.adoc zu inkludieren.
+Bezieht sich das zu erstellende Dokument auf einen Baustein (Bibliothek) der IsyFact, so ist dieser Baustein inklusive der Version in einer eigenen Datei docinfo.adoc anzugeben und in `master.adoc` zu inkludieren.
 In <<listing-master-bib>> wird beispielsweise auf den Baustein `isy-web` verwiesen.
 
 [[listing-master-bib]]
@@ -186,17 +185,13 @@ In <<listing-master-bib>> wird beispielsweise auf den Baustein `isy-web` verwies
 In der Vorschau sollten die Änderungen unmittelbar erscheinen. Ihre Änderungen speichern Sie über kbd:[Strg + S].
 
 [[thisdoc.adoc-bearbeiten]]
-==== thisdoc.adoc bearbeiten
+=== `thisdoc.adoc` bearbeiten
 
 Die Datei `thisdoc.adoc` ist optional auszufüllen und sollte eine Einleitung in das Dokument bieten und den Aufbau und Zweck des Dokuments erläutern.
 Diese Datei ist in der `master.adoc` integriert und wird beim Generieren in das vollständige Dokument eingefügt.
 
 [[inhalt.adoc-bearbeiten]]
-==== inhalt.adoc bearbeiten
+=== `inhalt.adoc` bearbeiten
 
 In `inhalt.adoc` wird der eigentliche Inhalt des Dokuments verfasst.
 Diese Datei wird in der `master.adoc` nach der Datei `thisdoc.adoc` inkludiert.
-
-Im Folgenden wird die Inhaltserstellung erläutert.
-
-// end::inhalt[]

@@ -1,7 +1,5 @@
-// tag::inhalt[]
-
 [[vorgaben-changelog]]
-== Zentralisiertes und automatisiertes Changelog
+= Zentralisiertes und automatisiertes Changelog
 
 Jede Komponente eines Projekts und jedes Dokument erhalten eine eigene Changelog-Datei im AsciiDoc-Format (`.adoc`).
 Diese Datei wird im Folgenden Komponentenchangelog genannt.
@@ -10,8 +8,8 @@ Damit jedoch auch alle Änderungen eines Projekts (Menge aller Komponenten/Dokum
 Diese Changelog-Datei, im Folgenden Projektchangelog genannt, bindet die einzelnen Changelog-Dateien automatisch und nach Release gruppiert ein.
 Auf diese Weise besitzt jedes Projekt ein zentrales Changelog und (je nach Projekt) mehrere dezentrale Komponentenchangelogs ohne die Einträge redundant verwalten zu müssen.
 
+[[image-architektur_changelogs]]
 .Zusammenführung der einzelnen Komponentenchangelogs
-[id="image-architektur_changelogs",reftext="{figure-caption} {counter:figures}"]
 image::handbuch/architektur_changelog.png[align="center",scaledwidth=80%]
 
 Zum Erstellen und Bearbeiten wird empfohlen, einen xref:dokumentation/einleitung/einfuehrung.adoc#werkzeuge[Texteditor] zu verwenden, der das AsciiDoc Format unterstützt.
@@ -19,39 +17,39 @@ Zum Erstellen und Bearbeiten wird empfohlen, einen xref:dokumentation/einleitung
 Im Folgenden wird beschrieben, wie die einzelnen Changelog-Dateien erstellt und welche Anforderungen an die Struktur und den Inhalt der Changelogs gestellt werden.
 
 [[changelog-anlegen]]
-=== Anlegen der Changelog-Dateien
+== Anlegen der Changelog-Dateien
 
 Sowohl der Projektchangelog, als auch der Komponentenchangelog werden mit AsciiDoc erstellt.
 Das Dateiformat ist `.adoc`.
 
 [[komponentenchangelog-anlegen]]
-==== Komponentenchangelog
+=== Komponentenchangelog
 
 Für jede Komponente und jedes AsciiDoc-Dokument (z.B. Nutzungsvorgaben) wird eine eigene AsciiDoc Datei (`changelog.adoc`) erstellt.
 Bei Dokumenten wird diese Datei im gleichen Verzeichnis wie das Dokument selbst abgelegt.
 
+[[image-ablage_komponentenchangelog_dokument]]
 .Ablageort des Komponentenchangelog für ein Dokument
-[id="image-ablage_komponentenchangelog_dokument",reftext="{figure-caption} {counter:figures}"]
 image::handbuch/ablage_komponentenchangelog_dokument.png[align="center",scaledwidth=60%]
 
 Bei Komponenten wird diese Datei im root-Verzeichnis der Komponente abgelegt:
 
+[[image-ablage_komponentenchangelog_komponente]]
 .Ablageort des Komponentenchangelog für eine Komponente
-[id="image-ablage_komponentenchangelog_komponente",reftext="{figure-caption} {counter:figures}"]
 image::handbuch/ablage_komponentenchangelog_komponente.png[align="center",scaledwidth=60%]
 
 In die Datei wird die Überschrift "Changelog" eingefügt:
 
+[[listing-komponentenchangelog_ueberschrift]]
 .Komponentenchangelog Inhalt
-[id="listing-komponentenchangelog_ueberschrift",reftext="{listing-caption} {counter:listings }"]
-[source,adoc]
+[source,asciidoc]
 ----
 [[changelog]]
 == Changelog
 ----
 
 [[projektchangelog-anlegen]]
-==== Projektchangelog
+=== Projektchangelog
 
 Die zentrale Projektchangelog-Datei `changelog.adoc` wird im root-Verzeichnis des Projekts abgelegt:
 
@@ -59,22 +57,22 @@ Die zentrale Projektchangelog-Datei `changelog.adoc` wird im root-Verzeichnis de
 [id="image-ablage_projektchangelog",reftext="{figure-caption} {counter:figures}"]
 image::handbuch/ablage_projektchangelog.png[align="center",scaledwidth=60%]
 
-Initial wird die Datei ebenfalls mit der Überschrift "Changelog" befüllt:
+Initial wird die Datei ebenfalls mit der Überschrift "Changelog" befüllt.
 
 [[struktur-changelog]]
-=== Struktur der Changelog-Dateien
+== Struktur der Changelog-Dateien
 
 Der Aufbau des Projektchangelogs und der Komponentenchangelogs unterscheidet sich und wird im Folgenden erläutert.
 
 [[struktur-komponentenchanglog]]
-==== Komponentenchangelog
+=== Komponentenchangelog
 
 Der Komponentenchangelog enthält die Changelog-Einträge nach Release gruppiert.
 Dazu wird für jedes Release ein eigener Release-Tag definiert:
 
-.Erstellung Release-Tag im Komponentenchangelog
 [[listing-komponentenchangelog_release]]
-[source,adoc]
+.Erstellung Release-Tag im Komponentenchangelog
+[source,asciidoc]
 ----
 // tag::release-2.1.0[]
 
@@ -94,9 +92,9 @@ Jeder Release-Tag enthält die Versionsnummer des Releases und eine entsprechend
 
 Somit ergibt sich folgender Gesamtaufbau des Komponentenchangelogs:
 
-.Gesamtstruktur Komponentenchangelog
 [[listing-komponentenchangelog_gesamt]]
-[source,adoc]
+.Gesamtstruktur Komponentenchangelog
+[source,asciidoc]
 ----
 [[changelog]]
 == Changelog
@@ -121,85 +119,81 @@ Somit ergibt sich folgender Gesamtaufbau des Komponentenchangelogs:
 Die Struktur des Kompontenchangelogs ist damit erfolgreich erstellt.
 
 [[struktur-projektchangelog]]
-==== Projektchangelog
+=== Projektchangelog
 
 Im Projektchangelog sollten nach Möglichkeit keine Changelog-Einträge verfasst, sondern ausschließlich die Komponentenchangelogs eingebunden werden.
 Dazu wird für jedes Release ein eigener Abschnitt erstellt:
 
-.Erstellung Release
 [[listing-projektchangelog_release]]
-[source,adoc]
+.Erstellung Release
+[source,asciidoc]
 ----
 === Änderungen IsyFact 2.1.0
 
-// Beginn Übergreifende Änderungen
+// Beginn übergreifende Änderungen
 
 // Ende übergreifende Änderungen
-
 ----
 
 Jeder Abschnitt enthält die Versionsnummer des Releases.
 
-Unterhalb der Release Definition ist der Platz für die Beschreibung von komponentenübergreifenden Änderungen vorbehalten, die nicht einzelnen Komponenten zugeordnet werden können.
+Unterhalb der Releasedefinition ist der Platz für die Beschreibung von komponentenübergreifenden Änderungen vorbehalten, die nicht einzelnen Komponenten zugeordnet werden können.
 Dieses direkte Einfügen von Einträgen in das Projektchangelog sollte nur in Ausnahmefällen geschehen (siehe Kapitel <<inhalt-projektchangelog>>.
 
 Anschließend werden die Komponentenchangelogs in das Projektchangelog eingebunden.
 Dazu wird für jedes Release nur der mit dem Release getaggte Abschnitt der Komponentenchangelogs importiert:
 
-.Einbindung der Komponentenchangelogs
 [[listing-projektchangelog_einbindung_komponentenchangelog]]
-[source,adoc]
+.Einbindung der Komponentenchangelogs
+[source,asciidoc]
 ----
 === Änderungen IsyFact 2.1.0
 
-// Beginn Übergreifende Änderungen
+// Beginn übergreifende Änderungen
 
 // Ende übergreifende Änderungen
 
-\include::src/docs/10_IsyFact-Standards/00_Allgemein/IsyFact-Einstieg/changelog.adoc[tag=release-2.1.0]
-\include::src/docs/10_IsyFact-Standards/00_Allgemein/IsyFact-Glossar/changelog.adoc[tag=release-2.1.0]
+\include::isyfact-standards-doku:einstieg:page$changelog.adoc[tag=release-2.1.0]
 ...
 ----
 
 Mehrere Releases werden wie folgt angelegt:
 
-.Gesamtstruktur Projektchangelog
 [[listing-projektchangelog_einbindung_releases]]
-[source,adoc]
+.Gesamtstruktur Projektchangelog
+[source,asciidoc]
 ----
 [[changelog]]
 == Changelog
 
 === Änderungen IsyFact 2.1.0
 
-// Beginn Übergreifende Änderungen
+// Beginn übergreifende Änderungen
 
 // Ende übergreifende Änderungen
 
-\include::src/docs/10_IsyFact-Standards/00_Allgemein/IsyFact-Einstieg/changelog.adoc[tag=release-2.1.0]
-\include::src/docs/10_IsyFact-Standards/00_Allgemein/IsyFact-Glossar/changelog.adoc[tag=release-2.1.0]
+\include::isyfact-standards-doku:einstieg:page$changelog.adoc[tag=release-2.1.0]
 ...
 
 === Änderungen IsyFact 2.0.0
 
-// Beginn Übergreifende Änderungen
+// Beginn übergreifende Änderungen
 
 // Ende übergreifende Änderungen
 
-\include::src/docs/10_IsyFact-Standards/00_Allgemein/IsyFact-Einstieg/changelog.adoc[tag=release-2.0.0]
-\include::src/docs/10_IsyFact-Standards/00_Allgemein/IsyFact-Glossar/changelog.adoc[tag=release-2.0.0]
+\include::isyfact-standards-doku:einstieg:page$changelog.adoc[tag=release-2.0.0]
 ...
 ----
 
 [[inhalt-changlog]]
-=== Inhalt der Changelog-Dateien
+== Inhalt der Changelog-Dateien
 
 Diese Kapitel beschreibt die Anforderungen an den Inhalt einzelner Changelogeinträge.
 Changelogs sollen den Entwicklern von IsyFact-Anwendungen Mitgrationsanleitungen liefern, um von einer älteren IsyFact Version auf eine neuere einfach und schnell wechseln zu können.
 Damit der Changelog diesen Zweck erfüllt, ist es wichtig, dass sowohl die Entscheidung zur Erstellung eines Changelogeintrags, als auch der Inhalt des Eintrags mit Bedacht gewählt wird.
 
 [[inhalt-komponentenchangelog]]
-==== Komponentenchangelog
+=== Komponentenchangelog
 
 In diesen Fällen sollte *immer ein* Changelogeintrag erstellt werden:
 
@@ -232,7 +226,7 @@ Der Changelogeintrag sollte wie folgt aufgebaut sein:
 
 
 [[inhalt-projektchangelog]]
-==== Projektchangelog
+=== Projektchangelog
 
 Der Projektchangelog kann komponentenübergreifende Changelogeinträge aufnehmen, wenn folgende Bedingungen erfüllt sind:
 
@@ -244,5 +238,3 @@ und
 
 An die Changelogeintrag gelten die in Kapitel <<inhalt-komponentenchangelog>> beschriebenen Anforderungen.
 Komponentenübergreifende Einträge sind dem gekennzeichneten Bereich hinzuzufügen (vgl. <<listing-projektchangelog_einbindung_komponentenchangelog>>).
-
-// end::inhalt[]
