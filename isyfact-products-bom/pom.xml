@@ -15,7 +15,7 @@
     <description>Definiert die Versionen aller 3rd-Party Abhängigkeiten des Core Technology Stack der IsyFact.</description>
 
     <properties>
-        <spring.boot.version>2.5.14</spring.boot.version>
+        <spring.boot.version>2.7.1</spring.boot.version>
         <spring.webflow.version>2.5.1.RELEASE</spring.webflow.version>
         <resilience4j.version>1.7.1</resilience4j.version>
         <apache.poi.version>4.1.2</apache.poi.version>
@@ -301,13 +301,7 @@
             <!-- Managed by Spring Boot Dependencies -->
 
             <!-- Testing, in-memory database: H2 -->
-            <!-- Self managed because of CVEs -->
-            <dependency>
-                <groupId>com.h2database</groupId>
-                <artifactId>h2</artifactId>
-                <version>2.1.210</version>
-                <scope>test</scope>
-            </dependency>
+            <!-- Managed by Spring Boot Dependencies -->
 
             <!-- GreenMail test suite for mail servers -->
             <dependency>
