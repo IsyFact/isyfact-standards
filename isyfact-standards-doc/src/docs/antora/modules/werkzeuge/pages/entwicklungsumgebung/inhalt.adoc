@@ -392,6 +392,14 @@ Wenn man sich innerhalb eines Codefensters befindet, kann man mit folgenden Tast
 * *Eclipse:* kbd:[Alt + Shift + F]
 * *IntelliJ IDEA:* kbd:[Strg + Alt + L]
 
+[[tastaturkuerzel-import-aufraeumen]]
+==== Tastaturkürzel zum Aufräumen der Imports
+
+Sollen lediglich die Imports aufgeräumt werden, kann im Codefenster folgendes Tastenkürzel verwendet werden.
+
+* *Eclipse:* kbd:[Alt + Shift + O]
+* *IntelliJ IDEA:* kbd:[Strg + Alt + O]
+
 [[import-von-code-style-formatierungsdateien]]
 ==== Import von Code Style Formatierungsdateien
 
@@ -404,7 +412,7 @@ NOTE: Die in dieser Installationsbeschreibung erstellten Screenshots basieren au
 
 *Schritt 1:* Konfigurationsmaske öffnen
 
-* Menüeintrag menu:File[Settings > Code Style > Java]
+* Menüeintrag menu:File[Settings > Editor > Code Style > Java]
 
 *Schritt 2:* Import der Code-Formatter XML-Datei
 
@@ -421,6 +429,17 @@ image::werkzeuge:entwicklungsumgebung/Einrichtung_Entwicklungsumgebung_006.png[a
 Der Name der Datei kann vom Namen des Scheme abweichen.
 Welcher Scheme-Name angezeigt wird, entscheidet sich durch einen entsprechenden Eintrag innerhalb der importierten XML-Datei.
 ====
+
+[[intellij-additional-setting]]
+====== Zusätzliche Einstellung
+
+Weiterhin muss folgende Einstellung in menu:File[Settings > Editor > General] vorgenommen werden:
+
+Unter "On Save": Ensure every saved file ends with a line break
+
+.IntelliJ IDEA Zusätzliche Einstellung
+[id="image-intellij_additional-setting",reftext="{figure-caption} {counter:figures}"]
+image::werkzeuge:entwicklungsumgebung/Einrichtung_Entwicklungsumgebung_006b.png[align="center"]
 
 [[eclipse-code-formatter]]
 ===== Eclipse
@@ -446,6 +465,16 @@ image::werkzeuge:entwicklungsumgebung/Einrichtung_Entwicklungsumgebung_007.png[a
 Der Name der Datei kann vom Namen des aktiven Profiles des Formatters abweichen.
 Welcher Profilname angezeigt wird, entscheidet sich durch einen entsprechenden Eintrag innerhalb der importierten XML-Datei.
 ====
+
+*Schritt 3:* Einrichtung des Import Organizers
+
+* Menüeintrag menu:Window[Preferences > Java > Code Style > Organize Imports]
+* In diesem Menü kann über "Import" die importorder-Datei importiert werden, welche die Reihenfolge automatisch folgendermaßen festlegt: java, javax, net, org, com, de
+
+.Eclipse Import Organizer
+[id="image-import-organizer",reftext="{figure-caption} {counter:figures}"]
+image::werkzeuge:entwicklungsumgebung/Einrichtung_Entwicklungsumgebung_007b.png[align="center"]
+
 
 [[formatierungsdifferenzen]]
 ==== Formatierungsdifferenzen
@@ -577,7 +606,7 @@ Die Einbindung und Konfiguration von Checkstyle erfolgt über Plugins in der ver
 
 *Schritt 1:* Installationsquelle für Checkstyle hinzufügen
 
-* Den Dialog _Install_ öffnen: menu:Window[Help > Install New Software...]
+* Den Dialog _Install_ öffnen: menu:Help[Install New Software...]
 * Neben dem Eingabefeld _Work With:_ auf die Schaltfläche btn:[Add...] klicken und folgende Daten eintragen: +
 +
 _Name_: Eclipse Checkstyle Plugin +
@@ -594,6 +623,8 @@ image::werkzeuge:entwicklungsumgebung/Einrichtung_Entwicklungsumgebung_012.png[a
 .Checkstyle-Plugins für Eclipse installieren
 [id="image-checkstyle-auswaehlen",reftext="{figure-caption} {counter:figures}"]
 image::werkzeuge:entwicklungsumgebung/Einrichtung_Entwicklungsumgebung_013.png[align="center"]
+
+* Im Anschluss wird ein Neustart der IDE empfohlen.
 
 ===== IntelliJ IDEA
 
