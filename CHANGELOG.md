@@ -1,3 +1,6 @@
+# 3.0.0
+- `IFS-1465`: [isyfact-products-bom] Spring Boot Versionsanhebung auf 2.7.1
+
 # 2.5.0
 - `IFS-1073`: [isy-serviceapi-core] Logausgabe zur Korrektur der Korrelations-Id entfernt
 - `IFS-1282`: Einführung von Maven CI-friendly Versionen
@@ -13,6 +16,7 @@
 - `IFS-1466`: [isyfact-products-bom] Spring Boot Versionsanhebung auf 2.5.13
 - `IFS-1525`: [isyfact-products-bom] Spring Boot Versionsanhebung auf 2.5.14
 - `IFS-1050`: [isy-batchrahmen] Stelle Beispiel-SQL-Skripte wieder her, sodass diese mit der Oracle-Datenbank kompatibel sind 
+- `IFS-1548`: [isyfact-standards-doc] Anleitung zum Formatieren und Einrichten des Checkstyle Plugins angepasst
 - `IFS-1546`: Hinzufügen des Profils zum automatischen Kopieren von Release-Konfigurationen
 
 # 2.4.0

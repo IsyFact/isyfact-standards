@@ -1330,7 +1330,7 @@ Eine funktionsfähige Version dieses Beispiels ist im isy-batchrahmen
 unter `src/main/skripte/shellbatch_template/` eingecheckt.
 Um dieses ausführen zu können, muss eine funktionierende Datenbankverbindung auf ein leeres Schema in der jpa.properties Datei angegeben werden.
 
-Details zu dem Datenzugriff, welcher in diesem Beispiel aufgeführt ist, oder alternative Datenzugriffe, befinden sich in dem Dokument <<DetailkonzeptKomponenteDatenzugriff>>.
+Details zu dem Datenzugriff, welcher in diesem Beispiel aufgeführt ist, oder alternative Datenzugriffe, befinden sich in dem Dokument xref:blaupausen:detailkonzept-komponente-datenzugriff/inhalt.adoc[Detailkonzept Datenzugriff].
 
 // tag::architekturregel[]
 

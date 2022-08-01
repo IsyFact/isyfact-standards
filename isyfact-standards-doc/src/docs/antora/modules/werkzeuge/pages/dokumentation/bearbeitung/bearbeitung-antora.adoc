@@ -6,7 +6,7 @@
 Im Folgenden wird beschrieben, wie Seiten bearbeitet werden müssen, damit sie per Antora generiert werden können.
 Außerdem werden Konventionen zur Bearbeitung beschrieben, die es ermöglichen, die IsyFact Dokumentation in einem einheitlichen Stil zur Verfügung zu stellen.
 
-Außerdem gibt es eine xref:seitenvorlage.adoc#seitenvorlage[Seitenvorlage], die kopiert werden kann, und exemplarisch alle gängigen Elemente einer Dokumentationsseite enthält.
+Außerdem gibt es eine xref:seitenvorlage.adoc[Seitenvorlage], die kopiert werden kann, und exemplarisch alle gängigen Elemente einer Dokumentationsseite enthält.
 
 Außer diesem Handbuch sind Kenntnisse der AsciiDoc-Syntax erforderlich.
 
