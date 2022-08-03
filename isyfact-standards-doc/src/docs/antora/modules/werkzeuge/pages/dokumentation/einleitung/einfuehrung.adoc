@@ -2,52 +2,43 @@
 
 include::glossary:licence:partial$licence.adoc[]
 
-// tag::inhalt[]
 [[einleitung]]
 == Einleitung
 
 Dieses Handbuch dient technischen Autoren von IsyFact-Dokumenten als Wegweiser.
 
-[CAUTION]
-====
-Die Art der Dokumentation hat sich seit der IsyFact Version 2.5 stark geändert.
-====
-
-Im Folgenden werden die Unterschiede der Dokumentation vor und ab der IsyFact Version 2.5 aufgeführt.
+Es gibt zwei wesentliche Arten der Dokumentation: <<generierung-antora,Projektseiten mit Antora>> sowie <<generierung-asciidoctorj,PDF- und HTML-Dokumente mit AsciidoctorJ>>.
 Allen Versionen gemeinsam ist die Verwendung von AsciiDoc als Grundlage zur Dokumentation.
-Die Dokumentation ab der IsyFact Version 2.5 verwendet das Open-Source-Tool Antora zur Generierung der HTML-Gesamtdokumentation.
-Die Dokumentation vor der IsyFact Version 2.5 verwendet AsciidoctorJ Extensions zur Generierung der einzelnen HTML- und PDF-Dokumente.
 
+[[generierung-antora]]
 === Generierung mit Antora
 
-Durch die Verwendung von Antora zur Generierung der HTML-Gesamtdokumentation ergibt sich eine gegenüber der bisherigen Dokumentation deutlich veränderte Verzeichnisstruktur der Ablage der Dokumentationsseiten und teilweise der Inhalte.
+Die Generierung von Projektseiten mit Antora bietet die Möglichkeit, aus Asciidoc-Dateien eine statische HTML-Seite zu erzeugen.
 
-[NOTE]
-====
-Einzelheiten zur Dokumentation mit Antora, u.a. zur Verzeichnisstruktur, finden sich in der xref:dokumentation/master-antora.adoc[Projektseite mit Antora].
-====
+Einzelheiten zur Dokumentation mit Antora finden sich auf den Unterseiten:
 
-Die <<zentrale-dokumentation,zentrale Dokumentation>> aus dem Repository `isy-documentation` wurde verschoben in das Repository `isyfact-standards` im Submodul `isyfact-standards-doc`.
+* xref:dokumentation/erstellung/erstellung-antora.adoc[],
+* xref:dokumentation/bearbeitung/bearbeitung-antora.adoc[],
+* xref:dokumentation/generierung/generierung-antora.adoc[].
 
-Eine weitere Änderung gegenüber früheren Versionen der IsyFact besteht darin, dass keine Verzeichnisse wie z.B. ein Abbildungsverzeichnis am Ende eines Dokuments mehr erstellt werden.
+NOTE: Die <<zentrale-dokumentation,zentrale Dokumentation>> aus dem Repository `isy-documentation` wurde im Zuge der Migration xref:glossary:literaturextern:inhalt.adoc#litextern-url-isyfact-online-docs-source[in ein Submodul des Repositories `isyfact-standards`] verschoben.
+
+Eine wichtige Änderung gegenüber der Generierung mit AsciidoctorJ besteht darin, dass keine Verzeichnisse wie z.B. ein Abbildungsverzeichnis am Ende eines Dokuments mehr erstellt werden.
 Stattdessen werden die Inhalte stärker verlinkt, auch auf Inhalte in anderen Repositories.
 Es wird z.B. auf ein zentrales Glossar verlinkt.
 
-=== Generierung mit AsciidoctorJ Extensions
+[[generierung-asciidoctorj]]
+=== Generierung mit AsciidoctorJ
 
-Obwohl zur Generierung der einzelnen HTML- und PDF-Dokumente in der Dokumentation vor der IsyFact Version 2.5 AsciidoctorJ Extensions verwendet werden, wird empfohlen, die Generierung der Dokumentation mit Antora durchzuführen.
-Wenn die Generierung von PDF unverzichtbar ist, sollte die Dokumentation derzeit per AsciidoctorJ Extensions erstellt werden.
+Die Generierung von Dokumenten mit AsciidoctorJ ist vor allem dann relevant, wenn als Ergebnis ein PDF-Dokument gefordert ist, oder wenn das Hosten einer Projektseite nicht möglich ist.
 
-[NOTE]
-====
-Einzelheiten zur Dokumentation mit AsciidoctorJ Extensions finden sich in der xref:dokumentation/master-asciidoctorJ.adoc[Dokumente mit AsciidoctorJ Extensions].
-====
+Einzelheiten zur Dokumentation mit AsciidoctorJ finden sich auf den Unterseiten:
 
-Die zentrale Dokumentation zusammen mit der Bausteindokumentation befinden sich im Repository `isy-documentation`.
-Die IsyFact Erweiterungen sind jedoch im Repository dokumentiert, in dem der Code liegt.
+* xref:dokumentation/erstellung/erstellung-asciidoctorj.adoc[],
+* xref:dokumentation/bearbeitung/bearbeitung-asciidoctorj.adoc[],
+* xref:dokumentation/generierung/generierung-asciidoctorj.adoc[].
 
-Bei der Dokumentation vor IsyFact 2.5 sorgen Skripte dafür, dass die erstellten HTML- und PDF-Dateien automatisch auch über ein Literaturverzeichnis, ein Glossar, ein Abbildungsverzeichnis und ein Tabellenverzeichnis verfügen.
-
+AsciidoctorJ-Extensions sorgen dafür, dass die erstellten HTML- und PDF-Dateien automatisch auch über ein Literaturverzeichnis, ein Glossar, ein Abbildungsverzeichnis und ein Tabellenverzeichnis verfügen.
 
 === Festgelegte Struktur
 
@@ -75,6 +66,47 @@ Zum Erstellen und Bearbeiten von AsciiDoc-Dateien wird ein Texteditor benötigt,
 VS Code ist ein Texteditor, der von Microsoft entwickelt wird und plattformübergreifend für die Betriebssysteme Windows, macOS und Linux verfügbar ist.
 Neben den ausgereiften Plugins für die Bearbeitung von AsciiDoc-Dokumenten: xref:glossary:literaturextern:inhalt.adoc#litextern-vs-code-asciidoc-erweiterung[AsciiDoc Erweiterung für VS Code] unterstützt VS Code Git-basierte Projekte mit vielfältigen Funktionen.
 
-// end::inhalt[]
 
-include::../architektur/architektur.adoc[tags=inhalt]
+[[architektur-dokumentation]]
+== Architektur der Dokumentation
+
+Die Architektur der IsyFact-Dokumentation besteht aus zwei Kernbestandteilen:
+
+. Zentrale Dokumentation
+. Dokumentation der IsyFact Erweiterungen
+
+Die zentrale Dokumentation befindet sich im Repository `isyfact-standards`.
+Die Dokumentation der IsyFact Erweiterungen befindet sich im Repository, in dem sich der zu dokumentierende Baustein befindet, da die Dokumentation nah beim Code abgelegt werden soll.
+
+Im Folgenden werden die Bestandteile erläutert.
+
+[[zentrale-dokumentation]]
+=== Zentrale Dokumentation
+
+Die zentrale Dokumentation bietet Informationen, Nutzungsvorgaben und Anleitungen zu zentralen Themen der IsyFact.
+Dazu zählt der Einstieg, das Whitepaper oder auch das Tutorial.
+
+Die zentrale Dokumentation der IsyFact-Standards gliedert sich nach den Säulen der IsyFact.
+
+Allgemein:: Einstiegsdokumente und Tutorials
+Blaupausen:: Grundlagendokumente und Detailkonzepte für Architektur und Anwendungslandschaft
+Bausteine:: Dokumente für die jeweils wiederverwendbaren Softwarelösungen
+Methodik:: Methodische Dokumente, z.B. zu Programmierkonventionen und Systemhandbuch und -entwurf
+Werkzeuge:: Dokumente zur Verwendung von Werkzeugen und der Einrichtung der Entwicklungsumgebung (hierzu gehört auch dieses Dokument)
+
+[[baustein-dokumentation]]
+==== Dokumentation der Bausteine
+
+Jeder Baustein aus der Säule _Bausteine_ der IsyFact Standards enthält eine eigene Dokumentation.
+Hierzu gehören die Nutzungsvorgaben zur Verwendung des Bausteins und das zugrundeliegende Konzept.
+Die Nutzungsvorgaben richten sich in erster Linie an Entwickler, die die IsyFact nutzen.
+Das Konzept richtet sich an Architekten und Entwickler, die die IsyFact weiterentwickeln.
+Wird ein neuer Baustein angelegt, so muss auch eine entsprechende Dokumentation erstellt werden.
+
+[[dokumentation-erweiterungen]]
+=== Dokumentation der IsyFact Erweiterungen
+
+IsyFact Erweiterungen können als Bausteine optional in einem xref:glossary:glossary:master.adoc#glossar-anwendungssystem[IsyFact Anwendungssystem] verwendet werden.
+Ein Beispiel ist der Erweiterungsbaustein `isy-style`, der Styleguide der IsyFact.
+Sie enthalten ebenfalls ihre eigene Dokumentation.
+I.d.R. werden auch hier zugrundeliegende Konzepte sowie Nutzungsvorgaben für Entwickler beschrieben.
