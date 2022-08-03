@@ -211,7 +211,6 @@ Der `IsyAttributesPreprocessor` wertet alle IsyFact Attribute am Anfang eines `m
 Mithilfe der Attribute wird der Titel mit optionalem Untertitel generiert, sowie das passende Theme für das Dokument
 ausgewählt. Dabei können xref:dokumentation/erstellung/erstellung-asciidoctorj.adoc#table-master-attributes[folgende Attribute] angepasst werden.
 
-
 Standardmäßig sind die Extensions auf den Bau von IsyFact-Standards Bausteinen mit einer Open-Source-Lizenz konfiguriert.
 
 [[colophon-block]]
