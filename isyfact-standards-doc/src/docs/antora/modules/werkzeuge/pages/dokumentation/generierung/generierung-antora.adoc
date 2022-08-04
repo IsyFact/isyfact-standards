@@ -1,7 +1,6 @@
-// tag::inhalt[]
+= Projektseite erzeugen
 
-[[asccidoc-zu-html]]
-== HTML-Seiten erzeugen
+include::glossary:licence:partial$licence.adoc[]
 
 Ist das zu bearbeitende Dokument fertiggestellt, so kann es als HTML-Datei als Teil der Gesamtdokumentation generiert werden.
 Dies geschieht mithilfe von Antora, einem Open-Source-Tool zur Generierung von HTML-Dokumentation aus Asciidoc-Dateien.
@@ -18,7 +17,7 @@ Für externe Nutzer werden auf dieser Seite die zur Generierung notwendigen Schr
 Ein paar Besonderheiten bei der Generierung der IsyFact-Gesamtdokumentation werden dennoch vorgestellt.
 
 [[antora-werkzeuge]]
-=== Installation der benötigten Werkzeuge
+== Installation der benötigten Werkzeuge
 
 Node.js und Antora müssen auf dem lokalen Rechner installiert werden.
 Eine gute Anleitung bietet die xref:glossary:literaturextern:inhalt.adoc#litextern-antora-installationen[Antora-Dokumentation].
@@ -26,7 +25,7 @@ Eine gute Anleitung bietet die xref:glossary:literaturextern:inhalt.adoc#litexte
 Eine andere Möglichkeit besteht darin, über das `frontend-maven-plugin` Node.js und Antora im lokalen Projekt zu installieren und über das `exec-maven-plugin` die Generierung der Gesamtdokumentation mit Antora auszuführen.
 Eine Anleitung findet sich in xref:glossary:literaturextern:inhalt.adoc#litextern-antora-maven[Antora mit Maven].
 
-=== Antora Konfigurationsdatei `playbook.yml`
+== Antora Konfigurationsdatei `playbook.yml`
 
 Die offizielle Antora-Dokumentation beschreibt die xref:glossary:literaturextern:inhalt.adoc#litextern-antora-playbook[Konfigurationsdatei `playbook.yml`].
 Deshalb wird hier nur auf die IsyFact-Besonderheiten eingegangen.
@@ -83,7 +82,7 @@ output:
 <8> Ergänzungen der IsyFact zum Standard-UI.
 
 
-=== Supplemental UI
+== Supplemental UI
 
 Unter dem im Playbook unter `supplemental_files` angegebenen Pfad kann das Standard-UI von Antora leicht mit CSS und JavaScript überschrieben werden.
 Dies sollte jedoch nur bei kleineren Änderungen genutzt werden, bei größeren Änderungen empfiehlt es sich, ein eigenes UI zu schreiben, ggf. auf Basis des Standard-UIs.
@@ -99,6 +98,3 @@ div.listingblock pre {
     font-size: .75rem;
 }
 ----
-
-// end::inhalt[]
-
