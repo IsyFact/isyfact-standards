@@ -316,7 +316,7 @@ Gerade bei einer Migration von einer IsyFact Version kleiner als v1.8 ist zu pr√
 Die IsyFact richtet sich beim Thema Sicherheit nach beh√∂rdlichen Standards sowie De-Facto-Standards aus der Industrie:
 
 * xref:glossary:literaturextern:inhalt.adoc#litextern-it-grundschutz-bsi[IT-Grundschutz]
-* xref:glossary:literaturextern:inhalt.adoc#litextern-OWASP[OWASP Top 10 Project]
+* xref:glossary:literaturextern:inhalt.adoc#litextern-owasp[OWASP Top 10 Project]
 
 
 [[kapitel-isyfact-Referenzarchitektur]]

@@ -1,7 +1,6 @@
-// tag::inhalt[]
+= PDF- und HTML-Dokumente erzeugen
 
-[[asccidoc-zu-pdf-html]]
-== PDF- und HTML-Dokumente erzeugen
+include::glossary:licence:partial$licence.adoc[]
 
 Ist das zu bearbeitende Dokument fertiggestellt, so kann daraus eine PDF- und HTML-Datei generiert werden.
 Dies geschieht mithilfe des Asciidoctor Maven Plugins und der `isy-asciidoctorj-extensions`.
@@ -9,7 +8,7 @@ Dies geschieht mithilfe des Asciidoctor Maven Plugins und der `isy-asciidoctorj-
 Eine Liste aller IsyFact Extensions befindet sich im Abschnitt <<isy-asciidoctorj-extensions>>.
 
 [[asciidoc-in-pom-einbinden]]
-=== Maven-Konfiguration
+== Maven-Konfiguration
 
 Die `isy-asciidoctorj-extensions` können über das `asciidoctor-maven-plugin` in der pom.xml eingebunden werden.
 Zunächst sind folgende Properties dem Element `<properties></properties>` hinzuzufügen:
@@ -103,12 +102,14 @@ Folgendes Listing zeigt die Konfiguration für einen lauffähigen Asciidoctor Bu
 ----
 <1> Es wird die aktuellste Version des Maven Plugins benötigt.
 <2> Einfügen der `isy-asciidoctorj-extensions` als Dependency des Maven Plugins.
-<3> Die Angabe der `vs-einstufung` ist an dieser Stelle optional und gilt für alle Dokumente. Üblicherweise wird die `vs-einstufung` in master.adoc gesetzt, dort ist sie verpflichtend, wenn sie nicht schon wie hier in der pom.xml gesetzt wurde. Vgl. <<listing-master>>.
+<3> Die Angabe der `vs-einstufung` ist an dieser Stelle optional und gilt für alle Dokumente. Üblicherweise wird die `vs-einstufung` in `master.adoc` gesetzt, dort ist sie verpflichtend, wenn sie nicht schon wie hier in der pom.xml gesetzt wurde.
+Vgl. xref:dokumentation/erstellung/erstellung-asciidoctorj.adoc#listing-master[master.adoc].
+
 <4> Es ist zu beachten, dass die Konfigurationen im Element `<executions></executions>` zu editieren sind, siehe <<dokument-pom-aufnehmen>>.
 
 
 [[dokument-pom-aufnehmen]]
-=== Integration in den Build-Prozess
+== Integration in den Build-Prozess
 
 Jedes Dokument, das während des Build-Prozesses generiert werden soll, muss dafür in die `pom.xml` aufgenommen werden.
 
@@ -127,21 +128,21 @@ Folgende Parameter müssen angepasst werden:
 |====
 |Parameter|Beschreibung|Beispiel
 |<id></id>| Eine eindeutige Kennung des Dokuments. Sollte Aufschluss über das Dokument und das Ausgabeformat geben.| `mein-dokument-pdf` oder `mein-dokument-html`
-|<sourceDirectory></sourceDirectory>| Definiert den Pfad zum Verzeichnis, in dem die master.adoc Datei liegt.| `src/docs/OrdnerDokument`
+|<sourceDirectory></sourceDirectory>| Definiert den Pfad zum Verzeichnis, in dem die `master.adoc` Datei liegt.| `src/docs/OrdnerDokument`
 |<outputFile></outputFile>| Definiert Pfad und Dateinamen der Ausgabedatei. | `${project.build.directory}/doc/Dokument.pdf`
 |====
 
 Anschließend kann der Build-Vorgang ausgeführt und die PDF- und HTML Dokumente erzeugt werden.
 
 [[dokument-generieren]]
-=== Dokument erstellen
+== Dokument generieren
 
 Um den Build-Vorgang zu starten, wird in der Konsole in das Verzeichnis gewechselt, in dem auch die bearbeitete `pom.xml` liegt.
 Anschließend wird mit dem Befehl `mvn install` der Build-Vorgang gestartet.
 Aufgrund der Vielzahl der zu generierenden Dokumente und auszuführenden Skripte kann der Build-Vorgang einige Zeit in Anspruch nehmen.
 Für Test-Zwecke können in der `pom.xml` nicht relevante Dokumente übersprungen werden, indem die zugehörigen Ausführungsdefinitionen (`<execution></execution>`) auskommentiert werden.
 
-==== Fehlerszenarien beim Generieren
+=== Fehlerszenarien beim Generieren
 
 [[table-table-asciidoc-fehler]]
 .Fehlerszenarien, Ursachen und Lösungen bei der Generierung
@@ -157,15 +158,15 @@ Problemlösungen::
 . *Vektorgrafiken verwenden:* Bei Vektorgrafiken (z. B. im SVG-Format) entfällt die Konvertierung.
 . *Herabsetzen der Auflösung:* Bei Bildern mit einer Auflösung von 2000 Pixeln und mehr (egal ob Länge oder Breite) wird empfohlen, die Auflösung nach Möglichkeit zu reduzieren.
 Selbst bei der Verwendung vieler kleinerer Bilder kann es zu einer `OutOfMemoryException` kommen.
-Der Grund hierfür ist, dass der vom System zur Verfügung gestellte Speicher nach und nach volläuft.
+Der Grund hierfür ist, dass der vom System zur Verfügung gestellte Speicher nach und nach vollläuft.
 Tritt der Fehler deswegen auf, sollten Bilder nach Möglichkeit in Vektorgrafiken umgewandelt bzw. neu gezeichnet werden.
 |====
 
 [[isy-asciidoctorj-extensions]]
 == IsyFact Extensions
 
-Die IsyFact Extensions 'isy-asciidoctorj-extensions` sind eine Sammlung von verschiedenen AsciidoctorJ Extensions, welche die Wartung der IsyFact-Dokumentation erleichtern.
-Die IsyFact bietet derzeit folgende AsciidoctorJ Extensions an:
+Die IsyFact Extensions 'isy-asciidoctorj-extensions` sind eine Sammlung von verschiedenen AsciidoctorJ-Extensions, welche die Wartung der IsyFact-Dokumentation erleichtern.
+Die IsyFact bietet derzeit folgende AsciidoctorJ-Extensions an:
 
 |===
 |Extension/Klasse |Beschreibung |Referenzbeispiel
@@ -174,12 +175,12 @@ Die IsyFact bietet derzeit folgende AsciidoctorJ Extensions an:
 
 `de.bund.bva.isyfact.attributes` `.IsyAttributesPreprocessor`
 |Erzeugt Metainformationen am Anfang eines Dokuments. Erzeugt den Titel und wählt das passende Theme für ein Dokument.
-|siehe <<listing-master>>
+|siehe Seite "xref:dokumentation/erstellung/erstellung-asciidoctorj.adoc#listing-master[]"
 |BibliographyPreprocessor
 
 `de.bund.bva.isyfact.bibliography` `.BibliographyPreprocessor`
 |Erzeugt ein Literaturverzeichnis aus allen bekannten Quellen, die im Dokument enthalten und als Referenz markiert sind.
-|siehe <<literaturverzeichnis>>
+|siehe Seite "xref:dokumentation/bearbeitung/bearbeitung-asciidoctorj.adoc#literaturverzeichnis[]"
 |<<ColophonBlockMacroProcessor,ColophonBlockMacroProcessor>>
 
 `de.bund.bva.isyfact.colophon` `.ColophonBlockMacroProcessor`
@@ -194,23 +195,23 @@ Die IsyFact bietet derzeit folgende AsciidoctorJ Extensions an:
 
 `de.bund.bva.isyfact.glossary` `.GlossaryPreprocessor`
 |Erzeugt ein Glossar für das jeweilige Dokument mit allen bekannten Begriffen, die im Dokument enthalten und als Referenz markiert sind.
-|siehe <<glossar>>
+|siehe xref:dokumentation/bearbeitung/bearbeitung-asciidoctorj.adoc#glossar[Glossar]
 |ListOfPreprocessor
 
 `de.bund.bva.isyfact.listof` `.ListOfPreprocessor`
-|Erzeugt ein Abbildungs- Tabellen- und Listenverzeichnis für das jeweilige Dokument für alle Elemente im Dokument, die entsprechend markiert sind.
-|siehe <<bilder>>, <<tabellen>> und <<listings>>
+|Erzeugt ein Abbildungs-, Tabellen- und Listenverzeichnis für das jeweilige Dokument für alle Elemente im Dokument, die entsprechend markiert sind.
+|siehe xref:dokumentation/bearbeitung/bearbeitung-asciidoctorj.adoc#bilder[Bilder], xref:dokumentation/bearbeitung/bearbeitung-asciidoctorj.adoc#tabellen[Tabellen] und xref:dokumentation/bearbeitung/bearbeitung-asciidoctorj.adoc#listings[Listings]
 |===
 
 [[isy-attributes-preprocessor]]
 === IsyAttributesPreprocessor
 
-Der `IsyAttributesPreprocessor` wertet alle IsyFact Attribute am Anfang eines master.adoc aus (Leerzeichen und Kommentare werden ignoriert) und fügt die entsprechenden Metainformationen in jedes Dokument ein.
+Der `IsyAttributesPreprocessor` wertet alle IsyFact Attribute am Anfang eines `master.adoc` aus (Leerzeichen und Kommentare werden ignoriert) und fügt die entsprechenden Metainformationen in jedes Dokument ein.
 
-Mit Hilfe der Attribute wird der Titel mit optionalem Untertitel generiert, sowie das passende Theme für das Dokument
-ausgewählt. Dabei können folgende Attribute angepasst werden <<table-master-attributes>>.
+Mithilfe der Attribute wird der Titel mit optionalem Untertitel generiert, sowie das passende Theme für das Dokument
+ausgewählt. Dabei können xref:dokumentation/erstellung/erstellung-asciidoctorj.adoc#table-master-attributes[folgende Attribute] angepasst werden.
 
-Standardmäßig sind die Extensions auf den Bau von IsyFact-Standards Bausteinen mit einer Open Source Lizenz konfiguriert.
+Standardmäßig sind die Extensions auf den Bau von IsyFact-Standards Bausteinen mit einer Open-Source-Lizenz konfiguriert.
 
 [[colophon-block]]
 === ColophonBlockMacroProcessor
@@ -218,6 +219,4 @@ Standardmäßig sind die Extensions auf den Bau von IsyFact-Standards Bausteinen
 Der `ColophonBlockMacroProcessor` erkennt `colophon::[]` Blöcke im Asciidoc Code und ersetzt diese durch die allgemeinen
 Dokumentinformationen der IsyFact.
 Dabei können noch die optionalen Attribute `factory` und `open-source` angegeben werden.
-<<listing-master>> zeigt die beispielhafte Verwendung des `colophon::[]` blocks in einem Asciidoc Dokument.
-
-// end::inhalt[]
+Die Seite xref:dokumentation/erstellung/erstellung-asciidoctorj.adoc#listing-master["Neue Dokumente anlegen"] zeigt die beispielhafte Verwendung des Kolophons in einem Asciidoc Dokument.

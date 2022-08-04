@@ -15,7 +15,7 @@ Sowohl dieses Dokument als auch das Umsetzungsdokument bedienen sich Erfahrungen
 [[abgrenzung-zu-batches]]
 === Abgrenzung zu Batches
 
-Das xref:blaupausen:detailkonzept-komponente-batch/master.adoc#_einführung[Detailkonzept Komponente Batch] definiert xref:glossary:glossary:master.adoc#glossar-batch[Batches] wie folgt:
+Das xref:blaupausen:detailkonzept-komponente-batch/master.adoc[Detailkonzept Komponente Batch] definiert xref:glossary:glossary:master.adoc#glossar-batch[Batches] wie folgt:
 _„Der Begriff „Batch“ bedeutet im Kern lediglich „nicht interaktive Stapelverarbeitung“.
 Ein Batch teilt sich auf in einen „Batchrahmen“, die Batchlogik der einzelnen Batch-Anwendungen, sowie die von ihnen aufgerufenen Komponenten des Anwendungskerns. […]
 Typischerweise verarbeiten Batches dabei Dateilieferungen oder eine definierte Menge von Datensätzen aus dem Datenbestand.“_

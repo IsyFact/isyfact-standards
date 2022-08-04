@@ -1,12 +1,11 @@
-// tag::inhalt[]
+= Seiten bearbeiten
 
-[[dokuseite-bearbeiten]]
-== Dokumentationsseite bearbeiten
+include::glossary:licence:partial$licence.adoc[]
 
 Im Folgenden wird beschrieben, wie Seiten bearbeitet werden müssen, damit sie per Antora generiert werden können.
 Außerdem werden Konventionen zur Bearbeitung beschrieben, die es ermöglichen, die IsyFact Dokumentation in einem einheitlichen Stil zur Verfügung zu stellen.
 
-Außerdem gibt es eine xref:seitenvorlage.adoc#seitenvorlage[Seitenvorlage], die kopiert werden kann, und exemplarisch alle gängigen Elemente einer Dokumentationsseite enthält.
+Außerdem gibt es eine xref:seitenvorlage.adoc[Seitenvorlage], die kopiert werden kann, und exemplarisch alle gängigen Elemente einer Dokumentationsseite enthält.
 
 Außer diesem Handbuch sind Kenntnisse der AsciiDoc-Syntax erforderlich.
 
@@ -23,7 +22,7 @@ Die folgenden Webseiten bieten ausführliche Tutorials und weiterführende Infor
 
 
 [[ein-satz-pro-zeile]]
-=== Zeilenumbrüche
+== Zeilenumbrüche
 
 Der Quelltext eines Dokuments bricht nach jedem Satz um.
 Er orientiert sich nicht anhand einer fixen Spaltenbreite.
@@ -44,7 +43,7 @@ Sie sind daher leicht verständlich, lokal begrenzt und daher in den meisten Fä
 
 
 [[ueberschriften]]
-=== Überschriften
+== Überschriften
 
 Überschriften können bei AsciiDoc auf unterschiedliche Weise gesetzt werden.
 Bei einer IsyFact-Seite ist stets die Variante zu wählen, bei der die Anzahl der vorgesetzten Gleichheitszeichen die Ebene der Überschrift anzeigt.
@@ -73,7 +72,7 @@ Das ist ein Text zum Seitentitel.
 
 
 [[querverweise]]
-=== Querverweise
+== Querverweise
 
 Antora bietet die Möglichkeit, innerhalb einer Gesamtdokumentation beliebige Querverweise zu setzen, auch über xref:dokumentation/erstellung/erstellung-antora.adoc#antora-modul[Antora-Modul] - und xref:dokumentation/erstellung/erstellung-antora.adoc#antora-komponente[Antora-Komponenten] - Grenzen hinweg.
 Davon sollte jedoch mit Bedacht Gebrauch gemacht werden, denn sehr starke Verlinkungen der Seiten untereinander bewirken auch eine starke Abhängigkeit.
@@ -83,7 +82,7 @@ Allerdings weist Antora bei der Generierung der Dokumentation im Log auf nicht a
 Generelle Hinweise zur Verwendung von Verweisen siehe xref:seitenvorlage.adoc#struktur-verweise[Seitenvorlage Verweise].
 
 [[anchors]]
-==== Sprungziele (Anchor)
+=== Sprungziele (Anchor)
 
 Für eine <<ueberschriften,Überschrift>> einer IsyFact-Seite fehlen noch die _Inline-Anchor_, damit durch Klick auf Verweise auf diese Inline-Anchor gesprungen werden kann.
 Ein Inline-Anchor wird über eckige Klammern gesetzt.
@@ -107,7 +106,7 @@ Auch Abbildungen, Tabellen und Listings müssen mit einem Anchor versehen werden
 Besonderheiten ergeben sich für Anchor für <<glossar,Glossareinträge>> und <<verweise-extern,externe Verweise>>.
 
 [[verweise-lokal]]
-==== Verweise innerhalb einer Seite
+=== Verweise innerhalb einer Seite
 
 In diesem Abschnitt werden Verweise innerhalb einer Seite, d.h. innerhalb einer Asciidoc-Datei, beschrieben.
 
@@ -132,7 +131,7 @@ Verweise können auch auf andere Sprungziele zeigen als Überschriften, wie Abbi
 
 
 [[verweise-gesamtdoku]]
-==== Verweise innerhalb der Antora-Dokumentation
+=== Verweise innerhalb der Antora-Dokumentation
 
 In diesem Abschnitt werden Verweise auf Inline-Anchor beschrieben, die nicht innerhalb derselben Seite in derselben Datei liegen, sondern in anderen Seiten oder anderen xref:dokumentation/erstellung/erstellung-antora.adoc#antora-modul[Antora-Modulen] oder xref:dokumentation/erstellung/erstellung-antora.adoc#antora-komponente[Antora-Komponenten].
 Diese Verweise nutzen die Syntax des Xref-Makros von Antora.
@@ -178,7 +177,7 @@ Stattdessen werden <<verweise-lokal>> empfohlen.
 
 
 [[verweise-extern]]
-==== externe Verweise
+=== Externe Verweise
 
 In diesem Abschnitt werden Verweise auf Ziele außerhalb der Antora-Dokumentation beschrieben.
 I.d.R.handelt es sich um URLs von externen Webseiten, vereinzelt auch um konventionelle Bücher.
@@ -218,11 +217,10 @@ Ein Beispiel: +
 xref:glossary:literaturextern:inhalt.adoc#litextern-asciidoctor-usermanual[Asciidoctor User Manual]
 ----
 
-Der Link auf einen Literatureintrag sieht wie folgt aus: xref:glossary:literaturextern:inhalt.adoc#litextern-asciidoctor-usermanual[Asciidoctor User Manual]
-{empty} +
+Der Link auf einen Literatureintrag sieht wie folgt aus: xref:glossary:literaturextern:inhalt.adoc#litextern-asciidoctor-usermanual[Asciidoctor User Manual].
 
 [[admonition-blocks]]
-=== Admonition-Blocks
+== Admonition-Blocks
 
 Mit Admonition Blocks können Inhalte in Dokumenten exponiert dargestellt werden, sodass ihnen besondere Aufmerksamkeit zuteilwird.
 Standardmäßig werden fünf verschiedene Blöcke angeboten.
@@ -251,7 +249,7 @@ BLOCKTYP: Hier steht der Text.
 ----
 
 [[vordefinierte-admonitions]]
-==== Vordefinierte Blöcke
+=== Vordefinierte Blöcke
 
 Den folgenden, vordefinierten Blöcken fallen in der IsyFact-Dokumentation einheitliche Bedeutungen zu.
 Sie helfen dabei, optionale oder ergänzende Inhalte zu markieren, geben Erfahrungswerte weiter und warnen vor typischen Fehlersituationen oder Fallstricken.
@@ -293,7 +291,7 @@ In der Abgrenzung zum Block WARNING stellen die Situationen, die in Blöcken des
 ====
 
 [[selbst-definierte-admonitions]]
-==== Selbst definierte Blöcke
+=== Selbst definierte Blöcke
 
 Die folgenden, selbst definierten Blöcke, bilden Regeln und Vorgaben der IsyFact ab, die verpflichtend einzuhalten sind.
 Sie bilden die Grundlage für eine zur IsyFact konforme Umsetzung von Anforderungen und definieren so maßgeblich, wie Konformität zur IsyFact erzielt wird.
@@ -336,51 +334,84 @@ Die Regeln kommen typischerweise aus den Bereichen:
 Die Regeln stellen vor allem sicher, dass grafische Oberflächen ein einheitliches Look&Feel besitzen und gleichartig bedient werden.
 ****
 
-[[tags-zur-kennzeichnung]]
-==== Verwendung von Tags zur Kennzeichnung
+[[tags]]
+== Tags
+Tags (bzw. _tagged regions_) werden zur Einbindung von Inhalten aus anderen Seiten verwendet.
+Somit können mit Tags versehene Teile einer Seite in anderen Seiten zusammengezogen oder wiederverwendet werden.
 
-Folgende Blöcke sind zusätzlich mit einem Tag zu kennzeichnen:
+// tag::important[]
+[IMPORTANT]
+====
+Das in xref:werkzeuge:dokumentation/bearbeitung/bearbeitung-asciidoctorj.adoc#tag-documents[Auftrennung von Dokumenten mit Tags] beschriebene Vorgehen mit Inhalts-Tags (`tag::inhalt[]`) ist für Seiten nicht erlaubt.
+Seiten besitzen einen xref:werkzeuge:seitenvorlage.adoc#struktur-thema[engen, thematischen Fokus] und sind direkt über die xref:werkzeuge:dokumentation/erstellung/erstellung-antora.adoc#linksnavigation-antora[Linksnavigation] aufrufbar.
+Ein Verweis drückt den Zusammenhang zweier Seiten besser aus als das komplette Einfügen einer Seite in eine andere.
+====
 
-* IMPORTANT (Tag-Name: `important`)
-* ANWENDUNGSANFORDERUNG (Tag-Name: `anwendungsanforderung`)
-* ARCHITEKTURREGEL (Tag-Name: `architekturregel`)
-* SICHERHEIT (Tag-Name: `sicherheit`)
-* STYLEGUIDE (Tag-Name: `styleguide`)
-* NAMENSKONVENTION (Tag-Name: `namenskonvention`)
+// end::important[]
+
+Die Syntax von Tags zeigt das folgende <<listing-tag-syntax,Listing>>.
+Zu beachten ist, dass der korrekte Tag-Name gesetzt ist und der Inhalt innerhalb des Tags i.d.R. mit Leerzeilen abgesetzt ist.
+Die Leerzeilen stellen sicher, dass sich der Inhalt beim Einbinden von den Inhalten vor und nach dem Include absetzt.
+
+[[listing-tag-syntax]]
+.Syntax von Tags
+[source,asciidoc]
+----
+// tag::tag-name[]
+
+Dieser Inhalt ist mit einem Tag versehen und von Leerzeilen umgeben.
+
+// end::tag-name[]
+----
+
+NOTE: Eine vollständige Übersicht über die Funktionsweise von Tags bietet die xref:glossary:literaturextern:inhalt.adoc#litextern-AsciiDocTaggedRegions[Dokumentation von AsciiDoc zu _tagged regions_].
+
+[[tag-admonition-blocks]]
+=== Admonition Blocks
+
+Folgende Admonition Blocks sind mit einem Tag zu kennzeichnen:
+
+* IMPORTANT (Tag-Name: `important`),
+* ANWENDUNGSANFORDERUNG (Tag-Name: `anwendungsanforderung`),
+* ARCHITEKTURREGEL (Tag-Name: `architekturregel`),
+* SICHERHEIT (Tag-Name: `sicherheit`),
+* STYLEGUIDE (Tag-Name: `styleguide`).
+
+Die Tags werden jeweils am Anfang und am Ende des Blocks gesetzt.
+
+[[listing-tags]]
+.Setzen des Tags am Beispiel einer Architekturregel
+[source,asciidoc]
+----
+// tag::architekturregel[]
+
+.icon:university[] Architekturregel: Beispiel für Architekturregel
+****
+Inhalt der Architekturregel.
+****
+
+// end::architekturregel[]
+----
 
 Damit lassen sich die Regeln oder Anforderungen aus der gesamten Dokumentation zusammenziehen und gebündelt bereitstellen, z.B. als Checklisten oder zur Grundlage automatischer Überprüfungen.
 
-Die Tags werden jeweils am Anfang und am Ende des Blocks gesetzt. Setzen des Tags am Beispiel einer Architekturregel:
-
-[source,asciidoc,subs="+macros"]
-----
-+++// tag::architekturregel[]+++
-+++.icon:university[] Architekturregel: Vorgabe+++
-+++****+++
-Hier steht der Text.
-+++****+++
-
-+++// end::architekturregel[]+++
-----
-
-WARNING: Die Leerzeile zwischen dem Block und dem Ende des Tags ist wichtig, damit die Bündelung der Inhalte korrekt funktioniert.
-
-Zur Bündelung von Inhalten wird die entsprechende Datei eingebettet.
-Über den Parameter `tags` werden nur die Inhalte eingefügt, die von den entsprechenden Tags umgeben sind.
-
-[[listing-include-tags]]
-.Bündelung von Inhalten anhand von Tags
+[[listing-include-all-architecture-rules]]
+.Einbinden aller Architekturregeln aus einem Dokument
 [source,asciidoc]
 ----
-\include::pfad_zum_dokument.adoc[tags=beispiel;...]
+\include::pfad-zum-dokument.adoc[tags=architekturregel]
 ----
 
-Beispiele für alle selbstdefinierten Admonitions-Blocks finden sich außerdem in xref:seitenvorlage.adoc#formatierung-admonitions[Seitenvorlage Admonitions]. +
-{empty} +
+[[tag-further-includes]]
+=== Weitere Einbettungen
 
+Neben Admonition Blocks kennzeichnet die IsyFact-Dokumentation noch weitere Bestandteile zum Bündeln oder Referenzieren:
+
+* Namenskonventionen (Tag-Name: `namenskonvention`),
+* Definitionen (Tag-Name: `(begriff)-definition`).
 
 [[bilder]]
-=== Abbildungen
+== Abbildungen
 
 // tag::important[]
 IMPORTANT: Abbildungen zu einer Seite werden stets im Unterordner `/images` unterhalb des Antora-Moduls abgelegt, in dem sich die Seite befindet, siehe auch xref:dokumentation/erstellung/erstellung-antora.adoc#struktur-dokuseite[Struktur Dokumentation].
@@ -445,7 +476,7 @@ oder, wenn das eingebundene Bild in einer Seite in einem anderen Modul oder eine
 Beispiele für Abbildungen finden sich außerdem in xref:seitenvorlage.adoc#formatierung-abbildungen[Seitenvorlage Abbildungen].
 
 [[tabellen]]
-=== Tabellen
+== Tabellen
 
 In AsciiDoc wird eine Tabelle über folgende Syntax definiert:
 
@@ -509,11 +540,10 @@ Die Tabelle kann im AsciiDoc-Text über ihren Anchor referenziert werden:
 
  <<table-beispiel>>
 
-Beispiele für Tabellen finden sich außerdem in xref:seitenvorlage.adoc#formatierung-tabellen[Seitenvorlage Tabellen]. +
-{empty} +
+Beispiele für Tabellen finden sich außerdem in xref:seitenvorlage.adoc#formatierung-tabellen[Seitenvorlage Tabellen].
 
 [[listings]]
-=== Listings
+== Listings
 
 Quelltexte können bei AsciiDoc auf folgende Weise mit Syntax-Highlighting angezeigt werden.
 
@@ -564,12 +594,10 @@ Das Listing kann im AsciiDoc-Text über seinen Anchor referenziert werden:
 
  <<listing-hallowelt>>
 
-Beispiele für Listings finden sich außerdem in xref:seitenvorlage.adoc#formatierung-listings[Seitenvorlage Listings]. +
-{empty} +
-
+Beispiele für Listings finden sich außerdem in xref:seitenvorlage.adoc#formatierung-listings[Seitenvorlage Listings].
 
 [[glossar]]
-=== Glossar
+== Glossar
 
 Die IsyFact Dokumentation beinhaltet auch ein Glossar.
 Es befindet sich im Repository `isy-documentation` in der xref:dokumentation/erstellung/erstellung-antora.adoc#antora-komponente[Antora-Komponente] `glossary`.
@@ -611,5 +639,3 @@ xref:glossary:glossary:master.adoc#glossar-isyfact[IsyFact]
 ----
 
 Der Link auf einen Glossareintrag sieht wie folgt aus: xref:glossary:glossary:master.adoc#glossar-isyfact[IsyFact]
-
-// end::inhalt[]
