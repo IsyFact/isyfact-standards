@@ -1,7 +1,6 @@
-// tag::inhalt[]
+= Dokumente bearbeiten
 
-[[ein-dokument-bearbeiten]]
-== Ein Dokument bearbeiten
+include::glossary:licence:partial$licence.adoc[]
 
 Dieses Kapitel beschreibt die inhaltliche Bearbeitung und die dabei zu verwendenden Konventionen der IsyFact für die in <<verzeichnisstruktur-baustein>> beschriebenen Dateien.
 Es handelt sich dabei vorrangig um die Datei `inhalt.adoc`.
@@ -36,7 +35,7 @@ Die Skripte gehen hierbei von einer bestimmten Syntax aus, die in den folgenden 
 Je nachdem, ob es sich um eine Abbildung, eine Tabelle, einen Begriff oder ein referenziertes Medium handelt, werden jeweils unterschiedliche Bestandteile vorgesehen, die gesetzt werden müssen.
 
 [[ein-satz-pro-zeile]]
-=== Zeilenumbrüche
+== Zeilenumbrüche
 
 Der Quelltext eines Dokuments bricht nach jedem Satz um.
 Er orientiert sich nicht anhand einer fixen Spaltenbreite.
@@ -57,7 +56,7 @@ Sie sind daher leicht verständlich, lokal begrenzt und daher in den meisten Fä
 
 
 [[ueberschriften]]
-=== Überschriften
+== Überschriften
 
 Überschriften können bei AsciiDoc auf unterschiedlicher Weise gesetzt werden.
 Bei einem IsyFact-Dokument ist hingegen stets die Variante zu wählen, bei der die Anzahl der vorgesetzten Gleichheitszeichen die Ebene der Überschrift anzeigt.
@@ -109,7 +108,7 @@ _Zum <<ueberschriften, Beispiel-Kapitel>> gelangen Sie über einen Mausklick._
 _Im Übrigen handelt es sich bei dem Beispiel-Kapitel um das Kapitel <<ueberschriften>>._
 
 [[admonition-blocks]]
-=== Admonition-Blocks
+== Admonition-Blocks
 
 Mit Admonition Blocks können Inhalte in Dokumenten exponiert dargestellt werden, sodass ihnen besondere Aufmerksamkeit zuteil wird.
 Standardmäßig werden fünf verschiedene Blöcke angeboten.
@@ -137,7 +136,7 @@ Die syntaktisch schlankere Variante funktioniert nur mit den vordefinierten Blö
 BLOCKTYP: Hier steht der Text.
 ----
 
-==== Vordefinierte Blöcke
+=== Vordefinierte Blöcke
 
 Den folgenden, vordefinierten Blöcken fallen in der IsyFact-Dokumentation einheitliche Bedeutungen zu.
 Sie helfen dabei, optionale oder ergänzende Inhalte zu markieren, geben Erfahrungswerte weiter und warnen vor typischen Fehlersituationen oder Fallstricken.
@@ -163,7 +162,7 @@ image::handbuch/warning.dn.svg[align="center"]
 image::handbuch/caution.dn.svg[align="center"]
 
 
-==== Selbst definierte Blöcke
+=== Selbst definierte Blöcke
 
 Die folgenden, selbst definierten Blöcke, bilden Regeln und Vorgaben der IsyFact ab, die verpflichtend einzuhalten sind.
 Sie bilden die Grundlage für eine zur IsyFact konforme Umsetzung von Anforderungen und definieren so maßgeblich, wie Konformität zur IsyFact erzielt wird.
@@ -183,47 +182,117 @@ image::handbuch/sicherheit.dn.svg[align="center"]
 [[styleguide-admonition]]
 .STYLEGUIDE Admonition
 image::handbuch/styleguide.dn.svg[align="center"]
-{empty} +
 
+[[tags]]
+== Tags
+Tags (bzw. _tagged regions_) werden zur Einbindung von Teildokumenten verwendet.
+Die Verwendung von Tags bietet mehrere Vorteile:
 
-==== Verwendung von Tags zur Kennzeichnung
+* Dokumente können in mehrere, in sich abgeschlossene Teile zerlegt werden.
+* Mit Tags versehene Teile eines Dokuments können in einem anderen Dokument zusammengezogen oder wiederverwendet werden.
 
-Folgende Blöcke sind zusätzlich mit einem Tag zu kennzeichnen:
+Die Syntax von Tags zeigt das folgende <<listing-tag-syntax,Listing>>.
+Zu beachten ist, dass der korrekte Tag-Name gesetzt ist und der Inhalt innerhalb des Tags i.d.R. mit Leerzeilen abgesetzt ist.
+Die Leerzeilen stellen sicher, dass sich der Inhalt beim Einbinden von den Inhalten vor und nach dem Include absetzt.
 
-* IMPORTANT (Tag-Name: `important`)
-* ANWENDUNGSANFORDERUNG (Tag-Name: `anwendungsanforderung`)
-* ARCHITEKTURREGEL (Tag-Name: `architekturregel`)
-* SICHERHEIT (Tag-Name: `sicherheit`)
-* STYLEGUIDE (Tag-Name: `styleguide`)
+.Syntax von Tags
+[[listing-tag-syntax]]
+[source,asciidoc]
+----
+// tag::tag-name[]
+
+Dieser Inhalt ist mit einem Tag versehen und von Leerzeilen umgeben.
+
+// end::tag-name[]
+----
+
+NOTE: Eine vollständige Übersicht über die Funktionsweise von Tags bietet die xref:glossary:literaturextern:inhalt.adoc#litextern-AsciiDocTaggedRegions[Dokumentation von AsciiDoc zu _tagged regions_].
+
+[[tag-admonition-blocks]]
+=== Admonition Blocks
+
+Folgende Admonition Blocks sind mit einem Tag zu kennzeichnen:
+
+* IMPORTANT (Tag-Name: `important`),
+* ANWENDUNGSANFORDERUNG (Tag-Name: `anwendungsanforderung`),
+* ARCHITEKTURREGEL (Tag-Name: `architekturregel`),
+* SICHERHEIT (Tag-Name: `sicherheit`),
+* STYLEGUIDE (Tag-Name: `styleguide`).
+
+Die Tags werden jeweils am Anfang und am Ende des Blocks gesetzt.
+
+[[listing-tags]]
+.Setzen des Tags am Beispiel einer Architekturregel
+[source,asciidoc]
+----
+// tag::architekturregel[]
+
+[ARCHITEKTURREGEL]
+====
+Inhalt der Architekturregel.
+====
+
+// end::architekturregel[]
+----
 
 Damit lassen sich die Regeln oder Anforderungen aus der gesamten Dokumentation zusammenziehen und gebündelt bereitstellen, z.B. als Checklisten oder zur Grundlage automatischer Überprüfungen.
 
-Die Tags werden jeweils am Anfang und am Ende des Blocks gesetzt. Setzen des Tags am Beispiel einer Architekturregel:
-
-`// tag::architekturregel[]` +
-`[ARCHITEKTURREGEL]` +
-`====` +
-Hier steht der Text. +
-`====`
-
-`// end::architekturregel[]`
-
-
-WARNING: Die Leerzeile zwischen dem Block und dem Ende des Tags ist wichtig, damit die Bündelung der Inhalte korrekt funktioniert.
-
-Zur Bündelung von Inhalten wird das entsprechende Dokument eingebettet.
-Über den Parameter `tags` werden nur die Inhalte eingefügt, die von den entsprechenden Tags umgeben sind.
-
-[[listing-include-tags]]
-.Bündelung von Inhalten anhand von Tags
+[[listing-include-all-architecture-rules]]
+.Einbinden aller Architekturregeln aus einem Dokument
 [source,asciidoc]
 ----
-\include::pfad_zum_dokument.adoc[tags=beispiel;...]
+\include::pfad-zum-dokument.adoc[tags=architekturregel]
+----
+
+[[tag-further-includes]]
+=== Weitere Einbettungen
+
+Neben Admonition Blocks kennzeichnet die IsyFact-Dokumentation noch weitere Bestandteile zum Bündeln oder Referenzieren:
+
+* Namenskonventionen (Tag-Name: `namenskonvention`),
+* Definitionen (Tag-Name: `(begriff)-definition`).
+
+[[tag-documents]]
+=== Dokumente auftrennen
+
+Damit Dokumente beherrschbar bleiben, können sie in mehrere Teildokumente aufgetrennt werden.
+Die Teildokumente sollten dabei in sich abgeschlossen sein, damit insbesondere alle Links korrekt aufgelöst werden.
+Außerdem können sie so, neben einem eigenen Titel, auch eigene Dokumentattribute setzen, um z.B. Bilder korrekt aufzulösen.
+
+Die Teildokumente umschließen ihren gesamten Inhalt mit einem Tag.
+
+[[listing-partial-document]]
+.Struktur eines Teildokuments
+[source,asciidoc]
+----
+= Titel des Teildokuments
+:zusaetzliche-attribute:
+
+// tag::inhalt[]
+
+Inhalt des Teildokuments.
+
+// end::inhalt[]
+----
+
+Das Hauptdokument bindet dann die Inhalte aller Teildokumente ein.
+
+[[listing-main-document]]
+.Struktur des Hauptdokuments
+[source,asciidoc]
+----
+= Titel des Hauptdokuments
+
+\include::teildokument-1.adoc[tags=inhalt]
+
+\include::teildokument-2.adoc[tags=inhalt]
+
+\include::teildokument-3.adoc[tags=inhalt]
 ----
 
 
 [[bilder]]
-=== Abbildungen
+== Abbildungen
 
 Das Einbinden von Abbildungen gelingt in AsciiDoc über die folgende Syntax:
 
@@ -297,7 +366,7 @@ image::beispiel.png[align="center",pdfwidth=80%,scaledwidth=80%]
 
 
 [[tabellen]]
-=== Tabellen
+== Tabellen
 
 In AsciiDoc wird eine Tabelle über folgende Syntax definiert:
 
@@ -362,7 +431,7 @@ Die Tabelle kann im AsciiDoc-Text über ihre ID referenziert werden:
 
 
 [[listings]]
-=== Listings
+== Listings
 
 Quelltexte können bei AsciiDoc auf folgende Weise mit Syntaxhighlighting angezeigt werden.
 
@@ -413,10 +482,9 @@ Auch hier wird noch eine Listing-Überschrift und eine ID benötigt:
 Das Listing kann im AsciiDoc-Text über seine ID referenziert werden:
 
  <<listing-hallowelt>>
-{empty} +
 
 [[literaturverzeichnis]]
-=== Literaturverzeichnis
+== Literaturverzeichnis
 
 Am Ende eines Dokuments wird automatisch ein Literaturverzeichnis erstellt.
 Voraussetzung für die Aufnahme eines Eintrags in das lokale Literaturverzeichnis ist die Referenzierung des entsprechenden Dokuments und das Vorhandensein der referenzierten Id in der Literaturverzeichnis-Konfigurationsdatei in <<isy-asciidoctorj-extensions>>.
@@ -427,11 +495,10 @@ Ein Beispiel für referenzierte Literatur: \<<AsciiDocRecommendedPractices, Asci
 
 Das Ergebnis sieht so aus:
 
-Ein Beispiel für referenzierte Literatur: `<<AsciiDocRecommendedPractices, AsciiDoc Recommended Practices>>.`
-{empty} +
+Ein Beispiel für referenzierte Literatur: xref:glossary:literaturextern:inhalt.adoc#litextern-asciidoc-recommended-practices[AsciiDoc Recommended Practices]
 
 [[glossar]]
-=== Glossar
+== Glossar
 
 Am Ende eines Dokuments wird automatisch ein Glossar erstellt.
 Voraussetzung für die Aufnahme eines Eintrags in das lokale Glossar ist die Referenzierung des entsprechenden Eintrags und das Vorhandensein des Eintrags mit der referenzierten Id im zentralen Glossar in <<isy-asciidoctorj-extensions>>.
@@ -444,10 +511,6 @@ Die ID soll mit dem Bezeichner `glossar-` beginnen.
 Das Ergebnis sieht wie folgt aus:
 
 `Hier wurde ein <<glossar-halloweltbeispiel, Hallo Welt Beispiel>> verwendet.`
-{empty} +
 
 //fix Links in Examples
-[[AsciiDocRecommendedPractices]]
 [[glossar-halloweltbeispiel]]
-
-// end::inhalt[]
