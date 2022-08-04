@@ -14,6 +14,11 @@
     <name>IsyFact-Standards BOM</name>
     <description>Definiert die Versionen aller Bibliotheken der IsyFact-Standards.</description>
 
+    <properties>
+        <isy-exception-sst.version>1.11.1</isy-exception-sst.version>
+        <isy-serviceapi-sst.version>1.11.1</isy-serviceapi-sst.version>
+    </properties>
+
     <!-- Dependency-Management für die Komponenten der IsyFact-Standards. -->
     <dependencyManagement>
         <dependencies>
@@ -40,7 +45,7 @@
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-exception-sst</artifactId>
-                <version>1.11.1</version>
+                <version>${isy-exception-sst.version}</version>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
@@ -70,7 +75,7 @@
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-serviceapi-sst</artifactId>
-                <version>1.11.1</version>
+                <version>${isy-serviceapi-sst.version}</version>
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
