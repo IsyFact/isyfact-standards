@@ -9,15 +9,15 @@ import org.springframework.core.Ordered;
 import de.bund.bva.isyfact.aufrufkontext.http.HttpHeaderMappedDiagnosticContextFilter;
 
 /**
- * Da der MDC-Filter ein Servlet-Filter ist darf er auch nur in Servlet-Webanwendungen erstellt werden.
- * Somit wird der Filter in Tests etc. wo er nicht relevant ist auch nicht erstellt.
+ * The MDC filter is a servlet filter and therefore may only be created in servlet web applications.
+ * Consequently, where it isn't relevant, e.g. in tests, the filter is not created.
  */
 @Configuration
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 public class MdcFilterAutoConfiguration {
 
     /**
-     * Automatisches setzen der Korrelations-ID.
+     * Automatically sets the Correlation-ID
      */
     @Bean
     FilterRegistrationBean<HttpHeaderMappedDiagnosticContextFilter> httpHeaderNestedDiagnosticContextFilter() {

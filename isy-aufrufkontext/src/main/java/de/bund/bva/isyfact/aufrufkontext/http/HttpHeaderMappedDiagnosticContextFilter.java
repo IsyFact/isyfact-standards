@@ -28,19 +28,18 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
 
 /**
- * Ein Servlet-Filter, der die Correlation-ID aus dem Http-Header {@link #correlationIdHttpHeaderName}
- * ausliest und im Logging-Framework verfügbar macht.
- * Ist der Header nicht gesetzt wird eine neue Correlation-ID generiert.
+ * A servlet filter which reads the Correlation-ID from the http header {@link #correlationIdHttpHeaderName}
+ * and makes it accessible to the logging framework.
+ * If the header is not set, a new Correlation-ID is generated.
  * <p>
- * Die Correlation-ID in einem Servlet-Filter zu verarbeiten bietet den Vorteil, dass der zum frühest
- * möglichen Zeitpunkt innerhalb eines Requests gesetzt ist. Dadurch enthalten auch alle Logausgaben von
- * Spring bereits den korrekten Kontext.
+ * Processing the Correlation-ID in a servlet filter ensures that it is set
+ * as early as possible within the request.
+ * Therefore all of spring's log messages contain the correct Correlation-ID.
  * </p>
  *
  * <p>
- * Die Konfiguration erfolgt automatisch durch {@link MdcFilterAutoConfiguration}.
+ * The Configuration is done automatically by {@link MdcFilterAutoConfiguration}.
  * </p>
- *
  */
 public class HttpHeaderMappedDiagnosticContextFilter extends AbstractRequestLoggingFilter {
 
@@ -48,14 +47,14 @@ public class HttpHeaderMappedDiagnosticContextFilter extends AbstractRequestLogg
     private static final IsyLogger LOG =
         IsyLoggerFactory.getLogger(HttpHeaderMappedDiagnosticContextFilter.class);
 
-    /** Der Name des HTTP-Headers mit der Correlation-ID. */
+    /** The name of the http header with the Correlation-ID*/
     private String correlationIdHttpHeaderName = "X-Correlation-Id";
 
     /**
-     * Setzt den Namen des HTTP-Headers mit der Correlation-ID.
+     * Sets the name of the http header with the Correlation-ID.
      *
      * @param correlationIdHttpHeaderName
-     *            der Name des HTTP-Headers mit der Correlation-ID.
+     *            the name of the http header with the Correlation-ID.
      */
     public void setCorrelationIdHttpHeaderName(String correlationIdHttpHeaderName) {
         this.correlationIdHttpHeaderName = correlationIdHttpHeaderName;
