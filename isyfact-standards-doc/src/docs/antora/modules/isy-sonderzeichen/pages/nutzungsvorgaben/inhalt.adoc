@@ -200,6 +200,17 @@ Dieser Transformator führt die in xref:nutzungsvorgaben/master.adoc#table-trans
 Darstellung der übergebenen Zeichenkette, die mit dem ASCII-Zeichensatz dargestellt werden kann.
 Dieser Transformator ermöglicht keine Vorgabe der maximalen Zeichenlänge.
 
+*Suchform Transformator*
+
+Mit dem Suchform Transformator ist es möglich, Zeichenketten, welche aus normativen Buchstaben (Datentyp C) der DIN SPEC 91379 bestehen, auf die Grundbuchstaben A-Z abzubilden.
+Die Transformationsregeln sind der xref:nutzungsvorgaben/master.adoc#table-suchform[Tabelle Suchform] zu entnehmen.
+Dieser Transformator ermöglicht keine Vorgabe der maximalen Zeichenlänge.
+Es ist also möglich, dass transformierte Texte nicht mehr vom System verarbeitet werden können, wenn diese nicht mehr die maximale Zeichenlänge einhalten können.
+
+Für unterschiedliche Anwendungsfälle kann es erforderlich sein, die in Namen enthaltenden Buchstaben auf die Grundbuchstaben A-Z abzubilden.
+Dies ist bspw. der Fall in der maschinenlesbaren Zone (MRZ) amtlicher Reisedokumente, für die der Standard [ICAO 9303-3] einschlägig ist, da nur diese Grundbuchstaben für die Repräsentation von Namen zur Verfügung stehen.
+Wenn Datensätze und Suchanfragen unter Anwendung der Suchform normalisiert werden, ist es auch möglich, Namen trotz unterschiedlicher Schreibweisen zu identifizieren.
+
 *Legacy Transformator*
 
 Mit dem Legacy Transformator ist es möglich, Texte, welche mit Zeichen der DIN SPEC 91379 geschrieben wurden, umzuwandeln, sodass diese von Systemen verarbeitet werden können, welche nur den Zeichensatz String Latin 1.1 beherrschen.

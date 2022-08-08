@@ -14,6 +14,10 @@
     <name>IsyFact Persistence</name>
     <description>Die Querschnittsbibliothek isy-persistence</description>
 
+    <properties>
+        <spring-test-dbunit.version>1.3.0</spring-test-dbunit.version>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -141,7 +145,7 @@
         <dependency>
             <groupId>com.github.springtestdbunit</groupId>
             <artifactId>spring-test-dbunit</artifactId>
-            <version>1.3.0</version>
+            <version>${spring-test-dbunit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>

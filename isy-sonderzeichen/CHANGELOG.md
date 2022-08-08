@@ -1,3 +1,7 @@
+# 2.5.0
+- `IFS-1504`: Transformator für die normative Abbildung lateinischer Buchstaben auf Grundbuchstaben (Suchform) hinzugefügt
+  * Integration von zugeliefertem Code aus `IFS-1270`
+
 # 2.4.0
 - `IFS-1176`: Fehler gefixt, bei dem der LegacyTransformator Texte ausgibt, die nicht konform zu String.Latin 1.1 sind
 - `RF-1040`: Scope für Spotbugs-Annotations Abhängigkeit auf provided gesetzt

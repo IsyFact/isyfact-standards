@@ -32,17 +32,29 @@ public final class TransformationsKonstanten {
 
     /** The path to the transformation table identical. */
     public static final String TRANSFORMATIONS_TABELLE_IDENTISCH =
-        "/resources/tabellen/transformation_dinspec91379.transform";
+            "/resources/tabellen/transformation_dinspec91379.transform";
 
     /** The path to the table identical category. */
     public static final String KATEGORIE_TABELLE = "/resources/tabellen/kategorie_dinspec91379.kat";
 
     /** The path to the transformation transcription table. */
-    public static final String TRANSFORMATIONS_TABELLE_TRANSKRIPTION = "/resources/tabellen/transformation_din91379_transkription.transform";
+    public static final String TRANSFORMATIONS_TABELLE_TRANSKRIPTION =
+            "/resources/tabellen/transformation_din91379_transkription.transform";
 
-    /** The path to the legacy transcription table, tranforming DIN SPEC 91379 characters to StringLatin1.1. */
-    public static final String TRANSFORMATIONS_TABELLE_LEGACY = "/resources/tabellen/transformation_dinspec91379_zu_1_1.transform";
+    /**
+     * The path to the legacy transcription table, transforming DIN SPEC 91379 characters to StringLatin1.1.
+     */
+    public static final String TRANSFORMATIONS_TABELLE_LEGACY =
+            "/resources/tabellen/transformation_dinspec91379_zu_1_1.transform";
+
+    /**
+     * The path to the search form (Suchform) table, transforming normative DIN SPEC 91379 characters into the basic
+     * letters of the Latin alphabet (A-Z).
+     */
+    public static final String TRANSFORMATIONS_TABELLE_SUCHFORM =
+            "/resources/tabellen/transformation_dinspec91379_zu_suchform.transform";
 
     private TransformationsKonstanten() {
     }
+
 }
