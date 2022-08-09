@@ -44,6 +44,7 @@ import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tags;
 import io.micrometer.core.instrument.binder.MeterBinder;
 
+
 /**
  * This class implements a monitoring bean for services. It provides the monitoring options,
  * which each service must provide according to IsyFact.
@@ -207,9 +208,8 @@ public class ServiceStatistik implements MethodInterceptor, InitializingBean, Me
     private long getDurchschnittsDauerLetzteAufrufe() {
         long result = 0;
         if (!letzteSuchdauern.isEmpty()) {
-            // Kopiere Liste um konkurrierende Änderungen zu vermeiden
-            // Explizit keine Synchronisierung, um die Anwendungsperformance
-            // nicht zu verschlechtern.
+            // Copy List to avoid concurrent changes
+            // Explicitly no synchronization so as not to affect performance
             Long[] dauern = letzteSuchdauern.toArray(new Long[0]);
             for (long dauer : dauern) {
                 result += dauer;
