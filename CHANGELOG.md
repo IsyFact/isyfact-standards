@@ -1,4 +1,5 @@
 # 3.0.0
+- `IFS-1628`: [isy-ueberwachung] Standardmetriken bei Anbinden von ServiceStatistik vorhanden
 - `IFS-1465`: [isyfact-products-bom] Spring Boot Versionsanhebung auf 2.7.1
 
 # 2.5.0
