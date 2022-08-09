@@ -96,8 +96,8 @@ Die Konfiguration für eine `ServiceStatistik`-Bean und den dazugehörigen AOP-A
 public class UeberwachungConfig {
 
     @Bean
-    public MethodInterceptor verwaltungMonitor(MeterRegistry meterRegistry) {
-        return new ServiceStatistik(meterRegistry, Tags.of("servicestatistik", "verwaltung"));
+    public MethodInterceptor verwaltungMonitor() {
+        return new ServiceStatistik(Tags.of("servicestatistik", "verwaltung"));
     }
 
     @Bean
