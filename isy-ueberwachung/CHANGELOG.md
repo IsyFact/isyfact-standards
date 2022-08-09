@@ -4,8 +4,10 @@
 # 2.5.0
 - `IFS-1165`: Standardmäßig wird die "/Loadbalancer" Schnittstelle durch die Autokonfiguration freigegeben, wenn spring-security aktiviert ist.
 
-# 2.4.2
+# 2.4.3
+- `IFS-1628`: Standardmetriken bei Anbinden von ServiceStatistik vorhanden
 
+# 2.4.2
 - `IFS-1165`: Standardmäßig wird die "/Loadbalancer" Schnittstelle durch die Autokonfiguration freigegeben, wenn spring-security aktiviert ist.
 
 # 2.2.0
