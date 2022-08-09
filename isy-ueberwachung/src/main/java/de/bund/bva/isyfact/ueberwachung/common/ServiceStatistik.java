@@ -43,6 +43,7 @@ import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tags;
 import io.micrometer.core.instrument.binder.MeterBinder;
+import io.micrometer.core.lang.NonNull;
 
 
 /**
@@ -390,7 +391,7 @@ public class ServiceStatistik implements MethodInterceptor, InitializingBean, Me
     }
 
     @Override
-    public void bindTo(MeterRegistry meterRegistry) {
+    public void bindTo(@NonNull MeterRegistry meterRegistry) {
         Gauge.builder("anzahlAufrufe.LetzteMinute", this, ServiceStatistik::getAnzahlAufrufeLetzteMinute)
                 .tags(tags)
                 .description("Liefert die Anzahl der nicht fehlerhaften Aufrufe in der letzten Minute")
