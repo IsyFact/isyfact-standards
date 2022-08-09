@@ -46,6 +46,7 @@ import io.micrometer.core.instrument.binder.MeterBinder;
 import io.micrometer.core.lang.NonNull;
 
 
+
 /**
  * This class implements a monitoring bean for services. It provides the monitoring options,
  * which each service must provide according to IsyFact.
