@@ -320,10 +320,11 @@ Das Sparen von Aufrufen kann jedoch auch Nachteile in Bezug auf Wartbarkeit bede
 Die Abwägung darüber muss während der Erstellung des Systementwurfs geschehen.
 
 // tag::architekturregel[]
-.icon:university[] Architekturregel: Vorgabe
+.icon:university[title="Architekturregel"] Verwendung von HTTP für Service-Aufrufe
 ****
 Synchrone Service-Aufrufe finden über das Protokoll *HTTP* statt und werden sowohl zur internen als auch externen Servicekommunikation genutzt.
 HTTP-Anfragen bzw. HTTP-Antworten (s. <<image-http-messages>>) erlauben es an drei Stellen, anwendungsspezifische Daten zu übertragen: in der URL, in den Headern sowie im Body.
+
 .Aufbau von HTTP-Anfragen bzw. HTTP-Antworten
 [id="image-http-messages",reftext="{figure-caption} {counter:figures}"]
 image::blaupausen:referenzarchitektur/http-messages-aufbau.dn.svg[align="center"]
@@ -342,7 +343,7 @@ Im Zweifelsfall ist die Methode `POST` eine gangbare Alternative, um solche Nutz
 
 Für asynchrone Service-Aufrufe gelten dieselben Vorgaben wie für <<synchrone-service-aufrufe,synchrone Service-Aufrufe>>.
 Sie unterscheiden sich im Ablauf dahingehend, dass der Sender nicht aktiv auf die Antwort des Empfängers wartet.
-Stattdessen wird die Verarbeitung erst durch die Antwort des Senders wieder aufgenommen, z.B. in Form eines Callbacks.
+Stattdessen wird die Verarbeitung erst durch die Antwort des Empfängers wieder aufgenommen, z.B. in Form eines Callbacks.
 
 .Ablauf eines asynchronen Service-Aufrufs
 [id="image-asynchronous-call",reftext="{figure-caption} {counter:figures}"]
