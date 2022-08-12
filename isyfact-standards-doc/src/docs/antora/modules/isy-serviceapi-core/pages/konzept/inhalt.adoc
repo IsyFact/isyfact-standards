@@ -144,9 +144,6 @@ Hierbei wird sich am Schema Major- und Minor-Level orientiert. Beispiele:
 * 12_7
 |====
 
-[[transportobjekte]]
-==== Transportobjekte
-
 .Klassennamen Transportobjekte
 [id="table-classnamtransobj",reftext="{table-caption} {counter:tables}"]
 [cols="1,4",options="header"]
