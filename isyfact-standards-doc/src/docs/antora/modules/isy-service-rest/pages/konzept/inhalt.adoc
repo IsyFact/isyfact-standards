@@ -89,15 +89,26 @@ Diese http-Aufrufe entsprechen zwar nicht dem Reifegradmodell (Level 2), sind ab
 
 Wird über die Schnittstelle ein Geschäftsvorfall angestoßen, ist der Geschäftsvorfall in der URI zu adressieren:
 
-Schema: `+/{geschaeftsvorfall}/{geschaeftsprozess}+`
+// tag::namenskonvention[]
 
-----
-Beispiel: /auskunft/personaliensuche
-Beispiel: /auskunft/dokumentensuche
-Beispiel: /auskunft/schluesselsuche
-Beispiel: /meldung/erstmeldung
-Beispiel: /meldung/aenderung
-----
+[[namenskonvention-prozessorientierte-uris]]
+.Namenskonvention prozessorientierter URIs
+[cols="1s,4",options="header"]
+|====
+2+|Prozessorientierte URIs
+|Schema |`+/{geschaeftsvorfall}/{geschaeftsprozess}+`
+|Beispiele |`/auskunft/personaliensuche`
+
+`/auskunft/dokumentensuche`
+
+`/auskunft/schluesselsuche`
+
+`/meldung/erstmeldung`
+
+`/meldung/aenderung`
+|====
+
+// end::namenskonvention[]
 
 [[eigenschaften-rest-schnittstellen]]
 == Eigenschaften von REST-Schnittstellen
@@ -119,63 +130,86 @@ Repräsentiert die Ressource eine Menge von Objekten, wird der Plural verwendet.
 
 Der hierarchische Aufbau von Ressourcen ist explizit erwünscht:
 
-Schema: `+/{ressource}/{id}/{ressource}/{id}/{...}+`
+// tag::namenskonvention[]
 
-----
-Beispiel: /kunden/12345/bestellungen/123/artikel
-----
+[[namenskonvention-ressourcen-uris]]
+.Namenskonvention Ressourcen-URIs
+[cols="1s,4",options="header"]
+|====
+2+|Ressourcen-URIs
+|Schema |`+/{ressource}/{id}/{ressource}/{id}/{...}+`
+|Regeln | Die Bezeichnung der Ressource beinhaltet ausschließlich Kleinbuchstaben.
 
-Die Bezeichnung der Ressource beinhaltet ausschließlich Kleinbuchstaben.
 Zwischen Teilen zusammengesetzter Begriffe steht jeweils ein Bindestrich.
+
 Beinhaltet die Bezeichnung Sonderzeichen, müssen sie gemäß üblicher Transkriptionsregeln ersetzt werden (z. B. "ae" statt "ä").
+|Beispiele |`/kunden/12345/bestellungen/123/artikel`
 
-.Beispiele für Ressourcen-URIs
-[id="listing-ressourcen-uri-beispiele",reftext = "{listing-caption} {counter:listings}"]
-[source]
-----
-1. /nachrichten
-2. /nachrichten/{id}
-3. /eingehende-nachrichten/
-4. /vertraege/
-----
+`/nachrichten`
 
-1. Beispiel für eine Menge von Objekten.
+Beispiel für eine Menge von Objekten.
+
 Die Ressource liefert alle Objekte zurück.
-2. Beispiel für ein einzelnes Objekt.
-Die Ressource liefert ein eindeutig identifizierbares Objekt zurück.
-3. Beispiel für zusammengesetzte Begriffe.
-4. Beispiel für die Ersetzung von Sonderzeichen.
 
+`+/nachrichten/{id}+`
+
+Beispiel für ein einzelnes Objekt.
+Die Ressource liefert ein eindeutig identifizierbares Objekt zurück.
+
+`/eingehende-nachrichten/`
+
+Beispiel für zusammengesetzte Begriffe.
+
+`/vertraege/`
+
+Beispiel für die Ersetzung von Sonderzeichen.
+|====
+
+// end::namenskonvention[]
 
 [[beziehungen-zwischen-ressourcen]]
 ==== Beziehungen zwischen Ressourcen
 
 Beziehungen zwischen Ressourcen können entweder über <<hateoas,HATEOAS>> (vgl.
 Stufe 3 in <<image-richard-maturity-model>>) oder über die URI selber abgebildet werden.
-Folgende URI adressiert beispielsweise den Absender einer bestimmten Nachricht.
 
-----
-/nachrichten/{id}/absender
-----
+// tag::namenskonvention[]
 
-Enthält eine Ressource wiederum mehrere Ressourcen, wird wieder der Plural verwendet.
+[[namenskonvention-beziehungen-zwischen-ressourcen]]
+.Namenskonvention Beziehungen zwischen Ressourcen
+[cols="1s,4",options="header"]
+|====
+2+|Beziehungen zwischen Ressourcen
+|Schema |`+/{ressourcen A}/{id von einem Ressource A}/{ressource(n) B}/{...}+`
+|Hinweis| Enthält eine Ressource wiederum mehrere Ressourcen, wird wieder der Plural verwendet.
+|Beispiele |`+/nachrichten/{id}/absender+`
 
-----
-/nachrichten/{id_m}/empfaenger/{id_r}
-----
-wobei:
+adressiert den Absender einer bestimmten Nachricht.
 
-* `\{id_m}`: id der **m**essage
-* `\{id_r}`: id des **r**eceivers
+`+/nachrichten/{id_n}/empfaenger/{id_e}+`
+
+adressiert den bestimmten Empfänger (mit der Id `id_e`) einer bestimmten Nachricht (mit der Id `id_n`).
+|====
+
+// end::namenskonvention[]
 
 [[adressierung-mehrerer-ressourcen]]
 ==== Adressierung von mehreren Ressourcen
 
 Der Zugriff auf mehrere Ressourcen aus einer Menge erfolgt über eine kommaseparierte Liste von IDs.
 
-----
-/nachrichten/{id1},{id2}
-----
+// tag::namenskonvention[]
+
+[[namenskonvention-addressierung-mehrerer-ressourcen]]
+.Namenskonvention Adressierung von mehreren Ressourcen
+[cols="1s,4",options="header"]
+|====
+2+|Adressierung von mehreren Ressourcen
+|Schema |`+/{ressourcen}/{id1},{id2}+`
+|Beispiele |`+/nachrichten/{id1},{id2}+`
+|====
+
+// end::namenskonvention[]
 
 [[query-parameter]]
 ==== Query Parameter
