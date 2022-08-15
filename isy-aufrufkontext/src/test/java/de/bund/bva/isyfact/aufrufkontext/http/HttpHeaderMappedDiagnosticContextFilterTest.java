@@ -1,25 +1,28 @@
 package de.bund.bva.isyfact.aufrufkontext.http;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.when;
+
 import javax.servlet.http.HttpServletRequest;
 
-import de.bund.bva.isyfact.logging.util.MdcHelper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.when;
+import de.bund.bva.isyfact.logging.util.MdcHelper;
 
 @RunWith(MockitoJUnitRunner.class)
-public class HttpHeaderNestedDiagnosticContextFilterTest {
+public class HttpHeaderMappedDiagnosticContextFilterTest {
 
     @Mock
     private HttpServletRequest servletRequest;
 
     @Test
     public void beforeRequest() {
-        HttpHeaderNestedDiagnosticContextFilter filter = new HttpHeaderNestedDiagnosticContextFilter();
+        HttpHeaderMappedDiagnosticContextFilter filter = new HttpHeaderMappedDiagnosticContextFilter();
         filter.setCorrelationIdHttpHeaderName("korrelationsid");
 
         when(servletRequest.getHeader("korrelationsid")).thenReturn("testId1");
@@ -34,7 +37,7 @@ public class HttpHeaderNestedDiagnosticContextFilterTest {
 
     @Test
     public void beforeRequestKeineIdImHeader() {
-        HttpHeaderNestedDiagnosticContextFilter filter = new HttpHeaderNestedDiagnosticContextFilter();
+        HttpHeaderMappedDiagnosticContextFilter filter = new HttpHeaderMappedDiagnosticContextFilter();
 
         MdcHelper.pushKorrelationsId("testId0");
 
@@ -46,7 +49,7 @@ public class HttpHeaderNestedDiagnosticContextFilterTest {
 
     @Test
     public void afterRequestEntferntAlleKorrelationsIds() {
-        HttpHeaderNestedDiagnosticContextFilter filter = new HttpHeaderNestedDiagnosticContextFilter();
+        HttpHeaderMappedDiagnosticContextFilter filter = new HttpHeaderMappedDiagnosticContextFilter();
 
         MdcHelper.pushKorrelationsId("testId0");
         MdcHelper.pushKorrelationsId("testId1");

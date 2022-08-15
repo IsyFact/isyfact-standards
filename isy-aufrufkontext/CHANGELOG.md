@@ -1,11 +1,18 @@
+# 2.4.3
+
+- `IFS-1161`: `HttpHeaderNestedDiagnosticContextFilter` Priorität erhöht
+
 # 2.3.0
+
 - `IFS-874`: Umsetzung des Transports von OAuth 2 Bearer Tokens zwischen Schnittstellentechnologien
     - `AufrufKontextVerwalter` wurde um ein Feld für das OAuth2 Bearer Token erweitert.
 
 # 2.2.0
+
 - `IFS-563`: Java-Konfiguration "HttpHeaderNestedDiagnosticContextFilter"
 
 # 2.0.0
+
 - `IFS-228`: Umstellung auf Java Config
 - `IFS-32`: Package-Name auf de.bund.bva.isyfact geändert
 
