@@ -39,11 +39,11 @@ C:\tmp\> *git clone* https://github.com/IsyFact/<Repository>
 z.B. C:\tmp\> *git clone* https://github.com/IsyFact/isy-baustein
 ====
 
-Bei <Repository> kann es sich um einen einzelnen Baustein handeln oder um ein Repository mit zentraler Dokumentation wie `isy-documentation` (bis IsyFact 2.4.x) oder `isyfact-standards` (ab IsyFact 2.5).
+Bei <Repository> kann es sich um einen einzelnen Baustein handeln oder um ein Repository mit zentraler Dokumentation wie z.B. `isyfact-standards`.
 
 In einem Baustein wird die Dokumentation in einem eigenen Maven-Submodul unter dem Pfad `src/docs` abgelegt.
 
-<<verzeichnisstruktur-baustein>> zeigt die Verzeichnisstruktur für die Dokumentation des fiktiven Bausteins `isy-baustein` zusammen mit den Asciidoc-Dateien für ein Dokument.
+<<verzeichnisstruktur-baustein>> zeigt die Verzeichnisstruktur für die Dokumentation des fiktiven Bausteins `isy-baustein` zusammen mit den AsciiDoc-Dateien für ein Dokument.
 
 [[verzeichnisstruktur-baustein]]
 .Verzeichnisse der Bausteindokumentation
@@ -54,12 +54,14 @@ In einem Baustein wird die Dokumentation in einem eigenen Maven-Submodul unter d
         📂 docs
             📂 Konzept <2>
                 📄 anhaenge.adoc  <3>
+                📄 docinfo.adoc
                 📄 inhalt.adoc    <4>
                 📄 master.adoc    <5>
                 📄 thisdoc.adoc   <6>
                 📂 images <7>
             📂 Nutzungsvorgaben <2>
                 📄 anhaenge.adoc
+                📄 docinfo.adoc
                 📄 inhalt.adoc
                 📄 master.adoc
                 📄 thisdoc.adoc
@@ -67,69 +69,70 @@ In einem Baustein wird die Dokumentation in einem eigenen Maven-Submodul unter d
 ----
 <1> Maven-Submodul für die Dokumentation.
 <2> Jeweils ein Dokument; bei Bausteinen findet sich häufig die Unterteilung in Konzept und Nutzungsvorgaben.
-<3> Auflistung der Anhänge des IsyFact-Dokuments.
-<4> Inhalte des IsyFact-Dokuments.
+<3> Auflistung der Anhänge des Dokuments.
+<4> Inhalte des Dokuments.
 <5> Zentrale Datei, die alle anderen Dateien über spezielle Verweise (`include`) einbindet.
-Eine vollständige Vorschau des IsyFact-Dokuments wird angezeigt, wenn die Datei `master.adoc` im Editor geöffnet und die Vorschaufunktion verwendet wird.
-<6> Einleitendes Kapitel des IsyFact-Dokuments, das den Inhalt zusammenfasst sowie den Aufbau und Zweck des Dokuments erläutert.
+<6> Einleitendes Kapitel des Dokuments, das den Inhalt zusammenfasst sowie den Aufbau und Zweck des Dokuments erläutert.
 <7> Bilder und Grafiken, die im neu zu erstellenden Dokument verwendet werden sollen.
 
+TIP: Eine vollständige Vorschau des Dokuments wird angezeigt, wenn die Datei `master.adoc` im Editor geöffnet und die Vorschaufunktion verwendet wird.
 
-[[dateien-bearbeiten]]
-== Dateien bearbeiten
+[[dokument-struktur]]
+== Struktur eines Dokuments
 
-Dieser Abschnitt beschreibt, welche Attribute und Inhalte in den Dateien angepasst werden können.
+Wie bereits <<verzeichnisstruktur-baustein,im vorigen Abschnitt>> beschrieben, besteht ein Dokument aus mehreren Dateien.
+Die folgenden Abschnitte beschreiben diese Dateien, stellen Vorlagen bereit und erklären Einstellungsmöglichkeiten in Form von Attributen.
 
-[[master.adoc-bearbeiten]]
-=== `master.adoc` bearbeiten
+[[master.adoc]]
+=== `master.adoc`
 
-Zunächst werden die Attribute `doctitle` und `document-type` gesetzt, aus denen ein einheitlicher Titel erzeugt wird, vgl. <<listing-master>>.
-
-Dann wird die Vertraulichkeits-Einstufung `vs-einstufung` angegeben.
-Dadurch wird ggf. ein Vertraulichkeitshinweis in das Dokument eingefügt und ggf. das Layout angepasst.
-Die möglichen Werte für `vs-einstufung` finden sich in <<table-master-attributes>>.
-Die `vs-einstufung` kann auch xref:dokumentation/generierung/generierung-asciidoctorj.adoc#listing-pom-asciidoc[im Maven-POM] als globales Attribut für alle zu generierenden Dokumente angegeben werden.
-
-Daraufhin wird der Kolophon eingebunden.
-Dadurch wird ein einheitlicher Abschnitt mit Metadaten des Dokuments und Lizenzbestimmungen erzeugt.
-Dabei können noch die optionalen Attribute `factory` und `open-source` angegeben werden.
-Sie sind in <<table-master-attributes>> näher beschrieben.
+Die Datei `master.adoc` fasst alle anderen Dateien zu einem Dokument zusammen.
+Die <<listing-master,folgende Vorlage>> zeigt den Aufbau der Datei.
 
 [[listing-master]]
-.master.adoc
+.Vorlage für `master.adoc`
 [source,asciidoc]
 ----
-:doctitle: Super tolles Feature
+:doctitle: Neuer Baustein
 :document-type: Konzept
 :vs-einstufung: offen
 
-colophon::[factory="IsyFact-Erweiterungen", open-source="false"]
-
-// Wird normalerweise vom Maven-Plugin gesetzt
 // :revnumber: 1.0.5
 // :revdate: 2020-01-01
+
+colophon::[factory="IsyFact-Erweiterungen", open-source="false"]
+
+\include::docinfo.adoc[]
 
 \include::thisdoc.adoc[tags=inhalt]
 
 \include::inhalt.adoc[tags=inhalt]
+
+:sectnums!:
+
+\include::anhaenge.adoc[tags=inhalt]
 ----
 
-[NOTE]
-====
+Am Anfang der Datei werden die Attribute `doctitle` und `document-type` gesetzt, aus denen ein einheitlicher Titel erzeugt wird.
+
+Dann wird die Vertraulichkeitseinstufung `vs-einstufung` angegeben.
+Dadurch wird ggf. ein Vertraulichkeitshinweis in das Dokument eingefügt und ggf. das Layout angepasst.
+Die möglichen Werte für `vs-einstufung` finden sich in <<table-master-attributes>>.
+Die `vs-einstufung` kann auch xref:dokumentation/generierung/generierung-asciidoctorj.adoc#listing-pom-asciidoc[im Maven-POM] als globales Attribut für alle zu generierenden Dokumente angegeben werden.
+
 Die manuelle Vergabe von Revisionsnummer und -datum betrifft nur Dokumente, die nicht mithilfe des Maven-Plugins erzeugt werden.
 Ansonsten werden diese Attribute xref:dokumentation/generierung/generierung-asciidoctorj.adoc#listing-pom-asciidoc[über das Maven-Plugin] bereitgestellt.
-====
 
-<<table-master-attributes>> zeigt alle Attribute, die in der `master.adoc` Datei angepasst werden können.
+<<table-master-attributes,Die folgende Tabelle>> zeigt alle Attribute, die in der `master.adoc` Datei angepasst werden können.
 
 [[table-master-attributes]]
-.Attribute der master.adoc
-[cols="1,1,1,3,1",options="header"]
+.Attribute der `master.adoc`
+[cols="3,1,4,4",options="header"]
 |===
-|Attribut|Optional|Default|Beschreibung|Werte
-|`doctitle`|Nein||Titel des Dokuments|
-|`document-type`|Ja||Dokumententyp (z.B. Konzept), welcher als Untertitel angezeigt wird|
-|`vs-einstufung`|Nein||Vertraulichkeits-Einstufung
+|Attribut|Optional|Beschreibung|Werte
+|`doctitle`|Nein|Titel des Dokuments|
+|`document-type`|Ja|Dokumententyp (z.B. Konzept), welcher als Untertitel angezeigt wird|
+|`vs-einstufung`|Nein|Vertraulichkeitseinstufung
 a|
 * open-source
 * offen
@@ -138,60 +141,127 @@ a|
 * vs-vertraulich
 * geheim
 * streng-geheim
-|`colophon`|Nein|colophon::[]|Metadaten des Dokuments und Lizenzbestimmungen|
-|`factory` als Attribut zu `colophon`|Ja|IsyFact-Standards|Definiert, ob das Dokument zu den IsyFact-Standards oder IsyFact-Erweiterungen gehört. Wählt das passende Logo und Deckblatt für die Factory.
-a|
-* IsyFact-Standards
-* IsyFact-Erweiterungen
-* Register Factory
-|`open-source` als Attribut zu `colophon`|Ja|true|Beschreibt, ob das Dokument unter der Open Source (true) oder Closed Source (false) Lizenz der IsyFact veröffentlicht wird.|
-|`revdate`|Nein||Release Datum des Bausteins oder Dokuments|
-|`revnumber`|Nein||Versionsnummer des Bausteins oder Dokuments|
+|`revdate`|Nein|Release Datum des Bausteins oder Dokuments|
+|`revnumber`|Nein|Versionsnummer des Bausteins oder Dokuments|
 |===
 
-Zuletzt werden die übrigen Asciidoc Dateien in `master.adoc` inkludiert.
+Nach den Attributen wird der Kolophon eingebunden.
+Dadurch wird ein einheitlicher Abschnitt mit Metadaten des Dokuments und Lizenzbestimmungen erzeugt.
+Dabei können noch die optionalen <<kolophon-attributes,Parameter>> `factory` und `open-source` angegeben werden.
+
+[[kolophon-attributes]]
+.Parameter des Kolophons
+[cols="2m,1,1,3,2a",options="header"]
+|===
+|Parameter|Optional|Default|Beschreibung|Werte
+|factory|Ja|IsyFact-Standards|Definiert, ob das Dokument zu den IsyFact-Standards oder IsyFact-Erweiterungen gehört. Wählt das passende Logo und Deckblatt für die Factory.
+|* IsyFact-Standards
+* IsyFact-Erweiterungen
+* Register Factory
+|open-source|Ja|`true`|Beschreibt, ob das Dokument unter der Open Source (`true`) oder Closed Source (`false`) Lizenz der IsyFact veröffentlicht wird.|
+|===
+
+Nach dem Kolophon werden die übrigen AsciiDoc-Dateien in `master.adoc` inkludiert.
 Leere Dateien können ausgelassen werden.
-Inkludiert wird der Inhaltsbereich innerhalb der Dateien, der mit
-
-`// tag::inhalt[]`
-
-Dateiinhalt
-
-`// end::inhalt[]`
-
-getaggt ist.
+Inkludiert wird der Inhaltsbereich innerhalb der Dateien, der mit entsprechenden Tags gekennzeichnet ist.
 
 
-[[docinfo.adoc-bearbeiten]]
-=== `docinfo.adoc` bearbeiten
+[[docinfo.adoc]]
+=== `docinfo.adoc`
 
-Bezieht sich das zu erstellende Dokument auf einen Baustein (Bibliothek) der IsyFact, so ist dieser Baustein inklusive der Version in einer eigenen Datei docinfo.adoc anzugeben und in `master.adoc` zu inkludieren.
-In <<listing-master-bib>> wird beispielsweise auf den Baustein `isy-web` verwiesen.
+Dokumente können sich direkt auf Bibliotheken oder IT-Systeme beziehen.
+Ist dies der Fall, so werden diese Bibliotheken oder IT-Systeme in einer Datei `docinfo.adoc` angegeben.
+Neben dem technischen Namen muss auch die Version angegeben werden, auf die sich das Dokument bezieht.
+Die `docinfo.adoc` Datei wird dann in `master.adoc` direkt nach dem Kolophon eingebunden.
 
-[[listing-master-bib]]
-.docinfo.adoc - Angabe des zugehörigen Bausteins
-[source,asciidoc,indent=0]
+Die <<template-docinfo,folgende Vorlage>> zeigt den Aufbau der Datei.
+
+[[template-docinfo]]
+.Vorlage für `docinfo.adoc`
+[source,asciidoc]
 ----
-// Einbindung Bibliotheken, wenn nicht genutzt, entfernen
 *Java Bibliothek / IT-System*
 
-[cols="5,2,3",options="header"]
+[cols="5m,2,3",options="header"]
 |====
 |Name |Art |Version
-|isy-web |Bibliothek |v{version-ifs}
+|<Technischer Name> |Bibliothek | <Version>
+|<Technischer Name> |IT-System  | <Version>
 |====
 ----
 
-In der Vorschau sollten die Änderungen unmittelbar erscheinen. Ihre Änderungen speichern Sie über kbd:[Strg + S].
+[[thisdoc.adoc]]
+=== `thisdoc.adoc`
 
-[[thisdoc.adoc-bearbeiten]]
-=== `thisdoc.adoc` bearbeiten
+Die Datei `thisdoc.adoc` bietet eine Einleitung in das Dokument und erläutert den Aufbau und Zweck des Dokuments.
+Die <<template-thisdoc,folgende Vorlage>> zeigt den Aufbau der Datei.
 
-Die Datei `thisdoc.adoc` ist optional auszufüllen und sollte eine Einleitung in das Dokument bieten und den Aufbau und Zweck des Dokuments erläutern.
-Diese Datei ist in der `master.adoc` integriert und wird beim Generieren in das vollständige Dokument eingefügt.
+[[template-thisdoc]]
+.Vorlage für `thisdoc.adoc`
+[source,asciidoc]
+----
+= Konzept: Neuer Baustein - Einleitung
+:imagesdir: images
 
-[[inhalt.adoc-bearbeiten]]
-=== `inhalt.adoc` bearbeiten
+// tag::inhalt[]
+
+== Einleitung
+// Einordnung des Dokuments
+
+=== Aufbau und Zweck des Dokuments
+// Informationen zur Zielgruppe des Dokuments
+// Kurze Zusammenfassung des Aufbaus
+// Auflistung der Kapitel und ihrer Kerninhalte
+
+// end::inhalt[]
+----
+
+[[inhalt.adoc]]
+=== `inhalt.adoc`
 
 In `inhalt.adoc` wird der eigentliche Inhalt des Dokuments verfasst.
-Diese Datei wird in der `master.adoc` nach der Datei `thisdoc.adoc` inkludiert.
+Die <<template-inhalt,folgende Vorlage>> zeigt den Aufbau der Datei.
+
+[[template-inhalt]]
+.Vorlage für `inhalt.adoc`
+[source,asciidoc]
+----
+= Konzept: Neuer Baustein - Inhalt
+:imagesdir: images
+
+// tag::inhalt[]
+
+// Eigentlicher Inhalt des Dokuments
+
+== Erstes Thema
+...
+
+== Zweites Thema
+...
+
+// end::inhalt[]
+----
+
+[[anhaenge.adoc]]
+=== `anhaenge.adoc`
+
+In `anhaenge.adoc` sind Anhänge zum Dokuments platziert.
+Die <<template-anhaenge,folgende Vorlage>> zeigt den Aufbau der Datei.
+
+[[template-anhaenge]]
+.Vorlage für `anhaenge.adoc`
+[source,asciidoc]
+----
+= Konzept: Neuer Baustein - Anhänge
+:imagesdir: images
+
+// tag::inhalt[]
+
+== Anhang A: Titel
+// Inhalt des Anhangs
+
+== Anhang B: Titel
+// Inhalt des Anhangs
+
+// end::inhalt[]
+----
