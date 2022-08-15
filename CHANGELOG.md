@@ -2,6 +2,7 @@
 - `IFS-1465`: [isyfact-products-bom] Spring Boot Versionsanhebung auf 2.7.1
 
 # 2.5.0
+- `IFS-1161`: [isy-aufrufkontext] `HttpHeaderNestedDiagnosticContextFilter` Priorität erhöht
 - `IFS-1073`: [isy-serviceapi-core] Logausgabe zur Korrektur der Korrelations-Id entfernt
 - `IFS-1282`: Einführung von Maven CI-friendly Versionen
 - `IFS-1397`: [isyfact-products-bom] Spring Boot Versionsanhebung auf 2.5.12

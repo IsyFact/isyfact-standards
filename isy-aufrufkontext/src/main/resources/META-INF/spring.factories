@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-de.bund.bva.isyfact.aufrufkontext.autoconfigure.MdcFilterConfiguration
+de.bund.bva.isyfact.aufrufkontext.autoconfigure.MdcFilterAutoConfiguration
