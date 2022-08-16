@@ -239,14 +239,6 @@ Einbindung von passenden Maven-Plugins können diese Informationen automatisch b
 <plugin>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-maven-plugin</artifactId>
-        <executions>
-            <execution>
-                <id>build-info</id>
-                <goals>
-                    <goal>build-info</goal>
-                </goals>
-            </execution>
-        </executions>
 </plugin>
 <plugin>
     <groupId>pl.project13.maven</groupId>
@@ -254,7 +246,22 @@ Einbindung von passenden Maven-Plugins können diese Informationen automatisch b
 </plugin>
 ----
 
-Bei Bedarf können weitere statische Informationen von der Anwendung bereitgestellt werden.
+Durch das Einbinden der Plugins (s. <<listing-info-maven-config>>) werden 2 Dateien mit folgenden Informationen erzeugt:
+
+* `build-info.properties` mit den Keys:
+** `build.artifact`
+** `build.group`
+** `build.name`
+** `build.time`
+** `build.version`
+* `git.properties` mit den Keys:
+** `git.branch`
+** `git.commit.id.abbrev`
+** `git.commit.time`
+
+Die Werte der Keys werden über den Info-Endpoint bereitgestellt.
+
+Bei Bedarf können weitere statische Informationen durch zusätzliche Konfiguration von der Anwendung bereitgestellt werden.
 
 NOTE: Weiterführende Informationen enthält die https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-features.html#production-ready-application-info[Dokumentation von Spring Boot zum Info-Endpoint].
 
