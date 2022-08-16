@@ -1,7 +1,8 @@
 # 3.0.0
+- `IFS-1467`: Maven Plugins für statische Informationen:
+    * git-commit-id-plugin (Version 4.9.10)
+    * spring-boot-maven-plugin (Version von spring-boot verwaltet)
 - `IFS-1465`: [isyfact-products-bom] Spring Boot Versionsanhebung auf 2.7.1
-
-# 2.5.0
 - `IFS-1161`: [isy-aufrufkontext] `HttpHeaderNestedDiagnosticContextFilter` Priorität erhöht
 - `IFS-1073`: [isy-serviceapi-core] Logausgabe zur Korrektur der Korrelations-Id entfernt
 - `IFS-1282`: Einführung von Maven CI-friendly Versionen
