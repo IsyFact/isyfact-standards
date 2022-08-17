@@ -103,8 +103,7 @@ Folgendes Listing zeigt die Konfiguration für einen lauffähigen Asciidoctor Bu
 <1> Es wird die aktuellste Version des Maven Plugins benötigt.
 <2> Einfügen der `isy-asciidoctorj-extensions` als Dependency des Maven Plugins.
 <3> Die Angabe der `vs-einstufung` ist an dieser Stelle optional und gilt für alle Dokumente.
-Üblicherweise wird die `vs-einstufung` in xref:dokumentation/erstellung/erstellung-asciidoctorj.adoc#master.adoc[`master.adoc`] gesetzt.
-Dort ist sie verpflichtend, wenn sie nicht schon wie hier in der `pom.xml` gesetzt wurde.
+Üblicherweise wird die `vs-einstufung` xref:dokumentation/erstellung/erstellung-asciidoctorj.adoc#master.adoc[verpflichtend in jedem Dokument] gesetzt.
 <4> Es ist zu beachten, dass die Konfigurationen im Element `<executions></executions>` zu editieren sind, siehe <<dokument-pom-aufnehmen>>.
 
 

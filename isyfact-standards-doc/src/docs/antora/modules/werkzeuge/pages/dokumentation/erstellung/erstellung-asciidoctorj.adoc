@@ -117,13 +117,14 @@ Am Anfang der Datei werden die Attribute `doctitle` und `document-type` gesetzt,
 
 Dann wird die Vertraulichkeitseinstufung `vs-einstufung` angegeben.
 Dadurch wird ggf. ein Vertraulichkeitshinweis in das Dokument eingefügt und ggf. das Layout angepasst.
-Die möglichen Werte für `vs-einstufung` finden sich in <<table-master-attributes>>.
-Die `vs-einstufung` kann auch xref:dokumentation/generierung/generierung-asciidoctorj.adoc#listing-pom-asciidoc[im Maven-POM] als globales Attribut für alle zu generierenden Dokumente angegeben werden.
+Die möglichen Werte für `vs-einstufung` finden sich in <<table-master-attributes,Übersicht der Attribute>>.
+
+TIP: Die `vs-einstufung` kann auch xref:dokumentation/generierung/generierung-asciidoctorj.adoc#listing-pom-asciidoc[im Maven-POM] als globales Attribut für alle zu generierenden Dokumente angegeben werden.
 
 Die manuelle Vergabe von Revisionsnummer und -datum betrifft nur Dokumente, die nicht mithilfe des Maven-Plugins erzeugt werden.
 Ansonsten werden diese Attribute xref:dokumentation/generierung/generierung-asciidoctorj.adoc#listing-pom-asciidoc[über das Maven-Plugin] bereitgestellt.
 
-<<table-master-attributes,Die folgende Tabelle>> zeigt alle Attribute, die in der `master.adoc` Datei angepasst werden können.
+<<table-master-attributes,Die folgende Tabelle>> zeigt alle Attribute, die in der `master.adoc` gesetzt werden können.
 
 [[table-master-attributes]]
 .Attribute der `master.adoc`
@@ -245,7 +246,7 @@ Die <<template-inhalt,folgende Vorlage>> zeigt den Aufbau der Datei.
 [[anhaenge.adoc]]
 === `anhaenge.adoc`
 
-In `anhaenge.adoc` sind Anhänge zum Dokuments platziert.
+In `anhaenge.adoc` sind Anhänge zum Dokument platziert.
 Die <<template-anhaenge,folgende Vorlage>> zeigt den Aufbau der Datei.
 
 [[template-anhaenge]]
