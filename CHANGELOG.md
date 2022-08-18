@@ -2,6 +2,7 @@
 - `IFS-1467`: Maven Plugins für statische Informationen:
     * git-commit-id-plugin (Version 4.9.10)
     * spring-boot-maven-plugin (Version von spring-boot verwaltet)
+- `IFS-1628`: [isy-überwachung] Standardmetriken bei Anbinden von ServiceStatistik vorhanden
 - `IFS-1161`: [isy-aufrufkontext] `HttpHeaderNestedDiagnosticContextFilter` Priorität erhöht
 
 # 2.4.2

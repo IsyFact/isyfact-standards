@@ -12,7 +12,7 @@ import io.micrometer.core.instrument.Tags;
 class TestConfig {
 
     @Bean
-    public ServiceStatistik serviceStatistikMBean(MeterRegistry meterRegistry) {
-        return new ServiceStatistik(meterRegistry, Tags.of("testKey", "testValue"));
+    public ServiceStatistik serviceStatistikMBean() {
+        return new ServiceStatistik(Tags.of("testKey", "testValue"));
     }
 }
