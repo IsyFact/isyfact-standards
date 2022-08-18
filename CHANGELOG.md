@@ -1,9 +1,11 @@
 # 2.4.3
+- `IFS-1467`: Maven Plugins für statische Informationen:
+    * git-commit-id-plugin (Version 4.9.10)
+    * spring-boot-maven-plugin (Version von spring-boot verwaltet)
 - `IFS-1628`: [isy-überwachung] Standardmetriken bei Anbinden von ServiceStatistik vorhanden
 - `IFS-1161`: [isy-aufrufkontext] `HttpHeaderNestedDiagnosticContextFilter` Priorität erhöht
 
 # 2.4.2
-
 - `IFS-1529`: Einführung der Flatten-Konfigurationen für Maven CI-friendly Versionen
 - `IFS-1466`: [isy-products-bom] Versionsanhebung von Spring Boot auf 2.5.13
 - `IFS-1525`: [isy-products-bom] Versionsanhebung von Spring Boot auf 2.5.14
@@ -12,7 +14,6 @@
   freigegeben, wenn spring-security aktiviert ist.
 
 # 2.4.1
-
 - `IFS-1397`: [isy-products-bom] Versionsanhebung von Spring Boot auf 2.5.12 (Fix CVE-2022-22965)
 
 # 2.4.0
