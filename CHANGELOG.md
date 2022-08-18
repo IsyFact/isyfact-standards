@@ -2,6 +2,7 @@
 - `IFS-1467`: Maven Plugins für statische Informationen:
     * git-commit-id-plugin (Version 4.9.10)
     * spring-boot-maven-plugin (Version von spring-boot verwaltet)
+- `IFS-1628`: [isy-ueberwachung] Standardmetriken bei Anbinden von ServiceStatistik vorhanden
 - `IFS-1465`: [isyfact-products-bom] Spring Boot Versionsanhebung auf 2.7.1
 - `IFS-1161`: [isy-aufrufkontext] `HttpHeaderNestedDiagnosticContextFilter` Priorität erhöht
 - `IFS-1073`: [isy-serviceapi-core] Logausgabe zur Korrektur der Korrelations-Id entfernt
