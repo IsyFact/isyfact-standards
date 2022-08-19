@@ -91,7 +91,7 @@ Die <<standardisierte-metadaten,folgende Tabelle>> zeigt, welche Metadaten in de
 .Benennung standardisierter Metadaten
 [cols="1s,1m,2",options="header"]
 |===
-|Metadatum|Benennung|Herleitung
+|Metadaten|Benennung|Herleitung
 
 |Korrelations-ID
 |X-Trace-ID
