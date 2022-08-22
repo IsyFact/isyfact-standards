@@ -588,7 +588,7 @@ Ist für den Inhalt des Listings Syntax Highlighting verfügbar, muss es genutzt
 
 NOTE: Die xref:glossary:literaturextern:inhalt.adoc#litextern-highlight-js-uebersicht[Übersicht aller unterstützten Inhalte] zeigt, für welche Inhalte Syntax Highlighting verfügbar ist.
 
-Auf Listings kann über ihre Anker verwiesen werden.
+Verweise auf Listings nutzen, wie üblich, den Anker.
 
 [[listing-referenz]]
 .Verweise auf Listings
