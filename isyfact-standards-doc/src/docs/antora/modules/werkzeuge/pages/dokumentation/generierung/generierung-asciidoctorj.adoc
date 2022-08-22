@@ -102,9 +102,8 @@ Folgendes Listing zeigt die Konfiguration für einen lauffähigen Asciidoctor Bu
 ----
 <1> Es wird die aktuellste Version des Maven Plugins benötigt.
 <2> Einfügen der `isy-asciidoctorj-extensions` als Dependency des Maven Plugins.
-<3> Die Angabe der `vs-einstufung` ist an dieser Stelle optional und gilt für alle Dokumente. Üblicherweise wird die `vs-einstufung` in `master.adoc` gesetzt, dort ist sie verpflichtend, wenn sie nicht schon wie hier in der pom.xml gesetzt wurde.
-Vgl. xref:dokumentation/erstellung/erstellung-asciidoctorj.adoc#listing-master[master.adoc].
-
+<3> Die Angabe der `vs-einstufung` ist an dieser Stelle optional und gilt für alle Dokumente.
+Üblicherweise wird die `vs-einstufung` xref:dokumentation/erstellung/erstellung-asciidoctorj.adoc#master.adoc[verpflichtend in jedem Dokument] gesetzt.
 <4> Es ist zu beachten, dass die Konfigurationen im Element `<executions></executions>` zu editieren sind, siehe <<dokument-pom-aufnehmen>>.
 
 
@@ -163,9 +162,9 @@ Tritt der Fehler deswegen auf, sollten Bilder nach Möglichkeit in Vektorgrafike
 |====
 
 [[isy-asciidoctorj-extensions]]
-== IsyFact Extensions
+== AsciidoctorJ-Extensions der IsyFact
 
-Die IsyFact Extensions 'isy-asciidoctorj-extensions` sind eine Sammlung von verschiedenen AsciidoctorJ-Extensions, welche die Wartung der IsyFact-Dokumentation erleichtern.
+Die IsyFact Extensions `isy-asciidoctorj-extensions` sind eine Sammlung von verschiedenen AsciidoctorJ-Extensions, welche die Wartung der IsyFact-Dokumentation erleichtern.
 Die IsyFact bietet derzeit folgende AsciidoctorJ-Extensions an:
 
 |===
@@ -175,12 +174,12 @@ Die IsyFact bietet derzeit folgende AsciidoctorJ-Extensions an:
 
 `de.bund.bva.isyfact.attributes` `.IsyAttributesPreprocessor`
 |Erzeugt Metainformationen am Anfang eines Dokuments. Erzeugt den Titel und wählt das passende Theme für ein Dokument.
-|siehe Seite "xref:dokumentation/erstellung/erstellung-asciidoctorj.adoc#listing-master[]"
+|siehe xref:dokumentation/erstellung/erstellung-asciidoctorj.adoc#master.adoc[master.adoc]
 |BibliographyPreprocessor
 
 `de.bund.bva.isyfact.bibliography` `.BibliographyPreprocessor`
 |Erzeugt ein Literaturverzeichnis aus allen bekannten Quellen, die im Dokument enthalten und als Referenz markiert sind.
-|siehe Seite "xref:dokumentation/bearbeitung/bearbeitung-asciidoctorj.adoc#literaturverzeichnis[]"
+|siehe xref:dokumentation/bearbeitung/bearbeitung-asciidoctorj.adoc#literaturverzeichnis[Literaturverzeichnis]
 |<<ColophonBlockMacroProcessor,ColophonBlockMacroProcessor>>
 
 `de.bund.bva.isyfact.colophon` `.ColophonBlockMacroProcessor`
@@ -189,7 +188,7 @@ Die IsyFact bietet derzeit folgende AsciidoctorJ-Extensions an:
 |IsyGlossaryBlockMacroProcessor
 
 `de.bund.bva.isyfact.glossary` `.IsyGlossaryBlockMacroProcessor`
-|Erkennt `isy-glossary::[]` im Asciidoc Quellcode und fügt an der Stelle des Blocks das zentrale Glossar der IsyFact als Tabelle ein.
+|Erkennt `isy-glossary::[]` im AsciiDoc-Dokument und fügt an der Stelle des Blocks das zentrale Glossar der IsyFact als Tabelle ein.
 |`isy-glossary::[]`
 |GlossaryPreprocessor
 
@@ -216,7 +215,6 @@ Standardmäßig sind die Extensions auf den Bau von IsyFact-Standards Bausteinen
 [[colophon-block]]
 === ColophonBlockMacroProcessor
 
-Der `ColophonBlockMacroProcessor` erkennt `colophon::[]` Blöcke im Asciidoc Code und ersetzt diese durch die allgemeinen
+Der `ColophonBlockMacroProcessor` erkennt `colophon::[]` Blöcke im AsciiDoc-Dokument und ersetzt diese durch die allgemeinen
 Dokumentinformationen der IsyFact.
-Dabei können noch die optionalen Attribute `factory` und `open-source` angegeben werden.
-Die Seite xref:dokumentation/erstellung/erstellung-asciidoctorj.adoc#listing-master["Neue Dokumente anlegen"] zeigt die beispielhafte Verwendung des Kolophons in einem Asciidoc Dokument.
+Die Seite xref:dokumentation/erstellung/erstellung-asciidoctorj.adoc#master.adoc["Neue Dokumente anlegen"] zeigt die  Verwendung des Kolophons in einem AsciiDoc-Dokument.

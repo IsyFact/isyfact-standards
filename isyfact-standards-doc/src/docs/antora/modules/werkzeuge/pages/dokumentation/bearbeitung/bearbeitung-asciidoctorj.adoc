@@ -2,7 +2,7 @@
 
 include::glossary:licence:partial$licence.adoc[]
 
-Dieses Kapitel beschreibt die inhaltliche Bearbeitung und die dabei zu verwendenden Konventionen der IsyFact für die in <<verzeichnisstruktur-baustein>> beschriebenen Dateien.
+Dieses Kapitel beschreibt die inhaltliche Bearbeitung und die dabei zu verwendenden Konventionen für die in xref:dokumentation/erstellung/erstellung-asciidoctorj.adoc#dokument-struktur[Struktur eines Dokuments] beschriebenen Dateien.
 Es handelt sich dabei vorrangig um die Datei `inhalt.adoc`.
 
 Außer diesem Handbuch sind hierzu Kenntnisse der AsciiDoc-Syntax erforderlich.
@@ -487,21 +487,23 @@ Das Listing kann im AsciiDoc-Text über seine ID referenziert werden:
 == Literaturverzeichnis
 
 Am Ende eines Dokuments wird automatisch ein Literaturverzeichnis erstellt.
-Voraussetzung für die Aufnahme eines Eintrags in das lokale Literaturverzeichnis ist die Referenzierung des entsprechenden Dokuments und das Vorhandensein der referenzierten Id in der Literaturverzeichnis-Konfigurationsdatei in <<isy-asciidoctorj-extensions>>.
+Voraussetzung für die Aufnahme eines Eintrags in das lokale Literaturverzeichnis ist die Referenzierung des entsprechenden Dokuments und das Vorhandensein der referenzierten ID in der Literaturverzeichnis-Konfigurationsdatei der xref:dokumentation/generierung/generierung-asciidoctorj.adoc#isy-asciidoctorj-extensions[AsciidoctorJ-Extensions].
 
-Eine Referenz auf einen Literatureintrag erfolgt über doppelte spitze Klammerpaare, wobei der erste Eintrag die Id in der Literaturverzeichnis-Konfigurationsdatei in isy-asciidoctorj-extensions ist.
+Eine Referenz auf einen Literatureintrag erfolgt über doppelte spitze Klammerpaare, wobei der erste Eintrag die ID in der Literaturverzeichnis-Konfigurationsdatei ist.
 
-Ein Beispiel für referenzierte Literatur: \<<AsciiDocRecommendedPractices, AsciiDoc Recommended Practices>>.
+Ein Beispiel für referenzierte Literatur:
+
+ <<AsciiDocRecommendedPractices, AsciiDoc Recommended Practices>>
 
 Das Ergebnis sieht so aus:
 
-Ein Beispiel für referenzierte Literatur: xref:glossary:literaturextern:inhalt.adoc#litextern-asciidoc-recommended-practices[AsciiDoc Recommended Practices]
+xref:glossary:literaturextern:inhalt.adoc#litextern-asciidoc-recommended-practices[AsciiDoc Recommended Practices]
 
 [[glossar]]
 == Glossar
 
 Am Ende eines Dokuments wird automatisch ein Glossar erstellt.
-Voraussetzung für die Aufnahme eines Eintrags in das lokale Glossar ist die Referenzierung des entsprechenden Eintrags und das Vorhandensein des Eintrags mit der referenzierten Id im zentralen Glossar in <<isy-asciidoctorj-extensions>>.
+Voraussetzung für die Aufnahme eines Eintrags in das lokale Glossar ist die Referenzierung des entsprechenden Eintrags und das Vorhandensein des Eintrags mit der referenzierten Id im zentralen Glossar der xref:dokumentation/generierung/generierung-asciidoctorj.adoc#isy-asciidoctorj-extensions[AsciidoctorJ-Extensions].
 
 Eine Referenz auf einen Begriff des Glossars erfolgt über doppelte spitze Klammerpaare, wobei der erste Eintrag die Id im zentralen Glossar in isy-asciidoctorj-extensions ist.
 Die ID soll mit dem Bezeichner `glossar-` beginnen.
