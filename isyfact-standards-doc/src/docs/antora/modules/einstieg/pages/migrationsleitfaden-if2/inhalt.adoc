@@ -164,7 +164,7 @@ Siehe xref:isy-logging:nutzungsvorgaben/master.adoc#spring-konfiguration[Nutzung
 Siehe xref:isy-logging:nutzungsvorgaben/master.adoc#logapplicationlistener[Nutzungsvorgaben Logging - Kapitel: LogApplicationListener].
 +
 .application.properties
-[source]
+[source,properties]
 ----
 isy.logging.anwendung.name=Anwendung
 isy.logging.anwendung.version=2.0.0

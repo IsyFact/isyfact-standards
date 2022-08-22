@@ -260,7 +260,7 @@ Die Ressource wird dabei nicht verändert, wodurch diese Methode idempotent ist.
 
 .Beispiele für GET-Anfrage
 [id="listing-get-anfrage-beispiele",reftext = "{listing-caption} {counter:listings}"]
-[source]
+[source,http]
 ----
 GET /kunden/1234 HTTP/1.1
 accept: text/html, application/json, application/xhtml+xml, application/xml;q=0.9, */*;
@@ -271,7 +271,7 @@ ACCEPT-ENCODING: gzip, deflate, br
 
 .Beispiele für GET-Antwort
 [id="listing-get-antwort-beispiele",reftext = "{listing-caption} {counter:listings}"]
-[source]
+[source,http]
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json; charset=utf-8
@@ -291,7 +291,7 @@ Des Weiteren muss POST für komplexe Suchen und Suchen mit datenschutzrelevanten
 
 .Beispiele für POST-Anfrage
 [id="listing-post-anfrage-beispiele",reftext = "{listing-caption} {counter:listings}"]
-[source]
+[source,http]
 ----
 POST /kunden HTTP/1.1
 HOST: xx.yy.zz
@@ -305,7 +305,7 @@ Content-Type: application/json; charset=utf-8
 
 .Beispiele für POST-Antwort
 [id="listing-post-antwort-beispiele",reftext = "{listing-caption} {counter:listings}"]
-[source]
+[source,http]
 ----
 HTTP/1.1 201 Created
 Content-Type: application/json; charset=utf-8
@@ -333,7 +333,7 @@ In Abhängigkeit davon, ob eine Ressource geändert oder neu erstellt wurde, wir
 
 .Beispiele für PUT-Anfrage
 [id="listing-put-anfrage-beispiele",reftext = "{listing-caption} {counter:listings}"]
-[source]
+[source,http]
 ----
 PUT /kunden/1234 HTTP/1.1
 HOST: xx.yy.zz
@@ -347,7 +347,7 @@ Content-Type: application/json; charset=utf-8
 
 .Beispiele für PUT-Antwort
 [id="listing-put-antwort-beispiele",reftext = "{listing-caption} {counter:listings}"]
-[source]
+[source,http]
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json; charset=utf-8
@@ -366,7 +366,7 @@ Deswegen kann Patch idempotent sein, muss aber nicht.
 
 .Beispiele für PATCH-Anfrage
 [id="listing-patch-anfrage-beispiele",reftext = "{listing-caption} {counter:listings}"]
-[source]
+[source,http]
 ----
 PATCH /kunden/1234 HTTP/1.1
 HOST: xx.yy.zz
@@ -379,7 +379,7 @@ Content-Type: application/json; charset=utf-8
 .Beispiele für PATCH-Antwort
 [id="listing-patch-antwort-beispiele",reftext = "{listing-caption} {counter:listings}"]
 
-[source]
+[source,http]
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json; charset=utf-8
