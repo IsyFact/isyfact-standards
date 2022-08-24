@@ -1,7 +1,0 @@
-*Java Bibliothek / IT-System*
-
-[options="header",cols="4,1,3"]
-|====
-|Name |Art |Version
-m|isy-persistence |Bibliothek |v{page-component-version}
-|====

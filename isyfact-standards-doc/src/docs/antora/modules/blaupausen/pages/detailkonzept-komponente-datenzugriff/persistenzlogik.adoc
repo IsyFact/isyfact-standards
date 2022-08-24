@@ -1,0 +1,134 @@
+= Konzeption der Persistenzlogik
+
+include::glossary:licence:partial$licence.adoc[]
+
+Die Persistenzlogik beinhaltet das Datenmodell (d.h. Modellkomponenten, Entitäten und Attribute) der fachlichen Architektur und bildet dieses auf die technische Ebene ab.
+Sie gliedert sich, wie der Anwendungskern, in Fachkomponenten.
+Im Normalfall ist der Funktionsumfang dieser Fachkomponenten viel geringer als der Funktionsumfang der Entsprechungen im Anwendungskern.
+Dies liegt darin begründet, dass sich die Persistenzlogik ausschließlich um die Speicherung von Geschäftsobjekten in einer Datenbank kümmert und selbst keinerlei Geschäftslogik beinhaltet.
+
+[[grundlagen]]
+== Grundlagen
+
+*Fachkomponenten* bestehen aus einer Schnittstelle und den persistenten Objekten.
+Die Schnittstelle bildet in der Regel ein Data Access Object ab.
+Persistente Objekte werden Entitäten genannt.
+
+Die <<aufbau-fachkomponente-datenzugriff,folgende Abbildung>> zeigt den Aufbau einer Fachkomponente im Datenzugriff.
+
+[[aufbau-fachkomponente-datenzugriff]]
+.Aufbau einer Fachkomponente des Datenzugriffs
+image::blaupausen:detailkonzept-datenzugriff/aufbau_fachkomponente_datenzugriff.dn.svg[]
+
+Ein *Data Access Object (DAO)* beschreibt die Schnittstelle der Fachkomponente, d.h. die Operationen, die zum Speichern und Lesen der Entitäten aus der Datenbank nötig sind.
+DAOs werden über _Spring Data Repositories_ abgebildet.
+Der Name eines Repositories leitet sich von derjenigen Entität ab, die über das Repository bearbeitet wird.
+
+//tag::namenskonvention[]
+
+[[namenskonvention-spring-data-repository]]
+.Namenskonvention DAO: Spring Data Repository
+[id="table-repossimpl",reftext="{table-caption} {counter:tables}"]
+[cols="1s,4m",options="header"]
+|====
+2+|Data Access Object: Spring Data Repository
+|Schema |<Entität>Repository
+|Beispiel |AkteRepository
+|====
+
+//end::namenskonvention[]
+
+WARNING: Der folgende, hervorgehobene Absatz wird nur noch aus historischen Gründen erwähnt und ist obsolet.
+
+====
+Vor der Verwendung von Spring Data wurden DAOs mithilfe von zwei Klassen umgesetzt: einem Interface und einer Implementierung.
+Der Name eines DAO-Interfaces leitet sich von derjenigen Entität ab, die über das DAO bearbeitet wird.
+
+//tag::namenskonvention[]
+
+[[namenskonvention-dao-interface]]
+.Namenskonvention DAO: Interface + Implementierung
+[id="table-daossimpl",reftext="{table-caption} {counter:tables}"]
+[cols="1s,4m",options="header"]
+|====
+2+|Data Access Object: Interface + Implementierung
+|Schema |<Entität>Dao +
+<Entität>DaoImpl
+|Beispiele |AkteDao +
+AkteDaoImpl
+|====
+
+//end::namenskonvention[]
+====
+
+*Entitäten* bilden Geschäftsobjekte ab und werden in der Regel nach ihnen benannt.
+
+//tag::namenskonvention[]
+
+.Namenskonvention Entität
+[id="table-entity",reftext="{table-caption} {counter:tables}"]
+[cols="1s,4m",options="header"]
+|====
+2+|Entität
+|Schema |<Geschäftsobjekt>
+|Beispiel |Akte
+|====
+//end::namenskonvention[]
+
+Ein *Persistenz-Klassenmodell* ist das Modell der Entitäten, welche dauerhaft abgespeichert werden sollen.
+
+[[persistenz-klassenmodell-vorgaben]]
+== Vorgaben für das Persistenz-Klassenmodell
+
+Die folgenden Abschnitte beschreiben gewünschte Eigenschaften des Persistenz-Klassenmodells sowie Verwendungsregeln.
+
+[[persistenz-klassenmodell-und-datenbank-schema-sollen-moeglichst-aehnlich-sein]]
+=== Persistenz-Klassenmodell und Datenbank-Schema sollen möglichst ähnlich sein
+
+Im Idealfall wird jede Entität auf eine Tabelle des Datenbankschemas abgebildet.
+Eine solche Abbildung ist intuitiv und erleichtert das Verständnis der Anwendung und des Datenbankschemas, was wiederum in der Wartung ein großer Vorteil ist.
+
+Tatsächlich ist es aus Gründen der Datenbankperformance aber oft erforderlich, von diesem Idealfall abzuweichen.
+Hier gilt es, auf möglichst wenige Tabellen zuzugreifen, um an die benötigten Informationen zu gelangen.
+
+So ist es zum Beispiel sinnvoll, für 1:1-Beziehungen im Persistenz-Klassenmodell den Entitäten mit der Annotation `@Embeddable` zu versehen.
+Somit wird der Inhalt einer Datenbanktabelle auf mehr als eine Entität verteilt.
+Solche Entitäten können dann über das Lesen einer einzigen Tabellenzeile aus der Datenbank gefüllt werden.
+
+[[verwendung-generischer-datenstrukturen-vermeiden]]
+=== Verwendung generischer Datenstrukturen vermeiden
+
+JPA ermöglicht die Verwendung generischer Datenstrukturen.
+Dabei können die Spalten einer Tabelle in Abhängigkeit eines Deskriptorwertes in einer speziell definierten Spalte auf unterschiedliche Attribute verschiedener Entitäten abgebildet werden.
+Eine solche Vorgehensweise erschwert das Verständnis der Daten bei einem direkten Zugriff auf die Datenbank mit Datenbankwerkzeugen und damit auch die Fehleranalyse und Wartung.
+
+Trotzdem kann es aus Gründen der Datenbankperformance erforderlich sein, generische Datenstrukturen zu verwenden.
+Werden z. B. Entitäten mit einer gemeinsamen Oberklasse als generische Datenstruktur in einer Tabelle abgelegt und sollen die Attribute der Oberklasse gesucht werden, so kann die Suche auf der Datenbank in einer einzigen Tabelle durchgeführt werden.
+Die Entitäten können ohne zusätzliche Joins aus der Datenbank gelesen werden.
+
+Werden generische Datenstrukturen verwendet, dann ist es obligatorisch, dass für jede Entitäten, die in dieser Datenstruktur abgespeichert wird, ein eigener Datenbank-View definiert wird.
+Dieser Datenbank-View enthält alle Attribute der Entitäten mit einem sprechenden Namen.
+Diese Datenbank-Views können dann beim direkten Zugriff mit Datenbankwerkzeugen und bei der Fehleranalyse verwendet werden.
+
+[[vererbung-im-persistenz-klassenmodell-vermeiden]]
+=== Vererbung im Persistenz-Klassenmodell vermeiden
+
+Klassenhierarchien (der Einsatz von Vererbung) sind bei Entitäten zu vermeiden.
+Abweichungen sind nur für eine Reduzierung der Komplexität des Persistenz-Klassenmodells erlaubt.
+Die Klassenhierarchie ist in diesem Fall möglichst flach zu halten.
+
+[[fachlogik-in-persistenzklassen-vermeiden]]
+=== Fachlogik in Persistenzlogik vermeiden
+
+Die Implementierung von fachlicher Logik in der gesamten Persistenzlogik, d.h. in den DAOs und Entitäten, ist zu vermeiden.
+Idealerweise sollten die Entitäten lediglich Getter- und Setter-Methoden für die persistierten Daten enthalten.
+Jegliche Fachlogik muss im Anwendungskern implementiert werden.
+
+Zur Fachlogik gehören auch Validierungen.
+
+[[embeddables-vorgaben]]
+=== Vorgaben für `@Embeddable`-Entitäten
+
+Für JPA-Entitäten mit der Annotation `@Embeddable` müssen die Methoden `equals` und `hashCode` implementiert werden.
+Die Methoden müssen dafür sämtliche Attribute mit einbeziehen.
+Zusätzlich muss das Interface `Serializable` implementiert werden.

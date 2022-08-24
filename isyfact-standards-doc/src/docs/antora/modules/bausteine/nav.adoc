@@ -11,6 +11,17 @@
 *** xref:isy-serviceapi-core:konzept/master.adoc[Konzept]
 *** xref:isy-serviceapi-core:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
 
+** JPA/Hibernate
+*** xref:isy-persistence:konzept.adoc[Konzept]
+**** xref:isy-persistence:konzept/vorgaben-konventionen.adoc[]
+**** xref:isy-persistence:konzept/historisierung.adoc[]
+**** xref:isy-persistence:konzept/versionierung-mit-liquibase.adoc[Versionierung (Liquibase)]
+**** xref:isy-persistence:konzept/versionierung.adoc[]
+*** Nutzungsvorgaben
+**** xref:isy-persistence:nutzungsvorgaben/umsetzung-datenzugriff.adoc[]
+**** xref:isy-persistence:nutzungsvorgaben/historisierung.adoc[]
+**** xref:isy-persistence:nutzungsvorgaben/versionierung.adoc[]
+
 ** Konfiguration
 *** xref:isy-konfiguration:konzept/master.adoc[Konzept]
 *** xref:isy-konfiguration:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]

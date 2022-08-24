@@ -1,7 +1,0 @@
-// tag::architekturregeln[]
-
-[[architekturregeln-datenzugriff]]
-== Architekturregeln Komponente Datenzugriff
-
-include::inhalt.adoc[tags=architekturregel]
-// end::architekturregeln[]

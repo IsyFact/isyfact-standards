@@ -1,0 +1,57 @@
+= Detailkonzept Komponente Datenzugriff
+
+include::glossary:licence:partial$licence.adoc[]
+
+Gemäß den Vorgaben der xref:referenzarchitektur/master.adoc[Referenzarchitektur] basiert die Architektur eines IT-Systems auf der bekannten Drei-Schichten-Architektur.
+Eine dieser Schichten ist die Persistenzschicht.
+In dieser Schicht ist alle Funktionalität enthalten, die zum Erzeugen, Suchen, Bearbeiten und Löschen von Datensätzen benötigt wird.
+Der Zugriff auf eine relationale Datenbank ist in dieser Schicht vollständig gekapselt.
+In Richtung Datenbank kommuniziert diese Schicht mittels JDBC und SQL, in Richtung des Anwendungskerns stellt die Schicht persistente Objekte zur Verfügung.
+
+In <<image-IFRefArcITSsysPers>> ist die Referenzarchitektur eines IT-Systems noch einmal dargestellt, wobei die Persistenzschicht mit der Komponente Datenhaltung hervorgehoben ist.
+
+.Referenzarchitektur eines IT-Systems
+[id="image-IFRefArcITSsysPers",reftext="{figure-caption} {counter:figures}"]
+image::blaupausen:detailkonzept-datenzugriff/IFRefArcITSsysPers.png[align="center"]
+
+Dieses Dokument beschreibt die Vorgaben zur Umsetzung einer solchen Persistenzschicht im Detail.
+Die Implementierung der Zugriffsschicht wird durch die Verwendung eines standardisierten Frameworks erleichtert.
+Das Dokument legt außerdem allgemeine Vorgaben für das Persistenzmodell (die dauerhaft zu speichernden Objekte) fest und behandelt weiterführende Themen wie Historisierung von Daten.
+
+[WARNING]
+====
+Das Thema Transaktionssteuerung wird nicht im Rahmen des Datenzugriffs behandelt, da Transaktionen in der IsyFact über den Anwendungskern bzw. die Nutzungsschicht gesteuert werden.
+Mehr zu diesem Thema ist in den anderen Detailkonzepten enthalten:
+
+* xref:detailkonzept-komponente-anwendungskern/master.adoc#transaktionssteuerung[Detailkonzept Komponente Anwendungskern]
+* xref:detailkonzept-komponente-batch/master.adoc#die-transaktionssteuerung[Detailkonzept Komponente Batch]
+* xref:detailkonzept-komponente-service/master.adoc#transaktionssteuerung[Detailkonzept Komponente Service]
+* xref:detailkonzept-komponente-web-gui/master.adoc#zugriff-awk[Detailkonzept Komponente Web-GUI]
+
+====
+
+Die auf dieser Seite und den Unterseiten aufgestellten Vorgaben verfolgen mehrere Ziele.
+
+*Einfachheit der Verwendung von JPA:* Dies betrifft sowohl die Erstellung von JPA-Konfigurationen und des JPA verwendenden Codes als auch deren Verständlichkeit und Wartbarkeit.
+Konkret kann diese Anforderung in die folgenden Anforderungen aufgeteilt werden:
+
+* Einfachheit und Verständlichkeit der Konfiguration und der Mapping-Definition von JPA.
+* Einfachheit und Verständlichkeit des JPA verwendenden Codes.
+
+*Schmale, definierte JPA-Schnittstelle:* Die Verwendung und Konfiguration von JPA soll isoliert und über eine schmale Schnittstelle erfolgen.
+
+* Die Komponente Datenzugriff soll auf JPA über die schmale Schnittstelle zugreifen.
+* Die Stellen, an welchen JPA verwendet wird, sollen keine Fachlogik enthalten.
+
+*Effizienz und Schnelligkeit der JPA Zugriffsschicht und der dahinter liegenden Hibernate-Implementierung:* Die von
+JPA abgesetzten Datenbank-Aufrufe sollen effizient sein.
+Unnötige Zugriffe und doppelte Zugriffe sollen vermieden werden.
+
+*Einheitlichkeit der Verwendung von JPA:* Die Konfiguration und Programmierung der JPA-Zugriffe soll zum einen
+über die gleichen Mechanismen und zum anderen an den gleichen Stellen vorgenommen werden.
+
+Die Vorgaben sind in den folgenden Unterseiten dokumentiert:
+
+* xref:detailkonzept-komponente-datenzugriff/persistenzlogik.adoc[],
+* xref:detailkonzept-komponente-datenzugriff/historisierung.adoc[],
+* xref:detailkonzept-komponente-datenzugriff/versionierung.adoc[].
