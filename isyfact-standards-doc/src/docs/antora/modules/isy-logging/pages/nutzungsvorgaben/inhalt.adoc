@@ -742,16 +742,18 @@ Dies geschieht nach folgendem Schema:
 [source,xml]
 .logback.xml
 ----
-<root>
-  <appender-ref ref="KONSOLE" />
-</root>
+<configuration>
+    <root>
+      <appender-ref ref="KONSOLE" />
+    </root>
 
-<logger name="de.bund.bva.isyfact" additivity="false">
-  <appender-ref ref="KONSOLE"/>
-</logger
+    <logger name="de.bund.bva.isyfact" additivity="false">
+      <appender-ref ref="KONSOLE"/>
+    </logger>
+</configuration>
 ----
 
-[source]
+[source,properties]
 .application.properties
 ----
 logging.level.root=INFO
@@ -837,7 +839,7 @@ Gründe für die Anpassung der Konfiguration können bspw. sein:
 
 Eine exemplarische Konfiguration ist im Folgenden dargestellt:
 
-[source]
+[source,properties]
 ----
 isy.logging.boundary.converterIncludes=x.y.z, u.v.w
 isy.logging.boundary.converterExcludes=a.b.c
@@ -848,7 +850,7 @@ isy.logging.boundary.converterExcludes=a.b.c
 
 Der LogApplicationListener wird über folgende Properties konfiguriert:
 
-[source]
+[source,properties]
 ----
 isy.logging.anwendung.typ=<SYSTEMART>
 isy.logging.anwendung.name=<SYSTEMNAME>
