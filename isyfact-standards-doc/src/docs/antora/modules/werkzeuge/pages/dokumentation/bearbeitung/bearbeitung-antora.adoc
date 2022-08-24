@@ -549,7 +549,7 @@ Listings müssen folgende Informationen enthalten:
 
 * eine Beschreibung,
 * einen für die Seite eindeutigen Anker,
-* (optional) Angaben zum Source Highlighting.
+* (sofern möglich) Angaben zum Syntax Highlighting.
 
 Das <<listing-quelltext>> zeigt ein vollständiges Beispiel.
 
