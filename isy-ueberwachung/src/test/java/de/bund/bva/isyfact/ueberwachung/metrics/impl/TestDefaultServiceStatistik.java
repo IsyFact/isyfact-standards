@@ -55,7 +55,7 @@ public class TestDefaultServiceStatistik {
     @Autowired
     private MeterRegistry meterRegistry;
 
-    private Random random = new SecureRandom();
+    private final Random random = new SecureRandom();
 
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(TestDefaultServiceStatistik.class);
 
@@ -69,7 +69,7 @@ public class TestDefaultServiceStatistik {
 
         final int anzahlAufrufe = 10;
         for (int count = 0; count < anzahlAufrufe; count++) {
-            long dauer = random.nextInt(10000);
+            Duration dauer = Duration.ofMillis(random.nextInt(10000));
             boolean erfolgreich = random.nextBoolean();
             boolean fachlichErfolgreich = random.nextBoolean();
             serviceStatistik.zaehleAufruf(dauer, erfolgreich, fachlichErfolgreich);
@@ -118,7 +118,7 @@ public class TestDefaultServiceStatistik {
         DateTimeUtil.setClock(TestClock.at(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES)));
         final int anzahlAufrufe = 10;
         for (int count = 0; count < anzahlAufrufe; count++) {
-            long dauer = random.nextInt(10000);
+            Duration dauer = Duration.ofMillis(random.nextInt(10000));
             boolean erfolgreich = random.nextBoolean();
             boolean fachlichErfolgreich = random.nextBoolean();
             serviceStatistik.zaehleAufruf(dauer, erfolgreich, fachlichErfolgreich);

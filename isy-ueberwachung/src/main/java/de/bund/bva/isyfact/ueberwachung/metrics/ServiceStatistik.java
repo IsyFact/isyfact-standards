@@ -1,5 +1,7 @@
 package de.bund.bva.isyfact.ueberwachung.metrics;
 
+import java.time.Duration;
+
 /**
  * Provides service call statistics (number of calls, average duration, number of errors, etc.).
  */
@@ -19,7 +21,7 @@ public interface ServiceStatistik {
     /**
      * Returns the average duration of the last N calls.
      */
-    long getDurchschnittsDauerLetzteAufrufe();
+    Duration getDurchschnittsDauerLetzteAufrufe();
 
     /**
      * Returns the number of calls in the last minute, in which an error occurred.

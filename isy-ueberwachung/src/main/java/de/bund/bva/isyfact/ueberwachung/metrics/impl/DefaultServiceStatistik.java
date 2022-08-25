@@ -18,6 +18,7 @@ package de.bund.bva.isyfact.ueberwachung.metrics.impl;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
+import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -70,7 +71,7 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
     /**
      * Duration of the last search calls (in milliseconds).
      */
-    private final List<Long> letzteSuchdauern = new LinkedList<>();
+    private final List<Duration> letzteSuchdauern = new LinkedList<>();
 
     /**
      * Flag for the minute in which values of the last minute were determined.
@@ -161,7 +162,7 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
      * @param erfolgreich         flag, if the call was successful ({@code true}) or a technical error occurred ({@code false}).
      * @param fachlichErfolgreich Flag, if the call was successful ({@code true}) or a business error occurred ({@code false}).
      */
-    public synchronized void zaehleAufruf(long dauer, boolean erfolgreich, boolean fachlichErfolgreich) {
+    public synchronized void zaehleAufruf(Duration dauer, boolean erfolgreich, boolean fachlichErfolgreich) {
         aktualisiereZeitfenster();
         anzahlAufrufeAktuelleMinute++;
 
@@ -207,16 +208,16 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
     }
 
     @Override
-    public long getDurchschnittsDauerLetzteAufrufe() {
-        long result = 0;
+    public Duration getDurchschnittsDauerLetzteAufrufe() {
+        Duration result = Duration.ZERO;
         if (!letzteSuchdauern.isEmpty()) {
             // Copy List to avoid concurrent changes
             // Explicitly no synchronization so as not to affect performance
-            Long[] dauern = letzteSuchdauern.toArray(new Long[0]);
-            for (long dauer : dauern) {
-                result += dauer;
+            Duration[] dauern = letzteSuchdauern.toArray(new Duration[0]);
+            for (Duration dauer : dauern) {
+                result = result.plus(dauer);
             }
-            result /= dauern.length;
+            result = result.dividedBy(dauern.length);
         }
         return result;
     }
@@ -255,7 +256,7 @@ public class DefaultServiceStatistik implements ServiceStatistik, MethodIntercep
             erfolgreich = true;
             throw t;
         } finally {
-            long aufrufDauer = ChronoUnit.MILLIS.between(start, DateTimeUtil.getClock().instant());
+            Duration aufrufDauer = Duration.between(start, DateTimeUtil.getClock().instant());
             zaehleAufruf(aufrufDauer, erfolgreich, fachlichErfolgreich);
         }
     }

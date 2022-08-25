@@ -44,7 +44,7 @@ public class IsyMetricsAutoConfiguration {
                 .description("Liefert die Anzahl der fachlich fehlerhaften Aufrufe in der letzten Minute")
                 .register(registry);
 
-        TimeGauge.builder("durchschnittsDauer.LetzteAufrufe", stats, TimeUnit.MILLISECONDS, ServiceStatistik::getDurchschnittsDauerLetzteAufrufe)
+        TimeGauge.builder("durchschnittsDauer.LetzteAufrufe", stats, TimeUnit.MILLISECONDS, s -> s.getDurchschnittsDauerLetzteAufrufe().toMillis())
                 .tags(stats.getTags())
                 .description("Liefert die durchschnittliche Dauer der letzten 10 Aufrufe in ms")
                 .register(registry);
