@@ -174,7 +174,7 @@ Die Liste der Property-Dateien, die von `isy-konfiguration` gelesen werden solle
 
 .Property zur Konfiguration von isy-konfiguration
 [id="listing-isykonfigurationproperty",reftext="{listing-caption} {counter:listings }"]
-[source]
+[source,properties]
 ----
 isy.konfiguration.properties = /config/A.properties, /config/B.properties
 ----

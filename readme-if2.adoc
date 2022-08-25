@@ -86,7 +86,7 @@ public class CoreConfig {}
 ----
 
 .application.properties
-[source]
+[source,properties]
 ----
 logging.level.root = info
 ----
@@ -99,7 +99,7 @@ logging.level.root = info
 * Konfiguration des `LogApplicationListener` über Properties:
 
 .application.properties
-[source]
+[source,properties]]
 ----
 isy.logging.anwendung.name=Anwendung
 isy.logging.anwendung.version=2.0.0
@@ -183,7 +183,7 @@ public class UeberwachungConfig {
 
 * Die Bean `konfiguration` wird automatisch erstellt, sobald die Property `isy.konfiguration.properties` in `application.properties` gesetzt wird.
 * Die Property `isy.konfiguration.properties` enhält eine Liste von Pfaden zu Property-Dateien, die von Konfiguration gelesen werden sollen.
-[source]
+[source,properties]
 ----
 isy.konfiguration.properties=/config/config_A.properties, /config/config_B.properties
 ----
@@ -327,7 +327,7 @@ public HttpInvokerServiceExporter meldung() {
 Die Properties zur Konfiguration von `isy-polling` haben folgendes Schema.
 Die Listen kommaseparierter IDs entfallen.
 
-[source]
+[source,properties]
 ----
 isy.polling.jmx.verbindungen.server1.host = host1
 isy.polling.jmx.verbindungen.server1.port = 9001

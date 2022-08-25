@@ -142,7 +142,7 @@ Ein xref-Verweis ist bei Antora immer gleich aufgebaut:
 .Verweis Antora
 [source,asciidoc]
 ----
-xref:version@component:module:file.adoc#sprungziel[verweistext]
+xref:version@component:module:file.adoc#sprungziel[Text des Verweises]
 ----
 
 Ein Beispiel: +
@@ -545,37 +545,16 @@ Beispiele für Tabellen finden sich außerdem in xref:seitenvorlage.adoc#formati
 [[listings]]
 == Listings
 
-Quelltexte können bei AsciiDoc auf folgende Weise mit Syntax-Highlighting angezeigt werden.
+Listings müssen folgende Informationen enthalten:
 
-[[listing-quelltext1]]
-.Quelltext einfügen
-[source,asciidoc,indent=0]
-----
- [source,java]
- ----
- public class HalloWelt {
-    public static void main(String[] args) {
-        System.out.println("Hallo Welt");
-    }
- }
- ----
-----
+* eine Beschreibung,
+* einen für die Seite eindeutigen Anker,
+* (sofern möglich) Angaben zum Syntax Highlighting.
 
-Die Ausgabe sieht wie folgt aus:
+Das <<listing-quelltext>> zeigt ein vollständiges Beispiel.
 
-[source,java]
-----
-public class HalloWelt {
-    public static void main(String[] args) {
-        System.out.println("Hallo Welt");
-    }
-}
-----
-
-Auch hier wird noch eine Listing-Überschrift und ein Anchor benötigt:
-
-[[listing-quelltext2]]
-.Quelltext einfügen in IsyFact Dokumentation
+[[listing-quelltext]]
+.Beispiel-Listing
 [source,asciidoc,subs="attributes+",indent=0]
 ----
  [[listing-hallowelt]]
@@ -590,11 +569,37 @@ Auch hier wird noch eine Listing-Überschrift und ein Anchor benötigt:
  ----
 ----
 
-Das Listing kann im AsciiDoc-Text über seinen Anchor referenziert werden:
+Die Ausgabe sieht wie folgt aus:
 
- <<listing-hallowelt>>
+[[listing-hallowelt]]
+.HalloWelt.java
+[source,java]
+----
+public class HalloWelt {
+    public static void main(String[] args) {
+        System.out.println("Hallo Welt");
+    }
+}
+----
 
-Beispiele für Listings finden sich außerdem in xref:seitenvorlage.adoc#formatierung-listings[Seitenvorlage Listings].
+Listings nutzen Syntax Highlighting, um ihren Inhalt farblich hervorzuheben.
+Als Produkt wird hierzu xref:glossary:literaturextern:inhalt.adoc#litextern-highlight-js[highlight.js] genutzt.
+Ist für den Inhalt des Listings Syntax Highlighting verfügbar, muss es genutzt werden.
+
+NOTE: Die xref:glossary:literaturextern:inhalt.adoc#litextern-highlight-js-uebersicht[Übersicht aller unterstützten Inhalte] zeigt, für welche Inhalte Syntax Highlighting verfügbar ist.
+
+Verweise auf Listings nutzen, wie üblich, den Anker.
+
+[[listing-referenz]]
+.Verweise auf Listings
+[source,asciidoc]
+----
+// Verweis innerhalb einer Seite
+<<listing-hallowelt>>
+
+// Verweis zwischen Seiten
+xref:version@component:module:file.adoc#listing-hallowelt[Text des Verweises]
+----
 
 [[glossar]]
 == Glossar

@@ -290,7 +290,7 @@ Sollen neue Schnittstellen zu einer bereits bestehenden Anwendung hinzufügt wer
 Für die Nutzung über die Konsole ist es erforderlich, vorher die Generator-JAR-Datei von der Website des Generators zu installieren.
 Der Befehl besteht aus folgenden Teilen:
 
-[source,shell script]
+[source,shell]
 ----
 java -jar <Pfad der Jar-Datei OpenAPI-generator-cli.jar> generate
 -i <Pfad der Input-Datei (OpenAPI 3.0 Spezifikation)>
@@ -302,7 +302,7 @@ Beispiele für die verwendeten Frameworks:
 
 Angular:
 
-[source,shell script]
+[source,shell]
 ----
 java -jar …/OpenAPI-generator-cli.jar generate
 -i …/mitarbeiter_suche.yaml
@@ -312,7 +312,7 @@ java -jar …/OpenAPI-generator-cli.jar generate
 
 Spring MVC:
 
-[source,shell script]
+[source,shell]
 ----
 java -jar …/OpenAPI-generator-cli.jar generate
 -i …/mitarbeiter_suche.yaml
@@ -322,7 +322,7 @@ java -jar …/OpenAPI-generator-cli.jar generate
 
 Spring Web Webflux:
 
-[source,shell script]
+[source,shell]
 ----
 java -jar …/OpenAPI-generator-cli.jar generate
 -i …/mitarbeiter_suche.yaml
