@@ -1,9 +1,14 @@
 package de.bund.bva.isyfact.ueberwachung.metrics;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.NONE;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
+import java.time.Clock;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.aop.Advisor;
@@ -16,19 +21,30 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import de.bund.bva.isyfact.datetime.util.DateTimeUtil;
 import de.bund.bva.isyfact.logging.autoconfigure.IsyLoggingAutoConfiguration;
 import de.bund.bva.isyfact.ueberwachung.common.ServiceStatistik;
 
+import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.Meter;
 import io.micrometer.core.instrument.MeterRegistry;
-import io.micrometer.core.instrument.Tags;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = RANDOM_PORT, classes = TestConfig.class)
 public class MetricsTest {
 
+    private static final Instant START = Instant.now();
+
+    @BeforeClass
+    public static void setupClock() {
+        DateTimeUtil.setClock(Clock.fixed(START, ZoneId.systemDefault()));
+    }
+
     @Autowired
     private MeterRegistry meterRegistry;
+
+    @Autowired
+    private TestService testService;
 
     @Test
     public void metrics_available() {
@@ -53,15 +69,33 @@ public class MetricsTest {
                 .anyMatch(s -> s.startsWith("system.cpu."))
                 .anyMatch(s -> s.startsWith("tomcat."));
     }
+
+    @Test
+    public void serviceStats_available() {
+
+        testService.call1();
+        testService.call1();
+
+        assertThat(meterRegistry.get("anzahlAufrufe.LetzteMinute").gauges())
+                .extracting(Gauge::value)
+                .containsOnly(0.0);
+
+        DateTimeUtil.setClock(Clock.fixed(START.plus(1, ChronoUnit.MINUTES), ZoneId.systemDefault()));
+        assertThat(meterRegistry.get("anzahlAufrufe.LetzteMinute").tag("serviceMethod", "call1").gauge().value())
+                .isEqualTo(2.0);
+        assertThat(meterRegistry.get("anzahlAufrufe.LetzteMinute").tag("serviceMethod", "call2").gauge().value())
+                .isZero();
+
+        DateTimeUtil.setClock(Clock.fixed(START.plus(2, ChronoUnit.MINUTES), ZoneId.systemDefault()));
+        assertThat(meterRegistry.get("anzahlAufrufe.LetzteMinute").gauges())
+                .extracting(Gauge::value)
+                .containsOnly(0.0);
+    }
 }
 
 @SpringBootConfiguration
 @EnableAutoConfiguration(exclude = IsyLoggingAutoConfiguration.class)
 class TestConfig {
-    @Bean
-    ServiceStatistik serviceStatistikMBean() {
-        return new ServiceStatistik(Tags.of("testKey", "testValue"));
-    }
 
     @Bean
     TestService testService() {
@@ -69,16 +103,38 @@ class TestConfig {
     }
 
     @Bean
-    Advisor testServiceMonitorAdvice(ServiceStatistik serviceStatistik) {
+    ServiceStatistik serviceStatistikCall1() {
+        return new ServiceStatistik("serviceMethod", "call1");
+    }
+
+    @Bean
+    Advisor serviceStatistikCall1MonitorAdvice() {
         final AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
-        pointcut.setExpression("target(" + TestService.class.getCanonicalName() + ")");
-        final DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor(pointcut, serviceStatistik);
+        pointcut.setExpression("execution(* " + TestService.class.getCanonicalName() + ".call1(..))");
+        final DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor(pointcut, serviceStatistikCall1());
+        advisor.setOrder(1000);
+        return advisor;
+    }
+
+    @Bean
+    ServiceStatistik serviceStatistikCall2() {
+        return new ServiceStatistik("serviceMethod", "call2");
+    }
+
+    @Bean
+    Advisor serviceStatistikCall2MonitorAdvice() {
+        final AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
+        pointcut.setExpression("execution(* " + TestService.class.getCanonicalName() + ".call2(..))");
+        final DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor(pointcut, serviceStatistikCall2());
         advisor.setOrder(1000);
         return advisor;
     }
 }
 
 class TestService {
-    void call() {
+    void call1() {
+    }
+
+    void call2() {
     }
 }
