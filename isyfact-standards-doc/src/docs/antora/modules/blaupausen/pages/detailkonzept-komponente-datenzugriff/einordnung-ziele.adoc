@@ -2,21 +2,21 @@
 
 include::glossary:licence:partial$licence.adoc[]
 
-Gemäß den Vorgaben der xref:referenzarchitektur/master.adoc[Referenzarchitektur] basiert die Architektur eines IT-Systems auf der bekannten Drei-Schichten-Architektur.
+Gemäß den Vorgaben der xref:referenzarchitektur-it-system/master.adoc#die-referenzarchitektur-eines-it-systems[Referenzarchitektur IT-System] basiert die Architektur eines IT-Systems auf der bekannten Drei-Schichten-Architektur.
 Eine dieser Schichten ist die Persistenzschicht.
 In dieser Schicht ist alle Funktionalität enthalten, die zum Erzeugen, Suchen, Bearbeiten und Löschen von Datensätzen benötigt wird.
 Der Zugriff auf eine relationale Datenbank ist in dieser Schicht vollständig gekapselt.
 In Richtung Datenbank kommuniziert diese Schicht mittels JDBC und SQL, in Richtung des Anwendungskerns stellt die Schicht persistente Objekte zur Verfügung.
 
-In <<image-IFRefArcITSsysPers>> ist die Referenzarchitektur eines IT-Systems noch einmal dargestellt, wobei die Persistenzschicht mit der Komponente Datenhaltung hervorgehoben ist.
+In <<referenzarchitekur-it-system-datenzugriff,der folgenden Abbildung>> ist die Referenzarchitektur eines IT-Systems noch einmal dargestellt, wobei die Persistenzschicht mit der Komponente Datenhaltung hervorgehoben ist.
 
+[[referenzarchitekur-it-system-datenzugriff]]
 .Referenzarchitektur eines IT-Systems
-[id="image-IFRefArcITSsysPers",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:detailkonzept-datenzugriff/IFRefArcITSsysPers.png[align="center"]
+image::blaupausen:detailkonzept-datenzugriff/IFRefArcITSsysPers.png[]
 
-Dieses Dokument beschreibt die Vorgaben zur Umsetzung einer solchen Persistenzschicht im Detail.
+Das Detailkonzept Komponente Datenzugriff beschreibt die Vorgaben zur Umsetzung einer solchen Persistenzschicht im Detail.
 Die Implementierung der Zugriffsschicht wird durch die Verwendung eines standardisierten Frameworks erleichtert.
-Das Dokument legt außerdem allgemeine Vorgaben für das Persistenzmodell (die dauerhaft zu speichernden Objekte) fest und behandelt weiterführende Themen wie Historisierung von Daten.
+Die Unterseiten des Detailkonzepts legen xref:detailkonzept-komponente-datenzugriff/persistenzlogik.adoc[allgemeine Vorgaben für das Persistenz-Klassenmodell fest] und behandelt weiterführende Themen wie die xref:detailkonzept-komponente-datenzugriff/historisierung.adoc[Historisierung von Daten] und die xref:detailkonzept-komponente-datenzugriff/versionierung.adoc[Versionierung von Datenbankschemas].
 
 [WARNING]
 ====
@@ -32,26 +32,19 @@ Mehr zu diesem Thema ist in den anderen Detailkonzepten enthalten:
 
 Die auf dieser Seite und den Unterseiten aufgestellten Vorgaben verfolgen mehrere Ziele.
 
-*Einfachheit der Verwendung von JPA:* Dies betrifft sowohl die Erstellung von JPA-Konfigurationen und des JPA verwendenden Codes als auch deren Verständlichkeit und Wartbarkeit.
-Konkret kann diese Anforderung in die folgenden Anforderungen aufgeteilt werden:
+Einheitlichkeit der Verwendung von JPA::
+Die Konfiguration und Umsetzung des Datenzugriffs geschieht nachvollziehbar über festgelegte Mechanismen und ist, auf ein IT-System bezogen, stets gleich.
 
-* Einfachheit und Verständlichkeit der Konfiguration und der Mapping-Definition von JPA.
-* Einfachheit und Verständlichkeit des JPA verwendenden Codes.
+Einfachheit der Verwendung von JPA::
+Die Komponente Datenzugriff muss leicht verständlich und wartbar sein.
+Dies umfasst die Definition des Persistenz-Klassenmodells sowie den Einsatz von JPA zur Umsetzung des Datenzugriffs.
 
-*Schmale, definierte JPA-Schnittstelle:* Die Verwendung und Konfiguration von JPA soll isoliert und über eine schmale Schnittstelle erfolgen.
+Schmale, definierte JPA-Schnittstelle::
+Die Verwendung und Konfiguration von JPA soll isoliert und über eine schmale Schnittstelle erfolgen.
+Die Komponente Datenzugriff soll auf JPA über die schmale Schnittstelle zugreifen.
+Die Stellen, an welchen JPA verwendet wird, sollen keine Fachlogik enthalten.
 
-* Die Komponente Datenzugriff soll auf JPA über die schmale Schnittstelle zugreifen.
-* Die Stellen, an welchen JPA verwendet wird, sollen keine Fachlogik enthalten.
-
-*Effizienz und Schnelligkeit der JPA Zugriffsschicht und der dahinter liegenden Hibernate-Implementierung:* Die von
-JPA abgesetzten Datenbank-Aufrufe sollen effizient sein.
-Unnötige Zugriffe und doppelte Zugriffe sollen vermieden werden.
-
-*Einheitlichkeit der Verwendung von JPA:* Die Konfiguration und Programmierung der JPA-Zugriffe soll zum einen
-über die gleichen Mechanismen und zum anderen an den gleichen Stellen vorgenommen werden.
-
-Die Vorgaben sind in den folgenden Unterseiten dokumentiert:
-
-* xref:detailkonzept-komponente-datenzugriff/persistenzlogik.adoc[],
-* xref:detailkonzept-komponente-datenzugriff/historisierung.adoc[],
-* xref:detailkonzept-komponente-datenzugriff/versionierung.adoc[].
+Effizienz und Schnelligkeit der Komponente Datenzugriff::
+JPA und die gewählte JPA-Implementierung müssen effizient und schnell arbeiten.
+Datenbank-Aufrufe sollen möglichst effizient sein.
+Unnötige und mehrfache Zugriffe sollen vermieden werden.

@@ -21,45 +21,6 @@ Die <<aufbau-fachkomponente-datenzugriff,folgende Abbildung>> zeigt den Aufbau e
 image::blaupausen:detailkonzept-datenzugriff/aufbau_fachkomponente_datenzugriff.dn.svg[]
 
 Ein *Data Access Object (DAO)* beschreibt die Schnittstelle der Fachkomponente, d.h. die Operationen, die zum Speichern und Lesen der Entitäten aus der Datenbank nötig sind.
-DAOs werden über _Spring Data Repositories_ abgebildet.
-Der Name eines Repositories leitet sich von derjenigen Entität ab, die über das Repository bearbeitet wird.
-
-//tag::namenskonvention[]
-
-[[namenskonvention-spring-data-repository]]
-.Namenskonvention DAO: Spring Data Repository
-[id="table-repossimpl",reftext="{table-caption} {counter:tables}"]
-[cols="1s,4m",options="header"]
-|====
-2+|Data Access Object: Spring Data Repository
-|Schema |<Entität>Repository
-|Beispiel |AkteRepository
-|====
-
-//end::namenskonvention[]
-
-WARNING: Der folgende, hervorgehobene Absatz wird nur noch aus historischen Gründen erwähnt und ist obsolet.
-
-====
-Vor der Verwendung von Spring Data wurden DAOs mithilfe von zwei Klassen umgesetzt: einem Interface und einer Implementierung.
-Der Name eines DAO-Interfaces leitet sich von derjenigen Entität ab, die über das DAO bearbeitet wird.
-
-//tag::namenskonvention[]
-
-[[namenskonvention-dao-interface]]
-.Namenskonvention DAO: Interface + Implementierung
-[id="table-daossimpl",reftext="{table-caption} {counter:tables}"]
-[cols="1s,4m",options="header"]
-|====
-2+|Data Access Object: Interface + Implementierung
-|Schema |<Entität>Dao +
-<Entität>DaoImpl
-|Beispiele |AkteDao +
-AkteDaoImpl
-|====
-
-//end::namenskonvention[]
-====
 
 *Entitäten* bilden Geschäftsobjekte ab und werden in der Regel nach ihnen benannt.
 
