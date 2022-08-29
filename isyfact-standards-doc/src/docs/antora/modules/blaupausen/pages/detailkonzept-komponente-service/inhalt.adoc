@@ -93,15 +93,16 @@ Die <<standardisierte-metadaten,folgende Tabelle>> zeigt, welche Metadaten in de
 |===
 |Metadaten|Benennung|Herleitung
 
-|Korrelations-ID
-|X-Trace-ID
-|Neue Benennung in Vorbereitung zur Nutzung eines Standardprodukts für Tracing.
+//|Korrelations-ID
+//|X-Trace-ID
+//|Neue Benennung in Vorbereitung zur Nutzung eines Standardprodukts für Tracing.
 
 |Korrelations-ID +
-(deprecated)
+//(deprecated)
 |X-Correlation-ID
-|Alte Benennung. +
-*Wichtig:* Anwendungen müssen in der Übergangszeit beide Namen auflösen können.
+|ID zur Nachverfolgung von Aufrufen innerhalb einer Anwendungslandschaft.
+//Alte Benennung. +
+//*Wichtig:* Anwendungen müssen in der Übergangszeit beide Namen auflösen können.
 
 |Bearer Token
 |Authorization
