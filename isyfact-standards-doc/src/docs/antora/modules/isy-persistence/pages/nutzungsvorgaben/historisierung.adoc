@@ -35,8 +35,6 @@ Dadurch wird der Datenzugriff verlangsamt, da in diesem Fall immer zwei Tabellen
 
 Durch das Einführen der Datumsattribute erweitert sich der fachliche Schlüssel des Datensatzes.
 Der somit aus mehreren Attributen zusammengesetzte fachliche Schlüssel wird genauso behandelt, wie jeder andere zusammengesetzte fachliche Schlüssel auch.
-// TODO Fachlicher Schlüssel: Oben KANN, unten IST SO. Passt nicht ganz überein.
-// TODO Woanders steht, dass zusammengesetzte Schlüssel verboten sind. Widerspruch!
 
 [[schritt-2-erweiterung-des-daos]]
 === Schritt 2: Erweiterung des Data Access Objects
@@ -45,7 +43,6 @@ Alle Zugriffe auf Entitäten werden gemäß xref:blaupausen:detailkonzept-kompon
 Im Rahmen der Historisierung muss das DAO auch dafür sorgen, dass die Attribute `aktuellVon` und `aktuellBis` mit den korrekten Werten belegt sind.
 Es wird wie folgt angepasst und erweitert.
 
-// TODO: Verwendung der neuen API würde Calendar durch Instant ersetzen! Auch die anderen Felder wären vom Typ Instant!
 ==== Neue Methode: Lesen der zum Datum gültigen Entität
 Die Funktion liefert die zum übergebenen Zeitpunkt (Parameter `Calendar`) gültige Entität.
 //tag::namenskonvention[]
