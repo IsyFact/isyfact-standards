@@ -112,7 +112,7 @@ Siehe dazu ebenfalls xref:glossary:literaturextern:inhalt.adoc#litextern-antora-
 Unterhalb von `images` und `attachments` kann eine weitere Strukturierung erfolgen, die sich an der Struktur unter `pages` orientiert, siehe auch <<verzeichnisstruktur-pages-images>>.
 
 Wenn unter `pages` viele Dokumentationsseiten abzulegen sind, können sie noch weiter strukturiert werden, siehe auch <<verzeichnisstruktur-pages-images>> und  xref:seitenvorlage.adoc#dateien-thema[Dateiablage].
-Für Bausteine wird häufig die Strukturierung `konzept` und `nutzungsvorgaben` gewählt.
+Für Bausteine wird häufig die Strukturierung `konzept.adoc` und `nutzungsvorgaben` gewählt.
 
 Das folgende <<verzeichnisstruktur-pages-images,Listing>> zeigt die Verzeichnisstruktur innerhalb eines Antora-Moduls.
 

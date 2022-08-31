@@ -924,6 +924,12 @@ Zur Implementierung von `equals()` und `hashCode()` müssen die Möglichkeiten d
 * `static boolean Objects.equals(Object a, Object b)`
 * `static int Objects.hash(Object... values)`
 
+[[kryptographie]]
+==== Kryptographie
+In der kryptografischen Absicherung der Datenbankverbindungen werden Zufallszahlen benötigt. Diese werden mit `dev/urandom` generiert. Im Gegensatz zu `dev/random` blockiert dieses die Datenbankverbindungen nicht auf lange Zeit um Zufallszahlen zu generieren.
+
+WARNING: `dev/urandom` liefert, um die Folgeprozesse nicht zu blockieren, im Zweifelsfall schwächere Zufallszahlen. Dies kann zu Risiken beim Einsatz von kryptografischen Funktionen führen.
+
 // tag::architekturregel[]
 
 // end::architekturregel[]
