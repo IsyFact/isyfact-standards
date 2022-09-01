@@ -43,6 +43,16 @@ Folgende Punkte sind bewusst nicht Teil dieses Konzeptes:
 * Micrometer unterstützt die Anbindung zahlreicher Monitoring-Systeme.
   Es werden keine Vorgaben zur Verwendung eines bestimmten Systems gemacht.
 
+[[health-check]]
+=== Health Check
+Die IsyFact sieht eine Enkopplung der Evaluation von Health-Checks vor, bei der der Health-Endpoint jeweils nur das aktuellste Ergebnis liest. Durch diese Entkopplung wird die Systemstabilität durch extrem häufige Aufrufe des Endpoints nicht beeinflusst.
+
+Der Health-Check führt nur bei einem Fehlschlag zu einem Logeintrag. In diesen Fall wird eine Warnung, bei nicht-essentiellen, oder ein Error, bei essentiellen, Nebensystemen geloggt. Implementiert und konfiguriert wurde bzw. wird der Health-Check als `isy-task`.
+
+Es ist möglich Nebensysteme zo kontrollieren. Hierfür steht ein `@FunctionalInterface`zur Verfügung.
+
+Sollte das Ergebnis eines Checks komplexer sein, als ein `boolean` erfolgt der Zugriff über `synchronized` um Probleme mit der Nebenläufigkeit zu verhindern.
+
 // end::inhalt[]
 
 // tag::architekturregel[]
