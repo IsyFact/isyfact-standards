@@ -61,7 +61,7 @@ Je nach gewählter Schnittstellentechnologie werden z. B. Annotationen oder eig
 Bevor die Exception-Fassade aufgerufen wird, muss die Korrelations-ID aus dem Aufrufkontext im Logging-Kontext registriert sein.
 Dies geschieht durch die Annotation `@StelltLoggingKontextBereit` an der Methode oder an der Service-Fassade selbst.
 Dabei gilt es zu beachten, dass die Annotation standardmäßig so konfiguriert ist, dass sie vor den Annotationen ohne Angabe einer Priorität ausgeführt wird, sodass diese immer Zugriff auf die Korrelations-ID haben.
-Diese Reihenfolge wird durch Einfügen des Orders für den Advisor `stelltLoggingKontextBereitAdvisor` in der Autokonfiguration `IsyServiceApiCoreAutoConfiguration` erreicht.
+Diese Reihenfolge wird durch Einfügen der `Order` für den Advisor `stelltLoggingKontextBereitAdvisor` in der Autokonfiguration `IsyServiceApiCoreAutoConfiguration` erreicht.
 
 [NOTE]
 ====
@@ -69,6 +69,45 @@ Die weiteren Inhalte zum Aufbau, zur Realisierung und zur Nutzung von Service-Sc
 Die Inhalte finden sich in den Dokumenten  xref:isy-serviceapi-core:konzept/master.adoc#einleitung[Konzept HTTP-Invoker] sowie xref:isy-serviceapi-core:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben HTTP-Invoker].
 ====
 
+[[uebertragung-von-metadaten]]
+== Übertragung von Metadaten
+
+In jeder Art von Servicekommunikation werden Metadaten übertragen.
+In der Regel geschieht dies über Schlüssel-Wert-Paare (_key-value pairs_), z.B. in HTTP-Headern oder JMS-Properties.
+
+// tag::architekturregel[]
+
+.icon:university[title="Architekturregel"] Benennung von Metadaten
+****
+Metadaten sind, egal über welches Protokoll sie übertragen werden, *einheitlich benannt*.
+Gibt es eine durch einen Standard vorgegebene Benennung, ist diese zu verwenden.
+****
+
+// end::architekturregel[]
+
+Die <<standardisierte-metadaten,folgende Tabelle>> zeigt, welche Metadaten in der IsyFact standardisiert übertragen werden.
+
+[[standardisierte-metadaten]]
+.Benennung standardisierter Metadaten
+[cols="1s,1m,2",options="header"]
+|===
+|Metadaten|Benennung|Herleitung
+
+//|Korrelations-ID
+//|X-Trace-ID
+//|Neue Benennung in Vorbereitung zur Nutzung eines Standardprodukts für Tracing.
+
+|Korrelations-ID +
+//(deprecated)
+|X-Correlation-ID
+|ID zur Nachverfolgung von Aufrufen innerhalb einer Anwendungslandschaft.
+//Alte Benennung. +
+//*Wichtig:* Anwendungen müssen in der Übergangszeit beide Namen auflösen können.
+
+|Bearer Token
+|Authorization
+|Vorgabe des Standards OAuth 2.0.
+|===
 
 [[transaktionssteuerung]]
 == Transaktionssteuerung
@@ -126,7 +165,7 @@ Es kann vorkommen, dass in _einem_ Systemrelease neue Versionen von _mehreren_ S
 === Architektur
 
 IT-Systeme bieten pro Service-Version eine eigene Service-Schnittstelle an.
-Die Services verwenden alle denselben xref:glossary:glossary:master.adoc#glossar-anwendungskern[Anwendungskerns].
+Die Services verwenden alle denselben xref:glossary:glossary:master.adoc#glossar-anwendungskern[Anwendungskern].
 Die für die Versionierung notwendigen Transformationen sind Teil der jeweiligen Service-Schnittstelle (z.B. das Einfügen eines Standardwerts für neu hinzugefügte Attribute).
 In komplexen Fällen kann es auch notwendig sein, den Anwendungskern zu erweitern und die Versionierung dort zu behandeln.
 Die Entscheidung dafür ist im Systementwurf zu dokumentieren.
@@ -310,13 +349,13 @@ Folgende Maßnahmen können ergriffen werden, um die Anforderungen an die Verfü
 
 Die TI-Architektur der IsyFact setzt die hohen Verfügbarkeitsanforderungen durch Clustering der Applikations- und Datenbankserver um.
 Anwendungen werden redundant auf mehr als einem Server installiert.
-Kommt es zu einem <<ausfall-von-hw-oder-sw, Hard- oder Softwareausfall>> auf einem Server-Knoten, so werden alle Anfragen von einem vorgeschalteten Loadbalancer auf einen anderen Server-Knoten umgeleitet.
+Kommt es zu einem <<ausfall-von-hw-oder-sw,Hard- oder Softwareausfall>> auf einem Server-Knoten, so werden alle Anfragen von einem vorgeschalteten Loadbalancer auf einen anderen Server-Knoten umgeleitet.
 Durch die Redundanz wird die Verfügbarkeit von Services bei auftretenden Hard- oder Softwareausfällen erhöht.
 Trotzdem kann es auch hier noch zu Nichtverfügbarkeit kommen.
 
 ==== Knotenweises Deployment
 
-Diese Maßnahme hilft bei Nichtverfügbarkeit aufgrund von <<ausfall-deployment, geplanten Wartungsarbeiten>>.
+Diese Maßnahme hilft bei Nichtverfügbarkeit aufgrund von <<ausfall-deployment,geplanten Wartungsarbeiten>>.
 Im Clusterbetrieb besteht die Möglichkeit, diese Knoten für Knoten auszuführen.
 Bevor das Deployment auf einem Knoten ausgeführt wird, wird dem Loadbalancer mitgeteilt, dass der Knoten nicht mehr verfügbar ist.
 Während des Deployments des Knotens verarbeiten die restlichen Knoten alle ankommenden Anfragen.
@@ -375,10 +414,6 @@ Andere Services wie z. B. eine Auskunft können während dieser Zeit regulär a
 Während der Meldungsservice deaktiviert ist, wird dem Aufrufer eine entsprechende Fehlermeldung zurückgesendet.
 Da die Anforderung besteht, auch andere Services vorübergehend deaktivieren zu können, werden generell alle Services deaktivierbar gemacht.
 // end::inhalt[]
-
-// tag::architekturregel[]
-
-// end::architekturregel[]
 
 // tag::sicherheit[]
 
