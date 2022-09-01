@@ -9,7 +9,6 @@ include::einstieg:page$tutorial/inhalt.adoc[tags=architekturregel]
 
 include::blaupausen:page$detailkonzept-komponente-anwendungskern/inhalt.adoc[tags=architekturregel]
 include::blaupausen:page$detailkonzept-komponente-batch/inhalt.adoc[tags=architekturregel]
-include::blaupausen:page$detailkonzept-komponente-datenzugriff/inhalt.adoc[tags=architekturregel]
 include::blaupausen:page$detailkonzept-komponente-service/inhalt.adoc[tags=architekturregel]
 include::blaupausen:page$detailkonzept-komponente-web-gui/inhalt.adoc[tags=architekturregel]
 

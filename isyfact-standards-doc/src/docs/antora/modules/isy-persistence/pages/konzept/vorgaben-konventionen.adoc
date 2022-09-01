@@ -1,0 +1,345 @@
+= Vorgaben und Konventionen
+
+include::glossary:licence:partial$licence.adoc[]
+
+Eines der Ziele des Bausteins JPA/Hibernate ist die einfach und einheitliche Verwendung von JPA und Hibernate.
+Dazu stellt der Baustein eine Menge an Vorgaben und Konventionen bereit, auf denen die Umsetzungen beruhen.
+Die Vorgaben und Konventionen ergänzen die allgemeinen Vorgaben zur Erstellung eines Persistenz-Klassenmodells in der xref:blaupausen:detailkonzept-komponente-datenzugriff/persistenzlogik.adoc[Referenzarchitektur].
+
+[[aufbau-fachkomponenten]]
+== Aufbau der Fachkomponenten
+
+Der Baustein JPA/Hibernate ergänzt den xref:blaupausen:detailkonzept-komponente-datenzugriff/persistenzlogik.adoc#grundlagen[Aufbau der Fachkomponenten] aus der Referenzarchitektur um die Verwendung von Spring Data JPA.
+
+Data Access Objects (DAOs) werden über _Spring Data Repositories_ abgebildet.
+Der Name eines Repositories leitet sich von derjenigen Entität ab, die über das Repository bearbeitet wird.
+
+[[aufbau-fachkomponente-datenzugriff]]
+.Aufbau einer Fachkomponente des Datenzugriffs mit Spring Data JPA
+image::isy-persistence:aufbau_fachkomponente_datenzugriff_spring_data.dn.svg[]
+
+//tag::namenskonvention[]
+
+[[namenskonvention-spring-data-repository]]
+.Namenskonvention DAO: Spring Data Repository
+[id="table-repossimpl",reftext="{table-caption} {counter:tables}"]
+[cols="1s,4m",options="header"]
+|====
+2+|Data Access Object: Spring Data Repository
+|Schema |<Entität>Repository
+|Beispiel |MyEntityRepository
+|====
+
+//end::namenskonvention[]
+
+WARNING: Der folgende, hervorgehobene Absatz wird nur noch aus historischen Gründen erwähnt und ist obsolet.
+
+====
+Vor der Verwendung von Spring Data wurden DAOs mithilfe von zwei Klassen umgesetzt: einem Interface und einer Implementierung.
+Der Name eines DAO-Interfaces leitet sich von derjenigen Entität ab, die über das DAO bearbeitet wird.
+
+//tag::namenskonvention[]
+
+[[namenskonvention-dao-interface]]
+.Namenskonvention DAO: Interface + Implementierung
+[id="table-daossimpl",reftext="{table-caption} {counter:tables}"]
+[cols="1s,4m",options="header"]
+|====
+2+|Data Access Object: Interface + Implementierung
+|Schema |<Entität>Dao +
+<Entität>DaoImpl
+|Beispiele |MyEntityDao +
+MyEntityDaoImpl
+|====
+
+//end::namenskonvention[]
+====
+
+
+[[vorgaben-zur-verwendung-von-jpa]]
+== Vorgaben zur Verwendung von JPA
+
+Die folgenden Vorgaben sind bei der Verwendung von JPA in Anwendungen zu beachten.
+
+[[jpql-fuer-datenbank-abfragen-nutzen]]
+=== JPQL für Datenbank-Queries nutzen
+
+Für Datenbank-Queries stellt JPA die Java Persistence Query Language JPQL bereit.
+In JPQL werden Queries über Objekte und Variablen, nicht über Tabellen und Felder, definiert.
+
+Wann immer möglich sollten JPQL-Queries statt SQL-Queries verwendet werden.
+Der einzige Grund für die Verwendung von SQL ist die Verwendung von datenbankspezifischen SQL-Features, welche durch JPQL nicht angeboten werden.
+
+[[nichtfunktionale-aspekte-von-anfragen]]
+=== Nichtfunktionale Aspekte von Queries
+
+Die folgenden Vorgaben für Queries verhindern negative Auswirkungen auf die Stabilität, Verfügbarkeit oder Sicherheit von Anwendungen:
+
+* Der `%`-Operator ist nach Möglichkeit zu vermeiden.
+Es können leicht lang laufende Queries entstehen, welche die Anwendung blockieren und die Datenbank unnötig belasten.
+* Für rein lesende Zugriffe und feste Auswertungen sind nach Möglichkeit Views zu verwenden und die Berechtigungen entsprechend zu setzen.
+Dadurch kann der Zugriff auf die tatsächlich benötigten Daten gesteuert und eingeschränkt werden.
+* Bei der Formulierung von Queries sind die Eigenheiten des Optimizers der eingesetzten Datenbank zu beachten.
+* Es ist darauf zu achten, dass Queries durch Indizes in der Datenbank unterstützt werden.
+* Bei der Definition von Queries ist darauf zu achten, dass nicht zu viele Daten selektiert werden.
+Im Zweifel, insbesondere bei Queries, die aus Benutzereingaben erzeugt werden, sollte die Anzahl der selektierten Datensätze beschränkt werden.
+* Um SQL-Injection Attacken zu verhindern, sollen Named-Queries oder Criteria-Queries verwendeten werden, bei denen Hibernate für ein Escaping der Query-Parameter sorgt.
+
+[[lazy-loading]]
+=== Lazy Loading standardmäßig verwenden
+
+Standardmäßig verwendet Hibernate:
+
+* Lazy Loading (über dynamische Proxies) für alle 1-zu-n- und n-zu-m-Assoziationen und
+* Eager Loading für n-zu-1- oder 1-zu-1-Assoziationen.
+
+Standardmäßig soll für alle Assoziationen Lazy Loading verwendet werden.
+Bytecode-Manipulationen für Lazy Loading sollen nicht verwendet werden.
+
+Die Verwendung der Annotationen `@LazyToOne` und `@LazyCollection` ist zu vermeiden, falls man nicht die Option `LazyCollectionOption.EXTRA` für extra große Collections benötigt.
+
+[[optimistic-locking]]
+=== Optimistisches Locking standardmäßig verwenden
+
+Standardmäßig ist für Hibernate ein optimistisches Locking zu verwenden.
+Objekte werden bei dieser Locking-Strategie nicht per "select for update" gesperrt.
+Stattdessen wird am Ende der Transaktion geprüft, ob lokal veränderte Objekte parallel in der Datenbank geändert wurden.
+Ist dies der Fall, wird eine Ausnahme geworfen.
+
+Dieser Vorgehensweise liegt die Annahme zugrunde, dass konkurrierende schreibende Zugriffe in einer Geschäftsanwendung nicht oder höchstens in Ausnahmefällen vorkommen.
+Sollte dies nicht zutreffen, muss <<explizites-locking,explizites Locking>> verwendet werden.
+In der Anwendung ist keine explizite Fehlerbehandlung (etwa durch das Zusammenführen der Daten) zu implementieren.
+Die geworfene Ausnahme ist, geschachtelt in eine Ausnahme der Anwendung, an den Aufrufer weiterzugeben.
+
+Um zu erkennen, ob sich das Objekt in der Datenbank verändert hat, empfiehlt Hibernate die Verwendung eines numerischen Versions-Felds in jeder Datenbank-Tabelle.
+
+[[explizites-locking]]
+=== Explizites Locking bei Bedarf verwenden
+
+Falls für einen Teil der Entitäten konkurrierende Zugriffe möglich sind, ist für genau diese Entitäten ein explizites (pessimistisches) Locking zu verwenden.
+
+[[aufrufuebergreifendes-caching-vermeiden]]
+=== Aufrufübergreifendes Caching vermeiden
+
+Caching-Strategien sind kein Teil der JPA-Spezifikation.
+Für das Definieren eines Cache muss deswegen auf Hibernate-spezifische Mechanismen zugegriffen werden.
+
+Jeder Aufruf der Persistenzschicht geschieht innerhalb einer Transaktion.
+In der Regel läuft jeder Aufruf in einer eigenen Transaktion ab, weswegen kein Zustand und keine Daten zwischen zwei Aufrufen gehalten oder geteilt werden können.
+
+Ist ein aufrufübergreifendes Caching dennoch notwendig, ist dies nicht in der Persistenzschicht und nicht mittels Hibernate durchzuführen.
+Hibernate bietet für das Caching von Objekten prinzipiell zwei Möglichkeiten.
+
+Cache in der Hibernate-Session:: Die Hibernate-Session ist an einen Thread gebunden.
+Die Nutzungsschicht verwendet für jede Anfrage einen neuen Thread (und damit eine frische Hibernate-Session).
+Deshalb kann dieser Cache höchstens im Rahmen einer Anfrage an das IT-System gelten.
+Diese Nutzung eines Cache ist nicht sinnvoll.
+
+VM-weiter "2nd Level Cache":: Dieser Cache ist vor allem für unveränderliche, häufig verwendete Informationen (z.B. Schlüsseldaten) gedacht.
+In der IsyFact werden solche Daten jedoch bereits durch andere Mechanismen vorgehalten.
+Deshalb ist eine Verwendung dieses Cache ebenfalls unnötig.
+
+Die Verwendung von über einen Aufruf hinausgehenden Cache ist deshalb zu vermeiden.
+Falls aufgrund spezieller Anforderungen trotzdem ein 2nd Level Cache benötigt wird, ist auf folgende Punkte zu achten:
+
+* Für den Cache ist eine gesonderte Cache-Region zu verwenden.
+* Nur unveränderliche Daten dürfen in den Cache.
+* Man kann nicht davon ausgehen, dass der Cache bei Änderungen der Objekte aktualisiert wird.
+
+[[nutzung-und-anbindung-einer-zweiten-datenbank]]
+=== Nutzung und Anbindung einer zweiten Datenbank
+
+Einige Anwendungsfälle machen es notwendig, eine zweite Datenbank zu nutzen.
+Das ist beispielsweise notwendig, wenn Daten aus einem Altsystem über die Datenbank für andere Systeme bereitgestellt werden und diese Daten in eine IsyFact-Anwendung über einen Batch importiert werden sollen.
+Der Batch muss dann sowohl auf die Datenbank der IsyFact-Anwendung, als auch auf die Datenbank des Altsystems zugreifen.
+
+Die Anbindung einer zweiten Datenbank erfolgt analog zur Anbindung der primären Datenbank über Spring und die Nutzung über JPA.
+Dabei erfolgt der Zugriff auf die zweite Datenbank getrennt über einen weiteren Entity Manager und eine weitere Data Source.
+
+[[verwendung-von-hibernate-filtern]]
+=== Verwendung von Hibernate Filtern
+
+Parametrisierte Hibernate Filter bieten die Möglichkeit Daten zur Laufzeit mit Sichtbarkeitsregeln auszuwerten, ohne viele verschiedene Varianten von Abfragen schreiben zu müssen.
+Dabei können sie pro Session aktiviert oder deaktiviert werden, standardmäßig sind sie deaktiviert.
+Die Filter können auf Klassen- oder Collection-Ebene definiert werden und können bestehende „where“-Klauseln erweitern.
+
+Wenn das fachliche Datenmodell variable Sichtbarkeitsregeln in größerem Umfang benötigt, sollten diese mit Hibernate Filtern umgesetzt werden.
+Das ersetzt eine Multiplizierung aller Abfragen.
+
+Filter müssen als Annotationen mit `@FilterDef`, `@Filters` und `@Filter` umgesetzt werden.
+
+[[verbot-von-bulk-queries]]
+=== Verbot von Bulk-Queries
+
+JPA bietet über die Methode `query.executeUpdate()` die Möglichkeit in JPQL formulierte `DELETE`- und `UPDATE`-Statements, sog. Bulk-Queries, auszuführen.
+Die Nutzung solcher Bulk-Queries ist verboten.
+Wo aus Performancegründen massenhafte `DELETE`- oder `UPDATE`-Statements direkt in der Datenbank benötigt werden, können native SQL-Anweisungen verwendet werden.
+Sofern bei solchen Bulk-Operationen kaskadierende Änderungen benötigt werden (z.B. weil Kind-Tabellen mitgelöscht werden sollen), müssen entsprechende Constraints in der Datenbank angelegt werden.
+
+Begründung: Hibernate erzeugt bei der Ausführung von `BULK`-Queries unter bestimmten Umständen zur Laufzeit implizit Hilfstabellen (temporäre Tabellen mit dem Präfix `HT_`).
+
+NOTE: siehe xref:glossary:literaturextern:inhalt.adoc#litextern-multitable-bulk-operations[Multi-table Bulk Operations]
+
+Dies führt dazu, dass der Datenbank-User der Anwendung entsprechende `CREATE TABLE`-Rechte benötigt, was i.d.R. nicht zugelassen ist.
+Weiterhin führt die Nutzung der temporären Tabellen in vielen Fällen zu Performance-Problemen.
+
+Um die Einhaltung dieser Anforderung sicherzustellen, sollten auch in der Entwicklung bzw. bei frühen Tests die Rechte auf die Testdatenbanken entsprechend beschränkt werden.
+
+[[vorgaben-or-mapping]]
+== Vorgaben zur Definition des O/R-Mappings
+
+Die folgenden Vorgaben sind bei der Definition des O/R-Mappings zu beachten.
+
+[[nutzung-von-annotationen]]
+=== Nutzung von Annotationen
+
+Die Definition des Mappings wird über Annotationen in den Entitäten durchgeführt.
+Pro Klasse wird über die Annotationen definiert, auf welche Tabelle sie abgebildet werden und wie ihre Variablen auf Datenbank-Felder abgebildet werden.
+Beispiele für Annotationen finden sich in den Beispielen auf dieser Seite.
+
+Über Annotationen können einige wenige Mappings nicht definiert werden, welche über eine XML-Konfigurationsdatei definierbar sind.
+Ein Beispiel dafür ist das Mapping einer Klasse auf zwei verschiedene Tabellen.
+
+Falls eine XML-Mapping-Konfiguration für eine Klasse notwendig ist, ist die Konfiguration für diese Klasse in einer XML-Konfigurationsdatei abzulegen.
+Diese wird automatisch von JPA verwendet.
+
+[[konfiguration-der-id-und-sequenz]]
+=== Konfiguration der ID und Sequenz
+
+Primärschlüssel werden in JPA mit den Annotationen `@Id` und `@GeneratedValue` markiert.
+Der `GenerationType` der `@GeneratedValue` Annotation muss in jedem Fall `AUTO` sein.
+Es muss unbedingt darauf geachtet werden, das Inkrement (`INCREMENT BY`) der zur ID-Generierung genutzt Datenbanksequenz auf denselben Wert einzustellen, der auch beim `SequenceGenerator` im Parameter `allocationSize` angegeben ist.
+
+[[definition-von-1-zu-n-assoziationen]]
+=== Definition von 1-zu-n-Assoziationen
+
+Eine 1-zu-n-Assoziation (siehe xref:glossary:literaturextern:inhalt.adoc#litextern-collection-mapping[Collection Mapping]) ist in der Regel als unsortierte Menge (`Set`) zu definieren, da in dieser keine Reihenfolge definiert ist.
+Wird von der Anwendung eine Sortierung benötigt und sind alle für die Sortierung benötigten Attribute in der Entität enthalten, dann kann auch eine Liste (`List`) verwendet werden, da die Datenbank effizienter sortieren kann als eine Java-Implementierung.
+
+[[identifizierende-attribute-verwenden]]
+=== Identifizierende Attribute verwenden
+
+Falls für eine Entität genau ein identifizierendes Attribut existiert, ist dieses sowohl in der Datenbank als auch im Hibernate Mapping als Primärschlüssel zu verwenden.
+Künstliche ID-Spalten sind nur dann als Schlüssel zu verwenden, wenn kein identifizierendes Attribut für die Entität vorliegt oder nur mehrere Attribute zusammen die Entität eindeutig identifizieren.
+Zusammengesetzte Schlüssel dürfen nicht verwendet werden.
+
+Das identifizierende Attribut darf beliebige Typen besitzen: Es dürfen, neben numerischen Werten, auch Zeichenketten oder Datumsangaben sein.
+
+[[bidirektionale-assoziationen-vermeiden]]
+=== Bidirektionale Assoziationen vermeiden
+
+Bidirektional traversierbare Assoziationen sind zu vermeiden.
+Für die Traversierung in Gegenrichtung sollte eine Query verwendet werden.
+
+Grund für die Vorgabe ist, dass Änderungen am "inversen Ende" der Assoziation nicht persistiert werden.
+Falls wirklich eine bidirektionale Assoziation benötigt wird, sind in der Entität am "inversen Ende" der Assoziation Methoden zu definieren, welche die Assoziation korrekt manipulieren.
+
+Explizit verboten sind bidirektional traversierbare n-zu-m-Assoziationen.
+Hierfür sind zwei 1-zu-n- (bzw. n-zu-1-) Assoziationen zu definieren.
+
+[[behandlung-von-zeitangaben]]
+=== Behandlung von Datums- und Zeitangaben
+
+Es werden die Datums- und Zeitklassen aus der _Java 8 Date Time API_ verwendet.
+Hinweise zu deren Verwendung finden sich im xref:isy-datetime:konzept/master.adoc[Baustein Datum & Zeit].
+Der Baustein stellt zur Persistierung von Zeiträumen und ungewissen Datums- und Zeitangaben entsprechende Entitäten bereit.
+
+WARNING: Der folgende, hervorgehobene Absatz wird nur noch aus historischen Gründen erwähnt und ist obsolet.
+
+====
+Für alte Anwendungen, die nicht die _Java 8 Date Time API_, sondern noch `java.util.Date` verwenden, gelten die folgenden Vorgaben.
+
+In der Datenbank erfolgt die Speicherung in einem Attribut vom Typ `TemporalType.TIMESTAMP`.
+Falls die Genauigkeit des Timestamp-Datentyps fachlich nicht gewünscht ist, kann der Typ `TemporalType.DATE` verwendet wird.
+
+Hibernate erzeugt beim Laden der Daten aus der Datenbank implizit Objekte der Typen `java.sql.Timestamp` bzw. `java.sql.Date` für diese Attribute.
+Beide Typen sind von `java.util.Date` abgeleitet.
+
+Vergleiche von Zeitangaben unterschiedlicher Genauigkeit sind jedoch problematisch:
+
+* Grundsätzlich darf der Vergleich nicht mittels `equals` durchgeführt werden, sondern immer mittels `compareTo`.
+* Ein Vergleich mit `compareTo` muss immer auf dem *Attribut mit höherer Genauigkeit* (also auf dem `java.sql.Timestamp`) aufgerufen werden.
+
+Für Berechnungen, z.B. das Hinzuaddieren von Tagen, oder das Setzen von Feldern, ist der Daten-Typ `java.util.Calendar` zu verwenden.
+In diesem Fall wird im Anwendungskern temporär ein Objekt dieses Typs für das entsprechende Datum erzeugt.
+====
+
+[[boolesche-variablen]]
+=== Boolesche Variablen
+
+Für die Ablage von booleschen Werten in der Datenbank ist stets ein numerisches Feld zu verwenden, kein Textfeld.
+Der Wert wird von Hibernate standardmäßig auf `1` für wahr und `0` für falsch abgebildet.
+
+[[enum-variablen]]
+=== Enum-Variablen
+
+Für die Ablage von Enum-Feldern persistenter Entitäten in der Datenbank sind in JPA zwei Modi vorgesehen, die jedoch beide mit Nachteilen verbunden sind:
+
+`ORDINAL`:: Die Enum-Ausprägungen werden durchnummeriert und als Integer abgelegt.
+Diese Ablage ist sehr ungünstig, weil sich beim Hinzufügen oder Entfernen einer Enum-Ausprägung, die nicht die letzte ist, die Nummern verschieben und dadurch eine Datenmigration erforderlich wird.
+`STRING`:: Es wird der Java-Name der Enum-Ausprägung in der Datenbank abgelegt.
+Diese Ablage ist problematisch, weil sie eine enge Kopplung des Java-Quellcodes an die Datenbankinhalte erzeugt.
+Während im Java-Quellcode lange, sprechende Namen bevorzugt werden, werden für die Ablage in der Datenbank kurze, Speicherplatz sparende Darstellungen präferiert.
+
+Aufgrund der genannten Schwächen stellt die Bibliothek `isy-persistence` zwei Hibernate User-Types zur Verfügung, um Enum-Werte auf eine Zeichenkette in der Datenbank abzubilden.
+Die Verwendung dieser User-Types beschreibt das xref:nutzungsvorgaben/umsetzung-datenzugriff.adoc#enum-variablen[Nutzungskonzept].
+
+[[datenbankschema-anfangs-ueber-hbm2ddl-erzeugen]]
+=== Datenbankschema anfangs über `hbm2ddl` erzeugen
+
+Für die Erstellung des Datenbankschemas wird empfohlen, es initial über Hibernate zu erzeugen.
+Die <<konfiguration-automatische-erzeugung-schema,Konfiguration>> hierzu geschieht in der Datei `application.properties` der Anwendung.
+
+.Konfiguration zur automatischen Erzeugung von Datenbankschemas
+[[konfiguration-automatische-erzeugung-schema]]
+[source,properties]
+----
+spring.jpa.hibernate.ddl-auto=create
+----
+
+Grundsätzlich ist es möglich, sämtliche Tabellen-Eigenschaften (etwa auch die Feldlängen und Indizes) über Annotationen zu definieren und das Datenbankschema komplett durch `hbm2ddl` zu erzeugen.
+Ob das Datenbankschema während der Entwicklung stets generiert wird oder es nach einer initialen Generierung verändert und parallel gepflegt wird, ist je nach Komplexität des Schemas zu entscheiden.
+
+Befindet sich die Anwendung in Produktion, dann muss die automatische Erzeugung von Datenbankschemas abgeschaltet sein.
+
+.Konfiguration zur Abschaltung der automatischen Erzeugung
+[[konfiguration-abschaltung-automatische-erzeugung-schema]]
+[source,properties]
+----
+spring.jpa.hibernate.ddl-auto=none
+----
+
+Auch eine Validierung des Datenbankschemas durch Setzen des Parameters auf `validate` findet nicht statt.
+Stattdessen wird eine explizite xref:konzept/versionierung.adoc[Versionierung des Schemas] verwendet.
+
+[[vergabe-von-indizes]]
+=== Vergabe von Indizes
+
+Indizes sind ein wichtiges Element, um eine gute Performance des Datenbankzugriffs sicherzustellen.
+Indizes müssen dabei gezielt vergeben werden.
+Fehlende Indizes führen häufig zu einer schlechten Performance der Anwendung und belasten die Datenbank durch das vermehrte Auftreten von Full-Table-Scans sehr stark.
+Zu viele Indizes verschlechtern die Performance beim Schreiben von Datensätzen und verbrauchen unnötigen Speicherplatz.
+
+Die tatsächlich notwendigen Indizes können letztendlich häufig nur in Produktion festgestellt werden.
+In dem Sinne ist es sinnvoll während der Entwicklung zunächst nur die sicher notwendigen Indizes anzulegen und diese später durch Erkenntnisse aus Lasttests und Produktion zu ergänzen.
+
+Initial sind folgende Indizes vorzusehen:
+
+* ein Index auf jeder Spalte, die als Fremdschlüssel verwendet wird,
+* ein Index auf (fachliche) Schlüsselattribute, die sehr häufig im Rahmen der Verarbeitung genutzt werden (Beispiele: Nummer eines Registereintrags, Kennung einer Nachricht).
+
+
+== Konventionen zur Erstellung von Datenbankschemas
+
+Für die Erstellung von Datenbankschemas ist folgende Konvention zu beachten.
+
+// tag::namenskonvention[]
+
+Der Name eines Datenbankschemas genügt den folgenden Anforderungen:
+
+- er enthält vollständige, beschreibende, aussprechbare Namen (oder bekannte Abkürzungen),
+- er muss mit einem Buchstaben beginnen,
+- nur Buchstaben, Zahlen und Unterstriche (_) sind erlaubt,
+- Umlaute, Sonderzeichen, Bindestriche und Leerzeichen sind nicht erlaubt.
+
+// end::namenskonvention[]

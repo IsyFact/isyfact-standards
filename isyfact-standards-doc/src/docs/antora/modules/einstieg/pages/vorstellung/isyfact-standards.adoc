@@ -75,7 +75,7 @@ Eine beispielhafte Umsetzung eines IT-Systems zeigt die xref:glossary:literature
 
 Datenzugriff::
 Der Datenzugriff erfolgt über JPA.
-Das xref:blaupausen:detailkonzept-komponente-datenzugriff/master.adoc#Einleitung[Detailkonzept Komponente Datenzugriff] legt die genaue Verwendung von JPA fest und beschreibt die Prinzipien sowie das Vorgehen zur Persistierung von Datenmodellen.
+Das xref:blaupausen:detailkonzept-komponente-datenzugriff/einordnung-ziele.adoc[] legt die genaue Verwendung von JPA fest und beschreibt die Prinzipien sowie das Vorgehen zur Persistierung von Datenmodellen.
 
 Anwendungskern::
 Der Anwendungskern setzt die Fachlichkeit mittels Fachkomponenten um.

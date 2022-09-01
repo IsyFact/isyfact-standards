@@ -82,7 +82,7 @@ Ein übliches Verhalten ist zum Beispiel das folgende: Erstreckt sich eine fachl
 Um zu prüfen, ob die Daten in der Zwischenzeit nicht durch einen anderen Anwender verändert worden sind, wird die Zugriffsschicht beim Schreiben Zeitstempel oder Versionszähler der Datensätze überprüfen.
 +
 Um diesen großen Funktionsumfang abzudecken, wird ein Produkt zum objekt-relationalen Mapping gemäß JPA-Standard eingesetzt.
-Details hierzu sind im  xref:detailkonzept-komponente-datenzugriff/master.adoc[Detailkonzept Komponente Datenzugriff] dokumentiert.
+Details hierzu sind im xref:isy-persistence:konzept.adoc[Baustein JPA/Hibernate] dokumentiert.
 
 [[der-anwendungskern]]
 === Der Anwendungskern

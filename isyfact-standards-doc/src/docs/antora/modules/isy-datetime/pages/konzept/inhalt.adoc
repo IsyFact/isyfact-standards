@@ -204,8 +204,7 @@ deren Format gemäß der Anforderungen der Kapitel <<datumswert-1>> bis <<dauer-
 [[persistierung]]
 === Persistierung
 
-Die Persistierung von Angaben zu Datum, Zeit, Dauer, Zeiträumen und ungewissen Datums- und Zeitangaben (siehe <<ungewisse-datums-und-zeitwerte>>) wird durch die Bibliothek `isy-persistence` behandelt.
-Weitere Details dazu beschreibt das xref:isyfact-standards-doku:blaupausen:detailkonzept-komponente-datenzugriff/master.adoc[Detailkonzept Komponente Datenzugriff].
+Die Persistierung von Angaben zu Datum, Zeit, Dauer, Zeiträumen und  <<ungewisse-datums-und-zeitwerte,ungewissen Datums- und Zeitangaben>> wird durch den xref:isy-persistence:konzept/vorgaben-konventionen.adoc#behandlung-von-zeitangaben[Baustein JPA/Hibernate] behandelt.
 
 [[berechnungen]]
 === Berechnungen

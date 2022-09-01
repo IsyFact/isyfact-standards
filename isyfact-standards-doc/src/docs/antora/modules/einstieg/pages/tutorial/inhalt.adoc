@@ -51,24 +51,24 @@ Es reicht also folgender Abschnitt, um eine Bibliothek einzubinden:
 == Datenhaltung
 
 In diesem Kapitel wird die Implementierung der Datenhaltung einer Anwendung beschrieben.
-Die Datenhaltung besteht im Wesentlichen aus den Entitätsklassen (Entity) und den zugehörigen Data Access Objects (DAOs).
-Alle Konzepte und Vorgaben zum Thema Persistenz und Datenzugriff stehen im Dokument xref:blaupausen:detailkonzept-komponente-datenzugriff/master.adoc[Detailkonzept Komponente Datenzugriff].
+Die Datenhaltung besteht im Wesentlichen aus den Entitäten (Entity) und den zugehörigen Data Access Objects (DAOs).
+Alle Konzepte und Vorgaben zum Thema Persistenz und Datenzugriff stehen im xref:blaupausen:detailkonzept-komponente-datenzugriff/einordnung-ziele.adoc[] sowie im xref:isy-persistence:konzept.adoc[].
 
 [[designvorgaben]]
 === Designvorgaben
 
 * Der eigentliche Datenbankzugriff wird über die Java Persistence API (JPA) gekapselt.
 Als Implementierung für die JPA wird Hibernate verwendet.
-* Das Datenbank-Mapping wird über Annotation in den Entitätsklassen festgelegt.
+* Das Datenbank-Mapping wird über Annotation in den Klassen der Entitäten festgelegt.
 * Der Zugriff auf Entitäten erfolgt immer über DAOs oder durch die Traversierung des persistenten Datenmodells.
-* DAOs stellen Zugriffsmethoden (Suchen, Schreiben, Löschen...) für genau einen Entitätstyp bereit.
+* DAOs stellen Zugriffsmethoden (Suchen, Schreiben, Löschen...) für genau eine Entität bereit.
 * Datenbank-Queries werden im Normalfall aus den Methodennamen generiert.
   Sonst werden sie per `@Query`-Annotation an der Methode beschrieben.
 * Entitäten werden entweder von genau einer fachlichen Komponente oder querschnittlich von der Komponente „Basisdaten“ verwaltet.
 * Der Datenzugriff erfolgt entweder über die Komponenten-Schnittstelle oder im Fall der Basisdaten direkt über die Basisdaten-DAOs.
 * Für persistente Entitäten, die über eine Komponentenschnittstelle angeboten werden, werden eigene Schnittstellenobjekte definiert, die per Deep-Copy gefüllt werden. Hierfür wird ein Bean-Mapper verwendet.
 Innerhalb einer Teilanwendung dürfen persistente Entitäten allerdings über Komponentengrenzen hinweg genutzt werden.
-* DAOs und Entitätsklassen werden in einer bestimmten Paketstruktur abgelegt (siehe xref:blaupausen:detailkonzept-komponente-datenzugriff/master.adoc[Detailkonzept Komponente Datenzugriff]).
+* DAOs und Entitäten werden in einer xref:isy-persistence:nutzungsvorgaben/umsetzung-datenzugriff.adoc[festgelegten Paketstruktur] abgelegt.
 * Die Transaktionssteuerung wird per AOP in der Service-Schicht durchgeführt (siehe Kapitel <<anbieten-von-service-schnittstellen>>).
 +
 [NOTE]
@@ -122,13 +122,13 @@ Zur Realisierung der Datenhaltung müssen folgende Aktivitäten durchgeführt we
 ==== Anlegen des Datenbankschemas
 
 Das Datenbankschema muss angelegt werden.
-Dazu werden die benötigten DDL-Anweisungen, wie im xref:blaupausen:detailkonzept-komponente-datenzugriff/master.adoc[Detailkonzept Komponente Datenzugriff] beschrieben, in einem Verzeichnis abgelegt.
+Dazu werden die benötigten DDL-Anweisungen, wie in xref:blaupausen:detailkonzept-komponente-datenzugriff/versionierung.adoc[] beschrieben, in einem Verzeichnis abgelegt.
 Die xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung] enthält diese Anweisungen im Verzeichnis `src/main/skripte/sql/terminfindung`.
 
 Das initiale Datenmodell kann über das Tool `hbm2ddl` erzeugt werden.
 Dieses muss anschließend noch bearbeitet werden.
 
-NOTE: hbm2ddl ist Teil der Hibernate Tools und gehört zum Umfang der Standard-Hibernate Bibliothek.
+NOTE: `hbm2ddl` ist Teil der von Hibernate bereitgestellten Werkzeuge.
 Nutzungsdokumentation unter:
 xref:glossary:literaturextern:inhalt.adoc#litextern-hibernate-toolset-guide[Hibernate Toolset Guide]
 
