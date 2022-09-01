@@ -925,16 +925,24 @@ Zur Implementierung von `equals()` und `hashCode()` müssen die Möglichkeiten d
 * `static int Objects.hash(Object... values)`
 
 [[kryptographie]]
-==== Kryptographie
-In der kryptografischen Absicherung der Datenbankverbindungen werden Zufallszahlen benötigt. Diese werden mit `dev/urandom` generiert. Im Gegensatz zu `dev/random` blockiert dieses die Datenbankverbindungen nicht auf lange Zeit um Zufallszahlen zu generieren.
+=== Kryptographie
 
-WARNING: `dev/urandom` liefert, um die Folgeprozesse nicht zu blockieren, im Zweifelsfall schwächere Zufallszahlen. Dies kann zu Risiken beim Einsatz von kryptografischen Funktionen führen.
+Kryptografische Verfahren basieren auf Zufallszahlen.
+Diese werden unter Linux standardmäßig durch `dev/random` erzeugt.
+Falls `dev/random` nicht genug Entropie vorliegt, blockiert es die Erzeugung neuer Zufallszahlen.
+Dadurch blockieren auch die kryptografischen Verfahren, welche z.B. die Kommunikation mit anderen Anwendungen oder einer Datenbank absichern.
+
+// tag::sicherheit[]
+
+.icon:shield[] Erzeugung von Zufallszahlen unter Linux
+****
+Zur Erzeugung von Zufallszahlen unter Linux wird `dev/random` verwendet.
+Falls `dev/random` zu oft blockiert und das Risiko, potenziell schwache Zufallszahlen zu verwenden, akzeptiert wird, kann alternativ `dev/urandom` verwendet werden.
+****
+
+// end::sicherheit[]
 
 // tag::architekturregel[]
 
 // end::architekturregel[]
-
-// tag::sicherheit[]
-
-// end::sicherheit[]
 // end::inhalt[]
