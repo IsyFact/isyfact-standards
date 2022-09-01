@@ -919,11 +919,25 @@ Zur Implementierung von `equals()` und `hashCode()` müssen die Möglichkeiten d
 * `static boolean Objects.equals(Object a, Object b)`
 * `static int Objects.hash(Object... values)`
 
-// tag::architekturregel[]
+[[kryptographie]]
+=== Kryptographie
 
-// end::architekturregel[]
+Kryptografische Verfahren basieren auf Zufallszahlen.
+Diese werden unter Linux standardmäßig durch `dev/random` erzeugt.
+Falls `dev/random` nicht genug Entropie vorliegt, blockiert es die Erzeugung neuer Zufallszahlen.
+Dadurch blockieren auch die kryptografischen Verfahren, welche z.B. die Kommunikation mit anderen Anwendungen oder einer Datenbank absichern.
 
 // tag::sicherheit[]
 
+.icon:shield[] Erzeugung von Zufallszahlen unter Linux
+****
+Zur Erzeugung von Zufallszahlen unter Linux wird `dev/random` verwendet.
+Falls `dev/random` zu oft blockiert und das Risiko, potenziell schwache Zufallszahlen zu verwenden, akzeptiert wird, kann alternativ `dev/urandom` verwendet werden.
+****
+
 // end::sicherheit[]
+
+// tag::architekturregel[]
+
+// end::architekturregel[]
 // end::inhalt[]
