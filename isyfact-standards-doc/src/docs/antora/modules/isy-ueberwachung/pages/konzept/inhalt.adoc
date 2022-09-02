@@ -22,16 +22,32 @@ So wird für Informationen über den Systemzustand der eingebauten Endpoint `hea
 [[micrometer]]
 ==== Micrometer
 
-Die im Endpoint `metrics` bereitgestellen Metriken werden von Micrometer erfasst.
+Die im Endpoint `metrics` bereitgestellten Metriken werden von Micrometer erfasst.
 Micrometer bietet eine einfache anbieterneutrale Fassade für die gängigsten Überwachungssysteme und ermöglicht es, Metriken im Anwendungscode ohne Herstellerbindung zu implementieren.
 Seit Spring Boot 2.0 ist Micrometer die Standardbibliothek zur Bereitstellung von Anwendungsmetriken von Spring.
 
 NOTE: Für eine Liste der unterstützten Monitoring-Systeme siehe xref:glossary:literaturextern:inhalt.adoc#litextern-monitoring-systeme-unterstuetzt[unterstützte Monitoring-Systeme]
 
+[[health-checks]]
+==== Health Checks
+Jede Anwendung führt periodisch einen Health Check (ehemals: Selbsttest) durch, um den eigenen Zustand und die Erreichbarkeit aller angebundenen Nachbarsysteme zu prüfen.
+Das Ergebnis des Health Checks steht über den Endpoint `health` bereit.
+
+IMPORTANT: Anders als von Spring vorgesehen entkoppelt die IsyFact den Health Check vom Aufruf des Endpoints `health`.
+Durch diese Entkopplung wird die Systemstabilität durch häufige Aufrufe des Endpoints nicht beeinflusst.
+
+Schlägt der Health-Check fehl, führt dies zu einem Eintrag im technischen Log.
+In diesen Fall wird eine Warnung, bei nicht-essenziellen, oder ein Fehler, bei essenziellen Nachbarsystemen, geloggt.
+Implementiert und konfiguriert wurde bzw. wird der Health-Check als Task (s. xref:isy-task:konzept/master.adoc[]).
+
+Es ist möglich, die Verfügbarkeit von Nachbarsystemen über die Konfiguration der Anwendung zu prüfen.
+Details hierzu finden sich in den xref:nutzungsvorgaben/inhalt.adoc#vorgaben-fuer-die-pruefung-der-verfuegbarkeit[Nutzungsvorgaben].
+
+
 [[festlegungen-und-ausgrenzungen]]
 === Festlegungen und Ausgrenzungen
 
-Die Nutzungsvorgaben finden sich im dem Dokument xref:konzept/master.adoc#einleitung[Überwachung Nutzungsvorgaben]
+Die Nutzungsvorgaben finden sich in den xref:nutzungsvorgaben/master.adoc[].
 
 Das Konzept für die Prüfung der Verfügbarkeit ist:
 
@@ -42,16 +58,6 @@ Folgende Punkte sind bewusst nicht Teil dieses Konzeptes:
 
 * Micrometer unterstützt die Anbindung zahlreicher Monitoring-Systeme.
   Es werden keine Vorgaben zur Verwendung eines bestimmten Systems gemacht.
-
-[[health-check]]
-=== Health Check
-Die IsyFact sieht eine Enkopplung der Evaluation von Health-Checks vor, bei der der Health-Endpoint jeweils nur das aktuellste Ergebnis liest. Durch diese Entkopplung wird die Systemstabilität durch extrem häufige Aufrufe des Endpoints nicht beeinflusst.
-
-Der Health-Check führt nur bei einem Fehlschlag zu einem Logeintrag. In diesen Fall wird eine Warnung, bei nicht-essentiellen, oder ein Error, bei essentiellen, Nebensystemen geloggt. Implementiert und konfiguriert wurde bzw. wird der Health-Check als `isy-task`.
-
-Es ist möglich Nebensysteme zo kontrollieren. Hierfür steht ein `@FunctionalInterface`zur Verfügung.
-
-Sollte das Ergebnis eines Checks komplexer sein, als ein `boolean` erfolgt der Zugriff über `synchronized` um Probleme mit der Nebenläufigkeit zu verhindern.
 
 // end::inhalt[]
 

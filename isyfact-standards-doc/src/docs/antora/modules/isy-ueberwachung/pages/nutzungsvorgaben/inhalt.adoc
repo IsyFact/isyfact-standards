@@ -144,7 +144,7 @@ Ein Beispiel zur Registrierung und Verwendung eines `Meters` am Beispiel eines `
 Dort wird ein `Counter` mit dem Namen `eintrag.neu` mit einem Tag registriert, der aus einem Schlüssel `komponente` mit dem Wert `verwaltung` besteht.
 Zu den Namenskonventionen bei der Vergabe von Namen und Tags siehe <<ueberwachung-namenskonventionen>>.
 
-.Registierung und Verwendung eines Counters.
+.Registrierung und Verwendung eines Counters.
 [id="listing-custommeter",reftext="{listing-caption} {counter:listings }"]
 [source,java]
 ----
@@ -185,9 +185,9 @@ Deshalb sorgt jede Implementierung von Micrometer zur Anbindung eines Monitoring
 Gleichzeitig stellt die Einhaltung der Konvention sicher, dass keine im angebundenen Monitoring-Systems verbotenen Zeichen verwendet werden und die Namen der Metriken somit möglichst portabel sind.
 
 [[benennung-von-tags]]
-====== Bennung von Tags
+====== Benennung von Tags
 
-Die Benennung von Tags folgt syntaktisch dem gleichen Schema wie die Bennung von Metern.
+Die Benennung von Tags folgt syntaktisch dem gleichen Schema wie die Benennung von Metern.
 Damit wird auch hier eine Übersetzung der Namen in die Konventionen des Monitoring-Systems möglich.
 Bei der Auswahl der Bezeichner ist darauf zu achten, dass diese sprechend sind.
 Das folgende Beispiel  zeigt die Verwendung von Tags.
@@ -222,7 +222,7 @@ Die im Konzept beschriebenen Überwachungsfunktionen dürfen keinen relevanten n
 Dazu sind neben der Einhaltung der in dem Dokument xref:nutzungsvorgaben/master.adoc#einleitung[Überwachung - Konzept] beschriebenen Vorgaben noch einige grundlegende  Regeln zu beachten:
 
 * Da nicht auszuschließen ist, dass ein Überwachungswerkzeug sehr häufig Informationen aus den Endpoints abruft, darf das Bereitstellen der Informationen keine zeitaufwändigen Aktionen im xref:glossary:glossary:master.adoc#glossar-anwendungssystem[Anwendungssystem] veranlassen.
-* Bei der Bereitstellung weiterer Überwachungsinformationen ist darauf zu achten, dass die Ermittlung der Kennzahlen keinen relevanten negativen Einfluss auf die Anwendungs-Performance hat.
+* Bei der Bereitstellung weiterer Überwachungsinformationen ist darauf zu achten, dass die Ermittlung der Kennzahlen keinen relevanten negativen Einfluss auf die Performance der Anwendung hat.
 Insbesondere dürfen keine fachlichen Funktionen des xref:glossary:glossary:master.adoc#glossar-anwendungskern[Anwendungskerns] aufgerufen werden.
 
 [[statische-informationen-ueber-die-anwendung]]
@@ -367,8 +367,7 @@ public class ActuatorSecurityProduktionConfig extends WebSecurityConfigurerAdapt
 ====== Abschalten der Absicherung für die Entwicklung
 
 Um die Authentifizierung für die Endpoints bei der Entwicklung abzuschalten, kann in <<listing-endpointsecurityconfig>>
-gezeigte Konfiguration über eine Spring-Profil (im Beispiel `produktion`) aktivert bzw. deaktiviert werden.
-
+gezeigte Konfiguration über ein Spring-Profil (im Beispiel `produktion`) aktiviert bzw. deaktiviert werden.
 
 
 [[vorgaben-fuer-die-pruefung-der-verfuegbarkeit]]
@@ -385,7 +384,7 @@ Grundlage dafür ist die Bereitstellung eines HealthEndpoints.
 Jede Anwendung stellt einen HealthEndpoint unter `/actuator/health` bereit. Zur Konfiguration siehe auch <<konfiguration-von-endpoints>>.
 Dieser zeigt den Status des Systems abhängig von allen vorhandenen Health-Indikatoren (`HealthIndicator`).
 
-Isy-Ueberwachung liefert einen Nachbarsystem-Indikator mit, der den HealthEndpoint aller konfigurierten Nachbarsysteme abfragt.
+Der Baustein liefert einen Nachbarsystem-Indikator mit, der den HealthEndpoint aller konfigurierten Nachbarsysteme abfragt.
 
 Dieser lässt sich wie folgt konfigurieren:
 
@@ -413,8 +412,8 @@ Für jeden Schlüssel sind folgende Properties zu setzen:
 
 * `systemname`: Wird in der Log-Ausgabe als Name des Nachbarsystems verwendet
 * `healthendpoint`: Die URL, unter der der HealthEndpoint des Nachbarsystems zu erreichen ist
-* `essentiell` (`true`/`false`) : Ist ein essentielles Nachbarsystem nicht erreichbar, wird der Status des Nachbarsystem-Indikators auf DOWN gesetzt und ein Error geloggt.
-Nicht essentielle Nachbarsysteme beeinflussen den Status nicht und werden, falls sie nicht erreichbar sind, nur als Warning geloggt.
+* `essentiell` (`true`/`false`) : Ist ein essenzielles Nachbarsystem nicht erreichbar, wird der Status des Nachbarsystem-Indikators auf DOWN gesetzt und ein Error geloggt.
+Nicht essenzielle Nachbarsysteme beeinflussen den Status nicht und werden, falls sie nicht erreichbar sind, nur als Warning geloggt.
 
 ==== Korrelations-ID bei einem Nachbarsystem-HealthIndicator
 Eine Korrelations-ID muss gesetzt werden, wenn ein `HealthIndicator` ein Nachbarsystem aufruft.
@@ -473,10 +472,10 @@ boolean pruefeSystem() {
 [[anbindung-eines-monitoring-systems]]
 === Anbindung eines Monitoring-Systems
 
-Zur Anbindung eines konkreten Monitoring-Systems wird die passende Meter Registry für das Monitoring-Systems als Maven Dependency in die `pom.xml` aufgenommen.
+Zur Anbindung eines konkreten Monitoring-Systems wird die passende Meter Registry für das Monitoring-System als Maven-Abhängigkeit in die `pom.xml` aufgenommen.
 
-Die Namen der Dependencies folgen dem Schema `micrometer-registry-<Monitoring-System>`.
-Soll beispielweise _Prometheus_ angebunden werden, muss die folgende Dependecy eingetragen werden.
+Die Namen der Abhängigkeiten folgen dem Schema `micrometer-registry-<Monitoring-System>`.
+Soll beispielweise _Prometheus_ angebunden werden, muss die folgende Abhängigkeit eingetragen werden.
 
 [source,xml]
 ----
@@ -492,7 +491,7 @@ Die Konfiguration für die unterstützten Monitoring-System ist in xref:glossary
 [[anwendungen-deaktivierbar-machen]]
 === Anwendungen deaktivierbar machen
 
-Für die Durchführung von Updates beim Deployment ist es notwendig, einzelne Knoten eines Anwendungsclusters aus dem Loadbalancing herauszunehmen, so dass dieser Knoten keine Anfragen mehr vom Loadbalancer zugeteilt bekommt.
+Für die Durchführung von Updates beim Deployment ist es notwendig, einzelne Knoten eines Anwendungsclusters aus dem Loadbalancing herauszunehmen, sodass dieser Knoten keine Anfragen mehr vom Loadbalancer zugeteilt bekommt.
 
 [[beschreibung-des-loadbalancer-servlets]]
 ==== Beschreibung des Loadbalancer-Servlets
@@ -500,10 +499,10 @@ Für die Durchführung von Updates beim Deployment ist es notwendig, einzelne Kn
 Zur Realisierung dieser Anforderung wird als Teil jeder Webanwendung ein sog. Loadbalancer-Servlet ausgeliefert.
 Das Servlet prüft beim Aufrufen seiner URL, ob eine IsAlive-Datei im Konfigurationsverzeichnis vorhanden ist.
 Ist eine solche Datei vorhanden, liefert das Servlet den HTTP-Statuscode HTTP OK (200) zurück.
-Falls keine IsAlive-Datei gefunden wird liefert das Servlet den Code HTTP FORBIDDEN (403) zurück.
+Falls keine IsAlive-Datei gefunden wird, liefert das Servlet den Code HTTP FORBIDDEN (403) zurück.
 
 Der Loadbalancer prüft in regelmäßigen Abständen die URL des Servlets und nimmt die entsprechende für die Anwendung den entsprechenden Server aus dem Loadbalancing heraus, falls kein HTTP OK gelesen wird.
-Zu beachten ist, dass auf einem Server prinzipiell mehrere verschiedene Anwendung laufen können.
+Zu beachten ist, dass auf einem Server prinzipiell mehrere verschiedene Anwendungen laufen können.
 Der Loadbalancer muss daher so konfiguriert werden, dass auf dem Server nur die betreffende Anwendung deaktiviert wird, zu der das Loadbalancer-Servlet gehört.
 Alle anderen Anwendungen auf dem entsprechenden Server müssen weiterhin bedient werden.
 
