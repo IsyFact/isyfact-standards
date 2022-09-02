@@ -1,3 +1,7 @@
+# 2.5.0
+- `IFS-1354`: Autokonfiguration mit initialisierbarer Datenbank
+    * Für die Konfiguration der DataSource wurde zu den DataSourceProperties von Spring Boot gewechselt. Hierdurch haben sich die Namen der Konfigurationsschlüssel geändert und müssen angepasst werden.
+
 # 2.3.0
 - `IFS-1066`: Protokollierung-Datenstrukturen aus den Template-DB-Skripten entfernt
 - `IFS-1093`: Anhebung von UCP auf 19.11
