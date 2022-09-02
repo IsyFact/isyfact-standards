@@ -3,22 +3,20 @@ package de.bund.bva.isyfact.persistence.autoconfigure;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.bund.bva.isyfact.persistence.datasource.IsyDataSource;
 import org.junit.Test;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.UnsatisfiedDependencyException;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.context.properties.ConfigurationPropertiesBindException;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Configuration;
 
-import static org.junit.Assert.*;
+import de.bund.bva.isyfact.persistence.datasource.IsyDataSource;
 
 public class IsyPersistenceOracleAutoConfigurationTest {
 
     @Test(expected = NoSuchBeanDefinitionException.class)
-    public void testOraclePropertiesNichtGesetzt() {
+    public void testDataSourceUrlPropertyNichtGesetzt() {
         Map<String, Object> properties = new HashMap<>();
 
         properties.put("isy.logging.anwendung.name", "test");
@@ -26,28 +24,29 @@ public class IsyPersistenceOracleAutoConfigurationTest {
         properties.put("isy.logging.anwendung.version", "test");
 
         ConfigurableApplicationContext context = new SpringApplicationBuilder()
-            .sources(TestConfig.class)
-            .properties(properties)
-            .run();
+                .sources(TestConfig.class)
+                .properties(properties)
+                .run();
 
         context.getBean(IsyDataSource.class);
     }
 
     @Test(expected = UnsatisfiedDependencyException.class)
-    public void testOraclePropertiesUnvollstaendigGesetzt() {
+    public void testPropertiesFehlerhaft() {
         Map<String, Object> properties = new HashMap<>();
 
-        properties.put("isy.persistence.oracle.datasource.databaseurl", "test");
+        properties.put("isy.persistence.datasource.url", "test");
+        properties.put("spring.sql.init.enabled", "false");
 
         new SpringApplicationBuilder()
-            .sources(TestConfig.class)
-            .properties(properties)
-            .run();
+                .sources(TestConfig.class)
+                .properties(properties)
+                .run();
     }
 
     @Configuration
     @EnableAutoConfiguration
     static class TestConfig {
-
     }
+
 }
