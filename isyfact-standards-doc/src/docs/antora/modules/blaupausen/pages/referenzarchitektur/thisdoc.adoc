@@ -142,7 +142,7 @@ Nachdem in Kapitel  xref:referenzarchitektur/master.adoc#kurzueberblick[Kurzübe
 Detaillierung der einzelnen Sichten:
 
 * Für die fachliche Sicht wird im Kapitel xref:referenzarchitektur/master.adoc#die-fachliche-referenzarchitektur[Die fachliche Referenzarchitektur] eine fachliche Referenzarchitektur beschrieben.
-* Für die softwaretechnische Sicht wird im Kapitel  xref:referenzarchitektur/master.adoc#die-software-referenzarchitektur[<Die Software Referenzarchitektur] die Einbindung der Software-Referenzarchitektur xref:referenzarchitektur-it-system/master.adoc#einleitung[Referenzarchitektur IT-Systeme] beschrieben.
+* Für die softwaretechnische Sicht wird im Kapitel  xref:referenzarchitektur/master.adoc#die-software-referenzarchitektur[Die Software Referenzarchitektur] die Einbindung der Software-Referenzarchitektur xref:referenzarchitektur-it-system/master.adoc#einleitung[Referenzarchitektur IT-Systeme] beschrieben.
 * Für die technische Infrastruktur wird im Kapitel xref:referenzarchitektur/master.adoc#die-referenzarchitektur-der-technischen-infrastruktur[Die Referenzarchitektur der technischen Infrastruktur] eine Referenzarchitektur vorgestellt.
 
 Im Rahmen dieser Referenzarchitektur werden auch betriebliche Aspekte betrachtet, da diese Auswirkungen auf Designentscheidungen haben können.

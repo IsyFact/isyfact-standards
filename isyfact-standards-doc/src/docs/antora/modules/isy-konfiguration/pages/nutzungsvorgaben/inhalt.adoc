@@ -154,8 +154,8 @@ Dabei kann auch gleich das Vorhandensein der Einstellung geprüft werden, d.h., 
 
 Konfigurationen, welche durch die Anwendung geschrieben werden, sind in der Datenbank abzulegen.
 Die Tabellen hierfür sind Teil des Datenmodells der Anwendung.
-Der Zugriff erfolgt genau wie der auf die übrigen Entitätstypen.
-Für weitere Details siehe xref:blaupausen:detailkonzept-komponente-datenzugriff/master.adoc#Einleitung[Detailkonzept Komponente Datenzugriff].
+Der Zugriff erfolgt genau wie der auf die übrigen Entitäten.
+Für weitere Details siehe xref:isy-persistence:nutzungsvorgaben/umsetzung-datenzugriff.adoc[].
 
 [[verwendung-von-isy-konfiguration]]
 === Verwendung von isy-konfiguration

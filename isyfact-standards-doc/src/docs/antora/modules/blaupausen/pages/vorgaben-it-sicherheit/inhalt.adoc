@@ -9,7 +9,6 @@ include::einstieg:page$tutorial/inhalt.adoc[tags=sicherheit]
 
 include::blaupausen:page$detailkonzept-komponente-anwendungskern/inhalt.adoc[tags=sicherheit]
 include::blaupausen:page$detailkonzept-komponente-batch/inhalt.adoc[tags=sicherheit]
-include::blaupausen:page$detailkonzept-komponente-datenzugriff/inhalt.adoc[tags=sicherheit]
 include::blaupausen:page$detailkonzept-komponente-service/inhalt.adoc[tags=sicherheit]
 include::blaupausen:page$detailkonzept-komponente-web-gui/inhalt.adoc[tags=sicherheit]
 

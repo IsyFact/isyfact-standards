@@ -31,6 +31,9 @@ Die nachfolgende Tabelle beschreibt die Bausteine. Sie stellen in der Regel ein 
 |Http Invoker
 |Der Baustein Http Invoker bietet die Möglichkeit, interne Services der Anwendungslandschaft mit der Technologie Spring Http Invoker zu realisieren.
 
+|JPA/Hibernate
+|Der Baustein beschreibt die Umsetzung des Datenzugriffs auf Basis von JPA und dem O/R-Mapper Hibernate.
+
 |JSF
 |Der Baustein JSF ermöglicht es Anwendungen, grafische Oberflächen auf Basis von Java Server Faces umzusetzen.
 Er enthält architektonische sowie technische Vorgaben und beschreibt die konkrete Umsetzung.
