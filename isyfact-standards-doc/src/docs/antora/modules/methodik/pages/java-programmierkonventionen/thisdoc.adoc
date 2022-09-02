@@ -6,5 +6,5 @@
 
 In diesem Dokument werden die Java-Programmierkonventionen der IsyFact beschrieben.
 
-Die Einhaltung der Programmierkonventionen fördert die Wartbarkeit und Weiterentwicklungsfähigkeit der nach den xref:glossary:glossary:master.adoc#glossar-IFS[IsyFact Standards] erstellten Software.
+Die Einhaltung der Programmierkonventionen fördert die Wartbarkeit und Weiterentwicklungsfähigkeit der nach den xref:glossary:glossary:master.adoc#glossar-ifs[IsyFact Standards] erstellten Software.
 // end::inhalt[]

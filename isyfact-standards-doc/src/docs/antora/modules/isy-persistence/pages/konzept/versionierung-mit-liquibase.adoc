@@ -1,0 +1,50 @@
+= Versionierung mit Liquibase
+
+include::glossary:licence:partial$licence.adoc[]
+
+Liquibase ist eine Bibliothek zum Management von Änderungen an Datenbankschemas.
+Hierfür werden die Datenbankänderungen in sequenzieller Ordnung in *Change Logs* aufgelistet.
+Diese können in SQL, XML, JSON oder YAML geschrieben sein.
+Änderungen werden im Format des *Changesets* angelegt.
+Diese enthalten *Change Types*, Definitionen von Änderungen, die auf die Datenbank angewandt werden sollen.
+Um die richtige Reihenfolge sowie die Datenbankumgebung der Änderungen kontrollieren zu können werden Kontext, Label und Precondition Tags verwendet.
+
+Die wichtigsten Befehle von Liquibase sind: `update`, `rollback`, `snapshot`, `diff`, `status` und `utility`.
+Beim initialen Update-Befehl kontrolliert Liquibase die Datenbankverbindungsinformationen, inklusive der Berechtigungen, die Datenbank-URL und die JDBC Treiber.
+
+Bei der Verteilung von Änderungen werden zwei Tabellen in der Datenbank erstellt:
+
+* `DATABASECHANGELOG`, in der die Änderungen festgehalten werden, und
+* `DATABASECHANGELOGLOCK`, blockiert die Datenbank um zeitgleiche Änderungen durch mehrere Liquibase-Instanzen zu verhindern.
+
+[[changelogs-in-liquibase]]
+== Change Logs in Liquibase
+In den Change Logs speichert Liquibase sequenziell alle Änderungen, Changesets genannt, an der Datenbank.
+Hierdurch überwacht die Bibliothek, auf welchem Stand sich die Datenbank befindet und führt noch nicht angewendete Änderungen an dieser durch.
+
+In den Changelogs können die folgenden Elemente eingebettet werden:
+[id="changelog-elemente",reftext="{table-caption} {counter:tables}""]
+[cols="1m,5", options="header"]
+|====
+|Tag |Beschreibung
+|preCondition
+|Voraussetzungen, die erfüllt sein müssen, bevor der Changelog ausgeführt wird.
+Der Autor kann hierdurch festhalten, welche Annahmen zum Status des Changelogs er trifft und sicherstellen, dass die Änderungen nur ausgeführt werden, wenn diese stimmen.
+Ebenfalls können hierdurch Datenprüfungen vor unwiderrufliche Änderungen gekoppelt werden.
+
+|property |Wird zum Einsetzen von Properties genutzt.
+Soll dasselbe Changelog für mehrere Umgebungen genutzt werden kann dies hierdurch abgebildet werden.
+
+|changeSet |Die auszuführenden Änderungen.
+
+|include | Zusätzliche Dateien, die Changesets enthalten und inkludiert werden sollen.
+Hierdurch ist es möglich, Change Logs in übersichtliche Teile aufzugliedern.
+
+|context | Gibt an, in welchem Kontext ein Changeset ausgeführt wird.
+Bestimmte Änderung können hiermit z.B. nur während eines Testes ausgeführt werden.
+|====
+
+Liquibase verarbeitet während der Laufzeit das Change Log.
+Zunächst werden Preconditions überprüft.
+Sind nicht alle Preconditions erfüllt, bricht Liquibase die Ausführung ab.
+Andernfalls werden die Changesets in der Reihenfolge ihrer Definition nach ausgeführt.

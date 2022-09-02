@@ -99,7 +99,12 @@ isy.task.tasks.halloWeltTask.passwort=TestPasswort1
 isy.task.tasks.halloWeltTask.bhkz=BHKZ1
 isy.task.tasks.halloWeltTask.ausfuehrung=ONCE
 isy.task.tasks.halloWeltTask.initial-delay=10s
+isy.task.tasks.halloWeltTask.host=ComputerName
+isy.logging.anwendung.typ=GA
+isy.logging.anwendung.name=Beispiel
+isy.logging.anwendung.version=0.0.1
 ----
+`ComputerName` ist der Name der Maschine, auf der der Task läuft.
 
 Ein Task wird grundsätzlich als Spring Bean konfiguriert.
 
@@ -140,7 +145,7 @@ taskScheduler.shutdownMitTimeout(10);
 [[verwendung-bereitgestellter-tasks]]
 === Verwendung der bereitgestellten Tasks
 
-Die Bibliothek `isy-task` enthält nützliche Tasks für die xref:glossary:glossary:master.adoc#glossar-IFS[Bibliothek (IsyFact Standards)].
+Die Bibliothek `isy-task` enthält nützliche Tasks für die xref:glossary:glossary:master.adoc#glossar-ifs[Bibliothek (IsyFact Standards)].
 
 ==== Automatische Aktualisierung der Konfiguration
 Dieser Task dient der periodischen Prüfung der Konfigurationsdateien auf Änderungen sowie der automatischen Aktualisierung der Konfiguration bei Änderungen.
@@ -165,7 +170,7 @@ public class UpdateKonfigurationTaskConfiguration {
 
 Der Task `KonfigurationUpdateTask` erwartet task-spezifische Konfigurationsparameter, wie sie im Kapitel xref:nutzungsvorgaben/master.adoc#aufgabenspezifische-konfiguration[Aufgabenspezifische Konfiguration] beschrieben werden:
 
-[source]
+[source,properties]
 ----
 isy.task.tasks.konfigurationUpdateTask.ausfuehrung=FIXED_DELAY
 isy.task.tasks.konfigurationUpdateTask.initial-delay=5s
@@ -226,49 +231,49 @@ isy.task.autostart
 
 Die Anzahl der Threads, die im Thread-Pool initial angelegt werden:
 
-[source]
+[source,properties]
 ----
 isy.task.default.amount_of_threads
 ----
 
 Das DateTimePattern, das für den Start eines Tasks verwendet werden kann:
 
-[source]
+[source,properties]
 ----
 isy.task.default.date_time_pattern
 ----
 
 Die Dauer, die `isy-task` wartet, bis ein fehlgeschlagener Task erneut gestartet wird:
 
-[source]
+[source,properties]
 ----
 isy.task.watchdog.restart_interval
 ----
 
 Die Kennung die benutzt wird, wenn kein Task-spezifisches Kennwort konfiguriert wird:
 
-[source]
+[source,properties]
 ----
 isy.task.default.benutzer
 ----
 
 Das Passwort das benutzt wird, wenn kein Task-spezifisches Passwort konfiguriert wird:
 
-[source]
+[source,properties]
 ----
 isy.task.default.passwort
 ----
 
 Das Behördenkennzeichen, das benutzt wird, wenn kein Task-spezifisches konfiguriert wird:
 
-[source]
+[source,properties]
 ----
 isy.task.default.bhkz
 ----
 
 Der Host, wenn kein Task-spezifischer Host konfiguriert wird:
 
-[source]
+[source,properties]
 ----
 isy.task.default.host
 ----
@@ -278,68 +283,68 @@ isy.task.default.host
 
 Die Kennung des ausführenden Benutzers:
 
-[source]
+[source,properties]
 ----
 isy.task.tasks.<Task>.benutzer
 ----
 
 Das Passwort des ausführenden Benutzers:
 
-[source]
+[source,properties]
 ----
 isy.task.tasks.<Task>.passwort
 ----
 
 Behördenkennzeichen des ausführenden Benutzers:
 
-[source]
+[source,properties]
 ----
 isy.task.tasks.<Task>.bhkz
 ----
 
 Der Name des Hosts auf dem der Task ausgeführt werden soll.
-Der Name kann als Regulärer Ausdruck angegeben werden, es wird dann geprüft, ob der tatsächliche Hostname dem Regulären Ausdruck entspricht.
-Dadurch kann auch eine Liste von Hostnamen angegeben werden, z.B. "host1|host2|host3":
+Der Name kann als regulärer Ausdruck angegeben werden, es wird dann geprüft, ob der tatsächliche Hostname dem regulären Ausdruck entspricht.
+Dadurch kann auch eine Liste von Hostnamen angegeben werden, z.B. `host1|host2|host3`:
 
-[source]
+[source,properties]
 ----
 isy.task.tasks.<Task>.host
 ----
 
 Der Ausführungsplan für einen Task:
 
-[source]
+[source,properties]
 ----
 isy.task.tasks.<Task>.ausfuehrung
 ----
 
 Der einmalige Zeitpunkt der Ausführung in Form eines Zeitstempels:
 
-[source]
+[source,properties]
 ----
 isy.task.tasks.<Task>.zeitpunkt
 ----
 
 Die Dauer, die zwischen dem Start des TaskSchedulers und der einmaligen Ausführung liegt.
-Die Dauer muss die Form eines Zeitraums gemäß dem xref:isy-datetime:konzept/master.adoc#einleitung[Konzept Datum/Zeit] besitzen:
+Die Dauer muss die Form eines Zeitraums gemäß dem xref:isy-datetime:konzept/master.adoc[] besitzen:
 
-[source]
+[source,properties]
 ----
 isy.task.tasks.<Task>.initial-delay
 ----
 
 Die festgelegte Dauer zwischen zwei Starts einer Ausführung.
-Die Dauer muss die Form eines Zeitraums gemäß dem  xref:isy-datetime:konzept/master.adoc#einleitung[Konzept Datum/Zeit] besitzen:
+Die Dauer muss die Form eines Zeitraums gemäß dem  xref:isy-datetime:konzept/master.adoc[] besitzen:
 
-[source]
+[source,properties]
 ----
 isy.task.tasks.<Task>.fixed-rate
 ----
 
 Die festgelegte Dauer zwischen dem Ende einer und dem Start der nächsten Ausführung.
-Die Dauer muss die Form eines Zeitraums gemäß dem  xref:isy-datetime:konzept/master.adoc#einleitung[Konzept Datum/Zeit] besitzen:
+Die Dauer muss die Form eines Zeitraums gemäß dem  xref:isy-datetime:konzept/master.adoc[] besitzen:
 
-[source]
+[source,properties]
 ----
 isy.task.tasks.<Task>.fixed-delay
 ----
@@ -377,7 +382,7 @@ Der MBean-Exporter wird gemäß dem xref:isy-ueberwachung:konzept/master.adoc#ei
 == Hinweise für den Task im Parallelbetrieb
 
 Bei der Implementierung eines Tasks muss beachtet werden, dass ihn die Querschnittsbibliothek im Parallelbetrieb betreiben wird.
-Werden hierbei die Besonderheiten der Java Multithreading API nicht berücksichtigt, kann dies zu einem fehlerhaften Verhalten in der xref:glossary:glossary:master.adoc#glossar-Geschaeftsanwendung[Geschäftsanwendung] führen.
+Werden hierbei die Besonderheiten der Java Multithreading API nicht berücksichtigt, kann dies zu einem fehlerhaften Verhalten in der xref:glossary:glossary:master.adoc#glossar-geschaeftsanwendung[Geschäftsanwendung] führen.
 
 [[threadsicherheit]]
 === Threadsicherheit

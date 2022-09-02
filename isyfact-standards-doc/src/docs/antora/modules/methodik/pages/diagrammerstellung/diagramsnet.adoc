@@ -1,5 +1,5 @@
 = Handbuch diagrams.net
-:sectnums:
+
 :experimental:
 
 include::glossary:licence:partial$licence.adoc[]
@@ -16,14 +16,47 @@ image::diagramsnet/dn-diagramsnet-gui.png[]
 [[Installation-diagrams.net]]
 == Einrichtung von diagrams.net
 diagrams.net kann auf vielfältige Weise verwendet werden.
-Ohne Installation kann die Browser-Variante über xref:glossary:literaturextern:inhalt.adoc#litextern-diagrams.net[diagrams.net] direkt aufgerufen werden.
+Ohne Installation kann die Browser-Variante über xref:glossary:literaturextern:inhalt.adoc#litextern-diagrams-net[diagrams.net] direkt aufgerufen werden.
 Für zahlreiche Betriebssystem-Plattformen stehen außerdem Installationspakete bereit.
-Darüber hinaus gibt es Unterstützung für weit verbreitete IDEs, beispielsweise für xref:glossary:literaturextern:inhalt.adoc#litextern-diagrams.net-IntelliJ[IntelliJ IDEA], allerdings ohne Konfigurationsmöglichkeit, oder xref:glossary:literaturextern:inhalt.adoc#litextern-diagrams.net-VS-Code[Visual Studio Code].
+Darüber hinaus gibt es Unterstützung für weit verbreitete IDEs, beispielsweise für xref:glossary:literaturextern:inhalt.adoc#litextern-diagrams-net-intellij[IntelliJ IDEA], allerdings ohne Konfigurationsmöglichkeit, oder xref:glossary:literaturextern:inhalt.adoc#litextern-diagrams-net-vs-code[Visual Studio Code].
+
+[[feature-matrix]]
+.Features der Varianten von diagrams.net
+[cols="1s,^.^1,^.^1",options="header"]
+|===
+|Tool|Bibliothek einbinden|Konfiguration einbinden
+
+|diagrams.net (Web)
+|icon:check[]
+|icon:check[]
+
+|diagrams.net (Standalone)
+|icon:check[]
+|icon:check[]
+
+|Visual Studio Code (Plugin)
+|icon:check[]
+|icon:check[]
+
+|IntelliJ IDEA (Plugin)
+|icon:times[]
+|icon:times[]
+|===
+
 
 [[IsyFact-Standards-Grafik-Bibliothek-einbinden]]
 === IsyFact-Bibliothek einbinden
 Die IsyFact stellt eine eigene Bibliothek bereit.
 Diese enthält u.a. Grafik-Objekte in Anlehnung an die Systemspezifikation-, Systementwurf- und Referenzarchitektur-Diagramme des IsyFact.
+
+[[download-bibliothek]]
+.Download-Optionen der Bibliothek
+[cols="^1s,^2"]
+|====
+|Bibliothek
+|xref:attachment$IsyFact.drawiolib.xml[Download icon:file-code-o[]]
+|====
+
 Die Bibliothek stellt eine Empfehlung für Nutzer der IsyFact dar.
 Sie wird intensiv zur Dokumentation der IsyFact verwendet.
 
@@ -31,7 +64,14 @@ Sie wird intensiv zur Dokumentation der IsyFact verwendet.
 .diagrams.net IsyFact Bibliothek
 image::diagramsnet/dn-bibliothek-isyfact-uebersicht.dn.svg[]
 
-Über das Menü menu:Datei[Bibliothek öffen...] kann die xref:attachment$IsyFact.drawiolib.xml[Bibliothek (Download)] eingebunden werden.
+==== Einbindung in diagrams.net
+
+Über das Menü menu:Datei[Bibliothek öffen...] kann die Bibliothek eingebunden werden.
+
+TIP: In der Web-Version wird die Bibliothek am besten über ihre xref:attachment$IsyFact.drawiolib.xml[URL] eingebunden.
+
+==== Einbindung in Visual Studio Code
+
 In der Visual Studio Code Extension muss die Bibliothek <<vs-code-extension-bibliothek-konfiguration,wie folgt>> manuell konfiguriert werden.
 
 [[vs-code-extension-bibliothek-konfiguration]]
@@ -52,15 +92,32 @@ In der Visual Studio Code Extension muss die Bibliothek <<vs-code-extension-bibl
 [[IsyFact-Konfiguration-einbinden]]
 === IsyFact-Konfiguration einbinden
 Mit einer diagrams.net-Konfigurationsdatei können darüber hinaus u.a. Farbpaletten mit vordefinierten Werten belegt oder Standards für Verbinder gesetzt werden.
-Die IsyFact stellt eine beispielhafte Konfiguration bereit.
+
+[[download-konfiguration]]
+.Download-Optionen der Konfiguration
+[cols="^2s,^.^3"]
+|====
+|Konfiguration (diagrams.net)
+|xref:attachment$diagrams_net_standalone_configuration.json[Download icon:file-code-o[]]
+
+|Konfiguration (Visual Studio Code)
+|xref:attachment$diagrams_net_vs_studio_code_settings.json[Download icon:file-code-o[]]
+|====
+
 Diese enthält u.a. Farbvorgaben in Anlehnung an die Systemspezifikation-, Systementwurf- und Referenzarchitektur-Diagramme der IsyFact.
 
 [[image-dn-custom-farbpalette]]
 .diagrams.net IsyFact Farbpalette
 image::diagramsnet/dn-custom-farbpalette.png[]
 
-Über das Menü menu:Extras[Configuration...] kann die xref:attachment$diagrams_net_standalone_configuration.json[Konfiguration (Download)] eingebunden werden.
-Im Fall der Visual Studio Code Extension wird eine angepasste xref:attachment$diagrams_net_vs_studio_code_settings.json[Extension-Konfiguration (Download)] benötigt.
+==== Einbindung in diagrams.net
+
+Über das Menü menu:Extras[Konfiguration...] kann die Konfiguration eingebunden werden.
+
+==== Einbindung in Visual Studio Code
+
+Im Fall der Visual Studio Code Extension wird eine angepasste Extension-Konfiguration benötigt.
+Diese muss manuell in die Konfiguration von Visual Studio Code integriert werden.
 
 [[arbeiten-mit-diagrams.net]]
 == Arbeiten mit diagrams.net

@@ -1,7 +1,0 @@
-// tag::it-sicherheitsregeln[]
-
-[[it-sicherheitsregeln-programmierkonventionen]]
-== IT-Sicherheitsregeln Java Programmierkonventionen
-
-include::inhalt.adoc[tags=sicherheit]
-// end::it-sicherheitsregeln[]

@@ -1,8 +1,4 @@
-:doctitle: Komponente Web-GUI
-[discrete]
-=== Detailkonzept
-
-:sectnums:
+= Detailkonzept Web-GUI
 
 include::glossary:licence:partial$licence.adoc[]
 

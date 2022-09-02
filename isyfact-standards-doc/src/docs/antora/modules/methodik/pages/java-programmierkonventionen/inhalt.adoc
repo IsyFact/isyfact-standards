@@ -11,9 +11,9 @@ Hält sie sich noch an allgemein etablierte und bekannte Standards, verkürzt si
 Um das zu erreichen, müssen Konventionen für die Programmierung festgelegt werden.
 
 Die in diesem Dokument beschriebenen Richtlinien sind für die Erstellung von Programmen mit der IsyFact verbindlich.
-Die Strukturen zur Ablage des Quellcodes richten sich nach der Empfehlung von xref:glossary:literaturextern:inhalt.adoc#litextern-Maven-Standard-Directory-Layout[Apache Maven Standard Directory Layout] und wurden für die IsyFact erweitert.
+Die Strukturen zur Ablage des Quellcodes richten sich nach der Empfehlung von xref:glossary:literaturextern:inhalt.adoc#litextern-maven-standard-directory-layout[Apache Maven Standard Directory Layout] und wurden für die IsyFact erweitert.
 Die Programmierkonventionen basieren auf Synopse und präzisieren sie an einigen Stellen.
-Die in xref:glossary:literaturextern:inhalt.adoc#litextern-Vermeulen2000[Vermeulen2000] beschriebenen Konventionen beruhen auf den Sun Coding Conventions xref:glossary:literaturextern:inhalt.adoc#litextern-Sun1997-Code-Conventions[Sun 1997] und den Coding Standards der Firma Ambysoft xref:glossary:literaturextern:inhalt.adoc#litextern-Ambler1999[Ambler1999].
+Die in xref:glossary:literaturextern:inhalt.adoc#litextern-vermeulen2000[Vermeulen2000] beschriebenen Konventionen beruhen auf den Sun Coding Conventions xref:glossary:literaturextern:inhalt.adoc#litextern-sun1997-code-conventions[Sun 1997] und den Coding Standards der Firma Ambysoft xref:glossary:literaturextern:inhalt.adoc#litextern-ambler1999[Ambler1999].
 
 [[vorgaben-fuer-die-quellcodeablage]]
 == Vorgaben für die Quellcodeablage
@@ -25,7 +25,7 @@ Als letzte Projektart sind Multi-Modulprojekte beschrieben, die aus Kombinatione
 [[anwendungsprojekte]]
 === Anwendungsprojekte
 ==== Maven
-Der <<TODOProduktKatalog>> gibt die Nutzung von Maven vor.
+Der xref:einstieg:produkte.adoc#produktkatalog[Produktkatalog] gibt die Nutzung von Maven vor.
 Daher ist für Anwendungen eine Entwicklung mittels einem oder mehrerer Maven-Module strengstens empfohlen.
 
 ===== Artefakte
@@ -41,7 +41,7 @@ Als Beispiel für diese Dokumentation wird `isy-documentation` als Artefakt-ID a
 [cols="1,4",options="header"]
 |====
 2+|Group-ID von Maven-Modulen/-Artefakten
-|*Schema Group-ID* m|<sprach-kuerzel>.<organisation>.<firma>.<domaene>
+|*Schema Group-ID* m|<sprach-kürzel>.<organisation>.<firma>.<domäne>
 |*Beispiel* m|de.bund.bva.isyfact
 |====
 //end::namenskonvention[]
@@ -57,8 +57,8 @@ So haben alle IsyFact-Artefakte das Präfix `isy-` in ihrer Artefakt-ID.
 [cols="1,4",options="header"]
 |====
 2+|Artefakt-ID von maven-Modulen/-Artefakten
-|*Schema Artifakt-ID* m|<praefix>-<funktion/komponente> +
-<praefix>-<funktion/komponente>-<teilkomponente>
+|*Schema Artefakt-ID* m|<präfix>-<funktion/komponente> +
+<präfix>-<funktion/komponente>-<teilkomponente>
 |*Beispiel* m|isy-documentation +
 isy-documentation-core
 |====
@@ -215,7 +215,7 @@ Beispiele dafür sind Dokumente übergreifender Natur aus architektonischer, tec
 Dokumentationsprojekte besitzen unter dem Wurzelverzeichnis (`project-root`) ein einzelnes Unterverzeichnis `src/docs/asciidoc/`.
 In diesem finden sich weitere Verzeichnisse, z. B. für Inhalte allgemeiner Natur, sowie für die Dokumente.
 Es empfiehlt sich, für jedes Dokument ein eigenes Verzeichnis zur Ablage spezifischer Inhalte (neben Texten z. B. auch Bilder und Diagramme) anzulegen.
-Vorgaben für die Struktur einzelner Dokumente finden sich im xref:werkzeuge:handbuch_dokumentation/master.adoc[Handbuch für technische Autoren].
+Vorgaben für die Struktur einzelner Dokumente finden sich in der xref:werkzeuge:dokumentation/einleitung/einfuehrung.adoc[Dokumentation gemäß IsyFact].
 
 .Struktur eines Dokumentationsprojekts
 [id="listing-Projektstruktur-Dokumentation",reftext="{listing-caption} {counter:listings }"]
@@ -261,7 +261,7 @@ project-root/
   |- pom.xml
   |- README.md
 ----
-<1> Der Platzhalter `{anwendung}` steht für den Namen oder das Kürzel der umzusetzenden Anwendung
+<1> Der Platzhalter `\{anwendung}` steht für den Namen oder das Kürzel der umzusetzenden Anwendung
 
 Grundsätzlich können bei diesem Aufbau redundante Dateien in den Wurzelverzeichnissen der Module (z.B. `.gitignore`) entfallen, wenn sie bereits im Wurzelverzeichnis des Multi-Modul-Projekts vorhanden sind.
 
@@ -359,7 +359,7 @@ Es dürfen nicht mehrere Namen verwendet werden, die sich ausschließlich durch 
 Um Einheitlichkeit bei den Dateinamen sicherzustellen, sind Namenskonventionen für Dateiendungen und gebräuchliche Dateinamen notwendig.
 
 Dateinamen enthalten keine Sonderzeichen, Umlaute oder Leerzeichen.
-Erlaubt sind die Buchstaben von A-Z (groß und klein), Ziffern, der Unterstrich, der Mittelstrich und der Punkt.
+Erlaubt sind die Buchstaben von A bis Z (groß und klein), Ziffern, der Unterstrich, der Mittelstrich und der Punkt.
 Datumsangaben werden dem Dateinamen vorangestellt und erfolgen im Format `<JJJJ-MM-TT_Dateiname>`.
 
 .Dateiendungen
@@ -597,8 +597,8 @@ Die Formatierung des Quellcodes gemäß der nachfolgenden Regeln kann durch den 
 ==== Einrückungen und Klammerposition
 
 Für das Einrücken sind immer *vier Leerzeichen* zu verwenden.
-Bei Code-Blöcken wird die öffnende Klammer „*{*" immer als letztes Zeichen der Zeile gesetzt, die den Codeblock einleitet.
-Die schließende Klammer „*}*" wird immer in einer neuen Zeile nach dem Block positioniert und links an dem ersten Zeichen der einleitenden Zeile ausgerichtet.
+Bei Code-Blöcken wird die öffnende Klammer "*{*" immer als letztes Zeichen der Zeile gesetzt, die den Code-Block einleitet.
+Die schließende Klammer "*}*" wird immer in einer neuen Zeile nach dem Block positioniert und links an dem ersten Zeichen der einleitenden Zeile ausgerichtet.
 
 Zur Einrückung des Textes *niemals Tabulatoren*, sondern immer Leerzeichen verwenden, da Tabulatoren von verschiedenen Werkzeugen unterschiedlich interpretiert werden können.
 
@@ -627,18 +627,13 @@ if·(condition)·{
 
 Es wird empfohlen, Leerzeichen wie folgt zu verwenden:
 
-* zwischen einem Schlüsselwort und einer direkt darauf folgenden „*{*" Klammer
-* zwischen der Klammer „*)*" bzw. „*}*" und einem direkt darauf folgenden Schlüsselwort
-* zwischen einer Klammer „*)*" und einer direkt darauf folgenden Klammer „*{*"
+* zwischen einem Schlüsselwort und einer direkt darauf folgenden "*{*" Klammer
+* zwischen der Klammer "*)*" bzw. "*}*" und einem direkt darauf folgenden Schlüsselwort
+* zwischen einer Klammer "*)*" und einer direkt darauf folgenden Klammer "*{*"
 * nach einem Komma (z. B. bei einer Methode mit mehreren Parametern)
-* zwischen einem binären (ternären) Operator (außer dem Punktoperator) und dem vorausgehenden und dem nachfolgenden Ausdruck +
-Beispiel: `+double·length·=·Math.sqrt(x·*·x·+·y·*·y);+`
-+
-[frame="none",width="57%"]
-|====
-^|Dies gilt insbesondere für `·=·` und `·==·`
-|====
-
+* zwischen einem binären (ternären) Operator (außer dem Punktoperator) und dem vorausgehenden und dem nachfolgenden Ausdruck. +
+Beispiel: `+double·length·=·Math.sqrt(x·*·x·+·y·*·y);+` +
+Dies gilt insbesondere für `·=·` und `·==·`
 
 Leerzeilen eignen sich zur Trennung logischer unabhängiger Teile des Codes.
 Methoden werden durch eine Leerzeile voneinander getrennt.
@@ -697,7 +692,7 @@ Beim Schreiben der Dokumentation sollte man immer davon ausgehen, dass der Leser
 Wenn die Software lange nicht mehr "angefasst" werden musste, kann das sogar der Autor der Software selbst sein, der sich anhand der Dokumentation wieder "hineindenken" muss.
 ====
 
-In Java wird zwischen Dokumentationskommentaren (`$$*/**...*/*$$`) und Implementierungskommentaren (`$$*/*...*/*, *//*$$`) unterschieden.
+In Java wird zwischen Dokumentationskommentaren (`+/**...**/+`) und Implementierungskommentaren (`+/*...*/+`, `+//+`) unterschieden.
 
 [[dokumentationskommentare-javadoc]]
 ==== Dokumentationskommentare (Javadoc)
@@ -776,7 +771,7 @@ Kommentare zu Attributen sehen zum Beispiel wie folgt aus:
 ----
 
 `@see`-Tags sind sparsam zu verwenden, denn diese Verlinkung muss manuell gepflegt werden.
-Mehrere `@see`-Tags werden gemäß ihrer „Entfernung" von der aktuellen Stelle aufgeführt (Dokumenten-Navigation, Namensqualifikation).
+Mehrere `@see`-Tags werden gemäß ihrer "Entfernung" von der aktuellen Stelle aufgeführt (Dokumenten-Navigation, Namensqualifikation).
 Innerhalb einer Gruppe überladener Methoden werden die Methoden gemäß der Anzahl Parameter aufgelistet.
 
 Beispiel:
@@ -852,7 +847,7 @@ Kommentare werden nicht dazu verwendet, alte Versionen des Codes zu deaktivieren
 Wenn man alte Versionen wiederherstellen möchte, so ist dazu auf das Konfigurationsmanagement zurückzugreifen.
 Für die Analyse von Codeänderungen sind die bekannten DIFF-Werkzeuge einzusetzen.
 
-NOTE: Werkzeug, mit dem sich Unterschiede zwischen zwei Textdateien xref:glossary:literaturextern:inhalt.adoc#litextern-Synopse[synoptisch] darstellen lassen (diff unter xref:glossary:literaturextern:inhalt.adoc#litextern-Unix[Unix]; .UltraEdit)
+NOTE: Werkzeug, mit dem sich Unterschiede zwischen zwei Textdateien xref:glossary:literaturextern:inhalt.adoc#litextern-synopse[synoptisch] darstellen lassen (`diff` unter xref:glossary:literaturextern:inhalt.adoc#litextern-unix[Unix] oder UltraEdit).
 
 Änderungen werden mittels eines Version Control System (z. B. Subversion) nachverfolgt.
 Dazu ist es zwingend erforderlich, die durchgeführten Änderungen bzw. die Ursache dafür beim Check-in ausreichend zu dokumentieren.
@@ -917,18 +912,32 @@ Diese Methoden sind bewusst als _non-final_ Methoden angelegt, damit sie klassen
 Die von der Klasse `Object` vererbte Implementierung für die Methoden `equals()` und `hashCode()` stellt nur eine Basisimplementierung dar, die für alle Klassen genügt, deren Identität auf Objektgleichheit (gleiche Speicheradresse) basiert.
 Klassen, die eine eigene Identität, unabhängig von der Objektgleichheit, besitzen, müssen `equals()` und `hashCode()` implementieren.
 Dabei können leicht schwer identifizierbare Fehler auftreten.
-Die Implementierung von `equals()` und `hashCode()` ist nicht trivial, da sie bestimmte Eigenschaften (Reflexivity, Symmetry, Transitivity, Consistency und Non-nullity, s. xref:glossary:literaturextern:inhalt.adoc#litextern-Bloch2008[Bloch2008]) erfüllen müssen.
+Die Implementierung von `equals()` und `hashCode()` ist nicht trivial, da sie bestimmte Eigenschaften (Reflexivity, Symmetry, Transitivity, Consistency und Non-nullity, s. xref:glossary:literaturextern:inhalt.adoc#litextern-bloch2008[Bloch2008]) erfüllen müssen.
 
 Zur Implementierung von `equals()` und `hashCode()` müssen die Möglichkeiten der Hilfsklasse `java.util.Objects` verwendet werden, insbesondere die Methoden:
 
 * `static boolean Objects.equals(Object a, Object b)`
 * `static int Objects.hash(Object... values)`
 
-// tag::architekturregel[]
+[[kryptographie]]
+=== Kryptographie
 
-// end::architekturregel[]
+Kryptografische Verfahren basieren auf Zufallszahlen.
+Diese werden unter Linux standardmäßig durch `dev/random` erzeugt.
+Falls `dev/random` nicht genug Entropie vorliegt, blockiert es die Erzeugung neuer Zufallszahlen.
+Dadurch blockieren auch die kryptografischen Verfahren, welche z.B. die Kommunikation mit anderen Anwendungen oder einer Datenbank absichern.
 
 // tag::sicherheit[]
 
+.icon:shield[] Erzeugung von Zufallszahlen unter Linux
+****
+Zur Erzeugung von Zufallszahlen unter Linux wird `dev/random` verwendet.
+Falls `dev/random` zu oft blockiert und das Risiko, potenziell schwache Zufallszahlen zu verwenden, akzeptiert wird, kann alternativ `dev/urandom` verwendet werden.
+****
+
 // end::sicherheit[]
+
+// tag::architekturregel[]
+
+// end::architekturregel[]
 // end::inhalt[]

@@ -1,15 +1,19 @@
-* Blaupausen
+* xref:blaupausen.adoc[]
 ** xref:referenzarchitektur/master.adoc[Referenzarchitektur]
 
 ** xref:referenzarchitektur-it-system/master.adoc[Referenzarchitektur IT-System]
 *** xref:detailkonzept-komponente-anwendungskern/master.adoc[Anwendungskern]
-*** xref:detailkonzept-komponente-datenzugriff/master.adoc[Datenzugriff]
+*** xref:detailkonzept-komponente-datenzugriff/einordnung-ziele.adoc[Datenzugriff]
+**** xref:detailkonzept-komponente-datenzugriff/persistenzlogik.adoc[]
+**** xref:detailkonzept-komponente-datenzugriff/historisierung.adoc[]
+**** xref:detailkonzept-komponente-datenzugriff/versionierung.adoc[]
 *** xref:detailkonzept-komponente-service/master.adoc[Service]
 *** xref:detailkonzept-komponente-web-gui/master.adoc[Web GUI]
 *** xref:detailkonzept-komponente-batch/master.adoc[Batch]
 
-** Vorgaben
-*** xref:vorgaben-architektur/master.adoc[Architektur]
-*** xref:vorgaben-it-sicherheit/master.adoc[IT-Sicherheit]
+// mangels Inhalt auskommentiert, s. IFS-1568
+//** Vorgaben
+//*** xref:vorgaben-architektur/master.adoc[Architektur]
+//*** xref:vorgaben-it-sicherheit/master.adoc[IT-Sicherheit]
 
 

@@ -97,8 +97,8 @@ Die Konfiguration für eine `ServiceStatistik`-Bean und den dazugehörigen AOP-A
 public class UeberwachungConfig {
 
     @Bean
-    public MethodInterceptor verwaltungMonitor(MeterRegistry meterRegistry) {
-        return new ServiceStatistik(meterRegistry, Tags.of("servicestatistik", "verwaltung"));
+    public MethodInterceptor verwaltungMonitor() {
+        return new ServiceStatistik(Tags.of("servicestatistik", "verwaltung"));
     }
 
     @Bean
@@ -221,9 +221,9 @@ gesetzt.
 Die im Konzept beschriebenen Überwachungsfunktionen dürfen keinen relevanten negativen Einfluss auf die Performance der Anwendung haben.
 Dazu sind neben der Einhaltung der in dem Dokument xref:nutzungsvorgaben/master.adoc#einleitung[Überwachung - Konzept] beschriebenen Vorgaben noch einige grundlegende  Regeln zu beachten:
 
-* Da nicht auszuschließen ist, dass ein Überwachungswerkzeug sehr häufig Informationen aus den Endpoints abruft, darf das Bereitstellen der Informationen keine zeitaufwändigen Aktionen im xref:glossary:glossary:master.adoc#glossar-Anwendungssystem[Anwendungssystem] veranlassen.
+* Da nicht auszuschließen ist, dass ein Überwachungswerkzeug sehr häufig Informationen aus den Endpoints abruft, darf das Bereitstellen der Informationen keine zeitaufwändigen Aktionen im xref:glossary:glossary:master.adoc#glossar-anwendungssystem[Anwendungssystem] veranlassen.
 * Bei der Bereitstellung weiterer Überwachungsinformationen ist darauf zu achten, dass die Ermittlung der Kennzahlen keinen relevanten negativen Einfluss auf die Anwendungs-Performance hat.
-Insbesondere dürfen keine fachlichen Funktionen des xref:glossary:glossary:master.adoc#glossar-Anwendungskern[Anwendungskerns] aufgerufen werden.
+Insbesondere dürfen keine fachlichen Funktionen des xref:glossary:glossary:master.adoc#glossar-anwendungskern[Anwendungskerns] aufgerufen werden.
 
 [[statische-informationen-ueber-die-anwendung]]
 ==== Statische Informationen über die Anwendung
@@ -240,14 +240,6 @@ Einbindung von passenden Maven-Plugins können diese Informationen automatisch b
 <plugin>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-maven-plugin</artifactId>
-        <executions>
-            <execution>
-                <id>build-info</id>
-                <goals>
-                    <goal>build-info</goal>
-                </goals>
-            </execution>
-        </executions>
 </plugin>
 <plugin>
     <groupId>pl.project13.maven</groupId>
@@ -255,9 +247,24 @@ Einbindung von passenden Maven-Plugins können diese Informationen automatisch b
 </plugin>
 ----
 
-Bei Bedarf können weitere statische Informationen von der Anwendung bereitgestellt werden.
+Durch das Einbinden der Plugins (s. <<listing-info-maven-config>>) werden 2 Dateien mit folgenden Informationen erzeugt:
 
-NOTE: Weiterführende Informationen enthält die xref:glossary:literaturextern:inhalt.adoc#litextern-Spring-Boot-Info-Endpoint[Dokumentation von Spring Boot zum Info-Endpoint].
+* `build-info.properties` mit den Keys:
+** `build.artifact`
+** `build.group`
+** `build.name`
+** `build.time`
+** `build.version`
+* `git.properties` mit den Keys:
+** `git.branch`
+** `git.commit.id.abbrev`
+** `git.commit.time`
+
+Die Werte der Keys werden über den Info-Endpoint bereitgestellt.
+
+Bei Bedarf können weitere statische Informationen durch zusätzliche Konfiguration von der Anwendung bereitgestellt werden.
+
+NOTE: Weiterführende Informationen enthält die xref:glossary:literaturextern:inhalt.adoc#litextern-spring-boot-info-endpoint[Dokumentation von Spring Boot zum Info-Endpoint].
 
 [[konfiguration-und-absicherung-von-endpoints]]
 ==== Konfiguration und Absicherung von Endpoints
@@ -345,11 +352,8 @@ public class ActuatorSecurityProduktionConfig extends WebSecurityConfigurerAdapt
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.requestMatcher(EndpointRequest.toAnyEndpoint())
-            .authorizeRequests()
-            .anyRequest()
-            .hasRole(ENDPOINT_ROLE)
-            .and()
-            .httpBasic();
+                .authorizeHttpRequests(requests -> requests.anyRequest().hasRole(ENDPOINT_ROLE))
+                .httpBasic();
     }
 
     @Bean
@@ -483,7 +487,7 @@ Soll beispielweise _Prometheus_ angebunden werden, muss die folgende Dependecy e
 ----
 
 Häufig ist keine weitere Konfiguration notwendig, da die Anbindung durch Spring Boot automatische konfiguriert wird.
-Die Konfiguration für die unterstützten Monitoring-System ist in xref:glossary:literaturextern:inhalt.adoc#litextern-Monitoring-Systeme[Monitoring-Systeme] beschrieben.
+Die Konfiguration für die unterstützten Monitoring-System ist in xref:glossary:literaturextern:inhalt.adoc#litextern-monitoring-systeme[Monitoring-Systeme] beschrieben.
 
 [[anwendungen-deaktivierbar-machen]]
 === Anwendungen deaktivierbar machen

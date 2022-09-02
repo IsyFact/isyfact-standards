@@ -1,0 +1,202 @@
+= GUI-Tests mit Selenium
+
+include::glossary:licence:partial$licence.adoc[]
+
+// tag::inhalt[]
+`Selenium` ist ein Open Source Werkzeug zur Automatisierung von Browser-Applikationen.
+Es zählt seit vielen Jahren zu den bekanntesten und beliebtesten UI Testautomatisierungslösungen für Webanwendungen.
+In erster Linie ist `Selenium` für die Automatisierung von Webanwendungen zu Testzwecken gedacht, kann jedoch auch für weitere, operative Aufgaben sinnvoll eingesetzt werden. 
+So können mittels `Selenium` viele sich wiederholende Aufgaben bei der Administration webbasierter Anwendungen automatisiert werden.
+Ebenfalls findet `Selenium` immer stärkeren Einsatz bei Automatisierung der komplexen operativen Geschäftsprozesse mittels „Robotic Process Automation“ (RPA) Lösungen.
+
+[[selenium-setup]]
+== Setup
+Zum Aufsetzen von `Selenium` und dem Erstellen von webbasierten GUI-Tests mit Selenium, sollte die ausführliche Entwickler-Dokumentation von `Selenium` herangezogen werden: +
+
+xref:glossary:literaturextern:inhalt.adoc#litextern-selenium[Selenium Dokumentation]
+
+[[selenium-basic-steps-install]]
+=== Selenium installieren
+In Maven: `selenium-java` dependency in die pom.xml einfügen:
+
+[[listing-einbindungs-elenium-maven]]
+.Einbindung von Selenium in der pom.xml
+[source,xml,subs="verbatim,attributes"]
+----
+<dependency>
+    <groupId>org.seleniumhq.selenium</groupId>
+    <artifactId>selenium-java</artifactId>
+    <version>${selenium.version}</version>
+    <scope>test</scope>
+</dependency>
+----
+
+In Gradle: selenium-java dependency in die build.gradle des Projektes einfügen:
+
+[[listing-einbindung-selenium-gradle]]
+.Einbindung von Selenium in der pbuild.gradle
+[source,groovy,subs="verbatim,attributes"]
+----
+dependencies {
+compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.0.0'
+----
+
+[[selenium-basic-steps-install-browser-drivers]]
+=== Browser Drivers installieren
+Die Browser Driver zur Unterstützung der Browser für `Selenium` werden von den jeweiligen Herstellern entwickelt und sind nicht Teil der Standard `Selenium` Distribution. 
+Empfohlen wird an dieser Stelle der Firefox Browser:
+
+[[listing-einbindung-selenium-browser-addon]]
+.Einbindung von Selenium Browser addons in der pom.xml
+[source,xml,subs="verbatim,attributes"]
+----
+<dependency>
+    <groupId>org.seleniumhq.selenium</groupId>
+    <artifactId>selenium-firefox-driver</artifactId>
+    <version>${selenium.version}</version>
+    <scope>test</scope>
+</dependency>
+----
+
+[[selenium-basic-steps-open-and-close-browser]]
+=== Browser öffnen und schließen
+
+[NOTE]
+====
+Selenium 4 benötigt die Firefox Version 78 oder höher!
+====
+
+[[listing-selenium-browser-oeffnen-und-starten]]
+.Browser öffnen und schließen
+[source,java,subs="verbatim,attributes"]
+----
+// create custom Firefox options
+FirefoxOptions options = new FirefoxOptions();
+
+// open Browser
+WebDriver driver = new FirefoxDriver(options);
+
+// close Brower
+driver.quit();
+----
+
+[[selenium-basic-steps-eight-basic-actions]]
+==== Acht grundlegende Funktionen
+xref:glossary:literaturextern:inhalt.adoc#litextern-selenium-getting-started[Grundlegende Funktion in Selenium - Offizielle Dokumentation]
+
+[[selenium-problems]]
+== Problematiken
+Trotz der Beliebtheit bei UI Testautomatisierungslösungen für Webanwendungen ist `Selenium` *kein* vollwertiges Test-Framework! 
+Das zeigt sich in folgenden Dimensionen:
+
+[[selenium-problems-testing]]
+=== Testen
+* `Selenium` stellt keine Assertions bereit, sondern kümmert sich um die reine UI-Automatisierung
+* `Selenium` liefert keine Integration in JUnit
+* Die Testkonfiguration kann komplex sein
+
+[[selenium-problems-general]]
+=== Allgemein
+* `Selenium` ist ein DOM basiertes (Java-) Interface zum Browser.
+Daher ist ein Verständnis von `HTML/CSS` erforderlich, um automatisierte Abläufe zu beschreiben
+* In `Selenium` werden nur Referenzen von DOM Elementen gehalten, nichts wird zwischen gespeichert
+* `Selenium` adressiert die Asynchronität des Browsers nur oberflächlich
+
+[[selenium-problems-jsf]]
+=== JSF
+* Die Generierung / Das Rendering von JSF Pages ist zum Teil so dynamisch, sodass IDs von Web-Elementen immer neu erzeugt werden und damit schwer über `Selenium` zu adressieren sind
+
+[[selenium-best-practices]]
+== Best Practices
+Zu den oben genannten Problemen gibt es Best Practices, mit denen man diesen entgegen wirken kann.
+
+=== Assertions
+Assertions mit `Selenium` sind für WebElement-Typen erstmal nicht möglich. 
+Allerdings lassen sich die Values oder andere inhaltliche Werte und ihre primitiven Datentypen mittels Standard Assertions vergleichen:
+
+[[listing-selenium-assertions]]
+.Tests mit Selenium
+[source,java,subs="verbatim,attributes"]
+----
+import org.junit.Assert;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDrive
+
+[...]
+
+@Test
+public void testAssertFunctions() {
+    // Driver setup
+    System.setProperty("webdriver.chrome.driver", {$uri-to-driver}\\chromedriver.exe");
+    WebDriver driver = new ChromeDriver();
+
+    // Driver navigation
+    driver.navigate().to("https://www.url.com/");
+
+    String ActualTitle = driver.getTitle(); // returns the titel as a String
+    String ExpectedTitle = "Most Reliable App & Cross Browser Testing Platform | BrowserStack";
+
+    // String assertions
+    Assert.assertEquals(ExpectedTitle, ActualTitle);
+
+    // Get web element checkbox
+    WebElement checkbox = driver.findElement(By.cssSelector("input[id*='StayLoggedInCheckbox']"));
+
+    // Boolean assertions
+    Assert.assertFalse(checkbox.isSelected());
+    // isSelected returns primitive datatype boolean which we can assert
+
+    // close browser
+    driver.quit();
+
+}
+----
+
+=== WebElement Finding bei asynchronen Änderungen
+Grundlegende Informationen, wie man WebElemente über Selenium findet: +
+
+xref:glossary:literaturextern:inhalt.adoc#litextern-selenium-finders[Finders]
+
+xref:glossary:literaturextern:inhalt.adoc#litextern-selenium-locators[Locators]
+
+JSF kann hier durch dynamische Generierung Probleme bei der Suche nach WebElement-Ids bereiten.
+Daher kann auf zwei alternative Möglichkeiten zurückgegriffen werden:
+
+==== XPath
+XPath ist eine Alternative zum WebElement-Finding per ID.
+Es handelt sich dabei um die XML Path Language, die Teile eines XML-Dokumentes adressieren und auswerten kann.
+Da HTML und XML eine ähnliche Struktur haben, fällt es `Selenium` leicht, bei statischem HTML-Aufbau ein Web-Element über XPath zu finden.
+
+[[listing-selenium-web-element]]
+[source,java,subs="verbatim,attributes"]
+----
+    WebElement checkbox = driver.findElement(
+                    By.xpath("/html/body/div[2]/div[1]/div/h4[1]/b/html[1]/body[1]/div[2]/div[1]/div[1]/h4[1]/b[1]"));
+----
+Aber auch die XPath-Pfade können durch die Asynchronität des Browsers und JSFs dynamischer Generierung verändert werden.
+
+==== Css Selector
+Etwas sicherer und eventuell beständiger ist der Css Selector. 
+Beispiel:
+
+[[listing-selenium-css-selector-old]]
+[source,xml,subs="verbatim,attributes"]
+----
+<input id="name"...>
+----
+wird generiert zu:
+[[listing-selenium-css-selector-new]]
+[source,xml,subs="verbatim,attributes"]
+----
+<input id="j_id1234567:name"...>
+----
+Die Suche nach dem `WebElement` mittels `Selenium` würde dann wie folgt aussehen:
+[[listing-selenium-example]]
+[source,java,subs="verbatim,attributes"]
+----
+driver.findElement(By.cssSelector("input[id^='j_id'][id$='name']"));
+----
+Das bedingt natürlich, dass die dynamischen IDs wenigstens zum Teil statisch sind, bzw. statische Komponenten wie bspw. `name` beinhalten.
+
+// end::inhalt[]

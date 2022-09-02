@@ -92,6 +92,16 @@ public class BatchrahmenTest {
     }
 
     /**
+     * Tests the exclusion of a bean in the batch context while executing the batch frame.
+     */
+    @Test
+    public void testBatchrahmenWithExclusion() {
+        assertEquals(0, BatchLauncher
+                .run(new String[] { "-start", "-cfg", "/resources/batch/basic-test-batch-2-config.properties" }));
+        assertEquals("beendet", getBatchStatus("basicTestBatch-1"));
+    }
+
+    /**
      * Tests the handling of the status record if the batch terminates with an error in the initialization.
      * The status must be set to "finished" if the abort occurs during initialization.
      */

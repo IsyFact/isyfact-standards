@@ -1,3 +1,9 @@
+# 3.0.0
+- `IFS-1628`: Standardmetriken bei Anbinden von ServiceStatistik vorhanden
+
+# 2.5.0
+- `IFS-1165`: Standardmäßig wird die "/Loadbalancer" Schnittstelle durch die Autokonfiguration freigegeben, wenn spring-security aktiviert ist.
+
 # 2.2.0
 - `IFS-453`: Loglevel für isAlive-Datei-Ereignisse erhöht: INFO für Standardablageort wird genutzt; ERROR für Datei existiert bei Abfrage nicht.
 - `IFS-656`: ServiceStatstik: Durchschnitt threadsafe berechnet

@@ -1,0 +1,62 @@
+= IsyFact-Whitepaper
+:icons: font
+:sectnums:
+
+include::glossary:licence:partial$licence.adoc[]
+
+== IsyFact: eine Software Factory zur effizienten Entwicklung von Anwendungen
+
+include::einstieg:page$einstieg.adoc[tags=whitepaper,leveloffset=1]
+
+[[die-fuenf-saeulen]]
+== Die fünf Säulen der IsyFact
+
+*Die IsyFact umfasst: Blaupausen, Bausteine, eine Betriebsplattform, methodische Vorgaben zum Software-Engineering und Entwicklungswerkzeuge.*
+
+Die IsyFact stellt Ihre Inhalte strukturiert in fünf *Säulen* zur Verfügung.
+
+include::einstieg:page$vorstellung.adoc[tags=whitepaper]
+
+.Die fünf Säulen der IsyFact
+image::einstieg:sf-saeulen.dn.svg[]
+
+Die folgenden Abschnitte beschreiben die einzelnen Säulen im Detail.
+
+[[blaupausen]]
+=== Blaupausen
+
+include::blaupausen:page$blaupausen.adoc[tag=whitepaper,leveloffset=2]
+
+[[bausteine]]
+=== Bausteine
+
+include::bausteine:page$bausteine.adoc[tag=whitepaper,leveloffset=2]
+
+[[plattform]]
+=== Plattform
+
+include::plattform:page$plattform.adoc[tag=whitepaper,leveloffset=2]
+
+[[methodik]]
+=== Methodik
+
+include::methodik:page$methodik.adoc[tag=whitepaper,leveloffset=2]
+
+[[werkzeuge]]
+=== Werkzeuge
+
+include::werkzeuge:page$werkzeuge.adoc[tag=whitepaper,leveloffset=2]
+
+[[produktueberblick]]
+== Produktüberblick
+
+include::einstieg:page$produkte.adoc[tag=whitepaper]
+
+[[uebersicht-isyfact-standards]]
+== Übersicht IsyFact-Standards
+
+Die IsyFact-Standards sind an folgenden Orten dokumentiert:
+
+* xref:glossary:literaturextern:inhalt.adoc#litextern-url-isyfact-bva[Webseite des Bundesverwaltungsamts zur IsyFact],
+* xref:glossary:literaturextern:inhalt.adoc#litextern-url-isyfact-online-docs[Online-Dokumentation der IsyFact],
+* xref:glossary:literaturextern:inhalt.adoc#litextern-url-isyfact-github[Quellcode der IsyFact auf GitHub].

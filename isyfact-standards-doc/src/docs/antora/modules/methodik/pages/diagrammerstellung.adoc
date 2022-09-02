@@ -1,5 +1,5 @@
 = Diagrammerstellung und Modellierung
-:sectnums:
+
 :experimental:
 
 include::glossary:licence:partial$licence.adoc[]

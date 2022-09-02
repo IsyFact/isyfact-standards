@@ -1,6 +1,4 @@
 = IsyFact-Standards
-:icons: font
-:sectnums:
 
 include::glossary:licence:partial$licence.adoc[]
 
@@ -45,15 +43,14 @@ Die fachliche Architektur der Geschäftsanwendungen wird in Spezifikationen doku
 ==== Vorgaben für die Spezifikation
 
 Systemspezifikationen besitzen eine festgelegte Form und beschreiben stets gleichartige Inhalte.
-Die Vorgaben dazu befinden sich mitsamt Vorgehen und Beispielen in der Vorlage für die Systemspezifikation (<<TODO anderes Dokument: IsyFactSystemspezifikation>>).
+Die Vorgaben dazu befinden sich mitsamt Vorgehen und Beispielen in der Vorlage für die xref:methodik:vorlagen.adoc#dokumentation-anwendung[Systemspezifikation].
 Bereits bei der Systemspezifikation ist auf die Einhaltung der xref:methodik:namenskonventionen/master.adoc#einleitung[Namenskonventionen] zu achten.
 Bei der Erstellung von Diagrammen mit dem Enterprise Architect helfen die xref:methodik:diagrammerstellung/enterprise-architect.adoc[Nutzungsvorgaben Enterprise Architect].
 
-Für die Erfassung von Anforderungslisten gibt es ebenfalls eine Vorlage (<<TODO anderes Dokument: IsyFactVorlageAnforderungsliste>>).
+Für die Erfassung von Anforderungslisten gibt es ebenfalls eine xref:methodik:vorlagen.adoc#anforderungsliste[Vorlage] mit Erläuterungen.
 Die Anforderungsliste ist ein Instrument, um die Übersicht und die Nachvollziehbarkeit des Umsetzungsstatus aller Anforderungen an ein System im gesamten Projektlebenszyklus zu erhalten.
-Weitere Erläuterungen finden sich in der Vorlage.
 
-Im Dokument <<TODO anderes Dokument: AnleitungDatenflussdiagramme>> wird die Erstellung von Datenflussdiagrammen beschrieben und eine Leseanleitung dazu geliefert.
+Die xref:methodik:vorlagen.adoc#datenflussdiagramm[Vorlage zu Datenflussdiagrammen] beschreibt die Erstellung von Datenflussdiagrammen und liefert eine Leseanleitung dazu.
 
 [[vorgaben-fuer-die-t-architektur]]
 === Vorgaben für die T-Architektur
@@ -78,7 +75,7 @@ Eine beispielhafte Umsetzung eines IT-Systems zeigt die xref:glossary:literature
 
 Datenzugriff::
 Der Datenzugriff erfolgt über JPA.
-Das xref:blaupausen:detailkonzept-komponente-datenzugriff/master.adoc#Einleitung[Detailkonzept Komponente Datenzugriff] legt die genaue Verwendung von JPA fest und beschreibt die Prinzipien sowie das Vorgehen zur Persistierung von Datenmodellen.
+Das xref:blaupausen:detailkonzept-komponente-datenzugriff/einordnung-ziele.adoc[] legt die genaue Verwendung von JPA fest und beschreibt die Prinzipien sowie das Vorgehen zur Persistierung von Datenmodellen.
 
 Anwendungskern::
 Der Anwendungskern setzt die Fachlichkeit mittels Fachkomponenten um.
@@ -98,7 +95,7 @@ Die konkrete Umsetzung mit dem Service-Framework HTTP Invoker sind im xref:isy-s
 GUI::
 Grafische Oberflächen bieten fachliche Operationen nach außen an und stellen sie Anwendern zur Nutzung bereit.
 Ihre Umsetzung geschieht als Web-GUI und folgt dem MVC-Pattern.
-Die genauen Festlegungen zur Web-GUI-Entwicklung finden sich im Dokument xref:blaupausen:detailkonzept-komponente-web-gui/master.adoc#Einleitung[Detailkonzept Komponente Web-GUI].
+Die genauen Festlegungen zur Web-GUI-Entwicklung finden sich im xref:blaupausen:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Komponente Web-GUI].
 
 Die Erstellung von IT-Systemen wird durch einen Systementwurf konkretisiert und dokumentiert.
 
@@ -110,7 +107,7 @@ Die Vorgaben dazu befinden sich mitsamt Vorgehen und Beispielen in der Vorlage f
 Zur Konstruktion des IT-Systems, also den eigentlichen Inhalten des Systementwurfs, existieren eine Reihe von Dokumenten, die inhaltliche Vorgaben machen.
 Neben der Referenzarchitektur sind dies vor allem die <<bausteine-der-isyfact-standards,Bausteine>>, die wesentliche Vorgaben zur technischen Umsetzung ihrer jeweiligen Funktionalität enthalten.
 
-Die wichtigsten Entscheidungen zu den zu nutzenden Produkten sind im <<TODO anderes Dokument: ProduktKatalog>> festgelegt.
+Die wichtigsten Entscheidungen zu den zu nutzenden Produkten sind im xref:einstieg:produkte.adoc#produktkatalog[Produktkatalog] festgelegt.
 IT-Systeme müssen auf Basis dieser Produkte und Bibliotheken gebaut werden.
 
 [[vorgaben-fuer-die-ti-architektur]]
@@ -118,7 +115,7 @@ IT-Systeme müssen auf Basis dieser Produkte und Bibliotheken gebaut werden.
 Die Architektur der technischen Infrastruktur wird auf Grundlage der Spezifikation und des Entwurfs entwickelt.
 
 Die Grundlagen der TI-Architektur auf Ebene von Anwendungslandschaften und Anwendungssystemen ist in  der xref:blaupausen:referenzarchitektur/master.adoc#einleitung[Referenzarchitektur] beschrieben.
-Die zu verwendende Infrastruktur ist zum Teil durch den <<TODO anderes Dokument: ProduktKatalog>> vorgegeben.
+Die zu verwendende Infrastruktur ist zum Teil durch den xref:einstieg:produkte.adoc#produktkatalog[Produktkatalog] vorgegeben.
 
 [[vorgaben-fuer-das-systemhandbuch]]
 ==== Vorgaben für das Systemhandbuch
@@ -130,8 +127,8 @@ Sie enthält außerdem das Vorgehen zur Erstellung und Beispiele für die zu bes
 == Vorgaben für die Realisierung
 
 Die Realisierung hat gemäß den xref:methodik:java-programmierkonventionen/master.adoc#einleitung[Java Programmierkonventionen] zu erfolgen.
-Die Versionierung von Bibliotheken und Anwendungen muss sich nach den Vorgaben zur xref:werkzeuge:versionierungskontrolle/master.adoc#maven-plugin-versionierungskontrolle[IsyFact Versionierung] richten, die im Wesentlichen auf xref:glossary:literaturextern:inhalt.adoc#litextern-Semantic-Versioning[Semantic Versioning] basieren.
-Für die Entwicklungsumgebung gelten wenige Vorgaben, die in xref:werkzeuge:einrichtung_entwicklungsumgebung/master.adoc#einleitung[IsyFact Einrichtung Entwicklungsumgebung] zusammengefasst sind.
+Die Versionierung von Bibliotheken und Anwendungen muss sich nach den Vorgaben zur xref:werkzeuge:versionierungskontrolle/master.adoc#maven-plugin-versionierungskontrolle[IsyFact Versionierung] richten, die im Wesentlichen auf xref:glossary:literaturextern:inhalt.adoc#litextern-semantic-versioning[Semantic Versioning] basieren.
+Für die Entwicklungsumgebung gelten wenige Vorgaben, die in xref:werkzeuge:entwicklungsumgebung/master.adoc#einleitung[IsyFact Einrichtung Entwicklungsumgebung] zusammengefasst sind.
 
 Die Bibliotheken der IsyFact werden als JAR (Java Archive) bereitgestellt und können über ihre Maven-Koordinaten leicht als Abhängigkeit in die Anwendungsentwicklung eingebunden werden.
 
@@ -162,7 +159,7 @@ Weiterhin wird in diesem Dokument gezeigt, wie die Überwachung und Administrati
 [[behandlung-von-internationalen-sonderzeichen]]
 === Behandlung von internationalen Sonderzeichen
 Geschäftsanwendungen müssen zum Teil mit Einträgen umgehen, die nicht den geläufigen Zeichenstandards und Codierungen unterliegen.
-Im Dokument xref:isy-sonderzeichen:konzept/master.adoc#einleitung[Konzept Sonderzeichen] werden Festlegungen getroffen, wie mit daraus resultierenden Problemstellungen umgegangen wird.
+Im Dokument xref:isy-sonderzeichen:konzept/sonderzeichen.adoc#einleitung[Konzept Sonderzeichen] werden Festlegungen getroffen, wie mit daraus resultierenden Problemstellungen umgegangen wird.
 In diesem Zusammenhang müssen oft auch Namen transkribiert werden.
 Die dafür zu verwendenden Regeln sind ebenfalls im Dokument enthalten.
 

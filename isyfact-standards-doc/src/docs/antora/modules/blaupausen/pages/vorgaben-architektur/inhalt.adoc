@@ -6,17 +6,15 @@
 include::blaupausen:page$referenzarchitektur/inhalt.adoc[tags=architekturregel]
 include::blaupausen:page$referenzarchitektur-it-system/inhalt.adoc[tags=architekturregel]
 include::einstieg:page$tutorial/inhalt.adoc[tags=architekturregel]
-include::einstieg:page$whitepaper/inhalt.adoc[tags=architekturregel]
 
 include::blaupausen:page$detailkonzept-komponente-anwendungskern/inhalt.adoc[tags=architekturregel]
 include::blaupausen:page$detailkonzept-komponente-batch/inhalt.adoc[tags=architekturregel]
-include::blaupausen:page$detailkonzept-komponente-datenzugriff/inhalt.adoc[tags=architekturregel]
 include::blaupausen:page$detailkonzept-komponente-service/inhalt.adoc[tags=architekturregel]
 include::blaupausen:page$detailkonzept-komponente-web-gui/inhalt.adoc[tags=architekturregel]
 
 include::isy-exception-core:page$konzept/inhalt.adoc[tags=architekturregel]
 include::isy-exception-core:page$nutzungsvorgaben/inhalt.adoc[tags=architekturregel]
-include::isy-sonderzeichen:page$konzept/inhalt.adoc[tags=architekturregel]
+include::isy-sonderzeichen:page$konzept/sonderzeichen.adoc[tags=architekturregel]
 include::isy-sonderzeichen:page$nutzungsvorgaben/inhalt.adoc[tags=architekturregel]
 
 include::isy-datetime:page$konzept/inhalt.adoc[tags=architekturregel]

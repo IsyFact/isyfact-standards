@@ -41,7 +41,6 @@
         <module>isy-logging</module>
         <module>isy-persistence</module>
         <module>isy-polling</module>
-        <module>isy-service-rest</module>
         <module>isy-serviceapi-core</module>
         <module>isy-sicherheit</module>
         <module>isy-task</module>
@@ -84,6 +83,10 @@
 
         <!-- Pfade für Dokumentation -->
         <isy.doku.standards.bausteine>10_IsyFact-Standards/20_Bausteine</isy.doku.standards.bausteine>
+
+        <!-- Maven plugins for static information -->
+        <!-- Update to 5.0.0 when using java 11 -->
+        <git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
     </properties>
 
     <build>
@@ -310,6 +313,40 @@
                         </execution>
                     </executions>
                 </plugin>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>build-info</id>
+                            <goals>
+                                <goal>build-info</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>pl.project13.maven</groupId>
+                    <artifactId>git-commit-id-plugin</artifactId>
+                    <version>${git-commit-id-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>get-the-git-infos</id>
+                            <goals>
+                                <goal>revision</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <generateGitPropertiesFile>true</generateGitPropertiesFile>
+                        <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
+                        <includeOnlyProperties>
+                            <includeOnlyProperty>git.commit.id.abbrev</includeOnlyProperty>
+                            <includeOnlyProperty>git.commit.time</includeOnlyProperty>
+                            <includeOnlyProperty>git.branch</includeOnlyProperty>
+                        </includeOnlyProperties>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -493,6 +530,41 @@
     </reporting>
 
     <profiles>
+        <profile>
+            <id>copyReleaseConfiguration</id>
+            <activation>
+                <file>
+                    <exists>src/main/resources/config/release/</exists>
+                </file>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <executions>
+                            <!-- Copy the release configuration to the config directory -->
+                            <execution>
+                                <id>process-resources</id>
+                                <phase>process-resources</phase>
+                                <configuration>
+                                    <target>
+                                        <echo message="Kopiere Release-Konfigurationen aus config/release nach config/..."/>
+                                        <move todir="${project.build.directory}/classes/config/"
+                                              failonerror="true" overwrite="true">
+                                            <fileset dir="${project.build.directory}/classes/config/release"/>
+                                        </move>
+                                    </target>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
         <!-- Profile to avoid SNAPSHOT-versions in releases. -->
         <profile>
             <id>release</id>

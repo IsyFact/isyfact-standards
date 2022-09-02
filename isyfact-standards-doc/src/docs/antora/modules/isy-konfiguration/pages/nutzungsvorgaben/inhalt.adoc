@@ -88,7 +88,7 @@ Die Konfigurationswerte werden dabei in Java Standard-Typen (`String`, `int`, `b
 Für Zeitdauern, Zeitperioden und Dateigrößen wird eine erweiterte Syntax für die Konfigurationswerte verwendet.
 Die Werte dieser Konfigurationstypen werden automatisch in die komplexen Datentypen `Duration`, `Period` und `DataSize` umgewandelt.
 
-NOTE: Details hierzu können in der xref:glossary:literaturextern:inhalt.adoc#litextern-Spring-Boot-Properties-Conversion[Spring Boot Dokumentation zu "Properties Conversion"] nachgelesen werden.
+NOTE: Details hierzu können in der xref:glossary:literaturextern:inhalt.adoc#litextern-spring-boot-properties-conversion[Spring Boot Dokumentation zu "Properties Conversion"] nachgelesen werden.
 
 Zur Überprüfung der Konfigurationswerte sollte Bean Validation eingesetzt werden.
 Damit können Werte auf Vorhandensein und korrektes Format geprüft werden.
@@ -154,8 +154,8 @@ Dabei kann auch gleich das Vorhandensein der Einstellung geprüft werden, d.h., 
 
 Konfigurationen, welche durch die Anwendung geschrieben werden, sind in der Datenbank abzulegen.
 Die Tabellen hierfür sind Teil des Datenmodells der Anwendung.
-Der Zugriff erfolgt genau wie der auf die übrigen Entitätstypen.
-Für weitere Details siehe xref:blaupausen:detailkonzept-komponente-datenzugriff/master.adoc#Einleitung[Detailkonzept Komponente Datenzugriff].
+Der Zugriff erfolgt genau wie der auf die übrigen Entitäten.
+Für weitere Details siehe xref:isy-persistence:nutzungsvorgaben/umsetzung-datenzugriff.adoc[].
 
 [[verwendung-von-isy-konfiguration]]
 === Verwendung von isy-konfiguration
@@ -174,7 +174,7 @@ Die Liste der Property-Dateien, die von `isy-konfiguration` gelesen werden solle
 
 .Property zur Konfiguration von isy-konfiguration
 [id="listing-isykonfigurationproperty",reftext="{listing-caption} {counter:listings }"]
-[source]
+[source,properties]
 ----
 isy.konfiguration.properties = /config/A.properties, /config/B.properties
 ----
@@ -311,7 +311,7 @@ Dort wird die Datei automatisch von Tomcat gefunden und verwendet.
 [[umsetzen-des-auskunftsmodus]]
 ==== Umsetzen des Auskunftsmodus
 
-In jeder xref:glossary:glossary:master.adoc#glossar-Geschaeftsanwendung[Geschäftsanwendung] muss ein Auskunftsmodus implementiert werden.
+In jeder xref:glossary:glossary:master.adoc#glossar-geschaeftsanwendung[Geschäftsanwendung] muss ein Auskunftsmodus implementiert werden.
 In diesem Modus dürfen keine bestandsverändernden Aktionen möglich sein.
 Rein lesende Operationen sind weiterhin erlaubt.
 

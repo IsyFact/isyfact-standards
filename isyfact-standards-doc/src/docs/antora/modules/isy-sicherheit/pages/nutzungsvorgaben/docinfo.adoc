@@ -1,8 +1,8 @@
 *Java Bibliothek / IT-System*
 
-[cols="5,2,3"]
+[cols="5,2,3",options="header"]
 |====
 |Name |Art |Version
-|`isy-sicherheit` |Bibliothek |siehe `isyfact-bom` v{version-ifs}
-|`isy-aufrufkontext` |Bibliothek |siehe `isyfact-bom` v{version-ifs}
+m|isy-sicherheit |Bibliothek |v{page-component-version}
+m|isy-aufrufkontext |Bibliothek |v{page-component-version}
 |====

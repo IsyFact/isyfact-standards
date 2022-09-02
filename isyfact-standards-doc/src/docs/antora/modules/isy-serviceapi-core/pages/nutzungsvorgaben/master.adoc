@@ -1,9 +1,4 @@
-
-:doctitle: HTTP Invoker
-[discrete]
-=== Nutzungsvorgaben
-
-:sectnums:
+= Nutzungsvorgaben HttpInvoker
 
 include::glossary:licence:partial$licence.adoc[]
 

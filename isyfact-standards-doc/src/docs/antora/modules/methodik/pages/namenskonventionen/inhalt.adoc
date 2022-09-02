@@ -5,7 +5,7 @@
 == Namenskonventionen
 
 Dieser Abschnitt beschreibt die Namenskonventionen der IsyFact.
-In komplexen Anwendungslandschaften werden xref:glossary:glossary:master.adoc#glossar-Anwendungssystem[Anwendungssysteme] in der Regel in funktionale Kategorien eingeordnet und typisiert (bspw. Register und Geschäftsanwendungen).
+In komplexen Anwendungslandschaften werden xref:glossary:glossary:master.adoc#glossar-anwendungssystem[Anwendungssysteme] in der Regel in funktionale Kategorien eingeordnet und typisiert (bspw. Register und Geschäftsanwendungen).
 Bei weniger komplexen Kontexten, in denen nur eine einzige oder wenige Geschäftsanwendungen existieren, wird meist allgemein von „Geschäftsanwendungen“ gesprochen.
 
 In folgenden Vorgaben wird daher zwischen Geschäftsanwendungen und Registern unterschieden.
@@ -54,9 +54,9 @@ m|<verfahren> |Der (Kurz)name des Verfahrens/Anwendungsbereichs.
 === Spezifikation
 
 In diesem Kapitel werden die Namenskonventionen der Spezifikation festgehalten.
-Sie sind vor allem der Systemspezifikationsvorlage <<TODOIsyFactSystemspezifikation>> entnommen.
+Sie sind vor allem der xref:vorlagen.adoc#dokumentation-anwendung[Vorlage zur Systemspezifikation] entnommen.
 
-[[geschäftsprozess]]
+[[geschaeftsprozess]]
 ==== Geschäftsprozess
 
 .Geschäftsprozess
@@ -68,7 +68,7 @@ Sie sind vor allem der Systemspezifikationsvorlage <<TODOIsyFactSystemspezifikat
 |*Beispiele* |GEP_Akte_Suchen
 |====
 
-[[geschäftsvorfall]]
+[[geschaeftsvorfall]]
 ==== Geschäftsvorfall
 
 .Geschäftsvorfall
@@ -80,7 +80,7 @@ Sie sind vor allem der Systemspezifikationsvorlage <<TODOIsyFactSystemspezifikat
 |*Beispiele* |GVF_Akte_Suchen
 |====
 
-[[aktivität]]
+[[aktivitaet]]
 ==== Aktivität
 
 .Aktivität
@@ -200,7 +200,7 @@ Sie sind vor allem der Systemspezifikationsvorlage <<TODOIsyFactSystemspezifikat
 |*Beispiele* |MKO_Basisdaten
 |====
 
-[[entitätstyp]]
+[[entitaetstyp]]
 ==== Entitätstyp
 
 .Entitätstyp
@@ -236,7 +236,7 @@ Sie sind vor allem der Systemspezifikationsvorlage <<TODOIsyFactSystemspezifikat
 |*Beispiele* |MAS_Treffer_Anzeige
 |====
 
-[[druckstück]]
+[[druckstueck]]
 ==== Druckstück
 
 .Druckstück
@@ -260,7 +260,7 @@ Sie sind vor allem der Systemspezifikationsvorlage <<TODOIsyFactSystemspezifikat
 |*Beispiele* |NST_Meldung
 |====
 
-[[schnittstellenentitätstyp]]
+[[schnittstellenentitaetstyp]]
 ==== Schnittstellenentitätstyp
 
 .Schnittstellenentitätstyp
@@ -335,7 +335,19 @@ m|<verfahren> |Der (Kurz)name des Verfahrens/Anwendungsbereichs.
 [[servicegateway]]
 ===== Servicegateway
 
-include::servicegateway.adoc[tag=namenskonvention]
+.Name eines Servicegateways
+[id="table-namsgw",reftext="{table-caption} {counter:tables}"]
+[cols="1,4",options="header"]
+|====
+2+|Name eines Servicegateways
+|*Schemata* m|<verfahren>-sgw +
+<verfahren>-<zielverfahren>-sgw
+|*Beispiele* m|xyz-sgw +
+xyz-dienstabc-sgw
+|*Variable* |*Mögliche Ausprägungen*
+m|<verfahren> |Der (Kurz)name des Verfahrens/Anwendungsbereichs.
+m|<zielverfahren> |Der (Kurz)name des Verfahrens/Anwendungsbereichs, mit dem dieser SGW kommuniziert bzw. für den er eine Schnittstelle bereitstellt.
+|====
 
 [[mailgateway]]
 ===== Mailgateway
@@ -409,11 +421,21 @@ m|<komponente> |Der Name der technischen Komponente: meist `gui` für eine ausge
 
 Der Name einer Web-Applikation (Webapp-Root) ist immer gleich dem technischen Systemnamen (siehe Abschnitt <<technische-systemnamen>>)
 
-
-
 [[persistenz]]
 ==== Persistenz
-include::blaupausen:page$detailkonzept-komponente-datenzugriff/inhalt.adoc[tag=namenskonvention]
+include::isy-persistence:page$konzept/vorgaben-konventionen.adoc[tag=namenskonvention]
+
+===== Umsetzung des Datenzugriffs
+
+include::isy-persistence:page$nutzungsvorgaben/umsetzung-datenzugriff.adoc[tag=namenskonvention]
+
+===== Historisierung
+
+include::isy-persistence:page$nutzungsvorgaben/historisierung.adoc[tag=namenskonvention]
+
+===== Versionierung
+
+include::isy-persistence:page$nutzungsvorgaben/versionierung.adoc[tag=namenskonvention]
 
 ===  Anwendungskern
 include::blaupausen:page$detailkonzept-komponente-anwendungskern/inhalt.adoc[tag=namenskonvention]
@@ -423,15 +445,108 @@ include::blaupausen:page$detailkonzept-komponente-anwendungskern/inhalt.adoc[tag
 include::blaupausen:page$detailkonzept-komponente-batch/inhalt.adoc[tag=namenskonvention]
 
 [[schnittstellen]]
-=== Externe Schnittstellen aus Sicht der Anwendung
+=== Externe Schnittstellen
+[[rest-schnittstellen]]
+==== REST-Schnittstellen
+include::isy-service-rest:page$konzept/inhalt.adoc[tag=namenskonvention]
+
+[[http-invoker-schnittstellen]]
+==== Http-Invoker Schnittstellen
 include::isy-serviceapi-core:page$konzept/inhalt.adoc[tag=namenskonvention]
 
 [[web-gui]]
-==== Web-GUI
+=== Web-GUI
 include::blaupausen:page$detailkonzept-komponente-web-gui/inhalt.adoc[tag=namenskonvention]
 
 [[deploymentbetrieb-von-anwendungen]]
 === Deployment/Betrieb von Anwendungen
-include::deployment.adoc[tag=namenskonvention]
+
+[[rpm-pakete]]
+==== RPM-Pakete
+
+Für die Benennung von RPM-Paketen existiert eine Konvention, welche durch den RPM-Standard vorgeben wird.
+
+NOTE: Siehe xref:glossary:literaturextern:inhalt.adoc#litextern-rpm-packaging-guide[RPM Packaging Guide]
+
+.RPM-Pakete
+[id="table-rpmpak",reftext="{table-caption} {counter:tables}"]
+[cols="1,4",options="header"]
+|====
+2+|RPM-Pakete
+|*Schema* m|<paketname>-<versionsnummer>-<build-version>.<architektur>.rpm
+|*Beispiele* m|isy-geschaeftsanwendung-batch-1.2.0-01.noarch.rpm
+|*Variable* |*Mögliche Ausprägungen*
+m|<paketname> a|
+Name der Deployment-Einheit.
+Setzt sich in der Regel aus einem Präfix für die Anwendungslandschaft (<awl>) und dem Anwendungsnamen (siehe Kapitel 2.1.1) zusammen.
+Deployment-Einheiten der Anwendungslandschaft IsyFact besitzen z.B. das Präfix „isy“.
+
+Beispiel:
+
+* `<awl>-fachanwendung-gk-...`
+* `<awl>-fachanwendung-gkbatch-...`
+
+m|<versionsnummer> |Versionsnummer der Deployment-Einheit, z.B. „1.2.0“. Die Versionierung basiert auf Semantic Versioning und ist im Konzept xref:methodik:versionierung/master.adoc[IsyFact Versionierung] beschrieben.
+m|<build-version> a|
+Hier wird die Build-Nummer eingesetzt.
+Sie wird bei dem Bau jeder Auslieferungsversion (insbesondere auch bei Nachlieferungen) erhöht.
+
+Während der Entwicklung (Continuous Integration) wird hier eine laufende Nummer (Revisionsnummer der Versionsverwaltung, laufende Buildnummer des CI-Servers etc.) eingesetzt.
+
+m|<architektur> |Gibt die Systemarchitektur an, für welche das Paket erstellt wurde.
+Da IsyFact-konforme Anwendungen in Java erstellt werden, wird hier immer „noarch“ eingesetzt.
+Sollten Anwendungen Architektur-spezifische Bestandteile enthalten, wird hier die vom RPM-Standard vorgegebene Architektur-Bezeichnung eingesetzt.
+|====
+
+[[installationspfade]]
+==== Installationspfade
+
+Die Installationspfade sind ausführlich im Konzept beschrieben.
+
+.Installationspfade – Anwendung
+[id="table-instpathanw",reftext="{table-caption} {counter:tables}"]
+[cols="1,4",options="header"]
+|====
+2+|Installationspfade – Anwendung
+|*Schema* m|/opt/<rpm-paketname> (Anwendungsbasis) +
+/opt/<rpm-paketname>/bin (Skript-Verzeichnis) +
+/opt/<rpm-paketname>/tomcat (Tomcat) +
+/opt/<rpm-paketname>/tomcat/webapps/<name> (Basis der Webapp)
+|*Beispiele* m|/opt/isy-xyz-anwendung +
+/opt/isy-xyz-anwendung /bin +
+/opt/isy-xyz-anwendung /tomcat +
+/opt/isy-xyz-anwendung /tomcat/webapp/xyz-anwendung
+2+|*Installationspfade – Logdateien*
+|*Schema* m|/var/log/<rpm-paketname>
+|*Beispiele* m|/var/log/isy-xyz-anwendung
+2+|*Installationspfade – Betriebliche Konfiguration*
+|*Schema* m|/etc/<rpm-paketname>
+|*Beispiele* m|/etc/isy-xyz-anwendung
+|====
+
+[[dokumentation]]
+=== Dokumentation
+
+Auch für die Dokumentation gelten Namenskonventionen.
+Wenn nicht gesondert beschrieben, gelten folgende Konventionen für alle Namen, die der Ablage der Dokumentation dienen und keine Anzeigenamen sind, also z.B. Dateinamen inkl. Asciidoc- und Bild-Dateien, Verzeichnisnamen, Namen für Antora-Komponenten und -Module und Anchor.
+Mit Kleinbuchstaben sind Kleinbuchstaben ohne Umlaute und Sonderzeichen gemeint.
+Ferner sind keine Füllwörter erlaubt (wie z.B. und, oder, fuer).
+Die Namen sollten den Inhalt widerspiegeln.
+
+NOTE: Bei einigen Namen in der IsyFact-Dokumentation ist die Umstellung der Namen gemäß Namenskonvention noch in Arbeit.
+
+[[table-namenskonvention-dokumentation]]
+.Namensschema für Dokumentation (keine Anzeigenamen)
+[cols="1s,4m",options="header"]
+|====
+2+|Namen in Dokumentation
+|Schema |Kleinbuchstabe<beliebig: Kleinbuchstaben, Bindestriche, einzelne Ziffern, wenn unbedingt nötig>
+|Beispiel |isyfact-standards
+|falsch |_isyfact, IsyFact, isyfact standards, lösung, standards-und-erweiterungen
+|====
+
+[[dokumentation-glossar]]
+==== Spezielle Namensschemata Dokumentation
+include::werkzeuge:page$dokumentation/bearbeitung/bearbeitung-antora.adoc[tag=namenskonvention]
 
 // end::inhalt[]

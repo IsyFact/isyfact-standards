@@ -1,6 +1,14 @@
 [[changelog]]
 = Changelog
 
+*Änderungen IsyFact 2.5.0*
+
+// tag::release-2.5.0[]
+
+* `IFS-1609`: Standardisierte Übertragung von Metadaten dokumentiert.
+
+// end::release-2.5.0[]
+
 // *Änderungen IsyFact 2.4.0*
 
 // tag::release-2.4.0[]

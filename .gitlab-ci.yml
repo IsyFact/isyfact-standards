@@ -2,17 +2,11 @@ include:
   - project: 'IsyFact/isy-gitlabci-templates'
     file: '/maven/.gitlab-ci-maven.yml'
 
+variables:
+  NEXT_VERSION: 3.0.0
+
 build:
   extends: .maven-build
-
-build:doc:
-  extends: .maven-build
-  variables:
-    MAVEN_BUILD_OPTS: -pl isy-service-rest -Pbuild-docs
-  artifacts:
-    expire_in: 1 day
-    paths:
-      - '**/target/doc/**'
 
 test:isy-aufrufkontext:
   extends: .maven-test

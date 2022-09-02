@@ -178,11 +178,11 @@ Neben seiner Kern-Funktionalität der Verwaltung, Konfiguration und aspektorient
 Die IsyFact verwendet ausgewählte Funktionalitäten des Spring-Frameworks in der Anwendungsentwicklung.
 Die Verwendung dieser Funktionalitäten ist in den Blaupausen und Bausteinen wie folgt beschrieben:
 
-* Die Konfiguration der Datenzugriffsschicht, beschrieben im xref:detailkonzept-komponente-datenzugriff/master.adoc[Detailkonzept Komponente Datenzugriff].
-* Die Konfiguration des Loggings über Spring, beschrieben in den xref:isy-logging:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Logging].
-* Die Bereitstellung von Metriken zur Überwachung, beschrieben im xref:isy-ueberwachung:konzept/master.adoc#einleitung[Konzept Überwachung].
-* Die Verwendung der Schnittstellentechnologie HTTP Invoker, beschrieben im xref:isy-serviceapi-core:konzept/master.adoc#einleitung[Konzept HTTP-Invoker].
-* Die Implementierung von Dialogen und Masken erfolgt mit JSF und Spring-Webflow, beschrieben im Dokument xref:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Komponente Web-GUI].
+* Konfiguration der Datenzugriffsschicht: beschrieben im xref:isy-persistence:nutzungsvorgaben/umsetzung-datenzugriff.adoc[Nutzungskonzept des Bausteins JPA/Hibernate],
+* Konfiguration des Logging über Spring: beschrieben in den xref:isy-logging:nutzungsvorgaben/master.adoc[],
+* Bereitstellung von Metriken zur Überwachung: beschrieben im xref:isy-ueberwachung:konzept/master.adoc[],
+* Verwendung der Schnittstellentechnologie HttpInvoker: beschrieben im xref:isy-serviceapi-core:konzept/master.adoc[],
+* Implementierung von Dialogen und Masken mit JSF und Spring-Webflow: beschrieben im xref:detailkonzept-komponente-web-gui/master.adoc[].
 
 Alle anderen Spring-Funktionalitäten (Validierung über Spring, Emailing, Thread Pooling, Scripting) werden nicht verwendet.
 
@@ -486,13 +486,6 @@ public class CoreConfig
 ----
 
 Durch diese Konfiguration erzeugt Spring passende AOP-Proxies, welche die Transaktionssteuerung übernehmen.
-Außerdem wird standardmäßig der `JpaTransactionManager` verwendet, passend zur Implementierung des Datenzugriffs.
-
-[NOTE]
-====
-Die Abhängigkeiten des `JpaTransactionManager` kommen aus der Datenzugriffsschicht.
-Weitere Details sind im xref:detailkonzept-komponente-datenzugriff/master.adoc[Detailkonzept Komponente Datenzugriff] beschrieben.
-====
 
 [[aspektorientierte-programmierung-in-spring]]
 === Aspektorientierte Programmierung in Spring
