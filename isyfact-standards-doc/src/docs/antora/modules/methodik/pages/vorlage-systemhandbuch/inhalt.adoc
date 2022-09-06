@@ -130,16 +130,16 @@ image::methodik:vorlage-systemhandbuch/fachlicher-kontext.dn.svg[]
 NOTE: Weitere fachliche Details können in der <<Systemspezifikation>> nachgelesen werden.
 
 ====
-_Inhalt_::
+Inhalt::
 
 * _Sehr kurze zusammenfassende fachliche Darstellung der Anwendung._
 * _Darstellung des fachlichen Kontextes._
 * _Verweis auf aktuelle Version der Systemspezifikation._
 
-_Quelle_::
+Quelle::
 _Systemspezifikation (Extrakt aus Einleitung / Überblick & fachlicher Kontext)_
 
-_Dokumentationsform_::
+Dokumentationsform::
 _Freitext, fachliches Kontextdiagramm_
 ====
 
@@ -153,14 +153,14 @@ Die Anwendung {anwendung} hat folgende Anwendergruppen:
 * ...
 
 ====
-_Inhalt_::
+Inhalt::
 _Sehr knappe Zusammenfassung der Anwendergruppen und ihrer wichtigsten Anwendungsfälle.
 Ergänzungen können unterhalb der Liste vorgenommen werden, falls nötig._
 
-_Quelle_::
+Quelle::
 _Systemspezifikation_
 
-_Dokumentationsform_::
+Dokumentationsform::
 _Liste, Freitext_
 ====
 
@@ -172,13 +172,13 @@ Die Anwendung {anwendung} setzt die folgenden Anwendungsfälle um.
 [Name des Anwendungsfalls]:: [Beschreibung des Anwendungsfalls in einem Satz].
 
 ====
-_Inhalt_::
+Inhalt::
 _Sehr knappe Zusammenfassung der Anwendungsfälle: Name und ein beschreibender Satz._
 
-_Quelle_::
+Quelle::
 _Systemspezifikation_
 
-_Dokumentationsform_::
+Dokumentationsform::
 _Liste_
 ====
 
@@ -194,15 +194,15 @@ image::vorlage-systemhandbuch/technischer-kontext.dn.svg[]
 NOTE: Weitere technische Details können im <<Systementwurf>> nachgelesen werden.
 
 ====
-_Inhalt_::
+Inhalt::
 * _Sehr kurze zusammenfassende technische Darstellung der Anwendung._
 * _Darstellung des technischen Kontextes._
 * _Verweis auf aktuelle Version der Systemspezifikation._
 
-_Quelle_::
+Quelle::
 _Systementwurf (Extrakt aus Einleitung / Überblick & technischer Kontext)_
 
-_Dokumentationsform_::
+Dokumentationsform::
 _Freitext, technisches Kontextdiagramm_
 ====
 
@@ -239,15 +239,15 @@ Die Laufzeitumgebung für das {anwendung} besteht aus den Produkten, die in folg
 |===
 
 ====
-_Inhalt_::
+Inhalt::
 _Übersicht über alle Bestandteile der Laufzeitumgebung, die zum Betrieb der Anwendung nötig sind.
 Hierbei sind nur die direkten Abhängigkeiten aufzulisten.
 Transitive Abhängigkeiten, wie sie u.a. Betriebssysteme in der Regel darstellen, müssen nicht angegeben werden._
 
-_Quelle_::
+Quelle::
 _Systementwurf, Produktkatalog IsyFact_
 
-_Dokumentationsform_::
+Dokumentationsform::
 _Tabelle, Freitext (für weitergehende Bemerkungen)_
 ====
 
@@ -279,16 +279,16 @@ Die Anwendung {anwendung} benötigt die folgenden Nachbarsysteme, um alle Anwend
 |===
 
 ====
-_Inhalt_::
+Inhalt::
 _Übersicht über alle Nachbarsystemen, die zum Betrieb der Anwendung nötig sind.
 Neben der Tabelle sollte in einem kurzen Text für jedes Nachbarsystem der Grund der Abhängigkeit beschrieben sein._ +
 _Essenzielle Abhängigkeiten sind nötig, um die Kernfunktionalität der Anwendung bereitzustellen.
 Nicht essenzielle Abhängigkeiten hingegen bieten zusätzliche Funktionalität, falls benötigt._
 
-_Quelle_::
+Quelle::
 _Systementwurf_
 
-_Dokumentationsform_::
+Dokumentationsform::
 _Tabelle, Freitext (für weitergehende Bemerkungen)_
 ====
 
@@ -296,7 +296,7 @@ _Tabelle, Freitext (für weitergehende Bemerkungen)_
 ==== Verteilungssicht
 
 ====
-_Inhalt_::
+Inhalt::
 _Deployment-Diagramm des Systems mit grober Erklärung. +
 Folgende Aspekte sind im Diagramm darzustellen:_
 
@@ -309,10 +309,10 @@ Folgende Aspekte sind im Diagramm darzustellen:_
 
 _Hinweis: Das Clustering von Nachbarsystemen kann vereinfacht dargestellt werden._
 
-_Quelle_::
+Quelle::
 _Systementwurf_
 
-_Dokumentationsform_::
+Dokumentationsform::
 _Deployment-Diagramme, Tabellen, Freitext_
 ====
 
@@ -347,11 +347,11 @@ Weitere Abhängigkeiten werden durch die erforderlichen Build-Werkzeuge selbstst
 |===
 
 ====
-_Inhalt_::
+Inhalt::
 _Falls nötig, Tabelle mit weiteren Werkzeugen und Technologien vervollständigen._
 _Die obige Tabelle ist mit Vorgaben aus dem Produktkatalog gefüllt._
 
-_Dokumentationsform_::
+Dokumentationsform::
 _Tabelle_
 ====
 
@@ -385,14 +385,14 @@ Nach erfolgreichem Build befinden sich im Ordner `{it-system-ga}-deployment/targ
 In den folgenden Kapiteln wird die Installation der einzelnen Pakete näher beschrieben.
 
 ====
-_Inhalt_::
+Inhalt::
 _Für weitere Build-Schritte ggf. weitere Unterkapitel anlegen. +
 Die Anleitung soll hier vollständig sein und darf nicht auf andere Dokumente der IsyFact verweisen._
 
-_Quelle_::
+Quelle::
 _Entwicklerhandbuch_
 
-_Dokumentationsform_::
+Dokumentationsform::
 _Freitext_
 ====
 
@@ -425,14 +425,14 @@ Nach erfolgreichem Build befinden sich im jeweiligen Modul unter `target` die RP
 In den folgenden Kapiteln wird die Installation der einzelnen Pakete näher beschrieben.
 
 ====
-_Inhalt_::
+Inhalt::
 _Für weitere Build-Schritte ggf. weitere Unterkapitel anlegen. +
 Die Anleitung soll hier vollständig sein und darf nicht auf andere Dokumente der IsyFact verweisen._
 
-_Quelle_::
+Quelle::
 _Entwicklerhandbuch_
 
-_Dokumentationsform_::
+Dokumentationsform::
 _Freitext_
 ====
 
@@ -440,14 +440,14 @@ _Freitext_
 === Bau des {anwendung-sgw}
 
 ====
-_Inhalt_::
+Inhalt::
 _Build beschreiben, sofern er sich maßgeblich vom Build der GA und der Batches unterscheidet. +
 Die Anleitung soll auch hier vollständig sein und darf nicht auf andere Dokumente der IsyFact verweisen._
 
-_Quelle_::
+Quelle::
 _Entwicklerhandbuch_
 
-_Dokumentationsform_::
+Dokumentationsform::
 _Freitext_
 ====
 
@@ -458,7 +458,7 @@ _Freitext_
 Dieses Kapitel beschreibt, welche Vorbereitungen für den Betrieb der Anwendung {anwendung} in der Systemumgebung nötig sind.
 
 ====
-_Inhalt_::
+Inhalt::
 _Beschreibung grundsätzlicher Konfigurationen der Systemumgebung.
 Dazu gehören Systembenutzer, sofern sie für mehrere Systeme benötigt werden._
 +
@@ -467,10 +467,10 @@ _Ebenso werden in eigenen Kapiteln die Einrichtung bzw. Konfiguration von techni
 _Sofern Lizenz-Dateien o.Ä. benötigt werden, sollen diese ebenfalls hier aufgeführt werden. +
 Falls einzelne technische Systeme von sehr vielen Verfahren benötigt werden, ist es zweckmäßig, diese in eigene Dokumente auszulagern._
 
-_Quelle_::
+Quelle::
 _Entwicklerhandbuch, Systementwurf_
 
-_Dokumentationsform_::
+Dokumentationsform::
 _Freitext_
 ====
 
@@ -506,7 +506,7 @@ Zur Aktualisierung des Datenbankschemas steht das Skript `update-db-schema.sh` b
 Auch hier gibt es ein Skript für die Umgebungsvariablen (`01_environment.sql`), das angepasst werden muss.
 
 ====
-_Ausfüllhinweise_::
+Ausfüllhinweise::
 _Benutzt die Anwendung die Versionierung von Datenbankschemas gemäß Detailkonzept Datenzugriff *nicht*, muss statt der Kurzzusammenfassung der genaue Ablauf zum Anlegen bzw. Aktualisieren des Datenbankschemas beschrieben werden._
 ====
 
@@ -538,7 +538,7 @@ Sollten die Passwörter für die Benutzer geändert werden, sind folgende Punkte
 * Das Passwort des Nutzers `XXX_Batch_Launcher` muss mit dem Konfigurationsparameter `batch.benutzer.passwort` in der Datei `/etc/{it-system-ga}/{it-system-ga}.properties` übereinstimmen.
 
 ====
-_Ausfüllhinweise_::
+Ausfüllhinweise::
 _Spezifische Änderungen an den Dateien (z.B. Entfernen von Testbenutzern oder Anpassungen an das konkrete Deployment) müssen beschrieben werden._
 ====
 
@@ -589,13 +589,13 @@ Nach der Änderung muss der Apache neu gestartet werden.
 === Mail-Server Konfiguration
 
 ====
-_Inhalt_::
+Inhalt::
 _Beschreibung der Einrichtung des Mail-Servers, z.B. benötigte Postfächer etc._
 
-_Quelle_::
+Quelle::
 _Entwicklerhandbuch, Systementwurf_
 
-_Dokumentationsform_::
+Dokumentationsform::
 _Freitext_
 ====
 
@@ -757,13 +757,13 @@ Beispiel: +
 |===
 
 ====
-_Inhalt_::
+Inhalt::
 _Weitere Möglichkeiten der Konfiguration werden ab hier beschrieben, thematisch abgegrenzt und jeweils mit einer eigenen Tabelle dokumentiert._
 
-_Quelle_::
+Quelle::
 _Systementwurf._
 
-_Dokumentationsform_::
+Dokumentationsform::
 _Freitext & Tabellen_
 ====
 
@@ -876,13 +876,13 @@ Außerdem ist für die Batches keine Log-Rotation aktiviert.
 ==== Konfigurationsdatei `{it-system-ga}.properties`
 
 ====
-_Inhalt_::
+Inhalt::
 _Beschreibung der Unterschiede bei der Konfiguration der Batch-Anwendung_
 
-_Quelle_::
+Quelle::
 _Systementwurf_
 
-_Dokumentationsform_::
+Dokumentationsform::
 _Freitext_
 ====
 
@@ -1077,17 +1077,17 @@ Dieser Schritt ist in <<installation-default-tomcat>> beschrieben.
 ====
 *_Ausfüllhinweise_*
 
-_Inhalt_::
+Inhalt::
 _Beschreibung aller Batches zu den einzelnen IT-Systemen. +
 Wichtig ist, Abhängigkeiten zwischen den Batches zu beschreiben.
 Komplexere Abläufe sollen in Form von Batch-Ketten beschrieben werden._ +
 +
 _In der Regel wird pro Batch ein Unterkapitel angelegt._
 
-_Quelle_::
+Quelle::
 _Systementwurf_
 
-_Dokumentationsform_::
+Dokumentationsform::
 _Tabelle, Freitext, Diagramme_
 ====
 
@@ -1242,7 +1242,7 @@ Ausgenommen hiervon ist der Aufruf von HTTP Invoker Services!
 |===
 
 ====
-_Ausfüllhinweise_::
+Ausfüllhinweise::
 _Metriken, die nicht angeboten werden, müssen aus der Tabelle entfernt werden._
 _Ebenso müssen Lücken gefüllt werden, da sie anwendungsspezifisch sind._
 ====
