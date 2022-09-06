@@ -1300,7 +1300,7 @@ Nach Aktivierung von JMX stellt jeder Batch-Prozess folgende Informationen per J
 [cols="2m,6", options="header"]
 |===
 |Bezeichnung |Beschreibung
-2+d|{set:cellbgcolor:#F6F4F4}de.bund.bva.visa.common:type=Batchrahmen,name=“Batchrahmen-Verarbeitung“
+2+d|{set:cellbgcolor:#F6F4F4}de.bund.bva.visa.common:type=Batchrahmen,name="Batchrahmen-Verarbeitung"
 |{set:cellbgcolor}SaetzeGesamt |Die Gesamtanzahl der zu bearbeitenden Sätze. Falls diese nicht bekannt ist: -1
 |SaetzeVerarbeitet |Die Anzahl bereits verarbeiteter Sätze.
 |SchluesselLetzterSatz |Schlüssel des letzten verarbeiteten Satzes.
