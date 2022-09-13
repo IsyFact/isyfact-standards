@@ -426,7 +426,8 @@ Falls es Änderungen innerhalb der OpenAPI Schnittstellenspezifikation geben sol
 
 [[openapi-schnittstellenspezifikation-veroeffentlichung]]
 === Veröffentlichung
-Die OpenAPI Spezifikationen werden mit jeder Veröffentlichung (Release) ausgeliefert.
+Die OpenAPI Spezifikationen werden mit jeder Veröffentlichung (Release) der Anwendung ausgeliefert.
+Für die Auslieferung und Veröffentlichung der OpenAPI Spezifikation ergeben sich unterschiedliche Möglichkeiten, die in den folgenden Kapiteln beschrieben werden.
 
 [[openapi-schnittstellenspezifikation-artifactory]]
 ==== Artifactory
@@ -438,8 +439,8 @@ Der Zugriff auf das Artefakt ist über das entsprechende Artifactory und/oder Gi
 Antora ist eine Dokumentationspipeline, die es Dokumentations-, Produkt- und Entwicklungsteams ermöglicht, Dokumentationsseiten zu erstellen, zu verwalten und zu veröffentlichen, die in AsciiDoc erstellt und aus mehreren versionierten Repositories bezogen wurden.
 
 Mithilfe des OpenAPI Generators kann aus der (YAML Datei) xref:glossary:literaturextern:inhalt.adoc#litextern-openapi-spezifikation[OpenAPI Spezifikation] AsciiDoc generiert/erstellt werden.
-Für die Generierung von AsciiDoc-Dateien wird der OpenAPI Generator verwendet.
-Nähere und detailliertere Informationen dazu befinden sich unter dem Kapitel <<Verwendung_von_OpenAPI_Generator,Verwendung von OpenAPI Generator>>.
+Allgemeine Informationen zum OpenAPI Generator finden sich im Kapitel <<Verwendung_von_OpenAPI_Generator,Verwendung von OpenAPI Generator>>.
+Die generierten AsciiDoc-Dateien können dann in den Antora-Dokumentenbuild aufgenommen und gemeinsam mit der übrigen Dokumentation des Bausteins oder der Anwendung generiert und veröffentlicht werden.
 
 Für die Generierung der Schnittstellenbeschreibung im AsciiDoc-Format ist der Generator „asciidoc“ zu wählen. Folgende Konfigurationsparameter sind im Generator zu setzen.
 
@@ -475,50 +476,25 @@ Für die Generierung der Schnittstellenbeschreibung im AsciiDoc-Format ist der G
 |
 |===
 
-Der Build Prozess ist im Repository implementiert und dokumentiert.
+//ToDo: Ist der Antora Baustein OS?
+Für die Integration der generierten AsciiDoc-Dateien in den Antora-Dokumentenbuild verweisen wir auf die Antora Nutzungsvorgaben.
+Neben der generierten OpenAPI Spezifikation als AsciiDoc-Datei, empfehlt es sich auch die OpenAPI Spezifikation im YAML-Format im Dokumentenbuild zu verlinken.
 
-Dieser Pipeline Job generiert nach erfolgreichem Ablauf ein Dokumentations-Artefakt neben dem Quellcode.
-Dieses Verfahren ist auch als Antora Build bekannt.
-
-Zusätzlich werden die technischen Spezifikationen im darüber beschriebenen Verfahren mitgeliefert.
-Somit können Entwickler/Architekten Zugriff auf die technischen Schnittstellen-Spezifikationen im OpenAPI-Standard erhalten.
-
-Die Integration in den Antora-Build ermöglicht:
+Die Integration in den Antora-Dokumentenbuild ermöglicht somit:
 
 1. einen einfachen Zugriff auf verschiedene Versionen der OpenAPI Spezifikationen
-2. das Herunterladen der OpenAPI Spezifikationen für technische Benutzer
-3. den Zugang zu einer verständlichen Schnittstellen-Spezifikation für nicht technisch versierte Benutzer
+2. das Herunterladen der OpenAPI Spezifikationen für technische Benutzer (YAML-Format)
+3. den Zugang zu einer verständlichen Schnittstellen-Spezifikation für nicht technisch versierte Benutzer (AsciiDoc-Format)
 
-Somit ist der Zugriff direkt über den Browser via statisches Hosting über Antora möglich.
-Die Schnittstellenbeschreibung wird dabei lesbar als Webseite in GitHub/GitLab Pages angezeigt.
-Dabei wird auch die technische Spezifikation (die YAML Datei) als Antora-Anhang hinzugefügt.
-Dadurch ist es möglich, sie herunterzuladen.
-
-Sind GitHub/GitLab Pages nicht erreichbar, können auch die OpenAPI Spezifikationen nicht heruntergeladen werden.
+Die generierte Dokumentation (HTML) kann auf einem Webserver oder auf GitHub/GitLab-Pages veröffentlicht werden und ist dann mit einem Webbrowser erreichbar.
+Hierzu müssen entsprechende Jobs in der Build-Pipeline angelegt werden.
 
 [[openapi-schnittstellenspezifikation-eigener-endpunkt]]
 ==== Definition eines Endpunktes
-Über die Definition eines Endpunktes ist es möglich auf die OpenAPI Spezifikationen als Nutzer zuzugreifen.
-Die Möglichkeit wird nicht nur einmalig angeboten und sollte auf jeden Fall innerhalb der Test-Umgebungen eingesetzt werden.
-Somit kann die korrekte Funktionalität sichergestellt werden.
 
-Die Endung einer URL z.B. *_/openapi-spezifikationen_* ist ein gutes optisches Erkennungsmerkmal.
-Für die URL existieren momentan kein Standardwert oder Standardvorgaben.
+Für den Betrieb in Testumgebungen ist es empfehlenswert, die OpenAPI Spezifikation im YAML-Format über eine Schnittstelle bereitzustellen.
+Dazu wird ein eigener Endpunkt implementiert, der die im Ressourcen-Verzeichnis liegende OpenAPI Spezifikation bereitstellt.
+Über einen Webbrowser kann so auf die aktuelle OpenAPI Spezifikation der Anwendung im Betrieb zugegriffen werden, um z.B. Testwerkzeuge zu konfigurieren.
 
-Es wird empfohlen für die Endung des Endpunktes einen klar verständlichen Begriff wie z.B. *_/openapi-spezifikation-download_* zu verwenden.
-
-In unserem Fall besteht die optionale Möglichkeit einen Endpunkt zu errichten, der den Datenaustausch der OpenAPI Spezifikationen über das Herunterladen der Datei ermöglicht.
-
-[[openapi-schnittstellenspezifikation-url]]
-==== Definition einer URL
-Durch die Verwendung vom statischen Hosting über Antora können statische Webseiten generiert werden.
-
-Die OpenAPI Spezifikationen können über Antora als statische Webseite generiert werden.
-
-Um eine statische Webseite mit Inhalt aufrufen zu können, wird die Verwendung eines Browsers und die Verfügbarkeit einer korrekten URL vorausgesetzt.
-
-Damit der Inhalt der zuvor generierten statischen Webseite auch aus der Benutzeroberfläche erreichbar ist, muss die Webseite auf dem Server hinterlegt werden.
-
-Es besteht somit die optionale Möglichkeit eine URL auf dem Server zu "reservieren", die beim Aufruf aus der Benutzeroberfläche, den Nutzer auf die OpenAPI Spezifikation weiterleitet, damit dieser dann Zugriff und somit Einsicht auf die statische Webseite, die die OpenAPI Spezifikation beinhaltet, erhält.
-
+Es wird empfohlen, für die URL des Endpunktes einen klar verständlichen Begriff wie z.B. *_/openapi-spezifikation-download_* zu verwenden.
 // end::inhalt[]
