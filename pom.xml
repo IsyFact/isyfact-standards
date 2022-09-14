@@ -637,7 +637,7 @@
                     <plugin>
                         <groupId>org.sonatype.plugins</groupId>
                         <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>1.6.8</version>
+                        <version>1.6.12</version>
                         <extensions>true</extensions>
                         <configuration>
                             <serverId>ossrh</serverId>
@@ -655,7 +655,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-jarsigner-plugin</artifactId>
-                        <version>1.4</version>
+                        <version>3.0.0</version>
                         <executions>
                             <execution>
                                 <id>sign</id>
@@ -694,7 +694,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.6</version>
+                        <version>3.0.1</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>

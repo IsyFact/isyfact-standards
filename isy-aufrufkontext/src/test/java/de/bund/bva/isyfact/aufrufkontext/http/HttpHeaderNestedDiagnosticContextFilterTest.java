@@ -1,28 +1,27 @@
 package de.bund.bva.isyfact.aufrufkontext.http;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.mockito.Mockito.when;
-
 import javax.servlet.http.HttpServletRequest;
 
+import de.bund.bva.isyfact.logging.util.MdcHelper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import de.bund.bva.isyfact.logging.util.MdcHelper;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class HttpHeaderMappedDiagnosticContextFilterTest {
+public class HttpHeaderNestedDiagnosticContextFilterTest {
 
     @Mock
     private HttpServletRequest servletRequest;
 
     @Test
     public void beforeRequest() {
-        HttpHeaderMappedDiagnosticContextFilter filter = new HttpHeaderMappedDiagnosticContextFilter();
+        HttpHeaderNestedDiagnosticContextFilter filter = new HttpHeaderNestedDiagnosticContextFilter();
         filter.setCorrelationIdHttpHeaderName("korrelationsid");
 
         when(servletRequest.getHeader("korrelationsid")).thenReturn("testId1");
@@ -37,7 +36,7 @@ public class HttpHeaderMappedDiagnosticContextFilterTest {
 
     @Test
     public void beforeRequestKeineIdImHeader() {
-        HttpHeaderMappedDiagnosticContextFilter filter = new HttpHeaderMappedDiagnosticContextFilter();
+        HttpHeaderNestedDiagnosticContextFilter filter = new HttpHeaderNestedDiagnosticContextFilter();
 
         MdcHelper.pushKorrelationsId("testId0");
 
@@ -49,7 +48,7 @@ public class HttpHeaderMappedDiagnosticContextFilterTest {
 
     @Test
     public void afterRequestEntferntAlleKorrelationsIds() {
-        HttpHeaderMappedDiagnosticContextFilter filter = new HttpHeaderMappedDiagnosticContextFilter();
+        HttpHeaderNestedDiagnosticContextFilter filter = new HttpHeaderNestedDiagnosticContextFilter();
 
         MdcHelper.pushKorrelationsId("testId0");
         MdcHelper.pushKorrelationsId("testId1");
