@@ -444,8 +444,6 @@ Die generierten AsciiDoc-Dateien können dann in den Antora-Dokumentenbuild aufg
 
 Für die Generierung der Schnittstellenbeschreibung im AsciiDoc-Format ist der Generator „asciidoc“ zu wählen.
 
-//ToDo: Ist der Antora Baustein OS?
-Für die Integration der generierten AsciiDoc-Dateien in den Antora-Dokumentenbuild verweisen wir auf die Antora Nutzungsvorgaben.
 Neben der generierten OpenAPI Spezifikation als AsciiDoc-Datei, empfehlt es sich auch die OpenAPI Spezifikation im YAML-Format im Dokumentenbuild zu verlinken.
 
 Die Integration in den Antora-Dokumentenbuild ermöglicht somit:
