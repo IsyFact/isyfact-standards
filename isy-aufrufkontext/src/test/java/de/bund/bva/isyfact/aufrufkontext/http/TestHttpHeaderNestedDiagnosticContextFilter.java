@@ -22,41 +22,42 @@ import static org.mockito.Mockito.when;
 
 import javax.servlet.http.HttpServletRequest;
 
+import de.bund.bva.isyfact.aufrufkontext.http.HttpHeaderNestedDiagnosticContextFilter;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class TestHttpHeaderMappedDiagnosticContextFilter {
+public class TestHttpHeaderNestedDiagnosticContextFilter {
 
 	@Test
 	public void testGetNestedDiagnosticContextMessage() {
 		HttpServletRequest mock = Mockito.mock(HttpServletRequest.class);
 		when(mock.getHeader("X-Correlation-Id")).thenReturn("someId");
-
-		HttpHeaderMappedDiagnosticContextFilter filter = new HttpHeaderMappedDiagnosticContextFilter();
+		
+		HttpHeaderNestedDiagnosticContextFilter filter = new HttpHeaderNestedDiagnosticContextFilter();
 		String id = filter.getNestedDiagnosticContextMessage(mock);
-
+		
 		assertEquals("someId", id);
 	}
-
+	
 	@Test
 	public void testGetNestedDiagnosticContextMessage2() {
 		HttpServletRequest mock = Mockito.mock(HttpServletRequest.class);
-
-		HttpHeaderMappedDiagnosticContextFilter filter = new HttpHeaderMappedDiagnosticContextFilter();
+		
+		HttpHeaderNestedDiagnosticContextFilter filter = new HttpHeaderNestedDiagnosticContextFilter();
 		filter.setCorrelationIdHttpHeaderName(null);
 		String id = filter.getNestedDiagnosticContextMessage(mock);
-
+		
 		assertNotNull(id);
 	}
-
+	
 	@Test
 	public void testGetNestedDiagnosticContextMessage3() {
 		HttpServletRequest mock = Mockito.mock(HttpServletRequest.class);
 		when(mock.getHeader("Correlation-Id")).thenReturn(null);
-
-		HttpHeaderMappedDiagnosticContextFilter filter = new HttpHeaderMappedDiagnosticContextFilter();
+		
+		HttpHeaderNestedDiagnosticContextFilter filter = new HttpHeaderNestedDiagnosticContextFilter();
 		String id = filter.getNestedDiagnosticContextMessage(mock);
-
+		
 		assertNotNull(id);
 	}
 
