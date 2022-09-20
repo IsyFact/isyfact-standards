@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 
-import de.bund.bva.isyfact.aufrufkontext.http.HttpHeaderMappedDiagnosticContextFilter;
+import de.bund.bva.isyfact.aufrufkontext.http.HttpHeaderNestedDiagnosticContextFilter;
 
 /**
  * The MDC filter is a servlet filter and therefore may only be created in servlet web applications.
@@ -20,10 +20,10 @@ public class MdcFilterAutoConfiguration {
      * Automatically sets the Correlation-ID
      */
     @Bean
-    FilterRegistrationBean<HttpHeaderMappedDiagnosticContextFilter> httpHeaderNestedDiagnosticContextFilter() {
-        FilterRegistrationBean<HttpHeaderMappedDiagnosticContextFilter> registrationBean =
+    FilterRegistrationBean<HttpHeaderNestedDiagnosticContextFilter> httpHeaderNestedDiagnosticContextFilter() {
+        FilterRegistrationBean<HttpHeaderNestedDiagnosticContextFilter> registrationBean =
                 new FilterRegistrationBean<>();
-        registrationBean.setFilter(new HttpHeaderMappedDiagnosticContextFilter());
+        registrationBean.setFilter(new HttpHeaderNestedDiagnosticContextFilter());
         registrationBean.addUrlPatterns("/*");
         registrationBean.setOrder(Ordered.HIGHEST_PRECEDENCE);
         return registrationBean;

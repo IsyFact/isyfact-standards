@@ -1,10 +1,10 @@
 = Anhang
 
 == Zusätzliche Zeichen
-In <<table-zusaetzliche-zeichen>> sind die Zeichen dargestellt, die zusätzlich unterstützt werden.
+In der Tabelle <<table-zusaetzliche-zeichen>> sind die Zeichen dargestellt, die zusätzlich unterstützt werden.
 
+[[table-zusaetzliche-zeichen]]
 .Zusätzliche Zeichen
-[id="table-zusaetzliche-zeichen",reftext="{table-caption} {counter:tables}"]
 [cols="2,1,7",options="header"]
 |===
 |Unicode-Wert $$U+….$$ |Glyph |Unicode-Zeichenname
@@ -937,11 +937,10 @@ In <<table-zusaetzliche-zeichen>> sind die Zeichen dargestellt, die zusätzlich 
 
 == Transkriptionsregeln
 Die Transkriptionsregeln der IsyFact überführen den DIN SPEC 91379 Zeichensatz in der UTF-8-Codierung, einer Teilmenge des Unicode v4.x Zeichensatzes, in den ASCII-Zeichensatz (phonetische Transformation), s.a. xref:konzept/sonderzeichen.adoc#transkription[Transkription].
-In <<table-transkription>> sind die Transkriptionsregeln für die verschiedenen Zeichen dargestellt.
+In der Tabelle <<table-transkription>> sind die Transkriptionsregeln für die verschiedenen Zeichen dargestellt.
 
-:desc-table-transkription: Transkriptionsregeln
-[id="table-transkription",reftext="{table-caption} {counter:tables}"]
-.{desc-table-transkription}
+[[table-transkription]]
+.Transkriptionsregeln
 [cols="2,1,7,2,1",options="header"]
 |===
 |Unicode-Wert $$U+….$$ |Glyph |Unicode-Zeichenname |Unicode-Wert der Transkription |Transkription
@@ -1875,11 +1874,10 @@ In <<table-transkription>> sind die Transkriptionsregeln für die verschiedenen 
 == Transkriptionsregeln Suchform
 Für offizielle Dokumente und für Suchanfragen besteht oft der Bedarf, die Sonderzeichen der DIN SPEC 91379 auf die Grundbuchstaben A bis Z abzubilden.
 
-In <<table-suchform>> sind die Regeln für die Suchform-Transformation gemäß Kapitel 5 der DIN SPEC 91379 dargestellt.
+In der Tabelle <<table-suchform>> sind die Regeln für die Suchform-Transformation gemäß Kapitel 5 der DIN SPEC 91379 dargestellt.
 
-:desc-table-suchform: Suchform Transformation
-[id="table-suchform",reftext="{table-caption} {counter:tables}"]
-.{desc-table-suchform}
+[[table-suchform]]
+.Suchform Transformation
 [cols="2,1,7,2,1",options="header"]
 |===
 |Unicode-Wert $$U+….$$ |Glyph |Unicode-Zeichenname |Unicode-Wert der Transkription |Transkription
@@ -2541,11 +2539,10 @@ Systeme, die noch nicht auf die DIN SPEC 91379 UTF-8-Codierung umgestellt wurden
 Wenn ein String.Latin 1.2 (= DIN SPEC 91379 ) Sonderzeichen in String.Latin 1.1 enthalten ist, ist nichts zu tun.
 Wenn das Sonderzeichen in String.Latin 1.1 nicht enthalten ist, wird es gemäß ISO-8859-15 transformiert.
 
-In <<table-legacy>> sind die Transformationsregeln für noch nicht umgestellte Systeme dargestellt, genannt Legacy-Transformation.
+In der Tabelle <<table-legacy>> sind die Transformationsregeln für noch nicht umgestellte Systeme dargestellt, genannt Legacy-Transformation.
 
-:desc-table-legacy: Legacy Transformation
-[id="table-legacy",reftext="{table-caption} {counter:tables}"]
-.{desc-table-legacy}
+[[table-legacy]]
+.Legacy Transformation
 [cols="2,1,4,3,1",options="header"]
 |===
 | Unicode-Wert | Glyph | Unicode-Zeichenname | Unicode-Wert der Legacy-Transformation | Legacy-Tran.
@@ -2659,11 +2656,11 @@ In <<table-legacy>> sind die Transformationsregeln für noch nicht umgestellte S
 | 00A1 | ¡ | INVERTED EXCLAMATION MARK | 00A1 | ¡
 | 00A2 | ¢ | CENT SIGN | 00A2 | ¢
 | 00A3 | £ | POUND SIGN | 00A3 | £
-| 00A4 | ¤ | CURRENCY SIGN | 00A4 | n/a
+| 00A4 | ¤ | CURRENCY SIGN | 00A4 | ¤
 | 00A5 | ¥ | YEN SIGN | 00A5 | ¥
-| 00A6 | ¦ | BROKEN BAR | 00A6 | n/a
+| 00A6 | ¦ | BROKEN BAR | 00A6 | ¦
 | 00A7 | § | SECTION SIGN | 00A7 | §
-| 00A8 | ¨ | DIAERESIS | 00A8 | n/a
+| 00A8 | ¨ | DIAERESIS | 00A8 | ¨
 | 00A9 | © | COPYRIGHT SIGN | 00A9 | ©
 | 00AA | ª | FEMININE ORDINAL INDICATOR | 00AA | ª
 | 00AB | « | LEFT-POINTING DOUBLE ANGLE QUOTATION MARK | 00AB | «
@@ -2910,11 +2907,11 @@ In <<table-legacy>> sind die Transformationsregeln für noch nicht umgestellte S
 | 021B | ț | LATIN SMALL LETTER T WITH COMMA BELOW | 021B | ț
 | 021E | Ȟ | LATIN CAPITAL LETTER H WITH CARON | 021E | Ȟ
 | 021F | ȟ | LATIN SMALL LETTER H WITH CARON | 021F | ȟ
-| 0227 | ȧ | LATIN SMALL LETTER A WITH DOT ABOVE | 0061 | ȧ
+| 0227 | ȧ | LATIN SMALL LETTER A WITH DOT ABOVE | 0061 | a
 | 022A | Ȫ | LATIN CAPITAL LETTER O WITH DIAERESIS AND MACRON | 022A | Ȫ
 | 022B | ȫ | LATIN SMALL LETTER O WITH DIAERESIS AND MACRON | 022B | ȫ
-| 022C | Ȭ | LATIN CAPITAL LETTER O WITH TILDE AND MACRON | 004F | Ȭ
-| 022D | ȭ | LATIN SMALL LETTER O WITH TILDE AND MACRON | 006F | ȭ
+| 022C | Ȭ | LATIN CAPITAL LETTER O WITH TILDE AND MACRON | 004F | O
+| 022D | ȭ | LATIN SMALL LETTER O WITH TILDE AND MACRON | 006F | o
 | 022E | Ȯ | LATIN CAPITAL LETTER O WITH DOT ABOVE | 022E | Ȯ
 | 022F | ȯ | LATIN SMALL LETTER O WITH DOT ABOVE | 022F | ȯ
 | 0230 | Ȱ | LATIN CAPITAL LETTER O WITH DOT ABOVE AND MACRON | 0230 | Ȱ
@@ -2925,7 +2922,7 @@ In <<table-legacy>> sind die Transformationsregeln für noch nicht umgestellte S
 | 0292 | ʒ | LATIN SMALL LETTER EZH | 0292 | ʒ
 | 1E02 | Ḃ | LATIN CAPITAL LETTER B WITH DOT ABOVE | 1E02 | Ḃ
 | 1E03 | ḃ | LATIN SMALL LETTER B WITH DOT ABOVE | 1E03 | ḃ
-| 1E06 | Ḇ | LATIN CAPITAL LETTER B WITH LINE BELOW | 0042 | Ḇ
+| 1E06 | Ḇ | LATIN CAPITAL LETTER B WITH LINE BELOW | 0042 | B
 | 1E07 | ḇ | LATIN SMALL LETTER B WITH LINE BELOW | 0062 | ḇ
 | 1E0A | Ḋ | LATIN CAPITAL LETTER D WITH DOT ABOVE | 1E0A | Ḋ
 | 1E0B | ḋ | LATIN SMALL LETTER D WITH DOT ABOVE | 1E0B | ḋ
@@ -3052,7 +3049,7 @@ In <<table-legacy>> sind die Transformationsregeln für noch nicht umgestellte S
 | 0043+0306 | C̆ | LATIN CAPITAL LETTER C WITH COMBINING BREVE | 0043 | C
 | 0043+0308 | C̈ | LATIN CAPITAL LETTER C WITH COMBINING DIAERESIS | 0043 | C
 | 0043+0323 | C̣ | LATIN CAPITAL LETTER C WITH COMBINING DOT BELOW | 0043 | C
-| 0043+0326 | C̦ | LATIN CAPITAL LETTER C WITH COMBINING COMMA BELOW | 0043+0326 | C̦
+| 0043+0326 | C̦ | LATIN CAPITAL LETTER C WITH COMBINING COMMA BELOW | 0043 | C
 | 0043+0328+0306 | C̨̆ | LATIN CAPITAL LETTER C WITH COMBINING OGONEK AND COMBINING BREVE | 0043 | C
 | 0043+0315 | C̕ | LATIN CAPITAL LETTER C WITH COMBINING COMMA ABOVE RIGHT | 0043 | C
 | 0046+0300 | F̀ | LATIN CAPITAL LETTER F WITH COMBINING GRAVE ACCENT | 0046 | F
@@ -3060,7 +3057,7 @@ In <<table-legacy>> sind die Transformationsregeln für noch nicht umgestellte S
 | 0047+0300 | G̀ | LATIN CAPITAL LETTER G WITH COMBINING GRAVE ACCENT | 0047 | G
 | 0048+0304 | H̄ | LATIN CAPITAL LETTER H WITH COMBINING MACRON | 0048 | H
 | 0048+0326 | H̦ | LATIN CAPITAL LETTER H WITH COMBINING COMMA BELOW | 0048 | H
-| 0048+0331 | H̱ | LATIN CAPITAL LETTER H WITH COMBINING MACRON BELOW | 0048+0331 | H̱
+| 0048+0331 | H̱ | LATIN CAPITAL LETTER H WITH COMBINING MACRON BELOW | 0048 | H
 | 004A+0301 | J́ | LATIN CAPITAL LETTER J WITH COMBINING ACUTE ACCENT | 004A | J
 | 004B+0300 | K̀ | LATIN CAPITAL LETTER K WITH COMBINING GRAVE ACCENT | 004B | K
 | 004B+0302 | K̂ | LATIN CAPITAL LETTER K WITH COMBINING CIRCUMFLEX ACCENT | 004B | K
@@ -3082,7 +3079,7 @@ In <<table-legacy>> sind die Transformationsregeln für noch nicht umgestellte S
 | 004E+0326 | N̦ | LATIN CAPITAL LETTER N WITH COMBINING COMMA BELOW | 004E | N
 | 0050+0300 | P̀ | LATIN CAPITAL LETTER P WITH COMBINING GRAVE ACCENT | 0050 | P
 | 0050+0304 | P̄ | LATIN CAPITAL LETTER P WITH COMBINING MACRON | 0050 | P
-| 0050+0323 | P̣ | LATIN CAPITAL LETTER P WITH COMBINING DOT BELOW | 0050+0323 | P̣
+| 0050+0323 | P̣ | LATIN CAPITAL LETTER P WITH COMBINING DOT BELOW | 0050 | P
 | 0050+0315 | P̕ | LATIN CAPITAL LETTER P WITH COMBINING COMMA ABOVE RIGHT | 0050 | P
 | 0052+0306 | R̆ | LATIN CAPITAL LETTER R WITH COMBINING BREVE | 0052 | R
 | 0052+0325 | R̥ | LATIN CAPITAL LETTER R WITH COMBINING RING BELOW | 0052 | R
@@ -3108,14 +3105,14 @@ In <<table-legacy>> sind die Transformationsregeln für noch nicht umgestellte S
 | 0063+0306 | c̆ | LATIN SMALL LETTER C WITH COMBINING BREVE | 0063 | c
 | 0063+0308 | c̈ | LATIN SMALL LETTER C WITH COMBINING DIAERESIS | 0063 | c
 | 0063+0323 | c̣ | LATIN SMALL LETTER C WITH COMBINING DOT BELOW | 0063 | c
-| 0063+0326 | c̦ | LATIN SMALL LETTER C WITH COMBINING COMMA BELOW | 0063+0326 | c̦
+| 0063+0326 | c̦ | LATIN SMALL LETTER C WITH COMBINING COMMA BELOW | 0063 | c
 | 0063+0328+0306 | c̨̆ | LATIN SMALL LETTER C WITH COMBINING OGONEK AND COMBINING BREVE | 0063 | c
 | 0063+0315 | c̕ | LATIN SMALL LETTER C WITH COMBINING COMMA ABOVE RIGHT | 0063 | c
 | 0066+0300 | f̀ | LATIN SMALL LETTER F WITH COMBINING GRAVE ACCENT | 0066 | f
 | 0066+0304 | f̄ | LATIN SMALL LETTER F WITH COMBINING MACRON | 0066 | f
 | 0067+0300 | g̀ | LATIN SMALL LETTER G WITH COMBINING GRAVE ACCENT | 0067 | g
-| 0068+0304 | h̄ | LATIN SMALL LETTER H WITH COMBINING MACRON | 0068+0304 | h̄
-| 0068+0326 | h̦ | LATIN SMALL LETTER H WITH COMBINING COMMA BELOW | 0068+0326 | h̦
+| 0068+0304 | h̄ | LATIN SMALL LETTER H WITH COMBINING MACRON | 0068 | h
+| 0068+0326 | h̦ | LATIN SMALL LETTER H WITH COMBINING COMMA BELOW | 0068 | h
 | 006A+0301 | j́ | LATIN SMALL LETTER J WITH COMBINING ACUTE ACCENT | 006A | j
 | 006B+0300 | k̀ | LATIN SMALL LETTER K WITH COMBINING GRAVE ACCENT | 006B | k
 | 006B+0302 | k̂ | LATIN SMALL LETTER K WITH COMBINING CIRCUMFLEX ACCENT | 006B | k
@@ -3125,38 +3122,38 @@ In <<table-legacy>> sind die Transformationsregeln für noch nicht umgestellte S
 | 006B+0326 | k̦ | LATIN SMALL LETTER K WITH COMBINING COMMA BELOW | 006B | k
 | 006B+035F+0068 | k͟h | LATIN SMALL LETTER K WITH COMBINING DOUBLE MACRON BELOW AND LATIN SMALL LETTER H | 006B+0068 | kh
 | 006B+0315 | k̕ | LATIN SMALL LETTER K WITH COMBINING COMMA ABOVE RIGHT | 006B | k
-| 006C+0325 | l̥ | LATIN SMALL LETTER L WITH COMBINING RING BELOW | 006C+0325 | l̥
+| 006C+0325 | l̥ | LATIN SMALL LETTER L WITH COMBINING RING BELOW | 006C | l
 | 006C+0325+0304 | l̥̄ | LATIN SMALL LETTER L WITH COMBINING RING BELOW AND COMBINING MACRON | 006C | l
-| 006C+0326 | l̦ | LATIN SMALL LETTER L WITH COMBINING COMMA BELOW | 006C+0326 | l̦
+| 006C+0326 | l̦ | LATIN SMALL LETTER L WITH COMBINING COMMA BELOW | 006C | l
 | 006D+0300 | m̀ | LATIN SMALL LETTER M WITH COMBINING GRAVE ACCENT | 006D | m
 | 006D+0306 | m̆ | LATIN SMALL LETTER M WITH COMBINING BREVE | 006D | m
 | 006D+0310 | m̐ | LATIN SMALL LETTER M WITH COMBINING CANDRABINDU | 006D | m
 | 006E+0304 | n̄ | LATIN SMALL LETTER N WITH COMBINING MACRON | 006E | n
-| 006E+0306 | n̆ | LATIN SMALL LETTER N WITH COMBINING BREVE | 006E+0306 | n̆
+| 006E+0306 | n̆ | LATIN SMALL LETTER N WITH COMBINING BREVE | 006E | n
 | 006E+0326 | n̦ | LATIN SMALL LETTER N WITH COMBINING COMMA BELOW | 006E | n
 | 0070+0300 | p̀ | LATIN SMALL LETTER P WITH COMBINING GRAVE ACCENT | 0070 | p
 | 0070+0304 | p̄ | LATIN SMALL LETTER P WITH COMBINING MACRON | 0070 | p
 | 0070+0323 | p̣ | LATIN SMALL LETTER P WITH COMBINING DOT BELOW | 0070 | p
 | 0070+0315 | p̕ | LATIN SMALL LETTER P WITH COMBINING COMMA ABOVE RIGHT | 0070 | p
-| 0072+0306 | r̆ | LATIN SMALL LETTER R WITH COMBINING BREVE | 0072+0306 | r̆
+| 0072+0306 | r̆ | LATIN SMALL LETTER R WITH COMBINING BREVE | 0072 | r
 | 0072+0325 | r̥ | LATIN SMALL LETTER R WITH COMBINING RING BELOW | 0072 | r
 | 0072+0325+0304 | r̥̄ | LATIN SMALL LETTER R WITH COMBINING RING BELOW AND COMBINING MACRON | 0072 | r
 | 0073+0300 | s̀ | LATIN SMALL LETTER S WITH COMBINING GRAVE ACCENT | 0073 | s
 | 0073+0304 | s̄ | LATIN SMALL LETTER S WITH COMBINING MACRON | 0073 | s
 | 0073+031B+0304 | s̛̄ | LATIN SMALL LETTER S WITH COMBINING HORN AND COMBINING MACRON | 0073 | s
 | 0073+0331 | s̱ | LATIN SMALL LETTER S WITH COMBINING MACRON BELOW | 0073 | s
-| 0074+0300 | t̀ | LATIN SMALL LETTER T WITH COMBINING GRAVE ACCENT | 0074+0300 | t̀
+| 0074+0300 | t̀ | LATIN SMALL LETTER T WITH COMBINING GRAVE ACCENT | 0074 | t
 | 0074+0304 | t̄ | LATIN SMALL LETTER T WITH COMBINING MACRON | 0074 | t
 | 0074+031B | t̛ | LATIN SMALL LETTER T WITH COMBINING HORN | 0074 | t
 | 0074+0315 | t̕ | LATIN SMALL LETTER T WITH COMBINING COMMA ABOVE RIGHT | 0074 | t
 | 0075+0307 | u̇ | LATIN SMALL LETTER U WITH COMBINING DOT ABOVE | 0075 | u
-| 007A+0300 | z̀ | LATIN SMALL LETTER Z WITH COMBINING GRAVE ACCENT | 007A+0300 | z̀
-| 007A+0304 | z̄ | LATIN SMALL LETTER Z WITH COMBINING MACRON | 007A+0304 | z̄
+| 007A+0300 | z̀ | LATIN SMALL LETTER Z WITH COMBINING GRAVE ACCENT | 007A | z
+| 007A+0304 | z̄ | LATIN SMALL LETTER Z WITH COMBINING MACRON | 007A | z
 | 007A+0306 | z̆ | LATIN SMALL LETTER Z WITH COMBINING BREVE | 007A | z
 | 007A+0308 | z̈ | LATIN SMALL LETTER Z WITH COMBINING DIAERESIS | 007A | z
 | 007A+0327 | z̧ | LATIN SMALL LETTER Z WITH COMBINING CEDILLA | 007A | z
 | 00A0 |   | NO-BREAK SPACE | 00A0 |  
-| 00DB+0304 | Û̄ | LATIN CAPITAL LETTER U WITH CIRCUMFLEX WITH COMBINING MACRON | 00DB+0304 | Û̄
+| 00DB+0304 | Û̄ | LATIN CAPITAL LETTER U WITH CIRCUMFLEX WITH COMBINING MACRON | 0055 | U
 | 00FB+0304 | û̄ | LATIN SMALL LETTER U WITH CIRCUMFLEX WITH COMBINING MACRON | 0075 | u
 | 00FF+0301 | ÿ́ | LATIN SMALL LETTER Y WITH DIAERESIS WITH COMBINING ACUTE ACCENT | 00FF | ÿ
 | 0108 | Ĉ | LATIN CAPITAL LETTER C WITH CIRCUMFLEX | 0043 | C
@@ -3385,7 +3382,7 @@ In <<table-legacy>> sind die Transformationsregeln für noch nicht umgestellte S
 | 1E5B | ṛ | LATIN SMALL LETTER R WITH DOT BELOW | 0072 | r
 | 1E5E | Ṟ | LATIN CAPITAL LETTER R WITH LINE BELOW | 0052 | R
 | 1E5F | ṟ | LATIN SMALL LETTER R WITH LINE BELOW | 0072 | r
-| 1E62+0304 | Ṣ̄ | LATIN CAPITAL LETTER S WITH DOT BELOW WITH COMBINING MACRON | 1E62+0304 | Ṣ̄
+| 1E62+0304 | Ṣ̄ | LATIN CAPITAL LETTER S WITH DOT BELOW WITH COMBINING MACRON | 0053 | S
 | 1E63+0304 | ṣ̄ | LATIN SMALL LETTER S WITH DOT BELOW WITH COMBINING MACRON | 0073 | s
 | 1E6C | Ṭ | LATIN CAPITAL LETTER T WITH DOT BELOW | 0054 | T
 | 1E6C+0304 | Ṭ̄ | LATIN CAPITAL LETTER T WITH DOT BELOW WITH COMBINING MACRON | 0054 | T
@@ -3419,7 +3416,7 @@ In <<table-legacy>> sind die Transformationsregeln für noch nicht umgestellte S
 | 1EE4+0304 | Ụ̄ | LATIN CAPITAL LETTER U WITH DOT BELOW WITH COMBINING MACRON | 0055 | U
 | 1EE4+0308 | Ụ̈ | LATIN CAPITAL LETTER U WITH DOT BELOW WITH COMBINING DIAERESIS | 0055 | U
 | 1EE5+0304 | ụ̄ | LATIN SMALL LETTER U WITH DOT BELOW WITH COMBINING MACRON | 0075 | u
-| 1EE5+0308 | ụ̈ | LATIN SMALL LETTER U WITH DOT BELOW WITH COMBINING DIAERESIS | 1EE5+0308 | ụ̈
+| 1EE5+0308 | ụ̈ | LATIN SMALL LETTER U WITH DOT BELOW WITH COMBINING DIAERESIS | 0075 | u
 | 2018 | ‘ | LEFT SINGLE QUOTATION MARK | 0027 | '
 | 2019 | ’ | RIGHT SINGLE QUOTATION MARK | 0027 | '
 | 201A | ‚ | SINGLE LOW-9 QUOTATION MARK | 0027 | '
@@ -3450,8 +3447,8 @@ In <<table-legacy>> sind die Transformationsregeln für noch nicht umgestellte S
 | 2087 | ₇ | SUBSCRIPT SEVEN | 005F+0037 | _7
 | 2088 | ₈ | SUBSCRIPT EIGHT | 005F+0038 | _8
 | 2089 | ₉ | SUBSCRIPT NINE | 005F+0039 | _9
-| 2122 | ™ | TRADE MARK SIGN | 0028+0054+004D+0029 | (TM)
+| 2122 | ™ | TRADE MARK SIGN | 0028+0054+004D+0029 | \(TM)
 | 221E | ∞ | INFINITY | 0069+006E+0066 | inf
-| 2264 | ≤ | LESS-THAN OR EQUAL TO | 003C+003D | <=
+| 2264 | ≤ | LESS-THAN OR EQUAL TO | 003C+003D | \<=
 | 2265 | ≥ | GREATER-THAN OR EQUAL TO | 003E+003D | >=
 |===

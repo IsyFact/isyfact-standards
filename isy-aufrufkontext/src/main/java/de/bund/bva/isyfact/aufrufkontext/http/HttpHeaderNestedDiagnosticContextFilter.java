@@ -41,11 +41,12 @@ import de.bund.bva.isyfact.logging.util.MdcHelper;
  * The Configuration is done automatically by {@link MdcFilterAutoConfiguration}.
  * </p>
  */
-public class HttpHeaderMappedDiagnosticContextFilter extends AbstractRequestLoggingFilter {
+// REVIEW (JM) Sollte in HttpHeaderMappedDiagnosticContextFilter umbenannt werden
+public class HttpHeaderNestedDiagnosticContextFilter extends AbstractRequestLoggingFilter {
 
     /** Logger. */
     private static final IsyLogger LOG =
-        IsyLoggerFactory.getLogger(HttpHeaderMappedDiagnosticContextFilter.class);
+        IsyLoggerFactory.getLogger(HttpHeaderNestedDiagnosticContextFilter.class);
 
     /** The name of the http header with the Correlation-ID*/
     private String correlationIdHttpHeaderName = "X-Correlation-Id";
