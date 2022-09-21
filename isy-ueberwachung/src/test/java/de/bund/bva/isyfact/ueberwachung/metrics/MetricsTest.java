@@ -23,7 +23,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import de.bund.bva.isyfact.datetime.util.DateTimeUtil;
 import de.bund.bva.isyfact.logging.autoconfigure.IsyLoggingAutoConfiguration;
-import de.bund.bva.isyfact.ueberwachung.common.ServiceStatistik;
+import de.bund.bva.isyfact.ueberwachung.common.impl.DefaultServiceStatistik;
 
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.Meter;
@@ -103,8 +103,8 @@ class TestConfig {
     }
 
     @Bean
-    ServiceStatistik serviceStatistikCall1() {
-        return new ServiceStatistik("serviceMethod", "call1");
+    DefaultServiceStatistik serviceStatistikCall1() {
+        return new DefaultServiceStatistik("serviceMethod", "call1");
     }
 
     @Bean
@@ -117,8 +117,8 @@ class TestConfig {
     }
 
     @Bean
-    ServiceStatistik serviceStatistikCall2() {
-        return new ServiceStatistik("serviceMethod", "call2");
+    DefaultServiceStatistik serviceStatistikCall2() {
+        return new DefaultServiceStatistik("serviceMethod", "call2");
     }
 
     @Bean

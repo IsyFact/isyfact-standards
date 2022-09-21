@@ -14,7 +14,7 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.isyfact.ueberwachung.common;
+package de.bund.bva.isyfact.ueberwachung.common.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -47,17 +47,17 @@ import io.micrometer.core.instrument.MeterRegistry;
                 properties = {"isy.logging.anwendung.name=Test",
                               "isy.logging.anwendung.typ=Test",
                               "isy.logging.anwendung.version=0.1"})
-public class TestServiceStatistik {
+public class TestDefaultServiceStatistik {
 
     @Autowired
-    private ServiceStatistik serviceStatistik;
+    private DefaultServiceStatistik serviceStatistik;
 
     @Autowired
     private MeterRegistry meterRegistry;
 
     private Random random = new SecureRandom();
 
-    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(TestServiceStatistik.class);
+    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(TestDefaultServiceStatistik.class);
 
     /**
      * Testet ZaehleAufruf von ServiceStatistik in der ersten Minute.

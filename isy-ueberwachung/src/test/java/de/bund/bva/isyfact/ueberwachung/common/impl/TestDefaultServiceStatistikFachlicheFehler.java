@@ -14,7 +14,7 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.isyfact.ueberwachung.common;
+package de.bund.bva.isyfact.ueberwachung.common.impl;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -24,7 +24,6 @@ import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -44,10 +43,7 @@ import de.bund.bva.isyfact.ueberwachung.common.data.ToObjekthierarchieMitFehlern
     properties = {"isy.logging.anwendung.name=Test",
         "isy.logging.anwendung.typ=Test",
         "isy.logging.anwendung.version=0.1"})
-public class TestServiceStatistikFachlicheFehler {
-
-    @Autowired
-    private ServiceStatistik serviceStatistik;
+public class TestDefaultServiceStatistikFachlicheFehler {
 
     /**
      * Testet die Erkennung von einzelnen Fehlerobjekten als Attribute.
@@ -150,7 +146,7 @@ public class TestServiceStatistikFachlicheFehler {
      *            Objektstruktur
      */
     private void erwarteFehler(Object object) {
-        assertTrue(serviceStatistik.pruefeObjektAufFehler(object, null, 0));
+        assertTrue(DefaultServiceStatistik.pruefeObjektAufFehler(object, null, 0));
     }
 
     /**
@@ -160,7 +156,7 @@ public class TestServiceStatistikFachlicheFehler {
      *            Objektstruktur
      */
     private void erwarteKeineFehler(Object object) {
-        assertFalse(serviceStatistik.pruefeObjektAufFehler(object, null, 0));
+        assertFalse(DefaultServiceStatistik.pruefeObjektAufFehler(object, null, 0));
     }
 
 }
