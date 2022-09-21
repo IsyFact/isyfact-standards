@@ -60,7 +60,7 @@ public class TestDefaultServiceStatistik {
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(TestDefaultServiceStatistik.class);
 
     /**
-     * Testet ZaehleAufruf von ServiceStatistik in der ersten Minute.
+     * Tests ZaehleAufruf in the first minute
      */
     @Test
     public void testZaehleAufrufErsteMinute() {
@@ -109,7 +109,7 @@ public class TestDefaultServiceStatistik {
     }
 
     /**
-     * Testet ZaehleAufruf von ServiceStatistik mit 1. Minute ohne MBean Aufruf.
+     * Tests ZaehleAufruf without MBean call in the first minute .
      */
     @Test
     public void testZaehleAufrufNachAbstand() {

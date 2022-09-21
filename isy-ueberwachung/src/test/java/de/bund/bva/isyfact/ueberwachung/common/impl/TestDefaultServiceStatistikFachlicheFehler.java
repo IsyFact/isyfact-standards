@@ -46,7 +46,7 @@ import de.bund.bva.isyfact.ueberwachung.common.data.ToObjekthierarchieMitFehlern
 public class TestDefaultServiceStatistikFachlicheFehler {
 
     /**
-     * Testet die Erkennung von einzelnen Fehlerobjekten als Attribute.
+     * Tests the recognition of individual error objects as attributes
      */
     @Test
     public void testZaehleDirekteFehler() {
@@ -59,7 +59,7 @@ public class TestDefaultServiceStatistikFachlicheFehler {
     }
 
     /**
-     * Testet die Erkennung von Collection Fehlern.
+     * Tests the recognition of collection errors
      */
     @Test
     public void testZaehleCollectionFehler() {
@@ -75,11 +75,11 @@ public class TestDefaultServiceStatistikFachlicheFehler {
     }
 
     /**
-     * Testet die Erkennung von einzelnen Fehlerobjekten und Fehlercollections in einer Objekthierarchie.
+     * Tests the recognition of individual error objects and error collection in an object hierarchy
      */
     @Test
     public void testObjekthierarchie() {
-        // Annotiertes Attribut, aber null
+        // Annotated attribute, but null
         ToObjekthierarchieMitFehlern toObject = new ToObjekthierarchieMitFehlern();
         erwarteKeineFehler(toObject);
 
@@ -102,7 +102,7 @@ public class TestDefaultServiceStatistikFachlicheFehler {
      */
     @Test
     public void testVererbunghierarchie() {
-        // Annotiertes Attribut, aber null
+        // Annotated attribute, but null
         ToObjektMitFehlernInOberklasse toObject = new ToObjektMitFehlernInOberklasse();
         erwarteKeineFehler(toObject);
 
@@ -119,14 +119,14 @@ public class TestDefaultServiceStatistikFachlicheFehler {
     }
 
     /**
-     * Testet die Erkennung von einzelnen Fehlerobjekten und Fehlercollections in einer Vererbungshierarchie
-     * einer Objekthierarchie.
+     * Tests the recognition of individual error objects and error collections in an inheritance hierarchy
+     * of an object hierarchy
      *
      * ULTIMATE!!
      */
     @Test
     public void testUltimateHierarchieUndObjektstruktur() {
-        // Annotiertes Attribut, aber null
+        // Annotated attribute, but null
         ToObjektMitFehlernInOberklasse toObject = new ToObjektMitFehlernInOberklasse();
         erwarteKeineFehler(toObject);
 
@@ -134,13 +134,13 @@ public class TestDefaultServiceStatistikFachlicheFehler {
         toObject.setToObjektMitFehlernInOberklasse(subHierarchie);
         erwarteKeineFehler(toObject);
 
-        // Jetzt Fehler in der Oberklasse der Subhierarchie einfügen
+        // Now insert error in superclass of the subhierarchy
         subHierarchie.setFehler(new Fehler());
         erwarteFehler(toObject);
     }
 
     /**
-     * Prüft die Objektstruktur und erwartet fachliche Fehler.
+     * Checks the object structure and expects a technical error
      *
      * @param object
      *            Objektstruktur
@@ -150,7 +150,7 @@ public class TestDefaultServiceStatistikFachlicheFehler {
     }
 
     /**
-     * Prüft die Objektstruktur und erwartet keine fachlichen Fehler.
+     * Checks the object structure and expects no technical errors
      *
      * @param object
      *            Objektstruktur
