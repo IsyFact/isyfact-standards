@@ -80,13 +80,16 @@ m|ServiceStatistic|Stellt Informationen über den Dienstnamen und die Version be
 
 NOTE: Die Summe der Aufrufe wird alle 60 Sekunden aktualisiert.
 
-Da die gesammelten Informationen für alle Services identisch sind, bringt `isy-ueberwachung` eine Klasse `ServiceStatistik`
+Das Interface `ServiceStatistik` ermöglicht es, Klassen zum Sammeln von Metriken zu erstellen.
+Alle `ServiceStatistik` implementierenden Beans werden automatisch der Micrometer-Registry hinzugefügt.
+
+Da die gesammelten Informationen für alle Services identisch sind, bringt `isy-ueberwachung` eine Klasse `DefaultServiceStatistik`
 mit, die diese transparent erfasst.
 
 Um die Informationen für mehrere Services in einer Anwendung anzubieten, wird die Klasse mehrfach als Spring-Bean konfiguriert.
-Die Aktualisierung der Daten in `ServiceStatistik` wird in der Service-Fassade der jeweiligen Komponente durchgeführt.
+Die Aktualisierung der Daten in `DefaultServiceStatistik` wird in der Service-Fassade der jeweiligen Komponente durchgeführt.
 Dazu wird per Spring ein AOP-Advice für die Service-Methoden der Komponente definiert.
-Die Konfiguration für eine `ServiceStatistik`-Bean und den dazugehörigen AOP-Advice ist beispielhaft in <<listing-ServiceStatistikConfig>> dargestellt.
+Die Konfiguration für eine `DefaultServiceStatistik`-Bean und den dazugehörigen AOP-Advice ist beispielhaft in <<listing-ServiceStatistikConfig>> dargestellt.
 
 .ServiceStatistik-Bean und AOP-Advice für die Service-Methoden der Komponente
 [id="listing-ServiceStatistikConfig",reftext="{listing-caption} {counter:listings }"]
@@ -97,8 +100,8 @@ Die Konfiguration für eine `ServiceStatistik`-Bean und den dazugehörigen AOP-A
 public class UeberwachungConfig {
 
     @Bean
-    public MethodInterceptor verwaltungMonitor() {
-        return new ServiceStatistik(Tags.of("servicestatistik", "verwaltung"));
+    public DefaultServiceStatistik verwaltungMonitor() {
+        return new DefaultServiceStatistik("servicestatistik", "verwaltung");
     }
 
     @Bean
@@ -113,7 +116,7 @@ public class UeberwachungConfig {
 ----
 
 Der Advice bewirkt, dass jeder Aufruf von `VerwaltungRemoteBean` zu einem Aufruf der Methode `zaehleAufruf` in der Bean `verwaltungMonitor` führt.
-Die Bean `verwaltungMonitor` ist die `ServiceStatistik`-Instanz für die `VerwaltungRemoteBean`.
+Die Bean `verwaltungMonitor` ist die `DefaultServiceStatistik`-Instanz für die `VerwaltungRemoteBean`.
 Eine entsprechende Konfiguration wird also für jeden Service in die Spring-Konfiguration aufgenommen.
 
 Für das Monitoring per AOP werden intern Datenstrukturen gespeichert, die vorhalten, an welchen Stellen Aspekte eingebracht werden.
