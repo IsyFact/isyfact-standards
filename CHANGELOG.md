@@ -1,4 +1,7 @@
 # 3.0.0
+- `IFS-1702`: [isy-ueberwachung] Refaktorierung ServiceStatistik
+    * Entkoppelt von Micrometer API
+    * Aufgeteilt in Interface und Implementierung
 - `IFS-1467`: Maven Plugins für statische Informationen:
     * git-commit-id-plugin (Version 4.9.10)
     * spring-boot-maven-plugin (Version von spring-boot verwaltet)

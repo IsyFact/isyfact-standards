@@ -1,4 +1,7 @@
 # 3.0.0
+- `IFS-1702`: Refaktorierung ServiceStatistik
+    * Entkoppelt von Micrometer API
+    * Aufgeteilt in Interface und Implementierung
 - `IFS-1628`: Standardmetriken bei Anbinden von ServiceStatistik vorhanden
 
 # 2.5.0
