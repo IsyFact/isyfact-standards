@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.ueberwachung.common;
+package de.bund.bva.isyfact.ueberwachung.metrics;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -11,9 +11,9 @@ import org.springframework.context.annotation.Bean;
 
 import de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyMetricsAutoConfiguration;
 import de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyUeberwachungAutoConfiguration;
-import de.bund.bva.isyfact.ueberwachung.common.impl.DefaultServiceStatistik;
+import de.bund.bva.isyfact.ueberwachung.metrics.impl.DefaultServiceStatistik;
 
-public class TestServiceStatistikConfiguration {
+public class TestIsyMetricsAutoConfiguration {
     private final ApplicationContextRunner contextRunner =
             new ApplicationContextRunner()
                     .withUserConfiguration(TestConfig_basicServiceStatistikImpl.class)

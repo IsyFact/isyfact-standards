@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import de.bund.bva.isyfact.ueberwachung.common.ServiceStatistik;
+import de.bund.bva.isyfact.ueberwachung.metrics.ServiceStatistik;
 
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;

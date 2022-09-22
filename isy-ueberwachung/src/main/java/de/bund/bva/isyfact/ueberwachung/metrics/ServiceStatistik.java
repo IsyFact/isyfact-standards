@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.ueberwachung.common;
+package de.bund.bva.isyfact.ueberwachung.metrics;
 
 /**
  * Provides service call statistics (number of calls, average duration, number of errors, etc.).

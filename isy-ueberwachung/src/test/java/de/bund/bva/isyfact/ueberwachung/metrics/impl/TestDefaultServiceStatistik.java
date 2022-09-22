@@ -14,7 +14,7 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.isyfact.ueberwachung.common.impl;
+package de.bund.bva.isyfact.ueberwachung.metrics.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

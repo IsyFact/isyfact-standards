@@ -14,7 +14,7 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.isyfact.ueberwachung.common.impl;
+package de.bund.bva.isyfact.ueberwachung.metrics.impl;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
@@ -36,7 +36,7 @@ import org.springframework.util.ClassUtils;
 import de.bund.bva.isyfact.datetime.util.DateTimeUtil;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.isyfact.ueberwachung.common.ServiceStatistik;
+import de.bund.bva.isyfact.ueberwachung.metrics.ServiceStatistik;
 import de.bund.bva.pliscommon.exception.service.PlisBusinessToException;
 import de.bund.bva.pliscommon.serviceapi.annotations.FachlicherFehler;
 
