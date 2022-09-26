@@ -105,10 +105,10 @@ public class UeberwachungConfig {
     }
 
     @Bean
-    public Advisor verwaltungMonitorAdvice(@Qualifier("verwaltungMonitor") MethodInterceptor verwaltungMonitor) {
+    public Advisor verwaltungMonitorAdvice() {
         AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
         pointcut.setExpression("target(de.bund.bva.anwendung.service.verwaltung.VerwaltungRemoteBean)");
-        DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor(pointcut, verwaltungMonitor);
+        DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor(pointcut, verwaltungMonitor());
         advisor.setOrder(1000);
         return advisor;
     }
