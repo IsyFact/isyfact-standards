@@ -214,3 +214,7 @@ Ein Konfigurationsbeispiel kann folgendermaßen aussehen:
 @GeneratedValue(strategy=GenerationType.AUTO, generator="my_seq")
 @SequenceGenerator(name="my_seq",sequenceName="MY_SEQ", allocationSize=50)
 ----
+
+[[umgang_mit_firewalls]]
+=== Umgang mit Firewalls
+Firewalls tendieren dazu Verbindungen zu Datenbanken ohne Vorwarnung zu terminieren. Dies führt zu Problemen in den IT-Systemen. Um dieses Problem zu lösen gibt es verschiedene Möglichkeiten wie Eviction Runs, das Setzen der Property `check-valid-connection-sql` und dem Testen der Verbindung vor jeder Nutzung via `testOnBorrow`. Letzteres ist eine einfache risikofreie Möglichkeit, sicherzugehen, dass eine Datenbankverbindung besteht. Die Nutzung von `check-valid-connecion-sql` ist in den Nutzungsvorgaben des Bausteins Oracle beschrieben. Dieser Mechanismus kann mit dem property `timeBetweenEvictionRunsMillis` gekoppelt werden um eine automatisierte Aufrechterhaltung und Sicherstellung der Datenbankverbindung zu garantieren.
