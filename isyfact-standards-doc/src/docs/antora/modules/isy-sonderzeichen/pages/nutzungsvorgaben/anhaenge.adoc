@@ -936,6 +936,7 @@ In der Tabelle <<table-zusaetzliche-zeichen>> sind die Zeichen dargestellt, die 
 
 
 == Transkriptionsregeln
+Die Transkriptionsregeln der IsyFact überführen den DIN SPEC 91379 Zeichensatz in der UTF-8-Codierung, einer Teilmenge des Unicode v4.x Zeichensatzes, in den ASCII-Zeichensatz (phonetische Transformation), s.a. xref:konzept/sonderzeichen.adoc#transkription[Transkription].
 In der Tabelle <<table-transkription>> sind die Transkriptionsregeln für die verschiedenen Zeichen dargestellt.
 
 [[table-transkription]]
@@ -1871,7 +1872,9 @@ In der Tabelle <<table-transkription>> sind die Transkriptionsregeln für die ve
 
 
 == Transkriptionsregeln Suchform
-In der Tabelle <<table-suchform>> sind die Regeln für die Suchform-Transformation dargestellt.
+Für offizielle Dokumente und für Suchanfragen besteht oft der Bedarf, die Sonderzeichen der DIN SPEC 91379 auf die Grundbuchstaben A bis Z abzubilden.
+
+In der Tabelle <<table-suchform>> sind die Regeln für die Suchform-Transformation gemäß Kapitel 5 der DIN SPEC 91379 dargestellt.
 
 [[table-suchform]]
 .Suchform Transformation
@@ -2528,7 +2531,15 @@ In der Tabelle <<table-suchform>> sind die Regeln für die Suchform-Transformati
 
 
 == Legacy Transformation
-In der Tabelle <<table-legacy>> sind die Regeln für die Legacy-Transformation dargestellt.
+Die DIN SPEC 91379 erweitert den alten Zeichensatz String.Latin 1.1 in größerem Umfang.
+Bis November 2024 muss dieser Umfang von allen Systemen deutscher Behörden verbindlich unterstützt werden; es ist jedoch nicht realistisch, alle Systeme gleichzeitig umzustellen.
+Stattdessen werden sie schrittweise umgestellt, wodurch es dazu kommen kann, dass umgestellte und nicht umgestellte Systeme miteinander kommunizieren müssen.
+
+Systeme, die noch nicht auf die DIN SPEC 91379 UTF-8-Codierung umgestellt wurden, sollen mit den erweiterten Sonderzeichen umgehen können.
+Wenn ein String.Latin 1.2 (= DIN SPEC 91379 ) Sonderzeichen in String.Latin 1.1 enthalten ist, ist nichts zu tun.
+Wenn das Sonderzeichen in String.Latin 1.1 nicht enthalten ist, wird es gemäß ISO-8859-15 transformiert.
+
+In der Tabelle <<table-legacy>> sind die Transformationsregeln für noch nicht umgestellte Systeme dargestellt, genannt Legacy-Transformation.
 
 [[table-legacy]]
 .Legacy Transformation
