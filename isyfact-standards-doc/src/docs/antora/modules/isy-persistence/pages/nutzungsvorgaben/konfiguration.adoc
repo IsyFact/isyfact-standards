@@ -227,10 +227,12 @@ Hierbei handelt es sich, um eine risikofreie Möglichkeit um festzustellen, ob e
 * Prüfen, ob inaktive und nicht mehr benötigte Verbindungen bestehen, genannt Eviction Runs.
 Empfohlen wird, dies durch die Property `timeBetweenEvictionRunsMillis` automatisiert umzusetzen.
 
+Beide Möglichkeiten müssen bei der Konfiguration der Datenquellen-xml aktiviert werden, um nutzbar zu sein.
+
 Als Testproperty bei beiden bietet sich das Setzen der Property `check-valid-connection-sql` an.
 Genauer beschrieben wird diese im Oracle Baustein.
 
-Es ist fallabhängig zu untersuchen, ob eine Kontrolle der Verbindung bei jedem Aufruf oder zeitgesteuert besser geeignet ist.
-Oftmals ist eine Kontolle vor jeder Verbindung zu bevorzugen.
+Es ist fallabhängig zu untersuchen, ob eine Kontrolle der Verbindung bei jedem Aufruf (`testOnBorrow`) oder zeitgesteuert (Eviction Runs) besser geeignet ist.
+Oftmals ist eine Kontrolle vor jeder Verbindung zu bevorzugen.
 Trotz des hohen Loads, ist das Risiko eine nicht bestehende Verbindung aufzurufen geringer.
 
