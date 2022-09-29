@@ -219,11 +219,18 @@ Ein Konfigurationsbeispiel kann folgendermaßen aussehen:
 === Umgang mit Firewalls
 Firewalls tendieren dazu inaktive Verbindungen zu Datenbanken, ohne Vorwarnung zu terminieren.
 Dies führt zu Problemen in den IT-Systemen.
-Um dieses Problem zu lösen gibt es verschiedene Möglichkeiten wie Eviction Runs, das Setzen der Property `check-valid-connection-sql`, in der `*-ds.xml` und dem Testen der Verbindung vor jeder Nutzung via `testOnBorrow`.
-Letzteres ist eine einfache risikofreie Möglichkeit, sicherzugehen, dass eine Datenbankverbindung besteht.
-Hierbei wird jedes Mal, wenn eine Verbindung genutzt wird, getestet, ob diese noch aufrechterhalten wird.
-Da dies nicht immer nötig ist, ist es vorzuziehen eine automatisierte Verbindungskontrolle, wie im folgenden Absatz beschrieben, zu nutzen und `testOnBorrow` als extra Sicherheitsschicht für seltener genutzte Verbindungen zu nutzen.
+Um dieses Problem zu lösen gibt es zwei Möglichkeiten.
 
-Die Nutzung von `check-valid-connecion-sql` ist in den Nutzungsvorgaben des Bausteins Oracle beschrieben.
-Dieser Mechanismus kann mit dem property `timeBetweenEvictionRunsMillis` gekoppelt werden um eine automatisierte Aufrechterhaltung und Sicherstellung der Datenbankverbindung zu garantieren.
-Durch das letzterwähnte Property wird angegeben in welchen Intervallen Eviction Runs, das Prüfen auf inaktive und nicht mehr benötigte Verbindungen, durchgeführt werden.
+* Testen der Verbindung vor jeder Nutzung via `testOnBorrow`.
+Hierbei handelt es sich, um eine risikofreie Möglichkeit um festzustellen, ob eine Datenbankverbindung aufrecht erhalten wird.
+
+* Prüfen, ob inaktive und nicht mehr benötigte Verbindungen bestehen, genannt Eviction Runs.
+Empfohlen wird, dies durch die Property `timeBetweenEvictionRunsMillis` automatisiert umzusetzen.
+
+Als Testproperty bei beiden bietet sich das Setzen der Property `check-valid-connection-sql` an.
+Genauer beschrieben wird diese im Oracle Baustein.
+
+Es ist fallabhängig zu untersuchen, ob eine Kontrolle der Verbindung bei jedem Aufruf oder zeitgesteuert besser geeignet ist.
+Oftmals ist eine Kontolle vor jeder Verbindung zu bevorzugen.
+Trotz des hohen Loads, ist das Risiko eine nicht bestehende Verbindung aufzurufen geringer.
+
