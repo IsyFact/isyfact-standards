@@ -189,8 +189,6 @@ Nur so können die entsprechenden Validierungen konzipiert und umgesetzt werden.
 Hier ist der Datentyp String bzw. Alpha in der Regel zu grob.
 Hier müssen abgestufte Typen für Textinhalte definiert werden, z.B. Alpha-Latein-Basis (alle großen und kleinen lateinischen Buchstaben ohne diakritische Zeichen), Alpha-Latein-Diakrit (alle großen und kleinen lateinischen Buchstaben inklusiv diakritische Zeichen), Alpha-Europa (alle großen und kleinen lateinischen, griechischen und kyrillischen Zeichen, inklusiv diakritischer Zeichen).
 
-include::anhaenge.adoc[leveloffset=1]
-
 // tag::architekturregel[]
 
 // end::architekturregel[]
