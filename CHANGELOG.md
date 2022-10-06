@@ -24,6 +24,7 @@
     * git-commit-id-plugin (Version 4.9.10)
     * spring-boot-maven-plugin (Version von spring-boot verwaltet)
 - `IFS-1628`: [isy-überwachung] Standardmetriken bei Anbinden von ServiceStatistik vorhanden
+    * Hinweis: Der Parameter `MeterRegistry` wurde aus dem Konstruktor der `ServiceStatistik` entfernt.
 - `IFS-1161`: [isy-aufrufkontext] `HttpHeaderNestedDiagnosticContextFilter` Priorität erhöht
 - `IFS-1356`: [isy-batchrahmen] Manuelles Herunterfahren in isy-batchrahmen ausgebaut, stattdessen hochpropagieren der BatchAusfuehrungsException, wenn ClassNotFoundException abgefangen wird.
 
