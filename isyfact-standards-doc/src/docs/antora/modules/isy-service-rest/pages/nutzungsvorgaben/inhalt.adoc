@@ -15,7 +15,7 @@ Swagger Editor validiert die eingegebene Spezifikation und bietet darüber hinau
 Wir empfehlen das entsprechende IntelliJ und Eclipse Plugins dieses Editors (siehe xref:glossary:literaturextern:inhalt.adoc#litextern-swagger-editor-intellij[Swagger Editor für IntelliJ] und xref:glossary:literaturextern:inhalt.adoc#litextern-swagger-editor-eclipse[Swagger Editor für Eclipse]).
 Die Verwendung dieser Plugins ist besonders sinnvoll, da sie die Integration der Spezifikation in das Projekt ermöglicht und die Verwaltung mit Version Control erleichtert.
 
-Weitere Informationen zu OpenApi 3.0 (Beschreibung und Vorgaben) finden Sie unter xref:glossary:literaturextern:inhalt.adoc#litextern-swagger-spezification[Swagger Spezifikation]).
+Weitere Informationen zu OpenAPI 3.0 (Beschreibung und Vorgaben) finden Sie unter xref:glossary:literaturextern:inhalt.adoc#litextern-swagger-spezification[Swagger Spezifikation]).
 Bei der Erstellung der Spezifikation sind die Vorgaben der IsyFact (siehe xref:isy-service-rest:konzept/master.adoc#einleitung[Konzept REST]) zu beachten.
 Relevante Vorgaben beziehen sich u.a. auf den Aufbau der URls und der Anfrage, die Verwendung der http-Verben und Statuscodes.
 
@@ -213,7 +213,7 @@ Die für die Mapping-Tabelle genutzte Beispiel-Schnittstellenbeschreibung und da
 === Übertragung von Metadaten
 Metadaten werden als Header-Parameter übertragen.
 Zu Metadaten gehören u.a. Daten wie Benutzerkennung, Rolle, Tags, externe IDs.
-Nur die Metadaten, die nicht durch die IsyFact standardisiert werden, sind Teil der OpenApi-Spezifikation.
+Nur die Metadaten, die nicht durch die IsyFact standardisiert werden, sind Teil der OpenAPI-Spezifikation.
 
 Zur Spezifizierung von Header-Parametern wird der Eintrag „in: header“ genutzt, wie das unten stehenden Beispiel zeigt.
 
@@ -412,4 +412,55 @@ sourceFolder
 |===
 
 
+[[openapi-schnittstellenspezifikation]]
+== Veröffentlichung und Verwaltung der OpenAPI 3.0 Spezifikation
+
+[[openapi-schnittstellenspezifikation-vorteile]]
+=== Verwaltung
+Die OpenAPI Schnittstellenspezifikation ist jeweils Bestandteil der spezifischen Projektdokumentation.
+
+Damit die OpenAPI Schnittstellenspezifikation verfügbar sein kann, muss diese auch verwaltet werden.
+In den jeweiligen Spring Projekten wird die OpenAPI Schnittstellenspezifikation unter folgendem Pfad gespeichert: *_/src/main/resources/openapi.yml_*.
+
+Falls es Änderungen innerhalb der OpenAPI Schnittstellenspezifikation geben sollte, werden diese automatisch vom Versionskontrollsystem verwaltet.
+
+[[openapi-schnittstellenspezifikation-veroeffentlichung]]
+=== Veröffentlichung
+Die OpenAPI Spezifikationen werden mit jeder Veröffentlichung (Release) der Anwendung ausgeliefert.
+Für die Auslieferung und Veröffentlichung der OpenAPI Spezifikation ergeben sich unterschiedliche Möglichkeiten, die in den folgenden Kapiteln beschrieben werden.
+
+[[openapi-schnittstellenspezifikation-artifactory]]
+==== Artifactory
+Die Auslieferung erfolgt als ein Teil vom zentral generierten Artefakt.
+Der Zugriff auf das Artefakt ist über das entsprechende Artifactory und/oder GitHub (für Open-Source gestellte Bausteine) möglich.
+
+[[openapi-schnittstellenspezifikation-antora]]
+==== Antora
+Antora ist eine Dokumentationspipeline, die es Dokumentations-, Produkt- und Entwicklungsteams ermöglicht, Dokumentationsseiten zu erstellen, zu verwalten und zu veröffentlichen, die in AsciiDoc erstellt und aus mehreren versionierten Repositories bezogen wurden.
+
+Mithilfe des OpenAPI Generators kann aus der xref:glossary:literaturextern:inhalt.adoc#litextern-openapi-spezifikation[OpenAPI Spezifikation] (YAML Datei) AsciiDoc generiert/erstellt werden.
+Allgemeine Informationen zum OpenAPI Generator finden sich im Kapitel <<Verwendung_von_OpenAPI_Generator,Verwendung von OpenAPI Generator>>.
+Die generierten AsciiDoc-Dateien können dann in den Antora-Dokumentenbuild aufgenommen und gemeinsam mit der übrigen Dokumentation des Bausteins oder der Anwendung generiert und veröffentlicht werden.
+
+Für die Generierung der Schnittstellenbeschreibung im AsciiDoc-Format ist der Generator „asciidoc“ zu wählen.
+
+Neben der generierten OpenAPI Spezifikation als AsciiDoc-Datei, empfehlt es sich auch die OpenAPI Spezifikation im YAML-Format im Dokumentenbuild zu verlinken.
+
+Die Integration in den Antora-Dokumentenbuild ermöglicht somit:
+
+1. einen einfachen Zugriff auf verschiedene Versionen der OpenAPI Spezifikationen
+2. das Herunterladen der OpenAPI Spezifikationen für technische Benutzer (YAML-Format)
+3. den Zugang zu einer verständlichen Schnittstellen-Spezifikation für nicht technisch versierte Benutzer (AsciiDoc-Format)
+
+Die generierte Dokumentation (HTML) kann auf einem Webserver oder auf GitHub/GitLab-Pages veröffentlicht werden und ist dann mit einem Webbrowser erreichbar.
+Hierzu müssen entsprechende Jobs in der Build-Pipeline angelegt werden.
+
+[[openapi-schnittstellenspezifikation-eigener-endpunkt]]
+==== Definition eines Endpunktes
+
+Für den Betrieb in Testumgebungen ist es empfehlenswert, die OpenAPI Spezifikation im YAML-Format über eine Schnittstelle bereitzustellen.
+Dazu wird ein eigener Endpunkt implementiert, der die im Ressourcen-Verzeichnis liegende OpenAPI Spezifikation bereitstellt.
+Über einen Webbrowser kann so auf die aktuelle OpenAPI Spezifikation der Anwendung im Betrieb zugegriffen werden, um z.B. Testwerkzeuge zu konfigurieren.
+
+Es wird empfohlen, für die URL des Endpunktes einen klar verständlichen Begriff wie z.B. *_/openapi-spezifikation-download_* zu verwenden.
 // end::inhalt[]
