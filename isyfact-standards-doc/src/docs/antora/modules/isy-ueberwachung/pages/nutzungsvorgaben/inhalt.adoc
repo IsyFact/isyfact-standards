@@ -469,6 +469,46 @@ boolean pruefeSystem() {
 }
 ----
 
+==== Implementierung weiterer eigener Health-Indikatoren
+Anwendungen, die HTTP-Invoker Schnittstellen bereitstellen, müssen nach Vorgabe das Administration-Bean anbieten, um die Erreichbarkeit des Systems zu prüfen.
+Die Ping-Methode dieses Beans kann zur Implementierung eines Health-Indikators verwendet werden. Z. B.
+
+[id="listing-CustomHealthIndicator",reftext="{listing-caption} {counter:listings }"]
+[source,java]
+----
+/** Health configuration. */
+@Configuration
+@ConditionalOnAvailableEndpoint(endpoint = HealthEndpoint.class)
+public class HealthConfiguration {
+    /** Ping message. */
+    private final String pingMsg;
+
+    /**
+     * @param systemName current system name
+     */
+    HealthConfiguration(@Value("${system.name}") String systemName) {
+        pingMsg = "Ping from " + systemName;
+    }
+
+    /**
+     * App2 {@link HealthIndicator}; available in an entry named {@code app2}.
+     * @param app2AdminBean App2 {@link AdministrationRemoteBean}
+     */
+    @Bean
+    HealthIndicator app2HealthIndicator(AdministrationRemoteBean app2AdminBean) {
+        return () -> {
+            try {
+                app2AdminBean.ping(pingMsg);
+                return Health.up().build();
+            } catch (Exception e) {
+                return Health.down(e).build();
+            }
+        };
+    }
+}
+----
+
+NOTE: Bei der Erstellung des AdministrationRemoteBean sollte der Request-Timeout gesetzt werden, damit Ressourcen nicht zu lange blockiert werden.
 
 [[anbindung-eines-monitoring-systems]]
 === Anbindung eines Monitoring-Systems
