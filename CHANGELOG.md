@@ -1,4 +1,5 @@
 # 3.0.0
+- `IFS-771`: [isy-ueberwachung] Anleitung für den HealthCheck von HTTPInvoker-Endpoints hinzugefügt
 - `IFS-1467`: Maven Plugins für statische Informationen:
     * git-commit-id-plugin (Version 4.9.10)
     * spring-boot-maven-plugin (Version von spring-boot verwaltet)
