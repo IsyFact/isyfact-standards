@@ -447,6 +447,10 @@ Als Beispiel sei hier das IAM-System genannt.
 Zur Prüfung des IAM-Systems wird in der Regel eine Beispielanfrage an den Server gesendet.
 Ist vor das IAM-System ein Loadbalancer geschaltet, so kann es nach einem Fail-Over passieren, dass diese Beispielanfrage endlos läuft.
 ====
+* Anwendungen, die HTTP-Invoker Schnittstellen bereitstellen, müssen nach Vorgabe das Administration-Bean anbieten, um die Erreichbarkeit des Systems zu prüfen.
+Die Ping-Methode dieses Beans kann zur Implementierung eines Health-Indikators verwendet werden, wie in <<listing-CustomHealthIndicator>> dargestellt.
++
+NOTE: Bei der Erstellung des AdministrationRemoteBean sollte der Request-Timeout gesetzt werden, damit Ressourcen nicht zu lange blockiert werden.
 
 .Demonstration Future-Pattern
 [id="listing-Pruefmethode",reftext="{listing-caption} {counter:listings }"]
@@ -469,10 +473,7 @@ boolean pruefeSystem() {
 }
 ----
 
-==== Implementierung weiterer eigener Health-Indikatoren
-Anwendungen, die HTTP-Invoker Schnittstellen bereitstellen, müssen nach Vorgabe das Administration-Bean anbieten, um die Erreichbarkeit des Systems zu prüfen.
-Die Ping-Methode dieses Beans kann zur Implementierung eines Health-Indikators verwendet werden. Z. B.
-
+.Beispiel: Implementierung eines eigenen Health-Indikators
 [id="listing-CustomHealthIndicator",reftext="{listing-caption} {counter:listings }"]
 [source,java]
 ----
@@ -507,8 +508,6 @@ public class HealthConfiguration {
     }
 }
 ----
-
-NOTE: Bei der Erstellung des AdministrationRemoteBean sollte der Request-Timeout gesetzt werden, damit Ressourcen nicht zu lange blockiert werden.
 
 [[anbindung-eines-monitoring-systems]]
 === Anbindung eines Monitoring-Systems
