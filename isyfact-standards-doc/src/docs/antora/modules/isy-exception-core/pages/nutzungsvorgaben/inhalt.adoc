@@ -152,7 +152,7 @@ Unchecked Exceptions sind nicht in den Methoden-Signaturen zu deklarieren, aber 
 Der folgende Abschnitt beschreibt das Werfen einer technischen checked Exception.
 Das Vorgehen wird nur für technische checked Exceptions beschrieben, da das Vorgehen für alle Arten von Exceptions gleich ist.
 
-Gemäß der Anforderungen aus xref::konzept/inhalt.adoc#anforderungen-an-die-fehlerbehandlung[Anforderungen an die Fehlerbehandlung] sollte die Fehlerbehandlung übersichtlich sein.
+Gemäß der Anforderungen aus xref::konzept/master.adoc#anforderungen-an-die-fehlerbehandlung[Anforderungen an die Fehlerbehandlung] sollte die Fehlerbehandlung übersichtlich sein.
 Zur Sicherstellung der Übersichtlichkeit darf die Anzahl der verwendeten Exceptions die Anzahl möglicher Behandlungen nicht überschreiten.
 Es sollte also für jede mögliche Fehlerbehandlung auch nur eine Exception geworfen werden.
 Sofern sie nicht behandelbar sind, sind hierfür technische unchecked Exceptions zu verwenden.
@@ -381,7 +381,7 @@ In der Regel verwendet eine Komponente einen Nummernkreis.
 Wird deutlich, dass eine Komponente mehr als 1000 Ausnahme-IDs benötigt, können ihr auch mehrere Nummernkreise zugeordnet werden.
 
 Die Ausnahme-IDs referenzieren immer einen Fehlertext.
-Die referenzierten Fehlertexte können mit Platzhaltern versehen werden, um den Text um kontextbezogene Daten zu erweitern.
+Die referenzierten Fehlertexte können mit Platzhaltern versehen werden, um den Text um kontextbezogene Daten zu erweitern (s. <<listing-fehlertext-platzhalter>>).
 
 .Fehlertext mit Platzhaltern
 [id="listing-fehlertext-platzhalter",reftext="{listing-caption} {counter:listings }"]
@@ -390,13 +390,13 @@ Die referenzierten Fehlertexte können mit Platzhaltern versehen werden, um den 
 EXMPL10001=Der Parameter {0} enthält den ungültigen Wert {1}.
 ----
 
-Hierzu wird dem Konstruktor der zugehörigen Exception ein String oder String-Array mit den Werten für die Platzhalter übergeben (<<listing-UebergabePlatzhalter>>).
+Hierzu wird dem Konstruktor der zugehörigen Exception ein String oder String-Array mit den Werten für die Platzhalter übergeben (s. <<listing-UebergabePlatzhalter>>).
 
 .Übergabe von Werten für Platzhalter
 [id="listing-UebergabePlatzhalter",reftext="{listing-caption} {counter:listings }"]
 [source,java]
 ----
-new KonfigurationException(FehlerSchluessel.UNGUELTIGER_PARAMETER, parameter, wert);
+new KonfigurationException(FehlerSchluessel.MSG_UNGUELTIGER_PARAMETER, parameter, wert);
 ----
 
 Die Verwendung der Fehlertexte geschieht über Konstanten der Klassen.
@@ -421,8 +421,12 @@ Wie in <<listing-FehlerSchluessel>> gezeigt, müssen die Konstanten einen sprech
 [id="listing-FehlerSchluessel",reftext="{listing-caption} {counter:listings }"]
 [source,java]
 ----
-/** Die im Parameter {0} übergebene Liste ist leer. */
-public static final String MSG_LISTE_LEER = "TRMIN90004";
+public class FehlerSchluessel {
+
+    /** Der Parameter {0} enthält den ungültigen Wert {1}. */
+    public static final String MSG_UNGUELTIGER_PARAMETER = "EXMPL10001";
+
+}
 ----
 
 [[fehlertextprovider]]
