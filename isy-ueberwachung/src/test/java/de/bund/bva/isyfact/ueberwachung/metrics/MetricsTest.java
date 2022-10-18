@@ -34,7 +34,7 @@ import io.micrometer.core.instrument.Meter;
 import io.micrometer.core.instrument.MeterRegistry;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = RANDOM_PORT, classes = TestConfig.class)
+@SpringBootTest(webEnvironment = RANDOM_PORT, classes = MonitorTestServiceCalls_TestConfig.class)
 public class MetricsTest {
 
     private static final Instant START = Instant.now();
@@ -132,7 +132,7 @@ public class MetricsTest {
 
 @SpringBootConfiguration
 @EnableAutoConfiguration(exclude = IsyLoggingAutoConfiguration.class)
-class TestConfig {
+class MonitorTestServiceCalls_TestConfig {
 
     @Bean
     TestService testService() {
