@@ -4,23 +4,21 @@
 [[einleitung]]
 == Einleitung
 
-Im Konzept _Datum und Zeit_ xref:konzept/thisdoc.adoc#einleitung[KonzeptDatumZeit] werden die Anforderungen und Vorgaben zu Datum und Zeit der IsyFact definiert, um eine einheitliche Umsetzung in der gesamten Anwendungslandschaft zu gewährleisten.
+Im xref:konzept/master.adoc[] werden die Anforderungen und Vorgaben zu Datum und Zeit der IsyFact definiert, um eine einheitliche Umsetzung in der gesamten Anwendungslandschaft zu gewährleisten.
 
 Dieses Dokument beschreibt alle Aspekte, die bei der Entwicklung einer Anwendung zu berücksichtigen sind, um die definierten Anforderungen zu erfüllen.
-Die IsyFact stellt eine eigene querschnittliche
-xref:glossary:glossary:master.adoc#glossar-bibliothek[Bibliothek]
-_isy-datetime_ bereit, um die Anforderungen einheitlich umsetzen zu können.
-Kern dieses Dokuments sind Vorgaben zur Nutzung der _Java 8 Date and Time API_ des JSR 310 und die Verwendung der zuvor genannten Querschnittsbibliothek.
+Die IsyFact stellt eine eigene querschnittliche xref:glossary:glossary:master.adoc#glossar-bibliothek[Bibliothek] (`isy-datetime`) bereit, um die Anforderungen einheitlich umsetzen zu können.
+Kern dieses Dokuments sind Vorgaben zur Nutzung der _Java 8 Date and Time API_ des JSR 310 und die Verwendung der zuvor genannten Bibliothek.
 Das Dokument richtet sich daher vorrangig an Entwickler, Konstrukteure und Technische Chefdesigner von xref:glossary:glossary:master.adoc#glossar-anwendungssystem[Anwendungssystemen], die gemäß den Vorgaben der IsyFact umgesetzt werden.
 
 [[aufbau-und-zweck-des-dokuments]]
 == Aufbau und Zweck des Dokuments
 
-Der Zweck dieses Dokuments ist Vorgaben zur Nutzung der _Java 8 Date and Time API_ zu machen und die Verwendung der Querschnittsbibliothek _isy-datetime_ zu beschreiben.
+Der Zweck dieses Dokuments ist Vorgaben zur Nutzung der _Java 8 Date and Time API_ zu machen und die Verwendung der Bibliothek `isy-datetime` zu beschreiben.
 
 Das Dokument ist entsprechend dieser Zielsetzungen in die folgenden Kapitel untergliedert:
 
-Das Kapitel xref::nutzungsvorgaben/inhalt.adoc#dauern-und-zeitzonen[*Dauern und Zeitzonen*] enthält grundlegende Informationen zum Umgang mit Dauern und Zeitzonen.
+Das Kapitel xref::nutzungsvorgaben/master.adoc#dauern-und-zeitzonen[*Dauern und Zeitzonen*] enthält grundlegende Informationen zum Umgang mit Dauern und Zeitzonen.
 
-Im Kapitel xref::nutzungsvorgaben/inhalt.adoc#verwendung-der-querschnittsbibliothek-isy-datetime[*Verwendung der Querschnittsbibliothek* _isy-datetime_] wird der Inhalt und die Verwendung der Querschnittsbibliothek _isy-datetime_ beschrieben.
+Im Kapitel xref::nutzungsvorgaben/master.adoc#verwendung-der-querschnittsbibliothek-isy-datetime[*Verwendung der Bibliothek*] wird der Inhalt und die Verwendung der Bibliothek `isy-datetime` beschrieben.
 // end::inhalt[]

@@ -112,7 +112,7 @@ project-root/
 <8> Konfigurationsdateien für die Tests selbst oder für das zu testende IT-System
 <9> Dokumentation von Änderungen, z. B. via Eintrag einer Ticketnummer und kurzer Beschreibung
 
-Die Struktur bei der Verwendung mehrerer Maven-Module wird im Abschnitt xref::java-programmierkonventionen/inhalt.adoc#multi-modul-projekte[Multi-Modul-Projekte] erläutert.
+Die Struktur bei der Verwendung mehrerer Maven-Module wird im Abschnitt <<multi-modul-projekte>> erläutert.
 
 
 [[schnittstellenprojekte]]

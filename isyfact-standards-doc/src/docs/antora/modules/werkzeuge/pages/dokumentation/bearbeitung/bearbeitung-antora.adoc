@@ -86,7 +86,7 @@ Generelle Hinweise zur Verwendung von Verweisen siehe xref:seitenvorlage.adoc#st
 
 Für eine <<ueberschriften,Überschrift>> einer IsyFact-Seite fehlen noch die _Inline-Anchor_, damit durch Klick auf Verweise auf diese Inline-Anchor gesprungen werden kann.
 Ein Inline-Anchor wird über eckige Klammern gesetzt.
-Außerdem muss die ID des Anchors der xref:methodik:namenskonventionen/inhalt.adoc#dokumentation[Namenskonvention für Namen in Dokumenten] folgen.
+Außerdem muss die ID des Anchors der xref:methodik:namenskonventionen/master.adoc#dokumentation[Namenskonvention für Namen in Dokumenten] folgen.
 
 [[listing-ueberschriften-final]]
 .Überschriften mit Inline Anchors
