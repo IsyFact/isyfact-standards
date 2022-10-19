@@ -450,7 +450,7 @@ Ist vor das IAM-System ein Loadbalancer geschaltet, so kann es nach einem Fail-O
 * Anwendungen, die HTTP-Invoker Schnittstellen bereitstellen, müssen nach Vorgabe das Administration-Bean anbieten, um die Erreichbarkeit des Systems zu prüfen.
 Die Ping-Methode dieses Beans kann zur Implementierung eines Health-Indikators verwendet werden, wie in <<listing-CustomHealthIndicator>> dargestellt.
 +
-NOTE: Bei der Erstellung des AdministrationRemoteBean sollte der Request-Timeout gesetzt werden, damit Ressourcen nicht zu lange blockiert werden.
+NOTE: Bei der Erstellung des AdministrationRemoteBean muss der Request-Timeout gesetzt werden, damit Ressourcen nicht zu lange blockiert werden.
 
 .Demonstration Future-Pattern
 [id="listing-Pruefmethode",reftext="{listing-caption} {counter:listings }"]
