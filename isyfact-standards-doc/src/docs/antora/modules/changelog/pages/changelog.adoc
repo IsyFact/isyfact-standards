@@ -20,6 +20,7 @@ include::isyfact-standards-doku:blaupausen:page$detailkonzept-komponente-web-gui
 include::isyfact-standards-doku:isy-datetime:page$konzept/changelog.adoc[tag=release-2.5.0]
 include::isyfact-standards-doku:isy-datetime:page$nutzungsvorgaben/changelog.adoc[tag=release-2.5.0]
 include::isyfact-standards-doku:isy-exception-core:page$konzept/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:isy-exception-core:page$nutzungsvorgaben/changelog.adoc[tag=release-2.5.0]
 include::isyfact-standards-doku:isy-konfiguration:page$konzept/changelog.adoc[tag=release-2.5.0]
 include::isyfact-standards-doku:isy-konfiguration:page$nutzungsvorgaben/changelog.adoc[tag=release-2.5.0]
 include::isyfact-standards-doku:isy-logging:page$konzept/changelog.adoc[tag=release-2.5.0]

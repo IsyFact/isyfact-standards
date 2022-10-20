@@ -378,7 +378,7 @@ Die Ausnahme-IDs sind in Nummernkreise für die einzelnen Komponenten unterteilt
 Ein Nummernkreis umfasst immer 1000 Nummern, d. h. es gibt die Kreise 00xxx bis 99xxx.
 Bei der Erstellung einer neuen Anwendung ist im Systementwurf festzulegen, welche Komponente welche Nummernkreise verwendet.
 In der Regel verwendet eine Komponente einen Nummernkreis.
-Wird deutlich, dass eine Komponente mehr als 1000 Ausnahme-IDs benötigt, können ihr auch mehrere Nummernkreise zugeordnet werden.
+Benötigt eine Komponente mehr als 1000 Ausnahme-IDs, können ihr auch mehrere Nummernkreise zugeordnet werden.
 
 Die Ausnahme-IDs referenzieren immer einen Fehlertext.
 Die referenzierten Fehlertexte können mit Platzhaltern versehen werden, um den Text um kontextbezogene Daten zu erweitern (s. <<listing-fehlertext-platzhalter>>).
