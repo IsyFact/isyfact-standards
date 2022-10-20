@@ -6,4 +6,6 @@
 *** xref:diagrammerstellung/diagramsnet.adoc[diagrams.net]
 *** xref:diagrammerstellung/enterprise-architect.adoc[Enterprise Architect]
 ** xref:vorlagen.adoc[Vorlagen]
+*** xref:vorlage-systementwurf/antora-master.adoc[Systementwurf]
+*** xref:vorlage-systemhandbuch/antora-master.adoc[Systemhandbuch]
 *** xref:vorlagen/bearbeitung.adoc[]
