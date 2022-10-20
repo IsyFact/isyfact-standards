@@ -5,7 +5,7 @@
 == IsyFact Maven-Plugin zur Versionierungskontrolle
 
 Zur Sicherstellung einer validen Versionierung der Anwendung wird das Maven-Plugin isy-versioning-maven-plugin eingesetzt.
-Die Einbindung des Maven-Plugin ist unter xref::versionierungskontrolle/inhalt.adoc#einbindung-konfiguration[Einbindung und Konfiguration in der Anwendung] erläutert.
+Die Einbindung des Maven-Plugin ist unter <<einbindung-konfiguration>> erläutert.
 
 [[funktionweise]]
 === Funktionsweise
@@ -15,7 +15,7 @@ Die Versionsangabe wird in der Lifecycle-Phase "validate" geprüft. Dies ist im 
 Die Versionierung ist abhängig von der Art der Komponente.
 Aus diesem Grund wird bei der Validierung zwischen Geschäftsanwendungen und Schnittstellen unterschieden.
 Dabei wird zunächst von jeder Komponente angenommen, es verfolgt die Versionierungsrichtlinien von Geschäftsanwendungen.
-Konnten diese nicht nachgewiesen werden, wird automatisch geprüft, ob die Kritierien einer Schnittstellen-Version auf die Versionsnummer zutreffen.
+Konnten diese nicht nachgewiesen werden, wird automatisch geprüft, ob die Kriterien einer Schnittstellen-Version auf die Versionsnummer zutreffen.
 
 
 *Anwendungen*
@@ -30,8 +30,7 @@ Test-Version: Eine Version, welche für eine Testumgebung gedacht ist.
 Die Stabilität dieser Version ist nicht sichergestellt.
 Dort sieht der Aufbau wie folgt aus: *`<major>.<minor>.<patch>[-<label>][+<buildmetadaten>]`*
 
-Die Art des Szenarios, das für die zu kompilierende Anwendung genutzt werden soll, kann in der Anwendung selbst definiert werden.
-Siehe xref::versionierungskontrolle/inhalt.adoc#einbindung-konfiguration[Einbindung und Konfiguration in der Anwendung].
+Die Art des Szenarios, das für die zu kompilierende Anwendung genutzt werden soll, kann in der Anwendung selbst definiert werden (s. <<einbindung-konfiguration>>).
 
 
 *Schnittstellen*
