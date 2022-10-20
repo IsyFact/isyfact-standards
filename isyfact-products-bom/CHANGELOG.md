@@ -1,7 +1,5 @@
-# 2.5.0
-- `IFS-1397`: Versionsanhebung von Spring Boot auf 2.5.12 (CVE-2022-22965)
-- `IFS-1466`: Versionsanhebung von Spring Boot auf 2.5.13
-- `IFS-1525`: Versionsanhebung von Spring Boot auf 2.5.14
+# 3.0.0
+- `IFS-1465`: Spring Boot Versionsanhebung auf 2.7.1
 
 # 2.4.2
 - `IFS-1466`: Versionsanhebung von Spring Boot auf 2.5.13
@@ -33,8 +31,8 @@
     - Versionsanhebung von wiremock-jre8 auf 2.32.0
     - Versionsanhebung von xstream auf 1.4.18
 - `IFS-798`: Pojobuilder zu Products-BOM hinzugefügt
-
-# 2.3.0
+- `IFS-601`: Einbindung folgender Produkte über die Spring Boot Dependencies: JPA, JTA, Spring, Hibernate, Jackson,
+  QueryDSL, SLF4J, Logback, JUnit, Mockito, AssertJ, H2.
 - `IFS-985`: Spring Security entfernt (Verwaltung der Version über Spring Boot)
 - `IFS-987`: Entferne log4j
 - `IFS-970`: Spring-Boot Versionsanhebung auf 2.5.2
@@ -43,8 +41,6 @@
 - `IFS-988`: Apache-Commons-Logging entfernt
 
 # 2.2.0
-- `IFS-601`: Einbindung folgender Produkte über die Spring Boot Dependencies: JPA, JTA, Spring, Hibernate, Jackson,
-  QueryDSL, SLF4J, Logback, JUnit, Mockito, AssertJ, H2.
 - `IFS-643`: WireMock in products.bom ergänzt
 - `IFS-465`: Profile zum Bauen mit Java 11 erstellt
 - `IFS-491`: Jackson Version auf 2.10.1 angehoben

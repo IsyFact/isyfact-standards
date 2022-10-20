@@ -1,4 +1,4 @@
-# 2.5.0
+# 3.0.0
 - `IFS-1148`: Fehler wegen zu langem Klassenpfad unter Windows behoben
 - `IFS-1091`: Fehlerhafte ExcludeFromBatchContext-Annotation behoben
 - `IFS-1355`: WebApplication.None für ConfigurableApplicationContext im BatchLauncher hinzugefügt

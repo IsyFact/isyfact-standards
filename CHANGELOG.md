@@ -11,7 +11,6 @@
 - `IFS-1354`: [isy-persistence] Autokonfiguration mit initialisierbarer Datenbank
     * Für die Konfiguration der DataSource wurde zu den DataSourceProperties von Spring Boot gewechselt. Hierdurch haben sich die Namen der Konfigurationsschlüssel geändert und müssen angepasst werden.
 - `IFS-1166`: [isy-serviceapi-core] Autokonfiguration von isy-serviceapi-core nach isy-sicherheit
-- `IFS-1356`: [isy-batchrahmen] Manuelles Herunterfahren in isy-batchrahmen ausgebaut, stattdessen hochpropagieren der BatchAusfuehrungsException, wenn ClassNotFoundException abgefangen wird.
 - `IFS-1091`: [isy-batchrahmen] Fehlerhafte ExcludeFromBatchContext-Annotation behoben
 - `IFS-1050`: [isy-batchrahmen] Stelle Beispiel-SQL-Skripte wieder her, sodass diese mit der Oracle-Datenbank kompatibel sind
 - `IFS-1548`: [isyfact-standards-doc] Anleitung zum Formatieren und Einrichten des Checkstyle Plugins angepasst
