@@ -2,8 +2,6 @@
 - `IFS-1158`: Behebung der "Missing parameter metadata"-Warnung in dem mit dem "-parameters"-Flag compiliert wird
 - `IFS-744`: Namensänderung der Bean "taskScheduler" in "isyTaskScheduler"
 - `IFS-1175`: Erstelle eigenen TaskFehlertextProvider für Fehlermeldungen
-
-# 2.3.0
 - `IFS-661`: CompletionWatchdog loggt Stacktrace bei Exception
 
 # 2.2.0

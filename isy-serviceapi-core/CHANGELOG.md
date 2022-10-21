@@ -1,11 +1,9 @@
-# 2.5.0
-- `IFS-1073`: Logausgabe zur Korrektur der Korrelations-Id entfernt
+# 3.0.0
 - `IFS-1166`: Autokonfiguration von isy-serviceapi-core nach isy-sicherheit
+- `IFS-1073`: Logausgabe zur Korrektur der Korrelations-Id entfernt
 
 # 2.4.0
 - `IFS-668`: Zurücksetzung der KorrelationsId des AnrufKontextTo bei einem Invoke
-
-# 2.3.0
 - `IFS-874`: Umsetzung des Transports von OAuth 2 Bearer Tokens zwischen Schnittstellentechnologien
     - `IsyHttpInvokerServiceExporter` und `TimeoutWiederholungHttpInvokerRequestExecutor` um den `AufrufKontextVerwalter` erweitert.
     - Der OAuth 2 Bearer Token wird über den HTTP Authentication Header transportiert bzw. aus diesem ausgelesen.

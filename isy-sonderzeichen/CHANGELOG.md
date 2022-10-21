@@ -1,4 +1,4 @@
-# 2.5.0
+# 3.0.0
 - `IFS-1504`: Transformator für die normative Abbildung lateinischer Buchstaben auf Grundbuchstaben (Suchform) hinzugefügt
   * Integration von zugeliefertem Code aus `IFS-1270`
 

@@ -1,7 +1,7 @@
-# 2.5.0
-- `IFS-1161`: `HttpHeaderNestedDiagnosticContextFilter` Priorität erhöht 
+# 2.4.3
+- `IFS-1161`: `HttpHeaderNestedDiagnosticContextFilter` Priorität erhöht
 
-# 2.3.0
+# 2.4.0
 - `IFS-874`: Umsetzung des Transports von OAuth 2 Bearer Tokens zwischen Schnittstellentechnologien
     - `AufrufKontextVerwalter` wurde um ein Feld für das OAuth2 Bearer Token erweitert.
 
