@@ -87,6 +87,9 @@
         <!-- Maven plugins for static information -->
         <!-- Update to 5.0.0 when using java 11 -->
         <git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
+
+        <!-- Fixed patch for commons-text CVE-2022-42889 -->
+        <commons-text.version>1.10.0</commons-text.version>
     </properties>
 
     <build>
@@ -255,7 +258,7 @@
                         <dependency>
                             <groupId>org.apache.commons</groupId>
                             <artifactId>commons-text</artifactId>
-                            <version>1.10.0</version>
+                            <version>${commons-text.version}</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -298,7 +301,7 @@
                         <dependency>
                             <groupId>org.apache.commons</groupId>
                             <artifactId>commons-text</artifactId>
-                            <version>1.10.0</version>
+                            <version>${commons-text.version}</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -396,7 +399,7 @@
                     <dependency>
                         <groupId>org.apache.commons</groupId>
                         <artifactId>commons-text</artifactId>
-                        <version>1.10.0</version>
+                        <version>${commons-text.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -493,7 +496,7 @@
                     <dependency>
                         <groupId>org.apache.commons</groupId>
                         <artifactId>commons-text</artifactId>
-                        <version>1.10.0</version>
+                        <version>${commons-text.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -814,7 +817,7 @@
                             <dependency>
                                 <groupId>org.apache.commons</groupId>
                                 <artifactId>commons-text</artifactId>
-                                <version>1.10.0</version>
+                                <version>${commons-text.version}</version>
                             </dependency>
                         </dependencies>
                     </plugin>
@@ -853,7 +856,7 @@
                             <dependency>
                                 <groupId>org.apache.commons</groupId>
                                 <artifactId>commons-text</artifactId>
-                                <version>1.10.0</version>
+                                <version>${commons-text.version}</version>
                             </dependency>
                         </dependencies>
                     </plugin>
