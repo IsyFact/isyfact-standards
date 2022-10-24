@@ -1,3 +1,6 @@
+# 2.4.4
+- `IFS-1997`: Fix CVE-2022-42889 durch Anhebung von 'commons-text' auf 1.10
+
 # 2.4.3
 - `IFS-1467`: Maven Plugins für statische Informationen:
     * git-commit-id-plugin (Version 4.9.10)
