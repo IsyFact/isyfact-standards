@@ -619,6 +619,8 @@ image::werkzeuge:entwicklungsumgebung/Einrichtung_Entwicklungsumgebung_005.png[a
 
 Die Einbindung und Konfiguration von Checkstyle erfolgt über Plugins in der verwendeten IDE.
 
+NOTE: Mehr Details zur Verwendung der Checkstyle-Regeln finden sich im xref:glossary:literaturextern:inhalt.adoc#litextern-isyfact-checkstyle[README] des entsprechenden Repositories.
+
 ==== Installation des Plugins
 
 ===== Eclipse
