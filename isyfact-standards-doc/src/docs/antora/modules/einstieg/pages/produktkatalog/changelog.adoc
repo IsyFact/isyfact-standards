@@ -1,0 +1,252 @@
+[[changelog]]
+= Changelog
+
+*Änderungen IsyFact 2.5.0*
+
+// tag::release-2.5.0[]
+* "Anhebung von Versionen:
+** Spring Boot auf 2.5.13"
+
+* "Anhebung von Versionen:
+** Spring Boot auf 2.5.14"
+
+* "Neues Produkt:
+** Selenium  4.x -> empfohlen"
+
+* "Anhebung von Versionen:
+** Spring Boot auf 2.7.1
+** spring-security auf 5.7.x
+** spring-data-jpa auf 2.7.x
+** Hibernate auf 5.6.x
+** Mockito auf 4.x
+** QueryDSL auf 5.0.x
+** H2 auf 2.1.214"
+
+* Hinzufügen der neuen Spalten "Entwicklung/Test" und "Technologiestack" zum Produktkatalog
+
+* "Zeilen zu slf4j konsolidiert.
+* Kategorie für Produkte zu Logging zu ""Logging"" geändert."
+
+* "Neues Produkt:
+** Liquibase 4.x"
+
+
+// end::release-2.5.0[]
+
+*Änderungen IsyFact 2.4.0*
+
+// tag::release-2.4.0[]
+* "Ersetzen eigener Versionen durch Spring Boot Managed Dependencies für:
+** AssertJ (inkl. Update auf 3.x)
+** Hibernate
+** H2
+** Jackson
+** JUnit
+** logback
+** Mockito (inkl. Update auf 3.x)
+** QueryDSL (inkl. Update auf 4.3.x)
+** slf4j
+** Spring
+* Nachtrag folgender Produkte:
+** JPA 2.2
+** JTA 1.3
+** JAXB 2.3
+** EL 3.0"
+* "Ersetzen eigener Versionen durch Spring Boot Managed Dependencies für:
+** Spring Security (Update auf 5.3.x)"
+* "Anhebung der Version von
+** Spring Boot (auf 2.5.2)
+** Spring Framework (auf 5.3.8)"
+* "Ersetzen eigener Versionen durch Spring Boot Managed Dependencies für:
+** Ehcache"
+* "Anhebung der Version von
+** Oracle JDBC (auf 19.11.0.0)
+** Oracle UCP (auf 19.11.0.0)"
+* "Neue Produkte:
+* Spring Web MVC
+* Spring WebClient
+* Apache HttpComponents HttpClient
+* Negativliste:
+** Netty als HTTP-Client ergänzt"
+* "Neue Produkte:
+** pojobuilder
+** Lombok"
+* Anhebung der Version von logback auf >=1.2.8 auf Grund einer Sicherheitslücke (s. Kommentar)
+* "Neues Produkt:
+** OpenApi Generator"
+
+* "Verallgemeinerung der Version von
+** Oracle JDBC (auf 19.x)
+** Oracle UCP (auf 19.x)"
+* "Aktualisierung von Junit
+** Hinzufügen von JUnit 5.x
+** Korrektor der Lizenz von JUnit 4.x
+** Hinzufügen Kommentierung der Entscheidung von JUnit 4.x"
+
+* "Anhebung von Versionen:
+**  Spring Boot auf 2.5.9
+** commons-cli auf 1.5.x
+** commons-validator auf 1.7.x
+** dbunit auf 2.7.x
+** guava auf 31.0.x
+** h2 database auf 2.1.210
+** jsoup auf 1.14.x
+** opencsv auf 5.5.x
+** xstream auf 1.4.18
+
+* Hinzufügen von Apache Poi-OOXML in Version 4.1.x"
+
+* "Anhebung von Versionen:
+
+** Durch Spring Boot verwaltete Versionen auf den Stand von Spring Boot 2.5.9 angehoben
+** WireMock auf >=2.32"
+// end::release-2.4.0[]
+
+// *Änderungen IsyFact 2.3.0*
+
+// tag::release-2.3.0[]
+
+// end::release-2.3.0[]
+
+*Änderungen IsyFact 2.2.0*
+
+// tag::release-2.2.0[]
+* Anhebung der Version von Jackson Bibliotheken
+* Anhebung der Version von Spring, Spring Boot und Jackson Bibliotheken
+* Anhebung der Version von Google Guava auf 29
+* Anhebung der Hibernate Version auf 5.4.x
+* Anhebung der Version von OpenCSV auf 5.3
+* Resilience4J aufgenommen. Version 1.x
+* Anhebung der Version von xstream auf 1.4.14
+* Orika aufgenommen in Version 1.5.x
+* Ergänzung von WireMock Version ≥2.27
+* Anhebung der Versionen von Spring Security (5.1.6), Spring Webflow (2.5.x) und Apache POI (4.1.1)
+* Nachtrag: Aufnahme von XWiki, Produktauswahl besteht bereits seit 03.2014
+* Nachtrag: Spring Data 2.3 (verwaltet durch Spring Boot)"
+
+// end::release-2.2.0[]
+
+*Änderungen IsyFact 2.1.0*
+
+// tag::release-2.1.0[]
+* Anhebung der Versionen von Oracle UCP und OJDBC
+* Anhebung der Version von Logback
+* Änderung Apache POI von Version 3.x auf 4.x
+* Produkt zur Dateityp-Ermittlung (Apache Tika) aufgenommen
+* Logging-Fassade slf4j-api und Logging Bridges aufgenommen
+* Versionsänderung für Jackson und Jquery
+* Versionsänderung für Commons Validator auf 1.6
+* Anhebung der Version von AssertJ auf 3.12.x
+// end::release-2.1.0[]
+
+*Änderungen IsyFact 2.0.0*
+
+// tag::release-2.0.0[]
+* "Spring auf 5.1.x angehoben
+* Spring Boot aufgenommen
+* Hibernate auf 5.3, Mockito auf 2.x angehoben"
+* Dozer durch Orika 1.5.x ersetzt
+
+// end::release-2.0.0[]
+
+*Änderungen IsyFact 1.8.0*
+
+// tag::release-1.8.0[]
+* Anhebung der Versionen von Oracle UCP und OJDBC
+* Anhebung der Versionen von Logback, Hibernate und Dozer
+* Produkt zur Dateityp-Ermittlung (Apache Tika) aufgenommen
+* Logging-Fassade slf4j-api und Logging Bridges aufgenommen
+* Versionsänderung für Hibernate, Jackson und Jquery
+* "Nachtrag: Anhebung der Version von Spring Security
+und Apache POI"
+// end::release-1.8.0[]
+
+*Änderungen IsyFact 1.7.0*
+
+// tag::release-1.7.0[]
+* Anhebung der Versionen von jQuery, Bootstrap und Spring
+// end::release-1.7.0[]
+
+*Änderungen IsyFact 1.6.0*
+
+// tag::release-1.6.0[]
+* Änderung Eclipse Checkstyle Plugin auf 8.x
+* Einschränkung von Spring-Webflow 2.4 auf ≥2.4.8, kleinere Versionen wegen Verhinderung des Partial State Saving auf die Negativliste gesetzt
+
+// end::release-1.6.0[]
+
+*Änderungen IsyFact 1.5.0*
+
+// tag::release-1.5.0[]
+* Einschränkung des Apache Tomcat 8.5 auf >8.5.11
+* "Festschreibung der Dozer-Version auf 5.4.x
+* Einschränkung von Jackson auf >2.8.10"
+* Änderung Apache von 2.2 auf 2.4 und SLES 11 auf 12
+// end::release-1.5.0[]
+
+*Änderungen IsyFact 1.4.1*
+
+// tag::release-1.4.1[]
+* Rücknahme der Änderung von Apache von 2.2 auf 2.4 und SLES 11 auf 12
+// end::release-1.4.1[]
+
+*Änderungen IsyFact 1.4.0*
+
+// tag::release-1.4.0[]
+* Änderung H2 DB von 1.3.x auf 1.x
+* jsoup 1.8.x hinzugefügt
+* Änderung Apache von 2.2 auf 2.4 und SLES 11 auf 12
+// end::release-1.4.0[]
+
+*Änderungen IsyFact 1.3.6*
+
+// tag::release-1.3.6[]
+* Tanuki: Lizenz angepasst
+* Servlet-API (Nutzung in Tomcat)
+* EHCache hinzugefügt, OpenCSV aktualisiert, commons-cli korrigiert
+* Format und Versionierung des Produktkatalogs für Technologieradar angepasst.
+* Produkte der Entwicklungsumgebung aufgenommen.
+* Versionen Eclipse und Checkstyle-Plugin hinzugefügt
+* Oracle Mojarra JavaServer Faces < 2.2.13 der Negativliste hinzugefügt
+* Aktualisierung Apache Tomcat auf 8.5.x
+* Spring-Webflow 2.4.4 wegen Performance-Problemen auf Negativliste gesetzt
+// end::release-1.3.0[]
+
+*Änderungen IsyFact 1.2.0*
+
+// tag::release-1.2.0[]
+* Produktkatalog aktualisiert, Teile in RF Produktkatalog verschoben
+* "Spring-Test hinzugefügt.
+* Aufnahme XStream, DBUnit, AssertJ als Proof-Of-Concept."
+* Beschreibung zu Commons Collection in der Blacklist erweitert.
+* Bouncy Castle <=1.5 auf Blacklist gesetzt.
+* QueryDSL als PoC hinzugefügt
+* Logging-Framework aktualisiert (logback)
+* Umfassende Aktualisierung für RF 1.6
+// end::release-1.2.0[]
+
+*Änderungen IsyFact 1.1.0*
+
+// tag::release-1.1.0[]
+* Connection-Pool auf UC4 aktualisiert
+* "Aktualisiert für Register Factory 1.5: Java, Oracle UCP, Spring, Spring Webflow, Drools, Guava (Integration Änderungen durch RF 1.4.1, RF 1.4.2 und beschlossene Änderungen in 2015).
+Blacklist mit Dozer 5.3.2 ergänzt."
+
+// end::release-1.1.0[]
+
+
+*Änderungen IsyFact 1.0.0*
+
+// tag::release-1.0.0[]
+* Ersterstellung
+* "Active MQ ergänzt Blacklist mit SAGA-Blacklist befüllt."
+* Message Queuing Produkt angepasst
+* Reorganisation Primärproduktliste, div. Produktupdates (Hibernate, Spring, Webflow,…)
+* Jackson Update
+* JUnit-Vorgabe auf 4.x angepasst (JUnit hat nur 3 Stellen)
+* Versionsnummer von Apache Commons Net korrigiert, ursprüngliche Angabe fehlerhaft (war: 1.x ist: 3.x)
+* Ergänzung Aspose
+* Übernahme des Dokuments in IsyFact
+* Aktualisierung Spring und Spring-Webflow
+* Release 1.0.0 des Produktkatalogs erstellt
+// end::release-1.0.0[]

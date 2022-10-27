@@ -1,0 +1,17 @@
+﻿Status;Erläuterung
+vorgeschlagen;"Das Produkt wurde durch einen Interessensvertreter zur Aufnahme in den Standard vorgeschlagen wurde. Die weiteren Schritte werden geprüft.
+Produkte in diesem Status dürfen noch nicht eingesetzt werden."
+pilotieren;"Das Produkt erfüllt Mindestkritierien zur Aufnahme in den Standard und wird in einzelnen Kontexten verprobt.
+Produkte in diesem Status dürfen nach Rücksprache mit dem jeweiligen Chefarchitekten eingesetzt werden. Ablösung droht, wenn Technologie sich nicht bewährt."
+bestandsgeschützt;"Das Produkt wurde bereits durch einen neuen Standard abgelöst oder die Ablösung ist geplant.
+Produkte in diesem Status dürfen weiterverwendet werden, sofern sie im jeweiligen Kontex bereits eingesetzt werden. Eine zukünftige Ablösung ist sehr wahrscheinlich."
+empfohlen;"Das Produkt hat sich in der Praxis bewährt. In der Produktkategorie existieren jedoch mehrere Alternativen, zwischen denen (je nach Anforderung) gewählt werden kann.
+Bei Neuentwicklung oder Aktualisierung eines Systems, muss eines der empfohlenen Produkte eingesetzt werden (sofern die Produktkategorie für das System relvant ist)."
+verbindlich;"Das Produkt hat sich in der Praxis bewährt und ist der alleinige verbindliche Standard.
+Bei Neuentwicklung oder Aktualisierung eines Systems, muss das Produkt eingesetzt werden (sofern die Produktkategorie für das System relvant ist)."
+verworfen;"Das Produkt wurde betrachtet oder war Teil des Standards, wurde aus Gründen aber verworfen.
+Produkte in diesem Status dürfen auf keinem Fall eingesetzt werden und müssen ggf. durch den neuen Standard ersetzt werden."
+;
+;
+;
+;

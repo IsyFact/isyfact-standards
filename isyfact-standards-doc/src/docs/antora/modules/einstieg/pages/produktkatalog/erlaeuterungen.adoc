@@ -1,0 +1,11 @@
+= Erläuterungen
+
+[.table_head_sticky]
+--
+[options=header, format=csv, separator=";", cols="a,a"]
+|===
+//include::partial$/Produktkatalog_IsyFact_v3_x_x_testtest.csv[]
+//include::partial$/Produktkatalog_IsyFact_v3_x_x_bibliotheken_anwendungsentwicklung_short_red_link.csv[]
+include::partial$/Produktkatalog_IsyFact_v3_x_x_Erlaeuterungen.csv[]
+|===
+--

@@ -1,0 +1,38 @@
+= Negativliste
+
+== Standards
+
+[.table_head_sticky]
+--
+[options=header, format=csv, separator=";", cols="a,a,a,a,a,a"]
+|===
+//include::partial$/Produktkatalog_IsyFact_v3_x_x_testtest.csv[]
+//include::partial$/Produktkatalog_IsyFact_v3_x_x_bibliotheken_anwendungsentwicklung_short_red_link.csv[]
+include::partial$/Produktkatalog_IsyFact_v3_x_x_Negativliste_Standards.csv[]
+|===
+--
+
+== Systemsoftware
+
+[.table_head_sticky]
+--
+[options=header, format=csv, separator=";", cols="a,a,a,a,a,a"]
+|===
+//include::partial$/Produktkatalog_IsyFact_v3_x_x_testtest.csv[]
+//include::partial$/Produktkatalog_IsyFact_v3_x_x_bibliotheken_anwendungsentwicklung_short_red_link.csv[]
+include::partial$/Produktkatalog_IsyFact_v3_x_x_Negativliste_Systemsoftware.csv[]
+|===
+--
+
+== Bibliotheken für die Anwendungsentwicklung
+
+[.table_head_sticky]
+--
+[options=header, format=csv, separator=";", cols="a,a,a,a,a,a"]
+|===
+//include::partial$/Produktkatalog_IsyFact_v3_x_x_testtest.csv[]
+//include::partial$/Produktkatalog_IsyFact_v3_x_x_bibliotheken_anwendungsentwicklung_short_red_link.csv[]
+include::partial$/Produktkatalog_IsyFact_v3_x_x_Negativliste_Bibliotheken_Anwendungsentwicklung.csv[]
+|===
+--
+

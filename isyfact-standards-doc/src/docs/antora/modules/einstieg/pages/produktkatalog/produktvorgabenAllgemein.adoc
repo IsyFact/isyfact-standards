@@ -1,0 +1,42 @@
+= Allgemeine Produktvorgaben
+
+== Basistechnologie
+
+[.table_head_sticky]
+--
+[options=header, format=csv, separator=";", cols="a,a,a,a,a,a,a"]
+|===
+include::partial$/Produktkatalog_IsyFact_v3_x_x_Produktvorgaben_Allgemein_Basistechnologie.csv[]
+|===
+--
+
+== Systemsoftware
+
+[.table_head_sticky]
+--
+[options=header, format=csv, separator=";", cols="a,a,a,a,a,a,a"]
+|===
+include::partial$/Produktkatalog_IsyFact_v3_x_x_Produktvorgaben_Allgemein_Systemsoftware.csv[]
+|===
+--
+
+== Entwicklungsumgebung
+
+[.table_head_sticky]
+--
+[options=header, format=csv, separator=";", cols="a,a,a,a,a,a,a"]
+|===
+include::partial$/Produktkatalog_IsyFact_v3_x_x_Produktvorgaben_Allgemein_Entwicklungsumgebung.csv[]
+|===
+--
+
+== Anwendungsentwicklung Sonstiges
+
+[.table_head_sticky]
+--
+[options=header, format=csv, separator=";", cols="a,a,a,a,a,a,a"]
+|===
+include::partial$/Produktkatalog_IsyFact_v3_x_x_Produktvorgaben_Allgemein_Bibliotheken_Anwendungsentwicklung_Sonstiges.csv[]
+|===
+--
+
