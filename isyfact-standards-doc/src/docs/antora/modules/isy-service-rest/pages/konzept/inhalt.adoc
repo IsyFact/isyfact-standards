@@ -414,7 +414,7 @@ Es ist idempotent, da nichts verändert wird.
 OPTIONS /kunden
 ----
 
-NOTE: Eine Übersicht über die HTTP-Methoden und ihre Eigenschaften findet sich in xref:konzept/anhaenge.adoc#anhang-http-methoden[Anhang: http-Methoden]
+NOTE: Eine Übersicht über die HTTP-Methoden und ihre Eigenschaften findet sich in xref:konzept/master.adoc#anhang-http-methoden[Anhang: http-Methoden]
 
 [[post-suche-filterung]]
 ==== Suche und Filterung mittels POST
@@ -511,7 +511,7 @@ Wenn für eine Repräsentation mehr als ein Inhaltstyp üblich ist, reagiert ein
 
 Anfragen geben ihre inhaltlichen Präferenzen im HTTP-Header `Accept` mit.
 Der REST-Service setzt den Inhaltstyp der Antworten im HTTP-Header `Content-Type`.
-Für die häufigsten Repräsentationen legt xref:konzept/anhaenge.adoc#anhang-content-types[Anhang: Content types] die erwarteten und zurückgegebenen Inhaltstypen fest.
+Für die häufigsten Repräsentationen legt xref:konzept/master.adoc#anhang-content-types[Anhang: Content types] die erwarteten und zurückgegebenen Inhaltstypen fest.
 
 [[metadaten]]
 === Metadaten
@@ -537,7 +537,7 @@ Dieser reduziert allerdings nur die genutzte Netzwerk-Kommunikation, nicht aber 
 
 Weitere Caching-Methoden, die auch die Serverlast reduzieren, sind möglich.
 
-NOTE: Eine Übersicht, welche HTTP-Methoden Caching-Fähig sind, findet sich unter xref:konzept/anhaenge.adoc#anhang-http-methoden[Anhang: http-Methoden]
+NOTE: Eine Übersicht, welche HTTP-Methoden Caching-Fähig sind, findet sich unter xref:konzept/master.adoc#anhang-http-methoden[Anhang: http-Methoden]
 
 [[hateoas]]
 === HATEOAS

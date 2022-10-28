@@ -2,10 +2,14 @@
 - `IFS-1702`: Refaktorierung ServiceStatistik
     * Entkoppelt von Micrometer API
     * Aufgeteilt in Interface und Implementierung
+- `IFS-771`: Anleitung für den HealthCheck von HTTPInvoker-Endpoints hinzugefügt
 - `IFS-1628`: Standardmetriken bei Anbinden von ServiceStatistik vorhanden
 
-# 2.5.0
+# 2.4.2
 - `IFS-1165`: Standardmäßig wird die "/Loadbalancer" Schnittstelle durch die Autokonfiguration freigegeben, wenn spring-security aktiviert ist.
+
+# 2.4.0
+- `IFS-686`: Property-Dateien auf Unicode Escapes umgestellt
 
 # 2.2.0
 - `IFS-453`: Loglevel für isAlive-Datei-Ereignisse erhöht: INFO für Standardablageort wird genutzt; ERROR für Datei existiert bei Abfrage nicht.

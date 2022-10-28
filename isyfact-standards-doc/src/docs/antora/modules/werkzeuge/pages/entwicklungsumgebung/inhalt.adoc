@@ -1,6 +1,9 @@
 = Einrichtung Entwicklungsumgebung: Inhalt
+:experimental:
 
 // tag::inhalt[]
+:checkstyle-config-url: https://raw.githubusercontent.com/IsyFact/isy-checkstyle-config/main/src/main/resources/checkstyle.config.xml
+
 [[aufbau-und-zweck-des-dokuments]]
 == Aufbau und Zweck des Dokuments
 
@@ -9,10 +12,10 @@ Mit diesem Leitfaden bauen Sie eine funktionierende Entwicklungsumgebung auf und
 === Aufbau
 Der Leitfaden führt Sie durch folgende Schritte:
 
-. xref::entwicklungsumgebung/inhalt.adoc#virtuelle-maschine-vorbereiten[Virtuelle Maschine vorbereiten] (optional)
-. benötigte xref::entwicklungsumgebung/inhalt.adoc#werkzeuge-installieren[Werkzeuge installieren] und konfigurieren
-. xref::entwicklungsumgebung/inhalt.adoc#isyfact-projektgenerator-installieren[IsyFact-Projektgenerator installieren]
-. xref::entwicklungsumgebung/inhalt.adoc#hello-world-anwendung-generieren[Hello-World-Anwendung generieren]
+. <<virtuelle-maschine-vorbereiten>> (optional),
+. benötigte <<werkzeuge-installieren>> und konfigurieren,
+. <<isyfact-projektgenerator-installieren>>,
+. <<hello-world-anwendung-generieren>>.
 
 === Voraussetzungen
 Zum Abschluss des Leitfadens (ohne Vorbereitung einer virtuellen Maschine) benötigen Sie:
@@ -27,14 +30,14 @@ Wenn Sie sich eine virtuelle Maschine vorbereiten möchten, benötigen Sie zusä
 
 * Oracle VirtualBox
 
-Wenn Sie sich bereits eine geeignete Umgebung geschaffen haben, um die Werkzeuge sowie die IsyFact-Bibliotheken zu installieren, können Sie die Vorbereitung einer virtuellen Maschine überspringen und direkt mit dem Kapitel xref::entwicklungsumgebung/inhalt.adoc#werkzeuge-installieren[Werkzeuge installieren] beginnen.
+Wenn Sie sich bereits eine geeignete Umgebung geschaffen haben, um die Werkzeuge sowie die IsyFact-Bibliotheken zu installieren, können Sie die Vorbereitung einer virtuellen Maschine überspringen und direkt mit <<werkzeuge-installieren>> beginnen.
 
 [[virtuelle-maschine-vorbereiten]]
 == Virtuelle Maschine vorbereiten
 
 In diesem Kapitel bereiten Sie eine virtuelle Maschine (VM) vor, auf der Sie später die IsyFact-Entwicklungsumgebung installieren werden.
 
-TIP: Wenn Sie keine virtuelle Maschine für Ihre IsyFact-Entwicklungsumgebung einsetzen oder bereits eine virtuelle Maschine als Grundlage für Ihre IsyFact-Entwicklungsumgebung vorbereitet haben, können Sie dieses Kapitel überspringen und mit dem Kapitel xref::entwicklungsumgebung/inhalt.adoc#werkzeuge-installieren[Werkzeuge installieren] fortfahren.
+TIP: Wenn Sie keine virtuelle Maschine für Ihre IsyFact-Entwicklungsumgebung einsetzen oder bereits eine virtuelle Maschine als Grundlage für Ihre IsyFact-Entwicklungsumgebung vorbereitet haben, können Sie dieses Kapitel überspringen und mit <<werkzeuge-installieren>> fortfahren.
 
 === VirtualBox installieren und konfigurieren
 
@@ -49,7 +52,7 @@ image::werkzeuge:entwicklungsumgebung/leitfaden_entwicklungsumgebung_vb_01.png[a
 VirtualBox kann mehrere virtuelle Maschinen verwalten.
 Jede virtuelle Maschine wird auf Ihrer Festplatte unterhalb des Home-Verzeichnisses im Ordner "VirtualBox VMs" verwaltet.
 Jedes dieser Verzeichnisse enthält Konfigurationsdateien für die virtuelle Maschine.
-Im folgenden sprechen wir hierbei vom VM-Verzeichnis.
+Im Folgenden sprechen wir hierbei vom VM-Verzeichnis.
 
 Um die virtuelle Maschine zu erzeugen, klicken Sie innerhalb von Oracle VirtualBox im Hauptmenü auf "Neu".
 Es erscheint ein neues Fenster, bei dem Sie im ersten Eingabefeld einen Namen Ihrer Wahl eingeben.
@@ -98,7 +101,7 @@ Anschließend müssen Sie die Boot-Reihenfolge, Prozessor-Anzahl, Grafikspeicher
 
 Hierfür selektieren Sie die neu erschaffene VM und wählen im Menü "Ändern".
 Im erscheinenden Einstellungsfenster wechseln Sie auf der linken Seite auf "Allgemein" und dann rechts in den Reiter "Erweitert".
-Öffnen Sie die beiden Komboboxen "Gemeinsame Zwischenablage" und "Drag'n Drop" und selektieren Sie dort jeweils den Eintrag "bidirektional", um eine gemeinsame Zwischenablage des Host-Betriebssystems und der virtuellen Maschine zu erlangen.
+Öffnen Sie die beiden Combo-Boxen "Gemeinsame Zwischenablage" und "Drag'n'Drop" und selektieren Sie dort jeweils den Eintrag "bidirektional", um eine gemeinsame Zwischenablage des Host-Betriebssystems und der virtuellen Maschine zu erlangen.
 
 .Zwischenablage konfigurieren
 [id="image-leitfaden_entwicklungsumgebung_vb_aendern_01",reftext="{figure-caption} {counter:figures}"]
@@ -114,10 +117,10 @@ image::werkzeuge:entwicklungsumgebung/leitfaden_entwicklungsumgebung_vb_aendern_
 Den Chipsatz belassen Sie bei PIIX3.
 
 Je nach Zeigergerät selektieren Sie eine für Sie passende Option aus.
-In dem Screenshot wird beispielsweise "USB-Tablet" vewendet. Wenn Sie jedoch eine Maus einsetzen, selektieren Sie "PS/2-Maus".
+In dem Screenshot wird beispielsweise "USB-Tablet" verwendet. Wenn Sie jedoch eine Maus einsetzen, selektieren Sie "PS/2-Maus".
 
 Bei dem IO-APIC, handelt es sich um den sogenannten Advanced Programmable Interrupt Controller.
-Weil Sie für die Entwicklungsumgbeung zwei Prozessorkerne im Gastsystem einsetzen werden, ist das Häkchen erforderlich.
+Weil Sie für die Entwicklungsumgebung zwei Prozessorkerne im Gastsystem einsetzen werden, ist das Häkchen erforderlich.
 
 Dann wechseln Sie in den Reiter "Prozessor".
 Hier stellen Sie ein, dass das Gastsystem über zwei Prozessoren verfügen soll.
@@ -146,7 +149,7 @@ Starten Sie Ihre virtuelle Maschine und melden Sie sich an:
 [id="image-leitfaden_entwicklungsumgebung_vb_ubuntu_01",reftext="{figure-caption} {counter:figures}"]
 image::werkzeuge:entwicklungsumgebung/leitfaden_entwicklungsumgebung_vb_ubuntu_01.png[align="center",width=60%,pdfwidth=70%]
 
-Ihr Benutzername und Kennwort ist bei den virtuellen Festplatten von OSBoxes standardmäßig gesetzt:
+Benutzername und Kennwort sind bei den virtuellen Festplatten von OSBoxes standardmäßig gesetzt:
 
 * Benutzername: `osboxes`
 * Passwort: `osboxes.org`
@@ -180,7 +183,7 @@ image::werkzeuge:entwicklungsumgebung/leitfaden_entwicklungsumgebung_vb_ubuntu_0
 Oracle VirtualBox bietet Gasterweiterungen an, welche die Performanz des Gastsystems verbessert.
 Ein weiteres Feature ist, dass sich der Bildschirm beliebig skalieren lässt.
 Ohne Gasterweiterungen sind lediglich die Auflösungen 640x480, 800x600, und 1024x768 möglich.
-Außerdem funktioniert Drag'n Drop nur mit installierten Gasterweiterungen.
+Außerdem funktioniert Drag-and-drop nur mit installierten Gasterweiterungen.
 Darüber hinaus bieten die Gasterweiterungen den sogenannten Seamless Mode an.
 Der Seamless Mode ermöglicht, dass sich die Fenster der VirtualBox Instanz innerhalb des Host-Systems anzeigen lassen, und somit den Anschein erwecken, sie seien in dieses integriert.
 
@@ -190,14 +193,14 @@ Um die Gasterweiterungen zu installieren, benötigen Sie ein optisches Laufwerk,
 Wenn Sie die obigen Arbeitsschritte durchgeführt haben, sollte das optische Laufwerk aber bereits existieren.
 ====
 
-Starten Sie die Ubuntu Instanz und klicken Sie im VirtualBox Menü auf den Eintrag "Geräte" -> "Gasterweiterungen einlegen...".
+Starten Sie die Ubuntu Instanz und klicken Sie im VirtualBox Menü auf den Eintrag menu:Geräte[Gasterweiterungen einlegen...].
 
 .Gasterweiterungen laden auf der virtuellen Maschine
 [id="image-leitfaden_entwicklungsumgebung_vb_ubuntu_gasterweiterung_01",reftext="{figure-caption} {counter:figures}"]
 image::werkzeuge:entwicklungsumgebung/leitfaden_entwicklungsumgebung_vb_ubuntu_gasterweiterung_01.png[align="center",width=60%,pdfwidth=70%]
 
 Hierdurch wird eine virtuelle CD automatisch in das optische Laufwerk eingelegt, worauf eine Startanwendung von selbst dafür sorgt, dass die Gasterweiterungen installiert werden.
-Im aufkommenden Fenster, klicken Sie auf "Run".
+Im aufkommenden Fenster klicken Sie auf "Run".
 
 .Gasterweiterungen installieren auf der virtuellen Maschine
 [id="image-leitfaden_entwicklungsumgebung_vb_ubuntu_gasterweiterung_02",reftext="{figure-caption} {counter:figures}"]
@@ -242,7 +245,7 @@ Danach installieren Sie Git mit folgender Anweisung:
 Auf der Kommandozeile wird Git über den Aufruf des Kommandos `git` gesteuert.
 Das `git`-Kommando kennt eine Reihe von Optionsparametern.
 Die Konfiguration wird beispielsweise über den Optionsparameter `config` festgelegt.
-Dabei kann sie in drei Granularitäten durchgeführt werden.
+Dabei kann sie in drei Scopes durchgeführt werden.
 Über das Kommando
 
  git config --system
@@ -309,7 +312,7 @@ Legen Sie dazu eine Datei namens `STS.desktop` in diesem Verzeichnis an und vers
  Comment=Spring Tool Suite
  Icon=/opt/sts-bundle/<STS-Release>/icon.xpm
 
-Danach lässt sich STS über das Applikations-Menü von Ubuntu starten.
+Danach lässt sich STS über das Applikationsmenü von Ubuntu starten.
 Hierfür klicken Sie auf "Applications" - "Other" - "STS"
 
 .Spring Tool Suite (STS) in "Activities Overview"
@@ -326,7 +329,7 @@ image::werkzeuge:entwicklungsumgebung/leitfaden_entwicklungsumgebung_werkzeuge_s
 === Apache Tomcat
 
 Bei einer IsyFact-Anwendung handelt es sich um eine Webanwendung, die genauso wie andere JavaEE-basierte Webanwendungen in einem Servlet-Container betrieben wird.
-Der gängigste Web Container hierfür ist Catalina bzw. das Produkt Apache Tomcat, das den Catalina Web Container integriert.
+Der gängigste Web-Container hierfür ist Catalina bzw. das Produkt Apache Tomcat, das den Catalina Web Container integriert.
 Obwohl STS ein eigenes Apache Tomcat Derivat bereithält, setzt man bei einer IsyFact-Anwendung typischerweise Apache Tomcat ein.
 Deshalb wird in diesem Leitfaden diese Variante gezeigt.
 Laden Sie Apache Tomcat von der Webseite xref:glossary:literaturextern:inhalt.adoc#litextern-apache[Apache] herunter.
@@ -393,9 +396,9 @@ Wenn man sich innerhalb eines Codefensters befindet, kann man mit folgenden Tast
 * *IntelliJ IDEA:* kbd:[Strg + Alt + L]
 
 [[tastaturkuerzel-import-aufraeumen]]
-==== Tastaturkürzel zum Aufräumen der Imports
+==== Tastaturkürzel zum Aufräumen der Import-Anweisungen
 
-Sollen lediglich die Imports aufgeräumt werden, kann im Codefenster folgendes Tastenkürzel verwendet werden.
+Sollen lediglich der Import-Anweisungen aufgeräumt werden, kann im Codefenster folgendes Tastenkürzel verwendet werden.
 
 * *Eclipse:* kbd:[Alt + Shift + O]
 * *IntelliJ IDEA:* kbd:[Strg + Alt + O]
@@ -404,6 +407,22 @@ Sollen lediglich die Imports aufgeräumt werden, kann im Codefenster folgendes T
 ==== Import von Code Style Formatierungsdateien
 
 Dieses Kapitel erläutert den Import der Konfiguration zur Quellcode-Formatierung für die Entwicklungsumgebungen Eclipse und IntelliJ IDEA.
+Die Dateien hierzu können von dieser Seite heruntergeladen werden.
+
+[[downloads-code-formatierung]]
+.Downloads zur Code-Formatierung
+[cols="1,^2,^2",opts="header"]
+|====
+|IDE
+|Code-Formatierung
+|Import-Order
+h|Eclipse
+|xref:attachment$IsyFact-eclipse-formatter-config.xml[Download icon:file-code-o[]]
+|xref:attachment$IsyFact-eclipse-formatter-config.importorder[Download icon:file-code-o[]]
+h|IntelliJ IDEA
+|xref:attachment$IsyFact-intellij-formatter-config.xml[Download icon:file-code-o[]]
+|icon:times[]
+|====
 
 [[intellij-idea-1]]
 ===== IntelliJ IDEA
@@ -420,7 +439,7 @@ NOTE: Die in dieser Installationsbeschreibung erstellten Screenshots basieren au
 * menu:Import Scheme[Intellij IDEA code style XML] auswählen
 * In der daraufhin erscheinenden Dateiauswahlbox die zu importierende Datei auswählen
 
-.IntelliJ IDEA Code Formatter Import
+.IntelliJ IDEA: Code Formatter Import
 [id="image-Code-Formatter",reftext="{figure-caption} {counter:figures}"]
 image::werkzeuge:entwicklungsumgebung/Einrichtung_Entwicklungsumgebung_006.png[align="center"]
 
@@ -437,7 +456,7 @@ Weiterhin muss folgende Einstellung in menu:File[Settings > Editor > General] vo
 
 Unter "On Save": Ensure every saved file ends with a line break
 
-.IntelliJ IDEA Zusätzliche Einstellung
+.IntelliJ IDEA: Zusätzliche Einstellung
 [id="image-intellij_additional-setting",reftext="{figure-caption} {counter:figures}"]
 image::werkzeuge:entwicklungsumgebung/Einrichtung_Entwicklungsumgebung_006b.png[align="center"]
 
@@ -455,7 +474,7 @@ NOTE: Die in dieser Installationsbeschreibung erstellten Screenshots basieren au
 * Schaltfläche btn:[Import] anklicken
 * In der daraufhin erscheinenden Dateiauswahlbox die zu importierende Datei auswählen
 
-.Eclipse Code Formatter Import
+.Eclipse: Code Formatter Import
 [id="image-Code-Formatter2",reftext="{figure-caption} {counter:figures}"]
 image::werkzeuge:entwicklungsumgebung/Einrichtung_Entwicklungsumgebung_007.png[align="center"]
 
@@ -471,7 +490,7 @@ Welcher Profilname angezeigt wird, entscheidet sich durch einen entsprechenden E
 * Menüeintrag menu:Window[Preferences > Java > Code Style > Organize Imports]
 * In diesem Menü kann über "Import" die importorder-Datei importiert werden, welche die Reihenfolge automatisch folgendermaßen festlegt: java, javax, net, org, com, de
 
-.Eclipse Import Organizer
+.Eclipse: Import Organizer
 [id="image-import-organizer",reftext="{figure-caption} {counter:figures}"]
 image::werkzeuge:entwicklungsumgebung/Einrichtung_Entwicklungsumgebung_007b.png[align="center"]
 
@@ -479,7 +498,7 @@ image::werkzeuge:entwicklungsumgebung/Einrichtung_Entwicklungsumgebung_007b.png[
 [[formatierungsdifferenzen]]
 ==== Formatierungsdifferenzen
 
-Mit Hilfe der Einstellungsmasken für die Formatierung bei den beiden IDEs ist eine fast vollständige Übereinstimmung bei der automatischen Formatierung des Quellcodes möglich.
+Mithilfe der Einstellungsmasken für die Formatierung bei den beiden IDEs ist eine fast vollständige Übereinstimmung bei der automatischen Formatierung des Quellcodes möglich.
 Dieses Kapitel führt die noch verbliebenen Differenzen anhand einer Gegenüberstellung auf und diskutiert kurz die Konsequenzen.
 
 .Democode zur Veranschaulichung von Formatierungseinstellungen (Eclipse)
@@ -491,7 +510,7 @@ image::werkzeuge:entwicklungsumgebung/Einrichtung_Entwicklungsumgebung_008.png[a
 
 Im _javadoc_ Bereich löscht IntelliJ IDEA leere Kommentarzeilen, die vor dem Ende des Kommentarblocks stehen:
 
-.Formatierungsdifferenz Kommentarleerzeile
+.Differenz: Leerzeilen in Kommentaren
 [id="image-Formatierungsdifferenz",reftext="{figure-caption} {counter:figures}"]
 image::werkzeuge:entwicklungsumgebung/Einrichtung_Entwicklungsumgebung_009.png[align="center"]
 
@@ -503,7 +522,7 @@ image::werkzeuge:entwicklungsumgebung/Einrichtung_Entwicklungsumgebung_009.png[a
 Beide Formatter erlauben es einzustellen, dass nach dem Semikolon in einer for-Schleife ein Leerzeichen stehen soll.
 Bei IntelliJ IDEA wird diese Regel streng umgesetzt, auch bei `for(;;)`, währenddessen Eclipse Leerzeichen nur dann einfügt, wenn hinter dem Semikolon noch ein Ausdruck wie beispielsweise `„b > i“` steht.
 
-.Formatierungsdifferenz Leerzeile in for-Schleife
+.Differenz: Leerzeile in for-Schleife
 [id="image-Formatierungsdifferenz-for",reftext="{figure-caption} {counter:figures}"]
 image::werkzeuge:entwicklungsumgebung/Einrichtung_Entwicklungsumgebung_010.png[align="center"]
 
@@ -514,7 +533,7 @@ image::werkzeuge:entwicklungsumgebung/Einrichtung_Entwicklungsumgebung_010.png[a
 
 Wenn ein leeres Statement im Quellcode vorhanden ist, fügt IntelliJ IDEA zwei Leerzeilen ein und setzt das Semikolon beim Formatieren in eine neue Zeile.
 
-.Formatierungsdifferenz Befehlszeilenfehler
+.Differenz: Leere Statements
 [id="image-Formatierungsdifferenz-befehlszeile",reftext="{figure-caption} {counter:figures}"]
 image::werkzeuge:entwicklungsumgebung/Einrichtung_Entwicklungsumgebung_011.png[align="center"]
 
@@ -537,7 +556,7 @@ Das Eclipse Plugin _jenerate_ kann innerhalb von Eclipse über den _„Eclipse M
 
 Eclipse Menüpunkt: menu:Help[Eclipse Marketplace]
 
-.Eclipse Marketplace, Pluginauswahl
+.Eclipse Marketplace: Plugin-Suche
 [id="image-eclipse-marketplace-pluginauswahl",reftext="{figure-caption} {counter:figures}"]
 image::werkzeuge:entwicklungsumgebung/Einrichtung_Entwicklungsumgebung_001.png[align="center",width=80%,pdfwidth=80%]
 
@@ -548,13 +567,13 @@ Bestimmte Einstellungen zur Steuerung der Erzeugung von Boilerplate Code können
 
 Der folgende Screenshot zeigt die Einstellungen, die bei der Boilerplate-Code-Erstellung die höchste Übereinstimmung mit dem von IntelliJ IDEA erzeugten Boilerplate Code ergibt.
 
-.Eclipse Plugin jenerate - Grundeinstellungen
+.Eclipse-Plugin jenerate - Grundeinstellungen
 [id="image-jenerate-grundeinstellungen",reftext="{figure-caption} {counter:figures}"]
 image::werkzeuge:entwicklungsumgebung/Einrichtung_Entwicklungsumgebung_002.png[align="center"]
 
 Wenn man sich im Klasseneditor über das Plugin _jenerate_ die Methoden `equals()` und `hashCode()` generieren lässt, wird auf der Detailmaske zur Eingabe der zu verwendenden Parameter bei der Codegenerierung die in den Settings voreingestellte „__Content Strategy__“ angezeigt.
 
-Sollte in der _jenerate_ Grundeinstellungsmaske keine oder eine andere Vorauswahl getroffen worden sein, so muss hier die zu verwendende Content Strategy ebenfalls auf `USE_JAVA` (__java.util.Objects__) umgestellt werden.
+Sollte in der _jenerate_ Grundeinstellungsmaske keine oder eine andere Vorauswahl getroffen worden sein, so muss hier die zu verwendende Content Strategy ebenfalls auf `USE_JAVA` (`java.util.Objects`) umgestellt werden.
 
 .Einstellung der Content Strategy
 [id="image-Eclipse-Boilerplate",reftext="{figure-caption} {counter:figures}"]
@@ -589,7 +608,7 @@ TIP: Werden Klassen zu einem späteren Zeitpunkt um weitere Klassenvariablen erg
 
 In IntelliJ IDEA lässt sich die Vorgabe zur Codegenerierung direkt vorgeben.
 Diese ist im Generierungsdialog unter „Template“ einzustellen.
-Der Dialog wird mit kbd:[Alt + Einfg] und der Auwahl von __equals() and hashCode()__ aufgerufen.
+Der Dialog wird mit kbd:[Alt + Einfg] und der Auswahl von __equals() and hashCode()__ aufgerufen.
 
 .IntelliJ IDEA: Einstellung der Vorgabe zur Codegenerierung
 [id="image-IntelliJ-Boilerplate",reftext="{figure-caption} {counter:figures}"]
@@ -599,6 +618,8 @@ image::werkzeuge:entwicklungsumgebung/Einrichtung_Entwicklungsumgebung_005.png[a
 === Einrichtung von Checkstyle
 
 Die Einbindung und Konfiguration von Checkstyle erfolgt über Plugins in der verwendeten IDE.
+
+NOTE: Mehr Details zur Verwendung der Checkstyle-Regeln finden sich im xref:glossary:literaturextern:inhalt.adoc#litextern-isyfact-checkstyle[README] des entsprechenden Repositories.
 
 ==== Installation des Plugins
 
@@ -649,26 +670,23 @@ image::werkzeuge:entwicklungsumgebung/Einrichtung_Entwicklungsumgebung_015.png[a
 
 ===== Eclipse
 
-*Schritt 1:* Konfigurationmaske des Checkstyle-Plugin in Eclipse öffnen
+*Schritt 1:* Konfigurationsmaske des Checkstyle-Plugin in Eclipse öffnen
 
 * Menüeintrag menu:Window[Preferences > Checkstyle]
 
-*Schritt 2:* Import der Checkstyle-Konfiguration von IsyFact
+*Schritt 2:* Import der Checkstyle-Konfiguration von IsyFact:
 
 * Mit der Schaltfläche btn:[New...] einen neuen Eintrag anlegen
+* Als _Type_ "Remote Configuration" auswählen
 * Als _Name_ "IsyFact" eingeben
-* Mit btn:[Import...] die Checkstyle-Konfiguration aus dem Werkzeugverzeichnis der IsyFact importieren
+* Als _Location_ `{checkstyle-config-url}` eingeben
 * Mit btn:[Set as Default] die Konfiguration als Standard aktivieren und den Dialog mit btn:[Apply and Close] schließen
 
-.Import der Checkstyle-Konfiguration für Eclipse
-[id="image-checkstyle-import-eclipse",reftext="{figure-caption} {counter:figures}"]
-image::werkzeuge:entwicklungsumgebung/Einrichtung_Entwicklungsumgebung_016.png[align="center"]
-
-* Das Checkstyle-Fenster kann anschließend über btn:[Window > Show View > Other... > Checkstyle violations] angezeigt werden
+Die Ergebnisse von Checkstyle können anschließend über btn:[Window > Show View > Other... > Checkstyle violations] angezeigt werden.
 
 ===== IntelliJ IDEA
 
-*Schritt 1:* Konfigurationmaske des Checkstyle-Plugin in Eclipse öffnen
+*Schritt 1:* Konfigurationsmaske des Checkstyle-Plugin in Eclipse öffnen
 
 * Menüeintrag menu:File[Settings... > Checkstyle] (für das aktuelle Projekt)
 * Menüeintrag menu:File[Other Settings > Default Settings... > Checkstyle] (für alle zukünftigen Projekte)
@@ -677,14 +695,12 @@ image::werkzeuge:entwicklungsumgebung/Einrichtung_Entwicklungsumgebung_016.png[a
 
 * Mit der Schaltfläche btn:[+] einen neuen Eintrag anlegen
 * Als _Description_ "IsyFact" eingeben
+* "Use a Checkstyle file accessible via HTTP" auswählen
+* Als _URL_ `{checkstyle-config-url}` setzen
 * Mit btn:[Browse...] die Checkstyle-Konfiguration aus dem Werkzeugverzeichnis der IsyFact importieren
 * Mit einem Haken in der Spalte _Active_ die Konfiguration aktivieren
 
-.Import der Checkstyle-Konfiguration für IntelliJ IDEA
-[id="image-checkstyle-import-intellij",reftext="{figure-caption} {counter:figures}"]
-image::werkzeuge:entwicklungsumgebung/Einrichtung_Entwicklungsumgebung_017.png[align="center"]
-
-* Das Checkstyle-Fenster kann anschließend über eine Schaltfläche in den _Tool Buttons_ angezeigt werden
+Die Ergebnisse von Checkstyle können anschließend über einen _Tool-Button_ (standardmäßig am unteren Rand des IDE-Fensters) angezeigt werden.
 
 [[isyfact-projektgenerator-installieren]]
 == IsyFact-Projektgenerator installieren
@@ -705,7 +721,7 @@ In dieser Anleitung wird jedoch das Arbeiten mit Git innerhalb der STS gezeigt.
 Starten Sie also die STS und öffnen Sie dort die Perspektive Git.
 Klicken Sie in der Perspektive Git entweder auf die Clone-Schaltfläche oder auf den Link "Clone a Git repository".
 
-.Clonen des Git Repositories
+.Klonen des Git Repositories
 [id="image-leitfaden_entwicklungsumgebung_bibliotheken_04",reftext="{figure-caption} {counter:figures}"]
 image::werkzeuge:entwicklungsumgebung/leitfaden_entwicklungsumgebung_bibliotheken_04.png[align="center"]
 
@@ -740,7 +756,7 @@ image::werkzeuge:entwicklungsumgebung/leitfaden_entwicklungsumgebung_bibliotheke
 
 Bestätigen Sie mit einem Mausklick auf "Finish".
 
-Als nächstes importieren Sie das Maven-Projekt aus dem heruntergeladenen Repository.
+Als Nächstes importieren Sie das Maven-Projekt aus dem heruntergeladenen Repository.
 Hierfür klicken Sie mit der rechten Maustaste auf das Repository und wählen den Eintrag "Import Projects" aus.
 Im daraufhin erscheinenden Fenster bestätigen Sie den Import des Maven-Projekts `isyfact-projektgenerator` mit einem Klick auf Finish.
 Wechseln Sie anschließend in die Perspective "Spring".
@@ -766,7 +782,7 @@ image::werkzeuge:entwicklungsumgebung/leitfaden_entwicklungsumgebung_bibliotheke
 Hierfür klicken Sie im Hauptmenü auf menu:File[New > Other].
 Im Wizard selektieren Sie menu:Maven[Maven Project].
 
-.Auswahl des Maven-Wizard
+.Auswahl des Maven-Wizards
 [id="image-leitfaden_entwicklungsumgebung_projektgenerator_01",reftext="{figure-caption} {counter:figures}"]
 image::werkzeuge:entwicklungsumgebung/leitfaden_entwicklungsumgebung_projektgenerator_01.png[align="center",width=60%,pdfwidth=70%]
 
@@ -795,7 +811,7 @@ Die Hello-World-Anwendung wird nun erzeugt.
 Führen Sie ggf. "Update Maven Projekt" bei dem neu generierten Projekt durch.
 
 Um die Hello-World-Anwendung zu starten, klicken Sie mit der rechten Maustaste auf das generierte Projekt und wählen im Kontextmenü menu:Run as[Run on Server].
-Selektieren Sie den im Kapitel xref::entwicklungsumgebung/inhalt.adoc#apache-tomcat[Apache Tomcat] eingerichteten Server und setzen Sie ein Häkchen bei der Checkbox "Always use this server when running this project".
+Selektieren Sie den <<apache-tomcat,eingerichteten Server>> und setzen Sie ein Häkchen bei der Checkbox "Always use this server when running this project".
 
 .Auf Server starten
 [id="image-leitfaden_entwicklungsumgebung_projektgenerator_05",reftext="{figure-caption} {counter:figures}"]

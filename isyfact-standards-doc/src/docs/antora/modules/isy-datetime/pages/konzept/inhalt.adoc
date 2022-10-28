@@ -302,7 +302,7 @@ Das Stammpackage für alle Klassen der Umsetzung setzt sich aus Group-ID und Art
 === Bedeutung der Standardbibliothek
 
 Die Bibliothek muss zur Umsetzung der Anforderungen so stark wie möglich auf die im JSR 310 beschriebene API setzen.
-Falls einige der Anforderungen aus dem Kapitel <<anforderungen>> komplett durch die Funktionalität dieser API abgedeckt sind, wird in den xref:nutzungsvorgaben/thisdoc.adoc#einleitung[NutzungsvorgabenDatumZeit] die entsprechende Verwendung der API mit Verweis auf die Standarddokumentation knapp erläutert.
+Falls einige der Anforderungen aus dem Kapitel <<anforderungen>> komplett durch die Funktionalität dieser API abgedeckt sind, wird in den xref:nutzungsvorgaben/master.adoc[Nutzungsvorgaben] die entsprechende Verwendung der API mit Verweis auf die Standarddokumentation knapp erläutert.
 Abweichungen von der API oder eigene Implementierungen bereits vorhandener Funktionalität müssen in den Nutzungsvorgaben begründet und beschrieben werden.
 
 [[verwendung-der-standardbibliothek]]

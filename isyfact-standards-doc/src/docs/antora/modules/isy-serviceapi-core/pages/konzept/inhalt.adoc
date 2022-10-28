@@ -135,7 +135,7 @@ $$htt(s)://qs-xyz.test.de/isy-benutzerverzeichnis/AuskunftBean_v4_1$$
 |*Variable*        | *Mögliche Ausprägungen*
 m|<Hostname>       | Der Hostname des Servers
 m|<Anwendungsname> | Der Name der Anwendung.
-Siehe Kapitel xref:methodik:namenskonventionen/inhalt.adoc#namen-von-anwendungssystemen[Namen von Anwendungssystemen]. Wenn es sich um eine Querschnittsanwendung handelt, muss dieser mit dem Präfix „isy-“ beginnen.
+Siehe Kapitel xref:methodik:namenskonventionen/master.adoc#namen-von-anwendungssystemen[Namen von Anwendungssystemen]. Wenn es sich um eine Querschnittsanwendung handelt, muss dieser mit dem Präfix „isy-“ beginnen.
 m|<Servicename>    | Der Name des Services.
 m|<Version>       a| Die Versionsnummer des Service, die zweielementig und aufsteigend vergeben wird.
 Hierbei wird sich am Schema Major- und Minor-Level orientiert. Beispiele:

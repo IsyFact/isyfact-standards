@@ -207,7 +207,7 @@ Das passende Verb, um die Art der Transaktion zu beschreiben (Lese-, Schreib- od
 Vorgaben zur Wahl des Verbs finden sich im xref:isy-service-rest:konzept/master.adoc#einleitung[Konzept REST].
 |===
 
-Die für die Mapping-Tabelle genutzte Beispiel-Schnittstellenbeschreibung und das Ergebnis als OpenAPI-Spezifikation ist als im xref:isy-service-rest:nutzungsvorgaben/anhaenge.adoc#zusammenfassung-beispiel-mitarbeiter[Beispiel im Anhang] zusammenfassend dargestellt.
+Die für die Mapping-Tabelle genutzte Beispiel-Schnittstellenbeschreibung und das Ergebnis als OpenAPI-Spezifikation ist als im xref:isy-service-rest:nutzungsvorgaben/master.adoc#zusammenfassung-beispiel-mitarbeiter[Beispiel im Anhang] zusammenfassend dargestellt.
 
 [[metadaten]]
 === Übertragung von Metadaten

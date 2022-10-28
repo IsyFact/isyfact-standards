@@ -449,6 +449,10 @@ Als Beispiel sei hier das IAM-System genannt.
 Zur Prüfung des IAM-Systems wird in der Regel eine Beispielanfrage an den Server gesendet.
 Ist vor das IAM-System ein Loadbalancer geschaltet, so kann es nach einem Fail-Over passieren, dass diese Beispielanfrage endlos läuft.
 ====
+* Anwendungen, die HTTP-Invoker Schnittstellen bereitstellen, müssen nach Vorgabe das Administration-Bean anbieten, um die Erreichbarkeit des Systems zu prüfen.
+Die Ping-Methode dieses Beans kann zur Implementierung eines Health-Indikators verwendet werden, wie in <<listing-CustomHealthIndicator>> dargestellt.
++
+NOTE: Bei der Erstellung des AdministrationRemoteBean muss der Request-Timeout gesetzt werden, damit Ressourcen nicht zu lange blockiert werden.
 
 .Demonstration Future-Pattern
 [id="listing-Pruefmethode",reftext="{listing-caption} {counter:listings }"]
@@ -471,6 +475,41 @@ boolean pruefeSystem() {
 }
 ----
 
+.Beispiel: Implementierung eines eigenen Health-Indikators
+[id="listing-CustomHealthIndicator",reftext="{listing-caption} {counter:listings }"]
+[source,java]
+----
+/** Health configuration. */
+@Configuration
+@ConditionalOnAvailableEndpoint(endpoint = HealthEndpoint.class)
+public class HealthConfiguration {
+    /** Ping message. */
+    private final String pingMsg;
+
+    /**
+     * @param systemName current system name
+     */
+    HealthConfiguration(@Value("${system.name}") String systemName) {
+        pingMsg = "Ping from " + systemName;
+    }
+
+    /**
+     * App2 {@link HealthIndicator}; available in an entry named {@code app2}.
+     * @param app2AdminBean App2 {@link AdministrationRemoteBean}
+     */
+    @Bean
+    HealthIndicator app2HealthIndicator(AdministrationRemoteBean app2AdminBean) {
+        return () -> {
+            try {
+                app2AdminBean.ping(pingMsg);
+                return Health.up().build();
+            } catch (Exception e) {
+                return Health.down(e).build();
+            }
+        };
+    }
+}
+----
 
 [[anbindung-eines-monitoring-systems]]
 === Anbindung eines Monitoring-Systems

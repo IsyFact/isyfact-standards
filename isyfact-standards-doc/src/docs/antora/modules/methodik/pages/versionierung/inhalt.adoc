@@ -71,7 +71,7 @@ Versionen von Anwendungssystemen folgen dem folgenden Muster:
 ^m| *MAJOR.MINOR.PATCH[-LABEL]*
 |====
 
-Zusätzlich zu den im Kapitel xref::versionierung/inhalt.adoc#allgemeine-nomenklatur-und-vorgaben[Allgemeine Nomenklatur und Vorgaben] getätigten Vorgaben und Empfehlungen gelten hier die folgenden
+Zusätzlich zu den im Kapitel <<allgemeine-nomenklatur-und-vorgaben>> getätigten Vorgaben und Empfehlungen gelten hier die folgenden
  Konkretisierungen:
 
 Auf Grundlage einer Versionsnummer von MAJOR.MINOR.PATCH werden bei Anwendungssystemen nach IsyFact die einzelnen Elemente folgendermaßen erhöht:
@@ -84,7 +84,7 @@ Beispiele: 1.0.2, 2.5.1, 1.2.1, 0.10.0-alpha1
 
 [IMPORTANT]
 ====
-Die Vorgaben zu Semantic Versioning (vgl. xref::versionierung/inhalt.adoc#allgemeine-nomenklatur-und-vorgaben[Allgemeine Nomenklatur und Vorgaben, Punkt 2]) gelten auch für alle Ressourcen, wie beispielsweise Datenbank-Skripte.
+Die Vorgaben zu Semantic Versioning (vgl. <<allgemeine-nomenklatur-und-vorgaben>>, Punkt 2) gelten auch für alle Ressourcen, wie beispielsweise Datenbank-Skripte.
 Das heißt, Fixes an Skripten sowie die Nachlieferungen fehlender Skripte müssen in einem gesonderten Release (z.B. Bugfix-Release) veröffentlicht werden.
 ====
 
@@ -139,7 +139,7 @@ Versionsangaben von Bibliotheken folgen dem folgenden Muster:
 ^m| *MAJOR.MINOR.PATCH[-LABEL]*
 |====
 
-Zusätzlich zu den im Kapitel xref::versionierung/inhalt.adoc#allgemeine-nomenklatur-und-vorgaben[Allgemeine Nomenklatur und Vorgaben] getätigten Vorgaben und Empfehlungen gelten hier die folgenden
+Zusätzlich zu den im Kapitel <<allgemeine-nomenklatur-und-vorgaben>> getätigten Vorgaben und Empfehlungen gelten hier die folgenden
 Konkretisierungen.
 
 Wenn von kompatibel gesprochen wird, ist damit gemeint, dass ein Wechsel auf die kompatible Version der Bibliothek keine
@@ -170,7 +170,7 @@ Versionsangaben von Schnittstellen folgen dem folgenden Muster:
 ^m| *MAJOR.MINOR[-LABEL]*
 |====
 
-Zusätzlich zu den im Kapitel xref::versionierung/inhalt.adoc#allgemeine-nomenklatur-und-vorgaben[Allgemeine Nomenklatur und Vorgaben] getätigten Vorgaben und Empfehlungen gelten hier die folgenden
+Zusätzlich zu den im Kapitel <<allgemeine-nomenklatur-und-vorgaben>> getätigten Vorgaben und Empfehlungen gelten hier die folgenden
 Konkretisierungen und Abweichungen.
 
 Bei Schnittstellen wird auf den Bugfix-Teil der Version verzichtet, da Schnittstellen keine Bugfixes im generellen Sinne
@@ -196,17 +196,17 @@ Zusätzlich muss MAJOR Teil des Packagepfades sein. Dies ermöglicht das paralle
 
 Bei *lokalen Schnittstellen*:
 
-* kann ein Update auf eine höhrere Java-Version zur Inkompatibilität führen.
-Dies ist zu evaluieren und entsprechend der allgemeinen Vorgaben, wie oben beschrieben (xref::versionierung/inhalt.adoc#lokale-remote-schnittstellen[Lokale Schnittstellen und Remote-Schnittstellen (REST)]), zu handhaben.
+* kann ein Update auf eine höhere Java-Version zur Inkompatibilität führen.
+Dies ist zu evaluieren und entsprechend der allgemeinen Vorgaben, wie oben beschrieben (<<lokale-remote-schnittstellen>>), zu handhaben.
 
 Bei *Remote-Schnittstellen*:
 
 * muss (MUST) auch die *MAJOR* Version in dem URL-Pfad enthalten sein. So können jederzeit parallel unterschiedliche Versionen zur Laufzeit angeboten werden.
 * wird für den Nutzer der Schnittstelle empfohlen die *MINOR* Version zu erhöhen, wenn die URL zu der Remote-Schnittstelle im Code geändert werden muss,
 da bei einem Update der Betriebsumgebung seitens des Schnittstellenanbieters nicht zur Inkompatibilität auf Nutzerseite führen sollte.
-Sofern die Verbindung zu der Remote-Schnittstelle parameterieisert ist, ist keine Änderung der Version notwendig.
+Sofern die Verbindung zu der Remote-Schnittstelle parametrisiert ist, ist keine Änderung der Version notwendig.
 * als Anbieter dieser Schnittstelle ist bei einem Update der Java-Version (oder auch Betriebsumgebung) zu prüfen,
-ob eine Inkompatibilität vorliegen wird und entsprechend die Versionierung wie oben beschrieben (xref::versionierung/inhalt.adoc#lokale-remote-schnittstellen[Lokale Schnittstellen und Remote-Schnittstellen (REST)]) vorzunehmen.
+ob eine Inkompatibilität vorliegen wird und entsprechend die Versionierung wie oben beschrieben (<<lokale-remote-schnittstellen>>) vorzunehmen.
 
 Beispiele: 1.0, 2.33-SNAPSHOT, 1.3-alpha
 
@@ -214,7 +214,7 @@ Beispiele: 1.0, 2.33-SNAPSHOT, 1.3-alpha
 [[best-practices]]
 === Best Practices
 
-==== Versionierung wenn die Parent-Version angehoben wird und an der Schnittstelle keine Änderungen durchgeführt werden.
+==== Versionierung, wenn die Parent-Version angehoben wird und an der Schnittstelle keine Änderungen durchgeführt werden.
 Führt eine Anhebung der Parent-Version zu keiner Änderung an der Schnittstelle selbst oder zu keiner inkompatiblen Änderung,
 so bedarf es keiner Erhöhung von MAJOR und MINOR der Schnittstellen-Version.
 
