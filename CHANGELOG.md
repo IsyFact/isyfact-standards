@@ -1,4 +1,5 @@
 # 3.0.0
+- `IFS-1947`: Zeichenkodierung für Filtering von properties Dateien im Maven Resource Plugin auf ISO-8859-1 gesetzt.
 - `IFS-771`: [isy-ueberwachung] Anleitung für den HealthCheck von HTTPInvoker-Endpoints hinzugefügt
 - `IFS-1465`: [isyfact-products-bom] Spring Boot Versionsanhebung auf 2.7.1
 - `IFS-1073`: [isy-serviceapi-core] Logausgabe zur Korrektur der Korrelations-Id entfernt

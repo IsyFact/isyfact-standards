@@ -59,6 +59,7 @@
         <!-- Build properties -->
         <revision>0.0.0-SNAPSHOT</revision>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.propertiesEncoding>ISO-8859-1</project.build.propertiesEncoding>
         <java.compile.version>1.8</java.compile.version>
         <maven.build.timestamp.format>dd.MM.yyyy</maven.build.timestamp.format>
 
@@ -372,7 +373,7 @@
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>3.2.0</version>
                 <configuration>
-                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <propertiesEncoding>${project.build.propertiesEncoding}</propertiesEncoding>
                 </configuration>
             </plugin>
             <plugin>
