@@ -62,5 +62,10 @@ Angular
 [[produktkatalog]]
 == Produktkatalog
 
-Eine vollständige Übersicht, zusammen mit weiteren Informationen zum Lebenszyklus der einzelnen Produkte innerhalb der IsyFact, gibt der xref:einstieg:attachment$Produktkatalog.xlsx[Produktkatalog icon:file-excel-o[]].
-Neben den Produktvorgaben enthält er ebenfalls eine Negativliste nicht zu verwendender Produkte.
+Die vorgegebenen, bzw. empfohlenen Produkte sind, zusammen mit weiteren Informationen zum xref:produktkatalog/erlaeuterungen.adoc[Lebenszyklus], falls möglich ihren jeweiligen Technologiestacks zugeordnet:
+
+* xref:produktkatalog/produktvorgabenAllgemein.adoc[Allgemeine Produktvorgaben]
+* xref:produktkatalog/technologiestackJavaSpring.adoc[Technologiestack Java/Spring]
+* xref:produktkatalog/technologiestackTypescriptAngular.adoc[Technologiestack Typescript/Angular]
+
+In der xref:produktkatalog/negativliste.adoc[Negativliste] sind Produkte oder Produktversionen beschrieben, welche nicht zu verwenden sind.
