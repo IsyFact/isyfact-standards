@@ -62,6 +62,8 @@ Angular
 [[produktkatalog]]
 == Produktkatalog
 
+In dem Produktkatalog sind alle für Isyfact-Anwendungen vorgegebenen und empfohlenen, aber auch untersagten Produkte aufgeführt.
+
 Die vorgegebenen, bzw. empfohlenen Produkte sind, zusammen mit weiteren Informationen zum xref:produktkatalog/erlaeuterungen.adoc[Lebenszyklus], falls möglich ihren jeweiligen Technologiestacks zugeordnet:
 
 * xref:produktkatalog/produktvorgabenAllgemein.adoc[Allgemeine Produktvorgaben]
