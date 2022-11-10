@@ -1,5 +1,7 @@
 = Technologiestack: Java/Spring
 
+include::glossary:licence:partial$licence.adoc[]
+
 == Entwicklung
 
 [.table_head_sticky.unordered_list_identation]

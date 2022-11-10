@@ -1,12 +1,12 @@
-= Erläuterungen
+= Lebenszyklus
 
-== Lebenszyklus
+include::glossary:licence:partial$licence.adoc[]
 
 Der Lebenszyklus der Produkte ist jeweils in der Spalte *Status* gesetzt. Der Status bildet ab, ob und in welchem Umfang ein Produkt verwendet werden darf, ein Produkt geprüft wird, oder dessen Verwendung untersagt ist.
 
 [.table_head_sticky]
 --
-[options=header, format=csv, separator=";", cols="a,a"]
+[options=header, format=csv, separator=";", cols="a,3a"]
 |===
 //include::partial$/Produktkatalog_IsyFact_v3_x_x_testtest.csv[]
 //include::partial$/Produktkatalog_IsyFact_v3_x_x_bibliotheken_anwendungsentwicklung_short_red_link.csv[]

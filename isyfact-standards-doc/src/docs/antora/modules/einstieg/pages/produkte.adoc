@@ -64,10 +64,10 @@ Angular
 
 In dem Produktkatalog sind alle für Isyfact-Anwendungen vorgegebenen und empfohlenen, aber auch untersagten Produkte aufgeführt.
 
-Die vorgegebenen, bzw. empfohlenen Produkte sind, zusammen mit weiteren Informationen zum xref:produktkatalog/erlaeuterungen.adoc[Lebenszyklus], falls möglich ihren jeweiligen Technologiestacks zugeordnet:
+Die vorgegebenen, bzw. empfohlenen Produkte sind, zusammen mit weiteren Informationen zum xref:produktkatalog/lebenszyklus.adoc[], falls möglich ihren jeweiligen Technologiestacks zugeordnet:
 
-* xref:produktkatalog/produktvorgabenAllgemein.adoc[Allgemeine Produktvorgaben]
-* xref:produktkatalog/technologiestackJavaSpring.adoc[Technologiestack Java/Spring]
-* xref:produktkatalog/technologiestackTypescriptAngular.adoc[Technologiestack Typescript/Angular]
+* xref:produktkatalog/produktvorgabenAllgemein.adoc[]
+* xref:produktkatalog/technologiestackJavaSpring.adoc[]
+* xref:produktkatalog/technologiestackTypescriptAngular.adoc[]
 
-In der xref:produktkatalog/negativliste.adoc[Negativliste] sind Produkte oder Produktversionen beschrieben, welche nicht zu verwenden sind.
+In der xref:produktkatalog/negativliste.adoc[] sind Produkte oder Produktversionen beschrieben, welche nicht zu verwenden sind.

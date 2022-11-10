@@ -1,5 +1,7 @@
 = Negativliste
 
+include::glossary:licence:partial$licence.adoc[]
+
 == Standards
 
 [.table_head_sticky.unordered_list_identation]
