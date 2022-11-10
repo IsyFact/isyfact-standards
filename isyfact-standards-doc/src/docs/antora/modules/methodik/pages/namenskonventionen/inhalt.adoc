@@ -5,7 +5,7 @@
 == Namenskonventionen
 
 Dieser Abschnitt beschreibt die Namenskonventionen der IsyFact.
-In komplexen Anwendungslandschaften werden xref:glossary:glossary:master.adoc#glossar-anwendungssystem[Anwendungssysteme] in der Regel in funktionale Kategorien eingeordnet und typisiert (bspw. Register und Geschäftsanwendungen).
+In komplexen Anwendungslandschaften werden xref:glossary:glossary:master.adoc#glossar-anwendungssystem[Anwendungssysteme] in der Regel in funktionale Kategorien eingeordnet und typisiert (z.B. Register und Geschäftsanwendungen).
 Bei weniger komplexen Kontexten, in denen nur eine einzige oder wenige Geschäftsanwendungen existieren, wird meist allgemein von „Geschäftsanwendungen“ gesprochen.
 
 In folgenden Vorgaben wird daher zwischen Geschäftsanwendungen und Registern unterschieden.
@@ -148,7 +148,7 @@ Sie sind vor allem der xref:vorlagen.adoc#dokumentation-anwendung[Vorlage zur Sy
 [cols="1,6m",options="header"]
 |====
 2+|Anwendungskomponente
-|*Schema* |ANK_<anwendungskomponentename>
+|*Schema* |ANK_<anwendungskomponente>
 |*Beispiele* |ANK_Meldung_Beispiel
 |====
 
@@ -184,7 +184,7 @@ Sie sind vor allem der xref:vorlagen.adoc#dokumentation-anwendung[Vorlage zur Sy
 [cols="1,6m",options="header"]
 |====
 2+|Batch
-|*Schema* |BAT_<batchname>
+|*Schema* |BAT_<batch>
 |*Beispiele* |BAT_Bereinigungslauf_Durchfuehren
 |====
 
@@ -196,19 +196,19 @@ Sie sind vor allem der xref:vorlagen.adoc#dokumentation-anwendung[Vorlage zur Sy
 [cols="1,6m",options="header"]
 |====
 2+|Modellkomponente
-|*Schema* |MKO_<modellkomponentenname>
+|*Schema* |MKO_<modellkomponente>
 |*Beispiele* |MKO_Basisdaten
 |====
 
 [[entitaetstyp]]
-==== Entitätstyp
+==== Entität
 
-.Entitätstyp
+.Entität
 [id="table-Enttyp",reftext="{table-caption} {counter:tables}"]
 [cols="1,6m",options="header"]
 |====
-2+|Entitätstyp
-|*Schema* |ETY_<entitaetstypname>
+2+|Entität
+|*Schema* |ETY_<entität>
 |*Beispiele* |ETY_Akte
 |====
 
@@ -268,7 +268,7 @@ Sie sind vor allem der xref:vorlagen.adoc#dokumentation-anwendung[Vorlage zur Sy
 [cols="1,6m",options="header"]
 |====
 2+|Schnittstellenentitätstyp
-|*Schema* |NSE_<entitaetstypname>
+|*Schema* |NSE_<entitaetstyp>
 |*Beispiele* |NSE_Personen_Suche
 |====
 
@@ -423,7 +423,7 @@ m|<komponente> |Der Name der technischen Komponente: meist `gui` für eine ausge
 [[name-der-web-application]]
 ==== Name der Web Application
 
-Der Name einer Web-Applikation (Webapp-Root) ist immer gleich dem technischen Systemnamen (siehe Abschnitt <<technische-systemnamen>>)
+Der Name einer Web-Applikation (Webapp-Root) ist immer gleich dem <<technische-systemnamen,technischen Systemnamen>>.
 
 [[persistenz]]
 ==== Persistenz
@@ -441,7 +441,7 @@ include::isy-persistence:page$nutzungsvorgaben/historisierung.adoc[tag=namenskon
 include::blaupausen:page$detailkonzept-komponente-anwendungskern/inhalt.adoc[tag=namenskonvention]
 
 [[batches]]
-=== Batchbereich
+=== Batchrahmen
 include::blaupausen:page$detailkonzept-komponente-batch/inhalt.adoc[tag=namenskonvention]
 
 [[schnittstellen]]
@@ -491,7 +491,7 @@ m|<build-version> a|
 Hier wird die Build-Nummer eingesetzt.
 Sie wird bei dem Bau jeder Auslieferungsversion (insbesondere auch bei Nachlieferungen) erhöht.
 
-Während der Entwicklung (Continuous Integration) wird hier eine laufende Nummer (Revisionsnummer der Versionsverwaltung, laufende Buildnummer des CI-Servers etc.) eingesetzt.
+Während der Entwicklung (Continuous Integration) wird hier eine laufende Nummer (Revisionsnummer der Versionsverwaltung, laufende Build-Nummer des CI-Servers etc.) eingesetzt.
 
 m|<architektur> |Gibt die Systemarchitektur an, für welche das Paket erstellt wurde.
 Da IsyFact-konforme Anwendungen in Java erstellt werden, wird hier immer „noarch“ eingesetzt.
@@ -522,10 +522,10 @@ Die Installationspfade sind ausführlich im xref:vorlage-systemhandbuch/antora-m
 /opt/isy-xyz-anwendung/tomcat
 
 /opt/isy-xyz-anwendung/tomcat/webapp/xyz-anwendung
-2+|*Installationspfade – Logdateien*
+2+|*Installationspfade: Logdateien*
 |*Schema* m|/var/log/<rpm-paketname>
 |*Beispiele* m|/var/log/isy-xyz-anwendung
-2+|*Installationspfade – Betriebliche Konfiguration*
+2+|*Installationspfade: Betriebliche Konfiguration*
 |*Schema* m|/etc/<rpm-paketname>
 |*Beispiele* m|/etc/isy-xyz-anwendung
 |====
@@ -534,9 +534,9 @@ Die Installationspfade sind ausführlich im xref:vorlage-systemhandbuch/antora-m
 === Dokumentation
 
 Auch für die Dokumentation gelten Namenskonventionen.
-Wenn nicht gesondert beschrieben, gelten folgende Konventionen für alle Namen, die der Ablage der Dokumentation dienen und keine Anzeigenamen sind, also z.B. Dateinamen inkl. Asciidoc- und Bild-Dateien, Verzeichnisnamen, Namen für Antora-Komponenten und -Module und Anchor.
+Wenn nicht gesondert beschrieben, gelten folgende Konventionen für alle Namen, die der Ablage der Dokumentation dienen und keine Anzeigenamen sind, also z.B. Dateinamen inklusive Asciidoc- und Bild-Dateien, Verzeichnisnamen, Namen für Antora-Komponenten und -Module und Anchor.
 Mit Kleinbuchstaben sind Kleinbuchstaben ohne Umlaute und Sonderzeichen gemeint.
-Ferner sind keine Füllwörter erlaubt (wie z.B. und, oder, fuer).
+Ferner sind keine Füllwörter erlaubt (wie z.B. und, oder, für).
 Die Namen sollten den Inhalt widerspiegeln.
 
 NOTE: Bei einigen Namen in der IsyFact-Dokumentation ist die Umstellung der Namen gemäß Namenskonvention noch in Arbeit.
