@@ -57,9 +57,11 @@ So haben alle IsyFact-Artefakte das Präfix `isy-` in ihrer Artefakt-ID.
 [cols="1,4",options="header"]
 |====
 2+|Artefakt-ID von maven-Modulen/-Artefakten
-|*Schema Artefakt-ID* m|<präfix>-<funktion/komponente> +
+|*Schema Artefakt-ID* m|<präfix>-<funktion/komponente>
+
 <präfix>-<funktion/komponente>-<teilkomponente>
-|*Beispiel* m|isy-documentation +
+|*Beispiel* m|isy-documentation
+
 isy-documentation-core
 |====
 
@@ -491,13 +493,14 @@ Namen von Interfaces werden NICHT mit dem Präfix „*`I`*" versehen.
 Besteht der Zweck genau einer Klasse ausschließlich oder zum größten Teil aus der Implementierung eines Interfaces,
 dann wird die Klasse so genannt wie das Interface, ergänzt um das Suffix `Impl`.
 
-.Namen der Interface-Implementierungen bei hauptsächlicher Impl. des Interfaces
+.Klassenname bei hauptsächlicher Implementierung eines Interfaces
 [id="table-ssimpl",reftext="{table-caption} {counter:tables}"]
 [cols="1,4",options="header"]
 |====
-2+|Namen der Interface-Implementierungen bei hauptsächlicher Impl. des Interfaces
+2+|Klassenname bei hauptsächlicher Implementierung eines Interfaces
 |*Schema* m|<Interface>Impl
-|*Beispiele* m|MeldungImpl +
+|*Beispiele* m|MeldungImpl
+
 NachrichtErzeugungImpl
 |====
 

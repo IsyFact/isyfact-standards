@@ -125,7 +125,7 @@ Sie sind vor allem der xref:vorlagen.adoc#dokumentation-anwendung[Vorlage zur Sy
 |====
 2+|Organistationseinheit
 |*Schema* |ORG_<organisationsheit>
-|*Beispiele* |ORG_AbteilungXyz
+|*Beispiele* |ORG_Abteilung_Xyz
 |====
 
 [[anwendungssystem]]
@@ -137,7 +137,7 @@ Sie sind vor allem der xref:vorlagen.adoc#dokumentation-anwendung[Vorlage zur Sy
 |====
 2+|Anwendungssystem
 |*Schema* |SYS_<anwendungssystemname>
-|*Beispiele* |SYS_RegisterXyz
+|*Beispiele* |SYS_Register_Xyz
 |====
 
 [[anwendungskomponente]]
@@ -340,9 +340,11 @@ m|<verfahren> |Der (Kurz)name des Verfahrens/Anwendungsbereichs.
 [cols="1,4",options="header"]
 |====
 2+|Name eines Servicegateways
-|*Schemata* m|<verfahren>-sgw +
+|*Schemata* m|<verfahren>-sgw
+
 <verfahren>-<zielverfahren>-sgw
-|*Beispiele* m|xyz-sgw +
+|*Beispiele* m|xyz-sgw
+
 xyz-dienstabc-sgw
 |*Variable* |*Mögliche Ausprägungen*
 m|<verfahren> |Der (Kurz)name des Verfahrens/Anwendungsbereichs.
@@ -388,7 +390,8 @@ dann wird die herausgebildete Fachkomponente wie folgt genannt:
 |====
 2+|Name einer fachlichen Geschäftskomponente
 |*Schema* m|<anwendungsname>-<fachlichkeit>-gk
-|*Beispiele* m|xyz-fach1-gk +
+|*Beispiele* m|xyz-fach1-gk
+
 xyz-fach1-register
 |*Variable* |*Mögliche Ausprägungen*
 m|<anwendungsname> |Der Name einer Anwendung, wie in den vorigen Abschnitten beschrieben.
@@ -407,7 +410,8 @@ dann werden diese Systeme wie folgt genannt:
 |====
 2+|Name einer technischen Geschäftskomponente
 |*Schema* m|<anwendungsname>-<fachlichkeit>-gk<komponente>
-|*Beispiele* m|xyz-fach1-gkgui +
+|*Beispiele* m|xyz-fach1-gkgui
+
 xyz-qkbatch
 |*Variable* |*Mögliche Ausprägungen*
 m|<anwendungsname> |Der Name einer Anwendung, wie in den vorigen Abschnitten beschrieben.
@@ -432,10 +436,6 @@ include::isy-persistence:page$nutzungsvorgaben/umsetzung-datenzugriff.adoc[tag=n
 ===== Historisierung
 
 include::isy-persistence:page$nutzungsvorgaben/historisierung.adoc[tag=namenskonvention]
-
-===== Versionierung
-
-include::isy-persistence:page$nutzungsvorgaben/versionierung.adoc[tag=namenskonvention]
 
 ===  Anwendungskern
 include::blaupausen:page$detailkonzept-komponente-anwendungskern/inhalt.adoc[tag=namenskonvention]
@@ -501,21 +501,27 @@ Sollten Anwendungen Architektur-spezifische Bestandteile enthalten, wird hier di
 [[installationspfade]]
 ==== Installationspfade
 
-Die Installationspfade sind ausführlich im Konzept beschrieben.
+Die Installationspfade sind ausführlich im xref:vorlage-systemhandbuch/antora-master.adoc[Systemhandbuch] beschrieben.
 
 .Installationspfade – Anwendung
 [id="table-instpathanw",reftext="{table-caption} {counter:tables}"]
 [cols="1,4",options="header"]
 |====
 2+|Installationspfade – Anwendung
-|*Schema* m|/opt/<rpm-paketname> (Anwendungsbasis) +
-/opt/<rpm-paketname>/bin (Skript-Verzeichnis) +
-/opt/<rpm-paketname>/tomcat (Tomcat) +
+|*Schema* m|/opt/<rpm-paketname> (Anwendungsbasis)
+
+/opt/<rpm-paketname>/bin (Skript-Verzeichnis)
+
+/opt/<rpm-paketname>/tomcat (Tomcat)
+
 /opt/<rpm-paketname>/tomcat/webapps/<name> (Basis der Webapp)
-|*Beispiele* m|/opt/isy-xyz-anwendung +
-/opt/isy-xyz-anwendung /bin +
-/opt/isy-xyz-anwendung /tomcat +
-/opt/isy-xyz-anwendung /tomcat/webapp/xyz-anwendung
+|*Beispiele* m|/opt/isy-xyz-anwendung
+
+/opt/isy-xyz-anwendung/bin
+
+/opt/isy-xyz-anwendung/tomcat
+
+/opt/isy-xyz-anwendung/tomcat/webapp/xyz-anwendung
 2+|*Installationspfade – Logdateien*
 |*Schema* m|/var/log/<rpm-paketname>
 |*Beispiele* m|/var/log/isy-xyz-anwendung
@@ -540,7 +546,7 @@ NOTE: Bei einigen Namen in der IsyFact-Dokumentation ist die Umstellung der Name
 [cols="1s,4m",options="header"]
 |====
 2+|Namen in Dokumentation
-|Schema |Kleinbuchstabe<beliebig: Kleinbuchstaben, Bindestriche, einzelne Ziffern, wenn unbedingt nötig>
+|Schema |<beliebig: Kleinbuchstaben, Bindestriche, einzelne Ziffern, wenn unbedingt nötig>
 |Beispiel |isyfact-standards
 |falsch |_isyfact, IsyFact, isyfact standards, lösung, standards-und-erweiterungen
 |====

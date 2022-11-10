@@ -44,29 +44,29 @@ Die Dialog-Komponenten definieren zentrale Klassen als Spring Beans (i.d.R. Cont
 Folgende Namenskonventionen sind für die Klassen verpflichtend:
 
 [[modelklassen]]
-==== Modelklassen
+==== Model
 
 //tag::namenskonvention[]
-.Klassennamen Modelklassen
+.Klassennamen für Model
 [id="table-classnammodclass",reftext="{table-caption} {counter:tables}"]
 [cols="1,4",options="header"]
 |====
-2+|Klassennamen Modelklassen
-|*Schema* m|<Entitätsname>Model
+2+|Klassennamen für Model
+|*Schema* m|<Entität>Model
 |*Beispiele* m|CdErwerbModel
 |====
 //end::namenskonvention[]
 
 [[controllerklassen]]
-==== Controllerklassen
+==== Controller
 
 //tag::namenskonvention[]
-.Klassennamen Controllerklassen
+.Klassennamen für Controller
 [id="table-classnamcontrclass",reftext="{table-caption} {counter:tables}"]
 [cols="1,4",options="header"]
 |====
-2+|Klassennamen Controllerklassen
-|*Schema* m|<Maskenname>Controller
+2+|Klassennamen für Controller
+|*Schema* m|<Maske>Controller
 |*Beispiele* m|CdErwerbController
 |====
 //end::namenskonvention[]
@@ -75,11 +75,11 @@ Folgende Namenskonventionen sind für die Klassen verpflichtend:
 ==== Flows
 
 //tag::namenskonvention[]
-.Flows
+.Dateiname für Flows
 [id="table-flows1",reftext="{table-caption} {counter:tables}"]
 [cols="1,4",options="header"]
 |====
-2+|Flows
+2+|Dateiname für Flows
 |*Schema* m|<Dialogname>Flow.xml
 |*Beispiele* m|cdErwerbFlow.xml
 |====
@@ -89,13 +89,14 @@ Folgende Namenskonventionen sind für die Klassen verpflichtend:
 ==== Main-View von Flows
 
 //tag::namenskonvention[]
-.Main View von Flows
+.Dateiname des Main View von Flows
 [id="table-mvvflow",reftext="{table-caption} {counter:tables}"]
 [cols="1,4",options="header"]
 |====
-2+|Main View von Flows
+2+|Dateiname des Main View von Flows
 |*Schema* m|<Maskenname>ViewState.xhtml
-|*Beispiele* m|cdErwerbViewState.xhtml +
+|*Beispiele* m|cdErwerbViewState.xhtml
+
 cdSucheViewState.xhtml
 |====
 //end::namenskonvention[]
@@ -104,29 +105,30 @@ cdSucheViewState.xhtml
 ==== Weitere Facelets
 
 //tag::namenskonvention[]
-.Facelets
+.Dateiname für Facelets
 [id="table-facelets",reftext="{table-caption} {counter:tables}"]
 [cols="1,4",options="header"]
 |====
-2+|Facelets
+2+|Dateiname für Facelets
 |*Schema* m|<maskenname><maskenteil>.xhtml
 |*Beispiele* m|cdErwerbFormular1.xhtml
 |====
 //end::namenskonvention[]
 
 [[view-state-javascript-datei]]
-==== View-State Javascript-Datei
+==== Javascript zu View-States
 
 //tag::namenskonvention[]
-.View-State Javascript-Date
+.Dateiname für Javascript zu View-States
 [id="table-vstatejsdat",reftext="{table-caption} {counter:tables}"]
 [cols="1,4",options="header"]
 |====
-2+|View-State Javascript-Datei
-|*Schema* m|<viewstatename>.js +
-<guikomponentenname>.js (bei übergreifenden, wiederverw.
-Dateien)
-|*Beispiele* m|cdErwerbFormular.js +
+2+|Dateiname für Javascript zu View-States
+|*Schema* m|<view-state>.js
+
+<gui-komponente>.js (bei übergreifenden Dateien)
+|*Beispiele* m|cdErwerbFormular.js
+
 cdErwerb.js (übergreifend)
 |====
 //end::namenskonvention[]

@@ -9,10 +9,10 @@ Um dies zu erreichen ist es wichtig, dass Namen und Benennungen über die gesamt
 Es existiert daher eine Vielzahl von Namenskonventionen in den verschiedenen Konzepten der IsyFact.
 Dieses Dokument ist Teil der xref:glossary:glossary:master.adoc#glossar-ifs[IsyFact Standards].
 
-[[kurzüberblick]]
+[[kurzueberblick]]
 === Kurzüberblick
 
-Dieses Dokument soll die Namenskonventionen der IsyFact an einem Ort zentral sammeln.
+Dieses Dokument sammelt die Namenskonventionen der IsyFact an einem zentralen Ort.
 In den jeweiligen Konzepten wird die Vorgabe nochmals erwähnt.
 
 Nach der Einleitung, die einen kurzen Abschnitt über generelle Anforderungen an Namen enthält, befasst sich das Kapitel
