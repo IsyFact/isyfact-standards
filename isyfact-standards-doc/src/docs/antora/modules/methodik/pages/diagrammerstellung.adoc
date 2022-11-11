@@ -12,7 +12,6 @@ Insbesondere grenzen sich durch Modelle getriebene, stark formalisierte Darstell
 Abhängig von den Anforderungen an die Diagrammerstellung kommen grundsätzlich unterschiedliche Werkzeugen mit ebenso unterschiedlichen Stärken und Schwächen infrage.
 
 Die IsyFact empfiehlt die Verwendung von *diagrams.net* und *Enterprise Architect*.
-Die <<table-anforderungen,folgende Tabelle>> hilft bei der Entscheidung für eines der Werkzeuge.
 
 [[table-anforderungen]]
 .Entscheidungshilfe zur Auswahl eines Werkzeugs zur Diagrammerstellung
