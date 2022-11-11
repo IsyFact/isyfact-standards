@@ -17,23 +17,22 @@ Die meisten der hier genannten Vorgaben sind unverändert aus „Semantic Versio
 Die Terme “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, und “OPTIONAL” in
 diesem Dokument sind, wie in RFC 2119 beschrieben, zu interpretieren.
 
-Unter einer API wird hier alle zur öffentlichen Schnittstelle einer Bibliothek gehörenden Klassen und
-Konfigurationsparameter verstanden.
+Unter einer API werden hier alle zur öffentlichen Schnittstelle einer Bibliothek gehörenden Klassen und Konfigurationsparameter verstanden.
 
 Bei einem finalen Tag (Veröffentlichung) besteht die Versionsnummer nur aus MAJOR.MINOR.PATCH.
 
 .  Eine Versionsnummer einer Veröffentlichung muss (MUST) dem Format X.Y.Z entsprechen, wobei X, Y und Z Ganzzahlen größer oder gleich Null sind und eine Zahl größer als Null keine führenden Nullen enthalten darf.
 X ist die Major Version, Y ist die Minor Version und Z ist die Patch Version.
-Jedes Element muss (MUST) auf numerische Art und Weise erhöht werden.
-Zum Beispiel: 1.9.0 1.10.0 1.11.0.
+Jedes Element muss (MUST) auf numerische Art und Weise erhöht werden. +
+Zum Beispiel: 1.9.0, 1.10.0, 1.11.0.
 .  Sobald eine Version eines Projektes veröffentlicht wurde, darf (MUST NOT) der Inhalt dieser Version nicht mehr verändert werden.
 Eine Änderung am Inhalt muss (MUST) als eine neue Version veröffentlicht werden.
 .  Versionsnummern mit einer *Major* Version von 0 (0.y.z) sind für die initiale Development Phase gedacht. Änderungen können
 in jeder denkbaren Form und zu jeder Zeit auftreten.
 Eine eventuell vorhandene öffentliche API sollte nicht als _stabil_ betrachtet werden.
 .  Die Version 1.0.0 definiert die erste Veröffentlichung.
-Ab dieser Veröffentlichung hängt die Art und Weise, wie die Versionsnummer erhöht und verändert wird, von der öffentlichen API und den
-Änderungen ab, die an ihr vollzogen werden.
+Ab dieser Veröffentlichung hängt die Art und Weise, wie die Versionsnummer erhöht und verändert wird, von den
+Änderungen ab, die an der öffentlichen API einer Bibliothek vollzogen werden.
 .  Eine Vorveröffentlichung kann (MAY) durch ein *LABEL* gekennzeichnet werden, indem ein Bindestrich, gefolgt von dem
 Vorveröffentlichungs-Bezeichner, dessen Elemente durch Punkte voneinander getrennt werden, an die Patch Version angehängt wird.
 Die Elemente des Bezeichners dürfen (MUST) nur aus alphanumerischen ASCII Zeichen und dem Bindestrich ([0-9A-Za-z-]) bestehen.
@@ -206,7 +205,7 @@ Bei *Remote-Schnittstellen*:
 da bei einem Update der Betriebsumgebung seitens des Schnittstellenanbieters nicht zur Inkompatibilität auf Nutzerseite führen sollte.
 Sofern die Verbindung zu der Remote-Schnittstelle parametrisiert ist, ist keine Änderung der Version notwendig.
 * als Anbieter dieser Schnittstelle ist bei einem Update der Java-Version (oder auch Betriebsumgebung) zu prüfen,
-ob eine Inkompatibilität vorliegen wird und entsprechend die Versionierung wie oben beschrieben (<<lokale-remote-schnittstellen>>) vorzunehmen.
+ob eine Inkompatibilität vorliegen wird und entsprechend die Versionierung wie oben beschrieben (<<lokale-remote-schnittstellen>>) vorzunehmen ist.
 
 Beispiele: 1.0, 2.33-SNAPSHOT, 1.3-alpha
 
@@ -214,7 +213,7 @@ Beispiele: 1.0, 2.33-SNAPSHOT, 1.3-alpha
 [[best-practices]]
 === Best Practices
 
-==== Versionierung, wenn die Parent-Version angehoben wird und an der Schnittstelle keine Änderungen durchgeführt werden.
+==== Versionierung bei Anhebung der Parent-Version
 Führt eine Anhebung der Parent-Version zu keiner Änderung an der Schnittstelle selbst oder zu keiner inkompatiblen Änderung,
 so bedarf es keiner Erhöhung von MAJOR und MINOR der Schnittstellen-Version.
 
@@ -245,13 +244,13 @@ Die Version der Schnittstelle selbst bleibt unverändert bei 5.
 <version>5</version>
 ----
 
-==== Anhebung der IsyFact Version z.B. IsyFact 2.1 auf 2.2 (hier können Änderungen an den serviceapi durchgeführt worden sein)
-Sollten sich z.B. bei einer Anhebung der *MINOR*- oder *MAJOR*-Version die Transportobjekte in der serviceapi geändert haben,
+==== Versionierung der IsyFact bei API-Änderungen
+Sollten sich z.B. bei einer Anhebung der *MINOR*- oder *MAJOR*-Version Transportobjekte geändert haben,
 so ist eine Anhebung der *MINOR*-Version der Schnittstelle empfehlenswert, da es sich dabei um eine überschaubare Änderung handelt.
 Sollte es dazu führen, dass eine Anhebung der *MAJOR*-Version zu Änderungen an mehreren Stellen durchgeführt werden müssen,
 dann ist eine Erhöhung von *MAJOR* vertretbar.
 
-==== Wie wird die Versionierung angepasst, wenn optionale Attribute bzw. Methoden ergänzt werden (Minor/Major)
+==== Versionierung bei optionalen Erweiterungen
 // TODO: Klärung von:
 // -> Major Version sollte hochgezählt werden <-- Warum? Begründung!
 Bei Remote-Schnittstellen reicht für den Schnittstellen-Anbieter eine Erhöhung des MINOR.
