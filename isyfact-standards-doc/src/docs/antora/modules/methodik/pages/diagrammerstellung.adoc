@@ -33,7 +33,7 @@ Die IsyFact empfiehlt die Verwendung von *diagrams.net* und *Enterprise Architec
 [[einsatzszenarien_diagrams_net]]
 == Einsatzszenarien diagrams.net
 
-_diagrams.net_ eignet sich insbesondere für:
+xref:glossary:literaturextern:inhalt.adoc#litextern-diagrams-net[_diagrams.net_] eignet sich insbesondere für:
 
 * Diagramme und Schaubilder, die nicht UML-konform sein müssen,
 * Mockups und andere Diagrammtypen.
