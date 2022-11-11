@@ -30,10 +30,9 @@ Daher ist für Anwendungen eine Entwicklung mittels einem oder mehrerer Maven-Mo
 
 ===== Artefakte
 
-Bei einem Maven-Artefact wird eine Group-ID und eine Artefakt-ID definiert. Die Group-ID gibt einen direkten Anhaltspunkt auf die Domäne.
+Bei einem Maven-Artefakt wird eine Group-ID und eine Artefakt-ID definiert.
+Die Group-ID gibt einen direkten Anhaltspunkt auf die Domäne.
 Group-IDs werden mit einem Punkt konkateniert.
-Mit der Artefakt-ID wird die Funktionalität des Artefaktes kurz und pregnant definiert.
-Als Beispiel für diese Dokumentation wird `isy-documentation` als Artefakt-ID angegeben. Die Konkatenierung erfolgt über ein Minus.
 
 //tag::namenskonvention[]
 .Group-ID von Modulen/Artefakten
@@ -45,18 +44,20 @@ Als Beispiel für diese Dokumentation wird `isy-documentation` als Artefakt-ID a
 |*Beispiel* m|de.bund.bva.isyfact
 |====
 //end::namenskonvention[]
-===== Präfixe
-Prinzipiell soll jedes Modul, bzw. Artefakt, z. B. wie in einer Maven-Umgebung ein Präfix definiert haben.
+
+Die Artefakt-ID beschreibt die Funktionalität des Artefaktes kurz und prägnant.
+Prinzipiell besitzt jedes Modul bzw. Artefakt ein Präfix.
 Artefakte einer Group-ID (Domäne) sollten immer ein einheitliches Präfix besitzen.
 So haben alle IsyFact-Artefakte das Präfix `isy-` in ihrer Artefakt-ID.
+Artefakt-IDs werden mit einem Bindestrich konkateniert.
 
 //tag::namenskonvention[]
 
-.Artefakt-ID von maven-Modulen/-Artefakten
+.Artefakt-ID von Maven-Modulen/-Artefakten
 [id="table-table-maven-artIDMod",reftext="{table-caption} {counter:tables}"]
 [cols="1,4",options="header"]
 |====
-2+|Artefakt-ID von maven-Modulen/-Artefakten
+2+|Artefakt-ID von Maven-Modulen/-Artefakten
 |*Schema Artefakt-ID* m|<präfix>-<funktion/komponente>
 
 <präfix>-<funktion/komponente>-<teilkomponente>
@@ -66,16 +67,16 @@ isy-documentation-core
 |====
 
 //end::namenskonvention[]
+
+===== Module
+
 Wird ein Maven-Modul verwendet, sollte es folgende Struktur besitzen:
 
 * Auf oberster Ebene, d. h. im Wurzelverzeichnis des Projekts (`project-root`), befinden sich die Dateien zur Organisation des Quellcodes,
 sowie anwendungsbezogene und allgemeine Informationen.
-Dateien in Klammern sind optional, wenn erforderlich.
-Es ist nicht ausgeschlossen, andere Dateien auf oberster Ebene abzulegen, sofern sie für die Organisation der Applikation oder deren Quellcode zuständig ist.
+Dateien in Klammern sind optional.
+Es ist nicht ausgeschlossen, andere Dateien auf oberster Ebene abzulegen, sofern sie für die Organisation der Applikation oder deren Quellcode zuständig sind.
 * Der Quellcode, Dokumentation, Skripte (SQL, Shell, etc.) und die Tests des Quellcodes liegen in Unterverzeichnissen des Verzeichnisses `src`.
-* Im Verzeichnis `license` befinden sich Lizenz-Dateien und ggf. einen Dependency-Bericht.
-* Das Verzeichnis `assembly/` beinhaltet Dateien, die beim Build des Artefaktes herangezogen werden können.
-Dort ist beschrieben, wie das auszuliefernde Artefakt gepackt wird.
 
 Der Quellcode wird wiederum gemäß den Vorgaben aus <<package-namen>> strukturiert.
 
@@ -120,7 +121,7 @@ Die Struktur bei der Verwendung mehrerer Maven-Module wird im Abschnitt <<multi-
 [[schnittstellenprojekte]]
 === Schnittstellenprojekte
 
-Schnittstellenprojekte sind deutlich einfacher aufgebaut und beinhalten die Definition der Schnittstelle selbst sowie ihrer Transportobjekte.
+Schnittstellenprojekte sind deutlich einfacher aufgebaut und beinhalten die Definition der Schnittstelle sowie ihrer Transportobjekte.
 Die Implementierung geschieht in der Anwendung, welche die Schnittstelle bereitstellt.
 
 Schnittstellenprojekte enthalten daher nur Quellcode und Dokumentation.
@@ -129,7 +130,7 @@ Sie sind einzig zur Datenübertragung vorgesehen.
 Ebenso verhält es sich mit Ressourcen und Skripten.
 Diese sind Teil der Implementierung, die in der Regel Teil eines Anwendungsprojekts ist.
 
-Schnittstellenprojekte besitzen unter dem Wurzelverzeichnis (`project-root`) die Verzeichnisse `src/main/java` und `src/docs/asciidoc/`.
+Schnittstellenprojekte besitzen unter dem Wurzelverzeichnis (`project-root`) die Verzeichnisse `src/main/java` und `src/docs/asciidoc`.
 Der Aufbau des Verzeichnisses wird im xref:blaupausen:detailkonzept-komponente-service/master.adoc[Detailkonzept Komponente Service] beschrieben.
 
 .Struktur eines Schnittstellenprojekts
@@ -158,7 +159,7 @@ Batch-Projekte bestehen hauptsächlich aus Startskripten und Konfigurationsdatei
 Die Implementierung der Batches geschieht in der Anwendung, welche die Batches bereitstellt.
 Daher enthalten Batch-Projekte weder Quellcode, noch Tests.
 
-Batch-Projekte besitzen unter dem Wurzelverzeichnis (`project-root`) ein einzelnes Unterverzeichnis `src/main/resources/`.
+Batch-Projekte besitzen unter dem Wurzelverzeichnis (`project-root`) ein einzelnes Unterverzeichnis `src/main/resources`.
 Der Aufbau des Verzeichnisses wird im xref:blaupausen:detailkonzept-komponente-batch/master.adoc[Detailkonzept Komponente Batch] beschrieben.
 
 .Struktur eines Batch-Projekts
@@ -182,7 +183,7 @@ project-root/
 
 Deployment-Projekte bestehen im Wesentlichen aus den Skripten zur Erstellung einer Deployment-Einheit.
 
-Deployment-Projekte besitzen unter dem Wurzelverzeichnis (`project-root`) ein einzelnes Unterverzeichnis `src/main/resources/`.
+Deployment-Projekte besitzen unter dem Wurzelverzeichnis (`project-root`) ein einzelnes Unterverzeichnis `src/main/resources`.
 In diesem finden sich weitere Unterverzeichnisse, die für die Erstellung von RPMs angepasst sind.
 
 .Struktur eines Deployment-Projekts
@@ -214,7 +215,7 @@ project-root/
 Dokumentationsprojekte enthalten technische Dokumentation, die keinem Anwendungsprojekt direkt zuzuordnen sind.
 Beispiele dafür sind Dokumente übergreifender Natur aus architektonischer, technischer oder betrieblicher Sicht.
 
-Dokumentationsprojekte besitzen unter dem Wurzelverzeichnis (`project-root`) ein einzelnes Unterverzeichnis `src/docs/asciidoc/`.
+Dokumentationsprojekte besitzen unter dem Wurzelverzeichnis (`project-root`) ein einzelnes Unterverzeichnis `src/docs/asciidoc`.
 In diesem finden sich weitere Verzeichnisse, z. B. für Inhalte allgemeiner Natur, sowie für die Dokumente.
 Es empfiehlt sich, für jedes Dokument ein eigenes Verzeichnis zur Ablage spezifischer Inhalte (neben Texten z. B. auch Bilder und Diagramme) anzulegen.
 Vorgaben für die Struktur einzelner Dokumente finden sich in der xref:werkzeuge:dokumentation/einleitung/einfuehrung.adoc[Dokumentation gemäß IsyFact].
