@@ -16,7 +16,7 @@ Die spezifische Methodik der IsyFact umfasst:
 * Methodik für Systemspezifikation und Systementwurf mit entsprechenden Dokumentvorlagen,
 * eine einheitliche Vorgehensweise zur Auswahl von Fremdprodukten.
 
-.Methodik: Vorgehen auf Basis von V-Modell XT
-image::methodik:Methodik_V-Modell.png[]
+.Methodik: Vorgehen auf Basis des V-Modell XT
+image::methodik-v-modell.dn.svg[]
 
 // end::whitepaper[]
