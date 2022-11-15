@@ -50,7 +50,7 @@ Die IsyFact bietet xref:diagrammerstellung/diagramsnet.adoc[eine Konfiguration s
 [[einsatzszenarien_enterprise_architect]]
 == Einsatzszenarien Enterprise Architect
 
-_Enterprise Architect_ wird häufig verwendet, um modellgetriebene Diagramme für Referenzarchitekturen, Systemspezifikationen und Systementwürfe zu erstellen, da diese Dokumentausprägungen:
+xref:glossary:literaturextern:inhalt.adoc#litextern-enterprise-architect[_Enterprise Architect_] wird häufig verwendet, um modellgetriebene Diagramme für Referenzarchitekturen, Systemspezifikationen und Systementwürfe zu erstellen, da diese Dokumentausprägungen:
 
 * hauptsächlich UML- und ER-Diagramme enthalten,
 * UML-Profil-fähig und konform sein sollen und
