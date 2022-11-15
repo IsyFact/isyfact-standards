@@ -406,7 +406,7 @@ Ansonsten gelten die Regeln der nachfolgenden Abschnitte.
 Standard-Package-Struktur verwenden!
 ****
 
-Die Package-Struktur (<<listing-PackageStruktur>>) folgt einer Konvention, die aus der fachlichen und technischen Referenzarchitektur hergeleitet wird.
+Die Package-Struktur folgt einer Konvention, die aus der fachlichen und technischen Referenzarchitektur hergeleitet wird.
 
 .Package-Struktur
 [id="listing-PackageStruktur",reftext="{listing-caption} {counter:listings }"]

@@ -501,7 +501,7 @@ Sollten Anwendungen Architektur-spezifische Bestandteile enthalten, wird hier di
 [[installationspfade]]
 ==== Installationspfade
 
-Die Installationspfade sind ausführlich im xref:vorlage-systemhandbuch/antora-master.adoc[Systemhandbuch] beschrieben.
+Die Installationspfade sind im xref:vorlage-systemhandbuch/antora-master.adoc[Systemhandbuch] beschrieben.
 
 .Installationspfade – Anwendung
 [id="table-instpathanw",reftext="{table-caption} {counter:tables}"]
