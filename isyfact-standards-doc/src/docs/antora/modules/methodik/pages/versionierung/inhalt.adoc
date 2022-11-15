@@ -15,27 +15,24 @@ Inhalte in eckigen Klammern sind optional.
 
 Die meisten der hier genannten Vorgaben sind unverändert aus „Semantic Versioning 2.0“ xref:glossary:literaturextern:inhalt.adoc#litextern-semantic-versioning[Semantic Versioning] übernommen, einige wurden leicht verändert.
 
-Die Terme "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY" und "OPTIONAL" in
-diesem Dokument sind, wie in RFC 2119 beschrieben, zu interpretieren.
+Die Terme "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY" und "OPTIONAL" in diesem Dokument sind, wie in RFC 2119 beschrieben, zu interpretieren.
 
 Unter einer API werden hier alle zur öffentlichen Schnittstelle einer Bibliothek gehörenden Klassen und Konfigurationsparameter verstanden.
 
 Bei einem finalen Tag (Veröffentlichung) besteht die Versionsnummer nur aus MAJOR.MINOR.PATCH.
 
 .  Eine Versionsnummer einer Veröffentlichung muss (MUST) dem Format X.Y.Z entsprechen, wobei X, Y und Z Ganzzahlen größer oder gleich null sind und eine Zahl größer als null keine führenden Nullen enthalten darf.
-X ist die Major Version, Y ist die Minor Version und Z ist die Patch Version.
+X ist die Major-Version, Y ist die Minor-Version und Z ist die Patch-Version.
 Jedes Element muss (MUST) auf numerische Art und Weise erhöht werden. +
 *Beispiele:* 1.9.0, 1.10.0, 1.11.0.
 .  Sobald eine Version eines Projektes veröffentlicht wurde, darf (MUST NOT) der Inhalt dieser Version nicht mehr verändert werden.
 Eine Änderung am Inhalt muss (MUST) als eine neue Version veröffentlicht werden.
-.  Versionsnummern mit einer *Major* Version von 0 (0.y.z) sind für die initiale Development Phase gedacht. Änderungen können
-in jeder denkbaren Form und zu jeder Zeit auftreten.
+.  Versionsnummern mit einer *Major*-Version von 0 (0.y.z) sind für die initiale Development Phase gedacht.
+Änderungen können in jeder denkbaren Form und zu jeder Zeit auftreten.
 Eine eventuell vorhandene öffentliche API sollte nicht als _stabil_ betrachtet werden.
 .  Die Version 1.0.0 definiert die erste Veröffentlichung.
-Ab dieser Veröffentlichung hängt die Art und Weise, wie die Versionsnummer erhöht und verändert wird, von den
-Änderungen ab, die an der öffentlichen API einer Bibliothek vollzogen werden.
-.  Eine Vorveröffentlichung kann (MAY) durch ein *LABEL* gekennzeichnet werden, indem ein Bindestrich, gefolgt von dem
-Vorveröffentlichungsbezeichner, dessen Elemente durch Punkte voneinander getrennt werden, an die Patch Version angehängt wird.
+Ab dieser Veröffentlichung hängt die Art und Weise, wie die Versionsnummer erhöht und verändert wird, von den Änderungen ab, die an der öffentlichen API einer Bibliothek vollzogen werden.
+.  Eine Vorveröffentlichung kann (MAY) durch ein *LABEL* gekennzeichnet werden, indem ein Bindestrich, gefolgt von dem Vorveröffentlichungsbezeichner, dessen Elemente durch Punkte voneinander getrennt werden, an die Patch Version angehängt wird.
 Die Elemente des Bezeichners dürfen (MUST) nur aus alphanumerischen ASCII-Zeichen und dem Bindestrich ([0-9A-Za-z-]) bestehen.
 Sie dürfen (MUST NOT) außerdem nicht leer sein.
 Wenn ein Element ausschließlich aus Ziffern besteht, darf (MUST NOT) es keine führenden Nullen enthalten.
@@ -55,7 +52,7 @@ Daher zeigen die kommenden Abschnitte die genauen Vorgaben pro Typ auf und liefe
 // tag::important[]
 [IMPORTANT]
 ====
-Eine Aktualisierung auf eine *MAJOR* Version führt mit sehr hoher Wahrscheinlichkeit zu inkompatiblen Schnittstellen-Versionen.
+Eine Aktualisierung auf eine *MAJOR*-Version führt mit sehr hoher Wahrscheinlichkeit zu inkompatiblen Schnittstellen-Versionen.
 Wie zum Beispiel von IsyFact 1.x auf IsyFact 2.0.
 ====
 
@@ -66,7 +63,6 @@ Wie zum Beispiel von IsyFact 1.x auf IsyFact 2.0.
 
 Versionen von Anwendungssystemen folgen dem folgenden Muster:
 
-[frame="none"]
 |====
 ^m| *MAJOR.MINOR.PATCH[-LABEL]*
 |====
@@ -110,8 +106,7 @@ Diese sollten daher dem folgenden Schema folgen:
 [[versionierung-von-containern]]
 === Versionierung von Containern
 
-Zusätzlich zur Version der Anwendung muss der Container oder die Installationsdatei mit Build-Metadaten versehen werden, um
-möglichst genau feststellen zu können, welcher Entwicklungsstand enthalten ist.
+Zusätzlich zur Version der Anwendung muss der Container oder die Installationsdatei mit Build-Metadaten versehen werden, um möglichst genau feststellen zu können, welcher Entwicklungsstand enthalten ist.
 
 [[rpm]]
 ==== RPM
@@ -139,11 +134,9 @@ Versionsangaben von Bibliotheken folgen dem folgenden Muster:
 ^m| *MAJOR.MINOR.PATCH[-LABEL]*
 |====
 
-Zusätzlich zu den im Kapitel <<allgemeine-nomenklatur-und-vorgaben>> getätigten Vorgaben und Empfehlungen gelten hier die folgenden
-Konkretisierungen.
+Zusätzlich zu den im Kapitel <<allgemeine-nomenklatur-und-vorgaben>> getätigten Vorgaben und Empfehlungen gelten hier die folgenden Konkretisierungen.
 
-Wenn von kompatibel gesprochen wird, ist damit gemeint, dass ein Wechsel auf die kompatible Version der Bibliothek keine
-Anpassungen an dem Code der nutzenden Anwendung/Bibliothek erfordert, und die bisherige Funktionalität uneingeschränkt erhalten bleibt.
+Wenn von kompatibel gesprochen wird, ist damit gemeint, dass ein Wechsel auf die kompatible Version der Bibliothek keine Anpassungen an dem Code der nutzenden Anwendung/Bibliothek erfordert, und die bisherige Funktionalität uneingeschränkt erhalten bleibt.
 
 Auf Grundlage einer Versionsnummer von MAJOR.MINOR.PATCH werden die einzelnen Elemente folgendermaßen erhöht:
 
@@ -175,7 +168,7 @@ Konkretisierungen und Abweichungen.
 
 Bei Schnittstellen wird auf den Bugfix-Teil der Version verzichtet, da Schnittstellen keine Bugfixes im generellen Sinne
 enthalten können. Änderungen in einer Schnittstelle sind immer entweder API-kompatibel oder API-inkompatibel.
-Daher werden bei Schnittstellen nur die MAJOR und MINOR Elemente der Version genutzt.
+Daher werden bei Schnittstellen nur die *MAJOR*- und *MINOR*-Elemente der Version genutzt.
 
 Auf Grundlage einer Versionsnummer von MAJOR.MINOR werden die einzelnen Elemente folgendermaßen erhöht:
 
@@ -188,25 +181,25 @@ Auf Grundlage einer Versionsnummer von MAJOR.MINOR werden die einzelnen Elemente
 Zusätzlich gilt:
 
 * Instabile Entwicklungsversionen müssen (MUST) mit dem *Label* -SNAPSHOT oder einem anderen Label gekennzeichnet werden.
-Instabile Entwicklungsversionen sollten nicht über einen längeren Zeitraum in einer Anwendung eingebunden sein,
-da die Gefahr besteht, dass der Build instabil wird.
+Instabile Entwicklungsversionen sollten nicht über einen längeren Zeitraum in einer Anwendung eingebunden sein, da die Gefahr besteht, dass der Build instabil wird.
 
-* Es darf nicht (MUST NOT) die *MAJOR* Version Teil der Maven Versionsnummer sein, sondern muss Teil der Artefakt-ID sein.
-Zusätzlich muss MAJOR Teil des Packagepfades sein. Dies ermöglicht das parallele Einbinden mehrerer Versionen ein- und derselben Schnittstelle.
+* Die *MAJOR*-Version muss (MUST) Teil der Artefakt-ID sein.
+Die *MAJOR*-Version darf nicht (MUST NOT) Teil der Maven-Versionsnummer sein.
+Zusätzlich muss die *MAJOR*-Version Teil der Quellcode-Strukturierung (z.B. im Package oder Namespace enthalten) sein.
+Dies ermöglicht das parallele Einbinden mehrerer Versionen ein- und derselben Schnittstelle.
 
 Bei *lokalen Schnittstellen*:
 
 * kann ein Update auf eine höhere Java-Version zur Inkompatibilität führen.
-Dies ist zu evaluieren und entsprechend der allgemeinen Vorgaben, wie oben beschrieben (<<lokale-remote-schnittstellen>>), zu handhaben.
+Dies ist zu evaluieren und entsprechend der allgemeinen Vorgaben, wie oben beschrieben, zu handhaben.
 
 Bei *Remote-Schnittstellen*:
 
-* muss (MUST) auch die *MAJOR* Version in dem URL-Pfad enthalten sein. So können jederzeit parallel unterschiedliche Versionen zur Laufzeit angeboten werden.
-* wird für den Nutzer der Schnittstelle empfohlen die *MINOR* Version zu erhöhen, wenn die URL zu der Remote-Schnittstelle im Code geändert werden muss,
-da bei einem Update der Betriebsumgebung seitens des Schnittstellenanbieters nicht zur Inkompatibilität auf Nutzerseite führen sollte.
+* muss (MUST) auch die *MAJOR*-Version in dem URL-Pfad enthalten sein.
+So können jederzeit parallel unterschiedliche Versionen zur Laufzeit angeboten werden.
+* wird für den Nutzer der Schnittstelle empfohlen die *MINOR*-Version zu erhöhen, wenn die URL zu der Remote-Schnittstelle im Code geändert werden muss, da bei einem Update der Betriebsumgebung seitens des Schnittstellenanbieters nicht zur Inkompatibilität auf Nutzerseite führen sollte.
 Sofern die Verbindung zu der Remote-Schnittstelle parametrisiert ist, ist keine Änderung der Version notwendig.
-* als Anbieter dieser Schnittstelle ist bei einem Update der Java-Version (oder auch Betriebsumgebung) zu prüfen,
-ob eine Inkompatibilität vorliegen wird und entsprechend die Versionierung wie oben beschrieben (<<lokale-remote-schnittstellen>>) vorzunehmen ist.
+* als Anbieter dieser Schnittstelle ist bei einem Update der Java-Version (oder auch Betriebsumgebung) zu prüfen, ob eine Inkompatibilität vorliegen wird und entsprechend die Versionierung wie oben beschrieben (<<lokale-remote-schnittstellen>>) vorzunehmen ist.
 
 *Beispiele:* 1.0, 2.33-SNAPSHOT, 1.3-alpha
 
@@ -215,46 +208,51 @@ ob eine Inkompatibilität vorliegen wird und entsprechend die Versionierung wie 
 === Best Practices
 
 ==== Versionierung bei Anhebung der Parent-Version
-Führt eine Anhebung der Parent-Version zu keiner Änderung an der Schnittstelle selbst oder zu keiner inkompatiblen Änderung,
-so bedarf es keiner Erhöhung von MAJOR und MINOR der Schnittstellen-Version.
+Führt eine Anhebung der Parent-Version zu keiner Änderung an der Schnittstelle selbst oder zu keiner inkompatiblen Änderung, so bedarf es keiner Erhöhung der *MINOR*- oder *MAJOR*-Version der Schnittstelle.
 
 *Vorher:*
+
 [source, xml]
 ----
-<parent>
-    <groupId>de.bund.bva.pliscommon.binaerdatenservice</groupId>
-    <artifactId>plis-binaerdatenservice-parent</artifactId>
-    <version>1.13.0</version>
-</parent>
+<project>
+    <parent>
+        <groupId>de.bund.bva.isyfact.beispielanwendung</groupId>
+        <artifactId>isy-beispielanwendung-parent</artifactId>
+        <version>1.13.0</version>
+    </parent>
 
-<artifactId>plis-binaerdatenservice-nachrichten-v1</artifactId>
-<version>5</version>
+    <artifactId>isy-beispielanwendung-nachrichten-v1</artifactId>
+    <version>5</version>
+</project>
 ----
 
-*Nachher mit erhöhter MINOR im Parent:*
+*Nachher:*
+
+Die *MINOR*-Version des Parents wurde erhöht.
 Die Version der Schnittstelle selbst bleibt unverändert bei 5.
+
 [source, xml]
 ----
-<parent>
-    <groupId>de.bund.bva.pliscommon.binaerdatenservice</groupId>
-    <artifactId>plis-binaerdatenservice-parent</artifactId>
-    <version>1.14.0</version>
-</parent>
+<project>
+    <parent>
+        <groupId>de.bund.bva.isyfact.beispielanwendung</groupId>
+        <artifactId>isy-beispielanwendung-parent</artifactId>
+        <version>1.14.0</version>
+    </parent>
 
-<artifactId>plis-binaerdatenservice-nachrichten-v1</artifactId>
-<version>5</version>
+    <artifactId>isy-beispielanwendung-nachrichten-v1</artifactId>
+    <version>5</version>
+</project>
 ----
 
-==== Versionierung der IsyFact bei API-Änderungen
-Sollten sich z.B. bei einer Anhebung der *MINOR*- oder *MAJOR*-Version Transportobjekte geändert haben,
-so ist eine Anhebung der *MINOR*-Version der Schnittstelle empfehlenswert, da es sich dabei um eine überschaubare Änderung handelt.
-Sollte es dazu führen, dass eine Anhebung der *MAJOR*-Version zu Änderungen an mehreren Stellen durchgeführt werden müssen,
-dann ist eine Erhöhung von *MAJOR* vertretbar.
+==== Versionierung bei Änderungen an Schnittstellen
+Sollten sich z.B. bei einer Anhebung der *MINOR*- oder *MAJOR*-Version Transportobjekte geändert haben, so ist eine Anhebung der *MINOR*-Version der Schnittstelle empfehlenswert, da es sich dabei um eine überschaubare Änderung handelt.
+Sollte eine Anhebung der *MAJOR*-Version zu Änderungen an mehreren Stellen führen, dann ist eine Erhöhung der *MAJOR*-Version der Schnittstelle vertretbar.
 
 ==== Versionierung bei optionalen Erweiterungen
 // TODO: Klärung von:
 // -> Major Version sollte hochgezählt werden <-- Warum? Begründung!
-Bei Remote-Schnittstellen reicht für den Schnittstellen-Anbieter eine Erhöhung des MINOR.
-Seine bisherige Funktionalität sollte nach wie vor geboten sein.
+Bei Remote-Schnittstellen reicht für den Schnittstellen-Anbieter eine Erhöhung der *MINOR*-Version.
+Die bisherige Funktionalität sollte nach wie vor geboten sein.
 
 // end::inhalt[]
