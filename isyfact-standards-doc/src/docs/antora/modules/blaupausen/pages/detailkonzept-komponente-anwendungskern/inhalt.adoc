@@ -84,7 +84,8 @@ Anwendungsfallklassen werden anhand des Namens des Anwendungsfalls aus der Spezi
 |====
 2+|Anwendungsfallklassen
 |Schema |Awf<Anwendungsfall>
-|Beispiele |AwfAntragVerarbeiten +
+|Beispiele |AwfAntragVerarbeiten
+
 AwfEntscheidungDurchfuehren
 |====
 
@@ -102,7 +103,8 @@ Anwendungsfunktionen werden anhand des Namen der Anwendungsfunktion aus der Spez
 |====
 2+|Anwendungsfunktion
 |Schema |Afu<Anwendungsfunktion>
-|Beispiele |AfuBerechnungFristdatum +
+|Beispiele |AfuBerechnungFristdatum
+
 AfuErmittlungEntscheidungsrelevanz
 |====
 

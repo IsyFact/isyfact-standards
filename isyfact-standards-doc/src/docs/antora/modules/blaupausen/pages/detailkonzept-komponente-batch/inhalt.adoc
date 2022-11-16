@@ -33,7 +33,8 @@ Diese wird folgendermaßen benannt.
 |====
 2+|Name der Batchanwendung
 |*Schema* m|<anwendungsname>-batch
-|*Beispiele* m|xyz-ga-batch +
+|*Beispiele* m|xyz-ga-batch
+
 xyz-register-batch
 |*Variable* |*Mögliche Ausprägungen*
 m|<anwendungsname> |Der Name einer Anwendung, wie in den vorigen Abschnitten beschrieben.
@@ -426,9 +427,11 @@ import-bhknz-liste.properties
 [cols="1,4",options="header"]
 |====
 2+|Batches: Konfigurationsparameter Konfigurationsdatei
-|*Schema* m|<Parametername>=<Parameterwert> +
+|*Schema* m|<Parametername>=<Parameterwert>
+
 <Parametername>.<Parametername>=<Parameterwert>
-|*Beispiele* m| BatchName=LoeschBatch +
+|*Beispiele* m| BatchName=LoeschBatch
+
 Loeschfunktion.DatumVon=30.11.2019
 |====
 //end::namenskonvention[]
@@ -974,7 +977,8 @@ Analog zu den Anwendungsfällen werden Batchklassen mit dem Präfix `Bat` gekenn
 |====
 2+|Batches: Klassen
 |*Schema* m|Bat<Batchname>
-|*Beispiele* m|BatLoeschfristPruefen +
+|*Beispiele* m|BatLoeschfristPruefen
+
 BatSendenAllerInformationen
 |====
 
@@ -1204,7 +1208,8 @@ Ein Shell-Skript muss folgender Namenskonvention folgen:
 |====
 2+|Batches: Shellskript
 |*Schemata* m|<batchname-des-batches>.sh
-|*Beispiele* m|loeschfrist-pruefen.sh +
+|*Beispiele* m|loeschfrist-pruefen.sh
+
 import-bhknz-liste.sh
 |====
 
