@@ -108,7 +108,7 @@ project-root/
 <1> Lizenz-Dateien und ggf. Dependency-Berichte
 <2> Beschreibungen, wie das auszuliefernde Artefakt gepackt wird
 <3> Quellcode in Java
-<4> Konfigurationsdateien (z. B. `application.properties`) und anderen Ressourcen (z.B. UI- oder Fehlertexte)
+<4> Konfigurationsdateien (z. B. `application.properties`) und andere Ressourcen (z.B. UI- oder Fehlertexte)
 <5> Technische Dokumentation (Systementwurf, Systemhandbuch) im AsciiDoc-Format
 <6> Skripte (z. B. SQL- oder Shell-Skripte)
 <7> Tests des Quellcodes in Java
@@ -127,8 +127,7 @@ Die Implementierung geschieht in der Anwendung, welche die Schnittstelle bereits
 Schnittstellenprojekte enthalten daher nur Quellcode und Dokumentation.
 Tests werden keine benötigt, da die Transportobjekte kein eigenes Verhalten besitzen.
 Sie sind einzig zur Datenübertragung vorgesehen.
-Ebenso verhält es sich mit Ressourcen und Skripten.
-Diese sind Teil der Implementierung, die in der Regel Teil eines Anwendungsprojekts ist.
+Ebenso verhält es sich mit Ressourcen und Skripten, die Teil der Implementierung (s. <<listing-Projektstruktur,Struktur eines Anwendungsprojekts>>) sind.
 
 Schnittstellenprojekte besitzen unter dem Wurzelverzeichnis (`project-root`) die Verzeichnisse `src/main/java` und `src/docs/asciidoc`.
 Der Aufbau des Verzeichnisses wird im xref:blaupausen:detailkonzept-komponente-service/master.adoc[Detailkonzept Komponente Service] beschrieben.
