@@ -68,7 +68,9 @@ image::diagramsnet/dn-bibliothek-isyfact-uebersicht.dn.svg[]
 
 Über das Menü menu:Datei[Bibliothek öffen...] kann die Bibliothek eingebunden werden.
 
-TIP: In der Web-Version wird die Bibliothek am besten über ihre xref:attachment$IsyFact.drawiolib.xml[URL] eingebunden.
+TIP: In der Web-Version wird die Bibliothek am besten über ihre URL eingebunden.
+Die URL kann über den Download-Link in der Tabelle <<download-bibliothek>> bezogen werden.
+Dazu genügt ein Rechtsklick auf den Download-Link und das Auswählen der Option "Link kopieren" (o.ä.).
 
 ==== Einbindung in Visual Studio Code
 
