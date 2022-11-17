@@ -14,7 +14,7 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.isyfact.ueberwachung.common;
+package de.bund.bva.isyfact.ueberwachung.metrics.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -47,20 +47,20 @@ import io.micrometer.core.instrument.MeterRegistry;
                 properties = {"isy.logging.anwendung.name=Test",
                               "isy.logging.anwendung.typ=Test",
                               "isy.logging.anwendung.version=0.1"})
-public class TestServiceStatistik {
+public class TestDefaultServiceStatistik {
 
     @Autowired
-    private ServiceStatistik serviceStatistik;
+    private DefaultServiceStatistik serviceStatistik;
 
     @Autowired
     private MeterRegistry meterRegistry;
 
-    private Random random = new SecureRandom();
+    private final Random random = new SecureRandom();
 
-    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(TestServiceStatistik.class);
+    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(TestDefaultServiceStatistik.class);
 
     /**
-     * Testet ZaehleAufruf von ServiceStatistik in der ersten Minute.
+     * Tests ZaehleAufruf in the first minute
      */
     @Test
     public void testZaehleAufrufErsteMinute() {
@@ -69,7 +69,7 @@ public class TestServiceStatistik {
 
         final int anzahlAufrufe = 10;
         for (int count = 0; count < anzahlAufrufe; count++) {
-            long dauer = random.nextInt(10000);
+            Duration dauer = Duration.ofMillis(random.nextInt(10000));
             boolean erfolgreich = random.nextBoolean();
             boolean fachlichErfolgreich = random.nextBoolean();
             serviceStatistik.zaehleAufruf(dauer, erfolgreich, fachlichErfolgreich);
@@ -109,7 +109,7 @@ public class TestServiceStatistik {
     }
 
     /**
-     * Testet ZaehleAufruf von ServiceStatistik mit 1. Minute ohne MBean Aufruf.
+     * Tests ZaehleAufruf without MBean call in the first minute .
      */
     @Test
     public void testZaehleAufrufNachAbstand() {
@@ -118,7 +118,7 @@ public class TestServiceStatistik {
         DateTimeUtil.setClock(TestClock.at(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES)));
         final int anzahlAufrufe = 10;
         for (int count = 0; count < anzahlAufrufe; count++) {
-            long dauer = random.nextInt(10000);
+            Duration dauer = Duration.ofMillis(random.nextInt(10000));
             boolean erfolgreich = random.nextBoolean();
             boolean fachlichErfolgreich = random.nextBoolean();
             serviceStatistik.zaehleAufruf(dauer, erfolgreich, fachlichErfolgreich);

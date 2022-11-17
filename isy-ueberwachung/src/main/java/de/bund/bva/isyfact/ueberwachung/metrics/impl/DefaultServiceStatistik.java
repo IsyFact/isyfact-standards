@@ -14,10 +14,11 @@
  * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-package de.bund.bva.isyfact.ueberwachung.common;
+package de.bund.bva.isyfact.ueberwachung.metrics.impl;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
+import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -36,22 +37,16 @@ import org.springframework.util.ClassUtils;
 import de.bund.bva.isyfact.datetime.util.DateTimeUtil;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
+import de.bund.bva.isyfact.ueberwachung.metrics.ServiceStatistik;
 import de.bund.bva.pliscommon.exception.service.PlisBusinessToException;
 import de.bund.bva.pliscommon.serviceapi.annotations.FachlicherFehler;
-
-import io.micrometer.core.instrument.Gauge;
-import io.micrometer.core.instrument.MeterRegistry;
-import io.micrometer.core.instrument.Tags;
-import io.micrometer.core.instrument.binder.MeterBinder;
-import io.micrometer.core.lang.NonNull;
 
 
 
 /**
- * This class implements a monitoring bean for services. It provides the monitoring options,
- * which each service must provide according to IsyFact.
+ * Default implementation of {@link ServiceStatistik} which intercepts service method calls to gather the statistics.
  */
-public class ServiceStatistik implements MethodInterceptor, InitializingBean, MeterBinder {
+public class DefaultServiceStatistik implements ServiceStatistik, MethodInterceptor, InitializingBean {
     /**
      * Default value for number of searches used to calculate the average.
      */
@@ -60,7 +55,7 @@ public class ServiceStatistik implements MethodInterceptor, InitializingBean, Me
     /**
      * Logger.
      */
-    private static final IsyLogger LOGISY = IsyLoggerFactory.getLogger(ServiceStatistik.class);
+    private static final IsyLogger LOGISY = IsyLoggerFactory.getLogger(DefaultServiceStatistik.class);
 
     /**
      * The maximum depth for recursive checking for functional errors in extended functional
@@ -77,7 +72,7 @@ public class ServiceStatistik implements MethodInterceptor, InitializingBean, Me
     /**
      * Duration of the last search calls (in milliseconds).
      */
-    private final List<Long> letzteSuchdauern = new LinkedList<>();
+    private final List<Duration> letzteSuchdauern = new LinkedList<>();
 
     /**
      * Flag for the minute in which values of the last minute were determined.
@@ -107,24 +102,34 @@ public class ServiceStatistik implements MethodInterceptor, InitializingBean, Me
     private volatile int anzahlFehlerAktuelleMinute;
 
     /**
-     * The number of technical errors in the last minute. A technical error is present if either
-     * an exception of type PlusBusinessException was thrown or the returned error list contained
-     * entries.
+     * The number of business errors in the last minute.
+     * <p>
+     * A business error occurs if either a {@link PlisBusinessToException} was thrown or the response contains an
+     * entry marked with {@link FachlicherFehler}.
      */
     private volatile int anzahlFachlicheFehlerLetzteMinute;
 
     /**
-     * The number of technical errors in the current minute. A technical error is present if
-     * either an exception of type PlusBusinessException was thrown or the returned
-     * error list contained entries.
+     * The number of business errors in the current minute.
+     * <p>
+     * A business error occurs if either a {@link PlisBusinessToException} was thrown or the response contains an
+     * entry marked with {@link FachlicherFehler}.
      */
     private volatile int anzahlFachlicheFehlerAktuelleMinute;
 
-    /** Micrometer tags. */
-    private final Tags tags;
+    /**
+     * Micrometer tags.
+     */
+    private final String[] tags;
 
-    public ServiceStatistik(Tags tags) {
-        this.tags = tags;
+    /**
+     * Constructor.
+     *
+     * @param tags an even number of arguments representing key/value pairs of tags; e.g.:
+     *             {@code ["anwendung", "de.bund.bva.isyfact.myapp", "servicestatistik", "myservice"]}.
+     */
+    public DefaultServiceStatistik(String... tags) {
+        this.tags = tags.clone();
     }
 
     /**
@@ -146,17 +151,19 @@ public class ServiceStatistik implements MethodInterceptor, InitializingBean, Me
         this.fachlicheFehlerpruefung = fachlicheFehlerpruefung;
     }
 
+    @Override
+    public String[] getTags() {
+        return tags.clone();
+    }
+
     /**
      * This method counts a call to the component for statistics.
-     * Needed for the statistics is the specification,
-     * the duration and whether the call failed.
      *
-     * @param dauer               The duration of the call in milliseconds.
-     * @param erfolgreich         Indicator whether the call was successful ({@code true}) or a technical error
-     *                            occurred ({@code false}).
-     * @param fachlichErfolgreich Flag indicating whether the call was technical successful ({@code true}) or a technical * error occurred ({@code false}).
+     * @param dauer               The duration of the call
+     * @param erfolgreich         flag, if the call was successful ({@code true}) or a technical error occurred ({@code false}).
+     * @param fachlichErfolgreich Flag, if the call was successful ({@code true}) or a business error occurred ({@code false}).
      */
-    public synchronized void zaehleAufruf(long dauer, boolean erfolgreich, boolean fachlichErfolgreich) {
+    public synchronized void zaehleAufruf(Duration dauer, boolean erfolgreich, boolean fachlichErfolgreich) {
         aktualisiereZeitfenster();
         anzahlAufrufeAktuelleMinute++;
 
@@ -201,55 +208,35 @@ public class ServiceStatistik implements MethodInterceptor, InitializingBean, Me
         }
     }
 
-    /**
-     * Returns the average duration of the last 10 calls. Defines a method for the
-     * management interface of this MBean.
-     *
-     * @return The average duration of the last 10 calls in ms.
-     */
-    private long getDurchschnittsDauerLetzteAufrufe() {
-        long result = 0;
+    @Override
+    public Duration getDurchschnittsDauerLetzteAufrufe() {
+        Duration result = Duration.ZERO;
         if (!letzteSuchdauern.isEmpty()) {
             // Copy List to avoid concurrent changes
             // Explicitly no synchronization so as not to affect performance
-            Long[] dauern = letzteSuchdauern.toArray(new Long[0]);
-            for (long dauer : dauern) {
-                result += dauer;
+            Duration[] dauern = letzteSuchdauern.toArray(new Duration[0]);
+            for (Duration dauer : dauern) {
+                result = result.plus(dauer);
             }
-            result /= dauern.length;
+            result = result.dividedBy(dauern.length);
         }
         return result;
     }
 
-    /**
-     * Returns the number of calls counted in the last minute where no error occurred.
-     * Defines a method for the management interface of this MBean.
-     *
-     * @return The number of calls counted in the last minute where no error occurred.
-     */
-    private int getAnzahlAufrufeLetzteMinute() {
+    @Override
+    public int getAnzahlAufrufeLetzteMinute() {
         aktualisiereZeitfenster();
         return anzahlAufrufeLetzteMinute;
     }
 
-    /**
-     * Returns the number of calls counted in the last minute where an error occurred.
-     * Defines a method for the management interface of this MBean.
-     *
-     * @return The number of calls counted in the last minute where an error occurred.
-     */
-    private int getAnzahlFehlerLetzteMinute() {
+    @Override
+    public int getAnzahlFehlerLetzteMinute() {
         aktualisiereZeitfenster();
         return anzahlFehlerLetzteMinute;
     }
 
-    /**
-     * Returns the number of calls counted in the last minute in which a technical error
-     * occurred.
-     *
-     * @return The number of calls counted in the last minute where a technical error * occurred.
-     */
-    private int getAnzahlFachlicheFehlerLetzteMinute() {
+    @Override
+    public int getAnzahlFachlicheFehlerLetzteMinute() {
         aktualisiereZeitfenster();
         return anzahlFachlicheFehlerLetzteMinute;
     }
@@ -270,14 +257,14 @@ public class ServiceStatistik implements MethodInterceptor, InitializingBean, Me
             erfolgreich = true;
             throw t;
         } finally {
-            long aufrufDauer = ChronoUnit.MILLIS.between(start, DateTimeUtil.getClock().instant());
+            Duration aufrufDauer = Duration.between(start, DateTimeUtil.getClock().instant());
             zaehleAufruf(aufrufDauer, erfolgreich, fachlichErfolgreich);
         }
     }
 
     /**
      * Checks whether the return object contained business errors. The return object must contain a collection
-     * annotated with @SubjectErrorList.
+     * annotated with {@link FachlicherFehler}.
      *
      * @param result The return object of the call.
      * @return true if errors, false otherwise.
@@ -374,7 +361,7 @@ public class ServiceStatistik implements MethodInterceptor, InitializingBean, Me
         return fehlerGefunden;
     }
 
-    private static boolean typeHasSuperClass(Class clazz) {
+    private static boolean typeHasSuperClass(Class<?> clazz) {
         return clazz.getSuperclass() != null && !clazz.getSuperclass().equals(Object.class);
     }
 
@@ -389,28 +376,5 @@ public class ServiceStatistik implements MethodInterceptor, InitializingBean, Me
         } else {
             LOGISY.debug("ServiceStatistik initialisiert.");
         }
-    }
-
-    @Override
-    public void bindTo(@NonNull MeterRegistry meterRegistry) {
-        Gauge.builder("anzahlAufrufe.LetzteMinute", this, ServiceStatistik::getAnzahlAufrufeLetzteMinute)
-                .tags(tags)
-                .description("Liefert die Anzahl der nicht fehlerhaften Aufrufe in der letzten Minute")
-                .register(meterRegistry);
-
-        Gauge.builder("anzahlFehler.LetzteMinute", this, ServiceStatistik::getAnzahlFehlerLetzteMinute)
-                .tags(tags)
-                .description("Liefert die Anzahl der fehlerhaften Aufrufe in der letzten Minute")
-                .register(meterRegistry);
-
-        Gauge.builder("anzahlFachlicheFehler.LetzteMinute", this, ServiceStatistik::getAnzahlFachlicheFehlerLetzteMinute)
-                .tags(tags)
-                .description("Liefert die Anzahl der fachlich fehlerhaften Aufrufe in der letzten Minute")
-                .register(meterRegistry);
-
-        Gauge.builder("durchschnittsDauer.LetzteAufrufe", this, ServiceStatistik::getDurchschnittsDauerLetzteAufrufe)
-                .tags(tags)
-                .description("Liefert die durchschnittliche Dauer der letzten 10 Aufrufe in ms")
-                .register(meterRegistry);
     }
 }
