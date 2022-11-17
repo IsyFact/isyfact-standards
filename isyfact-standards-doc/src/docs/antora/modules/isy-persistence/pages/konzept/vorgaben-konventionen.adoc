@@ -46,9 +46,11 @@ Der Name eines DAO-Interfaces leitet sich von derjenigen Entität ab, die über 
 [cols="1s,4m",options="header"]
 |====
 2+|Data Access Object: Interface + Implementierung
-|Schema |<Entität>Dao +
+|Schema |<Entität>Dao
+
 <Entität>DaoImpl
-|Beispiele |MyEntityDao +
+|Beispiele |MyEntityDao
+
 MyEntityDaoImpl
 |====
 

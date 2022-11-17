@@ -147,7 +147,7 @@ Beinhaltet die Bezeichnung Sonderzeichen, müssen sie gemäß üblicher Transkri
 
 `/nachrichten`
 
-Beispiel für eine Menge von Objekten.
+Beispiele für eine Menge von Objekten.
 
 Die Ressource liefert alle Objekte zurück.
 
@@ -180,7 +180,7 @@ Stufe 3 in <<image-richard-maturity-model>>) oder über die URI selber abgebilde
 [cols="1s,4",options="header"]
 |====
 2+|Beziehungen zwischen Ressourcen
-|Schema |`+/{ressourcen A}/{id von einem Ressource A}/{ressource(n) B}/{...}+`
+|Schema |`+/{ressourcen A}/{id von einer Ressource A}/{ressource(n) B}/{...}+`
 |Hinweis| Enthält eine Ressource wiederum mehrere Ressourcen, wird wieder der Plural verwendet.
 |Beispiele |`+/nachrichten/{id}/absender+`
 

@@ -22,8 +22,6 @@ Hierzu muss jedes Datenbankschema die folgenden Tabellen enthalten.
 Die Tabelle `M_SCHEMA_VERSION` enthält die Information über die aktuelle Version des Schemas.
 Die Tabelle hat die folgende Struktur:
 
-//tag::namenskonvention[]
-
 .Tabelle M_SCHEMA_VERSION
 [id="table-TabMSHEVERS",reftext="{table-caption} {counter:tables}"]
 [cols="1m,2,3",options="header"]
@@ -41,15 +39,11 @@ Status des Schemas:
 Das Schema kann nicht verwendet werden und muss überprüft werden.
 |====
 
-//end::namenskonvention[]
-
 [[tabelle-m_schema_log]]
 === Tabelle `M_SCHEMA_LOG`
 
 Die Tabelle `M_SCHEMA_LOG` enthält Information über eingespielte Skripte zur Anpassung des Schemas.
 Die Tabelle hat die folgende Struktur:
-
-//tag::namenskonvention[]
 
 .Tabelle M_SCHEMA_LOG
 [id="table-TabMSHELOG",reftext="{table-caption} {counter:tables}"]
@@ -69,8 +63,6 @@ Status der Skriptausführung:
 * wird ausgeführt: Skript wurde gestartet und läuft oder wurde abgebrochen
 * erfolgreich: Skript wurde erfolgreich abgearbeitet
 |====
-
-//end::namenskonvention[]
 
 [[ablage-der-skripte-und-namenskonventionen]]
 == Ablage der Skripte und Namenskonventionen
