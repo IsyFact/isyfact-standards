@@ -47,7 +47,7 @@ Darüber hinaus gibt es Unterstützung für weit verbreitete IDEs, beispielsweis
 [[IsyFact-Standards-Grafik-Bibliothek-einbinden]]
 === IsyFact-Bibliothek einbinden
 Die IsyFact stellt eine eigene Bibliothek bereit.
-Diese enthält u.a. Grafik-Objekte in Anlehnung an die Systemspezifikation-, Systementwurf- und Referenzarchitektur-Diagramme des IsyFact.
+Diese enthält u.a. Grafik-Objekte in Anlehnung an die Systemspezifikation-, Systementwurf- und Referenzarchitektur-Diagramme der IsyFact.
 
 [[download-bibliothek]]
 .Download-Optionen der Bibliothek
@@ -68,11 +68,13 @@ image::diagramsnet/dn-bibliothek-isyfact-uebersicht.dn.svg[]
 
 Über das Menü menu:Datei[Bibliothek öffen...] kann die Bibliothek eingebunden werden.
 
-TIP: In der Web-Version wird die Bibliothek am besten über ihre xref:attachment$IsyFact.drawiolib.xml[URL] eingebunden.
+TIP: In der Web-Version wird die Bibliothek am besten über ihre URL eingebunden.
+Die URL kann über den Download-Link in der Tabelle <<download-bibliothek>> bezogen werden.
+Dazu genügt ein Rechtsklick auf den Download-Link und das Auswählen der Option "Link kopieren" (o.ä.).
 
 ==== Einbindung in Visual Studio Code
 
-In der Visual Studio Code Extension muss die Bibliothek <<vs-code-extension-bibliothek-konfiguration,wie folgt>> manuell konfiguriert werden.
+In der Visual Studio Code Extension muss die Bibliothek manuell konfiguriert werden.
 
 [[vs-code-extension-bibliothek-konfiguration]]
 .Visual Studio Code Extension: Konfiguration der Bibliothek
@@ -117,7 +119,7 @@ image::diagramsnet/dn-custom-farbpalette.png[]
 ==== Einbindung in Visual Studio Code
 
 Im Fall der Visual Studio Code Extension wird eine angepasste Extension-Konfiguration benötigt.
-Diese muss manuell in die Konfiguration von Visual Studio Code integriert werden.
+Die Extension-Konfiguration im xref:attachment$diagrams_net_vs_studio_code_settings.json[JSON-Format] muss manuell in die Konfiguration von Visual Studio Code kopiert werden.
 
 [[arbeiten-mit-diagrams.net]]
 == Arbeiten mit diagrams.net
