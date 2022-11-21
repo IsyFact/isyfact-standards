@@ -686,7 +686,7 @@ Die Ergebnisse von Checkstyle können anschließend über btn:[Window > Show Vie
 
 ===== IntelliJ IDEA
 
-*Schritt 1:* Konfigurationsmaske des Checkstyle-Plugin in Eclipse öffnen
+*Schritt 1:* Konfigurationsmaske des Checkstyle-Plugin in IntelliJ öffnen
 
 * Menüeintrag menu:File[Settings... > Checkstyle] (für das aktuelle Projekt)
 * Menüeintrag menu:File[Other Settings > Default Settings... > Checkstyle] (für alle zukünftigen Projekte)
