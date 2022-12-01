@@ -26,7 +26,7 @@ import de.bund.bva.isyfact.persistence.datasource.IsyDataSource;
 @ConditionalOnProperty(name = "isy.persistence.datasource.url")
 @EnableConfigurationProperties
 @Import(DatabaseInitializationDependencyConfigurer.class)
-public class IsyPersistenceOracleAutoConfiguration {
+public class IsyPersistenceAutoConfiguration {
 
     /**
      * Creates a bean for the Health Check of the data source.

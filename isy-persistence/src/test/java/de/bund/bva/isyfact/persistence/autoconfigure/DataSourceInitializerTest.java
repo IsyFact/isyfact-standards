@@ -31,7 +31,7 @@ public class DataSourceInitializerTest {
     public void testSchemaValidationFailsWhenDataSourceNotInitialized() {
         try {
             new SpringApplicationBuilder()
-                    .sources(IsyPersistenceOracleAutoConfiguration.class)
+                    .sources(IsyPersistenceAutoConfiguration.class)
                     .profiles("h2")
                     .run();
             fail();
@@ -43,7 +43,7 @@ public class DataSourceInitializerTest {
     @Test
     public void testSchemaValidationSuccessfulWhenDataSourceInitialized() throws SQLException {
         ConfigurableApplicationContext context = new SpringApplicationBuilder()
-                .sources(IsyPersistenceOracleAutoConfiguration.class, TestDataSourceInitializationConfig.class)
+                .sources(IsyPersistenceAutoConfiguration.class, TestDataSourceInitializationConfig.class)
                 .profiles("h2")
                 .run();
 
