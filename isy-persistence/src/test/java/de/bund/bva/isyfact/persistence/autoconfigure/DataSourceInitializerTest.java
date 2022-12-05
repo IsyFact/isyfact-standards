@@ -71,8 +71,7 @@ public class DataSourceInitializerTest {
             initializationSettings.setContinueOnError(true);
             initializationSettings.setSchemaLocations(Arrays.asList(
                     "classpath:/sql.persistence/reset.sql",
-                    "file:src/main/skripte/db-versioning-templates/db-schema-name/db-install-x.y.z_0/04-1_version_erzeugen.sql",
-                    "file:src/main/skripte/db-versioning-templates/db-schema-name/db-install-x.y.z_0/04-2_tabellen_erzeugen.sql"
+                    "classpath:/sql.persistence/create_version_table.sql"
             ));
             initializationSettings.setDataLocations(Collections.singletonList(
                     "classpath:/sql.persistence/set_schema_version.sql"
