@@ -17,9 +17,11 @@ Es richtet sich vor allem an Software-Architekten, die eine Geschäftsanwendung 
 
 Dazu erläutert das Kapitel xref:konzept/master.adoc#prinzipien-der-sicherheitsarchitektur[Prinzipien der Sicherheitsarchitektur] zunächst, wie sich die Sicherheitsarchitektur auf Ebene der Systemlandschaft und auf Ebene eines einzelnen IT-Systems darstellt.
 
+Im Kapitel xref:konzept/master.adoc#oauth2.0-und-openidconnect[OAuth2.0 und OpenIDConnect] ist das Verfahren zur Authentifizierung und Autorisierung nur mit Spring (OAuth2) beschrieben.
+
 Danach beleuchtet das Kapitel xref:konzept/master.adoc#sicherheitsarchitektur-eines-it-systems[Sicherheitsarchitektur eines IT Systems] die Einbettung des Bausteins Sicherheit in ein konkretes xref:glossary:glossary:master.adoc#glossar-it-system[IT-System].
-Zentrale Schnittstellen beschreibt das Kapitel xref:konzept/master.adoc#aussensicht-der-komponente-sicherheit[Aussensicht der Komponente Sicherheit].
-Das Kapitel xref:konzept/master.adoc#rollen-und-rechte[Rollen und Rechte]. xref:konzept/master.adoc#aufruf-von-nachbarsystemen[Aufruf von Nachbarsystemen] befasst sicht mit Vorgaben und Konventionen beim Einbinden von Nachbarsystemen.
+Zentrale Schnittstellen beschreibt das Kapitel xref:konzept/master.adoc#aussensicht-der-komponente-sicherheit[Schnittstelle des Bausteins Sicherheit].
+Das Kapitel xref:konzept/master.adoc#aufruf-von-nachbarsystemen[Aufruf von Nachbarsystemen] befasst sicht mit Vorgaben und Konventionen beim Einbinden von Nachbarsystemen.
 
 Das Kapitel xref:konzept/master.adoc#rollen-und-rechte[Rollen und Rechte] beschreibt dann, wie Rollen und Rechte für eine neue Geschäftsanwendung spezifiziert werden.
 // end::inhalt[]
