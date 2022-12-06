@@ -19,7 +19,7 @@ import de.bund.bva.isyfact.persistence.autoconfigure.properties.DatabaseProperti
 import de.bund.bva.isyfact.persistence.datasource.IsyDataSource;
 
 /**
- * Spring configuration of the persistence layer for Oracle.
+ * Spring configuration of the persistence layer.
  */
 @Configuration
 @ConditionalOnProperty(name = "isy.persistence.datasource.url")
