@@ -39,6 +39,9 @@
 *** xref:isy-service-rest:konzept/master.adoc[Konzept]
 *** xref:isy-service-rest:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
 
+** Security
+*** xref:isy-security:konzept/master.adoc[Konzept]
+
 ** Sicherheit
 *** xref:isy-sicherheit:konzept/master.adoc[Konzept]
 *** xref:isy-sicherheit:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
