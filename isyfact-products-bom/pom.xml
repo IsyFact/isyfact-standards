@@ -104,8 +104,6 @@
                 <scope>provided</scope>
             </dependency>
 
-            <!-- Application core framework, remoting: Spring -->
-            <!-- Managed by Spring Boot Dependencies -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -113,11 +111,6 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
-            <!-- Authentication/autorisation: Spring Security -->
-            <!-- Managed by Spring Boot Dependencies -->
-            <!-- Persistence framework: Hibernate -->
-            <!-- Managed by Spring Boot Dependencies -->
 
             <!-- Web service framework (SOAP): Metro  -->
             <dependency>
@@ -167,12 +160,6 @@
                 <artifactId>resilience4j-timelimiter</artifactId>
                 <version>${resilience4j.version}</version>
             </dependency>
-
-            <!-- Logging: SLF4J -->
-            <!-- Managed by Spring Boot Dependencies -->
-
-            <!-- Logging: Logback -->
-            <!-- Managed by Spring Boot Dependencies -->
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
@@ -292,9 +279,6 @@
                 <version>${jsoup.version}</version>
             </dependency>
 
-            <!-- Testing, test framework: JUnit -->
-            <!-- Managed by Spring Boot Dependencies -->
-
             <!-- Testing, load test driver: Apache JMeter -->
             <dependency>
                 <groupId>org.apache.jmeter</groupId>
@@ -303,9 +287,6 @@
                 <scope>test</scope>
             </dependency>
 
-            <!-- Testing, mocking framework: Mockito -->
-            <!-- Managed by Spring Boot Dependencies -->
-
             <!-- Testen, Mocking-Framework: WireMock -->
             <dependency>
                 <groupId>com.github.tomakehurst</groupId>
@@ -313,7 +294,6 @@
                 <version>${wiremock-jre8.version}</version>
                 <scope>test</scope>
             </dependency>
-            <!-- Managed by Spring Boot Dependencies -->
 
             <!-- Testing, test framework (addon): DBUnit -->
             <dependency>
@@ -322,9 +302,6 @@
                 <version>${dbunit.version}</version>
                 <scope>test</scope>
             </dependency>
-
-            <!-- Testing, assertion API: AssertJ -->
-            <!-- Managed by Spring Boot Dependencies -->
 
             <!-- Testing, in-memory database: H2 -->
             <!-- Self managed because of CVEs -->
@@ -354,6 +331,19 @@
                 <version>${greenmail.version}</version>
                 <scope>test</scope>
             </dependency>
+
+            <!-- Managed by Spring Boot Dependencies -->
+            <!-- Logging: SLF4J -->
+            <!-- Logging: Logback -->
+            <!-- Application core framework, remoting: Spring -->
+            <!-- Authentication/autorisation: Spring Security -->
+            <!-- Persistence framework: Hibernate -->
+            <!-- JSON processing: Jackson -->
+            <!-- Dynamic SQL query generation: QueryDSL -->
+            <!-- Open Source Cache: ehcache -->
+            <!-- Testing, test framework: JUnit -->
+            <!-- Testing, mocking framework: Mockito -->
+            <!-- Testing, assertion API: AssertJ -->
         </dependencies>
     </dependencyManagement>
 
