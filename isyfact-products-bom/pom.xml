@@ -46,6 +46,9 @@
         <wiremock-jre8.version>2.32.0</wiremock-jre8.version>
         <dbunit.version>2.7.2</dbunit.version>
         <h2.version>2.1.210</h2.version>
+        <commons-beanutils.version>1.9.4</commons-beanutils.version>
+        <tika-core.version>1.28.5</tika-core.version>
+        <commons-io.version>2.11.0</commons-io.version>
     </properties>
 
     <!-- Dependency management for IsyFact core technology stack. -->
@@ -264,14 +267,27 @@
                 <version>${commons-validator.version}</version>
             </dependency>
 
-            <!-- JSON processing: Jackson -->
-            <!-- Managed by Spring Boot Dependencies -->
+            <!-- Apache Commons-Beanutils -->
+            <dependency>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
+                <version>${commons-beanutils.version}</version>
+            </dependency>
 
-            <!-- Dynamic SQL query generation: QueryDSL -->
-            <!-- Managed by Spring Boot Dependencies -->
+            <!-- Apache Tika -->
+            <dependency>
+                <groupId>org.apache.tika</groupId>
+                <artifactId>tika-core</artifactId>
+                <version>${tika-core.version}</version>
+            </dependency>
 
-            <!-- Open Source Cache: ehcache -->
-            <!-- Managed by Spring Boot Dependencies -->
+            <!-- Apache Commons IO -->
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
+            </dependency>
+
             <!-- HTML sanitizer -->
             <dependency>
                 <groupId>org.jsoup</groupId>
