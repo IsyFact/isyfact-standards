@@ -1,0 +1,185 @@
+[[changelog]]
+= Changelog
+
+[[changelog-styleguide]]
+== Styleguide
+
+*Änderungen Release 5.4.0*
+
+// tag::release-5.4.0[]
+- `IFS-1513`: Migration auf Antora
+// end::release-5.4.0[]
+
+*Änderungen Release 5.3.0*
+
+// tag::release-5.3.0[]
+- `IFS-1005`: Kapitel Schriften im Kontext der neuen Schriftart Liberation aktualisiert
+// end::release-5.3.0[]
+
+// *Änderungen Release 5.0.0*
+
+// tag::release-5.0.0[]
+// end::release-5.0.0[]
+
+*Änderungen Release 4.3.0*
+
+// tag::release-4.3.0[]
+- `IFS-413`: Dialogvorgaben angepasst, Größe passt sich dem Inhalt an, Buttons haben festen Ort
+- `IFE-412`: Größenvorgaben für Buttons angepasst
+- `IFE-47`: BVA-Kontext im Styleguide weiter reduzieren
+- `IFE-70`: BVA-Teil des Accso-Wikis aus isy-style entfernt
+- `IFS-247`: Styleguide Screenshots aktualisiert
+- `IFE-40`: Nutzungskonzept hinzugefügt
+// end::release-4.3.0[]
+
+*Änderungen Release 4.2.0*
+
+// tag::release-4.2.0[]
+- `IFS-214`: Tabellensortierung - Screenshot ausgetauscht, Beschreibung konkretisiert
+- `IFS-215`: Vorgaben zur Interaktion mit dem Hauptfenster integriert
+// end::release-4.2.0[]
+
+*Änderungen Release 4.1.0*
+
+// tag::release-4.1.0[]
+- `IFS-182`: Datepicker um Übernahme des heutigen Datums erweitert
+- `IFS-205`: Dokumentation zur Navigation aus IFS-99 hinzugefügt
+// end::release-4.1.0[]
+
+*Änderungen Release 4.0.0*
+
+// tag::release-4.0.0[]
+- `IFS-107`: Anpassung von Farben über Konfiguration möglich (siehe README.md)
+// end::release-4.0.0[]
+
+// *Änderungen Release 3.0.0*
+
+// tag::release-3.0.0[]
+// end::release-3.0.0[]
+
+// *Änderungen Release 2.3.0*
+
+// tag::release-2.3.0[]
+// end::release-2.3.0[]
+
+// *Änderungen Release 2.2.3*
+
+// tag::release-2.2.3[]
+// end::release-2.2.3[]
+
+*Änderungen Release 2.2.2*
+
+// tag::release-2.2.2[]
+- Header-Bereich: Linkes und rechtes Logo und der Text, der neben dem rechten Logo stehen soll, sind nun konfigurierbar.
+
+Hinweise zum Upgrade
+
+- Anwendungen müssen nun die Konfigurationsparameter 'gui.header.logo.rechts.pfad', 'gui.header.logo.links.pfad' und 'gui.header.text.logo.rechts' setzen, damit die Logos bzw. der Text angezeigt werden.
+// end::release-2.2.2[]
+
+*Änderungen Release 2.2.1*
+
+// tag::release-2.2.1[]
+Neuerungen
+
+- `IFS-29`:
+* Deaktivierte Eingabefelder haben einen entsprechenden Cursur.
+* Einführung von h-Tags für Überschriften von Panels.
+* formCurrencyInput hat neuen, optionalen Parameter zum Ausrichten des Texts.
+// end::release-2.2.1[]
+
+// *Änderungen Release 2.2.0*
+
+// tag::release-2.2.0[]
+// end::release-2.2.0[]
+
+// *Änderungen Release 2.1.0*
+
+// tag::release-2.1.0[]
+// end::release-2.1.0[]
+
+// *Änderungen Release 2.0.4*
+
+// tag::release-2.0.4[]
+// end::release-2.0.4[]
+
+[[changelog-nutzungsvorgaben]]
+== Nutzungsvorgaben
+
+*Änderungen Release 5.4.0*
+
+// tag::release-5.4.0[]
+- `IFS-1513`: Migration auf Antora
+// end::release-5.4.0[]
+
+*Änderungen Release 5.3.0*
+
+// tag::release-5.3.0[]
+- `IFS-1005`: Neues Kapitel Fonts mit einem Verweis auf die neue Schriftart Liberation hinzugefügt
+// end::release-5.3.0[]
+
+// *Änderungen Release 5.0.0*
+
+// tag::release-5.0.0[]
+// end::release-5.0.0[]
+
+// *Änderungen Release 4.3.0*
+
+// tag::release-4.3.0[]
+// end::release-4.3.0[]
+
+*Änderungen Release 4.2.0*
+
+// tag::release-4.2.0[]
+- `IFE-59`: Verwendung der Portalfarbe für Navigationsmenü und Breadcrumb, Icon-Buttons (Hover) und selektierte Kopfzeilen von Tabellen
+// end::release-4.2.0[]
+
+// *Änderungen Release 4.1.0*
+
+// tag::release-4.1.0[]
+// end::release-4.1.0[]
+
+// *Änderungen Release 4.0.0*
+
+// tag::release-4.0.0[]
+// end::release-4.0.0[]
+
+// *Änderungen Release 3.0.0*
+
+// tag::release-3.0.0[]
+// end::release-3.0.0[]
+
+// *Änderungen Release 2.3.0*
+
+// tag::release-2.3.0[]
+// end::release-2.3.0[]
+
+// *Änderungen Release 2.2.3*
+
+// tag::release-2.2.3[]
+// end::release-2.2.3[]
+
+// *Änderungen Release 2.2.2*
+
+// tag::release-2.2.2[]
+// end::release-2.2.2[]
+
+// *Änderungen Release 2.2.1*
+
+// tag::release-2.2.1[]
+// end::release-2.2.1[]
+
+// *Änderungen Release 2.2.0*
+
+// tag::release-2.2.0[]
+// end::release-2.2.0[]
+
+// *Änderungen Release 2.1.0*
+
+// tag::release-2.1.0[]
+// end::release-2.1.0[]
+
+// *Änderungen Release 2.0.4*
+
+// tag::release-2.0.4[]
+// end::release-2.0.4[]
