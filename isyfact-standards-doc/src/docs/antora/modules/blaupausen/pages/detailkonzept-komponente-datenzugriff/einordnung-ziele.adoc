@@ -48,3 +48,6 @@ Effizienz und Schnelligkeit der Komponente Datenzugriff::
 JPA und die gewählte JPA-Implementierung müssen effizient und schnell arbeiten.
 Datenbank-Aufrufe sollen möglichst effizient sein.
 Unnötige und mehrfache Zugriffe sollen vermieden werden.
+
+
+
