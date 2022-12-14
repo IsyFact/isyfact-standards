@@ -110,6 +110,5 @@ Wird ein neuer Baustein angelegt, so muss auch eine entsprechende Dokumentation 
 === Dokumentation der IsyFact Erweiterungen
 
 IsyFact Erweiterungen können als Bausteine optional in einem xref:glossary:glossary:master.adoc#glossar-anwendungssystem[IsyFact Anwendungssystem] verwendet werden.
-Ein Beispiel ist der Erweiterungsbaustein `isy-style`, der Styleguide der IsyFact.
 Sie enthalten ebenfalls ihre eigene Dokumentation.
 I.d.R. werden auch hier zugrundeliegende Konzepte sowie Nutzungsvorgaben für Entwickler beschrieben.
