@@ -1,28 +1,15 @@
-= Baustein Styleguide (JSF): Nutzungsvorgaben
+= Baustein Styleguide: Nutzungsvorgaben
 
 include::glossary:licence:partial$licence.adoc[]
 
-*Java Bibliothek / IT-System*
-
-[cols="5,2,3",options="header"]
-|====
-|Name |Art |Version
-m|isy-style |Bibliothek |v{page-component-version}
-|====
-
 // tag::inhalt[]
-[[kapitel-plis-style]]
-== Bibliothek isy-style
-
-In der IsyFact-Erweiterung `isy-style` werden die CSS-, JavaScript- und Bilddateien des Styleguides abgelegt, für die Nutzung komprimiert und kompiliert.
-Dieses Dokument enthält die technische Dokumentation zur Bibliothek `isy-style`.
-
+Dieses Dokument enthält die technische Dokumentation zum Styleguide.
 
 [[technologien-nutzungsvorgaben]]
-=== Technologien
+== Technologien
 
 [[twitter-bootstrap]]
-==== Twitter Bootstrap
+=== Twitter Bootstrap
 
 Dieses Projekt baut auf dem Bootstrap CSS Framework in Version 3.4.1 auf.
 Dieses stellt sowohl browserübergreifende, erweiterbare Styles für HTML-Elemente als auch wenige komplexere Steuerelemente mit zusätzlichem Javascript-Code zur Verfügung.
@@ -38,7 +25,7 @@ So können Entwickler bei aufkommenden Fragen die xref:glossary:literaturextern:
 Sollte diese Dokumentation für eine neuere Bootstrap Versionen angepasst werden und somit nicht mehr mit der in der Anwendung verwendeten Version kompatibel sein, werden die älteren Bootstrap-Dokumentationen in einem Archiv von einem xref:glossary:literaturextern:inhalt.adoc#litextern-bootstrap-docs[Drittanbieter] zur Verfügung gestellt.
 
 [[erweiterung-der-bootstrap-basis]]
-===== Erweiterung der Bootstrap-Basis
+==== Erweiterung der Bootstrap-Basis
 
 Die Bootstrap-Quelldateien und die von Bootstrap bereitgestellten JavaScript-Dateien können unabhängig von den angewandten Styles und Templates aktualisiert werden.
 Sollte eine neue Bootstrap Version erscheinen und es notwendig sein, neue Features und/oder Bug-Fixes zu implementieren, sollte folgendermaßen vorgegangen werden:
@@ -53,7 +40,7 @@ Möglicherweise sind noch zusätzliche Styledefinitionen oder Korrekturen nötig
 // TODO: Kapitel_ueberarbeiten
 // Begründung: Less wird nicht mehr nativ von bootstrap unterstützt; Links sind falsch.
 [[nutzungsvorgaben-less-stylesheet]]
-==== LESS Stylesheets
+=== LESS Stylesheets
 
 Bootstrap basiert auf der xref:glossary:literaturextern:inhalt.adoc#litextern-less-stylesheet[LESS Stylesheet-Sprache]. Diese fügt Variablen, Funktionen und Operationen zur ursprünglichen CSS Funktionalität hinzu.
 Dieses Projekt implementiert diese Funktionalitäten und baut darauf auf.
@@ -82,12 +69,12 @@ LESS ermöglicht es, verschachtelte Selektoren zu benutzen, diese sind in den ge
 Diese Verschachtelung erlaubt eine einfachere Wartbarkeit des Projektes, da so in den Styles teilweise die DOM-Struktur der Zielelemente widergespiegelt wird.
 
 [[bennenung-der-komponenten]]
-==== Benennung der Komponenten
+=== Benennung der Komponenten
 
 Die Benennung von spezifischen Komponenten und Layout-Elementen im Code wurde der Dash-Case-Schreibweise von Bootstrap angepasst.
 
 [[css-raster-system]]
-==== CSS Raster-System
+=== CSS Raster-System
 
 Dieses Projekt benutzt das Bootstrap Raster-System, um das Layout und die Bedienelemente der Applikation zu strukturieren und zu positionieren.
 
@@ -100,45 +87,45 @@ Weitere Informationen können der Bootstrap Dokumentation über das xref:glossar
 Die Einstellungen für das genutzte Raster (z. B. Spaltenbreite) können in der Datei src/less/es/customvariables.less nachgelesen werden.
 
 [[nutzungsvorgaben-assets]]
-=== Assets
+== Assets
 
 Alle benötigten Asstes wurden für die Benutzung in Browsern optimiert.
 Hierfür wurden alle Dateigrößen minimiert und die Anzahl der benötigten Dateien auf ein Minimum reduziert.
 Dieser Prozess beinhaltet auch die Entfernung von nicht benötigten Meta-Informationen aus dem Header von Bild-Dateien (smushit, svgmin).
 
 [[nutzungsvorgaben-fonts]]
-==== Fonts
+=== Fonts
 Als Standard-Schriftart wird der xref:glossary:literaturextern:inhalt.adoc#litextern-liberation-font[Liberation Font] verwendet. Über `font-face` wird die Liberation Font Familie eingebunden und zur Verfügung gestellt. Damit eine Web-Anwendung alle Zeichen der DIN SPEC 91379 korrekt darstellen kann, wird empfohlen die Schriftart Liberation zu verwenden.
 
 [[nutzungsvorgaben-icons]]
-==== Icons
+=== Icons
 
 Für die Verwendung von Icons wird der Icon-Font xref:glossary:literaturextern:inhalt.adoc#litextern-font-awesome[Font Awesome]  genutzt.
 Über CSS-Klassen können die einzelnen Icons referenziert werden.
 Grundlegende Icons sind im xref:styleguide.adoc#icons-ueberscrift[Styleguide]  erläutert.
 
 [[nutzungsvorgaben-grafiken]]
-==== Grafiken
+=== Grafiken
 
 Für einige Bedien- und Layout-Elemente werden zusätzliche Bitmap Grafiken benötigt, zum Beispiel */img/controls/cb_checked_default.png (Bedienelement) und */img/bgInfoTile.png (Layout). Diese Grafiken sollten möglichst nicht verändert werden, da sie dann möglicherweise nicht mehr den Richtlinien des Interface Styleguides entsprechen.
 In der Regel ist eine Bearbeitung aber auch nicht notwendig.
 
 [[nutzungsvorgaben-konvention]]
-=== Konventionen
+== Konventionen
 
 [[nutzungsvorgaben-html-five-markup]]
-==== HTML5 Markup
+=== HTML5 Markup
 
 Die Struktur des Markup der Applikationsbereich wurde mit Hilfe des W3C Validierers auf gültige Struktur überprüft („well-formed“).
 
 [[kommentare-im-quellcode]]
-==== Kommentare im Quellcode
+=== Kommentare im Quellcode
 
 Ein Ausrufezeichen /*! innerhalb eines Kommentars zeigt an, dass dieser Kommentar auch nach der Minimierung erhalten bleibt.
 Solche Kommentare werden in den publizierten Dateien aus lizenzrechtlichen Gründen angezeigt.
 
 [[nutzungsvorgaben-stylesheets]]
-==== Stylesheets
+=== Stylesheets
 
 LESS Stylesheets sollten im Verzeichnis /less abgelegt werden.
 Um Styles besser lesen und verstehen zu können, sollten ein paar grundlegende Konventionen bei der Definition von neuen Styles und Stylesheets eingehalten werden:
@@ -151,7 +138,7 @@ Es sollten keine Inline-Styles (style=”…”) im HTML-Dokument eingesetzt wer
 Die Styles einzelner Elemente werden logisch auf verschiedene Dateien aufgeteilt, einige davon nutzen die Namen der Bootstrap Original-Dateien.
 
 [[nutzungsvorgaben-less-format]]
-==== Das LESS-Format
+=== Das LESS-Format
 
 Öffnende Klammern stehen in der gleichen Zeile wie die Bezeichnung des Styles.
 Die schließende Klammer steht in einer neuen Zeile.

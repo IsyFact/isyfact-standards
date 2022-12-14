@@ -62,7 +62,7 @@
 *** xref:isy-util:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
 
 ** Styleguide
-*** xref:isy-styleguide:styleguide/styleguide.adoc[Styleguide]
+*** xref:isy-styleguide:styleguide.adoc[Styleguide]
 *** xref:isy-styleguide:nutzungsvorgaben/nutzungsvorgaben.adoc[Nutzungsvorgaben]
 *** xref:isy-styleguide:changelog.adoc[Changelog]
 
