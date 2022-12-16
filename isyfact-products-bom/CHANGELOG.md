@@ -1,5 +1,6 @@
 # 3.0.0
 - `IFS-1465`: Spring Boot Versionsanhebung auf 2.7.1
+- `IFS-2045`: Produkte Apache Tika, commons-beanutils und commons-io hinzugefügt
 
 # 2.4.2
 - `IFS-1466`: Versionsanhebung von Spring Boot auf 2.5.13
