@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 
 import de.bund.bva.isyfact.persistence.datasource.IsyDataSource;
 
-public class IsyPersistenceOracleAutoConfigurationTest {
+public class IsyPersistenceAutoConfigurationTest {
 
     @Test(expected = NoSuchBeanDefinitionException.class)
     public void testDataSourceUrlPropertyNichtGesetzt() {

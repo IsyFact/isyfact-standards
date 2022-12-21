@@ -116,8 +116,8 @@ In der Anwendungskonfiguration müssen in `application.properties` die folgenden
 [[konfiguration-schema-version]]
 [source,properties]
 ----
-isy.persistence.oracle.datasource.schema-invalid-version-action=fail
-isy.persistence.oracle.datasource.schema-version=1.2.3
+isy.persistence.datasource.schema-invalid-version-action=fail
+isy.persistence.datasource.schema-version=1.2.3
 ----
 
 In der Property `schema-version` wird die Versionsnummer des Datenbankschemas angegeben, das die Anwendung erwartet.
