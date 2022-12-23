@@ -4,10 +4,10 @@
 - `IFS-1196`: Spring Framework BOM Version von 4.3.22.RELEASE auf 4.3.23.RELEASE angehoben
 
 # 1.10.0
-- Versionanhebung auf IFS 1.10.0
+- enthält nur Versionsanhebung auf IFS 1.10.0
 
 # 1.9.0
-- Versionanhebung auf IFS 1.9.0
+- enthält nur Versionsanhebung auf IFS 1.9.0
 
 # 1.8.3
 - `IFS-692`: Google Guava von 19.0 auf 29.0 angehoben

@@ -1,3 +1,12 @@
+# 1.12.0
+- enthält nur Versionsanhebung auf IFS 1.11.0
+
+# 1.11.0
+- enthält nur Versionsanhebung auf IFS 1.10.0
+
+# 1.10.0
+- enthält nur Versionsanhebung auf IFS 1.9.0
+
 # 1.9.0
 - license/DEPENDENCIES aktualisiert
 
