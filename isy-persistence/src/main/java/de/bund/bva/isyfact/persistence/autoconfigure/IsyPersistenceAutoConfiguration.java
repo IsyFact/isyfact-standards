@@ -3,7 +3,6 @@ package de.bund.bva.isyfact.persistence.autoconfigure;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.actuate.jdbc.DataSourceHealthIndicator;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
@@ -20,30 +19,13 @@ import de.bund.bva.isyfact.persistence.autoconfigure.properties.DatabaseProperti
 import de.bund.bva.isyfact.persistence.datasource.IsyDataSource;
 
 /**
- * Spring configuration of the persistence layer for Oracle.
+ * Spring configuration of the persistence layer.
  */
 @Configuration
 @ConditionalOnProperty(name = "isy.persistence.datasource.url")
 @EnableConfigurationProperties
 @Import(DatabaseInitializationDependencyConfigurer.class)
-public class IsyPersistenceOracleAutoConfiguration {
-
-    /**
-     * Creates a bean for the Health Check of the data source.
-     *
-     * @param dataSource
-     *         the initialized app data source
-     * @return Bean oracleDataSourceHealthIndicator
-     */
-    @Bean
-    @ConditionalOnMissingBean(DataSourceHealthIndicator.class)
-    public DataSourceHealthIndicator oracleDataSourceHealthIndicator(@Qualifier("appDataSource") DataSource dataSource) {
-        DataSourceHealthIndicator dataSourceHealthIndicator = new DataSourceHealthIndicator();
-        dataSourceHealthIndicator.setDataSource(dataSource);
-        dataSourceHealthIndicator.setQuery("select BANNER from V$VERSION where BANNER like 'Oracle%'");
-
-        return dataSourceHealthIndicator;
-    }
+public class IsyPersistenceAutoConfiguration {
 
     @Primary
     @Bean

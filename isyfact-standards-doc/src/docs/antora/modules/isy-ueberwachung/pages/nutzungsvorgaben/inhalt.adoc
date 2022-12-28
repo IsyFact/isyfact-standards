@@ -39,7 +39,7 @@ Beispielhaft wird eine mögliche Konfiguration zur Anbindung beschrieben.
 
 In diesem Kapitel werden die Informationen beschrieben, welche jede Anwendung zur Überwachung bereitstellen muss.
 
-Für das Anbieten dieser genormten Management-Schnittstellen wird eine querschnittliche Bibliothek `isy-ueberwachung`
+Für das Anbieten dieser genormten Management-Schnittstellen wird eine Bibliothek `isy-ueberwachung`
 bereitgestellt, welche die dafür notwendigen Klassen enthält.
 Die Bibliothek wird in die zu überwachende Anwendung eingebunden.
 Durch das Einbinden von `isy-ueberwachung` werden auch die für Actuator und Micrometer benötigten Dritt-Bibliotheken

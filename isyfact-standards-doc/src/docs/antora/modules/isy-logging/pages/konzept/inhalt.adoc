@@ -266,7 +266,7 @@ NOTE: Für mehr Informationen zu logback siehe http://logback.qos.ch/
 
 .icon:university[] Architekturregel
 ****
-Logback wird durch eine Anwendung niemals direkt, sondern ausschließlich über die Querschnittsbibliothek `isy-logging` aufgerufen.
+Logback wird durch eine Anwendung niemals direkt, sondern ausschließlich über die Bibliothek `isy-logging` aufgerufen.
 Dadurch wird die einheitliche Nutzung von _logback_ sichergestellt.
 Ausnahmen sind hierbei externe Bibliotheken (siehe xref:isy-logging:konzept/inhalt.adoc#logging-externer-bibliotheken[Logging externer Bibliotheken]).
 ****

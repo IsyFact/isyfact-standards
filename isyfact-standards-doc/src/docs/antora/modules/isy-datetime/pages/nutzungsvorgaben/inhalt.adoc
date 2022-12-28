@@ -68,10 +68,10 @@ Wenn solche Abkürzungen genutzt werden, sollte diese nur zur Anzeige für den N
 Abkürzungen sollten nicht geparst oder anderweitig technisch verarbeitet werden.
 Die Abkürzungen "UTC" und "GMT" sind die einzigen, die davon explizit ausgenommen sind.
 
-[[verwendung-der-querschnittsbibliothek-isy-datetime]]
-== Verwendung der Querschnittsbibliothek *_isy-datetime_*
+[[verwendung-der-bibliothek-isy-datetime]]
+== Verwendung der Bibliothek *_isy-datetime_*
 
-In diesem Abschnitt werden Inhalt und Einsatz der Querschnittsbibliothek _isy-datetime_ beschrieben.
+In diesem Abschnitt werden Inhalt und Einsatz der Bibliothek _isy-datetime_ beschrieben.
 
 [[inhalt-von-isy-datetime]]
 === Inhalt von *_isy-datetime_*

@@ -1,15 +1,15 @@
 = Nutzungsvorgaben Task Scheduling: Inhalt
 
 // tag::inhalt[]
-[[verwendung-der-querschnittsbibliothek-isy-task]]
-== Verwendung der Querschnittsbibliothek `isy-task`
+[[verwendung-der-bibliothek-isy-task]]
+== Verwendung der Bibliothek `isy-task`
 
-In diesem Abschnitt werden Inhalt und Einsatz der Querschnittsbibliothek `isy-task` beschrieben.
+In diesem Abschnitt werden Inhalt und Einsatz der Bibliothek `isy-task` beschrieben.
 
 [[maven]]
 === Maven
 
-Um die Querschnittsbibliothek einzubinden, fügen Sie die `isy-task` Abhängigkeit in Ihre pom.xml hinzu.
+Um die Bibliothek einzubinden, fügen Sie die `isy-task` Abhängigkeit in Ihre pom.xml hinzu.
 
 [source, xml]
 ----
@@ -199,7 +199,7 @@ TaskKonfiguration.Ausfuehrungsplan.ONCE);
 taskKonfiguration.setInitialDelay(Duration.ofSeconds(1));
 ----
 
-Die Querschnittsbibliothek `isy-task` sieht vor, dass jeder Task von einem `de.bund.bva.isyfact.task.model.TaskRunner` gesteuert wird.
+Die Bibliothek `isy-task` sieht vor, dass jeder Task von einem `de.bund.bva.isyfact.task.model.TaskRunner` gesteuert wird.
 Ein `TaskRunner` übernimmt nicht nur die eigentliche Ausführung des Tasks, sondern enthält darüber hinaus auch die zur Ausführung benötigte Konfiguration.
 Um den Task auszuführen, wird er dem `TaskRunner` gemeinsam mit der `TaskKonfiguration` übergeben.
 
@@ -352,7 +352,7 @@ isy.task.tasks.<Task>.fixed-delay
 [[ueberwachung-mit-jmx]]
 == Überwachung mit JMX
 
-Die Querschnittsbibliothek `isy-task` sieht eine Überwachung über JMX vor.
+Die Bibliothek `isy-task` sieht eine Überwachung über JMX vor.
 
 Der Überwachungsmechanismus von `isy-task`, der über JMX abgefragt werden kann, benötigt den TaskMonitor, um sich beispielsweise Erfolg oder Misserfolg des Tasks zu merken.
 Wenn der Task vom AbstractTask abgeleitet ist, kann man dem Task einen TaskMonitor per Konstruktor übergeben.
@@ -381,7 +381,7 @@ Der MBean-Exporter wird gemäß dem xref:isy-ueberwachung:konzept/master.adoc#ei
 [[hinweise-fuer-den-task-im-parallelbetrieb]]
 == Hinweise für den Task im Parallelbetrieb
 
-Bei der Implementierung eines Tasks muss beachtet werden, dass ihn die Querschnittsbibliothek im Parallelbetrieb betreiben wird.
+Bei der Implementierung eines Tasks muss beachtet werden, dass ihn die Bibliothek im Parallelbetrieb betreiben wird.
 Werden hierbei die Besonderheiten der Java Multithreading API nicht berücksichtigt, kann dies zu einem fehlerhaften Verhalten in der xref:glossary:glossary:master.adoc#glossar-geschaeftsanwendung[Geschäftsanwendung] führen.
 
 [[threadsicherheit]]
@@ -409,8 +409,8 @@ In diesen Fällen sollten die Objektvariablen in einem ThreadLocal-Objekt deklar
 [[status-des-threads-abfragen]]
 === Status des Threads abfragen
 
-Genau wie bei allen Multithreading Anwendungen, so kann es auch bei der Querschnittsbibliothek `isy-task` nützlich sein, dass ein Thread einen Thread-State hat, der über die Methode `Thread.currentThread().getState()` abgefragt werden kann.
-Sobald die Querschnittsbibliothek `isy-task` den Thread zum Laufen bringt, wechselt der `Thread.State` von `NEW` auf `RUNNABLE`.
+Genau wie bei allen Multithreading Anwendungen, so kann es auch bei der Bibliothek `isy-task` nützlich sein, dass ein Thread einen Thread-State hat, der über die Methode `Thread.currentThread().getState()` abgefragt werden kann.
+Sobald die Bibliothek `isy-task` den Thread zum Laufen bringt, wechselt der `Thread.State` von `NEW` auf `RUNNABLE`.
 Dies ist genau genommen der Zeitpunkt, wenn die JVM die Methode `run()` ausführt.
 Wenn die Methode `run()` durchlaufen worden ist oder der Auswurf einer `CheckedException` nicht abgefangen wurde, wechselt der `Thread-State` auf `TERMINATED`.
 Dieser Wechsel lässt sich auch durch die spezielle Methode `isAlive()` der Klasse `Thread` abfragen, die beim `Thread.State` `RUNNABLE` `true` liefert und ansonsten `false`.
