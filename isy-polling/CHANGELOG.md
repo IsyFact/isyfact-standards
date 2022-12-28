@@ -1,3 +1,12 @@
+# 1.11.0
+- enthält nur Versionsanhebung auf IFS 1.11.0
+
+# 1.10.0
+- enthält nur Versionsanhebung auf IFS 1.10.0
+
+# 1.9.0
+- enthält nur Versionsanhebung auf IFS 1.9.0
+
 # 1.8.0
 - `IFS-303`: Surefire-Plugin bezieht Version aus Standards und argLine Anpassung JaCoCo
 - `IFS-468`: license/DEPENDENCIES überarbeitet und Dozer (nach Update auf 6.5.0) entfernt

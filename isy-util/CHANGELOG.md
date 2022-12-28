@@ -1,3 +1,12 @@
+# 1.12.0
+- enthält nur Versionsanhebung auf IFS 1.11.0
+
+# 1.11.0
+- enthält nur Versionsanhebung auf IFS 1.10.0
+
+# 1.10.0
+- enthält nur Versionsanhebung auf IFS 1.9.0
+
 # 1.9.2
 - `IFS-568`: Entfernt redundante Methode `getMessage(String schluessel)` aus dem MessageSourceHolder
 - `RF-1040`: Scope für Spotbugs-Annotation Abhängigkeit auf provided gesetzt

@@ -1,6 +1,12 @@
-# 1.11.0
+# 1.7.0
 - `IFS-661`: CompletionWatchdog loggt Stacktrace bei Exception
 - `IFS-1175`: Erstelle eigenen TaskFehlertextProvider für Fehlermeldungen
+
+# 1.6.0
+- enthält nur Versionsanhebung auf IFS 1.10.0
+
+# 1.5.0
+- enthält nur Versionsanhebung auf IFS 1.9.0
 
 # 1.4.2
 - `IFS-746`: Behebung von NullPointerException in TaskSchedulerImpl (wenn HostHandler false zurückgibt)
