@@ -508,11 +508,13 @@ Voraussetzung für die Aufnahme eines Eintrags in das lokale Glossar ist die Ref
 Eine Referenz auf einen Begriff des Glossars erfolgt über doppelte spitze Klammerpaare, wobei der erste Eintrag die Id im zentralen Glossar in isy-asciidoctorj-extensions ist.
 Die ID soll mit dem Bezeichner `glossar-` beginnen.
 
+//fix Links in Examples
+[[glossar-halloweltbeispiel]]
+
  Hier wurde ein <<glossar-halloweltbeispiel, Hallo Welt Beispiel>> verwendet.
 
 Das Ergebnis sieht wie folgt aus:
 
 `Hier wurde ein <<glossar-halloweltbeispiel, Hallo Welt Beispiel>> verwendet.`
 
-//fix Links in Examples
-[[glossar-halloweltbeispiel]]
+

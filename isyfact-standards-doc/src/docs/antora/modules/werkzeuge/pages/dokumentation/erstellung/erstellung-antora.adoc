@@ -138,7 +138,7 @@ Das folgende <<verzeichnisstruktur-pages-images,Listing>> zeigt die Verzeichniss
 <1> Modul `isy-sonderzeichen`.
 <2> Verzeichnis zur Bildablage für das Modul `isy-sonderzeichen`.
 <3> Die Bilder können analog zur Strukturierung unter `pages` abgelegt werden.
-<4> Obligatorisches Verzeichnis für die eigentlichen Dokumentationsseiten.
+<4> Verzeichnis für die eigentlichen Dokumentationsseiten.
 <5> Die Dokumentationsseiten können strukturiert abgelegt werden.
 <6> Eigentliche Dokumentationsseite.
 

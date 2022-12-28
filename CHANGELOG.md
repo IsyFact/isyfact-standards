@@ -1,4 +1,6 @@
 # 3.0.0
+- `IFS-1745`: [isyfact-standards-doc] Summary Architektur- und Sicherheitsregeln
+  * mit Antora Extensions generiert
 - `IFS-1702`: [isy-ueberwachung] Refaktorierung ServiceStatistik
     * Entkoppelt von Micrometer API
     * Aufgeteilt in Interface und Implementierung
