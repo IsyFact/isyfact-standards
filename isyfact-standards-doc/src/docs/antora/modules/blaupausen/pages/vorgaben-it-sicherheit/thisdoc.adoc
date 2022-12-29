@@ -1,8 +1,0 @@
-= IT-Sicherheitsregeln: Einleitung
-
-// tag::inhalt[]
-[[einleitung]]
-== Einleitung
-
-Dieses Dokument gibt einen Überblick über alle in der IsyFact verwendeten IT-Sicherheitsregeln und listet diese nach Baustein sortiert auf.
-// end::inhalt[]

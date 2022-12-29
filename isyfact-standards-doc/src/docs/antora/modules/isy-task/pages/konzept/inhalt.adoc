@@ -57,7 +57,7 @@ Dazu gehören die folgenden Operationen:
 [[vorgaben]]
 == Vorgaben
 
-Die folgenden architektonischen und technischen Vorgaben beziehen sich auf die Umsetzung der in Kapitel siehe xref:konzept/master.adoc#anforderungen[Anforderungen]
+Die folgenden architektonischen und technischen Vorgaben beziehen sich auf die Umsetzung der in Kapitel xref:konzept/master.adoc#anforderungen[Anforderungen]
 genannten Anforderungen in der zu diesem Baustein gehörenden Bibliothek.
 
 [[namenskonventionen]]
@@ -81,12 +81,12 @@ Die Klassen des Packages `org.springframework.core.task` können ergänzend benu
 
 Die folgenden Klassen dürfen von der Bibliothek nicht verwendet werden:
 
-* `java.util.Timertask` sowie `java.util.Timer` zur Planung und Ausführung von Aufgaben, da diese Klassen wesentlich weniger Funktionalität bieten als die des Packages `java.util.concurrent`,
+* `java.util.Timertask` sowie `java.util.Timer` zur Planung und Ausführung von Aufgaben, da diese Klassen wesentlich weniger Funktionalität bieten als die des Packages `java.util.concurrent`.
 
 [[authentifizierung-1]]
 === Authentifizierung
 
-Die Bibliothek muss Aufgaben bei Bedarf über den Baustein Sicherheit (s.a. xref:isy-sicherheit:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Sicherheit] authentifizieren.
+Die Bibliothek muss Aufgaben bei Bedarf über den Baustein Sicherheit (s.a. xref:isy-sicherheit:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Sicherheit]) authentifizieren.
 Dazu ist ein Benutzername und ein Passwort nötig, dass die Bibliothek als betriebliche Konfiguration, wie im Baustein Konfiguration (s.a. xref:isy-konfiguration:konzept/master.adoc#einleitung[Konzept Konfiguration]) vorgegeben, einlesen muss.
 
 [[nachvollziehbarkeit-1]]
