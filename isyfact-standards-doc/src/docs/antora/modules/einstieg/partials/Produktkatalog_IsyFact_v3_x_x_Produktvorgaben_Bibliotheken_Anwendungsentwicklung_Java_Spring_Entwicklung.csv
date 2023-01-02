@@ -1,0 +1,64 @@
+Kategorie / Anwendungsbereich;Hersteller / Produkt;Version;Seit Release;Status;Lizenz;Erläuterung
+JEE API (Nutzung über Tomcat);https://javaee.github.io/servlet-spec/[Servlet API];3.1.x;1.3.1;verbindlich;CDDL + GPLv2 with classpath exception;
+JEE API (Nutzung über Tomcat);https://javaee.github.io/uel-ri/[Expression Language];3.0.x;2.2.0;verbindlich;CDDL + GPLv2 with classpath exception;* Expression Language für die Entwicklung von Web-GUIs mit JSF
+JEE API;https://github.com/javaee/jpa-spec[JPA];2.2;2.2.0;verbindlich;Eclipse Public License v1.0;* Verwaltung der Version über Spring Boot.
+JEE API;https://github.com/javaee/jta-spec[JTA];1.3;2.2.0;verbindlich;CDDL + GPLv2 with classpath exception;* Verwaltung der Version über Spring Boot.
+Caching;http://www.ehcache.org/[EHCache];3.x;1.3.2;verbindlich;Apache 2.0 Software License;* Verwaltung der Version über Spring Boot.
+JSF-Dialogsteuerung;https://projects.spring.io/spring-webflow/[Spring Webflow];2.5.x (?2.5.1);2.0.0;verbindlich;Apache Software License;
+JSF-Implementierung;https://javaee.github.io/javaserverfaces-spec/[Oracle Mojarra JavaServer Faces];2.2.x;1.0.0;verbindlich;CDDL+GPL License;* Referenz-implementierung für JSF von Oracle
+JSF-Implementierung Zusatz;https://myfaces.apache.org/#/inactiveProjects?id=apache-myfaces-tomahawk[Apache MyFaces Tomahawk for JSF 2.0.];1.1.x;1.0.0;verbindlich;Apache Software License;* Implementiert JSF 2.0 (JSF 2.0 seit 12/2009 verfügbar)
+Javascript Bibliothek;http://jquery.com[Jquery];3.4.x;1.7.0;verbindlich;MIT;* Die zugelassenen Einsatzbereiche von Javascript sind im Web-GUI-Konzept beschrieben.
+Javascript Bibliothek;http://jonthornton.github.io/jquery-timepicker/[JQuery-Timepicker];1.1.x;1.0.0;verbindlich;MIT;* Plugin für JQuery
+HTML/CSS/JS Framework;http://getbootstrap.com/[Bootstrap];3.4.x;1.7.0;verbindlich;MIT;* Die zugelassenen Einsatzbereiche von HTML sind im Web-GUI-Konzept beschrieben.
+Anwendungs-Framework;https://spring.io/projects/spring-boot[Spring Boot];2.7.x;3.0.0;verbindlich;Apache Software License;* Die zugelassenen Einsatzbereiche von Anwendungs sind im Web-GUI-Konzept beschrieben.
+"Anwendungs-Framework
+Test-Framework";https://spring.io/projects/spring-framework[Spring];5.3.x;2.4.0;verbindlich;Apache Software License;"* Verwaltung der Version über Spring Boot.
+* Die Kategorie Test-Framework bezieht sich auf die Features von Spring zur Testunterstützung.
+* Die folgenden Bestandteile des Spring Frameworks sind durch Architektur-entscheidungen explizit zur Nutzung freigegeben."
+Service-Frameworks;https://docs.spring.io/spring-framework/docs/current/reference/html/integration.html#remoting-httpinvoker[Spring Http Invoker];5.3.x;2.4.0;verbindlich;Apache Software License;* Verwaltung der Version über Spring Boot.
+Service-Frameworks;https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc[Spring Web MVC];5.3.x;2.4.0;verbindlich;Apache Software License;"* Verwaltung der Version über Spring Boot.
+* Spring Web MVC wird zur Bereitstellung von Services genutzt."
+Service-Frameworks;https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-client[Spring WebClient];5.3.x;2.4.0;verbindlich;Apache Software License;"* Verwaltung der Version über Spring Boot.
+Als HTTP-Client muss Apache HttpComponents verwendet werden. Netty darf nicht verwendet werden.
+* Spring WebClient (ein Bestandteil von Spring WebFlux) wird zum Konsumieren von Services genutzt."
+HTTP-Client;https://hc.apache.org/httpcomponents-client-5.1.x[Apache Http-Components HttpClient];5.1.x;2.4.0;verbindlich;Apache Software License;* Verwaltung der Version über Spring Boot.
+Persistenz-Framework;https://spring.io/projects/spring-data-jpa[Spring Data JPA];2.7.x;3.0.0;verbindlich;Apache Software License;* Verwaltung der Version über Spring Boot
+Persistenz-Framework;http://www.hibernate.org[Hibernate];5.6.x;3.0.0;verbindlich;LGPL v2.1;* Verwaltung der Version über Spring Boot.
+Persistenz;https://www.liquibase.org[Liquibase];4.x;3.0.0;verbindlich;Apache Software License;* Verwaltung der Version über Spring Boot.
+JSON-Verarbeitung;https://github.com/FasterXML/jackson[Jackson];2.12.x;2.4.0;verbindlich;Apache Software License;* Verwaltung der Version über Spring Boot.
+Authentifizierung / Autorisierung;http://projects.spring.io/spring-security/[Spring Security];5.7.x;3.0.0;verbindlich;Apache Software License;* Verwaltung der Version über Spring Boot.
+Resilience-Framework;https://resilience4j.readme.io/[Resilience4J];1.x;2.2.0;verbindlich;Apache Software License;* Die zugelassenen Einsatzbereiche von Resilience sind im Web-GUI-Konzept beschrieben.
+Web-Service Framework (SOAP);http://metro.java.net/[Metro];2.0.x;1.0.0;verbindlich;Apache Software License;* Die zugelassenen Einsatzbereiche von Web sind im Web-GUI-Konzept beschrieben.
+Logging;http://www.slf4j.org/[SLF4J];1.7.x;3.0.0;verbindlich;MIT License;"* Die Verwendung anderer Logging-Backends außer Logback ist nicht erlaubt.
+* Die Verwendung der Logging Bridges ist erlaubt, sofern dies erforderlich ist.
+"
+Logging;http://logback.qos.ch/[Logback];1.2.x (?1.2.8);2.4.0;verbindlich;"EPL v1.0, 
+LGPL 2.1";"* Verwaltung der Version über Spring Boot.
+Aufgrund von https://nvd.nist.gov/vuln/detail/CVE-2021-42550 muss mindestens Version 1.2.8 verwendet werden."
+JDBC-Treiber;https://www.oracle.com/database/technologies/appdev/jdbc-ucp-19-11-c-downloads.html[Oracle];19.x;2.4.0;verbindlich;Oracle Technology Network Developer License;"* Die Version des JDBC-Treibers muss zur Datenbank passen.
+* Es muss nicht immer der neueste Treiber sein. Patches mit JDBC-Treiber sind zu prüfen.
+* Es wird empfohlen die Version 8 des OJDBC Treibers einzusetzen."
+Connection Pool;https://www.oracle.com/database/technologies/appdev/jdbc-ucp-19-11-c-downloads.html[Oracle Universal Connection Pool (UCP)];19.x;2.4.0;verbindlich;Oracle Technology Network License;"* UCP unterstützt Oracle spezifische Features wie Advanced Queuing und hat sich in Hochlast-Anwendungen bewährt. 
+* Umfangreiche Konfigurations-möglichkeiten und gutes Stale Connection Management (Timeouts etc)"
+Bean-Mapping;https://github.com/orika-mapper/orika[Orika];1.5.x;2.0.0;verbindlich;Apache License 2.0;* Orika ist ein Runtime-Mapper, d.h. Mappings werden zur Laufzeit erzeugt.
+Code-Generierung;https://github.com/mkarneim/pojobuilder[pojobuilder];4.x;2.4.0;empfohlen;PUBLIC DOMAIN;* pojobuilder generiert Code nach dem Builder-Pattern für bestehende Klassen.
+Code-Generierung;https://projectlombok.org/[Lombok];1.x;2.4.0;empfohlen;MIT License;"* Verwaltung der Version über Spring Boot.
+* Lombok kann ebenfalls das Builder-Pattern umsetzen, besitzt aber darüber hinaus deutlich mehr Funktionen als pojobuilder."
+XML Binding;https://github.com/javaee/jaxb-v2[JAXB];2.3;2.2.0;verbindlich;CDDL + GPLv2 with classpath exception;* Verwaltung der Version über Spring Boot.
+XML-Verarbeitung;http://jaxp.java.net/[JAXP];;1.0.0;verbindlich;GPL v2;* Die zugelassenen Einsatzbereiche von XML sind im Web-GUI-Konzept beschrieben.
+XML-Serialisierung;https://x-stream.github.io/[Xstream];1.4.18;2.4.0;verbindlich;BSD;* Darf nicht für die (De-)Serialisierung der hauptsächlichen fachlichen Business-Objekte / XML-Nachrichten eingesetzt werden, stattdessen JAXB. Einsatzzweck ist leichtgewichtige Serialisierung Java -> XML, z.B. für die Anzeige von Objekten in einer GUI oder Erzeugung von Testdaten.
+Excel-Datenzugriff;http://poi.apache.org/[Apache POI];4.1.x;2.1.0;verbindlich;;* Die zugelassenen Einsatzbereiche von Excel sind im Web-GUI-Konzept beschrieben.
+Excel-Datenzugriff;http://poi.apache.org/[Apache POI OOXML];4.1.x;2.4.0;verbindlich;;* Die zugelassenen Einsatzbereiche von Excel sind im Web-GUI-Konzept beschrieben.
+CSV-Verarbeitung;http://opencsv.sourceforge.net/[OpenCSV];5.5.x;2.4.0;verbindlich;Apache Software License;* Die zugelassenen Einsatzbereiche von CSV sind im Web-GUI-Konzept beschrieben.
+Utility-API;https://github.com/google/guava[Guava];31.0.x;2.4.0;verbindlich;Apache Software License;"* Einsatz und Umfang der genutzten Features ist jeweils mit dem Chefarchitekten abzustimmen. Generell genutzt werden darf:
+** Collection-APIs
+** String Funktionen
+* Bibliothek mit Utilities zur Lösung gängiger Programmierprobleme, insbesondere im Umgang mit Collections."
+Utility-API;http://commons.apache.org/[Apache Commons CLI];1.5.x;2.4.0;verbindlich;Apache Software License;Unterstützung für das Parsen von Kommandozeilenoptionen. Wird im Batchrahmen genutzt.
+Utility-API;http://commons.apache.org/[Apache Commons NET];3.x (>3.2.2);1.0.0;verbindlich;Apache Software License;* Unterstützung für den Download von Dateien von einem FTP Server.
+Utility-API;http://commons.apache.org/[Apache Commons Validator];1.7.x;2.4.0;verbindlich;Apache Software License;* Unterstützung für den Download von Dateien von einem FTP Server.
+Utility-API;http://commons.apache.org/[Apache Commons BeanUtils];1.9.x(>1.9.3);1.8.1;verbindlich;Apache Software License;* Unterstützung für den Download von Dateien von einem FTP Server.
+Erstellung dynamischer SQL-Queries;http://www.querydsl.com/[QueryDSL];5.0.x;3.0.0;verbindlich;Apache License, Version 2.0;"* Verwaltung der Version über Spring Boot.
+* Soll anstatt Criteria-API zur Erstellung dynamischer Queries genutzt werden. Einsatzgebiet wie Criteria-API nur dort wo notwendig."
+HTML-Sanitizer;https://jsoup.org/[jsoup];1.14.x;2.4.0;verbindlich;MIT License;* Die zugelassenen Einsatzbereiche von HTML sind im Web-GUI-Konzept beschrieben.
+Dateityp-Ermittlung;https://tika.apache.org/[Apache Tika];1.x (>1.20);1.8.0;verbindlich;Apache License, Version 2.0 ;* Die zugelassenen Einsatzbereiche von Dateityp sind im Web-GUI-Konzept beschrieben.
