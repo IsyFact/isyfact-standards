@@ -47,7 +47,7 @@ public class LocalHostHandlerImpl implements HostHandler {
         if (!currentHostName.matches(expectedHostName)) {
             LOG.debug("isHostApplicable: hostNames do not match! expectedHostName: {} currentHostName: {}",
                 expectedHostName, currentHostName);
-            throw new HostNotApplicableException(expectedHostName);
+            return false;
         }
 
         return true;

@@ -1,8 +1,7 @@
 package de.bund.bva.isyfact.task.konfiguration;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import static de.bund.bva.isyfact.task.konstanten.HinweisSchluessel.VERWENDE_STANDARD_KONFIGURATION;
+
 import java.util.Objects;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -12,12 +11,9 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.task.config.IsyTaskConfigurationProperties;
 import de.bund.bva.isyfact.task.exception.TaskKonfigurationInvalidException;
-import de.bund.bva.isyfact.task.konstanten.KonfigurationStandardwerte;
 import de.bund.bva.isyfact.task.sicherheit.Authenticator;
 import de.bund.bva.isyfact.task.sicherheit.AuthenticatorFactory;
 import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
-
-import static de.bund.bva.isyfact.task.konstanten.HinweisSchluessel.VERWENDE_STANDARD_KONFIGURATION;
 
 /**
  * Zentrale Instanz zum Einlesen der Konfiguration von Tasks in Form einer {@link TaskKonfiguration}.
@@ -58,11 +54,7 @@ public class TaskKonfigurationVerwalter {
         taskKonfiguration.setTaskId(taskId);
         taskKonfiguration.setAuthenticator(authenticatorFactory.getAuthenticator(taskId));
         taskKonfiguration.setHostname(getHostname(taskId));
-        taskKonfiguration.setAusfuehrungsplan(configurationProperties.getTasks().get(taskId).getAusfuehrung());
-        taskKonfiguration.setExecutionDateTime(getExecutionDateTime(taskId));
-        taskKonfiguration.setInitialDelay(configurationProperties.getTasks().get(taskId).getInitialDelay());
-        taskKonfiguration.setFixedRate(configurationProperties.getTasks().get(taskId).getFixedRate());
-        taskKonfiguration.setFixedDelay(configurationProperties.getTasks().get(taskId).getFixedDelay());
+        taskKonfiguration.setDeaktiviert(isDeactivated(taskId));
 
         pruefeTaskKonfiguration(taskKonfiguration);
 
@@ -78,9 +70,9 @@ public class TaskKonfigurationVerwalter {
      */
     public synchronized void pruefeTaskKonfiguration(TaskKonfiguration taskKonfiguration) {
         if (taskKonfiguration.getTaskId() == null || taskKonfiguration.getAuthenticator() == null
-            || taskKonfiguration.getHostname() == null || taskKonfiguration.getAusfuehrungsplan() == null) {
+            || taskKonfiguration.getHostname() == null) {
             throw new TaskKonfigurationInvalidException(
-                "Task-ID, Authenticator, Hostname oder Ausführungsplan ist null");
+                "Task-ID, Authenticator oder Hostname ist null");
         }
 
         try {
@@ -88,44 +80,6 @@ public class TaskKonfigurationVerwalter {
         } catch (PatternSyntaxException pse) {
             throw new TaskKonfigurationInvalidException(
                 "Hostname ist keine gültige Regex");
-        }
-
-        if (taskKonfiguration.getAusfuehrungsplan().equals(TaskKonfiguration.Ausfuehrungsplan.ONCE)) {
-            if (wederExecutionDateTimeNochInitialDelayGesetzt(taskKonfiguration)) {
-                throw new TaskKonfigurationInvalidException(
-                    "Weder ExecutionDateTime noch InitialDelay sind gesetzt");
-            } else if (executionDateTimeUndInitialDelayGroesserNullGesetzt(taskKonfiguration)) {
-                throw new TaskKonfigurationInvalidException(
-                    "ExecutionDateTime zusammen mit InitialDelay gesetzt");
-            }
-        } else if (
-            taskKonfiguration.getAusfuehrungsplan().equals(TaskKonfiguration.Ausfuehrungsplan.FIXED_RATE)
-                && taskKonfiguration.getFixedRate() == null) {
-            throw new TaskKonfigurationInvalidException("FixedRate ist null");
-        } else if (
-            taskKonfiguration.getAusfuehrungsplan().equals(TaskKonfiguration.Ausfuehrungsplan.FIXED_DELAY)
-                && taskKonfiguration.getFixedDelay() == null) {
-            throw new TaskKonfigurationInvalidException("FixedDelay ist null");
-        }
-    }
-
-    private boolean executionDateTimeUndInitialDelayGroesserNullGesetzt(TaskKonfiguration taskKonfiguration) {
-        return taskKonfiguration.getExecutionDateTime() != null && taskKonfiguration.getInitialDelay() != null
-            && !taskKonfiguration.getInitialDelay().equals(Duration.ZERO);
-    }
-
-    private boolean wederExecutionDateTimeNochInitialDelayGesetzt(TaskKonfiguration taskKonfiguration) {
-        return taskKonfiguration.getExecutionDateTime() == null && taskKonfiguration.getInitialDelay() == null;
-    }
-
-    private LocalDateTime getExecutionDateTime(String taskId) {
-        String executionDateTime = configurationProperties.getTasks().get(taskId).getZeitpunkt();
-
-        if (executionDateTime != null) {
-            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(KonfigurationStandardwerte.DEFAULT_DATETIME_PATTERN);
-            return LocalDateTime.parse(executionDateTime, dateTimeFormatter);
-        } else {
-            return null;
         }
     }
 
@@ -139,5 +93,12 @@ public class TaskKonfigurationVerwalter {
         }
 
         return host;
+    }
+
+    private Boolean isDeactivated(String taskId){
+
+        Boolean deaktiviert = configurationProperties.getTasks().get(taskId).isDeaktiviert();
+
+        return (deaktiviert)?deaktiviert:false;
     }
 }

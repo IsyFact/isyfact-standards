@@ -46,10 +46,7 @@ import static org.junit.Assert.*;
         properties = {
                 "isy.logging.anwendung.name=HealthIntegrationTest",
                 "isy.logging.anwendung.version=1.0.0-SNAPSHOT",
-                "isy.logging.anwendung.typ=Integrationstest",
-                "isy.task.autostart=true",
-                "isy.task.default.host=.*",
-                "isy.task.tasks.isyHealthTask.initial-delay=" + DELAY_MS
+                "isy.logging.anwendung.typ=Integrationstest"
         },
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @EnableAutoConfiguration(exclude = {
@@ -58,7 +55,7 @@ import static org.junit.Assert.*;
 })
 public class HealthIntegrationTest {
 
-    static final int DELAY_MS = 3000;
+    static final int DELAY_MS = 5000;
 
     private static final String testComponentName = "testComponent"; // must correspond to the name of the HealthIndicator-Bean
     private static final String testInstanceName = "testInstance";
