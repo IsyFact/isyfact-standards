@@ -53,6 +53,7 @@ Utility-API;http://commons.apache.org/[Apache Commons CLI];1.5.x;2.4.0;verbindli
 Utility-API;http://commons.apache.org/[Apache Commons NET];3.x (>3.2.2);1.0.0;verbindlich;Apache Software License;* Unterstützung für den Download von Dateien von einem FTP Server.
 Utility-API;http://commons.apache.org/[Apache Commons Validator];1.7.x;2.4.0;verbindlich;Apache Software License;* Unterstützung für den Download von Dateien von einem FTP Server.
 Utility-API;http://commons.apache.org/[Apache Commons BeanUtils];1.9.x(>1.9.3);1.8.1;verbindlich;Apache Software License;* Unterstützung für den Download von Dateien von einem FTP Server.
+Utility-API;http://commons.apache.org/[Apache Commons IO];2.x;2.4.0;verbindlich;Apache Software License;* Apache Commons IO ist eine Bibliothek mit nützlichen Utilities um IO-Funktionalität zu implementieren.
 Erstellung dynamischer SQL-Queries;http://www.querydsl.com/[QueryDSL];5.0.x;3.0.0;verbindlich;Apache License, Version 2.0;"* Verwaltung der Version über Spring Boot.
 * Soll anstatt Criteria-API zur Erstellung dynamischer Queries genutzt werden. Einsatzgebiet wie Criteria-API nur dort wo notwendig."
 HTML-Sanitizer;https://jsoup.org/[jsoup];1.14.x;2.4.0;verbindlich;MIT License;* Die zugelassenen Einsatzbereiche von HTML sind im Web-GUI-Konzept beschrieben.

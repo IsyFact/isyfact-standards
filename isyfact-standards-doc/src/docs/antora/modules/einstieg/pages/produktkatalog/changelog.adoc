@@ -35,6 +35,8 @@
 ** Oracle UCP 19.x
 ** Oracle Database 12c
 
+* Produkt aus IsyFact Erweiterungen umgezogen:
+** Apache Commons IO 2.x
 
 // end::release-3.0.0[]
 
