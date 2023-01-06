@@ -1,4 +1,4 @@
-= Konzept Sicherheit: Inhalt
+= Konzept Security (Sicherheit): Inhalt
 
 // tag::inhalt[]
 [[prinzipien-der-sicherheitsarchitektur]]
@@ -11,13 +11,13 @@ Die konkrete Sicherheitsarchitektur einer xref:glossary:glossary:master.adoc#glo
 * IsyFact-konforme IT-Systeme sind gegen nicht autorisierte Nutzung zu schützen.
 * Die Authentifizierung und grobgranulare Autorisierung erfolgt an den Außenschnittstellen der Systemlandschaft (Portal, Service-Gateway).
 * Liegt kein Aufruf über eine Außenschnittstelle vor (z.B. bei einem Batch-Aufruf), so geschieht die Authentifizierung und grobgranulare Autorisierung innerhalb der Nutzungsschicht (Batch) des konkreten IT-Systems.
-* Die feingranulare Autorisierung geschieht in der Nutzungsschicht und im Anwendungskern der IT-Systeme über den IsyFact-Baustein Sicherheit.
+* Die feingranulare Autorisierung geschieht in der Nutzungsschicht und im Anwendungskern der IT-Systeme über den IsyFact-Baustein Security.
 
 Existiert keine Systemlandschaft (d.h. IT-Systeme stehen für sich allein), gilt grundsätzlich, dass die Authentifizierung und grobgranulare Autorisierung in der Nutzungsschicht (GUI, Service oder Batch) des IT-Systems geschehen muss.
 
 Darüber hinaus finden Authentifizierung und Autorisierung nach den Vorgaben des Berechtigungskonzepts statt.
 Dieses Dokument beschreibt wesentliche Aspekte der Sicherheitsarchitektur für eine konkrete Anwendungslandschaft.
-Da das Berechtigungskonzept individuell für jede Anwendungslandschaft erstellt wird und sich im einzelnen stark von Inhalt und Umfang her unterscheidet, ist es kein Bestandteil des Bausteins Sicherheit oder der IsyFact.
+Da das Berechtigungskonzept individuell für jede Anwendungslandschaft erstellt wird und sich im einzelnen stark von Inhalt und Umfang her unterscheidet, ist es kein Bestandteil des Bausteins Security oder der IsyFact.
 
 [[authentifizierung]]
 === Authentifizierung
@@ -92,7 +92,7 @@ Wie genau Rollen und Rechte spezifiziert werden, beschreibt das Kapitel xref:kon
 [[sicherheitsarchitektur-eines-it-systems]]
 == Sicherheitsarchitektur eines IT-Systems
 
-Der Baustein Sicherheit bildet eine Komponente des Querschnitts der xref:blaupausen:referenzarchitektur-it-system/master.adoc#einleitung[IsyFact Referenzarchitektur IT-Systeme].
+Der Baustein Security bildet eine Komponente des Querschnitts der xref:blaupausen:referenzarchitektur-it-system/master.adoc#einleitung[IsyFact Referenzarchitektur IT-Systeme].
 Er ist von jedem IT-System zur Autorisierung von Zugriffen und Vorgängen zu verwenden.
 Für ein korrektes Funktionieren benötigt der Baustein die Komponente `AufrufKontextVerwalter`, deren Verwendung ebenfalls in diesem Kapitel erläutert wird.
 
@@ -100,10 +100,10 @@ Die Mechanismen zur Absicherung IsyFact-konformer IT-Systeme haben zum Ziel, die
 
 Die *Systematik* und Vollständigkeit der Berechtigungsprüfungen wird dadurch erreicht, dass Berechtigungsprüfungen in den IT-Systemen andefinierten Stellen und auf identische Weise stattfinden.
 
-Die *Einheitlichkeit* wird durch Bereitstellung der Bibliothek `isy-sicherheit` und Nutzungsvorgaben gewährleistet, die von allen IT-Systemen zu verwenden sind.
-Berechtigungsprüfungen erfolgen innerhalb eines IT-Systems immer über die Bibliothek `isy-sicherheit`.
+Die *Einheitlichkeit* wird durch Bereitstellung der Bibliothek `isy-security` und Nutzungsvorgaben gewährleistet, die von allen IT-Systemen zu verwenden sind.
+Berechtigungsprüfungen erfolgen innerhalb eines IT-Systems immer über die Bibliothek `isy-security`.
 
-Die *Einfachheit* der Nutzung der Bibliothek `isy-sicherheit` wird durch weitgehende Transparenz bei der Initialisierung, kompakte Schnittstellen und deklarative (z.B. per Annotation) statt programmatischer Implementierung erreicht.
+Die *Einfachheit* der Nutzung der Bibliothek `isy-security` wird durch weitgehende Transparenz bei der Initialisierung, kompakte Schnittstellen und deklarative (z.B. per Annotation) statt programmatischer Implementierung erreicht.
 
 [[praemissen]]
 === Prämissen
@@ -126,7 +126,7 @@ Die folgende Abbildung zeigt den logischen Aufbau für die Authentifizierung und
 
 .Software-Architektur der Berechtigungsprüfung
 [id="image-Berechtigungspruefung",reftext="{figure-caption} {counter:figures}"]
-image::isy-sicherheit:konzept/software-architektur-berechtigungspruefung.png[align="center"]
+image::konzept/software-architektur-berechtigungspruefung.png[align="center"]
 
 Im Folgenden werden die Aufgaben und grobe Funktionsweise der Komponenten für die Autorisierung von Anfragen in einer xref:glossary:glossary:master.adoc#glossar-geschaeftsanwendung[Geschäftsanwendung]  erläutert.
 
@@ -137,7 +137,7 @@ So wird der `AufrufKontext` bei Serviceaufrufen transparent über Interceptoren 
 Weiterhin wird der Aufrufkontext im Rahmen der Authentifizierung automatisch befüllt.
 Nach Initialisierung des `AufrufKontextVerwalter` für eine laufende Anfrage kann das IT-System fortan transparent mit den im `AufrufKontextVerwalter` hinterlegten Anwenderinformationen arbeiten (ohne deren Herkunft zu kennen) und damit auch weitere Nachbarsysteme aufrufen.
 
-Der Baustein Sicherheit bietet folgende Funktionen:
+Der Baustein Security bietet folgende Funktionen:
 
 * Für Service-Aufrufe werden Interceptoren angeboten, welche über Spring AOP eine deklarative Berechtigungsprüfung ermöglichen.
 * Für den Kontext der Anfrage stellt der Baustein einen Berechtigungsmanager zur Verfügung, der die Rollen des anfragenden Anwenders kennt.
@@ -150,23 +150,29 @@ Die gewonnenen Informationen werden im `AufrufKontextVerwalter` hinterlegt.
 Für den `Sicherheit-Adapter` wird ein eigenes Modul/Artefakt empfohlen. Dieser `Sicherheit-Adapter` bildet anschließend die Verbindung zu dem IAM-System (Authentifizierungssystem in obiger Abbildung).
 
 Die Authentifizierung und Autorisierung von Web-Zugriffen wird über Spring Security durchgeführt.
-Die Integration von Spring Security und des Bausteins Sicherheit wird im xref:blaupausen:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Komponente WebGUI]) beschrieben.
+Die Integration von Spring Security und des Bausteins Security wird im xref:blaupausen:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Komponente WebGUI]) beschrieben.
 
-[[aussensicht-der-komponente-sicherheit]]
-=== Schnittstelle des Bausteins Sicherheit
+[[aussensicht-der-komponente-security]]
+=== Schnittstelle des Bausteins Security
 
-Im Folgenden wird die Schnittstelle des Bausteins Sicherheit beschrieben.
+Im Folgenden wird die Schnittstelle des Bausteins Security beschrieben.
 
-.Schnittstelle des Bausteins Sicherheit
-[id="image-schnittstelle-sicherheit",reftext="{figure-caption} {counter:figures}"]
-image::nutzungsvorgaben/sicherheit-schnittstellen.png[align="center"]
+.Schnittstelle des Bausteins Security
+[id="image-schnittstelle-security",reftext="{figure-caption} {counter:figures}"]
+image::konzept/security-schnittstellen.png[align="center"]
 
-Die zentrale Schnittstelle für den Zugriff auf Rollen und Rechte eines Anwenders ist `Berechtigungsmanager`.
-Instanzen des Berechtigungsmanagers zur Autorisierung einer Anfrage werden über die Schnittstelle `Sicherheit` erzeugt.
+Bei Instanziierung des Bausteins 'Security' wird die anwendungsspezifische Rollen-Rechte-Datei eingelesen, sowie der `Berechtigungsmanager` und der `Authentifizierungsmanager` damit erzeugt.
+Beide Manager sowie eine Liste aller für diese Anwendung spezifischen Rollen werden nach Außen angeboten.
 
-Der Berechtigungsmanager verwendet die Schnittstellen `Rolle` und `Recht`.
+Die zentrale Schnittstelle für den Zugriff auf Rollen und Rechte eines Anwenders ist der `Berechtigungsmanager`.
 Rollen werden über die Benutzeradministration Anwendern zugewiesen.
 Rechte sind anwendungsspezifisch und an Rollen gebunden.
+Eine Liste der dem Anwender zugewiesenen Rollen bzw. daran geknüpften Rechte können hier erfragt werden und es kann geprüft werden, ob der Anwender ein bestimmtes Recht hat.
+
+Der `Authentifizierungsmanager` übernimmt die Authentifizierung am IAM-System.
+Untersützt wird sowohl die OAuth-konforme Authentifizierung eines Client mittels Id u. secret als auch die (veraltete) Methode mittels (techn.) Nutzername u. Passwort.
+Bei erfolgreicher Authentifizierung werden die vom IAM-System zurückgegebenen Daten (Access-Token, Rollen des Anwenders, ...) im Spring Secutity Context abgelegt, zusammen mit den aus den Rollen resultierenden Rechten des Anwenders.
+Eine nicht erfolgreiche Authentifizierung (fachliche Ablehnung oder technisches Problem) löst eine entsprechende Exception aus.
 
 [[aufruf-von-nachbarsystemen]]
 === Aufruf von Nachbarsystemen
@@ -263,14 +269,14 @@ Die Abbildung <<image-rollen-beziehungen>> verdeutlicht den Inhalt der folgenden
 
 .Beziehungen zwischen fachlichen und technischen Rollen
 [id="image-rollen-beziehungen",reftext="{figure-caption} {counter:figures}"]
-image::isy-sicherheit:konzept/rollen-beziehungen.png[align="center",pdfwidth=70%,width=70%]
+image::konzept/rollen-beziehungen.png[align="center",pdfwidth=70%,width=70%]
 
 [[technische-rollen]]
 ==== Technische Rollen
 
 Technische Rollen sichern die Kommunikationswege innerhalb der Anwendungslandschaft ab.
 Sie werden für die Schnittstellen von Geschäftsanwendungen verwendet, welche nur von anderen Geschäftsanwendungen aufgerufen werden.
-Die einzelnen Schnittstellen werden durch Rechte abgesichert (siehe Dokument xref:nutzungsvorgaben/master.adoc#einleitung[Sicherheit - Nutzungsvorgaben] ).
+Die einzelnen Schnittstellen werden durch Rechte abgesichert (siehe Dokument xref:nutzungsvorgaben/master.adoc#einleitung[Security - Nutzungsvorgaben] ).
 
 Technische Rollen berechtigen zur Ausführung der entsprechenden Services der Geschäftsanwendung selbst, sowie aller dadurch mittelbar ausgelösten Aktionen in nachgelagerten Anwendungen.
 Daher werden diesen technischen Rollen im Regelfall weitere technische Rollen untergeordnet sein, welche die nachgelagerten Anwendungen absichern.
@@ -296,7 +302,7 @@ Dies reduziert die Anzahl der Rollen, die einem Nutzer zugewiesen sind, in der R
 
 Fachliche Rollen werden für Schnittstellen von Geschäftsanwendungen vergeben, welche Zugänge zur Anwendungslandschaft geben.
 Dies beinhaltet neben den Dialogen (der grafischen Oberfläche) und Zugängen über den Service-Gateway auch interne Systeme wie beispielsweise Systemtasks oder Batches.
-Die einzelnen angebotenen Services werden über Rechte abgesichert (siehe Dokument xref:nutzungsvorgaben/master.adoc#einleitung[Sicherheit - Nutzungsvorgaben]).
+Die einzelnen angebotenen Services werden über Rechte abgesichert (siehe Dokument xref:nutzungsvorgaben/master.adoc#einleitung[Security - Nutzungsvorgaben]).
 
 Fachliche Rollen berechtigen zur Ausführung der entsprechenden Aktion über den entsprechenden Zugangsweg, sowie aller dadurch mittelbar ausgelösten Aktionen in nachgelagerten Anwendungen.
 Daher werden diesen fachlichen Rollen im Regelfall weitere technische Rollen untergeordnet sein, welche die nachgelagerten Anwendungen absichern.
@@ -367,13 +373,13 @@ Der folgende Prozess bietet eine grobe Richtlinie:
 
 .Absicherung durch Rechte und Aggregation in Rollen
 [id="image-rollen-erstellung",reftext="{figure-caption} {counter:figures}"]
-image::isy-sicherheit:konzept/rollen-erstellung.png[align="center",pdfwidth=70%,width=70%]]
+image::konzept/rollen-erstellung.png[align="center",pdfwidth=70%,width=70%]]
 
 [start=3]
 . In Abstimmung mit den fachlichen Ansprechpartnern und der Benutzeradministration wird ermittelt, ob und welche zusätzlichen technischen Anwender benötigt werden.
 . Vorbereitung der Einspielung der neuen, fachlichen Rollen in die Benutzeradministration.
 Über das jeweilige Format bestimmt der IsyFact-Baustein, der zur Benutzeradministration eingesetzt wird.
-. Konfiguration des IT-Systems mit den erstellten technischen Rollen und Rechten (siehe Dokument xref:nutzungsvorgaben/master.adoc#einleitung[Sicherheit - Nutzungsvorgaben]).
+. Konfiguration des IT-Systems mit den erstellten technischen Rollen und Rechten (siehe Dokument xref:nutzungsvorgaben/master.adoc#einleitung[Security - Nutzungsvorgaben]).
 
 Die Rollen und Rechte sollten bereits während der Erstellung des Systementwurfs entworfen werden, soweit dies möglich ist.
 Sobald die angebotenen Schnittstellen bekannt sind, können die entsprechenden Rollen nach obigen Richtlinien erstellt werden.
@@ -403,8 +409,8 @@ In beiden Fällen muss zur eigentlichen Inbetriebnahme, anstatt einer aufwändig
 
 // end::architekturregel[]
 
-// tag::sicherheit[]
+// tag::security[]
 
-// end::sicherheit[]
+// end::security[]
 
 // end::inhalt[]
