@@ -35,11 +35,6 @@ Logging;http://www.slf4j.org/[SLF4J];1.7.x;3.0.0;verbindlich;MIT License;"* Die 
 Logging;http://logback.qos.ch/[Logback];1.2.x (?1.2.8);2.4.0;verbindlich;"EPL v1.0, 
 LGPL 2.1";"* Verwaltung der Version über Spring Boot.
 Aufgrund von https://nvd.nist.gov/vuln/detail/CVE-2021-42550 muss mindestens Version 1.2.8 verwendet werden."
-JDBC-Treiber;https://www.oracle.com/database/technologies/appdev/jdbc-ucp-19-11-c-downloads.html[Oracle];19.x;2.4.0;verbindlich;Oracle Technology Network Developer License;"* Die Version des JDBC-Treibers muss zur Datenbank passen.
-* Es muss nicht immer der neueste Treiber sein. Patches mit JDBC-Treiber sind zu prüfen.
-* Es wird empfohlen die Version 8 des OJDBC Treibers einzusetzen."
-Connection Pool;https://www.oracle.com/database/technologies/appdev/jdbc-ucp-19-11-c-downloads.html[Oracle Universal Connection Pool (UCP)];19.x;2.4.0;verbindlich;Oracle Technology Network License;"* UCP unterstützt Oracle spezifische Features wie Advanced Queuing und hat sich in Hochlast-Anwendungen bewährt. 
-* Umfangreiche Konfigurations-möglichkeiten und gutes Stale Connection Management (Timeouts etc)"
 Bean-Mapping;https://github.com/orika-mapper/orika[Orika];1.5.x;2.0.0;verbindlich;Apache License 2.0;* Orika ist ein Runtime-Mapper, d.h. Mappings werden zur Laufzeit erzeugt.
 Code-Generierung;https://github.com/mkarneim/pojobuilder[pojobuilder];4.x;2.4.0;empfohlen;PUBLIC DOMAIN;* pojobuilder generiert Code nach dem Builder-Pattern für bestehende Klassen.
 Code-Generierung;https://projectlombok.org/[Lombok];1.x;2.4.0;empfohlen;MIT License;"* Verwaltung der Version über Spring Boot.
@@ -56,8 +51,9 @@ Utility-API;https://github.com/google/guava[Guava];31.0.x;2.4.0;verbindlich;Apac
 * Bibliothek mit Utilities zur Lösung gängiger Programmierprobleme, insbesondere im Umgang mit Collections."
 Utility-API;http://commons.apache.org/[Apache Commons CLI];1.5.x;2.4.0;verbindlich;Apache Software License;Unterstützung für das Parsen von Kommandozeilenoptionen. Wird im Batchrahmen genutzt.
 Utility-API;http://commons.apache.org/[Apache Commons NET];3.x (>3.2.2);1.0.0;verbindlich;Apache Software License;* Unterstützung für den Download von Dateien von einem FTP Server.
-Utility-API;http://commons.apache.org/[Apache Commons Validator];1.7.x;2.4.0;verbindlich;Apache Software License;* Unterstützung für den Download von Dateien von einem FTP Server.
-Utility-API;http://commons.apache.org/[Apache Commons BeanUtils];1.9.x(>1.9.3);1.8.1;verbindlich;Apache Software License;* Unterstützung für den Download von Dateien von einem FTP Server.
+Utility-API;http://commons.apache.org/[Apache Commons Validator];1.7.x;2.4.0;verbindlich;Apache Software License;* Validiert Dateien bei Server- und Client-seitigem Austausch und prüft diese auf Integrität.
+Utility-API;http://commons.apache.org/[Apache Commons BeanUtils];1.9.x(>1.9.3);1.8.1;verbindlich;Apache Software License;* Apache Commons BeanUtils stellt einen einfach zu nutzenden Wrapper um die  Java APIs Reflection und Introspection bereit.
+Utility-API;http://commons.apache.org/[Apache Commons IO];2.x;2.4.0;verbindlich;Apache Software License;* Apache Commons IO ist eine Bibliothek mit nützlichen Utilities um IO-Funktionalität zu implementieren.
 Erstellung dynamischer SQL-Queries;http://www.querydsl.com/[QueryDSL];5.0.x;3.0.0;verbindlich;Apache License, Version 2.0;"* Verwaltung der Version über Spring Boot.
 * Soll anstatt Criteria-API zur Erstellung dynamischer Queries genutzt werden. Einsatzgebiet wie Criteria-API nur dort wo notwendig."
 HTML-Sanitizer;https://jsoup.org/[jsoup];1.14.x;2.4.0;verbindlich;MIT License;* Die zugelassenen Einsatzbereiche von HTML sind im Web-GUI-Konzept beschrieben.
