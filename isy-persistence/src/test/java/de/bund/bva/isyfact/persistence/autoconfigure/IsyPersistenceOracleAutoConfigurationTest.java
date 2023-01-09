@@ -33,8 +33,7 @@ class IsyPersistenceOracleAutoConfigurationTest {
             "isy.persistence.oracle.datasource.database_url=test",
             "isy.persistence.oracle.datasource.databaseUrl=test",
             "isy.persistence.oracle.datasource.databaseurl=test"
-    }
-    )
+    })
     void testAlternativePropertySpelling(String property) {
         contextRunner.withPropertyValues(
                         property,

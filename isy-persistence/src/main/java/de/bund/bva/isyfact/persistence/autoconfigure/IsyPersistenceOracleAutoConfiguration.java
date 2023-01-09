@@ -1,12 +1,9 @@
 package de.bund.bva.isyfact.persistence.autoconfigure;
 
 import java.sql.SQLException;
+
 import javax.sql.DataSource;
 
-import de.bund.bva.isyfact.persistence.config.OracleDataSourceProperties;
-import de.bund.bva.isyfact.persistence.datasource.IsyDataSource;
-import oracle.ucp.jdbc.PoolDataSource;
-import oracle.ucp.jdbc.PoolDataSourceFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.actuate.jdbc.DataSourceHealthIndicator;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -16,8 +13,14 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import de.bund.bva.isyfact.persistence.config.OracleDataSourceProperties;
+import de.bund.bva.isyfact.persistence.datasource.IsyDataSource;
+
+import oracle.ucp.jdbc.PoolDataSource;
+import oracle.ucp.jdbc.PoolDataSourceFactory;
+
 /**
- * Spring-Konfiguration der Persistenzschicht für Oracle.
+ * Oracle persistence layer configuration.
  */
 @Configuration
 @ConditionalOnProperty(prefix = "isy.persistence.oracle.datasource", name = "database-url")
@@ -25,8 +28,8 @@ import org.springframework.context.annotation.Configuration;
 public class IsyPersistenceOracleAutoConfiguration {
 
     /**
-     * Erzeugt eine Bean für den Health-Check.
-     * @return Bean oracleDataSourceHealthIndicator
+     * Oracle datasource health check.
+     * @return bean {@code oracleDataSourceHealthIndicator}
      */
     @Bean
     @ConditionalOnMissingBean(DataSourceHealthIndicator.class)
@@ -39,9 +42,8 @@ public class IsyPersistenceOracleAutoConfiguration {
     }
 
     /**
-     * Erzeugt eine neue Bean für die Oracle Data Source Properties.
-     *
-     * @return Bean oracleDataSourceProperties.
+     * Oracle datasource properties.
+     * @return bean {@code oracleDataSourceProperties}
      */
     @Bean
     @ConfigurationProperties(prefix = "isy.persistence.oracle.datasource")
@@ -50,15 +52,10 @@ public class IsyPersistenceOracleAutoConfiguration {
     }
 
     /**
-     * Erzeugt eine neue Bean für die Oracle Data-Source
-     *
-     * @param dsProps
-     *            Bean mit den Data-Source-Properties.
-     *
-     * @return Bean appDataSource.
-     *
-     * @throws SQLException
-     *             falls beim Erzeugen der Bean ein Datenbank-Fehler auftritt.
+     * Oracle datasource.
+     * @param dsProps datasource properties
+     * @return bean {@code appDataSource}.
+     * @throws SQLException if a database error occurs during bean creation
      */
     @Bean
     public DataSource appDataSource(OracleDataSourceProperties dsProps) throws SQLException {
