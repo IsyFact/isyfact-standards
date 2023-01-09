@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Configuration;
  * Spring-Konfiguration der Persistenzschicht für Oracle.
  */
 @Configuration
-@ConditionalOnProperty(name = "isy.persistence.oracle.datasource.databaseurl")
+@ConditionalOnProperty(prefix = "isy.persistence.oracle.datasource", name = "database-url")
 @EnableConfigurationProperties
 public class IsyPersistenceOracleAutoConfiguration {
 
