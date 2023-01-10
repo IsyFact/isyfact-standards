@@ -102,6 +102,7 @@ Eine Beschreibung der Konfiguration findet sich in den jeweiligen Nutzungsvorgab
 
 // end::important[]
 
+[[cache-authentifizierungen]]
 ==== Caching von Authentifizierungen
 
 Der Baustein liefert eine xref:nutzungsvorgaben/master.adoc#standard-cache-konfiguration[Standard-Konfiguration für das Caching von Authentifizierungen] an.

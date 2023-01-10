@@ -1,7 +1,0 @@
-*JavaScript Bibliothek / IT-System*
-
-[cols="5,2,3"]
-|====
-|Name |Art |Version
-|isy-documentation |Bibliothek | v2.1.0
-|====
