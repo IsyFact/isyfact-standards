@@ -20,7 +20,7 @@ Als Konfiguration wird die Menge aller Konfigurationsparameter einer Anwendung v
 === Festlegungen und Ausgrenzungen
 
 * Das Konfigurationskonzept betrifft alle von den IsyFact-Anwendungen verwendeten Konfigurationen.
-  Dazu gehören sowohl vom Betrieb zu pflegende Konfigurationsdateien, als auch statische Konfigurationen, die z.B. das Layout von Dialog-Masken beschreiben (Ressource-Dateien).
+Dazu gehören sowohl vom Betrieb zu pflegende Konfigurationsdateien, als auch statische Konfigurationen, die z.B. das Layout von Dialog-Masken beschreiben (Ressource-Dateien).
   Wenn im Folgenden von Konfigurationen gesprochen wird, sind sowohl Konfigurationen im eigentlichen Sinne, als auch Ressourcen gemeint.
 * Anwendungen müssen im Normalfall für Konfigurationsänderungen neu gestartet werden.
   Ausnahmen hiervon bedürfen besonderer technischer und organisatorischer Maßnahmen.
@@ -71,7 +71,7 @@ h|Pflegeverantwortung |Entwickler |Betrieb |Fachabteilung oder Administratoren
 h|Beispiel 	|Spring-Konfiguration |Datenbank-Benutzer und -Kennwort |Dialog-Einstellungen
 h|Umgebungsabhängigkeit erlaubt |nein |ja |nein
 h|Erlaubte Zugriffsarten der Anwendung |nur lesend |nur lesend |lesend und schreibend
-h|Speicherung|Als Datei im Resources-Ordner |Als Property-Datei im Config-Ordner |In der Datenbank
+h|Speicherung|Als Datei im Resources-Ordner |Als Property-Datei mit dem Namen `application.properties` im Config-Ordner |In der Datenbank
 |====
 // end::inhalt[]
 
