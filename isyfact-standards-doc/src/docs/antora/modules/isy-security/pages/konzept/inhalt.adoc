@@ -8,19 +8,21 @@ Die IsyFact-Referenzarchitektur beinhaltet auf der technischen Ebene Vorgaben f�
 
 Die konkrete Sicherheitsarchitektur einer xref:glossary:glossary:master.adoc#glossar-systemlandschaft[Systemlandschaft] muss nach folgenden Prinzipien gestaltet sein:
 
-* IsyFact-konforme IT-Systeme sind gegen nicht autorisierte Nutzung zu schützen.
-* Die Authentifizierung und grobgranulare Autorisierung erfolgt an den Außenschnittstellen der Systemlandschaft (Portal, Service-Gateway).
+* IsyFact-konforme IT-Systeme sind gegen nicht-autorisierte Nutzung zu schützen.
+* Die Authentifizierung und grobgranulare Autorisierung erfolgt an den Außenschnittstellen der Systemlandschaft (Portal, Authentication-Gateway bzw. veraltet: Service-Gateway).
 * Liegt kein Aufruf über eine Außenschnittstelle vor (z.B. bei einem Batch-Aufruf), so geschieht die Authentifizierung und grobgranulare Autorisierung innerhalb der Nutzungsschicht (Batch) des konkreten IT-Systems.
-* Die feingranulare Autorisierung geschieht in der Nutzungsschicht und im Anwendungskern der IT-Systeme über den IsyFact-Baustein Sicherheit.
+* Die feingranulare Autorisierung geschieht in der Nutzungsschicht und im Anwendungskern der IT-Systeme über den IsyFact-Baustein Security (bzw. veraltet: Service-Gateway).
 
 Existiert keine Systemlandschaft (d.h. IT-Systeme stehen für sich allein), gilt grundsätzlich, dass die Authentifizierung und grobgranulare Autorisierung in der Nutzungsschicht (GUI, Service oder Batch) des IT-Systems geschehen muss.
 
 Darüber hinaus finden Authentifizierung und Autorisierung nach den Vorgaben des Berechtigungskonzepts statt.
 Dieses Dokument beschreibt wesentliche Aspekte der Sicherheitsarchitektur für eine konkrete Anwendungslandschaft.
-Da das Berechtigungskonzept individuell für jede Anwendungslandschaft erstellt wird und sich im einzelnen stark von Inhalt und Umfang her unterscheidet, ist es kein Bestandteil des Bausteins Sicherheit oder der IsyFact.
+Da das Berechtigungskonzept individuell für jede Anwendungslandschaft erstellt wird und sich im einzelnen stark von Inhalt und Umfang her unterscheidet, ist es kein Bestandteil des Bausteins Security oder der IsyFact.
 
 [[authentifizierung]]
 === Authentifizierung
+
+Authentifikation: Prüfung der Identität eines Benutzers (oder Systems) als Zugangs- und Rechtekontrolle für ein System (durch eindeutige Eigenschaften (z.B. Biometrie) oder geheimes Wissen (z.B. Passwort)).
 
 In der Regel erfolgt die Authentifizierung von xref:glossary:glossary:master.adoc#glossar-anwender[Anwendern] über eine zentrale Komponente der Systemlandschaft, in welche das IT-System eingebettet ist.
 Die Authentifizierung darf auch lokal, d.h. vom IT-System selbst, durchgeführt werden, falls es beispielsweise nicht in eine Systemlandschaft eingebettet ist.
@@ -38,9 +40,11 @@ Die Rollen allein sind jedoch noch nicht ausreichend, um Anwender vollständig z
 [[autorisierung]]
 === Autorisierung
 
+Autorisierung: Zustimmung oder Erlaubnis, spezieller die Einräumung von Rechten gegenüber interessierten Rechtssubjekten, gegebenenfalls als Nutzungsrecht gegenüber Dritten.
+
 Die Autorisierung geschieht in jedem Fall im jeweiligen IT-System.
-Nach der erfolgreichen Authentifizierung eines Anwenders leitet das IAM-System die Anfrage an das IT-System weiter.
-Hier wird die Anfrage – je nach Schutzbedarf und Funktionalität – autorisiert.
+Nach der erfolgreichen Authentifizierung eines Anwenders leitet das IAM-System die Anfrage an das IT-System weiter - angereichert mit weiteren Informationen über den Anwender (speziell: zugeordnete Rollen).
+Dort wird die Anfrage – je nach Schutzbedarf und Funktionalität – autorisiert.
 Dazu weist das IT-System einem Anwender anhand seiner Rollen *Rechte* zu und prüft diese gegen die für die Anfrage benötigten Rechte.
 Wie genau Rollen und Rechte spezifiziert werden, beschreibt das Kapitel xref:konzept/master.adoc#rollen-und-rechte[Rollen und Rechte].
 
