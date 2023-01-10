@@ -62,6 +62,65 @@ Wie genau Rollen und Rechte spezifiziert werden, beschreibt das Kapitel xref:kon
 [[aufruf-service-gateway]]
 ==== Aufruf Service-Gateway
 
+Die folgende Abbildung zeigt die neue System-Architektur, die bei Aufrufen von Externen Anwendungen für die
+Authentifizierung zum Einsatz kommt. Dabei werden die Vorgaben des BSI berücksichtigt, dass beim Aufruf von SGWs die
+Authentifizierungsdaten von den Nutzungsdaten getrennt werden müssen.
+
+.Software-Architektur der Berechtigungsprüfung
+[id="image-Gesamtsystem",reftext="{figure-caption} {counter:figures}"]
+image::isy-security:konzept/gesamtsystem.svg[align="center"]
+
+Damit ein Client einer externen Anwendung auf die Ressourcen eines Anwendungssystems zugreifen kann, benötigt er ein
+gültiges Access-Token. Dieses Token muss sich der Client zuerst beschaffen, indem er sich beim
+IdentityAccessManagement-System (IAM) authentifiziert. Mit der Einführung des AuthenticationGateways erfolgt somit für
+die Authentifizierung ein von den Anwendungsanfragen getrennter Kommunikationskanal, so dass die von der BSI geforderte Trennung
+zwischen Anwendungsdaten und Authentifizierungsdaten erfüllt ist.
+
+Die Kommunikation zwischen der externen Anwendung und IsyFact-Security-Infrastruktur ist grundsätzlich
+Transportverschlüsselt. Zusätzlich erfolgt nun auch eine Verschlüsselung aller Daten, unabhängig ob es sich um
+Authentifizierungs- oder Anwendungsdaten handelt. Diese Datenverschlüsselung basiert auf asymmetrischer Verschlüsselung
+von zuvor mit dem IAM-System ausgetauschten Public- und PrivateKey-Paaren. Das bedeutet, sobald die externe Anwendung
+sich an der Infrastruktur anmelden möchte, muss sie die Credentials vorher mit dem ausgetauschten PublicKey verschlüsseln. Diesen
+transport- und datenverschlüsselten Authentifizierungsrequest schickt die externe Anwendung nun an den definierten
+Authentifizierungsendpunkt der IsyFact-Infrastruktur. Am Loadbalancer erfolgt dann zuerst die Terminierung der
+Transportverschlüsselung und Weiterleitung zum Authentication-Gateway.
+
+Im Authentication-Gateway erfolgt nun eine Filterung auf die enthaltenen Authentifizierungsdaten wie Nutzername und
+Passwort. Es erfolgt aber noch keine Entschlüsselung dieser Daten, da gemäß BSI-Vorgaben die unverschlüsselten
+User-Credentials nur in der externen Anwendung und im IAM-System selbst bekannt bzw. vorliegen dürfen. Gemäß den
+Filterregeln im Authentication-Gateway wird der Authentifizierungsrequest nun mit den noch verschlüsselten
+User-Credentials an das zuständige Isy-IAM-System weitergeleitet.
+
+Im Isy-IAM-System erfolgt dann die Entschlüsselung der User-Credential mit Hilfe des PrivateKeys. Jetzt erst kann das
+IAM-System die eigentliche Authentifizierung mit den unverschlüsselten Userdaten durchführen. Mit validen
+User-Credentials und erfolgreicher Authentifizierung liefert das IAM-System dann ein Access-Token aus, das im Response
+des synchronen Authentifizierungsrequests zurück an die externe Anwendung transportiert wird.
+
+Mit Erhalt eines gültigen Access-Tokens kann nun die externe Anwendung ihre fachlichen Requests zusammen mit dem
+Access-Token über das ServiceGateway an das eigentliche Anwendungssystem senden. Denn in dem Access-Token sind alle
+notwendigen Informationen enthalten, um im ServiceGateway eine Validierung auf eine zuvor stattgefundene und
+gültige Authentifizierung, sowie eine Prüfung auf eine valide Autorisierung des Requests vorzunehmen.
+
+
+[[resource-owner-password-flow]]
+===== Resource Owner Password Flow
+
+.OAuth2.0 Resource-Owner Password Flow
+[id="image-ResourceOwner_Password_Flow",reftext="{figure-caption} {counter:figures}"]
+image::isy-security:konzept/ServiceGateway-Authentifizierung.svg[align="center"]
+
+
+[[client-credential-flow]]
+===== Client-Credential Flow
+
+
+Dafür integrieren die Service-Gateways die Bibliothek isy-sicherheit-keycloak . Die Bibliothek
+nimmt die Credentials der externen Anwendung entgegen und besorgt sich damit ein gültiges
+Access-Token beim Keycloak Server. Je nachdem, welche Schnittstellentechnologie in der
+nachgelagerten Fachanwendung umgesetzt ist, stellt isy-sicherheit-keycloak eine Lösung für die
+Bereitstellung des Tokens zur Verfügung.
+
+
 [[ausfuehrung-batch-u-task]]
 ==== Ausführung Batch & Task
 
