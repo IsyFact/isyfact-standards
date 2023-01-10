@@ -1,4 +1,5 @@
 # 3.0.0
+- `IFS-522`: [isy-exception-core] Dokumentation zu "Exceptions ohne Stacktrace"
 - `IFS-1702`: [isy-ueberwachung] Refaktorierung ServiceStatistik
     * Entkoppelt von Micrometer API
     * Aufgeteilt in Interface und Implementierung

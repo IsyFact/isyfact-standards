@@ -74,6 +74,13 @@ Mit Hilfe des Zeitstempels, der Datenbank-Fehlermeldung und des Stack-Traces kan
 
 Die Verknüpfung von Anwendungsfehlern über mehrere Anwendungen bzw. deren Log-Dateien hinweg geschieht über zwei IDs, die in dem Dokument xref:nutzungsvorgaben/master.adoc[NutzungsvorgabenFehlerbehandlung] beschrieben sind.
 
+**Anmerkung zum Fehlen des Stacktraces bei mehrfachen Wiederholungen einer Exception**
+
+In Java kann es passieren, dass bei mehrfachen Aufkommen einer Exception diese keinen Stacktrace mehr enthält. Dies kommt daher, dass eine Methode rekompiliert werden kann, falls sie eine Exception häufiger wirft.
+Bei dieser Rekompilation kann es passieren, dass der Compiler eine schnellere Taktik mit präallokierten Exceptions wählt, die keinen Stack Trace zur Verfügung stellen. Dieses Verhalten kann mit dem Parameter `-XX:-OmitStackTraceInFastThrow` abgeschaltet werden.
+Dies soll jedoch vermieden werden.
+
+
 [[ausnahmen-und-rueckgabewerte]]
 === Ausnahmen und Rückgabewerte
 
