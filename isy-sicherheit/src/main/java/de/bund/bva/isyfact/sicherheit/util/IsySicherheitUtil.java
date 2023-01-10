@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Diese Klasse enthält Utility-Methoden für die isy-sicherheit.
  */
+@Deprecated
 public final class IsySicherheitUtil {
     /**
      * Header-Name für Authorisierung.
@@ -56,11 +57,16 @@ public final class IsySicherheitUtil {
      * Ermittelt die Benutzerkennung und das Kennwort aus dem Wert des HTTP-Headers-Attributs für die
      * HTTP-Basic-Authentifizierung aus.
      *
+     * @Deprecated
+     * Recommended alternative:
+     * spring-security-web::org.springframework.security.web.authentication.www.BasicAuthenticationConverter
+     *
      * @param headerValue
      *            Wert des Header-Attributs.
      * @return String array der Länge zwei mit dem Benutzernamen und Passwort, enthält null Werte, wenn der
      *         Wert des Header-Attributs leer ist.
      */
+    @Deprecated
     public static String[] parseBasisAuthHeaderValue(String headerValue) {
         String[] result = new String[2];
         if (headerValue != null && headerValue.trim().length() > 5) {
@@ -87,12 +93,17 @@ public final class IsySicherheitUtil {
     /**
      * Erzeugt einen HTTP-Basic-Authentication-Header für eine Login-ID und ein Kennwort.
      *
+     * @Deprecated
+     * Recommended alternative:
+     * spring-web::org.springframework.http.HttpHeaders
+     *
      * @param loginId
      *            Die Login-ID.
      * @param password
      *            Das Kennwort.
      * @return Stirng[] mit dem Namen des HeaderAttributs ([0]) und dem Header-Wert ([1]).
      */
+    @Deprecated
     public static String[] createBasicAuthHeader(String loginId, String password) {
         String[] result = new String[2];
         result[0] = HEADER_NAME_AUTH;
