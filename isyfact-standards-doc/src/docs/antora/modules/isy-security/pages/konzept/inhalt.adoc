@@ -60,50 +60,114 @@ Wie genau Rollen und Rechte spezifiziert werden, beschreibt das Kapitel xref:kon
 ==== Aufruf Web-Oberfläche/Portal
 
 [[aufruf-service-gateway]]
-==== Aufruf Service-Gateway
+==== Aufruf Service-Gateway...
 
-Die folgende Abbildung zeigt die neue System-Architektur, die bei Aufrufen von Externen Anwendungen für die
-Authentifizierung zum Einsatz kommt. Dabei werden die Vorgaben des BSI berücksichtigt, dass beim Aufruf von SGWs die
-Authentifizierungsdaten von den Nutzungsdaten getrennt werden müssen.
+Mit `IsyFact Version-3` wird eine neue Authentifizierungslogik mit zusätzlichem _Authentication-Gateway_
+eingeführt. Für eine weiche Migration der externen Anwendungen auf die neue IsyFact-Version wird zusätzlich die
+bisherige Authentifizierungslogik beibehalten.
 
-.Software-Architektur der Berechtigungsprüfung
+[[aufruf-service-gateway-mit-authentication-gateway]]
+===== ...mit Authentication-Gateway
+
+Die folgende Abbildung zeigt die neue System-Architektur, die bei Aufrufen von externen Anwendungen für die
+Authentifizierung zum Einsatz kommt. Dabei werden die Vorgaben des BSI berücksichtigt, dass beim Aufruf über
+ServiceGateways (SGW) die Authentifizierungsdaten von den Nutzungsdaten getrennt werden müssen.
+
+.Authentifizierung am Authentication-Gateway
 [id="image-Gesamtsystem",reftext="{figure-caption} {counter:figures}"]
-image::isy-security:konzept/gesamtsystem.svg[align="center"]
+image::isy-security:konzept/ServiceGateway_plus_AuthGateway.svg[align="center"]
 
 Damit ein Client einer externen Anwendung auf die Ressourcen eines Anwendungssystems zugreifen kann, benötigt er ein
 gültiges Access-Token. Dieses Token muss sich der Client zuerst beschaffen, indem er sich beim
-IdentityAccessManagement-System (IAM) authentifiziert. Mit der Einführung des AuthenticationGateways erfolgt somit für
-die Authentifizierung ein von den Anwendungsanfragen getrennter Kommunikationskanal, so dass die von der BSI geforderte Trennung
-zwischen Anwendungsdaten und Authentifizierungsdaten erfüllt ist.
+_IdentityAccessManagement-System (IAM)_ authentifiziert. Mit der Einführung des _Authentication-Gateways_ erfolgt somit für
+die Authentifizierung ein von den Anwendungsanfragen getrennter Kommunikationskanal, so dass die von der BSI geforderte
+Trennung zwischen Anwendungsdaten und Authentifizierungsdaten erfüllt ist.
 
-Die Kommunikation zwischen der externen Anwendung und IsyFact-Security-Infrastruktur ist grundsätzlich
-Transportverschlüsselt. Zusätzlich erfolgt nun auch eine Verschlüsselung aller Daten, unabhängig ob es sich um
-Authentifizierungs- oder Anwendungsdaten handelt. Diese Datenverschlüsselung basiert auf asymmetrischer Verschlüsselung
-von zuvor mit dem IAM-System ausgetauschten Public- und PrivateKey-Paaren. Das bedeutet, sobald die externe Anwendung
-sich an der Infrastruktur anmelden möchte, muss sie die Credentials vorher mit dem ausgetauschten PublicKey verschlüsseln. Diesen
-transport- und datenverschlüsselten Authentifizierungsrequest schickt die externe Anwendung nun an den definierten
-Authentifizierungsendpunkt der IsyFact-Infrastruktur. Am Loadbalancer erfolgt dann zuerst die Terminierung der
-Transportverschlüsselung und Weiterleitung zum Authentication-Gateway.
+Die Kommunikation ausserhalb der IsyFact-Infrastruktur ist grundsätzlich Transportverschlüsselt, dh. von einer externen
+Anwendung bis zur ersten Infrastrukturkomponente erfolgt der Datenaustausch per HTTPS. Mit Eintritt in die
+IsyFact-Infrastruktur erfolgt am Loadbalancer dann zuerst die Terminierung der Transportverschlüsselung und
+Weiterleitung zum _Authentication-Gateway_ per HTTP.
 
-Im Authentication-Gateway erfolgt nun eine Filterung auf die enthaltenen Authentifizierungsdaten wie Nutzername und
-Passwort. Es erfolgt aber noch keine Entschlüsselung dieser Daten, da gemäß BSI-Vorgaben die unverschlüsselten
-User-Credentials nur in der externen Anwendung und im IAM-System selbst bekannt bzw. vorliegen dürfen. Gemäß den
-Filterregeln im Authentication-Gateway wird der Authentifizierungsrequest nun mit den noch verschlüsselten
-User-Credentials an das zuständige Isy-IAM-System weitergeleitet.
+Im _Authentication-Gateway_ erfolgt nun eine Filterung auf die enthaltenen Authentifizierungsdaten wie `Client-ID` und
+`Client-Secret`. Es erfolgt aber im Falle von eventuell verschlüsselten Daten noch keine Entschlüsselung, da gemäß
+BSI-Vorgaben unverschlüsselte User-Credentials nur in der externen Anwendung und im IAM-System selbst bekannt sein bzw.
+vorliegen dürfen. Gemäß den Filterregeln im _Authentication-Gateway_ wird der Authentifizierungsrequest nun mit den,
+ggf. noch verschlüsselten, User-Credentials an das zuständige Isy-IAM-System weitergeleitet.
 
-Im Isy-IAM-System erfolgt dann die Entschlüsselung der User-Credential mit Hilfe des PrivateKeys. Jetzt erst kann das
-IAM-System die eigentliche Authentifizierung mit den unverschlüsselten Userdaten durchführen. Mit validen
+Im Isy-IAM-System erfolgt, falls verschlüsselt, zuerst die Entschlüsselung der User-Credential. Mit den
+unverschlüsselten User-Credentials kann das IAM-System die eigentliche Authentifizierung durchführen. Mit validen
 User-Credentials und erfolgreicher Authentifizierung liefert das IAM-System dann ein Access-Token aus, das im Response
 des synchronen Authentifizierungsrequests zurück an die externe Anwendung transportiert wird.
 
 Mit Erhalt eines gültigen Access-Tokens kann nun die externe Anwendung ihre fachlichen Requests zusammen mit dem
-Access-Token über das ServiceGateway an das eigentliche Anwendungssystem senden. Denn in dem Access-Token sind alle
-notwendigen Informationen enthalten, um im ServiceGateway eine Validierung auf eine zuvor stattgefundene und
-gültige Authentifizierung, sowie eine Prüfung auf eine valide Autorisierung des Requests vorzunehmen.
+Token über das _Service-Gateway_ an das eigentliche Anwendungssystem senden. Denn in dem Access-Token sind alle
+notwendigen Informationen enthalten, um im _Service-Gateway_ eine Validierung auf eine zuvor stattgefundene und
+gültige Authentifizierung, sowie eine Prüfung auf eine valide Autorisierung des Requests vorzunehmen. So sind neben
+einer Gültigkeitsdauer auch die für den User autorisierten Rechte in dem Token enthalten, so dass im Anwendungssystem
+die Ausführungsberechtigung des Users verifiziert und sichergestellt werden kann.
+
+[[aufruf-service-gateway-mit-authentication-gateway]]
+===== ...ohne Authentication-Gateway
+
+Die nachfolgende Abbildung zeigt die System-Architektur, die bei Aufrufen von externen Anwendungen für die
+Authentifizierung ohne Authentication-Gateway zum Einsatz kommt. Diese Authentifzierungs- und Autorisierungs-Variante
+wird aus Vereinfachungsgründen der Migration von externen Anwendungen auf die neue `IsyFact Version-3` zusätzlich
+beibehalten, da hierdurch die Umstellungsaufwände reduziert werden. So muss der User für diese externe Anwendung noch
+nicht gemäß _SpringSecurity (OAuth2.0)_ auf ein Client migriert worden sein. Dadurch kann wie bisher eine
+Authentifizierung per `Username` und `Passwort` erfolgen, statt per `Client-ID` und `Client-Secret`. Zusätzlich kann für dieses
+Szenario die externe Anwendung für die Authentifizierung und Autorisierung den gleichen Endpunkt aufrufen, wie für ihre
+fachlichen Requests.
+
+.Authentifizierung ohne Authentication-Gateway
+[id="image-Gesamtsystem",reftext="{figure-caption} {counter:figures}"]
+image::isy-security:konzept/ServiceGateway-Authentifizierung.svg[align="center"]
+
+Für den Zugriff auf die Ressourcen eines Anwendungssystems benötigt ein User einer externen Anwendung ein gültiges
+Access-Token. Dieses Token muss er sich zuerst beschaffen, indem er sich beim IdentityAccessManagement-System (IAM)
+authentifiziert.
+
+Die Kommunikation ausserhalb der IsyFact-Infrastruktur ist grundsätzlich Transportverschlüsselt, dh. von einer externen
+Anwendung bis zur ersten Infrastrukturkomponente erfolgt der Datenaustausch per HTTPS. Mit Eintritt in die
+IsyFact-Infrastruktur erfolgt am Loadbalancer dann zuerst die Terminierung der Transportverschlüsselung und
+Weiterleitung zum _Service-Gateway_ per HTTP.
+
+Im _Service-Gateway_ erfolgt nun eine Filterung auf die enthaltenen Authentifizierungsdaten wie `Nutzername` und
+`Passwort`. Gemäß den Filterregeln im _Service-Gateway_ wird der Authentifizierungsrequest nun mit den User-Credentials
+an das zuständige Isy-IAM-System weitergeleitet.
+
+Im Isy-IAM-System erfolgt mit den User-Credentials die eigentliche Authentifizierung. Bei validen User-Credentials und
+erfolgreicher Authentifizierung liefert das IAM-System dann ein Access-Token aus, das im Response
+des synchronen Authentifizierungsrequests zurück an die externe Anwendung transportiert wird.
+
+Mit Erhalt eines gültigen Access-Tokens kann nun die externe Anwendung ihre fachlichen Requests zusammen mit dem
+Token über das _Service-Gateway_ an das eigentliche Anwendungssystem senden. Denn in dem Access-Token sind alle
+notwendigen Informationen enthalten, um im _Service-Gateway_ eine Validierung auf eine zuvor stattgefundene und
+gültige Authentifizierung, sowie eine Prüfung auf eine valide Autorisierung des Requests vorzunehmen. So sind neben
+einer Gültigkeitsdauer auch die für den User autorisierten Rechte in dem Token enthalten, so dass im Anwendungssystem
+die Ausführungsberechtigung des Users verifiziert und sichergestellt werden kann.
+
+[[autorization-grant]]
+===== Autorisierungsverfahren
+
+Mit SpringSecurity(OAuth2.0) werden vier verschiedene Berechtigungszuteilungsverfahren spezifiziert. In IsyFact spielen
+davon bei den externen Anwendungsaufrufen über ein _Service-Gateway_ die beiden Verfahren
+_Resource-Owner-Password-Credential_ und _Client-Credential_ ein Rolle, da es sich hierbei nur um die
+Berechtigungszuteilung für ausschließlich _Confidential-Clients_ dreht.
+
+[[resource-owner-password-credential-flow]]
+====== Resource-Owner-Password-Credential Flow
+
+Der _Resource-Owner-Password-Credential_-Flow, der als User-Credentials die Attribute `Username` und `Passwort`
+verwendet, sollte nur eingesetzt werden, wenn die involvierte Clientanwendung ein hohes Vertrauen zur Wahrung der
+Credentials sicherstellt oder wenn keine andere Art der Berechtigungszuteilung verfügbar ist.
+
+Obwohl in diesem Verfahren die Clientanwendung direkten Zugang auf die unverschlüsselten User-Credentials hat, so werden
+diese nur für einen einmaligen Request verwendet und dann durch ein Access-Token ersetzt. Somit wird dabei vermieden,
+dass die Clientanwendung die User-Credentials für zukünftige Zugriffe speichern müsste, da diese durch ein Access-Token
+mit langer Gültigkeitsdauer ersetzt werden.
 
 
-[[resource-owner-password-flow]]
-===== Resource Owner Password Flow
+
 
 .OAuth2.0 Resource-Owner Password Flow
 [id="image-ResourceOwner_Password_Flow",reftext="{figure-caption} {counter:figures}"]
@@ -111,14 +175,15 @@ image::isy-security:konzept/ServiceGateway-Authentifizierung.svg[align="center"]
 
 
 [[client-credential-flow]]
-===== Client-Credential Flow
+====== Client-Credential Flow
+
+Der _Client-Credential_-Flow wird zur Berechtigungszuteilung eingesetzt, wenn die Clientanwendung selbst auch der
+Besitzer der Credentials ist. Es erfolgt hierbei keine Interaktion durch einen Benutzer, der sein Passwort eingeben
+müsste, sondern die Clientanwendung läuft selbständig als Hintergrundprozess analog einer Batch-Anwendung. Die dabei
+verwendeten Credentials `Client-ID` und `Client-Secret` müssen vor der Nutzung für die Clientanwendung definiert und
+mit dem IAM-System abgestimmt werden.
 
 
-Dafür integrieren die Service-Gateways die Bibliothek isy-sicherheit-keycloak . Die Bibliothek
-nimmt die Credentials der externen Anwendung entgegen und besorgt sich damit ein gültiges
-Access-Token beim Keycloak Server. Je nachdem, welche Schnittstellentechnologie in der
-nachgelagerten Fachanwendung umgesetzt ist, stellt isy-sicherheit-keycloak eine Lösung für die
-Bereitstellung des Tokens zur Verfügung.
 
 
 [[ausfuehrung-batch-u-task]]
