@@ -1,5 +1,7 @@
+# 3.0.0
+- `IFS-1940`: `IsySicherheitUtil` deprecated
+
 # 2.1.0
-- `IFS-1940`: IsySicherheitUtil deprecated
 - `IFS-156`: Sonderlogik, die Underscores aus dem Attribut durchfuehrenderSachbearbeiterName des Aufrufkontextes entfernt, erneut ausgebaut.
 
 # 2.0.0
