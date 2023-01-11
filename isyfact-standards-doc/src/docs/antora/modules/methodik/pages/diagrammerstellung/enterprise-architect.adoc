@@ -6,35 +6,29 @@ include::glossary:licence:partial$licence.adoc[]
 
 [[enterprise-architect-fuer-die-modellierung]]
 == Enterprise Architect für die Modellierung
-Enterprise Architect ist ein Werkzeug mit dem Schwerpunkt Prozess- und Systemmodellierung.
-Die folgende Dokumentation beschreibt den optionalen Einsatz des Werkzeugs im Zuge der Systemspezifikation.
+Das Programm „Enterprise Architect“ (nachfolgend kurz „EA“) der Firma SparxSystems ist für die Erstellung der Systemspezifikation und der zugehörigen Geschäftsprozesse in der im Projekt abgestimmten Version zu verwenden (Diese Dokumentation wurde für EA 7.5 erstellt).
+Die folgende Dokumentation beschreibt den optionalen Einsatz des Werkzeugs im Zuge der Systemspezifikation und sollen dafür sorgen, dass alle damit erstellten Modelle einer einheitlichen Methodik folgen. Dadurch soll der Einarbeitungsaufwand für neue Projektmitarbeiter verringert werden, verbessert die Wartbarkeit der erstellten Modelle und erleichtert die Übernahme von Spezifikationen in die Masterspezifikation.
+
 Darüber hinaus wird das Werkzeug häufig auch für Systementwürfe oder Deployment- und Verteilungsdarstellungen genutzt, auf die hier allerdings nicht näher eingegangen wird.
 
 [[vorgehen-zur-erstellung-der-spezifikationsdokumente]]
 == Vorgehen zur Erstellung der Spezifikationsdokumente
 
-Man erstellt die Dokumente Systemspezifikation und Geschäftsprozesse nach den hier beschriebenen Vorgaben in Microsoft Word (oder einer dazu kompatiblen Textverarbeitung).
-Diagramme aus dem Enterprise Architect kopiert man nach der Erstellung / Aktualisierung in MS Word.
+Die Dokumente Systemspezifikation und Geschäftsprozesse werden nach den hier beschriebenen Vorgaben in Microsoft Word (oder einer dazu kompatiblen Textverarbeitung) erstellt.
+Diagramme aus dem Enterprise Architect, werden nach der Erstellung / Aktualisierung in MS Word aktualisiert.
 Die beschriebenen Aufzählungen der Elemente unter den Diagrammen dienen dazu, Querverweise auf die Spezifikationselemente hinzufügen zu können.
-
-[[nutzung-des-enterprise-architect-zur-erstellung-von-systemspezifikationen]]
-== Nutzung des Enterprise Architect zur Erstellung von Systemspezifikationen
-
-Die Software „Enterprise Architect“ (nachfolgend kurz „EA“) der Firma SparxSystems ist für die Erstellung der Systemspezifikation und der zugehörigen Geschäftsprozesse in der im Projekt abgestimmten Version zu verwenden (Diese Dokumentation wurde für EA 7.5 erstellt).
-Die Anleitungen in diesem Dokument sollen dafür sorgen, dass alle damit erstellten Modelle einer einheitlichen Methodik folgen.
-Dies verringert den Einarbeitungsaufwand für neue Projektmitarbeiter, verbessert die Wartbarkeit der erstellten Modelle und erleichtert die Übernahme von Spezifikationen in die Masterspezifikation.
 
 [[uml-profile-einbinden]]
 === UML-Profile einbinden
 
-Um eine einheitliche Nutzung des EA zu vereinfachen, wurden vorgefertigte UML-Profile erstellt, die die benötigten Elementtypen enthalten.
+Um eine einheitliche Nutzung des EA zu vereinfachen, wurden vorgefertigte UML-Profile erstellt, welche die benötigten Elementtypen enthalten.
 Diese Profile werden auf Anfrage bereitgestellt.
 
-Im EA kann man zur Erstellung der Spezifikation mit einem neuen, leeren Modell beginnen (menu:File[New Project...]).
+Im EA kann zur Erstellung der Spezifikation mit einem neuen, leeren Modell begonnen werden (menu:File[New Project...]).
 
-Nun fügt man die UML-Profile hinzu.
-Hierzu nutzt man den „Resource Browser“ (menu:View[Resources]).
-Dort wählt man im Kontextmenü der UML-Profile btn:[Import Profile] aus und importiert so nacheinander alle Dateien.
+Nun ist ein hinzufügen der UML-Profile möglich.
+Hierzu wird der „Resource Browser“ genutzt (menu:View[Resources]).
+Über das Kontextmenü wird btn:[Import Profile] ausgewählt und importiert hiermit alle UML-Profile.
 
 Danach sollte der Resource Browser etwa wie folgt aussehen:
 
@@ -43,9 +37,9 @@ Danach sollte der Resource Browser etwa wie folgt aussehen:
 .Resource Browser mit hinzugefügten UML-Profilen
 image::methodik:enterprise-architect/resbrowser.png[align="center"]
 
-Nun kann man die einzelnen Elemente aus den UML-Profilen nutzen.
-Elemente wie Anwendungsfälle erzeugt man, indem man sie in ein Diagramm zieht und benennt.
-Verbinder erzeugt man, indem man sie im UML-Profil auswählt und dann die Verbindung zwischen zwei Elementen zieht.
+Nun ist es möglich die einzelnen Elemente aus den UML-Profilen zu nutzen.
+Elemente wie Anwendungsfälle werden erzeugt, indem man diese in ein Diagramm zieht und benennt.
+Ein Verbinder wird erzeugt, indem dieser im UML-Profil ausgewählt und dann diesen zwischen die Verbindung zweier Elementen zieht.
 
 [[struktur-des-modells-im-enterprise-architect]]
 === Struktur des Modells im Enterprise Architect
@@ -53,6 +47,7 @@ Verbinder erzeugt man, indem man sie im UML-Profil auswählt und dann die Verbin
 Generell orientiert sich die Struktur im EA am Aufbau des zu erstellenden Dokuments.
 Die folgende Struktur muss man beim Aufbau des EA-Modells der Geschäftsprozesse und der Systemspezifikation im EA einhalten.
 
+Es folgen einige Beispiele wie diese Strukturen für verschiedene Elemente aussehen können:
 
 [[image-eastructgpm]]
 .EA-Struktur der Geschäftsprozessmodellierung
@@ -83,8 +78,8 @@ image::methodik:enterprise-architect/eastructschnitt.png[align="center"]
 image::methodik:enterprise-architect/eastructnfa.png[align="center"]
 
 Elemente, die in der Systemspezifikation benannt werden (z.B. Anwendungsfälle, Entitätstypen, usw.) dürfen nur einmal im EA-Modell enthalten sein.
-Wird dieselbe Entität in mehreren Diagrammen verwendet, erzeugt man sie initial durch Ziehen aus den UML-Profilen in das erste Diagramm.
-Danach holt man sie aus dem Project Browser, um sie in weiteren Diagrammen zu nutzen.
+Wird dieselbe Entität in mehreren Diagrammen verwendet, wird diese nicht jedes mal neu angelegt, sondern wird aus den UML-Profilen herausgezogen. Nun kann die Entität aus dem Project Browser in andere Diagramme genutzt werden.
+
 Falls man diese Regel nicht einhält, besteht die Gefahr der Inkonsistenz bei Umbenennungen.
 
 [[tipps-zur-arbeit-mit-dem-enterprise-architect]]
@@ -93,16 +88,17 @@ Falls man diese Regel nicht einhält, besteht die Gefahr der Inkonsistenz bei Um
 [[farben-von-elementen-anpassen]]
 === Farben von Elementen anpassen
 
-Meistens haben Elemente, die aus den UML-Profilen erzeugt werden, schon die richtige Farbe.
-Wenn diese verändert werden soll, dann muss man hierzu die Elemente im Diagramm auswählen im Kontextmenü der markierten Elemente (menu:Appearance[Default Appearance] auswählen oder kbd:[F4] drücken).
-Damit kann man die Standarddarstellung der markierten Elemente für alle Diagramme setzen.
-Nun kann man RGB-Farbwerte eingeben.
+Meistens haben Elemente, die aus den UML-Profilen erzeugt worden sind, schon die richtige Farbe.
+Zum ändern der Farbe kann im Kontextmenü des markierten Elementes (menu:Appearance[Default Appearance] auswählen oder kbd:[F4] drücken).
+Hierdurch ist es möglich, alle Standarddarstellung der markierten Elemente für alle Diagramme setzen.
+
+Als Farbwert wird die RGB-Farbpalette genutzt.
 
 [[image-guidefault]]
 .Dialog "Default Appearance“
 image::methodik:enterprise-architect/guidefault.png[align="center"]
 
-Alternativ kann man seit EA Version 7 die Farbe des Elements für ein einzelnes Diagramm setzen, indem man den Pinsel neben dem markierten Element anklickt und das Farbwahl-Feld nutzt (siehe <<image-guiselectcol>>).
+Alternativ kann seit EA Version 7 die Farbe eines Elements für ein einzelnes Diagramm gesetzen werden, indem man den Pinsel neben dem markierten Element anklickt und das Farbwahl-Feld nutzt (siehe <<image-guiselectcol>>).
 
 [[image-guiselectcol]]
 .Farbwahl-Feld
@@ -118,7 +114,7 @@ image::methodik:enterprise-architect/colorval.png[align="center"]
 [[schriftart-von-elementen-anpassen]]
 === Schriftart von Elementen anpassen
 
-Seit der EA Version 7 kann man die Schriftart eines Elements für ein einzelnes Diagramm setzen, indem man den Pinsel neben dem markierten Element anklickt und das Schriftart-Feld nutzt (siehe <<image-guiselectfnt>>).
+Seit der EA Version 7 wird auch die Schriftart eines Elements für ein einzelnes Diagramm gesetz, indem man den Pinsel neben dem markierten Element anklickt und das Schriftart-Feld nutzt (siehe <<image-guiselectfnt>>).
 
 [[image-guiselectfnt]]
 .Schriftwahl-Feld
@@ -134,49 +130,49 @@ Standardmäßig zeichnet der EA Diagrammelemente aus anderen Ordnern als dem des
 .Auszeichnung von Elementen aus anderen Ordnern im Diagramm
 image::methodik:enterprise-architect/annootherele.png[align="center"]
 
-Man muss dies je Diagramm wie folgt abschalten: Mit der rechten Maustaste auf den Diagramm-Hintergrund klicken und dann menu:Properties...[Diagram > Show Namespace] auswählen.
+Dies wird je Diagramm wie folgt abgeschaltet: Mit der rechten Maustaste auf den Diagramm-Hintergrund klicken und dann menu:Properties...[Diagram > Show Namespace] auswählen.
 
 [[inhalte-einzelner-elemente-und-aller-elemente-im-diagramm-ausblenden]]
 === Inhalte einzelner Elemente und aller Elemente im Diagramm ausblenden
 
 Um die Inhalte eines Elements (z.B. Elemente in einem Ordner oder Attribute in einer Entität) auszublenden, entfernt man in dessen Kontextmenü die Häkchen bei menu:Feature Visibility...[Attribute Visibility] sowie menu:Feature Visibility...[Operation Visibility].
 
-Um die Inhalte aller Elemente in einem Diagramm auszublenden, muss man in dessen Kontextmenü menu:Properties...[Elements] auswählen und die Häkchen btn:[Attributes], btn:[Operations] und btn:[Package Contents] entfernen.
+Um die Inhalte aller Elemente in einem Diagramm auszublenden, muss in dessen Kontextmenü menu:Properties...[Elements] ausgewählt und die Häkchen bei btn:[Attributes], btn:[Operations] und btn:[Package Contents] entfernt werden.
 
 [[rahmen-um-diagramme-beim-kopieren-unterdruecken]]
 === Rahmen um Diagramme beim Kopieren unterdrücken
 
-Im Dialog menu:Tools[Options > Diagram] kann man den Rahmen der Diagramme beim Druck (Checkbox btn:[Print with Border]) oder Export über den Zwischenspeicher (Checkbox btn:[On Clipboard Images]) unterdrücken.
+Im Dialog menu:Tools[Options > Diagram] kann der Rahmen eines Diagrammes beim Druck (Checkbox btn:[Print with Border]) oder Export über den Zwischenspeicher (Checkbox btn:[On Clipboard Images]) unterdrückt werden.
 
 [[verbinder-im-aktuellen-diagramm-in-allen-anderen-diagrammen-und-in-ausgewaehlten-diagrammen-ausblenden]]
 === Verbinder im aktuellen Diagramm, in allen anderen Diagrammen und in ausgewählten Diagrammen ausblenden
 
-Die Verbinder zwischen verschiedenen Elementen kann man über ihr Kontextmenü im Diagramm mit menu:Visibility[Hide Connector] ausblenden.
+Ein Ausbleben der Verbinder zwischen verschiedenen Elementen wird über ihr Kontextmenü im Diagramm mit menu:Visibility[Hide Connector] ausgeblendt.
 Über menu:Visibility[Hide Connector in other Diagrams] kann man die Diagramme (außer dem aktuellen) auswählen, in denen der Verbinder angezeigt werden soll.
-Um den Verbinder im aktuellen Diagramm wieder anzuzeigen, geht man auf die Properties eines der beiden verbundenen Elemente im Diagramm, sucht ihn unter btn:[Links] heraus und wählt per Kontextmenü btn:[Show Property].
+Um den Verbinder im aktuellen Diagramm wieder anzuzeigen, kann auf die Properties eines der beiden verbundenen Elemente im Diagramm geklickt werden, sucht ihn unter btn:[Links] heraus und wählt per Kontextmenü btn:[Show Property].
 
 [[mehrere-gleichartige-verbinder-nacheinander-zeichnen]]
 === Mehrere gleichartige Verbinder nacheinander zeichnen
 
-Wenn man einen Verbinder mit bestimmtem Stereotyp aus dem UML-Profil gezeichnet hat, kann man mit kbd:[F3] weitere Verbinder derselben Art zeichnen.
+Wird ein Verbinder mit einem bestimmten Sterotyp aus dem UML-Profil gezeichnet, kann mit kbd:[F3] ein weiterer Verinder derselben Art erzeugt werden.
 
 [[import-und-export-in-ea-modellen]]
 === Import und Export in EA-Modellen
 
-Für die Übernahme von Teilen eines Modells in ein anderes geht man wie folgt vor:
+Für die Übernahme von Teilen eines Modells in ein anderes wirde wie folgt vorgegangen:
 
-. Export aus dem ersten Modell: Man wählt im Kontextmenü des zu exportierenden Ordners menu:Import/Export[Export Package To XMI File...] aus und erzeugt so eine XMI-Datei.
-. Import in das zweite Modell: Man wählt im Kontextmenü des Ordners, in den importiert werden soll, menu:Import/Export[Import Package From XMI File...] aus.
-Hier kann man sich entscheiden:
-.. Setzt man das Häkchen bei btn:[Strip GUIDs], dann werden die eindeutigen IDs der Elemente verworfen und neu vergeben.
+. Export aus dem ersten Modell: Im Kontextmenü des zu exportierenden Ordners menu:Import/Export[Export Package To XMI File...] auswählen und erzeugt so eine XMI-Datei.
+. Import in das zweite Modell: Im Kontextmenü des Ordners, in den importiert werden soll, menu:Import/Export[Import Package From XMI File...] auswählen.
+Hier kann entschieden werden:
+.. Wird das Häkchen bei btn:[Strip GUIDs] gesetzt, dann werden die eindeutigen IDs der Elemente verworfen und neu vergeben.
 Falls die Elemente in einer früheren Version bereits im Modell sind, dann werden Kopien der Elemente daneben gelegt.
-.. Entfernt man das Häkchen bei btn:[Strip GUIDs], dann werden die eindeutigen IDs der Elemente beibehalten.
+.. Wird das Häkchen bei btn:[Strip GUIDs] gesetzt, dann werden die eindeutigen IDs der Elemente beibehalten.
 Falls Elemente mit denselben GUIDs bereits im Modell sind, dann werden sie durch die neuen Versionen überschrieben.
 
-Beide Vorgehen können in unterschiedlichen Situationen sinnvoll sein: Wenn man z.B. eine Altsystem-Spezifikation „kopiert“ um das Neusystem zu beschreiben, dann will man beide Spezifikationen nicht vermischen.
-Hier sollte man btn:[Strip GUIDs] anschalten.
+Beide Vorgehen können in unterschiedlichen Situationen sinnvoll sein: Wenn z.B. eine Altsystem-Spezifikation „kopiert“ wird, um das Neusystem zu beschreiben, dann sollen beide Spezifikationen nicht vermischt werden.
+Hierbei sollte man btn:[Strip GUIDs] anschalten.
 
-Will man ein in einem Teilprojekt verändertes System hingegen zurück in ein zentrales Modell bringen, dann kann man hierfür btn:[Strip GUIDs] ausschalten.
+Will man ein in einem Teilprojekt verändertes System hingegen zurück in ein zentrales Modell bringen, wird hierfür btn:[Strip GUIDs] ausgeschaltet.
 Dadurch werden die alten Versionen der Elemente durch die neuen ersetzt.
-Dieses Vorgehen muss man sich aber vor Beginn der Änderungsspezifikation überlegen und bei den Änderungen beachten, wie der Rückimport später funktioniert.
+Dieses Vorgehen muss sich aber vor Beginn der Änderungsspezifikation überlegt und bei den Änderungen beachten werden, wie der Rückimport später funktioniert.
 Im Normalfall ist eine manuelle Übernahme der Änderungen hier der weniger fehleranfällige Weg.
