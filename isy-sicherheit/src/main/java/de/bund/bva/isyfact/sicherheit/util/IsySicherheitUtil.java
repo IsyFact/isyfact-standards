@@ -21,17 +21,18 @@ import java.util.Base64;
 
 import javax.servlet.http.HttpServletRequest;
 /**
- * This class contains utility methods for isy-sicherheit
+ * This class contains utility methods for isy-sicherheit.
+ * @deprecated in favor of {@code spring-web} and {@code spring-security-web}
  */
 @Deprecated
 public final class IsySicherheitUtil {
     /**
-     * Header name for authorization
+     * Header name for authorization.
      */
     private static final String HEADER_NAME_AUTH = "Authorization";
 
     /**
-     * Prefix name for http basic authorization
+     * Prefix name for http basic authorization.
      */
     private static final String BASIC_AUTH_PREFIX = "Basic";
 
@@ -47,7 +48,9 @@ public final class IsySicherheitUtil {
      *            the HTTP request
      * @return String array with length two, containing username and password.
      *            Contains zero elements if the header is not set.
+     * @deprecated use {@link org.springframework.security.web.authentication.www.BasicAuthenticationConverter} instead
      */
+    @Deprecated
     public static String[] parseBasicAuthHeader(HttpServletRequest request) {
         return parseBasisAuthHeaderValue(request.getHeader(HEADER_NAME_AUTH));
     }
@@ -56,14 +59,12 @@ public final class IsySicherheitUtil {
      * Determines the user identification and password from the value of the http header attribute
      * for the http basic authentication.
      *
-     * @Deprecated
-     * Recommended alternative:
-     * spring-security-web::org.springframework.security.web.authentication.www.BasicAuthenticationConverter
-     *
      * @param headerValue
      *              Value of the header attribute
      * @return String array with length two, containing username and password.
-     *              Contains zero elements if the the value of the header attribute is empty.
+     *              Contains zero elements if the value of the header attribute is empty.
+     *
+     * @deprecated use {@link org.springframework.security.web.authentication.www.BasicAuthenticationConverter} instead
      */
     @Deprecated
     public static String[] parseBasisAuthHeaderValue(String headerValue) {
@@ -90,17 +91,15 @@ public final class IsySicherheitUtil {
     }
 
     /**
-     * Creates a http basic authentication header for a login id and password
-     *
-     * @Deprecated
-     * Recommended alternative:
-     * spring-web::org.springframework.http.HttpHeaders
+     * Creates a http basic authentication header for a login id and password.
      *
      * @param loginId
      *            The login id
      * @param password
      *            The password
      * @return String array with length two, containing header attribute ([0]) and header value ([1]).
+     *
+     * @deprecated use {@link org.springframework.http.HttpHeaders} instead
      */
     @Deprecated
     public static String[] createBasicAuthHeader(String loginId, String password) {
