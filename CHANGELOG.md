@@ -1,3 +1,5 @@
+# 1.12.0
+
 # 1.11.0
 - `IFS-1073`: [isy-serviceapi-core] Logausgabe zur Korrektur der Korrelations-Id entfernt
 - `IFS-668`: [isy-serviceapi-core] Zurücksetzung der KorrelationsId des AnrufKontextTo bei einem Invoke

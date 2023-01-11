@@ -1,3 +1,5 @@
+# 1.15.0
+
 # 1.14.0
 - `IFS-801`: SpotBugs Fehler behoben
 - `IFS-702`: Fügt die KorrelationsId passend zum MDC dem AufrufKontext hinzu

@@ -1,3 +1,5 @@
+# 1.12.0
+
 # 1.11.0
 - `IFS-875`: Tests an den veränderten `AufrufKontextVerwalter` angepasst
 
