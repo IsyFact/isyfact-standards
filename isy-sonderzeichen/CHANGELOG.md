@@ -1,3 +1,5 @@
+# 1.13.0
+
 # 1.12.0:
 - `IFS-1176`: Fehler gefixt, bei dem der LegacyTransformator Texte ausgibt, die nicht konform zu String.Latin 1.1 sind
 

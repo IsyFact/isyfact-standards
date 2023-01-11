@@ -1,3 +1,5 @@
+# 1.8.0
+
 # 1.7.0
 - `IFS-661`: CompletionWatchdog loggt Stacktrace bei Exception
 - `IFS-1175`: Erstelle eigenen TaskFehlertextProvider für Fehlermeldungen

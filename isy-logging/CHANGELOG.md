@@ -1,3 +1,5 @@
+# 1.13.0
+
 # 1.12.0
 - `IFS-802`: SpotBugs Fehler behoben
 - `IFS-736`: Aktive Log-Level im LogHelper prüfen

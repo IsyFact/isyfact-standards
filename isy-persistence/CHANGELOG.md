@@ -1,3 +1,5 @@
+# 1.14.0
+
 # 1.13.0
 - `IFS-1066`: Protokollierung-Datenstrukturen aus den Template-DB-Skripten entfernt
 - `IFS-1093`: Oracle-JDBC hinzugefügt

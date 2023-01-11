@@ -1,3 +1,5 @@
+# 1.13.0
+
 # 1.12.0
 - `IFS-875`: Umsetzung des Transports von OAuth 2 Bearer-Token zwischen Schnittstellentechnologien
     - `AufrufKontextVerwalter` wurde um ein Feld für das OAuth 2 Bearer-Token erweitert.
