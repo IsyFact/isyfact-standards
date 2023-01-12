@@ -426,7 +426,7 @@ public abstract class AbstractTransformator implements Transformator {
         inputStream.close();
 
         // Make a list of all character categories
-        for (String kategorie : ZeichenKategorie.ALLE_ZEICHEN_KATEGORIEN) {
+        for (String kategorie : ZeichenKategorie.getAlleZeichenKategorien()) {
 
             Set<String> zeichenketteSet = new HashSet<>();
             for (Object o : properties.keySet()) {
