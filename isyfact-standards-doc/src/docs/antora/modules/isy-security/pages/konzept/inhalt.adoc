@@ -50,6 +50,46 @@ Wie genau Rollen und Rechte spezifiziert werden, beschreibt das Kapitel xref:kon
 [[oauth2.0-zur-autorisierung]]
 === OAuth2.0 zur Autorisierung
 
+Das OAuth 2.0 Autorisierungsframework ermöglicht Fremdanwendungen beschränkten Zugang zu HTTP-Services, entweder stellvertretend für den Ressourcenbesitzer - durch Organisation einer Erlaubnis-Interaktion zwischen dem Ressourcenbesitzer, der Fremdanwendung und dem HTTP-Service - oder indem - nach Prüfung - der Fremdanwendung der Zugang für sich selbst erlaubt wird.
+
+Die direkte Authentifizierung des Clients mit dem Identitätsnachweis des Ressourcenbesitzers birgt einige Gefahren, Probleme und Einschränkungen, auf die hier nicht weiter eingegangen wird.
+Das OAuth 2.0 Framework begegnet dem mit der Einführung einer Autorisierungs-Ebene und der Trennung von Client und Ressourcenbesitzer. +
+In OAuth 2.0 authentisiert sich der Ressourcenbesitzer bei einem zentralen IAM-Service, der dem Client ein individuelles Access Token ausstellt.
+Mit diesem Access Token verlangt der Client Zugang zu der gewünschten geschützten Ressource.
+Der Ressourcen Server gewährt den Zugang nach Validierung des Access Tokens gegenüber dem IAM-Service.
+So kommen weder der Client noch der Ressource-Server mit den Authentifizierungsinformationen in Berührung.
+Zu Beachten ist hierbei, dass OAuth 2.0 mit dem Access Token nur eine Zugangserlaubnis - im Sinne eines Schlüssels zu einem Schloss - an den Client aushändigt, aber keinerlei Informationen über den Ressourcenbesitzer.
+
+In OAuth 2.0 gibt es folgende vier Rollen bzw. beteiligte Parteien:
+
+- Ressourcenbesitzer (resource owner): +
+Eine Einheit (Person, System), die berechtigt ist, auf eine geschützte Ressource zuzugreifen.
+
+- Ressourcen-Server (resource server): +
+Der Server, in dem die geschützte Ressource liegt und der in der Lage ist, auf Anfragen an diese geschützte Ressource zu reagieren, wenn sie ein Access Token enthalten.
+
+- Client: +
+Eine Anwendung, die im Namen/für den Ressourcenbesitzer eine geschützte Ressource anfragt.
+Der Begriff 'Client' impliziert hier nicht bestimmte Implementierungscharakteristiken, sondern den Teil der Anwendung, mit der der Ressourcenbesitzer interagiert.
+
+- IAM-Service (authorization server): +
+Der Service, der Access Tokens ausstellt, nach erfolgreicher Authentifizierung und Autorisierung des Ressourcenbesitzers.
+
+Weitere wichtige Begriffe sind:
+
+- Access Token: +
+Berechtigungsnachweis für den Zugang zu einer geschützten Ressource.
+Der Inhalt ist für den Client meist nicht lesbar, er gibt es einfach weiter an den Ressourcen-Server.
+Sie gelten für einen spezifischen Bereich und nur für eine bestimmte Zeit. +
+Eine Analogie wäre z.B. eine Schlüsselkarte, die der Gast (Client) vom Empfang (IAM-Service) nach dem Einchecken (Authentifizierung  u. Autorisierung) vom Empfang (IAM-Service) erhält.
+Das Zimmerschloss (Ressourcen-Server) braucht den Namen des Gastes nicht, es muss nur die Gültigkeit der Schlüsselkarte prüfen.
+Andere Zimmer können damit nicht geöffnet werden und nach Ablauf der Aufenthaltsdauer verliert die Schlüsselkarte automatisch ihre Gültigkeit und der Gast kann nicht mehr in sein Zimmer.
+
+- Refresh Token: +
+'Meta'-Berechtigungsnachweis: Ermöglicht dem Client, ein neues Access Token vom IAM-Service zu erhalten, ohne dass der Ressourcenbesitzer sich erneut ausweisen muss.
+Diese neue Access Token kann z.B. ein späteres Ablaufdatum (autom. Nutzungsverlängerung) oder andere Rechte (innerhalb aller an den Ressourcenbesitzer vergebenen Rechte) aufweisen. +
+In der obigen Hotelanalogie wäre das z.B. die Verlängerung der Aufenthaltsdauer oder ein Zimmerwechsel, was an der Rezeption geklärt werden muss, aber ohne dass der Gast den Eincheck-Prozess erneut durchlaufen muss.
+
 [[openidconnect-zur-authentifizierung]]
 === OpenIDConnect zur Authentifizierung
 
