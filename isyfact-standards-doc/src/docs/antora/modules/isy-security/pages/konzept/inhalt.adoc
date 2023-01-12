@@ -149,7 +149,8 @@ die Ausführungsberechtigung des Users verifiziert und sichergestellt werden kan
 [[autorization-grant]]
 ===== Autorisierungsverfahren
 
-Mit SpringSecurity(OAuth2.0) werden vier verschiedene Berechtigungszuteilungsverfahren spezifiziert. In IsyFact spielen
+Mit SpringSecurity(OAuth2.0) werden die vier Berechtigungszuteilungsverfahren _Authorization-Code-Credentials_,
+_Implicit-Credentials_, _Resource-Owner-Password-Credentials_ und _Client-Credentials_ spezifiziert. In IsyFact spielen
 davon bei den externen Anwendungsaufrufen über ein _Service-Gateway_ die beiden Verfahren
 _Resource-Owner-Password-Credential_ und _Client-Credential_ ein Rolle, da es sich hierbei nur um die
 Berechtigungszuteilung für ausschließlich _Confidential-Clients_ dreht.
@@ -167,11 +168,22 @@ dass die Clientanwendung die User-Credentials für zukünftige Zugriffe speicher
 mit langer Gültigkeitsdauer ersetzt werden.
 
 
-
-
-.OAuth2.0 Resource-Owner Password Flow
+.OAuth2.0 Resource-Owner-Password Flow
 [id="image-ResourceOwner_Password_Flow",reftext="{figure-caption} {counter:figures}"]
-image::isy-security:konzept/ServiceGateway-Authentifizierung.svg[align="center"]
+image::isy-security:konzept/Resource-Owner-Passwort-Credential-Flow.svg[align="center"]
+
+Im vorherigen Bild wird der logische Ablauf des _Resource-Owner-Password_-Flows dargestellt. Als _Resource-Owner_ wird
+hier der Inhaber bzw. Wissensträger der User-Credentials `Username` und `Passwort` bezeichnet, was für
+Confidential-Clients dann im allgemeinen ein Admin, DevOp oder eine Person ist, die die (1.) Konfiguration der
+Anwendungen mit den User-Credentials in der Produktionsumgebung einrichtet bzw. vornimmt.
+
+Die so konfigurierte (Confidential-Client)-Anwendung schickt (2.) dann zur Authentifizierung und Autorisierung diese
+Passwort-Credentials an das zuständige Identity-Access-Management-System, um die Credentials dort überprüfen zu lassen
+und bei validen Credentails als Antwort (3.) ein gültiges Access-Token zu erhalten. Mit diesem Access-Token kann die
+Client-Anwendung dann andere Fachanwendungen aufrufen, da das Access-Token alle notwendigen Daten enthält, damit  die
+Fachanwendung verifizieren, ob die aufrufende Anwendung authentifiziert und autorisiert ist, dies zu tun.
+
+
 
 
 [[client-credential-flow]]
