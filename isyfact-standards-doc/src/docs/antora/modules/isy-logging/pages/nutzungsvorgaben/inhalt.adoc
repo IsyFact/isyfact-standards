@@ -149,7 +149,7 @@ Wenn an mehreren Stellen Logeinträge für den gleichen Zweck erstellt werden, w
 Dies ist bspw. im Logszenario „Loggen fachlicher Operationen“ (siehe <<loggen-fachlicher-operationen>>) der Fall, in dem die Durchführung fachlicher Operationen jeweils mit dem gleichen Ereignisschlüssel geloggt werden, so dass alle diese Einträge mit einer einzelnen Abfrage auf den definierten Schlüssel ausgewertet werden können.
 
 In den Log-Leveln FATAL, ERROR und WARN wird der jeweilige Fehlerschlüssel als Ereignisschlüssel verwendet.
-In den Log-Leveln DEBUG und TRACE werden keine Ereignisschlüssel Verwendet, da dort der Zweck bereits eindeutig durch den Log-Level (Zweck „Fehleranalyse“) bestimmt ist.
+In den Log-Leveln DEBUG und TRACE werden keine Ereignisschlüssel verwendet, da dort der Zweck bereits eindeutig durch den Log-Level (Zweck „Fehleranalyse“) bestimmt ist.
 Dadurch kann der Aufwand für die Verwendung der Ereignisschlüssel gering gehalten werden.
 
 In <<ereignisschluessel-isy-logging>> wird eine Reihe von Standardschlüsseln definiert, die durch das Logging-Framework verwendet werden.
@@ -422,7 +422,7 @@ Sie werden zusammen mit der Schnittstelle `IsyLoggerTypisiert` verwendet:
 [[verwendung-von-platzhaltern-in-nachrichten]]
 ==== Verwendung von Platzhaltern in Nachrichten
 
-In den Lognachrichten können Platzhalter verwendet werden, die beim Erstellen des Logeintrags mit  den konkreten Werten des aktuellen Aufrufs ersetzt werden (bspw. gemessene Laufzeit).
+In den Lognachrichten können Platzhalter verwendet werden, die beim Erstellen des Logeintrags mit  dem konkreten Wert des aktuellen Aufrufs ersetzt werden (bspw. gemessene Laufzeit).
 
 Platzhalter sind in den Nachrichten durch geschweifte Klammern `{}` zu kennzeichnen, bspw.:
 
@@ -432,8 +432,8 @@ Platzhalter sind in den Nachrichten durch geschweifte Klammern `{}` zu kennzeich
 LOG.debug("Die Methode {} wurde mit dem Parameter {} aufgerufen.", method.getName(), wert)
 ----
 
-Die Verwendung des Parameters `werte` zum Ersetzen der Platzhalter ermöglicht es zudem, die übergebenen Parameter als separate Attribute in den Logeintrag zu übernehmen (siehe vorhergehende Abschnitte), was die Auswertbarkeit der Einträge erleichtert.
-Zudem wird die Performance des Systems leicht erhöht, da die Konkatenation des Strings nur dann erfolgt, wenn der Logeintrag auch geschrieben wird (d.h. der Log-Level eingeschaltet ist) – dieser Performance-Gewinn ist jedoch vernachlässigbar und nicht die eigentliche Motivation dieser Vorgehensweise.
+Die Verwendung des Parameters `wert` zum Ersetzen der Platzhalter ermöglicht es zudem, die übergebenen Parameter als separate Attribute in den Logeintrag zu übernehmen (siehe vorhergehende Abschnitte), was die Auswertbarkeit der Einträge erleichtert.
+Zudem wird die Performance des Systems leicht erhöht, da die Konkatenation des Strings nur dann erfolgt, wenn der Logeintrag auch geschrieben wird (d.h. der Log-Level eingeschaltet ist) – dieser Performance-Gewinn ist vernachlässigbar und nicht die Motivation dieser Vorgehensweise.
 
 Das direkte Konkatenieren von Zeichenketten zum Aufbau einer Lognachricht ist nicht erlaubt:
 
@@ -477,7 +477,7 @@ Um den komplexen Aufruf nur durchzuführen, wenn der Logeintrag auch wirklich ge
 Die Klassen `LoggingMethodInterceptor` und `LoggingMethodInvoker` bieten die Möglichkeit, einheitliche Logeinträge vor und nach dem Aufruf einer Methode für verschiedene Zwecke (insbesondere dem Messen der Laufzeit für das Profiling) zu erstellen.
 Beide erzeugen die gleichen Logeinträge, dienen jedoch unterschiedlichen Einsatzzwecken.
 
-Der Interceptor wird per Spring als Method-Interceptor konfiguriert und kann dadurch querschnittlich für eingehende Methodenaufrufe konfiguriert werden – dies wird in <<logbackconfiglistener>> beschrieben.
+Der Interceptor wird per Spring als Method-Interceptor konfiguriert und kann dadurch querschnittlich für eingehende Methodenaufrufe konfiguriert werden.
 
 Der Invoker wird direkt im Anwendungscode für die Durchführung von Methodenaufrufen verwendet.
 Zur Verwendung des Invokers, muss eine Instanz des Interceptors als Klassenvariable erstellt werden:
@@ -610,7 +610,7 @@ Ist der Header nicht gesetzt, wird eine neue Korrelations-ID generiert.
 [[diagnosekontext-korrelations-id]]
 ==== Diagnosekontext / Korrelations-ID
 
-Die Korrelations-ID (siehe xref:nutzungsvorgaben/master.adoc#einleitung[Logging - Konzept]) ist in jedem Eintrag mitzuloggen, damit die Logeinträge einzelnen Aufrufen zugeordnet und über die Komponenten der xref:glossary:glossary:master.adoc#glossar-anwendungslandschaft[Anwendungslandschaft] verfolgt werden können.
+Die Korrelations-ID (siehe xref:konzept/master.adoc#einleitung[Logging - Konzept]) ist in jedem Eintrag mitzuloggen, damit die Logeinträge einzelnen Aufrufen zugeordnet und über die Komponenten der xref:glossary:glossary:master.adoc#glossar-anwendungslandschaft[Anwendungslandschaft] verfolgt werden können.
 Das Ermitteln der Korrelations-ID erfolgt automatisch durch `isy-logging`.
 Hierzu wird der Mapped Diagnostic Context (MDC) verwendet, der durch SLF4J bzw. logback zur Verfügung gestellt wird.
 Der MDC wird über eine statische Methode gesetzt, und zwar pro Thread:
@@ -721,7 +721,7 @@ In diesem Abschnitt werden weitere Möglichkeiten der Konfiguration von logback 
 ===== Maximale Länge des Logeintrags festlegen
 
 Es kann die maximale Länge eines Logeintrags in Bytes festgelegt werden.
-Sollte ein Logeintrag länger als dieser Wert sein, so wird der Logeintrag gekürzt (siehe xref:nutzungsvorgaben/master.adoc#einleitung[Logging - Konzept]).
+Sollte ein Logeintrag länger als dieser Wert sein, so wird der Logeintrag gekürzt (siehe xref:konzept/master.adoc#einleitung[Logging - Konzept]).
 Wird kein Wert angegeben, so beträgt der Standardwert 32000 Bytes.
 Wird der Wert auf 0 festgelegt, so gibt es keine Begrenzung in der Länge des Logeintrags.
 Die Beschränkung der Länge gilt nur für Logeinträge der Levels `INFO`, `WARN` und `ERROR`.
@@ -765,7 +765,7 @@ Das Attribut `additivity=false` gibt dabei an, dass für die konfigurierte Klass
 [[spring-konfiguration]]
 ==== Spring-Konfiguration
 
-Im Folgenden werden die Spring-Konfigurationen zur Integration von logback in Spring und zur Konfiguration der genutzten Hilfsmechanismen (vgl. xref:nutzungsvorgaben/master.adoc#einleitung[Logging - Konzept]) beschrieben.
+Im Folgenden werden die Spring-Konfigurationen zur Integration von logback in Spring und zur Konfiguration der genutzten Hilfsmechanismen (vgl. xref:konzept/master.adoc#einleitung[Logging - Konzept]) beschrieben.
 
 [[loggingmethodinterceptor]]
 ===== LoggingMethodInterceptor
