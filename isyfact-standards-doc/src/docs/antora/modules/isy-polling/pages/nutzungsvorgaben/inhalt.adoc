@@ -4,7 +4,7 @@
 [[die-bibliothek-isy-polling]]
 == Die Bibliothek isy-polling
 
-Die Bibliothek `isy-polling` der IsyFact-Standards implementiert den im xref:nutzungsvorgaben/master.adoc[Polling - Konzept] dargestellten Synchronisationsmechanismus über JMX.
+Die Bibliothek `isy-polling` der IsyFact-Standards implementiert den im xref:konzept/master.adoc[] dargestellten Synchronisationsmechanismus über JMX.
 Die Bibliothek kann mit mehreren zu pollenden Datenquellen und beliebig vielen Instanzen der Anwendung zum Abfragen einer Datenquelle umgehen.
 
 Zur weiteren Erläuterung der einzelnen Klassen der Bibliothek wird zunächst der Begriff „Polling-Cluster“ definiert:
