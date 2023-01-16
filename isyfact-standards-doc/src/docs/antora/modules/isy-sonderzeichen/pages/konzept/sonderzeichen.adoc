@@ -115,9 +115,8 @@ Dabei sind die der Transkription zugrunde liegenden Parameter ebenfalls mit abzu
 Dies führt zu folgendem Datentyp für umgeschriebene Zeichenfolgen:
 
 .Datentyp für umgeschriebene Texte
-<p align="center">
-<img src="https://isyfact.github.io/isyfact-standards-doku/latest/isy-sonderzeichen/_images/konzept/sonderzeichen_klasse_transtext.png">
-</p>
+[id="sonderzeichen_transkription.png",reftext="{figure-caption} {counter:figures}"]
+image::isy-sonderzeichen:konzept/sonderzeichen_klasse_transtext.png.png[width=35%, align="center"]
 
 Die Attribute für den Datentyp „TransText“ haben die folgende Bedeutung:
 
