@@ -23,7 +23,7 @@ Dadurch ergibt sich folgende Exception-Hierarchie:
 
 .Abstrakte Exception Hierarchie
 [id="image-004",reftext="{figure-caption} {counter:figures}"]
-image::isy-exception-core:nutzungsvorgaben/fehlerbehandlung004.png[align="center",width=60%,pdfwidth=60%]
+image::isy-exception-core:nutzungsvorgaben/fehlerbehandlung004.png[align="center",width=50%]
 
 Grundsätzlich lassen sich also folgende Regeln für die Verwendung festhalten:
 
