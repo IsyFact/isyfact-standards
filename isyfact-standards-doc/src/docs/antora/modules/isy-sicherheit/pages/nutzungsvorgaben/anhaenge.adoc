@@ -4,10 +4,8 @@
 == Anhang
 
 [[konfigurationsdateien]]
-=== Anhang A: Konfigurationsdateien
-
 [[standard-cache-konfiguration]]
-==== Standard-Cache-Konfiguration
+=== Anhang A: Standard-Cache-Konfiguration
 
 [source,xml]
 ----
