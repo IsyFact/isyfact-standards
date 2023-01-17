@@ -64,14 +64,14 @@ Wie genau Rollen und Rechte spezifiziert werden, beschreibt das Kapitel xref:kon
 
 Mit `IsyFact Version-3` wird eine neue Authentifizierungslogik mit zusätzlichem _Authentication-Gateway_
 eingeführt. Für eine weiche Migration der externen Anwendungen auf die neue IsyFact-Version wird zusätzlich die
-bisherige Authentifizierungslogik -_ohne Authentication-Gateway_- beibehalten.
+bisherige Authentifizierungslogik - _ohne Authentication-Gateway_ - beibehalten.
 
 [[aufruf-service-gateway-mit-authentication-gateway]]
 ===== ...mit Authentication-Gateway
 
 Die folgende Abbildung zeigt die neue System-Architektur, die bei Aufrufen von externen Anwendungen für die
 Authentifizierung zum Einsatz kommt. Dabei werden die Vorgaben des BSI berücksichtigt, dass beim Aufruf über
-ServiceGateways (SGW) die Authentifizierungsdaten von den Nutzungsdaten getrennt werden müssen.
+_ServiceGateways (SGW)_ die Authentifizierungsdaten von den Nutzungsdaten getrennt werden müssen.
 
 .Authentifizierung am Authentication-Gateway
 [id="image-Gesamtsystem",reftext="{figure-caption} {counter:figures}"]
@@ -85,7 +85,7 @@ Trennung zwischen Anwendungsdaten und Authentifizierungsdaten erfüllt ist.
 
 Die Kommunikation ausserhalb der IsyFact-Infrastruktur ist grundsätzlich Transportverschlüsselt, dh. von einer externen
 Anwendung bis zur ersten Infrastrukturkomponente erfolgt der Datenaustausch per HTTPS-Protokoll. Mit Eintritt in die
-IsyFact-Infrastruktur erfolgt am Loadbalancer dann zuerst die Terminierung der Transportverschlüsselung und
+IsyFact-Infrastruktur erfolgt am _Loadbalancer_ dann zuerst die Terminierung der Transportverschlüsselung und
 Weiterleitung zum _Authentication-Gateway_ per HTTP-Protokoll.
 
 Im _Authentication-Gateway_ erfolgt nun eine Filterung auf die enthaltenen Authentifizierungsdaten wie `Client-ID` und
@@ -95,8 +95,12 @@ vorliegen dürfen. Gemäß den Filterregeln im _Authentication-Gateway_ wird der
 ggf. noch verschlüsselten, User-Credentials an das zuständige Isy-IAM-System weitergeleitet.
 
 Im Isy-IAM-System erfolgt, falls verschlüsselt, zuerst die Entschlüsselung der User-Credential. Mit den
-unverschlüsselten User-Credentials kann das IAM-System die eigentliche Authentifizierung durchführen. Mit validen
-User-Credentials und erfolgreicher Authentifizierung liefert das IAM-System dann ein Access-Token aus, das im Response
+unverschlüsselten User-Credentials kann das IAM-System die eigentliche Authentifizierung durchführen. Das IAM muss dabei
+unterscheiden, ob es sich um die User-Credentials eines _Natürlichen Nutzers_ mit `Username`und `Passwort` oder
+ob es sich um einen _Technischen Nutzer_ mit `Client-ID` und `Client-Secret` handelt. Für einen _Technischen Nutzer_
+liegen alle Daten zur Authentifizierung im IAM-System vor. Für einen _Natürlichen Nutzer_ muss das IAM-System sich noch
+weitere Daten aus der _Benutzerverwaltung_ zu den User-Credentials hinzuholen, um dann letztendlich die Authentifizierung
+abschließen zu können. Mit validen User-Credentials und erfolgreicher Authentifizierung liefert das IAM-System dann ein Access-Token aus, das im Response
 des synchronen Authentifizierungsrequests zurück an die externe Anwendung transportiert wird.
 
 Mit Erhalt eines gültigen Access-Tokens kann nun die externe Anwendung ihre fachlichen Requests zusammen mit dem
@@ -106,7 +110,15 @@ gültige Authentifizierung, sowie eine Prüfung auf eine valide Autorisierung de
 einer Gültigkeitsdauer auch die für den User autorisierten Rechte in dem Token enthalten, so dass im Anwendungssystem
 die Ausführungsberechtigung des Users verifiziert und sichergestellt werden kann.
 
-[[aufruf-service-gateway-mit-authentication-gateway]]
+Das nachfolgende Sequenzdiagramm zeigt noch einmal schematisch den logischen Ablauf der Authentifizierung und
+Autorisierung im Zusammenspiel der System-Komponenten und dem Authentication-Gateway:
+
+.Sequenzdiagramm Authentifizierung am Authentication-Gateway
+[id="image-sequenzdiagramm-sgw-plus-agw",reftext="{figure-caption} {counter:figures}"]
+image::isy-security:konzept/Squenzdiagramm_ServiceGateway_plus_AuthGateway.svg[align="center"]
+
+
+[[aufruf-service-gateway-ohne-authentication-gateway]]
 ===== ...ohne Authentication-Gateway
 
 Die nachfolgende Abbildung zeigt die System-Architektur, die bei Aufrufen von externen Anwendungen für die
@@ -123,19 +135,24 @@ fachlichen Requests.
 image::isy-security:konzept/ServiceGateway-Authentifizierung.svg[align="center"]
 
 Für den Zugriff auf die Ressourcen eines Anwendungssystems benötigt ein User einer externen Anwendung ein gültiges
-Access-Token. Dieses Token muss er sich zuerst beschaffen, indem er sich beim IdentityAccessManagement-System (IAM)
+Access-Token. Dieses Token muss er sich zuerst beschaffen, indem er sich beim _IdentityAccessManagement-System (IAM)_
 authentifiziert.
 
 Die Kommunikation ausserhalb der IsyFact-Infrastruktur ist grundsätzlich Transportverschlüsselt, dh. von einer externen
 Anwendung bis zur ersten Infrastrukturkomponente erfolgt der Datenaustausch per HTTPS-Protokoll. Mit Eintritt in die
-IsyFact-Infrastruktur erfolgt am Loadbalancer dann zuerst die Terminierung der Transportverschlüsselung und
+IsyFact-Infrastruktur erfolgt am _Loadbalancer_ dann zuerst die Terminierung der Transportverschlüsselung und
 Weiterleitung zum _Service-Gateway_ per HTTP-Protokoll.
 
 Im _Service-Gateway_ erfolgt nun eine Filterung auf die enthaltenen Authentifizierungsdaten wie `Nutzername` und
 `Passwort`. Gemäß den Filterregeln im _Service-Gateway_ wird der Authentifizierungsrequest nun mit den User-Credentials
 an das zuständige Isy-IAM-System weitergeleitet.
 
-Im Isy-IAM-System erfolgt mit den User-Credentials die eigentliche Authentifizierung. Bei validen User-Credentials und
+Im Isy-IAM-System erfolgt mit den User-Credentials die eigentliche Authentifizierung. Das IAM muss dabei
+unterscheiden, ob es sich um die User-Credentials eines _Natürlichen Nutzers_ mit `Username`und `Passwort` oder
+ob es sich um einen _Technischen Nutzer_ mit `Client-ID` und `Client-Secret` handelt. Für einen _Technischen Nutzer_
+liegen alle Daten zur Authentifizierung im IAM-System vor. Für einen _Natürlichen Nutzer_ muss das IAM-System sich noch
+weitere Daten aus der _Benutzerverwaltung_ zu den User-Credentials hinzuholen, um dann letztendlich die Authentifizierung
+abschließen zu können. Bei validen User-Credentials und
 erfolgreicher Authentifizierung liefert das IAM-System dann ein Access-Token aus, das im Response
 des synchronen Authentifizierungsrequests zurück an die externe Anwendung transportiert wird.
 
@@ -145,6 +162,15 @@ notwendigen Informationen enthalten, um im _Service-Gateway_ eine Validierung au
 gültige Authentifizierung, sowie eine Prüfung auf eine valide Autorisierung des Requests vorzunehmen. So sind neben
 einer Gültigkeitsdauer auch die für den User autorisierten Rechte in dem Token enthalten, so dass im Anwendungssystem
 die Ausführungsberechtigung des Users verifiziert und sichergestellt werden kann.
+
+Das nachfolgende Sequenzdiagramm zeigt noch einmal schematisch den logischen Ablauf der Authentifizierung und
+Autorisierung im Zusammenspiel der System-Komponenten mit dem _Service-Gateway_ aber ohne _Authentication-Gateway_:
+
+.Sequenzdiagramm Authentifizierung ohne Authentication-Gateway
+[id="image-sequenzdiagramm-sgw-without-agw",reftext="{figure-caption} {counter:figures}"]
+image::isy-security:konzept/Squenzdiagramm_ServiceGateway_ohne_AuthGateway.svg[align="center"]
+
+
 
 [[autorization-grant]]
 ===== Autorisierungsverfahren
