@@ -290,7 +290,7 @@ In <<image-logfass>> ist eine Übersicht der Implementierung der Fassade dargest
 
 .Logging-Fassade
 [id="image-logfass",reftext="{figure-caption} {counter:figures}"]
-image::isy-logging:konzept/logfass.png[align="center"]
+image::isy-logging:konzept/logfass.dn.svg[align="center"]
 
 Die Klassen der Fassade sind in <<table-KlassenFassade>> beschrieben.
 
