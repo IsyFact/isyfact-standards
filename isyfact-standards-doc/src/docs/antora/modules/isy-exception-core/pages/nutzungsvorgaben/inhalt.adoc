@@ -40,7 +40,7 @@ Sie ist eine Referenz auf den aufgetretenen Fehler.
 
 .Attribute von Fehlern
 [id="image-005",reftext="{figure-caption} {counter:figures}"]
-image::isy-exception-core:nutzungsvorgaben/fehlerbehandlung005.png[align="center",width=20%,pdfwidth=20%]
+image::isy-exception-core:nutzungsvorgaben/fehlerbehandlung005.png[align="center",width=40]
 
 [[erstellen-von-exceptions]]
 === Erstellen von Exceptions
@@ -105,7 +105,7 @@ Beispiel für eine fachliche Exception Hierarchie:
 
 .Beispiel fachliche Exception Hierarchie
 [id="image-007",reftext="{figure-caption} {counter:figures}"]
-image::isy-exception-core:nutzungsvorgaben/fehlerbehandlung007.png[align="center",width=50%,pdfwidth=70%]
+image::isy-exception-core:nutzungsvorgaben/fehlerbehandlung007.png[align="center",width=70%]
 
 Das Beispiel in <<image-007>> zeigt eine fachliche Exception der Vorlageanwendung.
 Die fachliche Exception `TerminfindungNichtGefundenException` besitzt in diesem Beispiel nicht alle möglichen Konstruktoren.
@@ -127,7 +127,7 @@ Beispiel für eine technische Runtime-Exception Hierarchie:
 
 .Beispiel technische Runtime-Exception Hierarchie
 [id="image-008",reftext="{figure-caption} {counter:figures}"]
-image::isy-exception-core:nutzungsvorgaben/fehlerbehandlung008.png[align="center",width=45%,pdfwidth=65%]
+image::isy-exception-core:nutzungsvorgaben/fehlerbehandlung008.png[align="center",width=65%]
 
 Die <<image-008>> zeigt die technische Runtime-Exception `KonfigurationException`.
 Diese Exception könnte dafür verwendet werden, um bei einem Konfigurationsfehler z.B. "Konfigurationsparameter nicht gesetzt" geworfen zu werden.
@@ -441,7 +441,7 @@ Zu implementieren sind die zwei `getMessage()`-Methoden des Interfaces `Fehlerte
 
 .Fehlertextprovider
 [id="image-014",reftext="{figure-caption} {counter:figures}"]
-image::isy-exception-core:nutzungsvorgaben/fehlerbehandlung014.png[align="center",width=40%,pdfwidth=40%]
+image::isy-exception-core:nutzungsvorgaben/fehlerbehandlung014.png[align="center",width=60%]
 
 Die Implementierung muss Spring-Mechanismen verwenden, um die Fehlertexte aus einem `ResourceBundle` auszulesen.
 Dies führt zu einer Vereinheitlichung der Fehlerbehandlung, da sich das Laden von Fehlertexten in den einzelnen Anwendungen nicht unterscheidet.
@@ -649,8 +649,8 @@ try { myMethod(); } finally { cleanUp(); }
 
 [NOTE]
 ====
- Wirft `cleanUp()` eine Exception, ist die original Exception von `myMethod()` verloren.
-Es ist somit nicht gestattet in `finally`-Blöcken Methoden aufzurufen, welche potentiell Exceptions werfen.
+Wirft `cleanUp()` eine Exception, ist die original Exception von `myMethod()` verloren.
+Es ist somit nicht gestattet in `finally`-Blöcken Methoden aufzurufen, welche potenziell Exceptions werfen.
 ====
 
 *Nicht unterstützte Methode gibt null zurück:* +
