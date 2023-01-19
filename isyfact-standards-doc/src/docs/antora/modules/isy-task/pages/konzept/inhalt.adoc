@@ -57,7 +57,7 @@ Dazu gehören die folgenden Operationen:
 [[vorgaben]]
 == Vorgaben
 
-Die folgenden architektonischen und technischen Vorgaben beziehen sich auf die Umsetzung der in Kapitel siehe xref:konzept/master.adoc#anforderungen[Anforderungen]
+Die folgenden architektonischen und technischen Vorgaben beziehen sich auf die Umsetzung der in Kapitel  xref:konzept/master.adoc#anforderungen[Anforderungen]
 genannten Anforderungen in der zu diesem Baustein gehörenden Bibliothek.
 
 [[namenskonventionen]]
