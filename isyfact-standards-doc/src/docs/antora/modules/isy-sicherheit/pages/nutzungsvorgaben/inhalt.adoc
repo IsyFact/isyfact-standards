@@ -102,7 +102,7 @@ Eine Beschreibung der Konfiguration findet sich in den jeweiligen Nutzungsvorgab
 
 // end::important[]
 
-==== Caching von Authentifizierungen
+=== Caching von Authentifizierungen
 
 Der Baustein liefert eine xref:nutzungsvorgaben/master.adoc#standard-cache-konfiguration[Standard-Konfiguration für das Caching von Authentifizierungen] an.
 Der Standardwert für die Lebensdauer von Cache-Elementen liegt bei 5 Minuten (300 Sekunden), die maximale Anzahl an Elementen im Cache bei 1000.
@@ -126,17 +126,13 @@ Wird der Parameter `isy.sicherheit.cache.maxelements` auf 0 gesetzt, werden beli
 Jede Geschäftsanwendung spezifiziert im Rahmen ihrer Systemspezifikation Rechte und bildet diese auf fachliche und technische Rollen ab.
 Bei der technischen Umsetzung müssen alle spezifizierten Rollen und Rechte konfiguriert und korrekt zugeordnet werden.
 Dies geschieht in der statischen Konfiguration in der Datei `/resources/sicherheit/rollenrechte.xml`.
-Der Baustein liefert ein xref:nutzungsvorgaben/master.adoc#einleitung[XML-Schema für den Aufbau der Konfigurationsdatei] mit.
+Der Baustein liefert ein xref:nutzungsvorgaben/master.adoc#anhang-rollen-rechte-schema[XML-Schema für den Aufbau der Konfigurationsdatei] mit.
 
-[[rollen-rechte-schema]]
-==== rollen-rechte-schema
-Die Geschäftsanwendung X spezifiziert zwei Rechte, `DialogA.Aufrufen` und `DialogB.Aufrufen`.
+Dieser Zusammenhang wird mit einem Beispiel verdeutlicht: Die Geschäftsanwendung X spezifiziert zwei Rechte, `DialogA.Aufrufen` und `DialogB.Aufrufen`.
 Aus diesen werden zwei fachliche Rollen gebildet:
 
 * `FAX_DialogNutzerA` darf nur Dialog A aufrufen,
 * `FAX_DialogNutzerAlle` darf Dialog A und Dialog B aufrufen.
-
-
 
 Dieses Beispiel führt zu folgender Konfigurationsdatei.
 
@@ -170,6 +166,9 @@ Dieses Beispiel führt zu folgender Konfigurationsdatei.
 </tns:Anwendung>
 ----
 
+[[zusammenhang-von-rechten-und-rollen]]
+=== Zusammenhang von Rechten und Rollen
+
 Innerhalb jeder Rolle werden gemäß Spezifikation die zugeordneten Rechte festgelegt.
 Rollen können überlappende Teilmengen von Rechten enthalten.
 
@@ -178,12 +177,12 @@ Die Konfiguration muss die folgenden Anforderungen erfüllen:
 * Es sind alle in der Geschäftsanwendung spezifizierten Rechte definiert.
 * Es sind alle in der Geschäftsanwendung spezifizierten Rollen definiert.
 
-Werden in Überprüfungen Rollen oder Rechte verwendet, die hier nicht definiert sind, so wird ein technischer Fehler erzeugt.
+Werden in Überprüfungen Rollen oder Rechte verwendet, die hier nicht definiert sind, wird ein technischer Fehler erzeugt.
 Die Konfiguration gibt also verlässlich Auskunft darüber, welche Rollen und Rechte in der Geschäftsanwendung überprüft werden.
 
 Der Baustein Sicherheit ermöglicht eine Autorisierung nur auf Basis von Rechten, nicht von Rollen.
-Jeder Rolle muss also zumindest ein Recht zugeordnet werden, um anhand ihr eine Autorisierung durchführen zu können.
-Werden im Lebenszyklus der Geschäftsanwendung weitere Rollen (z.B. für neu hinzukommende Akteure) spezifiziert und mit bestehenden Rechten ausgestattet, so sind neben den Änderungen in der Konfigurationsdatei keine weiteren Änderungen notwendig.
+Jeder Rolle muss also zumindest ein Recht zugeordnet werden, um anhand dessen eine Autorisierung durchführen zu können.
+Werden im Lebenszyklus der Geschäftsanwendung weitere Rollen (z.B. für neu hinzukommende Akteure) spezifiziert und mit bestehenden Rechten ausgestattet, sind neben den Änderungen in der Konfigurationsdatei keine weiteren Änderungen notwendig.
 
 
 [[autorisierung]]
@@ -353,7 +352,7 @@ public AuthenticationCredentials getAuthenticationCredentials(
 }
 ----
 
-Ab diesem Punkt kann der xref:glossary:glossary:master.adoc#glossar-batch[Batch] jederzeit auf den Aufrufkontext zugreifen, um im Zuge des Batchlaufes Berechtigungsprüfungen vorzunehmen oder Services von Nachbarsystemen (vgl. xref::nutzungsvorgaben/master.adoc#aufrufen-von-nachbarsystemen[Aufruf von Nachbarsystemen]) unter Bereitstellung des Aufrufkontextes aufzurufen.
+Ab diesem Punkt kann der xref:glossary:glossary:master.adoc#glossar-batch[Batch] jederzeit auf den Aufrufkontext zugreifen, um im Zuge des Batchlaufes Berechtigungsprüfungen vorzunehmen oder Services von Nachbarsystemen (vgl. xref:nutzungsvorgaben/master.adoc#aufrufen-von-nachbarsystemen[Aufruf von Nachbarsystemen]) unter Bereitstellung des Aufrufkontextes aufzurufen.
 
 [TIP]
 ====
@@ -372,7 +371,7 @@ Es ist jedoch bei Bedarf auch möglich, Prüfungen innerhalb des Anwendungskerns
 ==== Autorisierung an Methoden des Anwendungskerns
 
 An den Schnittstellen des Anwendungskerns können durch Verwendung der Annotation `@Gesichert` einzelne Methoden deklarativ abgesichert werden.
-Die Verwendung funktioniert genauso wie bei der xref:nutzungsvorgaben/master.adoc#service-autorisierung[service-autorisierung].
+Die Verwendung funktioniert genauso wie bei der xref:nutzungsvorgaben/master.adoc#service-autorisierung[Autorisierung an einer Service-Schnittstelle].
 Die wichtigste Voraussetzung für das Funktionieren dieses Ansatzes ist, dass im Rahmen des Aufrufs der Anwendung der Aufrufkontext bereits gefüllt wurde.
 
 [[awk-autorisierung-in-methoden]]
@@ -471,9 +470,6 @@ MdcHelper.pushKorrelationsId(korrelationsId);
 
 Neben dem MDC wird die Korrelations-ID ebenfalls im Aufrufkontext hinterlegt.
 So wird die Korrelations-ID beim Aufruf eines Nachbar­systems als Bestandteil des Aufrufkontextes automatisch weitergeleitet.
-
-[[entgegennahme-der-korrelations-id-in-der-gui]]
-=== Entgegennahme der Korrelations-ID in der GUI
 
 Im Fall einer zentralen Authentifizierung kümmert sich die mitgelieferte Implementierung des Bausteins Sicherheit um die Entgegennahme der Korrelations-ID.
 
