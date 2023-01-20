@@ -64,7 +64,6 @@
 ** Styleguide
 *** xref:isy-styleguide:styleguide.adoc[Styleguide]
 *** xref:isy-styleguide:nutzungsvorgaben/nutzungsvorgaben.adoc[Nutzungsvorgaben]
-*** xref:isy-styleguide:changelog.adoc[Changelog]
 
 ** JSF
 *** xref:isyfact-jsf-doku:isy-web:konzept/konzept.adoc[Konzept]

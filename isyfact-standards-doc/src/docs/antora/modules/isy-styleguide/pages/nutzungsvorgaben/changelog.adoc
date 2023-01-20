@@ -1,0 +1,8 @@
+[[changelog]]
+= Changelog
+
+// *Änderungen IsyFact 3.0.0*
+
+// tag::release-3.0.0[]
+- IFS-1986: Nutzungsvorgaben Styleguide in in isyfact-standards-doc umgezogen
+// end::release-3.0.0[]
