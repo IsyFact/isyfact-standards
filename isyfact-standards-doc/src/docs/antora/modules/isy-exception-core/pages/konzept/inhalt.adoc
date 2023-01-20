@@ -66,21 +66,30 @@ Die hier weitergereichten Exceptions werden als Transport-Exceptions bezeichnet.
 
 **Anmerkung zur Verknüpfung von Fehlern in Anwendungs- und Datenbank-Logs**
 
-Wie in der <<image-003>> zu sehen, werden Fehler spätestens auf der Schnittstellenebene behandelt und geloggt.
+Wie in <<image-003>> zu sehen, werden Fehler spätestens auf der Schnittstellenebene behandelt und geloggt.
 Bei aufgetretenen Datenbank-Fehlern liefert die Datenbank-Schicht die Datenbank-Fehlermeldung als Teil der Fehlermeldung zurück.
-Spätestens an dieser Stelle wird also der Fehler in das Anwendungslog geschrieben, inklusive eines Zeitstempels und des Stack-Traces.
-Nähere Details zum Logging finden sich im Technischen Feinkonzept xref:isy-logging:konzept/master.adoc[Konzept Logging].
-Mit Hilfe des Zeitstempels, der Datenbank-Fehlermeldung und des Stack-Traces kann dann die Verbindung zur Fehlermeldung im Datenbank-Log hergestellt werden.
+Spätestens an dieser Stelle wird also der Fehler in das Anwendungs-Log geschrieben, inklusive eines Zeitstempels und des Stack Traces.
+Nähere Details zum Logging finden sich im xref:isy-logging:konzept/master.adoc[].
+Mithilfe des Zeitstempels, der Datenbank-Fehlermeldung und des Stack Traces kann dann die Verbindung zur Fehlermeldung im Datenbank-Log hergestellt werden.
 
-Die Verknüpfung von Anwendungsfehlern über mehrere Anwendungen bzw. deren Log-Dateien hinweg geschieht über zwei IDs, die in dem Dokument xref:nutzungsvorgaben/master.adoc[NutzungsvorgabenFehlerbehandlung] beschrieben sind.
+Die Verknüpfung von Anwendungsfehlern über mehrere Anwendungen bzw. deren Log-Dateien hinweg geschieht über zwei IDs, die im Dokument xref:nutzungsvorgaben/master.adoc[] beschrieben sind.
+
+**Anmerkung zum Fehlen des Stack Traces bei mehrfachen Wiederholungen einer Exception**
+
+In Java kann es passieren, dass bei mehrfachen Aufkommen einer Exception diese keinen Stack Trace mehr enthält.
+Dies kommt daher, dass eine Methode rekompiliert werden kann, falls sie eine Exception häufiger wirft.
+Bei dieser Rekompilation kann es passieren, dass der Compiler eine schnellere Taktik mit präallozierten Exceptions wählt, die keinen Stack Trace zur Verfügung stellen.
+Dieses Verhalten kann mit dem JVM-Parameter `-XX:-OmitStackTraceInFastThrow` abgeschaltet werden.
+Dies soll jedoch vermieden werden.
+
 
 [[ausnahmen-und-rueckgabewerte]]
 === Ausnahmen und Rückgabewerte
 
-Für die Fehlerbehandlung ist es wichtig, den Unterschied zwischen Ausnahmen und Rückgabewerten zu verstehen und zu wissen wann sie eingesetzt werden.
+Für die Fehlerbehandlung ist es wichtig, den Unterschied zwischen Ausnahmen und Rückgabewerten zu verstehen und zu wissen, wann sie eingesetzt werden.
 
 *Rückgabewerte* sind das Ergebnis von Methodenaufrufen.
-Über definierte Werte (Rückgabewerte, engl. Return-Codes) kann der Erfolg eines Aufrufes signalisiert werden.
+Über definierte Werte (Rückgabewerte, englisch: __return codes__) kann der Erfolg eines Aufrufs signalisiert werden.
 Validierungen, also die (fachliche) Prüfung von Eingabewerten erfolgt in der Regel über Rückgabewerte (Fehlerlisten o.Ä.).
 
 *Ausnahmen* (englisch __exception__) sind ein Konzept moderner Programmiersprachen, um die Bearbeitung von Fehlersituationen in gewissen Grenzen zu erzwingen und vom Compiler überprüfen zu lassen.
@@ -111,7 +120,7 @@ Daher benötigt jede Komponente drei Exception-Hierarchien:
 * Komponenten-Ausnahmen (technisch unerwartet) und
 * Schnittstellen-Ausnahmen (technisch/fachlich erwartet).
 
-Diese werden im Dokument xref:nutzungsvorgaben/master.adoc[NutzungsvorgabenFehlerbehandlung] beschrieben.
+Diese werden im Dokument xref:nutzungsvorgaben/master.adoc[] beschrieben.
 
 // end::inhalt[]
 

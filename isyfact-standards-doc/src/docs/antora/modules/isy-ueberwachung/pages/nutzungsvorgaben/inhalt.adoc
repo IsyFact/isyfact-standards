@@ -199,7 +199,7 @@ Es sollen die Zahl der HTTP Requests und die Zahl der Datenbankzugriffe gemessen
  registry.counter("database.calls", "db", "users")
  registry.counter("http.requests", "uri", "/api/users")
 
-Damit kann man über den Namen 'database.calls' die Zahl aller Zugriffe auf Datenbank abfragen und dann über den Tag die Aufrufe nach Datenbank weiter aufschlüsseln.
+Damit kann man über den Namen 'database.calls' die Zahl aller Zugriffe auf die Datenbank abfragen und dann über den Tag die Aufrufe nach Datenbank weiter aufschlüsseln.
 
 [[allgemeine-tags]]
 ====== Allgemeine Tags
@@ -222,7 +222,7 @@ gesetzt.
 ===== Performance
 
 Die im Konzept beschriebenen Überwachungsfunktionen dürfen keinen relevanten negativen Einfluss auf die Performance der Anwendung haben.
-Dazu sind neben der Einhaltung der in dem Dokument xref:nutzungsvorgaben/master.adoc#einleitung[Überwachung - Konzept] beschriebenen Vorgaben noch einige grundlegende  Regeln zu beachten:
+Dazu sind neben der Einhaltung der in dem Dokument xref:konzept/master.adoc#einleitung[Überwachung - Konzept] beschriebenen Vorgaben noch einige grundlegende  Regeln zu beachten:
 
 * Da nicht auszuschließen ist, dass ein Überwachungswerkzeug sehr häufig Informationen aus den Endpoints abruft, darf das Bereitstellen der Informationen keine zeitaufwändigen Aktionen im xref:glossary:glossary:master.adoc#glossar-anwendungssystem[Anwendungssystem] veranlassen.
 * Bei der Bereitstellung weiterer Überwachungsinformationen ist darauf zu achten, dass die Ermittlung der Kennzahlen keinen relevanten negativen Einfluss auf die Performance der Anwendung hat.

@@ -10,7 +10,7 @@ Das Dokument beschreibt die Anforderungen und Vorgaben zur Umsetzung der Steueru
 
 Die aus diesem Dokument abgeleitete Umsetzung der Steuerung von Aufgaben im Rahmen der Anwendungsentwicklung ist in dem Dokument xref:nutzungsvorgaben/master.adoc#einleitung[Task-Scheduling - Nutzungsvorgaben] beschrieben.
 
-Sowohl dieses Dokument als auch das Umsetzungsdokument bedienen sich Erfahrungen sowie Best Practices aus erfolgreich abgeschlossenen Projekten.Nutzungsvorgaben Scheduling
+Sowohl dieses Dokument als auch das Umsetzungsdokument bedienen sich Erfahrungen sowie Best Practices aus erfolgreich abgeschlossenen Projekten.
 
 [[abgrenzung-zu-batches]]
 === Abgrenzung zu Batches
