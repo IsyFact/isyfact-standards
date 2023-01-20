@@ -970,7 +970,6 @@ Diese erbt von der entsprechenden Klasse aus `isy-exception-core`. Zum Laden der
  Fehlertexte wird das Interface FehlertextProvider aus derselben Bibliothek verwendet.
 In `isy-util` ist die Implementierung `MessageSourceFehlertextProvider` enthalten.
 Diese unterstützt das Laden von Fehlertexten aus einer Spring-Message-Source.
-.
 
 [[fehlerbehandlung-an-der-anwendungsschnittstelle]]
 ===== Fehlerbehandlung an der Anwendungsschnittstelle
