@@ -4,6 +4,7 @@
 
 // Beginn übergreifende Änderungen
 - Umstellung auf Antora-Dokumentation.
+- Entfernung der Vorlageanwendungen.
 // Ende übergreifende Änderungen
 
 include::isyfact-standards-doku:einstieg:page$changelog.adoc[tag=release-2.5.0]

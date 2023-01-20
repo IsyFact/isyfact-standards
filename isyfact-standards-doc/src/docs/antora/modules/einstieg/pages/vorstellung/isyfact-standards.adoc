@@ -71,7 +71,6 @@ Somit bedingt die Architektur einer Geschäftsanwendung maßgeblich die Struktur
 
 Zu den dargestellten softwaretechnischen Komponenten gibt es jeweils ein Detailkonzept, das die technische Umsetzung der Komponente beschreibt.
 Dazu bietet die IsyFact fertige Bausteine an, die bei der Umsetzung helfen.
-Eine beispielhafte Umsetzung eines IT-Systems zeigt die xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung].
 
 Datenzugriff::
 Der Datenzugriff erfolgt über JPA.
@@ -132,9 +131,7 @@ Für die Entwicklungsumgebung gelten wenige Vorgaben, die in xref:werkzeuge:entw
 
 Die Bibliotheken der IsyFact werden als JAR (Java Archive) bereitgestellt und können über ihre Maven-Koordinaten leicht als Abhängigkeit in die Anwendungsentwicklung eingebunden werden.
 
-Darüber hinaus existiert eine xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung], die eine einfache Geschäftsanwendung („Terminfindung“) auf Grundlage der IsyFact implementiert.
-
-Neben der Vorlageanwendung gibt es mit dem xref:einstieg:tutorial/master.adoc#einleitung[Tutorial] eine weitere Handreichung, um sich in die Implementierungsvorgaben einzuarbeiten.
+Mit dem xref:einstieg:tutorial/master.adoc#einleitung[Tutorial] gibt es eine Handreichung, um sich in die Implementierungsvorgaben einzuarbeiten.
 
 [[bausteine-der-isyfact-standards]]
 == Bausteine der IsyFact-Standards
