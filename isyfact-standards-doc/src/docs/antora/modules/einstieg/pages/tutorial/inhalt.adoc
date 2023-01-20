@@ -810,9 +810,13 @@ Wichtig ist, in der Exception-Fassade an der Service-Schnittstelle (siehe Kapite
 
 [source,java]
 ----
-@StelltLoggingKontextBereit
-public int cdErworben(AufrufKontext kontext, …)
-…
+public class ServiceSchnittstelleExceptionFassade {
+
+    @StelltLoggingKontextBereit
+    public Object serviceMethode(AufrufKontext kontext, Parameter serviceParameter) {
+        // ...
+    }
+}
 ----
 
 [[einbinden-der-bibliotheken-1]]
