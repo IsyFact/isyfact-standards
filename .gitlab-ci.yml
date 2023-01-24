@@ -32,6 +32,9 @@ test:isy-persistence:
 test:isy-polling:
   extends: .maven-test
 
+test:isy-security:
+  extends: .maven-test
+
 test:isy-serviceapi-core:
   extends: .maven-test
 
