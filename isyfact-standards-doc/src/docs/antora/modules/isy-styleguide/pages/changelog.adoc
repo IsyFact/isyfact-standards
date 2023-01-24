@@ -4,5 +4,5 @@
 // *Änderungen IsyFact 3.0.0*
 
 // tag::release-3.0.0[]
-- IFS-1986: Styleguide in isyfact-standards-doc umgezogen
+- Initialer Umzug des Styleguides nach isyfact-standards-doc (alter Ablageort: isy-style)
 // end::release-3.0.0[]
