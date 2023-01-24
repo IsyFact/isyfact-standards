@@ -1,7 +1,0 @@
-// tag::architekturregeln[]
-
-[[architekturregeln-batch]]
-== Architekturregeln Komponente Batch
-
-include::inhalt.adoc[tags=architekturregel]
-// end::architekturregeln[]

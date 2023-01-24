@@ -1,7 +1,0 @@
-// tag::it-sicherheitsregeln[]
-
-[[it-sicherheitsregeln-batch]]
-== IT-Sicherheitsregeln Komponente Batch
-
-include::inhalt.adoc[tags=sicherheit]
-// end::it-sicherheitsregeln[]
