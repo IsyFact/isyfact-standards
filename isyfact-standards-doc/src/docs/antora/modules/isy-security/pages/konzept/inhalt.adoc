@@ -69,41 +69,33 @@ bisherige Authentifizierungslogik - _ohne Authentication-Gateway_ - beibehalten.
 [[aufruf-service-gateway-mit-authentication-gateway]]
 ===== ...mit Authentication-Gateway
 
-Die folgende Abbildung zeigt die neue System-Architektur, die bei Aufrufen von externen Anwendungen für die
-Authentifizierung zum Einsatz kommt. Dabei werden die Vorgaben des BSI berücksichtigt, dass beim Aufruf über
-_ServiceGateways (SGW)_ die Authentifizierungsdaten von den Nutzungsdaten getrennt werden müssen.
+Die folgende Abbildung zeigt die neue System-Architektur, die bei Aufrufen von externen Anwendungen zum Einsatz kommt.
+Dabei werden die Aufrufe mit Authentifizierungsdaten von Aufrufen mit Nutzungsdaten getrennt. Die
+Authentifizierungsaufrufe werden über das neue _Authentication-Gateways_ geleitet, wohingegen die Aufrufe mit den
+Nutzdaten über das _ServiceGateways (SGW)_ geleitet werden.
 
 .Authentifizierung am Authentication-Gateway
 [id="image-Gesamtsystem",reftext="{figure-caption} {counter:figures}"]
-image::isy-security:konzept/ServiceGateway_plus_AuthGateway.svg[align="center"]
+image::isy-security:konzept/ServiceGateway_plus_AuthGateway.dn.svg[align="center"]
 
 Damit ein Client einer externen Anwendung auf die Ressourcen eines Anwendungssystems zugreifen kann, benötigt er ein
 gültiges Access-Token. Dieses Token muss sich der Client zuerst beschaffen, indem er sich beim
-_IdentityAccessManagement-System (IAM)_ authentifiziert. Mit der Einführung des _Authentication-Gateways_ erfolgt somit für
-die Authentifizierung ein von den Anwendungsanfragen getrennter Kommunikationskanal, so dass die von der BSI geforderte
-Trennung zwischen Anwendungsdaten und Authentifizierungsdaten erfüllt ist.
+_IdentityAccessManagement-Service (IAM)_ authentifiziert. Mit der Einführung des _Authentication-Gateways_ werden somit
+alle Anfragen mit Authentifizierungsdaten über einen separaten Kommunikationskanal geleitet. Damit kommt keine mit der
+Authentifizierung involvierte Komponente mit späteren Anwendungsanfragen in Kontakt und umgekehrt.
 
-Die Kommunikation ausserhalb der IsyFact-Infrastruktur ist grundsätzlich Transportverschlüsselt, dh. von einer externen
-Anwendung bis zur ersten Infrastrukturkomponente erfolgt der Datenaustausch per HTTPS-Protokoll. Mit Eintritt in die
-IsyFact-Infrastruktur erfolgt am _Loadbalancer_ dann zuerst die Terminierung der Transportverschlüsselung und
-Weiterleitung zum _Authentication-Gateway_ per HTTP-Protokoll.
+Die externe Anwendung sendet ihre Authentifizierungsdaten an das _Authentication-Gateway_. Dort erfolgt eine Filterung
+bzw. Validierung auf korrekt übergebene Credentials. Gemäß den Filterregeln im _Authentication-Gateway_ wird dann der Authentifizierungsrequest mit validen User-Credentials an den
+IAM-Service weitergeleitet.
 
-Im _Authentication-Gateway_ erfolgt nun eine Filterung auf die enthaltenen Authentifizierungsdaten wie `Client-ID` und
-`Client-Secret`. Es erfolgt aber im Falle von eventuell verschlüsselten Daten noch keine Entschlüsselung, da gemäß
-BSI-Vorgaben unverschlüsselte User-Credentials nur in der externen Anwendung und im IAM selbst bekannt sein bzw.
-vorliegen dürfen. Gemäß den Filterregeln im _Authentication-Gateway_ wird der Authentifizierungsrequest nun mit den,
-ggf. noch verschlüsselten, User-Credentials an das zuständige Isy-IAM-System weitergeleitet.
+Im IAM-Service erfolgt dann mit den übergebenen User-Credentials die eigentliche Authentifizierung. Dabei wird neben der
+neuen Authentifizierungslogik des _Client-Credential-Flows_ auch die bisherige Authentifizierungslogik des
+_Resource-Owner-Password-Credentials-Flows_ unterstützt. Der _Client-Credential-Flow_ dient dabei der
+Authentifizierung eines _Technischen Nutzer_ und über den _Resource-Owner-Password-Credentials-Flow_ erfolgt die
+Authentifizierung eines _Natürlichen Nutzers_. Mit validen User-Credentials und erfolgreicher Authentifizierung liefert
+der IAM-Service dann ein valides, neu erstelltes Access-Token an die externe Anwendung zurück.
 
-Im Isy-IAM-System erfolgt, falls verschlüsselt, zuerst die Entschlüsselung der User-Credential. Mit den
-unverschlüsselten User-Credentials kann das IAM-System die eigentliche Authentifizierung durchführen. Das IAM muss dabei
-unterscheiden, ob es sich um die User-Credentials eines _Natürlichen Nutzers_ mit `Username`und `Passwort` oder
-ob es sich um einen _Technischen Nutzer_ mit `Client-ID` und `Client-Secret` handelt. Für einen _Technischen Nutzer_
-liegen alle Daten zur Authentifizierung im IAM-System vor. Für einen _Natürlichen Nutzer_ muss das IAM-System sich noch
-weitere Daten aus der _Benutzerverwaltung_ zu den User-Credentials hinzuholen, um dann letztendlich die Authentifizierung
-abschließen zu können. Mit validen User-Credentials und erfolgreicher Authentifizierung liefert das IAM-System dann ein Access-Token aus, das im Response
-des synchronen Authentifizierungsrequests zurück an die externe Anwendung transportiert wird.
-
-Mit Erhalt eines gültigen Access-Tokens kann nun die externe Anwendung ihre fachlichen Requests zusammen mit dem
+Mit Erhalt eines gültigen Access-Tokens kann nun die externe Anwendung ihre fachlichen Aufrufe zusammen mit dem
 Token über das _Service-Gateway_ an das eigentliche Anwendungssystem senden. Denn in dem Access-Token sind alle
 notwendigen Informationen enthalten, um im _Service-Gateway_ eine Validierung auf eine zuvor stattgefundene und
 gültige Authentifizierung, sowie eine Prüfung auf eine valide Autorisierung des Requests vorzunehmen. So sind neben
@@ -115,7 +107,7 @@ Autorisierung im Zusammenspiel der System-Komponenten und dem Authentication-Gat
 
 .Sequenzdiagramm Authentifizierung am Authentication-Gateway
 [id="image-sequenzdiagramm-sgw-plus-agw",reftext="{figure-caption} {counter:figures}"]
-image::isy-security:konzept/Squenzdiagramm_ServiceGateway_plus_AuthGateway.svg[align="center"]
+image::isy-security:konzept/Squenzdiagramm_ServiceGateway_plus_AuthGateway.dn.svg[align="center"]
 
 
 [[aufruf-service-gateway-ohne-authentication-gateway]]
@@ -124,39 +116,32 @@ image::isy-security:konzept/Squenzdiagramm_ServiceGateway_plus_AuthGateway.svg[a
 Die nachfolgende Abbildung zeigt die System-Architektur, die bei Aufrufen von externen Anwendungen für die
 Authentifizierung ohne _Authentication-Gateway_ zum Einsatz kommt. Diese Authentifzierungs- und Autorisierungs-Variante
 wird aus Vereinfachungsgründen der Migration von externen Anwendungen auf die neue `IsyFact Version-3` zusätzlich
-beibehalten, da hierdurch die Umstellungsaufwände reduziert werden. So muss der User für diese externe Anwendung noch
-nicht gemäß _SpringSecurity (OAuth2.0)_ auf ein Client migriert worden sein. Dadurch kann wie bisher eine
-Authentifizierung per `Username` und `Passwort` erfolgen, statt per `Client-ID` und `Client-Secret`. Zusätzlich kann für dieses
-Szenario die externe Anwendung für die Authentifizierung und Autorisierung den gleichen Endpunkt aufrufen, wie für ihre
-fachlichen Requests.
+beibehalten, da hierdurch die Umstellungsaufwände reduziert werden.
+
+So muss der verwendete User für diese externe Anwendung noch nicht gemäß _SpringSecurity (OAuth2.0)_ auf einen
+_TechnischenUser (Client)_ migriert worden sein, sondern es kann nach wie vor ein _NatürlichenNutzer_ zur
+Authentifizierung verwendet werden. Zusätzlich kann die externe Anwendung den gleichen Kommunikationskanal für die
+Authentifizierung verwenden, wie für ihre fachlichen Requests.
 
 .Authentifizierung ohne Authentication-Gateway
 [id="image-Gesamtsystem",reftext="{figure-caption} {counter:figures}"]
-image::isy-security:konzept/ServiceGateway-Authentifizierung.svg[align="center"]
+image::isy-security:konzept/ServiceGateway-Authentifizierung.dn.svg[align="center"]
 
 Für den Zugriff auf die Ressourcen eines Anwendungssystems benötigt ein User einer externen Anwendung ein gültiges
-Access-Token. Dieses Token muss er sich zuerst beschaffen, indem er sich beim _IdentityAccessManagement-System (IAM)_
+Access-Token. Dieses Token muss er sich zuerst beschaffen, indem er sich beim _IdentityAccessManagement-Service (IAM)_
 authentifiziert.
 
-Die Kommunikation ausserhalb der IsyFact-Infrastruktur ist grundsätzlich Transportverschlüsselt, dh. von einer externen
-Anwendung bis zur ersten Infrastrukturkomponente erfolgt der Datenaustausch per HTTPS-Protokoll. Mit Eintritt in die
-IsyFact-Infrastruktur erfolgt am _Loadbalancer_ dann zuerst die Terminierung der Transportverschlüsselung und
-Weiterleitung zum _Service-Gateway_ per HTTP-Protokoll.
+Eingehende Authentifizierungsanfragen werden hierbei im _Service-Gateway_ erkannt und mit den übergebenen
+User-Credentials an den _IAM-Service_ weitergeleitet.
 
-Im _Service-Gateway_ erfolgt nun eine Filterung auf die enthaltenen Authentifizierungsdaten wie `Nutzername` und
-`Passwort`. Gemäß den Filterregeln im _Service-Gateway_ wird der Authentifizierungsrequest nun mit den User-Credentials
-an das zuständige Isy-IAM-System weitergeleitet.
+Im IAM-Service erfolgt dann mit den übergebenen User-Credentials die eigentliche Authentifizierung. Dabei wird neben der
+neuen Authentifizierungslogik des _Client-Credential-Flows_ auch die bisherige Authentifizierungslogik des
+_Resource-Owner-Password-Credentials-Flows_ unterstützt. Der _Client-Credential-Flow_ dient dabei der
+Authentifizierung eines _Technischen Nutzer_ und über den _Resource-Owner-Password-Credentials-Flow_ erfolgt die
+Authentifizierung eines _Natürlichen Nutzers_. Mit validen User-Credentials und erfolgreicher Authentifizierung liefert
+der IAM-Service dann ein valides, neu erstelltes Access-Token an die externe Anwendung zurück.
 
-Im Isy-IAM-System erfolgt mit den User-Credentials die eigentliche Authentifizierung. Das IAM muss dabei
-unterscheiden, ob es sich um die User-Credentials eines _Natürlichen Nutzers_ mit `Username`und `Passwort` oder
-ob es sich um einen _Technischen Nutzer_ mit `Client-ID` und `Client-Secret` handelt. Für einen _Technischen Nutzer_
-liegen alle Daten zur Authentifizierung im IAM-System vor. Für einen _Natürlichen Nutzer_ muss das IAM-System sich noch
-weitere Daten aus der _Benutzerverwaltung_ zu den User-Credentials hinzuholen, um dann letztendlich die Authentifizierung
-abschließen zu können. Bei validen User-Credentials und
-erfolgreicher Authentifizierung liefert das IAM-System dann ein Access-Token aus, das im Response
-des synchronen Authentifizierungsrequests zurück an die externe Anwendung transportiert wird.
-
-Mit Erhalt eines gültigen Access-Tokens kann nun die externe Anwendung ihre fachlichen Requests zusammen mit dem
+Mit Erhalt eines gültigen Access-Tokens kann nun die externe Anwendung ihre fachlichen Aufrufe zusammen mit dem
 Token über das _Service-Gateway_ an das eigentliche Anwendungssystem senden. Denn in dem Access-Token sind alle
 notwendigen Informationen enthalten, um im _Service-Gateway_ eine Validierung auf eine zuvor stattgefundene und
 gültige Authentifizierung, sowie eine Prüfung auf eine valide Autorisierung des Requests vorzunehmen. So sind neben
@@ -168,7 +153,7 @@ Autorisierung im Zusammenspiel der System-Komponenten mit dem _Service-Gateway_ 
 
 .Sequenzdiagramm Authentifizierung ohne Authentication-Gateway
 [id="image-sequenzdiagramm-sgw-without-agw",reftext="{figure-caption} {counter:figures}"]
-image::isy-security:konzept/Squenzdiagramm_ServiceGateway_ohne_AuthGateway.svg[align="center"]
+image::isy-security:konzept/Squenzdiagramm_ServiceGateway_ohne_AuthGateway.dn.svg[align="center"]
 
 
 
@@ -186,9 +171,10 @@ Berechtigungszuteilung für ausschließlich _Confidential-Clients_ dreht.
 
 Der _Resource-Owner-Password-Credential_-Flow, der als User-Credentials die Attribute `Username` und `Passwort`
 verwendet, sollte nur eingesetzt werden, wenn die involvierte Clientanwendung ein hohes Vertrauen zur Wahrung der
-Credentials sicherstellt oder wenn keine andere Art der Berechtigungszuteilung verfügbar ist.
+Credentials sicherstellt oder wenn keine andere Art der Berechtigungszuteilung verfügbar ist. So wird die
+Authentifizierung für einen _TechnischenNutzer_ über diesen Credential-Flow abgebildet.
 
-Obwohl in diesem Verfahren die Clientanwendung direkten Zugang auf die evtl. unverschlüsselten User-Credentials hat,
+Obwohl in diesem Verfahren die Clientanwendung direkten Zugang auf die User-Credentials hat,
 so dürfen diese nur einmalig für eine Anfrage nach einem Access-Token verwendet und müssen nach dessen Erhalt sofort
 verworfen werden. Somit wird dabei vermieden, dass die Clientanwendung die User-Credentials für zukünftige Zugriffe speichern müsste, da diese durch ein Access-Token
 mit langer Gültigkeitsdauer ersetzt werden.
@@ -196,23 +182,17 @@ mit langer Gültigkeitsdauer ersetzt werden.
 
 .OAuth2.0 Resource-Owner-Password-Credential Flow
 [id="image-ResourceOwner_Password_Credential_Flow",reftext="{figure-caption} {counter:figures}"]
-image::isy-security:konzept/Resource-Owner-Passwort-Credential-Flow.svg[align="center"]
+image::isy-security:konzept/Resource-Owner-Passwort-Credential-Flow.dn.svg[align="center"]
 
-Im vorherigen Bild wird der logische Ablauf des _Resource-Owner-Password-Credential_-Flows dargestellt. Als
-_Resource-Owner_ wird hier der Inhaber bzw. Wissensträger der User-Credentials `Username` und `Passwort` bezeichnet,
-was für Confidential-Clients dann im allgemeinen ein Admin, DevOp oder eine Person ist, die die (1.) Konfiguration der
-Anwendungen mit den User-Credentials in der Produktionsumgebung einrichtet bzw. vornimmt.
+Im vorherigen Bild wird der logische Ablauf des _Resource-Owner-Password-Credential_-Flows dargestellt. Hierbei wird die
+Konfiguration des _TechnischenNutzer_ als der _Resource-Owner_ dargestellt.
 
-Die so konfigurierte (Confidential-Client)-Anwendung schickt (2.) dann diese Passwort-Credentials an das zuständige
-Identity-Access-Management (IAM). Diese Anfrage an das IAM muss dabei den `grant_type="password"` und den `username` mit
-`password` enthalten. Optional kann über das Attribut `scope` der zu autorisierenden Anwendungsbereich mitgegeben werden, der vom
-IAM geprüft, gegebenenfalls korrigiert und im Access-Token zurückgeliefert wird.
-
-Im IAM erfolgt mit den so übergebenen Credentials die Authentifizierung und Autorisierung. Bei erfolgreicher
-Authentifizierung und Autorisierung wird ein gültiges Access-Token als
-Antwort (3.) zurückgeliefert. Die Client-Anwendung kann mit dem so erhaltenen Access-Token dann ihre Fachanwendungen
-aufrufen. Das Access-Token enthält alle notwendigen Daten, um zu verifizieren, ob die aufrufende Anwendung ordnungsgemäß
-authentifiziert und autorisiert ist.
+Einem Confidential Client wird die Konfiguration (1.) eines _TechnischenNutzers_ mit den User-Credentials `Username`
+und `Passwort` zugeordnet. Die so konfigurierte (Confidential-Client)-Anwendung schickt (2.) dann diese Credentials an
+das zuständige Identity-Access-Management (IAM). Im IAM erfolgt mit den so übergebenen Credentials die
+Authentifizierung, die im Ergebnis ein gültiges Access-Token als Antwort (3.) zurückgeliefert. Die Client-Anwendung kann
+mit dem so erhaltenen Access-Token dann ihre Fachanwendungen aufrufen. Das Access-Token enthält alle notwendigen Daten,
+um zu verifizieren, ob die aufrufende Anwendung ordnungsgemäß authentifiziert und autorisiert ist.
 
 
 [[client-credential-flow]]
@@ -227,17 +207,13 @@ mit dem IAM-System abgestimmt sein.
 
 .OAuth2.0 Client-Credential Flow
 [id="image-ClientCredential_Flow",reftext="{figure-caption} {counter:figures}"]
-image::isy-security:konzept/Client-Credential-Flow.svg[align="center"]
+image::isy-security:konzept/Client-Credential-Flow.dn.svg[align="center"]
 
 Im vorherigen Bild wird der logische Ablauf des _Client-Credential_-Flows dargestellt. Hierbei kann die Clientanwendung
-nach einem Access-Token beim IAM anfragen (1.), indem sie dabei einfach ihre eigenen Client-Credentials oder anderweitig
-unterstützte Authentifizierungskriterien verwendet. Die Anfrage an das IAM muss dabei den `grant_type="client_credentials"`
-enthalten. Optional kann über das Attribut `scope` der zu autorisierenden Anwendungsbereich mitgegeben werden, der vom
-IAM geprüft, gegebenenfalls korrigiert und im Access-Token zurückgeliefert wird.
-
-Die Authentifizierung und Autorisierung mit diesen so übermittelten Credentials erfolgt dann im IAM. Bei erfolgreicher
-Authentifizierung und Autorisierung wird (2.) ein gültiges Access-Token als Antwort zurückgeliefert. Mit dem so
-erhaltenen Access-Token kann die Client-Anwendung dann ihre Fachanwendungen aufrufen. Das Access-Token enthält alle
+nach einem Access-Token beim IAM anfragen (1.), indem sie dabei ihre eigenen Client-Credentials oder anderweitig
+unterstützte Authentifizierungskriterien verwendet. Die Authentifizierung mit diesen so übermittelten Credentials
+erfolgt dann im IAM. Bei erfolgreicher Authentifizierung wird (2.) ein gültiges Access-Token als Antwort zurückgeliefert.
+Mit dem so erhaltenen Access-Token kann die Client-Anwendung dann ihre Fachanwendungen aufrufen. Das Access-Token enthält alle
 notwendigen Daten, um zu verifizieren, ob die aufrufende Anwendung ordnungsgemäß authentifiziert und autorisiert ist.
 
 
