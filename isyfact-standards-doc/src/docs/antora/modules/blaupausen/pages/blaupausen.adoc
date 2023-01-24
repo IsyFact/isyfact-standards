@@ -21,7 +21,7 @@ Es werden zwei Typen unterschieden:
 
 Ein Anwendungssystem besteht aus Anwendungskomponenten, die eine Menge funktional zusammenhängender Anwendungsfälle beschreiben.
 
-Für den Zugriff der Anwender auf die Anwendungssysteme dient eine Portaloberfläche.
+Für den Zugriff der Anwender auf die Anwendungssysteme dient eine Benutzeroberfläche im Portal.
 Externen Anwendungssystemen stellen Service-Gateways die entsprechenden Schnittstellen über Web-Services zur Verfügung.
 
 == Software-technische Referenzarchitektur (T-Architektur)
