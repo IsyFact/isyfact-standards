@@ -1,0 +1,12 @@
+= Technologiestack: Typescript/Angular
+
+include::glossary:licence:partial$licence.adoc[]
+
+== Entwicklung
+[.table_head_sticky.unordered_list_identation]
+--
+[options=header, format=csv, separator=";", cols="a,a,a,a,a,a,a"]
+|===
+include::partial$/Produktkatalog_IsyFact_v3_x_x_Produktvorgaben_Bibliotheken_Anwendungsentwicklung_Typescript_Angular_Entwicklung.csv[]
+|===
+--

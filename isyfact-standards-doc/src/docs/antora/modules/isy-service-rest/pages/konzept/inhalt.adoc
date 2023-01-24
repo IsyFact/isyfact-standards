@@ -186,9 +186,9 @@ Stufe 3 in <<image-richard-maturity-model>>) oder über die URI selber abgebilde
 
 adressiert den Absender einer bestimmten Nachricht.
 
-`+/nachrichten/{id_n}/empfaenger/{id_e}+`
+`+/nachrichten/{id_n}/cc/{id_e}+`
 
-adressiert den bestimmten Empfänger (mit der Id `id_e`) einer bestimmten Nachricht (mit der Id `id_n`).
+adressiert den bestimmten CC-Empfänger (mit der Id `id_e`) einer bestimmten Nachricht (mit der Id `id_n`).
 |====
 
 // end::namenskonvention[]
@@ -243,12 +243,6 @@ Es dürfen nur nicht datenschutzrelevante Informationen in Query Parametern verw
 
 Für alle anderen Suchen sind POST-Requests zu verwenden, siehe <<post-suche-filterung>>.
 
-[[idempotenz]]
-=== Idempotenz
-Idempotenz beschreibt die Möglichkeit, den gleichen HTTP-Request mehrfach an die Schnittstelle senden zu können, ohne dass ein anderes Ergebnis erzielt wird als bei einem einzelnen Request.
-
-Ob eine Methode idempotent ist, wird im nächsten Kapitel beschrieben.
-
 [[http-methoden]]
 === Verwendung von HTTP-Methoden
 
@@ -257,6 +251,8 @@ Die übrigen HTTP-Methoden werden nicht verwendet.
 
 *GET* wird verwendet, um eine Ressource zu lesen.
 Die Ressource wird dabei nicht verändert, wodurch diese Methode idempotent ist.
+
+Idempotenz beschreibt die Möglichkeit, den gleichen HTTP-Request mehrfach an die Schnittstelle senden zu können, ohne dass ein anderes Ergebnis erzielt wird als bei einem einzelnen Request.
 
 .Beispiele für GET-Anfrage
 [id="listing-get-anfrage-beispiele",reftext = "{listing-caption} {counter:listings}"]

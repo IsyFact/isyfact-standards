@@ -116,7 +116,7 @@ Dies führt zu folgendem Datentyp für umgeschriebene Zeichenfolgen:
 
 .Datentyp für umgeschriebene Texte
 [id="sonderzeichen_klasse_transtext",reftext="{figure-caption} {counter:figures}"]
-image::isy-sonderzeichen:konzept/sonderzeichen_klasse_transtext.png[pdfwidth=35%,width=35%,align="center"]
+image::isy-sonderzeichen:konzept/sonderzeichen_klasse_transtext.png[width=35%,align="center"]
 
 Die Attribute für den Datentyp „TransText“ haben die folgende Bedeutung:
 

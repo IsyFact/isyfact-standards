@@ -31,7 +31,7 @@ NOTE: IAM steht für xref:glossary:literaturextern:inhalt.adoc#litextern-identit
 
 Das IAM-System verwaltet *Anwender* und ihre *Rollen*.
 
-Die Authentifizierung und grobgranulare Autorisierung erfolgt, gemäß der siehe xref:konzept/master.adoc#prinzipien-der-sicherheitsarchitektur[Prinzipien der Sicherheitsarchitektur>], an den Außenschnittstellen der Systemlandschaft.
+Die Authentifizierung und grobgranulare Autorisierung erfolgt, gemäß der siehe xref:konzept/master.adoc#prinzipien-der-sicherheitsarchitektur[Prinzipien der Sicherheitsarchitektur], an den Außenschnittstellen der Systemlandschaft.
 Hierbei wird eine Session aufgebaut und das IAM-System ermittelt nach erfolgreicher Authentifizierung die Rollen des Anwenders.
 Die Rollen allein sind jedoch noch nicht ausreichend, um Anwender vollständig zu autorisieren.
 
@@ -106,7 +106,7 @@ Die gewonnenen Informationen werden im `AufrufKontextVerwalter` hinterlegt.
 Für den `Sicherheit-Adapter` wird ein eigenes Modul/Artefakt empfohlen. Dieser `Sicherheit-Adapter` bildet anschließend die Verbindung zu dem IAM-System (Authentifizierungssystem in obiger Abbildung).
 
 Die Authentifizierung und Autorisierung von Web-Zugriffen wird über Spring Security durchgeführt.
-Die Integration von Spring Security und des Bausteins Sicherheit wird im xref:blaupausen:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Komponente WebGUI]) beschrieben.
+Die Integration von Spring Security und des Bausteins Sicherheit wird im xref:blaupausen:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Komponente WebGUI] beschrieben.
 
 [[aussensicht-der-komponente-sicherheit]]
 === Schnittstelle des Bausteins Sicherheit

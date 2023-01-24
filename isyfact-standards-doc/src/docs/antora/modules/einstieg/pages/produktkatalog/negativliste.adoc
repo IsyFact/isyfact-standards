@@ -1,0 +1,34 @@
+= Negativliste
+
+include::glossary:licence:partial$licence.adoc[]
+
+== Standards
+
+[.table_head_sticky.unordered_list_identation]
+--
+[options=header, format=csv, separator=";", cols="a,a,a,a,a,2a"]
+|===
+include::partial$/Produktkatalog_IsyFact_v3_x_x_Negativliste_Standards.csv[]
+|===
+--
+
+== Systemsoftware
+
+[.table_head_sticky.unordered_list_identation]
+--
+[options=header, format=csv, separator=";", cols="a,a,a,a,a,2a"]
+|===
+include::partial$/Produktkatalog_IsyFact_v3_x_x_Negativliste_Systemsoftware.csv[]
+|===
+--
+
+== Bibliotheken für die Anwendungsentwicklung
+
+[.table_head_sticky.unordered_list_identation]
+--
+[options=header, format=csv, separator=";", cols="a,a,a,a,a,2a"]
+|===
+include::partial$/Produktkatalog_IsyFact_v3_x_x_Negativliste_Bibliotheken_Anwendungsentwicklung.csv[]
+|===
+--
+
