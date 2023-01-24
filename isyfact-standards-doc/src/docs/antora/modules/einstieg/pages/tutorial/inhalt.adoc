@@ -123,7 +123,7 @@ Zur Realisierung der Datenhaltung müssen folgende Aktivitäten durchgeführt we
 
 Das Datenbankschema muss angelegt werden.
 Dazu werden die benötigten DDL-Anweisungen, wie in xref:blaupausen:detailkonzept-komponente-datenzugriff/versionierung.adoc[] beschrieben, in einem Verzeichnis abgelegt.
-Die xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung] enthält diese Anweisungen im Verzeichnis `src/main/skripte/sql/terminfindung`.
+
 
 Das initiale Datenmodell kann über das Tool `hbm2ddl` erzeugt werden.
 Dieses muss anschließend noch bearbeitet werden.
@@ -151,7 +151,6 @@ Die benötigten Bibliotheken müssen als Abhängigkeiten in die Maven-Konfigurat
 </dependencies>
 ----
 
-Eine passende Beispielkonfiguration findet sich in der Maven-Konfiguration der xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung].
 
 [[implementierung-der-entitaetsklassen-und-daos]]
 ==== Implementierung der Entitätsklassen und DAOs
@@ -300,9 +299,9 @@ Gegebenenfalls muss die Schnittstelle auf eine ältere Version kompiliert werden
 
 * Schnittstellen werden versioniert.
 Die Versionsnummer wird dreistellig im Package-Namen der Service-Schnittstelle angegeben.
-Beispiel: Die Version 1.0.0 der Schnittstelle der Komponente Meldung der Anwendung Vorlage-Register, wird in den folgenden
+Beispiel: Die Version 1.0.0 einer generischen Schnittstelle einer generischen Anwendung, wird in den folgenden
 Packages implementiert: +
-`de.bund.bva.cd.registercd.service.httpinvoker.v1_0_0.*`
+`de.bund.bva.<anwendung>.<schnittstelle>.httpinvoker.v1_0_0.*`
 * Interfaces, Transport-Exceptions und Transportobjekte werden im Package +
 `<organisation>.<domäne>.<system>.service.httpinvoker.vX_Y_Z` +
 implementiert
@@ -378,7 +377,7 @@ Wichtig ist, dass darin die Compiler-Version so festgelegt wird, wie es im xref:
 
 Das Projekt muss ein Jar erzeugen, das von anderen Systemen zur Nutzung der Service-Schnittstelle benötigt wird.
 In der Pom-Datei muss konfiguriert werden, dass das Jar in das Verzeichnis `repository-deploy` (Deployment-Repository) deployt wird.
-Ein Beispiel dafür findet sich in xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung].
+
 
 Das Schnittstellen-Projekt erhält dieselbe Group-ID wie das eigentliche Anwendungsprojekt.
 Die Artifact-ID ist `<system>-httpinvoker-sst`.
@@ -405,7 +404,6 @@ Vor der Exception-Fassade wird mithilfe der Annotation `@StelltLoggingKontextBer
 
 An den Methoden der Service-Implementierung werden die Annotationen `@StelltAufrufKontextBereit` und `@Gesichert` gemäß xref:isy-sicherheit:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Sicherheit] verwendet, um den Zugriff auf die Service-Methode zu autorisieren.
 
-Beispiele dafür finden sich in xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung].
 
 [[konfigurieren-der-service-schnittstelle]]
 ===== Konfigurieren der Service-Schnittstelle
@@ -760,7 +758,7 @@ Dieses hat die Aufgabe das Deployment-Paket für den Batch zusammenzustellen.
 
 Dazu wird eine neue pom.xml angelegt, die als Ziel-Typ ein Jar mit allen Dateien des Batches erzeugt.
 Zusätzlich können in diesem Projekt Shell-Skripte und ähnliches für den Batch abgelegt werden.
-Ein Beispiel ist in xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung] enthalten.
+
 
 Das Batch-Projekt enthält keinen Java-Code.
 Die Batch-Beans liegen im normalen Anwendungsprojekt.
@@ -812,9 +810,13 @@ Wichtig ist, in der Exception-Fassade an der Service-Schnittstelle (siehe Kapite
 
 [source,java]
 ----
-@StelltLoggingKontextBereit
-public int cdErworben(AufrufKontext kontext, …)
-…
+public class ServiceSchnittstelleExceptionFassade {
+
+    @StelltLoggingKontextBereit
+    public Object serviceMethode(AufrufKontext kontext, Parameter serviceParameter) {
+        // ...
+    }
+}
 ----
 
 [[einbinden-der-bibliotheken-1]]
@@ -972,7 +974,6 @@ Diese erbt von der entsprechenden Klasse aus `isy-exception-core`. Zum Laden der
  Fehlertexte wird das Interface FehlertextProvider aus derselben Bibliothek verwendet.
 In `isy-util` ist die Implementierung `MessageSourceFehlertextProvider` enthalten.
 Diese unterstützt das Laden von Fehlertexten aus einer Spring-Message-Source.
-Ein Beispiel für die Verwendung ist in der xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung] enthalten.
 
 [[fehlerbehandlung-an-der-anwendungsschnittstelle]]
 ===== Fehlerbehandlung an der Anwendungsschnittstelle
@@ -999,7 +1000,7 @@ Vor dem Werfen der so erzeugten Exception über die Schnittstelle wird ein Log-E
 
 Beim Umwandeln der internen Exceptions in Transport-Exceptions wird der Stack-Trace der internen Exceptions verworfen.
 
-Ein Beispiel hierfür ist wieder in xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlageanwendung] enthalten.
+
 
 
 [[aufrufkontextverwaltung]]

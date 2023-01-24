@@ -1,6 +1,19 @@
 = Migrationsleitfaden: Inhalt
 
 // tag::inhalt[]
+Die IsyFact ist eine vom Bundesverwaltungsamt entwickele Software Factory für den Bau von Informationssystemen in komplexen IT-Anwendungslandschaften.
+Sie bündelt bestehendes technisches Know-how um Anwendungssysteme effizienter entwickeln und betreiben zu können.
+
+Für die IsyFact gibt es zwei Versionszweige: IsyFact 1 und IsyFact 2.
+
+Seit dem Jahr 2020 steht das neue Major-Release IsyFact 2 zur Verfügung.
+Dieser beruht auf den IsyFact Bausteinen der IsyFact 1 mit zwei wesentlichen Neuerungen:
+
+- Einführung von Spring Boot,
+- Unterstützung des Frontend-Frameworks Angular, zusätzlich zu JSF.
+
+Die auf dieser Seite aufgeführten Hinweise sollen IsyFact Anwendungsentwicklern bei der Umstellung einer auf IsyFact 1 basierenden Anwendung auf IsyFact 2 helfen.
+
 [[kapitel-geschaeftsanwendung]]
 == Geschäftsanwendung
 
@@ -42,7 +55,7 @@ public class IsyFact2Application extends SpringBootServletInitializer {
 [[kapitel-web-xml]]
 === Deployment Descriptor web.xml
 
-Bei einer Migraton von einer IsyFact 1.x Version auf IsyFact 2.x sind Änderungen an der `web.xml` Datei (Deployment Descriptor) vorzunehmen.
+Bei einer Migration von einer IsyFact 1.x Version auf IsyFact 2.x sind Änderungen an der `web.xml` Datei (Deployment Descriptor) vorzunehmen.
 
 ==== Spring Kontext
 
@@ -127,8 +140,10 @@ image::einstieg:migrationsleitfaden-if2/webxml-httpinvoker.png[align="center"]
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = RaumplanungApplication.class)
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, TransactionDbUnitTestExecutionListener.class})
-@DatabaseSetup("eintraege.xml")
+@DatabaseSetup("testdatensatz.xml")
 public class EintragControllerTest {
+
+}
 ----
 
 [[kapitel-bausteine]]
@@ -137,28 +152,28 @@ public class EintragControllerTest {
 [[kapitel-persistenz]]
 === Persistenz
 
-* Die Spring-Konfiguration für die Persistenz muss geändernt werden (_EntityManager_, _DataSource_).
+* Die Spring-Konfiguration für die Persistenz muss geändert werden (_EntityManager_, _DataSource_).
 Ebenso wird die betriebliche Konfiguration aus `jpa.properties` nach `application.properties` übertragen.
 +
-Siehe xref:blaupausen:detailkonzept-komponente-anwendungskern/master.adoc#einleitung[Detailkonzept Komponente Anwendungskern] Kapitel: Konfiguration von JPA über Spring Beans durchführen.
+Siehe xref:isy-persistence:nutzungsvorgaben/konfiguration.adoc#konfiguration-von-jpa-ueber-spring-beans-durchfuehren[Nutzungsvorgaben JPA/Hibernate - Kapitel: Konfiguration von JPA über Spring Beans] durchführen.
 
 * Sollen die alten DAOs aus `isy-persistence` weitergenutzt werden, dann sind diese als Beans in Java-Config zu übernehmen.
 
 [[kapitel-logging, Bausteine/Logging]]
 === Logging
 
-* Die Konfiguration des Loggings erfolgt über `logback.xml` und zusätzliche Properties in `application.properties`.
+* Die Konfiguration des Logging-Frameworks erfolgt über `logback.xml` und zusätzliche Properties in `application.properties`.
 +
 Die Datei `logback.xml` liegt unter `src/main/resources`.
 Die Änderung der Log-Level erfolgt über `application.properties`, diese werden nicht in `logback.xml` angegeben.
 +
-Siehe xref:isy-logging:nutzungsvorgaben/master.adoc#logback-konfiguration[Nutzungsvorgaben Logging- Kapitel: Logback-Konfiguration].
+Siehe xref:isy-logging:nutzungsvorgaben/master.adoc#logback-konfiguration[Nutzungsvorgaben Logging - Kapitel: Logback-Konfiguration].
 * Der `LogbackConfigListener` entfällt komplett, d.h. die Abhängigkeit in `pom.xml` und die Konfiguration in `web.xml` sind nicht notwendig.
 * Interceptoren für System- und Komponentengrenzen und der `LogApplicationListener` werden per Autokonfiguration erstellt und müssen aus der Spring-Konfiguration entfernt werden.
 Die System- und Komponentengrenzen werden nicht über manuell konfigurierte Pointcuts, sondern über die Annotation `@Systemgrenze`  und `@Komponentengrenze` festgelegt.
-* Die Konfiguration der Interceptoren für das Logging an System- und Komponentengrenzen (wenn abweichend von der Default-Konfiguration) über Properties in `application.properties` erfolgt nach dem Schema:
+* Die Konfiguration der Interceptoren für das Logging an System- und Komponentengrenzen über Properties in `application.properties` erfolgt, falls abweichend von der Default-Konfiguration, nach dem Schema:
 +
-Siehe xref:isy-logging:nutzungsvorgaben/master.adoc#spring-konfiguration[Nutzungsvorgaben Logging- Kapitel: Spring-Konfiguration].
+Siehe xref:isy-logging:nutzungsvorgaben/master.adoc#spring-konfiguration[Nutzungsvorgaben Logging - Kapitel: Spring-Konfiguration].
 * Die Konfiguration des `LogApplicationListener` erfolgt über Properties in `application.properties`:
 +
 Siehe xref:isy-logging:nutzungsvorgaben/master.adoc#logapplicationlistener[Nutzungsvorgaben Logging - Kapitel: LogApplicationListener].
@@ -212,20 +227,20 @@ Siehe xref:isy-polling:nutzungsvorgaben/master.adoc#spring-konfiguration[Nutzung
 Eine gesonderte Konfiguration des Anwendungskontextes für den Batchrahmen ist nicht zwingend notwendig.
 Um Beans aus der Spring-Konfiguration der Anwendung für die Ausführung eines Batches auszuschließen, kann die Annotation (`@ExcludeFromBatchContext`) verwendet werden.
 +
-Siehe xref:blaupausen:detailkonzept-komponente-batch/master.adoc#die-konfiguration-der-spring-kontexte[Detailkonzept Komponente Batch - Kapitel: Die Konfiguration der Spring-Kontexte].
-* In den Property-Dateien zur Konfigration der Batches werden statt XML-Konfigurationsdateien, die vollqualifizierten Namen der Java-Konfigurationsklassen eingetragen.
+Siehe xref:blaupausen:detailkonzept-komponente-batch/master.adoc#die-konfiguration-der-spring-kontexte[Detailkonzept Komponente Batch - Kapitel: Konfiguration der Spring-Kontexte].
+* In den Property-Dateien zur Konfiguration der Batches werden statt XML-Konfigurationsdateien, die vollqualifizierten Namen der Java-Konfigurationsklassen eingetragen.
 +
 Siehe xref:blaupausen:detailkonzept-komponente-batch/master.adoc#konfigurationsdatei-und-kommandozeilen-parameter[Detailkonzept Komponente Batch - Kapitel: Konfigurationsdatei und Kommandozeilen-Parameter].
 
 [[kapitel-util, Util]]
 === Standards
-* In allen Bausteinen (isy-util, isy-sonderzeichen, isy-exeption, ...) der IsyFact Bibliothek `ìsyfact-standards` haben sich die bisherigen Packagepfade von
+* In allen Bausteinen (`isy-util`, `isy-sonderzeichen`, `isy-exception`, ...) der IsyFact Bibliothek `ìsyfact-standards` haben sich die bisherigen Packages von
 +
- de.bund.bva.pliscommon.xxx
+ de.bund.bva.pliscommon.{baustein}
 +
 auf
 +
- de.bund.bva.isyfact.xxx
+ de.bund.bva.isyfact.{baustein}
 +
 geändert
 
@@ -242,7 +257,7 @@ Automatisch konfiguriert werden die `@Gesichert`-Annotation, die `AufrufKontextF
 Siehe xref:isy-sicherheit:nutzungsvorgaben/master.adoc#grundkonzepte-und-konfiguration[Nutzungsvorgaben Sicherheit - Kapitel: Grundkonzepte und Konfiguration].
 * Die Konfiguration des Caches für Authentifizierungen erfolgt in `application.properties`.
 +
-Siehe xref:isy-sicherheit:nutzungsvorgaben/master.adoc#_caching_von_authentifizierungen[Nutzungsvorgaben Sicherheit - Kapitel: Caching von Authentifizierungen].
+Siehe xref:isy-sicherheit:nutzungsvorgaben/master.adoc#cache-authentifizierungen[Nutzungsvorgaben Sicherheit - Kapitel: Caching von Authentifizierungen].
 
 
 
@@ -275,8 +290,15 @@ Der Pfad für das Mapping wird vom Namen der Bean abgeleitet.
 +
 [source,java]
 ----
-@Bean(name = "/AuskunftBean_v1_0")
-public HttpInvokerServiceExporter meldung() {
+@Configuration
+public class ServiceConfiguration {
+
+    @Bean(name = "/AuskunftBean_v1_0")
+    public HttpInvokerServiceExporter meldung() {
+        // ...
+    }
+
+}
 ----
 
 
@@ -293,18 +315,18 @@ Auf folgende Dokumentenänderungen (seit IsyFact IF-1.8) soll besonders hingewie
 
 [[dok-frondend-technologien]]
 === Frontend Technologien
-Das Dokument `Detailkonzept Komponente-WebGUI` enthielt bisher Erläuterungen zur Bibliothek `isy-webgui`, welche eine rein JSF-basierende Frontend-Demo-Anwendung erzeugt, in der JSF-Widgets beispielhaft implementiert und damit dargestellt werden.
+Das Detailkonzept Web-GUI enthielt bisher Erläuterungen zur Bibliothek `isy-webgui`, welche eine rein JSF-basierende Frontend-Demo-Anwendung erzeugt, in der JSF-Widgets beispielhaft implementiert und damit dargestellt werden.
 
-Mit der Einführung von Angular als zweites, großes von der IsyFact unterstütztes Frontend-Framework, wurde das bisherige Dokument `Detailkonzept Komponente-WebGUI` aufgesplittet in
+Mit der Einführung von Angular als zweites, großes von der IsyFact unterstütztes Frontend-Framework, wurde das Dokument aufgesplittet in:
 
-- Detailkonzept Komponente WebGUI (nur noch technologieübergreifende Themen)
-- Konzept JSF
-- Nutzungsvorgaben JSF
+- xref:blaupausen:detailkonzept-komponente-web-gui/master.adoc[] (nur noch technologieübergreifende Themen),
+- xref:isyfact-jsf-doku:isy-web:konzept/konzept.adoc[],
+- xref:isyfact-jsf-doku:isy-web:nutzungsvorgaben/nutzungsvorgaben.adoc[],
 
-und den neuen Dokumenten
+und den neuen Dokumenten:
 
-- Konzept Angular
-- Nutzungsvorgaben Angular
+- Konzept Angular,
+- Nutzungsvorgaben Angular.
 
 
 [[dok-sicherheit-grundschutz]]
@@ -321,16 +343,16 @@ Die IsyFact richtet sich beim Thema Sicherheit nach behördlichen Standards sowi
 
 [[kapitel-isyfact-Referenzarchitektur]]
 === IsyFact Referenzarchitektur
-Auf eine Änderung im Dokument `IsyFact Referenzarchitektur` soll besonders hingewiesen werden:
+Auf eine Änderung im Dokument xref:blaupausen:referenzarchitektur/master.adoc[] soll besonders hingewiesen werden:
 
 *Service-Framework:* Das Service-Framework dient als Kapsel für die Technologie, mit der die Services des Anwendungskerns zur Verfügung gestellt werden.
 Hierfür wird das Framework Spring HTTP-Invoker verwendet.
 
 [NOTE]
 ====
-Ab IsyFact 2.0 ist die *Verwendung von REST-Schnittstellen* erlaubt.
-Spring HTTP-Invoker wird in folgenden Releases (IsyFact 2.x) als Schnittstellenformat abgelöst.
-Die Verwendung von REST-Schnitstellen wird in einem gesonderten Konzept erläutert.
+Ab IsyFact 2 ist die *Verwendung von REST-Schnittstellen* erlaubt.
+Spring HTTP-Invoker wird in folgenden Releases als Schnittstellenformat abgelöst.
+Die Verwendung von REST-Schnittstellen wird im Baustein REST (siehe xref:isy-service-rest:konzept/master.adoc[] und xref:isy-service-rest:nutzungsvorgaben/master.adoc[]) erläutert.
 ====
 
 In der Regel wird ein extern angebotener Service noch durch zusätzliche Daten oder Logik ergänzt.

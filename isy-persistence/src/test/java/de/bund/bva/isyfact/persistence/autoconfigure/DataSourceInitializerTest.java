@@ -31,7 +31,7 @@ public class DataSourceInitializerTest {
     public void testSchemaValidationFailsWhenDataSourceNotInitialized() {
         try {
             new SpringApplicationBuilder()
-                    .sources(IsyPersistenceOracleAutoConfiguration.class)
+                    .sources(IsyPersistenceAutoConfiguration.class)
                     .profiles("h2")
                     .run();
             fail();
@@ -43,7 +43,7 @@ public class DataSourceInitializerTest {
     @Test
     public void testSchemaValidationSuccessfulWhenDataSourceInitialized() throws SQLException {
         ConfigurableApplicationContext context = new SpringApplicationBuilder()
-                .sources(IsyPersistenceOracleAutoConfiguration.class, TestDataSourceInitializationConfig.class)
+                .sources(IsyPersistenceAutoConfiguration.class, TestDataSourceInitializationConfig.class)
                 .profiles("h2")
                 .run();
 
@@ -71,8 +71,7 @@ public class DataSourceInitializerTest {
             initializationSettings.setContinueOnError(true);
             initializationSettings.setSchemaLocations(Arrays.asList(
                     "classpath:/sql.persistence/reset.sql",
-                    "file:src/main/skripte/db-versioning-templates/db-schema-name/db-install-x.y.z_0/04-1_version_erzeugen.sql",
-                    "file:src/main/skripte/db-versioning-templates/db-schema-name/db-install-x.y.z_0/04-2_tabellen_erzeugen.sql"
+                    "classpath:/sql.persistence/create_version_table.sql"
             ));
             initializationSettings.setDataLocations(Collections.singletonList(
                     "classpath:/sql.persistence/set_schema_version.sql"
