@@ -76,10 +76,10 @@ Neben den ausgereiften Plugins für die Bearbeitung von AsciiDoc-Dokumenten: xre
 Die Architektur der IsyFact-Dokumentation besteht aus zwei Kernbestandteilen:
 
 . Zentrale Dokumentation
-. Dokumentation der IsyFact Erweiterungen
+. Dokumentation der IsyFact-Erweiterungen
 
 Die zentrale Dokumentation befindet sich im Repository `isyfact-standards`.
-Die Dokumentation der IsyFact Erweiterungen befindet sich im Repository, in dem sich der zu dokumentierende Baustein befindet, da die Dokumentation nah beim Code abgelegt werden soll.
+Die Dokumentation der IsyFact-Erweiterungen befindet sich im Repository, in dem sich der zu dokumentierende Baustein befindet, da die Dokumentation nah beim Code abgelegt werden soll.
 
 Im Folgenden werden die Bestandteile erläutert.
 
