@@ -158,8 +158,7 @@ Die Integration von Spring Security und des Bausteins Sicherheit wird im xref:bl
 Im Folgenden wird die Schnittstelle des Bausteins Sicherheit beschrieben.
 
 .Schnittstelle des Bausteins Sicherheit
-[id="image-schnittstelle-sicherheit",reftext="{figure-caption} {counter:figures}"]
-image::nutzungsvorgaben/sicherheit-schnittstellen.png[align="center"]
+
 
 Die zentrale Schnittstelle für den Zugriff auf Rollen und Rechte eines Anwenders ist `Berechtigungsmanager`.
 Instanzen des Berechtigungsmanagers zur Autorisierung einer Anfrage werden über die Schnittstelle `Sicherheit` erzeugt.
@@ -270,7 +269,7 @@ image::isy-sicherheit:konzept/rollen-beziehungen.png[align="center",pdfwidth=70%
 
 Technische Rollen sichern die Kommunikationswege innerhalb der Anwendungslandschaft ab.
 Sie werden für die Schnittstellen von Geschäftsanwendungen verwendet, welche nur von anderen Geschäftsanwendungen aufgerufen werden.
-Die einzelnen Schnittstellen werden durch Rechte abgesichert (siehe Dokument xref:nutzungsvorgaben/master.adoc#einleitung[Sicherheit - Nutzungsvorgaben] ).
+
 
 Technische Rollen berechtigen zur Ausführung der entsprechenden Services der Geschäftsanwendung selbst, sowie aller dadurch mittelbar ausgelösten Aktionen in nachgelagerten Anwendungen.
 Daher werden diesen technischen Rollen im Regelfall weitere technische Rollen untergeordnet sein, welche die nachgelagerten Anwendungen absichern.
@@ -296,7 +295,7 @@ Dies reduziert die Anzahl der Rollen, die einem Nutzer zugewiesen sind, in der R
 
 Fachliche Rollen werden für Schnittstellen von Geschäftsanwendungen vergeben, welche Zugänge zur Anwendungslandschaft geben.
 Dies beinhaltet neben den Dialogen (der grafischen Oberfläche) und Zugängen über den Service-Gateway auch interne Systeme wie beispielsweise Systemtasks oder Batches.
-Die einzelnen angebotenen Services werden über Rechte abgesichert (siehe Dokument xref:nutzungsvorgaben/master.adoc#einleitung[Sicherheit - Nutzungsvorgaben]).
+
 
 Fachliche Rollen berechtigen zur Ausführung der entsprechenden Aktion über den entsprechenden Zugangsweg, sowie aller dadurch mittelbar ausgelösten Aktionen in nachgelagerten Anwendungen.
 Daher werden diesen fachlichen Rollen im Regelfall weitere technische Rollen untergeordnet sein, welche die nachgelagerten Anwendungen absichern.
@@ -373,7 +372,6 @@ image::isy-sicherheit:konzept/rollen-erstellung.png[align="center",pdfwidth=70%,
 . In Abstimmung mit den fachlichen Ansprechpartnern und der Benutzeradministration wird ermittelt, ob und welche zusätzlichen technischen Anwender benötigt werden.
 . Vorbereitung der Einspielung der neuen, fachlichen Rollen in die Benutzeradministration.
 Über das jeweilige Format bestimmt der IsyFact-Baustein, der zur Benutzeradministration eingesetzt wird.
-. Konfiguration des IT-Systems mit den erstellten technischen Rollen und Rechten (siehe Dokument xref:nutzungsvorgaben/master.adoc#einleitung[Sicherheit - Nutzungsvorgaben]).
 
 Die Rollen und Rechte sollten bereits während der Erstellung des Systementwurfs entworfen werden, soweit dies möglich ist.
 Sobald die angebotenen Schnittstellen bekannt sind, können die entsprechenden Rollen nach obigen Richtlinien erstellt werden.
