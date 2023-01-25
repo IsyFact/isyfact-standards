@@ -59,6 +59,93 @@ Wie genau Rollen und Rechte spezifiziert werden, beschreibt das Kapitel xref:kon
 [[aufruf-weboberflaeche-portal]]
 ==== Aufruf Web-Oberfläche/Portal
 
+Die direkte Authentifizierung des Clients mit dem Identitätsnachweis des Ressourcenbesitzers birgt
+einige Gefahren, Probleme und Einschränkungen, auf die hier nicht weiter eingegangen wird.
+Das OAuth 2.0 Framework begegnet dem mit der Einführung einer Autorisierungs-Ebene und der Trennung
+von Client und Ressourcenbesitzer sowie Autorisierungs-Service und Ressourcen-Server.
+
+Mit dem OAuth 2.0 Grant-Type 'Authorization Code' wird die erste Anfrage des Clients umgeleitet
+auf den Autorisierungs-Service, der den Autorisierungsdialog mit dem Ressourcenbesitzer führt und dem
+Client ein Zugangstoken zurückgibt. Damit erhält der vom Ressourcen-Server die gewünschte Ressource.
+
+.Ablauf Authentifizierung bei Aufruf über Web-Oberfläche / Portal
+[id="image-Authorization-Code-Flow",reftext="{figure-caption} {counter:figures}"]
+image::isy-sicherheit:konzept/authorization-code-flow.dn.svg[align="center"]
+
+. Aufruf Client (Web-App): +
+Der Benutzer ruft (über den User-Agent (Browser)) die Web-App das erste Mal auf.
+Er hat über die ihm zugeordneten Rolle(n) das Recht, die Web-App und bestimmte Ressourcen zu verwenden.
+
+. Umleitung zu Benutzer-Authentifizierung: +
+Die Web-App erkennt (am fehlenden Zugangstoken), dass noch keine Autorisierung
+erfolgt ist und leitet um zum IAM-Service zur Authentifizierung des Benutzers
+(mit Client-ID u. redirect_uri für Callback der Web-App).
+
+. Authentifizierungs-Dialog mit dem Benutzer: +
+Die Art der Authentifizierung beim IAM-Service ist nicht Teil der Spezifikation.
+Ziel der Authentifizierung ist es, die Identität des Ressourcenbesitzers zu verifizieren (Login).
+Weiterhin soll dem Ressourcenbesitzer die Möglichkeit gegeben werden, den anfragenden Client,
+als auch die angefragten Rechte zu überprüfen (Zustimmung). +
+Die in IsyFact verwendete Authentifizierungsmethode ist ein Login-Dialog, in dem der Ressourcenbesitzer
+durch Eingabe seiner Authentifizierungsinformationen (User-Name u. Passwort) die Zustimmung erteilt.
+Andere Methoden wären z.B. eine Zwei-Faktor-Authentifizierung oder die Verwendung biometrischer
+Merkmale des Ressourcenbesitzers. +
+Die eingegebenen Authentisierungsdaten werden vom IAM-Service mit den bei ihm für
+den Ressourcenbesitzer hinterlegten verglichen.
+Falls die Authentifizierung fehlschlägt, wird der Vorgang abgebrochen (und eine entsprechende
+Fehlerseite angezeigt).
+
+. Umleitung zu Web-App mit Authorization Code: +
+Bei positiver Authentifizierung antwortet der IAM-Service auf den Authentifizierungsaufruf mit
+einer Umleitung zurück zur Web-App und einem Authorization Code. +
+Beim Authorization Code handelt es sich um ein einmalig verwendbares und kurzlebiges Token.
+Er dient als Vor-Authorisierung und ist an die Web-App über die Client-ID gebunden.
+Der Authorization Code ist eine schwer erratbare zufällige Zeichenkette und hat nur einen Zweck:
+Tausch gegen eine andere (dauerhaftere) Legitimation in einem späteren Teil des Authorization Code
+Grants. Das ist notwendig, um sicherzustellen dass das Zugangstoken an die richtige Web-App
+ausgeliefert wird und nicht z.B. eine Redirection URI Manipulation stattgefunden hat.
+
+. Austausch Authorization Code gegen Zugangstoken: +
+die Web-App schickt den erhaltenen Authorization Code und ihre Legitimation
+an den IAM-Service zur Autorisierung. Dieser prüft die Anfrage
+und antwortet mit einem dauerhafteren Zugangstoken (Access Token) für die Web-App zu den Ressourcen des
+Ressourcenbesitzers. +
+Da die Web-App als Confidential Client angesehen werden kann, wird für ihre Authentifizierung der
+OAuth 2.0 Grant-Type 'Client Credentials' (Client-ID u. Client-Secret) verwendet.
+Im IsyFact Standard ist vorgesehen, dass dieses Zugangstoken eine begrenzte Lebensdauer hat und die
+Rollen des Ressourcenbesitzers enthält. +
+Die Web-App speichert das erhaltene Zugangstoken innerhalb der user session.
+Mit Erhalt des Zugangstokens bekommt sie die Autorisierung im Namen des Ressourcenbesitzers
+eine Aktion durchzuführen, bzw. mehrere - im Rahmen der seiner Rolle(n) zugeordneten Rechte, bis
+das Zugangstoken abgelaufen ist.
+
+. Verwendung der geschützten Ressource
+Die Web-App fragt die geschützte Ressource beim Ressourcen-Server an.
+Dabei wird das Zugangstoken aus der user session mitgegeben. +
+Der Ressourcen-Server verifiziert das Zugangstoken (ausstellender IAM-Service, Lebensdauer),
+wandelt die darin mitgegebenen Rollen des Benutzers in lokale Rechte und gibt die geschützte Ressource
+frei - falls der Benutzer das Recht dazu hat.
+
+. Anzeige der Web-App mit geschützten Daten
+Die Web-App arbeitet mit der geschützten Ressource und zeigt das Ergebnis dem Benutzer. +
+
+Die Web-App kann so weitere Aktionen im Namen des Ressourcenbesitzers durchführen und weitere geschützte
+Ressourcen verwenden, bis entweder der Benutzer die Verwendung der Web-App beendet (durch Logout)
+oder das Zugangstoken seine Lebensende erreicht hat. Dann wird ein neues Zugangstoken benötigt.
+
+Im IsyFact Standard ist vorgesehen, dass die in den Schritten 2 (Umleitung zu Benutzer-
+Authentifizierung) und 5 (Austausch Authorization Code gegen Access Token) beschriebene Kommunikation
+der Web-App mit dem IAM-Service durch im Portal-Webserver vorgeschaltete Module erfolgt: +
+Durch ein Reverse-Proxy und dem Modul mod_auth_openidc wird der Webserver zu einer 'Relying Party',
+das die Umleitung an den IAM-Service zur Benutzer-Authentifizierung macht, sowie den Austausch des
+Authorization Code gegen das Zugangstoken und es in der user session der Anwendung übergibt.
+Dadurch hat die Anwendung selbst keine Verbindung zum IAM-Service und ist automatisch vor unbefugtem
+Zugriff geschützt und erhält auch automatisch das Zugangstoken innerhalb der user session.
+
+.Beteiligte Systeme bei Aufruf über Web-Oberfläche / Portal
+[id="image-Authorization-Code-Connections",reftext="{figure-caption} {counter:figures}"]
+image::isy-sicherheit:konzept/authorization-code-connections.dn.svg[align="center"]
+
 [[aufruf-service-gateway]]
 ==== Aufruf Service-Gateway
 
