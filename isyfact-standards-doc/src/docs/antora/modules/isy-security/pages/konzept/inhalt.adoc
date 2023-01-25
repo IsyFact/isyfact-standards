@@ -26,11 +26,11 @@ NOTE: Authentifikation: Verifikation der Identität eines Benutzers (menschl. xr
 In der Regel erfolgt die Authentifizierung von Benutzern über eine zentrale Komponente der Systemlandschaft, in welche das IT-System eingebettet ist.
 Die Authentifizierung darf auch lokal, d.h. vom IT-System selbst, durchgeführt werden, falls es beispielsweise nicht in eine Systemlandschaft eingebettet ist.
 
-Für die zentrale Authentifizierung wird in IsyFact ein OAuth 2.0 konformes IAM-System verwendet.
+Für die zentrale Authentifizierung wird in der IsyFact ein OAuth 2.0 konformes IAM-System verwendet.
 
 NOTE: IAM steht für xref:glossary:literaturextern:inhalt.adoc#litextern-identity_management[Identity and Access Management].
 
-Das IAM-System verwaltet *Benutzer* (menschl. Anwender oder techn. System) und ihre *Rollen* zentral für alle Komponenten der Anwendungs- und Systemlandschaft. Zur Administration gibt es somit nur noch eine definierte Stelle und die Anwender verwenden nur noch einen einzigen Login-Namen und ein Passwort. Zur Unterstützung der Geschäftsprozesse erfolgt eine gesamtheitliche Ende-zu-Ende-Betrachtung, sowohl des Benutzerlebenszyklus als auch der Geschäftsanwendungen. Somit können Personen beginnend ab deren Einstellung bis hin zum Verlassen des Unternehmens effizient verwaltet werden. Eine geeignete Modellierung stellt sicher, dass diesen Personen entsprechend ihrer organisatorischen Rollen die zugehörigen Berechtigungen eingeräumt und wieder entzogen werden können.
+Das IAM-System verwaltet *Benutzer* (menschl. Anwender oder techn. System) und ihre *Rollen* zentral für alle Komponenten der Anwendungs- und Systemlandschaft.
 
 Die Authentifizierung und grobgranulare Autorisierung erfolgt, gemäß der  xref:konzept/master.adoc#prinzipien-der-sicherheitsarchitektur[Prinzipien der Sicherheitsarchitektur], an den Außenschnittstellen der Systemlandschaft.
 Hierbei übermittelt der Benutzer seine Authentifizierungsmerkmale (z.B. Login-Name u. Passwort) an den IAM-Service, der sie gegen die bei ihm gespeicherten Merkmale verifiziert und nach erfolgreicher Authentifizierung sein OK gibt, zusammen mit den bei ihm hinterlegten Rollen des Anwenders. +
