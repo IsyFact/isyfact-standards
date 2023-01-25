@@ -3,7 +3,7 @@
 include::glossary:licence:partial$licence.adoc[]
 
 Soll eine neue Dokumentation angelegt werden oder die bestehende Dokumentation um eine Seite erweitert werden, so muss zunächst der geeignete Ort zur Ablage bestimmt werden.
-I.d.R. ist dies das Repository, in dem sich der zu dokumentierende Erweiterungsbaustein befindet, da die Dokumentation nah beim Code abgelegt werden soll, oder der Baustein liegt im <<verzeichnisstruktur-antora-komponente,Repository `isyfact-standards` im Submodul `isyfact-standards-doc`>>.
+I.d.R. ist dies das Repository, in dem sich der zu dokumentierende Erweiterungsbaustein befindet, da die Dokumentation nah am Code abgelegt werden soll, oder der Baustein liegt im <<verzeichnisstruktur-antora-komponente,Repository `isyfact-standards` im Submodul `isyfact-standards-doc`>>.
 
 [[repository-klonen]]
 == Klonen Repository
