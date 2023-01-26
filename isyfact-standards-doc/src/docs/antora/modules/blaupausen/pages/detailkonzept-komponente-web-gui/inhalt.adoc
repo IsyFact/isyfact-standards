@@ -53,7 +53,7 @@ Folgende Namenskonventionen sind für die Klassen verpflichtend:
 |====
 2+|Klassennamen für Model
 |*Schema* m|<Entität>Model
-|*Beispiele* m|CdErwerbModel
+|*Beispiele* m|GenerischesErwerbModel
 |====
 //end::namenskonvention[]
 
@@ -67,7 +67,7 @@ Folgende Namenskonventionen sind für die Klassen verpflichtend:
 |====
 2+|Klassennamen für Controller
 |*Schema* m|<Maske>Controller
-|*Beispiele* m|CdErwerbController
+|*Beispiele* m|GenerischesErwerbController
 |====
 //end::namenskonvention[]
 
@@ -81,7 +81,7 @@ Folgende Namenskonventionen sind für die Klassen verpflichtend:
 |====
 2+|Dateiname für Flows
 |*Schema* m|<Dialogname>Flow.xml
-|*Beispiele* m|cdErwerbFlow.xml
+|*Beispiele* m|GenerischesErwerbFlow.xml
 |====
 //end::namenskonvention[]
 
@@ -95,9 +95,9 @@ Folgende Namenskonventionen sind für die Klassen verpflichtend:
 |====
 2+|Dateiname des Main View von Flows
 |*Schema* m|<Maskenname>ViewState.xhtml
-|*Beispiele* m|cdErwerbViewState.xhtml
+|*Beispiele* m|GenerischesErwerbViewState.xhtml
 
-cdSucheViewState.xhtml
+GenerischesSucheViewState.xhtml
 |====
 //end::namenskonvention[]
 
@@ -111,7 +111,7 @@ cdSucheViewState.xhtml
 |====
 2+|Dateiname für Facelets
 |*Schema* m|<maskenname><maskenteil>.xhtml
-|*Beispiele* m|cdErwerbFormular1.xhtml
+|*Beispiele* m|GenerischesErwerbFormular1.xhtml
 |====
 //end::namenskonvention[]
 
@@ -127,9 +127,9 @@ cdSucheViewState.xhtml
 |*Schema* m|<view-state>.js
 
 <gui-komponente>.js (bei übergreifenden Dateien)
-|*Beispiele* m|cdErwerbFormular.js
+|*Beispiele* m|GenerischesErwerbFormular.js
 
-cdErwerb.js (übergreifend)
+GenerischesErwerb.js (übergreifend)
 |====
 //end::namenskonvention[]
 

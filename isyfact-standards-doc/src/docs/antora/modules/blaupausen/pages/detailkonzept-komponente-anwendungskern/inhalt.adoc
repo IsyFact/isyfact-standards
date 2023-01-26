@@ -30,7 +30,7 @@ image::blaupausen:detailkonzept-anwendungskern/IFBestAWK.png[align="center",widt
 Sie bilden damit den Schnitt der Anwendungskomponenten in die technische Architektur ab.
 Fachkomponenten beinhalten möglichst wenig Technik und trennen so Anwendungslogik von Technologie.
 
-Die Vorlageanwendung enthält die Fachkomponenten _Erstellung_, _Teilnahme_ und _Verwaltung_.
+Eine Allgemeine Anwendung enthält die Fachkomponenten _Erstellung_, _Teilnahme_ und _Verwaltung_.
 
 TIP: Fachkomponenten sind der Schlüssel für gute Wartbarkeit und einfache Weiterentwickelbarkeit des Anwendungskerns.
 Die Trennung von Anwendungslogik und Technik ist deshalb auch in anderen Schichten der technischen Architektur vorgesehen, z. B. in der Persistenz.
@@ -67,7 +67,7 @@ Sie werden primär nach ihrer Funktion benannt.
 // end::namenskonvention[]
 
 
-In der Vorlageanwendung gibt es z.B. die Geschäftsobjekte `Terminfindung`, `Tag` und `Teilnehmer`.
+In einer Algemeinen Anwendung gibt es z.B. die Geschäftsobjekte `Aufgabe`, `Zeitpunkt` und `Nutzer`.
 
 In Ausnahmefällen können Geschäftsobjekte fachlich nicht genau einer Komponente zugeordnet werden.
 Hierfür wird die Komponente _Basisdaten_ definiert, die nur die eine Aufgabe hat, solche Geschäftsobjekte an zentraler Stelle zu verwalten.
@@ -167,8 +167,8 @@ Das kann erreicht werden, indem nur Deep-Copies von Objekten an andere Teilanwen
 Innerhalb einer Teilanwendung dürfen über die Schichten hinweg durchaus änderbare Objekte ausgetauscht werden.
 Die hierfür bereitgestellte Schnittstelle der Schicht gehört damit aber zur Teilanwendung darf von einer anderen Teilanwendung nicht genutzt werden.
 
-In der Vorlageanwendung ist z.B. „Terminfindung“ eine Teilanwendung.
-Zu dieser Teilanwendung gehören in der Schicht Nutzung die Oberfläche _Terminfindung_ und der Batch `TerminfindungLoeschBatch`, in der Schicht Anwendungslogik die Fachkomponenten _Erstellen_, _Teilnehmen_, _Verwalten_ und _Datenpflege_ und der Schicht Datenhaltung die Entitäten `Terminfindung`, `Tag`, `Teilnehmer`, `Zeitraum` und `Teilnehmerzeitraum`.
+In der einer allgemeinen Anwendung ist z.B. „Aspektanwendung“ eine Teilanwendung.
+Zu dieser Teilanwendung gehören in der Schicht Nutzung die Oberfläche _Aspektanwendung_ und der Batch `AspektanwendungLoeschBatch`, in der Schicht Anwendungslogik die Fachkomponenten _Erstellen_, _Verwalten_ und _Datenpflege_ und der Schicht Datenhaltung die Entitäten `Aspektanwendung`, `Zeitpunkt`, `Nutzer`, `Intervall` und `Nutzerintervall`.
 
 [[verwendung-des-spring-frameworks]]
 == Verwendung des Spring-Frameworks
@@ -227,14 +227,14 @@ Für diese Klassen kann man benötigte andere Beans oder Konfigurationsparameter
 Konfiguriert werden Beans und ihre Abhängigkeiten durch von Spring bereitgestellte Annotationen.
 Diese werden beim Start des Applikations-Containers gescannt und ausgewertet (_Component Scan_).
 
-Die folgende Abbildung zeigt einen Ausschnitt der für die Vorlageanwendung erstellten Beans.
+Die folgende Abbildung zeigt einen Ausschnitt der für eine allgemeine Anwendung erstellten Beans.
 Diese werden grün dargestellt und besitzen „referenzierte“ Abhängigkeiten zu benötigten anderen Beans.
 
-.Spring-Beans der Vorlageanwendung
-[id="image-SpringBeansVorlag",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:detailkonzept-anwendungskern/SpringBeansVorlag.png[align="center",width=80%,pdfwidth=80%]
+.Spring-Beans einer allgemeinen Anwendung
+[id="image-SpringBeansBeispiel",reftext="{figure-caption} {counter:figures}"]
+image::blaupausen:detailkonzept-anwendungskern/SpringBeansBeispiel.svg[align="center",width=80%,pdfwidth=80%]
 
-<<image-SpringBeansVorlag>> zeigt bereits, dass nicht alle Klassen der Anwendung als Beans konfiguriert werden: Für die Komponente
+<<image-SpringBeansBeispiel>> zeigt bereits, dass nicht alle Klassen der Anwendung als Beans konfiguriert werden: Für die Komponente
 `Verwaltung` wird eine Klasse als Bean konfiguriert, welche die Funktionalität der Komponente bereitstellt.
 Generell gilt, dass jede zentrale und wichtige Klasse aber als Spring Bean konfiguriert werden sollte.
 
@@ -247,7 +247,7 @@ Eine Komponente sollte durchgängig über Spring konfiguriert werden.
 Alle relevanten und zentralen Klassen werden daher als Spring Beans konfiguriert.
 Das umfasst vor allem, aber nicht ausschließlich, die Fassade und zugehörige Anwendungsfallklassen.
 
-Ein Beispiel dafür ist die Klasse `VerwaltungImpl` der Vorlageanwendung.
+Ein Beispiel dafür ist die Klasse `VerwaltungImpl` der allgemeinen Anwendung.
 
 Bei Anwendungsfunktionsklassen oder Hilfsklassen ist je nach Relevanz zu entscheiden, ob diese als eigene Spring Beans definiert werden.
 Im Zweifel sollte die Konfiguration über Spring bevorzugt werden.
@@ -350,7 +350,7 @@ public class ReloadablePropertyKonfiguration {
          return new ReloadablePropertyKonfiguration(String[]{
             "/resources/nachrichten/gui-linksnavigation.properties",
             "/config/isy-webgui.properties",
-            "/config/terminfindung.properties",
+            "/config/allgemeine-anwendung.properties",
             "/config/jpa.properties",
             "/config/tasks.properties"
          });
@@ -380,7 +380,7 @@ Der Kontextparameter `webAppRootKey` muss in der `web.xml` auf den eindeutigen N
 ----
 <context-param>
   <param-name>webAppRootKey</param-name>
-  <param-value>terminfindung</param-value>
+  <param-value>allgemeine-anwendung</param-value>
 </context-param>
 ----
 
@@ -389,7 +389,7 @@ Wenn mehrere Anwendungen gleichzeitig in einem Tomcat betrieben werden (bspw.
 in einer Entwicklungsumgebung), wird dieser Parameter durch die verschiedenen Anwendungen überschrieben.
 Dies kann zu ungewünschten Seiteneffekten führen.
 Ist der Kontextparameter `webAppRootKey` wie im obigen Beispiel gesetzt, wird der Pfad statt im Parameter `webapp.root`
-im Parameter `terminfindung` abgelegt.
+im Parameter `allgemeine-anwendung` abgelegt.
 Da jede Webanwendung einen eindeutigen Namen besitzt, und damit einen eigenen Kontextparameter verwendet, wird das Überschreiben vermieden.
 
 [[die-direkte-verwendung-des-spring-frameworks]]
