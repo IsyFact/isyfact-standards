@@ -73,7 +73,7 @@ Dabei werden die Aufrufe mit Authentifizierungsdaten von Aufrufen mit Nutzungsda
 Die Authentifizierungsaufrufe werden über das _Authentication-Gateway_ geleitet, wohingegen die Aufrufe mit den Nutzdaten über das _ServiceGateway (SGW)_ geleitet werden.
 
 .Authentifizierung am Authentication-Gateway
-[id="image-Gesamtsystem",reftext="{figure-caption} {counter:figures}"]
+[id="image-servicegateway_plus_authgateway",reftext="{figure-caption} {counter:figures}"]
 image::isy-security:konzept/ServiceGateway_plus_AuthGateway.dn.svg[align="center"]
 
 Damit ein Client einer externen Anwendung auf die Ressourcen einer Anwendung zugreifen kann, benötigt er ein gültiges Access-Token.
@@ -84,7 +84,7 @@ Damit kommt keine mit der Authentifizierung involvierte Komponente mit späteren
 Die externe Anwendung sendet ihre Authentifizierungsdaten an das _Authentication-Gateway_, das die Anfrage an den IAM-Service weiterleitet.
 Im IAM-Service erfolgt dann mit den übergebenen User-Credentials die eigentliche Authentifizierung.
 Dabei wird neben der neuen Authentifizierungslogik des _Client-Credential-Flows_ auch die bisherige Authentifizierungslogik des _Resource-Owner-Password-Credentials-Flows_ unterstützt.
-Der _Client-Credential-Flow_ dient dabei der Authentifizierung eines _Technischen Nutzer_ und über den _Resource-Owner-Password-Credentials-Flow_ erfolgt die Authentifizierung eines _Natürlichen Nutzers.
+Der _Client-Credential-Flow_ dient dabei der Authentifizierung eines _Technischen Nutzer_ und über den _Resource-Owner-Password-Credentials-Flow_ erfolgt die Authentifizierung eines _Natürlichen Nutzers_.
 Mit validen User-Credentials und erfolgreicher Authentifizierung liefert der IAM-Service dann ein valides, neu erstelltes Access-Token an die externe Anwendung zurück.
 
 Mit Erhalt eines gültigen Access-Tokens kann nun die externe Anwendung ihre fachlichen Aufrufe zusammen mit dem Token über das _Service-Gateway_ an das eigentliche Anwendungssystem senden.
@@ -108,7 +108,7 @@ So muss der verwendete User für diese externe Anwendung noch nicht gemäß _Spr
 Zusätzlich kann die externe Anwendung den gleichen Kommunikationskanal für die Authentifizierung verwenden, wie für ihre fachlichen Anfragen.
 
 .Authentifizierung ohne Authentication-Gateway
-[id="image-sgw_ohne_auth_gw",reftext="{figure-caption} {counter:figures}"]
+[id="image-servicegateway_ohne_authgateway",reftext="{figure-caption} {counter:figures}"]
 image::isy-security:konzept/ServiceGateway-Authentifizierung.dn.svg[align="center"]
 
 Für den Zugriff auf die Ressourcen eines Anwendungssystems benötigt die externe Anwendung ein gültiges Access-Token.
@@ -118,13 +118,13 @@ Eingehende Authentifizierungsanfragen werden hierbei im _Service-Gateway_ erkann
 
 Im IAM-Service erfolgt dann mit den übergebenen User-Credentials die eigentliche Authentifizierung.
 Dabei wird neben der neuen Authentifizierungslogik des _Client-Credential-Flows_ auch die bisherige Authentifizierungslogik des _Resource-Owner-Password-Credentials-Flows_ unterstützt.
-Der _Client-Credential-Flow_ dient dabei der Authentifizierung eines _Technischen Nutzer_ und über den _Resource-Owner-Password-Credentials-Flow_ erfolgt die Authentifizierung eines _Natürlichen Nutzers_
+Der _Client-Credential-Flow_ dient dabei der Authentifizierung eines _Technischen Nutzer_ und über den _Resource-Owner-Password-Credentials-Flow_ erfolgt die Authentifizierung eines _Natürlichen Nutzers_.
 Mit validen User-Credentials und erfolgreicher Authentifizierung liefert der IAM-Service dann ein valides, neu erstelltes Access-Token an das Service-Gateway zurück.
 
 Mit Erhalt eines gültigen Access-Tokens leitet das Service-Gateway die fachliche Anfrage zusammen mit dem Token an das eigentliche Anwendungssystem weiter.
 In der Anwendung kann anschließend die Ausführungsberechtigung des Users verifiziert und sichergestellt werden.
 
-Das nachfolgende Sequenzdiagramm zeigt den schematisch den logischen Ablauf der Authentifizierung und Autorisierung im Zusammenspiel der System-Komponenten mit dem _Service-Gateway_ aber ohne _Authentication-Gateway_:
+Das nachfolgende Sequenzdiagramm zeigt schematisch den logischen Ablauf der Authentifizierung und Autorisierung im Zusammenspiel der System-Komponenten mit dem _Service-Gateway_ aber ohne _Authentication-Gateway_:
 
 .Sequenzdiagramm Authentifizierung ohne Authentication-Gateway
 [id="image-sequenzdiagramm-sgw-without-agw",reftext="{figure-caption} {counter:figures}"]
@@ -151,7 +151,7 @@ Der _Resource-Owner-Password-Credential_-Flow, der als User-Credentials die Attr
 So wird die Authentifizierung für einen _TechnischenNutzer_ über diesen Credential-Flow abgebildet.
 
 .OAuth2.0 Resource-Owner-Password-Credential Flow
-[id="image-ResourceOwner_Password_Credential_Flow",reftext="{figure-caption} {counter:figures}"]
+[id="image-resourceowner_password_credential_flow",reftext="{figure-caption} {counter:figures}"]
 image::isy-security:konzept/Resource-Owner-Passwort-Credential-Flow.dn.svg[align="center"]
 
 Im vorherigen Bild wird der logische Ablauf des _Resource-Owner-Password-Credential_-Flows dargestellt.
@@ -172,7 +172,7 @@ Es erfolgt hierbei keine Interaktion durch einen Benutzer, der sein Passwort ein
 Die dabei verwendeten Credentials `Client-ID` und `Client-Secret` müssen vor der Nutzung für die Clientanwendung definiert und mit dem IAM-System abgestimmt sein.
 
 .OAuth2.0 Client-Credential Flow
-[id="image-ClientCredential_Flow",reftext="{figure-caption} {counter:figures}"]
+[id="image-clientcredential_flow",reftext="{figure-caption} {counter:figures}"]
 image::isy-security:konzept/Client-Credential-Flow.dn.svg[align="center"]
 
 Im vorherigen Bild wird der logische Ablauf des _Client-Credential_-Flows dargestellt.
