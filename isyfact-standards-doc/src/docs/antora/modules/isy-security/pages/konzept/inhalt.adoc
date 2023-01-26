@@ -159,20 +159,20 @@ Im Folgenden wird die Schnittstelle des Bausteins Security beschrieben.
 
 .Schnittstelle des Bausteins Security
 [id="image-schnittstelle-security",reftext="{figure-caption} {counter:figures}"]
-image::konzept/security-schnittstellen.png[align="center"]
+image::konzept/security-schnittstellen.dn.svg[align="center"]
 
-Bei Instanziierung des Bausteins 'Security' wird die anwendungsspezifische Rollen-Rechte-Datei eingelesen, sowie der `Berechtigungsmanager` und der `Authentifizierungsmanager` damit erzeugt.
+Bei Instanziierung des Bausteins 'Security' wird die anwendungsspezifische Rollen-Rechte-Datei eingelesen, sowie der`Authentifizierungsmanager`  und der `Berechtigungsmanager` damit erzeugt.
 Beide Manager sowie eine Liste aller für diese Anwendung spezifischen Rollen werden nach Außen angeboten.
-
-Die zentrale Schnittstelle für den Zugriff auf Rollen und Rechte eines Anwenders ist der `Berechtigungsmanager`.
-Rollen werden über die Benutzeradministration Anwendern zugewiesen.
-Rechte sind anwendungsspezifisch und an Rollen gebunden.
-Eine Liste der dem Anwender zugewiesenen Rollen bzw. daran geknüpften Rechte können hier erfragt werden und es kann geprüft werden, ob der Anwender ein bestimmtes Recht hat.
 
 Der `Authentifizierungsmanager` übernimmt die Authentifizierung am IAM-System.
 Untersützt wird sowohl die OAuth-konforme Authentifizierung eines Client mittels Id u. secret als auch die (veraltete) Methode mittels (techn.) Nutzername u. Passwort.
 Bei erfolgreicher Authentifizierung werden die vom IAM-System zurückgegebenen Daten (Access-Token, Rollen des Anwenders, ...) im Spring Secutity Context abgelegt, zusammen mit den aus den Rollen resultierenden Rechten des Anwenders.
 Eine nicht erfolgreiche Authentifizierung (fachliche Ablehnung oder technisches Problem) löst eine entsprechende Exception aus.
+
+Die zentrale Schnittstelle für den Zugriff auf Rollen und Rechte eines Anwenders ist der `Berechtigungsmanager`.
+Rollen werden über die Benutzeradministration Anwendern zugewiesen.
+Rechte sind anwendungsspezifisch und an Rollen gebunden.
+Eine Liste der dem Anwender zugewiesenen Rollen bzw. daran geknüpften Rechte können hier erfragt werden und es kann geprüft werden, ob der Anwender ein bestimmtes Recht hat.
 
 [[aufruf-von-nachbarsystemen]]
 === Aufruf von Nachbarsystemen
