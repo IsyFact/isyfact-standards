@@ -4,9 +4,12 @@
 [[prinzipien-der-sicherheitsarchitektur]]
 == Prinzipien der Sicherheitsarchitektur
 
-Die IsyFact-Referenzarchitektur beinhaltet auf der technischen Ebene Vorgaben für die Sicherheitsarchitektur und für die Prinzipien, nach denen sie aufgebaut ist. Eine davon ist die Forderung, dass IsyFact-konforme IT-Systeme gegen unberechtigte Nutzung zu schützen sind. Konkret wird das im Baustein `Security` durch ein Rollen-, Rechte- und Berechtigungsmanagement realisiert:
+Die IsyFact-Referenzarchitektur beinhaltet auf der technischen Ebene Vorgaben für die Sicherheitsarchitektur und für die Prinzipien, nach denen sie aufgebaut ist.
+Eine davon ist die Forderung, dass IsyFact-konforme IT-Systeme gegen unberechtigte Nutzung zu schützen sind.
+Konkret wird das im Baustein `Security` durch ein Rollen-, Rechte- und Berechtigungsmanagement realisiert:
 
-* Authentifizierungsinformationen, wie Benutzername und Passwort, werden nicht über IT-Systeme hinweg weitergegeben . Nur der Eigentümer der Authentifizierungsinformationen und der Authentifizierungsserver besitzen Kenntnis über diese Informationen.
+* Authentifizierungsinformationen, wie Benutzername und Passwort, werden nicht über IT-Systeme hinweg weitergegeben.
+Nur der Eigentümer der Authentifizierungsinformationen und der Authentifizierungsserver besitzen Kenntnis über diese Informationen.
 * Die Authentifizierung und grobgranulare Autorisierung (mittels dem Nutzer zugeordneten Rollen) erfolgt an den Außenschnittstellen der Systemlandschaft (Portal, Authentication-Gateway bzw. Service-Gateway).
 * Liegt kein Aufruf über eine Außenschnittstelle vor (z.B. bei einem Batch-Aufruf), so geschieht die Authentifizierung und grobgranulare Autorisierung innerhalb der Nutzungsschicht (Batch) des konkreten IT-Systems.
 * Die feingranulare Autorisierung geschieht in der Nutzungsschicht und im Anwendungskern der IT-Systeme über den IsyFact-Baustein Security, indem die Nutzerrollen auf anwendungsspezifische Rechte abgebildet werden und diese Rechte bei jedem Serviceaufruf geprüft werden.
