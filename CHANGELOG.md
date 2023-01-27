@@ -25,6 +25,7 @@
 - `IFS-1552`: Einheitliche Verwendung von Maven-Properties für Versionsnummern
 - `IFS-1504`: [isy-sonderzeichen] Transformator für die normative Abbildung lateinischer Buchstaben auf Grundbuchstaben (Suchform) hinzugefügt
     * Integration von zugeliefertem Code aus `IFS-1270`
+- `IFS-1986`: [isyfact-standards-doc] Aufnahme des Styleguides nach Auflösung des Bausteins isy-style
 - `IFS-2045`: [isyfact-products-bom] Produkte Apache Tika, commons-beanutils und commons-io hinzugefügt
 
 # 2.4.4

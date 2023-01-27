@@ -5,50 +5,123 @@
 == Prinzipien der Sicherheitsarchitektur
 
 Die IsyFact-Referenzarchitektur beinhaltet auf der technischen Ebene Vorgaben für die Sicherheitsarchitektur und für die Prinzipien, nach denen sie aufgebaut ist.
+Eine davon ist die Forderung, dass IsyFact-konforme IT-Systeme gegen unberechtigte Nutzung zu schützen sind.
+Konkret wird das im Baustein `Security` durch ein Rollen-, Rechte- und Berechtigungsmanagement realisiert:
 
-Die konkrete Sicherheitsarchitektur einer xref:glossary:glossary:master.adoc#glossar-systemlandschaft[Systemlandschaft] muss nach folgenden Prinzipien gestaltet sein:
-
-* IsyFact-konforme IT-Systeme sind gegen nicht autorisierte Nutzung zu schützen.
-* Die Authentifizierung und grobgranulare Autorisierung erfolgt an den Außenschnittstellen der Systemlandschaft (Portal, Service-Gateway).
+* Authentifizierungsinformationen, wie Benutzername und Passwort, werden nicht über IT-Systeme hinweg weitergegeben.
+Nur der Eigentümer der Authentifizierungsinformationen und der IAM-Service besitzen Kenntnis über diese Informationen.
+* Die Authentifizierung und grobgranulare Autorisierung (mittels dem Nutzer zugeordneten Rollen) erfolgt an den Außenschnittstellen der Systemlandschaft (Portal, Authentication-Gateway bzw. Service-Gateway).
 * Liegt kein Aufruf über eine Außenschnittstelle vor (z.B. bei einem Batch-Aufruf), so geschieht die Authentifizierung und grobgranulare Autorisierung innerhalb der Nutzungsschicht (Batch) des konkreten IT-Systems.
-* Die feingranulare Autorisierung geschieht in der Nutzungsschicht und im Anwendungskern der IT-Systeme über den IsyFact-Baustein Sicherheit.
+* Die feingranulare Autorisierung geschieht in der Nutzungsschicht und im Anwendungskern der IT-Systeme über den IsyFact-Baustein Security, indem die Nutzerrollen auf anwendungsspezifische Rechte abgebildet werden und diese Rechte bei jedem Serviceaufruf geprüft werden.
 
 Existiert keine Systemlandschaft (d.h. IT-Systeme stehen für sich allein), gilt grundsätzlich, dass die Authentifizierung und grobgranulare Autorisierung in der Nutzungsschicht (GUI, Service oder Batch) des IT-Systems geschehen muss.
 
 Darüber hinaus finden Authentifizierung und Autorisierung nach den Vorgaben des Berechtigungskonzepts statt.
+
 Dieses Dokument beschreibt wesentliche Aspekte der Sicherheitsarchitektur für eine konkrete Anwendungslandschaft.
-Da das Berechtigungskonzept individuell für jede Anwendungslandschaft erstellt wird und sich im einzelnen stark von Inhalt und Umfang her unterscheidet, ist es kein Bestandteil des Bausteins Sicherheit oder der IsyFact.
+Da das Berechtigungskonzept individuell für jede Anwendungslandschaft erstellt wird und sich im einzelnen stark von Inhalt und Umfang her unterscheidet, ist es kein Bestandteil des Bausteins Security oder der IsyFact.
 
 [[authentifizierung]]
 === Authentifizierung
 
-In der Regel erfolgt die Authentifizierung von xref:glossary:glossary:master.adoc#glossar-anwender[Anwendern] über eine zentrale Komponente der Systemlandschaft, in welche das IT-System eingebettet ist.
+NOTE: Authentifikation: Verifikation der Identität eines Benutzers (menschl. xref:glossary:glossary:master.adoc#glossar-anwender[Anwender] oder techn. System) als Zugangskontrolle zu einem geschützten System - durch Präsentation eindeutiger Eigenschaften (z.B. Biometrie) oder geheimen Wissens (z.B. Passwort) (Authentisierung).
+
+In der Regel erfolgt die Authentifizierung von Benutzern über eine zentrale Komponente der Systemlandschaft, in welche das IT-System eingebettet ist.
 Die Authentifizierung darf auch lokal, d.h. vom IT-System selbst, durchgeführt werden, falls es beispielsweise nicht in eine Systemlandschaft eingebettet ist.
 
-Für die zentrale Authentifizierung wird üblicherweise ein IAM-System verwendet.
+Für die zentrale Authentifizierung wird in der IsyFact ein OAuth 2.0 konformes IAM-System verwendet.
 
 NOTE: IAM steht für xref:glossary:literaturextern:inhalt.adoc#litextern-identity_management[Identity and Access Management].
 
-Das IAM-System verwaltet *Anwender* und ihre *Rollen*.
+Das IAM-System verwaltet *Benutzer* (menschl. Anwender oder techn. System) und ihre *Rollen* zentral für alle Komponenten der Anwendungs- und Systemlandschaft.
 
-Die Authentifizierung und grobgranulare Autorisierung erfolgt, gemäß der siehe xref:konzept/master.adoc#prinzipien-der-sicherheitsarchitektur[Prinzipien der Sicherheitsarchitektur>], an den Außenschnittstellen der Systemlandschaft.
-Hierbei wird eine Session aufgebaut und das IAM-System ermittelt nach erfolgreicher Authentifizierung die Rollen des Anwenders.
-Die Rollen allein sind jedoch noch nicht ausreichend, um Anwender vollständig zu autorisieren.
+Die Authentifizierung und grobgranulare Autorisierung erfolgt, gemäß der  xref:konzept/master.adoc#prinzipien-der-sicherheitsarchitektur[Prinzipien der Sicherheitsarchitektur], an den Außenschnittstellen der Systemlandschaft.
+Hierbei übermittelt der Benutzer seine Authentifizierungsmerkmale (z.B. Login-Name u. Passwort) an den IAM-Service, der sie gegen die bei ihm gespeicherten Merkmale verifiziert und nach erfolgreicher Authentifizierung sein OK gibt, zusammen mit den bei ihm hinterlegten Rollen des Anwenders. +
+Die Rollen allein sind jedoch noch nicht ausreichend, um den Benutzer in der Anwendung vollständig zu autorisieren.
 
 [[autorisierung]]
 === Autorisierung
 
+NOTE: Autorisierung: Zustimmung oder Erlaubnis, spezieller die Einräumung von Rechten gegenüber interessierten Rechtssubjekten, gegebenenfalls als Nutzungsrecht gegenüber Dritten.
+
 Die Autorisierung geschieht in jedem Fall im jeweiligen IT-System.
-Nach der erfolgreichen Authentifizierung eines Anwenders leitet das IAM-System die Anfrage an das IT-System weiter.
-Hier wird die Anfrage – je nach Schutzbedarf und Funktionalität – autorisiert.
-Dazu weist das IT-System einem Anwender anhand seiner Rollen *Rechte* zu und prüft diese gegen die für die Anfrage benötigten Rechte.
+Nach der erfolgreichen Authentifizierung eines Benutzers leitet das IAM-System die Anfrage an das IT-System weiter bzw. gibt dem Aufrufer das Ergebnis der Authentifizierung zurück - angereichert mit weiteren Informationen über den Benutzer (speziell: zugeordnete Rollen).
+Dort wird die Anfrage – je nach Schutzbedarf und Funktionalität – autorisiert.
+Dazu weist das IT-System einem Benutzer anhand seiner Rollen anwendungssezifische *Rechte* zu und prüft diese gegen die für die Nutzung des angefragten Service benötigten Rechte.
 Wie genau Rollen und Rechte spezifiziert werden, beschreibt das Kapitel xref:konzept/master.adoc#rollen-und-rechte[Rollen und Rechte].
 
 [[oauth2.0-und-openidconnect]]
 == OAuth2.0 und OpenIDConnect
 
+OAuth 2.0 ist ein offenes Autorisierungsprotokoll, das eine standardisierte, sichere API-Autorisierung für Desktop-, Web- und Mobile-Anwendungen erlaubt.
+Ein (menschlicher) Endbenutzer kann mit Hilfe eines Autorisierungsservers (IAM-Service) einer Anwendung den Zugriff auf seine (geschützten) Daten erlauben (Autorisierung), die von einem anderen Service bereitgestellt werden, ohne geheime Details seiner Zugangsberechtigung (Authentifizierung) der Anwendung preiszugeben.
+Der Endbenutzer kann so der Anwendung gestatten, in seinem Namen einen Service zu benutzen.
+Dazu wird der Endbenutzer auf eine Login-Seite des Autorisierungsservers (IAM-Service) umgeleitet und nach erfolgreicher Authentifizierung zurück in die Anwendung.
+Dabei wird die Übermittlung von vertraulichen Daten wie z.B. Passwörtern an die Anwendung vermieden.
+Bei M2M-Kommunikation enthält die Konfiguration der Anwendung die zur Authentifizierung notwendigen Daten des dafür verwendeten technischen Nutzers (Client, die direkt an den IAM-Service geschickt werden.
+Bei erfolgreicher Authentifizierung erhält die Anwendung ein Access-Token (Zugriffstoken), eine Art 'Freibrief' für die Anwendung, mit dem der IAM-Service das Zugangsrecht bestätigt.
+
+OpenID Connect oder OIDC ist ein offenes Identitätsprotokoll, das die Autorisierungs- und Authentifizierungsmechanismen von OAuth 2.0 nutzt und als Schicht oberhalb des OAuth-Frameworks Anwendungen ermöglicht, zusätzlich zur oben beschriebenen Autorisierung auch grundlegende Profilinformationen des Benutzers auf interoperable Weise zu erhalten.
+Die Implementierung von OpenID Connect basiert auf der Ausstellung von ID-Tokens und auf der HTTP-Programmierschnittstelle mit REST-Mechanismen und auf dem Datenformat JSON.
+
 [[oauth2.0-zur-autorisierung]]
 === OAuth2.0 zur Autorisierung
+
+OAuth 2.0 ist ein Autorisierungsprotokoll, kein Authentifizierungsprotokoll.
+Als Solches ist es in erster Linie dafür vorgesehen, den Zugriff auf bestimmte Ressourcen zu ermöglichen, beispielsweise externe APIs oder Nutzerdaten. +
+OAuth 2.0 nutzt Access-Tokens.
+Access-Tokens sind Daten, die die Autorisierung zum Zugriff auf Ressourcen für den Endnutzer darstellen.
+OAuth 2.0 definiert kein spezielles Format für Zugriffstokens, in der Regel wird jedoch das „JSON Web Token (JWT)“-Format genutzt.
+Dieses ermöglicht es dem Aussteller der Access-Tokens, weitere Daten in das Access-Token selbst aufzunehmen.
+Aus Sicherheitsgründen sollten Access-Tokens außerdem ein Ablaufdatum besitzen.
+
+In OAuth 2.0 gibt es folgende vier Rollen bzw. beteiligte Parteien:
+
+*Ressourcenbesitzer (Resource Owner)*
+
+Eine Person oder ein System, das berechtigt ist, auf eine geschützte Ressource zuzugreifen. +
+Beispiel: Anwender, Techn. Nutzer. +
+Wir übernehmen für die IsyFact die konkrete Ausprägung "Anwender", "Techn. Nutzer" "Client".
+
+*Ressourcen-Server bzw. Anwendungssystem (Resource-Server)*
+
+Der Server, in dem die geschützte Ressource liegt und der in der Lage ist, auf Anfragen an diese geschützte Ressource zu reagieren, wenn sie ein Access Token enthalten. +
+Beispiel: Geschäftsanwendung +
+Wir übernehmen für die IsyFact die IsyFact-spezifische Bezeichnung "Anwendungssystem".
+
+*Anwendung (Client)*
+
+Eine vom Ressourcenbesitzer gesteuerte Anwendung, die in seinem Namen eine geschützte Ressource verwenden möchte.
+Der Begriff 'Client' impliziert hier nicht bestimmte Implementierungscharakteristiken, sondern den Teil der Anwendung, mit der der Ressourcenbesitzer interagiert. +
+Beispiel: Batch.  +
+Wir übernehmen für die IsyFact die englische Bezeichnung "Client".
+
+*IAM-Service (Authorization-Server)*
+
+Der Service, der Access Tokens ausstellt, nach erfolgreicher Authentifizierung und Autorisierung des Ressourcenbesitzers.
+Er bestätigt auch gegenüber dem Ressourcen-Server die Gültigkeit des Access Tokens, das der Client dem Ressourcen-Server in der Zugangsanfrage mitgegeben hat.  +
+Beispiel: Keycloak (Produkt).  +
+Wir übernehmen für die IsyFact die IsyFact-spezifische Bezeichnung "IAM-Service".
+
+Weitere wichtige Begriffe sind:
+
+*Ressource (Resource)*
+
+Daten oder andere Betriebsmittel, die durch ein Nutzungsrecht vor unbefugtem Zugang geschützt sind.  +
+Wir übernehmen für die IsyFact die deutsche Bezeichnung "Ressource".
+
+*Zugriffstoken (Access-Token)*
+
+Berechtigungsnachweis für den Zugang zu einer geschützten Ressource.
+Der Inhalt ist für den Client meist nicht lesbar, er gibt es einfach weiter an den Ressourcen-Server.
+Sie gelten für einen spezifischen Bereich und nur für eine bestimmte Zeit. +
+Wir übernehmen für die IsyFact die englische Bezeichnung "Access-Token".
+
+*Aktualisierungstoken (Refresh-Token)*
+
+'Meta'-Berechtigungsnachweis: Ermöglicht dem Client, ein neues Access Token vom IAM-Service zu erhalten, ohne dass der Ressourcenbesitzer sich erneut ausweisen muss.
+Diese neue Access Token kann z.B. ein späteres Ablaufdatum (autom. Nutzungsverlängerung) oder andere Rechte (innerhalb aller an den Ressourcenbesitzer vergebenen Rechte) aufweisen.  +
+Wir übernehmen für die IsyFact die englische Bezeichnung "Refresh-Token".
 
 [[openidconnect-zur-authentifizierung]]
 === OpenIDConnect zur Authentifizierung
@@ -79,6 +152,16 @@ Wie genau Rollen und Rechte spezifiziert werden, beschreibt das Kapitel xref:kon
 
 [[bereitstellung-der-tokeninformationen]]
 ==== Bereitstellung der Tokeninformationen
+
+Das Access-Token wird in den Spring `SecurityContext` übernommen, auch als aufgeschlüsseltes JSON-Objekt
+mit allen Claims, wenn im  `WebSecurityConfigurerAdapter` die Applikation als OAuth2 Resource-Server definiert wird. Ein direkter Zugriff auf das Access-Token in einer Anwendung ist im Normalfall aber nicht notwendig. +
+Die vom IAM im 'roles'-Claim hinterlegten Rollen des Benutzers werden in der Schnittstelle `Security` auf die
+anwendungsspezifischen Rechte umgesetzt und als `GrantedAuthorities` in den `SecurityContext` eintragen (durch
+(eigene Implementierung von) `JwtGrantedAuthoritiesConverter`). +
+Der Spring `SecurityContextHolder` hält den `SecurityContext` (in einem `ThreadLocal` Objekt) und der
+IsyFact `Berechtigungsmanager` kann darüber die Rollen und Rechte des Benutzers abfragen und der Anwendung in Form der Methoden `getRollen`, `getRechte`, `hatRecht`, `pruefeRecht` zu Verfügung stellen.
+
+[Wie sieht es mit den Informationen zum Nutzer (z.B. BHKNZ, Nutzername etc.) aus? Wie können diese in der Anwendung verwendet werden?]
 
 [[weitergabe-der-token]]
 ==== Weitergabe der Token
@@ -158,8 +241,7 @@ Die Integration von Spring Security und des Bausteins Sicherheit wird im xref:bl
 Im Folgenden wird die Schnittstelle des Bausteins Sicherheit beschrieben.
 
 .Schnittstelle des Bausteins Sicherheit
-[id="image-schnittstelle-sicherheit",reftext="{figure-caption} {counter:figures}"]
-image::nutzungsvorgaben/sicherheit-schnittstellen.png[align="center"]
+
 
 Die zentrale Schnittstelle für den Zugriff auf Rollen und Rechte eines Anwenders ist `Berechtigungsmanager`.
 Instanzen des Berechtigungsmanagers zur Autorisierung einer Anfrage werden über die Schnittstelle `Sicherheit` erzeugt.
@@ -270,7 +352,7 @@ image::isy-sicherheit:konzept/rollen-beziehungen.png[align="center",pdfwidth=70%
 
 Technische Rollen sichern die Kommunikationswege innerhalb der Anwendungslandschaft ab.
 Sie werden für die Schnittstellen von Geschäftsanwendungen verwendet, welche nur von anderen Geschäftsanwendungen aufgerufen werden.
-Die einzelnen Schnittstellen werden durch Rechte abgesichert (siehe Dokument xref:nutzungsvorgaben/master.adoc#einleitung[Sicherheit - Nutzungsvorgaben] ).
+
 
 Technische Rollen berechtigen zur Ausführung der entsprechenden Services der Geschäftsanwendung selbst, sowie aller dadurch mittelbar ausgelösten Aktionen in nachgelagerten Anwendungen.
 Daher werden diesen technischen Rollen im Regelfall weitere technische Rollen untergeordnet sein, welche die nachgelagerten Anwendungen absichern.
@@ -296,7 +378,7 @@ Dies reduziert die Anzahl der Rollen, die einem Nutzer zugewiesen sind, in der R
 
 Fachliche Rollen werden für Schnittstellen von Geschäftsanwendungen vergeben, welche Zugänge zur Anwendungslandschaft geben.
 Dies beinhaltet neben den Dialogen (der grafischen Oberfläche) und Zugängen über den Service-Gateway auch interne Systeme wie beispielsweise Systemtasks oder Batches.
-Die einzelnen angebotenen Services werden über Rechte abgesichert (siehe Dokument xref:nutzungsvorgaben/master.adoc#einleitung[Sicherheit - Nutzungsvorgaben]).
+
 
 Fachliche Rollen berechtigen zur Ausführung der entsprechenden Aktion über den entsprechenden Zugangsweg, sowie aller dadurch mittelbar ausgelösten Aktionen in nachgelagerten Anwendungen.
 Daher werden diesen fachlichen Rollen im Regelfall weitere technische Rollen untergeordnet sein, welche die nachgelagerten Anwendungen absichern.
@@ -373,7 +455,6 @@ image::isy-sicherheit:konzept/rollen-erstellung.png[align="center",pdfwidth=70%,
 . In Abstimmung mit den fachlichen Ansprechpartnern und der Benutzeradministration wird ermittelt, ob und welche zusätzlichen technischen Anwender benötigt werden.
 . Vorbereitung der Einspielung der neuen, fachlichen Rollen in die Benutzeradministration.
 Über das jeweilige Format bestimmt der IsyFact-Baustein, der zur Benutzeradministration eingesetzt wird.
-. Konfiguration des IT-Systems mit den erstellten technischen Rollen und Rechten (siehe Dokument xref:nutzungsvorgaben/master.adoc#einleitung[Sicherheit - Nutzungsvorgaben]).
 
 Die Rollen und Rechte sollten bereits während der Erstellung des Systementwurfs entworfen werden, soweit dies möglich ist.
 Sobald die angebotenen Schnittstellen bekannt sind, können die entsprechenden Rollen nach obigen Richtlinien erstellt werden.
