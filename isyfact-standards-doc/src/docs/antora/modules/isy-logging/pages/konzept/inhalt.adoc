@@ -451,12 +451,10 @@ Vollständige Signatur einer aufgerufenen Methode.
 
 Das Attribut wird beim Loggen eines Methodenaufrufs mit den Hilfsklassen `LoggingMethodInvoker` und `LoggingMethodInterceptor` automatisch gesetzt.
 
- a|`public de.bund.bva.
-isyfact.logging.
-hilfsklassen.
-TestZielParameterPerson`
-
-`de.bund.bva.isyfact.logging.hilfsklassen.TestZielKlasse.setzeName Exception(de.bund.bva.Isyfact.logging.hilfsklassen.TestZielParameterPerson,java.lang.String)`
+a|
+`de.bund.bva.isyfact.logging.hilfsklassen.TestZielKlasse
+.setzeName(de.bund.bva.isyfact.logging.hilfsklassen
+.TestZielParameterPerson,java.lang.String)`
 |dauer a|
 Dauer eines Methodenaufrufs.
 
