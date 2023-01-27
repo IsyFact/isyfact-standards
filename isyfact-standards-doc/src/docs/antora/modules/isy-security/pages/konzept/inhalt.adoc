@@ -53,8 +53,75 @@ Wie genau Rollen und Rechte spezifiziert werden, beschreibt das Kapitel xref:kon
 [[oauth2.0-und-openidconnect]]
 == OAuth2.0 und OpenIDConnect
 
+OAuth 2.0 ist ein offenes Autorisierungsprotokoll, das eine standardisierte, sichere API-Autorisierung für Desktop-, Web- und Mobile-Anwendungen erlaubt.
+Ein (menschlicher) Endbenutzer kann mit Hilfe eines Autorisierungsservers (IAM-Service) einer Anwendung den Zugriff auf seine (geschützten) Daten erlauben (Autorisierung), die von einem anderen Service bereitgestellt werden, ohne geheime Details seiner Zugangsberechtigung (Authentifizierung) der Anwendung preiszugeben.
+Der Endbenutzer kann so der Anwendung gestatten, in seinem Namen einen Service zu benutzen.
+Dazu wird der Endbenutzer auf eine Login-Seite des Autorisierungsservers (IAM-Service) umgeleitet und nach erfolgreicher Authentifizierung zurück in die Anwendung.
+Dabei wird die Übermittlung von vertraulichen Daten wie z.B. Passwörtern an die Anwendung vermieden.
+Bei M2M-Kommunikation enthält die Konfiguration der Anwendung die zur Authentifizierung notwendigen Daten des dafür verwendeten technischen Nutzers (Client, die direkt an den IAM-Service geschickt werden.
+Bei erfolgreicher Authentifizierung erhält die Anwendung ein Access-Token (Zugriffstoken), eine Art 'Freibrief' für die Anwendung, mit dem der IAM-Service das Zugangsrecht bestätigt.
+
+OpenID Connect oder OIDC ist ein offenes Identitätsprotokoll, das die Autorisierungs- und Authentifizierungsmechanismen von OAuth 2.0 nutzt und als Schicht oberhalb des OAuth-Frameworks Anwendungen ermöglicht, zusätzlich zur oben beschriebenen Autorisierung auch grundlegende Profilinformationen des Benutzers auf interoperable Weise zu erhalten.
+Die Implementierung von OpenID Connect basiert auf der Ausstellung von ID-Tokens und auf der HTTP-Programmierschnittstelle mit REST-Mechanismen und auf dem Datenformat JSON.
+
 [[oauth2.0-zur-autorisierung]]
 === OAuth2.0 zur Autorisierung
+
+OAuth 2.0 ist ein Autorisierungsprotokoll, kein Authentifizierungsprotokoll.
+Als Solches ist es in erster Linie dafür vorgesehen, den Zugriff auf bestimmte Ressourcen zu ermöglichen, beispielsweise externe APIs oder Nutzerdaten. +
+OAuth 2.0 nutzt Access-Tokens.
+Access-Tokens sind Daten, die die Autorisierung zum Zugriff auf Ressourcen für den Endnutzer darstellen.
+OAuth 2.0 definiert kein spezielles Format für Zugriffstokens, in der Regel wird jedoch das „JSON Web Token (JWT)“-Format genutzt.
+Dieses ermöglicht es dem Aussteller der Access-Tokens, weitere Daten in das Access-Token selbst aufzunehmen.
+Aus Sicherheitsgründen sollten Access-Tokens außerdem ein Ablaufdatum besitzen.
+
+In OAuth 2.0 gibt es folgende vier Rollen bzw. beteiligte Parteien:
+
+*Ressourcenbesitzer (Resource Owner)*
+
+Eine Person oder ein System, das berechtigt ist, auf eine geschützte Ressource zuzugreifen. +
+Beispiel: Anwender, Techn. Nutzer. +
+Wir übernehmen für die IsyFact die konkrete Ausprägung "Anwender", "Techn. Nutzer" "Client".
+
+*Ressourcen-Server bzw. Anwendungssystem (Resource-Server)*
+
+Der Server, in dem die geschützte Ressource liegt und der in der Lage ist, auf Anfragen an diese geschützte Ressource zu reagieren, wenn sie ein Access Token enthalten. +
+Beispiel: Geschäftsanwendung +
+Wir übernehmen für die IsyFact die IsyFact-spezifische Bezeichnung "Anwendungssystem".
+
+*Anwendung (Client)*
+
+Eine vom Ressourcenbesitzer gesteuerte Anwendung, die in seinem Namen eine geschützte Ressource verwenden möchte.
+Der Begriff 'Client' impliziert hier nicht bestimmte Implementierungscharakteristiken, sondern den Teil der Anwendung, mit der der Ressourcenbesitzer interagiert. +
+Beispiel: Batch.  +
+Wir übernehmen für die IsyFact die englische Bezeichnung "Client".
+
+*IAM-Service (Authorization-Server)*
+
+Der Service, der Access Tokens ausstellt, nach erfolgreicher Authentifizierung und Autorisierung des Ressourcenbesitzers.
+Er bestätigt auch gegenüber dem Ressourcen-Server die Gültigkeit des Access Tokens, das der Client dem Ressourcen-Server in der Zugangsanfrage mitgegeben hat.  +
+Beispiel: Keycloak (Produkt).  +
+Wir übernehmen für die IsyFact die IsyFact-spezifische Bezeichnung "IAM-Service".
+
+Weitere wichtige Begriffe sind:
+
+*Ressource (Resource)*
+
+Daten oder andere Betriebsmittel, die durch ein Nutzungsrecht vor unbefugtem Zugang geschützt sind.  +
+Wir übernehmen für die IsyFact die deutsche Bezeichnung "Ressource".
+
+*Zugriffstoken (Access-Token)*
+
+Berechtigungsnachweis für den Zugang zu einer geschützten Ressource.
+Der Inhalt ist für den Client meist nicht lesbar, er gibt es einfach weiter an den Ressourcen-Server.
+Sie gelten für einen spezifischen Bereich und nur für eine bestimmte Zeit. +
+Wir übernehmen für die IsyFact die englische Bezeichnung "Access-Token".
+
+*Aktualisierungstoken (Refresh-Token)*
+
+'Meta'-Berechtigungsnachweis: Ermöglicht dem Client, ein neues Access Token vom IAM-Service zu erhalten, ohne dass der Ressourcenbesitzer sich erneut ausweisen muss.
+Diese neue Access Token kann z.B. ein späteres Ablaufdatum (autom. Nutzungsverlängerung) oder andere Rechte (innerhalb aller an den Ressourcenbesitzer vergebenen Rechte) aufweisen.  +
+Wir übernehmen für die IsyFact die englische Bezeichnung "Refresh-Token".
 
 [[openidconnect-zur-authentifizierung]]
 === OpenIDConnect zur Authentifizierung
@@ -85,6 +152,16 @@ Wie genau Rollen und Rechte spezifiziert werden, beschreibt das Kapitel xref:kon
 
 [[bereitstellung-der-tokeninformationen]]
 ==== Bereitstellung der Tokeninformationen
+
+Das Access-Token wird in den Spring `SecurityContext` übernommen, auch als aufgeschlüsseltes JSON-Objekt
+mit allen Claims, wenn im  `WebSecurityConfigurerAdapter` die Applikation als OAuth2 Resource-Server definiert wird. Ein direkter Zugriff auf das Access-Token in einer Anwendung ist im Normalfall aber nicht notwendig. +
+Die vom IAM im 'roles'-Claim hinterlegten Rollen des Benutzers werden in der Schnittstelle `Security` auf die
+anwendungsspezifischen Rechte umgesetzt und als `GrantedAuthorities` in den `SecurityContext` eintragen (durch
+(eigene Implementierung von) `JwtGrantedAuthoritiesConverter`). +
+Der Spring `SecurityContextHolder` hält den `SecurityContext` (in einem `ThreadLocal` Objekt) und der
+IsyFact `Berechtigungsmanager` kann darüber die Rollen und Rechte des Benutzers abfragen und der Anwendung in Form der Methoden `getRollen`, `getRechte`, `hatRecht`, `pruefeRecht` zu Verfügung stellen.
+
+[Wie sieht es mit den Informationen zum Nutzer (z.B. BHKNZ, Nutzername etc.) aus? Wie können diese in der Anwendung verwendet werden?]
 
 [[weitergabe-der-token]]
 ==== Weitergabe der Token
