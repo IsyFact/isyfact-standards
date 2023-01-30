@@ -161,18 +161,22 @@ Im Folgenden wird die Schnittstelle des Bausteins Security beschrieben.
 [id="image-schnittstelle-security",reftext="{figure-caption} {counter:figures}"]
 image::konzept/security-schnittstellen.dn.svg[align="center"]
 
-Bei Instanziierung des Bausteins 'Security' wird die anwendungsspezifische Rollen-Rechte-Datei eingelesen, sowie der`Authentifizierungsmanager`  und der `Berechtigungsmanager` damit erzeugt.
-Beide Manager sowie eine Liste aller für diese Anwendung spezifischen Rollen werden nach Außen angeboten.
+Das Interface `Security` ist der zentrale Einstiegspunkt in den Baustein Security.
+Bei seiner Instanziierung wird die anwendungsspezifische Rollen-Rechte-Datei eingelesen und damit der `Authentifizierungsmanager` sowie der `Berechtigungsmanager` erzeugt.
+Das Interface `Security` stellt der Fachanwendung die im weiteren beschriebenen `Authentifizierungsmanager` und `Berechtigungsmanager` der Fachanwendung zur Verfügung.
+Außerdem kann die Fachanwendung über die Methode `getAlleRollen` eine eine Liste von allen im System hinterlegten Rollen erhalten.
 
-Der `Authentifizierungsmanager` übernimmt die Authentifizierung am IAM-System.
-Untersützt wird sowohl die OAuth-konforme Authentifizierung eines Client mittels Id u. secret als auch die (veraltete) Methode mittels (techn.) Nutzername u. Passwort.
-Bei erfolgreicher Authentifizierung werden die vom IAM-System zurückgegebenen Daten (Access-Token, Rollen des Anwenders, ...) im Spring Secutity Context abgelegt, zusammen mit den aus den Rollen resultierenden Rechten des Anwenders.
-Eine nicht erfolgreiche Authentifizierung (fachliche Ablehnung oder technisches Problem) löst eine entsprechende Exception aus.
+Der `Authentifizierungsmanager` übernimmt die Authentifizierung von technischen Nutzern am IAM-System.
+Mit der Methode `authentifiziereClient` wird die OAuth-konforme Authentifizierung eines Client mittels Id u. secret uunterstützt mit der Methode `authentifiziereSystem` der (veraltete) Weg mittels (techn.) Nutzername u. Passwort.
+Bei erfolgreicher Authentifizierung werden die vom IAM-System zurückgegebenen Daten (Access-Token, Rollen des Anwenders, ...) im Spring Security Context abgelegt, zusammen mit den aus den Rollen resultierenden Rechten des Anwenders.
+Eine nicht erfolgreiche Authentifizierung (fachliche Ablehnung oder technisches Problem) löst eine `AuthentifizierungFehlgeschlagenException` bzw. `AuthentifizierungTechnicalException` aus.
 
 Die zentrale Schnittstelle für den Zugriff auf Rollen und Rechte eines Anwenders ist der `Berechtigungsmanager`.
-Rollen werden über die Benutzeradministration Anwendern zugewiesen.
-Rechte sind anwendungsspezifisch und an Rollen gebunden.
-Eine Liste der dem Anwender zugewiesenen Rollen bzw. daran geknüpften Rechte können hier erfragt werden und es kann geprüft werden, ob der Anwender ein bestimmtes Recht hat.
+Die in der Benutzeradministration dem Anwender zugewiesenen Rollen werden mithilfe einer anwendungsspezifischen Rollen-Rechte-Datei in konkrete Rechte des Anwenders für diese Anwendung umgewandelt.
+Die aktuellen Rollen und Rechte des Anwenders können mit den Methoden des `Berechtigungsmanager` erfragt werden und es kann geprüft werden, ob der Anwender ein bestimmtes Recht hat.
+Die Methoden `getRechte` und `getRollen` liefern die aktuell dem Anwender zugeordneten Rechte bzw. Rollen.
+Mit der Methode `hatRecht` kann die Anwendung feststellen, ob der Anwender aktuell ein bestimmtes Recht besitzt, während mit `pruefeRecht` der nachfolgende Code mit dem angegebenen Recht abgesichert wird: falls der Anwender das Recht nicht hat, wird eine `AutorisierungFehlgeschlagenException` geworfen.
+Mit diesen Berechtigungsabfragen kann die Fachanwendung z.B. feingranular bestimmen, ob und wie der Anwender bestimmte Daten sehen oder bearbeiten kann bzw. ob und wie er bestimmte Funktionen der Anwendung benutzen kann.
 
 [[aufruf-von-nachbarsystemen]]
 === Aufruf von Nachbarsystemen
