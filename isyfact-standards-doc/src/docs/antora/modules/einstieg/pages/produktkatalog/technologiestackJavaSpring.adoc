@@ -2,6 +2,21 @@
 
 include::glossary:licence:partial$licence.adoc[]
 
+Die hier aufgeführten Produkte dienen der Entwicklung und dem Test von Anwendungen mit dem Technologiestack Java und Spring (Boot).
+
+// tag::spring-boot-managed-dependencies[]
+
+[[spring-boot-dependencies]]
+.Spring Boot Managed Dependencies
+****
+Das Framework Spring Boot legt selbst zahlreiche Versionen von Drittanbieter-Bibliotheken fest.
+Wann immer ein Produkt als Version dieses Icon (icon:power-off[title=Spring Boot Dependency]) enthält, wird die durch Spring Boot festgelegte Version verwendet.
+
+Produkte und ihre Versionen können in der Liste der xref:glossary:literaturextern:inhalt.adoc#litextern-spring-boot-managed-dependencies[Spring Boot Managed Dependencies] nachgeschlagen werden.
+****
+
+// end::spring-boot-managed-dependencies[]
+
 == Entwicklung
 
 [.table_head_sticky.unordered_list_identation]
