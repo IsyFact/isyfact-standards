@@ -168,6 +168,7 @@ Das Access-Token enthält alle notwendigen Daten, um zu verifizieren, ob die auf
 ====== Client-Credential Flow
 
 Der _Client-Credential_-Flow wird und darf nur zur Berechtigungszuteilung eingesetzt werden, wenn die Clientanwendung selbst auch der Besitzer der Credentials und damit als Confidential-Clientanwendung eingestuft ist.
+Dieser Credential-Flow ist nach SpringSecurity OAuth2.0 auch die einzige Möglichkeit einen TechnischenNutzer zu authentifizieren.
 Es erfolgt hierbei keine Interaktion durch einen Benutzer, der sein Passwort eingeben müsste, sondern die Schritte zur Authentifizierung und Autorisierung der Clientanwendung laufen selbständig als Hintergrundprozess analog einer Batch-Anwendung ab.
 Die dabei verwendeten Credentials `Client-ID` und `Client-Secret` müssen vor der Nutzung für die Clientanwendung definiert und mit dem IAM-System abgestimmt sein.
 
