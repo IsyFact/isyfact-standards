@@ -164,17 +164,6 @@ Der `ClientAuthenticationInterceptor` ist eine Spezialisierung des `SecurityCont
 Das Ergebnis einer Authentifizierung über die Annotation `@ClientAuthentification` ist ein voll initialisierter `SecurityContext` mit einem validen AccessToken.
 Die Annotation muss zusammen mit der von IsyFact 3 eingeführten `@secured` Annotation verwendet werden.
 
-Der Baustein Security bietet folgende Funktionen:
-
-* Für Service-Aufrufe werden Interceptoren von Spring Security angeboten, welche über Spring AOP eine deklarative Berechtigungsprüfung ermöglichen.
-* Für den Kontext der Anfrage stellt der Baustein einen Berechtigungsmanager zur Verfügung, der die Rechte und Rollen des anfragenden Anwenders kennt.
-Die Informationen zum anfragenden Anwender werden – falls vorhanden – aus dem `SecurityContext` entnommen.
-Die Fachkomponenten (Anwendungskomponente) eines IT-Systems nutzen den Berechtigungsmanager für spezielle Berechtigungsprüfungen, die nicht deklarativ über Annotationen erfolgen können.
-* Anwender können anhand der übergebenen Benutzerkennung (und Passwort) authentifiziert werden.
-Dazu wird der IAM-Service bzw. die lokale Authentifizierung angesprochen.
-Die gewonnenen Informationen werden im `SecurityContext` (Access Token) hinterlegt.
-* Das Interface `Authentifizierungsmanager` ist eine Erweiterung des `OAuth2AuthorizedClientProvider` da es das BHKNZ mitberücksichtigt und an dem IAM-Service überträgt. Dieser `OAuth2AuthorizedClientProvider` bildet anschließend die Verbindung zum IAM-Service (Authentifizierungssystem in obiger Abbildung).
-
 [[aussensicht-der-komponente-sicherheit]]
 === Schnittstelle des Bausteins Sicherheit
 
