@@ -854,7 +854,7 @@ Beispiel für ein Batchprotokoll:
 <Meldung ID="ENDE" Typ="I" Text="Batch beendet."/>
 </Meldungen>
 <Statistik>
-<Statistik-Eintrag ID="ANZAHL_GELOESCHT" Text="Anzahl gelöschter Generischer Anwendungen" Wert="5"/>
+<Statistik-Eintrag ID="ANZAHL_GELOESCHT" Text="Anzahl gelöschter generischer Anwendungen" Wert="5"/>
 </Statistik>
 <Ende Datum="2017-01-30" Uhrzeit="09:33:58"/>
 <Return-Code RC="0" Text="Verarbeitung ohne Fehler durchgeführt."/>

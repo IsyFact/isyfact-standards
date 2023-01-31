@@ -30,7 +30,7 @@ image::blaupausen:detailkonzept-anwendungskern/IFBestAWK.png[align="center",widt
 Sie bilden damit den Schnitt der Anwendungskomponenten in die technische Architektur ab.
 Fachkomponenten beinhalten möglichst wenig Technik und trennen so Anwendungslogik von Technologie.
 
-Eine Allgemeine Anwendung enthält die Fachkomponenten _Erstellung_, _Teilnahme_ und _Verwaltung_.
+Eine allgemeine Anwendung enthält die Fachkomponenten _Erstellung_, _Teilnahme_ und _Verwaltung_.
 
 TIP: Fachkomponenten sind der Schlüssel für gute Wartbarkeit und einfache Weiterentwickelbarkeit des Anwendungskerns.
 Die Trennung von Anwendungslogik und Technik ist deshalb auch in anderen Schichten der technischen Architektur vorgesehen, z. B. in der Persistenz.
@@ -67,7 +67,7 @@ Sie werden primär nach ihrer Funktion benannt.
 // end::namenskonvention[]
 
 
-In einer Algemeinen Anwendung gibt es z.B. die Geschäftsobjekte `Aufgabe`, `Zeitpunkt` und `Nutzer`.
+In einer allgemeinen Anwendung gibt es z.B. die Geschäftsobjekte `Aufgabe`, `Zeitpunkt` und `Nutzer`.
 
 In Ausnahmefällen können Geschäftsobjekte fachlich nicht genau einer Komponente zugeordnet werden.
 Hierfür wird die Komponente _Basisdaten_ definiert, die nur die eine Aufgabe hat, solche Geschäftsobjekte an zentraler Stelle zu verwalten.
@@ -247,7 +247,7 @@ Eine Komponente sollte durchgängig über Spring konfiguriert werden.
 Alle relevanten und zentralen Klassen werden daher als Spring Beans konfiguriert.
 Das umfasst vor allem, aber nicht ausschließlich, die Fassade und zugehörige Anwendungsfallklassen.
 
-Ein Beispiel dafür ist die Klasse `VerwaltungImpl` der allgemeinen Anwendung.
+Ein Beispiel dafür ist die Klasse `VerwaltungImpl` einer allgemeinen Anwendung.
 
 Bei Anwendungsfunktionsklassen oder Hilfsklassen ist je nach Relevanz zu entscheiden, ob diese als eigene Spring Beans definiert werden.
 Im Zweifel sollte die Konfiguration über Spring bevorzugt werden.
