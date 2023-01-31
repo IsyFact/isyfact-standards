@@ -59,6 +59,7 @@ Wie genau Rollen und Rechte spezifiziert werden, beschreibt das Kapitel xref:kon
 [[aufruf-weboberflaeche-portal]]
 ==== Aufruf Web-Oberfläche/Portal
 
+Ein menschlicher Nutzer, der eine Anwendung über deren Web-Oberfläche (im Web-Browser) bedienen möchte, ist im Besitz von Authentifizierungsinformationen (User-Name u. Passwort, biometrische Daten, ...) mit denen er sich gegenüber dem IAM-System ausweisen kann. Diese Informationen sollten nur zum IAM-Service gelangen und nicht an oder durch andere Systeme kommen. Deshalb wird der Anwender auf einen Login-Dialog des IAM-Service umgeleitet, um nach erfolgreicher Authentifizierung & Autorisierung auf die Web-App weitergeleitet zu werden.
 
 .Ablauf Authentifizierung bei Aufruf über Web-Oberfläche / Portal für single page applications (SPA)
 [id="image-Authorization-Code-Flow",reftext="{figure-caption} {counter:figures}"]
