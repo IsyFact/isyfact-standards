@@ -62,7 +62,7 @@ Wie genau Rollen und Rechte spezifiziert werden, beschreibt das Kapitel xref:kon
 [[aufruf-service-gateway]]
 ==== Aufruf Service-Gateway
 
-Mit der `IsyFact 3` wird eine neue Authentifizierungslogik mit zusätzlichem _Authentication-Gateway_ für die Authentifizierung von externen Anwendungen, die außerhalb der Anwendungslandschaft betrieben werden, eingeführt.
+Mit der `IsyFact 3` wird eine neue Authentifizierungslogik mit zusätzlichem _Authentication-Gateway_ für die Authentifizierung von Anwendungen, die außerhalb der Anwendungslandschaft betrieben werden, eingeführt.
 Für eine weiche Migration der externen Anwendungen auf die neue IsyFact-Version wird zusätzlich die bisherige Authentifizierungslogik - _ohne Authentication-Gateway_ - beibehalten.
 
 [[aufruf-service-gateway-mit-authentication-gateway]]
@@ -116,7 +116,7 @@ Dieses Token muss sich die Anwendung zuerst beschaffen, indem sie sich beim _Ide
 
 Eingehende Authentifizierungsanfragen werden hierbei im _Service-Gateway_ erkannt und mit den übergebenen User-Credentials an den _IAM-Service_ weitergeleitet.
 
-Im IAM-Service erfolgt dann mit den übergebenen User-Credentials die eigentliche Authentifizierung.
+Im IAM-Service erfolgt dann mit den übergebenen Authentifizierungsdaten die eigentliche Authentifizierung.
 Dabei wird neben der neuen Authentifizierungslogik des _Client-Credential-Flows_ auch die bisherige Authentifizierungslogik des _Resource-Owner-Password-Credentials-Flows_ unterstützt.
 Der _Client-Credential-Flow_ dient dabei der Authentifizierung eines _Technischen Nutzer_ und über den _Resource-Owner-Password-Credentials-Flow_ erfolgt die Authentifizierung eines _Natürlichen Nutzers_.
 Mit validen User-Credentials und erfolgreicher Authentifizierung liefert der IAM-Service dann ein valides, neu erstelltes Access-Token an das Service-Gateway zurück.
