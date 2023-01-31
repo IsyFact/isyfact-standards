@@ -153,15 +153,15 @@ Wir übernehmen für die IsyFact die englische Bezeichnung "Refresh-Token".
 [[bereitstellung-der-tokeninformationen]]
 ==== Bereitstellung der Tokeninformationen
 
-Das Access-Token wird in den Spring `SecurityContext` übernommen, auch als aufgeschlüsseltes JSON-Objekt
-mit allen Claims, wenn im  `WebSecurityConfigurerAdapter` die Applikation als OAuth2 Resource-Server definiert wird. Ein direkter Zugriff auf das Access-Token in einer Anwendung ist im Normalfall aber nicht notwendig. +
-Die vom IAM im 'roles'-Claim hinterlegten Rollen des Benutzers werden in der Schnittstelle `Security` auf die
-anwendungsspezifischen Rechte umgesetzt und als `GrantedAuthorities` in den `SecurityContext` eintragen (durch
-(eigene Implementierung von) `JwtGrantedAuthoritiesConverter`). +
-Der Spring `SecurityContextHolder` hält den `SecurityContext` (in einem `ThreadLocal` Objekt) und der
-IsyFact `Berechtigungsmanager` kann darüber die Rollen und Rechte des Benutzers abfragen und der Anwendung in Form der Methoden `getRollen`, `getRechte`, `hatRecht`, `pruefeRecht` zu Verfügung stellen.
+Das Access-Token wird in den Spring `SecurityContext` übernommen.
+Zudem wird der Access-Token als aufgeschlüsseltes JSON-Objekt inklusive aller Claims (Inhalte des Access-Tokens) in der Anwendung innerhalb des `SecurityContexts` bereitgestellt.
 
-[Wie sieht es mit den Informationen zum Nutzer (z.B. BHKNZ, Nutzername etc.) aus? Wie können diese in der Anwendung verwendet werden?]
+Die vom IAM-Service im 'roles'-Claim hinterlegten Rollen des Benutzers werden auf die anwendungsspezifischen Rechte umgesetzt und als `GrantedAuthorities` in den `SecurityContext` eintragen (durch eigene Implementierung von) `JwtGrantedAuthoritiesConverter`).
+Der Spring `SecurityContextHolder` hält den `SecurityContext` (in einem `ThreadLocal` Objekt) und der IsyFact `Berechtigungsmanager` kann darüber die Rollen und Rechte des Benutzers abfragen und der Anwendung in Form der Methoden `getRollen`, `getRechte`, `hatRecht`, `pruefeRecht` zu Verfügung stellen.
+
+Weitere Informationen zum angemeldeten Benutzer, wie das Behördenkennzeichen oder seine Benutzerkennung (Anmeldename), kann in der Anwendung aus dem `SecurityContext` mit der Angabe des zugehörigen Claims ausgelesen werden.
+
+Ein direkter Zugriff auf das Access-Token in einer Anwendung sollte nicht geschehen.
 
 [[weitergabe-der-token]]
 ==== Weitergabe der Token
