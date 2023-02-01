@@ -414,9 +414,9 @@ Die Package-Struktur folgt einer Konvention, die aus der fachlichen und technisc
 <organisation>.<domäne>.<anwendungssystem>.<layer>.<subsystem/
 komponente>. ...
   <domäne>
-	= (Name gemäß fachlicher Architektur, z. B. „cd“)
+	= (Name gemäß fachlicher Architektur, zb. "meinedomäne")
   <anwendungssystem>
-	= (Name gemäß fachlicher Architektur, z.B. „registercd“)
+	= (Name gemäß fachlicher Architektur)
   <layer>
 	= common | gui | batch | service | core | persistence
   <subsystem/komponente>
@@ -442,14 +442,14 @@ Package-Namen immer kleinschreiben!
 Namen von Packages dürfen nur Kleinbuchstaben enthalten.
 
 [green]#Richtig#::
-		`de.bund.bva.cd.registercd.persistence.meldung` +
-		`de.bund.bva.cd.registercd.service.auskunft` +
+		`de.bund.bva.meinedomäne.meineanwendung.service.admin` +
+		`de.bund.bva.isyfact.meineanwendung.persistence` +
 		`de.bund.bva.isyfact.logging.common.layout`
 
 [red]#Falsch#::
-		`de.bund.bva.cd.CDRegister.persistence.meldung` +
-		`de.bund.bva.cd.register.cd.persistence.meldung` +
-		`de.bund.bva.cd.registercd.admin.service`
+		`de.bund.bva.isyfact.MeineAnwendung.persistence` +
+		`de.bund.bva.isyfact.meineanwendung.persistence.meineanwendung` +
+		`de.bund.bva.meinedomäne.meineanwendung.service.adminmeineanwendung`
 
 [[klassen--und-interface-namen]]
 ==== Klassen- und Interface-Namen
