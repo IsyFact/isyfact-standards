@@ -129,13 +129,13 @@ Das folgende Listing zeigt beispielhaft das EA-Modell._
 [[paketstruktur-enterprise-architect-modell]]
 .Paketstruktur des Enterprise Architect Modells
 ----
-📂 Meine-Anwendung
+📂 Geschäftsanwendung XYZ
   📂 Systementwurf
     📂 1 Systemarchitektur des Gesamtsystems
       📂 Querschnittkonzepte
       📂 Systemüberblick
       📂 TI-Architektur
-    📂 <<IT-System>> 2 Meine-Anwendung
+    📂 <<IT-System>> 2 Geschäftskomponente XYZ
       📂 Anwendungskern
         📂 <<A-Komponente>> Auskunft
         📂 <<A-Komponente>> Basisdaten
