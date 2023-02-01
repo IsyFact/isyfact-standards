@@ -442,14 +442,14 @@ Package-Namen immer kleinschreiben!
 Namen von Packages dürfen nur Kleinbuchstaben enthalten.
 
 [green]#Richtig#::
-		`de.bund.bva.meinedomaene.meineanwendung.service.admin` +
+		`de.bund.bva.meinedomäne.meineanwendung.service.admin` +
 		`de.bund.bva.isyfact.meineanwendung.persistence` +
 		`de.bund.bva.isyfact.logging.common.layout`
 
 [red]#Falsch#::
 		`de.bund.bva.isyfact.MeineAnwendung.persistence` +
 		`de.bund.bva.isyfact.meineanwendung.persistence.meineanwendung` +
-		`de.bund.bva.meinedomaene.meineanwendung.service.adminmeineanwendung`
+		`de.bund.bva.meinedomäne.meineanwendung.service.adminmeineanwendung`
 
 [[klassen--und-interface-namen]]
 ==== Klassen- und Interface-Namen
