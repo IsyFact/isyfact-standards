@@ -155,20 +155,21 @@ Die Integration von Spring Security und des Bausteins Security wird im xref:blau
 [[aussensicht-der-komponente-security]]
 === Schnittstelle des Bausteins Security
 
-Im Folgenden wird die Schnittstelle des Bausteins Security beschrieben.
+Im Folgenden wird die Schnittstelle des Bausteins `isy-security` beschrieben.
 
 .Schnittstelle des Bausteins Security
 [id="image-schnittstelle-security",reftext="{figure-caption} {counter:figures}"]
 image::konzept/security-schnittstellen.dn.svg[align="center"]
 
-Das Interface `Security` ist der zentrale Einstiegspunkt in den Baustein Security.
+Das Interface `Security` ist der zentrale Einstiegspunkt in den Baustein `isy-security`.
 Bei seiner Instanziierung wird die anwendungsspezifische Rollen-Rechte-Datei eingelesen und damit der `Authentifizierungsmanager` sowie der `Berechtigungsmanager` erzeugt.
 Das Interface `Security` stellt der Fachanwendung die im weiteren beschriebenen `Authentifizierungsmanager` und `Berechtigungsmanager` der Fachanwendung zur Verfügung.
 Außerdem kann die Fachanwendung über die Methode `getAlleRollen` eine Liste von allen im System hinterlegten Rollen erhalten.
 
 Der `Authentifizierungsmanager` übernimmt die Authentifizierung von technischen Nutzern am IAM-System.
-Mit der Methode `authentifiziereClient` wird die OAuth-konforme Authentifizierung eines Client mittels Client-ID u. Client-Secret unterstützt und mit der Methode `authentifiziereSystem` der (veraltete) Weg mittels (techn.) Nutzername u. Passwort.
-Bei erfolgreicher Authentifizierung werden die vom IAM-System zurückgegebenen Daten (Access-Token, Rollen des Anwenders, ...) im Spring Security Context abgelegt. Dort werden auch die den aus den Rollen resultierenden Rechte des Anwenders gespeichert.
+Mit der Methode `authentifiziereClient` wird die OAuth2.0-konforme Authentifizierung eines Client mittels Client-ID u. Client-Secret unterstützt und mit der Methode `authentifiziereSystem` der alternative Weg mittels (techn.) Nutzername u. Passwort.
+Bei erfolgreicher Authentifizierung werden die vom IAM-System zurückgegebenen Daten (Access-Token, Rollen des Anwenders, ...) im `Spring SecurityContext` abgelegt.
+Dort werden auch die den aus den Rollen resultierenden Rechte des Anwenders gespeichert.
 Eine nicht erfolgreiche Authentifizierung (fachliche Ablehnung oder technisches Problem) löst eine `AuthentifizierungFehlgeschlagenException` bzw. `AuthentifizierungTechnicalException` aus.
 
 Der `Berechtigungsmanager` gibt Auskunft über die Rollen und Rechte des Anwenders.
