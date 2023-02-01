@@ -177,16 +177,15 @@ Ein direkter Zugriff auf das Access-Token in einer Anwendung sollte nicht gesche
 
 Der Baustein Sicherheit bildet eine Komponente des Querschnitts der xref:blaupausen:referenzarchitektur-it-system/master.adoc#einleitung[IsyFact Referenzarchitektur IT-Systeme].
 Er ist von jedem IT-System zur Autorisierung von Zugriffen und Vorgängen zu verwenden.
-Für ein korrektes Funktionieren benötigt der Baustein die Komponente `AufrufKontextVerwalter`, deren Verwendung ebenfalls in diesem Kapitel erläutert wird.
 
 Die Mechanismen zur Absicherung IsyFact-konformer IT-Systeme haben zum Ziel, die Autorisierung von Zugriffen _systematisch_, _einheitlich_ und _einfach_ umzusetzen.
 
-Die *Systematik* und Vollständigkeit der Berechtigungsprüfungen wird dadurch erreicht, dass Berechtigungsprüfungen in den IT-Systemen andefinierten Stellen und auf identische Weise stattfinden.
+Die *Systematik* und Vollständigkeit der Berechtigungsprüfungen wird dadurch erreicht, dass Berechtigungsprüfungen in den IT-Systemen an definierten Stellen und auf identische Weise stattfinden.
 
-Die *Einheitlichkeit* wird durch Bereitstellung der Bibliothek `isy-sicherheit` und Nutzungsvorgaben gewährleistet, die von allen IT-Systemen zu verwenden sind.
-Berechtigungsprüfungen erfolgen innerhalb eines IT-Systems immer über die Bibliothek `isy-sicherheit`.
+Die *Einheitlichkeit* wird durch Bereitstellung der Bibliothek `isy-security` und Nutzungsvorgaben gewährleistet, die von allen IT-Systemen zu verwenden sind.
+Berechtigungsprüfungen erfolgen innerhalb eines IT-Systems immer über die Bibliothek `isy-security`.
 
-Die *Einfachheit* der Nutzung der Bibliothek `isy-sicherheit` wird durch weitgehende Transparenz bei der Initialisierung, kompakte Schnittstellen und deklarative (z.B. per Annotation) statt programmatischer Implementierung erreicht.
+Die *Einfachheit* der Nutzung der Bibliothek `isy-security` wird durch weitgehende Transparenz bei der Initialisierung, kompakte Schnittstellen und deklarative (z.B. per Annotation) statt programmatischer Implementierung erreicht.
 
 [[praemissen]]
 === Prämissen
@@ -209,31 +208,44 @@ Die folgende Abbildung zeigt den logischen Aufbau für die Authentifizierung und
 
 .Software-Architektur der Berechtigungsprüfung
 [id="image-Berechtigungspruefung",reftext="{figure-caption} {counter:figures}"]
-image::isy-sicherheit:konzept/software-architektur-berechtigungspruefung.png[align="center"]
+image::isy-security:konzept/software-architektur-berechtigungspruefung.png[align="center"]
 
 Im Folgenden werden die Aufgaben und grobe Funktionsweise der Komponenten für die Autorisierung von Anfragen in einer xref:glossary:glossary:master.adoc#glossar-geschaeftsanwendung[Geschäftsanwendung]  erläutert.
 
-Die Komponente `AufrufKontextVerwalter` stellt für eine laufende Anfrage Kontextinformationen zur Anfrage bereit, die in einem `AufrufKontext` hinterlegt werden.
-Das sind insbesondere die mit der Anfrage über die Außenschnittstelle eingehenden Informationen zum Anwender und dessen Rollen, die Korrelations-ID und anwendungsspezifisch ggf. weitere Informationen.
-Die Komponente bringt Hilfsmittel zur transparenten Nutzung des `AufrufKontextVerwalter` mit.
-So wird der `AufrufKontext` bei Serviceaufrufen transparent über Interceptoren via Spring AOP gesetzt.
-Weiterhin wird der Aufrufkontext im Rahmen der Authentifizierung automatisch befüllt.
-Nach Initialisierung des `AufrufKontextVerwalter` für eine laufende Anfrage kann das IT-System fortan transparent mit den im `AufrufKontextVerwalter` hinterlegten Anwenderinformationen arbeiten (ohne deren Herkunft zu kennen) und damit auch weitere Nachbarsysteme aufrufen.
+Der Baustein `isy-security` basiert auf dem Framework Spring Security und bietet querschnittliche Funktionalität zur Authentifizierung und Autorisierung (Berechtigungsprüfung) von Anfragen.
+Um IsyFact-spezifische Anforderungen, wie z.B. die Nutzung des Behördenkennzeichens, zu erfüllen, existiert eine Zugriffsschicht, die eben diese Funktionalität bereitstellt und den Zugriff auf Spring Security kapselt.
+Die einheitliche Zugriffsschicht für Authentifizierung und Autorisierung erleichtert zudem, durch die teilweise Übernahme bestehender Schnittstellen, die Migration von einer älteren IsyFact Version.
+Die Authentifizierung und Autorisierung an der Benutzeroberfläche findet im Zuge der Einführung von Single-Page-Applications (SPAs) nicht mehr über das Backend oder den Baustein isy-security statt.
 
-Der Baustein Sicherheit bietet folgende Funktionen:
+Der Zugriff auf den Baustein erfolgt über das Interface `Security`, das mehrere Manager bereitstellt:
 
-* Für Service-Aufrufe werden Interceptoren angeboten, welche über Spring AOP eine deklarative Berechtigungsprüfung ermöglichen.
-* Für den Kontext der Anfrage stellt der Baustein einen Berechtigungsmanager zur Verfügung, der die Rollen des anfragenden Anwenders kennt.
-Die Informationen zum anfragenden Anwender werden – falls vorhanden – aus dem `AufrufKontextVerwalter` entnommen.
-Die Fachkomponenten eines IT-Systems nutzen den Berechtigungsmanager für spezielle Berechtigungsprüfungen, die nicht deklarativ über Annotationen erfolgen können.
-* Anwender können anhand der übergebenen Benutzerkennung (und Passwort) authentifiziert werden.
-Dazu wird das IAM-System bzw. die lokale Authentifizierung angesprochen.
-Die gewonnenen Informationen werden im `AufrufKontextVerwalter` hinterlegt.
-* Das Interface `AccessManager` bietet eine Abstraktion für verschiedene Berechtigungsquellen an, indem der `AccessManager` von einem `Sicherheit-Adapter` implementiert wird.
-Für den `Sicherheit-Adapter` wird ein eigenes Modul/Artefakt empfohlen. Dieser `Sicherheit-Adapter` bildet anschließend die Verbindung zu dem IAM-System (Authentifizierungssystem in obiger Abbildung).
+* `Authentifizierungsmanager`
+* `Berechtigungsmanager`
 
-Die Authentifizierung und Autorisierung von Web-Zugriffen wird über Spring Security durchgeführt.
-Die Integration von Spring Security und des Bausteins Sicherheit wird im xref:blaupausen:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Komponente WebGUI]) beschrieben.
+Das Interface `Security` hat Zugriff auf eine Liste von allen im System hinterlegten Rollen.
+Das Anwendungssystem greift darüber auf den `Authentifizierungsmanager` und den `Berechtigungsmanager` zu.
+
+Der `Authentifizierungsmanager` ist für die Kommunikation mit dem IAM-Service über den `OAuth2AuthorizedClientProvider` zuständig.
+Die Authentifizierung (Anmeldung) verläuft über diesen Aufruf.
+Nach einer erfolgreichen Authentifizierung erfolgt der Erhalt des Access Tokens und der dem Benutzer zugeordneten Rollen.
+Diese Informationen werden anschließend im `SecurityContext` abgelegt.
+
+Über den `Berechtigungsmanager` kann die Anwendung die Rollen und anwendungsspezifischen Rechte des angemeldeten Benutzers abfragen.
+
+Der `RolePrivilegeGrantedAuthoritiesConverter` ist für die Konvertierung vom IAM-Service im Access Token übermittelten Rollen des Benutzers in die anwendungsspezifischen Rechte zuständig.
+
+Mit der von Spring Security bereitgestellten Annotation `@secured` werden angebotene Services und Methoden der Anwendung abgesichert.
+Dieser Annotation muss noch der Name eines anwendungsspezifischen Rechts mitgegeben werden.
+Im Interceptor `SecuredInterceptor` wird sichergestellt, dass nur dann der Zugriff gewährt wird, wenn der angemeldete Nutzer auch über das vorhandene anwendungsspezifische Recht verfügt.
+
+Hinweis: Die Annotation `@secured` löst die Annotation `@gesichert` ab und ist analog dazu verwenden.
+
+Der `NutzerAuthentifizierunginterceptor` ist für die Authentifizierung von technischen Nutzern zuständig und wird über eine Annotation (`@NutzerAuthentifikation`) bereitgestellt.
+Parallel zur Annotation `@NutzerAuthentifikation` existiert die Annotation `@ClientAuthentification` zur Authentifizierung von OAuth2.0 Clients.
+Dies ermöglicht die Umstellung von technische Nutzer auf OAuth2.0 Clients, ohne große Auswirkungen im Anwendungssystem zu erzeugen.
+Die Authentifizierungsdaten werden aus der Konfiguration der Anwendung ausgelesen und zur Authentifizierung verwendet.
+Die Authentifizierung findet über die Implementierung des Interfaces `Authentifizierungsmanager` statt.
+Das Ergebnis einer Authentifizierung über die Annotationen `@ClientAuthentification` und `@NutzerAuthentifikation` ist ein voll initialisierter `SecurityContext` mit einem validen AccessToken.
 
 [[aussensicht-der-komponente-sicherheit]]
 === Schnittstelle des Bausteins Sicherheit
@@ -241,7 +253,6 @@ Die Integration von Spring Security und des Bausteins Sicherheit wird im xref:bl
 Im Folgenden wird die Schnittstelle des Bausteins Sicherheit beschrieben.
 
 .Schnittstelle des Bausteins Sicherheit
-
 
 Die zentrale Schnittstelle für den Zugriff auf Rollen und Rechte eines Anwenders ist `Berechtigungsmanager`.
 Instanzen des Berechtigungsmanagers zur Autorisierung einer Anfrage werden über die Schnittstelle `Sicherheit` erzeugt.
