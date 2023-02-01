@@ -414,7 +414,7 @@ Die Package-Struktur folgt einer Konvention, die aus der fachlichen und technisc
 <organisation>.<domäne>.<anwendungssystem>.<layer>.<subsystem/
 komponente>. ...
   <domäne>
-	= (Name gemäß fachlicher Architektur, z, B. "meinedomaene")
+	= (Name gemäß fachlicher Architektur, z. B. "meinedomaene")
   <anwendungssystem>
 	= (Name gemäß fachlicher Architektur, z. B. "meineanwendung)
   <layer>
