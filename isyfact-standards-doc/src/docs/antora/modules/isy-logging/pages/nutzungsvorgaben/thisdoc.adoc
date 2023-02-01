@@ -4,7 +4,7 @@
 [[einleitung]]
 == Einleitung
 
-Im Dokument xref:nutzungsvorgaben/master.adoc#einleitung[Logging - Konzept] werden die Anforderungen und Vorgaben für das Logging der IsyFact definiert, um eine einheitliche Umsetzung in der gesamten xref:glossary:glossary:master.adoc#glossar-anwendungslandschaft[Anwendungslandschaft] zu gewährleisten.
+Im Dokument xref:konzept/master.adoc#einleitung[Logging - Konzept] werden die Anforderungen und Vorgaben für das Logging der IsyFact definiert, um eine einheitliche Umsetzung in der gesamten xref:glossary:glossary:master.adoc#glossar-anwendungslandschaft[Anwendungslandschaft] zu gewährleisten.
 
 Das vorliegende Dokument beschreibt alle Aspekte, die bei der Entwicklung einer Anwendung zu berücksichtigen sind, um die definierten Anforderungen zu erfüllen.
 Die IsyFact stellt eine eigene Bibliothek `isy-logging` bereit, um die Anforderungen einfach und einheitlich umsetzen zu können.

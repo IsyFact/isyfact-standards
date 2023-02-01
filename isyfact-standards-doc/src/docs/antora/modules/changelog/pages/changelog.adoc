@@ -1,9 +1,10 @@
 = Changelog IsyFact Dokumentation
 
-== Änderungen IsyFact 2.5.0
+== Änderungen IsyFact 3.0.0
 
 // Beginn übergreifende Änderungen
 - Umstellung auf Antora-Dokumentation.
+- Entfernung der Vorlageanwendungen.
 // Ende übergreifende Änderungen
 
 include::isyfact-standards-doku:einstieg:page$changelog.adoc[tag=release-2.5.0]
@@ -45,6 +46,9 @@ include::isyfact-standards-doku:werkzeuge:page$entwicklungsumgebung/changelog.ad
 include::isyfact-standards-doku:werkzeuge:page$dokumentation/changelog.adoc[tag=release-2.5.0]
 include::isyfact-standards-doku:werkzeuge:page$versionierungskontrolle/changelog.adoc[tag=release-2.5.0]
 
+
+include::isyfact-standards-doku:isy-styleguide:changelog.adoc[tag=release-3.0.0]
+include::isyfact-standards-doku:isy-styleguide:nutzungsvorgaben/changelog.adoc[tag=release-3.0.0]
 
 == Änderungen IsyFact 2.4.0
 

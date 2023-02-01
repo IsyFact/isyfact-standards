@@ -492,7 +492,7 @@ Die Festlegungen für die zulässigen Zeichen orientieren sich an den Festlegung
 Die für die IsyFact zulässigen Zeichen werden im Folgenden aufgeführt (s. Kapitel xref:konzept/sonderzeichen.adoc#festlegung-des-zeichensatzes-und-der-codierung[Festlegung des Zeichensatzes und der Codierung des Konzepts]).
 
 [[standardzeichen]]
-=== Standardzeichen
+==== Standardzeichen
 
 * Großbuchstaben: A-Z Ä Ö Ü
 * Kleinbuchstaben: a-z ä ö ü ß
@@ -500,7 +500,7 @@ Die für die IsyFact zulässigen Zeichen werden im Folgenden aufgeführt (s. Kap
 * **Sonderzeichen**: ' ( ) + , - . / Leerzeichen
 
 [[zusaetzliche-zeichen]]
-=== Zusätzliche Zeichen
+==== Zusätzliche Zeichen
 
 In der xref:nutzungsvorgaben/master.adoc#table-zusaetzliche-zeichen[Tabelle für zusätzliche Zeichen] sind die Zeichen dargestellt, die zusätzlich unterstützt werden.
 Damit die Zeichen in der Spalte „Glyph“ korrekt dargestellt werden, muss ein Font installiert sein, der alle Zeichen unterstützt. (z.B. Code2000, erhältlich unter xref:glossary:literaturextern:inhalt.adoc#litextern-code2000[Code2000]).

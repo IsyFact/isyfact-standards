@@ -19,7 +19,6 @@ Dazu erläutert das Kapitel xref:konzept/master.adoc#prinzipien-der-sicherheitsa
 
 Danach beleuchtet das Kapitel xref:konzept/master.adoc#sicherheitsarchitektur-eines-it-systems[Sicherheitsarchitektur eines IT Systems] die Einbettung des Bausteins Sicherheit in ein konkretes xref:glossary:glossary:master.adoc#glossar-it-system[IT-System].
 Zentrale Schnittstellen beschreibt das Kapitel xref:konzept/master.adoc#aussensicht-der-komponente-sicherheit[Aussensicht der Komponente Sicherheit].
-Das Kapitel xref:konzept/master.adoc#rollen-und-rechte[Rollen und Rechte]. xref:konzept/master.adoc#aufruf-von-nachbarsystemen[Aufruf von Nachbarsystemen] befasst sicht mit Vorgaben und Konventionen beim Einbinden von Nachbarsystemen.
 
 Das Kapitel xref:konzept/master.adoc#rollen-und-rechte[Rollen und Rechte] beschreibt dann, wie Rollen und Rechte für eine neue Geschäftsanwendung spezifiziert werden.
 // end::inhalt[]
