@@ -27,7 +27,7 @@ Beim Aufzeichnen eines Ereignisses wird ein einzelner abgeschlossener Logeintrag
 |Lognachricht |Menschenlesbare Nachricht, welches ein geloggtes Ereignis näher beschreibt.
 Fester Bestandteil jedes Logeintrags. |
 |Protokollierung |Mitschreiben von Informationen zu durchgeführten Geschäftsvorfällen auf Grund fachlicher Anforderungen. +
-Eine detaillierte Abgrenzung zum Logging befindet sich in der xref:konzept/thisdoc.adoc[Einleitung]. |
+Eine detaillierte Abgrenzung zum Logging befindet sich in der xref:konzept/thisdoc.adoc#abgrenzung-logging-protokollierung[Abgrenzung Logging Protokollierung]. |
 |Monitoring |Betriebliche Überwachung der Anwendungslandschaft zur frühzeitigen Eskalation von Problemen. +
-Eine detaillierte Abgrenzung zum Logging befindet sich in der xref:konzept/thisdoc.adoc[Einleitung]. |Überwachung
+Eine detaillierte Abgrenzung zum Logging befindet sich in der xref:konzept/thisdoc.adoc#abgrenzung-logging-protokollierung[Abgrenzung Logging Protokollierung]. |Überwachung
 |====
