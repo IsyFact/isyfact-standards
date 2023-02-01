@@ -105,8 +105,8 @@ Beispiel für eine fachliche Exception Hierarchie:
 [id="image-007",reftext="{figure-caption} {counter:figures}"]
 image::isy-exception-core:nutzungsvorgaben/fehlerbehandlung007.png[align="center",width=70%]
 
-Das Beispiel in <<image-007>> zeigt eine fachliche Exception eines Generischen Anwendung.
-Die fachliche Exception `GenerischeNichtGefundenException` besitzt in diesem Beispiel nicht alle möglichen Konstruktoren.
+Das Beispiel in <<image-007>> zeigt eine fachliche Exception einer unbestimmten Anwendung.
+Die fachliche Exception `MeineNichtGefundenException` besitzt in diesem Beispiel nicht alle möglichen Konstruktoren.
 Dies dient lediglich der Veranschaulichung.
 Wie oben erwähnt ist es nicht notwendig, immer alle Konstruktoren zu implementieren.
 Voraussetzung für das Erstellen dieser Exception sind die Basis-Exceptions der Anwendung (hier `MeineAnwendungBusinessException`).
@@ -118,7 +118,7 @@ Beispiel für eine technische Runtime-Exception Hierarchie:
 [id="image-008",reftext="{figure-caption} {counter:figures}"]
 image::isy-exception-core:nutzungsvorgaben/fehlerbehandlung008.png[align="center",width=65%]
 
-Die <<image-008>> zeigt die technische Runtime-Exception `FehlerhafteKonfigurationException`.
+Die <<image-008>> zeigt die technische Runtime-Exception `MeineKonfigurationException`.
 Diese Exception könnte dafür verwendet werden, um bei einem Konfigurationsfehler z.B. "Konfigurationsparameter nicht gesetzt" geworfen zu werden.
 Die Exception ist eine `RuntimeException`, da ein solcher Fehler nicht behandelbar wäre.
 Um nun eine solche Klasse zu erstellen, muss zuvor nach obigem Schema (siehe <<image-006>>) die entsprechende Oberklasse erstellt worden sein.
@@ -126,7 +126,6 @@ Um nun eine solche Klasse zu erstellen, muss zuvor nach obigem Schema (siehe <<i
 Das Beispiel enthält wiederum alle möglichen Konstruktoren.
 Dies dient jedoch auch hier nur der Veranschaulichung.
 Es ist für Exceptions im xref:glossary:glossary:master.adoc#glossar-anwendungskern[Anwendungskern] nicht notwendig, alle Konstruktoren zur Verfügung zu stellen.
-Eine Beschreibung der Argumente der Konstruktoren befindet sich in <<table-001>>.
 
 Die unter <<image-007>> und <<image-008>> dargestellten Konstruktoren sind notwendig, um zu gewährleisten, dass alle Exceptions immer eine Ausnahme-ID besitzen, die den Fehlertext identifiziert, d.h. andere Konstruktoren sind nicht gestattet.
 
@@ -168,18 +167,18 @@ Die Konstante `FehlerSchluessel.MSG_ALLGEMEINER_FEHLER` referenziert einen gener
 ----
 /** Generische Exception für alle unbekannten Fehler. */
 
-public static final String MSG_ALLGEMEINER_FEHLER = "GNRMDL90001";
+public static final String MSG_ALLGEMEINER_FEHLER = "MNMDL90001";
 ----
 
 .Generischer Fehlertext
 [id="listing-GenerischerFehlertext",reftext="{listing-caption} {counter:listings }"]
 [source,properties]
 ----
-GNRMDL90001 = Es ist ein allgemeiner Fehler im Modul Generisches Modul aufgetreten.
+MNMDL90001 = Es ist ein allgemeiner Fehler im Modul Generisches Modul aufgetreten.
 ----
 
 Beim Einsatz von Exceptions muss immer eine Konstante zur Referenzierung von Fehlern verwendet werden.
-Die Fehlertexte dürfen nicht direkt mit dem String referenziert werden (z. B. hier `GNRMDL90001`).
+Die Fehlertexte dürfen nicht direkt mit dem String referenziert werden (z. B. hier `MNMDL90001`).
 
 Beim Aufruf einer Exception wird im einfachsten Fall lediglich eine Ausnahme-ID übergeben, welche den Fehlertext identifiziert:
 
@@ -187,7 +186,7 @@ Beim Aufruf einer Exception wird im einfachsten Fall lediglich eine Ausnahme-ID 
 [id="listing-UebergabeAusnahmeId",reftext="{listing-caption} {counter:listings }"]
 [source,java]
 ----
-new GenerischeFehlerhafteKonfigurationException(
+new MeineKonfigurationException(
     FehlerSchluessel.KONFIGURATION_FALSCH_INITIALISIERT);
 ----
 
@@ -334,8 +333,8 @@ Die Fehlerbehandlung entspricht den gängigen `try-catch`-Blöcken mit entsprech
 [source,java]
 ----
 try {
-    verwaltung.leseGenerischeNummer(generischeNummer);
-} catch (GenerischeNichtGefundenException ex) {
+    verwaltung.leseMeineNummer(MeineNummer);
+} catch (MeineNichtGefundenException ex) {
     // Exception kann nicht behandelt werden, also wird sie weitergereicht
     throw ex;
 }
@@ -382,7 +381,7 @@ Hierzu wird dem Konstruktor der zugehörigen Exception ein String oder String-Ar
 [id="listing-UebergabePlatzhalter",reftext="{listing-caption} {counter:listings }"]
 [source,java]
 ----
-new KonfigurationException(FehlerSchluessel.MSG_UNGUELTIGER_PARAMETER, parameter, wert);
+new MeineKonfigurationException(FehlerSchluessel.MSG_UNGUELTIGER_PARAMETER, parameter, wert);
 ----
 
 Die Verwendung der Fehlertexte geschieht über Konstanten der Klassen.
