@@ -6,7 +6,7 @@
 
 Die in diesem Dokument beschriebene technische Architektur eines IT-Systems, erläutert wie ein IT-System der Systemlandschaft zu beschreiben und umzusetzen ist.
 
-[[kurzüberblick-referenzarchitektur-eines-it-systems]]
+[[kurzueberblick-referenzarchitektur-eines-it-systems]]
 === Kurzüberblick Referenzarchitektur eines IT-Systems
 
 Dieser Abschnitt gibt einen kurzen Überblick über die wesentlichen Inhalte der technischen Architektur, die in späteren Kapiteln ausführlich dargestellt werden.
