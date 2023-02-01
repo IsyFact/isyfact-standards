@@ -61,7 +61,7 @@ AsciiDoc lässt sich zudem problemlos in moderne Versionsverwaltungssysteme inte
 
 Als Arbeitsumgebung müssen Git und Git LFS installiert sein.
 Für die Generierung mit AsciidoctorJ Extensions muss außerdem Maven installiert sein.
-Für die Generierung mit Antora wird Maven empfohlen, da die Generierung im Repository isy-antora-playbook angestossen wird und dort eine vorbereitete pom.xml dafür bereitgestellt wird.
+Für die Generierung mit Antora wird Maven empfohlen, da die Generierung im Repository `isy-antora-playbook` angestoßen wird und dort eine vorbereitete `pom.xml` dafür bereitgestellt wird.
 Es ist aber auch möglich, die Generierung lokal durchzuführen, wenn die entsprechenden Werkzeuge lokal installiert sind.
 Für die Generierung mit Antora müssen außerdem Node.js und Antora installiert werden, siehe xref:dokumentation/generierung/generierung-antora.adoc#antora-werkzeuge[Installation Antora Werkzeuge].
 
@@ -76,10 +76,10 @@ Neben den ausgereiften Plugins für die Bearbeitung von AsciiDoc-Dokumenten: xre
 Die Architektur der IsyFact-Dokumentation besteht aus zwei Kernbestandteilen:
 
 . Zentrale Dokumentation
-. Dokumentation der IsyFact Erweiterungen
+. Dokumentation der IsyFact-Erweiterungen
 
 Die zentrale Dokumentation befindet sich im Repository `isyfact-standards`.
-Die Dokumentation der IsyFact Erweiterungen befindet sich im Repository, in dem sich der zu dokumentierende Baustein befindet, da die Dokumentation nah beim Code abgelegt werden soll.
+Die Dokumentation der IsyFact-Erweiterungen befindet sich im Repository, in dem sich der zu dokumentierende Baustein befindet, da die Dokumentation nah beim Code abgelegt werden soll.
 
 Im Folgenden werden die Bestandteile erläutert.
 
@@ -107,8 +107,7 @@ Das Konzept richtet sich an Architekten und Entwickler, die die IsyFact weiteren
 Wird ein neuer Baustein angelegt, so muss auch eine entsprechende Dokumentation erstellt werden.
 
 [[dokumentation-erweiterungen]]
-=== Dokumentation der IsyFact Erweiterungen
+=== Dokumentation der IsyFact-Erweiterungen
 
-IsyFact Erweiterungen können als Bausteine optional in einem xref:glossary:glossary:master.adoc#glossar-anwendungssystem[IsyFact Anwendungssystem] verwendet werden.
-Sie enthalten ebenfalls ihre eigene Dokumentation.
-I.d.R. werden auch hier zugrundeliegende Konzepte sowie Nutzungsvorgaben für Entwickler beschrieben.
+IsyFact-Erweiterungen können als Bausteine optional in einem xref:glossary:glossary:master.adoc#glossar-anwendungssystem[IsyFact Anwendungssystem] verwendet werden.
+Sie enthalten ebenfalls ihre eigene Dokumentation, meist in der Form von architektonischen Konzepten sowie Nutzungsvorgaben für die Entwicklung.

@@ -263,14 +263,13 @@ Für das Szenario gehen wir im Folgenden davon aus, dass ein IT-System eine Gesa
 Hierbei ist zu beachten, dass IT-Systeme in der Regel andere IT-Systeme und Querschnittsanwendungen aufrufen, um Anfragen zu beantworten.
 Die Gesamtverfügbarkeit sinkt dadurch ab, da zur erfolgreichen Bearbeitung einer Anfrage alle Systeme zeitgleich verfügbar sein müssen.
 Im Szenario wird für alle Systeme ein Richtwert für die Verfügbarkeit von 99,7 % angenommen.
-<<table-GMTMT>> zeigt eine Beispielrechnung (die Gesamtverfügbarkeit ergibt sich aus dem Produkt der Einzelverfügbarkeiten).
-Durch eine Verfügbarkeit von 99,7 % pro System kann im Beispiel also eine Gesamtverfügbarkeit von über 98 % erreicht werden.
+Wie die <<table-GMTMT>> zeigt, ergibt sich eine Gesamtverfügbarkeit von über 98 % bei einer Verfügbarkeit von 99,7 % pro System.
 
-Eine Berechnung der Gesamtverfügbarkeit nach dem Schema von <<table-GMTMT>> muss für jedes IT-System einzeln durchgeführt werden.
+Eine Berechnung der Gesamtverfügbarkeit nach diesem Schema muss für jedes IT-System einzeln durchgeführt werden.
 Dabei müssen die berechneten oder gemessenen Verfügbarkeiten aller IT-Systeme zugrunde gelegt werden, die das IT-System aufruft.
 
 .Beispielrechnung der Verfügbarkeit
-[id="table-GMTMT",reftext="{table-caption} {counter:tables}"]
+[[table-GMTMT]]
 [cols=",",options="header"]
 |====
 |System |Verfügbarkeit

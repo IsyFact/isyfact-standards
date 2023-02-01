@@ -1,7 +1,0 @@
-// tag::architekturregeln[]
-
-[[architekturregeln-isyfact-referenzarchitektur-it-system]]
-== Architekturregeln IsyFact-Referenzarchitektur eines IT-Systems
-
-include::inhalt.adoc[tags=architekturregel]
-// end::architekturregeln[]

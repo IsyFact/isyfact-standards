@@ -59,7 +59,7 @@ Batchlogik wird in Punkt 1 dargestellt, die fachlichen Operationen der Komponent
 Die querschnittliche Logik wird lediglich als Bibliothek eingebunden und ist in der Abbildung nicht dargestellt.
 
 Die Komponente „Batchsteuerung“ der Zielarchitektur bezieht sich auf die Steuerung eines Batch-Netzes (siehe <<image-BatNetz>>) und
-wird über UC4 (siehe auch xref:isy-konfiguration:konzept/master.adoc#einleitung[Konzept Konfiguration]) umgesetzt.
+wird über eine betriebliche Batchsteuerung umgesetzt.
 Sie wird in diesem Dokument nicht betrachtet.
 
 Die Komponente „Batchlogik“ der Zielarchitektur ist eine logische Komponente, welche die technische Logik der
@@ -79,7 +79,7 @@ Da ein Batch in einem Lauf eine große Anzahl an Datensätzen verarbeiten muss, 
 Ebenso soll nicht jeder Datensatz in einer eigenen Transaktion verarbeitet werden, wie es die Transaktionssteuerung des Anwendungskerns vorsieht.
 Vielmehr wird ein Batch sein Arbeitspaket in mehreren Paketen, und damit auch Transaktionen, abarbeiten.
 Bei einem Wiederanlauf nach einem Fehler muss der Batch in der Lage sein, die bis zu seinem letzten Commit verarbeiteten Datensätze zu überlesen und nur die „neuen“ Datensätze zu verarbeiten.
-Das Commit einer Transaktion bezeichnet man in diesem Fall als Checkpoint.
+Den Commit einer Transaktion bezeichnet man in diesem Fall als Checkpoint.
 Das Überlesen bereits verarbeiteter Datensätze nennt man Checkpoint / Restart Fähigkeit.
 
 Für die Umsetzung der Checkpoint / Restart Fähigkeit muss der Batch in jeder Transaktion speichern, welche Datensätze bis zum Commit verarbeitet wurden. Üblicherweise geschieht das durch die Ablage der Anzahl verarbeiteter Datensätze bis zum Commit.
@@ -150,7 +150,7 @@ Die Komponente Batchrahmen übernimmt die Steuerung des Batches und den Aufruf d
 
 Die Komponenten einer Geschäftsanwendung werden für einen Batch, genau wie in der Webanwendung, über das Spring-Framework verwaltet.
 Damit die Konfigurationen für die Webanwendung und für die Batch-Implementierungen möglichst gleich sind, werden die Komponenten für den Batchrahmen und die Batchlogik in einer separaten Konfigurationsdatei und einem separaten Spring-Kontext abgelegt.
-Dieser Kontext ist ein Kind-Kontext des eigentlichen xref:glossary:glossary:master.adoc#glossar-anwendungskontext[Anwendunskontextes] und kann alle Beans des Anwendungskontextes verwenden.
+Dieser Kontext ist ein Kind-Kontext des eigentlichen xref:glossary:glossary:master.adoc#glossar-anwendungskontext[Anwendungskontextes] und kann alle Beans des Anwendungskontextes verwenden.
 So kann die Konfiguration der Webanwendung mit minimalen Anpassungen auch für den Batch verwendet werden.
 
 Der Batchrahmen benötigt für die Speicherung des Fortschritts und des Status der Batches eine Datenbankverbindung.
@@ -350,11 +350,11 @@ NOTE: Bei der Nutzung von Dateien, egal ob für Kommandozeilenparameter oder fü
 müssen die Dateien mit absoluten Pfaden angegeben werden.
 
 ===== Reihenfolge der Auswertung
-Konfigurationsparameter werden in der folgenden Reihenfolge im Spring-Kontext angezogen. Gleichnamige Parameter werden in dieser Reihenfolge überschrieben.
+Konfigurationsparameter werden in der folgenden Reihenfolge im Spring-Kontext angezogen. Gleichnamige Parameter werden in dieser Reihenfolge überschrieben:
 
-. Konfiguration des Betriebssystems / der JVM
-. Konfigurationsdatei
-. Kommandouzeilen-Parameter
+. Konfiguration des Betriebssystems / der JVM,
+. Konfigurationsdatei,
+. Kommandozeilen-Parameter.
 
 ==== Kommandozeilen-Parameter
 ===== Namenskonvention
@@ -559,13 +559,13 @@ Dies wird für die Umsetzung der Restart-Funktionalität verwendet.
 |`SchluesselLetztesCommit` |Der Datenbank-Schlüssel des Datensatzes, der als letztes vor dem Commit bearbeitet wurde.
 Dies wird für die Umsetzung der Restart-Funktionalität verwendet.
 Falls der Schlüssel ein zusammengesetzter Schlüssel ist, müssen sämtliche Schlüsselteile (durch Trennzeichen getrennt) in dieses Feld geschrieben werden.
-|`DatumLetzterStart` |Das Datum des Starts des aktuellen Batch-Laufs (falls der Status „laeuft“ ist) bzw.
+|`DatumLetzterStart` |Das Datum des Starts des aktuellen Batch-Laufs (falls der Status "laeuft" ist) bzw.
 des letzten Laufes.
 |`DatumLetzterAbbruch` |Das Datum des letzten fehlerhaften Abbruchs des Batches.
 |`DatumLetzterErfolg` |Das Datum des letzten erfolgreichen Abschlusses des Batches.
 |====
 
-Die Tabelle liegt im Datenbank-Schema der eigenen Geschäftsanwendung.
+Die Tabelle liegt im Datenbankschema der eigenen Geschäftsanwendung.
 Es darf keine übergreifenden Tabellen oder ein übergreifendes Datenbankschema für alle Batches gemäß IsyFact-Architektur geben.
 
 [[verwaltung-der-tabelle]]
@@ -607,7 +607,7 @@ WARNING: Schlägt diese Transaktion fehl, kann der Batchrahmen den Abbruch nicht
 Der nächste Lauf muss dann mit dem Parameter `-ignoriereLauf` gestartet werden.
 
 [[die-restart-funktionalitaet]]
-=== Die Restart Funktionalität
+=== Die Restart-Funktionalität
 
 Falls ein Batch durch einen Fehler oder durch das Erreichen der Anzahl zu verarbeitender Datensätze abgebrochen ist, muss ein Restart für ihn durchgeführt werden.
 In diesem Fall müssen alle bereits verarbeiteten Datensätze übersprungen werden.
@@ -760,7 +760,7 @@ eigenen Benutzer ausstatten.
 [[das-deployment-eines-batches]]
 === Das Deployment eines Batches
 
-Die Batches werden nicht einzeln deployed.
+Die Batches werden nicht einzeln deployt.
 Stattdessen wird ein Paket angeboten, welches sämtliche Batches der Geschäftsanwendung enthält.
 
 Das erstellte Paket enthält den Code des Batchrahmens sowie den Code der eigentlichen Geschäftsanwendung inklusive der Batch-Ausführungsklassen und der benötigten nicht-betrieblichen Batch-Konfigurationsdateien.
@@ -793,17 +793,17 @@ $BATCHDIR/batch-ausfuehren.sh -start -cfg /resources/batch/batch-erinnerung-conf
 ----
 
 Bei der betrieblichen Konfiguration wird nicht zwischen dem Deployment als Web-Anwendung und dem Deployment als Batch unterschieden: Es werden jeweils dieselben betrieblichen Konfigurationsdateien verwendet.
-Damit der Betrieb Anpassungen dieser Dateien nicht zweimal durchführen muss, wird die betriebliche Konfiguration mit der Web-Anwendung deployed.
-Vor dem Deployment des Batch-Pakets muss die Webanwendung deployed sein.
+Damit der Betrieb Anpassungen dieser Dateien nicht zweimal durchführen muss, wird die betriebliche Konfiguration mit der Web-Anwendung deployt.
+Vor dem Deployment des Batch-Pakets muss die Webanwendung deployt sein.
 Falls der Batch nicht auf dem Server der Webanwendung läuft, muss die Konfigurationsdatei der Webanwendung vor der Installation des Batches auch auf diesem Server verfügbar gemacht (z.B. gemountet oder kopiert) werden.
 Beim Deployment des Batch-Pakets werden über symbolische Links diese betriebliche Konfigurationsdatei referenziert.
 
 [[rueckgabewerte-des-batchrahmens]]
 === Rückgabewerte des Batchrahmens
 
-Der Batchrahmen endet mit einem Returncode und erzeugt optional zusätzlich noch ein ausführliches Verarbeitungsergebnis in Form einer Ergebnisdatei im XML-Format.
+Der Batchrahmen endet mit einem Return-Code und erzeugt optional zusätzlich noch ein ausführliches Verarbeitungsergebnis in Form einer Ergebnisdatei im XML-Format.
 Die Ergebnisdatei ist eine *fachliche Datei*, sie enthält keine betrieblichen Informationen.
-Alle betrieblichen Informationen über Ausführung des Batches werden in die Logdatei geschrieben, so dass der Betrieb nur diese Datei betrachten muss.
+Alle betrieblichen Informationen über Ausführung des Batches werden in die Logdatei geschrieben, sodass der Betrieb nur diese Datei betrachten muss.
 Es gibt keine weiteren betriebsrelevanten Dateien neben der Logdatei.
 
 Der Pfad der Ergebnisdatei wird über einen Konfigurationsparameter des Batches festgelegt (siehe
@@ -832,12 +832,12 @@ mit diesem technischen Schlüssel nichts anfangen können.
 Falls es nicht möglich ist den fachlichen Schlüssel des Hauptsatzes an dieser Stelle zu ermitteln bzw.
 wenn dies nur auf Kosten der Laufzeit möglich ist, dann ist mit dem Fachbereich und dem Betrieb frühzeitig zu klären,
 ob an dieser Stelle ein anderer Schlüssel ausgegeben werden kann.
-|`Batch-Ergebnis / Statistik` | | |Liste von statistischen Daten die während des Batchlaufs ermittelt wurden.
+|`Batch-Ergebnis / Statistik` | | |Liste von statistischen Daten, die während des Batchlaufs ermittelt wurden.
 |`Batch-Ergebnis / Statistik / Statistik-Eintrag` |`ID` |Text |ID des Statistik-Eintrags
 |`Batch-Ergebnis / Statistik / Statistik-Eintrag` |`Text` |Text |Klartext des Eintrags, z. B. „Anzahl gelöschter Datensätze“
 |`Batch-Ergebnis / Statistik / Statistik-Eintrag` |`Wert` |Text |Statistischer Wert, z. B. Anzahl der gelöschten Datensätze
-|`Batch-Ergebnis / Ende` |`Datum` |Text |Datum des Ende des Batchlaufs
-|`Batch-Ergebnis / Ende` |`Uhrzeit` |Text |Uhrzeit des Ende des Batchlaufs
+|`Batch-Ergebnis / Ende` |`Datum` |Text |Datum des Endes des Batchlaufs
+|`Batch-Ergebnis / Ende` |`Uhrzeit` |Text |Uhrzeit des Endes des Batchlaufs
 |`Batch-Ergebnis / Return-Code` |`RC` |Text |Return-Code der Batch-Verarbeitung
 |`Batch-Ergebnis / Return-Code` |`Text` |Text |Den Return-Code zugeordneter Text
 |====
@@ -907,7 +907,7 @@ Kapitel <<testmodus-ohne-schreiboperationen>>).
 [[testmodus-mit-rollback]]
 ==== Testmodus mit Rollback
 
-Dieses Muster sieht vor, dass bei der Batchverarbeitung statt eines Commits ein Rollback ausgeführt wird, so dass die Änderungen, die durch den Batch erzeugt werden, nicht in die Datenbank geschrieben werden.
+Dieses Muster sieht vor, dass bei der Batchverarbeitung statt eines Commits ein Rollback ausgeführt wird, sodass die Änderungen, die durch den Batch erzeugt werden, nicht in die Datenbank geschrieben werden.
 Das Muster ist für datenbankorientierte Batches gut geeignet, die keine Änderungen an Nachbarsystemen erfordern.
 
 Einige Batches vermerken ihren Arbeitsfortschritt in der Datenbank.
@@ -951,7 +951,7 @@ Zusätzlich ist bei einer entsprechenden Protokollierung nachvollziehbar, welche
 
 Ein weiteres Konzept für die Umsetzung des Testmodus sieht vor, dass ändernde Operationen in der Datenbank unterbunden werden. Änderungen in der Datenbank oder in Nachbarsystemen werden durch entsprechende If-Abfragen abgefangen.
 
-Dieses Muster ist dann einzusetzen, wenn die Realisierung durch einen Rollback nicht möglich oder angemessen ist.
+Dieses Muster ist dann einzusetzen, wenn die Realisierung durch ein Rollback nicht möglich oder angemessen ist.
 Durch Tests muss sichergestellt werden, dass nicht trotz Testmodus versehentlich Änderungen durchgeführt werden.
 
 Das Muster ist geeignet, um im Testmodus durch die Auswertung der Batch-Protokolle und Logs die Auswirkungen bzw.
@@ -966,7 +966,6 @@ Dieser existiert bereits und muss verwendet werden, indem Ausführungsbeans daf�
 In diesem Kapitel werden Vorgaben für die Ausführungsbeans definiert.
 
 === Namenskonvention
-Ausführungsbeans folgend folegender Namenskonvention:
 
 //tag::namenskonvention[]
 Analog zu den Anwendungsfällen werden Batchklassen mit dem Präfix `Bat` gekennzeichnet.
@@ -1014,7 +1013,7 @@ Zusätzlich erhält jeder zu verarbeitende Satz auch eine eigene Korrelations-ID
 [[fachliche-logik-in-den-komponenten-der-geschaeftsanwendung-implementieren]]
 === Fachliche Logik in den Komponenten der Geschäftsanwendung implementieren
 
-Falls für die Verarbeitung im Batch Fachlogik benötigt wird, welche für die Webanwendung nicht benötigt wird, ist diese trotzdem den Geschäftsnwendungskomponenten hinzuzufügen.
+Falls für die Verarbeitung im Batch Fachlogik benötigt wird, welche für die Webanwendung nicht benötigt wird, ist diese trotzdem den Geschäftsanwendungskomponenten hinzuzufügen.
 Die Ausführungsbean erhält die Referenzen auf die Komponenten über Dependency Injection und ruft die Fachlogik dort auf.
 
 Auch wenn in Sonderfällen Datenbank-Aufrufe direkt durch die Ausführungsbean ausgeführt werden müssen, ist die sonstige fachliche Logik an die Fachkomponenten der Geschäftsanwendung zu delegieren.
@@ -1062,7 +1061,7 @@ Die Batches sind möglichst robust zu konstruieren: Falls auf ein fachliches Pro
 
 Der Batchrahmen unterstützt beispielsweise _nicht_ das Auslassen von Datensätzen im Fehlerfall (etwa für eine Verarbeitung im nächsten Batch). Falls dies umgesetzt werden soll, ist eine entsprechende Verarbeitung in der Ausführungsbean zu implementieren.
 
-Wenn eine Ausführungsbean einen Fehler wirft, so muss dies eine „BeanAusfuehrungsException“ oder ein davon erbender Fehler sein.
+Wenn eine Ausführungsbean einen Fehler wirft, so muss dies eine `BeanAusfuehrungsException` oder ein davon erbender Fehler sein.
 In diesen Exceptions ist es möglich, den Return-Code des Batches zu definieren.
 Die Return-Codes sind für den konkreten Batch zu konfigurieren und müssen den Vorgaben in
 Abschnitt <<rueckgabewerte-des-batchrahmens>> entsprechen.
@@ -1073,7 +1072,8 @@ Dieses Vorgehen ermöglicht es dem Betrieb, die Ursache des Fehlers zu korrigier
 [[beispiele-satzverarbeitung]]
 === Beispiele Satzverarbeitung
 
-Abschließend ist in die beispielhafte Satzverarbeitung in einer Batch-Ausführungsbean zu sehen Die gezeigte Satzverarbeitung setzt den Testmodus um, die Anwendungslogik ist weiterhin im Anwendungskern umgesetzt und sie übernimmt Logging, Protokollierung und Statistik-Zählung.
+Abschließend ist in die beispielhafte Satzverarbeitung in einer Batch-Ausführungsbean zu sehen.
+Die gezeigte Satzverarbeitung setzt den Testmodus um, die Anwendungslogik ist weiterhin im Anwendungskern umgesetzt und sie übernimmt Logging, Protokollierung und Statistik-Zählung.
 
 [source,java]
 ----
@@ -1149,9 +1149,9 @@ Unter bestimmten Umständen kann es notwendig sein, die Transaktionssteuerung de
 Dies ist beispielsweise der Fall, wenn ein im Datenzugriff auftretender Fehler aus der Datenbank ignoriert werden soll.
 Das Auftreten einer solchen Exception führt dazu, dass die Transaktion nur noch zurückgerollt werden kann, selbst wenn die Exception gefangen und ignoriert wird.
 
-Um dieser Problematik zu begegnen, kann in der Satzverarbeitung selbst die Transaktionsklammer nur für einen Satz geöffnet und nach der Verarbeitung entweder commited oder zurückgerollt werden.
+Um dieser Problematik zu begegnen, kann in der Satzverarbeitung selbst die Transaktionsklammer nur für einen Satz geöffnet und nach der Verarbeitung entweder committed oder zurückgerollt werden.
 
-In diesem Fall sollte der Commit-Intervall des Batchrahmens entsprechend hoch konfiguriert werden, um unnötige Commits zu vermeiden, auch wenn in dieser Transaktion nichts passiert.
+In diesem Fall sollte das Commit-Intervall des Batchrahmens entsprechend hoch konfiguriert werden, um unnötige Commits zu vermeiden, auch wenn in dieser Transaktion nichts passiert.
 
 [[ausnahmeregelungen]]
 == Ausnahmeregelungen
@@ -1217,7 +1217,7 @@ import-bhknz-liste.sh
 
 
 
-Die Dateien sollten entweder in einen eigenen Ordner unter `/opt` abgelegt werden oder – falls der Batch Teil eines bestehenden Batch-Projekts ist – in den vorhandenen Batch-Ordner des Systems deployed werden.
+Die Dateien sollten entweder in einen eigenen Ordner unter `/opt` abgelegt werden oder – falls der Batch Teil eines bestehenden Batch-Projekts ist – in den vorhandenen Batch-Ordner des Systems deployt werden.
 
 In letzterem Fall sollte das Deployment über das RPM des Batch-Projekts erfolgen.
 Andernfalls ist – insbesondere bei nur einmaligen Migrationsbatches – ein manuelles Deployment möglich.
@@ -1225,22 +1225,22 @@ Andernfalls ist – insbesondere bei nur einmaligen Migrationsbatches – ein ma
 Die SH-Skripte müssen immer nach dem folgenden Schema aufgebaut werden:
 
 * Beschreibungskommentar mit Parametern und Rückgabewerten
-* Automatisches Ermitteln des Homeverzeichnisses des Batches
+* Automatisches Ermitteln des Home-Verzeichnisses des Batches
 * Einlesen der Übergabe-Parameter
 * Einlesen notwendiger Properties aus den Konfigurationsdateien
 * Ausführen der eigentlichen Batchlogik
 
-Der Batch gibt zudem die Startzeit, Endezeit und Laufzeit aus.
+Der Batch gibt zudem die Startzeit, Endzeit und Laufzeit aus.
 
-Es müssen dokumentierte Returncodes für erwartete Fehlerfälle verwendet werden, um die Fehleranalyse zu vereinfachen.
+Es müssen dokumentierte Return-Codes für erwartete Fehlerfälle verwendet werden, um die Fehleranalyse zu vereinfachen.
 
 Folgende Rahmenbedingungen sind bei der Umsetzung einzuhalten:
 
-* Das Homeverzeichnis (in dem das SH-Skript liegt) wird automatisiert ermittelt und wird nicht als Parameter übergeben.
-* Das Logverzeichnis muss ein optionaler Parameter sein (und damit als letzter Eingabeparameter definiert sein).
+* Das Home-Verzeichnis, in dem das SH-Skript liegt, wird automatisiert ermittelt und wird nicht als Parameter übergeben.
+* Das Log-Verzeichnis muss ein optionaler Parameter sein (und damit als letzter Eingabeparameter definiert sein).
 Bei Nichtangabe wird der Standard-Logpfad unter `<HOMEVEREICHNIS>/log/` verwendet.
 * Datenbankverbindungsangaben müssen in einer Konfigurationsdatei (`<HOMEVERZEICHNIS>/etc/jpa.properties`) stehen und dürfen nicht als Parameter übergeben werden.
-* SQL-Skripte, die vom SH-Skript verwendet werden müssen im Verzeichnis `<HOMEVERZEICHNIS>/sql/` abgelegt werden.
+* SQL-Skripte, die vom SH-Skript verwendet werden, müssen im Verzeichnis `<HOMEVERZEICHNIS>/sql/` abgelegt werden.
 * Weitere SH-Skripte, die vom Hauptskript aufgerufen werden, müssen unter `<HOMEVERZEICHNIS>/sh/` abgelegt werden.
 
 Im Folgenden ist ein Beispiel-Template eines Shell-Batches angegeben:
@@ -1270,7 +1270,7 @@ Im Folgenden ist ein Beispiel-Template eines Shell-Batches angegeben:
 #Zeit zu Beginn ermitteln +
 start=`date +%s`
 
-# Homeverzeichnis ermitteln
+# Home-Verzeichnis ermitteln
 HomeVerzeichnis=$(cd -P -- "$(dirname -- "$0")" && pwd -P)
 
 # Parameter prüfen
