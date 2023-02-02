@@ -1,4 +1,4 @@
-= Konzept Sicherheit: Inhalt
+= Konzept Security (Sicherheit): Inhalt
 
 // tag::inhalt[]
 [[prinzipien-der-sicherheitsarchitektur]]
@@ -175,7 +175,7 @@ Ein direkter Zugriff auf das Access-Token in einer Anwendung sollte nicht gesche
 [[sicherheitsarchitektur-eines-it-systems]]
 == Sicherheitsarchitektur eines IT-Systems
 
-Der Baustein Sicherheit bildet eine Komponente des Querschnitts der xref:blaupausen:referenzarchitektur-it-system/master.adoc#einleitung[IsyFact Referenzarchitektur IT-Systeme].
+Der Baustein Security bildet eine Komponente des Querschnitts der xref:blaupausen:referenzarchitektur-it-system/master.adoc#einleitung[IsyFact Referenzarchitektur IT-Systeme].
 Er ist von jedem IT-System zur Autorisierung von Zugriffen und Vorgängen zu verwenden.
 
 Die Mechanismen zur Absicherung IsyFact-konformer IT-Systeme haben zum Ziel, die Autorisierung von Zugriffen _systematisch_, _einheitlich_ und _einfach_ umzusetzen.
@@ -247,19 +247,32 @@ Die Authentifizierungsdaten werden aus der Konfiguration der Anwendung ausgelese
 Die Authentifizierung findet über die Implementierung des Interfaces `Authentifizierungsmanager` statt.
 Das Ergebnis einer Authentifizierung über die Annotationen `@ClientAuthentification` und `@NutzerAuthentifikation` ist ein voll initialisierter `SecurityContext` mit einem validen AccessToken.
 
-[[aussensicht-der-komponente-sicherheit]]
-=== Schnittstelle des Bausteins Sicherheit
+[[aussensicht-der-komponente-security]]
+=== Schnittstelle des Bausteins Security
 
-Im Folgenden wird die Schnittstelle des Bausteins Sicherheit beschrieben.
+Im Folgenden wird die Schnittstelle des Bausteins `isy-security` beschrieben.
 
-.Schnittstelle des Bausteins Sicherheit
+.Schnittstelle des Bausteins Security
+[id="image-schnittstelle-security",reftext="{figure-caption} {counter:figures}"]
+image::konzept/security-schnittstellen.dn.svg[align="center"]
 
-Die zentrale Schnittstelle für den Zugriff auf Rollen und Rechte eines Anwenders ist `Berechtigungsmanager`.
-Instanzen des Berechtigungsmanagers zur Autorisierung einer Anfrage werden über die Schnittstelle `Sicherheit` erzeugt.
+Das Interface `Security` ist der zentrale Einstiegspunkt in den Baustein `isy-security`.
+Bei seiner Instanziierung wird die anwendungsspezifische Rollen-Rechte-Datei eingelesen und damit der `Authentifizierungsmanager` sowie der `Berechtigungsmanager` erzeugt.
+Das Interface `Security` stellt der Fachanwendung die im weiteren beschriebenen `Authentifizierungsmanager` und `Berechtigungsmanager` der Fachanwendung zur Verfügung.
+Außerdem kann die Fachanwendung über die Methode `getAlleRollen` eine Liste von allen im System hinterlegten Rollen erhalten.
 
-Der Berechtigungsmanager verwendet die Schnittstellen `Rolle` und `Recht`.
-Rollen werden über die Benutzeradministration Anwendern zugewiesen.
-Rechte sind anwendungsspezifisch und an Rollen gebunden.
+Der `Authentifizierungsmanager` übernimmt die Authentifizierung von technischen Nutzern am IAM-System.
+Mit der Methode `authentifiziereClient` wird die OAuth2.0-konforme Authentifizierung eines Client mittels Client-ID u. Client-Secret unterstützt und mit der Methode `authentifiziereSystem` der alternative Weg mittels (techn.) Nutzername u. Passwort.
+Bei erfolgreicher Authentifizierung werden die vom IAM-System zurückgegebenen Daten (Access-Token, Rollen des Anwenders, ...) im `Spring SecurityContext` abgelegt.
+Dort werden auch die den aus den Rollen resultierenden Rechte des Anwenders gespeichert.
+Eine nicht erfolgreiche Authentifizierung (fachliche Ablehnung oder technisches Problem) löst eine `AuthentifizierungFehlgeschlagenException` bzw. `AuthentifizierungTechnicalException` aus.
+
+Der `Berechtigungsmanager` gibt Auskunft über die Rollen und Rechte des Anwenders.
+Die in der Benutzeradministration dem Anwender zugewiesenen Rollen werden mithilfe einer anwendungsspezifischen Rollen-Rechte-Datei in konkrete Rechte des Anwenders für diese Anwendung umgewandelt.
+Die aktuellen Rollen und Rechte des Anwenders können mit den Methoden des `Berechtigungsmanager` erfragt werden und es kann geprüft werden, ob der Anwender ein bestimmtes Recht hat.
+Die Methoden `getRechte` und `getRollen` liefern die aktuell dem Anwender zugeordneten Rechte bzw. Rollen.
+Mit der Methode `hatRecht` kann die Anwendung feststellen, ob der Anwender aktuell ein bestimmtes Recht besitzt, während mit `pruefeRecht` der nachfolgende Code mit dem angegebenen Recht abgesichert wird: falls der Anwender das Recht nicht hat, wird eine `AutorisierungFehlgeschlagenException` geworfen.
+Mit diesen Berechtigungsabfragen kann die Fachanwendung z.B. feingranular bestimmen, ob und wie der Anwender bestimmte Daten sehen oder bearbeiten kann bzw. ob und wie er bestimmte Funktionen der Anwendung benutzen kann.
 
 [[aufruf-von-nachbarsystemen]]
 === Aufruf von Nachbarsystemen
@@ -356,7 +369,7 @@ Die Abbildung <<image-rollen-beziehungen>> verdeutlicht den Inhalt der folgenden
 
 .Beziehungen zwischen fachlichen und technischen Rollen
 [id="image-rollen-beziehungen",reftext="{figure-caption} {counter:figures}"]
-image::isy-sicherheit:konzept/rollen-beziehungen.png[align="center",pdfwidth=70%,width=70%]
+image::konzept/rollen-beziehungen.png[align="center",pdfwidth=70%,width=70%]
 
 [[technische-rollen]]
 ==== Technische Rollen
@@ -460,7 +473,7 @@ Der folgende Prozess bietet eine grobe Richtlinie:
 
 .Absicherung durch Rechte und Aggregation in Rollen
 [id="image-rollen-erstellung",reftext="{figure-caption} {counter:figures}"]
-image::isy-sicherheit:konzept/rollen-erstellung.png[align="center",pdfwidth=70%,width=70%]]
+image::konzept/rollen-erstellung.png[align="center",pdfwidth=70%,width=70%]]
 
 [start=3]
 . In Abstimmung mit den fachlichen Ansprechpartnern und der Benutzeradministration wird ermittelt, ob und welche zusätzlichen technischen Anwender benötigt werden.
@@ -495,8 +508,8 @@ In beiden Fällen muss zur eigentlichen Inbetriebnahme, anstatt einer aufwändig
 
 // end::architekturregel[]
 
-// tag::sicherheit[]
+// tag::security[]
 
-// end::sicherheit[]
+// end::security[]
 
 // end::inhalt[]
