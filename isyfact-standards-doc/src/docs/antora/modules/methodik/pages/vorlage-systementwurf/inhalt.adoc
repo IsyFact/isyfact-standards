@@ -131,11 +131,11 @@ Das folgende Listing zeigt beispielhaft ein EA-Modell._
 ----
 📂 Geschäftsanwendung XYZ
   📂 Systementwurf
-    📂 1 Systemarchitektur des Gesamtsystems
+    📂 Systemarchitektur des Gesamtsystems
       📂 Querschnittkonzepte
       📂 Systemüberblick
       📂 TI-Architektur
-    📂 <<IT-System>> 2 Geschäftskomponente XYZ
+    📂 <<IT-System>> Geschäftskomponente XYZ
       📂 Anwendungskern
         📂 <<A-Komponente>> Auskunft
         📂 <<A-Komponente>> Basisdaten
@@ -147,8 +147,8 @@ Das folgende Listing zeigt beispielhaft ein EA-Modell._
       📂 Externe Schnittstellen
       📂 Teilsystem-Querschnittskonzepte
       📂 Teilsystem-Überblick
-    📂 <<IT-System>> 3 Service-Gateway
-    📂 4 Rückbezug Systemspezifikation
+    📂 <<IT-System>> Service-Gateway
+    📂 Rückbezug Systemspezifikation
       📂 Anwendungsfälle
       📂 Anwendungskomponenten
       📂 Batches

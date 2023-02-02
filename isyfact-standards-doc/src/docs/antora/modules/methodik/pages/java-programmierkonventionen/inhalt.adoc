@@ -414,16 +414,13 @@ Die Package-Struktur folgt einer Konvention, die aus der fachlichen und technisc
 <organisation>.<domäne>.<anwendungssystem>.<layer>.<subsystem/
 komponente>. ...
   <domäne>
-	= (Name gemäß fachlicher Architektur, zb. "meinedomaene")
+	= (Name gemäß fachlicher Architektur, z, B. "meinedomaene")
   <anwendungssystem>
-	= (Name gemäß fachlicher Architektur)
+	= (Name gemäß fachlicher Architektur, z. B. "meineanwendung)
   <layer>
 	= common | gui | batch | service | core | persistence
   <subsystem/komponente>
-	= <für Anwendungssystem> | <subsystem/komponente>
-	  <-
-      <für Anwendungssystem>
-		= ... (Name der Geschäftsanwendung bzw. querschnittlichen Komponente gemäß fachlicher Architektur)
+	= Name der Geschäftsanwendung bzw. querschnittlichen Komponente gemäß fachlicher Architektur
 ----
 
 Unterhalb von `<subsystem/komponente>` werden die Packages projektspezifisch strukturiert.
@@ -443,13 +440,13 @@ Namen von Packages dürfen nur Kleinbuchstaben enthalten.
 
 [green]#Richtig#::
 		`de.bund.bva.meinedomaene.meineanwendung.service.admin` +
-		`de.bund.bva.isyfact.meineanwendung.persistence` +
+		`de.bund.bva.isyfact.meineanwendung.persistence.meinegk` +
 		`de.bund.bva.isyfact.logging.common.layout`
 
 [red]#Falsch#::
-		`de.bund.bva.isyfact.MeineAnwendung.persistence` +
+		`de.bund.bva.isyfact.MeineAnwendung.persistence.meinegk` +
 		`de.bund.bva.isyfact.meineanwendung.persistence.meineanwendung` +
-		`de.bund.bva.meinedomaene.meineanwendung.service.adminmeineanwendung`
+		`de.bund.bva.meinedomaene.meineanwendung.admin.service`
 
 [[klassen--und-interface-namen]]
 ==== Klassen- und Interface-Namen
