@@ -109,7 +109,7 @@ Das Beispiel in <<image-007>> zeigt eine fachliche Exception einer unbestimmten 
 Die fachliche Exception `MeineNichtGefundenException` besitzt in diesem Beispiel nicht alle möglichen Konstruktoren.
 Dies dient lediglich der Veranschaulichung.
 Wie oben erwähnt ist es nicht notwendig, immer alle Konstruktoren zu implementieren.
-Voraussetzung für das Erstellen dieser Exception sind die Basis-Exceptions der Anwendung (hier `MeineAnwendungBusinessException`).
+Voraussetzung für das Erstellen dieser Exception sind die Basis-Exceptions der Anwendung (hier `MeineAnwendungException` und `MeineAnwendungBusinessException`).
 
 
 Beispiel für eine technische Runtime-Exception Hierarchie:
@@ -118,7 +118,7 @@ Beispiel für eine technische Runtime-Exception Hierarchie:
 [id="image-008",reftext="{figure-caption} {counter:figures}"]
 image::isy-exception-core:nutzungsvorgaben/fehlerbehandlung008.png[align="center",width=65%]
 
-Die <<image-008>> zeigt die technische Runtime-Exception `MeineKonfigurationException`.
+Die <<image-008>> zeigt die technische Runtime-Exception `KonfigurationException`.
 Diese Exception könnte dafür verwendet werden, um bei einem Konfigurationsfehler z.B. "Konfigurationsparameter nicht gesetzt" geworfen zu werden.
 Die Exception ist eine `RuntimeException`, da ein solcher Fehler nicht behandelbar wäre.
 Um nun eine solche Klasse zu erstellen, muss zuvor nach obigem Schema (siehe <<image-006>>) die entsprechende Oberklasse erstellt worden sein.
@@ -174,7 +174,7 @@ public static final String MSG_ALLGEMEINER_FEHLER = "MNMDL90001";
 [id="listing-GenerischerFehlertext",reftext="{listing-caption} {counter:listings }"]
 [source,properties]
 ----
-MNMDL90001 = Es ist ein allgemeiner Fehler im Modul Generisches Modul aufgetreten.
+MNMDL90001 = Es ist ein allgemeiner Fehler im Modul Mein Modul aufgetreten.
 ----
 
 Beim Einsatz von Exceptions muss immer eine Konstante zur Referenzierung von Fehlern verwendet werden.
@@ -186,17 +186,17 @@ Beim Aufruf einer Exception wird im einfachsten Fall lediglich eine Ausnahme-ID 
 [id="listing-UebergabeAusnahmeId",reftext="{listing-caption} {counter:listings }"]
 [source,java]
 ----
-new MeineKonfigurationException(
-    FehlerSchluessel.KONFIGURATION_FALSCH_INITIALISIERT);
+new MeineNichtGefundenException(
+    FehlerSchluessel.MODUL_NICHT_GEFUNDEN);
 ----
 
-Der Konstruktor der Exception ruft den Konstruktor der abstrakten Eltern-Klasse auf (hier `MeineAnwendungTechnicalRuntimeException`):
+Der Konstruktor der Exception ruft den Konstruktor der abstrakten Eltern-Klasse auf (hier `MeineAnwendungBusinessException`):
 
 .Konstruktor
 [id="listing-Konstruktur",reftext="{listing-caption} {counter:listings }"]
 [source,java]
 ----
- public MeineAnwendungTechnicalRuntimeException(FehlerSchluessel schluessel, String... parameter) {
+ public MeineAnwendungBusinessException(FehlerSchluessel schluessel, String... parameter) {
 
         super(schluessel.getCode(), FEHLERTEXT_PROVIDER, parameter);
     }
@@ -381,7 +381,7 @@ Hierzu wird dem Konstruktor der zugehörigen Exception ein String oder String-Ar
 [id="listing-UebergabePlatzhalter",reftext="{listing-caption} {counter:listings }"]
 [source,java]
 ----
-new MeineKonfigurationException(FehlerSchluessel.MSG_UNGUELTIGER_PARAMETER, parameter, wert);
+new KonfigurationException(FehlerSchluessel.MSG_UNGUELTIGER_PARAMETER, parameter, wert);
 ----
 
 Die Verwendung der Fehlertexte geschieht über Konstanten der Klassen.
