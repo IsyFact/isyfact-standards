@@ -1,3 +1,6 @@
+# 2.4.5
+- `IFS-1583`: `IsyPersistenceOracleAutoConfiguration` verwendet relaxed-binding für ConditionalOnProperty
+
 # 2.3.0
 - `IFS-1066`: Protokollierung-Datenstrukturen aus den Template-DB-Skripten entfernt
 - `IFS-1093`: Anhebung von UCP auf 19.11

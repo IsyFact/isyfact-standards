@@ -1,53 +1,50 @@
 package de.bund.bva.isyfact.persistence.autoconfigure;
 
-import java.util.HashMap;
-import java.util.Map;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.springframework.beans.factory.UnsatisfiedDependencyException;
+import org.springframework.boot.autoconfigure.AutoConfigurations;
+import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 
 import de.bund.bva.isyfact.persistence.datasource.IsyDataSource;
-import org.junit.Test;
-import org.springframework.beans.factory.NoSuchBeanDefinitionException;
-import org.springframework.beans.factory.UnsatisfiedDependencyException;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.context.properties.ConfigurationPropertiesBindException;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Configuration;
 
-import static org.junit.Assert.*;
+class IsyPersistenceOracleAutoConfigurationTest {
 
-public class IsyPersistenceOracleAutoConfigurationTest {
+    private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+            .withConfiguration(AutoConfigurations.of(IsyPersistenceOracleAutoConfiguration.class));
 
-    @Test(expected = NoSuchBeanDefinitionException.class)
-    public void testOraclePropertiesNichtGesetzt() {
-        Map<String, Object> properties = new HashMap<>();
-
-        properties.put("isy.logging.anwendung.name", "test");
-        properties.put("isy.logging.anwendung.typ", "test");
-        properties.put("isy.logging.anwendung.version", "test");
-
-        ConfigurableApplicationContext context = new SpringApplicationBuilder()
-            .sources(TestConfig.class)
-            .properties(properties)
-            .run();
-
-        context.getBean(IsyDataSource.class);
+    @Test
+    void testOraclePropertiesNichtGesetzt() {
+        contextRunner.run(context -> assertThat(context).doesNotHaveBean(IsyDataSource.class));
     }
 
-    @Test(expected = UnsatisfiedDependencyException.class)
-    public void testOraclePropertiesUnvollstaendigGesetzt() {
-        Map<String, Object> properties = new HashMap<>();
-
-        properties.put("isy.persistence.oracle.datasource.databaseurl", "test");
-
-        new SpringApplicationBuilder()
-            .sources(TestConfig.class)
-            .properties(properties)
-            .run();
+    @Test
+    void testOraclePropertiesUnvollstaendigGesetzt() {
+        contextRunner.withPropertyValues("isy.persistence.oracle.datasource.database-url=test")
+                .run(context -> assertThat(context).getFailure().isInstanceOf(UnsatisfiedDependencyException.class));
     }
 
-    @Configuration
-    @EnableAutoConfiguration
-    static class TestConfig {
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "isy.persistence.oracle.datasource.database-url=test",
+            "isy.persistence.oracle.datasource.database_url=test",
+            "isy.persistence.oracle.datasource.databaseUrl=test",
+            "isy.persistence.oracle.datasource.databaseurl=test"
+    })
+    void testAlternativePropertySpelling(String property) {
+        contextRunner.withPropertyValues(
+                        property,
+                        "isy.persistence.oracle.datasource.databaseUsername=test",
+                        "isy.persistence.oracle.datasource.databasePassword=test"
+                )
+                .run(context -> {
+                    assertThat(context).hasNotFailed();
+                    assertThat(context).hasSingleBean(IsyPersistenceOracleAutoConfiguration.class);
+                    assertThat(context).hasSingleBean(IsyDataSource.class);
+                });
 
     }
 }
