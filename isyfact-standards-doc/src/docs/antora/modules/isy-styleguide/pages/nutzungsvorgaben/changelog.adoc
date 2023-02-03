@@ -1,0 +1,8 @@
+[[changelog]]
+= Changelog
+
+// *Änderungen IsyFact 3.0.0*
+
+// tag::release-3.0.0[]
+- Initialer Umzug der Nutzungsvorgaben Styleguide nach isyfact-standards-doc (alter Ablageort: isy-style)
+// end::release-3.0.0[]

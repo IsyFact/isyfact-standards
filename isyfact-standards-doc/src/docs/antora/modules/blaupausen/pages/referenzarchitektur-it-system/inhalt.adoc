@@ -17,7 +17,7 @@ image::blaupausen:referenzarchitektur-it-system/RAITSys.png[align="center"]
 In der *Persistenzschicht* ist alle Funktionalität enthalten, die zum Erzeugen, Suchen, Bearbeiten und Löschen von Datenobjekten benötigt wird.
 Der Datenzugriff auf das DBMS ist in dieser Schicht vollständig gekapselt.
 In Richtung Datenbank kommuniziert diese Schicht mittels JDBC und SQL, in Richtung des Anwendungskerns stellt die Schicht Geschäftsobjekte zur Verfügung.
-Die Persistenz nutzt dazu das Persistenzframework Hibernate über die Java Persistence API (JPA).
+Die Persistenz nutzt dazu das Framework Hibernate über die Java Persistence API (JPA).
 
 Der *Anwendungskern* umfasst die fachliche Logik zur Datenbearbeitung, die mit dem System realisiert werden soll.
 Dazu gehören zum Beispiel Datenvalidierungen oder Funktionen zum Verarbeiten von Geschäftsobjekten, die über den Datenzugriff geladen wurden.
@@ -28,7 +28,7 @@ In der Referenzarchitektur für ein IT-System wird diese Schicht noch zusätzlic
 * Aufgabe der *GUI* ist es, die Funktionalität der Anwendung für einen menschlichen Anwender zur Verfügung zu stellen.
 Dabei unterstützt die GUI den Bearbeitungsprozess einer fachlichen Aufgabe.
 Innerhalb des Bearbeitungsprozesses stellt sie Dialoge dar und transferiert die durch den Anwendungskern gelieferten Datenobjekte in eine präsentable Form.
-Dies kann sowohl durch eine Web-basierte HTML-GUI als auch durch eine sogenannte Rich-Client Anwendung geschehen.
+Dies kann sowohl durch eine Web-basierte HTML-GUI als auch durch eine sogenannte Rich-Client-Anwendung geschehen.
 
 * Aufgabe des **Batch**es ist es, automatisierte Prozesse ohne einen direkten menschlichen Anwender durchzuführen.
 Dabei nutzt der Batch ebenfalls die Funktionen des Anwendungskerns.
@@ -39,7 +39,7 @@ Eine Besonderheit beim Batch ist, dass die Steuerung des Batch-Prozesses in der 
 Dieser Zugriff erfolgt nicht direkt auf den Anwendungskern, sondern über die Nutzungsschicht „Service“.
 Dadurch können auf einfache Art technische Attribute in die Außenschnittstelle aufgenommen werden und der Service des Anwendungskerns kann auf die Kommunikationstechnik abgebildet werden, die für die Kommunikation zwischen IT-Systemen verwendet wird.
 
-Details zur Konstruktion eines IT-Systems werden in xref:methodik:vorlage-systementwurf/antora-master.adoc[IsyFact Systementwurf] festgelegt und für das jeweilige IT-System dokumentiert.
+Details zur Konstruktion eines IT-Systems werden im xref:methodik:vorlage-systementwurf/antora-master.adoc[IsyFact Systementwurf] festgelegt und für das jeweilige IT-System dokumentiert.
 
 [[uebergreifende-technische-konzeption]]
 === Übergreifende technische Konzeption
@@ -61,7 +61,7 @@ In der Fachliteratur sind diese Eigenschaften als ACID-Eigenschaften (atomicity,
 
 Änderungen am Datenbestand können komplex sein, das heißt es können viele Informationen und Zusammenhänge von den Änderungen betroffen sein.
 Solche komplexen Änderungen werden vom Informationssystem meist in einzelne, einfache Änderungsschritte zerlegt.
-Damit die ACID-Eigenschaften der komplexen Änderung erhalten bleiben, muss das Informationssystem entweder alle Änderungsschritte ausführen – oder keinen.
+Damit die ACID-Eigenschaften der komplexen Änderung erhalten bleiben, muss das Informationssystem entweder alle Änderungsschritte ausführen oder keinen.
 Damit es dazu in der Lage ist, werden die Änderungsschritte zunächst zu einer logischen Einheit zusammengefasst – einer Transaktion.
 
 Für die Referenzarchitektur wird festgelegt, dass die Nutzungsschicht für die Steuerung der Transaktionen zuständig ist.
@@ -78,7 +78,7 @@ Dabei werden Datentypen der Datenbank in ihre Objekt-Äquivalente umgesetzt, ein
 
 * *Transaktionssteuerung und Sperren:* Es müssen fachliche Transaktionen auf technische Transaktionen gegen die Datenbank abgebildet werden.
 Dabei wird eine optimistische Sperrstrategie umgesetzt.
-Ein übliches Verhalten ist zum Beispiel das folgende: Erstreckt sich eine fachliche Transaktion über mehrere Dialogschritte, wird die Zugriffsschicht erst beim Verlassen des letzten Dialogs eine technische Datenbanktransaktion auslösen.
+Ein übliches Verhalten ist zum Beispiel das Folgende: Erstreckt sich eine fachliche Transaktion über mehrere Dialogschritte, wird die Zugriffsschicht erst beim Verlassen des letzten Dialogs eine technische Datenbanktransaktion auslösen.
 Um zu prüfen, ob die Daten in der Zwischenzeit nicht durch einen anderen Anwender verändert worden sind, wird die Zugriffsschicht beim Schreiben Zeitstempel oder Versionszähler der Datensätze überprüfen.
 +
 Um diesen großen Funktionsumfang abzudecken, wird ein Produkt zum objekt-relationalen Mapping gemäß JPA-Standard eingesetzt.
@@ -91,7 +91,7 @@ include::blaupausen:page$detailkonzept-komponente-anwendungskern/inhalt.adoc[tag
 
 Nicht Teil des Anwendungskerns sind spezielle Dialogabläufe, z.B. dialogspezifische Bearbeitungsverfahren wie die Anwenderführung über Wizards.
 Diese Prozesse, die nur durch einen einzigen Dialog genutzt werden, sind Teil der Schicht Nutzung.
-Der Anwendungskern stellt somit im wesentlichen allgemein nutzbare xref:glossary:glossary:master.adoc#glossar-service[Service] zur Verfügung.
+Der Anwendungskern stellt somit im Wesentlichen allgemein nutzbare xref:glossary:glossary:master.adoc#glossar-service[Services] zur Verfügung.
 
 include::blaupausen:page$detailkonzept-komponente-anwendungskern/inhalt.adoc[tags=fachkomponente-definition]
 
@@ -105,7 +105,7 @@ Dadurch ist die Funktionalität sauber gekapselt, was die Wartbarkeit erhöht.
 Wenn der externe Service ausgetauscht werden soll, ist keine Änderung der gesamten Anwendung notwendig – es ist lediglich eine interne Änderung der externen Service-Komponente notwendig.
 Für andere fachliche Komponenten des Anwendungskerns ist nicht zu unterscheiden, ob es sich beim Aufruf einer Komponentenschnittstelle um eine in dieser Komponente implementierte Funktion oder um einen Serviceaufruf handelt.
 Komponenten, die externe Services kapseln, sind im Idealfall von außen nicht von fachlichen Komponenten des Anwendungskerns unterscheidbar.
-Diese Komponenten haben damit zwei Hauptaufgaben: Sie müssen die technische Aspekte der Kommunikation umsetzen und sie müssen Schnittstellendaten und Exceptions der aufgerufenen Services in die Datenformate der Anwendung transformieren.
+Diese Komponenten haben damit zwei Hauptaufgaben: Sie müssen die technischen Aspekte der Kommunikation umsetzen und sie müssen Schnittstellendaten und Exceptions der aufgerufenen Services in die Datenformate der Anwendung transformieren.
 
 Weitere Details können dem xref:detailkonzept-komponente-anwendungskern/master.adoc[Detailkonzept Komponente Anwendungskern] entnommen werden.
 
@@ -124,7 +124,7 @@ Wenn Objekte von mehreren Komponenten genutzt werden und keiner einzelnen Kompon
 Vereinfachend können Anwendungskern-Komponenten persistente Daten an die xref:glossary:glossary:master.adoc#glossar-service[Service]-Schicht (s. Kapitel <<servicezugriffe>>) weitergeben.
 Dies ist insbesondere dann angebracht, wenn die Komponente ausschließlich durch eine Service-Komponente genutzt wird. +
 Da die Service-Schicht keine Logik enthält und daher ohnehin keine Änderung an solchen Entitäten vornehmen darf und eindeutig der Anwendungskern-Komponente zugeordnet ist, bedeutet dies keine Verletzung der Datenhoheit.
-Da die Anwendungskern-Komponente an Ihrer Schnittstelle nun potentiell persistente und nicht persistente Entitäten bereitstellt, müssen Verwechselungen vermieden werden, z.B. in dem solche Methoden in getrennten Interfaces deklariert werden.
+Da die Anwendungskern-Komponente an Ihrer Schnittstelle nun potenziell persistente und nicht persistente Entitäten bereitstellt, müssen Verwechselungen vermieden werden, z.B. indem solche Methoden in getrennten Interfaces deklariert werden.
 
 .icon:university[] Architekturregel
 ****
@@ -148,7 +148,7 @@ Die Dialogabläufe bilden einen Workflow.
 Dieser ist in der Regel in der Dialogsteuerung abgebildet, er kann auch durch eine Workflow-Komponente gesteuert werden.
 * Der Dialog muss direkt mit dem Anwendungskern kommunizieren, um Daten zu lesen, die veränderten Daten zu speichern und komplexere fachliche Funktionen auszuführen.
 
-Vorgaben zum Layout sind im xref:isyfact-style-doku:isy-style:styleguide.adoc[Styleguide] beschrieben.
+Vorgaben zum Layout sind im xref:isy-styleguide:styleguide.adoc[Styleguide] beschrieben.
 
 Die Validierung auf GUI-Ebene ist optional.
 Sie wird empfohlen, wenn sie die Benutzererfahrung verbessert.
@@ -186,8 +186,8 @@ Für die Dialogsteuerung von Web-GUIs wird das Framework SpringWebFlow (GUI-Engi
 Ein am Client durchgeführter Arbeitsprozess besteht in der Regel aus mehr als einem Dialogschritt und damit aus mehr als einem Aufruf des Servers.
 Dabei sind zum Beispiel folgende Aufgaben zu lösen:
 
-* Über mehrere Dialogschritte muss ein „Gedächtnis“ gehalten werden.
-* Ergebnisse von aufwändigen Operationen sollen gecached werden.
+* Über mehrere Dialogschritte müssen Zustandsinformationen erhalten werden.
+* Ergebnisse von aufwändigen Operationen sollen in einem Cache gehalten werden.
 
 Dieser Zustand muss innerhalb der Anwendung abgebildet werden.
 Hierzu wird ein zustandsloser Server realisiert und der Zustand wird in der Datenbank gehalten.
@@ -201,9 +201,9 @@ Weiterführende technische Details zur GUI sind im xref:detailkonzept-komponente
 [[SPA]]
 ==== Single Page Application
 
-Als moderne Alternative zur klassischen Web-Anwendung kann eine GUI als Single Page Application (SPA) umgesetzt werden. Hierbei wird nur eine Seite aufgerufen, welche die gesamte Dialoglogik und den Sitzungszustand auf der Clientseite belässt und Inhalte dynamisch über RESTful-Services (in der IsyFact angesiedelt in den Fachanwendungen) nachlädt, die unabhängig und losgekoppelt vom Client implementiert werden.
+Eine GUI kann auch als xref:glossary:glossary:master.adoc#glossar-spa[Single Page Application (SPA)] umgesetzt werden.
 
-Dadurch ist eine Reduzierung der Last auf den Server möglich und die Umsetzung von komplexeren Nutzerinteraktionen wird erleichtert;
+Dadurch ist eine Reduzierung der Last auf dem Server möglich und die Umsetzung von komplexeren Nutzerinteraktionen wird erleichtert;
 vor allem bei diesen Fällen kann sich eine Migration lohnen.
 Zudem können teilweise Offline-Funktionalitäten umgesetzt werden.
 
@@ -211,10 +211,9 @@ Genauer zu prüfen ist der Einsatz von SPAs vor allem in Fällen, in denen Clien
 
 Folgende Komponenten kommen in einer SPA normalerweise zum Einsatz:
 
-* GUI-Framework: Das Framework kümmert sich darum, vom Browser korrekt renderbaren Code zu erzeugen und gibt die dazu nötigen Mittel vor. Für die IsyFact ist hier Angular vorgesehen (Baustein Angular).
+* GUI-Framework: Das Framework kümmert sich darum, vom Browser korrekt renderbaren Code zu erzeugen und gibt die dazu nötigen Mittel vor. Für die IsyFact ist hier Angular vorgesehen.
 * GUI-Bibliothek(en): Die GUI-Bibliotheken bieten wiederverwendbare und stylebare Komponenten im Kontext des Frameworks an.
 * Dialoglogik: Die Dialoglogik liegt rein clientseitig vor; sie ist der Ort, an dem Front-End-Code entwickelt wird.
-
 
 
 [[batch]]
@@ -223,15 +222,14 @@ Folgende Komponenten kommen in einer SPA normalerweise zum Einsatz:
 Ein xref:glossary:glossary:master.adoc#glossar-batch[Batch] realisiert eine eigenständige Verarbeitung ohne direkten Benutzereingriff während des Ablaufes.
 An einen Batch werden verschiedene Anforderungen gestellt: Ausführungszeitpunkt, Abhängigkeiten, Datenvolumen, ausgeführte Funktionalität, Eingaben, Ausgaben usw.
 
-Aus Architektur-Sicht werden diese Anforderungen durch zwei Komponenten abgedeckt: der Batchrahmen und der Batchlogik.
+Aus Architektur-Sicht werden diese Anforderungen durch zwei Komponenten abgedeckt: den Batchrahmen und die Batchlogik.
 
 *Batchrahmen:* Der Batchrahmen stellt die Schnittstelle für den Aufruf der Batchfunktionalität zur Verfügung.
 Er übernimmt auch die Transaktionssteuerung und die Steuerung für einen Restart.
 
 *Batchlogik:* Die Batchlogik wird vom Batchrahmen aufgerufen, um die Funktionalität des Batchverarbeitungsprogramms zu aktivieren.
-Die Funktionalität, das heißt die fachliche Logik und die Arbeitsschritte eines Batches, wird als Anwendungsfälle erfasst.
+Die Funktionalität, das heißt die fachliche Logik und die Arbeitsschritte eines Batches, werden als Anwendungsfälle erfasst.
 Wenn diese Anwendungsfälle auch von anderen Nutzern benötigt werden, dann sind sie im Anwendungskern implementiert.
-
 
 .Bestandteile von Batchverarbeitungsprogrammen
 [id="image-TeileBat",reftext="{figure-caption} {counter:figures}"]
@@ -239,7 +237,7 @@ image::blaupausen:referenzarchitektur-it-system/TeileBat.png[align="center",pdfw
 
 Batches werden als eigener Prozess auf einem eigenen Server ausgeführt, das heißt sie laufen nicht in der virtuellen Maschine des Application Servers ab.
 Batches werden somit in einer eigenen Ablaufumgebung ausgeführt und greifen direkt auf die Datenbank oder auch auf Dateien zu.
-Die benötigte Funktionalität des Anwendungskerns wird dem Batch als Bibliothek zur Verfügung gestellt und nicht über einen Remoteaufruf genutzt.
+Die benötigte Funktionalität des Anwendungskerns wird dem Batch als Bibliothek zur Verfügung gestellt und nicht über einen Service-Aufruf genutzt.
 Der Grund für diese Entscheidung liegt in den Datenmengen, die normalerweise von einem Batch verarbeitet werden: Die Übermittlung dieser Datenmengen über eine remote genutzte Schnittstelle ist ein möglicher Flaschenhals in der Anwendung.
 Dieser Flaschenhals wird durch die Nutzung der Anwendungskernfunktionalität als Bibliothek vermieden.
 

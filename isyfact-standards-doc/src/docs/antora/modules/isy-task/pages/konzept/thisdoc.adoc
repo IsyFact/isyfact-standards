@@ -5,7 +5,7 @@
 == Einleitung
 
 Dieses Dokument beschreibt die konzeptionellen Grundlagen der Steuerung (d.h. Planung und Ausführung) von Aufgaben (Task Scheduling) in der IsyFact.
-Mit „Aufgaben“ sind hier periodisch wiederkehrende Tätigkeiten gemeint, die innerhalb einer xref:glossary:glossary:master.adoc#glossar-anwendungskomponente[Anwendungskomponenten] angesiedelt sind und zur Erfüllung der fachlichen oder technischen Anforderungen der Anwendung beitragen.
+Mit „Aufgaben“ sind hier periodisch wiederkehrende Tätigkeiten gemeint, die innerhalb einer xref:glossary:glossary:master.adoc#glossar-anwendungskomponente[Anwendungskomponente] angesiedelt sind und zur Erfüllung der fachlichen oder technischen Anforderungen der Anwendung beitragen.
 Das Dokument beschreibt die Anforderungen und Vorgaben zur Umsetzung der Steuerung von Aufgaben und bildet so die Grundlage einer technisch und fachlich einheitlichen Umsetzung.
 
 Die aus diesem Dokument abgeleitete Umsetzung der Steuerung von Aufgaben im Rahmen der Anwendungsentwicklung ist in dem Dokument xref:nutzungsvorgaben/master.adoc#einleitung[Task-Scheduling - Nutzungsvorgaben] beschrieben.

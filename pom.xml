@@ -61,20 +61,20 @@
         <revision>0.0.0-SNAPSHOT</revision>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.propertiesEncoding>ISO-8859-1</project.build.propertiesEncoding>
-        <java.compile.version>1.8</java.compile.version>
+        <java.release.version>8</java.release.version>
         <maven.build.timestamp.format>dd.MM.yyyy</maven.build.timestamp.format>
 
         <!-- maven-enforcer-plugin configuration -->
-        <enforced.jdk.version>[1.8,1.9)</enforced.jdk.version>
+        <enforced.jdk.version>[1.8,18)</enforced.jdk.version>
         <enforced.maven.version>[3.1.1,4)</enforced.maven.version>
 
         <!-- Property is set by jacoco and user by surefire -->
         <maven.jacoco.argLine/>
 
         <!-- maven-surefire-plugin configuration -->
-        <maven.surefire.argline>-Xmx1g -Dfile.encoding=${project.build.sourceEncoding} @{maven.jacoco.argLine}
+        <maven.surefire.argline>
+            -Xmx1g -Dfile.encoding=${project.build.sourceEncoding} @{maven.jacoco.argLine}
         </maven.surefire.argline>
-
 
         <!-- Plugin versions used in several places -->
         <maven.enforcer.plugin.version>3.0.0</maven.enforcer.plugin.version>
@@ -232,6 +232,7 @@
                     <version>2.22.2</version>
                     <configuration>
                         <argLine>${maven.surefire.argline}</argLine>
+
                         <systemPropertyVariables>
                             <user.language>de</user.language>
                             <user.country>DE</user.country>
@@ -381,8 +382,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.9.0</version>
                 <configuration>
-                    <source>${java.compile.version}</source>
-                    <target>${java.compile.version}</target>
+                    <release>${java.release.version}</release>
                     <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
@@ -551,7 +551,7 @@
                 <version>3.6</version>
                 <configuration>
                     <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
-                    <targetJdk>${java.compile.version}</targetJdk>
+                    <targetJdk>${java.release.version}</targetJdk>
                 </configuration>
             </plugin>
             <plugin>
@@ -864,6 +864,21 @@
                     </plugin>
                 </plugins>
             </build>
+        </profile>
+
+        <!-- remove if source code is adjusted to JDK 17 -->
+        <profile>
+            <id>JDK-17-Workaround</id>
+            <activation>
+                <jdk>[17,18)</jdk>
+            </activation>
+            <properties>
+                <maven.surefire.argline>
+                    -Xmx1g -Dfile.encoding=${project.build.sourceEncoding} @{maven.jacoco.argLine}
+                    --add-opens java.base/java.lang=ALL-UNNAMED
+                    --add-opens java.base/java.util=ALL-UNNAMED
+                </maven.surefire.argline>
+            </properties>
         </profile>
     </profiles>
 </project>
