@@ -105,11 +105,21 @@ Beispiel für eine fachliche Exception Hierarchie:
 [id="image-007",reftext="{figure-caption} {counter:figures}"]
 image::isy-exception-core:nutzungsvorgaben/fehlerbehandlung007.png[align="center",width=70%]
 
-Das Beispiel in <<image-007>> zeigt eine fachliche Exception einer unbestimmten Anwendung.
+Das Beispiel in <<image-007>> zeigt eine fachliche Exception der Anwendung MeineAnwendung.
 Die fachliche Exception `MeineNichtGefundenException` besitzt in diesem Beispiel nicht alle möglichen Konstruktoren.
 Dies dient lediglich der Veranschaulichung.
 Wie oben erwähnt ist es nicht notwendig, immer alle Konstruktoren zu implementieren.
 Voraussetzung für das Erstellen dieser Exception sind die Basis-Exceptions der Anwendung (hier `MeineAnwendungException` und `MeineAnwendungBusinessException`).
+
+Die <<table-001>> erläutert die Bedeutung der Argumente der Konstruktoren.
+
+.Argumente der Konstruktoren von Exceptions des Anwendungskerns
+[id="table-001",reftext="{table-caption} {counter:tables}"]
+[options="header",cols="3,2,2,3,3"]
+|====
+|Exception|String|Throwable (optional)|FehlertextProvider|String... (optional)
+|`MeineNichtGefundenException` |Ausnahme-ID |Original-Exception, die gefangen wurde. |Die FehlertextProvider-Implementierung, welche verwendet wird, um eine Fehlertext zu laden.|String oder String-Array mit Variablenwerten, für Platzhalter in parametrisierten Fehlertexten.
+|====
 
 
 Beispiel für eine technische Runtime-Exception Hierarchie:
@@ -174,7 +184,7 @@ public static final String MSG_ALLGEMEINER_FEHLER = "MNMDL90001";
 [id="listing-GenerischerFehlertext",reftext="{listing-caption} {counter:listings }"]
 [source,properties]
 ----
-MNMDL90001 = Es ist ein allgemeiner Fehler im Modul Mein Modul aufgetreten.
+MNMDL90001 = Es ist ein allgemeiner Fehler im Modul MeinModul aufgetreten.
 ----
 
 Beim Einsatz von Exceptions muss immer eine Konstante zur Referenzierung von Fehlern verwendet werden.
@@ -333,7 +343,7 @@ Die Fehlerbehandlung entspricht den gängigen `try-catch`-Blöcken mit entsprech
 [source,java]
 ----
 try {
-    verwaltung.leseMeineNummer(MeineNummer);
+    verwaltung.leseMeineNummer(meineNummer);
 } catch (MeineNichtGefundenException ex) {
     // Exception kann nicht behandelt werden, also wird sie weitergereicht
     throw ex;
