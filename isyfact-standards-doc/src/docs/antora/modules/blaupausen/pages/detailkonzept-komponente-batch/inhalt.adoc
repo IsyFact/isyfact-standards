@@ -677,11 +677,7 @@ Für die Überwachung wird durch den Batchrahmen eine JMX-Bean bereitgestellt. �
   -Dcom.sun.management.jmxremote.ssl=false
   -Dcom.sun.management.jmxremote.authenticate=true
 ----
-Über die Java Management Console kann man danach auf die Daten zugreifen:
-
-.Die JMX Überwachung eines Batches
-[id="image-JMXOverBat",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:detailkonzept-batch/JMXOverBat.png[align="center"]
+Über die Java Management Console kann man danach auf die Daten zugreifen.
 
 Bereitgestellt werden folgende Informationen:
 
