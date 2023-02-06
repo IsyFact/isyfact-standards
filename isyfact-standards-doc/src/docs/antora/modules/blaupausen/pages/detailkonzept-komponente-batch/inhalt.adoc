@@ -274,8 +274,8 @@ Der Batchrahmen ruft (anhand einer Konfiguration) diese Logik auf.
 Da eine Batch-Anwendung über Spring verwaltet wird, wird die Batchlogik als Spring-Bean konfiguriert, als sogenannte _Ausführungsbean_.
 Diese Bean wiederum ruft die Geschäftsanwendungs-Komponenten auf, welche die fachliche Logik enthalten.
 
-// Anmerkung: TODO - Die Vorlageanwendung ist eigentlich nicht mehr aktuell. Deswegen sollte der folgende Abschnitt überarbeitet oder ggf. entfernt werden.
-Für die xref:glossary:literaturextern:inhalt.adoc#litextern-vorlageanwendung[Vorlage-Anwendung] zeigt <<image-BeanGriffBat>> eine Auswahl der vorhandenen Beans.
+
+Für eine Beispielanwendung zeigt <<image-BeanGriffBat>> eine Auswahl der vorhandenen Beans.
 Wichtig ist ihre Verteilung auf zwei Anwendungskontexte: Der Batchrahmen und die Ausführungsbeans werden in einem eigenen Kontext konfiguriert.
 So müssen wenige Anpassungen vorgenommen werden, um aus der Anwendungskontext-Konfiguration als Webanwendung die Konfiguration für den Anwendungskontext im Batchbetrieb zu erhalten.
 
@@ -677,11 +677,7 @@ Für die Überwachung wird durch den Batchrahmen eine JMX-Bean bereitgestellt. �
   -Dcom.sun.management.jmxremote.ssl=false
   -Dcom.sun.management.jmxremote.authenticate=true
 ----
-Über die Java Management Console kann man danach auf die Daten zugreifen:
-
-.Die JMX Überwachung eines Batches
-[id="image-JMXOverBat",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:detailkonzept-batch/JMXOverBat.png[align="center"]
+Über die Java Management Console kann man danach auf die Daten zugreifen.
 
 Bereitgestellt werden folgende Informationen:
 
@@ -848,13 +844,13 @@ Beispiel für ein Batchprotokoll:
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <Batch-Ergebnis>
-<Start BatchID="terminfindungLoeschBatch" Datum="2017-01-30" Uhrzeit="09:33:53" Parameter="-start -cfg /resources/batch/batch-loeschen-config.properties -Batchrahmen.Ergebnisdatei loeschen-batch_out.xml"/>
+<Start BatchID="GenersicheAnwendungLoeschBatch" Datum="2017-01-30" Uhrzeit="09:33:53" Parameter="-start -cfg /resources/batch/batch-loeschen-config.properties -Batchrahmen.Ergebnisdatei loeschen-batch_out.xml"/>
 <Meldungen>
 <Meldung ID="COMMIT" Typ="I" Text="Checkpunkt geschrieben."/>
 <Meldung ID="ENDE" Typ="I" Text="Batch beendet."/>
 </Meldungen>
 <Statistik>
-<Statistik-Eintrag ID="ANZAHL_GELOESCHT" Text="Anzahl gelöschter Terminfindungen" Wert="5"/>
+<Statistik-Eintrag ID="ANZAHL_GELOESCHT" Text="Anzahl gelöschter generischer Anwendungen" Wert="5"/>
 </Statistik>
 <Ende Datum="2017-01-30" Uhrzeit="09:33:58"/>
 <Return-Code RC="0" Text="Verarbeitung ohne Fehler durchgeführt."/>
