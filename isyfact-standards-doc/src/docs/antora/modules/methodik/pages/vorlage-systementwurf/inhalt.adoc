@@ -122,12 +122,12 @@ Die Anforderungen an die konkrete Ausgestaltung der Diagramme werden im Rahmen d
 
 _Die Paketstruktur des Enterprise Architect Modells orientiert sich sowohl an der Benamung als auch an der Hierarchie der Verzeichnisstruktur des Systementwurfs.
 So wird die Einheitlichkeit der EA-Modelle für unterschiedliche Projekte erhöht und das Auffinden benötigter Diagramme erleichtert.
-Das folgende Listing zeigt beispielhaft das EA-Modell._
+Das folgende Listing zeigt beispielhaft ein EA-Modell._
 ====
 
 
 [[paketstruktur-enterprise-architect-modell]]
-.Paketstruktur des Enterprise Architect Modells
+.Paketstruktur eines Enterprise Architect Modells
 ----
 📂 Geschäftsanwendung XYZ
   📂 Systementwurf
