@@ -11,13 +11,13 @@ Der Begriff Factory steht für die schnelle Erzeugung neuer xref:glossary:glossa
 Die IsyFact besteht aus den IsyFact-Standards und IsyFact-Erweiterungen:
 
 Die *IsyFact-Standards* bilden das architektonische, technologische und methodische Fundament der IsyFact.
-Sie umfassen allgemeingültige und wiederverwendbare Konzepte und Komponenten, die für die Entwicklung beliebiger Geschäftsanwendungen relevant und verpflichtend sind.
-Bspw.: Allgemeine Softwarereferenzarchitektur, Vorgaben zur Fehlerbehandlung, Logging etc.
+Sie umfassen allgemeingültige und wiederverwendbare Konzepte und Komponenten, die für die Entwicklung beliebiger Geschäftsanwendungen relevant und verpflichtend sind. +
+Beispiele: Allgemeine Softwarereferenzarchitektur, Vorgaben zur Fehlerbehandlung, Logging.
 
 Die *IsyFact-Erweiterungen* sind optionale wiederverwendbare Lösungen für verschiedene Problemstellungen, die aufgrund spezifischer Anforderungen des BVA oder seiner
 Kunden entwickelt wurden und
-[underline]#auf den IsyFact-Standards aufbauen.#
-Bspw.: Protokollierung, Regelwerk etc.
+[underline]#auf den IsyFact-Standards aufbauen.# +
+Beispiele: Protokollierung, Regelwerk.
 
 Die in diesem Dokument beschriebene Referenzarchitektur ist ein zentraler Teil der IsyFact-Standards und erläutert auf einer allgemeinen Ebene, wie eine Anwendungslandschaft zu beschreiben und umzusetzen ist.
 
@@ -57,14 +57,14 @@ image::referenzarchitektur/fachliche-referenzarchitektur-anwendungslandschaft.dn
 Anwendungssysteme unterstützen Geschäftsprozesse.
 Stellt ein Anwendungssystem eine Fachlogik dar, so handelt es sich um eine xref:glossary:glossary:master.adoc#glossar-geschaeftsanwendung[Geschäftsanwendung].
 Ein Anwendungssystem ist Bestandteil der xref:glossary:glossary:master.adoc#glossar-a-architektur[A-Architektur].
-Aus Sicht der xref:glossary:glossary:master.adoc#glossar-t-architektur[T-Architektur] bildet ein xref:glossary:glossary:master.adoc#glossar-it-system[IT-Systeme] die software-technische Umsetzung eines Anwendungssystems ab.
+Aus Sicht der xref:glossary:glossary:master.adoc#glossar-t-architektur[T-Architektur] bildet ein xref:glossary:glossary:master.adoc#glossar-it-system[IT-System] die software-technische Umsetzung eines Anwendungssystems ab.
 
 Ein häufig anzutreffendes Beispiel hierfür ist die Trennung in ein Anwendungssystem zur Bestandsverwaltung (Register) und einem Anwendungssystem für die Benutzerinteraktion, die auf die Bestandsverwaltung zugreift.
 Im Zuge einer solchen Aufgabenteilung werden auch weitergehende Regeln definiert, wie Anwendungssysteme aufeinander zugreifen dürfen.
 Derartige Strukturierungsprinzipien und Regeln sind jedoch immer spezifisch für den jeweiligen Kontext der Anwendungslandschaft und können nicht allgemeingültig festgelegt werden.
 Im vorliegenden Dokument verwenden wir daher den neutralen Begriff *xref:glossary:glossary:master.adoc#glossar-geschaeftsanwendung[Geschäftsanwendung]* für alle Arten von Anwendungssystemen, die eine bestimmte fachliche Funktionalität innerhalb einer Anwendungsdomäne realisieren.
 
-*Querschnittsanwendungen* sind Anwendungssysteme, die Services für mehrere Geschäftsanwendungen bereitstellen.
+*Querschnittsanwendungen:* Eine xref:glossary:glossary:master.adoc#glossar-querschnittsanwendung[Querschnittsanwendung] ist ein Anwendungssystem, das Services für mehrere Geschäftsanwendungen bereitstellt.
 Diese Services sind oft technisch motiviert.
 
 *Portal:* Das xref:glossary:glossary:master.adoc#glossar-portal[Portal] stellt den Benutzern eine einheitliche Dialogoberfläche für den Zugriff auf die Services der Anwendungslandschaft zur Verfügung.
@@ -91,12 +91,12 @@ Der Zustand einer Anwendung wird in der Datenbank persistiert und bei jedem eint
 image::blaupausen:referenzarchitektur/horSkal.png[align="center",pdfwidth=50%,width=50%]
 
 In der Referenzarchitektur erfolgt die Anpassung an steigende Anforderungen durch horizontale Skalierung auf der Ebene der Anwendungsserver.
-Ein (Hardware- oder Software-) Loadbalancer verteilt die eingehenden Anfragen auf die vorhandenen Anwendungsserver.
+Ein (Hardware- oder Software-)Loadbalancer verteilt die eingehenden Anfragen auf die vorhandenen Anwendungsserver.
 Im Falle eines Serverausfalls kann die Aufgabe des ausgefallenen Servers durch einen anderen Server übernommen werden.
 Die Skalierung des Systems ist in <<image-horSkal>> dargestellt.
 
 Die Referenzarchitektur ist die Umsetzung einer Serviceorientierten Architektur.
-Im Design des xref:glossary:glossary:master.adoc#glossar-anwendungskern[Anwendungskerns] (siehe xref:detailkonzept-komponente-anwendungskern/master.adoc[Detailkonzept Komponente Anwendungskern] ) finden sich explizit Komponenten und Services.
+Im Design des xref:glossary:glossary:master.adoc#glossar-anwendungskern[Anwendungskerns] (siehe xref:detailkonzept-komponente-anwendungskern/master.adoc[Detailkonzept Komponente Anwendungskern]) finden sich explizit Komponenten und Services.
 Der Anwendungskern unterscheidet dabei noch zwischen Anwendungs-internen Services, die nur innerhalb der Anwendung aufgerufen werden und Anwendungs-externen Services, die über eine Nutzungsschnittstelle als Service anderen Anwendungen zur Verfügung gestellt werden.
 
 Der Entwurf der Services leitet sich in der Referenzarchitektur aus fachlichen Kriterien her.
@@ -117,9 +117,10 @@ Im Bereich der technischen Infrastruktur (xref:glossary:glossary:master.adoc#glo
 * Schulungs- und externe Testumgebung,
 * Entwicklungs- und Abnahme-Testumgebung.
 
-Die Aufteilung in Zonen leitet sich aus dem SAGA 4-Standard ab xref:glossary:literaturextern:inhalt.adoc#litextern-saga-4-0[SAGA 4.0].
+Die Aufteilung in Zonen leitet sich aus dem SAGA 4-Standard ab.
 
 NOTE: Wir orientieren uns hier nach wie vor am SAGA 4-Standard, da SAGA 5 kein Zonenmodell mehr enthält.
+Leider gibt es zu SAGA 4 keine offizielle Quelle mehr.
 
 <<image-RATIP>> skizziert die Referenzarchitektur der technischen Infrastruktur für die Produktionsumgebung. Die anderen Umgebungen sind vereinfachte und verkleinerte
 Abbilder der Produktionsumgebung.
@@ -138,13 +139,12 @@ Um Auswertungen auf Stichtagsbeständen durchführen zu können, wird ein dedizi
 [[inhaltsuebersicht]]
 === Inhaltsübersicht
 
-Nachdem in Kapitel  xref:referenzarchitektur/master.adoc#kurzueberblick[Kurzüberblick] die drei Sichten der Referenzarchitektur für eine Anwendungslandschaft kurz vorgestellt wurden, erfolgt nun eine
-Detaillierung der einzelnen Sichten:
+Nachdem in Kapitel <<kurzueberblick>> die drei Sichten der Referenzarchitektur für eine Anwendungslandschaft kurz vorgestellt wurden, erfolgt nun eine Detaillierung der einzelnen Sichten:
 
-* Für die fachliche Sicht wird im Kapitel xref:referenzarchitektur/master.adoc#die-fachliche-referenzarchitektur[Die fachliche Referenzarchitektur] eine fachliche Referenzarchitektur beschrieben.
-* Für die softwaretechnische Sicht wird im Kapitel  xref:referenzarchitektur/master.adoc#die-software-referenzarchitektur[Die Software Referenzarchitektur] die Einbindung der Software-Referenzarchitektur xref:referenzarchitektur-it-system/master.adoc#einleitung[Referenzarchitektur IT-Systeme] beschrieben.
-* Für die technische Infrastruktur wird im Kapitel xref:referenzarchitektur/master.adoc#die-referenzarchitektur-der-technischen-infrastruktur[Die Referenzarchitektur der technischen Infrastruktur] eine Referenzarchitektur vorgestellt.
+* Die fachliche Sicht wird durch die xref:referenzarchitektur/master.adoc#die-fachliche-referenzarchitektur[fachliche Referenzarchitektur] beschrieben.
+* Die software-technische Sicht wird durch die xref:referenzarchitektur/master.adoc#die-software-referenzarchitektur[software-technische Referenzarchitektur] beschrieben.
+* Die Sicht der technischen Infrastruktur wird durch die xref:referenzarchitektur/master.adoc#die-referenzarchitektur-der-technischen-infrastruktur[Referenzarchitektur der technischen Infrastruktur] beschrieben.
 
 Im Rahmen dieser Referenzarchitektur werden auch betriebliche Aspekte betrachtet, da diese Auswirkungen auf Designentscheidungen haben können.
-Diese Aspekte werden in Kapitel xref:referenzarchitektur/master.adoc#betriebliche-aspekte[Betriebliche Aspekte] beschrieben.
+Diese Aspekte werden in Kapitel xref:referenzarchitektur/master.adoc#betriebliche-aspekte["Betriebliche Aspekte"] beschrieben.
 // end::inhalt[]

@@ -46,7 +46,7 @@ Bausteine sind wieder verwendbare Softwarelösungen, z.B. ein Regelwerk für fac
 Diese Bausteine liegen in unterschiedlichen Formen vor: Es gibt fachliche und technische Services im Sinne einer serviceorientierten Architektur (SOA) und wieder verwendbare Bibliotheken und Programmiervorlagen.
 Dazu gehören auch am Markt verfügbare Fertigprodukte, für die detaillierte Nutzungsvorgaben erstellt wurden.
 
-*Betriebsplattform:* Das xref:glossary:glossary:master.adoc#glossar-portal[Portal] definiert allgemeine Vorgaben und Rahmenbedingungen für den Betrieb von Anwendungslandschaften, die sich aus der Verwendung der IsyFact ergeben.
+*Betriebsplattform:* Die xref:glossary:glossary:master.adoc#glossar-plattform[Plattform] definiert allgemeine Vorgaben und Rahmenbedingungen für den Betrieb von Anwendungslandschaften, die sich aus der Verwendung der IsyFact ergeben.
 Es werden Rechner-, Unterstützungsprogramm- und Netzwerkstrukturen beschrieben.
 Die Betriebsplattform besteht aus Hardware und Netzen sowie der benötigten Middleware mit Anwendungsserver oder Datenbankserver und ist hochverfügbar.
 Diese Plattform ist über alle Geschäftsanwendungen einheitlich und ermöglicht so einen standardisierten und effizienten Systembetrieb.
@@ -56,7 +56,7 @@ Die Methodik der IsyFact bietet verschiedene Vorschläge zu allen Phasen des Sof
 Dieses Dokument ist V-Modell®-XT konform.
 
 *Werkzeuge:* Die IsyFact setzt auf Automatisierung und Werkzeugunterstützung bei der Erstellung von Registern.
-Dazu bietet sie Konfigurationsanleitungen ausgewählter xref:glossary:glossary:master.adoc#glossar-werkzeug[Werkzeug], z. B. für die Modellierung, die Programmierung, Tests oder die Fehlerverfolgung.
+Dazu bietet sie Konfigurationsanleitungen ausgewählter xref:glossary:glossary:master.adoc#glossar-werkzeug[Werkzeuge], z. B. für die Modellierung, die Programmierung, Tests oder die Fehlerverfolgung.
 
 [[einordnung-der-referenzarchitektur-in-die-isyfact]]
 === Einordnung der Referenzarchitektur in die IsyFact
@@ -101,7 +101,7 @@ Hierdurch verbessert sich die Verständlichkeit, Wartbarkeit und Betreibbarkeit 
 *Effizienz:* Durch die Verwendung vorhandener Querschnittsanwendungen, Bibliotheken, Generatoren, Beispielanwendungen und die Vorgaben der Referenzarchitektur können die Anwendungssysteme effizienter entwickelt und gewartet werden.
 Durch die infrastrukturelle und betriebliche Gleichartigkeit der Anwendungssysteme können diese effizienter betrieben werden.
 
-*Sicherheit:* Die Referenzarchitektur sieht bewährte Technologien und Produkte, eine Infrastruktur nach der Architekturrichtlinie für die IT des Bundes xref:glossary:literaturextern:inhalt.adoc#litextern-architekturrichtlinie[Architekturrichtlinie-IT-Bund], und nach klaren architektonischen Vorgaben erstellte Anwendungssysteme vor.
+*Sicherheit:* Die Referenzarchitektur sieht bewährte Technologien und Produkte, eine Infrastruktur nach der xref:glossary:literaturextern:inhalt.adoc#litextern-architekturrichtlinie[Architekturrichtlinie für die IT des Bundes], und nach klaren architektonischen Vorgaben erstellte Anwendungssysteme vor.
 Die Risiken für Ausfälle, Fehler oder Sicherheitslücken wird hierdurch reduziert und die Zukunftssicherheit der Anwendungssysteme erhöht.
 
 *Erfahrung:* In die Definition der Referenzarchitektur sind wertvolle Erfahrungen zur Umsetzung großer und verteilter Softwaresysteme im Allgemeinen und Registern im Speziellen eingeflossen.
@@ -171,7 +171,7 @@ Oder die Geschäftsanwendung implementiert nur einen Teilbereich der Funktionali
 
 * *xref:glossary:glossary:master.adoc#glossar-querschnittsanwendung[Querschnittsanwendungen]* sind Anwendungssysteme, die Services für mehrere Geschäftsanwendungen bereitstellen, wie z. B. ein Behördenverzeichnis oder ein Outputmanagement.
 
-* *xref:glossary:glossary:master.adoc#glossar-anwendungskomponente[Anwendungskomponenten]:* Eine Anwendungskomponente beschreibt eine Menge funktional zusammenhängender Anwendungsfälle.
+*xref:glossary:glossary:master.adoc#glossar-anwendungskomponente[Anwendungskomponenten]:* Eine Anwendungskomponente beschreibt eine Menge funktional zusammenhängender Anwendungsfälle.
 Anwendungskomponenten sind Bestandteile von Anwendungssystemen.
 Im Rahmen weitergehender Architekturvorgaben beim Einsatz der IsyFact in einem konkreten Anwendungskontext wird man in der Regel auch vorgeben, welche Arten von Anwendungssystemen es in diesem Kontext geben soll und aus welchen Komponenten sie bestehen.
 
@@ -246,7 +246,6 @@ In einem konkreten Anwendungskontext einer IsyFact-Systemlandschaft wird man in 
 Für die Kommunikation mit externen Systemen muss eine Geschäftsanwendung ein Service-Gateway-System verwenden, egal in welche Richtung die Kommunikation verläuft.
 
 Geschäftsanwendungen, die eine Benutzeroberfläche bereitstellen, dürfen aus Sicherheitsgründen nicht direkt vom Benutzer aufgerufen werden, sondern werden in das _Portal_ (siehe unten) der IsyFact-Systemlandschaft eingebunden.
-Die Kommunikation mit dem Browser des Nutzers muss immer über das Portal erfolgen.
 
 *Das xref:glossary:glossary:master.adoc#glossar-portal[Portal]:* Die Referenzarchitektur sieht keinen Portal-Server im klassischen Sinne vor: Es gibt weder einen systemübergreifenden Rahmen noch eine systemübergreifende Navigation.
 
@@ -489,7 +488,7 @@ Die für die Umsetzung der Architektur verwendeten Produkte lassen sich in die K
 Hierzu gehören z.B. das Betriebssystem, der Web-Server, der Application-Server, das IAM-System und die Datenbank.
 
 *Bibliotheken für die Anwendungsentwicklung:* Die Anwendungsentwicklung wird durch den Einsatz von Frameworks und entsprechenden Bibliotheken vereinfacht und beschleunigt.
-IsyFact verwendet insbesondere Spring, Hibernate und JSF.
+Die IsyFact verwendet insbesondere Spring, Hibernate und Angular.
 
 Eine detaillierte Liste der verbindlichen und empfohlenen Produkte ist im xref:einstieg:produkte.adoc#produktkatalog[Produktkatalog] zu finden.
 
@@ -534,9 +533,9 @@ Für eine bessere Übersichtlichkeit in den Abbildungen der einzelnen Systemumge
 Mit dem Begriff „Produktionsumgebung“ wird die technische Infrastruktur bezeichnet, auf der der Wirkbetrieb einer IsyFact-Systemlandschaft abläuft.
 Alle nichtfunktionalen Anforderungen müssen von dieser Systemumgebung vollständig erfüllt werden.
 
-<<image-TIArchPRU>> skizziert die TI-Architektur der Produktionsumgebung. Einzelne Server werden durch UML-Knoten (engl. UML-Nodes) dargestellt.
+<<image-TIArchPRU>> skizziert die TI-Architektur der Produktionsumgebung. Einzelne Server werden durch UML-Knoten (engl. _UML nodes_) dargestellt.
 Die größeren Knoten gruppieren einzelne Server zu einer logischen Einheit, die _Cluster_ genannt wird.
-Die Knoten eines Clusters sind dabei auf das Rechenzentrum und das Ausweich-Rechenzentrum verteilt, um bestmögliche Ausfallsicherheit zu erreichen.
+Die Knoten eines Clusters können bei Bedarf auf mehrere Rechenzentren verteilt sein, um bestmögliche Ausfallsicherheit zu erreichen.
 Die Verbindungen zeigen die Kommunikation der Server untereinander.
 Der Datenfluss erfolgt in der Regel in beiden Richtungen.
 Geht eine Verbindung von beziehungsweise zu einem Cluster, so entspricht dies Verbindungen von beziehungsweise zu allen Servern im Cluster.
@@ -551,7 +550,7 @@ Zonenübergreifende Kommunikationsverbindungen werden von den Firewalls kontroll
 Damit entspricht die TI-Architektur der Produktionsumgebung den SAGA-Vorgaben.
 
 Der Zugriff durch die Anwender (Clients) und die über externe Systeme angeschlossener Anwender erfolgt über das WAN bzw. das interne LAN.
-Die Kommunikation erfolgt per Secure HTTP (HTTPS) mit einem Web-Browser oder ebenfalls per HTTPS oder SMTP via XML- oder Web-Service-Schnittstelle direkt aus der externen Anwendung über ein Service-Gateway-System.
+Die Kommunikation erfolgt per Secure HTTP (HTTPS) mit einem Browser oder ebenfalls per HTTPS oder SMTP via XML- oder Web-Service-Schnittstelle direkt aus der externen Anwendung über ein Service-Gateway-System.
 Innerhalb der Produktionsumgebung sollten die Anwendungssysteme ebenfalls verschlüsselt miteinander kommunizieren.
 
 Interne Drittsysteme, die aus dem internen LAN mit der IsyFact-Systemlandschaft kommunizieren, tun dies genau wie externe Anwendungen per HTTPS oder SMTP via XML- oder Web-Service-Schnittstellen über ein Service-Gateway-System.
@@ -565,7 +564,8 @@ Web-Server und Service-Gateway-Systeme kommunizieren mit den Applikationsservern
 In <<image-TIArchPRU>> wird aus Gründen der Vereinfachung davon ausgegangen, dass je Rechnersystem ein Applikationsserver betrieben wird.
 Zu empfehlen ist allerdings generell die Nutzung eines Rechnersystems mit mehreren Applikationsservern.
 
-Für die Datenhaltung wird ein auf einem relationalen Datenbank-Management-System (RDBMS) basierender Datenbank-Cluster in zweifacher Ausprägung eingesetzt.
+Für die Datenhaltung wird i.d.R. ein auf einem relationalen Datenbank-Management-System (RDBMS) basierender Datenbank-Cluster eingesetzt.
+Bei Bedarf ist dieser ausfallsicher zu skalieren, z.B. durch die Bildung von zwei Clustern.
 Eine Ausprägung steuert die Primärdatenbank, die für die operative Bearbeitung von Auskünften und Meldungen zuständig ist.
 Der operative Datenbestand wird permanent in eine Standby-Datenbank auf dem zweiten Cluster gespiegelt, die für die Datensicherung und für die Erstellung von Auswertungen und Statistiken verwendet wird.
 Um Auswertungen auf Stichtagsbeständen durchführen zu können, wird ein dedizierter Datenbankserver vorgesehen.
@@ -575,7 +575,7 @@ Um Auswertungen auf Stichtagsbeständen durchführen zu können, wird ein dedizi
 
 Mit dem Begriff „Staging-Umgebung“ werden die Komponenten der technischen Infrastruktur bezeichnet, die zum internen Test verwendet werden und auf denen Probleme des Wirkbetriebs nachgestellt werden können.
 Eine solche Umgebung ist notwendig, um Problemanalysen durchzuführen und Lösungen für bekannte Probleme vor dem Einsatz im Wirkbetrieb auf ihre Funktionsfähigkeit hin zu prüfen.
-Die Staging-Umgebung dient auch zu Last- und Performancetests, zur Überprüfung der Installationsroutinen und zur Überprüfung der Ausfallsicherheit.
+Die Staging-Umgebung dient auch zu Last- und Performance-Tests, zur Überprüfung der Installationsroutinen und zur Überprüfung der Ausfallsicherheit.
 Daher muss sie so ausgelegt sein, dass verlässliche Aussagen in Bezug auf die Produktionsumgebung möglich sind.
 
 Idealerweise ist die Staging-Umgebung eine exakte Kopie der Produktionsumgebung.
@@ -656,10 +656,10 @@ Auf der Ebene einzelner Anwendungen beschreibt die TI-Architektur:
 * welche Anforderungen an die Systemumgebung (z.B. ein Applikationsserver) bestehen.
 
 Die konkrete Ausprägung der TI-Architektur wird im xref:methodik:vorlage-systemhandbuch/antora-master.adoc[IsyFact Systemhandbuch (Vorlage)] beschrieben.
-Die <<ti-architektur-ga,folgende Abbildung>> zeigt die TI-Architektur einer beispielhaften Geschäftsanwendung.
+<<ti-architektur-ga>> zeigt die TI-Architektur einer beispielhaften Geschäftsanwendung.
 
-[[ti-architektur-ga]]
 .TI-Architektur einer Geschäftsanwendung mit Batch-Anwendung und Service-Gateway
+[id="ti-architektur-ga",reftext="{figure-caption} {counter:figures}"]
 image::blaupausen:referenzarchitektur/ti-architektur-ga.dn.svg[]
 
 [[betriebliche-aspekte]]
@@ -678,17 +678,20 @@ Die Verfügbarkeit wird über einen Prozentwert gemessen, der unter Berücksicht
 [id="image-verfuegbar",reftext="{figure-caption} {counter:figures}"]
 image::blaupausen:referenzarchitektur/verfuegbar.png[align="center"]
 
-Der Aufbau der Produktionsumgebung ist so gestaltet, dass eine Verfügbarkeit von 7x24 Stunden und eine auf den Monat berechnete Verfügbarkeit von über 99 % erreicht werden kann.
+Der Aufbau der Produktionsumgebung ist so zu gestalten, dass die angestrebte Verfügbarkeit erreicht werden kann.
+
+TIP: Dies kann beispielsweise eine Verfügbarkeit von 7x24 Stunden und eine auf den Monat berechnete Verfügbarkeit von über 99 % sein.
+Eine Beispielrechnung findet sich im xref:blaupausen:detailkonzept-komponente-service/master.adoc#verfuegbarkeit[Detailkonzept Service].
 
 In der Produktionsumgebung einer IsyFact-Systemlandschaft wird die geforderte Verfügbarkeit über das Mittel der Redundanz realisiert.
-Jede Komponente der technischen Infrastruktur ist mindestens zweimal vorhanden.
-Auf einem Rechnersystem können mehrere Instanzen eines Servers (Applikationsserver, Datenbankserver) betrieben werden.
+Jede Komponente der technischen Infrastruktur ist mehrfach vorhanden.
 Bei einem Ausfall einer Komponente kann der Wirkbetrieb immer noch über die andere Komponente abgewickelt werden (Failover).
-Die Zustandslosigkeit der Applikationsserver (siehe Kapitel <<die-software-referenzarchitektur>>) unterstützt diese Redundanz und das Failover:
-Beim Ausfall eines Applikationsservers sind die notwendigen Informationen, um den Betrieb über einen anderen Applikationsserver abzuwickeln, beim Ausfall des Knotens nicht verloren gegangen.
+Die Zustandslosigkeit der Applikationsserver (siehe Kapitel <<die-software-referenzarchitektur>>) unterstützt diese Redundanz und das Failover.
+Beim Ausfall eines Applikationsservers gehen die notwendigen Informationen, um den Betrieb über einen anderen Applikationsserver abzuwickeln, nicht verloren.
 
-Die Server-Knoten der technischen Infrastruktur sind über verschiedene Standorte, Racks, Enclosures verteilt.
-Dadurch ist die Verfügbarkeit auch in Katastrophen-Szenarien (zum Beispiel dem Brand an einem der beiden Standorte) sichergestellt.
+Neben der technischen Redundanz sollte auch eine räumliche Redundanz gegeben sein.
+Die Komponenten der technischen Infrastruktur sollten über mehrere Rechenzentren redundant verteilt sein.
+Dadurch ist die Verfügbarkeit auch in Katastrophen-Szenarien (z.B. einem Brand in einem Rechenzentrum) sichergestellt.
 
 [[performance]]
 === Performance
@@ -769,16 +772,14 @@ Der Betrieb ist auch für die Dokumentation der Konfigurationsänderungen durch 
 Um den Gesamt-Status eines Systems zu überwachen, sind die Überwachung der IT-Systeme sowie das Monitoring der Komponenten der technischen Infrastruktur notwendig.
 Auf die Überwachung der IT-Systeme wird im Dokument xref:isy-ueberwachung:konzept/master.adoc#einleitung[Konzept Überwachung] im Detail eingegangen.
 Hier wird unter anderem festgelegt, welche Informationen ein nach der Referenzarchitektur erstelltes IT-System für die Überwachung mindestens bereitstellen muss.
-Die Schnittstellentechnologie, über die die Informationen der einzelnen Anwendungen zur Überwachung angeboten werden, ist dabei der Standard JMX, der in alle gängigen Überwachungstools integrierbar ist.
-
-Als zentrales Überwachungstool kann z.B. das OpenSource-Werkzeug Nagios verwendet werden.
+Hierfür wird das Framework Micrometer verwendet, das sich an eine Vielzahl gängiger Überwachungstools anbinden kann.
 
 Zum Monitoring der technischen Infrastruktur können für das zentrale Überwachungstool verfügbare Client-Programme verwendet werden.
 Diese Programme ermitteln den Status und die Leistungsparameter (zum Beispiel CPU-Auslastung, Hauptspeicher-Auslastung, Netzwerk-Auslastung) eines Server-Knotens und senden diese Informationen an das zentrale Überwachungstool.
 Zusätzlich ist auch ein Betriebsmonitoring der Netzwerkkomponenten (Router, Switches und andere) notwendig.
 
 Beim Über- oder Unterschreiten bestimmter Schwellwerte oder bei einem Totalausfall von Komponenten kann vom zentralen Überwachungstool ein Alarm ausgelöst und der zuständige Systembetreuer informiert werden.
-Es müssen Abhängigkeitsgraphen für die Rechnersysteme und Anwendungen erstellt werden, an Hand derer das zentrale Überwachungstool sinnvolle Alarmierungen vornehmen kann.
+Es müssen Abhängigkeitsgrafen für die Rechnersysteme und Anwendungen erstellt werden, an Hand derer das zentrale Überwachungstool sinnvolle Alarmierungen vornehmen kann.
 Auch müssen darüber hinaus – am besten bereits während der Entwicklung – sicherheitskritische Ereignisse definiert werden, deren Auftreten explizit überwacht werden soll.
 
 Aus Sicherheitsgründen kommunizieren die Client-Programme des zentralen Überwachungstools nicht direkt mit dem zentralen Überwachungstool, sondern mit einem Satelliten-System.
@@ -811,7 +812,7 @@ Gemäß einer Anforderung des Bundesamtes für Sicherheit in der Informationstec
 Die Log-Dateien eines Servers werden regelmäßig von einem Scheduler-Job auf einen zentralen Log-Server transferiert, von wo aus sie gesichert werden.
 Der Betrieb ist für die Datensicherung der Log-Dateien verantwortlich.
 Durch die Vorgaben zum Logging wird sichergestellt, dass Log-Dateien zusammengeführt werden können, und dass der technische Ablauf auch über verschiedene Log-Dateien hinweg nachvollzogen werden kann.
-Die Grundidee dabei ist, dass alle Log-Dateien in einem einheitlichen Format vorliegen und zusätzlich jeder Anfrage an das Gesamtsystem eine spezielle ID (correlation id) zugeordnet wird, mit der sich zusammen gehörende Einträge unterschiedlicher Log-Files einander zuordnen lassen.
+Die Grundidee dabei ist, dass alle Log-Dateien in einem einheitlichen Format vorliegen und zusätzlich jeder Anfrage an das Gesamtsystem eine xref:isy-logging:konzept/master.adoc#korrelations-id[Korrelations-ID] zugeordnet wird, mit der sich zusammen gehörende Einträge unterschiedlicher Log-Files einander zuordnen lassen.
 
 [[datenbank]]
 ==== Datenbank
@@ -898,7 +899,7 @@ Die Software-Referenzarchitektur der Anwendung (vgl. Kapitel <<die-software-refe
 === Vereinfachungen in der technischen Infrastruktur
 
 Die technische Infrastruktur kann an zwei Stellen vereinfacht werden.
-Zum einen ist es möglich, auf den Clusterbetrieb zu verzichten, zum anderen kann die Aufteilung in SAGA-konforme Zonen weggelassen werden.
+Zum einen ist es möglich, auf den Betrieb eines Clusters zu verzichten, zum anderen kann die Aufteilung in SAGA-konforme Zonen weggelassen werden.
 Dies wird im Folgenden ausgeführt.
 
 [[installation-ohne-clusterung]]
