@@ -224,7 +224,7 @@ Authentifizierung und Autorisierung als auch (bei automatisierten Schnittstellen
 
 Im Folgenden werden die Schnittstellen und Aufrufbeziehungen pro Anwendungssystemtyp erläutert.
 
-*Das xref:glossary:glossary:master.adoc#glossar-service-gateway[Service Gateway]:* Service-Gateway-Systeme haben die Aufgabe, Aufrufe von internen Anwendungssystemen an externe Systeme und Aufrufe von externen Systemen
+*Das xref:glossary:glossary:master.adoc#glossar-service-gateway[Service-Gateway]:* Service-Gateway-Systeme haben die Aufgabe, Aufrufe von internen Anwendungssystemen an externe Systeme und Aufrufe von externen Systemen
 an interne Anwendungssysteme weiterzuleiten und dabei unterschiedliche Schnittstellentechnologien zu überbrücken.
 
 Für die Weiterleitung von Aufrufen enthält ein Service-Gateway die folgenden Funktionalitäten:
@@ -410,7 +410,7 @@ Das interne IT-System ruft dann lediglich die Schnittstelle des Service-Consumer
 Für das interne IT-System ist dieser Aufruf nicht von einem Aufruf zu einem anderen internen IT-System zu unterscheiden.
 Für jeden Web-Service, der in die Systemlandschaft importiert werden soll, muss ein eigener Service-Consumer definiert werden.
 
-Die Gesamtheit aller Service-Provider und Service-Consumer eines internen IT-Systems wird als xref:glossary:glossary:master.adoc#glossar-service-gateway[Service Gateway] bezeichnet.
+Die Gesamtheit aller Service-Provider und Service-Consumer eines internen IT-Systems wird als xref:glossary:glossary:master.adoc#glossar-service-gateway[Service-Gateway] bezeichnet.
 Die Service-Gateways stellen somit die zentrale Schnittstelle einer IsyFact-Systemlandschaft zur Außenwelt dar.
 
 Wird ein Service von einem externen IT-System angeboten, wird er als „externer Service“ bezeichnet.
@@ -464,7 +464,7 @@ Wichtig in Hinblick auf diese Schichten sind folgende Punkte:
 * Die Komponente _Batch_ der Geschäftsanwendung wird im obigen Beispiel nicht implementiert, da die Geschäftsanwendung keine Schnittstelle für Batchläufe anbietet.
 * Alle externen Aufrufe an die Geschäftsanwendung werden durch eine _Service-Komponente_ verarbeitet: Keine andere Komponente darf externe Schnittstellen bereitstellen, insbesondere nicht in den _Anwendungskern_.
 * Es wurden keine Aufrufe von Querschnittsanwendungen eingezeichnet.
-Für derartige Aufrufe gibt es keine Vorgaben: Sie können aus beliebigen Schichten von Geschäftsanwendungen und Service Gateways aus aufgerufen werden.
+Für derartige Aufrufe gibt es keine Vorgaben: Sie können aus beliebigen Schichten von Geschäftsanwendungen und Service-Gateways aus aufgerufen werden.
 ====
 
 .Aufrufbeziehungen für eine Geschäftsanwendung mit GUI und XML-Schnittstelle
@@ -880,7 +880,7 @@ Dieses Szenario ist in <<image-einfachSOArch>> dargestellt.
 image::blaupausen:referenzarchitektur/einfachsoArch.png[align="center"]
 
 Links ist eine typische Umsetzung einer Geschäftsanwendung in der IsyFact-Systemlandschaft zu sehen.
-Sie ist über ein Portal in eine Unternehmenslandschaft integriert, hat Außenschnittstellen zu anderen Organisationen, die über ein Service Gateway angeboten werden und sie nutzen die zentralen Services „Output Management“, „Alphanumerisches Suchverfahren“ und das zentrale Schlüsselverzeichnis.
+Sie ist über ein Portal in eine Unternehmenslandschaft integriert, hat Außenschnittstellen zu anderen Organisationen, die über ein Service-Gateway angeboten werden und sie nutzen die zentralen Services „Output Management“, „Alphanumerisches Suchverfahren“ und das zentrale Schlüsselverzeichnis.
 
 In der Mitte ist dargestellt, dass es Anwendungen gibt, die diese Anforderungen nicht haben:
 

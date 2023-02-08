@@ -234,7 +234,7 @@ Daher werden diesen technischen Rollen im Regelfall weitere technische Rollen un
 [[technische-zugangsrollen]]
 ==== Technische Zugangsrollen
 
-Anwender gelangen in der Regel entweder über das xref:glossary:glossary:master.adoc#glossar-portal[Portal] oder den xref:glossary:glossary:master.adoc#glossar-service-gateway[Service Gateway] in eine Anwendungslandschaft.
+Anwender gelangen in der Regel entweder über das xref:glossary:glossary:master.adoc#glossar-portal[Portal] oder den xref:glossary:glossary:master.adoc#glossar-service-gateway[Service-Gateway] in eine Anwendungslandschaft.
 Um den Zugriff über diese Schnittstellen zentral und einfach zu verwalten, können dafür entsprechende technische Rollen definiert werden (z.B. `Zugang_Portal` und `Zugang_Service_Gateway`).
 Diese Rollen können dann einfach fachlichen Rollen untergeordnet werden, um den jeweiligen Zugriff zu erlauben.
 
