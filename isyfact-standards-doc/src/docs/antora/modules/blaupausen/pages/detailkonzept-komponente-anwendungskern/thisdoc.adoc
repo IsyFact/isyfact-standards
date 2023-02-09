@@ -21,8 +21,6 @@ Dieses Dokument richtet sich an Architekten und Entwickler.
 Neben der Festlegung der Architektur des Anwendungskerns ist die Hauptaufgabe dieses Dokuments, die Verwendung von Spring als Anwendungskern-Framework zu erläutern.
 Daher werden im Folgenden Spring-Kenntnisse vorausgesetzt.
 
-// TODO Der Hinweis passt nicht, da die Vorlageanwendung noch auf IsyFact 1.7 basiert und die Spring-Nutzung daher nicht mit diesem Dokument übereinstimmt. Er sollte wieder eingefügt werden, sobald es eine aktuellere Vorlageanwendung gibt.
-// Für ein Verständnis der in diesem Dokument geforderten Spring-Nutzung ist vor allem die <<Vorlageanwendung>> zu empfehlen.
 
 [[ueberblick]]
 == Überblick
