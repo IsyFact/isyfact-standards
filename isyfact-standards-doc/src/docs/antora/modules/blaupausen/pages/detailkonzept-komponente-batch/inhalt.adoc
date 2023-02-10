@@ -530,39 +530,39 @@ Hierfür werden gesonderte `@Configuration`-Klassen erstellt.
 == Tabellen des Batchrahmens
 
 Der Batchrahmen benötigt für seine Checkpoint / Restart Funktionalität die Möglichkeit, bei jedem Commit den aktuellen Stand des Batches in einer Tabelle zu speichern.
-Dies wird über die Tabelle BatchStatus umgesetzt.
+Dies wird über die Tabelle `BATCH_STATUS` umgesetzt.
 
 .Tabellen-Schema für die Batchrahmen-Tabelle
 [id="image-SchemTabBatStat",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:detailkonzept-batch/SchemTabBatStat.png[align="center"]
+image::blaupausen:detailkonzept-batch/SchemTabBatStat.dn.png[align="center"]
 
-Die Tabelle BatchStatus enthält für jeden Batch eine Zeile.
+Die Tabelle `BATCH_STATUS` enthält für jeden Batch eine Zeile.
 Ein Batch ist nicht gleichzusetzen mit der Batch-Ausführungsbean.
 Für eine Bean darf es mehrere Batches geben, welche die Bean für die Ausführung jeweils anders konfigurieren.
 Für einen Batch werden folgende Informationen verwendet:
 
-.Das Schema der Tabelle BatchStatus
+.Das Schema der Tabelle BATCH_STATUS
 [id="table-SchemTabBatStat2",reftext="{table-caption} {counter:tables}"]
 [cols="3,7",options="header"]
 |====
 |Spalte |Beschreibung
-|`BatchId` |Der Schlüssel für den Batch.
+|`BATCH_ID` |Der Schlüssel für den Batch.
 Die ID sollte aus einem gemeinsamen Präfix für die Geschäftsanwendung, gefolgt von einem Suffix für den konkreten Batch, bestehen.
-|`BatchName` |Ein kurzer informativer Name des Batches.
-|`BatchStatus` a|
+|`BATCH_NAME` |Ein kurzer informativer Name des Batches.
+|`BATCH_STATUS` a|
 Einer der folgenden Werte: +
 *laeuft*: Der Batch wurde gestartet und läuft aktuell. +
 *abgebrochen*: Der Batch ist abgebrochen und sollte per `RESTART` neu gestartet werden. +
 *beendet*: Der Batch ist erfolgreich beendet worden.
-|`SatznummerLetztesCommit` |Die Anzahl an Sätzen, welche beim letzten Commit verarbeitet worden sind.
+|`SATZ_NUMMER_LETZTES_COMMIT` |Die Anzahl an Sätzen, welche beim letzten Commit verarbeitet worden sind.
 Dies wird für die Umsetzung der Restart-Funktionalität verwendet.
-|`SchluesselLetztesCommit` |Der Datenbank-Schlüssel des Datensatzes, der als letztes vor dem Commit bearbeitet wurde.
+|`SCHLUESSEL_LETZTES_COMMIT` |Der Datenbank-Schlüssel des Datensatzes, der als letztes vor dem Commit bearbeitet wurde.
 Dies wird für die Umsetzung der Restart-Funktionalität verwendet.
 Falls der Schlüssel ein zusammengesetzter Schlüssel ist, müssen sämtliche Schlüsselteile (durch Trennzeichen getrennt) in dieses Feld geschrieben werden.
-|`DatumLetzterStart` |Das Datum des Starts des aktuellen Batch-Laufs (falls der Status "laeuft" ist) bzw.
+|`DATUM_LETZTER_START` |Das Datum des Starts des aktuellen Batch-Laufs (falls der Status "laeuft" ist) bzw.
 des letzten Laufes.
-|`DatumLetzterAbbruch` |Das Datum des letzten fehlerhaften Abbruchs des Batches.
-|`DatumLetzterErfolg` |Das Datum des letzten erfolgreichen Abschlusses des Batches.
+|`DATUM_LETZTER_ABBRUCH` |Das Datum des letzten fehlerhaften Abbruchs des Batches.
+|`DATUM_LETZTER_ERFOLG` |Das Datum des letzten erfolgreichen Abschlusses des Batches.
 |====
 
 Die Tabelle liegt im Datenbankschema der eigenen Geschäftsanwendung.
