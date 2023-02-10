@@ -526,6 +526,26 @@ public class ServiceConfig {
 Die Spring-Konfiguration für den Kontext des Batchrahmens muss neu erstellt werden.
 Hierfür werden gesonderte `@Configuration`-Klassen erstellt.
 
+[NOTE]
+====
+Da `isy-batchrahmen` die JPA-Konfiguration und den PersistenceContext der Anwendung nutzt, muss ggf. ein explizites Object-Relational Mapping (Tabelle &#8660; Java Klasse) definiert werden.
+
+Für Anwendungen, welche die `PhysicalNamingStrategyStandardImpl` und die aktuelle <<image-SchemTabBatStat,BatchStatus-Tabelle>> verwenden, stellt `isy-batchrahmen` explizites ORM bereit, das in der Anwendung wie folgt benutzt werden kann:
+[source,properties]
+----
+spring.jpa.mapping-resources = resources/isy-batchrahmen/hibernate/hibernate-mapping.xml
+----
+
+Für Anwendungen, welche die `CamelCaseToUnderscoresNamingStrategy` mit der IsyFact 2 `BatchStatus` Tabelle (ohne Unterstriche) verwenden, stellt `isy-batchrahmen` explizites ORM bereit, das in der Anwendung wie folgt benutzt werden kann:
+
+[source,properties]
+----
+spring.jpa.mapping-resources = resources/isy-batchrahmen/hibernate/hibernate-mapping-if2.xml
+----
+
+Im Nachfolgenden wird die Tabelle `BATCH_STATUS` mit `PhysicalNamingStrategyStandardImpl` verwendet.
+====
+
 [[tabellen-des-batchrahmens]]
 == Tabellen des Batchrahmens
 
