@@ -19,6 +19,10 @@
 -->
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
+    <!-- ======================================================================
+        For applications using the CamelCaseToUnderscoresNamingStrategy,
+        but NOT using the current BatchStatus table with Underscores.
+        ====================================================================== -->
     <class name="de.bund.bva.isyfact.batchrahmen.persistence.rahmen.BatchStatus" table="BATCHSTATUS">
 
         <id name="batchId" type="string" column="BATCHID"/>
