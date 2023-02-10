@@ -19,6 +19,9 @@
 -->
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
+    <!-- ======================================================================
+        For applications using the PhysicalNamingStrategyStandardImpl and the current BATCH_STATUS table.
+        ====================================================================== -->
     <class name="de.bund.bva.isyfact.batchrahmen.persistence.rahmen.BatchStatus" table="BATCH_STATUS">
 
         <id name="batchId" type="string" column="BATCH_ID"/>
