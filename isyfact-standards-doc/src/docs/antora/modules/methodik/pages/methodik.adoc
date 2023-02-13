@@ -7,20 +7,20 @@ include::glossary:licence:partial$licence.adoc[]
 *Konventionen und Vorgaben für die Spezifikation und Programmierung sowie das Projektvorgehen nach V-Modell XT.*
 
 .Methodik: Vorgehen auf Basis des V-Modell XT
-image::methodik-v-modell.dn.svg[]
+image::methodik:methodik-v-modell.dn.svg[]
 
 NOTE: Das xref:glossary:literaturextern:inhalt.adoc#litextern-v-modell-xt[V-Modell XT] ist als Vorgehensmodell für Systementwicklungsprojekte in deutschen Bundesbehörden vorgeschrieben.
 
 Die spezifische Methodik der IsyFact umfasst folgende Konventionen und Vorgaben.
 
 Richtlinien und Methodiken für fachliche und technische Modellierung::
-* xref:diagrammerstellung.adoc[]
+* xref:methodik:diagrammerstellung.adoc[]
 
 Konventionen für die Implementierung::
-* xref:java-programmierkonventionen/master.adoc[]
+* xref:methodik:java-programmierkonventionen/master.adoc[]
 
 Methodik zur Dokumentation einer Anwendung mit entsprechenden Dokumentvorlagen::
-* xref:vorlagen.adoc[Vorlagen zur Dokumentation von Anwendungen]
+* xref:methodik:vorlagen.adoc[Vorlagen zur Dokumentation von Anwendungen]
 
 Vorgehensweise zur Auswahl von Fremdprodukten::
 * xref:methodik:attachment$produktauswahl/Template_Produktauswahl.dotx[Vorlage zur Produktauswahl icon:file-word-o[]]

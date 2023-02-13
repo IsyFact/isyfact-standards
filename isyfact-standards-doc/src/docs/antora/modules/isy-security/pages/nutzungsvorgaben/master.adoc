@@ -1,4 +1,4 @@
-= Konzept Security
+= Nutzungsvorgaben Sicherheit
 
 include::glossary:licence:partial$licence.adoc[]
 

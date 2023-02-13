@@ -1,66 +1,14 @@
 include:
   - project: 'IsyFact/isy-gitlabci-templates'
-    file: '/maven/.gitlab-ci-maven.yml'
+    file: 'Maven.gitlab-ci.yml'
 
 variables:
   NEXT_VERSION: 3.0.0
 
-build:
-  extends: .maven-build
+default:
+  image: $REPOSITORY_IFS_DOCKER/isy-build-maven:3-openjdk17-alpine
 
-test:isy-aufrufkontext:
-  extends: .maven-test
 
-test:isy-batchrahmen:
-  extends: .maven-test
-
-test:isy-datetime:
-  extends: .maven-test
-
-test:isy-exception-core:
-  extends: .maven-test
-
-test:isy-konfiguration:
-  extends: .maven-test
-
-test:isy-logging:
-  extends: .maven-test
-
-test:isy-persistence:
-  extends: .maven-test
-
-test:isy-polling:
-  extends: .maven-test
-
-test:isy-serviceapi-core:
-  extends: .maven-test
-
-test:isy-sicherheit:
-  extends: .maven-test
-
-test:isy-sonderzeichen:
-  extends: .maven-test
-
-test:isy-task:
-  extends: .maven-test
-
-test:isy-ueberwachung:
-  extends: .maven-test
-
-test:isy-util:
-  extends: .maven-test
-
-package:
-  extends: .maven-package
-
-deploy-snapshot:
-  extends: .maven-deploy-snapshot
-
-deploy:
-  extends: .maven-deploy
-
-stages:
-  - build
-  - test
-  - package
-  - deploy
+next-version:
+  before_script:
+    - git config --global --add safe.directory /builds/IsyFact/isyfact-standards

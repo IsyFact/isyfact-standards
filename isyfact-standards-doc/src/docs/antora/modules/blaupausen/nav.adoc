@@ -11,9 +11,4 @@
 *** xref:detailkonzept-komponente-web-gui/master.adoc[Web GUI]
 *** xref:detailkonzept-komponente-batch/master.adoc[Batch]
 
-// mangels Inhalt auskommentiert, s. IFS-1568
-//** Vorgaben
-//*** xref:vorgaben-architektur/master.adoc[Architektur]
-//*** xref:vorgaben-it-sicherheit/master.adoc[IT-Sicherheit]
-
 
