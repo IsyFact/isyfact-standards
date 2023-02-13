@@ -277,10 +277,9 @@ Das Schema zur Benennung einer fachlichen Rolle für Anwender kann folgendermaß
 
 Der fachliche Systemname beschreibt die Geschäftsanwendung, bzw. die Anwendungsdomäne, in welcher die entsprechende Funktionalität bereitgestellt wird.
 Er entspricht prinzipiell dem Systemnamen der Systemspezifikation, abzüglich technischer Kürzel.
-Die Rolle zur Verwendung der Schnittstelle Auskunft der Geschäftsanwendung Terminfindung lautet nach diesem Schema: `Terminfindung_Auskunft`.
+
 
 Da die Rollen für fachliche Operationen angelegt werden, sollten sie unabhängig von technischen Aspekten gelten.
-So kann beispielsweise die Rolle `Terminfindung_Auskunft` unabhängig davon gelten, ob die Auskunft über ein Service Gateway oder das Portal durchgeführt wird.
 Dies kann durch die Verwendung spezieller technischer Rollen (s. xref:konzept/master.adoc#technische-zugangsrollen[Technische Zugangsrollen]) erreicht werden.
 
 xref:glossary:glossary:master.adoc#glossar-it-system[IT-Systeme] werden intern in Form von Batches oder Timer-Tasks aktiv.
@@ -289,7 +288,7 @@ Das Schema zur Benennung einer fachlichen Rolle für IT-Systeme kann folgenderma
 
  <Fachlicher Systemname>_SYSTEM_<Suffix>
 
-Im Regelfall gibt es nur eine fachliche Rolle pro IT-System, die alle Batches und Tasks absichert (Beispiel analog zu oben: `Terminfindung_SYSTEM`).
+
 Gibt es beispielsweise mehrere Batches in einer Anwendung, so sollten die einzelnen Batches mit verschiedenen Rechten abgesichert werden, die alle derselben Rolle zugeordnet sind.
 Falls mehrere differenzierte Rollen fachlich erforderlich sind, werden die Rollen um ein entsprechendes Suffix ergänzt.
 Dies kann der Fall sein, wenn es fachlich unterschiedliche Nutzer von Tasks und Batches gibt.
@@ -305,7 +304,6 @@ Das Schema zur Benennung einer technischen Rolle kann folgendermaßen aussehen:
 Die Namen technischer Rollen enthalten keine festen Bestandteile wie z.B. `SYSTEM`, da es sich immer um Services handelt.
 Der Servicename muss eindeutig und sprechend sein; vor allem, wenn mehrere Services mit derselben Rolle gemeinsam abgesichert werden.
 Da die Rollen nur innerhalb der Anwendungslandschaft zum Einsatz kommen und nicht administriert werden müssen, wird der technische Systemname verwendet.
-Die Rolle zur Verwendung der Schnittstelle "Eintragen der Teilnahme" der Geschäftsanwendung Terminfindung lautet nach diesem Schema: `Terminfindung-FA_TeilnahmeEintragen`.
 Auch hier sollte auf die Länge des Namens geachtet werden und im entsprechenden Fall, wie bei fachlichen Rollen, eine Abkürzung des Namens mit sprechendem Label vorgenommen werden.
 
 [[entwurf-von-rollen]]

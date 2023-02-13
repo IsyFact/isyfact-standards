@@ -47,6 +47,7 @@
         <module>isy-ueberwachung</module>
         <module>isy-util</module>
         <module>isy-sonderzeichen</module>
+        <module>isy-security</module>
     </modules>
 
     <scm>
