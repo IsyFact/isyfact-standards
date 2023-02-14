@@ -141,7 +141,7 @@ image::konzept/authorization-code-flow.dn.svg[align="center"]
 . Aufruf der Web-App:
 Der Benutzer ruft die Web-App auf, er ist nicht angemeldet bzw. eine eventuelle vorherige Anmeldung ist abgelaufen.
 Über die ihm zugeordneten Rolle(n) hat er das Recht, die Web-App und bestimmte Ressourcen zu verwenden.
-Der Aufruf wird im Webserver von dem OAuth-Modul abgefangen.
+Der Aufruf wird im Webserver von dem mod_auth_openidc Modul abgefangen.
 
 . Umleitung zur Benutzer-Authentifizierung im IAM-Service :
 Das Webservermodul erkennt (am fehlenden bzw. ungültigen Access-Token), dass noch keine Authentifizierung erfolgt ist und leitet um zum IAM-Service zur Authentifizierung des Benutzers (mit Client-ID u. redirect_uri für Callback der Web-App).
@@ -157,17 +157,17 @@ Falls die Authentifizierung fehlschlägt, wird der Vorgang abgebrochen (und eine
 . Weiterleitung zum OAuth-Modul mit Authorization Code:
 Bei positiver Authentifizierung antwortet der IAM-Service auf den Authentifizierungsaufruf mit einer Umleitung zurück zum OAuth-Modul und einem Authorization Code.
 Beim Authorization Code handelt es sich um ein einmalig verwendbares und kurzlebiges Token.
-Er dient als Vor-Authorisierung und ist an das OAuth-Modul über die Client-ID gebunden.
+Er dient als Vor-Authorisierung und ist an das mod_auth_openidc Modul über die Client-ID gebunden.
 Der Authorization Code ist eine schwer erratbare zufällige Zeichenkette und hat nur einen Zweck:
 Tausch gegen eine andere (dauerhaftere) Legitimation in einem späteren Teil des Authorization Code Grants.
 Das ist notwendig, um sicherzustellen dass das Access Token an die richtige Web-App ausgeliefert wird und nicht z.B. eine Redirection URI Manipulation stattgefunden hat.
 
 . Austausch Authorization Code gegen Access Token:
-Das OAuth-Modul schickt den erhaltenen Authorization Code und ihre Legitimation an den IAM-Service zur Autorisierung des Benutzers.
+Das mod_auth_openidc Modul schickt den erhaltenen Authorization Code und ihre Legitimation an den IAM-Service zur Autorisierung des Benutzers.
 Nach Prüfung der Legitimation des Webservers und der Gültigkeit des Authorization Codes antwortet der IAM-Service mit einem dauerhafteren Access Token zu den Ressourcen des Ressourcenbesitzers.
 
 . Aufruf der Web-App mit Access Token
-Das OAuth-Modul speichert das erhaltene Access Token innerhalb der user session und ruft damit die Web-App auf.
+Das mod_auth_openidc Modul speichert das erhaltene Access Token innerhalb der user session und ruft damit die Web-App auf.
 
 . Anzeige der Web-App
 Mit Erhalt des Access Token bekommt die Web-App die Autorisierung, Aktionen im Namen des Ressourcenbesitzers durchführen und geschützte Ressourcen verwenden.
