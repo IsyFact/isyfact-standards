@@ -62,11 +62,11 @@ Wie genau Rollen und Rechte spezifiziert werden, beschreibt das Kapitel xref:kon
 [[aufruf-service-gateway]]
 ==== Aufruf Service-Gateway
 
-Mit der `IsyFact 3` wird eine neue Authentifizierungslogik mit zusätzlichem _Authentication-Gateway_ für die Authentifizierung von Anwendungen, die außerhalb der Anwendungslandschaft betrieben werden, eingeführt.
-Für eine weiche Migration der externen Anwendungen auf die neue IsyFact-Version wird zusätzlich die bisherige Authentifizierungslogik - _ohne Authentication-Gateway_ - beibehalten.
+Mit der `IsyFact 3` wird eine neue Authentifizierungslogik (<<aufruf-service-gateway-mit-authentication-gateway>>) für die Authentifizierung von Anwendungen, die außerhalb der Anwendungslandschaft betrieben werden, eingeführt.
+Für eine weiche Migration der externen Anwendungen auf die neue IsyFact-Version wird zusätzlich die bisherige Authentifizierungslogik (<<aufruf-service-gateway-ohne-authentication-gateway>>) beibehalten.
 
 [[aufruf-service-gateway-mit-authentication-gateway]]
-===== Mit Authentication-Gateway
+===== Direkte Authentifizierung am IAM-Service
 
 Die folgende Abbildung zeigt die neue System-Architektur, die bei Aufrufen von externen Anwendungen zum Einsatz kommt.
 Dabei werden die Aufrufe mit Authentifizierungsdaten von Aufrufen mit Nutzungsdaten getrennt.
@@ -99,7 +99,7 @@ image::isy-security:konzept/Squenzdiagramm_ServiceGateway_plus_AuthGateway.dn.sv
 
 
 [[aufruf-service-gateway-ohne-authentication-gateway]]
-===== Ohne Authentication-Gateway
+===== Authentifizierung über das SGW am IAM-Service
 
 Die nachfolgende Abbildung zeigt die System-Architektur, die bei Aufrufen von externen Anwendungen für die Authentifizierung ohne _Authentication-Gateway_ zum Einsatz kommt.
 Diese Authentifzierungs- und Autorisierungs-Variante wird aus Vereinfachungsgründen der Migration von externen Anwendungen auf die neue `IsyFact Version-3` zusätzlich beibehalten, da hierdurch die Umstellungsaufwände reduziert werden.
