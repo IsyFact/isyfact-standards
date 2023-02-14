@@ -138,17 +138,20 @@ Ein menschlicher Nutzer, der eine Anwendung über deren Web-Oberfläche (im Web-
 [id="image-Authorization-Code-Flow",reftext="{figure-caption} {counter:figures}"]
 image::konzept/authorization-code-flow.dn.svg[align="center"]
 
-. Aufruf Client (Web-App):
-Der Benutzer ruft (über den User-Agent (Browser)) die Web-App das erste Mal auf.
-Er hat über die ihm zugeordneten Rolle(n) das Recht, die Web-App und bestimmte Ressourcen zu verwenden.
+. Aufruf der Web-App:
+Der Benutzer ruft die Web-App auf, er ist nicht angemeldet bzw. eine eventuelle vorherige Anmeldung ist abgelaufen.
+Über die ihm zugeordneten Rolle(n) hat er das Recht, die Web-App und bestimmte Ressourcen zu verwenden.
 Der Aufruf wird im Webserver von dem OAuth-Modul abgefangen.
 
-. Umleitung zu Benutzer-Authentifizierung:
-Das Webservermodul erkennt (am fehlenden Access-Token), dass noch keine Authentifizierung erfolgt ist und leitet um zum IAM-Service zur Authentifizierung des Benutzers (mit Client-ID u. redirect_uri für Callback der Web-App).
+. Umleitung zur Benutzer-Authentifizierung im IAM-Service :
+Das Webservermodul erkennt (am fehlenden bzw. ungültigen Access-Token), dass noch keine Authentifizierung erfolgt ist und leitet um zum IAM-Service zur Authentifizierung des Benutzers (mit Client-ID u. redirect_uri für Callback der Web-App).
 
-. Authentifizierungs-Dialog mit dem Benutzer:
-Dem Benutzer wird ein Login-Dialog präsentiert, in den er seine Authentifizierungsinformationen (User-Name u. Passwort) eingibt.
-Die eingegebenen Authentisierungsdaten werden vom IAM-Service mit den bei ihm für den Ressourcenbesitzer hinterlegten verglichen.
+. Login-Dialog mit dem Benutzer:
+Der IAM-Service präsentiert dem Benutzer einen (an die Web-App angepassten) Login-Dialog.
+Der Benutzer gibt hier seine Authentifizierungsinformationen (z.B. User-Name u. Passwort) ein.
+
+. Verifizierung der Authentifizierungsinformationen:
+Die eingegebenen Authentifizierungsinformationen werden vom IAM-Service mit den bei ihm für den Ressourcenbesitzer hinterlegten verglichen.
 Falls die Authentifizierung fehlschlägt, wird der Vorgang abgebrochen (und eine entsprechende Fehlerseite angezeigt).
 
 . Weiterleitung zum OAuth-Modul mit Authorization Code:
@@ -157,14 +160,23 @@ Beim Authorization Code handelt es sich um ein einmalig verwendbares und kurzleb
 Er dient als Vor-Authorisierung und ist an das OAuth-Modul über die Client-ID gebunden.
 Der Authorization Code ist eine schwer erratbare zufällige Zeichenkette und hat nur einen Zweck:
 Tausch gegen eine andere (dauerhaftere) Legitimation in einem späteren Teil des Authorization Code Grants.
-Das ist notwendig, um sicherzustellen dass das Zugangstoken an die richtige Web-App ausgeliefert wird und nicht z.B. eine Redirection URI Manipulation stattgefunden hat.
+Das ist notwendig, um sicherzustellen dass das Access Token an die richtige Web-App ausgeliefert wird und nicht z.B. eine Redirection URI Manipulation stattgefunden hat.
 
-. Austausch Authorization Code gegen Zugangstoken:
-Das OAuth-Modul schickt den erhaltenen Authorization Code und ihre Legitimation an den IAM-Service zur Autorisierung.
-Dieser prüft die Anfrage und antwortet mit einem dauerhafteren Zugangstoken (Access Token) zu den Ressourcen des Ressourcenbesitzers.
+. Austausch Authorization Code gegen Access Token:
+Das OAuth-Modul schickt den erhaltenen Authorization Code und ihre Legitimation an den IAM-Service zur Autorisierung des Benutzers.
+Nach Prüfung der Legitimation des Webservers und der Gültigkeit des Authorization Codes antwortet der IAM-Service mit einem dauerhafteren Access Token zu den Ressourcen des Ressourcenbesitzers.
 
-. Das OAuth-Modul speichert das erhaltene Zugangstoken innerhalb der user session und ruft damit die Web-App auf.
-Mit Erhalt des Zugangstokens bekommt die Web-App die Autorisierung, Aktionen im Namen des Ressourcenbesitzers durchführen und geschützte Ressourcen verwenden.
+. Aufruf der Web-App mit Access Token
+Das OAuth-Modul speichert das erhaltene Access Token innerhalb der user session und ruft damit die Web-App auf.
+
+. Anzeige der Web-App
+Mit Erhalt des Access Token bekommt die Web-App die Autorisierung, Aktionen im Namen des Ressourcenbesitzers durchführen und geschützte Ressourcen verwenden.
+Mit den Ergebnissen der Aktionen bzw. den Inhalten der geschützten Ressourcen wird die Ansichtsseite der Web-App erstellt und im Web-Client zur Anzeige gebracht.
+
+. Weitere Interaktionen mit der Web-App
+Der Benutzer ist nun eingeloggt und kann weiter mit der Web-App arbeiten, bis er sich explizit ausloggt oder das Access Token abläuft.
+Dann muß entweder die Anwendung mithilfe des Refresh Token ein neues Access Token beim IAM-Service anfordern oder der Benutzer muss sich erneut anmelden.
+
 
 .Beteiligte Systeme bei Aufruf über Web-Oberfläche / Portal
 [id="image-Authorization-Code-Connections",reftext="{figure-caption} {counter:figures}"]
