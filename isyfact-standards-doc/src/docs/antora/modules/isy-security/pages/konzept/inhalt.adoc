@@ -132,7 +132,7 @@ Wir übernehmen für die IsyFact die englische Bezeichnung "Refresh-Token".
 [[aufruf-weboberflaeche-portal]]
 ==== Aufruf Web-Oberfläche/Portal
 
-Ein menschlicher Nutzer, der eine Anwendung über deren Web-Oberfläche (im Web-Browser) bedienen möchte, ist im Besitz von Authentifizierungsinformationen (User-Name u. Passwort, biometrische Daten, ...) mit denen er sich gegenüber dem IAM-System ausweisen kann. Diese Informationen sollten nur zum IAM-Service gelangen und nicht an oder durch andere Systeme kommen. Deshalb wird der Anwender auf einen Login-Dialog des IAM-Service umgeleitet, um nach erfolgreicher Authentifizierung & Autorisierung auf die Web-App weitergeleitet zu werden.
+Ein menschlicher Nutzer, der eine Anwendung über deren Web-Oberfläche (im Web-Browser) bedienen möchte, ist im Besitz von Authentifizierungsdaten (User-Name u. Passwort, biometrische Daten, ...) mit denen er sich gegenüber dem IAM-System ausweisen kann. Diese Daten sollten nur zum IAM-Service gelangen und nicht an oder durch andere Systeme kommen. Deshalb wird der Anwender auf einen Login-Dialog des IAM-Service umgeleitet, um nach erfolgreicher Authentifizierung & Autorisierung auf die Web-App weitergeleitet zu werden.
 
 .Ablauf Authentifizierung bei Aufruf über Web-Oberfläche / Portal für single page applications (SPA)
 [id="image-Authorization-Code-Flow",reftext="{figure-caption} {counter:figures}"]
@@ -141,21 +141,21 @@ image::konzept/authorization-code-flow.dn.svg[align="center"]
 . Aufruf der Web-App:
 Der Benutzer ruft die Web-App auf, er ist nicht angemeldet bzw. eine eventuelle vorherige Anmeldung ist abgelaufen.
 Über die ihm zugeordneten Rolle(n) hat er das Recht, die Web-App und bestimmte Ressourcen zu verwenden.
-Der Aufruf wird im Webserver von dem mod_auth_openidc Modul abgefangen.
+Der Aufruf wird im Portal-Webserver von dem mod_auth_openidc Modul abgefangen.
 
-. Umleitung zur Benutzer-Authentifizierung im IAM-Service :
+. Umleitung zur Benutzer-Authentifizierung im IAM-Service:
 Das Webservermodul erkennt (am fehlenden bzw. ungültigen Access-Token), dass noch keine Authentifizierung erfolgt ist und leitet um zum IAM-Service zur Authentifizierung des Benutzers (mit Client-ID u. redirect_uri für Callback der Web-App).
 
 . Login-Dialog mit dem Benutzer:
 Der IAM-Service präsentiert dem Benutzer einen (an die Web-App angepassten) Login-Dialog.
-Der Benutzer gibt hier seine Authentifizierungsinformationen (z.B. User-Name u. Passwort) ein.
+Der Benutzer gibt hier seine Authentifizierungsdaten (z.B. User-Name u. Passwort) ein.
 
-. Verifizierung der Authentifizierungsinformationen:
-Die eingegebenen Authentifizierungsinformationen werden vom IAM-Service mit den bei ihm für den Ressourcenbesitzer hinterlegten verglichen.
+. Verifizierung der Authentifizierungsdaten:
+Die eingegebenen Authentifizierungsdaten werden vom IAM-Service mit den bei ihm für den Ressourcenbesitzer hinterlegten verglichen.
 Falls die Authentifizierung fehlschlägt, wird der Vorgang abgebrochen (und eine entsprechende Fehlerseite angezeigt).
 
-. Weiterleitung zum OAuth-Modul mit Authorization Code:
-Bei positiver Authentifizierung antwortet der IAM-Service auf den Authentifizierungsaufruf mit einer Umleitung zurück zum OAuth-Modul und einem Authorization Code.
+. Weiterleitung zum mod_auth_openidc Modul mit Authorization Code:
+Bei positiver Authentifizierung antwortet der IAM-Service auf den Authentifizierungsaufruf mit einer Umleitung zurück zum mod_auth_openidc Modul und einem Authorization Code.
 Beim Authorization Code handelt es sich um ein einmalig verwendbares und kurzlebiges Token.
 Er dient als Vor-Authorisierung und ist an das mod_auth_openidc Modul über die Client-ID gebunden.
 Der Authorization Code ist eine schwer erratbare zufällige Zeichenkette und hat nur einen Zweck:
@@ -164,17 +164,19 @@ Das ist notwendig, um sicherzustellen dass das Access Token an die richtige Web-
 
 . Austausch Authorization Code gegen Access Token:
 Das mod_auth_openidc Modul schickt den erhaltenen Authorization Code und ihre Legitimation an den IAM-Service zur Autorisierung des Benutzers.
-Nach Prüfung der Legitimation des Webservers und der Gültigkeit des Authorization Codes antwortet der IAM-Service mit einem dauerhafteren Access Token zu den Ressourcen des Ressourcenbesitzers.
+Nach Prüfung der Legitimation des Portal-Webservers und der Gültigkeit des Authorization Codes antwortet der IAM-Service mit einem dauerhafteren Access Token zu den Ressourcen des Ressourcenbesitzers.
 
-. Aufruf der Web-App mit Access Token
+. Aufruf der Web-App mit Access Token:
 Das mod_auth_openidc Modul speichert das erhaltene Access Token innerhalb der user session und ruft damit die Web-App auf.
 
-. Anzeige der Web-App
+. Anzeige der Web-App:
 Mit Erhalt des Access Token bekommt die Web-App die Autorisierung, Aktionen im Namen des Ressourcenbesitzers durchführen und geschützte Ressourcen verwenden.
 Mit den Ergebnissen der Aktionen bzw. den Inhalten der geschützten Ressourcen wird die Ansichtsseite der Web-App erstellt und im Web-Client zur Anzeige gebracht.
 
-. Weitere Interaktionen mit der Web-App
-Der Benutzer ist nun eingeloggt und kann weiter mit der Web-App arbeiten, bis er sich explizit ausloggt oder das Access Token abläuft.
+. Weitere Interaktionen mit der Web-App:
+Der Benutzer ist nun eingeloggt.
+Bei jeder weiteren Anfrage fügt der Portal-Webserver das Access Token aus der user session hinzu.
+So kann der Benutzer weiter mit der Web-App arbeiten, bis er sich explizit ausloggt oder das Access Token abläuft.
 Dann muß entweder die Anwendung mithilfe des Refresh Token ein neues Access Token beim IAM-Service anfordern oder der Benutzer muss sich erneut anmelden.
 
 
