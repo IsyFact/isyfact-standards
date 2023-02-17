@@ -2,4 +2,157 @@
 
 // tag::inhalt[]
 
+[[aufrufen_von_nachbarsystemen]]
+== Aufrufen von Nachbarsystemen
+Der Aufruf von Nachbarsystemen erfolgt auf Basis des reaktiven `Spring WebClient`. Um Nachbarsysteme aufzurufen, die auf Basis von `OAuth 2.0` abgesichert sind, ist grundlegend die Authentifizierung bei einem `Identitiy Provider` mit gültiger `client_id`, `client_secret` sowie `grant_type` erforderlich.
+Dieser liefert ein Bearer-Token zurück, in dem die Rollen und somit die Zugriffsmöglichkeiten der aufrufenden Anwendung definiert sind.
+
+[[authentifizierung_ccf]]
+=== Authentifizierung eines Clients mit Client Credentials
+Mit dem `OAuth 2.0`-Grant `client_credentials` steht eine vereinfachte Zugriffskontrolle für eine Client-Anwendung
+im Rahmen des `Client Credential Flow` zur Verfügung. Im Folgenden werden die notwendigen Schritte für die tokenbasierte Authentifizierung einer Anwendung als Client erläutert.
+[[maven-dependency]]
+
+=== Maven Dependency
+Hierzu sind zunächst die folgenden Abhängigkeiten erforderlich:
+[source,xml]
+----
+<dependency>
+  <groupId>de.bund.bva.isyfact</groupId>
+  <artifactId>isy-security</artifactId>
+</dependency>
+
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-oauth2-client</artifactId>
+</dependency>
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-webflux</artifactId>
+</dependency>
+----
+
+=== Spring Konfiguration
+Spring Security bietet umfassenden Support für `OAuth 2.0` und unterstützt die Authentifizierung interner Systeme auf Basis des `Client Credential Flow`, wobei auf Spring interne Mechanismen zugegriffen wird.
+
+Um clientseitig die automatische Konfiguration einer Anwendung zu ermöglichen, werden zunächst die oben aufgeführten Abhängigkeiten eingebunden.
+Um im Rahmen des Client Credential Flows HTTP-Anfragen an einen Ressourcenserver stellen zu können, ist zusätzlich die Konfiguration des reaktiven `WebClient` erforderlich.
+Hierzu wird die Standardimplementierung mit dem Zusatz eines OAuth2-Autorisierungsfilters verwendet:
+
+[source,java]
+----
+@Configuration
+public class OAuth2WebClientConfiguration {
+
+    @Bean("webclient")
+    WebClient webClient(ClientRegistrationRepository clientRegistrationRepository,
+        OAuth2AuthorizedClientService authorizedClientService) {
+        ServletOAuth2AuthorizedClientExchangeFilterFunction oauth2 =
+            new ServletOAuth2AuthorizedClientExchangeFilterFunction(
+                new AuthorizedClientServiceOAuth2AuthorizedClientManager(clientRegistrationRepository,
+                    authorizedClientService));
+        oauth.setDefaultClientRegistrationId("registrationId");
+        return WebClient.builder().apply(oauth2.oauth2Configuration()).build();
+    }
+
+}
+----
+
+[[konfigurationsparameter]]
+=== Konfigurationsparameter
+
+Für die korrekte Anbindung an den `Identity Provider` ist die Angabe einiger Konfigurationsparameter notwendig. Das Präfix sämtlicher Konfigurationsparameter `spring.security.oauth2` wird zur Vereinfachung in der Liste unten weggelassen.
+
+
+:desc-table-parameter: Konfigurationsparameter einer Client-Anwendung
+[id="table-parameter",reftext="Konfigurationsparameter"]
+.{desc-table-parameter}
+[cols="3m,2m,2m,8",options="header"]
+|===
+|Parameter |Wertebereich |Default |Beschreibung
+|client.registration.registrationId |String |_keiner_ | Identifier der `ClientRegistration`
+|client.registration.registrationId.client-id |String |_keiner_ | Identifier der Client-Applikation im Autorisierungsserver
+|client.registration.registrationId.client-secret |String |_keiner_ | Secret, das nur der Anwendung und dem Autorisierungsserver bekannt ist
+|client.registration.registrationId.authorization-grant-type |String |_client_credentials_ | Methode, durch welche die Anwendung ein Bearer-Token erhält (hier _client_credentials_)
+|client.provider.registrationId.issuer-uri |String |_keiner_ |Auto-Konfiguration des Identity-Providers, beispielsweise in der Form "http://<identity-provider>/auth/realms/<realm>/.well-known/openid-configuration"
+|===
+
+[[absicherung_von_service_schnittstellen]]
+== Absicherung von Service-Schnittstellen
+Spring Security unterstützt die automatische Absicherung von Endpunkten einer Anwendung und eine feingranulare Autorisierung im Rahmen von `OAuth 2.0`.
+
+=== Maven Dependency
+Dazu ist die Einbindung der folgenden Abhängigkeiten notwendig:
+[source,xml]
+----
+<dependency>
+  <groupId>de.bund.bva.isyfact</groupId>
+  <artifactId>isy-security</artifactId>
+</dependency>
+
+<dependency>
+   <groupId>org.springframework.boot</groupId>
+   <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+</dependency>
+<dependency>
+   <groupId>org.springframework.boot</groupId>
+   <artifactId>spring-boot-starter-security</artifactId>
+</dependency>
+<dependency>
+   <groupId>org.springframework.boot</groupId>
+   <artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+----
+
+[[spring-konfiguration]]
+=== Spring Konfiguration
+
+Um eine Anwendung auf Basis von `OAuth 2.0` und unter Verwendung von JWT-Bearer-Tokens zu sichern, werden die oben aufgeführten Abhängigkeiten eingebunden. Die Verwendung der Abhängigkeit `spring-security-oauth2-resource-server` führt dazu, dass die anwendungsspezifische `SecurityFilterChain` um den Filter `.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)` erweitert wird.
+Bietet die Applikation keine `SecurityFilterChain` an, wird durch Spring Boot automatisch die folgende Konfiguration eingebunden:
+
+[source,java]
+----
+@Configuration
+@EnableWebSecurity
+public class OAuth2ServerSecurityConfig {
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
+            .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
+        return http.build();
+    }
+
+}
+----
+
+[[konfigurationsparameterservice]]
+=== Konfigurationsparameter
+
+Für die korrekte Anbindung an den `Identity Provider` ist die Angabe der folgenden Konfigurationsparameter notwendig. Das Präfix sämtlicher Konfigurationsparameter `spring.security.oauth2` wird zur Vereinfachung in der Liste unten weggelassen.
+
+:desc-table-parameter: Konfigurationsparameter einer Service-Schnittstelle
+[id="table-parameter-service",reftext="KonfigurationsparameterService"]
+.{desc-table-parameter}
+[cols="3m,2m,2m,8",options="header"]
+|===
+|Parameter |Wertebereich |Default |Beschreibung
+|resourceserver.jwt.issuer-uri  |String |_keiner_ | Auto-Konfiguration des Identity-Providers zur Validierung des Bearer Tokens, beispielsweise in der Form "http://<identity-provider>/auth/realms/<realm>/protocol/openid-connect/certs"
+|===
+
+Zusätzlich sind folgende Isyfact-spezifischen Konfigurationsparameter notwendig.
+
+:desc-table-parameter: Isyfact-spezifische Konfigurationsparameter einer Service-Schnittstelle
+[id="table-parameter-service",reftext="KonfigurationsparameterService"]
+.{desc-table-parameter}
+[cols="3m,2m,2m,8",options="header"]
+|===
+|Parameter |Wertebereich |Default |Beschreibung
+|isy.security.rolesClaimName | String | _roles_ | Name des Claims im JWT Token der die Rollen enthält
+|===
+
 // end::inhalt[]
