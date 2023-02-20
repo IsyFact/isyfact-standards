@@ -543,7 +543,7 @@ Für Anwendungen, welche die `CamelCaseToUnderscoresNamingStrategy` mit der IsyF
 spring.jpa.mapping-resources = resources/isy-batchrahmen/hibernate/hibernate-mapping-if2.xml
 ----
 
-Im Nachfolgenden wird die Tabelle `BATCH_STATUS` mit `PhysicalNamingStrategyStandardImpl` verwendet.
+Im Nachfolgenden wird die Tabelle `BATCH_STATUS` mit `CamelCaseToUnderscoresNamingStrategy` (Standard aus Spring Boot) verwendet und es ist kein explizites ORM erforderlich.
 ====
 
 [[tabellen-des-batchrahmens]]
