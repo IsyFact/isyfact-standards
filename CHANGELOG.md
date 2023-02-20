@@ -34,7 +34,8 @@
 - `IFS-2287`: [isy-sonderzeichen]  Deprecation für String-Latin-1.1-Transformatoren setzen
 - `IFS-1940`: [isy-sicherheit] `IsySicherheitUtil` deprecated
 - `IFS-1169`: [isy-batchrahmen] Änderung von Tabellenname und Spaltennamen der BatchStatus-Tabelle zu `CamelCaseToUnderscoresNamingStrategy`
-  * explizites ORM für Kompatibilität bereitgestellt (siehe Dokumentation: Die Konfiguration der Spring-Kontexte)
+  * Tabelle `BATCH_STATUS` mit `CamelCaseToUnderscoresNamingStrategy` ersetzt Tabelle `BATCHSTATUS` mit `PhysicalNamingStrategyStandardImpl`
+  * explizites ORM für Abwärtskompatibilität bereitgestellt (siehe Dokumentation: Die Konfiguration der Spring-Kontexte)
 
 # 2.4.4
 - `IFS-1997`: Fix CVE-2022-42889 durch Anhebung von 'commons-text' auf 1.10
