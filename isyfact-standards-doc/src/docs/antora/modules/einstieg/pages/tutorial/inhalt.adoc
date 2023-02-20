@@ -667,7 +667,7 @@ Die Ausführungs-Bean übermittelt dem Batchrahmen Status-Informationen für das
 [[klassendesign-4]]
 ==== Klassendesign
 
-Klassendesign eines Batches
+.Klassendesign eines Batches
 [id="image-KDBatch",reftext="{figure-caption} {counter:figures}"]
 image::einstieg:tutorial/KDBatch.png[align="center",width=80%,pdfwidth=80%]
 
@@ -747,7 +747,7 @@ Zusätzlich müssen folgende Beans erstellt werden:
 versehen werden, damit die Entitäten des Batchrahmens gefunden werden.
 
 Die Spring-Konfiguration der Anwendung kann auch für den Batches verwendet werden.
-Dazu müssen Beans, nicht die nicht für Ausführung eines Batches instanziiert werden sollen, mit
+Dazu müssen Beans, die nicht für Ausführung eines Batches instanziiert werden sollen, mit
 `@ExcludeFromBatchContext` annotiert werden.
 
 [[konfiguration-des-batch-deployments]]
