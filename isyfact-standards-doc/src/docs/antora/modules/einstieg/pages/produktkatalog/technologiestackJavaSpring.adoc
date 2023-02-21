@@ -10,7 +10,7 @@ Die hier aufgeführten Produkte dienen der Entwicklung und dem Test von Anwendun
 .Spring Boot Managed Dependencies
 ****
 Das Framework Spring Boot legt selbst zahlreiche Versionen von Drittanbieter-Bibliotheken fest.
-Wann immer ein Produkt als Version dieses Icon (icon:power-off[title=Spring Boot Dependency]) enthält, wird die durch Spring Boot festgelegte Version verwendet.
+Wann immer ein Produkt als Version dieses Icon (icon:leaf[title=Spring Boot Dependency]) enthält, wird die durch Spring Boot festgelegte Version verwendet.
 
 Produkte und ihre Versionen können in der Liste der xref:glossary:literaturextern:inhalt.adoc#litextern-spring-boot-managed-dependencies[Spring Boot Managed Dependencies] nachgeschlagen werden.
 ****
