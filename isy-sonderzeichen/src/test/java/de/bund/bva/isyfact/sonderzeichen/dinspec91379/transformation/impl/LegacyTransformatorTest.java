@@ -25,8 +25,8 @@ public class LegacyTransformatorTest {
     public void checkLegacyTransformationDinSpec() {
         LegacyTransformator legacyTransformator = new LegacyTransformator();
         legacyTransformator.initialisiere(null);
-        Assert.assertEquals("a(TM)permilRCCàDJ", legacyTransformator.transformiereOhneTrim(STRING_DIN_SPEC));
-        Assert.assertEquals("a(TM)permilRCCàDJ", legacyTransformator.transformiere(STRING_DIN_SPEC));
+        Assert.assertEquals("a(TM)permilRCCàĐ", legacyTransformator.transformiereOhneTrim(STRING_DIN_SPEC));
+        Assert.assertEquals("a(TM)permilRCCàĐ", legacyTransformator.transformiere(STRING_DIN_SPEC));
     }
 
     @Test
