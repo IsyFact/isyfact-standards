@@ -266,6 +266,64 @@ Das Access-Token enthält alle notwendigen Daten, um zu verifizieren, ob die auf
 [[inhalte-der-token]]
 ==== Inhalte der Token
 
+In IsyFact sind Access-Token vom Typ JSON Web Token (JWT), das heißt, sie sind konform zum JWT-Standard (s. xref:glossary:literaturextern:inhalt.adoc#litextern-rfc7519-json-web-token[RFC 7519: JSON Web Token (JWT)]) und enthalten Informationen über eine Entität (den authentifizierten Nutzer) in Form von 'Claims', die für die Autorisierung und Ausführung des angeforderten Service benötigt werden.
+Diese werden bei Erzeugung des Tokens durch das IAM-System mit hineingeschrieben und können von der Anwendung ausgelesen werden.
+
+Das Minimum an Informationen, die ein JWT in IsyFact enthalten muss, sind folgende:
+
+[[access-token-claims]]
+.Access-Token claims
+|===
+|Information:                                 |Claim Name:        |Claim Art:
+
+|Kennung der durchführenden Behörde           |bhknz              |non-namespaced custom claim
+
+|Interne Kennung des durchführenden Benutzers |internekennung     |non-namespaced custom claim
+
+|Kennung des durchführenden Benutzers         |preferred_username |IANA Public Claim Name / OIDC Standard Claim
+
+|Name des durchführenden Sachbearbeiters      |family_name        |IANA Public Claim Name / OIDC Standard Claim
+
+|Rollen des durchführenden Benutzers          |roles              |IANA Public Claim Name
+|===
+
+Diese Informationen braucht das Anwendungssystem, um den angeforderten Service für und im Namen des Benutzers leisten zu können.
+
+Wenn weitere Informationen übertragen werden sollen, muss entweder das IsyFact-JWT für die gesamte Anwendungslandschaft erweitert werden oder ein anderer Transportweg dafür gefunden werden.
+
+Daten, die bisher durch die Erweiterung der Klasse Aufrufkontext zwischen HttpInvoker-Schnittstellen ausgetauscht wurden, müssen nun anders transportiert werden.
+Die untenstehende Tabelle zeigt, welche Übertragungswege für welche Art von Daten vorgesehen sind:
+
+[[uebertragungswege-ausserhalb-token]]
+.Übertragungswege außerhalb von Token
+|===
+|Kontext                        |Übertragungsart            |Beispiel
+
+|Autorisierung (Rollen & Scope) |Access-Token (JWT)         |Rollen
+
+|Anwenderinformationen          |ID-Token (JWT),
+User-Info-Endpoint (REST)  |Name, E-Mail
+
+|Technische Metadaten           |HTTP-Header                |Korrelations-ID
+
+|Fachliche Daten                |HTTP-Body                  |Aktenzeichen, Anfragezweck
+|===
+
+Bei der Einführung weiterer Claims sollten die dafür geltenden Standards eingehalten werden:
+
+- xref:glossary:literaturextern:inhalt.adoc#litextern-rfc7519-jwt-claims[RFC 7519: JSON Web Token (JWT) - 4. JWT Claims]
+
+- xref:glossary:literaturextern:inhalt.adoc#litextern-iana-json-web-token[iana.org (Internet Assigned Numbers Authority): JSON Web Token (JWT)]
+
+- xref:glossary:literaturextern:inhalt.adoc#litextern-openid-spec-claims[openid.net: OpenID Connect 1.0 Specs - 5. Claims]
+
+Dabei ist zu beachten, dass das Access-Token nicht geeignet ist, sensitive oder persönliche Daten zu übertragen, da es an andere Anwendungssysteme weitergegeben werden kann.
+
+Refresh-Token sind für Anwendungen 'opaque Token', eine zufällige aber einzigartige Zeichenkette (UUID), die nur für den IAM-Service eine Bedeutung hat.
+Sie werden vom IAM-Service erzeugt und mit dem Access-Token an die Anwendung geschickt.
+Diese speichert es und schickt es wieder an den IAM-Service, um ein neues Access-Token zu erhalten.
+
+
 [[validierung-der-token]]
 ==== Validierung der Token
 
