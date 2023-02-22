@@ -295,6 +295,35 @@ Der Ressourcen-Server liest das Access-Token aus dem Request-Header und gibt - n
 [[aktualisierung-der-token]]
 ==== Aktualisierung der Token
 
+Abgesehen von dem Sonderfall, dass das Access Token kein Ablaufdatum hat - also ewig gültig ist, läuft es irgendwann ab und muss erneuert werden.
+Ein Token ohne Ablaufdatum birgt aber große Sicherheitsrisiken, wenn es in fremde Hände fällt und wird hier deshalb ausgeschlossen.
+
+Eine Aktualisierung des Access Tokens erfolgt bei einer erneuten Authentifizierung des Benutzers.
+Auf diesem Weg erneuern technische Nutzer ihr Access-Token.
+Für menschliche Nutzer jedoch ginge eine regelmäßige Wiederanmeldung stark zulasten des Benutzerkomforts.
+Deshalb wurde mit dem Refresh Token ein Mechanismus eingeführt, der eine automatische Aktualisierung des Access Tokens erlaubt, ohne dass der Benutzer etwas davon merkt.
+
+Bei Anmeldung erhält die Anwendung zusätzlich zum Access Token auch ein Refresh Token vom IAM-Service.
+Mithilfe dieses Refresh Tokens kann sich die Anwendung vom IAM-Service ein neues Access Token mit neuem Ablaufdatum ausstellen lassen.
+Dabei dient das Refresh Token als Legitimation der Anwendung dem IAM-Service gegenüber, ähnlich z.B. einer Kundennummer, die bereits bekannte Kunden identifiziert.
+
+Zur weiteren Erhöhung der Sicherheit kann (und sollte) das Refresh Token mit Rotation konfiguriert werden, denn dann wird bei Aktualisierung des Access Token auch ein neues Refresh Token ausgestellt und das alte ungültig.
+Eine eventuelle nochmalige Einreichung des selben Refresh Token bedeutet, dass sich unbefugte Dritte dieses Refresh Token aneignen konnten. Das wird durch die 'Automatic Reuse Detection' im IAM-System erkannt und Gegenmaßnahmen ergriffen.
+
+Die Ablaufzeit des Refresh Token bestimmt, wie lange der Benutzer an der Anwendung angemeldet ist und mit ihr arbeiten kann, ohne sich neu authentifizieren zu müssen.
+Hierbei muss Sicherheit gegen Benutzerkomfort abgewogen werden.
+Außerdem gibt es für die Bestimmung der Ablaufzeit des neuen Refresh Token zwei Alternativen:
+
+* Sliding window: Das neue Refresh Token hat die volle maximale Ablaufzeit. +
+Solange Nutzer die Anwendung verwendet (innerhalb der Ablaufzeit des Refresh Token), bleibt er angemeldet u. autorisiert.
+Die Ablaufzeit des Refresh Token bestimmt hier die maximale Zeitspanne zwischen zwei Requests an die Anwendung, ohne dass eine erneute Authentifizierung des Benutzers notwendig wird.
+
+* fixed: Das neue Refresh Token hat das selbe Enddatum, wie das alte. +
+Der Nutzer muss sich in regelmäßigen Abständen neu authentifizieren (bestimmt durch die Ablaufzeit des Refresh Token).
+Mit der Authentifizierung und der Ausstellung des ersten Refresh-Token läuft die Zeit bis die nächste Authentifizierung fällig wird. 
+Diese Variante kommt zum Einsatz bei Anwendungen, die nur selten verwendet werden, der Benutzer sich aber nicht jedes Mal neu anmelden soll.
+Wenn das Refresh-Token eher langlebig ist (bis mehrere Monate) und im Client erhalten bleibt, wird es zum Erhalt eines Access-Tokens genutzt und dem Benutzer die Authentifizierung erspart.
+
 [[nutzung-des-behoerdenkennzeichens]]
 === Nutzung des Behördenkennzeichens
 
