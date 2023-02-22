@@ -166,6 +166,13 @@ Ein direkter Zugriff auf das Access-Token in einer Anwendung sollte nicht gesche
 [[weitergabe-der-token]]
 ==== Weitergabe der Token
 
+Um auf eine geschützte Ressource eines anderen Anwendungssystems (Ressourcen-Server) zugreifen zu können, muss die Anwendung in der Anfrage (Request) das Access-Token mitgeben.
+Dazu wird es aus dem `SecurityContext` gelesen und - Base64-codiert, wie erhalten - mit in den Header des HTTP-Requests gesetzt.
+Genauer gesagt, in das "Authorization" Request-header Feld und mit dem "Bearer" Authentifizierungs-Schema (Authorization: Bearer <accessTokenStringBase64> - Siehe auch:
+xref:glossary:literaturextern:inhalt.adoc#litextern-authorization-bearer-token[RFC 6750 Authorization Bearer Token]).
+
+Der Ressourcen-Server liest das Access-Token aus dem Request-Header und gibt - nach Validierung des Access-Tokens und Prüfung des Inhalts (Ablaufdatum, Rechte aus Rollen) - die angeforderte Ressource frei.
+
 [[aktualisierung-der-token]]
 ==== Aktualisierung der Token
 
