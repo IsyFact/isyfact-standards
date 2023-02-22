@@ -320,9 +320,31 @@ Die Ablaufzeit des Refresh Token bestimmt hier die maximale Zeitspanne zwischen 
 
 * fixed: Das neue Refresh Token hat das selbe Enddatum, wie das alte. +
 Der Nutzer muss sich in regelmäßigen Abständen neu authentifizieren (bestimmt durch die Ablaufzeit des Refresh Token).
-Mit der Authentifizierung und der Ausstellung des ersten Refresh-Token läuft die Zeit bis die nächste Authentifizierung fällig wird. 
+Mit der Authentifizierung und der Ausstellung des ersten Refresh-Token läuft die Zeit bis die nächste Authentifizierung fällig wird.
 Diese Variante kommt zum Einsatz bei Anwendungen, die nur selten verwendet werden, der Benutzer sich aber nicht jedes Mal neu anmelden soll.
 Wenn das Refresh-Token eher langlebig ist (bis mehrere Monate) und im Client erhalten bleibt, wird es zum Erhalt eines Access-Tokens genutzt und dem Benutzer die Authentifizierung erspart.
+
+Zur Erkennung eines (bevorstehenden) Ablaufs des Access Token gibt es drei Möglichkeiten:
+
+[upperalpha]
+. Erkennung der Abweisung des Service-Aufrufs: +
+Der Service des Anwendungssystems wird mit einem abgelaufenen Access-Token aufgerufen.
+Die Validierung des Tokens scheitert deshalb und der Aufruf mit dem HTTP-Code 401 (und Fehlertext 'invalid_token') beantwortet.
+Die rufende Anwendung erkennt daran, dass es ein neues Access-Token vom IAM-Service anfordern muss und den obigen Service-Aufruf damit nochmal versuchen muss.
+Das ist einfach umzusetzen, der Fehlversuch verursacht allerdings zusätzlichen Datenverkehr und kostet Zeit.
+
+. Timer bis Ablaufdatum: +
+Vor Ende der Lebenszeit des Access-Tokens wird im Hintergrund ein neues geholt, was das bisherige ersetzt.
+Diese Variante ist nicht wirklich robust, da die Zeit - und damit der Timer - im Client manipuliert werden könnte.
+
+. Request-Interceptor: +
+Direkt VOR dem Service-Aufruf prüft die Anwendung, ob die Lebenszeit des Access-Tokens noch ausreicht.
+Wenn nicht, besorgt sie sich ein neues vom IAM-Service.
+Jetzt sollte in jedem Fall ein Access-Token mit ausreichender Lebenszeit vorliegen, das für den Service-Aufruf verwendet wird. +
+Für Web-Anwendungen, die über einen Portalserver mit mod_auth_openidc version 2.3.10rc0 ff gehen, muss dafür nur der Konfigurationsparameter 'OIDCRefreshAccessTokenBeforeExpiry' gesetzt werden.
+
+Zur Minimierung von Fehlversuchen bei gleichzeitiger Sicherstellung eines erfolgreichen Service-Aufrufs sollten die Varianten A und C kombiniert werden:
+Ein Request-Interceptor stellt sicher, dass ein Access-Token mit ausreichender Lebenszeit verwendet wird und falls trotzdem das Access-Token als ungültig abgelehnt wurde, wird das in der Antwort erkannt und der Aufruf mit einem neuen wiederholt.
 
 [[nutzung-des-behoerdenkennzeichens]]
 === Nutzung des Behördenkennzeichens
