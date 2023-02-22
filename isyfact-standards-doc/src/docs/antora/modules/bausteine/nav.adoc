@@ -52,7 +52,8 @@
 *** xref:isy-sonderzeichen:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
 
 ** Task Scheduling
-*** xref:isy-task:konzept/master.adoc[Konzept]
+*** xref:isy-task:konzept.adoc[Konzept]
+*** xref:isy-task:konzept/master.adoc[Konzept (alt)]
 *** xref:isy-task:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
 
 ** Überwachung

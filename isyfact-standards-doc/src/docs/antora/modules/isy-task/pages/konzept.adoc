@@ -1,0 +1,68 @@
+= Konzept Task Scheduling
+
+include::glossary:licence:partial$licence.adoc[]
+
+== Einführung und Ziele
+
+Das Konzept Task Scheduling beschreibt die konzeptionellen Grundlagen der Steuerung, d.h. Planung und Ausführung, von Tasks in der IsyFact.
+
+Tasks sind in diesem Kontext periodisch wiederkehrende Tätigkeiten, die innerhalb einer xref:glossary:glossary:master.adoc#glossar-anwendungskomponente[Anwendungskomponente] angesiedelt sind und zur Erfüllung der fachlichen oder technischen Anforderungen der Anwendung beitragen.
+Sie <<abgrenzung-aufgaben-batches,grenzen sich wesentlich>> von xref:glossary:glossary:master.adoc#glossar-batch[Batches] ab.
+
+[[abgrenzung-aufgaben-batches]]
+.Abgrenzung zwischen Tasks und Batches
+[cols=".^1s,3,3",options="header"]
+|====
+|
+^|Task
+^|Batch
+
+|Funktion
+|Aufruf von Hilfsfunktionen, +
+technischen Prüfungen o.ä.
+|Aufruf von Anwendungsfällen
+
+|Verortung
+|Bestandteil einer Anwendungskomponente
+|Bestandteil eines eigenen IT-Systems
+
+|Planung & Steuerung
+.^|Durch die Anwendung selbst
+.^|Manuell oder automatisiert von außen
+|====
+
+Das Task Scheduling der IsyFact verfolgt diese Ziele:
+
+"Nahtlose" Entwicklung mit Spring Boot und IsyFact::
+Die Entwicklung kann alle Funktionen von Spring Boot zum Task Scheduling wie gewohnt nutzen.
+Die IsyFact integriert sich weitestgehend automatisch in das Task Scheduling von Spring Boot und bietet den Mehrwert ihrer Bausteine an.
+
+Flexibles Scheduling::
+Tasks müssen konfigurierbar sein.
+Sie müssen umgebungsabhängig deaktiviert werden können.
+
+Bereitstellung weiterer Funktionalität zum Task Scheduling::
+Das Task Scheduling von Spring Boot ist weniger flexibel als die direkte Nutzung der Java Concurrency API.
+Die IsyFact bietet ausgewählte Anwendungsfälle der Java Concurrency API zusätzlich an, wiederum angereichert um den Mehrwert ihrer Bausteine.
+
+Erfüllung nichtfunktionaler Anforderungen::
+
+* Tasks müssen fachliche Operationen nachvollziehbar aufrufen.
+* Sie müssen wichtige Informationen und Metadaten ihrer Ausführungen ins Log schreiben.
+* Sie können sich wie ein technischer Benutzer (Client) authentifizieren.
+* Tasks müssen überwachbar sein.
+
+== Inhalt
+
+Der Inhalt des Konzepts verteilt sich auf die folgenden Seiten.
+
+xref:isy-task:konzept/erweiterung-spring-boot.adoc[]::
+Diese Seite erläutert kurz die wesentlichen Grundlagen des Task Scheduling mit Spring Boot.
+Dann erklärt sie, wie das Task Scheduling der IsyFact auf dem von Spring Boot aufsetzt, und wie die Lösung technisch umgesetzt ist.
+
+xref:isy-task:konzept/integration-isyfact.adoc[]::
+Diese Seite erläutert, welche querschnittlichen Funktionen der IsyFact relevant für das Task Scheduling sind und welche Integrationen der Baustein anbietet.
+
+xref:isy-task:konzept/weitere-anwendungsfaelle.adoc[]::
+Diese Seite erläutert, welche zusätzlichen Anwendungsfälle der Baustein bereitstellt.
+Sie erklärt grob, wie diese Anwendungsfälle umgesetzt sind.
