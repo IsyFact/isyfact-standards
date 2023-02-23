@@ -343,7 +343,7 @@ Abweichungen zur Referenzarchitektur sind in Tabelle 2 dokumentiert und begründ
 == Systemarchitektur des Gesamtsystems
 
 ====
-_In diesem Kapitel wird ein Systemüberblick gegeben und die Aspekte des Gesamtsystems beschrieben, die für alle oder mehrere Teilsysteme gelten. Das können Verfahren, Festlegungen oder die Beschreibung gemeinsam genutzter Komponenten sein. In der Regel hat ein System mehrere Teilsysteme, z. B. eine Geschäftsanwendung und ein Service Gateway._
+_In diesem Kapitel wird ein Systemüberblick gegeben und die Aspekte des Gesamtsystems beschrieben, die für alle oder mehrere Teilsysteme gelten. Das können Verfahren, Festlegungen oder die Beschreibung gemeinsam genutzter Komponenten sein. In der Regel hat ein System mehrere Teilsysteme, z. B. eine Geschäftsanwendung und ein Service-Gateway._
 
 _Festlegungen, die bereits in den übergeordneten Dokumenten (z.B. Referenzarchitektur, Sicherheitsrichtlinie, …) gemacht wurden, sind im gesamten Kapitel nur zu referenzieren, Abweichungen hiervon sind zu begründen._
 ====
@@ -813,7 +813,7 @@ Ggf. werden hier Spezialisierungen und zusätzliche Festlegungen zu Services bes
 
 _In diesem Abschnitt ist die konkrete Konstruktion der einzelnen Services beschrieben, in der Regel mit einem eigenen Abschnitt pro Service, den das System anbietet.
 Dies sind Services, die per httpInvoker bereitgestellt werden.
-Services, die externen Nutzern zur Verfügung gestellt werden, werden im Rahmen der Dokumentation des Teilsystems Service Gateway beschrieben.
+Services, die externen Nutzern zur Verfügung gestellt werden, werden im Rahmen der Dokumentation des Teilsystems Service-Gateway beschrieben.
 Die eigentliche Servicedokumentation für externe Nutzer ist dabei dann ein eigenes Dokument._
 
 *_Rückbezug Systemspezifikation_*

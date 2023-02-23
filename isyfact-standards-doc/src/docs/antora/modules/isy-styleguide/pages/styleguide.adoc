@@ -1521,6 +1521,7 @@ image::ButtonStates.png[align="center", scaledwidth="100%",width="566",height="5
 ** Hover
 ** Pressed
 ** Deaktiviert
+** Fokussiert
 
 *Ist dies das korrekte Bedienelement?*
 

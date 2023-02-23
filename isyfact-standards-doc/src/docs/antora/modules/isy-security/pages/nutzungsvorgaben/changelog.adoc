@@ -1,0 +1,10 @@
+[[changelog]]
+= Changelog
+
+*Änderungen IsyFact 3.0.0*
+
+// tag::release-3.0.0[]
+
+- `IFS-1850` Einleitung zu den Nutzungsvorgaben Security hinzugefügt
+
+// end::release-3.0.0[]

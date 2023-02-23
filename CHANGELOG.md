@@ -29,6 +29,7 @@
     * Integration von zugeliefertem Code aus `IFS-1270`
 - `IFS-2045`: [isyfact-products-bom] Produkte Apache Tika, commons-beanutils und commons-io hinzugefügt
 - `IFS-2287`: [isy-sonderzeichen]  Deprecation für String-Latin-1.1-Transformatoren setzen
+- `IFS-1940`: [isy-sicherheit] `IsySicherheitUtil` deprecated
 
 # 2.4.4
 - `IFS-1997`: Fix CVE-2022-42889 durch Anhebung von 'commons-text' auf 1.10

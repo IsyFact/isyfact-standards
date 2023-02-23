@@ -41,6 +41,7 @@
 
 ** Security
 *** xref:isy-security:konzept/master.adoc[Konzept]
+*** xref:isy-security:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
 
 ** Sicherheit
 *** xref:isy-sicherheit:konzept/master.adoc[Konzept]

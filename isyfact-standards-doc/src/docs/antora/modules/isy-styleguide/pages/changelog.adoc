@@ -5,4 +5,5 @@
 
 // tag::release-3.0.0[]
 - Initialer Umzug des Styleguides nach isyfact-standards-doc (alter Ablageort: isy-style)
+- Zustand "fokussiert" für standard Buttons definiert
 // end::release-3.0.0[]
