@@ -266,7 +266,7 @@ Das Access-Token enthält alle notwendigen Daten, um zu verifizieren, ob die auf
 [[inhalte-der-token]]
 ==== Inhalte der Token
 
-In IsyFact sind Access-Token vom Typ JSON Web Token (JWT), das heißt, sie sind konform zum JWT-Standard (s. xref:glossary:literaturextern:inhalt.adoc#litextern-rfc7519-json-web-token[RFC 7519: JSON Web Token (JWT)]) und enthalten Informationen über eine Entität (den authentifizierten Nutzer) in Form von 'Claims', die für die Autorisierung und Ausführung des angeforderten Service benötigt werden.
+In IsyFact sind Access-Token vom Typ JSON Web Token (JWT), das heißt, sie sind konform zum JWT-Standard (xref:glossary:literaturextern:inhalt.adoc#litextern-rfc7519-json-web-token[JSON Web Token (JWT)]) und enthalten Informationen über eine Entität (den authentifizierten Nutzer) in Form von 'Claims', die für die Autorisierung und Ausführung des angeforderten Service benötigt werden.
 Diese werden bei Erzeugung des Tokens durch das IAM-System mit hineingeschrieben und können von der Anwendung ausgelesen werden.
 
 Das Minimum an Informationen, die ein JWT in IsyFact enthalten muss, sind folgende:
@@ -311,11 +311,11 @@ User-Info-Endpoint (REST)  |Name, E-Mail
 
 Bei der Einführung weiterer Claims sollten die dafür geltenden Standards eingehalten werden:
 
-- xref:glossary:literaturextern:inhalt.adoc#litextern-rfc7519-jwt-claims[RFC 7519: JSON Web Token (JWT) - 4. JWT Claims]
+- xref:glossary:literaturextern:inhalt.adoc#litextern-rfc7519-jwt-claims[JSON Web Token (JWT) - 4. JWT Claims]
 
-- xref:glossary:literaturextern:inhalt.adoc#litextern-iana-json-web-token[iana.org (Internet Assigned Numbers Authority): JSON Web Token (JWT)]
+- xref:glossary:literaturextern:inhalt.adoc#litextern-iana-json-web-token[Internet Assigned Numbers Authority: JSON Web Token (JWT)]
 
-- xref:glossary:literaturextern:inhalt.adoc#litextern-openid-spec-claims[openid.net: OpenID Connect 1.0 Specs - 5. Claims]
+- xref:glossary:literaturextern:inhalt.adoc#litextern-openid-spec-claims[OpenID Connect 1.0 Specs - 5. Claims]
 
 Dabei ist zu beachten, dass das Access-Token nicht geeignet ist, sensitive oder persönliche Daten zu übertragen, da es an andere Anwendungssysteme weitergegeben werden kann.
 
