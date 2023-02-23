@@ -1,0 +1,40 @@
+= Konventionen und Vorgaben Dokumentation
+
+include::glossary:licence:partial$licence.adoc[]
+
+
+*Konventionen und Vorgaben zur Dokumentation von IsyFact Bestandteilen*
+
+Die IsyFact als Framework zur Anwendungsentwicklung ist über die Säulen bis auf Bausteinebene strukturiert. 
+Bestimmte IsyFact Bestandteile teilen dabei gemeinsame Merkmale.
+Deshalb sollen Konventionen und Vorgaben zur Dokumentation von IsyFact-Bestandteilen die strukturell-inhaltliche Einheitlichkeit der Beschreibung gewährleisten.
+Folgende Maßnahmen unterstützen die Standardisierung:
+
+Richtlinien und Methodiken für fachliche und technische Modellierung::
+* xref:methodik:diagrammerstellung.adoc[]
+
+Methodik zur Dokumentation einer Anwendung mit entsprechenden Dokumentationsvorlagen::
+* xref:methodik:vorlagen.adoc[Vorlagen zur Dokumentation von Anwendungen]
+
+Übersicht über die Dokumentationstypen::
+* xref:methodik:vorgaben-dokumentation/dokumentationstypen.adoc[]
+
+*Dokumentation in den jeweiligen Säulen*
+
+Ein allgemeiner Überblick über die IsyFact findet sich im Hauptknoten *Einstieg* und seinen Unterseiten. 
+Dazu zählen außerdem das xref:einstieg:tutorial/master.adoc[Tutorial], das xref:einstieg:whitepaper.adoc[Whitepaper] und der xref:einstieg:migrationsleitfaden-if2/master.adoc[Migrationsleitfaden zur IsyFact 2].
+
+Die xref:/vorgaben-dokumentation/dokumentationstypen.adoc#saeule-blaupause[Dokumentation der *Blaupausen*] enthält je ein xref:methodik:vorgaben-dokumentation/dokumentationstypen.adoc#table-detailkonzept[_Detailkonzept_] pro Blaupause.
+
+Die xref:/vorgaben-dokumentation/dokumentationstypen.adoc#saeule-bausteine[Dokumentation der *Bausteine*] erfolgt abhängig von ihrer Ausprägung (u.a. Software-Bibliothek, Querschnittsanwendung). 
+In der folgenden Abbildung können die xref:methodik:vorgaben-dokumentation/dokumentationstypen.adoc[Dokumentationstypen] abgelesen werden, mit denen ein Baustein dokumentiert wird. 
+
+[[image-dokumentationstypen-bausteinauspraegung]]
+.Dokumentationstypen je Bausteinausprägung
+image::methodik:dokumentationstypen-bausteinauspraegung.dn.svg[]
+
+Die xref:/vorgaben-dokumentation/dokumentationstypen.adoc#saeule-plattform[Dokumentation der *Plattform*] enthält für jede von der IsyFact empfohlene oder eingesetzte Technologie zum Betrieb von IT-Systemen (z.B. HTTP- und Applikationsserver, Datenbanken) ein xref:methodik:vorgaben-dokumentation/dokumentationstypen.adoc#table-nutzungskonzept[_Nutzungskonzept_].
+
+Die Dokumentation der *Methodik* bietet neben Konzepten und Nutzungsvorgaben zu methodischem Vorgehen Vorlagen für  Dokumentationstypen gemäß V-Modell XT sowie hilfreiche Arbeitsmittel zur Durchführung eines IsyFact-Projektes.
+
+Schließlich umfasst die Dokumentation der *Werkzeuge* eine Beschreibung pro Werkzeug, welche die Nutzung begründet und Nutzungsvorgaben festlegt.

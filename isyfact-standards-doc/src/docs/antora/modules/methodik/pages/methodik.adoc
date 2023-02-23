@@ -13,16 +13,17 @@ NOTE: Das xref:glossary:literaturextern:inhalt.adoc#litextern-v-modell-xt[V-Mode
 
 Die spezifische Methodik der IsyFact umfasst folgende Konventionen und Vorgaben.
 
-Richtlinien und Methodiken für fachliche und technische Modellierung::
-* xref:methodik:diagrammerstellung.adoc[]
-
-Konventionen für die Implementierung::
-* xref:methodik:java-programmierkonventionen/master.adoc[]
-
-Methodik zur Dokumentation einer Anwendung mit entsprechenden Dokumentvorlagen::
-* xref:methodik:vorlagen.adoc[Vorlagen zur Dokumentation von Anwendungen]
+Dokumentation::
+* xref:methodik:vorgaben-dokumentation.adoc[]
+* xref:methodik:diagrammerstellung.adoc[Richtlinien und Methodiken für fachliche und technische Modellierung]
+* xref:methodik:vorlagen.adoc[Methodik und Vorlagen zur Spezifikation und Dokumentation von Anwendungen]
 
 Vorgehensweise zur Auswahl von Fremdprodukten::
 * xref:methodik:attachment$produktauswahl/Template_Produktauswahl.dotx[Vorlage zur Produktauswahl icon:file-word-o[]]
+
+Konventionen für die Implementierung::
+* xref:methodik:java-programmierkonventionen/master.adoc[]
+* xref:methodik:namenskonventionen/master.adoc[]
+* xref:methodik:versionierung/master.adoc[]
 
 // end::whitepaper[]

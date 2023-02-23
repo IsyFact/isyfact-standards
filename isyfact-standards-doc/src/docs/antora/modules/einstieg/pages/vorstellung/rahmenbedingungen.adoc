@@ -97,18 +97,4 @@ Es wird jedoch vorausgesetzt, dass jeder Anwender der IsyFact einen eigenen Styl
 
 == Struktur der Dokumentation
 
-Die Dokumentation der IsyFact folgt einer festgelegten Struktur.
-Dokumente wie dieser Einstieg liegen im *allgemeinen* Teil der Dokumentation.
-Der Teil enthält außerdem das xref:tutorial/master.adoc[Tutorial], das xref:whitepaper.adoc[Whitepaper] und den xref:migrationsleitfaden-if2/master.adoc[Migrationsleitfaden zur IsyFact 2].
-
-Die Dokumentation der *Blaupausen* enthält je ein Detailkonzept pro Blaupause.
-
-Die *Bausteine* sind jeder für sich ausführlich dokumentiert.
-Wird der Baustein mittels einer Bibliothek realisiert, umfasst die Dokumentation ein Konzept, Nutzungsvorgaben sowie ein Changelog.
-Besteht der Baustein aus einer eigenständigen Querschnittsanwendung, enthält die Dokumentation zusätzlich ein Systemhandbuch (Nutzungsvorgaben für den Betrieb des IT-Systems in einer Anwendungslandschaft) und ein Anwenderhandbuch (insofern die Querschnittsanwendung über eine Benutzeroberfläche verfügt).
-
-Die Dokumentation der *Plattform* enthält Nutzungsvorgaben für jede von der IsyFact empfohlene oder eingesetzte Technologie zum Betrieb von IT-Systemen (z.B. HTTP- und Applikationsserver, Datenbanken).
-
-Die Dokumentation der *Methodik* bietet neben Konzepten und Nutzungsvorgaben zu methodischem Vorgehen Vorlagen zu Dokumenten gemäß V-Modell XT sowie hilfreiche Dokumente zur Durchführung eines IsyFact-Projektes.
-
-Schließlich umfasst die Dokumentation der *Werkzeuge* ein Dokument pro Werkzeug, das die Nutzung begründet und Nutzungsvorgaben festlegt.
+Die Dokumentation der IsyFact folgt einer festgelegten Struktur, die unter xref:methodik:vorgaben-dokumentation.adoc[Vorgaben zur Dokumentation] erläutert sind.

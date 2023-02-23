@@ -1,0 +1,408 @@
+= Dokumentationstypen (Übersicht)
+
+include::glossary:licence:partial$licence.adoc[]
+
+
+*Übersicht über die Typen der Dokumentation*
+
+Im Folgenden werden die Dokumentationstypen der IsyFact erläutert. 
+Neben einer kurzen _Ziel-_ und _Inhalts_-Beschreibung werden die _Zielgruppen_ und der _Scope_ benannt. 
+Unter _Vorlage / Beispiel_ findet sich ein Verweis auf vordefinierte Vorlagen oder ein repräsentatives konkretes Beispiel.
+
+[[saeule-blaupausen]]
+== Säule Blaupausen
+
+Blaupausen können mit folgenden Dokumentationstypen beschrieben werden:
+
+[[table-detailkonzept]]
+.Detailkonzept
+[cols="1s,4",options="header"]
+|===
+2+|Detailkonzept
+
+|Ziel
+|Vorgaben zur Umsetzung bezogen auf eine Blaupause sofern sie eine technische Ausrichtung haben.
+
+|Inhalt
+a|
+* Beschreibt Blaupausen für software-technische Umsetzungen xref:glossary:glossary:master.adoc#glossar-t-architektur[(T-Architektur)] wie z.B. Batch, Datenzugriff oder Service.
+* Enthält Architekturvorgaben und Architekturentscheidungen
+
+|Zielgruppe(n)
+|Architekten, Entwickler, (IT-Betrieb)
+
+|Scope
+|Blaupause
+
+|Vorlage / Beispiel
+a|
+xref:blaupausen:detailkonzept-komponente-datenzugriff/einordnung-ziele.adoc[Beispiel]
+|===
+
+
+[[table-referenzarchitektur]]
+.Referenzarchitektur
+[cols="1s,4",options="header"]
+|===
+2+|Referenzarchitektur
+
+|Ziel
+|
+Die Referenzarchitektur definiert einen Strukturierungsrahmen für die Anwendungslandschaft und legt Prinzipien für die softwaretechnische Realisierung fest.
+
+|Inhalt
+a|
+* Definition einheitlicher Vorgaben unter Berücksichtigung fachlicher und technischer Anforderungen bezogen auf die Architektur einer Anwendung bzw. Anwendungslandschaft.
+* Sicht: Fachlich
+* Sicht: Software-technische Umsetzung
+* Sicht: Technische Infrastruktur
+* Enthält Architekturvorgaben und Architekturentscheidungen
+
+|Zielgruppe(n)
+|Architekten, (Entwickler)
+
+|Scope
+|Blaupause
+
+|Vorlage / Beispiel
+a|
+xref:blaupausen:referenzarchitektur/master.adoc[Beispiel]
+|===
+
+
+[[saeule-bausteine]]
+== Säule Bausteine
+
+Bausteine können mit folgenden Dokumentationstypen beschrieben werden:
+
+[[table-konzept]]
+.Konzept
+[cols="1s,4",options="header"]
+|===
+2+|Konzept
+
+|Ziel
+|Definition einheitlicher Vorgaben unter Berücksichtigung fachlicher und technischer Anforderungen bezogen auf einen Baustein. 
+
+|Inhalt
+a|
+* Technische Feinkonzeption
+* Anforderungen
+* Architekturvorgaben und Architekturentscheidungen
+
+|Zielgruppe(n)
+|Architekten (Entwickler, IT-Betrieb)
+
+|Scope
+|Baustein (Bibliothek)
+
+|Vorlage / Beispiel
+a|
+xref:isy-persistence:konzept.adoc[Beispiel]
+|===
+
+
+[[table-nutzungsvorgaben]]
+.Nutzungsvorgaben
+[cols="1s,4",options="header"]
+|===
+2+|Nutzungsvorgaben
+
+|Ziel
+|Vorgaben zur Nutzung eines Bausteins in der Entwicklung. 
+
+|Inhalt
+a|
+* Beschreibung wie ein konkreter Baustein (Bibliothek) für die Entwicklung einer Anwendung genutzt werden kann.
+* Hinweise zur _Verwendung_ oder 
+* _Konfiguration_ von externen Bibliotheken oder Produkten, sofern Teil des Bausteins.
+
+Nutzungsvorgaben sind keine Benutzerdokumentationen.
+
+|Zielgruppe(n)
+|Entwickler
+
+|Scope
+|Baustein (Bibliothek)
+
+|Vorlage / Beispiel
+a|
+xref:isy-persistence:nutzungsvorgaben/umsetzung-datenzugriff.adoc[Beispiel]
+|===
+
+
+[[table-changelog]]
+.Changelog
+[cols="1s,4",options="header"]
+|===
+2+|Changelog
+
+|Ziel
+|Änderungsdokumentation eines Bausteins. 
+
+|Inhalt
+a|
+* Textuelle Beschreibung einer Änderung
+
+|Zielgruppe(n)
+|Nutzer
+
+|Scope
+|Baustein (allgemein)
+
+|Vorlage / Beispiel
+a|
+xref:werkzeuge:dokumentation/changelog/changelog-doku.adoc[Vorgabe] xref:changelog:changelog.adoc[Beispiel]
+|===
+
+
+[[table-systemspezifikation]]
+.Systemspezifikation
+[cols="1s,4",options="header"]
+|===
+2+|Systemspezifikation
+
+|Ziel
+|Fachlichkeit des Systems _spezifizieren_ (Grundlage der (Weiter-)Entwicklung) und _dokumentieren_.
+
+|Inhalt
+a|
+Gliederung für eine V-Modell-konforme Gesamtsystemspezifikation (Pflichtenheft) eines Softwaresystems (Software-Entwicklungsprojekts)
+
+* Fachliche Anforderungen in Form von Anwendungsfällen und Anwendungsfunktionen
+* fachliches Datenmodell 
+* Dialoge und Masken
+* Nachbarsystemschnittstellen
+* Nicht funktionale Anforderungen
+
+Zu bestimmten Meilensteinen werden alle Systemspezifikationen einer Anwendungslandschaft mit den implementierten Teilen in einer Masterspezifikation konsolidiert zusammengefasst.
+Dies macht sie zu einer Dokumentation.
+
+|Zielgruppe(n)
+|Fachabteilung, Fachl. und techn. Architekten, Entwickler, (Alle)
+
+|Scope
+|Baustein (QA)
+
+|Vorlage / Beispiel
+|xref:methodik:vorlagen.adoc#table-dokumentation-anwendung[Vorlage]
+|===
+
+
+[[table-fachliche-schnittstellenspezifikation]]
+.Fachliche Schnittstellenspezifikation
+[cols="1s,4",options="header"]
+|===
+2+|Fachliche Schnittstellenspezifikation
+
+|Ziel
+|Fachliche Beschreibung einer angebotenen (oder genutzten) Schnittstelle.
+
+|Inhalt
+a|
+* Kommunikationsabläufe
+* Nachbarschnittstellen
+** Angebotene Schnittstelle (vom BVA nach extern angebotene Schnittstelle) 
+** Benutzte Schnittstelle (BVA-fremde Schnittstelle)
+* fachliche Datentypen 
+* Fehlerbehandlung
+* Schnittstellenverhalten
+* Weitergehende Informationen
+
+Abgrenzung zu <<table-technische-schnittstellendokumentation>>
+
+|Zielgruppe(n)
+|Fachabteilung, Fachl. und techn. Architekten, Entwickler, entspr. Rollen bei externen SST Nutzern, (Alle)
+
+|Scope
+|Baustein (QA)
+
+|Vorlage / Beispiel
+|xref:methodik:vorlagen.adoc#fachliche-schnittstellendokumentation[Vorlage]
+|===
+
+
+[[table-systementwurf]]
+.Systementwurf
+[cols="1s,4",options="header"]
+|===
+2+|Systementwurf
+
+|Ziel
+|Technische Beschreibung des Systems
+
+|Inhalt
+a|
+* Grundlage zur Abstimmung zwischen Architekten und IT-Betrieb
+* Vorgabe und Anleitung für Software-Entwickler
+* Systemabgrenzung (Kontextübersicht)
+* Randbedingungen und Annahmen
+* Systemarchitektur (vermutlich Level 1 Blackbox?)
+* nicht funktionale Anforderungen
+* TI-Architektur (Deployment View)
+* Externe Bibliotheken und Drittsoftware
+* Datenmodell
+* Architektur der Teilsysteme (Vermutlich Level 2 und niedriger White- und Black-Box)
+* Querschnittliche Konzepte
+
+|Zielgruppe(n)
+|Architekten, Entwickler, IT-Betrieb
+
+|Scope
+|Baustein (QA)
+
+|Vorlage / Beispiel
+|xref:methodik:vorlagen.adoc#table-dokumentation-anwendung[Vorlage]
+|===
+
+
+
+[[table-technische-schnittstellendokumentation]]
+.Technische Schnittstellendokumentation
+[cols="1s,4",options="header"]
+|===
+2+|Technische Schnittstellendokumentation
+
+|Ziel
+|
+Technische  Beschreibung einer Schnittstelle mit dem Ziel, die Anbindung der Schnittstelle aus technischer Sicht zu erläutern. 
+
+|Inhalt
+a|
+* Schnittstellenbeschreibung
+* Ressourcen und zugehörige Verben
+* URLs
+* Request/Response Content Type
+* Technisches Datenmodell
+** Format des Request
+** Format der Response
+* Status Codes
+* Fehlermeldungen
+
+Abgrenzung zu <<table-fachliche-schnittstellenspezifikation>>
+
+|Zielgruppe(n)
+|Entwickler, Architekten, IT-Betrieb
+
+|Scope
+|Baustein (QA)
+
+|Vorlage / Beispiel
+|REST / OpenAPI: Die Beschreibung bei REST-Schnittstellen erfolgt gem. xref:isy-service-rest:nutzungsvorgaben/inhalt.adoc[OpenAPI Attributen und Deklaration] 
+|===
+
+
+[[table-systemhandbuch]]
+.Systemhandbuch
+[cols="1s,4",options="header"]
+|===
+2+|Systemhandbuch
+
+|Ziel
+|Beschreibung der für Betrieb von Anwendungen erforderlichen Aspekte OHNE umgebungsspezifische Konfiguration. 
+
+
+|Inhalt
+a|
+* technische und fachliche Verfahrensbeschreibung
+* Beschreibung der xref:glossary:glossary:master.adoc#glossar-ti-architektur[TI-Architektur] (allgemein)
+* Beschreibung des regulären Wirkbetriebs
+* Installation
+* Konfiguration (ohne konkrete Parameter von Umgebungen)
+* Verwendung der Batches 
+* Hinweise zur Fehler- und Störungsdiagnose und -behandlung
+* Hinweise zum Backup
+
+Ausgrenzung: Das Systemhandbuch enthält nur solche Informationen, welche die eigentliche Software betreffen. 
+Informationen zu Systemumgebungen, Hardware usw. werden vom Betrieb in separaten Dokumenten gepflegt, die nicht über die IsyFact standardisiert sind.
+
+|Zielgruppe(n)
+|IT-Betrieb
+
+|Scope
+|Baustein (QA)
+
+|Vorlage / Beispiel
+|xref:methodik:vorlagen.adoc#table-dokumentation-anwendung[Vorlage]
+|===
+
+
+[[table-anwenderhandbuch]]
+.Anwenderhandbuch
+[cols="1s,4",options="header"]
+|===
+2+|Anwenderhandbuch
+
+|Ziel
+|Bedienungshinweise zur Benutzeroberfläche für Anwender von fachl. Anwendungssystemen oder Querschnittsanwendungen
+
+
+|Inhalt
+a|
+* Bedienungsanleitung für die Benutzeroberfläche (GUI)
+
+|Zielgruppe(n)
+|Anwender
+
+|Scope
+|Baustein (QA)
+
+|Vorlage / Beispiel
+|TODO
+|===
+
+
+[[table-produktkatalog]]
+.Produktkatalog
+[cols="1s,4",options="header"]
+|===
+2+|Produktkatalog
+
+|Ziel
+|Dokumentation eines verwendeten Produktes
+
+
+|Inhalt
+a|
+* TODO
+
+|Zielgruppe(n)
+|Anwender
+
+|Scope
+|Baustein (QA)
+
+|Vorlage / Beispiel
+|TODO
+|===
+
+
+[[saeule-plattform]]
+== Säule Plattform
+
+Infrastrukturkomponenten aus der Säule Plattform können mit folgenden Dokumentationstypen beschrieben werden:
+
+[[table-nutzungskonzept]]
+.Nutzungskonzept
+[cols="1s,4",options="header"]
+|===
+2+|Nutzungskonzept
+
+|Ziel
+|Vorgaben zur Nutzung einer Infrastrukturkomponente innerhalb der Plattform, die aus einem Standardprodukt besteht. 
+
+|Inhalt
+a|
+_Noch keine Vorgaben_
+
+
+|Zielgruppe(n)
+|Entwickler
+
+|Scope
+|Plattform
+
+|Vorlage / Beispiel
+a|
+_Noch keine Vorgaben_
+|===
