@@ -1,12 +1,14 @@
 # 3.0.0
 - `IFS-1354`: Autokonfiguration mit initialisierbarer Datenbank
     * Für die Konfiguration der DataSource wurde zu den DataSourceProperties von Spring Boot gewechselt. Hierdurch haben sich die Namen der Konfigurationsschlüssel geändert und müssen angepasst werden.
-- IFS-1820: Oracle-Spezifika aus isy-persistence entfernt
+- `IFS-1820`: Oracle-Spezifika aus isy-persistence entfernt
   - **BREAKING CHANGES**:
     - IsyPersistenceOracleAutoConfiguration zu IsyPersistenceAutoConfiguration umbenannt
     - oracleDataSourceHealthIndicator Bean entfernt
     - SQL*Plus DB-Schema Vorlage-Skripte entfernt
-
+- `IFS-2243`: DAO-Eigenimplementierung entfernen
+  - **BREAKING CHANGES**:
+    - AbstractDao und Dao entfernt
 # 2.4.0
 - `IFS-1066`: Protokollierung-Datenstrukturen aus den Template-DB-Skripten entfernt
 - `IFS-1093`: Anhebung von UCP auf 19.11
