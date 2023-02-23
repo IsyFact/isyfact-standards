@@ -28,6 +28,7 @@
 - `IFS-1504`: [isy-sonderzeichen] Transformator für die normative Abbildung lateinischer Buchstaben auf Grundbuchstaben (Suchform) hinzugefügt
     * Integration von zugeliefertem Code aus `IFS-1270`
 - `IFS-2045`: [isyfact-products-bom] Produkte Apache Tika, commons-beanutils und commons-io hinzugefügt
+- `IFS-2287`: [isy-sonderzeichen]  Deprecation für String-Latin-1.1-Transformatoren setzen
 - `IFS-1940`: [isy-sicherheit] `IsySicherheitUtil` deprecated
 
 # 2.4.4
