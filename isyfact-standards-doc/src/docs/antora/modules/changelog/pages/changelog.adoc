@@ -6,6 +6,7 @@
 - Umstellung auf Antora-Dokumentation.
 - Entfernung der Vorlageanwendungen.
 // Ende übergreifende Änderungen
+
 // Beginn Produktkatalog
 === Änderungen im Produktkatalog
 include::isyfact-standards-doku:einstieg:page$produktkatalog/changelog.adoc[tag=release-3.0.0]
@@ -64,7 +65,8 @@ include::isyfact-standards-doku:plattform:page$changelog.adoc[tag=release-3.0.0]
 
 === Änderungen Methodik
 
-include::isyfact-standards-doku:methodik:page$changelog.adoc[tag=release-3.0.0]
+include::isyfact-standards-doku:methodik:changelog.adoc[tag=release-3.0.0]
+include::isyfact-standards-doku:methodik:page$changelog.adoc[tag=release-2.5.0]
 include::isyfact-standards-doku:methodik:page$diagrammerstellung/changelog.adoc[tag=release-2.5.0]
 include::isyfact-standards-doku:methodik:page$java-programmierkonventionen/changelog.adoc[tag=release-2.5.0]
 include::isyfact-standards-doku:methodik:page$namenskonventionen/changelog.adoc[tag=release-2.5.0]
