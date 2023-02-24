@@ -38,7 +38,7 @@ Durch diese Entkopplung wird die Systemstabilität durch häufige Aufrufe des En
 
 Schlägt der Health-Check fehl, führt dies zu einem Eintrag im technischen Log.
 In diesen Fall wird eine Warnung, bei nicht-essenziellen, oder ein Fehler, bei essenziellen Nachbarsystemen, geloggt.
-Implementiert und konfiguriert wurde bzw. wird der Health-Check als Task (s. xref:isy-task:konzept/master.adoc[]).
+Implementiert und konfiguriert wurde bzw. wird der Health-Check als xref:isy-task:nutzungsvorgaben/master.adoc#erstellung-eines-tasks[Task].
 
 Es ist möglich, die Verfügbarkeit von Nachbarsystemen über die Konfiguration der Anwendung zu prüfen.
 Details hierzu finden sich in den xref:nutzungsvorgaben/master.adoc#vorgaben-fuer-die-pruefung-der-verfuegbarkeit[Nutzungsvorgaben].
