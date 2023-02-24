@@ -16,6 +16,7 @@
 * Neue Produkte:
 ** Selenium 4.x (empfohlen)
 ** Liquibase 4.x
+** JDK Temurin 17 mit Java-Language 8
 
 * Zeilen zu slf4j konsolidiert.
 * Kategorie für Logging-Produkte zu "Logging" geändert.
@@ -24,6 +25,8 @@
 ** Oracle JDBC
 ** Oracle UCP
 ** Oracle Database
+** Oracle JDK
+
 
 * Produkt aus IsyFact-Erweiterungen umgezogen:
 ** Apache Commons IO 2.x
