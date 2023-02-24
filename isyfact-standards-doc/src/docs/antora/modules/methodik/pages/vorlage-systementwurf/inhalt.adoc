@@ -503,7 +503,7 @@ _Die Laufzeitumgebung für das IT-System [yellow]#<SYSTEM># besteht gemäß Prod
 |===
 |Kategorie |Name |Version |Bemerkung
 |Betriebssystem |SUSE Linux Enterprise Server |[yellow]#10 SP1# |64Bit Version
-|Java-Laufzeitumgebung |Sun JDK |[yellow]#11.5.0# |64Bit Version
+|Java-Laufzeitumgebung | xref:einstieg:produktkatalog/produktvorgabenAllgemein.adoc[siehe Produkt-Katalog] |  xref:einstieg:produktkatalog/produktvorgabenAllgemein.adoc[siehe Produkt-Katalog] | xref:einstieg:produktkatalog/produktvorgabenAllgemein.adoc[siehe Produkt-Katalog]
 |Servlet-Container |Apache Tomcat |[yellow]#16.0.18# |
 |===
 
