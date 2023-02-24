@@ -10,6 +10,7 @@
 === Änderungen im Produktkatalog
 include::isyfact-standards-doku:einstieg:page$produktkatalog/changelog.adoc[tag=release-3.0.0]
 // Ende Produktkatalog
+
 === Änderungen Einstieg
 
 include::isyfact-standards-doku:einstieg:page$changelog.adoc[tag=release-2.5.0]
