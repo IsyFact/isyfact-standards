@@ -6,9 +6,9 @@
 - Umstellung auf Antora-Dokumentation.
 - Entfernung der Vorlageanwendungen.
 // Ende übergreifende Änderungen
-
 // Beginn Produktkatalog
 === Änderungen im Produktkatalog
+include::isyfact-standards-doku:einstieg:page$produktkatalog/changelog.adoc[tag=release-3.0.0]
 include::isyfact-standards-doku:einstieg:page$produktkatalog/changelog.adoc[tag=release-3.0.0]
 // Ende Produktkatalog
 
