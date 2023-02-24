@@ -218,8 +218,8 @@ Die Laufzeitumgebung für das {anwendung} besteht aus den Produkten, die in folg
 |Kategorie |Name |Version |Bemerkung
 
 |Java Virtual Machine
-|Oracle JDK 8
-|1.8.x
+| xref:einstieg:produktkatalog/produktvorgabenAllgemein.adoc[siehe Produkt-Katalog]
+| xref:einstieg:produktkatalog/produktvorgabenAllgemein.adoc[siehe Produkt-Katalog]
 |
 
 |Servlet-Container

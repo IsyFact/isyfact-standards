@@ -19,7 +19,7 @@ Der Leitfaden führt Sie durch folgende Schritte:
 Zum Abschluss des Leitfadens (ohne Vorbereitung einer virtuellen Maschine) benötigen Sie:
 
 * Git 2.x
-* JDK 1.8
+* JDK (xref:einstieg:produktkatalog/produktvorgabenAllgemein.adoc[siehe Produkt-Katalog])
 * Maven 3.1.1+
 * Apache Tomcat 8.5.x
 * Spring Tool Suite
