@@ -1,7 +1,0 @@
-// tag::architekturregeln[]
-
-[[architekturregeln-web-gui]]
-== Architekturregeln Komponente Web-GUI
-
-include::inhalt.adoc[tags=architekturregel]
-// end::architekturregeln[]

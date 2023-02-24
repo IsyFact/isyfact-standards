@@ -77,7 +77,7 @@ In der Regel geschieht dies über Schlüssel-Wert-Paare (_key-value pairs_), z.B
 
 // tag::architekturregel[]
 
-.icon:university[title="Architekturregel"] Benennung von Metadaten
+.icon:university[title=Architekturregel] Benennung von Metadaten
 ****
 Metadaten sind, egal über welches Protokoll sie übertragen werden, *einheitlich benannt*.
 Gibt es eine durch einen Standard vorgegebene Benennung, ist diese zu verwenden.
