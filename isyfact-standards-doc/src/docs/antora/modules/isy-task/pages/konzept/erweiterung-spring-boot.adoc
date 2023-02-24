@@ -1,1 +1,64 @@
 = Task Scheduling mit Spring Boot
+
+include::glossary:licence:partial$licence.adoc[]
+
+== Grundlagen
+
+Das Task Scheduling mit Spring Boot funktioniert über das Setzen der Annotation `@Scheduled` an beliebigen Methoden.
+Die Parameter der Annotation legen fest, wie genau Tasks eingeplant und ausgeführt werden.
+Darüber hinaus muss das Scheduling einmalig mit der Annotation `@EnableScheduling` aktiviert werden.
+
+.Beispiele für die Einplanung von Tasks
+[source, java]
+----
+public class ExampleTasks {
+
+    @Scheduled(fixedDelay = 1000)
+    public void scheduleTaskWithFixedDelay() {
+        // ...
+    }
+
+    @Scheduled(fixedRate = 1000)
+    public void scheduleTaskWithFixedRate() {
+        // ...
+    }
+
+    @Scheduled(fixedDelay = 1000, initialDelay = 1000)
+    public void scheduleTaskWithFixedRateAndInitialDelay() {
+        // ...
+    }
+
+    @Scheduled(cron = "0 15 10 15 * ?")
+    public void scheduleTaskWithCronExpression() {
+        // ...
+    }
+}
+----
+
+Der größte Vorteil des Ansatzes von Spring Boot ist die Einfachheit der Verwendung für die Entwicklung.
+Diesen Vorteil nutzt der Baustein Task Scheduling vollständig aus, indem er sich nahtlos in diesen Ansatz integriert.
+
+NOTE: Hinweis auf Spring Boot Doku!
+
+== Erweiterung des Task Scheduling
+
+Der Baustein Task Scheduling nutzt Spring AOP und @AspectJ-Annotationen, um vor und nach der Ausführung von Methoden mit der Annotation `@Scheduled` eigenen Code auszuführen.
+Hierzu wird ein "Around Advice" (https://docs.spring.io/spring-framework/docs/5.3.24/reference/html/core.html#aop-ataspectj-around-advice) verwendet.
+Der Around Advice ist dafür zuständig:
+
+* die integrierten Bausteine der IsyFact zur Ausführung des Tasks zu initialisieren,
+* die eigentliche, mit `@Scheduled` annotierte, Methode so aufzurufen, dass sie korrekt ausgeführt wird,
+* Aufräumarbeiten zu erledigen, sodass die Verarbeitung des Tasks sauber beendet werden kann,
+* das Ergebnis der mit `@Scheduled` annotierten Methode zurückzugeben.
+
+.Ablauf der Ausführung eines Tasks ohne und mit Around Advice
+image::isy-task:konzept/around-aspect-ablauf.dn.svg[]
+
+Neben dem Advice gibt es für jeden Task eine eigene Konfiguration sowie eine globale Konfiguration mit Standardwerten für alle Tasks.
+Hierüber lassen sich die integrierten IsyFact-Bausteine und der Task selbst konfigurieren.
+
+Alle genannten Fähigkeiten des Bausteins Task Scheduling konfigurieren sich automatisch selbst, sobald die Bibliothek zum Baustein in eine Anwendung integriert wird. Für die Umsetzung eines Tasks gemäß IsyFact benötigt man somit:
+
+* die Einbindung der IsyFact-Bibliothek zum Task Scheduling,
+* eine mit `@Scheduled` annotierte Methode,
+* (optional) eine Task-spezifische Konfiguration.

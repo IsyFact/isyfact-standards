@@ -53,7 +53,9 @@
 
 ** Task Scheduling
 *** xref:isy-task:konzept.adoc[Konzept]
-*** xref:isy-task:konzept/master.adoc[Konzept (alt)]
+**** xref:isy-task:konzept/erweiterung-spring-boot.adoc[]
+**** xref:isy-task:konzept/integration-isyfact.adoc[]
+**** xref:isy-task:konzept/weitere-anwendungsfaelle.adoc[]
 *** xref:isy-task:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
 
 ** Überwachung

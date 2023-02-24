@@ -1,1 +1,3 @@
 = Bereitstellung weiterer Anwendungsfälle
+
+include::glossary:licence:partial$licence.adoc[]
