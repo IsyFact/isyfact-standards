@@ -221,17 +221,15 @@ Als Nächstes benötigt Ihre Entwicklungsumgebung ein JDK, Git, Maven und eine E
 
 ===	JDK
 
-Auf der Kommandozeile installieren Sie mit folgender Anweisung das JDK:
+Folgen sie den Installationsanweisungen, die im xref:einstieg:produktkatalog/produktvorgabenAllgemein.adoc[Produktkatalog beim Java JDK] verlinkt sind.
 
- sudo apt-get install openjdk-8-jdk
+Fügen sie in der Datei `.bashrc` die Umgebungsvariable `JAVA_HOME` hinzu bzw. passen Sie diese auf das Installationsverzeichnis des JDK an. Unter Ubuntu/Debian ist dies in der Regel /usr/lib/jvm/temurin-17-jdk-amd64, also
 
-In der Datei `.bashrc` fügen Sie die Umgebungsvariable `JAVA_HOME` hinzu und erweitern die Umgebungsvariable `PATH`:
+`JAVA_HOME=/usr/lib/jvm/temurin-17-jdk-amd64`
 
- JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
- export JAVA_HOME
+Erweitern die Umgebungsvariable `PATH`:
 
  PATH=$JAVA_HOME/bin:$PATH
- export PATH
 
 
 ===	Git

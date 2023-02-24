@@ -1,2 +1,2 @@
 ﻿Kategorie / Anwendungsbereich;Hersteller / Produkt;Version;Seit Release;Status;Lizenz;Erläuterung
-Programmiersprache für die Anwendungsentwicklung;Eclipse Temurin[ JDK];17.x;3.0.0;verbindlich;Apache License, Version 2.0,Eclipse Distribution License 1.0 (BSD), Eclipse Public License 2.0;Java-Sprachversion 8
+Programmiersprache für die Anwendungsentwicklung;Eclipse Temurin[ JDK];17.x;3.0.0;verbindlich;Apache License, Version 2.0,Eclipse Distribution License 1.0 (BSD), Eclipse Public License 2.0;Java-Sprachversion 8, Installationsanweisungen: https://adoptium.net/de/installation/linux/

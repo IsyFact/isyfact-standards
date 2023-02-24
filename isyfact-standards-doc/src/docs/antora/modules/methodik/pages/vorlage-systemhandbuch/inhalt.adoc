@@ -338,8 +338,9 @@ Weitere Abhängigkeiten werden durch die erforderlichen Build-Werkzeuge selbstst
 |(RPM)
 | ...
 
-|Oracle Java SE Development Kit (JDK)
-|1.8.0_x
+|Java Development Kit (JDK)
+| xref:einstieg:produktkatalog/produktvorgabenAllgemein.adoc[siehe Produkt-Katalog]
+
 
 |(node.js)
 | ...
