@@ -77,6 +77,7 @@ include::isyfact-standards-doku:methodik:page$versionierung/changelog.adoc[tag=r
 include::isyfact-standards-doku:werkzeuge:page$dokumentation/changelog.adoc[tag=release-2.5.0]
 include::isyfact-standards-doku:werkzeuge:page$entwicklungsumgebung/changelog.adoc[tag=release-3.0.0]
 include::isyfact-standards-doku:werkzeuge:page$gui-tests/changelog.adoc[tag=release-3.0.0]
+include::isyfact-standards-doku:werkzeuge:page$gui-tests/changelog.adoc[tag=release-3.0.0]
 include::isyfact-standards-doku:werkzeuge:page$versionierungskontrolle/changelog.adoc[tag=release-2.5.0]
 
 
