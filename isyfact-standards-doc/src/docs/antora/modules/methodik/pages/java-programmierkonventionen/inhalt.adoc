@@ -414,16 +414,13 @@ Die Package-Struktur folgt einer Konvention, die aus der fachlichen und technisc
 <organisation>.<domäne>.<anwendungssystem>.<layer>.<subsystem/
 komponente>. ...
   <domäne>
-	= (Name gemäß fachlicher Architektur, z. B. „cd“)
+	= (Name gemäß fachlicher Architektur, z, B. "meinedomaene")
   <anwendungssystem>
-	= (Name gemäß fachlicher Architektur, z.B. „registercd“)
+	= (Name gemäß fachlicher Architektur, z. B. "meineanwendung)
   <layer>
 	= common | gui | batch | service | core | persistence
   <subsystem/komponente>
-	= <für Anwendungssystem> | <subsystem/komponente>
-	  <-
-      <für Anwendungssystem>
-		= ... (Name der Geschäftsanwendung bzw. querschnittlichen Komponente gemäß fachlicher Architektur)
+	= Name der Geschäftsanwendung bzw. querschnittlichen Komponente gemäß fachlicher Architektur
 ----
 
 Unterhalb von `<subsystem/komponente>` werden die Packages projektspezifisch strukturiert.
@@ -442,14 +439,14 @@ Package-Namen immer kleinschreiben!
 Namen von Packages dürfen nur Kleinbuchstaben enthalten.
 
 [green]#Richtig#::
-		`de.bund.bva.cd.registercd.persistence.meldung` +
-		`de.bund.bva.cd.registercd.service.auskunft` +
+		`de.bund.bva.meinedomaene.meineanwendung.service.admin` +
+		`de.bund.bva.isyfact.meineanwendung.persistence.meinegk` +
 		`de.bund.bva.isyfact.logging.common.layout`
 
 [red]#Falsch#::
-		`de.bund.bva.cd.CDRegister.persistence.meldung` +
-		`de.bund.bva.cd.register.cd.persistence.meldung` +
-		`de.bund.bva.cd.registercd.admin.service`
+		`de.bund.bva.isyfact.MeineAnwendung.persistence.meinegk` +
+		`de.bund.bva.isyfact.meineanwendung.persistence.meineanwendung` +
+		`de.bund.bva.meinedomaene.meineanwendung.admin.service`
 
 [[klassen--und-interface-namen]]
 ==== Klassen- und Interface-Namen
