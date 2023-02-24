@@ -932,7 +932,7 @@ Dadurch blockieren auch die kryptografischen Verfahren, welche z.B. die Kommunik
 
 // tag::sicherheit[]
 
-.icon:shield[] Erzeugung von Zufallszahlen unter Linux
+.icon:shield[title=Sicherheit] Sicherheit: Erzeugung von Zufallszahlen unter Linux
 ****
 Zur Erzeugung von Zufallszahlen unter Linux wird `dev/random` verwendet.
 Falls `dev/random` zu oft blockiert und das Risiko, potenziell schwache Zufallszahlen zu verwenden, akzeptiert wird, kann alternativ `dev/urandom` verwendet werden.

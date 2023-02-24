@@ -1,7 +1,0 @@
-// tag::it-sicherheitsregeln[]
-
-[[it-sicherheitsregeln-isy-util]]
-== IT-Sicherheitsregeln Isy-Util
-
-include::inhalt.adoc[tags=sicherheit]
-// end::it-sicherheitsregeln[]

@@ -133,7 +133,7 @@ Anforderungen an die Entwicklung von Anwendungen und IT-Systemen.
 // end::anwendungsanforderung[]
 // tag::architekturregel[]
 
-.icon:university[] Architekturregel: Vorgabe
+.icon:university[title=Architekturregel] Architekturregel: Vorgabe
 ****
 Regeln für die Architektur von Anwendungen und IT-Systemen.
 ****
@@ -141,7 +141,7 @@ Regeln für die Architektur von Anwendungen und IT-Systemen.
 // end::architekturregel[]
 // tag::sicherheit[]
 
-.icon:shield[] Sicherheit: Vorgabe
+.icon:shield[title=Sicherheit] Sicherheit: Vorgabe
 ****
 Regeln für die Sicherheit von IT-Systemen.
 ****
