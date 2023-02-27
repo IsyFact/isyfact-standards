@@ -121,7 +121,7 @@ Im Übrigen handelt es sich bei dem Beispiel-Kapitel um das Kapitel <<ueberschri
 ----
 
 Der erste Parameter in dem Klammer-Paar referenziert die ID des Querverweises.
-Der zweite Parameter kann gesetzt werden, wenn statt dem Namen des Kapitels ein eigener Text verwendet werden soll.
+Der zweite Parameter kann gesetzt werden, wenn statt des Namens des Kapitels ein eigener Text verwendet werden soll.
 Der erzeugte Text sieht wie folgt aus:
 
 _Zum <<ueberschriften,Beispiel-Kapitel>> gelangen Sie über einen Mausklick._
@@ -385,7 +385,7 @@ Die Tags werden jeweils am Anfang und am Ende des Blocks gesetzt.
 ----
 // tag::architekturregel[]
 
-.icon:university[title=Architekturregel] Architekturvorgabe: Beispiel für Architekturvorgabe
+.icon:university[title=Architekturregel] Architekturregel: Titel der Architekturregel
 ****
 Inhalt der Architekturregel.
 ****
