@@ -132,9 +132,21 @@ Wir übernehmen für die IsyFact die englische Bezeichnung "Refresh-Token".
 [[aufruf-weboberflaeche-portal]]
 ==== Aufruf Web-Oberfläche/Portal
 
+Damit ein menschlicher Nutzer eine geschützte Anwendung über deren Web-Oberfläche (im Web-Browser) verwenden kann, muss er über den IAM-Service authentifiziert und dazu autorisiert sein.
+In `IsyFact 3` ist dafür ein Apache Webserver (Portal Apache) zwischen den Web-Client (Web-Browser) und der Web-Anwendung geschaltet.
+Dieser tritt sowohl als Reverse-Proxy auf, sowie als 'Relying Party' für das IAM-System.
+Wenn für einen User (noch) keine gültige Session vorhanden ist, leitet der Portal-Apache auf die Login-Seite des IAM-Systems.
+Nach erfolgtem Login wird die Autorisierung an die User-Session gebunden und an die Anwendung weitergeleitet.
+Die folgende Abbildung zeigt die System-Architektur mit dem Portal-Apache in der Informations- u. Dienstezone vor der Anwendung und dem IAM-Service in der Logik- u. Verarbeitungszone.
+
+.Beteiligte Systeme bei Aufruf über Web-Oberfläche / Portal
+[id="image-Authorization-Code-Connections",reftext="{figure-caption} {counter:figures}"]
+image::konzept/authorization-code-connections.dn.svg[align="center"]
+
 Ein menschlicher Nutzer, der eine Anwendung über deren Web-Oberfläche (im Web-Browser) bedienen möchte, ist im Besitz von Authentifizierungsdaten (Nutzername u. Passwort, biometrische Daten, ...) mit denen er sich gegenüber dem IAM-System ausweisen kann.
 Diese Daten sollten nur zum IAM-Service gelangen und nicht an oder durch andere Systeme kommen.
 Deshalb wird der Anwender auf ein Anmeldeformular des IAM-Service umgeleitet, um nach erfolgreicher Authentifizierung & Autorisierung auf die Web-Anwendung weitergeleitet zu werden.
+Das nachfolgende Sequenzdiagramm zeigt noch einmal schematisch den logischen und zeitlichen Ablauf sowie das Zusammenspiel der System-Komponenten im Authorization Code Flow mit Confidential Client:
 
 .Ablauf Authentifizierung bei Aufruf über Web-Oberfläche / Portal für single page applications (SPA)
 [id="image-Authorization-Code-Flow",reftext="{figure-caption} {counter:figures}"]
@@ -181,11 +193,6 @@ Bei jeder weiteren Anfrage fügt der Portal-Webserver das Access Token aus der u
 So kann der Benutzer weiter mit der Web-Anwendung arbeiten, bis er sich explizit ausloggt oder das Access Token abläuft.
 Dann muss entweder die Anwendung mithilfe des Refresh Token ein neues Access Token beim IAM-Service anfordern oder der Benutzer muss sich erneut anmelden.
 
-
-.Beteiligte Systeme bei Aufruf über Web-Oberfläche / Portal
-[id="image-Authorization-Code-Connections",reftext="{figure-caption} {counter:figures}"]
-image::konzept/authorization-code-connections.dn.svg[align="center"]
-
 [[aufruf-service-gateway]]
 ==== Aufruf Service-Gateway
 
@@ -201,7 +208,7 @@ Die Authentifizierungsaufrufe werden über das _Authentication-Gateway_ geleitet
 
 .Authentifizierung am Authentication-Gateway
 [id="image-servicegateway_plus_authgateway",reftext="{figure-caption} {counter:figures}"]
-image::isy-security:konzept/ServiceGateway_plus_AuthGateway.dn.svg[align="center"]
+image::konzept/ServiceGateway_plus_AuthGateway.dn.svg[align="center"]
 
 Damit ein Client einer externen Anwendung auf die Ressourcen einer Anwendung zugreifen kann, benötigt er ein gültiges Access-Token.
 Dieses Token muss sich der Client zuerst beschaffen, indem er sich beim _IdentityAccessManagement-Service (IAM-Service)_ authentifiziert.
@@ -222,7 +229,7 @@ Das nachfolgende Sequenzdiagramm zeigt noch einmal schematisch den logischen Abl
 
 .Sequenzdiagramm Authentifizierung am Authentication-Gateway
 [id="image-sequenzdiagramm-sgw-plus-agw",reftext="{figure-caption} {counter:figures}"]
-image::isy-security:konzept/Squenzdiagramm_ServiceGateway_plus_AuthGateway.dn.svg[align="center"]
+image::konzept/Squenzdiagramm_ServiceGateway_plus_AuthGateway.dn.svg[align="center"]
 
 
 [[aufruf-service-gateway-ohne-authentication-gateway]]
@@ -236,7 +243,7 @@ Zusätzlich kann die externe Anwendung den gleichen Kommunikationskanal für die
 
 .Authentifizierung ohne Authentication-Gateway
 [id="image-servicegateway_ohne_authgateway",reftext="{figure-caption} {counter:figures}"]
-image::isy-security:konzept/ServiceGateway-Authentifizierung.dn.svg[align="center"]
+image::konzept/ServiceGateway-Authentifizierung.dn.svg[align="center"]
 
 Für den Zugriff auf die Ressourcen eines Anwendungssystems benötigt die externe Anwendung ein gültiges Access-Token.
 Dieses Token muss sich die Anwendung zuerst beschaffen, indem sie sich beim _IdentityAccessManagement-Service (IAM-Service)_ authentifiziert.
@@ -255,7 +262,7 @@ Das nachfolgende Sequenzdiagramm zeigt schematisch den logischen Ablauf der Auth
 
 .Sequenzdiagramm Authentifizierung ohne Authentication-Gateway
 [id="image-sequenzdiagramm-sgw-without-agw",reftext="{figure-caption} {counter:figures}"]
-image::isy-security:konzept/Squenzdiagramm_ServiceGateway_ohne_AuthGateway.dn.svg[align="center"]
+image::konzept/Squenzdiagramm_ServiceGateway_ohne_AuthGateway.dn.svg[align="center"]
 
 
 
@@ -276,7 +283,7 @@ So wird die Authentifizierung für einen techn. Nutzer über diesen Authorizatio
 
 .OAuth2.0 Resource-Owner-Password-Credential Flow
 [id="image-resourceowner_password_credential_flow",reftext="{figure-caption} {counter:figures}"]
-image::isy-security:konzept/Resource-Owner-Passwort-Credential-Flow.dn.svg[align="center"]
+image::konzept/Resource-Owner-Passwort-Credential-Flow.dn.svg[align="center"]
 
 Im vorherigen Bild wird der logische Ablauf des _Resource-Owner-Password-Credential_-Flows dargestellt.
 Hierbei wird die Konfiguration des techn. Nutzers als der _Resource-Owner_ dargestellt.
@@ -298,7 +305,7 @@ Die dabei verwendeten Authentifizierungsdaten `Client-ID` und `Client-Secret` m�
 
 .OAuth2.0 Client-Credential Flow
 [id="image-clientcredential_flow",reftext="{figure-caption} {counter:figures}"]
-image::isy-security:konzept/Client-Credential-Flow.dn.svg[align="center"]
+image::konzept/Client-Credential-Flow.dn.svg[align="center"]
 
 Im vorherigen Bild wird der logische Ablauf des _Client-Credential_-Flows dargestellt.
 Hierbei kann die Client-Anwendung nach einem Access-Token beim IAM anfragen (1.), indem sie dabei ihre eigenen Client-Authentifizierungsdaten oder anderweitig unterstützte Authentifizierungskriterien verwendet.
