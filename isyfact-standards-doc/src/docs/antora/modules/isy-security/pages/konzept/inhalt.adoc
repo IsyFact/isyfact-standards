@@ -152,47 +152,6 @@ Das nachfolgende Sequenzdiagramm zeigt noch einmal schematisch den logischen und
 [id="image-Authorization-Code-Flow",reftext="{figure-caption} {counter:figures}"]
 image::konzept/authorization-code-flow.dn.svg[align="center"]
 
-. Aufruf der Web-Anwendung:
-Der Benutzer ruft die Web-Anwendung auf, er ist nicht angemeldet bzw. eine eventuelle vorherige Anmeldung ist abgelaufen.
-Über die ihm zugeordneten Rolle(n) hat er das Recht, die Web-Anwendung und bestimmte Ressourcen zu verwenden.
-Der Aufruf wird im Portal-Webserver von dem mod_auth_openidc Modul abgefangen.
-
-. Umleitung zur Benutzer-Authentifizierung im IAM-Service:
-Das Webservermodul erkennt (am fehlenden bzw. ungültigen Access-Token), dass noch keine Authentifizierung erfolgt ist und leitet um zum IAM-Service zur Authentifizierung des Benutzers (mit Client-ID u. redirect_uri für Callback der Web-Anwendung).
-
-. Anmeldeformular mit dem Benutzer:
-Der IAM-Service präsentiert dem Benutzer ein (an die Web-Anwendung angepassten) Anmeldeformular.
-Der Benutzer gibt hier seine Authentifizierungsdaten (z.B. Nutzername u. Passwort) ein.
-
-. Verifizierung der Authentifizierungsdaten:
-Die eingegebenen Authentifizierungsdaten werden vom IAM-Service mit den bei ihm für den Ressourcenbesitzer hinterlegten verglichen.
-Falls die Authentifizierung fehlschlägt, wird der Vorgang abgebrochen (und eine entsprechende Fehlerseite angezeigt).
-
-. Weiterleitung zum mod_auth_openidc Modul mit Authorization Code:
-Bei positiver Authentifizierung antwortet der IAM-Service auf den Authentifizierungsaufruf mit einer Umleitung zurück zum mod_auth_openidc Modul und einem Authorization Code.
-Beim Authorization Code handelt es sich um ein einmalig verwendbares und kurzlebiges Token.
-Er dient als Vor-Authorisierung und ist an das mod_auth_openidc Modul über die Client-ID gebunden.
-Der Authorization Code ist eine schwer erratbare zufällige Zeichenkette und hat nur einen Zweck:
-Tausch gegen eine andere (dauerhaftere) Legitimation in einem späteren Teil des Authorization Code Grants.
-Das ist notwendig, um sicherzustellen, dass das Access Token an die richtige Web-Anwendung ausgeliefert wird und nicht z.B. eine Redirection URI Manipulation stattgefunden hat.
-
-. Austausch Authorization Code gegen Access Token:
-Das mod_auth_openidc Modul schickt den erhaltenen Authorization Code und ihre Legitimation an den IAM-Service zur Autorisierung des Benutzers.
-Nach Prüfung der Legitimation des Portal-Webservers und der Gültigkeit des Authorization Codes antwortet der IAM-Service mit einem dauerhafteren Access Token zu den Ressourcen des Ressourcenbesitzers.
-
-. Aufruf der Web-Anwendung mit Access Token:
-Das mod_auth_openidc Modul speichert das erhaltene Access Token innerhalb der user session und ruft damit die Web-Anwendung auf.
-
-. Anzeige der Web-App:
-Mit Erhalt des Access Token bekommt die Web-App die Autorisierung, Aktionen im Namen des Ressourcenbesitzers durchführen und geschützte Ressourcen verwenden.
-Mit den Ergebnissen der Aktionen bzw. den Inhalten der geschützten Ressourcen wird die Ansichtsseite der Web-Anwendung erstellt und im Web-Client zur Anzeige gebracht.
-
-. Weitere Interaktionen mit der Web-Anwendung:
-Der Benutzer ist nun angemeldet.
-Bei jeder weiteren Anfrage fügt der Portal-Webserver das Access Token aus der user session hinzu.
-So kann der Benutzer weiter mit der Web-Anwendung arbeiten, bis er sich explizit ausloggt oder das Access Token abläuft.
-Dann muss entweder die Anwendung mithilfe des Refresh Token ein neues Access Token beim IAM-Service anfordern oder der Benutzer muss sich erneut anmelden.
-
 [[aufruf-service-gateway]]
 ==== Aufruf Service-Gateway
 
