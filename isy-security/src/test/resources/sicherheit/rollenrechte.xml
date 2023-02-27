@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:Anwendung AnwendungsId="Default"
+               xmlns:tns="http://www.example.org/RollenRechteSchema"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="http://www.example.org/RollenRechteSchema RollenRechteSchema.xsd ">
+
+    <!-- Default file -->
+    <tns:rechte>
+        <tns:rechtId Id="PRIV_Recht1"/>
+    </tns:rechte>
+    <tns:rechte>
+        <tns:rechtId Id="PRIV_Recht2"/>
+    </tns:rechte>
+    <tns:rechte>
+        <tns:rechtId Id="PRIV_Recht3"/>
+    </tns:rechte>
+    <tns:rechte>
+        <tns:rechtId Id="PRIV_Recht4"/>
+    </tns:rechte>
+    <tns:rechte>
+        <tns:rechtId Id="PRIV_Recht5"/>
+    </tns:rechte>
+    <tns:rollen RolleId="Rolle1">
+        <tns:rechtId Id="PRIV_Recht1"/>
+        <tns:rechtId Id="PRIV_Recht2"/>
+        <tns:rechtId Id="PRIV_Recht3"/>
+    </tns:rollen>
+    <tns:rollen RolleId="Rolle2">
+        <tns:rechtId Id="PRIV_Recht1"/>
+        <tns:rechtId Id="PRIV_Recht2"/>
+    </tns:rollen>
+</tns:Anwendung>
