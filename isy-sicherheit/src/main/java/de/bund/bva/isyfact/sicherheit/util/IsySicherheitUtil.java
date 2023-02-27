@@ -21,60 +21,66 @@ import java.util.Base64;
 
 import javax.servlet.http.HttpServletRequest;
 /**
- * Diese Klasse enthält Utility-Methoden für die isy-sicherheit.
+ * This class contains utility methods for isy-sicherheit.
+ * @deprecated in favor of {@code spring-web} and {@code spring-security-web}
  */
+@Deprecated
 public final class IsySicherheitUtil {
     /**
-     * Header-Name für Authorisierung.
+     * Header name for authorization.
      */
     private static final String HEADER_NAME_AUTH = "Authorization";
 
     /**
-     * Prefix-Name für HTTP-Basic-Authentifizierung .
+     * Prefix name for http basic authorization.
      */
     private static final String BASIC_AUTH_PREFIX = "Basic";
 
     /**
-     * Trennzeichen zwischen Benutzerkennung und Kennwort bei der HTTP-BASIC-Authentifizierung.
+     * Separator between user identification and password for the http basic authentication.
      */
     private static final String BASIC_AUTH_DELIMITER = ":";
 
     /**
-     * Liest den HTTP-Header für die HTTP-Basic-Basic-Authentifizierung aus und ermittelt die Benutzerkennung
-     * und das Kennwort.
+     * Reads the http header for http basic authentication and determines user identification and password.
      *
      * @param request
-     *            der HTTP Request
-     * @return String array der Länge zwei mit dem Benutzernamen und Passwort, enthält null Werte, wenn der
-     *         Header nicht gesetzt ist.
+     *            the HTTP request
+     * @return String array with length two, containing username and password.
+     *            Contains zero elements if the header is not set.
+     * @deprecated use {@link org.springframework.security.web.authentication.www.BasicAuthenticationConverter} instead
      */
+    @Deprecated
     public static String[] parseBasicAuthHeader(HttpServletRequest request) {
         return parseBasisAuthHeaderValue(request.getHeader(HEADER_NAME_AUTH));
     }
 
     /**
-     * Ermittelt die Benutzerkennung und das Kennwort aus dem Wert des HTTP-Headers-Attributs für die
-     * HTTP-Basic-Authentifizierung aus.
+     * Determines the user identification and password from the value of the http header attribute
+     * for the http basic authentication.
      *
      * @param headerValue
-     *            Wert des Header-Attributs.
-     * @return String array der Länge zwei mit dem Benutzernamen und Passwort, enthält null Werte, wenn der
-     *         Wert des Header-Attributs leer ist.
+     *              Value of the header attribute
+     * @return String array with length two, containing username and password.
+     *              Contains zero elements if the value of the header attribute is empty.
+     *
+     * @deprecated use {@link org.springframework.security.web.authentication.www.BasicAuthenticationConverter} instead
      */
+    @Deprecated
     public static String[] parseBasisAuthHeaderValue(String headerValue) {
         String[] result = new String[2];
         if (headerValue != null && headerValue.trim().length() > 5) {
-            // Suche "Basic" Präfix
+            // Search "basic" prefix
             String prefix = headerValue.trim().substring(0, 5);
             if (prefix.equalsIgnoreCase(BASIC_AUTH_PREFIX)) {
-                // "Basic" Präfix gefunden. Der restliche String enthält username:password base64 kodiert
+                // Found basic prefix. The remaining string contains username:password base64 encoded
                 headerValue = headerValue.trim();
                 headerValue = headerValue.substring(5).trim();
                 headerValue = new String(Base64.getDecoder().decode(headerValue), StandardCharsets.ISO_8859_1);
                 if (headerValue.contains(BASIC_AUTH_DELIMITER)) {
-                    // Bis zum Delimiter ist alles Benutzername
+                    // Everything up until the delimiter constitutes the username
                     result[0] = headerValue.substring(0, headerValue.indexOf(BASIC_AUTH_DELIMITER));
-                    // Alles nach Delimiter ist Passwort
+                    // Everything after delimiter constitutes the password
                     result[1] = headerValue.substring(headerValue.indexOf(BASIC_AUTH_DELIMITER) + 1);
                 } else {
                     result[0] = headerValue;
@@ -85,14 +91,17 @@ public final class IsySicherheitUtil {
     }
 
     /**
-     * Erzeugt einen HTTP-Basic-Authentication-Header für eine Login-ID und ein Kennwort.
+     * Creates a http basic authentication header for a login id and password.
      *
      * @param loginId
-     *            Die Login-ID.
+     *            The login id
      * @param password
-     *            Das Kennwort.
-     * @return Stirng[] mit dem Namen des HeaderAttributs ([0]) und dem Header-Wert ([1]).
+     *            The password
+     * @return String array with length two, containing header attribute ([0]) and header value ([1]).
+     *
+     * @deprecated use {@link org.springframework.http.HttpHeaders} instead
      */
+    @Deprecated
     public static String[] createBasicAuthHeader(String loginId, String password) {
         String[] result = new String[2];
         result[0] = HEADER_NAME_AUTH;

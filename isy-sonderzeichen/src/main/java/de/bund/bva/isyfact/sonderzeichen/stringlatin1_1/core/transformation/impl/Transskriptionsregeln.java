@@ -21,7 +21,10 @@ import java.util.Set;
 /**
  * Methods for checking transcription rules.
  *
+ *  @deprecated This class is deprecated and will be removed in a future release.
+ *  It is recommended to use {@link de.bund.bva.isyfact.sonderzeichen.dinspec91379} instead.
  */
+@Deprecated
 public abstract class Transskriptionsregeln {
 
     /**

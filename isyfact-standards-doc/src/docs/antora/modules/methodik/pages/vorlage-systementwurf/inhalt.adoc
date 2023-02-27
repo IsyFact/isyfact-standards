@@ -122,15 +122,39 @@ Die Anforderungen an die konkrete Ausgestaltung der Diagramme werden im Rahmen d
 
 _Die Paketstruktur des Enterprise Architect Modells orientiert sich sowohl an der Benamung als auch an der Hierarchie der Verzeichnisstruktur des Systementwurfs.
 So wird die Einheitlichkeit der EA-Modelle für unterschiedliche Projekte erhöht und das Auffinden benötigter Diagramme erleichtert.
-Die folgende Abbildung zeigt beispielhaft das EA-Modell für die Vorlage-Anwendung CD-Register._
-
+Das folgende Listing zeigt beispielhaft ein EA-Modell._
 ====
 
-:desc-image-packetstruktur-enterprise-architect-modells: Paketstruktur des Enterprise Architect Modells
-[id="image-packetstruktur-enterprise-architect-modells", reftext = "{figure-caption} {counter:figures}"]
-.{desc-image-packetstruktur-enterprise-architect-modells}
-image::vorlage-systementwurf/packetstruktur-enterprise-architect-modells.png[align = center, title-align=center]
 
+[[paketstruktur-enterprise-architect-modell]]
+.Paketstruktur eines Enterprise Architect Modells
+----
+📂 Geschäftsanwendung XYZ
+  📂 Systementwurf
+    📂 Systemarchitektur des Gesamtsystems
+      📂 Querschnittkonzepte
+      📂 Systemüberblick
+      📂 TI-Architektur
+    📂 <<IT-System>> Geschäftskomponente XYZ
+      📂 Anwendungskern
+        📂 <<A-Komponente>> Auskunft
+        📂 <<A-Komponente>> Basisdaten
+        📂 <<T-Komponente>> Berechtigung
+        📂 <<A-Komponente>> Meldung
+        📂 <<A-Komponente>> Protokoll
+      📂 Batch
+      📂 Datenmodell
+      📂 Externe Schnittstellen
+      📂 Teilsystem-Querschnittskonzepte
+      📂 Teilsystem-Überblick
+    📂 <<IT-System>> Service-Gateway
+    📂 Rückbezug Systemspezifikation
+      📂 Anwendungsfälle
+      📂 Anwendungskomponenten
+      📂 Batches
+      📂 Entitäten
+      📂 Nachbarsystemschnittstellen
+----
 
 
 [[zusammenfassung]]
@@ -343,7 +367,7 @@ Abweichungen zur Referenzarchitektur sind in Tabelle 2 dokumentiert und begründ
 == Systemarchitektur des Gesamtsystems
 
 ====
-_In diesem Kapitel wird ein Systemüberblick gegeben und die Aspekte des Gesamtsystems beschrieben, die für alle oder mehrere Teilsysteme gelten. Das können Verfahren, Festlegungen oder die Beschreibung gemeinsam genutzter Komponenten sein. In der Regel hat ein System mehrere Teilsysteme, z. B. eine Geschäftsanwendung und ein Service Gateway._
+_In diesem Kapitel wird ein Systemüberblick gegeben und die Aspekte des Gesamtsystems beschrieben, die für alle oder mehrere Teilsysteme gelten. Das können Verfahren, Festlegungen oder die Beschreibung gemeinsam genutzter Komponenten sein. In der Regel hat ein System mehrere Teilsysteme, z. B. eine Geschäftsanwendung und ein Service-Gateway._
 
 _Festlegungen, die bereits in den übergeordneten Dokumenten (z.B. Referenzarchitektur, Sicherheitsrichtlinie, …) gemacht wurden, sind im gesamten Kapitel nur zu referenzieren, Abweichungen hiervon sind zu begründen._
 ====
@@ -813,7 +837,7 @@ Ggf. werden hier Spezialisierungen und zusätzliche Festlegungen zu Services bes
 
 _In diesem Abschnitt ist die konkrete Konstruktion der einzelnen Services beschrieben, in der Regel mit einem eigenen Abschnitt pro Service, den das System anbietet.
 Dies sind Services, die per httpInvoker bereitgestellt werden.
-Services, die externen Nutzern zur Verfügung gestellt werden, werden im Rahmen der Dokumentation des Teilsystems Service Gateway beschrieben.
+Services, die externen Nutzern zur Verfügung gestellt werden, werden im Rahmen der Dokumentation des Teilsystems Service-Gateway beschrieben.
 Die eigentliche Servicedokumentation für externe Nutzer ist dabei dann ein eigenes Dokument._
 
 *_Rückbezug Systemspezifikation_*

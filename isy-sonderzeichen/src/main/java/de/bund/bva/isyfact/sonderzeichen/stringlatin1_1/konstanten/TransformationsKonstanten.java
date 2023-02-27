@@ -19,7 +19,10 @@ package de.bund.bva.isyfact.sonderzeichen.stringlatin1_1.konstanten;
 /**
  * This class contains constants for the resources of the respective transformation table.
  *
+ * @deprecated This class is deprecated and will be removed in a future release.
+ * It is recommended to use {@link de.bund.bva.isyfact.sonderzeichen.dinspec91379} instead.
  */
+@Deprecated
 public class TransformationsKonstanten {
 
     /** The string that describes the characters to remove */

@@ -1,0 +1,7 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          # Spring Security requires jwk-set-uri to be set to handle the JWT, but the URL itself is currently not used
+          jwk-set-uri: http://localhost:11413/auth/realms/portal/protocol/openid-connect/certs
