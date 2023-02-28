@@ -60,11 +60,3 @@ Folgende Punkte sind bewusst nicht Teil dieses Konzeptes:
   Es werden keine Vorgaben zur Verwendung eines bestimmten Systems gemacht.
 
 // end::inhalt[]
-
-// tag::architekturregel[]
-
-// end::architekturregel[]
-
-// tag::sicherheit[]
-
-// end::sicherheit[]

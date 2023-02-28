@@ -397,11 +397,3 @@ Des Weiteren müssen sich auch Anwendungen an diese Vorgabe halten, um die Testu
 Insbesondere sind Aufrufe von `System.currentTimeMillis()` sowie der Varianten von `now()` auf Typen der Datums- und
 Zeittypen ohne Verwendung einer `Clock` bei Nutzung dieses Bausteins verboten!
 // end::inhalt[]
-
-// tag::architekturregel[]
-
-// end::architekturregel[]
-
-// tag::sicherheit[]
-
-// end::sicherheit[]
