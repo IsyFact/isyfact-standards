@@ -58,7 +58,7 @@ Ein (menschlicher) Endbenutzer kann mit Hilfe eines Autorisierungsservers (IAM-S
 Der Endbenutzer kann so der Anwendung gestatten, in seinem Namen einen Service zu benutzen.
 Dazu wird der Endbenutzer auf eine Login-Seite des Autorisierungsservers (IAM-Service) umgeleitet und nach erfolgreicher Authentifizierung zurück in die Anwendung.
 Dabei wird die Übermittlung von vertraulichen Daten wie z.B. Passwörtern an die Anwendung vermieden.
-Bei M2M-Kommunikation enthält die Konfiguration der Anwendung die zur Authentifizierung notwendigen Daten des dafür verwendeten technischen Nutzers (Client, die direkt an den IAM-Service geschickt werden.
+Bei M2M-Kommunikation (Machine to Machine) enthält die Konfiguration der Anwendung die zur Authentifizierung notwendigen Daten des dafür verwendeten technischen Nutzers (Client, die direkt an den IAM-Service geschickt werden.
 Bei erfolgreicher Authentifizierung erhält die Anwendung ein Access-Token (Zugriffstoken), eine Art 'Freibrief' für die Anwendung, mit dem der IAM-Service das Zugangsrecht bestätigt.
 
 OpenID Connect oder OIDC ist ein offenes Identitätsprotokoll, das die Autorisierungs- und Authentifizierungsmechanismen von OAuth 2.0 nutzt und als Schicht oberhalb des OAuth-Frameworks Anwendungen ermöglicht, zusätzlich zur oben beschriebenen Autorisierung auch grundlegende Profilinformationen des Benutzers auf interoperable Weise zu erhalten.
@@ -67,7 +67,7 @@ Die Implementierung von OpenID Connect basiert auf der Ausstellung von ID-Tokens
 [[oauth2.0-zur-autorisierung]]
 === OAuth2.0 zur Autorisierung
 
-OAuth 2.0 ist ein Autorisierungsprotokoll, kein Authentifizierungsprotokoll.
+OAuth 2.0 ist ein Autorisierungsprotokoll und kein Authentifizierungsprotokoll.
 Als Solches ist es in erster Linie dafür vorgesehen, den Zugriff auf bestimmte Ressourcen zu ermöglichen, beispielsweise externe APIs oder Nutzerdaten. +
 OAuth 2.0 nutzt Access-Tokens.
 Access-Tokens sind Daten, die die Autorisierung zum Zugriff auf Ressourcen für den Endnutzer darstellen.
@@ -138,7 +138,7 @@ Die Spezifikationen sind erweiterbar und ermöglichen es den Teilnehmern, option
 
 Wie der Server den Benutzer authentifiziert, ist nicht spezifiziert und liegt in der Entscheidung des OpenID Providers.
 
-OpenID Connect steht aktuell zur Verfügung.
+Der Authorization Server/IAM-Service stellt die OpenID Connect API zur Verfügung.
 Somit können ID-Tokens mit nutzerspezifische Daten ausgestellt werden.
 Außerdem kann der `UserInfo` Endpunkt mit einem gültigen Access-Token genutzt werden, um an nutzerspezifische Daten des Nutzers, für den das Access-Token ausgestellt wurde, zu gelangen.
 
