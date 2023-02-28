@@ -125,38 +125,27 @@ Wir übernehmen für die IsyFact die englische Bezeichnung "Refresh-Token".
 
 [[openidconnect-zur-authentifizierung]]
 === OpenIDConnect zur Authentifizierung
-OpenID Connect ist eine Identitätsschicht über dem OAuth 2.0-Protokoll und dient als Erweiterung und nicht als Teil vom OAuth2.0-Protokoll.
+OpenID Connect ist eine Identitätsschicht über dem OAuth 2.0-Protokoll und ist eine Erweiterung und nicht Teil des OAuth2.0-Protokolls.
 Es ermöglicht Clients, die Identität des Endbenutzers basierend auf der von einem Autorisierungsserver durchgeführten Authentifizierung zu überprüfen und grundlegende Profilinformationen über den Endbenutzer auf interoperable und REST-ähnliche Weise zu erhalten.
 
 OpenID Connect ermöglicht es Clients aller Art, einschließlich webbasierter, mobiler und JavaScript-Clients, Informationen über authentifizierte Sitzungen und Endbenutzer anzufordern und zu erhalten.
 
-Ein OAuth-Client kann die OpenID-Erweiterung anfordern, indem er einfach den Scope-Wert `openid` zu einer Autorisierungsanfrage hinzufügt.
-Informationen über die Identität des Benutzers und die durchgeführte Authentifizierung werden in einem zusätzlichen (OpenID-spezifischen) Token, dem sogenannten ID-Token, an den Client zurückgegeben.
-Und dieses Token wiederum ist auf die Authentifizierung bei diesem Client eingeschränkt.
-Ein anderer Client darf das betreffende ID-Token nicht akzeptieren.
-
-Zusätzlich wird eine weitere OAuth-geschützte API für den Zugriff auf Benutzerdaten, der `UserInfo` Endpunkt, eingeführt.
-Dieser kann mit einem gültigen Access-Token abgefragt werden, um an Identitätsdaten des Benutzers zu gelangen.
+Im Falle einer Nutzeranmeldung (Authentifizierung) entsteht eine Authentifizierungsanfrage auf der Basis des OAuth-Grant-Type-Autorisierungscode.
+Diese Anfrage leitet den Browser des Benutzers mittels HTTP Weiterleitung um und sendet eine Authentifizierungsanfrage an den Autorisierungsserver.
+Ein OAuth-Client kann die OpenID-Erweiterung aufrufen, indem er einfach den Scope-Wert `openid` zu einer Autorisierungsanfrage hinzufügt.
 
 Die Spezifikationen sind erweiterbar und ermöglichen es den Teilnehmern, optionale Funktionen wie die Verschlüsselung von Identitätsdaten, die Erkennung von OpenID-Anbietern und die Abmeldung zu verwenden, wenn dies für sie sinnvoll ist.
 
-Im Falle einer Nutzeranmeldung (Authentifizierung) entsteht eine Authentifizierungsanfrage auf der Basis des OAuth-Grant-Type-Autorisierungscode.
-Diese Anfrage leitet den Browser des Benutzers mittels HTTP Weiterleitung um und sendet eine Authentifizierungsanfrage an den Autorisierungsserver.
-Der einzige Unterschied zu einer "gewöhnlichen" OAuth-Autorisierungsanfrage ist der Scope-Wert `openid`.
-Dieser signalisiert dem Server, dass der Client Identitätsdaten des Benutzers abfragen möchte, und aktiviert damit dessen OpenID-Connect Funktionalität.
 Wie der Server den Benutzer authentifiziert, ist nicht spezifiziert und liegt in der Entscheidung des OpenID Providers.
 
-OpenID Connect ist aktuell aktiviert und steht zur Verfügung.
+OpenID Connect steht aktuell zur Verfügung.
 Somit können ID-Tokens mit nutzerspezifische Daten ausgestellt werden.
 Außerdem kann der `UserInfo` Endpunkt mit einem gültigen Access-Token genutzt werden, um an nutzerspezifische Daten des Nutzers, für den das Access-Token ausgestellt wurde, zu gelangen.
 
-Der Baustein `Security` wertet keine ID-Tokens aus.
-Für die Verwendung von ID-Tokens entsteht hierbei kein Mehrwert.
+OpenID Connect Abfragen zur Identität eines Benutzers, OpenID-Token oder Custom-Token müssen in der Anwendung implementiert werden.
+Der Baustein `Security` stellt hierfür keine Methoden bereit.
 Hintergrund ist, dass Informationen zum Nutzer innerhalb des Access-Tokens geschrieben werden.
-Somit können nutzerspezifische Daten direkt aus dem Access-Token ausgelesen werden.
-Die zusätzliche Verwendung von ID-Tokens ist jederzeit möglich, erfordert aber eine zusätzliche Implementierung innerhalb der Anwendung.
-
-Der `UserInfo` Endpunkt ist weiterhin abfragbar.
+Momentan befinden sich die Applikationen in einer geschützten Umgebung und nicht in einem Third-Party Szenario und deshalb können persönliche, schützenswerte Informationen über den Benutzer auch in den Access Token geschrieben werden.
 
 [[authentifizierung-und-autorisierung]]
 === Authentifizierung & Autorisierung
