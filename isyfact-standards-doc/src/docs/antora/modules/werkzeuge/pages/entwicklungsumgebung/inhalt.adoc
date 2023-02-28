@@ -221,7 +221,7 @@ Als Nächstes benötigt Ihre Entwicklungsumgebung ein JDK, Git, Maven und eine E
 
 ===	JDK
 
-Folgen sie den Installationsanweisungen, die im xref:einstieg:produktkatalog/produktvorgabenAllgemein.adoc[Produktkatalog beim Java JDK] verlinkt sind.
+Folgen Sie den Installationsanweisungen, die im xref:einstieg:produktkatalog/produktvorgabenAllgemein.adoc[Produktkatalog beim Java JDK] verlinkt sind.
 
 Fügen sie in der Datei `.bashrc` die Umgebungsvariable `JAVA_HOME` hinzu bzw. passen Sie diese auf das Installationsverzeichnis des JDK an. Unter Ubuntu/Debian ist dies in der Regel /usr/lib/jvm/temurin-17-jdk-amd64, also
 
