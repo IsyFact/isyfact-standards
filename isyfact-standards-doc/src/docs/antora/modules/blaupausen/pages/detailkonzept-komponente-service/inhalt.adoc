@@ -77,7 +77,7 @@ In der Regel geschieht dies über Schlüssel-Wert-Paare (_key-value pairs_), z.B
 
 // tag::architekturregel[]
 
-.icon:university[title="Architekturregel"] Benennung von Metadaten
+.icon:university[title=Architekturregel] Benennung von Metadaten
 ****
 Metadaten sind, egal über welches Protokoll sie übertragen werden, *einheitlich benannt*.
 Gibt es eine durch einen Standard vorgegebene Benennung, ist diese zu verwenden.
@@ -194,7 +194,7 @@ Aus Gründen der Rückwärtskompatibilität soll aber weiterhin die Version 1.0 
 Dazu wird ein neuer Service innerhalb der Service-Schicht implementiert, der die Meldung entgegennimmt, das fehlende Attribut mit dem Wert „unbekannt“ ergänzt und dann den Anwendungskern aufruft.
 
 Werden die beiden Services durch ein Service-Gateway nach außen verfügbar gemacht, existieren dort zwei parallele Mappings auf die jeweiligen Services des IT-Systems.
-Innerhalb des Service Gateways existiert keine Geschäftslogik, d.h. die Abbildung von Version 1.0 auf 1.1 findet erst im IT-System statt.
+Innerhalb des Service-Gateways existiert keine Geschäftslogik, d.h. die Abbildung von Version 1.0 auf 1.1 findet erst im IT-System statt.
 
 [[komplexerer-fall-inkompatible-veraenderung-eines-services]]
 === Komplexerer Fall: Inkompatible Veränderung eines Services

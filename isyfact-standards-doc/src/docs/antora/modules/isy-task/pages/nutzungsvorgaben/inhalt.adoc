@@ -89,8 +89,8 @@ public class HalloWeltTask extends AbstractTask {
 }
 ----
 
-Der Task muss als Nächstes über Properties in `application.properties` konfiguriert.
-Im folgenden Listing sehen Sie die Konfiguration für den `HalloWeltTask`.
+Der Task muss als Nächstes über Properties in `application.properties` konfiguriert werden.
+Das folgende Listing zeigt die Konfiguration für den `HalloWeltTask`.
 
 [source,properties]
 ----
@@ -134,7 +134,7 @@ Wird kein Autostart konfiguriert, kann alternativ der `TaskScheduler` über die 
 taskScheduler.starteKonfigurierteTasks();
 ----
 
-In diesem Fall muss der `TaskManager` auch manuell gestoppt werden, wenn die Geschäftsanwendung herunterfährt.
+In diesem Fall muss der `TaskScheduler` auch manuell gestoppt werden, wenn die Geschäftsanwendung herunterfährt.
 Hierfür wird die Methode `shutdownMitTimeout()` aufgerufen, um die Tasks ordentlich zu beenden.
 
 [source, java]
@@ -180,7 +180,7 @@ isy.task.tasks.konfigurationUpdateTask.fixed-delay=60s
 [[programmatisches-anlegen-von-aufgaben]]
 == Programmatisches Anlegen von Aufgaben
 
-Eine weitere Möglichkeit, wie `isy-task` auf einfacher Weise verwendet werden kann, bietet die Möglichkeit des programmatischen Anlegens von Aufgaben.
+Eine weitere Möglichkeit, wie `isy-task` auf einfache Weise verwendet werden kann, ist das programmatische Anlegen von Aufgaben.
 Hierbei wird die Aufgabe nicht über eine Konfigurationsdatei geplant, sondern programmatisch.
 
 Für die programmatische Variante erstellen Sie eine `TaskKonfiguration`.

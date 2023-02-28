@@ -46,7 +46,7 @@ spring.jpa.properties.hibernate.transaction.coordinator_class=jdbc
 
 Als Datasource-Implementierung muss die Implementierung aus `de.bund.bva.isyfact.persistence.datasource.IsyDataSource` genutzt werden.
 Bei der Verwendung von `isy-persistence` wird automatisch eine Bean mit dem Namen `appDataSource` erzeugt.
-Diese prüft die Version des Datenbankschemas (siehe Abschnitt <<pruefen-der-schema-version>>) und dient als Wrapper für die wirkliche Datasource des Connections-Pools, dessen Konfiguration im nächsten Abschnitt erläutert wird.
+Diese prüft die Version des Datenbankschemas (siehe Abschnitt xref:nutzungsvorgaben/versionierung.adoc#pruefen-der-schemaversion[Prüfen der Schema-Version]) und dient als Wrapper für die wirkliche Datasource des Connections-Pools, dessen Konfiguration im nächsten Abschnitt erläutert wird.
 
 [[standardmaessig-lazy-loading-verwenden]]
 === Standardmäßig Lazy Loading verwenden
@@ -84,7 +84,8 @@ Ist dies der Fall, wird eine Ausnahme geworfen.
 
 Dieser Vorgehensweise liegt die Annahme zugrunde, dass konkurrierende schreibende Zugriffe in einer Geschäftsanwendung nicht oder höchstens in Ausnahmefällen vorkommen.
 Sollte dies nicht zutreffen, muss explizites Locking verwendet werden (vgl.
-Abschnitt <<bei-bedarf-explizites-locking-verwenden>>). In der Anwendung ist keine explizite Fehlerbehandlung (etwa durch das Mergen der Daten) zu implementieren.
+Abschnitt xref:konzept/vorgaben-konventionen.adoc#explizites-locking[Explizites Locking]).
+In der Anwendung ist keine explizite Fehlerbehandlung (etwa durch das Mergen der Daten) zu implementieren.
 Die geworfene Ausnahme ist (gewrappt) an den Aufrufer weiterzugeben.
 
 Um zu erkennen, ob sich das Objekt in der Datenbank verändert hat, empfiehlt Hibernate die Verwendung eines numerischen Versions-Felds in jeder Datenbank-Tabelle.

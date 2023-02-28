@@ -1,7 +1,0 @@
-// tag::architekturregeln[]
-
-[[architekturregeln-fehlerbehandlung]]
-== Architekturregeln Fehlerbehandlung
-
-include::inhalt.adoc[tags=architekturregel]
-// end::architekturregeln[]

@@ -1,8 +1,0 @@
-// tag::architekturregeln[]
-
-[[architekturregeln-polling]]
-== Architekturregeln Polling
-
-include::inhalt.adoc[tags=architekturregel]
-include::../konzept/inhalt.adoc[tags=architekturregel]
-// end::architekturregeln[]

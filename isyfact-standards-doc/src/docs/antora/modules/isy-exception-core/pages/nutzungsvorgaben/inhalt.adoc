@@ -128,7 +128,7 @@ Beispiel für eine technische Runtime-Exception Hierarchie:
 [id="image-008",reftext="{figure-caption} {counter:figures}"]
 image::isy-exception-core:nutzungsvorgaben/fehlerbehandlung008.png[align="center",width=65%]
 
-Die <<image-008>> zeigt die technische Runtime-Exception `KonfigurationException`.
+Die <<image-008>> zeigt die technische Runtime-Exception `FehlerhafteKonfigurationException`.
 Diese Exception könnte dafür verwendet werden, um bei einem Konfigurationsfehler z.B. "Konfigurationsparameter nicht gesetzt" geworfen zu werden.
 Die Exception ist eine `RuntimeException`, da ein solcher Fehler nicht behandelbar wäre.
 Um nun eine solche Klasse zu erstellen, muss zuvor nach obigem Schema (siehe <<image-006>>) die entsprechende Oberklasse erstellt worden sein.

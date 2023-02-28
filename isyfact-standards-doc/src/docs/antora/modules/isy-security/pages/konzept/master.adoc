@@ -1,4 +1,4 @@
-= Konzept Sicherheit
+= Konzept Security
 
 include::glossary:licence:partial$licence.adoc[]
 

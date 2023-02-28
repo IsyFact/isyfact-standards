@@ -24,7 +24,7 @@ Es enthält nur solche Informationen, welche die eigentliche Software betreffen,
 
 In diesem Dokument werden alle IT-Systeme einer Anwendung gemeinsam beschrieben.
 Die Abgrenzung, welche IT-Systeme zusammen beschrieben werden, ist ggf. im Einzelfall abzuwägen.
-Typischerweise werden eine Geschäftsanwendung und ein zugehöriges Service Gateway gemeinsam beschrieben, aber z.B. nicht zwei Geschäftsanwendungen die zu unterschiedlichen Fachverfahren gehören, auch wenn Sie sich gegenseitig aufrufen.
+Typischerweise werden eine Geschäftsanwendung und ein zugehöriges Service-Gateway gemeinsam beschrieben, aber z.B. nicht zwei Geschäftsanwendungen die zu unterschiedlichen Fachverfahren gehören, auch wenn Sie sich gegenseitig aufrufen.
 Ein wichtiges Kriterium für die Auswahl der IT-Systeme ist deren Entwicklungszyklus.
 IT-Systeme, die immer gemeinsam weiterentwickelt werden, können gut in einem gemeinsamen Dokument beschrieben werden.
 Querschnittsanwendungen werden in eigenen Dokumenten beschrieben.
@@ -55,7 +55,7 @@ Die Vorlage verwendet für zentrale Begriffe Dokumentattribute, damit diese an z
 |{anwendung-ga}
 
 |anwendung-sgw
-|Fachlicher Name des Service Gateways
+|Fachlicher Name des Service-Gateways
 |{anwendung-sgw}
 
 |anwendung-batch
@@ -67,7 +67,7 @@ Die Vorlage verwendet für zentrale Begriffe Dokumentattribute, damit diese an z
 |`{it-system-ga}`
 
 |it-system-sgw
-|Technischer Name des Service Gateways
+|Technischer Name des Service-Gateways
 |`{it-system-sgw}`
 
 |it-system-batch

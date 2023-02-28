@@ -1,0 +1,16 @@
+= IsyFact Architekturregeln
+
+include::glossary:licence:partial$licence.adoc[]
+
+[[einleitung]]
+== Einleitung
+
+Dieses Dokument gibt einen Überblick über alle in der IsyFact verwendeten Architekturregeln.
+
+[[architekturregeln]]
+== Architekturregeln
+
+//Der Rest des Dokuments wird automatisch generiert.
+//Der Dateiname darf nicht geändert werden!!
+
+
