@@ -5,14 +5,10 @@
 
 // tag::release-3.0.0[]
 - `IFS-2271`: Verweis auf Produktkatalog für JDK und Installationsanweisungen zur Vermeidung von Redundanzen
+- `IFS-1548`: Anleitung zum Formatieren und Einrichten des Checkstyle Plugins angepasst
 // end::release-3.0.0[]
 
 
-*Änderungen IsyFact 2.5.0*
-
-// tag::release-2.5.0[]
-- `IFS-1548`: Anleitung zum Formatieren und Einrichten des Checkstyle Plugins angepasst
-// end::release-2.5.0[]
 
 // *Änderungen IsyFact 2.4.0*
 
