@@ -17,6 +17,7 @@
 ** Selenium 4.x (empfohlen)
 ** Liquibase 4.x
 ** JDK Temurin 17 mit Java-Language 8
+** Linux 64 bit mit Kernel >= 14.12
 
 * Zeilen zu slf4j konsolidiert.
 * Kategorie für Logging-Produkte zu "Logging" geändert.
@@ -26,6 +27,7 @@
 ** Oracle UCP
 ** Oracle Database
 ** Oracle JDK
+** Suse Enterprise Linux (SLES)
 
 
 * Produkt aus IsyFact-Erweiterungen umgezogen:
