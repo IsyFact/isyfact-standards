@@ -1199,11 +1199,3 @@ Konfiguration besteht aus zwei Teilen:
 * Anbinden der Service-Statistik-Beans an die Service-Beans durch einen AOP-Advice.
 Dieser Advice wird so konfiguriert, dass bei jedem Aufruf einer Methode der Service-Bean die Statistik-Bean aufgerufen wird.
 // end::inhalt[]
-
-// tag::architekturregel[]
-
-// end::architekturregel[]
-
-// tag::sicherheit[]
-
-// end::sicherheit[]

@@ -351,14 +351,4 @@ Somit ist sichergestellt, dass beim Ablösen von alten Geschäftsanwendungen auc
 Genauso funktioniert auch das Freischalten einer neuen Geschäftsanwendung für einen zunächst kleinen Kreis von Anwendern.
 In beiden Fällen muss zur eigentlichen Inbetriebnahme, anstatt einer aufwändigen Migration, nur ein Schalter in der betrieblichen Konfiguration umgelegt werden.
 
-
-
-// tag::architekturregel[]
-
-// end::architekturregel[]
-
-// tag::sicherheit[]
-
-// end::sicherheit[]
-
 // end::inhalt[]
