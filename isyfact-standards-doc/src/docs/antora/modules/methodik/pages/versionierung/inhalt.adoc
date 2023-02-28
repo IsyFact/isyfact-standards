@@ -49,14 +49,11 @@ Wenn eine Buildnummer angegeben wird, muss ein Verweis auf den Build-Server mita
 Die genaue Semantik der Elemente und die Bedeutung der Erhöhung einer Stelle unterscheiden sich aber bei Bibliotheken, Anwendungen und Schnittstellen voneinander.
 Daher zeigen die kommenden Abschnitte die genauen Vorgaben pro Typ auf und liefern Beispiele.
 
-// tag::important[]
 [IMPORTANT]
 ====
 Eine Aktualisierung auf eine *MAJOR*-Version führt mit sehr hoher Wahrscheinlichkeit zu inkompatiblen Schnittstellen-Versionen.
 Wie zum Beispiel von IsyFact 1.x auf IsyFact 2.0.
 ====
-
-// end::important[]
 
 [[versionierung-von-anwendungen]]
 == Versionierung von Anwendungen

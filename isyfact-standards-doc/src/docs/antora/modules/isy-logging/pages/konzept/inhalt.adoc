@@ -552,11 +552,3 @@ Logstash stellt neben der Lognachricht, die folgenden Informationen bereit:
 |level |Log-Level analog zu analog zu Abschnitt <<kein-log-level-fatal-in-den-logs>> |Bspw.: `INFO`
 |====
 // end::inhalt[]
-
-// tag::architekturregel[]
-
-// end::architekturregel[]
-
-// tag::sicherheit[]
-
-// end::sicherheit[]

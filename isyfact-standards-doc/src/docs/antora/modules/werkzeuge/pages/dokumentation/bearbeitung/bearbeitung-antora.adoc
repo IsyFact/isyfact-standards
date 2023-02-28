@@ -182,13 +182,10 @@ Stattdessen werden <<verweise-lokal>> empfohlen.
 In diesem Abschnitt werden Verweise auf Ziele außerhalb der Antora-Dokumentation beschrieben.
 I.d.R.handelt es sich um URLs von externen Webseiten, vereinzelt auch um konventionelle Bücher.
 
-// tag::important[]
 [IMPORTANT]
 ====
 Damit die externen Verweise leichter auf ihre Gültigkeit überprüft werden können, werden sie an zentraler Stelle gesammelt in `isy-documentation` in der Antora-Komponente `glossary`, Antora-Modul `literaturextern`.
 ====
-
-// end::important[]
 
 Dort sind alle Einträge mit einem Sprungziel (Anchor) versehen.
 In der Dokumentation müssen alle externen Verweise eines dieser Sprungziele referenzieren anstatt direkt die URL.
@@ -298,7 +295,7 @@ Sie bilden die Grundlage für eine zur IsyFact konforme Umsetzung von Anforderun
 
 .icon:cogs[] Anwendungsanforderung: Beispiel für Anwendungsanforderung
 ****
-Der Block ANWENDUNGSANFORDERUNG beschreibt Anforderungen, welche die IsyFact an die Entwicklung von IT-Systemen stellt.
+Der Block Anwendungsanforderung beschreibt Anforderungen, welche die IsyFact an die Entwicklung von IT-Systemen stellt.
 Die Anforderungen kommen typischerweise aus den Bereichen:
 
 * Struktur des Quellcodes oder der Quellcodeablage,
@@ -310,20 +307,20 @@ Sie bilden die Grundlage für eine einheitliche Umsetzung von Anforderungen, die
 
 .icon:university[title=Architekturregel] Architekturregel: Beispiel für Architekturregel
 ****
-Der Block ARCHITEKTURREGEL beschreibt Vorgaben und Regeln, welche die IsyFact an die Architektur von mit ihr entwickelten IT-Systemen stellt.
+Der Block Architekturregel beschreibt Vorgaben und Regeln, welche die IsyFact an die Architektur von mit ihr entwickelten IT-Systemen stellt.
 Die Vorgaben zielen somit vor allem auf eine korrekte Umsetzung der Referenzarchitektur ab und sind fast ausschließlich technischer Natur.
 Sie bilden die Grundlage für eine einheitliche softwaretechnische Architektur der IT-Systeme.
 ****
 
 .icon:shield[title=Sicherheit] Sicherheit: Beispiel für Sicherheitshinweis
 ****
-Der Block SICHERHEIT beschreibt Regeln, welche die IsyFact an die IT-Sicherheit von mit ihr entwickelten IT-Systemen stellt.
+Der Block Sicherheit beschreibt Regeln, welche die IsyFact an die IT-Sicherheit von mit ihr entwickelten IT-Systemen stellt.
 Die Regeln stellen vor allem eine, vom festgestellten Schutzbedarf abhängige, sichere Umsetzung der IT-Systeme sicher.
 ****
 
 .icon:paint-brush[] Styleguide: Beispiel für Styleguide
 ****
-Der Block STYLEGUIDE beschreibt Regeln, welche die IsyFact an die Gestaltung der grafischen Oberflächen stellt.
+Der Block Styleguide beschreibt Regeln, welche die IsyFact an die Gestaltung der grafischen Oberflächen stellt.
 Die Regeln kommen typischerweise aus den Bereichen:
 
 * Allgemeine Gestaltungsrichtlinien,
@@ -339,15 +336,12 @@ Die Regeln stellen vor allem sicher, dass grafische Oberflächen ein einheitlich
 Tags (bzw. _tagged regions_) werden zur Einbindung von Inhalten aus anderen Seiten verwendet.
 Somit können mit Tags versehene Teile einer Seite in anderen Seiten zusammengezogen oder wiederverwendet werden.
 
-// tag::important[]
 [IMPORTANT]
 ====
 Das in xref:werkzeuge:dokumentation/bearbeitung/bearbeitung-asciidoctorj.adoc#tag-documents[Auftrennung von Dokumenten mit Tags] beschriebene Vorgehen mit Inhalts-Tags (`tag::inhalt[]`) ist für Seiten nicht erlaubt.
 Seiten besitzen einen xref:werkzeuge:seitenvorlage.adoc#struktur-thema[engen, thematischen Fokus] und sind direkt über die xref:werkzeuge:dokumentation/erstellung/erstellung-antora.adoc#linksnavigation-antora[Linksnavigation] aufrufbar.
 Ein Verweis drückt den Zusammenhang zweier Seiten besser aus als das komplette Einfügen einer Seite in eine andere.
 ====
-
-// end::important[]
 
 Die Syntax von Tags zeigt das folgende <<listing-tag-syntax,Listing>>.
 Zu beachten ist, dass der korrekte Tag-Name gesetzt ist und der Inhalt innerhalb des Tags i.d.R. mit Leerzeilen abgesetzt ist.
@@ -366,62 +360,20 @@ Dieser Inhalt ist mit einem Tag versehen und von Leerzeilen umgeben.
 
 NOTE: Eine vollständige Übersicht über die Funktionsweise von Tags bietet die xref:glossary:literaturextern:inhalt.adoc#litextern-AsciiDocTaggedRegions[Dokumentation von AsciiDoc zu _tagged regions_].
 
-[[tag-admonition-blocks]]
-=== Admonition Blocks
-
-Folgende Admonition Blocks sind mit einem Tag zu kennzeichnen:
-
-* IMPORTANT (Tag-Name: `important`),
-* ANWENDUNGSANFORDERUNG (Tag-Name: `anwendungsanforderung`),
-* ARCHITEKTURREGEL (Tag-Name: `architekturregel`),
-* SICHERHEIT (Tag-Name: `sicherheit`),
-* STYLEGUIDE (Tag-Name: `styleguide`).
-
-Die Tags werden jeweils am Anfang und am Ende des Blocks gesetzt.
-
-[[listing-tags]]
-.Setzen des Tags am Beispiel einer Architekturregel
-[source,asciidoc]
-----
-// tag::architekturregel[]
-
-.icon:university[title=Architekturregel] Architekturregel: Titel der Architekturregel
-****
-Inhalt der Architekturregel.
-****
-
-// end::architekturregel[]
-----
-
-Damit lassen sich die Regeln oder Anforderungen aus der gesamten Dokumentation zusammenziehen und gebündelt bereitstellen, z.B. als Checklisten oder zur Grundlage automatischer Überprüfungen.
-
-[[listing-include-all-architecture-rules]]
-.Einbinden aller Architekturregeln aus einem Dokument
-[source,asciidoc]
-----
-\include::pfad-zum-dokument.adoc[tags=architekturregel]
-----
-
-[[tag-further-includes]]
-=== Weitere Einbettungen
-
-Neben Admonition Blocks kennzeichnet die IsyFact-Dokumentation noch weitere Bestandteile zum Bündeln oder Referenzieren:
+In der IsyFact-Dokumentation werden Tags genutzt, um Bestandteile zu Bündeln oder zu Referenzieren:
 
 * Namenskonventionen (Tag-Name: `namenskonvention`),
-* Definitionen (Tag-Name: `(begriff)-definition`).
+* Definitionen (Tag-Name: `(begriff)-definition`),
+* Whitepaper (Tag-Name: `whitepaper`),
+* Templates (Tag-Name: `template`),
+* Release-Differenzierung bei Changelogs (Tag-Name: `release-X.X.X`).
 
 [[bilder]]
 == Abbildungen
 
-// tag::important[]
 IMPORTANT: Abbildungen zu einer Seite werden stets im Unterordner `/images` unterhalb des Antora-Moduls abgelegt, in dem sich die Seite befindet, siehe auch xref:dokumentation/erstellung/erstellung-antora.adoc#struktur-dokuseite[Struktur Dokumentation].
 
-// end::important[]
-
-// tag::important[]
 IMPORTANT: Abbildungen sollten mit diagrams.net als <Name Abbildung>.dn.svg erstellt werden, siehe auch xref:methodik:diagrammerstellung/diagramsnet.adoc#arbeiten-mit-diagrams.net[Arbeiten mit diagrams.net].
-
-// end::important[]
 
 Diagramme, die mit dem xref:methodik:diagrammerstellung/enterprise-architect.adoc[Enterprise Architect] erstellt werden, oder Screenshots, dürfen auch weiterhin im PNG-Format eingebunden werden.
 
@@ -608,14 +560,11 @@ Die IsyFact Dokumentation beinhaltet auch ein Glossar.
 Es befindet sich im Repository `isy-documentation` in der xref:dokumentation/erstellung/erstellung-antora.adoc#antora-komponente[Antora-Komponente] `glossary`.
 In der HTML-Dokumentation ist es über die Liste der Antora-Komponenten aufrufbar.
 
-// tag::important[]
 [IMPORTANT]
 ====
 Neue Glossareinträge sollten alphabetisch einsortiert werden.
 Dadurch werden auch doppelte Einträge verhindert.
 ====
-
-// end::important[]
 
 Im Glossar sind alle Einträge mit einem Sprungziel (Anchor) versehen.
 Der Anchor beginnt immer mit dem Bezeichner `glossar-`.

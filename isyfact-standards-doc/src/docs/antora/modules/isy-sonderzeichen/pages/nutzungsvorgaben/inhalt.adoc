@@ -506,11 +506,3 @@ In der xref:nutzungsvorgaben/master.adoc#table-zusaetzliche-zeichen[Tabelle für
 Damit die Zeichen in der Spalte „Glyph“ korrekt dargestellt werden, muss ein Font installiert sein, der alle Zeichen unterstützt. (z.B. Code2000, erhältlich unter xref:glossary:literaturextern:inhalt.adoc#litextern-code2000[Code2000]).
 
 // end::inhalt[]
-
-// tag::architekturregel[]
-
-// end::architekturregel[]
-
-// tag::sicherheit[]
-
-// end::sicherheit[]

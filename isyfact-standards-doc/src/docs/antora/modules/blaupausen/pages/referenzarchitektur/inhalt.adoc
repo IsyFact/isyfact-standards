@@ -318,7 +318,6 @@ Häufig ist es sinnvoll, Service-Aufrufe nach Möglichkeit einzusparen.
 Das Sparen von Aufrufen kann jedoch auch Nachteile in Bezug auf Wartbarkeit bedeuten, wenn beispielsweise Redundanzen oder komplexe Caches implementiert werden müssen.
 Die Abwägung darüber muss während der Erstellung des Systementwurfs geschehen.
 
-// tag::architekturregel[]
 .icon:university[title=Architekturregel] Verwendung von HTTP für Service-Aufrufe
 ****
 Synchrone Service-Aufrufe finden über das Protokoll *HTTP* statt und werden sowohl zur internen als auch externen Servicekommunikation genutzt.
@@ -331,7 +330,6 @@ Header enthalten Metadaten.
 Der Body enthält Nutzdaten.
 Bei Anfragen mittels `GET` und `DELETE`, die keinen Body erwarten, enthalten URL-Parameter Nutzdaten.
 ****
-// end::architekturregel[]
 
 Allerdings gilt zu beachten, dass URLs (und damit auch die URL-Parameter) an vielen Stellen aufgezeichnet und in Logs geschrieben oder in Caches gehalten werden.
 Hierbei sind z.B. datenschutzrechtliche Aspekte zu prüfen, wenn URL-Parameter personenbezogene Daten enthalten.
@@ -972,14 +970,5 @@ Dies umfasst:
 
 Diese Vereinfachungen sind für ein Kleinverfahren nicht zwingend, sondern sie dienen dazu, das Verfahren in einem angemessenen Kosten-Nutzen-Verhältnis zu erstellen.
 Falls die Kosten-Nutzen-Betrachtung es erlaubt, kann auf die Vereinfachungen natürlich auch verzichtet werden.
-
-// tag::architekturregel[]
-
-// end::architekturregel[]
-
-
-// tag::sicherheit[]
-
-// end::sicherheit[]
 
 // end::inhalt[]
