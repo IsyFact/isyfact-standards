@@ -688,13 +688,4 @@ Technische checked Exceptions sind zu verwenden, um den Aufrufer zur Fehlerbehan
 Der Aufrufer muss den Fehler behandeln und nicht in eine technische unchecked Exception wrappen.
 In Einzelfällen mag dies notwendig sein, muss dann aber mit dem Chefarchitekt abgestimmt werden.
 
-
 // end::inhalt[]
-
-// tag::architekturregel[]
-
-// end::architekturregel[]
-
-// tag::sicherheit[]
-
-// end::sicherheit[]

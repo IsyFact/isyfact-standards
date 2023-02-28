@@ -446,11 +446,3 @@ Zu beachten ist, dass die Methode `interrupted()` den Statusflag immer zurückge
 Was man auch beachten sollte ist, dass die `sleep()` Methode ebenso dafür sorgt, dass der Status `interrupted` wieder zurückgesetzt wird.
 
 // end::inhalt[]
-
-// tag::architekturregel[]
-
-// end::architekturregel[]
-
-// tag::sicherheit[]
-
-// end::sicherheit[]

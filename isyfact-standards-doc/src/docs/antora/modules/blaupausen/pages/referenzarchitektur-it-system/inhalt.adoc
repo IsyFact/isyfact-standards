@@ -297,12 +297,4 @@ Neben der GUI, Services, Batch, Anwendungskern und Persistenzschicht benötigt e
 Diese querschnittlichen Funktionalitäten sind in jeweils eigenen Dokumenten beschrieben.
 Eine Übersicht dazu liefern die Beschreibungen der Bausteine der xref:einstieg:vorstellung/isyfact-standards.adoc#bausteine-der-isyfact-standards[IsyFact-Standard] sowie der xref:einstieg:vorstellung/isyfact-erweiterungen.adoc#bausteine-der-isyfact-erweiterungen[IsyFact-Erweiterungen].
 
-// tag::architekturregel[]
-
-// end::architekturregel[]
-
-
-// tag::sicherheit[]
-
-// end::sicherheit[]
 // end::inhalt[]

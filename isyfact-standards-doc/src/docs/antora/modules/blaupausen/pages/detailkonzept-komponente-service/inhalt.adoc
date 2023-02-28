@@ -75,15 +75,11 @@ Die Inhalte finden sich in den Dokumenten  xref:isy-serviceapi-core:konzept/mast
 In jeder Art von Servicekommunikation werden Metadaten übertragen.
 In der Regel geschieht dies über Schlüssel-Wert-Paare (_key-value pairs_), z.B. in HTTP-Headern oder JMS-Properties.
 
-// tag::architekturregel[]
-
 .icon:university[title=Architekturregel] Benennung von Metadaten
 ****
 Metadaten sind, egal über welches Protokoll sie übertragen werden, *einheitlich benannt*.
 Gibt es eine durch einen Standard vorgegebene Benennung, ist diese zu verwenden.
 ****
-
-// end::architekturregel[]
 
 Die <<standardisierte-metadaten,folgende Tabelle>> zeigt, welche Metadaten in der IsyFact standardisiert übertragen werden.
 
@@ -413,7 +409,3 @@ Andere Services wie z. B. eine Auskunft können während dieser Zeit regulär a
 Während der Meldungsservice deaktiviert ist, wird dem Aufrufer eine entsprechende Fehlermeldung zurückgesendet.
 Da die Anforderung besteht, auch andere Services vorübergehend deaktivieren zu können, werden generell alle Services deaktivierbar gemacht.
 // end::inhalt[]
-
-// tag::sicherheit[]
-
-// end::sicherheit[]
