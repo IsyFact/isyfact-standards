@@ -16,7 +16,7 @@
 * Neue Produkte:
 ** Selenium 4.x (empfohlen)
 ** Liquibase 4.x
-** JDK Temurin 17 mit Java-Language 8
+** JDK Temurin 17 mit Java-Language 8, 17 für Apps, 8 für Libraries
 ** Testcontainers 1.x
 
 * Zeilen zu slf4j konsolidiert.
