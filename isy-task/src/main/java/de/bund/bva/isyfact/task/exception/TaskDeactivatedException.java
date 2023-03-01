@@ -1,10 +1,9 @@
 package de.bund.bva.isyfact.task.exception;
 
 import de.bund.bva.isyfact.task.konstanten.Ereignisschluessel;
-import de.bund.bva.isyfact.task.konstanten.FehlerSchluessel;
 
 /**
- * This exception is thrown if ...
+ * This exception is thrown if the task is deactivated.
  */
 public class TaskDeactivatedException extends TaskException {
 

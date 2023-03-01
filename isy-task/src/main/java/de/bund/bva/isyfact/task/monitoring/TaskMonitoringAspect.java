@@ -17,28 +17,33 @@
 
 package de.bund.bva.isyfact.task.monitoring;
 
+import static de.bund.bva.isyfact.task.konstanten.HinweisSchluessel.VERWENDE_STANDARD_KONFIGURATION;
+
 import java.util.UUID;
 import java.util.function.Function;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
-import de.bund.bva.isyfact.task.exception.TaskDeactivatedException;
-import de.bund.bva.isyfact.task.konstanten.Ereignisschluessel;
-import de.bund.bva.isyfact.task.konstanten.FehlerSchluessel;
-import de.bund.bva.isyfact.task.konstanten.HinweisSchluessel;
-import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
-import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 
+import de.bund.bva.isyfact.task.config.IsyTaskConfigurationProperties;
+import de.bund.bva.isyfact.task.config.IsyTaskConfigurationProperties.TaskConfig;
+import de.bund.bva.isyfact.task.exception.TaskDeactivatedException;
+import de.bund.bva.isyfact.task.exception.TaskKonfigurationInvalidException;
+import de.bund.bva.isyfact.task.konstanten.Ereignisschluessel;
+import de.bund.bva.isyfact.task.sicherheit.Authenticator;
+import de.bund.bva.isyfact.task.sicherheit.AuthenticatorFactory;
+import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
 import de.bund.bva.isyfact.task.exception.HostNotApplicableException;
 import de.bund.bva.isyfact.task.konfiguration.HostHandler;
-import de.bund.bva.isyfact.task.konfiguration.TaskKonfiguration;
-import de.bund.bva.isyfact.task.konfiguration.TaskKonfigurationVerwalter;
 import de.bund.bva.isyfact.task.util.TaskCounterBuilder;
 import de.bund.bva.isyfact.task.util.TaskId;
 
@@ -49,34 +54,71 @@ import io.micrometer.core.instrument.MeterRegistry;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class TaskMonitoringAspect {
 
+    /** Isy Logger. **/
     private final IsyLogger logger = IsyLoggerFactory.getLogger(TaskMonitoringAspect.class);
 
+    /** MeterRegistry. **/
     private final MeterRegistry registry;
 
+    /** HostHandler. **/
     private final HostHandler hostHandler;
 
+    /** IsyConfigurationProperties. **/
+    private final IsyTaskConfigurationProperties isyTaskConfigurationProperties;
+
+    /** AuthenticatorFactory. **/
+    private final AuthenticatorFactory authenticatorFactory;
+
+    /** Get simple class name function. **/
     private final Function<Throwable, String> throwableClass = (ex) -> ex.getClass().getSimpleName();
 
-    private final TaskKonfigurationVerwalter konfigurationVerwalter;
-
-    public TaskMonitoringAspect(MeterRegistry registry, HostHandler hostHandler, TaskKonfigurationVerwalter konfigurationVerwalter) {
+    public TaskMonitoringAspect(MeterRegistry registry, HostHandler hostHandler, IsyTaskConfigurationProperties isyTaskConfigurationProperties,
+        AuthenticatorFactory authenticatorFactory) {
         this.registry = registry;
         this.hostHandler = hostHandler;
-        this.konfigurationVerwalter = konfigurationVerwalter;
+        this.isyTaskConfigurationProperties = isyTaskConfigurationProperties;
+        this.authenticatorFactory = authenticatorFactory;
     }
 
     @Around("@annotation(org.springframework.scheduling.annotation.Scheduled) || @annotation(de.bund.bva.isyfact.task.annotation.ManualTask)")
     public Object invokeAndMonitorTask(ProceedingJoinPoint pjp) throws Throwable {
         String taskId = TaskId.of(pjp);
-        TaskKonfiguration taskKonfiguration = konfigurationVerwalter.getTaskKonfiguration(taskId);
+
+        // make copy of
+        Authenticator authenticator = authenticatorFactory.getAuthenticator(taskId);
+        if (authenticator == null) {
+            throw new RuntimeException("Authenticator is null");
+        }
+        String host;
+        boolean isDeactivated;
+        TaskConfig taskConfig;
+
+        synchronized (this) {
+            taskConfig = isyTaskConfigurationProperties.getTasks().get(taskId);
+            if (taskConfig == null) {
+                throw new TaskKonfigurationInvalidException("Keine Taskkonfiguration vorhanden");
+            }
+            isDeactivated = taskConfig.isDeaktiviert();
+            host = taskConfig.getHost();
+            if (host == null) {
+                String nachricht = MessageSourceHolder.getMessage(VERWENDE_STANDARD_KONFIGURATION, "hostname");
+                logger.info(LogKategorie.JOURNAL, VERWENDE_STANDARD_KONFIGURATION, nachricht);
+                host = isyTaskConfigurationProperties.getDefault().getHost();
+            }
+            try {
+                Pattern.compile(host);
+            } catch (PatternSyntaxException pse) {
+                throw new TaskKonfigurationInvalidException(
+                    "Hostname ist keine gültige Regex");
+            }
+        }
 
         try {
             // Step 1: Set correlation ID.
             MdcHelper.pushKorrelationsId(UUID.randomUUID().toString());
 
             // Step 2: Check for deactivated task config
-            if (taskKonfiguration.isDeaktiviert()) {
-
+            if (isDeactivated) {
                 logger.debug(MessageSourceHolder.getMessage(Ereignisschluessel.TASK_DEAKTIVIERT, taskId));
                 recordFailure(pjp, TaskDeactivatedException.class.getSimpleName());
                 return null;
@@ -84,9 +126,9 @@ public class TaskMonitoringAspect {
 
             // Step 3: Check if we are on the right host.
             try {
-                if (!hostHandler.isHostApplicable(taskKonfiguration.getHostname())) {
+                if (!hostHandler.isHostApplicable(host)) {
                     // Simply return and do not execute the task.
-                    logger.info(LogKategorie.JOURNAL, "ISYTA14101", "Task {0} wird nicht ausgeführt: Hostname muss \"{1}\" entsprechen.", taskId, taskKonfiguration.getHostname());
+                    logger.info(LogKategorie.JOURNAL, "ISYTA14101", "Task {0} wird nicht ausgeführt: Hostname muss \"{1}\" entsprechen.", taskId, host);
                     recordFailure(pjp, HostNotApplicableException.class.getSimpleName());
                     return null;
                 }
@@ -98,7 +140,7 @@ public class TaskMonitoringAspect {
 
             // Step 4: Get authenticated.
             try {
-                taskKonfiguration.getAuthenticator().login();
+                authenticator.login();
             } catch (Exception e) {
                 logger.error("ISYTA14100", "Authentifizierung des Tasks {0} fehlgeschlagen. Task wird nicht ausgeführt.", e, taskId);
                 return null;
@@ -114,7 +156,7 @@ public class TaskMonitoringAspect {
                 throw ex;
             }
         } finally {
-            taskKonfiguration.getAuthenticator().logout();
+            authenticator.logout();
             MdcHelper.entferneKorrelationsId();
         }
     }
@@ -125,7 +167,8 @@ public class TaskMonitoringAspect {
             successCounter.increment();
         } catch (Exception e) {
             // do not rethrow!
-            // TODO: issue log statement!
+            logger.warn(Ereignisschluessel.METRIC_WARNUNG, "Could not increment successCounter");
+
         }
     }
 
@@ -135,7 +178,7 @@ public class TaskMonitoringAspect {
             failureCounter.increment();
         } catch (Exception e) {
             // do not rethrow!
-            // TODO: issue log statement!
+            logger.warn(Ereignisschluessel.METRIC_WARNUNG, "Could not increment failureCounter");
         }
     }
 

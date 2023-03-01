@@ -26,8 +26,9 @@ import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tag;
 import io.micrometer.core.instrument.Tags;
 
-public class TaskCounterBuilder {
+public final class TaskCounterBuilder {
 
+    /** Default tags. **/
     private static final Function<ProceedingJoinPoint, Iterable<Tag>> DEFAULT_TAGS;
 
     private TaskCounterBuilder() {

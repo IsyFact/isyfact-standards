@@ -1,9 +1,7 @@
 package de.bund.bva.isyfact.task;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
-import static org.junit.Assert.*;
 
-import de.bund.bva.isyfact.task.exception.TaskDeactivatedException;
 import de.bund.bva.isyfact.task.test.TestTaskRunAssertion;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,9 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import de.bund.bva.isyfact.sicherheit.common.exception.AutorisierungFehlgeschlagenException;
 import de.bund.bva.isyfact.task.test.config.TestConfig;
-import de.bund.bva.isyfact.task.util.TaskCounterBuilder;
 
-import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 
 @RunWith(SpringRunner.class)
@@ -24,6 +20,7 @@ import io.micrometer.core.instrument.MeterRegistry;
 @SpringBootTest(classes = { TestConfig.class }, webEnvironment = SpringBootTest.WebEnvironment.NONE, properties = {
     "isy.logging.anwendung.name=test", "isy.logging.anwendung.typ=test", "isy.logging.anwendung.version=test",
     "isy.task.authentication.enabled=true",
+    "spring.task.scheduling.pool.size=2",
     "isy.task.tasks.testTaskAuthenticationTasks-scheduledTaskSecured.host=.*",
     "isy.task.tasks.testTaskAuthenticationTasks-scheduledTaskSecured.benutzer=TestUser1",
     "isy.task.tasks.testTaskAuthenticationTasks-scheduledTaskSecured.passwort=TestPasswort1",
@@ -42,7 +39,7 @@ public class TestTaskAuthentication {
         String className = TestTaskAuthenticationTasks.class.getSimpleName();
         String annotatedMethodName = "scheduledTaskSecured";
 
-        SECONDS.sleep(1);
+        SECONDS.sleep(5);
 
         TestTaskRunAssertion.assertTaskSuccess(className, annotatedMethodName, registry,
             AutorisierungFehlgeschlagenException.class.getSimpleName());
@@ -53,7 +50,7 @@ public class TestTaskAuthentication {
         String className = TestTaskAuthenticationTasks.class.getSimpleName();
         String annotatedMethodName = "scheduledTaskSecuredInsufficientRights";
 
-        SECONDS.sleep(1);
+        SECONDS.sleep(5);
 
         TestTaskRunAssertion.assertTaskFailure(className, annotatedMethodName, registry,
             AutorisierungFehlgeschlagenException.class.getSimpleName());

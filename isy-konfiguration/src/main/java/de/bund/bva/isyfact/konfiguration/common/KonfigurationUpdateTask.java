@@ -6,12 +6,12 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 /**
- * Task zum Neuladen der Konfiguration. Siehe {@link ReloadableKonfiguration#checkAndUpdate()}.
+ * Task to reload the configuration. See {@link ReloadableKonfiguration#checkAndUpdate()}.
  */
 @Component
 public class KonfigurationUpdateTask {
 
-    /** Konfiguration, die mit dem Task überwacht werden soll. */
+    /** Configuration to be monitored with the task. */
     private final ReloadableKonfiguration konfiguration;
 
     public KonfigurationUpdateTask(ReloadableKonfiguration konfiguration) {

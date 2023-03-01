@@ -1,20 +1,18 @@
 package de.bund.bva.isyfact.task.autoconfigure;
 
-import io.micrometer.core.aop.TimedAspect;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontextFactory;
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.isyfact.sicherheit.Sicherheit;
 import de.bund.bva.isyfact.task.config.IsyTaskConfigurationProperties;
 import de.bund.bva.isyfact.task.konfiguration.HostHandler;
-import de.bund.bva.isyfact.task.konfiguration.TaskKonfigurationVerwalter;
 import de.bund.bva.isyfact.task.konfiguration.impl.LocalHostHandlerImpl;
 import de.bund.bva.isyfact.task.monitoring.TaskMonitoringAspect;
 import de.bund.bva.isyfact.task.sicherheit.AuthenticatorFactory;
@@ -22,6 +20,7 @@ import de.bund.bva.isyfact.task.sicherheit.impl.IsySicherheitAuthenticatorFactor
 import de.bund.bva.isyfact.task.sicherheit.impl.NoOpAuthenticatorFactory;
 
 import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.aop.TimedAspect;
 
 @Configuration
 @EnableConfigurationProperties
@@ -35,20 +34,15 @@ public class IsyTaskAutoConfiguration {
     }
 
     @Bean
-    public TaskKonfigurationVerwalter taskKonfigurationVerwalter(
-        IsyTaskConfigurationProperties configurationProperties, AuthenticatorFactory authenticatorFactory) {
-        return new TaskKonfigurationVerwalter(configurationProperties, authenticatorFactory);
-    }
-
-    @Bean
     @ConditionalOnMissingBean(HostHandler.class)
     public HostHandler localHostHandler() {
         return new LocalHostHandlerImpl();
     }
 
     @Bean
-    public TaskMonitoringAspect taskMonitoringAspect(MeterRegistry registry, HostHandler hostHandler, TaskKonfigurationVerwalter taskKonfigurationVerwalter) {
-        return new TaskMonitoringAspect(registry, hostHandler, taskKonfigurationVerwalter);
+    public TaskMonitoringAspect taskMonitoringAspect(MeterRegistry registry, HostHandler hostHandler, IsyTaskConfigurationProperties isyTaskConfigurationProperties,
+        AuthenticatorFactory authenticatorFactory) {
+        return new TaskMonitoringAspect(registry, hostHandler, isyTaskConfigurationProperties, authenticatorFactory);
     }
 
     @Bean
