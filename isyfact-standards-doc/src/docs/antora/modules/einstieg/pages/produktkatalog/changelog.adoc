@@ -16,6 +16,7 @@
 * Neue Produkte:
 ** Selenium 4.x (empfohlen)
 ** Liquibase 4.x
+** Testcontainers 1.x
 
 * Zeilen zu slf4j konsolidiert.
 * Kategorie für Logging-Produkte zu "Logging" geändert.
