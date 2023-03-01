@@ -13,3 +13,9 @@ spring:
             client-id: client-credentials-test-client
             client-secret: supersecretpassword
             authorization-grant-type: client_credentials
+isy:
+  logging:
+    anwendung:
+      name: Test
+      typ: Tet
+      version: 0.0.0

@@ -5,7 +5,10 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 public class Privilege {
 
     @JacksonXmlProperty(isAttribute = true, localName = "Id")
-    private String privilegeId;
+    private String id;
 
-    public String getPrivilegeId() {return this.privilegeId;}
+    public String getId() {
+        return id;
+    }
+
 }

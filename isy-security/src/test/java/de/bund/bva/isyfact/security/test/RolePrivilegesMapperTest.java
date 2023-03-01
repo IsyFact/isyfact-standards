@@ -1,10 +1,11 @@
 package de.bund.bva.isyfact.security.test;
 
-import de.bund.bva.isyfact.security.xmlparser.RolePrivilegeMapper;
+import java.util.Collections;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Collections;
+import de.bund.bva.isyfact.security.xmlparser.RolePrivilegeMapper;
 
 public class RolePrivilegesMapperTest {
 
@@ -12,7 +13,7 @@ public class RolePrivilegesMapperTest {
 
     @BeforeEach
     public void init() {
-        this.mapper = new RolePrivilegeMapper("sicherheit/rollenrechte.xml");
+        this.mapper = new RolePrivilegeMapper("/resources/sicherheit/rollenrechte.xml");
     }
 
     @Test

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ExampleRestController {
 
     @RequestMapping("/ping")
-    @Secured("SCOPE_test")
+    @Secured("PRIV_Recht_A")
     public boolean ping(Authentication authentication) {
         return true;
     }

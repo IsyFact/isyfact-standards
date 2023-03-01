@@ -1,27 +1,30 @@
 package de.bund.bva.isyfact.security.xmlparser;
 
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-
-import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.io.InputStream;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
-@Service
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+
+import de.bund.bva.isyfact.logging.IsyLogger;
+import de.bund.bva.isyfact.logging.IsyLoggerFactory;
+
 public class RolePrivilegeMapper {
 
-    private Logger log = LoggerFactory.getLogger(RolePrivilegeMapper.class);
-    private RolePrivileges rolePrivileges;
+    /** Logger. */
+    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(RolePrivilegeMapper.class);
+
+    private final RolePrivileges rolePrivileges;
 
     public RolePrivilegeMapper(String roleMappingXmlFilePath) {
-        this.rolePrivileges = getRolePrivileges(roleMappingXmlFilePath);
-
+        rolePrivileges = getRolePrivileges(roleMappingXmlFilePath);
     }
 
-    public List<String> getPrivilegesByRoles(List<String> roles) {
+    public List<String> getPrivilegesByRoles(Collection<String> roles) {
         return roles.stream()
                 .map(this::getPrivilegesByRole)
                 .flatMap(Collection::stream)
@@ -29,52 +32,49 @@ public class RolePrivilegeMapper {
     }
 
     public List<String> getAllPrivileges() {
-        return Arrays.stream(this.rolePrivileges.getPrivileges())
-                .map(Privilege::getPrivilegeId)
+        return rolePrivileges.getPrivileges().stream()
+                .map(Privilege::getId)
                 .collect(Collectors.toList());
     }
 
     public Map<String, List<String>> getRolePrivilegesMap() {
         Map<String, List<String>> result = new HashMap<>();
-        for (Role r : this.rolePrivileges.getRoles()) {
-            List<String> privilegesForRole = Arrays.stream(r.getPrivileges())
-                    .map(Privilege::getPrivilegeId)
+        for (Role r : rolePrivileges.getRoles()) {
+            List<String> privilegesForRole = r.getPrivileges().stream()
+                    .map(Privilege::getId)
                     .collect(Collectors.toList());
-            result.put(r.getRoleId(), privilegesForRole);
+            result.put(r.getId(), privilegesForRole);
         }
         return result;
     }
 
     public String getAnwendungsId() {
-        return this.rolePrivileges.getAppId();
+        return rolePrivileges.getAppId();
     }
 
     @Override
     public String toString() {
-        return "AnwendungsId:" + this.rolePrivileges.getAppId() + "\n" +
+        return "AnwendungsId:" + rolePrivileges.getAppId() + "\n" +
                 "RollenRechteMapping:" + getRolePrivilegesMap().toString();
     }
 
     private RolePrivileges getRolePrivileges(String roleMappingXmlFilePath) {
         XmlMapper mapper = new XmlMapper();
         try {
-            ClassLoader loader = this.getClass().getClassLoader();
-            File f = new File(Objects.requireNonNull(loader.getResource(roleMappingXmlFilePath)).getFile());
-            return mapper.readValue(f, RolePrivileges.class);
+            InputStream roleMappingFile = getClass().getResourceAsStream(roleMappingXmlFilePath);
+            return mapper.readValue(roleMappingFile, RolePrivileges.class);
         } catch (IOException e) {
-            log.error("Error loading XML file", e);
+            LOG.error(null, "Error loading XML file", e);
             return null;
         }
     }
 
     private List<String> getPrivilegesByRole(String userRole) {
-        Role[] roleArray = rolePrivileges.getRoles();
-        if (roleArray == null || roleArray.length == 0) return Collections.emptyList();
-        return Arrays.stream(roleArray)
-                .filter(role -> role.getRoleId().equals(userRole))
+        return rolePrivileges.getRoles().stream()
+                .filter(role -> role.getId().equals(userRole))
                 .map(Role::getPrivileges)
-                .flatMap(Arrays::stream)
-                .map(Privilege::getPrivilegeId)
+                .flatMap(Collection::stream)
+                .map(Privilege::getId)
                 .collect(Collectors.toList());
     }
 
