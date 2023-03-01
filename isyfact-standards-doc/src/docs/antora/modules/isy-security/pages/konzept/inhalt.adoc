@@ -288,46 +288,58 @@ Je nach verwendetem _Crendential_-Flow erfolgt mit den jeweiligen erhaltenen Cre
 Bei der Authentifizierung des Benutzers im IAM-Service werden alle Informationen zum Benutzer in die T-Komponente `SecurityContext` eingetragen und die Anfrage an das IAM-System ist damit abgeschlossen.
 Der so erhaltene `SecurityContext` beinhaltet damit alle notwendigen Informationen wie _AccessToken_, dem Nutzer zugeordnete Rollen, etc. für den Batch, dass dieser bei der Ausführung seiner Fachanwendungen sich entsprechend diesen gegenüber authentifizieren und autorisieren kann.
 
-Der Zugriff auf den _SecurityContext_ ist über Servicemethoden der T-Komponente Sicherheit gekapselt, so dass es für den Batch selbst völlig transparent bleibt, ob im Batchrahmen ein alter `AufrufKontext` oder ein neuer `SecurityContext` initialisiert wurde.
+Der Zugriff auf den _SecurityContext_ ist über Servicemethoden der T-Komponente _isy-security_ gekapselt, so dass es für den Batch selbst völlig transparent bleibt, ob im Batchrahmen ein alter `AufrufKontext` oder ein neuer `SecurityContext` initialisiert wurde.
 
 Um sicher zu stellen, dass ein Batch über seine gesamte Laufzeit ein gültiges _AccessToken_ besitzt und sich jederzeit an den Fachanwendungen authentifizieren und autorisieren kann, muss im _Batchrahmen_ eine Überprüfung des _AccessTokens_ erfolgen.
 Das bedeutet die _Batchrahmen_-Implementierung verfügt mit _IsyFakt-3_ innerhalb der Satz-Verarbeitungsschleife über einen Validierungsmechanismus, der bei jedem Durchlauf einer Datensatz-Verarbeitung vor den eigentlichen Aufrufen der Fachanwendungslogik die Gültigkeitsdauer des _AccessTokens_ überprüft.
 Diese Prüfung verifiziert, dass die `Expiration_Time` des _AccessTokens_ noch eine vorgegebene Mindestgültigkeitsdauer aufweist, die über die Batch-Konfiguration vorgegeben werden kann.
-Sollte die Gültigkeitsdauer des _AccessTokens_ kleiner sein als die vorgegebene Mindestgültigkeitsdauer, dann aktualisiert der _Batchrahmen_ das _AccessToken_, indem er eine erneute Authentifizierung und Autorisierung, analog der zu Beginn in der `runBatch`-Methode, durchführt.
+Sollte die Gültigkeitsdauer des _AccessTokens_ kleiner sein als die vorgegebene bzw. konfigurierbare Mindestgültigkeitsdauer, dann aktualisiert der _Batchrahmen_ das _AccessToken_, indem er eine erneute Authentifizierung und Autorisierung, analog der zu Beginn in der `runBatch`-Methode, durchführt.
 
 Das so erneuerte _AccessToken_ kann nun wieder für ein oder mehrere Verarbeitungszyklen verwendet werden, ohne dass es in den evtl. kaskadierend aufgerufenen Fachanwendungen zu einem Fehler mangels gültigem _AccessTokens_ kommen kann.
 
-Falls vor oder nach der Satz-Verarbeitungsschleife eine Datenverarbeitung stattfindet sollte, die evtl. längere Zeit in Anspruch nimmt, dann ist im _Batchrahmen_ auch hierfür eine Möglichkeit der Überprüfung der Token-Gültigkeitsdauer mit ggf. der Anforderung für ein neues _AccessToken_ im Batch-Rahmen vorhanden.
+Falls vor oder nach der Satz-Verarbeitungsschleife eine Datenverarbeitung stattfinden, die evtl. längere Zeit in Anspruch nimmt, dann ist im _Batchrahmen_ auch hierfür eine Möglichkeit der Überprüfung der Token-Gültigkeitsdauer mit ggf. der Anforderung für ein neues _AccessToken_ im Batch-Rahmen vorhanden.
 
 
 
 [[absicherung-task]]
-===== Absicherung von Tasks
+===== Absicherung von Aufgaben (Tasks)
 
-Mit Einführung des neuen Sicherheitsbausteins `isy-security` werden beide Credentialflows _Client-Credential_ und _Resource-Owner-Password-Credential_ unterstützt.
-Das bedeutet, dass die für die Task-Authentifizierung verwendete Parametrisierung per KonfigurationsKey einerseits wie bisher als _NatürlicherNutzer_ zu `Benutzer` und `Passwort` und andererseits neu als _TechnischerNutzer_ zu `Client-ID` und `Client-Secret` aufgelöst werden kann.
+Die in diesem Kapitel beschriebene Absicherung von _Aufgaben_ unterscheiden sich gegenüber eigenständigen _Batch_-Anwendungen dahingehend, dass _Aufgaben_ als integrierter Anteil einer eigentlichen Anwendung definiert sind.
+Sie besitzen in der Regel einen kleineren Umfang als _Batches_ und werden nicht manuell von außen gesteuert.
+Stattdessen werden sie durch die Anwendung selbst konfiguriert, zeitlich geplant und selbstständig ausgeführt.
+Daher müssen _Aufgaben_, als Teil einer Komponente des Anwendungskerns, über andere Mechanismen abgesichert werden.
+
+Mit Einführung des neuen Sicherheitsbausteins `isy-security` werden auch für die Absicherung von _Aufgaben_ beide Credentialflows <<client-credential-flow>> und <<resource-owner-password-credential-flow>> unterstützt.
+Das bedeutet, dass die für die _Aufgaben_-Authentifizierung verwendete Parametrisierung per KonfigurationsKey einerseits wie bisher als _NatürlicherNutzer_ zu `Benutzer` und `Passwort` und andererseits neu als _TechnischerNutzer_ zu `Client-ID` und `Client-Secret` aufgelöst werden kann.
 Mittels der beiden verschiedenen Sets an KonfigurationKeys erfolgt so die Unterscheidung welcher Credential-Flow im Sicherheitsbaustein durchlaufen wird.
-Mit IsyFact-3 soll bevorzugt der _ClientCredential_-Flow und den Properties `Client-ID` und `Client-Secret` verwendet werden, da der _Resource-Owner-Password-Credential_-Flow und den Properties `Benutzer` und `Passwort` mit _SpringSecurity OAuth2.1_ aus der Spezifikation herausgenommen ist.
-Zur Unterstützung einer weichen Migration wird mit IsyFact-3 der Credential-Flow mit `Benutzer` und `Passwort` weiterhin möglich sein, da zum Wechseln des Credential-Flows auch erst eine Migration des _NatürlichenNutzers_ auf einen _TechnischenNutzer_ im IAM abgeschlossen sein muss.
 
- 
-Detail-Beschreibung:
-In der isy-task-Bibliothek existieren bisher zwei verschiedene Implementierungen des AuthenticatorFactory-Interfaces, die bei der Verwendung von IsyTaskAutoConfiguration und mit der Annotation @EnableScheduling die Einbindung des SpringBoot-Scheduler-Frameworks veranlasst, zum Einsatz kommen:
-•	Einmal die Implementierung NoOpAuthenticatorFactory, die wie der Name besagt, eigentlich nur die Framework-API-Signaturen bedient und damit keine wirkliche Authentifizierung durchführt.
-•	Zum Zweiten die Implementierung IsySicherheitAuthenticatorFactory, die mit der übergebenen TaskId als Parameter aus der Betriebs-Konfiguration die Authentifizierungsdaten Benutzer und Passwort ermittelt. Falls die gesuchten Authentifizierungsdaten vorhanden sind, wird eine Instanz von IsySicherheitAuthenticator zurückgeliefert, falls nicht eine Instanz von NoOpAuthenticator.
-Zur Absicherung eines Tasks mit dem neuen Security-Baustein isy-security ist eine weitere AuthenticatorFactory-Implementierung mit IsySecurityAuthenticatorFactory zu erstellen, die als Weiche in eine der beiden Credential-Flows dient.
-Der Aufruf zur Instanziierung dieser neuen Factory erfolgt in der Klasse IsyTaskAutoConfiguration über die neu zu erstellende Methode
-public AuthenticatorFactory authenticatorFactoryIsySecurity()
-die mittels der Annotation @ConditionalOnProperty über das Property isy.task.authentication.enabled gesteuert wird. Als Parameter werden u.a. die mit dem neuen Sicherheitsbaustein isy-security eingeführten Typen
-•	IsyTaskConfigurationProperties configurationProperties
-•	Security security
-•	SecurityContextVerwalter securityContextVerwalter
-•	SecurityContextFactory securityContextFactory
-übergeben.
-Die neue Klasse IsySecurityAuthenticatorFactory implementiert durch das API des AuthenticatorFactory-Interface die Methode getAuthenticator(String taskId). In dieser Methode werden über den Parameter taskId dann die Authentifizierungsdaten aus der Konfiguration ermittelt. Die Ermittlung berücksichtigt dabei zuerst Taskspezifische und dann Standard-Konfigurationsproperties. Sind als AuthentifizierungsCredentials die Keys Client-ID und Client-Secret definiert, so wird als Authenticator die neue Klasse IsyClientCredentailAuthenticator zurückgeliefert. Liegen als AuthentifizierungsCredentials die Keys Benutzer und Passwort vor, so wird als Authenticator die neue Klasse IsyResourceOwnerPasswordCredentailAuthenticator zurückgeliefert. Werden keine der genannten AuthentifizierungsCredentials gefunden, dann wird der schon existierende Authenticator NoOpAuthenticator zurückgegeben.
-Die Implementierung des neuen IsyResourceOwnerPasswordCredentailAuthenticator startet dann intern die Authentifizierung über den ResourceOwnerPasswordCredentail-Flow im neuen Sicherheitsbaustein über das IAM und liefert einen initialisierten SecurityContext inklusive AccessToken zurück.
-Die Implementierung des neuen IsyClientCredentailAuthenticator startet dann intern die Authentifizierung über den ClientCredentail-Flow im neuen Sicherheitsbaustein über das IAM und liefert ebenfalls einen initialisierten SecurityContext inklusive AccessToken zurück.
-Diesen SecurityContext mit AccessToken verwendet dann der vom Scheduler gestartete Task für seine weiteren Ablaufschritte inklusive evtl. Autorisierungen für aufzurufende Fachanwendungen. 
+Mit _IsyFact-3_ soll bevorzugt der <<client-credential-flow>> und den Properties `Client-ID` und `Client-Secret` verwendet werden, da der <<resource-owner-password-credential-flow>> und den Properties `Benutzer` und `Passwort` mit _SpringSecurity OAuth2.1_ aus der Spezifikation herausgenommen ist.
+
+Zur Unterstützung einer weichen Migration wird mit _IsyFact-3_ der <<resource-owner-password-credential-flow>> mit `Benutzer` und `Passwort` weiterhin möglich sein, da zum Wechseln des Credential-Flows auch erst eine Migration des _NatürlichenNutzers_ auf einen _TechnischenNutzer_ im IAM abgeschlossen sein muss.
+
+Wird in einer Anwendung wie bisher aus der `isy-task`-Bibliothek die Klasse `IsyTaskAutoConfiguration` eingesetzt, so wird über deren Annotation `@EnableScheduling` das _SpringBoot-Scheduler_-Frameworks in die Anwendung mit eingebunden.
+In dieser Bibliothek existieren bisher zwei verschiedene Implementierungen des `AuthenticatorFactory`-Interface.
+Einmal die Implementierung `NoOpAuthenticatorFactory`, die wie der Name besagt, eigentlich nur die Framework-API-Signaturen bedient und damit keine wirkliche Authentifizierung durchführt.
+Zum Zweiten die Implementierung `IsySicherheitAuthenticatorFactory`, die mit der übergebenen _TaskId_ als Parameter aus der Betriebs-Konfiguration die Authentifizierungsdaten `Benutzer` und `Passwort` ermittelt.
+Falls die gesuchten Authentifizierungsdaten vorhanden sind, wird eine Instanz von `IsySicherheitAuthenticator` zurückgeliefert, falls nicht eine Instanz von `NoOpAuthenticator`.
+
+Zur Absicherung einer _Aufgabe_ mit dem neuen Security-Baustein `isy-security` ist eine weitere `AuthenticatorFactory`-Implementierung mit `IsySecurityAuthenticatorFactory` vorhanden, die als Weiche in eine der beiden _Credential_-Flows dient.
+
+Der Aufruf zur Verwendung dieser neuen Factory erfolgt, wie bisher, in der Klasse `IsyTaskAutoConfiguration` über die neue Methode `authenticatorFactoryIsySecurity()`, die mittels der Annotation `@ConditionalOnProperty` über das Konfiguration-Property `isy.task.authentication.enabled` gesteuert wird.
+
+Die Implementierung der neuen `IsySecurityAuthenticatorFactory`-Klasse erfüllt das API des `AuthenticatorFactory`-Interface und enthält somit die Methode `getAuthenticator(String taskId)`.
+In dieser Methode werden über den Parameter `taskId` die _Authentifizierungsdaten_ aus der Betriebskonfiguration ermittelt.
+Die Ermittlung berücksichtigt dabei zuerst Taskspezifische und dann Standard-Konfigurationsproperties.
+Sind als _Authentifizierungsdaten_ die Keys `Client-ID` und `Client-Secret` definiert, so wird als _Authenticator_ die neue Klasse `IsyClientCredentailAuthenticator` zurückgeliefert.
+Liegen als _Authentifizierungsdaten_ die Keys `Benutzer` und `Passwort` vor, so wird als _Authenticator_ die neue Klasse `IsyResourceOwnerPasswordCredentailAuthenticator` zurückgeliefert.
+Werden keine der genannten _AuthentifizierungsCredentials_ gefunden, dann wird der schon existierende _Authenticator_ `NoOpAuthenticator` zurückgegeben.
+
+Die Implementierung des neuen `IsyResourceOwnerPasswordCredentailAuthenticator` startet dann intern die Authentifizierung über den _ResourceOwnerPasswordCredentail_-Flow im neuen Sicherheitsbaustein `isy-security`, der über das IAM dann einen initialisierten `SecurityContext` inklusive _AccessToken_ zurückliefert.
+
+Die Implementierung des neuen `IsyClientCredentailAuthenticator` startet dann intern die Authentifizierung über den _ClientCredentail_-Flow im neuen Sicherheitsbaustein `isy-security`, der über das IAM dann einen initialisierten `SecurityContext` inklusive _AccessToken_ zurückliefert.
+
+Diesen `SecurityContext` mit _AccessToken_ verwendet dann die vom _Scheduler_ gestartete _Aufgabe_ für ihre weiteren Ablaufschritte inklusive evtl. _Autorisierungen_ für aufzurufende Fachanwendungen.
+
 
 
 [[verarbeitung-asynchroner-anfragen]]
