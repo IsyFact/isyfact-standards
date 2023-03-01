@@ -162,7 +162,6 @@ Zusätzlich sind folgende Isyfact-spezifischen Konfigurationsparameter notwendig
 |isy.security.rolesClaimName | String | _roles_ | Name des Claims im JWT Token der die Rollen enthält
 |===
 
-
 [[konfiguration-von-rollen-und-rechten]]
 === Konfiguration von Rollen und Rechten
 
@@ -226,4 +225,29 @@ Die Konfiguration gibt also verlässlich Auskunft darüber, welche Rollen und Re
 Der Baustein Security ermöglicht eine Autorisierung nur auf Basis von Rechten, nicht von Rollen.
 Jeder Rolle muss also zumindest ein Recht zugeordnet werden, um anhand dessen eine Autorisierung durchführen zu können.
 Werden im Lebenszyklus der Geschäftsanwendung weitere Rollen (z.B. für neu hinzukommende Akteure) spezifiziert und mit bestehenden Rechten ausgestattet, sind neben den Änderungen in der Konfigurationsdatei keine weiteren Änderungen notwendig.
+
+[[testunterstuetzung]]
+== Testunterstützung
+
+In diesem Abschnitt wird *isy-security-test* beschrieben, das zum Erstellen von (automatisierten) Tests einen OpenId Connect Provider Mock bereitstellt.
+Der OpenId Connect Provider Mock wurde mithilfe von WireMock realisiert.
+Es werden die folgenden OAuth2 und OpenID Connect Verfahren unterstützt.
+
+* Client Credentials Flow
+* Resource Owner Password Credentials Flow
+
+Das folgende Beispiel zeigt die Initialisierung des EmbeddedOidcProviderMock mit einem Client mit genau einer Rolle und mit einem User mit derselben Rolle:
+
+[[listing-beispiel-oidc-mock]]
+.Beispiel für die Erstellung des EmbeddedOidcProviderMock
+[source,java]
+----
+EmbeddedOidcProviderMock embeddedOidcProvider = new EmbeddedOidcProviderMock("localhost", 9095, "/auth/realms/testrealm");
+
+embeddedOidcProvider.addClient("client-credentials-client", "supersecretpassword", Collections.singleton("Test_Role"));
+embeddedOidcProvider.addUser("ressource-owner-password-credentials-client", "hypersecretpassword", "admin", "adminpassword", Optional.of("123456"), Collections.singleton("Test_Role"));
+----
+
+Detaillierte Informationen zur Verwendung des EmbeddedOidcProviderMock können dem JavaDoc der Klasse entnommen werden.
+
 // end::inhalt[]
