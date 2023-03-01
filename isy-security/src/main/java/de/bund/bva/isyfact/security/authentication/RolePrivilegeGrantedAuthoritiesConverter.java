@@ -16,7 +16,7 @@ import org.springframework.util.StringUtils;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.isyfact.security.xmlparser.RolePrivilegeMapper;
+import de.bund.bva.isyfact.security.xmlparser.RolePrivilegesMapper;
 
 /**
  * Based on {@link org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter} but with additional
@@ -25,7 +25,7 @@ import de.bund.bva.isyfact.security.xmlparser.RolePrivilegeMapper;
 public class RolePrivilegeGrantedAuthoritiesConverter implements Converter<Jwt, Collection<GrantedAuthority>> {
 
     /** Logger. */
-    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(RolePrivilegeMapper.class);
+    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(RolePrivilegesMapper.class);
 
     /** Authority prefix to use for all mapped authorities. */
     public static final String AUTHORITY_PREFIX = "PRIV_";
@@ -37,10 +37,10 @@ public class RolePrivilegeGrantedAuthoritiesConverter implements Converter<Jwt, 
     private String authoritiesClaimName;
 
     /** Mapper from roles to privileges. */
-    private final RolePrivilegeMapper rolePrivilegeMapper;
+    private final RolePrivilegesMapper rolePrivilegesMapper;
 
-    public RolePrivilegeGrantedAuthoritiesConverter(RolePrivilegeMapper rolePrivilegeMapper) {
-        this.rolePrivilegeMapper = rolePrivilegeMapper;
+    public RolePrivilegeGrantedAuthoritiesConverter(RolePrivilegesMapper rolePrivilegesMapper) {
+        this.rolePrivilegesMapper = rolePrivilegesMapper;
     }
 
     public Collection<GrantedAuthority> convert(Jwt jwt) {
@@ -93,7 +93,7 @@ public class RolePrivilegeGrantedAuthoritiesConverter implements Converter<Jwt, 
     }
 
     private Set<String> mapToPrivileges(Collection<String> roles) {
-        return new HashSet<>(rolePrivilegeMapper.getPrivilegesByRoles(roles));
+        return new HashSet<>(rolePrivilegesMapper.getPrivilegesByRoles(roles));
     }
 
 }

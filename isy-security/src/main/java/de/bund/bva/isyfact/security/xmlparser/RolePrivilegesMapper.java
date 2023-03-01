@@ -13,14 +13,14 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 
-public class RolePrivilegeMapper {
+public class RolePrivilegesMapper {
 
     /** Logger. */
-    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(RolePrivilegeMapper.class);
+    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(RolePrivilegesMapper.class);
 
     private final RolePrivileges rolePrivileges;
 
-    public RolePrivilegeMapper(String roleMappingXmlFilePath) {
+    public RolePrivilegesMapper(String roleMappingXmlFilePath) {
         rolePrivileges = getRolePrivileges(roleMappingXmlFilePath);
     }
 
@@ -54,8 +54,8 @@ public class RolePrivilegeMapper {
 
     @Override
     public String toString() {
-        return "AnwendungsId:" + rolePrivileges.getAppId() + "\n" +
-                "RollenRechteMapping:" + getRolePrivilegesMap().toString();
+        return "AnwendungsId: " + rolePrivileges.getAppId() + "\n" +
+                "RollenRechteMapping: " + getRolePrivilegesMap().toString();
     }
 
     private RolePrivileges getRolePrivileges(String roleMappingXmlFilePath) {

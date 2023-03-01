@@ -1,32 +1,46 @@
 package de.bund.bva.isyfact.security.test;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.Collections;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import de.bund.bva.isyfact.security.xmlparser.RolePrivilegeMapper;
+import de.bund.bva.isyfact.security.xmlparser.RolePrivilegesMapper;
 
 public class RolePrivilegesMapperTest {
 
-    private RolePrivilegeMapper mapper;
+    private RolePrivilegesMapper mapper;
 
     @BeforeEach
     public void init() {
-        this.mapper = new RolePrivilegeMapper("/resources/sicherheit/rollenrechte.xml");
+        mapper = new RolePrivilegesMapper("/resources/sicherheit/rollenrechte.xml");
     }
 
     @Test
     public void testGetAllPrivileges() {
-        assert mapper.getAllPrivileges().size() == 5;
+        assertEquals(3, mapper.getAllPrivileges().size());
     }
 
     @Test
     public void testMapToPrivilege() {
-        assert mapper.getPrivilegesByRoles(Collections.singletonList("Rolle1")).size() == 3;
-        assert mapper.getPrivilegesByRoles(Collections.singletonList("Rolle2")).size() == 2;
+        assertEquals(3, mapper.getPrivilegesByRoles(Collections.singletonList("Rolle_ABC")).size());
+        assertEquals(0, mapper.getPrivilegesByRoles(Collections.singletonList("Rolle_Keine")).size());
+        assertEquals(1, mapper.getPrivilegesByRoles(Collections.singletonList("Rolle_B")).size());
     }
 
-    // TODO toString kann auch getestet werden
+    @Test
+    public void testAppId() {
+        assertEquals("Default", mapper.getAnwendungsId());
+    }
+
+    @Test
+    public void testToString() {
+        System.out.println(mapper.getRolePrivilegesMap().toString());
+        String expected = "AnwendungsId: Default\n"
+                + "RollenRechteMapping: {Rolle_C=[Recht_C], Rolle_Keine=[], Rolle_B=[Recht_B], Rolle_A=[Recht_A], Rolle_ABC=[Recht_A, Recht_B, Recht_C]}";
+        assertEquals(expected, mapper.toString());
+    }
 
 }

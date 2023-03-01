@@ -10,7 +10,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 
 import de.bund.bva.isyfact.security.authentication.RolePrivilegeGrantedAuthoritiesConverter;
 import de.bund.bva.isyfact.security.config.IsySecurityConfigurationProperties;
-import de.bund.bva.isyfact.security.xmlparser.RolePrivilegeMapper;
+import de.bund.bva.isyfact.security.xmlparser.RolePrivilegesMapper;
 
 @Configuration
 @EnableConfigurationProperties
@@ -24,8 +24,8 @@ public class IsySecurityAutoConfiguration {
     }
 
     @Bean
-    public RolePrivilegeMapper rolePrivilegeMapper() {
-        return new RolePrivilegeMapper(isySecurityConfigurationProperties().getRolePrivilegeMappingFile());
+    public RolePrivilegesMapper rolePrivilegesMapper() {
+        return new RolePrivilegesMapper(isySecurityConfigurationProperties().getRolePrivilegeMappingFile());
     }
 
     /**
@@ -37,8 +37,8 @@ public class IsySecurityAutoConfiguration {
      */
     @Bean
     public JwtAuthenticationConverter jwtAuthenticationConverter() {
-        RolePrivilegeGrantedAuthoritiesConverter grantedAuthoritiesConverter = new RolePrivilegeGrantedAuthoritiesConverter(
-                rolePrivilegeMapper());
+        RolePrivilegeGrantedAuthoritiesConverter grantedAuthoritiesConverter =
+                new RolePrivilegeGrantedAuthoritiesConverter(rolePrivilegesMapper());
         grantedAuthoritiesConverter.setRolesClaimName(isySecurityConfigurationProperties().getRolesClaimName());
 
         JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
