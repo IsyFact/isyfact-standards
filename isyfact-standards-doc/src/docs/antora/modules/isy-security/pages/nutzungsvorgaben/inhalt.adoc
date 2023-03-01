@@ -162,4 +162,68 @@ Zusätzlich sind folgende Isyfact-spezifischen Konfigurationsparameter notwendig
 |isy.security.rolesClaimName | String | _roles_ | Name des Claims im JWT Token der die Rollen enthält
 |===
 
+
+[[konfiguration-von-rollen-und-rechten]]
+=== Konfiguration von Rollen und Rechten
+
+Jede Geschäftsanwendung spezifiziert im Rahmen ihrer Systemspezifikation Rechte und bildet diese auf fachliche und technische Rollen ab.
+Bei der technischen Umsetzung müssen alle spezifizierten Rollen und Rechte konfiguriert und korrekt zugeordnet werden.
+Dies geschieht in der statischen Konfiguration in der Datei `/resources/sicherheit/rollenrechte.xml`.
+Der Baustein liefert ein xref:nutzungsvorgaben/master.adoc#anhang-rollen-rechte-schema[XML-Schema für den Aufbau der Konfigurationsdatei] mit.
+
+Dieser Zusammenhang wird mit einem Beispiel verdeutlicht: Die Geschäftsanwendung X spezifiziert zwei Rechte, `DialogA.Aufrufen` und `DialogB.Aufrufen`.
+Aus diesen werden zwei fachliche Rollen gebildet:
+
+* `FAX_DialogNutzerA` darf nur Dialog A aufrufen,
+* `FAX_DialogNutzerAlle` darf Dialog A und Dialog B aufrufen.
+
+Dieses Beispiel führt zu folgender Konfigurationsdatei:
+
+.Beispielhafte Definition von Rollen und Rechten
+[id="listing-RollenRechte",reftext="{listing-caption} {counter:listings }"]
+[source,xml]
+----
+<tns:Anwendung AnwendungsId="GeschäftsanwendungX"
+    xmlns:tns="http://www.isyfact.de/RollenRechteSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.isyfact.de/RollenRechteSchema RollenRechteSchema.xsd ">
+
+    <!-- Definition der Rechte -->
+    <tns:rechte>
+        <tns:rechtId Id="DialogA.Aufrufen" />
+    </tns:rechte>
+
+    <tns:rechte>
+        <tns:rechtId Id="DialogB.Aufrufen" />
+    </tns:rechte>
+
+    <!-- Definition der Rollen -->
+    <tns:rollen RolleId="FAX_DialogNutzerA">
+        <tns:rechtId Id="DialogA.Aufrufen" />
+    </tns:rollen>
+
+    <tns:rollen RolleId="FAX_DialogNutzerAlle">
+        <tns:rechtId Id="DialogA.Aufrufen" />
+        <tns:rechtId Id="DialogB.Aufrufen"/>
+    </tns:rollen>
+</tns:Anwendung>
+----
+
+[[zusammenhang-von-rechten-und-rollen]]
+=== Zusammenhang von Rechten und Rollen
+
+Innerhalb jeder Rolle werden gemäß Spezifikation die zugeordneten Rechte festgelegt.
+Rollen können überlappende Teilmengen von Rechten enthalten.
+
+Die Konfiguration muss die folgenden Anforderungen erfüllen:
+
+* Es sind alle in der Geschäftsanwendung spezifizierten Rechte definiert.
+* Es sind alle in der Geschäftsanwendung spezifizierten Rollen definiert.
+
+Werden in Überprüfungen Rollen oder Rechte verwendet, die hier nicht definiert sind, wird ein technischer Fehler erzeugt.
+Die Konfiguration gibt also verlässlich Auskunft darüber, welche Rollen und Rechte in der Geschäftsanwendung überprüft werden.
+
+Der Baustein Security ermöglicht eine Autorisierung nur auf Basis von Rechten, nicht von Rollen.
+Jeder Rolle muss also zumindest ein Recht zugeordnet werden, um anhand dessen eine Autorisierung durchführen zu können.
+Werden im Lebenszyklus der Geschäftsanwendung weitere Rollen (z.B. für neu hinzukommende Akteure) spezifiziert und mit bestehenden Rechten ausgestattet, sind neben den Änderungen in der Konfigurationsdatei keine weiteren Änderungen notwendig.
 // end::inhalt[]
