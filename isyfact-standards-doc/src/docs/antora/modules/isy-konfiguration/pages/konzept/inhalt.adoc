@@ -74,11 +74,3 @@ h|Erlaubte Zugriffsarten der Anwendung |nur lesend |nur lesend |lesend und schre
 h|Speicherung|Als Datei im Resources-Ordner |Als Property-Datei mit dem Namen `application.properties` im Config-Ordner |In der Datenbank
 |====
 // end::inhalt[]
-
-// tag::architekturregel[]
-
-// end::architekturregel[]
-
-// tag::sicherheit[]
-
-// end::sicherheit[]

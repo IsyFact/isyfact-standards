@@ -287,12 +287,4 @@ public void someTest() {
     // Erneuter Test der Anwendung eine Stunde später...
 ----
 
-// tag::architekturregel[]
-
-// end::architekturregel[]
-
-// tag::sicherheit[]
-
-// end::sicherheit[]
-
 // end::inhalt[]

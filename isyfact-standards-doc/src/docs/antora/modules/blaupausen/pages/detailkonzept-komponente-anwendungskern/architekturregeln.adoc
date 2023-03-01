@@ -1,7 +1,0 @@
-// tag::architekturregeln[]
-
-[[architekturregeln-anwendungskern]]
-== Architekturregeln Komponente Anwendungskern
-
-include::inhalt.adoc[tags=architekturregel]
-// end::architekturregeln[]
