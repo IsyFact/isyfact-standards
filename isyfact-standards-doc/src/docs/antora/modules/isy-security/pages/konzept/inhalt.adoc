@@ -325,6 +325,10 @@ Falls die gesuchten Authentifizierungsdaten vorhanden sind, wird eine Instanz vo
 
 Zur Absicherung einer _Aufgabe_ mit dem neuen Security-Baustein `isy-security` ist eine weitere `AuthenticatorFactory`-Implementierung mit `IsySecurityAuthenticatorFactory` vorhanden, die als Weiche in eine der beiden _Credential_-Flows dient.
 
+.Absicherung von Aufgaben (Tasks)
+[id="image-sequenzdiagramm-absicherung-task",reftext="{figure-caption} {counter:figures}"]
+image::isy-security:konzept/Sequenzdiagramm_AbsicherungTask.dn.svg[align="center"]
+
 Der Aufruf zur Verwendung dieser neuen Factory erfolgt, wie bisher, in der Klasse `IsyTaskAutoConfiguration` über die neue Methode `authenticatorFactoryIsySecurity()`, die mittels der Annotation `@ConditionalOnProperty` über das Konfiguration-Property `isy.task.authentication.enabled` gesteuert wird.
 
 Die Implementierung der neuen `IsySecurityAuthenticatorFactory`-Klasse erfüllt das API des `AuthenticatorFactory`-Interface und enthält somit die Methode `getAuthenticator(String taskId)`.
