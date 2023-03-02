@@ -48,6 +48,7 @@
         <module>isy-util</module>
         <module>isy-sonderzeichen</module>
         <module>isy-security</module>
+        <module>isy-security-test</module>
     </modules>
 
     <scm>
