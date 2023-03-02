@@ -1,8 +1,0 @@
-// tag::architekturregeln[]
-
-[[architekturregeln-logging]]
-== Architekturregeln Logging
-
-include::inhalt.adoc[tags=architekturregel]
-include::../konzept/inhalt.adoc[tags=architekturregel]
-// end::architekturregeln[]

@@ -1,4 +1,5 @@
 # 3.0.0
+- `IFS-2449`: [isyfact-standards-doc] Aufnahme von Testcontainers in den Produktkatalog
 - `IFS-1745`: [isyfact-standards-doc] Summary Architektur- und Sicherheitsregeln
   * mit Antora Extensions generiert
 - `IFS-1702`: [isy-ueberwachung] Refaktorierung ServiceStatistik
@@ -11,6 +12,8 @@
 - `IFS-1947`: Zeichenkodierung für Filtering von properties Dateien im Maven Resource Plugin auf ISO-8859-1 gesetzt.
 - `IFS-771`: [isy-ueberwachung] Anleitung für den HealthCheck von HTTPInvoker-Endpoints hinzugefügt
 - `IFS-1465`: [isyfact-products-bom] Spring Boot Versionsanhebung auf 2.7.1
+- `IFS-2021`: [isyfact-products-bom] Spring Boot Versionsanhebung auf 2.7.9
+  - spring-boot-maven-plugin Versionsanhebung auf 2.7.9
 - `IFS-1073`: [isy-serviceapi-core] Logausgabe zur Korrektur der Korrelations-Id entfernt
 - `IFS-1282`: Einführung von Maven CI-friendly Versionen
 - `IFS-1157`: [isyfact-standards-bom] Module und Sub-Module entfernt:
@@ -28,6 +31,7 @@
 - `IFS-1504`: [isy-sonderzeichen] Transformator für die normative Abbildung lateinischer Buchstaben auf Grundbuchstaben (Suchform) hinzugefügt
     * Integration von zugeliefertem Code aus `IFS-1270`
 - `IFS-2045`: [isyfact-products-bom] Produkte Apache Tika, commons-beanutils und commons-io hinzugefügt
+- `IFS-2287`: [isy-sonderzeichen]  Deprecation für String-Latin-1.1-Transformatoren setzen
 - `IFS-1940`: [isy-sicherheit] `IsySicherheitUtil` deprecated
 
 # 2.4.4

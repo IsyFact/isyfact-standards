@@ -1513,11 +1513,3 @@ Der Aufruf dauerte <Dauer in Millisekunden> ms.
 |====
 
 // end::inhalt[]
-
-// tag::architekturregel[]
-
-// end::architekturregel[]
-
-// tag::sicherheit[]
-
-// end::sicherheit[]

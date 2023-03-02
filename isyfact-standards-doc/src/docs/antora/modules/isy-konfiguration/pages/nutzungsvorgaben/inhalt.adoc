@@ -327,11 +327,4 @@ Je nach Aufbau der Dialoge kann hierbei ein Hinweis auf den Masken dargestellt w
 Bevor eine Anwendung in den Auskunftsmodus versetzt werden kann, sind alle nutzenden Anwendungen ebenfalls in den Auskunftsmodus zu versetzen.
 Zum Wiederherstellen des vollen Funktionsumfangs wird in umgekehrter Reihenfolge vorgegangen, d.h. schreibende Zugriffe werden zunächst in den genutzten Anwendungen wieder erlaubt und danach die nutzenden Anwendungen umgestellt.
 
-// tag::architekturregel[]
-
-// end::architekturregel[]
-
-// tag::sicherheit[]
-
-// end::sicherheit[]
 // end::inhalt[]

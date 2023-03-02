@@ -29,11 +29,3 @@ Das Package `de.bund.bva.isyfact.util.spring` enthält Werkzeuge für den Umgang
 Zusätzlich bietet er Convenience-Funktionen zum Auslesen von `ResourceBundle`-Einträgen aus der `MessageSource`.
 
 // end::inhalt[]
-
-// tag::architekturregel[]
-
-// end::architekturregel[]
-
-// tag::sicherheit[]
-
-// end::sicherheit[]

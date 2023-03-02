@@ -1,5 +1,7 @@
 # 3.0.0
 - `IFS-1465`: Spring Boot Versionsanhebung auf 2.7.1
+- `IFS-2021`: Spring Boot Versionsanhebung auf 2.7.9
+    - spring-boot-maven-plugin Versionsanhebung auf 2.7.9 
 - `IFS-2045`: Produkte Apache Tika, commons-beanutils und commons-io hinzugefügt
 
 # 2.4.2

@@ -18,6 +18,11 @@ package de.bund.bva.isyfact.sonderzeichen.stringlatin1_1.core.transformation;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
+/**
+ *  @deprecated This class is deprecated and will be removed in a future release.
+ *  It is recommended to use {@link de.bund.bva.isyfact.sonderzeichen.dinspec91379} instead.
+ */
+@Deprecated
 public class ZeichenKategorie {
     
     public static final String LETTER = "LETTER";

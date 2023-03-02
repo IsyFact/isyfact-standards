@@ -3,6 +3,3 @@
 include::glossary:licence:partial$licence.adoc[]
 
 include::inhalt.adoc[tags=inhalt]
-
-//:sectnums!:
-//include::changelog.adoc[]
