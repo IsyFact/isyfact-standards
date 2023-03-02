@@ -16,8 +16,8 @@ Sollten alle Methoden die gleiche Autorisierung erfordern, kann alternativ die A
 
 Folgendes Beispiel (<<listing-absichern-einer-service-methode>>) verdeutlicht die Implementierung einer abgesicherten Service-Methode.
 
+[[listing-absichern-einer-service-methode]]
 .Absichern einer Service-Methode
-[id="listing-absichern-einer-service-methode",reftext="{listing-caption} {counter:listings }"]
 [source,java]
 ----
 @Secured({ "PRIV_RechtA", "PRIV_RechtB" })
