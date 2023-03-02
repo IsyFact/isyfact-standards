@@ -27,6 +27,7 @@ import java.lang.annotation.Target;
  * eine Exception geworfen. Alternativ können auch Operationen ohne AufrufKontextTo gekennzeichnet werden.
  * Dann muss dies mit dem Flag nutzeAufrufKontext=false kenntlich gemacht werden.
  */
+@Deprecated
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.METHOD, ElementType.TYPE, ElementType.ANNOTATION_TYPE })
 public @interface StelltLoggingKontextBereit {

@@ -33,6 +33,7 @@ import de.bund.bva.pliscommon.exception.service.PlisToException;
  * <p>
  * It also provides the ability to throw an interface exception using an exception ID and a {@link FehlertextProvider}.
  */
+@Deprecated
 public class ExceptionMapper {
 
     /**

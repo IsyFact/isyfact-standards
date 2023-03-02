@@ -34,6 +34,7 @@ import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontex
 /**
  * HTTP-InvokerClientInterceptor to generate IsyFact compliant logging entries.
  */
+@Deprecated
 public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientInterceptor {
 
     /**

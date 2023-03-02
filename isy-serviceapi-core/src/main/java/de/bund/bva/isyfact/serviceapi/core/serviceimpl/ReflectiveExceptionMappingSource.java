@@ -34,6 +34,7 @@ import de.bund.bva.pliscommon.exception.service.PlisToException;
  * is declared in the RemoteBean operation, which acts as a generic technical exception.
  * </p>
  */
+@Deprecated
 public class ReflectiveExceptionMappingSource implements ExceptionMappingSource {
 
     @Override

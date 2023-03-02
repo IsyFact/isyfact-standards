@@ -32,6 +32,7 @@ import de.bund.bva.pliscommon.exception.service.PlisToException;
  * This annotation must be used in the implementation package
  * of the service component (package name = package name of the RemoteBean interface + ".impl").
  */
+@Deprecated
 @Target(ElementType.PACKAGE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented

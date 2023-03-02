@@ -7,6 +7,7 @@ import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontex
 /**
  * Helper class to read AufrufKontextTo from a parameter-list.
  */
+@Deprecated
 public class DefaultAufrufKontextToResolver implements AufrufKontextToResolver {
 
     /**

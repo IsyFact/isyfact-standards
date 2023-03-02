@@ -20,6 +20,7 @@ package de.bund.bva.isyfact.serviceapi.core.serviceimpl;
  * Ermittelt zu einer aufgetretenen Exception eine passende Ausnahme-ID, die den Fehlertext identifiziert.
  * 
  */
+@Deprecated
 public interface AusnahmeIdErmittler {
 
     /**

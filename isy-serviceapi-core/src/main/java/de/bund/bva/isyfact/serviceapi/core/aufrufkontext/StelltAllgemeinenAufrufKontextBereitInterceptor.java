@@ -35,6 +35,7 @@ import ma.glasnost.orika.MapperFacade;
  * An interceptor that provides the calling context based on a mapping.
  * @param <T> Implementation of AufrufKontext that should be mapped to.
  */
+@Deprecated
 public class StelltAllgemeinenAufrufKontextBereitInterceptor<T extends AufrufKontext> implements
     MethodInterceptor, Ordered {
 

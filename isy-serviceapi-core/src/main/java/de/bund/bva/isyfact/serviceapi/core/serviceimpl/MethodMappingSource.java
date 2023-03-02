@@ -22,6 +22,7 @@ import java.lang.reflect.Method;
  * Diese Schnittstelle bietet Operationen zum Ermitteln einer Zielmethode zu einer aufgerufenen Methode.
  * 
  */
+@Deprecated
 public interface MethodMappingSource {
 
     /**

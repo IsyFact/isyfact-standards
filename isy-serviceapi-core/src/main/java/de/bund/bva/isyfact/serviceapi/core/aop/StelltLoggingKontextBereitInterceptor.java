@@ -35,6 +35,7 @@ import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontex
 /**
  * This aspect ensures that the logging context is automatically set in service methods.
  */
+@Deprecated
 public class StelltLoggingKontextBereitInterceptor implements MethodInterceptor {
 
     /** Logger. */

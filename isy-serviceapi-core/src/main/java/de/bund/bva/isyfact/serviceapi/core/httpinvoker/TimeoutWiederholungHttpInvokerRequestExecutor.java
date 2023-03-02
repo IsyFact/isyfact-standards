@@ -36,6 +36,7 @@ import de.bund.bva.isyfact.serviceapi.common.konstanten.EreignisSchluessel;
  * Extension to the Spring {@link SimpleHttpInvokerRequestExecutor} which allows
  * to configure the timeout and the times a call is repeated.
  */
+@Deprecated
 public class TimeoutWiederholungHttpInvokerRequestExecutor extends SimpleHttpInvokerRequestExecutor {
 
     /** Isy-Logger. */

@@ -20,6 +20,7 @@ package de.bund.bva.isyfact.serviceapi.core.serviceimpl;
  * Schnittstelle für Implementierungsteile, die ihre statische Konfiguration validieren können.
  * 
  */
+@Deprecated
 public interface Validatable {
 
     /**

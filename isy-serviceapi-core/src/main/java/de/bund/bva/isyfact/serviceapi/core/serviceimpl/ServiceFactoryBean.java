@@ -34,6 +34,7 @@ import de.bund.bva.isyfact.sicherheit.annotation.SicherheitAttributeSource;
  * Factory-Bean, die eine generische Implementierung einer RemoteBean-Schnittstelle erzeugt.
  *
  */
+@Deprecated
 public class ServiceFactoryBean extends TransactionProxyFactoryBean {
 
     /** Serial version UID. */

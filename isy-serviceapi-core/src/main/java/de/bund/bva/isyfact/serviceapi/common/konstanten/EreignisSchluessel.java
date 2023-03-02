@@ -19,6 +19,8 @@ package de.bund.bva.isyfact.serviceapi.common.konstanten;
 /**
  * This class contains all event keys for isy-serviceapi-core.
  */
+
+@Deprecated
 public class EreignisSchluessel {
 
     /**

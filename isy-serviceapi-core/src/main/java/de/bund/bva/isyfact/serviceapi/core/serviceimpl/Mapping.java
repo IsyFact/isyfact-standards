@@ -30,6 +30,7 @@ import de.bund.bva.pliscommon.exception.service.PlisToException;
  * core to a {@link PlisToException} of the service interface.
  *
  */
+@Deprecated
 @Target(ElementType.LOCAL_VARIABLE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented

@@ -8,6 +8,7 @@ import org.springframework.http.HttpHeaders;
 /**
  * Class containing helper methods for accessing {@link HttpServletRequest}.
  */
+@Deprecated
 public final class RequestUtil {
 
     /** Utility class. */

@@ -18,6 +18,7 @@ import de.bund.bva.isyfact.serviceapi.common.konstanten.EreignisSchluessel;
 /**
  * {@link HttpInvokerServiceExporter} with disabled {@link #isAcceptProxyClasses()}.
  */
+@Deprecated
 public class IsyHttpInvokerServiceExporter extends HttpInvokerServiceExporter {
 
     /** The Logger. */

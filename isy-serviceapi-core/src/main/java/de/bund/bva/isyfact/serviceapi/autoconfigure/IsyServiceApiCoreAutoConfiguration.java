@@ -17,6 +17,7 @@ import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.DefaultAufrufKontextToR
 import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.StelltAufrufKontextBereitInterceptor;
 import de.bund.bva.isyfact.sicherheit.autoconfigure.IsySicherheitAutoConfiguration;
 
+@Deprecated
 @Configuration
 @AutoConfigureAfter(IsySicherheitAutoConfiguration.class)
 public class IsyServiceApiCoreAutoConfiguration {

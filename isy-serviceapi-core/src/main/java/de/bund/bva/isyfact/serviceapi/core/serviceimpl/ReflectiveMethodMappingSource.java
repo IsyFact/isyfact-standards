@@ -30,6 +30,7 @@ import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontex
 /**
  * Implementation of {@link MethodMappingSource}, which uses reflection to determine the appropriate target method.
  */
+@Deprecated
 public class ReflectiveMethodMappingSource implements MethodMappingSource {
 
     /**

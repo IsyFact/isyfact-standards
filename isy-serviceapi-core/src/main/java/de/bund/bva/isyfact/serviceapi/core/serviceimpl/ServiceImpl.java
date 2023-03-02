@@ -33,6 +33,7 @@ import org.springframework.aop.support.AopUtils;
  * werden alle Methodenparameter sowie das Methodenergebnis mit Hilfe eines Bean Mappers konvertiert.
  * 
  */
+@Deprecated
 public class ServiceImpl implements MethodInterceptor, Validatable {
 
     private MethodMappingSource methodMappingSource;

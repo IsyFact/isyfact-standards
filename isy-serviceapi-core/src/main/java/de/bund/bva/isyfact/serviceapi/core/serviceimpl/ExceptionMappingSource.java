@@ -25,6 +25,7 @@ import de.bund.bva.pliscommon.exception.service.PlisToException;
 /**
  * This interface can be used to determine the mapping rules for exceptions in a service implementation.
  */
+@Deprecated
 public interface ExceptionMappingSource {
 
     /**

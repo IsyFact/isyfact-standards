@@ -24,6 +24,7 @@ import org.springframework.beans.factory.FactoryBean;
  * IsyFact-Standards.
  *
  */
+@Deprecated
 public class IsyHttpInvokerProxyFactoryBean extends IsyHttpInvokerClientInterceptor implements
     FactoryBean<Object> {
 

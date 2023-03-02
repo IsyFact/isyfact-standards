@@ -53,6 +53,7 @@ import de.bund.bva.pliscommon.exception.service.PlisToException;
  * The wrapped exception is then mapped to the globally configurable {@link PlisTechnicalToException}.</li>
  * </ul>
  */
+@Deprecated
 public class ServiceExceptionFassade implements MethodInterceptor, Validatable {
 
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(ServiceExceptionFassade.class);

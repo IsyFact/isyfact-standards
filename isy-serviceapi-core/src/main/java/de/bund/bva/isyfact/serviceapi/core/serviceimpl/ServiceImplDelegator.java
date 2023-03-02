@@ -32,6 +32,7 @@ import org.springframework.aop.support.AopUtils;
  * zu nutzen.
  * 
  */
+@Deprecated
 public class ServiceImplDelegator implements MethodInterceptor, Validatable {
 
     /** Methoden-Cache. */

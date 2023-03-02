@@ -31,6 +31,7 @@ import de.bund.bva.pliscommon.exception.service.PlisToException;
  * that this package is annotated with {@link ExceptionMapping}.
  * </p>
  */
+@Deprecated
 public class AnnotationExceptionMappingSource implements ExceptionMappingSource {
 
     @Override

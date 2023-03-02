@@ -35,6 +35,7 @@ import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontex
  *
  * @param <T> the AufrufKontext
  */
+@Deprecated
 public class StelltAufrufKontextBereitInterceptor<T extends AufrufKontext> implements MethodInterceptor,
     Ordered {
 

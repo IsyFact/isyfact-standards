@@ -41,6 +41,7 @@ import de.bund.bva.isyfact.sicherheit.common.exception.FehlerhafteServiceKonfigu
  * </p>
  *
  */
+@Deprecated
 public class MethodMapSicherheitAttributeSource implements SicherheitAttributeSource, BeanClassLoaderAware,
     InitializingBean {
 
