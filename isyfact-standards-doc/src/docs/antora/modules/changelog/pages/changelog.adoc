@@ -7,6 +7,11 @@
 - Entfernung der Vorlageanwendungen.
 // Ende übergreifende Änderungen
 
+// Beginn Produktkatalog
+=== Änderungen im Produktkatalog
+include::isyfact-standards-doku:einstieg:page$produktkatalog/changelog.adoc[tag=release-3.0.0]
+// Ende Produktkatalog
+
 === Änderungen Einstieg
 
 include::isyfact-standards-doku:einstieg:page$changelog.adoc[tag=release-2.5.0]
@@ -60,7 +65,8 @@ include::isyfact-standards-doku:plattform:page$changelog.adoc[tag=release-3.0.0]
 
 === Änderungen Methodik
 
-include::isyfact-standards-doku:methodik:page$changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:methodik:page$changelog.adoc[tag=release-3.0.0]
+include::isyfact-standards-doku:methodik:page$vorgaben-dokumentation/changelog.adoc[tag=release-2.5.0]
 include::isyfact-standards-doku:methodik:page$diagrammerstellung/changelog.adoc[tag=release-2.5.0]
 include::isyfact-standards-doku:methodik:page$java-programmierkonventionen/changelog.adoc[tag=release-2.5.0]
 include::isyfact-standards-doku:methodik:page$namenskonventionen/changelog.adoc[tag=release-2.5.0]
@@ -69,7 +75,7 @@ include::isyfact-standards-doku:methodik:page$versionierung/changelog.adoc[tag=r
 === Änderungen Werkzeuge
 
 include::isyfact-standards-doku:werkzeuge:page$dokumentation/changelog.adoc[tag=release-2.5.0]
-include::isyfact-standards-doku:werkzeuge:page$entwicklungsumgebung/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:werkzeuge:page$entwicklungsumgebung/changelog.adoc[tag=release-3.0.0]
 include::isyfact-standards-doku:werkzeuge:page$gui-tests/changelog.adoc[tag=release-3.0.0]
 include::isyfact-standards-doku:werkzeuge:page$versionierungskontrolle/changelog.adoc[tag=release-2.5.0]
 
