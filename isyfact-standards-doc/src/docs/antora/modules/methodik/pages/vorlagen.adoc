@@ -54,8 +54,8 @@ Die Vorlage Systemspezifikation enthält die Gliederung für eine V-Modell-konfo
 |====
 
 
-[[schnittstellendokumentation]]
-== Schnittstellendokumentation
+[[fachliche-schnittstellendokumentation]]
+== Fachliche Schnittstellendokumentation
 
 Die Vorlage enthält die Gliederung für eine V-Modell-konforme Schnittstellendokumentation eines Softwaresystems (Software-Entwicklungsprojekts) mitsamt Ausfüllhinweisen und Beispielen.
 
