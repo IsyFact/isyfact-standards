@@ -14,3 +14,8 @@ spring:
             client-secret: supersecretpassword
             authorization-grant-type: client_credentials
             provider: testrealm
+          ropc-client:
+            client-id: ressource-owner-password-credentials-test-client
+            client-secret: hypersecretpassword
+            authorization-grant-type: password
+            provider: testrealm
