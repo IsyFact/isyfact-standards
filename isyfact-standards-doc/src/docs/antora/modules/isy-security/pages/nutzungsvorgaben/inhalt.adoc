@@ -2,6 +2,28 @@
 
 // tag::inhalt[]
 
+[[software-architektur-security-baustein]]
+== Software-Architektur des Security Bausteins
+
+[[berechtigungsmanager]]
+=== Berechtigungsmanager
+
+Berechtigungsprüfungen können ebenso an beliebiger Stelle im Quellcode erfolgen.
+Dazu stellt der Baustein `isy-security` über die Schnittstelle Berechtigungsmanager entsprechende Funktionen bereit.
+Der Berechtigungsmanager ist ein Container für die Rechte und Rollen des aktuell authentifizierten Anwenders.
+
+Zur Formulierung von Berechtigungsprüfungen stehen folgende Methoden des Berechtigungsmanagers zur Verfügung:
+
+`Set<String> getRollen()`:: Liefert die Menge aller Rollen des Anwenders.
+`Set<String> getRechte()`:: Liefert die Menge aller Rechte des Anwenders.
+`boolean hatRecht(String recht)`:: Ermittelt, ob der Anwender ein bestimmtes Recht besitzt.
+`void pruefeRecht(String recht)`:: Prüft, ob der Anwender das angegebene Recht besitzt und erzeugt einen Fehler vom Typ `AccessDeniedException`, wenn das nicht der Fall ist.
+`Object getTokenAttribute(String key)`:: Fragt einen Wert im Access Token des Security Contexts ab.
+
+.Berechtigungsmanager
+[id="image-schnittstelle-security",reftext="{figure-caption} {counter:figures}"]
+image::nutzungsvorgaben/berechtigungsmanager.svg[align="center"]
+
 [[aufrufen_von_nachbarsystemen]]
 == Aufrufen von Nachbarsystemen
 
