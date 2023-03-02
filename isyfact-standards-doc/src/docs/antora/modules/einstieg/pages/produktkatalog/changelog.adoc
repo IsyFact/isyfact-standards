@@ -18,9 +18,8 @@
 ** Liquibase 4.x
 ** Jakarta Annotations 1.3.5
 ** JDK Temurin 17 mit Java-Language 8
-** Linux 64 bit mit Kernel >= 14.12
+** Linux 64bit mit Kernel >= 14.12
 ** Testcontainers 1.x
-** Linux 64 bit mit Kernel >= 14.12
 
 * Zeilen zu slf4j konsolidiert.
 * Kategorie für Logging-Produkte zu "Logging" geändert.
