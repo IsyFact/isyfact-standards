@@ -3,9 +3,9 @@
 *Änderungen IsyFact 3.0.0*
 
 
-
 // tag::release-3.0.0[]
 - `IFS-2272`: Vorlage Systementwurf: SUSE Linux durch Linux 64bit Kernel >= 4.12 ersetzt
+- `IFS-1941`: Dokumentationsvorgaben für IF Bestandteile initial festgeschrieben.
 - `IFS-2271`: Entfernen von Oracle JDK, stattdessen Verweis auf Produktkatalog
 - `IFS-1526`: Migration der Vorlage zur Produktauswahl in die Online-Dokumentation.
 - `IFS-1524`: Migration der Vorlage der Schnittstellendokumentation in die Online-Dokumentation.

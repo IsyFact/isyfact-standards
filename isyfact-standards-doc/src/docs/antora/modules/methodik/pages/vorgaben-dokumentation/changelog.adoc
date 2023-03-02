@@ -1,0 +1,8 @@
+[[changelog]]
+= Changelog
+
+*Änderungen IsyFact 2.5.0*
+
+// tag::release-2.5.0[]
+
+// end::release-2.5.0[]
