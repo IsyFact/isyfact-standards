@@ -22,7 +22,8 @@ import org.springframework.beans.factory.FactoryBean;
 /**
  * FactoryBean zum Erstellen einer ProxyFactory für HTTP-Invoker-Aufrufe gemäß den Vorgaben der
  * IsyFact-Standards.
- *
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use <a href="https://isyfact.github.io/isyfact-standards-doku/latest/isy-service-rest/konzept/master.html">REST according to IsyFacts REST Concept</a> instead.
  */
 @Deprecated
 public class IsyHttpInvokerProxyFactoryBean extends IsyHttpInvokerClientInterceptor implements

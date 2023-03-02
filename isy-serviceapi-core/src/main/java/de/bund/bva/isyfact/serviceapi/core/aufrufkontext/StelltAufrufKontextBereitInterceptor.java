@@ -34,6 +34,8 @@ import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontex
  * in the {@link AufrufKontextVerwalter}.
  *
  * @param <T> the AufrufKontext
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use <a href="https://isyfact.github.io/isyfact-standards-doku/latest/isy-service-rest/konzept/master.html">REST according to IsyFacts REST Concept</a> instead.
  */
 @Deprecated
 public class StelltAufrufKontextBereitInterceptor<T extends AufrufKontext> implements MethodInterceptor,

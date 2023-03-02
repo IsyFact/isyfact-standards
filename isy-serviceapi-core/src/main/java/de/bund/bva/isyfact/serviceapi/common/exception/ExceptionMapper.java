@@ -32,6 +32,8 @@ import de.bund.bva.pliscommon.exception.service.PlisToException;
  * This class provides methods for transferring the contents of application exceptions to interfaces or transport exceptions.
  * <p>
  * It also provides the ability to throw an interface exception using an exception ID and a {@link FehlertextProvider}.
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use <a href="https://isyfact.github.io/isyfact-standards-doku/latest/isy-service-rest/konzept/master.html">REST according to IsyFacts REST Concept</a> instead.
  */
 @Deprecated
 public class ExceptionMapper {

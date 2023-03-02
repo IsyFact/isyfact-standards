@@ -22,7 +22,8 @@ import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontex
 
 /**
  * Helperclass to resolve AufrufKontextTo from service parameters.
- * @deprecated use non-static {@link AufrufKontextToResolver} as a bean instead.
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use <a href="https://isyfact.github.io/isyfact-standards-doku/latest/isy-service-rest/konzept/master.html">REST according to IsyFacts REST Concept</a> instead.
  */
 @Deprecated
 public class AufrufKontextToHelper {

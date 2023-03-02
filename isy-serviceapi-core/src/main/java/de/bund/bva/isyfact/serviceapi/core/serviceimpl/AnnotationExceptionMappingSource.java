@@ -30,6 +30,8 @@ import de.bund.bva.pliscommon.exception.service.PlisToException;
  * exists (package name = package name of the RemoteBean interface + ".impl"), and
  * that this package is annotated with {@link ExceptionMapping}.
  * </p>
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use <a href="https://isyfact.github.io/isyfact-standards-doku/latest/isy-service-rest/konzept/master.html">REST according to IsyFacts REST Concept</a> instead.
  */
 @Deprecated
 public class AnnotationExceptionMappingSource implements ExceptionMappingSource {

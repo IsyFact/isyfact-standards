@@ -52,6 +52,8 @@ import de.bund.bva.pliscommon.exception.service.PlisToException;
  * The wrapping creates an exception ID and unique ID, which then appear in both the server log and the caller log.
  * The wrapped exception is then mapped to the globally configurable {@link PlisTechnicalToException}.</li>
  * </ul>
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use <a href="https://isyfact.github.io/isyfact-standards-doku/latest/isy-service-rest/konzept/master.html">REST according to IsyFacts REST Concept</a> instead.
  */
 @Deprecated
 public class ServiceExceptionFassade implements MethodInterceptor, Validatable {

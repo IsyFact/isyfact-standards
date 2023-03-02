@@ -30,7 +30,8 @@ import org.springframework.aop.support.AopUtils;
  * Delegiert an eine konkrete Service-Implementierung einer Service- oder Native-GUI-Komponente. Diese Klasse
  * wird genutzt, um in einer teilweise generischen Service-Komponente einen konkret implementierten Kernteil
  * zu nutzen.
- * 
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use <a href="https://isyfact.github.io/isyfact-standards-doku/latest/isy-service-rest/konzept/master.html">REST according to IsyFacts REST Concept</a> instead.
  */
 @Deprecated
 public class ServiceImplDelegator implements MethodInterceptor, Validatable {

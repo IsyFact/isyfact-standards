@@ -7,6 +7,8 @@ import org.springframework.http.HttpHeaders;
 
 /**
  * Class containing helper methods for accessing {@link HttpServletRequest}.
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use <a href="https://isyfact.github.io/isyfact-standards-doku/latest/isy-service-rest/konzept/master.html">REST according to IsyFacts REST Concept</a> instead.
  */
 @Deprecated
 public final class RequestUtil {
