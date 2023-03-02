@@ -97,4 +97,4 @@ Es wird jedoch vorausgesetzt, dass jeder Anwender der IsyFact einen eigenen Styl
 
 == Struktur der Dokumentation
 
-Die Dokumentation der IsyFact folgt einer festgelegten Struktur, die unter xref:methodik:vorgaben-dokumentation.adoc[Vorgaben zur Dokumentation] erläutert sind.
+Die Dokumentation der IsyFact folgt einer festgelegten Struktur, die unter xref:methodik:vorgaben-dokumentation.adoc[Vorgaben zur Dokumentation] erläutert ist.
