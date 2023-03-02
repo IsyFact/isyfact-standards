@@ -2,4 +2,4 @@
 
 - `IFS-1852` Bereitstellung einer Implementierung zur Authentifizierung eines Clients mit Client Credentials
     - Property `isy.security.rolesClaimName` eingeführt
-- `IFS-2302` Mapping der Rollen und Rechte auf SpringBoot
+- `IFS-2302` Umsetzung des Mappings von Rollen auf Rechte

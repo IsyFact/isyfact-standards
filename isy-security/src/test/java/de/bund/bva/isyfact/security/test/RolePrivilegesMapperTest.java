@@ -32,7 +32,7 @@ public class RolePrivilegesMapperTest {
 
     @Test
     public void testAppId() {
-        assertEquals("Default", mapper.getAnwendungsId());
+        assertEquals("Default", mapper.getApplicationId());
     }
 
     @Test

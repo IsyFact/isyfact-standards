@@ -15,7 +15,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 public class RolePrivileges {
 
     @JacksonXmlProperty(localName = "AnwendungsId")
-    private String appId;
+    private String applicationId;
 
     @JacksonXmlProperty(namespace = "tns", localName = "rechte")
     @JacksonXmlElementWrapper(useWrapping = false)
@@ -25,8 +25,8 @@ public class RolePrivileges {
     @JacksonXmlElementWrapper(useWrapping = false)
     private List<Role> roles;
 
-    public String getAppId() {
-        return appId;
+    public String getApplicationId() {
+        return applicationId;
     }
 
     public List<Privilege> getPrivileges() {

@@ -93,7 +93,7 @@ public class RolePrivilegeGrantedAuthoritiesConverter implements Converter<Jwt, 
     }
 
     private Set<String> mapToPrivileges(Collection<String> roles) {
-        return new HashSet<>(rolePrivilegesMapper.getPrivilegesByRoles(roles));
+        return rolePrivilegesMapper.getPrivilegesByRoles(roles);
     }
 
 }
