@@ -262,47 +262,44 @@ Im Kapitel <<absicherung-task>> folgt dann die Beschreibung wie der Baustein `is
 
 [[absicherung-batch]]
 ===== Absicherung eines Batch
-In der IsyFact-Systemlandschaft - <<image-GA-AW>> - ist ein Batch zwar analog einer Externe Anwendung aber als _ConfidentialClient_ eingestuft, weil er in der Lage ist, die notwendige Vertraulichkeit zur Wahrung seiner Anmeldeinformationen sicherzustellen.
+Gemäß der IsyFact-Systemlandschaft - siehe xref:../../blaupausen/detailkonzept-komponente-batch/master.adoc#grobe-archtiketur-des-batchrahmens[Grobe Architektur des Batchrahmens] - ist ein Batch teil eines Anwendungssystems und setzt sich aus mehreren Komponenten - <<image-AwLogBat>> - zusammen.
+Da die Absicherung zur Ausführung eines Batches immer ohne User-Interaktionen stattfindet, ist dieser als _ConfidentialClient_ einzustufen, weil er in der Lage sein muss, die notwendige Vertraulichkeit zur Wahrung seiner Anmeldeinformationen sicherzustellen.
 
 .Fachliche Architektur eines Batch in der Anwendungslandschaft
-[id="image-GA-AW",reftext="{figure-caption} {counter:figures}"]
-image::../images/konzept/fachliche-referenzarchitektur-batchlandschaft.dn.svg[]
+[id="image-AwLogBat",reftext="{figure-caption} {counter:figures}"]
+image::../images/konzept/AnwLogBat.dn.svg[]
 
-Er wird über ein Batch-Client oder Startprogramm – meist ein Shellscript, UC4, JobNetz, CronJob, o.ä. – initialisiert und gestartet.
+Ein Batch wird über ein Batch-Client oder Startprogramm – meist ein Shellscript, UC4, JobNetz, CronJob, o.ä. – initialisiert und gestartet.
 Diese Batch-Clients sind Systemseitig dazu berechtigt den dedizierten Batch auszuführen und damit zu starten.
-Der Batch selbst besteht aus mehreren Komponenten - siehe xref:../../blaupausen/detailkonzept-komponente-batch/master.adoc#grobe-archtiketur-des-batchrahmens[Grobe Architektur des Batchrahmens].
-Somit ruft der Batch-Client das Batch-Startprogramm im Batch-Rahmen auf, das die notwendigen Initialisierungen vornimmt.
+Somit ruft der Batch-Client den Batch in der Nutzungsschicht der Anwendung auf, das die notwendigen Initialisierungen vornimmt.
 Genau hier erfolgt frühzeitig die Unterscheidung zwischen der existierenden Authentifizierungs- und Autorisierungs-Logik oder der neu eingeführten Absicherung per SpringSecurity (OAuth2.0).
 
 .Absicherung eines Batch
 [id="image-sequenzdiagramm-absicherung-batch",reftext="{figure-caption} {counter:figures}"]
 image::isy-security:konzept/Sequenzdiagramm_AbsicherungBatch.dn.svg[align="center"]
 
+Das heißt in der Batch-Konfiguration ist ein Property konfiguriert, das dahingehend aufgelöst wird, ob der Batch nun mit seinem _TechnischenNutzer_ und dem zugehörigen `Benutzer` und `Passwort` über den bisherigen <<resource-owner-password-credential-flow>> oder über den neuen <<client-credential-flow>> mit dem migrierten Client und seiner `Client-ID` und dem zugehörigen `Client-Secret` sich authentifiziert und autorisiert.
 
-Das heißt in der Batch-Konfiguration muss ein Property hinterlegt sein oder per Kommandozeile muss ein Parameter übergeben werden, wodurch genau definiert wird, ob der Batch nun mit seinem _TechnischenNutzer_ und dem zugehörigen _Passwort_ über den bisherigen <<resource-owner-password-credential-flow>> oder über den neuen <<client-credential-flow>> mit dem migrierten Client und seiner `Client-ID` und dem zugehörigen `Client-Secret` sich authentifiziert und autorisiert.
-
-Ist dieses Property oder der Parameter nicht definiert, dann erfolgt die Authentifizierung und Autorisierung nach dem bisherigen <<resource-owner-password-credential-flow>>.
+Liegen zu diesem Property noch die noch zu IsyFact-2 existierenden Authentifizierungsdaten vor, dann erfolgt die Authentifizierung und Autorisierung nach dem bisherigen <<resource-owner-password-credential-flow>>.
 Dadurch kann der Batch auf IsyFakt-V3 umgestellt werden, ohne dass zusätzliche Änderungen im _Credential_-Flow und damit eine vorherige Nutzermigration zu einem _Client_-User im IAM notwendig wäre.
 
-Im Batch-Rahmen `isy-batchrahmen` von _IsyFact-3_ wird dieser Property- oder Parameter-Schalter ausgewertet, um den korrekten Absicherungs-Flow zu verwenden.
-Dazu wird im Batch-Rahmen in der Ausführungsbean die Methode `getAuthenticationCredentials()` für den bisherigen <<resource-owner-password-credential-flow>> verwendet.
-Oder für den neuen <<client-credential-flow>> in der Ausführungsbean die zusätzliche Methode `getClientCredential()` angeboten.
+Bei der Initialisierung des Batch werden die Authentifizierungsdaten an die _Batch-Steuerung_ übergeben und dort ausgewertet, um den korrekten _Absicherungs_-Flow zu starten.
+Dazu bietet die _Batch-Steuerung_ von _IsyFact-3_ nach wie vor die bisherige API an, um den bisherigen <<resource-owner-password-credential-flow>> zur Authentifizierung zu nutzen.
+Für den neuen <<client-credential-flow>> existiert in der _Batch-Steuerung_ eine neue zusätzliche API, die die Authentifizierung für über einen migrierten Client durchführt.
 
 Je nach verwendetem _Crendential_-Flow erfolgt mit den jeweiligen erhaltenen Authentifizierungsdaten des Batch-Nutzers dann - wie in Kapitel <<aufruf-service-gateway>> beschrieben - die eigentliche Authentifizierung über den IAM-Service der Plattform.
 
 Bei der Authentifizierung des Benutzers im IAM-Service werden alle Informationen zum Benutzer in die T-Komponente `SecurityContext` eingetragen und die Anfrage an das IAM-System ist damit abgeschlossen.
 Der so erhaltene `SecurityContext` beinhaltet damit alle notwendigen Informationen wie _AccessToken_, dem Nutzer zugeordnete Rollen, etc. für den Batch, dass dieser bei der Ausführung seiner Fachanwendungen sich entsprechend diesen gegenüber authentifizieren und autorisieren kann.
 
-Der Zugriff auf den _SecurityContext_ ist über Servicemethoden der T-Komponente _isy-security_ gekapselt, so dass es für den Batch selbst völlig transparent bleibt, ob im Batchrahmen ein alter `AufrufKontext` oder ein neuer `SecurityContext` initialisiert wurde.
-
 Um sicher zu stellen, dass ein Batch über seine gesamte Laufzeit ein gültiges _AccessToken_ besitzt und sich jederzeit an den Fachanwendungen authentifizieren und autorisieren kann, muss im _Batchrahmen_ eine Überprüfung des _AccessTokens_ erfolgen.
-Das bedeutet die _Batchrahmen_-Implementierung verfügt mit _IsyFakt-3_ innerhalb der Satz-Verarbeitungsschleife über einen Validierungsmechanismus, der bei jedem Durchlauf einer Datensatz-Verarbeitung vor den eigentlichen Aufrufen der Fachanwendungslogik die Gültigkeitsdauer des _AccessTokens_ überprüft.
-Diese Prüfung verifiziert, dass die `Expiration_Time` des _AccessTokens_ noch eine vorgegebene Mindestgültigkeitsdauer aufweist, die über die Batch-Konfiguration vorgegeben werden kann.
-Sollte die Gültigkeitsdauer des _AccessTokens_ kleiner sein als die vorgegebene bzw. konfigurierbare Mindestgültigkeitsdauer, dann aktualisiert der _Batchrahmen_ das _AccessToken_, indem er eine erneute Authentifizierung und Autorisierung, analog der zu Beginn in der `runBatch`-Methode, durchführt.
+Das bedeutet die _Batchsteuerung_ verfügt mit _IsyFakt-3_ innerhalb der Satz-Verarbeitungsschleife über einen Validierungsmechanismus, der bei jedem Durchlauf einer Datensatz-Verarbeitung vor den eigentlichen Aufrufen der Fachanwendungslogik die Gültigkeitsdauer des _AccessTokens_ überprüft.
+Diese Prüfung verifiziert, dass das _AccessTokens_ noch eine Mindestgültigkeitsdauer aufweist, die über die Batch-Konfiguration vorgegeben werden kann.
+Sollte die Gültigkeitsdauer des _AccessTokens_ kleiner sein als die vorgegebene bzw. konfigurierbare Mindestgültigkeitsdauer, dann aktualisiert der _Batchsteuerung_ das _AccessToken_, indem eine erneute Authentifizierung und Autorisierung, analog zur Initialisierungsphase des Batch, durchgeführt wird.
 
 Das so erneuerte _AccessToken_ kann nun wieder für ein oder mehrere Verarbeitungszyklen verwendet werden, ohne dass es in den evtl. kaskadierend aufgerufenen Fachanwendungen zu einem Fehler mangels gültigem _AccessTokens_ kommen kann.
 
-Falls vor oder nach der Satz-Verarbeitungsschleife eine umfangreiche vorbereitende bzw. nachbereitende Datenverarbeitung stattfindet, die evtl. auch längere Zeit in Anspruch nehmen könnte, dann ist im _Batchrahmen_ auch hierfür eine Möglichkeit der Überprüfung der Token-Gültigkeitsdauer mit ggf. der Anforderung für ein neues _AccessToken_ im Batch-Rahmen vorhanden.
+Falls vor oder nach der Satz-Verarbeitungsschleife eine umfangreichere vorbereitende bzw. nachbereitende Datenverarbeitung stattfindet, die evtl. auch längere Zeit in Anspruch nehmen könnte, dann ist in der _Batchsteuerung_ hierfür eine Möglichkeit der Überprüfung der Token-Gültigkeitsdauer mit ggf. der Anforderung für ein neues _AccessToken_ vorhanden.
 
 
 
