@@ -16,6 +16,7 @@
 * Neue Produkte:
 ** Selenium 4.x (empfohlen)
 ** Liquibase 4.x
+** Jakarta Annotations 1.3.5
 ** JDK Temurin 17 mit Java-Language 8
 ** Testcontainers 1.x
 
