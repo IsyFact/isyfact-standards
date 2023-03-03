@@ -15,6 +15,9 @@ im Rahmen des `Client Credential Flow` zur Verfügung. Im Folgenden werden die n
 
 === Maven Dependency
 Hierzu sind zunächst die folgenden Abhängigkeiten erforderlich:
+
+[[listing-maven-dep-client-cred]]
+.Maven Dependencies für Client Credentials
 [source,xml]
 ----
 <dependency>
@@ -43,6 +46,8 @@ Um clientseitig die automatische Konfiguration einer Anwendung zu ermöglichen, 
 Um im Rahmen des Client Credential Flows HTTP-Anfragen an einen Ressourcenserver stellen zu können, ist zusätzlich die Konfiguration des reaktiven `WebClient` erforderlich.
 Hierzu wird die Standardimplementierung mit dem Zusatz eines OAuth2-Autorisierungsfilters verwendet:
 
+[[listing-spring-webclient-example]]
+.Spring WebClient Beispiel
 [source,java]
 ----
 @Configuration
@@ -68,9 +73,8 @@ public class OAuth2WebClientConfiguration {
 Für die korrekte Anbindung an den `Identity Provider` ist die Angabe einiger Konfigurationsparameter notwendig. Das Präfix sämtlicher Konfigurationsparameter `spring.security.oauth2` wird zur Vereinfachung in der Liste unten weggelassen.
 
 
-:desc-table-parameter: Konfigurationsparameter einer Client-Anwendung
-[id="table-parameter",reftext="Konfigurationsparameter"]
-.{desc-table-parameter}
+[[table-parameter-client-cred]]
+.Konfigurationsparameter einer Client-Anwendung
 [cols="3m,2m,2m,8",options="header"]
 |===
 |Parameter |Wertebereich |Default |Beschreibung
@@ -87,6 +91,9 @@ Spring Security unterstützt die automatische Absicherung von Endpunkten einer A
 
 === Maven Dependency
 Dazu ist die Einbindung der folgenden Abhängigkeiten notwendig:
+
+[[listing-maven-dep-sst]]
+.Maven Dependencies für Client Credentials
 [source,xml]
 ----
 <dependency>
@@ -114,6 +121,8 @@ Dazu ist die Einbindung der folgenden Abhängigkeiten notwendig:
 Um eine Anwendung auf Basis von `OAuth 2.0` und unter Verwendung von JWT-Bearer-Tokens zu sichern, werden die oben aufgeführten Abhängigkeiten eingebunden. Die Verwendung der Abhängigkeit `spring-security-oauth2-resource-server` führt dazu, dass die anwendungsspezifische `SecurityFilterChain` um den Filter `.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)` erweitert wird.
 Bietet die Applikation keine `SecurityFilterChain` an, wird durch Spring Boot automatisch die folgende Konfiguration eingebunden:
 
+[[listing-sst-security-config]]
+.Beispiel für eine Security Konfiguration zur Absicherung einer Schnittstelle mit Spring Boot
 [source,java]
 ----
 @Configuration
@@ -135,9 +144,8 @@ public class OAuth2ServerSecurityConfig {
 
 Für die korrekte Anbindung an den `Identity Provider` ist die Angabe der folgenden Konfigurationsparameter notwendig. Das Präfix sämtlicher Konfigurationsparameter `spring.security.oauth2` wird zur Vereinfachung in der Liste unten weggelassen.
 
-:desc-table-parameter: Konfigurationsparameter einer Service-Schnittstelle
-[id="table-parameter-service",reftext="KonfigurationsparameterService"]
-.{desc-table-parameter}
+[[table-parameter-service]]
+.Konfigurationsparameter einer Service-Schnittstelle
 [cols="3m,2m,2m,8",options="header"]
 |===
 |Parameter |Wertebereich |Default |Beschreibung
@@ -146,9 +154,8 @@ Für die korrekte Anbindung an den `Identity Provider` ist die Angabe der folgen
 
 Zusätzlich sind folgende Isyfact-spezifischen Konfigurationsparameter notwendig.
 
-:desc-table-parameter: Isyfact-spezifische Konfigurationsparameter einer Service-Schnittstelle
-[id="table-parameter-service",reftext="KonfigurationsparameterService"]
-.{desc-table-parameter}
+[[table-parameter-service-isyfact]]
+.Isyfact-spezifische Konfigurationsparameter einer Service-Schnittstelle
 [cols="3m,2m,2m,8",options="header"]
 |===
 |Parameter |Wertebereich |Default |Beschreibung
