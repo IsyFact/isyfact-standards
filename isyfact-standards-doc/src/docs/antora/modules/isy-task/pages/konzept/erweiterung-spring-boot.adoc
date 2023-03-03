@@ -2,8 +2,6 @@
 
 include::glossary:licence:partial$licence.adoc[]
 
-== Grundlagen
-
 Das Task Scheduling mit Spring Boot funktioniert über das Setzen der Annotation `@Scheduled` an beliebigen Methoden.
 Die Parameter der Annotation legen fest, wie genau Tasks eingeplant und ausgeführt werden.
 Darüber hinaus muss das Scheduling einmalig mit der Annotation `@EnableScheduling` aktiviert werden.
@@ -38,27 +36,44 @@ public class ExampleTasks {
 Der größte Vorteil des Ansatzes von Spring Boot ist die Einfachheit der Verwendung für die Entwicklung.
 Diesen Vorteil nutzt der Baustein Task Scheduling vollständig aus, indem er sich nahtlos in diesen Ansatz integriert.
 
-NOTE: Hinweis auf Spring Boot Doku!
+NOTE: Mehr Informationen zu dem Thema finden sich in der https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.task-execution-and-scheduling[Dokumentation über Task Scheduling von Spring Boot] sowie in der https://docs.spring.io/spring-framework/docs/5.3.26-SNAPSHOT/reference/html/integration.html#scheduling-annotation-support[Dokumentation über die Annotationen zum Scheduling des Spring Frameworks].
 
 == Erweiterung des Task Scheduling
 
 Der Baustein Task Scheduling nutzt Spring AOP und @AspectJ-Annotationen, um vor und nach der Ausführung von Methoden mit der Annotation `@Scheduled` eigenen Code auszuführen.
-Hierzu wird ein "Around Advice" (https://docs.spring.io/spring-framework/docs/5.3.24/reference/html/core.html#aop-ataspectj-around-advice) verwendet.
-Der Around Advice ist dafür zuständig:
+Hierzu wird ein Around Advice verwendet.
+Dieser ist dafür zuständig:
 
 * die integrierten Bausteine der IsyFact zur Ausführung des Tasks zu initialisieren,
 * die eigentliche, mit `@Scheduled` annotierte, Methode so aufzurufen, dass sie korrekt ausgeführt wird,
 * Aufräumarbeiten zu erledigen, sodass die Verarbeitung des Tasks sauber beendet werden kann,
 * das Ergebnis der mit `@Scheduled` annotierten Methode zurückzugeben.
 
-.Ablauf der Ausführung eines Tasks ohne und mit Around Advice
+.Ausführung eines Tasks mit dem Baustein Task Scheduling
 image::isy-task:konzept/around-aspect-ablauf.dn.svg[]
 
+NOTE: Mehr Informationen zu Around Advices (und zu Spring AOP) finden sich in der https://docs.spring.io/spring-framework/docs/5.3.24/reference/html/core.html#aop-ataspectj-around-advice[Dokumentation des Spring Frameworks].
+
 Neben dem Advice gibt es für jeden Task eine eigene Konfiguration sowie eine globale Konfiguration mit Standardwerten für alle Tasks.
-Hierüber lassen sich die integrierten IsyFact-Bausteine und der Task selbst konfigurieren.
+Hierüber lassen sich die xref:isy-task:konzept/integration-isyfact.adoc[integrierten IsyFact-Bausteine] und der Task selbst konfigurieren.
 
 Alle genannten Fähigkeiten des Bausteins Task Scheduling konfigurieren sich automatisch selbst, sobald die Bibliothek zum Baustein in eine Anwendung integriert wird. Für die Umsetzung eines Tasks gemäß IsyFact benötigt man somit:
 
 * die Einbindung der IsyFact-Bibliothek zum Task Scheduling,
 * eine mit `@Scheduled` annotierte Methode,
 * (optional) eine Task-spezifische Konfiguration.
+
+== Einmalig ausgeführte Tasks
+
+Das Task Scheduling von Spring Boot fokussiert sich auf mehrfach ausgeführte Tasks.
+Einmalig ausgeführte Tasks unterstützt es nicht.
+Hier springt der Baustein Task Scheduling ein und ermöglicht es, Tasks genau einmal auszuführen, ohne die Vorteile der xref:isy-task:konzept/integration-isyfact.adoc[] zu verlieren.
+
+Dazu definiert der Baustein die Annotation `@ManualTask`.
+Die Tasks müssen:
+
+* von `Runnable` ableiten,
+* die Methode `run()` mit der Annotation `@ManualTask` kennzeichnen, und
+* programmatisch im von Spring Boot bereitgestellten Task Scheduler eingeplant werden.
+
+Für diese Tasks gelten dieselben Integrationsvorteile wie für mit `@Scheduled` geplante Tasks.
