@@ -278,7 +278,7 @@ Genau hier erfolgt frühzeitig die Unterscheidung zwischen der existierenden Aut
 [id="image-sequenzdiagramm-absicherung-batch",reftext="{figure-caption} {counter:figures}"]
 image::isy-security:konzept/Sequenzdiagramm_AbsicherungBatch.dn.svg[align="center"]
 
-Das heißt in der Batch-Konfiguration ist ein Property konfiguriert, das dahingehend aufgelöst wird, ob der Batch nun mit seinem _TechnischenNutzer_ und den zugehörigen Authentifizierungsdaten `Benutzer` und `Passwort` über den bisherigen <<resource-owner-password-credential-flow>> oder über den neuen <<client-credential-flow>> mit dem migrierten _Client_-Nutzer mit `Client-ID` und `Client-Secret` authentifiziert und autorisiert wird.
+Das heißt in der Batch-Konfiguration ist ein Property konfiguriert, das dahingehend aufgelöst wird, ob der Batch nun mit einem _NatürlichenNutzer_ und den zugehörigen Authentifizierungsdaten `Benutzer` und `Passwort` über den bisherigen <<resource-owner-password-credential-flow>> oder über den neuen <<client-credential-flow>> mit dem migrierten _TechnischenNutzer_ mit `Client-ID` und `Client-Secret` authentifiziert und autorisiert wird.
 
 Liegen zu diesem Property noch die zu IsyFact-2 existierenden Authentifizierungsdaten vor, dann erfolgt die Authentifizierung und Autorisierung nach dem bisherigen <<resource-owner-password-credential-flow>>.
 Dadurch kann der Batch auf IsyFakt-V3 umgestellt werden, ohne dass zusätzliche Änderungen im _Credential_-Flow und damit eine vorherige Nutzermigration zu einem _Client_-User im IAM notwendig wäre.
@@ -314,7 +314,7 @@ Sie besitzen in der Regel einen kleineren Umfang als _Batches_ und werden nicht 
 Stattdessen werden sie durch die Anwendung selbst konfiguriert, zeitlich geplant und selbstständig ausgeführt.
 Daher müssen _Aufgaben_, als Teil einer Komponente des Anwendungskerns, über andere Mechanismen abgesichert werden.
 
-Mit Einführung des neuen Sicherheitsbausteins `isy-security` werden auch für die Absicherung von _Aufgaben_ beide Credentialflows <<client-credential-flow>> und <<resource-owner-password-credential-flow>> unterstützt.
+Mit Einführung des neuen Sicherheitsbausteins `isy-security` werden auch für die Absicherung von _Aufgaben_ beide _Credential_-Flows <<client-credential-flow>> und <<resource-owner-password-credential-flow>> unterstützt.
 Das bedeutet, dass die für die _Aufgaben_-Authentifizierung verwendete Parametrisierung per KonfigurationsKey einerseits wie bisher als _NatürlicherNutzer_ zu `Benutzer` und `Passwort` und andererseits neu als _TechnischerNutzer_ zu `Client-ID` und `Client-Secret` aufgelöst werden kann.
 Mittels der beiden verschiedenen Sets an KonfigurationKeys erfolgt so die Unterscheidung welcher Credential-Flow im Sicherheitsbaustein durchlaufen wird.
 
@@ -322,8 +322,16 @@ Mit _IsyFact-3_ soll bevorzugt der <<client-credential-flow>> und den Properties
 
 Zur Unterstützung einer weichen Migration wird mit _IsyFact-3_ der <<resource-owner-password-credential-flow>> mit `Benutzer` und `Passwort` weiterhin möglich sein, da zum Wechseln des Credential-Flows auch erst eine Migration des _NatürlichenNutzers_ auf einen _TechnischenNutzer_ im IAM abgeschlossen sein muss.
 
-Wird in einer Anwendung wie bisher aus der `isy-task`-Bibliothek die Klasse `IsyTaskAutoConfiguration` eingesetzt, so wird über deren Annotation `@EnableScheduling` das _SpringBoot-Scheduler_-Framework in die Anwendung mit eingebunden.
-In dieser Bibliothek existieren bisher zwei verschiedene Implementierungen des `AuthenticatorFactory`-Interface.
+Wird in einer Fachanwendungskomponente die `isy-task`-Bibliothek eingebunden, so kann diese über das interne _SpringBoot-Scheduler_-Framework _Aufgaben_ als abgekoppelte Hintergrundprozesse starten.
+Per Konfiguration kann dabei definiert werden, ob eine _Aufgaben_ ohne oder mit Authentifizierungs- und Autorisierungs-Mechanismen ausgeführt wird.
+
+Mit _IsyFact-3_ wird zusätzlich für die _Aufgaben_-Ausführung mit Authentifizierung und Autorisierung zwischen den _Credentials_-Flows <<resource-owner-password-credential-flow>> und <<client-credential-flow>> unterschieden.
+Diese Unterscheidung erfolgt wie bei einem Batch durch die Definition der Authentifizierungsdaten in der Betriebskonfiguration.
+Dadurch können auch Aufgaben, deren Nutzer noch nicht zu einem _TechnischenNutzer_ mit `Client-ID` und `Client-Secret` in IAM migriert wurden, weiterhin mit _IsyFact-3_ ausgeführt werden.
+
+
+
+In dieser Bibliothek werden bisher zwei verschiedene Implementierungen des `AuthenticatorFactory`-Interface.
 Einmal die Implementierung `NoOpAuthenticatorFactory`, die wie der Name besagt, eigentlich nur die Framework-API-Signaturen bedient und damit keine wirkliche Authentifizierung durchführt.
 Zum Zweiten die Implementierung `IsySicherheitAuthenticatorFactory`, die mit der übergebenen _TaskId_ als Parameter aus der Betriebs-Konfiguration die Authentifizierungsdaten `Benutzer` und `Passwort` ermittelt.
 Falls die gesuchten Authentifizierungsdaten vorhanden sind, wird eine Instanz von `IsySicherheitAuthenticator` zurückgeliefert, falls nicht eine Instanz von `NoOpAuthenticator`.
@@ -333,6 +341,7 @@ Zur Absicherung einer _Aufgabe_ - <<image-sequenzdiagramm-absicherung-task>> - m
 .Absicherung von Aufgaben (Tasks)
 [id="image-sequenzdiagramm-absicherung-task",reftext="{figure-caption} {counter:figures}"]
 image::isy-security:konzept/Sequenzdiagramm_AbsicherungTask.dn.svg[align="center"]
+
 
 Der Aufruf zur Verwendung dieser neuen Factory erfolgt, wie bisher, in der Klasse `IsyTaskAutoConfiguration` über die neue Methode `authenticatorFactoryIsySecurity()`, die mittels der Annotation `@ConditionalOnProperty` über das Konfiguration-Property `isy.task.authentication.enabled` gesteuert wird.
 
