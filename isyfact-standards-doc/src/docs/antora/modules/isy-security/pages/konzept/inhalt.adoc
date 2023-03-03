@@ -130,22 +130,10 @@ Es ermöglicht Clients, die Identität des Endbenutzers basierend auf der von ei
 
 OpenID Connect ermöglicht es Clients aller Art, einschließlich webbasierter, mobiler und JavaScript-Clients, Informationen über authentifizierte Sitzungen und Endbenutzer anzufordern und zu erhalten.
 
-Im Falle einer Nutzeranmeldung (Authentifizierung) entsteht eine Authentifizierungsanfrage auf der Basis des OAuth-Grant-Type-Autorisierungscode.
-Diese Anfrage leitet den Browser des Benutzers mittels HTTP Weiterleitung um und sendet eine Authentifizierungsanfrage an den Autorisierungsserver.
-Ein OAuth-Client kann die OpenID-Erweiterung aufrufen, indem er einfach den Scope-Wert `openid` zu einer Autorisierungsanfrage hinzufügt.
-
-Die Spezifikationen sind erweiterbar und ermöglichen es den Teilnehmern, optionale Funktionen wie die Verschlüsselung von Identitätsdaten, die Erkennung von OpenID-Anbietern und die Abmeldung zu verwenden, wenn dies für sie sinnvoll ist.
-
-Wie der Server den Benutzer authentifiziert, ist nicht spezifiziert und liegt in der Entscheidung des OpenID Providers.
-
-Der Authorization Server/IAM-Service stellt die OpenID Connect API zur Verfügung.
-Somit können ID-Tokens mit nutzerspezifische Daten ausgestellt werden.
-Außerdem kann der `UserInfo` Endpunkt mit einem gültigen Access-Token genutzt werden, um an nutzerspezifische Daten des Nutzers, für den das Access-Token ausgestellt wurde, zu gelangen.
+Der Baustein `Security` bietet an sich keine direkte OpenID Connect Unterstützung.
+Für den Transport von Benutzerinformationen wie z.B. BHKNZ wird das Access Token verwendet.
 
 OpenID Connect Abfragen zur Identität eines Benutzers, OpenID-Token oder Custom-Token müssen in der Anwendung implementiert werden.
-Der Baustein `Security` stellt hierfür keine Methoden bereit.
-Hintergrund ist, dass Informationen zum Nutzer innerhalb des Access-Tokens geschrieben werden.
-Momentan befinden sich die Applikationen in einer geschützten Umgebung und nicht in einem Third-Party Szenario und deshalb können persönliche, schützenswerte Informationen über den Benutzer auch in den Access Token geschrieben werden.
 
 [[authentifizierung-und-autorisierung]]
 === Authentifizierung & Autorisierung
