@@ -85,3 +85,5 @@ Dazu können Anwendungen Tasks über die Konfiguration:
 * nur auf bestimmten Maschinen ausführen.
 
 Die Zuordnung von Tasks zu Maschinen geschieht über den Hostnamen.
+
+Bei der Umsetzung von Tasks muss die entsprechende Konfiguration mit konkreten Werten belegt werden.
