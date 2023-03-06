@@ -179,8 +179,8 @@ Aus diesen werden zwei fachliche Rollen gebildet:
 
 Dieses Beispiel führt zu folgender Konfigurationsdatei:
 
+[[listing-rollenrechte]]
 .Beispielhafte Definition von Rollen und Rechten
-[id="listing-RollenRechte",reftext="{listing-caption} {counter:listings }"]
 [source,xml]
 ----
 <tns:Anwendung AnwendungsId="GeschäftsanwendungX"
