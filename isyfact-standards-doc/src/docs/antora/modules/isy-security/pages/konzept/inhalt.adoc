@@ -130,8 +130,8 @@ Es ermöglicht Clients, die Identität des Endbenutzers basierend auf der von ei
 
 OpenID Connect ermöglicht es Clients aller Art, einschließlich webbasierter, mobiler und JavaScript-Clients, Informationen über authentifizierte Sitzungen und Endbenutzer anzufordern und zu erhalten.
 
-Der Baustein `Security` bietet an sich keine direkte OpenID Connect Unterstützung.
-Für den Transport von Benutzerinformationen wie z.B. BHKNZ wird das Access Token verwendet.
+Der Baustein `Security` bietet keine direkte OpenID Connect Unterstützung.
+Für den Transport von Benutzerinformationen, wie z.B. BHKNZ, wird das Access-Token verwendet.
 
 OpenID Connect Abfragen zur Identität eines Benutzers, OpenID-Token oder Custom-Token müssen in der Anwendung implementiert werden.
 
