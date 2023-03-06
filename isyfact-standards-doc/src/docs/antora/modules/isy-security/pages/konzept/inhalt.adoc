@@ -323,41 +323,34 @@ Mit _IsyFact-3_ soll bevorzugt der <<client-credential-flow>> und den Properties
 Zur Unterstützung einer weichen Migration wird mit _IsyFact-3_ der <<resource-owner-password-credential-flow>> mit `Benutzer` und `Passwort` weiterhin möglich sein, da zum Wechseln des Credential-Flows auch erst eine Migration des _NatürlichenNutzers_ auf einen _TechnischenNutzer_ im IAM abgeschlossen sein muss.
 
 Wird in einer Fachanwendungskomponente die `isy-task`-Bibliothek eingebunden, so kann diese über das interne _SpringBoot-Scheduler_-Framework _Aufgaben_ als abgekoppelte Hintergrundprozesse starten.
-Per Konfiguration kann dabei definiert werden, ob eine _Aufgaben_ ohne oder mit Authentifizierungs- und Autorisierungs-Mechanismen ausgeführt wird.
+Per Konfiguration kann dabei definiert werden, ob eine _Aufgabe_ ohne oder mit Authentifizierungs- und Autorisierungs-Mechanismen ausgeführt wird.
 
-Mit _IsyFact-3_ wird zusätzlich für die _Aufgaben_-Ausführung mit Authentifizierung und Autorisierung zwischen den _Credentials_-Flows <<resource-owner-password-credential-flow>> und <<client-credential-flow>> unterschieden.
-Diese Unterscheidung erfolgt wie bei einem Batch durch die Definition der Authentifizierungsdaten in der Betriebskonfiguration.
+Mit _IsyFact-3_ wird für die _Aufgaben_-Ausführung mit Authentifizierung und Autorisierung zusätzlich der neue <<client-credential-flow>> eingeführt.
+Die Unterscheidung welcher der beiden _Credentials_-Flows, ob <<resource-owner-password-credential-flow>> oder <<client-credential-flow>> für die _Aufgabe_ verwendet wird, erfolgt innerhalb der _isy-task_-Bibliothek.
+Wie bei einem _Batch_ per `Batch-ID`, wird für eine _Aufgabe_ per `Task-ID` die Definition der Authentifizierungsdaten in der Betriebskonfiguration aufgelöst.
+Je nach vorhandenem Set an Authentifizierungsproperties - ob `Benutzer` und `Passwort` oder `Client-ID` und `Client-Secret` - wird der entsprechende _Credential_-Flow in _isy-security_ bestimmt.
+
 Dadurch können auch Aufgaben, deren Nutzer noch nicht zu einem _TechnischenNutzer_ mit `Client-ID` und `Client-Secret` in IAM migriert wurden, weiterhin mit _IsyFact-3_ ausgeführt werden.
 
-
-
-In dieser Bibliothek werden bisher zwei verschiedene Implementierungen des `AuthenticatorFactory`-Interface.
-Einmal die Implementierung `NoOpAuthenticatorFactory`, die wie der Name besagt, eigentlich nur die Framework-API-Signaturen bedient und damit keine wirkliche Authentifizierung durchführt.
-Zum Zweiten die Implementierung `IsySicherheitAuthenticatorFactory`, die mit der übergebenen _TaskId_ als Parameter aus der Betriebs-Konfiguration die Authentifizierungsdaten `Benutzer` und `Passwort` ermittelt.
-Falls die gesuchten Authentifizierungsdaten vorhanden sind, wird eine Instanz von `IsySicherheitAuthenticator` zurückgeliefert, falls nicht eine Instanz von `NoOpAuthenticator`.
-
-Zur Absicherung einer _Aufgabe_ - <<image-sequenzdiagramm-absicherung-task>> - mit dem neuen Security-Baustein `isy-security` ist eine weitere `AuthenticatorFactory`-Implementierung mit `IsySecurityAuthenticatorFactory` vorhanden, die als Weiche in eine der beiden _Credential_-Flows dient.
+In <<image-sequenzdiagramm-absicherung-task>> wird der logische Ablauf zur Absicherung einer _Aufgabe_ mit dem neuen Security-Baustein `isy-security` im Zusammenspiel mit der Bibliothek `isy-task` skizziert.
 
 .Absicherung von Aufgaben (Tasks)
 [id="image-sequenzdiagramm-absicherung-task",reftext="{figure-caption} {counter:figures}"]
 image::isy-security:konzept/Sequenzdiagramm_AbsicherungTask.dn.svg[align="center"]
 
+Sobald eine Anwendungskomponente einen fachlichen Ablauf als abgekoppelten Hintergrundprozess und somit als _Aufgabe_ ausführen möchte, dann startet diese eine Initialisierung der _Aufgabe_ mit der `TaskID` als Parameter.
+In `isy-task` wird die übergebene `TaskID` verwendet, um in der Betriebskonfiguration gemäß den xref:../../isy-task/konzept/master.adoc#[TODO ref## Task-Konfigurations-Konventionen] nach dem entsprechenden Set an Konfigurationswerten aufzulösen.
+Da in jedem Fall die Aufgabe von dem eigentlichen Anwendungsprozess abgekoppelt ablaufen soll, wird ein Scheduler instanziiert.
+Je nach vorliegenden Konfigurationswerten für die übergebene `TaskID` startet dann der Scheduler den abgekoppelten _Aufgaben_-Prozess entsprechend zeitlich versetzt oder gar zyklisch wiederholend.
+Erst in diesem abgespaltenen _Aufgaben_-Prozess erfolgt dann die Authentifizierung für den Task.
 
-Der Aufruf zur Verwendung dieser neuen Factory erfolgt, wie bisher, in der Klasse `IsyTaskAutoConfiguration` über die neue Methode `authenticatorFactoryIsySecurity()`, die mittels der Annotation `@ConditionalOnProperty` über das Konfiguration-Property `isy.task.authentication.enabled` gesteuert wird.
+Der gestartete _Aufgaben_-Prozess von `isy-task` ermittelt dann anhand der übergebenen `TaskID` das konfigurierte Authentifizierungsdaten-Set und entscheidet durch diese die entsprechende Authentifizierungsmethode in `isy-security` aufzurufen.
+Das bedeutet für das Authentifizierungsdatenpaar `Benutzer` und `Passwort` ruft der _Aufgaben_-Prozess in `isy-security` die Authentifizierung für den <<resource-owner-password-credential-flow>> auf.
+Und für das Authentifizierungsdatenpaar `Client-ID` und `Client-Secret` erfolgt der Aufruf für den <<client-credential-flow>>.
 
-Die Implementierung der neuen `IsySecurityAuthenticatorFactory`-Klasse erfüllt das API des `AuthenticatorFactory`-Interface und enthält somit die Methode `getAuthenticator(String taskId)`.
-In dieser Methode werden über den Parameter `taskId` die _Authentifizierungsdaten_ aus der Betriebskonfiguration ermittelt.
-Die Ermittlung berücksichtigt dabei zuerst Taskspezifische und dann Standard-Konfigurationsproperties.
-Sind als _Authentifizierungsdaten_ die Keys `Client-ID` und `Client-Secret` definiert, so wird als _Authenticator_ die neue Klasse `IsyClientCredentialAuthenticator` zurückgeliefert.
-Liegen als _Authentifizierungsdaten_ die Keys `Benutzer` und `Passwort` vor, so wird als _Authenticator_ die neue Klasse `IsyResourceOwnerPasswordCredentialAuthenticator` zurückgeliefert.
-Werden keine der genannten _Authentifizierungsdaten_ gefunden, dann wird der schon existierende _Authenticator_ `NoOpAuthenticator` zurückgegeben.
-
-Die Implementierung des neuen `IsyResourceOwnerPasswordCredentialAuthenticator` startet dann intern die Authentifizierung über den <<resource-owner-password-credential-flow>> im neuen Sicherheitsbaustein `isy-security`, der über das IAM dann einen initialisierten `SecurityContext` inklusive _AccessToken_ zurückliefert.
-
-Die Implementierung des neuen `IsyClientCredentialAuthenticator` startet dann intern die Authentifizierung über den <<client-credential-flow>> im neuen Sicherheitsbaustein `isy-security`, der über das IAM dann einen initialisierten `SecurityContext` inklusive _AccessToken_ zurückliefert.
-
-Diesen `SecurityContext` mit _AccessToken_ verwendet dann die vom _Scheduler_ gestartete _Aufgabe_ für ihre weiteren Ablaufschritte inklusive evtl. _Autorisierungen_ für aufzurufende Fachanwendungen.
-
+Der Sicherheitsbaustein `isy-security` gibt die Authentifizierungsdaten an das IAM weiter und erhält von diesem bei erfolgreicher Authentifzierung ein gültiges _Access-Token_ zurück.
+Dieses erhaltene _Access-Token_ wird dann von `isy-security` interpretiert und zur weiteren Verwendung ein `SecurityContext` initialisiert und aufbereitet, der somit alle notwendigen Informationen wie das _AccessToken_ selbst, dem Nutzer zugeordnete Rollen, etc. enthält.
+Der _Aufgaben_-Prozess erhält dann den initialisierten `SecurityContext` zurück, den er innerhalb seiner weiteren Ablaufschritte immer weiterreicht, sodass dieser sich beim Aufruf seiner Fachanwendungen entsprechend diesen gegenüber authentifizieren und autorisieren kann.
 
 
 [[verarbeitung-asynchroner-anfragen]]
