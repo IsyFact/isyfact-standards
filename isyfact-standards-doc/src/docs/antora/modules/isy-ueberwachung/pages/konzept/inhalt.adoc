@@ -4,32 +4,35 @@
 [[ueberwachung-von-anwendungen]]
 == Überwachung von Anwendungen
 
-In diesem Kapitel werden die Anforderungen an die Überwachung von Anwendungen beschrieben.
+In diesem Konzept werden die Anforderungen an die Überwachung von Anwendungen beschrieben.
 Der Fokus liegt dabei auf der Schaffung von einheitlichen Administrationsschnittstellen, welche dem Betrieb eine einfache Überwachung der Anwendungen erlauben.
 Alle Vorgaben sind beim Entwurf und der Realisierung von neuen Anwendungen nach IsyFact-Architektur zu berücksichtigen.
 Gegebenenfalls können in Systementwürfen Verfeinerungen der hier getroffenen Vorgaben gemacht werden.
 Weiterhin können die hier gemachten Vorgaben als Basis für die Beschreibung der Überwachungsschnittstelle im Betriebshandbuch der Anwendungssysteme verwendet werden.
 
 [[kurzeinfuehrung-in-das-system-monitoring-mit-spring-boot-actuator]]
-=== Kurzeinführung in das System-Monitoring mit Spring Boot Actuator
+== Kurzeinführung in das System-Monitoring mit Spring Boot Actuator
 
 Spring Boot bringt mit Actuator eine Reihe zusätzlicher Funktionen mit, die dabei helfen, Anwendungen zu überwachen und zu verwalten.
 Die Kommunikation mit der Anwendung erfolgt über sogenannte _Endpoints_.
 Diese können über HTTP oder JMX bereitgestellt werden.
 Actuator bringt eine Reihe von eingebauten Endpoints mit und bietet auch die Möglichkeit, eigene Endpoints hinzuzufügen.
-So wird für Informationen über den Systemzustand der eingebauten Endpoint `health` angeboten und über den Endpoint `metrics` können Metriken gelesen werden.
+So wird für Informationen über den Systemzustand die Endpoints `health`, `livenessProbe`, `readinessProbe` angeboten und über den Endpoint `metrics` können Metriken gelesen werden.
 
-[[micrometer]]
-==== Micrometer
+[[informationen-systemzustand]]
+== Informationen über den Systemzustand
+Zur Überwachung von Anwendungen unterscheiden wir zwischen zwei unterschiedlichen Konzepten, dem `health` Endpoint sowie `Liveness` und `Readiness` einer Anwendung.
 
-Die im Endpoint `metrics` bereitgestellten Metriken werden von Micrometer erfasst.
-Micrometer bietet eine einfache anbieterneutrale Fassade für die gängigsten Überwachungssysteme und ermöglicht es, Metriken im Anwendungscode ohne Herstellerbindung zu implementieren.
-Seit Spring Boot 2.0 ist Micrometer die Standardbibliothek zur Bereitstellung von Anwendungsmetriken von Spring.
+Der `health` Endpoint ist der ursprüngliche Status, über den der Zustand und die Erreichbarkeit einer Anwendung geprüft werden kann.
 
-NOTE: Für eine Liste der unterstützten Monitoring-Systeme siehe xref:glossary:literaturextern:inhalt.adoc#litextern-monitoring-systeme-unterstuetzt[unterstützte Monitoring-Systeme]
+Liveness und Readiness sind zusätzliche Überwachungsmöglichkeiten.
+Durch die Unterscheidung in diesen zwei Zuständen kann im Gegensatz zu `health` ein feingranulares Monitoring ermöglicht werden.
 
-[[health-checks]]
-==== Health Checks
+In der IsyFact wird (Stand IsyFact 3.0) standardmäßig der health Endpoint verwendet.
+Mit der IsyFact 3.0 werden Liveness und Readiness konzeptionell zur Verfügung gestellt.
+Jedoch sind diese Endpoints nicht in den Bibliotheken standardmäßig eingebaut und müssen individuell eingeschalten werden.
+
+=== health
 Jede Anwendung führt periodisch einen Health Check (ehemals: Selbsttest) durch, um den eigenen Zustand und die Erreichbarkeit aller angebundenen Nachbarsysteme zu prüfen.
 Das Ergebnis des Health Checks steht über den Endpoint `health` bereit.
 
@@ -43,9 +46,77 @@ Implementiert und konfiguriert wurde bzw. wird der Health-Check als Task (s. xre
 Es ist möglich, die Verfügbarkeit von Nachbarsystemen über die Konfiguration der Anwendung zu prüfen.
 Details hierzu finden sich in den xref:nutzungsvorgaben/master.adoc#vorgaben-fuer-die-pruefung-der-verfuegbarkeit[Nutzungsvorgaben].
 
+TODO: MOVE THIS TO NACHBARSYSTEMPRUEFUNGEN
+
+=== Liveness und Readiness
+
+[[liveness]]
+==== Liveness
+Eine Anwendung wird als "live" (lebendig) angesehen, wenn diese in einem korrekten inneren Zustand ist. Ist eine Anwendung nicht "live", ist ihr innerer Zustand defekt und kann nicht wiederhergestellt werden. Die Anwendung muss daher auf jeden Fall neu gestartet werden (vgl. xref:glossary:literaturextern:inhalt.adoc#litextern-spring-liveness[Spring Boot LivenessState], xref:glossary:literaturextern:inhalt.adoc#litextern-kubernetes-liveness-readiness-probes[Kubernetes Liveness und Readiness Probes]).
+
+[[readiness]]
+==== Readiness
+Eine Anwendung wird als "ready" (bereit) angesehen, wenn sie live ist und bereit für Anfragen ist. Ist eine Anwendung nicht "ready", kann sie temporär keine Anfragen bearbeiten. Ist eine Anwendung nicht "ready", darf die Infrastruktur keine weiteren Anfragen an sie senden (vgl. xref:glossary:literaturextern:inhalt.adoc#litextern-spring-readiness[Spring Boot ReadinessState], xref:glossary:literaturextern:inhalt.adoc#litextern-kubernetes-liveness-readiness-probes[Kubernetes Liveness und Readiness Probes]).
+
+Ein Service (d.h. eine Bündelung von Instanzen/Anwendungen, die denselben Service anbieten) wird als "ready" angesehen, wenn mindestens eine Instanz "ready" ist. Prüfungen der Readiness von Services müssen über die Infrastruktur erfolgen.
+
+[[liveness_readiness_diskussion]]
+==== Diskussion von Liveness & Readiness
+
+Zur Verdeutlichung und Trennung der beiden Begriffe werden diese an dieser Stelle zusammen behandelt. Der Fall, dass eine Anwendung, die nicht "live", aber "ready" ist, ist rein akademisch. In dem Moment, in dem eine Anwendung nicht "live" ist, muss sie durch die Infrastruktur neu gestartet werden, da sie aufgrund des inkorrekten inneren Zustands keine Anfragen korrekt bearbeiten kann. Aus praktischer Sicht wird die Liveness-Abfrage zur Evaluierung, ob eine Anwendung neu zu starten ist, genutzt. Eine Anwendung, die "live", aber nicht "ready" ist, ist in einem korrekten Zustand, hat aber nicht alle notwendigen Abhängigkeiten oder Ressourcen zur Verfügung, um Anfragen anzunehmen. Aus praktischer Sicht ist diese nicht neu zu starten.
+
+
+Ist für eine Anwendung die Abfrage beider Zustande vorgesehen, ergeben sich folgende Zustände:
+[%header, cols="1,1,1,1"]
+|===
+||korrekter innerer Zustand & bereit für Anfragen
+|korrekter innerer Zustand & [.underline]#nicht# bereit für Anfragen
+|inkorrekter innerer Zustand -> [.underline]#nicht# bereit für Anfragen
+
+|Liveness-Zustand |	korrekt (up)| korrekt (up)|	inkorrekt (down)
+|Readiness-Zustand|	korrekt (up)| inkorrekt (down)|	inkorrekt (down)
+|===
+
+
+[[availability]]
+== Availability
+
+Availability (Verfügbarkeit) eines Systems oder einer individuellen Systemkomponente ist definiert als der Prozentsatz eines Zeitraums, in welcher es ordnungsgemäß nach gesetzten Performance-Kriterien läuft (vgl. xref:glossary:literaturextern:inhalt.adoc#litextern-oracle-availability[Oracle: Definition von Availability]).
+ +
+ +
+
+++++
+<math>
+  <mi>Availability</mi>
+  <mo>=</mo>
+  <mfrac displaystyle="true">
+    <mn>Erfüllungszeitraum der Performance-Kriterien</mn>
+    <mn>Definierter Zeitraum des System-/ Komponentenbetriebs</mn>
+  </mfrac>
+</math>
+++++
+
+Diskussion und Anmerkung:
+
+- [.underline]#"Definierter Zeitraum"#: Eine Messung über einen Zeitraum von einer Woche, einem Monat oder bis zu mehreren Jahren kann bestimmt werden. Dieser kann gegliedert in abgetrennte Zeiträume erfolgen, oder jeweils den letzten zurückliegenden Zeitraum betreffen. Dieser ist wie die Performanz-Kriterien anwendungsspezifisch festzulegen.
+- [.underline]#Availability in Spring Boot#: In Spring Boot ist keine Definition von Availability gegeben. Liveness und Readiness wird stattdessen unter Availability zusammengefasst (vgl. xref:glossary:literaturextern:inhalt.adoc#litextern-spring-availability[Spring Boot AvailabilityState]).
+- [.underline]#Bedeutung der Definition#: Es werden nicht-funktionale Anforderungen als Kriterien für Availability gesetzt. Diese stellen Anforderungen an die Anwendung, bzw. das System, auf welches diese verwendet wird, dar. Die nicht-funktionalen Anforderungen, aus deren Erfüllung sich die Availability ableitet, können nicht von den Standards vorgegeben werden. Sie müssen von der jeweiligen Anwendung gegeben werden, da für diese unterschiedliche Bedürfnisse an die Verfügbarkeit der jeweiligen Anwendung bestehen. Sind die nicht-funktionalen Kriterien erfüllt, dann ist die Anwendung/das System available. Availability als Messung des available Zustands über die Zeit stellt entsprechend dar, in welchem zeitlichen Umfang die nicht-funktionalen Kriterien erfüllt sind.
+- [.underline]#Praktischer Nutzen der Messung#: Availability wird zur quantitativen Messung der Resilienz eines Systems und der Feststellung des Erreichungsgrads eines angestrebten Resilienz-Ziel genutzt (vgl. xref:glossary:literaturextern:inhalt.adoc#litextern-aws-availability[aws: Berechnung von Availability]).
+
+[[micrometer]]
+== Bestimmung von Metriken (Micrometer)
+Die im Endpoint `metrics` bereitgestellten Metriken werden von Micrometer erfasst.
+Micrometer bietet eine einfache anbieterneutrale Fassade für die gängigsten Überwachungssysteme und ermöglicht es, Metriken im Anwendungscode ohne Herstellerbindung zu implementieren.
+Seit Spring Boot 2.0 ist Micrometer die Standardbibliothek zur Bereitstellung von Anwendungsmetriken von Spring.
+
+NOTE: Für eine Liste der unterstützten Monitoring-Systeme siehe xref:glossary:literaturextern:inhalt.adoc#litextern-monitoring-systeme-unterstuetzt[unterstützte Monitoring-Systeme]
+
+== Nachbarsystemcheck
+
+== Loadbalancer
 
 [[festlegungen-und-ausgrenzungen]]
-=== Festlegungen und Ausgrenzungen
+== Festlegungen und Ausgrenzungen
 
 Die Nutzungsvorgaben finden sich in den xref:nutzungsvorgaben/master.adoc[].
 
@@ -57,6 +128,10 @@ Das Konzept für die Prüfung der Verfügbarkeit ist:
 Folgende Punkte sind bewusst nicht Teil dieses Konzeptes:
 
 * Micrometer unterstützt die Anbindung zahlreicher Monitoring-Systeme.
-  Es werden keine Vorgaben zur Verwendung eines bestimmten Systems gemacht.
+Es werden keine Vorgaben zur Verwendung eines bestimmten Systems gemacht.
+
+
+
+
 
 // end::inhalt[]
