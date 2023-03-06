@@ -6,5 +6,6 @@
 // tag::release-3.0.0[]
 
 - `IFS-1850` Einleitung zu den Nutzungsvorgaben Security hinzugefügt
+- `IFS-1884` Umsetzung: Methodensicherheit
 
 // end::release-3.0.0[]
