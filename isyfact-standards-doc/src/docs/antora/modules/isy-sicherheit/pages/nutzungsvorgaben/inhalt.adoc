@@ -9,14 +9,11 @@ Der Baustein Sicherheit definiert in der Bibliothek `isy-sicherheit` folgende, z
 * `Sicherheit`: Einstiegspunkt in die Bibliothek
 * `Berechtigungsmanager`: Zugriff auf Informationen zur Berechtigung einzelner Anwender (Rollen & Rechte)
 
-// tag::important[]
 [IMPORTANT]
 ====
 Wie im Dokument xref:konzept/master.adoc#einleitung[Sicherheit - Konzept] beschrieben, fokussiert sich die Bibliothek `isy-sicherheit` auf die Zuordnung von Rechten zu Anwendern anhand ihrer Rollen.
 Die Authentifizierung und die Auflösung der Rollen geschieht in einem anderen Baustein der IsyFact und kann für die Benutzung der Bibliothek als gegeben angenommen werden.
 ====
-
-// end::important[]
 
 Die folgende Abbildung zeigt die Schnittstellen und ihre Verbindung untereinander.
 Die zentrale Schnittstelle für den Zugriff auf Rollen und Rechte eines Anwenders ist der `Berechtigungsmanager`.
@@ -93,14 +90,11 @@ public class SicherheitConfiguration {
 
 Hierbei werden auch direkt die Spring Beans zur Verwaltung der Aufrufkontexte und zur Überwachung des Bausteins konfiguriert.
 
-// tag::important[]
 [IMPORTANT]
 ====
 Die Implementierung der Schnittstelle `AccessManager` stellt einer der IsyFact-Bausteine für die Authentifizierung bereit.
 Eine Beschreibung der Konfiguration findet sich in den jeweiligen Nutzungsvorgaben.
 ====
-
-// end::important[]
 
 [[cache-authentifizierungen]]
 === Caching von Authentifizierungen
@@ -254,14 +248,12 @@ Wichtig ist, dass sich der Filter an der Position `PRE_AUTH_FILTER` befindet.
 Greift er nicht, weil z.B. keine gültige Authentifizierung vorliegt, wird die Anfrage direkt mit einem HTTP-Statuscode 403 (Forbidden) beantwortet.
 Dies stellt das Bean `preAuthenticatedProcessingFilterEntryPoint` sicher.
 
-// tag::important[]
 [IMPORTANT]
 ====
 Die Implementierung der Beans `authenticationProvider` sowie `processingFilter` stellt einer der IsyFact-Bausteine für die Authentifizierung bereit.
 Eine Beschreibung der Konfiguration findet sich in den jeweiligen Nutzungsvorgaben.
 ====
 
-// end::important[]
 
 [[gui-absicherung]]
 ==== Absicherung der Flows
@@ -541,15 +533,5 @@ public AufrufKontextVerwalter aufrufKontextVerwalterStub(AufrufKontextFactory au
 
 Neben den gezeigten Eigenschaften lassen sich auch alle weiteren Eigenschaften des Aufrufkontextes konfigurieren.
 Mit der Eigenschaft `festerAufrufKontext` lässt sich darüber hinaus steuern, ob bei jeder Anfrage derselbe Aufrufkontext (`true`) oder jedes Mal eine neue Instanz mit den gleichen, konfigurierten Werten (`false`) zurückgegeben wird.
-
-
-// tag::architekturregel[]
-
-// end::architekturregel[]
-
-// tag::sicherheit[]
-
-// end::sicherheit[]
-
 
 // end::inhalt[]

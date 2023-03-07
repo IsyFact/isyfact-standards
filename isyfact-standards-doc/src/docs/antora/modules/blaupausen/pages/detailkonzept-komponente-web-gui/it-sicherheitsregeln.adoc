@@ -1,7 +1,0 @@
-// tag::it-sicherheitsregeln[]
-
-[[it-sicherheitsregeln-webgui]]
-== IT-Sicherheitsregeln Komponente Web-GUI
-
-include::inhalt.adoc[tags=sicherheit]
-// end::it-sicherheitsregeln[]

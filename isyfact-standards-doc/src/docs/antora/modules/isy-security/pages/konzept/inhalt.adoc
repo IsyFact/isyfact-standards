@@ -58,7 +58,7 @@ Ein (menschlicher) Endbenutzer kann mit Hilfe eines Autorisierungsservers (IAM-S
 Der Endbenutzer kann so der Anwendung gestatten, in seinem Namen einen Service zu benutzen.
 Dazu wird der Endbenutzer auf eine Login-Seite des Autorisierungsservers (IAM-Service) umgeleitet und nach erfolgreicher Authentifizierung zurück in die Anwendung.
 Dabei wird die Übermittlung von vertraulichen Daten wie z.B. Passwörtern an die Anwendung vermieden.
-Bei M2M-Kommunikation enthält die Konfiguration der Anwendung die zur Authentifizierung notwendigen Daten des dafür verwendeten technischen Nutzers (Client, die direkt an den IAM-Service geschickt werden.
+Bei M2M-Kommunikation (Machine to Machine) enthält die Konfiguration der Anwendung die zur Authentifizierung notwendigen Daten des dafür verwendeten technischen Nutzers (Client, die direkt an den IAM-Service geschickt werden.
 Bei erfolgreicher Authentifizierung erhält die Anwendung ein Access-Token (Zugriffstoken), eine Art 'Freibrief' für die Anwendung, mit dem der IAM-Service das Zugangsrecht bestätigt.
 
 OpenID Connect oder OIDC ist ein offenes Identitätsprotokoll, das die Autorisierungs- und Authentifizierungsmechanismen von OAuth 2.0 nutzt und als Schicht oberhalb des OAuth-Frameworks Anwendungen ermöglicht, zusätzlich zur oben beschriebenen Autorisierung auch grundlegende Profilinformationen des Benutzers auf interoperable Weise zu erhalten.
@@ -67,7 +67,7 @@ Die Implementierung von OpenID Connect basiert auf der Ausstellung von ID-Tokens
 [[oauth2.0-zur-autorisierung]]
 === OAuth2.0 zur Autorisierung
 
-OAuth 2.0 ist ein Autorisierungsprotokoll, kein Authentifizierungsprotokoll.
+OAuth 2.0 ist ein Autorisierungsprotokoll und kein Authentifizierungsprotokoll.
 Als Solches ist es in erster Linie dafür vorgesehen, den Zugriff auf bestimmte Ressourcen zu ermöglichen, beispielsweise externe APIs oder Nutzerdaten. +
 OAuth 2.0 nutzt Access-Tokens.
 Access-Tokens sind Daten, die die Autorisierung zum Zugriff auf Ressourcen für den Endnutzer darstellen.
@@ -125,6 +125,15 @@ Wir übernehmen für die IsyFact die englische Bezeichnung "Refresh-Token".
 
 [[openidconnect-zur-authentifizierung]]
 === OpenIDConnect zur Authentifizierung
+OpenID Connect ist eine Identitätsschicht über dem OAuth 2.0-Protokoll und ist eine Erweiterung und nicht Teil des OAuth2.0-Protokolls.
+Es ermöglicht Clients, die Identität des Endbenutzers basierend auf der von einem Autorisierungsserver durchgeführten Authentifizierung zu überprüfen und grundlegende Profilinformationen über den Endbenutzer auf interoperable und REST-ähnliche Weise zu erhalten.
+
+OpenID Connect ermöglicht es Clients aller Art, einschließlich webbasierter, mobiler und JavaScript-Clients, Informationen über authentifizierte Sitzungen und Endbenutzer anzufordern und zu erhalten.
+
+Der Baustein `Security` bietet keine direkte OpenID Connect Unterstützung.
+Für den Transport von Benutzerinformationen, wie z.B. BHKNZ, wird das Access-Token verwendet.
+
+OpenID Connect Abfragen zur Identität eines Benutzers, OpenID-Token oder Custom-Token müssen in der Anwendung implementiert werden.
 
 [[authentifizierung-und-autorisierung]]
 === Authentifizierung & Autorisierung
@@ -634,15 +643,5 @@ Ist der Schalter (und damit der Testmodus) aktiv, wird zusätzlich zur üblichen
 Somit ist sichergestellt, dass beim Ablösen von alten Geschäftsanwendungen auch die neue Geschäftsanwendung mit denselben Rollen abgesichert und (falls nötig) parallel betrieben werden kann.
 Genauso funktioniert auch das Freischalten einer neuen Geschäftsanwendung für einen zunächst kleinen Kreis von Anwendern.
 In beiden Fällen muss zur eigentlichen Inbetriebnahme, anstatt einer aufwändigen Migration, nur ein Schalter in der betrieblichen Konfiguration umgelegt werden.
-
-
-
-// tag::architekturregel[]
-
-// end::architekturregel[]
-
-// tag::security[]
-
-// end::security[]
 
 // end::inhalt[]

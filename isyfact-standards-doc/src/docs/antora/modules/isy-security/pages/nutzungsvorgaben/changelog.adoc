@@ -7,5 +7,6 @@
 
 - `IFS-1850` Einleitung zu den Nutzungsvorgaben Security hinzugefügt
 - `IFS-1852` Kapitel zur Authentifizierung eines Clients mit Client Credentials hinzugefügt
+- `IFS-1884` Umsetzung: Methodensicherheit
 
 // end::release-3.0.0[]

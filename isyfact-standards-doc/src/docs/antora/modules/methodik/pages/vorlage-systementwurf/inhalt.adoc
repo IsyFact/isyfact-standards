@@ -122,15 +122,39 @@ Die Anforderungen an die konkrete Ausgestaltung der Diagramme werden im Rahmen d
 
 _Die Paketstruktur des Enterprise Architect Modells orientiert sich sowohl an der Benamung als auch an der Hierarchie der Verzeichnisstruktur des Systementwurfs.
 So wird die Einheitlichkeit der EA-Modelle für unterschiedliche Projekte erhöht und das Auffinden benötigter Diagramme erleichtert.
-Die folgende Abbildung zeigt beispielhaft das EA-Modell für die Vorlage-Anwendung CD-Register._
-
+Das folgende Listing zeigt beispielhaft ein EA-Modell._
 ====
 
-:desc-image-packetstruktur-enterprise-architect-modells: Paketstruktur des Enterprise Architect Modells
-[id="image-packetstruktur-enterprise-architect-modells", reftext = "{figure-caption} {counter:figures}"]
-.{desc-image-packetstruktur-enterprise-architect-modells}
-image::vorlage-systementwurf/packetstruktur-enterprise-architect-modells.png[align = center, title-align=center]
 
+[[paketstruktur-enterprise-architect-modell]]
+.Paketstruktur eines Enterprise Architect Modells
+----
+📂 Geschäftsanwendung XYZ
+  📂 Systementwurf
+    📂 Systemarchitektur des Gesamtsystems
+      📂 Querschnittkonzepte
+      📂 Systemüberblick
+      📂 TI-Architektur
+    📂 <<IT-System>> Geschäftskomponente XYZ
+      📂 Anwendungskern
+        📂 <<A-Komponente>> Auskunft
+        📂 <<A-Komponente>> Basisdaten
+        📂 <<T-Komponente>> Berechtigung
+        📂 <<A-Komponente>> Meldung
+        📂 <<A-Komponente>> Protokoll
+      📂 Batch
+      📂 Datenmodell
+      📂 Externe Schnittstellen
+      📂 Teilsystem-Querschnittskonzepte
+      📂 Teilsystem-Überblick
+    📂 <<IT-System>> Service-Gateway
+    📂 Rückbezug Systemspezifikation
+      📂 Anwendungsfälle
+      📂 Anwendungskomponenten
+      📂 Batches
+      📂 Entitäten
+      📂 Nachbarsystemschnittstellen
+----
 
 
 [[zusammenfassung]]
@@ -488,7 +512,8 @@ Z.B. ein neuer Native-Client der an einen bestehenden Service angebunden wird._
 ==== Laufzeitumgebung
 ====
 _Liste der eingesetzten Produkte für die Laufzeitumgebung.
-Diese Umgebung ist für Anwendungen nach Referenzarchitektur vorgegeben, deshalb kann der Abschnitt unten in der Regel übernommen werden.
+Diese Umgebung ist für Anwendungen nach Referenzarchitektur vorgegeben, deshalb kann der Abschnitt unten in der Regel übernommen werden, gegebenenfalls ergänzt um das konkrete Linux-Betriebssystem.
+
 Die Versionen sind nach dem Produktkatalog zu überprüfen und mit dem Gesamtprojekt abzustimmen.
 Für die Laufzeitumgebung wird ein Default-Tomcat bereitgestellt._
 ====
@@ -502,8 +527,8 @@ _Die Laufzeitumgebung für das IT-System [yellow]#<SYSTEM># besteht gemäß Prod
 [cols="4,2,2,4", options="header"]
 |===
 |Kategorie |Name |Version |Bemerkung
-|Betriebssystem |SUSE Linux Enterprise Server |[yellow]#10 SP1# |64Bit Version
-|Java-Laufzeitumgebung |Sun JDK |[yellow]#11.5.0# |64Bit Version
+|Betriebssystem |Linux 64 bit |Kernel >= 4.12 |64Bit Version
+|Java-Laufzeitumgebung | xref:einstieg:produktkatalog/produktvorgabenAllgemein.adoc[siehe Produkt-Katalog] |  xref:einstieg:produktkatalog/produktvorgabenAllgemein.adoc[siehe Produkt-Katalog] | xref:einstieg:produktkatalog/produktvorgabenAllgemein.adoc[siehe Produkt-Katalog]
 |Servlet-Container |Apache Tomcat |[yellow]#16.0.18# |
 |===
 

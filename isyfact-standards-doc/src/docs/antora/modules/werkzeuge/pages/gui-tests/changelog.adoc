@@ -2,5 +2,8 @@
 
 == Changelog
 
+// *Änderungen IsyFact 3.0.0*
 
-- initiale Aufsetzung
+// tag::release-3.0.0[]
+- Initiale Beschreibung zur Verwendung von GUI-Tests mit Selenium
+// end::release-3.0.0[]

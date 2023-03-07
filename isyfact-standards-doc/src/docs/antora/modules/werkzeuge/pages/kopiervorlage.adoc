@@ -104,14 +104,10 @@ Optionale Ergänzungen des Textes wie weiterführende Links, Dokumente, Artikel,
 Optionale Inhalte, die eigene Erfahrungswerte (Good / Best Practices, Tipps & Tricks, ...) einbringen.
 ====
 
-// tag::important[]
-
 [IMPORTANT]
 ====
 Allgemeine Vorgaben der IsyFact.
 ====
-
-// end::important[]
 
 [WARNING]
 ====
@@ -123,38 +119,25 @@ Typische Fallstricke bei der Nutzung der IsyFact.
 Typische Fehler bei der Nutzung der IsyFact.
 ====
 
-// tag::anwendungsanforderung[]
-
 .icon:cogs[] Anwendungsanforderung: Anforderung
 ****
 Anforderungen an die Entwicklung von Anwendungen und IT-Systemen.
 ****
 
-// end::anwendungsanforderung[]
-// tag::architekturregel[]
-
-.icon:university[] Architekturregel: Vorgabe
+.icon:university[title=Architekturregel] Architekturregel: Vorgabe
 ****
 Regeln für die Architektur von Anwendungen und IT-Systemen.
 ****
 
-// end::architekturregel[]
-// tag::sicherheit[]
-
-.icon:shield[] Sicherheit: Vorgabe
+.icon:shield[title=Sicherheit] Sicherheit: Vorgabe
 ****
 Regeln für die Sicherheit von IT-Systemen.
 ****
-
-// end::sicherheit[]
-// tag::styleguide[]
 
 .icon:paint-brush[] Styleguide: Vorgabe
 ****
 Regeln zur Gestaltung von grafischen Oberflächen.
 ****
-
-// end::styleguide[]
 
 Mehr zu Admonition Blocks xref:werkzeuge:dokumentation/bearbeitung/bearbeitung-antora.adoc#admonition-blocks[hier].
 
