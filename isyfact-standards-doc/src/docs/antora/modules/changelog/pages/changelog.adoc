@@ -6,38 +6,39 @@
 - Umstellung auf Antora-Dokumentation.
 - Entfernung der Vorlageanwendungen.
 // Ende übergreifende Änderungen
+
 // Beginn Produktkatalog
 === Änderungen im Produktkatalog
+
 include::isyfact-standards-doku:einstieg:page$produktkatalog/changelog.adoc[tag=release-3.0.0]
 // Ende Produktkatalog
 
 === Änderungen Einstieg
 
-include::isyfact-standards-doku:einstieg:page$changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:einstieg:page$changelog.adoc[tag=release-3.0.0]
 // include::isyfact-standards-doku:einstieg:page$migrationsleitfaden-if2/changelog.adoc[tag=release-3.0.0]
-include::isyfact-standards-doku:einstieg:page$produktkatalog/changelog.adoc[tag=release-3.0.0]
-// include::isyfact-standards-doku:einstieg:page$tutorial/changelog.adoc[tag=release-2.5.0]
+// include::isyfact-standards-doku:einstieg:page$tutorial/changelog.adoc[tag=release-3.0.0]
 
 === Änderungen Blaupausen
 
-include::isyfact-standards-doku:blaupausen:page$referenzarchitektur/changelog.adoc[tag=release-2.5.0]
-include::isyfact-standards-doku:blaupausen:page$referenzarchitektur-it-system/changelog.adoc[tag=release-2.5.0]
-include::isyfact-standards-doku:blaupausen:page$detailkonzept-komponente-anwendungskern/changelog.adoc[tag=release-2.5.0]
-include::isyfact-standards-doku:blaupausen:page$detailkonzept-komponente-batch/changelog.adoc[tag=release-2.5.0]
-include::isyfact-standards-doku:blaupausen:page$detailkonzept-komponente-datenzugriff/changelog.adoc[tag=release-2.5.0]
-include::isyfact-standards-doku:blaupausen:page$detailkonzept-komponente-service/changelog.adoc[tag=release-2.5.0]
-include::isyfact-standards-doku:blaupausen:page$detailkonzept-komponente-web-gui/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:blaupausen:page$referenzarchitektur/changelog.adoc[tag=release-3.0.0]
+include::isyfact-standards-doku:blaupausen:page$referenzarchitektur-it-system/changelog.adoc[tag=release-3.0.0]
+include::isyfact-standards-doku:blaupausen:page$detailkonzept-komponente-anwendungskern/changelog.adoc[tag=release-3.0.0]
+include::isyfact-standards-doku:blaupausen:page$detailkonzept-komponente-batch/changelog.adoc[tag=release-3.0.0]
+include::isyfact-standards-doku:blaupausen:page$detailkonzept-komponente-datenzugriff/changelog.adoc[tag=release-3.0.0]
+include::isyfact-standards-doku:blaupausen:page$detailkonzept-komponente-service/changelog.adoc[tag=release-3.0.0]
+include::isyfact-standards-doku:blaupausen:page$detailkonzept-komponente-web-gui/changelog.adoc[tag=release-3.0.0]
 
 === Änderungen Bausteine
 
-include::isyfact-standards-doku:isy-datetime:page$konzept/changelog.adoc[tag=release-2.5.0]
-include::isyfact-standards-doku:isy-datetime:page$nutzungsvorgaben/changelog.adoc[tag=release-2.5.0]
-include::isyfact-standards-doku:isy-exception-core:page$konzept/changelog.adoc[tag=release-2.5.0]
-include::isyfact-standards-doku:isy-exception-core:page$nutzungsvorgaben/changelog.adoc[tag=release-2.5.0]
-include::isyfact-standards-doku:isy-konfiguration:page$konzept/changelog.adoc[tag=release-2.5.0]
-include::isyfact-standards-doku:isy-konfiguration:page$nutzungsvorgaben/changelog.adoc[tag=release-2.5.0]
-include::isyfact-standards-doku:isy-logging:page$konzept/changelog.adoc[tag=release-2.5.0]
-include::isyfact-standards-doku:isy-logging:page$nutzungsvorgaben/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:isy-datetime:page$konzept/changelog.adoc[tag=release-3.0.0]
+include::isyfact-standards-doku:isy-datetime:page$nutzungsvorgaben/changelog.adoc[tag=release-3.0.0]
+include::isyfact-standards-doku:isy-exception-core:page$konzept/changelog.adoc[tag=release-3.0.0]
+include::isyfact-standards-doku:isy-exception-core:page$nutzungsvorgaben/changelog.adoc[tag=release-3.0.0]
+include::isyfact-standards-doku:isy-konfiguration:page$konzept/changelog.adoc[tag=release-3.0.0]
+include::isyfact-standards-doku:isy-konfiguration:page$nutzungsvorgaben/changelog.adoc[tag=release-3.0.0]
+include::isyfact-standards-doku:isy-logging:page$konzept/changelog.adoc[tag=release-3.0.0]
+include::isyfact-standards-doku:isy-logging:page$nutzungsvorgaben/changelog.adoc[tag=release-3.0.0]
 include::isyfact-standards-doku:isy-persistence:page$changelog.adoc[tag=release-3.0.0]
 include::isyfact-standards-doku:isy-polling:page$konzept/changelog.adoc[tag=release-3.0.0]
 include::isyfact-standards-doku:isy-polling:page$nutzungsvorgaben/changelog.adoc[tag=release-3.0.0]
@@ -46,17 +47,17 @@ include::isyfact-standards-doku:isy-security:page$nutzungsvorgaben/changelog.ado
 include::isyfact-standards-doku:isy-service-rest:page$changelog.adoc[tag=release-3.0.0]
 include::isyfact-standards-doku:isy-serviceapi-core:page$konzept/changelog.adoc[tag=release-3.0.0]
 include::isyfact-standards-doku:isy-serviceapi-core:page$nutzungsvorgaben/changelog.adoc[tag=release-3.0.0]
-include::isyfact-standards-doku:isy-sicherheit:page$konzept/changelog.adoc[tag=release-2.5.0]
-include::isyfact-standards-doku:isy-sicherheit:page$nutzungsvorgaben/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:isy-sicherheit:page$konzept/changelog.adoc[tag=release-3.0.0]
+include::isyfact-standards-doku:isy-sicherheit:page$nutzungsvorgaben/changelog.adoc[tag=release-3.0.0]
 include::isyfact-standards-doku:isy-sonderzeichen:page$konzept/changelog.adoc[tag=release-3.0.0]
 include::isyfact-standards-doku:isy-sonderzeichen:page$nutzungsvorgaben/changelog.adoc[tag=release-3.0.0]
 include::isyfact-standards-doku:isy-styleguide:page$changelog.adoc[tag=release-3.0.0]
 include::isyfact-standards-doku:isy-styleguide:page$nutzungsvorgaben/changelog.adoc[tag=release-3.0.0]
-include::isyfact-standards-doku:isy-task:page$konzept/changelog.adoc[tag=release-2.5.0]
-include::isyfact-standards-doku:isy-task:page$nutzungsvorgaben/changelog.adoc[tag=release-2.5.0]
-include::isyfact-standards-doku:isy-ueberwachung:page$konzept/changelog.adoc[tag=release-2.5.0]
-include::isyfact-standards-doku:isy-ueberwachung:page$nutzungsvorgaben/changelog.adoc[tag=release-2.5.0]
-include::isyfact-standards-doku:isy-util:page$nutzungsvorgaben/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:isy-task:page$konzept/changelog.adoc[tag=release-3.0.0]
+include::isyfact-standards-doku:isy-task:page$nutzungsvorgaben/changelog.adoc[tag=release-3.0.0]
+include::isyfact-standards-doku:isy-ueberwachung:page$konzept/changelog.adoc[tag=release-3.0.0]
+include::isyfact-standards-doku:isy-ueberwachung:page$nutzungsvorgaben/changelog.adoc[tag=release-3.0.0]
+include::isyfact-standards-doku:isy-util:page$nutzungsvorgaben/changelog.adoc[tag=release-3.0.0]
 
 === Änderungen Plattform
 
@@ -65,18 +66,18 @@ include::isyfact-standards-doku:plattform:page$changelog.adoc[tag=release-3.0.0]
 === Änderungen Methodik
 
 include::isyfact-standards-doku:methodik:page$changelog.adoc[tag=release-3.0.0]
-include::isyfact-standards-doku:methodik:page$vorgaben-dokumentation/changelog.adoc[tag=release-2.5.0]
-include::isyfact-standards-doku:methodik:page$diagrammerstellung/changelog.adoc[tag=release-2.5.0]
-include::isyfact-standards-doku:methodik:page$java-programmierkonventionen/changelog.adoc[tag=release-2.5.0]
-include::isyfact-standards-doku:methodik:page$namenskonventionen/changelog.adoc[tag=release-2.5.0]
-include::isyfact-standards-doku:methodik:page$versionierung/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:methodik:page$vorgaben-dokumentation/changelog.adoc[tag=release-3.0.0]
+include::isyfact-standards-doku:methodik:page$diagrammerstellung/changelog.adoc[tag=release-3.0.0]
+include::isyfact-standards-doku:methodik:page$java-programmierkonventionen/changelog.adoc[tag=release-3.0.0]
+include::isyfact-standards-doku:methodik:page$namenskonventionen/changelog.adoc[tag=release-3.0.0]
+include::isyfact-standards-doku:methodik:page$versionierung/changelog.adoc[tag=release-3.0.0]
 
 === Änderungen Werkzeuge
 
-include::isyfact-standards-doku:werkzeuge:page$dokumentation/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:werkzeuge:page$dokumentation/changelog.adoc[tag=release-3.0.0]
 include::isyfact-standards-doku:werkzeuge:page$entwicklungsumgebung/changelog.adoc[tag=release-3.0.0]
 include::isyfact-standards-doku:werkzeuge:page$gui-tests/changelog.adoc[tag=release-3.0.0]
-include::isyfact-standards-doku:werkzeuge:page$versionierungskontrolle/changelog.adoc[tag=release-2.5.0]
+include::isyfact-standards-doku:werkzeuge:page$versionierungskontrolle/changelog.adoc[tag=release-3.0.0]
 
 
 
