@@ -133,10 +133,16 @@ Wir übernehmen für die IsyFact die englische Bezeichnung "Refresh-Token".
 ==== Aufruf Web-Oberfläche/Portal
 
 Damit ein menschlicher Nutzer eine geschützte Anwendung über deren Web-Oberfläche (im Web-Browser) verwenden kann, muss er über den IAM-Service authentifiziert und dazu autorisiert sein.
+Die direkte Authentifizierung des Clients mit dem Identitätsnachweis des Ressourcenbesitzers birgt einige Gefahren, Probleme und Einschränkungen, auf die hier nicht weiter eingegangen wird.
+Das OAuth 2.0 Framework begegnet dem mit dem OAuth 2.0 Grant-Type _Authorization Code_ mit _Confidential Client_.
+Hier wird eine Autorisierungs-Ebene eingeführt und es erfolgt eine Trennung von Client und Ressourcenbesitzer sowie Autorisierungs-Service und Ressourcen-Server.
+Dadurch ist sichergestellt, dass zum einen nur der IAM-Service die Authentifizierungsdaten des Nutzers erfährt und zum anderen, dass das Access Token nicht auf den Client kommt.
+
 In `IsyFact 3` ist dafür ein Apache Webserver (_Portal Apache_) zwischen den Web-Client (Web-Browser) und der Web-Anwendung geschaltet.
 Dieser tritt sowohl als Reverse-Proxy auf, sowie als 'Relying Party' für das IAM-System.
+Das Webserver-Modul `mod_auth_openidc` koordiniert den Ablauf des _Authorization Code Flow_ mit _Confidential Client_ zwischen Nutzer und dem IAM-Service und verwaltet das Access Token - der Baustein Security wird hierfür nicht verwendet.
 Wenn für einen User (noch) keine gültige Session vorhanden ist, leitet der _Portal-Apache_ auf die Login-Seite des IAM-Systems um.
-Nach erfolgtem Login wird die Autorisierung an die _User-Session_ gebunden und an die Anwendung weitergeleitet.
+Nach erfolgtem Login wird die Autorisierung an die _User-Session_ gebunden und bei jeder Interaktion mit dem Anwendungssystem an die Web-Anwendung weitergeleitet - bis die Session beendet wird.
 Die folgende Abbildung zeigt die System-Architektur mit dem _Portal-Apache_ in der Informations- u. Dienstezone vor der Anwendung und dem IAM-Service in der Logik- u. Verarbeitungszone.
 
 .Beteiligte Systeme bei Aufruf über Web-Oberfläche / Portal
