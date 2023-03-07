@@ -24,8 +24,10 @@ import de.bund.bva.isyfact.sicherheit.Recht;
 /**
  * Implementierung des Interfaces Recht, die Variablen der Klasse werden über den Konstruktor gesetzt und
  * können danach nur noch ausgelesen werden.
- * 
+ *
+ * @deprecated since IsyFact 3.0.0 in favor of the isy-security module.
  */
+@Deprecated
 public class RechtImpl implements Recht {
 
     /**

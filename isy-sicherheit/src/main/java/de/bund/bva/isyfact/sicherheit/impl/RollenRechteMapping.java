@@ -29,8 +29,10 @@ import de.bund.bva.isyfact.sicherheit.Recht;
 
 /**
  * Diese Klasse dient zum Speichern des Mappings von Rollen zu Rechten für eine Anwendung.
- * 
+ *
+ * @deprecated since IsyFact 3.0.0 in favor of the isy-security module.
  */
+@Deprecated
 public class RollenRechteMapping {
 
     /**

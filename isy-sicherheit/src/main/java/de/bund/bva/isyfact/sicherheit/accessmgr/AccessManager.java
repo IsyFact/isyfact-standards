@@ -22,9 +22,10 @@ import de.bund.bva.isyfact.sicherheit.common.exception.AuthentifizierungTechnica
 
 /**
  * Interface zum Zugriff auf den AccessManager.
- * 
- * 
+ *
+ * @deprecated since IsyFact 3.0.0 in favor of the isy-security module.
  */
+@Deprecated
 public interface AccessManager<K extends AufrufKontext, E extends AuthentifzierungErgebnis> {
     /**
      * 

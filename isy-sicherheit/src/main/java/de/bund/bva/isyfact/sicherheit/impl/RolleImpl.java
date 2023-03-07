@@ -24,7 +24,9 @@ import de.bund.bva.isyfact.sicherheit.common.konstanten.SicherheitFehlerSchluess
  * Implementierung des Interface Rolle, die Id der Rolle wird im Konstruktor gesetzt und kann danach nur noch
  * gelesen werden.
  *
+ * @deprecated since IsyFact 3.0.0 in favor of the isy-security module.
  */
+@Deprecated
 public class RolleImpl implements Rolle {
 
     /**
