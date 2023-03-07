@@ -5,3 +5,4 @@
 - `IFS-2302`: Umsetzung des Mappings von Rollen auf Rechte
 - `IFS-2403`: Umstellung vorhandener Tests auf `isy-security-test`
 - `IFS-1960`: Bereitstellung einer Implementierung zur Authentifizierung mit Resource Owner Password Credentials
+- `IFS-1854`: Umsetzung des Berechtigungsmanagers
