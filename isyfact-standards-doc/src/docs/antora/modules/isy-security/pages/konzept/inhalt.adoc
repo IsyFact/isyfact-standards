@@ -267,11 +267,11 @@ Das Access-Token enthält alle notwendigen Daten, um zu verifizieren, ob die auf
 ==== Ausführung Batch & Task
 In diesem Kapitel wird beschrieben, wie ein Batch oder wie ein Task mit IsyFact-3 im Zusammenspiel mit SpringSecurity OAuth2.0 abgesichert laufen kann.
 Dabei wird im Kapitel <<absicherung-batch>> das Zusammenspiel des Bausteins `isy-batchrahmen` mit dem neuen Sicherheitsbaustein `isy-security` erläutert, um einen Batch abgesichert ablaufen zu lassen.
-Im Kapitel <<absicherung-task>> folgt dann die Beschreibung wie der Baustein `isy-task` einen abgesicherten Ablauf eines Task mit dem Baustein `isy-security` durchführt.
+Im Kapitel <<absicherung-task>> folgt dann die Beschreibung wie der Baustein `isy-task` einen abgesicherten Ablauf einer _Aufgabe_ mit dem Baustein `isy-security` durchführt.
 
 [[absicherung-batch]]
 ===== Absicherung eines Batch
-Gemäß der IsyFact-Systemlandschaft - siehe xref:../../blaupausen/detailkonzept-komponente-batch/master.adoc#grobe-archtiketur-des-batchrahmens[Grobe Architektur des Batchrahmens] - ist ein Batch teil eines Anwendungssystems und setzt sich - siehe <<image-AwLogBat>> - aus den Komponenten (1) Batch-Logik und -Steuerung sowie den dabei eingesetzten (2) Fachkomponenten zusammen.
+Gemäß der IsyFact-Systemlandschaft - siehe xref:blaupausen:detailkonzept-komponente-batch/master.adoc#grobe-architektur-des-batchrahmens[Grobe Architektur des Batchrahmens] - ist ein Batch teil eines Anwendungssystems und setzt sich - siehe <<image-AwLogBat>> - aus den Komponenten (1) Batch-Logik und -Steuerung sowie den dabei eingesetzten (2) Fachkomponenten zusammen.
 Da die Absicherung zur Ausführung eines Batches immer ohne User-Interaktionen stattfindet, ist dieser als _ConfidentialClient_ einzustufen, weil er in der Lage sein muss, die notwendige Vertraulichkeit zur Wahrung seiner Anmeldeinformationen sicherzustellen.
 
 .Fachliche Architektur eines Batch in der Anwendungslandschaft
@@ -281,7 +281,9 @@ image::../images/konzept/AnwLogBat.dn.svg[]
 Ein Batch wird über ein Batch-Client oder Startprogramm – meist ein Shellscript, UC4, JobNetz, CronJob, o.ä. – initialisiert und gestartet.
 Diese Batch-Clients sind Systemseitig dazu berechtigt den dedizierten Batch auszuführen und damit zu starten.
 Somit ruft der Batch-Client die Komponente _Batch-Logik_ in der Nutzungsschicht der Anwendung auf, das die notwendigen Initialisierungen vornimmt.
-Genau hier erfolgt frühzeitig die Unterscheidung zwischen der existierenden Authentifizierungs- und Autorisierungs-Logik oder der neu eingeführten Absicherung per SpringSecurity (OAuth2.0).
+Genau hier erfolgt frühzeitig die Unterscheidung welcher _Credential_-Flow - der bisher existierende <<resource-owner-password-credential-flow>> oder der neue <<client-credential-flow>> - zur Authentifizierung und Autorisierung des Batch verwendet werden soll.
+
+Die nachfolgende Abbildung - <<image-sequenzdiagramm-absicherung-batch>> - stellt den logischen Ablauf zur Absicherung eines Batch skizzenhaft dar.
 
 .Absicherung eines Batch
 [id="image-sequenzdiagramm-absicherung-batch",reftext="{figure-caption} {counter:figures}"]
@@ -296,17 +298,21 @@ Bei der Initialisierung des Batch werden die Authentifizierungsdaten an die _Bat
 Dazu bietet die _Batch-Steuerung_ von _IsyFact-3_ nach wie vor die bisherige API an, um den bisherigen <<resource-owner-password-credential-flow>> zur Authentifizierung zu nutzen.
 Für den neuen <<client-credential-flow>> existiert in der _Batch-Steuerung_ eine neue zusätzliche API, die die Authentifizierung für einen migrierten _Client_-User durchführt.
 
-Je nach verwendetem _Crendential_-Flow erfolgt mit den jeweiligen erhaltenen Authentifizierungsdaten des Batch-Nutzers dann - wie in Kapitel <<aufruf-service-gateway>> beschrieben - die eigentliche Authentifizierung über den IAM-Service der Plattform.
+Je nach verwendetem _Credential_-Flow erfolgt mit den jeweiligen erhaltenen Authentifizierungsdaten des Batch-Nutzers dann die eigentliche Authentifizierung über den IAM-Service der Plattform.
+
+Zu unterscheiden wäre hierbei noch wo der Batch innerhalb der Systemlandschaft angesiedelt ist.
+Liegt der Batch - wie in <<image-AwLogBat>> dargestellt - in der Nutzungsschicht und damit ausserhalb des Anwendungskerns, dann muss der Authentifizierungsaufruf zum IAM - wie in Kapitel <<aufruf-service-gateway>> beschrieben - über das SergiveGateway geroutet werden.
+Liegt der Batch aber innerhalb des Anwendungskerns, dann ist der Authentifizierungsaufruf direkt vom Sicherheitsbaustein `isy-security` an das IAM möglich.
 
 Im IAM-Service wird zu den übergebenen _Authentifizierungsdaten_ der dort verwaltete Benutzer ermittelt und validiert.
 Bei erfolgreicher Authentifizierung wird aus den Benutzerdaten ein _Access-Token_ generiert.
-Dieses Token beinhaltet alle notwendigen Informationen, um eine Authentifizierung und Autorisierung an den nachfolgenden Aufrufen von Fachkomponenten durchführen zu können.
+Dieses Token beinhaltet alle notwendigen Informationen - siehe <<inhalte-der-token>>, um eine Authentifizierung und Autorisierung an den nachfolgenden Aufrufen von Fachkomponenten durchführen zu können.
 Das IAM-System liefert das so generierte _Access-Token_ an die aufrufende Komponente zurück.
 
 Im Sicherheitsbaustein _isy-security_ wird zur weiteren Verwendung aus dem _Access-Token_ ein `SecurityContext` initialisiert und aufbereitet, der somit alle notwendigen Informationen wie das _AccessToken_, dem Nutzer zugeordnete Rollen, etc. enthält.
 Für die weiteren Prozessschritte im Batch wird dieser `SecurityContext` immer weitergereicht, so dass dieser bei der Ausführung seiner Fachanwendungen sich entsprechend diesen gegenüber authentifizieren und autorisieren kann.
 
-Um sicherzustellen, dass ein Batch über seine gesamte Laufzeit ein gültiges _AccessToken_ besitzt und sich jederzeit an den Fachanwendungen authentifizieren und autorisieren kann, muss im der _Batchsteuerung_ eine Überprüfung des _AccessTokens_ erfolgen.
+Um sicherzustellen, dass ein Batch über seine gesamte Laufzeit ein gültiges _AccessToken_ besitzt und sich jederzeit an den Fachanwendungen authentifizieren und autorisieren kann, muss in der _Batchsteuerung_ eine Überprüfung des _AccessTokens_ erfolgen.
 Das bedeutet der _isy-batchrahmen_ verfügt mit _IsyFakt-3_ innerhalb der Satz-Verarbeitungsschleife über einen Validierungsmechanismus, der bei jedem Durchlauf einer Datensatz-Verarbeitung vor den eigentlichen Aufrufen der Fachanwendungskomponenten die Gültigkeitsdauer des _AccessTokens_ überprüft.
 Diese Prüfung verifiziert, dass das _AccessToken_ noch eine Mindestgültigkeitsdauer aufweist, die über die Batch-Konfiguration vorgegeben werden kann.
 Sollte die Gültigkeitsdauer des _AccessTokens_ kleiner sein als die vorgegebene bzw. konfigurierbare Mindestgültigkeitsdauer, dann aktualisiert die _Batchsteuerung_ das _AccessToken_, indem eine erneute Authentifizierung und Autorisierung gegen das IAM, analog zur Initialisierungsphase des Batch, durchgeführt wird.
@@ -318,7 +324,7 @@ Falls in der _Batch-Logik_ vor bzw. nach der Satz-Verarbeitungsschleife eine umf
 [[absicherung-task]]
 ===== Absicherung von Aufgaben (Tasks)
 
-Die in diesem Kapitel beschriebene Absicherung von _Aufgaben_ unterscheiden sich gegenüber eigenständigen _Batch_-Anwendungen dahingehend, dass _Aufgaben_ als integrierter Anteil einer eigentlichen Anwendung definiert sind.
+Die in diesem Kapitel beschriebene Absicherung von _Aufgaben_ unterscheidet sich gegenüber eigenständigen _Batch_-Anwendungen dahingehend, dass _Aufgaben_ als integrierter Anteil einer eigentlichen Anwendung definiert sind.
 Sie besitzen in der Regel einen kleineren Umfang als _Batches_ und werden nicht manuell von außen gesteuert.
 Stattdessen werden sie durch die Anwendung selbst konfiguriert, zeitlich geplant und selbstständig ausgeführt.
 Daher müssen _Aufgaben_, als Teil einer Komponente des Anwendungskerns, über andere Mechanismen abgesichert werden.
@@ -348,7 +354,7 @@ In <<image-sequenzdiagramm-absicherung-task>> wird der logische Ablauf zur Absic
 image::isy-security:konzept/Sequenzdiagramm_AbsicherungTask.dn.svg[align="center"]
 
 Sobald eine Anwendungskomponente einen fachlichen Ablauf als abgekoppelten Hintergrundprozess und somit als _Aufgabe_ ausführen möchte, dann startet diese eine Initialisierung der _Aufgabe_ mit der `TaskID` als Parameter.
-In `isy-task` wird die übergebene `TaskID` verwendet, um in der Betriebskonfiguration gemäß den xref:../../isy-task/konzept/master.adoc#[TODO ref## Task-Konfigurations-Konventionen] nach dem entsprechenden Set an Konfigurationswerten aufzulösen.
+In `isy-task` wird die übergebene `TaskID` verwendet, um in der Betriebskonfiguration gemäß den xref:isyfact-standards-doku:isy-task:konzept/master.adoc#konfiguration[Task-Konfigurations-Konventionen] nach dem entsprechenden Set an Konfigurationswerten aufzulösen.
 Da in jedem Fall die Aufgabe von dem eigentlichen Anwendungsprozess abgekoppelt ablaufen soll, wird ein Scheduler instanziiert.
 Je nach vorliegenden Konfigurationswerten für die übergebene `TaskID` startet dann der Scheduler den abgekoppelten _Aufgaben_-Prozess entsprechend zeitlich versetzt oder gar zyklisch wiederholend.
 Erst in diesem abgespaltenen _Aufgaben_-Prozess erfolgt dann die Authentifizierung für den Task.
