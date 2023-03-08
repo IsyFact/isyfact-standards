@@ -511,6 +511,46 @@ public class HealthConfiguration {
 }
 ----
 
+[[implementierung-von-liveness-und-readiness-health-checks]]
+==== Implementierung von Liveness und Readiness Health-Checks
+
+Wie in xref:konzept/master.adoc#informationen-ueber-den-systemzustand[Informationen über den Systemzustand] beschrieben sind `Liveness` und `Readiness` optionale Zustände, die einem feingranularen Monitoring dienen.
+
+Diese sind mit der IsyFact 3.0 ausschließlich konzeptionell beschrieben und nicht in den Bibliotheken implementiert. Daher werden hier diesbezüglich ausschließlich grobe Implementierungsdetails gegeben, bzw. auf Literatur hingewiesen.
+
+[[auslesen-von-liveness-und-readiness-probes]]
+===== Auslesen von Liveness und Readiness Probes
+
+Liveness und Readiness Probes können aktiviert werden durch (vgl. xref:glossary:literaturextern:inhalt.adoc#litextern-baeldung-spring-liveness-readiness-probes[Baeldung: Liveness und Readiness Probes in Spring Boot]):
+
+[[listing-enable-liveness-readiness-states]]
+[source,properties]
+----
+management.endpoint.health.probes.enabled=true
+management.health.livenessState.enabled=true
+management.health.readinessState.enabled=true
+----
+
+[[update-des-liveness-states]]
+===== Update des Liveness States
+
+`Liveness` soll nicht durch externe Checks wie Health-Checks gemessen werden.
+Andernfalls könnte es sein, dass einem Fehlschlagen eines externen Systems (database, Web API, externe cache, ...) ein Neustart des Systems folgt, welcher Fehlerkaskaden über die Plattform auslöst.
+
+Der innere Zustand einer Spring Boot Application wird hauptsächlich über Springs `ApplicationContext` dargestellt.
+Wenn der `ApplicationContext` erfolgreich gestartet ist, geht Spring Boot davon aus, dass die Anwendung in einem korrekten Zustand ist.
+Die Anwendung wird als alive betrachtet, sobald der Context aufgefrischt wird
+(vgl. xref:glossary:literaturextern:inhalt.adoc#litextern-spring-liveness[Spring Boot Liveness]).
+
+Neben dem funktionierenden `ApplicationContext` ist der `Liveness`-Zustand von weiteren, anwendungsspezifische Komponenten abhängig und muss entsprechend aktualisiert werden (vgl. xref:glossary:literaturextern:inhalt.adoc#litextern-baeldung-spring-liveness-readiness-probes[Baeldung: Liveness und Readiness Probes in Spring Boot]).
+
+[[update-des-readiness-states]]
+===== Update des Readiness States
+
+Für den Readiness State kann die Kommunikation durch Rest Aufrufe geprüft werden. D. h. `Readiness` wird durch von Spring Boot bereitgestellte `Readiness`-Probes sichergestellt. Das System ist z. B. bei einem http 200 Ergebnis ready. Die Probes können wiederum durch einen Task-Scheduler durchgeführt werden (vgl.
+xref:glossary:literaturextern:inhalt.adoc#litextern-medium-enable-liveness-readiness-probes[Medium: Liveness und Readiness Probes]).
+
+
 [[anbindung-eines-monitoring-systems]]
 === Anbindung eines Monitoring-Systems
 
