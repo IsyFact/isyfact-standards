@@ -162,7 +162,6 @@ Zusätzlich sind folgende Isyfact-spezifischen Konfigurationsparameter notwendig
 |isy.security.rolesClaimName | String | _roles_ | Name des Claims im JWT Token der die Rollen enthält
 |===
 
-
 [[konfiguration-von-rollen-und-rechten]]
 === Konfiguration von Rollen und Rechten
 
@@ -226,4 +225,30 @@ Die Konfiguration gibt also verlässlich Auskunft darüber, welche Rollen und Re
 Der Baustein Security ermöglicht eine Autorisierung nur auf Basis von Rechten, nicht von Rollen.
 Jeder Rolle muss also zumindest ein Recht zugeordnet werden, um anhand dessen eine Autorisierung durchführen zu können.
 Werden im Lebenszyklus der Geschäftsanwendung weitere Rollen (z.B. für neu hinzukommende Akteure) spezifiziert und mit bestehenden Rechten ausgestattet, sind neben den Änderungen in der Konfigurationsdatei keine weiteren Änderungen notwendig.
+
+[[autorisierung_service_schnittstelle]]
+=== Autorisierung an einer Service-Schnittstelle
+
+Zentral für die Autorisierung ist die von Spring bereitgestellte Annotation `@Secured`, die alle benötigten Rechte des Aufrufers überprüft.
+Eine Autorisierung direkt über die Rollen des Aufrufers ist nicht möglich.
+
+Die Annotation kommt in der Service-Schicht zur Anwendung und autorisiert den Zugriff auf eine Service-Methode.
+Sollten alle Methoden die gleiche Autorisierung erfordern, kann alternativ die Annotation auch an der Service-Klasse verwendet werden.
+
+Folgendes Beispiel (<<listing-absichern-einer-service-methode>>) verdeutlicht die Implementierung einer abgesicherten Service-Methode.
+
+[[listing-absichern-einer-service-methode]]
+.Absichern einer Service-Methode
+[source,java]
+----
+@Secured({ "PRIV_RechtA", "PRIV_RechtB" })
+public void abgesicherteMethode(...) {
+    ...
+}
+----
+
+Als Parameter wird ein Array von Rechten übergeben.
+Die Rechte sind disjunktiv verknüpft.
+Die Autorisierung erfolgt dementsprechend wenn der Nutzer mindestens eins der in der `Secured` Annotation übergebenen Rechte besitzt.
+
 // end::inhalt[]

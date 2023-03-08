@@ -368,11 +368,3 @@ public void doPollingAktion () {
 ----
 
 // end::inhalt[]
-
-// tag::architekturregel[]
-
-// end::architekturregel[]
-
-// tag::sicherheit[]
-
-// end::sicherheit[]

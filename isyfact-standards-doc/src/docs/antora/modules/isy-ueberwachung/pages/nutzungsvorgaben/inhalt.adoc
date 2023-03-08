@@ -568,11 +568,4 @@ Zur Steuerung des Loadbalancing-Servlets muss die IsAlive-Datei im Konfiguration
 Der Standardname für die IsAlive-Datei ist `/etc/<anwendungsname>/isAlive`.
 Dieses kann der Betrieb bei Bedarf über ein Shell-Skript automatisieren.
 
-// tag::architekturregel[]
-
-// end::architekturregel[]
-
-// tag::sicherheit[]
-
-// end::sicherheit[]
 // end::inhalt[]

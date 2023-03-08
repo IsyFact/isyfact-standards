@@ -1,8 +1,0 @@
-// tag::architekturregeln[]
-
-[[architekturregeln-datum-zeit]]
-== Architekturregeln Datum & Zeit
-
-include::inhalt.adoc[tags=architekturregel]
-//TODO include::../Konzept_Datum_Zeit/inhalt.adoc[tags=architekturregel]
-// end::architekturregeln[]

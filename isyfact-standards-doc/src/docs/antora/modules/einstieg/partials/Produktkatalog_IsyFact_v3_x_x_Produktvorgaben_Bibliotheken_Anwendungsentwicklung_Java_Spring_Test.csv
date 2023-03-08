@@ -1,4 +1,4 @@
-﻿Kategorie / Anwendungsbereich;Hersteller / Produkt;Version;Seit Release;Status;Lizenz;Erläuterung
+Kategorie / Anwendungsbereich;Hersteller / Produkt;Version;Seit Release;Status;Lizenz;Erläuterung
 Test-Framework;http://www.junit.org[JUnit 4];<<spring-boot-dependencies,icon:leaf[]>>;2.4.0;bestandsgeschützt;Eclipse Public License 1.0;JUnit 5 ist bei der Erstellung von Tests zu präferieren.
 Test-Framework;http://www.junit.org[JUnit 5];<<spring-boot-dependencies,icon:leaf[]>>;2.4.0;verbindlich;Eclipse Public License 2.0;
 Lasttest-Treiber;https://jmeter.apache.org/[Apache Jmeter];2.13;1.0.0;verbindlich;;
@@ -8,3 +8,4 @@ Test-Framework (Addon);http://dbunit.sourceforge.net/[DBUnit];2.7.x;2.4.0;verbin
 Utility-API;https://assertj.github.io/doc/[AssertJ];<<spring-boot-dependencies,icon:leaf[]>>;2.4.0;verbindlich;Apache License Version 2.0;
 In-Memory Datenbank;http://www.h2database.com/[H2];<<spring-boot-dependencies,icon:leaf[]>>;3.0.0;verbindlich;Mozilla Public License Version 2.0, Eclipse Public License v1.0;Kann für infrastrukturunabhängige Tests genutzt werden, die eine Persistenz benötigen.
 Mocking-Framework;https://greenmail-mail-test.github.io/greenmail[Greenmail];1.6.x;2.2.0;verbindlich;Apache License Version 2.0;Test Suite für E-Mail Server.
+Test-Framework;https://www.testcontainers.org[Testcontainers];1.x;3.0.0;verbindlich;MIT License;Testcontainers ist eine Java-Bibliothek, die JUnit-Tests unterstützt und leichtgewichtige, wegwerfbare Instanzen von gängigen Datenbanken, Selenium-Webbrowsern oder allem anderen, das in einem Docker-Container laufen kann, bereitstellt.

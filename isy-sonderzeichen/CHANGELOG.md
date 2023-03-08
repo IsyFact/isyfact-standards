@@ -2,6 +2,10 @@
 - `IFS-1504`: Transformator für die normative Abbildung lateinischer Buchstaben auf Grundbuchstaben (Suchform) hinzugefügt
   * Integration von zugeliefertem Code aus `IFS-1270`
 - `IFS-1171`: Fehlende Zeichen 0110 und 0111 zum Mapping hinzugefügt
+- `IFS-1912`: Tabelle angepasst, sodass Glyphen, die von dem Buchstaben e abstammen, im Legacy Mapping auf sich selbst gemappt werden
+- `IFS-2382`: Entfernt Mutable-Array Spotbugs Fehler
+    #### _Breaking Change:_
+    - Die Klassen `stringlatin1_1/core/transformation/ZeichenKategorie.java` und `dinspec91379/transformation/ZeichenKategorie.java` bieten für Abruf aller Möglichkeiten einen `getter` anstelle einer `public static Variable` an
 
 # 2.4.0
 - `IFS-1176`: Fehler gefixt, bei dem der LegacyTransformator Texte ausgibt, die nicht konform zu String.Latin 1.1 sind
