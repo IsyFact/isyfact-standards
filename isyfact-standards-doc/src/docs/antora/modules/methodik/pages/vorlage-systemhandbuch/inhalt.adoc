@@ -218,8 +218,8 @@ Die Laufzeitumgebung für das {anwendung} besteht aus den Produkten, die in folg
 |Kategorie |Name |Version |Bemerkung
 
 |Java Virtual Machine
-| xref:einstieg:produktkatalog/produktvorgabenAllgemein.adoc[siehe Produkt-Katalog]
-| xref:einstieg:produktkatalog/produktvorgabenAllgemein.adoc[siehe Produkt-Katalog]
+|https://adoptium.net/de/temurin/releases[OpenJDK (Eclipse Temurin von Adoptium)]
+| 17.x
 |
 
 |Servlet-Container
@@ -338,9 +338,8 @@ Weitere Abhängigkeiten werden durch die erforderlichen Build-Werkzeuge selbstst
 |(RPM)
 | ...
 
-|Java Development Kit (JDK)
-| xref:einstieg:produktkatalog/produktvorgabenAllgemein.adoc[siehe Produkt-Katalog]
-
+|Java Development Kit https://adoptium.net/de/temurin/releases[OpenJDK (Eclipse Temurin von Adoptium)]
+| 17.x
 
 |(node.js)
 | ...
