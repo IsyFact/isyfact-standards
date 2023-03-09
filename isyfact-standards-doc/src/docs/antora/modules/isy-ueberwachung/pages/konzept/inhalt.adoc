@@ -6,12 +6,11 @@
 
 In diesem Konzept werden die Designvorgaben für die Überwachung von Anwendungen gemäß der xref:blaupausen:referenzarchitektur/master.adoc#einleitung[IsyFact Referenzarchitektur] vorgestellt.
 
-Die Realisierung einer einheitlichen Überwachungsschnittstelle erlaubt es dem Betrieb frühzeitig Probleme in der xref:glossary:glossary:master.adoc#glossar-anwendungslandschaft[Anwendungslandschaft] zu erkennen und darauf zu reagieren.
+Die Realisierung einer einheitlichen Überwachungsschnittstelle erlaubt dem Betrieb frühzeitig Probleme in der xref:glossary:glossary:master.adoc#glossar-anwendungslandschaft[Anwendungslandschaft] zu erkennen und darauf zu reagieren.
 Dadurch können Ausfallzeiten minimiert werden.
 
 Der Fokus des Konzepts liegt auf der Schaffung von einheitlichen Administrationsschnittstellen, welche dem Betrieb eine einfache Überwachung der Anwendungen erlauben.
-Alle Vorgaben sind beim Entwurf und der Realisierung von neuen Anwendungen nach IsyFact-Architektur zu berücksichtigen.
-Gegebenenfalls können in Systementwürfen Verfeinerungen der hier getroffenen Vorgaben gemacht werden.
+In Systementwürfen können Verfeinerungen der hier getroffenen Vorgaben gemacht werden.
 Weiterhin können die hier gemachten Vorgaben als Basis für die Beschreibung der Überwachungsschnittstelle im Betriebshandbuch der Anwendungssysteme verwendet werden.
 
 [[kurzeinfuehrung-in-spring-boot-actuator]]
@@ -21,31 +20,31 @@ Spring Boot bringt mit Actuator eine Reihe zusätzlicher Funktionen mit, die dab
 Die Kommunikation mit der Anwendung erfolgt über sogenannte _Endpoints_.
 Diese können über HTTP oder JMX bereitgestellt werden.
 Actuator bringt eine Reihe von eingebauten Endpoints mit und bietet auch die Möglichkeit, eigene Endpoints hinzuzufügen.
-So wird für Informationen über den Systemzustand die Endpoints `health`, `livenessProbe`, `readinessProbe` angeboten und über den Endpoint `metrics` können Metriken gelesen werden.
+So wird für Informationen über den Systemzustand die Endpoints `health`, `livenessProbe`, `ReadinessProbe` angeboten und über den Endpoint `metrics` können Metriken gelesen werden.
 
 Weitergehende Details zu den Actuator Endpoints können bei xref:glossary:literaturextern:inhalt.adoc#litextern-spring-boot-info-endpoint[Spring Boot Actuator Endpoint] nachgelesen werden.
 
 [[informationen-ueber-den-systemzustand]]
 == Informationen über den Systemzustand
-Zur Überwachung von Anwendungen unterscheiden wir zwischen zwei unterschiedlichen Konzepten, dem `health` Endpoint sowie `Liveness` und `Readiness` einer Anwendung.
+Zur Überwachung von Anwendungen unterscheiden wir zwischen zwei unterschiedlichen Konzepten, dem `health`-Endpoint sowie _Liveness_ und _Readiness_ einer Anwendung.
 
-Der `health` Endpoint ist der ursprüngliche Status, über den der Zustand und die Erreichbarkeit einer Anwendung geprüft werden kann.
+Der `health`-Endpoint ist der ursprüngliche Status, über den der Zustand und die Erreichbarkeit einer Anwendung geprüft werden kann.
 
-`Liveness` und `Readiness` sind zusätzliche Überwachungsmöglichkeiten.
+_Liveness_ und _Readiness_ sind zusätzliche Überwachungsmöglichkeiten.
 Durch die Unterscheidung in dies zwei Zuständen kann im Gegensatz zu dem `health`-Endpoint ein feingranulares Monitoring ermöglicht werden.
 
 IMPORTANT: In der IsyFact wird (Stand IsyFact 3.0) standardmäßig der `health`-Endpoint verwendet.
-Mit der IsyFact 3.0 werden `Liveness` und `Readiness` konzeptionell zur Verfügung gestellt.
-Diese Endpoints sind nicht in den Bibliotheken standardmäßig eingebaut und müssen individuell eingeschalten werden.
+Mit der IsyFact 3.0 werden _Liveness_ und _Readiness_ konzeptionell zur Verfügung gestellt.
+Diese Endpoints sind in den Bibliotheken nicht standardmäßig eingebaut und müssen individuell eingeschalten werden.
 
 [[health-endpoint]]
-=== health-Endpoint
+=== `health`-Endpoint
 Über den `health`-Endpoint wird durch einen Health-Check der eigene Zustand sowie die Erreichbarkeit aller angebundener Nachbarsysteme dargestellt.
 
 IMPORTANT: Anders als von Spring vorgesehen entkoppelt die IsyFact den Health-Check vom Aufruf des Endpoints `health`.
 Durch diese Entkopplung wird die Systemstabilität durch häufige Aufrufe des Endpoints nicht beeinflusst.
 
-Der Status der health-Endpoints wird maßgeblich von Nachbarsystemchecks bestimmt. Einzelheiten finden sich dazu in Kapitel <<nachbarsystemcheck-health-endpoint>>.
+Der Status der `health`-Endpoints wird maßgeblich von Nachbarsystemchecks bestimmt. Einzelheiten finden sich dazu in Kapitel <<nachbarsystemcheck-health-endpoint>>.
 
 Implementiert und konfiguriert wurde bzw. wird der Health-Check als Task (s. xref:isy-task:konzept/master.adoc[]).
 
@@ -55,37 +54,40 @@ Implementiert und konfiguriert wurde bzw. wird der Health-Check als Task (s. xre
 ==== Liveness
 Eine Anwendung wird als "live" (lebendig) angesehen, wenn diese in einem korrekten inneren Zustand ist.
 Ist eine Anwendung nicht "live", ist ihr innerer Zustand defekt und kann nicht wiederhergestellt werden.
-Die Anwendung muss daher auf jeden Fall neu gestartet werden (vgl. xref:glossary:literaturextern:inhalt.adoc#litextern-spring-api-liveness[Spring Boot LivenessState], xref:glossary:literaturextern:inhalt.adoc#litextern-kubernetes-liveness-readiness-probes[Kubernetes Liveness und Readiness Probes]).
+Die Anwendung muss daher auf jeden Fall neu gestartet werden (vgl. xref:glossary:literaturextern:inhalt.adoc#litextern-spring-api-liveness[Spring Boot `LivenessState`], xref:glossary:literaturextern:inhalt.adoc#litextern-kubernetes-liveness-Readiness-probes[Kubernetes Liveness und Readiness Probes]).
 
-[[readiness]]
+[[Readiness]]
 ==== Readiness
 Eine Anwendung wird als "ready" (bereit) angesehen, wenn sie live ist und bereit für Anfragen ist.
 Ist eine Anwendung nicht "ready", kann sie temporär keine Anfragen bearbeiten.
-Ist eine Anwendung nicht "ready", darf die Infrastruktur keine weiteren Anfragen an sie senden (vgl. xref:glossary:literaturextern:inhalt.adoc#litextern-spring-api-readiness[Spring Boot ReadinessState], xref:glossary:literaturextern:inhalt.adoc#litextern-kubernetes-liveness-readiness-probes[Kubernetes Liveness und Readiness Probes]).
+Ist eine Anwendung nicht "ready", darf die Infrastruktur keine weiteren Anfragen an sie senden (vgl. xref:glossary:literaturextern:inhalt.adoc#litextern-spring-api-Readiness[Spring Boot `ReadinessState`], xref:glossary:literaturextern:inhalt.adoc#litextern-kubernetes-liveness-Readiness-probes[Kubernetes Liveness und Readiness Probes]).
 
 Ein Service (d.h. eine Bündelung von Instanzen/Anwendungen, die denselben Service anbieten) wird als "ready" angesehen, wenn mindestens eine Instanz "ready" ist.
 Prüfungen der Readiness von Services müssen über die Infrastruktur erfolgen.
 
-[[liveness_readiness_diskussion]]
+[[liveness_Readiness_diskussion]]
 ==== Diskussion von Liveness & Readiness
 
 Zur Verdeutlichung und Trennung der beiden Begriffe werden diese an dieser Stelle zusammen behandelt.
 Der Fall, dass eine Anwendung, die nicht "live", aber "ready" ist, ist rein akademisch.
 In dem Moment, in dem eine Anwendung nicht "live" ist, muss sie durch die Infrastruktur neu gestartet werden, da sie aufgrund des inkorrekten inneren Zustands keine Anfragen korrekt bearbeiten kann.
-Aus praktischer Sicht wird die Liveness-Abfrage zur Evaluierung, ob eine Anwendung neu zu starten ist, genutzt.
+Aus praktischer Sicht wird die _Liveness_-Abfrage zur Evaluierung, ob eine Anwendung neu zu starten ist, genutzt.
 Eine Anwendung, die "live", aber nicht "ready" ist, ist in einem korrekten Zustand, hat aber nicht alle notwendigen Abhängigkeiten oder Ressourcen zur Verfügung, um Anfragen anzunehmen.
 Aus praktischer Sicht ist diese nicht neu zu starten.
 
 
 Ist für eine Anwendung die Abfrage beider Zustande vorgesehen, ergeben sich folgende Zustände:
-[%header, cols="1,1,1,1"]
+
+[[table-LivenessReadinessState]]
+.Unterscheidung zwischen _Liveness_- und _Readiness_-Zustand
+[cols="1,1,1,1", options="header"]
 |===
 ||korrekter innerer Zustand & bereit für Anfragen
 |korrekter innerer Zustand & [.underline]#nicht# bereit für Anfragen
 |inkorrekter innerer Zustand -> [.underline]#nicht# bereit für Anfragen
 
-|Liveness-Zustand |	korrekt (up)| korrekt (up)|	inkorrekt (down)
-|Readiness-Zustand|	korrekt (up)| inkorrekt (down)|	inkorrekt (down)
+|_Liveness_-Zustand |	korrekt (up)| korrekt (up)|	inkorrekt (down)
+|_Readiness_-Zustand|	korrekt (up)| inkorrekt (down)|	inkorrekt (down)
 |===
 
 [[micrometer]]
@@ -100,36 +102,39 @@ NOTE: Für eine Liste der unterstützten Monitoring-Systeme siehe xref:glossary:
 [[fachliche-moeglichkeiten]]
 == Fachliche Möglichkeiten im Zusammenhang mit Health-Checks
 
+Die Überwachung von Systemzuständen wird durch verschiedene fachliche Möglichkeiten aufgegriffen.
+Auf die Verwendung dieser und die Bereitstellung der Health-Checks wird in diesem Kapitel eingegangen.
+
 [[nachbarsystemcheck]]
 === Nachbarsystemcheck
 
 Im Rahmen der periodischen Health-Checks wird die Erreichbarkeit aller angebundenen Nachbarsysteme geprüft (Nachbarsystemcheck).
-Jede Anwendung führt periodisch einen Health-Check um den eigenen Zustand und die Erreichbarkeit aller angebundenen Nachbarsysteme zu prüfen.
+Jede Anwendung führt periodisch einen Health-Check durch, um den eigenen Zustand und die Erreichbarkeit aller angebundenen Nachbarsysteme zu prüfen.
 
 Bei der Prüfung von Nachbarsystemen muss unterschieden werden, ob ein Nachbarsystem essenziell, oder nicht-essenziell für die prüfende Anwendung ist.
-Ein Health Check mit negativem Ergebnis eines essenziellen Nachbarsystems muss in der Health der prüfenden Anwendung sichtbar sein.
+Ein Health-Check mit negativem Ergebnis eines essenziellen Nachbarsystems muss in der `health` der prüfenden Anwendung sichtbar sein.
 
 Die Nachbarsystemchecks können individuell konfiguriert werden.
 So kann z. B. konfiguriert werden, ob ein Nachbarsystem essenziell ist oder nicht.
 Details hierzu finden sich in den xref:nutzungsvorgaben/master.adoc#vorgaben-fuer-die-pruefung-der-verfuegbarkeit[Nutzungsvorgaben].
 
 [[nachbarsystemcheck-health-endpoint]]
-==== Nachbarsystemchecks über health-Endpoints
+==== Nachbarsystemchecks über `health`-Endpoints
 
-Die Nachbarsystemchecks werden über `health`-Checks der Nachbarsysteme durchgeführt.
+Die Nachbarsystemchecks werden über Health-Checks der Nachbarsysteme durchgeführt.
 
 Schlägt ein Health-Check eines Nachbarsystems fehl, führt dies zu einem Eintrag im technischen Log.
 Bei einem nicht essenziellen Nachbarsystem wird darauf eine Warnung geloggt.
 Bei einem essenziellen Nachbarsystem wird ein Fehler geloggt und die `health` des prüfenden Systems muss ebenso einen Fehler aufweisen.
 
 
-[[nachbarsystemcheck-liveness-readiness]]
-==== Nachbarsystemchecks über liveness/readiness Endpoints
+[[nachbarsystemcheck-liveness-Readiness]]
+==== Nachbarsystemchecks über Liveness/Readiness Endpoints
 
-Im Rahmen von Nachbarsystemchecks kann (alternativ zum `health`-Endpoint) die Liveness und Readiness überprüft werden.
+Im Rahmen von Nachbarsystemchecks kann (alternativ zum `health`-Endpoint) die _Liveness_ und _Readiness_ überprüft werden.
 Auch hier kann unterschieden und geloggt werden, ob ein essenzielles Nachbarsystem ausgefallen ist - oder ein nicht essenzielles.
-Ist ein essenzielles Nachbarsystem ausgefallen, dann wird dies Auswirkungen auf die Readiness des Systems haben.
-Nachbarsystemchecks von essenziellen Systemen sind damit essenziell für die Readiness eines Systems.
+Ist ein essenzielles Nachbarsystem ausgefallen, dann hat dies Auswirkungen auf die _Readiness_ des Systems.
+Nachbarsystemchecks von essenziellen Systemen sind damit essenziell für die _Readiness_ eines Systems.
 
 [[availability]]
 === Availability
@@ -160,7 +165,7 @@ Dieser kann gegliedert in abgetrennte Zeiträume erfolgen, oder jeweils den letz
 Dieser ist wie die Performanz-Kriterien anwendungsspezifisch festzulegen.
 - [.underline]#Availability in Spring Boot#:
 In Spring Boot ist keine Definition von Availability gegeben.
-Liveness und Readiness wird stattdessen unter Availability zusammengefasst (vgl. xref:glossary:literaturextern:inhalt.adoc#litextern-spring-api-availability[Spring Boot AvailabilityState]).
+_Liveness_ und _Readiness_ wird stattdessen unter Availability zusammengefasst (vgl. xref:glossary:literaturextern:inhalt.adoc#litextern-spring-api-availability[Spring Boot AvailabilityState]).
 - [.underline]#Bedeutung der Definition#:
 Es werden nicht-funktionale Anforderungen als Kriterien für Availability gesetzt.
 Diese stellen Anforderungen an die Anwendung, bzw. das System, auf welches diese verwendet wird, dar.
