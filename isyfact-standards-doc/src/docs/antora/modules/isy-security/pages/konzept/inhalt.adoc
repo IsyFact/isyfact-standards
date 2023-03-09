@@ -135,9 +135,9 @@ Damit ein Anwender eine geschützte Anwendung über deren Web-Oberfläche (im We
 Die IsyFact folgt der Empfehlung des OAuth 2.0 Frameworks und definiert den Flow _Authorization Code_ als Authentifizierungsweg.
 Dieser Flow stellt sicher, dass zum einen nur der IAM-Service die Authentifizierungsdaten des Nutzers erfährt und zum anderen, dass die Web-Oberfläche (Web-Client) keinen Zugriff auf das Access-Token besitzt.
 
-Also Voraussetzung für diesen Flow ist die Bereitstellung eines Vermittlers ('Relying Party') notwendig, das die Kommunikation zwischen Web-Oberfläche und Autorisierungsserver verwaltet.
+Als Voraussetzung für diesen Flow ist die Bereitstellung eines Vermittlers ('Relying Party') notwendig, der die Kommunikation zwischen Web-Oberfläche und Autorisierungsserver verwaltet.
 Dieser Vermittler muss ein OAuth2.0 _Confidential Client_ sein, also ein serverseitiges System.
-Dies kann ein als ReverseProxy konfiguriertert Webserver (z.B. Apache http-Server mit `mod_auth_openidc` Modul) sein, der zwischen  Web-Client (Web-Browser) und Web-Anwendung geschaltet ist.
+Dies kann ein als ReverseProxy konfigurierter Webserver (z.B. Apache http-Server mit `mod_auth_openidc` Modul) sein, der zwischen  Web-Client (Web-Browser) und Web-Anwendung geschaltet ist.
 Das Webserver-Modul `mod_auth_openidc` koordiniert den Ablauf des _Authorization Code Flow_ mit _Confidential Client_ zwischen Nutzer und dem IAM-Service und verwaltet das Access-Token - der Baustein Security wird hierfür nicht verwendet.
 Die folgende Abbildung zeigt die System-Architektur mit dem Webserver in der Informations- u. Dienstezone vor der Anwendung und dem IAM-Service in der Logik- u. Verarbeitungszone.
 
@@ -147,7 +147,13 @@ image::konzept/authorization-code-connections.dn.svg[align="center"]
 
 Ein menschlicher Nutzer, der eine Anwendung über deren Web-Oberfläche (im Web-Browser) bedienen möchte, ist im Besitz von Authentifizierungsdaten (Nutzername u. Passwort) mit denen er sich gegenüber dem IAM-System ausweisen kann.
 Wenn für einen Anwender (noch) keine gültige Session vorhanden ist, leitet der Webserver auf die Login-Seite des IAM-Systems um.
-Nach erfolgtem Login wird die Autorisierung an die _User-Session_ gebunden und bei jeder Interaktion mit der Anwendung an die Web-Anwendung weitergeleitet - bis die Session beendet wird.
+Die hier eingegebenen Authentifizierungsdaten gelangen ausschließlich zum IAM-Service, wo sie geprüft werden.
+Bei positiver Authentifizierung stellt der IAM-Service erstmal einen kurzlebigen _Authorization Code_ aus.
+Das ist eine schwer erratbare zufällige Zeichenkette und hat nur einen Zweck:
+Tausch gegen das Access-Token (u. Refresh-Token) im nächsten Teil des _Authorization Code Flow_.
+Das ist notwendig um sicherzustellen, dass das Access-Token an den ursprünglichen Initiator des Aufrufs ausgeliefert wird und nicht z.B. eine Redirection URI Manipulation stattgefunden hat.
+Mit dem Erhalt des Access-Tokens (u. Refresh-Token) ist die Autorisierung durch das IAM-System erfolgreich abgeschlossen.
+Das `mod_auth_openidc` Modul speichert das Access-Token (u. Refresh-Token) in der _User-Session_ und leitet es bei jeder Interaktion mit der Anwendung an die Web-Anwendung weiter - bis die Session beendet wird.
 Das nachfolgende Sequenzdiagramm zeigt noch einmal schematisch den logischen und zeitlichen Ablauf sowie das Zusammenspiel der System-Komponenten im _Authorization Code Flow_ mit _Confidential Client_:
 
 .Ablauf Authentifizierung bei Aufruf über Web-Oberfläche / Portal für single page applications (SPA)
