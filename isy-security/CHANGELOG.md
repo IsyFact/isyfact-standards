@@ -9,3 +9,4 @@
 - `IFS-2400`: Schnittstellen des Bausteins `isy-security`
     - `Security` und `Authentifizierungsmanager` Interface
     - Standard Implementierungen als Beans per Autokonfiguration bereitgestellt
+- `IFS-1855`: Umsetzung der Tokenweitergabe an Nachbarsysteme
