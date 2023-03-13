@@ -66,6 +66,13 @@
         </dependency>
 
         <dependency>
+            <groupId>de.bund.bva.isyfact</groupId>
+            <artifactId>isy-security-test</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
@@ -80,14 +87,10 @@
             <artifactId>spring-webflux</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- wiremock puts jetty on the classpath which forces us to use it instead of httpcomponents for tests -->
         <dependency>
-            <groupId>org.apache.httpcomponents.core5</groupId>
-            <artifactId>httpcore5-reactive</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents.client5</groupId>
-            <artifactId>httpclient5</artifactId>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-reactive-httpclient</artifactId>
             <scope>test</scope>
         </dependency>
 

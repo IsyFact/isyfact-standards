@@ -1,9 +1,8 @@
-package de.bund.bva.isyfact.security.test;
+package de.bund.bva.isyfact.security.authentication;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,10 +11,9 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import de.bund.bva.isyfact.security.example.IsySpringBootApplication;
+import de.bund.bva.isyfact.security.example.IsySecurityTestApplication;
 
-@Disabled("currently only runs as an integration test because of the oauth2 test config")
-@SpringBootTest(classes = { IsySpringBootApplication.class, AuthorityPrefixTest.AnnotationTest.class })
+@SpringBootTest(classes = { IsySecurityTestApplication.class, AuthorityPrefixTest.AnnotationTest.class })
 public class AuthorityPrefixTest {
 
     private static final String[] TEST_AUTHORITIES = { "PRIV_test", "ROLE_test" };
