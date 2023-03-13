@@ -48,7 +48,11 @@ Der Status der `health`-Endpoints wird maßgeblich von Nachbarsystemchecks besti
 
 Implementiert und konfiguriert wurde bzw. wird der Health-Check als Task (s. xref:isy-task:konzept/master.adoc[]).
 
+[[Liveness-und-Readiness]]
 === Liveness und Readiness
+In diesem Kapitel werden die Begriffe _Liveness_ und _Readiness_ definiert.
+Die Bedeutung von "live" und "ready" Zuständen von Anwendungen und Services wird beschrieben.
+Erläutert wird, wie diese mit der Hilfe von _Liveness_- und _Readiness_-Probes in Spring Boot überwacht werden können.
 
 [[liveness]]
 ==== Liveness
