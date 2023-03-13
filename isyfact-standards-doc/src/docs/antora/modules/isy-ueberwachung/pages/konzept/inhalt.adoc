@@ -136,6 +136,35 @@ Auch hier kann unterschieden und geloggt werden, ob ein essenzielles Nachbarsyst
 Ist ein essenzielles Nachbarsystem ausgefallen, dann hat dies Auswirkungen auf die _Readiness_ des Systems.
 Nachbarsystemchecks von essenziellen Systemen sind damit essenziell für die _Readiness_ eines Systems.
 
+[[Loadbalancer]]
+=== Loadbalancer
+
+Ein Loadbalancer ist ein Netzwerkgerät.
+Mit dem eingehende Anfragen auf mehrere Server verteilt werden.
+Durch dieses Loadbalancing wird die Ressourcenauslastung, die Reaktionszeit und die Ausfallsicherheit optimiert.
+Für Anwendungen nach der IsyFact-Architektur sollen einzelne Knoten eines Anwendungsclusters aus dem Loadbalancing herausnehmbar sein.
+Dies ist für das Durchführen von Updates erforderlich.
+Aus diesem Grund wird als Teil jeder Webanwendung ein sog. Loadbalancer-Servlet ausgeliefert.
+
+[[beschreibung-des-loadbalancer-servlets]]
+==== Beschreibung des Loadbalancer-Servlets
+
+Das Loadbalancer-Servlet prüft beim Aufrufen seiner URL, ob eine `IsAlive`-Datei im Konfigurationsverzeichnis vorhanden ist.
+Ist eine solche Datei vorhanden, liefert das Servlet den HTTP-Statuscode `HTTP OK` (`200`) zurück.
+Falls keine `IsAlive`-Datei gefunden wird, liefert das Servlet den Code `HTTP FORBIDDEN` (`403`) zurück.
+Der Loadbalancer prüft in regelmäßigen Abständen die URL des Servlets und nimmt für die Anwendung den entsprechenden Server aus dem Loadbalancing heraus, falls kein `HTTP OK` gelesen wird.
+Zu beachten ist, dass auf einem Server prinzipiell mehrere verschiedene Anwendungen laufen können.
+Der Loadbalancer muss daher so konfiguriert werden, dass auf dem Server nur die betreffende Anwendung deaktiviert wird, zu der das Loadbalancer-Servlet gehört.
+Alle anderen Anwendungen auf dem entsprechenden Server müssen weiterhin bedient werden.
+
+[[Loadbalancing-mit-Readiness-Metrik]]
+==== Loadbalancing mit Readiness-Metrik
+
+Sind _Liveness_ und _Readiness_ definiert, sollte der Loadbalancer die _Readiness_ prüfen.
+Ist diese nicht gegeben, ist der Knoten aus dem Loadbalancing heraus zu nehmen.
+Eine betrieblich begründete, temporäre Nichtverfügbarkeit der Anwendung könnte, wie bisher, über eine `isAlive`-Datei gesteuert werden (vgl. xref:nutzungsvorgaben/master.adoc#integration-des-loadbalancer-servlets[Nutzungsvorgaben]).
+Ist diese Datei nicht vorhanden, ist die zugehörige Anwendung aus der Betrachtungsrichtung des Loadbalancers nicht "ready".
+
 [[availability]]
 === Availability
 

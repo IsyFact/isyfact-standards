@@ -575,19 +575,6 @@ Die Konfiguration für die unterstützten Monitoring-System ist in xref:glossary
 
 Für die Durchführung von Updates beim Deployment ist es notwendig, einzelne Knoten eines Anwendungsclusters aus dem Loadbalancing herauszunehmen, sodass dieser Knoten keine Anfragen mehr vom Loadbalancer zugeteilt bekommt.
 
-[[beschreibung-des-loadbalancer-servlets]]
-==== Beschreibung des Loadbalancer-Servlets
-
-Zur Realisierung dieser Anforderung wird als Teil jeder Webanwendung ein sog. Loadbalancer-Servlet ausgeliefert.
-Das Servlet prüft beim Aufrufen seiner URL, ob eine IsAlive-Datei im Konfigurationsverzeichnis vorhanden ist.
-Ist eine solche Datei vorhanden, liefert das Servlet den HTTP-Statuscode HTTP OK (200) zurück.
-Falls keine IsAlive-Datei gefunden wird, liefert das Servlet den Code HTTP FORBIDDEN (403) zurück.
-
-Der Loadbalancer prüft in regelmäßigen Abständen die URL des Servlets und nimmt die entsprechende für die Anwendung den entsprechenden Server aus dem Loadbalancing heraus, falls kein HTTP OK gelesen wird.
-Zu beachten ist, dass auf einem Server prinzipiell mehrere verschiedene Anwendungen laufen können.
-Der Loadbalancer muss daher so konfiguriert werden, dass auf dem Server nur die betreffende Anwendung deaktiviert wird, zu der das Loadbalancer-Servlet gehört.
-Alle anderen Anwendungen auf dem entsprechenden Server müssen weiterhin bedient werden.
-
 [[integration-des-loadbalancer-servlets]]
 ==== Integration des Loadbalancer-Servlets
 
