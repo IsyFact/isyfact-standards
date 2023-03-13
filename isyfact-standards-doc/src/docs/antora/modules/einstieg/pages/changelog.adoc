@@ -1,14 +1,14 @@
 [[changelog]]
 = Changelog
 
-*Änderungen IsyFact 2.5.0*
+*Änderungen IsyFact 3.0.0*
 
-// tag::release-2.5.0[]
+// tag::release-3.0.0[]
 - `IFS-1278`: Dokument IsyFact-Einstieg aufgetrennt und an neue Seitenvorlage angepasst.
 - `IFS-1468`: Neustrukturierung des Whitepapers anhand aktueller Inhalte von der offiziellen Webseite zur IsyFact.
 - `IFS-1547`: Migration und Download des Produktkatalogs.
 
-// end::release-2.5.0[]
+// end::release-3.0.0[]
 
 // *Änderungen IsyFact 2.4.0*
 

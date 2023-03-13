@@ -67,16 +67,16 @@ Tritt nun ein Fehler bei mehreren Nutzern des Systems auf, kann mithilfe dieser 
 Werden in einer Anwendung Exceptions benötigt, so müssen zuerst vier eigene abstrakte Oberklassen für die Anwendungs-Exceptions abgeleitet werden.
 Hier im Beispiel sind das:
 
-* `GenerischeAnwendungException`: Abstrakte Oberklasse innerhalb einer Anwendung für checked Exceptions
-* `GenerischeAnwendungTechnicalRuntimeException`: Abstrakte Oberklasse innerhalb einer Anwendung für unchecked Exceptions
-* `GenerischeAnwendungBusinessException`: Kindklasse von `GenerischeAnwendungException` für fachliche Exceptions
-* `GenerischeAnwendungTechnicalException`: Kindklasse von `GenerischeAnwendungException` für technische Exceptions
+* `MeineAnwendungException`: Abstrakte Oberklasse innerhalb einer Anwendung für checked Exceptions
+* `MeineAnwendungTechnicalRuntimeException`: Abstrakte Oberklasse innerhalb einer Anwendung für unchecked Exceptions
+* `MeineAnwendungBusinessException`: Kindklasse von `MeineAnwendungException` für fachliche Exceptions
+* `MeineAnwendungTechnicalException`: Kindklasse von `MeineAnwendungException` für technische Exceptions
 
 Die Anwendungsoberklassen besitzen jeweils eine Referenz auf einen anwendungsspezifischen `FehlertextProvider`.
 Dieser wird benötigt, um die Fehlertexte zu laden.
 Diese vier Exceptions sind ebenfalls abstrakt, da auch diese Exceptions rein zur Unterscheidung der Art der Exception innerhalb der Anwendung dienen.
 
-Die letztlich in einer Anwendung eingesetzten Exceptions werden dann von den genannten Klassen `GenerischeAnwendungBusinessException`, `GenerischeAnwendungTechnicalException` und `GenerischeAnwendungTechnicalRuntimeException` abgeleitet.
+Die letztlich in einer Anwendung eingesetzten Exceptions werden dann von den genannten Klassen `MeineAnwendungBusinessException`, `MeineAnwendungTechnicalException` und `MeineAnwendungTechnicalRuntimeException` abgeleitet.
 
 
 Eine Anwendung besitzt Exceptions auf zwei Ebenen.
@@ -105,11 +105,21 @@ Beispiel für eine fachliche Exception Hierarchie:
 [id="image-007",reftext="{figure-caption} {counter:figures}"]
 image::isy-exception-core:nutzungsvorgaben/fehlerbehandlung007.png[align="center",width=70%]
 
-Das Beispiel in <<image-007>> zeigt eine fachliche Exception eines Generischen Anwendung.
-Die fachliche Exception `GenerischeNichtGefundenException` besitzt in diesem Beispiel nicht alle möglichen Konstruktoren.
+Das Beispiel in <<image-007>> zeigt eine fachliche Exception der Anwendung MeineAnwendung.
+Die fachliche Exception `MeineNichtGefundenException` besitzt in diesem Beispiel nicht alle möglichen Konstruktoren.
 Dies dient lediglich der Veranschaulichung.
 Wie oben erwähnt ist es nicht notwendig, immer alle Konstruktoren zu implementieren.
-Voraussetzung für das Erstellen dieser Exception sind die Basis-Exceptions der Anwendung (hier `GenerischeAnwendungBusinessException`).
+Voraussetzung für das Erstellen dieser Exception sind die Basis-Exceptions der Anwendung (hier `MeineAnwendungException` und `MeineAnwendungBusinessException`).
+
+Die <<table-001>> erläutert die Bedeutung der Argumente der Konstruktoren.
+
+.Argumente der Konstruktoren von Exceptions des Anwendungskerns
+[id="table-001",reftext="{table-caption} {counter:tables}"]
+[options="header",cols="3,2,2,3,3"]
+|====
+|Exception|String|Throwable (optional)|FehlertextProvider|String... (optional)
+|`MeineNichtGefundenException` |Ausnahme-ID |Original-Exception, die gefangen wurde. |Die FehlertextProvider-Implementierung, welche verwendet wird, um eine Fehlertext zu laden.|String oder String-Array mit Variablenwerten, für Platzhalter in parametrisierten Fehlertexten.
+|====
 
 
 Beispiel für eine technische Runtime-Exception Hierarchie:
@@ -126,7 +136,6 @@ Um nun eine solche Klasse zu erstellen, muss zuvor nach obigem Schema (siehe <<i
 Das Beispiel enthält wiederum alle möglichen Konstruktoren.
 Dies dient jedoch auch hier nur der Veranschaulichung.
 Es ist für Exceptions im xref:glossary:glossary:master.adoc#glossar-anwendungskern[Anwendungskern] nicht notwendig, alle Konstruktoren zur Verfügung zu stellen.
-Eine Beschreibung der Argumente der Konstruktoren befindet sich in <<table-001>>.
 
 Die unter <<image-007>> und <<image-008>> dargestellten Konstruktoren sind notwendig, um zu gewährleisten, dass alle Exceptions immer eine Ausnahme-ID besitzen, die den Fehlertext identifiziert, d.h. andere Konstruktoren sind nicht gestattet.
 
@@ -168,18 +177,18 @@ Die Konstante `FehlerSchluessel.MSG_ALLGEMEINER_FEHLER` referenziert einen gener
 ----
 /** Generische Exception für alle unbekannten Fehler. */
 
-public static final String MSG_ALLGEMEINER_FEHLER = "GNRMDL90001";
+public static final String MSG_ALLGEMEINER_FEHLER = "MNMDL90001";
 ----
 
 .Generischer Fehlertext
 [id="listing-GenerischerFehlertext",reftext="{listing-caption} {counter:listings }"]
 [source,properties]
 ----
-GNRMDL90001 = Es ist ein allgemeiner Fehler im Modul Generisches Modul aufgetreten.
+MNMDL90001 = Es ist ein allgemeiner Fehler im Modul MeinModul aufgetreten.
 ----
 
 Beim Einsatz von Exceptions muss immer eine Konstante zur Referenzierung von Fehlern verwendet werden.
-Die Fehlertexte dürfen nicht direkt mit dem String referenziert werden (z. B. hier `GNRMDL90001`).
+Die Fehlertexte dürfen nicht direkt mit dem String referenziert werden (z. B. hier `MNMDL90001`).
 
 Beim Aufruf einer Exception wird im einfachsten Fall lediglich eine Ausnahme-ID übergeben, welche den Fehlertext identifiziert:
 
@@ -187,29 +196,29 @@ Beim Aufruf einer Exception wird im einfachsten Fall lediglich eine Ausnahme-ID 
 [id="listing-UebergabeAusnahmeId",reftext="{listing-caption} {counter:listings }"]
 [source,java]
 ----
-new GenerischeFehlerhafteKonfigurationException(
-    FehlerSchluessel.KONFIGURATION_FALSCH_INITIALISIERT);
+new MeineNichtGefundenException(
+    FehlerSchluessel.MODUL_NICHT_GEFUNDEN);
 ----
 
-Der Konstruktor der Exception ruft den Konstruktor der abstrakten Eltern-Klasse auf (hier `GenerischeAnwendungTechnicalRuntimeException`):
+Der Konstruktor der Exception ruft den Konstruktor der abstrakten Eltern-Klasse auf (hier `MeineAnwendungBusinessException`):
 
 .Konstruktor
 [id="listing-Konstruktur",reftext="{listing-caption} {counter:listings }"]
 [source,java]
 ----
- public GenerischeAnwendungTechnicalRuntimeException(FehlerSchluessel schluessel, String... parameter) {
+ public MeineAnwendungBusinessException(FehlerSchluessel schluessel, String... parameter) {
 
         super(schluessel.getCode(), FEHLERTEXT_PROVIDER, parameter);
     }
 ----
 
-Dieser Konstruktor wiederum ruft den Konstruktor seiner Eltern-Klasse auf (hier `GenerischeAnwendungException`), welcher die oberste Exception-Hierarchie-Stufe einer Anwendung darstellt:
+Dieser Konstruktor wiederum ruft den Konstruktor seiner Eltern-Klasse auf (hier `MeineAnwendungException`), welcher die oberste Exception-Hierarchie-Stufe einer Anwendung darstellt:
 
 .Konstruktor der obersten Exception
 [id="listing-ObersterKonstruktur",reftext="{listing-caption} {counter:listings }"]
 [source,java]
 ----
-  protected GenerischeAnwendungException(String ausnahmeId, FehlertextProvider fehlertextProvider, String... parameter) {
+  protected MeineAnwendungException(String ausnahmeId, FehlertextProvider fehlertextProvider, String... parameter) {
         super(ausnahmeId, fehlertextProvider, parameter);
     }
 ----
@@ -220,7 +229,7 @@ Die weitere Kommunikation bis zur Erstellung des eigentlichen Fehlertextes ist i
 [id="image-009",reftext="{figure-caption} {counter:figures}"]
 image::isy-exception-core:nutzungsvorgaben/fehlerbehandlung009.svg[align="center"]
 
-Die `GenerischeAnwendungException` hält eine Referenz zu einem <<fehlertextprovider>>, welcher die Möglichkeit bietet Fehlertexte auszulesen.
+Die `MeineAnwendungException` hält eine Referenz zu einem <<fehlertextprovider>>, welcher die Möglichkeit bietet Fehlertexte auszulesen.
 Diese Referenz und die übergebene `Ausnahme-ID` werden an den Konstruktor der `BaseException` übergeben, welcher nun den Fehlertext lädt.
 Hierzu ruft er auf dem `FehlertextProvider` die `getMessage()`-Methode auf und bekommt den Fehlertext zurückgeliefert.
 Durch einen Aufruf des Konstruktors der Oberklasse `Exception` wird der Fehlertext gesetzt.
@@ -334,8 +343,8 @@ Die Fehlerbehandlung entspricht den gängigen `try-catch`-Blöcken mit entsprech
 [source,java]
 ----
 try {
-    verwaltung.leseGenerischeNummer(generischeNummer);
-} catch (GenerischeNichtGefundenException ex) {
+    verwaltung.leseMeineNummer(meineNummer);
+} catch (MeineNichtGefundenException ex) {
     // Exception kann nicht behandelt werden, also wird sie weitergereicht
     throw ex;
 }
@@ -688,13 +697,4 @@ Technische checked Exceptions sind zu verwenden, um den Aufrufer zur Fehlerbehan
 Der Aufrufer muss den Fehler behandeln und nicht in eine technische unchecked Exception wrappen.
 In Einzelfällen mag dies notwendig sein, muss dann aber mit dem Chefarchitekt abgestimmt werden.
 
-
 // end::inhalt[]
-
-// tag::architekturregel[]
-
-// end::architekturregel[]
-
-// tag::sicherheit[]
-
-// end::sicherheit[]

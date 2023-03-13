@@ -1,7 +1,0 @@
-// tag::architekturregeln[]
-
-[[architekturregeln-isy-util]]
-== Architekturregeln Isy-Util
-
-include::inhalt.adoc[tags=architekturregel]
-// end::architekturregeln[]

@@ -408,10 +408,12 @@ public abstract class AbstractTransformator implements Transformator {
         properties.load(inputStream);
         inputStream.close();
 
-        // Make a list of all character categories
-        for (int it = 0; it < ZeichenKategorie.ALLE_ZEICHEN_KATEGORIEN.length; it++) {
+        String[] alleZeichenKategorien = ZeichenKategorie.getAlleZeichenKategorien();
 
-            String kategorie = ZeichenKategorie.ALLE_ZEICHEN_KATEGORIEN[it];
+        // Make a list of all character categories
+        for (int it = 0; it < alleZeichenKategorien.length; it++) {
+
+            String kategorie = alleZeichenKategorien[it];
 
             Set<String> zeichenketteListe = new HashSet<>();
             Iterator gueltigeZeichenIterator = properties.keySet().iterator();
