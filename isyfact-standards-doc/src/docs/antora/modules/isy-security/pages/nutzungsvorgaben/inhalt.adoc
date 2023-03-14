@@ -20,8 +20,8 @@ Zur Formulierung von Berechtigungsprüfungen stehen folgende Methoden des Berech
 `void pruefeRecht(String recht)`:: Prüft, ob der Anwender das angegebene Recht besitzt und erzeugt einen Fehler vom Typ `AccessDeniedException`, wenn das nicht der Fall ist.
 `Object getTokenAttribute(String key)`:: Fragt einen Wert im Access Token des Security Contexts ab.
 
+[[image-berechtigungsmanager-security]]
 .Berechtigungsmanager
-[id="image-schnittstelle-security",reftext="{figure-caption} {counter:figures}"]
 image::nutzungsvorgaben/berechtigungsmanager.svg[align="center"]
 
 [[aufrufen_von_nachbarsystemen]]
