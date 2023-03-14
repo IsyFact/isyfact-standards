@@ -8,7 +8,7 @@
 
 - Hinzufügen von konzeptueller Beschreibung des Loadbalancing insb. im Zusammenhang mit Readiness
 
-- Umzug des Kapitels _Loadbalancer-Servelets_ von den Nutzungsvorgaben in das Konzept
+- Umzug des Kapitels _Loadbalancer-Servlets_ von den Nutzungsvorgaben in das Konzept
 
 // end::release-3.0.0[]
 

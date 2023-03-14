@@ -20,7 +20,7 @@ Spring Boot bringt mit Actuator eine Reihe zusätzlicher Funktionen mit, die dab
 Die Kommunikation mit der Anwendung erfolgt über sogenannte _Endpoints_.
 Diese können über HTTP oder JMX bereitgestellt werden.
 Actuator bringt eine Reihe von eingebauten Endpoints mit und bietet auch die Möglichkeit, eigene Endpoints hinzuzufügen.
-So wird für Informationen über den Systemzustand die Endpoints `health`, `livenessProbe`, `ReadinessProbe` angeboten und über den Endpoint `metrics` können Metriken gelesen werden.
+So wird für Informationen über den Systemzustand die Endpoints `health`, `livenessProbe`, `readinessProbe` angeboten und über den Endpoint `metrics` können Metriken gelesen werden.
 
 Weitergehende Details zu den Actuator Endpoints können bei xref:glossary:literaturextern:inhalt.adoc#litextern-spring-boot-info-endpoint[Spring Boot Actuator Endpoint] nachgelesen werden.
 
@@ -143,8 +143,7 @@ Nachbarsystemchecks von essenziellen Systemen sind damit essenziell für die _Re
 [[Loadbalancer]]
 === Loadbalancer
 
-Ein Loadbalancer ist ein Netzwerkgerät.
-Mit dem eingehende Anfragen auf mehrere Server verteilt werden.
+Ein Loadbalancer ist ein Netzwerkgerät, mit dem eingehende Anfragen auf mehrere Server verteilt werden.
 Durch dieses Loadbalancing wird die Ressourcenauslastung, die Reaktionszeit und die Ausfallsicherheit optimiert.
 Für Anwendungen nach der IsyFact-Architektur sollen einzelne Knoten eines Anwendungsclusters aus dem Loadbalancing herausnehmbar sein.
 Dies ist für das Durchführen von Updates erforderlich.
