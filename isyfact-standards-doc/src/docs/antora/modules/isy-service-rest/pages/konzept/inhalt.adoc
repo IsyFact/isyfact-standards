@@ -879,9 +879,9 @@ Nähere Informationen zu OAuth2 gibt es auf der xref:glossary:literaturextern:in
 Informationen zur Bearer Propagation gibt es in der xref:glossary:literaturextern:inhalt.adoc#litextern-spring-oauth2-bearertoken-resolver[offiziellen Spring Dokumentation].
 ====
 
-Um eine Klasse oder einzelne Methoden zu sichern, ist die `@Gesichert` Annotation des Bausteins Sicherheit zu verwendet.
+Um eine Klasse oder einzelne Methoden zu sichern, ist die `@Secured` Annotation des Bausteins Security zu verwendet.
 
-Generell ist das xref:isy-sicherheit:konzept/master.adoc#einleitung[Konzept Sicherheit] zu beachten.
+Generell ist das xref:isy-security:konzept/master.adoc#prinzipien-der-sicherheitsarchitektur[Konzept der Sicherheitsarchitektur] zu beachten.
 
 [[logging]]
 === Logging

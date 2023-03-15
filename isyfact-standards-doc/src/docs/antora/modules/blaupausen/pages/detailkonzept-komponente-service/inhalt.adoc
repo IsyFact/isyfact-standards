@@ -48,17 +48,17 @@ Hierzu wird in der Regel ein Bean Mapper verwendet.
 In Einzelfällen können Teile der Transformation auch programmiert werden, sofern der Nutzen daraus den Aufwand nicht übersteigt.
 
 Die Service-Fassade übernimmt auch die Autorisierung des Aufrufs.
-Dazu nutzt sie die xref:isy-sicherheit:nutzungsvorgaben/master.adoc#autorisierung[Möglichkeiten des Bausteins Sicherheit].
-Voraussetzung für die Autorisierung ist die Auswertung des mitgelieferten Aufrufkontextes über die Annotation `@StelltAufrufKontextBereit` an der Methode oder an der Service-Fassade selbst.
-Anschließend wird über die Annotation `@Gesichert` die Berechtigung zum Zugriff auf die Methode anhand der Rechte des Aufrufers geprüft.
-Alternativ kann die Annotation `@Gesichert` auch an der Service-Fassade selbst verwendet werden, wenn alle Methoden die gleichen Rechte erfordern.
+Dazu nutzt sie die xref:isy-security:nutzungsvorgaben/master.adoc#autorisierung_service_schnittstelle[Möglichkeiten des Bausteins Security].
+Voraussetzung für die Autorisierung ist die Auswertung des mitgelieferten `SecurityContextes` über die Annotation `@StelltAufrufKontextBereit` an der Methode oder an der Service-Fassade selbst.
+Anschließend wird über die Annotation `@Secured` die Berechtigung zum Zugriff auf die Methode anhand der Rechte des Aufrufers geprüft.
+Alternativ kann die Annotation `@Secured` auch an der Service-Fassade selbst verwendet werden, wenn alle Methoden die gleichen Rechte erfordern.
 
 === Exception-Fassade
 Die Exception-Fassade ist verantwortlich für die Umwandlung der durch den Anwendungskern oder die Service-Fassade geworfenen Exceptions in Exceptions der Service-Schnittstelle.
 Dies kann auf mehreren Wegen geschehen.
 Je nach gewählter Schnittstellentechnologie werden z. B. Annotationen oder eigens dafür geschriebene Klassen oder Methoden verwendet.
 
-Bevor die Exception-Fassade aufgerufen wird, muss die Korrelations-ID aus dem Aufrufkontext im Logging-Kontext registriert sein.
+Bevor die Exception-Fassade aufgerufen wird, muss die Korrelations-ID aus dem `SecurityContext` im _Logging-Kontext_ registriert sein.
 Dies geschieht durch die Annotation `@StelltLoggingKontextBereit` an der Methode oder an der Service-Fassade selbst.
 Dabei gilt es zu beachten, dass die Annotation standardmäßig so konfiguriert ist, dass sie vor den Annotationen ohne Angabe einer Priorität ausgeführt wird, sodass diese immer Zugriff auf die Korrelations-ID haben.
 Diese Reihenfolge wird durch Einfügen der `Order` für den Advisor `stelltLoggingKontextBereitAdvisor` in der Autokonfiguration `IsyServiceApiCoreAutoConfiguration` erreicht.
@@ -124,10 +124,10 @@ public class BeispielServiceFassade {
     ...
     @StelltAufrufKontextBereit
     @StelltLoggingKontextBereit
-    @Gesichert(Rechte.RECHT_ZUGRIFFBEISPIEL)
+    @Secured(Rechte.RECHT_ZUGRIFFBEISPIEL)
     @Transactional(rollbackFor = Throwable.class, propagation = Propagation.REQUIRED)
     public BeispielHolenAntwortTo holeBeispiel(
-        AufrufKontextTo kontext, BeispielHolenAnfrageTo anfrage)
+        SecurityContextTo kontext, BeispielHolenAnfrageTo anfrage)
         throws BeispielException {
         ...
     }
