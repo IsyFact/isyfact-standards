@@ -32,6 +32,7 @@
     * Integration von zugeliefertem Code aus `IFS-1270`
 - `IFS-2045`: [isyfact-products-bom] Produkte Apache Tika, commons-beanutils und commons-io hinzugefügt
 - `IFS-2287`: [isy-sonderzeichen]  Deprecation für String-Latin-1.1-Transformatoren setzen
+- `IFS-1886`: [isy-sicherheit] Modul als `@Deprecated` markiert zugunsten von`isy-security`
 - `IFS-1940`: [isy-sicherheit] `IsySicherheitUtil` deprecated
 - `IFS-2382`: [isy-sonderzeichen] Entfernt Mutable-Array Spotbugs Fehler
     #### _Breaking Change:_

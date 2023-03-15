@@ -24,7 +24,9 @@ import de.bund.bva.isyfact.sicherheit.accessmgr.AuthentifzierungErgebnis;
 /**
  * Implementierung von SicherheitAdmin zur Überprüfung des Verbindungsaufbaus zum Access Manager.
  *
+ * @deprecated since IsyFact 3.0.0 in favor of the isy-security module.
  */
+@Deprecated
 public class SicherheitAdminImpl<T extends AufrufKontext> implements SicherheitAdmin {
 
     /** Referenz auf den AccessManager für den Zugriff auf Rollen/Rechte der Benutzer. */

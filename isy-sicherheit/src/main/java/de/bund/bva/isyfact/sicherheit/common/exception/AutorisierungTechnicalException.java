@@ -18,8 +18,10 @@ package de.bund.bva.isyfact.sicherheit.common.exception;
 
 /**
  * Exceptions dieser Klasse werden geworfen wenn ein technischer Fehler beim Autorisieren auftritt.
- * 
+ *
+ * @deprecated since IsyFact 3.0.0 in favor of the isy-security module.
  */
+@Deprecated
 public class AutorisierungTechnicalException extends SicherheitTechnicalRuntimeException {
 
     /**
