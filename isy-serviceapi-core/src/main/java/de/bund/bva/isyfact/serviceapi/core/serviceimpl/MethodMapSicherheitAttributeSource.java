@@ -53,6 +53,7 @@ public class MethodMapSicherheitAttributeSource implements SicherheitAttributeSo
     /** Map from method name to attribute value. */
     private Map<String, String[]> methodMap;
 
+    /** Class loader. */
     private ClassLoader beanClassLoader = ClassUtils.getDefaultClassLoader();
 
     /** Map from Method to benötigte Rechte. */

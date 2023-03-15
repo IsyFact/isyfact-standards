@@ -21,14 +21,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import de.bund.bva.isyfact.serviceapi.common.konstanten.EreignisSchluessel;
 import org.springframework.transaction.interceptor.TransactionProxyFactoryBean;
 
+import de.bund.bva.isyfact.serviceapi.common.konstanten.EreignisSchluessel;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.sicherheit.annotation.GesichertInterceptor;
 import de.bund.bva.isyfact.sicherheit.annotation.SicherheitAttributeSource;
+
+
 
 /**
  * Factory-Bean, die eine generische Implementierung einer RemoteBean-Schnittstelle erzeugt.
@@ -45,7 +47,7 @@ public class ServiceFactoryBean extends TransactionProxyFactoryBean {
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(ServiceFactoryBean.class);
 
     /** Konfigurierte Interceptor. */
-    private final List<Object> interceptors = new ArrayList<Object>();
+    private final List<Object> interceptors = new ArrayList<>();
 
     /** Die RemoteBean-Schnittstelle. */
     private Class<?> remoteBeanInterface;

@@ -22,10 +22,13 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import ma.glasnost.orika.MapperFacade;
+import org.springframework.aop.support.AopUtils;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
-import org.springframework.aop.support.AopUtils;
+
+import ma.glasnost.orika.MapperFacade;
+
+
 
 /**
  * Generische Implementierung des Kernteils einer Service- oder Native-GUI-Komponente. Die Implementierung
@@ -37,8 +40,10 @@ import org.springframework.aop.support.AopUtils;
 @Deprecated
 public class ServiceImpl implements MethodInterceptor, Validatable {
 
+    /** MethodMappingSource. */
     private MethodMappingSource methodMappingSource;
 
+    /** MapperFacade. */
     private MapperFacade mapper;
 
     public void setMethodMappingSource(MethodMappingSource methodMappingSource) {

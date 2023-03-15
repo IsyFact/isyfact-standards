@@ -58,12 +58,16 @@ import de.bund.bva.pliscommon.exception.service.PlisToException;
 @Deprecated
 public class ServiceExceptionFassade implements MethodInterceptor, Validatable {
 
+    /** Isy-Logger. */
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(ServiceExceptionFassade.class);
 
+    /** Method Mapping Source. */
     private final MethodMappingSource methodMappingSource;
 
+    /** ExceptionMappingSource. */
     private final ExceptionMappingSource exceptionMappingSource;
 
+    /** Exception ID Detector.  */
     private final AusnahmeIdErmittler ausnahmeIdErmittler;
 
     /**
