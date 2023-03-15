@@ -276,7 +276,7 @@ Da die Absicherung zur Ausführung eines Batches immer ohne User-Interaktionen s
 
 .Fachliche Architektur eines Batch in der Anwendungslandschaft
 [id="image-AwLogBat",reftext="{figure-caption} {counter:figures}"]
-image::../images/konzept/AnwLogBat.dn.svg[]
+image:isy-security:konzept/AnwLogBat.dn.svg[align="center"]
 
 Ein Batch wird über ein Batch-Client oder Startprogramm – meist ein Shellscript, UC4, JobNetz, CronJob, o.ä. – initialisiert und gestartet.
 Diese Batch-Clients sind Systemseitig dazu berechtigt den dedizierten Batch auszuführen und damit zu starten.
