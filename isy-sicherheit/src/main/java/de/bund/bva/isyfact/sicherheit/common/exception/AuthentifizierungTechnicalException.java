@@ -20,9 +20,10 @@ import de.bund.bva.isyfact.sicherheit.common.konstanten.SicherheitFehlerSchluess
 
 /**
  * Exceptions dieser Klasse werden geworfen wenn ein technischer Fehler beim Authentifizieren auftritt. 
- * 
- * 
+ *
+ * @deprecated since IsyFact 3.0.0 in favor of the isy-security module.
  */
+@Deprecated
 public class AuthentifizierungTechnicalException extends SicherheitTechnicalRuntimeException {
 
     /**

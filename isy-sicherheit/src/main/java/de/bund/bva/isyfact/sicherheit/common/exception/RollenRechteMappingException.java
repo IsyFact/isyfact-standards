@@ -19,8 +19,10 @@ package de.bund.bva.isyfact.sicherheit.common.exception;
 /**
  * Diese Klasse sammelt alle Exceptions die beim Erstellen (aus XML) oder dem Zugriff auf das
  * RollenRechteMapping auftreten.
- * 
+ *
+ * @deprecated since IsyFact 3.0.0 in favor of the isy-security module.
  */
+@Deprecated
 public class RollenRechteMappingException extends SicherheitTechnicalRuntimeException {
 
     /**
