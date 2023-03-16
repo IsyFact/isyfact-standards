@@ -144,7 +144,7 @@ OpenID Connect Abfragen zur Identität eines Benutzers, OpenID-Token oder Custom
 [[aufruf-service-gateway]]
 ==== Aufruf Service-Gateway
 
-Mit der `IsyFact 3` wird eine neue Authentifizierungslogik (xref:aufruf-service-gateway-mit-authentication-gateway[]) für die Authentifizierung von Anwendungen, die außerhalb der Anwendungslandschaft betrieben werden, eingeführt.
+Mit der `IsyFact-3` wird eine neue Authentifizierungslogik (xref:aufruf-service-gateway-mit-authentication-gateway[]) für die Authentifizierung von Anwendungen, die außerhalb der Anwendungslandschaft betrieben werden, eingeführt.
 Für eine weiche Migration der externen Anwendungen auf die neue IsyFact-Version wird zusätzlich die bisherige Authentifizierungslogik (xref:aufruf-service-gateway-ohne-authentication-gateway[]) beibehalten.
 
 [[aufruf-service-gateway-mit-authentication-gateway]]
@@ -184,7 +184,7 @@ image::isy-security:konzept/Squenzdiagramm_ServiceGateway_plus_AuthGateway.dn.sv
 ===== Authentifizierung über das SGW am IAM-Service
 
 Die nachfolgende Abbildung zeigt die System-Architektur, die bei Aufrufen von externen Anwendungen für die Authentifizierung ohne _Authentication-Gateway_ zum Einsatz kommt.
-Diese Authentifzierungs- und Autorisierungs-Variante wird aus Vereinfachungsgründen der Migration von externen Anwendungen auf die neue `IsyFact Version-3` zusätzlich beibehalten, da hierdurch die Umstellungsaufwände reduziert werden.
+Diese Authentifzierungs- und Autorisierungs-Variante wird aus Vereinfachungsgründen der Migration von externen Anwendungen auf die neue `IsyFact-3` zusätzlich beibehalten, da hierdurch die Umstellungsaufwände reduziert werden.
 
 So muss der verwendete techn. Nutzer für diese externe Anwendung noch nicht gemäß _SpringSecurity (OAuth2.0)_ auf einen _OAuth2.0 Client_ migriert worden sein, sondern es kann nach wie vor ein techn. Nutzer zur Authentifizierung verwendet werden.
 Zusätzlich kann die externe Anwendung den gleichen Kommunikationskanal für die Authentifizierung verwenden, wie für ihre fachlichen Anfragen.
@@ -265,7 +265,7 @@ Das Access-Token enthält alle notwendigen Daten, um zu verifizieren, ob die auf
 
 [[ausfuehrung-batch-u-task]]
 ==== Ausführung Batch & Task
-In diesem Kapitel wird beschrieben, wie ein Batch oder wie ein Task mit IsyFact-3 im Zusammenspiel mit SpringSecurity OAuth2.0 abgesichert laufen kann.
+In diesem Kapitel wird beschrieben, wie ein Batch oder wie ein Task mit `IsyFact-3` im Zusammenspiel mit SpringSecurity OAuth2.0 abgesichert laufen kann.
 Dabei wird im Kapitel xref:absicherung-batch[] das Zusammenspiel des Bausteins `isy-batchrahmen` mit dem neuen Sicherheitsbaustein `isy-security` erläutert, um einen Batch abgesichert ablaufen zu lassen.
 Im Kapitel xref:absicherung-task[] folgt dann die Beschreibung wie der Baustein `isy-task` einen abgesicherten Ablauf einer _Aufgabe_ mit dem Baustein `isy-security` durchführt.
 
@@ -291,11 +291,11 @@ image::isy-security:konzept/Sequenzdiagramm_AbsicherungBatch.dn.svg[align="cente
 
 Das heißt, in der Batch-Konfiguration ist ein Property konfiguriert, das dahingehend aufgelöst wird, ob der Batch nun mit einem _NatürlichenNutzer_ und den zugehörigen Authentifizierungsdaten `Benutzer` und `Passwort` über den bisherigen xref:resource-owner-password-credential-flow[] oder über den neuen xref:client-credential-flow[] mit dem migrierten _TechnischenNutzer_ mit `Client-ID` und `Client-Secret` authentifiziert und autorisiert wird.
 
-Liegen zu diesem Property noch die zu IsyFact-2 existierenden Authentifizierungsdaten vor, dann erfolgt die Authentifizierung und Autorisierung nach dem bisherigen xref:resource-owner-password-credential-flow[].
-Dadurch kann der Batch auf IsyFact-3 umgestellt werden, ohne dass zusätzliche Änderungen im _Credential_-Flow und damit eine vorherige Nutzermigration zu einem _Client_-User im IAM notwendig wäre.
+Liegen zu diesem Property noch die zu `IsyFact-2` existierenden Authentifizierungsdaten vor, dann erfolgt die Authentifizierung und Autorisierung nach dem bisherigen xref:resource-owner-password-credential-flow[].
+Dadurch kann der Batch auf `IsyFact-3` umgestellt werden, ohne dass zusätzliche Änderungen im _Credential_-Flow und damit eine vorherige Nutzermigration zu einem _Client_-User im IAM notwendig wäre.
 
 Bei der Initialisierung des Batch werden die Authentifizierungsdaten an die _Batch-Steuerung_ übergeben und dort ausgewertet, um den korrekten _Credential_-Flow zu starten.
-Dazu bietet die _Batch-Steuerung_ von _IsyFact-3_ nach wie vor die bisherige API an, um den bisherigen xref:resource-owner-password-credential-flow[] zur Authentifizierung zu nutzen.
+Dazu bietet die _Batch-Steuerung_ von `IsyFact-3` nach wie vor die bisherige API an, um den bisherigen xref:resource-owner-password-credential-flow[] zur Authentifizierung zu nutzen.
 Für den neuen xref:client-credential-flow[] existiert in der _Batch-Steuerung_ eine neue zusätzliche API, die die Authentifizierung für einen migrierten _Client_-User durchführt.
 
 Je nach verwendetem _Credential_-Flow erfolgt mit den jeweiligen erhaltenen Authentifizierungsdaten des Batch-Nutzers dann die eigentliche Authentifizierung über den IAM-Service der Plattform.
@@ -313,7 +313,7 @@ Im Sicherheitsbaustein _isy-security_ wird zur weiteren Verwendung aus dem _Acce
 Für die weiteren Prozessschritte im Batch wird dieser `SecurityContext` immer weitergereicht, so dass dieser bei der Ausführung seiner Fachanwendungen sich entsprechend diesen gegenüber authentifizieren und autorisieren kann.
 
 Um sicherzustellen, dass ein Batch über seine gesamte Laufzeit ein gültiges _Access-Token_ besitzt und sich jederzeit an den Fachanwendungen authentifizieren und autorisieren kann, muss in der _Batchsteuerung_ eine Überprüfung des _Access-Tokens_ erfolgen.
-Das bedeutet der _isy-batchrahmen_ verfügt mit _IsyFact-3_ innerhalb der Satz-Verarbeitungsschleife über einen Validierungsmechanismus, der bei jedem Durchlauf einer Datensatz-Verarbeitung vor den eigentlichen Aufrufen der Fachanwendungskomponenten die Gültigkeitsdauer des _Access-Tokens_ überprüft.
+Das bedeutet der _isy-batchrahmen_ verfügt mit `IsyFact-3` innerhalb der Satz-Verarbeitungsschleife über einen Validierungsmechanismus, der bei jedem Durchlauf einer Datensatz-Verarbeitung vor den eigentlichen Aufrufen der Fachanwendungskomponenten die Gültigkeitsdauer des _Access-Tokens_ überprüft.
 Diese Prüfung verifiziert, dass das _Access-Token_ noch eine Mindestgültigkeitsdauer aufweist, die über die Batch-Konfiguration vorgegeben werden kann.
 Sollte die Gültigkeitsdauer des _Access-Tokens_ kleiner sein als die vorgegebene bzw. konfigurierbare Mindestgültigkeitsdauer, dann aktualisiert die _Batchsteuerung_ das _Access-Token_, indem eine erneute Authentifizierung und Autorisierung gegen das IAM, analog zur Initialisierungsphase des Batch, durchgeführt wird.
 
@@ -333,19 +333,19 @@ Mit Einführung des neuen Sicherheitsbausteins `isy-security` werden auch für d
 Das bedeutet, dass die für die _Aufgaben_-Authentifizierung verwendete Parametrisierung per KonfigurationsKey einerseits wie bisher als _NatürlicherNutzer_ zu `Benutzer` und `Passwort` und andererseits neu als _TechnischerNutzer_ zu `Client-ID` und `Client-Secret` aufgelöst werden kann.
 Mittels der beiden verschiedenen Sets an KonfigurationKeys erfolgt so die Unterscheidung, welcher Credential-Flow im Sicherheitsbaustein durchlaufen wird.
 
-Mit _IsyFact-3_ soll bevorzugt der xref:client-credential-flow[] und den Properties `Client-ID` und `Client-Secret` verwendet werden, da der xref:resource-owner-password-credential-flow[] und den Properties `Benutzer` und `Passwort` mit _SpringSecurity OAuth2.1_ aus der Spezifikation herausgenommen ist.
+Mit `IsyFact-3` soll bevorzugt der xref:client-credential-flow[] und den Properties `Client-ID` und `Client-Secret` verwendet werden, da der xref:resource-owner-password-credential-flow[] und den Properties `Benutzer` und `Passwort` mit _SpringSecurity OAuth2.1_ aus der Spezifikation herausgenommen ist.
 
-Zur Unterstützung einer weichen Migration wird mit _IsyFact-3_ der xref:resource-owner-password-credential-flow[] mit `Benutzer` und `Passwort` weiterhin möglich sein, da zum Wechseln des Credential-Flows auch erst eine Migration des _NatürlichenNutzers_ auf einen _TechnischenNutzer_ im IAM abgeschlossen sein muss.
+Zur Unterstützung einer weichen Migration wird mit `IsyFact-3` der xref:resource-owner-password-credential-flow[] mit `Benutzer` und `Passwort` weiterhin möglich sein, da zum Wechseln des Credential-Flows auch erst eine Migration des _NatürlichenNutzers_ auf einen _TechnischenNutzer_ im IAM abgeschlossen sein muss.
 
 Wird in einer Fachanwendungskomponente die `isy-task`-Bibliothek eingebunden, so kann diese über das interne _SpringBoot-Scheduler_-Framework _Aufgaben_ als abgekoppelte Hintergrundprozesse starten.
 Per Konfiguration kann dabei definiert werden, ob eine _Aufgabe_ ohne oder mit Authentifizierungs- und Autorisierungs-Mechanismen ausgeführt wird.
 
-Mit _IsyFact-3_ wird für die _Aufgaben_-Ausführung mit Authentifizierung und Autorisierung zusätzlich der neue xref:client-credential-flow[] eingeführt.
+Mit `IsyFact-3` wird für die _Aufgaben_-Ausführung mit Authentifizierung und Autorisierung zusätzlich der neue xref:client-credential-flow[] eingeführt.
 Die Unterscheidung welcher der beiden _Credentials_-Flows, ob xref:resource-owner-password-credential-flow[] oder xref:client-credential-flow[] für die _Aufgabe_ verwendet wird, erfolgt innerhalb der _isy-task_-Bibliothek.
 Wie bei einem _Batch_ per `Batch-ID`, wird für eine _Aufgabe_ per `Task-ID` die Definition der Authentifizierungsdaten in der Betriebskonfiguration aufgelöst.
 Je nach vorhandenem Set an Authentifizierungsproperties - ob `Benutzer` und `Passwort` oder `Client-ID` und `Client-Secret` - wird der entsprechende _Credential_-Flow in _isy-security_ bestimmt.
 
-Dadurch können auch Aufgaben, deren Nutzer noch nicht zu einem _TechnischenNutzer_ mit `Client-ID` und `Client-Secret` in IAM migriert wurden, weiterhin mit _IsyFact-3_ ausgeführt werden.
+Dadurch können auch Aufgaben, deren Nutzer noch nicht zu einem _TechnischenNutzer_ mit `Client-ID` und `Client-Secret` in IAM migriert wurden, weiterhin mit `IsyFact-3` ausgeführt werden.
 
 In der Abbildung xref:image-sequenzdiagramm-absicherung-task[Absicherung von Aufgaben (Tasks)] wird der logische Ablauf zur Absicherung einer _Aufgabe_ mit dem neuen Security-Baustein `isy-security` im Zusammenspiel mit der Bibliothek `isy-task` skizziert.
 
