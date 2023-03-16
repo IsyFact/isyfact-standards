@@ -144,8 +144,8 @@ OpenID Connect Abfragen zur Identität eines Benutzers, OpenID-Token oder Custom
 [[aufruf-service-gateway]]
 ==== Aufruf Service-Gateway
 
-Mit der `IsyFact 3` wird eine neue Authentifizierungslogik (<<aufruf-service-gateway-mit-authentication-gateway>>) für die Authentifizierung von Anwendungen, die außerhalb der Anwendungslandschaft betrieben werden, eingeführt.
-Für eine weiche Migration der externen Anwendungen auf die neue IsyFact-Version wird zusätzlich die bisherige Authentifizierungslogik (<<aufruf-service-gateway-ohne-authentication-gateway>>) beibehalten.
+Mit der `IsyFact 3` wird eine neue Authentifizierungslogik (xref:aufruf-service-gateway-mit-authentication-gateway[]) für die Authentifizierung von Anwendungen, die außerhalb der Anwendungslandschaft betrieben werden, eingeführt.
+Für eine weiche Migration der externen Anwendungen auf die neue IsyFact-Version wird zusätzlich die bisherige Authentifizierungslogik (xref:aufruf-service-gateway-ohne-authentication-gateway[]) beibehalten.
 
 [[aufruf-service-gateway-mit-authentication-gateway]]
 ===== Direkte Authentifizierung am IAM-Service
@@ -224,7 +224,7 @@ In IsyFact spielen davon bei den externen Anwendungsaufrufen über ein _Service-
 ====== Resource-Owner-Password-Credential Flow (Deprecated)
 
 Hinweis: Dieser Flow soll gemäß OAuth2.0 Vorgaben nicht mehr verwendet werden und wird in zukünftigen Versionen aus dem OAuth-Standard entfernt.
-Als Nachfolger ist der <<client-credential-flow>> zu wählen.
+Als Nachfolger ist der xref:client-credential-flow[] zu wählen.
 
 Der _Resource-Owner-Password-Credential_-Flow, der als Authentifizierungsdaten die Attribute `Username` und `Passwort` verwendet, sollte nur eingesetzt werden, wenn die involvierte Client-Anwendung ein hohes Vertrauen zur Wahrung der Authentifizierungsdaten sicherstellt oder wenn keine andere Art der Berechtigungszuteilung verfügbar ist.
 So wird die Authentifizierung für einen techn. Nutzer über diesen Authorization-Flow abgebildet.
@@ -266,12 +266,12 @@ Das Access-Token enthält alle notwendigen Daten, um zu verifizieren, ob die auf
 [[ausfuehrung-batch-u-task]]
 ==== Ausführung Batch & Task
 In diesem Kapitel wird beschrieben, wie ein Batch oder wie ein Task mit IsyFact-3 im Zusammenspiel mit SpringSecurity OAuth2.0 abgesichert laufen kann.
-Dabei wird im Kapitel <<absicherung-batch>> das Zusammenspiel des Bausteins `isy-batchrahmen` mit dem neuen Sicherheitsbaustein `isy-security` erläutert, um einen Batch abgesichert ablaufen zu lassen.
-Im Kapitel <<absicherung-task>> folgt dann die Beschreibung wie der Baustein `isy-task` einen abgesicherten Ablauf einer _Aufgabe_ mit dem Baustein `isy-security` durchführt.
+Dabei wird im Kapitel xref:absicherung-batch[] das Zusammenspiel des Bausteins `isy-batchrahmen` mit dem neuen Sicherheitsbaustein `isy-security` erläutert, um einen Batch abgesichert ablaufen zu lassen.
+Im Kapitel xref:absicherung-task[] folgt dann die Beschreibung wie der Baustein `isy-task` einen abgesicherten Ablauf einer _Aufgabe_ mit dem Baustein `isy-security` durchführt.
 
 [[absicherung-batch]]
 ===== Absicherung eines Batch
-Gemäß der IsyFact-Systemlandschaft - siehe xref:blaupausen:detailkonzept-komponente-batch/master.adoc#grobe-architektur-des-batchrahmens[Grobe Architektur des Batchrahmens] - ist ein Batch teil eines Anwendungssystems und setzt sich - siehe <<image-AwLogBat>> - aus den Komponenten (1) Batch-Logik und -Steuerung sowie den dabei eingesetzten (2) Fachkomponenten zusammen.
+Gemäß der IsyFact-Systemlandschaft - siehe xref:blaupausen:detailkonzept-komponente-batch/master.adoc#grobe-architektur-des-batchrahmens[Grobe Architektur des Batchrahmens] - ist ein Batch teil eines Anwendungssystems und setzt sich - siehe xref:image-AwLogBat[] - aus den Komponenten (1) Batch-Logik und -Steuerung sowie den dabei eingesetzten (2) Fachkomponenten zusammen.
 Da die Absicherung zur Ausführung eines Batches immer ohne User-Interaktionen stattfindet, ist dieser als _ConfidentialClient_ einzustufen, weil er in der Lage sein muss, die notwendige Vertraulichkeit zur Wahrung seiner Anmeldeinformationen sicherzustellen.
 
 .Fachliche Architektur eines Batch in der Anwendungslandschaft
@@ -281,32 +281,32 @@ image:isy-security:konzept/AnwLogBat.dn.svg[align="center"]
 Ein Batch wird über ein Batch-Client oder Startprogramm – meist ein Shellscript, UC4, JobNetz, CronJob, o.ä. – initialisiert und gestartet.
 Diese Batch-Clients sind systemseitig dazu berechtigt, den dedizierten Batch auszuführen und damit zu starten.
 Somit ruft der Batch-Client die Komponente _Batch-Logik_ in der Nutzungsschicht der Anwendung auf, das die notwendigen Initialisierungen vornimmt.
-Genau hier erfolgt frühzeitig die Unterscheidung welcher _Credential_-Flow - der bisher existierende <<resource-owner-password-credential-flow>> oder der neue <<client-credential-flow>> - zur Authentifizierung und Autorisierung des Batch verwendet werden soll.
+Genau hier erfolgt frühzeitig die Unterscheidung welcher _Credential_-Flow - der bisher existierende xref:resource-owner-password-credential-flow[] oder der neue xref:client-credential-flow[] - zur Authentifizierung und Autorisierung des Batch verwendet werden soll.
 
-Die nachfolgende Abbildung - <<image-sequenzdiagramm-absicherung-batch>> - stellt den logischen Ablauf zur Absicherung eines Batch skizzenhaft dar.
+Die Abbildung in xref:image-sequenzdiagramm-absicherung-batch[] stellt den logischen Ablauf zur Absicherung eines Batch skizzenhaft dar.
 
 .Absicherung eines Batch
 [id="image-sequenzdiagramm-absicherung-batch",reftext="{figure-caption} {counter:figures}"]
 image::isy-security:konzept/Sequenzdiagramm_AbsicherungBatch.dn.svg[align="center"]
 
-Das heißt, in der Batch-Konfiguration ist ein Property konfiguriert, das dahingehend aufgelöst wird, ob der Batch nun mit einem _NatürlichenNutzer_ und den zugehörigen Authentifizierungsdaten `Benutzer` und `Passwort` über den bisherigen <<resource-owner-password-credential-flow>> oder über den neuen <<client-credential-flow>> mit dem migrierten _TechnischenNutzer_ mit `Client-ID` und `Client-Secret` authentifiziert und autorisiert wird.
+Das heißt, in der Batch-Konfiguration ist ein Property konfiguriert, das dahingehend aufgelöst wird, ob der Batch nun mit einem _NatürlichenNutzer_ und den zugehörigen Authentifizierungsdaten `Benutzer` und `Passwort` über den bisherigen xref:resource-owner-password-credential-flow[] oder über den neuen xref:client-credential-flow[] mit dem migrierten _TechnischenNutzer_ mit `Client-ID` und `Client-Secret` authentifiziert und autorisiert wird.
 
-Liegen zu diesem Property noch die zu IsyFact-2 existierenden Authentifizierungsdaten vor, dann erfolgt die Authentifizierung und Autorisierung nach dem bisherigen <<resource-owner-password-credential-flow>>.
+Liegen zu diesem Property noch die zu IsyFact-2 existierenden Authentifizierungsdaten vor, dann erfolgt die Authentifizierung und Autorisierung nach dem bisherigen xref:resource-owner-password-credential-flow[].
 Dadurch kann der Batch auf IsyFact-3 umgestellt werden, ohne dass zusätzliche Änderungen im _Credential_-Flow und damit eine vorherige Nutzermigration zu einem _Client_-User im IAM notwendig wäre.
 
 Bei der Initialisierung des Batch werden die Authentifizierungsdaten an die _Batch-Steuerung_ übergeben und dort ausgewertet, um den korrekten _Credential_-Flow zu starten.
-Dazu bietet die _Batch-Steuerung_ von _IsyFact-3_ nach wie vor die bisherige API an, um den bisherigen <<resource-owner-password-credential-flow>> zur Authentifizierung zu nutzen.
-Für den neuen <<client-credential-flow>> existiert in der _Batch-Steuerung_ eine neue zusätzliche API, die die Authentifizierung für einen migrierten _Client_-User durchführt.
+Dazu bietet die _Batch-Steuerung_ von _IsyFact-3_ nach wie vor die bisherige API an, um den bisherigen xref:resource-owner-password-credential-flow[] zur Authentifizierung zu nutzen.
+Für den neuen xref:client-credential-flow[] existiert in der _Batch-Steuerung_ eine neue zusätzliche API, die die Authentifizierung für einen migrierten _Client_-User durchführt.
 
 Je nach verwendetem _Credential_-Flow erfolgt mit den jeweiligen erhaltenen Authentifizierungsdaten des Batch-Nutzers dann die eigentliche Authentifizierung über den IAM-Service der Plattform.
 
 Zu unterscheiden wäre hierbei noch, wo der Batch innerhalb der Systemlandschaft angesiedelt ist.
-Liegt der Batch - wie in <<image-AwLogBat>> dargestellt - in der Nutzungsschicht und damit außerhalb des Anwendungskerns, dann muss der Authentifizierungsaufruf zum IAM - wie in Kapitel <<aufruf-service-gateway>> beschrieben - über das SergiveGateway geroutet werden.
+Liegt der Batch - wie in xref:image-AwLogBat[] dargestellt - in der Nutzungsschicht und damit außerhalb des Anwendungskerns, dann muss der Authentifizierungsaufruf zum IAM - wie in Kapitel xref:aufruf-service-gateway[] beschrieben - über das SergiveGateway geroutet werden.
 Liegt der Batch aber innerhalb des Anwendungskerns, dann ist der Authentifizierungsaufruf direkt vom Sicherheitsbaustein `isy-security` an das IAM möglich.
 
 Im IAM-Service wird zu den übergebenen _Authentifizierungsdaten_ der dort verwaltete Benutzer ermittelt und validiert.
 Bei erfolgreicher Authentifizierung wird aus den Benutzerdaten ein _Access-Token_ generiert.
-Dieses Token beinhaltet alle notwendigen Informationen - siehe <<inhalte-der-token>>, um eine Authentifizierung und Autorisierung an den nachfolgenden Aufrufen von Fachkomponenten durchführen zu können.
+Dieses Token beinhaltet alle notwendigen Informationen - siehe xref:inhalte-der-token[], um eine Authentifizierung und Autorisierung an den nachfolgenden Aufrufen von Fachkomponenten durchführen zu können.
 Das IAM-System liefert das so generierte _Access-Token_ an die aufrufende Komponente zurück.
 
 Im Sicherheitsbaustein _isy-security_ wird zur weiteren Verwendung aus dem _Access-Token_ ein `SecurityContext` initialisiert und aufbereitet, der somit alle notwendigen Informationen wie das _AccessToken_, dem Nutzer zugeordnete Rollen, etc. enthält.
@@ -329,25 +329,25 @@ Sie besitzen in der Regel einen kleineren Umfang als _Batches_ und werden nicht 
 Stattdessen werden sie durch die Anwendung selbst konfiguriert, zeitlich geplant und selbstständig ausgeführt.
 Daher müssen _Aufgaben_, als Teil einer Komponente des Anwendungskerns, über andere Mechanismen abgesichert werden.
 
-Mit Einführung des neuen Sicherheitsbausteins `isy-security` werden auch für die Absicherung von _Aufgaben_ beide _Credential_-Flows <<client-credential-flow>> und <<resource-owner-password-credential-flow>> unterstützt.
+Mit Einführung des neuen Sicherheitsbausteins `isy-security` werden auch für die Absicherung von _Aufgaben_ beide _Credential_-Flows xref:client-credential-flow[] und xref:resource-owner-password-credential-flow[] unterstützt.
 Das bedeutet, dass die für die _Aufgaben_-Authentifizierung verwendete Parametrisierung per KonfigurationsKey einerseits wie bisher als _NatürlicherNutzer_ zu `Benutzer` und `Passwort` und andererseits neu als _TechnischerNutzer_ zu `Client-ID` und `Client-Secret` aufgelöst werden kann.
 Mittels der beiden verschiedenen Sets an KonfigurationKeys erfolgt so die Unterscheidung, welcher Credential-Flow im Sicherheitsbaustein durchlaufen wird.
 
-Mit _IsyFact-3_ soll bevorzugt der <<client-credential-flow>> und den Properties `Client-ID` und `Client-Secret` verwendet werden, da der <<resource-owner-password-credential-flow>> und den Properties `Benutzer` und `Passwort` mit _SpringSecurity OAuth2.1_ aus der Spezifikation herausgenommen ist.
+Mit _IsyFact-3_ soll bevorzugt der xref:client-credential-flow[] und den Properties `Client-ID` und `Client-Secret` verwendet werden, da der xref:resource-owner-password-credential-flow[] und den Properties `Benutzer` und `Passwort` mit _SpringSecurity OAuth2.1_ aus der Spezifikation herausgenommen ist.
 
-Zur Unterstützung einer weichen Migration wird mit _IsyFact-3_ der <<resource-owner-password-credential-flow>> mit `Benutzer` und `Passwort` weiterhin möglich sein, da zum Wechseln des Credential-Flows auch erst eine Migration des _NatürlichenNutzers_ auf einen _TechnischenNutzer_ im IAM abgeschlossen sein muss.
+Zur Unterstützung einer weichen Migration wird mit _IsyFact-3_ der xref:resource-owner-password-credential-flow[] mit `Benutzer` und `Passwort` weiterhin möglich sein, da zum Wechseln des Credential-Flows auch erst eine Migration des _NatürlichenNutzers_ auf einen _TechnischenNutzer_ im IAM abgeschlossen sein muss.
 
 Wird in einer Fachanwendungskomponente die `isy-task`-Bibliothek eingebunden, so kann diese über das interne _SpringBoot-Scheduler_-Framework _Aufgaben_ als abgekoppelte Hintergrundprozesse starten.
 Per Konfiguration kann dabei definiert werden, ob eine _Aufgabe_ ohne oder mit Authentifizierungs- und Autorisierungs-Mechanismen ausgeführt wird.
 
-Mit _IsyFact-3_ wird für die _Aufgaben_-Ausführung mit Authentifizierung und Autorisierung zusätzlich der neue <<client-credential-flow>> eingeführt.
-Die Unterscheidung welcher der beiden _Credentials_-Flows, ob <<resource-owner-password-credential-flow>> oder <<client-credential-flow>> für die _Aufgabe_ verwendet wird, erfolgt innerhalb der _isy-task_-Bibliothek.
+Mit _IsyFact-3_ wird für die _Aufgaben_-Ausführung mit Authentifizierung und Autorisierung zusätzlich der neue xref:client-credential-flow[] eingeführt.
+Die Unterscheidung welcher der beiden _Credentials_-Flows, ob xref:resource-owner-password-credential-flow[] oder xref:client-credential-flow[] für die _Aufgabe_ verwendet wird, erfolgt innerhalb der _isy-task_-Bibliothek.
 Wie bei einem _Batch_ per `Batch-ID`, wird für eine _Aufgabe_ per `Task-ID` die Definition der Authentifizierungsdaten in der Betriebskonfiguration aufgelöst.
 Je nach vorhandenem Set an Authentifizierungsproperties - ob `Benutzer` und `Passwort` oder `Client-ID` und `Client-Secret` - wird der entsprechende _Credential_-Flow in _isy-security_ bestimmt.
 
 Dadurch können auch Aufgaben, deren Nutzer noch nicht zu einem _TechnischenNutzer_ mit `Client-ID` und `Client-Secret` in IAM migriert wurden, weiterhin mit _IsyFact-3_ ausgeführt werden.
 
-In <<image-sequenzdiagramm-absicherung-task>> wird der logische Ablauf zur Absicherung einer _Aufgabe_ mit dem neuen Security-Baustein `isy-security` im Zusammenspiel mit der Bibliothek `isy-task` skizziert.
+In xref:image-sequenzdiagramm-absicherung-task[] wird der logische Ablauf zur Absicherung einer _Aufgabe_ mit dem neuen Security-Baustein `isy-security` im Zusammenspiel mit der Bibliothek `isy-task` skizziert.
 
 .Absicherung von Aufgaben (Tasks)
 [id="image-sequenzdiagramm-absicherung-task",reftext="{figure-caption} {counter:figures}"]
@@ -360,8 +360,8 @@ Je nach vorliegenden Konfigurationswerten für die übergebene `TaskID` startet 
 Erst in diesem abgespaltenen _Aufgaben_-Prozess erfolgt dann die Authentifizierung für den Task.
 
 Der gestartete _Aufgaben_-Prozess von `isy-task` ermittelt dann anhand der übergebenen `TaskID` das konfigurierte Authentifizierungsdaten-Set und entscheidet durch diese die entsprechende Authentifizierungsmethode in `isy-security` aufzurufen.
-Das bedeutet, für das Authentifizierungsdatenpaar `Benutzer` und `Passwort` ruft der _Aufgaben_-Prozess in `isy-security` die Authentifizierung für den <<resource-owner-password-credential-flow>> auf.
-Und für das Authentifizierungsdatenpaar `Client-ID` und `Client-Secret` erfolgt der Aufruf für den <<client-credential-flow>>.
+Das bedeutet, für das Authentifizierungsdatenpaar `Benutzer` und `Passwort` ruft der _Aufgaben_-Prozess in `isy-security` die Authentifizierung für den xref:resource-owner-password-credential-flow[] auf.
+Und für das Authentifizierungsdatenpaar `Client-ID` und `Client-Secret` erfolgt der Aufruf für den xref:client-credential-flow[].
 
 Der Sicherheitsbaustein `isy-security` gibt die Authentifizierungsdaten an das IAM weiter und erhält von diesem bei erfolgreicher Authentifzierung ein gültiges _Access-Token_ zurück.
 Dieses erhaltene _Access-Token_ wird dann von `isy-security` interpretiert und zur weiteren Verwendung ein `SecurityContext` initialisiert und aufbereitet, der somit alle notwendigen Informationen wie das _AccessToken_ selbst, dem Nutzer zugeordnete Rollen, etc. enthält.
@@ -609,7 +609,7 @@ Zum Schnitt von fachlichen und technischen Rollen gibt es Erfahrungswerte, welch
 Wichtig ist vor allem die Beziehung zwischen fachlichen und technischen Rollen.
 Des weiteren sollte die Menge der Rollen so klein wie möglich gehalten werden.
 
-Die Abbildung <<image-rollen-beziehungen>> verdeutlicht den Inhalt der folgenden Abschnitte grafisch.
+Die Abbildung xref:image-rollen-beziehungen[] verdeutlicht den Inhalt der folgenden Abschnitte grafisch.
 
 .Beziehungen zwischen fachlichen und technischen Rollen
 [id="image-rollen-beziehungen",reftext="{figure-caption} {counter:figures}"]
