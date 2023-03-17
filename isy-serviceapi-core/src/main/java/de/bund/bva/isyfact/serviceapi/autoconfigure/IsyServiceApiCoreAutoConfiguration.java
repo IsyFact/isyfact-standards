@@ -15,6 +15,10 @@ import de.bund.bva.isyfact.serviceapi.core.aop.StelltLoggingKontextBereitInterce
 import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.AufrufKontextToResolver;
 import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.DefaultAufrufKontextToResolver;
 import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.StelltAufrufKontextBereitInterceptor;
+import de.bund.bva.isyfact.serviceapi.core.httpinvoker.AufrufKontextToFromAccessTokenStrategy;
+import de.bund.bva.isyfact.serviceapi.core.httpinvoker.CreateAufrufKontextToStrategy;
+import de.bund.bva.isyfact.serviceapi.core.httpinvoker.DefaultAufrufKontextToFromAccessTokenStrategy;
+import de.bund.bva.isyfact.serviceapi.core.httpinvoker.DefaultCreateAufrufKontextToStrategy;
 import de.bund.bva.isyfact.sicherheit.autoconfigure.IsySicherheitAutoConfiguration;
 
 /**
@@ -63,5 +67,11 @@ public class IsyServiceApiCoreAutoConfiguration {
     @ConditionalOnMissingBean
     public AufrufKontextToResolver aufrufKontextToResolver() {
         return new DefaultAufrufKontextToResolver();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public CreateAufrufKontextToStrategy aufrufKontextToFromAccessTokenStrategy () {
+        return new DefaultCreateAufrufKontextToStrategy();
     }
 }
