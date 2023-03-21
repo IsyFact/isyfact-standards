@@ -71,7 +71,6 @@
         <dependency>
             <groupId>ma.glasnost.orika</groupId>
             <artifactId>orika-core</artifactId>
-            <optional>true</optional>
         </dependency>
 
         <dependency>
