@@ -8,16 +8,18 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.remoting.support.RemoteInvocationFactory;
 
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontextFactory;
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
+import de.bund.bva.isyfact.security.core.Berechtigungsmanager;
+import de.bund.bva.isyfact.security.autoconfigure.IsySecurityAutoConfiguration;
 import de.bund.bva.isyfact.serviceapi.core.aop.StelltLoggingKontextBereitInterceptor;
 import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.AufrufKontextToResolver;
 import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.DefaultAufrufKontextToResolver;
 import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.StelltAufrufKontextBereitInterceptor;
-import de.bund.bva.isyfact.serviceapi.core.httpinvoker.AufrufKontextToFromAccessTokenStrategy;
+import de.bund.bva.isyfact.serviceapi.core.httpinvoker.AufrufKontextToRemoteInvocationFactory;
 import de.bund.bva.isyfact.serviceapi.core.httpinvoker.CreateAufrufKontextToStrategy;
-import de.bund.bva.isyfact.serviceapi.core.httpinvoker.DefaultAufrufKontextToFromAccessTokenStrategy;
 import de.bund.bva.isyfact.serviceapi.core.httpinvoker.DefaultCreateAufrufKontextToStrategy;
 import de.bund.bva.isyfact.sicherheit.autoconfigure.IsySicherheitAutoConfiguration;
 
@@ -69,9 +71,21 @@ public class IsyServiceApiCoreAutoConfiguration {
         return new DefaultAufrufKontextToResolver();
     }
 
-    @Bean
-    @ConditionalOnMissingBean
-    public CreateAufrufKontextToStrategy aufrufKontextToFromAccessTokenStrategy () {
-        return new DefaultCreateAufrufKontextToStrategy();
+    @Configuration(proxyBeanMethods = false)
+    @ConditionalOnBean(IsySecurityAutoConfiguration.class)
+    public static class IsyAufrufKontextToAutoConfiguration {
+
+        @Bean
+        @ConditionalOnMissingBean
+        public CreateAufrufKontextToStrategy aufrufKontextToFromAccessTokenStrategy(Berechtigungsmanager berechtigungsmanager) {
+            return new DefaultCreateAufrufKontextToStrategy(berechtigungsmanager);
+        }
+
+        @Bean
+        @ConditionalOnMissingBean
+        @ConditionalOnBean(CreateAufrufKontextToStrategy.class)
+        public RemoteInvocationFactory aufrufKontextToRemoteInvocationFactory(CreateAufrufKontextToStrategy createAufrufKontextToStrategy) {
+            return new AufrufKontextToRemoteInvocationFactory(createAufrufKontextToStrategy);
+        }
     }
 }

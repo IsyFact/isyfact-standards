@@ -23,6 +23,7 @@ import java.util.UUID;
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.remoting.httpinvoker.HttpInvokerClientInterceptor;
+import org.springframework.remoting.support.RemoteInvocationFactory;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
@@ -60,9 +61,9 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
     private AufrufKontextToResolver aufrufKontextToResolver;
 
     /**
-     * Strategy to convert a {@link org.keycloak.representations.AccessToken} to a {@link AufrufKontextTo}.
+     * RemoteInvocationFactory the ClientInterceptor uses to add content to request.
      */
-    private AufrufKontextToFromAccessTokenStrategy aufrufKontextToFromAccessTokenStrategy;
+    private RemoteInvocationFactory remoteInvocationFactory;
 
     /**
      * {@inheritDoc}
@@ -121,11 +122,6 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
         if (aufrufKontextToResolver == null) {
             throw new IllegalArgumentException("Property 'aufrufKontextToResolver' is required");
         }
-        if (aufrufKontextToFromAccessTokenStrategy == null) {
-            throw new IllegalArgumentException("Property 'aufrufKontextToFromAccessTokenStrategy' is required");
-        }
-
-        this.setRemoteInvocationFactory(new AufrufKontextToRemoteInvocationFactory(aufrufKontextToFromAccessTokenStrategy));
     }
 
     /**
@@ -161,19 +157,20 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
     }
 
     /**
-     * Sets the Strategy to convert a {@link org.keycloak.representations.AccessToken} to a {@link AufrufKontextTo}.
-     * @param aufrufKontextToFromAccessTokenStrategy
+     * Used to fill the request with further information.
      */
-    @Autowired
-    public void setAufrufKontextToFromAccessTokenStrategy (AufrufKontextToFromAccessTokenStrategy aufrufKontextToFromAccessTokenStrategy) {
-        this.aufrufKontextToFromAccessTokenStrategy = aufrufKontextToFromAccessTokenStrategy;
+    @Override
+    @Autowired(required = false)
+    public void setRemoteInvocationFactory(RemoteInvocationFactory remoteInvocationFactory) {
+        this.remoteInvocationFactory = remoteInvocationFactory;
     }
 
     public AufrufKontextToResolver getAufrufKontextToResolver() {
         return aufrufKontextToResolver;
     }
 
-    public AufrufKontextToFromAccessTokenStrategy getAufrufKontextToFromAccessTokenStrategy() {
-        return aufrufKontextToFromAccessTokenStrategy;
+    @Override
+    public RemoteInvocationFactory getRemoteInvocationFactory() {
+        return remoteInvocationFactory;
     }
 }
