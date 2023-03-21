@@ -60,6 +60,11 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
     private AufrufKontextToResolver aufrufKontextToResolver;
 
     /**
+     * Strategy to convert a {@link org.keycloak.representations.AccessToken} to a {@link AufrufKontextTo}.
+     */
+    private AufrufKontextToFromAccessTokenStrategy aufrufKontextToFromAccessTokenStrategy;
+
+    /**
      * {@inheritDoc}
      * <p>
      * When called, a new correlation ID is always created and added to the existing correlation ID of the
@@ -116,6 +121,11 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
         if (aufrufKontextToResolver == null) {
             throw new IllegalArgumentException("Property 'aufrufKontextToResolver' is required");
         }
+        if (aufrufKontextToFromAccessTokenStrategy == null) {
+            throw new IllegalArgumentException("Property 'aufrufKontextToFromAccessTokenStrategy' is required");
+        }
+
+        this.setRemoteInvocationFactory(new AufrufKontextToRemoteInvocationFactory(aufrufKontextToFromAccessTokenStrategy));
     }
 
     /**
@@ -150,7 +160,20 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
         this.aufrufKontextToResolver = aufrufKontextToResolver;
     }
 
+    /**
+     * Sets the Strategy to convert a {@link org.keycloak.representations.AccessToken} to a {@link AufrufKontextTo}.
+     * @param aufrufKontextToFromAccessTokenStrategy
+     */
+    @Autowired
+    public void setAufrufKontextToFromAccessTokenStrategy (AufrufKontextToFromAccessTokenStrategy aufrufKontextToFromAccessTokenStrategy) {
+        this.aufrufKontextToFromAccessTokenStrategy = aufrufKontextToFromAccessTokenStrategy;
+    }
+
     public AufrufKontextToResolver getAufrufKontextToResolver() {
         return aufrufKontextToResolver;
+    }
+
+    public AufrufKontextToFromAccessTokenStrategy getAufrufKontextToFromAccessTokenStrategy() {
+        return aufrufKontextToFromAccessTokenStrategy;
     }
 }
