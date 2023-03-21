@@ -49,11 +49,16 @@ In Einzelfällen können Teile der Transformation auch programmiert werden, sofe
 
 Die Service-Fassade übernimmt auch die Autorisierung des Aufrufs.
 Dazu nutzt sie die xref:isy-security:nutzungsvorgaben/master.adoc#autorisierung_service_schnittstelle[Möglichkeiten des Bausteins Security].
-Voraussetzung für die Autorisierung ist die Auswertung des mitgelieferten `SecurityContextes` über die Annotation `@StelltAufrufKontextBereit` an der Methode oder an der Service-Fassade selbst.
-Anschließend wird über die Annotation `@Secured` die Berechtigung zum Zugriff auf die Methode anhand der Rechte des Aufrufers geprüft.
+Voraussetzung für die Autorisierung ist die Auswertung des mitgelieferten `SecurityContextes` aus der in der *Exception-Fassade* vorausgegangenen Authentifizierung.
+Über die Annotation `@Secured` wird die Berechtigung zum Zugriff auf die Methode anhand der Rechte des Aufrufers geprüft.
 Alternativ kann die Annotation `@Secured` auch an der Service-Fassade selbst verwendet werden, wenn alle Methoden die gleichen Rechte erfordern.
 
 === Exception-Fassade
+Je nach verwendeter Schnittstellen-Technologie ist die Exception-Fassade in das entsprechende Technologie-Framework eingebunden.
+Dabei hat jede Schnittstellen-Technologie ihre speziellen Implementierungsdetails, die es pro Aufruf für die dort einzubindende Parameter- und Kontextübernahme sowie eine notwendige Authentifizierung zu beachten gilt.
+Mit `IsyFact-3` wird mit dem Sicherheitsbaustein `isy-security` die xref:isyfact-standards-doku:isy-security:konzept/master.adoc#aufruf-service-gateway[Authentifizierung am ServiceGateway] auf `SpringSecurity OAuth2.0` eingeführt und gekapselt, der in der entsprechenden Schnittstellen-Technologie einzubinden ist.
+Als Authentifizierungsergebnis wird dann ein `SecurityContext` mit allen security-relevanten Informationen an die Exception-Fassade weitergereicht.
+
 Die Exception-Fassade ist verantwortlich für die Umwandlung der durch den Anwendungskern oder die Service-Fassade geworfenen Exceptions in Exceptions der Service-Schnittstelle.
 Dies kann auf mehreren Wegen geschehen.
 Je nach gewählter Schnittstellentechnologie werden z. B. Annotationen oder eigens dafür geschriebene Klassen oder Methoden verwendet.
@@ -65,8 +70,8 @@ Diese Reihenfolge wird durch Einfügen der `Order` für den Advisor `stelltLoggi
 
 [NOTE]
 ====
-Die weiteren Inhalte zum Aufbau, zur Realisierung und zur Nutzung von Service-Schnittstellen wurden wegen ihrer Abhängigkeit zur konkreten Schnittstellentechnologie HTTP Invoker in den Baustein HTTP Invoker verschoben.
-Die Inhalte finden sich in den Dokumenten  xref:isy-serviceapi-core:konzept/master.adoc#einleitung[Konzept HTTP-Invoker] sowie xref:isy-serviceapi-core:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben HTTP-Invoker].
+Die weiteren Inhalte zum Aufbau, zur Realisierung und zur Nutzung von Service-Schnittstellen wurden wegen ihrer Abhängigkeit zur konkreten Schnittstellentechnologie in den entsprechenden Technologie-Baustein verschoben.
+Die Inhalte finden sich in den Dokumenten  xref:isy-serviceapi-core:konzept/master.adoc#einleitung[Konzept HTTP-Invoker (deprecated)] und xref:isy-service-rest:konzept/master.adoc#einleitung[Konzept REST-Schnittstellen] sowie xref:isy-serviceapi-core:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben HTTP-Invoker (deprecated)] und xref:isy-service-rest:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben REST-Schnittstellen].
 ====
 
 [[uebertragung-von-metadaten]]
@@ -122,7 +127,6 @@ Für das obige Beispiel verdeutlicht dies <<listing-service-fassade-tx>>.
 ----
 public class BeispielServiceFassade {
     ...
-    @StelltAufrufKontextBereit
     @StelltLoggingKontextBereit
     @Secured(Rechte.RECHT_ZUGRIFFBEISPIEL)
     @Transactional(rollbackFor = Throwable.class, propagation = Propagation.REQUIRED)
