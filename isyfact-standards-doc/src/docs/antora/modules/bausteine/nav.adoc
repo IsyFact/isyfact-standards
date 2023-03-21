@@ -71,6 +71,3 @@
 *** xref:isyfact-jsf-doku:isy-web:nutzungsvorgaben/nutzungsvorgaben.adoc[Nutzungsvorgaben]
 
 
-
-
-
