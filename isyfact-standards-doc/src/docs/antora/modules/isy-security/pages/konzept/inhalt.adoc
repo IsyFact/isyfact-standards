@@ -10,6 +10,7 @@ Konkret wird das im Baustein `Security` durch ein Rollen-, Rechte- und Berechtig
 
 * Authentifizierungsinformationen, wie Benutzername und Passwort, werden nicht über IT-Systeme hinweg weitergegeben.
 Nur der Eigentümer der Authentifizierungsinformationen und der IAM-Service besitzen Kenntnis über diese Informationen.
+* Eine Zweifaktor-Authentifizierung ist durch das Behördenkennzeichen (BHKNZ) als zusätzliches Authentifizierungsmerkmal konzipiert, allerdings setzt dies im IAM-Service voraus, dass dieses Merkmal dort auch ausgewertet werden kann.
 * Die Authentifizierung und grobgranulare Autorisierung (mittels dem Nutzer zugeordneten Rollen) erfolgt an den Außenschnittstellen der Systemlandschaft (Portal, Authentication-Gateway bzw. Service-Gateway).
 * Liegt kein Aufruf über eine Außenschnittstelle vor (z.B. bei einem Batch-Aufruf), so geschieht die Authentifizierung und grobgranulare Autorisierung innerhalb der Nutzungsschicht (Batch) des konkreten IT-Systems.
 * Die feingranulare Autorisierung geschieht in der Nutzungsschicht und im Anwendungskern der IT-Systeme über den IsyFact-Baustein Security, indem die Nutzerrollen auf anwendungsspezifische Rechte abgebildet werden und diese Rechte bei jedem Serviceaufruf geprüft werden.
@@ -36,7 +37,9 @@ NOTE: IAM steht für xref:glossary:literaturextern:inhalt.adoc#litextern-identit
 Das IAM-System verwaltet *Benutzer* (menschl. Anwender oder techn. System) und ihre *Rollen* zentral für alle Komponenten der Anwendungs- und Systemlandschaft.
 
 Die Authentifizierung und grobgranulare Autorisierung erfolgt, gemäß der  xref:konzept/master.adoc#prinzipien-der-sicherheitsarchitektur[Prinzipien der Sicherheitsarchitektur], an den Außenschnittstellen der Systemlandschaft.
-Hierbei übermittelt der Benutzer seine Authentifizierungsmerkmale (z.B. Login-Name u. Passwort) an den IAM-Service, der sie gegen die bei ihm gespeicherten Merkmale verifiziert und nach erfolgreicher Authentifizierung sein OK gibt, zusammen mit den bei ihm hinterlegten Rollen des Anwenders. +
+Hierbei übermittelt der Benutzer seine Authentifizierungsmerkmale (z.B. Login-Name u. Passwort) und für eine Zwei-Faktor-Authentifizierung das Behördenkennzeichen (BHKNZ) an den IAM-Service, der sie gegen die bei ihm gespeicherten Merkmale verifiziert.
+Falls der IAM-Service die Auswertung des BHKNZ nicht unterstützt, wird dieses Authentifizierungsmerkmal als optional gewertet.
+Nach erfolgreicher Authentifizierung gibt der IAM-Service das Authentifizierungsergebnis zusammen mit den bei ihm hinterlegten Rollen des Anwenders an das aufrufende Anwendungssystem zurück. +
 Die Rollen allein sind jedoch noch nicht ausreichend, um den Benutzer in der Anwendung vollständig zu autorisieren.
 
 [[autorisierung]]
@@ -58,7 +61,7 @@ Ein (menschlicher) Endbenutzer kann mit Hilfe eines Autorisierungsservers (IAM-S
 Der Endbenutzer kann so der Anwendung gestatten, in seinem Namen einen Service zu benutzen.
 Dazu wird der Endbenutzer auf eine Login-Seite des Autorisierungsservers (IAM-Service) umgeleitet und nach erfolgreicher Authentifizierung zurück in die Anwendung.
 Dabei wird die Übermittlung von vertraulichen Daten wie z.B. Passwörtern an die Anwendung vermieden.
-Bei M2M-Kommunikation (Machine to Machine) enthält die Konfiguration der Anwendung die zur Authentifizierung notwendigen Daten des dafür verwendeten technischen Nutzers (Client, die direkt an den IAM-Service geschickt werden.
+Bei M2M-Kommunikation (Machine to Machine) enthält die Konfiguration der Anwendung die zur Authentifizierung notwendigen Daten des dafür verwendeten technischen Nutzers (Client), die direkt an den IAM-Service geschickt werden.
 Bei erfolgreicher Authentifizierung erhält die Anwendung ein Access-Token (Zugriffstoken), eine Art 'Freibrief' für die Anwendung, mit dem der IAM-Service das Zugangsrecht bestätigt.
 
 OpenID Connect oder OIDC ist ein offenes Identitätsprotokoll, das die Autorisierungs- und Authentifizierungsmechanismen von OAuth 2.0 nutzt und als Schicht oberhalb des OAuth-Frameworks Anwendungen ermöglicht, zusätzlich zur oben beschriebenen Autorisierung auch grundlegende Profilinformationen des Benutzers auf interoperable Weise zu erhalten.
@@ -344,12 +347,14 @@ Der Ressourcen-Server liest das Access-Token aus dem Request-Header und gibt - n
 [[nutzung-des-behoerdenkennzeichens]]
 === Nutzung des Behördenkennzeichens
 
-Als zusätzliche Sicherheitsmaßnahme ist zur Authentifizierung im IAM-Service ein Behördenkennzeichen (BHKZN) erforderlich, welches zu dem Behördenkennzeichen passen muss, dass im Nutzerprofil hinterlegt ist.
-Das BHKZN wird im HTTP-Header übertragen und aus diesem vom IAM-System ausgelesen.
+Als optional mögliche 2-Faktor-Authentifizierung ist im IAM-Service das Behördenkennzeichen (BHKNZ) vorgesehen.
+Die Implementierung des IAM-Service muss für die 2-Faktor-Authentifizierung dieses Feature unterstützen, andernfalls wird das BHKNZ als optionales Attribut betrachtet.
+Das BHKNZ wird im HTTP-Header übertragen und kann von der Implementierung des IAM-Service ausgelesen werden.
+Wenn die IAM-Service Implementierung dieses Feature unterstützt, dann wird ein mit den Authentifizierungsdaten gemeinsam übergebenes Behördenkennzeichen gegen das Behördenkennzeichen aus dem zu authentifizierenden Nutzerprofil geprüft.
 
 Wie in xref:konzept/inhalt.adoc#aussensicht-der-komponente-security[Schnittstelle des Bausteins Security] beschrieben, wird bei der Authentifizierung das Behördenkennzeichen als String an den `Authentifizierungsmanager` übergeben.
-Zur Authentifizierung von technischen Nutzern mithilfe der Methode `authentifiziereClient()` wird daher die Client-Id, das Client-Secret und das BHKZN übergeben.
-Der alternative Weg benötigt die Benutzerkennung (Nutzername), das Passwort und das BHKZN zur Authentifizierung mit der Methode `authentifiziereSystem()`.
+Zur Authentifizierung von technischen Nutzern mithilfe der Methode `authentifiziereClient()` wird daher die Client-Id, das Client-Secret und das BHKNZ übergeben.
+Der alternative Weg benötigt die Benutzerkennung (Nutzername), das Passwort und das BHKNZ zur Authentifizierung mit der Methode `authentifiziereSystem()`.
 
 [[sicherheitsarchitektur-eines-it-systems]]
 == Sicherheitsarchitektur eines IT-Systems
