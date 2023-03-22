@@ -4,7 +4,7 @@
 [[ueberblick]]
 == Überblick
 
-Services gliedern sich über eine technische Komponente „Service“ in die T-Architektur von IT-Systemen ein (siehe <<image-IFRefArcITSysServ>>).
+Services gliedern sich über eine technische Komponente „Service“ in die T-Architektur von IT-Systemen ein (siehe xref:image-IFRefArcITSysServ[]).
 
 .Referenzarchitektur eines IT-Systems
 [id="image-IFRefArcITSysServ",reftext="{figure-caption} {counter:figures}"]
@@ -41,31 +41,31 @@ Die Schnittstelle zwischen Fachkomponenten im Service und Anwendungskern ist dah
 Die Service-Schnittstellen bestehen aus einer *Service-Fassade* und einer *Exception-Fassade*.
 
 === Service-Fassade
-Die Service-Fassade implementiert die Service-Operationen als Methoden.
-Ihre Hauptaufgabe ist die Transformation der Service-Aufrufe in interne Aufrufe des Anwendungskerns sowie die Transformation dessen Antworten in Antworten der Service-Schnittstelle.
-Dabei transformiert sie die Geschäftsobjekte des Anwendungskerns in Transportobjekte der Service-Schnittstelle und umgekehrt.
+Die _Service-Fassade_ implementiert die Service-Operationen als Methoden.
+Ihre Hauptaufgabe ist die Transformation der Service-Aufrufe in interne Aufrufe des _Anwendungskerns_ sowie die Transformation dessen Antworten in Antworten der _Service-Schnittstelle_.
+Dabei transformiert sie die Geschäftsobjekte des _Anwendungskerns_ in Transportobjekte der _Service-Schnittstelle_ und umgekehrt.
 Hierzu wird in der Regel ein Bean Mapper verwendet.
 In Einzelfällen können Teile der Transformation auch programmiert werden, sofern der Nutzen daraus den Aufwand nicht übersteigt.
 
-Die Service-Fassade übernimmt auch die Autorisierung des Aufrufs.
+Die _Service-Fassade_ übernimmt auch die Autorisierung des Aufrufs.
 Dazu nutzt sie die xref:isy-security:nutzungsvorgaben/master.adoc#autorisierung_service_schnittstelle[Möglichkeiten des Bausteins Security].
-Voraussetzung für die Autorisierung ist die Auswertung des mitgelieferten `SecurityContextes` aus der in der *Exception-Fassade* vorausgegangenen Authentifizierung.
+Voraussetzung für die Autorisierung ist die Auswertung des mitgelieferten `SecurityContextes` aus der in der _Exception-Fassade_ vorausgegangenen Authentifizierung.
 Über die Annotation `@Secured` wird die Berechtigung zum Zugriff auf die Methode anhand der Rechte des Aufrufers geprüft.
-Alternativ kann die Annotation `@Secured` auch an der Service-Fassade selbst verwendet werden, wenn alle Methoden die gleichen Rechte erfordern.
+Alternativ kann die Annotation `@Secured` auch an der _Service-Fassade_ selbst verwendet werden, wenn alle Methoden die gleichen Rechte erfordern.
 
 === Exception-Fassade
-Je nach verwendeter Schnittstellen-Technologie ist die Exception-Fassade in das entsprechende Technologie-Framework eingebunden.
-Dabei hat jede Schnittstellen-Technologie ihre speziellen Implementierungsdetails, die es pro Aufruf für die dort einzubindende Parameter- und Kontextübernahme sowie eine notwendige Authentifizierung zu beachten gilt.
+Je nach verwendeter Schnittstellen-Technologie ist die _Exception-Fassade_ in das entsprechende Technologie-Framework eingebunden.
+Dabei hat jede Schnittstellen-Technologie ihre speziellen Implementierungsdetails, die es pro Aufruf, für die dort einzubindende Parameter- und Kontextübernahme sowie eine notwendige Authentifizierung, zu beachten gilt.
 Mit `IsyFact-3` wird mit dem Sicherheitsbaustein `isy-security` die xref:isyfact-standards-doku:isy-security:konzept/master.adoc#aufruf-service-gateway[Authentifizierung am ServiceGateway] auf `SpringSecurity OAuth2.0` eingeführt und gekapselt, der in der entsprechenden Schnittstellen-Technologie einzubinden ist.
-Als Authentifizierungsergebnis wird dann ein `SecurityContext` mit allen security-relevanten Informationen an die Exception-Fassade weitergereicht.
+Als Authentifizierungsergebnis wird dann ein `SecurityContext` mit allen security-relevanten Informationen an die _Exception-Fassade_ weitergereicht.
 
-Die Exception-Fassade ist verantwortlich für die Umwandlung der durch den Anwendungskern oder die Service-Fassade geworfenen Exceptions in Exceptions der Service-Schnittstelle.
+Die _Exception-Fassade_ ist verantwortlich die durch den _Anwendungskern_ oder die _Service-Fassade_ geworfenen Exceptions in Exceptions der Service-Schnittstelle umzuwandeln.
 Dies kann auf mehreren Wegen geschehen.
 Je nach gewählter Schnittstellentechnologie werden z. B. Annotationen oder eigens dafür geschriebene Klassen oder Methoden verwendet.
 
-Bevor die Exception-Fassade aufgerufen wird, muss die Korrelations-ID aus dem `SecurityContext` im _Logging-Kontext_ registriert sein.
+Bevor die _Exception-Fassade_ aufgerufen wird, muss die `Korrelations-ID` aus dem `SecurityContext` im _Logging-Kontext_ registriert sein.
 Dies geschieht durch die Annotation `@StelltLoggingKontextBereit` an der Methode oder an der Service-Fassade selbst.
-Dabei gilt es zu beachten, dass die Annotation standardmäßig so konfiguriert ist, dass sie vor den Annotationen ohne Angabe einer Priorität ausgeführt wird, sodass diese immer Zugriff auf die Korrelations-ID haben.
+Dabei gilt es zu beachten, dass die Annotation standardmäßig so konfiguriert ist, dass sie vor den Annotationen ohne Angabe einer Priorität ausgeführt wird, sodass diese immer Zugriff auf die `Korrelations-ID` haben.
 Diese Reihenfolge wird durch Einfügen der `Order` für den Advisor `stelltLoggingKontextBereitAdvisor` in der Autokonfiguration `IsyServiceApiCoreAutoConfiguration` erreicht.
 
 [NOTE]
@@ -86,11 +86,11 @@ Metadaten sind, egal über welches Protokoll sie übertragen werden, *einheitlic
 Gibt es eine durch einen Standard vorgegebene Benennung, ist diese zu verwenden.
 ****
 
-Die <<standardisierte-metadaten,folgende Tabelle>> zeigt, welche Metadaten in der IsyFact standardisiert übertragen werden.
+Die Tabelle xref:standardisierte-metadaten[] zeigt, welche Metadaten in der IsyFact standardisiert übertragen werden.
 
 [[standardisierte-metadaten]]
 .Benennung standardisierter Metadaten
-[cols="1s,1m,2",options="header"]
+[id="standardisierte-metadaten", cols="1s,1m,2",options="header"]
 |===
 |Metadaten|Benennung|Herleitung
 
@@ -119,10 +119,10 @@ Die Aufgabe fällt der Service-Fassade zu, weil es wichtig ist, dass die Fehlerb
 Nur so ist gewährleistet, dass auch Fehler, die beim Commit entstehen, von der Fehlerbehandlung erfasst werden.
 
 Die Transaktionssteuerung wird an der jeweiligen Service-Methode angesetzt.
-Für das obige Beispiel verdeutlicht dies <<listing-service-fassade-tx>>.
+Für das obige Beispiel verdeutlicht dies das Code-Beispiel xref:listing-service-fassade-tx[].
 
 .Transaktionssteuerung in der Service-Fassade
-[id="listing-service-fassade-tx",reftext="{listing-caption} {counter:listings }"]
+[id="listing-service-fassade-tx"]
 [source,java]
 ----
 public class BeispielServiceFassade {
@@ -175,7 +175,7 @@ Die Versionierung eines Services muss also auch auf Ebene des Service-Gateways d
 Ein Service-Gateway ist ein rein technischer Protokoll-Wandler, der Web-Services in interne Schnittstellen konvertiert.
 Im Service-Gateway erfolgt daher immer nur ein einfaches Mapping auf die entsprechenden Service-Schnittstellen der angebundenen IT-Systeme.
 Der Ausgleich der Versionsunterschiede erfolgt ausschließlich im IT-System und nicht im Service-Gateway.
-Es ist möglich, pro Service-Version ein eigenes Service-Gateway zu erstellen (siehe <<image-archversServ>>).
+Es ist möglich, pro Service-Version ein eigenes Service-Gateway zu erstellen (siehe xref:image-archversServ[]).
 
 .Architektur versionierter Services
 [id="image-archversServ",reftext="{figure-caption} {counter:figures}"]
@@ -212,7 +212,7 @@ NOTE: Für die Versionierung von Schnittstellen gelten gesonderte Vorgaben, die 
 Zur Veröffentlichung von API-kompatiblen Änderungen wird im Maven `pom.xml` eine einstellige Versionsnummer (Minor) gesetzt.
 Kompatible Änderungen sind beispielsweise Bugfixes, neue Operationen in der Schnittstelle oder neue, optionale Attribute im Datenmodell.
 
-.Realisierung der Versionierungsvorgaben für Schnittstellen bei HTTP Invoker
+.Realisierung der Versionierungsvorgaben für Schnittstellen per Maven-Buildprozess
 [id="listing-versioning-pom", reftext="reftext="{listing-caption} {counter:listings }"]
 [source,xml]
 ----
@@ -263,7 +263,7 @@ Für das Szenario gehen wir im Folgenden davon aus, dass ein IT-System eine Gesa
 Hierbei ist zu beachten, dass IT-Systeme in der Regel andere IT-Systeme und Querschnittsanwendungen aufrufen, um Anfragen zu beantworten.
 Die Gesamtverfügbarkeit sinkt dadurch ab, da zur erfolgreichen Bearbeitung einer Anfrage alle Systeme zeitgleich verfügbar sein müssen.
 Im Szenario wird für alle Systeme ein Richtwert für die Verfügbarkeit von 99,7 % angenommen.
-Wie die <<table-GMTMT>> zeigt, ergibt sich eine Gesamtverfügbarkeit von über 98 % bei einer Verfügbarkeit von 99,7 % pro System.
+Wie die xref:table-GMTMT[] zeigt, ergibt sich eine Gesamtverfügbarkeit von über 98 % bei einer Verfügbarkeit von 99,7 % pro System.
 
 Eine Berechnung der Gesamtverfügbarkeit nach diesem Schema muss für jedes IT-System einzeln durchgeführt werden.
 Dabei müssen die berechneten oder gemessenen Verfügbarkeiten aller IT-Systeme zugrunde gelegt werden, die das IT-System aufruft.
@@ -348,13 +348,13 @@ Folgende Maßnahmen können ergriffen werden, um die Anforderungen an die Verfü
 
 Die TI-Architektur der IsyFact setzt die hohen Verfügbarkeitsanforderungen durch Clustering der Applikations- und Datenbankserver um.
 Anwendungen werden redundant auf mehr als einem Server installiert.
-Kommt es zu einem <<ausfall-von-hw-oder-sw,Hard- oder Softwareausfall>> auf einem Server-Knoten, so werden alle Anfragen von einem vorgeschalteten Loadbalancer auf einen anderen Server-Knoten umgeleitet.
+Kommt es zu einem xref:ausfall-von-hw-oder-sw[Hard- oder Softwareausfall] auf einem Server-Knoten, so werden alle Anfragen von einem vorgeschalteten Loadbalancer auf einen anderen Server-Knoten umgeleitet.
 Durch die Redundanz wird die Verfügbarkeit von Services bei auftretenden Hard- oder Softwareausfällen erhöht.
 Trotzdem kann es auch hier noch zu Nichtverfügbarkeit kommen.
 
 ==== Knotenweises Deployment
 
-Diese Maßnahme hilft bei Nichtverfügbarkeit aufgrund von <<ausfall-deployment,geplanten Wartungsarbeiten>>.
+Diese Maßnahme hilft bei Nichtverfügbarkeit aufgrund von xref:ausfall-deployment[geplanten Wartungsarbeiten].
 Im Clusterbetrieb besteht die Möglichkeit, diese Knoten für Knoten auszuführen.
 Bevor das Deployment auf einem Knoten ausgeführt wird, wird dem Loadbalancer mitgeteilt, dass der Knoten nicht mehr verfügbar ist.
 Während des Deployments des Knotens verarbeiten die restlichen Knoten alle ankommenden Anfragen.
@@ -371,7 +371,7 @@ Hierdurch wird eine schnelle Antwortzeit gewährleistet.
 
 ==== Aufrufwiederholung (Retry)
 
-Von <<retries-loadbalancer,Loadbalancern ausgeführte Retries>> können zu einer Erhöhung der Antwortzeit führen.
+Von xref:retries-loadbalancer[Loadbalancern ausgeführte Retries] können zu einer Erhöhung der Antwortzeit führen.
 Loadbalancer innerhalb der Plattform sind deshalb so zu konfigurieren, dass fehlgeschlagene Anfragen nicht an andere Knoten weitergeleitet werden.
 Eine Wiederholung von Aufrufen ist ausschließlich vom Aufrufer auszuführen.
 So kann der Aufrufer je nach Fachlichkeit entscheiden, bei welchen Anfragen Wiederholungen sinnvoll sind.
