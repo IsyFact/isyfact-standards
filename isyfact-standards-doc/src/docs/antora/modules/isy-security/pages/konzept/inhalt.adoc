@@ -344,18 +344,17 @@ xref:glossary:literaturextern:inhalt.adoc#litextern-authorization-bearer-token[R
 Der Ressourcen-Server liest das Access-Token aus dem Request-Header und gibt - nach Validierung des Access-Tokens und Prüfung des Inhalts (Ablaufdatum, Rechte aus Rollen) - die angeforderte Ressource frei.
 
 [[aktualisierung-der-token]]
-==== Aktualisierung der Token
+==== Aktualisierung der Acess-Token
 
-Abgesehen von dem Sonderfall, dass ein Access Token kein Ablaufdatum hat - also ewig gültig ist, läuft ein Token irgendwann ab und muss erneuert werden.
-Ein Token ohne Ablaufdatum birgt aber große Sicherheitsrisiken, wenn es in fremde Hände fällt und wird hier deshalb ausgeschlossen.
+Ein Access-Token muss ein begrenzte Gültigkeitesdauer besitzen, um den Zugriff auf geschützte Ressourcen zeitlich zu beschränken.
+Sobald die Gültigkeitsdauer überschritten ist, muss das Access-Token als ungültig erkannt werden (siehe <<validierung-der-token>>).
+Die Verwendung eines abgelaufenen Access-Tokens bei einer Anfrage muss vom empfangenden System erkannt und mit HTTP status error code: 401 und der Fehlerbeschreibung: "The access token expired" beantwortet werden, wie in beschrieben.
+Der Aufrufer muss die Antwort verarbeiten und die Anfrage mit einem gültigen Access-Token erneut senden.
 
-Für menschliche Nutzer wurde mit dem Refresh Token ein Mechanismus eingeführt, der eine automatische Aktualisierung des Access Tokens erlaubt, ohne dass der Benutzer etwas davon merkt.
-Das Webserver-Modul `mod_auth_openidc` koordiniert die Erneuerung des Access-Tokens (automatisch mit Refresh-Token bzw. durch erneute Authentifizierung (siehe: <<aufruf-weboberflaeche-portal>>)) - der Baustein Security wird hierfür nicht verwendet. +
-Technische Nutzer können ihr Access-Token nur durch eine erneute Authentifizierung (siehe: <<aufruf-service-gateway>> bzw. <<ausfuehrung-batch-u-task>>) erneuern.
+Für menschliche Nutzer wurde mit dem Refresh Token ein Mechanismus eingeführt, der eine automatische Aktualisierung des Access-Tokens erlaubt, ohne dass der Benutzer interagieren muss:
+Das Webserver-Modul `mod_auth_openidc` koordiniert für Portal-Anwendungen die Erneuerung des Access-Tokens (automatisch mit Refresh-Token bzw. durch erneute Authentifizierung (siehe: <<aufruf-weboberflaeche-portal>>)) - der Baustein Security wird hierfür nicht verwendet. +
 
-Die Verwendung eines abgelaufenen Access-Tokens bei einer Anfrage wird vom empfangenden System erkannt und mit HTTP status error code: 401 und der Fehlerbeschreibung: "The access token expired" beantwortet, wie in (<<validierung-der-token>>) beschrieben.
-Als Reaktion darauf fordert der Baustein `isy-security` bzw. das `Spring Security Framework` (bzw. das Webserver-Modul `mod_auth_openidc`) beim IAM-Service ein neues Access-Token an, legt es ab und sendet die Anfrage erneut mit dem neuen Access-Token.
-Zur Minimierung dieser Fehlversuche prüft der Baustein `isy-security` bzw. das `Spring Security Framework` (bzw. das Webserver-Modul `mod_auth_openidc`) vor jeder Anfrage die verbleibende Lebensdauer des Access Tokens und fordert proaktiv ein neues Access-Token an, wenn es zu knapp würde.
+Technische Nutzer (Clients) können ihr Access-Token nur durch eine erneute Authentifizierung (siehe: <<aufruf-service-gateway>> bzw. <<ausfuehrung-batch-u-task>>) erneuern.
 
 *Konfiguration des Refresh-Tokens im IAM-System*
 
