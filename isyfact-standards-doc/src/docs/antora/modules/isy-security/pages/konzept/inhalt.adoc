@@ -491,7 +491,7 @@ Mit diesen Berechtigungsabfragen kann die Fachanwendung z.B. feingranular bestim
 
 Eine Fachanwendung im Anwendungskern erwartet, wenn es aufgerufen wird, dass ihm dabei alle notwendigen Authentifizierungs- und Autorisierungsdaten in valider und gültiger Form übergeben werden.
 Folglich muss eine Fachanwendung, die ein Nachbarsystem im Anwendungskern aufruft, diesem Aufruf ebenfalls gültige und valide Authentifzierungs- und Autorisierungsdaten mitgeben.
-Im Regelfall werden diese Authentifizierungs- und Autorisierungsdaten bei der Authentifizierung der originären Anfrage über den Sicherheitsbaustein `isy-security` der Fachanwendung als initialisierten `SecurityContext` übergeben.
+Im Regelfall werden diese Authentifizierungs- und Autorisierungsdaten bei der Authentifizierung der originären Anfrage bzw. der xref:validierung-der-token[Validierung des Access-Token] über den Sicherheitsbaustein `isy-security` der Fachanwendung als initialisierten `SecurityContext` übergeben.
 Für eine fachliche und prozessbezogene Aufrufkette wird dieser `SecurityContext` in allen weiteren Aufrufen wiederverwendet und unverändert weitergeleitet.
 
 Je nach verwendeter Schnittstellen-Technologie der beteiligten Fachanwendungen und ob es sich um eine interne oder externe Service-Kommunikation handelt, erfolgt an der jeweiligen Schnittstelle der beiden Systeme eine entsprechende Transformation der Daten des `SecurityContextes`.
