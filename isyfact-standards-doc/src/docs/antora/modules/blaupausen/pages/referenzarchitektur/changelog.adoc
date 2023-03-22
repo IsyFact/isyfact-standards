@@ -1,11 +1,11 @@
 [[changelog]]
 = Changelog
 
-// *Änderungen IsyFact 2.5.0*
+// *Änderungen IsyFact 3.0.0*
 
-// tag::release-2.5.0[]
+// tag::release-3.0.0[]
 
-// end::release-2.5.0[]
+// end::release-3.0.0[]
 
 *Änderungen IsyFact 2.4.0*
 

@@ -21,8 +21,9 @@ import de.bund.bva.isyfact.aufrufkontext.impl.AufrufKontextImpl;
 /**
  * Aufrufkontext zur Übermittlung von Zertifikatsinformationen.
  *
+ * @deprecated since IsyFact 3.0.0 in favor of the isy-security module.
  */
-
+@Deprecated
 public class ZertifikatInfoAufrufKontext extends AufrufKontextImpl {
     private String clientZertifikat;
 

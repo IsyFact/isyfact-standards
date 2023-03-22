@@ -16,9 +16,12 @@
  */
 package de.bund.bva.isyfact.sonderzeichen.stringlatin1_1.core.transformation;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
-public class ZeichenKategorie {
+/**
+ *  @deprecated This class is deprecated and will be removed in a future release.
+ *  It is recommended to use {@link de.bund.bva.isyfact.sonderzeichen.dinspec91379} instead.
+ */
+@Deprecated
+public final class ZeichenKategorie {
     
     public static final String LETTER = "LETTER";
     public static final String NUMBER = "NUMBER";
@@ -28,10 +31,10 @@ public class ZeichenKategorie {
     public static final String SYMBOL = "SYMBOL";
     public static final String ALLE = "ALLE";
 
-    @SuppressFBWarnings(
-            value = "MS_MUTABLE_ARRAY",
-            justification = "Solved with IFS-804"
-    )
-    public static final String[] ALLE_ZEICHEN_KATEGORIEN = new String[]{LETTER,NUMBER,OTHER,PUNCTUATION,SEPARATOR,SYMBOL,ALLE};
+    private ZeichenKategorie() {
+    }
 
+    public static String[] getAlleZeichenKategorien() {
+        return new String[]{LETTER, NUMBER, OTHER, PUNCTUATION, SEPARATOR, SYMBOL, ALLE};
+    }
 }

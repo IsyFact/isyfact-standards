@@ -35,9 +35,10 @@ import org.springframework.security.core.Authentication;
  * 
  * Der AccessDecisionManager delegiert die Entscheidung über die Berechtigung an den in der Komponente
  * {@link Sicherheit} hinterlegten {@link Berechtigungsmanager}.
- * 
- * 
+ *
+ * @deprecated since IsyFact 3.0.0 in favor of the isy-security module.
  */
+@Deprecated
 public class DelegatingAccessDecisionManager implements AccessDecisionManager {
 
     /** Zugriff auf die Komponente Sicherheit. */

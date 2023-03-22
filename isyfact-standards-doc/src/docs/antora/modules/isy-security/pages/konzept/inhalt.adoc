@@ -58,7 +58,7 @@ Ein (menschlicher) Endbenutzer kann mit Hilfe eines Autorisierungsservers (IAM-S
 Der Endbenutzer kann so der Anwendung gestatten, in seinem Namen einen Service zu benutzen.
 Dazu wird der Endbenutzer auf eine Login-Seite des Autorisierungsservers (IAM-Service) umgeleitet und nach erfolgreicher Authentifizierung zurück in die Anwendung.
 Dabei wird die Übermittlung von vertraulichen Daten wie z.B. Passwörtern an die Anwendung vermieden.
-Bei M2M-Kommunikation enthält die Konfiguration der Anwendung die zur Authentifizierung notwendigen Daten des dafür verwendeten technischen Nutzers (Client, die direkt an den IAM-Service geschickt werden.
+Bei M2M-Kommunikation (Machine to Machine) enthält die Konfiguration der Anwendung die zur Authentifizierung notwendigen Daten des dafür verwendeten technischen Nutzers (Client, die direkt an den IAM-Service geschickt werden.
 Bei erfolgreicher Authentifizierung erhält die Anwendung ein Access-Token (Zugriffstoken), eine Art 'Freibrief' für die Anwendung, mit dem der IAM-Service das Zugangsrecht bestätigt.
 
 OpenID Connect oder OIDC ist ein offenes Identitätsprotokoll, das die Autorisierungs- und Authentifizierungsmechanismen von OAuth 2.0 nutzt und als Schicht oberhalb des OAuth-Frameworks Anwendungen ermöglicht, zusätzlich zur oben beschriebenen Autorisierung auch grundlegende Profilinformationen des Benutzers auf interoperable Weise zu erhalten.
@@ -67,7 +67,7 @@ Die Implementierung von OpenID Connect basiert auf der Ausstellung von ID-Tokens
 [[oauth2.0-zur-autorisierung]]
 === OAuth2.0 zur Autorisierung
 
-OAuth 2.0 ist ein Autorisierungsprotokoll, kein Authentifizierungsprotokoll.
+OAuth 2.0 ist ein Autorisierungsprotokoll und kein Authentifizierungsprotokoll.
 Als Solches ist es in erster Linie dafür vorgesehen, den Zugriff auf bestimmte Ressourcen zu ermöglichen, beispielsweise externe APIs oder Nutzerdaten. +
 OAuth 2.0 nutzt Access-Tokens.
 Access-Tokens sind Daten, die die Autorisierung zum Zugriff auf Ressourcen für den Endnutzer darstellen.
@@ -81,7 +81,7 @@ In OAuth 2.0 gibt es folgende vier Rollen bzw. beteiligte Parteien:
 
 Eine Person oder ein System, das berechtigt ist, auf eine geschützte Ressource zuzugreifen. +
 Beispiel: Anwender, Techn. Nutzer. +
-Wir übernehmen für die IsyFact die konkrete Ausprägung "Anwender", "Techn. Nutzer" "Client".
+Wir übernehmen für die IsyFact die konkrete Ausprägung "Anwender", "Techn. Nutzer", "Client".
 
 *Ressourcen-Server bzw. Anwendungssystem (Resource-Server)*
 
@@ -110,27 +110,64 @@ Weitere wichtige Begriffe sind:
 Daten oder andere Betriebsmittel, die durch ein Nutzungsrecht vor unbefugtem Zugang geschützt sind.  +
 Wir übernehmen für die IsyFact die deutsche Bezeichnung "Ressource".
 
-*Zugriffstoken (Access-Token)*
+*Access-Token*
 
 Berechtigungsnachweis für den Zugang zu einer geschützten Ressource.
 Der Inhalt ist für den Client meist nicht lesbar, er gibt es einfach weiter an den Ressourcen-Server.
-Sie gelten für einen spezifischen Bereich und nur für eine bestimmte Zeit. +
-Wir übernehmen für die IsyFact die englische Bezeichnung "Access-Token".
+Er gilt für einen spezifischen Bereich und nur für eine bestimmte Zeit. +
 
-*Aktualisierungstoken (Refresh-Token)*
 
-'Meta'-Berechtigungsnachweis: Ermöglicht dem Client, ein neues Access Token vom IAM-Service zu erhalten, ohne dass der Ressourcenbesitzer sich erneut ausweisen muss.
+*Refresh-Token*
+
+'Meta'-Berechtigungsnachweis: Ermöglicht dem Client, ein neues Access-Token vom IAM-Service zu erhalten, ohne dass der Ressourcenbesitzer sich erneut ausweisen muss.
 Diese neue Access Token kann z.B. ein späteres Ablaufdatum (autom. Nutzungsverlängerung) oder andere Rechte (innerhalb aller an den Ressourcenbesitzer vergebenen Rechte) aufweisen.  +
-Wir übernehmen für die IsyFact die englische Bezeichnung "Refresh-Token".
 
 [[openidconnect-zur-authentifizierung]]
 === OpenIDConnect zur Authentifizierung
+OpenID Connect ist eine Identitätsschicht über dem OAuth 2.0-Protokoll und ist eine Erweiterung und nicht Teil des OAuth2.0-Protokolls.
+Es ermöglicht Clients, die Identität des Endbenutzers basierend auf der von einem Autorisierungsserver durchgeführten Authentifizierung zu überprüfen und grundlegende Profilinformationen über den Endbenutzer auf interoperable und REST-ähnliche Weise zu erhalten.
+
+OpenID Connect ermöglicht es Clients aller Art, einschließlich webbasierter, mobiler und JavaScript-Clients, Informationen über authentifizierte Sitzungen und Endbenutzer anzufordern und zu erhalten.
+
+Der Baustein `Security` bietet keine direkte OpenID Connect Unterstützung.
+Für den Transport von Benutzerinformationen, wie z.B. BHKNZ, wird das Access-Token verwendet.
+
+OpenID Connect Abfragen zur Identität eines Benutzers, OpenID-Token oder Custom-Token müssen in der Anwendung implementiert werden.
 
 [[authentifizierung-und-autorisierung]]
 === Authentifizierung & Autorisierung
 
 [[aufruf-weboberflaeche-portal]]
 ==== Aufruf Web-Oberfläche/Portal
+
+Damit ein Anwender eine geschützte Anwendung über deren Web-Oberfläche (im Web-Browser) aufrufen kann, muss er über den IAM-Service authentifiziert und dazu autorisiert sein.
+Die IsyFact folgt der Empfehlung des OAuth 2.0 Frameworks und definiert den Flow _Authorization Code_ als Authentifizierungsweg.
+Dieser Flow stellt sicher, dass zum einen nur der IAM-Service die Authentifizierungsdaten des Nutzers erfährt und zum anderen, dass die Web-Oberfläche (Web-Client) keinen Zugriff auf das Access-Token besitzt.
+
+Als Voraussetzung für diesen Flow ist die Bereitstellung eines Vermittlers ('Relying Party') notwendig, der die Kommunikation zwischen Web-Oberfläche und Autorisierungsserver verwaltet.
+Dieser Vermittler muss ein OAuth2.0 _Confidential Client_ sein, also ein serverseitiges System.
+Dies kann ein als ReverseProxy konfigurierter Webserver (z.B. Apache http-Server mit `mod_auth_openidc` Modul) sein, der zwischen  Web-Client (Web-Browser) und Web-Anwendung geschaltet ist.
+Das Webserver-Modul `mod_auth_openidc` koordiniert den Ablauf des _Authorization Code Flow_ mit _Confidential Client_ zwischen Nutzer und dem IAM-Service und verwaltet das Access-Token - der Baustein Security wird hierfür nicht verwendet.
+Die folgende Abbildung zeigt die System-Architektur mit dem Webserver in der Informations- u. Dienstezone vor der Anwendung und dem IAM-Service in der Logik- u. Verarbeitungszone.
+
+.Beteiligte Systeme bei Aufruf über Web-Oberfläche / Portal
+[id="image-Authorization-Code-Connections",reftext="{figure-caption} {counter:figures}"]
+image::konzept/authorization-code-connections.dn.svg[align="center"]
+
+Ein menschlicher Nutzer, der eine Anwendung über deren Web-Oberfläche (im Web-Browser) bedienen möchte, ist im Besitz von Authentifizierungsdaten (Nutzername u. Passwort) mit denen er sich gegenüber dem IAM-System ausweisen kann.
+Wenn für einen Anwender (noch) keine gültige Session vorhanden ist, leitet der Webserver auf die Login-Seite des IAM-Systems um.
+Die hier eingegebenen Authentifizierungsdaten gelangen ausschließlich zum IAM-Service, wo sie geprüft werden.
+Bei positiver Authentifizierung stellt der IAM-Service erstmal einen kurzlebigen _Authorization Code_ aus.
+Das ist eine schwer erratbare zufällige Zeichenkette und hat nur einen Zweck:
+Tausch gegen das Access-Token (u. Refresh-Token) im nächsten Teil des _Authorization Code Flow_.
+Das ist notwendig um sicherzustellen, dass das Access-Token an den ursprünglichen Initiator des Aufrufs ausgeliefert wird und nicht z.B. eine Redirection URI Manipulation stattgefunden hat.
+Mit dem Erhalt des Access-Tokens (u. Refresh-Token) ist die Autorisierung durch das IAM-System erfolgreich abgeschlossen.
+Das `mod_auth_openidc` Modul speichert das Access-Token (u. Refresh-Token) in der _User-Session_ und leitet es bei jeder Interaktion mit der Anwendung an die Web-Anwendung weiter - bis die Session beendet wird.
+Das nachfolgende Sequenzdiagramm zeigt noch einmal schematisch den logischen und zeitlichen Ablauf sowie das Zusammenspiel der System-Komponenten im _Authorization Code Flow_ mit _Confidential Client_:
+
+.Ablauf Authentifizierung bei Aufruf über Web-Oberfläche / Portal für single page applications (SPA)
+[id="image-Authorization-Code-Flow",reftext="{figure-caption} {counter:figures}"]
+image::konzept/authorization-code-flow.dn.svg[align="center"]
 
 [[aufruf-service-gateway]]
 ==== Aufruf Service-Gateway
@@ -147,7 +184,7 @@ Die Authentifizierungsaufrufe werden über das _Authentication-Gateway_ geleitet
 
 .Authentifizierung am Authentication-Gateway
 [id="image-servicegateway_plus_authgateway",reftext="{figure-caption} {counter:figures}"]
-image::isy-security:konzept/ServiceGateway_plus_AuthGateway.dn.svg[align="center"]
+image::konzept/ServiceGateway_plus_AuthGateway.dn.svg[align="center"]
 
 Damit ein Client einer externen Anwendung auf die Ressourcen einer Anwendung zugreifen kann, benötigt er ein gültiges Access-Token.
 Dieses Token muss sich der Client zuerst beschaffen, indem er sich beim _IdentityAccessManagement-Service (IAM-Service)_ authentifiziert.
@@ -168,7 +205,7 @@ Das nachfolgende Sequenzdiagramm zeigt noch einmal schematisch den logischen Abl
 
 .Sequenzdiagramm Authentifizierung am Authentication-Gateway
 [id="image-sequenzdiagramm-sgw-plus-agw",reftext="{figure-caption} {counter:figures}"]
-image::isy-security:konzept/Squenzdiagramm_ServiceGateway_plus_AuthGateway.dn.svg[align="center"]
+image::konzept/Squenzdiagramm_ServiceGateway_plus_AuthGateway.dn.svg[align="center"]
 
 
 [[aufruf-service-gateway-ohne-authentication-gateway]]
@@ -182,7 +219,7 @@ Zusätzlich kann die externe Anwendung den gleichen Kommunikationskanal für die
 
 .Authentifizierung ohne Authentication-Gateway
 [id="image-servicegateway_ohne_authgateway",reftext="{figure-caption} {counter:figures}"]
-image::isy-security:konzept/ServiceGateway-Authentifizierung.dn.svg[align="center"]
+image::konzept/ServiceGateway-Authentifizierung.dn.svg[align="center"]
 
 Für den Zugriff auf die Ressourcen eines Anwendungssystems benötigt die externe Anwendung ein gültiges Access-Token.
 Dieses Token muss sich die Anwendung zuerst beschaffen, indem sie sich beim _IdentityAccessManagement-Service (IAM-Service)_ authentifiziert.
@@ -201,7 +238,7 @@ Das nachfolgende Sequenzdiagramm zeigt schematisch den logischen Ablauf der Auth
 
 .Sequenzdiagramm Authentifizierung ohne Authentication-Gateway
 [id="image-sequenzdiagramm-sgw-without-agw",reftext="{figure-caption} {counter:figures}"]
-image::isy-security:konzept/Squenzdiagramm_ServiceGateway_ohne_AuthGateway.dn.svg[align="center"]
+image::konzept/Squenzdiagramm_ServiceGateway_ohne_AuthGateway.dn.svg[align="center"]
 
 
 
@@ -222,7 +259,7 @@ So wird die Authentifizierung für einen techn. Nutzer über diesen Authorizatio
 
 .OAuth2.0 Resource-Owner-Password-Credential Flow
 [id="image-resourceowner_password_credential_flow",reftext="{figure-caption} {counter:figures}"]
-image::isy-security:konzept/Resource-Owner-Passwort-Credential-Flow.dn.svg[align="center"]
+image::konzept/Resource-Owner-Passwort-Credential-Flow.dn.svg[align="center"]
 
 Im vorherigen Bild wird der logische Ablauf des _Resource-Owner-Password-Credential_-Flows dargestellt.
 Hierbei wird die Konfiguration des techn. Nutzers als der _Resource-Owner_ dargestellt.
@@ -244,7 +281,7 @@ Die dabei verwendeten Authentifizierungsdaten `Client-ID` und `Client-Secret` m�
 
 .OAuth2.0 Client-Credential Flow
 [id="image-clientcredential_flow",reftext="{figure-caption} {counter:figures}"]
-image::isy-security:konzept/Client-Credential-Flow.dn.svg[align="center"]
+image::konzept/Client-Credential-Flow.dn.svg[align="center"]
 
 Im vorherigen Bild wird der logische Ablauf des _Client-Credential_-Flows dargestellt.
 Hierbei kann die Client-Anwendung nach einem Access-Token beim IAM anfragen (1.), indem sie dabei ihre eigenen Client-Authentifizierungsdaten oder anderweitig unterstützte Authentifizierungskriterien verwendet.
@@ -269,21 +306,30 @@ Das Access-Token enthält alle notwendigen Daten, um zu verifizieren, ob die auf
 [[validierung-der-token]]
 ==== Validierung der Token
 
-[[bereitstellung-der-tokeninformationen]]
-==== Bereitstellung der Tokeninformationen
+Wenn eine Ressource oder ein Service einer Anwendung angefragt wird, muss das Access-Token von der empfangenden Anwendung validiert werden.
+Dazu sind folgende Validierungen verpflichtend:
 
-Das Access-Token wird in den Spring `SecurityContext` übernommen.
-Zudem wird der Access-Token als aufgeschlüsseltes JSON-Objekt inklusive aller Claims (Inhalte des Access-Tokens) in der Anwendung innerhalb des `SecurityContexts` bereitgestellt.
+. Prüfung des Access-Tokens auf Echtheit/Authentizität
+. Prüfung des Access-Tokens auf Gültigkeit
 
-Die vom IAM-Service im 'roles'-Claim hinterlegten Rollen des Benutzers werden auf die anwendungsspezifischen Rechte umgesetzt und als `GrantedAuthorities` in den `SecurityContext` eintragen (durch eigene Implementierung von) `JwtGrantedAuthoritiesConverter`).
-Der Spring `SecurityContextHolder` hält den `SecurityContext` (in einem `ThreadLocal` Objekt) und der IsyFact `Berechtigungsmanager` kann darüber die Rollen und Rechte des Benutzers abfragen und der Anwendung in Form der Methoden `getRollen`, `getRechte`, `hatRecht`, `pruefeRecht` zu Verfügung stellen.
+*Prüfung des Access-Tokens auf Echtheit/Authentizität*
 
-Weitere Informationen zum angemeldeten Benutzer, wie das Behördenkennzeichen oder seine Benutzerkennung (Anmeldename), kann in der Anwendung aus dem `SecurityContext` mit der Angabe des zugehörigen Claims ausgelesen werden.
+Die Prüfung auf Echtheit belegt, ob das Access-Token wirklich von dem bekannten IAM-Service der Anwendungslandschaft ausgestellt wurde und dass es nicht nachträglich verändert wurde.
+IsyFact verwendet vom IAM-Service signierte JWT Access-Token, wie in xref:glossary:literaturextern:inhalt.adoc#litextern-self-encoded-access-token[OAuth: Self-Encoded Access Tokens] beschrieben.
+Zur Prüfung der Echtheit muss die Signatur von dem IsyFact-Anwendungssystem verifiziert werden, wie in xref:glossary:literaturextern:inhalt.adoc#litextern-validating-jwt-access-tokens[RFC 9068: Validating JWT Access Tokens] beschrieben.
 
-Ein direkter Zugriff auf das Access-Token in einer Anwendung sollte nicht geschehen.
+*Prüfung des Access-Tokens auf Gültigkeit*
 
-[[weitergabe-der-token]]
-==== Weitergabe der Token
+Acess-Tokens besitzen eine zeitlich begrenzte Gültigkeit, die im Ermessen der Anwendlungslandschaft definiert werden kann
+Durch die begrenzte zeitliche Gültigkeit kann sichergestellt werden, dass das Access-Token kein 'ewiger Universalschlüssel' ist, sondern regelmäßig erneuert werden muss.
+Die Prüfung auf Gültigkeit gibt an, ob der Ablaufzeitpunkt des Access-Tokens bereits erreicht wurde.
+Zur Prüfung der Gültigkeit muss der im Header-Claim 'exp' enthaltene Zeitstempel in der Zukunft liegen.
+
+*Beide Prüfungen werden durch den Baustein `isy-security` bzw. durch das `Spring Security Framework` implementiert.*
+
+Bei einem höheren Sicherheitsbedarf können weitere Informationen (Registered Claims) im Token mitgeliefert und validiert werden.
+Falls gefordert ist, auch vorzeitig abgelaufene Access-Token (z.B. durch globales Logout des Benutzers oder Rücknahme (Revoke) der Legitimation des Benutzers) zu erkennen und zu sperren, kann das IsyFact-Anwendungssystem das Access-Token zur Prüfung an den IAM-Service schicken, wie in xref:glossary:literaturextern:inhalt.adoc#litextern-token-introspection[RFC 7662: OAuth 2.0 Token Introspection] beschrieben.
+
 
 Um auf eine geschützte Ressource eines anderen Anwendungssystems (Ressourcen-Server) zugreifen zu können, muss die Anwendung in der Anfrage (Request) das Access-Token mitgeben.
 Dazu wird es aus dem `SecurityContext` gelesen und - Base64-codiert, wie erhalten - mit in den Header des HTTP-Requests gesetzt.
@@ -377,14 +423,18 @@ Die *Einfachheit* der Nutzung der Bibliothek `isy-security` wird durch weitgehen
 
 Aus den xref:konzept/master.adoc#prinzipien-der-sicherheitsarchitektur[Prinzipien der Sicherheitsarchitektur] leiten sich die folgenden Randbedingungen für die Umsetzung der Berechtigungsprüfung innerhalb eines IT-Systems ab:
 
-* Anfragen, die am Dialog eines IT-Systems eingehen, sind immer bereits durch das IAM-System bzw. die lokale Authentifizierung erfolgreich  authentifiziert.
-Sorgt ein IAM-System für die Authentifizierung, enthält der HTTP-Header der Anfrage die Identifikation des Anwenders und dessen Rollen.
-Die Informationen aus dem HTTP-Header werden als `AufrufKontext` in das IT-System übernommen.
-* Anfragen, die an einer Service-Schnittstelle eines IT-Systems eingehen, sind ebenso bereits authentifiziert.
-Das mit der Anfrage an das IT-System als Parameter übergebene Transportobjekt `AufrufKontextTo` enthält die Identifikation des Anwenders und dessen Rollen und wird als `AufrufKontext` in das IT-System übernommen.
-* Prozesse, die unabhängig von eingehenden Anfragen (über Dialog und Service) durch ein IT-System gestartet werden, müssen zunächst einen (meist technischen) Anwender gegen das IAM-System bzw. die lokale Authentifizierung erfolgreich authentifizieren, dessen Rollen ermitteln und diese Informationen als `AufrufKontext` im IT-System hinterlegen.
-* Ein innerhalb der Logik- und Verarbeitungszone eines IT-Systems übergebener `AufrufKontext` ist vertrauenswürdig.
-Er kann ohne erneute Rückfrage an das IAM-System bzw. die lokale Authentifizierung verwendet werden.
+* Anfragen, die am Dialog (Web-App) eines IT-Systems eingehen, sind immer bereits durch das IAM-System bzw. die lokale Authentifizierung erfolgreich authentifiziert.
+Sorgt ein IAM-System für die Authentifizierung, enthält der HTTP-Header der Anfrage die Identifikation des Anwenders und dessen Rollen (in Form eines JWT Access-Token).
+Die Informationen aus dem Access-Token werden als `SecurityContext` in das IT-System übernommen.
+* Anfragen, die an einer Service-Schnittstelle (von außen über ein Service-Gateway (SGW) oder von anderen IT-Systemen innerhalb der IT-Systemlandschaft) eines IT-Systems eingehen, sind ebenso bereits authentifiziert.
+Das mit der Anfrage an das IT-System im Header übergebene JWT Access-Token enthält die Identifikation des Anwenders und dessen Rollen und wird als `SecurityContext` in das IT-System übernommen.
+* Prozesse, die unabhängig von eingehenden Anfragen (über Dialog und Service) durch ein IT-System gestartet werden (z.B. Batch/Task), müssen zunächst einen (technischen) Nutzer gegen das IAM-System bzw. die lokale Authentifizierung erfolgreich authentifizieren, dessen Rollen ermitteln und diese Informationen als `SecurityContext` im IT-System hinterlegen.
+* Bei der Übernahme der Anwenderinformationen in den `SecurityContext` bildet das IT-System die Rollen des Anwenders auf systemspezifische Rechte ab.
+Vor Ausführung des Service bzw. Prozesses prüft das IT-System, ob der Anwender die dafür benötigten Rechte besitzt.
+* Innerhalb der Logik- und Verarbeitungszone eines IT-Systems wird der `JWT Access-Token` weitergegeben. Zur Stärkung der Vertrauenswürdigkeit wird jeder `JWT Access-Token` beim Eintritt in ein IT-System auf Gültigkeit und Authentizität geprüft.
+
+Die Außenschnittstellen eines IT-Systems können also nur mit einer gültigen Legitimation aufgerufen werden und sind so vor unberechtigter Nutzung geschützt.
+Umgekehrt können die Module und Verarbeitungsprozesse innerhalb des IT-Systems sich darauf verlassen, dass ihr Aufruf legitim ist und die ihnen übergebenen Daten vertrauenswürdig sind.
 
 [[software-architektur]]
 === Software-Architektur
@@ -686,15 +736,5 @@ Ist der Schalter (und damit der Testmodus) aktiv, wird zusätzlich zur üblichen
 Somit ist sichergestellt, dass beim Ablösen von alten Geschäftsanwendungen auch die neue Geschäftsanwendung mit denselben Rollen abgesichert und (falls nötig) parallel betrieben werden kann.
 Genauso funktioniert auch das Freischalten einer neuen Geschäftsanwendung für einen zunächst kleinen Kreis von Anwendern.
 In beiden Fällen muss zur eigentlichen Inbetriebnahme, anstatt einer aufwändigen Migration, nur ein Schalter in der betrieblichen Konfiguration umgelegt werden.
-
-
-
-// tag::architekturregel[]
-
-// end::architekturregel[]
-
-// tag::security[]
-
-// end::security[]
 
 // end::inhalt[]

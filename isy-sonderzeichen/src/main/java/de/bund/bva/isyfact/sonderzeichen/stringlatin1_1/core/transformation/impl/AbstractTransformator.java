@@ -39,7 +39,10 @@ import de.bund.bva.isyfact.sonderzeichen.stringlatin1_1.konstanten.Transformatio
 /**
  * Provides common methods for all transformers.
  *
+ *  @deprecated This class is deprecated and will be removed in a future release.
+ *  It is recommended to use {@link de.bund.bva.isyfact.sonderzeichen.dinspec91379} instead.
  */
+@Deprecated
 public abstract class AbstractTransformator implements Transformator {
 
     /** The regular expression for spaces in the middle of a string. */
@@ -405,10 +408,12 @@ public abstract class AbstractTransformator implements Transformator {
         properties.load(inputStream);
         inputStream.close();
 
-        // Make a list of all character categories
-        for (int it = 0; it < ZeichenKategorie.ALLE_ZEICHEN_KATEGORIEN.length; it++) {
+        String[] alleZeichenKategorien = ZeichenKategorie.getAlleZeichenKategorien();
 
-            String kategorie = ZeichenKategorie.ALLE_ZEICHEN_KATEGORIEN[it];
+        // Make a list of all character categories
+        for (int it = 0; it < alleZeichenKategorien.length; it++) {
+
+            String kategorie = alleZeichenKategorien[it];
 
             Set<String> zeichenketteListe = new HashSet<>();
             Iterator gueltigeZeichenIterator = properties.keySet().iterator();

@@ -11,13 +11,11 @@ Um zu erreichen, dass jedes IsyFact-konforme System Sonderzeichen in gleicher We
 === Betriebssystem
 
 Die Standard-Zeichencodierung aller in der xref:glossary:glossary:master.adoc#glossar-plattform[Plattform] verwendeten Betriebssysteme muss einheitlich auf die Verwendung von Unicode v4.x in der UTF-8-Codierung gesetzt werden.
-
-Als Beispiel wird hier das Betriebssystem SUSE Linux Enterprise Server (SLES) 10 betrachtet.
-Hier ist die Standard-Zeichencodierung UTF-8. Diese kann über den Konfigurationsparameter
+Unter Linux-Derivaten kann unter anderem mit dem Parameter
 
 `LC_CTYPE = UTF8`
 
-auch für jeden Benutzer individuell gesetzt werden.
+die Encodierung für jeden Benutzer individuell gesetzt werden. Weitere Locale-Parameter und deren Verwendung sind bei xref:glossary:literaturextern:inhalt.adoc#litextern-linux-locale-parameters[gnu.org] nachzulesen.
 
 [[oracle-datenbank]]
 === Oracle Datenbank
@@ -170,6 +168,8 @@ Im Zuge der Umsetzung der DIN SPEC 91379 wurde `isy-sonderzeichen` erweitert. Um
 wurde die Bibliothek in zwei Packages aufgeteilt. Das _stringlatin1_1_ Package enthält die ursprüngliche Funktionalität. Die Umsetzung der
 DIN SPEC 91379 wurde im Package _dinspec91379_ umgesetzt. Die Architektur und Funktionsweise der Komponente wurde im Zuge der
 Umsetzung nicht verändert.
+
+NOTE: Das Paket _stringlatin1_1_ wird in zukünftigen Versionen entfernt.
 
 [[funktionsweise]]
 === Funktionsweise
@@ -506,11 +506,3 @@ In der xref:nutzungsvorgaben/master.adoc#table-zusaetzliche-zeichen[Tabelle für
 Damit die Zeichen in der Spalte „Glyph“ korrekt dargestellt werden, muss ein Font installiert sein, der alle Zeichen unterstützt. (z.B. Code2000, erhältlich unter xref:glossary:literaturextern:inhalt.adoc#litextern-code2000[Code2000]).
 
 // end::inhalt[]
-
-// tag::architekturregel[]
-
-// end::architekturregel[]
-
-// tag::sicherheit[]
-
-// end::sicherheit[]

@@ -53,7 +53,10 @@ import org.springframework.beans.factory.InitializingBean;
  *
  * @param <K> Typ des Aufrufkontextes
  * @param <E> Typ des Ergebnisses der Authentifizierung
+ *
+ * @deprecated since IsyFact 3.0.0 in favor of the isy-security module.
  */
+@Deprecated
 public class SicherheitImpl<K extends AufrufKontext, E extends AuthentifzierungErgebnis>
     implements Sicherheit<K>, InitializingBean {
 

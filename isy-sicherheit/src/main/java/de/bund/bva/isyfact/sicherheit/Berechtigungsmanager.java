@@ -24,8 +24,10 @@ import de.bund.bva.isyfact.sicherheit.common.exception.RollenRechteMappingExcept
 /**
  * Der Berechtigungsmanager steuert die Berechtigungen innerhalb jeder Anwendung. Jede Anwendung kann Ihren
  * eigenen Berechtigungsmanager besitzen.
- * 
+ *
+ * @deprecated since IsyFact 3.0.0 in favor of the isy-security module.
  */
+@Deprecated
 public interface Berechtigungsmanager {
 
     /**
