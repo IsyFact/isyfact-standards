@@ -22,7 +22,7 @@ import de.bund.bva.isyfact.sicherheit.Sicherheit;
 import de.bund.bva.isyfact.sicherheit.autoconfigure.IsySicherheitAutoConfiguration;
 import de.bund.bva.isyfact.sicherheit.common.exception.AuthentifizierungTechnicalException;
 
-public class IsyServiceApiCoreAutoConfigurationTest {
+public class IsyServiceApiCoreAutoConfigurationSicherheitTest {
 
     @Test
     public void isyServiceApiCoreAutoConfiguration() {
