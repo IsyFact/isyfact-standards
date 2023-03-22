@@ -489,14 +489,18 @@ Mit diesen Berechtigungsabfragen kann die Fachanwendung z.B. feingranular bestim
 [[aufruf-von-nachbarsystemen]]
 === Aufruf von Nachbarsystemen
 
-So wie ein IT-System bei einem Aufruf erwartet, einen gültigen, vollständigen `SecurityContext` vorzufinden, erwartet dies auch ein Nachbarsystem, welches vom eigenen IT-System aufgerufen wird.
-Das aufrufende System muss daher einen `SecurityContext` mitliefern.
-Im Regelfall soll der `SecurityContext` der originären Anfrage in allen weiteren Aufrufen der Aufrufkette wiederverwendet und unverändert weitergeleitet werden.
+Eine Fachanwendung im Anwendungskern erwartet, wenn es aufgerufen wird, dass ihm dabei alle notwendigen Authentifizierungs- und Autorisierungsdaten in valider und gültiger Form übergeben werden.
+Folglich muss eine Fachanwendung, die ein Nachbarsystem im Anwendungskern aufruft, diesem Aufruf ebenfalls gültige und valide Authentifzierungs- und Autorisierungsdaten mitgeben.
+Im Regelfall werden diese Authentifizierungs- und Autorisierungsdaten bei der Authentifizierung der originären Anfrage über den Sicherheitsbaustein `isy-security` der Fachanwendung als initialisierten `SecurityContext` übergeben.
+Für eine fachliche und prozessbezogene Aufrufkette wird dieser `SecurityContext` in allen weiteren Aufrufen wiederverwendet und unverändert weitergeleitet.
 
-Zum Aufruf von Nachbarsystemen sollen, falls vorhanden, dedizierte Client-Bibliotheken verwendet werden.
-Diese enthalten bereits die Logik zur Weiterleitung des `SecurityContext`.
+Je nach verwendeter Schnittstellen-Technologie der beteiligten Fachanwendungen und ob es sich um eine interne oder externe Service-Kommunikation handelt, erfolgt an der jeweiligen Schnittstelle der beiden Systeme eine entsprechende Transformation der Daten des `SecurityContextes`.
 
-Gibt es diese nicht, muss das Nachbarsystem direkt aufgerufen werden.
+Gemäß Referenzarchitektur ist HTTP als das Übertragungsprotokoll der xref:blaupausen:referenzarchitektur/master.adoc#servicekommunikation[Servicekommunikation] definiert.
+Dazu sind an den Schnittstellen meist dedizierte Consumer-Provider-Bibliotheken vorgesehen, die bereits die Logik zur Transformation und  Weiterleitung des `SecurityContext` übernehmen.
+Auf HTTP-Protokollebene wird schlussendlich ein `SecurityContext` mit seinen enthaltenen Daten auf ein _Access-Token_ reduziert und zwischen den Nachbarsystemen übertragen.
+
+Gibt es diese Bibliotheken nicht an den Schnittstellen, dann muss das Nachbarsystem direkt aufgerufen werden.
 Hierbei muss das aufrufende IT-System stets ein entsprechendes Transportobjekt befüllen und mit dem Aufruf an das Nachbarsystem übergeben.
 Weitere Details hierzu sind im Kapitel xref:authentifizierung-und-autorisierung[] beschrieben.
 
