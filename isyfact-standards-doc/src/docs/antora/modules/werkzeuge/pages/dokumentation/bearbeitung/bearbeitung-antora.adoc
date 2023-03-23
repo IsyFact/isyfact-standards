@@ -593,3 +593,31 @@ xref:glossary:glossary:master.adoc#glossar-isyfact[IsyFact]
 ----
 
 Der Link auf einen Glossareintrag sieht wie folgt aus: xref:glossary:glossary:master.adoc#glossar-isyfact[IsyFact]
+
+
+[[deprecations]]
+== Deprecations
+
+Gelegentlich veralten Bausteine und ihre Dokumentation.
+In der Dokumentationsseite werden Bausteine, die deprecated sind, die demnach in einer späteren Version entfallen können, als Deprecation gekennzeichnet.
+Es gibt mehrere Möglichkeiten, Deprecations auszuzeichnen.
+
+*Deprecation für Baustein*
+
+Ein vorbereiteter Text mit Icon aus `isy-documentation` wird inkludiert, siehe xref:seitenvorlage.adoc#deprecation-baustein[Deprecation für Baustein].
+Damit wird ein vollständiger Baustein als deprecated gekennzeichnet.
+
+*Deprecation für beliebigen Abschnitt*
+
+Ein vorbereiteter Text mit Icon aus `isy-documentation` wird inkludiert, siehe xref:seitenvorlage.adoc#deprecation-abschnitt[Deprecation für Abschnitt], um beliebige Textabschnitte als deprecated zu kennzeichnen.
+Dabei sollte das Attribut direkt unterhalb einer Überschrift platziert werden, damit der Abschnitt inklusive untergeordneter Abschnitte tieferer Ebenen bis zur nächsten Überschrift der gleichen Ebene als deprecated erkennbar ist.
+
+*Deprecation mit Verweis auf neue Dokumentationsseite*
+
+Sowohl Bausteine als auch Abschnitte können einen Zusatztext erhalten mit einem Verweis auf die neue Dokumentationsseite.
+Dies erfolgt, indem vor der Inkludierung des Deprecation-Bausteins oder -Abschnitts ein Attribut mit dem entsprechenden Verweis angefügt wird, siehe xref:seitenvorlage.adoc#deprecation-verweis[Verweis auf neue Seite].
+Dieser Verweis kann im Verlauf der Dokumentationsseite geändert werden, wenn es mehrere Deprecation-Abschnitte mit unterschiedlichen Verweisen gibt.
+
+*Deprecation Kurzform*
+
+Wenn der Hinweis auf eine Deprecation in einer Tabellenzelle oder anderen kleinen Textstellen erfolgen soll, kann auch die xref:seitenvorlage.adoc#deprecation-kurzform[Kurzform] gewählt werden.
