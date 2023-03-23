@@ -12,6 +12,7 @@ Die Bausteine können auch am Markt verfügbare Fertigprodukte enthalten, dabei 
 
 Die folgende Abbildung zeigt einen Überblick über die Bausteine im aktuellen Release der IsyFact.
 
+[[bausteine-isyfact]]
 .Bausteine der IsyFact
 image::bausteine:bausteine.dn.svg[]
 
@@ -28,8 +29,8 @@ Die nachfolgende Tabelle beschreibt die Bausteine. Sie stellen in der Regel ein 
 |Fehlerbehandlung
 |Der Baustein _Fehlerbehandlung_ enthält das technische Konzept und eine Bibliothek zur einheitlichen Implementierung der Fehlerbehandlung.
 
-|Http Invoker
-|Der Baustein _Http Invoker_ bietet die Möglichkeit, interne Services der Anwendungslandschaft mit der Technologie Spring Http Invoker zu realisieren.
+|icon:ban[title=Deprecation] [.line-through]#Http Invoker#
+|Der Baustein Http Invoker bietet die Möglichkeit, interne Services der Anwendungslandschaft mit der Technologie Spring Http Invoker zu realisieren.
 
 |JPA/Hibernate
 |Der Baustein beschreibt die Umsetzung des Datenzugriffs auf Basis von JPA und dem O/R-Mapper Hibernate.
