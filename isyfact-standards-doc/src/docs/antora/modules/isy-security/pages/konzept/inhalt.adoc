@@ -489,19 +489,18 @@ Mit diesen Berechtigungsabfragen kann die Fachanwendung z.B. feingranular bestim
 [[aufruf-von-nachbarsystemen]]
 === Aufruf von Nachbarsystemen
 
-Eine Fachanwendung im Anwendungskern erwartet, wenn es aufgerufen wird, dass ihm dabei alle notwendigen Authentifizierungs- und Autorisierungsdaten in valider und gültiger Form übergeben werden.
-Folglich muss eine Fachanwendung, die ein Nachbarsystem im Anwendungskern aufruft, diesem Aufruf ebenfalls gültige und valide Authentifzierungs- und Autorisierungsdaten mitgeben.
-Im Regelfall werden diese Authentifizierungs- und Autorisierungsdaten bei der Authentifizierung der originären Anfrage bzw. der xref:validierung-der-token[Validierung des Access-Token] über den Sicherheitsbaustein `isy-security` der Fachanwendung als initialisierten `SecurityContext` übergeben.
-Für eine fachliche und prozessbezogene Aufrufkette wird dieser `SecurityContext` in allen weiteren Aufrufen wiederverwendet und unverändert weitergeleitet.
+Ein Anwendungssystem erwartet bei einem Aufruf, dass alle notwendigen Authentifizierungs- und Autorisierungsdaten in valider und gültiger Form übergeben werden.
+Folglich muss ein Anwendungssystem, das ein Nachbarsystem aufruft, diesem Aufruf ebenfalls gültige und valide Authentifzierungs- und Autorisierungsdaten mitgeben.
+Im Regelfall werden diese Authentifizierungs- und Autorisierungsdaten bei der Authentifizierung der originären Anfrage bzw. der xref:validierung-der-token[Validierung des Access-Token] über den Sicherheitsbaustein `isy-security` des Anwendungssystems als aus dem Access-Token initialisierten `SecurityContext` übergeben.
+Für eine fachliche und prozessbezogene Aufrufkette wird dieser `Access-Token` in allen weiteren Aufrufen wiederverwendet und unverändert weitergeleitet.
 
-Je nach verwendeter Schnittstellen-Technologie der beteiligten Fachanwendungen und ob es sich um eine interne oder externe Service-Kommunikation handelt, erfolgt an der jeweiligen Schnittstelle der beiden Systeme eine entsprechende Transformation der Daten des `SecurityContextes`.
+Es erfolgt an der jeweiligen Schnittstelle des Nachbarsystems eine entsprechende Transformation der Daten des `Access-Tokens` in einen `SecurityContext`.
 
 Gemäß Referenzarchitektur ist HTTP als das Übertragungsprotokoll der xref:blaupausen:referenzarchitektur/master.adoc#servicekommunikation[Servicekommunikation] definiert.
-Dazu sind an den Schnittstellen meist dedizierte Consumer-Provider-Bibliotheken vorgesehen, die bereits die Logik zur Transformation und  Weiterleitung des `SecurityContext` übernehmen.
-Auf HTTP-Protokollebene wird schlussendlich ein `SecurityContext` mit seinen enthaltenen Daten auf ein _Access-Token_ reduziert und zwischen den Nachbarsystemen übertragen.
+Dazu sind an den Schnittstellen meist dedizierte Consumer-Provider-Bibliotheken vorgesehen, die bereits die Logik zur Transformation und  Weiterleitung des `Access-Tokens` übernehmen.
 
 Gibt es diese Bibliotheken nicht an den Schnittstellen, dann muss das Nachbarsystem direkt aufgerufen werden.
-Hierbei muss das aufrufende IT-System stets ein entsprechendes Transportobjekt befüllen und mit dem Aufruf an das Nachbarsystem übergeben.
+Hierbei muss das aufrufende Anwendungssystem stets das `Access-Tokens` manuell in den Header der ausgehenden Nachricht schreiben.
 Weitere Details hierzu sind im Kapitel xref:authentifizierung-und-autorisierung[] beschrieben.
 
 [[rollen-und-rechte]]
