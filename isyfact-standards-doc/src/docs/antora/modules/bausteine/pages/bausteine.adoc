@@ -12,6 +12,7 @@ Die Bausteine können auch am Markt verfügbare Fertigprodukte enthalten, dabei 
 
 Die folgende Abbildung zeigt einen Überblick über die Bausteine im aktuellen Release der IsyFact.
 
+[[bausteine-isyfact]]
 .Bausteine der IsyFact
 image::bausteine:bausteine.dn.svg[]
 
@@ -26,16 +27,16 @@ Die nachfolgende Tabelle beschreibt die Bausteine. Sie stellen in der Regel ein 
 |Der Baustein stellt Vorgaben für die Anzeige, Eingabe und persistenter Speicherung von Datums- und Zeitwerten bereit.
 
 |Fehlerbehandlung
-|Der Baustein Fehlerbehandlung enthält das technische Konzept und eine Bibliothek zur einheitlichen Implementierung der Fehlerbehandlung.
+|Der Baustein _Fehlerbehandlung_ enthält das technische Konzept und eine Bibliothek zur einheitlichen Implementierung der Fehlerbehandlung.
 
-|Http Invoker
+|icon:ban[title=Deprecation] [.line-through]#Http Invoker#
 |Der Baustein Http Invoker bietet die Möglichkeit, interne Services der Anwendungslandschaft mit der Technologie Spring Http Invoker zu realisieren.
 
 |JPA/Hibernate
 |Der Baustein beschreibt die Umsetzung des Datenzugriffs auf Basis von JPA und dem O/R-Mapper Hibernate.
 
 |JSF
-|Der Baustein JSF ermöglicht es Anwendungen, grafische Oberflächen auf Basis von Java Server Faces umzusetzen.
+|Der Baustein _JSF_ ermöglicht es Anwendungen, grafische Oberflächen auf Basis von Java Server Faces umzusetzen.
 Er enthält architektonische sowie technische Vorgaben und beschreibt die konkrete Umsetzung.
 Dabei integriert er den Styleguide und stellt auf dessen Grundlage wiederverwendbare Widgets bereit.
 Der Baustein basiert auf JSF und Spring Webflow.
@@ -47,11 +48,15 @@ Der Baustein basiert auf JSF und Spring Webflow.
 |Der Baustein ermöglicht die einheitliche Erstellung und vereinfachte Auswertung von Log-Dateien, Fehlern und Systemzuständen über Komponentengrenzen hinweg.
 
 |Polling
-|Der Baustein Polling implementiert Verfahren zum koordinierten, regelmäßigen Abholen von Daten (Polling) durch mehrere redundant ausgelegte Instanzen einer Anwendung.
+|Der Baustein _Polling_ implementiert Verfahren zum koordinierten, regelmäßigen Abholen von Daten (Polling) durch mehrere redundant ausgelegte Instanzen einer Anwendung.
 Der Baustein unterstützt unterschiedliche Arten von Schnittstellen und sorgt dafür, dass Daten jeweils nur von einer Instanz der Anwendung verarbeitet werden.
 
 |REST
-|Der Baustein REST bietet die Möglichkeit, interne Services der Anwendungslandschaft als REST-Services zu realisieren.
+|Der Baustein _REST_ bietet die Möglichkeit, interne Services der Anwendungslandschaft als REST-Services zu realisieren.
+
+|Security
+|Als Nachfolger des Bausteins _Sicherheit_ übernimmt der Baustein _Security_ die Authentifizierungsanfragen von natürlichen Anwendern als auch von technischen Systemen und leitet diese in die entsprechenden Credential-Flows des IAM-Service.
+Aus den vom IAM-Service erhaltenen Zugangsdaten übernimmt der Baustein das Rollen- und Rechte-Handling zur Autorisierung der Anwendungsaufrufe innerhalb der Aufrufkette der Fachanwendungen.
 
 |Sicherheit
 |Der Baustein übernimmt die Autorisierung von Anfragen, sowohl von menschlichen Anwendern als auch externen Systemen, und dient zur Verwaltung von Rollen und Rechten innerhalb von IT-Systemen.
@@ -61,7 +66,7 @@ Der Baustein unterstützt unterschiedliche Arten von Schnittstellen und sorgt da
 Unterstützt werden die Standards String Latin 1.1 und String Latin 1.2 („DIN SPEC 91379“) und eine generelle Kompatibilität zu UTF-8.
 
 |Styleguide
-|Der Styleguide beschreibt die Gestaltungsregeln, nach denen grafische Oberflächen von Geschäftsanwendungen zu erstellen sind.
+|Der _Styleguide_ beschreibt die Gestaltungsregeln, nach denen grafische Oberflächen von Geschäftsanwendungen zu erstellen sind.
 Basis des Styleguides sind der Styleguide der Bundesregierung und Gestaltungsregeln für Internetauftritte des Bundesverwaltungsamtes.
 
 |Task Scheduling
@@ -72,7 +77,7 @@ Basis des Styleguides sind der Styleguide der Bundesregierung und Gestaltungsreg
 Die einheitliche Überwachungsschnittstelle erlaubt die frühzeitige Erkennung von Problemen im IT-Betrieb.
 
 |Util
-|Der Baustein Util bietet nützliche Hilfsmittel, die von den Anwendungen der IsyFact genutzt werden können.
+|Der Baustein _Util_ bietet nützliche Hilfsmittel, die von den Anwendungen der IsyFact genutzt werden können.
 Es handelt sich dabei um kleinere Utility-Klassen, wie z.B. Interzeptoren, mit denen sich das Laufzeitverhalten von Anwendungen nachvollziehen lässt.
 |===
 

@@ -1,5 +1,6 @@
 # 3.0.0
 - `IFS-2422`: [isyfact-serviceapi-core] Deprecation des isy-serviceapi-core Bausteins
+- `IFS-2273`: [isyfact-standards-doc] Einheitliche Deprecation-Warnung für die Dokumentation
 - `IFS-2449`: [isyfact-standards-doc] Aufnahme von Testcontainers in den Produktkatalog
 - `IFS-1745`: [isyfact-standards-doc] Summary Architektur- und Sicherheitsregeln
   * mit Antora Extensions generiert
@@ -33,7 +34,14 @@
     * Integration von zugeliefertem Code aus `IFS-1270`
 - `IFS-2045`: [isyfact-products-bom] Produkte Apache Tika, commons-beanutils und commons-io hinzugefügt
 - `IFS-2287`: [isy-sonderzeichen]  Deprecation für String-Latin-1.1-Transformatoren setzen
+- `IFS-1886`: [isy-sicherheit] Modul als `@Deprecated` markiert zugunsten von`isy-security`
 - `IFS-1940`: [isy-sicherheit] `IsySicherheitUtil` deprecated
+- `IFS-2382`: [isy-sonderzeichen] Entfernt Mutable-Array Spotbugs Fehler
+    #### _Breaking Change:_
+    - Die Klassen `stringlatin1_1/core/transformation/ZeichenKategorie.java` und `dinspec91379/transformation/ZeichenKategorie.java` bieten für Abruf aller Möglichkeiten einen `getter` anstelle einer `public static Variable` an
+- `IFS-1171`: [isy-sonderzeichen] Fehlende Zeichen 0110 und 0111 zum Mapping hinzugefügt
+  #### _Breaking Change:_
+  * Der Zeichensatz für String Latin 1.1 wurde korrigiert. Dies kann zu Kompatibilitätsproblemen in der Kommunikation mit Anwendungen führen, die den unkorrigierten Zeichensatz verwenden. (IsyFact-Versionen kleiner als IF 3)
 
 # 2.4.4
 - `IFS-1997`: Fix CVE-2022-42889 durch Anhebung von 'commons-text' auf 1.10

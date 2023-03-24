@@ -11,13 +11,11 @@ Um zu erreichen, dass jedes IsyFact-konforme System Sonderzeichen in gleicher We
 === Betriebssystem
 
 Die Standard-Zeichencodierung aller in der xref:glossary:glossary:master.adoc#glossar-plattform[Plattform] verwendeten Betriebssysteme muss einheitlich auf die Verwendung von Unicode v4.x in der UTF-8-Codierung gesetzt werden.
-
-Als Beispiel wird hier das Betriebssystem SUSE Linux Enterprise Server (SLES) 10 betrachtet.
-Hier ist die Standard-Zeichencodierung UTF-8. Diese kann über den Konfigurationsparameter
+Unter Linux-Derivaten kann unter anderem mit dem Parameter
 
 `LC_CTYPE = UTF8`
 
-auch für jeden Benutzer individuell gesetzt werden.
+die Encodierung für jeden Benutzer individuell gesetzt werden. Weitere Locale-Parameter und deren Verwendung sind bei xref:glossary:literaturextern:inhalt.adoc#litextern-linux-locale-parameters[gnu.org] nachzulesen.
 
 [[oracle-datenbank]]
 === Oracle Datenbank

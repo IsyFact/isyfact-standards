@@ -28,8 +28,10 @@ import de.bund.bva.isyfact.exception.FehlertextProvider;
 /**
  * Diese Klasse stellt Methoden zum Auslesen von Fehlertexten auf Basis von AusnahmeIDs und Parametern, zur
  * Verfügung.
- * 
+ *
+ * @deprecated since IsyFact 3.0.0 in favor of the isy-security module.
  */
+@Deprecated
 public class SicherheitFehlertextProvider implements FehlertextProvider {
     /**
      * Das ResourceBoundle mit den Fehlertexten der Proxy-API.

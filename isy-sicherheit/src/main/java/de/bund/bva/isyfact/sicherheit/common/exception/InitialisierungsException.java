@@ -19,8 +19,10 @@ package de.bund.bva.isyfact.sicherheit.common.exception;
 /**
  * Diese Exception wird von Methoden geworfen, denen ein benötigter Parameter als null oder leerer String
  * übergeben wird.
- * 
+ *
+ * @deprecated since IsyFact 3.0.0 in favor of the isy-security module.
  */
+@Deprecated
 public class InitialisierungsException extends SicherheitTechnicalException {
 
     /**

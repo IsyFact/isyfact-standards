@@ -1,0 +1,16 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9095/auth/realms/testrealm
+      client:
+        provider:
+          testrealm:
+            issuer-uri: http://localhost:9095/auth/realms/testrealm
+        registration:
+          testclient:
+            client-id: client-credentials-test-client
+            client-secret: supersecretpassword
+            authorization-grant-type: client_credentials
+            provider: testrealm

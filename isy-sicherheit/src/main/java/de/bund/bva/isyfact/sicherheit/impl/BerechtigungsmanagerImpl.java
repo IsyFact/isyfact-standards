@@ -33,8 +33,10 @@ import de.bund.bva.isyfact.sicherheit.common.konstanten.SicherheitFehlerSchluess
 /**
  * Standard-Implementierung des Interface BerechtigungsManager, die Informationen über das Mapping von Rollen
  * zu Rechten wird über die Methode setRollenRechteMapping gesetzt.
- * 
+ *
+ * @deprecated since IsyFact 3.0.0 in favor of the isy-security module.
  */
+@Deprecated
 public class BerechtigungsmanagerImpl implements Berechtigungsmanager {
 
     /** Anwendungsspezifische Abbildung von Rollen auf Rechte. */

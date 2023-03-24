@@ -19,7 +19,9 @@ package de.bund.bva.isyfact.sicherheit.common.konstanten;
 /**
  * Diese Klasse enthält alle die Fehler für alle Schlüssel der Komponente Sicherheit.
  *
+ * @deprecated since IsyFact 3.0.0 in favor of the isy-security module.
  */
+@Deprecated
 public abstract class SicherheitFehlerSchluessel {
 
     /** Der übergebene Parameter "{0}" ist null oder leer. */

@@ -512,7 +512,8 @@ Z.B. ein neuer Native-Client der an einen bestehenden Service angebunden wird._
 ==== Laufzeitumgebung
 ====
 _Liste der eingesetzten Produkte für die Laufzeitumgebung.
-Diese Umgebung ist für Anwendungen nach Referenzarchitektur vorgegeben, deshalb kann der Abschnitt unten in der Regel übernommen werden.
+Diese Umgebung ist für Anwendungen nach Referenzarchitektur vorgegeben, deshalb kann der Abschnitt unten in der Regel übernommen werden, gegebenenfalls ergänzt um das konkrete Linux-Betriebssystem.
+
 Die Versionen sind nach dem Produktkatalog zu überprüfen und mit dem Gesamtprojekt abzustimmen.
 Für die Laufzeitumgebung wird ein Default-Tomcat bereitgestellt._
 ====
@@ -526,8 +527,8 @@ _Die Laufzeitumgebung für das IT-System [yellow]#<SYSTEM># besteht gemäß Prod
 [cols="4,2,2,4", options="header"]
 |===
 |Kategorie |Name |Version |Bemerkung
-|Betriebssystem |SUSE Linux Enterprise Server |[yellow]#10 SP1# |64Bit Version
-|Java-Laufzeitumgebung | xref:einstieg:produktkatalog/produktvorgabenAllgemein.adoc[siehe Produkt-Katalog] |  xref:einstieg:produktkatalog/produktvorgabenAllgemein.adoc[siehe Produkt-Katalog] | xref:einstieg:produktkatalog/produktvorgabenAllgemein.adoc[siehe Produkt-Katalog]
+|Betriebssystem|Linux 64 bit |Kernel >= 4.12|
+|Java-Laufzeitumgebung | https://adoptium.net/de/temurin/releases[OpenJDK (Eclipse Temurin von Adoptium)]|17.x|
 |Servlet-Container |Apache Tomcat |[yellow]#16.0.18# |
 |===
 
