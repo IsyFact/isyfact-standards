@@ -66,7 +66,7 @@ Diese Reihenfolge wird durch Einfügen der `Order` für den Advisor `stelltLoggi
 [NOTE]
 ====
 Die weiteren Inhalte zum Aufbau, zur Realisierung und zur Nutzung von Service-Schnittstellen wurden wegen ihrer Abhängigkeit zur konkreten Schnittstellentechnologie in den entsprechenden Technologie-Baustein verschoben.
-Die Inhalte finden sich in den Dokumenten  xref:isy-serviceapi-core:konzept/master.adoc#einleitung[Konzept HTTP-Invoker] und xref:isy-service-rest:konzept/master.adoc#einleitung[Konzept REST-Schnittstellen], xref:isy-serviceapi-core:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben HTTP-Invoker], xref:isy-service-rest:konzept/master.adoc#einleitung[Konzept REST-Schnittstellen] und xref:isy-service-rest:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben REST-Schnittstellen].
+Die Inhalte finden sich in den Dokumenten  xref:isy-serviceapi-core:konzept/master.adoc#einleitung[Konzept HTTP-Invoker] und xref:isy-service-rest:konzept/master.adoc#einleitung[Konzept REST-Schnittstellen], sowie xref:isy-serviceapi-core:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben HTTP-Invoker] und xref:isy-service-rest:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben REST-Schnittstellen].
 ====
 
 [[uebertragung-von-metadaten]]
