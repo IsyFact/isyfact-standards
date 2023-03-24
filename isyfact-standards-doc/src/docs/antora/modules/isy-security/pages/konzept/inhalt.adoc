@@ -266,8 +266,8 @@ Das Access-Token enthält alle notwendigen Daten, um zu verifizieren, ob die auf
 [[inhalte-der-token]]
 ==== Inhalte der Token
 
-In IsyFact sind Access-Token vom Typ JSON Web Token (JWT), das heißt, sie sind konform zum JWT-Standard (xref:glossary:literaturextern:inhalt.adoc#litextern-rfc7519-json-web-token[JSON Web Token (JWT)]) und enthalten Informationen über eine Entität (den authentifizierten Nutzer) in Form von 'Claims', die für die Autorisierung und Ausführung des angeforderten Service benötigt werden.
-Diese werden bei Erzeugung des Tokens durch das IAM-System mit hineingeschrieben und können von der Anwendung ausgelesen werden.
+In IsyFact sind Access-Token vom Typ JSON Web Token (JWT), das heißt, sie sind konform zum JWT-Standard (xref:glossary:literaturextern:inhalt.adoc#litextern-rfc7519-json-web-token[JSON Web Token (JWT)]) und enthalten Informationen den authentifizierten Nutzer in Form von 'Claims', die für die Autorisierung und Ausführung des angeforderten Service benötigt werden.
+Diese werden bei Erzeugung des Access-Tokens durch das IAM-System hineingeschrieben und können von der Anwendung ausgelesen werden.
 
 Das Minimum an Informationen, die ein JWT in IsyFact enthalten muss - zusätzlich zu den im JWT-Standard vorgeschriebenen, sind folgende:
 
@@ -287,13 +287,10 @@ Das Minimum an Informationen, die ein JWT in IsyFact enthalten muss - zusätzlic
 |Rollen des durchführenden Benutzers          |roles              |IANA Public Claim Name
 |===
 
-Diese Informationen braucht das Anwendungssystem, um den angeforderten Service für und im Namen des Benutzers leisten zu können.
-
 Refresh-Token sind für Anwendungen 'opaque Token', eine zufällige aber einzigartige Zeichenkette (UUID), die nur für den IAM-Service eine Bedeutung hat.
 Sie werden vom IAM-Service erzeugt und mit dem Access-Token an die Anwendung geschickt.
 Diese speichert es und schickt es wieder an den IAM-Service, um ein neues Access-Token zu erhalten.
 
-ID-Token werden in IsyFact nicht verwendet.
 
 
 [[validierung-der-token]]
