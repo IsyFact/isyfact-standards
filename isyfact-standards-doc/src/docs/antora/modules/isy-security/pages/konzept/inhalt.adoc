@@ -489,17 +489,19 @@ Mit diesen Berechtigungsabfragen kann die Fachanwendung z.B. feingranular bestim
 [[aufruf-von-nachbarsystemen]]
 === Aufruf von Nachbarsystemen
 
-So wie ein IT-System bei einem Aufruf erwartet, einen gültigen, vollständigen Aufrufkontext vorzufinden, erwartet dies auch ein Nachbarsystem, welches vom eigenen IT-System aufgerufen wird.
-Das aufrufende System muss daher einen Aufrufkontext mitliefern.
-Im Regelfall soll dabei der Aufrufkontext der originären Anfrage verwendet und unverändert weitergeleitet werden.
+Ein Anwendungssystem erwartet bei einem Aufruf, dass alle notwendigen Authentifizierungs- und Autorisierungsdaten in valider und gültiger Form übergeben werden.
+Folglich muss ein Anwendungssystem, das ein Nachbarsystem aufruft, diesem Aufruf ebenfalls gültige und valide Authentifzierungs- und Autorisierungsdaten mitgeben.
+Im Regelfall werden diese Authentifizierungs- und Autorisierungsdaten bei der Authentifizierung der originären Anfrage bzw. der xref:validierung-der-token[Validierung des Access-Token] über den Sicherheitsbaustein `isy-security` des Anwendungssystems als aus dem Access-Token initialisierten `SecurityContext` übergeben.
+Für eine fachliche und prozessbezogene Aufrufkette wird dieser `Access-Token` in allen weiteren Aufrufen wiederverwendet und unverändert weitergeleitet.
 
-Zum Aufruf von Nachbarsystemen sollen, falls vorhanden, dedizierte Client-Bibliotheken verwendet werden.
-Diese enthalten bereits die Logik zur Weiterleitung des Aufrufkontextes.
+Es erfolgt an der jeweiligen Schnittstelle des Nachbarsystems eine entsprechende Transformation der Daten des `Access-Tokens` in einen `SecurityContext`.
 
-Gibt es diese nicht, muss das Nachbarsystem direkt aufgerufen werden.
-Hierbei muss das aufrufende IT-System stets ein entsprechendes Transportobjekt befüllen und mit dem Aufruf an das Nachbarsystem übergeben.
-Für die Technologie Spring HTTP Invoker stellt die IsyFact passende Transportobjekte in der Bibliothek `isy-serviceapi-sst` bereit.
+Gemäß Referenzarchitektur ist HTTP als das Übertragungsprotokoll der xref:blaupausen:referenzarchitektur/master.adoc#servicekommunikation[Servicekommunikation] definiert.
+Dazu sind an den Schnittstellen meist dedizierte Consumer-Provider-Bibliotheken vorgesehen, die bereits die Logik zur Transformation und  Weiterleitung des `Access-Tokens` übernehmen.
 
+Gibt es diese Bibliotheken nicht an den Schnittstellen, dann muss das Nachbarsystem direkt aufgerufen werden.
+Hierbei muss das aufrufende Anwendungssystem stets das `Access-Tokens` manuell in den Header der ausgehenden Nachricht schreiben.
+Weitere Details hierzu sind im Kapitel xref:authentifizierung-und-autorisierung[] beschrieben.
 
 [[rollen-und-rechte]]
 == Rollen & Rechte
