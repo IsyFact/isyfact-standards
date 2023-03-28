@@ -369,13 +369,13 @@ Der _Aufgaben_-Prozess erhält dann den initialisierten `SecurityContext` zurüc
 ==== Verarbeitung asynchroner Anfragen
 
 [[token]]
-=== Token
+=== Access-Token
 
 [[inhalte-der-token]]
-==== Inhalte der Token
+==== Inhalte der Access-Token
 
 [[validierung-der-token]]
-==== Validierung der Token
+==== Validierung der Access-Token
 
 Wenn eine Ressource oder ein Service einer Anwendung angefragt wird, muss das Access-Token von der empfangenden Anwendung validiert werden.
 Dazu sind folgende Validierungen verpflichtend:
