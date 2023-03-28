@@ -53,6 +53,130 @@ Dort wird die Anfrage – je nach Schutzbedarf und Funktionalität – autorisie
 Dazu weist das IT-System einem Benutzer anhand seiner Rollen anwendungssezifische *Rechte* zu und prüft diese gegen die für die Nutzung des angefragten Service benötigten Rechte.
 Wie genau Rollen und Rechte spezifiziert werden, beschreibt das Kapitel xref:konzept/master.adoc#rollen-und-rechte[Rollen und Rechte].
 
+[[sicherheitsarchitektur-eines-it-systems]]
+== Sicherheitsarchitektur eines IT-Systems
+
+Der Baustein Security bildet eine Komponente des Querschnitts der xref:blaupausen:referenzarchitektur-it-system/master.adoc#einleitung[IsyFact Referenzarchitektur IT-Systeme].
+Er ist von jedem IT-System zur Autorisierung von Zugriffen und Vorgängen zu verwenden.
+
+Die Mechanismen zur Absicherung IsyFact-konformer IT-Systeme haben zum Ziel, die Autorisierung von Zugriffen _systematisch_, _einheitlich_ und _einfach_ umzusetzen.
+
+Die *Systematik* und Vollständigkeit der Berechtigungsprüfungen wird dadurch erreicht, dass Berechtigungsprüfungen in den IT-Systemen an definierten Stellen und auf identische Weise stattfinden.
+
+Die *Einheitlichkeit* wird durch Bereitstellung der Bibliothek `isy-security` und Nutzungsvorgaben gewährleistet, die von allen IT-Systemen zu verwenden sind.
+Berechtigungsprüfungen erfolgen innerhalb eines IT-Systems immer über die Bibliothek `isy-security`.
+
+Die *Einfachheit* der Nutzung der Bibliothek `isy-security` wird durch weitgehende Transparenz bei der Initialisierung, kompakte Schnittstellen und deklarative (z.B. per Annotation) statt programmatischer Implementierung erreicht.
+
+[[praemissen]]
+=== Prämissen
+
+Aus den xref:konzept/master.adoc#prinzipien-der-sicherheitsarchitektur[Prinzipien der Sicherheitsarchitektur] leiten sich die folgenden Randbedingungen für die Umsetzung der Berechtigungsprüfung innerhalb eines IT-Systems ab:
+
+* Anfragen, die am Dialog (Web-App) eines IT-Systems eingehen, sind immer bereits durch das IAM-System bzw. die lokale Authentifizierung erfolgreich authentifiziert.
+Sorgt ein IAM-System für die Authentifizierung, enthält der HTTP-Header der Anfrage die Identifikation des Anwenders und dessen Rollen (in Form eines JWT Access-Token).
+Die Informationen aus dem Access-Token werden als `SecurityContext` in das IT-System übernommen.
+* Anfragen, die an einer Service-Schnittstelle (von außen über ein Service-Gateway (SGW) oder von anderen IT-Systemen innerhalb der IT-Systemlandschaft) eines IT-Systems eingehen, sind ebenso bereits authentifiziert.
+Das mit der Anfrage an das IT-System im Header übergebene JWT Access-Token enthält die Identifikation des Anwenders und dessen Rollen und wird als `SecurityContext` in das IT-System übernommen.
+* Prozesse, die unabhängig von eingehenden Anfragen (über Dialog und Service) durch ein IT-System gestartet werden (z.B. Batch/Task), müssen zunächst einen (technischen) Nutzer gegen das IAM-System bzw. die lokale Authentifizierung erfolgreich authentifizieren, dessen Rollen ermitteln und diese Informationen als `SecurityContext` im IT-System hinterlegen.
+* Bei der Übernahme der Anwenderinformationen in den `SecurityContext` bildet das IT-System die Rollen des Anwenders auf systemspezifische Rechte ab.
+Vor Ausführung des Service bzw. Prozesses prüft das IT-System, ob der Anwender die dafür benötigten Rechte besitzt.
+* Innerhalb der Logik- und Verarbeitungszone eines IT-Systems wird der `JWT Access-Token` weitergegeben. Zur Stärkung der Vertrauenswürdigkeit wird jeder `JWT Access-Token` beim Eintritt in ein IT-System auf Gültigkeit und Authentizität geprüft.
+
+Die Außenschnittstellen eines IT-Systems können also nur mit einer gültigen Legitimation aufgerufen werden und sind so vor unberechtigter Nutzung geschützt.
+Umgekehrt können die Module und Verarbeitungsprozesse innerhalb des IT-Systems sich darauf verlassen, dass ihr Aufruf legitim ist und die ihnen übergebenen Daten vertrauenswürdig sind.
+
+[[software-architektur]]
+=== Software-Architektur
+
+Die folgende Abbildung zeigt den logischen Aufbau für die Authentifizierung und für die Bereitstellung von Berechtigungsinformationen an die Komponenten eines IT-Systems.
+
+.Software-Architektur der Berechtigungsprüfung
+[id="image-Berechtigungspruefung",reftext="{figure-caption} {counter:figures}"]
+image::isy-security:konzept/software-architektur-berechtigungspruefung.png[align="center"]
+
+Im Folgenden werden die Aufgaben und grobe Funktionsweise der Komponenten für die Autorisierung von Anfragen in einer xref:glossary:glossary:master.adoc#glossar-geschaeftsanwendung[Geschäftsanwendung]  erläutert.
+
+Der Baustein `isy-security` basiert auf dem Framework Spring Security und bietet querschnittliche Funktionalität zur Authentifizierung und Autorisierung (Berechtigungsprüfung) von Anfragen.
+Um IsyFact-spezifische Anforderungen, wie z.B. die Nutzung des Behördenkennzeichens, zu erfüllen, existiert eine Zugriffsschicht, die eben diese Funktionalität bereitstellt und den Zugriff auf Spring Security kapselt.
+Die einheitliche Zugriffsschicht für Authentifizierung und Autorisierung erleichtert zudem, durch die teilweise Übernahme bestehender Schnittstellen, die Migration von einer älteren IsyFact Version.
+Die Authentifizierung und Autorisierung an der Benutzeroberfläche findet im Zuge der Einführung von Single-Page-Applications (SPAs) nicht mehr über das Backend oder den Baustein isy-security statt.
+
+Der Zugriff auf den Baustein erfolgt über das Interface `Security`, das mehrere Manager bereitstellt:
+
+* `Authentifizierungsmanager`
+* `Berechtigungsmanager`
+
+Das Interface `Security` hat Zugriff auf eine Liste von allen im System hinterlegten Rollen.
+Das Anwendungssystem greift darüber auf den `Authentifizierungsmanager` und den `Berechtigungsmanager` zu.
+
+Der `Authentifizierungsmanager` ist für die Kommunikation mit dem IAM-Service über den `OAuth2AuthorizedClientProvider` zuständig.
+Die Authentifizierung (Anmeldung) verläuft über diesen Aufruf.
+Nach einer erfolgreichen Authentifizierung erfolgt der Erhalt des Access-Tokens und der dem Benutzer zugeordneten Rollen.
+Diese Informationen werden anschließend im `SecurityContext` abgelegt.
+
+Über den `Berechtigungsmanager` kann die Anwendung die Rollen und anwendungsspezifischen Rechte des angemeldeten Benutzers abfragen.
+
+Der `RolePrivilegeGrantedAuthoritiesConverter` ist für die Konvertierung vom IAM-Service im Access-Token übermittelten Rollen des Benutzers in die anwendungsspezifischen Rechte zuständig.
+
+Mit der von Spring Security bereitgestellten Annotation `@secured` werden angebotene Services und Methoden der Anwendung abgesichert.
+Dieser Annotation muss noch der Name eines anwendungsspezifischen Rechts mitgegeben werden.
+Im Interceptor `SecuredInterceptor` wird sichergestellt, dass nur dann der Zugriff gewährt wird, wenn der angemeldete Nutzer auch über das vorhandene anwendungsspezifische Recht verfügt.
+
+Hinweis: Die Annotation `@secured` löst die Annotation `@gesichert` ab und ist analog dazu verwenden.
+
+Der `NutzerAuthentifizierunginterceptor` ist für die Authentifizierung von technischen Nutzern zuständig und wird über eine Annotation (`@NutzerAuthentifikation`) bereitgestellt.
+Parallel zur Annotation `@NutzerAuthentifikation` existiert die Annotation `@ClientAuthentification` zur Authentifizierung von OAuth2.0 Clients.
+Dies ermöglicht die Umstellung von technische Nutzer auf OAuth2.0 Clients, ohne große Auswirkungen im Anwendungssystem zu erzeugen.
+Die Authentifizierungsdaten werden aus der Konfiguration der Anwendung ausgelesen und zur Authentifizierung verwendet.
+Die Authentifizierung findet über die Implementierung des Interfaces `Authentifizierungsmanager` statt.
+Das Ergebnis einer Authentifizierung über die Annotationen `@ClientAuthentification` und `@NutzerAuthentifikation` ist ein voll initialisierter `SecurityContext` mit einem validen Access-Token.
+
+[[aussensicht-der-komponente-security]]
+=== Schnittstelle des Bausteins Security
+
+Im Folgenden wird die Schnittstelle des Bausteins `isy-security` beschrieben.
+
+.Schnittstelle des Bausteins Security
+[id="image-schnittstelle-security",reftext="{figure-caption} {counter:figures}"]
+image::konzept/security-schnittstellen.dn.svg[align="center"]
+
+Das Interface `Security` ist der zentrale Einstiegspunkt in den Baustein `isy-security`.
+Bei seiner Instanziierung wird die anwendungsspezifische Rollen-Rechte-Datei eingelesen und damit der `Authentifizierungsmanager` sowie der `Berechtigungsmanager` erzeugt.
+Das Interface `Security` stellt der Fachanwendung die im weiteren beschriebenen `Authentifizierungsmanager` und `Berechtigungsmanager` der Fachanwendung zur Verfügung.
+Außerdem kann die Fachanwendung über die Methode `getAlleRollen` eine Liste von allen im System hinterlegten Rollen erhalten.
+
+Der `Authentifizierungsmanager` übernimmt die Authentifizierung von technischen Nutzern am IAM-System.
+Mit der Methode `authentifiziereClient` wird die OAuth2.0-konforme Authentifizierung eines Client mittels Client-ID u. Client-Secret unterstützt und mit der Methode `authentifiziereSystem` der alternative Weg mittels (techn.) Nutzername u. Passwort.
+Bei erfolgreicher Authentifizierung werden die vom IAM-System zurückgegebenen Daten (Access-Token, Rollen des Anwenders, ...) im `Spring SecurityContext` abgelegt.
+Dort werden auch die den aus den Rollen resultierenden Rechte des Anwenders gespeichert.
+Eine nicht erfolgreiche Authentifizierung (fachliche Ablehnung oder technisches Problem) löst eine `AuthentifizierungFehlgeschlagenException` bzw. `AuthentifizierungTechnicalException` aus.
+
+Der `Berechtigungsmanager` gibt Auskunft über die Rollen und Rechte des Anwenders.
+Die in der Benutzeradministration dem Anwender zugewiesenen Rollen werden mithilfe einer anwendungsspezifischen Rollen-Rechte-Datei in konkrete Rechte des Anwenders für diese Anwendung umgewandelt.
+Die aktuellen Rollen und Rechte des Anwenders können mit den Methoden des `Berechtigungsmanager` erfragt werden und es kann geprüft werden, ob der Anwender ein bestimmtes Recht hat.
+Die Methoden `getRechte` und `getRollen` liefern die aktuell dem Anwender zugeordneten Rechte bzw. Rollen.
+Mit der Methode `hatRecht` kann die Anwendung feststellen, ob der Anwender aktuell ein bestimmtes Recht besitzt, während mit `pruefeRecht` der nachfolgende Code mit dem angegebenen Recht abgesichert wird: falls der Anwender das Recht nicht hat, wird eine `AutorisierungFehlgeschlagenException` geworfen.
+Mit diesen Berechtigungsabfragen kann die Fachanwendung z.B. feingranular bestimmen, ob und wie der Anwender bestimmte Daten sehen oder bearbeiten kann bzw. ob und wie er bestimmte Funktionen der Anwendung benutzen kann.
+
+[[aufruf-von-nachbarsystemen]]
+=== Aufruf von Nachbarsystemen
+
+Ein Anwendungssystem erwartet bei einem Aufruf, dass alle notwendigen Authentifizierungs- und Autorisierungsdaten in valider und gültiger Form übergeben werden.
+Folglich muss ein Anwendungssystem, das ein Nachbarsystem aufruft, diesem Aufruf ebenfalls gültige und valide Authentifzierungs- und Autorisierungsdaten mitgeben.
+Im Regelfall werden diese Authentifizierungs- und Autorisierungsdaten bei der Authentifizierung der originären Anfrage bzw. der xref:validierung-der-token[Validierung des Access-Token] über den Sicherheitsbaustein `isy-security` des Anwendungssystems als aus dem Access-Token initialisierten `SecurityContext` übergeben.
+Für eine fachliche und prozessbezogene Aufrufkette wird dieser `Access-Token` in allen weiteren Aufrufen wiederverwendet und unverändert weitergeleitet.
+
+Es erfolgt an der jeweiligen Schnittstelle des Nachbarsystems eine entsprechende Transformation der Daten des `Access-Tokens` in einen `SecurityContext`.
+
+Gemäß Referenzarchitektur ist HTTP als das Übertragungsprotokoll der xref:blaupausen:referenzarchitektur/master.adoc#servicekommunikation[Servicekommunikation] definiert.
+Dazu sind an den Schnittstellen meist dedizierte Consumer-Provider-Bibliotheken vorgesehen, die bereits die Logik zur Transformation und  Weiterleitung des `Access-Tokens` übernehmen.
+
+Gibt es diese Bibliotheken nicht an den Schnittstellen, dann muss das Nachbarsystem direkt aufgerufen werden.
+Hierbei muss das aufrufende Anwendungssystem stets das `Access-Tokens` manuell in den Header der ausgehenden Nachricht schreiben.
+Weitere Details hierzu sind im Kapitel xref:authentifizierung-und-autorisierung[] beschrieben.
+
+
 [[oauth2.0-und-openidconnect]]
 == OAuth2.0 und OpenIDConnect
 
@@ -369,13 +493,13 @@ Der _Aufgaben_-Prozess erhält dann den initialisierten `SecurityContext` zurüc
 ==== Verarbeitung asynchroner Anfragen
 
 [[token]]
-=== Token
+=== Access-Token
 
 [[inhalte-der-token]]
-==== Inhalte der Token
+==== Inhalte der Access-Token
 
 [[validierung-der-token]]
-==== Validierung der Token
+==== Validierung der Access-Token
 
 Wenn eine Ressource oder ein Service einer Anwendung angefragt wird, muss das Access-Token von der empfangenden Anwendung validiert werden.
 Dazu sind folgende Validierungen verpflichtend:
@@ -447,129 +571,6 @@ Wenn die IAM-Service Implementierung dieses Feature unterstützt, dann wird ein 
 Wie in xref:konzept/inhalt.adoc#aussensicht-der-komponente-security[Schnittstelle des Bausteins Security] beschrieben, wird bei der Authentifizierung das Behördenkennzeichen als String an den `Authentifizierungsmanager` übergeben.
 Zur Authentifizierung von technischen Nutzern mithilfe der Methode `authentifiziereClient()` wird daher die Client-Id, das Client-Secret und das BHKNZ übergeben.
 Der alternative Weg benötigt die Benutzerkennung (Nutzername), das Passwort und das BHKNZ zur Authentifizierung mit der Methode `authentifiziereSystem()`.
-
-[[sicherheitsarchitektur-eines-it-systems]]
-== Sicherheitsarchitektur eines IT-Systems
-
-Der Baustein Security bildet eine Komponente des Querschnitts der xref:blaupausen:referenzarchitektur-it-system/master.adoc#einleitung[IsyFact Referenzarchitektur IT-Systeme].
-Er ist von jedem IT-System zur Autorisierung von Zugriffen und Vorgängen zu verwenden.
-
-Die Mechanismen zur Absicherung IsyFact-konformer IT-Systeme haben zum Ziel, die Autorisierung von Zugriffen _systematisch_, _einheitlich_ und _einfach_ umzusetzen.
-
-Die *Systematik* und Vollständigkeit der Berechtigungsprüfungen wird dadurch erreicht, dass Berechtigungsprüfungen in den IT-Systemen an definierten Stellen und auf identische Weise stattfinden.
-
-Die *Einheitlichkeit* wird durch Bereitstellung der Bibliothek `isy-security` und Nutzungsvorgaben gewährleistet, die von allen IT-Systemen zu verwenden sind.
-Berechtigungsprüfungen erfolgen innerhalb eines IT-Systems immer über die Bibliothek `isy-security`.
-
-Die *Einfachheit* der Nutzung der Bibliothek `isy-security` wird durch weitgehende Transparenz bei der Initialisierung, kompakte Schnittstellen und deklarative (z.B. per Annotation) statt programmatischer Implementierung erreicht.
-
-[[praemissen]]
-=== Prämissen
-
-Aus den xref:konzept/master.adoc#prinzipien-der-sicherheitsarchitektur[Prinzipien der Sicherheitsarchitektur] leiten sich die folgenden Randbedingungen für die Umsetzung der Berechtigungsprüfung innerhalb eines IT-Systems ab:
-
-* Anfragen, die am Dialog (Web-App) eines IT-Systems eingehen, sind immer bereits durch das IAM-System bzw. die lokale Authentifizierung erfolgreich authentifiziert.
-Sorgt ein IAM-System für die Authentifizierung, enthält der HTTP-Header der Anfrage die Identifikation des Anwenders und dessen Rollen (in Form eines JWT Access-Token).
-Die Informationen aus dem Access-Token werden als `SecurityContext` in das IT-System übernommen.
-* Anfragen, die an einer Service-Schnittstelle (von außen über ein Service-Gateway (SGW) oder von anderen IT-Systemen innerhalb der IT-Systemlandschaft) eines IT-Systems eingehen, sind ebenso bereits authentifiziert.
-Das mit der Anfrage an das IT-System im Header übergebene JWT Access-Token enthält die Identifikation des Anwenders und dessen Rollen und wird als `SecurityContext` in das IT-System übernommen.
-* Prozesse, die unabhängig von eingehenden Anfragen (über Dialog und Service) durch ein IT-System gestartet werden (z.B. Batch/Task), müssen zunächst einen (technischen) Nutzer gegen das IAM-System bzw. die lokale Authentifizierung erfolgreich authentifizieren, dessen Rollen ermitteln und diese Informationen als `SecurityContext` im IT-System hinterlegen.
-* Bei der Übernahme der Anwenderinformationen in den `SecurityContext` bildet das IT-System die Rollen des Anwenders auf systemspezifische Rechte ab.
-Vor Ausführung des Service bzw. Prozesses prüft das IT-System, ob der Anwender die dafür benötigten Rechte besitzt.
-* Innerhalb der Logik- und Verarbeitungszone eines IT-Systems wird der `JWT Access-Token` weitergegeben. Zur Stärkung der Vertrauenswürdigkeit wird jeder `JWT Access-Token` beim Eintritt in ein IT-System auf Gültigkeit und Authentizität geprüft.
-
-Die Außenschnittstellen eines IT-Systems können also nur mit einer gültigen Legitimation aufgerufen werden und sind so vor unberechtigter Nutzung geschützt.
-Umgekehrt können die Module und Verarbeitungsprozesse innerhalb des IT-Systems sich darauf verlassen, dass ihr Aufruf legitim ist und die ihnen übergebenen Daten vertrauenswürdig sind.
-
-[[software-architektur]]
-=== Software-Architektur
-
-Die folgende Abbildung zeigt den logischen Aufbau für die Authentifizierung und für die Bereitstellung von Berechtigungsinformationen an die Komponenten eines IT-Systems.
-
-.Software-Architektur der Berechtigungsprüfung
-[id="image-Berechtigungspruefung",reftext="{figure-caption} {counter:figures}"]
-image::isy-security:konzept/software-architektur-berechtigungspruefung.png[align="center"]
-
-Im Folgenden werden die Aufgaben und grobe Funktionsweise der Komponenten für die Autorisierung von Anfragen in einer xref:glossary:glossary:master.adoc#glossar-geschaeftsanwendung[Geschäftsanwendung]  erläutert.
-
-Der Baustein `isy-security` basiert auf dem Framework Spring Security und bietet querschnittliche Funktionalität zur Authentifizierung und Autorisierung (Berechtigungsprüfung) von Anfragen.
-Um IsyFact-spezifische Anforderungen, wie z.B. die Nutzung des Behördenkennzeichens, zu erfüllen, existiert eine Zugriffsschicht, die eben diese Funktionalität bereitstellt und den Zugriff auf Spring Security kapselt.
-Die einheitliche Zugriffsschicht für Authentifizierung und Autorisierung erleichtert zudem, durch die teilweise Übernahme bestehender Schnittstellen, die Migration von einer älteren IsyFact Version.
-Die Authentifizierung und Autorisierung an der Benutzeroberfläche findet im Zuge der Einführung von Single-Page-Applications (SPAs) nicht mehr über das Backend oder den Baustein isy-security statt.
-
-Der Zugriff auf den Baustein erfolgt über das Interface `Security`, das mehrere Manager bereitstellt:
-
-* `Authentifizierungsmanager`
-* `Berechtigungsmanager`
-
-Das Interface `Security` hat Zugriff auf eine Liste von allen im System hinterlegten Rollen.
-Das Anwendungssystem greift darüber auf den `Authentifizierungsmanager` und den `Berechtigungsmanager` zu.
-
-Der `Authentifizierungsmanager` ist für die Kommunikation mit dem IAM-Service über den `OAuth2AuthorizedClientProvider` zuständig.
-Die Authentifizierung (Anmeldung) verläuft über diesen Aufruf.
-Nach einer erfolgreichen Authentifizierung erfolgt der Erhalt des Access-Tokens und der dem Benutzer zugeordneten Rollen.
-Diese Informationen werden anschließend im `SecurityContext` abgelegt.
-
-Über den `Berechtigungsmanager` kann die Anwendung die Rollen und anwendungsspezifischen Rechte des angemeldeten Benutzers abfragen.
-
-Der `RolePrivilegeGrantedAuthoritiesConverter` ist für die Konvertierung vom IAM-Service im Access-Token übermittelten Rollen des Benutzers in die anwendungsspezifischen Rechte zuständig.
-
-Mit der von Spring Security bereitgestellten Annotation `@secured` werden angebotene Services und Methoden der Anwendung abgesichert.
-Dieser Annotation muss noch der Name eines anwendungsspezifischen Rechts mitgegeben werden.
-Im Interceptor `SecuredInterceptor` wird sichergestellt, dass nur dann der Zugriff gewährt wird, wenn der angemeldete Nutzer auch über das vorhandene anwendungsspezifische Recht verfügt.
-
-Hinweis: Die Annotation `@secured` löst die Annotation `@gesichert` ab und ist analog dazu verwenden.
-
-Der `NutzerAuthentifizierunginterceptor` ist für die Authentifizierung von technischen Nutzern zuständig und wird über eine Annotation (`@NutzerAuthentifikation`) bereitgestellt.
-Parallel zur Annotation `@NutzerAuthentifikation` existiert die Annotation `@ClientAuthentification` zur Authentifizierung von OAuth2.0 Clients.
-Dies ermöglicht die Umstellung von technische Nutzer auf OAuth2.0 Clients, ohne große Auswirkungen im Anwendungssystem zu erzeugen.
-Die Authentifizierungsdaten werden aus der Konfiguration der Anwendung ausgelesen und zur Authentifizierung verwendet.
-Die Authentifizierung findet über die Implementierung des Interfaces `Authentifizierungsmanager` statt.
-Das Ergebnis einer Authentifizierung über die Annotationen `@ClientAuthentification` und `@NutzerAuthentifikation` ist ein voll initialisierter `SecurityContext` mit einem validen Access-Token.
-
-[[aussensicht-der-komponente-security]]
-=== Schnittstelle des Bausteins Security
-
-Im Folgenden wird die Schnittstelle des Bausteins `isy-security` beschrieben.
-
-.Schnittstelle des Bausteins Security
-[id="image-schnittstelle-security",reftext="{figure-caption} {counter:figures}"]
-image::konzept/security-schnittstellen.dn.svg[align="center"]
-
-Das Interface `Security` ist der zentrale Einstiegspunkt in den Baustein `isy-security`.
-Bei seiner Instanziierung wird die anwendungsspezifische Rollen-Rechte-Datei eingelesen und damit der `Authentifizierungsmanager` sowie der `Berechtigungsmanager` erzeugt.
-Das Interface `Security` stellt der Fachanwendung die im weiteren beschriebenen `Authentifizierungsmanager` und `Berechtigungsmanager` der Fachanwendung zur Verfügung.
-Außerdem kann die Fachanwendung über die Methode `getAlleRollen` eine Liste von allen im System hinterlegten Rollen erhalten.
-
-Der `Authentifizierungsmanager` übernimmt die Authentifizierung von technischen Nutzern am IAM-System.
-Mit der Methode `authentifiziereClient` wird die OAuth2.0-konforme Authentifizierung eines Client mittels Client-ID u. Client-Secret unterstützt und mit der Methode `authentifiziereSystem` der alternative Weg mittels (techn.) Nutzername u. Passwort.
-Bei erfolgreicher Authentifizierung werden die vom IAM-System zurückgegebenen Daten (Access-Token, Rollen des Anwenders, ...) im `Spring SecurityContext` abgelegt.
-Dort werden auch die den aus den Rollen resultierenden Rechte des Anwenders gespeichert.
-Eine nicht erfolgreiche Authentifizierung (fachliche Ablehnung oder technisches Problem) löst eine `AuthentifizierungFehlgeschlagenException` bzw. `AuthentifizierungTechnicalException` aus.
-
-Der `Berechtigungsmanager` gibt Auskunft über die Rollen und Rechte des Anwenders.
-Die in der Benutzeradministration dem Anwender zugewiesenen Rollen werden mithilfe einer anwendungsspezifischen Rollen-Rechte-Datei in konkrete Rechte des Anwenders für diese Anwendung umgewandelt.
-Die aktuellen Rollen und Rechte des Anwenders können mit den Methoden des `Berechtigungsmanager` erfragt werden und es kann geprüft werden, ob der Anwender ein bestimmtes Recht hat.
-Die Methoden `getRechte` und `getRollen` liefern die aktuell dem Anwender zugeordneten Rechte bzw. Rollen.
-Mit der Methode `hatRecht` kann die Anwendung feststellen, ob der Anwender aktuell ein bestimmtes Recht besitzt, während mit `pruefeRecht` der nachfolgende Code mit dem angegebenen Recht abgesichert wird: falls der Anwender das Recht nicht hat, wird eine `AutorisierungFehlgeschlagenException` geworfen.
-Mit diesen Berechtigungsabfragen kann die Fachanwendung z.B. feingranular bestimmen, ob und wie der Anwender bestimmte Daten sehen oder bearbeiten kann bzw. ob und wie er bestimmte Funktionen der Anwendung benutzen kann.
-
-[[aufruf-von-nachbarsystemen]]
-=== Aufruf von Nachbarsystemen
-
-Ein Anwendungssystem erwartet bei einem Aufruf, dass alle notwendigen Authentifizierungs- und Autorisierungsdaten in valider und gültiger Form übergeben werden.
-Folglich muss ein Anwendungssystem, das ein Nachbarsystem aufruft, diesem Aufruf ebenfalls gültige und valide Authentifzierungs- und Autorisierungsdaten mitgeben.
-Im Regelfall werden diese Authentifizierungs- und Autorisierungsdaten bei der Authentifizierung der originären Anfrage bzw. der xref:validierung-der-token[Validierung des Access-Token] über den Sicherheitsbaustein `isy-security` des Anwendungssystems als aus dem Access-Token initialisierten `SecurityContext` übergeben.
-Für eine fachliche und prozessbezogene Aufrufkette wird dieser `Access-Token` in allen weiteren Aufrufen wiederverwendet und unverändert weitergeleitet.
-
-Es erfolgt an der jeweiligen Schnittstelle des Nachbarsystems eine entsprechende Transformation der Daten des `Access-Tokens` in einen `SecurityContext`.
-
-Gemäß Referenzarchitektur ist HTTP als das Übertragungsprotokoll der xref:blaupausen:referenzarchitektur/master.adoc#servicekommunikation[Servicekommunikation] definiert.
-Dazu sind an den Schnittstellen meist dedizierte Consumer-Provider-Bibliotheken vorgesehen, die bereits die Logik zur Transformation und  Weiterleitung des `Access-Tokens` übernehmen.
-
-Gibt es diese Bibliotheken nicht an den Schnittstellen, dann muss das Nachbarsystem direkt aufgerufen werden.
-Hierbei muss das aufrufende Anwendungssystem stets das `Access-Tokens` manuell in den Header der ausgehenden Nachricht schreiben.
-Weitere Details hierzu sind im Kapitel xref:authentifizierung-und-autorisierung[] beschrieben.
 
 [[rollen-und-rechte]]
 == Rollen & Rechte
