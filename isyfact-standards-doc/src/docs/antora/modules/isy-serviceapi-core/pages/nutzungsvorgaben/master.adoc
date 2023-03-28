@@ -1,5 +1,9 @@
 = Nutzungsvorgaben HttpInvoker
 
+:linkaktuell: xref:isy-service-rest:nutzungsvorgaben/master.adoc[Nutzungsvorgaben REST]
+
+include::glossary:miscellaneous:partial$deprecated-baustein.adoc[]
+
 include::glossary:licence:partial$licence.adoc[]
 
 include::docinfo.adoc[]
