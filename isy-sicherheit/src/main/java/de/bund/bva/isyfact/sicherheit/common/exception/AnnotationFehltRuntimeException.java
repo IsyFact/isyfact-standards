@@ -20,7 +20,10 @@ import de.bund.bva.isyfact.sicherheit.common.konstanten.SicherheitFehlerSchluess
 
 /**
  * Diese Annotation wird geworfen, wenn eine erwartete Annotation nicht gefunden wurde.
+ *
+ * @deprecated since IsyFact 3.0.0 in favor of the isy-security module.
  */
+@Deprecated
 public class AnnotationFehltRuntimeException extends SicherheitTechnicalRuntimeException {
 
     /** Serial Version UId. */

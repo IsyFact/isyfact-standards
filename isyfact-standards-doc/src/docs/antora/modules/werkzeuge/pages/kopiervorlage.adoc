@@ -141,5 +141,28 @@ Regeln zur Gestaltung von grafischen Oberflächen.
 
 Mehr zu Admonition Blocks xref:werkzeuge:dokumentation/bearbeitung/bearbeitung-antora.adoc#admonition-blocks[hier].
 
+[[deprecations]]
+=== Deprecations
+
+[[deprecation-verweis]]
+*Link zu neuer Dokumentation - optional*
+
+ :linkaktuell: xref:<Antora-Pfad zur neuen Seite>.adoc[]
+
+[[deprecation-baustein]]
+*Deprecation für Baustein*
+
+ include::glossary:miscellaneous:partial$deprecated-baustein.adoc[]
+
+[[deprecation-abschnitt]]
+*Deprecation für beliebigen Abschnitt*
+
+ include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
+
+[[deprecation-kurzform]]
+*Deprecation Kurzform*
+
+icon:ban[title=Deprecation] [.line-through]#<durchzustreichender Titel/Text>#
+
 // end::template[]
 ....

@@ -8,8 +8,6 @@ Der Lebenszyklus der Produkte ist jeweils in der Spalte *Status* gesetzt. Der St
 --
 [options=header, format=csv, separator=";", cols="a,3a"]
 |===
-//include::partial$/Produktkatalog_IsyFact_v3_x_x_testtest.csv[]
-//include::partial$/Produktkatalog_IsyFact_v3_x_x_bibliotheken_anwendungsentwicklung_short_red_link.csv[]
-include::partial$/Produktkatalog_IsyFact_v3_x_x_Erlaeuterungen.csv[]
+include::partial$/Produktkatalog_IsyFact_Erlaeuterungen.csv[]
 |===
 --

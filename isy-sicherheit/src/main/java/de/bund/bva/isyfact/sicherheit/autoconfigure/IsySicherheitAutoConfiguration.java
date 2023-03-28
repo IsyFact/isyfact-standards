@@ -21,9 +21,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.SimpleThreadScope;
 import org.springframework.web.context.request.RequestScope;
 
+/**
+ * @deprecated since IsyFact 3.0.0 in favor of the isy-security module.
+ */
 @Configuration
 @EnableConfigurationProperties
 @ConditionalOnBean(Sicherheit.class)
+@Deprecated
 public class IsySicherheitAutoConfiguration {
 
     @Bean
