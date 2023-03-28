@@ -1,7 +1,0 @@
-// tag::architekturregeln[]
-
-[[architekturregeln-isyfact-tutorial]]
-== Architekturregeln IsyFact-Tutorial
-
-include::inhalt.adoc[tags=architekturregel]
-// end::architekturregeln[]

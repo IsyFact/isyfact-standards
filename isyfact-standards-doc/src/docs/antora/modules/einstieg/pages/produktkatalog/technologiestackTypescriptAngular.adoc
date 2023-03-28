@@ -7,6 +7,6 @@ include::glossary:licence:partial$licence.adoc[]
 --
 [options=header, format=csv, separator=";", cols="a,a,a,a,a,a,a"]
 |===
-include::partial$/Produktkatalog_IsyFact_v3_x_x_Produktvorgaben_Bibliotheken_Anwendungsentwicklung_Typescript_Angular_Entwicklung.csv[]
+include::partial$/Produktkatalog_IsyFact_Produktvorgaben_Bibliotheken_Anwendungsentwicklung_Typescript_Angular_Entwicklung.csv[]
 |===
 --

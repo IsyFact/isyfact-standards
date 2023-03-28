@@ -41,7 +41,9 @@ import de.bund.bva.isyfact.sicherheit.Recht;
 /**
  * Diese Klasse ließt ein RollenRechte-XML ein und gibt es aus.
  *
+ * @deprecated since IsyFact 3.0.0 in favor of the isy-security module.
  */
+@Deprecated
 public class XmlAccess {
 
     /** Logger. */

@@ -1,0 +1,122 @@
+= Release Notes Version {page-component-display-version}
+:icons: font
+:sectnums:
+
+include::glossary:licence:partial$licence.adoc[]
+
+
+*Übersicht über die Änderungen*
+
+[[kapitel-aenderungen]]
+== Änderungen
+
+[[kapitel-umstellung-dokumentation]]
+=== Umstellung der Dokumentation
+
+Online Dokumentation über  Asciidoc / Antora:: Die Bereitstellung der Dokumentation der IsyFact (Open Source) erfolgt nicht mehr über PDF Dokumente, sondern über die xref:glossary:literaturextern:inhalt.adoc#litextern-url-isyfact-online-docs[Online-Dokumentation]. 
+Als Werkzeug zur Generierung der Dokumentation wird das Produkt Antora eingesetzt. 
+Vorgaben zur Dokumentation:: Die xref:werkzeuge:dokumentation/bearbeitung/bearbeitung-antora.adoc[Vorgaben zur Dokumentation für technische Autoren] wurden ergänzt.
+Darüber hinaus werden Abbildungen sukzessive in editierbare SVGs gewandelt und in der Dokumentation abgelegt. Eine xref:methodik:diagrammerstellung/diagramsnet.adoc[Beschreibung zum Vorgehen] wurde ergänzt. 
+Auszeichnung von Deprecations:: Deprecations werden im Code und der Dokumentation kenntlich gemacht. 
+Produktkatalog als Teil der Dokumentation:: Der xref:einstieg:produkte.adoc[Produktkatalog] wurde von Excel nach Asciidoc / CSV migriert und ist nun Teil dieser Dokumentation. 
+
+[[kapitel-spring-boot]]
+=== Spring Boot
+
+[[kapitel-java]]
+=== Java
+
+Java Runtime:: Die Java Runtime Environment wurde auf Version 17 gehoben. 
+Es ist gegen Version 8 zu kompilieren. 
+Java Vendor:: Der Java Vendor wurde geändert auf Eclipse Temurin satt Oracle RedHat.
+
+[[kapitel-rest-interne-externe-schnittstelle]]
+=== REST für interne und externe Schnittstellen
+
+REST Schnittstellen:: Sowohl interne als auch externe Schnittstellen sind ab sofort über xref:isy-service-rest:konzept/master.adoc[REST] zu realisieren.
+Spring HTTPInvoker deprecated icon:ban[title=Deprecation]:: Die Verwendung von xref:isy-serviceapi-core:konzept/master.adoc[HTTPInvoker Schnittstellen] gilt als deprecated und wird mit einem nachfolgenden Release entfernt.
+Metadaten im HTTP-Header statt im Datensatz/Aufrufkontext icon:ban[title=Deprecation]:: Metadaten sind über HTTP-Header zur realisieren. 
+Eine Verwendung von Metadaten über HTTPInvoker und Aufrufkontext gilt als deprecated und wird mit einem nachfolgenden Release entfernt.
+
+[[kapitel-neuer-baustein-security]]
+=== Neuer Baustein Security
+Der Baustein Sicherheit wurde neu konzipiert.
+
+Ziel:: Nutzung von Standardfähigkeiten der eingesetzten Produkte und Reduzierung der Eigenentwicklung.
+
+Folgende Änderungen ergeben sich:
+
+OAuth:: Das neue Konzept des xref:isy-security:konzept/master.adoc[Bausteins Security] beschreibt die Verwendung von OAuth.  
+Authentication-Gateway:: 
+Baustein Sicherheit deprecated icon:ban[title=Deprecation]:: Der xref:isy-sicherheit:konzept/master.adoc[Baustein Sicherheit] und damit die Verwendung des Aufrufkontextes zur Authentifizierung gilt als deprecated und wird mit einem folgenden Release entfernt.
+Baustein Sicherheit Keycloak deprecated icon:ban[title=Deprecation]:: Der Baustein Sicherheit Keycloak mit dem Spring Keycloak Adapter gilt als deprecated und wird mit einem nachfolgenden Release entfernt.
+
+//TODO klären, ob hier aufzunehmen
+[[kapitel-keycloak]]
+=== Keycloak 17-19
+
+[[kapitel-neue-endpoints-ueberwachung]]
+=== Neue Endpoints in Baustein Überwachung
+Liveness, Readiness und Availability zur Überwachung:: Liveness und Readiness bieten ein feingranulares Monitoring der health eines Systems. 
+Diese Endpoints stehen zusätzlich zu den vorhandenen Health-Endpoints zur Verfügung und sind im xref:isy-ueberwachung:konzept/master.adoc[Konzept des Bausteins Überwachung] definiert.
+Die xref:isy-ueberwachung:nutzungsvorgaben/master.adoc[Nutzungsvorgaben des Bausteins Überwachung] wurden um  Implementierungshinweise erweitert. 
+Availability wird als erweiterte Überwachungsmetrik aufbauend auf Liveness und Readiness Probes definiert und Umsetzungsempfehlungen gegeben.
+Änderungen an Nachbarsystemchecks und Loadbalancer:: Aktuell bauen Nachbarsystemchecks und Loadbalancer auf die bisherigen Health-Checks. 
+Diese fachlichen Möglichkeiten funktionieren auch mit Liveness und Readiness Probes. 
+Damit sind differenzierte Reaktionen auf Fehler in den Systemen möglich.
+
+//TODO ist das überhaupt ein Baustein für die OS Dokumentation??
+[[kapitel-neuer-baustein-angular]]
+=== Neuer Baustein Angular
+
+//TODO Oder ist Node allgemein und muss separat beschrieben werden?
+Versionshebung Node v18:: 
+Versionshebung Angular v13::
+Versionshebung PrimeNG v13::
+Baustein mit Angular PrimeNG und Bootstrap deprecated icon:ban[title=Deprecation]:: Der Baustein mit Angular PrimeNG und Bootstrap ist deprecated. 
+
+[[kapitel-task-scheduling]]
+=== Task Scheduling
+
+Umstellung auf Spring Boot:: Das Task Scheduling wurde auf Spring Boot umgestellt.
+Dies betrifft den xref:isy-konfiguration:konzept/master.adoc[Baustein Konfiguration] und den xref:isy-konfiguration:konzept/master.adoc[Baustein Überwachung].
+
+[[kapitel-sles]]
+=== Suse Linux Enterprise Server (SLES)
+
+Der Standard schreibt nun statt eines Betriebssystems diejenigen Produkte vor, die zum Bau und zum Betrieb der Anwendungen nötig sind.
+
+Suse Linux Enterprise Server (SLES) entfernt:: Das Betriebssystem wurde aus dem Produktkatalog und der Dokumentation entfernt. 
+Eclipse Temurin als JVM aufgenommen:: siehe <<kapitel-java>>
+
+[[kapitel-liquibase]]
+=== Liquibase
+
+Liquibase in Produktkatalog aufgenommen:: Einführung und Umstellung auf Liquibase. 
+Ausblick:: Die konzeptionelle Integration erfolgt in einem nachfolgenden Release. 
+
+[[kapitel-optimierung-dependeny-management]]
+=== Optimierung Dependency Management
+Abhängigkeiten wurden überprüft und reduziert.
+
+[[kapitel-restrukturierung-styleguide]]
+=== Restrukturierung Styleguide
+
+=== Redis
+
+[[kapitel-weitere-deprecations]]
+== Weitere Deprecations
+
+[[kapitel-session-management]]
+=== Session Management
+
+[[kapitel-jsf]]
+=== JSF
+
+[[kapitel-entfernt]]
+== Entfernt
+
+[[kapitel-vorlageanwendungen]]
+=== Vorlageanwendungen
+
+Die Vorlageanwendungen wurden aus der Dokumentation entfernt. 

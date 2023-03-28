@@ -1,0 +1,50 @@
+= Migrationsleitfaden IsyFact {page-component-display-version}
+:icons: font
+:sectnums:
+
+include::glossary:licence:partial$licence.adoc[]
+
+Für die IsyFact gibt es hiermit drei Versionszweige: IsyFact 1, IsyFact 2 und seit Q1/2023 das neue Major-Release IsyFact 3.0.
+
+Die auf dieser Seite aufgeführten Hinweise sollen IsyFact Anwendungsentwicklern bei der Umstellung einer auf IsyFact 2 basierenden Anwendung auf IsyFact {page-component-display-version} helfen.
+
+[[kapitel-geschaeftsanwendung]]
+== Geschäftsanwendung
+
+[[kapitel-bausteine]]
+== Bausteine
+
+[[kapitel-batchrahmen]]
+=== Batchrahmen
+
+
+[[kapitel-sicherheit]]
+=== Sicherheit
+
+[[kapitel-task-scheduler]]
+=== Task Scheduler
+
+[[kapitel-service, Bausteine/Service]]
+=== Service
+
+[WARNING]
+====
+Ab IsyFact 3 ist die *Verwendung von REST-Schnittstellen* für die Neuentwicklung verbindlich.
+Spring HTTP-Invoker ist deprecated und wird ab sofort als Schnittstellenformat durch REST abgelöst.
+Die Verwendung von REST-Schnittstellen wird im Baustein REST (siehe xref:isy-service-rest:konzept/master.adoc[] und xref:isy-service-rest:nutzungsvorgaben/master.adoc[]) erläutert.
+====
+
+
+[[kapitel-dokumentation]]
+== Dokumentation
+
+
+[[kapitel-frondend-technologien]]
+=== Frontend Technologien
+
+
+
+[[kapitel-isyfact-Referenzarchitektur]]
+=== IsyFact Referenzarchitektur
+
+

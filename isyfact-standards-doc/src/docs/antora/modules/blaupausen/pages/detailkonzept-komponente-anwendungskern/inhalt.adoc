@@ -604,11 +604,4 @@ public class SomeBean {
 }
 ----
 
-// tag::architekturregel[]
-
-// end::architekturregel[]
-
-// tag::sicherheit[]
-
-// end::sicherheit[]
 // end::inhalt[]

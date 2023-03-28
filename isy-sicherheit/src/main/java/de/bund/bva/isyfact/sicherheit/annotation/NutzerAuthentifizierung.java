@@ -24,11 +24,13 @@ import java.lang.annotation.Target;
 
 /**
  * Kennzeichnet eine Methode, für die ein fester, technischer Nutzer authentifiziert werden soll.
- * 
+ *
+ * @deprecated since IsyFact 3.0.0 in favor of the isy-security module.
  */
 @Target({ ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
+@Deprecated
 public @interface NutzerAuthentifizierung {
 
     /**

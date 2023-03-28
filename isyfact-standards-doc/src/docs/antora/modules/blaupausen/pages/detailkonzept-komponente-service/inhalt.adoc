@@ -47,11 +47,11 @@ Dabei transformiert sie die Geschäftsobjekte des Anwendungskerns in Transportob
 Hierzu wird in der Regel ein Bean Mapper verwendet.
 In Einzelfällen können Teile der Transformation auch programmiert werden, sofern der Nutzen daraus den Aufwand nicht übersteigt.
 
-Die Service-Fassade übernimmt auch die Autorisierung des Aufrufs.
-Dazu nutzt sie die xref:isy-sicherheit:nutzungsvorgaben/master.adoc#autorisierung[Möglichkeiten des Bausteins Sicherheit].
-Voraussetzung für die Autorisierung ist die Auswertung des mitgelieferten Aufrufkontextes über die Annotation `@StelltAufrufKontextBereit` an der Methode oder an der Service-Fassade selbst.
-Anschließend wird über die Annotation `@Gesichert` die Berechtigung zum Zugriff auf die Methode anhand der Rechte des Aufrufers geprüft.
-Alternativ kann die Annotation `@Gesichert` auch an der Service-Fassade selbst verwendet werden, wenn alle Methoden die gleichen Rechte erfordern.
+Die _Service-Fassade_ übernimmt auch die Autorisierung des Aufrufs.
+Dazu nutzt sie die xref:isy-security:nutzungsvorgaben/master.adoc#autorisierung_service_schnittstelle[Möglichkeiten des Bausteins Security].
+Voraussetzung für die Autorisierung ist die Auswertung des mitgelieferten Access-Tokens.
+Über die Annotation `@Secured` wird die Berechtigung zum Zugriff auf die Methode anhand der Rechte des Aufrufers geprüft.
+Alternativ kann die Annotation `@Secured` auch an der _Service-Fassade_ selbst verwendet werden, wenn alle Methoden die gleichen Rechte erfordern.
 
 === Exception-Fassade
 Die Exception-Fassade ist verantwortlich für die Umwandlung der durch den Anwendungskern oder die Service-Fassade geworfenen Exceptions in Exceptions der Service-Schnittstelle.
@@ -65,8 +65,8 @@ Diese Reihenfolge wird durch Einfügen der `Order` für den Advisor `stelltLoggi
 
 [NOTE]
 ====
-Die weiteren Inhalte zum Aufbau, zur Realisierung und zur Nutzung von Service-Schnittstellen wurden wegen ihrer Abhängigkeit zur konkreten Schnittstellentechnologie HTTP Invoker in den Baustein HTTP Invoker verschoben.
-Die Inhalte finden sich in den Dokumenten  xref:isy-serviceapi-core:konzept/master.adoc#einleitung[Konzept HTTP-Invoker] sowie xref:isy-serviceapi-core:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben HTTP-Invoker].
+Die weiteren Inhalte zum Aufbau, zur Realisierung und zur Nutzung von Service-Schnittstellen wurden wegen ihrer Abhängigkeit zur konkreten Schnittstellentechnologie in den entsprechenden Technologie-Baustein verschoben.
+Die Inhalte finden sich in den Dokumenten  xref:isy-serviceapi-core:konzept/master.adoc#einleitung[Konzept HTTP-Invoker] und xref:isy-service-rest:konzept/master.adoc#einleitung[Konzept REST-Schnittstellen], sowie xref:isy-serviceapi-core:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben HTTP-Invoker] und xref:isy-service-rest:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben REST-Schnittstellen].
 ====
 
 [[uebertragung-von-metadaten]]
@@ -75,15 +75,11 @@ Die Inhalte finden sich in den Dokumenten  xref:isy-serviceapi-core:konzept/mast
 In jeder Art von Servicekommunikation werden Metadaten übertragen.
 In der Regel geschieht dies über Schlüssel-Wert-Paare (_key-value pairs_), z.B. in HTTP-Headern oder JMS-Properties.
 
-// tag::architekturregel[]
-
-.icon:university[title="Architekturregel"] Benennung von Metadaten
+.icon:university[title=Architekturregel] Benennung von Metadaten
 ****
 Metadaten sind, egal über welches Protokoll sie übertragen werden, *einheitlich benannt*.
 Gibt es eine durch einen Standard vorgegebene Benennung, ist diese zu verwenden.
 ****
-
-// end::architekturregel[]
 
 Die <<standardisierte-metadaten,folgende Tabelle>> zeigt, welche Metadaten in der IsyFact standardisiert übertragen werden.
 
@@ -119,7 +115,6 @@ Nur so ist gewährleistet, dass auch Fehler, die beim Commit entstehen, von der 
 
 Die Transaktionssteuerung wird an der jeweiligen Service-Methode angesetzt.
 Für das obige Beispiel verdeutlicht dies <<listing-service-fassade-tx>>.
-
 .Transaktionssteuerung in der Service-Fassade
 [id="listing-service-fassade-tx",reftext="{listing-caption} {counter:listings }"]
 [source,java]
@@ -128,7 +123,7 @@ public class BeispielServiceFassade {
     ...
     @StelltAufrufKontextBereit
     @StelltLoggingKontextBereit
-    @Gesichert(Rechte.RECHT_ZUGRIFFBEISPIEL)
+    @Secured(Rechte.RECHT_ZUGRIFFBEISPIEL)
     @Transactional(rollbackFor = Throwable.class, propagation = Propagation.REQUIRED)
     public BeispielHolenAntwortTo holeBeispiel(
         AufrufKontextTo kontext, BeispielHolenAnfrageTo anfrage)
@@ -413,7 +408,3 @@ Andere Services wie z. B. eine Auskunft können während dieser Zeit regulär a
 Während der Meldungsservice deaktiviert ist, wird dem Aufrufer eine entsprechende Fehlermeldung zurückgesendet.
 Da die Anforderung besteht, auch andere Services vorübergehend deaktivieren zu können, werden generell alle Services deaktivierbar gemacht.
 // end::inhalt[]
-
-// tag::sicherheit[]
-
-// end::sicherheit[]

@@ -26,7 +26,9 @@ import de.bund.bva.isyfact.sicherheit.common.exception.FehlerhafteServiceKonfigu
 /**
  * Ermittelt die benötigten Rechte für eine Service-Operation über die Annotation {@link Gesichert}.
  *
+ * @deprecated since IsyFact 3.0.0 in favor of the isy-security module.
  */
+@Deprecated
 public class AnnotationSicherheitAttributeSource implements SicherheitAttributeSource {
 
     @Override

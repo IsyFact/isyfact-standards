@@ -3,6 +3,10 @@ package de.bund.bva.isyfact.sicherheit.config;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @deprecated since IsyFact 3.0.0 in favor of the isy-security module.
+ */
+@Deprecated
 public class NutzerAuthentifizierungProperties {
 
     private Map<String, Authentifizierung> benutzer = new HashMap<>();
@@ -11,6 +15,10 @@ public class NutzerAuthentifizierungProperties {
         return benutzer;
     }
 
+    /**
+     * @deprecated since IsyFact 3.0.0 in favor of the isy-security module.
+     */
+    @Deprecated
     public static class Authentifizierung {
         private String kennung;
 

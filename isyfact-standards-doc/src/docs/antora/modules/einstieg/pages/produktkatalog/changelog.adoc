@@ -16,6 +16,10 @@
 * Neue Produkte:
 ** Selenium 4.x (empfohlen)
 ** Liquibase 4.x
+** Jakarta Annotations 1.3.5
+** JDK Temurin 17 mit Java-Language 8, 17 für Apps, 8 für Libraries
+** Linux 64bit mit Kernel >= 4.12
+** Testcontainers 1.x
 
 * Zeilen zu slf4j konsolidiert.
 * Kategorie für Logging-Produkte zu "Logging" geändert.
@@ -24,6 +28,9 @@
 ** Oracle JDBC
 ** Oracle UCP
 ** Oracle Database
+** Oracle JDK
+** Suse Enterprise Linux (SLES)
+
 
 * Produkt aus IsyFact-Erweiterungen umgezogen:
 ** Apache Commons IO 2.x

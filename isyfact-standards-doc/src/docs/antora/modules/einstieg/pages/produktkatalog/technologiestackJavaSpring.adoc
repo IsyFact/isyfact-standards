@@ -23,7 +23,7 @@ Produkte und ihre Versionen können in der Liste der xref:glossary:literaturexte
 --
 [options=header, format=csv, separator=";", cols="a,a,a,a,a,a,a"]
 |===
-include::partial$/Produktkatalog_IsyFact_v3_x_x_Produktvorgaben_Bibliotheken_Anwendungsentwicklung_Java_Spring_Entwicklung.csv[]
+include::partial$/Produktkatalog_IsyFact_Produktvorgaben_Bibliotheken_Anwendungsentwicklung_Java_Spring_Entwicklung.csv[]
 |===
 --
 
@@ -33,6 +33,6 @@ include::partial$/Produktkatalog_IsyFact_v3_x_x_Produktvorgaben_Bibliotheken_Anw
 --
 [options=header, format=csv, separator=";", cols="a,a,a,a,a,a,a"]
 |===
-include::partial$/Produktkatalog_IsyFact_v3_x_x_Produktvorgaben_Bibliotheken_Anwendungsentwicklung_Java_Spring_Test.csv[]
+include::partial$/Produktkatalog_IsyFact_Produktvorgaben_Bibliotheken_Anwendungsentwicklung_Java_Spring_Test.csv[]
 |===
 --

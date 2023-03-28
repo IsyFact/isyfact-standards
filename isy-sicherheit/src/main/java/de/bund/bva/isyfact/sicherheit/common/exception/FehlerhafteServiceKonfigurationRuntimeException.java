@@ -23,8 +23,10 @@ import de.bund.bva.isyfact.sicherheit.common.konstanten.SicherheitFehlerSchluess
  * Diese Exception wird geworfen, wenn eine Methode durch eine
  * {@link Gesichert}-Annotation gesichert wurde, aber die
  * erforderlichen Rechte in der Annotation nicht angegeben wurden.
- * 
+ *
+ * @deprecated since IsyFact 3.0.0 in favor of the isy-security module.
  */
+@Deprecated
 public class FehlerhafteServiceKonfigurationRuntimeException extends SicherheitTechnicalRuntimeException {
 
     /** Serial Version UId. */
