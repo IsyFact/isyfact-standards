@@ -434,7 +434,6 @@ Ein Batch wird über ein Batch-Client oder Startprogramm – meist ein Shellscri
 Diese Batch-Clients sind systemseitig dazu berechtigt, den dedizierten Batch auszuführen und damit zu starten.
 Somit ruft der Batch-Client die Komponente _Batch-Logik_ in der Nutzungsschicht der Anwendung auf, das die notwendigen Initialisierungen vornimmt.
 Genau hier erfolgt frühzeitig die Unterscheidung welcher _Credential_-Flow (xref:resource-owner-password-credential-flow[] oder xref:client-credential-flow[]) zur Authentifizierung und Autorisierung des Batch verwendet werden soll.
->>>>>>> isyfact-standards-doc/src/docs/antora/modules/isy-security/pages/konzept/inhalt.adoc
 
 Die Abbildung xref:image-sequenzdiagramm-absicherung-batch[Absicherung eines Batch] stellt den logischen Ablauf zur Absicherung eines Batches skizzenhaft dar.
 
