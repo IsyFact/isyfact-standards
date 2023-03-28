@@ -88,7 +88,7 @@ Wir übernehmen für die IsyFact die konkrete Ausprägung "Anwender", "Techn. Nu
 
 *Ressourcen-Server bzw. Anwendungssystem (Resource-Server)*
 
-Der Server, in dem die geschützte Ressource liegt und der in der Lage ist, auf Anfragen an diese geschützte Ressource zu reagieren, wenn sie ein Access Token enthalten. +
+Der Server, in dem die geschützte Ressource liegt und der in der Lage ist, auf Anfragen an diese geschützte Ressource zu reagieren, wenn sie ein Access-Token enthalten. +
 Beispiel: Geschäftsanwendung +
 Wir übernehmen für die IsyFact die IsyFact-spezifische Bezeichnung "Anwendungssystem".
 
@@ -97,12 +97,13 @@ Wir übernehmen für die IsyFact die IsyFact-spezifische Bezeichnung "Anwendungs
 Eine vom Ressourcenbesitzer gesteuerte Anwendung, die in seinem Namen eine geschützte Ressource verwenden möchte.
 Der Begriff 'Client' impliziert hier nicht bestimmte Implementierungscharakteristiken, sondern den Teil der Anwendung, mit der der Ressourcenbesitzer interagiert. +
 Beispiel: Batch.  +
+Handelt es sich bei der Anwendung um eine Backend-Anwendung, so wird diese als "Confidential Client" bezeichnet.
 Wir übernehmen für die IsyFact die englische Bezeichnung "Client".
 
 *IAM-Service (Authorization-Server)*
 
-Der Service, der Access Tokens ausstellt, nach erfolgreicher Authentifizierung und Autorisierung des Ressourcenbesitzers.
-Er bestätigt auch gegenüber dem Ressourcen-Server die Gültigkeit des Access Tokens, das der Client dem Ressourcen-Server in der Zugangsanfrage mitgegeben hat.  +
+Der Service, der Access-Tokens ausstellt, nach erfolgreicher Authentifizierung und Autorisierung des Ressourcenbesitzers.
+Er bestätigt auch gegenüber dem Ressourcen-Server die Gültigkeit des Access-Tokens, das der Client dem Ressourcen-Server in der Zugangsanfrage mitgegeben hat.  +
 Beispiel: Keycloak (Produkt).  +
 Wir übernehmen für die IsyFact die IsyFact-spezifische Bezeichnung "IAM-Service".
 
@@ -120,10 +121,9 @@ Der Inhalt ist für den Client meist nicht lesbar, er gibt es einfach weiter an 
 Er gilt für einen spezifischen Bereich und nur für eine bestimmte Zeit. +
 
 
-*Refresh-Token*
-
 'Meta'-Berechtigungsnachweis: Ermöglicht dem Client, ein neues Access-Token vom IAM-Service zu erhalten, ohne dass der Ressourcenbesitzer sich erneut ausweisen muss.
-Diese neue Access Token kann z.B. ein späteres Ablaufdatum (autom. Nutzungsverlängerung) oder andere Rechte (innerhalb aller an den Ressourcenbesitzer vergebenen Rechte) aufweisen.  +
+Diese neue Access-Token kann z.B. ein späteres Ablaufdatum (autom. Nutzungsverlängerung) oder andere Rechte (innerhalb aller an den Ressourcenbesitzer vergebenen Rechte) aufweisen.  +
+Wir übernehmen für die IsyFact die englische Bezeichnung "Refresh-Token".
 
 [[openidconnect-zur-authentifizierung]]
 === OpenIDConnect zur Authentifizierung
@@ -175,8 +175,8 @@ image::konzept/authorization-code-flow.dn.svg[align="center"]
 [[aufruf-service-gateway]]
 ==== Aufruf Service-Gateway
 
-Mit der `IsyFact 3` wird eine neue Authentifizierungslogik (<<aufruf-service-gateway-mit-authentication-gateway>>) für die Authentifizierung von Anwendungen, die außerhalb der Anwendungslandschaft betrieben werden, eingeführt.
-Für eine weiche Migration der externen Anwendungen auf die neue IsyFact-Version wird zusätzlich die bisherige Authentifizierungslogik (<<aufruf-service-gateway-ohne-authentication-gateway>>) beibehalten.
+Mit der `IsyFact-3` wird eine neue Authentifizierungslogik (xref:aufruf-service-gateway-mit-authentication-gateway[]) für die Authentifizierung von Anwendungen, die außerhalb der Anwendungslandschaft betrieben werden, eingeführt.
+Für eine weiche Migration der externen Anwendungen auf die neue IsyFact-Version wird zusätzlich die bisherige Authentifizierungslogik (xref:aufruf-service-gateway-ohne-authentication-gateway[]) beibehalten.
 
 [[aufruf-service-gateway-mit-authentication-gateway]]
 ===== Direkte Authentifizierung am IAM-Service
@@ -186,8 +186,8 @@ Dabei werden die Aufrufe mit Authentifizierungsdaten von Aufrufen mit Nutzungsda
 Die Authentifizierungsaufrufe werden über das _Authentication-Gateway_ geleitet, wohingegen die Aufrufe mit den Nutzdaten über das _ServiceGateway (SGW)_ geleitet werden.
 
 .Authentifizierung am Authentication-Gateway
-[id="image-servicegateway_plus_authgateway",reftext="{figure-caption} {counter:figures}"]
-image::konzept/ServiceGateway_plus_AuthGateway.dn.svg[align="center"]
+[id="image-servicegateway-plus-authgateway",reftext="{figure-caption} {counter:figures}"]
+image::isy-security:konzept/ServiceGateway_plus_AuthGateway.dn.svg[align="center"]
 
 Damit ein Client einer externen Anwendung auf die Ressourcen einer Anwendung zugreifen kann, benötigt er ein gültiges Access-Token.
 Dieses Token muss sich der Client zuerst beschaffen, indem er sich beim _IdentityAccessManagement-Service (IAM-Service)_ authentifiziert.
@@ -215,14 +215,14 @@ image::konzept/Squenzdiagramm_ServiceGateway_plus_AuthGateway.dn.svg[align="cent
 ===== Authentifizierung über das SGW am IAM-Service
 
 Die nachfolgende Abbildung zeigt die System-Architektur, die bei Aufrufen von externen Anwendungen für die Authentifizierung ohne _Authentication-Gateway_ zum Einsatz kommt.
-Diese Authentifzierungs- und Autorisierungs-Variante wird aus Vereinfachungsgründen der Migration von externen Anwendungen auf die neue `IsyFact Version-3` zusätzlich beibehalten, da hierdurch die Umstellungsaufwände reduziert werden.
+Diese Authentifzierungs- und Autorisierungs-Variante wird aus Vereinfachungsgründen der Migration von externen Anwendungen auf die neue `IsyFact-3` zusätzlich beibehalten, da hierdurch die Umstellungsaufwände reduziert werden.
 
 So muss der verwendete techn. Nutzer für diese externe Anwendung noch nicht gemäß _SpringSecurity (OAuth2.0)_ auf einen _OAuth2.0 Client_ migriert worden sein, sondern es kann nach wie vor ein techn. Nutzer zur Authentifizierung verwendet werden.
 Zusätzlich kann die externe Anwendung den gleichen Kommunikationskanal für die Authentifizierung verwenden, wie für ihre fachlichen Anfragen.
 
 .Authentifizierung ohne Authentication-Gateway
-[id="image-servicegateway_ohne_authgateway",reftext="{figure-caption} {counter:figures}"]
-image::konzept/ServiceGateway-Authentifizierung.dn.svg[align="center"]
+[id="image-servicegateway-ohne-authgateway",reftext="{figure-caption} {counter:figures}"]
+image::isy-security:konzept/ServiceGateway-Authentifizierung.dn.svg[align="center"]
 
 Für den Zugriff auf die Ressourcen eines Anwendungssystems benötigt die externe Anwendung ein gültiges Access-Token.
 Dieses Token muss sich die Anwendung zuerst beschaffen, indem sie sich beim _IdentityAccessManagement-Service (IAM-Service)_ authentifiziert.
@@ -255,14 +255,14 @@ In IsyFact spielen davon bei den externen Anwendungsaufrufen über ein _Service-
 ====== Resource-Owner-Password-Credential Flow (Deprecated)
 
 Hinweis: Dieser Flow soll gemäß OAuth2.0 Vorgaben nicht mehr verwendet werden und wird in zukünftigen Versionen aus dem OAuth-Standard entfernt.
-Als Nachfolger ist der <<client-credential-flow>> zu wählen.
+Als Nachfolger ist der xref:client-credential-flow[] zu wählen.
 
 Der _Resource-Owner-Password-Credential_-Flow, der als Authentifizierungsdaten die Attribute `Username` und `Passwort` verwendet, sollte nur eingesetzt werden, wenn die involvierte Client-Anwendung ein hohes Vertrauen zur Wahrung der Authentifizierungsdaten sicherstellt oder wenn keine andere Art der Berechtigungszuteilung verfügbar ist.
 So wird die Authentifizierung für einen techn. Nutzer über diesen Authorization-Flow abgebildet.
 
 .OAuth2.0 Resource-Owner-Password-Credential Flow
-[id="image-resourceowner_password_credential_flow",reftext="{figure-caption} {counter:figures}"]
-image::konzept/Resource-Owner-Passwort-Credential-Flow.dn.svg[align="center"]
+[id="image-resourceowner-password-credential-flow",reftext="{figure-caption} {counter:figures}"]
+image::isy-security:konzept/Resource-Owner-Passwort-Credential-Flow.dn.svg[align="center"]
 
 Im vorherigen Bild wird der logische Ablauf des _Resource-Owner-Password-Credential_-Flows dargestellt.
 Hierbei wird die Konfiguration des techn. Nutzers als der _Resource-Owner_ dargestellt.
@@ -283,8 +283,8 @@ Es erfolgt hierbei keine Interaktion durch einen Benutzer, der sein Passwort ein
 Die dabei verwendeten Authentifizierungsdaten `Client-ID` und `Client-Secret` müssen vor der Nutzung für die Client-Anwendung definiert und mit dem IAM-System abgestimmt sein.
 
 .OAuth2.0 Client-Credential Flow
-[id="image-clientcredential_flow",reftext="{figure-caption} {counter:figures}"]
-image::konzept/Client-Credential-Flow.dn.svg[align="center"]
+[id="image-clientcredential-flow",reftext="{figure-caption} {counter:figures}"]
+image::isy-security:konzept/Client-Credential-Flow.dn.svg[align="center"]
 
 Im vorherigen Bild wird der logische Ablauf des _Client-Credential_-Flows dargestellt.
 Hierbei kann die Client-Anwendung nach einem Access-Token beim IAM anfragen (1.), indem sie dabei ihre eigenen Client-Authentifizierungsdaten oder anderweitig unterstützte Authentifizierungskriterien verwendet.
@@ -296,6 +296,74 @@ Das Access-Token enthält alle notwendigen Daten, um zu verifizieren, ob die auf
 
 [[ausfuehrung-batch-u-task]]
 ==== Ausführung Batch & Task
+
+[[absicherung-batch]]
+===== Absicherung eines Batch
+Gemäß der IsyFact-Systemlandschaft - siehe xref:blaupausen:detailkonzept-komponente-batch/master.adoc#grobe-architektur-des-batchrahmens[Grobe Architektur des Batchrahmens] - ist ein Batch teil eines Anwendungssystems und setzt sich - siehe xref:image-awlogbat[Fachliche Architektur eines Batch in der Anwendungslandschaft] - aus den Komponenten (1) Batch-Logik und -Steuerung sowie den dabei eingesetzten (2) Fachkomponenten zusammen.
+Da die Absicherung zur Ausführung eines Batches immer ohne User-Interaktionen stattfindet, ist dieser als _Confidential Client_ einzustufen, weil er in der Lage sein muss, die notwendige Vertraulichkeit zur Wahrung seiner Anmeldeinformationen sicherzustellen.
+
+.Fachliche Architektur eines Batches in der Anwendungslandschaft
+[id="image-awlogbat",reftext="{figure-caption} {counter:figures}"]
+image::isy-security:konzept/AnwLogBat.dn.svg[align="center"]
+
+Ein Batch wird über ein Batch-Client oder Startprogramm – meist ein Shellscript, UC4, JobNetz, CronJob, o.ä. – initialisiert und gestartet.
+Diese Batch-Clients sind systemseitig dazu berechtigt, den dedizierten Batch auszuführen und damit zu starten.
+Somit ruft der Batch-Client die Komponente _Batch-Logik_ in der Nutzungsschicht der Anwendung auf, das die notwendigen Initialisierungen vornimmt.
+Genau hier erfolgt frühzeitig die Unterscheidung welcher _Credential_-Flow (xref:resource-owner-password-credential-flow[] oder xref:client-credential-flow[]) zur Authentifizierung und Autorisierung des Batch verwendet werden soll.
+
+Die Abbildung xref:image-sequenzdiagramm-absicherung-batch[Absicherung eines Batch] stellt den logischen Ablauf zur Absicherung eines Batches skizzenhaft dar.
+
+.Absicherung eines Batches
+[id="image-sequenzdiagramm-absicherung-batch",reftext="{figure-caption} {counter:figures}"]
+image::isy-security:konzept/Sequenzdiagramm_AbsicherungBatch.dn.svg[align="center"]
+
+Über die Batch-Konfiguration wird gesteuert, ob der Batch mit einem _NatürlichenNutzer_ und den zugehörigen Authentifizierungsdaten `Benutzer` und `Passwort` über den xref:resource-owner-password-credential-flow[] oder über den xref:client-credential-flow[] mit als _TechnischenNutzer_ (Client) mit `Client-ID` und `Client-Secret` authentifiziert und autorisiert wird.
+
+Je nach verwendetem _Credential_-Flow erfolgt mit den jeweiligen erhaltenen Authentifizierungsdaten des Batch-Nutzers dann die eigentliche Authentifizierung über den IAM-Service der Plattform.
+Dazu werden die durch den Baustein bereitgestellten <<aussensicht-der-komponente-security, Schnittstellen>> genutzt.
+
+Im IAM-Service wird zu den übergebenen _Authentifizierungsdaten_ der dort verwaltete Benutzer ermittelt und validiert.
+Bei erfolgreicher Authentifizierung wird aus den Benutzerdaten ein _Access-Token_ generiert.
+Dieses Token beinhaltet alle notwendigen Informationen - siehe xref:inhalte-der-token[], um eine Authentifizierung und Autorisierung an den nachfolgenden Aufrufen von Fachkomponenten durchführen zu können.
+Das IAM-System liefert das so generierte _Access-Token_ an die aufrufende Komponente zurück.
+
+Im Sicherheitsbaustein _isy-security_ wird zur weiteren Verwendung aus dem _Access-Token_ ein `SecurityContext` initialisiert und aufbereitet, der somit alle notwendigen Informationen wie das _Access-Token_, dem Nutzer zugeordnete Rollen, etc. enthält.
+Für die weiteren Prozessschritte im Batch wird dieser _Access-Token_  immer weitergereicht, so dass dieser bei der Ausführung seiner Fachanwendungen sich entsprechend diesen gegenüber authentifizieren und autorisieren kann.
+
+Um sicherzustellen, dass ein Batch über seine gesamte Laufzeit ein gültiges _Access-Token_ besitzt und sich jederzeit an den Fachanwendungen authentifizieren und autorisieren kann, sollte der Batch die Gültigkeitsdauer des _Access-Tokens_ prüfen.
+Sollte die Gültigkeitsdauer des _Access-Tokens_ kleiner sein als die vorgegebene bzw. konfigurierbare Mindestgültigkeitsdauer, dann muss der Batch das _Access-Token_ durch eine erneute Authentifizierung erneuern.
+Das so erneuerte _Access-Token_ kann nun wieder für ein oder mehrere Verarbeitungszyklen verwendet werden, ohne dass es in den evtl. kaskadierend aufgerufenen Fachanwendungen zu einem Fehler mangels gültigem _Access-Tokens_ kommen kann.
+
+[[absicherung-task]]
+===== Absicherung von Aufgaben (Tasks)
+
+Die in diesem Kapitel beschriebene Absicherung von _Aufgaben_ unterscheidet sich gegenüber eigenständigen _Batch_-Anwendungen dahingehend, dass _Aufgaben_ als integrierter Anteil einer eigentlichen Anwendung definiert sind.
+Sie besitzen in der Regel einen kleineren Umfang als _Batches_ und werden nicht manuell von außen gesteuert.
+Stattdessen werden sie durch die Anwendung selbst konfiguriert, zeitlich geplant und selbstständig ausgeführt.
+Daher müssen _Aufgaben_, als Teil einer Komponente des Anwendungskerns, über andere Mechanismen abgesichert werden.
+
+Mit Einführung des Bausteins `isy-security` werden auch für die Absicherung von _Aufgaben_ beide _Credential_-Flows xref:client-credential-flow[] und xref:resource-owner-password-credential-flow[] unterstützt.
+Das bedeutet, dass die für die _Aufgaben_-Authentifizierung verwendete Parametrisierung per Konfiguration in _isy_task_ einerseits wie bisher als _NatürlicherNutzer_ zu `Benutzer` und `Passwort` und neu als _TechnischerNutzer_ (Client) zu `Client-ID` und `Client-Secret` aufgelöst werden kann.
+
+Mit `IsyFact-3` soll bevorzugt der xref:client-credential-flow[] und den Properties `Client-ID` und `Client-Secret` verwendet werden.
+
+Zur Unterstützung einer weichen Migration wird mit `IsyFact-3` der xref:resource-owner-password-credential-flow[] mit `Benutzer` und `Passwort` weiterhin möglich sein.
+
+Für jede _Aufgabe_ wird per `Task-ID` die Definition der Authentifizierungsdaten in der Betriebskonfiguration erstellt.
+In Abbildung xref:image-sequenzdiagramm-absicherung-task[Absicherung von Aufgaben (Tasks)] wird der logische Ablauf zur Absicherung einer _Aufgabe_ mit dem neuen Security-Baustein `isy-security` im Zusammenspiel mit der Bibliothek `isy-task` skizziert.
+
+.Absicherung von Aufgaben (Tasks)
+[id="image-sequenzdiagramm-absicherung-task",reftext="{figure-caption} {counter:figures}"]
+image::isy-security:konzept/Sequenzdiagramm_AbsicherungTask.dn.svg[align="center"]
+
+Sobald eine Anwendungskomponente einen fachlichen Ablauf als abgekoppelten Hintergrundprozess und somit als _Aufgabe_ ausführen möchte, startet diese eine Initialisierung der _Aufgabe_ mit der `TaskID` als Parameter.
+In `isy-task` wird die übergebene `TaskID` verwendet, um in der Betriebskonfiguration gemäß den xref:isyfact-standards-doku:isy-task:konzept/master.adoc#konfiguration[Task-Konfigurations-Konventionen] nach den entsprechenden Konfigurationswerten aufzulösen.
+
+Der gestartete _Aufgaben_-Prozess von `isy-task` ermittelt dann anhand der übergebenen `TaskID` den _Credential_-Flow und entscheidet durch diese die entsprechende Authentifizierungsmethode in `isy-security` aufzurufen.
+
+Der Baustein `isy-security` gibt die Authentifizierungsdaten an das IAM-System weiter und erhält von diesem bei erfolgreicher Authentifizierung ein gültiges _Access-Token_ zurück.
+Dieses erhaltene _Access-Token_ wird interpretiert und zur weiteren Verwendung ein `SecurityContext` initialisiert und aufbereitet.
+Der _Aufgaben_-Prozess erhält dann den initialisierten `SecurityContext` zurück.
 
 [[verarbeitung-asynchroner-anfragen]]
 ==== Verarbeitung asynchroner Anfragen
@@ -439,12 +507,12 @@ Das Anwendungssystem greift darüber auf den `Authentifizierungsmanager` und den
 
 Der `Authentifizierungsmanager` ist für die Kommunikation mit dem IAM-Service über den `OAuth2AuthorizedClientProvider` zuständig.
 Die Authentifizierung (Anmeldung) verläuft über diesen Aufruf.
-Nach einer erfolgreichen Authentifizierung erfolgt der Erhalt des Access Tokens und der dem Benutzer zugeordneten Rollen.
+Nach einer erfolgreichen Authentifizierung erfolgt der Erhalt des Access-Tokens und der dem Benutzer zugeordneten Rollen.
 Diese Informationen werden anschließend im `SecurityContext` abgelegt.
 
 Über den `Berechtigungsmanager` kann die Anwendung die Rollen und anwendungsspezifischen Rechte des angemeldeten Benutzers abfragen.
 
-Der `RolePrivilegeGrantedAuthoritiesConverter` ist für die Konvertierung vom IAM-Service im Access Token übermittelten Rollen des Benutzers in die anwendungsspezifischen Rechte zuständig.
+Der `RolePrivilegeGrantedAuthoritiesConverter` ist für die Konvertierung vom IAM-Service im Access-Token übermittelten Rollen des Benutzers in die anwendungsspezifischen Rechte zuständig.
 
 Mit der von Spring Security bereitgestellten Annotation `@secured` werden angebotene Services und Methoden der Anwendung abgesichert.
 Dieser Annotation muss noch der Name eines anwendungsspezifischen Rechts mitgegeben werden.
@@ -457,7 +525,7 @@ Parallel zur Annotation `@NutzerAuthentifikation` existiert die Annotation `@Cli
 Dies ermöglicht die Umstellung von technische Nutzer auf OAuth2.0 Clients, ohne große Auswirkungen im Anwendungssystem zu erzeugen.
 Die Authentifizierungsdaten werden aus der Konfiguration der Anwendung ausgelesen und zur Authentifizierung verwendet.
 Die Authentifizierung findet über die Implementierung des Interfaces `Authentifizierungsmanager` statt.
-Das Ergebnis einer Authentifizierung über die Annotationen `@ClientAuthentification` und `@NutzerAuthentifikation` ist ein voll initialisierter `SecurityContext` mit einem validen AccessToken.
+Das Ergebnis einer Authentifizierung über die Annotationen `@ClientAuthentification` und `@NutzerAuthentifikation` ist ein voll initialisierter `SecurityContext` mit einem validen Access-Token.
 
 [[aussensicht-der-komponente-security]]
 === Schnittstelle des Bausteins Security
@@ -579,7 +647,7 @@ Zum Schnitt von fachlichen und technischen Rollen gibt es Erfahrungswerte, welch
 Wichtig ist vor allem die Beziehung zwischen fachlichen und technischen Rollen.
 Des weiteren sollte die Menge der Rollen so klein wie möglich gehalten werden.
 
-Die Abbildung <<image-rollen-beziehungen>> verdeutlicht den Inhalt der folgenden Abschnitte grafisch.
+Die Abbildung xref:image-rollen-beziehungen[] verdeutlicht den Inhalt der folgenden Abschnitte grafisch.
 
 .Beziehungen zwischen fachlichen und technischen Rollen
 [id="image-rollen-beziehungen",reftext="{figure-caption} {counter:figures}"]
