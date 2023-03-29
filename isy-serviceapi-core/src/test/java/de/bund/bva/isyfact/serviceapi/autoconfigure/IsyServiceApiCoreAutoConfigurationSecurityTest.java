@@ -20,7 +20,7 @@ import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.DummyServiceRem
 public class IsyServiceApiCoreAutoConfigurationSecurityTest {
 
     ApplicationContextRunner applicationContextRunner = new ApplicationContextRunner()
-            .withConfiguration(AutoConfigurations.of(IsyServiceApiCoreAutoConfiguration.class));
+            .withConfiguration(AutoConfigurations.of(IsyServiceApiCoreAutoConfiguration.class, IsyServiceApiSecurityAutoConfiguration.class));
 
     @Test
     public void autoconfigurationWithoutIsySecurity() {
