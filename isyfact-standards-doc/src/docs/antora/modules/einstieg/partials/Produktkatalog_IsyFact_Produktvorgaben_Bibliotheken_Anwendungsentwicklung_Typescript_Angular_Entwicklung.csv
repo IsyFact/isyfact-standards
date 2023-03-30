@@ -1,2 +1,4 @@
 Kategorie / Anwendungsbereich;Hersteller / Produkt;Version;Seit Release;Status;Lizenz;Erläuterung
-JS Framework;https://nodejs.org/[node.js];16.x;1.3.2;verbindlich;;Wird für den Bau des Styleguides (`isy-style`) benötigt
+JS Framework;https://nodejs.org/[node.js];16.x (LTS) / 18.x (LTS);1.3.2;verbindlich;;Wird für den Bau des Styleguides (`isy-style`) benötigt
+Buildmangement;https://www.npmjs.com/[npm];7.x / 9.x, Verwaltet durch node;3.0.0;empfohlen;Artistic License 2.0;
+Buildmangement;https://yarnpkg.com/[yarn];3.x;3.0.0;pilotieren;BSD 2;
