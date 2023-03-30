@@ -12,6 +12,7 @@
 ** Mockito auf 4.x
 ** QueryDSL auf 5.0.x
 ** H2 auf 2.1.214
+** node auf 18.x (LTS) zusätzlich zu 16.x (LTS)
 
 * Neue Produkte:
 ** Selenium 4.x (empfohlen)
@@ -20,6 +21,8 @@
 ** JDK Temurin 17 mit Java-Language 8, 17 für Apps, 8 für Libraries
 ** Linux 64bit mit Kernel >= 4.12
 ** Testcontainers 1.x
+** yarn mit 3.x (pilotieren)
+** npm mit 7.x / 9.x verwaltet durch node (empfohlen)
 
 * Zeilen zu slf4j konsolidiert.
 * Kategorie für Logging-Produkte zu "Logging" geändert.
