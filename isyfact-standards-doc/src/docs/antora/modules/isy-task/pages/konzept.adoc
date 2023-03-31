@@ -18,13 +18,13 @@ Sie <<abgrenzung-aufgaben-batches,grenzen sich wesentlich>> von xref:glossary:gl
 ^|Batch
 
 |Funktion
-|Aufruf von Hilfsfunktionen, +
+|Aufruf von Anwendungsfunktionen, +
 technischen Prüfungen o.ä.
-.^|Aufruf von Anwendungsfällen
+.^|Aufruf von Anwendungskomponenten (Schnittstelle)
 
 |Verortung
 |Bestandteil einer Anwendungskomponente
-|Bestandteil eines eigenen IT-Systems
+|Bestandteil eines IT-Systems
 
 |Planung & Steuerung
 .^|Durch die Anwendung selbst
@@ -39,7 +39,7 @@ Die IsyFact integriert sich weitestgehend automatisch in das Task Scheduling von
 
 Bereitstellung weiterer Funktionalität zum Task Scheduling::
 Das Task Scheduling von Spring Boot ist weniger flexibel als die direkte Nutzung der Java Concurrency API.
-Die IsyFact bietet ausgewählte Anwendungsfälle der Java Concurrency API zusätzlich an, wiederum angereichert um den Mehrwert ihrer Bausteine.
+Die IsyFact bietet als Mehrwert ausgewählte Anwendungsfälle an, basierend auf Java Multithreading.
 
 Konfiguration aller wesentlichen Aspekte::
 Tasks müssen mindestens die folgenden Möglichkeiten zur Konfiguration bieten:

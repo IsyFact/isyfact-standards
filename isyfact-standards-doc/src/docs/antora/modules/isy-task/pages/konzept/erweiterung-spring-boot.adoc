@@ -2,9 +2,11 @@
 
 include::glossary:licence:partial$licence.adoc[]
 
-Das Task Scheduling mit Spring Boot funktioniert über das Setzen der Annotation `@Scheduled` an beliebigen Methoden.
+Das Task Scheduling mit Spring Boot muss einmalig mit der Annotation `@EnableScheduling` aktiviert werden,
+das ist bereits durchgeführt in einer Konfigurationsklasse des Bausteins `isy-task`.
+Dadurch wird implizit einer der Spring Scheduler genutzt.
+Die Geschäftsanwendung zeichnet eine beliebige Methode einer Klasse aus als "durch einen Task auszuführenden Code" durch das Setzen der Annotation @Scheduled.
 Die Parameter der Annotation legen fest, wie genau Tasks eingeplant und ausgeführt werden.
-Darüber hinaus muss das Scheduling einmalig mit der Annotation `@EnableScheduling` aktiviert werden.
 
 .Beispiele für die Einplanung von Tasks
 [source, java]
@@ -40,12 +42,13 @@ NOTE: Mehr Informationen zu dem Thema finden sich in der xref:glossary:literatur
 
 == Erweiterung des Task Scheduling
 
+Der Spring Scheduler stösst die Ausführung des Tasks an.
 Der Baustein Task Scheduling nutzt Spring AOP und @AspectJ-Annotationen, um vor und nach der Ausführung von Methoden mit der Annotation `@Scheduled` eigenen Code auszuführen.
 Hierzu wird ein Around Advice verwendet.
 Dieser ist dafür zuständig:
 
 * die integrierten Bausteine der IsyFact zur Ausführung des Tasks zu initialisieren,
-* die eigentliche, mit `@Scheduled` annotierte, Methode so aufzurufen, dass sie korrekt ausgeführt wird,
+* die eigentliche mit `@Scheduled` annotierte Methode aufzurufen,
 * Aufräumarbeiten zu erledigen, sodass die Verarbeitung des Tasks sauber beendet werden kann,
 * das Ergebnis der mit `@Scheduled` annotierten Methode zurückzugeben.
 
@@ -57,10 +60,11 @@ NOTE: Mehr Informationen zu Around Advices (und zu Spring AOP) finden sich in de
 Neben dem Advice gibt es für jeden Task eine eigene Konfiguration sowie eine globale Konfiguration mit Standardwerten für alle Tasks.
 Hierüber lassen sich die xref:isy-task:konzept/integration-isyfact.adoc[integrierten IsyFact-Bausteine] und der Task selbst konfigurieren.
 
-Alle genannten Fähigkeiten des Bausteins Task Scheduling konfigurieren sich automatisch selbst, sobald die Bibliothek zum Baustein in eine Anwendung integriert wird. Für die Umsetzung eines Tasks gemäß IsyFact benötigt man somit:
+Alle genannten Fähigkeiten des Bausteins Task Scheduling konfigurieren sich per Spring Autokonfiguration selbst, sobald die Bibliothek zum Baustein in eine Anwendung integriert wird. Für die Umsetzung eines Tasks gemäß IsyFact wird somit benötigt:
 
 * die Einbindung der IsyFact-Bibliothek zum Task Scheduling,
 * eine mit `@Scheduled` annotierte Methode,
+* eine globale Konfiguration für alle Tasks,
 * (optional) eine Task-spezifische Konfiguration.
 
 == Einmalig ausgeführte Tasks

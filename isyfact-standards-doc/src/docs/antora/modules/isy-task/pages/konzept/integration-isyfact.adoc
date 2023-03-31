@@ -2,7 +2,7 @@
 
 include::glossary:licence:partial$licence.adoc[]
 
-Die IsyFact stellt einige Anforderung an die Ausführung fachlicher und technischer Operationen.
+Die IsyFact stellt einige Anforderungen an die Ausführung fachlicher und technischer Operationen.
 Diese gelten auch für Tasks, die nicht direkt durch Anwender, sondern durch die Anwendung selbst eingeplant und ausgeführt werden.
 
 Die folgenden Kapitel beschreiben knapp die Anforderungen und konzentrieren sich dann auf die Umsetzung.
@@ -53,6 +53,7 @@ Der Baustein Task Scheduling nutzt hierfür den Baustein Security und dessen xre
 Die Konfiguration von Tasks, sowie die globale Konfiguration aller Tasks, bietet dazu die Möglichkeit, Credentials (d.h. Benutzernamen & Passwörter oder Client-IDs & Client Secrets) sowie Behördenkennzeichen zu setzen.
 
 Bei der Umsetzung von Tasks muss die Konfiguration mit konkreten Werten belegt werden.
+Es kann aber auch global konfiguriert werden, dass keine Authentifizierung erforderlich ist.
 
 
 [[ueberwachung]]
@@ -87,3 +88,4 @@ Dazu können Anwendungen Tasks über die Konfiguration:
 Die Zuordnung von Tasks zu Maschinen geschieht über den Hostnamen.
 
 Bei der Umsetzung von Tasks muss die entsprechende Konfiguration mit konkreten Werten belegt werden.
+Tasks sind per Default aktiviert, das muss nicht explizit konfiguriert werden.
