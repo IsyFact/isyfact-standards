@@ -5,6 +5,8 @@
 
 // tag::release-3.0.0[]
 
+- `IFS-2274`: Deprecation Warnung zu _Nutzungsvorgaben_ des _Bausteins_ isy-service-api hinzugefügt
+
 // end::release-3.0.0[]
 
 // tag::release-2.4.0[]

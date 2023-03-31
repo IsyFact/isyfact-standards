@@ -208,6 +208,16 @@ In diesen Fällen sollte *kein* Changelogeintrag erstellt werden:
 * Änderungen, die *nur* Entwickler der IsyFact adressieren (z.B. Refactoring, Unit-Tests)
 * Fix eines Bugs, der durch eine vorherige Änderung im selben Release erzeugt wurde
 
+[IMPORTANT]
+====
+Eine knappe Zusammenfassung einer auf ein Release bezogen Änderung ist in den xref:changelog:releasenotes.adoc[Release Notes] zu dokumentieren.
+====
+
+[IMPORTANT]
+====
+Eine Migrationsanleitung bei Breaking Changes eines Major Releases ist im xref:changelog:migrationsleitfaden.adoc[Migrationsleitfaden] zu dokumentieren.
+====
+
 Folgende Anforderungen gelten für den Inhalt eines Changelogeintrags:
 
 * Keine Ticketnummern
@@ -215,26 +225,20 @@ Folgende Anforderungen gelten für den Inhalt eines Changelogeintrags:
 * Kurz und prägnant
 * Erläutert, was geändert wurde und wieso es geändert wurde
 * Enthält weniger Implementierungsdetails, sondern vielmehr das Endresultat
-* Enthält kurze Migrationsanleitung (falls nötig, ggfs. mit Implementierungsdetails)
 
 *Aufbau*
 
 Der Changelogeintrag sollte wie folgt aufgebaut sein:
 
 . Kurze und prägnante Beschreibung der Änderung
-. Migrationsanleitung von einer älteren Version der IsyFact auf die aktuelle Version
 
 
 [[inhalt-projektchangelog]]
 === Projektchangelog
 
-Der Projektchangelog kann komponentenübergreifende Changelogeinträge aufnehmen, wenn folgende Bedingungen erfüllt sind:
+Der Projektchangelog kann komponentenübergreifende Changelogeinträge aufnehmen, wenn folgende Bedingung erfüllt ist:
 
 * Der Changelogeintrag kann nicht einer Komponente zugewiesen werden
 
-und
-
-* Der Changelogeintrag beschreibt eine Änderung, die eine Migrationsanleitung benötigt
-
-An die Changelogeintrag gelten die in Kapitel <<inhalt-komponentenchangelog>> beschriebenen Anforderungen.
+An den Changelogeintrag gelten die in Kapitel <<inhalt-komponentenchangelog>> beschriebenen Anforderungen.
 Komponentenübergreifende Einträge sind dem gekennzeichneten Bereich hinzuzufügen (vgl. <<listing-projektchangelog_einbindung_komponentenchangelog>>).

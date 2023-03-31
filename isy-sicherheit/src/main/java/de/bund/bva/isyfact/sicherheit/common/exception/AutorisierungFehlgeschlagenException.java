@@ -20,7 +20,9 @@ package de.bund.bva.isyfact.sicherheit.common.exception;
  * Diese Klasse kapselt alle Exceptions die beim Aufruf der Methode authorisiere des Interfaces Sicherheit
  * auftreten.
  *
+ * @deprecated since IsyFact 3.0.0 in favor of the isy-security module.
  */
+@Deprecated
 public class AutorisierungFehlgeschlagenException extends SicherheitTechnicalRuntimeException {
 
     /**
