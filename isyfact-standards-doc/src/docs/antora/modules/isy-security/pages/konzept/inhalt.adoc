@@ -381,7 +381,11 @@ In IsyFact spielen davon bei den externen Anwendungsaufrufen über ein _Service-
 :linkaktuell: xref:client-credential-flow[]
 include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
 
-Anmerkung zur Deprecation: Dieser Flow soll gemäß OAuth2.0 Vorgaben nicht mehr verwendet werden und wird in zukünftigen Versionen aus dem OAuth-Standard entfernt.
+****
+*Anmerkung zur Deprecation*
+
+Dieser Flow soll gemäß OAuth2.0 Vorgaben nicht mehr verwendet werden und wird in zukünftigen Versionen aus dem OAuth-Standard entfernt.
+****
 
 Der _Resource-Owner-Password-Credential_-Flow, der als Authentifizierungsdaten die Attribute `Username` und `Passwort` verwendet, sollte nur eingesetzt werden, wenn die involvierte Client-Anwendung ein hohes Vertrauen zur Wahrung der Authentifizierungsdaten sicherstellt oder wenn keine andere Art der Berechtigungszuteilung verfügbar ist.
 So wird die Authentifizierung für einen techn. Nutzer über diesen Authorization-Flow abgebildet.
