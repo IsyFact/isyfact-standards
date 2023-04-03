@@ -36,6 +36,11 @@
 * Zeilen zu slf4j konsolidiert.
 * Kategorie für Logging-Produkte zu "Logging" geändert.
 
+* Produkte auf bestandsgeschützt gesetzt:
+** Spring Webflow
+** Oracle Mojarra JavaServer Faces
+** Apache MyFaces Tomahawk for JSF 2.0.
+
 * Produkte entfernt:
 ** Oracle JDBC
 ** Oracle UCP
