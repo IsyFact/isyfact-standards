@@ -376,10 +376,16 @@ Mit SpringSecurity(OAuth2.0) werden die vier Berechtigungszuteilungsverfahren _A
 In IsyFact spielen davon bei den externen Anwendungsaufrufen über ein _Service-Gateway_ die beiden Verfahren _Resource-Owner-Password-Credential_ und _Client-Credential_ ein Rolle, da es sich hierbei um die Berechtigungszuteilung für ausschließlich _Confidential-Clients_ dreht.
 
 [[resource-owner-password-credential-flow]]
-====== Resource-Owner-Password-Credential Flow (Deprecated)
+====== Resource-Owner-Password-Credential Flow
 
-Hinweis: Dieser Flow soll gemäß OAuth2.0 Vorgaben nicht mehr verwendet werden und wird in zukünftigen Versionen aus dem OAuth-Standard entfernt.
-Als Nachfolger ist der xref:client-credential-flow[] zu wählen.
+:linkaktuell: xref:client-credential-flow[]
+include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
+
+****
+*Anmerkung zur Deprecation*
+
+Dieser Flow soll gemäß OAuth2.0 Vorgaben nicht mehr verwendet werden und wird in zukünftigen Versionen aus dem OAuth-Standard entfernt.
+****
 
 Der _Resource-Owner-Password-Credential_-Flow, der als Authentifizierungsdaten die Attribute `Username` und `Passwort` verwendet, sollte nur eingesetzt werden, wenn die involvierte Client-Anwendung ein hohes Vertrauen zur Wahrung der Authentifizierungsdaten sicherstellt oder wenn keine andere Art der Berechtigungszuteilung verfügbar ist.
 So wird die Authentifizierung für einen techn. Nutzer über diesen Authorization-Flow abgebildet.
