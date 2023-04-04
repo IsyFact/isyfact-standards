@@ -35,11 +35,11 @@ Das Task Scheduling der IsyFact verfolgt diese Ziele:
 
 "Nahtlose" Entwicklung mit Spring Boot und IsyFact::
 Die Entwicklung kann alle Funktionen von Spring Boot zum Task Scheduling wie gewohnt nutzen.
-Die IsyFact integriert sich weitestgehend automatisch in das Task Scheduling von Spring Boot und bietet den Mehrwert ihrer Bausteine an.
+Die IsyFact integriert sich weitestgehend automatisch in das Task Scheduling von Spring und bietet den Mehrwert ihrer Bausteine an.
 
 Bereitstellung weiterer Funktionalität zum Task Scheduling::
-Das Task Scheduling von Spring Boot ist weniger flexibel als die direkte Nutzung der Java Concurrency API.
-Die IsyFact bietet als Mehrwert ausgewählte Anwendungsfälle an, basierend auf Java Multithreading.
+Das Task Scheduling von Spring ist weniger flexibel als die direkte Nutzung der Java Concurrency API.
+Die IsyFact bietet als Mehrwert zusätzliche Anwendungsfälle an, basierend auf Java Multithreading.
 
 Konfiguration aller wesentlichen Aspekte::
 Tasks müssen mindestens die folgenden Möglichkeiten zur Konfiguration bieten:
@@ -63,9 +63,9 @@ Der Baustein Task Scheduling nutzt zur Erfüllung seiner Aufgaben mehrere Produk
 .Kontext des Bausteins Task Scheduling
 image::isy-task:konzept/bausteinkontext.dn.svg[]
 
-Der Baustein Task Scheduling setzt direkt auf das Task Scheduling von Spring Boot auf, und erweitert dieses.
+Der Baustein Task Scheduling setzt direkt auf das Task Scheduling von Spring auf, und erweitert dieses.
 Außerdem nutzt er Spring AOP aus dem Spring Framework und die @AspectJ-Annotationen des Produkts AspectJ.
-Wie der Baustein diese Produkte nutzt, beschreibt die Seite "xref:isy-task:konzept/erweiterung-spring-boot.adoc[]".
+Wie der Baustein diese Produkte nutzt, beschreibt die Seite "xref:isy-task:konzept/erweiterung-spring.adoc[]".
 
 Des Weiteren nutzt er mehrere Bausteine der IsyFact, um ihre Funktion für Tasks verfügbar zu machen.
 Dazu gehören die Bausteine xref:isy-logging:konzept/master.adoc[Logging], xref:isy-security:konzept/master.adoc[Security], xref:isy-ueberwachung:konzept/master.adoc[Überwachung] und xref:isy-konfiguration:konzept/master.adoc[Konfiguration].

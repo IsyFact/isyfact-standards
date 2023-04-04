@@ -15,14 +15,14 @@ Tasks müssen sich ins fachliche und technische Logging integrieren.
 Dazu bindet der Baustein Task Scheduling, vornehmlich im Around Advice und den damit zusammenhängenden Klassen,
 den xref:isy-logging:konzept/master.adoc#isylogger[IsyFact-Logger] aus dem Baustein Logging ein.
 
-Der Baustein schreibt folgende Informationen ins Log:
+Der Baustein schreibt per Default folgende Informationen ins Log:
 
 * Start und Ende der Ausführung eines Tasks (Log-Level: `INFO`),
-* Fehler in der Konfiguration von Tasks (Log-Level: `ERROR`).
+* Fehler in der Konfiguration eines Tasks (Log-Level: `ERROR`).
 
 .icon:university[title=Architekturregel] Logging für Tasks
 ****
-Tasks müssen mindestens die folgenden Informationen ins Log schreiben:
+Der Anwendungscode für Tasks muss mindestens die folgenden Informationen ins Log schreiben:
 
 * Fachliche Fehlermeldungen (Log-Level: `INFO`),
 * Technische Fehlermeldungen (Log-Level: `ERROR`).

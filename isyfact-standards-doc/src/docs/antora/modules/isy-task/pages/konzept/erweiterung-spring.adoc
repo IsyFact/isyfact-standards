@@ -1,8 +1,8 @@
-= Task Scheduling mit Spring Boot
+= Task Scheduling mit Spring
 
 include::glossary:licence:partial$licence.adoc[]
 
-Das Task Scheduling mit Spring Boot muss einmalig mit der Annotation `@EnableScheduling` aktiviert werden,
+Das Task Scheduling mit Spring muss einmalig mit der Annotation `@EnableScheduling` aktiviert werden,
 das ist bereits durchgeführt in einer Konfigurationsklasse des Bausteins `isy-task`.
 Dadurch wird implizit einer der Spring Scheduler genutzt.
 Die Geschäftsanwendung zeichnet eine beliebige Methode einer Klasse aus als "durch einen Task auszuführenden Code" durch das Setzen der Annotation @Scheduled.
@@ -35,10 +35,10 @@ public class ExampleTasks {
 }
 ----
 
-Der größte Vorteil des Ansatzes von Spring Boot ist die Einfachheit der Verwendung für die Entwicklung.
+Der größte Vorteil des Ansatzes von Spring ist die Einfachheit der Verwendung für die Entwicklung.
 Diesen Vorteil nutzt der Baustein Task Scheduling vollständig aus, indem er sich nahtlos in diesen Ansatz integriert.
 
-NOTE: Mehr Informationen zu dem Thema finden sich in der xref:glossary:literaturextern:inhalt.adoc#litextern-spring-boot-task-scheduling[Dokumentation über Task Scheduling von Spring Boot] sowie in der xref:glossary:literaturextern:inhalt.adoc#litextern-spring-task-scheduling-annotations[Dokumentation über die Annotationen zum Scheduling des Spring Frameworks].
+NOTE: Mehr Informationen zu dem Thema finden sich in der xref:glossary:literaturextern:inhalt.adoc#litextern-spring-boot-task-scheduling[Dokumentation über Task Scheduling von Spring] sowie in der xref:glossary:literaturextern:inhalt.adoc#litextern-spring-task-scheduling-annotations[Dokumentation über die Annotationen zum Scheduling des Spring Frameworks].
 
 == Erweiterung des Task Scheduling
 
@@ -69,15 +69,15 @@ Alle genannten Fähigkeiten des Bausteins Task Scheduling konfigurieren sich per
 
 == Einmalig ausgeführte Tasks
 
-Das Task Scheduling von Spring Boot fokussiert sich auf mehrfach ausgeführte Tasks.
+Das Task Scheduling von Spring fokussiert sich auf mehrfach ausgeführte Tasks.
 Einmalig ausgeführte Tasks unterstützt es nicht.
 Hier springt der Baustein Task Scheduling ein und ermöglicht es, Tasks genau einmal auszuführen, ohne die Vorteile der xref:isy-task:konzept/integration-isyfact.adoc[] zu verlieren.
 
-Dazu definiert der Baustein die Annotation `@ManualTask`.
+Dazu definiert der Baustein die Annotation `@OnceTask`.
 Die Tasks müssen:
 
 * von `Runnable` ableiten,
-* die Methode `run()` mit der Annotation `@ManualTask` kennzeichnen, und
-* programmatisch im von Spring Boot bereitgestellten Task Scheduler eingeplant werden.
+* die Methode `run()` mit der Annotation `@OnceTask` kennzeichnen, und
+* programmatisch im von Spring bereitgestellten Task Scheduler eingeplant werden.
 
 Für diese Tasks gelten dieselben Integrationsvorteile wie für mit `@Scheduled` geplante Tasks.
