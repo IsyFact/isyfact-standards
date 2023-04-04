@@ -84,7 +84,6 @@ public class TaskMonitoringAspect {
     public Object invokeAndMonitorTask(ProceedingJoinPoint pjp) throws Throwable {
         String taskId = TaskId.of(pjp);
 
-        // make copy of
         Authenticator authenticator = authenticatorFactory.getAuthenticator(taskId);
         if (authenticator == null) {
             throw new RuntimeException("Authenticator is null");
