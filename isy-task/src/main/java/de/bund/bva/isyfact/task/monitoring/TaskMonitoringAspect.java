@@ -80,7 +80,7 @@ public class TaskMonitoringAspect {
         this.authenticatorFactory = authenticatorFactory;
     }
 
-    @Around("@annotation(org.springframework.scheduling.annotation.Scheduled) || @annotation(de.bund.bva.isyfact.task.annotation.ManualTask)")
+    @Around("@annotation(org.springframework.scheduling.annotation.Scheduled) || @annotation(de.bund.bva.isyfact.task.annotation.OnceTask)")
     public Object invokeAndMonitorTask(ProceedingJoinPoint pjp) throws Throwable {
         String taskId = TaskId.of(pjp);
 

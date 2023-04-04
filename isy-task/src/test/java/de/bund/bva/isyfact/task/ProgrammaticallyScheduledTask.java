@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
-import de.bund.bva.isyfact.task.annotation.ManualTask;
+import de.bund.bva.isyfact.task.annotation.OnceTask;
 import de.bund.bva.isyfact.task.demo.ScheduledTasks;
 
 @Component
@@ -21,7 +21,7 @@ public class ProgrammaticallyScheduledTask implements Runnable {
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
     @Override
-    @ManualTask
+    @OnceTask
     public void run() {
         for (int i = 0; i < 3; i++) {
             try {
