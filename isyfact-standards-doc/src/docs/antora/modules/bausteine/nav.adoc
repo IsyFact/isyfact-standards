@@ -52,7 +52,9 @@
 *** xref:isy-sonderzeichen:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
 
 ** Task Scheduling
-*** xref:isy-task:konzept/master.adoc[Konzept]
+*** xref:isy-task:konzept.adoc[Konzept]
+**** xref:isy-task:konzept/erweiterung-spring.adoc[]
+**** xref:isy-task:konzept/integration-isyfact.adoc[]
 *** xref:isy-task:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
 
 ** Überwachung
