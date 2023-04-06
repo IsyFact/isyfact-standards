@@ -38,6 +38,9 @@
 - `IFS-2382`: [isy-sonderzeichen] Entfernt Mutable-Array Spotbugs Fehler
     #### _Breaking Change:_
     - Die Klassen `stringlatin1_1/core/transformation/ZeichenKategorie.java` und `dinspec91379/transformation/ZeichenKategorie.java` bieten für Abruf aller Möglichkeiten einen `getter` anstelle einer `public static Variable` an
+- `IFS-1169`: [isy-batchrahmen] Änderung von Tabellenname und Spaltennamen der BatchStatus-Tabelle zu `CamelCaseToUnderscoresNamingStrategy`
+  * Tabelle `BATCH_STATUS` mit `CamelCaseToUnderscoresNamingStrategy` ersetzt Tabelle `BATCHSTATUS` mit `PhysicalNamingStrategyStandardImpl`
+  * explizites ORM für Abwärtskompatibilität bereitgestellt (siehe Dokumentation: Die Konfiguration der Spring-Kontexte)
 - `IFS-1171`: [isy-sonderzeichen] Fehlende Zeichen 0110 und 0111 zum Mapping hinzugefügt
   #### _Breaking Change:_
   * Der Zeichensatz für String Latin 1.1 wurde korrigiert. Dies kann zu Kompatibilitätsproblemen in der Kommunikation mit Anwendungen führen, die den unkorrigierten Zeichensatz verwenden. (IsyFact-Versionen kleiner als IF 3)

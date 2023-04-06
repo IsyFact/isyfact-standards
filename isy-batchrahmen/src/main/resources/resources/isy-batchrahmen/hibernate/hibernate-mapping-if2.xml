@@ -20,21 +20,22 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <!-- ======================================================================
-        For applications using the PhysicalNamingStrategyStandardImpl and the current BATCH_STATUS table.
+        For applications using the CamelCaseToUnderscoresNamingStrategy,
+        but NOT using the current BatchStatus table with Underscores.
         ====================================================================== -->
-    <class name="de.bund.bva.isyfact.batchrahmen.persistence.rahmen.BatchStatus" table="BATCH_STATUS">
+    <class name="de.bund.bva.isyfact.batchrahmen.persistence.rahmen.BatchStatus" table="BATCHSTATUS">
 
-        <id name="batchId" type="string" column="BATCH_ID"/>
-        <property name="batchName" type="string" column="BATCH_NAME"/>
+        <id name="batchId" type="string" column="BATCHID"/>
+        <property name="batchName" type="string" column="BATCHNAME"/>
 
-        <property name="batchStatus" type="string" column="BATCH_STATUS"/>
+        <property name="batchStatus" type="string" column="BATCHSTATUS"/>
 
-        <property name="satzNummerLetztesCommit" type="long" column="SATZ_NUMMER_LETZTES_COMMIT"/>
-        <property name="schluesselLetztesCommit" type="string" column="SCHLUESSEL_LETZTES_COMMIT"/>
+        <property name="satzNummerLetztesCommit" type="long" column="SATZNUMMERLETZTESCOMMIT"/>
+        <property name="schluesselLetztesCommit" type="string" column="SCHLUESSELLETZTESCOMMIT"/>
 
-        <property name="datumLetzterStart" type="timestamp" column="DATUM_LETZTER_START"/>
-        <property name="datumLetzterAbbruch" type="timestamp" column="DATUM_LETZTER_ABBRUCH"/>
-        <property name="datumLetzterErfolg" type="timestamp" column="DATUM_LETZTER_ERFOLG"/>
+        <property name="datumLetzterStart" type="timestamp" column="DATUMLETZTERSTART"/>
+        <property name="datumLetzterAbbruch" type="timestamp" column="DATUMLETZTERABBRUCH"/>
+        <property name="datumLetzterErfolg" type="timestamp" column="DATUMLETZTERERFOLG"/>
     </class>
 
 </hibernate-mapping>

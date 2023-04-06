@@ -19,16 +19,10 @@
 -->
 <configuration scan="false">
 
-    <!-- Include der vorkonfigurierten Appender. -->
     <include resource="resources/isylogging/logback/appender-entwicklung.xml"/>
 
-    <!-- Root-Logger als Grundlage für alle Logger-Instanzen -->
-    <root level="INFO">
+    <root level="warn">
         <appender-ref ref="KONSOLE"/>
     </root>
-
-    <logger name="org.springframework" level="INFO" additivity="false">
-        <appender-ref ref="KONSOLE"/>
-    </logger>
 
 </configuration>
