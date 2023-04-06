@@ -1,6 +1,10 @@
 = Konzept Sicherheit: Einleitung
 
 // tag::inhalt[]
+
+:linkaktuell: xref:isy-security:konzept/master.adoc[Konzept Security]
+include::glossary:miscellaneous:partial$deprecated-baustein.adoc[]
+
 [[einleitung]]
 == Einleitung
 

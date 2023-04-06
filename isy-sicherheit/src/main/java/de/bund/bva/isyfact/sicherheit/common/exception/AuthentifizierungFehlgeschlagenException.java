@@ -21,8 +21,10 @@ import de.bund.bva.isyfact.sicherheit.accessmgr.AccessManager;
 
 /**
  * Wird geworfen, wenn der {@link AccessManager} die Authentifizierung abgelehnt hat.
- * 
+ *
+ * @deprecated since IsyFact 3.0.0 in favor of the isy-security module.
  */
+@Deprecated
 public class AuthentifizierungFehlgeschlagenException extends SicherheitTechnicalRuntimeException {
 
     /**

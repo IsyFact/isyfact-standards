@@ -4,6 +4,15 @@
 *Änderungen IsyFact 3.0.0*
 
 // tag::release-3.0.0[]
+* Setzen von Produkten auf bestandsgeschützt:
+** Spring HTTP Invoker
+** Spring Webflow
+** Oracle Mojarra JavaServer Faces
+** Apache MyFaces Tomahawk for JSF 2.0
+** jQuery
+** jquery.timepicker
+** Bootstrap
+
 * Anhebung von Versionen:
 ** Spring Boot auf 2.7.1
 ** spring-security auf 5.7.x

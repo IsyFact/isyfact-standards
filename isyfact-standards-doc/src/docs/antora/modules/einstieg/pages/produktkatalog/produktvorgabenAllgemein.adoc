@@ -8,7 +8,7 @@ include::glossary:licence:partial$licence.adoc[]
 --
 [options=header, format=csv, separator=";", cols="a,a,a,a,a,a,a"]
 |===
-include::partial$/Produktkatalog_IsyFact_v3_x_x_Produktvorgaben_Allgemein_Basistechnologie.csv[]
+include::partial$/Produktkatalog_IsyFact_Produktvorgaben_Allgemein_Basistechnologie.csv[]
 |===
 --
 
@@ -18,7 +18,7 @@ include::partial$/Produktkatalog_IsyFact_v3_x_x_Produktvorgaben_Allgemein_Basist
 --
 [options=header, format=csv, separator=";", cols="a,a,a,a,a,a,a"]
 |===
-include::partial$/Produktkatalog_IsyFact_v3_x_x_Produktvorgaben_Allgemein_Systemsoftware.csv[]
+include::partial$/Produktkatalog_IsyFact_Produktvorgaben_Allgemein_Systemsoftware.csv[]
 |===
 --
 
@@ -28,7 +28,7 @@ include::partial$/Produktkatalog_IsyFact_v3_x_x_Produktvorgaben_Allgemein_System
 --
 [options=header, format=csv, separator=";", cols="a,a,a,a,a,a,a"]
 |===
-include::partial$/Produktkatalog_IsyFact_v3_x_x_Produktvorgaben_Allgemein_Entwicklungsumgebung.csv[]
+include::partial$/Produktkatalog_IsyFact_Produktvorgaben_Allgemein_Entwicklungsumgebung.csv[]
 |===
 --
 
@@ -40,7 +40,7 @@ include::einstieg:produktkatalog/technologiestackJavaSpring.adoc[tag=spring-boot
 --
 [options=header, format=csv, separator=";", cols="a,a,a,a,a,a,a"]
 |===
-include::partial$/Produktkatalog_IsyFact_v3_x_x_Produktvorgaben_Allgemein_Bibliotheken_Anwendungsentwicklung_Sonstiges.csv[]
+include::partial$/Produktkatalog_IsyFact_Produktvorgaben_Allgemein_Bibliotheken_Anwendungsentwicklung_Sonstiges.csv[]
 |===
 --
 

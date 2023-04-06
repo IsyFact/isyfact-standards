@@ -22,9 +22,10 @@ import de.bund.bva.isyfact.exception.BaseException;
 /**
  * Abstrakte technische <i>checked</i> Hauptexception. Alle technischen, <i>checked</i> Exceptions im
  * Service-Gateway müssen von dieser Klasse abgeleitet werden.
- * 
- * 
+ *
+ * @deprecated since IsyFact 3.0.0 in favor of the isy-security module.
  */
+@Deprecated
 public abstract class SicherheitTechnicalException extends BaseException {
 
     /**

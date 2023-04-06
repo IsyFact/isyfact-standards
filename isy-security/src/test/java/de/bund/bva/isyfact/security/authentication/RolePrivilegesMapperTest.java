@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.security.test;
+package de.bund.bva.isyfact.security.authentication;
 
 import static org.junit.jupiter.api.Assertions.*;
 

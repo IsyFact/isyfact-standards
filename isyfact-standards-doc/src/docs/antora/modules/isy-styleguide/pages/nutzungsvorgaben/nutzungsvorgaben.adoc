@@ -2,6 +2,8 @@
 
 include::glossary:licence:partial$licence.adoc[]
 
+include::glossary:miscellaneous:partial$deprecated-baustein.adoc[]
+
 // tag::inhalt[]
 Dieses Dokument enthält die technische Dokumentation zum Styleguide.
 

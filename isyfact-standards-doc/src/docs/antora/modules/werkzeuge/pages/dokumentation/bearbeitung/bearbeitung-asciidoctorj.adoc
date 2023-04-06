@@ -518,3 +518,25 @@ Das Ergebnis sieht wie folgt aus:
 `Hier wurde ein <<glossar-halloweltbeispiel, Hallo Welt Beispiel>> verwendet.`
 
 
+[[deprecations]]
+== Deprecations
+
+Gelegentlich veralten Bausteine und ihre Dokumentation.
+In der Dokumentation werden Bausteine, die deprecated sind, die demnach in einer späteren Version entfallen können, als Deprecation gekennzeichnet.
+Es gibt zwei Möglichkeiten, Deprecations auszuzeichnen.
+
+*Deprecation für Baustein*
+
+Mit dem Attribut `:deprecated-baustein:` im Kopf des Dokuments vor dem `colophon`-Eintrag wird ein vollständiger Baustein als deprecated gekennzeichnet.
+
+*Deprecation für beliebigen Abschnitt*
+
+Mit dem Attribut `:deprecated-abschnitt:` kann ein beliebiger Abschnitt mitten im Text als deprecated gekennzeichnet werden.
+Dabei sollte das Attribut direkt unterhalb einer Überschrift platziert werden, damit der Abschnitt inklusive untergeordneter Abschnitte tieferer Ebenen bis zur nächsten Überschrift der gleichen Ebene als deprecated erkennbar ist.
+
+*Anmerkung*
+
+Für die Isy-AsciidoctorJ-Extensions wurde keine automatisierte Möglichkeit geschaffen, auf eine neuere Version der Dokumentation zu verweisen.
+Dies muss im Bedarfsfall individuell im Text erstellt werden.
+
+
