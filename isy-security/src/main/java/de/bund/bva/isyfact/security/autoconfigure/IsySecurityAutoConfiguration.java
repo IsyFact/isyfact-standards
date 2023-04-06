@@ -1,5 +1,7 @@
 package de.bund.bva.isyfact.security.autoconfigure;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.security.oauth2.client.ClientsConfiguredCondition;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -8,12 +10,15 @@ import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
+import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 
+import de.bund.bva.isyfact.security.Authentifizierungsmanager;
 import de.bund.bva.isyfact.security.Berechtigungsmanager;
 import de.bund.bva.isyfact.security.DefaultBerechtigungsmanager;
 import de.bund.bva.isyfact.security.authentication.IsyOAuth2PasswordAuthenticationProvider;
+import de.bund.bva.isyfact.security.authentication.IsyOAuth2Authentifizierungsmanager;
 import de.bund.bva.isyfact.security.authentication.RolePrivilegeGrantedAuthoritiesConverter;
 import de.bund.bva.isyfact.security.config.IsySecurityConfigurationProperties;
 import de.bund.bva.isyfact.security.xmlparser.RolePrivilegesMapper;
@@ -60,6 +65,13 @@ public class IsySecurityAutoConfiguration {
     @Bean
     public Berechtigungsmanager berechtigungsmanager() {
         return new DefaultBerechtigungsmanager(isySecurityConfigurationProperties().getRolesClaimName());
+    }
+
+    @Bean
+    @ConditionalOnBean(ClientRegistration.class)
+    @ConditionalOnMissingBean
+    Authentifizierungsmanager authentifizierungsmanager() {
+        return new IsyOAuth2Authentifizierungsmanager();
     }
 
     @Bean
