@@ -55,6 +55,7 @@
 - `IFS-1628`: [isy-überwachung] Standardmetriken bei Anbinden von ServiceStatistik vorhanden
     * Hinweis: Der Parameter `MeterRegistry` wurde aus dem Konstruktor der `ServiceStatistik` entfernt.
 - `IFS-1161`: [isy-aufrufkontext] `HttpHeaderNestedDiagnosticContextFilter` Priorität erhöht
+    * Hinweis: `MdcFilterConfiguration` heißt jetzt `MdcFilterAutoConfiguration`
 - `IFS-1356`: [isy-batchrahmen] Manuelles Herunterfahren in isy-batchrahmen ausgebaut, stattdessen hochpropagieren der BatchAusfuehrungsException, wenn ClassNotFoundException abgefangen wird.
 
 # 2.4.2
