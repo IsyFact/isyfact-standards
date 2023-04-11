@@ -20,6 +20,7 @@ import de.bund.bva.isyfact.security.DefaultBerechtigungsmanager;
 import de.bund.bva.isyfact.security.authentication.IsyOAuth2PasswordAuthenticationProvider;
 import de.bund.bva.isyfact.security.authentication.IsyOAuth2Authentifizierungsmanager;
 import de.bund.bva.isyfact.security.authentication.RolePrivilegeGrantedAuthoritiesConverter;
+import de.bund.bva.isyfact.security.config.IsyOAuth2ClientProperties;
 import de.bund.bva.isyfact.security.config.IsySecurityConfigurationProperties;
 import de.bund.bva.isyfact.security.xmlparser.RolePrivilegesMapper;
 
@@ -32,6 +33,12 @@ public class IsySecurityAutoConfiguration {
     @ConfigurationProperties(prefix = "isy.security")
     public IsySecurityConfigurationProperties isySecurityConfigurationProperties() {
         return new IsySecurityConfigurationProperties();
+    }
+
+    @Bean
+    @ConfigurationProperties(prefix = "isy.security.oauth2.client")
+    IsyOAuth2ClientProperties isyOAuth2ClientProperties() {
+        return new IsyOAuth2ClientProperties();
     }
 
     @Bean
