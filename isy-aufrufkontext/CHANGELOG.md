@@ -1,7 +1,8 @@
 # 2.4.3
 
 - `IFS-1161`: `HttpHeaderNestedDiagnosticContextFilter` Priorität erhöht
-
+    - `MdcFilterConfiguration` heißt jetzt `MdcFilterAutoConfiguration`
+  
 # 2.3.0
 
 - `IFS-874`: Umsetzung des Transports von OAuth 2 Bearer Tokens zwischen Schnittstellentechnologien
