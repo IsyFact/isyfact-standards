@@ -264,6 +264,14 @@ image::einstieg:tutorial/RAIT.png[align="center"]
 [[anbieten-von-service-schnittstellen]]
 === Anbieten von Service-Schnittstellen
 
+include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
+
+****
+*Anmerkung zur Deprecation*
+
+Der ab IF 3.0 eingesetzte neue Baustein `isy-security` wird keine HTTP Invoker Schnittstellen mehr nativ unterstützen und daher sollen diese ab IF 3.0 nicht mehr verwendet werden.
+****
+
 Dieser Abschnitt beschreibt die Realisierung von HTTP Invoker Schnittstellen (siehe xref:glossary:literaturextern:inhalt.adoc#litextern-spring[Spring]).
 HTTP Invoker Schnittstellen sind interne Service-Schnittstellen, die innerhalb der Anwendungslandschaft durch andere Anwendungen genutzt werden dürfen.
 
@@ -272,6 +280,9 @@ HTTP Invoker Schnittstellen sind interne Service-Schnittstellen, die innerhalb d
 Ab IsyFact 2.0 ist die Verwendung von REST-Schnittstellen erlaubt.
 HTTP Invoker wird in folgenden Releases (IsyFact 2.x) als Schnittstellenformat abgelöst.
 Die Verwendung von REST-Schnittstellen wird einem gesonderten Konzept erläutert.
+
+Ab IsyFact 3.0 ist die Verwendung von HTTP-Invoker Schnittstellen nicht mehr empfohlen und wird in zukünftigen Versionen nicht mehr unterstützt werden.
+
 ====
 
 Extern verfügbare Services sind durch WebService-Schnittstellen anzubieten, über einen ServiceGateway.
@@ -503,6 +514,16 @@ Die verwendete Version von _Orika_ ist dem Produktkatalog zu entnehmen.
 
 [[nutzen-von-service-schnittstellen]]
 === Nutzen von Service-Schnittstellen
+
+include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
+
+****
+*Anmerkung zur Deprecation*
+
+Ab der IF 3.0 ist der HTTP-Invoker deprecated und soll daher nicht mehr verwendet werden.
+Der Nutzung von Service-Schnittstellen soll über REST-Aufrufe erfolgen.
+Die Verwendung von REST-Schnittstellen wird einem gesonderten Konzept erläutert.
+****
 
 Dieser Abschnitt beschreibt, wie Service-Schnittstellen genutzt, d.h. aufgerufen werden können.
 
@@ -1001,10 +1022,19 @@ Vor dem Werfen der so erzeugten Exception über die Schnittstelle wird ein Log-E
 Beim Umwandeln der internen Exceptions in Transport-Exceptions wird der Stack-Trace der internen Exceptions verworfen.
 
 
-
-
 [[aufrufkontextverwaltung]]
 === Aufrufkontextverwaltung
+
+:linkaktuell: xref:isy-security:konzept/master.adoc[Konzept Security]
+include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
+
+****
+*Anmerkung zur Deprecation*
+
+Ab der IF 3.0 wird der Spring `SecurityContext` anstatt des `AufrufKontext` verwendet.
+Der `AufrufKontextVerwalter` kann somit auch nicht mehr verwendet werden.
+Die Verwendung des  `SecurityContext` anstelle des `AufrufKontext` wird im Baustein xref:isy-security:konzept/master.adoc[`isy-security`] beschrieben.
+****
 
 Einige Komponenten der Anwendung, z.B. die Protokollierung oder die Autorisierung benötigen
 Kontextinformationen über den Aufrufer.
@@ -1070,6 +1100,16 @@ Die Konfiguration ist im Dokument xref:isy-sicherheit:nutzungsvorgaben/master.ad
 
 [[authentifizierung-und-autorisierung]]
 === Authentifizierung und Autorisierung
+
+:linkaktuell: xref:isy-security:konzept/master.adoc[Konzept Security]
+include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
+
+****
+*Anmerkung zur Deprecation*
+
+Ab der IF 3.0 wird der `AufrufKontext` nicht mehr verwendet und als Autorisierungsprotokoll wird OAuth 2.0 eingesetzt.
+Die Autorisierung nach OAuth 2.0 wird im Baustein xref:isy-security:konzept/master.adoc#oauth2.0-zur-autorisierung[`isy-security`] beschrieben.
+****
 
 Dieses Kapitel beschreibt die Realisierung der Authentifizierung und Autorisierung von Anfragen.
 
