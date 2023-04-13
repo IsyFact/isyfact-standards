@@ -7,8 +7,6 @@ import org.springframework.lang.Nullable;
  */
 public interface Authentifizierungsmanager {
 
-
-    // TODO: check for grant type
     /**
      * Authenticate using preconfigred ClientRegistrations.
      * Supports ClientRegistrations with authorization-grant-type of:
@@ -21,7 +19,7 @@ public interface Authentifizierungsmanager {
     void authentifiziere(String registrationId);
 
     /**
-     * sgw Sonderfall client registration steht zur Laufzeit erst fest
+     * SGW use case: client registration is only available at runtime.
      *
      * @param clientId       id of the confidential client
      * @param clientSecret   secret of the confidential client
@@ -29,5 +27,13 @@ public interface Authentifizierungsmanager {
      */
     void authentifiziereClient(String clientId, String clientSecret, String issuerLocation);
 
-    void authentifiziereSystem(String registrationId, String username, String password, @Nullable String bhknz);
+    /**
+     * Authenticate a user with credentials only available at runtime.
+     *
+     * @param username       User ID
+     * @param password       User password
+     * @param registrationId ID of Client Registration with authorization-grant-type: password
+     * @param bhknz          (optional: can be null if not required by the IAM-Service).
+     */
+    void authentifiziereSystem(String username, String password, String registrationId, @Nullable String bhknz);
 }
