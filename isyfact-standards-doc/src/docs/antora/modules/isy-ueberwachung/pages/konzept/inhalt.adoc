@@ -67,7 +67,7 @@ Ist eine Anwendung nicht "ready", kann sie temporär keine Anfragen bearbeiten.
 Ist eine Anwendung nicht "ready", darf die Infrastruktur keine weiteren Anfragen an sie senden (vgl. xref:glossary:literaturextern:inhalt.adoc#litextern-spring-api-Readiness[Spring Boot `ReadinessState`], xref:glossary:literaturextern:inhalt.adoc#litextern-kubernetes-liveness-Readiness-probes[Kubernetes Liveness und Readiness Probes]).
 
 Ein Service (d.h. eine Bündelung von Instanzen/Anwendungen, die denselben Service anbieten) wird als "ready" angesehen, wenn mindestens eine Instanz "ready" ist.
-Prüfungen der Readiness von Services müssen über die Infrastruktur erfolgen.
+Prüfungen der _Readiness_ von Services müssen über die Infrastruktur erfolgen.
 
 [[liveness_Readiness_diskussion]]
 ==== Diskussion von Liveness & Readiness
@@ -163,10 +163,11 @@ Alle anderen Anwendungen auf dem entsprechenden Server müssen weiterhin bedient
 [[Loadbalancing-mit-Readiness-Metrik]]
 ==== Loadbalancing mit Readiness-Metrik
 
-Sind _Liveness_ und _Readiness_ definiert, sollte der Loadbalancer die _Readiness_ prüfen.
-Ist diese nicht gegeben, ist der Knoten aus dem Loadbalancing heraus zu nehmen.
-Eine betrieblich begründete, temporäre Nichtverfügbarkeit der Anwendung könnte, wie bisher, über eine `isAlive`-Datei gesteuert werden (vgl. xref:nutzungsvorgaben/master.adoc#integration-des-loadbalancer-servlets[Nutzungsvorgaben]).
-Ist diese Datei nicht vorhanden, ist die zugehörige Anwendung aus der Betrachtungsrichtung des Loadbalancers nicht "ready".
+Sind _Liveness_ und _Readiness_ definiert, soll der Loadbalancer die _Readiness_ eines Knotens prüfen.
+Ist die _Readiness_ nicht gegeben, ist der Knoten aus dem Loadbalancing heraus zu nehmen.
+Je nach betrieblichen Bedingungen und den technischen Möglichkeiten des eingesetzten Loadbalancers ist die Abfrage der _Readiness_ über den _Readiness_ Endpoint oder eine `isAlive`-Datei festzustellen.
+Die betrieblich begründete, temporäre Nichtverfügbarkeit einer Anwendung, kann über die Löschung einer `isAlive`-Datei gesteuert werden (vgl. xref:nutzungsvorgaben/master.adoc#integration-des-loadbalancer-servlets[Nutzungsvorgaben]).
+Ist das Vorhandensein einer `isAlive`-Datei aus betrieblichen Anforderungen nicht notwendig ist die direkte Prüfung über den _Readiness_ Endpoint vorzunehmen.
 
 [[availability]]
 === Availability
