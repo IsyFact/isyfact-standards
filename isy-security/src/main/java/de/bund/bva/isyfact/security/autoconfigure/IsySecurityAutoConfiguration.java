@@ -8,6 +8,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.lang.Nullable;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.oauth2.client.AuthorizedClientServiceOAuth2AuthorizedClientManager;
@@ -22,12 +23,14 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import de.bund.bva.isyfact.security.Authentifizierungsmanager;
 import de.bund.bva.isyfact.security.Berechtigungsmanager;
 import de.bund.bva.isyfact.security.DefaultBerechtigungsmanager;
+import de.bund.bva.isyfact.security.Security;
 import de.bund.bva.isyfact.security.authentication.IsyOAuth2Authentifizierungsmanager;
 import de.bund.bva.isyfact.security.authentication.IsyOAuth2ClientCredentialsAuthenticationProvider;
 import de.bund.bva.isyfact.security.authentication.IsyOAuth2PasswordAuthenticationProvider;
 import de.bund.bva.isyfact.security.authentication.RolePrivilegeGrantedAuthoritiesConverter;
 import de.bund.bva.isyfact.security.config.IsyOAuth2ClientProperties;
 import de.bund.bva.isyfact.security.config.IsySecurityConfigurationProperties;
+import de.bund.bva.isyfact.security.core.IsySecurity;
 import de.bund.bva.isyfact.security.xmlparser.RolePrivilegesMapper;
 
 @Configuration
@@ -81,10 +84,24 @@ public class IsySecurityAutoConfiguration {
     }
 
     @Bean
-    @ConditionalOnBean(ClientRegistration.class)
+    @Conditional(ClientsConfiguredCondition.class)
     @ConditionalOnMissingBean
     Authentifizierungsmanager authentifizierungsmanager() {
         return new IsyOAuth2Authentifizierungsmanager();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    Security security(
+            RolePrivilegesMapper rolePrivilegesMapper,
+            Berechtigungsmanager berechtigungsmanager,
+            @Nullable Authentifizierungsmanager authentifizierungsmanager
+    ) {
+        return new IsySecurity(
+                rolePrivilegesMapper,
+                berechtigungsmanager,
+                authentifizierungsmanager
+        );
     }
 
     @Bean
@@ -95,6 +112,7 @@ public class IsySecurityAutoConfiguration {
     }
 
     @Bean
+    @Conditional(ClientsConfiguredCondition.class)
     public OAuth2AuthorizedClientManager authorizedClientManager(
             ClientRegistrationRepository clientRegistrationRepository,
             OAuth2AuthorizedClientService oAuth2AuthorizedClientService
@@ -113,6 +131,7 @@ public class IsySecurityAutoConfiguration {
     }
 
     @Bean
+    @Conditional(ClientsConfiguredCondition.class)
     IsyOAuth2ClientCredentialsAuthenticationProvider isyOAuth2ClientCredentialsAuthenticationProvider(
             ClientRegistrationRepository clientRegistrationRepository,
             OAuth2AuthorizedClientService oAuth2AuthorizedClientService
