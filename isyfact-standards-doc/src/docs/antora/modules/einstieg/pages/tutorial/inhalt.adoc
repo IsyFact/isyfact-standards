@@ -1101,7 +1101,7 @@ Die Konfiguration ist im Dokument xref:isy-sicherheit:nutzungsvorgaben/master.ad
 [[authentifizierung-und-autorisierung]]
 === Authentifizierung und Autorisierung
 
-:linkaktuell: xref:isy-security:konzept/master.adoc[Konzept Security]
+:linkaktuell: xref:isy-security:konzept/master.adoc#oauth2.0-zur-autorisierung[OAuth 2.0 zur Autorisierung]
 include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
 
 ****
