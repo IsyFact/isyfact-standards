@@ -2,6 +2,8 @@
 - `IFS-1504`: Transformator für die normative Abbildung lateinischer Buchstaben auf Grundbuchstaben (Suchform) hinzugefügt
   * Integration von zugeliefertem Code aus `IFS-1270`
 - `IFS-1171`: Fehlende Zeichen 0110 und 0111 zum Mapping hinzugefügt
+    #### _Breaking Change:_
+  * Der Zeichensatz für String Latin 1.1 wurde korrigiert. Dies kann zu Kompatibilitätsproblemen in der Kommunikation mit Anwendungen führen, die den unkorrigierten Zeichensatz verwenden. (IsyFact-Versionen kleiner als IF 3)
 - `IFS-1912`: Tabelle angepasst, sodass Glyphen, die von dem Buchstaben e abstammen, im Legacy Mapping auf sich selbst gemappt werden
 - `IFS-2382`: Entfernt Mutable-Array Spotbugs Fehler
     #### _Breaking Change:_

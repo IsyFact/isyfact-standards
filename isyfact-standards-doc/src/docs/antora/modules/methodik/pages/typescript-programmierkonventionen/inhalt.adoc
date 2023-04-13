@@ -1,0 +1,86 @@
+= TypeScript-Programmierkonventionen: Inhalt
+
+// tag::inhalt[]
+[[motivation]]
+== Motivation
+
+Von den Lebensphasen einer Software macht die Erstellung gegenüber der Weiterentwicklung und Wartung nur einen kleinen Teil aus.
+Es ist davon auszugehen, dass im Laufe der Zeit unterschiedliche Personen, Teams oder Dienstleister an einem Softwaresystem arbeiten.
+Allen Beteiligten wird die Einarbeitung deutlich erleichtert, wenn die Software „aus einem Guss“ erscheint.
+Hält sie sich noch an allgemein etablierte und bekannte Standards, verkürzt sich die Einarbeitungszeit noch weiter.
+Um das zu erreichen, müssen Konventionen für die Programmierung festgelegt werden.
+
+[[grundsaetzliches]]
+== Grundsätzliches
+Es gelten immer allgemein anerkannte Best- und Good Practices der Softwareentwicklung, insbesondere wie in xref:glossary:literaturextern:inhalt.adoc#litextern-martin2008[Clean Code] festgehalten. Anti-Patterns und Bad Practice sind demnach zu vermeiden. Es liegt in der Verantwortung der Entwickler, aktuelle Entwicklung der modernen Softwareentwicklung zu verfolgen. An Stellen, an denen es es mehrere plausible Lösungen gibt, gelten die IsyFact Programmierkonventionen.
+
+Das vorliegende Dokument behandelt zunächst reine TypeScript-Projekte. Ist ein Framework (wie z.B. Angular) im Einsatz, sind immer selber etablierte Konventionen zu suchen, die sich auf dieses Framework beziehen und die immer Priorität gegenüber hier festgeschriebenen Konventionen haben. Nur an Stellen, in denen sich kein Konflikt ergibt, sind die hier festgeschriebenen Regeln anzuwenden; Vorrang haben in allen Belangen immer Best Practices und Vorgaben der Frameworks.
+
+Zudem werden möglichst wenig eigene Vorgaben gemacht und stattdessen auf existierende, etablierte Vorgaben referenziert.
+
+[[regelsets]]
+== Regelsets
+
+=== Öffentliche Regelsets
+Es gilt der xref:glossary:literaturextern:inhalt.adoc#google-typescript-styleguide[Google TypeScript Style Guide].
+
+Für Angular-Projekte gilt der xref:glossary:literaturextern:inhalt.adoc#google-typescript-styleguide[Google Angular Coding Style Guide].
+
+=== isy-eslint-plugin
+
+Zur statischen Codeanalyse wird das Tool xref:glossary:literaturextern:inhalt.adoc#eslint[ESLint] verwendet. Hierzu wird das isy-eslint-plugin bereitgestellt, das viele übliche Code Smells und fragwürdige Patterns abfängt und als Fehler ausgibt und somit Einheitlichkeit in solchen Fällen schafft. Die technisch Einbindung ist in der readme-Datei des Repositories beschrieben. Die Regeln sind grundsätzlich eher streng ausgelegt, dürfen aber in begründeten und dokumentierten Einzelfällen überschrieben werden.
+
+Die Einhaltung der Regeln sollte automatisiert geprüft werden; beim Einsatz einer CI/CD-Pipeline sollte es also einen entsprechenden Job geben.
+
+[[vorgaben]]
+== Weitere Vorgaben für die Programmierung
+
+****
+Dokumentiere Abweichungen!
+****
+
+Falls bestimmte Richtlinien nicht angewendet werden können/sollen, ist der technische Chef-Designer des Projektes zu involvieren.
+Er entscheidet darüber, ob die Abweichung zulässig ist.
+Abweichungen müssen als Quellcodekommentar mit Begründung dokumentiert werden.
+Bevor eine Richtlinie verletzt wird, sollte man sicher sein, dass man die Motivation der Regel verstanden hat und die Konsequenzen der Nicht-Einhaltung beurteilen kann.
+
+[[sprache]]
+=== Sprache
+
+Die Sprache von Bezeichnern hängt davon ab, was mit ihnen referenziert wird.
+
+Die Sprache ist eine Mischung aus deutsch und englisch.
+Für technische Bezeichner wird Englisch verwendet, für fachliche Bezeichner Deutsch.
+In Bezeichnern werden keine Umlaute und kein ß verwendet.
+
+Beispiele: `*setMeldung()*, *suchePerson()*`
+
+[NOTE]
+====
+*Motivation*
+
+Der Bruch zwischen den Sprachen fällt so mit dem Bruch zwischen technischem und fachlichem Code zusammen.
+Komplett deutsche oder komplett englische Bezeichner hätten dagegen folgende Nachteile:
+
+* Komplett englische Bezeichner würden es erfordern, alle Fachbegriffe zu übersetzen.
+Alle am Projekt beteiligten Personen müssten diese „Vokabeln“ neu lernen.
+* Komplett deutsche Bezeichner wirken sehr verkrampft, wenn sie Bibliotheksklassen mit englischen Bezeichnern nutzen oder (z. B. durch Ableitung) erweitern.
+* Komplett deutsche Bezeichner führen zu Irritationen und Problemen, da einige Bezeichner in der Progarmmierung standardisiert verwendet werden und von IDEs oder Frameworks entsprechend erwartet und verwendet werden (z.B. getXXX und setYYY).
+
+====
+
+[[dokumentationskommentare-jsdoc]]
+=== Dokumentationskommentare
+
+Wird kein anderes Dokumentationssystem (wie z.B. xref:glossary:literaturextern:inhalt.adoc#compodoc[compodoc] für Angular) eingesetzt, werden alle Methoden und Klassen mit xref:glossary:literaturextern:inhalt.adoc#jsdoc[JSDoc]-Kommentaren versehen.
+
+Für die Erstellung von Dokumentationskommentaren gelten die folgenden Regeln:
+
+[[aenderungshistorie]]
+=== Versionierung und Änderungshistorie
+
+Änderungen werden mittels eines Version Control System (z.B. git) nachverfolgt.
+Dazu ist es zwingend erforderlich, die durchgeführten Änderungen bzw. die Ursache dafür beim Commit ausreichend zu dokumentieren. Commits werden nach xref:glossary:literaturextern:inhalt.adoc#conventional-commits[Conventional Commits] formatiert.
+Die Sprache hierfür ist analog zum Code englisch, fachliche Bezeichner - sofern nötig - werden in Deutsch gehalten.
+
+// end::inhalt[]

@@ -6,7 +6,7 @@
 
 Dieses Dokument beschreibt alle Aspekte, die bei der Verwendung der `isy-task` xref:glossary:glossary:master.adoc#glossar-bibliothek[Bibliothek] zu berücksichtigen sind.
 
-Die `isy-task` Bibliothek wurde im Dokument xref:konzept/master.adoc#einleitung[Task Scheduling - Konzept]  konzipiert.
+Das xref:isy-task:konzept.adoc[] beschreibt die Ziele, Architektur und Aufgaben des Bausteins.
 
 [[aufbau-und-zweck-des-dokuments]]
 == Aufbau und Zweck des Dokuments
