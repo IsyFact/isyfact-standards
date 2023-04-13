@@ -12,10 +12,18 @@ public abstract class AbstractOidcProviderTest {
 
     protected static final String ISSUER_PATH = "/auth/realms/testrealm";
 
+    private static final String HOST = "localhost";
+
+    private static final int PORT =9095;
+
     /**
      * Authentication and authorization via EmbeddedOidcProviderMock based on WireMock.
      */
     @RegisterExtension
-    public static final EmbeddedOidcProviderMock embeddedOidcProvider = new EmbeddedOidcProviderMock("localhost", 9095, ISSUER_PATH);
+    public static final EmbeddedOidcProviderMock embeddedOidcProvider = new EmbeddedOidcProviderMock(HOST, PORT, ISSUER_PATH);
 
+
+    public String getIssuerLocation() {
+        return String.format("http://%s:%d%s", HOST,PORT,ISSUER_PATH);
+    }
 }

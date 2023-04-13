@@ -19,3 +19,13 @@ spring:
             client-secret: hypersecretpassword
             authorization-grant-type: password
             provider: testrealm
+
+isy:
+  security:
+    oauth2:
+      client:
+        registration:
+          testclient:
+            username: testuser
+            password: testpassword
+            bhknz: testbhknz
