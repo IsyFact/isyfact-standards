@@ -38,6 +38,14 @@ Spring HTTPInvoker deprecated icon:ban[title=Deprecation]:: Die Verwendung von x
 Metadaten im HTTP-Header statt im Datensatz/Aufrufkontext icon:ban[title=Deprecation]:: Metadaten sind über HTTP-Header zur realisieren. 
 Eine Verwendung von Metadaten über HTTPInvoker und Aufrufkontext gilt als deprecated und wird mit einem nachfolgenden Release entfernt.
 
+[[kapitel-baustein-sicherheit-deprecated]]
+=== Baustein Sicherheit deprecated icon:ban[title=Deprecation]
+Der xref:isy-sicherheit:konzept/master.adoc[Baustein Sicherheit] und damit die Verwendung des Aufrufkontextes zur Authentifizierung gilt als deprecated und wird mit einem folgenden Release entfernt. Als Nachfolger zum Thema Sicherheit gibt es jetzt den Baustein Security.
+
+[[kapitel-baustein-sicherheit-keykloak-deprecated]]
+=== Baustein Sicherheit Keycloak deprecated icon:ban[title=Deprecation]
+Der Baustein Sicherheit Keycloak mit dem Spring Keycloak Adapter gilt als deprecated und wird mit einem nachfolgenden Release entfernt.
+
 [[kapitel-neuer-baustein-security]]
 === Neuer Baustein Security
 Das Konzept zum Schutz der Daten und IT-Systeme vor unberechtigter Nutzung wurde überarbeitet und ist nun im neuen Baustein `Security` beschrieben.
@@ -66,10 +74,6 @@ Die von Spring Security bereitgestellte Annotation `@secured` löst die Annotati
 Authentication-Gateway::
 Mit der `IsyFact-3` wird eine neue  xref:isy-security:konzept/master.adoc#aufruf-service-gateway-mit-authentication-gateway[Authentifizierungslogik] für die Authentifizierung von Anwendungen, die außerhalb der Anwendungslandschaft betrieben werden, eingeführt:
 Externe Anwendungen benötigen nun ein Access-Token, um (über ein Service-Gateway) Services von Anwendungen innerhalb der Anwendungslandschaft verwenden zu können. Dieses Access-Token erhalten sie vom neu eingeführten Authentication-Gateway nach erfolgreicher Authentifizierung.
-
-Baustein Sicherheit deprecated icon:ban[title=Deprecation]:: Der xref:isy-sicherheit:konzept/master.adoc[Baustein Sicherheit] und damit die Verwendung des Aufrufkontextes zur Authentifizierung gilt als deprecated und wird mit einem folgenden Release entfernt.
-
-Baustein Sicherheit Keycloak deprecated icon:ban[title=Deprecation]:: Der Baustein Sicherheit Keycloak mit dem Spring Keycloak Adapter gilt als deprecated und wird mit einem nachfolgenden Release entfernt.
 
 //TODO klären, ob hier aufzunehmen
 [[kapitel-keycloak]]
@@ -100,6 +104,19 @@ Baustein mit Angular PrimeNG und Bootstrap deprecated icon:ban[title=Deprecation
 
 Umstellung auf Spring Boot:: Das Task Scheduling wurde auf Spring Boot umgestellt.
 Dies betrifft den xref:isy-konfiguration:konzept/master.adoc[Baustein Konfiguration] und den xref:isy-konfiguration:konzept/master.adoc[Baustein Überwachung].
+
+Umstellung der Authentifizierung auf isy-security::
+Für die Nutzung gesicherter Services muss die Task-Instanz autorisiert sein.
+Für die Authentifizierung nutzt der Baustein Task Scheduling den xref:isy-security:konzept/master.adoc#absicherung-task[Baustein Security] und dessen xref:isy-security:konzept/master.adoc#aussensicht-der-komponente-security[Schnittstelle zur Authentifizierung] und präsentiert dem Service das so erhaltene Access-Token zur Autorisierung.
+Die Konfiguration von Tasks, sowie die globale Konfiguration aller Tasks, bietet dazu die Möglichkeit, Authentifizierungs-Credentials (d.h. Benutzernamen & Passwort für Resource-Owner-Password-Credential Flow bzw. Client-ID & Client-Secret für Client-Credential Flow) sowie Behördenkennzeichen zu setzen.
+
+[[kapitel-batchrahmen]]
+=== Batchrahmen
+
+Umstellung der Authentifizierung auf isy-security::
+Für die Nutzung gesicherter Services muss die Batch-Instanz autorisiert sein.
+Für die Authentifizierung nutzt der Batchrahmen den xref:isy-security:konzept/master.adoc#absicherung-batch[Baustein Security] und dessen xref:isy-security:konzept/master.adoc#aussensicht-der-komponente-security[Schnittstelle zur Authentifizierung] und präsentiert dem Service das so erhaltene Access-Token zur Autorisierung.
+Die Konfiguration von Batches, sowie die globale Konfiguration aller Batches, bietet dazu die Möglichkeit, Authentifizierungs-Credentials (d.h. Benutzernamen & Passwort für Resource-Owner-Password-Credential Flow bzw. Client-ID & Client-Secret für Client-Credential Flow) sowie Behördenkennzeichen zu setzen.
 
 [[kapitel-sles]]
 === Suse Linux Enterprise Server (SLES)
