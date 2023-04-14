@@ -10,13 +10,13 @@ import de.bund.bva.isyfact.security.Berechtigungsmanager;
 import de.bund.bva.isyfact.security.Security;
 import de.bund.bva.isyfact.security.xmlparser.RolePrivilegesMapper;
 
-public class IsySecurity implements Security {
+public class DefaultSecurity implements Security {
 
     private final RolePrivilegesMapper rolePrivilegesMapper;
     private final Authentifizierungsmanager authentifizierungsmanager;
     private final Berechtigungsmanager berechtigungsmanager;
 
-    public IsySecurity(
+    public DefaultSecurity(
             RolePrivilegesMapper rolePrivilegesMapper,
             Berechtigungsmanager berechtigungsmanager,
             @Nullable Authentifizierungsmanager authentifizierungsmanager
