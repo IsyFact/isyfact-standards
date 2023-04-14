@@ -1,4 +1,5 @@
 # 3.0.0
+- `IFS-1886`: Modul als `@Deprecated` markiert zugunsten von`isy-security`
 - `IFS-1940`: `IsySicherheitUtil` deprecated
 
 # 2.1.0

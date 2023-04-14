@@ -2,6 +2,8 @@
 
 include::glossary:licence:partial$licence.adoc[]
 
+include::glossary:miscellaneous:partial$deprecated-baustein.adoc[]
+
 [[einfuehrung-und-allgemeine-prinzipien]]
 == Einführung und allgemeine Prinzipien
 Der Styleguide definiert den Rahmen für die interaktive und visuelle Gestaltung eines universell einsetzbaren Bedienkonzeptes für die IsyFact.

@@ -1,10 +1,10 @@
 [[changelog]]
 = Changelog
 
-// *Änderungen IsyFact 3.0.0*
+*Änderungen IsyFact 3.0.0*
 
 // tag::release-3.0.0[]
-
+- `IFS-2277`: Deprecation Warnung zu Konzept des Bausteins Sicherheit hinzugefügt
 // end::release-3.0.0[]
 
 // *Änderungen IsyFact 2.4.0*

@@ -4,6 +4,9 @@
 - `IFS-1355`: WebApplication.None für ConfigurableApplicationContext im BatchLauncher hinzugefügt
 - `IFS-1170`: JpaTransactionManager aus BatchrahmenImpl ausgebaut; PlatformTransactionManager wird anstelle des JpaTransactionManagers verwendet
 - `IFS-1050`: Stelle Beispiel-SQL-Skripte wieder her, sodass diese mit der Oracle-Datenbank kompatibel sind
+- `IFS-1169`: Änderung von Tabellenname und Spaltennamen der BatchStatus-Tabelle zu `CamelCaseToUnderscoresNamingStrategy`
+    * Tabelle `BATCH_STATUS` mit `CamelCaseToUnderscoresNamingStrategy` ersetzt Tabelle `BATCHSTATUS` mit `PhysicalNamingStrategyStandardImpl`
+    * explizites ORM für Abwärtskompatibilität bereitgestellt (siehe Dokumentation: Die Konfiguration der Spring-Kontexte)
 
 # 2.4.3
 - `IFS-1356`: Manuelles Herunterfahren in isy-batchrahmen ausgebaut, stattdessen hochpropagieren der BatchAusfuehrungsException, wenn ClassNotFoundException abgefangen wird.

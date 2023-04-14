@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+
+    See the NOTICE file distributed with this work for additional
+    information regarding copyright ownership.
+    The Federal Office of Administration (Bundesverwaltungsamt, BVA)
+    licenses this file to you under the Apache License, Version 2.0 (the
+    License). You may not use this file except in compliance with the
+    License. You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+    implied. See the License for the specific language governing
+    permissions and limitations under the License.
+
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <!-- ======================================================================
+        For applications using the CamelCaseToUnderscoresNamingStrategy,
+        but NOT using the current BatchStatus table with Underscores.
+        ====================================================================== -->
+    <class name="de.bund.bva.isyfact.batchrahmen.persistence.rahmen.BatchStatus" table="BATCHSTATUS">
+
+        <id name="batchId" type="string" column="BATCHID"/>
+        <property name="batchName" type="string" column="BATCHNAME"/>
+
+        <property name="batchStatus" type="string" column="BATCHSTATUS"/>
+
+        <property name="satzNummerLetztesCommit" type="long" column="SATZNUMMERLETZTESCOMMIT"/>
+        <property name="schluesselLetztesCommit" type="string" column="SCHLUESSELLETZTESCOMMIT"/>
+
+        <property name="datumLetzterStart" type="timestamp" column="DATUMLETZTERSTART"/>
+        <property name="datumLetzterAbbruch" type="timestamp" column="DATUMLETZTERABBRUCH"/>
+        <property name="datumLetzterErfolg" type="timestamp" column="DATUMLETZTERERFOLG"/>
+    </class>
+
+</hibernate-mapping>

@@ -22,8 +22,10 @@ package de.bund.bva.isyfact.sicherheit;
  * 
  * @see Recht
  * @see Rolle
- * 
+ *
+ * @deprecated since IsyFact 3.0.0 in favor of the isy-security module.
  */
+@Deprecated
 public interface Berechtigungsdaten {
 
     /**

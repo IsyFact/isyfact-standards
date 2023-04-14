@@ -20,7 +20,7 @@ Spring Boot bringt mit Actuator eine Reihe zusätzlicher Funktionen mit, die dab
 Die Kommunikation mit der Anwendung erfolgt über sogenannte _Endpoints_.
 Diese können über HTTP oder JMX bereitgestellt werden.
 Actuator bringt eine Reihe von eingebauten Endpoints mit und bietet auch die Möglichkeit, eigene Endpoints hinzuzufügen.
-So wird für Informationen über den Systemzustand die Endpoints `health`, `livenessProbe`, `readinessProbe` angeboten und über den Endpoint `metrics` können Metriken gelesen werden.
+So wird für Informationen über den Systemzustand die Endpoints `health`, `livenessProbe`, `ReadinessProbe` angeboten und über den Endpoint `metrics` können Metriken gelesen werden.
 
 Weitergehende Details zu den Actuator Endpoints können bei xref:glossary:literaturextern:inhalt.adoc#litextern-spring-boot-info-endpoint[Spring Boot Actuator Endpoint] nachgelesen werden.
 
@@ -46,7 +46,7 @@ Durch diese Entkopplung wird die Systemstabilität durch häufige Aufrufe des En
 
 Der Status der `health`-Endpoints wird maßgeblich von Nachbarsystemchecks bestimmt. Einzelheiten finden sich dazu in Kapitel <<nachbarsystemcheck-health-endpoint>>.
 
-Implementiert und konfiguriert wurde bzw. wird der Health-Check als Task (s. xref:isy-task:konzept/master.adoc[]).
+Implementiert und konfiguriert wurde bzw. wird der Health-Check als xref:isy-task:nutzungsvorgaben/master.adoc#erstellung-eines-tasks[Task].
 
 [[Liveness-und-Readiness]]
 === Liveness und Readiness

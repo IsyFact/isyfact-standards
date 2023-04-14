@@ -1,5 +1,9 @@
 package de.bund.bva.isyfact.sicherheit.config;
 
+/**
+ * @deprecated since IsyFact 3.0.0 in favor of the isy-security module.
+ */
+@Deprecated
 public class IsySicherheitConfigurationProperties {
 
     /** Defaultwert für die Time-to-live (in Sekunden) der Cacheinträge. 0 = deaktiviert. **/

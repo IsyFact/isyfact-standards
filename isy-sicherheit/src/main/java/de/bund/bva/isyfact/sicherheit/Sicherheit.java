@@ -26,7 +26,9 @@ import de.bund.bva.isyfact.sicherheit.common.exception.AuthentifizierungTechnica
 /**
  * Interface zum Zugriff auf Berechtigungsmanager.
  *
+ * @deprecated since IsyFact 3.0.0 in favor of the isy-security module.
  */
+@Deprecated
 public interface Sicherheit<K extends AufrufKontext> {
 
     /**
