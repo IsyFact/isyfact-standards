@@ -40,15 +40,35 @@ Eine Verwendung von Metadaten über HTTPInvoker und Aufrufkontext gilt als depre
 
 [[kapitel-neuer-baustein-security]]
 === Neuer Baustein Security
-Der Baustein Sicherheit wurde neu konzipiert.
+Das Konzept zum Schutz der Daten und IT-Systeme vor unberechtigter Nutzung wurde überarbeitet und ist nun im neuen Baustein `Security` beschrieben.
+Er ist der Nachfolger des Bausteins `Sicherheit`, der ab sofort deprecated ist.
 
 Ziel:: Nutzung von Standardfähigkeiten der eingesetzten Produkte und Reduzierung der Eigenentwicklung.
 
 Folgende Änderungen ergeben sich:
 
-OAuth:: Das neue Konzept des xref:isy-security:konzept/master.adoc[Bausteins Security] beschreibt die Verwendung von OAuth.  
-Authentication-Gateway:: 
+OAuth2.0 und OpenIDConnect::
+Es werden die Protokolle OAuth2.0 und OpenIDConnect verwendet, um ein Single Sign On (SSO) zur Authentifizierung und Autorisierung des Nutzers gegenüber einem zentralen IAM-System umzusetzen.
+Das neue Konzept des xref:isy-security:konzept/master.adoc#oauth2.0-und-openidconnect[Bausteins Security] beschreibt die Verwendung von OAuth2.0 und OpenIDConnect.
+
+Ablösung des IsyFact-AufrufKontext durch Spring-SecurityContext und JWT Access-Token::
+Der `Aufrufkontext` diente bisher als:
+
+- Halter aller Authentifizierungs- und Autorisierungsinformationen für Basic Authentication.
+Dafür wird jetzt der `SecurityContext` von Spring Security verwendet.
+
+- Basis für ein Service-Transportobjekt.
+Stattdessen werden jetzt alle zur Authentifizierung und Autorisierung sowie zur Ausführung des Service notwendigen Daten in einem `JWT Access-Token` transportiert.
+
+Ablösung der IsyFact-Annotation @gesichert durch Spring-Annotation @secured::
+Die von Spring Security bereitgestellte Annotation `@secured` löst die Annotation `@gesichert` ab und ist analog dazu verwenden.
+
+Authentication-Gateway::
+Mit der `IsyFact-3` wird eine neue  xref:isy-security:konzept/master.adoc#aufruf-service-gateway-mit-authentication-gateway[Authentifizierungslogik] für die Authentifizierung von Anwendungen, die außerhalb der Anwendungslandschaft betrieben werden, eingeführt:
+Externe Anwendungen benötigen nun ein Access-Token, um (über ein Service-Gateway) Services von Anwendungen innerhalb der Anwendungslandschaft verwenden zu können. Dieses Access-Token erhalten sie vom neu eingeführten Authentication-Gateway nach erfolgreicher Authentifizierung.
+
 Baustein Sicherheit deprecated icon:ban[title=Deprecation]:: Der xref:isy-sicherheit:konzept/master.adoc[Baustein Sicherheit] und damit die Verwendung des Aufrufkontextes zur Authentifizierung gilt als deprecated und wird mit einem folgenden Release entfernt.
+
 Baustein Sicherheit Keycloak deprecated icon:ban[title=Deprecation]:: Der Baustein Sicherheit Keycloak mit dem Spring Keycloak Adapter gilt als deprecated und wird mit einem nachfolgenden Release entfernt.
 
 //TODO klären, ob hier aufzunehmen
