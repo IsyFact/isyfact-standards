@@ -37,6 +37,7 @@ REST Schnittstellen:: Sowohl interne als auch externe Schnittstellen sind ab sof
 Spring HTTPInvoker deprecated icon:ban[title=Deprecation]:: Die Verwendung von xref:isy-serviceapi-core:konzept/master.adoc[HTTPInvoker Schnittstellen] gilt als deprecated und wird mit einem nachfolgenden Release entfernt.
 Metadaten im HTTP-Header statt im Datensatz/Aufrufkontext icon:ban[title=Deprecation]:: Metadaten sind über HTTP-Header zur realisieren. 
 Eine Verwendung von Metadaten über HTTPInvoker und Aufrufkontext gilt als deprecated und wird mit einem nachfolgenden Release entfernt.
+REST-Baustein als http-Invoker Nachfolger:: Der REST-Baustein wird als Nachfolger von http-Invoker veröffentlicht.
 
 [[kapitel-neuer-baustein-security]]
 === Neuer Baustein Security
