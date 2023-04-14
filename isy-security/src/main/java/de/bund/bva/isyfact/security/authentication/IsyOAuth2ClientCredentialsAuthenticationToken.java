@@ -7,16 +7,19 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 
 public class IsyOAuth2ClientCredentialsAuthenticationToken extends AbstractAuthenticationToken {
 
+    /**
+     * OAuth2 client registration.
+     */
     private ClientRegistration clientRegistration;
 
     /**
      * Creates a token with the supplied array of authorities.
      *
+     * @param clientRegistration OAuth2 client registration.
      */
     public IsyOAuth2ClientCredentialsAuthenticationToken(ClientRegistration clientRegistration) {
         super(Collections.emptyList());
         this.clientRegistration = clientRegistration;
-        super.setAuthenticated(true);
     }
 
     @Override
