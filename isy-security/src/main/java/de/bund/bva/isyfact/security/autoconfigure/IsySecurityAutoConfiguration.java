@@ -1,6 +1,7 @@
 package de.bund.bva.isyfact.security.autoconfigure;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import java.util.List;
+
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.security.oauth2.client.ClientsConfiguredCondition;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -9,14 +10,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.lang.Nullable;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
-import org.springframework.security.oauth2.client.AuthorizedClientServiceOAuth2AuthorizedClientManager;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClientManager;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClientProvider;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClientProviderBuilder;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
-import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 
@@ -30,7 +28,7 @@ import de.bund.bva.isyfact.security.authentication.IsyOAuth2PasswordAuthenticati
 import de.bund.bva.isyfact.security.authentication.RolePrivilegeGrantedAuthoritiesConverter;
 import de.bund.bva.isyfact.security.config.IsyOAuth2ClientProperties;
 import de.bund.bva.isyfact.security.config.IsySecurityConfigurationProperties;
-import de.bund.bva.isyfact.security.core.IsySecurity;
+import de.bund.bva.isyfact.security.core.DefaultSecurity;
 import de.bund.bva.isyfact.security.xmlparser.RolePrivilegesMapper;
 
 @Configuration
@@ -86,8 +84,15 @@ public class IsySecurityAutoConfiguration {
     @Bean
     @Conditional(ClientsConfiguredCondition.class)
     @ConditionalOnMissingBean
-    Authentifizierungsmanager authentifizierungsmanager() {
-        return new IsyOAuth2Authentifizierungsmanager();
+    Authentifizierungsmanager authentifizierungsmanager(
+            AuthenticationManager authenticationManager,
+            ClientRegistrationRepository clientRegistrationRepository
+    ) {
+        return new IsyOAuth2Authentifizierungsmanager(
+                authenticationManager,
+                clientRegistrationRepository,
+                isyOAuth2ClientProperties()
+        );
     }
 
     @Bean
@@ -97,7 +102,7 @@ public class IsySecurityAutoConfiguration {
             Berechtigungsmanager berechtigungsmanager,
             @Nullable Authentifizierungsmanager authentifizierungsmanager
     ) {
-        return new IsySecurity(
+        return new DefaultSecurity(
                 rolePrivilegesMapper,
                 berechtigungsmanager,
                 authentifizierungsmanager
@@ -113,34 +118,14 @@ public class IsySecurityAutoConfiguration {
 
     @Bean
     @Conditional(ClientsConfiguredCondition.class)
-    public OAuth2AuthorizedClientManager authorizedClientManager(
-            ClientRegistrationRepository clientRegistrationRepository,
-            OAuth2AuthorizedClientService oAuth2AuthorizedClientService
-    ) {
-        OAuth2AuthorizedClientProvider authorizedClientProvider =
-                OAuth2AuthorizedClientProviderBuilder.builder()
-                        .clientCredentials()
-                        .build();
-
-        AuthorizedClientServiceOAuth2AuthorizedClientManager authorizedClientManager =
-                new AuthorizedClientServiceOAuth2AuthorizedClientManager(
-                        clientRegistrationRepository, oAuth2AuthorizedClientService);
-        authorizedClientManager.setAuthorizedClientProvider(authorizedClientProvider);
-
-        return authorizedClientManager;
+    IsyOAuth2ClientCredentialsAuthenticationProvider isyOAuth2ClientCredentialsAuthenticationProvider() {
+        return new IsyOAuth2ClientCredentialsAuthenticationProvider(
+                jwtAuthenticationConverter()
+        );
     }
 
     @Bean
-    @Conditional(ClientsConfiguredCondition.class)
-    IsyOAuth2ClientCredentialsAuthenticationProvider isyOAuth2ClientCredentialsAuthenticationProvider(
-            ClientRegistrationRepository clientRegistrationRepository,
-            OAuth2AuthorizedClientService oAuth2AuthorizedClientService
-    ) {
-        return new IsyOAuth2ClientCredentialsAuthenticationProvider(
-                clientRegistrationRepository,
-                jwtAuthenticationConverter(),
-                authorizedClientManager(clientRegistrationRepository, oAuth2AuthorizedClientService),
-                isyOAuth2ClientProperties()
-        );
+    AuthenticationManager authenticationManager(List<AuthenticationProvider> authenticationProvider) {
+        return new ProviderManager(authenticationProvider);
     }
 }

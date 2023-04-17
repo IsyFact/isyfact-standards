@@ -1,7 +1,7 @@
 package de.bund.bva.isyfact.security.authentication;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.client.ClientAuthorizationException;
@@ -10,8 +10,7 @@ import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientProvider;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientProviderBuilder;
 import org.springframework.security.oauth2.client.endpoint.DefaultPasswordTokenResponseClient;
-import org.springframework.security.oauth2.client.endpoint.OAuth2AccessTokenResponseClient;
-import org.springframework.security.oauth2.client.endpoint.OAuth2PasswordGrantRequest;
+import org.springframework.security.oauth2.client.endpoint.OAuth2PasswordGrantRequestEntityConverter;
 import org.springframework.security.oauth2.client.oidc.authentication.OidcIdTokenDecoderFactory;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
@@ -27,26 +26,36 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
  */
 public class IsyOAuth2PasswordAuthenticationProvider implements AuthenticationProvider {
 
-    /** Repository containing the registered clients. */
+    /**
+     * Repository containing the registered clients.
+     */
     private final ClientRegistrationRepository clientRegistrationRepository;
 
-    /** Converter to create a JwtAuthenticationToken from a JWT. */
+    /**
+     * Converter to create a JwtAuthenticationToken from a JWT.
+     */
     private final JwtAuthenticationConverter jwtAuthenticationConverter;
 
-    /** AccessTokenResponseClient for the Password grant. */
-    private final OAuth2AccessTokenResponseClient<OAuth2PasswordGrantRequest> accessTokenResponseClient = new DefaultPasswordTokenResponseClient();
+    /**
+     * AccessTokenResponseClient for the Password grant.
+     */
+    private final DefaultPasswordTokenResponseClient accessTokenResponseClient = new DefaultPasswordTokenResponseClient();
 
-    /** Factory for decoding and validating the returned JWT. */
+    /**
+     * Factory for decoding and validating the returned JWT.
+     */
     private final JwtDecoderFactory<ClientRegistration> jwtDecoderFactory = new OidcIdTokenDecoderFactory();
 
-    public IsyOAuth2PasswordAuthenticationProvider(ClientRegistrationRepository clientRegistrationRepository,
-                                                   JwtAuthenticationConverter jwtAuthenticationConverter) {
+    public IsyOAuth2PasswordAuthenticationProvider(
+            ClientRegistrationRepository clientRegistrationRepository,
+            JwtAuthenticationConverter jwtAuthenticationConverter
+    ) {
         this.clientRegistrationRepository = clientRegistrationRepository;
         this.jwtAuthenticationConverter = jwtAuthenticationConverter;
     }
 
     public Authentication authenticate(String username, String password, String registrationId) throws AuthenticationException {
-        return authenticate(new IsyOAuth2PasswordAuthenticationToken(username, password, registrationId));
+        return authenticate(new IsyOAuth2PasswordAuthenticationToken(username, password, registrationId, null));
     }
 
     @Override
@@ -71,7 +80,7 @@ public class IsyOAuth2PasswordAuthenticationProvider implements AuthenticationPr
         return IsyOAuth2PasswordAuthenticationToken.class.isAssignableFrom(authentication);
     }
 
-    private OAuth2AccessToken obtainAccessToken(ClientRegistration clientRegistration, UsernamePasswordAuthenticationToken authentication) {
+    private OAuth2AccessToken obtainAccessToken(ClientRegistration clientRegistration, IsyOAuth2PasswordAuthenticationToken authentication) {
         String username = authentication.getPrincipal().toString();
         String password = authentication.getCredentials().toString();
 
@@ -80,6 +89,19 @@ public class IsyOAuth2PasswordAuthenticationProvider implements AuthenticationPr
                 .attribute(OAuth2AuthorizationContext.USERNAME_ATTRIBUTE_NAME, username)
                 .attribute(OAuth2AuthorizationContext.PASSWORD_ATTRIBUTE_NAME, password)
                 .build();
+
+        // TODO: add bhknz header if present
+        if (authentication.getBhknz() != null) {
+            OAuth2PasswordGrantRequestEntityConverter entityConverter = new OAuth2PasswordGrantRequestEntityConverter();
+            entityConverter.addHeadersConverter(
+                    source -> {
+                        HttpHeaders headers = new HttpHeaders();
+                        headers.set("x-client-cert-bhknz", String.format("%s:%s", authentication.getBhknz(), "TESTOU"));
+                        return headers;
+                    }
+            );
+            accessTokenResponseClient.setRequestEntityConverter(entityConverter);
+        }
 
         OAuth2AuthorizedClientProvider clientProvider = OAuth2AuthorizedClientProviderBuilder.builder()
                 .password(passwordGrantBuilder -> passwordGrantBuilder.accessTokenResponseClient(accessTokenResponseClient))
@@ -93,5 +115,4 @@ public class IsyOAuth2PasswordAuthenticationProvider implements AuthenticationPr
 
         return authorizedClient.getAccessToken();
     }
-
 }

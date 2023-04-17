@@ -59,10 +59,10 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
             if (isyClientRegistration == null) {
                 throw new AssertionError("An IsyClientRegistration with registrationID: " + registrationId + " has to be defined.");
             }
-            if (StringUtils.hasText(isyClientRegistration.getUsername())) {
+            if (!StringUtils.hasText(isyClientRegistration.getUsername())) {
                 throw new AssertionError("Username for IsyClientRegistration with registrationID: " + registrationId + " has to be defined.");
             }
-            if (StringUtils.hasText(isyClientRegistration.getPassword())) {
+            if (!StringUtils.hasText(isyClientRegistration.getPassword())) {
                 throw new AssertionError("Password for IsyClientRegistration with registrationID: " + registrationId + " has to be defined.");
             }
             IsyOAuth2PasswordAuthenticationToken token = new IsyOAuth2PasswordAuthenticationToken(
