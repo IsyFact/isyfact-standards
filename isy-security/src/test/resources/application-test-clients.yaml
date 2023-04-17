@@ -19,13 +19,21 @@ spring:
             client-secret: hypersecretpassword
             authorization-grant-type: password
             provider: testrealm
+          ropc-client-no-bhknz:
+            client-id: ropc-no-bhknz-test-client
+            client-secret: superhypersecretpassword
+            authorization-grant-type: password
+            provider: testrealm
 
 isy:
   security:
     oauth2:
       client:
         registration:
-          testclient:
-            username: testuser
-            password: testpassword
+          ropc-client:
+            username: admin
+            password: admin123
             bhknz: testbhknz
+          ropc-client-no-bhknz:
+            username: adminNoBhknz
+            password: passwordNoBhknz

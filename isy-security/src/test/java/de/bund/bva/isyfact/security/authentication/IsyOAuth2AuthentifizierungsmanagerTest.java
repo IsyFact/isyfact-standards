@@ -4,70 +4,140 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
 import de.bund.bva.isyfact.security.AbstractOidcProviderTest;
 import de.bund.bva.isyfact.security.Authentifizierungsmanager;
-import de.bund.bva.isyfact.security.example.IsySecurityTestApplication;
-import de.bund.bva.isyfact.security.example.config.OAuth2WebClientConfiguration;
-import de.bund.bva.isyfact.security.example.config.SecurityConfig;
-import de.bund.bva.isyfact.security.example.rest.ExampleRestController;
 
 @ActiveProfiles("test-clients")
-@SpringBootTest(
-        classes = {
-                IsySecurityTestApplication.class,
-                SecurityConfig.class,
-                ExampleRestController.class,
-                OAuth2WebClientConfiguration.class
-        },
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
-)
-// clear context so WebClient will fetch a fresh access token
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@SpringBootTest(classes = {IsyOAuth2AuthentifizierungsmanagerTest.TestConfig.class})
 class IsyOAuth2AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
 
-    private final String TEST_CLIENT_REGISTRATION_ID = "testclient";
-    private final String TEST_CLIENT_ID = "client-credentials-test-client";
-    private final String TEST_CLIENT_SECRET = "supersecretpassword";
-    private final Set<String> TEST_CLIENT_ROLE = Collections.singleton("Rolle_A");
+    // Test data for client credentials flow
+    private static final String CC_TEST_CLIENT_REGISTRATION_ID = "testclient";
+    private static final String CC_TEST_CLIENT_ID = "client-credentials-test-client";
+    private static final String CC_TEST_CLIENT_SECRET = "supersecretpassword";
 
-    @LocalServerPort
-    private int port;
+    // Test data for ressource owner password credentials flow
+    private static final String ROPC_TEST_CLIENT_REGISTRATION_ID = "ropc-client";
+    private static final String ROPC_TEST_CLIENT_ID = "ressource-owner-password-credentials-test-client";
+    private static final String ROPC_TEST_CLIENT_SECRET = "hypersecretpassword";
+    private static final String ROPC_TEST_USERNAME = "admin";
+    private static final String ROPC_TEST_PASSWORD = "admin123";
+    private static final String ROPC_TEST_BHKNZ = "testbhknz";
+
+    // Test data for ressource owner password credentials flow (without bhknz)
+    private static final String ROPC_NO_BHKNZ_TEST_CLIENT_REGISTRATION_ID = "ropc-client-no-bhknz";
+    private static final String ROPC_NO_BHKNZ_TEST_CLIENT_ID = "ropc-no-bhknz-test-client";
+    private static final String ROPC_NO_BHKNZ_TEST_CLIENT_SECRET = "superhypersecretpassword";
+    private static final String ROPC_NO_BHKNZ_TEST_USERNAME = "adminNoBhknz";
+    private static final String ROPC_NO_BHKNZ_TEST_PASSWORD = "passwordNoBhknz";
+
+    private static final Set<String> TEST_CLIENT_ROLE = Collections.singleton("Rolle_A");
 
     @Autowired
     Authentifizierungsmanager authentifizierungsmanager;
 
-    @BeforeEach
-    public void setup() {
-        embeddedOidcProvider.removeAllClients();
+    @BeforeAll
+    public static void setup() {
+        // client with authorization-grant-type=password
+        embeddedOidcProvider.addUser(
+                ROPC_TEST_CLIENT_ID,
+                ROPC_TEST_CLIENT_SECRET,
+                ROPC_TEST_USERNAME,
+                ROPC_TEST_PASSWORD,
+                Optional.of(ROPC_TEST_BHKNZ),
+                TEST_CLIENT_ROLE
+        );
+        // client with authorization-grant-type=password (without bhknz)
+        embeddedOidcProvider.addUser(
+                ROPC_NO_BHKNZ_TEST_CLIENT_ID,
+                ROPC_NO_BHKNZ_TEST_CLIENT_SECRET,
+                ROPC_NO_BHKNZ_TEST_USERNAME,
+                ROPC_NO_BHKNZ_TEST_PASSWORD,
+                Optional.empty(),
+                TEST_CLIENT_ROLE
+        );
+        // client with authorization-grant-type=client_credentials
         embeddedOidcProvider.addClient(
-                TEST_CLIENT_ID,
-                TEST_CLIENT_SECRET,
+                CC_TEST_CLIENT_ID,
+                CC_TEST_CLIENT_SECRET,
                 TEST_CLIENT_ROLE
         );
     }
 
     @Test
-    void authentifiziereClientWithRegistrationId(@Autowired ApplicationContext context) {
-        assertThat(context).isNotNull();
-        authentifizierungsmanager.authentifiziere(TEST_CLIENT_REGISTRATION_ID);
+    void authentifiziereClientWithRegistrationId() {
+        authentifizierungsmanager.authentifiziere(CC_TEST_CLIENT_REGISTRATION_ID);
 
+        assertSecurityContextForClientId(CC_TEST_CLIENT_ID);
+    }
+
+    @Test
+    void authentifiziereSystemWithRegistrationId() {
+        authentifizierungsmanager.authentifiziere(ROPC_TEST_CLIENT_REGISTRATION_ID);
+
+        assertSecurityContextForClientId(ROPC_TEST_CLIENT_ID);
+    }
+
+    @Test
+    void authentifiziereSystemWithRegistrationIdOhneBhknz() {
+        authentifizierungsmanager.authentifiziere(ROPC_NO_BHKNZ_TEST_CLIENT_REGISTRATION_ID);
+
+        assertSecurityContextForClientId(ROPC_NO_BHKNZ_TEST_CLIENT_ID);
+    }
+
+    @Test
+    void authentifiziereClientWithClientIdAndSecret() {
+        authentifizierungsmanager.authentifiziereClient(
+                CC_TEST_CLIENT_ID,
+                CC_TEST_CLIENT_SECRET,
+                getIssuerLocation()
+        );
+
+        assertSecurityContextForClientId(CC_TEST_CLIENT_ID);
+    }
+
+    @Test
+    void authentifiziereSystemWithUsernameAndPassword() {
+        authentifizierungsmanager.authentifiziereSystem(
+                ROPC_TEST_USERNAME,
+                ROPC_TEST_PASSWORD,
+                ROPC_TEST_CLIENT_REGISTRATION_ID,
+                ROPC_TEST_BHKNZ
+        );
+
+        assertSecurityContextForClientId(ROPC_TEST_CLIENT_ID);
+    }
+
+    @Test
+    void authentifiziereSystemWithUsernameAndPasswordOhneBhknz() {
+        authentifizierungsmanager.authentifiziereSystem(
+                ROPC_NO_BHKNZ_TEST_USERNAME,
+                ROPC_NO_BHKNZ_TEST_PASSWORD,
+                ROPC_NO_BHKNZ_TEST_CLIENT_REGISTRATION_ID,
+                null
+        );
+
+        assertSecurityContextForClientId(ROPC_NO_BHKNZ_TEST_CLIENT_ID);
+    }
+
+    private void assertSecurityContextForClientId(String clientId) {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         assertThat(securityContext).isNotNull();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -75,25 +145,15 @@ class IsyOAuth2AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
         assertThat(authentication.isAuthenticated()).isTrue();
         assertThat(authentication).isInstanceOf(JwtAuthenticationToken.class);
         JwtAuthenticationToken jwt = (JwtAuthenticationToken) authentication;
-        assertThat(jwt.getToken().getClaims().get("azp")).isEqualTo(TEST_CLIENT_ID);
+        assertThat(jwt.getToken().getClaims().get("azp")).isEqualTo(clientId);
         List<String> grantedAuthorityNames = jwt.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
         assertThat(grantedAuthorityNames).containsOnly("PRIV_Recht_A");
     }
 
-    @Test
-    void authentifiziereSystemWithRegistrationId(@Autowired ApplicationContext context) {
-        assertThat(context).isNotNull();
-    }
-
-    @Test
-    void authentifiziereClientWithClientIdAndSecret(@Autowired ApplicationContext context) {
-        authentifizierungsmanager.authentifiziereClient(
-                TEST_CLIENT_ID,
-                TEST_CLIENT_SECRET,
-                getIssuerLocation()
-        );
-        assertThat(context).isNotNull();
+    @Configuration
+    @EnableAutoConfiguration
+    public static class TestConfig {
     }
 }
