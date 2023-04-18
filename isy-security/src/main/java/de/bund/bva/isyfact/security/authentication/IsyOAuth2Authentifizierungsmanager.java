@@ -56,6 +56,7 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
             authenticate(token);
         } else if (grantType.equals(AuthorizationGrantType.PASSWORD)) {
             IsyOAuth2ClientProperties.IsyClientRegistration isyClientRegistration = isyOAuth2ClientProperties.getRegistration().getOrDefault(registrationId, null);
+            // TODO: throw AuthentifizierungFehlgeschlagenException/AuthentifizierungTechnicalException
             if (isyClientRegistration == null) {
                 throw new AssertionError("An IsyClientRegistration with registrationID: " + registrationId + " has to be defined.");
             }

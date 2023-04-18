@@ -3,10 +3,28 @@ package de.bund.bva.isyfact.security.config;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.validation.constraints.NotBlank;
+
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties;
+import org.springframework.util.StringUtils;
+import org.springframework.validation.annotation.Validated;
+
 /**
  * IsyFact-specific properties to extend the Spring Client Registration.
  */
-public class IsyOAuth2ClientProperties {
+@Validated
+public class IsyOAuth2ClientProperties implements InitializingBean {
+
+    private final OAuth2ClientProperties oAuth2ClientProperties;
+
+    private String bhknzHeaderName = "x-client-cert-bhknz";
+
+    private String defaultCertificateOu;
+
+    public IsyOAuth2ClientProperties(OAuth2ClientProperties oAuth2ClientProperties) {
+        this.oAuth2ClientProperties = oAuth2ClientProperties;
+    }
 
     /**
      * Additional (custom) Client Registration attributes.
@@ -18,19 +36,53 @@ public class IsyOAuth2ClientProperties {
         return registration;
     }
 
+    public String getBhknzHeaderName() {
+        return bhknzHeaderName;
+    }
+
+    public void setBhknzHeaderName(String bhknzHeaderName) {
+        this.bhknzHeaderName = bhknzHeaderName;
+    }
+
+    public String getDefaultCertificateOu() {
+        return defaultCertificateOu;
+    }
+
+    public void setDefaultCertificateOu(String defaultCertificateOu) {
+        this.defaultCertificateOu = defaultCertificateOu;
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        getRegistration().keySet().forEach(key -> {
+            if (!oAuth2ClientProperties.getRegistration().containsKey(key)) {
+                throw new IllegalStateException(String.format("A Spring ClientRegistration with the same ID must be registered, ID: %s", key));
+            }
+        });
+
+        getRegistration().values().stream().filter(value -> value.getBhknz() != null).findAny().ifPresent(e -> {
+            if (!StringUtils.hasText(getDefaultCertificateOu())) {
+                throw new IllegalStateException("Default certificate OU must not be empty.");
+            }
+        });
+    }
+
     /**
      * Additional (custom) Client Registration attributes.
      */
+    @Validated
     public static class IsyClientRegistration {
 
         /**
          * Client Registration username attribute.
          */
+        @NotBlank
         private String username;
 
         /**
          * Client Registration password attribute.
          */
+        @NotBlank
         private String password;
 
         /**

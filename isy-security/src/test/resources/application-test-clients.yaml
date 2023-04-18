@@ -37,3 +37,4 @@ isy:
           ropc-client-no-bhknz:
             username: adminNoBhknz
             password: passwordNoBhknz
+        default-certificate-ou: TESTOU

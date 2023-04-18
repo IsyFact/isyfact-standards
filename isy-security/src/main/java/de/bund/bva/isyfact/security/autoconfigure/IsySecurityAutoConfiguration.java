@@ -113,7 +113,11 @@ public class IsySecurityAutoConfiguration {
     @Conditional(ClientsConfiguredCondition.class)
     public IsyOAuth2PasswordAuthenticationProvider isyOAuth2PasswordAuthenticationProvider(
             ClientRegistrationRepository clientRegistrationRepository) {
-        return new IsyOAuth2PasswordAuthenticationProvider(clientRegistrationRepository, jwtAuthenticationConverter());
+        return new IsyOAuth2PasswordAuthenticationProvider(
+                clientRegistrationRepository,
+                jwtAuthenticationConverter(),
+                isySecurityConfigurationProperties()
+        );
     }
 
     @Bean
