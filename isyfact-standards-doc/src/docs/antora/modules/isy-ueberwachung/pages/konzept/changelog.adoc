@@ -6,6 +6,10 @@
 // tag::release-3.0.0[]
 - Hinzufügen und Diskussion von Liveness, Readiness und Availability
 
+- Hinzufügen von konzeptueller Beschreibung des Loadbalancing insb. im Zusammenhang mit Readiness
+
+- Umzug des Kapitels _Loadbalancer-Servlets_ von den Nutzungsvorgaben in das Konzept
+
 // end::release-3.0.0[]
 
 // *Änderungen IsyFact 2.4.0*

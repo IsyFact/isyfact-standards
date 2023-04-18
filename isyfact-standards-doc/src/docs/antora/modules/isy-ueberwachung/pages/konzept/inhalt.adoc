@@ -48,7 +48,11 @@ Der Status der `health`-Endpoints wird maßgeblich von Nachbarsystemchecks besti
 
 Implementiert und konfiguriert wurde bzw. wird der Health-Check als xref:isy-task:nutzungsvorgaben/master.adoc#erstellung-eines-tasks[Task].
 
+[[Liveness-und-Readiness]]
 === Liveness und Readiness
+In diesem Kapitel werden die Begriffe _Liveness_ und _Readiness_ definiert.
+Die Bedeutung von "live" und "ready" Zuständen von Anwendungen und Services wird beschrieben.
+Erläutert wird, wie diese mit der Hilfe von _Liveness_- und _Readiness_-Probes in Spring Boot überwacht werden können.
 
 [[liveness]]
 ==== Liveness
@@ -63,7 +67,7 @@ Ist eine Anwendung nicht "ready", kann sie temporär keine Anfragen bearbeiten.
 Ist eine Anwendung nicht "ready", darf die Infrastruktur keine weiteren Anfragen an sie senden (vgl. xref:glossary:literaturextern:inhalt.adoc#litextern-spring-api-Readiness[Spring Boot `ReadinessState`], xref:glossary:literaturextern:inhalt.adoc#litextern-kubernetes-liveness-Readiness-probes[Kubernetes Liveness und Readiness Probes]).
 
 Ein Service (d.h. eine Bündelung von Instanzen/Anwendungen, die denselben Service anbieten) wird als "ready" angesehen, wenn mindestens eine Instanz "ready" ist.
-Prüfungen der Readiness von Services müssen über die Infrastruktur erfolgen.
+Prüfungen der _Readiness_ von Services müssen über die Infrastruktur erfolgen.
 
 [[liveness_Readiness_diskussion]]
 ==== Diskussion von Liveness & Readiness
@@ -135,6 +139,35 @@ Im Rahmen von Nachbarsystemchecks kann (alternativ zum `health`-Endpoint) die _L
 Auch hier kann unterschieden und geloggt werden, ob ein essenzielles Nachbarsystem ausgefallen ist - oder ein nicht essenzielles.
 Ist ein essenzielles Nachbarsystem ausgefallen, dann hat dies Auswirkungen auf die _Readiness_ des Systems.
 Nachbarsystemchecks von essenziellen Systemen sind damit essenziell für die _Readiness_ eines Systems.
+
+[[Loadbalancer]]
+=== Loadbalancer
+
+Ein Loadbalancer ist ein Netzwerkgerät, mit dem eingehende Anfragen auf mehrere Server verteilt werden.
+Durch dieses Loadbalancing wird die Ressourcenauslastung, die Reaktionszeit und die Ausfallsicherheit optimiert.
+Für Anwendungen nach der IsyFact-Architektur sollen einzelne Knoten eines Anwendungsclusters aus dem Loadbalancing herausnehmbar sein.
+Dies ist für das Durchführen von Updates erforderlich.
+Aus diesem Grund wird als Teil jeder Webanwendung ein sog. Loadbalancer-Servlet ausgeliefert.
+
+[[beschreibung-des-loadbalancer-servlets]]
+==== Beschreibung des Loadbalancer-Servlets
+
+Das Loadbalancer-Servlet prüft beim Aufrufen seiner URL, ob eine `IsAlive`-Datei im Konfigurationsverzeichnis vorhanden ist.
+Ist eine solche Datei vorhanden, liefert das Servlet den HTTP-Statuscode `HTTP OK` (`200`) zurück.
+Falls keine `IsAlive`-Datei gefunden wird, liefert das Servlet den Code `HTTP FORBIDDEN` (`403`) zurück.
+Der Loadbalancer prüft in regelmäßigen Abständen die URL des Servlets und nimmt für die Anwendung den entsprechenden Server aus dem Loadbalancing heraus, falls kein `HTTP OK` gelesen wird.
+Zu beachten ist, dass auf einem Server prinzipiell mehrere verschiedene Anwendungen laufen können.
+Der Loadbalancer muss daher so konfiguriert werden, dass auf dem Server nur die betreffende Anwendung deaktiviert wird, zu der das Loadbalancer-Servlet gehört.
+Alle anderen Anwendungen auf dem entsprechenden Server müssen weiterhin bedient werden.
+
+[[Loadbalancing-mit-Readiness-Metrik]]
+==== Loadbalancing mit Readiness-Metrik
+
+Sind _Liveness_ und _Readiness_ definiert, soll der Loadbalancer die _Readiness_ eines Knotens prüfen.
+Ist die _Readiness_ nicht gegeben, ist der Knoten aus dem Loadbalancing heraus zu nehmen.
+Je nach betrieblichen Bedingungen und den technischen Möglichkeiten des eingesetzten Loadbalancers ist die Abfrage der _Readiness_ über den _Readiness_ Endpoint oder eine `isAlive`-Datei festzustellen.
+Die betrieblich begründete, temporäre Nichtverfügbarkeit einer Anwendung, kann über die Löschung einer `isAlive`-Datei gesteuert werden (vgl. xref:nutzungsvorgaben/master.adoc#integration-des-loadbalancer-servlets[Nutzungsvorgaben]).
+Ist das Vorhandensein einer `isAlive`-Datei aus betrieblichen Anforderungen nicht notwendig ist die direkte Prüfung über den _Readiness_ Endpoint vorzunehmen.
 
 [[availability]]
 === Availability
