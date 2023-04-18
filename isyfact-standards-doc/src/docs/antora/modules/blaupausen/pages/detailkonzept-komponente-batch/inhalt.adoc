@@ -130,7 +130,7 @@ Für eine Batch-Implementierung umfasst diese Querschnittsfunktionalität folgen
 * Aufruf des Überlesens von Datensätzen bei einem Restart
 * Steuerung der Transaktionen inklusive Speicherung des Fortschritts in einer Status-Tabelle
 * Bereitstellung von Überwachungsmöglichkeiten
-* Authentifizierung und Autorisierung eines betrieblich konfigurierten Batchbenutzers über die T-Komponente Sicherheit
+* Authentifizierung und Autorisierung eines betrieblich konfigurierten Batchbenutzers über die T-Komponente Security
 * Konfiguration, Instanziierung und Aufruf der eigentlichen Batchlogik
 
 Diese Funktionalität wird in einer Batch-Implementierung durch eine querschnittliche Komponente namens _Batchrahmen_ umgesetzt.
@@ -738,10 +738,10 @@ Datei `JRE_HOME/lib/management/jmxremote.access` readwrite-Zugriff erlaubt ist.
 Ein Batch wird innerhalb der Plattform gestartet.
 Dazu verwendet der Batch die Benutzerkennung eines technischen Benutzers „internes System“, die in seiner Startkonfiguration (als Konfigurationsdatei) hinterlegt und im Benutzerverzeichnis vorhanden ist.
 
-Der Batchrahmen nutzt die T-Komponente Sicherheit (siehe xref:isy-sicherheit:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Sicherheit]), um den anfragenden Benutzer über den IAM-Service der Plattform zu authentifizieren.
+Der Batchrahmen nutzt die T-Komponente Security (siehe xref:isy-security:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Security]), um den anfragenden Benutzer über den IAM-Service der Plattform zu authentifizieren.
 Das IAM-Service authentifiziert den Benutzer anhand der angegebenen Benutzerkennung und des Passwortes, registriert alle Informationen zum Benutzer in der T-Komponente AufrufKontextVerwalter und schließt die Session des Benutzers im IAM-System.
 
-Im Zuge des Batchlaufs können nun über die T-Komponente Sicherheit Berechtigungsprüfungen (z.B. im Anwendungskern) stattfinden.
+Im Zuge des Batchlaufs können nun über die T-Komponente Security Berechtigungsprüfungen (z.B. im Anwendungskern) stattfinden.
 
 Der Batchrahmen fordert vom BatchAusführungsBean die Implementierung der Methode: getAuthenticationCredentials(), in der dem Batchrahmen bekannt gegeben wird, mit welchem Benutzer der Batch laufen soll.
 
@@ -1067,7 +1067,7 @@ NOTE: Falls (in einem ungewöhnlichen Sonderfall) mit `ResultSet`-Iteratoren gea
 === Informationen zum Batch-Benutzer bereitstellen
 
 Batches müssen beim Start einen Benutzer authentifizieren und autorisieren, bevor der fachliche Teil der Batchverarbeitung starten kann.
-Der Batchrahmen fordert von der Ausführungsbean die Bereitstellung der Informationen zum Benutzer, um diesen über die T-Komponente Sicherheit zu authentifizieren.
+Der Batchrahmen fordert von der Ausführungsbean die Bereitstellung der Informationen zum Benutzer, um diesen über die T-Komponente Security zu authentifizieren.
 Dazu ist für das Ausführungsbean die Methode `getAuthenticationCredentials()` umzusetzen.
 
 [[fehlerbehandlung-in-ausfuehrungsbeans-durchfuehren]]
