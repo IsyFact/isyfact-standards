@@ -1,30 +1,28 @@
 package de.bund.bva.isyfact.security.authentication;
 
+import org.springframework.security.authentication.AbstractAuthenticationToken;
+
 import java.util.Collections;
 
-import org.springframework.security.authentication.AbstractAuthenticationToken;
-import org.springframework.security.oauth2.client.registration.ClientRegistration;
-
 public class IsyOAuth2ClientCredentialsAuthenticationToken extends AbstractAuthenticationToken {
-
     /**
      * OAuth2 client registration.
      */
-    private ClientRegistration clientRegistration;
+    private String registrationId;
 
     /**
      * Creates a token with the supplied array of authorities.
      *
-     * @param clientRegistration OAuth2 client registration.
+     * @param registrationId Id of OAuth2 client registration.
      */
-    public IsyOAuth2ClientCredentialsAuthenticationToken(ClientRegistration clientRegistration) {
+    public IsyOAuth2ClientCredentialsAuthenticationToken(String registrationId) {
         super(Collections.emptyList());
-        this.clientRegistration = clientRegistration;
+        this.registrationId = registrationId;
     }
 
     @Override
     public Object getPrincipal() {
-        return this.clientRegistration.getClientId();
+        return "Authentifizierungsmanager";
     }
 
     @Override
@@ -32,7 +30,7 @@ public class IsyOAuth2ClientCredentialsAuthenticationToken extends AbstractAuthe
         return "";
     }
 
-    public ClientRegistration getClientRegistration() {
-        return clientRegistration;
+    public String getRegistrationId() {
+        return registrationId;
     }
 }
