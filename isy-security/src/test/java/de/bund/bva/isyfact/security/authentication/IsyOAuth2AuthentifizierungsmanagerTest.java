@@ -1,5 +1,9 @@
 package de.bund.bva.isyfact.security.authentication;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.exactly;
+import static com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.verify;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Collections;
@@ -86,6 +90,12 @@ class IsyOAuth2AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
         authentifizierungsmanager.authentifiziere(CC_TEST_CLIENT_REGISTRATION_ID);
 
         assertSecurityContextForClientId(CC_TEST_CLIENT_ID);
+
+        // Check that our implementation makes use of the spring caching
+        // authenticate a second time:
+        authentifizierungsmanager.authentifiziere(CC_TEST_CLIENT_REGISTRATION_ID);
+        // expect only one request to the IAM-Sever:
+        verify(exactly(1), postRequestedFor(urlEqualTo("/auth/realms/testrealm/protocol/openid-connect/token")));
     }
 
     @Test
