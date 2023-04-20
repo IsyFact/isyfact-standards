@@ -56,18 +56,15 @@ public class BasicTestBatch implements BatchAusfuehrungsBean {
     /** Der interne Zaehler */
     private int count;
 
-    /** {@inheritDoc} */
     public void batchBeendet() {
         this.statistik2.setWert(999);
     }
 
-    /** {@inheritDoc} */
     public void checkpointGeschrieben(long satzNummer) throws BatchAusfuehrungsException {
         LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001,
             "Checkpoint für Satz {} geschrieben.", satzNummer);
     }
 
-    /** {@inheritDoc} */
     public int initialisieren(BatchKonfiguration konfiguration, long satzNummer, String dbKey,
         BatchStartTyp startTyp, Date datumLetzterErfolg, BatchErgebnisProtokoll protokoll)
         throws BatchAusfuehrungsException {
@@ -86,7 +83,6 @@ public class BasicTestBatch implements BatchAusfuehrungsBean {
         return this.count;
     }
 
-    /** {@inheritDoc} */
     public VerarbeitungsErgebnis verarbeiteSatz() throws BatchAusfuehrungsException {
         this.count--;
         this.protokoll.ergaenzeMeldung(new VerarbeitungsMeldung("ID" + this.count, "REGNR" + this.count,
@@ -95,7 +91,6 @@ public class BasicTestBatch implements BatchAusfuehrungsBean {
         return new VerarbeitungsErgebnis("" + this.count, this.count == 0);
     }
 
-    /** {@inheritDoc} */
     public void rollbackDurchgefuehrt() {
         LOG.error(BatchRahmenEreignisSchluessel.EPLBAT00001, "Rollback durchgeführt");
     }
@@ -107,17 +102,11 @@ public class BasicTestBatch implements BatchAusfuehrungsBean {
         return null;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void vorCheckpointGeschrieben(long satzNummer) throws BatchAusfuehrungsException {
         // leer
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void vorRollbackDurchgefuehrt() {
         // leer

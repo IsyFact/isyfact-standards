@@ -110,9 +110,6 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
         return this.transactionManager.getTransaction(transDef);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public void runBatch(BatchKonfiguration konfiguration, BatchErgebnisProtokoll protokoll)
         throws BatchAusfuehrungsException {
         VerarbeitungsInformationen verarbInfo = new VerarbeitungsInformationen(konfiguration);
@@ -483,17 +480,10 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
         this.jmxBean = jmxBean;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public void afterPropertiesSet() throws Exception {
         this.statusHandler = new StatusHandler(entityManager.getEntityManagerFactory());
     }
 
-    /**
-     *
-     * {@inheritDoc}
-     */
     public void destroy() throws Exception {
         this.batchAbgebrochen = true;
 

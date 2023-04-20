@@ -79,17 +79,11 @@ public class ErrorTestBatch implements BatchAusfuehrungsBean {
         return null;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void vorCheckpointGeschrieben(long satzNummer) throws BatchAusfuehrungsException {
         // leer
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void vorRollbackDurchgefuehrt() {
         // leer
