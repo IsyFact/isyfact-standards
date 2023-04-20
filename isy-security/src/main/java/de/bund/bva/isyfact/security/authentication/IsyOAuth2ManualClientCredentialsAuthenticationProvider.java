@@ -1,32 +1,26 @@
 package de.bund.bva.isyfact.security.authentication;
 
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.client.OAuth2AuthorizationContext;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientProvider;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientProviderBuilder;
-import org.springframework.security.oauth2.client.oidc.authentication.OidcIdTokenDecoderFactory;
-import org.springframework.security.oauth2.client.registration.ClientRegistration;
-import org.springframework.security.oauth2.core.OAuth2AccessToken;
-import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.security.oauth2.jwt.JwtDecoderFactory;
+import org.springframework.security.oauth2.core.OAuth2AuthorizationException;
+import org.springframework.security.oauth2.core.OAuth2Error;
+import org.springframework.security.oauth2.core.OAuth2ErrorCodes;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 
-public class IsyOAuth2ManualClientCredentialsAuthenticationProvider implements AuthenticationProvider {
-
-    private final JwtAuthenticationConverter jwtAuthenticationConverter;
-
-    /**
-     * Factory for decoding and validating the returned JWT.
-     */
-    private final JwtDecoderFactory<ClientRegistration> jwtDecoderFactory = new OidcIdTokenDecoderFactory();
+/**
+ * Authentication Provider to obtain an {@link Authentication} with the OAuth2 Client Credentials flow
+ * using configured ClientRegistrations.
+ */
+public class IsyOAuth2ManualClientCredentialsAuthenticationProvider extends AbstractIsyAuthenticationProvider {
 
     public IsyOAuth2ManualClientCredentialsAuthenticationProvider(
             JwtAuthenticationConverter jwtAuthenticationConverter
     ) {
-        this.jwtAuthenticationConverter = jwtAuthenticationConverter;
+        super(jwtAuthenticationConverter);
     }
 
     @Override
@@ -48,12 +42,13 @@ public class IsyOAuth2ManualClientCredentialsAuthenticationProvider implements A
 
         OAuth2AuthorizedClient authorizedClient = clientProvider.authorize(authorizationContext);
 
-        OAuth2AccessToken accessToken = authorizedClient.getAccessToken();
-
-        Jwt jwt = jwtDecoderFactory.createDecoder(token.getClientRegistration())
-                .decode(accessToken.getTokenValue());
-
-        return jwtAuthenticationConverter.convert(jwt);
+        if (authorizedClient == null) {
+            throw new OAuth2AuthorizationException(
+                    new OAuth2Error(OAuth2ErrorCodes.INVALID_GRANT),
+                    "authorization is not supported for the specified client"
+            );
+        }
+        return getAndConvertAccessToken(authorizedClient);
     }
 
     @Override

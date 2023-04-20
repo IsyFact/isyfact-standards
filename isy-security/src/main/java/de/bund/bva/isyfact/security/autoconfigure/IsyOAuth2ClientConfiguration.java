@@ -1,11 +1,7 @@
 package de.bund.bva.isyfact.security.autoconfigure;
 
-import de.bund.bva.isyfact.security.Authentifizierungsmanager;
-import de.bund.bva.isyfact.security.authentication.IsyOAuth2Authentifizierungsmanager;
-import de.bund.bva.isyfact.security.authentication.IsyOAuth2ClientCredentialsAuthenticationProvider;
-import de.bund.bva.isyfact.security.authentication.IsyOAuth2ManualClientCredentialsAuthenticationProvider;
-import de.bund.bva.isyfact.security.authentication.IsyOAuth2PasswordAuthenticationProvider;
-import de.bund.bva.isyfact.security.config.IsyOAuth2ClientProperties;
+import java.util.List;
+
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.security.oauth2.client.ClientsConfiguredCondition;
@@ -19,17 +15,29 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.oauth2.client.*;
+import org.springframework.security.oauth2.client.AuthorizedClientServiceOAuth2AuthorizedClientManager;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientManager;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientProvider;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientProviderBuilder;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 
-import java.util.List;
+import de.bund.bva.isyfact.security.Authentifizierungsmanager;
+import de.bund.bva.isyfact.security.authentication.IsyOAuth2Authentifizierungsmanager;
+import de.bund.bva.isyfact.security.authentication.IsyOAuth2ClientCredentialsAuthenticationProvider;
+import de.bund.bva.isyfact.security.authentication.IsyOAuth2ManualClientCredentialsAuthenticationProvider;
+import de.bund.bva.isyfact.security.authentication.IsyOAuth2PasswordAuthenticationProvider;
+import de.bund.bva.isyfact.security.config.IsyOAuth2ClientProperties;
 
 @Configuration
 @ConditionalOnClass({ClientRegistration.class, EnableWebSecurity.class})
 public class IsyOAuth2ClientConfiguration {
 
+    /**
+     * Beans defined in this class are only required if any ClientRegistrations are configured.
+     */
     @Configuration
     @Conditional(ClientsConfiguredCondition.class)
     public static class ClientsConfiguredDependantBeans {
