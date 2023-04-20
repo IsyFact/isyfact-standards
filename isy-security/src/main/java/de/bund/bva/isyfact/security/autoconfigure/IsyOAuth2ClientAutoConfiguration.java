@@ -31,9 +31,12 @@ import de.bund.bva.isyfact.security.authentication.IsyOAuth2ManualClientCredenti
 import de.bund.bva.isyfact.security.authentication.IsyOAuth2PasswordAuthenticationProvider;
 import de.bund.bva.isyfact.security.config.IsyOAuth2ClientProperties;
 
+/**
+ * This class contains bean definitions for applications that act as OAuth2 clients.
+ */
 @Configuration
 @ConditionalOnClass({ClientRegistration.class, EnableWebSecurity.class})
-public class IsyOAuth2ClientConfiguration {
+public class IsyOAuth2ClientAutoConfiguration {
 
     /**
      * Beans defined in this class are only required if any ClientRegistrations are configured.
@@ -77,7 +80,6 @@ public class IsyOAuth2ClientConfiguration {
                 ClientRegistrationRepository clientRegistrationRepository,
                 OAuth2AuthorizedClientService authorizedClientService
         ) {
-            //TODO: provide bean
             OAuth2AuthorizedClientProvider clientProvider = OAuth2AuthorizedClientProviderBuilder
                     .builder()
                     .clientCredentials()
@@ -92,7 +94,6 @@ public class IsyOAuth2ClientConfiguration {
     }
 
     @Bean
-    @Conditional(ClientsConfiguredCondition.class)
     @ConditionalOnMissingBean
     Authentifizierungsmanager authentifizierungsmanager(
             AuthenticationManager authenticationManager,
@@ -111,6 +112,7 @@ public class IsyOAuth2ClientConfiguration {
     }
 
     @Bean
+    @ConditionalOnMissingBean
     IsyOAuth2ManualClientCredentialsAuthenticationProvider isyOAuth2ManualClientCredentialsAuthenticationProvider(
             JwtAuthenticationConverter jwtAuthenticationConverter
     ) {
