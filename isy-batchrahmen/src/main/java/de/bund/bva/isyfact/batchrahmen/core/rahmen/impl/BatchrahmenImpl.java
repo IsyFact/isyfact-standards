@@ -53,16 +53,13 @@ import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontextFactory;
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
 
 /**
  * Implementation of the 'Batchrahmen-Funktionalitaet'.
  *
  * @param <T> is the type of 'AufrufKontextes' to be used.
  */
-public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, InitializingBean,
+public class BatchrahmenImpl implements Batchrahmen, InitializingBean,
         ApplicationContextAware, DisposableBean {
 
     /**
@@ -117,16 +114,6 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
     private String vorigerBatchStatus;
 
     /**
-     * Reference to component 'AufrufKontextVerwalter'.
-     */
-    private AufrufKontextVerwalter<T> aufrufKontextVerwalter;
-
-    /**
-     * Reference to 'AufrufKontextFactory'.
-     */
-    private AufrufKontextFactory<T> aufrufKontextFactory;
-
-    /**
      * @return TransactionStatus
      */
     public TransactionStatus starteTransaktion() {
@@ -166,21 +153,8 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
         try {
             MdcHelper.pushKorrelationsId(UUID.randomUUID().toString());
             // Initialization phase
-            T aufrufKontext = this.aufrufKontextFactory.erzeugeAufrufKontext();
-            aufrufKontext.setKorrelationsId(MdcHelper.liesKorrelationsId());
-            this.aufrufKontextVerwalter.setAufrufKontext(aufrufKontext);
             this.batchLaeuft = true;
 
-            AuthenticationCredentials authentifikation =
-                    getBatchAusfuehrer(verarbInfo.getKonfiguration()).getAuthenticationCredentials(konfiguration);
-            if (authentifikation != null) {
-                aufrufKontext.setDurchfuehrendeBehoerde(authentifikation.getBehoerdenkennzeichen());
-                aufrufKontext.setDurchfuehrenderBenutzerKennung(authentifikation.getBenutzerkennung());
-                aufrufKontext.setDurchfuehrenderBenutzerPasswort(authentifikation.getPasswort());
-            }
-            aufrufKontext.setDurchfuehrenderSachbearbeiterName(konfiguration
-                    .getAsString(KonfigurationSchluessel.PROPERTY_BATCH_NAME));
-            this.aufrufKontextFactory.nachAufrufKontextVerarbeitung(aufrufKontext);
             initialisiereBatch(verarbInfo, protokoll);
 
             initErfolgreich = true;
@@ -198,8 +172,6 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
                 verarbInfo.incSatzNummer();
 
                 MdcHelper.pushKorrelationsId(UUID.randomUUID().toString());
-
-                aufrufKontext.setKorrelationsId(MdcHelper.liesKorrelationsId());
 
                 ergebnis = verarbInfo.getBean().verarbeiteSatz();
 
@@ -506,26 +478,6 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
         while (this.batchLaeuft) {
             Thread.sleep(1000);
         }
-    }
-
-    /**
-     * Sets the field {@link #aufrufKontextVerwalter}.
-     *
-     * @param aufrufKontextVerwalter new value for aufrufKontextVerwalter
-     */
-    @Required
-    public void setAufrufKontextVerwalter(AufrufKontextVerwalter<T> aufrufKontextVerwalter) {
-        this.aufrufKontextVerwalter = aufrufKontextVerwalter;
-    }
-
-    /**
-     * Sets the field {@link #aufrufKontextFactory}.
-     *
-     * @param aufrufKontextFactory New value for aufrufKontextFactory
-     */
-    @Required
-    public void setAufrufKontextFactory(AufrufKontextFactory<T> aufrufKontextFactory) {
-        this.aufrufKontextFactory = aufrufKontextFactory;
     }
 
 }

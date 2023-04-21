@@ -25,11 +25,9 @@ public class BatchrahmenTestConfig {
     }
 
     @Bean
-    public Batchrahmen batchrahmen(PlatformTransactionManager platformTransactionManager, AufrufKontextVerwalter aufrufKontextVerwalter, AufrufKontextFactory aufrufKontextFactory) {
+    public Batchrahmen batchrahmen(PlatformTransactionManager platformTransactionManager) {
         BatchrahmenImpl batchrahmen = new BatchrahmenImpl();
         batchrahmen.setTransactionManager(platformTransactionManager);
-        batchrahmen.setAufrufKontextFactory(aufrufKontextFactory);
-        batchrahmen.setAufrufKontextVerwalter(aufrufKontextVerwalter);
         batchrahmen.setJmxBean(batchRahmenMBean());
 
         return batchrahmen;

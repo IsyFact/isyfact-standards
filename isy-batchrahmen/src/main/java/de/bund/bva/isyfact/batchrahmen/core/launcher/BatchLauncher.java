@@ -32,6 +32,7 @@ import org.springframework.boot.Banner;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.security.core.AuthenticationException;
 
 import de.bund.bva.isyfact.batchrahmen.batch.exception.BatchAusfuehrungsException;
 import de.bund.bva.isyfact.batchrahmen.batch.konfiguration.BatchKonfiguration;
@@ -50,7 +51,6 @@ import de.bund.bva.isyfact.batchrahmen.core.rahmen.Batchrahmen;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
-import de.bund.bva.isyfact.sicherheit.common.exception.SicherheitTechnicalRuntimeException;
 
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.joran.JoranConfigurator;
@@ -156,7 +156,7 @@ public class BatchLauncher {
         } catch (BatchrahmenException ex) {
             protokolliereFehler(log, protokoll, ex);
             returnCode = ex.getReturnCode();
-        } catch (SicherheitTechnicalRuntimeException ex) {
+        } catch (AuthenticationException ex) {
             protokolliereFehler(log, protokoll, ex);
             returnCode = BatchReturnCode.FEHLER_KONFIGURATION;
         } catch (Throwable ex) {
