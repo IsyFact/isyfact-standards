@@ -104,7 +104,7 @@ public class ReturnCodeTestBatch implements BatchAusfuehrungsBean {
                 MeldungTyp.INFO, "Satz " + this.count + " verarbeitet. Teststring: <>\"üaößÜÄÖ€"));
         this.statistik1.erhoeheWert();
         this.protokoll.setReturnCode(BatchReturnCode.FEHLER_AUSGEFUEHRT);
-        return new VerarbeitungsErgebnis("" + this.count, this.count == 0);
+        return new VerarbeitungsErgebnis(String.valueOf(this.count), this.count == 0);
     }
 
     public void rollbackDurchgefuehrt() {

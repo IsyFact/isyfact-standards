@@ -102,7 +102,7 @@ public class BasicTestBatch implements BatchAusfuehrungsBean {
         this.protokoll.ergaenzeMeldung(new VerarbeitungsMeldung("ID" + this.count, "REGNR" + this.count,
                 MeldungTyp.INFO, "Satz " + this.count + " verarbeitet. Teststring: <>\"üaößÜÄÖ€"));
         this.statistik1.erhoeheWert();
-        return new VerarbeitungsErgebnis("" + this.count, this.count == 0);
+        return new VerarbeitungsErgebnis(String.valueOf(this.count), this.count == 0);
     }
 
     public void rollbackDurchgefuehrt() {

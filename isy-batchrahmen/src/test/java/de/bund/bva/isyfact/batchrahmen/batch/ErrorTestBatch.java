@@ -64,7 +64,7 @@ public class ErrorTestBatch implements BatchAusfuehrungsBean {
         if (this.count < 10 && this.konfiguration.getAsBoolean("laufError", false)) {
             throw new RuntimeException("Abbruch in verarbeite Satz");
         }
-        return new VerarbeitungsErgebnis("" + this.count, this.count == 0);
+        return new VerarbeitungsErgebnis(String.valueOf(this.count), this.count == 0);
     }
 
     @Override

@@ -118,13 +118,13 @@ class KommandozeilenParser {
         }
 
         cmdArgs.put(KonfigurationSchluessel.KOMMANDO_PARAM_START,
-            "" + line.hasOption(KonfigurationSchluessel.KOMMANDO_PARAM_START));
+                String.valueOf(line.hasOption(KonfigurationSchluessel.KOMMANDO_PARAM_START)));
         cmdArgs.put(KonfigurationSchluessel.KOMMANDO_PARAM_RESTART,
-            "" + line.hasOption(KonfigurationSchluessel.KOMMANDO_PARAM_RESTART));
+                String.valueOf(line.hasOption(KonfigurationSchluessel.KOMMANDO_PARAM_RESTART)));
         cmdArgs.put(KonfigurationSchluessel.KOMMANDO_PARAM_IGNORIERE_LAUF,
-            "" + line.hasOption(KonfigurationSchluessel.KOMMANDO_PARAM_IGNORIERE_LAUF));
+                String.valueOf(line.hasOption(KonfigurationSchluessel.KOMMANDO_PARAM_IGNORIERE_LAUF)));
         cmdArgs.put(KonfigurationSchluessel.KOMMANDO_PARAM_IGNORIERE_RESTART,
-            "" + line.hasOption(KonfigurationSchluessel.KOMMANDO_PARAM_IGNORIERE_RESTART));
+                String.valueOf(line.hasOption(KonfigurationSchluessel.KOMMANDO_PARAM_IGNORIERE_RESTART)));
         String optionaleLaufzeit = line.getOptionValue(KonfigurationSchluessel.KOMMANDO_PARAM_LAUFZEIT);
         if (optionaleLaufzeit != null) {
             cmdArgs.put(KonfigurationSchluessel.KOMMANDO_PARAM_LAUFZEIT, optionaleLaufzeit);
