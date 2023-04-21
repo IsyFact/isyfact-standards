@@ -17,6 +17,7 @@
 package de.bund.bva.isyfact.batchrahmen.batch.rahmen;
 
 import java.util.Date;
+import java.util.Optional;
 
 import de.bund.bva.isyfact.batchrahmen.batch.exception.BatchAusfuehrungsException;
 import de.bund.bva.isyfact.batchrahmen.batch.konfiguration.BatchKonfiguration;
@@ -119,7 +120,7 @@ public interface BatchAusfuehrungsBean {
      * Once this is done, the specified data is stored in the call context to allow authorization checking.
      *
      * @param konfiguration the batch configuration from which information can be read if needed.
-     * @return information to authenticate the batch or {@code null} if no authorization check is required.
+     * @return information to authenticate the batch or empty optional if no authorization check is required.
      */
-    public AuthenticationCredentials getAuthenticationCredentials(BatchKonfiguration konfiguration);
+    public Optional<AuthenticationCredentials> getAuthenticationCredentials(BatchKonfiguration konfiguration);
 }

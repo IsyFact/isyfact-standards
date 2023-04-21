@@ -17,6 +17,7 @@
 package de.bund.bva.isyfact.batchrahmen.batch;
 
 import java.util.Date;
+import java.util.Optional;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
@@ -113,8 +114,8 @@ public class ReturnCodeTestBatch implements BatchAusfuehrungsBean {
     /**
      * This batch does not use security. {@inheritDoc}
      */
-    public AuthenticationCredentials getAuthenticationCredentials(BatchKonfiguration konfiguration) {
-        return null;
+    public Optional<AuthenticationCredentials> getAuthenticationCredentials(BatchKonfiguration konfiguration) {
+        return Optional.empty();
     }
 
     @Override

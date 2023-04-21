@@ -17,6 +17,7 @@
 package de.bund.bva.isyfact.batchrahmen.batch;
 
 import java.util.Date;
+import java.util.Optional;
 
 import de.bund.bva.isyfact.batchrahmen.batch.exception.BatchAusfuehrungsException;
 import de.bund.bva.isyfact.batchrahmen.batch.konfiguration.BatchKonfiguration;
@@ -94,12 +95,12 @@ public class GesicherterTestBatch2 extends BasicTestBatch {
         return konfiguration.getAsString(BATCH_BHKNZ);
     }
 
-    public AuthenticationCredentials getAuthenticationCredentials(BatchKonfiguration konfiguration) {
+    public Optional<AuthenticationCredentials> getAuthenticationCredentials(BatchKonfiguration konfiguration) {
         AuthenticationCredentials authentifizierung = new AuthenticationCredentials();
         authentifizierung.setBehoerdenkennzeichen(getBatchBenutzerBhknz(konfiguration));
         authentifizierung.setBenutzerkennung(getBatchBenutzerKennung(konfiguration));
         authentifizierung.setPasswort(getBatchBenutzerPasswort(konfiguration));
-        return authentifizierung;
+        return Optional.of(authentifizierung);
     }
 
 }

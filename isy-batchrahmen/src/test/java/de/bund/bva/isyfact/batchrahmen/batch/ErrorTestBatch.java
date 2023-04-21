@@ -17,6 +17,7 @@
 package de.bund.bva.isyfact.batchrahmen.batch;
 
 import java.util.Date;
+import java.util.Optional;
 
 import de.bund.bva.isyfact.batchrahmen.batch.exception.BatchAusfuehrungsException;
 import de.bund.bva.isyfact.batchrahmen.batch.konfiguration.BatchKonfiguration;
@@ -74,8 +75,8 @@ public class ErrorTestBatch implements BatchAusfuehrungsBean {
      * This batch does not use security. {@inheritDoc}
      */
     @Override
-    public AuthenticationCredentials getAuthenticationCredentials(BatchKonfiguration konfiguration) {
-        return null;
+    public Optional<AuthenticationCredentials> getAuthenticationCredentials(BatchKonfiguration konfiguration) {
+        return Optional.empty();
     }
 
     @Override
