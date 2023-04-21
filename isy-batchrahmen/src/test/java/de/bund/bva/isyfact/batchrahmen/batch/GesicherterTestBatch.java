@@ -27,28 +27,34 @@ import de.bund.bva.isyfact.batchrahmen.batch.rahmen.VerarbeitungsErgebnis;
 import de.bund.bva.isyfact.sicherheit.annotation.Gesichert;
 
 /**
- * Verhält sich wie der BasicTest-Batch - jedoch wird eine Autorisierung vor der Verarbeitung eines Satzes durchgeführt.
+ * Behaves like the BasicTest batch - but authorization is performed before a record is processed.
  * <p>
- * Die Daten, die zur Autorisierung verwendet werden, können in der Konfiguration hinterlegt werden.
- * 
- * 
+ * The data used for authorization can be stored in the configuration.
  */
 public class GesicherterTestBatch extends BasicTestBatch {
 
-    /** Konfigurationsschlüssel für den verwendeten Nutzer. */
+    /**
+     * Configuration key for the user used.
+     */
     public static final String BATCH_BENUTZER = "batch.benutzer";
 
-    /** Konfigurationsschlüssel für das verwendeten Psaswort. */
+    /**
+     * Configuration key for the used password.
+     */
     public static final String BATCH_PASSWORT = "batch.passwort";
 
-    /** Konfigurationsschlüssel für das verwendete Behördenkennzeichen. */
+    /**
+     * Configuration key for the Behoerdenkennzeichen used.
+     */
     public static final String BATCH_BHKNZ = "batch.bhknz";
 
-    /** Zugriff auf die Batch-Konfiguration. */
+    /**
+     * Access to the batch configuration.
+     */
     private BatchKonfiguration konfiguration;
 
     /**
-     * Diese Methode wird gesichert. {@inheritDoc}
+     * This method is secured. {@inheritDoc}
      */
     @Gesichert("Recht")
     public VerarbeitungsErgebnis verarbeiteSatz() throws BatchAusfuehrungsException {
@@ -56,44 +62,43 @@ public class GesicherterTestBatch extends BasicTestBatch {
     }
 
     /**
-     * speichert die Referenz auf die Konfiguration. {@inheritDoc}
+     * saves the reference to the configuration. {@inheritDoc}
      */
     public int initialisieren(BatchKonfiguration konfiguration, long satzNummer, String dbKey,
-        BatchStartTyp startTyp, Date datumLetzterErfolg, BatchErgebnisProtokoll protokoll)
-        throws BatchAusfuehrungsException {
+                              BatchStartTyp startTyp, Date datumLetzterErfolg, BatchErgebnisProtokoll protokoll)
+            throws BatchAusfuehrungsException {
         this.konfiguration = konfiguration;
         return super
-            .initialisieren(konfiguration, satzNummer, dbKey, startTyp, datumLetzterErfolg, protokoll);
+                .initialisieren(konfiguration, satzNummer, dbKey, startTyp, datumLetzterErfolg, protokoll);
     }
 
     /**
-     * Liefert das Feld {@link #batchBenutzerKennung} zurück.
-     * @return Wert von batchBenutzerKennung
+     * Returns the field batchBenutzerKennung.
+     *
+     * @return value of batchBenutzerKennung
      */
     protected String getBatchBenutzerKennung(BatchKonfiguration konfiguration) {
         return konfiguration.getAsString(BATCH_BENUTZER);
     }
 
     /**
-     * Liefert das Feld {@link #batchBenutzerPasswort} zurück.
-     * @return Wert von batchBenutzerPasswort
+     * Returns the field batchBenutzerPasswort.
+     *
+     * @return value of batchBenutzerPasswort
      */
     protected String getBatchBenutzerPasswort(BatchKonfiguration konfiguration) {
         return konfiguration.getAsString(BATCH_PASSWORT);
     }
 
     /**
-     * Liefert das Feld {@link #batchBenutzerBhknz} zurück.
-     * @return Wert von batchBenutzerBhknz
+     * Returns the field batchBenutzerBhknz.
+     *
+     * @return value of batchBenutzerBhknz
      */
     protected String getBatchBenutzerBhknz(BatchKonfiguration konfiguration) {
         return konfiguration.getAsString(BATCH_BHKNZ);
     }
-    
-    /**
-     * Dieser Batch verwendet keine Sicherung.
-     * {@inheritDoc}
-     */
+
     @Override
     public AuthenticationCredentials getAuthenticationCredentials(BatchKonfiguration konfiguration) {
         AuthenticationCredentials authentifizierung = new AuthenticationCredentials();

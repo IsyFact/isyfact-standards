@@ -17,50 +17,47 @@
 package de.bund.bva.isyfact.batchrahmen.batch.rahmen;
 
 /**
- * Diese Klasse enthält alle Daten, die für die Authentifizierung eines Batches notwendig sind.
- * 
- * 
+ * This class contains all the data necessary to authenticate a batch.
  */
 public class AuthenticationCredentials {
 
     /**
-     * Enthält die Benutzerkennung des Batchbenutzers.
+     * Contains the user ID of the batch user.
      */
     private String benutzerkennung;
 
     /**
-     * Enthält das Behördenkennzeichen des Batchbenutzers.
+     * Contains the Bhknz of the batch user.
      */
     private String behoerdenkennzeichen;
 
     /**
-     * Enthält das Passwort des Batchbenutzers.
+     * Contains the password of the batch user.
      */
     private String passwort;
 
     /**
-     * Liefert das Feld {@link #benutzerkennung} zurück.
-     * @return Wert von benutzerkennung
+     * Returns the field {@link #benutzerkennung}.
+     *
+     * @return value of benutzerkennung
      */
     public String getBenutzerkennung() {
         return benutzerkennung;
     }
 
     /**
-     * Erstellt eine neues unbefülltes {@link AuthenticationCredentials}-Objekt.
+     * Creates a new unfilled {@link AuthenticationCredentials} object.
      */
     public AuthenticationCredentials() {
         super();
     }
 
     /**
-     * Erstellt eine neues befülltes {@link AuthenticationCredentials}-Objekt.
-     * @param benutzerkennung
-     *            der Wert für {@link #benutzerkennung}
-     * @param behoerdenkennzeichen
-     *            der Wert für {@link #behoerdenkennzeichen}
-     * @param passwort
-     *            der Wert für {@link #passwort}
+     * Creates a new filled {@link AuthenticationCredentials} object.
+     *
+     * @param benutzerkennung      the value for {@link #benutzerkennung}
+     * @param behoerdenkennzeichen the value for {@link #behoerdenkennzeichen}
+     * @param passwort             the value for {@link #passwort}
      */
     public AuthenticationCredentials(String benutzerkennung, String behoerdenkennzeichen, String passwort) {
         super();
@@ -70,43 +67,45 @@ public class AuthenticationCredentials {
     }
 
     /**
-     * Setzt das Feld {@link #benutzerkennung}.
-     * @param benutzerkennung
-     *            Neuer Wert für benutzerkennung
+     * Sets the field {@link #benutzerkennung}.
+     *
+     * @param benutzerkennung New value for benutzerkennung
      */
     public void setBenutzerkennung(String benutzerkennung) {
         this.benutzerkennung = benutzerkennung;
     }
 
     /**
-     * Liefert das Feld {@link #behoerdenkennzeichen} zurück.
-     * @return Wert von behoerdenkennzeichen
+     * Returns the field {@link #behoerdenkennzeichen}.
+     *
+     * @return value of behoerdenkennzeichen
      */
     public String getBehoerdenkennzeichen() {
         return behoerdenkennzeichen;
     }
 
     /**
-     * Setzt das Feld {@link #behoerdenkennzeichen}.
-     * @param behoerdenkennzeichen
-     *            Neuer Wert für behoerdenkennzeichen
+     * Sets the field {@link #behoerdenkennzeichen}.
+     *
+     * @param behoerdenkennzeichen New value for behoerdenkennzeichen
      */
     public void setBehoerdenkennzeichen(String behoerdenkennzeichen) {
         this.behoerdenkennzeichen = behoerdenkennzeichen;
     }
 
     /**
-     * Liefert das Feld {@link #passwort} zurück.
-     * @return Wert von passwort
+     * Returns the field {@link #passwort}.
+     *
+     * @return value of passwort
      */
     public String getPasswort() {
         return passwort;
     }
 
     /**
-     * Setzt das Feld {@link #passwort}.
-     * @param passwort
-     *            Neuer Wert für passwort
+     * Sets the field {@link #passwort}.
+     *
+     * @param passwort New value for passwort
      */
     public void setPasswort(String passwort) {
         this.passwort = passwort;

@@ -30,30 +30,35 @@ import de.bund.bva.isyfact.batchrahmen.core.konstanten.NachrichtenSchluessel;
 import de.bund.bva.isyfact.batchrahmen.core.launcher.BatchLauncher;
 
 /**
- * Die Konfiguration fuer einen Batchrahmen-Aufruf. Welche Parameter hier explizit interpretiert werden, wird
- * im Klassenkommentar {@link BatchLauncher} definiert.
- *
- *
+ * The configuration for a {@link de.bund.bva.isyfact.batchrahmen.core.rahmen.Batchrahmen}-call.
+ * Which parameters are explicitly interpreted here is defined in the class comment {@link BatchLauncher}.
  */
 public class BatchKonfiguration {
 
-    /** Property-Namenprefix fuer die Spring-Dateien der Anwendung. */
+    /**
+     * Property name prefix for the application's Spring files.
+     */
     private static final String PROPERTY_ANWENDUNG_SPRING_DATEIEN = "Anwendung.SpringDateien.";
 
-    /** Property-Namenprefix fuer die Spring-Dateien des Rahmens. */
+    /**
+     * Property name prefix for the Spring files of the Rahmen.
+     */
     private static final String PROPERTY_BATCHRAHMEN_SPRING_DATEIEN = "Batchrahmen.SpringDateien.";
 
-    /** Property-Name für die Property (Schlüssel), welche die aktiven Spring-Profile beinhaltet. */
+    /**
+     * Property name for the property (key) that contains the active Spring profiles.
+     */
     private static final String PROPERTY_SPRINGPROFILES_PROPERTIES = "SpringProfiles";
 
-    /** Inhalt der Property-Datei. */
+    /**
+     * Contents of the property file.
+     */
     private Properties properties;
 
     /**
-     * Konfiguriert die Konfiguration mit der angegebenen Kommandozeile.
+     * Configures the configuration with the specified command line.
      *
-     * @param kommandoZeile
-     *            die Kommandozeile.
+     * @param kommandoZeile the command line.
      */
     public BatchKonfiguration(String[] kommandoZeile) {
         KommandozeilenParser parser = new KommandozeilenParser();
@@ -67,45 +72,46 @@ public class BatchKonfiguration {
     }
 
     /**
-     * liest die Dateinamen fuer die Spring-Konfiguration des Batchrahmens. Diese Dateinamen haben den
-     * Property-Schlüssel <tt>Batchrahmen.SpringDateien.&lt;N&gt;</tt>.
+     * Reads the file names for the Spring configuration of the Batchrahmen.
+     * These filenames have the property key <tt>Batchrahmen.SpringDateien.&lt;N&gt;</tt>.
      *
-     * @return Liste der Dateinamen.
+     * @return list of filenames.
      */
     public List<String> getBatchRahmenSpringKonfigFiles() {
         return getNumberedPropertyValues(PROPERTY_BATCHRAHMEN_SPRING_DATEIEN);
     }
 
     /**
-     * liest die Dateinamen fuer die Spring-Konfiguration der Anwendung. Diese Dateinamen haben den
-     * Property-Schlüssel <tt>Anwendung.SpringDateien.&lt;N&gt;</tt>.
-     * @return Liste der Dateinamen.
+     * Reads the file names for the Spring configuration of the application.
+     * These filenames have the property key <tt>Anwendung.SpringDateien.&lt;N&gt;</tt>.
+     *
+     * @return list of filenames.
      */
     public List<String> getAnwendungSpringKonfigFiles() {
         return getNumberedPropertyValues(PROPERTY_ANWENDUNG_SPRING_DATEIEN);
     }
 
     /**
-     * Liest die konfigurierten Spring-Profile.
+     * Reads the configured Spring profiles.
      *
-     * @return Liste der aktiven Spring-Profile.
+     * @return Array of active Spring profiles.
      */
     public String[] getSpringProfiles() {
         String profiles = properties.getProperty(PROPERTY_SPRINGPROFILES_PROPERTIES);
         if (profiles != null) {
             return properties.getProperty(PROPERTY_SPRINGPROFILES_PROPERTIES).trim().split(",");
         } else {
-            return new String[] {};
+            return new String[]{};
         }
     }
 
     /**
-     * liest eine Liste von Property-Werten mit dem gegebenen Prefix. An den Prefix werden Zahlen angehängt,
-     * von 1 an aufwärts. Bis zur ersten fehlenden Zahl im Schlüssel werden alle Werte zurückgegeben.
+     * Reads a list of property values with the given prefix.
+     * Numbers are appended to the prefix, from 1 upwards.
+     * All values are returned up to the first missing number in the key.
      *
-     * @param prefix
-     *            der Prefix zum Auslesen.
-     * @return die Liste der Werte.
+     * @param prefix the prefix to read.
+     * @return the list of values.
      */
     private List<String> getNumberedPropertyValues(String prefix) {
         List<String> values = new ArrayList<>();
@@ -118,13 +124,11 @@ public class BatchKonfiguration {
     }
 
     /**
-     * Liefert den angegebenen Konfigurationsparameter als long zurück.
+     * Returns the specified configuration parameter as long.
      *
-     * @param name
-     *            Der Name des Konfigurationsparameters, wie er in den Properties enthalten ist.
-     * @throws BatchrahmenKonfigurationException
-     *             Wenn der Konfigurationsparameter nicht gesetzt oder in ein Integer konvertiert werden kann.
-     * @return Den Konfigurationsparameter als int.
+     * @param name The name of the configuration parameter as contained in the properties.
+     * @return The configuration parameter as long.
+     * @throws BatchrahmenKonfigurationException If the configuration parameter cannot be set or converted to a long.
      */
     public long getAsLong(String name) {
         if (!this.properties.containsKey(name)) {
@@ -135,22 +139,18 @@ public class BatchKonfiguration {
             return Long.parseLong(propValue);
         } catch (NumberFormatException ex) {
             throw new BatchrahmenKonfigurationException(NachrichtenSchluessel.ERR_KONF_PARAMETER_UNGUELTIG,
-                propValue, name);
+                    propValue, name);
         }
     }
 
     /**
-     * Liefert den angegebenen Konfigurationsparameter als int zurück. Falls der Parameter nicht gesetzt ist,
-     * wird der Default-Wert zurückgegeben.
+     * Returns the specified configuration parameter as long.
+     * If the parameter is not set, the default value is returned.
      *
-     * @param name
-     *            Der Name des Konfigurationsparameters, wie er in den Properties enthalten ist.
-     * @param standardWert
-     *            Der Standardwert, welcher übernommen wird, falls der Wert nicht in den Properties enthalten
-     *            ist.
-     * @throws BatchrahmenKonfigurationException
-     *             Wenn der Konfigurationsparameter nicht in ein Integer konvertiert werden kann.
-     * @return Den Konfigurationsparameter als int.
+     * @param name         The name of the configuration parameter as it is contained in the properties.
+     * @param standardWert The default value which will be used if the value is not contained in the properties.
+     * @return The configuration parameter as long.
+     * @throws BatchrahmenKonfigurationException If the configuration parameter cannot be converted to a long.
      */
     public long getAsLong(String name, long standardWert) {
         if (!this.properties.containsKey(name)) {
@@ -160,13 +160,11 @@ public class BatchKonfiguration {
     }
 
     /**
-     * Liefert den angegebenen Konfigurationsparameter als String zurück.
+     * Returns the specified configuration parameter as a string.
      *
-     * @param name
-     *            Der Name des Konfigurationsparameters, wie er in den Properties enthalten ist.
-     * @throws BatchrahmenKonfigurationException
-     *             Wenn der Konfigurationsparameter nicht gesetzt ist.
-     * @return Den Konfigurationsparameter als String.
+     * @param name The name of the configuration parameter as contained in the properties.
+     * @return The configuration parameter as a string.
+     * @throws BatchrahmenKonfigurationException If the configuration parameter is not set.
      */
     public String getAsString(String name) {
         if (!this.properties.containsKey(name)) {
@@ -176,17 +174,13 @@ public class BatchKonfiguration {
     }
 
     /**
-     * Liefert den angegebenen Konfigurationsparameter als String zurück. Falls der Parameter nicht gesetzt
-     * ist, wird der Default-Wert zurückgegeben.
+     * Returns the specified configuration parameter as a string.
+     * If the parameter is not set is set, the default value is returned.
      *
-     * @param name
-     *            Der Name des Konfigurationsparameters, wie er in den Properties enthalten ist.
-     * @param standardWert
-     *            Der Standardwert, welcher übernommen wird, falls der Wert nicht in den Properties enthalten
-     *            ist.
-     * @throws BatchrahmenKonfigurationException
-     *             Wenn der Konfigurationsparameter nicht in ein String konvertiert werden kann.
-     * @return Den Konfigurationsparameter als String.
+     * @param name         The name of the configuration parameter as it is contained in the properties.
+     * @param standardWert The default value which will be taken if the value is not contained in the properties.
+     * @return The configuration parameter as a string.
+     * @throws BatchrahmenKonfigurationException If the configuration parameter cannot be converted to a string.
      */
     public String getAsString(String name, String standardWert) {
         if (!this.properties.containsKey(name)) {
@@ -196,13 +190,11 @@ public class BatchKonfiguration {
     }
 
     /**
-     * liest die in Argument propertyDateiname der Kommandozeilen-Argumente angegebene Property Datei.
+     * Reads the property file specified in argument propertyDateiname of the command line arguments.
      *
-     * @param propertyDateiname
-     *            name der Propertydatei
-     * @throws BatchrahmenKonfigurationException
-     *             falls die Datei nicht gelesen werden kann.
-     * @return die geladenen Properties.
+     * @param propertyDateiname name of the property file
+     * @return the loaded properties.
+     * @throws BatchrahmenKonfigurationException if the file cannot be read.
      */
 
     private Properties ladePropertyDatei(String propertyDateiname) {
@@ -213,22 +205,18 @@ public class BatchKonfiguration {
             return this.properties;
         } catch (Throwable ex) {
             throw new BatchrahmenKonfigurationException(NachrichtenSchluessel.ERR_KONF_DATEI_LESEN,
-                propertyDateiname, ex.getMessage());
+                    propertyDateiname, ex.getMessage());
         }
     }
 
     /**
-     * Liefert den angegebenen Konfigurationsparameter als Boolean zurück. Falls der Parameter nicht gesetzt
-     * ist, wird der Default-Wert zurückgegeben.
+     * Returns the specified configuration parameter as a Boolean.
+     * If the parameter is not set is set, the default value is returned.
      *
-     * @param name
-     *            Der Name des Konfigurationsparameters, wie er in den Properties enthalten ist.
-     * @param standardWert
-     *            Der Standardwert, welcher übernommen wird, falls der Wert nicht in den Properties enthalten
-     *            ist.
-     * @throws BatchrahmenKonfigurationException
-     *             Wenn der Konfigurationsparameter nicht in ein Boolean konvertiert werden kann.
-     * @return Den Konfigurationsparameter als Boolean.
+     * @param name         The name of the configuration parameter as it is contained in the properties.
+     * @param standardWert The default value which will be taken if the value is not contained in the properties.
+     * @return The configuration parameter as a boolean.
+     * @throws BatchrahmenKonfigurationException If the configuration parameter cannot be converted to a boolean.
      */
     public boolean getAsBoolean(String name, boolean standardWert) {
         if (!this.properties.containsKey(name)) {
@@ -238,13 +226,11 @@ public class BatchKonfiguration {
     }
 
     /**
-     * Liefert den angegebenen Konfigurationsparameter als int zurück.
+     * Returns the specified configuration parameter as boolean.
      *
-     * @param name
-     *            Der Name des Konfigurationsparameters, wie er in den Properties enthalten ist.
-     * @throws BatchrahmenKonfigurationException
-     *             Wenn der Konfigurationsparameter nicht gesetzt oder in ein Boolean konvertiert werden kann.
-     * @return Den Konfigurationsparameter als boolean.
+     * @param name The name of the configuration parameter as contained in the properties.
+     * @return The configuration parameter as a boolean.
+     * @throws BatchrahmenKonfigurationException If the configuration parameter cannot be set or converted to a boolean.
      */
     public boolean getAsBoolean(String name) {
         if (!this.properties.containsKey(name)) {
@@ -255,11 +241,10 @@ public class BatchKonfiguration {
     }
 
     /**
-     * Gibt den konfigurierten Start-Typ aus.
+     * Outputs the configured startup type.
      *
-     * @return der Start-Typ.
-     * @throws BatchrahmenKonfigurationException
-     *             falls beide oder kein Starttyp angegeben werden.
+     * @return the start type.
+     * @throws BatchrahmenKonfigurationException if both or no start type are specified.
      */
     public BatchStartTyp getStartTyp() {
         boolean start = getAsBoolean(KonfigurationSchluessel.KOMMANDO_PARAM_START, false);
@@ -267,13 +252,13 @@ public class BatchKonfiguration {
 
         if (start && restart) {
             throw new BatchrahmenParameterException(NachrichtenSchluessel.ERR_KOMMANDO_PARAMETER_KONFLIKT,
-                KonfigurationSchluessel.KOMMANDO_PARAM_START,
-                KonfigurationSchluessel.KOMMANDO_PARAM_IGNORIERE_RESTART);
+                    KonfigurationSchluessel.KOMMANDO_PARAM_START,
+                    KonfigurationSchluessel.KOMMANDO_PARAM_IGNORIERE_RESTART);
         }
         if (!start && !restart) {
             throw new BatchrahmenParameterException(NachrichtenSchluessel.ERR_KOMMANDO_PARAMETER_UNGUELTIG,
-                KonfigurationSchluessel.KOMMANDO_PARAM_START,
-                KonfigurationSchluessel.KOMMANDO_PARAM_IGNORIERE_RESTART);
+                    KonfigurationSchluessel.KOMMANDO_PARAM_START,
+                    KonfigurationSchluessel.KOMMANDO_PARAM_IGNORIERE_RESTART);
         }
         if (start) {
             return BatchStartTyp.START;
@@ -283,8 +268,9 @@ public class BatchKonfiguration {
     }
 
     /**
-     * Liefert das Propertiesobjekt mit allen Parametern.
-     * @return Das Propertiesobjekt mit den Parametern.
+     * Returns the property object with all parameters.
+     *
+     * @return The property object with the parameters.
      */
     public Properties getProperties() {
         return this.properties;

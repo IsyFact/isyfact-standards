@@ -35,28 +35,39 @@ import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchStartTyp;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.VerarbeitungsErgebnis;
 
 /**
- * Dieser Batch setzt aber im Gegensatz zum Basic Test Batch den Return Code im Batchprotokoll auf einen Wert
- * ungleich 0 um. Mit diesem Batch soll getestet werden, dass der Batchrahmen einen gesetzten ReturnCode nicht
- * mehr überschreibt.
- *
+ * Unlike the Basic Test Batch, this batch converts the return code in the batch protocol to a value other than 0.
+ * This batch is used to test that the batch frame no longer overwrites a set return code.
  */
 public class ReturnCodeTestBatch implements BatchAusfuehrungsBean {
 
-    /** Die Anzahl der Sätze, die geschrieben werden sollen. */
+    /**
+     * The number of blocks to be written.
+     */
     public static final int MAX_SAETZE = 10000;
 
-    /** Das Ergebnisprotokoll */
+    /**
+     * The results log
+     */
     private BatchErgebnisProtokoll protokoll;
 
-    /** Der Logger. */
+    /**
+     * The logger.
+     */
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(ReturnCodeTestBatch.class);
 
-    /** StatistikEintraege fuer die Sollwertkontrolle */
+    /**
+     * {@link StatistikEintrag} for control.
+     */
     private StatistikEintrag statistik1;
 
+    /**
+     * {@link StatistikEintrag} for control.
+     */
     private StatistikEintrag statistik2;
 
-    /** Der interne Zaehler */
+    /**
+     * The internal counter
+     */
     private int count;
 
     public void batchBeendet() {
@@ -65,12 +76,12 @@ public class ReturnCodeTestBatch implements BatchAusfuehrungsBean {
 
     public void checkpointGeschrieben(long satzNummer) throws BatchAusfuehrungsException {
         LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001,
-            "Checkpoint für Satz {} geschrieben.", satzNummer);
+                "Checkpoint für Satz {} geschrieben.", satzNummer);
     }
 
     public int initialisieren(BatchKonfiguration konfiguration, long satzNummer, String dbKey,
-        BatchStartTyp startTyp, Date datumLetzterErfolg, BatchErgebnisProtokoll protokoll)
-        throws BatchAusfuehrungsException {
+                              BatchStartTyp startTyp, Date datumLetzterErfolg, BatchErgebnisProtokoll protokoll)
+            throws BatchAusfuehrungsException {
         this.count = MAX_SAETZE;
         this.protokoll = protokoll;
 
@@ -81,7 +92,7 @@ public class ReturnCodeTestBatch implements BatchAusfuehrungsBean {
         protokoll.registriereStatistikEintrag(this.statistik2);
 
         LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001, "Start-Typ ist: {}",
-            startTyp);
+                startTyp);
 
         return this.count;
     }
@@ -89,7 +100,7 @@ public class ReturnCodeTestBatch implements BatchAusfuehrungsBean {
     public VerarbeitungsErgebnis verarbeiteSatz() throws BatchAusfuehrungsException {
         this.count--;
         this.protokoll.ergaenzeMeldung(new VerarbeitungsMeldung("ID" + this.count, "REGNR" + this.count,
-            MeldungTyp.INFO, "Satz " + this.count + " verarbeitet. Teststring: <>\"üaößÜÄÖ€"));
+                MeldungTyp.INFO, "Satz " + this.count + " verarbeitet. Teststring: <>\"üaößÜÄÖ€"));
         this.statistik1.erhoeheWert();
         this.protokoll.setReturnCode(BatchReturnCode.FEHLER_AUSGEFUEHRT);
         return new VerarbeitungsErgebnis("" + this.count, this.count == 0);
@@ -100,7 +111,7 @@ public class ReturnCodeTestBatch implements BatchAusfuehrungsBean {
     }
 
     /**
-     * Dieser Batch verwendet keine Sicherung. {@inheritDoc}
+     * This batch does not use security. {@inheritDoc}
      */
     public AuthenticationCredentials getAuthenticationCredentials(BatchKonfiguration konfiguration) {
         return null;
@@ -108,12 +119,12 @@ public class ReturnCodeTestBatch implements BatchAusfuehrungsBean {
 
     @Override
     public void vorCheckpointGeschrieben(long satzNummer) throws BatchAusfuehrungsException {
-        // leer
+        // blank
     }
 
     @Override
     public void vorRollbackDurchgefuehrt() {
-        // leer
+        // blank
     }
 
 }
