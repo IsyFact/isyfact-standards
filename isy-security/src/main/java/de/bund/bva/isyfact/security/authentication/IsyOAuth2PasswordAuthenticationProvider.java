@@ -48,10 +48,6 @@ public class IsyOAuth2PasswordAuthenticationProvider extends AbstractIsyAuthenti
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        if (!(authentication instanceof IsyOAuth2PasswordAuthenticationToken)) {
-            return null;
-        }
-
         IsyOAuth2PasswordAuthenticationToken passwordAuth = (IsyOAuth2PasswordAuthenticationToken) authentication;
 
         String registrationId = passwordAuth.getRegistrationId();
@@ -81,7 +77,7 @@ public class IsyOAuth2PasswordAuthenticationProvider extends AbstractIsyAuthenti
         OAuth2AuthorizationContext authorizationContext = OAuth2AuthorizationContext.withClientRegistration(clientRegistration).principal(token).attribute(OAuth2AuthorizationContext.USERNAME_ATTRIBUTE_NAME, username).attribute(OAuth2AuthorizationContext.PASSWORD_ATTRIBUTE_NAME, password).build();
 
         DefaultPasswordTokenResponseClient accessTokenResponseClient = new DefaultPasswordTokenResponseClient();
-        if (token.getBhknz() != null) {
+        if (StringUtils.hasText(token.getBhknz())) {
             OAuth2PasswordGrantRequestEntityConverter entityConverter = new OAuth2PasswordGrantRequestEntityConverter();
             entityConverter.addHeadersConverter(source -> {
                 HttpHeaders headers = new HttpHeaders();

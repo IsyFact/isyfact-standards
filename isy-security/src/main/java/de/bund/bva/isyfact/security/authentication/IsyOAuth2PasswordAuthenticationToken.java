@@ -1,10 +1,13 @@
 package de.bund.bva.isyfact.security.authentication;
 
+import java.util.Collections;
+
 import org.springframework.lang.Nullable;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 
-import java.util.Collections;
-
+/**
+ * AuthenticationToken holding Parameters for resource-owner-password-credentials flow authentication.
+ */
 public class IsyOAuth2PasswordAuthenticationToken extends AbstractAuthenticationToken {
 
     /**
@@ -12,10 +15,19 @@ public class IsyOAuth2PasswordAuthenticationToken extends AbstractAuthentication
      */
     private final String registrationId;
 
+    /**
+     * Username for resource-owner-password-credentials flow.
+     */
     private final String username;
 
+    /**
+     * Password for resource-owner-password-credentials flow.
+     */
     private final String password;
 
+    /**
+     * BHKNZ for optional two-factor authentication.
+     */
     private final String bhknz;
 
     public IsyOAuth2PasswordAuthenticationToken(String registrationId) {

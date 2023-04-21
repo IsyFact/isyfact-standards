@@ -13,7 +13,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 
 /**
  * Authentication Provider to obtain an {@link Authentication} with the OAuth2 Client Credentials flow
- * using configured ClientRegistrations.
+ * using ad hoc created ClientRegistrations.
  */
 public class IsyOAuth2ManualClientCredentialsAuthenticationProvider extends AbstractIsyAuthenticationProvider {
 
@@ -25,10 +25,6 @@ public class IsyOAuth2ManualClientCredentialsAuthenticationProvider extends Abst
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        if (!(authentication instanceof IsyOAuth2ManualClientCredentialsAuthenticationToken)) {
-            return null;
-        }
-
         IsyOAuth2ManualClientCredentialsAuthenticationToken token = (IsyOAuth2ManualClientCredentialsAuthenticationToken) authentication;
 
         OAuth2AuthorizationContext authorizationContext = OAuth2AuthorizationContext

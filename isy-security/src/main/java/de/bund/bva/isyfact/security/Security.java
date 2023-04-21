@@ -4,7 +4,7 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- *
+ * Entrypoint for interaction with the isy-security module.
  */
 public interface Security {
 

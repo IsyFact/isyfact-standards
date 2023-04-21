@@ -1,19 +1,22 @@
 package de.bund.bva.isyfact.security.authentication;
 
-import org.springframework.security.authentication.AbstractAuthenticationToken;
-
 import java.util.Collections;
 
+import org.springframework.security.authentication.AbstractAuthenticationToken;
+
+/**
+ * AuthenticationToken holding a clientRegistrationId.
+ */
 public class IsyOAuth2ClientCredentialsAuthenticationToken extends AbstractAuthenticationToken {
     /**
      * OAuth2 client registration.
      */
-    private String registrationId;
+    private final String registrationId;
 
     /**
      * Creates a token with the supplied array of authorities.
      *
-     * @param registrationId Id of OAuth2 client registration.
+     * @param registrationId ID of OAuth2 client registration.
      */
     public IsyOAuth2ClientCredentialsAuthenticationToken(String registrationId) {
         super(Collections.emptyList());

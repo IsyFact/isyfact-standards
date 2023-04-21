@@ -80,11 +80,10 @@ public class IsyOAuth2PasswordAuthenticationProviderTest extends AbstractOidcPro
     }
 
     @Test
-    public void shouldReturnNullWhenPassingUnsupportedAuthentication() {
+    public void shouldReturnFalseWhenPassingUnsupportedAuthentication() {
         Authentication authRequest = new UsernamePasswordAuthenticationToken("admin", "admin123");
-        Authentication authentication = passwordAuthenticationProvider.authenticate(authRequest);
 
-        assertNull(authentication);
+        assertFalse(passwordAuthenticationProvider.supports(authRequest.getClass()));
     }
 
 }

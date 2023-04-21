@@ -16,10 +16,19 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class IsyOAuth2ClientProperties implements InitializingBean {
 
+    /**
+     * Used internally for validation only.
+     */
     private final OAuth2ClientProperties oAuth2ClientProperties;
 
+    /**
+     * Configurable header name for 2FA.
+     */
     private String bhknzHeaderName = "x-client-cert-bhknz";
 
+    /**
+     * Organisational Unit used in conjunction with bhknz to form the value for bhknzHeaderName.
+     */
     private String defaultCertificateOu;
 
     public IsyOAuth2ClientProperties(OAuth2ClientProperties oAuth2ClientProperties) {
@@ -53,7 +62,7 @@ public class IsyOAuth2ClientProperties implements InitializingBean {
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         getRegistration().keySet().forEach(key -> {
             if (!oAuth2ClientProperties.getRegistration().containsKey(key)) {
                 throw new IllegalStateException(String.format("A Spring ClientRegistration with the same ID must be registered, ID: %s", key));
@@ -62,7 +71,7 @@ public class IsyOAuth2ClientProperties implements InitializingBean {
 
         getRegistration().values().stream().filter(value -> value.getBhknz() != null).findAny().ifPresent(e -> {
             if (!StringUtils.hasText(getDefaultCertificateOu())) {
-                throw new IllegalStateException("Default certificate OU must not be empty.");
+                throw new IllegalStateException("Default certificate OU must not be empty when any BHKNZ is set.");
             }
         });
     }

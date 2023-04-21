@@ -33,10 +33,6 @@ public class IsyOAuth2ClientCredentialsAuthenticationProvider extends AbstractIs
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        if (!(authentication instanceof IsyOAuth2ClientCredentialsAuthenticationToken)) {
-            return null;
-        }
-
         IsyOAuth2ClientCredentialsAuthenticationToken token = (IsyOAuth2ClientCredentialsAuthenticationToken) authentication;
 
         OAuth2AuthorizeRequest authorizeRequest = OAuth2AuthorizeRequest

@@ -10,10 +10,26 @@ import de.bund.bva.isyfact.security.Berechtigungsmanager;
 import de.bund.bva.isyfact.security.Security;
 import de.bund.bva.isyfact.security.xmlparser.RolePrivilegesMapper;
 
+/**
+ * Default implementation of the {@link Security} interface provided as bean by AutoConfiguration.
+ */
 public class DefaultSecurity implements Security {
 
+    /**
+     * Mapper from roles to privileges.
+     */
     private final RolePrivilegesMapper rolePrivilegesMapper;
+
+    /**
+     * Reference to the {@link Authentifizierungsmanager} bean.
+     * <p>
+     * Can be {@code  null} when the application is used as a resource-server.
+     */
     private final Authentifizierungsmanager authentifizierungsmanager;
+
+    /**
+     * Reference to the {@link Berechtigungsmanager} bean.
+     */
     private final Berechtigungsmanager berechtigungsmanager;
 
     public DefaultSecurity(
