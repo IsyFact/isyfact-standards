@@ -6,3 +6,6 @@
 - `IFS-2403`: Umstellung vorhandener Tests auf `isy-security-test`
 - `IFS-1960`: Bereitstellung einer Implementierung zur Authentifizierung mit Resource Owner Password Credentials
 - `IFS-1854`: Umsetzung des Berechtigungsmanagers
+- `IFS-2400`: Schnittstellen des Bausteins `isy-security`
+    - `Security` und `Authentifizierungsmanager` Interface
+    - Standard Implementierungen als Beans per Autokonfiguration bereitgestellt
