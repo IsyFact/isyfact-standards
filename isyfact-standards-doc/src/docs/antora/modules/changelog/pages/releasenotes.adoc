@@ -40,7 +40,7 @@ Eine Verwendung von Metadaten über HTTPInvoker und Aufrufkontext gilt als depre
 
 [[kapitel-baustein-sicherheit-deprecated]]
 === Baustein Sicherheit deprecated icon:ban[title=Deprecation]
-Der xref:isy-sicherheit:konzept/master.adoc[Baustein Sicherheit] und damit die Verwendung des Aufrufkontextes zur Authentifizierung ist ab IsyFact-Version 3.0 als deprecated und wird mit einem folgenden Release entfernt. Als Nachfolger zum Thema Sicherheit gibt es mit IsyFact-Version 3.0 den xref:isy-security:konzept/master.adoc[Baustein Security].
+Der xref:isy-sicherheit:konzept/master.adoc[Baustein Sicherheit] und damit die Verwendung des Aufrufkontextes zur Authentifizierung ist ab IsyFact-Version 3.0 als deprecated markiert und wird mit einem folgenden Release entfernt. Als Nachfolger zum Thema Sicherheit gibt es mit IsyFact-Version 3.0 den xref:isy-security:konzept/master.adoc[Baustein Security].
 
 [[kapitel-neuer-baustein-security]]
 === Neuer Baustein Security
@@ -59,7 +59,7 @@ Ablösung des Sicherheits-Transportobjekts 'AufrufKontext'::
 Im neuen xref:isy-security:konzept/master.adoc[Baustein Security] werden die sicherheitsrelevanten Daten, statt wie bisher im IsyFact-eigenen Transportobjekt 'AufrufKontext', nun im 'SecurityContext' des Spring-Frameworks und bei Aufrufen von Nachbarsystemen als JWT-Access-Token im Http-Header transportiert.
 
 Ablösung von sicherheitsrelevanten IsyFact-Annotationen::
-Die von Spring Security bereitgestellte Annotation `@secured` löst die Annotation `@gesichert` ab und ist analog dazu verwenden.
+Die von Spring Security bereitgestellte Annotation `@secured` löst die Annotation `@gesichert` ab und ist analog dazu zu verwenden.
 
 //TODO klären, ob hier aufzunehmen
 [[kapitel-keycloak]]
@@ -92,20 +92,18 @@ Umstellung auf Spring Boot:: Das Task Scheduling wurde auf Spring Boot umgestell
 
 Umstellung der Authentifizierung auf isy-security::
 Für die Nutzung gesicherter Services muss ein gestarteter Task sich selbst gegenüber dem IAM-Service authentifizieren.
-Für die Authentifizierung nutzt der Baustein Task Scheduling den xref:isy-security:konzept/master.adoc#absicherung-task[Baustein Security] und dessen xref:isy-security:konzept/master.adoc#aussensicht-der-komponente-security[Schnittstelle zur Authentifizierung] und präsentiert dem Service das so erhaltene Access-Token zur Autorisierung.
-Die bisherige Art der Authentifizierung über den 'Resource-Owner-Password-Credential Flow' und damit verbundene Führung eines 'technischen Benutzers' im Benutzerverzeichnis soll abgelöst werden durch den 'Client-Credential Flow' und Führung eines 'Client' im IAM-System.
-Die Konfiguration von Tasks bietet dazu die Möglichkeit, alternativ die Authentifizierungs-Credentials für 'Resource-Owner-Password-Credential' (Benutzername & Passwort) Flow bzw. 'Client-Credential Flow' (Client-ID & Client-Secret) zu setzen.
-Abhängig davon, welche Art von Authentifizierungs-Credentials in der Konfiguration abgelegt sind, wird der dazu passende Credential Flow genommen.
+Für die Authentifizierung nutzt der Baustein Task Scheduling die xref:isy-security:konzept/master.adoc#aussensicht-der-komponente-security[Schnittstelle zur Authentifizierung] aus dem xref:isy-security:konzept/master.adoc#absicherung-task[Baustein Security] und präsentiert dem Service das so erhaltene Access-Token zur Autorisierung.
+Die bisherige Art der Authentifizierung des Tasks als 'technischer Nutzer' (mit Nutzername u. Passwort) soll abgelöst werden durch eine Authentifizierung als 'Client' (mit Client-ID u. -Secret, vergeben vom IAM-System).
+Für eine weiche Migration bietet die Konfiguration von Tasks dazu die Möglichkeit, alternativ die Authentifizierungs-Credentials Nutzername & Passwort bzw. Client-ID & Client-Secret zu setzen.
 
 [[kapitel-batchrahmen]]
 === Batchrahmen
 
 Umstellung der Authentifizierung auf isy-security::
 Für die Nutzung gesicherter Services muss ein gestarteter Batch sich selbst gegenüber dem IAM-Service authentifizieren.
-Für die Authentifizierung nutzt der Batchrahmen den xref:isy-security:konzept/master.adoc#absicherung-batch[Baustein Security] und dessen xref:isy-security:konzept/master.adoc#aussensicht-der-komponente-security[Schnittstelle zur Authentifizierung] und präsentiert dem Service das so erhaltene Access-Token zur Autorisierung.
-Die bisherige Art der Authentifizierung über den 'Resource-Owner-Password-Credential Flow' und damit verbundene Führung eines 'technischen Benutzers' im Benutzerverzeichnis soll abgelöst werden durch den 'Client-Credential Flow' und Führung eines 'Client' im IAM-System.
-Die Konfiguration von Batches bietet dazu die Möglichkeit, alternativ die Authentifizierungs-Credentials für 'Resource-Owner-Password-Credential' (Benutzername & Passwort) Flow bzw. 'Client-Credential Flow' (Client-ID & Client-Secret) zu setzen.
-Abhängig davon, welche Art von Authentifizierungs-Credentials in der Konfiguration abgelegt sind, wird der dazu passende Credential Flow genommen.
+Für die Authentifizierung nutzt der Batchrahmen die xref:isy-security:konzept/master.adoc#aussensicht-der-komponente-security[Schnittstelle zur Authentifizierung] aus dem xref:isy-security:konzept/master.adoc#absicherung-task[Baustein Security] und präsentiert dem Service das so erhaltene Access-Token zur Autorisierung.
+Die bisherige Art der Authentifizierung des Batch als 'technischer Nutzer' (mit Nutzername u. Passwort) soll abgelöst werden durch eine Authentifizierung als 'Client' (mit Client-ID u. -Secret, vergeben vom IAM-System).
+Für eine weiche Migration bietet die Konfiguration von Batches dazu die Möglichkeit, alternativ die Authentifizierungs-Credentials Nutzername & Passwort bzw. Client-ID & Client-Secret zu setzen.
 
 
 [[kapitel-sles]]
