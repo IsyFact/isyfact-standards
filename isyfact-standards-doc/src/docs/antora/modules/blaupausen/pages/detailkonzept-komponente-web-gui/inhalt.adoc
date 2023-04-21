@@ -36,7 +36,7 @@ Die durchgehenden Pfeile zeigen eine direkte Assoziation (z.B. eine Aufrufbezieh
 
 .MVC-Muster
 [id="image-MVCPat",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:detailkonzept-web-gui/MVC.png[align="center"]
+image::blaupausen:detailkonzept-web-gui/MVC.dn.svg[align="center"]
 
 Die Dialog-Komponenten definieren zentrale Klassen als Spring Beans (i.d.R. Controller) und binden alle Abhängigkeiten über Dependency Injection ein.
 
