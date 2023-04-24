@@ -49,7 +49,7 @@
         </dependency>
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
-            <artifactId>isy-sicherheit</artifactId>
+            <artifactId>isy-security</artifactId>
         </dependency>
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
