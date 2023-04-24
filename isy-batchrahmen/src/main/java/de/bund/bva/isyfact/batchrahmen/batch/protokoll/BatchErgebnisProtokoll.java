@@ -20,10 +20,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-
 import de.bund.bva.isyfact.batchrahmen.batch.konfiguration.BatchKonfiguration;
-import de.bund.bva.isyfact.batchrahmen.core.exception.BatchrahmenProtokollException;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchReturnCode;
+import de.bund.bva.isyfact.batchrahmen.core.exception.BatchrahmenProtokollException;
 
 /**
  * Diese Interface nimmt die Daten für das Ergebnisprotokoll auf. Im Ergebnisprotokoll werden folgende

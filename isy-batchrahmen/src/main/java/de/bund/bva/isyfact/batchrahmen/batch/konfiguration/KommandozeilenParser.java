@@ -19,7 +19,6 @@ package de.bund.bva.isyfact.batchrahmen.batch.konfiguration;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.bund.bva.isyfact.batchrahmen.batch.konstanten.KonfigurationSchluessel;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.GnuParser;
@@ -28,6 +27,7 @@ import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
+import de.bund.bva.isyfact.batchrahmen.batch.konstanten.KonfigurationSchluessel;
 import de.bund.bva.isyfact.batchrahmen.core.exception.BatchrahmenParameterException;
 import de.bund.bva.isyfact.batchrahmen.core.konstanten.NachrichtenSchluessel;
 
