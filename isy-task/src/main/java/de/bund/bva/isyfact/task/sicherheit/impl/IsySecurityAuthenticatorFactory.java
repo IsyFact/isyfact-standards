@@ -16,8 +16,8 @@ import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
 /**
  * Erzeugt Authenticator-Instanzen für die Verwendung von isy-sicherheit.
  */
-public class IsySicherheitAuthenticatorFactory implements AuthenticatorFactory {
-    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(IsySicherheitAuthenticatorFactory.class);
+public class IsySecurityAuthenticatorFactory implements AuthenticatorFactory {
+    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(IsySecurityAuthenticatorFactory.class);
 
     private final IsyTaskConfigurationProperties configurationProperties;
 
@@ -35,9 +35,9 @@ public class IsySicherheitAuthenticatorFactory implements AuthenticatorFactory {
      * @param aufrufKontextFactory    die {@link AufrufKontextFactory}
      * @param aufrufKontextVerwalter  der {@link AufrufKontextVerwalter}
      */
-    public IsySicherheitAuthenticatorFactory(IsyTaskConfigurationProperties configurationProperties,
-        Sicherheit<AufrufKontext> sicherheit, AufrufKontextFactory<AufrufKontext> aufrufKontextFactory,
-        AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter) {
+    public IsySecurityAuthenticatorFactory(IsyTaskConfigurationProperties configurationProperties,
+                                           Sicherheit<AufrufKontext> sicherheit, AufrufKontextFactory<AufrufKontext> aufrufKontextFactory,
+                                           AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter) {
         this.configurationProperties = configurationProperties;
         this.sicherheit = sicherheit;
         this.aufrufKontextFactory = aufrufKontextFactory;
@@ -45,17 +45,17 @@ public class IsySicherheitAuthenticatorFactory implements AuthenticatorFactory {
     }
 
     /**
-     * Stellt einen {@link IsySicherheitAuthenticator} für einen bestimmtenn Tasks bereit, wenn die
+     * Stellt einen {@link IsySecurityAuthenticator} für einen bestimmtenn Tasks bereit, wenn die
      * notwendigen Daten (Benutzername, ...) zur Authentifizierung gefunden werden können. Werden keine Daten
      * gefunden, wird ein {@link NoOpAuthenticator} zurückgegeben.
      *
      * @param taskId die Id des Tasks
-     * @return den {@link IsySicherheitAuthenticator} für den Task, wenn die Daten zur Authentifizierung
+     * @return den {@link IsySecurityAuthenticator} für den Task, wenn die Daten zur Authentifizierung
      * vorhanden sind, sonst ein {@link NoOpAuthenticator}.
      */
     public synchronized Authenticator getAuthenticator(String taskId) {
         if (useTaskSpecificCredentials(taskId)) {
-            return new IsySicherheitAuthenticator(
+            return new IsySecurityAuthenticator(
                 configurationProperties.getTasks().get(taskId).getBenutzer(),
                 configurationProperties.getTasks().get(taskId).getPasswort(),
                 configurationProperties.getTasks().get(taskId).getBhkz(), aufrufKontextVerwalter,
@@ -64,7 +64,7 @@ public class IsySicherheitAuthenticatorFactory implements AuthenticatorFactory {
             String nachricht = MessageSourceHolder
                 .getMessage(HinweisSchluessel.VERWENDE_STANDARD_KONFIGURATION, "benutzer, passwort, bhkz");
             LOG.info(LogKategorie.SICHERHEIT, HinweisSchluessel.VERWENDE_STANDARD_KONFIGURATION, nachricht);
-            return new IsySicherheitAuthenticator(
+            return new IsySecurityAuthenticator(
                 configurationProperties.getDefault().getBenutzer(),
                 configurationProperties.getDefault().getPasswort(),
                 configurationProperties.getDefault().getBhkz(), aufrufKontextVerwalter,

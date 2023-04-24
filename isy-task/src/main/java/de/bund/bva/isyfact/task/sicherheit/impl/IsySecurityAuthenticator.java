@@ -10,7 +10,7 @@ import de.bund.bva.isyfact.sicherheit.Sicherheit;
 /**
  * Implementierung von {@link Authenticator} für die Verwendung von isy-sicherheit.
  */
-public class IsySicherheitAuthenticator implements Authenticator {
+public class IsySecurityAuthenticator implements Authenticator {
     private String username;
     private String password;
     private String behoerdenkennzeichen;
@@ -28,7 +28,7 @@ public class IsySicherheitAuthenticator implements Authenticator {
      * @param aufrufKontextFactory die {@link AufrufKontextFactory}
      * @param sicherheit die {@link Sicherheit}
      */
-    public IsySicherheitAuthenticator(
+    public IsySecurityAuthenticator(
             String username,
             String password,
             String behoerdenkennzeichen,

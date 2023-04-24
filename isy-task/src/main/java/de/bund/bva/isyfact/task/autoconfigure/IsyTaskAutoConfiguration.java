@@ -16,7 +16,7 @@ import de.bund.bva.isyfact.task.konfiguration.HostHandler;
 import de.bund.bva.isyfact.task.konfiguration.impl.LocalHostHandlerImpl;
 import de.bund.bva.isyfact.task.monitoring.IsyTaskAspect;
 import de.bund.bva.isyfact.task.sicherheit.AuthenticatorFactory;
-import de.bund.bva.isyfact.task.sicherheit.impl.IsySicherheitAuthenticatorFactory;
+import de.bund.bva.isyfact.task.sicherheit.impl.IsySecurityAuthenticatorFactory;
 import de.bund.bva.isyfact.task.sicherheit.impl.NoOpAuthenticatorFactory;
 
 import io.micrometer.core.instrument.MeterRegistry;
@@ -67,7 +67,7 @@ public class IsyTaskAutoConfiguration {
     public AuthenticatorFactory authenticatorFactoryIsySicherheit(
             IsyTaskConfigurationProperties configurationProperties, Sicherheit sicherheit,
             AufrufKontextVerwalter aufrufKontextVerwalter, AufrufKontextFactory aufrufKontextFactory) {
-        return new IsySicherheitAuthenticatorFactory(configurationProperties, sicherheit,
+        return new IsySecurityAuthenticatorFactory(configurationProperties, sicherheit,
                 aufrufKontextFactory, aufrufKontextVerwalter);
     }
 }
