@@ -17,6 +17,7 @@
 package de.bund.bva.isyfact.batchrahmen.core.rahmen.impl;
 
 import java.util.Date;
+import java.util.Optional;
 import java.util.UUID;
 
 import javax.persistence.EntityManager;
@@ -30,6 +31,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
+import org.springframework.util.StringUtils;
 
 import de.bund.bva.isyfact.batchrahmen.batch.exception.BatchAusfuehrungsException;
 import de.bund.bva.isyfact.batchrahmen.batch.konfiguration.BatchKonfiguration;
@@ -38,6 +40,7 @@ import de.bund.bva.isyfact.batchrahmen.batch.konstanten.KonfigurationSchluessel;
 import de.bund.bva.isyfact.batchrahmen.batch.protokoll.BatchErgebnisProtokoll;
 import de.bund.bva.isyfact.batchrahmen.batch.protokoll.MeldungTyp;
 import de.bund.bva.isyfact.batchrahmen.batch.protokoll.VerarbeitungsMeldung;
+import de.bund.bva.isyfact.batchrahmen.batch.rahmen.AuthenticationCredentials;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchAusfuehrungsBean;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchStartTyp;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.VerarbeitungsErgebnis;
@@ -51,6 +54,7 @@ import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
+import de.bund.bva.isyfact.security.Authentifizierungsmanager;
 
 /**
  * Implementation of the 'Batchrahmen-Funktionalitaet'.
@@ -112,6 +116,11 @@ public class BatchrahmenImpl implements Batchrahmen, InitializingBean,
     private String vorigerBatchStatus;
 
     /**
+     * The authentication manager to authenticate batch.
+     */
+    private Optional<Authentifizierungsmanager> authentifizierungsmanagerOptional;
+
+    /**
      * @return TransactionStatus
      */
     public TransactionStatus starteTransaktion() {
@@ -152,6 +161,14 @@ public class BatchrahmenImpl implements Batchrahmen, InitializingBean,
             MdcHelper.pushKorrelationsId(UUID.randomUUID().toString());
             // Initialization phase
             this.batchLaeuft = true;
+
+            try {
+                String registrationId = verarbInfo.getKonfiguration().getAsString("batch.registrationId");
+                authentifizierungsmanagerOptional.ifPresent(am -> am.authentifiziere(registrationId));
+            } catch (BatchrahmenKonfigurationException e) {
+                LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001,
+                        "Es wurde keine registrationId konfiguriert.");
+            }
 
             initialisiereBatch(verarbInfo, protokoll);
 
@@ -451,6 +468,15 @@ public class BatchrahmenImpl implements Batchrahmen, InitializingBean,
      */
     public void setApplicationContext(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
+    }
+
+    /**
+     * Sets the authentication manager for the authentication of the batch.
+     *
+     * @param authentifizierungsmanager the {@link Authentifizierungsmanager}
+     */
+    public void setAuthentifizierungsmanagerOptional(Authentifizierungsmanager authentifizierungsmanager) {
+        this.authentifizierungsmanagerOptional = Optional.ofNullable(authentifizierungsmanager);
     }
 
     /**
