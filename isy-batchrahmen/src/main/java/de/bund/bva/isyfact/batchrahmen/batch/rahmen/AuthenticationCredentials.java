@@ -20,6 +20,10 @@ package de.bund.bva.isyfact.batchrahmen.batch.rahmen;
  * This class contains all the data necessary to authenticate a batch.
  */
 public class AuthenticationCredentials {
+    /**
+     * Registration-ID for authentication.
+     **/
+    private String registrationId;
 
     /**
      * Contains the user ID of the batch user.
@@ -111,4 +115,21 @@ public class AuthenticationCredentials {
         this.passwort = passwort;
     }
 
+    /**
+     * Returns the field {@link #registrationId}
+     *
+     * @return value of registrationId
+     */
+    public String getRegistrationId() {
+        return registrationId;
+    }
+
+    /**
+     * Sets the field {@link #registrationId}.
+     *
+     * @param passwort New value for registrationId
+     */
+    public void setRegistrationId(String registrationId) {
+        this.registrationId = registrationId;
+    }
 }
