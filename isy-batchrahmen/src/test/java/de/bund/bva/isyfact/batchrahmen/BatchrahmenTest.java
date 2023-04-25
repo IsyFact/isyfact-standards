@@ -77,7 +77,7 @@ public class BatchrahmenTest {
     public void testBatchrahmenMitTestBatchLauncher() throws Exception {
         TestBatchLauncher batchLauncher =
             new TestBatchLauncher("/resources/batch/basic-test-batch-1-config.properties");
-        assertEquals(0, batchLauncher.starteBatch(BatchStartTyp.START, null));
+        assertEquals(BatchReturnCode.OK.getWert(), batchLauncher.starteBatch(BatchStartTyp.START, null));
         assertEquals("beendet", getBatchStatus("basicTestBatch-1"));
     }
 
@@ -86,7 +86,7 @@ public class BatchrahmenTest {
      */
     @Test
     public void testBatchrahmen() throws Exception {
-        assertEquals(0, BatchLauncher
+        assertEquals(BatchReturnCode.OK.getWert(), BatchLauncher
             .run(new String[] { "-start", "-cfg", "/resources/batch/basic-test-batch-1-config.properties" }));
         assertEquals("beendet", getBatchStatus("basicTestBatch-1"));
     }
@@ -96,7 +96,7 @@ public class BatchrahmenTest {
      */
     @Test
     public void testBatchrahmenWithExclusion() {
-        assertEquals(0, BatchLauncher
+        assertEquals(BatchReturnCode.OK.getWert(), BatchLauncher
                 .run(new String[] { "-start", "-cfg", "/resources/batch/basic-test-batch-2-config.properties" }));
         assertEquals("beendet", getBatchStatus("basicTestBatch-1"));
     }
@@ -107,29 +107,29 @@ public class BatchrahmenTest {
      */
     @Test
     public void testFehlerInInit() throws Exception {
-        assertEquals(2, BatchLauncher.run(
+        assertEquals(BatchReturnCode.FEHLER_ABBRUCH.getWert(), BatchLauncher.run(
             new String[] { "-start", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
                 "-initError", "true" }));
         assertEquals("neu", getBatchStatus("errorTestBatch-1"));
 
-        assertEquals(0, BatchLauncher.run(
+        assertEquals(BatchReturnCode.OK.getWert(), BatchLauncher.run(
             new String[] { "-start", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
                 "-initError", "false" }));
         assertEquals("beendet", getBatchStatus("errorTestBatch-1"));
 
-        assertEquals(2, BatchLauncher.run(
+        assertEquals(BatchReturnCode.FEHLER_ABBRUCH.getWert(), BatchLauncher.run(
             new String[] { "-start", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
                 "-initError", "true" }));
         // TODO: batchStatus cannot be "finished" because "-initError" is true and therefore an exception is thrown.
         assertEquals("beendet", getBatchStatus("errorTestBatch-1"));
 
         // Test after abort
-        assertEquals(2, BatchLauncher.run(
+        assertEquals(BatchReturnCode.FEHLER_ABBRUCH.getWert(), BatchLauncher.run(
             new String[] { "-start", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
                 "-laufError", "true" }));
         assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1"));
 
-        assertEquals(2, BatchLauncher.run(new String[] { "-start", "-ignoriereRestart", "-cfg",
+        assertEquals(BatchReturnCode.FEHLER_ABBRUCH.getWert(), BatchLauncher.run(new String[] { "-start", "-ignoriereRestart", "-cfg",
             "/resources/batch/error-test-batch-1-config.properties", "-initError", "true" }));
         assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1"));
     }
@@ -139,17 +139,17 @@ public class BatchrahmenTest {
      */
     @Test
     public void testIgnoriereLauf() throws Exception {
-        assertEquals(2, BatchLauncher.run(
+        assertEquals(BatchReturnCode.FEHLER_ABBRUCH.getWert(), BatchLauncher.run(
             new String[] { "-start", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
                 "-laufError", "true" }));
         assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1"));
 
-        assertEquals(3, BatchLauncher.run(
+        assertEquals(BatchReturnCode.FEHLER_PARAMETER.getWert(), BatchLauncher.run(
             new String[] { "-start", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
                 "-laufError", "true" }));
         assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1"));
 
-        assertEquals(0, BatchLauncher.run(new String[] { "-start", "-ignoriereRestart", "-cfg",
+        assertEquals(BatchReturnCode.OK.getWert(), BatchLauncher.run(new String[] { "-start", "-ignoriereRestart", "-cfg",
             "/resources/batch/error-test-batch-1-config.properties", "-laufError", "false" }));
         assertEquals("beendet", getBatchStatus("errorTestBatch-1"));
     }
@@ -159,28 +159,28 @@ public class BatchrahmenTest {
      */
     @Test
     public void testRestart() throws Exception {
-        assertEquals(2, BatchLauncher.run(
+        assertEquals(BatchReturnCode.FEHLER_ABBRUCH.getWert(), BatchLauncher.run(
             new String[] { "-start", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
                 "-laufError", "true", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI }));
         assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1"));
         BatchProtokollTester bpt = new BatchProtokollTester(ERGEBNIS_DATEI);
         assertFalse(bpt.isStartmodusRestart());
 
-        assertEquals(3, BatchLauncher.run(
+        assertEquals(BatchReturnCode.FEHLER_PARAMETER.getWert(), BatchLauncher.run(
             new String[] { "-start", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
                 "-laufError", "true", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI }));
         assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1"));
         bpt = new BatchProtokollTester(ERGEBNIS_DATEI);
         assertFalse(bpt.isStartmodusRestart());
 
-        assertEquals(2, BatchLauncher.run(
+        assertEquals(BatchReturnCode.FEHLER_ABBRUCH.getWert(), BatchLauncher.run(
             new String[] { "-restart", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
                 "-laufError", "true", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI }));
         assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1"));
         bpt = new BatchProtokollTester(ERGEBNIS_DATEI);
         assertTrue(bpt.isStartmodusRestart());
 
-        assertEquals(0, BatchLauncher.run(
+        assertEquals(BatchReturnCode.OK.getWert(), BatchLauncher.run(
             new String[] { "-restart", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
                 "-laufError", "false", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI }));
         assertEquals("beendet", getBatchStatus("errorTestBatch-1"));
@@ -189,28 +189,28 @@ public class BatchrahmenTest {
 
         // From here on check, that the above behavior also applies,
         // if the abort occurs after initialization but before processing a record (0 records processed).
-        assertEquals(2, BatchLauncher.run(
+        assertEquals(BatchReturnCode.FEHLER_ABBRUCH.getWert(), BatchLauncher.run(
             new String[] { "-start", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
                 "-laufErrorSofort", "true", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI }));
         assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1"));
         bpt = new BatchProtokollTester(ERGEBNIS_DATEI);
         assertFalse(bpt.isStartmodusRestart());
 
-        assertEquals(3, BatchLauncher.run(
+        assertEquals(BatchReturnCode.FEHLER_PARAMETER.getWert(), BatchLauncher.run(
             new String[] { "-start", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
                 "-laufErrorSofort", "true", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI }));
         assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1"));
         bpt = new BatchProtokollTester(ERGEBNIS_DATEI);
         assertFalse(bpt.isStartmodusRestart());
 
-        assertEquals(2, BatchLauncher.run(
+        assertEquals(BatchReturnCode.FEHLER_ABBRUCH.getWert(), BatchLauncher.run(
             new String[] { "-restart", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
                 "-laufErrorSofort", "true", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI }));
         assertEquals("abgebrochen", getBatchStatus("errorTestBatch-1"));
         bpt = new BatchProtokollTester(ERGEBNIS_DATEI);
         assertTrue(bpt.isStartmodusRestart());
 
-        assertEquals(0, BatchLauncher.run(
+        assertEquals(BatchReturnCode.OK.getWert(), BatchLauncher.run(
             new String[] { "-restart", "-cfg", "/resources/batch/error-test-batch-1-config.properties",
                 "-laufErrorSofort", "false", "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI }));
         assertEquals("beendet", getBatchStatus("errorTestBatch-1"));
@@ -247,7 +247,7 @@ public class BatchrahmenTest {
     public void testLaufzeitParameter() throws Exception {
         TestBatchLauncher batchLauncher =
             new TestBatchLauncher("/resources/batch/infinite-test-batch-1-config.properties");
-        assertEquals(144, batchLauncher
+        assertEquals(BatchReturnCode.FEHLER_MAX_LAUFZEIT_UEBERSCHRITTEN.getWert(), batchLauncher
             .starteBatch(BatchStartTyp.START, "/laufzeit_out.xml", new String[] { "-laufzeit", "1" }));
         BatchProtokollTester bpt = new BatchProtokollTester("/laufzeit_out.xml");
         assertTrue(bpt.enthaeltMeldungsId("MAX_LAUFZEIT_UEBERSCHRITTEN"));
@@ -261,7 +261,7 @@ public class BatchrahmenTest {
     public void testLaufzeitParameterOhneMinuten() throws Exception {
         TestBatchLauncher batchLauncher =
             new TestBatchLauncher("/resources/batch/basic-test-batch-1-config.properties");
-        assertEquals(3, batchLauncher
+        assertEquals(BatchReturnCode.FEHLER_PARAMETER.getWert(), batchLauncher
             .starteBatch(BatchStartTyp.START, "/laufzeit_out.xml", new String[] { "-laufzeit" }));
     }
 
@@ -273,7 +273,7 @@ public class BatchrahmenTest {
     public void testLaufzeitParameterOhneMinutenIgnoriereTestlauf() throws Exception {
         TestBatchLauncher batchLauncher =
             new TestBatchLauncher("/resources/batch/basic-test-batch-1-config.properties");
-        assertEquals(3, batchLauncher.starteBatch(BatchStartTyp.START, "/laufzeit_out.xml",
+        assertEquals(BatchReturnCode.FEHLER_PARAMETER.getWert(), batchLauncher.starteBatch(BatchStartTyp.START, "/laufzeit_out.xml",
             new String[] { "-laufzeit", "-ignoriereLauf" }));
     }
 
@@ -283,7 +283,7 @@ public class BatchrahmenTest {
      */
     @Test
     public void testLaufzeitParameterOhneMinutenAlsOption() throws Exception {
-        assertEquals(3, BatchLauncher.run(new String[] { "-start", "-laufzeit", "-cfg",
+        assertEquals(BatchReturnCode.FEHLER_PARAMETER.getWert(), BatchLauncher.run(new String[] { "-start", "-laufzeit", "-cfg",
             "/resources/batch/gesicherter-test-batch-1-config.properties", "-Batchrahmen.Ergebnisdatei",
             "/testOutput/batchRahmen.out.xml" }));
     }
@@ -295,7 +295,7 @@ public class BatchrahmenTest {
     public void testLaufzeitParameterMinutenNichtNumerisch() throws Exception {
         TestBatchLauncher batchLauncher =
             new TestBatchLauncher("/resources/batch/basic-test-batch-1-config.properties");
-        assertEquals(4, batchLauncher.starteBatch(BatchStartTyp.START, new String[] { "-laufzeit", "ABC" }));
+        assertEquals(BatchReturnCode.FEHLER_KONFIGURATION.getWert(), batchLauncher.starteBatch(BatchStartTyp.START, new String[] { "-laufzeit", "ABC" }));
     }
 
     /**
@@ -314,7 +314,7 @@ public class BatchrahmenTest {
      */
     @Test
     public void testGesicherterBatchGutFall() throws Exception {
-        assertEquals(0, BatchLauncher.run(new String[] { "-start", "-cfg",
+        assertEquals(BatchReturnCode.OK.getWert(), BatchLauncher.run(new String[] { "-start", "-cfg",
             "/resources/batch/gesicherter-test-batch-1-config.properties" }));
         assertEquals("beendet", getBatchStatus("gesicherterTestBatch-1"));
     }
@@ -324,7 +324,7 @@ public class BatchrahmenTest {
      */
     @Test
     public void testGesicherterBatchLoginNichtMoeglich() throws Exception {
-        assertEquals(4, BatchLauncher.run(new String[] { "-start", "-cfg",
+        assertEquals(BatchReturnCode.FEHLER_KONFIGURATION.getWert(), BatchLauncher.run(new String[] { "-start", "-cfg",
             "/resources/batch/gesicherter-test-batch-2-config.properties" }));
         assertEquals("abgebrochen", getBatchStatus("gesicherterTestBatch-2"));
     }
@@ -334,7 +334,7 @@ public class BatchrahmenTest {
      */
     @Test
     public void testGesicherterBatchNichtErforderlicheRolle() throws Exception {
-        assertEquals(4, BatchLauncher.run(new String[] { "-start", "-cfg",
+        assertEquals(BatchReturnCode.FEHLER_KONFIGURATION.getWert(), BatchLauncher.run(new String[] { "-start", "-cfg",
             "/resources/batch/gesicherter-test-batch-3-config.properties" }));
         assertEquals("abgebrochen", getBatchStatus("gesicherterTestBatch-3"));
     }
@@ -344,7 +344,7 @@ public class BatchrahmenTest {
      */
     @Test
     public void testGesicherterBatch2GutFall() throws Exception {
-        assertEquals(0, BatchLauncher.run(new String[] { "-start", "-cfg",
+        assertEquals(BatchReturnCode.OK.getWert(), BatchLauncher.run(new String[] { "-start", "-cfg",
             "/resources/batch/gesicherter-test-batch2-1-config.properties" }));
         assertEquals("beendet", getBatchStatus("gesicherterTestBatch2-1"));
     }
@@ -354,7 +354,7 @@ public class BatchrahmenTest {
      */
     @Test
     public void testGesicherterBatch2LoginNichtMoeglich() throws Exception {
-        assertEquals(4, BatchLauncher.run(new String[] { "-start", "-cfg",
+        assertEquals(BatchReturnCode.FEHLER_KONFIGURATION.getWert(), BatchLauncher.run(new String[] { "-start", "-cfg",
             "/resources/batch/gesicherter-test-batch2-2-config.properties" }));
         // Da der Batch nicht gestartet ist, muss der Status noch auf neu stehen
         assertEquals("neu", getBatchStatus("gesicherterTestBatch2-2"));
@@ -365,7 +365,7 @@ public class BatchrahmenTest {
      */
     @Test
     public void testGesicherterBatch2NichtErforderlicheRolle() throws Exception {
-        assertEquals(4, BatchLauncher.run(new String[] { "-start", "-cfg",
+        assertEquals(BatchReturnCode.FEHLER_KONFIGURATION.getWert(), BatchLauncher.run(new String[] { "-start", "-cfg",
             "/resources/batch/gesicherter-test-batch2-3-config.properties" }));
         // Da der Batch nicht gestartet ist, muss der Status noch auf neu stehen
         assertEquals("neu", getBatchStatus("gesicherterTestBatch2-3"));
@@ -385,7 +385,7 @@ public class BatchrahmenTest {
 
     @Test
     public void testBatchIdInLoggerContext() {
-        assertEquals(0, BatchLauncher
+        assertEquals(BatchReturnCode.OK.getWert(), BatchLauncher
                 .run(new String[] { "-start", "-cfg", "/resources/batch/basic-test-batch-1-config.properties" }));
         final LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
         final String actualBatchId = loggerContext.getProperty("BatchId");
