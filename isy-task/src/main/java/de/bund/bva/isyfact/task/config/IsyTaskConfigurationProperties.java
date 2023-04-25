@@ -28,44 +28,14 @@ public class IsyTaskConfigurationProperties {
 
     public static class TaskConfig {
 
-        /** User name. **/
-        private String benutzer;
-
-        /** Password. **/
-        private String passwort;
-
-        /** Behoerdenkennzeichen. **/
-        private String bhkz;
+        /** Registration-ID for authentication. **/
+        private String registrationId;
 
         /** Host name. **/
         private String host;
 
         /** Task activation flag. **/
         private Boolean deaktiviert = false;
-
-        public String getBenutzer() {
-            return benutzer;
-        }
-
-        public void setBenutzer(String benutzer) {
-            this.benutzer = benutzer;
-        }
-
-        public String getPasswort() {
-            return passwort;
-        }
-
-        public void setPasswort(String passwort) {
-            this.passwort = passwort;
-        }
-
-        public String getBhkz() {
-            return bhkz;
-        }
-
-        public void setBhkz(String bhkz) {
-            this.bhkz = bhkz;
-        }
 
         public String getHost() {
             return host;
@@ -81,46 +51,19 @@ public class IsyTaskConfigurationProperties {
         public void setDeaktiviert(Boolean deaktiviert) {
             this.deaktiviert = deaktiviert;
         }
+
+        public String getRegistrationId() { return registrationId; }
+
+        public void setRegistrationId(String registrationId) { this.registrationId = registrationId; }
     }
 
     public static class Default {
 
-        /** Default User name. **/
-        private String benutzer;
-
-        /** Default Password. **/
-        private String passwort;
-
-        /** Default Behoerdenkennzeichen. **/
-        private String bhkz;
-
+        /** Registration-ID for authentication. **/
+        private String registrationId;
 
         /** Default host name. **/
         private String host = ".*";
-
-        public String getBenutzer() {
-            return benutzer;
-        }
-
-        public void setBenutzer(String benutzer) {
-            this.benutzer = benutzer;
-        }
-
-        public String getPasswort() {
-            return passwort;
-        }
-
-        public void setPasswort(String passwort) {
-            this.passwort = passwort;
-        }
-
-        public String getBhkz() {
-            return bhkz;
-        }
-
-        public void setBhkz(String bhkz) {
-            this.bhkz = bhkz;
-        }
 
         public String getHost() {
             return host;
@@ -129,6 +72,10 @@ public class IsyTaskConfigurationProperties {
         public void setHost(String host) {
             this.host = host;
         }
+
+        public String getRegistrationId() { return registrationId; }
+
+        public void setRegistrationId(String registrationId) { this.registrationId = registrationId; }
     }
 
 }

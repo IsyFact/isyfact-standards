@@ -1,61 +1,40 @@
 package de.bund.bva.isyfact.task.sicherheit.impl;
 
-import de.bund.bva.isyfact.logging.util.MdcHelper;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import de.bund.bva.isyfact.security.oauth2.client.Authentifizierungsmanager;
 import de.bund.bva.isyfact.task.sicherheit.Authenticator;
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontextFactory;
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
-import de.bund.bva.isyfact.sicherheit.Sicherheit;
 
 /**
- * Implementierung von {@link Authenticator} für die Verwendung von isy-sicherheit.
+ * Implementation of {@link Authenticator} for the use of isy-security.
  */
 public class IsySecurityAuthenticator implements Authenticator {
-    private String username;
-    private String password;
-    private String behoerdenkennzeichen;
-    private Sicherheit<AufrufKontext> sicherheit;
-    private AufrufKontextFactory<AufrufKontext> aufrufKontextFactory;
-    private AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter;
+
+    private final Authentifizierungsmanager authentifizierungsmanager;
+
+    private final String registrationId;
 
     /**
-     *  Erstellt eine Instanz eines {@link Authenticator} für isy-sicherheit.
+     * Creates an instance of an {@link Authenticator} for isy-security.
      *
-     * @param username der Benutzername
-     * @param password das Passwort
-     * @param behoerdenkennzeichen das Behördenkennzeichen
-     * @param aufrufKontextVerwalter der {@link AufrufKontextVerwalter}
-     * @param aufrufKontextFactory die {@link AufrufKontextFactory}
-     * @param sicherheit die {@link Sicherheit}
+     * @param authentifizierungsmanager    Authneticationmanager of isy-security
+     * @param registrationId Registration-ID of the client
      */
     public IsySecurityAuthenticator(
-            String username,
-            String password,
-            String behoerdenkennzeichen,
-            AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter,
-            AufrufKontextFactory<AufrufKontext> aufrufKontextFactory,
-            Sicherheit<AufrufKontext> sicherheit) {
-        this.username = username;
-        this.password = password;
-        this.behoerdenkennzeichen = behoerdenkennzeichen;
-        this.sicherheit = sicherheit;
-        this.aufrufKontextFactory = aufrufKontextFactory;
-        this.aufrufKontextVerwalter = aufrufKontextVerwalter;
+            Authentifizierungsmanager authentifizierungsmanager,
+            String registrationId
+    ) {
+        this.authentifizierungsmanager = authentifizierungsmanager;
+        this.registrationId = registrationId;
     }
 
     @Override
     public synchronized void login() {
-         AufrufKontext kontext = aufrufKontextFactory.erzeugeAufrufKontext();
-         aufrufKontextVerwalter.setAufrufKontext(kontext);
-         kontext.setDurchfuehrenderBenutzerKennung(username);
-         kontext.setDurchfuehrenderBenutzerPasswort(password);
-         kontext.setDurchfuehrendeBehoerde(behoerdenkennzeichen);
-        kontext.setKorrelationsId(MdcHelper.liesKorrelationsId());
-         sicherheit.getBerechtigungsManagerUndAuthentifiziere(kontext);
+        authentifizierungsmanager.authentifiziere(registrationId);
     }
 
     @Override
     public synchronized void logout() {
-        aufrufKontextVerwalter.setAufrufKontext(null);
+        SecurityContextHolder.getContext().setAuthentication(null);
     }
 }

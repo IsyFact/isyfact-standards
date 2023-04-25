@@ -2,13 +2,13 @@ package de.bund.bva.isyfact.task;
 
 import java.util.concurrent.TimeUnit;
 
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+
 import de.bund.bva.isyfact.datetime.util.DateTimeUtil;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
-import de.bund.bva.isyfact.sicherheit.annotation.Gesichert;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 
 @Component
 public class TestTaskDeactivatedTasks {

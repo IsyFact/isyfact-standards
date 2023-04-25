@@ -1,12 +1,9 @@
 package de.bund.bva.isyfact.task.sicherheit.impl;
 
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontextFactory;
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
-import de.bund.bva.isyfact.sicherheit.Sicherheit;
+import de.bund.bva.isyfact.security.oauth2.client.Authentifizierungsmanager;
 import de.bund.bva.isyfact.task.config.IsyTaskConfigurationProperties;
 import de.bund.bva.isyfact.task.konstanten.HinweisSchluessel;
 import de.bund.bva.isyfact.task.sicherheit.Authenticator;
@@ -14,78 +11,63 @@ import de.bund.bva.isyfact.task.sicherheit.AuthenticatorFactory;
 import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
 
 /**
- * Erzeugt Authenticator-Instanzen für die Verwendung von isy-sicherheit.
+ * Creates Authenticators for authentication with isy-security.
  */
 public class IsySecurityAuthenticatorFactory implements AuthenticatorFactory {
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(IsySecurityAuthenticatorFactory.class);
 
     private final IsyTaskConfigurationProperties configurationProperties;
 
-    private final Sicherheit<AufrufKontext> sicherheit;
-
-    private final AufrufKontextFactory<AufrufKontext> aufrufKontextFactory;
-
-    private final AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter;
+    private final Authentifizierungsmanager authentifizierungsmanager;
 
     /**
-     * Erstellt eine neue Instanz.
+     * Creates new instance.
      *
-     * @param configurationProperties die {@link IsyTaskConfigurationProperties}, aus der die Daten zur Authentifizierung gelesen werden
-     * @param sicherheit              die {@link Sicherheit}
-     * @param aufrufKontextFactory    die {@link AufrufKontextFactory}
-     * @param aufrufKontextVerwalter  der {@link AufrufKontextVerwalter}
+     * @param configurationProperties   {@link IsyTaskConfigurationProperties} provides credentials
+     * @param authentifizierungsmanager {@link Authentifizierungsmanager} for authentication
      */
-    public IsySecurityAuthenticatorFactory(IsyTaskConfigurationProperties configurationProperties,
-                                           Sicherheit<AufrufKontext> sicherheit, AufrufKontextFactory<AufrufKontext> aufrufKontextFactory,
-                                           AufrufKontextVerwalter<AufrufKontext> aufrufKontextVerwalter) {
+    public IsySecurityAuthenticatorFactory(
+            IsyTaskConfigurationProperties configurationProperties,
+            Authentifizierungsmanager authentifizierungsmanager
+    ) {
         this.configurationProperties = configurationProperties;
-        this.sicherheit = sicherheit;
-        this.aufrufKontextFactory = aufrufKontextFactory;
-        this.aufrufKontextVerwalter = aufrufKontextVerwalter;
+        this.authentifizierungsmanager = authentifizierungsmanager;
     }
 
     /**
-     * Stellt einen {@link IsySecurityAuthenticator} für einen bestimmtenn Tasks bereit, wenn die
-     * notwendigen Daten (Benutzername, ...) zur Authentifizierung gefunden werden können. Werden keine Daten
-     * gefunden, wird ein {@link NoOpAuthenticator} zurückgegeben.
+     * Provides an implementation of an {@link Authenticator} for a task, if the necessary credentials are configured.
+     * If no credentials can be found, a {@link NoOpAuthenticator} will be returned.
      *
-     * @param taskId die Id des Tasks
-     * @return den {@link IsySecurityAuthenticator} für den Task, wenn die Daten zur Authentifizierung
-     * vorhanden sind, sonst ein {@link NoOpAuthenticator}.
+     * @param taskId Id of the task
+     * @return {@link Authenticator} for task, return {@link NoOpAuthenticator} if no credentials have been found.
      */
     public synchronized Authenticator getAuthenticator(String taskId) {
         if (useTaskSpecificCredentials(taskId)) {
             return new IsySecurityAuthenticator(
-                configurationProperties.getTasks().get(taskId).getBenutzer(),
-                configurationProperties.getTasks().get(taskId).getPasswort(),
-                configurationProperties.getTasks().get(taskId).getBhkz(), aufrufKontextVerwalter,
-                aufrufKontextFactory, sicherheit);
+                    authentifizierungsmanager,
+                    configurationProperties.getTasks().get(taskId).getRegistrationId()
+            );
         } else if (useStandardCredentials()) {
             String nachricht = MessageSourceHolder
-                .getMessage(HinweisSchluessel.VERWENDE_STANDARD_KONFIGURATION, "benutzer, passwort, bhkz");
+                    .getMessage(HinweisSchluessel.VERWENDE_STANDARD_KONFIGURATION, "registrationId");
             LOG.info(LogKategorie.SICHERHEIT, HinweisSchluessel.VERWENDE_STANDARD_KONFIGURATION, nachricht);
             return new IsySecurityAuthenticator(
-                configurationProperties.getDefault().getBenutzer(),
-                configurationProperties.getDefault().getPasswort(),
-                configurationProperties.getDefault().getBhkz(), aufrufKontextVerwalter,
-                aufrufKontextFactory, sicherheit);
+                    authentifizierungsmanager,
+                    configurationProperties.getDefault().getRegistrationId()
+            );
         } else {
             LOG.info(LogKategorie.SICHERHEIT, HinweisSchluessel.VERWENDE_KEINE_AUTHENTIFIZIERUNG,
-                MessageSourceHolder.getMessage(HinweisSchluessel.VERWENDE_KEINE_AUTHENTIFIZIERUNG));
+                    MessageSourceHolder.getMessage(HinweisSchluessel.VERWENDE_KEINE_AUTHENTIFIZIERUNG));
             return new NoOpAuthenticator();
         }
     }
 
     private boolean useTaskSpecificCredentials(String taskId) {
-        return configurationProperties.getTasks().get(taskId).getBenutzer() != null
-            && configurationProperties.getTasks().get(taskId).getPasswort() != null
-            && configurationProperties.getTasks().get(taskId).getBhkz() != null;
+        return configurationProperties.getTasks().get(taskId).getRegistrationId() != null;
     }
 
     private boolean useStandardCredentials() {
-        return configurationProperties.getDefault().getBenutzer() != null
-            && configurationProperties.getDefault().getPasswort() != null
-            && configurationProperties.getDefault().getBhkz() != null;
+        return configurationProperties.getDefault().getRegistrationId() != null;
     }
 
 }

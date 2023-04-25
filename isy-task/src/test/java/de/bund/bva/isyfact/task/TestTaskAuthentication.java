@@ -8,9 +8,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import de.bund.bva.isyfact.sicherheit.common.exception.AutorisierungFehlgeschlagenException;
 import de.bund.bva.isyfact.task.test.config.TestConfig;
 
 import io.micrometer.core.instrument.MeterRegistry;
@@ -42,7 +42,7 @@ public class TestTaskAuthentication {
         SECONDS.sleep(5);
 
         TestTaskRunAssertion.assertTaskSuccess(className, annotatedMethodName, registry,
-            AutorisierungFehlgeschlagenException.class.getSimpleName());
+            AuthenticationException.class.getSimpleName());
     }
 
     @Test
@@ -53,6 +53,6 @@ public class TestTaskAuthentication {
         SECONDS.sleep(5);
 
         TestTaskRunAssertion.assertTaskFailure(className, annotatedMethodName, registry,
-            AutorisierungFehlgeschlagenException.class.getSimpleName());
+            AuthenticationException.class.getSimpleName());
     }
 }

@@ -8,9 +8,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontextFactory;
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
-import de.bund.bva.isyfact.sicherheit.Sicherheit;
+import de.bund.bva.isyfact.security.oauth2.client.Authentifizierungsmanager;
 import de.bund.bva.isyfact.task.config.IsyTaskConfigurationProperties;
 import de.bund.bva.isyfact.task.konfiguration.HostHandler;
 import de.bund.bva.isyfact.task.konfiguration.impl.LocalHostHandlerImpl;
@@ -64,10 +62,10 @@ public class IsyTaskAutoConfiguration {
     @Bean
     @ConditionalOnProperty(value = "isy.task.authentication.enabled")
     @ConditionalOnMissingBean(AuthenticatorFactory.class)
-    public AuthenticatorFactory authenticatorFactoryIsySicherheit(
-            IsyTaskConfigurationProperties configurationProperties, Sicherheit sicherheit,
-            AufrufKontextVerwalter aufrufKontextVerwalter, AufrufKontextFactory aufrufKontextFactory) {
-        return new IsySecurityAuthenticatorFactory(configurationProperties, sicherheit,
-                aufrufKontextFactory, aufrufKontextVerwalter);
+    public AuthenticatorFactory authenticatorFactoryIsySecurity(
+            IsyTaskConfigurationProperties configurationProperties,
+            Authentifizierungsmanager authentifizierungsmanager
+    ) {
+        return new IsySecurityAuthenticatorFactory(configurationProperties, authentifizierungsmanager);
     }
 }
