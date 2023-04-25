@@ -19,13 +19,14 @@ package de.bund.bva.isyfact.batchrahmen.batch;
 import java.util.Date;
 import java.util.Optional;
 
+import org.springframework.security.access.annotation.Secured;
+
 import de.bund.bva.isyfact.batchrahmen.batch.exception.BatchAusfuehrungsException;
 import de.bund.bva.isyfact.batchrahmen.batch.konfiguration.BatchKonfiguration;
 import de.bund.bva.isyfact.batchrahmen.batch.protokoll.BatchErgebnisProtokoll;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.AuthenticationCredentials;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchStartTyp;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.VerarbeitungsErgebnis;
-import de.bund.bva.isyfact.sicherheit.annotation.Gesichert;
 
 /**
  * Behaves like the BasicTest batch - but authorization is performed before initialization.
@@ -60,7 +61,7 @@ public class GesicherterTestBatch2 extends BasicTestBatch {
     /**
      * saves the reference to the configuration. {@inheritDoc}
      */
-    @Gesichert("Recht")
+    @Secured("Recht")
     public int initialisieren(BatchKonfiguration konfiguration, long satzNummer, String dbKey,
                               BatchStartTyp startTyp, Date datumLetzterErfolg, BatchErgebnisProtokoll protokoll)
             throws BatchAusfuehrungsException {
