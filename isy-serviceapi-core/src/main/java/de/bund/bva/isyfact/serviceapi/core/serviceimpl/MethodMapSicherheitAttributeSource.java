@@ -39,8 +39,10 @@ import de.bund.bva.isyfact.sicherheit.common.exception.FehlerhafteServiceKonfigu
  * <p>
  * Diese Klasse ist als Kopie der Spring MethodMapTransactionAttributeSource entstanden.
  * </p>
- *
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use <a href="https://isyfact.github.io/isyfact-standards-doku/latest/isy-service-rest/konzept/master.html">REST according to IsyFacts REST Concept</a> instead.
  */
+@Deprecated
 public class MethodMapSicherheitAttributeSource implements SicherheitAttributeSource, BeanClassLoaderAware,
     InitializingBean {
 
@@ -51,6 +53,7 @@ public class MethodMapSicherheitAttributeSource implements SicherheitAttributeSo
     /** Map from method name to attribute value. */
     private Map<String, String[]> methodMap;
 
+    /** Class loader. */
     private ClassLoader beanClassLoader = ClassUtils.getDefaultClassLoader();
 
     /** Map from Method to benötigte Rechte. */

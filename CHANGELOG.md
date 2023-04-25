@@ -1,4 +1,5 @@
 # 3.0.0
+- `IFS-2422`: [isyfact-serviceapi-core] Deprecation des isy-serviceapi-core Bausteins
 - `IFS-2273`: [isyfact-standards-doc] Einheitliche Deprecation-Warnung für die Dokumentation
 - `IFS-2449`: [isyfact-standards-doc] Aufnahme von Testcontainers in den Produktkatalog
 - `IFS-1745`: [isyfact-standards-doc] Summary Architektur- und Sicherheitsregeln

@@ -1,6 +1,7 @@
 # 3.0.0
 - `IFS-1166`: Autokonfiguration von isy-serviceapi-core nach isy-sicherheit
 - `IFS-1073`: Logausgabe zur Korrektur der Korrelations-Id entfernt
+- `IFS-2422`: Deprecation des isy-serviceapi-core Bausteins
 
 # 2.4.0
 - `IFS-668`: Zurücksetzung der KorrelationsId des AnrufKontextTo bei einem Invoke

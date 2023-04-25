@@ -22,21 +22,28 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import ma.glasnost.orika.MapperFacade;
+import org.springframework.aop.support.AopUtils;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
-import org.springframework.aop.support.AopUtils;
+
+import ma.glasnost.orika.MapperFacade;
+
+
 
 /**
  * Generische Implementierung des Kernteils einer Service- oder Native-GUI-Komponente. Die Implementierung
  * ruft für einen RemoteBean-Aufruf die korrespondierende Methode einer Anwendungskern-Komponente. Dabei
  * werden alle Methodenparameter sowie das Methodenergebnis mit Hilfe eines Bean Mappers konvertiert.
- * 
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use <a href="https://isyfact.github.io/isyfact-standards-doku/latest/isy-service-rest/konzept/master.html">REST according to IsyFacts REST Concept</a> instead.
  */
+@Deprecated
 public class ServiceImpl implements MethodInterceptor, Validatable {
 
+    /** MethodMappingSource. */
     private MethodMappingSource methodMappingSource;
 
+    /** MapperFacade. */
     private MapperFacade mapper;
 
     public void setMethodMappingSource(MethodMappingSource methodMappingSource) {

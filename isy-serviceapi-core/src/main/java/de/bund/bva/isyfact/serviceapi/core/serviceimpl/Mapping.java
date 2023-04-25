@@ -28,8 +28,10 @@ import de.bund.bva.pliscommon.exception.service.PlisToException;
 /**
  * Defines a mapping from a {@link BaseException} of the application
  * core to a {@link PlisToException} of the service interface.
- *
+ *@deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use <a href="https://isyfact.github.io/isyfact-standards-doku/latest/isy-service-rest/konzept/master.html">REST according to IsyFacts REST Concept</a> instead.
  */
+@Deprecated
 @Target(ElementType.LOCAL_VARIABLE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented

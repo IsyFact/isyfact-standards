@@ -31,7 +31,10 @@ import de.bund.bva.pliscommon.exception.service.PlisToException;
  * Defines how exceptions of the application core are mapped to TO exceptions in a service component.
  * This annotation must be used in the implementation package
  * of the service component (package name = package name of the RemoteBean interface + ".impl").
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use <a href="https://isyfact.github.io/isyfact-standards-doku/latest/isy-service-rest/konzept/master.html">REST according to IsyFacts REST Concept</a> instead.
  */
+@Deprecated
 @Target(ElementType.PACKAGE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented

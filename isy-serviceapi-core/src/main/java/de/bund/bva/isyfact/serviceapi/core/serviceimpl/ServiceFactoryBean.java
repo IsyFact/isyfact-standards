@@ -21,19 +21,23 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import de.bund.bva.isyfact.serviceapi.common.konstanten.EreignisSchluessel;
 import org.springframework.transaction.interceptor.TransactionProxyFactoryBean;
 
+import de.bund.bva.isyfact.serviceapi.common.konstanten.EreignisSchluessel;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.sicherheit.annotation.GesichertInterceptor;
 import de.bund.bva.isyfact.sicherheit.annotation.SicherheitAttributeSource;
 
+
+
 /**
  * Factory-Bean, die eine generische Implementierung einer RemoteBean-Schnittstelle erzeugt.
- *
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use <a href="https://isyfact.github.io/isyfact-standards-doku/latest/isy-service-rest/konzept/master.html">REST according to IsyFacts REST Concept</a> instead.
  */
+@Deprecated
 public class ServiceFactoryBean extends TransactionProxyFactoryBean {
 
     /** Serial version UID. */
@@ -43,7 +47,7 @@ public class ServiceFactoryBean extends TransactionProxyFactoryBean {
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(ServiceFactoryBean.class);
 
     /** Konfigurierte Interceptor. */
-    private final List<Object> interceptors = new ArrayList<Object>();
+    private final List<Object> interceptors = new ArrayList<>();
 
     /** Die RemoteBean-Schnittstelle. */
     private Class<?> remoteBeanInterface;

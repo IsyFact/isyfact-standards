@@ -34,7 +34,10 @@ import ma.glasnost.orika.MapperFacade;
 /**
  * An interceptor that provides the calling context based on a mapping.
  * @param <T> Implementation of AufrufKontext that should be mapped to.
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use <a href="https://isyfact.github.io/isyfact-standards-doku/latest/isy-service-rest/konzept/master.html">REST according to IsyFacts REST Concept</a> instead.
  */
+@Deprecated
 public class StelltAllgemeinenAufrufKontextBereitInterceptor<T extends AufrufKontext> implements
     MethodInterceptor, Ordered {
 
