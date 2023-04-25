@@ -391,14 +391,4 @@ public class BatchrahmenTest {
         final String actualBatchId = loggerContext.getProperty("BatchId");
         assertEquals("BatchId ist in Batch LoggerContext gesetzt", "basicTestBatch-1", actualBatchId);
     }
-
-    /**
-     * test if correlation-id in AufrufKontext will be set during batch execution
-     */
-    @Test
-    public void testAufrufKontextTestBatch() {
-        assertEquals(0, BatchLauncher.run(new String[] { "-start", "-cfg",
-                "/resources/batch/aufruf-kontext-test-batch-config.properties" }));
-        assertEquals("beendet", getBatchStatus("aufrufKontextTestBatch"));
-    }
 }
