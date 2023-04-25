@@ -25,7 +25,7 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 
 import de.bund.bva.isyfact.security.Authentifizierungsmanager;
-import de.bund.bva.isyfact.security.authentication.IsyOAuth2Authentifizierungsmanager;
+import de.bund.bva.isyfact.security.core.IsyOAuth2Authentifizierungsmanager;
 import de.bund.bva.isyfact.security.authentication.IsyOAuth2ClientCredentialsAuthenticationProvider;
 import de.bund.bva.isyfact.security.authentication.IsyOAuth2ManualClientCredentialsAuthenticationProvider;
 import de.bund.bva.isyfact.security.authentication.IsyOAuth2PasswordAuthenticationProvider;

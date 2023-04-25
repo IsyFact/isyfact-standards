@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.security.authentication;
+package de.bund.bva.isyfact.security.core;
 
 import org.springframework.lang.Nullable;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,6 +10,9 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 
 import de.bund.bva.isyfact.security.Authentifizierungsmanager;
+import de.bund.bva.isyfact.security.authentication.IsyOAuth2ClientCredentialsAuthenticationToken;
+import de.bund.bva.isyfact.security.authentication.IsyOAuth2ManualClientCredentialsAuthenticationToken;
+import de.bund.bva.isyfact.security.authentication.IsyOAuth2PasswordAuthenticationToken;
 
 /**
  * Default implementation of {@link Authentifizierungsmanager} for IsyFact applications.

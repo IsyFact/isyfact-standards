@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.security.authentication;
+package de.bund.bva.isyfact.security.core;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.exactly;
 import static com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor;
