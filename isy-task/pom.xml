@@ -33,10 +33,6 @@
     <dependencies>
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
-            <artifactId>isy-aufrufkontext</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-datetime</artifactId>
         </dependency>
         <dependency>
