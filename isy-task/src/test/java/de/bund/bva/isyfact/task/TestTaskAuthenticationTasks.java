@@ -19,13 +19,13 @@ public class TestTaskAuthenticationTasks {
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(TestTaskAuthenticationTasks.class);
 
     @Scheduled(fixedRate = 1, timeUnit = TimeUnit.SECONDS)
-    @Secured("Recht1")
+    @Secured("PRIV_Recht1")
     public void scheduledTaskSecured() {
         LOG.info(LogKategorie.JOURNAL, SCHLUESSEL, "test task - scheduled - secured - executed at {}", DateTimeUtil.localDateTimeNow());
     }
 
     @Scheduled(fixedRate = 1, timeUnit = TimeUnit.SECONDS)
-    @Secured("Recht1")
+    @Secured("PRIV_Recht1")
     public void scheduledTaskSecuredInsufficientRights() {
         LOG.info(LogKategorie.JOURNAL, SCHLUESSEL, "test task - scheduled - insufficient rights - executed at {}", DateTimeUtil.localDateTimeNow());
     }
