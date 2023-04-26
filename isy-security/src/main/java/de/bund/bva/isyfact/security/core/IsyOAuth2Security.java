@@ -13,7 +13,7 @@ import de.bund.bva.isyfact.security.xmlparser.RolePrivilegesMapper;
 /**
  * Default implementation of the {@link Security} interface provided as bean by AutoConfiguration.
  */
-public class DefaultSecurity implements Security {
+public class IsyOAuth2Security implements Security {
 
     /**
      * Mapper from roles to privileges.
@@ -32,7 +32,7 @@ public class DefaultSecurity implements Security {
      */
     private final Berechtigungsmanager berechtigungsmanager;
 
-    public DefaultSecurity(
+    public IsyOAuth2Security(
             RolePrivilegesMapper rolePrivilegesMapper,
             Berechtigungsmanager berechtigungsmanager,
             @Nullable Authentifizierungsmanager authentifizierungsmanager

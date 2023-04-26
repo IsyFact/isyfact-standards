@@ -12,11 +12,11 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 
 import de.bund.bva.isyfact.security.Authentifizierungsmanager;
 import de.bund.bva.isyfact.security.Berechtigungsmanager;
-import de.bund.bva.isyfact.security.DefaultBerechtigungsmanager;
+import de.bund.bva.isyfact.security.core.IsyOAuth2Berechtigungsmanager;
 import de.bund.bva.isyfact.security.Security;
 import de.bund.bva.isyfact.security.authentication.RolePrivilegeGrantedAuthoritiesConverter;
 import de.bund.bva.isyfact.security.config.IsySecurityConfigurationProperties;
-import de.bund.bva.isyfact.security.core.DefaultSecurity;
+import de.bund.bva.isyfact.security.core.IsyOAuth2Security;
 import de.bund.bva.isyfact.security.xmlparser.RolePrivilegesMapper;
 
 /**
@@ -63,7 +63,7 @@ public class IsySecurityAutoConfiguration {
 
     @Bean
     public Berechtigungsmanager berechtigungsmanager() {
-        return new DefaultBerechtigungsmanager(isySecurityConfigurationProperties().getRolesClaimName());
+        return new IsyOAuth2Berechtigungsmanager(isySecurityConfigurationProperties().getRolesClaimName());
     }
 
     @Bean
@@ -73,7 +73,7 @@ public class IsySecurityAutoConfiguration {
             Berechtigungsmanager berechtigungsmanager,
             @Nullable Authentifizierungsmanager authentifizierungsmanager
     ) {
-        return new DefaultSecurity(
+        return new IsyOAuth2Security(
                 rolePrivilegesMapper,
                 berechtigungsmanager,
                 authentifizierungsmanager

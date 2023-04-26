@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.security;
+package de.bund.bva.isyfact.security.core;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -13,18 +13,20 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.server.resource.authentication.AbstractOAuth2TokenAuthenticationToken;
 import org.springframework.util.Assert;
 
+import de.bund.bva.isyfact.security.Berechtigungsmanager;
+
 /**
  * Default implementation of the {@link Berechtigungsmanager} that should suffice for most use cases.
  * <p>
  * It provides access to the privileges of the currently authenticated principal, as well as the roles stored in the {@link #rolesClaimName}
  * if the principal is an OAuth 2.0 token.
  */
-public class DefaultBerechtigungsmanager implements Berechtigungsmanager {
+public class IsyOAuth2Berechtigungsmanager implements Berechtigungsmanager {
 
     /** The JWT claim name that contains the roles. */
     private final String rolesClaimName;
 
-    public DefaultBerechtigungsmanager(String rolesClaimName) {
+    public IsyOAuth2Berechtigungsmanager(String rolesClaimName) {
         this.rolesClaimName = rolesClaimName;
     }
 
