@@ -1,5 +1,7 @@
 package de.bund.bva.isyfact.task.sicherheit.impl;
 
+import org.springframework.util.StringUtils;
+
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
@@ -42,18 +44,21 @@ public class IsySecurityAuthenticatorFactory implements AuthenticatorFactory {
      * @return {@link Authenticator} for task, return {@link NoOpAuthenticator} if no credentials have been found.
      */
     public synchronized Authenticator getAuthenticator(String taskId) {
-        if (useTaskSpecificCredentials(taskId)) {
+        String registrationId = configurationProperties.getTasks().get(taskId).getRegistrationId();
+        if (StringUtils.hasText(registrationId)) {
             return new IsySecurityAuthenticator(
                     authentifizierungsmanager,
-                    configurationProperties.getTasks().get(taskId).getRegistrationId()
+                    registrationId
             );
-        } else if (useStandardCredentials()) {
+        }
+        String defaultRegistrationId = configurationProperties.getDefault().getRegistrationId();
+        if (StringUtils.hasText(defaultRegistrationId)) {
             String nachricht = MessageSourceHolder
                     .getMessage(HinweisSchluessel.VERWENDE_STANDARD_KONFIGURATION, "registrationId");
             LOG.info(LogKategorie.SICHERHEIT, HinweisSchluessel.VERWENDE_STANDARD_KONFIGURATION, nachricht);
             return new IsySecurityAuthenticator(
                     authentifizierungsmanager,
-                    configurationProperties.getDefault().getRegistrationId()
+                    defaultRegistrationId
             );
         } else {
             LOG.info(LogKategorie.SICHERHEIT, HinweisSchluessel.VERWENDE_KEINE_AUTHENTIFIZIERUNG,
@@ -61,13 +66,4 @@ public class IsySecurityAuthenticatorFactory implements AuthenticatorFactory {
             return new NoOpAuthenticator();
         }
     }
-
-    private boolean useTaskSpecificCredentials(String taskId) {
-        return configurationProperties.getTasks().get(taskId).getRegistrationId() != null;
-    }
-
-    private boolean useStandardCredentials() {
-        return configurationProperties.getDefault().getRegistrationId() != null;
-    }
-
 }
