@@ -43,7 +43,7 @@ public class IsyOAuth2PasswordAuthenticationProvider extends AbstractIsyAuthenti
     }
 
     public Authentication authenticate(String username, String password, String registrationId) throws AuthenticationException {
-        return authenticate(new IsyOAuth2PasswordAuthenticationToken(username, password, registrationId, null));
+        return authenticate(new IsyOAuth2PasswordAuthenticationToken(registrationId, username, password, null));
     }
 
     @Override
@@ -66,7 +66,12 @@ public class IsyOAuth2PasswordAuthenticationProvider extends AbstractIsyAuthenti
 
         if (!StringUtils.hasText(authentication.getUsername())) {
             IsyOAuth2ClientProperties.IsyClientRegistration isyClientRegistration = properties.getRegistration().get(authentication.getRegistrationId());
-            token = new IsyOAuth2PasswordAuthenticationToken(isyClientRegistration.getUsername(), isyClientRegistration.getPassword(), authentication.getRegistrationId(), isyClientRegistration.getBhknz());
+            token = new IsyOAuth2PasswordAuthenticationToken(
+                    authentication.getRegistrationId(),
+                    isyClientRegistration.getUsername(),
+                    isyClientRegistration.getPassword(),
+                    isyClientRegistration.getBhknz()
+            );
         } else {
             token = authentication;
         }

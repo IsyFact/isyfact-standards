@@ -32,13 +32,13 @@ public class IsyOAuth2PasswordAuthenticationToken extends AbstractAuthentication
 
     public IsyOAuth2PasswordAuthenticationToken(String registrationId) {
         super(Collections.emptyList());
+        this.registrationId = registrationId;
         this.username = "";
         this.password = "";
-        this.registrationId = registrationId;
         this.bhknz = null;
     }
 
-    public IsyOAuth2PasswordAuthenticationToken(String username, String password, String registrationId, @Nullable String bhknz) {
+    public IsyOAuth2PasswordAuthenticationToken(String registrationId, String username, String password, @Nullable String bhknz) {
         super(Collections.emptyList());
         this.registrationId = registrationId;
         this.username = username;

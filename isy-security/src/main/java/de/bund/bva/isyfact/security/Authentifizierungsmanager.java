@@ -30,10 +30,10 @@ public interface Authentifizierungsmanager {
     /**
      * Authenticate a user with credentials only available at runtime.
      *
+     * @param registrationId ID of Client Registration with authorization-grant-type: password
      * @param username       User ID
      * @param password       User password
-     * @param registrationId ID of Client Registration with authorization-grant-type: password
      * @param bhknz          (optional: can be null if not required by the IAM-Service).
      */
-    void authentifiziereSystem(String username, String password, String registrationId, @Nullable String bhknz);
+    void authentifiziereSystem(String registrationId, String username, String password, @Nullable String bhknz);
 }

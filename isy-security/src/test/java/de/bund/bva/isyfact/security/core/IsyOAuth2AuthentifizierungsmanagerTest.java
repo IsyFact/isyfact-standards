@@ -126,9 +126,9 @@ class IsyOAuth2AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
     @Test
     void authentifiziereSystemWithUsernameAndPassword() {
         authentifizierungsmanager.authentifiziereSystem(
+                ROPC_TEST_CLIENT_REGISTRATION_ID,
                 ROPC_TEST_USERNAME,
                 ROPC_TEST_PASSWORD,
-                ROPC_TEST_CLIENT_REGISTRATION_ID,
                 ROPC_TEST_BHKNZ
         );
 
@@ -138,9 +138,9 @@ class IsyOAuth2AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
     @Test
     void authentifiziereSystemWithUsernameAndPasswordOhneBhknz() {
         authentifizierungsmanager.authentifiziereSystem(
+                ROPC_NO_BHKNZ_TEST_CLIENT_REGISTRATION_ID,
                 ROPC_NO_BHKNZ_TEST_USERNAME,
                 ROPC_NO_BHKNZ_TEST_PASSWORD,
-                ROPC_NO_BHKNZ_TEST_CLIENT_REGISTRATION_ID,
                 null
         );
 

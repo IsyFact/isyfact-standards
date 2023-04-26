@@ -68,8 +68,8 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
     }
 
     @Override
-    public void authentifiziereSystem(String username, String password, String registrationId, @Nullable String bhknz) {
-        IsyOAuth2PasswordAuthenticationToken token = new IsyOAuth2PasswordAuthenticationToken(username, password, registrationId, bhknz);
+    public void authentifiziereSystem(String registrationId, String username, String password, @Nullable String bhknz) {
+        IsyOAuth2PasswordAuthenticationToken token = new IsyOAuth2PasswordAuthenticationToken(registrationId, username, password, bhknz);
 
         authenticate(token);
     }

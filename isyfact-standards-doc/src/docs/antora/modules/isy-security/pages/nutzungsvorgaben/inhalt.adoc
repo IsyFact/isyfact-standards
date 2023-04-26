@@ -12,7 +12,7 @@ Das Interface `Security` stellt die zentrale Schnittstelle bereit, über die auf
 Die folgenden Methoden bieten Zugriff auf eine Liste von allen im System hinterlegten Rollen, den Berechtigungsmanager und den optionalen Authentifizierungsmanager:
 
 `Set<String> getAlleRollen()`:: Liefert die Menge aller im System konfigurierten Rollen.
-`Berechtigungsmanager getBerechtigungsManager()`:: Stellt eine Referenz auf das `Berechtigungsmanager` bean bereit.
+`Berechtigungsmanager getBerechtigungsManager()`:: Stellt eine Referenz auf das `Berechtigungsmanager` Bean bereit.
 `Optional<Authentifizierungsmanager> getAuthentifizierungsManager()`:: Liefert ein `Optional`, das eine Referenz auf den `Authentifizierungsmanager` enthält, oder `null` falls die Anwendung als Resource-Server agiert und kein `Authentifizierungsmanager` benötigt wird.
 
 [[image-security]]
@@ -22,14 +22,14 @@ image::nutzungsvorgaben/security.svg[align="center"]
 [[authentifizierungsmanager-interface]]
 === Authentifizierungsmanager
 
-Zur manuellen authentifizierung von Clients stehen folgende Methoden zur Verfügung:
+Zur manuellen Authentifizierung von Clients stehen folgende Methoden zur Verfügung:
 
 `void authentifiziere(String registrationId)`:: Authentifiziert einen Client anhand einer ClientRegistrationId. Unterstützt `client_credentials` und `password` GrantType.
 Zugangsdaten für technische Nutzer müssen im Fall von `password` GrantType konfiguriert sein (siehe <<isyfact-specific-client-registration>> für _Resource-Owner-Password-Credential_ Flow).
 
 `void authentifiziereClient(String clientId, String clientSecret, String issuerLocation)`:: Authentifiziert einen Client anhand `clientId`, `clientSecret` und `issuerLocation`.
 
-`void authentifiziereSystem(String username, String password, String registrationId, @Nullable String bhknz)`:: Authentifiziert einen Client anhand `username`, `password`, `registrationId` und (optional) `bhknz`.
+`void authentifiziereSystem(String registrationId, String username, String password, @Nullable String bhknz)`:: Authentifiziert einen Client anhand `registrationId`, `username`, `password`  und (optional) `bhknz`. Der Parameter `registrationId` verweist auf eine
 
 [[image-authentifizierungsmanager]]
 .Authentifizierungsmanager
@@ -121,7 +121,7 @@ include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
 Dieser Flow soll gemäß OAuth2.0 Vorgaben nicht mehr verwendet werden und wird in zukünftigen Versionen aus dem OAuth-Standard entfernt.
 
 Die folgenden Konfigurationsparameter werden als Übergangslösung für technische Nutzer bereitgestellt.
-Der Client-Credential Flow ist bevorzugt zu nutzen.
+Der Client-Credentials Flow ist bevorzugt zu nutzen.
 ****
 
 Zugangsdaten für technische Nutzer zur Authentifizierung von Tasks und Batches mit dem _Resource-Owner-Password-Credential_ Flow können über die folgenden Parameter konfiguriert werden:
