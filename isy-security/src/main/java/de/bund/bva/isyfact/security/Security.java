@@ -18,7 +18,7 @@ public interface Security {
     /**
      * The {@link Authentifizierungsmanager} allows manual authentication of clients.
      *
-     * @return Optional of {@link Authentifizierungsmanager} or {@code null if the system
+     * @return Optional of {@link Authentifizierungsmanager} or {@code null} if the system
      * acts as ressource-server and the {@link Authentifizierungsmanager} is not configured
      */
     Optional<Authentifizierungsmanager> getAuthentifizierungsManager();
