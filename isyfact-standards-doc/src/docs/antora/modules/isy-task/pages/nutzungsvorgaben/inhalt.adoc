@@ -94,9 +94,7 @@ Das folgende Listing zeigt die Konfiguration für den `HalloWeltTask`.
 
 [source,properties]
 ----
-isy.task.tasks.halloWeltTask.benutzer=TestUser1
-isy.task.tasks.halloWeltTask.passwort=TestPasswort1
-isy.task.tasks.halloWeltTask.bhkz=BHKZ1
+isy.task.tasks.halloWeltTask.registration-id=halloWelt-client-registration
 isy.task.tasks.halloWeltTask.ausfuehrung=ONCE
 isy.task.tasks.halloWeltTask.initial-delay=10s
 isy.task.tasks.halloWeltTask.host=ComputerName
@@ -250,25 +248,11 @@ Die Dauer, die `isy-task` wartet, bis ein fehlgeschlagener Task erneut gestartet
 isy.task.watchdog.restart_interval
 ----
 
-Die Kennung die benutzt wird, wenn kein Task-spezifisches Kennwort konfiguriert wird:
+Die ID der Client Registration aus `isy-security` zur Authentifizierung, wenn keine Task-spezifische `registration-id` konfiguriert wird:
 
 [source,properties]
 ----
-isy.task.default.benutzer
-----
-
-Das Passwort das benutzt wird, wenn kein Task-spezifisches Passwort konfiguriert wird:
-
-[source,properties]
-----
-isy.task.default.passwort
-----
-
-Das Behördenkennzeichen, das benutzt wird, wenn kein Task-spezifisches konfiguriert wird:
-
-[source,properties]
-----
-isy.task.default.bhkz
+isy.task.default.registration-id
 ----
 
 Der Host, wenn kein Task-spezifischer Host konfiguriert wird:
@@ -281,25 +265,11 @@ isy.task.default.host
 [[aufgabenspezifische-konfiguration]]
 === Aufgabenspezifische Konfiguration
 
-Die Kennung des ausführenden Benutzers:
+Die ID der Client Registration aus `isy-security`, die zur Authentifizierung genutzt wird:
 
 [source,properties]
 ----
-isy.task.tasks.<Task>.benutzer
-----
-
-Das Passwort des ausführenden Benutzers:
-
-[source,properties]
-----
-isy.task.tasks.<Task>.passwort
-----
-
-Behördenkennzeichen des ausführenden Benutzers:
-
-[source,properties]
-----
-isy.task.tasks.<Task>.bhkz
+isy.task.tasks.<Task>.registration-id
 ----
 
 Der Name des Hosts auf dem der Task ausgeführt werden soll.
