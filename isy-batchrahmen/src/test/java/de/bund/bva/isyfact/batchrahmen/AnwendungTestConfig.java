@@ -7,18 +7,25 @@ import org.h2.jdbcx.JdbcDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaDialect;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import de.bund.bva.isyfact.security.autoconfigure.IsyOAuth2ClientAutoConfiguration;
+import de.bund.bva.isyfact.security.autoconfigure.IsySecurityAutoConfiguration;
 
 @Configuration
 @EnableTransactionManagement
 @EnableAspectJAutoProxy
+@EnableWebSecurity
+@Import({IsyOAuth2ClientAutoConfiguration.class, IsySecurityAutoConfiguration.class})
 public class AnwendungTestConfig {
 
 
