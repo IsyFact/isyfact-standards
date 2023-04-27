@@ -31,12 +31,13 @@ Es ist gegen Version 8 zu kompilieren.
 Java Vendor:: Der Java Vendor wurde geändert auf Eclipse Temurin satt Oracle RedHat.
 
 [[kapitel-rest-interne-externe-schnittstelle]]
-=== REST für interne und externe Schnittstellen
+=== REST als Nachfolger der HTTPInvoker-Technologie
 
-REST Schnittstellen:: Sowohl interne als auch externe Schnittstellen sind ab sofort über xref:isy-service-rest:konzept/master.adoc[REST] zu realisieren.
+REST Schnittstellen:: Sowohl interne als auch externe REST-Schnittstellen sind ab sofort einheitlich nach dem xref:isy-service-rest:konzept/master.adoc[REST-Konzept] zu realisieren.
 Spring HTTPInvoker deprecated icon:ban[title=Deprecation]:: Die Verwendung von xref:isy-serviceapi-core:konzept/master.adoc[HTTPInvoker Schnittstellen] gilt als deprecated und wird mit einem nachfolgenden Release entfernt.
 Metadaten im HTTP-Header statt im Datensatz/Aufrufkontext icon:ban[title=Deprecation]:: Metadaten sind über HTTP-Header zur realisieren. 
 Eine Verwendung von Metadaten über HTTPInvoker und Aufrufkontext gilt als deprecated und wird mit einem nachfolgenden Release entfernt.
+REST-Baustein als http-Invoker Nachfolger:: Der REST-Baustein wird als Nachfolger des HTTPInvoker-Bausteins (isy-serviceapi-core) veröffentlicht.
 
 [[kapitel-baustein-sicherheit-deprecated]]
 === Baustein Sicherheit deprecated icon:ban[title=Deprecation]
