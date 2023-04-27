@@ -118,7 +118,7 @@ public class BatchrahmenImpl implements Batchrahmen, InitializingBean,
     /**
      * The authentication manager to authenticate batch.
      */
-    private Optional<Authentifizierungsmanager> authentifizierungsmanagerOptional;
+    private Optional<Authentifizierungsmanager> authentifizierungsmanagerOptional = Optional.empty();
 
     /**
      * @return TransactionStatus
@@ -475,7 +475,7 @@ public class BatchrahmenImpl implements Batchrahmen, InitializingBean,
      *
      * @param authentifizierungsmanager the {@link Authentifizierungsmanager}
      */
-    public void setAuthentifizierungsmanagerOptional(Authentifizierungsmanager authentifizierungsmanager) {
+    public void setAuthentifizierungsmanager(Authentifizierungsmanager authentifizierungsmanager) {
         this.authentifizierungsmanagerOptional = Optional.ofNullable(authentifizierungsmanager);
     }
 
