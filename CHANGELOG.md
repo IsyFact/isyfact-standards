@@ -16,6 +16,8 @@
 - `IFS-1465`: [isyfact-products-bom] Spring Boot Versionsanhebung auf 2.7.1
 - `IFS-2021`: [isyfact-products-bom] Spring Boot Versionsanhebung auf 2.7.9
   - spring-boot-maven-plugin Versionsanhebung auf 2.7.9
+- `IFS-2537`: [isyfact-products-bom] Spring Boot Versionsanhebung auf 2.7.11
+  - spring-boot-maven-plugin Versionsanhebung auf 2.7.11
 - `IFS-1073`: [isy-serviceapi-core] Logausgabe zur Korrektur der Korrelations-Id entfernt
 - `IFS-1282`: Einführung von Maven CI-friendly Versionen
 - `IFS-1157`: [isyfact-standards-bom] Module und Sub-Module entfernt:
