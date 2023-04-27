@@ -269,7 +269,7 @@ include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
 ****
 *Anmerkung zur Deprecation*
 
-Der ab IF 3.0 eingesetzte neue Baustein `isy-security` wird keine HTTP Invoker Schnittstellen mehr nativ unterstützen und daher sollen diese ab IF 3.0 nicht mehr verwendet werden.
+Der ab IF 3.0 eingesetzte neue Baustein `isy-security` wird keine HTTPInvoker Schnittstellen mehr nativ unterstützen und daher sollen diese ab IF 3.0 nicht mehr verwendet werden.
 ****
 
 Dieser Abschnitt beschreibt die Realisierung von HTTP Invoker Schnittstellen (siehe xref:glossary:literaturextern:inhalt.adoc#litextern-spring[Spring]).
@@ -281,7 +281,7 @@ Ab IsyFact 2.0 ist die Verwendung von REST-Schnittstellen erlaubt.
 HTTP Invoker wird in folgenden Releases (IsyFact 2.x) als Schnittstellenformat abgelöst.
 Die Verwendung von REST-Schnittstellen wird einem gesonderten Konzept erläutert.
 
-Ab IsyFact 3.0 ist die Verwendung von HTTP-Invoker Schnittstellen nicht mehr empfohlen und wird in zukünftigen Versionen nicht mehr unterstützt werden.
+Ab IsyFact 3.0 wird die Verwendung von HTTPInvoker Schnittstellen nicht mehr empfohlen und wird in zukünftigen Versionen nicht mehr unterstützt werden.
 
 ====
 
@@ -1033,7 +1033,7 @@ include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
 
 Ab der IF 3.0 wird der Spring `SecurityContext` anstatt des `AufrufKontext` verwendet.
 Der `AufrufKontextVerwalter` kann somit auch nicht mehr verwendet werden.
-Die Verwendung des  `SecurityContext` anstelle des `AufrufKontext` wird im Baustein xref:isy-security:konzept/master.adoc[`isy-security`] beschrieben.
+Die Verwendung des  `SecurityContext` anstelle des `AufrufKontext`-Objekts wird im Baustein xref:isy-security:konzept/master.adoc[`isy-security`] beschrieben.
 ****
 
 Einige Komponenten der Anwendung, z.B. die Protokollierung oder die Autorisierung benötigen
