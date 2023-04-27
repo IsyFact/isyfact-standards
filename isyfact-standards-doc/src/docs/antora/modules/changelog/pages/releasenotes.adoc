@@ -90,20 +90,18 @@ Baustein mit Angular PrimeNG und Bootstrap deprecated icon:ban[title=Deprecation
 
 Umstellung auf Spring Boot:: Das Task Scheduling wurde auf Spring Boot umgestellt und hat Auswirkungen auf den xref:isy-konfiguration:konzept/master.adoc[Baustein Konfiguration] und den xref:isy-konfiguration:konzept/master.adoc[Baustein Überwachung].
 
-Umstellung der Authentifizierung auf isy-security::
-Für die Nutzung gesicherter Services muss ein gestarteter Task sich selbst gegenüber dem IAM-Service authentifizieren.
-Für die Authentifizierung nutzt der Baustein Task Scheduling die xref:isy-security:konzept/master.adoc#aussensicht-der-komponente-security[Schnittstelle zur Authentifizierung] aus dem xref:isy-security:konzept/master.adoc#absicherung-task[Baustein Security] und präsentiert dem Service das so erhaltene Access-Token zur Autorisierung.
-Die bisherige Art der Authentifizierung des Tasks als 'technischer Nutzer' (mit Nutzername u. Passwort) soll abgelöst werden durch eine Authentifizierung als 'Client' (mit Client-ID u. -Secret, vergeben vom IAM-System).
-Für eine weiche Migration bietet die Konfiguration von Tasks dazu die Möglichkeit, alternativ die Authentifizierungs-Credentials Nutzername & Passwort bzw. Client-ID & Client-Secret zu setzen.
+Verwendung des Bausteins isy-security zur Authentifizierung:
+Für die Authentifizierung nutzt der Baustein Task Scheduling die xref:isy-security:konzept/master.adoc#aussensicht-der-komponente-security[Schnittstelle zur Authentifizierung] aus dem xref:isy-security:konzept/master.adoc#absicherung-task[Baustein Security].
+Die bisherige Art der Authentifizierung des Tasks als 'technischer Nutzer' (mit Nutzername u. Passwort) wird perspektivisch durch eine Authentifizierung als 'Client' (mit Client-ID u. -Secret, vergeben vom IAM-System) abgelöst.
+Für eine weiche Migration bietet die Konfiguration von Batches dazu die Möglichkeit, alternativ die Authentifizierungs-Credentials Nutzername & Passwort, analog zur IsyFact 2, bzw. Client-ID & Client-Secret zu setzen.
 
 [[kapitel-batchrahmen]]
 === Batchrahmen
 
-Umstellung der Authentifizierung auf isy-security::
-Für die Nutzung gesicherter Services muss ein gestarteter Batch sich selbst gegenüber dem IAM-Service authentifizieren.
-Für die Authentifizierung nutzt der Batchrahmen die xref:isy-security:konzept/master.adoc#aussensicht-der-komponente-security[Schnittstelle zur Authentifizierung] aus dem xref:isy-security:konzept/master.adoc#absicherung-task[Baustein Security] und präsentiert dem Service das so erhaltene Access-Token zur Autorisierung.
-Die bisherige Art der Authentifizierung des Batch als 'technischer Nutzer' (mit Nutzername u. Passwort) soll abgelöst werden durch eine Authentifizierung als 'Client' (mit Client-ID u. -Secret, vergeben vom IAM-System).
-Für eine weiche Migration bietet die Konfiguration von Batches dazu die Möglichkeit, alternativ die Authentifizierungs-Credentials Nutzername & Passwort bzw. Client-ID & Client-Secret zu setzen.
+Verwendung des Bausteins isy-security zur Authentifizierung:
+Für die Authentifizierung nutzt der Batchrahmen die xref:isy-security:konzept/master.adoc#aussensicht-der-komponente-security[Schnittstelle zur Authentifizierung] aus dem xref:isy-security:konzept/master.adoc#absicherung-task[Baustein Security].
+Die bisherige Art der Authentifizierung des Tasks als 'technischer Nutzer' (mit Nutzername u. Passwort) wird perspektivisch durch eine Authentifizierung als 'Client' (mit Client-ID u. -Secret, vergeben vom IAM-System) abgelöst.
+Für eine weiche Migration bietet die Konfiguration von Batches dazu die Möglichkeit, alternativ die Authentifizierungs-Credentials Nutzername & Passwort, analog zur IsyFact 2, bzw. Client-ID & Client-Secret zu setzen.
 
 
 [[kapitel-sles]]
