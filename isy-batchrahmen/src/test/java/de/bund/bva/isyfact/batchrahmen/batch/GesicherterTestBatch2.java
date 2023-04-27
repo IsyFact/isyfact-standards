@@ -24,7 +24,6 @@ import org.springframework.security.access.annotation.Secured;
 import de.bund.bva.isyfact.batchrahmen.batch.exception.BatchAusfuehrungsException;
 import de.bund.bva.isyfact.batchrahmen.batch.konfiguration.BatchKonfiguration;
 import de.bund.bva.isyfact.batchrahmen.batch.protokoll.BatchErgebnisProtokoll;
-import de.bund.bva.isyfact.batchrahmen.batch.rahmen.AuthenticationCredentials;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchStartTyp;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.VerarbeitungsErgebnis;
 
@@ -34,22 +33,6 @@ import de.bund.bva.isyfact.batchrahmen.batch.rahmen.VerarbeitungsErgebnis;
  * The data used for authorization can be stored in the configuration.
  */
 public class GesicherterTestBatch2 extends BasicTestBatch {
-
-    /**
-     * Configuration key for the user used.
-     */
-    public static final String BATCH_BENUTZER = "batch.benutzer";
-
-    /**
-     * Configuration key for the used password.
-     */
-    public static final String BATCH_PASSWORT = "batch.passwort";
-
-    /**
-     * Configuration key for the authority identifier used.
-     */
-    public static final String BATCH_BHKNZ = "batch.bhknz";
-
 
     /**
      * This method is secured. {@inheritDoc}
@@ -68,40 +51,4 @@ public class GesicherterTestBatch2 extends BasicTestBatch {
         return super
                 .initialisieren(konfiguration, satzNummer, dbKey, startTyp, datumLetzterErfolg, protokoll);
     }
-
-    /**
-     * Returns the field batchBenutzerKennung.
-     *
-     * @return value of batchBenutzerKennung
-     */
-    protected String getBatchBenutzerKennung(BatchKonfiguration konfiguration) {
-        return konfiguration.getAsString(BATCH_BENUTZER);
-    }
-
-    /**
-     * Returns the field batchBenutzerPasswort.
-     *
-     * @return value of batchBenutzerPasswort
-     */
-    protected String getBatchBenutzerPasswort(BatchKonfiguration konfiguration) {
-        return konfiguration.getAsString(BATCH_PASSWORT);
-    }
-
-    /**
-     * Returns the field batchBenutzerBhknz.
-     *
-     * @return value of batchBenutzerBhknz
-     */
-    protected String getBatchBenutzerBhknz(BatchKonfiguration konfiguration) {
-        return konfiguration.getAsString(BATCH_BHKNZ);
-    }
-
-    public Optional<AuthenticationCredentials> getAuthenticationCredentials(BatchKonfiguration konfiguration) {
-        AuthenticationCredentials authentifizierung = new AuthenticationCredentials();
-        authentifizierung.setBehoerdenkennzeichen(getBatchBenutzerBhknz(konfiguration));
-        authentifizierung.setBenutzerkennung(getBatchBenutzerKennung(konfiguration));
-        authentifizierung.setPasswort(getBatchBenutzerPasswort(konfiguration));
-        return Optional.of(authentifizierung);
-    }
-
 }

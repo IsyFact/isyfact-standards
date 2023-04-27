@@ -17,7 +17,6 @@
 package de.bund.bva.isyfact.batchrahmen.batch;
 
 import java.util.Date;
-import java.util.Optional;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
@@ -29,7 +28,6 @@ import de.bund.bva.isyfact.batchrahmen.batch.protokoll.BatchErgebnisProtokoll;
 import de.bund.bva.isyfact.batchrahmen.batch.protokoll.MeldungTyp;
 import de.bund.bva.isyfact.batchrahmen.batch.protokoll.StatistikEintrag;
 import de.bund.bva.isyfact.batchrahmen.batch.protokoll.VerarbeitungsMeldung;
-import de.bund.bva.isyfact.batchrahmen.batch.rahmen.AuthenticationCredentials;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchAusfuehrungsBean;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchReturnCode;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchStartTyp;
@@ -109,13 +107,6 @@ public class ReturnCodeTestBatch implements BatchAusfuehrungsBean {
 
     public void rollbackDurchgefuehrt() {
         LOG.error(BatchRahmenEreignisSchluessel.EPLBAT00001, "Rollback durchgeführt");
-    }
-
-    /**
-     * This batch does not use security. {@inheritDoc}
-     */
-    public Optional<AuthenticationCredentials> getAuthenticationCredentials(BatchKonfiguration konfiguration) {
-        return Optional.empty();
     }
 
     @Override

@@ -17,7 +17,6 @@
 package de.bund.bva.isyfact.batchrahmen.batch.rahmen;
 
 import java.util.Date;
-import java.util.Optional;
 
 import de.bund.bva.isyfact.batchrahmen.batch.exception.BatchAusfuehrungsException;
 import de.bund.bva.isyfact.batchrahmen.batch.konfiguration.BatchKonfiguration;
@@ -111,16 +110,4 @@ public interface BatchAusfuehrungsBean {
      * The batch can thus perform e.g. necessary cleanup operations.
      */
     public void vorRollbackDurchgefuehrt();
-
-    /**
-     * This method is called before the initialization (
-     * {@link #initialisieren(BatchKonfiguration, long, String, BatchStartTyp, Date, BatchErgebnisProtokoll)}) is called.
-     * The {@link BatchAusfuehrungsBean} is expected to authenticate itself by returning a
-     * {@link AuthenticationCredentials} object with the required data returned.
-     * Once this is done, the specified data is stored in the spring security context.
-     *
-     * @param konfiguration the batch configuration from which information can be read if needed.
-     * @return information to authenticate the batch or empty optional if no authorization check is required.
-     */
-    public Optional<AuthenticationCredentials> getAuthenticationCredentials(BatchKonfiguration konfiguration);
 }
