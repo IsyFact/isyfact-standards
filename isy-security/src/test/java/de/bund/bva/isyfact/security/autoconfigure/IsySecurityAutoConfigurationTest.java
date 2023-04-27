@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 
 import de.bund.bva.isyfact.security.AbstractOidcProviderTest;
+import de.bund.bva.isyfact.security.Security;
 
 class IsySecurityAutoConfigurationTest extends AbstractOidcProviderTest {
 
@@ -66,6 +67,15 @@ class IsySecurityAutoConfigurationTest extends AbstractOidcProviderTest {
                                 .hasSingleBean(IsySecurityAutoConfiguration.class)
                                 .hasSingleBean(IsyOAuth2ClientAutoConfiguration.class)
                                 .hasSingleBean(IsyOAuth2ClientAutoConfiguration.ClientsConfiguredDependantBeans.class)
+                );
+    }
+
+    @Test
+    public void createSecurityBean() {
+        contextRunner.withConfiguration(AutoConfigurations.of(IsySecurityAutoConfiguration.class))
+                .run(context -> assertThat(context)
+                        .hasNotFailed()
+                        .hasSingleBean(Security.class)
                 );
     }
 
