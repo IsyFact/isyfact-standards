@@ -34,7 +34,7 @@ technischen Prüfungen o.ä.
 Das Task Scheduling der IsyFact verfolgt diese Ziele:
 
 "Nahtlose" Entwicklung mit Spring Boot und IsyFact::
-Die Entwicklung kann alle Funktionen von Spring Boot zum Task Scheduling wie gewohnt nutzen.
+Die Entwicklung kann alle Funktionen von Spring Boot beim Task Scheduling wie gewohnt nutzen.
 Die IsyFact integriert sich weitestgehend automatisch in das Task Scheduling von Spring und bietet den Mehrwert ihrer Bausteine an.
 
 Bereitstellung weiterer Funktionalität zum Task Scheduling::
