@@ -28,7 +28,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.Banner;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.oauth2.client.ClientAuthorizationException;
 
 import de.bund.bva.isyfact.batchrahmen.batch.exception.BatchAusfuehrungsException;
 import de.bund.bva.isyfact.batchrahmen.batch.konfiguration.BatchKonfiguration;
@@ -152,7 +154,7 @@ public class BatchLauncher {
         } catch (BatchrahmenException ex) {
             protokolliereFehler(log, protokoll, ex);
             returnCode = ex.getReturnCode();
-        } catch (AuthenticationException ex) {
+        } catch (AuthenticationException | AccessDeniedException | ClientAuthorizationException ex) {
             protokolliereFehler(log, protokoll, ex);
             returnCode = BatchReturnCode.FEHLER_KONFIGURATION;
         } catch (Throwable ex) {
@@ -272,7 +274,7 @@ public class BatchLauncher {
             for (final String name : rahmenKonfiguration.getBatchRahmenSpringKonfigFiles()) {
                 configs.add(Class.forName(name));
             }
-        } catch(ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             throw new BatchAusfuehrungsException(NachrichtenSchluessel.ERR_KLASSE_NICHT_GEFUNDEN, e);
         }
 
