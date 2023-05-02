@@ -14,7 +14,7 @@ import de.bund.bva.isyfact.sicherheit.Sicherheit;
 import de.bund.bva.isyfact.task.config.IsyTaskConfigurationProperties;
 import de.bund.bva.isyfact.task.konfiguration.HostHandler;
 import de.bund.bva.isyfact.task.konfiguration.impl.LocalHostHandlerImpl;
-import de.bund.bva.isyfact.task.monitoring.TaskMonitoringAspect;
+import de.bund.bva.isyfact.task.monitoring.IsyTaskAspect;
 import de.bund.bva.isyfact.task.sicherheit.AuthenticatorFactory;
 import de.bund.bva.isyfact.task.sicherheit.impl.IsySicherheitAuthenticatorFactory;
 import de.bund.bva.isyfact.task.sicherheit.impl.NoOpAuthenticatorFactory;
@@ -40,9 +40,13 @@ public class IsyTaskAutoConfiguration {
     }
 
     @Bean
-    public TaskMonitoringAspect taskMonitoringAspect(MeterRegistry registry, HostHandler hostHandler, IsyTaskConfigurationProperties isyTaskConfigurationProperties,
-        AuthenticatorFactory authenticatorFactory) {
-        return new TaskMonitoringAspect(registry, hostHandler, isyTaskConfigurationProperties, authenticatorFactory);
+    public IsyTaskAspect isyTaskAspect(
+            MeterRegistry registry,
+            HostHandler hostHandler,
+            IsyTaskConfigurationProperties isyTaskConfigurationProperties,
+            AuthenticatorFactory authenticatorFactory
+    ) {
+        return new IsyTaskAspect(registry, hostHandler, isyTaskConfigurationProperties, authenticatorFactory);
     }
 
     @Bean
@@ -61,9 +65,9 @@ public class IsyTaskAutoConfiguration {
     @ConditionalOnProperty(value = "isy.task.authentication.enabled")
     @ConditionalOnMissingBean(AuthenticatorFactory.class)
     public AuthenticatorFactory authenticatorFactoryIsySicherheit(
-        IsyTaskConfigurationProperties configurationProperties, Sicherheit sicherheit,
-        AufrufKontextVerwalter aufrufKontextVerwalter, AufrufKontextFactory aufrufKontextFactory) {
+            IsyTaskConfigurationProperties configurationProperties, Sicherheit sicherheit,
+            AufrufKontextVerwalter aufrufKontextVerwalter, AufrufKontextFactory aufrufKontextFactory) {
         return new IsySicherheitAuthenticatorFactory(configurationProperties, sicherheit,
-            aufrufKontextFactory, aufrufKontextVerwalter);
+                aufrufKontextFactory, aufrufKontextVerwalter);
     }
 }

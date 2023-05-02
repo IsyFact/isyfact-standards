@@ -52,10 +52,10 @@ import io.micrometer.core.instrument.MeterRegistry;
 
 @Aspect
 @Order(Ordered.HIGHEST_PRECEDENCE)
-public class TaskMonitoringAspect {
+public class IsyTaskAspect {
 
     /** Isy Logger. **/
-    private final IsyLogger logger = IsyLoggerFactory.getLogger(TaskMonitoringAspect.class);
+    private final IsyLogger logger = IsyLoggerFactory.getLogger(IsyTaskAspect.class);
 
     /** MeterRegistry. **/
     private final MeterRegistry registry;
@@ -72,8 +72,12 @@ public class TaskMonitoringAspect {
     /** Get simple class name function. **/
     private final Function<Throwable, String> throwableClass = (ex) -> ex.getClass().getSimpleName();
 
-    public TaskMonitoringAspect(MeterRegistry registry, HostHandler hostHandler, IsyTaskConfigurationProperties isyTaskConfigurationProperties,
-        AuthenticatorFactory authenticatorFactory) {
+    public IsyTaskAspect(
+            MeterRegistry registry,
+            HostHandler hostHandler,
+            IsyTaskConfigurationProperties isyTaskConfigurationProperties,
+            AuthenticatorFactory authenticatorFactory
+    ) {
         this.registry = registry;
         this.hostHandler = hostHandler;
         this.isyTaskConfigurationProperties = isyTaskConfigurationProperties;
@@ -108,7 +112,7 @@ public class TaskMonitoringAspect {
                 Pattern.compile(host);
             } catch (PatternSyntaxException pse) {
                 throw new TaskKonfigurationInvalidException(
-                    "Hostname ist keine gültige Regex");
+                        "Hostname ist keine gültige Regex");
             }
         }
 

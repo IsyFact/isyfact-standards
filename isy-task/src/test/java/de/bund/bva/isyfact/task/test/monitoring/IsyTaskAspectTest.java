@@ -13,7 +13,7 @@ import de.bund.bva.isyfact.task.config.IsyTaskConfigurationProperties;
 import de.bund.bva.isyfact.task.config.IsyTaskConfigurationProperties.TaskConfig;
 import de.bund.bva.isyfact.task.exception.TaskKonfigurationInvalidException;
 import de.bund.bva.isyfact.task.konfiguration.HostHandler;
-import de.bund.bva.isyfact.task.monitoring.TaskMonitoringAspect;
+import de.bund.bva.isyfact.task.monitoring.IsyTaskAspect;
 import de.bund.bva.isyfact.task.sicherheit.Authenticator;
 import de.bund.bva.isyfact.task.sicherheit.AuthenticatorFactory;
 import de.bund.bva.isyfact.task.util.TaskId;
@@ -37,7 +37,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.context.support.ResourceBundleMessageSource;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TaskMonitoringAspectTest {
+public class IsyTaskAspectTest {
     @Mock
     ProceedingJoinPoint joinPoint;
 
@@ -51,7 +51,7 @@ public class TaskMonitoringAspectTest {
     HostHandler hostHandler;
 
     @InjectMocks
-    TaskMonitoringAspect taskMonitoringAspect;
+    IsyTaskAspect isyTaskAspect;
 
     TaskId taskid;
 
@@ -98,7 +98,7 @@ public class TaskMonitoringAspectTest {
         // Prepare
 
         // Act
-        taskMonitoringAspect.invokeAndMonitorTask(joinPoint);
+        isyTaskAspect.invokeAndMonitorTask(joinPoint);
 
         // Verify
         verify(joinPoint).proceed();
@@ -112,7 +112,7 @@ public class TaskMonitoringAspectTest {
         properties.getTasks().clear();
 
         // Act
-        taskMonitoringAspect.invokeAndMonitorTask(joinPoint);
+        isyTaskAspect.invokeAndMonitorTask(joinPoint);
 
     }
 
@@ -124,7 +124,7 @@ public class TaskMonitoringAspectTest {
         testTaskConfig.setHost("(");
 
         // Act
-        taskMonitoringAspect.invokeAndMonitorTask(joinPoint);
+        isyTaskAspect.invokeAndMonitorTask(joinPoint);
 
     }
 
@@ -135,7 +135,7 @@ public class TaskMonitoringAspectTest {
         testTaskConfig.setHost(null);
 
         // Act
-        taskMonitoringAspect.invokeAndMonitorTask(joinPoint);
+        isyTaskAspect.invokeAndMonitorTask(joinPoint);
 
         // Verify
         verify(hostHandler).isHostApplicable(properties.getDefault().getHost());
@@ -150,10 +150,10 @@ public class TaskMonitoringAspectTest {
         doReturn(false).when(hostHandler).isHostApplicable(anyString());
 
         // Act
-        taskMonitoringAspect.invokeAndMonitorTask(joinPoint);
+        isyTaskAspect.invokeAndMonitorTask(joinPoint);
 
         // Verify
-        assertNull(taskMonitoringAspect.invokeAndMonitorTask(joinPoint));
+        assertNull(isyTaskAspect.invokeAndMonitorTask(joinPoint));
 
     }
 
@@ -164,10 +164,10 @@ public class TaskMonitoringAspectTest {
         testTaskConfig.setDeaktiviert(true);
 
         // Act
-        taskMonitoringAspect.invokeAndMonitorTask(joinPoint);
+        isyTaskAspect.invokeAndMonitorTask(joinPoint);
 
         // Verify
-        assertNull(taskMonitoringAspect.invokeAndMonitorTask(joinPoint));
+        assertNull(isyTaskAspect.invokeAndMonitorTask(joinPoint));
 
     }
 
@@ -178,7 +178,7 @@ public class TaskMonitoringAspectTest {
         doReturn(null).when(authenticatorFactory).getAuthenticator(anyString());
 
         // Act
-        taskMonitoringAspect.invokeAndMonitorTask(joinPoint);
+        isyTaskAspect.invokeAndMonitorTask(joinPoint);
 
     }
 
