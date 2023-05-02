@@ -1,5 +1,14 @@
 package de.bund.bva.isyfact.batchrahmen;
 
+import javax.annotation.Nullable;
+
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.PlatformTransactionManager;
+
 import de.bund.bva.isyfact.batchrahmen.batch.BasicTestBatch;
 import de.bund.bva.isyfact.batchrahmen.batch.ErrorTestBatch;
 import de.bund.bva.isyfact.batchrahmen.batch.GesicherterTestBatch;
@@ -9,10 +18,7 @@ import de.bund.bva.isyfact.batchrahmen.batch.ReturnCodeTestBatch;
 import de.bund.bva.isyfact.batchrahmen.core.rahmen.Batchrahmen;
 import de.bund.bva.isyfact.batchrahmen.core.rahmen.impl.BatchrahmenImpl;
 import de.bund.bva.isyfact.batchrahmen.core.rahmen.jmx.BatchRahmenMBean;
-
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.transaction.PlatformTransactionManager;
+import de.bund.bva.isyfact.security.Authentifizierungsmanager;
 
 @Configuration
 public class BatchrahmenTestConfig {
@@ -23,10 +29,11 @@ public class BatchrahmenTestConfig {
     }
 
     @Bean
-    public Batchrahmen batchrahmen(PlatformTransactionManager platformTransactionManager) {
+    public Batchrahmen batchrahmen(PlatformTransactionManager platformTransactionManager, @Nullable Authentifizierungsmanager authentifizierungsmanager) {
         BatchrahmenImpl batchrahmen = new BatchrahmenImpl();
         batchrahmen.setTransactionManager(platformTransactionManager);
         batchrahmen.setJmxBean(batchRahmenMBean());
+        batchrahmen.setAuthentifizierungsmanager(authentifizierungsmanager);
 
         return batchrahmen;
     }

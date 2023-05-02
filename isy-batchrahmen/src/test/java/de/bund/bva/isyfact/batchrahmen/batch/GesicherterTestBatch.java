@@ -37,7 +37,7 @@ public class GesicherterTestBatch extends BasicTestBatch {
     /**
      * This method is secured. {@inheritDoc}
      */
-    @Secured("Recht")
+    @Secured("PRIV_Recht")
     public VerarbeitungsErgebnis verarbeiteSatz() throws BatchAusfuehrungsException {
         return super.verarbeiteSatz();
     }

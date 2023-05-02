@@ -44,7 +44,7 @@ public class GesicherterTestBatch2 extends BasicTestBatch {
     /**
      * saves the reference to the configuration. {@inheritDoc}
      */
-    @Secured("Recht")
+    @Secured("PRIV_Recht1")
     public int initialisieren(BatchKonfiguration konfiguration, long satzNummer, String dbKey,
                               BatchStartTyp startTyp, Date datumLetzterErfolg, BatchErgebnisProtokoll protokoll)
             throws BatchAusfuehrungsException {
