@@ -738,19 +738,9 @@ Datei `JRE_HOME/lib/management/jmxremote.access` readwrite-Zugriff erlaubt ist.
 Ein Batch wird innerhalb der Plattform gestartet.
 Dazu verwendet der Batch die Benutzerkennung eines technischen Benutzers „internes System“, die in seiner Startkonfiguration (als Konfigurationsdatei) hinterlegt und im Benutzerverzeichnis vorhanden ist.
 
-Der Batchrahmen nutzt die T-Komponente Sicherheit (siehe xref:isy-sicherheit:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Sicherheit]), um den anfragenden Benutzer über den IAM-Service der Plattform zu authentifizieren.
-Das IAM-Service authentifiziert den Benutzer anhand der angegebenen Benutzerkennung und des Passwortes, registriert alle Informationen zum Benutzer in der T-Komponente AufrufKontextVerwalter und schließt die Session des Benutzers im IAM-System.
+Der Batchrahmen verwendet den Baustein `isy-security`, um den anfragenden Benutzer über einen der Authentifizierungswege Client Credential oder Ressource Owner Password (deprecated) via `registrationId` zu authentifizieren.
 
 Im Zuge des Batchlaufs können nun über die T-Komponente Sicherheit Berechtigungsprüfungen (z.B. im Anwendungskern) stattfinden.
-
-Der Batchrahmen fordert vom BatchAusführungsBean die Implementierung der Methode: getAuthenticationCredentials(), in der dem Batchrahmen bekannt gegeben wird, mit welchem Benutzer der Batch laufen soll.
-
-[source,Java]
-----
-@Override
-public BatchAuthenticationCredentials getAuthenticationCredentials(
-                  BatchKonfiguration konfiguration);
-----
 
 Folgende Informationen zum Benutzer sind anzugeben
 
@@ -759,19 +749,15 @@ Folgende Informationen zum Benutzer sind anzugeben
 [cols="2,8",options="header"]
 |====
 |Property |Beschreibung
-|`Bhknz` |Das Behörden- oder Organisationskennzeichen, der Behörde oder Organisation, der der Benutzer angehört.
-|`Benutzer` |Die Kennung des technischen Benutzers (internes System)
-|`Passwort` |Das Kennwort des Benutzers
+|`registrationId` |Die ID der Client Registration aus `isy-security`, die zur Authentifizierung genutzt wird
 |====
 
 In der Regel wird der Benutzer aus der betrieblichen Konfiguration der Anwendung oder alternativ aus den Aufrufparametern beim Batchstart gelesen.
 
 In Ausnahmefällen ist es auch möglich, einen Batch zu implementieren, der ohne Benutzer laufen soll.
 Dies ist nur möglich, wenn bei Aufrufen des Anwendungskerns keine Autorisierungsprüfungen stattfinden und auch keine Nachbarsystemschnittstellen aufgerufen werden.
-Soll der Batch ohne Benutzer laufen, so ist in der Methode `null` zurückzugeben.
 
-Enthält eine Anwendung mehrere Batches, so enthält sie auch mehrere BatchAusführungsBeans und kann jeden Batch mit einem
-eigenen Benutzer ausstatten.
+Enthält eine Anwendung mehrere Batches, so enthält sie auch mehrere BatchKonfigurationen und kann jeden Batch mit einem eigenen Benutzer ausstatten.
 
 [[das-deployment-eines-batches]]
 === Das Deployment eines Batches
@@ -1067,8 +1053,7 @@ NOTE: Falls (in einem ungewöhnlichen Sonderfall) mit `ResultSet`-Iteratoren gea
 === Informationen zum Batch-Benutzer bereitstellen
 
 Batches müssen beim Start einen Benutzer authentifizieren und autorisieren, bevor der fachliche Teil der Batchverarbeitung starten kann.
-Der Batchrahmen fordert von der Ausführungsbean die Bereitstellung der Informationen zum Benutzer, um diesen über die T-Komponente Sicherheit zu authentifizieren.
-Dazu ist für das Ausführungsbean die Methode `getAuthenticationCredentials()` umzusetzen.
+Der Batchrahmen fordert von der BatchKonfiguration die Bereitstellung der Informationen zum Benutzer, um diesen über die T-Komponente Sicherheit zu authentifizieren.
 
 [[fehlerbehandlung-in-ausfuehrungsbeans-durchfuehren]]
 === Fehlerbehandlung in Ausführungsbeans durchführen
