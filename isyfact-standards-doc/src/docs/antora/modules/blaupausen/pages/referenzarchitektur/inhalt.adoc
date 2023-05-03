@@ -260,7 +260,7 @@ Der Zweck eines Portals ist die gemeinsame Authentifizierung und Autorisierung f
 Querschnittsanwendungen können eine eigene Datenhaltung besitzen.
 
 Querschnittsanwendungen werden nur von internen Benutzern oder anderen IT-Systemen derselben Systemlandschaft aufgerufen. Sie rufen selbst nur andere Querschnittsanwendungen auf.
-Eine Ausnahme bilden Querschnittsanwendungen, wie z.B. ein Mailserver für den Versand an externe E-Mail-Empfänger.
+Eine Ausnahme bilden Querschnittsanwendungen, wie z.B. ein Mail-Gateway für den Versand von E-Mails an externe Empfänger.
 
 [[servicekommunikation]]
 === Servicekommunikation
@@ -523,7 +523,20 @@ Externe Anwender können nur bei entsprechender Berechtigung auf die Produktions
 Der Zugriff auf die Staging- sowie auf die Abnahmetestumgebung sowie die Entwicklungstestumgebung ist von Extern nicht zugelassen.
 
 Die technischen Aspekte der gesamten Systemumgebungen werden nachfolgend erläutert.
-Für eine bessere Übersichtlichkeit in den Abbildungen der einzelnen Systemumgebungen, werden die Verbindungen mit dem Admin-Netz nicht dargestellt.
+Für eine bessere Übersichtlichkeit in den Abbildungen der einzelnen Systemumgebungen werden die Verbindungen mit dem Admin-Netz nicht dargestellt.
+
+[[legende-ti-architektur-systemumgebungen]]
+.Legende zur TI-Architektur der Systemumgebungen
+****
+Die Abbildungen der folgenden Abschnitte skizzieren die TI-Architektur der Systemumgebungen.
+Einzelne _Server_ werden durch Knoten dargestellt.
+Größere Knoten gruppieren einzelne Server zu einer logischen Einheit, die _Cluster_ genannt wird.
+Die Knoten eines Clusters sind auf mehrere Rechenzentren verteilt, um bestmögliche Ausfallsicherheit zu erreichen.
+
+Die Verbindungen zeigen die Kommunikation der Server untereinander.
+Der Datenfluss erfolgt in der Regel in beiden Richtungen.
+Besteht eine Verbindung zwischen mehreren Clustern, so entspricht dies Verbindungen zwischen allen Servern dieser Cluster.
+****
 
 [[produktionsumgebung-pru]]
 ==== Produktionsumgebung (PRU)
@@ -531,16 +544,9 @@ Für eine bessere Übersichtlichkeit in den Abbildungen der einzelnen Systemumge
 Mit dem Begriff „Produktionsumgebung“ wird die technische Infrastruktur bezeichnet, auf der der Wirkbetrieb einer IsyFact-Systemlandschaft abläuft.
 Alle nichtfunktionalen Anforderungen müssen von dieser Systemumgebung vollständig erfüllt werden.
 
-<<image-TIArchPRU>> skizziert die TI-Architektur der Produktionsumgebung. Einzelne Server werden durch UML-Knoten (engl. _UML nodes_) dargestellt.
-Die größeren Knoten gruppieren einzelne Server zu einer logischen Einheit, die _Cluster_ genannt wird.
-Die Knoten eines Clusters können bei Bedarf auf mehrere Rechenzentren verteilt sein, um bestmögliche Ausfallsicherheit zu erreichen.
-Die Verbindungen zeigen die Kommunikation der Server untereinander.
-Der Datenfluss erfolgt in der Regel in beiden Richtungen.
-Geht eine Verbindung von beziehungsweise zu einem Cluster, so entspricht dies Verbindungen von beziehungsweise zu allen Servern im Cluster.
-
-.TI-Architektur der Produktionsumgebung
+.TI-Architektur der Produktionsumgebung (<<legende-ti-architektur-systemumgebungen,Legende>>)
 [id="image-TIArchPRU",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:referenzarchitektur/TIArchPRU.png[align="center"]
+image::blaupausen:referenzarchitektur/ti-architektur-awl-pru.dn.svg[]
 
 Um die Sicherheit in der Datenkommunikation zu gewährleisten, sind die Server unterschiedlichen Sicherheitszonen des Netzwerks zugeordnet.
 In <<image-TIArchPRU>> ist eine Sicherheitszone durch ein gestricheltes Rechteck dargestellt.
@@ -552,8 +558,7 @@ Die Kommunikation erfolgt per Secure HTTP (HTTPS) mit einem Browser oder ebenfal
 Innerhalb der Produktionsumgebung sollten die Anwendungssysteme ebenfalls verschlüsselt miteinander kommunizieren.
 
 Interne Drittsysteme, die aus dem internen LAN mit der IsyFact-Systemlandschaft kommunizieren, tun dies genau wie externe Anwendungen per HTTPS oder SMTP via XML- oder Web-Service-Schnittstellen über ein Service-Gateway-System.
-Zur Authentifizierung wird ein Access Control Management (ACM) eingesetzt.
-Dabei greifen alle Applikations- und Web-Server mittels eines installierten ACM-Agenten auf den ACM-Server zu, der in der Logik- und Verarbeitungszone als Querschnittsanwendung betrieben wird.
+Die Authentifizierung geschieht über einen Identity & Access Management (IAM) Cluster, bzw. ein IAM-System.
 
 Administratoren greifen aus dem Admin-Netz direkt mittels Secure-Shell auf die Serversysteme der IsyFact-Systemlandschaft zu (Betriebssystem-Ebene).
 Aus dem Admin-Netz ist der Zugriff auf die Anwendungen nicht möglich.
@@ -587,17 +592,9 @@ Die Staging-Umgebung einer IsyFact-Systemumgebung ist in <<image-TIArchSTU>> dar
 Die Server der Staging-Umgebung stehen in eigenen Sicherheitszonen.
 Die Zonenaufteilung sollte vergleichbar zur Produktionsumgebung sein, da sonst Engpässe in der Netzwerkkommunikation (Bandbreite, Komponentendurchsatz) bei Tests nicht erkannt werden können.
 
-.TI-Architektur Staging-Umgebung
+.TI-Architektur Staging-Umgebung (<<legende-ti-architektur-systemumgebungen,Legende>>)
 [id="image-TIArchSTU",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:referenzarchitektur/TIArchSTU.png[align="center"]
-
-
-[[externe-schulungsumgebung-xsu]]
-==== Externe Schulungsumgebung (XSU)
-
-Wie der Name schon sagt, wird die externe Schulungsumgebung für die Durchführung von Schulungen verwendet, wobei auch externe Nutzer auf diese Umgebung zugreifen können.
-Sie ist eine Kopie der externen Testumgebung.
-Aus diesem Grund wird hier auf Abschnitt <<externe-testumgebung-xtu>> verwiesen.
+image::blaupausen:referenzarchitektur/ti-architektur-awl-stu.dn.svg[]
 
 [[externe-testumgebung-xtu]]
 ==== Externe Testumgebung (XTU)
@@ -606,35 +603,40 @@ Die externe Testumgebung wird für Tests externer Nutzer verwendet.
 Damit ist diese Umgebung neben der Produktionsumgebung und der externen Schulungsumgebung die einzige von außen zugängliche Systemumgebung.
 <<image-TIArchETU>> gibt einen Überblick.
 
-.TI-Architektur externe Testumgebung
+.TI-Architektur externe Testumgebung (<<legende-ti-architektur-systemumgebungen,Legende>>)
 [id="image-TIArchETU",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:referenzarchitektur/TIArchETU.png[align="center"]
+image::blaupausen:referenzarchitektur/ti-architektur-awl-xtu.dn.svg[]
 
 Im Vergleich zur Produktionsumgebung ist die Leistungsfähigkeit dieser Umgebung bei vollständiger Funktionalität deutlich reduziert.
 Da auch an die Verfügbarkeit der Umgebung geringere Anforderungen gestellt werden, wird auf die Aufteilung in verschiedene Netzwerkzonen und auf den Betrieb der Rechnersysteme im Cluster aus wirtschaftlichen Gründen verzichtet.
 Die Anwendungssysteme laufen dann auf einzelnen Rechnerknoten ab.
 
-[[abnahmetestumgebung-atu]]
-==== Abnahmetestumgebung (ATU)
+[[externe-schulungsumgebung-xsu]]
+==== Externe Schulungsumgebung (XSU)
 
-Die Abnahmetestumgebung wird zur Durchführung von funktionalen, das heißt fachlichen Abnahmetests genutzt.
-Sie ist eine Kopie der Entwicklungstestumgebung.
-Aus diesem Grund wird hier auf Abschnitt <<entwicklungstestumgebung-etu>> verwiesen.
+Die externe Schulungsumgebung wird für die Durchführung von Schulungen verwendet, wobei auch externe Nutzer auf diese Umgebung zugreifen können.
+Sie ist eine Kopie der <<externe-testumgebung-xtu,externen Testumgebung>>.
 
 [[entwicklungstestumgebung-etu]]
 ==== Entwicklungstestumgebung (ETU)
 
 Die Entwicklungstestumgebung (ETU) wird zur Durchführung von technischen Tests genutzt.
 An diese Umgebung sind keine Anforderungen an hohe Ausfallsicherheit und Leistungsfähigkeit gestellt.
-Die Leistungsfähigkeit kann sogar noch unter der Schulungs- und externen Testumgebung liegen, da davon auszugehen ist, dass die Tests nur von sehr wenigen gleichzeitig aktiven Benutzern durchgeführt werden.
+Die Leistungsfähigkeit kann sogar noch unter der externen Test- und Schulungsumgebung liegen, da davon auszugehen ist, dass die Tests nur von sehr wenigen gleichzeitig aktiven Benutzern durchgeführt werden.
 
 Die Rechnersysteme der Entwicklungstestumgebung werden nur vom internen LAN aus genutzt.
 Es gibt keine weitere Unterteilung in Sicherheitszonen.
 <<image-TIArchSWTU>> gibt einen Überblick.
 
-.TI-Architektur Entwicklungstestumgebung
+.TI-Architektur Entwicklungstestumgebung (<<legende-ti-architektur-systemumgebungen,Legende>>)
 [id="image-TIArchSWTU",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:referenzarchitektur/TIArchSWTU.png[align="center",pdfwidth=80%,width=80%]
+image::blaupausen:referenzarchitektur/ti-architektur-awl-etu.dn.svg[]
+
+[[abnahmetestumgebung-atu]]
+==== Abnahmetestumgebung (ATU)
+
+Die Abnahmetestumgebung wird zur Durchführung von funktionalen, d.h. fachlichen, Abnahmetests genutzt.
+Sie ist eine Kopie der <<entwicklungstestumgebung-etu,Entwicklungstestumgebung>>.
 
 [[minimalanforderungen-an-die-ablaufumgebung]]
 === Minimalanforderungen an die Ablaufumgebung

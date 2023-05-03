@@ -11,9 +11,9 @@ Sie sieht eine hochverfügbare Produktionsumgebung sowie Entwicklungs- und versc
 
 Neben der reinen technischen Plattform sieht die Plattform der IsyFact auch Konzepte zur Administration mit entsprechenden einheitlichen Werkzeugen zum Monitoring und Management der Plattform vor.
 
+[[betriebsplattform-isyfact]]
 .Betriebsplattform der IsyFact
-[id="image-plattform",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:referenzarchitektur/RATIP.png[]
+image::blaupausen:referenzarchitektur/ti-architektur-awl-pru.dn.svg[]
 
 Die Plattform entspricht dem SAGA/BSI Netzkonzept mit drei Zonen:
 

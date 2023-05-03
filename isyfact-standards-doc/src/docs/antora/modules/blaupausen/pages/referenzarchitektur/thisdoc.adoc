@@ -127,7 +127,7 @@ Abbilder der Produktionsumgebung.
 
 .Referenzarchitektur der technischen Infrastruktur für die Produktionsumgebung
 [id="image-RATIP",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:referenzarchitektur/RATIP.png[align="center"]
+image::blaupausen:referenzarchitektur/ti-architektur-awl-pru.dn.svg[]
 
 Um die Sicherheit in der Datenkommunikation zu gewährleisten, sind die Server unterschiedlichen Sicherheitszonen des Netzwerks zugeordnet.
 In <<image-RATIP>> ist eine Sicherheitszone durch ein gestricheltes Rechteck dargestellt.
