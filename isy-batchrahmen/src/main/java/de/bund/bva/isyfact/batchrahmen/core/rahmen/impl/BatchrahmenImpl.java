@@ -161,6 +161,10 @@ public class BatchrahmenImpl implements Batchrahmen, InitializingBean,
             // Initialization phase
             this.batchLaeuft = true;
 
+            initialisiereBatch(verarbInfo, protokoll);
+
+            initErfolgreich = true;
+
             try {
                 String registrationId = verarbInfo.getKonfiguration().getAsString("batch.registrationId");
                 authentifizierungsmanagerOptional.ifPresent(am -> am.authentifiziere(registrationId));
@@ -168,10 +172,6 @@ public class BatchrahmenImpl implements Batchrahmen, InitializingBean,
                 LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001,
                         "Es wurde keine registrationId konfiguriert.");
             }
-
-            initialisiereBatch(verarbInfo, protokoll);
-
-            initErfolgreich = true;
 
             LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001,
                     "Beginne Batch-Satzverarbeitung...");
