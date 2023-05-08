@@ -10,13 +10,14 @@ Der Baustein Security ist OAuth2.0 konform und greift hauptsächlich auf die Mö
 
 In den folgenden Kapiteln wird die Einbindung und Konfiguration des Bausteins *isy-security* beschrieben, um
 
+* xref:nutzungsvorgaben/master.adoc#software-architektur-security-baustein[Software-Architektur des Security Bausteins],
 * xref:nutzungsvorgaben/master.adoc#aufrufen-von-nachbarsystemen[Aufrufen von Nachbarsystemen],
-* xref:nutzungsvorgaben/master.adoc#absicherung_von_service_schnittstellen[Absicherung von Service-Schnittstellen],
+* xref:nutzungsvorgaben/master.adoc#absicherung_von_service_schnittstellen[Absicherung von Service-Schnittstellen]
 
 zu implementieren.
 
-Die konzeptionellen Aspekte der Authentifizierung und Autorisierung werden im xref:isy-security:konzept/master.adoc[Security - Konzept] beschrieben.
-
 Schließlich beschreibt das letzte Kapitel xref:nutzungsvorgaben/master.adoc#testunterstuetzung[Testunterstützung], was der Baustein *isy-security* zum Erstellen von (automatisierten) Tests bereitstellt.
+
+Die konzeptionellen Aspekte der Authentifizierung und Autorisierung werden im xref:isy-security:konzept/master.adoc[Security - Konzept] beschrieben.
 
 // end::inhalt[]
