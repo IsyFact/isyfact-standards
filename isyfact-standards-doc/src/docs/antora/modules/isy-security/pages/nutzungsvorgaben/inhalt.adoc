@@ -5,6 +5,10 @@
 [[software-architektur-security-baustein]]
 == Software-Architektur des Security Bausteins
 
+Die Software-Architektur des Security-Bausteins bildet das Fundament für die Sicherheit von Anwendungen in modernen Softwarelösungen.
+Die korrekte Gestaltung und Implementierung dieser Architektur ist entscheidend, um Schutzmechanismen gegen potenzielle Sicherheitsbedrohungen zu etablieren.
+In diesem Kapitel wird detailliert auf die verschiedenen Aspekte der Software-Architektur des Security-Bausteins eingegangen und bewährte Methoden sowie bewährte Praktiken vorgestellt, um eine robuste und zuverlässige Sicherheitsinfrastruktur zu schaffen.
+
 [[security-interface]]
 === Security
 Das Interface `Security` stellt die zentrale Schnittstelle bereit, über die auf den Baustein zugegriffen wird.
