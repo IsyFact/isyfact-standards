@@ -103,7 +103,7 @@ Für die Authentifizierung mit einem `OAuth 2.0`-Client sind die folgenden Abhä
 
 [[spring-oauth2-client-registration]]
 ==== Spring OAuth2 Client Konfigurationsparameter
-Für die korrekte Anbindung an den `Identity Provider` ist die Angabe einiger Konfigurationsparameter notwendig, welche in der Konfigurationsdatei der Anwendung eingetragen werden müssen.
+Für die korrekte Anbindung an den `IAM-Service` ist die Angabe einiger Konfigurationsparameter notwendig, welche in der Konfigurationsdatei der Anwendung eingetragen werden müssen.
 Das Präfix sämtlicher Konfigurationsparameter `spring.security.oauth2` wird zur Vereinfachung in der folgenden Liste weggelassen.
 
 [[table-parameter-client-cred]]
@@ -341,14 +341,14 @@ public class OAuth2ServerSecurityConfig {
 [[konfigurationsparameterservice]]
 === Konfigurationsparameter
 
-Für die korrekte Anbindung an den `Identity Provider` ist die Angabe der folgenden Konfigurationsparameter notwendig. Das Präfix sämtlicher Konfigurationsparameter `spring.security.oauth2` wird zur Vereinfachung in der Liste unten weggelassen.
+Für die korrekte Anbindung an den `IAM-Service` ist die Angabe der folgenden Konfigurationsparameter notwendig. Das Präfix sämtlicher Konfigurationsparameter `spring.security.oauth2` wird zur Vereinfachung in der Liste unten weggelassen.
 
 [[table-parameter-service]]
 .Konfigurationsparameter einer Service-Schnittstelle
 [cols="3m,2m,2m,8",options="header"]
 |===
 |Parameter |Wertebereich |Default |Beschreibung
-|resourceserver.jwt.issuer-uri  |String |_keiner_ | Auto-Konfiguration des Identity-Providers zur Validierung des Bearer Tokens, beispielsweise in der Form "http://<identity-provider>/auth/realms/<realm>/protocol/openid-connect/certs"
+|resourceserver.jwt.issuer-uri  |String |_keiner_ | Auto-Konfiguration des IAM-Services zur Validierung des Bearer Tokens, beispielsweise in der Form "http://<identity-provider>/auth/realms/<realm>/protocol/openid-connect/certs"
 |===
 
 Zusätzlich sind folgende Isyfact-spezifischen Konfigurationsparameter notwendig.
