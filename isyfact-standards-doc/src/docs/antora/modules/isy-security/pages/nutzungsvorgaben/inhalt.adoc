@@ -284,6 +284,12 @@ public class OAuth2WebClientConfiguration {
 }
 ----
 
+[[absicherung_von_tasks]]
+== Absicherung von Tasks
+
+Um detaillierte Informationen und Anleitung zur Absicherung von Tasks zu erhalten, wird auf die Nutzungsvorgaben unter xref:isy-task:nutzungsvorgaben/inhalt.adoc#absicherung-von-tasks verwiesen.
+Diese bieten praxisorientierte Richtlinien zur Gewährleistung der Sicherheit von Tasks.
+
 [[absicherung_von_service_schnittstellen]]
 == Absicherung von Service-Schnittstellen
 Spring Security unterstützt die automatische Absicherung von Endpunkten einer Anwendung und eine feingranulare Autorisierung im Rahmen von `OAuth 2.0`.
