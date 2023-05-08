@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import de.bund.bva.isyfact.security.xmlparser.RolePrivilegesMapper;
+import org.springframework.core.io.ClassPathResource;
 
 public class RolePrivilegesMapperTest {
 
@@ -15,7 +16,7 @@ public class RolePrivilegesMapperTest {
 
     @BeforeEach
     public void init() {
-        mapper = new RolePrivilegesMapper("/resources/sicherheit/rollenrechte.xml");
+        mapper = new RolePrivilegesMapper(new ClassPathResource("/resources/sicherheit/rollenrechte.xml"));
     }
 
     @Test

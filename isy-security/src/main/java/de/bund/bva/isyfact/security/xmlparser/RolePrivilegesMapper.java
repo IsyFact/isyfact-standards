@@ -16,6 +16,7 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
+import org.springframework.core.io.Resource;
 
 public class RolePrivilegesMapper {
 
@@ -26,7 +27,7 @@ public class RolePrivilegesMapper {
 
     private final Map<String, Set<String>> rolePrivilegesMap;
 
-    public RolePrivilegesMapper(String roleMappingXmlFilePath) {
+    public RolePrivilegesMapper(Resource roleMappingXmlFilePath) {
         RolePrivileges rolePrivileges = getRolePrivileges(roleMappingXmlFilePath);
         rolePrivilegesMap = mapAndValidateRolePrivileges(rolePrivileges);
         applicationId = rolePrivileges.getApplicationId();
@@ -62,11 +63,11 @@ public class RolePrivilegesMapper {
         return "AnwendungsId: " + applicationId + "\nRollenRechteMapping: " + getRolePrivilegesMap().toString();
     }
 
-    private RolePrivileges getRolePrivileges(String roleMappingXmlFilePath) {
+    private RolePrivileges getRolePrivileges(Resource roleMappingXmlFilePath) {
         Assert.hasText(roleMappingXmlFilePath, "roleMappingXmlFilePath cannot be empty");
         XmlMapper mapper = new XmlMapper();
         try {
-            InputStream roleMappingFile = getClass().getResourceAsStream(roleMappingXmlFilePath);
+            InputStream roleMappingFile = roleMappingXmlFilePath.getInputStream();
             if (roleMappingFile == null) {
                 throw new RolePrivilegesMappingException("Could not find role privileges mapping file: " + roleMappingXmlFilePath);
             }
