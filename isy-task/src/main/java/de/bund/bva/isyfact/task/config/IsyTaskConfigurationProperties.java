@@ -1,64 +1,47 @@
 package de.bund.bva.isyfact.task.config;
 
-import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 
-import de.bund.bva.isyfact.task.konfiguration.TaskKonfiguration;
 import org.springframework.validation.annotation.Validated;
 
 @Validated
 public class IsyTaskConfigurationProperties {
 
-    private final Map<String, TaskConfig> tasks = new HashMap<>();
+    /** Tasks Map. **/
+    private Map<String, TaskConfig> tasks = new HashMap<>();
 
+    /** Default task configuration. **/
     private final Default standard = new Default();
-
-    private final Watchdog watchdog = new Watchdog();
-
-    private boolean autostart;
 
     public Map<String, TaskConfig> getTasks() {
         return tasks;
+    }
+
+    public void setTasks(Map<String, TaskConfig> tasks) {
+        this.tasks = tasks;
     }
 
     public Default getDefault() {
         return standard;
     }
 
-    public Watchdog getWatchdog() {
-        return watchdog;
-    }
-
-    public boolean isAutostart() {
-        return autostart;
-    }
-
-    public void setAutostart(boolean autostart) {
-        this.autostart = autostart;
-    }
-
     public static class TaskConfig {
 
+        /** User name. **/
         private String benutzer;
 
+        /** Password. **/
         private String passwort;
 
+        /** Behoerdenkennzeichen. **/
         private String bhkz;
 
+        /** Host name. **/
         private String host;
 
-        private TaskKonfiguration.Ausfuehrungsplan ausfuehrung;
-
-        private String zeitpunkt;
-
-        private Duration initialDelay = Duration.ZERO;
-
-        private Duration fixedRate;
-
-        private Duration fixedDelay;
+        /** Task activation flag. **/
+        private Boolean deaktiviert = false;
 
         public String getBenutzer() {
             return benutzer;
@@ -92,77 +75,28 @@ public class IsyTaskConfigurationProperties {
             this.host = host;
         }
 
-        public TaskKonfiguration.Ausfuehrungsplan getAusfuehrung() {
-            return ausfuehrung;
+        public Boolean isDeaktiviert() {
+            return deaktiviert;
         }
-
-        public void setAusfuehrung(TaskKonfiguration.Ausfuehrungsplan ausfuehrung) {
-            this.ausfuehrung = ausfuehrung;
-        }
-
-        public String getZeitpunkt() {
-            return zeitpunkt;
-        }
-
-        public void setZeitpunkt(String zeitpunkt) {
-            this.zeitpunkt = zeitpunkt;
-        }
-
-        public Duration getInitialDelay() {
-            return initialDelay;
-        }
-
-        public void setInitialDelay(Duration initialDelay) {
-            this.initialDelay = initialDelay;
-        }
-
-        public Duration getFixedRate() {
-            return fixedRate;
-        }
-
-        public void setFixedRate(Duration fixedRate) {
-            this.fixedRate = fixedRate;
-        }
-
-        public Duration getFixedDelay() {
-            return fixedDelay;
-        }
-
-        public void setFixedDelay(Duration fixedDelay) {
-            this.fixedDelay = fixedDelay;
+        public void setDeaktiviert(Boolean deaktiviert) {
+            this.deaktiviert = deaktiviert;
         }
     }
 
     public static class Default {
-        int amountOfThreads = 100;
 
-        private String dateTimePattern = "dd.MM.yyyy HH:mm:ss.SSS";
-
+        /** Default User name. **/
         private String benutzer;
 
+        /** Default Password. **/
         private String passwort;
 
+        /** Default Behoerdenkennzeichen. **/
         private String bhkz;
 
-        private String host;
 
-        @Min(1)
-        public int getAmountOfThreads() {
-            return amountOfThreads;
-        }
-
-        public void setAmountOfThreads(int amountOfThreads) {
-            this.amountOfThreads = amountOfThreads;
-        }
-
-        @NotBlank
-        public String getDateTimePattern() {
-            return dateTimePattern;
-        }
-
-        public void setDateTimePattern(String dateTimePattern) {
-            this.dateTimePattern = dateTimePattern;
-        }
+        /** Default host name. **/
+        private String host = ".*";
 
         public String getBenutzer() {
             return benutzer;
@@ -197,15 +131,4 @@ public class IsyTaskConfigurationProperties {
         }
     }
 
-    public static class Watchdog {
-        private Duration restartInterval = Duration.ofSeconds(1);
-
-        public Duration getRestartInterval() {
-            return restartInterval;
-        }
-
-        public void setRestartInterval(Duration restartInterval) {
-            this.restartInterval = restartInterval;
-        }
-    }
 }

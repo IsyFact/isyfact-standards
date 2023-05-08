@@ -1,22 +1,24 @@
 package de.bund.bva.isyfact.konfiguration.common;
 
-import de.bund.bva.isyfact.task.model.AbstractTask;
-import de.bund.bva.isyfact.task.model.TaskMonitor;
+import java.util.concurrent.TimeUnit;
+
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 /**
- * Task zum Neuladen der Konfiguration. Siehe {@link ReloadableKonfiguration#checkAndUpdate()}.
+ * Task to reload the configuration. See {@link ReloadableKonfiguration#checkAndUpdate()}.
  */
-public class KonfigurationUpdateTask extends AbstractTask {
+@Component
+public class KonfigurationUpdateTask {
 
-    /** Konfiguration, die mit dem Task überwacht werden soll. */
+    /** Configuration to be monitored with the task. */
     private final ReloadableKonfiguration konfiguration;
 
-    public KonfigurationUpdateTask(TaskMonitor monitor, ReloadableKonfiguration konfiguration) {
-        super(monitor);
+    public KonfigurationUpdateTask(ReloadableKonfiguration konfiguration) {
         this.konfiguration = konfiguration;
     }
 
-    @Override
+    @Scheduled(fixedDelay = 300, timeUnit = TimeUnit.SECONDS)
     public void execute() {
         konfiguration.checkAndUpdate();
     }

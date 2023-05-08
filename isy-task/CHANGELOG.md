@@ -1,3 +1,8 @@
+# 3.0.0
+- `IFS-2153`: Umstellung isy-task auf Spring Boot:
+    * BREAKING CHANGE: Einführung von Spring Boot
+    * Taskkonfiguration und TaskkonfigurationVerwalter entfernt, Übersetzungen hinzugefügt
+
 # 2.4.0
 - `IFS-1158`: Behebung der "Missing parameter metadata"-Warnung in dem mit dem "-parameters"-Flag compiliert wird
 - `IFS-744`: Namensänderung der Bean "taskScheduler" in "isyTaskScheduler"

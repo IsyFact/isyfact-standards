@@ -1,0 +1,55 @@
+package de.bund.bva.isyfact.task;
+
+import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.junit.Assert.*;
+
+import java.time.Instant;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.scheduling.TaskScheduler;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import de.bund.bva.isyfact.sicherheit.common.exception.AutorisierungFehlgeschlagenException;
+import de.bund.bva.isyfact.task.test.config.TestConfig;
+import de.bund.bva.isyfact.task.util.TaskCounterBuilder;
+
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
+
+@RunWith(SpringRunner.class)
+@Import(ProgrammaticallyScheduledTask.class)
+@SpringBootTest(classes = TestConfig.class, webEnvironment = SpringBootTest.WebEnvironment.NONE, properties = { "isy.logging.anwendung.name=test", "isy.logging.anwendung.typ=test",
+    "isy.logging.anwendung.version=test",
+    "isy.task.tasks.programmaticallyScheduledTask-run.host=.*"})
+public class TestTaskScheduledProgrammatically {
+
+    @Autowired
+    private MeterRegistry registry;
+
+    @Autowired
+    private TaskScheduler taskScheduler;
+
+    @Autowired
+    private ProgrammaticallyScheduledTask task;
+
+    @Test
+    public void testScheduleManuell() throws Exception {
+        String className = ProgrammaticallyScheduledTask.class.getSimpleName();
+        String annotatedMethodName = "run";
+
+        taskScheduler.schedule(task, Instant.now());
+
+        SECONDS.sleep(1);
+
+        Counter successCounter = TaskCounterBuilder.successCounter(className, annotatedMethodName, registry);
+        Counter failureCounter = TaskCounterBuilder.failureCounter(className, annotatedMethodName, AutorisierungFehlgeschlagenException.class.getSimpleName(), registry);
+
+        assertEquals(1, successCounter.count(), 0.0);
+        assertEquals(0, failureCounter.count(), 0.0);
+
+    }
+}
