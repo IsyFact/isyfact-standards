@@ -377,6 +377,12 @@ Das nachfolgende Sequenzdiagramm zeigt schematisch den logischen Ablauf der Auth
 [id="image-sequenzdiagramm-sgw-without-agw",reftext="{figure-caption} {counter:figures}"]
 image::konzept/Squenzdiagramm_ServiceGateway_ohne_AuthGateway.dn.svg[align="center"]
 
+Die Authentifizierung über das SGW (Service Gateway) stellt einen wichtigen Schritt in der Sicherung von Anwendungen dar.
+Um diesen Prozess effektiv umzusetzen, empfiehlt sich die Verwendung der Methode `authentifiziereClient` des neu entwickelten Authentifizierungsmanagers.
+Mit dessen Hilfe ist es möglich, den Client zu authentifizieren und sicherzustellen, dass nur autorisierte Clients Zugriff auf die Ressourcen erhalten.
+Durch die Nutzung dieses speziellen Authentifizierungsmechanismus wird eine robuste und zuverlässige Sicherheitsschicht implementiert, um unautorisierten Zugriff und potenzielle Sicherheitslücken zu verhindern.
+
+Weitere Informationen und detaillierte Anleitungen zur Verwendung der `authentifiziereClient`-Methode können in der entsprechenden Dokumentation des Authentifizierungsmanagers oder in den Nutzungsvorgaben xref:nutzungsvorgaben/inhalt.adoc#authentifizierungsmanager-interface gefunden werden.
 
 
 [[ausfuehrung-batch-u-task]]
