@@ -291,7 +291,7 @@ public class OAuth2WebClientConfiguration {
 [[absicherung_von_batches]]
 == Absicherung von Batches
 
-Für detaillierte Informationen und Anleitung zur Absicherung von Batches wird auf die Dokumentation unter xref:blaupausen:detailkonzept-komponente-batch/inhalt.adoc#absicherung_batch verwiesen.
+Für detaillierte Informationen und Anleitung zur Absicherung von Batches wird auf die Dokumentation unter xref:blaupausen:detailkonzept-komponente-batch/inhalt.adoc#authentifizierung-und-autorisierung verwiesen.
 
 [[absicherung_von_tasks]]
 == Absicherung von Tasks
