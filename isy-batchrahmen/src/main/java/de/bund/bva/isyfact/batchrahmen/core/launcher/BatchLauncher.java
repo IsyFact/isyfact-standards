@@ -26,6 +26,7 @@ import java.util.List;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.Banner;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.security.access.AccessDeniedException;
@@ -40,6 +41,7 @@ import de.bund.bva.isyfact.batchrahmen.batch.protokoll.BatchErgebnisProtokoll;
 import de.bund.bva.isyfact.batchrahmen.batch.protokoll.MeldungTyp;
 import de.bund.bva.isyfact.batchrahmen.batch.protokoll.VerarbeitungsMeldung;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchReturnCode;
+import de.bund.bva.isyfact.batchrahmen.config.BatchSecurityConfiguration;
 import de.bund.bva.isyfact.batchrahmen.core.exception.BatchrahmenException;
 import de.bund.bva.isyfact.batchrahmen.core.exception.BatchrahmenInitialisierungException;
 import de.bund.bva.isyfact.batchrahmen.core.exception.BatchrahmenProtokollException;
@@ -266,6 +268,7 @@ public class BatchLauncher {
     private void launch() throws BatchAusfuehrungsException {
 
         List<Class> configs = new ArrayList<>();
+        configs.add(BatchSecurityConfiguration.class);
 
         try {
             for (final String name : rahmenKonfiguration.getAnwendungSpringKonfigFiles()) {
@@ -282,6 +285,7 @@ public class BatchLauncher {
                 rahmen = new SpringApplicationBuilder().sources(configs.toArray(new Class[0]))
                 .bannerMode(Banner.Mode.OFF)
                 .properties("isy.batchrahmen.batch-context=true")
+                .web(WebApplicationType.NONE)
                 .registerShutdownHook(true)
                 .profiles(rahmenKonfiguration.getSpringProfiles())
                 .initializers(applicationContext -> {
