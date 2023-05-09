@@ -9,15 +9,13 @@
 Der Anwendungskern ist der zentrale Baustein eines IT-Systems.
 Hier werden die fachlichen Funktionen der Anwendung realisiert.
 
-
-In <<image-IFBestAWK>> sind drei Aspekte des Anwendungskerns dargestellt.
-Er besteht aus zwei wesentlichen Bestandteilen: den Fachkomponenten und dem Anwendungskern-Framework.
+Der <<image-bestandteile-anwendungskern,Anwendungskern>> besteht aus zwei wesentlichen Bestandteilen: den Fachkomponenten und dem Anwendungskern-Framework.
 Weiterhin ist dort dargestellt, dass externe Services als Komponente in den Anwendungskern integriert sind.
 Diese drei Aspekte werden im Folgenden im Detail beschrieben.
 
+[[image-bestandteile-anwendungskern]]
 .Bestandteile des Anwendungskerns
-[id="image-IFBestAWK",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:detailkonzept-anwendungskern/IFBestAWK.png[align="center",width=90%,pdfwidth=90%]
+image::blaupausen:detailkonzept-anwendungskern/IFBestAWK.png[]
 
 // end::anwendungskern-definition[]
 
@@ -110,9 +108,9 @@ AfuErmittlungEntscheidungsrelevanz
 
 // end::namenskonvention[]
 
-Die <<aufbau-fachkomponente,folgende Abbildung>> fasst den Aufbau einer Fachkomponente noch einmal grafisch zusammen.
+Die folgende Abbildung fasst den <<image-aufbau-fachkomponente>> noch einmal grafisch zusammen.
 
-[[aufbau-fachkomponente]]
+[[image-aufbau-fachkomponente]]
 .Aufbau einer Fachkomponente
 image::blaupausen:detailkonzept-anwendungskern/aufbau_fachkomponente_awk.dn.svg[]
 
@@ -151,11 +149,11 @@ Diese fachlichen Säulen werden im folgenden Teilanwendungen genannt.
 Das Ziel ist die fachliche Trennung und Minimierung inhaltlicher Abhängigkeiten.
 Die Teilanwendungen sollen Fachlichkeit kapseln.
 
-Damit kann eine IT-Anwendung sowohl vertikal in Teilanwendungen (fachliche Sicht) und horizontal in Schichten (technische Sicht) strukturiert werden, wie in <<image-SchichtTAnw>> dargestellt.
+Damit kann eine IT-Anwendung sowohl vertikal in Teilanwendungen (fachliche Sicht) und horizontal in Schichten (technische Sicht) strukturiert werden, wie die <<image-schichten-und-teilanwendungen,folgende Abbildung>> verdeutlicht.
 
+[[image-schichten-und-teilanwendungen]]
 .Schichten und Teilanwendungen
-[id="image-SchichtTAnw",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:detailkonzept-anwendungskern/SchichtTAnw.png[align="center"]
+image::blaupausen:detailkonzept-anwendungskern/SchichtTAnw.png[]
 
 Eine Teilanwendung erstreckt sich über alle technischen Schichten, kapselt aber die Fachlichkeit, zu der gewisse Geschäftsobjekte gehören.
 Um den Austausch von Objekten innerhalb einer Teilanwendung zwischen den Schichten zu vereinfachen, gleichzeitig aber unterschiedliche Teilanwendungen gegeneinander abzugrenzen, wird für die Verwendung von Objekten in Schnittstellen folgende Regel aufgestellt:
@@ -167,8 +165,8 @@ Das kann erreicht werden, indem nur Deep-Copies von Objekten an andere Teilanwen
 Innerhalb einer Teilanwendung dürfen über die Schichten hinweg durchaus änderbare Objekte ausgetauscht werden.
 Die hierfür bereitgestellte Schnittstelle der Schicht gehört damit aber zur Teilanwendung darf von einer anderen Teilanwendung nicht genutzt werden.
 
-In der einer allgemeinen Anwendung ist z.B. „Aspektanwendung“ eine Teilanwendung.
-Zu dieser Teilanwendung gehören in der Schicht Nutzung die Oberfläche _Aspektanwendung_ und der Batch `AspektanwendungLoeschBatch`, in der Schicht Anwendungslogik die Fachkomponenten _Erstellen_, _Verwalten_ und _Datenpflege_ und der Schicht Datenhaltung die Entitäten `Aspektanwendung`, `Zeitpunkt`, `Nutzer`, `Intervall` und `Nutzerintervall`.
+In einer allgemeinen Anwendung ist z.B. „Aspektanwendung“ eine Teilanwendung.
+Zu dieser Teilanwendung gehören in der Schicht Nutzung die Oberfläche _Aspektanwendung_ und der Batch `AspektanwendungLoeschBatch`, in der Schicht Anwendungslogik die Fachkomponenten _Erstellen_, _Verwalten_ und _Datenpflege_ und in der Schicht Datenhaltung die Entitäten `Aspektanwendung`, `Zeitpunkt`, `Nutzer`, `Intervall` und `Nutzerintervall`.
 
 [[verwendung-des-spring-frameworks]]
 == Verwendung des Spring-Frameworks
@@ -227,15 +225,15 @@ Für diese Klassen kann man benötigte andere Beans oder Konfigurationsparameter
 Konfiguriert werden Beans und ihre Abhängigkeiten durch von Spring bereitgestellte Annotationen.
 Diese werden beim Start des Applikations-Containers gescannt und ausgewertet (_Component Scan_).
 
-Die folgende Abbildung zeigt einen Ausschnitt der für eine allgemeine Anwendung erstellten Beans.
-Diese werden grün dargestellt und besitzen „referenzierte“ Abhängigkeiten zu benötigten anderen Beans.
+Ein <<image-spring-beans-beispiel-allgemeine-anwendung,Spring-Beans Beispiel>> zeigt einen Ausschnitt der für eine allgemeine Anwendung erstellten Beans.
+Beans werden grün dargestellt und besitzen „referenzierte“ Abhängigkeiten zu benötigten anderen Beans.
 
-.Spring-Beans einer allgemeinen Anwendung
-[id="image-SpringBeansBeispiel",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:detailkonzept-anwendungskern/SpringBeansBeispiel.svg[align="center",width=80%,pdfwidth=80%]
+[[image-spring-beans-beispiel-allgemeine-anwendung]]
+.Spring-Beans Beispiel einer allgemeinen Anwendung
+image::blaupausen:detailkonzept-anwendungskern/SpringBeansBeispiel.dn.svg[]
 
-<<image-SpringBeansBeispiel>> zeigt bereits, dass nicht alle Klassen der Anwendung als Beans konfiguriert werden: Für die Komponente
-`Verwaltung` wird eine Klasse als Bean konfiguriert, welche die Funktionalität der Komponente bereitstellt.
+Das Beispiel zeigt bereits, dass nicht alle Klassen der Anwendung als Beans konfiguriert werden: 
+Für die Komponente `Verwaltung` wird eine Klasse als Bean konfiguriert, welche die Funktionalität der Komponente bereitstellt.
 Generell gilt, dass jede zentrale und wichtige Klasse aber als Spring Bean konfiguriert werden sollte.
 
 Für die Modellierung und Konfiguration der Spring-Beans werden im folgenden Vorgaben aufgestellt.
@@ -330,8 +328,10 @@ Die Beans der Komponenten werden mit der Annotation `@Component` bzw. deren Spez
 ==== Konfigurationsparameter über Property-Objekte konfigurieren
 
 Die Konfiguration der Anwendung wird (wie im xref:isy-konfiguration:konzept/master.adoc#einleitung[Konzept Konfiguration]  beschrieben) über die Datei `application.properties` durchgeführt.
-Diese Datei enthält sämtliche betrieblichen Konfigurationsparameter der Anwendung.
+Diese Datei enthält sämtliche betrieblichen Konfigurationsparameter der Anwendung. 
 Das Setzen einzelner Konfigurationsparameter über `set`-Methoden ist nur in Ausnahmefällen erlaubt.
+Eine beispielhafte Konfiguration hat folgenden Inhalt:
+
 
 .Beispiel für Konfiguration des Anwendungskerns mittels Konfigurations-Bean
 [id="listing-konfigurationsbean",reftext="{listing-caption} {counter:listings }"]
@@ -538,23 +538,22 @@ Um im Anwendungskern das Single-Responsibility-Prinzip nicht zu verletzten, wird
 Dabei werden die Verantwortlichkeiten für den Aufbau des Abhängigkeitsnetzes zwischen den Objekten aus den einzelnen Klassen in eine zentrale Komponente überführt.
 Anders als bei der herkömmlichen Vorgehensweise in der objektorientierten Programmierung ist bei der _Dependency Injection_ nicht jedes Objekt selbst dafür zuständig, seine Abhängigkeiten (benötigte Objekte und Ressourcen) zu verwalten.
 
-In der folgenden Grafik ist das Entwurfsmuster der _Dependency Injection_ exemplarisch visualisiert.
+In der <<image-dependency-injection,folgenden Grafik>> ist das Entwurfsmuster der _Dependency Injection_ exemplarisch visualisiert.
 
+[[image-dependency-injection]]
 .Dependency Injection
-[id="image-dependeny-injection",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:detailkonzept-anwendungskern/DependencyInjection.svg[]
+image::blaupausen:detailkonzept-anwendungskern/DependencyInjection.dn.svg[]
 
-Es existieren drei verschiedene Verfahren der _Dependency Injection_:
+Die <<table-vergleich-verfahren-dependency-injection,drei verschiedene Verfahren der _Dependency Injection_>> sowie die Einsatzszenarien verdeutlicht folgende Übersicht:
 
-- Constructor Injection
-- Field Injection
-- Method Injection (Setter-Injection)
-
-Da die _Constructor Injection_ diverse Vorteile gegenüber den beiden anderen Techniken liefert, empfiehlt die IsyFact die Verwendung von  _Constructor Injection_.
-
+[[table-vergleich-verfahren-dependency-injection]]
 .Vergleich der Verfahren zur Dependency Injection
 |===
 |DI-Methode |Einsatzszenario |Bemerkung
+
+|Constructor-Injection
+|Für alle Beans, welche keine dynamische Anpassung zur Laufzeit benötigen.
+|Kann in Produktiv-Code eingesetzt werden und ist der Standard von Spring.
 
 |Field-Injection
 |Vermeidung von Boilerplate-Code
@@ -563,12 +562,12 @@ Da die _Constructor Injection_ diverse Vorteile gegenüber den beiden anderen Te
 |Method-Injection (Setter-Injection)
 |Flexibles Austauschen von Beans zur Laufzeit
 |Nicht immutable. Sollte nur eingesetzt werden, wenn diese Eigenschaft benötigt wird.
-
-|Constructor-Injection
-|Für alle Beans, welche keine dynamische Anpassung zur Laufzeit benötigen.
-|Kann in Produktiv-Code eingesetzt werden und ist der Standard von Spring.
 |===
 
+[TIP]
+====
+Da die _Constructor Injection_ diverse Vorteile gegenüber den beiden anderen Techniken liefert, empfiehlt die IsyFact die Verwendung von  <<constructor-injection,_Constructor Injection_>>.
+====
 
 [[constructor-injection]]
 ==== Constructor Injection
