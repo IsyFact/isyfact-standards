@@ -13,6 +13,8 @@ In diesem Kapitel wird detailliert auf die verschiedenen Aspekte der Software-Ar
 === Security
 Das Interface `Security` stellt die zentrale Schnittstelle bereit, über die auf den Baustein zugegriffen wird.
 
+NOTE: Es empiehlt sich, die Beans direkt zu autowiren und das Interface hauptsächlich für eine Migration von isy-sicherheit zu verwenden.
+
 Die folgenden Methoden bieten Zugriff auf eine Liste von allen im System hinterlegten Rollen, den Berechtigungsmanager und den optionalen Authentifizierungsmanager:
 
 `Set<String> getAlleRollen()`:: Liefert die Menge aller im System konfigurierten Rollen.
@@ -66,6 +68,8 @@ Zur Formulierung von Berechtigungsprüfungen stehen folgende Methoden des Berech
 [[image-berechtigungsmanager-security]]
 .Berechtigungsmanager
 image::nutzungsvorgaben/berechtigungsmanager.svg[align="center"]
+
+NOTE: Primär sollte die Berechtigungsprüfung über die Spring Annotation `@Secured` und nicht über die hier erwähnte Methode `pruefeRecht(String recht)` erfolgen.
 
 [[aufrufen_von_nachbarsystemen]]
 == Aufrufen von Nachbarsystemen
