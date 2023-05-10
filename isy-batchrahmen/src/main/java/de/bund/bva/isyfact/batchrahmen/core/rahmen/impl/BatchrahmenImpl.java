@@ -168,6 +168,10 @@ public class BatchrahmenImpl implements Batchrahmen, InitializingBean,
             try {
                 String registrationId = verarbInfo.getKonfiguration().getAsString("batch.registrationId");
                 authentifizierungsmanagerOptional.ifPresent(am -> am.authentifiziere(registrationId));
+
+                if (!authentifizierungsmanagerOptional.isPresent()) {
+                    throw new IllegalArgumentException("Es wurde eine batch.registrationId gesetzt, jedoch wurde kein Authentifizierungsmanager gefunden.");
+                }
             } catch (BatchrahmenKonfigurationException e) {
                 LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001,
                         "Es wurde keine registrationId konfiguriert.");
