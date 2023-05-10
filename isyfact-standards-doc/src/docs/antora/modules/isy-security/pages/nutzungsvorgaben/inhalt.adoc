@@ -105,6 +105,10 @@ Für die Authentifizierung mit einem `OAuth 2.0`-Client sind die folgenden Abhä
 [[konfigurationsparameter]]
 === Konfigurationsparameter
 
+Konfigurationsparameter sind essenziell, um Bausteine in technischen Anwendungen anzupassen und zu steuern.
+Sie bieten die Möglichkeit, die Funktionalität und das Verhalten eines Bausteins entsprechend spezifischer Anforderungen anzupassen.
+In diesem Kapitel werden alle möglichen Optionen der Konfigurationsparameter vorgestellt, um einen umfassenden Überblick über deren Anwendungsmöglichkeiten zu geben.
+
 [[spring-oauth2-client-registration]]
 ==== Spring OAuth2 Client Konfigurationsparameter
 Für die korrekte Anbindung an den `IAM-Service` ist die Angabe einiger Konfigurationsparameter notwendig, welche in der Konfigurationsdatei der Anwendung eingetragen werden müssen.
