@@ -1,16 +1,16 @@
 package de.bund.bva.isyfact.security.authentication;
 
-import static org.junit.jupiter.api.Assertions.*;
+
+import de.bund.bva.isyfact.security.xmlparser.RolePrivilegesMapper;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.core.io.ClassPathResource;
 
 import java.util.Collections;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import de.bund.bva.isyfact.security.xmlparser.RolePrivilegesMapper;
-import org.springframework.core.io.ClassPathResource;
-
-public class RolePrivilegesMapperTest {
+class RolePrivilegesMapperTest {
 
     private RolePrivilegesMapper mapper;
 
@@ -20,28 +20,29 @@ public class RolePrivilegesMapperTest {
     }
 
     @Test
-    public void testGetAllPrivileges() {
-        assertEquals(3, mapper.getAllPrivileges().size());
+    void testGetAllPrivileges() {
+        assertThat(mapper.getAllPrivileges()).hasSize(3);
     }
 
     @Test
-    public void testMapToPrivilege() {
-        assertEquals(3, mapper.getPrivilegesByRoles(Collections.singletonList("Rolle_ABC")).size());
-        assertEquals(0, mapper.getPrivilegesByRoles(Collections.singletonList("Rolle_Keine")).size());
-        assertEquals(1, mapper.getPrivilegesByRoles(Collections.singletonList("Rolle_B")).size());
-        assertEquals(0, mapper.getPrivilegesByRoles(Collections.singletonList("unknown")).size());
+    void testMapToPrivilege() {
+        assertThat(mapper.getPrivilegesByRoles(Collections.singletonList("Rolle_ABC"))).hasSize(3);
+        assertThat(mapper.getPrivilegesByRoles(Collections.singletonList("Rolle_Keine"))).isEmpty();
+        assertThat(mapper.getPrivilegesByRoles(Collections.singletonList("Rolle_B"))).hasSize(1);
+        assertThat(mapper.getPrivilegesByRoles(Collections.singletonList("unknown"))).isEmpty();
     }
 
     @Test
-    public void testAppId() {
-        assertEquals("Default", mapper.getApplicationId());
+    void testAppId() {
+        assertThat(mapper.getApplicationId()).isEqualTo("Default");
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         String expected = "AnwendungsId: Default\n"
                 + "RollenRechteMapping: {Rolle_C=[Recht_C], Rolle_Keine=[], Rolle_B=[Recht_B], Rolle_A=[Recht_A], Rolle_ABC=[Recht_A, Recht_B, Recht_C]}";
-        assertEquals(expected, mapper.toString());
+
+        assertThat(mapper).hasToString(expected);
     }
 
 }
