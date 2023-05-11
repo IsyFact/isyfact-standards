@@ -45,4 +45,13 @@ class RolePrivilegesMapperTest {
         assertThat(mapper).hasToString(expected);
     }
 
+    @Test
+    void testNoRoleMappingFile () {
+        mapper = new RolePrivilegesMapper(new ClassPathResource("/resources/sicherheit/noRollenrechte.xml"));
+
+        assertThat(mapper.getAllPrivileges()).isEmpty();
+        assertThat(mapper.getRolePrivilegesMap()).isEmpty();
+        assertThat(mapper.getApplicationId()).isEmpty();
+    }
+
 }
