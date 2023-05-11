@@ -249,4 +249,21 @@ public class IsySecurityAutoConfigurationTest extends AbstractOidcProviderTest {
                         .hasSingleBean(OAuth2ClientProperties.class)
                 );
     }
+
+    @Test
+    void isySecurityAutoConfigurationNoMappingFile() {
+        contextRunner
+            .withPropertyValues(
+                "isy.security.role-privileges-mapping-file=/resources/sicherheit/noRollenrechte.xml"
+            )
+            .run(context -> {
+                    assertThat(context)
+                        .hasNotFailed()
+                        .hasSingleBean(RolePrivilegesMapper.class);
+
+                    RolePrivilegesMapper mapper = context.getBean(RolePrivilegesMapper.class);
+                    assertThat(mapper.getAllPrivileges()).isEmpty();
+                }
+            );
+    }
 }
