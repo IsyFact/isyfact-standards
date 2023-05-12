@@ -1,4 +1,4 @@
-= Nutzungsvorgaben Sicherheit: Inhalt
+= Nutzungsvorgaben Security: Inhalt
 
 // tag::inhalt[]
 
