@@ -296,16 +296,15 @@ public class OAuth2WebClientConfiguration {
 }
 ----
 
-[[absicherung_von_batches]]
-== Absicherung von Batches
+[[absicherung_von_batches_tasks]]
+== Absicherung von Batches und Tasks
 
-Für detaillierte Informationen und Anleitung zur Absicherung von Batches wird auf die Dokumentation unter xref:blaupausen:detailkonzept-komponente-batch/inhalt.adoc#authentifizierung-und-autorisierung[Authentifizierung und Autorisierung von Batches] verwiesen.
+Für detaillierte Informationen und Anleitung zur Absicherung von Batches und Tasks wird auf die Dokumentation unter
 
-[[absicherung_von_tasks]]
-== Absicherung von Tasks
+* xref:blaupausen:detailkonzept-komponente-batch/inhalt.adoc#authentifizierung-und-autorisierung[Authentifizierung und Autorisierung von Batches]
+* bzw. xref:isy-task:nutzungsvorgaben/inhalt.adoc#absicherung-von-tasks[Absicherung von Tasks]
 
-Um detaillierte Informationen und Anleitung zur Absicherung von Tasks zu erhalten, wird auf die Nutzungsvorgaben unter xref:isy-task:nutzungsvorgaben/inhalt.adoc#absicherung-von-tasks[Absicherung von Tasks] verwiesen.
-Diese bieten praxisorientierte Richtlinien zur Gewährleistung der Sicherheit von Tasks.
+verwiesen. Diese bieten praxisorientierte Richtlinien zur Gewährleistung der Sicherheit von Batches und Tasks.
 
 [[absicherung_von_service_schnittstellen]]
 == Absicherung von Service-Schnittstellen

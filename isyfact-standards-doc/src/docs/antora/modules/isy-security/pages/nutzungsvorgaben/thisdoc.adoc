@@ -12,8 +12,7 @@ Die folgenden Kapitel leiten durch die Funktionen des Bausteins `isy-security`.
 
 * xref:nutzungsvorgaben/master.adoc#software-architektur-security-baustein[Software-Architektur des Security Bausteins]
 * xref:nutzungsvorgaben/master.adoc#aufrufen-von-nachbarsystemen[Aufrufen von Nachbarsystemen]
-* xref:nutzungsvorgaben/master.adoc#absicherung_von_batches[Absicherung von Batches]
-* xref:nutzungsvorgaben/master.adoc#aufrufen-von-nachbarsystemen[Absicherung von Tasks]
+* xref:nutzungsvorgaben/master.adoc#absicherung_von_batches_tasks[Absicherung von Batches und Tasks]
 * xref:nutzungsvorgaben/master.adoc#absicherung_von_service_schnittstellen[Absicherung von Service-Schnittstellen]
 
 Schließlich beschreibt das letzte Kapitel xref:nutzungsvorgaben/master.adoc#testunterstuetzung[Testunterstützung], welche Hilfen der Baustein *isy-security* zum Erstellen von (automatisierten) Tests bereitstellt.
