@@ -13,7 +13,7 @@ In diesem Kapitel wird detailliert auf die verschiedenen Aspekte der Software-Ar
 === Security
 Das Interface `Security` stellt die zentrale Schnittstelle bereit, über die auf den Baustein zugegriffen wird.
 
-NOTE: Es empiehlt sich, die Beans direkt zu autowiren und das Interface hauptsächlich für eine Migration von isy-sicherheit zu verwenden.
+NOTE: Es empfiehlt sich, die Beans direkt zu autowiren und das Interface hauptsächlich für eine Migration von isy-sicherheit zu verwenden.
 
 Die folgenden Methoden bieten Zugriff auf eine Liste von allen im System hinterlegten Rollen, den Berechtigungsmanager und den optionalen Authentifizierungsmanager:
 
@@ -75,7 +75,7 @@ NOTE: Primär sollte die Berechtigungsprüfung über die Spring Annotation `@Sec
 == Aufrufen von Nachbarsystemen
 
 Der Aufruf von Nachbarsystemen erfolgt auf Basis des reaktiven `Spring WebClient`.
-Um Nachbarsysteme aufzurufen, die auf Basis von `OAuth 2.0` abgesichert sind, ist grundlegend die Authentifizierung bei einem `Identitiy Provider` mit gültiger `client_id`, `client_secret` sowie `grant_type` erforderlich.
+Um Nachbarsysteme aufzurufen, die auf Basis von `OAuth 2.0` abgesichert sind, ist grundlegend die Authentifizierung bei einem `IAM-Service` mit gültiger `client_id`, `client_secret` sowie `grant_type` erforderlich.
 Dieser liefert ein Bearer-Token zurück, in dem die Rollen und somit die Zugriffsmöglichkeiten der aufrufenden Anwendung definiert sind.
 
 [[maven-dependencies]]
