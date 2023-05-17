@@ -402,7 +402,17 @@ Zusätzlich sind folgende Isyfact-spezifischen Konfigurationsparameter notwendig
 
 Jede Geschäftsanwendung spezifiziert im Rahmen ihrer Systemspezifikation Rechte und bildet diese auf fachliche und technische Rollen ab.
 Bei der technischen Umsetzung müssen alle spezifizierten Rollen und Rechte konfiguriert und korrekt zugeordnet werden.
-Dies geschieht in der statischen Konfiguration in der Datei `/resources/sicherheit/rollenrechte.xml`.
+
+Der Pfad der Datei kann wie folgt angepasst werden:
+
+[[table-pfad-rollen-rechten]]
+.Konfiguration von Rollen und Rechten
+[cols="3m,2m,2m,8",options="header"]
+|===
+|Parameter |Wertebereich |Default |Beschreibung
+|isy.security.role-privilege-mapping-file | Resource | classpath:/resources/sicherheit/rollenrechte.xml | Pfad zu der XML-Datei, welche die Rollen-/Berechtigungszuordnungen enthält.
+|===
+
 Der Baustein liefert ein xref:nutzungsvorgaben/master.adoc#anhang-rollen-rechte-schema[XML-Schema für den Aufbau der Konfigurationsdatei] mit.
 
 NOTE: Die Bereitstellung einer Datei mit den erforderlichen Rollen und Rechten erfolgt optional.
