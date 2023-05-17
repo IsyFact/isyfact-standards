@@ -10,5 +10,6 @@
 - `IFS-1852` Kapitel zur Authentifizierung eines Clients mit Client Credentials hinzugefügt
 - `IFS-2403` Abschnitt zum OpenId Connect Provider Mock aus isy-security-test hinzugefügt
 - `IFS-1884` Umsetzung: Methodensicherheit
+- `IFS-1959` Abschnitt zum Auslesen des Behördenkennzeichens aus Security Context hinzugefügt
 
 // end::release-3.0.0[]

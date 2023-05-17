@@ -251,6 +251,26 @@ Als Parameter wird ein Array von Rechten übergeben.
 Die Rechte sind disjunktiv verknüpft.
 Die Autorisierung erfolgt dementsprechend wenn der Nutzer mindestens eins der in der `Secured` Annotation übergebenen Rechte besitzt.
 
+[[attr-token-abfragen]]
+== Attribute aus dem Bearer Token abfragen
+
+Bei der Befüllung des Spring Security Context wird das zur Befüllung genutzte Bearer Token ebenfalls im Context abgelegt.
+Dadurch ist der Zugriff auf Attribute des Bearer Tokens über den Spring Security Context möglich.
+Der Zugriff kann über den Berechtigungsmanager oder direkt über den Spring Security Context erfolgen.
+
+Für Zugriff über den Berechtigungsmanager kann die Methode `getTokenAttribute(String key)` genutzt werden.
+Das Beispiel <<listing-berechtigungsmanager-bhknz>> veranschaulicht den Zugriff auf das im Attribut `bhknz` gespeicherte Behördenkennzeichen.
+
+[[listing-berechtigungsmanager-bhknz]]
+.Zugriff auf das Behördenkennzeichen
+[source,java]
+----
+String bhknz = (String) this.berechtigungsmanager.getTokenAttribute(BEARER_TOKEN_ATTR_BHKNZ);
+----
+
+Für den direkten Zugriff per Security Context kann die `Authentication` abgefragt und per Cast als ein `AbstractOAuth2TokenAuthenticationToken` zugegriffen werden.
+Detaillierte Informationen hierzu können der Spring Dokumentation entnommen werden.
+
 [[testunterstuetzung]]
 == Testunterstützung
 
