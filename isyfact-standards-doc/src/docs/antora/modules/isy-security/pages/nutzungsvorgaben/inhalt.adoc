@@ -296,6 +296,20 @@ public class OAuth2WebClientConfiguration {
 }
 ----
 
+[[auth_sgw]]
+== Authentifizierung über das SGW am IAM-Service
+Die Authentifizierung über das Service Gateway (SGW) stellt einen wichtigen Schritt in der Sicherung von Anwendungen dar.
+Um diesen Prozess effektiv umzusetzen, empfiehlt sich die Verwendung des neu entwickelten Authentifizierungsmanagers und dessen Methoden
+
+* `authentifiziereClient(String clientId, String clientSecret, String issuerLocation)`
+* bzw. `authentifiziereSystem(String registrationId, String username, String password, @Nullable String bhknz)`
+
+. Die beiden Methoden erlauben es technische Nutzer zur Laufzeit mit ihren Zugangsdaten über den IAM-Service zu authentifizieren.
+Mit diesem Mechanismus wird sichergestellt, dass nur autorisierte Clients Zugriff auf die Ressourcen erhalten.
+Durch die Nutzung dieses speziellen Authentifizierungsmechanismus wird eine robuste und zuverlässige Sicherheitsschicht implementiert, um unautorisierten Zugriff und potenzielle Sicherheitslücken zu verhindern.
+
+Weitere Informationen und detaillierte Anleitungen zur Verwendung können im Abschnitt zum xref:isy-security:nutzungsvorgaben/inhalt.adoc#authentifizierungsmanager-interface[Authentifizierungsmanager] gefunden werden.
+
 [[absicherung_von_batches_tasks]]
 == Absicherung von Batches und Tasks
 
