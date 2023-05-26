@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.remoting.support.RemoteInvocationFactory;
 
-import de.bund.bva.isyfact.security.Berechtigungsmanager;
+import de.bund.bva.isyfact.security.core.Berechtigungsmanager;
 import de.bund.bva.isyfact.security.autoconfigure.IsySecurityAutoConfiguration;
 import de.bund.bva.isyfact.serviceapi.core.httpinvoker.AufrufKontextToRemoteInvocationFactory;
 import de.bund.bva.isyfact.serviceapi.core.httpinvoker.CreateAufrufKontextToStrategy;
