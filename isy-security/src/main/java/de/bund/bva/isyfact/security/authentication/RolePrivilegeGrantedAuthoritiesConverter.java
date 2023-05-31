@@ -24,7 +24,7 @@ import de.bund.bva.isyfact.security.xmlparser.RolePrivilegesMapper;
 public class RolePrivilegeGrantedAuthoritiesConverter implements Converter<Jwt, Collection<GrantedAuthority>> {
 
     /** Logger. */
-    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(RolePrivilegesMapper.class);
+    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(RolePrivilegeGrantedAuthoritiesConverter.class);
 
     /** Authority prefix to use for all mapped authorities. */
     public static final String AUTHORITY_PREFIX = "PRIV_";
