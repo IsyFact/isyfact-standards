@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.security.core;
+package de.bund.bva.isyfact.security.oauth2.client;
 
 import org.springframework.lang.Nullable;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -12,10 +12,9 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.util.Assert;
 
-import de.bund.bva.isyfact.security.Authentifizierungsmanager;
-import de.bund.bva.isyfact.security.authentication.IsyOAuth2ClientCredentialsAuthenticationToken;
-import de.bund.bva.isyfact.security.authentication.IsyOAuth2ManualClientCredentialsAuthenticationToken;
-import de.bund.bva.isyfact.security.authentication.IsyOAuth2PasswordAuthenticationToken;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.IsyOAuth2ClientCredentialsAuthenticationToken;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.IsyOAuth2ManualClientCredentialsAuthenticationToken;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.IsyOAuth2PasswordAuthenticationToken;
 
 /**
  * Default implementation of the {@link Authentifizierungsmanager} that should suffice for most use cases.

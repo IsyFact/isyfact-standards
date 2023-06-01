@@ -5,7 +5,7 @@ import java.util.Set;
 
 import org.springframework.lang.Nullable;
 
-import de.bund.bva.isyfact.security.Authentifizierungsmanager;
+import de.bund.bva.isyfact.security.oauth2.client.Authentifizierungsmanager;
 import de.bund.bva.isyfact.security.Berechtigungsmanager;
 import de.bund.bva.isyfact.security.Security;
 import de.bund.bva.isyfact.security.xmlparser.RolePrivilegesMapper;

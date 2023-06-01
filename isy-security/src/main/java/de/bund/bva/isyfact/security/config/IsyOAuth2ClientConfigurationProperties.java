@@ -14,7 +14,7 @@ import org.springframework.validation.annotation.Validated;
  * IsyFact-specific properties to extend the Spring Client Registration.
  */
 @Validated
-public class IsyOAuth2ClientProperties implements InitializingBean {
+public class IsyOAuth2ClientConfigurationProperties implements InitializingBean {
 
     /**
      * Used internally for validation only.
@@ -31,7 +31,7 @@ public class IsyOAuth2ClientProperties implements InitializingBean {
      */
     private String defaultCertificateOu;
 
-    public IsyOAuth2ClientProperties(OAuth2ClientProperties oAuth2ClientProperties) {
+    public IsyOAuth2ClientConfigurationProperties(OAuth2ClientProperties oAuth2ClientProperties) {
         this.oAuth2ClientProperties = oAuth2ClientProperties;
     }
 

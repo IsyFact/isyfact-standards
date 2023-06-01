@@ -27,6 +27,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import de.bund.bva.isyfact.security.AbstractOidcProviderTest;
 import de.bund.bva.isyfact.security.example.IsySecurityTestApplication;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.IsyOAuth2PasswordAuthenticationProvider;
 
 @ActiveProfiles("test-clients")
 @SpringBootTest(classes = IsySecurityTestApplication.class)

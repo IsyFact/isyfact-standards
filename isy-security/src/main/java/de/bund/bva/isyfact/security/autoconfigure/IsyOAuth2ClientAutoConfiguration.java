@@ -26,12 +26,12 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 
-import de.bund.bva.isyfact.security.Authentifizierungsmanager;
-import de.bund.bva.isyfact.security.authentication.IsyOAuth2ClientCredentialsAuthenticationProvider;
-import de.bund.bva.isyfact.security.authentication.IsyOAuth2ManualClientCredentialsAuthenticationProvider;
-import de.bund.bva.isyfact.security.authentication.IsyOAuth2PasswordAuthenticationProvider;
-import de.bund.bva.isyfact.security.config.IsyOAuth2ClientProperties;
-import de.bund.bva.isyfact.security.core.IsyOAuth2Authentifizierungsmanager;
+import de.bund.bva.isyfact.security.oauth2.client.Authentifizierungsmanager;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.IsyOAuth2ClientCredentialsAuthenticationProvider;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.IsyOAuth2ManualClientCredentialsAuthenticationProvider;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.IsyOAuth2PasswordAuthenticationProvider;
+import de.bund.bva.isyfact.security.config.IsyOAuth2ClientConfigurationProperties;
+import de.bund.bva.isyfact.security.oauth2.client.IsyOAuth2Authentifizierungsmanager;
 
 /**
  * Autoconfiguration for beans related to OAuth 2.0 client authentication.
@@ -76,8 +76,8 @@ public class IsyOAuth2ClientAutoConfiguration {
 
         @Bean
         @ConfigurationProperties(prefix = "isy.security.oauth2.client")
-        public IsyOAuth2ClientProperties isyOAuth2ClientProperties(OAuth2ClientProperties oAuth2ClientProperties) {
-            return new IsyOAuth2ClientProperties(oAuth2ClientProperties);
+        public IsyOAuth2ClientConfigurationProperties isyOAuth2ClientProperties(OAuth2ClientProperties oAuth2ClientProperties) {
+            return new IsyOAuth2ClientConfigurationProperties(oAuth2ClientProperties);
         }
 
         /**
@@ -109,7 +109,7 @@ public class IsyOAuth2ClientAutoConfiguration {
         @Conditional(ClientsConfiguredCondition.class)
         public IsyOAuth2PasswordAuthenticationProvider passwordAuthenticationProvider(
                 ClientRegistrationRepository clientRegistrationRepository, JwtAuthenticationConverter jwtAuthenticationConverter,
-                IsyOAuth2ClientProperties isyOAuth2ClientConfigurationProperties) {
+                IsyOAuth2ClientConfigurationProperties isyOAuth2ClientConfigurationProperties) {
             return new IsyOAuth2PasswordAuthenticationProvider(clientRegistrationRepository, jwtAuthenticationConverter,
                     isyOAuth2ClientConfigurationProperties);
         }

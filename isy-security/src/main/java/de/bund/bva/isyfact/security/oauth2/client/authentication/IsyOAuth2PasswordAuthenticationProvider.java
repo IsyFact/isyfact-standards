@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.security.authentication;
+package de.bund.bva.isyfact.security.oauth2.client.authentication;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
@@ -18,7 +18,7 @@ import org.springframework.security.oauth2.core.OAuth2ErrorCodes;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.util.StringUtils;
 
-import de.bund.bva.isyfact.security.config.IsyOAuth2ClientProperties;
+import de.bund.bva.isyfact.security.config.IsyOAuth2ClientConfigurationProperties;
 
 /**
  * Authentication Provider to obtain an {@link Authentication} with the OAuth2 Resource Owner Password Credentials flow.
@@ -34,9 +34,9 @@ public class IsyOAuth2PasswordAuthenticationProvider extends AbstractIsyAuthenti
     /**
      * Global isy-security Configuration properties.
      */
-    private final IsyOAuth2ClientProperties properties;
+    private final IsyOAuth2ClientConfigurationProperties properties;
 
-    public IsyOAuth2PasswordAuthenticationProvider(ClientRegistrationRepository clientRegistrationRepository, JwtAuthenticationConverter jwtAuthenticationConverter, IsyOAuth2ClientProperties properties) {
+    public IsyOAuth2PasswordAuthenticationProvider(ClientRegistrationRepository clientRegistrationRepository, JwtAuthenticationConverter jwtAuthenticationConverter, IsyOAuth2ClientConfigurationProperties properties) {
         super(jwtAuthenticationConverter);
         this.clientRegistrationRepository = clientRegistrationRepository;
         this.properties = properties;
@@ -65,7 +65,7 @@ public class IsyOAuth2PasswordAuthenticationProvider extends AbstractIsyAuthenti
         IsyOAuth2PasswordAuthenticationToken token;
 
         if (!StringUtils.hasText(authentication.getUsername())) {
-            IsyOAuth2ClientProperties.IsyClientRegistration isyClientRegistration = properties.getRegistration().get(authentication.getRegistrationId());
+            IsyOAuth2ClientConfigurationProperties.IsyClientRegistration isyClientRegistration = properties.getRegistration().get(authentication.getRegistrationId());
             token = new IsyOAuth2PasswordAuthenticationToken(
                     authentication.getRegistrationId(),
                     isyClientRegistration.getUsername(),

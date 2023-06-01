@@ -3,6 +3,8 @@ package de.bund.bva.isyfact.security;
 import java.util.Optional;
 import java.util.Set;
 
+import de.bund.bva.isyfact.security.oauth2.client.Authentifizierungsmanager;
+
 /**
  * Provides access to the Authentifizierungsmanager, Berechtigungsmanager and all roles known to the application.
  * Mainly intended as a way to ease migration from the {@code Sicherheit} interface in IsyFact 1 and 2.

@@ -26,7 +26,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.test.context.ActiveProfiles;
 
 import de.bund.bva.isyfact.security.AbstractOidcProviderTest;
-import de.bund.bva.isyfact.security.Authentifizierungsmanager;
+import de.bund.bva.isyfact.security.oauth2.client.Authentifizierungsmanager;
 
 @ActiveProfiles("test-clients")
 @SpringBootTest(classes = {IsyOAuth2AuthentifizierungsmanagerTest.TestConfig.class})

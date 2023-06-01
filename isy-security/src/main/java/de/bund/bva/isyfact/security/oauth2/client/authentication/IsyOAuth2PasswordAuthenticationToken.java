@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.security.authentication;
+package de.bund.bva.isyfact.security.oauth2.client.authentication;
 
 import java.util.Collections;
 

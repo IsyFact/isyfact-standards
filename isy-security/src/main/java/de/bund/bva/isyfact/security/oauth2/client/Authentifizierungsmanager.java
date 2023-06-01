@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.security;
+package de.bund.bva.isyfact.security.oauth2.client;
 
 import org.springframework.lang.Nullable;
 import org.springframework.security.core.AuthenticationException;
