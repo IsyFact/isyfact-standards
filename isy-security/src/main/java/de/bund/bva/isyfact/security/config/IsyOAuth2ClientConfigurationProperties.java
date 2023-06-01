@@ -7,41 +7,37 @@ import javax.validation.constraints.NotBlank;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties;
+import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 
 /**
- * IsyFact-specific properties to extend the Spring Client Registration.
+ * Provides additional (custom) properties to clients defined in {@link OAuth2ClientProperties}. Native support might be added
+ * to Spring Security in the <a href="https://github.com/spring-projects/spring-security/issues/9669">future</a>.
  */
 @Validated
 public class IsyOAuth2ClientConfigurationProperties implements InitializingBean {
 
-    /**
-     * Used internally for validation only.
-     */
-    private final OAuth2ClientProperties oAuth2ClientProperties;
+    /** Spring's OAuth 2.0 client properties for validating registration IDs. */
+    private final OAuth2ClientProperties springOAuth2ClientProperties;
 
     /**
-     * Configurable header name for 2FA.
+     * Additional properties for Spring OAuth 2.0 client registrations.
+     * The registrationId (String key of the Map) must match the registrationId in the corresponding Spring OAuth 2.0 client properties.
      */
+    private final Map<String, AdditionalRegistrationProperties> registration = new HashMap<>();
+
+    /** Configurable header name for 2FA. */
     private String bhknzHeaderName = "x-client-cert-bhknz";
 
-    /**
-     * Organisational Unit used in conjunction with bhknz to form the value for bhknzHeaderName.
-     */
+    /** Organisational Unit used in conjunction with bhknz to form the value for bhknzHeaderName. */
     private String defaultCertificateOu;
 
-    public IsyOAuth2ClientConfigurationProperties(OAuth2ClientProperties oAuth2ClientProperties) {
-        this.oAuth2ClientProperties = oAuth2ClientProperties;
+    public IsyOAuth2ClientConfigurationProperties(OAuth2ClientProperties springOAuth2ClientProperties) {
+        this.springOAuth2ClientProperties = springOAuth2ClientProperties;
     }
 
-    /**
-     * Additional (custom) Client Registration attributes.
-     * The registrationId (String key of the Map) should match the registrationId a Spring ClientRegistration.
-     */
-    private final Map<String, IsyClientRegistration> registration = new HashMap<>();
-
-    public Map<String, IsyClientRegistration> getRegistration() {
+    public Map<String, AdditionalRegistrationProperties> getRegistration() {
         return registration;
     }
 
@@ -64,8 +60,9 @@ public class IsyOAuth2ClientConfigurationProperties implements InitializingBean 
     @Override
     public void afterPropertiesSet() {
         getRegistration().keySet().forEach(key -> {
-            if (!oAuth2ClientProperties.getRegistration().containsKey(key)) {
-                throw new IllegalStateException(String.format("A Spring ClientRegistration with the same ID must be registered, ID: %s", key));
+            if (!springOAuth2ClientProperties.getRegistration().containsKey(key)) {
+                throw new IllegalStateException(
+                        String.format("A Spring ClientRegistration with the same ID must be registered, ID: %s", key));
             }
         });
 
@@ -77,26 +74,21 @@ public class IsyOAuth2ClientConfigurationProperties implements InitializingBean 
     }
 
     /**
-     * Additional (custom) Client Registration attributes.
+     * Additional (custom) properties for a single client registration.
      */
     @Validated
-    public static class IsyClientRegistration {
+    public static class AdditionalRegistrationProperties {
 
-        /**
-         * Client Registration username attribute.
-         */
+        /** The resource owner's username. */
         @NotBlank
         private String username;
 
-        /**
-         * Client Registration password attribute.
-         */
+        /** The resource owner's password. */
         @NotBlank
         private String password;
 
-        /**
-         * Client Registration bhknz attribute.
-         */
+        /** The BHKNZ to send as part of the authentication request (optional). */
+        @Nullable
         private String bhknz;
 
         public String getUsername() {
@@ -115,12 +107,15 @@ public class IsyOAuth2ClientConfigurationProperties implements InitializingBean 
             this.password = password;
         }
 
+        @Nullable
         public String getBhknz() {
             return bhknz;
         }
 
-        public void setBhknz(String bhknz) {
+        public void setBhknz(@Nullable String bhknz) {
             this.bhknz = bhknz;
         }
+
     }
+
 }

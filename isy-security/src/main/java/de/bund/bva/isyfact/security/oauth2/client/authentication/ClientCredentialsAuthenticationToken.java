@@ -7,7 +7,7 @@ import org.springframework.security.authentication.AbstractAuthenticationToken;
 /**
  * AuthenticationToken holding a clientRegistrationId.
  */
-public class IsyOAuth2ClientCredentialsAuthenticationToken extends AbstractAuthenticationToken {
+public class ClientCredentialsAuthenticationToken extends AbstractAuthenticationToken {
     /**
      * OAuth2 client registration.
      */
@@ -18,7 +18,7 @@ public class IsyOAuth2ClientCredentialsAuthenticationToken extends AbstractAuthe
      *
      * @param registrationId ID of OAuth2 client registration.
      */
-    public IsyOAuth2ClientCredentialsAuthenticationToken(String registrationId) {
+    public ClientCredentialsAuthenticationToken(String registrationId) {
         super(Collections.emptyList());
         this.registrationId = registrationId;
     }

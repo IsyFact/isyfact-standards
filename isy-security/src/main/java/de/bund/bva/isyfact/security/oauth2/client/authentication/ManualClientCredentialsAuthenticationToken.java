@@ -8,7 +8,7 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 /**
  * AuthenticationToken holding an ad hoc created ClientRegistration.
  */
-public class IsyOAuth2ManualClientCredentialsAuthenticationToken extends AbstractAuthenticationToken {
+public class ManualClientCredentialsAuthenticationToken extends AbstractAuthenticationToken {
 
     /**
      * OAuth2 client registration.
@@ -20,7 +20,7 @@ public class IsyOAuth2ManualClientCredentialsAuthenticationToken extends Abstrac
      *
      * @param clientRegistration OAuth2 client registration.
      */
-    public IsyOAuth2ManualClientCredentialsAuthenticationToken(ClientRegistration clientRegistration) {
+    public ManualClientCredentialsAuthenticationToken(ClientRegistration clientRegistration) {
         super(Collections.emptyList());
         this.clientRegistration = clientRegistration;
     }

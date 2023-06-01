@@ -8,7 +8,7 @@ import org.springframework.security.authentication.AbstractAuthenticationToken;
 /**
  * AuthenticationToken holding Parameters for resource-owner-password-credentials flow authentication.
  */
-public class IsyOAuth2PasswordAuthenticationToken extends AbstractAuthenticationToken {
+public class PasswordAuthenticationToken extends AbstractAuthenticationToken {
 
     /**
      * Registration ID of the OAuth2 client to user for password grant authentication.
@@ -30,7 +30,7 @@ public class IsyOAuth2PasswordAuthenticationToken extends AbstractAuthentication
      */
     private final String bhknz;
 
-    public IsyOAuth2PasswordAuthenticationToken(String registrationId) {
+    public PasswordAuthenticationToken(String registrationId) {
         super(Collections.emptyList());
         this.registrationId = registrationId;
         this.username = "";
@@ -38,7 +38,7 @@ public class IsyOAuth2PasswordAuthenticationToken extends AbstractAuthentication
         this.bhknz = null;
     }
 
-    public IsyOAuth2PasswordAuthenticationToken(String registrationId, String username, String password, @Nullable String bhknz) {
+    public PasswordAuthenticationToken(String registrationId, String username, String password, @Nullable String bhknz) {
         super(Collections.emptyList());
         this.registrationId = registrationId;
         this.username = username;

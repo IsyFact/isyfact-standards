@@ -12,9 +12,9 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.util.Assert;
 
-import de.bund.bva.isyfact.security.oauth2.client.authentication.IsyOAuth2ClientCredentialsAuthenticationToken;
-import de.bund.bva.isyfact.security.oauth2.client.authentication.IsyOAuth2ManualClientCredentialsAuthenticationToken;
-import de.bund.bva.isyfact.security.oauth2.client.authentication.IsyOAuth2PasswordAuthenticationToken;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.ClientCredentialsAuthenticationToken;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.ManualClientCredentialsAuthenticationToken;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.PasswordAuthenticationToken;
 
 /**
  * Default implementation of the {@link Authentifizierungsmanager} that should suffice for most use cases.
@@ -54,10 +54,10 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
 
         AuthorizationGrantType grantType = clientRegistration.getAuthorizationGrantType();
         if (AuthorizationGrantType.CLIENT_CREDENTIALS.equals(grantType)) {
-            IsyOAuth2ClientCredentialsAuthenticationToken token = new IsyOAuth2ClientCredentialsAuthenticationToken(registrationId);
+            ClientCredentialsAuthenticationToken token = new ClientCredentialsAuthenticationToken(registrationId);
             authenticateAndChangeAuthenticatedPrincipal(token);
         } else if (AuthorizationGrantType.PASSWORD.equals(grantType)) {
-            IsyOAuth2PasswordAuthenticationToken token = new IsyOAuth2PasswordAuthenticationToken(registrationId);
+            PasswordAuthenticationToken token = new PasswordAuthenticationToken(registrationId);
             authenticateAndChangeAuthenticatedPrincipal(token);
         } else {
             throw new IllegalArgumentException("The AuthorizationGrantType '" + grantType.getValue() + "' is not supported.");
@@ -76,7 +76,7 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
                 .build();
 
-        IsyOAuth2ManualClientCredentialsAuthenticationToken token = new IsyOAuth2ManualClientCredentialsAuthenticationToken(
+        ManualClientCredentialsAuthenticationToken token = new ManualClientCredentialsAuthenticationToken(
                 clientRegistration);
 
         authenticateAndChangeAuthenticatedPrincipal(token);
@@ -89,7 +89,7 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
         Assert.notNull(username, "username cannot be null");
         Assert.notNull(password, "password cannot be null");
 
-        IsyOAuth2PasswordAuthenticationToken token = new IsyOAuth2PasswordAuthenticationToken(registrationId, username, password, bhknz);
+        PasswordAuthenticationToken token = new PasswordAuthenticationToken(registrationId, username, password, bhknz);
 
         authenticateAndChangeAuthenticatedPrincipal(token);
     }

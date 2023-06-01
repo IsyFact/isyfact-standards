@@ -27,9 +27,9 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 
 import de.bund.bva.isyfact.security.oauth2.client.Authentifizierungsmanager;
-import de.bund.bva.isyfact.security.oauth2.client.authentication.IsyOAuth2ClientCredentialsAuthenticationProvider;
-import de.bund.bva.isyfact.security.oauth2.client.authentication.IsyOAuth2ManualClientCredentialsAuthenticationProvider;
-import de.bund.bva.isyfact.security.oauth2.client.authentication.IsyOAuth2PasswordAuthenticationProvider;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.ClientCredentialsAuthenticationProvider;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.ManualClientCredentialsAuthenticationProvider;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.PasswordAuthenticationProvider;
 import de.bund.bva.isyfact.security.config.IsyOAuth2ClientConfigurationProperties;
 import de.bund.bva.isyfact.security.oauth2.client.IsyOAuth2Authentifizierungsmanager;
 
@@ -48,9 +48,9 @@ public class IsyOAuth2ClientAutoConfiguration {
     // does not have a dependency on ClientRegistrations and should always be created
     @Bean
     @ConditionalOnMissingBean
-    IsyOAuth2ManualClientCredentialsAuthenticationProvider isyOAuth2ManualClientCredentialsAuthenticationProvider(
+    ManualClientCredentialsAuthenticationProvider isyOAuth2ManualClientCredentialsAuthenticationProvider(
             JwtAuthenticationConverter jwtAuthenticationConverter) {
-        return new IsyOAuth2ManualClientCredentialsAuthenticationProvider(jwtAuthenticationConverter);
+        return new ManualClientCredentialsAuthenticationProvider(jwtAuthenticationConverter);
     }
 
     @Bean
@@ -99,18 +99,18 @@ public class IsyOAuth2ClientAutoConfiguration {
         }
 
         @Bean
-        public IsyOAuth2ClientCredentialsAuthenticationProvider isyOAuth2ClientCredentialsAuthenticationProvider(
+        public ClientCredentialsAuthenticationProvider isyOAuth2ClientCredentialsAuthenticationProvider(
                 @Qualifier("isyAuthorizedClientManager") OAuth2AuthorizedClientManager oAuth2AuthorizedClientManager,
                 JwtAuthenticationConverter jwtAuthenticationConverter) {
-            return new IsyOAuth2ClientCredentialsAuthenticationProvider(jwtAuthenticationConverter, oAuth2AuthorizedClientManager);
+            return new ClientCredentialsAuthenticationProvider(oAuth2AuthorizedClientManager, jwtAuthenticationConverter);
         }
 
         @Bean
         @Conditional(ClientsConfiguredCondition.class)
-        public IsyOAuth2PasswordAuthenticationProvider passwordAuthenticationProvider(
+        public PasswordAuthenticationProvider passwordAuthenticationProvider(
                 ClientRegistrationRepository clientRegistrationRepository, JwtAuthenticationConverter jwtAuthenticationConverter,
                 IsyOAuth2ClientConfigurationProperties isyOAuth2ClientConfigurationProperties) {
-            return new IsyOAuth2PasswordAuthenticationProvider(clientRegistrationRepository, jwtAuthenticationConverter,
+            return new PasswordAuthenticationProvider(clientRegistrationRepository, jwtAuthenticationConverter,
                     isyOAuth2ClientConfigurationProperties);
         }
 

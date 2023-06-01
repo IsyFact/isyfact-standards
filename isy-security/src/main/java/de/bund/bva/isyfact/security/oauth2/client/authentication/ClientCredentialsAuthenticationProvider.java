@@ -1,5 +1,6 @@
 package de.bund.bva.isyfact.security.oauth2.client.authentication;
 
+import org.springframework.lang.Nullable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.client.ClientAuthorizationException;
@@ -16,41 +17,44 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
  * <p>
  * Authentications are cached using the {@link OAuth2AuthorizedClientManager}.
  */
-public class IsyOAuth2ClientCredentialsAuthenticationProvider extends AbstractIsyAuthenticationProvider {
+public class ClientCredentialsAuthenticationProvider extends IsyOAuth2AuthenticationProvider {
 
-    /**
-     * Spring bean used to cache authentications.
-     */
-    private final OAuth2AuthorizedClientManager clientManager;
+    /** Manager for authorized clients. */
+    private final OAuth2AuthorizedClientManager authorizedClientManager;
 
-    public IsyOAuth2ClientCredentialsAuthenticationProvider(
-            JwtAuthenticationConverter jwtAuthenticationConverter,
-            OAuth2AuthorizedClientManager clientManager
-    ) {
+    public ClientCredentialsAuthenticationProvider(OAuth2AuthorizedClientManager authorizedClientManager,
+                                                   JwtAuthenticationConverter jwtAuthenticationConverter) {
         super(jwtAuthenticationConverter);
-        this.clientManager = clientManager;
+        this.authorizedClientManager = authorizedClientManager;
     }
 
     @Override
+    @Nullable
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        IsyOAuth2ClientCredentialsAuthenticationToken token = (IsyOAuth2ClientCredentialsAuthenticationToken) authentication;
+        if (!(authentication instanceof ClientCredentialsAuthenticationToken)) {
+            return null;
+        }
 
-        OAuth2AuthorizeRequest authorizeRequest = OAuth2AuthorizeRequest
-                .withClientRegistrationId(token.getRegistrationId())
+        ClientCredentialsAuthenticationToken token = (ClientCredentialsAuthenticationToken) authentication;
+
+        String registrationId = token.getRegistrationId();
+        OAuth2AuthorizeRequest authorizeRequest = OAuth2AuthorizeRequest.withClientRegistrationId(registrationId)
                 .principal(token)
                 .build();
 
-        OAuth2AuthorizedClient authorizedClient = clientManager.authorize(authorizeRequest);
+        OAuth2AuthorizedClient authorizedClient = authorizedClientManager.authorize(authorizeRequest);
 
         if (authorizedClient == null) {
-            throw new ClientAuthorizationException(new OAuth2Error(OAuth2ErrorCodes.INVALID_GRANT), token.getRegistrationId(),
+            throw new ClientAuthorizationException(new OAuth2Error(OAuth2ErrorCodes.INVALID_GRANT), registrationId,
                     "clientRegistration.authorizationGrantType must be AuthorizationGrantType.CLIENT_CREDENTIALS");
         }
-        return getAndConvertAccessToken(authorizedClient);
+
+        return createJwtAuthentication(authorizedClient);
     }
 
     @Override
     public boolean supports(Class<?> authentication) {
-        return IsyOAuth2ClientCredentialsAuthenticationToken.class.isAssignableFrom(authentication);
+        return ClientCredentialsAuthenticationToken.class.isAssignableFrom(authentication);
     }
+
 }
