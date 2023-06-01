@@ -14,7 +14,11 @@ import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontex
  * Implements the {@link RemoteInvocationFactory} to cast the {@link MethodInvocation} to {@link RemoteInvocation} with
  * a {@link AufrufKontextTo} using {@link CreateAufrufKontextToStrategy}, if {@code null} is passed.
  * Can be used by the class {@link org.springframework.remoting.httpinvoker.HttpInvokerClientInterceptor}.
+ *
+ * @deprecated This module is deprecated and will be removed in a future release.
+ * It is recommended to use <a href="https://isyfact.github.io/isyfact-standards-doku/latest/isy-service-rest/konzept/master.html">REST according to IsyFacts REST Concept</a> instead.
  */
+@Deprecated
 public class AufrufKontextToRemoteInvocationFactory implements RemoteInvocationFactory {
 
     /**
