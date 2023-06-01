@@ -41,7 +41,7 @@ public class BerechtigungsmanagerTest {
         tokenAttributes.put("roles", Arrays.asList(TEST_ROLES));
 
         IsySecurityAutoConfiguration config = new IsySecurityAutoConfiguration();
-        berechtigungsmanager = config.berechtigungsmanager();
+        berechtigungsmanager = config.berechtigungsmanager(config.isySecurityProperties());
         when(token.getAuthorities()).thenReturn(authorities);
         when(token.getTokenAttributes()).thenReturn(tokenAttributes);
         SecurityContextHolder.getContext().setAuthentication(token);

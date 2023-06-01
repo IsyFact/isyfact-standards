@@ -11,9 +11,12 @@ import de.bund.bva.isyfact.security.Security;
 import de.bund.bva.isyfact.security.xmlparser.RolePrivilegesMapper;
 
 /**
- * Default implementation of the {@link Security} interface provided as bean by AutoConfiguration.
+ * Implementation of the {@link Security} interface.
+ * <p>
+ * Due to it being mainly intended as a way to ease migration from the {@code Sicherheit} interface in IsyFact 1 and 2
+ * and having a very defined functionality, applications should not try to provide a different implementation
  */
-public class IsyOAuth2Security implements Security {
+public final class IsyOAuth2Security implements Security {
 
     /**
      * Mapper from roles to privileges.
@@ -21,11 +24,9 @@ public class IsyOAuth2Security implements Security {
     private final RolePrivilegesMapper rolePrivilegesMapper;
 
     /**
-     * Reference to the {@link Authentifizierungsmanager} bean.
-     * <p>
-     * Can be {@code  null} when the application is used as a resource-server.
+     * Reference to the optional {@link Authentifizierungsmanager} bean.
      */
-    private final Authentifizierungsmanager authentifizierungsmanager;
+    private final Optional<Authentifizierungsmanager> authentifizierungsmanager;
 
     /**
      * Reference to the {@link Berechtigungsmanager} bean.
@@ -38,7 +39,7 @@ public class IsyOAuth2Security implements Security {
             @Nullable Authentifizierungsmanager authentifizierungsmanager
     ) {
         this.rolePrivilegesMapper = rolePrivilegesMapper;
-        this.authentifizierungsmanager = authentifizierungsmanager;
+        this.authentifizierungsmanager = Optional.ofNullable(authentifizierungsmanager);
         this.berechtigungsmanager = berechtigungsmanager;
     }
 
@@ -48,12 +49,13 @@ public class IsyOAuth2Security implements Security {
     }
 
     @Override
-    public Optional<Authentifizierungsmanager> getAuthentifizierungsManager() {
-        return Optional.ofNullable(authentifizierungsmanager);
+    public Optional<Authentifizierungsmanager> getAuthentifizierungsmanager() {
+        return authentifizierungsmanager;
     }
 
     @Override
-    public Berechtigungsmanager getBerechtigungsManager() {
+    public Berechtigungsmanager getBerechtigungsmanager() {
         return berechtigungsmanager;
     }
+
 }

@@ -4,29 +4,37 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * Entrypoint for interaction with the isy-security module.
+ * Provides access to the Authentifizierungsmanager, Berechtigungsmanager and all roles known to the application.
+ * Mainly intended as a way to ease migration from the {@code Sicherheit} interface in IsyFact 1 and 2.
+ * <p>
+ * It is preferable to inject the {@link Authentifizierungsmanager} or {@link Berechtigungsmanager} directly if
+ * {@link #getAlleRollen()} is not used.
  */
 public interface Security {
 
     /**
-     * Get a list of all roles stored in the system.
+     * Returns the {@link Authentifizierungsmanager}. Consider injecting it directly instead of accessing it via Security.
+     * <p>
+     * Since the Authentifizierungsmanager depends on registered OAuth 2.0 Clients the {@code Optional} will be empty
+     * if no clients have been registered in the application properties.
      *
-     * @return All roles stored in the RollenRechte-mapping.
+     * @return Optional of {@link Authentifizierungsmanager} or {@code null} if the system
+     *         acts as ressource-server and the {@link Authentifizierungsmanager} is not configured
+     */
+    Optional<Authentifizierungsmanager> getAuthentifizierungsmanager();
+
+    /**
+     * Returns the {@link Berechtigungsmanager}. Consider injecting it directly instead of accessing it via Security.
+     *
+     * @return the {@link Berechtigungsmanager}
+     */
+    Berechtigungsmanager getBerechtigungsmanager();
+
+    /**
+     * Returns the set of all roles that are known to the application.
+     *
+     * @return set of known roles
      */
     Set<String> getAlleRollen();
 
-    /**
-     * The {@link Authentifizierungsmanager} allows manual authentication of clients.
-     *
-     * @return Optional of {@link Authentifizierungsmanager} or {@code null} if the system
-     * acts as ressource-server and the {@link Authentifizierungsmanager} is not configured
-     */
-    Optional<Authentifizierungsmanager> getAuthentifizierungsManager();
-
-    /**
-     * The {@link Berechtigungsmanager} allows checking privileges in the currently authenticated security context.
-     *
-     * @return {@link Berechtigungsmanager}
-     */
-    Berechtigungsmanager getBerechtigungsManager();
 }

@@ -34,7 +34,7 @@ class IsySecurityAutoConfigurationTest extends AbstractOidcProviderTest {
                         assertThat(context).hasNotFailed()
                                 .hasSingleBean(IsySecurityAutoConfiguration.class)
                                 .doesNotHaveBean(IsyOAuth2ClientAutoConfiguration.class)
-                                .doesNotHaveBean(IsyOAuth2ClientAutoConfiguration.ClientsConfiguredDependantBeans.class)
+                                .doesNotHaveBean(IsyOAuth2ClientAutoConfiguration.ClientsConfiguredDependentBeans.class)
                 );
     }
 
@@ -46,7 +46,7 @@ class IsySecurityAutoConfigurationTest extends AbstractOidcProviderTest {
                         assertThat(context).hasNotFailed()
                                 .hasSingleBean(IsySecurityAutoConfiguration.class)
                                 .hasSingleBean(IsyOAuth2ClientAutoConfiguration.class)
-                                .doesNotHaveBean(IsyOAuth2ClientAutoConfiguration.ClientsConfiguredDependantBeans.class)
+                                .doesNotHaveBean(IsyOAuth2ClientAutoConfiguration.ClientsConfiguredDependentBeans.class)
                 );
     }
 
@@ -66,7 +66,7 @@ class IsySecurityAutoConfigurationTest extends AbstractOidcProviderTest {
                         assertThat(context).hasNotFailed()
                                 .hasSingleBean(IsySecurityAutoConfiguration.class)
                                 .hasSingleBean(IsyOAuth2ClientAutoConfiguration.class)
-                                .hasSingleBean(IsyOAuth2ClientAutoConfiguration.ClientsConfiguredDependantBeans.class)
+                                .hasSingleBean(IsyOAuth2ClientAutoConfiguration.ClientsConfiguredDependentBeans.class)
                 );
     }
 

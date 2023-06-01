@@ -1,41 +1,44 @@
 package de.bund.bva.isyfact.security.autoconfigure;
 
+import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.lang.Nullable;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 
 import de.bund.bva.isyfact.security.Authentifizierungsmanager;
 import de.bund.bva.isyfact.security.Berechtigungsmanager;
-import de.bund.bva.isyfact.security.core.IsyOAuth2Berechtigungsmanager;
 import de.bund.bva.isyfact.security.Security;
 import de.bund.bva.isyfact.security.authentication.RolePrivilegeGrantedAuthoritiesConverter;
 import de.bund.bva.isyfact.security.config.IsySecurityConfigurationProperties;
+import de.bund.bva.isyfact.security.core.IsyOAuth2Berechtigungsmanager;
 import de.bund.bva.isyfact.security.core.IsyOAuth2Security;
 import de.bund.bva.isyfact.security.xmlparser.RolePrivilegesMapper;
 
 /**
- * Main AutoConfiguration class providing beans and configurations that are always required when using isy-security.
+ * Main autoconfiguration for isy-security that creates all beans required for role privileges mapping and JWT conversion.
  */
-@Configuration
+@ConditionalOnClass(EnableWebSecurity.class)
+@AutoConfiguration
 @EnableConfigurationProperties
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class IsySecurityAutoConfiguration {
 
     @Bean
     @ConfigurationProperties(prefix = "isy.security")
-    public IsySecurityConfigurationProperties isySecurityConfigurationProperties() {
+    public IsySecurityConfigurationProperties isySecurityProperties() {
         return new IsySecurityConfigurationProperties();
     }
 
     @Bean
-    public RolePrivilegesMapper rolePrivilegesMapper() {
-        return new RolePrivilegesMapper(isySecurityConfigurationProperties().getRolePrivilegeMappingFile());
+    public RolePrivilegesMapper rolePrivilegesMapper(IsySecurityConfigurationProperties isySecurityProperties) {
+        return new RolePrivilegesMapper(isySecurityProperties.getRolePrivilegesMappingFile());
     }
 
     /**
@@ -46,10 +49,11 @@ public class IsySecurityAutoConfiguration {
      * @return the authentication converter with custom authority prefix and role to privilege mapping
      */
     @Bean
-    public JwtAuthenticationConverter jwtAuthenticationConverter() {
+    public JwtAuthenticationConverter jwtAuthenticationConverter(RolePrivilegesMapper rolePrivilegesMapper,
+                                                                 IsySecurityConfigurationProperties isySecurityProperties) {
         RolePrivilegeGrantedAuthoritiesConverter grantedAuthoritiesConverter =
-                new RolePrivilegeGrantedAuthoritiesConverter(rolePrivilegesMapper());
-        grantedAuthoritiesConverter.setRolesClaimName(isySecurityConfigurationProperties().getRolesClaimName());
+                new RolePrivilegeGrantedAuthoritiesConverter(rolePrivilegesMapper);
+        grantedAuthoritiesConverter.setRolesClaimName(isySecurityProperties.getRolesClaimName());
 
         JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
         jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(grantedAuthoritiesConverter);
@@ -62,21 +66,16 @@ public class IsySecurityAutoConfiguration {
     }
 
     @Bean
-    public Berechtigungsmanager berechtigungsmanager() {
-        return new IsyOAuth2Berechtigungsmanager(isySecurityConfigurationProperties().getRolesClaimName());
+    public Berechtigungsmanager berechtigungsmanager(IsySecurityConfigurationProperties isySecurityProperties) {
+        return new IsyOAuth2Berechtigungsmanager(isySecurityProperties.getRolesClaimName());
     }
 
     @Bean
     @ConditionalOnMissingBean
-    Security security(
-            RolePrivilegesMapper rolePrivilegesMapper,
-            Berechtigungsmanager berechtigungsmanager,
-            @Nullable Authentifizierungsmanager authentifizierungsmanager
+    public Security security(RolePrivilegesMapper rolePrivilegesMapper, Berechtigungsmanager berechtigungsmanager,
+                             @Nullable Authentifizierungsmanager authentifizierungsmanager
     ) {
-        return new IsyOAuth2Security(
-                rolePrivilegesMapper,
-                berechtigungsmanager,
-                authentifizierungsmanager
-        );
+        return new IsyOAuth2Security(rolePrivilegesMapper, berechtigungsmanager, authentifizierungsmanager);
     }
+
 }
