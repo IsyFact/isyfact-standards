@@ -42,7 +42,15 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 /**
- * Tests for {@link DefaultCreateAufrufKontextToStrategy}.
+ * The tests checking the adhoc generation of a {@link AufrufKontextTo} via {@link DefaultCreateAufrufKontextToStrategy} on HTTP Invoker calls.
+ * Only if {@code null} is passed, this process will be executed.
+ * <p>
+ * There are 4 different use cases:
+ * <p>
+ * HttpInvokerProxyFactoryBean without {@link AufrufKontextToRemoteInvocationFactory}
+ * HttpInvokerProxyFactoryBean with {@link AufrufKontextToRemoteInvocationFactory}
+ * IsyHttpInvokerProxyFactoryBean (Default with {@link AufrufKontextToRemoteInvocationFactory})
+ * IsyHttpInvokerProxyFactoryBean (Default with {@link AufrufKontextToRemoteInvocationFactory}) without {@code null} parameter
  */
 @SpringBootTest(
         classes = FillAufrufKontextToTest.TestConfig.class,
@@ -139,6 +147,10 @@ public class FillAufrufKontextToTest {
                 .isInstanceOf(DefaultCreateAufrufKontextToStrategy.class);
     }
 
+    /**
+     * By default, the {@link AufrufKontextToRemoteInvocationFactory} is set to {@link IsyHttpInvokerClientInterceptor} if isy-security is present in the classpath.
+     * So the adhoc creation of {@link AufrufKontextTo} will be performed.
+     */
     @Test
     void testFillsAufrufKontextToAdhocForIsyfact() {
         serviceProxyIsy.setServiceUrl("http://localhost:" + port + "/isyDummyServiceBean_v1_0_0");
@@ -174,6 +186,9 @@ public class FillAufrufKontextToTest {
         assertThat(captor2.getValue()).isEqualTo("Hello");
     }
 
+    /**
+     * The adhoc creation will be performed only if the given value is {@code null}.
+     */
     @Test
     void testNoAdhocAufrufKontextToCreated() {
         serviceProxyIsy.setServiceUrl("http://localhost:" + port + "/isyDummyServiceBean_v1_0_0");
@@ -209,6 +224,10 @@ public class FillAufrufKontextToTest {
         assertThat(captor2.getValue()).isEqualTo("Hello");
     }
 
+    /**
+     * By default, only in IsyFact equivalent {@link IsyHttpInvokerProxyFactoryBean} the factory is set.
+     * So nothing is replaced here.
+     */
     @Test
     void testDontFillsAufrufKontextToForSpring() {
         serviceProxySpring.setServiceUrl("http://localhost:" + port + "/dummyServiceBean_v1_0_0");
@@ -230,6 +249,10 @@ public class FillAufrufKontextToTest {
         assertThat(captor2.getValue()).isEqualTo("Hello");
     }
 
+    /**
+     * By default, only in IsyFact equivalent {@link IsyHttpInvokerProxyFactoryBean} the factory is set.
+     * So the factory must be set for native spring.
+     */
     @Test
     void testFillsAufrufKontextToAdhocForSpringFactory() {
         serviceProxySpringWithFactory.setServiceUrl("http://localhost:" + port + "/dummyServiceBean_v1_0_0");
