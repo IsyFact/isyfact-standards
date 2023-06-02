@@ -175,6 +175,41 @@ public class FillAufrufKontextToTest {
     }
 
     @Test
+    void testNoAdhocAufrufKontextToCreated() {
+        serviceProxyIsy.setServiceUrl("http://localhost:" + port + "/isyDummyServiceBean_v1_0_0");
+
+        assertEquals("Hello", serviceRemoteBeanIsy.ping(new AufrufKontextTo(), "Hello"));
+        verify(remoteInvocationFactory, times(1)).createRemoteInvocation(any());
+        verify(createAufrufKontextToStrategy, times(0)).create();
+
+        ArgumentCaptor<AufrufKontextTo> captor1 = ArgumentCaptor.forClass(AufrufKontextTo.class);
+        ArgumentCaptor<String> captor2 = ArgumentCaptor.forClass(String.class);
+
+        verify(userService, times(1)).ping(captor1.capture(), captor2.capture());
+
+        AufrufKontextTo aufrufKontextTo = captor1.getValue();
+
+        assertThat(aufrufKontextTo)
+                .extracting(
+                        AufrufKontextTo::getDurchfuehrenderBenutzerKennung,
+                        AufrufKontextTo::getDurchfuehrendeBehoerde,
+                        AufrufKontextTo::isRollenErmittelt,
+                        AufrufKontextTo::getDurchfuehrenderSachbearbeiterName,
+                        AufrufKontextTo::getDurchfuehrenderBenutzerPasswort,
+                        AufrufKontextTo::getRolle
+                ).containsExactly(
+                        null,
+                        null,
+                        false,
+                        null,
+                        null,
+                        null
+                );
+
+        assertThat(captor2.getValue()).isEqualTo("Hello");
+    }
+
+    @Test
     void testDontFillsAufrufKontextToForSpring() {
         serviceProxySpring.setServiceUrl("http://localhost:" + port + "/dummyServiceBean_v1_0_0");
 
