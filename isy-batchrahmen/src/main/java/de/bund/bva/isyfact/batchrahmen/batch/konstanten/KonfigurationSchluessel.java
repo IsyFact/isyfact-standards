@@ -59,6 +59,9 @@ public abstract class KonfigurationSchluessel {
     /** Property-Name fuer den Namen des Batches. */
     public static final String PROPERTY_BATCH_NAME = "BatchName";
 
+    /** Property name for the registrationId of the batch. */
+    public static final String PROPERTY_BATCH_REGISTRATION_ID = "batch.registrationId";
+
     /***************************************************************************
      * KOMMANDOZEILEN - PARAMETER *
      **************************************************************************/
