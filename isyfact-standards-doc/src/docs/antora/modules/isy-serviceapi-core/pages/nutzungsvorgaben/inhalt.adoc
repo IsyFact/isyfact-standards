@@ -549,13 +549,30 @@ Hier bleibt das Vorgehen wie bisher in der Anleitung  beschrieben.
 ==== IF3-Client
 
 Im Zuge des Upgrades zu IF3 wird der `AufrufKontext` (deprecated)  nicht mehr verwendet und der von IF3-Anwendungen verwendete Sicherheitsbaustein `isy-security` wird nativ keine HTTP-Invoker Schnittstellen mehr unterstützen.
-Um weiterhin die Kompatibilität von HTTP-Invoker-Aufrufen gegenüber IF1-, IF2- und IF3-Anwendungen zu gewährleisten, muss bei einem HTTP-Invoker-Aufruf ein `AufrufKontext` als Transportobjekt ad hoc erzeugt werden.
+Um weiterhin die Kompatibilität von HTTP-Invoker-Aufrufen gegenüber IF1-, IF2- und IF3-Anwendungen zu gewährleisten, wird bei einem HTTP-Invoker-Aufruf ein `AufrufKontext` als Transportobjekt ad hoc erzeugt.
+
+.Überblick eines IF3-Aufrufes
+[id="image-aufrufKontext-IF3-IF2",reftext="{figure-caption} {counter:figures}"]
+image::isy-serviceapi-core:nutzungsvorgaben/IF3_calls.dn.png[align="center",width=90%,pdfwidth=90%]
 
 Das `AufrufKontextTo` wird dabei direkt aus dem Spring `SecurityContext` bzw. dem `AccessToken` erzeugt.
 Dazu wird der `Berechtigungsmanager` des Bausteins `isy-security` verwendet; `isy-security` ist als eine `provided`-Dependency im `isy-serviceapi-core`-Baustein eingebunden, d.h. für IF1 und IF2-Anwendungen wird diese Dependency nicht benötigt, da diese Anwendungen bereits einen gefüllten `AufrufKontext` vorhalten und für eine IF3-Anwendung muss diese Dependency zur Runtime zur Verfügung stehen, wenn ein Transportobjekt des `AufrufKontext` ad hoc erzeugt werden soll.
 In der IF3-Applikation muss somit isy-security eingebunden sein, um ein `AufrufKontextTo` zu erzeugen.
 
-Zur Erzeugung des `AufrufKontextTo` wird eine `RemoteInvocationFactory` verwendet, an die der Anwender als ersten Parameter null übergeben muss (der AufrufKontext kommt immer zuerst).
+Zur Erzeugung des `AufrufKontextTo` wird eine `RemoteInvocationFactory` eingesetzt, welche beim Aufruf einer Servicemethode durch den Parameter `null` (statt einem AufrufKontextTo Objekt) signalisiert bekommt, dass eine Erstellung notwendig ist.
+
+[id="listing-http_invoker_interface_new-version",reftext="{listing-caption} {counter:listings }"]
+[source,java]
+----
+@Autowired
+TestService testServiceIsy;
+
+[...]
+
+// Parameter "null" -> AufrufKontextTo wird ad-hoc aus SecurityContext erstellt
+testServiceIsy.holeDenText(null);
+----
+
 Per Default wird die `RemoteInvocationFactory` nur in `IsyHttpInvokerProxyFactoryBean` verwendet.
 Falls die Spring-eigene Factory verwendet wird, muss die `RemoteInvocationFactory` explizit in einem Setter (`setRemoteInvocationFactory()`) gesetzt werden.
 
