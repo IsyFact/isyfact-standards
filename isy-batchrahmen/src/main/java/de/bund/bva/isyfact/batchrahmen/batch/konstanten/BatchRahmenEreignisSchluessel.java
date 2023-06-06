@@ -17,13 +17,17 @@
 package de.bund.bva.isyfact.batchrahmen.batch.konstanten;
 
 /**
- * Enthält alle Schlüssel für das Logging von Ereignissen.
- *
- *
+ * Contains all keys for logging events.
  */
-public abstract class BatchRahmenEreignisSchluessel {
+public final class BatchRahmenEreignisSchluessel {
 
-    /** Allgemeines Ereignis des Batchrahmens. */
+    private BatchRahmenEreignisSchluessel () {
+        // hide ctor
+    }
+
+    /**
+     * General event of the Batchrahmen.
+     */
     public static final String EPLBAT00001 = "EPLBAT00001";
 
 }

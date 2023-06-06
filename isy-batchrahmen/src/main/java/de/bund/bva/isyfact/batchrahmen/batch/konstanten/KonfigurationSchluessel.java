@@ -19,7 +19,11 @@ package de.bund.bva.isyfact.batchrahmen.batch.konstanten;
 /**
  * Contains all keys for configuration parameters.
  */
-public abstract class KonfigurationSchluessel {
+public final class KonfigurationSchluessel {
+
+    private KonfigurationSchluessel () {
+        // hide ctor
+    }
 
     /***************************************************************************
      * PROPERTY - PARAMETER *
