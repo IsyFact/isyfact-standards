@@ -32,6 +32,7 @@ import de.bund.bva.isyfact.batchrahmen.batch.rahmen.VerarbeitungsErgebnis;
  * <p>
  * The data used for authorization can be stored in the configuration.
  */
+@Secured("PRIV_Recht1")
 public class GesicherterTestBatch2 extends BasicTestBatch {
 
     /**
@@ -44,7 +45,6 @@ public class GesicherterTestBatch2 extends BasicTestBatch {
     /**
      * saves the reference to the configuration. {@inheritDoc}
      */
-    @Secured("PRIV_Recht1")
     public int initialisieren(BatchKonfiguration konfiguration, long satzNummer, String dbKey,
                               BatchStartTyp startTyp, Date datumLetzterErfolg, BatchErgebnisProtokoll protokoll)
             throws BatchAusfuehrungsException {
