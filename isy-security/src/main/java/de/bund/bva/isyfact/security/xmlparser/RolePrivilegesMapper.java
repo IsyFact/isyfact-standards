@@ -6,8 +6,11 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import org.springframework.util.Assert;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
@@ -35,6 +38,7 @@ public class RolePrivilegesMapper {
     public Set<String> getPrivilegesByRoles(Collection<String> roles) {
         return roles.stream()
                 .map(rolePrivilegesMap::get)
+                .filter(Objects::nonNull)
                 .flatMap(Set::stream)
                 .collect(Collectors.toSet());
     }
@@ -59,12 +63,16 @@ public class RolePrivilegesMapper {
     }
 
     private RolePrivileges getRolePrivileges(String roleMappingXmlFilePath) {
+        Assert.hasText(roleMappingXmlFilePath, "roleMappingXmlFilePath cannot be empty");
         XmlMapper mapper = new XmlMapper();
         try {
             InputStream roleMappingFile = getClass().getResourceAsStream(roleMappingXmlFilePath);
+            if (roleMappingFile == null) {
+                throw new RolePrivilegesMappingException("Could not find role privileges mapping file: " + roleMappingXmlFilePath);
+            }
             return mapper.readValue(roleMappingFile, RolePrivileges.class);
         } catch (IOException e) {
-            throw new RolePrivilegesMappingException("Error loading XML file: " + roleMappingXmlFilePath, e);
+            throw new RolePrivilegesMappingException("Error loading role privileges mapping file: " + roleMappingXmlFilePath, e);
         }
     }
 

@@ -28,6 +28,7 @@ public class RolePrivilegesMapperTest {
         assertEquals(3, mapper.getPrivilegesByRoles(Collections.singletonList("Rolle_ABC")).size());
         assertEquals(0, mapper.getPrivilegesByRoles(Collections.singletonList("Rolle_Keine")).size());
         assertEquals(1, mapper.getPrivilegesByRoles(Collections.singletonList("Rolle_B")).size());
+        assertEquals(0, mapper.getPrivilegesByRoles(Collections.singletonList("unknown")).size());
     }
 
     @Test
