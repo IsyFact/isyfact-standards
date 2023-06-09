@@ -9,32 +9,36 @@ spring:
           testrealm:
             issuer-uri: http://localhost:9095/auth/realms/testrealm
         registration:
-          testclient:
+          cc-client:
             client-id: client-credentials-test-client
             client-secret: supersecretpassword
             authorization-grant-type: client_credentials
             provider: testrealm
+          cc-client-invalid:
+            client-id: client-credentials-test-client
+            client-secret: invalidpassword
+            authorization-grant-type: client_credentials
+            provider: testrealm
           ropc-client:
-            client-id: ressource-owner-password-credentials-test-client
+            client-id: resource-owner-password-credentials-test-client
             client-secret: hypersecretpassword
             authorization-grant-type: password
             provider: testrealm
-          ropc-client-no-bhknz:
-            client-id: ropc-no-bhknz-test-client
-            client-secret: superhypersecretpassword
+          ropc-client-with-bhknz:
+            client-id: resource-owner-password-credentials-test-client
+            client-secret: hypersecretpassword
             authorization-grant-type: password
             provider: testrealm
-
 isy:
   security:
     oauth2:
       client:
         registration:
           ropc-client:
-            username: admin
-            password: admin123
-            bhknz: testbhknz
-          ropc-client-no-bhknz:
-            username: adminNoBhknz
-            password: passwordNoBhknz
+            username: testuser
+            password: pw1234
+          ropc-client-with-bhknz:
+            username: testuser-with-bhknz
+            password: pw1234
+            bhknz: 123456
         default-certificate-ou: TESTOU
