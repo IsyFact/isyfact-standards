@@ -13,8 +13,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.server.resource.authentication.AbstractOAuth2TokenAuthenticationToken;
 import org.springframework.util.Assert;
 
-import de.bund.bva.isyfact.security.Berechtigungsmanager;
-
 /**
  * Default implementation of the {@link Berechtigungsmanager} that should suffice for most use cases.
  * <p>

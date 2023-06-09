@@ -20,6 +20,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 
 import de.bund.bva.isyfact.security.autoconfigure.IsySecurityAutoConfiguration;
+import de.bund.bva.isyfact.security.core.Berechtigungsmanager;
 
 public class BerechtigungsmanagerTest {
 

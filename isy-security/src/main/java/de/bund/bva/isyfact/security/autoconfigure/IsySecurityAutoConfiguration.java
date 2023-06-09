@@ -13,8 +13,8 @@ import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 
 import de.bund.bva.isyfact.security.oauth2.client.Authentifizierungsmanager;
-import de.bund.bva.isyfact.security.Berechtigungsmanager;
-import de.bund.bva.isyfact.security.Security;
+import de.bund.bva.isyfact.security.core.Berechtigungsmanager;
+import de.bund.bva.isyfact.security.core.Security;
 import de.bund.bva.isyfact.security.authentication.RolePrivilegeGrantedAuthoritiesConverter;
 import de.bund.bva.isyfact.security.config.IsySecurityConfigurationProperties;
 import de.bund.bva.isyfact.security.core.IsyOAuth2Berechtigungsmanager;

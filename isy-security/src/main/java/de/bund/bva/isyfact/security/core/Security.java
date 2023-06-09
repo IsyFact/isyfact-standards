@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.security;
+package de.bund.bva.isyfact.security.core;
 
 import java.util.Optional;
 import java.util.Set;

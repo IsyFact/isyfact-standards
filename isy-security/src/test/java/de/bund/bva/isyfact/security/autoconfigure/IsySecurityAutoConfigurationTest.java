@@ -1,6 +1,6 @@
 package de.bund.bva.isyfact.security.autoconfigure;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
@@ -12,7 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 
 import de.bund.bva.isyfact.security.AbstractOidcProviderTest;
-import de.bund.bva.isyfact.security.Security;
+import de.bund.bva.isyfact.security.core.Security;
 
 class IsySecurityAutoConfigurationTest extends AbstractOidcProviderTest {
 
