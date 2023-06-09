@@ -1,41 +1,30 @@
 package de.bund.bva.isyfact.security.oauth2.client.authentication;
 
-import java.util.Collections;
-
-import org.springframework.security.authentication.AbstractAuthenticationToken;
-import org.springframework.security.oauth2.client.registration.ClientRegistration;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 /**
- * AuthenticationToken holding an ad hoc created ClientRegistration.
+ * AuthenticationToken holding parameters required for creating a Client to use with Client Credentials Flow authentication.
  */
-public class ManualClientCredentialsAuthenticationToken extends AbstractAuthenticationToken {
+public class ManualClientCredentialsAuthenticationToken extends UsernamePasswordAuthenticationToken {
 
-    /**
-     * OAuth2 client registration.
-     */
-    private final ClientRegistration clientRegistration;
+    /** Issuer location to use for manual client credentials grant authentication. */
+    private final String issuerLocation;
 
-    /**
-     * Creates a token with the supplied array of authorities.
-     *
-     * @param clientRegistration OAuth2 client registration.
-     */
-    public ManualClientCredentialsAuthenticationToken(ClientRegistration clientRegistration) {
-        super(Collections.emptyList());
-        this.clientRegistration = clientRegistration;
+    public ManualClientCredentialsAuthenticationToken(String clientId, String clientSecret, String issuerLocation) {
+        super(clientId, clientSecret);
+        this.issuerLocation = issuerLocation;
     }
 
-    @Override
-    public Object getPrincipal() {
-        return this.clientRegistration.getClientId();
+    public String getIssuerLocation() {
+        return issuerLocation;
     }
 
-    @Override
-    public Object getCredentials() {
-        return "";
+    public String getClientId() {
+        return getPrincipal().toString();
     }
 
-    public ClientRegistration getClientRegistration() {
-        return clientRegistration;
+    public String getClientSecret() {
+        return getCredentials().toString();
     }
+
 }

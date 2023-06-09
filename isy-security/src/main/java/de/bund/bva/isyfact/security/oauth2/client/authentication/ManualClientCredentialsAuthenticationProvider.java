@@ -7,6 +7,9 @@ import org.springframework.security.oauth2.client.OAuth2AuthorizationContext;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientProvider;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientProviderBuilder;
+import org.springframework.security.oauth2.client.registration.ClientRegistration;
+import org.springframework.security.oauth2.client.registration.ClientRegistrations;
+import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.OAuth2AuthorizationException;
 import org.springframework.security.oauth2.core.OAuth2Error;
 import org.springframework.security.oauth2.core.OAuth2ErrorCodes;
@@ -40,8 +43,14 @@ public class ManualClientCredentialsAuthenticationProvider extends IsyOAuth2Auth
 
         ManualClientCredentialsAuthenticationToken token = (ManualClientCredentialsAuthenticationToken) authentication;
 
-        OAuth2AuthorizationContext authorizationContext = OAuth2AuthorizationContext.withClientRegistration(token.getClientRegistration())
-                .principal(token)
+        ClientRegistration clientRegistration = ClientRegistrations.fromIssuerLocation(token.getIssuerLocation())
+                .clientId(token.getClientId())
+                .clientSecret(token.getClientSecret())
+                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                .build();
+
+        OAuth2AuthorizationContext authorizationContext = OAuth2AuthorizationContext.withClientRegistration(clientRegistration)
+                .principal(authentication)
                 .build();
 
         OAuth2AuthorizedClient authorizedClient = clientProvider.authorize(authorizationContext);

@@ -1,49 +1,37 @@
 package de.bund.bva.isyfact.security.oauth2.client.authentication;
 
-import java.util.Collections;
-
 import org.springframework.lang.Nullable;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.core.authority.AuthorityUtils;
 
 /**
- * AuthenticationToken holding Parameters for resource-owner-password-credentials flow authentication.
+ * AuthenticationToken holding parameters for Resource Owner Password Credentials Flow authentication.
  */
 public class PasswordAuthenticationToken extends AbstractAuthenticationToken {
 
-    /**
-     * Registration ID of the OAuth2 client to user for password grant authentication.
-     */
+    /** Registration ID of the OAuth 2.0 client that is configured for password grant authentication. */
     private final String registrationId;
 
-    /**
-     * Username for resource-owner-password-credentials flow.
-     */
+    /** The resource owner's username. */
     private final String username;
 
-    /**
-     * Password for resource-owner-password-credentials flow.
-     */
+    /** The resource owner's password. */
     private final String password;
 
-    /**
-     * BHKNZ for optional two-factor authentication.
-     */
+    /** The BHKNZ to send as part of the authentication request (optional). */
     private final String bhknz;
 
     public PasswordAuthenticationToken(String registrationId) {
-        super(Collections.emptyList());
-        this.registrationId = registrationId;
-        this.username = "";
-        this.password = "";
-        this.bhknz = null;
+        this(registrationId, "", "", null);
     }
 
     public PasswordAuthenticationToken(String registrationId, String username, String password, @Nullable String bhknz) {
-        super(Collections.emptyList());
+        super(AuthorityUtils.NO_AUTHORITIES);
         this.registrationId = registrationId;
         this.username = username;
         this.password = password;
         this.bhknz = bhknz;
+        setAuthenticated(false);
     }
 
     public String getRegistrationId() {
@@ -58,6 +46,7 @@ public class PasswordAuthenticationToken extends AbstractAuthenticationToken {
         return password;
     }
 
+    @Nullable
     public String getBhknz() {
         return bhknz;
     }
@@ -71,4 +60,5 @@ public class PasswordAuthenticationToken extends AbstractAuthenticationToken {
     public Object getPrincipal() {
         return username;
     }
+
 }

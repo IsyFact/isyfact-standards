@@ -8,7 +8,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
-import org.springframework.security.oauth2.client.registration.ClientRegistrations;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.util.Assert;
 
@@ -70,14 +69,8 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
         Assert.notNull(clientSecret, "clientSecret cannot be null");
         Assert.notNull(issuerLocation, "issuerLocation cannot be null");
 
-        ClientRegistration clientRegistration = ClientRegistrations.fromIssuerLocation(issuerLocation)
-                .clientId(clientId)
-                .clientSecret(clientSecret)
-                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-                .build();
-
-        ManualClientCredentialsAuthenticationToken token = new ManualClientCredentialsAuthenticationToken(
-                clientRegistration);
+        ManualClientCredentialsAuthenticationToken token =
+                new ManualClientCredentialsAuthenticationToken(clientId, clientSecret, issuerLocation);
 
         authenticateAndChangeAuthenticatedPrincipal(token);
     }

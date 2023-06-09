@@ -25,6 +25,7 @@ import org.springframework.util.StringUtils;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.security.config.IsyOAuth2ClientConfigurationProperties;
+import de.bund.bva.isyfact.security.config.IsyOAuth2ClientConfigurationProperties.AdditionalRegistrationProperties;
 
 /**
  * Authentication Provider to obtain an {@link Authentication} with the OAuth2 Resource Owner Password Credentials flow.
@@ -54,11 +55,6 @@ public class PasswordAuthenticationProvider extends IsyOAuth2AuthenticationProvi
         this.isyOAuth2ClientProps = isyOAuth2ClientProps;
     }
 
-    @Nullable
-    public Authentication authenticate(String username, String password, String registrationId) throws AuthenticationException {
-        return authenticate(new PasswordAuthenticationToken(registrationId, username, password, null));
-    }
-
     @Override
     @Nullable
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -82,8 +78,26 @@ public class PasswordAuthenticationProvider extends IsyOAuth2AuthenticationProvi
     }
 
     @Override
-    public boolean supports(Class authentication) {
+    public boolean supports(Class<?> authentication) {
         return PasswordAuthenticationToken.class.isAssignableFrom(authentication);
+    }
+
+    private PasswordAuthenticationToken fillCredentialsFromConfigIfNotProvided(PasswordAuthenticationToken passwordAuth) {
+        if (StringUtils.hasText(passwordAuth.getUsername())) {
+            LOG.debug("Found username in authentication request. Using it as is.");
+            return passwordAuth;
+        } else {
+            LOG.debug("Authentication request does not contain credentials. "
+                    + "Trying to create new request with credentials from isy.security.oauth.client properties.");
+            String registrationId = passwordAuth.getRegistrationId();
+            AdditionalRegistrationProperties props = isyOAuth2ClientProps.getRegistration()
+                    .get(registrationId);
+            if (props == null) {
+                throw new BadCredentialsException(
+                        String.format("No configured credentials found for client with registrationId: %s.", registrationId));
+            }
+            return new PasswordAuthenticationToken(registrationId, props.getUsername(), props.getPassword(), props.getBhknz());
+        }
     }
 
     private OAuth2AuthorizedClient obtainAuthorizedClient(ClientRegistration clientRegistration,
@@ -99,24 +113,6 @@ public class PasswordAuthenticationProvider extends IsyOAuth2AuthenticationProvi
                 .password(passwordGrantBuilder -> passwordGrantBuilder.accessTokenResponseClient(responseClient))
                 .build();
         return clientProvider.authorize(authorizationContext);
-    }
-
-    private PasswordAuthenticationToken fillCredentialsFromConfigIfNotProvided(PasswordAuthenticationToken passwordAuth) {
-        if (StringUtils.hasText(passwordAuth.getUsername())) {
-            LOG.debug("Found username in authentication request. Using it as is.");
-            return passwordAuth;
-        } else {
-            LOG.debug("Authentication request does not contain credentials. "
-                    + "Trying to create new request with credentials from isy.security.oauth.client properties.");
-            String registrationId = passwordAuth.getRegistrationId();
-            IsyOAuth2ClientConfigurationProperties.AdditionalRegistrationProperties props = isyOAuth2ClientProps.getRegistration()
-                    .get(registrationId);
-            if (props == null) {
-                throw new BadCredentialsException(
-                        String.format("No configured credentials found for client with registrationId: %s.", registrationId));
-            }
-            return new PasswordAuthenticationToken(registrationId, props.getUsername(), props.getPassword(), props.getBhknz());
-        }
     }
 
     private OAuth2AccessTokenResponseClient<OAuth2PasswordGrantRequest> createPasswordTokenResponseClient(

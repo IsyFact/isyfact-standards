@@ -1,26 +1,20 @@
 package de.bund.bva.isyfact.security.oauth2.client.authentication;
 
-import java.util.Collections;
-
 import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.core.authority.AuthorityUtils;
 
 /**
- * AuthenticationToken holding a clientRegistrationId.
+ * AuthenticationToken holding the registration ID for Client Credentials Flow authentication.
  */
 public class ClientCredentialsAuthenticationToken extends AbstractAuthenticationToken {
-    /**
-     * OAuth2 client registration.
-     */
+
+    /** Registration ID of the OAuth 2.0 client that is configured for client credentials grant authentication. */
     private final String registrationId;
 
-    /**
-     * Creates a token with the supplied array of authorities.
-     *
-     * @param registrationId ID of OAuth2 client registration.
-     */
     public ClientCredentialsAuthenticationToken(String registrationId) {
-        super(Collections.emptyList());
+        super(AuthorityUtils.NO_AUTHORITIES);
         this.registrationId = registrationId;
+        setAuthenticated(false);
     }
 
     @Override
@@ -36,4 +30,5 @@ public class ClientCredentialsAuthenticationToken extends AbstractAuthentication
     public String getRegistrationId() {
         return registrationId;
     }
+
 }
