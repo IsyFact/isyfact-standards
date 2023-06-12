@@ -11,6 +11,46 @@ Die auf dieser Seite aufgeführten Hinweise sollen IsyFact Anwendungsentwicklern
 [[kapitel-geschaeftsanwendung]]
 == Geschäftsanwendung
 
+[[kapitel-bridge-module]]
+=== Bridge-Module
+Die drei in IsyFact 2 eingeführten Bridge-Module
+
+* `isy-serviceapi-core-bridge`
+* `isy-serviceapi-sst-bridge`
+* `isy-exception-sst-bridge`
+
+entfallen in IsyFact 3.
+In einer Anwendung, die bisher Bridge-Module verwendet und auf IsyFact 3 umgestellt werden soll, müssen daher Anpassungen vorgenommen werden.
+Die Tabelle <<table-bridge-module>> zeigt für jedes der drei Bridge-Module, durch welches Modul es ersetzt wird.
+Dabei ist zu beachten, dass zwei der Ersatzmodule in IsyFact 1-Versionen verwendet werden.
+
+[[table-bridge-module]]
+.Abhängigkeiten in IsyFact 2 vs. IsyFact 3
+[cols="1,1",options="header"]
+|===
+|Abhängigkeit in IsyFact 2 | Abhängigkeit in IsyFact 3
+
+|`isy-serviceapi-core-bridge`|`isy-serviceapi-core`
+|`isy-serviceapi-sst-bridge`|`isy-serviceapi-sst`, Version `1.11.1`
+|`isy-exception-sst-bridge`|`isy-exception-sst`, Version `1.11.1`
+|===
+
+
+Zudem wird die Klasse
+[source]
+----
+de.bund.bva.isyfact.exception.service.bridge.util.BridgeExceptionMapper
+----
+ersetzt durch:
+[source]
+----
+de.bund.bva.isyfact.serviceapi.common.exception.ExceptionMapper
+----
+
+[[kapitel-ueberwachung]]
+=== Überwachung
+Es sind die xref:isy-ueberwachung:nutzungsvorgaben/master.adoc[] zu IsyFact 3 zu verwenden.
+
 [[kapitel-bausteine]]
 == Bausteine
 
@@ -32,6 +72,8 @@ Die auf dieser Seite aufgeführten Hinweise sollen IsyFact Anwendungsentwicklern
 Ab IsyFact 3 ist die *Verwendung von REST-Schnittstellen* für die Neuentwicklung verbindlich.
 Spring HTTP-Invoker ist deprecated und wird ab sofort als Schnittstellenformat durch REST abgelöst.
 Die Verwendung von REST-Schnittstellen wird im Baustein REST (siehe xref:isy-service-rest:konzept/master.adoc[] und xref:isy-service-rest:nutzungsvorgaben/master.adoc[]) erläutert.
+Desweiteren wurden die Bridge-Module `isy-serviceapi-core-bridge`, `isy-serviceapi-sst-bridge` und `isy-exception-sst-bridge` entfernt.
+
 ====
 
 [WARNING]
