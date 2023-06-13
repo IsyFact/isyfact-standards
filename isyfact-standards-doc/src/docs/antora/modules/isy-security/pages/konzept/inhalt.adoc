@@ -546,7 +546,7 @@ Zur Prüfung der Echtheit muss die Signatur von dem IsyFact-Anwendungssystem ver
 
 *Prüfung des Access-Tokens auf Gültigkeit*
 
-Acess-Tokens besitzen eine zeitlich begrenzte Gültigkeit, die im Ermessen der Anwendungslandschaft definiert werden kann
+Access-Tokens besitzen eine zeitlich begrenzte Gültigkeit, die im Ermessen der Anwendungslandschaft definiert werden kann
 Durch die begrenzte zeitliche Gültigkeit kann sichergestellt werden, dass das Access-Token kein 'ewiger Universalschlüssel' ist, sondern regelmäßig erneuert werden muss.
 Die Prüfung auf Gültigkeit gibt an, ob der Ablaufzeitpunkt des Access-Tokens bereits erreicht wurde.
 Zur Prüfung der Gültigkeit muss der im Header-Claim 'exp' enthaltene Zeitstempel in der Zukunft liegen.
@@ -572,7 +572,7 @@ Der Ressourcen-Server liest das Access-Token aus dem Request-Header und gibt - n
 [[aktualisierung-der-token]]
 ==== Aktualisierung der Acess-Token
 
-Ein Access-Token muss ein begrenzte Gültigkeitesdauer besitzen, um den Zugriff auf geschützte Ressourcen zeitlich zu beschränken.
+Ein Access-Token muss eine begrenzte Gültigkeitsdauer besitzen, um den Zugriff auf geschützte Ressourcen zeitlich zu beschränken.
 Sobald die Gültigkeitsdauer überschritten ist, muss das Access-Token als ungültig erkannt werden (siehe <<validierung-der-token>>).
 Die Verwendung eines abgelaufenen Access-Tokens bei einer Anfrage muss vom empfangenden System erkannt und mit HTTP status error code: 401 und der Fehlerbeschreibung: "The access token expired" beantwortet werden, wie in beschrieben.
 Der Aufrufer muss die Antwort verarbeiten und die Anfrage mit einem gültigen Access-Token erneut senden.
