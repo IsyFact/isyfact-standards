@@ -20,6 +20,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.net.HttpURLConnection;
+import java.util.Optional;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.remoting.httpinvoker.HttpInvokerClientConfiguration;
@@ -31,6 +32,8 @@ import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.serviceapi.common.konstanten.EreignisSchluessel;
+
+import javax.annotation.Nullable;
 
 /**
  * Extension to the Spring {@link SimpleHttpInvokerRequestExecutor} which allows
@@ -45,8 +48,10 @@ public class TimeoutWiederholungHttpInvokerRequestExecutor extends SimpleHttpInv
     private static final IsyLogger LOG = IsyLoggerFactory
             .getLogger(TimeoutWiederholungHttpInvokerRequestExecutor.class);
 
-    /** {@link AufrufKontextVerwalter} to set the OAuth 2 Bearer Token. */
-    private final AufrufKontextVerwalter<?> aufrufKontextVerwalter;
+    /**
+     * {@link AufrufKontextVerwalter} to set the OAuth 2 Bearer Token.
+     */
+    private final Optional<AufrufKontextVerwalter<?>> aufrufKontextVerwalterOptional;
 
     /** Timeout for the request. */
     private int timeout;
@@ -59,10 +64,17 @@ public class TimeoutWiederholungHttpInvokerRequestExecutor extends SimpleHttpInv
 
     /**
      * Constructor. Sets the {@link AufrufKontextVerwalter} bean.
+     */
+    public TimeoutWiederholungHttpInvokerRequestExecutor() {
+        this(null);
+    }
+
+    /**
+     * Constructor. Sets the {@link AufrufKontextVerwalter} bean.
      * @param aufrufKontextVerwalter new value for the {@link AufrufKontextVerwalter}.
      */
-    public TimeoutWiederholungHttpInvokerRequestExecutor(AufrufKontextVerwalter<?> aufrufKontextVerwalter) {
-        this.aufrufKontextVerwalter = aufrufKontextVerwalter;
+    public TimeoutWiederholungHttpInvokerRequestExecutor(@Nullable AufrufKontextVerwalter<?> aufrufKontextVerwalter) {
+        this.aufrufKontextVerwalterOptional = Optional.ofNullable(aufrufKontextVerwalter);
     }
 
     @Override
@@ -101,12 +113,17 @@ public class TimeoutWiederholungHttpInvokerRequestExecutor extends SimpleHttpInv
     @Override
     protected void prepareConnection(HttpURLConnection con, int contentLength) throws IOException {
         super.prepareConnection(con, contentLength);
-        if (aufrufKontextVerwalter.getBearerToken() != null) {
-            con.setRequestProperty(HttpHeaders.AUTHORIZATION, "Bearer " + aufrufKontextVerwalter.getBearerToken());
-        } else {
-            LOG.info(LogKategorie.JOURNAL, EreignisSchluessel.KEIN_BEARER_TOKEN_IM_AUFRUFKONTEXT,
-                    "Kein Bearer-Token im AufrufKontextVerwalter. Der Authorization-Header wird nicht gesetzt.");
+
+        if (aufrufKontextVerwalterOptional.isPresent()) {
+            String bearerToken = aufrufKontextVerwalterOptional.get().getBearerToken();
+            if (bearerToken != null) {
+                con.setRequestProperty(HttpHeaders.AUTHORIZATION, "Bearer " + bearerToken);
+            } else {
+                LOG.info(LogKategorie.JOURNAL, EreignisSchluessel.KEIN_BEARER_TOKEN_IM_AUFRUFKONTEXT,
+                        "Kein Bearer-Token im AufrufKontextVerwalter. Der Authorization-Header wird nicht gesetzt.");
+            }
         }
+
         con.setReadTimeout(timeout);
         con.setConnectTimeout(timeout);
     }
