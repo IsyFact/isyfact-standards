@@ -19,30 +19,34 @@ import de.bund.bva.isyfact.serviceapi.common.konstanten.EreignisSchluessel;
 
 /**
  * {@link HttpInvokerServiceExporter} with disabled {@link #isAcceptProxyClasses()}.
+ *
  * @deprecated This module is deprecated and will be removed in a future release.
  * It is recommended to use <a href="https://isyfact.github.io/isyfact-standards-doku/latest/isy-service-rest/konzept/master.html">REST according to IsyFacts REST Concept</a> instead.
  */
 @Deprecated
 public class IsyHttpInvokerServiceExporter extends HttpInvokerServiceExporter {
 
-    /** The Logger. */
+    /**
+     * The Logger.
+     */
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(IsyHttpInvokerServiceExporter.class);
 
-    /** Reference to the object managing the current call context. */
+    /**
+     * Reference to the object managing the current call context.
+     */
     private final Optional<AufrufKontextVerwalter<?>> aufrufKontextVerwalterOptional;
 
     /**
      * Default Constructor.
      */
-    public IsyHttpInvokerServiceExporter () {
+    public IsyHttpInvokerServiceExporter() {
         this(null);
     }
 
     /**
      * Creates a HttpInvokerServiceExporter with {@link #isAcceptProxyClasses()} set to {@code false}.
      *
-     * @param aufrufKontextVerwalter
-     *         for accessing the AufrufKontextVerwalter when handling requests
+     * @param aufrufKontextVerwalter for accessing the AufrufKontextVerwalter when handling requests
      */
     public IsyHttpInvokerServiceExporter(@Nullable AufrufKontextVerwalter<?> aufrufKontextVerwalter) {
         setAcceptProxyClasses(false);
