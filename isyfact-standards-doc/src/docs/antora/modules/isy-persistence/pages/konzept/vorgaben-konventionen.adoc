@@ -136,14 +136,111 @@ Dabei erfolgt der Zugriff auf die zweite Datenbank getrennt über einen weiteren
 [[verwendung-von-hibernate-filtern]]
 === Verwendung von Hibernate Filtern
 
-Parametrisierte Hibernate Filter bieten die Möglichkeit Daten zur Laufzeit mit Sichtbarkeitsregeln auszuwerten, ohne viele verschiedene Varianten von Abfragen schreiben zu müssen.
-Dabei können sie pro Session aktiviert oder deaktiviert werden, standardmäßig sind sie deaktiviert.
-Die Filter können auf Klassen- oder Collection-Ebene definiert werden und können bestehende „where“-Klauseln erweitern.
+Wenn in einer Anwendung viele wiederkehrende Abfragen auf Entitäten erfolgen, können Hibernate Filter eingesetzt werden, um die "WHERE-Klauseln" der Abfragen zu vereinfachen oder zu ersetzen.
 
+Außer der dafür vorgesehenen @Filter Annotation gibt es auch die @Where Annotation, die jedoch immer aktiv ist und eine statische Filterung durchführt.
+Deshalb wird diese Möglichkeit nicht bzw. nur im Ausnahmefall empfohlen und hier nicht näher betrachtet, siehe aber <<beispiel-where-annotation, Beispiel @Where Annotation>>.
+
+.icon:university[title=Architekturregel] Architekturregel
+****
+Hibernate Filter vereinfachen wiederkehrende Abfragen.
+Sie können dynamisch gesetzt sowie pro Hibernate Session aktiviert und deaktiviert werden.
+Sie können an Entitäten und Collections (Assoziationen) definiert werden.
+****
+
+.icon:university[title=Architekturregel] Architekturregel
+****
 Wenn das fachliche Datenmodell variable Sichtbarkeitsregeln in größerem Umfang benötigt, sollten diese mit Hibernate Filtern umgesetzt werden.
-Das ersetzt eine Multiplizierung aller Abfragen.
+****
 
-Filter müssen als Annotationen mit `@FilterDef`, `@Filters` und `@Filter` umgesetzt werden.
+==== Beispiele für die Verwendung von Hibernate Filtern
+
+Zur Veranschaulichung wird ein Beispiel für die Verwendung von Hibernate Filtern aufgeführt.
+Es gibt eine Entität "User" und eine Entität "Item" sowie eine 1:n-Assoziation zwischen User und Item.
+Die Entität Item hat ein Attribut "deleted", das als Soft Delete verwendet wird.
+(Dies ist keine Empfehlung, Soft Deletes zu verwenden.)
+
+[[listing-beispiel-hibernate-filter]]
+.Hibernate Filter auf Klassen-Ebene und Collection-Ebene
+[source,java]
+----
+@Entity
+//Definition Hibernate Filter
+@FilterDef(
+     name="aktuellesItem",
+     parameters = @ParamDef(
+         name="geloescht",
+         type="boolean"
+    )
+)
+//Beispiel für Hibernate Filter auf Klassen-Ebene
+@Filter(
+     name="aktuellesItem",
+     condition="item_geloescht = :geloescht"
+)
+public class Item {
+     @Id
+     private Long id;
+
+     @Column(name = "item_geloescht")
+     private boolean deleted;
+}
+
+@Entity
+public class User {
+    @Id
+    private Long id;
+
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    //Beispiel für Hibernate Filter auf Collection-Ebene
+    @Filter(
+        name="aktuellesItem",
+        condition="item_geloescht = :geloescht"
+    )
+    private Set<Item> items;
+    public Set<Item> getItems(){
+	    return items;
+    }
+}
+----
+
+[[listing-zugriff-hibernate-filter]]
+.Zugriff auf Klasse und Collection mit Hibernate Filter
+[source,java]
+----
+//Zugriff per Spring Data Repository
+@Autowired
+private ItemRepository itemRepository;
+
+@Autowired
+private UserRepository userRepository;
+
+//Hibernate Filter ist deaktiviert per Default
+List<Item> alleItems = itemRepository.findAll();
+assertEquals(3, alleItems.size());
+
+User user = userRepository.findById(1).orElse(null);
+assertEquals(3, user.getItems());
+
+//Hibernate Filter aktivieren
+entityManager
+    .unwrap(Session.class)
+    .enableFilter("aktuellesItem")
+    .setParameter("geloescht", false);
+
+List<Item> aktuelleItems = itemRepository.findAll();
+assertEquals(2, aktuelleItems.size());
+
+assertEquals(2, user.getItems());
+----
+
+CAUTION: Suchen per Identifier (itemRepository.findById(1)) filtert nicht, siehe xref:glossary:literaturextern:inhalt.adoc#litextern-hibernate-filter[Filtering entities and associations].
+
+[[beispiel-where-annotation]]
+Das Beispiel lässt sich auch mit der @Where Annotation umsetzen.
+Die Anwendung kann dann jedoch keine gelöschten Items abfragen.
+
 
 [[verbot-von-bulk-queries]]
 === Verbot von Bulk-Queries
