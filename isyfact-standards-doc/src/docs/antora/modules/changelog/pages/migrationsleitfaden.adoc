@@ -83,8 +83,8 @@ spring.security.oauth2.client.registration.TestClient.provider=TestRealm
 [[kapitel-task-scheduler]]
 === Task Scheduler
 
-In IsyFact 3.0 wurden die Nutzungsvorgaben zur authentifizierung von Tasks aktualisiert, da der Task Scheduling Baustein auf `isy-security` umgestellt wurde.
-Statt Benutzer, Passwort und BHKNZ (siehe <<task-properties-isy-sicherheit>>) muss in den Task Properties nur noch eine `registration-id` konfiguriert werden (siehe <<task-properties-isy-security>>).
+In IsyFact 3.0 wurden mit der Umstellung auf `isy-security` die Nutzungsvorgaben zur xref:isy-task:nutzungsvorgaben/master.adoc#spring-konfiguration[Authentifizierung von Tasks] aktualisiert.
+Statt Benutzer, Passwort und BHKNZ (siehe <<task-properties-isy-sicherheit>>) muss in den Task Properties eine `registration-id` konfiguriert werden (siehe <<task-properties-isy-security>>).
 
 [[task-properties-isy-sicherheit]]
 .Properties mit isy-sicherheit in IsyFact 2
