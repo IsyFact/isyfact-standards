@@ -71,12 +71,26 @@ Werden generische Datenstrukturen verwendet, dann ist es obligatorisch, dass fü
 Dieser Datenbank-View enthält alle Attribute der Entitäten mit einem sprechenden Namen.
 Diese Datenbank-Views können dann beim direkten Zugriff mit Datenbankwerkzeugen und bei der Fehleranalyse verwendet werden.
 
-[[vererbung-im-persistenz-klassenmodell-vermeiden]]
-=== Vererbung im Persistenz-Klassenmodell vermeiden
+[[vererbung-im-persistenz-klassenmodell]]
+=== Vererbung im Persistenz-Klassenmodell
 
-Klassenhierarchien (der Einsatz von Vererbung) sind bei Entitäten zu vermeiden.
-Abweichungen sind nur für eine Reduzierung der Komplexität des Persistenz-Klassenmodells erlaubt.
-Die Klassenhierarchie ist in diesem Fall möglichst flach zu halten.
+Vererbungshierarchien können in relationalen Datenbanken nicht direkt umgesetzt werden.
+Die Jakarta Persistence API Specification beschreibt deshalb mehrere Strategien des O/R-Mappings von Vererbungshierarchien.
+Sie werden im Baustein xref:isy-persistence:konzept/vorgaben-konventionen.adoc#vererbungshierarchien-regeln[JPA/Hibernate] beschrieben zusammen mit Regeln für ihre Verwendung.
+
+Für alle Strategien gilt, dass die abzubildende Vererbungshierarchie nicht zu umfangreich sein sollte.
+Datenbankzugriffe auf Tabellen mit großen Hierarchien sind meistens wenig performant.
+Außerdem lässt sich die Vererbungshierarchie anhand der Datenbanktabellen entweder nicht oder nur schwer erkennen, und die Tabellen können unübersichtlich werden.
+
+.icon:university[title=Architekturregel] Architekturregel
+****
+Vererbungshierarchien zur Abbildung in relationalen Datenbanken sollten nur eine Oberklasse mit einigen Subklassen umfassen, höchstens jedoch zwei Vererbungslevel haben.
+****
+
+.icon:university[title=Architekturregel] Architekturregel
+****
+Vererbungshierarchien zur Abbildung in relationalen Datenbanken sollten nur verwendet werden, wenn das fachliche Datenmodell dadurch optimal wiedergegeben wird.
+****
 
 [[fachlogik-in-persistenzklassen-vermeiden]]
 === Fachlogik in Persistenzlogik vermeiden
