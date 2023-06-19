@@ -186,6 +186,7 @@ image::header.mockup.drawio.svg[align="center"]
 <<image-header-aufbau>> verdeutlicht die Teile, aus denen er besteht:
 
 * *A* Logo des Anbieters der Anwendungslandschaft
+* *B* Balken in Primärfarbe der Anwendungslandschaft
 * *C* Logo der Anwendungslandschaft
 * *D* Informationen zum angemeldeten Anwender
 * *E + F* Hauptnavigation und Subnavigation als Flyout (zur Nutzung siehe <<hauptnavigation>>)
