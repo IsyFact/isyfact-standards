@@ -18,13 +18,12 @@ Es richtet sich vor allem an Software-Architekten, die eine Geschäftsanwendung 
 
 Das Kapitel xref:konzept/master.adoc#prinzipien-der-sicherheitsarchitektur[Prinzipien der Sicherheitsarchitektur] erläutert zunächst, wie sich die Sicherheitsarchitektur auf Ebene der Systemlandschaft und auf Ebene eines einzelnen IT-Systems darstellt.
 
+Danach beleuchtet das Kapitel xref:konzept/master.adoc#sicherheitsarchitektur-eines-it-systems[Sicherheitsarchitektur eines IT-Systems] die Einbettung des Bausteins Security in ein konkretes xref:glossary:glossary:master.adoc#glossar-it-system[IT-System].
+Hierbei werden im Abschnitt xref:konzept/master.adoc#aussensicht-der-komponente-security[Schnittstelle des Bausteins Security] die zur Verfügung gestellten Schnittstellen aufgeführt und der Abschnitt xref:konzept/master.adoc#aufruf-von-nachbarsystemen[Aufruf von Nachbarsystemen] befasst sich mit Vorgaben und Konventionen beim Einbinden von Nachbarsystemen.
+
 Im Kapitel xref:konzept/master.adoc#oauth2.0-und-openidconnect[OAuth2.0 und OpenIDConnect] ist das Verfahren zur Authentifizierung und Autorisierung mit OAuth2 und Spring Security beschrieben.
-Die Begrifflichkeiten zum Verständnis von OAuth2.0 werden im Abschnitt xref:konzept/inhalt.adoc#oauth2.0-zur-autorisierung[OAuth2.0 zur Autorisierung] erläutert und im Abschnitt xref:konzept/inhalt.adoc#authentifizierung-und-autorisierung[Authentifizierung und Autorisierung] wird die Authentifizierung und Autorisierung für Web-Oberflächen, Service-Gateways sowie Batches und Tasks beschrieben.
-
-Im Kapitel xref:konzept/inhalt.adoc#token[Token] wird der Aufbau und die Verwendung von Tokens erklärt.
-
-Danach beleuchtet das Kapitel xref:konzept/master.adoc#sicherheitsarchitektur-eines-it-systems[Sicherheitsarchitektur eines IT Systems] die Einbettung des Bausteins Security in ein konkretes xref:glossary:glossary:master.adoc#glossar-it-system[IT-System].
-Hierbei werden im Abschnitt xref:konzept/inhalt.adoc#aussensicht-der-komponente-security[Schnittstelle des Bausteins Security] die zur Verfügung gestellen Schnittstellen aufgeführt und der Abschnitt xref:konzept/inhalt.adoc#aufruf-von-nachbarsystemen[Aufruf von Nachbarsystemen] befasst sich mit Vorgaben und Konventionen beim Einbinden von Nachbarsystemen.
+Die Begrifflichkeiten zum Verständnis von OAuth2.0 werden im Abschnitt xref:konzept/master.adoc#oauth2.0-zur-autorisierung[OAuth2.0 zur Autorisierung] erläutert und im Abschnitt xref:konzept/master.adoc#authentifizierung-und-autorisierung[Authentifizierung und Autorisierung] wird die Authentifizierung und Autorisierung für Web-Oberflächen, Service-Gateways sowie Batches und Tasks beschrieben.
+Im Abschnitt xref:konzept/master.adoc#token[Access-Token] wird der Aufbau und die Verwendung von Access-Tokens erklärt.
 
 Das Kapitel xref:konzept/master.adoc#rollen-und-rechte[Rollen und Rechte] beschreibt dann abschließend, wie Rollen und Rechte für eine neue Geschäftsanwendung spezifiziert werden.
 // end::inhalt[]
