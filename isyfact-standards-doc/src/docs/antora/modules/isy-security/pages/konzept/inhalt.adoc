@@ -448,7 +448,7 @@ image::isy-security:konzept/Sequenzdiagramm_AbsicherungBatch.dn.svg[align="cente
 Über die Batch-Konfiguration wird gesteuert, ob der Batch mit einem _NatürlichenNutzer_ und den zugehörigen Authentifizierungsdaten `Benutzer` und `Passwort` über den xref:resource-owner-password-credential-flow[] oder über den xref:client-credential-flow[] mit einem _TechnischenNutzer_ (Client) mit `Client-ID` und `Client-Secret` authentifiziert und autorisiert wird.
 
 Je nach verwendetem _Credential_-Flow erfolgt mit den jeweiligen erhaltenen Authentifizierungsdaten des Batch-Nutzers dann die eigentliche Authentifizierung durch den IAM-Service der Plattform.
-Dazu werden die im Baustein `isy-security` bereitgestellten <<aussensicht-der-komponente-security, Schnittstellen>> genutzt.
+Dazu werden die im Baustein `isy-security` bereitgestellten <<aussensicht-der-komponente-security,Schnittstellen>> genutzt.
 
 Im IAM-Service wird zu den übergebenen _Authentifizierungsdaten_ der dort verwaltete Benutzer ermittelt und validiert.
 Bei erfolgreicher Authentifizierung wird aus den Benutzerdaten ein _Access-Token_ generiert.
@@ -630,7 +630,7 @@ Ebenso sind Änderungen an Anwendern oder ihren zugehörigen Rollen transparent 
 
 Rollen werden bereits auf fachlicher Ebene als Teil der Systemspezifikation einer Geschäftsanwendung spezifiziert.
 Dazu werden zunächst in geeigneter Granularität Rechte definiert, die zur Benutzung bestimmter Funktionalität der Geschäftsanwendung berechtigen.
-Diese Rechte werden fachlichen Rollen zugeordnet, die dann wiederum den Anwendern der Anwendung zugeordnet werden können.
+Diese Rechte werden fachliche Rollen zugeordnet, die dann wiederum den Anwendern der Anwendung zugeordnet werden können.
 Die fachlichen Rollen ermöglichen in der Regel pauschal den Zugriff auf die Geschäftsanwendung oder, im Sinne der Rolle eines fachlichen Sachbearbeiters, die Nutzung ausgewählter Anwendungsfälle.
 
 [[struktur-einer-rolle]]
