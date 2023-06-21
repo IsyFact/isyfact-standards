@@ -1644,16 +1644,6 @@ Die ausgewählte Zeile wird farbig hinterlegt.
 Mittels der Umschalt-Taste und Klick auf das erste und letzte Element wird der dazwischen liegende Bereich selektiert.
 ** Sofern der Hauptanwendungsfall in einer Tabelle die Auswahl von einem oder mehreren Objekten ist, sollte zusätzlich eine Check Box Spalte integriert werden. Über eine Checkbox im Header können alle Zeilen gleichzeitig aus- oder abgewählt werden.
 
-* Default-Selektion
-** Bei Tabellen auf deren Objekte (Zeilen) weitere Aktionen angewendet werden können, ist eine Default Selektion sinnvoll.
-** In der Regel wird die erste Zeile per Default selektiert.
-
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Ohne JavaScript ist die Selektion von Tabellenzeilen nur über Checkboxen möglich.
-
 
 [[aktionen-tabelle]]
 ==== Aktionen in einer Tabelle
