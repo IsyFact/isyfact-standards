@@ -1710,6 +1710,7 @@ Für diese Zwecke sollten Buttons verwendet werden.
 *Richtlinien zur Anwendung*
 
 Beispielgrafik für den Internetexplorer 9 siehe <<image-darstellungsbeispielie>>.
+* Eine benötigte Check Box wird mit einem roten Sternchen markiert.
 * Für eine optimierte Usability sollte sowohl der Check Box Button als auch das Text Label geklickt werden können, um den Checked-State zu verändern.
 * Eine Gruppe von Check Boxen sollte immer eine Beschriftung aufweisen, die entsprechend bei einer einzelnen Checkbox entfallen kann.
 * Die Beschriftung einer Check Box sollte positiv formuliert sein, z. B. „Objekte einblenden“ statt „Objekte ausblenden".
