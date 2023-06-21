@@ -1614,28 +1614,6 @@ Hat eine Zeile eine Checkbox und ein Statusicon so wird die Checkbox ganz links 
 * Für Spalten deren Inhalte eine abschätzbare Länge haben wie z.B. Datum oder Geschlecht, sollte in der Regel eine feste Spaltenbreite gewählt werden.
 * Für Inhalte, deren Länge flexibel oder unbestimmt ist wie z.B. Nachnamen, sollte eine flexible Breite gewählt werden.
 
-[[sortierung-tabelle]]
-==== Sortierung in einer Tabelle
-
-[[image-tabellesortierungimkopf]]
-.Tabelle – Sortierungs-Indikator in Tabellenkopf
-image::Tabelle_Sortierung.png[align="center", width="627",height="137"]
-
-
-*Richtlinien zur Anwendung*
-
-* Der erste Klick in einen Spaltenheader sortiert die Tabelle aufsteigend, der zweite Klick absteigend.
-* Ein Sortierungs-Indikator (Dreieck) neben dem Label zeigt die aktuell eingestellte Sortierung an.
-* Dreieck nach unten: Absteigende Sortierung
-* Dreieck nach oben: Aufsteigende Sortierung
-* Eine farbige Fläche im Tabellenkopf hebt die aktuell angewandte Sortierung hervor.
-
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Ohne JavaScript kann die Sortierung nur durch das Neu-Laden der Seite bewirkt werden.
-
 [[selektionsverhalten-tabelle]]
 ==== Selektionsverhalten in einer Tabelle
 
