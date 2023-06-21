@@ -1728,58 +1728,6 @@ Sollte eine Gruppe von Checkboxen aus einer großen Anzahl von Optionen bestehen
 image::Checkboxen_Gruppe_Optionen.png[image,width=517,height=210]
 
 
-[[status-von-bedienelemententen]]
-=== Status von Bedienelementen
-
-Je nach Kontext können manche Elemente, in der Regel Eingabeelemente, verschiedene Zustände annehmen.
-
-[[image-statusbedienelemente]]
-.Status von Bedienelementen – Beispiel Eingabefeld
-image::Eingabeelemente.png[align="center",  width="685",height="25"]
-
-
-*Regeln zur Anwendung*
-
-
-* Die drei häufigsten Zustände sind:
-** *Normal*
-+
-Das Element kann vom Benutzer bedient werden.
-
-** *Deaktiviert (Disabled)*
-+
-Das Element kann nicht bedient werden.
-Es ist z.B. aufgrund der Auswahl einer anderen Option deaktiviert.
-Eventuell zuvor eingegebene Werte werden nicht berücksichtigt.
-Das Element selbst, dessen Beschriftung sowie eventuell existierende Eingaben, werden „ausgegraut“ dargestellt.
-
-** *Read-Only (nur lesbar)*
-+
-Das Element kann nicht direkt bedient werden. Eventuell kann es jedoch mittelbar bedient werden, z.B. durch die Änderung eines anderen Wertes.
-
-* Weitere Zustände:
-
-** *Hover (MouseOver)*
-+
-Wird die Maus über ein Element bewegt so wird dieses Element mittels eines Hover-Effekts optisch hervorgehoben.
-
-** *Pressed*
-+
-In dem Moment in dem per Maus oder Tastatur ein Element ausgewählt wird, wird dieses als Pressed dargestellt.
-
-** *Focus*
-+
-Der Focus liegt auf einem Element.
-Der Focus kann per Mausklick oder mit Hilfe der Tabulatortasten der Tastatur geändert werden.
-
-** *Selektiert*
-+
-Ein Element ist ausgewählt und bleibt in diesem Zustand.
-
-** *Validierung*
-
-Elemente, die einer Validierung unterzogen werden (vor allem in Formularen), werden bei fehlerhaften Eingaben gesondert hervorgehoben.
-
 [[design-patterns]]
 == Design Patterns
 
