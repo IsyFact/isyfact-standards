@@ -1583,43 +1583,6 @@ _"4-Augen-Prinzip Eingabefelder"_ erfordern, dass die durch einen ersten Benutze
 Welche Anwendungslogik mit einer 4-Augen-Prinzip Textbox umgesetzt wird, bleibt der expliziten Fachanwendung vorbehalten.
 s.a. <<bsp-anwendungsfall-vier-augen>>
 
-[[dropdown-menue]]
-=== Dropdown Menü
-
-Mit einem Dropdown Menü kann der Benutzer per Mausklick oder Tastatur-Bedienung genau einen Wert aus einer Liste von Optionen auswählen.
-
-[[image-bildddropdownmenue]]
-.Dropdown Menü
-image::Dropdown_Menue.png[align="center", width="627",height="156"]
-
-
-*Zustände*
-
-* Button (selektierte Option)
-
-** Normal
-** Hover
-** Pressed
-** Deaktiviert
-** Focus
-
-* Menü (Auswahl Menü)
-** Normal
-** Hover
-** Pressed
-** Selektiert
-
-
-*Ist dies das korrekte Bedienelement?*
-
-* Ein Dropdown Menü wird eingesetzt, wenn der Benutzer genau eine Option aus einer Menge sich gegenseitig ausschließender Optionen wählen kann.
-* Handelt es sich nur um eine sehr kleine Menge (typischerweise weniger als fünf) an Auswahl-Optionen, muss geprüft werden, ob die Verwendung einer Gruppe von Radiobuttons besser geeignet ist, da die möglichen Optionen eines Dropdown Menü erst nach dem Öffnen der Liste ersichtlich werden.
-Ist im Layout nicht ausreichend Platz vorhanden kann ein Dropdown Menü auch für kleinere Mengen genutzt werden.
-* Das Dropdown Menü eignet sich aufgrund seiner kompakten Größe dazu, die Betonung auf andere, wichtigere Aspekte eines User-Interface zu lenken.
-Sollte die Auswahl des entsprechenden Wertes jedoch explizit hervorgehoben werden, so wird statt eines Dropdown Menüs z.B. eine Gruppe von _Radiobuttons_ verwendet.
-* Kann der Benutzer mehr als eine Option wählen? Falls ja, dann wird statt eines Dropdown Menüs eine Gruppe von _Checkboxen_ verwendet.
-* Wird durch die Auswahl einer Option eine Funktion direkt ausgelöst, so ist ein _Menü Button_ dem Dropdown Menü vorzuziehen.
-
 *Richtlinien zur Anwendung*
 
 * Die Liste der Werte sollte nicht zu groß sein (maximal 10-12 Einträge), da der Benutzer sonst innerhalb des Auswahl-Menüs scrollen muss und es zu Usability-Problemen kommen kann.
