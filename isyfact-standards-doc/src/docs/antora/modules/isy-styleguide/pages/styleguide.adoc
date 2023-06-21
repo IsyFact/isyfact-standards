@@ -1456,54 +1456,6 @@ Elemente wie Eingabefelder, Radiobuttons oder Checkboxen werden typischerweise m
 
 Ein Eingabefeld dient der Eingabe von Daten durch den Benutzer. Dies kann ein einzeiliger oder mehrzeiliger Text sein oder auch beispielsweise ein Datum, ein numerischer Wert oder eine Betragseingabe (Währungsbetrag, Fließkommazahl).
 
-
-[[standard-eingabefeld]]
-==== Standard Eingabefeld
-Das Standard Eingabefeld ist einzeilig.
-
-[[image-eingabefelderbis]]
-.Eingabefelder
-image::Eingabeelemente.png[align="center", width="685",height="31"]
-
-
-*Zustände*
-
-* Normal
-* Hover
-* Deaktiviert
-* Focus
-* Read-Only
-* Validierung
-
-
-*Ist dies das korrekte Bedienelement?*
-
-* Eingabefelder werden für die Eingabe von Freitext genutzt.
-* Falls die einzugebenden Daten Teil einer vordefinierten Menge sind, sollte die Verwendung eines Dropdown Menü oder einer Wertehilfe in Erwägung gezogen werden.
-
-*Richtlinien zur Anwendung*
-
-* Die Breite eines Eingabefeldes sollte der Länge des maximal möglichen Inhalts entsprechen.
-* Viele unterschiedliche Größen sollten jedoch vermieden werden, um ein harmonisches Gesamtbild zu erhalten.
-Es sollten daher nicht mehr als drei verschiedene Klassen von Feldgrößen verwendet werden.
-* Es kann jedoch auch sinnvoll sein, Eingabefelder exakt auf die zu erwartende Eingabe anzupassen, so z. B. bei der Eingabe von festen Größen wie einer Postleitzahl.
-Dies muss von Fall zu Fall entschieden werden.
-* Werden in ein Eingabefeld oftmals gleiche oder ähnliche Daten eingegeben, sollte eine Form von Eingabehilfe wie Autovervollständigung (siehe Kapitel Autosuggestion) zur Verfügung gestellt werden.
-* Um die Bedieneffizienz zu erhöhen, sollten Eingabefelder, deren Eingaben validiert werden, nach Möglichkeit verschiedene Eingabeformate unterstützen (z. B. in Bezug auf führende Nullen bei Datumsformaten: 8.1.09 oder 08.01.09).
-* Alphanumerische Zeichenketten sollten innerhalb eines Eingabefeldes linksbündig ausgerichtet werden.
-* Numerische Eingaben sollen rechtsbündig ausgerichtet werden, wenn optisch Summen gebildet werden sollen.
-Numerische Werte in alleinstehenden Eingabefeldern werden nicht rechtsbündig ausgerichtet.
-* Existieren sinnvolle Vorgaben, so kann ein Eingabefeld mit diesen als Platzhalter (siehe Kapitel Platzhalter) vorbelegt sein.
-So kann ein Datumsfeld unter bestimmten Umständen z. B. mit dem aktuellen Datum vorbelegt werden.
-Falls eine Vorbelegung jedoch potentiell risikobehaftet ist, sollte das Eingabefeld nicht vorbelegt werden.
-
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Es gelten die gleichen Regeln und Einschränkungen wie im Kapitel Validierung beschrieben.
-
-
 [[vier-augen-prinzip-eingabefeld]]
 ==== 4-Augen-Prinzip Eingabefelder
 
