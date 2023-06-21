@@ -1443,23 +1443,13 @@ Hier gilt es zu beachten, dass das Icon eindeutig und aussagekräftig die dahint
 Solche Bedienelemente können zusätzlich durch einen Tooltip unterstützt werden.
 Elemente wie Eingabefelder, Radiobuttons oder Checkboxen werden typischerweise mit einem Text-Label gekennzeichnet, während auf Schaltflächen häufig auch Icons verwendet werden.
 
-*Ist dies das korrekte Bedienelement?*
-
-* Möglichst jedes Bedienelement sollte mit einem Label versehen werden.
-* Zur besseren Strukturierung und Gliederung von formularbasierten Screens werden Labels im Inhaltsbereich in Form einer Überschrift verwendet.
-
 *Richtlinien zur Anwendung*
 
 * Labels sind möglichst kurz und prägnant formuliert.
-* Labels für alle Bedienelemente außer Radiobuttons und Checkboxen sollen nach Möglichkeit nicht aus mehr als drei Wörtern bestehen.
-* Es ist auf eine konsistente Groß- und Kleinschreibung der Labels zu achten.
 * Labels beginnen immer mit einem Großbuchstaben, auch Verben z.B. „Drucken“, „Exportieren“.
 * Für deutschsprachige Anwendungen sollten möglichst deutsche Begriffe benutzt werden.
 * Abkürzungen müssen sparsam verwendet und immer mit einem Tooltip versehen werden, der die Abkürzung erläutert.
-* Zu lange Labels werden mit Auslassungszeichen „...“ (eng.
-ellipsis) abgetrennt und ein Tooltip zeigt die ausgeschriebene Variante des Labels.
 * Bei Auswahl-Elementen wie Radiobuttons oder Checkboxen setzt ein Klick auf den Wert die entsprechende Option.
-
 
 [[eingabefelder-ueberschrift]]
 === Eingabefelder
