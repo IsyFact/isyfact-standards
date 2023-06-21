@@ -1501,9 +1501,6 @@ Neben diesen einzeiligen Eingabefeldtypen für das 4-Augen-Prinzip gibt es noch
 * Das Schloss Icon als visuelle Kennzeichnung des 4-Augen-Prinzip Eingabefeldes steht rechtsseitig im Eingabefeld. Sollten aufgrund des Feldtyps noch weitere Icons im Eingabefeld angezeigt werden müssen (z.B. bei Datumsfeldern das Datumspicker-Icon), so steht das Schloss-Icon noch vor dem anderen Icon (s.a. <<image-vier-augen-grundstyles>>)
 * Die Breite des 4-Augen-Prinzip Eingabefeldes vergrößert sich durch das Schloss-Icon nicht.
 
-*JavaScript*
-
-Außer beim reinen Eingabefeld wird bei allen anderen Eingabefeldtypen (Validierung des numerischen Wertes, Datumspicker, Werte-Plausibilitätsprüfungen, ...) JavaScript benötigt.
 
 [[bsp-anwendungsfall-vier-augen, Ablauf eines Anwendungsfalls mit 4-Augen-Prinzip]]
 *Nutzungsvorgaben*
@@ -1512,9 +1509,9 @@ Welche Anwendungslogik mit 4-Augen-Prinzip Eingabefeldern umgesetzt wird, bleibt
 
 Ein möglicher Ablauf eines Anwendungsfalls wäre folgender:
 
-* Ein Benutzer A hat Daten geändert, die gemäß des 4-Augen-Prinzips bestätigt werden müssen.
+* Ein Benutzer A hat Daten geändert, die gemäß dem 4-Augen-Prinzip bestätigt werden müssen.
 * Der Benutzer A speichert die Daten. Dadurch speichert das System die Daten unter Vorbehalt. D.h. Benutzer A sieht die Daten in der Anwendung als aktuelle Daten aber entsprechend markiert.
-Die ursprünglichen Werte wurden nicht überschrieben, so dass sie im Falle einer Ablehnung der Änderung wiederhergestellt werden können.
+Die ursprünglichen Werte wurden nicht überschrieben, sodass sie im Falle einer Ablehnung der Änderung wiederhergestellt werden können.
 * Das System benachrichtigt Benutzer B, um ihn zu informieren, dass Datenänderungen zur Prüfung vorliegen.
 * Das System sperrt die Daten für Veränderung durch Dritte bis die Änderungen von einem Benutzer B bestätigt oder abgelehnt wurden.
 * Der Benutzer B reagiert auf die Benachrichtigung, indem er den zu prüfenden Datensatz im System öffnet.
