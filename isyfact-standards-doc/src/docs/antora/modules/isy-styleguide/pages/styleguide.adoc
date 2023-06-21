@@ -1699,18 +1699,6 @@ Der Benutzer kann beliebige Optionen auswählen.
 .Check Box – Darstellungsbeispiel IE 9
 image::Checkboxes_IE.png[align="center", scalewidth= "60%" ]
 
-*Zustände*
-
-* Normal
-* Hover (Checkbox Label)
-* Pressed (Checkbox Label)
-* Focused
-* Deaktiviert
-* Validierung (Checkbox Label)
-* Tri State
-* Required - Rotes Sternchen an Label (in `formCheckbox` seit 4.0)
-* Optional - Blaues Sternchen an Label (in `formCheckbox` seit 4.0)
-
 *Ist dies das korrekte Bedienelement?*
 
 * Check Boxen können für das Setzen einer oder mehrerer, sich nicht gegenseitig ausschließender Optionen oder anderer Werte genutzt werden.
@@ -1721,14 +1709,9 @@ Für diese Zwecke sollten Buttons verwendet werden.
 
 *Richtlinien zur Anwendung*
 
-* Checkboxen werden browserspezifisch dargestellt, das heißt die Darstellung sieht in jedem Browser anders aus.
 Beispielgrafik für den Internetexplorer 9 siehe <<image-darstellungsbeispielie>>.
-* In der Regel besteht eine Check Box immer aus dem Check Box Button, der gleichzeitig als Indikator für den Checked-State dient und einem zugehörigen Text-Label.
 * Für eine optimierte Usability sollte sowohl der Check Box Button als auch das Text Label geklickt werden können, um den Checked-State zu verändern.
 * Eine Gruppe von Check Boxen sollte immer eine Beschriftung aufweisen, die entsprechend bei einer einzelnen Checkbox entfallen kann.
-* Das Text-Label einer Check Box steht immer hinter dem Bedienelement.
-* Für optimale Lesbarkeit sollten Check Boxes vertikal untereinander angeordnet sein.
-* In Einzelfällen kann die Check Box auch alleinstehend verwendet werden, um eine bestimmte Funktionalität an- und auszuschalten oder um bestimmte Inhaltsbereiche zu aktivieren/deaktivieren
 * Die Beschriftung einer Check Box sollte positiv formuliert sein, z. B. „Objekte einblenden“ statt „Objekte ausblenden".
 * * Neben den normalen Zuständen „Ein/Aus“ kann eine Check Box noch einen dritten Zustand „nicht definiert“ annehmen, so z. B. wenn die Check Box in einer Hierarchie zur Selektion aller untergeordneten Elemente verwendet wird.
 Man spricht in diesem Fall von einer sogenannten „Tri State Check Box“__.__
@@ -1742,13 +1725,6 @@ Sollte eine Gruppe von Checkboxen aus einer großen Anzahl von Optionen bestehen
 [[image-checkbox-gruppe]]
 .Checkboxen auf mehreren Spalten
 image::Checkboxen_Gruppe_Optionen.png[image,width=517,height=210]
-
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Ohne JavaScript ist die Darstellung des Tristates nicht möglich.
-
 
 [[radio-button-ueberschrift]]
 === Radio Button
