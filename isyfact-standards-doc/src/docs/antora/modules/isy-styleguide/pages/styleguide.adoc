@@ -1587,7 +1587,7 @@ s.a. <<bsp-anwendungsfall-vier-augen>>
 === Tabelle
 
 Eine Tabelle dient der übersichtlichen Anzeige von größeren Datenmengen.
-Die Tabelle besteht aus mehreren Informationsspalten, die zur Sortie rung verwendet werden können.
+Die Tabelle besteht aus mehreren Informationsspalten, die zur Sortierung verwendet werden können.
 
 [[image-einfuehrungeinertabelle]]
 .Tabelle
@@ -1598,25 +1598,10 @@ image::Tabelle_Beispiel.png[align="center", width="687",height="243"]
 image::Tabelle_Interaktive_Zeilen.png[align="center", width="687",height="93"]
 
 
-*Zustände* (nur für interaktive Tabellenzeilen)
-
-* Normal
-* Hover
-* Pressed
-* Selektiert
-
-*Ist dies das korrekte Bedienelement?*
-
-* Tabellen werden genutzt, um große Mengen von Daten oder Objekten anzuzeigen.
-* Tabellen werden genutzt, um das Vergleichen von Daten zu ermöglichen.
-* Die Tabelle sollte nicht verwendet werden, wenn Objekte nur ein Attribut haben.
-In diesem Fall sollte auf eine Liste zurückgegriffen werden.
-
 *Richtlinien zur Anwendung*
 
 * Numerische Werte werden rechts ausgerichtet, wenn die Anzahl der Nachkommastellen in allen Zeilen identisch ist.
-* Überlaufende Textlabels sollten mit "…" abgetrennt und mit einem Tooltip ergänzt werden.
-* Die initale oder fixe Breite von Spalten muss sich an der zu erwartenden Maximalwortlänge orientieren.
+* Die initiale oder fixe Breite von Spalten muss sich an der zu erwartenden Maximalwortlänge orientieren.
 * In-Place Funktionen (Aktionen) sollten immer in der rechten äußeren Spalte platziert werden (z.B. „Preview Button“ zur Vorschau von Details).
 * Die Spalten mit den größten Wortlängen sollten den maximal verfügbaren Platz einnehmen (Stretching).
 * Werteinheiten sollten im Spalten-Header angezeigt werden, wenn sie für alle Zeilen der Tabelle identisch sind.
@@ -1624,18 +1609,10 @@ In diesem Fall sollte auf eine Liste zurückgegriffen werden.
 So ist sichergestellt, dass der Benutzer schnell erkennt welchen Status ein Objekt hat.
 Checkboxen bilden hier eine Ausnahme.
 Hat eine Zeile eine Checkbox und ein Statusicon so wird die Checkbox ganz links und das Statusicon in der darauffolgenden Spalte dargestellt.
-* Werden in einer Tabelle eine Vielzahl von Einträgen dargestellt, so kann es sinnvoll sein, dem Benutzer eine Filter-Zeile zur weiteren Einschränkung zur Verfügung zu stellen.
-* Resizing von Tabellen
-** Tabellen passen ihre Größe entsprechend der Fenstergröße an.
-
-* Die Tabelle nimmt immer die ihr zur Verfügung stehende Breite ein.
-* Hierbei ist auf ein sinnvolles Resizingverhalten der einzelnen Spalten zu achten.
-Dies ist stark vom Inhalt der Tabelle abhängig.
+* Tabellen passen ihre Größe entsprechend der Fenstergröße an.
 * Die Spalten einer Tabelle können eine feste oder variable Breite besitzen.
 * Für Spalten deren Inhalte eine abschätzbare Länge haben wie z.B. Datum oder Geschlecht, sollte in der Regel eine feste Spaltenbreite gewählt werden.
 * Für Inhalte, deren Länge flexibel oder unbestimmt ist wie z.B. Nachnamen, sollte eine flexible Breite gewählt werden.
-
-
 
 [[sortierung-tabelle]]
 ==== Sortierung in einer Tabelle
