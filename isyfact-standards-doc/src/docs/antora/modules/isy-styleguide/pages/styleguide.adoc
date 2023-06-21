@@ -1727,45 +1727,6 @@ Sollte eine Gruppe von Checkboxen aus einer großen Anzahl von Optionen bestehen
 .Checkboxen auf mehreren Spalten
 image::Checkboxen_Gruppe_Optionen.png[image,width=517,height=210]
 
-[[radio-button-ueberschrift]]
-=== Radio Button
-
-Radio Buttons dienen der eindeutigen Auswahl von sich ausschließenden Optionen.
-Der Benutzer kann also nur eine der Optionen auswählen.
-
-[[image-ieradiobutton]]
-.Radio Button – Darstellungsbeispiel IE 9
-image::RadioButtons_IE.png[align="center", scalewidth= "60%" ]
-
-
-*Zustände*
-
-* Normal
-* Hover (Radio Button Label)
-* Pressed (Radio Button Label)
-* Focused (Radio Button Label)
-* Deaktiviert
-* Validierung (Radio Button Label)
-
-*Ist dies das korrekte Bedienelement?*
-
-* Wenn der Benutzer genau eine Option aus einer sich gegenseitig ausschließenden Menge wählen kann, wird ein Radio Button genutzt.
-* Kann der Benutzer mehr als eine Option wählen? Falls ja, dann muss statt eines Radio Buttons eine Check Box verwendet werden.
-* Existiert nur eine Option, die einer „Ein/Aus“-Bedeutung entspricht, so muss statt eines Radio Buttons eine Check Box verwendet werden.
-* Die Verwendung von Radio Buttons empfiehlt sich für eine kleinere Anzahl an Optionen.
-Ist die Menge der zur Verfügung stehenden Optionen sehr groß oder hat der Platzbedarf eine große Bedeutung, so kann der Einsatz eines Dropdown Menüs in Betracht gezogen werden.
-* Ein Radio Button darf nicht genutzt werden, um unmittelbar Funktionen auszuführen oder Aktionen auszulösen.
-Für diese Zwecke sollten Buttons verwendet werden.
-
-*Richtlinien zur Anwendung*
-
-* Radio Buttons werden browserspezifisch dargestellt, das heißt die Darstellung sieht in jedem Browser anders aus.
-Beispielgrafik für den Internetexplorer 9 siehe <<image-ieradiobutton>>.
-* Eine Gruppe von Radio Buttons sollte immer eine Beschriftung aufweisen.
-* Für optimale Lesbarkeit sollten Radio Buttons vertikal untereinander angeordnet sein.
-* Sollte es wahrscheinlich sein, dass keine (oder alle) der angebotenen Optionen zutrifft, sollte eine Meta-Option wie „Keine Option“ („Alle“) angeboten werden.
-* Das Text-Label des Radio Buttons steht immer hinter dem Bedienelement.
-
 
 [[status-von-bedienelemententen]]
 === Status von Bedienelementen
