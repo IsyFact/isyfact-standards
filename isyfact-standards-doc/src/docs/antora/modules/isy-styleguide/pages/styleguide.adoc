@@ -1372,30 +1372,21 @@ Der Benutzer erhält immer im letzten Schritt des Wizards eine Erfolgsmeldung un
 [[bedienelemente-1]]
 == Bedienelemente
 
-In diesem Kapitel werden Bedienelemente besprochen und allgemeine Eigenschaften der Bedienelemente beschrieben.
-
-* Testbarkeit der Bedienelemente
-* Kontextabhängige Darstellung
-* Status
-* Resizing
-* Funktionalität ohne JavaScript
+In diesem Kapitel werden spezielle Bedienelemente besprochen und allgemeine Eigenschaften der Bedienelemente beschrieben.
 
 [[testbarkeit-bedienelemente]]
 *Testbarkeit der Bedienelemente*
 
 Um die Grundlage für automatische Tests (Einsatz von Testframeworks) von Bedienelementen einer Web-basierenden Anwendung zu schaffen, sollten allen Maskenobjekten im HTML-Sourcecode eindeutige IDs zugeordnet sein (s.a. Abschnitt: xref:Testbarkeit-von-Anwendungen[Testbarkeit von Web-basierenden Anwendungen]).
 
-
-
-
 *Kontextabhängige Darstellung*
 
 Falls bestimmte Elemente im Kontext nicht relevant sind, muss dies im User Interface berücksichtigt werden.
-Nicht relevante Komponenten können deaktiviert werden, so dass der Benutzer sie zwar sehen, jedoch nicht bedienen kann.
-Alternativ können nicht relevante Informationen und Komponenten ausgeblendet werden, so dass der Benutzer sie nicht sehen kann.
+Nicht relevante Komponenten können deaktiviert werden, sodass der Benutzer sie zwar sehen, jedoch nicht bedienen kann.
+Alternativ können nicht relevante Informationen und Komponenten ausgeblendet werden, sodass der Benutzer sie nicht sehen kann.
 
 *Ausblenden nicht relevanter Elemente*
-Elemente, die *dauerhaft* nicht relevant sind, sollten ausgeblendet werden, so dass sie für den Benutzer nicht sichtbar sind.
+Elemente, die *dauerhaft* nicht relevant sind, sollten ausgeblendet werden, sodass sie für den Benutzer nicht sichtbar sind.
 Hierzu zählen insbesondere Elemente, deren Relevanz auf Benutzer-Rollen basiert.
 Benutzer, die aufgrund ihrer Rolle z.B. keinen Zugriff auf bestimmte Funktionen haben, sollten diese auch nicht sehen.
 Im Folgenden ist zu sehen wie beispielsweise ein Objekt (hier eine Gruppierung) für Benutzer mit unterschiedlichen Rechten aussehen könnte.
@@ -1424,86 +1415,6 @@ Hierzu zählen u. a.:
 
 
 Verschiedene Bedienelemente, in der Regel Eingabeelemente, werden weiterhin zwischen den Zuständen deaktiviert und nur-lesbar unterschieden.
-Siehe hierzu das Kapitel Status von Bedienelementen.
-
-*Status von Bedienelementen*
-
-Je nach Kontext können manche Elemente, in der Regel Eingabeelemente, verschiedene Zustände annehmen.
-
-[[image-bedienelementestatus]]
-.Status von Bedienelementen – Beispiel Eingabefeld
-image::Eingabeelemente.png[align="center", width="629",height="29"]
-
-
-
-
-*Regeln zur Anwendung*
-
-* Die drei häufigsten Zustände sind:
-
-** *Normal*
-+
-Das Element kann vom Benutzer bedient werden.
-
-** *Deaktiviert (Disabled)*
-+
-Das Element kann nicht bedient werden.
-Es ist z.B. aufgrund der Auswahl einer anderen Option deaktiviert.
-Eventuell zuvor eingegebene Werte werden nicht berücksichtigt.
-Das Element selbst, dessen Beschriftung sowie eventuell existierende Eingaben, werden „ausgegraut“ dargestellt.
-
-** *Read-Only (nur lesbar)*
-+
-Das Element kann nicht direkt bedient werden.
-Eventuell kann es jedoch mittelbar bedient werden, z.B. durch die Änderung eines anderen Wertes.
-
-* Wird die Maus über ein Eingabefeld bewegt, ändert sich die Mauszeiger-Darstellung (Maus-Pointer) zu einem Eingabe-Cursor (ähnlich einem großen I). Auch bei read-only Feldern wird der Mauszeiger beibehalten, damit Text markiert und kopiert werden kann.
-Bei deaktivierten Eingabe-Feldern ändert sich die Mauszeiger-Darstellung hingegen zu einem „Verbotsschild“, um unmissverständlich darzustellen, dass solche Felder in keiner Weise bedient werden können.
-
-* Weitere Zustände:
-
-** **Hover (MouseOver)**
-+
-Wird die Maus über ein Element bewegt so wird dieses Element mittels eines Hover-Effekts optisch hervorgehoben.
-** *Pressed*
-+
-In dem Moment in dem per Maus oder Tastatur ein Element ausgewählt wird, wird dieses als Pressed dargestellt.
-** *Focus*
-+
-Der Focus liegt auf einem Element.
-Der Focus kann per Mausklick oder mit Hilfe der Tabulatortasten der Tastatur geändert werden.
-
-** **Selektiert**
-+
-Ein Element ist ausgewählt und bleibt in diesem Zustand.
-
-** **Validierung**
-+
-Elemente die einer Validierung unterzogen werden (vor allem in Formularen) werden bei fehlerhaften Eingaben gesondert hervorgehoben.
-
-
-*Resizing von Bedienelementen*
-
-Bedienelemente sind in der Regel von Größenänderungen des Browsers nicht betroffen.
-
-Es gibt einige Ausnahmen wie beispielsweise Tabellen.
-Diese Ausnahmen werden an den entsprechenden Stellen erläutert.
-
-*Funktionalität ohne JavaScript*
-
-image::no-js.png[]
-
-Viele heutzutage übliche Bedienelemente, Gestaltungslösungen und Komfortfunktionen für Webapplikationen setzen die Benutzung von JavaScript voraus.
-Ohne die Verwendung von JavaScript sind die Möglichkeiten der Benutzerinteraktion mit Webseiten demzufolge stark eingeschränkt.
-
-* Ohne JavaScript ist es dem Browser nicht möglich nach Benutzerinteraktion mit einem Steuerelement andere Teile der Webseite zu beeinflussen oder auszutauschen.
-* Die Webapplikation kann nur Standard-Steuerelemente aus der HTML Spezifikation verwenden, da selbsterstellte Steuerelemente für besondere Anwendungsfälle meist mithilfe von JavaScript gebaut werden.
-* Mit Hilfe von JavaScript lassen sich Benutzeraktionen unmittelbar anzeigen.
-Dies wird durch die moderne clientseitige Aktualisierung von Datenmodellen, Zuständen und Darstellungen erreicht.
-In einer Nicht-JavaScript Umgebung müssen die Daten mittels komplexeren serverseitigen Request Cycles geladen werden.
-Dies bedingt ein häufigeres Neu-Laden der Seite.
-* Ohne JavaScript kann die optische Aufbereitung einiger Bedienelemente variieren.
-
 
 [[button-1]]
 === Button
