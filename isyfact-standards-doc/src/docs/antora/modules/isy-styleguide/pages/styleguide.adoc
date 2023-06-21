@@ -1583,41 +1583,6 @@ _"4-Augen-Prinzip Eingabefelder"_ erfordern, dass die durch einen ersten Benutze
 Welche Anwendungslogik mit einer 4-Augen-Prinzip Textbox umgesetzt wird, bleibt der expliziten Fachanwendung vorbehalten.
 s.a. <<bsp-anwendungsfall-vier-augen>>
 
-[[liste-ueberschrift]]
-=== Liste
-
-Listen werden benutzt, um eine überschaubare Anzahl an Daten oder Objekten eines Typus übersichtlich und vergleichbar darzustellen.
-
-[[image-listemitlistenkopf]]
-.Liste mit Listenkopf
-image::Liste_Listenkopf.png[align="center", width="305",height="326"]
-
-
-*Zustände*
-
-* Normal
-* Hover
-* Pressed
-* Selected
-
-*Ist dies das korrekte Bedienelement?*
-
-* Eine Liste wird benutzt, um mehrere Objektdaten von einem Typ anzuzeigen.
-* Eine Liste sollte nicht verwendet werden, wenn sehr viele Objekte dargestellt werden müssen, da es keine Möglichkeit zur Sortierung bietet.
-In diesem Fall eignet sich eine Tabelle besser.
-
-*Richtlinien zur Anwendung*
-
-* Listen bestehen aus einer Spalte und mehreren Zeilen.
-* Werden mehrere Listen neben- oder untereinander dargestellt, ist auf eine einheitliche Breite zu achten.
-* Listen können scrollbar sein.
-* Listen werden z.B. für das Pattern Browse & Collect genutzt.
-* Eine Liste kann optional einen Kopfbereich haben.
-Dieser zeigt ein gemeinsames Label für die aufgelisteten Objekte.
-* Die Breite der Liste orientiert sich an der Länge des längsten Labels.
-Sollte dies eine sinnvolle Länge / Breite übersteigen, so kann das Label mit Auslassungszeichen abgekürzt werden.
-
-
 [[tabelle-ueberschrift]]
 === Tabelle
 
