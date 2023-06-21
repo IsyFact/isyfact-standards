@@ -1544,40 +1544,6 @@ In der folgenden Maskenansicht für den Benutzer B, sieht man, die durch Benutze
 .Eingabefelder und 4-Augen-Prinzip Eingabefelder in der gleichen Ergebnisspalte
 image::VierAugen-Tabellenfeld-Ergebnislisten.png[align="center"]
 
-[[text-box]]
-==== Text Box
-
-Text Boxen sehen optisch aus wie Eingabefelder, es können jedoch mehrzeilige Daten eingegeben werden.
-
-[[image-bildtextbox]]
-.Text Box
-image::Text_Box.png[align="center", width="358",height="111"]
-
-
-*Zustände*
-
-* Normal
-* Hover
-* Deaktiviert
-* Focus
-* Read-Only
-* Validierung
-
-*Ist dies das korrekte Bedienelement?*
-
-* Text Boxen werden für die Eingabe von mehrzeiligem Freitext genutzt.
-* Für einzeilige Texte sollte ein Eingabefeld benutzt werden.
-* Falls die einzugebenden Daten Teil einer vordefinierten Menge sind, sollte die Verwendung eines Dropdown Menüs oder einer Wertehilfe in Erwägung gezogen werden.
-* Textboxen sind nicht mit einem Charpicker zum Einfügen von Sonderzeichen ausgestattet.
-
-*Richtlinien zur Anwendung*
-
-* Für die Verwendung von Text Boxen gelten die gleichen Richtlinien wie für Eingabefelder.
-* In manchen Fällen kann die Größe der Text Box nicht der Größe des möglichen Inhaltes entsprechen.
-Ist die Größe der Text Box kleiner als deren Inhalt, so muss der Benutzer innerhalb der Text Box scrollen können.
-Vertikales Scrollen ist horizontalem Scrollen vorzuziehen.
-
-
 [[vier-augen-prinzip-textbox]]
 ==== 4-Augen-Prinzip Textbox
 
@@ -1611,11 +1577,6 @@ _"4-Augen-Prinzip Eingabefelder"_ erfordern, dass die durch einen ersten Benutze
 * Die 4-Augen-Prinzip Eingabefelder sind durch ein Schloss-Icon zu erkennen. Es wird nur die Grafik für ein geöffnetes Schloss verwendet.
 * Das Schloss Icon als visuelle Kennzeichnung des 4-Augen-Prinzip Eingabefeldes steht rechtsseitig, oben im Eingabefeld.
 * Die Breite der 4-Augen-Prinzip Textbox vergrößert sich durch das Schloss-Icon nicht.
-
-*JavaScript*
-
-Es wird kein JavaScript benötigt.
-
 
 *Nutzungsvorgaben*
 
