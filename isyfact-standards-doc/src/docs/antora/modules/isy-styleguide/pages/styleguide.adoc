@@ -1658,12 +1658,6 @@ image::Tabelle_Aktionen.png[align="center", width="629",height="147"]
 
 * Aktionen, die direkt ausführbar sind und sich auf Daten in einer Zeile beziehen, werden in der rechten Spalte einer Tabelle mittels Icon-Buttons angezeigt (z.B. Vorschau für ein Objekt).
 
-
-*Hinweise zur Implementierung*
-
-Buttons für Aktionen können in der entsprechenden `<isy:dataTableCell>` angegeben werden.
-Für die Detailansicht existiert auch das Tag `<isy:dataTableDetailButton>` welcher automatisch einen Button zum Auf- und Zuklappen der Detailansicht einfügt.
-
 [[grosse-datenmengen-tabelle]]
 ==== Große Datenmengen in einer Tabelle
 
@@ -1689,13 +1683,11 @@ Zunächst wird dem Benutzer nur eine begrenzte Anzahl (10 oder 20 Zeilen) an Dat
 
 * Unterhalb der Tabelle befindet sich ein _Mehr anzeigen_ Button.
 Wird dieser vom Benutzer geklickt so wird der nächste Satz an Daten angezeigt.
-* Nach Klick auf den _Mehr anzeigen_ Button verlängert sich die Tabelle nach unten, so dass der Benutzer gegebenenfalls nach unten scrollen muss.
+* Nach Klick auf den _Mehr anzeigen_ Button verlängert sich die Tabelle nach unten, sodass der Benutzer gegebenenfalls nach unten scrollen muss.
 * Nach Klick auf den _Mehr anzeigen_ Button sollte die erste Zeile des neu geladenen Datensatzes an der ursprünglichen Position des _Mehr anzeigen_ Buttons erscheinen.
 So kann sichergestellt werden, dass der neue Datensatz immer im Blickfeld des Benutzers erscheint.
 Die Selektion der Elemente bleibt unberührt.
 * Sind keine weiteren Daten mehr vorhanden, so wird der _Mehr anzeigen_ Button ausgeblendet.
-* Wenn mehr als 100 Einträge zu erwarten sind, sollte aus technischen Gründen ein Paginator benutzt werden.
-
 
 [[check-box-ueberschrift]]
 === Check Box
