@@ -1420,47 +1420,19 @@ Verschiedene Bedienelemente, in der Regel Eingabeelemente, werden weiterhin zwis
 === Hyperlink
 
 Hyperlinks sind verlinkte Texte (oder auch Grafiken), die im Wesentlichen als Navigations-Mechanismus dienen – so z.B. um andere Inhalte wie Fenster zu öffnen.
-Ebenso können Hyperlinks dazu eingesetzt werden, Funktionen aufzurufen.
-
-[[image-dashboardtextlink]]
-.Dashboard – Textlink zu Applikation (mit Icon)
-image::Text_Link_Applikation.png[align="center", width="265",height="44"]
-
-[[image-dashboardnormalertextlink]]
-.Dashboard – Normaler Textlink
-image::Text_Link.png[align="center", width="214",height="45"]
-
-[[image-applTextlinkTabellen]]
-.Applikation – Textlink in Tabellen
-image::Text_Link_Tabelle.png[align="center", width="310",height="45"]
-
-*Zustände*
-
-* Normal
-* Hover
 
 *Ist dies das korrekte Bedienelement?*
 
 * Hyperlinks werden verwendet, um zu anderen Inhalten zu navigieren.
-* Hyperlinks können aber auch genutzt werden um sekundäre Funktionen aufzurufen.
+* Hyperlinks können aber auch genutzt werden, um sekundäre Funktionen aufzurufen.
 * Hyperlinks werden jedoch nicht für das Initiieren primärer, unmittelbarer Aktionen genutzt in diesem Fall sollten Buttons verwendet werden.
 * Würde der Hyperlink eine irreversible Aktion ausführen, sollte kein Hyperlink verwendet werden, da dieses Verhalten nicht erwartungskonform wäre.
-* Hyperlinks sollten nicht in einer Toolbar verwendet werden, hier empfiehlt sich der Einsatz von Toolbar-Buttons oder Icon-Buttons.
 
 *Richtlinien zur Anwendung*
 
-* Wird die Maus über einen Hyperlink bewegt, ändert der Mauscursor sich vom Pfeil- zum Hand-Symbol.
 * Werden Hyperlinks auf gesättigten Hintergrundfarben verwendet, sollte die Textfarbe entsprechend angepasst werden, um eine ausreichende Lesbarkeit zu gewährleisten.
 * Hyperlinks sollten einen aussagekräftigen Text zur Verfügung stellen.
 Generische Phrasen wie „Hier klicken“ sind nicht hilfreich und sollten vermieden werden.
-* Hyperlinks (Textlinks) innerhalb von Applikationen werden blau dargestellt und bei Hover unterstrichen, z.B. Bezeichner (Name/ID) in Tabellen.
-* Hyperlinks auf dem Dashboard
-** Verlinkungen (Textlinks) auf dem Dashboard unterscheiden sich zu Textlinks in Applikationen.
-Um einen optischen Overload zu vermeiden, werden sie nicht blau eingefärbt.
-** Alle Links des Dashboards sind grau und werden bei Hover blau.
-** Links, die zu Applikationen navigieren, haben vor dem Textlabel ein Pfeil-Icon.
-
-
 
 [[label-ueberschrift]]
 === Label
