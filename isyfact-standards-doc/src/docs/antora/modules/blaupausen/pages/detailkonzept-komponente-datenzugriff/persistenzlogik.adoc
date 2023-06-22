@@ -56,20 +56,6 @@ So ist es zum Beispiel sinnvoll, für 1:1-Beziehungen im Persistenz-Klassenmodel
 Somit wird der Inhalt einer Datenbanktabelle auf mehr als eine Entität verteilt.
 Solche Entitäten können dann über das Lesen einer einzigen Tabellenzeile aus der Datenbank gefüllt werden.
 
-[[verwendung-generischer-datenstrukturen-vermeiden]]
-=== Verwendung generischer Datenstrukturen vermeiden
-
-JPA ermöglicht die Verwendung generischer Datenstrukturen.
-Dabei können die Spalten einer Tabelle in Abhängigkeit eines Deskriptorwertes in einer speziell definierten Spalte auf unterschiedliche Attribute verschiedener Entitäten abgebildet werden.
-Eine solche Vorgehensweise erschwert das Verständnis der Daten bei einem direkten Zugriff auf die Datenbank mit Datenbankwerkzeugen und damit auch die Fehleranalyse und Wartung.
-
-Trotzdem kann es aus Gründen der Datenbankperformance erforderlich sein, generische Datenstrukturen zu verwenden.
-Werden z. B. Entitäten mit einer gemeinsamen Oberklasse als generische Datenstruktur in einer Tabelle abgelegt und sollen die Attribute der Oberklasse gesucht werden, so kann die Suche auf der Datenbank in einer einzigen Tabelle durchgeführt werden.
-Die Entitäten können ohne zusätzliche Joins aus der Datenbank gelesen werden.
-
-Werden generische Datenstrukturen verwendet, dann ist es obligatorisch, dass für jede Entitäten, die in dieser Datenstruktur abgespeichert wird, ein eigener Datenbank-View definiert wird.
-Dieser Datenbank-View enthält alle Attribute der Entitäten mit einem sprechenden Namen.
-Diese Datenbank-Views können dann beim direkten Zugriff mit Datenbankwerkzeugen und bei der Fehleranalyse verwendet werden.
 
 [[vererbung-im-persistenz-klassenmodell]]
 === Vererbung im Persistenz-Klassenmodell
