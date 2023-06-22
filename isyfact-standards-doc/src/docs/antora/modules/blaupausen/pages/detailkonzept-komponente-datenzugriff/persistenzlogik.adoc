@@ -62,7 +62,7 @@ Solche Entitäten können dann über das Lesen einer einzigen Tabellenzeile aus 
 
 Vererbungshierarchien können in relationalen Datenbanken nicht direkt umgesetzt werden.
 Die Jakarta Persistence API Specification beschreibt deshalb mehrere Strategien des O/R-Mappings von Vererbungshierarchien.
-Sie werden im Baustein xref:isy-persistence:konzept/vorgaben-konventionen.adoc#vererbungshierarchien-regeln[JPA/Hibernate] beschrieben zusammen mit Regeln für ihre Verwendung.
+Sie werden im Baustein xref:isy-persistence:konzept/vorgaben-konventionen.adoc#vererbungshierarchien[JPA/Hibernate] beschrieben zusammen mit Regeln für ihre Verwendung.
 
 Für alle Strategien gilt, dass die abzubildende Vererbungshierarchie nicht zu umfangreich sein sollte.
 Datenbankzugriffe auf Tabellen mit großen Hierarchien sind meistens wenig performant.

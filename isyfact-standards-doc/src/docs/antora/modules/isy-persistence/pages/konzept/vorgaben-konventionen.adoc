@@ -215,8 +215,8 @@ Explizit verboten sind bidirektional traversierbare n-zu-m-Assoziationen.
 Hierfür sind zwei 1-zu-n- (bzw. n-zu-1-) Assoziationen zu definieren.
 
 
-[[vererbungshierarchien-regeln]]
-=== Vererbungshierarchien: Architekturregeln
+[[vererbungshierarchien]]
+=== Vererbungshierarchien
 
 Die Jakarta Persistence API Specification beschreibt mehrere Strategien des O/R-Mappings von Vererbungshierarchien, zu beachten ist auch xref:blaupausen:detailkonzept-komponente-datenzugriff/persistenzlogik.adoc#vererbung-im-persistenz-klassenmodell[Vererbung im Persistenz-Klassenmodell].
 
@@ -281,12 +281,12 @@ Diese Art der Vererbung von einer Java-Oberklasse auf Entitäten-Subklassen kann
 Es erspart die Wiederholung von Attributen in den Entitäten, aber nicht in den Datenbanktabellen.
 
 [[vererbungshierarchien-details]]
-=== Vererbungshierarchien: Beispiele, Vor- und Nachteile
+==== Beispiele, Vor- und Nachteile
 
 Die vier O/R-Mapping-Strategien werden in den folgenden Abschnitten genauer betrachtet mit ihren Vor- und Nachteilen.
 
 [[single-table-per-class-hierarchy-details]]
-==== Single Table per Class Hierarchy
+===== Single Table per Class Hierarchy
 
 Für die Single Table per Class Hierarchy Strategie wird ein Beispiel gezeigt.
 Bei den anderen Strategien wird auf Teile davon verwiesen.
@@ -361,7 +361,7 @@ In diesem Fall ist es hilfreich, wenn für jede Klasse der Vererbungshierarchie 
 Diese Views beeinflussen das O/R-Mapping nicht, denn sie werden dafür nicht verwendet.
 
 [[joined-subclass-details]]
-==== Joined Subclass
+===== Joined Subclass
 
 Jede Klasse wird auf eine eigene Tabelle abgebildet, auch eine abstrakte Oberklasse, und enthält nur ihre eigenen Attribute als Spalten.
 Die Primärschlüssel-Ids  der Subklassen sind gleichzeitig Fremdschlüssel für die entsprechenden Primärschlüssel-Ids der Oberklasse.
@@ -387,7 +387,7 @@ Die Oberklasse wird folgendermaßen annotiert:
 * Je nach Vererbungshierarchie sind performanzkritische Joins erforderlich beim Zugriff sowohl polymorph auf Ober- als auch auf Subklassen.
 
 [[table-per-concrete-class-details]]
-==== Table per Concrete Class
+===== Table per Concrete Class
 
 Vgl. auch <<table-per-concrete-class-rules>>.
 
@@ -412,7 +412,7 @@ Die Oberklasse wird folgendermaßen annotiert:
 * Beim <<listing-polymorphic-access-hierarchy-mapping, polymorphen Zugriff>> auf die Oberklasse muss dies (implizit per O/R-Mapper) über eine UNION-Query geschehen oder eine eigene Query für jede Subklasse.
 
 [[mapped-superclass-details]]
-==== Mapped Superclass
+===== Mapped Superclass
 
 Vgl. auch <<mapped-superclass-rules>>.
 
