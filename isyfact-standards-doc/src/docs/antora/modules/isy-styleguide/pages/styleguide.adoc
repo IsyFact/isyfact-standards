@@ -151,9 +151,9 @@ Das genaue Verhalten der einzelnen Bereiche und Elemente wird in den entsprechen
 
 *Richtlinien zur Anwendung*
 
-* Generell sollten beim Layout eines Screens keine horizontalen Scrollbalken verwendet werden.
+* Generell sollten beim Layout innerhalb eines Screens keine horizontalen Scrollbalken verwendet werden.
 * Bei einer Seitenbreite zwischen *1280px* und *1920px* gelten folgende Richtlinien
-** Es sollen keine vertikalen Scrollbalken angezeigt werden.
+** Es sollen keine horizontalen Scrollbalken zum Scrollen der Seite angezeigt werden.
 ** Die Anzahl Spalten in Formulare soll sich nicht verändern.
 ** Die Anwendung soll immer die volle Seitenbreite einnehmen.
 * Bei Größenveränderungen von Inhalten sollte immer darauf geachtet werden, dass der Lesefluss des Benutzers nicht negativ beeinflusst wird.
