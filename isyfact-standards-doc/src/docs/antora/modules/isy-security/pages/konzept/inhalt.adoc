@@ -26,7 +26,7 @@ Da das Berechtigungskonzept individuell für jede Anwendungslandschaft erstellt 
 === Authentifizierung
 
 NOTE: Authentifikation: Verifikation der Identität eines Benutzers (menschl. xref:glossary:glossary:master.adoc#glossar-anwender[Anwender] oder techn. System) als Zugangskontrolle zu einem geschützten System.
-Eine Authentisierung durch Präsentation eindeutiger Eigenschaften (z.B. Biometrie) oder geheimen Wissens (z.B. Passwort).
+Dabei ist es erforderlich eindeutige Eigenschaften (z.B. biometrische Daten) oder geheime Daten (z.B. Passwort) zur Überprüfung zu übergeben.
 
 In der Regel erfolgt die Authentifizierung von Benutzern über eine zentrale Komponente der Systemlandschaft, in welche das IT-System eingebettet ist.
 Die Authentifizierung darf auch lokal, d.h. vom IT-System selbst, durchgeführt werden, falls es beispielsweise nicht in eine Systemlandschaft eingebettet ist.
@@ -35,7 +35,7 @@ Für die zentrale Authentifizierung wird in der IsyFact ein OAuth 2.0 konformes 
 
 NOTE: IAM steht für xref:glossary:literaturextern:inhalt.adoc#litextern-identity_management[Identity and Access Management].
 
-Das IAM-System verwaltet *Benutzer* (menschliche Anwender oder technische System) und ihre *Rollen* zentral für alle Komponenten der Anwendungs- und Systemlandschaft.
+Das IAM-System verwaltet *Benutzer* (menschliche Anwender und technische System) und ihre *Rollen* zentral für alle Komponenten der Anwendungs- und Systemlandschaft.
 
 Die Authentifizierung und grobgranulare Autorisierung erfolgt, gemäß der  xref:konzept/master.adoc#prinzipien-der-sicherheitsarchitektur[Prinzipien der Sicherheitsarchitektur], an den Außenschnittstellen der Systemlandschaft.
 Hierbei übermittelt der Benutzer seine Authentifizierungsmerkmale (z.B. Login-Name u. Passwort) und für eine Zwei-Faktor-Authentifizierung das Behördenkennzeichen (BHKNZ) an den IAM-Service, der sie gegen die bei ihm gespeicherten Merkmale verifiziert.
@@ -74,14 +74,14 @@ Die *Einfachheit* der Nutzung der Bibliothek `isy-security` wird durch weitgehen
 
 Aus den xref:konzept/master.adoc#prinzipien-der-sicherheitsarchitektur[Prinzipien der Sicherheitsarchitektur] leiten sich die folgenden Randbedingungen für die Umsetzung der Berechtigungsprüfung innerhalb eines IT-Systems ab:
 
-* Anfragen, die am Dialog (Web-App) eines IT-Systems eingehen, sind immer bereits durch das IAM-System bzw. die lokale Authentifizierung erfolgreich authentifiziert - über die mitgegebenen Client-Credentials.
+* Anfragen, die am Dialog (Web-App) eines IT-Systems eingehen, sind immer bereits durch das IAM-System bzw. die lokale Authentifizierung erfolgreich authentifiziert - über die mitgegebenen Authentifizierungsdaten.
 Sorgt ein IAM-System für die Authentifizierung, enthält der HTTP-Header der Anfrage die Identifikation des Anwenders und dessen Rollen (in Form eines JWT Zugriffstoken).
 * Anfragen, die an einer Service-Schnittstelle (von außen über ein Service-Gateway (SGW) oder von anderen IT-Systemen innerhalb der IT-Systemlandschaft) eines IT-Systems eingehen, sind ebenso bereits authentifiziert.
 * Prozesse, die unabhängig von eingehenden Anfragen (über Dialog und Service) durch ein IT-System gestartet werden (z.B. Batch/Task), müssen zunächst einen (technischen) Nutzer gegen das IAM-System bzw. die lokale Authentifizierung erfolgreich authentifizieren, um ein JWT Access-Token zu erhalten.
 Mit diesem können sie dann Services anderer IT-Systeme innerhalb derselben Anwendungslandschaft verwenden.
-* Das aufgerufene IT-System prüft das Vorhandensein eines (gültigen) Access-Tokens und übernimmt es und die darin enthaltenen Anwenderinformationen in den `SecurityContext`, wobei es die Rollen des Anwenders auf systemspezifische Rechte abbildet.
+* Das aufgerufene IT-System prüft das Vorhandensein eines (gültigen) Access-Tokens und übernimmt dieses mit den darin enthaltenen Anwenderinformationen in den `SecurityContext`, wobei es die Rollen des Anwenders auf systemspezifische Rechte abbildet.
 Vor Ausführung des Service prüft das IT-System, ob der Anwender die dafür benötigten Rechte besitzt.
-* Innerhalb der Logik- und Verarbeitungszone eines IT-Systems wird das `JWT Access-Token` weitergegeben. Zur Stärkung der Vertrauenswürdigkeit wird jedes `JWT Access-Token` beim Eintritt in ein IT-System auf Gültigkeit und Authentizität geprüft.
+* Innerhalb des Anwendungskerns eines IT-Systems wird das `JWT Access-Token` weitergegeben. Zur Stärkung der Vertrauenswürdigkeit wird jedes `JWT Access-Token` beim Eintritt in ein IT-System auf Gültigkeit und Authentizität geprüft.
 
 Die Services eines IT-Systems können also nur mit einer gültigen Legitimation aufgerufen werden und sind so vor unberechtigter Nutzung geschützt.
 Umgekehrt können die Module und Verarbeitungsprozesse innerhalb des IT-Systems sich darauf verlassen, dass ihr Aufruf legitim ist und die ihnen übergebenen Daten vertrauenswürdig sind.
@@ -163,7 +163,7 @@ Mit diesen Berechtigungsabfragen kann die Geschäftsanwendung z.B. feingranular 
 
 Ein Anwendungssystem erwartet bei einem Aufruf, dass alle notwendigen Authentifizierungs- und Autorisierungsdaten in valider und gültiger Form übergeben werden.
 Folglich muss ein Anwendungssystem, das ein Nachbarsystem aufruft, diesem Aufruf ebenfalls gültige und valide Authentifzierungs- und Autorisierungsdaten mitgeben.
-Im Regelfall werden diese Daten der originären Anfrage als aus dem Access-Token initialisierter `SecurityContext` übergeben.
+Im Regelfall werden diese Daten der originären Anfrage als `SecurityContext` übergeben, der mit den Daten aus dem AccessToken zuvor initialisiert, wurde.
 Dies geschieht durch die xref:validierung-der-token[Validierung des Access-Token] über den Sicherheitsbaustein `isy-security` des Anwendungssystems.
 Für eine fachliche und prozessbezogene Aufrufkette wird dieses `Access-Token` in allen weiteren Aufrufen wiederverwendet und unverändert weitergeleitet.
 
@@ -226,8 +226,8 @@ Wir übernehmen für die IsyFact die englische Bezeichnung "Client".
 
 *IAM-Service (Authorization Server)*
 
-Der Service, der Access-Tokens ausstellt, nach erfolgreicher Authentifizierung und Autorisierung des Ressourcenbesitzers.
-Er bestätigt kann bei erhöhtem Sicherheitsbedarf (Revoked Token) auch gegenüber dem Ressourcen-Server die Gültigkeit des Access-Tokens bestätigen, das der Client dem Ressourcen-Server in der Zugangsanfrage mitgegeben hat (siehe Validierung der Access-Token).
+Der Service, der nach erfolgreicher Authentifizierung und Autorisierung des Ressourcenbesitzers, Access-Tokens ausstellt.
+Er kann bei erhöhtem Sicherheitsbedarf (Revoked Token) auch gegenüber dem Ressourcen-Server die Gültigkeit des Access-Tokens bestätigen, das der Client dem Ressourcen-Server in der Zugangsanfrage mitgegeben hat (siehe Validierung der Access-Token).
 Beispiel: Keycloak (Produkt).  +
 Wir übernehmen für die IsyFact die IsyFact-spezifische Bezeichnung "IAM-Service".
 
@@ -276,7 +276,7 @@ Als Voraussetzung für diesen Flow ist die Bereitstellung eines Vermittlers ('Re
 Dieser Vermittler muss ein OAuth2.0 _Confidential Client_ sein, also ein serverseitiges System.
 Dies kann ein als Reverse Proxy konfigurierter Webserver sein (z.B. Apache http-Server mit `mod_auth_openidc` Modul), der zwischen  Web-Client (Web-Browser) und Web-Anwendung geschaltet ist.
 Das Webserver-Modul `mod_auth_openidc` koordiniert den Ablauf des _Authorization Code Flow_ mit _Confidential Client_ zwischen Nutzer und dem IAM-Service und verwaltet das Access-Token - der Baustein Security wird hierfür nicht verwendet.
-Die folgende Abbildung zeigt die System-Architektur mit dem Webserver in der Informations- u. Dienstzone vor der Anwendung und dem IAM-Service in der Logik- u. Verarbeitungszone.
+Die folgende Abbildung zeigt die System-Architektur mit dem Webserver in der Nutzungsschicht und dem Anwendungskern vor der Anwendung und dem IAM-Service in der Logik- u. Verarbeitungszone.
 
 .Beteiligte Systeme bei Aufruf über Web-Oberfläche / Portal
 [id="image-Authorization-Code-Connections",reftext="{figure-caption} {counter:figures}"]
