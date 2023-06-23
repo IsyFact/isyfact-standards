@@ -142,7 +142,7 @@ image::konzept/security-schnittstellen.dn.svg[align="center"]
 
 Das Interface `Security` ist der zentrale Einstiegspunkt in den Baustein `isy-security`.
 Bei seiner Instanziierung wird die anwendungsspezifische Rollen-Rechte-Datei eingelesen und damit der `Authentifizierungsmanager` sowie der `Berechtigungsmanager` erzeugt.
-Das Interface `Security` stellt der Geschäftsanwendung die im weiteren beschriebenen `Authentifizierungsmanager` und `Berechtigungsmanager` der Fachanwendung zur Verfügung.
+Das Interface `Security` stellt der Geschäftsanwendung die im Weiteren beschriebenen `Authentifizierungsmanager` und `Berechtigungsmanager` der Fachanwendung zur Verfügung.
 Außerdem kann die Geschäftsanwendung über die Methode `getAlleRollen` eine Liste von allen im System hinterlegten Rollen erhalten.
 
 Der `Authentifizierungsmanager` übernimmt die Authentifizierung von technischen Nutzern am IAM-System.
