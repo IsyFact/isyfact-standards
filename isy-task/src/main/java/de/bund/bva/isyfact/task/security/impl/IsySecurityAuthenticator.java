@@ -1,9 +1,9 @@
-package de.bund.bva.isyfact.task.sicherheit.impl;
+package de.bund.bva.isyfact.task.security.impl;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import de.bund.bva.isyfact.security.oauth2.client.Authentifizierungsmanager;
-import de.bund.bva.isyfact.task.sicherheit.Authenticator;
+import de.bund.bva.isyfact.task.security.Authenticator;
 
 /**
  * Implementation of {@link Authenticator} for the use of isy-security.

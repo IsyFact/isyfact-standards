@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.task.sicherheit.impl;
+package de.bund.bva.isyfact.task.security.impl;
 
 import org.springframework.util.StringUtils;
 
@@ -8,8 +8,8 @@ import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.security.oauth2.client.Authentifizierungsmanager;
 import de.bund.bva.isyfact.task.config.IsyTaskConfigurationProperties;
 import de.bund.bva.isyfact.task.konstanten.HinweisSchluessel;
-import de.bund.bva.isyfact.task.sicherheit.Authenticator;
-import de.bund.bva.isyfact.task.sicherheit.AuthenticatorFactory;
+import de.bund.bva.isyfact.task.security.Authenticator;
+import de.bund.bva.isyfact.task.security.AuthenticatorFactory;
 import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
 
 /**

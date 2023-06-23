@@ -13,9 +13,9 @@ import de.bund.bva.isyfact.task.config.IsyTaskConfigurationProperties;
 import de.bund.bva.isyfact.task.konfiguration.HostHandler;
 import de.bund.bva.isyfact.task.konfiguration.impl.LocalHostHandlerImpl;
 import de.bund.bva.isyfact.task.monitoring.IsyTaskAspect;
-import de.bund.bva.isyfact.task.sicherheit.AuthenticatorFactory;
-import de.bund.bva.isyfact.task.sicherheit.impl.IsySecurityAuthenticatorFactory;
-import de.bund.bva.isyfact.task.sicherheit.impl.NoOpAuthenticatorFactory;
+import de.bund.bva.isyfact.task.security.AuthenticatorFactory;
+import de.bund.bva.isyfact.task.security.impl.IsySecurityAuthenticatorFactory;
+import de.bund.bva.isyfact.task.security.impl.NoOpAuthenticatorFactory;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.aop.TimedAspect;
