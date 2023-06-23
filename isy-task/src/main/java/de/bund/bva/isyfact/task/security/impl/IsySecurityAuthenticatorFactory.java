@@ -44,12 +44,14 @@ public class IsySecurityAuthenticatorFactory implements AuthenticatorFactory {
      * @return {@link Authenticator} for task, return {@link NoOpAuthenticator} if no credentials have been found.
      */
     public synchronized Authenticator getAuthenticator(String taskId) {
-        String registrationId = configurationProperties.getTasks().get(taskId).getRegistrationId();
-        if (StringUtils.hasText(registrationId)) {
-            return new IsySecurityAuthenticator(
-                    authentifizierungsmanager,
-                    registrationId
-            );
+        if (configurationProperties.getTasks().get(taskId) != null) {
+            String registrationId = configurationProperties.getTasks().get(taskId).getRegistrationId();
+            if (StringUtils.hasText(registrationId)) {
+                return new IsySecurityAuthenticator(
+                        authentifizierungsmanager,
+                        registrationId
+                );
+            }
         }
         String defaultRegistrationId = configurationProperties.getDefault().getRegistrationId();
         if (StringUtils.hasText(defaultRegistrationId)) {
