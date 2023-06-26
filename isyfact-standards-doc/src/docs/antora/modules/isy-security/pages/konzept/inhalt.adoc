@@ -548,7 +548,8 @@ Zur Prüfung der Echtheit muss die Signatur von dem IsyFact-Anwendungssystem ver
 
 *Prüfung des Access-Tokens auf Gültigkeit*
 
-Access-Token besitzen eine zeitlich begrenzte Gültigkeit, die im Ermessen der Anwendungslandschaft definiert werden, kann durch die begrenzte zeitliche Gültigkeit ist sichergestellt, dass das Access-Token kein 'ewiger Universalschlüssel' ist, sondern regelmäßig erneuert werden muss.
+Acess-Tokens besitzen eine zeitlich begrenzte Gültigkeit, die im Ermessen der Anwendungslandschaft definiert werden kann.
+Durch die begrenzte zeitliche Gültigkeit kann sichergestellt werden, dass das Access-Token kein 'ewiger Universalschlüssel' ist, sondern regelmäßig erneuert werden muss.
 Die Prüfung auf Gültigkeit gibt an, ob der Ablaufzeitpunkt des Access-Tokens bereits erreicht wurde.
 Für ein gültiges Access-Token muss der im Header-Claim 'exp' enthaltene Zeitstempel in der Zukunft liegen.
 
