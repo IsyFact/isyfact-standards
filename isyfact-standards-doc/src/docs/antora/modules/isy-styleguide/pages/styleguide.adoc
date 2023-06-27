@@ -4561,3 +4561,24 @@ image::10_Applikations_Wizard_Objektanlage_4.png[align="center"]
 [[image-bspwizardobjektanlage1e]]
 
 image::11_Applikations_Wizard_Objektanlage_5.png[align="center"]
+
+[[does-and-donts]]
+== Do's and Dont's
+
+Dieses Kapitel zeigt einige oft nicht befolgte Regeln und häufige Verstöße gegen den Styleguide auf.
+
+=== Do's
+* Schreibe semantisches HTML. Verwende Elemente so, wie sie gedacht sind - ein "hauptsache optisch korrekt" genügt spätestens beim Thema Barrierefreiheit nicht mehr. Ziehe hierbei z.B. den https://developer.mozilla.org/en-US/docs/Web/HTML/Element[Mozilla Developer Guide] zurate.
+* Beachte unbedingt allgemeingültige Webentwicklungsvorgaben und Best Practices, insbesondere die Vorgaben zur Barrierefreiheit aus WCAG und BITV.
+* Halte Bedienelemente, z.B. Buttons, ausreichend groß für ihre Beschriftung.
+* Ist eine Abkürzung sinnvoll, erkläre sie mit einem Tooltip.
+* Ordne Labels ihren Bedienelementen im HTML zu, sodass ein Klick auf das Label auch das Bedienelement aktiviert.
+* Erwäge bei der Nutzung großer Radio-Button-Gruppen ein Dropdown und bei kleinen Dropdowns eine Radio-Button-Gruppe.
+* Sorge dafür, dass alle Elemente auch ohne Maus erreichbar und bedienbar sind.
+
+
+=== Dont's
+* Löse keine Aktionen durch Bedienelemente aus, wenn diese nicht dazu vorgesehen sind (z.B. Radiobuttons oder Checkboxen).
+* Vermeide schwache Kontraste, z.B. hellgrün auf grau.
+* Verzichte auf Links mit generischen Texten, wie "Hier klicken". Der Linktext sollte erklären, wohin der Nutzer gelangt.
+* Vermeide Labels mit mehr als drei Wörtern.
