@@ -614,6 +614,7 @@ image::Aufbau-Dashboard-Unterseite.png[align="center", width="629",height="526"]
 * Eine Dashboard Unterseite enthält weiterführende Informationen, die nicht vollständig auf dem Dashboard angezeigt werden wie z.B. Nachrichten, Benutzerkonto-Verwaltung.
 * Die Inhalte und deren Layout können variieren.
 * Die Inhalte sollen sich am allgemeinen Layout-Raster ausrichten.
+* Die Seite enthält eine Seiten-Toolbar, deren Funktion es ermöglicht zwischen einzelen Detailseite einer Trefferliste und zurück zu Trefferliste zu navigieren.
 
 [[applikationsseite]]
 ==== Applikationsseite
@@ -733,14 +734,14 @@ Ohne Text in der Titelzeile soll eine Detailseite nicht verwendet werden.
 An dieser Stelle ist es wichtig dem Benutzer eindeutig zu kommunizieren, welches Objekt er gerade betrachtet und zu welcher Applikation das Objekt gehört.
 
 *** Hier wird *nicht* der vom User gegangene Weg zum angezeigten Objekt dargestellt.
-*** Ein Rücksprung auf die Liste der Objekte soll nicht enthalten sein, da es dafür den Zurück-Button in jedem unterstützen Browser gibt.
+*** Ein Rücksprung auf die Liste der Objekte soll nicht enthalten sein, da es dafür den Button "Zurück zu Liste" in der Seiten-Toolbar gibt.
 *** Beispiel 1 Titelstruktur für 2 Hierarchieebenen
 **** __Label Hierarchieebne 2: Objektname / ID__
 *** Beispiel 2 Titelstruktur für 3 Hierarchieebenen
 **** __Label Hierarchieebne 2 – Label Hierarchieebne 3: Objektname / ID__
 
 * Seiten-Toolbar *(B)*
-** Die Seiten-Toolbar zeigt Funktionen, welche für die gesamte Seite gelten z.B. „Seite drucken", „Hilfe", mehr Informationen siehe Kapitel Toolbar.
+** Die Seiten-Toolbar zeigt Funktionen, welche für die gesamte Seite gelten z.B. „Zurück zur Liste", „Seite drucken", „Hilfe", mehr Informationen siehe Kapitel Toolbar.
 * Informationsbereich *\(C)*
 ** Der Informationsbereich ist initial ausgeblendet und kann über einen entsprechenden Button in der Toolbar eingeblendet werden.
 ** Dieser Bereich sollte hilfreiche und ergänzende Informationen zum angezeigten Objekttyp und dessen Bearbeitung enthalten.
@@ -1212,6 +1213,30 @@ Auf dieser werden dem Benutzer ausführliche Informationen zu dem Objekt angezei
 [[image-objektdetailseiteanzeigen]]
 .Detailseite eines Objektes anzeigen
 image::Darstellung_Objekt_Anzeigen.png[align="center", scaledwidth="100%",width="687",height="341"]
+
+
+*Schnellnavigation*
+
+Optional kann sich zur schnellen Navigation zwischen mehreren Ergebnissen ein Control zentriert in der Seiten-Toolbar befinden.
+Es besteht aus Zurück- und Vor-Buttons, die durch die Anzeige der aktuellen Position und der Gesamtmenge getrennt sind.
+Die Gesamtmenge entspricht der Anzahl der Objekte in der dahinterliegenden Übersichtsliste.
+
+image::Schnellnavigation.png[image,width=399,height=250]
+
+*Richtlinien zur Interaktion*
+
+* Durch Klick auf den Bezeichner des jeweiligen Objektes (Nummer, ID, Name etc.), einen Doppelklick auf das gesamte Objekt oder die Toolbar Funktion __Öffnen__, gelangt der Benutzer zu dessen Detailseite.
+* Auf dieser Seite werden dem Benutzer alle Informationen, die zu dem Objekt existieren, zugänglich gemacht.
+* Über einen Link in der Seiten-Toolbar kann der Benutzer jeder Zeit zurück navigieren.
+* Das Navigieren zwischen den Ergebnissen muss auch über die Standard Browser-Funktionalität möglich sein
+
+[cols="1,1", options="header", align="center"]
+|====
+|Fenstertyp / Pattern | Bedienelemente
+
+|Applikation Detailseite
+|-
+|====
 
 
 [[objekt-bearbeiten]]
@@ -3393,6 +3418,23 @@ Diese grenzen Gruppen von zusammengehörigen Elementen voneinander ab.
 * Wird die Größe des Browserfensters verändert, so wächst die Toolbar (in der Breite) mit.
 Die Elemente in der Toolbar behalten ihre ursprüngliche Größe und Position bei.
 
+*Seiten-Toolbar*
+
+Die Seiten-Toolbar kommt auf Detailseiten von Dashboard oder Applikationen zum Einsatz.
+
+.Seiten-Toolbar auf Detailseite
+[[image-seitentoolbardetailseite]]
+
+image::Toolbar_Seiten_Toolbar.png[align="center", width="626",height="25"]
+
+
+*Richtlinien zur Anwendung*
+
+* Die Seiten-Toolbar beinhaltet Funktionen, welche für die gesamte Seite gelten z.B. „Zurück zur Liste“, „Seite drucken“ oder „Hilfe“.
+* Ganz links beinhaltet die Seiten-Toolbar immer eine Verlinkung, die zurück zur dazugehörigen Hauptseite führt.
+Diese Verlinkung muss in jeder Seiten-Toolbar vorhanden sein.
+* Der Navigationslink ist eine Kombination aus Icon und Text, alle anderen Buttons sind Icon-Buttons.
+* Weitere allgemeine Richtlinien zur Toolbar siehe oben.
 
 *Tabellen Toolbar*
 
@@ -3895,6 +3937,15 @@ Initial wird der oberste Menüpunkt fokussiert.
 Mittels Tabulator kann zwischen den angezeigten Elementen navigiert werden.
 Mit der Taste Enter wird die Aktion des fokussierten Elementes ausgelöst.
 Mit der Taste Escape wird die Linksnavigation wieder verlassen.
+Das zuletzt fokussierte Element des Inhaltsbereichs ist dann fokussiert.
+
+*Seitentoolbar*
+
+Die Seitentoolbar kann über den Shortcut Alt+Shift+S erreicht werden.
+Initial wird das erste Element links fokussiert.
+Mittels Tabulator kann zwischen den angezeigten Elementen navigiert werden.
+Mit der Taste Enter wird die Aktion des fokussierten Elementes ausgelöst.
+Mit der Taste Escape wird die Seitentoolbar wieder verlassen.
 Das zuletzt fokussierte Element des Inhaltsbereichs ist dann fokussiert.
 
 *_Shortcuts für Aktionen_*
