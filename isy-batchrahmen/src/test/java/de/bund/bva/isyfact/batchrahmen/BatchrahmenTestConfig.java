@@ -18,7 +18,7 @@ import de.bund.bva.isyfact.batchrahmen.batch.ReturnCodeTestBatch;
 import de.bund.bva.isyfact.batchrahmen.core.rahmen.Batchrahmen;
 import de.bund.bva.isyfact.batchrahmen.core.rahmen.impl.BatchrahmenImpl;
 import de.bund.bva.isyfact.batchrahmen.core.rahmen.jmx.BatchRahmenMBean;
-import de.bund.bva.isyfact.security.Authentifizierungsmanager;
+import de.bund.bva.isyfact.security.oauth2.client.Authentifizierungsmanager;
 
 @Configuration
 public class BatchrahmenTestConfig {
