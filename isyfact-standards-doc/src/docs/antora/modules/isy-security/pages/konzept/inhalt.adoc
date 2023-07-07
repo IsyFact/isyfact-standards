@@ -96,40 +96,43 @@ image::isy-security:konzept/software-architektur-berechtigungspruefung.png[align
 
 Im Folgenden werden die Aufgaben und grobe Funktionsweise der Komponenten für die Autorisierung von Anfragen in einer xref:glossary:glossary:master.adoc#glossar-geschaeftsanwendung[Geschäftsanwendung]  erläutert.
 
-Der Baustein `isy-security` basiert auf dem Framework Spring Security und bietet querschnittliche Funktionalität zur Authentifizierung und Autorisierung (Berechtigungsprüfung) von Anfragen.
+Der Baustein `isy-security` basiert auf dem Framework Spring Security und bietet querschnittliche Funktionalität zur Authentifizierung und Autorisierung von Anfragen, die von internen oder externen Anwendungen an eine IsyFact-Anwendung gestellt werden (M2M-Kommunikation) -
+die Authentifizierung und Autorisierung von Anfragen, die von menschlichen Nutzern über eine Benutzeroberfläche (Browser) gestellt werden, findet im Zuge der Einführung von Single-Page-Applications (SPAs) nicht mehr über das Backend oder den Baustein isy-security statt, sondern innerhalb des Portal-Webservers.
+Ausserdem sichert der Baustein `isy-security` die Service-Schnittstellen der IsyFact-Anwendungen ab, indem er Funktionalität zur Berechtigungsprüfung anbietet. Hier wird geprüft, ob die gewährte Autorisierung auch das Recht zur Nutzung der angefragten Service-Schnittstelle beinhaltet.
+
 Um IsyFact-spezifische Anforderungen, wie z.B. die Nutzung des Behördenkennzeichens, zu erfüllen, existiert eine Zugriffsschicht, die eben diese Funktionalität bereitstellt und den Zugriff auf Spring Security (und das IAM-System) kapselt.
 Die einheitliche Zugriffsschicht für Authentifizierung und Autorisierung erleichtert zudem, durch die teilweise Übernahme bestehender Schnittstellen, die Migration von einer älteren IsyFact Version.
-Die Authentifizierung und Autorisierung an der Benutzeroberfläche findet im Zuge der Einführung von Single-Page-Applications (SPAs) nicht mehr über das Backend oder den Baustein isy-security statt, sondern innerhalb des Portal-Webservers.
 
 Der Zugriff auf den Baustein erfolgt über das Interface `Security`, das mehrere Manager bereitstellt:
 
 * `Authentifizierungsmanager`
 * `Berechtigungsmanager`
 
-Das Interface `Security` hat Zugriff auf eine Liste von allen im System hinterlegten Rollen.
-Das Anwendungssystem greift darüber auf den `Authentifizierungsmanager` und den `Berechtigungsmanager` zu.
+Das Interface `Security` bietet auch eine Liste von allen im System hinterlegten Rollen an.
 
 Der `Authentifizierungsmanager` ist für die Kommunikation mit dem IAM-Service über den `OAuth2AuthorizedClientProvider` zuständig.
-Die Authentifizierung (Anmeldung) verläuft über diesen Aufruf.
-Nach einer erfolgreichen Authentifizierung erfolgt der Erhalt des Access-Tokens und der dem Benutzer zugeordneten Rollen.
-Diese Informationen werden anschließend im `SecurityContext` abgelegt.
+Die Authentifizierung (Anmeldung) von internen oder externen Anwendungen verläuft über Servicemethoden, die dieser Manager anbietet.
+Das Ergebnis einer erfolgreichen Authentifizierung ist die Autorisierung durch ein Access-Token, das die dem Benutzer zugeordneten Rollen enthält.
+Dieses Access-Token legt die rufende Anwendung (bzw. das SGW als Mittelsmann) anschließend im `SecurityContext` ab und präsentiert es der aufgerufenen Service-Schnittstelle der IsyFact-Anwendung.
 
 Über den `Berechtigungsmanager` kann die Anwendung die Rollen und anwendungsspezifischen Rechte des angemeldeten Benutzers abfragen.
 
 Der `RolePrivilegeGrantedAuthoritiesConverter` ist für die Konvertierung der vom IAM-Service im Access-Token übermittelten Rollen des Benutzers in die anwendungsspezifischen Rechte zuständig.
 
-Mit der von Spring Security bereitgestellten Annotation `@secured` werden angebotene Services der Anwendung abgesichert.
-Dieser Annotation muss noch der Name eines anwendungsspezifischen Rechts mitgegeben werden, das für die Verwendung dieses Service benötigt wird.
-Im Interceptor `SecuredInterceptor` wird sichergestellt, dass nur dann der Zugriff gewährt wird, wenn der angemeldete Nutzer auch über das vorhandene anwendungsspezifische Recht verfügt.
+Die Absicherung der Service-Schnittstellen von IsyFact-Anwendungen erfolgt über folgende AOP-Annotationen:
 
-Hinweis: Die Annotation `@secured` löst die Annotation `@gesichert` ab und ist analog dazu verwenden.
-
-Der `NutzerAuthentifizierunginterceptor` ist für die Authentifizierung von technischen Nutzern zuständig und wird über eine Annotation (`@NutzerAuthentifikation`) bereitgestellt.
-Parallel zur Annotation `@NutzerAuthentifikation` existiert die Annotation `@ClientAuthentification` zur Authentifizierung von OAuth2.0 Clients.
+- Der `NutzerAuthentifizierunginterceptor` ist für die Authentifizierung von technischen Nutzern zuständig und wird über eine Annotation `@NutzerAuthentifikation` bereitgestellt.
+Parallel dazu existiert die Annotation `@ClientAuthentification` zur Authentifizierung von OAuth2.0 Clients.
 Dies ermöglicht die Umstellung von technischen Nutzern auf OAuth2.0 Clients, ohne große Auswirkungen im Anwendungssystem zu erzeugen.
 Die Authentifizierungsdaten werden aus der Konfiguration der Anwendung ausgelesen und zur Authentifizierung verwendet.
 Die Authentifizierung findet über die Implementierung des Interfaces `Authentifizierungsmanager` statt.
 Das Ergebnis einer Authentifizierung über die Annotationen `@ClientAuthentification` und `@NutzerAuthentifikation` ist ein voll initialisierter `SecurityContext` mit einem validen Access-Token.
+
+- Mit der von Spring Security bereitgestellten Annotation `@secured` werden angebotene Services der Anwendung abgesichert.
+Dieser Annotation muss noch der Name eines anwendungsspezifischen Rechts mitgegeben werden, das für die Verwendung dieses Service benötigt wird.
+Im Interceptor `SecuredInterceptor` wird sichergestellt, dass nur dann der Zugriff gewährt wird, wenn der angemeldete Nutzer über seine Rollen auch dieses anwendungsspezifische Recht besitzt.
+
+Hinweis: Die Annotation `@secured` löst die Annotation `@gesichert` ab und ist analog dazu verwenden.
 
 [[aussensicht-der-komponente-security]]
 === Schnittstelle des Bausteins Security
@@ -142,15 +145,43 @@ image::konzept/security-schnittstellen.dn.svg[align="center"]
 
 Das Interface `Security` ist der zentrale Einstiegspunkt in den Baustein `isy-security`.
 Bei seiner Instanziierung wird die anwendungsspezifische Rollen-Rechte-Datei eingelesen und damit der `Authentifizierungsmanager` sowie der `Berechtigungsmanager` erzeugt.
-Das Interface `Security` stellt der Fachanwendung die im weiteren beschriebenen `Authentifizierungsmanager` und `Berechtigungsmanager` der Fachanwendung zur Verfügung.
+Das Interface `Security` stellt der Fachanwendung die im weiteren beschriebenen `Authentifizierungsmanager` und `Berechtigungsmanager` zur Verfügung.
 Außerdem kann die Fachanwendung über die Methode `getAlleRollen` eine Liste von allen im System hinterlegten Rollen erhalten.
 
-Der `Authentifizierungsmanager` übernimmt die Authentifizierung und Autorisierung von technischen Nutzern am IAM-System.
-Mit den aus der betrieblichen Konfiguration gelesenen Credentials des technischen Nutzers (über dessen RegistrationId: entweder Client-ID u. Client-Secret oder Nutzername u. Passwort) erfolgt seine OAuth2.0-konforme Authentifizierung und Autorisierung gegenüber dem IAM-System.
-Für den Credential-Typ bzw. _Credential_-Flow xref:client-credential-flow[] ist die Methode `authentifiziereClient` zu verwenden, für den Credential-Typ bzw. _Credential_-Flow xref:resource-owner-password-credential-flow[] die Methode `authentifiziereSystem`. +
-Bei erfolgreicher Authentifizierung werden die vom IAM-System zurückgegebenen Daten (Access-Token, Rollen des Anwenders, ...) im `Spring SecurityContext` abgelegt.
-Dort werden auch die den aus den Rollen resultierenden Rechte des Anwenders gespeichert.
+Der `Authentifizierungsmanager` übernimmt die programmatische Authentifizierung und Autorisierung interner und externer Anwendungen durch das IAM für den Zugang zu IsyFact-Nachbaranwendungen.
+Dafür sind folgende Szenarien zu unterscheiden, für die es jeweils eine eigene Servicemethode gibt:
+
+==== Authentifizierung einer internen Anwendung (Batch, Task, …) als eigener Schritt (direkt/intern):
+
+Interne Anwendungen sind als Confidential Client eingestuft und verwahren ihre Authentifizierungsdaten (entweder Client-ID u. Client-Secret oder Nutzername u. Passwort) in ihrer Konfiguration (mit einer registrationID als Schlüssel).
+Die Methode `authentifiziere(registrationID)` im Authentifizierungsmanager liest diese Authentifizierungsdaten aus der betrieblichen Konfiguration und führt damit eine OAuth2.0-konforme Authentifizierung und Autorisierung der Anwendung gegenüber dem IAM-System durch.
+Dabei wird anhand des Typs der Authentifizierungsdaten der passende Authentication-Flow ausgewählt:
+Für den Credential-Typ bzw. _Credential_-Flow xref:client-credential-flow[] ist die Methode `authentifiziereClient` zu verwenden, für den Credential-Typ bzw. _Credential_-Flow xref:resource-owner-password-credential-flow[] die Methode `authentifiziereSystem` - jeweils mit der registrationID und den Authentifizierungsdaten der internen Anwendung. +
+Bei erfolgreicher Authentifizierung legt die Anwendung das erhaltene Access-Token in ihrem SecurityContext ab und schickt es bei jedem Aufruf von Nachbaranwendungen mit. +
 Eine nicht erfolgreiche Authentifizierung (fachliche Ablehnung oder technisches Problem) löst eine `AuthentifizierungFehlgeschlagenException` bzw. `AuthentifizierungTechnicalException` aus.
+
+Die Methode `authentifiziereClient(registrationID, clientID, clientSecret, bhknz)` im Authentifizierungsmanager liest über die registrationID die URL des zu verwendenden IAM aus der betrieblichen Konfiguration und führt damit und den übergebenen Authentifizierungsdaten der anfordernden Anwendung den xref:client-credential-flow[] gegenüber dem IAM-System durch.
+
+Hinweis: Das Behördenkennzeichen (BHKNZ) kann derzeit für den Client-Credentials Flow noch nicht von isy-iam ausgewertet werden. Aus diesem Grund findet es keine Verwendung im Authentifizierungsmanager für die Authentifizierung eines Clients.
+
+Die Methode `authentifiziereSystem(registrationID, username, password, bhknz)` im Authentifizierungsmanager liest über die registrationID die Authentifizierungsdaten des vermittelnden confidential client (SGW) und die URL des zu verwendenden IAM aus der betrieblichen Konfiguration und führt damit und den übergebenen Authentifizierungsdaten der anfordernden Anwendung den xref:resource-owner-password-credential-flow[] gegenüber dem IAM-System durch.
+
+==== Authentifizierung einer externen Anwendung (über ServiceGateway):
+
+Das SGW:
+
+- fängt die Anfrage der externen Anwendung ab,
+
+- extrahiert aus dem Header die Authentifizierungsdaten und prüft sie auf Vollständigkeit und Validität,
+
+- wählt anhand des Typs der Authentifizierungsdaten den passenden Authentication-Flow:
+Für den Credential-Typ bzw. _Credential_-Flow xref:client-credential-flow[] ist die Methode `authentifiziereClient` zu verwenden, für den Credential-Typ bzw. _Credential_-Flow xref:resource-owner-password-credential-flow[] die Methode `authentifiziereSystem` - jeweils mit der registrationID des SGW und den Authentifizierungsdaten der externen Anwendung,
+
+- veranlasst darüber die OAuth2.0-konforme Authentifizierung u. Autorisierung der externen Anwendung gegenüber dem im SGW konfigurierten IAM,
+
+- Bei  erfolgreicher Authentifizierung leitet das SGW die Anfrage mit dem erhaltenen Access-Token weiter an die aufgerufene Service-Schnittstelle der IsyFact-Anwendung.
+
+- Bei nicht erfolgreicher Authentifizierung antwortet das SGW gegenüber der externen Anwendung mit dem HTTP-Fehlercode 403 'Forbidden'.
 
 Der `Berechtigungsmanager` gibt Auskunft über die Rollen und Rechte des Anwenders.
 Die in der Benutzeradministration dem Anwender zugewiesenen Rollen werden mithilfe einer anwendungsspezifischen Rollen-Rechte-Datei in konkrete Rechte des Anwenders für diese Anwendung umgewandelt.
