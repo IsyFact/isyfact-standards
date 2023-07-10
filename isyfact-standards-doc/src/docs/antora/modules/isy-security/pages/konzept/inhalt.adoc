@@ -97,10 +97,12 @@ image::isy-security:konzept/software-architektur-berechtigungspruefung.png[align
 
 Im Folgenden werden die Aufgaben und grobe Funktionsweise der Komponenten für die Autorisierung von Anfragen in einer xref:glossary:glossary:master.adoc#glossar-geschaeftsanwendung[Geschäftsanwendung]  erläutert.
 
-Der Baustein `isy-security` basiert auf dem Framework Spring Security und bietet querschnittliche Funktionalität zur Authentifizierung und Autorisierung (Berechtigungsprüfung) von Anfragen.
+Der Baustein `isy-security` basiert auf dem Framework Spring Security und bietet querschnittliche Funktionalität zur Authentifizierung und Autorisierung von Anfragen, die von internen oder externen Anwendungen an eine IsyFact-Anwendung gestellt werden (M2M-Kommunikation).
+Die Authentifizierung und Autorisierung von Anfragen, die von menschlichen Nutzern über eine Benutzeroberfläche (Browser) gestellt werden, findet im Zuge der Einführung von Single-Page-Applications (SPAs) nicht mehr über das Backend oder den Baustein isy-security statt, sondern innerhalb des Portal-Webservers.
+Ausserdem sichert der Baustein `isy-security` die Service-Schnittstellen der IsyFact-Anwendungen ab, indem er Funktionalität zur Berechtigungsprüfung anbietet. Hier wird geprüft, ob die gewährte Autorisierung auch das Recht zur Nutzung der angefragten Service-Schnittstelle beinhaltet.
+
 Um IsyFact-spezifische Anforderungen, wie z.B. die Nutzung des Behördenkennzeichens, zu erfüllen, existiert eine Zugriffsschicht, die eben diese Funktionalität bereitstellt und den Zugriff auf Spring Security (und das IAM-System) kapselt.
 Die einheitliche Zugriffsschicht für Authentifizierung und Autorisierung erleichtert zudem, durch die teilweise Übernahme bestehender Schnittstellen, die Migration von einer älteren IsyFact Version.
-Die Authentifizierung und Autorisierung an der Benutzeroberfläche findet im Zuge der Einführung von Single-Page-Applications (SPAs) nicht mehr über das Backend oder den Baustein isy-security statt, sondern innerhalb des Portal-Webservers.
 
 Der Zugriff auf den Baustein erfolgt über das Interface `Security`, das mehrere Manager bereitstellt:
 
@@ -117,15 +119,9 @@ Dieses Access-Token legt die rufende Anwendung (bzw. das SGW als Mittelsmann) an
 Über den `Berechtigungsmanager` kann die Anwendung die Rollen und anwendungsspezifischen Rechte des angemeldeten Benutzers abfragen.
 
 Der `RolePrivilegeGrantedAuthoritiesConverter` ist für die Konvertierung der vom IAM-Service im Access-Token übermittelten Rollen des Benutzers in die anwendungsspezifischen Rechte zuständig.
-Mit der von Spring Security bereitgestellten Annotation `@secured` werden angebotene Services der Anwendung abgesichert.
-Dieser Annotation muss noch der Name eines anwendungsspezifischen Rechts mitgegeben werden, das für die Verwendung dieses Service benötigt wird.
-Im Interceptor `SecuredInterceptor` wird sichergestellt, dass nur dann der Zugriff gewährt wird, wenn der angemeldete Nutzer auch über das vorhandene anwendungsspezifische Recht verfügt.
 
-NOTE:  Die Annotation `@secured` löst die Annotation `@gesichert` ab und ist analog dazu zu verwenden.
+Die Absicherung der Service-Schnittstellen von IsyFact-Anwendungen erfolgt über folgende AOP-Annotationen:
 
-Der `NutzerAuthentifizierungInterceptor` ist für die Authentifizierung von technischen Nutzern zuständig und wird über eine Annotation (`@NutzerAuthentifikation`) bereitgestellt.
-Parallel zur Annotation `@NutzerAuthentifikation` existiert die Annotation `@ClientAuthentification` zur Authentifizierung von OAuth2.0 Clients.
-Dies ermöglicht die Umstellung von technischen Nutzern auf OAuth2.0 Clients, ohne große Auswirkungen im Anwendungssystem zu erzeugen.
 - Der `NutzerAuthentifizierunginterceptor` ist für die Authentifizierung von technischen Nutzern zuständig und wird über eine Annotation `@NutzerAuthentifikation` bereitgestellt.
 Parallel dazu existiert die Annotation `@ClientAuthentification` zur Authentifizierung von OAuth2.0 Clients.
 Dies ermöglicht die Umstellung von technischen Nutzern auf OAuth2.0 Clients, ohne große Auswirkungen im Anwendungssystem zu erzeugen.
@@ -137,7 +133,7 @@ Das Ergebnis einer Authentifizierung über die Annotationen `@ClientAuthentifica
 Dieser Annotation muss noch der Name eines anwendungsspezifischen Rechts mitgegeben werden, das für die Verwendung dieses Service benötigt wird.
 Im Interceptor `SecuredInterceptor` wird sichergestellt, dass nur dann der Zugriff gewährt wird, wenn der angemeldete Nutzer über seine Rollen auch dieses anwendungsspezifische Recht besitzt.
 
-Hinweis: Die Annotation `@secured` löst die Annotation `@gesichert` ab und ist analog dazu verwenden.
+NOTE: Die Annotation `@secured` löst die Annotation `@gesichert` ab und ist analog dazu verwenden.
 
 [[aussensicht-der-komponente-security]]
 === Schnittstelle des Bausteins Security
