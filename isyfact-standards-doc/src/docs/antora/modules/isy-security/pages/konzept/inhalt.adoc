@@ -107,13 +107,12 @@ Der Zugriff auf den Baustein erfolgt über das Interface `Security`, das mehrere
 * `Authentifizierungsmanager`
 * `Berechtigungsmanager`
 
-Das Interface `Security` hat Zugriff auf eine Liste von allen im System hinterlegten Rollen.
-Das Anwendungssystem greift darüber auf den `Authentifizierungsmanager` und den `Berechtigungsmanager` zu.
+Das Interface `Security` bietet auch eine Liste von allen im System hinterlegten Rollen an.
 
 Der `Authentifizierungsmanager` ist für die Kommunikation mit dem IAM-Service über den `OAuth2AuthorizedClientProvider` zuständig.
-Die Authentifizierung (Anmeldung) verläuft über diesen Aufruf.
-Nach einer erfolgreichen Authentifizierung erfolgt der Erhalt des Access-Tokens und der dem Benutzer zugeordneten Rollen.
-Diese Informationen werden anschließend im `SecurityContext` abgelegt.
+Die Authentifizierung (Anmeldung) von internen oder externen Anwendungen verläuft über Servicemethoden, die dieser Manager anbietet.
+Das Ergebnis einer erfolgreichen Authentifizierung ist die Autorisierung durch ein Access-Token, das die dem Benutzer zugeordneten Rollen enthält.
+Dieses Access-Token legt die rufende Anwendung (bzw. das SGW als Mittelsmann) anschließend im `SecurityContext` ab und präsentiert es der aufgerufenen Service-Schnittstelle der IsyFact-Anwendung.
 
 Über den `Berechtigungsmanager` kann die Anwendung die Rollen und anwendungsspezifischen Rechte des angemeldeten Benutzers abfragen.
 
@@ -127,9 +126,18 @@ NOTE:  Die Annotation `@secured` löst die Annotation `@gesichert` ab und ist an
 Der `NutzerAuthentifizierungInterceptor` ist für die Authentifizierung von technischen Nutzern zuständig und wird über eine Annotation (`@NutzerAuthentifikation`) bereitgestellt.
 Parallel zur Annotation `@NutzerAuthentifikation` existiert die Annotation `@ClientAuthentification` zur Authentifizierung von OAuth2.0 Clients.
 Dies ermöglicht die Umstellung von technischen Nutzern auf OAuth2.0 Clients, ohne große Auswirkungen im Anwendungssystem zu erzeugen.
+- Der `NutzerAuthentifizierunginterceptor` ist für die Authentifizierung von technischen Nutzern zuständig und wird über eine Annotation `@NutzerAuthentifikation` bereitgestellt.
+Parallel dazu existiert die Annotation `@ClientAuthentification` zur Authentifizierung von OAuth2.0 Clients.
+Dies ermöglicht die Umstellung von technischen Nutzern auf OAuth2.0 Clients, ohne große Auswirkungen im Anwendungssystem zu erzeugen.
 Die Authentifizierungsdaten werden aus der Konfiguration der Anwendung ausgelesen und zur Authentifizierung verwendet.
 Die Authentifizierung findet über die Implementierung des Interfaces `Authentifizierungsmanager` statt.
 Das Ergebnis einer Authentifizierung über die Annotationen `@ClientAuthentification` und `@NutzerAuthentifikation` ist ein voll initialisierter `SecurityContext` mit einem validen Access-Token.
+
+- Mit der von Spring Security bereitgestellten Annotation `@secured` werden angebotene Services der Anwendung abgesichert.
+Dieser Annotation muss noch der Name eines anwendungsspezifischen Rechts mitgegeben werden, das für die Verwendung dieses Service benötigt wird.
+Im Interceptor `SecuredInterceptor` wird sichergestellt, dass nur dann der Zugriff gewährt wird, wenn der angemeldete Nutzer über seine Rollen auch dieses anwendungsspezifische Recht besitzt.
+
+Hinweis: Die Annotation `@secured` löst die Annotation `@gesichert` ab und ist analog dazu verwenden.
 
 [[aussensicht-der-komponente-security]]
 === Schnittstelle des Bausteins Security
@@ -145,11 +153,40 @@ Bei seiner Instanziierung wird die anwendungsspezifische Rollen-Rechte-Datei ein
 Das Interface `Security` stellt der Geschäftsanwendung die im Weiteren beschriebenen `Authentifizierungsmanager` und `Berechtigungsmanager` der Fachanwendung zur Verfügung.
 Außerdem kann die Geschäftsanwendung über die Methode `getAlleRollen` eine Liste von allen im System hinterlegten Rollen erhalten.
 
-Der `Authentifizierungsmanager` übernimmt die Authentifizierung von technischen Nutzern am IAM-System.
-Mit der Methode `authentifiziereClient` wird die OAuth2.0-konforme Authentifizierung eines Clients mittels Client-ID u. Client-Secret unterstützt und mit der Methode `authentifiziereSystem` der alternative Weg mittels (techn.) Nutzername und Passwort.
-Bei erfolgreicher Authentifizierung werden die vom IAM-System zurückgegebenen Daten (Access-Token, Rollen des Anwenders, ...) im `Spring SecurityContext` abgelegt.
-Dort werden auch die den aus den Rollen resultierenden Rechte des Anwenders gespeichert.
+Der `Authentifizierungsmanager` übernimmt die programmatische Authentifizierung und Autorisierung interner und externer Anwendungen durch das IAM für den Zugang zu IsyFact-Nachbaranwendungen.
+Dafür sind folgende Szenarien zu unterscheiden, für die es jeweils eine eigene Servicemethode gibt:
+
+==== Authentifizierung einer internen Anwendung (Batch, Task, …) als eigener Schritt (direkt/intern):
+
+Interne Anwendungen sind als Confidential Client eingestuft und verwahren ihre Authentifizierungsdaten (entweder Client-ID u. Client-Secret oder Nutzername u. Passwort) in ihrer Konfiguration (mit einer registrationID als Schlüssel).
+Die Methode `authentifiziere(registrationID)` im Authentifizierungsmanager liest diese Authentifizierungsdaten aus der betrieblichen Konfiguration und führt damit eine OAuth2.0-konforme Authentifizierung und Autorisierung der Anwendung gegenüber dem IAM-System durch.
+Dabei wird anhand des Typs der Authentifizierungsdaten der passende Authentication-Flow ausgewählt:
+Für den Credential-Typ bzw. _Credential_-Flow xref:client-credential-flow[] ist die Methode `authentifiziereClient` zu verwenden, für den Credential-Typ bzw. _Credential_-Flow xref:resource-owner-password-credential-flow[] die Methode `authentifiziereSystem` - jeweils mit der registrationID und den Authentifizierungsdaten der internen Anwendung. +
+Bei erfolgreicher Authentifizierung legt die Anwendung das erhaltene Access-Token in ihrem SecurityContext ab und schickt es bei jedem Aufruf von Nachbaranwendungen mit. +
 Eine nicht erfolgreiche Authentifizierung (fachliche Ablehnung oder technisches Problem) löst eine `AuthentifizierungFehlgeschlagenException` bzw. `AuthentifizierungTechnicalException` aus.
+
+==== Authentifizierung einer externen Anwendung (über ServiceGateway):
+
+Das SGW:
+
+- fängt die Anfrage der externen Anwendung ab,
+
+- extrahiert aus dem Header die Authentifizierungsdaten und prüft sie auf Vollständigkeit und Validität,
+
+- wählt anhand des Typs der Authentifizierungsdaten den passenden Authentication-Flow:
+Für den Credential-Typ bzw. _Credential_-Flow xref:client-credential-flow[] ist die Methode `authentifiziereClient` zu verwenden, für den Credential-Typ bzw. _Credential_-Flow xref:resource-owner-password-credential-flow[] die Methode `authentifiziereSystem` - jeweils mit der registrationID des SGW und den Authentifizierungsdaten der externen Anwendung,
+
+- veranlasst darüber die OAuth2.0-konforme Authentifizierung u. Autorisierung der externen Anwendung gegenüber dem im SGW konfigurierten IAM,
+
+- Bei  erfolgreicher Authentifizierung leitet das SGW die Anfrage mit dem erhaltenen Access-Token weiter an die aufgerufene Service-Schnittstelle der IsyFact-Anwendung.
+
+- Bei nicht erfolgreicher Authentifizierung antwortet das SGW gegenüber der externen Anwendung mit dem HTTP-Fehlercode 403 'Forbidden'.
+
+Die Methode `authentifiziereClient(registrationID, clientID, clientSecret, bhknz)` im Authentifizierungsmanager liest über die registrationID die URL des zu verwendenden IAM aus der betrieblichen Konfiguration und führt damit und den übergebenen Authentifizierungsdaten der anfordernden Anwendung den xref:client-credential-flow[] gegenüber dem IAM-System durch.
+
+Hinweis: Das Behördenkennzeichen (BHKNZ) kann derzeit für den Client-Credentials Flow noch nicht von isy-iam ausgewertet werden. Aus diesem Grund findet es keine Verwendung im Authentifizierungsmanager für die Authentifizierung eines Clients.
+
+Die Methode `authentifiziereSystem(registrationID, username, password, bhknz)` im Authentifizierungsmanager liest über die registrationID die Authentifizierungsdaten des vermittelnden confidential client (SGW) und die URL des zu verwendenden IAM aus der betrieblichen Konfiguration und führt damit und den übergebenen Authentifizierungsdaten der anfordernden Anwendung den xref:resource-owner-password-credential-flow[] gegenüber dem IAM-System durch.
 
 Der `Berechtigungsmanager` gibt Auskunft über die Rollen und Rechte des Anwenders.
 Die in der Benutzeradministration dem Anwender zugewiesenen Rollen werden mithilfe einer anwendungsspezifischen Rollen-Rechte-Datei in konkrete Rechte des Anwenders für diese Anwendung umgewandelt.
@@ -548,7 +585,7 @@ Zur Prüfung der Echtheit muss die Signatur von dem IsyFact-Anwendungssystem ver
 
 *Prüfung des Access-Tokens auf Gültigkeit*
 
-Acess-Tokens besitzen eine zeitlich begrenzte Gültigkeit, die im Ermessen der Anwendungslandschaft definiert werden kann.
+Access-Token besitzen eine zeitlich begrenzte Gültigkeit, die im Ermessen der Anwendungslandschaft definiert werden kann.
 Durch die begrenzte zeitliche Gültigkeit kann sichergestellt werden, dass das Access-Token kein 'ewiger Universalschlüssel' ist, sondern regelmäßig erneuert werden muss.
 Die Prüfung auf Gültigkeit gibt an, ob der Ablaufzeitpunkt des Access-Tokens bereits erreicht wurde.
 Für ein gültiges Access-Token muss der im Header-Claim 'exp' enthaltene Zeitstempel in der Zukunft liegen.
@@ -579,7 +616,7 @@ Sobald die Gültigkeitsdauer überschritten ist, muss das Access-Token als ungü
 Die Verwendung eines abgelaufenen Access-Tokens bei einer Anfrage muss vom empfangenden System erkannt und mit HTTP status error code: 401 und der Fehlerbeschreibung: "The access token expired" beantwortet werden, wie oben beschrieben.
 Der Aufrufer muss die Antwort verarbeiten und die Anfrage mit einem gültigen Access-Token erneut senden.
 
-Für menschliche Nutzer wurde mit dem Refresh Token ein Mechanismus eingeführt, der eine automatische Aktualisierung des Access-Tokens erlaubt, ohne dass der Benutzer interagieren muss:
+Für menschliche Nutzer wurde mit dem Refresh-Token ein Mechanismus eingeführt, der eine automatische Aktualisierung des Access-Tokens erlaubt, ohne dass der Benutzer interagieren muss:
 Das Webserver-Modul `mod_auth_openidc` koordiniert für Portal-Anwendungen die Erneuerung des Access-Tokens (automatisch mit Refresh-Token bzw. durch erneute Authentifizierung (siehe: <<aufruf-weboberflaeche-portal>>)) - der Baustein Security wird hierfür nicht verwendet. +
 
 Technische Nutzer (Clients) können ihr Access-Token nur durch eine erneute Authentifizierung (siehe: <<aufruf-service-gateway>> bzw. <<ausfuehrung-batch-u-task>>) erneuern.
