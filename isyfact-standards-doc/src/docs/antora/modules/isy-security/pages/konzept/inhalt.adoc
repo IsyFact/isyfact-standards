@@ -180,7 +180,7 @@ Für den Credential-Typ bzw. _Credential_-Flow xref:client-credential-flow[] ist
 
 Die Methode `authentifiziereClient(registrationID, clientID, clientSecret, bhknz)` im Authentifizierungsmanager liest über die registrationID die URL des zu verwendenden IAM aus der betrieblichen Konfiguration und führt damit und den übergebenen Authentifizierungsdaten der anfordernden Anwendung den xref:client-credential-flow[] gegenüber dem IAM-System durch.
 
-Hinweis: Das Behördenkennzeichen (BHKNZ) kann derzeit für den Client-Credentials Flow noch nicht von isy-iam ausgewertet werden. Aus diesem Grund findet es keine Verwendung im Authentifizierungsmanager für die Authentifizierung eines Clients.
+NOTE: Das Behördenkennzeichen (BHKNZ) kann derzeit für den Client-Credentials Flow noch nicht von isy-iam ausgewertet werden. Aus diesem Grund findet es keine Verwendung im Authentifizierungsmanager für die Authentifizierung eines Clients.
 
 Die Methode `authentifiziereSystem(registrationID, username, password, bhknz)` im Authentifizierungsmanager liest über die registrationID die Authentifizierungsdaten des vermittelnden confidential client (SGW) und die URL des zu verwendenden IAM aus der betrieblichen Konfiguration und führt damit und den übergebenen Authentifizierungsdaten der anfordernden Anwendung den xref:resource-owner-password-credential-flow[] gegenüber dem IAM-System durch.
 
