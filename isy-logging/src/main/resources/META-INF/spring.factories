@@ -1,3 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-de.bund.bva.isyfact.logging.autoconfigure.IsyLoggingAutoConfiguration,\
-de.bund.bva.isyfact.logging.autoconfigure.IsyPerformanceLoggingAutoConfiguration
