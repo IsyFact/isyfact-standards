@@ -114,7 +114,7 @@ Zusätzlich bietet das `Security`-Interface eine Zugriffsmöglichkeit auf eine L
 Der `Authentifizierungsmanager` ist für die Kommunikation mit dem IAM-Service über den `OAuth2AuthorizedClientProvider` zuständig.
 Die Authentifizierung (Anmeldung) von internen oder externen Anwendungen verläuft über Servicemethoden, die dieser Manager anbietet.
 Das Ergebnis einer erfolgreichen Authentifizierung ist die Autorisierung durch ein Access-Token, das die dem Benutzer zugeordneten Rollen enthält.
-Dieses Access-Token legt die rufende Anwendung (bzw. das SGW als Mittelsmann) anschließend im `SecurityContext` ab und präsentiert es der aufgerufenen Service-Schnittstelle der IsyFact-Anwendung.
+Die rufende Anwendung (bzw. das SGW als Mittelsmann) legt anschließend dieses Access-Token im `SecurityContext` ab und präsentiert es der aufgerufenen Service-Schnittstelle der IsyFact-Anwendung.
 
 Über den `Berechtigungsmanager` kann die Anwendung die Rollen und anwendungsspezifischen Rechte des angemeldeten Benutzers abfragen.
 
@@ -156,8 +156,8 @@ Dafür sind folgende Szenarien zu unterscheiden, für die es jeweils eine eigene
 
 Interne Anwendungen sind als Confidential Client eingestuft und verwahren ihre Authentifizierungsdaten (entweder Client-ID u. Client-Secret oder Nutzername u. Passwort) in ihrer Konfiguration (mit einer ApplicationID als Schlüssel).
 Die Methode `authentifiziere(applicationID)` im Authentifizierungsmanager liest diese Authentifizierungsdaten aus der betrieblichen Konfiguration und führt damit eine OAuth2.0-konforme Authentifizierung und Autorisierung der Anwendung gegenüber dem IAM-System durch.
-Dabei wird anhand des Typs der Authentifizierungsdaten der passende Authentication-Flow ausgewählt:
-Für den Credential-Typ bzw. _Credential_-Flow xref:client-credential-flow[] ist die Methode `authentifiziereClient` zu verwenden, für den Credential-Typ bzw. _Credential_-Flow xref:resource-owner-password-credential-flow[] die Methode `authentifiziereSystem` - jeweils mit der ApplicationID und den Authentifizierungsdaten der internen Anwendung. +
+Dabei wird innerhalb der Methode `authentifiziere(applicationID)` anhand der property `authorization-grant-type` der passende Authentication-Flow ausgewählt:
+Der Wert 'client-credentials' bedeutet, den _Credential_-Flow xref:client-credential-flow[] und damit die Methode `authentifiziereClient` zu verwenden, der Wert 'password'  steht für den _Credential_-Flow xref:resource-owner-password-credential-flow[] für den die Methode `authentifiziereSystem` zu verwenden ist - jeweils mit der ApplicationID und den Authentifizierungsdaten der internen Anwendung. +
 Bei erfolgreicher Authentifizierung legt die Anwendung das erhaltene Access-Token in ihrem SecurityContext ab und schickt es bei jedem Aufruf von Nachbaranwendungen mit. +
 Eine nicht erfolgreiche Authentifizierung (fachliche Ablehnung oder technisches Problem) löst eine `AuthentifizierungFehlgeschlagenException` bzw. `AuthentifizierungTechnicalException` aus.
 
