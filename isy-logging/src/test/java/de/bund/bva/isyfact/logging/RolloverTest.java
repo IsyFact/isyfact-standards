@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -95,9 +96,9 @@ public class RolloverTest extends AbstractLogTest {
                 .getTriggeringPolicy();
         TimeBasedFileNamingAndTriggeringPolicyBase<?> timeBasedFileNamingAndTriggeringPolicy = (TimeBasedFileNamingAndTriggeringPolicyBase<?>) triggeringPolicy
                 .getTimeBasedFileNamingAndTriggeringPolicy();
-        Field nextCheckField = TimeBasedFileNamingAndTriggeringPolicyBase.class.getDeclaredField("nextCheck");
+        Field nextCheckField = TimeBasedFileNamingAndTriggeringPolicyBase.class.getDeclaredField("atomicNextCheck");
         nextCheckField.setAccessible(true);
-        nextCheckField.setLong(timeBasedFileNamingAndTriggeringPolicy, jetzt.getTimeInMillis());
+        nextCheckField.set(timeBasedFileNamingAndTriggeringPolicy, new AtomicLong(jetzt.getTimeInMillis()));
         triggeringPolicy.isTriggeringEvent(null, null);
         appender.rollover();
 
