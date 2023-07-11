@@ -74,8 +74,8 @@ Die *Einfachheit* der Nutzung der Bibliothek `isy-security` wird durch weitgehen
 
 Aus den xref:konzept/master.adoc#prinzipien-der-sicherheitsarchitektur[Prinzipien der Sicherheitsarchitektur] leiten sich die folgenden Randbedingungen für die Umsetzung der Berechtigungsprüfung innerhalb eines IT-Systems ab:
 
-* Anfragen, die am Dialog (Web-App) eines IT-Systems eingehen, sind immer bereits durch das IAM-System bzw. die lokale Authentifizierung erfolgreich authentifiziert - über die mitgegebenen Authentifizierungsdaten.
-Sorgt ein IAM-System für die Authentifizierung, enthält der HTTP-Header der Anfrage die Identifikation des Anwenders und dessen Rollen (in Form eines JWT Zugriffstoken).
+* Anfragen, die am Dialog (Web-App) eines IT-Systems eingehen, sind immer vorher über die mitgegebenen Authentifizierungsdaten durch das IAM-System bzw. die lokale Authentifizierung erfolgreich authentifiziert.
+Durch die Authentifizierung des IAM-Systems enthält der HTTP-Header der Anfrage die Identifikation des Anwenders und dessen Rollen (in Form eines JWT Zugriffstoken).
 * Anfragen, die an einer Service-Schnittstelle (von außen über ein Service-Gateway (SGW) oder von anderen IT-Systemen innerhalb der IT-Systemlandschaft) eines IT-Systems eingehen, sind ebenso bereits authentifiziert.
 * Prozesse, die unabhängig von eingehenden Anfragen (über Dialog und Service) durch ein IT-System gestartet werden (z.B. Batch/Task), müssen zunächst einen (technischen) Nutzer gegen das IAM-System bzw. die lokale Authentifizierung erfolgreich authentifizieren, um ein JWT Access-Token zu erhalten.
 Mit diesem können sie dann Services anderer IT-Systeme innerhalb derselben Anwendungslandschaft verwenden.
@@ -104,12 +104,12 @@ Ausserdem sichert der Baustein `isy-security` die Service-Schnittstellen der Isy
 Um IsyFact-spezifische Anforderungen, wie z.B. die Nutzung des Behördenkennzeichens, zu erfüllen, existiert eine Zugriffsschicht, die eben diese Funktionalität bereitstellt und den Zugriff auf Spring Security (und das IAM-System) kapselt.
 Die einheitliche Zugriffsschicht für Authentifizierung und Autorisierung erleichtert zudem, durch die teilweise Übernahme bestehender Schnittstellen, die Migration von einer älteren IsyFact Version.
 
-Der Zugriff auf den Baustein erfolgt über das Interface `Security`, das mehrere Manager bereitstellt:
+Der Zugriff auf den Baustein erfolgt über das Interface `Security`, das mehrere Methoden zum Erhalt verschiedener Manager-Instanzen bereitstellt:
 
 * `Authentifizierungsmanager`
 * `Berechtigungsmanager`
 
-Das Interface `Security` bietet auch eine Liste von allen im System hinterlegten Rollen an.
+Zusätzlich bietet das `Security`-Interface eine Zugriffsmöglichkeit auf eine Liste von allen im System hinterlegten Rollen an.
 
 Der `Authentifizierungsmanager` ist für die Kommunikation mit dem IAM-Service über den `OAuth2AuthorizedClientProvider` zuständig.
 Die Authentifizierung (Anmeldung) von internen oder externen Anwendungen verläuft über Servicemethoden, die dieser Manager anbietet.
