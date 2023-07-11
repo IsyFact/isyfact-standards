@@ -109,7 +109,7 @@ Der Zugriff auf den Baustein erfolgt über das Interface `Security`, das mehrere
 * `Authentifizierungsmanager`
 * `Berechtigungsmanager`
 
-Das Interface `Security` bietet auch eine Liste von allen im System hinterlegten Rollen an.
+Zusätzlich bietet das `Security`-Interface eine Zugriffsmöglichkeit auf eine Liste von allen im System hinterlegten Rollen an.
 
 Der `Authentifizierungsmanager` ist für die Kommunikation mit dem IAM-Service über den `OAuth2AuthorizedClientProvider` zuständig.
 Die Authentifizierung (Anmeldung) von internen oder externen Anwendungen verläuft über Servicemethoden, die dieser Manager anbietet.
