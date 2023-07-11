@@ -10,7 +10,7 @@ Konkret wird das im Baustein `Security` durch ein Rollen-, Rechte- und Berechtig
 
 * Authentifizierungsinformationen, wie Benutzername und Passwort, werden nicht über IT-Systeme hinweg weitergegeben.
 Nur der Eigentümer der Authentifizierungsinformationen und der IAM-Service besitzen Kenntnis über diese Informationen.
-* Eine Zweifaktor-Authentifizierung ist durch das Behördenkennzeichen (BHKNZ) als zusätzliches Authentifizierungsmerkmal konzipiert, allerdings setzt dies im IAM-Service voraus, dass dieses Merkmal dort auch ausgewertet werden kann.
+* Eine Zweifaktor-Authentifizierung ist durch das Behördenkennzeichen (BhKnz) als zusätzliches Authentifizierungsmerkmal konzipiert, allerdings setzt dies im IAM-Service voraus, dass dieses Merkmal dort auch ausgewertet werden kann.
 * Die Authentifizierung und grobgranulare Autorisierung (mittels des Nutzers zugeordneten Rollen) erfolgt an den Außenschnittstellen der Systemlandschaft (Portal, Authentication-Gateway bzw. Service-Gateway).
 * Liegt kein Aufruf über eine Außenschnittstelle vor (z.B. bei einem Batch- oder Task-Aufruf), so geschieht die Authentifizierung und grobgranulare Autorisierung innerhalb der Nutzungsschicht (Batch / Task) des rufenden IT-Systems über den IsyFact-Baustein Security.
 * Die feingranulare Autorisierung geschieht in der Nutzungsschicht und im Anwendungskern des aufgerufenen IT-Systems über den IsyFact-Baustein Security, indem die Nutzerrollen auf anwendungsspezifische Rechte abgebildet und diese Rechte bei jedem Serviceaufruf geprüft werden.
@@ -38,8 +38,8 @@ NOTE: IAM steht für xref:glossary:literaturextern:inhalt.adoc#litextern-identit
 Das IAM-System verwaltet *Benutzer* (menschliche Anwender und technische System) und ihre *Rollen* zentral für alle Komponenten der Anwendungs- und Systemlandschaft.
 
 Die Authentifizierung und grobgranulare Autorisierung erfolgt, gemäß der  xref:konzept/master.adoc#prinzipien-der-sicherheitsarchitektur[Prinzipien der Sicherheitsarchitektur], an den Außenschnittstellen der Systemlandschaft.
-Hierbei übermittelt der Benutzer seine Authentifizierungsmerkmale (z.B. Login-Name u. Passwort) und für eine Zwei-Faktor-Authentifizierung das Behördenkennzeichen (BHKNZ) an den IAM-Service, der sie gegen die bei ihm gespeicherten Merkmale verifiziert.
-Falls der IAM-Service die Auswertung des BHKNZ nicht unterstützt, wird dieses Authentifizierungsmerkmal als optional gewertet.
+Hierbei übermittelt der Benutzer seine Authentifizierungsmerkmale (z.B. Login-Name u. Passwort) und für eine Zwei-Faktor-Authentifizierung das Behördenkennzeichen (BhKnz) an den IAM-Service, der sie gegen die bei ihm gespeicherten Merkmale verifiziert.
+Falls der IAM-Service die Auswertung des BhKnz nicht unterstützt, wird dieses Authentifizierungsmerkmal als optional gewertet.
 Nach erfolgreicher Authentifizierung gibt der IAM-Service das Authentifizierungsergebnis zusammen mit den bei ihm hinterlegten Rollen des Anwenders an das aufrufende Anwendungssystem zurück. +
 Die Rollen allein sind jedoch noch nicht ausreichend, um den Benutzer in der Anwendung vollständig zu autorisieren.
 
@@ -104,7 +104,7 @@ Ausserdem sichert der Baustein `isy-security` die Service-Schnittstellen der Isy
 Um IsyFact-spezifische Anforderungen, wie z.B. die Nutzung des Behördenkennzeichens, zu erfüllen, existiert eine Zugriffsschicht, die eben diese Funktionalität bereitstellt und den Zugriff auf Spring Security (und das IAM-System) kapselt.
 Die einheitliche Zugriffsschicht für Authentifizierung und Autorisierung erleichtert zudem, durch die teilweise Übernahme bestehender Schnittstellen, die Migration von einer älteren IsyFact Version.
 
-Der Zugriff auf den Baustein erfolgt über das Interface `Security`, das mehrere Methoden zum Erhalt verschiedener Manager-Instanzen bereitstellt:
+Der Zugriff auf den Baustein erfolgt über das Interface `Security`, das Methoden zum Erhalt von Instanzen folgender Manager bereitstellt:
 
 * `Authentifizierungsmanager`
 * `Berechtigungsmanager`
@@ -154,10 +154,10 @@ Dafür sind folgende Szenarien zu unterscheiden, für die es jeweils eine eigene
 
 ==== Authentifizierung einer internen Anwendung (Batch, Task, …) als eigener Schritt (direkt/intern):
 
-Interne Anwendungen sind als Confidential Client eingestuft und verwahren ihre Authentifizierungsdaten (entweder Client-ID u. Client-Secret oder Nutzername u. Passwort) in ihrer Konfiguration (mit einer registrationID als Schlüssel).
-Die Methode `authentifiziere(registrationID)` im Authentifizierungsmanager liest diese Authentifizierungsdaten aus der betrieblichen Konfiguration und führt damit eine OAuth2.0-konforme Authentifizierung und Autorisierung der Anwendung gegenüber dem IAM-System durch.
+Interne Anwendungen sind als Confidential Client eingestuft und verwahren ihre Authentifizierungsdaten (entweder Client-ID u. Client-Secret oder Nutzername u. Passwort) in ihrer Konfiguration (mit einer ApplicationID als Schlüssel).
+Die Methode `authentifiziere(applicationID)` im Authentifizierungsmanager liest diese Authentifizierungsdaten aus der betrieblichen Konfiguration und führt damit eine OAuth2.0-konforme Authentifizierung und Autorisierung der Anwendung gegenüber dem IAM-System durch.
 Dabei wird anhand des Typs der Authentifizierungsdaten der passende Authentication-Flow ausgewählt:
-Für den Credential-Typ bzw. _Credential_-Flow xref:client-credential-flow[] ist die Methode `authentifiziereClient` zu verwenden, für den Credential-Typ bzw. _Credential_-Flow xref:resource-owner-password-credential-flow[] die Methode `authentifiziereSystem` - jeweils mit der registrationID und den Authentifizierungsdaten der internen Anwendung. +
+Für den Credential-Typ bzw. _Credential_-Flow xref:client-credential-flow[] ist die Methode `authentifiziereClient` zu verwenden, für den Credential-Typ bzw. _Credential_-Flow xref:resource-owner-password-credential-flow[] die Methode `authentifiziereSystem` - jeweils mit der ApplicationID und den Authentifizierungsdaten der internen Anwendung. +
 Bei erfolgreicher Authentifizierung legt die Anwendung das erhaltene Access-Token in ihrem SecurityContext ab und schickt es bei jedem Aufruf von Nachbaranwendungen mit. +
 Eine nicht erfolgreiche Authentifizierung (fachliche Ablehnung oder technisches Problem) löst eine `AuthentifizierungFehlgeschlagenException` bzw. `AuthentifizierungTechnicalException` aus.
 
@@ -167,10 +167,10 @@ Das SGW:
 
 - fängt die Anfrage der externen Anwendung ab,
 
-- extrahiert aus dem Header die Authentifizierungsdaten und prüft sie auf Vollständigkeit und Validität,
+- extrahiert die Authentifizierungsdaten und prüft sie auf Vollständigkeit und Validität,
 
 - wählt anhand des Typs der Authentifizierungsdaten den passenden Authentication-Flow:
-Für den Credential-Typ bzw. _Credential_-Flow xref:client-credential-flow[] ist die Methode `authentifiziereClient` zu verwenden, für den Credential-Typ bzw. _Credential_-Flow xref:resource-owner-password-credential-flow[] die Methode `authentifiziereSystem` - jeweils mit der registrationID des SGW und den Authentifizierungsdaten der externen Anwendung,
+Für den Credential-Typ bzw. _Credential_-Flow xref:client-credential-flow[] ist die Methode `authentifiziereClient` zu verwenden, für den Credential-Typ bzw. _Credential_-Flow xref:resource-owner-password-credential-flow[] die Methode `authentifiziereSystem` - jeweils mit der ApplicationID des SGW und den Authentifizierungsdaten der externen Anwendung,
 
 - veranlasst darüber die OAuth2.0-konforme Authentifizierung u. Autorisierung der externen Anwendung gegenüber dem im SGW konfigurierten IAM,
 
@@ -178,11 +178,11 @@ Für den Credential-Typ bzw. _Credential_-Flow xref:client-credential-flow[] ist
 
 - Bei nicht erfolgreicher Authentifizierung antwortet das SGW gegenüber der externen Anwendung mit dem HTTP-Fehlercode 403 'Forbidden'.
 
-Die Methode `authentifiziereClient(registrationID, clientID, clientSecret, bhknz)` im Authentifizierungsmanager liest über die registrationID die URL des zu verwendenden IAM aus der betrieblichen Konfiguration und führt damit und den übergebenen Authentifizierungsdaten der anfordernden Anwendung den xref:client-credential-flow[] gegenüber dem IAM-System durch.
+Die Methode `authentifiziereClient(applicationID, clientID, clientSecret, bhknz)` im Authentifizierungsmanager liest über die ApplicationID die URL des zu verwendenden IAM aus der betrieblichen Konfiguration und führt damit und den übergebenen Authentifizierungsdaten der anfordernden Anwendung den xref:client-credential-flow[] gegenüber dem IAM-System durch.
 
-NOTE: Das Behördenkennzeichen (BHKNZ) kann derzeit für den Client-Credentials Flow noch nicht von isy-iam ausgewertet werden. Aus diesem Grund findet es keine Verwendung im Authentifizierungsmanager für die Authentifizierung eines Clients.
+NOTE: Das Behördenkennzeichen (BhKnz) kann derzeit für den Client-Credentials Flow noch nicht von isy-iam ausgewertet werden. Aus diesem Grund findet es keine Verwendung im Authentifizierungsmanager für die Authentifizierung eines Clients.
 
-Die Methode `authentifiziereSystem(registrationID, username, password, bhknz)` im Authentifizierungsmanager liest über die registrationID die Authentifizierungsdaten des vermittelnden confidential client (SGW) und die URL des zu verwendenden IAM aus der betrieblichen Konfiguration und führt damit und den übergebenen Authentifizierungsdaten der anfordernden Anwendung den xref:resource-owner-password-credential-flow[] gegenüber dem IAM-System durch.
+Die Methode `authentifiziereSystem(applicationID, username, password, bhknz)` im Authentifizierungsmanager liest über die ApplicationID die Authentifizierungsdaten des vermittelnden confidential client (SGW) und die URL des zu verwendenden IAM aus der betrieblichen Konfiguration und führt damit und den übergebenen Authentifizierungsdaten der anfordernden Anwendung den xref:resource-owner-password-credential-flow[] gegenüber dem IAM-System durch.
 
 Der `Berechtigungsmanager` gibt Auskunft über die Rollen und Rechte des Anwenders.
 Die in der Benutzeradministration dem Anwender zugewiesenen Rollen werden mithilfe einer anwendungsspezifischen Rollen-Rechte-Datei in konkrete Rechte des Anwenders für diese Anwendung umgewandelt.
@@ -291,7 +291,7 @@ Es ermöglicht Clients, die Identität des Endbenutzers basierend auf der von ei
 OpenID Connect ermöglicht es Clients aller Art, einschließlich webbasierter, mobiler und JavaScript-Clients, Informationen über authentifizierte Sitzungen und Endbenutzer anzufordern und zu erhalten.
 
 Der Baustein `Security` bietet keine direkte OpenID Connect Unterstützung.
-Für den Transport von Benutzerinformationen, wie z.B. BHKNZ, wird das Access-Token verwendet.
+Für den Transport von Benutzerinformationen, wie z.B. BhKnz, wird das Access-Token verwendet.
 
 OpenID Connect Abfragen zur Identität eines Benutzers, OpenID-Token oder Custom-Token müssen in der Anwendung implementiert werden.
 
@@ -480,7 +480,7 @@ Die Abbildung xref:image-sequenzdiagramm-absicherung-batch[Absicherung eines Bat
 [id="image-sequenzdiagramm-absicherung-batch",reftext="{figure-caption} {counter:figures}"]
 image::isy-security:konzept/Sequenzdiagramm_AbsicherungBatch.dn.svg[align="center"]
 
-Über die Batch-Konfiguration wird gesteuert, ob der Batch mit einem _NatürlichenNutzer_ und den zugehörigen Authentifizierungsdaten `Benutzer` und `Passwort` über den xref:resource-owner-password-credential-flow[] oder über den xref:client-credential-flow[] mit einem _TechnischenNutzer_ (Client) mit `Client-ID` und `Client-Secret` authentifiziert und autorisiert wird.
+Über die Batch-Konfiguration wird gesteuert, ob der Batch mit einem _Technischen Nutzer_ und den zugehörigen Authentifizierungsdaten `Benutzer` und `Passwort` über den xref:resource-owner-password-credential-flow[] authentifiziert und autorisiert wird oder mit einem _Client_ und den zugehörigen Authentifizierungsdaten `Client-ID` und `Client-Secret` über den xref:client-credential-flow[].
 
 Je nach verwendetem _Credential_-Flow erfolgt mit den jeweiligen erhaltenen Authentifizierungsdaten des Batch-Nutzers dann die eigentliche Authentifizierung durch den IAM-Service der Plattform.
 Dazu werden die im Baustein `isy-security` bereitgestellten <<aussensicht-der-komponente-security,Schnittstellen>> genutzt.
@@ -629,8 +629,8 @@ Hierbei muss Sicherheit gegen Benutzerkomfort abgewogen werden.
 [[nutzung-des-behoerdenkennzeichens]]
 === Nutzung des Behördenkennzeichens
 
-Als optional mögliche 2-Faktor-Authentifizierung ist im IAM-Service die Übermittlung und Auswertung des Behördenkennzeichens (BHKNZ) vorgesehen.
-Die Implementierung des IAM-Service muss für die 2-Faktor-Authentifizierung dieses Feature unterstützen, andernfalls wird das BHKNZ als optionales Attribut betrachtet.
+Als optional mögliche 2-Faktor-Authentifizierung ist im IAM-Service die Übermittlung und Auswertung des Behördenkennzeichens (BhKnz) vorgesehen.
+Die Implementierung des IAM-Service muss für die 2-Faktor-Authentifizierung dieses Feature unterstützen, andernfalls wird das BhKnz als optionales Attribut betrachtet.
 Wenn die IAM-Service-Implementierung dieses Feature unterstützt, dann wird ein mit den Authentifizierungsdaten gemeinsam übergebenes Behördenkennzeichen gegen das Behördenkennzeichen aus dem zu authentifizierenden Nutzerprofil geprüft.
 
 Wie in xref:konzept/master.adoc#aussensicht-der-komponente-security[Schnittstelle des Bausteins Security] beschrieben, wird bei den Authentifizierungsmethoden `authentifiziereClient()` und `authentifiziereSystem()` das Behördenkennzeichen als optionaler Parameter an den `Authentifizierungsmanager` übergeben, der es mit den anderen Authentifizierungsdaten zusammen an den IAM-Service weiterleitet.
