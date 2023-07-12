@@ -21,8 +21,7 @@ public class LoadbalancerSecurityBeanConfigurationTest {
     /**
      * Enable autoconfiguration conditions evaluation report.
      */
-    private final ConditionEvaluationReportLoggingListener initializer = new ConditionEvaluationReportLoggingListener(
-            LogLevel.DEBUG);
+    private final ConditionEvaluationReportLoggingListener initializer = new ConditionEvaluationReportLoggingListener();
 
     /**
      * Sets the contextRunner.
