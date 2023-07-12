@@ -100,7 +100,7 @@
         </dependency>
 
         <dependency>
-            <groupId>org.hibernate</groupId>
+            <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-core</artifactId>
         </dependency>
         <dependency>
@@ -155,6 +155,10 @@
                 <exclusion>
                     <groupId>org.jboss.logging</groupId>
                     <artifactId>jboss-logging-processor</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>jakarta.el</groupId>
+                    <artifactId>jakarta.el-api</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
