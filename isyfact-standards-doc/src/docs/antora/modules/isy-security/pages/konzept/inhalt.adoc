@@ -133,7 +133,7 @@ Das Ergebnis einer Authentifizierung über die Annotationen `@ClientAuthentifica
 Dieser Annotation muss noch der Name eines anwendungsspezifischen Rechts mitgegeben werden, das für die Verwendung dieses Service benötigt wird.
 Im Interceptor `SecuredInterceptor` wird sichergestellt, dass nur dann der Zugriff gewährt wird, wenn der angemeldete Nutzer über seine Rollen auch dieses anwendungsspezifische Recht besitzt.
 
-NOTE: Die Annotation `@secured` löst die Annotation `@gesichert` ab und ist analog dazu verwenden.
+NOTE: Die Annotation `@secured` löst die Annotation `@gesichert` ab und ist analog dazu zu verwenden.
 
 [[aussensicht-der-komponente-security]]
 === Schnittstelle des Bausteins Security
