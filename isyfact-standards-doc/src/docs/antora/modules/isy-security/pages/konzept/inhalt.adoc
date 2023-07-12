@@ -157,7 +157,7 @@ Dafür sind folgende Szenarien zu unterscheiden, für die es jeweils eine eigene
 Interne Anwendungen sind als Confidential Client eingestuft und verwahren ihre Authentifizierungsdaten (entweder Client-ID u. Client-Secret oder Nutzername u. Passwort) in ihrer Konfiguration (mit einer ApplicationID als Schlüssel).
 Die Methode `authentifiziere(applicationID)` im Authentifizierungsmanager liest diese Authentifizierungsdaten aus der betrieblichen Konfiguration und führt damit eine OAuth2.0-konforme Authentifizierung und Autorisierung der Anwendung gegenüber dem IAM-System durch.
 Dabei wird innerhalb der Methode `authentifiziere(applicationID)` anhand der property `authorization-grant-type` der passende Authentication-Flow ausgewählt:
-Der Wert 'client-credentials' bedeutet, den _Credential_-Flow xref:client-credential-flow[] und damit die Methode `authentifiziereClient` zu verwenden, der Wert 'password'  steht für den _Credential_-Flow xref:resource-owner-password-credential-flow[] für den die Methode `authentifiziereSystem` zu verwenden ist - jeweils mit der ApplicationID und den Authentifizierungsdaten der internen Anwendung. +
+Der Wert 'client-credentials' bedeutet, den _Credential_-Flow xref:client-credential-flow[] zu verwenden, der Wert 'password' steht für den _Credential_-Flow xref:resource-owner-password-credential-flow[]. +
 Bei erfolgreicher Authentifizierung legt die Anwendung das erhaltene Access-Token in ihrem SecurityContext ab und schickt es bei jedem Aufruf von Nachbaranwendungen mit. +
 Eine nicht erfolgreiche Authentifizierung (fachliche Ablehnung oder technisches Problem) löst eine `AuthentifizierungFehlgeschlagenException` bzw. `AuthentifizierungTechnicalException` aus.
 
