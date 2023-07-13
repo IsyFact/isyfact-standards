@@ -1,12 +1,8 @@
 package de.bund.bva.isyfact.ueberwachung.actuate.health;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import java.util.HashMap;
-import java.util.Map;
-
+import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.NachbarsystemHealth;
+import de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyHealthAutoConfiguration;
+import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -15,12 +11,7 @@ import org.junit.runners.MethodSorters;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration;
 import org.springframework.boot.actuate.endpoint.ApiVersion;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
-import org.springframework.boot.actuate.health.CompositeHealthContributor;
-import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.HealthContributor;
-import org.springframework.boot.actuate.health.HealthEndpointWebExtension;
-import org.springframework.boot.actuate.health.HealthIndicator;
-import org.springframework.boot.actuate.health.Status;
+import org.springframework.boot.actuate.health.*;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -34,9 +25,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.NachbarsystemHealth;
-import de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyHealthAutoConfiguration;
-import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.junit.Assert.*;
 
 /**
  * Class for verifying whether the health endpoint functions correctly with the caching registry.
@@ -44,16 +36,15 @@ import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {IsyHealthAutoConfiguration.class, HealthIntegrationTest.TestConfiguration.class},
-    properties = {
-        "isy.logging.anwendung.name=HealthIntegrationTest",
-        "isy.logging.anwendung.version=1.0.0-SNAPSHOT",
-        "isy.logging.anwendung.typ=Integrationstest",
-        "spring.autoconfigure.exclude=de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyActuatorSecurityAutoConfiguration"
-    },
-    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+        properties = {
+                "isy.logging.anwendung.name=HealthIntegrationTest",
+                "isy.logging.anwendung.version=1.0.0-SNAPSHOT",
+                "isy.logging.anwendung.typ=Integrationstest"
+        },
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @EnableAutoConfiguration(exclude = {
-    SecurityAutoConfiguration.class,
-    ManagementWebSecurityAutoConfiguration.class
+        SecurityAutoConfiguration.class,
+        ManagementWebSecurityAutoConfiguration.class
 })
 public class HealthIntegrationTest {
 
@@ -103,19 +94,19 @@ public class HealthIntegrationTest {
         try {
             getHealthResponse(testComponentName);
             fail("Abfrage sollte exception werfen wegen 404-Statuscode");
-        } catch(HttpClientErrorException e){
+        } catch (HttpClientErrorException e) {
             assertEquals(HttpStatus.NOT_FOUND, e.getStatusCode());
-        } catch(Exception e){
-            fail("unerwartete Exception: "+ e.getMessage());
+        } catch (Exception e) {
+            fail("unerwartete Exception: " + e.getMessage());
         }
 
         try {
             getHealthResponse(testComponentName, testInstanceName);
             fail("Abfrage sollte exception werfen wegen 404-Statuscode");
-        } catch(HttpClientErrorException e){
+        } catch (HttpClientErrorException e) {
             assertEquals(HttpStatus.NOT_FOUND, e.getStatusCode());
-        } catch(Exception e){
-            fail("unerwartete Exception: "+ e.getMessage());
+        } catch (Exception e) {
+            fail("unerwartete Exception: " + e.getMessage());
         }
     }
 
@@ -137,10 +128,10 @@ public class HealthIntegrationTest {
 
     private ResponseEntity<NachbarsystemHealth> getClientResponse(String endpoint, String... path) {
         String p = "";
-        if (path != null) {
+        if (path != null && path.length > 0) {
             p = "/" + String.join("/", path);
         }
-        String uri = "http://localhost:" + localPort + "/actuator/" + endpoint + p;
+        String uri = String.format("http://localhost:%s/actuator/%s%s", localPort, endpoint, p);
 
         return restTemplate.getForEntity(uri, NachbarsystemHealth.class);
     }
