@@ -10,6 +10,7 @@ import org.springframework.aop.Pointcut;
 import org.springframework.aop.PointcutAdvisor;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.aop.support.annotation.AnnotationMatchingPointcut;
+import org.springframework.context.support.EmbeddedValueResolutionSupport;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.security.authorization.method.AuthorizationInterceptorsOrder;
@@ -28,7 +29,7 @@ import de.bund.bva.isyfact.security.oauth2.client.Authentifizierungsmanager;
  * This form of authentication is intended for access layers that rely on internal user authentication.
  * For example: Workflow, TimerTask, etc.
  */
-public class AuthenticateInterceptor implements MethodInterceptor, PointcutAdvisor, Ordered {
+public class AuthenticateInterceptor extends EmbeddedValueResolutionSupport implements MethodInterceptor, PointcutAdvisor, Ordered {
 
     /** Make sure the interceptor runs before Spring annotations like @Secured. */
     private int order = AuthorizationInterceptorsOrder.FIRST.getOrder();
@@ -74,7 +75,8 @@ public class AuthenticateInterceptor implements MethodInterceptor, PointcutAdvis
         Assert.notNull(ann, String.format("The annotation %s is missing on the method %s.",
                 Authenticate.class.getSimpleName(), invocation.getMethod()));
 
-        String oauth2ClientRegistrationId = ann.oauth2ClientRegistrationId();
+        // resolve property placeholders in the annotation value (if present)
+        String oauth2ClientRegistrationId = resolveEmbeddedValue(ann.oauth2ClientRegistrationId());
 
         // authenticates the client and sets the authenticated principal
         // will throw an exception if the ID does not exist or there's an error during authentication

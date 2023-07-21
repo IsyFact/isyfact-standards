@@ -3,7 +3,8 @@ package de.bund.bva.isyfact.security.oauth2.client.annotation;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.AdditionalMatchers.not;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doAnswer;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -20,7 +21,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import de.bund.bva.isyfact.security.example.service.ExampleMethodAuthentication;
 import de.bund.bva.isyfact.security.oauth2.client.Authentifizierungsmanager;
 
-@SpringBootTest(classes = { AuthenticateInterceptor.class, ExampleMethodAuthentication.class })
+@SpringBootTest(
+        classes = { AuthenticateInterceptor.class, ExampleMethodAuthentication.class },
+        properties = { "test.auth.client-id = my-auth-client" }
+)
 @EnableAutoConfiguration
 public class MethodAuthenticationTest {
 
@@ -28,6 +32,8 @@ public class MethodAuthenticationTest {
 
     private static final TestingAuthenticationToken TEST_AUTH_TOKEN =
             new TestingAuthenticationToken("user", "pass", TEST_AUTHORITIES);
+
+    private static final String CLIENT_ID = "my-auth-client";
 
     @MockBean
     private Authentifizierungsmanager authentifizierungsmanager;
@@ -41,7 +47,10 @@ public class MethodAuthenticationTest {
         doAnswer(inv -> {
             SecurityContextHolder.getContext().setAuthentication(TEST_AUTH_TOKEN);
             return null;
-        }).when(authentifizierungsmanager).authentifiziere(anyString());
+        }).when(authentifizierungsmanager).authentifiziere(eq(CLIENT_ID));
+        doAnswer(inv -> {
+            throw new IllegalArgumentException("invalid client id: " + inv.getArguments()[0]);
+        }).when(authentifizierungsmanager).authentifiziere(not(eq(CLIENT_ID)));
     }
 
     @Test
@@ -50,6 +59,18 @@ public class MethodAuthenticationTest {
         assertNull(SecurityContextHolder.getContext().getAuthentication());
 
         Authentication methodAuthentication = service.authenticateWithValue();
+        assertEquals(TEST_AUTH_TOKEN, methodAuthentication);
+
+        // no principal after method call
+        assertNull(SecurityContextHolder.getContext().getAuthentication());
+    }
+
+    @Test
+    public void authenticatedPrincipalSetByValueInAnnotationWithPropertyPlaceholder() {
+        // no principal before method call
+        assertNull(SecurityContextHolder.getContext().getAuthentication());
+
+        Authentication methodAuthentication = service.authenticateWithValueInPropertyPlaceholder();
         assertEquals(TEST_AUTH_TOKEN, methodAuthentication);
 
         // no principal after method call
@@ -67,7 +88,6 @@ public class MethodAuthenticationTest {
         // no principal after method call
         assertNull(SecurityContextHolder.getContext().getAuthentication());
     }
-
 
     @Test
     public void authenticatedPrincipalNullIfNoAnnotation() {
