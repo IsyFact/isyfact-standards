@@ -2,6 +2,7 @@ package de.bund.bva.isyfact.security.autoconfigure;
 
 import java.util.List;
 
+import org.springframework.aop.Advisor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -30,10 +31,11 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import de.bund.bva.isyfact.security.config.IsyOAuth2ClientConfigurationProperties;
 import de.bund.bva.isyfact.security.oauth2.client.Authentifizierungsmanager;
 import de.bund.bva.isyfact.security.oauth2.client.IsyOAuth2Authentifizierungsmanager;
-import de.bund.bva.isyfact.security.oauth2.client.authentication.util.BhknzHeaderConverterBuilder;
+import de.bund.bva.isyfact.security.oauth2.client.annotation.AuthenticateInterceptor;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.ClientCredentialsAuthorizedClientAuthenticationProvider;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.ClientCredentialsClientRegistrationAuthenticationProvider;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.PasswordClientRegistrationAuthenticationProvider;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.util.BhknzHeaderConverterBuilder;
 
 /**
  * Autoconfiguration for beans related to OAuth 2.0 client authentication.
@@ -126,6 +128,11 @@ public class IsyOAuth2ClientAutoConfiguration {
                 @Qualifier(ISY_AUTHORIZED_CLIENT_MANAGER_BEAN) OAuth2AuthorizedClientManager oAuth2AuthorizedClientManager,
                 JwtAuthenticationConverter jwtAuthenticationConverter) {
             return new ClientCredentialsAuthorizedClientAuthenticationProvider(oAuth2AuthorizedClientManager, jwtAuthenticationConverter);
+        }
+
+        @Bean
+        public Advisor authenticateInterceptor(Authentifizierungsmanager authentifizierungsmanager) {
+            return new AuthenticateInterceptor(authentifizierungsmanager);
         }
     }
 

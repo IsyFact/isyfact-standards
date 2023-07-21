@@ -1,0 +1,42 @@
+package de.bund.bva.isyfact.security.example.service;
+
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import de.bund.bva.isyfact.security.oauth2.client.annotation.Authenticate;
+
+public class ExampleMethodAuthentication {
+
+    @Authenticate("ropc-client")
+    public Authentication authenticateWithValue() {
+        return getAuthentication();
+    }
+
+    @Authenticate(oauth2ClientRegistrationId = "ropc-client")
+    public Authentication authenticateWithOAut2ClientRegistrationId() {
+        return getAuthentication();
+    }
+
+    @Secured("PRIV_test")
+    @Authenticate("ropc-client")
+    public Authentication authenticateAndSecuredWithValidPrivilege() {
+        return getAuthentication();
+    }
+
+    @Secured("PRIV_invalid")
+    @Authenticate("ropc-client")
+    public Authentication authenticateAndSecuredWithInvalidPrivilege() {
+        return getAuthentication();
+    }
+
+    public Authentication methodWithoutAuth() {
+        return getAuthentication();
+    }
+
+    // all methods should return the currently authenticated principal so tests can easily check if the annotation works
+    private static Authentication getAuthentication() {
+        return SecurityContextHolder.getContext().getAuthentication();
+    }
+
+}
