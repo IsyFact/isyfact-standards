@@ -23,11 +23,14 @@ import de.bund.bva.isyfact.security.oauth2.client.Authentifizierungsmanager;
 
 /**
  * MethodInterceptor that authenticates an OAuth 2.0 client and sets the authenticated principal in the Security Context.
- * The registration ID of the OAuth 2.0 client to authenticate is read from the parameter on the {@link Authenticate annotation}.
+ * The registration ID of the OAuth 2.0 client to authenticate is read from the parameter on the {@link Authenticate} annotation.
  * In addition, a correlation ID will be created (if not exists) for logging purposes.
  * <p>
  * This form of authentication is intended for access layers that rely on internal user authentication.
  * For example: Workflow, TimerTask, etc.
+ * <p>
+ * This class also implements the necessary Pointcut Advisor and should use {@link org.springframework.aop.Advisor}
+ * as the return type of the factory method.
  */
 public class AuthenticateInterceptor extends EmbeddedValueResolutionSupport implements MethodInterceptor, PointcutAdvisor, Ordered {
 

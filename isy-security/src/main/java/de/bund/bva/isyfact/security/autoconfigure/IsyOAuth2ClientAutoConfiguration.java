@@ -105,6 +105,9 @@ public class IsyOAuth2ClientAutoConfiguration {
         /** Identifier for the AuthorizedClientManager created by isy-security. */
         public static final String ISY_AUTHORIZED_CLIENT_MANAGER_BEAN = "isyAuthorizedClientManager";
 
+        /** Name of the {@link AuthenticateInterceptor}/Advisor bean. */
+        public static final String AUTHENTICATE_INTERCEPTOR_BEAN = "isyOAuth2ClientAuthenticateInterceptor";
+
         /**
          * Provides an AuthorizedClientManager configured with the OAuth 2.0 Client Credentials flow that can be used to obtain
          * access tokens in the service-tier.
@@ -130,7 +133,8 @@ public class IsyOAuth2ClientAutoConfiguration {
             return new ClientCredentialsAuthorizedClientAuthenticationProvider(oAuth2AuthorizedClientManager, jwtAuthenticationConverter);
         }
 
-        @Bean
+        @Bean(AUTHENTICATE_INTERCEPTOR_BEAN)
+        @ConditionalOnMissingBean(name = AUTHENTICATE_INTERCEPTOR_BEAN)
         public Advisor authenticateInterceptor(Authentifizierungsmanager authentifizierungsmanager) {
             return new AuthenticateInterceptor(authentifizierungsmanager);
         }
