@@ -16,7 +16,6 @@ import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.security.authorization.method.AuthorizationInterceptorsOrder;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.Assert;
-import org.springframework.util.ClassUtils;
 
 import de.bund.bva.isyfact.logging.util.MdcHelper;
 import de.bund.bva.isyfact.security.oauth2.client.Authentifizierungsmanager;
@@ -96,24 +95,20 @@ public class AuthenticateInterceptor extends EmbeddedValueResolutionSupport impl
      * @return the annotation or {@code null}
      */
     private Authenticate detectAuthAnnotation(Method method, Class<?> targetClass) {
-
-        // Strategy for detecting the annotation is adapted from AnnotationTransactionAttributeSource.
-
-        // Ignore CGLIB subclasses - introspect the actual user class.
-        Class<?> userClass = ClassUtils.getUserClass(targetClass);
         // The method may be on an interface, but we need attributes from the target class.
         // If the target class is null, the method will be unchanged.
-        Method specificMethod = ClassUtils.getMostSpecificMethod(method, userClass);
-// TODO do we need the two cases and most specific method???
+        // This also automatically resolves bridge methods.
+        Method specificMethod = AopUtils.getMostSpecificMethod(method, targetClass);
+
         // First try is the method in the target class.
-        Authenticate ann = AnnotationUtils.getAnnotation(specificMethod, Authenticate.class);
+        Authenticate ann = AnnotationUtils.findAnnotation(specificMethod, Authenticate.class);
         if (ann != null) {
             return ann;
         }
 
+        // Fallback is to look at the original method.
         if (specificMethod != method) {
-            // Fallback is to look at the original method.
-            ann = AnnotationUtils.getAnnotation(method, Authenticate.class);
+            ann = AnnotationUtils.findAnnotation(method, Authenticate.class);
             if (ann != null) {
                 return ann;
             }

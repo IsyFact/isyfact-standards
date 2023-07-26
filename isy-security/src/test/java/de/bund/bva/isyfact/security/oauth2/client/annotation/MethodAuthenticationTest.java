@@ -1,11 +1,14 @@
 package de.bund.bva.isyfact.security.oauth2.client.annotation;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.AdditionalMatchers.not;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doAnswer;
+
+import java.util.UUID;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,6 +21,7 @@ import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import de.bund.bva.isyfact.logging.util.MdcHelper;
 import de.bund.bva.isyfact.security.example.service.ExampleMethodAuthentication;
 import de.bund.bva.isyfact.security.oauth2.client.Authentifizierungsmanager;
 
@@ -122,5 +126,34 @@ public class MethodAuthenticationTest {
 
         // no principal after method call
         assertNull(SecurityContextHolder.getContext().getAuthentication());
+    }
+
+    @Test
+    public void newCorrelationIdSetWhenEmpty() {
+        // remove existing correlation id
+        MdcHelper.entferneKorrelationsId();
+        assertNull(MdcHelper.liesKorrelationsId());
+
+        // new correlation id within method
+        String correlationId = service.authenticateCheckCorrelationId();
+        assertNotNull(correlationId);
+
+        // no correlation id after method call
+        assertNull(MdcHelper.liesKorrelationsId());
+    }
+
+    @Test
+    public void existingCorrelationIdUsedWhenExists() {
+        // set correlation id
+        String expectedCorrelationId = UUID.randomUUID().toString();
+        MdcHelper.pushKorrelationsId(expectedCorrelationId);
+        assertEquals(expectedCorrelationId, MdcHelper.liesKorrelationsId());
+
+        // same correlation id within method
+        String actualCorrelationId = service.authenticateCheckCorrelationId();
+        assertEquals(expectedCorrelationId, actualCorrelationId);
+
+        // same correlation id after method
+        assertEquals(expectedCorrelationId, MdcHelper.liesKorrelationsId());
     }
 }
