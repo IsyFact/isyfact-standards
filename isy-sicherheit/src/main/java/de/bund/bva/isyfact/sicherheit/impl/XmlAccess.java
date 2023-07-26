@@ -118,8 +118,7 @@ public class XmlAccess {
         LOG.debug("Lese Rollen-Rechte-Mapping aus {}.", filename);
         Document dom;
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        InputStream stream = XmlAccess.class.getResourceAsStream(filename);
-        try {
+        try (InputStream stream = XmlAccess.class.getResourceAsStream(filename);){
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
             dom = documentBuilder.parse(stream);
             RollenRechteMapping result = parseDocument(dom);
@@ -137,16 +136,6 @@ public class XmlAccess {
             throw new RollenRechteMappingException(
                 SicherheitFehlerSchluessel.MSG_AUTORISIERUNG_ROLLENRECHTEMAPPING_FEHLERHAFT, ioe,
                 "IO-Exception");
-        } finally {
-            if (stream != null) {
-                try {
-                    stream.close();
-                } catch (IOException e) {
-                    throw new RollenRechteMappingException(
-                        SicherheitFehlerSchluessel.MSG_AUTORISIERUNG_ROLLENRECHTEMAPPING_FEHLERHAFT, e,
-                        "IO-Exception");
-                }
-            }
         }
     }
 

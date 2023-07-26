@@ -8,6 +8,7 @@ import de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.Transformat
 /**
  * Legacy transformator that converts texts containing characters of the DIN SPEC 91379 into texts that
  * are compatible with String.Latin 1.1.
+ * @deprecated
  */
 @Deprecated
 public class LegacyTransformator extends AbstractTransformator {
