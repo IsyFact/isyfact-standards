@@ -611,10 +611,10 @@ image::Aufbau-Dashboard-Unterseite.png[align="center", width="629",height="526"]
 
 *Richtlinien zur Anwendung*
 
-* Eine Dashboard Unterseite enthält weiterführende Informationen, die nicht vollständig auf dem Dashboard angezeigt werden wie z.B. Nachrichten, Benutzerkonto-Verwaltung.
+* Eine Dashboard-Unterseite enthält weiterführende Informationen, die nicht vollständig auf dem Dashboard angezeigt werden wie z.B. Nachrichten, Benutzerkonto-Verwaltung.
 * Die Inhalte und deren Layout können variieren.
 * Die Inhalte sollen sich am allgemeinen Layout-Raster ausrichten.
-* Die Seite enthält eine Seiten-Toolbar, deren Funktion es ermöglicht zwischen einzelen Detailseite einer Trefferliste und zurück zu Trefferliste zu navigieren.
+* Die Seite enthält eine Seiten-Toolbar, deren Funktion es ermöglicht zwischen einzelnen Detailseite einer Trefferliste und zurück zur Trefferliste zu navigieren.
 
 [[applikationsseite]]
 ==== Applikationsseite
@@ -1227,8 +1227,8 @@ image::Schnellnavigation.png[image,width=399,height=250]
 
 * Durch Klick auf den Bezeichner des jeweiligen Objektes (Nummer, ID, Name etc.), einen Doppelklick auf das gesamte Objekt oder die Toolbar Funktion __Öffnen__, gelangt der Benutzer zu dessen Detailseite.
 * Auf dieser Seite werden dem Benutzer alle Informationen, die zu dem Objekt existieren, zugänglich gemacht.
-* Über einen Link in der Seiten-Toolbar kann der Benutzer jeder Zeit zurück navigieren.
-* Das Navigieren zwischen den Ergebnissen muss auch über die Standard Browser-Funktionalität möglich sein
+* Über einen Link in der Seiten-Toolbar kann der Benutzer jederzeit zurück zur Trefferliste springen.
+* Auch beim Navigieren zwischen Ergebnissen muss die Browser-Funktion "Vor- und Zurück" unterstützt werden
 
 [cols="1,1", options="header", align="center"]
 |====
