@@ -1372,30 +1372,21 @@ Der Benutzer erhält immer im letzten Schritt des Wizards eine Erfolgsmeldung un
 [[bedienelemente-1]]
 == Bedienelemente
 
-In diesem Kapitel werden Bedienelemente besprochen und allgemeine Eigenschaften der Bedienelemente beschrieben.
-
-* Testbarkeit der Bedienelemente
-* Kontextabhängige Darstellung
-* Status
-* Resizing
-* Funktionalität ohne JavaScript
+In diesem Kapitel werden spezielle Bedienelemente besprochen und allgemeine Eigenschaften der Bedienelemente beschrieben.
 
 [[testbarkeit-bedienelemente]]
 *Testbarkeit der Bedienelemente*
 
 Um die Grundlage für automatische Tests (Einsatz von Testframeworks) von Bedienelementen einer Web-basierenden Anwendung zu schaffen, sollten allen Maskenobjekten im HTML-Sourcecode eindeutige IDs zugeordnet sein (s.a. Abschnitt: xref:Testbarkeit-von-Anwendungen[Testbarkeit von Web-basierenden Anwendungen]).
 
-
-
-
 *Kontextabhängige Darstellung*
 
 Falls bestimmte Elemente im Kontext nicht relevant sind, muss dies im User Interface berücksichtigt werden.
-Nicht relevante Komponenten können deaktiviert werden, so dass der Benutzer sie zwar sehen, jedoch nicht bedienen kann.
-Alternativ können nicht relevante Informationen und Komponenten ausgeblendet werden, so dass der Benutzer sie nicht sehen kann.
+Nicht relevante Komponenten können deaktiviert werden, sodass der Benutzer sie zwar sehen, jedoch nicht bedienen kann.
+Alternativ können nicht relevante Informationen und Komponenten ausgeblendet werden, sodass der Benutzer sie nicht sehen kann.
 
 *Ausblenden nicht relevanter Elemente*
-Elemente, die *dauerhaft* nicht relevant sind, sollten ausgeblendet werden, so dass sie für den Benutzer nicht sichtbar sind.
+Elemente, die *dauerhaft* nicht relevant sind, sollten ausgeblendet werden, sodass sie für den Benutzer nicht sichtbar sind.
 Hierzu zählen insbesondere Elemente, deren Relevanz auf Benutzer-Rollen basiert.
 Benutzer, die aufgrund ihrer Rolle z.B. keinen Zugriff auf bestimmte Funktionen haben, sollten diese auch nicht sehen.
 Im Folgenden ist zu sehen wie beispielsweise ein Objekt (hier eine Gruppierung) für Benutzer mit unterschiedlichen Rechten aussehen könnte.
@@ -1424,320 +1415,24 @@ Hierzu zählen u. a.:
 
 
 Verschiedene Bedienelemente, in der Regel Eingabeelemente, werden weiterhin zwischen den Zuständen deaktiviert und nur-lesbar unterschieden.
-Siehe hierzu das Kapitel Status von Bedienelementen.
-
-*Status von Bedienelementen*
-
-Je nach Kontext können manche Elemente, in der Regel Eingabeelemente, verschiedene Zustände annehmen.
-
-[[image-bedienelementestatus]]
-.Status von Bedienelementen – Beispiel Eingabefeld
-image::Eingabeelemente.png[align="center", width="629",height="29"]
-
-
-
-
-*Regeln zur Anwendung*
-
-* Die drei häufigsten Zustände sind:
-
-** *Normal*
-+
-Das Element kann vom Benutzer bedient werden.
-
-** *Deaktiviert (Disabled)*
-+
-Das Element kann nicht bedient werden.
-Es ist z.B. aufgrund der Auswahl einer anderen Option deaktiviert.
-Eventuell zuvor eingegebene Werte werden nicht berücksichtigt.
-Das Element selbst, dessen Beschriftung sowie eventuell existierende Eingaben, werden „ausgegraut“ dargestellt.
-
-** *Read-Only (nur lesbar)*
-+
-Das Element kann nicht direkt bedient werden.
-Eventuell kann es jedoch mittelbar bedient werden, z.B. durch die Änderung eines anderen Wertes.
-
-* Wird die Maus über ein Eingabefeld bewegt, ändert sich die Mauszeiger-Darstellung (Maus-Pointer) zu einem Eingabe-Cursor (ähnlich einem großen I). Auch bei read-only Feldern wird der Mauszeiger beibehalten, damit Text markiert und kopiert werden kann.
-Bei deaktivierten Eingabe-Feldern ändert sich die Mauszeiger-Darstellung hingegen zu einem „Verbotsschild“, um unmissverständlich darzustellen, dass solche Felder in keiner Weise bedient werden können.
-
-* Weitere Zustände:
-
-** **Hover (MouseOver)**
-+
-Wird die Maus über ein Element bewegt so wird dieses Element mittels eines Hover-Effekts optisch hervorgehoben.
-** *Pressed*
-+
-In dem Moment in dem per Maus oder Tastatur ein Element ausgewählt wird, wird dieses als Pressed dargestellt.
-** *Focus*
-+
-Der Focus liegt auf einem Element.
-Der Focus kann per Mausklick oder mit Hilfe der Tabulatortasten der Tastatur geändert werden.
-
-** **Selektiert**
-+
-Ein Element ist ausgewählt und bleibt in diesem Zustand.
-
-** **Validierung**
-+
-Elemente die einer Validierung unterzogen werden (vor allem in Formularen) werden bei fehlerhaften Eingaben gesondert hervorgehoben.
-
-
-*Resizing von Bedienelementen*
-
-Bedienelemente sind in der Regel von Größenänderungen des Browsers nicht betroffen.
-
-Es gibt einige Ausnahmen wie beispielsweise Tabellen.
-Diese Ausnahmen werden an den entsprechenden Stellen erläutert.
-
-*Funktionalität ohne JavaScript*
-
-image::no-js.png[]
-
-Viele heutzutage übliche Bedienelemente, Gestaltungslösungen und Komfortfunktionen für Webapplikationen setzen die Benutzung von JavaScript voraus.
-Ohne die Verwendung von JavaScript sind die Möglichkeiten der Benutzerinteraktion mit Webseiten demzufolge stark eingeschränkt.
-
-* Ohne JavaScript ist es dem Browser nicht möglich nach Benutzerinteraktion mit einem Steuerelement andere Teile der Webseite zu beeinflussen oder auszutauschen.
-* Die Webapplikation kann nur Standard-Steuerelemente aus der HTML Spezifikation verwenden, da selbsterstellte Steuerelemente für besondere Anwendungsfälle meist mithilfe von JavaScript gebaut werden.
-* Mit Hilfe von JavaScript lassen sich Benutzeraktionen unmittelbar anzeigen.
-Dies wird durch die moderne clientseitige Aktualisierung von Datenmodellen, Zuständen und Darstellungen erreicht.
-In einer Nicht-JavaScript Umgebung müssen die Daten mittels komplexeren serverseitigen Request Cycles geladen werden.
-Dies bedingt ein häufigeres Neu-Laden der Seite.
-* Ohne JavaScript kann die optische Aufbereitung einiger Bedienelemente variieren.
-
-
-[[button-1]]
-=== Button
-
-Ein Button ist ein Bedienelement, welches per Klick eine direkte Aktion ausführt.
-Buttons enthalten entweder ein Textlabel, ein Icon oder eine Kombination aus beidem.
-
-[[image-standardbutton]]
-.Standard Button
-image::ButtonStates.png[align="center", scaledwidth="100%",width="566",height="50"]
-
-*Zustände*
-
-* Ein Button kann mehrere Zustände einnehmen
-
-** Normal
-** Hover
-** Pressed
-** Deaktiviert
-** Fokussiert
-
-*Ist dies das korrekte Bedienelement?*
-
-* Buttons werden für Aktionen verwendet, die direkt ausgeführt werden.
-* Buttons dürfen nicht genutzt werden, um Selektionen aus einer Gruppe von Optionen zu treffen, stattdessen werden Radiobuttons, Checkboxen oder Toggle Buttons verwendet.
-* Wenn das Bedienelement in einem Fließtext angezeigt werden soll, wird kein Button verwendet, sondern ein Link.
-
-*Richtlinien zur Anwendung*
-
-* Beschriftung
-
-** Das Label sollte kurz und selbsterklärend sein.
-** Ruft ein Button einen Dialog auf, sollte der resultierende Dialog als Fenster-Titel die Beschriftung des Buttons wiederholen.
-** Das Label sollte die auszuführende Aktion widerspiegeln __(Öffnen, Löschen, Speichern, Weiter__).
-
-* Größe
-
-** Die Breite eines Buttons soll sich generell am enthaltenen Label orientieren.
-** Es ist zulässig und gewollt, dass nebeneinanderstehende Buttons unterschiedliche Breite haben, wenn die Labels unterschiedlich groß sind.
-** Die Mindestbreite für Buttons beträgt jedoch 100 Pixel.
-* Ein Button sollte nach Möglichkeit so platziert werden, dass eventuelle Beziehungen zu anderen Elementen deutlich werden.
-* Falls nach einem Button-Klick die resultierende Aktion nur verzögert erkennbar ist, sollte dies durch eine System-Rückmeldung kenntlich gemacht werden (z. B. durch eine Fortschrittsanzeige).
-
-* <<image-standardbutton>> zeigt den primären Button-Stil, der eingesetzt wird, wenn keine sonstige Definition vorhanden ist.
-
-* Buttons sollten dann deaktiviert (disabled) sein, wenn sie durch Interaktion auf dem gleichen Screen – z.B. durch Durchführung der Suche – aktiviert werden können.
-* Wenn die durch den Button hervorgerufene Aktion für den Benutzer nicht selbsterklärend ist, sollte ein Tooltip unterstützend angezeigt werden.
-
-[[toolbar-button]]
-==== Toolbar Button
-
-Toolbar Buttons werden ausschließlich in Toolbars eingesetzt.
-
-[[image-toolbarbutton]]
-.Toolbar Button
-image::Toolbar_Button.png[align="center", scaledwidth="100%",width="490",height="51"]
-
-
-*Zustände*
-
-* Normal
-* Hover
-* Pressed
-* Focus
-* Deaktiviert
-
-*Ist dies das korrekte Bedienelement?*
-
-* Toolbar Buttons werden in der Toolbar eingesetzt.
-
-
-*Richtlinien zur Anwendung*
-
-* Toolbar Buttons bestehen aus einem Icon und Label.
-* Sie haben im Gegensatz zu Standardbuttons keinen Farbigen Hintergrund.
-* Befinden sich mehrere Buttons in einer Toolbar so können sie durch vertikale Trennlinien zu Gruppen zusammengefasst werden.
-* Mehr allgemeingültige Regeln werden im Kapitel Toolbar beschrieben.
-
-
-[[menu-button]]
-==== Menü Button
-
-Menü Buttons können aus Platzgründen zusammengehörige Funktionen zusammenfassen.
-
-[[image-menuebutton]]
-.Menü Button
-image::Toolbar_Menue_Button.png[align="center", scaledwidth="100%",width="490",height="44"]
-
-
-
-[[image-menuebuttonbeispiel]]
-.Menü Button - Beispiel
-image::Button_Menue_Beispiel.png[align="center", width="193",height="177"]
-
-
-*Zustände*
-
-* Normal
-* Hover
-* Pressed
-* Focus
-* Deaktiviert
-
-*Ist dies das korrekte Bedienelement?*
-
-* Menü Buttons werden hauptsächlich in Toolbars eingesetzt.
-* Menü Buttons müssen mehrere Funktionen beinhalten.
-Die Funktionen sollten immer in einem logischen Zusammenhang stehen.
-Zum Beispiel kann man unter dem Button „Exportieren“ die Funktionen „Exportieren als XLS“, „Exportieren als PDF“, „Exportieren als PNG“ zusammenfassen.
-
-*Richtlinien zur Anwendung*
-
-* Der Menü Button besteht aus einem Icon, einem Label und einem Pfeil Icon.
-* Wird der Menü Button geklickt, werden die Funktionen wie in einem Dropdown Menü angezeigt (siehe <<image-menuebuttonbeispiel>>).
-
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Ohne JavaScript können die Funktionen die im Menü Button zusammen gefasst sind nicht direkt ausgeführt werden.
-
-* Der Menü Button besteht in diesem Fall aus einem Dropdown und einem Submit Button.
-* Über das Dropdown wählt der Benutzer die gewünschte Funktion und über den Klick auf den Submit Button wird die Funktion ausgeführt.
-* Damit das Dropdown und der Submit Button als Einheit wahrgenommen werden, wird eine vertikale Trennlinie zum nächsten Element platziert.
-* Der Submit Button sieht aus wie ein Toolbar Button.
-
-
-[[toggle-button]]
-==== Toggle Button
-
-Toggle Buttons kommen zum Einsatz, wenn eine bestimmte Funktion oder Eigenschaft ein- und ausgeschaltet werden muss.
-Die häufigsten Szenarien für den Einsatz von Toggle Buttons sind das schnelle Umschalten von Ansichten oder von Filterkriterien (siehe Kapitel Toggle-Filter).
-
-[[image-togglebutton]]
-.Toggle Button
-image::Button_Toggle.png[align="center", width="298",height="25"]
-
-
-*Zustände*
-
-* Normal
-* Hover
-* Pressed
-* Selektiert
-
-*Ist dies das korrekte Bedienelement?*
-
-* Toggle Buttons können genutzt werden, um binäre Zustände innerhalb einer Toolbar umzuschalten.
-* Soll der Toggle Button statt in einer Toolbar in-place verwendet werden, so sollte an dessen Stelle die Nutzung von Checkboxen oder Radio Buttons in Betracht gezogen werden.
-
-*Richtlinien zur Anwendung*
-
-* Per Default ist immer ein Wert selektiert.
-* Toggle Buttons können Textlabels oder Icons beinhalten.
-
-
-[[icon-button]]
-==== Icon Button
-
-Icon Buttons sind Buttons die kein sichtbares Label haben, sondern nur aus einem aussagekräftigen Icon bestehen.
-
-[[image-iconbuttonquickaction]]
-.Icon Button Quickactions & Toolbar
-image::Icon_Button_Quickaction.png[align="center", width="214",height="60"]
-
-[[image-iconbuttonpfeile]]
-.Icon Button Pfeile
-image::Icon_Button_Pfeile.png[align="center", width="277",height="137"]
-
-*Zustände*
-
-* Normal
-* Hover
-* Pressed
-* Deaktiviert
-
-*Ist dies das korrekte Bedienelement?*
-
-* Icon Buttons können in der Seiten-Toolbar, der Toolbar von Gruppierungsüberschriften und in der Aktionsspalte einer Tabelle benutzt werden.
-
-
-*Richtlinien zur Anwendung*
-
-* Da die Buttons nur aus einem Icon bestehen, ist es essentiell, dass das Icon die dahinterstehende Funktionalität ausdrückt.
-* Icon Buttons sollten mit Bedacht eingesetzt werden.
-* Icon Buttons verfügen immer über einen Tooltip, der die entsprechende Funktionalität beschreibt.
-* Im Sinne der Barrierefreiheit sollte bei Bildern und Icons immer ein beschreibendes Label im Quellcode (z.B. Title oder alt Attribut) vorhanden sein.
-
 
 [[hyperlink-ueberschrift]]
 === Hyperlink
 
 Hyperlinks sind verlinkte Texte (oder auch Grafiken), die im Wesentlichen als Navigations-Mechanismus dienen – so z.B. um andere Inhalte wie Fenster zu öffnen.
-Ebenso können Hyperlinks dazu eingesetzt werden, Funktionen aufzurufen.
-
-[[image-dashboardtextlink]]
-.Dashboard – Textlink zu Applikation (mit Icon)
-image::Text_Link_Applikation.png[align="center", width="265",height="44"]
-
-[[image-dashboardnormalertextlink]]
-.Dashboard – Normaler Textlink
-image::Text_Link.png[align="center", width="214",height="45"]
-
-[[image-applTextlinkTabellen]]
-.Applikation – Textlink in Tabellen
-image::Text_Link_Tabelle.png[align="center", width="310",height="45"]
-
-*Zustände*
-
-* Normal
-* Hover
 
 *Ist dies das korrekte Bedienelement?*
 
 * Hyperlinks werden verwendet, um zu anderen Inhalten zu navigieren.
-* Hyperlinks können aber auch genutzt werden um sekundäre Funktionen aufzurufen.
+* Hyperlinks können aber auch genutzt werden, um sekundäre Funktionen aufzurufen.
 * Hyperlinks werden jedoch nicht für das Initiieren primärer, unmittelbarer Aktionen genutzt in diesem Fall sollten Buttons verwendet werden.
 * Würde der Hyperlink eine irreversible Aktion ausführen, sollte kein Hyperlink verwendet werden, da dieses Verhalten nicht erwartungskonform wäre.
-* Hyperlinks sollten nicht in einer Toolbar verwendet werden, hier empfiehlt sich der Einsatz von Toolbar-Buttons oder Icon-Buttons.
 
 *Richtlinien zur Anwendung*
 
-* Wird die Maus über einen Hyperlink bewegt, ändert der Mauscursor sich vom Pfeil- zum Hand-Symbol.
 * Werden Hyperlinks auf gesättigten Hintergrundfarben verwendet, sollte die Textfarbe entsprechend angepasst werden, um eine ausreichende Lesbarkeit zu gewährleisten.
 * Hyperlinks sollten einen aussagekräftigen Text zur Verfügung stellen.
 Generische Phrasen wie „Hier klicken“ sind nicht hilfreich und sollten vermieden werden.
-* Hyperlinks (Textlinks) innerhalb von Applikationen werden blau dargestellt und bei Hover unterstrichen, z.B. Bezeichner (Name/ID) in Tabellen.
-* Hyperlinks auf dem Dashboard
-** Verlinkungen (Textlinks) auf dem Dashboard unterscheiden sich zu Textlinks in Applikationen.
-Um einen optischen Overload zu vermeiden, werden sie nicht blau eingefärbt.
-** Alle Links des Dashboards sind grau und werden bei Hover blau.
-** Links, die zu Applikationen navigieren, haben vor dem Textlabel ein Pfeil-Icon.
-
-
 
 [[label-ueberschrift]]
 === Label
@@ -1748,489 +1443,19 @@ Hier gilt es zu beachten, dass das Icon eindeutig und aussagekräftig die dahint
 Solche Bedienelemente können zusätzlich durch einen Tooltip unterstützt werden.
 Elemente wie Eingabefelder, Radiobuttons oder Checkboxen werden typischerweise mit einem Text-Label gekennzeichnet, während auf Schaltflächen häufig auch Icons verwendet werden.
 
-*Ist dies das korrekte Bedienelement?*
-
-* Möglichst jedes Bedienelement sollte mit einem Label versehen werden.
-* Zur besseren Strukturierung und Gliederung von formularbasierten Screens werden Labels im Inhaltsbereich in Form einer Überschrift verwendet.
-
 *Richtlinien zur Anwendung*
 
 * Labels sind möglichst kurz und prägnant formuliert.
-* Labels für alle Bedienelemente außer Radiobuttons und Checkboxen sollen nach Möglichkeit nicht aus mehr als drei Wörtern bestehen.
-* Es ist auf eine konsistente Groß- und Kleinschreibung der Labels zu achten.
 * Labels beginnen immer mit einem Großbuchstaben, auch Verben z.B. „Drucken“, „Exportieren“.
 * Für deutschsprachige Anwendungen sollten möglichst deutsche Begriffe benutzt werden.
 * Abkürzungen müssen sparsam verwendet und immer mit einem Tooltip versehen werden, der die Abkürzung erläutert.
-* Zu lange Labels werden mit Auslassungszeichen „...“ (eng.
-ellipsis) abgetrennt und ein Tooltip zeigt die ausgeschriebene Variante des Labels.
 * Bei Auswahl-Elementen wie Radiobuttons oder Checkboxen setzt ein Klick auf den Wert die entsprechende Option.
-
-
-[[eingabefelder-ueberschrift]]
-=== Eingabefelder
-
-Ein Eingabefeld dient der Eingabe von Daten durch den Benutzer. Dies kann ein einzeiliger oder mehrzeiliger Text sein oder auch beispielsweise ein Datum, ein numerischer Wert oder eine Betragseingabe (Währungsbetrag, Fließkommazahl).
-
-
-[[standard-eingabefeld]]
-==== Standard Eingabefeld
-Das Standard Eingabefeld ist einzeilig.
-
-[[image-eingabefelderbis]]
-.Eingabefelder
-image::Eingabeelemente.png[align="center", width="685",height="31"]
-
-
-*Zustände*
-
-* Normal
-* Hover
-* Deaktiviert
-* Focus
-* Read-Only
-* Validierung
-
-
-*Ist dies das korrekte Bedienelement?*
-
-* Eingabefelder werden für die Eingabe von Freitext genutzt.
-* Falls die einzugebenden Daten Teil einer vordefinierten Menge sind, sollte die Verwendung eines Dropdown Menü oder einer Wertehilfe in Erwägung gezogen werden.
-
-*Richtlinien zur Anwendung*
-
-* Die Breite eines Eingabefeldes sollte der Länge des maximal möglichen Inhalts entsprechen.
-* Viele unterschiedliche Größen sollten jedoch vermieden werden, um ein harmonisches Gesamtbild zu erhalten.
-Es sollten daher nicht mehr als drei verschiedene Klassen von Feldgrößen verwendet werden.
-* Es kann jedoch auch sinnvoll sein, Eingabefelder exakt auf die zu erwartende Eingabe anzupassen, so z. B. bei der Eingabe von festen Größen wie einer Postleitzahl.
-Dies muss von Fall zu Fall entschieden werden.
-* Werden in ein Eingabefeld oftmals gleiche oder ähnliche Daten eingegeben, sollte eine Form von Eingabehilfe wie Autovervollständigung (siehe Kapitel Autosuggestion) zur Verfügung gestellt werden.
-* Um die Bedieneffizienz zu erhöhen, sollten Eingabefelder, deren Eingaben validiert werden, nach Möglichkeit verschiedene Eingabeformate unterstützen (z. B. in Bezug auf führende Nullen bei Datumsformaten: 8.1.09 oder 08.01.09).
-* Alphanumerische Zeichenketten sollten innerhalb eines Eingabefeldes linksbündig ausgerichtet werden.
-* Numerische Eingaben sollen rechtsbündig ausgerichtet werden, wenn optisch Summen gebildet werden sollen.
-Numerische Werte in alleinstehenden Eingabefeldern werden nicht rechtsbündig ausgerichtet.
-* Existieren sinnvolle Vorgaben, so kann ein Eingabefeld mit diesen als Platzhalter (siehe Kapitel Platzhalter) vorbelegt sein.
-So kann ein Datumsfeld unter bestimmten Umständen z. B. mit dem aktuellen Datum vorbelegt werden.
-Falls eine Vorbelegung jedoch potentiell risikobehaftet ist, sollte das Eingabefeld nicht vorbelegt werden.
-
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Es gelten die gleichen Regeln und Einschränkungen wie im Kapitel Validierung beschrieben.
-
-
-[[vier-augen-prinzip-eingabefeld]]
-==== 4-Augen-Prinzip Eingabefelder
-
-Teilweise besteht bei Eingabefeldern die Notwendigkeit, dass die durch einen ersten Benutzer eingegebenen Daten, zunächst noch von einem zweiten Benutzer bestätigt/freigegeben werden müssen, bevor diese von anderen Aktionen (z.B. Zahlungsläufen) berücksichtigt werden können.
-
-Die Felder mit dieser Eigenschaft werden bei der IsyFact als _"4-Augen-Prinzip Eingabefelder"_ bezeichnet und sind visuell durch ein Schloss-Icon zu erkennen.
-
-
-[[image-vier-augen-grundstyles]]
-.Durch Schloss-Icon gekennzeichnete 4-Augen-Prinzip Eingabefelder
-image::VierAugen-Grundstyle-SchlossIcon.png[align="center"]
-
-Zur Umsetzung von Anwendungsfällen mit Eingabefeldern, die auf dem 4-Augen-Prinzip beruhen, sind folgende Eingabefeld-Typen verfügbar:
-
-*Ausprägungen*
-
-* 4-Augen-Prinzip Eingabefeld
-* 4-Augen-Prinzip Eingabefeld-Numerischer-Wert
-* 4-Augen-Prinzip Eingabefeld-Währung
-* 4-Augen-Prinzip Eingabefeld-Datum
-
-Neben diesen einzeiligen Eingabefeldtypen für das 4-Augen-Prinzip gibt es noch
-
-* 4-Augen-Prinzip Textbox
-* 4-Augen-Prinzip DropdownBox-Einzelauswahl
-* 4-Augen-Prinzip Checkbox
-* 4-Augen-Prinzip Aktionseingabefelder
-
-*Zustände*
-
-* Die möglichen Grundzustände (Normal, Deaktiviert, Focus, ...) entsprechen denen der jeweiligen (Eltern) Eingabefeld-Typen
-* Ergänzend hierzu wird der Zustand eines 4-Augen-Prinzip Eingabefeldes durch die Farbe des geöffneten Schloss-Icons ausgedrückt (unlocked/grau: zur Zeit kein Eingabewert | locked/rot: Eingabewertfreigabe erforderlich)
-
-
-*Ist dies das korrekte Bedienelement?*
-
-* 4-Augen-Prinzip Eingabefelder sind nur für die Eingabe von Daten zu verwenden, die von einem zweiten Anwendungsbenutzer entweder freizugeben oder zu verwerfen/löschen sind.
-
-
-*Richtlinien zur Anwendung*
-
-* Die 4-Augen-Prinzip Eingabefelder sind durch ein Schloss-Icon zu erkennen. Es wird nur die Grafik für ein geöffnetes Schloss verwendet.
-* Das Schloss Icon als visuelle Kennzeichnung des 4-Augen-Prinzip Eingabefeldes steht rechtsseitig im Eingabefeld. Sollten aufgrund des Feldtyps noch weitere Icons im Eingabefeld angezeigt werden müssen (z.B. bei Datumsfeldern das Datumspicker-Icon), so steht das Schloss-Icon noch vor dem anderen Icon (s.a. <<image-vier-augen-grundstyles>>)
-* Die Breite des 4-Augen-Prinzip Eingabefeldes vergrößert sich durch das Schloss-Icon nicht.
-
-*JavaScript*
-
-Außer beim reinen Eingabefeld wird bei allen anderen Eingabefeldtypen (Validierung des numerischen Wertes, Datumspicker, Werte-Plausibilitätsprüfungen, ...) JavaScript benötigt.
-
-[[bsp-anwendungsfall-vier-augen, Ablauf eines Anwendungsfalls mit 4-Augen-Prinzip]]
-*Nutzungsvorgaben*
-
-Welche Anwendungslogik mit 4-Augen-Prinzip Eingabefeldern umgesetzt wird, bleibt der expliziten Fachanwendung vorbehalten.
-
-Ein möglicher Ablauf eines Anwendungsfalls wäre folgender:
-
-* Ein Benutzer A hat Daten geändert, die gemäß des 4-Augen-Prinzips bestätigt werden müssen.
-* Der Benutzer A speichert die Daten. Dadurch speichert das System die Daten unter Vorbehalt. D.h. Benutzer A sieht die Daten in der Anwendung als aktuelle Daten aber entsprechend markiert.
-Die ursprünglichen Werte wurden nicht überschrieben, so dass sie im Falle einer Ablehnung der Änderung wiederhergestellt werden können.
-* Das System benachrichtigt Benutzer B, um ihn zu informieren, dass Datenänderungen zur Prüfung vorliegen.
-* Das System sperrt die Daten für Veränderung durch Dritte bis die Änderungen von einem Benutzer B bestätigt oder abgelehnt wurden.
-* Der Benutzer B reagiert auf die Benachrichtigung, indem er den zu prüfenden Datensatz im System öffnet.
-* Im Falle einer Bestätigung der Änderungen durch Benutzer B übernimmt das System die Daten nun endgültig, hebt die Bearbeitungssperre auf und informiert Benutzer A.
-* Im Falle einer Ablehnung der Änderung durch Benutzer B verwirft das System die Änderungen, hebt die Bearbeitungssperre auf und informiert Benutzer A mit einem Ablehnungsgrund.
-
-*Styleguide konforme Darstellungsbeispiele für 4-Augen-Prinzip Eingabefelder*
-
-Beschreibung zum folgenden Screenshots:
-
-Beim Betreten der Maske, vor der Eingabe von Werten im oberen Abschnittsbereich, waren die Schloss-Icons der Felder `Gültig ab` und `Stundensatz` grau dargestellt.
-
-Nach der Eingabe eines Wertes ändert sich die jeweilige Schloss-Icon Farbe auf Rot.
-
-[[image-vier-augen-eintrag-hinzufuegen]]
-.Nach Werteeingabe rote Schloss-Icons
-image::VierAugen-Tabellenfeld-Eintrag-hinzufuegen.png[align="center"]
-
-Nachdem Benutzer A zwei Stundensatzeinträge durch Drücken der `Hinzufügen` Schaltfläche der Ergebnisliste hinzugefügt hat, kann er dann die somit modifizierte Ergebnisliste final abspeichern.
-
-Man beachte, dass auch bei Verwendung von 4-Augen-Prinzip Feldern innerhalb von Tabellenzeilen, das Schloss-Icon rechtsbündig angeordnet ist.
-
-[[image-vier-augen-nach-hinzufuegung]]
-.Durchgängig rechtsseitige Darstellung des  Schloss-Icons
-image::VierAugen-Tabellenfeld-rechtsbuendig.png[align="center"]
-
-In der folgenden Maskenansicht für den Benutzer B, sieht man, die durch Benutzer A eingegebenen Daten, die Benutzer B nunmehr durch zwei Schaltflächen `Bestätigen` oder `Ablehnen` kann.
-
-[[image-vier-augen-bestaetigen]]
-.Eingabefelder und 4-Augen-Prinzip Eingabefelder in der gleichen Ergebnisspalte
-image::VierAugen-Tabellenfeld-Ergebnislisten.png[align="center"]
-
-[[text-box]]
-==== Text Box
-
-Text Boxen sehen optisch aus wie Eingabefelder, es können jedoch mehrzeilige Daten eingegeben werden.
-
-[[image-bildtextbox]]
-.Text Box
-image::Text_Box.png[align="center", width="358",height="111"]
-
-
-*Zustände*
-
-* Normal
-* Hover
-* Deaktiviert
-* Focus
-* Read-Only
-* Validierung
-
-*Ist dies das korrekte Bedienelement?*
-
-* Text Boxen werden für die Eingabe von mehrzeiligem Freitext genutzt.
-* Für einzeilige Texte sollte ein Eingabefeld benutzt werden.
-* Falls die einzugebenden Daten Teil einer vordefinierten Menge sind, sollte die Verwendung eines Dropdown Menüs oder einer Wertehilfe in Erwägung gezogen werden.
-* Textboxen sind nicht mit einem Charpicker zum Einfügen von Sonderzeichen ausgestattet.
-
-*Richtlinien zur Anwendung*
-
-* Für die Verwendung von Text Boxen gelten die gleichen Richtlinien wie für Eingabefelder.
-* In manchen Fällen kann die Größe der Text Box nicht der Größe des möglichen Inhaltes entsprechen.
-Ist die Größe der Text Box kleiner als deren Inhalt, so muss der Benutzer innerhalb der Text Box scrollen können.
-Vertikales Scrollen ist horizontalem Scrollen vorzuziehen.
-
-
-[[vier-augen-prinzip-textbox]]
-==== 4-Augen-Prinzip Textbox
-
-Eine 4-Augen-Prinzip Textbox kann wie eine normale Textbox einen mehrzeiligen Text aufnehmen. Ein Schloss-Icon im Eingabefeld weist auf die zusätzliche Funktionalität (4-Augen-Prinzip) hin.
-
-[[image-bildtextbox-locked]]
-.Text Box - 4-Augen-Prinzip
-image::Text_Box_locked.png[align="center", width="358",height="111"]
-
-_"4-Augen-Prinzip Eingabefelder"_ erfordern, dass die durch einen ersten Benutzer eingegebenen Daten, zunächst noch von einem zweiten Benutzer bestätigt/freigegeben werden müssen.
-
-
-*Zustände*
-
-* Normal
-* Hover
-* Deaktiviert
-* Focus
-* Read-Only
-* Validierung
-* 4-Augen-Prinzip (locked | unlocked)
-
-
-*Ist dies das korrekte Bedienelement?*
-
-* 4-Augen-Prinzip Eingabefelder sind nur für die Eingabe von Daten zu verwenden, die von einem zweiten Anwendungsbenutzer entweder freizugeben oder zu verwerfen/löschen sind.
-* Textboxen sind nicht mit einem Charpicker zum Einfügen von Sonderzeichen ausgestattet.
-
-*Richtlinien zur Anwendung*
-
-* Die 4-Augen-Prinzip Eingabefelder sind durch ein Schloss-Icon zu erkennen. Es wird nur die Grafik für ein geöffnetes Schloss verwendet.
-* Das Schloss Icon als visuelle Kennzeichnung des 4-Augen-Prinzip Eingabefeldes steht rechtsseitig, oben im Eingabefeld.
-* Die Breite der 4-Augen-Prinzip Textbox vergrößert sich durch das Schloss-Icon nicht.
-
-*JavaScript*
-
-Es wird kein JavaScript benötigt.
-
-
-*Nutzungsvorgaben*
-
-Welche Anwendungslogik mit einer 4-Augen-Prinzip Textbox umgesetzt wird, bleibt der expliziten Fachanwendung vorbehalten.
-s.a. <<bsp-anwendungsfall-vier-augen>>
-
-[[aktionseingabefeld]]
-==== Aktionseingabefeld
-
-[[image-aktionseingabefeld]]
-.Aktionseingabefeld
-image::Eingabeelemente.png[align="center", width="685",height="25"]
-
-
-*Zustände*
-
-* Normal
-* Hover
-* Deaktiviert
-* Focus
-* Validierung
-
-*Ist dies das korrekte Bedienelement?*
-
-* Falls zusätzlich zum Eingabefeld einen dazugehörigen visuellen Hinweis dargestellt werden soll.
-* Falls die Eingabe beigesteuert werden muss oder kann, z.B. in einem modalen Dialog.
-
-
-
-[[upload]]
-==== Upload
-
-Das Upload-Element dient dem Hochladen von Dateien für verschiedene Medientypen.
-
-[[image-uploadfelder]]
-.Upload-Felder
-image::Eingabefelder_Upload.png[align="center", width="685",height="25"]
-
-
-*Zustände*
-
-* Normal
-* Hover
-* Deaktiviert / Disabled
-* Focus
-* Validierung
-
-*Ist dies das korrekte Bedienelement?*
-
-* Upload-Felder werden für das Hochladen von Dateien genutzt.
-
-* Wenn der zu verwendende Medientyp darstellbar ist, sollte die Datei über ein entsprechendes Darstellungselement visualisiert werden.
-
-
-*Richtlinien zur Anwendung*
-
-* Dateinamen sollten innerhalb eines Eingabefeldes linksbündig ausgerichtet werden.
-* Wenn das Upload-Feld keinen Inhalt hat, kann es einen Hinweistext dastellen (z.B. Wählen Sie eine Bild-Datei zum Hochladen aus.)
-* Das Upload-Feld und die zugehörige Visualisierung der Datei sollten erkennbar sein.
-
-
-
-
-[[dropdown-menue]]
-=== Dropdown Menü
-
-Mit einem Dropdown Menü kann der Benutzer per Mausklick oder Tastatur-Bedienung genau einen Wert aus einer Liste von Optionen auswählen.
-
-[[image-bildddropdownmenue]]
-.Dropdown Menü
-image::Dropdown_Menue.png[align="center", width="627",height="156"]
-
-
-*Zustände*
-
-* Button (selektierte Option)
-
-** Normal
-** Hover
-** Pressed
-** Deaktiviert
-** Focus
-
-* Menü (Auswahl Menü)
-** Normal
-** Hover
-** Pressed
-** Selektiert
-
-
-*Ist dies das korrekte Bedienelement?*
-
-* Ein Dropdown Menü wird eingesetzt, wenn der Benutzer genau eine Option aus einer Menge sich gegenseitig ausschließender Optionen wählen kann.
-* Handelt es sich nur um eine sehr kleine Menge (typischerweise weniger als fünf) an Auswahl-Optionen, muss geprüft werden, ob die Verwendung einer Gruppe von Radiobuttons besser geeignet ist, da die möglichen Optionen eines Dropdown Menü erst nach dem Öffnen der Liste ersichtlich werden.
-Ist im Layout nicht ausreichend Platz vorhanden kann ein Dropdown Menü auch für kleinere Mengen genutzt werden.
-* Das Dropdown Menü eignet sich aufgrund seiner kompakten Größe dazu, die Betonung auf andere, wichtigere Aspekte eines User-Interface zu lenken.
-Sollte die Auswahl des entsprechenden Wertes jedoch explizit hervorgehoben werden, so wird statt eines Dropdown Menüs z.B. eine Gruppe von _Radiobuttons_ verwendet.
-* Kann der Benutzer mehr als eine Option wählen? Falls ja, dann wird statt eines Dropdown Menüs eine Gruppe von _Checkboxen_ verwendet.
-* Wird durch die Auswahl einer Option eine Funktion direkt ausgelöst, so ist ein _Menü Button_ dem Dropdown Menü vorzuziehen.
-
-*Richtlinien zur Anwendung*
-
-* Die Liste der Werte sollte nicht zu groß sein (maximal 10-12 Einträge), da der Benutzer sonst innerhalb des Auswahl-Menüs scrollen muss und es zu Usability-Problemen kommen kann.
-* Die Auswahl-Elemente sollten in einer logischen Reihenfolge angezeigt werden, z.B. sortiert nach der Wahrscheinlichkeit des Auftretens oder in zusammengehörigen Gruppen.
-Falls keine übergeordnete Logik angewendet wird, sollten die Elemente aufsteigend alphabetisch sortiert werden.
-* Falls es sich bei dem Dropdown Menü nicht um eine Pflichtangabe handelt, sollte eine Meta-Option wie „Keine Auswahl“ angezeigt werden, statt das Dropdown Menü im geschlossen Zustand leer anzuzeigen.
-* Meta-Optionen wie „Keine Auswahl“ oder „Alle“ sollten am Anfang der Liste platziert sein.
-* Werden mehrere Dropdown Menüs übereinander platziert oder in Kombination mit anderen Bedienelementen wie Eingabefeldern genutzt, so sollten die Breiten der Bedienelemente angeglichen werden.
-* Bei sehr langen Werten sollte eine Maximalbreite definiert werden.
-* Die Werte in einem Dropdown Menü können mit Tastatur gewählt werden, so dass der Benutzer nicht zwischen Maus und Tastatur wechseln muss.
-* Ein Dropdown Menü kann je nach Einsatzkontext unterschiedliche Funktionalitäten aufweisen.
-** Es gibt Dropdown Menüs, bei denen bei der Auswahl eines Wertes aktiv keine anderen Elemente auf dem Screen beeinflusst werden z.B. in Formularen.
-** Das Dropdown Menü kann aber auch alleinstehend verwendet werden z.B. zur lokalen Umschaltung einer Ansicht oder beispielhaft bei der Verwendung von vordefinierten Suchprofilen. Hier ändert sich die Ansicht direkt nachdem der Benutzer eine Auswahl im Dropdown Menü getroffen hat.
-
-
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Da durch das Dropdown Menü keine Funktionen unmittelbar ausgelöst werden, bleibt die Funktionalität auch ohne JavaScript vorhanden.
-Es kann allerdings zu optischen Abweichungen kommen.
-Da sich das Dropdown Menü ohne JavaScript nicht stylen lässt, entspricht die Darstellung der des Browsers.
-
-[[tabs-ueberschrift]]
-=== Tabs
-
-Tabs dienen der Informationsstrukturierung und Reduktion der Anzahl gleichzeitig sichtbarer Inhaltsbereiche, wenn die Informationen schnell innerhalb des gleichen Fensters zugreifbar sein müssen.
-Tabreiter verhalten sich entsprechend dem analogen Vorbild eines Karteireiters, der dazu dient, verschiedene Karteikarten voneinander zu trennen.
-Tabs werden häufig dazu verwendet, um Eigenschaften eines Objekts in inhaltliche sinnvolle Gruppen aufzuteilen.
-
-[[image-bildtabs]]
-.Tabs
-image::Tabs.png[align="center", width="626",height="35"]
-
-
-*Zustände*
-
-* Normal
-* Hover
-* Pressed
-* Selektiert
-
-*Ist dies das korrekte Bedienelement?*
-
-* Tabs können eingesetzt werden, wenn der zu präsentierende Inhalt nicht ohne massives Scrolling innerhalb eines Screens dargestellt werden kann.
-
-* Wenn die Komplexität des User Interface reduziert werden soll und eine sinnvolle Gruppierung einzelner Bereiche vorgenommen werden kann.
-* Werden weniger als drei Tabreiter angezeigt, sollte stattdessen die Verwendung von Gruppierungs-Elementen in Betracht gezogen werden.
-* Würden die Tabreiter lediglich verschiedene Sichten auf die gleichen Daten darstellen, sollte stattdessen z. B. ein Dropdown Menü verw endet werden.
-* Falls die Tabreiter einzelne Schritte eines Prozesses abbilden, so sollte die Verwendung eines Wizards in Betracht gezogen werden.
-* Soll der Inhalt mehrerer Tabreiter gleichzeitig einsehbar sein – z. B. für Vergleichszwecke –sollten stattdessen Expander (Progressive Disclosure) Elemente verwendet werden.
-
-*Richtlinien zur Anwendung*
-
-* Es sollte niemals ein Tabreiter-Element mit nur einem Tabreiter verwendet werden.
-* Es sollten niemals mehrere Reihen von Tabreitern übereinander angezeigt werden.
-Stattdessen sollte ein dediziertes Überlauf-Bedienelement (z.B. Taboverflow Menü) angeboten werden.
-* Abhängigkeiten zwischen verschiedenen Tabreitern sollten möglichst vermieden werden.
-* Eventuelle Pflicht-Eingabefelder werden wenn möglich auf dem ersten Tabreiter angezeigt.
-* Buttons, die globale Aktionen für das komplette Tabreiter-Element mit allen einzelnen Reitern anstoßen, müssen außerhalb des Tabreiter-Elements angebracht werden.
-
-
-
-[[taboverflow-menue]]
-==== Taboverflow Menü
-
-Das Taboverflow Menü dient zur Vermeidung mehrzeiliger Tabreiter-Elemente.
-Das Menü enthält alle Tabs, die nicht direkt auf dem Screen angezeigt werden können.
-
-[[image-tabsoverflow]]
-.Tabs mit Overflow-Menü
-image::Tab_Overflow_Menue.png[align="center", width="629",height="167"]
-
-
-*Zustände* (Auswahl-Menü)
-
-* Normal
-* Hover
-* Pressed
-
-*Ist dies das korrekte Bedienelement?*
-
-
-* Das Taboverflow Menü wird eingesetzt, wenn nicht alle Tabs auf dem Screen in einer Zeile dargestellt werden können.
-
-
-*Richtlinien zur Anwendung*
-
-* Generell sollte Taboverflow vermieden werden.
-** Die Labels für die Tabreiter sollten kurz und aussagekräftig sein.
-Es kann auch mit sinnvollen und verständlichen Abkürzungen gearbeitet werden.
-** Die darzustellenden Inhalte sollten so gestaltet sein, dass das Taboverflow Menü nicht benötigt warden.
-
-
-* Das Taboverflow Menü wird über einen Button rechts neben der Tabbar aufgerufen.
-* Wählt der Benutzer einen Tab aus dem Taboverflow Menü, so wird der Inhalt dieses Tabs angezeigt.
-Und der Tab wird rechts neben dem letzten Tab in der Tabbar dargestellt.
-* Tabs aus dem Taboverflow Menü werden immer ganz rechts in der Tabbar angezeigt.
-* Die Reihenfolge der anderen Tabs wird nicht beeinflusst.
-* Wird das Browserfenster vergrößert, so dass alle Tabs aus dem Overflow-Menü Platz finden, werden die Tabs in das Tab-Menü integriert und das Overflow-Menü wird nicht mehr benötigt.
-
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Ohne JavaScript gibt es kein Taboverflow Menü. Die Tabs werden hintereinander dargestellt, notfalls in zwei Zeilen.
-Da die Darstellung von Tabs in mehreren Zeilen möglichst zu vermeiden ist, sollte eine Umstrukturierung der Inhalte geprüft werden.
-
-
-[[liste-ueberschrift]]
-=== Liste
-
-Listen werden benutzt, um eine überschaubare Anzahl an Daten oder Objekten eines Typus übersichtlich und vergleichbar darzustellen.
-
-[[image-listemitlistenkopf]]
-.Liste mit Listenkopf
-image::Liste_Listenkopf.png[align="center", width="305",height="326"]
-
-
-*Zustände*
-
-* Normal
-* Hover
-* Pressed
-* Selected
-
-*Ist dies das korrekte Bedienelement?*
-
-* Eine Liste wird benutzt, um mehrere Objektdaten von einem Typ anzuzeigen.
-* Eine Liste sollte nicht verwendet werden, wenn sehr viele Objekte dargestellt werden müssen, da es keine Möglichkeit zur Sortierung bietet.
-In diesem Fall eignet sich eine Tabelle besser.
-
-*Richtlinien zur Anwendung*
-
-* Listen bestehen aus einer Spalte und mehreren Zeilen.
-* Werden mehrere Listen neben- oder untereinander dargestellt, ist auf eine einheitliche Breite zu achten.
-* Listen können scrollbar sein.
-* Listen werden z.B. für das Pattern Browse & Collect genutzt.
-* Eine Liste kann optional einen Kopfbereich haben.
-Dieser zeigt ein gemeinsames Label für die aufgelisteten Objekte.
-* Die Breite der Liste orientiert sich an der Länge des längsten Labels.
-Sollte dies eine sinnvolle Länge / Breite übersteigen, so kann das Label mit Auslassungszeichen abgekürzt werden.
-
 
 [[tabelle-ueberschrift]]
 === Tabelle
 
 Eine Tabelle dient der übersichtlichen Anzeige von größeren Datenmengen.
-Die Tabelle besteht aus mehreren Informationsspalten, die zur Sortie rung verwendet werden können.
+Die Tabelle besteht aus mehreren Informationsspalten, die zur Sortierung verwendet werden können.
 
 [[image-einfuehrungeinertabelle]]
 .Tabelle
@@ -2241,25 +1466,10 @@ image::Tabelle_Beispiel.png[align="center", width="687",height="243"]
 image::Tabelle_Interaktive_Zeilen.png[align="center", width="687",height="93"]
 
 
-*Zustände* (nur für interaktive Tabellenzeilen)
-
-* Normal
-* Hover
-* Pressed
-* Selektiert
-
-*Ist dies das korrekte Bedienelement?*
-
-* Tabellen werden genutzt, um große Mengen von Daten oder Objekten anzuzeigen.
-* Tabellen werden genutzt, um das Vergleichen von Daten zu ermöglichen.
-* Die Tabelle sollte nicht verwendet werden, wenn Objekte nur ein Attribut haben.
-In diesem Fall sollte auf eine Liste zurückgegriffen werden.
-
 *Richtlinien zur Anwendung*
 
 * Numerische Werte werden rechts ausgerichtet, wenn die Anzahl der Nachkommastellen in allen Zeilen identisch ist.
-* Überlaufende Textlabels sollten mit "…" abgetrennt und mit einem Tooltip ergänzt werden.
-* Die initale oder fixe Breite von Spalten muss sich an der zu erwartenden Maximalwortlänge orientieren.
+* Die initiale oder fixe Breite von Spalten muss sich an der zu erwartenden Maximalwortlänge orientieren.
 * In-Place Funktionen (Aktionen) sollten immer in der rechten äußeren Spalte platziert werden (z.B. „Preview Button“ zur Vorschau von Details).
 * Die Spalten mit den größten Wortlängen sollten den maximal verfügbaren Platz einnehmen (Stretching).
 * Werteinheiten sollten im Spalten-Header angezeigt werden, wenn sie für alle Zeilen der Tabelle identisch sind.
@@ -2267,40 +1477,10 @@ In diesem Fall sollte auf eine Liste zurückgegriffen werden.
 So ist sichergestellt, dass der Benutzer schnell erkennt welchen Status ein Objekt hat.
 Checkboxen bilden hier eine Ausnahme.
 Hat eine Zeile eine Checkbox und ein Statusicon so wird die Checkbox ganz links und das Statusicon in der darauffolgenden Spalte dargestellt.
-* Werden in einer Tabelle eine Vielzahl von Einträgen dargestellt, so kann es sinnvoll sein, dem Benutzer eine Filter-Zeile zur weiteren Einschränkung zur Verfügung zu stellen.
-* Resizing von Tabellen
-** Tabellen passen ihre Größe entsprechend der Fenstergröße an.
-
-* Die Tabelle nimmt immer die ihr zur Verfügung stehende Breite ein.
-* Hierbei ist auf ein sinnvolles Resizingverhalten der einzelnen Spalten zu achten.
-Dies ist stark vom Inhalt der Tabelle abhängig.
+* Tabellen passen ihre Größe entsprechend der Fenstergröße an.
 * Die Spalten einer Tabelle können eine feste oder variable Breite besitzen.
 * Für Spalten deren Inhalte eine abschätzbare Länge haben wie z.B. Datum oder Geschlecht, sollte in der Regel eine feste Spaltenbreite gewählt werden.
 * Für Inhalte, deren Länge flexibel oder unbestimmt ist wie z.B. Nachnamen, sollte eine flexible Breite gewählt werden.
-
-
-
-[[sortierung-tabelle]]
-==== Sortierung in einer Tabelle
-
-[[image-tabellesortierungimkopf]]
-.Tabelle – Sortierungs-Indikator in Tabellenkopf
-image::Tabelle_Sortierung.png[align="center", width="627",height="137"]
-
-
-*Richtlinien zur Anwendung*
-
-* Der erste Klick in einen Spaltenheader sortiert die Tabelle aufsteigend, der zweite Klick absteigend.
-* Ein Sortierungs-Indikator (Dreieck) neben dem Label zeigt die aktuell eingestellte Sortierung an.
-* Dreieck nach unten: Absteigende Sortierung
-* Dreieck nach oben: Aufsteigende Sortierung
-* Eine farbige Fläche im Tabellenkopf hebt die aktuell angewandte Sortierung hervor.
-
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Ohne JavaScript kann die Sortierung nur durch das Neu-Laden der Seite bewirkt werden.
 
 [[selektionsverhalten-tabelle]]
 ==== Selektionsverhalten in einer Tabelle
@@ -2332,16 +1512,6 @@ Die ausgewählte Zeile wird farbig hinterlegt.
 Mittels der Umschalt-Taste und Klick auf das erste und letzte Element wird der dazwischen liegende Bereich selektiert.
 ** Sofern der Hauptanwendungsfall in einer Tabelle die Auswahl von einem oder mehreren Objekten ist, sollte zusätzlich eine Check Box Spalte integriert werden. Über eine Checkbox im Header können alle Zeilen gleichzeitig aus- oder abgewählt werden.
 
-* Default-Selektion
-** Bei Tabellen auf deren Objekte (Zeilen) weitere Aktionen angewendet werden können, ist eine Default Selektion sinnvoll.
-** In der Regel wird die erste Zeile per Default selektiert.
-
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Ohne JavaScript ist die Selektion von Tabellenzeilen nur über Checkboxen möglich.
-
 
 [[aktionen-tabelle]]
 ==== Aktionen in einer Tabelle
@@ -2355,12 +1525,6 @@ image::Tabelle_Aktionen.png[align="center", width="629",height="147"]
 
 
 * Aktionen, die direkt ausführbar sind und sich auf Daten in einer Zeile beziehen, werden in der rechten Spalte einer Tabelle mittels Icon-Buttons angezeigt (z.B. Vorschau für ein Objekt).
-
-
-*Hinweise zur Implementierung*
-
-Buttons für Aktionen können in der entsprechenden `<isy:dataTableCell>` angegeben werden.
-Für die Detailansicht existiert auch das Tag `<isy:dataTableDetailButton>` welcher automatisch einen Button zum Auf- und Zuklappen der Detailansicht einfügt.
 
 [[grosse-datenmengen-tabelle]]
 ==== Große Datenmengen in einer Tabelle
@@ -2387,13 +1551,11 @@ Zunächst wird dem Benutzer nur eine begrenzte Anzahl (10 oder 20 Zeilen) an Dat
 
 * Unterhalb der Tabelle befindet sich ein _Mehr anzeigen_ Button.
 Wird dieser vom Benutzer geklickt so wird der nächste Satz an Daten angezeigt.
-* Nach Klick auf den _Mehr anzeigen_ Button verlängert sich die Tabelle nach unten, so dass der Benutzer gegebenenfalls nach unten scrollen muss.
+* Nach Klick auf den _Mehr anzeigen_ Button verlängert sich die Tabelle nach unten, sodass der Benutzer gegebenenfalls nach unten scrollen muss.
 * Nach Klick auf den _Mehr anzeigen_ Button sollte die erste Zeile des neu geladenen Datensatzes an der ursprünglichen Position des _Mehr anzeigen_ Buttons erscheinen.
 So kann sichergestellt werden, dass der neue Datensatz immer im Blickfeld des Benutzers erscheint.
 Die Selektion der Elemente bleibt unberührt.
 * Sind keine weiteren Daten mehr vorhanden, so wird der _Mehr anzeigen_ Button ausgeblendet.
-* Wenn mehr als 100 Einträge zu erwarten sind, sollte aus technischen Gründen ein Paginator benutzt werden.
-
 
 [[check-box-ueberschrift]]
 === Check Box
@@ -2405,18 +1567,6 @@ Der Benutzer kann beliebige Optionen auswählen.
 .Check Box – Darstellungsbeispiel IE 9
 image::Checkboxes_IE.png[align="center", scalewidth= "60%" ]
 
-*Zustände*
-
-* Normal
-* Hover (Checkbox Label)
-* Pressed (Checkbox Label)
-* Focused
-* Deaktiviert
-* Validierung (Checkbox Label)
-* Tri State
-* Required - Rotes Sternchen an Label (in `formCheckbox` seit 4.0)
-* Optional - Blaues Sternchen an Label (in `formCheckbox` seit 4.0)
-
 *Ist dies das korrekte Bedienelement?*
 
 * Check Boxen können für das Setzen einer oder mehrerer, sich nicht gegenseitig ausschließender Optionen oder anderer Werte genutzt werden.
@@ -2427,14 +1577,10 @@ Für diese Zwecke sollten Buttons verwendet werden.
 
 *Richtlinien zur Anwendung*
 
-* Checkboxen werden browserspezifisch dargestellt, das heißt die Darstellung sieht in jedem Browser anders aus.
 Beispielgrafik für den Internetexplorer 9 siehe <<image-darstellungsbeispielie>>.
-* In der Regel besteht eine Check Box immer aus dem Check Box Button, der gleichzeitig als Indikator für den Checked-State dient und einem zugehörigen Text-Label.
+* Eine benötigte Check Box wird mit einem roten Sternchen markiert.
 * Für eine optimierte Usability sollte sowohl der Check Box Button als auch das Text Label geklickt werden können, um den Checked-State zu verändern.
 * Eine Gruppe von Check Boxen sollte immer eine Beschriftung aufweisen, die entsprechend bei einer einzelnen Checkbox entfallen kann.
-* Das Text-Label einer Check Box steht immer hinter dem Bedienelement.
-* Für optimale Lesbarkeit sollten Check Boxes vertikal untereinander angeordnet sein.
-* In Einzelfällen kann die Check Box auch alleinstehend verwendet werden, um eine bestimmte Funktionalität an- und auszuschalten oder um bestimmte Inhaltsbereiche zu aktivieren/deaktivieren
 * Die Beschriftung einer Check Box sollte positiv formuliert sein, z. B. „Objekte einblenden“ statt „Objekte ausblenden".
 * * Neben den normalen Zuständen „Ein/Aus“ kann eine Check Box noch einen dritten Zustand „nicht definiert“ annehmen, so z. B. wenn die Check Box in einer Hierarchie zur Selektion aller untergeordneten Elemente verwendet wird.
 Man spricht in diesem Fall von einer sogenannten „Tri State Check Box“__.__
@@ -2449,104 +1595,6 @@ Sollte eine Gruppe von Checkboxen aus einer großen Anzahl von Optionen bestehen
 .Checkboxen auf mehreren Spalten
 image::Checkboxen_Gruppe_Optionen.png[image,width=517,height=210]
 
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Ohne JavaScript ist die Darstellung des Tristates nicht möglich.
-
-
-[[radio-button-ueberschrift]]
-=== Radio Button
-
-Radio Buttons dienen der eindeutigen Auswahl von sich ausschließenden Optionen.
-Der Benutzer kann also nur eine der Optionen auswählen.
-
-[[image-ieradiobutton]]
-.Radio Button – Darstellungsbeispiel IE 9
-image::RadioButtons_IE.png[align="center", scalewidth= "60%" ]
-
-
-*Zustände*
-
-* Normal
-* Hover (Radio Button Label)
-* Pressed (Radio Button Label)
-* Focused (Radio Button Label)
-* Deaktiviert
-* Validierung (Radio Button Label)
-
-*Ist dies das korrekte Bedienelement?*
-
-* Wenn der Benutzer genau eine Option aus einer sich gegenseitig ausschließenden Menge wählen kann, wird ein Radio Button genutzt.
-* Kann der Benutzer mehr als eine Option wählen? Falls ja, dann muss statt eines Radio Buttons eine Check Box verwendet werden.
-* Existiert nur eine Option, die einer „Ein/Aus“-Bedeutung entspricht, so muss statt eines Radio Buttons eine Check Box verwendet werden.
-* Die Verwendung von Radio Buttons empfiehlt sich für eine kleinere Anzahl an Optionen.
-Ist die Menge der zur Verfügung stehenden Optionen sehr groß oder hat der Platzbedarf eine große Bedeutung, so kann der Einsatz eines Dropdown Menüs in Betracht gezogen werden.
-* Ein Radio Button darf nicht genutzt werden, um unmittelbar Funktionen auszuführen oder Aktionen auszulösen.
-Für diese Zwecke sollten Buttons verwendet werden.
-
-*Richtlinien zur Anwendung*
-
-* Radio Buttons werden browserspezifisch dargestellt, das heißt die Darstellung sieht in jedem Browser anders aus.
-Beispielgrafik für den Internetexplorer 9 siehe <<image-ieradiobutton>>.
-* Eine Gruppe von Radio Buttons sollte immer eine Beschriftung aufweisen.
-* Für optimale Lesbarkeit sollten Radio Buttons vertikal untereinander angeordnet sein.
-* Sollte es wahrscheinlich sein, dass keine (oder alle) der angebotenen Optionen zutrifft, sollte eine Meta-Option wie „Keine Option“ („Alle“) angeboten werden.
-* Das Text-Label des Radio Buttons steht immer hinter dem Bedienelement.
-
-
-[[status-von-bedienelemententen]]
-=== Status von Bedienelementen
-
-Je nach Kontext können manche Elemente, in der Regel Eingabeelemente, verschiedene Zustände annehmen.
-
-[[image-statusbedienelemente]]
-.Status von Bedienelementen – Beispiel Eingabefeld
-image::Eingabeelemente.png[align="center",  width="685",height="25"]
-
-
-*Regeln zur Anwendung*
-
-
-* Die drei häufigsten Zustände sind:
-** *Normal*
-+
-Das Element kann vom Benutzer bedient werden.
-
-** *Deaktiviert (Disabled)*
-+
-Das Element kann nicht bedient werden.
-Es ist z.B. aufgrund der Auswahl einer anderen Option deaktiviert.
-Eventuell zuvor eingegebene Werte werden nicht berücksichtigt.
-Das Element selbst, dessen Beschriftung sowie eventuell existierende Eingaben, werden „ausgegraut“ dargestellt.
-
-** *Read-Only (nur lesbar)*
-+
-Das Element kann nicht direkt bedient werden. Eventuell kann es jedoch mittelbar bedient werden, z.B. durch die Änderung eines anderen Wertes.
-
-* Weitere Zustände:
-
-** *Hover (MouseOver)*
-+
-Wird die Maus über ein Element bewegt so wird dieses Element mittels eines Hover-Effekts optisch hervorgehoben.
-
-** *Pressed*
-+
-In dem Moment in dem per Maus oder Tastatur ein Element ausgewählt wird, wird dieses als Pressed dargestellt.
-
-** *Focus*
-+
-Der Focus liegt auf einem Element.
-Der Focus kann per Mausklick oder mit Hilfe der Tabulatortasten der Tastatur geändert werden.
-
-** *Selektiert*
-+
-Ein Element ist ausgewählt und bleibt in diesem Zustand.
-
-** *Validierung*
-
-Elemente, die einer Validierung unterzogen werden (vor allem in Formularen), werden bei fehlerhaften Eingaben gesondert hervorgehoben.
 
 [[design-patterns]]
 == Design Patterns
