@@ -215,7 +215,7 @@ Richtlinien geregelt, um einen allgemeinen Zugang zu öffentlichen Internetdiens
 
 *Richtlinien und Prinzipien zur Barrierefreiheit*
 
-Im Rahmen des World Wide Web Consortium (W3C) wurden die sogenannten „Web Content Accessibility Guidelines“ (WCAG) verfasst, um einen gemeinsamen Standard für die Barrierefreiheit von Webinhalten zu schaffen.
+Im Rahmen des World Wide Web Consortium (W3C) wurden die sogenannten „Web Content Accessibility Guidelines“ (https://www.w3.org/WAI/standards-guidelines/wcag/[WCAG]) verfasst, um einen gemeinsamen Standard für die Barrierefreiheit von Webinhalten zu schaffen.
 Dabei handelt es sich um Richtlinien für die barrierefreie Gestaltung von Webinhalten im Hinblick auf drei Erfüllungsgrade (Conformance Levels A, AA und AAA). Diese Richtlinien basieren auf den folgenden vier Prinzipien für eine barrierefreie Anwendung:
 
 * *Wahrnehmbar* – Präsentation der Benutzerschnittstelle, so dass diese für Benutzer wahrnehmbar ist (mittels Sehkraft, Gehör oder Berührung).
@@ -225,9 +225,9 @@ navigierbar sein und kompatibel mit Tastatur oder Maus.
 * *Robust* – Die Benutzerschnittstelle funktioniert zuverlässig mit verschiedenen Browsern, assistiven Technologien (z.B. Screen Reader), mobilen Geräten, alten Geräten/Browsern.
 
 In Deutschland gilt das Behindertengleichstellungsgesetz (BGG), welches eine Benachteiligung von behinderten Menschen verhindern soll.
-Als Teil dieses Gesetzes wurde die sogenannte Barrierefreie-Informationstechnik-Verordnung (BITV) verfasst.
+Als Teil dieses Gesetzes wurde die sogenannte Barrierefreie-Informationstechnik-Verordnung (https://www.gesetze-im-internet.de/bitv_2_0/BJNR184300011.html) verfasst.
 Für bestimmte Anwendungsgruppen gilt dies verbindlich, z.B. für Bundesbehörden im Hinblick auf deren Internetauftritte und öffentlich zugängliche Terminals.
-Die BITV wendet als Grundlage die Prinzipien und Richtlinien der WCAG an.
+Die https://www.gesetze-im-internet.de/bitv_2_0/BJNR184300011.html wendet als Grundlage die Prinzipien und Richtlinien der https://www.w3.org/WAI/standards-guidelines/wcag/[WCAG] an.
 
 [[Testbarkeit-von-Anwendungen]]
 *Testbarkeit von Web-basierenden Anwendungen*
@@ -3841,7 +3841,7 @@ Neben der Eingabe von Zeichen wird die Tastatur auch zur Navigation sowie zur Au
 
 *Richtlinien*
 
-*  Um die Richtlinien der BITV zu erfüllen, müssen alle Funktionalitäten der Applikation über eine Tastaturschnittstelle zugänglich und bedienbar sein.
+*  Um die Richtlinien der https://www.gesetze-im-internet.de/bitv_2_0/BJNR184300011.html zu erfüllen, müssen alle Funktionalitäten der Applikation über eine Tastaturschnittstelle zugänglich und bedienbar sein.
 *  Die Standardfunktionen und Tastaturkürzel vom Browser sollten nicht unterbunden oder anderweitig belegt werden.
 *  Die Tabulator-Reihenfolge, also die Reihenfolge in welcher der Fokus mit Hilfe der Tabulator-Taste verschoben werden kann, sollte an die Bedürfnisse des Benutzers angepasst werden.
 In der Regel bedeutet dies, ein Ablauf von links nach rechts und von oben nach unten.
@@ -4170,7 +4170,7 @@ Generell sollten nicht zu viele verschiedene Grundfarben für die Gestaltung ein
 *  Eine übermäßige Verwendung von Komplementärfarben sollte vermieden werden. Komplementärfarben der Primärfarbe eignen sich jedoch sehr gut als Aufmerksamkeits-Trigger für einen bestimmten Bereich des User Interface.
 *  *Ausreichend hoher Kontrast*
 ** Bei der Verwendung von Farben sollte immer ein ausreichend hoher Kontrast von Vorder- zu Hintergrundfarbe gewährleistet werden.
-** Die Web Accessibility Initiative (WAI), die Teil des World Wide Web Consortium (W3C) ist, hat die Web Content Accessibility Guidelines (WCAG) entwickelt, die unter anderem Referenzwerte für den Kontrast von Vorder- zu Hintergrundfarbe beinhalten. So beschreiben die WCAG verschiedene Kontrastverhältnisse, abhängig von der Schriftgröße.
+** Die Web Accessibility Initiative (WAI), die Teil des World Wide Web Consortium (W3C) ist, hat die Web Content Accessibility Guidelines (https://www.w3.org/WAI/standards-guidelines/wcag/[WCAG]) entwickelt, die unter anderem Referenzwerte für den Kontrast von Vorder- zu Hintergrundfarbe beinhalten. So beschreiben die https://www.w3.org/WAI/standards-guidelines/wcag/[WCAG] verschiedene Kontrastverhältnisse, abhängig von der Schriftgröße.
 ** Die folgenden Links verweisen auf Hilfsmittel zur Kontrast-Analyse, die auf den Referenzwerten der WAI basieren:
 
 *** Online-Werkzeug zur Kontrast-Analyse: xref:glossary:literaturextern:inhalt.adoc#litextern-juicystudio-kontrast-analyse[JuicyStudio Kontrast Analyse]
@@ -4569,7 +4569,7 @@ Dieses Kapitel zeigt einige oft nicht befolgte Regeln und häufige Verstöße ge
 
 === Do's
 * Schreibe semantisches HTML. Verwende Elemente so, wie sie gedacht sind - ein "hauptsache optisch korrekt" genügt spätestens beim Thema Barrierefreiheit nicht mehr. Ziehe hierbei z.B. den https://developer.mozilla.org/en-US/docs/Web/HTML/Element[Mozilla Developer Guide] zurate. Dabei kommt es auch auf Details an, wie etwa dem Unterschied zwischen <div> und <span>.
-* Beachte unbedingt allgemeingültige Webentwicklungsvorgaben und Best Practices, insbesondere die Vorgaben zur Barrierefreiheit aus WCAG und BITV.
+* Beachte unbedingt allgemeingültige Webentwicklungsvorgaben und Best Practices, insbesondere die Vorgaben zur Barrierefreiheit aus https://www.w3.org/WAI/standards-guidelines/wcag/[WCAG] und https://www.gesetze-im-internet.de/bitv_2_0/BJNR184300011.html.
 * Halte Bedienelemente, z.B. Buttons, ausreichend groß für ihre Beschriftung.
 * Ist eine Abkürzung sinnvoll, erkläre sie mit einem Tooltip.
 * Ordne Labels ihren Bedienelementen im HTML zu, sodass ein Klick auf das Label auch das Bedienelement aktiviert.
