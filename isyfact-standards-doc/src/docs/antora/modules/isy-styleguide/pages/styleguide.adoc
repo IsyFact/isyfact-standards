@@ -1228,7 +1228,7 @@ image::Schnellnavigation.png[image,width=399,height=250]
 * Durch Klick auf den Bezeichner des jeweiligen Objektes (Nummer, ID, Name etc.), einen Doppelklick auf das gesamte Objekt oder die Toolbar Funktion __Öffnen__, gelangt der Benutzer zu dessen Detailseite.
 * Auf dieser Seite werden dem Benutzer alle Informationen, die zu dem Objekt existieren, zugänglich gemacht.
 * Über einen Link in der Seiten-Toolbar kann der Benutzer jederzeit zurück zur Trefferliste springen.
-* Auch beim Navigieren zwischen Ergebnissen muss die Browser-Funktion "Vor- und Zurück" unterstützt werden
+* Auch beim Navigieren zwischen Ergebnissen muss die Browser-Funktion "Vor- und Zurück" unterstützt werden.
 
 [cols="1,1", options="header", align="center"]
 |====
