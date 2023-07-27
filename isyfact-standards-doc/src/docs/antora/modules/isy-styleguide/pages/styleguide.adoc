@@ -225,9 +225,9 @@ navigierbar sein und kompatibel mit Tastatur oder Maus.
 * *Robust* – Die Benutzerschnittstelle funktioniert zuverlässig mit verschiedenen Browsern, assistiven Technologien (z.B. Screen Reader), mobilen Geräten, alten Geräten/Browsern.
 
 In Deutschland gilt das Behindertengleichstellungsgesetz (BGG), welches eine Benachteiligung von behinderten Menschen verhindern soll.
-Als Teil dieses Gesetzes wurde die sogenannte Barrierefreie-Informationstechnik-Verordnung (https://www.gesetze-im-internet.de/bitv_2_0/BJNR184300011.html) verfasst.
+Als Teil dieses Gesetzes wurde die sogenannte Barrierefreie-Informationstechnik-Verordnung (https://www.gesetze-im-internet.de/bitv_2_0/BJNR184300011.html[BITV]) verfasst.
 Für bestimmte Anwendungsgruppen gilt dies verbindlich, z.B. für Bundesbehörden im Hinblick auf deren Internetauftritte und öffentlich zugängliche Terminals.
-Die https://www.gesetze-im-internet.de/bitv_2_0/BJNR184300011.html wendet als Grundlage die Prinzipien und Richtlinien der https://www.w3.org/WAI/standards-guidelines/wcag/[WCAG] an.
+Die https://www.gesetze-im-internet.de/bitv_2_0/BJNR184300011.html[BITV] wendet als Grundlage die Prinzipien und Richtlinien der https://www.w3.org/WAI/standards-guidelines/wcag/[WCAG] an.
 
 [[Testbarkeit-von-Anwendungen]]
 *Testbarkeit von Web-basierenden Anwendungen*
@@ -3841,7 +3841,7 @@ Neben der Eingabe von Zeichen wird die Tastatur auch zur Navigation sowie zur Au
 
 *Richtlinien*
 
-*  Um die Richtlinien der https://www.gesetze-im-internet.de/bitv_2_0/BJNR184300011.html zu erfüllen, müssen alle Funktionalitäten der Applikation über eine Tastaturschnittstelle zugänglich und bedienbar sein.
+*  Um die Richtlinien der https://www.gesetze-im-internet.de/bitv_2_0/BJNR184300011.html[BITV] zu erfüllen, müssen alle Funktionalitäten der Applikation über eine Tastaturschnittstelle zugänglich und bedienbar sein.
 *  Die Standardfunktionen und Tastaturkürzel vom Browser sollten nicht unterbunden oder anderweitig belegt werden.
 *  Die Tabulator-Reihenfolge, also die Reihenfolge in welcher der Fokus mit Hilfe der Tabulator-Taste verschoben werden kann, sollte an die Bedürfnisse des Benutzers angepasst werden.
 In der Regel bedeutet dies, ein Ablauf von links nach rechts und von oben nach unten.
@@ -4569,7 +4569,7 @@ Dieses Kapitel zeigt einige oft nicht befolgte Regeln und häufige Verstöße ge
 
 === Do's
 * Schreibe semantisches HTML. Verwende Elemente so, wie sie gedacht sind - ein "hauptsache optisch korrekt" genügt spätestens beim Thema Barrierefreiheit nicht mehr. Ziehe hierbei z.B. den https://developer.mozilla.org/en-US/docs/Web/HTML/Element[Mozilla Developer Guide] zurate. Dabei kommt es auch auf Details an, wie etwa dem Unterschied zwischen <div> und <span>.
-* Beachte unbedingt allgemeingültige Webentwicklungsvorgaben und Best Practices, insbesondere die Vorgaben zur Barrierefreiheit aus https://www.w3.org/WAI/standards-guidelines/wcag/[WCAG] und https://www.gesetze-im-internet.de/bitv_2_0/BJNR184300011.html.
+* Beachte unbedingt allgemeingültige Webentwicklungsvorgaben und Best Practices, insbesondere die Vorgaben zur Barrierefreiheit aus https://www.w3.org/WAI/standards-guidelines/wcag/[WCAG] und https://www.gesetze-im-internet.de/bitv_2_0/BJNR184300011.html[BITV].
 * Halte Bedienelemente, z.B. Buttons, ausreichend groß für ihre Beschriftung.
 * Ist eine Abkürzung sinnvoll, erkläre sie mit einem Tooltip.
 * Ordne Labels ihren Bedienelementen im HTML zu, sodass ein Klick auf das Label auch das Bedienelement aktiviert.
