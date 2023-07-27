@@ -111,7 +111,7 @@ Es empfiehlt sich daher eine Form der redundanten Kodierung, so kann die Bedeutu
 [[browser-unterstuetzung]]
 === Browser-Unterstützung
 
-Bei der Erstellung der Webseiten nach diesem Bedienkonzept muss die korrekte Darstellung und Funktionsweise der Webseiten geprüft werden.
+Bei der Erstellung der Webseiten nach diesem Bedienkonzept muss die korrekte Darstellung und Funktionsweise der Webseiten inklusive der Browser Funktionen wie bspw. "Vor- und Zurück" geprüft werden.
 Dazu muss für jedes Projekt der Nutzerkreis ermittelt und geprüft werden, welche Browser und Versionen hauptsächlich eingesetzt werden.
 Das Bedienkonzept gibt nur ein minimales Set von zu unterstützenden Browserversionen vor, die projektspezifisch nach Bedarf erweitert werden sollten.
 
