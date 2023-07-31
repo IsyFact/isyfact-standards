@@ -1,0 +1,18 @@
+name: Build Maven
+on:
+  pull_request:
+    branches:
+      - release/2.x
+    paths-ignore:
+      - 'isyfact-standards-doc'
+  push:
+    branches:
+      - release/2.x
+    paths-ignore:
+      - 'isyfact-standards-doc'
+
+jobs:
+  Maven:
+    uses: IsyFact/isyfact-standards/.github/workflows/maven_template.yml@master
+    with:
+      jdk-version: 8
