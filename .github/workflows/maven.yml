@@ -6,18 +6,26 @@ on:
   push:
     branches:
       - master
+  workflow_call:
+    inputs:
+      jdk-version:
+        description: 'Version of jdk that is used.'
+        required: false
+        type: number
+        default: 17
 env:
   MAVEN_CLI_OPTS: '--batch-mode --errors --fail-at-end -T 1C'
+  JDK_VERSION: ${{ inputs.jdk-version || 17 }}
 
 jobs:
   Compile:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Set up JDK 17
+      - name: Set up JDK ${{ env.JDK_VERSION }}
         uses: actions/setup-java@v3
         with:
-          java-version: 17
+          java-version: ${{ env.JDK_VERSION }}
           distribution: temurin
           cache: maven
       - name: Compile
@@ -28,10 +36,10 @@ jobs:
     needs: [Compile]
     steps:
       - uses: actions/checkout@v3
-      - name: Set up JDK 17
+      - name: Set up JDK ${{ env.JDK_VERSION }}
         uses: actions/setup-java@v3
         with:
-          java-version: 17
+          java-version: ${{ env.JDK_VERSION }}
           distribution: temurin
           cache: maven
       - name: Test
@@ -61,10 +69,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Set up JDK 17
+      - name: Set up JDK ${{ env.JDK_VERSION }}
         uses: actions/setup-java@v3
         with:
-          java-version: 17
+          java-version: ${{ env.JDK_VERSION }}
           distribution: temurin
           cache: maven
       - name: Checkstyle
