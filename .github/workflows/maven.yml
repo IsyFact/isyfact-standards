@@ -13,6 +13,11 @@ on:
         required: false
         type: number
         default: 17
+      maven-opts:
+        description: 'Additional arguments passed to maven'
+        required: false
+        type: string
+        default: ''
 env:
   MAVEN_CLI_OPTS: '--batch-mode --errors --fail-at-end -T 1C'
   JDK_VERSION: ${{ inputs.jdk-version || 17 }}
@@ -29,7 +34,7 @@ jobs:
           distribution: temurin
           cache: maven
       - name: Compile
-        run: mvn $MAVEN_CLI_OPTS -Dcheckstyle.skip compile
+        run: mvn $MAVEN_CLI_OPTS ${{ inputs.maven-opts }} -Dcheckstyle.skip compile
 
   Test:
     runs-on: ubuntu-latest
@@ -43,7 +48,7 @@ jobs:
           distribution: temurin
           cache: maven
       - name: Test
-        run: mvn $MAVEN_CLI_OPTS -Dcheckstyle.skip test
+        run: mvn $MAVEN_CLI_OPTS ${{ inputs.maven-opts }} -Dcheckstyle.skip test
       - name: Create Summary
         run: |
           echo "| Module | Total Coverage |" >> $GITHUB_STEP_SUMMARY
@@ -77,6 +82,6 @@ jobs:
           distribution: temurin
           cache: maven
       - name: Checkstyle
-        run: mvn $MAVEN_CLI_OPTS compile checkstyle:checkstyle-aggregate
+        run: mvn $MAVEN_CLI_OPTS ${{ inputs.maven-opts }} compile checkstyle:checkstyle-aggregate
       - name: Spotbugs
-        run: mvn $MAVEN_CLI_OPTS -Dcheckstyle.skip -Denforcer.skip -Dtidy.skip compile spotbugs:check
+        run: mvn $MAVEN_CLI_OPTS ${{ inputs.maven-opts }} -Dcheckstyle.skip -Denforcer.skip -Dtidy.skip compile spotbugs:check
