@@ -153,10 +153,9 @@ Dafür sind folgende Szenarien zu unterscheiden, für die es jeweils eine eigene
 
 ==== Authentifizierung einer internen Anwendung (Batch, Task, …) als eigener Schritt (direkt/intern):
 
-Interne Anwendungen sind als Confidential Client eingestuft und verwahren ihre Authentifizierungsdaten (entweder Client-ID u. Client-Secret oder Nutzername u. Passwort) in ihrer Konfiguration (mit einer registrationID als Schlüssel).
-Die Methode `authentifiziere(registrationID)` im Authentifizierungsmanager liest diese Authentifizierungsdaten aus der betrieblichen Konfiguration und führt damit eine OAuth2.0-konforme Authentifizierung und Autorisierung der Anwendung gegenüber dem IAM-System durch.
-Dabei wird anhand des Typs der Authentifizierungsdaten der passende Authentication-Flow ausgewählt:
-Für den Credential-Typ bzw. _Credential_-Flow xref:client-credential-flow[] ist die Methode `authentifiziereClient` zu verwenden, für den Credential-Typ bzw. _Credential_-Flow xref:resource-owner-password-credential-flow[] die Methode `authentifiziereSystem` - jeweils mit der registrationID und den Authentifizierungsdaten der internen Anwendung. +
+Interne Anwendungen sind als Confidential Client eingestuft und verwahren ihre Authentifizierungsdaten (entweder Client-ID u. Client-Secret oder Nutzername u. Passwort) in ihrer Konfiguration (mit einer oauth2ClientRegistrationId als Schlüssel).
+Die Methode `authentifiziere(oauth2ClientRegistrationId)` im Authentifizierungsmanager liest diese Authentifizierungsdaten aus der betrieblichen Konfiguration und führt damit eine OAuth2.0-konforme Authentifizierung und Autorisierung der Anwendung gegenüber dem IAM-System durch.
+Dabei wird anhand des Typs der Authentifizierungsdaten der passende Authentication-Flow mit den konfigurierten Authentifizierungsdaten verwendet. +
 Bei erfolgreicher Authentifizierung legt die Anwendung das erhaltene Access-Token in ihrem SecurityContext ab und schickt es bei jedem Aufruf von Nachbaranwendungen mit. +
 Eine nicht erfolgreiche Authentifizierung (fachliche Ablehnung oder technisches Problem) löst eine `AuthentifizierungFehlgeschlagenException` bzw. `AuthentifizierungTechnicalException` aus.
 
@@ -169,19 +168,17 @@ Das SGW:
 - extrahiert aus dem Header die Authentifizierungsdaten und prüft sie auf Vollständigkeit und Validität,
 
 - wählt anhand des Typs der Authentifizierungsdaten den passenden Authentication-Flow:
-Für den Credential-Typ bzw. _Credential_-Flow xref:client-credential-flow[] ist die Methode `authentifiziereClient` zu verwenden, für den Credential-Typ bzw. _Credential_-Flow xref:resource-owner-password-credential-flow[] die Methode `authentifiziereSystem` - jeweils mit der registrationID des SGW und den Authentifizierungsdaten der externen Anwendung,
+
+* Für den Credential-Typ bzw. _Credential_-Flow xref:client-credential-flow[] ist die Methode `authentifiziereClient` zu verwenden mit der issuerLocation als URI des IAM sowie clientId, clientSecret und bhknz der externen Anwendung als Parameter.
+Hierbei ist zu beachten, dass aktuell keine Auswertung bzw. Weiterleitung des bhknz an das IAM stattfindet.
+
+* Für den Credential-Typ bzw. _Credential_-Flow xref:resource-owner-password-credential-flow[] die Methode `authentifiziereSystem` mit den Parametern issuerLocation als URI des IAM, clientId und clientSecret des SGW als vermittelnden confidential client sowie username, password und bhknz der externen Anwendung.
 
 - veranlasst darüber die OAuth2.0-konforme Authentifizierung u. Autorisierung der externen Anwendung gegenüber dem im SGW konfigurierten IAM,
 
 - Bei  erfolgreicher Authentifizierung leitet das SGW die Anfrage mit dem erhaltenen Access-Token weiter an die aufgerufene Service-Schnittstelle der IsyFact-Anwendung.
 
 - Bei nicht erfolgreicher Authentifizierung antwortet das SGW gegenüber der externen Anwendung mit dem HTTP-Fehlercode 403 'Forbidden'.
-
-Die Methode `authentifiziereClient(registrationID, clientID, clientSecret, bhknz)` im Authentifizierungsmanager liest über die registrationID die URL des zu verwendenden IAM aus der betrieblichen Konfiguration und führt damit und den übergebenen Authentifizierungsdaten der anfordernden Anwendung den xref:client-credential-flow[] gegenüber dem IAM-System durch.
-
-Hinweis: Das Behördenkennzeichen (BHKNZ) kann derzeit für den Client-Credentials Flow noch nicht von isy-iam ausgewertet werden. Aus diesem Grund findet es keine Verwendung im Authentifizierungsmanager für die Authentifizierung eines Clients.
-
-Die Methode `authentifiziereSystem(registrationID, username, password, bhknz)` im Authentifizierungsmanager liest über die registrationID die Authentifizierungsdaten des vermittelnden confidential client (SGW) und die URL des zu verwendenden IAM aus der betrieblichen Konfiguration und führt damit und den übergebenen Authentifizierungsdaten der anfordernden Anwendung den xref:resource-owner-password-credential-flow[] gegenüber dem IAM-System durch.
 
 Der `Berechtigungsmanager` gibt Auskunft über die Rollen und Rechte des Anwenders.
 Die in der Benutzeradministration dem Anwender zugewiesenen Rollen werden mithilfe einer anwendungsspezifischen Rollen-Rechte-Datei in konkrete Rechte des Anwenders für diese Anwendung umgewandelt.
