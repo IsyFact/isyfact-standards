@@ -18,15 +18,24 @@ on:
         required: false
         type: string
         default: ''
+      checkout-lfs:
+        description: 'Checkout files from Git LFS'
+        required: false
+        type: boolean
+        default: false
+
 env:
   MAVEN_CLI_OPTS: '--batch-mode --errors --fail-at-end -T 1C'
   JDK_VERSION: ${{ inputs.jdk-version || 17 }}
+  CHECKOUT_LFS: ${{ inputs.checkout-lfs || false }}
 
 jobs:
   Compile:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          lfs: ${{ env.CHECKOUT_LFS }}
       - name: Set up JDK ${{ env.JDK_VERSION }}
         uses: actions/setup-java@v3
         with:
@@ -41,6 +50,8 @@ jobs:
     needs: [Compile]
     steps:
       - uses: actions/checkout@v3
+        with:
+          lfs: ${{ env.CHECKOUT_LFS }}
       - name: Set up JDK ${{ env.JDK_VERSION }}
         uses: actions/setup-java@v3
         with:
@@ -75,6 +86,8 @@ jobs:
     needs: [Compile]
     steps:
       - uses: actions/checkout@v3
+        with:
+          lfs: ${{ env.CHECKOUT_LFS }}
       - name: Set up JDK ${{ env.JDK_VERSION }}
         uses: actions/setup-java@v3
         with:
