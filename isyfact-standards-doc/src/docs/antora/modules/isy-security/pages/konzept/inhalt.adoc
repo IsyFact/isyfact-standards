@@ -413,6 +413,7 @@ Dieser Flow soll gemäß OAuth2.0 Vorgaben nicht mehr verwendet werden und wird 
 ****
 
 Der _Resource-Owner-Password-Credential_-Flow, der als Authentifizierungsdaten die Attribute `Username` und `Passwort` verwendet, sollte nur eingesetzt werden, wenn die involvierte Client-Anwendung ein hohes Vertrauen zur Wahrung der Authentifizierungsdaten sicherstellt oder wenn keine andere Art der Berechtigungszuteilung verfügbar ist.
+Der techn. Nutzer und seine ihm zugeteilten Rollen werden im an das IAM-System angeschlossene Benutzerverzeichnis verwaltet.
 So wird die Authentifizierung für einen techn. Nutzer über diesen Authorization-Flow abgebildet.
 
 .OAuth2.0 Resource-Owner-Password-Credential Flow
@@ -423,9 +424,14 @@ Im vorherigen Bild wird der logische Ablauf des _Resource-Owner-Password-Credent
 Hierbei wird die Konfiguration des techn. Nutzers als der _Resource-Owner_ dargestellt.
 
 Einem _Confidential Client_ wird die Konfiguration (1.) eines techn. Nutzers mit den Authentifizierungsdaten `Username` und `Passwort` zugeordnet.
-Die so konfigurierte (Confidential-Client)-Anwendung schickt (2.) dann diese Authentifizierungsdaten an den IAM-Service.
-Im IAM erfolgt mit den so übergebenen Authentifizierungsdaten die Authentifizierung, die im Ergebnis ein gültiges Access-Token als Antwort (3.) zurückgeliefert.
-Die Client-Anwendung kann, mit dem so erhaltenen Access-Token, dann ihre Fachanwendungen aufrufen.
+Dieser techn. Nutzer muss mit seinen Rollen im Benutzerverzeichnis vorhanden und gepflegt sein.
+Zusätzlich verlangt der _Resource-Owner-Password-Credential_-Flow eine Authentifizierung des _Confidential Client_ selbst.
+Die dafür verwendeten Authentifizierungsdaten `Client-ID` und `Client-Secret` müssen vor der Nutzung für die Client-Anwendung definiert und mit dem IAM-System abgestimmt sein.
+
+Die so konfigurierte (Confidential-Client)-Anwendung schickt (2.) dann im Access Token Request diese beiden Authentifizierungsdaten an den IAM-Service.
+Im IAM erfolgt mit den so übergebenen Authentifizierungsdaten die Authentifizierung sowohl des _Confidential Client_, als auch des techn. Nutzers als _Resource-Owner_, die im Ergebnis ein gültiges Access-Token mit den Rollen des techn. Nutzers als Antwort (3.) zurückgeliefert.
+
+Die Client-Anwendung kann dann, mit dem so erhaltenen Access-Token und in den Rollen des techn. Nutzers, ihre Fachanwendungen aufrufen.
 Das Access-Token enthält alle notwendigen Daten, um zu verifizieren, ob die aufrufende Anwendung ordnungsgemäß authentifiziert und autorisiert ist.
 
 
@@ -436,6 +442,7 @@ Der _Client-Credential_-Flow wird und darf nur zur Berechtigungszuteilung einges
 Dieser Credential-Flow ist nach SpringSecurity OAuth2.0 auch die einzige Möglichkeit einen technischen Nutzer (Client) zu authentifizieren.
 Es erfolgt hierbei keine Interaktion durch einen Benutzer, der sein Passwort eingeben müsste, sondern die Schritte zur Authentifizierung und Autorisierung der Client-Anwendung laufen selbständig als Hintergrundprozess analog einer Batch-Anwendung ab.
 Die dabei verwendeten Authentifizierungsdaten `Client-ID` und `Client-Secret` müssen vor der Nutzung für die Client-Anwendung definiert und mit dem IAM-System abgestimmt sein.
+Die Verwaltung des Clients mit dem ihm zugeordneten Rollen erfolgt im IAM-System.
 
 .OAuth2.0 Client-Credential Flow
 [id="image-clientcredential-flow",reftext="{figure-caption} {counter:figures}"]
@@ -444,7 +451,7 @@ image::isy-security:konzept/Client-Credential-Flow.dn.svg[align="center"]
 Im vorherigen Bild wird der logische Ablauf des _Client-Credential_-Flows dargestellt.
 Hierbei kann die Client-Anwendung nach einem Access-Token beim IAM anfragen (1.), indem sie dabei ihre eigenen Client-Authentifizierungsdaten oder anderweitig unterstützte Authentifizierungskriterien verwendet.
 Die Authentifizierung mit diesen so übermittelten Authentifizierungsdaten erfolgt dann im IAM-Service.
-Bei erfolgreicher Authentifizierung wird (2.) ein gültiges Access-Token als Antwort zurückgeliefert.
+Bei erfolgreicher Authentifizierung wird (2.) ein gültiges Access-Token mit den Rollen des Clients als Antwort zurückgeliefert.
 Mit dem so erhaltenen Access-Token kann die Client-Anwendung dann ihre Fachanwendungen aufrufen.
 Das Access-Token enthält alle notwendigen Daten, um zu verifizieren, ob die aufrufende Anwendung ordnungsgemäß authentifiziert und autorisiert ist.
 
