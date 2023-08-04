@@ -48,6 +48,12 @@ public final class TransformationsKonstanten {
             "/resources/tabellen/transformation_dinnorm91379_zu_1_1.transform";
 
     /**
+     * The path to the legacy transcription table, transforming DIN Norm 91379 characters to DIN SPEC 91379.
+     */
+    public static final String TRANSFORMATIONS_TABELLE_LEGACY_DINSPEC =
+            "/resources/tabellen/transformation_dinnorm91379_zu_dinspec91379.transform";
+
+    /**
      * The path to the search form (Suchform) table, transforming normative DIN Norm 91379 characters into the basic
      * letters of the Latin alphabet (A-Z).
      */
