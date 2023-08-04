@@ -1,17 +1,21 @@
 package de.bund.bva.isyfact.sonderzeichen.dinnorm91379.validierung;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
+
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.sonderzeichen.dinnorm91379.CharacterUtil;
 import de.bund.bva.isyfact.sonderzeichen.dinnorm91379.konstanten.EreignisSchluessel;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.*;
-
 /**
- * Provides methods for validating strings against DIN SPEC 91379 data types.
+ * Provides methods for validating strings against DIN Norm 91379 data types.
  */
 public class ZeichenValidator {
 
@@ -46,7 +50,7 @@ public class ZeichenValidator {
      * @param zeichenkette
      *         the string to check
      * @param datentyp
-     *         data type as defined by DIN SPEC 91379
+     *         data type as defined by DIN Norm 91379
      * @return {@code true} if the string only contains characters from the datatype, otherwise {@code false}
      */
     public boolean isGueltigerString(String zeichenkette, Datentyp datentyp) {
