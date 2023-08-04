@@ -185,7 +185,9 @@ Die in der Benutzeradministration dem Anwender zugewiesenen Rollen werden mithil
 Die aktuellen Rollen und Rechte des Anwenders können mit den Methoden des `Berechtigungsmanager` erfragt werden und es kann geprüft werden, ob der Anwender ein bestimmtes Recht hat.
 Die Methoden `getRechte` und `getRollen` liefern die aktuell dem Anwender zugeordneten Rechte bzw. Rollen.
 Mit der Methode `hatRecht` kann die Anwendung feststellen, ob der Anwender aktuell ein bestimmtes Recht besitzt, während mit `pruefeRecht` der nachfolgende Code mit dem angegebenen Recht abgesichert wird: falls der Anwender das Recht nicht hat, wird eine `AutorisierungFehlgeschlagenException` geworfen.
-Mit diesen Berechtigungsabfragen kann die Fachanwendung z.B. feingranular bestimmen, ob und wie der Anwender bestimmte Daten sehen oder bearbeiten kann bzw. ob und wie er bestimmte Funktionen der Anwendung benutzen kann.
+Mit diesen Berechtigungsabfragen kann die Fachanwendung z.B. feingranular bestimmen, ob und wie der Anwender bestimmte Daten sehen oder bearbeiten kann bzw. ob und wie er bestimmte Funktionen der Anwendung benutzen kann. +
+Ein beliebiges Attribut, das im Access Token des Security Contexts abgelegt ist, kann mit der Methode `getTokenAttribute` gelesen werden. Mit dem Namen (String) des Attributes als Parameter liefert es den Wert des Attributes (Object).
+
 
 [[aufruf-von-nachbarsystemen]]
 === Aufruf von Nachbarsystemen
