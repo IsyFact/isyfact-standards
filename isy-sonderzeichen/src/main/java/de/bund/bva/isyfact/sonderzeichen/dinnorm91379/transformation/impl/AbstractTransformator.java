@@ -16,22 +16,28 @@
  */
 package de.bund.bva.isyfact.sonderzeichen.dinnorm91379.transformation.impl;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.LogKategorie;
+import de.bund.bva.isyfact.sonderzeichen.dinnorm91379.CharacterUtil;
+import de.bund.bva.isyfact.sonderzeichen.dinnorm91379.konstanten.EreignisSchluessel;
 import de.bund.bva.isyfact.sonderzeichen.dinnorm91379.konstanten.TransformationsKonstanten;
 import de.bund.bva.isyfact.sonderzeichen.dinnorm91379.transformation.Transformation;
 import de.bund.bva.isyfact.sonderzeichen.dinnorm91379.transformation.TransformationMetadaten;
 import de.bund.bva.isyfact.sonderzeichen.dinnorm91379.transformation.Transformator;
 import de.bund.bva.isyfact.sonderzeichen.dinnorm91379.transformation.ZeichenKategorie;
-import de.bund.bva.isyfact.sonderzeichen.dinnorm91379.CharacterUtil;
-import de.bund.bva.isyfact.sonderzeichen.dinnorm91379.konstanten.EreignisSchluessel;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 /**
  * Provides common methods for all transformers.

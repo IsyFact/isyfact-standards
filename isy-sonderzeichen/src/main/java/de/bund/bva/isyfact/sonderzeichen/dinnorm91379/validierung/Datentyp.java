@@ -1,9 +1,16 @@
 package de.bund.bva.isyfact.sonderzeichen.dinnorm91379.validierung;
 
-import static de.bund.bva.isyfact.sonderzeichen.dinspec91379.validierung.Zeichengruppe.*;
+import static de.bund.bva.isyfact.sonderzeichen.dinnorm91379.validierung.Zeichengruppe.E1;
+import static de.bund.bva.isyfact.sonderzeichen.dinnorm91379.validierung.Zeichengruppe.E_GRIECH;
+import static de.bund.bva.isyfact.sonderzeichen.dinnorm91379.validierung.Zeichengruppe.E_KYRILL;
+import static de.bund.bva.isyfact.sonderzeichen.dinnorm91379.validierung.Zeichengruppe.N1;
+import static de.bund.bva.isyfact.sonderzeichen.dinnorm91379.validierung.Zeichengruppe.N2;
+import static de.bund.bva.isyfact.sonderzeichen.dinnorm91379.validierung.Zeichengruppe.N3;
+import static de.bund.bva.isyfact.sonderzeichen.dinnorm91379.validierung.Zeichengruppe.N4;
+import static de.bund.bva.isyfact.sonderzeichen.dinnorm91379.validierung.Zeichengruppe.N_LATEIN;
 
 /**
- * Class representing a data type as defined by DIN SPEC 91379.
+ * Class representing a data type as defined by DIN Norm 91379.
  */
 public enum Datentyp {
 

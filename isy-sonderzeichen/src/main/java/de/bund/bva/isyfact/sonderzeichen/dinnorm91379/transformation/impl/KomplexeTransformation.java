@@ -16,9 +16,13 @@
  */
 package de.bund.bva.isyfact.sonderzeichen.dinnorm91379.transformation.impl;
 
-import de.bund.bva.isyfact.sonderzeichen.dinnorm91379.transformation.Transformator;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import java.util.*;
+import de.bund.bva.isyfact.sonderzeichen.dinnorm91379.transformation.Transformator;
 
 /**
  * This class maps transformations in which more than one character is transformed or in which special
@@ -34,7 +38,6 @@ public class KomplexeTransformation {
 
         /**
          * The numbers of the rules that if met, the replacement can be applied.
-         * 
          * If more than one rule is specified, the replacement is used if at least one of them is met.
          * If no rule is given, the replacement can always be used.
          */
@@ -99,7 +102,6 @@ public class KomplexeTransformation {
 
     /**
      * Returns a character replacement for a position within a character string.
-     * 
      * The character replacement is always determined by which as many characters as possible in the output
      * string are replaced.
      * 

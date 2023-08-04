@@ -16,9 +16,10 @@
  */
 package de.bund.bva.isyfact.sonderzeichen.dinnorm91379.transformation;
 
-import de.bund.bva.isyfact.sonderzeichen.dinnorm91379.transformation.impl.AbstractTransformator;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
+
+import de.bund.bva.isyfact.sonderzeichen.dinnorm91379.transformation.impl.AbstractTransformator;
 
 
 /**
