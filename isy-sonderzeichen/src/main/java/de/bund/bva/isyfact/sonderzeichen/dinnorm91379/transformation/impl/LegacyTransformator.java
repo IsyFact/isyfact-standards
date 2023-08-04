@@ -6,7 +6,7 @@ import de.bund.bva.isyfact.sonderzeichen.dinnorm91379.konstanten.Transformations
 import de.bund.bva.isyfact.sonderzeichen.dinnorm91379.transformation.Transformation;
 
 /**
- * Legacy transformator that converts texts containing characters of the DIN SPEC 91379 into texts that
+ * Legacy transformator that converts texts containing characters of the DIN Norm 91379 into texts that
  * are compatible with String.Latin 1.1.
  */
 @Deprecated

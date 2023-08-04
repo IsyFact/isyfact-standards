@@ -1,9 +1,9 @@
 package de.bund.bva.isyfact.sonderzeichen.dinnorm91379.validierung;
 
-import static de.bund.bva.isyfact.sonderzeichen.dinspec91379.validierung.Zeichengruppe.*;
+import static de.bund.bva.isyfact.sonderzeichen.dinnorm91379.validierung.Zeichengruppe.*;
 
 /**
- * Class representing a data type as defined by DIN SPEC 91379.
+ * Class representing a data type as defined by DIN Norm 91379.
  */
 public enum Datentyp {
 

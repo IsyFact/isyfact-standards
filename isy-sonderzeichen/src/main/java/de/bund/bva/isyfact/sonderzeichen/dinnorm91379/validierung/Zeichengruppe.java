@@ -1,7 +1,7 @@
 package de.bund.bva.isyfact.sonderzeichen.dinnorm91379.validierung;
 
 /**
- * Class representing a character group as defined by DIN SPEC 91379.
+ * Class representing a character group as defined by DIN Norm 91379.
  */
 public enum Zeichengruppe {
 
@@ -10,55 +10,55 @@ public enum Zeichengruppe {
      * <p>
      * Character Group: Latin letters (normative).
      */
-    N_LATEIN("Latein. Buchstaben (normativ)", "/resources/tabellen/dinspec91379/zeichengruppen/latein_buchstaben_normativ.kat"),
+    N_LATEIN("Latein. Buchstaben (normativ)", "/resources/tabellen/dinnorm91379/zeichengruppen/latein_buchstaben_normativ.kat"),
     /**
      * Zeichengruppe: Nicht-Buchstaben N1 (normativ).
      * <p>
      * Character Group: Non-letters N1 (normative).
      */
-    N1("Nicht-Buchstaben N1 (normativ)", "/resources/tabellen/dinspec91379/zeichengruppen/nicht-buchstaben_N1_normativ.kat"),
+    N1("Nicht-Buchstaben N1 (normativ)", "/resources/tabellen/dinnorm91379/zeichengruppen/nicht-buchstaben_N1_normativ.kat"),
     /**
      * Zeichengruppe: Nicht-Buchstaben N2 (normativ).
      * <p>
      * Character Group: Non-letters N2 (normative).
      */
-    N2("Nicht-Buchstaben N2 (normativ)", "/resources/tabellen/dinspec91379/zeichengruppen/nicht-buchstaben_N2_normativ.kat"),
+    N2("Nicht-Buchstaben N2 (normativ)", "/resources/tabellen/dinnorm91379/zeichengruppen/nicht-buchstaben_N2_normativ.kat"),
     /**
      * Zeichengruppe: Nicht-Buchstaben N3 (normativ).
      * <p>
      * Character Group: Non-letters N3 (normative).
      */
-    N3("Nicht-Buchstaben N3 (normativ)", "/resources/tabellen/dinspec91379/zeichengruppen/nicht-buchstaben_N3_normativ.kat"),
+    N3("Nicht-Buchstaben N3 (normativ)", "/resources/tabellen/dinnorm91379/zeichengruppen/nicht-buchstaben_N3_normativ.kat"),
     /**
      * Zeichengruppe: Nicht-Buchstaben N4 (normativ).
      * <p>
      * Character Group: Non-letters N4 (normative).
      */
-    N4("Nicht-Buchstaben N4 (normativ)", "/resources/tabellen/dinspec91379/zeichengruppen/nicht-buchstaben_N4_normativ.kat"),
+    N4("Nicht-Buchstaben N4 (normativ)", "/resources/tabellen/dinnorm91379/zeichengruppen/nicht-buchstaben_N4_normativ.kat"),
     /**
      * Zeichengruppe: Komb. diakrit. Zeichen (normativ).
      * <p>
      * Character Group: Combined diacritic marks (normative).
      */
-    N_KOMB_DIAKRIT("Komb. diakrit. Zeichen (normativ)", "/resources/tabellen/dinspec91379/zeichengruppen/komb_diakrit_zeichen_normativ.kat"),
+    N_KOMB_DIAKRIT("Komb. diakrit. Zeichen (normativ)", "/resources/tabellen/dinnorm91379/zeichengruppen/komb_diakrit_zeichen_normativ.kat"),
     /**
      * Zeichengruppe: Griech. Buchstaben (erweitert).
      * <p>
      * Character Group: Greek letters (extended).
      */
-    E_GRIECH("Griech. Buchstaben (erweitert)", "/resources/tabellen/dinspec91379/zeichengruppen/griech_buchstaben_erweitert.kat"),
+    E_GRIECH("Griech. Buchstaben (erweitert)", "/resources/tabellen/dinnorm91379/zeichengruppen/griech_buchstaben_erweitert.kat"),
     /**
      * Zeichengruppe: Kyrill. Buchstaben (erweitert).
      * <p>
      * Character Group: Cyrillic letters (extended).
      */
-    E_KYRILL("Kyrill. Buchstaben (erweitert)", "/resources/tabellen/dinspec91379/zeichengruppen/kyrill_buchstaben_erweitert.kat"),
+    E_KYRILL("Kyrill. Buchstaben (erweitert)", "/resources/tabellen/dinnorm91379/zeichengruppen/kyrill_buchstaben_erweitert.kat"),
     /**
      * Zeichengruppe: Nicht-Buchstaben E1 (erweitert).
      * <p>
      * Character Group: Non-letters E1 (extended).
      */
-    E1("Nicht-Buchstaben E1 (erweitert)", "/resources/tabellen/dinspec91379/zeichengruppen/nicht-buchstaben_E1_erweitert.kat");
+    E1("Nicht-Buchstaben E1 (erweitert)", "/resources/tabellen/dinnorm91379/zeichengruppen/nicht-buchstaben_E1_erweitert.kat");
 
     /**
      * Name of the character group.

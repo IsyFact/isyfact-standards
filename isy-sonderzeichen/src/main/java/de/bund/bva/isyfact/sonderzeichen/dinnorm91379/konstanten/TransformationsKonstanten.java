@@ -11,13 +11,13 @@
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
- * implied. See the License for the specific language governing
+ * implied. See the License for the normific language governing
  * permissions and limitations under the License.
  */
 package de.bund.bva.isyfact.sonderzeichen.dinnorm91379.konstanten;
 
 /**
- * This class contains constants for the resources of the respective transformation table.
+ * This class contains constants for the resources of the renormtive transformation table.
  */
 public final class TransformationsKonstanten {
 
@@ -32,27 +32,27 @@ public final class TransformationsKonstanten {
 
     /** The path to the transformation table identical. */
     public static final String TRANSFORMATIONS_TABELLE_IDENTISCH =
-            "/resources/tabellen/transformation_dinspec91379.transform";
+            "/resources/tabellen/transformation_dinnorm91379.transform";
 
     /** The path to the table identical category. */
-    public static final String KATEGORIE_TABELLE = "/resources/tabellen/kategorie_dinspec91379.kat";
+    public static final String KATEGORIE_TABELLE = "/resources/tabellen/kategorie_dinnorm91379.kat";
 
     /** The path to the transformation transcription table. */
     public static final String TRANSFORMATIONS_TABELLE_TRANSKRIPTION =
-            "/resources/tabellen/transformation_din91379_transkription.transform";
+            "/resources/tabellen/transformation_dinnorm91379_transkription.transform";
 
     /**
-     * The path to the legacy transcription table, transforming DIN SPEC 91379 characters to StringLatin1.1.
+     * The path to the legacy transcription table, transforming DIN Norm 91379 characters to StringLatin1.1.
      */
     public static final String TRANSFORMATIONS_TABELLE_LEGACY =
-            "/resources/tabellen/transformation_dinspec91379_zu_1_1.transform";
+            "/resources/tabellen/transformation_dinnorm91379_zu_1_1.transform";
 
     /**
-     * The path to the search form (Suchform) table, transforming normative DIN SPEC 91379 characters into the basic
+     * The path to the search form (Suchform) table, transforming normative DIN Norm 91379 characters into the basic
      * letters of the Latin alphabet (A-Z).
      */
     public static final String TRANSFORMATIONS_TABELLE_SUCHFORM =
-            "/resources/tabellen/transformation_dinspec91379_zu_suchform.transform";
+            "/resources/tabellen/transformation_dinnorm91379_zu_suchform.transform";
 
     private TransformationsKonstanten() {
     }

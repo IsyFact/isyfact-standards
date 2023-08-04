@@ -11,7 +11,7 @@ import java.io.InputStream;
 import java.util.*;
 
 /**
- * Provides methods for validating strings against DIN SPEC 91379 data types.
+ * Provides methods for validating strings against DIN Norm 91379 data types.
  */
 public class ZeichenValidator {
 
@@ -46,7 +46,7 @@ public class ZeichenValidator {
      * @param zeichenkette
      *         the string to check
      * @param datentyp
-     *         data type as defined by DIN SPEC 91379
+     *         data type as defined by DIN Norm 91379
      * @return {@code true} if the string only contains characters from the datatype, otherwise {@code false}
      */
     public boolean isGueltigerString(String zeichenkette, Datentyp datentyp) {
