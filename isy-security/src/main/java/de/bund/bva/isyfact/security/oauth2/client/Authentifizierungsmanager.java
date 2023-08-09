@@ -17,7 +17,7 @@ public interface Authentifizierungsmanager {
      * The currently supported flows are:
      * <ul>
      *     <li>Client Credentials Flow (grant type: client_credentials)</li>
-     *     <li>Resource Owner Password Credentials (grant type: password)</li>
+     *     <li>Resource Owner Password Credentials Flow (grant type: password)</li>
      * </ul>
      *
      * @param registrationId
