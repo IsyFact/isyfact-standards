@@ -12,7 +12,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class OAuth2WebClientConfiguration {
 
     @Bean("testclient")
-    WebClient webClient(ClientRegistrationRepository clientRegistrationRepository, OAuth2AuthorizedClientService authorizedClientService) {
+    public WebClient webClient(ClientRegistrationRepository clientRegistrationRepository,
+                               OAuth2AuthorizedClientService authorizedClientService) {
         ServletOAuth2AuthorizedClientExchangeFilterFunction oauth = new ServletOAuth2AuthorizedClientExchangeFilterFunction(
                 new AuthorizedClientServiceOAuth2AuthorizedClientManager(clientRegistrationRepository, authorizedClientService));
         oauth.setDefaultClientRegistrationId("testclient");

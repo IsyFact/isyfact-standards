@@ -4,17 +4,15 @@
 
 [[aufrufen_von_nachbarsystemen]]
 == Aufrufen von Nachbarsystemen
-Der Aufruf von Nachbarsystemen erfolgt auf Basis des reaktiven `Spring WebClient`. Um Nachbarsysteme aufzurufen, die auf Basis von `OAuth 2.0` abgesichert sind, ist grundlegend die Authentifizierung bei einem `Identitiy Provider` mit gültiger `client_id`, `client_secret` sowie `grant_type` erforderlich.
+
+Der Aufruf von Nachbarsystemen erfolgt auf Basis des reaktiven `Spring WebClient`.
+Um Nachbarsysteme aufzurufen, die auf Basis von `OAuth 2.0` abgesichert sind, ist grundlegend die Authentifizierung bei einem `Identitiy Provider` mit gültiger `client_id`, `client_secret` sowie `grant_type` erforderlich.
 Dieser liefert ein Bearer-Token zurück, in dem die Rollen und somit die Zugriffsmöglichkeiten der aufrufenden Anwendung definiert sind.
 
-[[authentifizierung_ccf]]
-=== Authentifizierung eines Clients mit Client Credentials
-Mit dem `OAuth 2.0`-Grant `client_credentials` steht eine vereinfachte Zugriffskontrolle für eine Client-Anwendung
-im Rahmen des `Client Credential Flow` zur Verfügung. Im Folgenden werden die notwendigen Schritte für die tokenbasierte Authentifizierung einer Anwendung als Client erläutert.
-[[maven-dependency]]
+[[maven-dependencies]]
+=== Maven Dependencies
 
-=== Maven Dependency
-Hierzu sind zunächst die folgenden Abhängigkeiten erforderlich:
+Für die Authentifizierung mit einem `OAuth 2.0`-Client sind die folgenden Abhängigkeiten erforderlich:
 
 [[listing-maven-dep-client-cred]]
 .Maven Dependencies für Client Credentials
@@ -39,12 +37,35 @@ Hierzu sind zunächst die folgenden Abhängigkeiten erforderlich:
 </dependency>
 ----
 
-=== Spring Konfiguration
-Spring Security bietet umfassenden Support für `OAuth 2.0` und unterstützt die Authentifizierung interner Systeme auf Basis des `Client Credential Flow`, wobei auf Spring interne Mechanismen zugegriffen wird.
+[[konfigurationsparameter]]
+=== Konfigurationsparameter
 
-Um clientseitig die automatische Konfiguration einer Anwendung zu ermöglichen, werden zunächst die oben aufgeführten Abhängigkeiten eingebunden.
-Um im Rahmen des Client Credential Flows HTTP-Anfragen an einen Ressourcenserver stellen zu können, ist zusätzlich die Konfiguration des reaktiven `WebClient` erforderlich.
-Hierzu wird die Standardimplementierung mit dem Zusatz eines OAuth2-Autorisierungsfilters verwendet:
+Für die korrekte Anbindung an den `Identity Provider` ist die Angabe einiger Konfigurationsparameter notwendig, welche in der Konfigurationsdatei der Anwendung eingetragen werden müssen.
+Das Präfix sämtlicher Konfigurationsparameter `spring.security.oauth2` wird zur Vereinfachung in der folgenden Liste weggelassen.
+
+[[table-parameter-client-cred]]
+.Konfigurationsparameter einer Client-Anwendung
+[cols="3m,2m,8",options="header"]
+|===
+|Parameter |Wertebereich |Beschreibung
+|client.registration._<registrationId>_.client-id |String |Identifier der Client-Applikation im Autorisierungsserver.
+|client.registration._<registrationId>_.client-secret |String |Secret, das nur der Anwendung und dem Autorisierungsserver bekannt ist.
+|client.registration._<registrationId>_.authorization-grant-type |String |Methode, durch welche die Anwendung ein Bearer-Token erhält. Abhängig von dem zu verwendenden Flow auf `client_credentials` (Client Credentials Flow) oder `password` (Resource Owner Password Credentials Flow) zu setzen.
+|client.registration._<registrationId>_.provider |String |(Optional) ID des zu verwendenden Client-Providers, falls diese nicht mit der Registration-ID übereinstimmt.
+|client.provider._<providerId>_.issuer-uri |String |Der OpenID Connect Issuer Identifier für die Konfiguration des Clients über den Discovery Endpoint, beispielsweise in der Form `http://<identity-provider>/auth/realms/<realm>`.
+|===
+
+[[authentifizierung_ccf]]
+=== Authentifizierung eines Clients mit Client Credentials
+
+Mit dem `OAuth 2.0`-Grant `client_credentials` steht eine vereinfachte Zugriffskontrolle für eine Client-Anwendung im Rahmen des `Client Credential Flow` zur Verfügung.
+
+Spring Security bietet umfassenden Support für `OAuth 2.0` und unterstützt die Authentifizierung interner Systeme auf Basis des `Client Credentials Flow`, wobei auf Spring interne Mechanismen zugegriffen wird.
+
+Um clientseitig die automatische Konfiguration einer Anwendung zu ermöglichen, werden zunächst die oben aufgeführten Abhängigkeiten eingebunden und eine Client-Registration für den `Client Credentials Flow` angelegt.
+Um im Rahmen des `Client Credentials Flows` HTTP-Anfragen an einen Ressourcenserver stellen zu können, ist zusätzlich die Konfiguration des reaktiven `WebClient` erforderlich.
+Hierzu wird die Standardimplementierung mit dem Zusatz eines OAuth2-Autorisierungsfilters verwendet.
+Die "registrationId" ist hierbei auf die ID der für den `Client Credentials Flow` konfigurierten Client-Registration zu setzen.
 
 [[listing-spring-webclient-example]]
 .Spring WebClient Beispiel
@@ -56,34 +77,16 @@ public class OAuth2WebClientConfiguration {
     @Bean("webclient")
     WebClient webClient(ClientRegistrationRepository clientRegistrationRepository,
         OAuth2AuthorizedClientService authorizedClientService) {
-        ServletOAuth2AuthorizedClientExchangeFilterFunction oauth2 =
+        ServletOAuth2AuthorizedClientExchangeFilterFunction oauth =
             new ServletOAuth2AuthorizedClientExchangeFilterFunction(
                 new AuthorizedClientServiceOAuth2AuthorizedClientManager(clientRegistrationRepository,
                     authorizedClientService));
         oauth.setDefaultClientRegistrationId("registrationId");
-        return WebClient.builder().apply(oauth2.oauth2Configuration()).build();
+        return WebClient.builder().filter(oauth).build();
     }
 
 }
 ----
-
-[[konfigurationsparameter]]
-=== Konfigurationsparameter
-
-Für die korrekte Anbindung an den `Identity Provider` ist die Angabe einiger Konfigurationsparameter notwendig. Das Präfix sämtlicher Konfigurationsparameter `spring.security.oauth2` wird zur Vereinfachung in der Liste unten weggelassen.
-
-
-[[table-parameter-client-cred]]
-.Konfigurationsparameter einer Client-Anwendung
-[cols="3m,2m,2m,8",options="header"]
-|===
-|Parameter |Wertebereich |Default |Beschreibung
-|client.registration.registrationId |String |_keiner_ | Identifier der `ClientRegistration`
-|client.registration.registrationId.client-id |String |_keiner_ | Identifier der Client-Applikation im Autorisierungsserver
-|client.registration.registrationId.client-secret |String |_keiner_ | Secret, das nur der Anwendung und dem Autorisierungsserver bekannt ist
-|client.registration.registrationId.authorization-grant-type |String |_client_credentials_ | Methode, durch welche die Anwendung ein Bearer-Token erhält (hier _client_credentials_)
-|client.provider.registrationId.issuer-uri |String |_keiner_ |Auto-Konfiguration des Identity-Providers, beispielsweise in der Form "http://<identity-provider>/auth/realms/<realm>/.well-known/openid-configuration"
-|===
 
 [[absicherung_von_service_schnittstellen]]
 == Absicherung von Service-Schnittstellen
