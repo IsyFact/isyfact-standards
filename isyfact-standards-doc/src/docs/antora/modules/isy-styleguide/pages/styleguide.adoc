@@ -4171,11 +4171,10 @@ Generell sollten nicht zu viele verschiedene Grundfarben für die Gestaltung ein
 *  *Ausreichend hoher Kontrast*
 ** Bei der Verwendung von Farben sollte immer ein ausreichend hoher Kontrast von Vorder- zu Hintergrundfarbe gewährleistet werden.
 ** Die Web Accessibility Initiative (WAI), die Teil des World Wide Web Consortium (W3C) ist, hat die Web Content Accessibility Guidelines (https://www.w3.org/WAI/standards-guidelines/wcag/[WCAG]) entwickelt, die unter anderem Referenzwerte für den Kontrast von Vorder- zu Hintergrundfarbe beinhalten. So beschreiben die https://www.w3.org/WAI/standards-guidelines/wcag/[WCAG] verschiedene Kontrastverhältnisse, abhängig von der Schriftgröße.
-** Die folgenden Links verweisen auf Hilfsmittel zur Kontrast-Analyse, die auf den Referenzwerten der WAI basieren:
+** Die folgenden Links verweisen auf weitere Informationen zur Kontrast-Analyse, die auf den Referenzwerten der WAI basieren:
 
-*** Online-Werkzeug zur Kontrast-Analyse: xref:glossary:literaturextern:inhalt.adoc#litextern-juicystudio-kontrast-analyse[JuicyStudio Kontrast Analyse]
-***  Colour Contrast Analyser: Freeware für Windows und Mac OS X:
-xref:glossary:literaturextern:inhalt.adoc#litextern-color-kontrast-analyse[Color Kontrast Analyse]
+*** http://whocanuse.com[WhoCanUse?]
+*** http://leserlich.info/kapitel/farben.php[leserlich.info]
 
 *  *Berücksichtigung von Farbenfehlsichtigkeit*
 **  Bei der Auswahl der Farben sollte auch eine mögliche Farbenfehlsichtigkeit der Benutzer berücksichtigt werden.
