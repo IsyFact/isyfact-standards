@@ -2041,7 +2041,7 @@ image::Eingabefelder_Upload.png[align="center", width="685",height="25"]
 *Richtlinien zur Anwendung*
 
 * Dateinamen sollten innerhalb eines Eingabefeldes linksbündig ausgerichtet werden.
-* Wenn das Upload-Feld keinen Inhalt hat, kann es einen Hinweistext dastellen (z.B. Wählen Sie eine Bild-Datei zum Hochladen aus.)
+* Wenn das Upload-Feld keinen Inhalt hat, kann es einen Hinweistext darstellen (z.B. Wählen Sie eine Bild-Datei zum Hochladen aus.)
 * Das Upload-Feld und die zugehörige Visualisierung der Datei sollten erkennbar sein.
 
 
