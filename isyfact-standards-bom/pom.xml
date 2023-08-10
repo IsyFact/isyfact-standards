@@ -15,8 +15,8 @@
     <description>Definiert die Versionen aller Bibliotheken der IsyFact-Standards.</description>
 
     <properties>
-        <isy-exception-sst.version>1.11.1</isy-exception-sst.version>
-        <isy-serviceapi-sst.version>1.11.1</isy-serviceapi-sst.version>
+        <isy-exception-sst.version>1.10.0</isy-exception-sst.version>
+        <isy-serviceapi-sst.version>1.10.0</isy-serviceapi-sst.version>
     </properties>
 
     <!-- Dependency-Management für die Komponenten der IsyFact-Standards. -->

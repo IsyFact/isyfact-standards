@@ -11,5 +11,6 @@
 - `IFS-2403` Abschnitt zum OpenId Connect Provider Mock aus isy-security-test hinzugefügt
 - `IFS-1884` Umsetzung: Methodensicherheit
 - `IFS-1959` Abschnitt zum Auslesen des Behördenkennzeichens aus Security Context hinzugefügt
+- `IFS-1960` Kapitel zur Authentifizierung eines Clients mit Resource Owner Password Credentials hinzugefügt
 
 // end::release-3.0.0[]

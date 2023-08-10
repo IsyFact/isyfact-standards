@@ -4,3 +4,4 @@
     - Property `isy.security.rolesClaimName` eingeführt
 - `IFS-2302`: Umsetzung des Mappings von Rollen auf Rechte
 - `IFS-2403`: Umstellung vorhandener Tests auf `isy-security-test`
+- `IFS-1960`: Bereitstellung einer Implementierung zur Authentifizierung mit Resource Owner Password Credentials

@@ -1,13 +1,17 @@
 package de.bund.bva.isyfact.security.autoconfigure;
 
+import org.springframework.boot.autoconfigure.security.oauth2.client.ClientsConfiguredCondition;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 
+import de.bund.bva.isyfact.security.authentication.IsyOAuth2PasswordAuthenticationProvider;
 import de.bund.bva.isyfact.security.authentication.RolePrivilegeGrantedAuthoritiesConverter;
 import de.bund.bva.isyfact.security.config.IsySecurityConfigurationProperties;
 import de.bund.bva.isyfact.security.xmlparser.RolePrivilegesMapper;
@@ -49,6 +53,13 @@ public class IsySecurityAutoConfiguration {
     @Bean
     public GrantedAuthorityDefaults grantedAuthorityDefaults() {
         return new GrantedAuthorityDefaults(RolePrivilegeGrantedAuthoritiesConverter.AUTHORITY_PREFIX);
+    }
+
+    @Bean
+    @Conditional(ClientsConfiguredCondition.class)
+    public IsyOAuth2PasswordAuthenticationProvider isyOAuth2PasswordAuthenticationProvider(
+            ClientRegistrationRepository clientRegistrationRepository) {
+        return new IsyOAuth2PasswordAuthenticationProvider(clientRegistrationRepository, jwtAuthenticationConverter());
     }
 
 }
