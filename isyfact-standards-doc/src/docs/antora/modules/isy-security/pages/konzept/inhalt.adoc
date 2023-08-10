@@ -475,7 +475,7 @@ Der _Aufgaben_-Prozess erhält dann den initialisierten `SecurityContext` zurüc
 ==== Autorisierungsverfahren
 
 Mit SpringSecurity (OAuth2.0) werden die vier Berechtigungszuteilungsverfahren (Credential Flows) _Authorization-Code-Credentials_, _Implicit-Credentials_, _Resource-Owner-Password-Credentials_ und _Client-Credentials_ spezifiziert.
-In IsyFact spielen davon bei der Autorisierung von Anwendungsaufrufen (von intern oder extern) die beiden Verfahren _Resource-Owner-Password-Credential_ und _Client-Credential_ eine Rolle, da es sich hierbei um die Berechtigungszuteilung für ausschließlich _Confidential-Clients_ dreht.
+Imnerhalb der IsyFact werden bei der Autorisierung von Anwendungsaufrufen (von intern oder extern) die beiden Verfahren _Resource-Owner-Password-Credential_ und _Client-Credential_ angewendet, da es sich hierbei ausschließlich um die Berechtigungszuteilung für _Confidential-Clients_ dreht.
 
 
 [[resource-owner-password-credential-flow]]
