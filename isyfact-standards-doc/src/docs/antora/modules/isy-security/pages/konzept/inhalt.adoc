@@ -12,7 +12,7 @@ Konkret wird das im Baustein `Security` durch ein Rollen-, Rechte- und Berechtig
 Nur der Eigentümer der Authentifizierungsinformationen und der IAM-Service besitzen Kenntnis über diese Informationen.
 * Eine Zweifaktor-Authentifizierung ist durch das Behördenkennzeichen (BHKNZ) als zusätzliches Authentifizierungsmerkmal konzipiert, allerdings setzt dies im IAM-Service voraus, dass dieses Merkmal dort auch ausgewertet werden kann.
 * Die Authentifizierung und grobgranulare Autorisierung (mittels dem Nutzer zugeordneten Rollen) erfolgt an den Außenschnittstellen der Systemlandschaft (Portal, Authentication-Gateway bzw. Service-Gateway).
-* Liegt kein Aufruf über eine Außenschnittstelle vor (z.B. bei einem Batch- oder Task-Aufruf), so geschieht die Authentifizierung und grobgranulare Autorisierung innerhalb der Nutzungsschicht (Batch / Task) des rufenden IT-Systems über den IsyFact-Baustein Security.
+* Liegt kein Aufruf über eine Außenschnittstelle vor (z.B. bei einem Batch- oder Task-Aufruf), so geschieht die Authentifizierung und grobgranulare Autorisierung innerhalb der Nutzungsschicht (Batch / Task) des aufrufenden IT-Systems über den IsyFact-Baustein Security.
 * Die feingranulare Autorisierung geschieht in der Nutzungsschicht und im Anwendungskern des aufgerufenen IT-Systems über den IsyFact-Baustein Security, indem die Nutzerrollen auf anwendungsspezifische Rechte abgebildet werden und diese Rechte bei jedem Serviceaufruf geprüft werden.
 
 Existiert keine Systemlandschaft (d.h. IT-Systeme stehen für sich allein), gilt grundsätzlich, dass die Authentifizierung und grobgranulare Autorisierung in der Nutzungsschicht (GUI, Service oder Batch) des IT-Systems geschehen muss.
@@ -113,7 +113,7 @@ Das Interface `Security` bietet auch eine Liste von allen im System hinterlegten
 Der `Authentifizierungsmanager` ist für die Kommunikation mit dem IAM-Service über den `OAuth2AuthorizedClientProvider` zuständig.
 Die Authentifizierung (Anmeldung) von internen oder externen Anwendungen verläuft über Servicemethoden, die dieser Manager anbietet.
 Das Ergebnis einer erfolgreichen Authentifizierung ist die Autorisierung durch ein Access-Token, das die dem Benutzer zugeordneten Rollen enthält.
-Dieses Access-Token legt die rufende Anwendung (bzw. das SGW als Mittelsmann) anschließend im `SecurityContext` ab und präsentiert es der aufgerufenen Service-Schnittstelle der IsyFact-Anwendung.
+Dieses Access-Token legt die aufrufende Anwendung (bzw. das SGW als Mittelsmann) anschließend im `SecurityContext` ab und präsentiert es der aufgerufenen Service-Schnittstelle der IsyFact-Anwendung.
 
 Über den `Berechtigungsmanager` kann die Anwendung die Rollen und anwendungsspezifischen Rechte des angemeldeten Benutzers abfragen.
 
@@ -475,8 +475,7 @@ Der _Aufgaben_-Prozess erhält dann den initialisierten `SecurityContext` zurüc
 ==== Autorisierungsverfahren
 
 Mit SpringSecurity (OAuth2.0) werden die vier Berechtigungszuteilungsverfahren (Credential Flows) _Authorization-Code-Credentials_, _Implicit-Credentials_, _Resource-Owner-Password-Credentials_ und _Client-Credentials_ spezifiziert.
-Imnerhalb der IsyFact werden bei der Autorisierung von Anwendungsaufrufen (von intern oder extern) die beiden Verfahren _Resource-Owner-Password-Credential_ und _Client-Credential_ angewendet, da es sich hierbei ausschließlich um die Berechtigungszuteilung für _Confidential-Clients_ dreht.
-
+Innerhalb der IsyFact werden bei der Autorisierung von Anwendungsaufrufen (von intern oder extern) die beiden Verfahren _Resource-Owner-Password-Credential_ und _Client-Credential_ angewendet, da es sich hierbei ausschließlich um die Berechtigungszuteilung für _Confidential-Clients_ dreht.
 
 [[resource-owner-password-credential-flow]]
 ===== Resource-Owner-Password-Credential Flow
