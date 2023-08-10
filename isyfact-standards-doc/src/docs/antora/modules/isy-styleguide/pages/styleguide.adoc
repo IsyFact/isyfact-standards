@@ -365,10 +365,10 @@ image::Aufbau-Dashboard-Unterseite.png[align="center", width="629",height="526"]
 
 *Richtlinien zur Anwendung*
 
-* Eine Dashboard Unterseite enthält weiterführende Informationen, die nicht vollständig auf dem Dashboard angezeigt werden wie z.B. Nachrichten, Benutzerkonto-Verwaltung.
+* Eine Dashboard-Unterseite enthält weiterführende Informationen, die nicht vollständig auf dem Dashboard angezeigt werden wie z.B. Nachrichten, Benutzerkonto-Verwaltung.
 * Die Inhalte und deren Layout können variieren.
 * Die Inhalte sollen sich am allgemeinen Layout-Raster ausrichten.
-* Die Seite enthält eine Seiten-Toolbar, deren Funktion es ermöglicht zurück zur Dashboard Hauptseite zu navigieren.
+* Die Seite enthält eine Seiten-Toolbar, deren Funktion es ermöglicht zwischen einzelnen Detailseite einer Trefferliste und zurück zur Trefferliste zu navigieren.
 
 [[applikationsseite]]
 ==== Applikationsseite
@@ -981,7 +981,8 @@ image::Schnellnavigation.png[image,width=399,height=250]
 
 * Durch Klick auf den Bezeichner des jeweiligen Objektes (Nummer, ID, Name etc.), einen Doppelklick auf das gesamte Objekt oder die Toolbar Funktion __Öffnen__, gelangt der Benutzer zu dessen Detailseite.
 * Auf dieser Seite werden dem Benutzer alle Informationen, die zu dem Objekt existieren, zugänglich gemacht.
-* Über einen Link in der Seiten-Toolbar kann der Benutzer jeder Zeit zurück navigieren.
+* Über einen Link in der Seiten-Toolbar kann der Benutzer jederzeit zurück zur Trefferliste springen.
+* Auch beim Navigieren zwischen Ergebnissen muss die Browser-Funktion "Vor- und Zurück" unterstützt werden.
 
 [cols="1,1", options="header", align="center"]
 |====
@@ -1794,7 +1795,7 @@ image::Eingabefelder_Upload.png[align="center", width="685",height="25"]
 *Richtlinien zur Anwendung*
 
 * Dateinamen sollten innerhalb eines Eingabefeldes linksbündig ausgerichtet werden.
-* Wenn das Upload-Feld keinen Inhalt hat, kann es einen Hinweistext dastellen (z.B. Wählen Sie eine Bild-Datei zum Hochladen aus.)
+* Wenn das Upload-Feld keinen Inhalt hat, kann es einen Hinweistext darstellen (z.B. Wählen Sie eine Bild-Datei zum Hochladen aus.)
 * Das Upload-Feld und die zugehörige Visualisierung der Datei sollten erkennbar sein.
 
 
