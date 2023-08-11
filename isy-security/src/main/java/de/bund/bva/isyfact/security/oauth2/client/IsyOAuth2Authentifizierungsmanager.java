@@ -20,19 +20,26 @@ import de.bund.bva.isyfact.security.oauth2.client.authentication.PasswordAuthent
  * <p>
  * It provides different ways to authorize OAuth 2.0 Clients (via the Client Credentials flow) and
  * System users (representing resource owners) via the Resource Owner Password Credentials flow.
+ * <p>
+ * The primary way for authentication is {@link #authentifiziere(String)}, which depends on OAuth 2.0 Client Registrations
+ * to be configured in the application properties.
+ * The other {@code authentifiziereClient}/{@code authentifiziereSystem} methods construct the Client Registrations manually
+ * and thus do not depend on any to be configured in the application properties.
  */
 public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsmanager {
 
     /**
      * ProviderManager configured with supported {@link AuthenticationProvider}s.
      * It is intended behavior that the ProviderManager may not support all authentication methods made available by the methods of
-     * this class, in which case an {@link AuthenticationException} is thrown.
+     * this class, in which case a {@link AuthenticationException} is thrown.
+     *
+     * @see IsyOAuth2Authentifizierungsmanager more details in the class doc
      */
     private final ProviderManager providerManager;
 
     /**
-     * Repository containing the client registrations.
-     * Used to get the authorization grant type for a registration ID.
+     * Repository containing the OAuth 2.0 client registrations.
+     * Used to get the authorization grant type for a client registration ID.
      * Might be {@code null} if there are no configured client registrations in the application.
      */
     private final ClientRegistrationRepository clientRegistrationRepository;
@@ -44,47 +51,67 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
     }
 
     @Override
-    public void authentifiziere(String registrationId) throws AuthenticationException {
-        ClientRegistration clientRegistration = null;
-        if (clientRegistrationRepository != null) {
-            clientRegistration = clientRegistrationRepository.findByRegistrationId(registrationId);
-        }
-        Assert.notNull(clientRegistration, "Could not find ClientRegistration with id '" + registrationId + "'");
-
-        AuthorizationGrantType grantType = clientRegistration.getAuthorizationGrantType();
-        if (AuthorizationGrantType.CLIENT_CREDENTIALS.equals(grantType)) {
-            ClientCredentialsAuthenticationToken token = new ClientCredentialsAuthenticationToken(registrationId);
-            authenticateAndChangeAuthenticatedPrincipal(token);
-        } else if (AuthorizationGrantType.PASSWORD.equals(grantType)) {
-            PasswordAuthenticationToken token = new PasswordAuthenticationToken(registrationId);
-            authenticateAndChangeAuthenticatedPrincipal(token);
-        } else {
-            throw new IllegalArgumentException("The AuthorizationGrantType '" + grantType.getValue() + "' is not supported.");
-        }
+    public void authentifiziere(String oauth2ClientRegistrationId) throws AuthenticationException {
+        Authentication unauthenticatedToken = getAuthenticationTokenForRegistrationId(oauth2ClientRegistrationId);
+        authenticateAndChangeAuthenticatedPrincipal(unauthenticatedToken);
     }
 
     @Override
-    public void authentifiziereClient(String clientId, String clientSecret, String issuerLocation) throws AuthenticationException {
+    public void authentifiziereClient(String issuerLocation, String clientId, String clientSecret) throws AuthenticationException {
+        authentifiziereClient(issuerLocation, clientId, clientSecret, null);
+    }
+
+    @Override
+    public void authentifiziereClient(String issuerLocation, String clientId, String clientSecret, @Nullable String bhknz) throws AuthenticationException {
+        Assert.notNull(issuerLocation, "issuerLocation cannot be null");
         Assert.notNull(clientId, "clientId cannot be null");
         Assert.notNull(clientSecret, "clientSecret cannot be null");
-        Assert.notNull(issuerLocation, "issuerLocation cannot be null");
 
-        ManualClientCredentialsAuthenticationToken token =
-                new ManualClientCredentialsAuthenticationToken(clientId, clientSecret, issuerLocation);
-
-        authenticateAndChangeAuthenticatedPrincipal(token);
+        Authentication unauthenticatedToken = new ManualClientCredentialsAuthenticationToken(clientId, clientSecret, issuerLocation);
+        authenticateAndChangeAuthenticatedPrincipal(unauthenticatedToken);
     }
 
     @Override
-    public void authentifiziereSystem(String registrationId, String username, String password, @Nullable String bhknz)
+    public void authentifiziereSystem(String issuerLocation, String clientId, String clientSecret, String username, String password) throws AuthenticationException {
+        authentifiziereSystem(issuerLocation, clientId, clientSecret, username, password, null);
+    }
+
+    @Override
+    public void authentifiziereSystem(String issuerLocation, String clientId, String clientSecret, String username, String password, @Nullable String bhknz)
             throws AuthenticationException {
-        Assert.notNull(registrationId, "registrationId cannot be null");
+        Assert.notNull(issuerLocation, "issuerLocation cannot be null");
+        Assert.notNull(clientId, "clientId cannot be null");
+        Assert.notNull(clientSecret, "clientSecret cannot be null");
         Assert.notNull(username, "username cannot be null");
         Assert.notNull(password, "password cannot be null");
 
-        PasswordAuthenticationToken token = new PasswordAuthenticationToken(registrationId, username, password, bhknz);
+        // TODO new manual token
+        Authentication unauthenticatedToken = new PasswordAuthenticationToken(null, username, password, bhknz);
+        authenticateAndChangeAuthenticatedPrincipal(unauthenticatedToken);
+    }
 
-        authenticateAndChangeAuthenticatedPrincipal(token);
+    /**
+     * Creates an appropriate authentication token for the authorization grant type configured for the registration ID.
+     *
+     * @param oauth2ClientRegistrationId
+     *         registration ID to create the token for
+     * @return an unauthenticated token that can be passed to the provider manager
+     */
+    private Authentication getAuthenticationTokenForRegistrationId(String oauth2ClientRegistrationId) {
+        ClientRegistration clientRegistration = null;
+        if (clientRegistrationRepository != null) {
+            clientRegistration = clientRegistrationRepository.findByRegistrationId(oauth2ClientRegistrationId);
+        }
+        Assert.notNull(clientRegistration, "Could not find ClientRegistration with id '" + oauth2ClientRegistrationId + "'");
+
+        AuthorizationGrantType grantType = clientRegistration.getAuthorizationGrantType();
+        if (AuthorizationGrantType.CLIENT_CREDENTIALS.equals(grantType)) {
+            return new ClientCredentialsAuthenticationToken(oauth2ClientRegistrationId);
+        } else if (AuthorizationGrantType.PASSWORD.equals(grantType)) {
+            return new PasswordAuthenticationToken(oauth2ClientRegistrationId);
+        } else {
+            throw new IllegalArgumentException("The AuthorizationGrantType '" + grantType.getValue() + "' is not supported.");
+        }
     }
 
     /**

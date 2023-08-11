@@ -63,7 +63,7 @@ public class AuthentifizierungsmanagerWithoutClientsConfiguredTest {
 
     @Test
     public void testAuthClientWithCredentials() {
-        authentifizierungsmanager.authentifiziereClient("testid", "testsecret", "http://test/");
+        authentifizierungsmanager.authentifiziereClient("http://test/", "testid", "testsecret");
 
         ArgumentCaptor<ManualClientCredentialsAuthenticationToken> tokenCaptor =
                 ArgumentCaptor.forClass(ManualClientCredentialsAuthenticationToken.class);
