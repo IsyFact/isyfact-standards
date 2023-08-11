@@ -126,7 +126,6 @@ Parallel dazu existiert die Annotation `@ClientAuthentification` zur Authentifiz
 Dies ermöglicht die Umstellung von technischen Nutzern auf OAuth2.0 Clients, ohne große Auswirkungen im Anwendungssystem zu erzeugen.
 Die Authentifizierungsdaten werden aus der Konfiguration der Anwendung ausgelesen und zur Authentifizierung verwendet.
 Die Authentifizierung findet über die Implementierung des Interfaces `Authentifizierungsmanager` statt.
-Das Ergebnis einer Authentifizierung über die Annotationen `@ClientAuthentification` und `@NutzerAuthentifikation` ist ein voll initialisierter `SecurityContext` mit einem validen Access-Token.
 
 - Mit der von Spring Security bereitgestellten Annotation `@secured` werden angebotene Services der Anwendung abgesichert.
 Dieser Annotation muss noch der Name eines anwendungsspezifischen Rechts mitgegeben werden, das für die Verwendung dieses Service benötigt wird.
@@ -148,37 +147,20 @@ Bei seiner Instanziierung wird die anwendungsspezifische Rollen-Rechte-Datei ein
 Das Interface `Security` stellt der Fachanwendung die im weiteren beschriebenen `Authentifizierungsmanager` und `Berechtigungsmanager` zur Verfügung.
 Außerdem kann die Fachanwendung über die Methode `getAlleRollen` eine Liste von allen im System hinterlegten Rollen erhalten.
 
-Der `Authentifizierungsmanager` übernimmt die programmatische Authentifizierung und Autorisierung interner und externer Anwendungen durch das IAM für den Zugang zu IsyFact-Nachbaranwendungen.
-Dafür sind folgende Szenarien zu unterscheiden, für die es jeweils eine eigene Servicemethode gibt:
-
-==== Authentifizierung einer internen Anwendung (Batch, Task, …) als eigener Schritt (direkt/intern):
+Der `Authentifizierungsmanager` übernimmt die programmatische Authentifizierung und Autorisierung interner und externer Anwendungen durch das IAM für den Zugang zu IsyFact-Nachbaranwendungen:
 
 Interne Anwendungen sind als Confidential Client eingestuft und verwahren ihre Authentifizierungsdaten (entweder Client-ID u. Client-Secret oder Nutzername u. Passwort) in ihrer Konfiguration (mit einer oauth2ClientRegistrationId als Schlüssel).
 Die Methode `authentifiziere(oauth2ClientRegistrationId)` im Authentifizierungsmanager liest diese Authentifizierungsdaten aus der betrieblichen Konfiguration und führt damit eine OAuth2.0-konforme Authentifizierung und Autorisierung der Anwendung gegenüber dem IAM-System durch.
-Dabei wird anhand des Typs der Authentifizierungsdaten der passende Authentication-Flow mit den konfigurierten Authentifizierungsdaten verwendet. +
-Bei erfolgreicher Authentifizierung legt die Anwendung das erhaltene Access-Token in ihrem SecurityContext ab und schickt es bei jedem Aufruf von Nachbaranwendungen mit. +
-Eine nicht erfolgreiche Authentifizierung (fachliche Ablehnung oder technisches Problem) löst eine `AuthentifizierungFehlgeschlagenException` bzw. `AuthentifizierungTechnicalException` aus.
+Dabei wird anhand des Typs der Authentifizierungsdaten der passende Authentication-Flow mit den konfigurierten Authentifizierungsdaten verwendet.
 
-==== Authentifizierung einer externen Anwendung (über ServiceGateway):
+Externe Anwendungen übermitteln ihre Authentifizierungsdaten (entweder Client-ID u. Client-Secret oder Nutzername u. Passwort) mit im Header der HTTP-Anfrage an das Service-Gateway bzw. Authentication-Gateway.
+Das Gateway führt damit eine OAuth2.0-konforme Authentifizierung und Autorisierung der Anwendung gegenüber dem IAM-System durch.
+Dabei wird anhand des Typs der Authentifizierungsdaten der passende Authentication-Flow verwendet:
 
-Das SGW:
-
-- fängt die Anfrage der externen Anwendung ab,
-
-- extrahiert aus dem Header die Authentifizierungsdaten und prüft sie auf Vollständigkeit und Validität,
-
-- wählt anhand des Typs der Authentifizierungsdaten den passenden Authentication-Flow:
-
-* Für den Credential-Typ bzw. _Credential_-Flow xref:client-credential-flow[] ist die Methode `authentifiziereClient` zu verwenden mit der issuerLocation als URI des IAM sowie clientId, clientSecret und bhknz der externen Anwendung als Parameter.
+- Für den Credential-Typ bzw. _Credential_-Flow xref:client-credential-flow[] ist die Methode `authentifiziereClient` zu verwenden mit der issuerLocation als URI des IAM sowie clientId, clientSecret und bhknz der externen Anwendung als Parameter.
 Hierbei ist zu beachten, dass aktuell keine Auswertung bzw. Weiterleitung des bhknz an das IAM stattfindet.
 
-* Für den Credential-Typ bzw. _Credential_-Flow xref:resource-owner-password-credential-flow[] die Methode `authentifiziereSystem` mit den Parametern issuerLocation als URI des IAM, clientId und clientSecret des SGW als vermittelnden confidential client sowie username, password und bhknz der externen Anwendung.
-
-- veranlasst darüber die OAuth2.0-konforme Authentifizierung u. Autorisierung der externen Anwendung gegenüber dem im SGW konfigurierten IAM,
-
-- Bei  erfolgreicher Authentifizierung leitet das SGW die Anfrage mit dem erhaltenen Access-Token weiter an die aufgerufene Service-Schnittstelle der IsyFact-Anwendung.
-
-- Bei nicht erfolgreicher Authentifizierung antwortet das SGW gegenüber der externen Anwendung mit dem HTTP-Fehlercode 403 'Forbidden'.
+- Für den Credential-Typ bzw. _Credential_-Flow xref:resource-owner-password-credential-flow[] die Methode `authentifiziereSystem` mit den Parametern issuerLocation als URI des IAM, clientId und clientSecret des Gateways als vermittelnden confidential client sowie username, password und bhknz der externen Anwendung.
 
 Der `Berechtigungsmanager` gibt Auskunft über die Rollen und Rechte des Anwenders.
 Die in der Benutzeradministration dem Anwender zugewiesenen Rollen werden mithilfe einer anwendungsspezifischen Rollen-Rechte-Datei in konkrete Rechte des Anwenders für diese Anwendung umgewandelt.
