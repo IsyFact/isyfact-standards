@@ -30,5 +30,4 @@ public class ClientCredentialsAuthenticationToken extends AbstractAuthentication
     public String getRegistrationId() {
         return registrationId;
     }
-
 }

@@ -54,7 +54,6 @@ public class ManualClientCredentialsAuthenticationProvider extends IsyOAuth2Auth
                 .build();
 
         OAuth2AuthorizedClient authorizedClient = clientProvider.authorize(authorizationContext);
-
         if (authorizedClient == null) {
             throw new OAuth2AuthorizationException(new OAuth2Error(OAuth2ErrorCodes.INVALID_GRANT),
                     "clientRegistration.authorizationGrantType must be AuthorizationGrantType.CLIENT_CREDENTIALS");

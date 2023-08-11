@@ -39,7 +39,7 @@ public class ManualClientCredentialsAuthenticationProviderTest extends AbstractO
     @Test
     public void shouldGetAuthToken() {
         Authentication authentication = manualAuthenticationProvider.authenticate(new ManualClientCredentialsAuthenticationToken(
-                "client-credentials-test-client", "supersecretpassword", "http://localhost:9095/auth/realms/testrealm"));
+                "http://localhost:9095/auth/realms/testrealm", "client-credentials-test-client", "supersecretpassword", null));
 
         // security context is still empty
         SecurityContext securityContext = SecurityContextHolder.getContext();
@@ -60,7 +60,7 @@ public class ManualClientCredentialsAuthenticationProviderTest extends AbstractO
     public void shouldThrowAuthExceptionWithInvalidCredentials() {
         assertThrows(ClientAuthorizationException.class,
                 () -> manualAuthenticationProvider.authenticate(new ManualClientCredentialsAuthenticationToken(
-                        "client-credentials-test-client", "invalidpassword", "http://localhost:9095/auth/realms/testrealm")));
+                        "http://localhost:9095/auth/realms/testrealm", "client-credentials-test-client", "invalidpassword", null)));
     }
 
     @Test
@@ -68,7 +68,7 @@ public class ManualClientCredentialsAuthenticationProviderTest extends AbstractO
         String invalidIssuerLocation = "http://localhost:9095/auth/realms/invalid";
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
                 () -> manualAuthenticationProvider.authenticate(new ManualClientCredentialsAuthenticationToken(
-                        "client-credentials-test-client", "supersecretpassword", invalidIssuerLocation)));
+                        invalidIssuerLocation, "client-credentials-test-client", "supersecretpassword", null)));
 
         assertThat(exception.getMessage()).contains(invalidIssuerLocation);
     }

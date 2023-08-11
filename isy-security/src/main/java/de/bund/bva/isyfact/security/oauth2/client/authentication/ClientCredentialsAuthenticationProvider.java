@@ -43,7 +43,6 @@ public class ClientCredentialsAuthenticationProvider extends IsyOAuth2Authentica
                 .build();
 
         OAuth2AuthorizedClient authorizedClient = authorizedClientManager.authorize(authorizeRequest);
-
         if (authorizedClient == null) {
             throw new ClientAuthorizationException(new OAuth2Error(OAuth2ErrorCodes.INVALID_GRANT), registrationId,
                     "clientRegistration.authorizationGrantType must be AuthorizationGrantType.CLIENT_CREDENTIALS");

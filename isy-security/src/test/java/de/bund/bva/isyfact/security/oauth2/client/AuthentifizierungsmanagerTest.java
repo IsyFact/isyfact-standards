@@ -1,11 +1,10 @@
 package de.bund.bva.isyfact.security.oauth2.client;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,6 +26,8 @@ import de.bund.bva.isyfact.security.oauth2.client.authentication.ClientCredentia
 import de.bund.bva.isyfact.security.oauth2.client.authentication.ClientCredentialsAuthenticationToken;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.ManualClientCredentialsAuthenticationProvider;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.ManualClientCredentialsAuthenticationToken;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.ManualPasswordAuthenticationProvider;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.ManualPasswordAuthenticationToken;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.PasswordAuthenticationProvider;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.PasswordAuthenticationToken;
 
@@ -50,6 +51,9 @@ public class AuthentifizierungsmanagerTest {
 
     @MockBean
     private ManualClientCredentialsAuthenticationProvider manualClientCredentialsAuthenticationProvider;
+
+    @MockBean
+    private ManualPasswordAuthenticationProvider manualPasswordAuthenticationProvider;
 
     @Autowired
     private Authentifizierungsmanager authentifizierungsmanager;
@@ -80,24 +84,29 @@ public class AuthentifizierungsmanagerTest {
 
         mockJwt = mock(JwtAuthenticationToken.class);
 
-        when(passwordAuthenticationProvider.supports(any())).thenCallRealMethod();
-        when(passwordAuthenticationProvider.authenticate(any(Authentication.class))).thenReturn(mockJwt);
-
         when(clientCredentialsAuthenticationProvider.supports(any())).thenCallRealMethod();
         when(clientCredentialsAuthenticationProvider.authenticate(any(Authentication.class))).thenReturn(mockJwt);
 
+        when(passwordAuthenticationProvider.supports(any())).thenCallRealMethod();
+        when(passwordAuthenticationProvider.authenticate(any(Authentication.class))).thenReturn(mockJwt);
+
         when(manualClientCredentialsAuthenticationProvider.supports(any())).thenCallRealMethod();
         when(manualClientCredentialsAuthenticationProvider.authenticate(any(Authentication.class))).thenReturn(mockJwt);
+
+        when(manualPasswordAuthenticationProvider.supports(any())).thenCallRealMethod();
+        when(manualPasswordAuthenticationProvider.authenticate(any(Authentication.class))).thenReturn(mockJwt);
     }
 
     @Test
     public void testHasAllProviders() {
         assertThat(isyOAuth2AuthenticationProviderManager.getProviders()).containsExactlyInAnyOrder(
-                clientCredentialsAuthenticationProvider, passwordAuthenticationProvider, manualClientCredentialsAuthenticationProvider);
+                clientCredentialsAuthenticationProvider, passwordAuthenticationProvider,
+                manualClientCredentialsAuthenticationProvider, manualPasswordAuthenticationProvider
+        );
     }
 
     @Test
-    public void testAuthClientWithRegistrationId() {
+    public void testAuthWithClientRegistrationCC() {
         authentifizierungsmanager.authentifiziere("mock-cc");
 
         ArgumentCaptor<ClientCredentialsAuthenticationToken> tokenCaptor =
@@ -109,40 +118,72 @@ public class AuthentifizierungsmanagerTest {
     }
 
     @Test
-    public void testAuthClientWithCredentials() {
-        authentifizierungsmanager.authentifiziereClient("http://test/", "testid", "testsecret");
-
-        ArgumentCaptor<ManualClientCredentialsAuthenticationToken> tokenCaptor =
-                ArgumentCaptor.forClass(ManualClientCredentialsAuthenticationToken.class);
-        verify(manualClientCredentialsAuthenticationProvider).authenticate(tokenCaptor.capture());
-        assertEquals("testid", tokenCaptor.getValue().getClientId());
-        assertEquals("testsecret", tokenCaptor.getValue().getClientSecret());
-        assertEquals("http://test/", tokenCaptor.getValue().getIssuerLocation());
-
-        assertEquals(mockJwt, SecurityContextHolder.getContext().getAuthentication());
-    }
-
-    @Test
-    public void testAuthSystemWithRegistrationId() {
+    public void testAuthWithClientRegistrationROPC() {
         authentifizierungsmanager.authentifiziere("mock-ropc");
 
         ArgumentCaptor<PasswordAuthenticationToken> tokenCaptor = ArgumentCaptor.forClass(PasswordAuthenticationToken.class);
         verify(passwordAuthenticationProvider).authenticate(tokenCaptor.capture());
         assertEquals("mock-ropc", tokenCaptor.getValue().getRegistrationId());
-        assertEquals("", tokenCaptor.getValue().getUsername());
-        assertEquals("", tokenCaptor.getValue().getPassword());
+
+        assertEquals(mockJwt, SecurityContextHolder.getContext().getAuthentication());
+    }
+
+    @Test
+    public void testAuthClient() {
+        authentifizierungsmanager.authentifiziereClient("http://test/", "testid", "testsecret");
+
+        ArgumentCaptor<ManualClientCredentialsAuthenticationToken> tokenCaptor =
+                ArgumentCaptor.forClass(ManualClientCredentialsAuthenticationToken.class);
+        verify(manualClientCredentialsAuthenticationProvider).authenticate(tokenCaptor.capture());
+        assertEquals("http://test/", tokenCaptor.getValue().getIssuerLocation());
+        assertEquals("testid", tokenCaptor.getValue().getClientId());
+        assertEquals("testsecret", tokenCaptor.getValue().getClientSecret());
         assertNull(tokenCaptor.getValue().getBhknz());
 
         assertEquals(mockJwt, SecurityContextHolder.getContext().getAuthentication());
     }
 
     @Test
-    public void testAuthSystemWithRegistrationIdAndCredentials() {
-        authentifizierungsmanager.authentifiziereSystem("mock-ropc", "testuser", "testpw", "123456");
+    public void testAuthClientWithBhknz() {
+        authentifizierungsmanager.authentifiziereClient("http://test/", "testid", "testsecret", "123456");
 
-        ArgumentCaptor<PasswordAuthenticationToken> tokenCaptor = ArgumentCaptor.forClass(PasswordAuthenticationToken.class);
-        verify(passwordAuthenticationProvider).authenticate(tokenCaptor.capture());
-        assertEquals("mock-ropc", tokenCaptor.getValue().getRegistrationId());
+        ArgumentCaptor<ManualClientCredentialsAuthenticationToken> tokenCaptor =
+                ArgumentCaptor.forClass(ManualClientCredentialsAuthenticationToken.class);
+        verify(manualClientCredentialsAuthenticationProvider).authenticate(tokenCaptor.capture());
+        assertEquals("http://test/", tokenCaptor.getValue().getIssuerLocation());
+        assertEquals("testid", tokenCaptor.getValue().getClientId());
+        assertEquals("testsecret", tokenCaptor.getValue().getClientSecret());
+        assertEquals("123456", tokenCaptor.getValue().getBhknz());
+
+        assertEquals(mockJwt, SecurityContextHolder.getContext().getAuthentication());
+    }
+
+    @Test
+    public void testAuthSystem() {
+        authentifizierungsmanager.authentifiziereSystem("http://test/", "testid", "testsecret", "testuser", "testpw");
+
+        ArgumentCaptor<ManualPasswordAuthenticationToken> tokenCaptor =
+                ArgumentCaptor.forClass(ManualPasswordAuthenticationToken.class);
+        verify(manualPasswordAuthenticationProvider).authenticate(tokenCaptor.capture());
+        assertEquals("http://test/", tokenCaptor.getValue().getIssuerLocation());
+        assertEquals("testid", tokenCaptor.getValue().getClientId());
+        assertEquals("testsecret", tokenCaptor.getValue().getClientSecret());
+        assertEquals("testuser", tokenCaptor.getValue().getUsername());
+        assertEquals("testpw", tokenCaptor.getValue().getPassword());
+        assertNull(tokenCaptor.getValue().getBhknz());
+
+        assertEquals(mockJwt, SecurityContextHolder.getContext().getAuthentication());
+    }
+
+    @Test
+    public void testAuthSystemWithBhknz() {
+        authentifizierungsmanager.authentifiziereSystem("http://test/", "testid", "testsecret", "testuser", "testpw", "123456");
+
+        ArgumentCaptor<ManualPasswordAuthenticationToken> tokenCaptor = ArgumentCaptor.forClass(ManualPasswordAuthenticationToken.class);
+        verify(manualPasswordAuthenticationProvider).authenticate(tokenCaptor.capture());
+        assertEquals("http://test/", tokenCaptor.getValue().getIssuerLocation());
+        assertEquals("testid", tokenCaptor.getValue().getClientId());
+        assertEquals("testsecret", tokenCaptor.getValue().getClientSecret());
         assertEquals("testuser", tokenCaptor.getValue().getUsername());
         assertEquals("testpw", tokenCaptor.getValue().getPassword());
         assertEquals("123456", tokenCaptor.getValue().getBhknz());

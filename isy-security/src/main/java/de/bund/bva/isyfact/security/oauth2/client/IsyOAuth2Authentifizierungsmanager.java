@@ -13,6 +13,7 @@ import org.springframework.util.Assert;
 
 import de.bund.bva.isyfact.security.oauth2.client.authentication.ClientCredentialsAuthenticationToken;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.ManualClientCredentialsAuthenticationToken;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.ManualPasswordAuthenticationToken;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.PasswordAuthenticationToken;
 
 /**
@@ -67,7 +68,7 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
         Assert.notNull(clientId, "clientId cannot be null");
         Assert.notNull(clientSecret, "clientSecret cannot be null");
 
-        Authentication unauthenticatedToken = new ManualClientCredentialsAuthenticationToken(clientId, clientSecret, issuerLocation);
+        Authentication unauthenticatedToken = new ManualClientCredentialsAuthenticationToken(issuerLocation, clientId, clientSecret, bhknz);
         authenticateAndChangeAuthenticatedPrincipal(unauthenticatedToken);
     }
 
@@ -85,8 +86,7 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
         Assert.notNull(username, "username cannot be null");
         Assert.notNull(password, "password cannot be null");
 
-        // TODO new manual token
-        Authentication unauthenticatedToken = new PasswordAuthenticationToken(null, username, password, bhknz);
+        Authentication unauthenticatedToken = new ManualPasswordAuthenticationToken(issuerLocation, clientId, clientSecret, username, password, bhknz);
         authenticateAndChangeAuthenticatedPrincipal(unauthenticatedToken);
     }
 

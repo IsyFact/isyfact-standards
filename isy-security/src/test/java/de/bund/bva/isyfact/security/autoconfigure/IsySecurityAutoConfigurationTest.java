@@ -6,6 +6,7 @@ import org.assertj.core.api.InstanceOfAssertFactories;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
+import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties;
 import org.springframework.boot.autoconfigure.security.oauth2.client.servlet.OAuth2ClientAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.context.FilteredClassLoader;
@@ -23,6 +24,7 @@ import de.bund.bva.isyfact.security.core.Security;
 import de.bund.bva.isyfact.security.oauth2.client.Authentifizierungsmanager;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.ClientCredentialsAuthenticationProvider;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.ManualClientCredentialsAuthenticationProvider;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.ManualPasswordAuthenticationProvider;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.PasswordAuthenticationProvider;
 import de.bund.bva.isyfact.security.xmlparser.RolePrivilegesMapper;
 
@@ -56,11 +58,13 @@ public class IsySecurityAutoConfigurationTest extends AbstractOidcProviderTest {
                         .hasSingleBean(Berechtigungsmanager.class)
                         .hasSingleBean(Security.class)
                         // isy oauth2 auto config beans
+                        .doesNotHaveBean(IsyOAuth2ClientConfigurationProperties.class)
                         .doesNotHaveBean(ManualClientCredentialsAuthenticationProvider.class)
+                        .doesNotHaveBean(ManualPasswordAuthenticationProvider.class)
                         .doesNotHaveBean(ProviderManager.class)
                         .doesNotHaveBean(Authentifizierungsmanager.class)
                         // client registration beans
-                        .doesNotHaveBean(IsyOAuth2ClientConfigurationProperties.class)
+                        .doesNotHaveBean(OAuth2ClientProperties.class)
                         .doesNotHaveBean(ClientCredentialsAuthenticationProvider.class)
                         .doesNotHaveBean(PasswordAuthenticationProvider.class)
                 );
@@ -80,17 +84,19 @@ public class IsySecurityAutoConfigurationTest extends AbstractOidcProviderTest {
                         .hasSingleBean(Berechtigungsmanager.class)
                         .hasSingleBean(Security.class)
                         // isy oauth2 auto config beans
+                        .hasSingleBean(IsyOAuth2ClientConfigurationProperties.class)
                         .hasSingleBean(ManualClientCredentialsAuthenticationProvider.class)
+                        .hasSingleBean(ManualPasswordAuthenticationProvider.class)
                         .hasSingleBean(ProviderManager.class)
                         .hasSingleBean(Authentifizierungsmanager.class)
                         // client registration beans
-                        .doesNotHaveBean(IsyOAuth2ClientConfigurationProperties.class)
+                        .doesNotHaveBean(OAuth2ClientProperties.class)
                         .doesNotHaveBean(ClientCredentialsAuthenticationProvider.class)
                         .doesNotHaveBean(PasswordAuthenticationProvider.class)
                         // provider manager has only the manual provider configured
                         .getBean(ProviderManager.class).extracting(ProviderManager::getProviders, as(InstanceOfAssertFactories.LIST))
                         .map(Object::getClass).map(Class::getName)
-                        .containsExactlyInAnyOrder(ManualClientCredentialsAuthenticationProvider.class.getName())
+                        .containsExactlyInAnyOrder(ManualClientCredentialsAuthenticationProvider.class.getName(), ManualPasswordAuthenticationProvider.class.getName())
                 );
     }
 
@@ -112,23 +118,25 @@ public class IsySecurityAutoConfigurationTest extends AbstractOidcProviderTest {
                         .hasSingleBean(Berechtigungsmanager.class)
                         .hasSingleBean(Security.class)
                         // isy oauth2 auto config beans
+                        .hasSingleBean(IsyOAuth2ClientConfigurationProperties.class)
                         .hasSingleBean(ManualClientCredentialsAuthenticationProvider.class)
+                        .hasSingleBean(ManualPasswordAuthenticationProvider.class)
                         .hasSingleBean(ProviderManager.class)
                         .hasSingleBean(Authentifizierungsmanager.class)
                         // client registration beans
-                        .hasSingleBean(IsyOAuth2ClientConfigurationProperties.class)
+                        .hasSingleBean(OAuth2ClientProperties.class)
                         .hasSingleBean(ClientCredentialsAuthenticationProvider.class)
                         .hasSingleBean(PasswordAuthenticationProvider.class)
                         // provider manager has all three providers configured
                         .getBean(ProviderManager.class).extracting(ProviderManager::getProviders, as(InstanceOfAssertFactories.LIST))
                         .map(Object::getClass).map(Class::getName).containsExactlyInAnyOrder(
                                 ClientCredentialsAuthenticationProvider.class.getName(), PasswordAuthenticationProvider.class.getName(),
-                                ManualClientCredentialsAuthenticationProvider.class.getName())
+                                ManualClientCredentialsAuthenticationProvider.class.getName(), ManualPasswordAuthenticationProvider.class.getName())
                 );
     }
 
     @Test
-    public void testContestFailsIfAdditionalOAuth2RegistrationIsInvalid() {
+    public void testContextFailsIfAdditionalOAuth2RegistrationIsInvalid() {
         contextRunner
                 .withPropertyValues(
                         "spring.security.oauth2.client.provider.test.issuer-uri=http://localhost:9095/auth/realms/testrealm",
@@ -140,19 +148,7 @@ public class IsySecurityAutoConfigurationTest extends AbstractOidcProviderTest {
     }
 
     @Test
-    public void testContestFailsIfAdditionalOAuth2PropertiesAreInvalid() {
-        contextRunner
-                .withPropertyValues(
-                        "spring.security.oauth2.client.provider.test.issuer-uri=http://localhost:9095/auth/realms/testrealm",
-                        "spring.security.oauth2.client.registration.test.client-id=test",
-                        "isy.security.oauth2.client.registration.test.username=test",
-                        "isy.security.oauth2.client.registration.test.password="
-                ).withConfiguration(AutoConfigurations.of(OAuth2ClientAutoConfiguration.class))
-                .run(context -> assertThat(context).hasFailed());
-    }
-
-    @Test
-    public void testContestStartsIfAdditionalOAuth2PropertiesAreValid() {
+    public void testContextStartsIfAdditionalOAuth2PropertiesAreValid() {
         contextRunner
                 .withPropertyValues(
                         "spring.security.oauth2.client.provider.test.issuer-uri=http://localhost:9095/auth/realms/testrealm",
@@ -160,7 +156,37 @@ public class IsySecurityAutoConfigurationTest extends AbstractOidcProviderTest {
                         "isy.security.oauth2.client.registration.test.username=test",
                         "isy.security.oauth2.client.registration.test.password=test"
                 ).withConfiguration(AutoConfigurations.of(OAuth2ClientAutoConfiguration.class))
-                .run(context -> assertThat(context).hasNotFailed());
+                .run(context -> assertThat(context)
+                        .hasNotFailed()
+                        .hasSingleBean(IsyOAuth2ClientConfigurationProperties.class)
+                        .hasSingleBean(OAuth2ClientProperties.class)
+                );
     }
 
+    @Test
+    public void testContextFailsIfBhknzSetButNoOu() {
+        contextRunner
+                .withPropertyValues(
+                        "spring.security.oauth2.client.provider.test.issuer-uri=http://localhost:9095/auth/realms/testrealm",
+                        "spring.security.oauth2.client.registration.test.client-id=test",
+                        "isy.security.oauth2.client.registration.test.bhknz=123456"
+                ).withConfiguration(AutoConfigurations.of(OAuth2ClientAutoConfiguration.class))
+                .run(context -> assertThat(context).hasFailed());
+    }
+
+    @Test
+    public void testContextStartsIfBhknzAndOuSet() {
+        contextRunner
+                .withPropertyValues(
+                        "spring.security.oauth2.client.provider.test.issuer-uri=http://localhost:9095/auth/realms/testrealm",
+                        "spring.security.oauth2.client.registration.test.client-id=test",
+                        "isy.security.oauth2.client.registration.test.bhknz=123456",
+                        "isy.security.oauth2.client.default-certificate-ou=TESTOU"
+                ).withConfiguration(AutoConfigurations.of(OAuth2ClientAutoConfiguration.class))
+                .run(context -> assertThat(context)
+                        .hasNotFailed()
+                        .hasSingleBean(IsyOAuth2ClientConfigurationProperties.class)
+                        .hasSingleBean(OAuth2ClientProperties.class)
+                );
+    }
 }

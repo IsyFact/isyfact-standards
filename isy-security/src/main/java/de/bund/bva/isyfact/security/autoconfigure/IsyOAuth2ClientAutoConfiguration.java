@@ -29,6 +29,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import de.bund.bva.isyfact.security.oauth2.client.Authentifizierungsmanager;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.ClientCredentialsAuthenticationProvider;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.ManualClientCredentialsAuthenticationProvider;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.ManualPasswordAuthenticationProvider;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.PasswordAuthenticationProvider;
 import de.bund.bva.isyfact.security.config.IsyOAuth2ClientConfigurationProperties;
 import de.bund.bva.isyfact.security.oauth2.client.IsyOAuth2Authentifizierungsmanager;
@@ -45,12 +46,28 @@ import de.bund.bva.isyfact.security.oauth2.client.IsyOAuth2Authentifizierungsman
 @EnableConfigurationProperties
 public class IsyOAuth2ClientAutoConfiguration {
 
+    // configures value like BHKNZ and OU which should be available for manual password authentication
+    @Bean
+    @ConfigurationProperties(prefix = "isy.security.oauth2.client")
+    public IsyOAuth2ClientConfigurationProperties isyOAuth2ClientProperties(@Nullable OAuth2ClientProperties oAuth2ClientProperties) {
+        return new IsyOAuth2ClientConfigurationProperties(oAuth2ClientProperties);
+    }
+
     // does not have a dependency on ClientRegistrations and should always be created
     @Bean
     @ConditionalOnMissingBean
-    ManualClientCredentialsAuthenticationProvider isyOAuth2ManualClientCredentialsAuthenticationProvider(
+    public ManualClientCredentialsAuthenticationProvider isyOAuth2ManualClientCredentialsAuthenticationProvider(
             JwtAuthenticationConverter jwtAuthenticationConverter) {
         return new ManualClientCredentialsAuthenticationProvider(jwtAuthenticationConverter);
+    }
+
+    // does not have a dependency on ClientRegistrations and should always be created
+    @Bean
+    @ConditionalOnMissingBean
+    public ManualPasswordAuthenticationProvider isyOAuth2ManualPasswordAuthenticationProvider(
+            JwtAuthenticationConverter jwtAuthenticationConverter,
+            IsyOAuth2ClientConfigurationProperties isyOAuth2ClientConfigurationProperties) {
+        return new ManualPasswordAuthenticationProvider(jwtAuthenticationConverter, isyOAuth2ClientConfigurationProperties);
     }
 
     @Bean
@@ -73,12 +90,6 @@ public class IsyOAuth2ClientAutoConfiguration {
     @Configuration
     @Conditional(ClientsConfiguredCondition.class)
     public static class ClientsConfiguredDependentBeans {
-
-        @Bean
-        @ConfigurationProperties(prefix = "isy.security.oauth2.client")
-        public IsyOAuth2ClientConfigurationProperties isyOAuth2ClientProperties(OAuth2ClientProperties oAuth2ClientProperties) {
-            return new IsyOAuth2ClientConfigurationProperties(oAuth2ClientProperties);
-        }
 
         /**
          * Provides an AuthorizedClientManager configured with the OAuth 2.0 Client Credentials flow that can be used to obtain
