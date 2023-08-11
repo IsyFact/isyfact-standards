@@ -19,7 +19,7 @@ import de.bund.bva.isyfact.security.xmlparser.RolePrivilegesMapper;
 
 /**
  * Based on {@link org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter} but with additional
- * mapping from roles to privileges and a custom authority prefix to indicate the mapped privileges..
+ * mapping from roles to privileges and a custom authority prefix to indicate the mapped privileges.
  */
 public class RolePrivilegeGrantedAuthoritiesConverter implements Converter<Jwt, Collection<GrantedAuthority>> {
 

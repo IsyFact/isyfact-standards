@@ -5,6 +5,36 @@
 [[software-architektur-security-baustein]]
 == Software-Architektur des Security Bausteins
 
+[[security-interface]]
+=== Security
+Das Interface `Security` stellt die zentrale Schnittstelle bereit, über die auf den Baustein zugegriffen wird.
+
+Die folgenden Methoden bieten Zugriff auf eine Liste von allen im System hinterlegten Rollen, den Berechtigungsmanager und den optionalen Authentifizierungsmanager:
+
+`Set<String> getAlleRollen()`:: Liefert die Menge aller im System konfigurierten Rollen.
+`Berechtigungsmanager getBerechtigungsManager()`:: Stellt eine Referenz auf das `Berechtigungsmanager` Bean bereit.
+`Optional<Authentifizierungsmanager> getAuthentifizierungsManager()`:: Liefert ein `Optional`, das eine Referenz auf den `Authentifizierungsmanager` enthält, oder `null` falls die Anwendung als Resource-Server agiert und kein `Authentifizierungsmanager` benötigt wird.
+
+[[image-security]]
+.Security
+image::nutzungsvorgaben/security.svg[align="center"]
+
+[[authentifizierungsmanager-interface]]
+=== Authentifizierungsmanager
+
+Zur manuellen Authentifizierung von Clients stehen folgende Methoden zur Verfügung:
+
+`void authentifiziere(String registrationId)`:: Authentifiziert einen Client anhand einer ClientRegistrationId. Unterstützt `client_credentials` und `password` GrantType.
+Zugangsdaten für technische Nutzer müssen im Fall von `password` GrantType konfiguriert sein (siehe <<isyfact-specific-client-registration>> für _Resource-Owner-Password-Credential_ Flow).
+
+`void authentifiziereClient(String clientId, String clientSecret, String issuerLocation)`:: Authentifiziert einen Client anhand `clientId`, `clientSecret` und `issuerLocation`.
+
+`void authentifiziereSystem(String registrationId, String username, String password, @Nullable String bhknz)`:: Authentifiziert einen Client anhand `registrationId`, `username`, `password`  und (optional) `bhknz`. Der Parameter `registrationId` verweist auf eine
+
+[[image-authentifizierungsmanager]]
+.Authentifizierungsmanager
+image::nutzungsvorgaben/authentifizierungsmanager.svg[align="center"]
+
 [[berechtigungsmanager]]
 === Berechtigungsmanager
 
@@ -62,6 +92,8 @@ Für die Authentifizierung mit einem `OAuth 2.0`-Client sind die folgenden Abhä
 [[konfigurationsparameter]]
 === Konfigurationsparameter
 
+[[spring-oauth2-client-registration]]
+==== Spring OAuth2 Client Konfigurationsparameter
 Für die korrekte Anbindung an den `Identity Provider` ist die Angabe einiger Konfigurationsparameter notwendig, welche in der Konfigurationsdatei der Anwendung eingetragen werden müssen.
 Das Präfix sämtlicher Konfigurationsparameter `spring.security.oauth2` wird zur Vereinfachung in der folgenden Liste weggelassen.
 
@@ -75,6 +107,37 @@ Das Präfix sämtlicher Konfigurationsparameter `spring.security.oauth2` wird zu
 |client.registration._<registrationId>_.authorization-grant-type |String |Methode, durch welche die Anwendung ein Bearer-Token erhält. Abhängig von dem zu verwendenden Flow auf `client_credentials` (Client Credentials Flow) oder `password` (Resource Owner Password Credentials Flow) zu setzen.
 |client.registration._<registrationId>_.provider |String |(Optional) ID des zu verwendenden Client-Providers, falls diese nicht mit der Registration-ID übereinstimmt.
 |client.provider._<providerId>_.issuer-uri |String |Der OpenID Connect Issuer Identifier für die Konfiguration des Clients über den Discovery Endpoint, beispielsweise in der Form `http://<identity-provider>/auth/realms/<realm>`.
+|===
+
+[[isyfact-specific-client-registration]]
+==== Isyfact spezifische Konfigurationsparameter
+
+:linkaktuell: xref:client-credential-flow[]
+include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
+
+****
+*Anmerkung zur Deprecation*
+
+Dieser Flow soll gemäß OAuth2.0 Vorgaben nicht mehr verwendet werden und wird in zukünftigen Versionen aus dem OAuth-Standard entfernt.
+
+Die folgenden Konfigurationsparameter werden als Übergangslösung für technische Nutzer bereitgestellt.
+Der Client-Credentials Flow ist bevorzugt zu nutzen.
+****
+
+Zugangsdaten für technische Nutzer zur Authentifizierung von Tasks und Batches mit dem _Resource-Owner-Password-Credential_ Flow können über die folgenden Parameter konfiguriert werden:
+
+[[table-isyfact-client-registratoin-extension]]
+.Isyfact spezifische Erweiterung der Spring ClientRegistration
+[cols="3m,2m,2m,8",options="header"]
+|===
+|Parameter |Wertebereich |Default |Beschreibung
+|isy.security.oauth2.client.registration._<registrationId>_.username |String | null | Benutzername für Grant-Type `password`.
+|isy.security.oauth2.client.registration._<registrationId>_.password |String | null | Benutzerpassword für Grant-Type `password`.
+|isy.security.oauth2.client.registration._<registrationId>_.bhknz |String | null | Behördenkennzeichen für Grant-Type `password`. (optional)
+|isy.security.oauth2.client.bhknz-header-name |String | x-client-cert-bhknz |Konfigurierbarer Headername für Zwei-Faktor-Authentifizierung.
+|isy.security.oauth2.client.default-certificate-ou |String | null | Organisational Unit, die in Verbindung mit bhknz verwendet wird, um den Wert für bhknz-header-name zu bilden.
+
+(Muss gesetzt werden, wenn eine `registration` mit `bhknz` konfiguriert ist)
 |===
 
 [[authentifizierung_ccf]]
@@ -108,6 +171,48 @@ public class OAuth2WebClientConfiguration {
     }
 
 }
+----
+
+[[manual-authentication]]
+=== Manuelle Authentifizierung eines Clients mit dem Authentifizierungsmanager
+
+Die manuelle Authentifizierung eines Client erfolgt über den Authentifizierungsmanager, der entsprechende Methoden zur Verwendung mit und ohne zuvor konfigurierte `ClientRegistrations` bereitstellt.
+
+1. Authentifizierung per `registrationId`.
+Die Auswahl des Flows (_Client-Credentials_ oder _Resource-Owner-Password-Credentials_) wird dabei über den `authorization-grant-type` der vollständig konfigurierten `ClientRegistration` getroffen (siehe <<listing-client-registrations>>).
+Diese Methode eignet sich in Anwendungen wenn die Zugangsdaten für Technische Nutzer zur Konfiguration bekannt sind.
+2. Authentifizierung per `clientId`, `clientSecret` und `issuerLocation`.
+Diese Methode nutzt den _Client-Credentials_ Flow und kann verwendet werden wenn die zugangsdaten (`clientId` & `clientSecret`) erst zur Laufzeit bekannt sind.
+3. Authentifizierung per `username`, `password`, `registrationId` und (optional) `bhknz`.
+Diese Methode nutzt den _Resource-Owner-Password-Credentials_ Flow und setzt eine entsprechende `ClientRegistration` mit `authorization-grant-type=password` voraus.
+Die im <<listing-client-registrations>> konfigurierten Isyfact spezifischen ClientRegistration properties werden nicht benötigt, da die Zugangsdaten dynamisch zur Laufzeit als Methodenparameter übergeben werden.
+
+[[listing-client-registrations]]
+.Beispiel: ClientRegistrations
+[source,properties]
+----
+[...]
+spring.security.oauth2.client.provider.testrealm.issuer-uri=http://localhost:9095/auth/realms/testrealm
+
+### Beispiel: ClientRegistration für Client-Credentials Flow
+# Spring Security Konfiguration
+spring.security.oauth2.client.registration.client1.client-id=client-credentials-client
+spring.security.oauth2.client.registration.client1.client-secret=client-credentials-secret
+spring.security.oauth2.client.registration.client1.authorization-grant-type=client_credentials
+spring.security.oauth2.client.registration.client1.provider=testrealm
+
+### Beispiel: ClientRegistration für Resource-Owner-Password-Credentials Flow
+# Spring Security Konfiguration
+spring.security.oauth2.client.registration.client2.client-id=client-credentials-client
+spring.security.oauth2.client.registration.client2.client-secret=client-credentials-secret
+spring.security.oauth2.client.registration.client2.authorization-grant-type=password
+spring.security.oauth2.client.registration.client2.provider=testrealm
+# Isyfact spezifische ClientRegistration properties für Resource-Owner-Password-Credentials Flow
+isy.security.oauth2.client.registration.client2.username=testuser
+isy.security.oauth2.client.registration.client2.password=testpassword
+isy.security.oauth2.client.registration.client2.bhknz=testbhknz
+# Organizational Unit zur Verwendung mit bhknz
+isy.security.oauth2.client.default-certificate-ou=TESTOU
 ----
 
 [[absicherung_von_service_schnittstellen]]

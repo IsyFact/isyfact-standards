@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.security;
+package de.bund.bva.isyfact.security.core;
 
 import java.util.Set;
 
@@ -12,7 +12,7 @@ import org.springframework.security.access.AccessDeniedException;
 public interface Berechtigungsmanager {
 
     /**
-     * Returns the privilege that have been granted to the currently authenticated principal.
+     * Returns the privileges that have been granted to the currently authenticated principal.
      *
      * @return the set of granted privileges
      */
@@ -21,8 +21,7 @@ public interface Berechtigungsmanager {
     /**
      * Returns whether the given privilege has been granted to the currently authenticated principal.
      *
-     * @param recht
-     *         the privilege that should be checked
+     * @param recht the privilege that should be checked
      * @return {@code true} if the privilege has been granted, otherwise {@code false}
      */
     boolean hatRecht(String recht);
@@ -30,10 +29,8 @@ public interface Berechtigungsmanager {
     /**
      * Checks that the given privilege has been granted to the currently authenticated principal.
      *
-     * @param recht
-     *         the privilege that should be checked
-     * @throws AccessDeniedException
-     *         if the privilege has not been granted
+     * @param recht the privilege that should be checked
+     * @throws AccessDeniedException if the privilege has not been granted
      */
     void pruefeRecht(String recht) throws AccessDeniedException;
 
@@ -47,8 +44,7 @@ public interface Berechtigungsmanager {
     /**
      * Retrieves an attribute of the access token if the currently authenticated principal is an OAuth 2.0 token.
      *
-     * @param key
-     *         the key to retrieve given attribute
+     * @param key the key to retrieve given attribute
      * @return the attribute in the access token for the given key, or {@code null}
      */
     @Nullable

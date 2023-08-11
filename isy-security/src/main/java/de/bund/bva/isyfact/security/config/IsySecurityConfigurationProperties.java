@@ -8,8 +8,8 @@ public class IsySecurityConfigurationProperties {
     /** Name of the JWT claim that contains the roles. */
     private String rolesClaimName = "roles";
 
-    /** Path to the XML file containing the role/privilege mappings. */
-    private String rolePrivilegeMappingFile = "/resources/sicherheit/rollenrechte.xml";
+    /** Path to the XML file containing the role to privileges mappings. */
+    private String rolePrivilegesMappingFile = "/resources/sicherheit/rollenrechte.xml";
 
     public String getRolesClaimName() {
         return rolesClaimName;
@@ -19,12 +19,12 @@ public class IsySecurityConfigurationProperties {
         this.rolesClaimName = rolesClaimName;
     }
 
-    public String getRolePrivilegeMappingFile() {
-        return rolePrivilegeMappingFile;
+    public String getRolePrivilegesMappingFile() {
+        return rolePrivilegesMappingFile;
     }
 
-    public void setRolePrivilegeMappingFile(String rolePrivilegeMappingFile) {
-        this.rolePrivilegeMappingFile = rolePrivilegeMappingFile;
+    public void setRolePrivilegesMappingFile(String rolePrivilegesMappingFile) {
+        this.rolePrivilegesMappingFile = rolePrivilegesMappingFile;
     }
 
 }
