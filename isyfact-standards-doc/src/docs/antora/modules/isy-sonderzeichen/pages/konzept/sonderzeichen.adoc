@@ -40,7 +40,8 @@ Das BMI hat als Rahmenbedingung für seinen Verantwortungsbereich festgelegt, f�
 Dieser Zeichensatz stellt ausreichend viele der weltweit existierenden Buchstaben, Ziffern und Symbole zur Verfügung, um Daten in internationalen Schreibweisen abbilden zu können.
 
 Gemäß den Anforderungen des String.Latin Zeichensatzes des BMI xref:glossary:literaturextern:inhalt.adoc#litextern-owasp[OWASP Top 10 Project] soll die IsyFact genau diesen Zeichensatz unterstützen.
-Daher wird festgelegt, dass für IsyFact-Standard-basierte Anwendungen der Zeichensatz DIN SPEC 91379 in der UTF-8-Codierung zu verwenden ist.
+Nach Veröffentlichung der DIN Norm 91379 soll diese die DIN SPEC 91379 ersetzen.
+Daher wird festgelegt, dass für IsyFact-Standard-basierte Anwendungen der Zeichensatz DIN Norm 91379 in der UTF-8-Codierung zu verwenden ist.
 
 NOTE: Die Webseiten der KoSIT bieten weitere Informationen zu xref:glossary:literaturextern:inhalt.adoc#litextern-string-latin-1-2[String.Latin 1.2] sowie einen xref:glossary:literaturextern:inhalt.adoc#litextern-string-latin-1-2-download[Download] der entsprechenden Spezifikation.
 
