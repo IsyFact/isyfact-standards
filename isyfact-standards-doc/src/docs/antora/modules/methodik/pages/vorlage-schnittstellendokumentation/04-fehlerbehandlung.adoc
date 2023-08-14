@@ -1,0 +1,64 @@
+// tag::inhalt[]
+
+[[fehlerbehandlung]]
+== Fehlerbehandlung
+
+_In diesem Kapitel wird die Fehlerbehandlung der angebotenen Schnittstellen beschrieben.
+Neben der Beschreibung von Validierungs- und Verarbeitungsfehlern, können der Beschreibung auch weitere Fehlerarten hinzugefügt werden._
+
+[[validierungsfehler]]
+=== Validierungsfehler
+
+_Validierungsfehler werden durch fehlerhafte fachliche Bedingungen beim Eingang von Nachrichten ausgelöst.
+Zu einer Nachricht werden alle Validierungsfehler gesammelt und an den Aufrufer übermittelt.
+Die möglichen Validierungsfehler sind bei den Aufbauregeln der einzelnen Anfragenachrichten beschrieben.
+In diesem Kapitel sollen mindestens folgende Aspekte beschrieben werden:_
+
+* _Validierungsarten (Format, Fachliche Anforderungen, etc.)_
+* _Behandlung der Validierungsfehler (Organisationssicht)_
+
+[[verarbeitungsfehler]]
+=== Verarbeitungsfehler
+
+_Verarbeitungsfehler sind technische Ausnahmefehler, die zum Beispiel bei technischen Verarbeitungsproblemen oder einer nicht Schemakonformen-Nachricht auftreten können._
+
+_In diesem Kapitel sollen mindestens folgende Aspekte beschrieben werden:_
+
+* _Behandlung der Verarbeitungsfehler (Organisationssicht)_
+
+[[aufbau-fehlernachricht-nsebezeichnung-schnittstellenentitaet]]
+=== Aufbau der Fehlernachricht NSE_<Bezeichnung der Schnittstellenentität>
+
+_In diesem Kapitel wird der Aufbau der Fehlernachricht beschrieben, die bei einem Validierungs- oder Verarbeitungsfehler an den Aufrufer zurückgegeben wird.
+Die Fehlernachricht ist als Schnittstellenentität ein Teil der Schnittstellenbeschreibung in Kapitel 3.
+Da in vielen Fällen die gleiche Schnittstellentität als Fehlernachricht für mehrere Schnittstellen verwendet wird, wird die Fehlernachricht zentral in diesem Kapitel beschrieben._
+
+[[image-fehlernachricht-nse]]
+.NSE_Fehlernachricht
+image::vorlage-schnittstellendokumentation/nse-fehlernachricht.png[]
+
+[[table-kurzbeschreibung-fachl-elemente-schnittstelle]]
+[cols="1,3"]
+|===
+|*Kurzbeschreibung* |_Die Fehlernachricht enthält alle Entitäten um die fachlichen Fehler bei einem Schnittstellenaufruf zurückzuliefern._
+|===
+
+[[schnittstellenentitaetstyp-nsefehler]]
+==== Schnittstellenentitätstyp NSE_Fehler
+
+[[table-kurzbeschreibung-aufgetretener-fehler]]
+[cols="1,3"]
+|===
+|*Kurzbeschreibung* |_Enthält die Beschreibung des aufgetretenen Fehlers._
+|===
+
+[[table-schnittstellenattribut-typ-nse-3]]
+[cols="1,1,1", options="header"]
+|===
+|*Attribut* |*Datentyp* |*Bedeutung*
+|_Name des Nachbarschnittstellenattributs beginnend mit dem Präfix +„NSA_“+._ |_Verweis auf den fachlichen Datentyp (siehe Kapitel „3.3 Datenmodell) oder auf einen einfachen Datentyp („Zeichenkette“, „Ganzzahl“, „Fließkomma-zahl“ etc.)._ |_Kurze Beschreibung des Attributs._
+|_NSA_Fehlertext_ |_DTY_Zeichenkette_ |_Textuelle Kurzbeschreibung des fachlichen Fehlers._
+|===
+
+
+// end::inhalt[]

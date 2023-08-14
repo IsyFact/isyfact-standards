@@ -1,0 +1,76 @@
+// tag::inhalt[]
+
+_Dieser Lizenztext bezieht sich auf die Vorlage.
+In Dokumenten, die auf der Vorlage basieren, ist dieser Text zu löschen._
+
+====
+[.underline]#Allgemeine Hinweise zur Dokumentvorlage#
+
+
+_Diese Dokumentvorlage enthält die Gliederung für eine V-Modell-konforme Gesamtsystemspezifikation (Pflichtenheft) eines Softwaresystems (Software-Entwicklungsprojekt) mitsamt Ausfüllhinweisen und Beispielen in den jeweiligen Kapiteln.
+Die Hinweise und Beispiele (auch dieser Abschnitt) sind in der Spezifikation für ein (Software-)System später zu entfernen.
+Sie dienen nur als Hilfestellung für die Erstellung des Dokuments._
+
+_Nach V-Modell wird zwischen einem Lasten- und Pflichtenheft unterschieden.
+Das Lastenheft soll nach V-Modell alle fachlichen Anforderungen an das zu entwickelnde System enthalten und wird vom Auftraggeber als Dokument sowie ggf. (in Zusammenarbeit mit dem Auftragnehmer) als Anforderungsliste erstellt.
+Das Pflichtenheft konkretisiert diese Anforderungen und fügt bei Bedarf neue Anforderungen hinzu.
+Ziel des Pflichtenhefts ist es, alle funktionalen und nicht-funktionalen Anforderungen an das neu zu entwickelnde System zu beschreiben.
+Es wird vom Auftragnehmer in Zusammenarbeit mit dem Auftraggeber erstellt._
+
+__Die Gliederungen von Lasten- und Pflichtenheft unterscheiden sich laut Dokumentvorlage aus dem V-Modell nur minimal.
+Das Lastenheft wird in der Praxis aber entweder weniger formal notiert als das hier beschriebene Pflichtenheft oder in Form einer Anforderungsliste__footnote:[Siehe 40_Methodik\10_Systemspezifikation\IsyFact-Vorlage-Anforderungsliste.xlsx] _erstellt.
+Im Lastenheft notiert der Kunde seine Anforderungen an das neu zu erstellende Anwendungssystem oder an die Änderungen daran._
+
+_Das Pflichtenheft für ein neu zu erstellendes System soll der hier beschriebenen Spezifikationsmethodik genügen.
+Hierbei kann es abhängig von der Funktionalität sinnvoll sein, von den hier aufgestellten Regeln abzuweichen, um die Spezifikation verständlicher und kompakter zu gestalten.
+Dies ist mit dem Kunden im Vorhinein abzustimmen._
+
+_Für Änderungen an bestehenden Systemen ist die hier beschriebene Methodik hingegen mit Augenmaß anzuwenden.
+Für kleine Änderungen kann ein informeller Text zur geplanten Änderung genügen, der vom Kunden abgenommen wird.
+Für größere Änderungen kann es Sinn machen, Teile der hier beschriebenen Methodik zu nutzen oder bestehende Dokumente nach dieser Methodik anzupassen und die Änderungen zu markieren._
+
+_Zur Ablösung eines Altsystems durch ein neu erstelltes System muss die Datenmigration, eine Inbetriebnahmeplanung und ein Prozess zur Schulung der Mitarbeiter beschrieben werden.
+Diese Punkte werden hier nicht dokumentiert._
+
+_Sowohl Systemspezifikationen neu erstellter Anwendungssysteme als auch Änderungen an bestehenden Anwendungssystemen werden nach Inbetriebnahme in eine zentrale „Masterspezifikation“ integriert.
+Zu diesem Zeitpunkt müssen auch informell beschriebene bzw. informell abgesprochene Änderungen in die Systemspezifikation des jeweiligen Anwendungssystems nach dieser Spezifikationsmethodik zurückfließen._
+
+_Die Gliederungen in den Dokumentvorlagen des V-Modells XT sind für die Spezifikation von Softwaresystemen nicht konkret genug, um auszuschließen, dass wesentliche Anforderungen vergessen werden.
+Auf Basis der Erfahrungen in bisherigen Projekten wurde die vorliegende Dokumentvorlage erstellt, die eine Konkretisierung der Vorlagen aus dem V-Modell XT ist.
+Das Mapping dieser Gliederung mit den Dokumentvorlagen des V-Modells XT zeigt die nachfolgende Abbildung._
+
+[[spezifikationslogik]]
+.Abbildung der Spezifikationsmethodik auf das V-Modell XT
+image::vorlage-systemspezifikation/abbildung-spezifikationsmethodik-auf-v-modell-xt.png[]
+
+
+_Für die Bezeichnung von Elementen der Systemspezifikation wird folgende Konvention verwendet, um den Typ des Elements kenntlich zu machen:_
+
+_<Elementtypkürzel>_<Name_des_Elements>_
+
+_Der Typ des Elements wird in gekürzter Form dem Elementnamen vorangestellt.
+Der Elementname wird mit Unterstrichen statt mit Leerzeichen notiert (z.B. DIA_Personalien_ändern)._
+_Durch diese Schreibweise wird die spätere Durchsuchbarkeit und eindeutige Identifikation der Elemente gewährleistet._
+
+_Jedes Element wird im Spezifikationsdokument in einem Kapitel mit einer Überschrift im folgenden Format notiert:_
+
+_<Elementtyp> <Elementtypkürzel>_<Name_des_Elements>_
+
+_Zum Beispiel „Dialog DIA_Personalien_ändern“._
+
+_Die Gliederung der Überschriften soll dem Muster aus diesem Dokument entsprechen.
+Die Inhalte der jeweiligen Kapitel werden nachfolgend beschrieben._
+
+****
+Für die Erstellung der UML- Diagramme, die in diesem Dokument als Beispiele aufgeführt sind, wurde das Werkzeug „Enterprise Architect“ der Firma SparxSystems verwendet.
+Abschnitte in dieser Darstellung erklären, wie das jeweils davor abgebildete Diagramm im Enterprise Architect zu erstellen ist.
+
+*Anstelle des Enterprise Architect kann auch jedes andere Modellierungswerkzeug eingesetzt werden, dass den Sprachumfang von UML in hinreichender Breite abdeckt.*
+
+Falls Sie den Enterprise Architect einsetzen, können Sie Kapitel 14 generelle Hinweise entnehmen, wie dieser zu verwenden ist.
+*Bitte dieses Kapitel zuerst lesen!* Wichtig sind insbesondere die zu verwendenden UML-Profile, die zu verwendende Paket-Struktur und die Tipps zum Umgang.
+****
+====
+
+// end::inhalt[]
+

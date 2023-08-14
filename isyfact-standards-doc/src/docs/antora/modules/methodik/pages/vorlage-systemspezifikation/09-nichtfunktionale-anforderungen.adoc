@@ -1,0 +1,221 @@
+// tag::inhalt[]
+
+[[nichtfunktionale-anforderungen]]
+== Nichtfunktionale Anforderungen
+
+_Die Spezifikation der nichtfunktionalen Anforderungen umfasst alle Anforderungen, die nicht der Fachlichkeit und dem funktionalen Verhalten des Anwendungssystems zugerechnet werden können und die nicht in anderen Abschnitten der Spezifikation behandelt werden.
+Nichtfunktionale Anforderungen, die in anderen Spezifikationsabschnitten behandelt werden, sind vor allem die Benutzbarkeitsanforderungen der Dialogspezifikation und die Projektanforderungen._
+
+_Nichtfunktionale Anforderungen verdienen besondere Berücksichtigung, da sie gerne vernachlässigt werden, mitunter schwer umzusetzen sind und gleichzeitig eine hohe Bedeutung für den Projekterfolg haben können (z.B. Laufzeitverhalten des Anwendungssystems)._
+
+_Erfahrungsgemäß können hier beschriebene Anforderungen projektweite Auswirkungen entfalten oder zu erheblichen Mehraufwänden führen.
+Deshalb sind solche Anforderungen sehr gewissenhaft aufzustellen und auf das fachlich notwendige Maß zu beschränken._
+
+_Beispiel: Es ist natürlich immer wünschenswert, bei Online-Funktionen eine Antwortzeit von maximal 3 Sekunden zu fordern.
+Eine solche Forderung kann aber je nach Komplexität der Anwendungsarchitektur dazu führen, dass Hard- und Softwarekosten entstehen, die in keinem Verhältnis zum Nutzen stehen._
+
+[[performanz-antwortzeitverhalten]]
+=== Performanz und Antwortzeitverhalten
+
+_Die Anforderungen an das Antwortzeitverhalten im Dialog und die Verarbeitungsdauer im Batch sind wichtige Parameter für die technische Architektur des Anwendungssystems.
+Oft erhält man hier Angaben wie "Antwortzeit im Dialog max. 10 Sekunden".
+Idealerweise sollten aber Performanz-Anforderungen je Anwendungsfall spezifiziert werden.
+Hier ist dann der Ort, an dem diese Informationen dann noch einmal tabellarisch zusammengefasst dargestellt werden._
+
+[[nfaname-anforderung-1]]
+==== NFA_<Name der Anforderung>
+
+[[table-nfa]]
+.Anforderungen an <SYSTEM>
+[cols="1,4",options="header"]
+|====
+2+|*NFA_<Name der Anforderung>*
+|*Kurzbeschreibung* |_Ein kurzer Satz, was gefordert wird._
+|*Prüfkriterien* |_wie wissen Sie, ob die Anforderung erfüllt ist?_
+|*Quellen* |_Wer hat die Anforderung gestellt?_
+|*Priorisierung* |_Vorzugsweise Bewertung mittels Unzufriedenheits-/Zufriedenheits-Maß_
+2+|
+2+|*NFA_<Name der Anforderung>*
+|*Kurzbeschreibung* |_Ein kurzer Satz, was gefordert wird._
+|*Prüfkriterien* |_wie wissen Sie, ob die Anforderung erfüllt ist?_
+|*Quellen* |_Wer hat die Anforderung gestellt?_
+|*Priorisierung* |_Vorzugsweise Bewertung mittels Unzufriedenheits-/Zufriedenheits-Maß_
+2+|
+2+|*NFA_<Name der Anforderung>*
+|*Kurzbeschreibung* |_Ein kurzer Satz, was gefordert wird._
+|*Prüfkriterien* |_wie wissen Sie, ob die Anforderung erfüllt ist?_
+|*Quellen* |_Wer hat die Anforderung gestellt?_
+|*Priorisierung* |_Vorzugsweise Bewertung mittels Unzufriedenheits-/Zufriedenheits-Maß_
+|====
+
+_Optional können zusätzlich folgende Felder aufgenommen werden:_
+
+* _Begründung (warum ist die Anforderung wichtig?)_
+* _Abhängigkeiten (Verweise auf andere Anforderungen, die das gleiche Thema betreffen)_
+* _Zusätzliche Materialien (Verweise auf Definitionen, Modelle und Dokumente, die die Anforderung verdeutlichen)_
+* _Historie (Änderungshistorie der Anforderung)_
+* _Verweise auf die Anwendungsfälle, auf welche sich die Anforderung bezieht._
+
+[[nfaperformanzundantwortzeitverhalten-optional]]
+==== NFA_Performanz_und_Antwortzeitverhalten (optional)
+
+[[table-performanz]]
+.Performanz und Antwortzeitverhalten
+[cols="1,4",options="header"]
+|====
+2+|Performanz und Antwortzeitverhalten
+|*Kurzbeschreibung* a|
+_Die Verarbeitung einer <Meldung / Auskunft / …> muss im <System> in <Prozent> der Fälle innerhalb von <Sekunden> durchgeführt werden._
+
+_In weiteren <Prozent> der Fälle muss sie innerhalb von <Sekunden> durchgeführt werden._
+
+_In <Prozent> der Fälle sind längere Antwortzeiten erlaubt._
+
+_Die Messung der Antwortzeit erfolgt an der <Service-Schnittstelle des Systems / …>._
+
+_Die Antwortzeiten von Nachbarsystemen sind <nicht> in den geforderten Antwortzeiten enthalten._
+
+|*Prüfkriterien* |_<Test in Staging-Umgebung mit Echtdaten / Verwendung von JMeter / …> <Nachbarsysteme werden durch Stubs ersetzt / …>_
+|*Quellen* |_<Quelle der Anforderung>_
+|*Priorisierung* |_<hoch / mittel / niedrig>_
+|====
+
+
+[[nfaname-anforderung-2]]
+==== NFA_<Name der Anforderung>
+
+_Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier weitere nichtfunktionale Anforderungen zu beschreiben sind._
+
+[[lastverhalten-mengengeruest]]
+=== Lastverhalten und Mengengerüst
+
+_Mengengerüste können sich auf Aspekte wie Benutzerzahlen, Benutzungshäufigkeit, zeitliche und räumliche Verteilung der Benutzung, Menge fachlicher Objekte und Datenvolumen beziehen.
+Die Mengengerüste sind eine wichtige Bezugsgröße für nichtfunktionale Anforderungen.
+Zum Beispiel sind Performanzanforderungen nur dann aussagekräftig, wenn sie sich als Voraussetzung und Annahme auf ein konkretes Mengengerüst beziehen.
+Das Mengengerüst selbst ist auch eine wichtige Anforderung, die für die Konstruktion große Bedeutung besitzt._
+
+_Die maximale Last, die das Anwendungssystem verarbeiten können muss, wird spezifiziert.
+Idealerweise kann das je Anwendungsfall angegeben werden.
+Außerdem sind Angaben zu der maximalen gleichzeitig zu erwartenden Benutzeranzahl (parallele Sessions) zu machen._
+
+[[nfalastverhaltenundmengengeruest-optional]]
+==== NFA_Lastverhalten_und_Mengengerüst (optional)
+
+[[table-lastverhalten]]
+.Lastverhalten und Mengengerüst
+[cols="1,4",options="header"]
+|====
+2+|Lastverhalten und Mengengerüst
+|*Kurzbeschreibung* |_<Das System> muss in der Lage sein, in Stoßzeiten <Zahl> <Auskünfte/Meldungen/… pro Zeiteinheit> zu verarbeiten._
+|*Prüfkriterien* |_<Test in Staging-Umgebung mit Echtdaten / Verwendung von JMeter / …> < Nachbarsysteme werden durch Stubs ersetzt / …>_
+|*Quellen* |_<Quelle der Anforderung>_
+|*Priorisierung* |_<hoch / mittel / niedrig>_
+|====
+
+[[nfaname-anforderung-3]]
+==== NFA_<Name der Anforderung>
+
+_Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier weitere nichtfunktionale Anforderungen zu beschreiben sind._
+
+[[verfuegbarkeit1]]
+=== Verfügbarkeit
+
+_In diesem Kapitel werden besondere Anforderungen an die Verfügbarkeit spezifiziert.
+Die Verfügbarkeit wird über einen Prozentwert gemessen, der unter Berücksichtigung von definierten Betriebs- und Wartungsfenstern angibt, wie ausfallsicher ein Anwendungssystem sein soll und tatsächlich ist.
+Spezifiziert wird die geplante Betriebszeit, unterschieden nach Online und Batchbetrieb.
+Zum Beispiel wird hier angegeben, dass der Dialog jeweils Montag bis Freitag von 07:00 bis 19:00 Uhr zur Verfügung stehen muss.
+Alternativ wird auch einfach nur ein Prozentwert angegeben, zum Beispiel 99%._
+
+_Wichtig ist, dass klar spezifiziert wird, wie die Verfügbarkeit des Anwendungssystems exakt definiert ist._
+Abbildung 24 _gibt einen Überblick, was zu berücksichtigen ist._
+
+[[verfuegbarkeit-2]]
+.Verfügbarkeit
+image::vorlage-systemspezifikation/verfuegbarkeit.png[]
+
+
+[[nfaverfuegbarkeit-optional]]
+==== NFA_Verfügbarkeit (optional)
+
+[[table-verfuegbarkeit]]
+.Verfügbarkeit
+[cols="1,4",options="header"]
+|====
+2+|Verfügbarkeit
+|*Kurzbeschreibung* |_<Das System> muss <durchgängig (7x24) / zu den normalen Büro-Zeiten (Mo-Fr, 06:30 Uhr bis 21 Uhr) / ...> zu <Prozent> der Zeit verfügbar sein.
+Ausfälle von Nachbarsystemen werden <nicht> als Ausfall des <Systems> gewertet._
+|*Prüfkriterien* |_<Das System> wird zunächst in der Staging-Umgebung einem Stabilitätstest unterzogen.
+Im laufenden Betrieb wird die Erreichung der Anforderung durch Statistiken nachgewiesen._
+|*Quellen* |_<Quelle der Anforderung>_
+|*Priorisierung* |_<hoch / mittel / niedrig>_
+|====
+
+[[nfaname-anforderung-4]]
+==== NFA_<Name der Anforderung>
+
+_Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier weitere nichtfunktionale Anforderungen zu beschreiben sind._
+
+[[systemsicherheit]]
+=== Systemsicherheit
+
+_In diesem Kapitel werden besondere Anforderungen an den Systemzugang spezifiziert.
+Hier ist zu spezifizieren, welche Besonderheiten für den Administrator-, Entwickler- und Anwenderzugang sowie für die Konfiguration des Systems und des unterliegenden Betriebssystems zu berücksichtigen sind._
+
+[[nfaname-anforderung-5]]
+==== NFA_<Name der Anforderung>
+
+_Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier weitere nichtfunktionale Anforderungen zu beschreiben sind._
+
+[[vertraulichkeit]]
+=== Vertraulichkeit
+
+_In diesem Kapitel werden besondere Anforderungen an den Schutz der Vertraulichkeit von Daten spezifiziert.
+Diese dienen der Verhinderung der Preisgabe von Informationen an Unbefugte, beispielsweise durch unverschlüsselte Übertragung._
+
+[[nfaname-anforderung-6]]
+==== NFA_<Name der Anforderung>
+
+_Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier weitere nichtfunktionale Anforderungen zu beschreiben sind._
+
+[[datensicherheit]]
+=== Datensicherheit
+
+_In diesem werden besondere Anforderungen an den Schutz von Daten vor Verlust und unberechtigter Veränderung spezifiziert.
+Das zu spezifizierende Anwendungssystem wird sich nach seiner Fertigstellung in eine bestehende Systemlandschaft integrieren.
+I.d.R. sind für die Systemlandschaft bereits Regeln zur Datensicherheit definiert, die dokumentiert und zu berücksichtigen sind.
+Gelten für das neue System keine besonderen Regeln, reicht hier der Verweis auf ein übergeordnetes Dokument._
+
+[[nfaname-anforderung-7]]
+==== NFA_<Name der Anforderung>
+
+_Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier weitere nichtfunktionale Anforderungen zu beschreiben sind._
+
+[[nachvollziehbarkeit]]
+=== Nachvollziehbarkeit
+
+_In diesem Kapitel werden besondere Anforderungen an die Nachvollziehbarkeit spezifiziert. Nachvollziehbar gemacht werden sollen die durchgeführten Aktionen und die Bedingungen, unter denen diese ausgeführt wurden.
+Dies kann sich beispielsweise auf die An- und Abmeldungen eines Benutzer beziehen und auf die Aktionen, die dieser durchgeführt hat, oder auf die Durchführung eines Batches.
+Zur Herstellung von Nachvollziehbarkeit können Protokolleinträge verwendet werden.
+Die Speicherdauer von Protokolleinträgen sollte hierbei immer spezifiziert werden._
+
+[[nfaname-anforderung-8]]
+==== NFA_<Name der Anforderung>
+
+_Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier weitere nichtfunktionale Anforderungen zu beschreiben sind._
+
+[[verbindlichkeit]]
+=== Verbindlichkeit
+
+_In diesem Kapitel werden besondere Anforderungen an die Verbindlichkeit spezifiziert.
+Verbindlichkeit wird hier als Kombination von Authentizität und Nichtabstreitbarkeit definiert.
+Authentizität beschreibt die Sicherstellung der Identität eines Kommunikationspartners.
+Dies kann sich sowohl auf den Versender als auch auf den Empfänger von Nachrichten bzw. den Anbieter und den Nutzer von Diensten beziehen.
+Nichtabstreitbarkeit beschreibt die Eigenschaft, dass der Empfang von Nachrichten bzw. die Verwendung von Diensten nicht in Abrede gestellt werden kann._
+
+[[nfaname-anforderung-9]]
+==== NFA_<Name der Anforderung>
+
+_Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier weitere nichtfunktionale Anforderungen zu beschreiben sind._
+
+// end::inhalt[]
+

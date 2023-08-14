@@ -1,0 +1,9 @@
+= Anleitung zur Erstellung und zum Lesen von Datenflussdiagrammen
+
+include::glossary:licence:partial$licence.adoc[]
+
+include::00-copyright-allgem-hinweise.adoc[tags=inhalt]
+include::01-einleitung.adoc[tags=inhalt]
+include::02-beispiel.adoc[tags=inhalt]
+include::03-datenfluesse-xyz.adoc[tags=inhalt]
+include::04-datenfluesse-abc.adoc[tags=inhalt]

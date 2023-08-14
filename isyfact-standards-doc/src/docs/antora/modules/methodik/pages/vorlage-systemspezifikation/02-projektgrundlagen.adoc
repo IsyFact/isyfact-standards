@@ -1,0 +1,33 @@
+// tag::inhalt[]
+[[projektgrundlagen]]
+== Projektgrundlagen
+
+[[ziele-rahmenbedingungen]]
+=== Ziele und Rahmenbedingungen
+
+_Die zentralen Ziele und Rahmenbedingungen bilden das einleitende Kapitel einer Spezifikation.
+Damit wird ein inhaltlicher Einstieg in die Spezifikation gegeben.
+Es werden die folgenden Themen behandelt:_
+
+* _Zweck und Ziele des Systems bzw. des Projektes_
+* _Ausgrenzungen bezüglich des Projektumfangs_
+* _Projektbeteiligte und Nutzer des Systems_
+* _Vorgaben und Rahmenbedingungen des Projektes (fachlich, technologisch, organisatorisch, politisch, gesetzlich, etc.)_
+* _Kurzer Abriss der Projekthistorie_
+* _Bedeutende Projektrisiken_
+
+[[fachlicher-architekturueberblick]]
+=== Fachlicher Architekturüberblick
+
+_Der Architekturüberblick beschreibt die Einordnung des zu entwickelnden Anwendungssystems in die Anwendungslandschaft des Auftraggebers aus fachlicher Sicht.
+Er identifiziert die Nachbarsysteme und stellt deren Schnittstellen dar.
+Das Anwendungssystem wird grob in Anwendungskomponenten gegliedert, wobei sich diese Gliederung hier ausschließlich an der Fachlichkeit orientiert._
+
+_Der Architekturüberblick sollte knapp und klar gestaltet werden.
+Ein gutes Übersichtsbild zeigt die Einordnung des Anwendungssystems in die bestehende Anwendungslandschaft und kann einen Eindruck von der Komplexität des Vorhabens aufzeigen._
+
+_Im Rahmen der Masterspezifikation wird ein Architekturüberblick der gesamten Anwendungslandschaft gepflegt, in die sich die Anwendung einordnet.
+Dieser ist nach Inbetriebnahme zu aktualisieren._
+
+// end::inhalt[]
+
