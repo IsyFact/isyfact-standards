@@ -31,26 +31,29 @@ Die Vorlage Systemspezifikation enthält die Gliederung für eine V-Modell-konfo
 
 [[table-dokumentation-anwendung]]
 .Vorlagen zur Dokumentation einer Anwendung
-[cols="1s,1,1,1",options="header"]
+[cols="1s,1,1,1,1",options="header"]
 |====
 .^|Vorlage
 .^|Quelldatei +
-(AsciiDoc / Word)
-2+^.^|Downloads (ZIP & PDF)
+(AsciiDoc)
+3+^.^|Downloads (ZIP, PDF, Word)
 
 |Systemspezifikation
-|xref:methodik:attachment$spezifikation/IsyFact-Vorlage_Systemspezifikation.dotx[Download icon:file-word-o[]]
+|Ansehen icon:file-text-o[]
 2+|
+|xref:methodik:attachment$spezifikation/IsyFact-Vorlage_Systemspezifikation.dotx[Download icon:file-word-o[]]
 
 |Systementwurf
 |xref:vorlage-systementwurf/antora-master.adoc[Ansehen icon:file-text-o[]]
 |xref:methodik:attachment$vorlage-generated/IsyFact-Vorlage-Systementwurf.zip[Download icon:file-archive-o[]]
 |xref:methodik:attachment$vorlage-generated/IsyFact-Vorlage-Systementwurf.pdf[Download icon:file-pdf-o[]]
+|xref:methodik:attachment$entwurf-handbuch/IsyFact-Vorlage_Systementwurf.dotx[Download icon:file-word-o[]]
 
 |Systemhandbuch
 |xref:vorlage-systemhandbuch/antora-master.adoc[Ansehen icon:file-text-o[]]
 |xref:methodik:attachment$vorlage-generated/IsyFact-Vorlage-Systemhandbuch.zip[Download icon:file-archive-o[]]
 |xref:methodik:attachment$vorlage-generated/IsyFact-Vorlage-Systemhandbuch.pdf[Download icon:file-pdf-o[]]
+|Download icon:file-word-o[]
 |====
 
 
