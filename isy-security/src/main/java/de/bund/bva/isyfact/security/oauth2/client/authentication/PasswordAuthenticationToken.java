@@ -1,34 +1,31 @@
 package de.bund.bva.isyfact.security.oauth2.client.authentication;
 
-import org.springframework.security.authentication.AbstractAuthenticationToken;
-import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.lang.Nullable;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 
 /**
- * AuthenticationToken holding parameters for Resource Owner Password Credentials Flow authentication.
+ * AuthenticationToken holding parameters required for creating a Client to use with Client Credentials Flow authentication.
  */
-public class PasswordAuthenticationToken extends AbstractAuthenticationToken {
+public class PasswordAuthenticationToken extends AbstractClientRegistrationAuthenticationToken {
 
-    /** Client Registration of the OAuth 2.0 client that is configured for password grant authentication. */
-    private final ClientRegistration clientRegistration;
+    /** The resource owner's username. */
+    private final String username;
 
-    public PasswordAuthenticationToken(ClientRegistration clientRegistration) {
-        super(AuthorityUtils.NO_AUTHORITIES);
-        this.clientRegistration = clientRegistration;
+    /** The resource owner's password. */
+    private final String password;
+
+    public PasswordAuthenticationToken(ClientRegistration clientRegistration, String username, String password, @Nullable String bhknz) {
+        super(username, clientRegistration, bhknz);
+        this.username = username;
+        this.password = password;
         setAuthenticated(false);
     }
 
-    @Override
-    public Object getPrincipal() {
-        return "Authentifizierungsmanager"; // TODO this should include the regId?
+    public String getUsername() {
+        return username;
     }
 
-    @Override
-    public Object getCredentials() {
-        return "";
-    }
-
-    public ClientRegistration getClientRegistration() {
-        return clientRegistration;
+    public String getPassword() {
+        return password;
     }
 }

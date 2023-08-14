@@ -2,18 +2,21 @@ package de.bund.bva.isyfact.security.oauth2.client;
 
 import org.springframework.lang.Nullable;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.oauth2.client.registration.ClientRegistrations;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.util.Assert;
 
+import de.bund.bva.isyfact.security.config.IsyOAuth2ClientConfigurationProperties;
+import de.bund.bva.isyfact.security.config.IsyOAuth2ClientConfigurationProperties.AdditionalRegistrationProperties;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.ClientCredentialsAuthenticationToken;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.ManualClientCredentialsAuthenticationToken;
-import de.bund.bva.isyfact.security.oauth2.client.authentication.ManualPasswordAuthenticationToken;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.PasswordAuthenticationToken;
 
 /**
@@ -38,6 +41,9 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
      */
     private final ProviderManager providerManager;
 
+    /** Global isy-security Configuration properties. */
+    private final IsyOAuth2ClientConfigurationProperties isyOAuth2ClientProps;
+
     /**
      * Repository containing the OAuth 2.0 client registrations.
      * Used to get the authorization grant type for a client registration ID.
@@ -46,8 +52,10 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
     private final ClientRegistrationRepository clientRegistrationRepository;
 
     public IsyOAuth2Authentifizierungsmanager(ProviderManager providerManager,
+                                              IsyOAuth2ClientConfigurationProperties isyOAuth2ClientProps,
                                               @Nullable ClientRegistrationRepository clientRegistrationRepository) {
         this.providerManager = providerManager;
+        this.isyOAuth2ClientProps = isyOAuth2ClientProps;
         this.clientRegistrationRepository = clientRegistrationRepository;
     }
 
@@ -68,7 +76,13 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
         Assert.notNull(clientId, "clientId cannot be null");
         Assert.notNull(clientSecret, "clientSecret cannot be null");
 
-        Authentication unauthenticatedToken = new ManualClientCredentialsAuthenticationToken(issuerLocation, clientId, clientSecret, bhknz);
+        ClientRegistration clientRegistration = ClientRegistrations.fromIssuerLocation(issuerLocation)
+                .clientId(clientId)
+                .clientSecret(clientSecret)
+                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                .build();
+
+        Authentication unauthenticatedToken = new ManualClientCredentialsAuthenticationToken(clientRegistration, bhknz);
         authenticateAndChangeAuthenticatedPrincipal(unauthenticatedToken);
     }
 
@@ -86,7 +100,13 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
         Assert.notNull(username, "username cannot be null");
         Assert.notNull(password, "password cannot be null");
 
-        Authentication unauthenticatedToken = new ManualPasswordAuthenticationToken(issuerLocation, clientId, clientSecret, username, password, bhknz);
+        ClientRegistration clientRegistration = ClientRegistrations.fromIssuerLocation(issuerLocation)
+                .clientId(clientId)
+                .clientSecret(clientSecret)
+                .authorizationGrantType(AuthorizationGrantType.PASSWORD)
+                .build();
+
+        Authentication unauthenticatedToken = new PasswordAuthenticationToken(clientRegistration, username, password, bhknz);
         authenticateAndChangeAuthenticatedPrincipal(unauthenticatedToken);
     }
 
@@ -104,11 +124,25 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
         }
         Assert.notNull(clientRegistration, "Could not find ClientRegistration with id '" + oauth2ClientRegistrationId + "'");
 
+        // load additional props for this registration ID, can be null
+        AdditionalRegistrationProperties props = isyOAuth2ClientProps.getRegistration().get(clientRegistration.getRegistrationId());
+        String bhknz = null;
+        if (props != null) {
+            // the BHKNZ is optional but can be set for CC or ROPC
+            bhknz = props.getBhknz();
+        }
+
         AuthorizationGrantType grantType = clientRegistration.getAuthorizationGrantType();
         if (AuthorizationGrantType.CLIENT_CREDENTIALS.equals(grantType)) {
-            return new ClientCredentialsAuthenticationToken(oauth2ClientRegistrationId);
+            return new ClientCredentialsAuthenticationToken(oauth2ClientRegistrationId, bhknz);
         } else if (AuthorizationGrantType.PASSWORD.equals(grantType)) {
-            return new PasswordAuthenticationToken(clientRegistration);
+            // ROPC requires the username and password to be set in the additional properties
+            if (props == null) {
+                throw new BadCredentialsException(
+                        String.format("No configured credentials found for client with registrationId: %s.", clientRegistration.getRegistrationId()));
+            }
+
+            return new PasswordAuthenticationToken(clientRegistration, props.getUsername(), props.getPassword(), bhknz);
         } else {
             throw new IllegalArgumentException("The AuthorizationGrantType '" + grantType.getValue() + "' is not supported.");
         }

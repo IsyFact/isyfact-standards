@@ -1,27 +1,35 @@
 package de.bund.bva.isyfact.security.oauth2.client.authentication;
 
 import org.springframework.lang.Nullable;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.client.ClientAuthorizationException;
+import org.springframework.security.oauth2.client.OAuth2AuthorizationContext;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientProvider;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientProviderBuilder;
+import org.springframework.security.oauth2.client.endpoint.DefaultPasswordTokenResponseClient;
+import org.springframework.security.oauth2.client.endpoint.OAuth2AccessTokenResponseClient;
+import org.springframework.security.oauth2.client.endpoint.OAuth2PasswordGrantRequest;
+import org.springframework.security.oauth2.client.endpoint.OAuth2PasswordGrantRequestEntityConverter;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.core.OAuth2Error;
 import org.springframework.security.oauth2.core.OAuth2ErrorCodes;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
-
-import de.bund.bva.isyfact.security.config.IsyOAuth2ClientConfigurationProperties;
-import de.bund.bva.isyfact.security.config.IsyOAuth2ClientConfigurationProperties.AdditionalRegistrationProperties;
+import org.springframework.util.Assert;
 
 /**
  * Authentication Provider to obtain an {@link Authentication} with the OAuth2 Resource Owner Password Credentials flow.
  */
-public class PasswordAuthenticationProvider extends AbstractPasswordAuthenticationProvider {
+public class PasswordAuthenticationProvider extends IsyOAuth2AuthenticationProvider {
+
+    /** Builder for the BHKNZ header converter. */
+    protected final BhknzHeaderConverterBuilder bhknzHeaderConverterBuilder;
 
     public PasswordAuthenticationProvider(JwtAuthenticationConverter jwtAuthenticationConverter,
-                                          IsyOAuth2ClientConfigurationProperties isyOAuth2ClientProps) {
-        super(jwtAuthenticationConverter, isyOAuth2ClientProps);
+                                          BhknzHeaderConverterBuilder bhknzHeaderConverterBuilder) {
+        super(jwtAuthenticationConverter);
+        this.bhknzHeaderConverterBuilder = bhknzHeaderConverterBuilder;
     }
 
     @Override
@@ -37,13 +45,7 @@ public class PasswordAuthenticationProvider extends AbstractPasswordAuthenticati
            the AccessTokenResponseClient before each request in order to set the BHKNZ header. */
         ClientRegistration clientRegistration = token.getClientRegistration();
 
-        AdditionalRegistrationProperties props = isyOAuth2ClientProps.getRegistration().get(clientRegistration.getRegistrationId());
-        if (props == null) {
-            throw new BadCredentialsException(
-                    String.format("No configured credentials found for client with registrationId: %s.", clientRegistration.getRegistrationId()));
-        }
-
-        OAuth2AuthorizedClient authorizedClient = obtainAuthorizedClient(token.getClientRegistration(), token, props.getUsername(), props.getPassword(), props.getBhknz());
+        OAuth2AuthorizedClient authorizedClient = obtainAuthorizedClient(clientRegistration, token, token.getUsername(), token.getPassword(), token.getBhknz());
         if (authorizedClient == null) {
             throw new ClientAuthorizationException(new OAuth2Error(OAuth2ErrorCodes.INVALID_GRANT), clientRegistration.getRegistrationId(),
                     "clientRegistration.authorizationGrantType must be AuthorizationGrantType.PASSWORD");
@@ -55,5 +57,39 @@ public class PasswordAuthenticationProvider extends AbstractPasswordAuthenticati
     @Override
     public boolean supports(Class<?> authentication) {
         return PasswordAuthenticationToken.class.isAssignableFrom(authentication);
+    }
+
+    protected OAuth2AuthorizedClient obtainAuthorizedClient(ClientRegistration clientRegistration, Authentication principal,
+                                                            String username, String password, @Nullable String bhknz) {
+        Assert.hasText(username, "username cannot be empty for client: " + clientRegistration.getRegistrationId());
+        Assert.hasText(password, "password cannot be empty for client: " + clientRegistration.getRegistrationId());
+
+        OAuth2AuthorizationContext authorizationContext = OAuth2AuthorizationContext.withClientRegistration(clientRegistration)
+                .principal(principal)
+                .attribute(OAuth2AuthorizationContext.USERNAME_ATTRIBUTE_NAME, username)
+                .attribute(OAuth2AuthorizationContext.PASSWORD_ATTRIBUTE_NAME, password)
+                .build();
+
+        OAuth2AccessTokenResponseClient<OAuth2PasswordGrantRequest> responseClient = createPasswordTokenResponseClient(bhknz);
+        OAuth2AuthorizedClientProvider clientProvider = OAuth2AuthorizedClientProviderBuilder.builder()
+                .password(passwordGrantBuilder -> passwordGrantBuilder.accessTokenResponseClient(responseClient))
+                .build();
+        return clientProvider.authorize(authorizationContext);
+    }
+
+    private OAuth2AccessTokenResponseClient<OAuth2PasswordGrantRequest> createPasswordTokenResponseClient(@Nullable String bhknz) {
+        // we need to create a new client every time because each request has a unique interceptor
+        DefaultPasswordTokenResponseClient passwordTokenResponseClient = new DefaultPasswordTokenResponseClient();
+
+        if (bhknz != null) {
+            // add a headers converter to the default request entity converter which sets the bhknz header
+            passwordTokenResponseClient.setRequestEntityConverter(passwordGrantRequest -> {
+                OAuth2PasswordGrantRequestEntityConverter converter = new OAuth2PasswordGrantRequestEntityConverter();
+                converter.addHeadersConverter(bhknzHeaderConverterBuilder.buildWith(bhknz));
+                return converter.convert(passwordGrantRequest);
+            });
+        }
+
+        return passwordTokenResponseClient;
     }
 }

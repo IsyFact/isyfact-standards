@@ -22,9 +22,9 @@ import de.bund.bva.isyfact.security.config.IsySecurityConfigurationProperties;
 import de.bund.bva.isyfact.security.core.Berechtigungsmanager;
 import de.bund.bva.isyfact.security.core.Security;
 import de.bund.bva.isyfact.security.oauth2.client.Authentifizierungsmanager;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.BhknzHeaderConverterBuilder;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.ClientCredentialsAuthenticationProvider;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.ManualClientCredentialsAuthenticationProvider;
-import de.bund.bva.isyfact.security.oauth2.client.authentication.ManualPasswordAuthenticationProvider;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.PasswordAuthenticationProvider;
 import de.bund.bva.isyfact.security.xmlparser.RolePrivilegesMapper;
 
@@ -59,14 +59,14 @@ public class IsySecurityAutoConfigurationTest extends AbstractOidcProviderTest {
                         .hasSingleBean(Security.class)
                         // isy oauth2 auto config beans
                         .doesNotHaveBean(IsyOAuth2ClientConfigurationProperties.class)
+                        .doesNotHaveBean(BhknzHeaderConverterBuilder.class)
                         .doesNotHaveBean(ManualClientCredentialsAuthenticationProvider.class)
-                        .doesNotHaveBean(ManualPasswordAuthenticationProvider.class)
+                        .doesNotHaveBean(PasswordAuthenticationProvider.class)
                         .doesNotHaveBean(ProviderManager.class)
                         .doesNotHaveBean(Authentifizierungsmanager.class)
                         // client registration beans
                         .doesNotHaveBean(OAuth2ClientProperties.class)
                         .doesNotHaveBean(ClientCredentialsAuthenticationProvider.class)
-                        .doesNotHaveBean(PasswordAuthenticationProvider.class)
                 );
     }
 
@@ -85,18 +85,18 @@ public class IsySecurityAutoConfigurationTest extends AbstractOidcProviderTest {
                         .hasSingleBean(Security.class)
                         // isy oauth2 auto config beans
                         .hasSingleBean(IsyOAuth2ClientConfigurationProperties.class)
+                        .hasSingleBean(BhknzHeaderConverterBuilder.class)
                         .hasSingleBean(ManualClientCredentialsAuthenticationProvider.class)
-                        .hasSingleBean(ManualPasswordAuthenticationProvider.class)
+                        .hasSingleBean(PasswordAuthenticationProvider.class)
                         .hasSingleBean(ProviderManager.class)
                         .hasSingleBean(Authentifizierungsmanager.class)
                         // client registration beans
                         .doesNotHaveBean(OAuth2ClientProperties.class)
                         .doesNotHaveBean(ClientCredentialsAuthenticationProvider.class)
-                        .doesNotHaveBean(PasswordAuthenticationProvider.class)
                         // provider manager has only the manual provider configured
                         .getBean(ProviderManager.class).extracting(ProviderManager::getProviders, as(InstanceOfAssertFactories.LIST))
                         .map(Object::getClass).map(Class::getName)
-                        .containsExactlyInAnyOrder(ManualClientCredentialsAuthenticationProvider.class.getName(), ManualPasswordAuthenticationProvider.class.getName())
+                        .containsExactlyInAnyOrder(ManualClientCredentialsAuthenticationProvider.class.getName(), PasswordAuthenticationProvider.class.getName())
                 );
     }
 
@@ -119,19 +119,19 @@ public class IsySecurityAutoConfigurationTest extends AbstractOidcProviderTest {
                         .hasSingleBean(Security.class)
                         // isy oauth2 auto config beans
                         .hasSingleBean(IsyOAuth2ClientConfigurationProperties.class)
+                        .hasSingleBean(BhknzHeaderConverterBuilder.class)
                         .hasSingleBean(ManualClientCredentialsAuthenticationProvider.class)
-                        .hasSingleBean(ManualPasswordAuthenticationProvider.class)
+                        .hasSingleBean(PasswordAuthenticationProvider.class)
                         .hasSingleBean(ProviderManager.class)
                         .hasSingleBean(Authentifizierungsmanager.class)
                         // client registration beans
                         .hasSingleBean(OAuth2ClientProperties.class)
                         .hasSingleBean(ClientCredentialsAuthenticationProvider.class)
-                        .hasSingleBean(PasswordAuthenticationProvider.class)
                         // provider manager has all three providers configured
                         .getBean(ProviderManager.class).extracting(ProviderManager::getProviders, as(InstanceOfAssertFactories.LIST))
                         .map(Object::getClass).map(Class::getName).containsExactlyInAnyOrder(
                                 ClientCredentialsAuthenticationProvider.class.getName(), PasswordAuthenticationProvider.class.getName(),
-                                ManualClientCredentialsAuthenticationProvider.class.getName(), ManualPasswordAuthenticationProvider.class.getName())
+                                ManualClientCredentialsAuthenticationProvider.class.getName())
                 );
     }
 

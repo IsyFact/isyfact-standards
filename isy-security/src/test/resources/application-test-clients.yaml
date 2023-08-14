@@ -14,6 +14,11 @@ spring:
             client-secret: supersecretpassword
             authorization-grant-type: client_credentials
             provider: testrealm
+          cc-client-with-bhknz:
+            client-id: client-credentials-test-client
+            client-secret: supersecretpassword
+            authorization-grant-type: client_credentials
+            provider: testrealm
           cc-client-invalid:
             client-id: client-credentials-test-client
             client-secret: invalidpassword
@@ -49,11 +54,18 @@ spring:
             client-secret: hypersecretpassword
             authorization-grant-type: password
             provider: testrealm
+          unsupported-client:
+            client-id: unsupported-client
+            client-secret: password
+            authorization-grant-type: unsupported-grant-type
+            provider: testrealm
 isy:
   security:
     oauth2:
       client:
         registration:
+          cc-client-with-bhknz:
+            bhknz: 123456
           cc-client-invalid-with-resource-owner: # CC clients should only have a bhknz
             username: testuser
             password: pw1234

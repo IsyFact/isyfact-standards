@@ -44,7 +44,7 @@ public class ClientCredentialsAuthenticationProviderTest extends AbstractOidcPro
     @Test
     public void shouldGetAuthTokenAndCacheAuthorizedClient() {
         Authentication authentication = clientCredentialsAuthenticationProvider.authenticate(
-                new ClientCredentialsAuthenticationToken("cc-client"));
+                new ClientCredentialsAuthenticationToken("cc-client", null));
 
         // security context is still empty
         SecurityContext securityContext = SecurityContextHolder.getContext();
@@ -65,20 +65,22 @@ public class ClientCredentialsAuthenticationProviderTest extends AbstractOidcPro
         resetAllRequests();
 
         // reauth and verify that no new token was fetched because the authorized client was reused
-        clientCredentialsAuthenticationProvider.authenticate(new ClientCredentialsAuthenticationToken("cc-client"));
+        clientCredentialsAuthenticationProvider.authenticate(new ClientCredentialsAuthenticationToken("cc-client", null));
         verify(0, postRequestedFor(urlEqualTo(ISSUER_PATH + "/protocol/openid-connect/token")));
     }
 
     @Test
     public void shouldThrowAuthExceptionWithInvalidCredentials() {
         assertThrows(ClientAuthorizationException.class,
-                () -> clientCredentialsAuthenticationProvider.authenticate(new ClientCredentialsAuthenticationToken("cc-client-invalid")));
+                () -> clientCredentialsAuthenticationProvider.authenticate(
+                        new ClientCredentialsAuthenticationToken("cc-client-invalid", null)));
     }
 
     @Test
     public void shouldThrowErrorWithWrongClient() {
         ClientAuthorizationException exception = assertThrows(ClientAuthorizationException.class,
-                () -> clientCredentialsAuthenticationProvider.authenticate(new ClientCredentialsAuthenticationToken("ropc-client")));
+                () -> clientCredentialsAuthenticationProvider.authenticate(
+                        new ClientCredentialsAuthenticationToken("ropc-client", null)));
 
         assertEquals(OAuth2ErrorCodes.INVALID_GRANT, exception.getError().getErrorCode());
         assertEquals("ropc-client", exception.getClientRegistrationId());

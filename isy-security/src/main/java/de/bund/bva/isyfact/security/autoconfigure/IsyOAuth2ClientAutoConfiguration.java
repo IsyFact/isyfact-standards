@@ -13,6 +13,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.lang.Nullable;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
@@ -29,9 +30,9 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import de.bund.bva.isyfact.security.config.IsyOAuth2ClientConfigurationProperties;
 import de.bund.bva.isyfact.security.oauth2.client.Authentifizierungsmanager;
 import de.bund.bva.isyfact.security.oauth2.client.IsyOAuth2Authentifizierungsmanager;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.BhknzHeaderConverterBuilder;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.ClientCredentialsAuthenticationProvider;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.ManualClientCredentialsAuthenticationProvider;
-import de.bund.bva.isyfact.security.oauth2.client.authentication.ManualPasswordAuthenticationProvider;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.PasswordAuthenticationProvider;
 
 /**
@@ -53,6 +54,14 @@ public class IsyOAuth2ClientAutoConfiguration {
         return new IsyOAuth2ClientConfigurationProperties(oAuth2ClientProperties);
     }
 
+    // lazy converter because we only need it when an optional BHKNZ is passed during authentication
+    @Lazy
+    @Bean
+    @ConditionalOnMissingBean
+    public BhknzHeaderConverterBuilder bhknzHeaderConverterBuilder(IsyOAuth2ClientConfigurationProperties isyOAuth2ClientConfigurationProperties) {
+        return new BhknzHeaderConverterBuilder(isyOAuth2ClientConfigurationProperties);
+    }
+
     // does not have a dependency on ClientRegistrations and should always be created
     @Bean
     @ConditionalOnMissingBean
@@ -63,11 +72,10 @@ public class IsyOAuth2ClientAutoConfiguration {
 
     // does not have a dependency on ClientRegistrations and should always be created
     @Bean
-    @ConditionalOnMissingBean
-    public ManualPasswordAuthenticationProvider isyOAuth2ManualPasswordAuthenticationProvider(
+    public PasswordAuthenticationProvider passwordAuthenticationProvider(
             JwtAuthenticationConverter jwtAuthenticationConverter,
-            IsyOAuth2ClientConfigurationProperties isyOAuth2ClientConfigurationProperties) {
-        return new ManualPasswordAuthenticationProvider(jwtAuthenticationConverter, isyOAuth2ClientConfigurationProperties);
+            @Lazy BhknzHeaderConverterBuilder bhknzHeaderConverterBuilder) {
+        return new PasswordAuthenticationProvider(jwtAuthenticationConverter, bhknzHeaderConverterBuilder);
     }
 
     @Bean
@@ -80,8 +88,9 @@ public class IsyOAuth2ClientAutoConfiguration {
     @ConditionalOnMissingBean
     public Authentifizierungsmanager authentifizierungsmanager(
             ProviderManager providerManager,
+            IsyOAuth2ClientConfigurationProperties isyOAuth2ClientConfigurationProperties,
             @Nullable ClientRegistrationRepository clientRegistrationRepository) {
-        return new IsyOAuth2Authentifizierungsmanager(providerManager, clientRegistrationRepository);
+        return new IsyOAuth2Authentifizierungsmanager(providerManager, isyOAuth2ClientConfigurationProperties, clientRegistrationRepository);
     }
 
     /**
@@ -91,6 +100,7 @@ public class IsyOAuth2ClientAutoConfiguration {
     @Conditional(ClientsConfiguredCondition.class)
     public static class ClientsConfiguredDependentBeans {
 
+        /** Identifier for the AuthorizedClientManager created by isy-security. */
         public static final String ISY_AUTHORIZED_CLIENT_MANAGER_BEAN = "isyAuthorizedClientManager";
 
         /**
@@ -117,15 +127,6 @@ public class IsyOAuth2ClientAutoConfiguration {
                 JwtAuthenticationConverter jwtAuthenticationConverter) {
             return new ClientCredentialsAuthenticationProvider(oAuth2AuthorizedClientManager, jwtAuthenticationConverter);
         }
-
-        @Bean
-        @Conditional(ClientsConfiguredCondition.class)
-        public PasswordAuthenticationProvider passwordAuthenticationProvider(
-                JwtAuthenticationConverter jwtAuthenticationConverter,
-                IsyOAuth2ClientConfigurationProperties isyOAuth2ClientConfigurationProperties) {
-            return new PasswordAuthenticationProvider(jwtAuthenticationConverter, isyOAuth2ClientConfigurationProperties);
-        }
-
     }
 
 }

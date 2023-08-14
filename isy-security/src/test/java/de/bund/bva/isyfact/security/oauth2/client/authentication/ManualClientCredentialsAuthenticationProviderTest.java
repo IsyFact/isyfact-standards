@@ -17,6 +17,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.ClientAuthorizationException;
+import org.springframework.security.oauth2.client.registration.ClientRegistration;
+import org.springframework.security.oauth2.client.registration.ClientRegistrations;
+import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.oidc.StandardClaimNames;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.test.context.ActiveProfiles;
@@ -38,8 +41,13 @@ public class ManualClientCredentialsAuthenticationProviderTest extends AbstractO
 
     @Test
     public void shouldGetAuthToken() {
+        ClientRegistration clientRegistration = ClientRegistrations.fromIssuerLocation("http://localhost:9095/auth/realms/testrealm")
+                .clientId("client-credentials-test-client")
+                .clientSecret("supersecretpassword")
+                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                .build();
         Authentication authentication = manualAuthenticationProvider.authenticate(new ManualClientCredentialsAuthenticationToken(
-                "http://localhost:9095/auth/realms/testrealm", "client-credentials-test-client", "supersecretpassword", null));
+                clientRegistration, null));
 
         // security context is still empty
         SecurityContext securityContext = SecurityContextHolder.getContext();
@@ -58,19 +66,14 @@ public class ManualClientCredentialsAuthenticationProviderTest extends AbstractO
 
     @Test
     public void shouldThrowAuthExceptionWithInvalidCredentials() {
+        ClientRegistration clientRegistration = ClientRegistrations.fromIssuerLocation("http://localhost:9095/auth/realms/testrealm")
+                .clientId("client-credentials-test-client")
+                .clientSecret("invalidpassword")
+                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                .build();
         assertThrows(ClientAuthorizationException.class,
                 () -> manualAuthenticationProvider.authenticate(new ManualClientCredentialsAuthenticationToken(
-                        "http://localhost:9095/auth/realms/testrealm", "client-credentials-test-client", "invalidpassword", null)));
-    }
-
-    @Test
-    public void shouldThrowErrorWithInvalidIssuerLocation() {
-        String invalidIssuerLocation = "http://localhost:9095/auth/realms/invalid";
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> manualAuthenticationProvider.authenticate(new ManualClientCredentialsAuthenticationToken(
-                        invalidIssuerLocation, "client-credentials-test-client", "supersecretpassword", null)));
-
-        assertThat(exception.getMessage()).contains(invalidIssuerLocation);
+                        clientRegistration, null)));
     }
 
     @Test

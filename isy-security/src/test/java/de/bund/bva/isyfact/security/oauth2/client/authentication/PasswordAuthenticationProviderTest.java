@@ -3,11 +3,7 @@ package de.bund.bva.isyfact.security.oauth2.client.authentication;
 import static de.bund.bva.isyfact.security.test.oidcprovider.EmbeddedOidcProviderStub.BHKNZ_CLAIM_NAME;
 import static de.bund.bva.isyfact.security.test.oidcprovider.EmbeddedOidcProviderStub.DEFAULT_ROLES_CLAIM_NAME;
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -50,7 +46,8 @@ public class PasswordAuthenticationProviderTest extends AbstractOidcProviderTest
     @Test
     public void shouldGetAuthTokenForUserWithoutBhknz() {
         Authentication authentication = passwordAuthenticationProvider.authenticate(
-                new PasswordAuthenticationToken(clientRegistrationRepository.findByRegistrationId("ropc-client")));
+                new PasswordAuthenticationToken(clientRegistrationRepository.findByRegistrationId("ropc-client"),
+                        "testuser", "pw1234", null));
 
         // security context is still empty
         SecurityContext securityContext = SecurityContextHolder.getContext();
@@ -70,7 +67,8 @@ public class PasswordAuthenticationProviderTest extends AbstractOidcProviderTest
     @Test
     public void shouldGetAuthTokenForUserWithBhknz() {
         Authentication authentication = passwordAuthenticationProvider.authenticate(
-                new PasswordAuthenticationToken(clientRegistrationRepository.findByRegistrationId("ropc-client-with-bhknz")));
+                new PasswordAuthenticationToken(clientRegistrationRepository.findByRegistrationId("ropc-client-with-bhknz"),
+                        "testuser-with-bhknz", "pw1234", "123456"));
 
         // security context is still empty
         SecurityContext securityContext = SecurityContextHolder.getContext();
@@ -91,14 +89,16 @@ public class PasswordAuthenticationProviderTest extends AbstractOidcProviderTest
     public void shouldThrowAuthExceptionWithInvalidCredentials() {
         assertThrows(ClientAuthorizationException.class,
                 () -> passwordAuthenticationProvider.authenticate(
-                        new PasswordAuthenticationToken(clientRegistrationRepository.findByRegistrationId("ropc-client-invalid"))));
+                        new PasswordAuthenticationToken(clientRegistrationRepository.findByRegistrationId("ropc-client-invalid"),
+                                "testuser", "wrong", null)));
     }
 
     @Test
     public void shouldThrowErrorWithWrongClient() {
         ClientAuthorizationException exception = assertThrows(ClientAuthorizationException.class,
                 () -> passwordAuthenticationProvider.authenticate(
-                        new PasswordAuthenticationToken(clientRegistrationRepository.findByRegistrationId("cc-client-invalid-with-resource-owner"))));
+                        new PasswordAuthenticationToken(clientRegistrationRepository.findByRegistrationId("cc-client-invalid-with-resource-owner"),
+                                "testuser", "pw1234", "123456")));
 
         assertEquals(OAuth2ErrorCodes.INVALID_GRANT, exception.getError().getErrorCode());
         assertEquals("cc-client-invalid-with-resource-owner", exception.getClientRegistrationId());
@@ -109,18 +109,20 @@ public class PasswordAuthenticationProviderTest extends AbstractOidcProviderTest
         // user that requires a bhknz
         ClientAuthorizationException exception = assertThrows(ClientAuthorizationException.class,
                 () -> passwordAuthenticationProvider.authenticate(
-                        new PasswordAuthenticationToken(clientRegistrationRepository.findByRegistrationId("ropc-client-with-bhknz-without-bhknz"))));
+                        new PasswordAuthenticationToken(clientRegistrationRepository.findByRegistrationId("ropc-client-with-bhknz-without-bhknz"),
+                                "testuser-with-bhknz", "p1234", null)));
 
         assertEquals("invalid_token_response", exception.getError().getErrorCode());
         assertEquals("ropc-client-with-bhknz-without-bhknz", exception.getClientRegistrationId());
     }
 
     @Test
-    public void shouldThrowErrorWithMissingAdditionalProperties() {
-        // user without additional properties (username/password/bhknz) set
-        BadCredentialsException exception = assertThrows(BadCredentialsException.class,
+    public void shouldThrowErrorWithMissingResourceOwner() {
+        // user without resource owner (username/password/bhknz) set
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
                 () -> passwordAuthenticationProvider.authenticate(
-                        new PasswordAuthenticationToken(clientRegistrationRepository.findByRegistrationId("ropc-client-without-resource-owner"))));
+                        new PasswordAuthenticationToken(clientRegistrationRepository.findByRegistrationId("ropc-client-without-resource-owner"),
+                                null, null, null)));
 
         assertThat(exception.getMessage()).contains("ropc-client-without-resource-owner");
     }
