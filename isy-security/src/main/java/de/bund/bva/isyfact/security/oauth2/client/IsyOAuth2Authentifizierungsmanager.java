@@ -108,7 +108,7 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
         if (AuthorizationGrantType.CLIENT_CREDENTIALS.equals(grantType)) {
             return new ClientCredentialsAuthenticationToken(oauth2ClientRegistrationId);
         } else if (AuthorizationGrantType.PASSWORD.equals(grantType)) {
-            return new PasswordAuthenticationToken(oauth2ClientRegistrationId);
+            return new PasswordAuthenticationToken(clientRegistration);
         } else {
             throw new IllegalArgumentException("The AuthorizationGrantType '" + grantType.getValue() + "' is not supported.");
         }

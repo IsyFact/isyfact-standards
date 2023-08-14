@@ -123,7 +123,7 @@ public class AuthentifizierungsmanagerTest {
 
         ArgumentCaptor<PasswordAuthenticationToken> tokenCaptor = ArgumentCaptor.forClass(PasswordAuthenticationToken.class);
         verify(passwordAuthenticationProvider).authenticate(tokenCaptor.capture());
-        assertEquals("mock-ropc", tokenCaptor.getValue().getRegistrationId());
+        assertEquals("mock-ropc", tokenCaptor.getValue().getClientRegistration().getRegistrationId());
 
         assertEquals(mockJwt, SecurityContextHolder.getContext().getAuthentication());
     }

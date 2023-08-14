@@ -7,15 +7,10 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.client.ClientAuthorizationException;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
-import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
-import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.OAuth2Error;
 import org.springframework.security.oauth2.core.OAuth2ErrorCodes;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
-import org.springframework.util.StringUtils;
 
-import de.bund.bva.isyfact.logging.IsyLogger;
-import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.security.config.IsyOAuth2ClientConfigurationProperties;
 import de.bund.bva.isyfact.security.config.IsyOAuth2ClientConfigurationProperties.AdditionalRegistrationProperties;
 
@@ -24,21 +19,9 @@ import de.bund.bva.isyfact.security.config.IsyOAuth2ClientConfigurationPropertie
  */
 public class PasswordAuthenticationProvider extends AbstractPasswordAuthenticationProvider {
 
-    /** Logger. */
-    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(PasswordAuthenticationProvider.class);
-
-    /**
-     * Repository containing the registered clients.
-     * Unlike in {@link ClientCredentialsAuthenticationProvider} we can't use the AuthorizedClientManager because
-     * we have to modify the AccessTokenResponseClient before each request in order to set the BHKNZ header.
-     */
-    private final ClientRegistrationRepository clientRegistrationRepository;
-
-    public PasswordAuthenticationProvider(ClientRegistrationRepository clientRegistrationRepository,
-                                          JwtAuthenticationConverter jwtAuthenticationConverter,
+    public PasswordAuthenticationProvider(JwtAuthenticationConverter jwtAuthenticationConverter,
                                           IsyOAuth2ClientConfigurationProperties isyOAuth2ClientProps) {
         super(jwtAuthenticationConverter, isyOAuth2ClientProps);
-        this.clientRegistrationRepository = clientRegistrationRepository;
     }
 
     @Override
@@ -49,18 +32,18 @@ public class PasswordAuthenticationProvider extends AbstractPasswordAuthenticati
         }
 
         PasswordAuthenticationToken token = (PasswordAuthenticationToken) authentication;
+        /* Unlike in ClientCredentialsAuthenticationProvider we have to get and pass the Client Registration
+           instead of letting the AuthorizedClientManager handle it because we have to modify
+           the AccessTokenResponseClient before each request in order to set the BHKNZ header. */
+        ClientRegistration clientRegistration = token.getClientRegistration();
 
-        String registrationId = token.getRegistrationId();
-
-        AdditionalRegistrationProperties props = isyOAuth2ClientProps.getRegistration().get(registrationId);
+        AdditionalRegistrationProperties props = isyOAuth2ClientProps.getRegistration().get(clientRegistration.getRegistrationId());
         if (props == null) {
             throw new BadCredentialsException(
-                    String.format("No configured credentials found for client with registrationId: %s.", registrationId));
+                    String.format("No configured credentials found for client with registrationId: %s.", clientRegistration.getRegistrationId()));
         }
 
-        ClientRegistration clientRegistration = clientRegistrationRepository.findByRegistrationId(registrationId);
-
-        OAuth2AuthorizedClient authorizedClient = obtainAuthorizedClient(clientRegistration, token, props.getUsername(), props.getPassword(), props.getBhknz());
+        OAuth2AuthorizedClient authorizedClient = obtainAuthorizedClient(token.getClientRegistration(), token, props.getUsername(), props.getPassword(), props.getBhknz());
         if (authorizedClient == null) {
             throw new ClientAuthorizationException(new OAuth2Error(OAuth2ErrorCodes.INVALID_GRANT), clientRegistration.getRegistrationId(),
                     "clientRegistration.authorizationGrantType must be AuthorizationGrantType.PASSWORD");

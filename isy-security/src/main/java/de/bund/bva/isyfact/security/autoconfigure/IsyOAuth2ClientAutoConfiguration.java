@@ -26,13 +26,13 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 
+import de.bund.bva.isyfact.security.config.IsyOAuth2ClientConfigurationProperties;
 import de.bund.bva.isyfact.security.oauth2.client.Authentifizierungsmanager;
+import de.bund.bva.isyfact.security.oauth2.client.IsyOAuth2Authentifizierungsmanager;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.ClientCredentialsAuthenticationProvider;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.ManualClientCredentialsAuthenticationProvider;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.ManualPasswordAuthenticationProvider;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.PasswordAuthenticationProvider;
-import de.bund.bva.isyfact.security.config.IsyOAuth2ClientConfigurationProperties;
-import de.bund.bva.isyfact.security.oauth2.client.IsyOAuth2Authentifizierungsmanager;
 
 /**
  * Autoconfiguration for beans related to OAuth 2.0 client authentication.
@@ -91,11 +91,13 @@ public class IsyOAuth2ClientAutoConfiguration {
     @Conditional(ClientsConfiguredCondition.class)
     public static class ClientsConfiguredDependentBeans {
 
+        public static final String ISY_AUTHORIZED_CLIENT_MANAGER_BEAN = "isyAuthorizedClientManager";
+
         /**
          * Provides an AuthorizedClientManager configured with the OAuth 2.0 Client Credentials flow that can be used to obtain
          * access tokens in the service-tier.
          */
-        @Bean("isyAuthorizedClientManager")
+        @Bean(ISY_AUTHORIZED_CLIENT_MANAGER_BEAN)
         public OAuth2AuthorizedClientManager oAuth2AuthorizedClientManager(
                 ClientRegistrationRepository clientRegistrationRepository, OAuth2AuthorizedClientService authorizedClientService) {
             OAuth2AuthorizedClientProvider authorizedClientProvider = OAuth2AuthorizedClientProviderBuilder.builder()
@@ -111,7 +113,7 @@ public class IsyOAuth2ClientAutoConfiguration {
 
         @Bean
         public ClientCredentialsAuthenticationProvider isyOAuth2ClientCredentialsAuthenticationProvider(
-                @Qualifier("isyAuthorizedClientManager") OAuth2AuthorizedClientManager oAuth2AuthorizedClientManager,
+                @Qualifier(ISY_AUTHORIZED_CLIENT_MANAGER_BEAN) OAuth2AuthorizedClientManager oAuth2AuthorizedClientManager,
                 JwtAuthenticationConverter jwtAuthenticationConverter) {
             return new ClientCredentialsAuthenticationProvider(oAuth2AuthorizedClientManager, jwtAuthenticationConverter);
         }
@@ -119,10 +121,9 @@ public class IsyOAuth2ClientAutoConfiguration {
         @Bean
         @Conditional(ClientsConfiguredCondition.class)
         public PasswordAuthenticationProvider passwordAuthenticationProvider(
-                ClientRegistrationRepository clientRegistrationRepository, JwtAuthenticationConverter jwtAuthenticationConverter,
+                JwtAuthenticationConverter jwtAuthenticationConverter,
                 IsyOAuth2ClientConfigurationProperties isyOAuth2ClientConfigurationProperties) {
-            return new PasswordAuthenticationProvider(clientRegistrationRepository, jwtAuthenticationConverter,
-                    isyOAuth2ClientConfigurationProperties);
+            return new PasswordAuthenticationProvider(jwtAuthenticationConverter, isyOAuth2ClientConfigurationProperties);
         }
 
     }

@@ -1,20 +1,20 @@
 package de.bund.bva.isyfact.security.oauth2.client.authentication;
 
-import org.springframework.lang.Nullable;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.oauth2.client.registration.ClientRegistration;
 
 /**
  * AuthenticationToken holding parameters for Resource Owner Password Credentials Flow authentication.
  */
 public class PasswordAuthenticationToken extends AbstractAuthenticationToken {
 
-    /** Registration ID of the OAuth 2.0 client that is configured for password grant authentication. */
-    private final String registrationId;
+    /** Client Registration of the OAuth 2.0 client that is configured for password grant authentication. */
+    private final ClientRegistration clientRegistration;
 
-    public PasswordAuthenticationToken(String registrationId) {
+    public PasswordAuthenticationToken(ClientRegistration clientRegistration) {
         super(AuthorityUtils.NO_AUTHORITIES);
-        this.registrationId = registrationId;
+        this.clientRegistration = clientRegistration;
         setAuthenticated(false);
     }
 
@@ -28,7 +28,7 @@ public class PasswordAuthenticationToken extends AbstractAuthenticationToken {
         return "";
     }
 
-    public String getRegistrationId() {
-        return registrationId;
+    public ClientRegistration getClientRegistration() {
+        return clientRegistration;
     }
 }
