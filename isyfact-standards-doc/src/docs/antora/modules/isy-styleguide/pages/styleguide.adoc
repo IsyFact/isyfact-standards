@@ -3600,7 +3600,7 @@ Neben der Eingabe von Zeichen wird die Tastatur auch zur Navigation sowie zur Au
 
 *Richtlinien*
 
-*  Um die Richtlinien der BITV zu erfüllen, müssen alle Funktionalitäten der Applikation über eine Tastaturschnittstelle zugänglich und bedienbar sein.
+*  Um die Richtlinien der https://www.gesetze-im-internet.de/bitv_2_0/BJNR184300011.html[BITV] zu erfüllen, müssen alle Funktionalitäten der Applikation über eine Tastaturschnittstelle zugänglich und bedienbar sein.
 *  Die Standardfunktionen und Tastaturkürzel vom Browser sollten nicht unterbunden oder anderweitig belegt werden.
 *  Die Tabulator-Reihenfolge, also die Reihenfolge in welcher der Fokus mit Hilfe der Tabulator-Taste verschoben werden kann, sollte an die Bedürfnisse des Benutzers angepasst werden.
 In der Regel bedeutet dies, ein Ablauf von links nach rechts und von oben nach unten.
@@ -3929,12 +3929,11 @@ Generell sollten nicht zu viele verschiedene Grundfarben für die Gestaltung ein
 *  Eine übermäßige Verwendung von Komplementärfarben sollte vermieden werden. Komplementärfarben der Primärfarbe eignen sich jedoch sehr gut als Aufmerksamkeits-Trigger für einen bestimmten Bereich des User Interface.
 *  *Ausreichend hoher Kontrast*
 ** Bei der Verwendung von Farben sollte immer ein ausreichend hoher Kontrast von Vorder- zu Hintergrundfarbe gewährleistet werden.
-** Die Web Accessibility Initiative (WAI), die Teil des World Wide Web Consortium (W3C) ist, hat die Web Content Accessibility Guidelines (WCAG) entwickelt, die unter anderem Referenzwerte für den Kontrast von Vorder- zu Hintergrundfarbe beinhalten. So beschreiben die WCAG verschiedene Kontrastverhältnisse, abhängig von der Schriftgröße.
-** Die folgenden Links verweisen auf Hilfsmittel zur Kontrast-Analyse, die auf den Referenzwerten der WAI basieren:
+** Die Web Accessibility Initiative (WAI), die Teil des World Wide Web Consortium (W3C) ist, hat die Web Content Accessibility Guidelines (https://www.w3.org/WAI/standards-guidelines/wcag/[WCAG]) entwickelt, die unter anderem Referenzwerte für den Kontrast von Vorder- zu Hintergrundfarbe beinhalten. So beschreiben die https://www.w3.org/WAI/standards-guidelines/wcag/[WCAG] verschiedene Kontrastverhältnisse, abhängig von der Schriftgröße.
+** Die folgenden Links verweisen auf weitere Informationen zur Kontrast-Analyse, die auf den Referenzwerten der WAI basieren:
 
-*** Online-Werkzeug zur Kontrast-Analyse: xref:glossary:literaturextern:inhalt.adoc#litextern-juicystudio-kontrast-analyse[JuicyStudio Kontrast Analyse]
-***  Colour Contrast Analyser: Freeware für Windows und Mac OS X:
-xref:glossary:literaturextern:inhalt.adoc#litextern-color-kontrast-analyse[Color Kontrast Analyse]
+*** http://whocanuse.com[WhoCanUse?]
+*** http://leserlich.info/kapitel/farben.php[leserlich.info]
 
 *  *Berücksichtigung von Farbenfehlsichtigkeit*
 **  Bei der Auswahl der Farben sollte auch eine mögliche Farbenfehlsichtigkeit der Benutzer berücksichtigt werden.
@@ -4320,3 +4319,24 @@ image::10_Applikations_Wizard_Objektanlage_4.png[align="center"]
 [[image-bspwizardobjektanlage1e]]
 
 image::11_Applikations_Wizard_Objektanlage_5.png[align="center"]
+
+[[does-and-donts]]
+== Do's and Dont's
+
+Dieses Kapitel zeigt einige oft nicht befolgte Regeln und häufige Verstöße gegen den Styleguide auf.
+
+=== Do's
+* Schreibe semantisches HTML. Verwende Elemente so, wie sie gedacht sind - ein "hauptsache optisch korrekt" genügt spätestens beim Thema Barrierefreiheit nicht mehr. Ziehe hierbei z.B. den https://developer.mozilla.org/en-US/docs/Web/HTML/Element[Mozilla Developer Guide] zurate. Dabei kommt es auch auf Details an, wie etwa dem Unterschied zwischen <div> und <span>.
+* Beachte unbedingt allgemeingültige Webentwicklungsvorgaben und Best Practices, insbesondere die Vorgaben zur Barrierefreiheit aus https://www.w3.org/WAI/standards-guidelines/wcag/[WCAG] und https://www.gesetze-im-internet.de/bitv_2_0/BJNR184300011.html[BITV].
+* Halte Bedienelemente, z.B. Buttons, ausreichend groß für ihre Beschriftung.
+* Ist eine Abkürzung sinnvoll, erkläre sie mit einem Tooltip.
+* Ordne Labels ihren Bedienelementen im HTML zu, sodass ein Klick auf das Label auch das Bedienelement aktiviert.
+* Erwäge bei der Nutzung großer Radio-Button-Gruppen ein Dropdown und bei kleinen Dropdowns eine Radio-Button-Gruppe.
+* Sorge dafür, dass alle Elemente auch ohne Maus erreichbar und bedienbar sind.
+
+
+=== Dont's
+* Löse keine Aktionen durch Bedienelemente aus, wenn diese nicht dazu vorgesehen sind (z.B. Radiobuttons oder Checkboxen).
+* Vermeide schwache Kontraste, z.B. hellgrün auf grau.
+* Verzichte auf Links mit generischen Texten, wie "Hier klicken". Der Linktext sollte erklären, wohin der Nutzer gelangt.
+* Vermeide Labels mit mehr als drei Wörtern.
