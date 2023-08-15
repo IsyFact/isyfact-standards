@@ -20,12 +20,12 @@ import org.springframework.test.context.ActiveProfiles;
 import de.bund.bva.isyfact.security.AbstractOidcProviderTest;
 import de.bund.bva.isyfact.security.autoconfigure.IsyOAuth2ClientAutoConfiguration;
 import de.bund.bva.isyfact.security.autoconfigure.IsySecurityAutoConfigurationTest;
-import de.bund.bva.isyfact.security.oauth2.client.authentication.ClientCredentialsAuthenticationProvider;
-import de.bund.bva.isyfact.security.oauth2.client.authentication.ClientCredentialsAuthenticationToken;
-import de.bund.bva.isyfact.security.oauth2.client.authentication.ManualClientCredentialsAuthenticationProvider;
-import de.bund.bva.isyfact.security.oauth2.client.authentication.ManualClientCredentialsAuthenticationToken;
-import de.bund.bva.isyfact.security.oauth2.client.authentication.PasswordAuthenticationProvider;
-import de.bund.bva.isyfact.security.oauth2.client.authentication.PasswordAuthenticationToken;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.ClientCredentialsAuthorizedClientAuthenticationProvider;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.ClientCredentialsClientRegistrationAuthenticationProvider;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.PasswordClientRegistrationAuthenticationProvider;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.token.ClientCredentialsClientRegistrationAuthenticationToken;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.token.ClientCredentialsRegistrationIdAuthenticationToken;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.token.PasswordClientRegistrationAuthenticationToken;
 
 /**
  * Tests the Authentifizierungsmanager with all available authentication providers.
@@ -38,13 +38,13 @@ import de.bund.bva.isyfact.security.oauth2.client.authentication.PasswordAuthent
 public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
 
     @MockBean
-    private ClientCredentialsAuthenticationProvider clientCredentialsAuthenticationProvider;
+    private ClientCredentialsAuthorizedClientAuthenticationProvider clientCredentialsAuthorizedClientAuthenticationProvider;
 
     @MockBean
-    private PasswordAuthenticationProvider passwordAuthenticationProvider;
+    private PasswordClientRegistrationAuthenticationProvider passwordClientRegistrationAuthenticationProvider;
 
     @MockBean
-    private ManualClientCredentialsAuthenticationProvider manualClientCredentialsAuthenticationProvider;
+    private ClientCredentialsClientRegistrationAuthenticationProvider clientCredentialsClientRegistrationAuthenticationProvider;
 
     @Autowired
     private Authentifizierungsmanager authentifizierungsmanager;
@@ -61,21 +61,21 @@ public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
 
         mockJwt = mock(JwtAuthenticationToken.class);
 
-        when(clientCredentialsAuthenticationProvider.supports(any())).thenCallRealMethod();
-        when(clientCredentialsAuthenticationProvider.authenticate(any(Authentication.class))).thenReturn(mockJwt);
+        when(clientCredentialsAuthorizedClientAuthenticationProvider.supports(any())).thenCallRealMethod();
+        when(clientCredentialsAuthorizedClientAuthenticationProvider.authenticate(any(Authentication.class))).thenReturn(mockJwt);
 
-        when(passwordAuthenticationProvider.supports(any())).thenCallRealMethod();
-        when(passwordAuthenticationProvider.authenticate(any(Authentication.class))).thenReturn(mockJwt);
+        when(passwordClientRegistrationAuthenticationProvider.supports(any())).thenCallRealMethod();
+        when(passwordClientRegistrationAuthenticationProvider.authenticate(any(Authentication.class))).thenReturn(mockJwt);
 
-        when(manualClientCredentialsAuthenticationProvider.supports(any())).thenCallRealMethod();
-        when(manualClientCredentialsAuthenticationProvider.authenticate(any(Authentication.class))).thenReturn(mockJwt);
+        when(clientCredentialsClientRegistrationAuthenticationProvider.supports(any())).thenCallRealMethod();
+        when(clientCredentialsClientRegistrationAuthenticationProvider.authenticate(any(Authentication.class))).thenReturn(mockJwt);
     }
 
     @Test
     public void testHasAllProviders() {
         assertThat(isyOAuth2AuthenticationProviderManager.getProviders()).containsExactlyInAnyOrder(
-                clientCredentialsAuthenticationProvider, passwordAuthenticationProvider,
-                manualClientCredentialsAuthenticationProvider
+                clientCredentialsAuthorizedClientAuthenticationProvider, passwordClientRegistrationAuthenticationProvider,
+                clientCredentialsClientRegistrationAuthenticationProvider
         );
     }
 
@@ -83,9 +83,9 @@ public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
     public void testAuthWithClientRegistrationCC() {
         authentifizierungsmanager.authentifiziere("cc-client");
 
-        ArgumentCaptor<ClientCredentialsAuthenticationToken> tokenCaptor =
-                ArgumentCaptor.forClass(ClientCredentialsAuthenticationToken.class);
-        verify(clientCredentialsAuthenticationProvider).authenticate(tokenCaptor.capture());
+        ArgumentCaptor<ClientCredentialsRegistrationIdAuthenticationToken> tokenCaptor =
+                ArgumentCaptor.forClass(ClientCredentialsRegistrationIdAuthenticationToken.class);
+        verify(clientCredentialsAuthorizedClientAuthenticationProvider).authenticate(tokenCaptor.capture());
         assertEquals("cc-client", tokenCaptor.getValue().getRegistrationId());
 
         assertEquals(mockJwt, SecurityContextHolder.getContext().getAuthentication());
@@ -95,9 +95,9 @@ public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
     public void testAuthWithClientRegistrationCCAndBhknz() {
         authentifizierungsmanager.authentifiziere("cc-client-with-bhknz");
 
-        ArgumentCaptor<ClientCredentialsAuthenticationToken> tokenCaptor =
-                ArgumentCaptor.forClass(ClientCredentialsAuthenticationToken.class);
-        verify(clientCredentialsAuthenticationProvider).authenticate(tokenCaptor.capture());
+        ArgumentCaptor<ClientCredentialsRegistrationIdAuthenticationToken> tokenCaptor =
+                ArgumentCaptor.forClass(ClientCredentialsRegistrationIdAuthenticationToken.class);
+        verify(clientCredentialsAuthorizedClientAuthenticationProvider).authenticate(tokenCaptor.capture());
         assertEquals("cc-client-with-bhknz", tokenCaptor.getValue().getRegistrationId());
         assertEquals("123456", tokenCaptor.getValue().getBhknz());
 
@@ -108,9 +108,9 @@ public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
     public void testAuthWithClientRegistrationROPC() {
         authentifizierungsmanager.authentifiziere("ropc-client");
 
-        ArgumentCaptor<PasswordAuthenticationToken> tokenCaptor = ArgumentCaptor.forClass(PasswordAuthenticationToken.class);
-        verify(passwordAuthenticationProvider).authenticate(tokenCaptor.capture());
-        PasswordAuthenticationToken value = tokenCaptor.getValue();
+        ArgumentCaptor<PasswordClientRegistrationAuthenticationToken> tokenCaptor = ArgumentCaptor.forClass(PasswordClientRegistrationAuthenticationToken.class);
+        verify(passwordClientRegistrationAuthenticationProvider).authenticate(tokenCaptor.capture());
+        PasswordClientRegistrationAuthenticationToken value = tokenCaptor.getValue();
         assertEquals("ropc-client", value.getClientRegistration().getRegistrationId());
         assertEquals(AuthorizationGrantType.PASSWORD, value.getClientRegistration().getAuthorizationGrantType());
         assertEquals("resource-owner-password-credentials-test-client", value.getClientRegistration().getClientId());
@@ -126,14 +126,14 @@ public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
     public void testAuthWithClientRegistrationROPCAndBhknz() {
         authentifizierungsmanager.authentifiziere("ropc-client-with-bhknz");
 
-        ArgumentCaptor<PasswordAuthenticationToken> tokenCaptor = ArgumentCaptor.forClass(PasswordAuthenticationToken.class);
-        verify(passwordAuthenticationProvider).authenticate(tokenCaptor.capture());
-        PasswordAuthenticationToken value = tokenCaptor.getValue();
+        ArgumentCaptor<PasswordClientRegistrationAuthenticationToken> tokenCaptor = ArgumentCaptor.forClass(PasswordClientRegistrationAuthenticationToken.class);
+        verify(passwordClientRegistrationAuthenticationProvider).authenticate(tokenCaptor.capture());
+        PasswordClientRegistrationAuthenticationToken value = tokenCaptor.getValue();
         assertEquals("ropc-client-with-bhknz", value.getClientRegistration().getRegistrationId());
         assertEquals(AuthorizationGrantType.PASSWORD, value.getClientRegistration().getAuthorizationGrantType());
         assertEquals("resource-owner-password-credentials-test-client", value.getClientRegistration().getClientId());
         assertEquals("hypersecretpassword", value.getClientRegistration().getClientSecret());
-        assertEquals("testuser", value.getUsername());
+        assertEquals("testuser-with-bhknz", value.getUsername());
         assertEquals("pw1234", value.getPassword());
         assertEquals("123456", value.getBhknz());
 
@@ -144,10 +144,10 @@ public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
     public void testAuthClient() {
         authentifizierungsmanager.authentifiziereClient(getIssuer(), "testid", "testsecret");
 
-        ArgumentCaptor<ManualClientCredentialsAuthenticationToken> tokenCaptor =
-                ArgumentCaptor.forClass(ManualClientCredentialsAuthenticationToken.class);
-        verify(manualClientCredentialsAuthenticationProvider).authenticate(tokenCaptor.capture());
-        ManualClientCredentialsAuthenticationToken value = tokenCaptor.getValue();
+        ArgumentCaptor<ClientCredentialsClientRegistrationAuthenticationToken> tokenCaptor =
+                ArgumentCaptor.forClass(ClientCredentialsClientRegistrationAuthenticationToken.class);
+        verify(clientCredentialsClientRegistrationAuthenticationProvider).authenticate(tokenCaptor.capture());
+        ClientCredentialsClientRegistrationAuthenticationToken value = tokenCaptor.getValue();
         assertEquals(getIssuer(), value.getClientRegistration().getProviderDetails().getIssuerUri());
         assertEquals(AuthorizationGrantType.CLIENT_CREDENTIALS, value.getClientRegistration().getAuthorizationGrantType());
         assertEquals("testid", value.getClientRegistration().getClientId());
@@ -161,10 +161,10 @@ public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
     public void testAuthClientWithBhknz() {
         authentifizierungsmanager.authentifiziereClient(getIssuer(), "testid", "testsecret", "123456");
 
-        ArgumentCaptor<ManualClientCredentialsAuthenticationToken> tokenCaptor =
-                ArgumentCaptor.forClass(ManualClientCredentialsAuthenticationToken.class);
-        verify(manualClientCredentialsAuthenticationProvider).authenticate(tokenCaptor.capture());
-        ManualClientCredentialsAuthenticationToken value = tokenCaptor.getValue();
+        ArgumentCaptor<ClientCredentialsClientRegistrationAuthenticationToken> tokenCaptor =
+                ArgumentCaptor.forClass(ClientCredentialsClientRegistrationAuthenticationToken.class);
+        verify(clientCredentialsClientRegistrationAuthenticationProvider).authenticate(tokenCaptor.capture());
+        ClientCredentialsClientRegistrationAuthenticationToken value = tokenCaptor.getValue();
         assertEquals(getIssuer(), value.getClientRegistration().getProviderDetails().getIssuerUri());
         assertEquals(AuthorizationGrantType.CLIENT_CREDENTIALS, value.getClientRegistration().getAuthorizationGrantType());
         assertEquals("testid", value.getClientRegistration().getClientId());
@@ -187,10 +187,10 @@ public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
     public void testAuthSystem() {
         authentifizierungsmanager.authentifiziereSystem(getIssuer(), "testid", "testsecret", "testuser", "testpw");
 
-        ArgumentCaptor<PasswordAuthenticationToken> tokenCaptor =
-                ArgumentCaptor.forClass(PasswordAuthenticationToken.class);
-        verify(passwordAuthenticationProvider).authenticate(tokenCaptor.capture());
-        PasswordAuthenticationToken value = tokenCaptor.getValue();
+        ArgumentCaptor<PasswordClientRegistrationAuthenticationToken> tokenCaptor =
+                ArgumentCaptor.forClass(PasswordClientRegistrationAuthenticationToken.class);
+        verify(passwordClientRegistrationAuthenticationProvider).authenticate(tokenCaptor.capture());
+        PasswordClientRegistrationAuthenticationToken value = tokenCaptor.getValue();
         assertEquals(getIssuer(), value.getClientRegistration().getProviderDetails().getIssuerUri());
         assertEquals(AuthorizationGrantType.PASSWORD, value.getClientRegistration().getAuthorizationGrantType());
         assertEquals("testid", value.getClientRegistration().getClientId());
@@ -206,9 +206,9 @@ public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
     public void testAuthSystemWithBhknz() {
         authentifizierungsmanager.authentifiziereSystem(getIssuer(), "testid", "testsecret", "testuser", "testpw", "123456");
 
-        ArgumentCaptor<PasswordAuthenticationToken> tokenCaptor = ArgumentCaptor.forClass(PasswordAuthenticationToken.class);
-        verify(passwordAuthenticationProvider).authenticate(tokenCaptor.capture());
-        PasswordAuthenticationToken value = tokenCaptor.getValue();
+        ArgumentCaptor<PasswordClientRegistrationAuthenticationToken> tokenCaptor = ArgumentCaptor.forClass(PasswordClientRegistrationAuthenticationToken.class);
+        verify(passwordClientRegistrationAuthenticationProvider).authenticate(tokenCaptor.capture());
+        PasswordClientRegistrationAuthenticationToken value = tokenCaptor.getValue();
         assertEquals(getIssuer(), value.getClientRegistration().getProviderDetails().getIssuerUri());
         assertEquals(AuthorizationGrantType.PASSWORD, value.getClientRegistration().getAuthorizationGrantType());
         assertEquals("testid", value.getClientRegistration().getClientId());

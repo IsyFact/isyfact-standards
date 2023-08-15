@@ -18,16 +18,20 @@ import org.springframework.security.oauth2.core.OAuth2ErrorCodes;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.util.Assert;
 
+import de.bund.bva.isyfact.security.oauth2.client.authentication.token.PasswordClientRegistrationAuthenticationToken;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.util.BhknzHeaderConverterBuilder;
+
 /**
- * Authentication Provider to obtain an {@link Authentication} with the OAuth2 Resource Owner Password Credentials flow.
+ * Authentication Provider to obtain an {@link Authentication} with the OAuth2 Resource Owner Password Credentials flow
+ * using an externally created Client Registration object.
  */
-public class PasswordAuthenticationProvider extends IsyOAuth2AuthenticationProvider {
+public class PasswordClientRegistrationAuthenticationProvider extends IsyOAuth2AuthenticationProvider {
 
     /** Builder for the BHKNZ header converter. */
     protected final BhknzHeaderConverterBuilder bhknzHeaderConverterBuilder;
 
-    public PasswordAuthenticationProvider(JwtAuthenticationConverter jwtAuthenticationConverter,
-                                          BhknzHeaderConverterBuilder bhknzHeaderConverterBuilder) {
+    public PasswordClientRegistrationAuthenticationProvider(JwtAuthenticationConverter jwtAuthenticationConverter,
+                                                            BhknzHeaderConverterBuilder bhknzHeaderConverterBuilder) {
         super(jwtAuthenticationConverter);
         this.bhknzHeaderConverterBuilder = bhknzHeaderConverterBuilder;
     }
@@ -35,11 +39,11 @@ public class PasswordAuthenticationProvider extends IsyOAuth2AuthenticationProvi
     @Override
     @Nullable
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        if (!(authentication instanceof PasswordAuthenticationToken)) {
+        if (!(authentication instanceof PasswordClientRegistrationAuthenticationToken)) {
             return null;
         }
 
-        PasswordAuthenticationToken token = (PasswordAuthenticationToken) authentication;
+        PasswordClientRegistrationAuthenticationToken token = (PasswordClientRegistrationAuthenticationToken) authentication;
         /* Unlike in ClientCredentialsAuthenticationProvider we have to get and pass the Client Registration
            instead of letting the AuthorizedClientManager handle it because we have to modify
            the AccessTokenResponseClient before each request in order to set the BHKNZ header. */
@@ -56,7 +60,7 @@ public class PasswordAuthenticationProvider extends IsyOAuth2AuthenticationProvi
 
     @Override
     public boolean supports(Class<?> authentication) {
-        return PasswordAuthenticationToken.class.isAssignableFrom(authentication);
+        return PasswordClientRegistrationAuthenticationToken.class.isAssignableFrom(authentication);
     }
 
     protected OAuth2AuthorizedClient obtainAuthorizedClient(ClientRegistration clientRegistration, Authentication principal,

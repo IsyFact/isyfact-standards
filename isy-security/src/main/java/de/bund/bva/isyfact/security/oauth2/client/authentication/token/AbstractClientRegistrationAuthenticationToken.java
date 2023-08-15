@@ -1,14 +1,17 @@
-package de.bund.bva.isyfact.security.oauth2.client.authentication;
+package de.bund.bva.isyfact.security.oauth2.client.authentication.token;
 
 import org.springframework.lang.Nullable;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 
-public class AbstractClientRegistrationAuthenticationToken extends AbstractIsyAuthenticationToken {
+/**
+ * Token that holds a {@link ClientRegistration}.
+ */
+public abstract class AbstractClientRegistrationAuthenticationToken extends AbstractIsyAuthenticationToken {
 
     /** Client Registration of the OAuth 2.0 client. */
     private final ClientRegistration clientRegistration;
 
-    public AbstractClientRegistrationAuthenticationToken(String principal, ClientRegistration clientRegistration, @Nullable String bhknz) {
+    protected AbstractClientRegistrationAuthenticationToken(String principal, ClientRegistration clientRegistration, @Nullable String bhknz) {
         super(principal, bhknz);
         this.clientRegistration = clientRegistration;
         setAuthenticated(false);

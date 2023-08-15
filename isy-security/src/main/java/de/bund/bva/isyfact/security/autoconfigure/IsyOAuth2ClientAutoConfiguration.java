@@ -30,10 +30,10 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import de.bund.bva.isyfact.security.config.IsyOAuth2ClientConfigurationProperties;
 import de.bund.bva.isyfact.security.oauth2.client.Authentifizierungsmanager;
 import de.bund.bva.isyfact.security.oauth2.client.IsyOAuth2Authentifizierungsmanager;
-import de.bund.bva.isyfact.security.oauth2.client.authentication.BhknzHeaderConverterBuilder;
-import de.bund.bva.isyfact.security.oauth2.client.authentication.ClientCredentialsAuthenticationProvider;
-import de.bund.bva.isyfact.security.oauth2.client.authentication.ManualClientCredentialsAuthenticationProvider;
-import de.bund.bva.isyfact.security.oauth2.client.authentication.PasswordAuthenticationProvider;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.util.BhknzHeaderConverterBuilder;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.ClientCredentialsAuthorizedClientAuthenticationProvider;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.ClientCredentialsClientRegistrationAuthenticationProvider;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.PasswordClientRegistrationAuthenticationProvider;
 
 /**
  * Autoconfiguration for beans related to OAuth 2.0 client authentication.
@@ -65,17 +65,17 @@ public class IsyOAuth2ClientAutoConfiguration {
     // does not have a dependency on ClientRegistrations and should always be created
     @Bean
     @ConditionalOnMissingBean
-    public ManualClientCredentialsAuthenticationProvider isyOAuth2ManualClientCredentialsAuthenticationProvider(
+    public ClientCredentialsClientRegistrationAuthenticationProvider isyOAuth2ManualClientCredentialsAuthenticationProvider(
             JwtAuthenticationConverter jwtAuthenticationConverter) {
-        return new ManualClientCredentialsAuthenticationProvider(jwtAuthenticationConverter);
+        return new ClientCredentialsClientRegistrationAuthenticationProvider(jwtAuthenticationConverter);
     }
 
     // does not have a dependency on ClientRegistrations and should always be created
     @Bean
-    public PasswordAuthenticationProvider passwordAuthenticationProvider(
+    public PasswordClientRegistrationAuthenticationProvider passwordAuthenticationProvider(
             JwtAuthenticationConverter jwtAuthenticationConverter,
             @Lazy BhknzHeaderConverterBuilder bhknzHeaderConverterBuilder) {
-        return new PasswordAuthenticationProvider(jwtAuthenticationConverter, bhknzHeaderConverterBuilder);
+        return new PasswordClientRegistrationAuthenticationProvider(jwtAuthenticationConverter, bhknzHeaderConverterBuilder);
     }
 
     @Bean
@@ -122,10 +122,10 @@ public class IsyOAuth2ClientAutoConfiguration {
         }
 
         @Bean
-        public ClientCredentialsAuthenticationProvider isyOAuth2ClientCredentialsAuthenticationProvider(
+        public ClientCredentialsAuthorizedClientAuthenticationProvider isyOAuth2ClientCredentialsAuthenticationProvider(
                 @Qualifier(ISY_AUTHORIZED_CLIENT_MANAGER_BEAN) OAuth2AuthorizedClientManager oAuth2AuthorizedClientManager,
                 JwtAuthenticationConverter jwtAuthenticationConverter) {
-            return new ClientCredentialsAuthenticationProvider(oAuth2AuthorizedClientManager, jwtAuthenticationConverter);
+            return new ClientCredentialsAuthorizedClientAuthenticationProvider(oAuth2AuthorizedClientManager, jwtAuthenticationConverter);
         }
     }
 

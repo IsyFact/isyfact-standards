@@ -1,5 +1,9 @@
 package de.bund.bva.isyfact.security.oauth2.client.authentication;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.resetAllRequests;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.verify;
 import static de.bund.bva.isyfact.security.test.oidcprovider.EmbeddedOidcProviderStub.DEFAULT_ROLES_CLAIM_NAME;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,21 +21,20 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.ClientAuthorizationException;
-import org.springframework.security.oauth2.client.registration.ClientRegistration;
-import org.springframework.security.oauth2.client.registration.ClientRegistrations;
-import org.springframework.security.oauth2.core.AuthorizationGrantType;
+import org.springframework.security.oauth2.core.OAuth2ErrorCodes;
 import org.springframework.security.oauth2.core.oidc.StandardClaimNames;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.test.context.ActiveProfiles;
 
 import de.bund.bva.isyfact.security.AbstractOidcProviderTest;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.token.ClientCredentialsRegistrationIdAuthenticationToken;
 
 @ActiveProfiles("test-clients")
 @SpringBootTest
-public class ManualClientCredentialsAuthenticationProviderTest extends AbstractOidcProviderTest {
+public class ClientCredentialsAuthorizedClientAuthenticationProviderTest extends AbstractOidcProviderTest {
 
     @Autowired
-    private ManualClientCredentialsAuthenticationProvider manualAuthenticationProvider;
+    private ClientCredentialsAuthorizedClientAuthenticationProvider clientCredentialsAuthorizedClientAuthenticationProvider;
 
     @BeforeAll
     public static void setup() {
@@ -40,14 +43,9 @@ public class ManualClientCredentialsAuthenticationProviderTest extends AbstractO
     }
 
     @Test
-    public void shouldGetAuthToken() {
-        ClientRegistration clientRegistration = ClientRegistrations.fromIssuerLocation("http://localhost:9095/auth/realms/testrealm")
-                .clientId("client-credentials-test-client")
-                .clientSecret("supersecretpassword")
-                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-                .build();
-        Authentication authentication = manualAuthenticationProvider.authenticate(new ManualClientCredentialsAuthenticationToken(
-                clientRegistration, null));
+    public void shouldGetAuthTokenAndCacheAuthorizedClient() {
+        Authentication authentication = clientCredentialsAuthorizedClientAuthenticationProvider.authenticate(
+                new ClientCredentialsRegistrationIdAuthenticationToken("cc-client", null));
 
         // security context is still empty
         SecurityContext securityContext = SecurityContextHolder.getContext();
@@ -62,24 +60,37 @@ public class ManualClientCredentialsAuthenticationProviderTest extends AbstractO
                 .collect(Collectors.toList());
         assertThat(grantedAuthorityNames).containsOnly("PRIV_Recht_A");
         assertThat((List<String>) jwtAuth.getTokenAttributes().get(DEFAULT_ROLES_CLAIM_NAME)).containsOnly("Rolle_A");
+
+        // a single request was performed to fetch the token
+        verify(1, postRequestedFor(urlEqualTo(ISSUER_PATH + "/protocol/openid-connect/token")));
+        resetAllRequests();
+
+        // reauth and verify that no new token was fetched because the authorized client was reused
+        clientCredentialsAuthorizedClientAuthenticationProvider.authenticate(new ClientCredentialsRegistrationIdAuthenticationToken("cc-client", null));
+        verify(0, postRequestedFor(urlEqualTo(ISSUER_PATH + "/protocol/openid-connect/token")));
     }
 
     @Test
     public void shouldThrowAuthExceptionWithInvalidCredentials() {
-        ClientRegistration clientRegistration = ClientRegistrations.fromIssuerLocation("http://localhost:9095/auth/realms/testrealm")
-                .clientId("client-credentials-test-client")
-                .clientSecret("invalidpassword")
-                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-                .build();
         assertThrows(ClientAuthorizationException.class,
-                () -> manualAuthenticationProvider.authenticate(new ManualClientCredentialsAuthenticationToken(
-                        clientRegistration, null)));
+                () -> clientCredentialsAuthorizedClientAuthenticationProvider.authenticate(
+                        new ClientCredentialsRegistrationIdAuthenticationToken("cc-client-invalid", null)));
+    }
+
+    @Test
+    public void shouldThrowErrorWithWrongClient() {
+        ClientAuthorizationException exception = assertThrows(ClientAuthorizationException.class,
+                () -> clientCredentialsAuthorizedClientAuthenticationProvider.authenticate(
+                        new ClientCredentialsRegistrationIdAuthenticationToken("ropc-client", null)));
+
+        assertEquals(OAuth2ErrorCodes.INVALID_GRANT, exception.getError().getErrorCode());
+        assertEquals("ropc-client", exception.getClientRegistrationId());
     }
 
     @Test
     public void shouldReturnNullWhenPassingUnsupportedAuthentication() {
         Authentication authRequest = new UsernamePasswordAuthenticationToken("testuser", "pw1234");
-        Authentication authentication = manualAuthenticationProvider.authenticate(authRequest);
+        Authentication authentication = clientCredentialsAuthorizedClientAuthenticationProvider.authenticate(authRequest);
 
         assertNull(authentication);
     }

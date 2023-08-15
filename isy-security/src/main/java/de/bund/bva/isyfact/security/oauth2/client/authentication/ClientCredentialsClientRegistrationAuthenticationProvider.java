@@ -9,38 +9,39 @@ import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientProvider;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientProviderBuilder;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
-import org.springframework.security.oauth2.core.OAuth2AuthorizationException;
 import org.springframework.security.oauth2.core.OAuth2Error;
 import org.springframework.security.oauth2.core.OAuth2ErrorCodes;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 
+import de.bund.bva.isyfact.security.oauth2.client.authentication.token.ClientCredentialsClientRegistrationAuthenticationToken;
+
 /**
  * Authentication Provider to obtain an {@link Authentication} with the OAuth2 Client Credentials flow
- * using ad hoc created ClientRegistrations.
+ * using an externally created Client Registration object.
  */
-public class ManualClientCredentialsAuthenticationProvider extends IsyOAuth2AuthenticationProvider {
+public class ClientCredentialsClientRegistrationAuthenticationProvider extends IsyOAuth2AuthenticationProvider {
 
     /**
      * AuthorizedClientProvider for the client credentials.
-     * Unlike in {@link ClientCredentialsAuthenticationProvider} we can't use the AuthorizedClientManager because
+     * Unlike in {@link ClientCredentialsAuthorizedClientAuthenticationProvider} we can't use the AuthorizedClientManager because
      * the client registrations are created manually.
      */
     private final OAuth2AuthorizedClientProvider clientProvider = OAuth2AuthorizedClientProviderBuilder.builder()
             .clientCredentials()
             .build();
 
-    public ManualClientCredentialsAuthenticationProvider(JwtAuthenticationConverter jwtAuthenticationConverter) {
+    public ClientCredentialsClientRegistrationAuthenticationProvider(JwtAuthenticationConverter jwtAuthenticationConverter) {
         super(jwtAuthenticationConverter);
     }
 
     @Override
     @Nullable
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        if (!(authentication instanceof ManualClientCredentialsAuthenticationToken)) {
+        if (!(authentication instanceof ClientCredentialsClientRegistrationAuthenticationToken)) {
             return null;
         }
 
-        ManualClientCredentialsAuthenticationToken token = (ManualClientCredentialsAuthenticationToken) authentication;
+        ClientCredentialsClientRegistrationAuthenticationToken token = (ClientCredentialsClientRegistrationAuthenticationToken) authentication;
 
         ClientRegistration clientRegistration = token.getClientRegistration();
 
@@ -59,7 +60,7 @@ public class ManualClientCredentialsAuthenticationProvider extends IsyOAuth2Auth
 
     @Override
     public boolean supports(Class<?> authentication) {
-        return ManualClientCredentialsAuthenticationToken.class.isAssignableFrom(authentication);
+        return ClientCredentialsClientRegistrationAuthenticationToken.class.isAssignableFrom(authentication);
     }
 
 }

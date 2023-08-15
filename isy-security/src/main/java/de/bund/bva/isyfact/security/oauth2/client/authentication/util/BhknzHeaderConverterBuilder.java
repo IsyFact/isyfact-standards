@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.security.oauth2.client.authentication;
+package de.bund.bva.isyfact.security.oauth2.client.authentication.util;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.http.HttpHeaders;
@@ -8,8 +8,10 @@ import de.bund.bva.isyfact.security.config.IsyOAuth2ClientConfigurationPropertie
 
 public class BhknzHeaderConverterBuilder {
 
+    /** The name of the HTTP header that's used to pass the BHKNZ. */
     private final String headerName;
 
+    /** The certificate OU that should be passed as part of the header. */
     private final String defaultCertificateOu;
 
     public BhknzHeaderConverterBuilder(IsyOAuth2ClientConfigurationProperties isyOAuth2ClientProps) {
@@ -23,6 +25,7 @@ public class BhknzHeaderConverterBuilder {
 
     private class BhknzHeaderConverter implements Converter<OAuth2PasswordGrantRequest, HttpHeaders> {
 
+        /** The BHKNZ to pass as part of the header. */
         private final String bhknz;
 
         private BhknzHeaderConverter(String bhknz) {

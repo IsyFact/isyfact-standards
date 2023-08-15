@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.security.oauth2.client.authentication;
+package de.bund.bva.isyfact.security.oauth2.client.authentication.token;
 
 import org.springframework.lang.Nullable;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
@@ -6,7 +6,7 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 /**
  * AuthenticationToken holding parameters required for creating a Client to use with Client Credentials Flow authentication.
  */
-public class PasswordAuthenticationToken extends AbstractClientRegistrationAuthenticationToken {
+public class PasswordClientRegistrationAuthenticationToken extends AbstractClientRegistrationAuthenticationToken {
 
     /** The resource owner's username. */
     private final String username;
@@ -14,7 +14,7 @@ public class PasswordAuthenticationToken extends AbstractClientRegistrationAuthe
     /** The resource owner's password. */
     private final String password;
 
-    public PasswordAuthenticationToken(ClientRegistration clientRegistration, String username, String password, @Nullable String bhknz) {
+    public PasswordClientRegistrationAuthenticationToken(ClientRegistration clientRegistration, String username, String password, @Nullable String bhknz) {
         super(username, clientRegistration, bhknz);
         this.username = username;
         this.password = password;

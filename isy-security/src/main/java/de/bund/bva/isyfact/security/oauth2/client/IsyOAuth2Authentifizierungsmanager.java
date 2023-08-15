@@ -15,9 +15,9 @@ import org.springframework.util.Assert;
 
 import de.bund.bva.isyfact.security.config.IsyOAuth2ClientConfigurationProperties;
 import de.bund.bva.isyfact.security.config.IsyOAuth2ClientConfigurationProperties.AdditionalRegistrationProperties;
-import de.bund.bva.isyfact.security.oauth2.client.authentication.ClientCredentialsAuthenticationToken;
-import de.bund.bva.isyfact.security.oauth2.client.authentication.ManualClientCredentialsAuthenticationToken;
-import de.bund.bva.isyfact.security.oauth2.client.authentication.PasswordAuthenticationToken;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.token.ClientCredentialsClientRegistrationAuthenticationToken;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.token.ClientCredentialsRegistrationIdAuthenticationToken;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.token.PasswordClientRegistrationAuthenticationToken;
 
 /**
  * Default implementation of the {@link Authentifizierungsmanager} that should suffice for most use cases.
@@ -82,7 +82,7 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
                 .build();
 
-        Authentication unauthenticatedToken = new ManualClientCredentialsAuthenticationToken(clientRegistration, bhknz);
+        Authentication unauthenticatedToken = new ClientCredentialsClientRegistrationAuthenticationToken(clientRegistration, bhknz);
         authenticateAndChangeAuthenticatedPrincipal(unauthenticatedToken);
     }
 
@@ -106,7 +106,7 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
                 .authorizationGrantType(AuthorizationGrantType.PASSWORD)
                 .build();
 
-        Authentication unauthenticatedToken = new PasswordAuthenticationToken(clientRegistration, username, password, bhknz);
+        Authentication unauthenticatedToken = new PasswordClientRegistrationAuthenticationToken(clientRegistration, username, password, bhknz);
         authenticateAndChangeAuthenticatedPrincipal(unauthenticatedToken);
     }
 
@@ -134,7 +134,7 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
 
         AuthorizationGrantType grantType = clientRegistration.getAuthorizationGrantType();
         if (AuthorizationGrantType.CLIENT_CREDENTIALS.equals(grantType)) {
-            return new ClientCredentialsAuthenticationToken(oauth2ClientRegistrationId, bhknz);
+            return new ClientCredentialsRegistrationIdAuthenticationToken(oauth2ClientRegistrationId, bhknz);
         } else if (AuthorizationGrantType.PASSWORD.equals(grantType)) {
             // ROPC requires the username and password to be set in the additional properties
             if (props == null) {
@@ -142,7 +142,7 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
                         String.format("No configured credentials found for client with registrationId: %s.", clientRegistration.getRegistrationId()));
             }
 
-            return new PasswordAuthenticationToken(clientRegistration, props.getUsername(), props.getPassword(), bhknz);
+            return new PasswordClientRegistrationAuthenticationToken(clientRegistration, props.getUsername(), props.getPassword(), bhknz);
         } else {
             throw new IllegalArgumentException("The AuthorizationGrantType '" + grantType.getValue() + "' is not supported.");
         }

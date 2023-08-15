@@ -1,10 +1,13 @@
-package de.bund.bva.isyfact.security.oauth2.client.authentication;
+package de.bund.bva.isyfact.security.oauth2.client.authentication.token;
 
 import org.springframework.lang.Nullable;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.authority.AuthorityUtils;
 
-public class AbstractIsyAuthenticationToken extends AbstractAuthenticationToken {
+/**
+ * Base class for tokens used by the {@link de.bund.bva.isyfact.security.oauth2.client.Authentifizierungsmanager}.
+ */
+public abstract class AbstractIsyAuthenticationToken extends AbstractAuthenticationToken {
 
     /**
      * Principal that indicates the {@link de.bund.bva.isyfact.security.oauth2.client.Authentifizierungsmanager}
@@ -25,7 +28,7 @@ public class AbstractIsyAuthenticationToken extends AbstractAuthenticationToken 
     @Nullable
     private final String bhknz;
 
-    public AbstractIsyAuthenticationToken(String principal, @Nullable String bhknz) {
+    protected AbstractIsyAuthenticationToken(String principal, @Nullable String bhknz) {
         super(AuthorityUtils.NO_AUTHORITIES);
         this.principal = principal;
         this.bhknz = bhknz;

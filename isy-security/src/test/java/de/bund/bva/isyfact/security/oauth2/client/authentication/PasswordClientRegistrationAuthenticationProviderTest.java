@@ -12,7 +12,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -26,13 +25,14 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.test.context.ActiveProfiles;
 
 import de.bund.bva.isyfact.security.AbstractOidcProviderTest;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.token.PasswordClientRegistrationAuthenticationToken;
 
 @ActiveProfiles("test-clients")
 @SpringBootTest
-public class PasswordAuthenticationProviderTest extends AbstractOidcProviderTest {
+public class PasswordClientRegistrationAuthenticationProviderTest extends AbstractOidcProviderTest {
 
     @Autowired
-    private PasswordAuthenticationProvider passwordAuthenticationProvider;
+    private PasswordClientRegistrationAuthenticationProvider passwordClientRegistrationAuthenticationProvider;
 
     @Autowired
     private ClientRegistrationRepository clientRegistrationRepository;
@@ -45,8 +45,8 @@ public class PasswordAuthenticationProviderTest extends AbstractOidcProviderTest
 
     @Test
     public void shouldGetAuthTokenForUserWithoutBhknz() {
-        Authentication authentication = passwordAuthenticationProvider.authenticate(
-                new PasswordAuthenticationToken(clientRegistrationRepository.findByRegistrationId("ropc-client"),
+        Authentication authentication = passwordClientRegistrationAuthenticationProvider.authenticate(
+                new PasswordClientRegistrationAuthenticationToken(clientRegistrationRepository.findByRegistrationId("ropc-client"),
                         "testuser", "pw1234", null));
 
         // security context is still empty
@@ -66,8 +66,8 @@ public class PasswordAuthenticationProviderTest extends AbstractOidcProviderTest
 
     @Test
     public void shouldGetAuthTokenForUserWithBhknz() {
-        Authentication authentication = passwordAuthenticationProvider.authenticate(
-                new PasswordAuthenticationToken(clientRegistrationRepository.findByRegistrationId("ropc-client-with-bhknz"),
+        Authentication authentication = passwordClientRegistrationAuthenticationProvider.authenticate(
+                new PasswordClientRegistrationAuthenticationToken(clientRegistrationRepository.findByRegistrationId("ropc-client-with-bhknz"),
                         "testuser-with-bhknz", "pw1234", "123456"));
 
         // security context is still empty
@@ -88,16 +88,16 @@ public class PasswordAuthenticationProviderTest extends AbstractOidcProviderTest
     @Test
     public void shouldThrowAuthExceptionWithInvalidCredentials() {
         assertThrows(ClientAuthorizationException.class,
-                () -> passwordAuthenticationProvider.authenticate(
-                        new PasswordAuthenticationToken(clientRegistrationRepository.findByRegistrationId("ropc-client-invalid"),
+                () -> passwordClientRegistrationAuthenticationProvider.authenticate(
+                        new PasswordClientRegistrationAuthenticationToken(clientRegistrationRepository.findByRegistrationId("ropc-client-invalid"),
                                 "testuser", "wrong", null)));
     }
 
     @Test
     public void shouldThrowErrorWithWrongClient() {
         ClientAuthorizationException exception = assertThrows(ClientAuthorizationException.class,
-                () -> passwordAuthenticationProvider.authenticate(
-                        new PasswordAuthenticationToken(clientRegistrationRepository.findByRegistrationId("cc-client-invalid-with-resource-owner"),
+                () -> passwordClientRegistrationAuthenticationProvider.authenticate(
+                        new PasswordClientRegistrationAuthenticationToken(clientRegistrationRepository.findByRegistrationId("cc-client-invalid-with-resource-owner"),
                                 "testuser", "pw1234", "123456")));
 
         assertEquals(OAuth2ErrorCodes.INVALID_GRANT, exception.getError().getErrorCode());
@@ -108,8 +108,8 @@ public class PasswordAuthenticationProviderTest extends AbstractOidcProviderTest
     public void shouldThrowErrorWithMissingBhknz() {
         // user that requires a bhknz
         ClientAuthorizationException exception = assertThrows(ClientAuthorizationException.class,
-                () -> passwordAuthenticationProvider.authenticate(
-                        new PasswordAuthenticationToken(clientRegistrationRepository.findByRegistrationId("ropc-client-with-bhknz-without-bhknz"),
+                () -> passwordClientRegistrationAuthenticationProvider.authenticate(
+                        new PasswordClientRegistrationAuthenticationToken(clientRegistrationRepository.findByRegistrationId("ropc-client-with-bhknz-without-bhknz"),
                                 "testuser-with-bhknz", "p1234", null)));
 
         assertEquals("invalid_token_response", exception.getError().getErrorCode());
@@ -120,8 +120,8 @@ public class PasswordAuthenticationProviderTest extends AbstractOidcProviderTest
     public void shouldThrowErrorWithMissingResourceOwner() {
         // user without resource owner (username/password/bhknz) set
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> passwordAuthenticationProvider.authenticate(
-                        new PasswordAuthenticationToken(clientRegistrationRepository.findByRegistrationId("ropc-client-without-resource-owner"),
+                () -> passwordClientRegistrationAuthenticationProvider.authenticate(
+                        new PasswordClientRegistrationAuthenticationToken(clientRegistrationRepository.findByRegistrationId("ropc-client-without-resource-owner"),
                                 null, null, null)));
 
         assertThat(exception.getMessage()).contains("ropc-client-without-resource-owner");
@@ -130,7 +130,7 @@ public class PasswordAuthenticationProviderTest extends AbstractOidcProviderTest
     @Test
     public void shouldReturnNullWhenPassingUnsupportedAuthentication() {
         Authentication authRequest = new UsernamePasswordAuthenticationToken("testuser", "pw1234");
-        Authentication authentication = passwordAuthenticationProvider.authenticate(authRequest);
+        Authentication authentication = passwordClientRegistrationAuthenticationProvider.authenticate(authRequest);
 
         assertNull(authentication);
     }
