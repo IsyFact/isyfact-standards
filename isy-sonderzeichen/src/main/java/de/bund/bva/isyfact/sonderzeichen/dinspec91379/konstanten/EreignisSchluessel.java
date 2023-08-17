@@ -16,6 +16,7 @@
  */
 package de.bund.bva.isyfact.sonderzeichen.dinspec91379.konstanten;
 
+@Deprecated
 public final class EreignisSchluessel {
 
     /** Event key for transformation. */

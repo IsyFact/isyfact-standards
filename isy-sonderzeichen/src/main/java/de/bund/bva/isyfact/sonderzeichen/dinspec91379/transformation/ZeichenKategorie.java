@@ -16,6 +16,7 @@
  */
 package de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation;
 
+@Deprecated
 public final class ZeichenKategorie {
 
     /**

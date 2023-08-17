@@ -20,6 +20,7 @@ package de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation;
  * Interface for all possible transformers. Defines methods that every transformer can offer.
  *
  */
+@Deprecated
 public interface Transformator {
 
     /**

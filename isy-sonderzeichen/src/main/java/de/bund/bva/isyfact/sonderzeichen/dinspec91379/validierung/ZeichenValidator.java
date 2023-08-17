@@ -17,6 +17,7 @@ import de.bund.bva.isyfact.sonderzeichen.dinspec91379.konstanten.EreignisSchlues
 /**
  * Provides methods for validating strings against DIN SPEC 91379 data types.
  */
+@Deprecated
 public class ZeichenValidator {
 
     /** Logger. */

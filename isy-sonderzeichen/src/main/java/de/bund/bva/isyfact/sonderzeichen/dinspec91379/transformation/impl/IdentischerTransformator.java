@@ -25,6 +25,7 @@ import de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.Transformat
  * The transformer for identical string Latin characters.
  *
  */
+@Deprecated
 public class IdentischerTransformator extends AbstractTransformator {
 
     /** Logger. */

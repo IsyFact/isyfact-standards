@@ -9,6 +9,7 @@ import de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.Transformat
  * The transcription transformer.
  *
  */
+@Deprecated
 public class TranskriptionTransformator extends  AbstractTransformator {
 
     /** Logger. */

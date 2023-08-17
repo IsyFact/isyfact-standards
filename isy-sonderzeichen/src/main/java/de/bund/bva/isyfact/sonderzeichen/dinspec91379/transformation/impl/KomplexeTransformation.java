@@ -29,6 +29,7 @@ import de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.Transformat
  * conditions must be met.
  * 
  */
+@Deprecated
 public class KomplexeTransformation {
 
     /**

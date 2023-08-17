@@ -25,6 +25,7 @@ import de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.impl.Abstra
 /**
  * The factory for the respective transformer.
  */
+@Deprecated
 public class TransformatorFactory implements FactoryBean<Object>, InitializingBean {
 
     /** The transformer is set via Spring. */
