@@ -18,6 +18,7 @@ package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
+@Deprecated
 public class ZeichenKategorie {
 
     /** Character of the category 'letter'. */

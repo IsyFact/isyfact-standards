@@ -29,6 +29,7 @@ import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.Tran
  * conditions must be met.
  * 
  */
+@Deprecated
 public class KomplexeTransformation {
 
     /**

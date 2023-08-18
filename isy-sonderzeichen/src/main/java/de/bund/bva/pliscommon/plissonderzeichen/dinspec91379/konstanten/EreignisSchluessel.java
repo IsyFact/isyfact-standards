@@ -16,6 +16,7 @@
  */
 package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.konstanten;
 
+@Deprecated
 public final class EreignisSchluessel {
 
     /** Event key for transformation. */

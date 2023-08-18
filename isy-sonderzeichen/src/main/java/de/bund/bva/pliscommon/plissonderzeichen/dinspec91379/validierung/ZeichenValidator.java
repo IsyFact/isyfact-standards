@@ -17,6 +17,7 @@ import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.konstanten.Ereignis
 /**
  * Provides methods for validating strings against DIN SPEC 91379 data types.
  */
+@Deprecated
 public class ZeichenValidator {
 
     /** Logger. */

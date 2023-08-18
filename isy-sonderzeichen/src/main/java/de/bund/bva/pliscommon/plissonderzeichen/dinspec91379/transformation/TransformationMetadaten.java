@@ -3,6 +3,7 @@ package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation;
 /**
  * Metadata of a transformation.
  */
+@Deprecated
 public class TransformationMetadaten {
 
     /** Character before transformation. */

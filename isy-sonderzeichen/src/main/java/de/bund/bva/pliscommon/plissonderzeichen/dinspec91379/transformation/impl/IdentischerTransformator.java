@@ -25,6 +25,7 @@ import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.Tran
  * The transformer for identical string Latin characters.
  *
  */
+@Deprecated
 public class IdentischerTransformator extends AbstractTransformator {
 
     /** Logger. */

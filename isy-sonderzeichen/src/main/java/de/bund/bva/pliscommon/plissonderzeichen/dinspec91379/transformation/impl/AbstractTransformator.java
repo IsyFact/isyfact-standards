@@ -43,6 +43,7 @@ import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.Zeic
  * Provides common methods for all transformers.
  *
  */
+@Deprecated
 public abstract class AbstractTransformator implements Transformator {
 
     /** The regular expression for spaces in the middle of a string. */

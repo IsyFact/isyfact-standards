@@ -12,6 +12,7 @@ import static de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.validierung.
 /**
  * Class representing a data type as defined by DIN SPEC 91379.
  */
+@Deprecated
 public enum Datentyp {
 
     /**

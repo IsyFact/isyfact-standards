@@ -9,6 +9,7 @@ import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.Tran
  * The transcription transformer.
  *
  */
+@Deprecated
 public class TranskriptionTransformator extends  AbstractTransformator {
 
     /** Logger. */
