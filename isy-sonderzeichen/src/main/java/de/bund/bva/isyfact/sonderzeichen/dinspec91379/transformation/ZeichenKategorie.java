@@ -18,6 +18,7 @@ package de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
+@Deprecated
 public final class ZeichenKategorie {
 
     /** Character of the category 'letter'. */

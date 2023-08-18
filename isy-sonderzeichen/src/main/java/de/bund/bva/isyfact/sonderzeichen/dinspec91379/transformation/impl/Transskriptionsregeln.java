@@ -22,6 +22,7 @@ import java.util.Set;
  * Methods for checking transcription rules.
  *
  */
+@Deprecated
 public final class Transskriptionsregeln {
 
     private Transskriptionsregeln() {

@@ -5,6 +5,7 @@ import java.util.List;
 /**
  * Object containing a transformed text and the metadata of its transformation.
  */
+@Deprecated
 public class Transformation {
 
     /** Text after transformation. */

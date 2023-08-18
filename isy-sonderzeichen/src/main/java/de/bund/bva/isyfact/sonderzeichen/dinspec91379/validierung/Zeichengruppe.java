@@ -3,6 +3,7 @@ package de.bund.bva.isyfact.sonderzeichen.dinspec91379.validierung;
 /**
  * Class representing a character group as defined by DIN SPEC 91379.
  */
+@Deprecated
 public enum Zeichengruppe {
 
     /**

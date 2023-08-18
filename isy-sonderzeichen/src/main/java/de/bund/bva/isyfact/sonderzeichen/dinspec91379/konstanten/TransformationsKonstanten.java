@@ -19,6 +19,7 @@ package de.bund.bva.isyfact.sonderzeichen.dinspec91379.konstanten;
 /**
  * This class contains constants for the resources of the respective transformation table.
  */
+@Deprecated
 public final class TransformationsKonstanten {
 
     /** The string that describes the characters to remove. */

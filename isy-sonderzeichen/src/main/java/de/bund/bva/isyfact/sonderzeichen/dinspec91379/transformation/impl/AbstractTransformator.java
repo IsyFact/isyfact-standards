@@ -43,6 +43,7 @@ import de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.ZeichenKate
  * Provides common methods for all transformers.
  *
  */
+@Deprecated
 public abstract class AbstractTransformator implements Transformator {
 
     /** The regular expression for spaces in the middle of a string. */
