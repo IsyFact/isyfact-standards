@@ -2,6 +2,7 @@
 
 # 1.12.0:
 - `IFS-1176`: Fehler gefixt, bei dem der LegacyTransformator Texte ausgibt, die nicht konform zu String.Latin 1.1 sind
+- Hinzufügen eines neuen Packages mit Transformatoren für die DIN Norm 91379
 
 # 1.11.0:
 - `IFS-1003`:
