@@ -1,5 +1,6 @@
 # 3.0.0
 - [isyfact-standards-doc] Migrationsleitfaden zur Umstellung auf isy-security
+  * `ISY-219`: Abschnitt zur Migration der Annotation @NutzerAuthentifizierung
 - `IFS-2422`: [isyfact-serviceapi-core] Deprecation des isy-serviceapi-core Bausteins
 - `IFS-2273`: [isyfact-standards-doc] Einheitliche Deprecation-Warnung für die Dokumentation
 - `IFS-2449`: [isyfact-standards-doc] Aufnahme von Testcontainers in den Produktkatalog
