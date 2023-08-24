@@ -61,21 +61,17 @@ Solche Entitäten können dann über das Lesen einer einzigen Tabellenzeile aus 
 === Vererbung im Persistenz-Klassenmodell
 
 Vererbungshierarchien können in relationalen Datenbanken nicht direkt umgesetzt werden.
-Die Jakarta Persistence API Specification beschreibt deshalb mehrere Strategien des O/R-Mappings von Vererbungshierarchien.
-Sie werden im Baustein xref:isy-persistence:konzept/vorgaben-konventionen.adoc#vererbungshierarchien[JPA/Hibernate] beschrieben zusammen mit Regeln für ihre Verwendung.
+Die JPA-Spezifikation beschreibt deshalb mehrere Strategien des O/R-Mappings von Vererbungshierarchien.
+Sie werden im Baustein xref:isy-persistence:konzept/vorgaben-konventionen.adoc#vererbungshierarchien[JPA/Hibernate] zusammen mit Regeln für ihre Verwendung beschrieben.
 
 Für alle Strategien gilt, dass die abzubildende Vererbungshierarchie nicht zu umfangreich sein sollte.
 Datenbankzugriffe auf Tabellen mit großen Hierarchien sind meistens wenig performant.
 Außerdem lässt sich die Vererbungshierarchie anhand der Datenbanktabellen entweder nicht oder nur schwer erkennen, und die Tabellen können unübersichtlich werden.
 
-.icon:university[title=Architekturregel] Architekturregel
-****
-Vererbungshierarchien zur Abbildung in relationalen Datenbanken sollten nur eine Oberklasse mit einigen Subklassen umfassen, höchstens jedoch zwei Vererbungslevel haben.
-****
-
-.icon:university[title=Architekturregel] Architekturregel
+.icon:university[title=Architekturregel] Vererbungshierarchien im Persistenz-Klassenmodell
 ****
 Vererbungshierarchien zur Abbildung in relationalen Datenbanken sollten nur verwendet werden, wenn das fachliche Datenmodell dadurch optimal wiedergegeben wird.
+Sie sollten nur eine Oberklasse mit einigen Subklassen und höchstens zwei Vererbungsebenen umfassen.
 ****
 
 [[fachlogik-in-persistenzklassen-vermeiden]]

@@ -218,7 +218,7 @@ Hierfür sind zwei 1-zu-n- (bzw. n-zu-1-) Assoziationen zu definieren.
 [[vererbungshierarchien]]
 === Vererbungshierarchien
 
-Die Jakarta Persistence API Specification beschreibt mehrere Strategien des O/R-Mappings von Vererbungshierarchien, zu beachten ist auch xref:blaupausen:detailkonzept-komponente-datenzugriff/persistenzlogik.adoc#vererbung-im-persistenz-klassenmodell[Vererbung im Persistenz-Klassenmodell].
+Die JPA-Spezifikation beschreibt mehrere Strategien des O/R-Mappings von Vererbungshierarchien, zu beachten ist auch xref:blaupausen:detailkonzept-komponente-datenzugriff/persistenzlogik.adoc#vererbung-im-persistenz-klassenmodell[Vererbung im Persistenz-Klassenmodell].
 
 Es werden zunächst die Architekturregeln der IsyFact für die vier O/R-Mapping-Strategien vorgestellt.
 
@@ -355,7 +355,7 @@ personen.forEach(person -> {
 *Nachteile*
 
 * Auf Attribute von Subklassen kann kein Not-Nullable-Constraint gesetzt werden.
-Im Beispiel kann „klassenstufe“ nicht auf not nullable gesetzt werden, denn wenn die gespeicherte Person ein Lehrer ist, ist „klassenstufe“ null.
+Im Beispiel kann `klassenstufe` nicht auf not nullable gesetzt werden, denn wenn die gespeicherte Person ein Lehrer ist, ist `klassenstufe` null.
 * Falls Datenbankadministratoren z.B. bei Fehlern den Inhalt der Tabelle analysieren müssen, ist die Zugehörigkeit einzelner Spalten zu bestimmten Subklassen nicht allein aus der Datenbanktabelle ersichtlich.
 In diesem Fall ist es hilfreich, wenn für jede Klasse der Vererbungshierarchie ein View definiert wurde.
 Diese Views beeinflussen das O/R-Mapping nicht, denn sie werden dafür nicht verwendet.
@@ -365,7 +365,7 @@ Diese Views beeinflussen das O/R-Mapping nicht, denn sie werden dafür nicht ver
 
 Jede Klasse wird auf eine eigene Tabelle abgebildet, auch eine abstrakte Oberklasse, und enthält nur ihre eigenen Attribute als Spalten.
 Die Primärschlüssel-Ids  der Subklassen sind gleichzeitig Fremdschlüssel für die entsprechenden Primärschlüssel-Ids der Oberklasse.
-Dadurch werden beim <<listing-polymorphic-access-hierarchy-mapping, polymorphen Zugriff>> auf die Oberklasse die Sub-Entitäten per Join mit der Tabelle der Oberklasse gelesen (implizit per O/R-Mapper).
+Dadurch werden beim <<listing-polymorphic-access-hierarchy-mapping,polymorphen Zugriff>> auf die Oberklasse die Sub-Entitäten per Join mit der Tabelle der Oberklasse gelesen (implizit per O/R-Mapper).
 
 Die Oberklasse wird folgendermaßen annotiert:
 
@@ -375,6 +375,7 @@ Die Oberklasse wird folgendermaßen annotiert:
 ----
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+public class Oberklasse { }
 ----
 
 *Vorteile*
@@ -389,8 +390,6 @@ Die Oberklasse wird folgendermaßen annotiert:
 [[table-per-concrete-class-details]]
 ===== Table per Concrete Class
 
-Vgl. auch <<table-per-concrete-class-rules>>.
-
 Die Oberklasse wird folgendermaßen annotiert:
 
 [[listing-table-per-concrete-class]]
@@ -399,6 +398,7 @@ Die Oberklasse wird folgendermaßen annotiert:
 ----
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public class Oberklasse { }
 ----
 
 *Vorteile*
@@ -409,12 +409,10 @@ Die Oberklasse wird folgendermaßen annotiert:
 *Nachteile*
 
 * Die Datenbanktabellen sind nicht normalisiert.
-* Beim <<listing-polymorphic-access-hierarchy-mapping, polymorphen Zugriff>> auf die Oberklasse muss dies (implizit per O/R-Mapper) über eine UNION-Query geschehen oder eine eigene Query für jede Subklasse.
+* Beim <<listing-polymorphic-access-hierarchy-mapping,polymorphen Zugriff>> auf die Oberklasse muss dies (implizit per O/R-Mapper) über eine UNION-Query geschehen oder eine eigene Query für jede Subklasse.
 
 [[mapped-superclass-details]]
 ===== Mapped Superclass
-
-Vgl. auch <<mapped-superclass-rules>>.
 
 Die Oberklasse wird folgendermaßen annotiert:
 
@@ -423,6 +421,7 @@ Die Oberklasse wird folgendermaßen annotiert:
 [source,java]
 ----
 @MappedSuperclass
+public class Oberklasse { }
 ----
 
 *Vorteile*
@@ -435,13 +434,14 @@ Die Oberklasse wird folgendermaßen annotiert:
 * Die Datenbanktabellen sind nicht normalisiert.
 * Die Vererbungshierarchie ist in der Datenbank nicht nachvollziehbar.
 
-Weiterführende Literatur (Auswahl):
+[NOTE]
+====
+Zur Vertiefung bieten sich die folgenden Quellen an:
 
-xref:glossary:literaturextern:inhalt.adoc#litextern-jakarta-persistence[Jakarta Persistence],
-
-xref:glossary:literaturextern:inhalt.adoc#litextern-hibernate-inheritance[Hibernate User Guide - Inheritance],
-
-xref:glossary:literaturextern:inhalt.adoc#litextern-jpa-hibernate[Java Persistence with Hibernate].
+* xref:glossary:literaturextern:inhalt.adoc#litextern-jakarta-persistence[Jakarta Persistence],
+* xref:glossary:literaturextern:inhalt.adoc#litextern-hibernate-inheritance[Hibernate User Guide - Inheritance],
+* xref:glossary:literaturextern:inhalt.adoc#litextern-jpa-hibernate[Java Persistence with Hibernate].
+====
 
 [[behandlung-von-zeitangaben]]
 === Behandlung von Datums- und Zeitangaben
