@@ -57,14 +57,11 @@ Die Repositories werden im Package der Fachkomponente abgelegt, welche die Daten
 Falls die Datenhoheit keiner einzelnen Komponente zugewiesen werden kann, erhält die Komponente Basisdaten die Datenhoheit (siehe auch xref:blaupausen:detailkonzept-komponente-anwendungskern/master.adoc#fachkomponenten[Detailkonzept Komponente Anwendungskern]).
 Die Repositories werden nur von Klassen der Fachkomponente mit Datenhoheit aufgerufen.
 
-Während über Repositories Entitäten aus der Datenbank gelesen und in die Datenbank eingefügt werden, können sie auch außerhalb dieser Klassen verändert bzw. befüllt werden.
-Dies darf jedoch gemäß der xref:blaupausen:referenzarchitektur/master.adoc#einleitung[Referenzarchitektur] nur von Klassen innerhalb der gleichen Teilanwendung  erfolgen: Komponenten anderer Teilanwendungen dürfen sie nicht verändern oder befüllen.
-Sie erhalten daher lediglich Deep-Copies bzw. nicht änderbare Varianten der Entitäten.
-
-Eine Ausnahme hierzu bildet die Komponente Basisdaten: Sie gibt die Entitäten an andere Komponenten weiter, welche diese verändern und befüllen dürfen.
+Gemäß der xref:blaupausen:referenzarchitektur-it-system/inhalt.adoc#datenzugriff[Referenzarchitektur] dürfen Entitäten nur von der Fachkomponente im Anwendungskern verändert werden, welche zur Fachkomponente im Datenzugriff gehört.
+Der Anwendungskern darf für andere Fachkomponenten nur Geschäftsobjekte an seiner Fachkomponentenschnittstelle anbieten.
 
 Für ein konkretes DAO ist ein eigenes Interface von der Basisschnittstelle `CrudRepository` abzuleiten.
-Die Benennung erfolgt gemäß der xref:blaupausen:detailkonzept-komponente-datenzugriff/persistenzlogik.adoc#namenskonvention-spring-data-repository[Namenskonvention].
+Die Benennung erfolgt gemäß der xref:konzept/vorgaben-konventionen.adoc#namenskonvention-spring-data-repository[Namenskonvention].
 In der Dao-Klasse können weitere DAO-Operationen definiert werden, zum Beispiel zur Durchführung von Queries.
 Ein Beispiel hierfür ist in <<listing-beispielrepository>> zu sehen.
 
