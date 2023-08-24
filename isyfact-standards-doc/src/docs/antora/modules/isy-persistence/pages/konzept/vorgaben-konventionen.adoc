@@ -136,14 +136,111 @@ Dabei erfolgt der Zugriff auf die zweite Datenbank getrennt über einen weiteren
 [[verwendung-von-hibernate-filtern]]
 === Verwendung von Hibernate Filtern
 
-Parametrisierte Hibernate Filter bieten die Möglichkeit Daten zur Laufzeit mit Sichtbarkeitsregeln auszuwerten, ohne viele verschiedene Varianten von Abfragen schreiben zu müssen.
-Dabei können sie pro Session aktiviert oder deaktiviert werden, standardmäßig sind sie deaktiviert.
-Die Filter können auf Klassen- oder Collection-Ebene definiert werden und können bestehende „where“-Klauseln erweitern.
+Wenn in einer Anwendung viele wiederkehrende Abfragen auf Entitäten erfolgen, können Hibernate Filter eingesetzt werden, um die "WHERE-Klauseln" der Abfragen zu vereinfachen oder zu ersetzen.
 
+Hibernate Filter vereinfachen wiederkehrende Abfragen.
+Sie können dynamisch gesetzt sowie pro Hibernate Session aktiviert und deaktiviert werden.
+Sie können an Entitäten und durch Collections realisierten Assoziationen definiert werden.
+
+.icon:university[title=Architekturregel] Verwendung von Hibernate Filtern
+****
 Wenn das fachliche Datenmodell variable Sichtbarkeitsregeln in größerem Umfang benötigt, sollten diese mit Hibernate Filtern umgesetzt werden.
-Das ersetzt eine Multiplizierung aller Abfragen.
+****
 
-Filter müssen als Annotationen mit `@FilterDef`, `@Filters` und `@Filter` umgesetzt werden.
+Außer der Annotation `@Filter` gibt es auch die Annotation `@Where`, die jedoch immer aktiv ist und eine statische Filterung durchführt.
+Im folgenden Beispiel würde ihr Einsatz dazu führen, dass die Anwendung generell keine gelöschten Items abfragen könnte.
+Deshalb wird Annotation `@Where` nur im Ausnahmefall empfohlen und hier nicht näher betrachtet.
+
+
+==== Beispiel für die Verwendung von Hibernate Filtern
+
+Zur Veranschaulichung wird ein Beispiel für die Verwendung von Hibernate Filtern aufgeführt.
+Es gibt eine Entität `User` und eine Entität `Item` sowie eine 1-zu-n-Assoziation zwischen `User` und `Item`.
+Die Entität Item hat ein Attribut `deleted`, das als Soft Delete verwendet wird.
+(Dies ist keine Empfehlung, Soft Deletes zu verwenden.)
+
+[[listing-beispiel-hibernate-filter]]
+.Hibernate Filter auf Ebene von Klassen und Collections
+[source,java]
+----
+@Entity
+//Definition Hibernate Filter
+@FilterDef(
+     name="aktuellesItem",
+     parameters = @ParamDef(
+         name="geloescht",
+         type="boolean"
+    )
+)
+//Beispiel für Hibernate Filter auf Klassen-Ebene
+@Filter(
+     name="aktuellesItem",
+     condition="item_geloescht = :geloescht"
+)
+public class Item {
+     @Id
+     private Long id;
+
+     @Column(name = "item_geloescht")
+     private boolean deleted;
+}
+
+@Entity
+public class User {
+    @Id
+    private Long id;
+
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    //Beispiel für Hibernate Filter auf Collection-Ebene
+    @Filter(
+        name="aktuellesItem",
+        condition="item_geloescht = :geloescht"
+    )
+    private Set<Item> items;
+    public Set<Item> getItems(){
+	    return items;
+    }
+}
+----
+
+[[listing-zugriff-hibernate-filter]]
+.Zugriff auf Klasse und Collection mit Hibernate Filter
+[source,java]
+----
+//Zugriff per Spring Data Repository
+public class FilterExample {
+
+    @Autowired
+    private ItemRepository itemRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    public void howToUseFilters() {
+
+        // Hibernate Filter sind standardmäßig deaktiviert.
+        List<Item> alleItems = itemRepository.findAll();
+        // alleItems.size() == 3
+        User user = userRepository.findById(1).orElse(null);
+        // user.getItems().size() == 3
+
+        // Hibernate Filter aktivieren
+        entityManager
+            .unwrap(Session.class)
+            .enableFilter("aktuellesItem")
+            .setParameter("geloescht", false);
+
+        // Mit aktiviertem Filter wird eine Entität gefiltert.
+        List<Item> aktuelleItems = itemRepository.findAll();
+        // aktuelleItems.size() == 2
+        // user.getItems().size() == 2
+    }
+}
+----
+
+CAUTION: Das Suchen per Identifier (z.B. mittels `itemRepository.findById(1)`) wendet keine Filter an, siehe xref:glossary:literaturextern:inhalt.adoc#litextern-hibernate-filter[filtering entities and associations].
+
 
 [[verbot-von-bulk-queries]]
 === Verbot von Bulk-Queries
