@@ -6,6 +6,7 @@
     - spring-boot-maven-plugin Versionsanhebung auf 2.7.11
 - `IFS-2045`: Produkte Apache Tika, commons-beanutils und commons-io hinzugefügt
 - h2 wird über Spring Boot transitiv bezogen, wie im Produktkatalog gefordert
+- `ISY-139`: Spring Boot Versionsanhebung auf 2.7.15
 
 # 2.4.2
 - `IFS-1466`: Versionsanhebung von Spring Boot auf 2.5.13

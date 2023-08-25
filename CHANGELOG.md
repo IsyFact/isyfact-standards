@@ -50,6 +50,7 @@
 - `IFS-2153`: [isyfact-task] Umstellung isy-task auf Spring Boot:
   #### _BREAKING CHANGE: Einführung von Spring Boot_
   * Taskkonfiguration und TaskkonfigurationVerwalter entfernt, Übersetzungen hinzugefügt
+- `ISY-139`: [isyfact-products-bom] Spring Boot Versionsanhebung auf 2.7.15
 
 # 2.4.4
 - `IFS-1997`: Fix CVE-2022-42889 durch Anhebung von 'commons-text' auf 1.10
