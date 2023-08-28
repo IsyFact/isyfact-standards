@@ -32,7 +32,7 @@ import de.bund.bva.isyfact.security.oauth2.client.authentication.token.ClientCre
 public class ClientCredentialsClientRegistrationAuthenticationProviderTest extends AbstractOidcProviderTest {
 
     @Autowired
-    private ClientCredentialsClientRegistrationAuthenticationProvider manualAuthenticationProvider;
+    private ClientCredentialsClientRegistrationAuthenticationProvider authenticationProvider;
 
     @BeforeAll
     public static void setup() {
@@ -47,7 +47,7 @@ public class ClientCredentialsClientRegistrationAuthenticationProviderTest exten
                 .clientSecret("supersecretpassword")
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
                 .build();
-        Authentication authentication = manualAuthenticationProvider.authenticate(new ClientCredentialsClientRegistrationAuthenticationToken(
+        Authentication authentication = authenticationProvider.authenticate(new ClientCredentialsClientRegistrationAuthenticationToken(
                 clientRegistration, null));
 
         // security context is still empty
@@ -73,14 +73,14 @@ public class ClientCredentialsClientRegistrationAuthenticationProviderTest exten
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
                 .build();
         assertThrows(ClientAuthorizationException.class,
-                () -> manualAuthenticationProvider.authenticate(new ClientCredentialsClientRegistrationAuthenticationToken(
+                () -> authenticationProvider.authenticate(new ClientCredentialsClientRegistrationAuthenticationToken(
                         clientRegistration, null)));
     }
 
     @Test
     public void shouldReturnNullWhenPassingUnsupportedAuthentication() {
         Authentication authRequest = new UsernamePasswordAuthenticationToken("testuser", "pw1234");
-        Authentication authentication = manualAuthenticationProvider.authenticate(authRequest);
+        Authentication authentication = authenticationProvider.authenticate(authRequest);
 
         assertNull(authentication);
     }

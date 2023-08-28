@@ -65,14 +65,14 @@ public class IsyOAuth2ClientAutoConfiguration {
     // does not have a dependency on ClientRegistrations and should always be created
     @Bean
     @ConditionalOnMissingBean
-    public ClientCredentialsClientRegistrationAuthenticationProvider isyOAuth2ManualClientCredentialsAuthenticationProvider(
+    public ClientCredentialsClientRegistrationAuthenticationProvider clientCredentialsClientRegistrationAuthenticationProvider(
             JwtAuthenticationConverter jwtAuthenticationConverter) {
         return new ClientCredentialsClientRegistrationAuthenticationProvider(jwtAuthenticationConverter);
     }
 
     // does not have a dependency on ClientRegistrations and should always be created
     @Bean
-    public PasswordClientRegistrationAuthenticationProvider passwordAuthenticationProvider(
+    public PasswordClientRegistrationAuthenticationProvider passwordClientRegistrationAuthenticationProvider(
             JwtAuthenticationConverter jwtAuthenticationConverter,
             @Lazy BhknzHeaderConverterBuilder bhknzHeaderConverterBuilder) {
         return new PasswordClientRegistrationAuthenticationProvider(jwtAuthenticationConverter, bhknzHeaderConverterBuilder);
@@ -122,7 +122,7 @@ public class IsyOAuth2ClientAutoConfiguration {
         }
 
         @Bean
-        public ClientCredentialsAuthorizedClientAuthenticationProvider isyOAuth2ClientCredentialsAuthenticationProvider(
+        public ClientCredentialsAuthorizedClientAuthenticationProvider clientCredentialsAuthorizedClientAuthenticationProvider(
                 @Qualifier(ISY_AUTHORIZED_CLIENT_MANAGER_BEAN) OAuth2AuthorizedClientManager oAuth2AuthorizedClientManager,
                 JwtAuthenticationConverter jwtAuthenticationConverter) {
             return new ClientCredentialsAuthorizedClientAuthenticationProvider(oAuth2AuthorizedClientManager, jwtAuthenticationConverter);

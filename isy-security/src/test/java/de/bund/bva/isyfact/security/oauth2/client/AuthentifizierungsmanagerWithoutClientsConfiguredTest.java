@@ -13,6 +13,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 
 import de.bund.bva.isyfact.security.AbstractOidcProviderTest;
@@ -53,7 +54,7 @@ public class AuthentifizierungsmanagerWithoutClientsConfiguredTest extends Abstr
     }
 
     @Test
-    public void testHasOnlyManualAuthenticationProvider() {
+    public void testHasOnlyClientRegistrationAuthenticationProvider() {
         assertThat(isyOAuth2AuthenticationProviderManager.getProviders())
                 .containsOnly(clientCredentialsClientRegistrationAuthenticationProvider, passwordClientRegistrationAuthenticationProvider);
     }
@@ -75,6 +76,7 @@ public class AuthentifizierungsmanagerWithoutClientsConfiguredTest extends Abstr
         verify(clientCredentialsClientRegistrationAuthenticationProvider).authenticate(tokenCaptor.capture());
         ClientCredentialsClientRegistrationAuthenticationToken value = tokenCaptor.getValue();
         assertEquals(getIssuer(), value.getClientRegistration().getProviderDetails().getIssuerUri());
+        assertEquals(AuthorizationGrantType.CLIENT_CREDENTIALS, value.getClientRegistration().getAuthorizationGrantType());
         assertEquals("testid", value.getClientRegistration().getClientId());
         assertEquals("testsecret", value.getClientRegistration().getClientSecret());
         assertEquals("123456", value.getBhknz());
@@ -91,6 +93,7 @@ public class AuthentifizierungsmanagerWithoutClientsConfiguredTest extends Abstr
         verify(passwordClientRegistrationAuthenticationProvider).authenticate(tokenCaptor.capture());
         PasswordClientRegistrationAuthenticationToken value = tokenCaptor.getValue();
         assertEquals(getIssuer(), value.getClientRegistration().getProviderDetails().getIssuerUri());
+        assertEquals(AuthorizationGrantType.PASSWORD, value.getClientRegistration().getAuthorizationGrantType());
         assertEquals("testid", value.getClientRegistration().getClientId());
         assertEquals("testsecret", value.getClientRegistration().getClientSecret());
         assertEquals("testuser", value.getUsername());

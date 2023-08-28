@@ -50,6 +50,9 @@ public class PasswordClientRegistrationAuthenticationProvider extends IsyOAuth2A
         ClientRegistration clientRegistration = token.getClientRegistration();
 
         OAuth2AuthorizedClient authorizedClient = obtainAuthorizedClient(clientRegistration, token, token.getUsername(), token.getPassword(), token.getBhknz());
+        /* The authorized client could theoretically be null if a valid token already exists or a refresh token
+           is configured, but since the OAuth2AuthorizationContext does not use authorized clients and the
+           OAuth2AuthorizationContext is only configured for a single grant type this can currently not be the case. */
         if (authorizedClient == null) {
             throw new ClientAuthorizationException(new OAuth2Error(OAuth2ErrorCodes.INVALID_GRANT), clientRegistration.getRegistrationId(),
                     "clientRegistration.authorizationGrantType must be AuthorizationGrantType.PASSWORD");

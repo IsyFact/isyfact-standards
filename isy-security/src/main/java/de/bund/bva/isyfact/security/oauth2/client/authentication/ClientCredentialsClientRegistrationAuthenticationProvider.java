@@ -24,7 +24,7 @@ public class ClientCredentialsClientRegistrationAuthenticationProvider extends I
     /**
      * AuthorizedClientProvider for the client credentials.
      * Unlike in {@link ClientCredentialsAuthorizedClientAuthenticationProvider} we can't use the AuthorizedClientManager because
-     * the client registrations are created manually.
+     * the client registrations are not managed by Spring.
      */
     private final OAuth2AuthorizedClientProvider clientProvider = OAuth2AuthorizedClientProviderBuilder.builder()
             .clientCredentials()
@@ -50,6 +50,9 @@ public class ClientCredentialsClientRegistrationAuthenticationProvider extends I
                 .build();
 
         OAuth2AuthorizedClient authorizedClient = clientProvider.authorize(authorizationContext);
+        /* The authorized client could theoretically be null if a valid token already exists,
+           but since the OAuth2AuthorizationContext does not use authorized clients and the
+           OAuth2AuthorizationContext is only configured for a single grant type this can currently not be the case. */
         if (authorizedClient == null) {
             throw new ClientAuthorizationException(new OAuth2Error(OAuth2ErrorCodes.INVALID_GRANT),
                     "clientRegistration.authorizationGrantType must be AuthorizationGrantType.CLIENT_CREDENTIALS");

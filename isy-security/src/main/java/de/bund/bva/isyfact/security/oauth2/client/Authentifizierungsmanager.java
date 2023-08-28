@@ -10,7 +10,8 @@ import de.bund.bva.isyfact.security.config.IsyOAuth2ClientConfigurationPropertie
  * Provides methods for performing authentication via OAuth 2.0 clients outside of the context of a {@code HttpServletRequest},
  * for example in a scheduled/background thread and/or in the service-tier.
  * <p>
- * The preferred way is to use {@link #authentifiziere(String)} which will automatically
+ * The preferred way is to use {@link #authentifiziere(String)} with the client registration ID of an
+ * OAuth 2.0 Client Registration configured in the application properties.
  */
 public interface Authentifizierungsmanager {
 

@@ -27,15 +27,16 @@ import de.bund.bva.isyfact.security.oauth2.client.authentication.token.PasswordC
  * <p>
  * The primary way for authentication is {@link #authentifiziere(String)}, which depends on OAuth 2.0 Client Registrations
  * to be configured in the application properties.
- * The other {@code authentifiziereClient}/{@code authentifiziereSystem} methods construct the Client Registrations manually
- * and thus do not depend on any to be configured in the application properties.
+ * The other {@code authentifiziereClient}/{@code authentifiziereSystem} methods construct the necessary
+ * Client Registration with the provided credentials and issuer location and thus do not depend on any to be
+ * configured in the application properties.
  */
 public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsmanager {
 
     /**
      * ProviderManager configured with supported {@link AuthenticationProvider}s.
      * It is intended behavior that the ProviderManager may not support all authentication methods made available by the methods of
-     * this class, in which case a {@link AuthenticationException} is thrown.
+     * this class, in which case an {@link AuthenticationException} is thrown.
      *
      * @see IsyOAuth2Authentifizierungsmanager more details in the class doc
      */
@@ -139,7 +140,8 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
             // ROPC requires the username and password to be set in the additional properties
             if (props == null) {
                 throw new BadCredentialsException(
-                        String.format("No configured credentials found for client with registrationId: %s.", clientRegistration.getRegistrationId()));
+                        String.format("No configured credentials (username, password) found for client with registrationId: %s.",
+                                clientRegistration.getRegistrationId()));
             }
 
             return new PasswordClientRegistrationAuthenticationToken(clientRegistration, props.getUsername(), props.getPassword(), bhknz);

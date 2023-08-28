@@ -107,7 +107,7 @@ public class IsySecurityAutoConfigurationTest extends AbstractOidcProviderTest {
         contextRunner
                 .withPropertyValues(
                         "spring.security.oauth2.client.provider.test.issuer-uri=http://localhost:9095/auth/realms/testrealm",
-                        "spring.security.oauth2.client.registration.test.client-id=test"
+                        "spring.security.oauth2.client.registration.test.client-id=testclient"
                 ).withConfiguration(AutoConfigurations.of(OAuth2ClientAutoConfiguration.class))
                 .run(context -> assertThat(context)
                         .hasNotFailed()
@@ -142,9 +142,9 @@ public class IsySecurityAutoConfigurationTest extends AbstractOidcProviderTest {
         contextRunner
                 .withPropertyValues(
                         "spring.security.oauth2.client.provider.test.issuer-uri=http://localhost:9095/auth/realms/testrealm",
-                        "spring.security.oauth2.client.registration.test.client-id=test",
-                        "isy.security.oauth2.client.registration.invalid.username=test",
-                        "isy.security.oauth2.client.registration.invalid.password=test"
+                        "spring.security.oauth2.client.registration.test.client-id=testclient",
+                        "isy.security.oauth2.client.registration.invalid.username=testuser",
+                        "isy.security.oauth2.client.registration.invalid.password=testpw"
                 ).withConfiguration(AutoConfigurations.of(OAuth2ClientAutoConfiguration.class))
                 .run(context -> assertThat(context).hasFailed());
     }
@@ -154,9 +154,49 @@ public class IsySecurityAutoConfigurationTest extends AbstractOidcProviderTest {
         contextRunner
                 .withPropertyValues(
                         "spring.security.oauth2.client.provider.test.issuer-uri=http://localhost:9095/auth/realms/testrealm",
-                        "spring.security.oauth2.client.registration.test.client-id=test",
-                        "isy.security.oauth2.client.registration.test.username=test",
-                        "isy.security.oauth2.client.registration.test.password=test"
+                        "spring.security.oauth2.client.registration.test.client-id=testclient",
+                        "isy.security.oauth2.client.registration.test.username=testuser",
+                        "isy.security.oauth2.client.registration.test.password=testpw"
+                ).withConfiguration(AutoConfigurations.of(OAuth2ClientAutoConfiguration.class))
+                .run(context -> assertThat(context)
+                        .hasNotFailed()
+                        .hasSingleBean(IsyOAuth2ClientConfigurationProperties.class)
+                        .hasSingleBean(OAuth2ClientProperties.class)
+                );
+    }
+
+    /**
+     * Autoconfiguration only tests if the properties can be mapped to a client registration ID.
+     * Whether they are queried at all is decided by the Authentifizierungsmanager and having a
+     * "username" without a "password" is not automatically wrong.
+     */
+    @Test
+    public void testContextStartsIfOnlyUsernameSet() {
+        contextRunner
+                .withPropertyValues(
+                        "spring.security.oauth2.client.provider.test.issuer-uri=http://localhost:9095/auth/realms/testrealm",
+                        "spring.security.oauth2.client.registration.test.client-id=testclient",
+                        "isy.security.oauth2.client.registration.test.username=testuser"
+                ).withConfiguration(AutoConfigurations.of(OAuth2ClientAutoConfiguration.class))
+                .run(context -> assertThat(context)
+                        .hasNotFailed()
+                        .hasSingleBean(IsyOAuth2ClientConfigurationProperties.class)
+                        .hasSingleBean(OAuth2ClientProperties.class)
+                );
+    }
+
+    /**
+     * Autoconfiguration only tests if the properties can be mapped to a client registration ID.
+     * Whether they are queried at all is decided by the Authentifizierungsmanager and having a
+     * "password" without a "username" is not automatically wrong.
+     */
+    @Test
+    public void testContextStartsIfOnlyPasswordSet() {
+        contextRunner
+                .withPropertyValues(
+                        "spring.security.oauth2.client.provider.test.issuer-uri=http://localhost:9095/auth/realms/testrealm",
+                        "spring.security.oauth2.client.registration.test.client-id=testclient",
+                        "isy.security.oauth2.client.registration.test.password=testpw"
                 ).withConfiguration(AutoConfigurations.of(OAuth2ClientAutoConfiguration.class))
                 .run(context -> assertThat(context)
                         .hasNotFailed()
@@ -166,11 +206,11 @@ public class IsySecurityAutoConfigurationTest extends AbstractOidcProviderTest {
     }
 
     @Test
-    public void testContextFailsIfBhknzSetButNoOu() {
+    public void testContextFailsIfBhknzSetButNotOu() {
         contextRunner
                 .withPropertyValues(
                         "spring.security.oauth2.client.provider.test.issuer-uri=http://localhost:9095/auth/realms/testrealm",
-                        "spring.security.oauth2.client.registration.test.client-id=test",
+                        "spring.security.oauth2.client.registration.test.client-id=testclient",
                         "isy.security.oauth2.client.registration.test.bhknz=123456"
                 ).withConfiguration(AutoConfigurations.of(OAuth2ClientAutoConfiguration.class))
                 .run(context -> assertThat(context).hasFailed());
@@ -181,7 +221,25 @@ public class IsySecurityAutoConfigurationTest extends AbstractOidcProviderTest {
         contextRunner
                 .withPropertyValues(
                         "spring.security.oauth2.client.provider.test.issuer-uri=http://localhost:9095/auth/realms/testrealm",
-                        "spring.security.oauth2.client.registration.test.client-id=test",
+                        "spring.security.oauth2.client.registration.test.client-id=testclient",
+                        "isy.security.oauth2.client.registration.test.bhknz=123456",
+                        "isy.security.oauth2.client.default-certificate-ou=TESTOU"
+                ).withConfiguration(AutoConfigurations.of(OAuth2ClientAutoConfiguration.class))
+                .run(context -> assertThat(context)
+                        .hasNotFailed()
+                        .hasSingleBean(IsyOAuth2ClientConfigurationProperties.class)
+                        .hasSingleBean(OAuth2ClientProperties.class)
+                );
+    }
+
+    @Test
+    public void testContextStartsIfAllAdditionalPropertiesAreSet() {
+        contextRunner
+                .withPropertyValues(
+                        "spring.security.oauth2.client.provider.test.issuer-uri=http://localhost:9095/auth/realms/testrealm",
+                        "spring.security.oauth2.client.registration.test.client-id=testclient",
+                        "isy.security.oauth2.client.registration.test.username=testuser",
+                        "isy.security.oauth2.client.registration.test.password=testpw",
                         "isy.security.oauth2.client.registration.test.bhknz=123456",
                         "isy.security.oauth2.client.default-certificate-ou=TESTOU"
                 ).withConfiguration(AutoConfigurations.of(OAuth2ClientAutoConfiguration.class))

@@ -4,7 +4,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 
 /**
- * AuthenticationToken holding parameters required for creating a Client to use with Client Credentials Flow authentication.
+ * AuthenticationToken holding parameters required for creating a Client to use with Resource Owner Password Credentials Flow authentication.
  */
 public class PasswordClientRegistrationAuthenticationToken extends AbstractClientRegistrationAuthenticationToken {
 

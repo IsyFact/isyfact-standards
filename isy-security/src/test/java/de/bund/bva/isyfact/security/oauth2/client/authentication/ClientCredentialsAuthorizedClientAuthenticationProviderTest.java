@@ -34,7 +34,7 @@ import de.bund.bva.isyfact.security.oauth2.client.authentication.token.ClientCre
 public class ClientCredentialsAuthorizedClientAuthenticationProviderTest extends AbstractOidcProviderTest {
 
     @Autowired
-    private ClientCredentialsAuthorizedClientAuthenticationProvider clientCredentialsAuthorizedClientAuthenticationProvider;
+    private ClientCredentialsAuthorizedClientAuthenticationProvider authenticationProvider;
 
     @BeforeAll
     public static void setup() {
@@ -44,7 +44,7 @@ public class ClientCredentialsAuthorizedClientAuthenticationProviderTest extends
 
     @Test
     public void shouldGetAuthTokenAndCacheAuthorizedClient() {
-        Authentication authentication = clientCredentialsAuthorizedClientAuthenticationProvider.authenticate(
+        Authentication authentication = authenticationProvider.authenticate(
                 new ClientCredentialsRegistrationIdAuthenticationToken("cc-client", null));
 
         // security context is still empty
@@ -66,21 +66,21 @@ public class ClientCredentialsAuthorizedClientAuthenticationProviderTest extends
         resetAllRequests();
 
         // reauth and verify that no new token was fetched because the authorized client was reused
-        clientCredentialsAuthorizedClientAuthenticationProvider.authenticate(new ClientCredentialsRegistrationIdAuthenticationToken("cc-client", null));
+        authenticationProvider.authenticate(new ClientCredentialsRegistrationIdAuthenticationToken("cc-client", null));
         verify(0, postRequestedFor(urlEqualTo(ISSUER_PATH + "/protocol/openid-connect/token")));
     }
 
     @Test
     public void shouldThrowAuthExceptionWithInvalidCredentials() {
         assertThrows(ClientAuthorizationException.class,
-                () -> clientCredentialsAuthorizedClientAuthenticationProvider.authenticate(
+                () -> authenticationProvider.authenticate(
                         new ClientCredentialsRegistrationIdAuthenticationToken("cc-client-invalid", null)));
     }
 
     @Test
     public void shouldThrowErrorWithWrongClient() {
         ClientAuthorizationException exception = assertThrows(ClientAuthorizationException.class,
-                () -> clientCredentialsAuthorizedClientAuthenticationProvider.authenticate(
+                () -> authenticationProvider.authenticate(
                         new ClientCredentialsRegistrationIdAuthenticationToken("ropc-client", null)));
 
         assertEquals(OAuth2ErrorCodes.INVALID_GRANT, exception.getError().getErrorCode());
@@ -90,7 +90,7 @@ public class ClientCredentialsAuthorizedClientAuthenticationProviderTest extends
     @Test
     public void shouldReturnNullWhenPassingUnsupportedAuthentication() {
         Authentication authRequest = new UsernamePasswordAuthenticationToken("testuser", "pw1234");
-        Authentication authentication = clientCredentialsAuthorizedClientAuthenticationProvider.authenticate(authRequest);
+        Authentication authentication = authenticationProvider.authenticate(authRequest);
 
         assertNull(authentication);
     }
