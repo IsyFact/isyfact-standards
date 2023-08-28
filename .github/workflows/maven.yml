@@ -16,3 +16,5 @@ jobs:
     uses: IsyFact/isyfact-standards/.github/workflows/maven_template.yml@master
     with:
       jdk-version: 8
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
