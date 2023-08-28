@@ -3,98 +3,16 @@ on:
   pull_request:
     branches:
       - master
+    paths-ignore:
+      - 'isyfact-standards-doc'
   push:
     branches:
       - master
-  workflow_call:
-    inputs:
-      jdk-version:
-        description: 'Version of jdk that is used.'
-        required: false
-        type: number
-        default: 17
-      maven-opts:
-        description: 'Additional arguments passed to maven'
-        required: false
-        type: string
-        default: ''
-      checkout-lfs:
-        description: 'Checkout files from Git LFS'
-        required: false
-        type: boolean
-        default: false
-
-env:
-  MAVEN_CLI_OPTS: '--batch-mode --errors --fail-at-end -T 1C'
-  JDK_VERSION: ${{ inputs.jdk-version || 17 }}
-  CHECKOUT_LFS: ${{ inputs.checkout-lfs || false }}
+    paths-ignore:
+      - 'isyfact-standards-doc'
 
 jobs:
-  Compile:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          lfs: ${{ env.CHECKOUT_LFS }}
-      - name: Set up JDK ${{ env.JDK_VERSION }}
-        uses: actions/setup-java@v3
-        with:
-          java-version: ${{ env.JDK_VERSION }}
-          distribution: temurin
-          cache: maven
-      - name: Compile
-        run: mvn $MAVEN_CLI_OPTS ${{ inputs.maven-opts }} -Dcheckstyle.skip compile
-
-  Test:
-    runs-on: ubuntu-latest
-    needs: [Compile]
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          lfs: ${{ env.CHECKOUT_LFS }}
-      - name: Set up JDK ${{ env.JDK_VERSION }}
-        uses: actions/setup-java@v3
-        with:
-          java-version: ${{ env.JDK_VERSION }}
-          distribution: temurin
-          cache: maven
-      - name: Test
-        run: mvn $MAVEN_CLI_OPTS ${{ inputs.maven-opts }} -Dcheckstyle.skip test
-      - name: Create Summary
-        run: |
-          echo "| Module | Total Coverage |" >> $GITHUB_STEP_SUMMARY
-          echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
-          COUNTER=0
-          SUM=0
-          for REPORT in $(find . -path \*target/site/jacoco/index.html); do
-            MODULE=$(grep -o '<title>[^%].*</title>'  "$REPORT"| sed 's/<\/\?title>//g')
-            COVERAGE=$(grep -o 'Total[^%]*%' "$REPORT" | sed 's/<.*>/ /; s/Total//; s/ //; s/%//')
-            echo "| $MODULE | $COVERAGE % |" >> $GITHUB_STEP_SUMMARY
-            COUNTER=$((COUNTER+1))
-            SUM=$((SUM+COVERAGE))
-          done
-          [[ $COUNTER -gt 0 ]] && TOTAL_COVERAGE=$((SUM/COUNTER)) || TOTAL_COVERAGE=0
-          echo "| Overall | $TOTAL_COVERAGE % |" >> $GITHUB_STEP_SUMMARY
-      - name: Upload Report
-        uses: actions/upload-artifact@v3
-        with:
-          name: Jacoco Test Report
-          path: ${{ github.workspace }}/**/target/site/jacoco/*
-
-  CodeQuality:
-    runs-on: ubuntu-latest
-    needs: [Compile]
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          lfs: ${{ env.CHECKOUT_LFS }}
-      - name: Set up JDK ${{ env.JDK_VERSION }}
-        uses: actions/setup-java@v3
-        with:
-          java-version: ${{ env.JDK_VERSION }}
-          distribution: temurin
-          cache: maven
-      - name: Checkstyle
-        run: mvn $MAVEN_CLI_OPTS ${{ inputs.maven-opts }} compile checkstyle:checkstyle-aggregate
-      - name: Spotbugs
-        run: mvn $MAVEN_CLI_OPTS ${{ inputs.maven-opts }} -Dcheckstyle.skip -Denforcer.skip -Dtidy.skip compile spotbugs:check
+  Maven:
+    uses: IsyFact/isyfact-standards/.github/workflows/maven_template.yml@master
+    with:
+      version: '3.0.0-SNAPSHOT'
