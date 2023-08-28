@@ -22,6 +22,10 @@ on:
         required: false
         type: string
         default: '0.0.0-SNAPSHOT'
+    secrets:
+      SONAR_TOKEN:
+        description: 'Token to publish analysis result on sonar'
+        required: false
 
 env:
   MAVEN_CLI_OPTS: '--batch-mode --errors --fail-at-end -T 1C'
@@ -111,3 +115,47 @@ jobs:
           path: |
             ${{ github.workspace }}/**/target/checkstyle-result.xml
              ${{ github.workspace }}/**/target/spotbugs*.xml
+
+  SonarScan:
+    runs-on: ubuntu-latest
+    # run also, if test or code quality jobs fail; skip dependabot pr as dependabot has separate secrets
+    if: vars.SONAR_PROJECT_KEY && !cancelled() && github.actor != 'dependabot[bot]'
+    needs: [Test, CodeQuality]
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v3
+        with:
+          lfs: ${{ inputs.checkout-lfs }}
+          # Shallow clones should be disabled for a better relevancy of analysis
+          fetch-depth: 0
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          # Sonar Plugin requires Java 17 or higher
+          java-version: 17
+          distribution: temurin
+          cache: maven
+      - name: Sonar Cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Download Test Reports
+        uses: actions/download-artifact@v3
+        with:
+          name: Test Reports
+      - name: Download Quality Reports
+        uses: actions/download-artifact@v3
+        with:
+          name: Quality Reports
+      - name: Sonar Scan
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: >
+          mvn $MAVEN_CLI_OPTS ${{ inputs.maven-opts }} -Drevision=${{ inputs.version }}
+          -DskipTests -Dspotbugs.skip -Dcheckstyle.skip -Dmaven.javadoc.skip -Denforcer.skip
+          -Dsonar.host.url=${{ vars.SONAR_HOST_URL }}
+          -Dsonar.organization=${{ vars.SONAR_ORGANIZATION }} -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }}
+          verify org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar
