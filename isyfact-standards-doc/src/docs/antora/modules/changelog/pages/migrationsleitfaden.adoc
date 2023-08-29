@@ -123,6 +123,9 @@ Hierfür werden die `OAuth2ClientProperties` verwendet, sodass bei der Nutzung v
 Erstellen der `NutzerAuthentifizierungProperties` entfällt.
 Entsprechend muss allerdings die `spring-security-oauth2-client`-Dependency eingebunden sein.
 
+Zusätzliche Beans für die Aktivierung der Annotation, wie beispielsweise die `AuthenticateInterceptor`-Bean, müssen nicht mehr definiert werden,
+da deren Erstellung durch die `IsyOAuth2ClientAutoConfiguration` übernommen wird, solange die Gegebenheiten für die Erstellung von ClientRegistrations vorhanden sind.
+
 Beispiel für die Konfiguration mit `@NutzerAuthentifizierung`:
 
 [source]
