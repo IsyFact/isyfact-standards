@@ -121,17 +121,18 @@ Der `RolePrivilegeGrantedAuthoritiesConverter` ist für die Konvertierung der vo
 
 Die Absicherung der Service-Schnittstellen von IsyFact-Anwendungen erfolgt über folgende AOP-Annotationen:
 
-- Der `NutzerAuthentifizierunginterceptor` ist für die Authentifizierung von technischen Nutzern zuständig und wird über eine Annotation `@NutzerAuthentifikation` bereitgestellt.
-Parallel dazu existiert die Annotation `@ClientAuthentification` zur Authentifizierung von OAuth2.0 Clients.
-Dies ermöglicht die Umstellung von technischen Nutzern auf OAuth2.0 Clients, ohne große Auswirkungen im Anwendungssystem zu erzeugen.
-Die Authentifizierungsdaten werden aus der Konfiguration der Anwendung ausgelesen und zur Authentifizierung verwendet.
-Die Authentifizierung findet über die Implementierung des Interfaces `Authentifizierungsmanager` statt.
-
-- Mit der von Spring Security bereitgestellten Annotation `@secured` werden angebotene Services der Anwendung abgesichert.
+- Mit der von Spring Security bereitgestellten Annotation `@Secured` werden angebotene Services der Anwendung abgesichert.
 Dieser Annotation muss noch der Name eines anwendungsspezifischen Rechts mitgegeben werden, das für die Verwendung dieses Service benötigt wird.
 Im Interceptor `SecuredInterceptor` wird sichergestellt, dass nur dann der Zugriff gewährt wird, wenn der angemeldete Nutzer über seine Rollen auch dieses anwendungsspezifische Recht besitzt.
 
-Hinweis: Die Annotation `@secured` löst die Annotation `@gesichert` ab und ist analog dazu verwenden.
+Hinweis: Die Annotation `@Secured` löst die Annotation `@Gesichert` ab und ist analog dazu verwenden.
+
+Eine Absicherung von Services auf Ebene des Ressourcenbesitzers (Resource Owner), also eines technischen Nutzers bzw. OAuth-2-Client bietet die IsyFact-Annotation `@Authenticate`.
+Dieser Annotation muss noch die oauth2ClientRegistrationId mitgegeben werden, unter der der Ressourcenbesitzer in der betrieblichen Konfiguration registriert ist.
+Im Interceptor `AuthenticateInterceptor` erfolgt eine Authentifizierung über die Methode `authentifiziere(oauth2ClientRegistrationId)` im Authentifizierungsmanager.
+Der Service wird dann im Namen und mit den Rechten des Ressourcenbesitzers ausgeführt.
+
+Hinweis: Die Annotation `@Authenticate` löst die Annotation `@NutzerAuthentifikation` ab und erweitert sie um die Funktion, auch hinterlegte OAuth-2-Clients authentifizieren zu können.
 
 [[aussensicht-der-komponente-security]]
 === Schnittstelle des Bausteins Security
