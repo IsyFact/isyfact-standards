@@ -1,4 +1,4 @@
-# 2.4.5
+# 2.5.0
 - `IFS-1583`: `IsyPersistenceOracleAutoConfiguration` verwendet relaxed-binding für ConditionalOnProperty
 
 # 2.3.0
