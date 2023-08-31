@@ -115,7 +115,6 @@ Konkret bietet das Interface `Berechtigungsmanager` Methoden an, um Berechtigung
 ==== @NutzerAuthentifizierung
 
 Die Annotation `@NutzerAuthentifizierung` wird entfernt und durch eine neue Annotation `@Authenticate` ersetzt.
-Analog wird der `NutzerAuthentifizierungInterceptor` entfernt und durch den `AuthenticateInterceptor` ersetzt.
 
 Der Annotation `@Authenticate` wird die Client-Registration-ID eines OAuth2.0-Clients übergeben.
 Der entsprechende Client muss dafür gemäß den xref:isy-security:nutzungsvorgaben/master.adoc#konfigurationsparameter[Nutzungsvorgaben Security] konfiguriert sein.
@@ -123,8 +122,8 @@ Hierfür werden die `OAuth2ClientProperties` verwendet, sodass bei der Nutzung v
 Erstellen der `NutzerAuthentifizierungProperties` entfällt.
 Entsprechend muss allerdings die `spring-security-oauth2-client`-Dependency eingebunden sein.
 
-Zusätzliche Beans für die Aktivierung der Annotation, wie beispielsweise die `AuthenticateInterceptor`-Bean, müssen nicht mehr definiert werden,
-da deren Erstellung durch die `IsyOAuth2ClientAutoConfiguration` übernommen wird, solange die Gegebenheiten für die Erstellung von ClientRegistrations vorhanden sind.
+Zusätzliche für die Aktivierung der Annotation notwendige Beans müssen nicht mehr definiert werden,
+da diese durch die `IsyOAuth2ClientAutoConfiguration` erstellt werden, solange die Gegebenheiten für die Erstellung von ClientRegistrations vorhanden sind.
 
 Beispiel für die Konfiguration mit `@NutzerAuthentifizierung`:
 
