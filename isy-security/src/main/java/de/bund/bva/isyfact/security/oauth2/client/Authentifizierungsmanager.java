@@ -41,14 +41,14 @@ public interface Authentifizierungsmanager {
      * <p>
      * This method is only intended to allow OAuth 2.0 Client Authentication in cases where the credentials
      * are obtained externally and cannot be configured in the application properties.
-     * If possible it is strongly preferred to use {@link #authentifiziere(String) authentication with a client registration ID} instead.
+     * If an internal client registration configuration exists, it is strongly preferred to use {@link #authentifiziere(String) authentication with a client registration ID} instead.
      *
      * @param issuerLocation
      *         Issuer used to query the discovery endpoints and set the token endpoint for authentication
      * @param clientId
-     *         Client ID of the OAuth 2.0 Client to authorize
+     *         Client ID of the OAuth 2.0 Client of the intermediary to authorize the authentication request itself
      * @param clientSecret
-     *         Client secret of the OAuth 2.0 Client to authorize
+     *         Client secret of the OAuth 2.0 Client of the intermediary to authorize the authentication request itself
      * @throws AuthenticationException
      *         if authentication fails
      * @see #authentifiziereClient(String, String, String, String)
@@ -61,14 +61,14 @@ public interface Authentifizierungsmanager {
      * <p>
      * This method is only intended to allow OAuth 2.0 Client Authentication in cases where the credentials
      * are obtained externally and cannot be configured in the application properties.
-     * If possible it is strongly preferred to use {@link #authentifiziere(String) authentication with a client registration ID} instead.
+     * If an internal client registration configuration exists, it is strongly preferred to use {@link #authentifiziere(String) authentication with a client registration ID} instead.
      *
      * @param issuerLocation
      *         Issuer used to query the discovery endpoints and set the token endpoint for authentication
      * @param clientId
-     *         Client ID of the OAuth 2.0 Client to authorize
+     *         Client ID of the OAuth 2.0 Client of the intermediary to authorize the authentication request itself
      * @param clientSecret
-     *         Client secret of the OAuth 2.0 Client to authorize
+     *         Client secret of the OAuth 2.0 Client of the intermediary to authorize the authentication request itself
      * @param bhknz
      *         the BHKNZ to send as part of the authorization request (optional)
      * @throws AuthenticationException
@@ -84,14 +84,14 @@ public interface Authentifizierungsmanager {
      * <p>
      * This method is only intended to allow OAuth 2.0 Client Authentication in cases where the credentials
      * are obtained externally and cannot be configured in the application properties.
-     * If possible it is strongly preferred to use {@link #authentifiziere(String) authentication with a client registration ID} instead.
+     * If an internal client registration configuration exists, it is strongly preferred to use {@link #authentifiziere(String) authentication with a client registration ID} instead.
      *
      * @param issuerLocation
      *         Issuer used to query the discovery endpoints and set the token endpoint for authentication
      * @param clientId
-     *         Client ID of the OAuth 2.0 Client to authorize
+     *         Client ID of the OAuth 2.0 Client of the intermediary to authorize the authentication request itself
      * @param clientSecret
-     *         Client secret of the OAuth 2.0 Client to authorize
+     *         Client secret of the OAuth 2.0 Client of the intermediary to authorize the authentication request itself
      * @param username
      *         the resource owner's username
      * @param password
@@ -109,14 +109,14 @@ public interface Authentifizierungsmanager {
      * <p>
      * This method is only intended to allow OAuth 2.0 Client Authentication in cases where the credentials
      * are obtained externally and cannot be configured in the application properties.
-     * If possible it is strongly preferred to use {@link #authentifiziere(String) authentication with a client registration ID} instead.
+     * If an internal client registration configuration exists, it is strongly preferred to use {@link #authentifiziere(String) authentication with a client registration ID} instead.
      *
      * @param issuerLocation
      *         Issuer used to query the discovery endpoints and set the token endpoint for authentication
      * @param clientId
-     *         Client ID of the OAuth 2.0 Client to authorize
+     *         Client ID of the OAuth 2.0 Client of the intermediary to authorize the authentication request itself
      * @param clientSecret
-     *         Client secret of the OAuth 2.0 Client to authorize
+     *         Client secret of the OAuth 2.0 Client of the intermediary to authorize the authentication request itself
      * @param username
      *         the resource owner's username
      * @param password

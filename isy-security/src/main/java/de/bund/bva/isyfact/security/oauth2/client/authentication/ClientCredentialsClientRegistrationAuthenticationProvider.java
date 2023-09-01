@@ -24,7 +24,7 @@ public class ClientCredentialsClientRegistrationAuthenticationProvider extends I
     /**
      * AuthorizedClientProvider for the client credentials.
      * Unlike in {@link ClientCredentialsAuthorizedClientAuthenticationProvider} we can't use the AuthorizedClientManager because
-     * the client registrations are not managed by Spring.
+     * the client registrations are created programmatically from given runtime-parameters.
      */
     private final OAuth2AuthorizedClientProvider clientProvider = OAuth2AuthorizedClientProviderBuilder.builder()
             .clientCredentials()

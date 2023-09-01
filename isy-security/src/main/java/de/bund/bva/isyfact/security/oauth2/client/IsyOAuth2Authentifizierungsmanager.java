@@ -138,13 +138,15 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
             return new ClientCredentialsRegistrationIdAuthenticationToken(oauth2ClientRegistrationId, bhknz);
         } else if (AuthorizationGrantType.PASSWORD.equals(grantType)) {
             // ROPC requires the username and password to be set in the additional properties
-            if (props == null) {
+            if (props != null && props.getUsername() != null && props.getPassword() != null) {
+                return new PasswordClientRegistrationAuthenticationToken(clientRegistration, props.getUsername(), props.getPassword(), bhknz);
+            } else {
                 throw new BadCredentialsException(
                         String.format("No configured credentials (username, password) found for client with registrationId: %s.",
                                 clientRegistration.getRegistrationId()));
             }
 
-            return new PasswordClientRegistrationAuthenticationToken(clientRegistration, props.getUsername(), props.getPassword(), bhknz);
+
         } else {
             throw new IllegalArgumentException("The AuthorizationGrantType '" + grantType.getValue() + "' is not supported.");
         }

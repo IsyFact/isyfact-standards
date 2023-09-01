@@ -159,10 +159,11 @@ Die Auswahl des Flows (_Client Credentials_ oder _Resource Owner Password Creden
 Diese Methode eignet sich in Anwendungen, wenn die Zugangsdaten für technische Nutzer zur Konfiguration bekannt sind.
 2. Authentifizierung per `issuerLocation`, `clientId` und `clientSecret`.
 Diese Methode nutzt den _Client Credentials_ Flow und kann verwendet werden, wenn die Zugangsdaten des OAuth 2.0 Clients (`clientId` und `clientSecret`) erst zur Laufzeit bekannt sind.
-Die `issuerLocation` verweist auf den OpenID Connect Provider, in dem der für den _Client Credentials_ Flow konfigurierte OAuth 2.0 Client hinterlegt ist.
+Die `issuerLocation` verweist auf den OpenID Connect Provider, in dem der für den _Client Credentials_ Flow konfigurierte OAuth 2.0 Client hinterlegt ist und als IAM-Service die Authentifizierung mit den übergebenen _Authentifizierungsdaten_ durchgeführt wird.
 3. Authentifizierung per `issuerLocation`, `clientId`, `clientSecret`, `username` und `password`.
 Diese Methode nutzt den _Resource Owner Password Credentials_ Flow und kann verwendet werden, wenn die Zugangsdaten des technischen Nutzers (`username` und `password` des Resource Owners) erst zur Laufzeit bekannt sind.
-Die `issuerLocation` verweist auf den OpenID Connect Provider, gegen den die Authentifizierung mit dem dort für den _Resource Owner Password Credentials_ Flow konfigurierten OAuth 2.0 Client (abgesichert durch `clientId` und `clientSecret`) durchgeführt werden soll.
+Die Zugangsdaten des Vermittlers (`clientId` und `clientSecret`) werden benötigt, um die Authentifizierungsabfrage selbst zu autorisieren.
+Die `issuerLocation` verweist auf den OpenID Connect Provider, gegen den die Authentifizierung mit dem dort für den _Resource Owner Password Credentials_ Flow konfigurierten OAuth 2.0 Client durchgeführt werden soll.
 Die im <<listing-client-registrations>> konfigurierten IsyFact-spezifischen ClientRegistration-Properties werden nicht benötigt, da die Zugangsdaten der Methode direkt übergeben werden.
 
 [[listing-client-registrations]]
