@@ -158,10 +158,10 @@ Externe Anwendungen übermitteln ihre Authentifizierungsdaten (entweder Client-I
 Das Gateway führt damit eine OAuth2.0-konforme Authentifizierung und Autorisierung der Anwendung gegenüber dem IAM-System durch.
 Dabei wird anhand des Typs der Authentifizierungsdaten der passende Authentication-Flow verwendet:
 
-- Für den Credential-Typ bzw. _Credential_-Flow xref:client-credential-flow[] ist die Methode `authentifiziereClient` zu verwenden mit der issuerLocation als URI des IAM sowie clientId, clientSecret und bhknz der externen Anwendung als Parameter.
+- Für den Credential-Typ bzw. _Credential_-Flow xref:client-credential-flow[] ist die Methode `authentifiziereClient` zu verwenden mit der issuerLocation als URI des IAM sowie clientId, clientSecret und optional das bhknz der externen Anwendung als Parameter.
 Hierbei ist zu beachten, dass aktuell keine Auswertung bzw. Weiterleitung des bhknz an das IAM stattfindet.
 
-- Für den Credential-Typ bzw. _Credential_-Flow xref:resource-owner-password-credential-flow[] die Methode `authentifiziereSystem` mit den Parametern issuerLocation als URI des IAM, clientId und clientSecret des Gateways als vermittelnden confidential client sowie username, password und bhknz der externen Anwendung.
+- Für den Credential-Typ bzw. _Credential_-Flow xref:resource-owner-password-credential-flow[] die Methode `authentifiziereSystem` mit den Parametern issuerLocation als URI des IAM, clientId und clientSecret des Gateways als vermittelnden confidential client sowie username, password und optional das bhknz der externen Anwendung.
 
 Der `Berechtigungsmanager` gibt Auskunft über die Rollen und Rechte des Anwenders.
 Die in der Benutzeradministration dem Anwender zugewiesenen Rollen werden mithilfe einer anwendungsspezifischen Rollen-Rechte-Datei in konkrete Rechte des Anwenders für diese Anwendung umgewandelt.
