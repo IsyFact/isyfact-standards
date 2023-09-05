@@ -4,6 +4,9 @@ import java.util.List;
 
 /**
  * Object containing a transformed text and the metadata of its transformation.
+ *
+ *  @deprecated This interface is deprecated and will be removed in a future release.
+ *  It is recommended to use {@link de.bund.bva.isyfact.sonderzeichen.dinnorm91379} instead.
  */
 @Deprecated
 public class Transformation {
