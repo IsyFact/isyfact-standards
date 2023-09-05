@@ -11,6 +11,9 @@ import static de.bund.bva.isyfact.sonderzeichen.dinspec91379.validierung.Zeichen
 
 /**
  * Class representing a data type as defined by DIN SPEC 91379.
+ *
+ *  @deprecated This class is deprecated and will be removed in a future release.
+ *  It is recommended to use {@link de.bund.bva.isyfact.sonderzeichen.dinnorm91379} instead.
  */
 @Deprecated
 public enum Datentyp {

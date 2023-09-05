@@ -27,7 +27,9 @@ import de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.Transformat
 /**
  * This class maps transformations in which more than one character is transformed or in which special
  * conditions must be met.
- * 
+ *
+ *  @deprecated This class is deprecated and will be removed in a future release.
+ *  It is recommended to use {@link de.bund.bva.isyfact.sonderzeichen.dinnorm91379} instead.
  */
 @Deprecated
 public class KomplexeTransformation {
