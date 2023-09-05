@@ -3,8 +3,6 @@ package de.bund.bva.isyfact.security.config;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.validation.constraints.NotBlank;
-
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties;
 import org.springframework.lang.Nullable;
@@ -19,6 +17,7 @@ import org.springframework.validation.annotation.Validated;
 public class IsyOAuth2ClientConfigurationProperties implements InitializingBean {
 
     /** Spring's OAuth 2.0 client properties for validating registration IDs. */
+    @Nullable
     private final OAuth2ClientProperties springOAuth2ClientProperties;
 
     /**
@@ -33,7 +32,7 @@ public class IsyOAuth2ClientConfigurationProperties implements InitializingBean 
     /** Organisational Unit used in conjunction with bhknz to form the value for bhknzHeaderName. */
     private String defaultCertificateOu;
 
-    public IsyOAuth2ClientConfigurationProperties(OAuth2ClientProperties springOAuth2ClientProperties) {
+    public IsyOAuth2ClientConfigurationProperties(@Nullable OAuth2ClientProperties springOAuth2ClientProperties) {
         this.springOAuth2ClientProperties = springOAuth2ClientProperties;
     }
 
@@ -59,12 +58,15 @@ public class IsyOAuth2ClientConfigurationProperties implements InitializingBean 
 
     @Override
     public void afterPropertiesSet() {
-        getRegistration().keySet().forEach(key -> {
-            if (!springOAuth2ClientProperties.getRegistration().containsKey(key)) {
-                throw new IllegalStateException(
-                        String.format("A Spring ClientRegistration with the same ID must be registered, ID: %s", key));
-            }
-        });
+        if (springOAuth2ClientProperties != null) {
+            // verify that registration IDs match those in Spring if there are configured OAuth 2.0 Client Registrations
+            getRegistration().keySet().forEach(key -> {
+                if (!springOAuth2ClientProperties.getRegistration().containsKey(key)) {
+                    throw new IllegalStateException(
+                            String.format("A Spring ClientRegistration with the same ID must be registered, ID: %s", key));
+                }
+            });
+        }
 
         getRegistration().values().stream().filter(value -> value.getBhknz() != null).findAny().ifPresent(e -> {
             if (!StringUtils.hasText(getDefaultCertificateOu())) {
@@ -79,31 +81,33 @@ public class IsyOAuth2ClientConfigurationProperties implements InitializingBean 
     @Validated
     public static class AdditionalRegistrationProperties {
 
-        /** The resource owner's username. */
-        @NotBlank
+        /** The resource owner's username (optional). */
+        @Nullable
         private String username;
 
-        /** The resource owner's password. */
-        @NotBlank
+        /** The resource owner's password (optional). */
+        @Nullable
         private String password;
 
         /** The BHKNZ to send as part of the authentication request (optional). */
         @Nullable
         private String bhknz;
 
+        @Nullable
         public String getUsername() {
             return username;
         }
 
-        public void setUsername(String username) {
+        public void setUsername(@Nullable String username) {
             this.username = username;
         }
 
+        @Nullable
         public String getPassword() {
             return password;
         }
 
-        public void setPassword(String password) {
+        public void setPassword(@Nullable String password) {
             this.password = password;
         }
 
