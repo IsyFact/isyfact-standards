@@ -1,4 +1,4 @@
-package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.impl;
+package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation;
 
 import static de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.TestData.RANDOM_TESTDATA;
 import static de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.TestData.RANDOM_TESTDATA_EXPECTED;
@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
+import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.impl.TranskriptionTransformator;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,9 +1,9 @@
-package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.impl;
+package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation;
 
+import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.impl.LegacyTransformator;
+import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.impl.TranskriptionTransformator;
 import org.junit.Assert;
 import org.junit.Test;
-
-import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.Transformation;
 
 public class TransformationMetadatenTest {
 

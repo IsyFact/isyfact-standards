@@ -1,4 +1,4 @@
-package de.bund.bva.pliscommon.plissonderzeichen;
+package de.bund.bva.pliscommon.plissonderzeichen.dinnorm91379;
 
 import de.bund.bva.pliscommon.plissonderzeichen.dinnorm91379.CharacterUtil;
 import org.junit.Test;
