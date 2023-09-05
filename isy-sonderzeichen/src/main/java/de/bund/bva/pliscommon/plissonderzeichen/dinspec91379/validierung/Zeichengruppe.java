@@ -2,6 +2,9 @@ package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.validierung;
 
 /**
  * Class representing a character group as defined by DIN SPEC 91379.
+ *
+ *  @deprecated This class is deprecated and will be removed in a future release.
+ *  It is recommended to use {@link de.bund.bva.pliscommon.plissonderzeichen.dinnorm91379} instead.
  */
 @Deprecated
 public enum Zeichengruppe {

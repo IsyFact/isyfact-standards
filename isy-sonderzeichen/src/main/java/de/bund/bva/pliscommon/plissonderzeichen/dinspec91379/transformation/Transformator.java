@@ -19,6 +19,8 @@ package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation;
 /**
  * Interface for all possible transformers. Defines methods that every transformer can offer.
  *
+ *  @deprecated This interface is deprecated and will be removed in a future release.
+ *  It is recommended to use {@link de.bund.bva.pliscommon.plissonderzeichen.dinnorm91379} instead.
  */
 @Deprecated
 public interface Transformator {

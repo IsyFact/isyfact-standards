@@ -18,6 +18,9 @@ package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.konstanten;
 
 /**
  * This class contains constants for the resources of the respective transformation table.
+ *
+ *  @deprecated This class is deprecated and will be removed in a future release.
+ *  It is recommended to use {@link de.bund.bva.pliscommon.plissonderzeichen.dinnorm91379} instead.
  */
 @Deprecated
 public class TransformationsKonstanten {

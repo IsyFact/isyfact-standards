@@ -16,6 +16,10 @@
  */
 package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.konstanten;
 
+/**
+ *  @deprecated This class is deprecated and will be removed in a future release.
+ *  It is recommended to use {@link de.bund.bva.pliscommon.plissonderzeichen.dinnorm91379} instead.
+ */
 @Deprecated
 public final class EreignisSchluessel {
 

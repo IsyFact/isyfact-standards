@@ -18,6 +18,10 @@ package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
+/**
+ *  @deprecated This class is deprecated and will be removed in a future release.
+ *  It is recommended to use {@link de.bund.bva.pliscommon.plissonderzeichen.dinnorm91379} instead.
+ */
 @Deprecated
 public class ZeichenKategorie {
 

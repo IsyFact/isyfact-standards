@@ -42,6 +42,8 @@ import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.Zeic
 /**
  * Provides common methods for all transformers.
  *
+ *  @deprecated This class is deprecated and will be removed in a future release.
+ *  It is recommended to use {@link de.bund.bva.pliscommon.plissonderzeichen.dinnorm91379} instead.
  */
 @Deprecated
 public abstract class AbstractTransformator implements Transformator {
