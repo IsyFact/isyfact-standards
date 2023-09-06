@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.security.authentication;
+package de.bund.bva.isyfact.security.oauth2.client;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -7,6 +7,7 @@ import java.util.Collections;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import de.bund.bva.isyfact.security.AbstractOidcProviderTest;
-import de.bund.bva.isyfact.security.example.IsySecurityTestApplication;
+import de.bund.bva.isyfact.security.IsySecurityTestConfiguration;
 import de.bund.bva.isyfact.security.example.config.OAuth2WebClientConfiguration;
 import de.bund.bva.isyfact.security.example.config.SecurityConfig;
 import de.bund.bva.isyfact.security.example.rest.ExampleRestController;
@@ -24,17 +25,18 @@ import reactor.core.publisher.Mono;
 
 @ActiveProfiles(profiles = "test-clients")
 @SpringBootTest(classes = {
-        IsySecurityTestApplication.class, SecurityConfig.class, ExampleRestController.class, OAuth2WebClientConfiguration.class
+        IsySecurityTestConfiguration.class, SecurityConfig.class, ExampleRestController.class, OAuth2WebClientConfiguration.class
 }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 // clear context so WebClient will fetch a fresh access token
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class ClientCredentialsAuthenticationTest extends AbstractOidcProviderTest {
+public class ClientCredentialsExchangeFilterFunctionAuthenticationTest extends AbstractOidcProviderTest {
 
     @LocalServerPort
     private int port;
 
     /** WebClient configured with the ServletOAuth2AuthorizedClientExchangeFilterFunction. */
     @Autowired
+    @Qualifier("cc-client")
     private WebClient webClient;
 
     private String pingUri;

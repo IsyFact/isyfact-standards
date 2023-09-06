@@ -2,19 +2,78 @@
 
 // tag::inhalt[]
 
+[[software-architektur-security-baustein]]
+== Software-Architektur des Security Bausteins
+
+[[security-interface]]
+=== Security
+Das Interface `Security` stellt die zentrale Schnittstelle bereit, über die auf den Baustein zugegriffen wird.
+
+Die folgenden Methoden bieten Zugriff auf eine Liste von allen im System hinterlegten Rollen, den Berechtigungsmanager und den optionalen Authentifizierungsmanager:
+
+`Set<String> getAlleRollen()`:: Liefert die Menge aller im System konfigurierten Rollen.
+`Berechtigungsmanager getBerechtigungsManager()`:: Stellt eine Referenz auf das `Berechtigungsmanager` Bean bereit.
+`Optional<Authentifizierungsmanager> getAuthentifizierungsManager()`:: Liefert ein `Optional`, das eine Referenz auf den `Authentifizierungsmanager` enthält, oder `null` falls die Anwendung als Resource-Server agiert und kein `Authentifizierungsmanager` benötigt wird.
+
+[[image-security]]
+.Security
+image::nutzungsvorgaben/security.svg[align="center"]
+
+[[authentifizierungsmanager-interface]]
+=== Authentifizierungsmanager
+
+Zur Authentifizierung von OAuth 2.0 Clients stehen folgende Methoden zur Verfügung:
+
+`void authentifiziere(String oauth2ClientRegistrationId)`::
+Authentifiziert einen OAuth 2.0 Client anhand seiner Client-Registration-ID. Unterstützt den `client_credentials` (_Client Credentials_ Flow) und `password` (_Resource Owner Password Credentials_ Flow) GrantType.
+Zusätzliche Authentifizierungsmerkmale werden aus den <<isyfact-specific-client-registration, IsyFact spezifischen Konfigurationsparametern>> mit der entsprechenden Client-Registration-ID abgefragt:
+* `bhknz`: Das BHKNZ kann als optionaler Parameter übergeben werden. Wird aktuell nur für den _Resource Owner-Password Credentials_ Flow ausgewertet.
+* `username` und `password`: Die Zugangsdaten des technischen Nutzers (Resource Owner), welche für den _Resource Owner Password Credentials_ Flow erforderlich sind.
+
+`void authentifiziereClient(String issuerLocation, String clientId, String clientSecret)`::
+`void authentifiziereClient(String issuerLocation, String clientId, String clientSecret, String bhknz)`::
+Authentifiziert einen OAuth 2.0 Client gegen die angegebene `issuerLocation` anhand seiner `clientId` und `clientSecret`.
+Das `bhknz` kann als optionaler Parameter übergeben werden, wird aber für die Client-Authentifizierung noch nicht ausgewertet.
+
+`void authentifiziereSystem(String issuerLocation, String clientId, String clientSecret, String username, String password)`::
+`void authentifiziereSystem(String issuerLocation, String clientId, String clientSecret, String username, String password, String bhknz)`::
+Authentifiziert einen technischen Nutzer (Resource Owner) gegen die angegebene `issuerLocation` anhand der `clientId` und `clientSecret` des zu verwendenden OAuth 2.0 Clients und dem `username` und `password` des Resource Owners.
+Das `bhknz` kann als optionaler Parameter übergeben werden und wird in den <<isyfact-specific-client-registration,konfigurierten Header>> zur Zwei-Faktor-Authentifizierung gesetzt.
+
+[[image-authentifizierungsmanager]]
+.Authentifizierungsmanager
+image::nutzungsvorgaben/authentifizierungsmanager.svg[align="center"]
+
+[[berechtigungsmanager]]
+=== Berechtigungsmanager
+
+Berechtigungsprüfungen können ebenso an beliebiger Stelle im Quellcode erfolgen.
+Dazu stellt der Baustein `isy-security` über die Schnittstelle Berechtigungsmanager entsprechende Funktionen bereit.
+Der Berechtigungsmanager ist ein Container für die Rechte und Rollen des aktuell authentifizierten Anwenders.
+
+Zur Formulierung von Berechtigungsprüfungen stehen folgende Methoden des Berechtigungsmanagers zur Verfügung:
+
+`Set<String> getRollen()`:: Liefert die Menge aller Rollen des Anwenders.
+`Set<String> getRechte()`:: Liefert die Menge aller Rechte des Anwenders.
+`boolean hatRecht(String recht)`:: Ermittelt, ob der Anwender ein bestimmtes Recht besitzt.
+`void pruefeRecht(String recht)`:: Prüft, ob der Anwender das angegebene Recht besitzt und erzeugt einen Fehler vom Typ `AccessDeniedException`, wenn das nicht der Fall ist.
+`Object getTokenAttribute(String key)`:: Fragt einen Wert im Access Token des Security Contexts ab.
+
+[[image-berechtigungsmanager-security]]
+.Berechtigungsmanager
+image::nutzungsvorgaben/berechtigungsmanager.svg[align="center"]
+
 [[aufrufen_von_nachbarsystemen]]
 == Aufrufen von Nachbarsystemen
-Der Aufruf von Nachbarsystemen erfolgt auf Basis des reaktiven `Spring WebClient`. Um Nachbarsysteme aufzurufen, die auf Basis von `OAuth 2.0` abgesichert sind, ist grundlegend die Authentifizierung bei einem `Identitiy Provider` mit gültiger `client_id`, `client_secret` sowie `grant_type` erforderlich.
+
+Der Aufruf von Nachbarsystemen erfolgt auf Basis des reaktiven `Spring WebClient`.
+Um Nachbarsysteme aufzurufen, die auf Basis von `OAuth 2.0` abgesichert sind, ist grundlegend die Authentifizierung bei einem `Identitiy Provider` mit gültiger `client_id`, `client_secret` sowie `grant_type` erforderlich.
 Dieser liefert ein Bearer-Token zurück, in dem die Rollen und somit die Zugriffsmöglichkeiten der aufrufenden Anwendung definiert sind.
 
-[[authentifizierung_ccf]]
-=== Authentifizierung eines Clients mit Client Credentials
-Mit dem `OAuth 2.0`-Grant `client_credentials` steht eine vereinfachte Zugriffskontrolle für eine Client-Anwendung
-im Rahmen des `Client Credential Flow` zur Verfügung. Im Folgenden werden die notwendigen Schritte für die tokenbasierte Authentifizierung einer Anwendung als Client erläutert.
-[[maven-dependency]]
+[[maven-dependencies]]
+=== Maven Dependencies
 
-=== Maven Dependency
-Hierzu sind zunächst die folgenden Abhängigkeiten erforderlich:
+Für die Authentifizierung mit einem `OAuth 2.0`-Client sind die folgenden Abhängigkeiten erforderlich:
 
 [[listing-maven-dep-client-cred]]
 .Maven Dependencies für Client Credentials
@@ -39,12 +98,113 @@ Hierzu sind zunächst die folgenden Abhängigkeiten erforderlich:
 </dependency>
 ----
 
-=== Spring Konfiguration
-Spring Security bietet umfassenden Support für `OAuth 2.0` und unterstützt die Authentifizierung interner Systeme auf Basis des `Client Credential Flow`, wobei auf Spring interne Mechanismen zugegriffen wird.
+[[konfigurationsparameter]]
+=== Konfigurationsparameter
 
-Um clientseitig die automatische Konfiguration einer Anwendung zu ermöglichen, werden zunächst die oben aufgeführten Abhängigkeiten eingebunden.
-Um im Rahmen des Client Credential Flows HTTP-Anfragen an einen Ressourcenserver stellen zu können, ist zusätzlich die Konfiguration des reaktiven `WebClient` erforderlich.
-Hierzu wird die Standardimplementierung mit dem Zusatz eines OAuth2-Autorisierungsfilters verwendet:
+[[spring-oauth2-client-registration]]
+==== Spring OAuth2 Client Konfigurationsparameter
+Für die korrekte Anbindung an den `Identity Provider` ist die Angabe einiger Konfigurationsparameter notwendig, welche in der Konfigurationsdatei der Anwendung eingetragen werden müssen.
+Das Präfix sämtlicher Konfigurationsparameter `spring.security.oauth2` wird zur Vereinfachung in der folgenden Liste weggelassen.
+
+[[table-parameter-client-cred]]
+.Konfigurationsparameter einer Client-Anwendung
+[cols="3m,2m,8",options="header"]
+|===
+|Parameter |Wertebereich |Beschreibung
+|client.registration._<registrationId>_.client-id |String |Identifier der Client-Applikation im Autorisierungsserver.
+|client.registration._<registrationId>_.client-secret |String |Secret, das nur der Anwendung und dem Autorisierungsserver bekannt ist.
+|client.registration._<registrationId>_.authorization-grant-type |String |Methode, durch welche die Anwendung ein Bearer-Token erhält. Abhängig von dem zu verwendenden Flow auf `client_credentials` (Client Credentials Flow) oder `password` (Resource Owner Password Credentials Flow) zu setzen.
+|client.registration._<registrationId>_.provider |String |(Optional) ID des zu verwendenden Client-Providers, falls diese nicht mit der Registration-ID übereinstimmt.
+|client.provider._<providerId>_.issuer-uri |String |Der OpenID Connect Issuer Identifier für die Konfiguration des Clients über den Discovery Endpoint, beispielsweise in der Form `http://<identity-provider>/auth/realms/<realm>`.
+|===
+
+[[isyfact-specific-client-registration]]
+==== Isyfact spezifische Konfigurationsparameter
+
+:linkaktuell: xref:client-credential-flow[]
+include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
+
+****
+*Anmerkung zur Deprecation*
+
+Dieser Flow soll gemäß OAuth2.0 Vorgaben nicht mehr verwendet werden und wird in zukünftigen Versionen aus dem OAuth-Standard entfernt.
+
+Die folgenden Konfigurationsparameter werden als Übergangslösung für technische Nutzer bereitgestellt.
+Der Client-Credentials Flow ist bevorzugt zu nutzen.
+****
+
+Zugangsdaten für technische Nutzer zur Authentifizierung von Tasks und Batches mit dem _Resource-Owner-Password-Credential_ Flow können über die folgenden Parameter konfiguriert werden:
+
+[[table-isyfact-client-registration-extension]]
+.Isyfact spezifische Erweiterung der Spring ClientRegistration
+[cols="3m,2m,2m,8",options="header"]
+|===
+|Parameter |Wertebereich |Default |Beschreibung
+|isy.security.oauth2.client.registration._<registrationId>_.username |String | null | Benutzername für Grant-Type `password`.
+|isy.security.oauth2.client.registration._<registrationId>_.password |String | null | Benutzerpassword für Grant-Type `password`.
+|isy.security.oauth2.client.registration._<registrationId>_.bhknz |String | null | Behördenkennzeichen für Grant-Type `password`. (optional)
+|isy.security.oauth2.client.bhknz-header-name |String | x-client-cert-bhknz |Konfigurierbarer Headername für Zwei-Faktor-Authentifizierung.
+|isy.security.oauth2.client.default-certificate-ou |String | null | Organisational Unit, die in Verbindung mit bhknz verwendet wird, um den Wert für bhknz-header-name zu bilden.
+
+(Muss gesetzt werden, wenn eine `registration` mit `bhknz` konfiguriert ist)
+|===
+
+[[authentifizierungsmanager-authentication]]
+=== Authentifizierung eines OAuth 2.0 Clients mit dem Authentifizierungsmanager
+
+Ein OAuth 2.0 Client kann über den Authentifizierungsmanager authentifiziert werden, welcher entsprechende Methoden zur Verwendung mit und ohne zuvor konfigurierte `ClientRegistrations` bereitstellt.
+
+1. Authentifizierung per `oauth2ClientRegistrationId`.
+Die Auswahl des Flows (_Client Credentials_ oder _Resource Owner Password Credentials_) wird dabei über den `authorization-grant-type` der vollständig konfigurierten `ClientRegistration` getroffen (siehe <<listing-client-registrations>>).
+Diese Methode eignet sich in Anwendungen, wenn die Zugangsdaten für technische Nutzer zur Konfiguration bekannt sind.
+2. Authentifizierung per `issuerLocation`, `clientId` und `clientSecret`.
+Diese Methode nutzt den _Client Credentials_ Flow und kann verwendet werden, wenn die Zugangsdaten des OAuth 2.0 Clients (`clientId` und `clientSecret`) erst zur Laufzeit bekannt sind.
+Die `issuerLocation` verweist auf den OpenID Connect Provider, in dem der für den _Client Credentials_ Flow konfigurierte OAuth 2.0 Client hinterlegt ist und als IAM-Service die Authentifizierung mit den übergebenen _Authentifizierungsdaten_ durchgeführt wird.
+3. Authentifizierung per `issuerLocation`, `clientId`, `clientSecret`, `username` und `password`.
+Diese Methode nutzt den _Resource Owner Password Credentials_ Flow und kann verwendet werden, wenn die Zugangsdaten des technischen Nutzers (`username` und `password` des Resource Owners) erst zur Laufzeit bekannt sind.
+Die Zugangsdaten des Vermittlers (`clientId` und `clientSecret`) werden benötigt, um die Authentifizierungsabfrage selbst zu autorisieren.
+Die `issuerLocation` verweist auf den OpenID Connect Provider, gegen den die Authentifizierung mit dem dort für den _Resource Owner Password Credentials_ Flow konfigurierten OAuth 2.0 Client durchgeführt werden soll.
+Die im <<listing-client-registrations>> konfigurierten IsyFact-spezifischen ClientRegistration-Properties werden nicht benötigt, da die Zugangsdaten der Methode direkt übergeben werden.
+
+[[listing-client-registrations]]
+.Beispiel: Spring Security OAuth 2.0 Client-Registrations
+[source,properties]
+----
+[...]
+spring.security.oauth2.client.provider.testrealm.issuer-uri=http://localhost:9095/auth/realms/testrealm
+
+### Beispiel: ClientRegistration für den Client Credentials Flow
+# Spring Security Konfiguration
+spring.security.oauth2.client.registration.client1.client-id=client-credentials-client
+spring.security.oauth2.client.registration.client1.client-secret=client-credentials-secret
+spring.security.oauth2.client.registration.client1.authorization-grant-type=client_credentials
+spring.security.oauth2.client.registration.client1.provider=testrealm
+
+### Beispiel: ClientRegistration für den Resource Owner Password Credentials Flow
+# Spring Security Konfiguration
+spring.security.oauth2.client.registration.client2.client-id=client-credentials-client
+spring.security.oauth2.client.registration.client2.client-secret=client-credentials-secret
+spring.security.oauth2.client.registration.client2.authorization-grant-type=password
+spring.security.oauth2.client.registration.client2.provider=testrealm
+# Isyfact spezifische ClientRegistration properties für den Resource Owner Password Credentials Flow
+isy.security.oauth2.client.registration.client2.username=testuser
+isy.security.oauth2.client.registration.client2.password=testpassword
+isy.security.oauth2.client.registration.client2.bhknz=123456
+# Organizational Unit zur Verwendung mit bhknz
+isy.security.oauth2.client.default-certificate-ou=TESTOU
+----
+
+[[webclient-authentication]]
+=== Automatische Authentifizierung eines WebClient mit Client Credentials
+
+Mit dem `OAuth 2.0`-Grant `client_credentials` steht eine vereinfachte Zugriffskontrolle für eine Client-Anwendung im Rahmen des _Client Credentials_ Flow zur Verfügung.
+
+Spring Security bietet umfassenden Support für `OAuth 2.0` und unterstützt die Authentifizierung interner Systeme auf Basis des `Client Credentials Flow`, wobei auf Spring interne Mechanismen zugegriffen wird.
+
+Um clientseitig die automatische Konfiguration einer Anwendung zu ermöglichen, werden zunächst die oben aufgeführten Abhängigkeiten eingebunden und eine Client-Registration für den `Client Credentials Flow` angelegt.
+Um im Rahmen des `Client Credentials Flows` HTTP-Anfragen an einen Ressourcenserver stellen zu können, ist zusätzlich die Konfiguration des reaktiven `WebClient` erforderlich.
+Hierzu wird die Standardimplementierung mit dem Zusatz eines OAuth2-Autorisierungsfilters verwendet.
+Die "registrationId" ist hierbei auf die ID der für den `Client Credentials Flow` konfigurierten Client-Registration zu setzen.
 
 [[listing-spring-webclient-example]]
 .Spring WebClient Beispiel
@@ -54,36 +214,15 @@ Hierzu wird die Standardimplementierung mit dem Zusatz eines OAuth2-Autorisierun
 public class OAuth2WebClientConfiguration {
 
     @Bean("webclient")
-    WebClient webClient(ClientRegistrationRepository clientRegistrationRepository,
-        OAuth2AuthorizedClientService authorizedClientService) {
-        ServletOAuth2AuthorizedClientExchangeFilterFunction oauth2 =
-            new ServletOAuth2AuthorizedClientExchangeFilterFunction(
-                new AuthorizedClientServiceOAuth2AuthorizedClientManager(clientRegistrationRepository,
-                    authorizedClientService));
+    WebClient webClient(@Qualifier(ISY_AUTHORIZED_CLIENT_MANAGER_BEAN) OAuth2AuthorizedClientManager authorizedClientManager) {
+        ServletOAuth2AuthorizedClientExchangeFilterFunction oauth =
+            new ServletOAuth2AuthorizedClientExchangeFilterFunction(authorizedClientManager);
         oauth.setDefaultClientRegistrationId("registrationId");
-        return WebClient.builder().apply(oauth2.oauth2Configuration()).build();
+        return WebClient.builder().filter(oauth).build();
     }
 
 }
 ----
-
-[[konfigurationsparameter]]
-=== Konfigurationsparameter
-
-Für die korrekte Anbindung an den `Identity Provider` ist die Angabe einiger Konfigurationsparameter notwendig. Das Präfix sämtlicher Konfigurationsparameter `spring.security.oauth2` wird zur Vereinfachung in der Liste unten weggelassen.
-
-
-[[table-parameter-client-cred]]
-.Konfigurationsparameter einer Client-Anwendung
-[cols="3m,2m,2m,8",options="header"]
-|===
-|Parameter |Wertebereich |Default |Beschreibung
-|client.registration.registrationId |String |_keiner_ | Identifier der `ClientRegistration`
-|client.registration.registrationId.client-id |String |_keiner_ | Identifier der Client-Applikation im Autorisierungsserver
-|client.registration.registrationId.client-secret |String |_keiner_ | Secret, das nur der Anwendung und dem Autorisierungsserver bekannt ist
-|client.registration.registrationId.authorization-grant-type |String |_client_credentials_ | Methode, durch welche die Anwendung ein Bearer-Token erhält (hier _client_credentials_)
-|client.provider.registrationId.issuer-uri |String |_keiner_ |Auto-Konfiguration des Identity-Providers, beispielsweise in der Form "http://<identity-provider>/auth/realms/<realm>/.well-known/openid-configuration"
-|===
 
 [[absicherung_von_service_schnittstellen]]
 == Absicherung von Service-Schnittstellen

@@ -50,6 +50,7 @@
 - `IFS-2153`: [isyfact-task] Umstellung isy-task auf Spring Boot:
   #### _BREAKING CHANGE: Einführung von Spring Boot_
   * Taskkonfiguration und TaskkonfigurationVerwalter entfernt, Übersetzungen hinzugefügt
+- `ISY-139`: [isyfact-products-bom] Spring Boot Versionsanhebung auf 2.7.15
 - [isy-sonderzeichen] Hinzufügen eines neuen Packages mit Transformatoren für die DIN Norm 91379
 
 # 2.4.4

@@ -15,7 +15,7 @@
     <description>Definiert die Versionen aller 3rd-Party Abhängigkeiten des Core Technology Stack der IsyFact.</description>
 
     <properties>
-        <spring.boot.version>2.7.11</spring.boot.version>
+        <spring.boot.version>2.7.15</spring.boot.version>
         <spring.webflow.version>2.5.1.RELEASE</spring.webflow.version>
         <resilience4j.version>1.7.1</resilience4j.version>
         <apache.poi.version>4.1.2</apache.poi.version>
@@ -45,7 +45,6 @@
         <ApacheJMeter_core.version>2.13</ApacheJMeter_core.version>
         <wiremock-jre8.version>2.32.0</wiremock-jre8.version>
         <dbunit.version>2.7.2</dbunit.version>
-        <h2.version>2.1.210</h2.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <tika-core.version>1.28.5</tika-core.version>
         <commons-io.version>2.11.0</commons-io.version>
@@ -316,15 +315,6 @@
                 <groupId>org.dbunit</groupId>
                 <artifactId>dbunit</artifactId>
                 <version>${dbunit.version}</version>
-                <scope>test</scope>
-            </dependency>
-
-            <!-- Testing, in-memory database: H2 -->
-            <!-- Self managed because of CVEs -->
-            <dependency>
-                <groupId>com.h2database</groupId>
-                <artifactId>h2</artifactId>
-                <version>${h2.version}</version>
                 <scope>test</scope>
             </dependency>
 

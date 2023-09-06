@@ -28,6 +28,7 @@ public class RolePrivilegesMapperTest {
         assertEquals(3, mapper.getPrivilegesByRoles(Collections.singletonList("Rolle_ABC")).size());
         assertEquals(0, mapper.getPrivilegesByRoles(Collections.singletonList("Rolle_Keine")).size());
         assertEquals(1, mapper.getPrivilegesByRoles(Collections.singletonList("Rolle_B")).size());
+        assertEquals(0, mapper.getPrivilegesByRoles(Collections.singletonList("unknown")).size());
     }
 
     @Test
@@ -37,7 +38,6 @@ public class RolePrivilegesMapperTest {
 
     @Test
     public void testToString() {
-        System.out.println(mapper.getRolePrivilegesMap().toString());
         String expected = "AnwendungsId: Default\n"
                 + "RollenRechteMapping: {Rolle_C=[Recht_C], Rolle_Keine=[], Rolle_B=[Recht_B], Rolle_A=[Recht_A], Rolle_ABC=[Recht_A, Recht_B, Recht_C]}";
         assertEquals(expected, mapper.toString());
