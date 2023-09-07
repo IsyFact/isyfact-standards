@@ -171,6 +171,11 @@ Im Zuge der Umsetzung der DIN Spezifikation 91 379 wurde `isy-sonderzeichen` erw
 wurde die Bibliothek in zwei Packages aufgeteilt. Das _stringlatin1_1_ Package enthält die ursprüngliche Funktionalität. Die Umsetzung der
 DIN Spezifikation wurde im Package _dinspec91379_ umgesetzt. Die Architektur und Funktionsweise der Komponente wurde im Zuge der
 Umsetzung nicht verändert.
+Eine Erweiterung des Zeichensatzes der DIN SPEC 91379 ist die DIN Norm 91379.
+Für diese wurde ein weiteres Package _dinnorm91379_ angelegt, welches die beiden anderen Packages zukünftig ersetzt.
+
+NOTE: Das Paket _stringlatin1_1_ wird in zukünftigen Versionen entfernt.
+NOTE: Das Paket _dinspec91379_ wird in zukünftigen Versionen entfernt.
 
 [[funktionsweise]]
 === Funktionsweise
@@ -203,20 +208,24 @@ Dieser Transformator ermöglicht keine Vorgabe der maximalen Zeichenlänge.
 
 *Legacy Transformator*
 
-Mit dem Legacy Transformator ist es möglich, Texte, welche mit Zeichen der DIN SPEC 91379 geschrieben wurden, umzuwandeln, sodass diese von Systemen verarbeitet werden können, welche nur den Zeichensatz String Latin 1.1 beherrschen.
+Mit dem Legacy Transformator ist es möglich, Texte, welche mit Zeichen der DIN Norm 91379 geschrieben wurden, umzuwandeln, sodass diese von Systemen verarbeitet werden können, welche nur den Zeichensatz String Latin 1.1 beherrschen.
 Die Transformationregeln sind der  xref:nutzungsvorgaben/master.adoc#table-legacy[Tabelle Legacy] zu entnehmen.
 Dieser Transformator ermöglicht keine Vorgabe der maximalen Zeichenlänge.
 Es ist also möglich, dass transformierte Texte nicht mehr vom System verarbeitet werden können, wenn diese nicht mehr die maximale Zeichenlänge einhalten können.
 
-Der Transformator dient dazu die Kompatibilität zu Systemen herzustellen, die noch nicht auf die DIN SPEC umgestellt sind.
+Der Transformator dient dazu die Kompatibilität zu Systemen herzustellen, die noch nicht auf die DIN Norm 91379 umgestellt sind.
 Die Frist zur Umstellung endet im November 2024.
 Danach soll auch der Legacy Transformator aus isy-sonderzeichen entfernt werden.
 Er ist deswegen bereits als `Deprecated` markiert.
 
+*Legacy Transformator To DIN SPEC 913379*
+
+Analog zum Legacy-Transformator wird dieser Transformator genutzt, um Zeichen in die DIN SPEC 91379 umzuwandeln.
+
 [[funktionsweise-zeichen-validator]]
 ==== Zeichen-Validator
 
-Der Zeichen-Validator kann verwendet werden, um zu überprüfen, ob eine Zeichenkette nur Zeichen eines bestimmten Datentyps der DIN Spezifikation 91 379 enthält.
+Der Zeichen-Validator kann verwendet werden, um zu überprüfen, ob eine Zeichenkette nur Zeichen eines bestimmten Datentyps der DIN Norm 91379 enthält.
 
 [[einbindung-der-bibliothek-in-eine-anwendung]]
 === Einbindung der Bibliothek in eine Anwendung
@@ -263,7 +272,7 @@ Bei der Konfiguration der _TransformatorFactory_ kann die zusätzliche (optional
 Die Regeln in dieser Tabelle überschreiben dabei existierende alte Regeln.
 Es findet also eine Ergänzung der existierenden Regeln statt.
 
-Das Vorgehen für die Komponenten der DIN Spezifikation 91 379 ist analog. Es müssen lediglich die Package-Pfade der Klassen aktualisiert werden.
+Das Vorgehen für die Komponenten der DIN Norm 91379 ist analog. Es müssen lediglich die Package-Pfade der Klassen aktualisiert werden.
 
 [[instanziierung-des-zeichen-validators]]
 ==== Instanziierung des Zeichen-Validators
@@ -272,7 +281,7 @@ Der Zeichen-Validator wird über Spring instanziiert.
 
 [source,xml]
 ----
-<bean id="zeichenValidator" class="de.bund.bva.isyfact.sonderzeichen.dinspec91379.validierung.ZeichenValidator"/>
+<bean id="zeichenValidator" class="de.bund.bva.isyfact.sonderzeichen.dinnorm91379.validierung.ZeichenValidator"/>
 ----
 
 [[methodenbeschreibung-transformator]]
@@ -453,7 +462,7 @@ Folgende Methoden stehen zur Verfügung:
 a|
 `isGueltigerString`
 
-Überprüft, ob eine Zeichenkette nur Zeichen eines in der DIN Spezifikation 91 379 definierten Datentyps enthält.
+Überprüft, ob eine Zeichenkette nur Zeichen eines in der DIN Norm 91379 definierten Datentyps enthält.
 
 Leerzeichen am Anfang und am Ende der Zeichenkette werden entfernt.
 

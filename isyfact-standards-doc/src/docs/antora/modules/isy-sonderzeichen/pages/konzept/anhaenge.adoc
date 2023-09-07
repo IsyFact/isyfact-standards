@@ -933,3 +933,72 @@ In <<table-transkription>> sind die Transkriptionsregeln für die verschiedenen 
 |2264 |≤ |LESS-THAN OR EQUAL TO | |
 |2265 |≥ |GREATER-THAN OR EQUAL TO | |
 |===
+
+== DIN Norm 91379
+Die oben gelisteten Zeichen sind Teil der DIN SPEC 91379. Der Zeichensatz der DIN Norm 91379 enthält alle Zeichen der SPEC und außerdem folgende Schriftzeichen:
+
+[[table-zeichen-dinnorm91379]]
+.Zusätzliche Zeichen DIN Norm 91379
+[cols="2,1,7",options="header"]
+|===
+|Unicode-Wert $$U+….$$ |Glyph |Unicode-Zeichenname
+|0113 030D |ē̍ |LATIN SMALL LETTER E WITH MACRON WITH COMBINING VERTICAL LINE ABOVE
+|014D 030D |ō̍ |LATIN SMALL LETTER O WITH MACRON WITH COMBINING VERTICAL LINE ABOVE
+|1E17 |ḗ |LATIN SMALL LETTER E WITH MACRON AND ACUTE
+|030D |̍ |COMBINING VERTICAL LINE ABOVE
+|2032 |′ |PRIME
+|2033 |″ |DOUBLE PRIME
+|===
+
+Die Transformatoren für die DIN Norm 91379 verhalten sich bis auf die neuen Zeichen identisch zu denen der DIN SPEC 91379.
+Die neuen Zeichen werden wie folgt transformiert.
+
+[[table-transkription-dinnorm91379]]
+.Transkriptionsregeln DIN Norm 91379
+[cols="2,1,7,2,1",options="header"]
+|===
+|Unicode-Wert $$U+….$$ |Glyph |Unicode-Zeichenname |Unicode-Wert der Transkription |Transkription
+|0113 030D |ē̍ |LATIN SMALL LETTER E WITH MACRON WITH COMBINING VERTICAL LINE ABOVE |0045 |E
+|014D 030D |ō̍ |LATIN SMALL LETTER O WITH MACRON WITH COMBINING VERTICAL LINE ABOVE |004F |O
+|1E17 |ḗ |LATIN SMALL LETTER E WITH MACRON AND ACUTE |0045 |E
+|2032 |′ |PRIME | |
+|2033 |″ |DOUBLE PRIME| |
+|===
+
+[[table-suchform-dinnorm91379]]
+.Suchform Transformation DIN Norm 91379
+[cols="2,1,7,2,1",options="header"]
+|===
+|Unicode-Wert $$U+….$$ |Glyph |Unicode-Zeichenname |Unicode-Wert der Transkription |Transkription
+|0113 030D |ē̍ |LATIN SMALL LETTER E WITH MACRON WITH COMBINING VERTICAL LINE ABOVE |0045 |E
+|014D 030D |ō̍ |LATIN SMALL LETTER O WITH MACRON WITH COMBINING VERTICAL LINE ABOVE |004F |O
+|1E17 |ḗ |LATIN SMALL LETTER E WITH MACRON AND ACUTE |0045 |E
+|2032 |′ |PRIME | |
+|2033 |″ |DOUBLE PRIME| |
+|===
+
+[[table-legacy-dinnorm91379]]
+.Legacy Transformation DIN Norm 91379 nach String Latin 1.1
+[cols="2,1,4,3,1",options="header"]
+|===
+| Unicode-Wert | Glyph | Unicode-Zeichenname | Unicode-Wert der Legacy-Transformation | Legacy-Tran.
+|0113 030D |ē̍ |LATIN SMALL LETTER E WITH MACRON WITH COMBINING VERTICAL LINE ABOVE |0065 |e
+|014D 030D |ō̍ |LATIN SMALL LETTER O WITH MACRON WITH COMBINING VERTICAL LINE ABOVE |006F |o
+|1E17 |ḗ |LATIN SMALL LETTER E WITH MACRON AND ACUTE |0065 |e
+|2032 |′ |PRIME |0027 |'
+|2033 |″ |DOUBLE PRIME|0022 |"
+|===
+
+Im Transformator für die DIN Norm 91379 zur DIN SPEC 91379 werden die Zeichen der DIN Norm 91379 wie folgt transformiert, alle anderen Zeichen werden auf sich selbst abgebildet:
+
+[[table-legacy-dinnorm91379-zu-dinspec91379]]
+.Legacy Transformation DIN Norm 91379 nach DIN SPEC 91379
+[cols="2,1,4,3,1",options="header"]
+|===
+| Unicode-Wert | Glyph | Unicode-Zeichenname | Unicode-Wert der Legacy-Transformation | Legacy-Tran.
+|0113 030D |ē̍ |LATIN SMALL LETTER E WITH MACRON WITH COMBINING VERTICAL LINE ABOVE |0113 |ē
+|014D 030D |ō̍ |LATIN SMALL LETTER O WITH MACRON WITH COMBINING VERTICAL LINE ABOVE |014D |ō
+|1E17 |ḗ |LATIN SMALL LETTER E WITH MACRON AND ACUTE |0065 |e
+|2032 |′ |PRIME |0027 |'
+|2033 |″ |DOUBLE PRIME|0022 |"
+|===
