@@ -3,7 +3,7 @@
     * BREAKING CHANGE: Einführung von Spring Boot
     * Taskkonfiguration und TaskkonfigurationVerwalter entfernt, Übersetzungen hinzugefügt
 - `IFS-2416`: Umstellung von isy-sicherheit auf isy-security
-    * BREAKING CHANGE: Die Konfiguration von `benutzer`, `passwort` und `bhknz` erfolgt über isy-security ClientRegistrations und für IsyTaskConfigurationProperties muss nur eine `registrationId` zur Authentifizierung konfiguriert werden.
+    * BREAKING CHANGE: Die Konfiguration von `benutzer`, `passwort` und `bhknz` erfolgt über isy-security ClientRegistrations und für IsyTaskConfigurationProperties muss nur eine `oauth2ClientRegistrationId` zur Authentifizierung konfiguriert werden.
 
 # 2.4.0
 - `IFS-1158`: Behebung der "Missing parameter metadata"-Warnung in dem mit dem "-parameters"-Flag compiliert wird

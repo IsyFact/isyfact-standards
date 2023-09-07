@@ -12,25 +12,27 @@ public class IsySecurityAuthenticator implements Authenticator {
 
     private final Authentifizierungsmanager authentifizierungsmanager;
 
-    private final String registrationId;
+    private final String oauth2ClientRegistrationId;
 
     /**
      * Creates an instance of an {@link Authenticator} for isy-security.
      *
-     * @param authentifizierungsmanager    Authneticationmanager of isy-security
-     * @param registrationId Registration-ID of the client
+     * @param authentifizierungsmanager
+     *         authentication manager of isy-security
+     * @param oauth2ClientRegistrationId
+     *         OAuth 2.0 Client Registration ID of the client to use for authentication
      */
     public IsySecurityAuthenticator(
             Authentifizierungsmanager authentifizierungsmanager,
-            String registrationId
+            String oauth2ClientRegistrationId
     ) {
         this.authentifizierungsmanager = authentifizierungsmanager;
-        this.registrationId = registrationId;
+        this.oauth2ClientRegistrationId = oauth2ClientRegistrationId;
     }
 
     @Override
     public synchronized void login() {
-        authentifizierungsmanager.authentifiziere(registrationId);
+        authentifizierungsmanager.authentifiziere(oauth2ClientRegistrationId);
     }
 
     @Override

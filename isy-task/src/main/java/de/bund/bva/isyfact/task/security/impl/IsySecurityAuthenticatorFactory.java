@@ -45,22 +45,17 @@ public class IsySecurityAuthenticatorFactory implements AuthenticatorFactory {
      */
     public synchronized Authenticator getAuthenticator(String taskId) {
         if (configurationProperties.getTasks().get(taskId) != null) {
-            String registrationId = configurationProperties.getTasks().get(taskId).getRegistrationId();
-            if (StringUtils.hasText(registrationId)) {
-                return new IsySecurityAuthenticator(
-                        authentifizierungsmanager,
-                        registrationId
-                );
+            String oauth2ClientRegistrationId = configurationProperties.getTasks().get(taskId).getOauth2ClientRegistrationId();
+            if (StringUtils.hasText(oauth2ClientRegistrationId)) {
+                return new IsySecurityAuthenticator(authentifizierungsmanager, oauth2ClientRegistrationId);
             }
         }
-        String defaultRegistrationId = configurationProperties.getDefault().getRegistrationId();
-        if (StringUtils.hasText(defaultRegistrationId)) {
+        String defaultOauth2ClientRegistrationId = configurationProperties.getDefault().getOauth2ClientRegistrationId();
+        if (StringUtils.hasText(defaultOauth2ClientRegistrationId)) {
             String nachricht = MessageSourceHolder
-                    .getMessage(HinweisSchluessel.VERWENDE_STANDARD_KONFIGURATION, "registrationId");
+                    .getMessage(HinweisSchluessel.VERWENDE_STANDARD_KONFIGURATION, "oauth2ClientRegistrationId");
             LOG.info(LogKategorie.SICHERHEIT, HinweisSchluessel.VERWENDE_STANDARD_KONFIGURATION, nachricht);
-            return new IsySecurityAuthenticator(
-                    authentifizierungsmanager,
-                    defaultRegistrationId
+            return new IsySecurityAuthenticator(authentifizierungsmanager, defaultOauth2ClientRegistrationId
             );
         } else {
             LOG.info(LogKategorie.SICHERHEIT, HinweisSchluessel.VERWENDE_KEINE_AUTHENTIFIZIERUNG,

@@ -28,8 +28,8 @@ public class IsyTaskConfigurationProperties {
 
     public static class TaskConfig {
 
-        /** Registration-ID for authentication. **/
-        private String registrationId;
+        /** OAuth 2.0 Client Registration ID to use for authentication. */
+        private String oauth2ClientRegistrationId;
 
         /** Host name. **/
         private String host;
@@ -52,15 +52,19 @@ public class IsyTaskConfigurationProperties {
             this.deaktiviert = deaktiviert;
         }
 
-        public String getRegistrationId() { return registrationId; }
+        public String getOauth2ClientRegistrationId() {
+            return oauth2ClientRegistrationId;
+        }
 
-        public void setRegistrationId(String registrationId) { this.registrationId = registrationId; }
+        public void setOauth2ClientRegistrationId(String oauth2ClientRegistrationId) {
+            this.oauth2ClientRegistrationId = oauth2ClientRegistrationId;
+        }
     }
 
     public static class Default {
 
-        /** Registration-ID for authentication. **/
-        private String registrationId;
+        /** Default OAuth 2.0 Client Registration ID to use for authentication. */
+        private String oauth2ClientRegistrationId;
 
         /** Default host name. **/
         private String host = ".*";
@@ -73,9 +77,13 @@ public class IsyTaskConfigurationProperties {
             this.host = host;
         }
 
-        public String getRegistrationId() { return registrationId; }
+        public String getOauth2ClientRegistrationId() {
+            return oauth2ClientRegistrationId;
+        }
 
-        public void setRegistrationId(String registrationId) { this.registrationId = registrationId; }
+        public void setOauth2ClientRegistrationId(String oauth2ClientRegistrationId) {
+            this.oauth2ClientRegistrationId = oauth2ClientRegistrationId;
+        }
     }
 
 }

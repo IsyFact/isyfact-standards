@@ -55,7 +55,7 @@
 - `IFS-2416`: [isyfact-standards-bom] zentrale Versionsverwaltung von `isy-security`
 - `IFS-2416`: [isy-task] Umstellung von isy-sicherheit auf isy-security
   #### _Breaking Change:_
-  * Die Konfiguration von `benutzer`, `passwort` und `bhknz` erfolgt über isy-security ClientRegistrations und für IsyTaskConfigurationProperties muss nur eine `registrationId` zur Authentifizierung konfiguriert werden.
+  * Die Konfiguration von `benutzer`, `passwort` und `bhknz` erfolgt über isy-security ClientRegistrations und für IsyTaskConfigurationProperties muss nur eine `oauth2ClientRegistrationId` zur Authentifizierung konfiguriert werden.
 
 # 2.4.4
 - `IFS-1997`: Fix CVE-2022-42889 durch Anhebung von 'commons-text' auf 1.10
