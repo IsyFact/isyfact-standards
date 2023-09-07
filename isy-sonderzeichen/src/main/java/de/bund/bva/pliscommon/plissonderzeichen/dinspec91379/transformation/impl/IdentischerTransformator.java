@@ -24,7 +24,10 @@ import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.Tran
 /**
  * The transformer for identical string Latin characters.
  *
+ *  @deprecated This class is deprecated and will be removed in a future release.
+ *  It is recommended to use {@link de.bund.bva.pliscommon.plissonderzeichen.dinnorm91379} instead.
  */
+@Deprecated
 public class IdentischerTransformator extends AbstractTransformator {
 
     /** Logger. */

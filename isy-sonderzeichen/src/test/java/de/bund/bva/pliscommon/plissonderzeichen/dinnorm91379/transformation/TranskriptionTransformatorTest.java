@@ -1,7 +1,7 @@
-package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.impl;
+package de.bund.bva.pliscommon.plissonderzeichen.dinnorm91379.transformation;
 
-import static de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.TestData.RANDOM_TESTDATA;
-import static de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.TestData.RANDOM_TESTDATA_EXPECTED;
+import static de.bund.bva.pliscommon.plissonderzeichen.dinnorm91379.transformation.TestData.RANDOM_TESTDATA;
+import static de.bund.bva.pliscommon.plissonderzeichen.dinnorm91379.transformation.TestData.RANDOM_TESTDATA_EXPECTED;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -12,6 +12,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+
+import de.bund.bva.pliscommon.plissonderzeichen.dinnorm91379.transformation.impl.TranskriptionTransformator;
 
 /**
  * Parametrized test class which tests the {@link TranskriptionTransformator}.
@@ -40,7 +42,7 @@ public class TranskriptionTransformatorTest {
     private static final String[] UMLAUTE_EXPECTED = {"MUELLER", "MOELLER", "HAEUSER", "BARFUESSIG"};
 
     /**
-     * Test data for the case that that character is not part of the DIN SPEC 91379. Default transformation
+     * Test data for the case that that character is not part of the DIN Norm 91379. Default transformation
      * will be used.
      */
     private static final String UNBEKANNT = "ツ";
@@ -64,7 +66,7 @@ public class TranskriptionTransformatorTest {
      * Composes the different test data to a single collection used by JUnit.
      * @return collection of the test data.
      */
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "{index}: testData={0}\nexpected={1}")
     public static Collection<Object[]> data() {
         List<Object[]> testData = new ArrayList<>();
         for (int i = 0; i < RANDOM_TESTDATA.length; i++) {

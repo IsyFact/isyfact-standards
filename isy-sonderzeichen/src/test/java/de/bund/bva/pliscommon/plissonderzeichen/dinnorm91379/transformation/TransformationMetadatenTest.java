@@ -1,9 +1,10 @@
-package de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.impl;
+package de.bund.bva.pliscommon.plissonderzeichen.dinnorm91379.transformation;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import de.bund.bva.pliscommon.plissonderzeichen.dinspec91379.transformation.Transformation;
+import de.bund.bva.pliscommon.plissonderzeichen.dinnorm91379.transformation.impl.LegacyTransformator;
+import de.bund.bva.pliscommon.plissonderzeichen.dinnorm91379.transformation.impl.TranskriptionTransformator;
 
 public class TransformationMetadatenTest {
 
@@ -197,7 +198,7 @@ public class TransformationMetadatenTest {
     }
 
     @Test
-    public void testDinSpecKuerzen() {
+    public void testDinNormKuerzen() {
         LegacyTransformator legacyTransformator = new LegacyTransformator();
         legacyTransformator.initialisiere(null);
         Transformation transformation = legacyTransformator.transformiereMitMetadaten(STRING_LEGACY_KUERZEN);
@@ -222,7 +223,7 @@ public class TransformationMetadatenTest {
     }
 
     @Test
-    public void testDinSpecErweitern() {
+    public void testDinNormErweitern() {
         LegacyTransformator legacyTransformator = new LegacyTransformator();
         legacyTransformator.initialisiere(null);
         Transformation transformation = legacyTransformator.transformiereMitMetadaten(STRING_LEGACY_ERWEITERN);
