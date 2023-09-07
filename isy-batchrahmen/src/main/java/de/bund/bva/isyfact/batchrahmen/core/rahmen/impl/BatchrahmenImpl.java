@@ -162,15 +162,15 @@ public class BatchrahmenImpl implements Batchrahmen, InitializingBean,
             this.batchLaeuft = true;
 
             try {
-                String registrationId = verarbInfo.getKonfiguration().getAsString(KonfigurationSchluessel.PROPERTY_BATCH_REGISTRATION_ID);
-                authentifizierungsmanagerOptional.ifPresent(am -> am.authentifiziere(registrationId));
+                String oauth2ClientRegistrationId = verarbInfo.getKonfiguration().getAsString(KonfigurationSchluessel.PROPERTY_BATCH_OAUTH2_CLIENT_REGISTRATION_ID);
+                authentifizierungsmanagerOptional.ifPresent(am -> am.authentifiziere(oauth2ClientRegistrationId));
 
                 if (!authentifizierungsmanagerOptional.isPresent()) {
-                    throw new IllegalArgumentException("Es wurde eine " + KonfigurationSchluessel.PROPERTY_BATCH_REGISTRATION_ID + " gesetzt, jedoch wurde kein Authentifizierungsmanager gefunden.");
+                    throw new IllegalArgumentException("Es wurde eine " + KonfigurationSchluessel.PROPERTY_BATCH_OAUTH2_CLIENT_REGISTRATION_ID + " gesetzt, jedoch wurde kein Authentifizierungsmanager gefunden.");
                 }
             } catch (BatchrahmenKonfigurationException e) {
                 LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001,
-                        "Es wurde keine registrationId konfiguriert.");
+                        "Es wurde keine oauth2ClientRegistrationId konfiguriert.");
             } catch (ClientAuthorizationException e) {
                 LOG.error(BatchRahmenEreignisSchluessel.EPLBAT00001, "Fehler bei der Authentifizierung: {}", e.getMessage());
             }

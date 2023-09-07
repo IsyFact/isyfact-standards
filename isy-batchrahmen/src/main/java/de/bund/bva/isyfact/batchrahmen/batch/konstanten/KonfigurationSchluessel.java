@@ -76,9 +76,9 @@ public final class KonfigurationSchluessel {
     public static final String PROPERTY_BATCH_NAME = "BatchName";
 
     /**
-     * Property name for the registrationId of the batch.
+     * Property name for the oauth2ClientRegistrationId of the batch.
      */
-    public static final String PROPERTY_BATCH_REGISTRATION_ID = "batch.registrationId";
+    public static final String PROPERTY_BATCH_OAUTH2_CLIENT_REGISTRATION_ID = "batch.oauth2ClientRegistrationId";
 
     /***************************************************************************
      * COMMAND LINE PARAMETERS *
