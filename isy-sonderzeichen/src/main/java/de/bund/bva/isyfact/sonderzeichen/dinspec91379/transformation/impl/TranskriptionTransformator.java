@@ -8,7 +8,10 @@ import de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.Transformat
 /**
  * The transcription transformer.
  *
+ *  @deprecated This class is deprecated and will be removed in a future release.
+ *  It is recommended to use {@link de.bund.bva.isyfact.sonderzeichen.dinnorm91379} instead.
  */
+@Deprecated
 public class TranskriptionTransformator extends  AbstractTransformator {
 
     /** Logger. */
