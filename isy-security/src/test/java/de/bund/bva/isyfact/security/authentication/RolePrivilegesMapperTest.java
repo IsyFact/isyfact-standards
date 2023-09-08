@@ -2,10 +2,12 @@ package de.bund.bva.isyfact.security.authentication;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.Assertions.tuple;
 
 import java.util.Collections;
 
+import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -86,6 +88,14 @@ class RolePrivilegesMapperTest {
         assertThat(listAppender.list)
             .extracting(ILoggingEvent::getLevel, ILoggingEvent::getFormattedMessage)
             .containsExactly(tuple(logLevel, expectedMsg));
+    }
+
+    @Test
+    void testRoleMappingFileNoApplicationIdSet () {
+        assertThatExceptionOfType(RuntimeException.class)
+            .isThrownBy((ThrowableAssert.ThrowingCallable) () ->
+                new RolePrivilegesMapper(new ClassPathResource("/resources/sicherheit/rollenrechte-no-application-id.xml"))
+            ).withMessageMatching(".*: Es ist keine AnwendungsId gesetzt");
     }
 
 }
