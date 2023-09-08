@@ -1,10 +1,18 @@
 package de.bund.bva.isyfact.serviceapi.core.httpinvoker;
 
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
-import de.bund.bva.isyfact.aufrufkontext.impl.AufrufKontextVerwalterImpl;
-import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.DummyServiceImpl;
-import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.DummyServiceRemoteBean;
-import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
+import static de.bund.bva.isyfact.security.test.oidcprovider.EmbeddedOidcProviderStub.BHKNZ_CLAIM_NAME;
+import static de.bund.bva.isyfact.security.test.oidcprovider.EmbeddedOidcProviderStub.DEFAULT_ROLES_CLAIM_NAME;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -30,16 +38,11 @@ import org.springframework.security.oauth2.core.oidc.StandardClaimNames;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.security.web.SecurityFilterChain;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
+import de.bund.bva.isyfact.aufrufkontext.impl.AufrufKontextVerwalterImpl;
+import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.DummyServiceImpl;
+import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.DummyServiceRemoteBean;
+import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 
 /**
  * The tests checking the adhoc generation of a {@link AufrufKontextTo} via {@link DefaultCreateAufrufKontextToStrategy} on HTTP Invoker calls.
@@ -57,7 +60,7 @@ import static org.mockito.Mockito.*;
         properties = "isy.logging.autoconfiguration.enabled=false",
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
-public class FillAufrufKontextToTest {
+class FillAufrufKontextToTest {
 
     @LocalServerPort
     private int port;
@@ -119,8 +122,8 @@ public class FillAufrufKontextToTest {
                 .collect(Collectors.toList());
 
         Map<String, Object> tokenAttributes = new HashMap<>();
-        tokenAttributes.put("roles", Arrays.asList(TEST_ROLES));
-        tokenAttributes.put("bhknz", BHKNZ);
+        tokenAttributes.put(DEFAULT_ROLES_CLAIM_NAME, Arrays.asList(TEST_ROLES));
+        tokenAttributes.put(BHKNZ_CLAIM_NAME, BHKNZ);
         tokenAttributes.put(StandardClaimNames.NAME, NAME);
         tokenAttributes.put(StandardClaimNames.PREFERRED_USERNAME, PREFFERED_USERNAME);
 
