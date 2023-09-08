@@ -22,35 +22,22 @@ Oft erhält man hier Angaben wie "Antwortzeit im Dialog max. 10 Sekunden".
 Idealerweise sollten aber Performanz-Anforderungen je Anwendungsfall spezifiziert werden.
 Hier ist dann der Ort, an dem diese Informationen dann noch einmal tabellarisch zusammengefasst dargestellt werden._
 
-[[nfaname-anforderung-1]]
+[[nfa-name-anforderung-1]]
 ==== NFA_<Name der Anforderung>
 
 [[table-nfa]]
 .Anforderungen an <SYSTEM>
 [cols="1,4",options="header"]
 |====
-2+|*NFA_<Name der Anforderung>*
 |*Kurzbeschreibung* |_Ein kurzer Satz, was gefordert wird._
-|*Prüfkriterien* |_wie wissen Sie, ob die Anforderung erfüllt ist?_
+|*Prüfkriterien* |_Wie wissen Sie, ob die Anforderung erfüllt ist?_
 |*Quellen* |_Wer hat die Anforderung gestellt?_
-|*Priorisierung* |_Vorzugsweise Bewertung mittels Unzufriedenheits-/Zufriedenheits-Maß_
-2+|
-2+|*NFA_<Name der Anforderung>*
-|*Kurzbeschreibung* |_Ein kurzer Satz, was gefordert wird._
-|*Prüfkriterien* |_wie wissen Sie, ob die Anforderung erfüllt ist?_
-|*Quellen* |_Wer hat die Anforderung gestellt?_
-|*Priorisierung* |_Vorzugsweise Bewertung mittels Unzufriedenheits-/Zufriedenheits-Maß_
-2+|
-2+|*NFA_<Name der Anforderung>*
-|*Kurzbeschreibung* |_Ein kurzer Satz, was gefordert wird._
-|*Prüfkriterien* |_wie wissen Sie, ob die Anforderung erfüllt ist?_
-|*Quellen* |_Wer hat die Anforderung gestellt?_
-|*Priorisierung* |_Vorzugsweise Bewertung mittels Unzufriedenheits-/Zufriedenheits-Maß_
+|*Priorisierung* |_Vorzugsweise Bewertung mittels Unzufriedenheits-/ Zufriedenheits-Maß_
 |====
 
 _Optional können zusätzlich folgende Felder aufgenommen werden:_
 
-* _Begründung (warum ist die Anforderung wichtig?)_
+* _Begründung (Warum ist die Anforderung wichtig?)_
 * _Abhängigkeiten (Verweise auf andere Anforderungen, die das gleiche Thema betreffen)_
 * _Zusätzliche Materialien (Verweise auf Definitionen, Modelle und Dokumente, die die Anforderung verdeutlichen)_
 * _Historie (Änderungshistorie der Anforderung)_
@@ -63,17 +50,16 @@ _Optional können zusätzlich folgende Felder aufgenommen werden:_
 .Performanz und Antwortzeitverhalten
 [cols="1,4",options="header"]
 |====
-2+|Performanz und Antwortzeitverhalten
-|*Kurzbeschreibung* a|
-_Die Verarbeitung einer <Meldung / Auskunft / …> muss im <System> in <Prozent> der Fälle innerhalb von <Sekunden> durchgeführt werden._
+|*Kurzbeschreibung*|
+_Die Verarbeitung einer <Meldung / Auskunft / …> muss im <System> in <Prozent> der Fälle innerhalb von <Sekunden> durchgeführt werden._ +
 
-_In weiteren <Prozent> der Fälle muss sie innerhalb von <Sekunden> durchgeführt werden._
+_In weiteren <Prozent> der Fälle muss sie innerhalb von <Sekunden> durchgeführt werden._ +
 
-_In <Prozent> der Fälle sind längere Antwortzeiten erlaubt._
+_In <Prozent> der Fälle sind längere Antwortzeiten erlaubt._ +
 
-_Die Messung der Antwortzeit erfolgt an der <Service-Schnittstelle des Systems / …>._
+_Die Messung der Antwortzeit erfolgt an der <Service-Schnittstelle des Systems / …>._ +
 
-_Die Antwortzeiten von Nachbarsystemen sind <nicht> in den geforderten Antwortzeiten enthalten._
+_Die Antwortzeiten von Nachbarsystemen sind <nicht> in den geforderten Antwortzeiten enthalten._ +
 
 |*Prüfkriterien* |_<Test in Staging-Umgebung mit Echtdaten / Verwendung von JMeter / …> <Nachbarsysteme werden durch Stubs ersetzt / …>_
 |*Quellen* |_<Quelle der Anforderung>_
@@ -105,7 +91,6 @@ Außerdem sind Angaben zu der maximalen gleichzeitig zu erwartenden Benutzeranza
 .Lastverhalten und Mengengerüst
 [cols="1,4",options="header"]
 |====
-2+|Lastverhalten und Mengengerüst
 |*Kurzbeschreibung* |_<Das System> muss in der Lage sein, in Stoßzeiten <Zahl> <Auskünfte/Meldungen/… pro Zeiteinheit> zu verarbeiten._
 |*Prüfkriterien* |_<Test in Staging-Umgebung mit Echtdaten / Verwendung von JMeter / …> < Nachbarsysteme werden durch Stubs ersetzt / …>_
 |*Quellen* |_<Quelle der Anforderung>_
@@ -141,8 +126,7 @@ image::vorlage-systemspezifikation/verfuegbarkeit.png[]
 .Verfügbarkeit
 [cols="1,4",options="header"]
 |====
-2+|Verfügbarkeit
-|*Kurzbeschreibung* |_<Das System> muss <durchgängig (7x24) / zu den normalen Büro-Zeiten (Mo-Fr, 06:30 Uhr bis 21 Uhr) / ...> zu <Prozent> der Zeit verfügbar sein.
+|*Kurzbeschreibung* | _<Das System> muss <durchgängig (7x24) / zu den normalen Büro-Zeiten (Mo-Fr, 06:30 Uhr bis 21 Uhr) / ...> zu <Prozent> der Zeit verfügbar sein.
 Ausfälle von Nachbarsystemen werden <nicht> als Ausfall des <Systems> gewertet._
 |*Prüfkriterien* |_<Das System> wird zunächst in der Staging-Umgebung einem Stabilitätstest unterzogen.
 Im laufenden Betrieb wird die Erreichung der Anforderung durch Statistiken nachgewiesen._
@@ -194,7 +178,7 @@ _Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier weitere
 === Nachvollziehbarkeit
 
 _In diesem Kapitel werden besondere Anforderungen an die Nachvollziehbarkeit spezifiziert. Nachvollziehbar gemacht werden sollen die durchgeführten Aktionen und die Bedingungen, unter denen diese ausgeführt wurden.
-Dies kann sich beispielsweise auf die An- und Abmeldungen eines Benutzer beziehen und auf die Aktionen, die dieser durchgeführt hat, oder auf die Durchführung eines Batches.
+Dies kann sich beispielsweise auf die An- und Abmeldungen eines Benutzers beziehen und auf die Aktionen, die dieser durchgeführt hat, oder auf die Durchführung eines Batches.
 Zur Herstellung von Nachvollziehbarkeit können Protokolleinträge verwendet werden.
 Die Speicherdauer von Protokolleinträgen sollte hierbei immer spezifiziert werden._
 

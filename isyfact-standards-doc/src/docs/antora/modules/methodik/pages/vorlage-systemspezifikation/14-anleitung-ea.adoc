@@ -10,7 +10,7 @@ Hier werden Details zur Nutzung des Enterprise Architect zur Erstellung von Spez
 === Vorgehen zur Erstellung der Spezifikationsdokumente
 
 Man erstellt die Dokumente Systemspezifikation und Geschäftsprozesse nach den hier beschriebenen Vorgaben in Microsoft Word (oder einer dazu kompatiblen Textverarbeitung).
-Diagramme aus dem Enterprise Architect kopiert man nach der Erstellung / Aktualisierung in MS Word.
+Diagramme aus dem Enterprise Architect kopiert man nach der Erstellung/ Aktualisierung in MS Word.
 Die beschriebenen Aufzählungen der Elemente unter den Diagrammen dienen dazu, Querverweise auf die Spezifikationselemente hinzufügen zu können.
 
 [[nutzung-enterprise-architect-zur-erstellung-von-systemspezifikationen]]
@@ -49,10 +49,10 @@ Die folgende Struktur muss man beim Aufbau des EA-Modells der Geschäftsprozesse
 
 [[ea-geschaeftsprozessmodellierung]]
 .EA-Struktur der Geschäftsprozessmodellierung
-image::vorlage-systemspezifikation/uebersicht-anwendungskomponenten.png[]
+image::vorlage-systemspezifikation/ea-struktur-geschaeftsprozessmodellierung.png[]
 
 [[spezifikation-anwendungskomponente]]
-.EA-Struktur der Spezifikation: Anwendungskomponenten
+.EA-Struktur der Spezifikation: Anwendungskomponente
 image::vorlage-systemspezifikation/ea-struktur-spezifikationss-anwendungskomponenten.png[]
 
 [[spezifikation-datenmodell]]
@@ -92,8 +92,8 @@ Wenn diese verändert werden soll, dann muss man hierzu die Elemente im Diagramm
 Damit kann man die Standarddarstellung der markierten Elemente für alle Diagramme setzen.
 Nun kann man RGB-Farbwerte eingeben.
 
-[[default-appearance]]
-.Default Appearance
+[[dialog-default-appearance]]
+.Dialog "Default Appearance"
 image::vorlage-systemspezifikation/dialog-default-appearance.png[]
 
 

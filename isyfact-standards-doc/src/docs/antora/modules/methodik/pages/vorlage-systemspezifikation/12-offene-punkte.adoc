@@ -9,7 +9,6 @@ _Die zur Abnahme des Dokuments noch zu klärenden offenen Punkte in Listenform._
 .Beschreibungstext für diese Tabelle
 [cols="1,4",options="header"]
 |====
-2+|Offene Punkte
 |*_Nummer_* |*_Beschreibung_*
 |_1_ |_Ein offener Punkt_
 | |

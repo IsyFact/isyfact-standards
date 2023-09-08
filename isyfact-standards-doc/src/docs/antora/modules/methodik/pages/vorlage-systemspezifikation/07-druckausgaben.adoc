@@ -25,7 +25,7 @@ image::vorlage-systemspezifikation/uebersicht-druckausgaben.png[]
 
 _Das Druckstück wird tabellarisch beschrieben.
 Zusätzliche Darstellungen können direkt im Dokument unter der Tabelle eingebunden oder im Anhang als Verweis auf externe Dokumente aufgenommen werden.
-In diesen zusätzlichen Darstellungen können Textbausteine mit Präfix +„TBS_“+ und Druckvariablen mit Präfix „DRV_“ markiert werden, um Teilen des Druckstücks eindeutige Namen zu geben.
+In diesen zusätzlichen Darstellungen können Textbausteine mit Präfix +„TBS_“+ und Druckvariablen mit Präfix +„DRV_“+ markiert werden, um Teilen des Druckstücks eindeutige Namen zu geben.
 Für die Markierung können z.B. Microsoft Word-Kommentare verwendet werden.
 Textbausteine sind typischerweise feste Textteile, Druckvariablen sind typischerweise variabel belegte Textteile._
 
@@ -38,9 +38,7 @@ Textbausteine sind typischerweise feste Textteile, Druckvariablen sind typischer
 Welchen fachlichen Hintergrund haben die ausgetauschten Daten?_
 |*Empfänger* |_An wen sind die Inhalte der Druckausgabe gerichtet?_
 |*Medium* |_Wie liegt das Druckstück vor? Z.B. „elektronisch“, „Papier“_
-
 |====
-
 
 ====
 Sehr geehrte Damen und Herren,
@@ -86,4 +84,3 @@ _Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier weitere
 _Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier Druckstücke weiterer Anwendungskomponenten zu beschreiben sind._
 
 // end::inhalt[]
-

@@ -32,18 +32,18 @@ Eine Aktivität kann sowohl manuell als auch teilweise oder vollständig automat
 |_Anwendungsfunktion_ |_Abläufe_ |_Eine Anwendungsfunktion ist ein Ausschnitt eines Anwendungsfalls, der ohne Unterbrechung vom Awendungssystem ausgeführt wird._ |
 |_Anwendungskomponente_ |_Architektur_ |_Eine Anwendungskomponente beschreibt eine Menge funktional zusammenhängender Anwendungsfälle._ |
 |_Anwendungslandschaft_ |_Architektur_ |_Die Anwendungslandschaft einer Organisation ist bestimmt durch die Menge der von der Organisationseinheit betriebenen Anwendungssysteme._ |_IT-Anwendungslandschaft_
-|_Anwendungssystem_ |_Architektur_ |_Ein Anwendungssystem ist eine zusam­mengehörende, logische Einheit aus Funktionen, Daten und Benutzungsschnittstellen._ |_Anwendung, IT-System_
+|_Anwendungssystem_ |_Architektur_ |_Ein Anwendungssystem ist eine zusammengehörende, logische Einheit aus Funktionen, Daten und Benutzungsschnittstellen._ |_Anwendung, IT-System_
 |_Assoziation_ |_Daten_ |_Eine Assoziation beschreibt eine Beziehung zwischen zwei oder mehr Entitätstypen._ |_Beziehung_
 |_Attribut_ |_Daten_ |_Als „Attribut“ versteht man eine dem Entitätstyp zugeordnete Information._ |
-|_Batch_ |_Benutzungsschnitt­stelle_ |_Ein Batchprogramm realisiert eine eigenständige Verarbeitung ohne direkten Benutzereingriff während des Ablaufes._ |_Batchprogramm, Batchverarbeitung_
+|_Batch_ |_Benutzungsschnittstelle_ |_Ein Batchprogramm realisiert eine eigenständige Verarbeitung ohne direkten Benutzereingriff während des Ablaufes._ |_Batchprogramm, Batchverarbeitung_
 |_Business Process Diagram (BPD)_ |_Methodik_ |_Diagramme in der BPMN heißen Business Process Diagram (BPD)._ |
 |_Business Process Modelling Notation (BPMN)_ |_Methodik_ |_Die Business Process Modeling Notation (BPMN) ist eine grafische Spezifikationssprache in der Wirtschaftsinformatik.
 Sie stellt Symbole zur Verfügung, mit denen Fach- und Informatikspezialisten Geschäftsprozesse modellieren können._ |
 |_Datenhaltung_ |_Architektur_ |_Eine Datenhaltung ist eine physikalisch abgrenzbare Menge nicht-flüchtiger Daten._ |_Datensenke_
-|_Dialog_ |_Benutzungsschnitt­stelle_ |_Der Begriff „Dialog“ bezeichnet die gesamte Benutzungsschnittstelle eines Anwendungsfalls (Masken, Zustände, Übergänge).
+|_Dialog_ |_Benutzungsschnittstelle_ |_Der Begriff „Dialog“ bezeichnet die gesamte Benutzungsschnittstelle eines Anwendungsfalls (Masken, Zustände, Übergänge).
 Die Spezifikation eines Dialogs umfasst die Beschreibung seiner Masken und Maskenzustände sowie der Übergänge zwischen den Masken.
 Ein Dialog ist in sich abgeschlossen und gegenüber anderen Dialogen abgegrenzt._ |
-|_Dialog-Gestaltungsvorgabe_ |_Benutzungsschnitt­stelle_ |_Die Dialog-Gestaltungsvorgabe spezifiziert grundlegende Eigenschaften der Benutzerschnittstelle.
+|_Dialog-Gestaltungsvorgabe_ |_Benutzungsschnittstelle_ |_Die Dialog-Gestaltungsvorgabe spezifiziert grundlegende Eigenschaften der Benutzerschnittstelle.
 Sie umfasst Grundprinzipien des Dialogaufbaus, des Layouts und der Benutzerinteraktion.
 Oft setzt die Dialog-Gestaltungsvorgabe unternehmensweit gültige Vorgaben für das zu entwickelnde Anwendungssystem um.
 Sie vereinheitlicht die Benutzerschnittstelle und trägt wesentlich zur effizienten Dialogspezifikation bei._ |_Styleguide_
@@ -64,16 +64,16 @@ _Unter Logging sind systemnahe und sicherheitsrelevante Meldungen zu verstehen f
 _Es handelt sich nicht um Protokollierung!_
 
 |
-|_Maske_ |_Benutzungsschnitt­stelle_ |_Eine „Maske“ entspricht einem Bildschirmbereich zur Bearbeitung eines Arbeitsschritts eines Anwendungsfalls, z.B. ein Fenster.
+|_Maske_ |_Benutzungsschnittstelle_ |_Eine „Maske“ entspricht einem Bildschirmbereich zur Bearbeitung eines Arbeitsschritts eines Anwendungsfalls, z.B. ein Fenster.
 Eine Maske entspricht bei einer GUI meist genau einem Fenster._ |_Screen_
-|_Maskentyp_ |_Benutzungsschnitt­stelle_ |_Maskentypen fassen Masken mit gleichartigem Verhalten zusammen (z.B. Eingabe)._ |
+|_Maskentyp_ |_Benutzungsschnittstelle_ |_Maskentypen fassen Masken mit gleichartigem Verhalten zusammen (z.B. Eingabe)._ |
 |_Modellkomponente_ |_Daten_ |_Eine Modellkomponente ist eine Gruppierung, die fachlich zusammengehörige Entitätstypen inklusive ihrer Assoziationen zusammenfasst.
 Sie ist überschneidungsfrei, d.h. ein Entitätstyp gehört zu genau einer Modellkomponente.
 In einer Modellkomponente kann allerdings ein Entitätstyp einer anderen Modellkomponente referenziert werden._ |
 |_Nachbarsystem_ |_Architektur_ |_Ein externes System mit dem über eine Schnittstelle kommuniziert wird._ |
-|_Nachbarsystemschnitt­stelle_ |_Architektur_ |_Über eine Nachbarsystemschnittstelle werden zwischen zwei Anwendungssystemen Daten ausgetauscht oder externe Dienste benutzt._ |_Schnittstellen_
+|_Nachbarsystemschnittstelle_ |_Architektur_ |_Über eine Nachbarsystemschnittstelle werden zwischen zwei Anwendungssystemen Daten ausgetauscht oder externe Dienste benutzt._ |_Schnittstellen_
 |_Nichtfunktionale Anforderung_ |_Architektur_ |_Während die funktionalen Anforderungen die geforderten Fähigkeiten des Anwendungssystems beschreiben, stellen die nichtfunktionalen Anforderungen die zu erfüllenden Rahmenbedingungen für die Anwendung dar (z.B. Performanz, Verfügbarkeit)._ |_Non-functional requirement_
-|_Organisationseinheit_ |_Abläufe_ |_Einheiten des Unternehmens, die eine Aktivität ausführen bzw. Personen, die in einer bestimmte Rolle am Prozess beteiligt sind._ |
+|_Organisationseinheit_ |_Abläufe_ |_Einheiten des Unternehmens, die eine Aktivität ausführen bzw. Personen, die in einer bestimmten Rolle am Prozess beteiligt sind._ |
 |_Projekt_ |_Vorgehen_ |_Ein Projekt ist ein Vorhaben, bei dem innerhalb einer definierten Zeitspanne ein definiertes Ziel erreicht werden soll, und das sich dadurch auszeichnet, dass es im Wesentlichen ein einmaliges Vorhaben ist._ |_IT-Projekt_
 |_Protokollierung_ |_Nichtfunktionale Anforderungen_ a|
 _Die Protokollierung erfasst Informationen zu fachlichen Abläufen, um diese zu einem späteren Zeitpunkt nachvollziehbar zu machen._
@@ -82,9 +82,9 @@ _Es handelt sich nicht um Logging!_
 
 |
 |_Stützprozess_ |_Abläufe_ |_Stützprozesse sind die unterstützenden Prozesse, die notwendig sind, um die Kernprozesse am Laufen zu halten. Externe Nutzer nehmen sie nicht wahr._ |
-|_UML-Aktivitäten­diagramm_ |_Methodik_ |_Das Aktivitätsdiagramm ist ein Verhaltensdiagramm. Es zeigt eine bestimmte Sicht auf die dynamischen Aspekte des modellierten Anwendungssystems._ |
+|_UML-Aktivitätendiagramm_ |_Methodik_ |_Das Aktivitätsdiagramm ist ein Verhaltensdiagramm. Es zeigt eine bestimmte Sicht auf die dynamischen Aspekte des modellierten Anwendungssystems._ |
 |_UML-Klassendiagramm_ |_Methodik_ |_Ein Klassendiagramm ist in der Informatik eine grafische Darstellung von Entitätstypen sowie der Assoziationen zwischen diesen Entitätstypen._ |
-|_UML-Komponenten­diagramm_ |_Methodik_ |_Das Komponentendiagramm ist ein Strukturdiagramm.
+|_UML-Komponentendiagramm_ |_Methodik_ |_Das Komponentendiagramm ist ein Strukturdiagramm.
 Es zeigt eine bestimmte Sicht auf die Struktur des modellierten Anwendungssystems._ |
 |_Unified Modelling Language (UML)_ |_Methodik_ |_Die Unified Modeling Language (UML) ist eine von der Object Management Group (OMG) entwickelte und standardisierte Sprache für die Modellierung von Software und anderen Anwendungssystemen._ |
 |====
@@ -113,7 +113,7 @@ Fachliche Rollen können im Gegensatz zu technischen Rollen über die Oberfläch
 Technische Rollen können dafür als Unterrollen von anderen technischen oder fachlichen Rollen dienen._
 
 [[cd-verwaltung]]
-.Rollenschnitt am Beispiel einer CDROM Verwaltung
+.Rollenschnitt am Beispiel einer CD-Verwaltung
 image::vorlage-systemspezifikation/rollenschnitt-am-beispielr-cd-verwaltung.png[]
 
 
