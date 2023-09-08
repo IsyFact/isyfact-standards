@@ -175,12 +175,11 @@ public class BatchKonfiguration {
 
     /**
      * Returns the specified configuration parameter as a string.
-     * If the parameter is not set is set, the default value is returned.
+     * If the parameter is not set, the default value is returned.
      *
      * @param name         The name of the configuration parameter as it is contained in the properties.
      * @param standardWert The default value which will be taken if the value is not contained in the properties.
      * @return The configuration parameter as a string.
-     * @throws BatchrahmenKonfigurationException If the configuration parameter cannot be converted to a string.
      */
     public String getAsString(String name, String standardWert) {
         if (!this.properties.containsKey(name)) {
@@ -210,13 +209,12 @@ public class BatchKonfiguration {
     }
 
     /**
-     * Returns the specified configuration parameter as a Boolean.
-     * If the parameter is not set is set, the default value is returned.
+     * Returns the specified configuration parameter as a boolean.
+     * If the parameter is not set, the default value is returned.
      *
      * @param name         The name of the configuration parameter as it is contained in the properties.
      * @param standardWert The default value which will be taken if the value is not contained in the properties.
      * @return The configuration parameter as a boolean.
-     * @throws BatchrahmenKonfigurationException If the configuration parameter cannot be converted to a boolean.
      */
     public boolean getAsBoolean(String name, boolean standardWert) {
         if (!this.properties.containsKey(name)) {
@@ -230,7 +228,7 @@ public class BatchKonfiguration {
      *
      * @param name The name of the configuration parameter as contained in the properties.
      * @return The configuration parameter as a boolean.
-     * @throws BatchrahmenKonfigurationException If the configuration parameter cannot be set or converted to a boolean.
+     * @throws BatchrahmenKonfigurationException If the configuration parameter is not set.
      */
     public boolean getAsBoolean(String name) {
         if (!this.properties.containsKey(name)) {

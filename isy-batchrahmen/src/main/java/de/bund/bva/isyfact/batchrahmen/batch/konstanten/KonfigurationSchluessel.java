@@ -21,8 +21,8 @@ package de.bund.bva.isyfact.batchrahmen.batch.konstanten;
  */
 public final class KonfigurationSchluessel {
 
-    private KonfigurationSchluessel () {
-        // hide ctor
+    private KonfigurationSchluessel() {
+        // class with config keys should not be initialized
     }
 
     /***************************************************************************
@@ -45,7 +45,7 @@ public final class KonfigurationSchluessel {
     public static final String PROPERTY_BATCHRAHMEN_COMMIT_INTERVALL = "Batchrahmen.CommitIntervall";
 
     /**
-     * Property name for the commit interval.
+     * Property name for the number of records to process.
      */
     public static final String PROPERTY_BATCHRAHMEN_ZU_VERARBEITENDE_DATENSAETZE_ANZAHL =
             "Batchrahmen.AnzahlZuVerarbeitendeDatensaetze";

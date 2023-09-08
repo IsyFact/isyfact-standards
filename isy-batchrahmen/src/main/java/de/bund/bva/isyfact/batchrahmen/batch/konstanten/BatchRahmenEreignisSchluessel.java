@@ -21,8 +21,8 @@ package de.bund.bva.isyfact.batchrahmen.batch.konstanten;
  */
 public final class BatchRahmenEreignisSchluessel {
 
-    private BatchRahmenEreignisSchluessel () {
-        // hide ctor
+    private BatchRahmenEreignisSchluessel() {
+        // class with event keys should not be initialized
     }
 
     /**
