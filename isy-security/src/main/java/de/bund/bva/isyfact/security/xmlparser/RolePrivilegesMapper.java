@@ -37,6 +37,8 @@ public class RolePrivilegesMapper {
             if (applicationId == null || applicationId.isEmpty()) {
                 throw new RolePrivilegesMappingException("Es ist keine AnwendungsId gesetzt");
             }
+        } else {
+            LOG.debug("Rollenrechte-Mapping Datei unter {} nicht gefunden.", roleMappingXmlResource.getDescription());
         }
     }
 
