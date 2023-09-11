@@ -1,7 +1,7 @@
 # 3.0.0
 - `IFS-2561`: [isy-security] Die Konfiguration via `rollenrechte.xml` erfolgt optional.
   * Initialisierung mit Standardwerten
-- `IFS-1887`: [isyfact-standards-doc] Ergänzung der Nutzungsvorgaben für neuen Baustein Sicherheit
+- `IFS-1887`: [isyfact-standards-doc] Ergänzung der Nutzungsvorgaben für neuen Sicherheitsbaustein `isy-security`
 - `IFS-2422`: [isyfact-serviceapi-core] Deprecation des isy-serviceapi-core Bausteins
 - `IFS-2273`: [isyfact-standards-doc] Einheitliche Deprecation-Warnung für die Dokumentation
 - `IFS-2488`: [isy-serviceapi-core] AufrufKontextTo wird ad hoc als HttpInvoker-Transportobjekt erzeugt, wenn `isy-security` im Classpath liegt und anstelle des Objekts `null` übergeben wird
