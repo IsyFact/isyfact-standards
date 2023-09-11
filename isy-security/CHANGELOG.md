@@ -10,3 +10,7 @@
     - `Security` und `Authentifizierungsmanager` Interface
     - Standard Implementierungen als Beans per Autokonfiguration bereitgestellt
 - `IFS-1855`: Umsetzung der Tokenweitergabe an Nachbarsysteme
+- `ISY-147`: Überarbeitung der Methoden des Authentifizierungsmanagers
+    - Vereinheitlichung der Methodensignaturen
+    - Ergänzung des BHKNZ als optionalen Parameter in allen Methoden (wird aktuell nur für den Resource Owner Password Credentials Flow ausgewertet)
+    - Überarbeitung der Dokumentation und Parameterbenennung um Unklarheiten zu beseitigen

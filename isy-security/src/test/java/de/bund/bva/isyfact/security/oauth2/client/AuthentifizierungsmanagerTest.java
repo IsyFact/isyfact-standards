@@ -2,10 +2,7 @@ package de.bund.bva.isyfact.security.oauth2.client;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,19 +13,19 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.client.registration.ClientRegistration;
-import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
+import org.springframework.test.context.ActiveProfiles;
 
+import de.bund.bva.isyfact.security.AbstractOidcProviderTest;
 import de.bund.bva.isyfact.security.autoconfigure.IsyOAuth2ClientAutoConfiguration;
 import de.bund.bva.isyfact.security.autoconfigure.IsySecurityAutoConfigurationTest;
-import de.bund.bva.isyfact.security.oauth2.client.authentication.ClientCredentialsAuthenticationProvider;
-import de.bund.bva.isyfact.security.oauth2.client.authentication.ClientCredentialsAuthenticationToken;
-import de.bund.bva.isyfact.security.oauth2.client.authentication.ManualClientCredentialsAuthenticationProvider;
-import de.bund.bva.isyfact.security.oauth2.client.authentication.ManualClientCredentialsAuthenticationToken;
-import de.bund.bva.isyfact.security.oauth2.client.authentication.PasswordAuthenticationProvider;
-import de.bund.bva.isyfact.security.oauth2.client.authentication.PasswordAuthenticationToken;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.ClientCredentialsAuthorizedClientAuthenticationProvider;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.ClientCredentialsClientRegistrationAuthenticationProvider;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.PasswordClientRegistrationAuthenticationProvider;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.token.ClientCredentialsClientRegistrationAuthenticationToken;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.token.ClientCredentialsRegistrationIdAuthenticationToken;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.token.PasswordClientRegistrationAuthenticationToken;
 
 /**
  * Tests the Authentifizierungsmanager with all available authentication providers.
@@ -36,20 +33,18 @@ import de.bund.bva.isyfact.security.oauth2.client.authentication.PasswordAuthent
  * only create them if OAuth 2.0 clients are configured. The {@link IsySecurityAutoConfigurationTest} still makes sure that the
  * correct beans are created depending on the application configuration.
  */
+@ActiveProfiles("test-clients")
 @SpringBootTest
-public class AuthentifizierungsmanagerTest {
+public class AuthentifizierungsmanagerTest extends AbstractOidcProviderTest {
 
     @MockBean
-    private ClientRegistrationRepository clientRegistrationRepository;
+    private ClientCredentialsAuthorizedClientAuthenticationProvider clientCredentialsAuthorizedClientAuthenticationProvider;
 
     @MockBean
-    private ClientCredentialsAuthenticationProvider clientCredentialsAuthenticationProvider;
+    private PasswordClientRegistrationAuthenticationProvider passwordClientRegistrationAuthenticationProvider;
 
     @MockBean
-    private PasswordAuthenticationProvider passwordAuthenticationProvider;
-
-    @MockBean
-    private ManualClientCredentialsAuthenticationProvider manualClientCredentialsAuthenticationProvider;
+    private ClientCredentialsClientRegistrationAuthenticationProvider clientCredentialsClientRegistrationAuthenticationProvider;
 
     @Autowired
     private Authentifizierungsmanager authentifizierungsmanager;
@@ -64,106 +59,190 @@ public class AuthentifizierungsmanagerTest {
         // clear authenticated principal
         SecurityContextHolder.getContext().setAuthentication(null);
 
-        ClientRegistration ccClient = ClientRegistration.withRegistrationId("mock-cc")
-                .clientId("dummy").clientSecret("dummy").tokenUri("dummy")
-                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS).build();
-        ClientRegistration ropcClient = ClientRegistration.withRegistrationId("mock-ropc")
-                .clientId("dummy").clientSecret("dummy").tokenUri("dummy")
-                .authorizationGrantType(AuthorizationGrantType.PASSWORD).build();
-        ClientRegistration unsupportedClient = ClientRegistration.withRegistrationId("mock-unsupported")
-                .clientId("dummy").clientSecret("dummy").tokenUri("dummy")
-                .authorizationGrantType(new AuthorizationGrantType("unsupported")).build();
-        when(clientRegistrationRepository.findByRegistrationId("mock-cc")).thenReturn(ccClient);
-        when(clientRegistrationRepository.findByRegistrationId("mock-ropc")).thenReturn(ropcClient);
-        when(clientRegistrationRepository.findByRegistrationId("mock-unsupported")).thenReturn(unsupportedClient);
-        when(clientRegistrationRepository.findByRegistrationId("mock-unknown")).thenReturn(null);
-
         mockJwt = mock(JwtAuthenticationToken.class);
 
-        when(passwordAuthenticationProvider.supports(any())).thenCallRealMethod();
-        when(passwordAuthenticationProvider.authenticate(any(Authentication.class))).thenReturn(mockJwt);
+        when(clientCredentialsAuthorizedClientAuthenticationProvider.supports(any())).thenCallRealMethod();
+        when(clientCredentialsAuthorizedClientAuthenticationProvider.authenticate(any(Authentication.class))).thenReturn(mockJwt);
 
-        when(clientCredentialsAuthenticationProvider.supports(any())).thenCallRealMethod();
-        when(clientCredentialsAuthenticationProvider.authenticate(any(Authentication.class))).thenReturn(mockJwt);
+        when(passwordClientRegistrationAuthenticationProvider.supports(any())).thenCallRealMethod();
+        when(passwordClientRegistrationAuthenticationProvider.authenticate(any(Authentication.class))).thenReturn(mockJwt);
 
-        when(manualClientCredentialsAuthenticationProvider.supports(any())).thenCallRealMethod();
-        when(manualClientCredentialsAuthenticationProvider.authenticate(any(Authentication.class))).thenReturn(mockJwt);
+        when(clientCredentialsClientRegistrationAuthenticationProvider.supports(any())).thenCallRealMethod();
+        when(clientCredentialsClientRegistrationAuthenticationProvider.authenticate(any(Authentication.class))).thenReturn(mockJwt);
     }
 
     @Test
     public void testHasAllProviders() {
         assertThat(isyOAuth2AuthenticationProviderManager.getProviders()).containsExactlyInAnyOrder(
-                clientCredentialsAuthenticationProvider, passwordAuthenticationProvider, manualClientCredentialsAuthenticationProvider);
+                clientCredentialsAuthorizedClientAuthenticationProvider, passwordClientRegistrationAuthenticationProvider,
+                clientCredentialsClientRegistrationAuthenticationProvider
+        );
     }
 
     @Test
-    public void testAuthClientWithRegistrationId() {
-        authentifizierungsmanager.authentifiziere("mock-cc");
+    public void testAuthWithClientRegistrationCC() {
+        authentifizierungsmanager.authentifiziere("cc-client");
 
-        ArgumentCaptor<ClientCredentialsAuthenticationToken> tokenCaptor =
-                ArgumentCaptor.forClass(ClientCredentialsAuthenticationToken.class);
-        verify(clientCredentialsAuthenticationProvider).authenticate(tokenCaptor.capture());
-        assertEquals("mock-cc", tokenCaptor.getValue().getRegistrationId());
+        ArgumentCaptor<ClientCredentialsRegistrationIdAuthenticationToken> tokenCaptor =
+                ArgumentCaptor.forClass(ClientCredentialsRegistrationIdAuthenticationToken.class);
+        verify(clientCredentialsAuthorizedClientAuthenticationProvider).authenticate(tokenCaptor.capture());
+        assertEquals("cc-client", tokenCaptor.getValue().getRegistrationId());
 
         assertEquals(mockJwt, SecurityContextHolder.getContext().getAuthentication());
     }
 
     @Test
-    public void testAuthClientWithCredentials() {
-        authentifizierungsmanager.authentifiziereClient("testid", "testsecret", "http://test/");
+    public void testAuthWithClientRegistrationCCAndBhknz() {
+        authentifizierungsmanager.authentifiziere("cc-client-with-bhknz");
 
-        ArgumentCaptor<ManualClientCredentialsAuthenticationToken> tokenCaptor =
-                ArgumentCaptor.forClass(ManualClientCredentialsAuthenticationToken.class);
-        verify(manualClientCredentialsAuthenticationProvider).authenticate(tokenCaptor.capture());
-        assertEquals("testid", tokenCaptor.getValue().getClientId());
-        assertEquals("testsecret", tokenCaptor.getValue().getClientSecret());
-        assertEquals("http://test/", tokenCaptor.getValue().getIssuerLocation());
-
-        assertEquals(mockJwt, SecurityContextHolder.getContext().getAuthentication());
-    }
-
-    @Test
-    public void testAuthSystemWithRegistrationId() {
-        authentifizierungsmanager.authentifiziere("mock-ropc");
-
-        ArgumentCaptor<PasswordAuthenticationToken> tokenCaptor = ArgumentCaptor.forClass(PasswordAuthenticationToken.class);
-        verify(passwordAuthenticationProvider).authenticate(tokenCaptor.capture());
-        assertEquals("mock-ropc", tokenCaptor.getValue().getRegistrationId());
-        assertEquals("", tokenCaptor.getValue().getUsername());
-        assertEquals("", tokenCaptor.getValue().getPassword());
-        assertNull(tokenCaptor.getValue().getBhknz());
-
-        assertEquals(mockJwt, SecurityContextHolder.getContext().getAuthentication());
-    }
-
-    @Test
-    public void testAuthSystemWithRegistrationIdAndCredentials() {
-        authentifizierungsmanager.authentifiziereSystem("mock-ropc", "testuser", "testpw", "123456");
-
-        ArgumentCaptor<PasswordAuthenticationToken> tokenCaptor = ArgumentCaptor.forClass(PasswordAuthenticationToken.class);
-        verify(passwordAuthenticationProvider).authenticate(tokenCaptor.capture());
-        assertEquals("mock-ropc", tokenCaptor.getValue().getRegistrationId());
-        assertEquals("testuser", tokenCaptor.getValue().getUsername());
-        assertEquals("testpw", tokenCaptor.getValue().getPassword());
+        ArgumentCaptor<ClientCredentialsRegistrationIdAuthenticationToken> tokenCaptor =
+                ArgumentCaptor.forClass(ClientCredentialsRegistrationIdAuthenticationToken.class);
+        verify(clientCredentialsAuthorizedClientAuthenticationProvider).authenticate(tokenCaptor.capture());
+        assertEquals("cc-client-with-bhknz", tokenCaptor.getValue().getRegistrationId());
         assertEquals("123456", tokenCaptor.getValue().getBhknz());
 
         assertEquals(mockJwt, SecurityContextHolder.getContext().getAuthentication());
     }
 
     @Test
+    public void testAuthWithClientRegistrationROPC() {
+        authentifizierungsmanager.authentifiziere("ropc-client");
+
+        ArgumentCaptor<PasswordClientRegistrationAuthenticationToken> tokenCaptor = ArgumentCaptor.forClass(PasswordClientRegistrationAuthenticationToken.class);
+        verify(passwordClientRegistrationAuthenticationProvider).authenticate(tokenCaptor.capture());
+        PasswordClientRegistrationAuthenticationToken value = tokenCaptor.getValue();
+        assertEquals("ropc-client", value.getClientRegistration().getRegistrationId());
+        assertEquals(AuthorizationGrantType.PASSWORD, value.getClientRegistration().getAuthorizationGrantType());
+        assertEquals("resource-owner-password-credentials-test-client", value.getClientRegistration().getClientId());
+        assertEquals("hypersecretpassword", value.getClientRegistration().getClientSecret());
+        assertEquals("testuser", value.getUsername());
+        assertEquals("pw1234", value.getPassword());
+        assertNull(value.getBhknz());
+
+        assertEquals(mockJwt, SecurityContextHolder.getContext().getAuthentication());
+    }
+
+    @Test
+    public void testAuthWithClientRegistrationROPCAndBhknz() {
+        authentifizierungsmanager.authentifiziere("ropc-client-with-bhknz");
+
+        ArgumentCaptor<PasswordClientRegistrationAuthenticationToken> tokenCaptor = ArgumentCaptor.forClass(PasswordClientRegistrationAuthenticationToken.class);
+        verify(passwordClientRegistrationAuthenticationProvider).authenticate(tokenCaptor.capture());
+        PasswordClientRegistrationAuthenticationToken value = tokenCaptor.getValue();
+        assertEquals("ropc-client-with-bhknz", value.getClientRegistration().getRegistrationId());
+        assertEquals(AuthorizationGrantType.PASSWORD, value.getClientRegistration().getAuthorizationGrantType());
+        assertEquals("resource-owner-password-credentials-test-client", value.getClientRegistration().getClientId());
+        assertEquals("hypersecretpassword", value.getClientRegistration().getClientSecret());
+        assertEquals("testuser-with-bhknz", value.getUsername());
+        assertEquals("pw1234", value.getPassword());
+        assertEquals("123456", value.getBhknz());
+
+        assertEquals(mockJwt, SecurityContextHolder.getContext().getAuthentication());
+    }
+
+    @Test
+    public void testAuthClient() {
+        authentifizierungsmanager.authentifiziereClient(getIssuer(), "testid", "testsecret");
+
+        ArgumentCaptor<ClientCredentialsClientRegistrationAuthenticationToken> tokenCaptor =
+                ArgumentCaptor.forClass(ClientCredentialsClientRegistrationAuthenticationToken.class);
+        verify(clientCredentialsClientRegistrationAuthenticationProvider).authenticate(tokenCaptor.capture());
+        ClientCredentialsClientRegistrationAuthenticationToken value = tokenCaptor.getValue();
+        assertEquals(getIssuer(), value.getClientRegistration().getProviderDetails().getIssuerUri());
+        assertEquals(AuthorizationGrantType.CLIENT_CREDENTIALS, value.getClientRegistration().getAuthorizationGrantType());
+        assertEquals("testid", value.getClientRegistration().getClientId());
+        assertEquals("testsecret", value.getClientRegistration().getClientSecret());
+        assertNull(value.getBhknz());
+
+        assertEquals(mockJwt, SecurityContextHolder.getContext().getAuthentication());
+    }
+
+    @Test
+    public void testAuthClientWithBhknz() {
+        authentifizierungsmanager.authentifiziereClient(getIssuer(), "testid", "testsecret", "123456");
+
+        ArgumentCaptor<ClientCredentialsClientRegistrationAuthenticationToken> tokenCaptor =
+                ArgumentCaptor.forClass(ClientCredentialsClientRegistrationAuthenticationToken.class);
+        verify(clientCredentialsClientRegistrationAuthenticationProvider).authenticate(tokenCaptor.capture());
+        ClientCredentialsClientRegistrationAuthenticationToken value = tokenCaptor.getValue();
+        assertEquals(getIssuer(), value.getClientRegistration().getProviderDetails().getIssuerUri());
+        assertEquals(AuthorizationGrantType.CLIENT_CREDENTIALS, value.getClientRegistration().getAuthorizationGrantType());
+        assertEquals("testid", value.getClientRegistration().getClientId());
+        assertEquals("testsecret", value.getClientRegistration().getClientSecret());
+        assertEquals("123456", value.getBhknz());
+
+        assertEquals(mockJwt, SecurityContextHolder.getContext().getAuthentication());
+    }
+
+    @Test
+    public void testAuthClientThrowsErrorWithInvalidIssuerLocation() {
+        String invalidIssuerLocation = "http://localhost:9095/auth/realms/invalid";
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> authentifizierungsmanager.authentifiziereClient(invalidIssuerLocation, "testid", "testsecret"));
+
+        assertThat(exception.getMessage()).contains(invalidIssuerLocation);
+    }
+
+    @Test
+    public void testAuthSystem() {
+        authentifizierungsmanager.authentifiziereSystem(getIssuer(), "testid", "testsecret", "testuser", "testpw");
+
+        ArgumentCaptor<PasswordClientRegistrationAuthenticationToken> tokenCaptor =
+                ArgumentCaptor.forClass(PasswordClientRegistrationAuthenticationToken.class);
+        verify(passwordClientRegistrationAuthenticationProvider).authenticate(tokenCaptor.capture());
+        PasswordClientRegistrationAuthenticationToken value = tokenCaptor.getValue();
+        assertEquals(getIssuer(), value.getClientRegistration().getProviderDetails().getIssuerUri());
+        assertEquals(AuthorizationGrantType.PASSWORD, value.getClientRegistration().getAuthorizationGrantType());
+        assertEquals("testid", value.getClientRegistration().getClientId());
+        assertEquals("testsecret", value.getClientRegistration().getClientSecret());
+        assertEquals("testuser", value.getUsername());
+        assertEquals("testpw", value.getPassword());
+        assertNull(value.getBhknz());
+
+        assertEquals(mockJwt, SecurityContextHolder.getContext().getAuthentication());
+    }
+
+    @Test
+    public void testAuthSystemWithBhknz() {
+        authentifizierungsmanager.authentifiziereSystem(getIssuer(), "testid", "testsecret", "testuser", "testpw", "123456");
+
+        ArgumentCaptor<PasswordClientRegistrationAuthenticationToken> tokenCaptor = ArgumentCaptor.forClass(PasswordClientRegistrationAuthenticationToken.class);
+        verify(passwordClientRegistrationAuthenticationProvider).authenticate(tokenCaptor.capture());
+        PasswordClientRegistrationAuthenticationToken value = tokenCaptor.getValue();
+        assertEquals(getIssuer(), value.getClientRegistration().getProviderDetails().getIssuerUri());
+        assertEquals(AuthorizationGrantType.PASSWORD, value.getClientRegistration().getAuthorizationGrantType());
+        assertEquals("testid", value.getClientRegistration().getClientId());
+        assertEquals("testsecret", value.getClientRegistration().getClientSecret());
+        assertEquals("testuser", value.getUsername());
+        assertEquals("testpw", value.getPassword());
+        assertEquals("123456", value.getBhknz());
+
+        assertEquals(mockJwt, SecurityContextHolder.getContext().getAuthentication());
+    }
+
+    @Test
+    public void testAuthSystemThrowsErrorWithInvalidIssuerLocation() {
+        String invalidIssuerLocation = "http://localhost:9095/auth/realms/invalid";
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> authentifizierungsmanager.authentifiziereSystem(invalidIssuerLocation, "testid", "testsecret", "testuser", "testpw"));
+
+        assertThat(exception.getMessage()).contains(invalidIssuerLocation);
+    }
+
+    @Test
     public void testAuthViaRegistrationIdFailsIfUnknown() {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> authentifizierungsmanager.authentifiziere("mock-unknown"));
+                () -> authentifizierungsmanager.authentifiziere("unknown-client"));
 
-        assertThat(exception).hasMessageContaining("mock-unknown", "not find");
+        assertThat(exception).hasMessageContaining("unknown-client", "not find");
     }
 
     @Test
     public void testAuthRegistrationIdFailsIfUnsupportedGrantType() {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> authentifizierungsmanager.authentifiziere("mock-unsupported"));
+                () -> authentifizierungsmanager.authentifiziere("unsupported-client"));
 
-        assertThat(exception).hasMessageContainingAll("unsupported", "not supported");
+        assertThat(exception).hasMessageContainingAll("unsupported-grant-type", "not supported");
     }
 
 }
