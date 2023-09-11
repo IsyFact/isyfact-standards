@@ -13,7 +13,7 @@ In diesem Kapitel wird detailliert auf die verschiedenen Aspekte der Software-Ar
 === Security
 Das Interface `Security` stellt die zentrale Schnittstelle bereit, über die auf den Baustein zugegriffen wird.
 
-NOTE: Es empfiehlt sich, die Beans direkt zu autowiren und das Interface hauptsächlich für eine Migration von isy-sicherheit zu verwenden.
+NOTE: Es empfiehlt sich, die Beans direkt zu 'autowiren' und das Interface hauptsächlich für eine Migration vom alten Sicherheitsbaustein `isy-sicherheit` auf den neuen Baustein `isy-security` zu verwenden.
 
 Die folgenden Methoden bieten Zugriff auf eine Liste von allen im System hinterlegten Rollen, den Berechtigungsmanager und den optionalen Authentifizierungsmanager:
 
