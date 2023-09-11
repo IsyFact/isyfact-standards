@@ -1,4 +1,4 @@
-# 2.4.5
+# 2.5.0
 - Hinzufügen eines neuen Packages mit Transformatoren für die DIN Norm 91379
 
 # 2.4.4
