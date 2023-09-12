@@ -9,6 +9,8 @@ Die Software-Architektur des Security-Bausteins bildet das Fundament für die Si
 Die korrekte Gestaltung und Implementierung dieser Architektur ist entscheidend, um Schutzmechanismen gegen potenzielle Sicherheitsbedrohungen zu etablieren.
 In diesem Kapitel wird detailliert auf die verschiedenen Aspekte der Software-Architektur des Security-Bausteins eingegangen und bewährte Methoden sowie bewährte Praktiken vorgestellt, um eine robuste und zuverlässige Sicherheitsinfrastruktur zu schaffen.
 
+Im Folgenden werden die <<aussensicht-der-komponente-security, Interfaces des Bausteins Security>> genauer erläutert.
+
 [[security-interface]]
 === Security
 Das Interface `Security` stellt die zentrale Schnittstelle bereit, über die auf den Baustein zugegriffen wird.
@@ -20,10 +22,6 @@ Die folgenden Methoden bieten Zugriff auf eine Liste von allen im System hinterl
 `Set<String> getAlleRollen()`:: Liefert die Menge aller im System konfigurierten Rollen.
 `Berechtigungsmanager getBerechtigungsManager()`:: Stellt eine Referenz auf das `Berechtigungsmanager` Bean bereit.
 `Optional<Authentifizierungsmanager> getAuthentifizierungsManager()`:: Liefert ein `Optional`, das eine Referenz auf den `Authentifizierungsmanager` enthält, oder `null` falls die Anwendung als Resource-Server agiert und kein `Authentifizierungsmanager` benötigt wird.
-
-[[image-security]]
-.Security
-image::nutzungsvorgaben/security.svg[align="center"]
 
 [[authentifizierungsmanager-interface]]
 === Authentifizierungsmanager
@@ -46,10 +44,6 @@ Das `bhknz` kann als optionaler Parameter übergeben werden, wird aber für die 
 Authentifiziert einen technischen Nutzer (Resource Owner) gegen die angegebene `issuerLocation` anhand der `clientId` und `clientSecret` des zu verwendenden OAuth 2.0 Clients und dem `username` und `password` des Resource Owners.
 Das `bhknz` kann als optionaler Parameter übergeben werden und wird in den <<isyfact-specific-client-registration,konfigurierten Header>> zur Zwei-Faktor-Authentifizierung gesetzt.
 
-[[image-authentifizierungsmanager]]
-.Authentifizierungsmanager
-image::nutzungsvorgaben/authentifizierungsmanager.svg[align="center"]
-
 [[berechtigungsmanager]]
 === Berechtigungsmanager
 
@@ -64,10 +58,6 @@ Zur Formulierung von Berechtigungsprüfungen stehen folgende Methoden des Berech
 `boolean hatRecht(String recht)`:: Ermittelt, ob der Anwender ein bestimmtes Recht besitzt.
 `void pruefeRecht(String recht)`:: Prüft, ob der Anwender das angegebene Recht besitzt und erzeugt einen Fehler vom Typ `AccessDeniedException`, wenn das nicht der Fall ist.
 `Object getTokenAttribute(String key)`:: Fragt einen Wert im Access Token des Security Contexts ab.
-
-[[image-berechtigungsmanager-security]]
-.Berechtigungsmanager
-image::nutzungsvorgaben/berechtigungsmanager.svg[align="center"]
 
 NOTE: Primär sollte die Berechtigungsprüfung über die Spring Annotation `@Secured` und nicht über die hier erwähnte Methode `pruefeRecht(String recht)` erfolgen.
 
@@ -299,12 +289,9 @@ public class OAuth2WebClientConfiguration {
 [[auth_sgw]]
 == Authentifizierung über das SGW am IAM-Service
 Die Authentifizierung über das Service Gateway (SGW) stellt einen wichtigen Schritt in der Sicherung von Anwendungen dar.
-Um diesen Prozess effektiv umzusetzen, empfiehlt sich die Verwendung des neu entwickelten Authentifizierungsmanagers und dessen Methoden
+Um diesen Prozess effektiv umzusetzen, empfiehlt sich die Verwendung des neu entwickelten Authentifizierungsmanagers und dessen Methoden.
 
-* `authentifiziereClient(String clientId, String clientSecret, String issuerLocation)`
-* bzw. `authentifiziereSystem(String registrationId, String username, String password, @Nullable String bhknz)`
-
-. Die beiden Methoden erlauben es technische Nutzer zur Laufzeit mit ihren Zugangsdaten über den IAM-Service zu authentifizieren.
+Die Methoden erlauben es technische Nutzer zur Laufzeit mit ihren Zugangsdaten über den IAM-Service zu authentifizieren.
 Mit diesem Mechanismus wird sichergestellt, dass nur autorisierte Clients Zugriff auf die Ressourcen erhalten.
 Durch die Nutzung dieses speziellen Authentifizierungsmechanismus wird eine robuste und zuverlässige Sicherheitsschicht implementiert, um unautorisierten Zugriff und potenzielle Sicherheitslücken zu verhindern.
 

@@ -214,7 +214,7 @@ taskScheduler.start();
 [[absicherung-von-tasks]]
 == Absicherung von Tasks
 
-Für die Absicherung eines Tasks benötigt es lediglich eine Registrierungs-ID, um die erforderlichen Sicherheitsmaßnahmen zu implementieren.
+Für die Absicherung eines Tasks benötigt es lediglich eine OAuth 2.0 Client Registration ID, um die erforderlichen Sicherheitsmaßnahmen zu implementieren.
 Hierbei kann der Sicherheitsbaustein entweder Resource Owner Password Credentials (ROPC) oder Client Credentials verwenden.
 Die Verwendung von ROPC ermöglicht es, die Identität des Benutzers abzufragen und die Tasks sicher auszuführen, während der Client Credentials Flow die Authentifizierung und Autorisierung der Anwendung selbst ermöglicht, um auf geschützte Ressourcen zuzugreifen.
 Detaillierte Informationen zur Implementierung und Konfiguration dieser Sicherheitsbausteine finden sich in der Spring Boot Security Dokumentation, die eine umfassende Anleitung und Best Practices bereitstellt.
