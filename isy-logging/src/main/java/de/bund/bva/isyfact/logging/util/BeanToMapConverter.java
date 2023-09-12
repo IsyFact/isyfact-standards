@@ -153,12 +153,8 @@ public class BeanToMapConverter implements BeanConverter {
             }
 
             // Leerwerte werden nicht übernommen
-            Object converted;
-            if (value == null) {
-                converted = processValue(value, seen);
-            } else {
-                converted = processValue(value, seen);
-            }
+            Object converted = processValue(value, seen);
+
             // Leerwerte werden nicht übernommen - Null-Werte, die übernommen werden sollen, werden bereits in
             // der Konvertierung zu einem String umgewandelt.
             if (converted != null) {

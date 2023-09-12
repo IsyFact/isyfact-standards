@@ -16,7 +16,7 @@
  */
 package de.bund.bva.isyfact.batchrahmen.batch.konfiguration;
 
-import java.net.URL;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -206,10 +206,9 @@ public class BatchKonfiguration {
      */
 
     private Properties ladePropertyDatei(String propertyDateiname) {
-        try {
-            URL url = BatchKonfiguration.class.getResource(propertyDateiname);
+        try (InputStream urlStream = BatchKonfiguration.class.getResource(propertyDateiname).openStream()) {
             this.properties = new Properties();
-            this.properties.load(url.openStream());
+            this.properties.load(urlStream);
             return this.properties;
         } catch (Throwable ex) {
             throw new BatchrahmenKonfigurationException(NachrichtenSchluessel.ERR_KONF_DATEI_LESEN,
