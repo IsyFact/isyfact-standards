@@ -1,0 +1,41 @@
+name: Release Maven
+on:
+  release:
+    types: [released]
+
+jobs:
+  Build:
+    uses: IsyFact/isyfact-standards/.github/workflows/maven_build_template.yml@master
+    with:
+      version: ${{ github.ref_name }}
+      jdk-version: 8
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  QualityGate:
+    runs-on: ubuntu-latest
+    needs: [Build]
+    steps:
+      - name: Download Sonar Scan Meta Data
+        uses: actions/download-artifact@v3
+        with:
+          name: Sonar Meta Data
+      - name: SonarQube Quality Gate Check
+        uses: SonarSource/sonarqube-quality-gate-action@v1.1.0
+        with:
+          scanMetadataReportFile: report-task.txt
+          timeout-minutes: 2
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  Deploy:
+    needs: [Build]
+    uses: IsyFact/isyfact-standards/.github/workflows/maven_deploy_template.yml@master
+    with:
+      version: ${{ github.ref_name }}
+      jdk-version: 8
+    secrets:
+      MAVEN_GPG_PRIVATE_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+      MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
+      MAVEN_CENTRAL_USER_NAME: ${{ secrets.MAVEN_CENTRAL_USER_NAME }}
+      MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
