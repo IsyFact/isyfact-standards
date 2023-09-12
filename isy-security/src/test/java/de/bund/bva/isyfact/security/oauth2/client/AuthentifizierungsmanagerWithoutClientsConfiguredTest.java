@@ -2,10 +2,7 @@ package de.bund.bva.isyfact.security.oauth2.client;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,20 +11,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.authentication.ProviderManager;
-import org.springframework.security.authentication.ProviderNotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 
-import de.bund.bva.isyfact.security.oauth2.client.authentication.ManualClientCredentialsAuthenticationProvider;
-import de.bund.bva.isyfact.security.oauth2.client.authentication.ManualClientCredentialsAuthenticationToken;
-import de.bund.bva.isyfact.security.oauth2.client.authentication.PasswordAuthenticationToken;
+import de.bund.bva.isyfact.security.AbstractOidcProviderTest;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.ClientCredentialsClientRegistrationAuthenticationProvider;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.PasswordClientRegistrationAuthenticationProvider;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.token.ClientCredentialsClientRegistrationAuthenticationToken;
+import de.bund.bva.isyfact.security.oauth2.client.authentication.token.PasswordClientRegistrationAuthenticationToken;
 
 @SpringBootTest
-public class AuthentifizierungsmanagerWithoutClientsConfiguredTest {
+public class AuthentifizierungsmanagerWithoutClientsConfiguredTest extends AbstractOidcProviderTest {
 
     @MockBean
-    private ManualClientCredentialsAuthenticationProvider manualClientCredentialsAuthenticationProvider;
+    private ClientCredentialsClientRegistrationAuthenticationProvider clientCredentialsClientRegistrationAuthenticationProvider;
+
+    @MockBean
+    private PasswordClientRegistrationAuthenticationProvider passwordClientRegistrationAuthenticationProvider;
 
     @Autowired
     private Authentifizierungsmanager authentifizierungsmanager;
@@ -44,13 +46,17 @@ public class AuthentifizierungsmanagerWithoutClientsConfiguredTest {
 
         mockJwt = mock(JwtAuthenticationToken.class);
 
-        when(manualClientCredentialsAuthenticationProvider.supports(any())).thenCallRealMethod();
-        when(manualClientCredentialsAuthenticationProvider.authenticate(any(Authentication.class))).thenReturn(mockJwt);
+        when(clientCredentialsClientRegistrationAuthenticationProvider.supports(any())).thenCallRealMethod();
+        when(clientCredentialsClientRegistrationAuthenticationProvider.authenticate(any(Authentication.class))).thenReturn(mockJwt);
+
+        when(passwordClientRegistrationAuthenticationProvider.supports(any())).thenCallRealMethod();
+        when(passwordClientRegistrationAuthenticationProvider.authenticate(any(Authentication.class))).thenReturn(mockJwt);
     }
 
     @Test
-    public void testHasOnlyManualClientCredentialsProvider() {
-        assertThat(isyOAuth2AuthenticationProviderManager.getProviders()).containsOnly(manualClientCredentialsAuthenticationProvider);
+    public void testHasOnlyClientRegistrationAuthenticationProvider() {
+        assertThat(isyOAuth2AuthenticationProviderManager.getProviders())
+                .containsOnly(clientCredentialsClientRegistrationAuthenticationProvider, passwordClientRegistrationAuthenticationProvider);
     }
 
     @Test
@@ -62,25 +68,39 @@ public class AuthentifizierungsmanagerWithoutClientsConfiguredTest {
     }
 
     @Test
-    public void testAuthClientWithCredentials() {
-        authentifizierungsmanager.authentifiziereClient("testid", "testsecret", "http://test/");
+    public void testAuthClient() {
+        authentifizierungsmanager.authentifiziereClient(getIssuer(), "testid", "testsecret", "123456");
 
-        ArgumentCaptor<ManualClientCredentialsAuthenticationToken> tokenCaptor =
-                ArgumentCaptor.forClass(ManualClientCredentialsAuthenticationToken.class);
-        verify(manualClientCredentialsAuthenticationProvider).authenticate(tokenCaptor.capture());
-        assertEquals("testid", tokenCaptor.getValue().getClientId());
-        assertEquals("testsecret", tokenCaptor.getValue().getClientSecret());
-        assertEquals("http://test/", tokenCaptor.getValue().getIssuerLocation());
+        ArgumentCaptor<ClientCredentialsClientRegistrationAuthenticationToken> tokenCaptor =
+                ArgumentCaptor.forClass(ClientCredentialsClientRegistrationAuthenticationToken.class);
+        verify(clientCredentialsClientRegistrationAuthenticationProvider).authenticate(tokenCaptor.capture());
+        ClientCredentialsClientRegistrationAuthenticationToken value = tokenCaptor.getValue();
+        assertEquals(getIssuer(), value.getClientRegistration().getProviderDetails().getIssuerUri());
+        assertEquals(AuthorizationGrantType.CLIENT_CREDENTIALS, value.getClientRegistration().getAuthorizationGrantType());
+        assertEquals("testid", value.getClientRegistration().getClientId());
+        assertEquals("testsecret", value.getClientRegistration().getClientSecret());
+        assertEquals("123456", value.getBhknz());
 
         assertEquals(mockJwt, SecurityContextHolder.getContext().getAuthentication());
     }
 
     @Test
-    public void testAuthSystemWithRegistrationIdAndCredentialsThrowsException() {
-        ProviderNotFoundException exception = assertThrows(ProviderNotFoundException.class,
-                () -> authentifizierungsmanager.authentifiziereSystem("testclient", "test", "pw", null));
+    public void testAuthSystem() {
+        authentifizierungsmanager.authentifiziereSystem(getIssuer(), "testid", "testsecret", "testuser", "pw", "123456");
 
-        assertThat(exception.getMessage()).contains(PasswordAuthenticationToken.class.getName());
+        ArgumentCaptor<PasswordClientRegistrationAuthenticationToken> tokenCaptor =
+                ArgumentCaptor.forClass(PasswordClientRegistrationAuthenticationToken.class);
+        verify(passwordClientRegistrationAuthenticationProvider).authenticate(tokenCaptor.capture());
+        PasswordClientRegistrationAuthenticationToken value = tokenCaptor.getValue();
+        assertEquals(getIssuer(), value.getClientRegistration().getProviderDetails().getIssuerUri());
+        assertEquals(AuthorizationGrantType.PASSWORD, value.getClientRegistration().getAuthorizationGrantType());
+        assertEquals("testid", value.getClientRegistration().getClientId());
+        assertEquals("testsecret", value.getClientRegistration().getClientSecret());
+        assertEquals("testuser", value.getUsername());
+        assertEquals("pw", value.getPassword());
+        assertEquals("123456", value.getBhknz());
+
+        assertEquals(mockJwt, SecurityContextHolder.getContext().getAuthentication());
     }
 
 }

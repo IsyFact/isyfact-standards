@@ -35,4 +35,7 @@ public abstract class AbstractOidcProviderTest {
         embeddedOidcProvider.addClient("client-credentials-test-client", "supersecretpassword", Collections.singleton("Rolle_A"));
     }
 
+    protected static String getIssuer() {
+        return embeddedOidcProvider.getIssuer().toString();
+    }
 }
