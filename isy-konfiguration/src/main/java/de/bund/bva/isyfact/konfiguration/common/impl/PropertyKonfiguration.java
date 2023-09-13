@@ -208,13 +208,13 @@ public class PropertyKonfiguration extends AbstractKonfiguration implements Konf
             throw new KonfigurationDateiException(NachrichtenSchluessel.ERR_DATEI_NICHT_GEFUNDEN,
                 propertyLocation);
         }
-        Properties properties = new Properties();
+        Properties loadedProperties = new Properties();
         try {
-            properties.load(propertyStream);
+            loadedProperties.load(propertyStream);
         } catch (IOException e) {
             throw new KonfigurationDateiException(NachrichtenSchluessel.ERR_DATEI_LESEN, propertyLocation);
         }
-        return properties;
+        return loadedProperties;
     }
 
     /**

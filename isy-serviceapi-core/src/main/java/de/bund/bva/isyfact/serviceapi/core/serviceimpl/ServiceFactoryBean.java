@@ -109,24 +109,26 @@ public class ServiceFactoryBean extends TransactionProxyFactoryBean {
 
         if (this.benoetigtesRecht != null && this.benoetigtesRecht.size() > 0) {
             GesichertInterceptor gesichert = getInterceptor(GesichertInterceptor.class);
-            SicherheitAttributeSource sicherheitAttributeSource = gesichert.getSicherheitAttributeSource();
-            if (!(sicherheitAttributeSource instanceof MethodMapSicherheitAttributeSource)) {
-                throw new IllegalArgumentException("Die Konfiguration der benötigten Rechte erfordert eine "
-                    + MethodMapSicherheitAttributeSource.class.getSimpleName() + " im "
-                    + GesichertInterceptor.class.getName() + ", konfiguriert ist aber eine "
-                    + sicherheitAttributeSource.getClass().getName());
-            }
-            MethodMapSicherheitAttributeSource methodMapSicherheitAttributeSource =
-                (MethodMapSicherheitAttributeSource) sicherheitAttributeSource;
-
-            for (Map.Entry<String, String[]> entry : this.benoetigtesRecht.entrySet()) {
-                if (entry.getKey().contains(".")) {
-                    throw new IllegalArgumentException("Ungültiger Punkt in Methoden-Pattern '"
-                        + entry.getKey() + "' in Konfiguration des Service "
-                        + this.remoteBeanInterface.getName());
+            if (gesichert != null) {
+                SicherheitAttributeSource sicherheitAttributeSource = gesichert.getSicherheitAttributeSource();
+                if (!(sicherheitAttributeSource instanceof MethodMapSicherheitAttributeSource)) {
+                    throw new IllegalArgumentException("Die Konfiguration der benötigten Rechte erfordert eine "
+                            + MethodMapSicherheitAttributeSource.class.getSimpleName() + " im "
+                            + GesichertInterceptor.class.getName() + ", konfiguriert ist aber eine "
+                            + sicherheitAttributeSource.getClass().getName());
                 }
-                methodMapSicherheitAttributeSource.addGesichertMethod(this.remoteBeanInterface.getName()
-                    + "." + entry.getKey(), entry.getValue());
+                MethodMapSicherheitAttributeSource methodMapSicherheitAttributeSource =
+                        (MethodMapSicherheitAttributeSource) sicherheitAttributeSource;
+
+                for (Map.Entry<String, String[]> entry : this.benoetigtesRecht.entrySet()) {
+                    if (entry.getKey().contains(".")) {
+                        throw new IllegalArgumentException("Ungültiger Punkt in Methoden-Pattern '"
+                                + entry.getKey() + "' in Konfiguration des Service "
+                                + this.remoteBeanInterface.getName());
+                    }
+                    methodMapSicherheitAttributeSource.addGesichertMethod(this.remoteBeanInterface.getName()
+                            + "." + entry.getKey(), entry.getValue());
+                }
             }
         }
 

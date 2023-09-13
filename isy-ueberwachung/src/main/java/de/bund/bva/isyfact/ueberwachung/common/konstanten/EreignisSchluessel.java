@@ -25,17 +25,17 @@ public class EreignisSchluessel {
     public static final String PLUEB00001 = "PLUEB00001";
 
     /** Pruefung der Pruefroutine nicht erfolgreich.
-     * Wird nicht mehr verwendet. */
+     *  @deprecated  nicht mehr verwendet. */
     @Deprecated
     public static final String PLUEB00002 = "PLUEB00002";
 
     /** Pruefung der Pruefroutine nicht erfolgreich (hat Exception geworfen).
-     * Wird nicht mehr verwendet. */
+     * @deprecated Wird nicht mehr verwendet. */
     @Deprecated
     public static final String PLUEB00003 = "PLUEB00003";
 
     /** Selbsttest fehlgeschlagen.
-     * Wird nicht mehr verwendet. */
+     * @deprecated Wird nicht mehr verwendet. */
     @Deprecated
     public static final String PLUEB00004 = "PLUEB00004";
 
