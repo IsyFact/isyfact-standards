@@ -517,10 +517,6 @@ Hierbei werden Informationen sinnvoll gruppiert.
 === Dialoge
 
 Dialoge sind sekundäre Fenster die oberhalb des Hauptfensters angezeigt werden.
-Dies ist nur unter der Benutzung von JavaScript möglich.
-Die Darstellung von Dialogen ohne JavaScript wird im
-
-Kapitel Dialoge ohne JavaScript näher beschrieben.
 Dialoge dienen der Auswahl und Eingabe von Daten.
 Sie dienen nicht dazu, komplexe Datenmengen innerhalb eines Objekts zu strukturieren.
 Beispiele für die Nutzung von sekundären Fenstern sind:
@@ -572,49 +568,6 @@ Der Dialogtitel kann aus einem Haupttitel und einem optionalen Subtitel bestehen
 Der Inhalt rutscht dann um die entsprechende Höhe nach unten.
 Das Dialogfenster kann sich gegebenenfalls um diese Höhe vergrößern (siehe <<image-dialogwizardvalidierung>>).
 * Der Bereich der *Dialogbuttons \(C)* präsentiert je nach Kontext verschiedene Buttons.
-
-
-[[dialoge-ohne-javascript]]
-==== Dialoge ohne JavaScript
-
-[[image-nojs]]
-.No JavaScript Icon
-image::no-js.png[align="center", width="55",height="55"]
-
-Hat ein Benutzer kein JavaScript, werden Dialoge in das Hauptfenster integriert.
-
-[[image-keinjavascriptdialog]]
-.Kein JavaScript – Dialog
-image::Dialog_NOJS_ObjektBearbeiten.png[align="center", width="629",height="525"]
-
-[[image-keinjavascriptmeldung]]
-.Kein JavaScript – Meldungsdialog
-image::Dialog_NOJS_Meldung.png[align="center", width="629",height="525"]
-
-
-[[image-keinjavascriptwizard]]
-.Kein JavaScript – Wizard
-image::Dialog_NOJS_Wizard.png[align="center", width="629",height="525"]
-
-
-
-*Richtlinien zur Anwendung*
-
-* Diese Art der Darstellung wird ausschließlich verwendet, wenn kein JavaScript verfügbar ist.
-* Die Dialoge überlagern das primäre Fenster nicht, sondern sind in dieses integriert.
-* Der Header Bereich der Anwendung bleibt sichtbar. Die Dialoge werden unterhalb des Headers angezeigt.
-* In den Dialogen werden die gleichen Inhalte und Funktionalitäten wie im entsprechenden JavaScript-Dialog (z.B. Wizards, Objekte editieren, Objekte löschen etc.) dargestellt.
-* Die Dialoge behalten die gleichen Größen wie in der JavaScript-Variante bei.
-* Die Dialoge werden horizontal zentriert platziert, Beispiel siehe <<image-keinjavascriptmeldung>> .
-* Hat der Nutzer im Dialog Daten eingegeben oder verändert und klickt ohne zu speichern auf einen Navigationspunkt im Header, sollte eine Abfrage zur Datensicherung erfolgen.
-Ist dies aus technischen Gründen nicht möglich, gehen die eingegebenen Daten verloren.
-* Das Layout der Inhalte sollte so gestaltet sein, dass die Dialogbuttons bei der Zielauflösung ohne zu scrollen sichtbar sind.
-* *Besonderheiten in der Darstellung*
-** Werden Dialoge und Meldungsdialoge direkt von einer Detailseite aufgerufen, so wird der Dialog unterhalb der Titelzeile der Detailseite dargestellt (vgl. <<image-keinjavascriptdialog>>)
-
-** Die Höhe des Wizards richtet sich (wie auch bei der JavaScript-Variante) nach dem größten Inhalt.
-Die Höhe eines Wizards sollte während der einzelnen Schritte nicht verändert werden, so wird ein Positionswechsel der Dialog-Buttons verhindert.
-** Resizing: Generell sollte das Layout Verhalten dem der JavaScript-Variante (siehe Dialoge) entsprechen.
 
 
 [[meldungsdialoge]]
@@ -1134,7 +1087,6 @@ In diesem Kapitel werden Bedienelemente besprochen und allgemeine Eigenschaften 
 * Kontextabhängige Darstellung
 * Status
 * Resizing
-* Funktionalität ohne JavaScript
 
 [[testbarkeit-bedienelemente]]
 *Testbarkeit der Bedienelemente*
@@ -1244,21 +1196,6 @@ Bedienelemente sind in der Regel von Größenänderungen des Browsers nicht betr
 
 Es gibt einige Ausnahmen wie beispielsweise Tabellen.
 Diese Ausnahmen werden an den entsprechenden Stellen erläutert.
-
-*Funktionalität ohne JavaScript*
-
-image::no-js.png[]
-
-Viele heutzutage übliche Bedienelemente, Gestaltungslösungen und Komfortfunktionen für Webapplikationen setzen die Benutzung von JavaScript voraus.
-Ohne die Verwendung von JavaScript sind die Möglichkeiten der Benutzerinteraktion mit Webseiten demzufolge stark eingeschränkt.
-
-* Ohne JavaScript ist es dem Browser nicht möglich nach Benutzerinteraktion mit einem Steuerelement andere Teile der Webseite zu beeinflussen oder auszutauschen.
-* Die Webapplikation kann nur Standard-Steuerelemente aus der HTML Spezifikation verwenden, da selbsterstellte Steuerelemente für besondere Anwendungsfälle meist mithilfe von JavaScript gebaut werden.
-* Mit Hilfe von JavaScript lassen sich Benutzeraktionen unmittelbar anzeigen.
-Dies wird durch die moderne clientseitige Aktualisierung von Datenmodellen, Zuständen und Darstellungen erreicht.
-In einer Nicht-JavaScript Umgebung müssen die Daten mittels komplexeren serverseitigen Request Cycles geladen werden.
-Dies bedingt ein häufigeres Neu-Laden der Seite.
-* Ohne JavaScript kann die optische Aufbereitung einiger Bedienelemente variieren.
 
 
 [[button-1]]
@@ -1374,17 +1311,6 @@ Zum Beispiel kann man unter dem Button „Exportieren“ die Funktionen „Expor
 
 * Der Menü Button besteht aus einem Icon, einem Label und einem Pfeil Icon.
 * Wird der Menü Button geklickt, werden die Funktionen wie in einem Dropdown Menü angezeigt (siehe <<image-menuebuttonbeispiel>>).
-
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Ohne JavaScript können die Funktionen die im Menü Button zusammen gefasst sind nicht direkt ausgeführt werden.
-
-* Der Menü Button besteht in diesem Fall aus einem Dropdown und einem Submit Button.
-* Über das Dropdown wählt der Benutzer die gewünschte Funktion und über den Klick auf den Submit Button wird die Funktion ausgeführt.
-* Damit das Dropdown und der Submit Button als Einheit wahrgenommen werden, wird eine vertikale Trennlinie zum nächsten Element platziert.
-* Der Submit Button sieht aus wie ein Toolbar Button.
 
 
 [[toggle-button]]
@@ -1568,12 +1494,6 @@ Numerische Werte in alleinstehenden Eingabefeldern werden nicht rechtsbündig au
 So kann ein Datumsfeld unter bestimmten Umständen z. B. mit dem aktuellen Datum vorbelegt werden.
 Falls eine Vorbelegung jedoch potentiell risikobehaftet ist, sollte das Eingabefeld nicht vorbelegt werden.
 
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Es gelten die gleichen Regeln und Einschränkungen wie im Kapitel Validierung beschrieben.
-
 
 [[vier-augen-prinzip-eingabefeld]]
 ==== 4-Augen-Prinzip Eingabefelder
@@ -1620,9 +1540,6 @@ Neben diesen einzeiligen Eingabefeldtypen für das 4-Augen-Prinzip gibt es noch
 * Das Schloss Icon als visuelle Kennzeichnung des 4-Augen-Prinzip Eingabefeldes steht rechtsseitig im Eingabefeld. Sollten aufgrund des Feldtyps noch weitere Icons im Eingabefeld angezeigt werden müssen (z.B. bei Datumsfeldern das Datumspicker-Icon), so steht das Schloss-Icon noch vor dem anderen Icon (s.a. <<image-vier-augen-grundstyles>>)
 * Die Breite des 4-Augen-Prinzip Eingabefeldes vergrößert sich durch das Schloss-Icon nicht.
 
-*JavaScript*
-
-Außer beim reinen Eingabefeld wird bei allen anderen Eingabefeldtypen (Validierung des numerischen Wertes, Datumspicker, Werte-Plausibilitätsprüfungen, ...) JavaScript benötigt.
 
 [[bsp-anwendungsfall-vier-augen, Ablauf eines Anwendungsfalls mit 4-Augen-Prinzip]]
 *Nutzungsvorgaben*
@@ -1733,10 +1650,6 @@ _"4-Augen-Prinzip Eingabefelder"_ erfordern, dass die durch einen ersten Benutze
 * Die 4-Augen-Prinzip Eingabefelder sind durch ein Schloss-Icon zu erkennen. Es wird nur die Grafik für ein geöffnetes Schloss verwendet.
 * Das Schloss Icon als visuelle Kennzeichnung des 4-Augen-Prinzip Eingabefeldes steht rechtsseitig, oben im Eingabefeld.
 * Die Breite der 4-Augen-Prinzip Textbox vergrößert sich durch das Schloss-Icon nicht.
-
-*JavaScript*
-
-Es wird kein JavaScript benötigt.
 
 
 *Nutzungsvorgaben*
@@ -1853,14 +1766,6 @@ Falls keine übergeordnete Logik angewendet wird, sollten die Elemente aufsteige
 ** Das Dropdown Menü kann aber auch alleinstehend verwendet werden z.B. zur lokalen Umschaltung einer Ansicht oder beispielhaft bei der Verwendung von vordefinierten Suchprofilen. Hier ändert sich die Ansicht direkt nachdem der Benutzer eine Auswahl im Dropdown Menü getroffen hat.
 
 
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Da durch das Dropdown Menü keine Funktionen unmittelbar ausgelöst werden, bleibt die Funktionalität auch ohne JavaScript vorhanden.
-Es kann allerdings zu optischen Abweichungen kommen.
-Da sich das Dropdown Menü ohne JavaScript nicht stylen lässt, entspricht die Darstellung der des Browsers.
-
 [[tabs-ueberschrift]]
 === Tabs
 
@@ -1938,13 +1843,6 @@ Und der Tab wird rechts neben dem letzten Tab in der Tabbar dargestellt.
 * Tabs aus dem Taboverflow Menü werden immer ganz rechts in der Tabbar angezeigt.
 * Die Reihenfolge der anderen Tabs wird nicht beeinflusst.
 * Wird das Browserfenster vergrößert, so dass alle Tabs aus dem Overflow-Menü Platz finden, werden die Tabs in das Tab-Menü integriert und das Overflow-Menü wird nicht mehr benötigt.
-
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Ohne JavaScript gibt es kein Taboverflow Menü. Die Tabs werden hintereinander dargestellt, notfalls in zwei Zeilen.
-Da die Darstellung von Tabs in mehreren Zeilen möglichst zu vermeiden ist, sollte eine Umstrukturierung der Inhalte geprüft werden.
 
 
 [[liste-ueberschrift]]
@@ -2052,11 +1950,6 @@ image::Tabelle_Sortierung.png[align="center", width="627",height="137"]
 * Dreieck nach oben: Aufsteigende Sortierung
 * Eine farbige Fläche im Tabellenkopf hebt die aktuell angewandte Sortierung hervor.
 
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Ohne JavaScript kann die Sortierung nur durch das Neu-Laden der Seite bewirkt werden.
 
 [[selektionsverhalten-tabelle]]
 ==== Selektionsverhalten in einer Tabelle
@@ -2091,12 +1984,6 @@ Mittels der Umschalt-Taste und Klick auf das erste und letzte Element wird der d
 * Default-Selektion
 ** Bei Tabellen auf deren Objekte (Zeilen) weitere Aktionen angewendet werden können, ist eine Default Selektion sinnvoll.
 ** In der Regel wird die erste Zeile per Default selektiert.
-
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Ohne JavaScript ist die Selektion von Tabellenzeilen nur über Checkboxen möglich.
 
 
 [[aktionen-tabelle]]
@@ -2204,12 +2091,6 @@ Sollte eine Gruppe von Checkboxen aus einer großen Anzahl von Optionen bestehen
 [[image-checkbox-gruppe]]
 .Checkboxen auf mehreren Spalten
 image::Checkboxen_Gruppe_Optionen.png[image,width=517,height=210]
-
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Ohne JavaScript ist die Darstellung des Tristates nicht möglich.
 
 
 [[radio-button-ueberschrift]]
@@ -2589,12 +2470,6 @@ Ebenso ist wichtig, dass man per Tooltip die komplette Information einsehen kann
 * Bei einer Datumshilfe ist es typischerweise sinnvoll, den aktuellen Tag vorauszuwählen.
 * Alternativ kann der Benutzer immer noch manuell per Tastatur einen Wert in das Eingabefeld eingeben, es ist daher hilfreich einen Hinweis zum Format anzuzeigen, solange kein Wert ausgewählt wurde.
 
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Ohne JavaScript ist das Anzeigen der Wertehilfen in einem extra Menü nicht möglich.
-Zur Eingabe der Daten werden die normalen Eingabefelder genutzt.
 
 ===== Date Picker
 
@@ -2697,13 +2572,6 @@ Die Attribute müssen ohne zu scrollen auf einen Blick ersichtlich sein.
 ** Die Attribute sind über Eingabefelder, Dropdown Menüs oder Wertehilfen bearbeitbar.
 ** Es können Zeilen hinzugefügt oder gelöscht werden.
 
-
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Generell kann die Funktionalität auch ohne JavaScript beibehalten werden.
-Jedes Hinzufügen oder Entfernen einer Zeile bedingt allerdings ein Neu-Laden der Seite.
 
 
 [[selektion-ueberschrift]]
@@ -2822,14 +2690,6 @@ Hierfür wird eine Filteroption zur Verfügung gestellt z.B. „Alle“.
 * Filter werden in der Toolbar oder, falls es diese nicht gibt, in der Kopfzeile des entsprechenden Elementes (z.B. Liste) platziert.
 * Nicht vorhandene und damit vom Benutzer nicht auswählbare Optionen (zum Beispiel Filter A) im Detailbereich werden nicht angezeigt.
 
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Generell kann die Funktionalität auch ohne JavaScript beibehalten werden.
-Jeder Wechsel des Filters bedingt allerdings ein Neu-Laden der Seite.
-
-
 
 *Filter-Zeile*
 
@@ -2913,12 +2773,6 @@ Zielliste und Quellliste sollten immer gleich breit sein.
 * Sobald sich in einer Liste ein Objekt befindet, wird immer eine Selektion angezeigt, i.d.R. das zuletzt bewegte oder selektierte Objekt.
 * Sowohl Quell- als auch Zielliste können eine Filter-Zeile enthalten, mit der die Objekte sehr langer Listen eingegrenzt werden können.
 
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Ohne JavaScript kann zu optischen Abweichungen in der Darstellung kommen, die Funktionalität sollte allerdings beibehalten werden.
-
 
 [[ausgabe-ueberschrift]]
 === Ausgabe
@@ -2994,14 +2848,6 @@ Das Layout sollte sich an den Regeln des Formular-Layouts orientieren (siehe Kap
 ** In der Vorschau können auch Bilder (z.B. Lichtbilder) angezeigt werden.
 
 
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Ohne JavaScript ist die Vorschau innerhalb einer Tabelle nicht möglich.
-Die entsprechenden Buttons zum Öffnen der Vorschau sollten nicht angezeigt werden.
-
-
 [[master-detail]]
 ==== Master-Detail
 
@@ -3039,12 +2885,6 @@ Für sehr komplexe Daten kann es sinnvoll sein einen Expander (Progressive Discl
 
 * Innerhalb des Detail-Bereiches des Master-Detail Konzepts sollten keine Tabs verwendet werden.
 
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Ohne JavaScript können die Detaildaten nur durch Klick auf einen Button oder Link angezeigt werden.
-Hierfür kann zum Beispiel der Kennzeichner in einer Tabellenzeile genutzt werden (ähnlich wie beim Aufruf der Detailseite aus einer Tabelle heraus, siehe Kapitel Selektionsverhalten in einer Tabelle).
 
 [[gruppierung]]
 === Gruppierung
@@ -3083,12 +2923,6 @@ image::Expander.png[align="center", width="626",height="243"]
 * Expander nehmen immer die ihnen zur Verfügung stehende Breite ein.
 Die Inhalte des Containers passen sich nur bis zu einer gewissen Größe an, und bleiben dann gleich.
 
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Ohne JavaScript werden alle Daten direkt angezeigt.
-Elemente sind nicht ein- und ausklappbar.
 
 *Gruppierungs-Container*
 
@@ -3356,11 +3190,6 @@ Sobald der Benutzer mit der Eingabe beginnt, werden mögliche Werte, die mit der
 Der Benutzer kann nun weitertippen oder direkt einen Wert aus dem Menü auswählen und somit seine Eingabe verkürzen.
 Gibt es mehr als 10 mögliche passende Werte, so werden die ersten 10 Werte angezeigt, gefolgt von einer Information, dass mehr als 10 Einträge existieren.
 
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Ohne JavaScript nicht vorhanden.
 
 [[platzhalter-ueberschrift]]
 === Platzhalter
@@ -3382,11 +3211,6 @@ Platzhalter werden eingesetzt, wenn Daten in einem bestimmten Format eingegeben 
 Sobald der Benutzer in das Eingabefeld klickt, wird der Platzhalter ausgeblendet.
 Gibt der Benutzer keine Daten ein und klickt auf ein anderes Element (Fokuswechsel), dann wird der Platzhalter wieder angezeigt.
 
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Ohne JavaScript kann es bei der Anzeige von Platzhaltern in einigen Browsern kommen, wie zum Beispiel in IE8/IE9.
 
 [[tooltips-ueberschrift]]
 === Tooltips
@@ -3423,11 +3247,6 @@ Stattdessen sollte der Tooltip kurz und prägnant beschreiben, was ein Objekt be
 * Ein Tooltip sollte möglichst spezifische Informationen geben, z.B. für den Button „Drucken“ die Erklärung „Druckt die dargestellte Liste auf dem Standarddrucker XY aus.“.
 * Wenn ein Element deaktiviert ist, sollte ein Tooltip zusätzlich erklären, warum es deaktiviert ist, z. B. „Absenden ist erst nach Ausfüllen aller Pflichteingaben möglich.“
 
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Können ohne JavaScript nicht umgesetzt werden.
 
 [[fortschrifttsanzeige]]
 === Fortschrittsanzeige
@@ -3469,11 +3288,6 @@ Dabei füllt sich der Balken von links (0%) nach rechts (100%).
 ** Für die Dauer der Operation dreht sich der Fortschritts-Spinner und signalisiert dem Benutzer damit, dass sich ein Prozess im Vorgang befindet.
 Der Fortschritts-Spinner empfiehlt sich aufgrund seiner geringen Ausmaße insbesondere in Situationen, in denen Platzbedarf von großer Bedeutung ist.
 
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Ohne JavaScript nicht vorhanden.
 
 [[anzeige-optionale-Pflichtfelder]]
 === Anzeige von Pflichtfeldern und optionalen Pflichtfeldern
@@ -3562,16 +3376,6 @@ Folgende Meldungsarten können als Toast-Notification verwendet werden:
 [[image-meldungsarten]]
 image::toasts.mockup.drawio.svg[align="center", height="145"]
 
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Ohne JavaScript können die Hinweise zu den Fehlermeldungen nicht über das Informationsicon dargestellt werden, da Tooltips nicht unterstützt werden.
-
-*  Die Informationen zu den fehlerhaften Feldern werden oberhalb des Formulars im allgemeinen Hinweis-Bereich dargestellt.
-*  Das Informationsicon wird nicht angezeigt.
-*  Um die Zuordnung zu den fehlerhaften Eingaben zu vereinfachen, sollte im Text das entsprechende Label mit angezeigt werden.
-* Beispiel: „Geburtsdatum: Format nicht korrekt z.B. TT.MM.JJ"
 
 [[fehlerpraevention]]
 === Fehlerprävention
