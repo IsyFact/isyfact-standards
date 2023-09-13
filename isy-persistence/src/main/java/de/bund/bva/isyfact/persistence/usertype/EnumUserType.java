@@ -118,8 +118,8 @@ public class EnumUserType extends AbstractImmutableStringUserType implements Par
                     + clazz.getName() + " ist kein Enum");
             }
             @SuppressWarnings("unchecked")
-            Class<? extends Enum<?>> enumClass = (Class<? extends Enum<?>>) clazz;
-            setEnumClass(enumClass);
+            Class<? extends Enum<?>> enumClazz = (Class<? extends Enum<?>>) clazz;
+            setEnumClass(enumClazz);
         } catch (ClassNotFoundException e) {
             throw new PersistenzException(FehlerSchluessel.FALSCHE_ENUM_KONFIGURATION, e, "Enum-Klasse "
                 + enumClassName + " nicht gefunden");
