@@ -16,3 +16,4 @@
     - Vereinheitlichung der Methodensignaturen
     - Ergänzung des BHKNZ als optionalen Parameter in allen Methoden (wird aktuell nur für den Resource Owner Password Credentials Flow ausgewertet)
     - Überarbeitung der Dokumentation und Parameterbenennung um Unklarheiten zu beseitigen
+- `ISY-83`: Annotation zur Authentifizierung innerhalb von Methoden hinzugefügt

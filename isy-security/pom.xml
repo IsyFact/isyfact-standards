@@ -127,5 +127,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!-- required by hibernate-validator -->
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>jakarta.el</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>
