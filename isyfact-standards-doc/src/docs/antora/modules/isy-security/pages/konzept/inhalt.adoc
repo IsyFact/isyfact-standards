@@ -81,7 +81,7 @@ Durch die Authentifizierung des IAM-Systems enthält der HTTP-Header der Anfrage
 Mit diesem können sie dann Services anderer IT-Systeme innerhalb derselben Anwendungslandschaft verwenden.
 * Das aufgerufene IT-System prüft das Vorhandensein eines (gültigen) Access-Tokens und übernimmt dieses mit den darin enthaltenen Anwenderinformationen in den `SecurityContext`, wobei es die Rollen des Anwenders auf systemspezifische Rechte abbildet.
 Vor Ausführung des Service prüft das IT-System, ob der Anwender die dafür benötigten Rechte besitzt.
-* Innerhalb des Anwendungskerns eines IT-Systems wird das `JWT Access-Token` weitergegeben. Zur Stärkung der Vertrauenswürdigkeit wird jedes `JWT Access-Token` beim Eintritt in ein IT-System auf Gültigkeit und Authentizität geprüft.
+* Innerhalb der Anwendungslandschaft eines IT-Systems wird das `JWT Access-Token` weitergegeben. Zur Stärkung der Vertrauenswürdigkeit wird jedes `JWT Access-Token` beim Eintritt in ein IT-System auf Gültigkeit und Authentizität geprüft.
 
 Die Services eines IT-Systems können also nur mit einer gültigen Legitimation aufgerufen werden und sind so vor unberechtigter Nutzung geschützt.
 Umgekehrt können die Module und Verarbeitungsprozesse innerhalb des IT-Systems sich darauf verlassen, dass ihr Aufruf legitim ist und die ihnen übergebenen Daten vertrauenswürdig sind.
@@ -146,7 +146,7 @@ image::konzept/security-schnittstellen.dn.svg[align="center"]
 
 Das Interface `Security` ist der zentrale Einstiegspunkt in den Baustein `isy-security`.
 Bei seiner Instanziierung wird die anwendungsspezifische Rollen-Rechte-Datei eingelesen und damit der `Authentifizierungsmanager` sowie der `Berechtigungsmanager` erzeugt.
-Das Interface `Security` stellt der Geschäftsanwendung die im Weiteren beschriebenen `Authentifizierungsmanager` und `Berechtigungsmanager` der Fachanwendung zur Verfügung.
+Das Interface `Security` stellt der Geschäftsanwendung die im Weiteren beschriebenen `Authentifizierungsmanager` und `Berechtigungsmanager` zur Verfügung.
 Außerdem kann die Geschäftsanwendung über die Methode `getAlleRollen` eine Liste von allen im System hinterlegten Rollen erhalten.
 
 Der `Authentifizierungsmanager` übernimmt die programmatische Authentifizierung und Autorisierung interner und externer Anwendungen durch das IAM für den Zugang zu IsyFact-Nachbaranwendungen:
@@ -159,10 +159,10 @@ Externe Anwendungen übermitteln ihre Authentifizierungsdaten (entweder Client-I
 Das Gateway führt damit eine OAuth2.0-konforme Authentifizierung und Autorisierung der Anwendung gegenüber dem IAM-System durch.
 Dabei wird anhand des Typs der Authentifizierungsdaten der passende Authentication-Flow verwendet:
 
-- Für den Credential-Typ bzw. _Credential_-Flow xref:client-credential-flow[] ist die Methode `authentifiziereClient` zu verwenden mit der issuerLocation als URI des IAM sowie clientId, clientSecret und optional das bhknz der externen Anwendung als Parameter.
-Hierbei ist zu beachten, dass aktuell keine Auswertung bzw. Weiterleitung des bhknz an das IAM stattfindet.
+- Für den Credential-Typ bzw. _Credential_-Flow xref:client-credential-flow[] ist die Methode `authentifiziereClient` zu verwenden mit der issuerLocation als URI des IAM sowie clientId, clientSecret und optional das BHKNZ der externen Anwendung als Parameter.
+Hierbei ist zu beachten, dass aktuell keine Auswertung bzw. Weiterleitung des BHKNZ an das IAM stattfindet.
 
-- Für den Credential-Typ bzw. _Credential_-Flow xref:resource-owner-password-credential-flow[] die Methode `authentifiziereSystem` mit den Parametern issuerLocation als URI des IAM, clientId und clientSecret des Gateways als vermittelnden confidential client sowie username, password und optional das bhknz der externen Anwendung.
+- Für den Credential-Typ bzw. _Credential_-Flow xref:resource-owner-password-credential-flow[] die Methode `authentifiziereSystem` mit den Parametern issuerLocation als URI des IAM, clientId und clientSecret des Gateways als vermittelnden confidential client sowie username, password und optional das BHKNZ der externen Anwendung.
 
 Der `Berechtigungsmanager` gibt Auskunft über die Rollen und Rechte des Anwenders.
 Die in der Benutzeradministration dem Anwender zugewiesenen Rollen werden mithilfe einer anwendungsspezifischen Rollen-Rechte-Datei in konkrete Rechte des Anwenders für diese Anwendung umgewandelt.
@@ -292,7 +292,7 @@ Als Voraussetzung für diesen Flow ist die Bereitstellung eines Vermittlers ('Re
 Dieser Vermittler muss ein OAuth2.0 _Confidential Client_ sein, also ein serverseitiges System.
 Dies kann ein als Reverse Proxy konfigurierter Webserver sein (z.B. Apache http-Server mit `mod_auth_openidc` Modul), der zwischen  Web-Client (Web-Browser) und Web-Anwendung geschaltet ist.
 Das Webserver-Modul `mod_auth_openidc` koordiniert den Ablauf des _Authorization Code Flow_ mit _Confidential Client_ zwischen Nutzer und dem IAM-Service und verwaltet das Access-Token - der Baustein Security wird hierfür nicht verwendet.
-Die folgende Abbildung zeigt die System-Architektur mit dem Webserver in der Nutzungsschicht und dem Anwendungskern vor der Anwendung und dem IAM-Service in der Logik- u. Verarbeitungszone.
+Die folgende Abbildung zeigt die System-Architektur mit dem Webserver in der Informations- u. Dienstezone vor der Anwendung und dem IAM-Service in der Logik- u. Verarbeitungszone.
 
 .Beteiligte Systeme bei Aufruf über Web-Oberfläche / Portal
 [id="image-Authorization-Code-Connections",reftext="{figure-caption} {counter:figures}"]
@@ -537,7 +537,7 @@ Das Minimum an Informationen, die ein JWT in IsyFact enthalten muss - zusätzlic
 |===
 |Information:                                 |Claim Name:        |Claim Type:
 
-|Kennung der durchführenden Behörde           |bhknz              |non-namespaced custom claim
+|Kennung der durchführenden Behörde           |BHKNZ              |non-namespaced custom claim
 
 |Interne Kennung des durchführenden Benutzers |internekennung     |non-namespaced custom claim
 
