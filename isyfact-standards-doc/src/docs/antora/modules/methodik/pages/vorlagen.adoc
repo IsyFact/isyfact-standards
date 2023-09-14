@@ -53,7 +53,8 @@ Die Vorlage Systemspezifikation enthält die Gliederung für eine V-Modell-konfo
 |xref:vorlage-systemhandbuch/antora-master.adoc[Ansehen icon:file-text-o[]]
 |xref:methodik:attachment$vorlage-generated/IsyFact-Vorlage-Systemhandbuch.zip[Download icon:file-archive-o[]]
 |xref:methodik:attachment$vorlage-generated/IsyFact-Vorlage-Systemhandbuch.pdf[Download icon:file-pdf-o[]]
-|Download icon:file-word-o[]
+|xref:methodik:attachment$entwurf-handbuch/IsyFact-Vorlage_Systemhandbuch.dotx[Download icon:file-word-o[]]
+
 |====
 
 
