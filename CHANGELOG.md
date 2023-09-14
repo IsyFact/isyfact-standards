@@ -54,6 +54,10 @@
   * Taskkonfiguration und TaskkonfigurationVerwalter entfernt, Übersetzungen hinzugefügt
 - `ISY-139`: [isyfact-products-bom] Spring Boot Versionsanhebung auf 2.7.15
 - [isy-sonderzeichen] Hinzufügen eines neuen Packages mit Transformatoren für die DIN Norm 91379
+- `IFS-2416`: [isyfact-standards-bom] zentrale Versionsverwaltung von `isy-security`
+- `IFS-2416`: [isy-task] Umstellung von isy-sicherheit auf isy-security
+  #### _Breaking Change:_
+  * Die Konfiguration von `benutzer`, `passwort` und `bhknz` erfolgt über isy-security ClientRegistrations und für IsyTaskConfigurationProperties muss nur eine `oauth2ClientRegistrationId` zur Authentifizierung konfiguriert werden.
 - `ISY-372`: [isy-styleguide] JavaScript-Referenzen entfernt
 
 # 2.4.4

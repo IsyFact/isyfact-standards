@@ -1,7 +1,7 @@
 /**
  *
  */
-package de.bund.bva.isyfact.task.sicherheit;
+package de.bund.bva.isyfact.task.security;
 
 /**
  * Interface über das Tasks bei der Ausführung authentifizieren können.
