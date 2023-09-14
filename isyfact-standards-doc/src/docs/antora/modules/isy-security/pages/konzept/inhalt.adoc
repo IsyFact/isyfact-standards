@@ -35,7 +35,7 @@ Für die zentrale Authentifizierung wird in der IsyFact ein OAuth 2.0 konformes 
 
 NOTE: IAM steht für xref:glossary:literaturextern:inhalt.adoc#litextern-identity_management[Identity and Access Management].
 
-Das IAM-System verwaltet *Benutzer* (menschliche Anwender und technische System) und ihre *Rollen* zentral für alle Komponenten der Anwendungs- und Systemlandschaft.
+Das IAM-System verwaltet *Benutzer* (menschliche Anwender und technische Systeme) und ihre *Rollen* zentral für alle Komponenten der Anwendungs- und Systemlandschaft.
 
 Die Authentifizierung und grobgranulare Autorisierung erfolgt, gemäß der  xref:konzept/master.adoc#prinzipien-der-sicherheitsarchitektur[Prinzipien der Sicherheitsarchitektur], an den Außenschnittstellen der Systemlandschaft.
 Hierbei übermittelt der Benutzer seine Authentifizierungsmerkmale (z.B. Login-Name u. Passwort) und für eine Zwei-Faktor-Authentifizierung das Behördenkennzeichen (BHKNZ) an den IAM-Service, der sie gegen die bei ihm gespeicherten Merkmale verifiziert.
@@ -104,7 +104,7 @@ Ausserdem sichert der Baustein `isy-security` die Service-Schnittstellen der Isy
 Um IsyFact-spezifische Anforderungen, wie z.B. die Nutzung des Behördenkennzeichens, zu erfüllen, existiert eine Zugriffsschicht, die eben diese Funktionalität bereitstellt und den Zugriff auf Spring Security (und das IAM-System) kapselt.
 Die einheitliche Zugriffsschicht für Authentifizierung und Autorisierung erleichtert zudem, durch die teilweise Übernahme bestehender Schnittstellen, die Migration von einer älteren IsyFact Version.
 
-Der Zugriff auf den Baustein erfolgt über das Interface `Security`, das mehrere Methoden zum Erhalt verschiedener Manager-Instanzen bereitstellt:
+Der Zugriff auf den Baustein erfolgt über das Interface `Security`, das Methoden zum Erhalt von Instanzen folgender Manager bereitstellt:
 
 * `Authentifizierungsmanager`
 * `Berechtigungsmanager`
@@ -407,7 +407,7 @@ Die Abbildung xref:image-sequenzdiagramm-absicherung-batch[Absicherung eines Bat
 [id="image-sequenzdiagramm-absicherung-batch",reftext="{figure-caption} {counter:figures}"]
 image::isy-security:konzept/Sequenzdiagramm_AbsicherungBatch.dn.svg[align="center"]
 
-Über die Batch-Konfiguration wird gesteuert, ob der Batch mit einem _NatürlichenNutzer_ und den zugehörigen Authentifizierungsdaten `Benutzer` und `Passwort` über den xref:resource-owner-password-credential-flow[] oder über den xref:client-credential-flow[] mit einem _TechnischenNutzer_ (Client) mit `Client-ID` und `Client-Secret` authentifiziert und autorisiert wird.
+Über die Batch-Konfiguration wird gesteuert, ob der Batch mit einem _Technischen Nutzer_ und den zugehörigen Authentifizierungsdaten `Benutzer` und `Passwort` über den xref:resource-owner-password-credential-flow[] authentifiziert und autorisiert wird oder mit einem _Client_ und den zugehörigen Authentifizierungsdaten `Client-ID` und `Client-Secret` über den xref:client-credential-flow[].
 
 Je nach verwendetem _Credential_-Flow erfolgt mit den jeweiligen erhaltenen Authentifizierungsdaten des Batch-Nutzers dann die eigentliche Authentifizierung durch den IAM-Service der Plattform.
 Dazu werden die im Baustein `isy-security` bereitgestellten <<aussensicht-der-komponente-security,Schnittstellen>> genutzt.
