@@ -39,7 +39,7 @@ Die Vorlage Systemspezifikation enthält die Gliederung für eine V-Modell-konfo
 3+^.^|Downloads (ZIP, PDF, Word)
 
 |Systemspezifikation
-|Ansehen icon:file-text-o[]
+|xref:vorlage-systemspezifikation/master.adoc[Ansehen icon:file-text-o[]]
 2+|
 |xref:methodik:attachment$spezifikation/IsyFact-Vorlage_Systemspezifikation.dotx[Download icon:file-word-o[]]
 
@@ -65,12 +65,14 @@ Die Vorlage enthält die Gliederung für eine V-Modell-konforme Schnittstellendo
 
 [[table-schnittstellendokumentation]]
 .Vorlage zur Schnittstellendokumentation
-[cols="1s,1",options="header"]
+[cols="1s,1,1",options="header"]
 |====
 .^|Vorlage
-.^|Quelldatei (Word)
+.^|Quelldatei (AsciiDoc)
+.^|Download (Word)
 
 |Schnittstellendokumentation
+|xref:methodik:vorlage-schnittstellendokumentation/master.adoc[Ansehen icon:file-text-o[]]
 |xref:methodik:attachment$spezifikation/IsyFact-Vorlage_Schnittstellendokumentation.dotx[Download icon:file-word-o[]]
 |====
 
@@ -83,12 +85,14 @@ Die Anleitung zu Datenflussdiagrammen hilft bei der Erstellung von Datenflussdia
 
 [[table-datenflussdiagramm]]
 .Vorlage zu Datenflussdiagrammen
-[cols="1s,1",options="header"]
+[cols="1s,1,1",options="header"]
 |====
 .^|Vorlage
-.^|Quelldatei (Word)
+.^|Quelldatei (AsciiDoc)
+.^|Download (Word)
 
 |Datenflussdiagramm
+|xref:methodik:anleitung-datenflussdiagramme/master.adoc[Ansehen icon:file-text-o[]]
 |xref:methodik:attachment$spezifikation/Anleitung_zu_Datenflussdiagrammen.dotx[Download icon:file-word-o[]]
 |====
 
