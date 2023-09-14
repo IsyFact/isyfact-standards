@@ -28,10 +28,10 @@ Die Bibliothek authentifiziert Benutzer bei entsprechender Konfiguration und bin
 Sie sichert die Aufgaben selbst allerdings nicht gegen unerlaubte Ausführungen ab.
 Die Verantwortlichkeit dafür liegt bei den jeweiligen Fachkomponenten der Anwendungen, die sich gemäß den Sicherheitsrichtlinien der IsyFact und den Anforderungen an die Anwendung schützen müssen.
 Authentifizierung und Autorisierung finden nach den Vorgaben des Berechtigungskonzepts statt.
-Dazu wird die IsyFact-Bibliothek `isy-sicherheit` eingesetzt.
-Die Nutzung der Bibliothek wird im Dokument xref:isy-sicherheit:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Sicherheit] beschrieben.
+Dazu wird die IsyFact-Bibliothek `isy-security` eingesetzt.
+Die Nutzung der Bibliothek wird im Dokument xref:isy-security:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Sicherheit] beschrieben.
 
-Um die Verwendung von `isy-sicherheit` für die Authentifizierung und Autorisierung zu konfigurieren, wird die Property `isy.task.authentication.enabled` in `application.properties` auf `true` oder `false` gesetzt.
+Um die Verwendung von `isy-security` für die Authentifizierung und Autorisierung zu konfigurieren, wird die Property `isy.task.authentication.enabled` in `application.properties` auf `true` oder `false` gesetzt.
 
 [[erstellung-eines-tasks]]
 === Erstellung eines Tasks
@@ -94,9 +94,7 @@ Das folgende Listing zeigt die Konfiguration für den `HalloWeltTask`.
 
 [source,properties]
 ----
-isy.task.tasks.halloWeltTask.benutzer=TestUser1
-isy.task.tasks.halloWeltTask.passwort=TestPasswort1
-isy.task.tasks.halloWeltTask.bhkz=BHKZ1
+isy.task.tasks.halloWeltTask.oauth2-client-registration-id=halloWelt-client-registration
 isy.task.tasks.halloWeltTask.ausfuehrung=ONCE
 isy.task.tasks.halloWeltTask.initial-delay=10s
 isy.task.tasks.halloWeltTask.host=ComputerName
@@ -250,25 +248,12 @@ Die Dauer, die `isy-task` wartet, bis ein fehlgeschlagener Task erneut gestartet
 isy.task.watchdog.restart_interval
 ----
 
-Die Kennung die benutzt wird, wenn kein Task-spezifisches Kennwort konfiguriert wird:
+Die ID der Client Registration aus `isy-security` zur Authentifizierung, wenn keine Task-spezifische `oauth2-client-registration-id` konfiguriert wird.
+Hierüber wird der zu verwendende OAuth 2.0 Client und die Kennung, das Passwort und das BHKNZ des Nutzers aufgelöst:
 
 [source,properties]
 ----
-isy.task.default.benutzer
-----
-
-Das Passwort das benutzt wird, wenn kein Task-spezifisches Passwort konfiguriert wird:
-
-[source,properties]
-----
-isy.task.default.passwort
-----
-
-Das Behördenkennzeichen, das benutzt wird, wenn kein Task-spezifisches konfiguriert wird:
-
-[source,properties]
-----
-isy.task.default.bhkz
+isy.task.default.oauth2-client-registration-id
 ----
 
 Der Host, wenn kein Task-spezifischer Host konfiguriert wird:
@@ -281,25 +266,12 @@ isy.task.default.host
 [[aufgabenspezifische-konfiguration]]
 === Aufgabenspezifische Konfiguration
 
-Die Kennung des ausführenden Benutzers:
+Die ID der Client Registration aus `isy-security`, die zur Authentifizierung genutzt wird.
+Hierüber wird der zu verwendende OAuth 2.0 Client und die Kennung, das Passwort und das BHKNZ des Nutzers aufgelöst:
 
 [source,properties]
 ----
-isy.task.tasks.<Task>.benutzer
-----
-
-Das Passwort des ausführenden Benutzers:
-
-[source,properties]
-----
-isy.task.tasks.<Task>.passwort
-----
-
-Behördenkennzeichen des ausführenden Benutzers:
-
-[source,properties]
-----
-isy.task.tasks.<Task>.bhkz
+isy.task.tasks.<Task>.oauth2-client-registration-id
 ----
 
 Der Name des Hosts auf dem der Task ausgeführt werden soll.

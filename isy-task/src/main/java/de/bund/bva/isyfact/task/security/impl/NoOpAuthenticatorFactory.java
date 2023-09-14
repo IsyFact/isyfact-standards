@@ -1,7 +1,7 @@
-package de.bund.bva.isyfact.task.sicherheit.impl;
+package de.bund.bva.isyfact.task.security.impl;
 
-import de.bund.bva.isyfact.task.sicherheit.Authenticator;
-import de.bund.bva.isyfact.task.sicherheit.AuthenticatorFactory;
+import de.bund.bva.isyfact.task.security.Authenticator;
+import de.bund.bva.isyfact.task.security.AuthenticatorFactory;
 
 /**
  * Erzeugt Instanzen von {@link NoOpAuthenticator}.
