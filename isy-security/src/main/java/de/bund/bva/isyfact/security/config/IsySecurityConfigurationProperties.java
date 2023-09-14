@@ -1,5 +1,7 @@
 package de.bund.bva.isyfact.security.config;
 
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.validation.annotation.Validated;
 
 @Validated
@@ -9,7 +11,7 @@ public class IsySecurityConfigurationProperties {
     private String rolesClaimName = "roles";
 
     /** Path to the XML file containing the role/privilege mappings. */
-    private String rolePrivilegeMappingFile = "/resources/sicherheit/rollenrechte.xml";
+    private Resource rolePrivilegesMappingFile = new ClassPathResource("/resources/sicherheit/rollenrechte.xml");
 
     public String getRolesClaimName() {
         return rolesClaimName;
@@ -19,12 +21,12 @@ public class IsySecurityConfigurationProperties {
         this.rolesClaimName = rolesClaimName;
     }
 
-    public String getRolePrivilegeMappingFile() {
-        return rolePrivilegeMappingFile;
+    public Resource getRolePrivilegesMappingFile() {
+        return rolePrivilegesMappingFile;
     }
 
-    public void setRolePrivilegeMappingFile(String rolePrivilegeMappingFile) {
-        this.rolePrivilegeMappingFile = rolePrivilegeMappingFile;
+    public void setRolePrivilegesMappingFile(Resource rolePrivilegesMappingFile) {
+        this.rolePrivilegesMappingFile = rolePrivilegesMappingFile;
     }
 
 }

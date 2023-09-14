@@ -151,18 +151,12 @@ public class ReloadablePropertyProvider {
             if (propertyDatei.isNeueVersionVerfuegbar()) {
                 LOG.info(LogKategorie.JOURNAL, EreignisSchluessel.KONFIGURATION_DATEI_NEU_GELADEN,
                     "Die Konfigurationsdatei {} wird neu geladen.", propertyDatei.getDateiname());
-                try {
                     neueVersionGeladen = true;
                     propertyDatei.neuLaden();
-                } catch (Throwable t) {
-                    throw new KonfigurationDateiException(NachrichtenSchluessel.ERR_DATEI_LESEN, t,
-                        propertyDatei.getDateiname());
-                }
             }
         }
         boolean propertiesVeraendert = neueVersionGeladen || propertyEntfernt || propertyHinzugefuegt;
         if (propertiesVeraendert) {
-            neueVersionGeladen = true;
             this.properties = mergeProperties();
         }
         return propertiesVeraendert;

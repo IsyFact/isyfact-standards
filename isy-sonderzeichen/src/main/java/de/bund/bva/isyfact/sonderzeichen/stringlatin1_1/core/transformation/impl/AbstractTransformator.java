@@ -421,14 +421,8 @@ public abstract class AbstractTransformator implements Transformator {
 
                 String gueltigerCharacter = (String) gueltigeZeichenIterator.next();
 
-                boolean lade = false;
-                if (kategorie.equals(ZeichenKategorie.ALLE)) {
-                    lade = true;
-                } else if (kategorie.equals(properties.getProperty(gueltigerCharacter))) {
-                    lade = true;
-                }
-
-                if (lade) {
+                if (kategorie.equals(ZeichenKategorie.ALLE)
+                        || kategorie.equals(properties.getProperty(gueltigerCharacter))) {
                     // Parsing the data
                     char[] zeichen = ladeCharArrayAusProperty(gueltigerCharacter);
                     String newString = new String(zeichen);

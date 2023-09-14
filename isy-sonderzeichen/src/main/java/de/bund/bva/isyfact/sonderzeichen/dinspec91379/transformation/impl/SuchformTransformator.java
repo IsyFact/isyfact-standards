@@ -8,7 +8,11 @@ import de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.Transformat
 /**
  * Transformer that converts normative letters (datatype C) to the basic letters of the Latin alphabet (A-Z).
  * All other characters are transformed to space (0020). Implements Table 9 according to String.Latin+ 1.2.
+ *
+ *  @deprecated This class is deprecated and will be removed in a future release.
+ *  It is recommended to use {@link de.bund.bva.isyfact.sonderzeichen.dinnorm91379} instead.
  */
+@Deprecated
 public class SuchformTransformator extends AbstractTransformator {
 
     /** Logger. */

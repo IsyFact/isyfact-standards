@@ -11,9 +11,9 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import de.bund.bva.isyfact.security.example.IsySecurityTestApplication;
+import de.bund.bva.isyfact.security.IsySecurityTestConfiguration;
 
-@SpringBootTest(classes = { IsySecurityTestApplication.class, AuthorityPrefixTest.AnnotationTest.class })
+@SpringBootTest(classes = { IsySecurityTestConfiguration.class, AuthorityPrefixTest.AnnotationTest.class })
 public class AuthorityPrefixTest {
 
     private static final String[] TEST_AUTHORITIES = { "PRIV_test", "ROLE_test" };
