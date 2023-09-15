@@ -27,6 +27,8 @@ import java.util.Map;
 
 import javax.xml.transform.TransformerConfigurationException;
 
+import org.xml.sax.SAXException;
+
 import de.bund.bva.isyfact.batchrahmen.batch.konfiguration.BatchKonfiguration;
 import de.bund.bva.isyfact.batchrahmen.batch.konstanten.BatchRahmenEreignisSchluessel;
 import de.bund.bva.isyfact.batchrahmen.batch.protokoll.BatchErgebnisProtokoll;
@@ -36,8 +38,6 @@ import de.bund.bva.isyfact.batchrahmen.batch.protokoll.VerarbeitungsMeldung;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchReturnCode;
 import de.bund.bva.isyfact.batchrahmen.core.exception.BatchrahmenProtokollException;
 import de.bund.bva.isyfact.batchrahmen.core.konstanten.NachrichtenSchluessel;
-import org.xml.sax.SAXException;
-
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;

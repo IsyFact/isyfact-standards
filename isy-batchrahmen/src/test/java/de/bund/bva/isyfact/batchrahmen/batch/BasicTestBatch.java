@@ -28,49 +28,58 @@ import de.bund.bva.isyfact.batchrahmen.batch.protokoll.BatchErgebnisProtokoll;
 import de.bund.bva.isyfact.batchrahmen.batch.protokoll.MeldungTyp;
 import de.bund.bva.isyfact.batchrahmen.batch.protokoll.StatistikEintrag;
 import de.bund.bva.isyfact.batchrahmen.batch.protokoll.VerarbeitungsMeldung;
-import de.bund.bva.isyfact.batchrahmen.batch.rahmen.AuthenticationCredentials;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchAusfuehrungsBean;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchStartTyp;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.VerarbeitungsErgebnis;
 
 /**
- * Absoluter Basis Batch für den Batchrahmen. Dieser Batch macht nichts, ausser einen internen Counter
- * hochzuzählen und die BatchStatus-Tabelle zu aktualisieren.
+ * Absolute base batch for the {@link de.bund.bva.isyfact.batchrahmen.core.rahmen.Batchrahmen}.
+ * This batch does nothing except increment an internal counter and update the BatchStatus table.
  */
 public class BasicTestBatch implements BatchAusfuehrungsBean {
 
-    /** Die Anzahl der Sätze, die geschrieben werden sollen. */
+    /**
+     * The number of blocks to be written.
+     */
     public static final int MAX_SAETZE = 10000;
 
-    /** Das Ergebnisprotokoll */
+    /**
+     * The {@link BatchErgebnisProtokoll}.
+     */
     private BatchErgebnisProtokoll protokoll;
 
-    /** Der Logger. */
+    /**
+     * The logger.
+     */
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(BasicTestBatch.class);
 
-    /** StatistikEintraege fuer die Sollwertkontrolle */
+    /**
+     * The {@link StatistikEintrag} for control.
+     */
     private StatistikEintrag statistik1;
 
+    /**
+     * The {@link StatistikEintrag} for control.
+     */
     private StatistikEintrag statistik2;
 
-    /** Der interne Zaehler */
+    /**
+     * The internal counter.
+     */
     private int count;
 
-    /** {@inheritDoc} */
     public void batchBeendet() {
         this.statistik2.setWert(999);
     }
 
-    /** {@inheritDoc} */
     public void checkpointGeschrieben(long satzNummer) throws BatchAusfuehrungsException {
         LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001,
-            "Checkpoint für Satz {} geschrieben.", satzNummer);
+                "Checkpoint für Satz {} geschrieben.", satzNummer);
     }
 
-    /** {@inheritDoc} */
     public int initialisieren(BatchKonfiguration konfiguration, long satzNummer, String dbKey,
-        BatchStartTyp startTyp, Date datumLetzterErfolg, BatchErgebnisProtokoll protokoll)
-        throws BatchAusfuehrungsException {
+                              BatchStartTyp startTyp, Date datumLetzterErfolg, BatchErgebnisProtokoll protokoll)
+            throws BatchAusfuehrungsException {
         this.count = MAX_SAETZE;
         this.protokoll = protokoll;
 
@@ -81,46 +90,31 @@ public class BasicTestBatch implements BatchAusfuehrungsBean {
         protokoll.registriereStatistikEintrag(this.statistik2);
 
         LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001, "Start-Typ ist: {}",
-            startTyp);
+                startTyp);
 
         return this.count;
     }
 
-    /** {@inheritDoc} */
     public VerarbeitungsErgebnis verarbeiteSatz() throws BatchAusfuehrungsException {
         this.count--;
         this.protokoll.ergaenzeMeldung(new VerarbeitungsMeldung("ID" + this.count, "REGNR" + this.count,
-            MeldungTyp.INFO, "Satz " + this.count + " verarbeitet. Teststring: <>\"üaößÜÄÖ€"));
+                MeldungTyp.INFO, "Satz " + this.count + " verarbeitet. Teststring: <>\"üaößÜÄÖ€"));
         this.statistik1.erhoeheWert();
-        return new VerarbeitungsErgebnis("" + this.count, this.count == 0);
+        return new VerarbeitungsErgebnis(String.valueOf(this.count), this.count == 0);
     }
 
-    /** {@inheritDoc} */
     public void rollbackDurchgefuehrt() {
         LOG.error(BatchRahmenEreignisSchluessel.EPLBAT00001, "Rollback durchgeführt");
     }
 
-    /**
-     * Dieser Batch verwendet keine Sicherung. {@inheritDoc}
-     */
-    public AuthenticationCredentials getAuthenticationCredentials(BatchKonfiguration konfiguration) {
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void vorCheckpointGeschrieben(long satzNummer) throws BatchAusfuehrungsException {
-        // leer
+        // blank
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void vorRollbackDurchgefuehrt() {
-        // leer
+        // blank
     }
 
 }

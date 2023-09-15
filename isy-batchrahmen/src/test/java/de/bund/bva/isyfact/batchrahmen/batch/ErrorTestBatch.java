@@ -21,7 +21,6 @@ import java.util.Date;
 import de.bund.bva.isyfact.batchrahmen.batch.exception.BatchAusfuehrungsException;
 import de.bund.bva.isyfact.batchrahmen.batch.konfiguration.BatchKonfiguration;
 import de.bund.bva.isyfact.batchrahmen.batch.protokoll.BatchErgebnisProtokoll;
-import de.bund.bva.isyfact.batchrahmen.batch.rahmen.AuthenticationCredentials;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchAusfuehrungsBean;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchStartTyp;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.VerarbeitungsErgebnis;
@@ -41,8 +40,8 @@ public class ErrorTestBatch implements BatchAusfuehrungsBean {
 
     @Override
     public int initialisieren(BatchKonfiguration konfiguration, long satzNummer, String dbKey,
-        BatchStartTyp startTyp, Date datumLetzterErfolg, BatchErgebnisProtokoll protokoll)
-        throws BatchAusfuehrungsException {
+                              BatchStartTyp startTyp, Date datumLetzterErfolg, BatchErgebnisProtokoll protokoll)
+            throws BatchAusfuehrungsException {
         this.konfiguration = konfiguration;
         if (konfiguration.getAsBoolean("initError", false)) {
             throw new RuntimeException("Abbruch in Init");
@@ -52,47 +51,32 @@ public class ErrorTestBatch implements BatchAusfuehrungsBean {
 
     @Override
     public VerarbeitungsErgebnis verarbeiteSatz() throws BatchAusfuehrungsException {
-        // Mit dem Flag 'laufErrorSofort' kann ein Abbruch des Batches noch vor der Verarbeitung des ersten
-        // Satzes simuliert werden.
+        // The flag 'laufErrorSofort' can be used to simulate an abort of the batch even before the first record is processed.
         if (this.konfiguration.getAsBoolean("laufErrorSofort", false)) {
             throw new RuntimeException("Sofortiger Abbruch in verarbeite Satz");
         }
 
-        // Alternativ kann mit dem Flag 'laufError' ebenfalls ein Abbruch simuliert werden. Allerdings werden
-        // hier bereits Sätze verarbeitet, bevor es zu dem Abbruch kommt.
+        // Alternatively, the flag 'laufError' can also be used to simulate an abort.
+        // However, records are already processed here before the abort occurs.
         this.count--;
         if (this.count < 10 && this.konfiguration.getAsBoolean("laufError", false)) {
             throw new RuntimeException("Abbruch in verarbeite Satz");
         }
-        return new VerarbeitungsErgebnis("" + this.count, this.count == 0);
+        return new VerarbeitungsErgebnis(String.valueOf(this.count), this.count == 0);
     }
 
     @Override
     public void rollbackDurchgefuehrt() {
     }
 
-    /**
-     * Dieser Batch verwendet keine Sicherung. {@inheritDoc}
-     */
-    @Override
-    public AuthenticationCredentials getAuthenticationCredentials(BatchKonfiguration konfiguration) {
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void vorCheckpointGeschrieben(long satzNummer) throws BatchAusfuehrungsException {
-        // leer
+        // blank
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void vorRollbackDurchgefuehrt() {
-        // leer
+        // blank
     }
 
 }
