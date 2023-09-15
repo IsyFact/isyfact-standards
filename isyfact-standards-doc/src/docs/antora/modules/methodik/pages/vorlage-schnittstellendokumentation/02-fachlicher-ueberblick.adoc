@@ -1,0 +1,47 @@
+// tag::inhalt[]
+
+
+[[fachlicher-ueberblick]]
+== Fachlicher Überblick
+
+[[ziele-rahmenbedingungen]]
+=== Ziele und Rahmenbedingungen
+
+_Die zentralen Ziele und Rahmenbedingungen bilden das einleitende Kapitel einer Schnittstellendokumentation.
+Damit wird ein inhaltlicher Einstieg in die Schnittstellendokumentation gegeben.
+Es werden die folgenden Themen behandelt:_
+
+* _Zweck und Ziele des Systems bzw. des Projektes_
+* _Ausgrenzungen bezüglich des Projektumfangs_
+* _Projektbeteiligte und Nutzer des Systems_
+* _Vorgaben und Rahmenbedingungen des Projektes (fachlich, technologisch, organisatorisch, politisch, gesetzlich, etc.)_
+
+[[architekturueberblick]]
+=== Architekturüberblick
+
+_Der Architekturüberblick beschreibt die angebotenen Schnittstellen und identifiziert Nachbarsysteme.
+Die Darstellung erfolgt rein aus fachlicher Sicht und differenziert nicht zwischen Schnittstellentechnologien.
+Jede angebotene Schnittstelle wird in Kapitel 3 detailliert beschrieben.
+Dieses Kapitel bietet somit einen fachlichen Gesamtüberblick über alle Schnittstellen.
+Je nach Komplexität kann das Diagramm auf Anwendungsebene oder auf Komponentenebene erstellt werden.
+Im Folgenden wird die Sicht auf die Aufwendungsebene beschrieben._
+
+_Der Architekturüberblick sollte knapp und klar gestaltet werden.
+Ein gutes Übersichtsbild listet Schnittstellen und externe Nachbarsysteme auf._
+
+image::vorlage-schnittstellendokumentation/architektur-ueberblick.png[]
+
+_Neben dem Übersichtsbild werden die angebotenen Schnittstellen tabellarisch aufgelistet und kurz fachlich beschrieben._
+
+.Schnittstellen des <System>
+[cols="1,1,2", options="header"]
+|===
+|*Schnittstelle* |*Typ* |*Beschreibung*
+|_NST_<Bezeichnung der Schnittstelle>_ |_Falls es eine fachliche Unterscheidung gibt (z.B. Meldung, Auskunft, etc.)_ |_Kurze Beschreibung der Schnittstelle +
+- Zweck/Ziel der Schnittstelle +
+- Rückgabewertwerte (z.B. Trefferliste)_
+|_Weitere Schnittstelle_ |_Weiterer Typ_ |_Weitere Beschreibung_
+|_Weitere Schnittstelle_ |_Weiterer Typ_ |_Weitere Beschreibung_
+|===
+
+// end::inhalt[]

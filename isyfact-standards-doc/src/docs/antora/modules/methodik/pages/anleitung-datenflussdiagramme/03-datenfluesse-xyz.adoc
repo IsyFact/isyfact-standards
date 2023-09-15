@@ -1,0 +1,51 @@
+= Datenflüsse in der Anwendungsdomäne XYZ
+
+// tag::inhalt[]
+
+[[datenfluesse-in-anwendungsdomaene-xyz]]
+== Datenflüsse in der Anwendungsdomäne XYZ
+
+Nachfolgend werden die Datenflüsse in der Anwendungsdomäne XYZ dargestellt.
+Diese umfasst die folgenden fachlichen Datenbestände:
+
+* Adressdatenbank:
+** Datenbestand 1
+** Datenbestand 2
+* _<weitere Datenbank>_:
+** Datenbestand 3
+** Datenbestand 4
+** Datenbestand 5
+* Analyse: Zentrale Auswertung der Analysedaten der Domäne
+
+[[schreiben-in-datenbestand-1]]
+=== Schreiben in Datenbestand 1
+
+Benutzer können ihre eigene Adressdaten selbst über ein Portal eingeben.
+Darüber hinaus besteht die Möglichkeit einen Massenimport von Adressdaten zu durchzuführen, der z.B. durch Upload einer Adressliste erfolgt. …
+
+[[image-schreiben-in-datenbestand-1]]
+image:anleitung-datenflussdiagramme/benutzer-ext-adressen.png[]
+
+Legende:
+
+* [.underline]#Adressdaten# bestehen aus den Bestandteilen Name, Vorname, Straße, Hausnummer, Postleitzahl und Ort.
+* Die [.underline]#Mitteilung# enthält einen Bestätigungstext mit den erfassten Daten.
+Dieser Text wird an den Benutzer geschickt.
+* …
+
+[[weiteres-fachliches-thema]]
+=== <weiteres Fachliches Thema>
+
+_Hier wird ein Datenflussdiagramm für ein weiteres fachliches Thema abgebildet, inklusive Erklärung des fachlichen Themas und Legende._
+
+[[weiteres-fachliches-thema-2]]
+=== <weiteres Fachliches Thema>
+
+_Hier wird ein Datenflussdiagramm für ein weiteres fachliches Thema abgebildet, inklusive Erklärung des fachlichen Themas und Legende._
+
+// end::inhalt[]
+
+
+
+
+

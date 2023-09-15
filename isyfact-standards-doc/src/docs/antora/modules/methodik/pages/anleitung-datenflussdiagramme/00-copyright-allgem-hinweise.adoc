@@ -1,0 +1,7 @@
+// tag::inhalt[]
+
+//_Dieser Lizenztext bezieht sich auf die Anleitung.
+//In Dokumenten, die auf der Vorlage basieren, ist dieser Text zu löschen._
+
+// end::inhalt[]
+

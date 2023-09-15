@@ -1,0 +1,18 @@
+// tag::inhalt[]
+
+[[offene-punkte]]
+== Offene Punkte
+
+_Die zur Abnahme des Dokuments noch zu klärenden offenen Punkte in Listenform._
+
+[[table-offene-punkte]]
+.Beschreibungstext für diese Tabelle
+[cols="1,4",options="header"]
+|====
+|*_Nummer_* |*_Beschreibung_*
+|_1_ |_Ein offener Punkt_
+| |
+|====
+
+// end::inhalt[]
+

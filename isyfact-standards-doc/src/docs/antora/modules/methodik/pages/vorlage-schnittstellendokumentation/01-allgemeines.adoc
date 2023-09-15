@@ -1,0 +1,106 @@
+// tag::inhalt[]
+
+[[allgemeines]]
+== Allgemeines
+
+[[zusammenfassung-management-summary]]
+=== Zusammenfassung (Management-Summary)
+
+_Unter diesem Kapitel soll eine Zusammenfassung des Dokuments auf wenigen Seiten erfolgen._
+
+_[.underline]#Beispiel:# Dieses Dokument enthält Ausfüllhinweise für die Erarbeitung von Schnittstellendokumentationen nach dem V-Modell XT in einer für den Kunden angepassten Fassung.
+Es handelt sich um Empfehlungen, die im Einzelfall in Absprache mit dem Kunden abgewandelt werden können.
+Abweichungen, insbesondere in der Dokumentstruktur sind jedoch in Kapitel_ _1.2 anzugeben und mit einer Begründung zu versehen._
+
+[[leseanleitung]]
+=== Leseanleitung
+
+_Die Leseanleitung enthält Hilfen für den Leserkreis.
+Inhalte sind zum Beispiel_
+
+* _Aufbau der Dokumentation (Aufteilung in Dokumente, interne Struktur)_
+* _Beschreibung der verwendeten Methodik_
+* _Empfehlungen für verschiedene Lesergruppen_
+* _Leseanleitung zu verwendeten Notationen (z.B. UML 2.0)_
+** _Im Folgenden sind einige Beispielkapitel vorhanden, die genutzt, erweitert oder auch gelöscht werden können._
+
+[[verwendete-notation-praefixe]]
+==== Verwendete Notation und Präfixe
+
+_In diesem Kapitel wird kurz auf die verwendete Notation und verwendeter Präfixe für die Bezeichnung von Elementen eingegangen.
+Im Folgenden befindet sich eine Beispielbeschreibung, die je nach Bedarf und Lesergruppe angepasst werden kann._
+
+_[.underline]#Beispiel:# Für die Beschreibung der Nachbarsystemschnittstellen wird eine angepasste Form der Notation UML 2.0 verwendet.
+Die in dieser Notation dargestellten Diagramme bestehen aus Elementen und ihren Beziehungen untereinander.
+Die Beziehungen werden je nach Art der Beziehung durch unterschiedliche Verbinder dargestellt.
+Zur Erläuterung werden in den folgenden Abschnitten die verwendeten Elemente und Verbinder genauer erklärt._
+
+_Zu jeder Schnittstelle werden die link:../vorlage-schnittstellendokumenation/03-nachbarsystemschnittstellen.adoc#eingabeparameter[Eingabeparameter] links und die link:03-nachbarsystemschnittstellen.adoc#ausgabeparameter[Ausgabeparameter] rechts neben dem Schnittstellensymbol aufgeführt._
+
+.Beispiel für die grafische Darstellung einer Nachbarsystemschnittstelle
+image::vorlage-schnittstellendokumentation/nachbarschnittstellen.png[]
+
+_Die Parameter können komplex sein.
+Um die Übersichtlichkeit zu erhöhen, ist ihre Struktur nicht direkt im Schnittstellendiagramm, sondern in separaten Kapiteln Aufrufparameter und Ausgabeparameter im Detail beschrieben.
+Die Spezifikation der Nachbarsystemschnittstellen umfasst grafische, tabellarische und textliche Beschreibungen._
+
+_Die Tabelle 1 enthält im Dokument verwendete Präfixe mit den zugehörigen Elementen._
+
+
+.Übersicht der verwendeten Namenspräfixe
+[cols="2,6", options="header"]
+|===
+|*_Präfix_* |*_Element_*
+|_DTY__ |_Datentyp_
+|_NSA__ |_Nachbarschnittstellen-Attribut_
+|_NSE__ |_Nachbarsystemschnittstellen-Entitätstyp_
+|_NST__ |_Nachbarsystemschnittstelle_
+|===
+
+
+[[regeln-den-aufbau-von-nachrichten]]
+==== Regeln für den Aufbau von Nachrichten
+
+_Dieses Kapitel gibt eine kurze Einführung in die Validierungsregeln von Nachrichten.
+Falls keine Validierung von Nachrichten benötigt wird, kann dieses Kapitel entfernt werden.
+Im Folgenden befindet sich eine Beispielbeschreibung, die genutzt werden kann._
+
+_[.underline]#Beispiel#: Die Nachrichten werden vom Service-Gateway gegen Regeln validiert.
+Dabei wird u.a. geprüft,_
+
+* _ob die anfragende Behörde berechtigt ist_
+* _ob alle Pflichtattribute gesetzt sind_
+* _ob der Wertebereich der Attribute eingehalten wurde_
+* _ob die Nachricht mit dem Bestand kompatibel ist_
+* _etc._
+
+_Schlägt die Prüfung fehl, gibt das Service-Gateway eine Fehlernachricht mit Fehlercodes und Fehlertext an den Aufrufer zurück._
+
+_Bei jeder Schnittstelle sind die Regeln beschrieben, die beim Aufbau der Nachricht eingehalten werden müssen._
+
+_Zu jeder Regel ist angegeben, welcher Fehlercode bei einer Regelverletzung in der Fehlermeldung zurückgegeben wird.
+Die zugehörigen Fehlertexte können im Anhang nachgelesen werden._
+
+[[beispiel-zum-verwendenser-spezifikation]]
+==== Beispiel zum Verwenden dieser Spezifikation
+
+_Im Folgenden wird beschrieben, wie diese Dokumentation verwendet werden kann, um eine Nachricht für eine Nachbarsystemschnittstelle zu erstellen.
+Der Aufbau ist exemplarisch und kann bei Bedarf angepasst werden.
+Da dieses Dokument in der Regel mehrere Nachbarsystemschnittstellen dokumentiert, sollte die Beschreibung der Verwendung möglichst allgemeingültig verfasst werden, sodass sie auf alle Nachbarsystemschnittstellen zutrifft._
+
+_[.underline]#Beispiel#: Hier wird beschrieben, wie der Anwender mit Hilfe dieser Spezifikation eine Nachricht aufbauen kann._
+
+[arabic]
+. _Die benötigte Schnittstelle ist +NST_<Nachbarsystemschnittstelle>+._
+. _In Kapitel <Kapitel der NST> ist diese Schnittstelle beschrieben._
+. _Es muss eine +NSE_<Schnittstellenentität+ der Anfrage> aufgebaut werden;
+der Aufbau ist in Abbildung xyz dargestellt.
+Hier sieht man, welche Entitäten enthalten sein müssen und welche Entitäten enthalten sein können (Kardinalitäten an den Verbindern)._
+. _Für jede NSE sind die Attribute im Kapitel Eingabeparameter beschrieben._
+. _Für jedes Attribut ist der Datentyp im Kapitel Datentypen beschrieben._
+. _Durch die Regeln für den Aufbau der Nachricht werden die Wertebereiche der Attribute genauer bestimmt (z.B. kann auch ‚+‘ für unbekannt in Namensattributen angegeben werden, aber es muss mindestens Vorname oder Nachname bekannt sein)._
+. _Durch die Regeln werden die Attribute miteinander in Beziehung gesetzt, z.B. muss sich ein gemeldeter „Anderer Name“ von den Grundpersonalien unterscheiden, und eine Organisation darf nur bei bestimmten Sachverhalten und Sachverhaltskennungen gemeldet werden._
+. _Unter Berücksichtigung dieser Informationen, kann die +NSE_<Schnittstellenentität+ der Anfrage> korrekt aufgebaut werden._
+
+// end::inhalt[]
+

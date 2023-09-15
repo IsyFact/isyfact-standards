@@ -8,7 +8,12 @@
 **** xref:diagrammerstellung/diagramsnet.adoc[diagrams.net]
 **** xref:diagrammerstellung/enterprise-architect.adoc[Enterprise Architect]
 *** xref:vorgaben-dokumentation/dokumentationstypen.adoc[]
-*** xref:vorlagen.adoc[]
-**** xref:vorlage-systementwurf/antora-master.adoc[Systementwurf]
-**** xref:vorlage-systemhandbuch/antora-master.adoc[Systemhandbuch]
-**** xref:vorlagen/bearbeitung.adoc[]
+** xref:vorlagen.adoc[]
+*** Spezifikation
+**** xref:vorlage-systemspezifikation/master.adoc[Systemspezifikation]
+**** xref:vorlage-schnittstellendokumentation/master.adoc[Schnittstellen­dokumentation]
+**** xref:anleitung-datenflussdiagramme/master.adoc[Anleitung für Datenflussdiagramme]
+*** xref:vorlage-systementwurf/antora-master.adoc[Systementwurf]
+*** xref:vorlage-systemhandbuch/antora-master.adoc[Systemhandbuch]
+*** xref:vorlagen/bearbeitung.adoc[]
+
