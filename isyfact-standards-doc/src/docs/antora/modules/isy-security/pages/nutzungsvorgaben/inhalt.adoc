@@ -369,6 +369,10 @@ Bei der technischen Umsetzung müssen alle spezifizierten Rollen und Rechte konf
 Dies geschieht in der statischen Konfiguration in der Datei `/resources/sicherheit/rollenrechte.xml`.
 Der Baustein liefert ein xref:nutzungsvorgaben/master.adoc#anhang-rollen-rechte-schema[XML-Schema für den Aufbau der Konfigurationsdatei] mit.
 
+NOTE: Die Bereitstellung einer Datei mit den erforderlichen Rollen und Rechten erfolgt optional.
+Im Falle einer nicht vorhandenen Datei verbleibt die Liste der Rollen und Rechte leer, d. h. eine Absicherung der Anwendung findet nicht statt.
+Die Verantwortung zur korrekten Bereitstellung der erforderlichen Rollen und Rechten liegt bei der Anwendung.
+
 Dieser Zusammenhang wird mit einem Beispiel verdeutlicht: Die Geschäftsanwendung X spezifiziert zwei Rechte, `DialogA.Aufrufen` und `DialogB.Aufrufen`.
 Aus diesen werden zwei fachliche Rollen gebildet:
 
@@ -469,6 +473,41 @@ String bhknz = (String) this.berechtigungsmanager.getTokenAttribute(BEARER_TOKEN
 
 Für den direkten Zugriff per Security Context kann die `Authentication` abgefragt und per Cast als ein `AbstractOAuth2TokenAuthenticationToken` zugegriffen werden.
 Detaillierte Informationen hierzu können der Spring Dokumentation entnommen werden.
+
+[[annotation-method-auth]]
+== Automatische Authentifizierung innerhalb von Methoden
+
+Wenn Client Registrations für OAuth 2.0 Clients in der Anwendung angelegt wurden (vgl. <<konfigurationsparameter>>), kann die `@Authenticate`-Annotation verwendet werden, um anhand dieses Clients automatisch Aufrufe innerhalb der mit der Annotation versehenen Methode zu authentifizieren.
+Der dabei verwendete OAuth 2.0 Flow wird anhand der Konfiguration der Client Registration ausgewählt.
+
+Dafür muss in der Annotation die Client Registration ID des zu verwendenden OAuth 2.0 Clients angegeben werden.
+Dies kann entweder durch Hardcoden der ID oder über die dynamische Auflösung eines Property Placeholders erfolgen.
+Die Client Registration ID kann über verschiedene Attribute der Annotation (kein Attribut, `value`-Attribut, `oauth2ClientRegistrationId`-Attribut) angegeben werden, welche von der Funktionalität identisch sind.
+Die einzige Voraussetzung ist, dass die Client Registration ID in einem dieser Attribute angegeben wurde.
+
+[[annotation-method-auth-example]]
+.Verwendung der Annotation
+[source,java]
+----
+@Authenticate("my-auth-client") // <1>
+void methodThatNeedsAuthentication() {
+    ...
+}
+
+@Authenticate("${test.auth.client-id}") // <2>
+void methodThatNeedsAuthentication() {
+    ...
+}
+
+@Authenticate(oauth2ClientRegistrationId = "my-auth-client") // <3>
+void methodThatNeedsAuthentication() {
+    ...
+}
+----
+
+<1> Angabe der Client Registration ID ohne Verwendung von Attributnamen
+<2> Auflösung der Client Registration ID aus dem Wert der Property `test.auth.client-id`
+<3> Angabe der Client Registration ID mit dem Attributnamen `oauth2ClientRegistrationId`
 
 [[testunterstuetzung]]
 == Testunterstützung

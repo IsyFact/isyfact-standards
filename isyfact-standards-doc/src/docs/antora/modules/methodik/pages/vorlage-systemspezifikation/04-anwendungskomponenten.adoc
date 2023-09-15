@@ -1,0 +1,385 @@
+// tag::inhalt[]
+
+[[anwendungskomponenten]]
+== Anwendungskomponenten
+
+_In einer Systemspezifikation wird ein fachliches Anwendungssystem spezifiziert.
+Die fachlichen Abläufe des Anwendungssystems werden in Form von Anwendungsfällen beschrieben. Die Anwendungsfälle werden zu Anwendungskomponenten gruppiert und in entsprechenden Abschnitten unterschieden.
+Vorab erfolgt hier ein Überblick über alle Anwendungskomponenten in einem UML-Komponentendiagramm mit einer kurzen textlichen Erläuterung, welche Abläufe von den gezeigten Komponenten unterstützt werden._
+
+[[uebersicht-anwendungskomponenten]]
+.Übersicht über die Anwendungskomponenten
+image::vorlage-systemspezifikation/uebersicht-anwendungskomponenten.png[]
+
+****
+Erstellung des Diagramms im Enterprise Architect:
+
+_Das Anwendungssystem wird mit dem UML-Profil-Element „Anwendungskomponente“ dargestellt. Hierzu wird der Stereotyp von „Anwendungskomponente“ auf „Anwendungssystem“ geändert.
+Im Diagramm wird die Schriftgröße auf Arial Bold 14 geändert.
+Das Anwendungssystem wird mit dem Präfix +„SYS_“+ benannt._
+
+_Die angebotenen Schnittstellen werden als „Provided Interface“ dargestellt, die genutzten als „Required Interface“.
+Hierzu wählt man im Kontextmenü des Anwendungssystem-Elements „Embedded Elements > Add Provided Interface“ bzw. „Embedded Elements > Add Required Interface“ aus.
+Die angebotenen Schnittstellen kann man farblich markieren: Solche, die ausschließlich innerhalb der Anwendungslandschaft des Kunden genutzt werden sind rot markiert, solche die auch oder nur von externen Anwendungssystemen aufgerufen werden sind grün markiert._
+
+_Angebotene Schnittstellen verknüpft man anschließend mit den Anwendungskomponenten, deren Anwendungsfälle aufgrund der Schnittstellen-Nutzung aufgerufen werden.
+Hierzu nutzt man die Verknüpfung „composite > delegate“ aus der UML-Toolbox des EA.
+Genutzte Schnittstellen kann man mit den nutzenden Anwendungskomponenten verbinden.
+Für Schnittstellen, die querschnittlich von allen Anwendungskomponenten genutzt werden, ist dies nicht notwendig.
+Mit rechter Maustaste auf den Text "delegate" und anschließend „hide label“ versteckt man die Anzeige des Stereotypen._
+****
+
+[[akteure]]
+=== Akteure
+
+_Das Kapitel enthält als Überblick ein Diagramm aller Akteure und deren Abhängigkeiten._
+
+[[uebersicht-akteure]]
+.Übersicht Akteure
+image::vorlage-systemspezifikation/uebersicht-akteure.png[]
+
+_Zusätzlich werden in einer Liste alle Akteure benannt und kurz in Stichworten beschrieben.
+Die Namen der Akteure sind so eng wie möglich angelehnt an die Bezeichnungen, die in den Fachbereichen etabliert sind.
+Oft ist es zweckmäßig, auch die Beziehungen zwischen den Akteuren zu verdeutlichen.
+Die Liste der Akteure muss vollständig sein, allerdings nur für das zu spezifizierende Anwendungssystem._
+
+_Als Akteure können auftreten:_
+
+* _Benutzer des Anwendungssystems, geordnet nach ihrer Organisationszugehörigkeit oder Rolle_
+* _andere Anwendungssysteme, die angebotene Schnittstellen des Anwendungssystems nutzen_
+* _das Anwendungssystem selbst, wenn es seine Batches oder andere automatisierte Prozesse ausführt_
+
+_Man sollte in der Wahl der Akteure menschliche Benutzer, die das Anwendungssystem indirekt nutzen, bevorzugen gegenüber anderen, vorgeschalteten Anwendungssystemen._
+
+_Namen von Akteuren beginnen mit dem Präfix „AKR_“ gefolgt vom Klarnamen mit Unterstrichen statt Leerzeichen._
+
+[[table-akteure]]
+.Akteure von <System>
+[cols="2,6", options="header"]
+|===
+|*Name* |*Ziel*
+|_Name des Akteurs_ |_Ziel des Akteurs_
+|===
+
+[[anwendungskomponente-ankbezeichnung-anwendungskomponente]]
+=== Anwendungskomponente ANK_<Bezeichnung der Anwendungskomponente>
+
+_Am Anfang jeder Anwendungskomponentenbeschreibung steht ein Überblick über die Anwendungsfälle.
+Er besteht aus der Liste der Anwendungsfälle und einem Anwendungsfalldiagramm._
+
+_Das Anwendungsfalldiagramm ist ein grafischer Überblick über die Anwendungsfälle.
+Es bietet oft einen schnelleren Überblick als die Liste der Anwendungsfälle.
+Zur übersichtlichen Darstellung kann ein Anwendungsfalldiagramm ausschließlich mit den Akteuren verwendet werden._
+
+[[uebersicht-ankmeldung]]
+.ANK_Meldung
+image::vorlage-systemspezifikation/ankmeldung.png[]
+
+****
+Erstellung des Diagramms im Enterprise Architect:
+
+_Die Klammer um alle Anwendungsfälle und Batches bildet die Anwendungskomponente.
+Deren Element zieht man aus dem UML-Profil „Anwendungsfälle“ ins Diagramm.
+Die Akteure ordnet man außerhalb der Komponente an und verknüpft sie über den Verbinder „FührtAnwendungsfallAus“ mit den Anwendungsfällen.
+Die Stereotypen an den Verbindern blendet man aus._
+
+_Die textuell aufgezählten Elemente sollen als Verweise dienen.
+Ihre Reihenfolge ist alphabetisch. Man muss sie in dieser und den nachfolgenden Stellen, und am besten auch im Text, mit Hyperlink auf die zugehörige Überschrift versehen.
+Hier könnte ein Word-Makro hilfreich sein._
+****
+
+[[anwendungsfall-awfbezeichnung-anwendungsfalls]]
+==== Anwendungsfall AWF_<Bezeichnung des Anwendungsfalls>
+
+_Die Anwendungsfälle (engl. Use-Cases) spezifizieren die Funktionalität eines Anwendungssystems.
+Ein Anwendungsfall beschreibt das Verhalten und die Interaktion eines Anwendungssystems als Reaktion auf die zielgerichtete Anfrage oder Aktion eines Akteurs über eine Schnittstelle oder im Dialog.
+Anwendungsfälle enthalten eine textuelle Beschreibung der Außensicht des Anwendungssystems in Form von Abläufen.
+Die Beschreibung erfolgt in der Sprache der Anwender._
+
+_Mögliche Fehlerquellen beim Schreiben von Anwendungsfällen sind:_
+
+* _Zu frühe Betrachtung von Sonderfällen: +
+Es ist wichtig, dass der Standardablauf eines Anwendungsfalls deutlich erkennbar ist.
+Das kann man z.B. dadurch erreichen, dass man erst einmal nur diesen mit durchnummerierten Schritten beschreibt und in einem anschließenden Abschnitt "Alternative Abläufe" die Ausnahmen bezogen auf die einzelnen Schritte des Standardablaufs beschreibt._
+* _Zu detaillierte Beschreibung der Anwendungsfälle: +
+Insbesondere die detaillierte Beschreibung des Ablaufes der Dialoge.
+Anwendungsfälle sollten das fachliche Verhalten des Anwendungssystems ohne konkrete Referenz auf die Benutzeroberfläche beschreiben. +
+Beispiel: +
+Nicht: „Der Anwender öffnet den Dialog ... Er erfasst ... Er betätigt die ok-Taste. Das Anwen­dungssystem zeigt die Maske ... mit...“ +
+Sondern: „Der Anwender erfasst die Daten des Vertrages.
+Daraufhin berechnet das Anwendungs­system die Raten und zeigt sie zur Kontrolle an“. +
+ +
+Die Dialoge werden in der Dialogspezifikation explizit beschrieben. Die Beschreibung der Anwendungsfälle sollte nicht mit der Spezifikation der Dialoge vermischt werden, da nicht unbedingt eine 1:1-Beziehung Anwendungsfall zu Dialog besteht._
+* _Funktionale Zerlegung mit Anwendungsfällen: +
+Beim Versuch einer möglichst redundanzfreien Beschreibung wird oft versucht, Anwendungsfälle funktional zu zerlegen.
+Die Anwendungsfälle, die dabei entstehen, sind im Allgemeinen zu klein und zu trivial, da der Gesamtzusammenhang verloren geht.
+Ein gutes Maß für die Granularität des Anwendungsfalles ist die Frage: „Bringt dieser Anwendungsfall ein für den Benutzer sichtbares Ergebnis?“
+Um umfangreiche oder mehrfach verwendete Funktionalität zu kapseln, sollten stattdessen Anwendungsfunktionen verwendet werden._
+* _Mehrdeutig formulierte Anwendungsfälle: +
+Bei der Beschreibung der Anwendungsfälle auf einen eindeutigen Satzbau achten. Das heißt:_
+** _Füllwörter wie eventuell, gegebenenfalls, und/oder vermeiden_
+** _Passivsätze vermeiden_
+** _Genaue Formulierungen benutzen: Wer tut wann was? Welche Hilfsmittel benutzt er dazu?_
+
+ Beispiel:
+ Nicht: „Die Parameter für die Personensuche werden eingegeben und die zugehörige Person ermittelt. Gegebenenfalls müssen die Suchparameter erneut eingegeben werden.“
+ Sondern: „Standardablauf:
+ 1. Der Benutzer erfasst die Parameter für die Personensuche und bestätigt die Eingabe.
+ 2. Das Anwendungssystem prüft die Eingabeparameter auf Vollständigkeit und Plausibilität.
+ 3. Das Anwendungssystem ermittelt die Treffermenge zu den Suchparametern.
+ 4. Das Anwendungssystem zeigt dem Benutzer die Treffermenge an. 1. alternativer Ablauf: 2a. Die Suchparameter sind nicht vollständig.
+ Das Anwendungssystem fordert den Benutzer auf, die Parameter zu ergänzen. 2. Alternativer Ablauf: 2a. Die Suchparameter sind nicht plausibel.
+ Das Anwendungssystem fordert den Benutzer auf, die Parameter zu korrigieren.
+
+_Allgemein gültige Plausibilisierungen und Geschäftsregeln können im Datenmodell oder der Datentypbeschreibung hinterlegt werden.
+Sie müssen in der Anwendungsfallbeschreibung nicht berücksichtigt werden, was die Anwendungsfallbeschreibung kompakter macht.
+Bestimmte Plausibilisierungen sind auch am Besten in der Dialog-Spezifikation (Abschnitt „Dialoge“) aufgehoben.
+Bei der Verteilung von Plausibilisierungen auf mehrere Spezifikationsteile müssen an zentraler Stelle Hinweise erfolgen und klare Kriterien genannt werden.
+Dafür bietet sich der Abschnitt „9.7 Querschnittskonzepte“ an._
+
+_Namen von Anwendungsfällen beginnen mit dem Präfix +„AWF_“+ gefolgt von einem Substantiv und einem Verb, z.B. „AWF_Visumantrag_prüfen“.
+Falls nötig kann noch ein Adjektiv vor das Substantiv gestellt werden.
+Der Titel ist ein eindeutiger Bezeichner des Anwendungsfalls. Er sollte so formuliert sein, dass er möglichst prägnant Hinweise auf Akteur und Ziel gibt._
+
+[[table-anwendungsfall-abc]]
+[cols="2,6", options="header"]
+|===
+2+| Anwendungsfall
+|*Kurzbeschreibung* |_Zusammenfassung des Ablaufs mit Ziel des Anwendungsfalls in wenigen Sätzen.
+Das Ziel ist die Absicht und der Grund, weshalb der Akteur den Anwendungsfall überhaupt anstößt._
+|*Akteure* a|
+_Rollen (von Personen), die den Anwendungsfall auslösen_
+
+_Namen von Rollen beginnen mit dem Präfix +„AKR_“+, gefolgt von einem Substantiv._
+
+|*Vorbedingungen/ +
+auslösendes Ereignis* a|
+_Die Vorbedingungen beschreiben alle relevanten und nichttrivialen Voraussetzungen, die erfüllt sein müssen, damit der Anwendungsfall durchgeführt werden kann._
+
+_Auslöser für die Durchführung des Anwendungsfalls sind Ereignisse wie auslösende Handlungen anderer Akteure oder zeitgesteuerte Aktivitäten._
+
+_Da Vor- und Nachbedingungen alternativ gelten können, hat sich folgende Schreibweise bewährt: Als Aufzählung mit Bulletpoints werden die Alternativen genannt.
+Innerhalb eines Bulletpoints gelten alle Bedingungen gemeinsam.
+Wenn es nur „eine Alternative“ gibt, kann der Bulletpoint weggelassen werden._
+
+|*Nachbedingungen/ +
+Ergebnisse* a|
+_Beschreibung des erwarteten Zustandes nach Ausführung des Anwendungsfalls.
+Wenn möglich Verweis auf erzeugte Daten (d.h. Referenz zum Datenmodell) und Liste der fachlichen Fehlersituationen mit Beschreibung._
+
+_Die Nachbedingungen beschreiben den Zustand, wenn der Anwendungsfall abgeschlossen ist.
+Sie beziehen sich auf die Bedingungen, die in der Vorbedingung genannt sind._
+
+|*Standardablauf* a|
+_Der Standardablauf ist der Ablauf von Aktionen der Akteure und des Anwendungssystems, also die Interaktion zwischen Akteur und Anwendungssystem, mit welchem der Akteur das Ziel erreicht.
+Aus dem Ablauf geht eindeutig hervor, was vom Anwender getan wird und was das Anwendungssystem tut.
+Die Beschreibung des Ablaufs ist in der Regel ausführlicher als in der Kurzbeschreibung.
+Man muss aber darauf achten, dass sie nicht unnötig umfangreich wird und prägnant bleibt._
+
+_Auch dialoglastige Anwendungsfälle beschreiben das fachliche Verhalten des Anwendungssystems ohne konkrete Referenz auf die Benutzeroberfläche.
+Die Dialoge werden separat in der Dialogspezifikation beschrieben._
+
+_Die einzelnen Schritte werden durchnummeriert._
+
+_Falls die Beschreibung des Ablaufs bzw. einzelner Schritte zu komplex wird oder große Redundanzen zu anderen Anwendungsfällen entstehen, kann Funktionalität in Anwendungsfunktionen ausgelagert werden.
+Im Ablauf des Anwendungsfalls wird dann nur noch beschrieben, an welcher Stelle die Anwendungsfunktion angestoßen wird._
+
+_Fachliche Spezial-Begriffe werden in der Ablauf-Beschreibung als bekannt vorausgesetzt.
+Die Definition der Begriffe erfolgt im Glossar._
+
+_Falls der Anwendungsfall Zustandsänderungen auf Entitäten bewirkt, braucht nur die Änderung aus fachlicher Sicht genannt zu werden.
+Das formale und umfassende Zustandsmodell des Entitätstypen wird separat im Abschnitt „Fachliche Grundlagen“ beschrieben._
+
+_Einfache Plausibilisierungen von Daten und die daraus resultierenden Fehlermeldungen gehören nicht zum Ablauf.
+Sie ergeben sich aus dem Datentyp und werden im Datenmodell beschrieben._
+
+|*Alternative Abläufe* a|
+_Alternative Abläufe, die in der Abfolge der Schritte wesentlich vom Standardablauf abweichen, können hier separat beschrieben werden.
+Die Trennung in Standardablauf und alternative Abläufe hilft, die Standardvariante einfach und übersichtlich zu halten._
+
+_Verschiedene Alternativabläufe werden durch Zwischenüberschriften getrennt._
+
+_Der Bezug zu den Schrittnummern im Standardablauf wird informell hergestellt.
+Z.B. „Anstelle von Schritt 3-5 selektiert der Benutzer...“ oder „Im Falle einer Zweitmeldung zeigt das Anwendungssystem...“.
+Eine formale Zuordnung anhand einer Nummernsystematik wie z.B. „3b“ o.ä. würde die Lesbarkeit deutlich erschweren.
+In Alternativabläufen werden nur die abweichenden Schritte beschrieben.
+Es wird davon ausgegangen, dass alle nicht beschriebenen Schritte gleich dem Standardablauf sind._
+
+_Kleinere Varianten, welche die Komplexität nur unwesentlich erhöhen (z.B. „sonst bricht das System die Verarbeitung mit einem sprechenden Fehler ab.“), können in den Standardablauf mit eingearbeitet werden._
+
+_Die Erweiterungen beschreiben alternative Abläufe des Standardablaufs.
+Falls eine Erweiterung zu komplex wird, sollte sie als eigener Anwendungsfall beschrieben werden._
+
+_Typische alternative Abläufe sind Fehlerfälle. Fehlerfälle sind Abweichungen zum Standardablauf, die zu einem unerwünschten Verlauf oder gar zum Abbruch des Anwendungsfalls führen._
+
+|===
+
+_Das Anwendungsfalldiagramm zeigt den Anwendungsfall im Mittelpunkt.
+Zugehörige Dialoge, Entitäten, Nachbarschnittstellen und Nichtfunktionale Anforderungen sind um den Anwendungsfall angeordnet.
+Nichtfunktionale Anforderungen kann man hier darstellen, sofern sie spezifisch für den Anwendungsfall sind. Übergreifende Nichtfunktionale Anforderungen stellt man *nicht* bei jedem Anwendungsfall dar._
+
+
+[[awf-erstanmeldung-durchfuehren-0]]
+.Anwendungsfall: AWF_Erstmeldung_durchführen
+image::vorlage-systemspezifikation/awferstmeldungdurchfuehren.png[]
+
+****
+Erstellung des Diagramms im Enterprise Architect:
+
+_Für die Verbindung zwischen dem Anwendungsfall und den zugehörigen Elementen nutzt man Stereotypen, die die Art der Verbindung beschreiben.
+Diese Verbinder stammen durchgängig aus dem UML-Profile für Anwendungsfälle._
+
+_Zur Darstellung von Dialogen zieht man den Ordner des Dialogs in das Diagramm, färbt ihn ein und blendet seine Inhalte aus._
+
+_Zur Verknüpfung der angebotenen Nachbarschnittstellen mit dem Anwendungsfall verwendet man den Ver-binder „FührtAnwendungsfallAus“ aus dem UML-Profil „Nachbarschnittstellen“ - Der gleichnamige Verbinder aus dem UML-Profil „Anwendungsfälle“ ist nur für die Verbindung zwischen Akteur und Anwendungsfall vorgesehen._
+
+_Zur Verknüpfung mit anderen, aufgerufenen Anwendungsfällen verwendet man den Verbinder „VerwendetAnwendungsfall“._
+
+_Schließlich blendet man alle Verbinder zwischen Elementen aus, außer sie verbinden die Elemente mit dem Anwendungsfall._
+****
+_Für den Ablauf komplexer Anwendungsfälle kann man zusätzlich ein UML-Aktivitätendiagramm zeichnen.
+Das UML-Diagramm enthält die Abfolge der aufgerufenen Benutzeraktionen, Anwendungsfunktionen und deren Schnittstellenaufrufe.
+Dabei wird nur die oberste Ebene der Anwendungsfunktionen dargestellt.
+Wenn also eine Anwendungsfunktion selbst weitere aufruft, wird dies nicht dargestellt._
+
+
+[[awf-meldung-durchfuehren]]
+.AWF_Erstmeldung_durchführen
+image::vorlage-systemspezifikation/awfmeldungspeichern.png[]
+
+****
+Erstellung des Diagramms im Enterprise Architect:
+
+_Start und Ende des Ablaufs sowie Verzweigungen erstellt man mit dem UML-Profil „Anwendungsfälle“._
+
+_Man zieht die Elemente „Anwendungsfunktion“ und ggf. „Benutzeraktion“ in ein Activity Diagramm und benennt sie passend.
+Den Verbinder „Ablauf“ nutzt man für die Übergänge zwischen den Elementen, außer bei Nachbarschnittstellen.
+Die Stereotypen im der Ablauf-Verbinder blendet man aus._
+
+_Mit [Strg] + Mausklick kann man Ecken in den Verbindern hinzufügen._
+
+_Im Kontextmenü des Verbinders gibt man mit „General > Name“ in eckigen Klammern an, welche Bedingung nach einer Verzweigung gilt.
+Wenn die Verzweigung sich aus dem Ergebnis einer Anwendungsfunktion ergibt, kann man das Verzweigungssymbol weglassen, um die Lesbarkeit zu erhöhen.
+Im Kontextmenü der Start- und Ende-Elemente entfernt man unter „Properties…“ den Stereotyp „Start“ bzw. „Ende“ und setzt den Namen fachlich sinnvoll._
+****
+
+[[anwendungsfall-awfbezeichnung-anwendungsfalls-1]]
+==== Anwendungsfall AWF_<Bezeichnung des Anwendungsfalls>
+
+_Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier weitere Anwendungsfälle der Anwendungskomponente zu beschreiben sind._
+
+[[batch-batbezeichnung-batches]]
+==== Batch BAT_<Bezeichnung des Batches>
+
+_Ein Batchprogramm realisiert eine eigenständige Verarbeitung ohne direkten Benutzereingriff während des Ablaufes.
+In diesem Abschnitt wird ein batchverarbeitendes Programm des Anwendungssystems fachlich beschrieben (Konfiguration, Abhängigkeiten, Datenvolumen, etc.).
+Batches können Anwendungsfälle für die Durchführung ihrer Fachlichkeit aufrufen oder eigenständig arbeiten;
+die Definition und das Layout der Ein- und Ausgaben werden in den Vor- und Nachbedingungen des Batches beschrieben und bei entsprechender Komplexität als Druckstücke erfasst.
+Falls Abhängigkeiten zwischen Batchprogrammen bezüglich des Aufrufs bestehen, werden diese als Teil des Diagramms der Anwendungskomponente dargestellt._
+
+[[table-batch-abc]]
+[cols="2,6", options="header"]
+|===
+2+| Batch
+
+|*Kurzbeschreibung* |_Ein oder zwei Sätze zum Zweck des Batches._
+|*Vorbedingungen/ auslösendes Ereignis* |_Welche Kriterien müssen für den Start des Batchprogrammes erfüllt sein?
+Welche Kriterien müssen für die Verarbeitung eines Datensatzes erfüllt sein?
+Mit welchen Parametern kann das Batchprogramm gestartet werden?_
+|*Nachbedingungen/ +
+Ergebnisse* |_Was muss nach Ablauf des Batchprogramms erfüllt sein?
+Welche Ausgänge kann der Ablauf des Batchprogramms haben?_
+|*Erwartetes +
+Datenvolumen* |_Wie viele Datensätze werden maximal und durchschnittlich vom Batchprogramm verarbeitet?_
+|*Wiederanlauffähigkeit* |_Wie flexibel reagiert der Batch im Fehlerfall? Kann er erneut gestartet werden?
+Bearbeitet er dann nur die zuvor noch nicht bearbeiteten Daten (Restart), oder bearbeitet er dann alle Daten noch einmal (Rerun)?_
+|*Standardablauf* |_Wie erfolgt die Ablaufsteuerung?
+Welche Abhängigkeiten gibt es zu anderen Batches?
+In welcher Reihenfolge und mit welcher Priorität erfolgt der Ablauf?_
+|*Alternative Abläufe* |_Welche alternativen Abläufe zum Standardablauf sind möglich (z.B. technische Fehlerbehandlung)?_
+|*Verwendete +
+Anwendungsfälle* |_Welche Anwendungsfälle werden im Ablauf des Batchprogrammes aufgerufen?_
+|===
+
+_Falls Abhängigkeiten zwischen dem Batch und Anwendungsfällen oder anderen verknüpften Elemente der Spezifikation bestehen, werden diese in einem UML-Komponentendiagramm dargestellt._
+
+[[bat-meldungsdatei-verarbeiten]]
+.Batch: BAT_Meldungsdatei_verarbeiten
+image::vorlage-systemspezifikation/batmeldungsdateiverarbeiten.png[]
+
+****
+Erstellung des Diagramms im Enterprise Architect:
+
+_Man zieht den Batch aus dem UML-Profil „Batches“ in ein Component Diagramm.
+Die Verbinder nutzt man analog zum Anwendungsfalldiagramm.
+Zusätzlich nutzt man den Verbinder mit Stereotyp „FührtAus“ aus dem UML-Profil, um den Batch mit dem Anwendungsfall zu verbinden._
+****
+
+[[batbezeichnung-batches]]
+==== BAT_<Bezeichnung des Batches>
+
+_Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier weitere Batches zu beschreiben sind._
+
+[[anwendungsfunktionen]]
+==== Anwendungsfunktionen
+
+_Die Spezifikation der Anwendungsfunktion beschreibt Ausschnitte von Anwendungsfällen, die ohne Unterbrechung vom Anwendungssystem, gegebenenfalls unter Benutzung von Schnittstellen zum Nachbarsystem, ausgeführt werden.
+Die Beschreibung der Anwendungsfunktionen ähnelt der Beschreibung eines Anwendungsfalls.
+Dabei wird wesentlich stärker auf den Aspekt "Wie soll das Anwendungssystem eine Verarbeitung durchführen" eingegangen.
+Die Anwendungsfunktionen sind der Komponente zugeordnet, deren Funktionalität sie umsetzen._
+
+_Anwendungsfunktionen dienen der Beschreibung komplexer Verarbeitungen, die vom Anwendungssystem im Rahmen eines Anwendungsfalls durchgeführt werden.
+Die Anwendungsfälle verweisen auf die Anwendungsfunktionen._
+
+_Die Ausgliederung von Anwendungsfunktionen aus den Anwendungsfällen bringt die folgenden Vorteile:_
+
+* _Gliederung langer Anwendungsfall-Abläufe: Die Anwendungsfallspezifikation wird kompakter und leichter lesbar._
+* _Wiederverwendung von Funktionalität: Mehrfach verwendete Funktionalität wird in Anwendungsfunktionen nur einmal beschrieben._
+
+_Anwendungsfunktionen können einander aufrufen. Hierarchische Beziehungen zwischen Anwendungsfunktionen werden nicht empfohlen.
+Sie erschweren die Verständlichkeit und nehmen das Design vorweg._
+
+_Namen von Anwendungsfunktionen beginnen mit dem Präfix „AFU__“ _gefolgt von einem Substantiv, einem Unterstrich und einem Verb, z.B. „AFU_Treffer_bewerten“.
+Falls nötig kann noch ein Adjektiv vor das Substantiv gestellt werden.
+Der Titel ist ein im Kontext der Anwendung eindeutiger Bezeichner der Anwendungsfunktion.
+Er sollte so formuliert sein, dass er möglichst prägnant Hinweise auf Akteur und Ziel gibt._
+
+[[anwendungsfunktion-afubezeichnung-anwendungsfunktion-5]]
+===== Anwendungsfunktion AFU_<Bezeichnung der Anwendungsfunktion>
+
+_Anwendungsfunktionen werden gemäß der nachfolgenden Tabelle textuell beschrieben._
+
+[[table-anwendungsfunktionen]]
+[cols="2,6", options="header"]
+|===
+2+| Anwendungsfunktion
+|*Kurzbeschreibung* |_Ein erster Überblick darüber, was die Funktion tut._
+|*Vorbedingungen/ +
+auslösendes Ereignis* |_Vorbedingungen sind alle Randbedingungen, die für die Durchführung der Funktion erfüllt sein müssen und innerhalb der Funktion nicht mehr geprüft werden.
+Außerdem werden hier auch die Eingaben (Parameter etc.) angegeben._
+|*Nachbedingungen/ +
+Ergebnisse* |_Das Ergebnis ist die Außenwirkung der Ausführung der Funktion.
+Hierbei kann Bezug auf die Konsistenzbedingungen und den Ablauf genommen werden.
+Triviale Ergebnisse ("Ablauf ist abgelaufen", "Konsistenzbedingungen geprüft") können entfallen._
+|*Standardablauf* a|
+_Der Standardablauf beschreibt die einzelnen Teilschritte zur Durchführung der Funktion.
+Insbesondere können hier andere Anwendungsfunktionen aufgerufen werden.
+Hier erfolgt auch die Beschreibung komplexer Verarbeitungsschritte._
+
+_Die einzelnen Schritte werden durchnummeriert._
+
+|*Alternative Abläufe* |_Alternative Abläufe der Anwendungsfunktion (z.B. Fehlersituationen) können hier beschrieben werden._
+|===
+
+[[anwendungsfunktion-afubezeichnung-anwendungsfunktion-2]]
+===== Anwendungsfunktion AFU_<Bezeichnung der Anwendungsfunktion>
+
+_Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier weitere Anwendungsfunktionen zu beschreiben sind._
+
+[[anwendungskomponente-ankbezeichnung-anwendungskomponente-3]]
+=== Anwendungskomponente ANK_<Bezeichnung der Anwendungskomponente
+
+_Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier weitere Anwendungskomponenten zu beschreiben sind._
+
+// end::inhalt[]
+

@@ -28,44 +28,14 @@ public class IsyTaskConfigurationProperties {
 
     public static class TaskConfig {
 
-        /** User name. **/
-        private String benutzer;
-
-        /** Password. **/
-        private String passwort;
-
-        /** Behoerdenkennzeichen. **/
-        private String bhkz;
+        /** OAuth 2.0 Client Registration ID to use for authentication. */
+        private String oauth2ClientRegistrationId;
 
         /** Host name. **/
         private String host;
 
         /** Task activation flag. **/
         private Boolean deaktiviert = false;
-
-        public String getBenutzer() {
-            return benutzer;
-        }
-
-        public void setBenutzer(String benutzer) {
-            this.benutzer = benutzer;
-        }
-
-        public String getPasswort() {
-            return passwort;
-        }
-
-        public void setPasswort(String passwort) {
-            this.passwort = passwort;
-        }
-
-        public String getBhkz() {
-            return bhkz;
-        }
-
-        public void setBhkz(String bhkz) {
-            this.bhkz = bhkz;
-        }
 
         public String getHost() {
             return host;
@@ -81,46 +51,23 @@ public class IsyTaskConfigurationProperties {
         public void setDeaktiviert(Boolean deaktiviert) {
             this.deaktiviert = deaktiviert;
         }
+
+        public String getOauth2ClientRegistrationId() {
+            return oauth2ClientRegistrationId;
+        }
+
+        public void setOauth2ClientRegistrationId(String oauth2ClientRegistrationId) {
+            this.oauth2ClientRegistrationId = oauth2ClientRegistrationId;
+        }
     }
 
     public static class Default {
 
-        /** Default User name. **/
-        private String benutzer;
-
-        /** Default Password. **/
-        private String passwort;
-
-        /** Default Behoerdenkennzeichen. **/
-        private String bhkz;
-
+        /** Default OAuth 2.0 Client Registration ID to use for authentication. */
+        private String oauth2ClientRegistrationId;
 
         /** Default host name. **/
         private String host = ".*";
-
-        public String getBenutzer() {
-            return benutzer;
-        }
-
-        public void setBenutzer(String benutzer) {
-            this.benutzer = benutzer;
-        }
-
-        public String getPasswort() {
-            return passwort;
-        }
-
-        public void setPasswort(String passwort) {
-            this.passwort = passwort;
-        }
-
-        public String getBhkz() {
-            return bhkz;
-        }
-
-        public void setBhkz(String bhkz) {
-            this.bhkz = bhkz;
-        }
 
         public String getHost() {
             return host;
@@ -128,6 +75,14 @@ public class IsyTaskConfigurationProperties {
 
         public void setHost(String host) {
             this.host = host;
+        }
+
+        public String getOauth2ClientRegistrationId() {
+            return oauth2ClientRegistrationId;
+        }
+
+        public void setOauth2ClientRegistrationId(String oauth2ClientRegistrationId) {
+            this.oauth2ClientRegistrationId = oauth2ClientRegistrationId;
         }
     }
 

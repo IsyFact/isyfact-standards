@@ -1,4 +1,6 @@
 # 3.0.0
+- `IFS-2561`: [isy-security] Die Konfiguration via `rollenrechte.xml` erfolgt optional.
+  * Initialisierung mit Standardwerten
 - `IFS-2422`: [isyfact-serviceapi-core] Deprecation des isy-serviceapi-core Bausteins
 - `IFS-2273`: [isyfact-standards-doc] Einheitliche Deprecation-Warnung für die Dokumentation
 - `IFS-2449`: [isyfact-standards-doc] Aufnahme von Testcontainers in den Produktkatalog
@@ -55,6 +57,10 @@
 - `IFS-1853`: [isy-batchrahmen] Umstellung von `isy-sicherheit` und `isy-aufrufkontext` auf neuen Baustein `isy-security`
   #### _Breaking Change:_
   * Die Konfiguration von `benutzer`, `passwort` und `bhknz` erfolgt über isy-security ClientRegistrations. Batches müssen nur noch eine `oauth2ClientRegistrationId` zur Authentifizierung bereitstellen. Die Methode `getAuthenticationCredentials` der `BatchAusfuehrungsBean` wurde entfernt.
+- `IFS-2416`: [isyfact-standards-bom] zentrale Versionsverwaltung von `isy-security`
+- `IFS-2416`: [isy-task] Umstellung von isy-sicherheit auf isy-security
+  #### _Breaking Change:_
+  * Die Konfiguration von `benutzer`, `passwort` und `bhknz` erfolgt über isy-security ClientRegistrations und für IsyTaskConfigurationProperties muss nur eine `oauth2ClientRegistrationId` zur Authentifizierung konfiguriert werden.
 - `ISY-372`: [isy-styleguide] JavaScript-Referenzen entfernt
 
 # 2.4.4

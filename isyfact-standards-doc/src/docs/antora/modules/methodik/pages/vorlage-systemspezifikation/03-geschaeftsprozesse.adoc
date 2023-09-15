@@ -1,0 +1,283 @@
+// tag::inhalt[]
+
+[[geschaeftsprozesse]]
+== Geschäftsprozesse
+
+_Die Spezifikation der Geschäftsprozesse beschreibt die fachlichen Abläufe, in die das zu erstellende Anwendungssystem eingebettet ist.
+Sie dienen dazu, die Systemgrenzen festzulegen, sowie den Kontext der Systembenutzung zu identifizieren und zu verstehen.
+Ein Geschäftsprozess wird oft nicht durch ein einzelnes Anwendungssystem, sondern erst durch das Zusammenspiel verschiedener Anwendungssysteme beim Kunden und den an seine Anwendungssysteme angeschlossenen externen Anwendungen umgesetzt.
+Entsprechend kann es sinnvoll sein, das Geschäftsprozessmodell als eigenes Dokument unabhängig von der restlichen Systemspezifikation zu notieren._
+
+_Geschäftsprozessmodelle helfen dem Auftragnehmer, den geschäftlichen Kontext des Auftraggebers zu verstehen.
+Für den Auftraggeber sind sie eine gute Basis, um Chancen für Prozessoptimierungen zu erkennen.
+Dieses Verständnis ist besonders dann wichtig, wenn bei einem Ablauf Objekte (d.h. physische Dinge und Daten) zwischen Personen und Organisationseinheiten weitergegeben werden sollen und dieser Ablauf durch ein Anwendungssystem unterstützt wird.
+Ist das Verständnis über diesen Ablauf bisher nicht vorhanden (im Team des Auftragnehmers und beim Auftraggeber), dient die Geschäftsprozessmodellierung dem Erkenntnisgewinn.
+Sind die Geschäftsprozesse bereits an anderer Stelle modelliert und beschrieben, wird hier diese Stelle referenziert._
+
+_Die wesentlichen Bestandteile der Spezifikation der Geschäftsprozesse sind Organigramm und Prozessbeschreibung.
+Ist- und Soll-Prozesse sollen getrennt beschrieben werden._
+
+_Die folgenden Fehler beim Einsatz der Geschäftsprozessmodellierung müssen vermieden werden:_
+
+* _Falscher Einsatzbereich +
+Für isolierte "Trivialanwendungen" (Datenpflege, Reporting) bringen Geschäftsprozessmodelle keine weiteren Erkenntnisse.
+Hier reicht es aus, die Schritte zu benennen und (später) als Anwendungsfälle kurz zu beschreiben.
+Eine grafische Darstellung des Ablaufes in Form von Geschäftsprozessmodellen ist überflüssig._
+* _Zu große Detaillierung +
+Die Abfolge von Eingaben und Masken an der Benutzeroberfläche sollte kein Inhalt des Geschäftsprozessmodells sein.
+Sie wird im Baustein Dialogspezifikation textuell oder als Interaktionsdiagramm beschrieben._
+* _Überspezifikation +
+Beschreibung von explizit modellierten Sachverhalten in Beschreibungstexten oder umgekehrt.
+Ein häufiges Beispiel für Überspezifikation (und Verletzung der Unabhängigkeit von der Implementierung) sind Bezeichner für Aktivitäten, die die assoziierten Anwendungssysteme enthalten._
+* _Mangelnde Fokussierung +
+Fachbereiche können den Anspruch haben, sämtliche Stützprozesse detailliert zu modellieren.
+Dies bringt aber für die Analyse der Kernprozesse häufig keinen Mehrwert, sondern im Gegenteil, die Stützprozesse machen das Prozessmodell unübersichtlicher.
+Zum Beispiel lohnt es sich nicht, die Aktivitäten für Posteingang, Hauspost und Aktenhaltung mit zu modellieren – es sein denn, es geht um die Einführung eines Dokumenten-Management-Systems._
+
+_Die Modellierung von Geschäftsprozessen verfolgt immer ein konkretes Ziel.
+Dies ist meist die Feststellung von Optimierungsbedarfen bzgl. der Organisation der Abläufe oder der IT-Unterstützung.
+Je nach Ziel des Projekts muss im Vorfeld festgelegt werden, welche Elemente im Modell enthalten sein müssen und welche nicht für die Erreichung des Ziels notwendig sind.
+So ist für die Feststellung eines IT-Optimierungspotenzials die Modellierung von Anwendungssystemen essentiell, weniger aber die Modellierung von Akteuren oder Wahrscheinlichkeiten für das Durchlaufen einzelner Zweige im Modell._
+
+_Die Abläufe innerhalb eines Geschäftsprozesses unterteilen sich in Geschäftsvorfälle, die wiederum aus einzelnen Aktivitäten bestehen.
+Daraus ergibt sich für die Beschreibung die folgende Struktur des Dokuments.
+Auch hier muss bei der Festlegung der Ziele für die Prozessmodellierung festgelegt werden, bis zu welchem Detaillierungsgrad die Modellierung sinnvoll ist. Z.B. kann es genügen, die Geschäftsprozesse und –vorfälle textuell und grafisch zu beschreiben, die Aktivitäten hingegen nur textuell in der Beschreibung der Geschäftsvorfälle zu definieren._
+
+_Die Geschäftsprozesse werden in der Masterspezifikation als eigenes Dokument gepflegt.
+Änderungen an den Geschäftsprozessen werden spätestens mit der Übernahme der Systemspezifikation in die Masterspezifikation nachgepflegt._
+
+[[gesamtverfahren-name-gesamtverfahrens]]
+=== Gesamtverfahren <Name des Gesamtverfahrens>
+
+_Ein Kontextdiagramm zeigt alle Geschäftsprozesse mit beteiligten Organisationseinheiten und Anwendungssystemen (UML-Aktivitätendiagramm)._
+
+[[beispiel-gesamtverfahren]]
+.Gesamtverfahren <Name des Gesamtverfahrens>
+image::vorlage-systemspezifikation/beispiel-gesamtverfahren.png[]
+
+****
+Erstellung des Diagramms im Enterprise Architect:
+
+_Man zieht Organisationseinheiten aus dem UML-Profil „Organisation“ in ein Analysis-Diagramm und benennt sie mit Präfix +„ORG_“+.
+Dann zieht man den Ordner des Gesamtverfahrens in das Diagramm und blendet seine Inhalte aus.
+Man zieht neue Geschäftsprozesse und Anwendungssysteme aus dem UML-Profil „Prozesse“ in das Diagramm und benennt sie mit Präfix +„GEP_“+ bzw. +„SYS_“+.
+Schließlich nutzt man den Verbinder IstBeteiligtAn, um die Organisationseinheiten und die Systeme mit den Geschäftsprozessen zu verbinden._
+****
+
+[[geschaeftsprozess-gep-bezeichnung-geschaeftsprozesses]]
+==== Geschäftsprozess GEP_<Bezeichnung des Geschäftsprozesses>
+
+_Ein Geschäftsprozess ist eine funktions- und stellenübergreifende Folge von Arbeitsschritten zur Erreichung eines geplanten Arbeitsergebnisses in einer Organisation (Unternehmen, Behörde, etc.).
+Er dient direkt oder indirekt zur Erzeugung einer Leistung für einen Kunden oder den Markt.
+Ein Geschäftsprozess kann sich aus Aufgaben im Sinn von elementaren Tätigkeiten (Aktivitäten) zusammensetzen.
+Diese Aktivitäten werden zu Geschäftsvorfällen zusammengefasst, welche die Bestandteile des Geschäftsprozesses bilden._
+
+_Als zu verwendende Namenskonvention beginnen alle Geschäftsprozessnamen mit dem Präfix +„GEP_“+, gefolgt von einem Substantiv und ggf. einem Unterstrich und einem Verb.
+Bei der Wahl des Namens ist darauf zu achten, dass dieser kurz und prägnant ist._
+
+_Der Geschäftsprozess wird textuell beschrieben, wobei das Ziel, die beteiligten Organisationseinheiten und der Ablauf benannt werden.
+Der Ablauf wird zusätzlich grafisch in einem Geschäftsprozessdiagramm (engl. Business Process Diagram - BPD) in der Geschäftsprozessmodellierungsnotation (engl. Business Process Modeling Notation - BPMN) dargestellt._
+
+[[gep-meldung]]
+.Geschäftsprozess: GEP_<Bezeichnung des Geschäftsprozesses>
+image::vorlage-systemspezifikation/gepmeldung.png[]
+
+****
+Erstellung des Diagramms im Enterprise Architect:
+
+Die am Geschäftsprozess beteiligten Organisationseinheiten zieht man als „Pools“ aus dem UML-Profil „Prozesse“.
+Die Geschäftsvorfälle, Start-, Ende- und Verzweigungselemente stammen aus demselben UML-Profil.
+Die Verbindung „Ablauf“ nutzt man zur Darstellung des Ablaufs der Geschäftsvorfälle je Organisationseinheit.
+Den Verbinder „Nachricht“ nutzt man, um zu zeigen, welche Nachrichten zwischen den Organisationseinheiten ausgetauscht werden.
+Falls ein Geschäftsvorfall nur unter bestimmten Bedingungen ausgeführt wird, zeigt man dies durch Auswahl von „Source Role > Aggregation > Shared“ und Angabe eines Namens in dessen Eigenschaften.
+Bei Bedarf kann man zusätzlich Verzweigungs-Elemente nutzen.
+****
+
+[[geschaeftsvorfall-gvf-bezeichnung-geschaeftsvorfalls]]
+===== Geschäftsvorfall: GVF_<Bezeichnung des Geschäftsvorfalls>
+
+_Ein Geschäftsvorfall ist die Bündelung elementarer Tätigkeiten (Aktivitäten) innerhalb eines Geschäftsprozesses, die durch ein Ereignis ausgelöst und dann lückenlos innerhalb einer Organisationseinheit bearbeitet werden._
+
+_Als zu verwendende Namenskonvention beginnen alle Geschäftsvorfallnamen mit dem Präfix +„GVF_“+, gefolgt von einem Substantiv, einem Unterstrich und einem Verb.
+Bei der Wahl des Namens ist darauf zu achten, dass dieser kurz und prägnant ist._
+
+_Der Geschäftsvorfall wird textuell beschrieben, wobei das Ziel, die beteiligten Organisationseinheiten und der Ablauf benannt werden.
+Der Ablauf wird zusätzlich grafisch in einem Geschäftsprozessdiagramm in der Geschäftsprozessmodellierungsnotation dargestellt._
+
+_Es werden nur diejenigen Geschäftsvorfälle beschrieben, die mindestens teilweise vom Auftraggeber durchgeführt werden._
+
+[[gvf-meldung-durchfuehren]]
+.Geschäftsvorfall GVF_Meldung_durchführen
+image::vorlage-systemspezifikation/geschaeftsvorfall-gvfmeldungdurchfuehren.png[]
+
+****
+Erstellung des Diagramms im Enterprise Architect:
+
+_Man baut das Diagramm analog zum Geschäftsprozess-Diagramm auf, fügt aber Aktivitäten statt Geschäftsvorfälle hinzu.
+Die Pools stellt man vertikal dar über ihr Kontextmenü mit „Advanced > Vertical Partition“.
+Persistente Daten und Dokumente fügt man aus dem UML-Profil „Prozesse“ hinzu._
+****
+
+[cols="2,6", options="header"]
+|===
+2+| Geschäftsvorfall
+|*Kurzbeschreibung* |_Zwei bis drei Sätze zur Beschreibung des Ziels, des Ablaufs und der beteiligten Organisationseinheiten (Rolle) des Geschäftsvorfalls._
+|*Vorbedingungen/ +
+auslösendes Ereignis* a|
+_Die Vorbedingungen beschreiben den Zustand aller relevanten und nichttrivialen Voraussetzungen, die erfüllt sein müssen, damit der Geschäftsvorfall durchgeführt werden kann.
+Sie werden als Punkte-Liste beschrieben.
+Jeder Punkt beschreibt ein Set an Vorbedingungen, welche vollständig gelten müssen._
+
+_Auslöser für den Geschäftsvorfall sind Ereignisse wie auslösende Handlungen anderer Akteure oder Zeitpunkte._
+
+|*Nachbedingungen/ +
+Ergebnisse* |_Beschreibung des erwarteten Zustandes nach Ausführung des Geschäftsvorfalls.
+Es kann hier auch mehrere Nachbedingungen geben, wenn es alternative Zustände nach der Ausführung gibt, z.B. Erfolg oder Fehler._
+|===
+
+[[aktivitaet-aktbezeichung-aktivitaet]]
+====== Aktivität AKT_<Bezeichung der Aktivität>
+
+_Eine Aktivität ist eine Tätigkeit, die einen elementaren, logischen Schritt innerhalb eines Geschäftsvorfalls bildet.
+Sie wird unterbrechungsfrei von einem Akteur ausgeführt.
+Eine Aktivität kann sowohl manuell als auch teilweise oder vollständig automatisiert (Computer-unterstützt) ablaufen (z.B. „Meldung prüfen“)._
+
+_Als zu verwendende Namenskonvention beginnen alle Aktivitätennamen mit dem Präfix +„AKT_“+, gefolgt von einem Substantiv, einem Unterstrich und einem Verb._
+
+_Die Aktivität wird gemäß der nachfolgenden Tabelle textuell beschrieben._
+
+_Es werden nur diejenigen Aktivitäten beschrieben, die vom Auftraggeber durchgeführt werden._
+
+[cols="2,6", options="header"]
+|===
+2+| Aktivität
+|*Organisationseinheit* |_Beteiligte Organisationseinheit oder Rolle._
+|*Kurzbeschreibung* |_Zwei bis drei Sätze zur Beschreibung des Ziels und des Ablaufs der Aktivität._
+|*Vorbedingungen/ +
+auslösendes Ereignis* a|
+_Die Vorbedingungen beschreiben den Zustand aller relevanten und nichttrivialen Voraussetzungen, die erfüllt sein müssen, damit die Aktivität durchgeführt werden kann.
+Sie werden als Punkte-Liste beschrieben.
+Jeder Punkt beschreibt einen Satz an Vorbedingungen, der vollständig gelten muss._
+
+_Auslöser für die Durchführung der Aktivität sind Ereignisse wie auslösende Handlungen anderer Akteure oder Zeitpunkte._
+
+|*Nachbedingungen/ +
+Ergebnisse* |_Beschreibung des erwarteten Zustandes nach Ausführung der Aktivität.
+Wenn möglich Verweise auf erzeugte persistente Daten oder Dokumente.
+Es kann hier auch mehrere Nachbedingungen geben, wenn es alternative Zustände nach der Ausführung gibt, z.B. Erfolg oder Fehler._
+|*Automatisierungsgrad* |_Inwieweit wird die Aktivität durch Anwendungssysteme unterstützt? Mögliche Ausprägungen sind „vollautomatisiert“, „teilautomatisiert“ und „manuell“._
+|*Beteiligte Systeme* |_Beteiligte Anwendungssysteme, wenn die Aktivität nicht manuell durchgeführt wird._
+|*Verwendete +
+Anwendungsfälle* |_Hier werden alle Anwendungsfälle als Spiegelstrichaufzählung aufgelistet, die die Aktivität umsetzen.
+Bei Beteiligung mehrerer Anwendungssysteme werden die Anwendungsfälle den Systemen zugeordnet._
+|===
+
+[[aktivitaet-aktbezeichnung-aktivitaet]]
+====== Aktivität AKT_<Bezeichnung der Aktivität>
+
+_Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier weitere Aktivitäten des Geschäftsvorfalls zu beschreiben sind._
+
+[[geschaeftsvorfall-gvfbezeichnung-geschaeftsvorfalls]]
+===== Geschäftsvorfall GVF_<Bezeichnung des Geschäftsvorfalls>
+
+_Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier weitere Geschäftsvorfälle und dazu gehörende Aktivitäten des Geschäftsprozesses zu beschreiben sind._
+
+[[geschaeftsprozess-gepbezeichnung-geschaeftsprozesses]]
+==== Geschäftsprozess GEP_<Bezeichnung des Geschäftsprozesses>
+
+_Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier weitere Geschäftsprozesse und dazu gehörende Geschäftsvorfälle und Aktivitäten zu beschreiben sind._
+
+[[dokumente]]
+==== Dokumente
+
+_Ein Dokument ist ein in Papierform oder elektronisch vorliegendes Schriftstück, das innerhalb der Geschäftsprozesse des Gesamtverfahrens genutzt oder erstellt wird._
+
+[[dokument-dokbezeichnung-dokuments]]
+===== Dokument DOK_<Bezeichnung des Dokuments>
+
+_In diesem Abschnitt wird ein Dokument des Gesamtverfahrens beschrieben._
+
+[[dokument-dokbezeichnung-dokuments-1]]
+===== Dokument DOK_<Bezeichnung des Dokuments>
+
+_Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier weitere Dokumente des Gesamtverfahrens zu beschreiben sind._
+
+[[persistente-datenhaltung]]
+==== Persistente Datenhaltung
+
+_Die verschiedenen Datenbestände des Gesamtverfahrens enthalten die Daten, die zur Ausführung der Geschäftsprozesse dauerhaft gespeichert werden.
+Eine Trennung der Daten in verschiedene Datenbestände kann durch die Aufteilung in verschiedene Organisationseinheiten oder unterschiedliche Zwecke der Datenhaltung begründet sein.
+Hier sollte neben der Beschreibung jedes Datenbestands auch eine grobe Mengenabschätzung der Größe des Datenbestands notiert werden._
+
+[[persistente-daten-datbezeichnung-datenbestands-1]]
+===== Persistente Daten DAT_<Bezeichnung des Datenbestands>
+
+_In diesem Abschnitt wird ein Datenbestand des Gesamtverfahrens beschrieben._
+
+[[persistente-daten-datbezeichnung-datenbestands-2]]
+===== Persistente Daten DAT_<Bezeichnung des Datenbestands>
+
+_Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier weitere Persistente Daten des Gesamtverfahrens zu beschreiben sind._
+
+[[organisationseinheiten]]
+=== Organisationseinheiten
+
+_Verschiedene Organisationseinheiten nehmen verschiedene Rollen im Ablauf eines Geschäftsprozesses wahr.
+Aktivitäten eines Geschäftsprozesses können von den beteiligten Organisationseinheiten manuell (d.h. durch Personen), automatisiert (d.h. im Auftrag der Organisationseinheiten durch Anwendungssysteme) oder teilautomatisiert durchgeführt werden.
+Dieselbe Organisationseinheit kann in verschiedenen Gesamtverfahren auftreten.
+Hier werden diese Organisationseinheiten mit ihren Aufgaben im Verfahren sowie ihrer Rolle im Geschäftsprozess beschrieben._
+
+_Ein Organigramm (UML-Komponentendiagramm) und eine textuelle Beschreibung geben einen Überblick über die beteiligten Organisationseinheiten (Rollen)._
+
+[[organigramm]]
+.Organigramm von <abc>
+image::vorlage-systemspezifikation/organigramm.png[]
+
+****
+Erstellung des Diagramms im Enterprise Architect:
+
+_Man fügt alle Organisationseinheiten aus dem UML-Profil „Organisation“ in ein Use Case Diagramm ein und ordnet sie an.
+Zusammengehörige Organisationseinheiten erhalten eine gemeinsame Boundary mit passendem Namen und Schriftart Arial Bold 14.
+Man nutzt die Verbinder aus demselben UML-Profil, um Organisationsstrukturen darzustellen._
+****
+
+[[organisationseinheit-orgbezeichnung-organisationseinheit-1]]
+==== Organisationseinheit ORG_<Bezeichnung der Organisationseinheit>
+
+_In diesem Abschnitt wird eine Organisationseinheit mit ihren Aufgaben im Verfahren sowie ihrer Rolle im Geschäftsprozess beschrieben._
+
+[[organisationseinheit-orgbezeichnung-organisationseinheit-2]]
+==== Organisationseinheit ORG_<Bezeichnung der Organisationseinheit>
+
+_Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier weitere Organisationseinheiten zu beschreiben sind._
+
+[[anwendungssysteme]]
+=== Anwendungssysteme
+
+_Anwendungssysteme unterstützen teilautomatisierte und automatisierte Aktivitäten. Anwendungssysteme werden in fachliche Anwendungsdomänen unterteilt, die z.B. nach den Zuständigkeiten der Fachbereiche geordnet sein können.
+In diesem Abschnitt werden die Domänen textuell erklärt und grafisch die Anwendungssysteme in die Domänen eingeordnet._
+
+[[anmeldungssysteme-domaenenzugehoerigkeit]]
+.Anwendungssysteme und Ihre Domänenzugehörigkeit
+image::vorlage-systemspezifikation/anwendungssysteme-ihre-domaenenzugehoerigkeit.png[]
+
+****
+Erstellung des Diagramms im Enterprise Architect:
+
+_Man zieht alle Anwendungssysteme in ein Use Case Diagramm.
+Dann ordnet man sie nach Anwendungsdomänen und zeichnet jede Domäne als Boundary mit Namen ein._
+****
+
+[[anwendungssystem-sysbezeichnung-anwendungssystems-1]]
+==== Anwendungssystem SYS_<Bezeichnung des Anwendungssystems>
+
+_In diesem Abschnitt wird ein Anwendungssystem beschrieben.
+Seine fachliche Zielsetzung wird beschrieben._
+
+[[anwendungssystem-sysbezeichnung-anwendungssystems-2]]
+==== Anwendungssystem SYS_<Bezeichnung des Anwendungssystems>
+
+_Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier weitere Anwendungssysteme zu beschreiben sind._
+
+// end::inhalt[]
+

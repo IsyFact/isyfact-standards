@@ -33,10 +33,6 @@
     <dependencies>
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
-            <artifactId>isy-aufrufkontext</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>de.bund.bva.isyfact</groupId>
             <artifactId>isy-datetime</artifactId>
         </dependency>
         <dependency>
@@ -49,7 +45,7 @@
         </dependency>
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
-            <artifactId>isy-sicherheit</artifactId>
+            <artifactId>isy-security</artifactId>
         </dependency>
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
@@ -140,6 +136,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>de.bund.bva.isyfact</groupId>
+            <artifactId>isy-security-test</artifactId>
+            <version>${project.parent.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

@@ -1,0 +1,36 @@
+// tag::inhalt[]
+
+[[schnittstellenverhalten]]
+== Schnittstellenverhalten
+
+_In diesem Kapitel soll das Verhalten der Schnittstellen beschrieben werden.
+Als Grundlage dient hierfür die Umsetzung der nicht-funktionalen Anforderungen aus der Systemspezifikation.
+Im Fokus steht vor allem das Performanzverhalten und mögliche Einschränkungen im Mengengerüst von Anfragen._
+
+[[performanz-antwortzeitverhalten]]
+=== Performanz und Antwortzeitverhalten
+
+_Das Antwortzeitverhalten von Nachbarsystemschnittstellen ist ein wichtiger Bestandteil der Schnittstellendokumentation, da es darüber Auskunft gibt, wie lange ein externes System in der Regel auf eine Antwort wartet.
+Oft erhält man hier Angaben wie "Antwortzeit beträgt max. 10 Sekunden".
+Falls das Performanz- und Antwortverhalten je Nachbarsystemschnittstelle differenziert, sollten die Angaben je Nachbarsystemschnittstelle dokumentiert werden.
+Die Angaben können je nach Umfang in Text- oder Tabellenform erfolgen._
+
+[[lastverhalten-mengengeruest]]
+=== Lastverhalten und Mengengerüst
+
+_Mengengerüste können sich auf Aspekte wie Benutzungshäufigkeit, zeitliche Verteilung der Benutzung, der Menge fachlicher Objekte und Datenvolumen beziehen.
+Zusammen mit dem Performanzverhalten stellt das Mengengerüst einen wichtigen Faktor in Leistung einer Schnittstelle dar.
+Zum Beispiel ist das Performanzverhalten nur dann aussagekräftig, wenn sie sich als Voraussetzung und Annahme auf ein konkretes Mengengerüst beziehen.
+Das Mengengerüst selbst ist auch ein wichtiger Aspekt, der für die Nutzung der Schnittstelle eine große Bedeutung besitzt._
+
+[[verfuegbarkeit]]
+=== Verfügbarkeit
+
+_In diesem Kapitel werden besondere Aspekte der Verfügbarkeit dokumentiert.
+Die Verfügbarkeit wird über einen Prozentwert gemessen, der unter Berücksichtigung von definierten Betriebs- und Wartungsfenstern angibt, wie ausfallsicher ein Anwendungssystem sein sollte und tatsächlich ist.
+Dokumentiert wird die geplante Betriebszeit.
+Zum Beispiel wird hier angegeben, dass die Schnittstelle jeweils Montag bis Freitag von 07:00 bis 19:00 Uhr zur Verfügung steht.
+lternativ wird auch einfach nur ein Prozentwert angegeben, zum Beispiel 99%._
+
+
+// end::inhalt[]
