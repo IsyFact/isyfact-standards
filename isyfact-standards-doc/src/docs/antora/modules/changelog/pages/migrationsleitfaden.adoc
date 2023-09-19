@@ -34,6 +34,15 @@ Spring HTTP-Invoker ist deprecated und wird ab sofort als Schnittstellenformat d
 Die Verwendung von REST-Schnittstellen wird im Baustein REST (siehe xref:isy-service-rest:konzept/master.adoc[] und xref:isy-service-rest:nutzungsvorgaben/master.adoc[]) erläutert.
 ====
 
+[WARNING]
+====
+Mit der Verwendung von `isy-security` in der IsyFact 3 wird standardmäßig anstelle von IsyFacts `AufrufKontext` Springs `SecurityContext` verwendet.
+
+Damit dennoch alte HTTP-Invoker Schnittstellen aufgerufen werden können (welche einen gefüllten AufrufKontext benötigen), wird eine spezielle `RemoteInvocationFactory` eingesetzt, welche Springs `SecurityContext` in ein `AufrufKontextTo` ad hoc per Request umwandelt.
+
+Weitere Informationen können unter
+xref:isy-serviceapi-core:nutzungsvorgaben/inhalt.adoc#kompatibilitaet_if1_2_3[Nutzungsvorgaben HTTP-Invoker] nachgelesen werden.
+====
 
 [[kapitel-dokumentation]]
 == Dokumentation
