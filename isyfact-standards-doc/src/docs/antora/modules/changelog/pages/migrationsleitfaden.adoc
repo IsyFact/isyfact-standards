@@ -17,6 +17,65 @@ Die auf dieser Seite aufgeführten Hinweise sollen IsyFact Anwendungsentwicklern
 [[kapitel-batchrahmen]]
 === Batchrahmen
 
+In IsyFact 3.0 wurde mit der Umstellung auf `isy-security` das Detailkonzept zur xref:blaupausen:detailkonzept-komponente-batch/inhalt.adoc#authentifizierung-und-autorisierung[Authentifizierung und Autorisierung] aktualisiert.
+Statt Benutzer, Passwort und BHKNZ muss in der Batch-Konfiguration eine `oauth2ClientRegistrationId` konfiguriert werden (siehe xref:blaupausen:detailkonzept-komponente-batch/inhalt.adoc#table-CharBatUse[Eigenschaften eines Batchbenutzers])
+
+[[batch-configuration-isy-sicherheit]]
+.Batch-Konfiguration zur Verwendung von isy-sicherheit in IsyFact 2
+[source,properties]
+----
+batch.benutzer=TestUser
+batch.passwort=TestPasswort
+batch.bhknz=TestBHKNZ
+
+# [...]
+----
+
+[[batch-configuration-isy-security]]
+.Batch-Konfiguration zur Verwendung von isy-security in IsyFact 3
+[source,properties]
+----
+batch.oauth2ClientRegistrationId=TestClient
+
+# [...]
+----
+
+Eine entsprechende Spring Security ClientRegistration wird durch `isy-security` xref:isy-security:nutzungsvorgaben/master.adoc#konfigurationsparameter[Konfigurationsparameter] bereitgestellt.
+Die folgenden Beispiele zeigen wie Konfigurationen nach der Migration aussehen können.
+Für die Batch-Konfiguration ist nicht relevant, ob die ClientRegistration den Resource-Owner-Password-Credentials Flow (`authorization-grant-type: password`) oder nach der empfohlenen Migration von technischen Nutzern zu Confidential Clients den Client-Credentials Flow (`authorization-grant-type: client_credentials`) nutzt.
+
+.Batch-Konfiguration mit technischen Nutzer
+[source,properties]
+----
+batch.registrationId=TestClient
+
+# [...]
+
+spring.security.oauth2.client.provider.TestRealm.issuer-uri=http://localhost:9095/auth/realms/testrealm
+spring.security.oauth2.client.registration.TestClient.client-id=test-client-id
+spring.security.oauth2.client.registration.TestClient.client-secret=test-client-secret
+spring.security.oauth2.client.registration.TestClient.authorization-grant-type=password
+spring.security.oauth2.client.registration.TestClient.provider=TestRealm
+
+# Benutzer, Passwort und BHKNZ werden auf die selbe registrationId abgebildet
+isy.security.oauth2.client.registration.TestClient.username=TestUser
+isy.security.oauth2.client.registration.TestClient.password=TestPasswort
+isy.security.oauth2.client.registration.TestClient.bhknz=TestBHKNZ
+----
+
+.Batch-Konfiguration nach Umstellung von technischem Nutzer auf Confidential Client
+[source,properties]
+----
+batch.oauth2ClientRegistrationId=TestClient
+
+# [...]
+
+spring.security.oauth2.client.provider.TestRealm.issuer-uri=http://localhost:9095/auth/realms/testrealm
+spring.security.oauth2.client.registration.TestClient.client-id=test-user-client-id
+spring.security.oauth2.client.registration.TestClient.client-secret=test-user-client-secret
+spring.security.oauth2.client.registration.TestClient.authorization-grant-type=client_credentials
+spring.security.oauth2.client.registration.TestClient.provider=TestRealm
+----
 
 [[kapitel-sicherheit]]
 === Sicherheit
