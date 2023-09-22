@@ -17,6 +17,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import de.bund.bva.isyfact.serviceapi.autoconfigure.IsyServiceApiSecurityAutoConfiguration;
 import de.bund.bva.isyfact.serviceapi.core.aop.service.httpinvoker.v1_0_0.DummyKontextServiceImpl;
 import de.bund.bva.isyfact.serviceapi.core.aop.service.httpinvoker.v1_0_0.DummyKontextServiceRemoteBean;
 import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
@@ -79,7 +80,7 @@ public class StelltLoggingKontextBereitTest {
     }
 
     @Configuration
-    @EnableAutoConfiguration
+    @EnableAutoConfiguration(exclude = IsyServiceApiSecurityAutoConfiguration.class)
     public static class TestConfig {
 
         @Bean

@@ -23,6 +23,8 @@ import java.util.UUID;
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.remoting.httpinvoker.HttpInvokerClientInterceptor;
+import org.springframework.remoting.support.DefaultRemoteInvocationFactory;
+import org.springframework.remoting.support.RemoteInvocationFactory;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
@@ -150,7 +152,17 @@ public class IsyHttpInvokerClientInterceptor extends HttpInvokerClientIntercepto
         this.aufrufKontextToResolver = aufrufKontextToResolver;
     }
 
+    /**
+     * Used to fill the request with further information.
+     */
+    @Override
+    @Autowired(required = false)
+    public void setRemoteInvocationFactory(RemoteInvocationFactory remoteInvocationFactory) {
+        super.setRemoteInvocationFactory(remoteInvocationFactory);
+    }
+
     public AufrufKontextToResolver getAufrufKontextToResolver() {
         return aufrufKontextToResolver;
     }
+
 }
