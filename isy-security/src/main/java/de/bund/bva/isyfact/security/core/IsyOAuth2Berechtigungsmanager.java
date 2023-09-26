@@ -13,6 +13,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.server.resource.authentication.AbstractOAuth2TokenAuthenticationToken;
 import org.springframework.util.Assert;
 
+import de.bund.bva.isyfact.security.oauth2.util.IsySecurityTokenUtil;
+
 /**
  * Default implementation of the {@link Berechtigungsmanager} that should suffice for most use cases.
  * <p>
@@ -21,7 +23,9 @@ import org.springframework.util.Assert;
  */
 public class IsyOAuth2Berechtigungsmanager implements Berechtigungsmanager {
 
-    /** The JWT claim name that contains the roles. */
+    /**
+     * The JWT claim name that contains the roles.
+     */
     private final String rolesClaimName;
 
     public IsyOAuth2Berechtigungsmanager(String rolesClaimName) {
@@ -29,7 +33,7 @@ public class IsyOAuth2Berechtigungsmanager implements Berechtigungsmanager {
     }
 
     public Set<String> getRollen() {
-        Object tokenRoles = getTokenAttribute(rolesClaimName);
+        Object tokenRoles = IsySecurityTokenUtil.getTokenAttribute(rolesClaimName);
         if (tokenRoles instanceof Collection) {
             return new HashSet<>((Collection<String>) tokenRoles);
         } else {
@@ -56,6 +60,7 @@ public class IsyOAuth2Berechtigungsmanager implements Berechtigungsmanager {
         }
     }
 
+    @Deprecated
     public Object getTokenAttribute(String key) {
         Authentication currentAuthentication = SecurityContextHolder.getContext().getAuthentication();
         if (currentAuthentication instanceof AbstractOAuth2TokenAuthenticationToken) {
