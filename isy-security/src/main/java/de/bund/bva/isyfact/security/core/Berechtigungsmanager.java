@@ -46,7 +46,9 @@ public interface Berechtigungsmanager {
      *
      * @param key the key to retrieve given attribute
      * @return the attribute in the access token for the given key, or {@code null}
+     * @deprecated this method is transferred to IsySecurityTokenUtil and will be removed from this interface in a future release
      */
+    @Deprecated
     @Nullable
     Object getTokenAttribute(String key);
 
