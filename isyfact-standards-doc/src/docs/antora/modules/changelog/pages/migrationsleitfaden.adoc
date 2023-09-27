@@ -63,7 +63,7 @@ isy.security.oauth2.client.registration.TestClient.password=TestPasswort
 isy.security.oauth2.client.registration.TestClient.bhknz=TestBHKNZ
 ----
 
-.Batch-Konfiguration nach Umstellung von technischem Nutzer auf Confidential Client
+.Batch-Konfiguration nach Umstellung von _technischem Nutzer_ auf _technischen Client_
 [source,properties]
 ----
 batch.oauth2ClientRegistrationId=TestClient
@@ -127,7 +127,7 @@ isy.security.oauth2.client.registration.TestClient.password=TestPasswort
 isy.security.oauth2.client.registration.TestClient.bhknz=TestBHKNZ
 ----
 
-.Properties nach Umstellung von technischem Nutzer auf Confidential Client
+.Properties nach Umstellung von _technischem Nutzer_ auf _technischen Client_
 [source,properties]
 ----
 isy.task.tasks.halloWeltTask.oauth2ClientRegistrationId=TestClient
