@@ -47,7 +47,7 @@ Für die Batch-Konfiguration ist nicht relevant, ob die ClientRegistration den R
 .Batch-Konfiguration mit technischen Nutzer
 [source,properties]
 ----
-batch.registrationId=TestClient
+batch.oauth2ClientRegistrationId=TestClient
 
 # [...]
 
@@ -84,7 +84,7 @@ spring.security.oauth2.client.registration.TestClient.provider=TestRealm
 === Task Scheduler
 
 In IsyFact 3.0 wurden mit der Umstellung auf `isy-security` die Nutzungsvorgaben zur xref:isy-task:nutzungsvorgaben/master.adoc#spring-konfiguration[Authentifizierung von Tasks] aktualisiert.
-Statt Benutzer, Passwort und BHKNZ (siehe <<task-properties-isy-sicherheit>>) muss in den Task Properties eine `registration-id` konfiguriert werden (siehe <<task-properties-isy-security>>).
+Statt Benutzer, Passwort und BHKNZ (siehe <<task-properties-isy-sicherheit>>) muss in den Task Properties eine `oauth2ClientRegistrationId` konfiguriert werden (siehe <<task-properties-isy-security>>).
 
 [[task-properties-isy-sicherheit]]
 .Properties mit isy-sicherheit in IsyFact 2
@@ -101,19 +101,19 @@ isy.task.tasks.halloWeltTask.bhkz=TestBHKNZ
 .Properties mit isy-security in IsyFact 3
 [source,properties]
 ----
-isy.task.tasks.halloWeltTask.registration-id=TestClient
+isy.task.tasks.halloWeltTask.oauth2ClientRegistrationId=TestClient
 
 # [...]
 ----
 
 Eine entsprechende Spring Security ClientRegistration wird durch `isy-security` xref:isy-security:nutzungsvorgaben/master.adoc#konfigurationsparameter[ Konfigurationsparameter] bereitgestellt.
 Die folgenden Beispiele zeigen wie Konfigurationen nach der Migration aussehen können.
-Für die Task Scheduler konfiguration ist nicht relevant, ob die ClientRegistration den Resource-Owner-Password-Credentials Flow (`authorization-grant-type: password`) oder nach der empfohlenen Migration von technischen Nutzern zu Confidential Clients den Client-Credentials Flow (`authorization-grant-type: client_credentials`) nutzt.
+Für die TaskScheduler-Konfiguration ist nicht relevant, ob die ClientRegistration den Resource-Owner-Password-Credentials Flow (`authorization-grant-type: password`) oder nach der empfohlenen User-Migration von einem _natürlichen User_ auf ein _technischen Nutzer_ den Client-Credentials Flow (`authorization-grant-type: client_credentials`) nutzt.
 
 .Properties mit technischem Nutzer
 [source,properties]
 ----
-isy.task.tasks.halloWeltTask.registration-id=TestClient
+isy.task.tasks.halloWeltTask.oauth2ClientRegistrationId=TestClient
 
 # [...]
 
@@ -123,7 +123,7 @@ spring.security.oauth2.client.registration.TestClient.client-secret=test-client-
 spring.security.oauth2.client.registration.TestClient.authorization-grant-type=password
 spring.security.oauth2.client.registration.TestClient.provider=TestRealm
 
-# Benutzer, Passwort und BHKNZ werden auf die selbe registration-id abgebildet
+# Benutzer, Passwort und BHKNZ werden auf die selbe oauth2ClientRegistrationId abgebildet
 
 isy.security.oauth2.client.registration.TestClient.username=TestUser
 isy.security.oauth2.client.registration.TestClient.password=TestPasswort
@@ -133,7 +133,7 @@ isy.security.oauth2.client.registration.TestClient.bhknz=TestBHKNZ
 .Properties nach Umstellung von technischem Nutzer auf Confidential Client
 [source,properties]
 ----
-isy.task.tasks.halloWeltTask.registration-id=TestClient
+isy.task.tasks.halloWeltTask.oauth2ClientRegistrationId=TestClient
 
 # [...]
 
