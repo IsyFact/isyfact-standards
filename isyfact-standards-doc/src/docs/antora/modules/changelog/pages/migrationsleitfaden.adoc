@@ -77,9 +77,6 @@ spring.security.oauth2.client.registration.TestClient.authorization-grant-type=c
 spring.security.oauth2.client.registration.TestClient.provider=TestRealm
 ----
 
-[[kapitel-sicherheit]]
-=== Sicherheit
-
 [[kapitel-task-scheduler]]
 === Task Scheduler
 
@@ -163,6 +160,10 @@ Damit dennoch alte HTTP-Invoker Schnittstellen aufgerufen werden können (welche
 Weitere Informationen können unter
 xref:isy-serviceapi-core:nutzungsvorgaben/inhalt.adoc#kompatibilitaet_if1_2_3[Nutzungsvorgaben HTTP-Invoker] nachgelesen werden.
 ====
+
+[[kapitel-sicherheit]]
+=== Sicherheit
+
 
 [[kapitel-dokumentation]]
 == Dokumentation
