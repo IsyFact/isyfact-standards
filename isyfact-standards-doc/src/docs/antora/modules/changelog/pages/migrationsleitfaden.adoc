@@ -40,25 +40,26 @@ Analog wurde bei allen Properties der zweiten Spalte, die mit einem Punkt beginn
 .{table-sicherheit-konfiguration}
 [cols="1,1,1"]
 |===
-|isy-sicherheit(-keycloak)|isy-security|Bemerkung
-|`.auth-server-url`|`.provider.<provider-name>.issuer-uri`| für die Verwendung in Kombination mit einer Spring Client Registration, an den bisherigen Wert wird `/realms/<realm-name>` angehängt
-|`.auth-server-url`| `spring.security.resourceserver.jwt.issuer-uri`| für die Verwendung in Kombination mit _@Secured_, an den bisherigen Wert wird `/realms/<realm-name>` angehängt
-|`.realm`|-|entfällt, da Teil der `issuer-uri`
-|-|`.registration.<registration-id>.provider`|neu, verbindet die Spring Client Registration und Provider Definition
-|`.resource`|`.registration.<registration-id>.client-id`|
-|`.credentials-secret`|`.registration.<registration-id>.client-secret`|
-|-|`.registration.<registration-id>.authorization-grant-type=password`| neu, da ein zusätzlicher OAuth Flow unterstützt wird
-|`.bearer-only`|-|entfällt
-|`.standard-zertifikat-ou`|`isy.security.oauth2.client.default-certificate-ou`|
-|-|`isy.security.oauth2.registration.<registration-id>.username`|neu, wurde vorher aus dem AufrufKontext ausgelesen
-|-|`isy.security.oauth2.registration.<registration-id>.password`|neu, wurde vorher aus dem AufrufKontext ausgelesen
-|-|`isy.security.oauth2.registration.<registration-id>.bhknz`|neu, wurde vorher aus dem AufrufKontext ausgelesen
-|`.default-instance`|-|entfällt
-|`.ext-auth-server-url`|-|entfällt
-|`.expected-realm-type`|-|entfällt
-|`.expected-realm`|-|entfällt
-|`.cert-header-name`|-|entfällt
-|`.cert-dn-header-name`|-|entfällt
+|isy-sicherheit(-keycloak) |isy-security |Bemerkung
+|`.auth-server-url` |`spring.security.resourceserver.jwt.issuer-uri` |Issuer, gegen den einkommende Bearer Tokens validiert werden sollen. An den bisherigen Wert wird `/realms/<realm-name>` angehängt.
+|`.auth-server-url` |`.provider.<provider-name>.issuer-uri` |Für die Verwendung in Kombination mit einer Spring Client Registration. An den bisherigen Wert wird `/realms/<realm-name>` angehängt.
+|`.realm` |- |Entfällt, da Teil der `issuer-uri`.
+|- |`.registration.<registration-id>.provider` |Neu, verbindet die Spring Client Registration und Provider Definition.
+|`.resource` |`.registration.<registration-id>.client-id` |
+|`.credentials-secret` |`.registration.<registration-id>.client-secret` |
+|- |`.registration.<registration-id>.authorization-grant-type=password` |Neu, da ein zusätzlicher OAuth Flow unterstützt wird. Der Wert `password` entspricht dem bisherigen Flow in `isy-sicherheit-keycloak`.
+|`.bearer-only` |- |entfällt
+|`.standard-zertifikat-ou` |`isy.security.oauth2.client.default-certificate-ou` |
+|`.bhknz-header-name` |`isy.security.oauth2.client.bhknz-header-name` |
+|- |`isy.security.oauth2.registration.<registration-id>.username` |Neu, ersetzt Authentifizierungsdaten die vorher individuell pro Anwendung konfiguriert wurden und benutzt wurden, um einen AufrufKontext zu authentifizieren.
+|- |`isy.security.oauth2.registration.<registration-id>.password` |Neu, ersetzt Authentifizierungsdaten die vorher individuell pro Anwendung konfiguriert wurden und benutzt wurden, um einen AufrufKontext zu authentifizieren.
+|- |`isy.security.oauth2.registration.<registration-id>.bhknz` |Neu, ersetzt Authentifizierungsdaten die vorher individuell pro Anwendung konfiguriert wurden und benutzt wurden, um einen AufrufKontext zu authentifizieren.
+|`.default-instance` |- |entfällt
+|`.ext-auth-server-url` |- |entfällt
+|`.expected-realm-type` |- |entfällt
+|`.expected-realm` |- |entfällt
+|`.cert-header-name` |- |entfällt
+|`.cert-dn-header-name` |- |entfällt
 |===
 
 [[sicherheit-annotation-gesichert]]
@@ -87,8 +88,8 @@ Daher sind Ausdrücke möglich wie
 @PreAuthorize("hasAuthority('PRIV_Recht_A') and hasAuthority('PRIV_Recht_B')")
 ----
 In `isy-security` ist die Verwendung von `@PreAuthorize` nicht aktiviert.
-Falls `@PreAuthorize` verwendet werden soll, muss die Verwendung im aufrufenden Projekt mit der Konfiguration `@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled=true)` erlaubt werden.
-Alternativ kann in diesem Fall auch die neuere Annotation `@EnableMethodSecurity` verwendet werden, bei der `prePostEnabled=true` standardmäßig aktiviert ist.
+Falls `@PreAuthorize` verwendet werden soll, muss die Verwendung im aufrufenden Projekt mit der Konfiguration `@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)` erlaubt werden.
+Alternativ kann in diesem Fall auch die neuere Annotation `@EnableMethodSecurity` verwendet werden, bei der `prePostEnabled = true` standardmäßig gesetzt ist.
 ====
 
 [[sicherheit-berechtigungsmanager]]
@@ -104,9 +105,9 @@ Das Interface `Sicherheit` wird abgelöst durch das Interface `Security`.
 Folgende Änderungen sind dabei relevant:
 
 * Die Methode `getBerechtigungsManagerUndAuthentifiziere()` wird entfernt und durch zwei neue Methoden im Interface `Security` ersetzt. Die Aufgaben sind hierbei wie folgt verteilt:
-** Die Methode `getAuthentifizierungsmanager()` ermöglicht Zugang zum Interface `Authentifizierungsmanager`, über das eine Authentifizierung über Keycloak durchgeführt werden kann.
+** Die Methode `getAuthentifizierungsmanager()` ermöglicht Zugang zum Interface `Authentifizierungsmanager`, über das eine Authentifizierung mit dem konfigurierten OpenID Connect Provider (bspw. Keycloak) durchgeführt werden kann.
 Nach erfolgreicher Authentifizierung wird das Bearer Token im Spring Security Context hinterlegt (siehe Nutzungsvorgaben zu `Authentifizierungsmanager`).
-** Die Methode `getBerechtigungsmanager()` gibt Zugang zum Interface `Berechtigungsmanager`, über das das Bearer Token verarbeitet kann.
+** Die Methode `getBerechtigungsmanager()` ermöglicht Zugang zum Interface `Berechtigungsmanager`, über das auf die im Bearer Token enthaltenen Informationen zugegriffen werden kann.
 Konkret bietet das Interface `Berechtigungsmanager` Methoden an, um Berechtigungen und Rollen abzufragen (siehe xref:isy-security:nutzungsvorgaben/inhalt.adoc#attr-token-abfragen[Nutzungsvorgaben isy-security]).
 * Die Methode `leereCache()` entfällt.
 * Wie in Abschnitt <<Berechtigungsmanager>> beschrieben, ändert sich der Rückgabewerte der Methode `Set<Rolle>` zu `Set<String>`.
@@ -270,5 +271,3 @@ Die Verwendung von REST-Schnittstellen wird im Baustein REST (siehe xref:isy-ser
 
 [[kapitel-isyfact-Referenzarchitektur]]
 === IsyFact Referenzarchitektur
-
-
