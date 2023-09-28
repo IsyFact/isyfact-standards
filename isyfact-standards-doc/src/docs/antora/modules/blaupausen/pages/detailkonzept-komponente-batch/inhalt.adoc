@@ -738,7 +738,7 @@ Datei `JRE_HOME/lib/management/jmxremote.access` readwrite-Zugriff erlaubt ist.
 Ein Batch wird innerhalb der Plattform gestartet.
 Dazu verwendet der Batch die Benutzerkennung eines technischen Benutzers „internes System“, die in seiner Startkonfiguration (als Konfigurationsdatei) hinterlegt und im Benutzerverzeichnis vorhanden ist.
 
-Der Batchrahmen verwendet den Baustein `isy-security`, um den anfragenden Benutzer über einen der Authentifizierungswege Client Credential oder Ressource Owner Password (deprecated) via `registrationId` zu authentifizieren.
+Der Batchrahmen verwendet den Baustein `isy-security`, um den in der Batch-Konfiguration via `oauth2ClientRegistrationId` definierten Benutzer über einen der Authentifizierungswege `Client Credential` oder `Ressource Owner Password Credential` (deprecated) zu authentifizieren.
 
 Im Zuge des Batchlaufs können nun über den Baustein `isy-security` Berechtigungsprüfungen (z.B. im Anwendungskern) stattfinden.
 
@@ -749,7 +749,8 @@ Folgende Informationen zum Benutzer sind anzugeben
 [cols="2,8",options="header"]
 |====
 |Property |Beschreibung
-|`registrationId` |Die ID der Client Registration aus `isy-security`, die zur Authentifizierung genutzt wird
+|`oauth2ClientRegistrationId` |Die ID der OAuth 2.0 Client Registration aus `isy-security`, die zur Authentifizierung genutzt wird.
+Die notwendigen Properties die für eine gültige `ClientRegistration` definiert werden müssen, sind in den Nutzungsvorgaben der Komponente `isy-security` beschrieben.
 |====
 
 In der Regel wird der Benutzer aus der betrieblichen Konfiguration der Anwendung oder alternativ aus den Aufrufparametern beim Batchstart gelesen.
@@ -757,7 +758,7 @@ In der Regel wird der Benutzer aus der betrieblichen Konfiguration der Anwendung
 In Ausnahmefällen ist es auch möglich, einen Batch zu implementieren, der ohne Benutzer laufen soll.
 Dies ist nur möglich, wenn bei Aufrufen des Anwendungskerns keine Autorisierungsprüfungen stattfinden und auch keine Nachbarsystemschnittstellen aufgerufen werden.
 
-Enthält eine Anwendung mehrere Batches, so enthält sie auch mehrere BatchKonfigurationen und kann jeden Batch mit einer eigenen `registrationId` ausstatten.
+Enthält eine Anwendung mehrere Batches, so enthält sie auch mehrere BatchKonfigurationen und kann jeden Batch mit einer eigenen `oauth2ClientRegistrationId` ausstatten.
 
 [[das-deployment-eines-batches]]
 === Das Deployment eines Batches
@@ -1053,7 +1054,7 @@ NOTE: Falls (in einem ungewöhnlichen Sonderfall) mit `ResultSet`-Iteratoren gea
 === Informationen zur Authentifizierung bereitstellen
 
 Batches müssen beim Start authentifiziert und autorisiert werden, bevor der fachliche Teil der Batchverarbeitung starten kann.
-Der Batchrahmen fordert von der BatchKonfiguration die Bereitstellung der `registrationId` zur ClientRegistration, um den Batch über den Baustein `isy-security` zu authentifizieren.
+Der Batchrahmen fordert, dass in der BatchKonfiguration zur Batch spezifischen `Batch-ID` das neue Property `oauth2ClientRegistrationId` hinzugefügt wird, dessen Wert als Indirektion auf eine `ClientRegistration` führt, um den Batch über den Baustein `isy-security` zu authentifizieren.
 
 [[fehlerbehandlung-in-ausfuehrungsbeans-durchfuehren]]
 === Fehlerbehandlung in Ausführungsbeans durchführen
