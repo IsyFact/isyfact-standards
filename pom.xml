@@ -367,6 +367,15 @@
                         </includeOnlyProperties>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <groupId>org.cyclonedx</groupId>
+                    <artifactId>cyclonedx-maven-plugin</artifactId>
+                    <version>2.7.9</version>
+                    <configuration>
+                        <outputFormat>json</outputFormat>
+                        <outputName>${project.artifactId}-${project.version}-cyclonedx</outputName>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
