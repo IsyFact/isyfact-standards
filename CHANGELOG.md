@@ -64,6 +64,7 @@
   #### _Breaking Change:_
   * Die Konfiguration von `benutzer`, `passwort` und `bhknz` erfolgt über isy-security ClientRegistrations und für IsyTaskConfigurationProperties muss nur eine `oauth2ClientRegistrationId` zur Authentifizierung konfiguriert werden.
 - `ISY-372`: [isy-styleguide] JavaScript-Referenzen entfernt
+- `ISY-416`: [isyfact-products-bom] Versionsanhebung von Metro Webservices auf 2.4.9
 
 # 2.4.4
 - `IFS-1997`: Fix CVE-2022-42889 durch Anhebung von 'commons-text' auf 1.10
