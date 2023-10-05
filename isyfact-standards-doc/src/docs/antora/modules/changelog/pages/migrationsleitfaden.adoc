@@ -86,7 +86,7 @@ Eine Beschreibung der Parameter findet sich in den xref:isy-security:nutzungsvor
 
 <<table-sicherheit-konfiguration>> gibt eine Übersicht über die zu ändernden Parameter.
 Die `instances[n]` Notation aus den isy-sicherheit-keycloak Properties wird in isy-security nicht länger unterstützt.
-Jede Instanz soll durch einen sprechenden und eindeutigen `provider-name` bzw. eine `registration-id` ersetzt werden.
+Jede Instanz soll durch einen sprechenden und eindeutigen `provider-name` bzw. eine `oauth2ClientRegistrationId` ersetzt werden.
 
 Aus Platzgründen wurde in der ersten Spalte auf das `isy.sicherheit.keycloak` Präfix verzichtet.
 Analog wurde bei allen Properties der zweiten Spalte, die mit einem Punkt beginnen, auf das Präfix `spring.security.oauth2.client` verzichtet.
