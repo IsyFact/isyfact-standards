@@ -27,22 +27,21 @@ import de.bund.bva.isyfact.batchrahmen.batch.konstanten.BatchRahmenEreignisSchlu
 import de.bund.bva.isyfact.batchrahmen.batch.protokoll.BatchErgebnisProtokoll;
 import de.bund.bva.isyfact.batchrahmen.batch.protokoll.MeldungTyp;
 import de.bund.bva.isyfact.batchrahmen.batch.protokoll.VerarbeitungsMeldung;
-import de.bund.bva.isyfact.batchrahmen.batch.rahmen.AuthenticationCredentials;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchAusfuehrungsBean;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchStartTyp;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.VerarbeitungsErgebnis;
 
 /**
- * Beispiel für einen Batch, der erst durch ein "kill -s INT pid" geordnet beendet wird. Unter Windows kann
- * der Batch mit taskkill beendet werden. Der Batch ist so implementiert, dass er nach dem Signal "Interrupt"
- * geordnet herunterfährt.
- *
- *
+ * Example of a batch that is only terminated by a "kill -s INT pid" ordered.
+ * Under Windows the batch can be terminated with taskkill.
+ * The batch is implemented so that it shuts down in order after the signal "interrupt".
  */
 public class InfiniteTestBatch implements BatchAusfuehrungsBean {
     private BatchErgebnisProtokoll protokoll;
 
-    /** Der Logger. */
+    /**
+     * The logger.
+     */
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(InfiniteTestBatch.class);
 
     public void batchBeendet() {
@@ -51,14 +50,14 @@ public class InfiniteTestBatch implements BatchAusfuehrungsBean {
 
     public void checkpointGeschrieben(long satzNummer) throws BatchAusfuehrungsException {
         LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001,
-            "Checkpoint für Satz {} geschrieben.", satzNummer);
+                "Checkpoint für Satz {} geschrieben.", satzNummer);
     }
 
     public int initialisieren(BatchKonfiguration konfiguration, long satzNummer, String dbKey,
-        BatchStartTyp startTyp, Date datumLetzterErfolg, BatchErgebnisProtokoll protokoll)
-        throws BatchAusfuehrungsException {
+                              BatchStartTyp startTyp, Date datumLetzterErfolg, BatchErgebnisProtokoll protokoll)
+            throws BatchAusfuehrungsException {
         LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001,
-            "Intialisierung aufgerufen!");
+                "Intialisierung aufgerufen!");
         this.protokoll = protokoll;
         return -1;
     }
@@ -66,9 +65,9 @@ public class InfiniteTestBatch implements BatchAusfuehrungsBean {
     public VerarbeitungsErgebnis verarbeiteSatz() throws BatchAusfuehrungsException {
         try {
             LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001,
-                "Batch-Schritt ausgeführt!");
+                    "Batch-Schritt ausgeführt!");
             this.protokoll.ergaenzeMeldung(new VerarbeitungsMeldung("VERARB", MeldungTyp.INFO,
-                "Verarbeite Satz."));
+                    "Verarbeite Satz."));
             Thread.sleep(1000);
             return new VerarbeitungsErgebnis(null, false);
         } catch (InterruptedException e) {
@@ -80,27 +79,14 @@ public class InfiniteTestBatch implements BatchAusfuehrungsBean {
         LOG.error(BatchRahmenEreignisSchluessel.EPLBAT00001, "Rollback durchgeführt");
     }
 
-    /**
-     * Dieser Batch verwendet keine Sicherung. {@inheritDoc}
-     */
-    public AuthenticationCredentials getAuthenticationCredentials(BatchKonfiguration konfiguration) {
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void vorCheckpointGeschrieben(long satzNummer) throws BatchAusfuehrungsException {
-        // leer
+        // blank
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void vorRollbackDurchgefuehrt() {
-        // leer
+        // blank
     }
 
 }

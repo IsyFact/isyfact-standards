@@ -16,12 +16,12 @@
  */
 package de.bund.bva.isyfact.batchrahmen.core.rahmen;
 
-import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchAusfuehrungsBean;
-import de.bund.bva.isyfact.batchrahmen.core.launcher.BatchLauncher;
-import de.bund.bva.isyfact.batchrahmen.core.rahmen.impl.BatchrahmenImpl;
 import de.bund.bva.isyfact.batchrahmen.batch.exception.BatchAusfuehrungsException;
 import de.bund.bva.isyfact.batchrahmen.batch.konfiguration.BatchKonfiguration;
 import de.bund.bva.isyfact.batchrahmen.batch.protokoll.BatchErgebnisProtokoll;
+import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchAusfuehrungsBean;
+import de.bund.bva.isyfact.batchrahmen.core.launcher.BatchLauncher;
+import de.bund.bva.isyfact.batchrahmen.core.rahmen.impl.BatchrahmenImpl;
 
 /**
  * Das Interface der Batchrahmen-Bean. Diese wird von der

@@ -1,0 +1,17 @@
+= Datenflüsse in der Anwendungsdomäne ABC
+
+// tag::inhalt[]
+
+[[datenfluesse-in-anwendungsdomaene-abc]]
+== Datenflüsse in der Anwendungsdomäne ABC
+
+_Hier werden die Datenflüsse einer weiteren Anwendungsdomäne analog zum vorherigen Kapitel dargestellt._
+
+// end::inhalt[]
+
+
+
+
+
+
+

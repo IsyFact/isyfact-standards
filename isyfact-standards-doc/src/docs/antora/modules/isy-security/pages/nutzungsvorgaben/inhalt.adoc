@@ -5,19 +5,23 @@
 [[software-architektur-security-baustein]]
 == Software-Architektur des Security Bausteins
 
+Die Software-Architektur des Security-Bausteins bildet das Fundament für die Sicherheit von Anwendungen in modernen Softwarelösungen.
+Die korrekte Gestaltung und Implementierung dieser Architektur ist entscheidend, um Schutzmechanismen gegen potenzielle Sicherheitsbedrohungen zu etablieren.
+In diesem Kapitel wird detailliert auf die verschiedenen Aspekte der Software-Architektur des Security-Bausteins eingegangen und bewährte Methoden sowie bewährte Praktiken vorgestellt, um eine robuste und zuverlässige Sicherheitsinfrastruktur zu schaffen.
+
+Im Folgenden werden die <<aussensicht-der-komponente-security, Interfaces des Bausteins Security>> genauer erläutert.
+
 [[security-interface]]
 === Security
 Das Interface `Security` stellt die zentrale Schnittstelle bereit, über die auf den Baustein zugegriffen wird.
+
+NOTE: Es empfiehlt sich, die Beans direkt zu 'autowiren' und das Interface hauptsächlich für eine Migration vom alten Sicherheitsbaustein `isy-sicherheit` auf den neuen Baustein `isy-security` zu verwenden.
 
 Die folgenden Methoden bieten Zugriff auf eine Liste von allen im System hinterlegten Rollen, den Berechtigungsmanager und den optionalen Authentifizierungsmanager:
 
 `Set<String> getAlleRollen()`:: Liefert die Menge aller im System konfigurierten Rollen.
 `Berechtigungsmanager getBerechtigungsManager()`:: Stellt eine Referenz auf das `Berechtigungsmanager` Bean bereit.
 `Optional<Authentifizierungsmanager> getAuthentifizierungsManager()`:: Liefert ein `Optional`, das eine Referenz auf den `Authentifizierungsmanager` enthält, oder `null` falls die Anwendung als Resource-Server agiert und kein `Authentifizierungsmanager` benötigt wird.
-
-[[image-security]]
-.Security
-image::nutzungsvorgaben/security.svg[align="center"]
 
 [[authentifizierungsmanager-interface]]
 === Authentifizierungsmanager
@@ -40,10 +44,6 @@ Das `bhknz` kann als optionaler Parameter übergeben werden, wird aber für die 
 Authentifiziert einen technischen Nutzer (Resource Owner) gegen die angegebene `issuerLocation` anhand der `clientId` und `clientSecret` des zu verwendenden OAuth 2.0 Clients und dem `username` und `password` des Resource Owners.
 Das `bhknz` kann als optionaler Parameter übergeben werden und wird in den <<isyfact-specific-client-registration,konfigurierten Header>> zur Zwei-Faktor-Authentifizierung gesetzt.
 
-[[image-authentifizierungsmanager]]
-.Authentifizierungsmanager
-image::nutzungsvorgaben/authentifizierungsmanager.svg[align="center"]
-
 [[berechtigungsmanager]]
 === Berechtigungsmanager
 
@@ -59,15 +59,13 @@ Zur Formulierung von Berechtigungsprüfungen stehen folgende Methoden des Berech
 `void pruefeRecht(String recht)`:: Prüft, ob der Anwender das angegebene Recht besitzt und erzeugt einen Fehler vom Typ `AccessDeniedException`, wenn das nicht der Fall ist.
 `Object getTokenAttribute(String key)`:: Fragt einen Wert im Access Token des Security Contexts ab.
 
-[[image-berechtigungsmanager-security]]
-.Berechtigungsmanager
-image::nutzungsvorgaben/berechtigungsmanager.svg[align="center"]
+NOTE: Primär sollte die Berechtigungsprüfung über die Spring Annotation `@Secured` und nicht über die hier erwähnte Methode `pruefeRecht(String recht)` erfolgen.
 
 [[aufrufen_von_nachbarsystemen]]
 == Aufrufen von Nachbarsystemen
 
 Der Aufruf von Nachbarsystemen erfolgt auf Basis des reaktiven `Spring WebClient`.
-Um Nachbarsysteme aufzurufen, die auf Basis von `OAuth 2.0` abgesichert sind, ist grundlegend die Authentifizierung bei einem `Identitiy Provider` mit gültiger `client_id`, `client_secret` sowie `grant_type` erforderlich.
+Um Nachbarsysteme aufzurufen, die auf Basis von `OAuth 2.0` abgesichert sind, ist grundlegend die Authentifizierung bei einem `IAM-Service` mit gültiger `client_id`, `client_secret` sowie `grant_type` erforderlich.
 Dieser liefert ein Bearer-Token zurück, in dem die Rollen und somit die Zugriffsmöglichkeiten der aufrufenden Anwendung definiert sind.
 
 [[maven-dependencies]]
@@ -101,9 +99,13 @@ Für die Authentifizierung mit einem `OAuth 2.0`-Client sind die folgenden Abhä
 [[konfigurationsparameter]]
 === Konfigurationsparameter
 
+Konfigurationsparameter sind essenziell, um Bausteine in technischen Anwendungen anzupassen und zu steuern.
+Sie bieten die Möglichkeit, die Funktionalität und das Verhalten eines Bausteins entsprechend spezifischer Anforderungen anzupassen.
+In diesem Kapitel werden alle möglichen Optionen der Konfigurationsparameter vorgestellt, um einen umfassenden Überblick über deren Anwendungsmöglichkeiten zu geben.
+
 [[spring-oauth2-client-registration]]
 ==== Spring OAuth2 Client Konfigurationsparameter
-Für die korrekte Anbindung an den `Identity Provider` ist die Angabe einiger Konfigurationsparameter notwendig, welche in der Konfigurationsdatei der Anwendung eingetragen werden müssen.
+Für die korrekte Anbindung an den `IAM-Service` ist die Angabe einiger Konfigurationsparameter notwendig, welche in der Konfigurationsdatei der Anwendung eingetragen werden müssen.
 Das Präfix sämtlicher Konfigurationsparameter `spring.security.oauth2` wird zur Vereinfachung in der folgenden Liste weggelassen.
 
 [[table-parameter-client-cred]]
@@ -284,6 +286,27 @@ public class OAuth2WebClientConfiguration {
 }
 ----
 
+[[auth_sgw]]
+== Authentifizierung über das SGW am IAM-Service
+Die Authentifizierung über das Service Gateway (SGW) stellt einen wichtigen Schritt in der Sicherung von Anwendungen dar.
+Um diesen Prozess effektiv umzusetzen, empfiehlt sich die Verwendung des neu entwickelten Authentifizierungsmanagers und dessen Methoden.
+
+Die Methoden erlauben es technische Nutzer zur Laufzeit mit ihren Zugangsdaten über den IAM-Service zu authentifizieren.
+Mit diesem Mechanismus wird sichergestellt, dass nur autorisierte Clients Zugriff auf die Ressourcen erhalten.
+Durch die Nutzung dieses speziellen Authentifizierungsmechanismus wird eine robuste und zuverlässige Sicherheitsschicht implementiert, um unautorisierten Zugriff und potenzielle Sicherheitslücken zu verhindern.
+
+Weitere Informationen und detaillierte Anleitungen zur Verwendung können im Abschnitt zum xref:isy-security:nutzungsvorgaben/inhalt.adoc#authentifizierungsmanager-interface[Authentifizierungsmanager] gefunden werden.
+
+[[absicherung_von_batches_tasks]]
+== Absicherung von Batches und Tasks
+
+Für detaillierte Informationen und Anleitung zur Absicherung von Batches und Tasks wird auf die Dokumentation unter
+
+* xref:blaupausen:detailkonzept-komponente-batch/inhalt.adoc#authentifizierung-und-autorisierung[Authentifizierung und Autorisierung von Batches]
+* bzw. xref:isy-task:nutzungsvorgaben/inhalt.adoc#absicherung-von-tasks[Absicherung von Tasks]
+
+verwiesen. Diese bieten praxisorientierte Richtlinien zur Gewährleistung der Sicherheit von Batches und Tasks.
+
 [[absicherung_von_service_schnittstellen]]
 == Absicherung von Service-Schnittstellen
 Spring Security unterstützt die automatische Absicherung von Endpunkten einer Anwendung und eine feingranulare Autorisierung im Rahmen von `OAuth 2.0`.
@@ -341,14 +364,14 @@ public class OAuth2ServerSecurityConfig {
 [[konfigurationsparameterservice]]
 === Konfigurationsparameter
 
-Für die korrekte Anbindung an den `Identity Provider` ist die Angabe der folgenden Konfigurationsparameter notwendig. Das Präfix sämtlicher Konfigurationsparameter `spring.security.oauth2` wird zur Vereinfachung in der Liste unten weggelassen.
+Für die korrekte Anbindung an den `IAM-Service` ist die Angabe der folgenden Konfigurationsparameter notwendig. Das Präfix sämtlicher Konfigurationsparameter `spring.security.oauth2` wird zur Vereinfachung in der Liste unten weggelassen.
 
 [[table-parameter-service]]
 .Konfigurationsparameter einer Service-Schnittstelle
 [cols="3m,2m,2m,8",options="header"]
 |===
 |Parameter |Wertebereich |Default |Beschreibung
-|resourceserver.jwt.issuer-uri  |String |_keiner_ | Auto-Konfiguration des Identity-Providers zur Validierung des Bearer Tokens, beispielsweise in der Form "http://<identity-provider>/auth/realms/<realm>/protocol/openid-connect/certs"
+|resourceserver.jwt.issuer-uri  |String |_keiner_ | Auto-Konfiguration des IAM-Services zur Validierung des Bearer Tokens, beispielsweise in der Form "http://<identity-provider>/auth/realms/<realm>/protocol/openid-connect/certs"
 |===
 
 Zusätzlich sind folgende Isyfact-spezifischen Konfigurationsparameter notwendig.
@@ -366,8 +389,22 @@ Zusätzlich sind folgende Isyfact-spezifischen Konfigurationsparameter notwendig
 
 Jede Geschäftsanwendung spezifiziert im Rahmen ihrer Systemspezifikation Rechte und bildet diese auf fachliche und technische Rollen ab.
 Bei der technischen Umsetzung müssen alle spezifizierten Rollen und Rechte konfiguriert und korrekt zugeordnet werden.
-Dies geschieht in der statischen Konfiguration in der Datei `/resources/sicherheit/rollenrechte.xml`.
+
+Der Pfad der Datei kann wie folgt angepasst werden:
+
+[[table-pfad-rollen-rechten]]
+.Konfiguration von Rollen und Rechten
+[cols="3m,2m,2m,8",options="header"]
+|===
+|Parameter |Wertebereich |Default |Beschreibung
+|isy.security.role-privilege-mapping-file | Resource | classpath:/resources/sicherheit/rollenrechte.xml | Pfad zu der XML-Datei, welche die Rollen-/Berechtigungszuordnungen enthält.
+|===
+
 Der Baustein liefert ein xref:nutzungsvorgaben/master.adoc#anhang-rollen-rechte-schema[XML-Schema für den Aufbau der Konfigurationsdatei] mit.
+
+NOTE: Die Bereitstellung einer Datei mit den erforderlichen Rollen und Rechten erfolgt optional.
+Im Falle einer nicht vorhandenen Datei verbleibt die Liste der Rollen und Rechte leer, d. h. eine Absicherung der Anwendung findet nicht statt.
+Die Verantwortung zur korrekten Bereitstellung der erforderlichen Rollen und Rechten liegt bei der Anwendung.
 
 Dieser Zusammenhang wird mit einem Beispiel verdeutlicht: Die Geschäftsanwendung X spezifiziert zwei Rechte, `DialogA.Aufrufen` und `DialogB.Aufrufen`.
 Aus diesen werden zwei fachliche Rollen gebildet:
@@ -469,6 +506,41 @@ String bhknz = (String) this.berechtigungsmanager.getTokenAttribute(BEARER_TOKEN
 
 Für den direkten Zugriff per Security Context kann die `Authentication` abgefragt und per Cast als ein `AbstractOAuth2TokenAuthenticationToken` zugegriffen werden.
 Detaillierte Informationen hierzu können der Spring Dokumentation entnommen werden.
+
+[[annotation-method-auth]]
+== Automatische Authentifizierung innerhalb von Methoden
+
+Wenn Client Registrations für OAuth 2.0 Clients in der Anwendung angelegt wurden (vgl. <<konfigurationsparameter>>), kann die `@Authenticate`-Annotation verwendet werden, um anhand dieses Clients automatisch Aufrufe innerhalb der mit der Annotation versehenen Methode zu authentifizieren.
+Der dabei verwendete OAuth 2.0 Flow wird anhand der Konfiguration der Client Registration ausgewählt.
+
+Dafür muss in der Annotation die Client Registration ID des zu verwendenden OAuth 2.0 Clients angegeben werden.
+Dies kann entweder durch Hardcoden der ID oder über die dynamische Auflösung eines Property Placeholders erfolgen.
+Die Client Registration ID kann über verschiedene Attribute der Annotation (kein Attribut, `value`-Attribut, `oauth2ClientRegistrationId`-Attribut) angegeben werden, welche von der Funktionalität identisch sind.
+Die einzige Voraussetzung ist, dass die Client Registration ID in einem dieser Attribute angegeben wurde.
+
+[[annotation-method-auth-example]]
+.Verwendung der Annotation
+[source,java]
+----
+@Authenticate("my-auth-client") // <1>
+void methodThatNeedsAuthentication() {
+    ...
+}
+
+@Authenticate("${test.auth.client-id}") // <2>
+void methodThatNeedsAuthentication() {
+    ...
+}
+
+@Authenticate(oauth2ClientRegistrationId = "my-auth-client") // <3>
+void methodThatNeedsAuthentication() {
+    ...
+}
+----
+
+<1> Angabe der Client Registration ID ohne Verwendung von Attributnamen
+<2> Auflösung der Client Registration ID aus dem Wert der Property `test.auth.client-id`
+<3> Angabe der Client Registration ID mit dem Attributnamen `oauth2ClientRegistrationId`
 
 [[testunterstuetzung]]
 == Testunterstützung

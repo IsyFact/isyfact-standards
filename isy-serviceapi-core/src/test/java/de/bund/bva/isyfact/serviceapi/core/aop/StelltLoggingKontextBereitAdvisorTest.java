@@ -22,6 +22,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import de.bund.bva.isyfact.serviceapi.autoconfigure.IsyServiceApiSecurityAutoConfiguration;
 import de.bund.bva.isyfact.serviceapi.core.aop.test.LoggingKontextAdvisorService;
 import de.bund.bva.isyfact.serviceapi.core.aufrufkontext.DefaultAufrufKontextToResolver;
 
@@ -70,7 +71,7 @@ public class StelltLoggingKontextBereitAdvisorTest {
     }
 
     @Configuration
-    @EnableAutoConfiguration
+    @EnableAutoConfiguration(exclude = IsyServiceApiSecurityAutoConfiguration.class)
     public static class TestConfig {
 
         @Bean

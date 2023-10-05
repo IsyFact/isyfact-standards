@@ -1,8 +1,12 @@
 # 3.0.0
 - [isyfact-standards-doc] Migrationsleitfaden zur Umstellung auf isy-security
   * `ISY-219`: Abschnitt zur Migration der Annotation @NutzerAuthentifizierung
+- `IFS-2561`: [isy-security] Die Konfiguration via `rollenrechte.xml` erfolgt optional.
+  * Initialisierung mit Standardwerten
+- `IFS-1887`: [isyfact-standards-doc] Ergänzung der Nutzungsvorgaben für neuen Sicherheitsbaustein `isy-security`
 - `IFS-2422`: [isyfact-serviceapi-core] Deprecation des isy-serviceapi-core Bausteins
 - `IFS-2273`: [isyfact-standards-doc] Einheitliche Deprecation-Warnung für die Dokumentation
+- `IFS-2488`: [isy-serviceapi-core] AufrufKontextTo wird ad hoc als HttpInvoker-Transportobjekt erzeugt, wenn `isy-security` im Classpath liegt und anstelle des Objekts `null` übergeben wird
 - `IFS-2449`: [isyfact-standards-doc] Aufnahme von Testcontainers in den Produktkatalog
 - `IFS-1745`: [isyfact-standards-doc] Summary Architektur- und Sicherheitsregeln
   * mit Antora Extensions generiert
@@ -54,7 +58,15 @@
   * Taskkonfiguration und TaskkonfigurationVerwalter entfernt, Übersetzungen hinzugefügt
 - `ISY-139`: [isyfact-products-bom] Spring Boot Versionsanhebung auf 2.7.15
 - [isy-sonderzeichen] Hinzufügen eines neuen Packages mit Transformatoren für die DIN Norm 91379
+- `IFS-1853`: [isy-batchrahmen] Umstellung von `isy-sicherheit` und `isy-aufrufkontext` auf neuen Baustein `isy-security`
+  #### _Breaking Change:_
+  * Die Konfiguration von `benutzer`, `passwort` und `bhknz` erfolgt über isy-security ClientRegistrations. Batches müssen nur noch eine `oauth2ClientRegistrationId` zur Authentifizierung bereitstellen. Die Methode `getAuthenticationCredentials` der `BatchAusfuehrungsBean` wurde entfernt.
+- `IFS-2416`: [isyfact-standards-bom] zentrale Versionsverwaltung von `isy-security`
+- `IFS-2416`: [isy-task] Umstellung von isy-sicherheit auf isy-security
+  #### _Breaking Change:_
+  * Die Konfiguration von `benutzer`, `passwort` und `bhknz` erfolgt über isy-security ClientRegistrations und für IsyTaskConfigurationProperties muss nur eine `oauth2ClientRegistrationId` zur Authentifizierung konfiguriert werden.
 - `ISY-372`: [isy-styleguide] JavaScript-Referenzen entfernt
+- `ISY-416`: [isyfact-products-bom] Versionsanhebung von Metro Webservices auf 2.4.9
 
 # 2.4.4
 - `IFS-1997`: Fix CVE-2022-42889 durch Anhebung von 'commons-text' auf 1.10

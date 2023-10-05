@@ -43,10 +43,10 @@ _Für die Abstimmungskapitel sind die Inhalte und deren Detailtiefe vorgegeben, 
 
 Eine Architektur wird immer Top-down erklärt:
 
-* _Zunächst wird gezeigt, wie sich das neue System in die gesamte technische Anwendungslandschaft einfügt._
-siehe Kapitel: <<einbettung-in-anwendungslandschaft, Systemüberblick/Einbettung in die Anwendungslandschaft>>
+* _Zunächst wird gezeigt, wie sich das neue System in die gesamte technische Anwendungslandschaft einfügt.
+Kapitel: <<einbettung-in-anwendungslandschaft, Systemüberblick/Einbettung in die Anwendungslandschaft>>._
 * _Danach wird das System detailliert, indem gezeigt wird, wie die Teilsysteme des neuen Systems zusammen arbeiten.
-siehe Kapitel: <<gesamtsystem-systemueberblick, Systemarchitektur des Gesamtsystems/Systemüberblick>>_
+Kapitel: <<gesamtsystem-systemueberblick, Systemarchitektur des Gesamtsystems/Systemüberblick>>._
 * _Dann wird jedes Teilsystem einzeln beschrieben.
 Zunächst werden die Komponenten des Systems und ihr Zusammenspiel erklärt, dann wieder die einzelnen Komponenten selbst.
 Diese schrittweise Vertiefung setzt sich bis zum benötigten Detaillierungsgrad fort._
@@ -104,7 +104,7 @@ Welche Teile dies sind, wird im vorliegenden Dokument definiert._
 
 *_Vorgaben für die Konstruktion_*
 
-_Systementwurf-Dokumente sollen Grundsätzlich mit der vorliegenden Vorlage und im Einklang zu den beschriebenen Vorgaben und Ausfüllhinweisen erstellt werden._
+_Systementwurf-Dokumente sollen grundsätzlich mit der vorliegenden Vorlage und im Einklang zu den beschriebenen Vorgaben und Ausfüllhinweisen erstellt werden._
 
 *_Modellierung im Enterprise Architect_*
 
@@ -209,11 +209,11 @@ In diesem Dokument wird beschrieben, wie diese Referenzarchitektur instanziiert 
 ** Querschnittliche Systemeigenschaften sind bereits im Rahmen der IsyFact-Referenzarchitektur betrachtet worden und werden nicht wiederholt.
 Sollte eine Verfeinerung oder spezifische Ergänzung der Referenzarchitektur notwendig sein, erfolgt dies im Kapitel <<querschnittskonzepte>>.
 +
-** Die Schnittstellenübersicht des Systems erfolgt der Übersichtlichkeit halber auf zwei Abstraktionsebenen: Auf Ebene der Gesamtanwendungslandschaft erfolgt dies im Kapitel <<einbettung-in-anwendungslandschaft,Systemüberblick/Einbettung in die Anwendungslandschaft>> beschrieben.
+** Die Schnittstellenübersicht des Systems erfolgt der Übersichtlichkeit halber auf zwei Abstraktionsebenen: auf Ebene der Gesamtanwendungslandschaft erfolgt dies im Kapitel <<einbettung-in-anwendungslandschaft,Systemüberblick/Einbettung in die Anwendungslandschaft>>.
 Die konkreten Schnittstellen des Systems und ggf. von Teilsystemen sind im Kapitel <<systemarchitektur-gesamtsystems, Systemarchitektur des Gesamtsystems/Systemüberblick>> beschrieben.
 Die Details zur Implementierung und Dateninhalten der Schnittstellen finden sich in der Konstruktion der jeweiligen Services unter <<service, Architektur des Teilsystems A/Service>>.
 +
-** Die zu spezifizierenden Systemelemente sind der Gegenstand von Kapitel <<systemarchitektur-gesamtsystems>>, insbesondere in den Kapiteln <<architektur-teilsystems-a, Architektur des Teilsystems (ff)>>.
+** Die zu spezifizierenden Systemelemente sind der Gegenstand von Kapitel <<systemarchitektur-gesamtsystems>>, insbesondere in den Kapiteln <<architektur-teilsystems-a, Architektur des Teilsystems (ff.)>>.
 
 * *Unterstützungs-Systemarchitektur:* Unterstützungssysteme sind in der Regel durch die IsyFact vorgegeben.
 Sollte es trotzdem nötig sein, ein neues Unterstützungssystem zu konstruieren, erfolgt dies in einem eigenen Dokument nach dieser Vorlage.
@@ -225,7 +225,7 @@ Es wird jedoch vorausgesetzt, dass ein solcher Styleguide für die Organisation,
 Die konkrete HW-Architektur für das System befindet sich im Kapitel <<ti-architektur>>.
 
 * *SW-Architektur:* Die SW-Architektur ist in den Grundlagen durch die IsyFact Referenzarchitektur vorgegeben.
-Die Instanziierung dieser Architektur befindet sich in Abschnitt <<architektur-teilsystems-a, Architektur des Teilsystems A (ff)>>.
+Die Instanziierung dieser Architektur befindet sich in Abschnitt <<architektur-teilsystems-a, Architektur des Teilsystems A (ff.)>>.
 
 * *Datenbankentwurf*: Der Datenbankentwurf findet sich unter <<datenmodell>>.
 
@@ -296,11 +296,11 @@ _Für nicht relevante Elemente wird in die Status-Spalte „*nicht benötigt*“
 _Bei relevanten Elementen, die erweitert werden müssen, um den Anforderungen des Systems gerecht zu werden, wird in die Status-Spalte „*wird erweitert*“ eingetragen.
 Die durchzuführenden Erweiterungen sind in der darauffolgenden Tabelle zu begründen._
 
-_Bei relevanten Elementen, die in einer anderen, als der in <<table-verwendete-elemente-isyfact-standards-erweiterungen>> angegebenen Version verwendet werden, wird in die Status-Spalte „*abweichende Version*“, in der Version-Spalte die Version des Elements und in der Referenz-Spalte die Referenz auf das Dokument ergänzt.
+_Bei relevanten Elementen, die in einer anderen als der in <<table-verwendete-elemente-isyfact-standards-erweiterungen>> angegebenen Version verwendet werden, wird in die Status-Spalte „*abweichende Version*“, in der Version-Spalte die Version des Elements und in der Referenz-Spalte die Referenz auf das Dokument ergänzt.
 Die Abweichungen sind ebenfalls in der darauffolgenden Tabelle zu begründen._
 ====
 
-Das IT-System <System> wird konform zur Referenzarchitektur der IsyFact Version 1.0 umgesetzt.
+Das IT-System <System> wird konform zur Referenzarchitektur der IsyFact umgesetzt.
 Die folgende Tabelle führt die vom IT-System verwendeten Elemente der IsyFact auf.
 
 
@@ -321,7 +321,7 @@ Die folgende Tabelle führt die vom IT-System verwendeten Elemente der IsyFact a
 |Interne Servicekommunikation |berücksichtigt |_Standard_ |
 4+|*Bausteine (Standard)*  {set:cellbgcolor:#D9D9D9}
 | {set:cellbgcolor} Fehlerbehandlung |berücksichtigt |_Standard_ |
-|Logging |berücksichtigt |_Standard_ |xref:isy-logging:konzept/master.adoc[] xref:isy-logging:nutzungsvorgaben/master.adoc[]
+|Logging |berücksichtigt |_Standard_ |xref:isy-logging:konzept/master.adoc[], xref:isy-logging:nutzungsvorgaben/master.adoc[]
 |Sicherheitskomponente |Abweichungen |_Standard_ |
 |Überwachung und Konfiguration |berücksichtigt |_Standard_ |
 4+|*Bausteine (Erweiterungen)* {set:cellbgcolor:#D9D9D9}
@@ -480,7 +480,7 @@ _In der Regel in der Spezifikation beschrieben. Verweis auf Sicherheitskonzept_
 === TI-Architektur
 
 ====
-_Zunächst erst mal ein Überblick: Kurze Beschreibung der wichtigsten Eckpunkte der TI-Architektur._
+_Zunächst ein Überblick: Kurze Beschreibung der wichtigsten Eckpunkte der TI-Architektur._
 
 _TI-Diagramme sind als Deployment Diagramme umzusetzen. Diese enthalten die Elemente:_
 
@@ -498,23 +498,23 @@ image::vorlage-systementwurf/deployment-diagramm.png[align = center, title-align
 ====
 _Wichtige Inhalte:_
 
-* _Zuordnung der Server bzw. Laufzeitumgebungen zu den Saga-Zonen_
-* _Zuordnung der Deployment-Einheiten auf die Server/Laufzeitumgebungen_
+* _Zuordnung der Server bzw. Laufzeitumgebungen zu den Saga-Zonen._
+* _Zuordnung der Deployment-Einheiten auf die Server/Laufzeitumgebungen._
 * _Kommunikationsbeziehungen werden zu den Loadbalancern bzw. Firewalls dargestellt.
-Es soll klarwerden über welche Zonengrenzen hinweg mit welchen Protokollen kommuniziert wird._
+Es soll klar werden, über welche Zonengrenzen hinweg mit welchen Protokollen kommuniziert wird._
 * _Existierende Nachbarsysteme werden in der Regel nicht dargestellt.
 Ausnahmen sind aber möglich, wenn ein besonderer Aspekt dargestellt werden soll.
-Z.B. ein neuer Native-Client der an einen bestehenden Service angebunden wird._
-* _Keine konkreten Adressen, Portnummern, Dimensionierungen, sondern eine logische Sicht_
+Z.B. ein neuer Native-Client, der an einen bestehenden Service angebunden wird._
+* _Keine konkreten Adressen, Portnummern, Dimensionierungen, sondern eine logische Sicht._
 ====
 
 [[laufzeitumgebung]]
 ==== Laufzeitumgebung
 ====
 _Liste der eingesetzten Produkte für die Laufzeitumgebung.
-Diese Umgebung ist für Anwendungen nach Referenzarchitektur vorgegeben, deshalb kann der Abschnitt unten in der Regel übernommen werden, gegebenenfalls ergänzt um das konkrete Linux-Betriebssystem.
+Diese Umgebung ist für Anwendungen nach Referenzarchitektur vorgegeben, deshalb kann der Abschnitt unten in der Regel übernommen werden, gegebenenfalls ergänzt um das konkrete Linux-Betriebssystem._
 
-Die Versionen sind nach dem Produktkatalog zu überprüfen und mit dem Gesamtprojekt abzustimmen.
+_Die Versionen sind nach dem Produktkatalog zu überprüfen und mit dem Gesamtprojekt abzustimmen.
 Für die Laufzeitumgebung wird ein Default-Tomcat bereitgestellt._
 ====
 
@@ -548,7 +548,7 @@ _Form: Tabellarische Darstellung und erläuternder Text._
 
 Mengengerüst für die Datenbank
 
-In der <<table-mengengeruest-datenbank>> ist eine Abschätzung für die Datenbankgröße enthalten.
+In <<table-mengengeruest-datenbank>> ist eine Abschätzung für die Datenbankgröße enthalten.
 Hier ist allerdings nur die Größe der Rohdaten angegeben.
 Für eine Berechnung der Größe der Table-Spaces müssen noch Spezifika der konkret verwendeten Datenbank berücksichtigt werden.
 Die Berechnung der Größe der Table-Spaces erfolgt durch die Datenbank-Administration auf der Basis der hier genannten Zeilenanzahl je Tabelle.
@@ -999,14 +999,14 @@ Die Optimierung des Diagramms in Hinblick auf den benötigten Platz ist nicht ge
 === Systemarchitektur des Teilsystems B
 
 ====
-_Analog zu oben, für jedes Teilsystem entsteht ein eigenes Unterkapitel 3.x_
+_Analog zu oben, für jedes Teilsystem entsteht ein eigenes Unterkapitel 3.x._
 ====
 
 [[systemarchitektur-teilsystems-c]]
 === Systemarchitektur des Teilsystems C
 
 ====
-_Analog zu oben, für jedes Teilsystem entsteht ein eigenes Unterkapitel 3.x_
+_Analog zu oben, für jedes Teilsystem entsteht ein eigenes Unterkapitel 3.x._
 ====
 
 [[querschnittskonzepte]]
