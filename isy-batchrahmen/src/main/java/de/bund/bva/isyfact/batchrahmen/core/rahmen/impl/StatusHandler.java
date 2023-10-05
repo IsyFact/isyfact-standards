@@ -23,10 +23,10 @@ import javax.persistence.EntityManagerFactory;
 import de.bund.bva.isyfact.batchrahmen.batch.konfiguration.BatchKonfiguration;
 import de.bund.bva.isyfact.batchrahmen.batch.konstanten.KonfigurationSchluessel;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchStartTyp;
+import de.bund.bva.isyfact.batchrahmen.core.exception.BatchrahmenParameterException;
 import de.bund.bva.isyfact.batchrahmen.core.konstanten.NachrichtenSchluessel;
 import de.bund.bva.isyfact.batchrahmen.persistence.rahmen.BatchStatus;
 import de.bund.bva.isyfact.batchrahmen.persistence.rahmen.BatchStatusDao;
-import de.bund.bva.isyfact.batchrahmen.core.exception.BatchrahmenParameterException;
 
 /**
  * Dieser Handler kapselt die Logik rund um die BatchStatus Tabelle.

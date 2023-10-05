@@ -1,0 +1,27 @@
+= Beispiel
+
+// tag::inhalt[]
+
+Nachfolgend wird ein Beispiel für ein Datenflussdiagramm-Dokument dargestellt.
+
+[[beispiel-datenflussdiagramme]]
+== Beispiel
+
+Im Beispiel wird ein einfaches Anwendungssystem zur Verwaltung von Adressen dargestellt.
+Das Beispiel ist sehr einfach gehalten und dient nur der Veranschaulichung des Formalismus.
+Es erhebt keinen Anspruch, in der Praxis umsetzbar zu sein.
+
+Benutzer können ihre eigenen Adressdaten selbst über ein Portal eingeben.
+Darüber hinaus besteht die Möglichkeit einen Massenimport von Adressdaten durchzuführen, der z.B. durch Upload einer Adressliste erfolgt.
+Dieser Massenimport kann auch von einer anderen Anwendung (Fachanwendung 2) aus angestoßen werden.
+Sowohl bei der Eingabe als auch beim Import von Adressen werden die Adressdaten zunächst geprüft, bevor sie in die Datenbank geschrieben werden.
+Außerdem wird für jeden Import ein Eintrag in eine Protokolldatei geschrieben und der Benutzer, dessen Adresse importiert wurde, wird per Mail benachrichtigt.
+
+[[image-benutzer-ext-adressen]]
+image:anleitung-datenflussdiagramme/benutzer-ext-adressen.png[]
+
+// end::inhalt[]
+
+
+
+

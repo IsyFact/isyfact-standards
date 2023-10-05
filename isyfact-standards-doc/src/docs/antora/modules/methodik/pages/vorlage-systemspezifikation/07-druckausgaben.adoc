@@ -1,0 +1,86 @@
+// tag::inhalt[]
+
+[[druckausgaben]]
+== Druckausgaben
+
+_Der Abschnitt Druckausgaben beschreibt das Layout und den Inhalt von Druckstücken.
+Hierzu gehören z.B. Drucklisten, Serienbriefe, sowie die Ein- und Ausgabeformate für Batches.
+Für komplexe Auswertungen werden mögliche Selektions- und Verdichtungskriterien beschrieben._
+
+_Da Druckstücke für die Beschreibung sehr unterschiedlicher Formate verwendet werden, wird die Spezifikation den Notwendigkeiten des beschriebenen Formats angepasst.
+Dabei können Layouts, schematische Darstellungen oder fertige Vorlagen im Anhang oder als externe Dokumente mit Verweis beigefügt werden.
+Hier können allgemeine Informationen zu den Druckstücken beschrieben werden._
+
+_Danach folgt die Liste der Druckstücke, gruppiert nach Anwendungskomponenten und/oder ein UML-Komponentendiagramm, welches einen Überblick über die Anwendungskomponenten und deren Druckstücke gibt._
+
+[[uebersicht-druchausgaben]]
+.Übersicht der Druckausgaben
+image::vorlage-systemspezifikation/uebersicht-druckausgaben.png[]
+
+[[bezeichnung-anwendungskomponente-4]]
+=== <Bezeichnung der Anwendungskomponente>
+
+[[druckstueck-drubezeichnung-druckausgabe]]
+==== Druckstück DRU_<Bezeichnung der Druckausgabe>
+
+_Das Druckstück wird tabellarisch beschrieben.
+Zusätzliche Darstellungen können direkt im Dokument unter der Tabelle eingebunden oder im Anhang als Verweis auf externe Dokumente aufgenommen werden.
+In diesen zusätzlichen Darstellungen können Textbausteine mit Präfix +„TBS_“+ und Druckvariablen mit Präfix +„DRV_“+ markiert werden, um Teilen des Druckstücks eindeutige Namen zu geben.
+Für die Markierung können z.B. Microsoft Word-Kommentare verwendet werden.
+Textbausteine sind typischerweise feste Textteile, Druckvariablen sind typischerweise variabel belegte Textteile._
+
+[[table-druckausgabe]]
+.Druckausgabe <DRU_abc>
+[cols="1,4",options="header"]
+|====
+2+|Druckausgabe
+|*Kurzbeschreibung* |_Welche fachlichen Dienste werden durch die Schnittstelle bereitgestellt?
+Welchen fachlichen Hintergrund haben die ausgetauschten Daten?_
+|*Empfänger* |_An wen sind die Inhalte der Druckausgabe gerichtet?_
+|*Medium* |_Wie liegt das Druckstück vor? Z.B. „elektronisch“, „Papier“_
+|====
+
+====
+Sehr geehrte Damen und Herren,
+
+sie erhalten eine automatisch generierte Mitteilung aus dem Beispiel-Anwendungssystem.
+Die entsprechenden Informationen entnehmen Sie bitte der Anlage.
+
+Mit freundlichen Grüßen
+
+Ihr Fachbereich
+
+Behörde des Beispiel-Anwendungssystems
+
+Fachbereich
+
+Besucheradresse: Beispielstraße 23, 12345 Teststadt
+
+Postadresse: Beispielstraße 42, 12345 Teststadt
+
+Servicezeiten: montags bis freitags 7:00 Uhr bis 18:30 Uhr
+
+Telefon: +49 (0) 12345 - 678
+
++49 (0) 12345 -876
+
+Telefax: +49 (0) 12345 - 123
+
++49 (0) 12345 - 321
+
+E-Mail: fachbereich@behoerde.de
+
+Internet: http://www.beispielbehoerde.de
+====
+
+[[druckstueck-drubezeichnung-druckausgabe-2]]
+==== Druckstück DRU_<Bezeichnung der Druckausgabe>
+
+_Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier weitere Druckausgaben eines Druckausgabetyps zu beschreiben sind._
+
+[[bezeichnung-anwendungskomponente-5]]
+=== <Bezeichnung der Anwendungskomponente>
+
+_Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier Druckstücke weiterer Anwendungskomponenten zu beschreiben sind._
+
+// end::inhalt[]

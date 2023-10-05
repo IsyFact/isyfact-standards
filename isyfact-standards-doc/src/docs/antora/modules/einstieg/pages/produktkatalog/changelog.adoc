@@ -22,6 +22,7 @@
 ** QueryDSL auf 5.0.x
 ** H2 auf 2.1.214
 ** node auf 18.x (LTS) zusätzlich zu 16.x (LTS)
+** Metro auf 2.4.9
 
 * Neue Produkte:
 ** Selenium 4.x (empfohlen)

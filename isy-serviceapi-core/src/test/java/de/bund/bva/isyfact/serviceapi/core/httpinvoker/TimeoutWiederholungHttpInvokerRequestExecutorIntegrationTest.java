@@ -1,6 +1,8 @@
 package de.bund.bva.isyfact.serviceapi.core.httpinvoker;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.InterruptedIOException;
 
@@ -10,6 +12,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.annotation.Bean;
@@ -21,6 +25,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import de.bund.bva.isyfact.aufrufkontext.impl.AufrufKontextVerwalterImpl;
 import de.bund.bva.isyfact.aufrufkontext.stub.AufrufKontextVerwalterStub;
+import de.bund.bva.isyfact.security.autoconfigure.IsySecurityAutoConfiguration;
 import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.DummyServiceImpl;
 import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.DummyServiceRemoteBean;
 
@@ -29,9 +34,10 @@ import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.DummyServiceRem
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = TimeoutWiederholungHttpInvokerRequestExecutorIntegrationTest.TestConfig.class,
-    properties = "isy.logging.autoconfiguration.enabled=false",
-    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+        properties = "isy.logging.autoconfiguration.enabled=false",
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@ImportAutoConfiguration(value = IsySecurityAutoConfiguration.class, exclude = SecurityAutoConfiguration.class)
 public class TimeoutWiederholungHttpInvokerRequestExecutorIntegrationTest {
 
     @LocalServerPort
@@ -122,7 +128,5 @@ public class TimeoutWiederholungHttpInvokerRequestExecutorIntegrationTest {
         public TimeoutWiederholungHttpInvokerRequestExecutor requestExecutor() {
             return new TimeoutWiederholungHttpInvokerRequestExecutor(new AufrufKontextVerwalterStub<>());
         }
-
     }
-
 }

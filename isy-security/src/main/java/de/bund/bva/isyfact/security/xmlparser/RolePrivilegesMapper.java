@@ -10,7 +10,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.springframework.util.Assert;
+import org.springframework.core.io.Resource;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
@@ -19,19 +19,26 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 
 public class RolePrivilegesMapper {
 
-    /** Logger. */
+    /**
+     * Logger.
+     */
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(RolePrivilegesMapper.class);
 
-    private final String applicationId;
+    private String applicationId = "";
 
-    private final Map<String, Set<String>> rolePrivilegesMap;
+    private Map<String, Set<String>> rolePrivilegesMap = new HashMap<>();
 
-    public RolePrivilegesMapper(String roleMappingXmlFilePath) {
-        RolePrivileges rolePrivileges = getRolePrivileges(roleMappingXmlFilePath);
-        rolePrivilegesMap = mapAndValidateRolePrivileges(rolePrivileges);
-        applicationId = rolePrivileges.getApplicationId();
-        if (applicationId == null || applicationId.isEmpty()) {
-            throw new RolePrivilegesMappingException("Es ist keine AnwendungsId gesetzt");
+    public RolePrivilegesMapper(Resource roleMappingXmlResource) {
+        if (roleMappingXmlResource.exists()) {
+            RolePrivileges rolePrivileges = getRolePrivileges(roleMappingXmlResource);
+            rolePrivilegesMap = mapAndValidateRolePrivileges(rolePrivileges);
+
+            applicationId = rolePrivileges.getApplicationId();
+            if (applicationId == null || applicationId.isEmpty()) {
+                throw new RolePrivilegesMappingException("Es ist keine AnwendungsId gesetzt");
+            }
+        } else {
+            LOG.debug("Rollenrechte-Mapping Datei unter {} nicht gefunden.", roleMappingXmlResource.getDescription());
         }
     }
 
@@ -62,17 +69,12 @@ public class RolePrivilegesMapper {
         return "AnwendungsId: " + applicationId + "\nRollenRechteMapping: " + getRolePrivilegesMap().toString();
     }
 
-    private RolePrivileges getRolePrivileges(String roleMappingXmlFilePath) {
-        Assert.hasText(roleMappingXmlFilePath, "roleMappingXmlFilePath cannot be empty");
+    private RolePrivileges getRolePrivileges(Resource roleMappingXmlResource) {
         XmlMapper mapper = new XmlMapper();
-        try {
-            InputStream roleMappingFile = getClass().getResourceAsStream(roleMappingXmlFilePath);
-            if (roleMappingFile == null) {
-                throw new RolePrivilegesMappingException("Could not find role privileges mapping file: " + roleMappingXmlFilePath);
-            }
+        try (InputStream roleMappingFile = roleMappingXmlResource.getInputStream()) {
             return mapper.readValue(roleMappingFile, RolePrivileges.class);
         } catch (IOException e) {
-            throw new RolePrivilegesMappingException("Error loading role privileges mapping file: " + roleMappingXmlFilePath, e);
+            throw new RolePrivilegesMappingException("Error loading role privileges mapping file: " + roleMappingXmlResource.getFilename(), e);
         }
     }
 

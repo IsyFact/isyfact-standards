@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.bund.bva.isyfact.serviceapi.core.httpinvoker.user.User;
+import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 
 /**
  * Implementation of the DummyService.
@@ -59,6 +60,11 @@ public class DummyServiceImpl implements DummyServiceRemoteBean {
             throw new RuntimeException(e);
         }
         return message;
+    }
+
+    @Override
+    public String ping(AufrufKontextTo aufrufKontextTo, String message) {
+        return this.ping(message);
     }
 
     @Override

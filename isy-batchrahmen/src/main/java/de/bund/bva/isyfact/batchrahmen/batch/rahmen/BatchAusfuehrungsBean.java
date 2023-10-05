@@ -24,122 +24,90 @@ import de.bund.bva.isyfact.batchrahmen.batch.protokoll.BatchErgebnisProtokoll;
 import de.bund.bva.isyfact.batchrahmen.batch.protokoll.StatistikEintrag;
 
 /**
- * Interface fuer die Beans, welche in den Batchrahmen gehaengt werden.
+ * Interface for the beans, which are attached to the {@link de.bund.bva.isyfact.batchrahmen.core.rahmen.Batchrahmen}.
  * <p>
- * Diese Beans enthalten die konkrete Batchlogik:
+ * These beans contain the concrete batch logic:
  * <ul>
- * <li>Sie führen das Lesen von Datensaetzen sowie ihre Verarbeitung durch.
- * <li>Sie lesen im Fall von Restarts vor.
- * <li>Sie protokollieren den Batchablauf über die Methoden
- * {@link #initialisieren(BatchKonfiguration, long, String, BatchStartTyp , Date , BatchErgebnisProtokoll)},
- * {@link #checkpointGeschrieben(long)} und {@link #batchBeendet()}.
+ * <li>They perform the reading of data sets as well as their processing.
+ * <li>They read ahead in case of restarts.
+ * <li>They log the batch process via the methods
+ * {@link #initialisieren(BatchKonfiguration, long, String, BatchStartTyp, Date, BatchErgebnisProtokoll)},
+ * {@link #checkpointGeschrieben(long)} and {@link #batchBeendet()}.
  * </ul>
- * Durch den Batchrahmen wird das Transaktionshandling, das Handling der Status-Tabelle, das Initialisieren
- * der Spring-Kontexte ue bernommen.
- *
+ * The {@link de.bund.bva.isyfact.batchrahmen.core.rahmen.Batchrahmen} takes over the transaction handling, the handling of the status table, the initializing
+ * of the Spring contexts.
  */
 public interface BatchAusfuehrungsBean {
 
     /**
-     * Initialisiert die Ausfuehrungsklasse: Oeffnet die benoetigten Dateien oder Datenbank-Cursors, liest
-     * beim Restart-Verfahren bis zum angegebenen Satz bzw. dem angegebenen Datenbankschluessel vor.
+     * Initializes the execution class: opens the required files or database cursors, reads up
+     * to the specified record or database key during the restart procedure.
      *
-     * @param konfiguration
-     *            Die Konfiguration des Batches. Welche Properties fuer die Klasse relevant sind, ist nicht
-     *            vorgegeben. Die Properties enthalten sowohl Informationen der Konfigurations- Property-Datei
-     *            als auch (ueberschreibend) die angegebenen Kommandozeilen-Parameter.
-     *            <p>
-     *            Bei einem Restart werden die Daten des letzten Laufs uebermittelt.
-     * @param satzNummer
-     *            die Satznummer, bis zu der bei einem Restart vorgelesen werden soll. Dieser Schluessel kann
-     *            ignoriert werden, falls der Parameter dbKey zum Restart verwendet wird.
-     * @param dbKey
-     *            der Datenbankschluessel, ab dem fuer einen Restart Werte ausgelesen werden sollen. Dieser
-     *            Schluessel kann ignoriert werden, falls der Parameter satzNummer zum Restart verwendet wird.
-     * @param startTyp
-     *            Der Starttyp (Start bzw. Restart).
-     * @param datumLetzterErfolg
-     *            Datum an dem der Batch das letzte Mal erfolgreich durchgelaufen ist.
-     * @param protokoll
-     *            Ergebnis Protokoll des Batches. Wï¿½hrend der Initialisierung sollten die benï¿½tigten
-     *            {@link StatistikEintrag} initialisiert werden.
-     *
-     * @throws BatchAusfuehrungsException
-     *             Falls ein Fehler auftritt.
-     *
-     * @return falls bekannt: Die Gesamtanzahl an Datensaetzen. Sonst: -1.
+     * @param konfiguration      The configuration of the batch. Which properties are relevant for the class, is not predefined.
+     *                           The properties contain information of the configuration property file
+     *                           as well as (overwriting) the specified command line parameters.
+     *                           <p>
+     *                           At a restart the data of the last run are transferred.
+     * @param satzNummer         the record number up to which should be read during a restart. This key can
+     *                           be ignored if the parameter dbKey is used for the restart.
+     * @param dbKey              the database key from which values are to be read for a restart.
+     *                           This key can be ignored if the parameter satzNummer is used for the restart.
+     * @param startTyp           The start type (start or restart).
+     * @param datumLetzterErfolg Date on which the batch was run successfully the last time.
+     * @param protokoll          Result Log of the batch. During the initialization process the required
+     *                           {@link StatistikEintrag} should be initialized.
+     * @return if known: The total number of records. Otherwise: -1.
+     * @throws BatchAusfuehrungsException If an error occurs.
      */
     public int initialisieren(BatchKonfiguration konfiguration, long satzNummer, String dbKey,
-        BatchStartTyp startTyp, Date datumLetzterErfolg, BatchErgebnisProtokoll protokoll)
-        throws BatchAusfuehrungsException;
+                              BatchStartTyp startTyp, Date datumLetzterErfolg, BatchErgebnisProtokoll protokoll)
+            throws BatchAusfuehrungsException;
 
     /**
-     * verarbeite den naechsten Satz.
+     * process the next block.
      *
-     * @throws BatchAusfuehrungsException
-     *             Falls ein Fehler auftritt.
-     *
-     * @return Das Verarbeitungsergebnis des Satzes. Es besteht aus: -Dem Datenbankschluessel des
-     *         verarbeiteten Datensatzes fuer ein spaeteres Wiederaufsetzen des Batches. Null, falls kein
-     *         Wiederaufsetzen ueber Datenbankschluessel unterstuetzt wird. -Einem Kennzeichen dafuer, dass
-     *         weitere Datensaetze zu verarbeiten sind.
+     * @return The processing result of the block. It consists of:
+     * -the database key of the processed record for a later restart of the batch. Null, if no restart via database key is supported.
+     * -An indicator that there are more records to be processed.
+     * @throws BatchAusfuehrungsException If an error occurs.
      */
     public VerarbeitungsErgebnis verarbeiteSatz() throws BatchAusfuehrungsException;
 
     /**
-     * Diese Methode wird im Kontext einer Transaktion aufgerufen. Sie wird aufgerufen, wenn der Batch beendet
-     * wird. Dies kann protokolliert werden, Dateien kï¿½nnen geschlossen, Ressourcen freigegeben werden.
+     * This method is called in the context of a transaction. It is called when the batch is completed.
+     * This can be logged, files can be closed, resources can be freed.
      * <p>
-     * Fehler bei Freigaben sollten abgefangen und nicht weitergeworfen werden, damit sich der Batch
-     * erfolgreich beendet.
+     * Errors on releases should be caught and not thrown on, so that the batch can terminate successfully.
      */
     public void batchBeendet();
 
     /**
-     * Ein Checkpunkt wurde geschrieben. Dies bedeutet, dass die letzte Transaktion beendet und eine neue
-     * gestartet wurde. Der Batch kann dies protokollieren und ggf. Objekte neu laden.
+     * A checkpoint has been written.
+     * This means that the last transaction has ended and a new one has been started.
+     * The batch can log this and reload objects if necessary.
      *
-     * @param satzNummer
-     *            die in den BatchStatus geschriebene Satznummer.
-     *
-     * @throws BatchAusfuehrungsException
-     *             Falls ein Fehler auftritt.
+     * @param satzNummer The satzNumber written to the BatchStatus.
+     * @throws BatchAusfuehrungsException If an error occurs.
      */
     public void checkpointGeschrieben(long satzNummer) throws BatchAusfuehrungsException;
 
     /**
-     * Diese Methode wird unmittelbar vor dem Schreiben eines Checkpoints (Commit) aufgerufen.
+     * This method is called immediately before writing a checkpoint (commit).
      *
-     * @param satzNummer
-     *            die Nummer des zuletzt verarbeiteten Satzes.
-     *
-     * @throws BatchAusfuehrungsException
-     *             Falls ein Fehler auftritt.
+     * @param satzNummer the number of the last block processed.
+     * @throws BatchAusfuehrungsException If an error occurs.
      */
     public void vorCheckpointGeschrieben(long satzNummer) throws BatchAusfuehrungsException;
 
     /**
-     * Diese Methode wird aufgerufen, wenn ein Rollback durchgeführt wurde. Der Batch kann somit z.B.
-     * notwendige Aufräumarbeiten durchführen.
+     * This method is called when a rollback has been performed.
+     * The batch can thus perform necessary cleanup operations, for example.
      */
     public void rollbackDurchgefuehrt();
 
     /**
-     * Diese Methode wird aufgerufen, unmittelbar bevor ein Rollback durchgeführt wird. Der Batch kann somit
-     * z.B. notwendige Aufräumarbeiten durchführen.
+     * This method is called immediately before a rollback is performed.
+     * The batch can thus perform e.g. necessary cleanup operations.
      */
     public void vorRollbackDurchgefuehrt();
-
-    /**
-     * Diese Methode wird vor der Initialisierung (
-     * {@link #initialisieren(BatchKonfiguration, long, String, BatchStartTyp, Date, BatchErgebnisProtokoll)})
-     * aufgerufen. Es wird erwartet, dass das {@link BatchAusfuehrungsBean} sich authentifiziert, indem es ein
-     * {@link AuthenticationCredentials} Objekt mit den erforderlichen Daten zurück gibt. Ist dies geschehen,
-     * werden die angegebenen Daten im Aufrufkontext hinterlegt, um eine Berechtigungsprüfung zu ermöglichen.
-     * @param konfiguration
-     *            die Batchkonfiguration, aus der bei bedarf Informationen gelesen werden können.
-     * @return Informationen zur Authentifizierung des Batches oder <code>null</code> falls keine
-     *         Berechtigungsprüfung benötigt wird.
-     */
-    public AuthenticationCredentials getAuthenticationCredentials(BatchKonfiguration konfiguration);
 }

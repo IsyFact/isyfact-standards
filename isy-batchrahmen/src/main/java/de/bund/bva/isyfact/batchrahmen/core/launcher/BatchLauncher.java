@@ -23,15 +23,15 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.Banner;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.oauth2.client.ClientAuthorizationException;
 
 import de.bund.bva.isyfact.batchrahmen.batch.exception.BatchAusfuehrungsException;
 import de.bund.bva.isyfact.batchrahmen.batch.konfiguration.BatchKonfiguration;
@@ -41,6 +41,7 @@ import de.bund.bva.isyfact.batchrahmen.batch.protokoll.BatchErgebnisProtokoll;
 import de.bund.bva.isyfact.batchrahmen.batch.protokoll.MeldungTyp;
 import de.bund.bva.isyfact.batchrahmen.batch.protokoll.VerarbeitungsMeldung;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchReturnCode;
+import de.bund.bva.isyfact.batchrahmen.config.BatchSecurityConfiguration;
 import de.bund.bva.isyfact.batchrahmen.core.exception.BatchrahmenException;
 import de.bund.bva.isyfact.batchrahmen.core.exception.BatchrahmenInitialisierungException;
 import de.bund.bva.isyfact.batchrahmen.core.exception.BatchrahmenProtokollException;
@@ -50,46 +51,21 @@ import de.bund.bva.isyfact.batchrahmen.core.rahmen.Batchrahmen;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
-import de.bund.bva.isyfact.sicherheit.common.exception.SicherheitTechnicalRuntimeException;
 
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.joran.JoranConfigurator;
 import ch.qos.logback.core.joran.spi.JoranException;
 
 /**
- * This class starts a batch (see {@link Batchrahmen} with the transferred configuration. The configuration
- * is done via command line arguments und a property file.
+ * This class starts a batch (see {@link Batchrahmen} with the transferred configuration.
+ * The configuration is done via command line arguments und a property file.
  * <p>
- * The processing logic is divided into a Batchrahmen and a Ausführungsbean. See the Detailkonzept Batch
- * of the Migrationsstufe 1.
+ * The processing logic is divided into a Batchrahmen and a Ausführungsbean.
+ * See the Detailkonzept Batch of the Migrationsstufe 1.
  * <p>
- * Command line arguments must always have the form <tt>-ParameterName ParameterValue</tt> oder
- * <tt>-ParameterName</tt>. The following parameters are relevant for Batchrahmen:
- * <ul>
- * <li>cfg &lt;filename&gt;: Name of property file
- * <li>start: Start batch in "Start" mode.
- * <li>restart: Start batch in "Restart" mode after an abort with error.
- * <li>ignoriereRestart: Accept start even in the event of errors, do not insist on restart.
- * <li>ignoriereLauf: Accept start even with status "Laeuft".
- * </ul>
- * <p>
- * The property file may have following values:
- * <ul>
- * <li>Batchrahmen.BeanName: Name of Batchrahmen-Bean.
- * <li>Anwendung.SpringDateien.&lt;N&gt;: Names of spring configuration files of system.
- * <li>Batchrahmen.SpringDateien.&lt;N&gt;: Names of spring configuration files of Batchrahmen.
- * <li>Batchrahmen.LogbackConfigFile: Path to Log4J configuration file.
- * <li>Batchrahmen.CommitIntervall: Number of record processes per commit.
- * <li>Batchrahmen.AnzahlZuVerarbeitendeDatensaetze: Number of data record to be processed.
- * <li>AusfuehrungsBean: Name of Ausfuehrungsbean for batch logic.
- * <li>BatchId: ID of batch (ID of batch status data record).
- * <li>BatchName: Name of batch in batch status table.
- * </ul>
- * <p>
- * Any further command line parameters and properties can be entered. The command line parameters
- * are added to the properties and overwrite them, if necessary, before they are passed on to the
- * Batchrahmen-Bean. The Batchrahmen-Bean forwards the complete configuration to the Ausfuehrungsbean,
- * which can use it for configuration.
+ * Any further command line parameters and properties can be entered.
+ * The command line parameters are added to the properties and overwrite them, if necessary, before they are passed on to the Batchrahmen-Bean.
+ * The Batchrahmen-Bean forwards the complete configuration to the Ausfuehrungsbean, which can use it for configuration.
  */
 public class BatchLauncher {
     /**
@@ -156,7 +132,7 @@ public class BatchLauncher {
         } catch (BatchrahmenException ex) {
             protokolliereFehler(log, protokoll, ex);
             returnCode = ex.getReturnCode();
-        } catch (SicherheitTechnicalRuntimeException ex) {
+        } catch (AuthenticationException | AccessDeniedException | ClientAuthorizationException ex) {
             protokolliereFehler(log, protokoll, ex);
             returnCode = BatchReturnCode.FEHLER_KONFIGURATION;
         } catch (Throwable ex) {
@@ -268,6 +244,7 @@ public class BatchLauncher {
     private void launch() throws BatchAusfuehrungsException {
 
         List<Class> configs = new ArrayList<>();
+        configs.add(BatchSecurityConfiguration.class);
 
         try {
             for (final String name : rahmenKonfiguration.getAnwendungSpringKonfigFiles()) {
@@ -276,7 +253,7 @@ public class BatchLauncher {
             for (final String name : rahmenKonfiguration.getBatchRahmenSpringKonfigFiles()) {
                 configs.add(Class.forName(name));
             }
-        } catch(ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             throw new BatchAusfuehrungsException(NachrichtenSchluessel.ERR_KLASSE_NICHT_GEFUNDEN, e);
         }
 

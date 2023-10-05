@@ -1,20 +1,29 @@
 package de.bund.bva.isyfact.serviceapi.core.httpinvoker;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.lang.reflect.Proxy;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.remoting.RemoteAccessException;
 import org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter;
+import org.springframework.remoting.support.RemoteInvocationFactory;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -22,11 +31,13 @@ import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.isyfact.aufrufkontext.impl.AufrufKontextVerwalterImpl;
 import de.bund.bva.isyfact.aufrufkontext.stub.AufrufKontextVerwalterStub;
+import de.bund.bva.isyfact.security.autoconfigure.IsySecurityAutoConfiguration;
 import de.bund.bva.isyfact.serviceapi.core.httpinvoker.user.User;
 import de.bund.bva.isyfact.serviceapi.core.httpinvoker.user.UserImpl;
 import de.bund.bva.isyfact.serviceapi.core.httpinvoker.user.UserInvocationHandler;
 import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.DummyServiceImpl;
 import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.DummyServiceRemoteBean;
+import de.bund.bva.pliscommon.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 
 /**
  * Tests for {@link IsyHttpInvokerServiceExporter} that require a Spring Context.
@@ -36,6 +47,7 @@ import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.DummyServiceRem
         properties = "isy.logging.autoconfiguration.enabled=false",
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@ImportAutoConfiguration(value = IsySecurityAutoConfiguration.class, exclude = SecurityAutoConfiguration.class)
 public class IsyHttpInvokerServiceExporterIntegrationTest {
 
     public static final String TEST_BEARER_TOKEN = "TEST_BEARER_TOKEN";
@@ -45,6 +57,7 @@ public class IsyHttpInvokerServiceExporterIntegrationTest {
 
     @Autowired
     @Qualifier("dummyService")
+    @SpyBean
     private DummyServiceImpl userService;
 
     @Qualifier("invoker")
@@ -58,6 +71,14 @@ public class IsyHttpInvokerServiceExporterIntegrationTest {
     @Autowired
     @Qualifier("aufrufKontextVerwalter")
     private AufrufKontextVerwalter aufrufKontextVerwalter;
+
+    @Autowired
+    @SpyBean
+    private RemoteInvocationFactory remoteInvocationFactory;
+
+    @Autowired
+    @SpyBean
+    private CreateAufrufKontextToStrategy createAufrufKontextToStrategy;
 
     @Test(expected = RemoteAccessException.class)
     public void testAddUserNotAllowedProxyObject() {
@@ -89,6 +110,33 @@ public class IsyHttpInvokerServiceExporterIntegrationTest {
         assertEquals("Added user successful.", serviceRemoteBean.addUser(a));
 
         assertEquals(TEST_BEARER_TOKEN, aufrufKontextVerwalter.getBearerToken());
+    }
+
+    @Test
+    public void testFillsAufrufKontextTo() {
+        serviceProxy.setServiceUrl("http://localhost:" + port + "/dummyServiceBean_v1_0_0");
+
+        assertThat(remoteInvocationFactory)
+                .isNotNull()
+                .isInstanceOf(AufrufKontextToRemoteInvocationFactory.class);
+
+        assertThat(createAufrufKontextToStrategy)
+                .isNotNull()
+                .isInstanceOf(DefaultCreateAufrufKontextToStrategy.class);
+
+        assertEquals("Hello", serviceRemoteBean.ping(null, "Hello"));
+        verify(remoteInvocationFactory, times(1)).createRemoteInvocation(any());
+        verify(createAufrufKontextToStrategy, times(1)).create();
+
+        ArgumentCaptor<AufrufKontextTo> captor1 = ArgumentCaptor.forClass(AufrufKontextTo.class);
+        ArgumentCaptor<String> captor2 = ArgumentCaptor.forClass(String.class);
+
+        verify(userService, times(1)).ping(captor1.capture(), captor2.capture());
+
+        assertThat(captor1.getValue())
+                .isNotNull();
+
+        assertThat(captor2.getValue()).isEqualTo("Hello");
     }
 
     @Configuration
