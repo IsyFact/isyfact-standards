@@ -1,4 +1,4 @@
-= Baustein Styleguide
+= Baustein Bedienkonzept
 
 include::glossary:licence:partial$licence.adoc[]
 
@@ -6,32 +6,26 @@ include::glossary:miscellaneous:partial$deprecated-baustein.adoc[]
 
 [[einfuehrung-und-allgemeine-prinzipien]]
 == Einführung und allgemeine Prinzipien
-Der Styleguide definiert den Rahmen für die interaktive und visuelle Gestaltung eines universell einsetzbaren Bedienkonzeptes für die IsyFact.
-Dieses einführende Kapitel beinhaltet allgemeine Hinweise zur Benutzung des Styleguides.
+Dieses einführende Kapitel beinhaltet allgemeine Hinweise zum Bedienkonzept.
 Des Weiteren werden allgemeingültige Prinzipien erläutert, die bei der Konzeption und Gestaltung von Software berücksichtigt werden sollten.
 Abschließend werden die Vorgaben für die zu unterstützenden Browser festgehalten.
 
-[[einfuehrung-in-den-style-guide]]
-=== Einführung in den Styleguide
+[[einfuehrung-in-das-bedienkonzept]]
+=== Einführung in das Bedienkonzept
 
 *_Anwendungsbereich und Abgrenzung_*
 
-Da in einem Styleguide generische Regeln und nicht detaillierte GUI-Spezifikationen für jeden Screen einer Applikation festgelegt werden, ist es beim Screen Design notwendig, große Sorgfalt walten zu lassen.
+Da in einem Bedienkonzept generische Regeln und nicht detaillierte GUI-Spezifikationen für jeden Screen einer Applikation festgelegt werden, ist es beim Screen Design notwendig, große Sorgfalt walten zu lassen.
 Das vorliegende Dokument definiert einen Standard.
 Wann immer die Notwendigkeit zur Nichtbefolgung eines Standards auftauchen sollte, muss über Art und Umfang der Abweichung entschieden werden.
 Das heißt, der in diesem Dokument definierte Standard wird empfohlen, ist aber nicht in jedem Einzelfall als Restriktion zu verstehen.
 
 *_Begriff der Usability_*
 
-Die Benutzerfreundlichkeit (Usability) einer Anwendung gilt heute als entscheidendes Qualitätsmerkmal und trägt nachhaltig zur breiten Akzeptanz eines Systems bei.
+Die https://de.wikipedia.org/wiki/Benutzerfreundlichkeit[Benutzerfreundlichkeit (Usability)] einer Anwendung gilt heute als entscheidendes Qualitätsmerkmal und trägt nachhaltig zur breiten Akzeptanz eines Systems bei.
 Der Begriff der Usability verweist auf ein qualitatives Konzept, welches das Ausmaß beschreibt, in dem ein Produkt von einem bestimmten Benutzer verwendet werden kann, um konkrete Arbeitsziele in einem vorgegebenen Kontext effektiv, effizient und zufriedenstellend zu erreichen.
 Die Usability eines Produktes kann damit nicht unabhängig von einem zuvor festgelegten Benutzer bestimmt werden, sondern bezieht ausdrücklich ein umschriebenes Benutzerprofil im Sinne von gegebenen oder fehlenden Vorkenntnissen, Ausbildungen und Fertigkeiten mit ein.
 Mit dem Attribut effektiv wird die Genauigkeit und Vollständigkeit angesprochen, mit der ein Benutzer sein Arbeitsziel erreicht und hierbei durch das System unterstützt wird.
-
-Der Begriff effizient bezeichnet den im Verhältnis zur Genauigkeit und Vollständigkeit der Arbeitsdurchführung eingesetzten Ressourcenaufwand.
-Für das System bestimmt die Effektivität das Qualitätsniveau der systemseitigen Arbeitsunterstützung; die Effizienz hingegen, mit welchem Lernaufwand bzw.
-mit welchem mittleren Zeitaufwand eine Arbeitsaufgabe bewältigt wird.
-Mit dem Attribut zufriedenstellend wird schließlich die (positive) Einstellung und das emotionale Erleben (Joy of Use) eines Benutzers gegenüber der Nutzung einer Applikation charakterisiert.
 
 *_Prospektive Benutzergruppen und generelle Aufgabenbeschreibung_*
 
@@ -40,125 +34,56 @@ Bei dieser Gruppe werden elementare Kenntnisse im Bereich von Standard-Office-Ap
 Bei der konkreten Ausgestaltung (Spezifikation) der einzelnen Anwendungen sind die Eigenschaften der jeweiligen Benutzergruppen in Bezug auf Vorkenntnisse, Fähigkeiten, IT-Affinität usw.
 zu berücksichtigen.
 
-*_Zielgruppe des Styleguides_*
+*_Zielsetzung des Bedienkonzeptes und Abgrenzung zum Styleguide_*
 
-Der Styleguide richtet sich in erster Linie an Produktverantwortliche, Software-Entwickler und User Interface Designer.
-Einen Überblick über die gestalterischen Grundlagen des Systems liefert der Styleguide aber auch für Marketing-Experten und die Verantwortlichen des Corporate Design.
-Alle Teile des Styleguides sind erweiterbar und sollten über die Zeit hinweg fortgeschrieben und ergänzt werden.
+Das Bedienkonzept beschreibt die Art und Weise, wie eine IsyFact-Anwendung von einem Benutzer bedient wird und konzentriert sich auf die Gestaltung der Benutzeroberfläche, die Interaktion mit dem System und die Navigation durch die Funktionen.
+Ein Styleguide ist eine Sammlung von Designrichtlinien und Standards, die zur Wahrung einer konsistenten visuellen Identität einer Marke oder eines Unternehmens beitragen und konzentriert sich auf visuelle Elemente wie Farben, Typografie, Grafiken und Logo-Verwendung.
+Er kann jedoch auch Schreib- und Sprachregeln enthalten, um sicherzustellen, dass die Kommunikation mit der Zielgruppe einheitlich und klar ist.
 
-*_Zielsetzung des Styleguides_*
+Dieser Styleguide muss von der jeweiligen Behörde ausgearbeitet werden.
 
-Konsistenz, Einheitlichkeit und visuelle Attraktivität sind entscheidende Qualitätskriterien für die Benutzerfreundlichkeit eines User Interfaces.
-Styleguides gewährleisten ein einheitliches Look & Feel von Applikationen und schaffen so die Voraussetzungen dafür, dass Benutzern eine schnelle Einarbeitung in Logik, Ablauf und Funktionsweise einer Anwendung und eine befriedigende Arbeit ermöglicht wird.
-Neben der Vereinheitlichung und der damit verbundenen Erhöhung der Benutzerfreundlichkeit liegt ein wesentlicher wirtschaftlicher Vorteil eines Styleguide in der Steigerung der Effizienz, da er Lösungen für wiederkehrende Aufgabenstellungen innerhalb einer Applikation bzw.
-eines Applikationspakets bietet.
-Der vorliegende Styleguide definiert den Rahmen für die interaktive und visuelle Gestaltung eines universell einsetzbaren Bedienkonzeptes.
-Es gibt Richtlinien und Regeln für die detaillierte Ausgestaltung einzelner Screens.
-Um eine breite Generalisierbarkeit der in diesem Dokument vorgestellten Entwurfsgrundlagen zu ermöglichen, jedoch gleichzeitig eine konkrete Hilfestellung für die Gestaltung der Schnittstelle zu bieten, werden vorgestellte Designrichtlinien durch Musterlösungen in Form von Beispiel-Screens ergänzt.
+Während das Bedienkonzept in erster Linie für Designer und Entwickler relevant ist, die eine Anwendung entwerfen, ist ein Styleguide eher für Marken- und Kommunikationsexperten relevant, die sicherstellen möchten, dass die visuelle Identität und Markenpositionierung ihrer Behörde konsistent bleibt.
+Die Entwickler setzen dann die vom Styleguide definierten visuelle Elemente um.
+Alle Teile des Bedienkonzeptes sind erweiterbar und sollten über die Zeit hinweg fortgeschrieben und ergänzt werden.
 
 [[allgemeine-prinzipien]]
 === Allgemeine Prinzipien
 
 Zur Konzeption und Gestaltung von benutzerfreundlicher Software können einige generelle Prinzipien zu Rate gezogen werden.
-Diese Prinzipien werden hier beschrieben.
+Viele dieser Prinzipien werden beispielsweise in der https://de.wikipedia.org/wiki/ISO_9241[ISO 9241] und in https://en.wikipedia.org/wiki/Web_usability#Web_Usability_Criteria[Nielsen's Web Usability Criteria] beschrieben.
+Zusätzlich liefert https://lawsofux.com/[lawsofux] eine anschauliche Sammlung von Design Prinzipien.
+Als tiefergehende Grundlage zu den Designprinzipien können die https://de.wikipedia.org/wiki/Gestaltpsychologie#Gestaltgesetze[Gestaltgesetze] aus der Gestaltpsychologie herangezogen werden.
 
-*Regeln zur Gestaltung eines User Interfaces*
+Neben den allgemeinen Prinzipien ist besonders das Thema Barrierefreiheit für deutsche Behörden relevant und wir in diesem Abschnitt noch einmal explizit beschrieben.
 
-Um die Benutzer-System-Interaktion in ihrer Effizienz sowohl in der Einarbeitungsphase als auch im Routinebetrieb zu steigern, müssen das Bildschirmlayout, die visuelle Ausgestaltung des Graphical User Interfaces (GUI) und die Grundlage der Interaktion mit dem System der Anwendung einer beschränkten Auswahl konsistenter, applikationsübergreifender Designprinzipien entsprechen.
-Die im Folgenden ausführlich beschriebenen Prinzipien basieren sowohl auf wissenschaftlichen Erkenntnissen als auch auf Erfahrungen und können in diesem Sinne als Best-Practice-Regeln zur Ableitung konkreter Hinweise für den Entwurf der Benutzerschnittstelle verstanden werden.
 
-*Unterstützung kontextabhängiger Interaktion*
+==== Barrierefreiheit
 
-Die zu einem Objekt (z.B. Listeneintrag) verfügbaren Funktionen sollen dort auffindbar sein, wo sie angewendet werden können.
-Der Benutzer sollte möglichst nicht gezwungen werden, nach kontextabhängigen Standardfunktionen in globalen Menüs zu suchen.
-Als Beispiel kann die Verwendung von Kontextmenüs genannt werden, durch die Funktionen genau dort angeboten und unterstützt werden, wo sie aktuell gebraucht werden und anwendbar sind.
+Die Barrierefreiheit einer Anwendung beschreibt das Ausmaß, inwieweit die Anwendung für möglichst viele Menschen zugänglich ist, unabhängig
+vom Alter und von möglichen Einschränkungen durch Behinderungen.
+Im englischsprachigen Raum wird hierfür der Begriff „Accessibility“ (Zugänglichkeit) verwendet.
 
-*Vermeidung unnötigen Interaktionsaufwands*
+Das Ziel der barrierefreien Gestaltung liegt vor allem darin, eine verbesserte Zugänglichkeit für Menschen mit Behinderung und ältere Menschen zu erreichen.
+Hiervon ist ein großer Anteil der Bevölkerung betroffen, zumal es neben Menschen mit permanenter Behinderung auch viele Menschen gibt, die nur zeitweise hinsichtlich der Bedienung eingeschränkt sind.
+Barrierefreie Gestaltung ermöglicht nicht nur Zugänglichkeit für mehr Menschen, sondern verbessert auch deren Einbeziehung in die Anwendung.
+Darüber hinaus bewirkt eine erhöhte Barrierefreiheit allgemein für Benutzer auch eine Verbesserung der Usability.
+In vielen Ländern wird Barrierefreiheit (insbesondere für Webseiten) durch Gesetze bzw. Richtlinien geregelt, um einen allgemeinen Zugang zu öffentlichen Internetdiensten zu erreichen.
 
-Das System darf vom Benutzer nur möglichst wenige Eingaben und Interaktionen fordern.
-Beispiel: Wenn der Benutzer oft gezwungen ist, Fenster zu verschieben oder zu skalieren, um einfache Ziele zu erreichen, ist dies ein Indikator für vermeidbaren Interaktionsaufwand.
-Dieser Aufwand kann z.B. auch durch sinnvolle Standardwerte reduziert werden.
+*Richtlinien und Prinzipien zur Barrierefreiheit*
 
-*Vermeiden einer Vielzahl gleichzeitig geöffneter Fenster*
+Im Rahmen des World Wide Web Consortium (W3C) wurden die https://www.w3.org/WAI/standards-guidelines/wcag/[Web Content Accessibility Guidelines (WCAG)] verfasst, um einen gemeinsamen Standard für die Barrierefreiheit von Webinhalten zu schaffen.
+Dabei handelt es sich um Richtlinien für die barrierefreie Gestaltung von Webinhalten im Hinblick auf drei Erfüllungsgrade (Conformance Levels A, AA und AAA). Diese Richtlinien basieren auf den folgenden vier Prinzipien für eine barrierefreie Anwendung:
 
-Die Eingabe von Parametern darf sich nicht über eine Vielzahl von verschachtelten Fenstern erstrecken.
-Stattdessen werden die unterschiedlichen Parameter mit Hilfe von Tabs, Listen oder Bäumen innerhalb eines Fensters so gruppiert, dass der Überblick gewahrt bleibt.
+* *Wahrnehmbar* – Präsentation der Benutzerschnittstelle, so dass diese für Benutzer wahrnehmbar ist (mittels Sehkraft, Gehör oder Berührung).
+* *Bedienbar* – Benutzerschnittstelle muss bedienbar bzw.
+navigierbar sein und kompatibel mit Tastatur oder Maus.
+* *Verständlich* – Informationen und Bedienung müssen verständlich sein.
+* *Robust* – Die Benutzerschnittstelle funktioniert zuverlässig mit verschiedenen Browsern, assistiven Technologien (z.B. Screen Reader), mobilen Geräten, alten Geräten/Browsern.
 
-[[image-gliederungtabreiter]]
-.Gliederung mittels Tabreiter
-image::gliederungstabreiter.png[align="center", width="299",height="174"]
-
-*Verwendung von visuell reichhaltigem und amodalem Feedback*
-
-Die Unterbrechung des Arbeitsflusses sollte vermieden werden.
-Der Nutzer ist visuell (und optional akustisch) und ohne eigene Aktion über zentrale Systemzustände zu informieren.
-Amodal bedeutet, dass Feedback unmittelbar gegeben werden sollte, ohne den Benutzer zur Navigation oder Interaktion (z.B. mit Meldungsdialogen) zu zwingen.
-Modale Meldungsdialoge sind nur dann zu verwenden, wenn eine Eingabe des Benutzers unmittelbar benötigt wird oder nur so schwerwiegende Probleme (z.B. Datenverlust) verhindert werden können.
-
-[[image-modalundamodal]]
-.Modales und amodales Feedback im Vergleich
-image::modalundamodal.png[align="center", width="685",height="273"]
-
-*Nutzung von Aufgabenkohärenz*
-
-Die Aufgaben und die Objekte, mit denen ein Benutzer arbeitet, werden mit hoher Wahrscheinlichkeit wiederverwendet.
-Dem Benutzer sind deshalb Möglichkeiten für einen vereinfachten Zugriff auf sich wiederholende Vorgänge und wiederverwendete Objekte anzubieten.
-Dies ist auch die zugrunde liegende Idee bei der Verwendung von Favoriten-Listen.
-Ein Beispiel für die Berücksichtigung der Aufgabenkohärenz ist das Anbieten von Vorlagen, welche die Auswahl von einzelnen Parametern zu schnell auswählbaren Gruppen zusammenfassen.
-
-[[image-bereitstellungvorlagen]]
-.Bereitstellung von Vorlagen
-image::bereitstellungsvorlagen.png[align="center", width="600",height="393"]
-
-*Ausgleich zwischen Mächtigkeit und Komplexität eines Interfaces*
-
-*Bereitstellen nützlicher Standardwerte*
-
-Wo es möglich ist, müssen Eingabeelemente (z.B. Dropdown Menüs) sinnvolle Standardwerte aufweisen, die idealerweise vom Benutzer direkt übernommen werden können.
-
-*Förderung der Herausbildung von Gewohnheiten*
-
-Die Benutzerschnittstelle muss konsistent gestaltet sein, um leicht bedient werden zu können.
-Funktionen müssen auch in verschiedenen Ansichten immer an der gleichen Stelle auffindbar sein.
-Interaktionsmuster müssen dieselbe Syntax aufweisen (z.B. 1. Wähle Objekt, 2. Wende Funktion darauf an).
-
-*Nutzung von Information Hiding ("Progressive Disclosure")*
-
-Anzeige- und Eingabebereiche müssen nicht immer die gesamten Möglichkeiten anzeigen, sondern sollten nur die häufig benötigten Elemente direkt darstellen.
-Zusätzliche Interaktionsmöglichkeiten können in Bereiche gelegt werden, die erst auf Anforderung des Benutzers zugänglich werden.
-
-[[image-progressivedisclosure]]
-.Progressive Disclosure
-image::progressivedisclosure.png[align="center", width="299",height="240"]
-
-*Präferenz des Wiedererkennens gegenüber dem Erinnern*
-
-Es fällt Menschen leichter, ein Objekt oder eine Aktion wieder zu erkennen, als sich aktiv an diese zu erinnern.
-Wo es möglich ist, muss dem Benutzer deshalb ein visueller Hinweis auf abrufbare Objekte und Prozeduren gegeben werden.
-Funktionen und Informationen müssen dort angezeigt werden, wo sie benötigt werden.
-
-*Problembeschreibung*
-
-Das Bedürfnis von Benutzern, jeweils alle situativ notwendigen Informationen präsent zu haben, steht oft der Erfordernis gegenüber, Novizen (Benutzer, die sich gerade in das System einarbeiten) nicht mit zu viel Information zu konfrontieren.
-Zur Reduktion dieses Spannungsfeldes bieten sich für den Entwurf des User Interfaces die im Folgenden genannten Methoden an.
-
-*Reduktion der Belastung des Arbeitsgedächtnisses*
-
-Die Arbeitsgedächtnisbelastung des Benutzers ist zu minimieren.
-Es sollten möglichst viele Informationseinheiten visualisiert werden, die der Benutzer dann leichter verarbeiten kann.
-
-[[image-negativarbeitsgedaechtnis]]
-.Negativ-Beispiel - Arbeitsgedächtnis wird unnötig belastet
-image::negativarbeitsgedaechtnis}.png[align="center", width="399",height="197"]
-
-*Thematische Gruppierung von Parametern*
-
-Thematisch Zusammengehöriges muss auch visuell als Gruppe erkennbar sein.
-Zusammengehörige Parameter werden beispielsweise in visuell separierte Bereiche gefasst.
-
-[[image-gruppierungbereiche]]
-.Gruppierung zusammengehöriger Bereiche wird unnötig belastet
-image::gruppierungbereiche.png[align="center", width="450",height="293"]
+In Deutschland gilt das https://www.gesetze-im-internet.de/bgg/[Behindertengleichstellungsgesetz (BGG)], welches eine Benachteiligung von behinderten Menschen verhindern soll.
+Als Teil dieses Gesetzes wurde die sogenannte https://www.gesetze-im-internet.de/bitv_2_0/BJNR184300011.html[Barrierefreie-Informationstechnik-Verordnung (BITV)] verfasst.
+Für bestimmte Anwendungsgruppen gilt dies verbindlich, z.B. für Bundesbehörden im Hinblick auf deren Internetauftritte und öffentlich zugängliche Terminals.
+Die BITV wendet als Grundlage die Prinzipien und Richtlinien der WCAG an.
 
 *Verfassen von adäquaten Texten*
 
@@ -182,79 +107,32 @@ Bei der semantischen Verwendung von Farben dürfen diese niemals als alleiniger 
 Es sind verschiedene Formen der Farbenfehlsichtigkeit in der Bevölkerung weit verbreitet.
 Es empfiehlt sich daher eine Form der redundanten Kodierung, so kann die Bedeutung einer Farbe z.B. mittels einer Form oder eines Icons unterstützend transportiert werden.
 
-*Vermeidung von Fehlern*
-
-Ein benutzerfreundliches User-Interface versucht das Auftreten von Fehlern im Voraus zu unterbinden.
-Dazu zählt u. a. das Bereitstellen eines angemessenen Bedienelementes für einen bestimmten Use-Case.
-Der Einsatz nicht angemessener Bedienelemente erhöht die Fehler-Anfälligkeit eines User-Interface.
-Temporär nicht verfügbare Bedienelemente werden deaktiviert und der Einsatz von Eingaberestriktionen muss von Fall zu Fall betrachtet werden.
-So soll z.B. ein Drop-down-Menü anstelle eines Freitext-Feldes eingesetzt werden, wenn nur bestimmte Eingabewerte erlaubt sind.
-Fehleingaben durch den Benutzer werden somit implizit ausgeschlossen.
-
-*Bereitstellung eines effektiven Fehlermanagements*
-
-Selbstverständlich lässt sich das Auftreten von Fehlern niemals gänzlich vermeiden.
-Daher ist eine einfache und effektive Fehlerbehandlung von großer Bedeutung.
-Eine wenig effiziente Fehlerbehandlung kann einerseits eine dramatische Reduzierung der User-Experience zur Folge haben sowie gleichzeitig die Support-Kosten in die Höhe treiben.
-Unnötige Dialog-Fenster müssen dringend vermieden werden.
-Vielmehr empfiehlt sich der Einsatz amodalen Feedbacks, wie z.B. durch Status-Leiste-Nachrichten.
-Modale Dialoge werden nur dann verwendet, wenn kritische Probleme auftreten oder direkte Eingaben des Benutzers benötigt werden.
-
-*Barrierefreiheit*
-
-Die Barrierefreiheit einer Anwendung beschreibt das Ausmaß, inwieweit die Anwendung für möglichst viele Menschen zugänglich ist, unabhängig
-vom Alter und von möglichen Einschränkungen durch Behinderungen.
-Im englischsprachigen Raum wird hierfür der Begriff „Accessibility“ (Zugänglichkeit) verwendet.
-
-Das Ziel der barrierefreien Gestaltung liegt vor allem darin, eine verbesserte Zugänglichkeit für Menschen mit Behinderung und ältere Menschen zu erreichen.
-Hiervon ist ein großer Anteil der Bevölkerung betroffen, zumal es neben Menschen mit permanenter Behinderung auch viele Menschen gibt, die nur zeitweise hinsichtlich der Bedienung eingeschränkt sind.
-Barrierefreie Gestaltung ermöglicht nicht nur Zugänglichkeit für mehr Menschen, sondern verbessert auch deren Einbeziehung in die Anwendung.
-Darüber hinaus bewirkt eine erhöhte Barrierefreiheit allgemein für Benutzer auch eine Verbesserung der Usability.
-In vielen Ländern wird Barrierefreiheit (insbesondere für Webseiten) durch Gesetze bzw.
-Richtlinien geregelt, um einen allgemeinen Zugang zu öffentlichen Internetdiensten zu erreichen.
-
-*Richtlinien und Prinzipien zur Barrierefreiheit*
-
-Im Rahmen des World Wide Web Consortium (W3C) wurden die sogenannten „Web Content Accessibility Guidelines“ (WCAG) verfasst, um einen gemeinsamen Standard für die Barrierefreiheit von Webinhalten zu schaffen.
-Dabei handelt es sich um Richtlinien für die barrierefreie Gestaltung von Webinhalten im Hinblick auf drei Erfüllungsgrade (Conformance Levels A, AA und AAA). Diese Richtlinien basieren auf den folgenden vier Prinzipien für eine barrierefreie Anwendung:
-
-* *Wahrnehmbar* – Präsentation der Benutzerschnittstelle, so dass diese für Benutzer wahrnehmbar ist (mittels Sehkraft, Gehör oder Berührung).
-* *Bedienbar* – Benutzerschnittstelle muss bedienbar bzw.
-navigierbar sein und kompatibel mit Tastatur oder Maus.
-* *Verständlich* – Informationen und Bedienung müssen verständlich sein.
-* *Robust* – Die Benutzerschnittstelle funktioniert zuverlässig mit verschiedenen Browsern, assistiven Technologien (z.B. Screen Reader), mobilen Geräten, alten Geräten/Browsern.
-
-In Deutschland gilt das Behindertengleichstellungsgesetz (BGG), welches eine Benachteiligung von behinderten Menschen verhindern soll.
-Als Teil dieses Gesetzes wurde die sogenannte Barrierefreie-Informationstechnik-Verordnung (BITV) verfasst.
-Für bestimmte Anwendungsgruppen gilt dies verbindlich, z.B. für Bundesbehörden im Hinblick auf deren Internetauftritte und öffentlich zugängliche Terminals.
-Die BITV wendet als Grundlage die Prinzipien und Richtlinien der WCAG an.
-
-[[Testbarkeit-von-Anwendungen]]
-*Testbarkeit von Web-basierenden Anwendungen*
-
-Eine ganze Reihe von Anwendungsfällen auf einzelnen Benutzermasken aber auch Prozessabläufe (Integrationstests) können mit Testframeworks (u.a. Selenium) maschinell testbar gemacht werden.
-
-Für den Zugriff auf ein Maskenelement (Eingabefeld, Dropdown-Liste, Schaltfläche, ...) müssen diese Testframeworks eindeutig einen Bezug zu einem Maskenobjekt herstellen können. Dies geschieht in der Regel
-über eine XPath-Anweisung, welche den Zugriffspfad auf ein Maskenobjekt zu beschreiben versucht oder über eine für ein Maskenobjekt eindeutig zu vergebene Objekt-ID.
-Der Zugriff über eine Objekt-ID ist robuster bei Maskenweiterentwicklungen, wohingegen sich XPath Zugriffspfade ändern können.
-
-Es wird daher empfohlen, jedem Maskenobjekt eine eindeutige ID mitzugeben, die ein Testframework aus dem HTML-Sourcecode auslesen kann.
-Genauere Implementierungshinweise zu den Maskenobjekt-ID's sind den Dokumenten Nutzungsvorgaben-JSF bzw. Nutzungsvorgaben-Angular zu entnehmen.
 
 [[browser-unterstuetzung]]
 === Browser-Unterstützung
 
-Bei der Erstellung der Webseiten nach diesem Styleguide muss die korrekte Darstellung und Funktionsweise der Webseiten geprüft werden.
+Bei der Erstellung der Webseiten nach diesem Bedienkonzept muss die korrekte Darstellung und Funktionsweise der Webseiten inklusive der Browser Funktionen wie bspw. "Vor- und Zurück" geprüft werden.
 Dazu muss für jedes Projekt der Nutzerkreis ermittelt und geprüft werden, welche Browser und Versionen hauptsächlich eingesetzt werden.
-Der Styleguide gibt nur ein minimales Set von zu unterstützenden Browserversionen vor, die projektspezifisch nach Bedarf erweitert werden sollten.
+Das Bedienkonzept gibt nur ein minimales Set von zu unterstützenden Browserversionen vor, die projektspezifisch nach Bedarf erweitert werden sollten.
 
-Es müssen mindestens folgende Browser und Konstellationen in SXGA- und UXGA-Auflösung (s. Layout & Resizing) getestet werden:
+Die Tests der Benutzeroberfläche sollen mindestens mit folgende Browsern getestet werden, dabei sind folgende Auflösungen zu berücksichtigen:
+* SXGA
+* UXGA
+* 1080p
+* WQHD
 
-* Microsoft Edge (basierend auf Chromium)
-* Firefox ESR, jeweils aktuelle Version (xref:glossary:literaturextern:inhalt.adoc#litextern-firefox-esr[Firefox Extended Support Release [ESR]])
-* Chrome, jeweils aktuelle stabile Version
+|===
+|Browser |Neuste Version aus Channel
 
-Die Unterstützung dieser Browser in der jeweils aktuellen supporteten Version entspricht auch der Empfehlung des BSI (Stand August 2016).
+|Microsoft Edge
+|Stable Channel
+
+|Firefox
+|ESR
+
+|Chrome
+|Stable Channel
+|===
 
 [[fenstertypen-layout]]
 == Fenstertypen & Layout
@@ -264,95 +142,22 @@ Im Folgenden werden die Fenstertypen und das allgemeine Layoutverhalten der Appl
 [[layout-resizing]]
 === Layout & Resizing
 
-*Bildschirmauflösung & Resizing*
+==== Bildschirmauflösung & Resizing
 
-Die Layouts sind für eine Bildschirmauflösung von *1280x1024 px* (SXGA) zu optimieren.
+Die Layouts sind für eine Bildschirmauflösung von *1920x1080 px* (1080p) zu optimieren.
 Es muss jedoch sichergestellt sein, dass auch niedrigere und größere Bildschirmauflösungen unterstützt werden.
 Einige Bereiche des Layouts können ihre Größe, entsprechend der Auflösung, flexibel anpassen.
 Das genaue Verhalten der einzelnen Bereiche und Elemente wird in den entsprechenden Kapiteln näher beschrieben.
 
 *Richtlinien zur Anwendung*
 
-* Wird das Browserfenster bei einer Größenveränderung kleiner als 1024x768 px und die Inhalte lassen sich nicht mehr sinnvoll darstellen, so wird das Browserfenster scrollbar.
-* Generell sollte beim Layout eines Screens darauf geachtet werden horizontale Scrollbalken möglichst zu vermeiden.
-* Ab einer gewissen Fenstergröße werden die Mauswege zu lang und die Benutzung der Anwendung wird dadurch erschwert.
-Bei Auflösungen größer als *1600x1200 px* (UXGA) sollten deshalb die Inhalte nicht mehr größer skaliert werden.
-In solchen Fällen wird die Applikation links auf dem Bildschirm ausgerichtet und rechts entsteht Whitespace.
-* Da es sich bei den Inhalten der Informations-Anwendungen meist um Formulare handelt, soll sich die Position der Inhalte nicht ändern.
-Die Spaltenanzahl bleibt bei Größenveränderung gleich und wird nicht dynamisch z.B. von 3 spaltig auf 4 spaltig angepasst.
+* Generell sollten beim Layout innerhalb eines Screens keine horizontalen Scrollbalken verwendet werden.
+* Bei einer Seitenbreite zwischen *1280px* und *1920px* gelten folgende Richtlinien
+** Es sollen keine horizontalen Scrollbalken zum Scrollen der Seite angezeigt werden.
+** Die Anzahl Spalten in Formulare soll sich nicht verändern.
+** Die Anwendung soll immer die volle Seitenbreite einnehmen.
 * Bei Größenveränderungen von Inhalten sollte immer darauf geachtet werden, dass der Lesefluss des Benutzers nicht negativ beeinflusst wird.
-
-*Screen Layout*
-
-Ein einfaches und klares Screen-Layout sowie die korrekte Gestaltung von Formularen sind von größter Bedeutung für ein einfaches, leicht zu bedienendes User Interface.
-Komplexe Layouts können die Bedieneffizienz nachhaltig negativ beeinflussen, und somit die Benutzerzufriedenheit sowie die Produktivität senken.
-Die nachfolgenden Richtlinien dienen der Erstellung effizienter, leichtgewichtiger Layouts.
-
-*Richtlinien zur Anwendung*
-
-* Es sollte jeweils nur ein angemessenes Maß an Informationen auf einem Screen oder Formular angezeigt werden.
-Ein zu hohes Maß an Information erhöht die Komplexität und reduziert die Verarbeitungsgeschwindigkeit.
-* Logische Informationseinheiten sollten gruppiert werden.
-* Die präsentierten Informationen sollten entsprechend den Bedürfnissen und Erwartungen des Benutzers angeordnet sein.
-* Mauswege sollten so kurz wie möglich gehalten werden.
-* Die Notwendigkeit zwischen Maus und Tastatur zu wechseln sollte auf ein Minimum reduziert werden.
-* Eine adäquate und konsistente Ausrichtung der Beschriftung von Bedienelementen unterstützt den Benutzer beim Erfassen der präsentierten Informationen und erhöht die Verarbeitungsgeschwindigkeit.
-* Komplexe Screens können mit Hilfe verschiedener Methoden vereinfacht werden:
-** Liberaler Einsatz von Whitespace (freie Zwischenräume zwischen Elementen).
-** Strukturierung von Informationen mit Hilfe von Gruppierungen.
-** Verteilen der Informationen auf verschiedene Views, z. B. mit Hilfe von Tabreitern.
-* Elemente auf einem Screen sollten entlang eines einfachen virtuellen Rasters ausgerichtet werden, um die Lesbarkeit zu erhöhen.
-* Alle Informationen auf einem Screen sollten möglichst gleichmäßig ausbalanciert werden.
-Ungleich gewichtete Screens wirken unharmonisch und wirken sich negativ auf das Gesamterscheinungsbild aus.
-
-*Einsatz eines virtuellen Rasters*
-
-Alle Elemente eines Screens sollten an den Führungslinien eines (nicht sichtbaren) Rasters ausgerichtet werden, die dem Auge des Benutzers als Orientierung dienen können.
-Dadurch wird ein wesentlich schnelleres Erfassen und Verarbeiten der dargestellten Informationen ermöglicht.
-
-[[image-virtuellesraster]]
-.Virtuelles Raster – Beispiel Dashboard unnötig belastet
-image::Raster_Seite.png[align="center", width="685",height="550"]
-
-
-
-
-*Richtlinien zur Anwendung*
-
-* Sofern möglich und sinnvoll sind alle Layout-Bereiche und Objekte auf einem Screen mit ihrer linken Kante an dem virtuellen Raster auszurichten.
-* In Dialogen kann ein eigenes Raster benutzt werden.
-Dieses wird an der linken Kante des Dialoges angelegt und die Objekte im Dialog orientieren sich an diesem Raster.
-
-*Einsatz von Gruppierungen*
-
-Eine Gruppierung logisch zusammengehöriger Screen-Elemente erhöht die Effizienz bei der Benutzung der Anwendung.
-Der Benutzer kann schneller bestimmte Informationen scannen bzw.
-solche Informationen ausblenden, die für ihn zur Bearbeitung einer Aufgabe nicht notwendig sind.
-
-[[image-grupphilfeueber]]
-.Gruppierungen mit Hilfe von Überschriften
-image::Gruppierung_Gruppierungsueberschrift.png[align="center", width="500",height="138"]
-
-[[image-grupphilfhintergrund]]
-.Gruppierungen mit Hilfe von Hintergründe
-image::Gruppierung_Hintergrundfarbe.png[align="center", width="500",height="104"]
-
-[[image-grupphilfabstand]]
-.Gruppierungen mit Hilfe von Abständen
-image::Gruppierung_Whitespace.png[align="center", width="502",height="105"]
-
-
-
-*Richtlinien zur Anwendung*
-
-* Visuelle Gruppierungen
-
-** Objekte mit gemeinsamer Hintergrundfarbe oder visueller Umrandung werden als Gruppe wahrgenommen (Beispiel siehe <<image-grupphilfhintergrund>>).
-** Gesetz der Nähe (Gestaltpsychologie) - Objekte die näher zusammenstehen und ein Abstand zu anderen Gruppen haben, werden als Gruppe wahrgenommen (siehe <<image-grupphilfabstand>>).
-* Auch textuelle Überschriften (siehe <<image-grupphilfeueber>>) können zur Gruppierung verwendet werden.
-Bei Verwendung in Formularen ergibt sich so eine logische Struktur, welche für den Benutzer einfacher zu erfassen ist.
-* Der Einsatz von Gruppierungs-Überschriften sollte sparsam erfolgen, bei vielen Gruppen sollte der Einsatz eines Tab Controls in Erwägung gezogen werden.
-* Für die Master- und Detail-Bereiche sollte immer jeweils ein visueller Container / Umrandung verwendet werden.
+* Elemente auf der Benutzeroberfläche dürfen sich nicht überlappen.
 
 [[hauptfenster]]
 === Hauptfenster
@@ -361,64 +166,13 @@ Im Wesentlichen besteht das Hauptfenster aus zwei Bereichen: dem Header-Bereich 
 
 [[image-hauptfenster-aufbau]]
 .Allgemeiner Aufbau des Hauptfensters
-image::hauptfenster-aufbau.png[align="center", width="650"]
+image::hauptfenster.mockup.drawio.svg[align="center"]
 
 Das Layout des Header-Bereichs ist immer gleichartig.
 Der Inhalt ändert sich nur in einem vordefinierten Rahmen (z.B. Logo der Anwendungslandschaft, Inhalte der Hauptnavigation).
 Der Abschnitt <<header-bereich>> beschreibt die Möglichkeiten zur Gestaltung.
 
-Das Layout und der Inhalt des Inhaltsbereichs wechselt je nach Seitentyp:
 
-* <<login>>
-* <<dashboard>>
-* <<dashboard-unterseite>>
-* <<applikationsseite>>
-* <<applikations-detailseite>>
-
-[[interaktion-mit-dem-hauptfenster]]
-==== Interaktion mit dem Hauptfenster
-
-Die IsyFact kennt zwei grundlegende Prinzipien zur Interaktion mit dem Hauptfenster: die Beschränkung auf einen Browser-Tab oder die Verwendung mehrerer Browser-Tabs.
-
-Beide Prinzipien schließen sich gegenseitig aus.
-
-[STYLEGUIDE]
-====
-Bei der fachlichen Spezifikation einer neuen Fachanwendung oder Anwendungslandschaft muss daher eines der Prinzipien ausgewählt und fest vorgegeben werden.
-Insbesondere müssen sich in einer Anwendungslandschaft alle Fachanwendungen an die getroffene Entscheidung halten.
-Die Entscheidung muss an geeigneter Stelle dokumentiert werden.
-====
-
-Folgende Richtlinien gelten unabhängig von der Art der gewählten Interaktion:
-
-* In einem Hauptfenster kann jeweils nur ein Seitentyp angezeigt werden: entweder das Dashboard oder eine Applikation.
-* Da sich das Hauptfenster im Browser befindet, lässt es sich durch Größenänderung des Browsers in Breite und Höhe verändern.
-Die optimale Darstellung wird ab einer Bildschirmauflösung von 1280x1024 Pixeln (SXGA) erzielt.
-* Das Verhalten des Hauptfensters bei Größenänderungen ergibt sich aus dem Verhalten des Layouts der angezeigten Bereiche und Elemente innerhalb des Fensters.
-Genauere Informationen finden sich bei den jeweiligen Elementen.
-
-[[beschraenkung-auf-einen-browser-tab]]
-===== Beschränkung auf einen Browser-Tab
-
-Die Beschränkung auf einen Browser-Tab soll verhindern, dass sich Anwender in zu vielen offenen Tabs verzetteln oder mehrere Geschäftsprozesse gleichzeitig ausführen.
-Stattdessen steht der Fokus auf die Ausführung eines Geschäftsprozesses im Vordergrund.
-Er arbeitet deswegen innerhalb einer Fachanwendung - oder sogar innerhalb einer Anwendungslandschaft - immer mit nur einem Hauptfenster.
-
-Folgende Richtlinien gelten bei diesem Prinzip der Interaktion:
-
-* Es existiert nur ein Hauptfenster.
-* Das Schließen eines Tabs oder des Browsers schließt das Hauptfenster.
-
-[[verwendung-mehrerer-browser-tabs]]
-===== Verwendung mehrerer Browser-Tabs
-
-Die Verwendung mehrerer Browser-Tabs ermöglicht es Anwendern, in mehreren Tabs Informationen vorzuhalten oder leichter mehrere, aufeinander wirkende Geschäftsprozesse auszuführen.
-
-Folgende Richtlinien gelten bei diesem Prinzip der Interaktion:
-
-* Es existieren beliebig viele Hauptfenster innerhalb eines Browsers, in verschiedenen Tabs.
-* Das Schließen eines Tabs schließt das darin angezeigte Hauptfenster.
-Das Schließen des Browsers schließt alle Hauptfenster.
 
 [[header-bereich]]
 ==== Header Bereich
@@ -427,12 +181,12 @@ Der Header Bereich enthält allgemeine Informationen zur Anwendungslandschaft, d
 
 [[image-header-aufbau]]
 .Aufbau des Header-Bereiches
-image::Header_Aufbau.png[align="center", width="700"]
+image::header.mockup.drawio.svg[align="center"]
 
 <<image-header-aufbau>> verdeutlicht die Teile, aus denen er besteht:
 
 * *A* Logo des Anbieters der Anwendungslandschaft
-* *B* Balken in der Standardfarbe der Anwendungslandschaft ("Portalfarbe")
+* *B* Balken in Primärfarbe der Anwendungslandschaft
 * *C* Logo der Anwendungslandschaft
 * *D* Informationen zum angemeldeten Anwender
 * *E + F* Hauptnavigation und Subnavigation als Flyout (zur Nutzung siehe <<hauptnavigation>>)
@@ -443,16 +197,17 @@ Beim Resizing bleiben links ausgerichtete Objekte links und rechts ausgerichtete
 Der Header kann sich vom Inhalt her allerdings geringfügig anpassen.
 Die Informationen zum angemeldeten Anwender zeigen mindestens den Namen oder die Kennung des Anwenders.
 
-Der Inhalt und die Wirkungsweise des Logout-Buttons sind abhängig vom gewählten Prinzip der Interaktion mit dem Hauptfenster.
+[[inhaltsbereich]]
+==== Inhaltsbereich
 
-Beschränkung auf einen Browser-Tab::
-Die Betätigung des Logout-Buttons meldet den Anwender von der gesamten Anwendungslandschaft ab.
-Der Button trägt den Text "Abmelden".
+Das Layout und der Inhalt des Inhaltsbereichs wechselt je nach Seitentyp:
 
-Verwendung mehrerer Browser-Tabs::
-Die Betätigung des Logout-Buttons schließt den aktuellen Tab, meldet den Anwender allerdings *nicht* von der gesamten Anwendungslandschaft ab.
-Der Button trägt den Text "Zurück zum Portal".
-Die Funktion zur Abmeldung muss an anderer Stelle verfügbar sein und entsprechend dokumentiert werden.
+* <<login>>
+* <<dashboard>>
+* <<dashboard-unterseite>>
+* <<applikationsseite>>
+* <<applikations-detailseite>>
+
 
 [[login]]
 ==== Login
@@ -467,7 +222,7 @@ image::01_Login.png[align="center", width="629",height="528"]
 
 *Richtlinien zur Anwendung*
 
-* Die generelle Aufteilung der Login Seite entspricht die dem Dashboard der Applikation.
+* Die generelle Aufteilung der Login Seite entspricht die des Dashboard der Applikation.
 ** Header
 ** 3-spaltiger Inhaltsbereich
 
@@ -483,10 +238,10 @@ Feedback wird im Meldungsbereich (zwischen Überschrift und Benutzername) und an
 Genauere Informationen hierzu können in Kapitel Validierung nachgelesen werden.
 
 [[dashboard]]
-==== Dashboard
+==== Portalstartseite
 
-Das Dashboard ist der zentrale Startpunkt nach dem Login.
-Es stellt eine Sammlung mehrerer Applikationen dar.
+Falls die Gesamtanwendung aus mehrere kleineren Anwendungen mit eigenen Benutzeroberflächen besteht, ist nach dem Login zunächst die Portalstartseite der zentrale Startpunkt nach dem Login.
+Sie stellt eine Sammlung mehrerer Applikationen dar.
 Von hier aus kann der Benutzer in die einzelnen Applikationen abspringen.
 
 [[image-dashboard]]
@@ -610,10 +365,10 @@ image::Aufbau-Dashboard-Unterseite.png[align="center", width="629",height="526"]
 
 *Richtlinien zur Anwendung*
 
-* Eine Dashboard Unterseite enthält weiterführende Informationen, die nicht vollständig auf dem Dashboard angezeigt werden wie z.B. Nachrichten, Benutzerkonto-Verwaltung.
+* Eine Dashboard-Unterseite enthält weiterführende Informationen, die nicht vollständig auf dem Dashboard angezeigt werden wie z.B. Nachrichten, Benutzerkonto-Verwaltung.
 * Die Inhalte und deren Layout können variieren.
 * Die Inhalte sollen sich am allgemeinen Layout-Raster ausrichten.
-* Die Seite enthält eine Seiten-Toolbar, deren Funktion es ermöglicht zurück zur Dashboard Hauptseite zu navigieren.
+* Die Seite enthält eine Seiten-Toolbar, deren Funktion es ermöglicht zwischen einzelnen Detailseite einer Trefferliste und zurück zur Trefferliste zu navigieren.
 
 [[applikationsseite]]
 ==== Applikationsseite
@@ -762,10 +517,6 @@ Hierbei werden Informationen sinnvoll gruppiert.
 === Dialoge
 
 Dialoge sind sekundäre Fenster die oberhalb des Hauptfensters angezeigt werden.
-Dies ist nur unter der Benutzung von JavaScript möglich.
-Die Darstellung von Dialogen ohne JavaScript wird im
-
-Kapitel Dialoge ohne JavaScript näher beschrieben.
 Dialoge dienen der Auswahl und Eingabe von Daten.
 Sie dienen nicht dazu, komplexe Datenmengen innerhalb eines Objekts zu strukturieren.
 Beispiele für die Nutzung von sekundären Fenstern sind:
@@ -817,49 +568,6 @@ Der Dialogtitel kann aus einem Haupttitel und einem optionalen Subtitel bestehen
 Der Inhalt rutscht dann um die entsprechende Höhe nach unten.
 Das Dialogfenster kann sich gegebenenfalls um diese Höhe vergrößern (siehe <<image-dialogwizardvalidierung>>).
 * Der Bereich der *Dialogbuttons \(C)* präsentiert je nach Kontext verschiedene Buttons.
-
-
-[[dialoge-ohne-javascript]]
-==== Dialoge ohne JavaScript
-
-[[image-nojs]]
-.No JavaScript Icon
-image::no-js.png[align="center", width="55",height="55"]
-
-Hat ein Benutzer kein JavaScript, werden Dialoge in das Hauptfenster integriert.
-
-[[image-keinjavascriptdialog]]
-.Kein JavaScript – Dialog
-image::Dialog_NOJS_ObjektBearbeiten.png[align="center", width="629",height="525"]
-
-[[image-keinjavascriptmeldung]]
-.Kein JavaScript – Meldungsdialog
-image::Dialog_NOJS_Meldung.png[align="center", width="629",height="525"]
-
-
-[[image-keinjavascriptwizard]]
-.Kein JavaScript – Wizard
-image::Dialog_NOJS_Wizard.png[align="center", width="629",height="525"]
-
-
-
-*Richtlinien zur Anwendung*
-
-* Diese Art der Darstellung wird ausschließlich verwendet, wenn kein JavaScript verfügbar ist.
-* Die Dialoge überlagern das primäre Fenster nicht, sondern sind in dieses integriert.
-* Der Header Bereich der Anwendung bleibt sichtbar. Die Dialoge werden unterhalb des Headers angezeigt.
-* In den Dialogen werden die gleichen Inhalte und Funktionalitäten wie im entsprechenden JavaScript-Dialog (z.B. Wizards, Objekte editieren, Objekte löschen etc.) dargestellt.
-* Die Dialoge behalten die gleichen Größen wie in der JavaScript-Variante bei.
-* Die Dialoge werden horizontal zentriert platziert, Beispiel siehe <<image-keinjavascriptmeldung>> .
-* Hat der Nutzer im Dialog Daten eingegeben oder verändert und klickt ohne zu speichern auf einen Navigationspunkt im Header, sollte eine Abfrage zur Datensicherung erfolgen.
-Ist dies aus technischen Gründen nicht möglich, gehen die eingegebenen Daten verloren.
-* Das Layout der Inhalte sollte so gestaltet sein, dass die Dialogbuttons bei der Zielauflösung ohne zu scrollen sichtbar sind.
-* *Besonderheiten in der Darstellung*
-** Werden Dialoge und Meldungsdialoge direkt von einer Detailseite aufgerufen, so wird der Dialog unterhalb der Titelzeile der Detailseite dargestellt (vgl. <<image-keinjavascriptdialog>>)
-
-** Die Höhe des Wizards richtet sich (wie auch bei der JavaScript-Variante) nach dem größten Inhalt.
-Die Höhe eines Wizards sollte während der einzelnen Schritte nicht verändert werden, so wird ein Positionswechsel der Dialog-Buttons verhindert.
-** Resizing: Generell sollte das Layout Verhalten dem der JavaScript-Variante (siehe Dialoge) entsprechen.
 
 
 [[meldungsdialoge]]
@@ -1226,7 +934,8 @@ image::Schnellnavigation.png[image,width=399,height=250]
 
 * Durch Klick auf den Bezeichner des jeweiligen Objektes (Nummer, ID, Name etc.), einen Doppelklick auf das gesamte Objekt oder die Toolbar Funktion __Öffnen__, gelangt der Benutzer zu dessen Detailseite.
 * Auf dieser Seite werden dem Benutzer alle Informationen, die zu dem Objekt existieren, zugänglich gemacht.
-* Über einen Link in der Seiten-Toolbar kann der Benutzer jeder Zeit zurück navigieren.
+* Über einen Link in der Seiten-Toolbar kann der Benutzer jederzeit zurück zur Trefferliste springen.
+* Auch beim Navigieren zwischen Ergebnissen muss die Browser-Funktion "Vor- und Zurück" unterstützt werden.
 
 [cols="1,1", options="header", align="center"]
 |====
@@ -1378,7 +1087,6 @@ In diesem Kapitel werden Bedienelemente besprochen und allgemeine Eigenschaften 
 * Kontextabhängige Darstellung
 * Status
 * Resizing
-* Funktionalität ohne JavaScript
 
 [[testbarkeit-bedienelemente]]
 *Testbarkeit der Bedienelemente*
@@ -1488,21 +1196,6 @@ Bedienelemente sind in der Regel von Größenänderungen des Browsers nicht betr
 
 Es gibt einige Ausnahmen wie beispielsweise Tabellen.
 Diese Ausnahmen werden an den entsprechenden Stellen erläutert.
-
-*Funktionalität ohne JavaScript*
-
-image::no-js.png[]
-
-Viele heutzutage übliche Bedienelemente, Gestaltungslösungen und Komfortfunktionen für Webapplikationen setzen die Benutzung von JavaScript voraus.
-Ohne die Verwendung von JavaScript sind die Möglichkeiten der Benutzerinteraktion mit Webseiten demzufolge stark eingeschränkt.
-
-* Ohne JavaScript ist es dem Browser nicht möglich nach Benutzerinteraktion mit einem Steuerelement andere Teile der Webseite zu beeinflussen oder auszutauschen.
-* Die Webapplikation kann nur Standard-Steuerelemente aus der HTML Spezifikation verwenden, da selbsterstellte Steuerelemente für besondere Anwendungsfälle meist mithilfe von JavaScript gebaut werden.
-* Mit Hilfe von JavaScript lassen sich Benutzeraktionen unmittelbar anzeigen.
-Dies wird durch die moderne clientseitige Aktualisierung von Datenmodellen, Zuständen und Darstellungen erreicht.
-In einer Nicht-JavaScript Umgebung müssen die Daten mittels komplexeren serverseitigen Request Cycles geladen werden.
-Dies bedingt ein häufigeres Neu-Laden der Seite.
-* Ohne JavaScript kann die optische Aufbereitung einiger Bedienelemente variieren.
 
 
 [[button-1]]
@@ -1618,17 +1311,6 @@ Zum Beispiel kann man unter dem Button „Exportieren“ die Funktionen „Expor
 
 * Der Menü Button besteht aus einem Icon, einem Label und einem Pfeil Icon.
 * Wird der Menü Button geklickt, werden die Funktionen wie in einem Dropdown Menü angezeigt (siehe <<image-menuebuttonbeispiel>>).
-
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Ohne JavaScript können die Funktionen die im Menü Button zusammen gefasst sind nicht direkt ausgeführt werden.
-
-* Der Menü Button besteht in diesem Fall aus einem Dropdown und einem Submit Button.
-* Über das Dropdown wählt der Benutzer die gewünschte Funktion und über den Klick auf den Submit Button wird die Funktion ausgeführt.
-* Damit das Dropdown und der Submit Button als Einheit wahrgenommen werden, wird eine vertikale Trennlinie zum nächsten Element platziert.
-* Der Submit Button sieht aus wie ein Toolbar Button.
 
 
 [[toggle-button]]
@@ -1812,12 +1494,6 @@ Numerische Werte in alleinstehenden Eingabefeldern werden nicht rechtsbündig au
 So kann ein Datumsfeld unter bestimmten Umständen z. B. mit dem aktuellen Datum vorbelegt werden.
 Falls eine Vorbelegung jedoch potentiell risikobehaftet ist, sollte das Eingabefeld nicht vorbelegt werden.
 
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Es gelten die gleichen Regeln und Einschränkungen wie im Kapitel Validierung beschrieben.
-
 
 [[vier-augen-prinzip-eingabefeld]]
 ==== 4-Augen-Prinzip Eingabefelder
@@ -1864,9 +1540,6 @@ Neben diesen einzeiligen Eingabefeldtypen für das 4-Augen-Prinzip gibt es noch
 * Das Schloss Icon als visuelle Kennzeichnung des 4-Augen-Prinzip Eingabefeldes steht rechtsseitig im Eingabefeld. Sollten aufgrund des Feldtyps noch weitere Icons im Eingabefeld angezeigt werden müssen (z.B. bei Datumsfeldern das Datumspicker-Icon), so steht das Schloss-Icon noch vor dem anderen Icon (s.a. <<image-vier-augen-grundstyles>>)
 * Die Breite des 4-Augen-Prinzip Eingabefeldes vergrößert sich durch das Schloss-Icon nicht.
 
-*JavaScript*
-
-Außer beim reinen Eingabefeld wird bei allen anderen Eingabefeldtypen (Validierung des numerischen Wertes, Datumspicker, Werte-Plausibilitätsprüfungen, ...) JavaScript benötigt.
 
 [[bsp-anwendungsfall-vier-augen, Ablauf eines Anwendungsfalls mit 4-Augen-Prinzip]]
 *Nutzungsvorgaben*
@@ -1978,10 +1651,6 @@ _"4-Augen-Prinzip Eingabefelder"_ erfordern, dass die durch einen ersten Benutze
 * Das Schloss Icon als visuelle Kennzeichnung des 4-Augen-Prinzip Eingabefeldes steht rechtsseitig, oben im Eingabefeld.
 * Die Breite der 4-Augen-Prinzip Textbox vergrößert sich durch das Schloss-Icon nicht.
 
-*JavaScript*
-
-Es wird kein JavaScript benötigt.
-
 
 *Nutzungsvorgaben*
 
@@ -2039,7 +1708,7 @@ image::Eingabefelder_Upload.png[align="center", width="685",height="25"]
 *Richtlinien zur Anwendung*
 
 * Dateinamen sollten innerhalb eines Eingabefeldes linksbündig ausgerichtet werden.
-* Wenn das Upload-Feld keinen Inhalt hat, kann es einen Hinweistext dastellen (z.B. Wählen Sie eine Bild-Datei zum Hochladen aus.)
+* Wenn das Upload-Feld keinen Inhalt hat, kann es einen Hinweistext darstellen (z.B. Wählen Sie eine Bild-Datei zum Hochladen aus.)
 * Das Upload-Feld und die zugehörige Visualisierung der Datei sollten erkennbar sein.
 
 
@@ -2096,14 +1765,6 @@ Falls keine übergeordnete Logik angewendet wird, sollten die Elemente aufsteige
 ** Es gibt Dropdown Menüs, bei denen bei der Auswahl eines Wertes aktiv keine anderen Elemente auf dem Screen beeinflusst werden z.B. in Formularen.
 ** Das Dropdown Menü kann aber auch alleinstehend verwendet werden z.B. zur lokalen Umschaltung einer Ansicht oder beispielhaft bei der Verwendung von vordefinierten Suchprofilen. Hier ändert sich die Ansicht direkt nachdem der Benutzer eine Auswahl im Dropdown Menü getroffen hat.
 
-
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Da durch das Dropdown Menü keine Funktionen unmittelbar ausgelöst werden, bleibt die Funktionalität auch ohne JavaScript vorhanden.
-Es kann allerdings zu optischen Abweichungen kommen.
-Da sich das Dropdown Menü ohne JavaScript nicht stylen lässt, entspricht die Darstellung der des Browsers.
 
 [[tabs-ueberschrift]]
 === Tabs
@@ -2182,13 +1843,6 @@ Und der Tab wird rechts neben dem letzten Tab in der Tabbar dargestellt.
 * Tabs aus dem Taboverflow Menü werden immer ganz rechts in der Tabbar angezeigt.
 * Die Reihenfolge der anderen Tabs wird nicht beeinflusst.
 * Wird das Browserfenster vergrößert, so dass alle Tabs aus dem Overflow-Menü Platz finden, werden die Tabs in das Tab-Menü integriert und das Overflow-Menü wird nicht mehr benötigt.
-
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Ohne JavaScript gibt es kein Taboverflow Menü. Die Tabs werden hintereinander dargestellt, notfalls in zwei Zeilen.
-Da die Darstellung von Tabs in mehreren Zeilen möglichst zu vermeiden ist, sollte eine Umstrukturierung der Inhalte geprüft werden.
 
 
 [[liste-ueberschrift]]
@@ -2296,11 +1950,6 @@ image::Tabelle_Sortierung.png[align="center", width="627",height="137"]
 * Dreieck nach oben: Aufsteigende Sortierung
 * Eine farbige Fläche im Tabellenkopf hebt die aktuell angewandte Sortierung hervor.
 
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Ohne JavaScript kann die Sortierung nur durch das Neu-Laden der Seite bewirkt werden.
 
 [[selektionsverhalten-tabelle]]
 ==== Selektionsverhalten in einer Tabelle
@@ -2335,12 +1984,6 @@ Mittels der Umschalt-Taste und Klick auf das erste und letzte Element wird der d
 * Default-Selektion
 ** Bei Tabellen auf deren Objekte (Zeilen) weitere Aktionen angewendet werden können, ist eine Default Selektion sinnvoll.
 ** In der Regel wird die erste Zeile per Default selektiert.
-
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Ohne JavaScript ist die Selektion von Tabellenzeilen nur über Checkboxen möglich.
 
 
 [[aktionen-tabelle]]
@@ -2448,12 +2091,6 @@ Sollte eine Gruppe von Checkboxen aus einer großen Anzahl von Optionen bestehen
 [[image-checkbox-gruppe]]
 .Checkboxen auf mehreren Spalten
 image::Checkboxen_Gruppe_Optionen.png[image,width=517,height=210]
-
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Ohne JavaScript ist die Darstellung des Tristates nicht möglich.
 
 
 [[radio-button-ueberschrift]]
@@ -2833,12 +2470,6 @@ Ebenso ist wichtig, dass man per Tooltip die komplette Information einsehen kann
 * Bei einer Datumshilfe ist es typischerweise sinnvoll, den aktuellen Tag vorauszuwählen.
 * Alternativ kann der Benutzer immer noch manuell per Tastatur einen Wert in das Eingabefeld eingeben, es ist daher hilfreich einen Hinweis zum Format anzuzeigen, solange kein Wert ausgewählt wurde.
 
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Ohne JavaScript ist das Anzeigen der Wertehilfen in einem extra Menü nicht möglich.
-Zur Eingabe der Daten werden die normalen Eingabefelder genutzt.
 
 ===== Date Picker
 
@@ -2941,13 +2572,6 @@ Die Attribute müssen ohne zu scrollen auf einen Blick ersichtlich sein.
 ** Die Attribute sind über Eingabefelder, Dropdown Menüs oder Wertehilfen bearbeitbar.
 ** Es können Zeilen hinzugefügt oder gelöscht werden.
 
-
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Generell kann die Funktionalität auch ohne JavaScript beibehalten werden.
-Jedes Hinzufügen oder Entfernen einer Zeile bedingt allerdings ein Neu-Laden der Seite.
 
 
 [[selektion-ueberschrift]]
@@ -3066,14 +2690,6 @@ Hierfür wird eine Filteroption zur Verfügung gestellt z.B. „Alle“.
 * Filter werden in der Toolbar oder, falls es diese nicht gibt, in der Kopfzeile des entsprechenden Elementes (z.B. Liste) platziert.
 * Nicht vorhandene und damit vom Benutzer nicht auswählbare Optionen (zum Beispiel Filter A) im Detailbereich werden nicht angezeigt.
 
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Generell kann die Funktionalität auch ohne JavaScript beibehalten werden.
-Jeder Wechsel des Filters bedingt allerdings ein Neu-Laden der Seite.
-
-
 
 *Filter-Zeile*
 
@@ -3157,12 +2773,6 @@ Zielliste und Quellliste sollten immer gleich breit sein.
 * Sobald sich in einer Liste ein Objekt befindet, wird immer eine Selektion angezeigt, i.d.R. das zuletzt bewegte oder selektierte Objekt.
 * Sowohl Quell- als auch Zielliste können eine Filter-Zeile enthalten, mit der die Objekte sehr langer Listen eingegrenzt werden können.
 
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Ohne JavaScript kann zu optischen Abweichungen in der Darstellung kommen, die Funktionalität sollte allerdings beibehalten werden.
-
 
 [[ausgabe-ueberschrift]]
 === Ausgabe
@@ -3238,14 +2848,6 @@ Das Layout sollte sich an den Regeln des Formular-Layouts orientieren (siehe Kap
 ** In der Vorschau können auch Bilder (z.B. Lichtbilder) angezeigt werden.
 
 
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Ohne JavaScript ist die Vorschau innerhalb einer Tabelle nicht möglich.
-Die entsprechenden Buttons zum Öffnen der Vorschau sollten nicht angezeigt werden.
-
-
 [[master-detail]]
 ==== Master-Detail
 
@@ -3283,12 +2885,6 @@ Für sehr komplexe Daten kann es sinnvoll sein einen Expander (Progressive Discl
 
 * Innerhalb des Detail-Bereiches des Master-Detail Konzepts sollten keine Tabs verwendet werden.
 
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Ohne JavaScript können die Detaildaten nur durch Klick auf einen Button oder Link angezeigt werden.
-Hierfür kann zum Beispiel der Kennzeichner in einer Tabellenzeile genutzt werden (ähnlich wie beim Aufruf der Detailseite aus einer Tabelle heraus, siehe Kapitel Selektionsverhalten in einer Tabelle).
 
 [[gruppierung]]
 === Gruppierung
@@ -3327,12 +2923,6 @@ image::Expander.png[align="center", width="626",height="243"]
 * Expander nehmen immer die ihnen zur Verfügung stehende Breite ein.
 Die Inhalte des Containers passen sich nur bis zu einer gewissen Größe an, und bleiben dann gleich.
 
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Ohne JavaScript werden alle Daten direkt angezeigt.
-Elemente sind nicht ein- und ausklappbar.
 
 *Gruppierungs-Container*
 
@@ -3600,11 +3190,6 @@ Sobald der Benutzer mit der Eingabe beginnt, werden mögliche Werte, die mit der
 Der Benutzer kann nun weitertippen oder direkt einen Wert aus dem Menü auswählen und somit seine Eingabe verkürzen.
 Gibt es mehr als 10 mögliche passende Werte, so werden die ersten 10 Werte angezeigt, gefolgt von einer Information, dass mehr als 10 Einträge existieren.
 
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Ohne JavaScript nicht vorhanden.
 
 [[platzhalter-ueberschrift]]
 === Platzhalter
@@ -3626,11 +3211,6 @@ Platzhalter werden eingesetzt, wenn Daten in einem bestimmten Format eingegeben 
 Sobald der Benutzer in das Eingabefeld klickt, wird der Platzhalter ausgeblendet.
 Gibt der Benutzer keine Daten ein und klickt auf ein anderes Element (Fokuswechsel), dann wird der Platzhalter wieder angezeigt.
 
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Ohne JavaScript kann es bei der Anzeige von Platzhaltern in einigen Browsern kommen, wie zum Beispiel in IE8/IE9.
 
 [[tooltips-ueberschrift]]
 === Tooltips
@@ -3667,11 +3247,6 @@ Stattdessen sollte der Tooltip kurz und prägnant beschreiben, was ein Objekt be
 * Ein Tooltip sollte möglichst spezifische Informationen geben, z.B. für den Button „Drucken“ die Erklärung „Druckt die dargestellte Liste auf dem Standarddrucker XY aus.“.
 * Wenn ein Element deaktiviert ist, sollte ein Tooltip zusätzlich erklären, warum es deaktiviert ist, z. B. „Absenden ist erst nach Ausfüllen aller Pflichteingaben möglich.“
 
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Können ohne JavaScript nicht umgesetzt werden.
 
 [[fortschrifttsanzeige]]
 === Fortschrittsanzeige
@@ -3713,11 +3288,6 @@ Dabei füllt sich der Balken von links (0%) nach rechts (100%).
 ** Für die Dauer der Operation dreht sich der Fortschritts-Spinner und signalisiert dem Benutzer damit, dass sich ein Prozess im Vorgang befindet.
 Der Fortschritts-Spinner empfiehlt sich aufgrund seiner geringen Ausmaße insbesondere in Situationen, in denen Platzbedarf von großer Bedeutung ist.
 
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Ohne JavaScript nicht vorhanden.
 
 [[anzeige-optionale-Pflichtfelder]]
 === Anzeige von Pflichtfeldern und optionalen Pflichtfeldern
@@ -3789,30 +3359,23 @@ image::Tooltip_Beispiel_Info.png[align="center", width="685",height="91"]
 
 
 Neben der direkten Markierung der Felder kann zusätzlich ein zusammenfassender Hinweis angezeigt werden.
-Dies geschieht in einem festgeschriebenen Meldungsbereich oberhalb des Formulars.
+Dies geschieht mithilfe von Toast-Notifications, welche immer am oberen rechten Rand des Browserfensters angezeigt werden.
 
-*Meldungsarten*
+Jede Toast-Notification muss eine Schließen-Aktion für den Benutzer anbieten und muss mindestens 3 Sekunden sichtbar bleiben.
+Die Zeit bis zum automatischen Ausblenden kann je nach Anwendungsfall verlängert werden (z.B. lange Texte zum Lesen).
+Alternativ kann die Toast-Notification auch dauerhaft eingeblendet bleiben, bis der Benutzer sie schließt.
 
-*  Hinweis
-*  Warnung
-*  Erfolg
-*  Fehler
+Folgende Meldungsarten können als Toast-Notification verwendet werden:
+
+* Warnung
+* Hinweis
+* Fehler
+* Erfolg
 
 .Meldungsarten
 [[image-meldungsarten]]
+image::toasts.mockup.drawio.svg[align="center", height="145"]
 
-image::Meldungsarten.png[align="center", width="685",height="145"]
-
-*Kein JavaScript*
-
-image::no-js.png[]
-
-Ohne JavaScript können die Hinweise zu den Fehlermeldungen nicht über das Informationsicon dargestellt werden, da Tooltips nicht unterstützt werden.
-
-*  Die Informationen zu den fehlerhaften Feldern werden oberhalb des Formulars im allgemeinen Hinweis-Bereich dargestellt.
-*  Das Informationsicon wird nicht angezeigt.
-*  Um die Zuordnung zu den fehlerhaften Eingaben zu vereinfachen, sollte im Text das entsprechende Label mit angezeigt werden.
-* Beispiel: „Geburtsdatum: Format nicht korrekt z.B. TT.MM.JJ"
 
 [[fehlerpraevention]]
 === Fehlerprävention
@@ -3841,7 +3404,7 @@ Neben der Eingabe von Zeichen wird die Tastatur auch zur Navigation sowie zur Au
 
 *Richtlinien*
 
-*  Um die Richtlinien der BITV zu erfüllen, müssen alle Funktionalitäten der Applikation über eine Tastaturschnittstelle zugänglich und bedienbar sein.
+*  Um die Richtlinien der https://www.gesetze-im-internet.de/bitv_2_0/BJNR184300011.html[BITV] zu erfüllen, müssen alle Funktionalitäten der Applikation über eine Tastaturschnittstelle zugänglich und bedienbar sein.
 *  Die Standardfunktionen und Tastaturkürzel vom Browser sollten nicht unterbunden oder anderweitig belegt werden.
 *  Die Tabulator-Reihenfolge, also die Reihenfolge in welcher der Fokus mit Hilfe der Tabulator-Taste verschoben werden kann, sollte an die Bedürfnisse des Benutzers angepasst werden.
 In der Regel bedeutet dies, ein Ablauf von links nach rechts und von oben nach unten.
@@ -4170,12 +3733,11 @@ Generell sollten nicht zu viele verschiedene Grundfarben für die Gestaltung ein
 *  Eine übermäßige Verwendung von Komplementärfarben sollte vermieden werden. Komplementärfarben der Primärfarbe eignen sich jedoch sehr gut als Aufmerksamkeits-Trigger für einen bestimmten Bereich des User Interface.
 *  *Ausreichend hoher Kontrast*
 ** Bei der Verwendung von Farben sollte immer ein ausreichend hoher Kontrast von Vorder- zu Hintergrundfarbe gewährleistet werden.
-** Die Web Accessibility Initiative (WAI), die Teil des World Wide Web Consortium (W3C) ist, hat die Web Content Accessibility Guidelines (WCAG) entwickelt, die unter anderem Referenzwerte für den Kontrast von Vorder- zu Hintergrundfarbe beinhalten. So beschreiben die WCAG verschiedene Kontrastverhältnisse, abhängig von der Schriftgröße.
-** Die folgenden Links verweisen auf Hilfsmittel zur Kontrast-Analyse, die auf den Referenzwerten der WAI basieren:
+** Die Web Accessibility Initiative (WAI), die Teil des World Wide Web Consortium (W3C) ist, hat die Web Content Accessibility Guidelines (https://www.w3.org/WAI/standards-guidelines/wcag/[WCAG]) entwickelt, die unter anderem Referenzwerte für den Kontrast von Vorder- zu Hintergrundfarbe beinhalten. So beschreiben die https://www.w3.org/WAI/standards-guidelines/wcag/[WCAG] verschiedene Kontrastverhältnisse, abhängig von der Schriftgröße.
+** Die folgenden Links verweisen auf weitere Informationen zur Kontrast-Analyse, die auf den Referenzwerten der WAI basieren:
 
-*** Online-Werkzeug zur Kontrast-Analyse: xref:glossary:literaturextern:inhalt.adoc#litextern-juicystudio-kontrast-analyse[JuicyStudio Kontrast Analyse]
-***  Colour Contrast Analyser: Freeware für Windows und Mac OS X:
-xref:glossary:literaturextern:inhalt.adoc#litextern-color-kontrast-analyse[Color Kontrast Analyse]
+*** http://whocanuse.com[WhoCanUse?]
+*** http://leserlich.info/kapitel/farben.php[leserlich.info]
 
 *  *Berücksichtigung von Farbenfehlsichtigkeit*
 **  Bei der Auswahl der Farben sollte auch eine mögliche Farbenfehlsichtigkeit der Benutzer berücksichtigt werden.
@@ -4561,3 +4123,24 @@ image::10_Applikations_Wizard_Objektanlage_4.png[align="center"]
 [[image-bspwizardobjektanlage1e]]
 
 image::11_Applikations_Wizard_Objektanlage_5.png[align="center"]
+
+[[does-and-donts]]
+== Do's and Dont's
+
+Dieses Kapitel zeigt einige oft nicht befolgte Regeln und häufige Verstöße gegen den Styleguide auf.
+
+=== Do's
+* Schreibe semantisches HTML. Verwende Elemente so, wie sie gedacht sind - ein "hauptsache optisch korrekt" genügt spätestens beim Thema Barrierefreiheit nicht mehr. Ziehe hierbei z.B. den https://developer.mozilla.org/en-US/docs/Web/HTML/Element[Mozilla Developer Guide] zurate. Dabei kommt es auch auf Details an, wie etwa dem Unterschied zwischen <div> und <span>.
+* Beachte unbedingt allgemeingültige Webentwicklungsvorgaben und Best Practices, insbesondere die Vorgaben zur Barrierefreiheit aus https://www.w3.org/WAI/standards-guidelines/wcag/[WCAG] und https://www.gesetze-im-internet.de/bitv_2_0/BJNR184300011.html[BITV].
+* Halte Bedienelemente, z.B. Buttons, ausreichend groß für ihre Beschriftung.
+* Ist eine Abkürzung sinnvoll, erkläre sie mit einem Tooltip.
+* Ordne Labels ihren Bedienelementen im HTML zu, sodass ein Klick auf das Label auch das Bedienelement aktiviert.
+* Erwäge bei der Nutzung großer Radio-Button-Gruppen ein Dropdown und bei kleinen Dropdowns eine Radio-Button-Gruppe.
+* Sorge dafür, dass alle Elemente auch ohne Maus erreichbar und bedienbar sind.
+
+
+=== Dont's
+* Löse keine Aktionen durch Bedienelemente aus, wenn diese nicht dazu vorgesehen sind (z.B. Radiobuttons oder Checkboxen).
+* Vermeide schwache Kontraste, z.B. hellgrün auf grau.
+* Verzichte auf Links mit generischen Texten, wie "Hier klicken". Der Linktext sollte erklären, wohin der Nutzer gelangt.
+* Vermeide Labels mit mehr als drei Wörtern.

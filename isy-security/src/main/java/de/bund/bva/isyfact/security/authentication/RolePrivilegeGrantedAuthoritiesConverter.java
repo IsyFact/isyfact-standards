@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.core.convert.converter.Converter;
@@ -20,12 +19,12 @@ import de.bund.bva.isyfact.security.xmlparser.RolePrivilegesMapper;
 
 /**
  * Based on {@link org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter} but with additional
- * mapping from roles to privileges and a custom authority prefix to indicate the mapped privileges..
+ * mapping from roles to privileges and a custom authority prefix to indicate the mapped privileges.
  */
 public class RolePrivilegeGrantedAuthoritiesConverter implements Converter<Jwt, Collection<GrantedAuthority>> {
 
     /** Logger. */
-    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(RolePrivilegesMapper.class);
+    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(RolePrivilegeGrantedAuthoritiesConverter.class);
 
     /** Authority prefix to use for all mapped authorities. */
     public static final String AUTHORITY_PREFIX = "PRIV_";

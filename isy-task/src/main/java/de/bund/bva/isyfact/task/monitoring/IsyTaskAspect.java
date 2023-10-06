@@ -35,8 +35,8 @@ import de.bund.bva.isyfact.task.config.IsyTaskConfigurationProperties.TaskConfig
 import de.bund.bva.isyfact.task.exception.TaskDeactivatedException;
 import de.bund.bva.isyfact.task.exception.TaskKonfigurationInvalidException;
 import de.bund.bva.isyfact.task.konstanten.Ereignisschluessel;
-import de.bund.bva.isyfact.task.sicherheit.Authenticator;
-import de.bund.bva.isyfact.task.sicherheit.AuthenticatorFactory;
+import de.bund.bva.isyfact.task.security.Authenticator;
+import de.bund.bva.isyfact.task.security.AuthenticatorFactory;
 import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;

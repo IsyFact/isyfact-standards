@@ -56,7 +56,9 @@ public class PollingAktionInterceptor implements MethodInterceptor {
             return invocation.proceed();
         } finally {
             // aktualisiere den Zeitpunkt der letzten Polling-Aktion.
-            pollingVerwalter.aktualisiereZeitpunktLetztePollingAktivitaet(pollingAktion.pollingCluster());
+            if (pollingAktion != null) {
+                pollingVerwalter.aktualisiereZeitpunktLetztePollingAktivitaet(pollingAktion.pollingCluster());
+            }
         }
     }
 

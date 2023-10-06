@@ -19,7 +19,6 @@ package de.bund.bva.isyfact.batchrahmen.batch.konfiguration;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.bund.bva.isyfact.batchrahmen.batch.konstanten.KonfigurationSchluessel;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.GnuParser;
@@ -28,29 +27,29 @@ import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
+import de.bund.bva.isyfact.batchrahmen.batch.konstanten.KonfigurationSchluessel;
 import de.bund.bva.isyfact.batchrahmen.core.exception.BatchrahmenParameterException;
 import de.bund.bva.isyfact.batchrahmen.core.konstanten.NachrichtenSchluessel;
 
 /**
- * Kapselt den Kommandozeilenparser für den Batchrahmen.
- *
- *
+ * Encapsulates the command line parser for the {@link de.bund.bva.isyfact.batchrahmen.core.rahmen.Batchrahmen}.
  */
 class KommandozeilenParser {
     /**
-     * Optionen für Kommandozeilen parser. Wird in {@link #initialisiereKommandozeilenOptionen()} erzeugt.
+     * Options for command line parser.
+     * Generated in {@link #initialisiereKommandozeilenOptionen()}.
      */
     private Options options;
 
     /**
-     * Standardkonstruktor.
+     * Default constructor.
      */
     public KommandozeilenParser() {
         initialisiereKommandozeilenOptionen();
     }
 
     /**
-     * erzeugt die Kommandozeilen-Argument-Kriterien fuer das Parsen der Kommandozeile.
+     * Creates the command line argument criteria for parsing the command line.
      */
     private void initialisiereKommandozeilenOptionen() {
         this.options = new Options();
@@ -62,13 +61,13 @@ class KommandozeilenParser {
 
         this.options.addOption(OptionBuilder.create(KonfigurationSchluessel.KOMMANDO_PARAM_PROP_DATEI));
         this.options.addOption(KonfigurationSchluessel.KOMMANDO_PARAM_START, false,
-            "Checkpoint/Restart Methode: START");
+                "Checkpoint/Restart Methode: START");
         this.options.addOption(KonfigurationSchluessel.KOMMANDO_PARAM_RESTART, false,
-            "Checkpoint/Restart Methode: RESTART");
+                "Checkpoint/Restart Methode: RESTART");
         this.options.addOption(KonfigurationSchluessel.KOMMANDO_PARAM_IGNORIERE_LAUF, false,
-            "Checkpoint/Restart Methode: Ignorieren, dass Batch laut DB bereits läuft.");
+                "Checkpoint/Restart Methode: Ignorieren, dass Batch laut DB bereits läuft.");
         this.options.addOption(KonfigurationSchluessel.KOMMANDO_PARAM_IGNORIERE_RESTART, false,
-            "Checkpoint/Restart Methode: START erzwingen, obwohl Batch abgebrochen ist.");
+                "Checkpoint/Restart Methode: START erzwingen, obwohl Batch abgebrochen ist.");
 
         OptionBuilder.withArgName("Maximale Laufzeit in Minuten");
         OptionBuilder.hasArg();
@@ -79,10 +78,10 @@ class KommandozeilenParser {
     }
 
     /**
-     * Parst die Kommandozeile.
-     * @param kommandoZeile
-     *            Die Kommandozeile zum Parsen.
-     * @return Die geparste Kommandozeile
+     * Parses the command line.
+     *
+     * @param kommandoZeile The command line to parse.
+     * @return The parsed command line.
      */
     private CommandLine parseKommandoZeile(String[] kommandoZeile) {
         try {
@@ -92,42 +91,40 @@ class KommandozeilenParser {
         } catch (ParseException exp) {
             HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp("java de.bund.bva.common.batchrahmen.core.launcher.BatchLauncher",
-                this.options);
+                    this.options);
             throw new BatchrahmenParameterException(NachrichtenSchluessel.ERR_KOMMANDO_PARAMETER_UNGUELTIG,
-                exp, exp.getMessage());
+                    exp, exp.getMessage());
         }
     }
 
     /**
-     * Speichert alle Kommandozeilen-Argumente in eine Hashmap.
+     * Stores all command line arguments into a hashmap.
      *
-     * @param kommandoZeile
-     *            die zu parsenden Eingabe-Werte.
-     *
-     * @return eine Map mit allen Kommandozeilen-Parametern.
+     * @param kommandoZeile the input values to parse.
+     * @return a map with all command line parameters.
      */
     public Map<String, String> parse(String[] kommandoZeile) {
         Map<String, String> cmdArgs = new HashMap<String, String>();
         CommandLine line = parseKommandoZeile(kommandoZeile);
 
         cmdArgs.put(KonfigurationSchluessel.KOMMANDO_PARAM_PROP_DATEI,
-            line.getOptionValue(KonfigurationSchluessel.KOMMANDO_PARAM_PROP_DATEI));
+                line.getOptionValue(KonfigurationSchluessel.KOMMANDO_PARAM_PROP_DATEI));
 
         boolean start = line.hasOption(KonfigurationSchluessel.KOMMANDO_PARAM_START);
         boolean restart = line.hasOption(KonfigurationSchluessel.KOMMANDO_PARAM_RESTART);
         if ((!start && !restart) || (start && restart)) {
             throw new BatchrahmenParameterException(NachrichtenSchluessel.ERR_KOMMANDO_PARAMETER_NOETIG,
-                KonfigurationSchluessel.KOMMANDO_PARAM_START, KonfigurationSchluessel.KOMMANDO_PARAM_RESTART);
+                    KonfigurationSchluessel.KOMMANDO_PARAM_START, KonfigurationSchluessel.KOMMANDO_PARAM_RESTART);
         }
 
         cmdArgs.put(KonfigurationSchluessel.KOMMANDO_PARAM_START,
-            "" + line.hasOption(KonfigurationSchluessel.KOMMANDO_PARAM_START));
+                String.valueOf(line.hasOption(KonfigurationSchluessel.KOMMANDO_PARAM_START)));
         cmdArgs.put(KonfigurationSchluessel.KOMMANDO_PARAM_RESTART,
-            "" + line.hasOption(KonfigurationSchluessel.KOMMANDO_PARAM_RESTART));
+                String.valueOf(line.hasOption(KonfigurationSchluessel.KOMMANDO_PARAM_RESTART)));
         cmdArgs.put(KonfigurationSchluessel.KOMMANDO_PARAM_IGNORIERE_LAUF,
-            "" + line.hasOption(KonfigurationSchluessel.KOMMANDO_PARAM_IGNORIERE_LAUF));
+                String.valueOf(line.hasOption(KonfigurationSchluessel.KOMMANDO_PARAM_IGNORIERE_LAUF)));
         cmdArgs.put(KonfigurationSchluessel.KOMMANDO_PARAM_IGNORIERE_RESTART,
-            "" + line.hasOption(KonfigurationSchluessel.KOMMANDO_PARAM_IGNORIERE_RESTART));
+                String.valueOf(line.hasOption(KonfigurationSchluessel.KOMMANDO_PARAM_IGNORIERE_RESTART)));
         String optionaleLaufzeit = line.getOptionValue(KonfigurationSchluessel.KOMMANDO_PARAM_LAUFZEIT);
         if (optionaleLaufzeit != null) {
             cmdArgs.put(KonfigurationSchluessel.KOMMANDO_PARAM_LAUFZEIT, optionaleLaufzeit);
@@ -143,21 +140,19 @@ class KommandozeilenParser {
                         i++;
                     } else if (KonfigurationSchluessel.KOMMANDO_PARAM_LAUFZEIT.equals(andererParameter)) {
                         /*
-                         * Der Laufzeit-Parameter ist als Option definiert und sollte vor den restlichen
-                         * Parametern angegeben werden. Falls der Laufzeit-Parameter fälchlicherweise nach den
-                         * Optionen ohne die Minuten agegeben wird, brechen wir trotzdem mit einer
-                         * verknüpftigen Fehlermeldung ab. Sonst wird die Laufzeit in cmdArgs übernommen und
-                         * als Minute wird "true" reingeschrieben.
+                         * The runtime parameter is defined as an option and should be specified before the rest of the parameters.
+                         * If the runtime parameter is given after the options without the minutes, we still abort with a linked error message.
+                         * Otherwise the runtime is taken over in cmdArgs and "true" is written in as minute.
                          */
                         throw new BatchrahmenParameterException(
-                            NachrichtenSchluessel.ERR_KOMMANDO_PARAMETER_WERT_NOETIG,
-                            KonfigurationSchluessel.KOMMANDO_PARAM_LAUFZEIT);
+                                NachrichtenSchluessel.ERR_KOMMANDO_PARAMETER_WERT_NOETIG,
+                                KonfigurationSchluessel.KOMMANDO_PARAM_LAUFZEIT);
                     } else {
                         cmdArgs.put(andererParameter, "true");
                     }
                 } else {
                     throw new BatchrahmenParameterException(
-                        NachrichtenSchluessel.ERR_KOMMANDO_PARAMETER_PRAEFIX, andereParameter[i]);
+                            NachrichtenSchluessel.ERR_KOMMANDO_PARAMETER_PRAEFIX, andereParameter[i]);
                 }
             }
         }

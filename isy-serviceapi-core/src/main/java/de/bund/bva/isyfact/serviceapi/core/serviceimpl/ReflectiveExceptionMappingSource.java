@@ -44,19 +44,19 @@ public class ReflectiveExceptionMappingSource implements ExceptionMappingSource 
                                                                 Class<? extends BaseException> exceptionClass) {
 
         String coreExceptionName = removeEnd(exceptionClass.getSimpleName(), "Exception");
-
-        for (Class<?> toExceptionClass : remoteBeanMethod.getExceptionTypes()) {
-            if (PlisToException.class.isAssignableFrom(toExceptionClass)) {
-                String toExceptionName = strip(toExceptionClass.getSimpleName(), "Plis", "ToException");
-                if (coreExceptionName.equals(toExceptionName)) {
-                    @SuppressWarnings("unchecked")
-                    Class<? extends PlisToException> castToExceptionClass =
-                            (Class<? extends PlisToException>) toExceptionClass;
-                    return castToExceptionClass;
+        if (coreExceptionName != null) {
+            for (Class<?> toExceptionClass : remoteBeanMethod.getExceptionTypes()) {
+                if (PlisToException.class.isAssignableFrom(toExceptionClass)) {
+                    String toExceptionName = strip(toExceptionClass.getSimpleName(), "Plis", "ToException");
+                    if (coreExceptionName.equals(toExceptionName)) {
+                        @SuppressWarnings("unchecked")
+                        Class<? extends PlisToException> castToExceptionClass =
+                                (Class<? extends PlisToException>) toExceptionClass;
+                        return castToExceptionClass;
+                    }
                 }
             }
         }
-
         throw new IllegalStateException("Keine TO-Exception für die AWK-Exception " + exceptionClass
                 + " in Serviceoperation " + getMethodSignatureString(remoteBeanMethod));
     }

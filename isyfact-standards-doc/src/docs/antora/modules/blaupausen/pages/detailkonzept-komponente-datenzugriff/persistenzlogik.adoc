@@ -56,27 +56,23 @@ So ist es zum Beispiel sinnvoll, für 1:1-Beziehungen im Persistenz-Klassenmodel
 Somit wird der Inhalt einer Datenbanktabelle auf mehr als eine Entität verteilt.
 Solche Entitäten können dann über das Lesen einer einzigen Tabellenzeile aus der Datenbank gefüllt werden.
 
-[[verwendung-generischer-datenstrukturen-vermeiden]]
-=== Verwendung generischer Datenstrukturen vermeiden
 
-JPA ermöglicht die Verwendung generischer Datenstrukturen.
-Dabei können die Spalten einer Tabelle in Abhängigkeit eines Deskriptorwertes in einer speziell definierten Spalte auf unterschiedliche Attribute verschiedener Entitäten abgebildet werden.
-Eine solche Vorgehensweise erschwert das Verständnis der Daten bei einem direkten Zugriff auf die Datenbank mit Datenbankwerkzeugen und damit auch die Fehleranalyse und Wartung.
+[[vererbung-im-persistenz-klassenmodell]]
+=== Vererbung im Persistenz-Klassenmodell
 
-Trotzdem kann es aus Gründen der Datenbankperformance erforderlich sein, generische Datenstrukturen zu verwenden.
-Werden z. B. Entitäten mit einer gemeinsamen Oberklasse als generische Datenstruktur in einer Tabelle abgelegt und sollen die Attribute der Oberklasse gesucht werden, so kann die Suche auf der Datenbank in einer einzigen Tabelle durchgeführt werden.
-Die Entitäten können ohne zusätzliche Joins aus der Datenbank gelesen werden.
+Vererbungshierarchien können in relationalen Datenbanken nicht direkt umgesetzt werden.
+Die JPA-Spezifikation beschreibt deshalb mehrere Strategien des O/R-Mappings von Vererbungshierarchien.
+Sie werden im Baustein xref:isy-persistence:konzept/vorgaben-konventionen.adoc#vererbungshierarchien[JPA/Hibernate] zusammen mit Regeln für ihre Verwendung beschrieben.
 
-Werden generische Datenstrukturen verwendet, dann ist es obligatorisch, dass für jede Entitäten, die in dieser Datenstruktur abgespeichert wird, ein eigener Datenbank-View definiert wird.
-Dieser Datenbank-View enthält alle Attribute der Entitäten mit einem sprechenden Namen.
-Diese Datenbank-Views können dann beim direkten Zugriff mit Datenbankwerkzeugen und bei der Fehleranalyse verwendet werden.
+Für alle Strategien gilt, dass die abzubildende Vererbungshierarchie nicht zu umfangreich sein sollte.
+Datenbankzugriffe auf Tabellen mit großen Hierarchien sind meistens wenig performant.
+Außerdem lässt sich die Vererbungshierarchie anhand der Datenbanktabellen entweder nicht oder nur schwer erkennen, und die Tabellen können unübersichtlich werden.
 
-[[vererbung-im-persistenz-klassenmodell-vermeiden]]
-=== Vererbung im Persistenz-Klassenmodell vermeiden
-
-Klassenhierarchien (der Einsatz von Vererbung) sind bei Entitäten zu vermeiden.
-Abweichungen sind nur für eine Reduzierung der Komplexität des Persistenz-Klassenmodells erlaubt.
-Die Klassenhierarchie ist in diesem Fall möglichst flach zu halten.
+.icon:university[title=Architekturregel] Vererbungshierarchien im Persistenz-Klassenmodell
+****
+Vererbungshierarchien zur Abbildung in relationalen Datenbanken sollten nur verwendet werden, wenn das fachliche Datenmodell dadurch optimal wiedergegeben wird.
+Sie sollten nur eine Oberklasse mit einigen Subklassen und höchstens zwei Vererbungsebenen umfassen.
+****
 
 [[fachlogik-in-persistenzklassen-vermeiden]]
 === Fachlogik in Persistenzlogik vermeiden

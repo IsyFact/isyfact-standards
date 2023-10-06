@@ -19,9 +19,10 @@ package de.bund.bva.isyfact.batchrahmen.persistence.rahmen;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.LockModeType;
 
+import org.springframework.orm.jpa.EntityManagerFactoryUtils;
+
 import de.bund.bva.isyfact.batchrahmen.core.exception.BatchrahmenInitialisierungException;
 import de.bund.bva.isyfact.batchrahmen.core.konstanten.NachrichtenSchluessel;
-import org.springframework.orm.jpa.EntityManagerFactoryUtils;
 
 /**
  * Das BatchStatusDAO entspricht nicht den Vorgaben fuer Hibernate, da es in einem Unter-Spring-Kontext ohne

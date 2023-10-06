@@ -2,37 +2,78 @@ package de.bund.bva.isyfact.task;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
-import de.bund.bva.isyfact.task.test.TestTaskRunAssertion;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
-import org.springframework.test.context.junit4.SpringRunner;
+import java.util.Collections;
+import java.util.Optional;
 
-import de.bund.bva.isyfact.sicherheit.common.exception.AutorisierungFehlgeschlagenException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
+import org.springframework.test.context.ActiveProfiles;
+
+import de.bund.bva.isyfact.task.test.TestTaskRunAssertion;
 import de.bund.bva.isyfact.task.test.config.TestConfig;
 
 import io.micrometer.core.instrument.MeterRegistry;
 
-@RunWith(SpringRunner.class)
-@Import(TestTaskAuthenticationTasks.class)
-@SpringBootTest(classes = { TestConfig.class }, webEnvironment = SpringBootTest.WebEnvironment.NONE, properties = {
-    "isy.logging.anwendung.name=test", "isy.logging.anwendung.typ=test", "isy.logging.anwendung.version=test",
-    "isy.task.authentication.enabled=true",
-    "spring.task.scheduling.pool.size=2",
-    "isy.task.tasks.testTaskAuthenticationTasks-scheduledTaskSecured.host=.*",
-    "isy.task.tasks.testTaskAuthenticationTasks-scheduledTaskSecured.benutzer=TestUser1",
-    "isy.task.tasks.testTaskAuthenticationTasks-scheduledTaskSecured.passwort=TestPasswort1",
-    "isy.task.tasks.testTaskAuthenticationTasks-scheduledTaskSecured.bhkz=BHKZ1",
-    "isy.task.tasks.testTaskAuthenticationTasks-scheduledTaskSecuredInsufficientRights.host=.*",
-    "isy.task.tasks.testTaskAuthenticationTasks-scheduledTaskSecuredInsufficientRights.benutzer=TestUser2",
-    "isy.task.tasks.testTaskAuthenticationTasks-scheduledTaskSecuredInsufficientRights.passwort=TestPasswort2",
-    "isy.task.tasks.testTaskAuthenticationTasks-scheduledTaskSecuredInsufficientRights.bhkz=BHKZ1"})
-public class TestTaskAuthentication {
+@ActiveProfiles("security-test")
+@SpringBootTest(
+        classes = {
+                TestConfig.class,
+                TestTaskAuthenticationTasks.class
+        },
+        properties = {
+                "isy.task.authentication.enabled=true",
+                "spring.task.scheduling.pool.size=2",
+        })
+public class TestTaskAuthentication extends AbstractOidcProviderTest {
 
     @Autowired
     private MeterRegistry registry;
+
+    @Value("${spring.security.oauth2.client.registration.ropc-testclient.client-id}")
+    private String ropcClientId;
+
+    @Value("${spring.security.oauth2.client.registration.ropc-testclient.client-secret}")
+    private String ropcClientSecret;
+
+    @Value("${isy.security.oauth2.client.registration.ropc-testclient.username}")
+    private String ropcUser;
+
+    @Value("${isy.security.oauth2.client.registration.ropc-testclient.password}")
+    private String ropcPassword;
+
+    @Value("${isy.security.oauth2.client.registration.ropc-testclient.bhknz}")
+    private String ropcBhknz;
+
+    @Value("${spring.security.oauth2.client.registration.cc-testclient.client-id}")
+    private String ccClientId;
+
+    @Value("${spring.security.oauth2.client.registration.cc-testclient.client-secret}")
+    private String ccClientSecret;
+
+    @BeforeEach
+    public void setup() {
+        embeddedOidcProvider.removeAllClients();
+        embeddedOidcProvider.removeAllUsers();
+        // client with authorization-grant-type=password
+        embeddedOidcProvider.addUser(
+                ropcClientId,
+                ropcClientSecret,
+                ropcUser,
+                ropcPassword,
+                Optional.of(ropcBhknz),
+                Collections.singleton("Rolle1")
+        );
+        embeddedOidcProvider.addClient(
+                ccClientId,
+                ccClientSecret,
+                Collections.singleton("Rolle2")
+        );
+    }
 
     @Test
     public void testTaskSecured() throws Exception {
@@ -42,7 +83,7 @@ public class TestTaskAuthentication {
         SECONDS.sleep(5);
 
         TestTaskRunAssertion.assertTaskSuccess(className, annotatedMethodName, registry,
-            AutorisierungFehlgeschlagenException.class.getSimpleName());
+                AuthenticationCredentialsNotFoundException.class.getSimpleName());
     }
 
     @Test
@@ -53,6 +94,6 @@ public class TestTaskAuthentication {
         SECONDS.sleep(5);
 
         TestTaskRunAssertion.assertTaskFailure(className, annotatedMethodName, registry,
-            AutorisierungFehlgeschlagenException.class.getSimpleName());
+                AccessDeniedException.class.getSimpleName());
     }
 }
