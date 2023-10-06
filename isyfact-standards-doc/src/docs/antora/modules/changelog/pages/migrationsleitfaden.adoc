@@ -102,7 +102,7 @@ Analog wurde bei allen Properties der zweiten Spalte, die mit einem Punkt beginn
 |`.auth-server-url` |`.provider.<provider-name>.issuer-uri` |Für die Verwendung in Kombination mit einer Spring Client Registration. An den bisherigen Wert wird `/realms/<realm-name>` angehängt.
 |`.realm` |- |Entfällt, da Teil der `issuer-uri`.
 |- |`.registration.<registration-id>.provider` |Neu, verbindet die Spring Client Registration und Provider Definition.
-|`.resource` |`.registration.<registration-id>.client-id` |
+|`.resource` |`.registration.<registration-id>.client-id` |Neu, Authentifizierungsidentifier der _ConfidentialClient_-Applikation im Autorisierungsserver.
 |`.credentials-secret` |`.registration.<registration-id>.client-secret` |
 |- |`.registration.<registration-id>.authorization-grant-type=password` |Neu, da ein zusätzlicher OAuth Flow unterstützt wird. Der Wert `password` entspricht dem bisherigen Flow in `isy-sicherheit-keycloak`.
 |`.bearer-only` |- |entfällt
