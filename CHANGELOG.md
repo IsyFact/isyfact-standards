@@ -1,4 +1,5 @@
 # 3.0.0
+- `ISY-54`: [isyfact-standards-doc] Migrationsleitfaden zur Umstellung auf isy-security
 - `IFS-2561`: [isy-security] Die Konfiguration via `rollenrechte.xml` erfolgt optional.
   * Initialisierung mit Standardwerten
 - `IFS-1887`: [isyfact-standards-doc] Ergänzung der Nutzungsvorgaben für neuen Sicherheitsbaustein `isy-security`
