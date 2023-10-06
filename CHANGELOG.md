@@ -1,6 +1,6 @@
 # 3.0.0
-- [isyfact-standards-doc] Migrationsleitfaden zur Umstellung auf isy-security
-  * `ISY-219`: Abschnitt zur Migration der Annotation @NutzerAuthentifizierung
+- `ISY-219`: [isyfact-standards-doc] Migrationsleitfaden zur Umstellung auf isy-security
+  * Abschnitt zur Migration der Annotation @NutzerAuthentifizierung
 - `IFS-2561`: [isy-security] Die Konfiguration via `rollenrechte.xml` erfolgt optional.
   * Initialisierung mit Standardwerten
 - `IFS-1887`: [isyfact-standards-doc] Ergänzung der Nutzungsvorgaben für neuen Sicherheitsbaustein `isy-security`
