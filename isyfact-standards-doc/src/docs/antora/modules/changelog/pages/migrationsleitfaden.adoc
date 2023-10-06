@@ -162,7 +162,7 @@ Das Interface `Sicherheit` wird abgelöst durch das Interface `Security`.
 Folgende Änderungen sind dabei relevant:
 
 * Die Methode `getBerechtigungsManagerUndAuthentifiziere()` wird entfernt und durch zwei neue Methoden im Interface `Security` ersetzt. Die Aufgaben sind hierbei wie folgt verteilt:
-** Die Methode `getAuthentifizierungsmanager()` ermöglicht Zugang zum Interface `Authentifizierungsmanager`, über das eine Authentifizierung mit dem konfigurierten OpenID Connect Provider (bspw. Keycloak) durchgeführt werden kann.
+** Die Methode `getAuthentifizierungsmanager()` liefert das Interface `Authentifizierungsmanager` zurück, über dessen Implementierung dann eine Authentifizierung mit dem konfigurierten OpenID Connect Provider (bspw. Keycloak) durchgeführt werden kann.
 Nach erfolgreicher Authentifizierung wird das Bearer Token im Spring Security Context hinterlegt (siehe Nutzungsvorgaben zu `Authentifizierungsmanager`).
 ** Die Methode `getBerechtigungsmanager()` ermöglicht Zugang zum Interface `Berechtigungsmanager`, über das auf die im Bearer Token enthaltenen Informationen zugegriffen werden kann.
 Konkret bietet das Interface `Berechtigungsmanager` Methoden an, um Berechtigungen und Rollen abzufragen (siehe xref:isy-security:nutzungsvorgaben/inhalt.adoc#attr-token-abfragen[Nutzungsvorgaben isy-security]).
