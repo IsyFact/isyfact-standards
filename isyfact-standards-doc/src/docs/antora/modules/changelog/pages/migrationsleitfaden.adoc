@@ -86,7 +86,7 @@ Eine Beschreibung der Parameter findet sich in den xref:isy-security:nutzungsvor
 
 <<table-sicherheit-konfiguration>> gibt eine Übersicht über die zu ändernden Parameter.
 Die `instances[n]` Notation aus den isy-sicherheit-keycloak Properties wird in isy-security nicht länger unterstützt.
-Jede Instanz soll durch einen sprechenden und eindeutigen `provider-name` bzw. eine `registration-id` ersetzt werden.
+Jede Instanz soll durch einen sprechenden und eindeutigen `provider-name` bzw. eine `oauth2ClientRegistrationId` ersetzt werden.
 
 Aus Platzgründen wurde in der ersten Spalte auf das `isy.sicherheit.keycloak` Präfix verzichtet.
 Analog wurde bei allen Properties der zweiten Spalte, die mit einem Punkt beginnen, auf das Präfix `spring.security.oauth2.client` verzichtet.
@@ -97,25 +97,26 @@ Analog wurde bei allen Properties der zweiten Spalte, die mit einem Punkt beginn
 .{table-sicherheit-konfiguration}
 [cols="1,1,1"]
 |===
-|isy-sicherheit(-keycloak)|isy-security|Bemerkung
-|`.auth-server-url`|`.provider.<provider-name>.issuer-uri`| für die Verwendung in Kombination mit einer Spring Client Registration, an den bisherigen Wert wird `/realms/<realm-name>` angehängt
-|`.auth-server-url`| `spring.security.resourceserver.jwt.issuer-uri`| für die Verwendung in Kombination mit _@Secured_, an den bisherigen Wert wird `/realms/<realm-name>` angehängt
-|`.realm`|-|entfällt, da Teil der `issuer-uri`
-|-|`.registration.<registration-id>.provider`|neu, verbindet die Spring Client Registration und Provider Definition
-|`.resource`|`.registration.<registration-id>.client-id`|
-|`.credentials-secret`|`.registration.<registration-id>.client-secret`|
-|-|`.registration.<registration-id>.authorization-grant-type=password`| neu, da ein zusätzlicher OAuth Flow unterstützt wird
-|`.bearer-only`|-|entfällt
-|`.standard-zertifikat-ou`|`isy.security.oauth2.client.default-certificate-ou`|
-|-|`isy.security.oauth2.registration.<registration-id>.username`|neu, wurde vorher aus dem AufrufKontext ausgelesen
-|-|`isy.security.oauth2.registration.<registration-id>.password`|neu, wurde vorher aus dem AufrufKontext ausgelesen
-|-|`isy.security.oauth2.registration.<registration-id>.bhknz`|neu, wurde vorher aus dem AufrufKontext ausgelesen
-|`.default-instance`|-|entfällt
-|`.ext-auth-server-url`|-|entfällt
-|`.expected-realm-type`|-|entfällt
-|`.expected-realm`|-|entfällt
-|`.cert-header-name`|-|entfällt
-|`.cert-dn-header-name`|-|entfällt
+|isy-sicherheit(-keycloak) |isy-security |Bemerkung
+|`.auth-server-url` |`spring.security.resourceserver.jwt.issuer-uri` |Issuer, gegen den einkommende Bearer Tokens validiert werden sollen. An den bisherigen Wert wird `/realms/<realm-name>` angehängt.
+|`.auth-server-url` |`.provider.<provider-name>.issuer-uri` |Für die Verwendung in Kombination mit einer Spring Client Registration. An den bisherigen Wert wird `/realms/<realm-name>` angehängt.
+|`.realm` |- |Entfällt, da Teil der `issuer-uri`.
+|- |`.registration.<registration-id>.provider` |Neu, verbindet die Spring Client Registration und Provider Definition.
+|`.resource` |`.registration.<registration-id>.client-id` |Neu, Authentifizierungsidentifier der _ConfidentialClient_-Applikation im Autorisierungsserver.
+|`.credentials-secret` |`.registration.<registration-id>.client-secret` | Neu, Authentifizierungs-Secret, das nur der ConfidentialClient-Anwendung und dem Autorisierungsserver bekannt ist.
+|- |`.registration.<registration-id>.authorization-grant-type=password` |Neu, da ein zusätzlicher OAuth Flow unterstützt wird. Der Wert `password` entspricht dem bisherigen Flow in `isy-sicherheit-keycloak`.
+|`.bearer-only` |- |entfällt
+|`.standard-zertifikat-ou` |`isy.security.oauth2.client.default-certificate-ou` |
+|`.bhknz-header-name` |`isy.security.oauth2.client.bhknz-header-name` |
+|- |`isy.security.oauth2.registration.<registration-id>.username` |Neu, für _ConfidentialClient_-Konfiguration der geänderte Pfad für Property `username`, mit _isy-security_ nun innerhalb einer _Spring konformen ClientRegistration_
+|- |`isy.security.oauth2.registration.<registration-id>.password` |Neu,  für _ConfidentialClient_-Konfiguration der geänderte Pfad für Property `password`, mit _isy-security_ nun innerhalb einer _Spring konformen ClientRegistration_
+|- |`isy.security.oauth2.registration.<registration-id>.bhknz` |Neu, für _ConfidentialClient_-Konfiguration der geänderte Pfad für Property `bhknz`, mit _isy-security_ nun innerhalb einer _Spring konformen ClientRegistration_
+|`.default-instance` |- |entfällt
+|`.ext-auth-server-url` |- |entfällt
+|`.expected-realm-type` |- |entfällt
+|`.expected-realm` |- |entfällt
+|`.cert-header-name` |- |entfällt
+|`.cert-dn-header-name` |- |entfällt
 |===
 
 [[sicherheit-annotation-gesichert]]
@@ -144,8 +145,8 @@ Daher sind Ausdrücke möglich wie
 @PreAuthorize("hasAuthority('PRIV_Recht_A') and hasAuthority('PRIV_Recht_B')")
 ----
 In `isy-security` ist die Verwendung von `@PreAuthorize` nicht aktiviert.
-Falls `@PreAuthorize` verwendet werden soll, muss die Verwendung im aufrufenden Projekt mit der Konfiguration `@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled=true)` erlaubt werden.
-Alternativ kann in diesem Fall auch die neuere Annotation `@EnableMethodSecurity` verwendet werden, bei der `prePostEnabled=true` standardmäßig aktiviert ist.
+Falls `@PreAuthorize` verwendet werden soll, muss die Verwendung im aufrufenden Projekt mit der Konfiguration `@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)` erlaubt werden.
+Alternativ kann in diesem Fall auch die neuere Annotation `@EnableMethodSecurity` verwendet werden, bei der `prePostEnabled = true` standardmäßig gesetzt ist.
 ====
 
 [[sicherheit-berechtigungsmanager]]
@@ -161,10 +162,10 @@ Das Interface `Sicherheit` wird abgelöst durch das Interface `Security`.
 Folgende Änderungen sind dabei relevant:
 
 * Die Methode `getBerechtigungsManagerUndAuthentifiziere()` wird entfernt und durch zwei neue Methoden im Interface `Security` ersetzt. Die Aufgaben sind hierbei wie folgt verteilt:
-** Die Methode `getAuthentifizierungsmanager()` ermöglicht Zugang zum Interface `Authentifizierungsmanager`, über das eine Authentifizierung über Keycloak durchgeführt werden kann.
+** Die Methode `getAuthentifizierungsmanager()` liefert das Interface `Authentifizierungsmanager` zurück, über dessen Implementierung dann eine Authentifizierung mit dem konfigurierten OpenID Connect Provider (bspw. Keycloak) durchgeführt werden kann.
 Nach erfolgreicher Authentifizierung wird das Bearer Token im Spring Security Context hinterlegt (siehe Nutzungsvorgaben zu `Authentifizierungsmanager`).
-** Die Methode `getBerechtigungsmanager()` gibt Zugang zum Interface `Berechtigungsmanager`, über das das Bearer Token verarbeitet kann.
-Konkret bietet das Interface `Berechtigungsmanager` Methoden an, um Berechtigungen und Rollen abzufragen (siehe xref:isy-security:nutzungsvorgaben/inhalt.adoc#attr-token-abfragen[Nutzungsvorgaben isy-security]).
+** Die Methode `getBerechtigungsmanager()` liefert das Interface `Berechtigungsmanager` zurück, über dessen Implementierung dann auf die im _Bearer Token_ enthaltenen _Autorisierungsinformationen_ zugegriffen werden kann.
+Konkret sind in dem Interface `Berechtigungsmanager` Methoden definiert, über dessen Implementierung Berechtigungen und Rollen abgefragt werden können (siehe xref:isy-security:nutzungsvorgaben/inhalt.adoc#attr-token-abfragen[Nutzungsvorgaben isy-security]).
 * Die Methode `leereCache()` entfällt.
 * Wie in Abschnitt <<Berechtigungsmanager>> beschrieben, ändert sich der Rückgabewerte der Methode `Set<Rolle>` zu `Set<String>`.
 
@@ -456,5 +457,3 @@ xref:isy-serviceapi-core:nutzungsvorgaben/inhalt.adoc#kompatibilitaet_if1_2_3[Nu
 
 [[kapitel-isyfact-Referenzarchitektur]]
 === IsyFact Referenzarchitektur
-
-
