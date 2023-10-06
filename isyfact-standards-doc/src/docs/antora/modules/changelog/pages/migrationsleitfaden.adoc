@@ -165,7 +165,7 @@ Folgende Änderungen sind dabei relevant:
 ** Die Methode `getAuthentifizierungsmanager()` liefert das Interface `Authentifizierungsmanager` zurück, über dessen Implementierung dann eine Authentifizierung mit dem konfigurierten OpenID Connect Provider (bspw. Keycloak) durchgeführt werden kann.
 Nach erfolgreicher Authentifizierung wird das Bearer Token im Spring Security Context hinterlegt (siehe Nutzungsvorgaben zu `Authentifizierungsmanager`).
 ** Die Methode `getBerechtigungsmanager()` liefert das Interface `Berechtigungsmanager` zurück, über dessen Implementierung dann auf die im _Bearer Token_ enthaltenen _Autorisierungsinformationen_ zugegriffen werden kann.
-Konkret bietet das Interface `Berechtigungsmanager` Methoden an, um Berechtigungen und Rollen abzufragen (siehe xref:isy-security:nutzungsvorgaben/inhalt.adoc#attr-token-abfragen[Nutzungsvorgaben isy-security]).
+Konkret sind in dem Interface `Berechtigungsmanager` Methoden definiert, über dessen Implementierung Berechtigungen und Rollen abgefragt werden können (siehe xref:isy-security:nutzungsvorgaben/inhalt.adoc#attr-token-abfragen[Nutzungsvorgaben isy-security]).
 * Die Methode `leereCache()` entfällt.
 * Wie in Abschnitt <<Berechtigungsmanager>> beschrieben, ändert sich der Rückgabewerte der Methode `Set<Rolle>` zu `Set<String>`.
 
