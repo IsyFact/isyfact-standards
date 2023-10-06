@@ -109,7 +109,7 @@ Analog wurde bei allen Properties der zweiten Spalte, die mit einem Punkt beginn
 |`.standard-zertifikat-ou` |`isy.security.oauth2.client.default-certificate-ou` |
 |`.bhknz-header-name` |`isy.security.oauth2.client.bhknz-header-name` |
 |- |`isy.security.oauth2.registration.<registration-id>.username` |Neu, für _ConfidentialClient_-Konfiguration der geänderte Pfad für Property `username`, mit _isy-security_ nun innerhalb einer _Spring konformen ClientRegistration_
-|- |`isy.security.oauth2.registration.<registration-id>.password` |Neu, ersetzt Authentifizierungsdaten die vorher individuell pro Anwendung konfiguriert wurden und benutzt wurden, um einen AufrufKontext zu authentifizieren.
+|- |`isy.security.oauth2.registration.<registration-id>.password` |Neu,  für _ConfidentialClient_-Konfiguration der geänderte Pfad für Property `password`, mit _isy-security_ nun innerhalb einer _Spring konformen ClientRegistration_
 |- |`isy.security.oauth2.registration.<registration-id>.bhknz` |Neu, ersetzt Authentifizierungsdaten die vorher individuell pro Anwendung konfiguriert wurden und benutzt wurden, um einen AufrufKontext zu authentifizieren.
 |`.default-instance` |- |entfällt
 |`.ext-auth-server-url` |- |entfällt
