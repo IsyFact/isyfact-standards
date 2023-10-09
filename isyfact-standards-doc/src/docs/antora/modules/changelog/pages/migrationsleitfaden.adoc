@@ -172,7 +172,61 @@ Konkret sind in dem Interface `Berechtigungsmanager` Methoden definiert, über d
 [[sicherheit-annotation-nutzerauth]]
 ==== @NutzerAuthentifizierung
 
-// TODO: Abschnitt zur Nachfolge-Annotation von @NutzerAuthentifizierung (ISY-219)
+Die Annotation `@NutzerAuthentifizierung` wird entfernt und durch eine neue Annotation `@Authenticate` ersetzt.
+
+Der Annotation `@Authenticate` wird die Client-Registration-ID eines OAuth2.0-Clients übergeben.
+Der entsprechende Client muss dafür gemäß den xref:isy-security:nutzungsvorgaben/master.adoc#konfigurationsparameter[Nutzungsvorgaben Security] konfiguriert sein.
+Hierfür werden die `OAuth2ClientProperties` verwendet, sodass bei der Nutzung von `@Authenticate` gegenüber `@NutzerAuthentifizierung` die Notwendigkeit für das
+Erstellen der `NutzerAuthentifizierungProperties` entfällt.
+Entsprechend muss allerdings die `spring-security-oauth2-client`-Dependency eingebunden sein.
+
+Zusätzliche für die Aktivierung der Annotation notwendige Beans müssen nicht mehr definiert werden,
+da diese durch die `IsyOAuth2ClientAutoConfiguration` erstellt werden, solange die Gegebenheiten für die Erstellung von ClientRegistrations vorhanden sind.
+
+Beispiel für die Konfiguration mit `@NutzerAuthentifizierung`:
+
+[source]
+----
+@NutzerAuthentifizierung(benutzer = "test-benutzer")
+----
+
+[source, properties]
+----
+<property-prefix>.benutzer.test-benutzer.kennung = benutzer-name
+<property-prefix>.benutzer.test-benutzer.passwort = super_secret_password
+<property-prefix>.benutzer.test-benutzer.bhknz = 123456
+----
+
+Beispiel für die Konfiguration mit `@Authenticate`:
+
+[source]
+----
+@Authenticate(oauth2ClientRegistrationId = "test-client") // fest
+----
+oder
+[source]
+----
+@Authenticate(oauth2ClientRegistrationId = "${test-project.client-id}") // mit Property-Platzhalter
+----
+
+Die Client-ID kann sowohl fest als auch in Form eines Property-Platzhalters an die Annotation gegeben werden.
+Beispiele für weitere Schreibweisen sind in den
+xref:isy-security:nutzungsvorgaben/master.adoc#annotation-method-auth[Nutzungsvorgaben Security]
+// this reference should be resolvable after merging with ISY-83 (adds @Authenticate annotation and documentation)
+zu finden.
+
+[source, properties]
+----
+# Property-Platzhalter
+test-project.client-id = test-client
+
+spring.security.oauth2.client.provider.testrealm.issuer-uri = http://localhost:12345/auth/realms/testrealm
+
+spring.security.oauth2.client.registration.test-client.client-id = client-credentials-test-client
+spring.security.oauth2.client.registration.test-client.client-secret = super_secret_password
+spring.security.oauth2.client.registration.test-client.authorization-grant-type = client_credentials
+spring.security.oauth2.client.registration.test-client.provider = testrealm
+----
 
 [[sicherheit-accessmanager]]
 ==== AccessManager und zugehörige Klassen
