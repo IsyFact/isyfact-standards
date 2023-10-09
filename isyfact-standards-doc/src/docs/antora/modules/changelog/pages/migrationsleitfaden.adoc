@@ -22,7 +22,7 @@ Die drei in IsyFact 2 eingeführten Bridge-Module
 entfallen in IsyFact 3.
 In einer Anwendung, die bisher Bridge-Module verwendet und auf IsyFact 3 umgestellt werden soll, müssen daher Anpassungen vorgenommen werden.
 Die Tabelle <<table-bridge-module>> zeigt für jedes der drei Bridge-Module, durch welches Modul es ersetzt wird.
-Dabei ist zu beachten, dass zwei der Ersatzmodule in IsyFact 1-Versionen verwendet werden.
+Dabei ist zu beachten, dass zwei der Ersatzmodule eine Abhängigkeit zu IsyFact-1.x haben.
 
 [[table-bridge-module]]
 .Abhängigkeiten in IsyFact 2 vs. IsyFact 3
