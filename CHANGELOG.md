@@ -1,5 +1,5 @@
 # 3.0.0
-- [isyfact-standards-doc] Migrationsleitfaden zur Entfernung der Bridge-Module
+- `ISY-183`: [isyfact-standards-doc] Migrationsleitfaden zur Entfernung der Bridge-Module
 - `IFS-2561`: [isy-security] Die Konfiguration via `rollenrechte.xml` erfolgt optional.
   * Initialisierung mit Standardwerten
 - `IFS-1887`: [isyfact-standards-doc] Ergänzung der Nutzungsvorgaben für neuen Sicherheitsbaustein `isy-security`
