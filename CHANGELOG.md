@@ -1,4 +1,5 @@
 # 3.0.0
+- `ISY-183`: [isyfact-standards-doc] Migrationsleitfaden zur Entfernung der Bridge-Module
 - `ISY-54`: [isyfact-standards-doc] Migrationsleitfaden zur Umstellung auf isy-security
   * `ISY-219`: Abschnitt zur Migration der Annotation @NutzerAuthentifizierung
 - `IFS-2561`: [isy-security] Die Konfiguration via `rollenrechte.xml` erfolgt optional.
