@@ -159,3 +159,9 @@ jobs:
           -Dsonar.host.url=${{ vars.SONAR_HOST_URL }}
           -Dsonar.organization=${{ vars.SONAR_ORGANIZATION }} -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }}
           verify org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar
+      - name: Upload Meta Data
+        uses: actions/upload-artifact@v3
+        with:
+          name: Sonar Meta Data
+          path:
+            ${{ github.workspace }}/target/sonar/report-task.txt
