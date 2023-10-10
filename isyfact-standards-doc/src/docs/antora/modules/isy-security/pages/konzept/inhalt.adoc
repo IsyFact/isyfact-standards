@@ -316,15 +316,15 @@ image::konzept/authorization-code-flow.dn.svg[align="center"]
 [[aufruf-service-gateway]]
 ==== Aufruf Service-Gateway
 
-Mit der `IsyFact-3` wird eine neue Authentifizierungslogik (xref:aufruf-service-gateway-mit-authentication-gateway[]) für die Authentifizierung von Anwendungen, die außerhalb der Anwendungslandschaft betrieben werden, eingeführt.
-Für eine weiche Migration der externen Anwendungen auf die neue IsyFact-Version wird zusätzlich die bisherige Authentifizierungslogik (xref:aufruf-service-gateway-ohne-authentication-gateway[]) beibehalten.
+In einer zukünftigen Version von `IsyFact` wird eine neue Authentifizierungslogik (xref:aufruf-service-gateway-mit-authentication-gateway[]) für die Authentifizierung von Anwendungen, die außerhalb der Anwendungslandschaft betrieben werden, eingeführt.
+Die Authentifizierung wird von der eigentlichen fachlichen Anfrage getrennt, so dass sie nur einmal durchgeführt werden muss und das erhaltene Access-Token (innerhalb seiner Gültigkeit) auch für die weiteren fachlichen Anfragen verwendet werden kann.
 
 [[aufruf-service-gateway-mit-authentication-gateway]]
 ===== Direkte Authentifizierung am IAM-Service
 
 Die folgende Abbildung zeigt die neue System-Architektur, die bei Aufrufen von externen Anwendungen zum Einsatz kommt.
-Dabei werden die Aufrufe mit Authentifizierungsdaten von Aufrufen mit Nutzungsdaten getrennt.
-Die Authentifizierungsaufrufe werden über das _Authentication-Gateway_ geleitet, wohingegen die Aufrufe mit den Nutzdaten über das _Service-Gateway (SGW)_ geleitet werden.
+Für die Authentifizierung einer externen Anwendung existiert ein eigener Servicepunkt zum _Authentication-Gateway_, der zuerst aufgerufen werden muss und ein Access-Token zurückliefert.
+Anschliessend wird die fachliche Anfrage (und alle weiteren) zusammen mit diesem Access-Token über das _Service-Gateway (SGW)_ an das Anwendungssystem geschickt.
 
 .Authentifizierung am Authentication-Gateway
 [id="image-servicegateway-plus-authgateway",reftext="{figure-caption} {counter:figures}"]
@@ -355,8 +355,11 @@ image::konzept/Squenzdiagramm_ServiceGateway_plus_AuthGateway.dn.svg[align="cent
 [[aufruf-service-gateway-ohne-authentication-gateway]]
 ===== Authentifizierung über das SGW am IAM-Service
 
+Aktuell erfolgt die Authentifizierung von Anfragen über die Web-Oberfläche direkt im Service-Gateway.
+Dafür müssen bei jeder Anfrage auch die Authentifizierungsdaten mitgeschickt werden.
+Das Service-Gateway lässt die Authentifizierungsdaten durch den IAM-Service prüfen und leitet erst nach dessen OK die fachliche Anfrage an das Anwendungssystem weiter.
+
 Die nachfolgende Abbildung zeigt die System-Architektur, die bei Aufrufen von externen Anwendungen für die Authentifizierung ohne _Authentication-Gateway_ zum Einsatz kommt.
-Diese Authentifzierungs- und Autorisierungs-Variante wird für eine einfache Migration von externen Anwendungen auf die neue `IsyFact-3` zusätzlich beibehalten, da hierdurch die Umstellungsaufwände reduziert werden.
 
 So muss der verwendete technische Nutzer für diese externe Anwendung noch nicht gemäß _SpringSecurity (OAuth2.0)_ auf einen _OAuth2.0 Client_ (mit Client-ID u. Client-Secret) migriert worden sein, sondern es kann nach wie vor ein technischer Nutzer (mit Username u. Passwort) zur Authentifizierung verwendet werden.
 Die externe Anwendung sendet die Authentifizierungsdaten bei jeder fachlichen Anfrage nur an das Service-Gateway.
