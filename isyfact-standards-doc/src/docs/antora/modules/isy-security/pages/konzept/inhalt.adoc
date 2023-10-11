@@ -318,7 +318,7 @@ image::konzept/authorization-code-flow.dn.svg[align="center"]
 
 Anfragen von _externen Anwendungssystemen_ an ein IsyFact-Anwendungssystem, müssen über den IAM-Service authentifiziert und zur Nutzung des aufgerufenen IsyFact-Service autorisiert werden.
 Um das zu gewährleisten, ist in der Informations- und Dienstezone ein _Service-Gateway (SGW)_ zwischen der externen Anwendung und dem internen IsyFact-Service geschaltet.
-Das Service-Gateway nimmt die fachliche Anfrage von Außen entgegen, prüft die Berechtigung und leitet die Anfrage weiter an den internen IsyFact-Service.
+Das Service-Gateway nimmt diese fachliche Anfrage von Außen entgegen, leitet diese zur Authentifizierung an den IAM-Serive und bei Erfolg wird die fachliche Anfrage inklusive der Rollen und Rechte an den internen IsyFact-Service weitergeleitet, der dann die noch ausstehende Autorisierung auf Basis der Rollen und Rechte selbst initiiert, bevor er mit der eigentlichen fachlichen Bearbeitung beginnen kann.
 
 [[aufruf-service-gateway-ohne-authentication-gateway]]
 ===== Authentifizierung über das SGW am IAM-Service
