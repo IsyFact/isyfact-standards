@@ -323,7 +323,7 @@ Das Service-Gateway nimmt diese fachliche Anfrage von Außen entgegen, leitet di
 [[aufruf-service-gateway-ohne-authentication-gateway]]
 ===== Authentifizierung über das SGW am IAM-Service
 
-Aktuell erfolgt die Authentifizierung von Anfragen externer Anwendungen direkt im Service-Gateway.
+Aktuell erfolgt die Authentifizierung von Anfragen externer Anwendungen immer über das Service-Gateway.
 Dafür müssen bei jeder Anfrage auch die Authentifizierungsdaten mitgeschickt werden.
 Das Service-Gateway lässt die Authentifizierungsdaten durch den IAM-Service prüfen und leitet erst nach dessen OK die fachliche Anfrage an das Anwendungssystem weiter - jetzt zusammen mit dem Access-Token.
 
