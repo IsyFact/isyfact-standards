@@ -119,6 +119,95 @@ spring.security.oauth2.client.registration.TestClient.provider=TestRealm
 
 Die Bausteine `isy-sicherheit` und `isy-sicherheit-keycloak` werden durch `isy-security` abgelöst.
 
+[[kapitel-task-scheduler]]
+=== Task Scheduler
+
+In IsyFact 3.0 wurden mit der Umstellung auf `isy-security` die Nutzungsvorgaben zur xref:isy-task:nutzungsvorgaben/master.adoc#spring-konfiguration[Authentifizierung von Tasks] aktualisiert.
+Statt Benutzer, Passwort und BHKNZ (siehe <<task-properties-isy-sicherheit>>) muss in den Task Properties eine `oauth2ClientRegistrationId` konfiguriert werden (siehe <<task-properties-isy-security>>).
+
+[[task-properties-isy-sicherheit]]
+.Properties mit isy-sicherheit in IsyFact 2
+[source,properties]
+----
+isy.task.tasks.halloWeltTask.benutzer=TestUser
+isy.task.tasks.halloWeltTask.passwort=TestPasswort
+isy.task.tasks.halloWeltTask.bhkz=TestBHKNZ
+
+# [...]
+----
+
+[[task-properties-isy-security]]
+.Properties mit isy-security in IsyFact 3
+[source,properties]
+----
+isy.task.tasks.halloWeltTask.oauth2ClientRegistrationId=TestClient
+
+# [...]
+----
+
+Eine entsprechende Spring Security ClientRegistration wird durch `isy-security` xref:isy-security:nutzungsvorgaben/master.adoc#konfigurationsparameter[ Konfigurationsparameter] bereitgestellt.
+Die folgenden Beispiele zeigen wie Konfigurationen nach der Migration aussehen können.
+Für die TaskScheduler-Konfiguration ist nicht relevant, ob die ClientRegistration den Resource-Owner-Password-Credentials Flow (`authorization-grant-type: password`) oder nach der empfohlenen User-Migration von einem _natürlichen User_ auf ein _technischen Nutzer_ den Client-Credentials Flow (`authorization-grant-type: client_credentials`) nutzt.
+
+.Properties mit technischem Nutzer
+[source,properties]
+----
+isy.task.tasks.halloWeltTask.oauth2ClientRegistrationId=TestClient
+
+# [...]
+
+spring.security.oauth2.client.provider.TestRealm.issuer-uri=http://localhost:9095/auth/realms/testrealm
+spring.security.oauth2.client.registration.TestClient.client-id=test-client-id
+spring.security.oauth2.client.registration.TestClient.client-secret=test-client-secret
+spring.security.oauth2.client.registration.TestClient.authorization-grant-type=password
+spring.security.oauth2.client.registration.TestClient.provider=TestRealm
+
+# Benutzer, Passwort und BHKNZ werden auf die selbe oauth2ClientRegistrationId abgebildet
+
+isy.security.oauth2.client.registration.TestClient.username=TestUser
+isy.security.oauth2.client.registration.TestClient.password=TestPasswort
+isy.security.oauth2.client.registration.TestClient.bhknz=TestBHKNZ
+----
+
+.Properties nach Umstellung von _technischem Nutzer_ auf _technischen Client_
+[source,properties]
+----
+isy.task.tasks.halloWeltTask.oauth2ClientRegistrationId=TestClient
+
+# [...]
+
+spring.security.oauth2.client.provider.TestRealm.issuer-uri=http://localhost:9095/auth/realms/testrealm
+spring.security.oauth2.client.registration.TestClient.client-id=test-user-client-id
+spring.security.oauth2.client.registration.TestClient.client-secret=test-user-client-secret
+spring.security.oauth2.client.registration.TestClient.authorization-grant-type=client_credentials
+spring.security.oauth2.client.registration.TestClient.provider=TestRealm
+----
+
+[[kapitel-service, Bausteine/Service]]
+=== Service
+
+[WARNING]
+====
+Ab IsyFact 3 ist die *Verwendung von REST-Schnittstellen* für die Neuentwicklung verbindlich.
+Spring HTTP-Invoker ist deprecated und wird ab sofort als Schnittstellenformat durch REST abgelöst.
+Die Verwendung von REST-Schnittstellen wird im Baustein REST (siehe xref:isy-service-rest:konzept/master.adoc[] und xref:isy-service-rest:nutzungsvorgaben/master.adoc[]) erläutert.
+Desweiteren wurden die Bridge-Module `isy-serviceapi-core-bridge`, `isy-serviceapi-sst-bridge` und `isy-exception-sst-bridge` entfernt.
+
+====
+
+[WARNING]
+====
+Mit der Verwendung von `isy-security` in der IsyFact 3 wird standardmäßig anstelle von IsyFacts `AufrufKontext` Springs `SecurityContext` verwendet.
+
+Damit dennoch alte HTTP-Invoker Schnittstellen aufgerufen werden können (welche einen gefüllten AufrufKontext benötigen), wird eine spezielle `RemoteInvocationFactory` eingesetzt, welche Springs `SecurityContext` in ein `AufrufKontextTo` ad hoc per Request umwandelt.
+
+Weitere Informationen können unter
+xref:isy-serviceapi-core:nutzungsvorgaben/inhalt.adoc#kompatibilitaet_if1_2_3[Nutzungsvorgaben HTTP-Invoker] nachgelesen werden.
+====
+
+[[kapitel-sicherheit]]
+=== Sicherheit
+
 [[sicherheit-konfiguration]]
 ==== Konfiguration
 
@@ -401,96 +490,6 @@ Die Änderungen der Methodensignaturen sind in den nachfolgenden Tabellen beschr
 |`public String getAccessTokenResponse(AccessToken accessToken)`|`public String getAccessTokenResponse(JwtClaimsSet claims)`|geänderter Parametertyp
 
 |===
-
-[[kapitel-task-scheduler]]
-=== Task Scheduler
-
-In IsyFact 3.0 wurden mit der Umstellung auf `isy-security` die Nutzungsvorgaben zur xref:isy-task:nutzungsvorgaben/master.adoc#spring-konfiguration[Authentifizierung von Tasks] aktualisiert.
-Statt Benutzer, Passwort und BHKNZ (siehe <<task-properties-isy-sicherheit>>) muss in den Task Properties eine `oauth2ClientRegistrationId` konfiguriert werden (siehe <<task-properties-isy-security>>).
-
-[[task-properties-isy-sicherheit]]
-.Properties mit isy-sicherheit in IsyFact 2
-[source,properties]
-----
-isy.task.tasks.halloWeltTask.benutzer=TestUser
-isy.task.tasks.halloWeltTask.passwort=TestPasswort
-isy.task.tasks.halloWeltTask.bhkz=TestBHKNZ
-
-# [...]
-----
-
-[[task-properties-isy-security]]
-.Properties mit isy-security in IsyFact 3
-[source,properties]
-----
-isy.task.tasks.halloWeltTask.oauth2ClientRegistrationId=TestClient
-
-# [...]
-----
-
-Eine entsprechende Spring Security ClientRegistration wird durch `isy-security` xref:isy-security:nutzungsvorgaben/master.adoc#konfigurationsparameter[ Konfigurationsparameter] bereitgestellt.
-Die folgenden Beispiele zeigen wie Konfigurationen nach der Migration aussehen können.
-Für die TaskScheduler-Konfiguration ist nicht relevant, ob die ClientRegistration den Resource-Owner-Password-Credentials Flow (`authorization-grant-type: password`) oder nach der empfohlenen User-Migration von einem _natürlichen User_ auf ein _technischen Nutzer_ den Client-Credentials Flow (`authorization-grant-type: client_credentials`) nutzt.
-
-.Properties mit technischem Nutzer
-[source,properties]
-----
-isy.task.tasks.halloWeltTask.oauth2ClientRegistrationId=TestClient
-
-# [...]
-
-spring.security.oauth2.client.provider.TestRealm.issuer-uri=http://localhost:9095/auth/realms/testrealm
-spring.security.oauth2.client.registration.TestClient.client-id=test-client-id
-spring.security.oauth2.client.registration.TestClient.client-secret=test-client-secret
-spring.security.oauth2.client.registration.TestClient.authorization-grant-type=password
-spring.security.oauth2.client.registration.TestClient.provider=TestRealm
-
-# Benutzer, Passwort und BHKNZ werden auf die selbe oauth2ClientRegistrationId abgebildet
-
-isy.security.oauth2.client.registration.TestClient.username=TestUser
-isy.security.oauth2.client.registration.TestClient.password=TestPasswort
-isy.security.oauth2.client.registration.TestClient.bhknz=TestBHKNZ
-----
-
-.Properties nach Umstellung von _technischem Nutzer_ auf _technischen Client_
-[source,properties]
-----
-isy.task.tasks.halloWeltTask.oauth2ClientRegistrationId=TestClient
-
-# [...]
-
-spring.security.oauth2.client.provider.TestRealm.issuer-uri=http://localhost:9095/auth/realms/testrealm
-spring.security.oauth2.client.registration.TestClient.client-id=test-user-client-id
-spring.security.oauth2.client.registration.TestClient.client-secret=test-user-client-secret
-spring.security.oauth2.client.registration.TestClient.authorization-grant-type=client_credentials
-spring.security.oauth2.client.registration.TestClient.provider=TestRealm
-----
-
-[[kapitel-service, Bausteine/Service]]
-=== Service
-
-[WARNING]
-====
-Ab IsyFact 3 ist die *Verwendung von REST-Schnittstellen* für die Neuentwicklung verbindlich.
-Spring HTTP-Invoker ist deprecated und wird ab sofort als Schnittstellenformat durch REST abgelöst.
-Die Verwendung von REST-Schnittstellen wird im Baustein REST (siehe xref:isy-service-rest:konzept/master.adoc[] und xref:isy-service-rest:nutzungsvorgaben/master.adoc[]) erläutert.
-Desweiteren wurden die Bridge-Module `isy-serviceapi-core-bridge`, `isy-serviceapi-sst-bridge` und `isy-exception-sst-bridge` entfernt.
-
-====
-
-[WARNING]
-====
-Mit der Verwendung von `isy-security` in der IsyFact 3 wird standardmäßig anstelle von IsyFacts `AufrufKontext` Springs `SecurityContext` verwendet.
-
-Damit dennoch alte HTTP-Invoker Schnittstellen aufgerufen werden können (welche einen gefüllten AufrufKontext benötigen), wird eine spezielle `RemoteInvocationFactory` eingesetzt, welche Springs `SecurityContext` in ein `AufrufKontextTo` ad hoc per Request umwandelt.
-
-Weitere Informationen können unter
-xref:isy-serviceapi-core:nutzungsvorgaben/inhalt.adoc#kompatibilitaet_if1_2_3[Nutzungsvorgaben HTTP-Invoker] nachgelesen werden.
-====
-
-[[kapitel-sicherheit]]
-=== Sicherheit
-
 
 [[kapitel-dokumentation]]
 == Dokumentation
