@@ -1,7 +1,7 @@
 # 3.0.0
 - `ISY-183`: [isyfact-standards-doc] Migrationsleitfaden zur Entfernung der Bridge-Module
 - `ISY-54`: [isyfact-standards-doc] Migrationsleitfaden zur Umstellung auf isy-security
-  * `ISY-219`: Abschnitt zur Migration der Annotation @NutzerAuthentifizierung
+- `ISY-219`: [isyfact-standards-doc] Abschnitt zur Migration der Annotation @NutzerAuthentifizierung
 - `IFS-2561`: [isy-security] Die Konfiguration via `rollenrechte.xml` erfolgt optional.
   * Initialisierung mit Standardwerten
 - `IFS-1887`: [isyfact-standards-doc] Ergänzung der Nutzungsvorgaben für neuen Sicherheitsbaustein `isy-security`
@@ -12,62 +12,69 @@
 - `IFS-1745`: [isyfact-standards-doc] Summary Architektur- und Sicherheitsregeln
   * mit Antora Extensions generiert
 - `IFS-1702`: [isy-ueberwachung] Refaktorierung ServiceStatistik
-    * Entkoppelt von Micrometer API
-    * Aufgeteilt in Interface und Implementierung
+  * Entkoppelt von Micrometer API
+  * Aufgeteilt in Interface und Implementierung
 - `IFS-1467`: Maven Plugins für statische Informationen:
-    * git-commit-id-plugin (Version 4.9.10)
-    * spring-boot-maven-plugin (Version von spring-boot verwaltet)
+  * git-commit-id-plugin (Version 4.9.10)
+  * spring-boot-maven-plugin (Version von spring-boot verwaltet)
 - `IFS-1628`: [isy-ueberwachung] Standardmetriken bei Anbinden von ServiceStatistik vorhanden
 - `IFS-1947`: Zeichenkodierung für Filtering von properties Dateien im Maven Resource Plugin auf ISO-8859-1 gesetzt.
 - `IFS-771`: [isy-ueberwachung] Anleitung für den HealthCheck von HTTPInvoker-Endpoints hinzugefügt
 - `IFS-1465`: [isyfact-products-bom] Spring Boot Versionsanhebung auf 2.7.1
 - `IFS-2021`: [isyfact-products-bom] Spring Boot Versionsanhebung auf 2.7.9
-  - spring-boot-maven-plugin Versionsanhebung auf 2.7.9
+  * spring-boot-maven-plugin Versionsanhebung auf 2.7.9
 - `IFS-2537`: [isyfact-products-bom] Spring Boot Versionsanhebung auf 2.7.11
-  - spring-boot-maven-plugin Versionsanhebung auf 2.7.11
+  * spring-boot-maven-plugin Versionsanhebung auf 2.7.11
 - `IFS-1073`: [isy-serviceapi-core] Logausgabe zur Korrektur der Korrelations-Id entfernt
 - `IFS-1282`: Einführung von Maven CI-friendly Versionen
 - `IFS-1157`: [isyfact-standards-bom] Module und Sub-Module entfernt:
-    * isy-serviceapi-sst
-    * isy-exception-sst
-    * isy-sst-bridge
+  * isy-serviceapi-sst
+  * isy-exception-sst
+  * isy-sst-bridge
 - `IFS-1148`: [isy-batchrahmen] Fehler wegen zu langem Klassenpfad unter Windows behoben
 - `IFS-1354`: [isy-persistence] Autokonfiguration mit initialisierbarer Datenbank
-    * Für die Konfiguration der DataSource wurde zu den DataSourceProperties von Spring Boot gewechselt. Hierdurch haben sich die Namen der Konfigurationsschlüssel geändert und müssen angepasst werden.
+  * Für die Konfiguration der DataSource wurde zu den DataSourceProperties von Spring Boot gewechselt. Hierdurch haben sich die Namen der Konfigurationsschlüssel geändert und müssen angepasst werden.
 - `IFS-1166`: [isy-serviceapi-core] Autokonfiguration von isy-serviceapi-core nach isy-sicherheit
 - `IFS-1091`: [isy-batchrahmen] Fehlerhafte ExcludeFromBatchContext-Annotation behoben
 - `IFS-1050`: [isy-batchrahmen] Stelle Beispiel-SQL-Skripte wieder her, sodass diese mit der Oracle-Datenbank kompatibel sind
 - `IFS-1548`: [isyfact-standards-doc] Anleitung zum Formatieren und Einrichten des Checkstyle Plugins angepasst
 - `IFS-1552`: Einheitliche Verwendung von Maven-Properties für Versionsnummern
 - `IFS-1504`: [isy-sonderzeichen] Transformator für die normative Abbildung lateinischer Buchstaben auf Grundbuchstaben (Suchform) hinzugefügt
-    * Integration von zugeliefertem Code aus `IFS-1270`
+  * Integration von zugeliefertem Code aus `IFS-1270`
 - `IFS-2045`: [isyfact-products-bom] Produkte Apache Tika, commons-beanutils und commons-io hinzugefügt
 - `IFS-2287`: [isy-sonderzeichen]  Deprecation für String-Latin-1.1-Transformatoren setzen
 - `IFS-1886`: [isy-sicherheit] Modul als `@Deprecated` markiert zugunsten von`isy-security`
 - `IFS-1940`: [isy-sicherheit] `IsySicherheitUtil` deprecated
 - `IFS-2382`: [isy-sonderzeichen] Entfernt Mutable-Array Spotbugs Fehler
-    #### _Breaking Change:_
-    - Die Klassen `stringlatin1_1/core/transformation/ZeichenKategorie.java` und `dinspec91379/transformation/ZeichenKategorie.java` bieten für Abruf aller Möglichkeiten einen `getter` anstelle einer `public static Variable` an
 - `IFS-1169`: [isy-batchrahmen] Änderung von Tabellenname und Spaltennamen der BatchStatus-Tabelle zu `CamelCaseToUnderscoresNamingStrategy`
   * Tabelle `BATCH_STATUS` mit `CamelCaseToUnderscoresNamingStrategy` ersetzt Tabelle `BATCHSTATUS` mit `PhysicalNamingStrategyStandardImpl`
   * explizites ORM für Abwärtskompatibilität bereitgestellt (siehe Dokumentation: Die Konfiguration der Spring-Kontexte)
 - `IFS-1171`: [isy-sonderzeichen] Fehlende Zeichen 0110 und 0111 zum Mapping hinzugefügt
-  #### _Breaking Change:_
-  * Der Zeichensatz für String Latin 1.1 wurde korrigiert. Dies kann zu Kompatibilitätsproblemen in der Kommunikation mit Anwendungen führen, die den unkorrigierten Zeichensatz verwenden. (IsyFact-Versionen kleiner als IF 3)
-- `IFS-2153`: [isyfact-task] Umstellung isy-task auf Spring Boot:
-  #### _BREAKING CHANGE: Einführung von Spring Boot_
-  * Taskkonfiguration und TaskkonfigurationVerwalter entfernt, Übersetzungen hinzugefügt
+- `IFS-2153`: [isy-task] Umstellung isy-task auf Spring Boot
+  * Übersetzungen hinzugefügt
 - `ISY-139`: [isyfact-products-bom] Spring Boot Versionsanhebung auf 2.7.15
 - [isy-sonderzeichen] Hinzufügen eines neuen Packages mit Transformatoren für die DIN Norm 91379
 - `IFS-1853`: [isy-batchrahmen] Umstellung von `isy-sicherheit` und `isy-aufrufkontext` auf neuen Baustein `isy-security`
-  #### _Breaking Change:_
-  * Die Konfiguration von `benutzer`, `passwort` und `bhknz` erfolgt über isy-security ClientRegistrations. Batches müssen nur noch eine `oauth2ClientRegistrationId` zur Authentifizierung bereitstellen. Die Methode `getAuthenticationCredentials` der `BatchAusfuehrungsBean` wurde entfernt.
 - `IFS-2416`: [isyfact-standards-bom] zentrale Versionsverwaltung von `isy-security`
 - `IFS-2416`: [isy-task] Umstellung von isy-sicherheit auf isy-security
-  #### _Breaking Change:_
-  * Die Konfiguration von `benutzer`, `passwort` und `bhknz` erfolgt über isy-security ClientRegistrations und für IsyTaskConfigurationProperties muss nur eine `oauth2ClientRegistrationId` zur Authentifizierung konfiguriert werden.
 - `ISY-372`: [isy-styleguide] JavaScript-Referenzen entfernt
 - `ISY-416`: [isyfact-products-bom] Versionsanhebung von Metro Webservices auf 2.4.9
+
+## BREAKING CHANGE
+
+### isy-sonderzeichen
+- Die Klassen `stringlatin1_1/core/transformation/ZeichenKategorie.java` und `dinspec91379/transformation/ZeichenKategorie.java` bieten für Abruf aller Möglichkeiten einen `getter` anstelle einer `public static Variable` an
+- Der Zeichensatz für String Latin 1.1 wurde korrigiert. Dies kann zu Kompatibilitätsproblemen in der Kommunikation mit Anwendungen führen, die den unkorrigierten Zeichensatz verwenden. (IsyFact-Versionen kleiner als IF 3)
+
+### isy-task 
+
+- Einführung von Spring Boot für Tasks
+  * Taskkonfiguration und TaskkonfigurationVerwalter entfernt
+- Die Konfiguration von `benutzer`, `passwort` und `bhknz` erfolgt über isy-security ClientRegistrations und für IsyTaskConfigurationProperties muss nur eine `oauth2ClientRegistrationId` zur Authentifizierung konfiguriert werden.
+
+### isy-batchrahmen
+
+- Die Konfiguration von `benutzer`, `passwort` und `bhknz` erfolgt über isy-security ClientRegistrations. Batches müssen nur noch eine `oauth2ClientRegistrationId` zur Authentifizierung bereitstellen. Die Methode `getAuthenticationCredentials` der `BatchAusfuehrungsBean` wurde entfernt.
 
 # 2.4.4
 - `IFS-1997`: Fix CVE-2022-42889 durch Anhebung von 'commons-text' auf 1.10
