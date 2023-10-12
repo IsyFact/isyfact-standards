@@ -383,7 +383,7 @@ Damit kommt keine mit der Authentifizierung involvierte Komponente mit späteren
 Die externe Anwendung sendet ihre Authentifizierungsdaten an das _Authentication-Gateway_, das die Anfrage an den IAM-Service weiterleitet.
 Im IAM-Service erfolgt dann mit den übergebenen Authentifizierungsdaten die eigentliche Authentifizierung.
 Dabei wird neben der neuen Authentifizierungslogik des _Client-Credential-Flows_ auch die bisherige Authentifizierungslogik des _Resource-Owner-Password-Credentials-Flows_ unterstützt.
-Der _Client-Credential-Flow_ dient dabei der Authentifizierung eines technischen Nutzers und über den _Resource-Owner-Password-Credentials-Flow_ erfolgt die Authentifizierung eines Anwenders.
+Der _Client-Credential-Flow_ dient dabei der Authentifizierung eines technischen Clients und über den _Resource-Owner-Password-Credentials-Flow_ erfolgt die Authentifizierung eines technischen Nutzers.
 Mit validen Authentifizierungsdaten und erfolgreicher Authentifizierung liefert der IAM-Service dann ein valides, neu erstelltes Access-Token an die externe Anwendung zurück.
 
 Mit Erhalt eines gültigen Access-Tokens kann nun die externe Anwendung ihre fachlichen Aufrufe zusammen mit dem Token über das _Service-Gateway_ an das eigentliche Anwendungssystem senden.
