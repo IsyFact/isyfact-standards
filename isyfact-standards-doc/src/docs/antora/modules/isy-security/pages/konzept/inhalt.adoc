@@ -361,7 +361,7 @@ Durch die Nutzung dieses speziellen Authentifizierungsmechanismus wird eine robu
 Weitere Informationen und detaillierte Anleitungen zur Verwendung der `authentifiziereClient`-Methode können in der entsprechenden Dokumentation des Authentifizierungsmanagers oder in den Nutzungsvorgaben xref:nutzungsvorgaben/inhalt.adoc#authentifizierungsmanager-interface gefunden werden.
 
 
-In einer zukünftigen Version von `IsyFact` wird eine neue Authentifizierungslogik (xref:aufruf-service-gateway-mit-authentication-gateway[]) für die Authentifizierung von Anwendungen, die außerhalb der Anwendungslandschaft betrieben werden, eingeführt.
+In einer zukünftigen Version von `IsyFact` wird in einer neu eingeführten aber separierten Komponente der Anwendungslandschaft (_Authentication-Gateway_) eine neue Authentifizierungslogik (xref:aufruf-service-gateway-mit-authentication-gateway[]) für die Authentifizierung von Anwendungen eingeführt.
 Die Authentifizierung wird von der eigentlichen fachlichen Anfrage getrennt, so dass sie nur einmal durchgeführt werden muss und das erhaltene Access-Token (innerhalb seiner Gültigkeit) auch für die weiteren fachlichen Anfragen verwendet werden kann.
 
 [[aufruf-service-gateway-mit-authentication-gateway]]
