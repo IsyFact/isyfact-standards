@@ -17,7 +17,7 @@ Diese werden im Folgenden dargestellt:
 [[styleguide]]
 === Styleguide
 Der Baustein Styleguide beschreibt die Gestaltung grafischer Oberflächen nach einheitlichen Gesichtspunkten.
-Das zentrale Dokument, der xref:isy-styleguide:styleguide.adoc[Styleguide], enthält Vorgaben zu Aufbau und Gestaltung von Web-GUIs.
+Das zentrale Dokument, der xref:isy-bedienkonzept:styleguide.adoc[Styleguide], enthält Vorgaben zu Aufbau und Gestaltung von Web-GUIs.
 Der Styleguide definiert ebenfalls Form und Funktion der in der IsyFact verfügbaren Anzeige- und Bedienelemente.
 Neben dem Dokument beinhaltet der Baustein eine Software-Bibliothek, welche die Vorgaben als CSS-Stile zur Nutzung bereitstellt.
 

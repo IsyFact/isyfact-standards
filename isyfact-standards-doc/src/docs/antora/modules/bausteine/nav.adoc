@@ -65,8 +65,8 @@
 *** xref:isy-util:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
 
 ** Styleguide
-*** xref:isy-styleguide:styleguide.adoc[Styleguide]
-*** xref:isy-styleguide:nutzungsvorgaben/nutzungsvorgaben.adoc[Nutzungsvorgaben]
+*** xref:isy-bedienkonzept:styleguide.adoc[Styleguide]
+*** xref:isy-bedienkonzept:nutzungsvorgaben/nutzungsvorgaben.adoc[Nutzungsvorgaben]
 
 ** JSF
 *** xref:isyfact-jsf-doku:isy-web:konzept/konzept.adoc[Konzept]
