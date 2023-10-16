@@ -38,7 +38,7 @@ Die nachfolgende Tabelle beschreibt die Bausteine. Sie stellen in der Regel ein 
 |icon:ban[title=Deprecation] [.line-through]#JSF#
 |Der Baustein _JSF_ ermöglicht es Anwendungen, grafische Oberflächen auf Basis von Java Server Faces umzusetzen.
 Er enthält architektonische sowie technische Vorgaben und beschreibt die konkrete Umsetzung.
-Dabei integriert er den Styleguide und stellt auf dessen Grundlage wiederverwendbare Widgets bereit.
+Dabei integriert er das Bedienkonzept und stellt auf dessen Grundlage wiederverwendbare Widgets bereit.
 Der Baustein basiert auf JSF und Spring Webflow.
 
 |Konfiguration
@@ -65,9 +65,9 @@ Aus den vom IAM-Service erhaltenen Zugangsdaten übernimmt der Baustein das Roll
 |Der Baustein bietet wichtige Hinweise für den Umgang mit Sonderzeichen und enthält Transkriptionsregeln zur Übertragung von nicht-lateinischen Zeichen.
 Unterstützt werden die Standards String Latin 1.1 und String Latin 1.2 („DIN SPEC 91379“) und eine generelle Kompatibilität zu UTF-8.
 
-|icon:ban[title=Deprecation] [.line-through]#Styleguide#
-|Der _Styleguide_ beschreibt die Gestaltungsregeln, nach denen grafische Oberflächen von Geschäftsanwendungen zu erstellen sind.
-Basis des Styleguides sind der Styleguide der Bundesregierung und Gestaltungsregeln für Internetauftritte des Bundesverwaltungsamtes.
+|icon:ban[title=Deprecation] [.line-through]#Bedienkonzept#
+|Das _Bedienkonzept_ beschreibt die Gestaltungsregeln, nach denen grafische Oberflächen von Geschäftsanwendungen zu erstellen sind.
+Basis des Bedienkonzepts sind das Bedienkonzept der Bundesregierung und Gestaltungsregeln für Internetauftritte des Bundesverwaltungsamtes.
 
 |Task Scheduling
 |Der Baustein ermöglicht die Ausführung regelmäßiger Aufgaben innerhalb von IT-Systemen mit voller Integration anderer Bausteine wie Konfiguration, Logging, Sicherheit und Überwachung.

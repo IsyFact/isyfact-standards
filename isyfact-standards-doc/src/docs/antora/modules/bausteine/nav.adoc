@@ -64,8 +64,8 @@
 ** Util
 *** xref:isy-util:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
 
-** Styleguide
-*** xref:isy-bedienkonzept:styleguide.adoc[Styleguide]
+** Bedienkonzept
+*** xref:isy-bedienkonzept:bedienkonzept.adoc[Bedienkonzept]
 *** xref:isy-bedienkonzept:nutzungsvorgaben/nutzungsvorgaben.adoc[Nutzungsvorgaben]
 
 ** JSF

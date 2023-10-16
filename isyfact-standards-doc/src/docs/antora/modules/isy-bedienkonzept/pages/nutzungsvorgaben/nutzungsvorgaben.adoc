@@ -1,11 +1,11 @@
-= Nutzungsvorgaben Styleguide
+= Nutzungsvorgaben Bedienkonzept
 
 include::glossary:licence:partial$licence.adoc[]
 
 include::glossary:miscellaneous:partial$deprecated-baustein.adoc[]
 
 // tag::inhalt[]
-Dieses Dokument enthält die technische Dokumentation zum Styleguide.
+Dieses Dokument enthält die technische Dokumentation zum Bedienkonzept.
 
 [[technologien-nutzungsvorgaben]]
 == Technologien
@@ -16,7 +16,7 @@ Dieses Dokument enthält die technische Dokumentation zum Styleguide.
 Dieses Projekt baut auf dem Bootstrap CSS Framework in Version 3.4.1 auf.
 Dieses stellt sowohl browserübergreifende, erweiterbare Styles für HTML-Elemente als auch wenige komplexere Steuerelemente mit zusätzlichem Javascript-Code zur Verfügung.
 
-Die Bootstrap-Styles wurden entsprechend den Definitionen im Styleguide (Aussehen, Form, Farbe und Effekte) angepasst.
+Die Bootstrap-Styles wurden entsprechend den Definitionen im Bedienkonzept (Aussehen, Form, Farbe und Effekte) angepasst.
 Hierbei wurden die originalen Quelldateien von Bootstrap aus dem npm Paket nicht verändert.
 Stattdessen wurden für die applikationsspezifischen Anpassungen eigene Dateien im Verzeichnis */less/es/ definiert, welche die Bootstrap Styledefinitionen überschreiben.
 Im Browser werden die originalen Bootstrap-Styles geladen und von den applikationsspezifischen Styles überschrieben.
@@ -35,7 +35,7 @@ Sollte eine neue Bootstrap Version erscheinen und es notwendig sein, neue Featur
 1. Die neue Bootstrap Version mit npm installieren. Dafür muss in der `package.json` Datei die Version für Bootstrap (und ggf. weitere Abhängigkeiten) aktualisiert werden. Beim nächsten Maven-Build werden die Versionen dann von NPM installiert. Alternativ kann `npm install` direkt ausgeführt werden.
 2. Änderungen aus der neuen Less Datei node_modules/bootstrap/less/variables.less in die Datei */less/es/custom-variables.less übertragen.
 3. Damit die Änderungen wirksam werden, muss die Anwendung neu kompiliert werden.
-4.  Zum Abschluss müssen die Konformität mit dem Styleguide, die visuell fehlerfreie Darstellung und fehlerfreie Funktionalität der Applikation überprüft werden.
+4.  Zum Abschluss müssen die Konformität mit dem Bedienkonzept, die visuell fehlerfreie Darstellung und fehlerfreie Funktionalität der Applikation überprüft werden.
 
 Möglicherweise sind noch zusätzliche Styledefinitionen oder Korrekturen nötig, um die neue Bootstrap Version zu überschreiben.
 
@@ -104,12 +104,12 @@ Als Standard-Schriftart wird der xref:glossary:literaturextern:inhalt.adoc#litex
 
 Für die Verwendung von Icons wird der Icon-Font xref:glossary:literaturextern:inhalt.adoc#litextern-font-awesome[Font Awesome]  genutzt.
 Über CSS-Klassen können die einzelnen Icons referenziert werden.
-Grundlegende Icons sind im xref:styleguide.adoc#icons-ueberscrift[Styleguide]  erläutert.
+Grundlegende Icons sind im xref:bedienkonzept.adoc#icons-ueberscrift[Bedienkonzept]  erläutert.
 
 [[nutzungsvorgaben-grafiken]]
 === Grafiken
 
-Für einige Bedien- und Layout-Elemente werden zusätzliche Bitmap Grafiken benötigt, zum Beispiel */img/controls/cb_checked_default.png (Bedienelement) und */img/bgInfoTile.png (Layout). Diese Grafiken sollten möglichst nicht verändert werden, da sie dann möglicherweise nicht mehr den Richtlinien des Interface Styleguides entsprechen.
+Für einige Bedien- und Layout-Elemente werden zusätzliche Bitmap Grafiken benötigt, zum Beispiel */img/controls/cb_checked_default.png (Bedienelement) und */img/bgInfoTile.png (Layout). Diese Grafiken sollten möglichst nicht verändert werden, da sie dann möglicherweise nicht mehr den Richtlinien des Interface Bedienkonzepts entsprechen.
 In der Regel ist eine Bearbeitung aber auch nicht notwendig.
 
 [[nutzungsvorgaben-konvention]]
