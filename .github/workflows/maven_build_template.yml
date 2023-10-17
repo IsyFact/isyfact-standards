@@ -22,6 +22,11 @@ on:
         required: false
         type: string
         default: '0.0.0-SNAPSHOT'
+      sonar-skip:
+        description: 'Skip Sonar Scan job'
+        required: false
+        type: boolean
+        default: false
     secrets:
       SONAR_TOKEN:
         description: 'Token to publish analysis result on sonar'
@@ -106,7 +111,7 @@ jobs:
           compile checkstyle:checkstyle-aggregate
       - name: Run spotbugs
         run: >
-          mvn $MAVEN_CLI_OPTS ${{ inputs.maven-opts }} -Drevision=$${{ inputs.version }} 
+          mvn $MAVEN_CLI_OPTS ${{ inputs.maven-opts }} -Drevision=${{ inputs.version }} 
           -Dcheckstyle.skip -Denforcer.skip -Dtidy.skip compile spotbugs:check
       - name: Upload Reports
         uses: actions/upload-artifact@v3
@@ -119,7 +124,7 @@ jobs:
   SonarScan:
     runs-on: ubuntu-latest
     # run also, if test or code quality jobs fail; skip dependabot pr as dependabot has separate secrets
-    if: vars.SONAR_PROJECT_KEY && !cancelled() && github.actor != 'dependabot[bot]'
+    if: vars.SONAR_PROJECT_KEY && !cancelled() && github.actor != 'dependabot[bot]' && !inputs.sonar-skip
     needs: [Test, CodeQuality]
     steps:
       - name: Checkout project
