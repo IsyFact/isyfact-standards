@@ -10,9 +10,12 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.server.resource.authentication.AbstractOAuth2TokenAuthenticationToken;
 import org.springframework.util.Assert;
 
+import de.bund.bva.isyfact.logging.IsyLogger;
+import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.security.oauth2.util.IsySecurityTokenUtil;
 
 /**
@@ -22,6 +25,9 @@ import de.bund.bva.isyfact.security.oauth2.util.IsySecurityTokenUtil;
  * if the principal is an OAuth 2.0 token.
  */
 public class IsyOAuth2Berechtigungsmanager implements Berechtigungsmanager {
+
+    /** Logger. */
+    private static final IsyLogger LOG = IsyLoggerFactory.getLogger(IsyOAuth2Berechtigungsmanager.class);
 
     /**
      * The JWT claim name that contains the roles.
@@ -33,7 +39,12 @@ public class IsyOAuth2Berechtigungsmanager implements Berechtigungsmanager {
     }
 
     public Set<String> getRollen() {
-        Object tokenRoles = IsySecurityTokenUtil.getTokenAttribute(rolesClaimName);
+        Object tokenRoles = null;
+        try {
+            tokenRoles = IsySecurityTokenUtil.getTokenAttribute(rolesClaimName);
+        } catch (OAuth2AuthenticationException ex) {
+            LOG.debug("Current authenticated principal is not an OAuth token. Returned roles will be empty");
+        }
         if (tokenRoles instanceof Collection) {
             return new HashSet<>((Collection<String>) tokenRoles);
         } else {

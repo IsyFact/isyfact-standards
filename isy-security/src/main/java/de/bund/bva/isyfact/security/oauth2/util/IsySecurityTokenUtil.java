@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.oidc.StandardClaimNames;
+import org.springframework.security.oauth2.server.resource.BearerTokenErrors;
 import org.springframework.security.oauth2.server.resource.authentication.AbstractOAuth2TokenAuthenticationToken;
 
 /**
@@ -104,15 +105,18 @@ public class IsySecurityTokenUtil {
     /**
      * Retrieves an attribute of the access token if the currently authenticated principal is an OAuth 2.0 token.
      *
-     * @param key the key to retrieve the given attribute
+     * @param key
+     *         the key to retrieve the given attribute
      * @return the attribute in the access token for the given key, or {@code null}
+     * @throws OAuth2AuthenticationException
+     *         if the authenticated principal is not a {@link AbstractOAuth2TokenAuthenticationToken}
      */
     public static Object getTokenAttribute(String key) {
         Authentication currentAuthentication = SecurityContextHolder.getContext().getAuthentication();
         if (currentAuthentication instanceof AbstractOAuth2TokenAuthenticationToken) {
             return ((AbstractOAuth2TokenAuthenticationToken<?>) currentAuthentication).getTokenAttributes().get(key);
         } else {
-            throw new OAuth2AuthenticationException("Authentication is not an OAuth2 token authentication.");
+            throw new OAuth2AuthenticationException(BearerTokenErrors.invalidToken("Authentication is not an OAuth2 token authentication."));
         }
     }
 
