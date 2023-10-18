@@ -3821,148 +3821,148 @@ endif::[]
 |====
 |Icon |CSS-Klasse |Funktionen
 
-|icon:times[2x]
-|fas fa-times
+|image::isy-bedienkonzept:times.dn.svg
+|pi-times
 |Abbrechen, Ablehnen, Filterzelle leeren, Stornieren
 
-|icon:car[2x]
-|fas fa-car
+|image::isy-bedienkonzept:car.svg
+|pi-car
 |Abholen
 
-|icon:sign-out[2x]
-|fas fa-sign-out-alt
+|image::isy-bedienkonzept:sign-out.svg
+|pi-sign-out
 |Abmelden
 
-|icon:sign-in[2x]
-|fas fa-sign-in-alt
+|image::isy-bedienkonzept:sign-in.svg
+|pi-sign-in
 |Anmelden
 
-|icon:unlock[2x]
-|fas fa-unlock
+|image::isy-bedienkonzept:unlock
+|pi-unlock
 |Aktivieren, Freischalten
 
-|icon:refresh[2x]
-|fas fa-sync-alt
+|image::isy-bedienkonzept:sync
+|pi-sync
 |Aktualisieren
 
-|icon:check[2x]
-|fas fa-check
+|image::isy-bedienkonzept:check
+|pi-check
 |Akzeptieren, Annehmen, Erledigen, Zustimmen
 
-|icon:paperclip[2x]
-|fas fa-paperclip
+|image::isy-bedienkonzept:reply
+|pi-reply
 |Anhänge
 
-|icon:reply[2x]
-|fas fa-reply
+|image::isy-bedienkonzept:reply
+|pi-reply
 |Antworten
 
-|icon:eye[2x]
-|far fa-eye
+|image::isy-bedienkonzept:eye
+|pi-eye
 |Anzeigen
 
-|icon:file-archive-o[2x]
-|far fa-file-archive
+|image::isy-bedienkonzept:file
+|pi-file
 |Archiv, aus Archiv zurück holen
 
-|icon:pencil[2x]
-|fas fa-pencil-alt
+|image::isy-bedienkonzept:pencil
+|pi-pencil
 |Bearbeiten, Bearbeitung fortsetzen, Editieren, Korrigieren
 
-|icon:user[2x]
-|fas fa-user
+|image::isy-bedienkonzept:user
+|pi-user
 |Benutzer, User
 
-|icon:file-image-o[2x]
-|far fa-file-image
+|image::isy-bedienkonzept:image
+|pi-image
 |Bild, Bild anzeigen
 
-|icon:font[2x]
-|fas fa-font
+|icon:font
+|
 |Buchstaben-Picker
 
-|icon:download[2x]
-|fas fa-download
+|image::isy-bedienkonzept:download
+|pi-download
 |Datei laden, Download, Herunterladen, Laden von Daten
 
-|icon:list-alt[2x]
-|far fa-list-alt
+|image::isy-bedienkonzept:list
+|pi-list
 |Datensatz anzeigen, Detailauskunft
 
-|icon:share-square-o[2x]
-|fas fa-share-square
+|image::isy-bedienkonzept:share-alt
+|pi-share-alt
 |Daten senden, Daten übermitteln, Senden, Versenden
 
-|icon:file[2x]
-|fas fa-file
+|image::isy-bedienkonzept:file
+|pi-file
 |Dokument erstellen, Erstmeldung
 
-|icon:file-text-o[2x]
-|far fa-file-alt
+|image::isy-bedienkonzept:file
+|pi-file
 |Druckansicht
 
-|icon:print[2x]
-|fas fa-print
+|image::isy-bedienkonzept:print
+|pi-print
 |Drucken
 
-|icon:cog[2x]
-|fas fa-cog
+|image::isy-bedienkonzept:cog
+|pi-cog
 |Einstellung, Einstellungen
 
-|icon:mouse-pointer[2x]
+|icon:mouse-pointer
 |fas fa-mouse-pointer
 |Eintrag auswählen
 
-|icon:minus[2x]
-|fas fa-minus
+|image::isy-bedienkonzept:minus
+|pi-minus
 |Entfernen
 
-|icon:check-square-o[2x]
-|far fa-check-square
+|image::isy-bedienkonzept:check-square
+|pi-check-square
 |Entscheiden
 
-|icon:plus[2x]
-|fas fa-plus
+|image::isy-bedienkonzept:plus
+|pi-plus
 |Ergänzen
 
-|icon:bell[2x]
-|fas fa-bell
+|image::isy-bedienkonzept:bell
+|pi-bell
 |Erinnerung
 
-|icon:upload[2x]
-|fas fa-upload
+|image::isy-bedienkonzept:upload
+|pi-upload
 |Exportieren
 
-|icon:exclamation-triangle[2x]
-|fas fa-exclamation-triangle
+|image::isy-bedienkonzept:exclamation-triangle
+|pi-exclamation-triangle
 |Fehler, Fehlerhaft
 
-|icon:eraser[2x]
-|fas fa-eraser
+|image::isy-bedienkonzept:eraser
+|pi-eraser
 |Felder leeren
 
-|icon:check-circle[2x]
-|fas fa-check-circle
+|image::isy-bedienkonzept:check-circle
+|pi-check-circle
 |Fertig, Abgeschlossen
 
-|icon:filter[2x]
-|fas fa-filter
+|image::isy-bedienkonzept:filter-fill
+|pi-filter-fill
 |Filter ausfüllen
 
-|icon:history[2x]
-|fas fa-history
+|image::isy-bedienkonzept:history
+|pi-history
 |Historie
 
-|icon:info-circle[2x]
-|fas fa-info-circle
+|image::isy-bedienkonzept:info-circle
+|pi-info-circle
 |Info
 
-|icon:arrow-circle-down[2x]
-|fas fa-arrow-circle-down
+|image::isy-bedienkonzept:arrow-circle-down
+|pi-arrow-circle-down
 |Importieren
 
-|icon:calendar[2x]
-|far fa-calendar-alt
+|image::isy-bedienkonzept:calendar
+|pi-calendar
 |Kalender
 
 // ifdef::backend-pdf[]
@@ -3979,73 +3979,73 @@ ifdef::backend-html5[]
 |Kontakt
 endif::[]
 
-|icon:list[2x]
-|fas fa-list
+|image::isy-bedienkonzept:list
+|pi-list
 |List Picker (Objektauswahl)
 
-|icon:trash[2x]
-|fas fa-trash-alt
+|image::isy-bedienkonzept:trash
+|pi-trash
 |Löschen
 
-|icon:envelope[2x]
-|fas fa-envelope
+|image::isy-bedienkonzept:envelope
+|pi-envelope
 |Mail
 
-|icon:envelope-o[2x]
+|image::isy-bedienkonzept:envelope
 |far fa-envelope
 |Nachrichten
 
-|icon:thumb-tack[2x]
-|fas fa-thumbtack
+|image::isy-bedienkonzept:bookmark-fill
+|pi-bookmark-fill
 |Notiz
 
-|icon:folder-open-o[2x]
-|far fa-folder-open
+|image::isy-bedienkonzept:folder-open
+|pi-folder-open
 |Seite öffnen
 
-|icon:floppy-o[2x]
-|far fa-save
+|image::isy-bedienkonzept:save
+|pi-save
 |Sichern, Speichern
 
-|icon:search[2x]
-|fas fa-search
+|image::isy-bedienkonzept:search
+|pi-search
 |Suchen, Suche wiederholen, Neue Suche, Durchsuchen,
 letzte Suche
 
-|icon:list-ul[2x]
-|fas fa-list-ul
+|image::isy-bedienkonzept:list
+|pi-list
 |Trefferliste
 
-|icon:arrow-circle-left[2x]
-|fas fa-arrow-circle-left
+|image::isy-bedienkonzept:arrow-circle-left
+|pi-arrow-circle-left
 |Vorheriger
 
-|icon:arrow-circle-right[2x]
-|fas fa-arrow-circle-right
+|image::isy-bedienkonzept:arrow-circle-right
+|pi-arrow-circle-right
 |Weiter, Nächster
 
-|icon:repeat[2x]
-|fas fa-redo-alt
+|image::isy-bedienkonzept:refresh
+|pi-refresh
 |Wiederholen
 
-|icon:star[2x]
-|fas fa-star
+|image::isy-bedienkonzept:star-fill
+|pi-star-fill
 |Wiedervorlage
 
-|icon:clock-o[2x]
-|far fa-clock
+|image::isy-bedienkonzept:clock
+|pi-clock
 |Zeit, Time Picker
 
-|icon:arrow-circle-o-left[2x]
-|far fa-arrow-alt-circle-left
+|image::isy-bedienkonzept:arrow-circle-left
+|pi-arrow-circle-left
 |Zurück (Navigation)
 
-|icon:share[2x]
-|fas fa-share
+|image::isy-bedienkonzept:share-alt
+|pi-share-alt
 |Zurückgeben (an Sender)
 
-|icon:user[2x]
-|fas fa-user
+|image::isy-bedienkonzept:user
+|pi-user
 |Zuständigkeit
 |====
 
