@@ -3821,147 +3821,147 @@ endif::[]
 |====
 |Icon |CSS-Klasse |Funktionen
 
-|image::isy-bedienkonzept:times.dn.svg
+a|image::isy-bedienkonzept:primeicons/times.svg[width=32,height=32]
 |pi-times
 |Abbrechen, Ablehnen, Filterzelle leeren, Stornieren
 
-|image::isy-bedienkonzept:car.svg
+a|image::isy-bedienkonzept:primeicons/car.svg[width=32,height=32]
 |pi-car
 |Abholen
 
-|image::isy-bedienkonzept:sign-out.svg
+a|image::isy-bedienkonzept:primeicons/sign-out.svg[width=32,height=32]
 |pi-sign-out
 |Abmelden
 
-|image::isy-bedienkonzept:sign-in.svg
+a|image::isy-bedienkonzept:primeicons/sign-in.svg[width=32,height=32]
 |pi-sign-in
 |Anmelden
 
-|image::isy-bedienkonzept:unlock
+a|image::isy-bedienkonzept:primeicons/unlock.svg[width=32,height=32]
 |pi-unlock
 |Aktivieren, Freischalten
 
-|image::isy-bedienkonzept:sync
+a|image::isy-bedienkonzept:primeicons/sync.svg[width=32,height=32]
 |pi-sync
 |Aktualisieren
 
-|image::isy-bedienkonzept:check
+a|image::isy-bedienkonzept:primeicons/check.svg[width=32,height=32]
 |pi-check
 |Akzeptieren, Annehmen, Erledigen, Zustimmen
 
-|image::isy-bedienkonzept:reply
-|pi-reply
+a|image::isy-bedienkonzept:primeicons/paperclip.svg[width=32,height=32]
+|pi-paperclip
 |Anhänge
 
-|image::isy-bedienkonzept:reply
+a|image::isy-bedienkonzept:primeicons/reply.svg[width=32,height=32]
 |pi-reply
 |Antworten
 
-|image::isy-bedienkonzept:eye
+a|image::isy-bedienkonzept:primeicons/eye.svg[width=32,height=32]
 |pi-eye
 |Anzeigen
 
-|image::isy-bedienkonzept:file
+a|image::isy-bedienkonzept:primeicons/file.svg[width=32,height=32]
 |pi-file
 |Archiv, aus Archiv zurück holen
 
-|image::isy-bedienkonzept:pencil
+a|image::isy-bedienkonzept:primeicons/pencil.svg[width=32,height=32]
 |pi-pencil
 |Bearbeiten, Bearbeitung fortsetzen, Editieren, Korrigieren
 
-|image::isy-bedienkonzept:user
+a|image::isy-bedienkonzept:primeicons/user.svg[width=32,height=32]
 |pi-user
 |Benutzer, User
 
-|image::isy-bedienkonzept:image
+a|image::isy-bedienkonzept:primeicons/image.svg[width=32,height=32]
 |pi-image
 |Bild, Bild anzeigen
 
-|icon:font
-|
+a|image::isy-bedienkonzept:primeicons/language.svg[width=32,height=32]
+|pi-language
 |Buchstaben-Picker
 
-|image::isy-bedienkonzept:download
+a|image::isy-bedienkonzept:primeicons/download.svg[width=32,height=32]
 |pi-download
 |Datei laden, Download, Herunterladen, Laden von Daten
 
-|image::isy-bedienkonzept:list
+a|image::isy-bedienkonzept:primeicons/list.svg[width=32,height=32]
 |pi-list
 |Datensatz anzeigen, Detailauskunft
 
-|image::isy-bedienkonzept:share-alt
+a|image::isy-bedienkonzept:primeicons/share-alt.svg[width=32,height=32]
 |pi-share-alt
 |Daten senden, Daten übermitteln, Senden, Versenden
 
-|image::isy-bedienkonzept:file
+a|image::isy-bedienkonzept:primeicons/file.svg[width=32,height=32]
 |pi-file
 |Dokument erstellen, Erstmeldung
 
-|image::isy-bedienkonzept:file
+a|image::isy-bedienkonzept:primeicons/file.svg[width=32,height=32]
 |pi-file
 |Druckansicht
 
-|image::isy-bedienkonzept:print
+a|image::isy-bedienkonzept:primeicons/print.svg[width=32,height=32]
 |pi-print
 |Drucken
 
-|image::isy-bedienkonzept:cog
+a|image::isy-bedienkonzept:primeicons/cog.svg[width=32,height=32]
 |pi-cog
 |Einstellung, Einstellungen
 
-|icon:mouse-pointer
-|fas fa-mouse-pointer
+a|image::isy-bedienkonzept:primeicons/arrow-up-right.svg[width=32,height=32]
+|pi-arrow-up-right
 |Eintrag auswählen
 
-|image::isy-bedienkonzept:minus
+a|image::isy-bedienkonzept:primeicons/minus.svg[width=32,height=32]
 |pi-minus
 |Entfernen
 
-|image::isy-bedienkonzept:check-square
+a|image::isy-bedienkonzept:primeicons/check-square.svg[width=32,height=32]
 |pi-check-square
 |Entscheiden
 
-|image::isy-bedienkonzept:plus
+a|image::isy-bedienkonzept:primeicons/plus.svg[width=32,height=32]
 |pi-plus
 |Ergänzen
 
-|image::isy-bedienkonzept:bell
+a|image::isy-bedienkonzept:primeicons/bell.svg[width=32,height=32]
 |pi-bell
 |Erinnerung
 
-|image::isy-bedienkonzept:upload
+a|image::isy-bedienkonzept:primeicons/upload.svg[width=32,height=32]
 |pi-upload
 |Exportieren
 
-|image::isy-bedienkonzept:exclamation-triangle
+a|image::isy-bedienkonzept:primeicons/exclamation-triangle.svg[width=32,height=32]
 |pi-exclamation-triangle
 |Fehler, Fehlerhaft
 
-|image::isy-bedienkonzept:eraser
+a|image::isy-bedienkonzept:primeicons/eraser.svg[width=32,height=32]
 |pi-eraser
 |Felder leeren
 
-|image::isy-bedienkonzept:check-circle
+a|image::isy-bedienkonzept:primeicons/check-circle.svg[width=32,height=32]
 |pi-check-circle
 |Fertig, Abgeschlossen
 
-|image::isy-bedienkonzept:filter-fill
+a|image::isy-bedienkonzept:primeicons/filter-fill.svg[width=32,height=32]
 |pi-filter-fill
 |Filter ausfüllen
 
-|image::isy-bedienkonzept:history
+a|image::isy-bedienkonzept:primeicons/history.svg[width=32,height=32]
 |pi-history
 |Historie
 
-|image::isy-bedienkonzept:info-circle
+a|image::isy-bedienkonzept:primeicons/info-circle.svg[width=32,height=32]
 |pi-info-circle
 |Info
 
-|image::isy-bedienkonzept:arrow-circle-down
+a|image::isy-bedienkonzept:primeicons/arrow-circle-down.svg[width=32,height=32]
 |pi-arrow-circle-down
 |Importieren
 
-|image::isy-bedienkonzept:calendar
+a|image::isy-bedienkonzept:primeicons/calendar.svg[width=32,height=32]
 |pi-calendar
 |Kalender
 
@@ -3974,77 +3974,77 @@ endif::[]
 // endif::[]
 
 ifdef::backend-html5[]
-|icon:address-card[2x]
-|fas fa-address-card
+a|image::isy-bedienkonzept:primeicons/id-card.svg[width=32,height=32]
+|pi-id-card
 |Kontakt
 endif::[]
 
-|image::isy-bedienkonzept:list
+a|image::isy-bedienkonzept:primeicons/list.svg[width=32,height=32]
 |pi-list
 |List Picker (Objektauswahl)
 
-|image::isy-bedienkonzept:trash
+a|image::isy-bedienkonzept:primeicons/trash.svg[width=32,height=32]
 |pi-trash
 |Löschen
 
-|image::isy-bedienkonzept:envelope
+a|image::isy-bedienkonzept:primeicons/envelope.svg[width=32,height=32]
 |pi-envelope
 |Mail
 
-|image::isy-bedienkonzept:envelope
+a|image::isy-bedienkonzept:primeicons/envelope.svg[width=32,height=32]
 |far fa-envelope
 |Nachrichten
 
-|image::isy-bedienkonzept:bookmark-fill
+a|image::isy-bedienkonzept:primeicons/bookmark-fill.svg[width=32,height=32]
 |pi-bookmark-fill
 |Notiz
 
-|image::isy-bedienkonzept:folder-open
+a|image::isy-bedienkonzept:primeicons/folder-open.svg[width=32,height=32]
 |pi-folder-open
 |Seite öffnen
 
-|image::isy-bedienkonzept:save
+a|image::isy-bedienkonzept:primeicons/save.svg[width=32,height=32]
 |pi-save
 |Sichern, Speichern
 
-|image::isy-bedienkonzept:search
+a|image::isy-bedienkonzept:primeicons/search.svg[width=32,height=32]
 |pi-search
 |Suchen, Suche wiederholen, Neue Suche, Durchsuchen,
 letzte Suche
 
-|image::isy-bedienkonzept:list
+a|image::isy-bedienkonzept:primeicons/list.svg[width=32,height=32]
 |pi-list
 |Trefferliste
 
-|image::isy-bedienkonzept:arrow-circle-left
+a|image::isy-bedienkonzept:primeicons/arrow-circle-left.svg[width=32,height=32]
 |pi-arrow-circle-left
 |Vorheriger
 
-|image::isy-bedienkonzept:arrow-circle-right
+a|image::isy-bedienkonzept:primeicons/arrow-circle-right.svg[width=32,height=32]
 |pi-arrow-circle-right
 |Weiter, Nächster
 
-|image::isy-bedienkonzept:refresh
+a|image::isy-bedienkonzept:primeicons/refresh.svg[width=32,height=32]
 |pi-refresh
 |Wiederholen
 
-|image::isy-bedienkonzept:star-fill
+a|image::isy-bedienkonzept:primeicons/star-fill.svg[width=32,height=32]
 |pi-star-fill
 |Wiedervorlage
 
-|image::isy-bedienkonzept:clock
+a|image::isy-bedienkonzept:primeicons/clock.svg[width=32,height=32]
 |pi-clock
 |Zeit, Time Picker
 
-|image::isy-bedienkonzept:arrow-circle-left
+a|image::isy-bedienkonzept:primeicons/arrow-circle-left.svg[width=32,height=32]
 |pi-arrow-circle-left
 |Zurück (Navigation)
 
-|image::isy-bedienkonzept:share-alt
+a|image::isy-bedienkonzept:primeicons/share-alt.svg[width=32,height=32]
 |pi-share-alt
 |Zurückgeben (an Sender)
 
-|image::isy-bedienkonzept:user
+a|image::isy-bedienkonzept:primeicons/user.svg[width=32,height=32]
 |pi-user
 |Zuständigkeit
 |====
