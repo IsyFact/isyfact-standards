@@ -66,7 +66,7 @@
 - `IFS-2416`: [isy-task] Umstellung von isy-sicherheit auf isy-security
   #### _Breaking Change:_
   * Die Konfiguration von `benutzer`, `passwort` und `bhknz` erfolgt über isy-security ClientRegistrations und für IsyTaskConfigurationProperties muss nur eine `oauth2ClientRegistrationId` zur Authentifizierung konfiguriert werden.
-- `ISY-372`: [isy-bedienkonzept] JavaScript-Referenzen entfernt
+- `ISY-372`: [isy-styleguide] JavaScript-Referenzen entfernt
 - `ISY-416`: [isyfact-products-bom] Versionsanhebung von Metro Webservices auf 2.4.9
 
 # 2.4.4
