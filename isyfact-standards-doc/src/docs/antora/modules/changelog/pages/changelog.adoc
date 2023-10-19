@@ -52,7 +52,6 @@ include::isyfact-standards-doku:isy-sicherheit:page$nutzungsvorgaben/changelog.a
 include::isyfact-standards-doku:isy-sonderzeichen:page$konzept/changelog.adoc[tag=release-3.0.0]
 include::isyfact-standards-doku:isy-sonderzeichen:page$nutzungsvorgaben/changelog.adoc[tag=release-3.0.0]
 include::isyfact-standards-doku:isy-bedienkonzept:page$changelog.adoc[tag=release-3.0.0]
-include::isyfact-standards-doku:isy-bedienkonzept:page$nutzungsvorgaben/changelog.adoc[tag=release-3.0.0]
 include::isyfact-standards-doku:isy-task:page$changelog.adoc[tag=release-3.0.0]
 include::isyfact-standards-doku:isy-ueberwachung:page$konzept/changelog.adoc[tag=release-3.0.0]
 include::isyfact-standards-doku:isy-ueberwachung:page$nutzungsvorgaben/changelog.adoc[tag=release-3.0.0]

@@ -66,7 +66,6 @@
 
 ** Bedienkonzept
 *** xref:isy-bedienkonzept:bedienkonzept.adoc[Bedienkonzept]
-*** xref:isy-bedienkonzept:nutzungsvorgaben/nutzungsvorgaben.adoc[Nutzungsvorgaben]
 
 ** JSF
 *** xref:isyfact-jsf-doku:isy-web:konzept/konzept.adoc[Konzept]

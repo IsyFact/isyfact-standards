@@ -218,8 +218,8 @@ Die Details zur Implementierung und Dateninhalten der Schnittstellen finden sich
 * *Unterstützungs-Systemarchitektur:* Unterstützungssysteme sind in der Regel durch die IsyFact vorgegeben.
 Sollte es trotzdem nötig sein, ein neues Unterstützungssystem zu konstruieren, erfolgt dies in einem eigenen Dokument nach dieser Vorlage.
 
-* *Mensch-Maschine-Schnittstelle (Bedienkonzept):* Ein Bedienkonzept ist durch die IsyFact nicht vorgegeben.
-Es wird jedoch vorausgesetzt, dass ein solches Bedienkonzept für die Organisation, die die IsyFact einsetzt, bereits vorhanden ist und verwendet werden kann.
+* *Mensch-Maschine-Schnittstelle (Styleguide):* Ein Styleguide ist durch die IsyFact nicht vorgegeben.
+Es wird jedoch vorausgesetzt, dass ein solcher Styleguide für die Organisation, die die IsyFact einsetzt, bereits vorhanden ist und verwendet werden kann.
 
 * *HW-Architektur:* Die HW-Architektur ist als Referenzarchitektur bereits vorgegeben.
 Die konkrete HW-Architektur für das System befindet sich im Kapitel <<ti-architektur>>.

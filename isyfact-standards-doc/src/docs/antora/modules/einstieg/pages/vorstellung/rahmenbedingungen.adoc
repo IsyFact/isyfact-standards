@@ -87,13 +87,13 @@ Das Architekturboard ist ein Gremium, welches die konzeptionelle Weiterentwicklu
 Es tritt regelmäßig zusammen, um aktuelle Anforderungen und Problemstellungen zu diskutieren und die langfristige Tragfähigkeit der Factory sicherzustellen.
 
 [[bedienkonzepte-und-die-gestaltung-von-benutzeroberflaechen]]
-== Bedienkonzepte und die Gestaltung von Benutzeroberflächen
+== Gestaltung von Benutzeroberflächen
 
 Bei der Entwicklung einer Anwendungslandschaft sollten nicht nur die Architektur der einzelnen Anwendungen, sondern auch die Benutzeroberflächen einheitlichen Standards folgen.
 Die Standards für die Benutzeroberflächen werden üblicherweise durch ein Bedienkonzept vorgegeben, der u.a. beschreibt, welche Elemente eine grafische Benutzeroberfläche besitzt, wie diese zu gestalten sind und wie sie miteinander kombinieren werden, um bestimmte Funktionen zu realisieren.
 
-Die Dokumente der IsyFact verweisen an verschiedenen Stellen auf das Bedienkonzept und dort zu definierende Regeln.
-Es wird jedoch vorausgesetzt, dass jeder Anwender der IsyFact einen eigenes Bedienkonzept erstellt, der spezifisch auf seinen Anwendungskontext abgestimmt ist.
+Die Dokumente der IsyFact verweisen an verschiedenen Stellen auf das Bedienkonzept und auf einen Styleguide.
+Im Styleguide werden konkrete Normen wie Farbwerte, Schriftart und Logos definiert die das Corporate Design der Behörde widerspiegeln und müssen vom Anwender bereitgestellt werden.
 
 == Struktur der Dokumentation
 
