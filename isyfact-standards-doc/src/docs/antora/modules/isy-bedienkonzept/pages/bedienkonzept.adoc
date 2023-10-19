@@ -34,7 +34,7 @@ Bei dieser Gruppe werden elementare Kenntnisse im Bereich von Standard-Office-Ap
 Bei der konkreten Ausgestaltung (Spezifikation) der einzelnen Anwendungen sind die Eigenschaften der jeweiligen Benutzergruppen in Bezug auf Vorkenntnisse, Fähigkeiten, IT-Affinität usw.
 zu berücksichtigen.
 
-*_Zielsetzung des Bedienkonzeptes und Abgrenzung zum Bedienkonzept_*
+*_Zielsetzung des Bedienkonzeptes und Abgrenzung zum Styleguide_*
 
 Das Bedienkonzept beschreibt die Art und Weise, wie eine IsyFact-Anwendung von einem Benutzer bedient wird und konzentriert sich auf die Gestaltung der Benutzeroberfläche, die Interaktion mit dem System und die Navigation durch die Funktionen.
 Ein Bedienkonzept ist eine Sammlung von Designrichtlinien und Standards, die zur Wahrung einer konsistenten visuellen Identität einer Marke oder eines Unternehmens beitragen und konzentriert sich auf visuelle Elemente wie Farben, Typografie, Grafiken und Logo-Verwendung.

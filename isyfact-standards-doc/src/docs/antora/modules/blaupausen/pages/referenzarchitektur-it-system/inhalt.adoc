@@ -148,7 +148,7 @@ Die Dialogabläufe bilden einen Workflow.
 Dieser ist in der Regel in der Dialogsteuerung abgebildet, er kann auch durch eine Workflow-Komponente gesteuert werden.
 * Der Dialog muss direkt mit dem Anwendungskern kommunizieren, um Daten zu lesen, die veränderten Daten zu speichern und komplexere fachliche Funktionen auszuführen.
 
-Vorgaben zum Layout sind im xref:isy-bedienkonzept:bedienkonzept.adoc[Bedienkonzept] beschrieben.
+Vorgaben zur konkreten Bedienung sind im xref:isy-bedienkonzept:bedienkonzept.adoc[Bedienkonzept] beschrieben.
 
 Die Validierung auf GUI-Ebene ist optional.
 Sie wird empfohlen, wenn sie die Benutzererfahrung verbessert.

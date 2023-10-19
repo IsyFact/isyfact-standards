@@ -16,10 +16,8 @@ Diese werden im Folgenden dargestellt:
 
 [[bedienkonzept]]
 === Bedienkonzept
-Der Baustein Bedienkonzept beschreibt die Gestaltung grafischer Oberflächen nach einheitlichen Gesichtspunkten.
-Das zentrale Dokument, der xref:isy-bedienkonzept:bedienkonzept.adoc[Bedienkonzept], enthält Vorgaben zu Aufbau und Gestaltung von Web-GUIs.
-Das Bedienkonzept definiert ebenfalls Form und Funktion der in der IsyFact verfügbaren Anzeige- und Bedienelemente.
-Neben dem Dokument beinhaltet der Baustein eine Software-Bibliothek, welche die Vorgaben als CSS-Stile zur Nutzung bereitstellt.
+Das Bedienkonzept beschreibt die Gestaltungsregeln, Lösungsmuster und Workflows für fachliche Abläufe in Benutzeroberflächen.
+Ziel des Bedienkonzepts ist es, dass sich Sachbearbeiter möglichst schnell zwischen unterschiedlichen Anwendungen orientieren können.
 
 [[webjsf]]
 === Web JSF
