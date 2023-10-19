@@ -37,13 +37,13 @@ zu berücksichtigen.
 *_Zielsetzung des Bedienkonzeptes und Abgrenzung zum Styleguide_*
 
 Das Bedienkonzept beschreibt die Art und Weise, wie eine IsyFact-Anwendung von einem Benutzer bedient wird und konzentriert sich auf die Gestaltung der Benutzeroberfläche, die Interaktion mit dem System und die Navigation durch die Funktionen.
-Ein Styleguide ist eine Sammlung von Designrichtlinien und Standards, die zur Wahrung einer konsistenten visuellen Identität einer Marke oder eines Unternehmens beitragen und konzentriert sich auf visuelle Elemente wie Farben, Typografie, Grafiken und Logo-Verwendung.
+Ein Bedienkonzept ist eine Sammlung von Designrichtlinien und Standards, die zur Wahrung einer konsistenten visuellen Identität einer Marke oder eines Unternehmens beitragen und konzentriert sich auf visuelle Elemente wie Farben, Typografie, Grafiken und Logo-Verwendung.
 Er kann jedoch auch Schreib- und Sprachregeln enthalten, um sicherzustellen, dass die Kommunikation mit der Zielgruppe einheitlich und klar ist.
 
-Dieser Styleguide muss von der jeweiligen Behörde ausgearbeitet werden.
+Dieses Bedienkonzept muss von der jeweiligen Behörde ausgearbeitet werden.
 
-Während das Bedienkonzept in erster Linie für Designer und Entwickler relevant ist, die eine Anwendung entwerfen, ist ein Styleguide eher für Marken- und Kommunikationsexperten relevant, die sicherstellen möchten, dass die visuelle Identität und Markenpositionierung ihrer Behörde konsistent bleibt.
-Die Entwickler setzen dann die vom Styleguide definierten visuelle Elemente um.
+Während das Bedienkonzept in erster Linie für Designer und Entwickler relevant ist, die eine Anwendung entwerfen, ist ein Bedienkonzept eher für Marken- und Kommunikationsexperten relevant, die sicherstellen möchten, dass die visuelle Identität und Markenpositionierung ihrer Behörde konsistent bleibt.
+Die Entwickler setzen dann die vom Bedienkonzept definierten visuelle Elemente um.
 Alle Teile des Bedienkonzeptes sind erweiterbar und sollten über die Zeit hinweg fortgeschrieben und ergänzt werden.
 
 [[allgemeine-prinzipien]]
@@ -1557,7 +1557,7 @@ Die ursprünglichen Werte wurden nicht überschrieben, so dass sie im Falle eine
 * Im Falle einer Bestätigung der Änderungen durch Benutzer B übernimmt das System die Daten nun endgültig, hebt die Bearbeitungssperre auf und informiert Benutzer A.
 * Im Falle einer Ablehnung der Änderung durch Benutzer B verwirft das System die Änderungen, hebt die Bearbeitungssperre auf und informiert Benutzer A mit einem Ablehnungsgrund.
 
-*Styleguide konforme Darstellungsbeispiele für 4-Augen-Prinzip Eingabefelder*
+*Bedienkonzept konforme Darstellungsbeispiele für 4-Augen-Prinzip Eingabefelder*
 
 Beschreibung zum folgenden Screenshots:
 
@@ -2208,7 +2208,7 @@ Festlegungen auf höherer Ebene (z.B. der Anwendungslandschaft) gelten für alle
 
 Die IsyFact sieht grundsätzlich zwei Strukturierungen vor.
 
-[STYLEGUIDE]
+[BEDIENKONZEPT]
 ====
 Bei der fachlichen Spezifikation einer neuen Fachanwendung oder Anwendungslandschaft muss eine der folgenden Strukturierungen für die Navigation ausgewählt und fest vorgegeben werden:
 
@@ -3799,7 +3799,7 @@ Stattdessen werden andere, platzsparende Mechanismen angewandt, wie z.B. Expande
 Die Icons sollten alle einem einheitlichen Stil Folgen.
 Innerhalb der Anwendung wird der Icon-Font Awesome benutzt.
 Dieser Font muss in die Webanwendung eingebunden werden.
-Die Icons sollten nur an Stellen verwendet werden, an denen der Styleguide den Einsatz von Icons vorsieht.
+Die Icons sollten nur an Stellen verwendet werden, an denen das Bedienkonzept den Einsatz von Icons vorsieht.
 
 In der folgenden Tabelle sind mögliche Icons und deren Funktion dargestellt sowie die dazugehörige CSS-Klasse.
 Die CSS-Klasse bezieht sich auf Font Awesome Version 5.
@@ -4126,7 +4126,7 @@ image::11_Applikations_Wizard_Objektanlage_5.png[align="center"]
 [[does-and-donts]]
 == Do's and Dont's
 
-Dieses Kapitel zeigt einige oft nicht befolgte Regeln und häufige Verstöße gegen den Styleguide auf.
+Dieses Kapitel zeigt einige oft nicht befolgte Regeln und häufige Verstöße gegen das Bedienkonzept auf.
 
 === Do's
 * Schreibe semantisches HTML. Verwende Elemente so, wie sie gedacht sind - ein "hauptsache optisch korrekt" genügt spätestens beim Thema Barrierefreiheit nicht mehr. Ziehe hierbei z.B. den https://developer.mozilla.org/en-US/docs/Web/HTML/Element[Mozilla Developer Guide] zurate. Dabei kommt es auch auf Details an, wie etwa dem Unterschied zwischen <div> und <span>.

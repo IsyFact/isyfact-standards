@@ -5,6 +5,7 @@
 
 // tag::release-3.0.0[]
 - `ISY-516`: Entfernen von automatischen Ausblenden von Toast-Notifications
+- `ISY-501`: Umbenennung der Ressourcen von Styleguide zu Bedienkonzept
 - `IFS-2276`: Deprecation Warnung zu Konzept des Bausteins Styleguide hinzugefügt
 - Initialer Umzug des Styleguides nach isyfact-standards-doc (alter Ablageort: isy-style)
 - Zustand "fokussiert" für standard Buttons definiert

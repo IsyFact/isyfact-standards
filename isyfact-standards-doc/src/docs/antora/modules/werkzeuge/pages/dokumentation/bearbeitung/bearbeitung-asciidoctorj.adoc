@@ -179,9 +179,9 @@ image::handbuch/architekturregel.dn.svg[align="center"]
 .SICHERHEIT Admonition
 image::handbuch/sicherheit.dn.svg[align="center"]
 
-[[styleguide-admonition]]
-.STYLEGUIDE Admonition
-image::handbuch/styleguide.dn.svg[align="center"]
+[[bedienkonzept-admonition]]
+.BEDIENKONZEPT Admonition
+image::handbuch/bedienkonzept.dn.svg[align="center"]
 
 [[tags]]
 == Tags
@@ -217,7 +217,7 @@ Folgende Admonition Blocks sind mit einem Tag zu kennzeichnen:
 * ANWENDUNGSANFORDERUNG (Tag-Name: `anwendungsanforderung`),
 * ARCHITEKTURREGEL (Tag-Name: `architekturregel`),
 * SICHERHEIT (Tag-Name: `sicherheit`),
-* STYLEGUIDE (Tag-Name: `styleguide`).
+* BEDIENKONZEPT (Tag-Name: `bedienkonzept`).
 
 Die Tags werden jeweils am Anfang und am Ende des Blocks gesetzt.
 
