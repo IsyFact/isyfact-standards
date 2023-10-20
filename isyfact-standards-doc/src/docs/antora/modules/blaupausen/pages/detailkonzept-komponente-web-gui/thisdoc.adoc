@@ -9,6 +9,6 @@ Darüber hinaus trifft es allgemeine Vorgaben für querschnittliche Aspekte, wie
 
 Zielgruppe dieses Dokuments sind Entwickler und Architekten, die Interesse an den allgemeinen Vorgaben der IsyFact in Bezug auf Web-GUIs haben.
 
-Allgemeine Angaben zur Gestaltung von Oberflächen finden sich im xref:isy-styleguide:styleguide.adoc[Styleguide].
+Allgemeine Angaben zur Gestaltung von Oberflächen finden sich im xref:isy-bedienkonzept:bedienkonzept.adoc[Bedienkonzept].
 Weitere Informationen zur Umsetzung von Oberflächen sind den konkreten GUI-Bausteinen zu entnehmen.
 // end::inhalt[]

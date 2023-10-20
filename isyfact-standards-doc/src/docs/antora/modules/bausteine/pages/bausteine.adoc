@@ -65,9 +65,8 @@ Aus den vom IAM-Service erhaltenen Zugangsdaten übernimmt der Baustein das Roll
 |Der Baustein bietet wichtige Hinweise für den Umgang mit Sonderzeichen und enthält Transkriptionsregeln zur Übertragung von nicht-lateinischen Zeichen.
 Unterstützt werden die Standards String Latin 1.1 und String Latin 1.2 („DIN SPEC 91379“) und eine generelle Kompatibilität zu UTF-8.
 
-|icon:ban[title=Deprecation] [.line-through]#Styleguide#
-|Der _Styleguide_ beschreibt die Gestaltungsregeln, nach denen grafische Oberflächen von Geschäftsanwendungen zu erstellen sind.
-Basis des Styleguides sind der Styleguide der Bundesregierung und Gestaltungsregeln für Internetauftritte des Bundesverwaltungsamtes.
+Das _Bedienkonzept_ beschreibt die Gestaltungsregeln, Lösungsmuster und Workflows für fachliche Abläufe in Benutzeroberflächen.
+Ziel des Bedienkonzepts ist es, dass sich Sachbearbeiter möglichst schnell zwischen unterschiedlichen Anwendungen orientieren können.
 
 |Task Scheduling
 |Der Baustein ermöglicht die Ausführung regelmäßiger Aufgaben innerhalb von IT-Systemen mit voller Integration anderer Bausteine wie Konfiguration, Logging, Sicherheit und Überwachung.

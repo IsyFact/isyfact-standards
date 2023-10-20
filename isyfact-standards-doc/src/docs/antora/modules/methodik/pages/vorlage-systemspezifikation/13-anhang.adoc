@@ -46,7 +46,7 @@ Ein Dialog ist in sich abgeschlossen und gegenüber anderen Dialogen abgegrenzt.
 |_Dialog-Gestaltungsvorgabe_ |_Benutzungsschnittstelle_ |_Die Dialog-Gestaltungsvorgabe spezifiziert grundlegende Eigenschaften der Benutzerschnittstelle.
 Sie umfasst Grundprinzipien des Dialogaufbaus, des Layouts und der Benutzerinteraktion.
 Oft setzt die Dialog-Gestaltungsvorgabe unternehmensweit gültige Vorgaben für das zu entwickelnde Anwendungssystem um.
-Sie vereinheitlicht die Benutzerschnittstelle und trägt wesentlich zur effizienten Dialogspezifikation bei._ |_Styleguide_
+Sie vereinheitlicht die Benutzerschnittstelle und trägt wesentlich zur effizienten Dialogspezifikation bei._ |_Bedienkonzept_
 |_Entität_ |_Daten_ |_Als Entität wird ein eindeutig zu bestimmendes Objekt bezeichnet, dem Informationen zugeordnet werden.
 Die Objekte können materiell oder immateriell sein._ |_Informationsobjekt, Objekt_
 |_Entitätstyp_ |_Daten_ |_Jede Entität (das einzelne Objekt) wird einem Entitätstyp zugeordnet.

@@ -339,7 +339,7 @@ Die folgende Tabelle führt die vom IT-System verwendeten Elemente der IsyFact a
 |Schlüsselverzeichnis |berücksichtigt |_Standard_ |
 |Service-Gateway |berücksichtigt |_Standard_ |
 |Spooling |berücksichtigt |_Standard_ |
-|Styleguide |berücksichtigt |_Standard_ |
+|Bedienkonzept |berücksichtigt |_Standard_ |
 |Umgang mit Sonderzeichen |berücksichtigt |_Standard_ |
 4+|*Plattform*  {set:cellbgcolor:#D9D9D9}
 | {set:cellbgcolor} Deployment-Konzept |berücksichtigt |_Standard_ |
