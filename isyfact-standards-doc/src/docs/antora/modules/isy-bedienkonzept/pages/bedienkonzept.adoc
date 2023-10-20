@@ -37,13 +37,13 @@ zu berücksichtigen.
 *_Zielsetzung des Bedienkonzeptes und Abgrenzung zum Styleguide_*
 
 Das Bedienkonzept beschreibt die Art und Weise, wie eine IsyFact-Anwendung von einem Benutzer bedient wird und konzentriert sich auf die Gestaltung der Benutzeroberfläche, die Interaktion mit dem System und die Navigation durch die Funktionen.
-Ein Bedienkonzept ist eine Sammlung von Designrichtlinien und Standards, die zur Wahrung einer konsistenten visuellen Identität einer Marke oder eines Unternehmens beitragen und konzentriert sich auf visuelle Elemente wie Farben, Typografie, Grafiken und Logo-Verwendung.
+Ein Styleguide ist eine Sammlung von Designrichtlinien und Standards, die zur Wahrung einer konsistenten visuellen Identität einer Marke oder eines Unternehmens beitragen und konzentriert sich auf visuelle Elemente wie Farben, Typografie, Grafiken und Logo-Verwendung.
 Er kann jedoch auch Schreib- und Sprachregeln enthalten, um sicherzustellen, dass die Kommunikation mit der Zielgruppe einheitlich und klar ist.
 
-Dieses Bedienkonzept muss von der jeweiligen Behörde ausgearbeitet werden.
+Dieser Styleguide muss von der jeweiligen Behörde ausgearbeitet werden.
 
-Während das Bedienkonzept in erster Linie für Designer und Entwickler relevant ist, die eine Anwendung entwerfen, ist ein Bedienkonzept eher für Marken- und Kommunikationsexperten relevant, die sicherstellen möchten, dass die visuelle Identität und Markenpositionierung ihrer Behörde konsistent bleibt.
-Die Entwickler setzen dann die vom Bedienkonzept definierten visuelle Elemente um.
+Während das Bedienkonzept in erster Linie für Designer und Entwickler relevant ist, die eine Anwendung entwerfen, ist ein Styleguide eher für Marken- und Kommunikationsexperten relevant, die sicherstellen möchten, dass die visuelle Identität und Markenpositionierung ihrer Behörde konsistent bleibt.
+Die Entwickler setzen dann die vom Styleguide definierten visuelle Elemente um.
 Alle Teile des Bedienkonzeptes sind erweiterbar und sollten über die Zeit hinweg fortgeschrieben und ergänzt werden.
 
 [[allgemeine-prinzipien]]
