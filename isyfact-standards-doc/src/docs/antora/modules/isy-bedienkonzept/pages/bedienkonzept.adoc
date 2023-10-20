@@ -3805,7 +3805,7 @@ In der folgenden Tabelle sind mögliche Icons und deren Funktion dargestellt sow
 Die CSS-Klasse bezieht sich auf Font Awesome Version 5.
 
 Eine Gesamtübersicht der zur Verfügung stehenden Icons finden Sie unter:
-xref:glossary:literaturextern:inhalt.adoc#litextern-font-awesome-icons[Font Awesome Icons]
+xref:glossary:literaturextern:inhalt.adoc#litextern-prime-faces-icons[Prime Faces Icons]
 
 // Die CSS-Klassen beziehen sich auf Font Awesome 5, AsciiDoctor verwendet intern aber noch Font Awesome 4.
 // Die von AsciiDoctor gerenderten Icons entsprechen vom Aussehen daher nicht zu 100% den Font Awesome 5 Icons.
