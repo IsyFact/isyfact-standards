@@ -4,7 +4,7 @@
 // *Änderungen IsyFact 3.0.0*
 
 // tag::release-3.0.0[]
-- `ISY-514`: Austausch font-awesome Icons durch Primeiocns
+- `ISY-514`: Austausch font-awesome Icons durch Primeicons
 - `ISY-516`: Entfernen von automatischen Ausblenden von Toast-Notifications
 - `ISY-501`: Umbenennung der Ressourcen von Styleguide zu Bedienkonzept
 - `IFS-2276`: Deprecation Warnung zu Konzept des Bausteins Styleguide hinzugefügt
