@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout project
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           lfs: ${{ inputs.checkout-lfs }}
       - name: Set up JDK ${{ inputs.jdk-version }}
@@ -57,7 +57,7 @@ jobs:
     needs: [Compile]
     steps:
       - name: Checkout project
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           lfs: ${{ inputs.checkout-lfs }}
       - name: Set up JDK ${{ inputs.jdk-version }}
@@ -96,7 +96,7 @@ jobs:
     needs: [Compile]
     steps:
       - name: Checkout project
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           lfs: ${{ inputs.checkout-lfs }}
       - name: Set up JDK ${{ inputs.jdk-version }}
@@ -128,7 +128,7 @@ jobs:
     needs: [Test, CodeQuality]
     steps:
       - name: Checkout project
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           lfs: ${{ inputs.checkout-lfs }}
           # Shallow clones should be disabled for a better relevancy of analysis
