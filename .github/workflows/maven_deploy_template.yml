@@ -52,7 +52,7 @@ jobs:
             exit 1
           fi
       - name: Checkout project
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           lfs: ${{ inputs.checkout-lfs }}
       - name: Set up JDK ${{ inputs.jdk-version }}
@@ -89,7 +89,7 @@ jobs:
     needs: [Validate]
     steps:
       - name: Checkout project
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           lfs: ${{ inputs.checkout-lfs }}
       - name: Set up JDK ${{ inputs.jdk-version }}
