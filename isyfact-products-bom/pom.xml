@@ -25,7 +25,7 @@
         <jsf-impl.version>2.2.20</jsf-impl.version>
         <tomahawk20.version>1.1.14</tomahawk20.version>
         <javax.el-api.version>3.0.0</javax.el-api.version>
-        <metro.webservices.version>2.4.9</metro.webservices.version>
+        <metro.webservices.version>2.4.10</metro.webservices.version>
         <logback-classic.version>1.2.8</logback-classic.version>
         <logback-core.version>1.2.8</logback-core.version>
         <logback-json-classic.version>0.1.5</logback-json-classic.version>
