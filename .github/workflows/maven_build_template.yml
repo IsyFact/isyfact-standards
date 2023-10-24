@@ -93,6 +93,8 @@ jobs:
 
   CodeQuality:
     runs-on: ubuntu-latest
+    # Run quality checks if sonar is not configured for the project
+    if: vars.SONAR_PROJECT_KEY == ''
     needs: [Compile]
     steps:
       - name: Checkout project
@@ -147,13 +149,10 @@ jobs:
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
       - name: Download Test Reports
+        continue-on-error: true
         uses: actions/download-artifact@v3
         with:
           name: Test Reports
-      - name: Download Quality Reports
-        uses: actions/download-artifact@v3
-        with:
-          name: Quality Reports
       - name: Sonar Scan
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
