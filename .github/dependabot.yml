@@ -5,7 +5,8 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-    open-pull-requests-limit: 5
+      time: "22:00"
+      timezone: "Europe/Berlin"
     groups:
       spring-webflow:
         patterns:
@@ -36,7 +37,7 @@ updates:
           - "com.icegreen.greenmail*"
     ignore:
       - dependency-name: "*"
-        update-types: ["version-update:semver-major"]
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
       - dependency-name: "de.bund.bva.isyfact:*"
 
 
@@ -45,7 +46,8 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-    open-pull-requests-limit: 5
+      time: "22:00"
+      timezone: "Europe/Berlin"
     groups:
       spring-webflow:
         patterns:
