@@ -83,6 +83,32 @@ deploy-snapshot:
 
 deploy:
   extends: .maven-deploy
+  script:
+    - 'if [[ -z $DEPLOYURL_RELEASE || -z $DEPLOYURL_SNAPSHOT ]] ; then echo "DEPLOY_URLs not found. Stopping deployment..."; exit 66 ; fi'
+    - >
+      mvn -s $ISY_MAVEN_SETTINGS $MAVEN_CLI_OPTS $MAVEN_DEPLOY_OPTS org.honton.chas:exists-maven-plugin:0.7.0:remote
+      -Dexists.failIfExists=true
+      -Dexists.skipIfSnapshot=true
+      -Dexists.repository=${EXISTS_RELEASE_REPO}
+      -Dexists.snapshotRepository=${EXISTS_SNAPSHOT_REPO}
+      -Dexists.serverId=${EXISTS_RELEASE_REPO_ID}
+      -Dexists.snapshotServerId=${EXISTS_SNAPSHOT_REPO_ID}
+      -Drevision=$NEXT_VERSION
+    - '[[ "$MAVEN_INSTALL_DEPENDENCIES" = "true" ]] && mvn -s $ISY_MAVEN_SETTINGS $MAVEN_CLI_OPTS $MAVEN_DEPLOY_OPTS -am -Drevision=$NEXT_VERSION clean install -DskipTests'
+    - echo "$GPG_PRIVATE_KEY" | gpg --batch --import
+    - >
+      mvn -s $ISY_MAVEN_SETTINGS 
+      -Dtidy.skip=true 
+      -Dmaven.test.skip=true 
+      -DskipTests 
+      -Dmaven.install.skip=true 
+      -DdeployAtEnd=true 
+      -Drevision=$NEXT_VERSION 
+      $MAVEN_CLI_OPTS 
+      $MAVEN_DEPLOY_OPTS 
+      -P GPGsigning -Dgpg.keyname="${GPG_KEYNAME}" -Dgpg.passphrase="${GPG_PASSPHRASE}" 
+      cyclonedx:makeBom 
+      deploy
 
 stages:
   - build

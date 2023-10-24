@@ -1,6 +1,7 @@
 # 2.5.0
 - `IFS-1583`: [isy-persistence] `IsyPersistenceOracleAutoConfiguration` verwendet relaxed-binding für ConditionalOnProperty
 - - [isy-sonderzeichen] Hinzufügen eines neuen Packages mit Transformatoren für die DIN Norm 91379
+- `ISY-391`: SBOM-Erstellung und GPG-Signierung beim Deploy hinzugefügt
 
 # 2.4.4
 - `IFS-1997`: Fix CVE-2022-42889 durch Anhebung von 'commons-text' auf 1.10
