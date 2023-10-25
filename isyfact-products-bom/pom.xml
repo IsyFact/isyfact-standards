@@ -360,7 +360,9 @@
             </activation>
             <dependencyManagement>
                 <dependencies>
-                    <!-- Java Enterprise -->
+                    <!-- JAX WS RI Standalone Zipped Bundle
+                    This library licensed under the Eclipse Distribution License (EDL) Version 1.0
+                    The full license text can be found in the LICENSES directory of this project. -->
                     <dependency>
                         <groupId>com.sun.xml.ws</groupId>
                         <artifactId>jaxws-ri</artifactId>
