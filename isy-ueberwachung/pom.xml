@@ -150,7 +150,7 @@
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>mockwebserver</artifactId>
-            <version>4.4.0</version>
+            <version>4.4.1</version>
             <scope>test</scope>
             <exclusions>
                 <exclusion>
@@ -162,7 +162,7 @@
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib</artifactId>
-            <version>1.3.61</version>
+            <version>1.3.72</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
