@@ -8,7 +8,7 @@ include::glossary:licence:partial$licence.adoc[]
 *Übersicht über die Änderungen*
 
 [[kapitel-aenderungen]]
-== Änderungen
+== Allgemeine Änderungen
 
 [[kapitel-umstellung-dokumentation]]
 === Umstellung der Dokumentation
@@ -22,12 +22,13 @@ Produktkatalog als Teil der Dokumentation:: Der xref:einstieg:produkte.adoc[Prod
 
 [[kapitel-spring-boot]]
 === Spring Boot
+Spring Boot wurde auf Version 2.7.15 angehoben. Die Versionen sämtlicher Produkte werden ebenfalls von Spring verwaltet (s. https://docs.spring.io/spring-boot/docs/2.7.15/reference/html/dependency-versions.html).
 
 [[kapitel-java]]
 === Java
 
-Java Runtime:: Die Java Runtime Environment wurde auf Version 17 gehoben. 
-Es ist gegen Version 8 zu kompilieren. 
+Java Runtime:: Die Java Runtime Environment wurde auf Version 17 gehoben.
+Es ist aber weiterhin mit Version 8 zu kompilieren (Language Level).
 Java Vendor:: Der Java Vendor wurde geändert auf Eclipse Temurin satt Oracle RedHat.
 
 [[kapitel-rest-interne-externe-schnittstelle]]
@@ -35,9 +36,30 @@ Java Vendor:: Der Java Vendor wurde geändert auf Eclipse Temurin satt Oracle Re
 
 REST Schnittstellen:: Sowohl interne als auch externe REST-Schnittstellen sind ab sofort einheitlich nach dem xref:isy-service-rest:konzept/master.adoc[REST-Konzept] zu realisieren.
 Spring HTTPInvoker deprecated icon:ban[title=Deprecation]:: Die Verwendung von xref:isy-serviceapi-core:konzept/master.adoc[HTTPInvoker Schnittstellen] gilt als deprecated und wird mit einem nachfolgenden Release entfernt.
-Metadaten im HTTP-Header statt im Datensatz/Aufrufkontext icon:ban[title=Deprecation]:: Metadaten sind über HTTP-Header zur realisieren. 
+Metadaten im HTTP-Header statt im Datensatz/Aufrufkontext icon:ban[title=Deprecation]:: Metadaten sind über HTTP-Header zur realisieren.
 Eine Verwendung von Metadaten über HTTPInvoker und Aufrufkontext gilt als deprecated und wird mit einem nachfolgenden Release entfernt.
 REST-Baustein als http-Invoker Nachfolger:: Der REST-Baustein wird als Nachfolger des HTTPInvoker-Bausteins (isy-serviceapi-core) veröffentlicht.
+
+[[kapitel-sles]]
+=== Suse Linux Enterprise Server (SLES)
+
+Der Standard schreibt nun statt eines Betriebssystems diejenigen Produkte vor, die zum Bau und zum Betrieb der Anwendungen nötig sind.
+
+Suse Linux Enterprise Server (SLES) entfernt:: Das Betriebssystem wurde aus dem Produktkatalog und der Dokumentation entfernt.
+Eclipse Temurin als JVM aufgenommen:: siehe <<kapitel-java>>
+
+[[kapitel-liquibase]]
+=== Liquibase
+
+Liquibase in Produktkatalog aufgenommen:: Einführung und Umstellung auf Liquibase.
+Ausblick:: Die konzeptionelle Integration erfolgt in einem nachfolgenden Release.
+
+[[kapitel-optimierung-dependeny-management]]
+=== Optimierung Dependency Management
+Abhängigkeiten wurden überprüft und reduziert.
+
+[[kapitel-aenderungen]]
+== Isyfact Bausteine
 
 [[kapitel-baustein-sicherheit-deprecated]]
 === Baustein Sicherheit deprecated icon:ban[title=Deprecation]
@@ -62,12 +84,9 @@ Im neuen xref:isy-security:konzept/master.adoc[Baustein Security] werden die sic
 Ablösung von sicherheitsrelevanten IsyFact-Annotationen::
 Die von Spring Security bereitgestellte Annotation `@secured` löst die Annotation `@gesichert` ab und ist analog dazu zu verwenden.
 
-//TODO klären, ob hier aufzunehmen
-[[kapitel-keycloak]]
-=== Keycloak 17-19
-
 [[kapitel-neue-endpoints-ueberwachung]]
-=== Neue Endpoints in Baustein Überwachung
+=== Baustein Überwachung
+==== Neue Endpoints in Baustein Überwachung
 Liveness, Readiness und Availability zur Überwachung:: Liveness und Readiness bieten ein feingranulares Monitoring der health eines Systems. 
 Diese Endpoints stehen zusätzlich zu den vorhandenen Health-Endpoints zur Verfügung und sind im xref:isy-ueberwachung:konzept/master.adoc[Konzept des Bausteins Überwachung] definiert.
 Die xref:isy-ueberwachung:nutzungsvorgaben/master.adoc[Nutzungsvorgaben des Bausteins Überwachung] wurden um  Implementierungshinweise erweitert. 
@@ -76,66 +95,67 @@ Availability wird als erweiterte Überwachungsmetrik aufbauend auf Liveness und 
 Diese fachlichen Möglichkeiten funktionieren auch mit Liveness und Readiness Probes. 
 Damit sind differenzierte Reaktionen auf Fehler in den Systemen möglich.
 
-//TODO ist das überhaupt ein Baustein für die OS Dokumentation??
-[[kapitel-neuer-baustein-angular]]
-=== Neuer Baustein Angular
-
-//TODO Oder ist Node allgemein und muss separat beschrieben werden?
-Versionshebung Node v18:: 
-Versionshebung Angular v13::
-Versionshebung PrimeNG v13::
-Baustein mit Angular PrimeNG und Bootstrap deprecated icon:ban[title=Deprecation]:: Der Baustein mit Angular PrimeNG und Bootstrap ist deprecated. 
+==== Refactoring der `ServiceStatistik`
+Die Klasse `ServiceStatistik` ist nun ein Interface und ermöglicht es, Klassen zum Sammeln von Metriken zu erstellen.
+Alle `ServiceStatistik` implementierenden Beans werden automatisch der Micrometer-Registry hinzugefügt.
+Details finden sich in den xref:isy-ueberwachung:nutzungsvorgaben/master.adoc[Nutzungsvorgaben des Bausteins Überwachung].
 
 [[kapitel-task-scheduling]]
-=== Task Scheduling
+=== Baustein Task Scheduling
 
 Umstellung auf Spring Boot:: Das Task Scheduling wurde auf Spring Boot umgestellt und hat Auswirkungen auf den xref:isy-konfiguration:konzept/master.adoc[Baustein Konfiguration] und den xref:isy-konfiguration:konzept/master.adoc[Baustein Überwachung].
 
 Verwendung des Bausteins isy-security zur Authentifizierung:
 Für die Authentifizierung nutzt der Baustein Task Scheduling die xref:isy-security:konzept/master.adoc#aussensicht-der-komponente-security[Schnittstelle zur Authentifizierung] aus dem xref:isy-security:konzept/master.adoc#absicherung-task[Baustein Security].
-Die bisherige Art der Authentifizierung des Tasks als 'technischer Nutzer' (mit Nutzername u. Passwort) wird perspektivisch durch eine Authentifizierung als 'Client' (mit Client-ID u. -Secret, vergeben vom IAM-System) abgelöst.
-Für eine weiche Migration bietet die Konfiguration von Batches dazu die Möglichkeit, alternativ die Authentifizierungs-Credentials Nutzername & Passwort, analog zur IsyFact 2, bzw. Client-ID & Client-Secret zu setzen.
+Die bisherige Art der Authentifizierung des Tasks als 'technischer Nutzer' (mit Nutzername und Passwort) wird perspektivisch durch eine Authentifizierung als 'Client' (mit Client-ID und Client-Secret, vergeben vom IAM-System) abgelöst.
+Für eine weiche Migration bietet die Konfiguration von Tasks dazu die Möglichkeit, alternativ die Authentifizierungs-Credentials Nutzername und Passwort zusätzlich zu Client-ID und Client-Secret zu setzen um vorübergehend den Resource Owner Password Flow zu nutzen.
 
 [[kapitel-batchrahmen]]
-=== Batchrahmen
-
+=== Baustein Batchrahmen
 Verwendung des Bausteins isy-security zur Authentifizierung:
 Für die Authentifizierung nutzt der Batchrahmen die xref:isy-security:konzept/master.adoc#aussensicht-der-komponente-security[Schnittstelle zur Authentifizierung] aus dem xref:isy-security:konzept/master.adoc#absicherung-task[Baustein Security].
-Die bisherige Art der Authentifizierung des Tasks als 'technischer Nutzer' (mit Nutzername u. Passwort) wird perspektivisch durch eine Authentifizierung als 'Client' (mit Client-ID u. -Secret, vergeben vom IAM-System) abgelöst.
-Für eine weiche Migration bietet die Konfiguration von Batches dazu die Möglichkeit, alternativ die Authentifizierungs-Credentials Nutzername & Passwort, analog zur IsyFact 2, bzw. Client-ID & Client-Secret zu setzen.
+Die bisherige Art der Authentifizierung des Tasks als 'technischer Nutzer' (mit Nutzername und Passwort) wird perspektivisch durch eine Authentifizierung als 'Client' (mit Client-ID und Client-Secret, vergeben vom IAM-System) abgelöst.
+Für eine weiche Migration bietet die Konfiguration von Batches dazu die Möglichkeit, alternativ die Authentifizierungs-Credentials Nutzername und Passwort zusätzlich zu Client-ID und Client-Secret zu setzen um vorübergehend den Resource Owner Password Flow zu nutzen.
+
+Breaking Change: Methode `getAuthenticationCredentials` entfernt::
+Die Konfiguration von `benutzer`, `passwort` und `bhknz` erfolgt über isy-security ClientRegistrations. Batches müssen nur noch eine `oauth2ClientRegistrationId` zur Authentifizierung bereitstellen. Die Methode `getAuthenticationCredentials` der `BatchAusfuehrungsBean` wurde entfernt.
 
 
-[[kapitel-sles]]
-=== Suse Linux Enterprise Server (SLES)
+[[kapitel-sonderzeichen]]
+=== Baustein Sonderzeichen
+Sonderzeichen Transformator::
+Es wurde ein Sonderzeichen Transformator eingeführt um Zeichenketten, welche aus normativen Buchstaben (Datentyp C) der DIN SPEC 91379 bestehen, auf die Grundbuchstaben A-Z abzubilden.
+Für unterschiedliche Anwendungsfälle kann es erforderlich sein, die in Namen enthaltenden Buchstaben auf die Grundbuchstaben A-Z abzubilden.
+Dies ist bspw. der Fall in der maschinenlesbaren Zone (MRZ) amtlicher Reisedokumente, für die der Standard [ICAO 9303-3] einschlägig ist, da nur diese Grundbuchstaben für die Repräsentation von Namen zur Verfügung stehen.
+Wenn Datensätze und Suchanfragen unter Anwendung der Suchform normalisiert werden, ist es auch möglich, Namen trotz unterschiedlicher Schreibweisen zu identifizieren.
 
-Der Standard schreibt nun statt eines Betriebssystems diejenigen Produkte vor, die zum Bau und zum Betrieb der Anwendungen nötig sind.
+String-Latin-1.1 Transformatoren sind nun deprecated icon:ban[title=Deprecation]::
+Der Zeichensatz für String Latin 1.1 wurde korrigiert. Dies kann zu Kompatibilitätsproblemen in der Kommunikation
+mit Anwendungen führen, die den unkorrigierten Zeichensatz verwenden (IsyFact-Versionen kleiner als IF 3).
 
-Suse Linux Enterprise Server (SLES) entfernt:: Das Betriebssystem wurde aus dem Produktkatalog und der Dokumentation entfernt. 
-Eclipse Temurin als JVM aufgenommen:: siehe <<kapitel-java>>
+Breaking Change: Getter eingeführt::
+Die Klassen `stringlatin1_1/core/transformation/ZeichenKategorie.java` und `dinspec91379/transformation/ZeichenKategorie.java` bieten für den Abruf aller Möglichkeiten nun einen `getter` anstelle einer `public static Variable` an.
 
-[[kapitel-liquibase]]
-=== Liquibase
+Außerdem wurden die fehlenden Zeichen 0110 und 0111 zum Mapping hinzugefügt.
 
-Liquibase in Produktkatalog aufgenommen:: Einführung und Umstellung auf Liquibase. 
-Ausblick:: Die konzeptionelle Integration erfolgt in einem nachfolgenden Release. 
 
-[[kapitel-optimierung-dependeny-management]]
-=== Optimierung Dependency Management
-Abhängigkeiten wurden überprüft und reduziert.
+=== Baustein Persistence
+In `isy-persistence` gibt es nun eine Autokonfiguration mit initialisierbarer Datenbank.
+Für die Konfiguration der `DataSource` wurde zu den `DataSourceProperties` von Spring Boot gewechselt.
+
+Breaking Change: Property `DataSource`::
+Der Konfigurationsschlüssel für die `DataSource` heißt nun `isy.persistence.datasource` statt `isy.persistence.oracle.datasource`.
 
 [[kapitel-restrukturierung-bedienkonzept]]
-=== Restrukturierung Bedienkonzept
-
-=== Redis
+=== Styleguide
+Der Styleguide bzw. das Bedienkonzept ist deprecated icon:ban[title=Deprecation]::
+Das bestehende Konzept soll bei der Entwicklung neuer Anwendungen nicht mehr berücksichtigt werden.
+Das neue, restrukturierte Bedienkonzept wird an anderer Stelle veröffentlicht.
 
 [[kapitel-weitere-deprecations]]
 == Weitere Deprecations
-
-[[kapitel-session-management]]
-=== Session Management
-
-[[kapitel-jsf]]
-=== JSF
+* Session Management
+* JSF
 
 [[kapitel-entfernt]]
 == Entfernt
@@ -143,4 +163,17 @@ Abhängigkeiten wurden überprüft und reduziert.
 [[kapitel-vorlageanwendungen]]
 === Vorlageanwendungen
 
-Die Vorlageanwendungen wurden aus der Dokumentation entfernt. 
+Die Vorlageanwendungen wurden aus der Dokumentation entfernt.
+
+=== Bridge-Module
+
+Die Bridge zwischen Isyfact 1 und 2 ist obsolet weshalb folgende Module entfernt wurden:
+
+* isy-serviceapi-sst
+* isy-exception-sst
+* isy-sst-bridge
+
+[[kapitel-produkte]]
+== Produktkatalog
+
+Es gab einige Updates im Produktkatalog. Diese können der xref:einstieg:produktkatalog/changelog.adoc[Änderungshistorie] entnommen werden.
