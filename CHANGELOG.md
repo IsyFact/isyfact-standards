@@ -76,6 +76,9 @@
 
 - Die Konfiguration von `benutzer`, `passwort` und `bhknz` erfolgt über isy-security ClientRegistrations. Batches müssen nur noch eine `oauth2ClientRegistrationId` zur Authentifizierung bereitstellen. Die Methode `getAuthenticationCredentials` der `BatchAusfuehrungsBean` wurde entfernt.
 
+### isy-persistence
+- Der Konfigurationsschlüssel für die DataSource heißt nun `isy.persistence.datasource` statt `isy.persistence.oracle.datasource`
+
 # 2.4.4
 - `IFS-1997`: Fix CVE-2022-42889 durch Anhebung von 'commons-text' auf 1.10
 
