@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout project
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           lfs: ${{ inputs.checkout-lfs }}
       - name: Set up JDK ${{ inputs.jdk-version }}
@@ -57,7 +57,7 @@ jobs:
     needs: [Compile]
     steps:
       - name: Checkout project
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           lfs: ${{ inputs.checkout-lfs }}
       - name: Set up JDK ${{ inputs.jdk-version }}
@@ -93,10 +93,12 @@ jobs:
 
   CodeQuality:
     runs-on: ubuntu-latest
+    # Run quality checks if sonar is not configured for the project
+    if: vars.SONAR_PROJECT_KEY == ''
     needs: [Compile]
     steps:
       - name: Checkout project
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           lfs: ${{ inputs.checkout-lfs }}
       - name: Set up JDK ${{ inputs.jdk-version }}
@@ -128,7 +130,7 @@ jobs:
     needs: [Test, CodeQuality]
     steps:
       - name: Checkout project
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           lfs: ${{ inputs.checkout-lfs }}
           # Shallow clones should be disabled for a better relevancy of analysis
@@ -147,13 +149,10 @@ jobs:
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
       - name: Download Test Reports
+        continue-on-error: true
         uses: actions/download-artifact@v3
         with:
           name: Test Reports
-      - name: Download Quality Reports
-        uses: actions/download-artifact@v3
-        with:
-          name: Quality Reports
       - name: Sonar Scan
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

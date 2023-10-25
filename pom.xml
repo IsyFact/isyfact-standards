@@ -81,7 +81,7 @@
         <maven.enforcer.plugin.version>3.0.0</maven.enforcer.plugin.version>
         <maven.javadoc.plugin.version>3.3.2</maven.javadoc.plugin.version>
         <asciidoctor.maven.plugin.version>2.0.0</asciidoctor.maven.plugin.version>
-        <asciidoctorj.pdf.version>1.5.3</asciidoctorj.pdf.version>
+        <asciidoctorj.pdf.version>1.5.4</asciidoctorj.pdf.version>
         <isy.asciidoctor.extensions.version>2.4.0</isy.asciidoctor.extensions.version>
 
         <!-- Pfade für Dokumentation -->
@@ -337,7 +337,7 @@
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>2.7.15</version>
+                    <version>2.7.17</version>
                     <executions>
                         <execution>
                             <id>build-info</id>
@@ -568,7 +568,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
-                <version>3.0.4</version>
+                <version>3.0.5</version>
             </plugin>
         </plugins>
     </reporting>
