@@ -113,7 +113,10 @@
                 <scope>import</scope>
             </dependency>
 
-            <!-- Web service framework (SOAP): Metro  -->
+            <!-- Web service framework (SOAP): Metro
+            This library licensed under the Eclipse Distribution License (EDL) Version 1.0
+            The full license text can be found in the LICENSES directory of this project. -->
+
             <dependency>
                 <groupId>org.glassfish.metro</groupId>
                 <artifactId>webservices-rt</artifactId>
