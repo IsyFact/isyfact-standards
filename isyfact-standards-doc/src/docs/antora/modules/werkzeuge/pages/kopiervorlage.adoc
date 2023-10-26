@@ -134,7 +134,7 @@ Regeln für die Architektur von Anwendungen und IT-Systemen.
 Regeln für die Sicherheit von IT-Systemen.
 ****
 
-.icon:paint-brush[] Styleguide: Vorgabe
+.icon:paint-brush[] Bedienkonzept: Vorgabe
 ****
 Regeln zur Gestaltung von grafischen Oberflächen.
 ****
