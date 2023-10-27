@@ -1,6 +1,7 @@
 # 3.0.0
 - `IFS-1886`: Modul als `@Deprecated` markiert zugunsten von`isy-security`
 - `IFS-1940`: `IsySicherheitUtil` deprecated
+- `ISY-546`: Abräumen des SecurityContexts im NutzerAuthentifizierungInterceptor
 
 # 2.1.0
 - `IFS-156`: Sonderlogik, die Underscores aus dem Attribut durchfuehrenderSachbearbeiterName des Aufrufkontextes entfernt, erneut ausgebaut.
