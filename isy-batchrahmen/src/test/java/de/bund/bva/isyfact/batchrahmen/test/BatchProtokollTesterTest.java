@@ -16,6 +16,7 @@ public class BatchProtokollTesterTest {
     public void setUp() throws Exception {
         String testProtokoll = getClass().getResource("/resources/batch/test_protokoll.xml").toURI().toString();
         batchProtokollTester = new BatchProtokollTester(testProtokoll);
+
     }
 
     @Test

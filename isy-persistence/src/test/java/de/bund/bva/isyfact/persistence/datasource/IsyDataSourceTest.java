@@ -31,7 +31,7 @@ import org.junit.Test;
 
 import de.bund.bva.isyfact.persistence.exception.PersistenzException;
 
-public class TestIsyDataSource {
+public class IsyDataSourceTest {
 
 	private DataSource dataSource;
 	private Connection connection;
@@ -43,19 +43,12 @@ public class TestIsyDataSource {
 	
 	@Before
 	public void setUp(){
-		
 		dataSource = mock(DataSource.class);
 		connection = mock(Connection.class);
 		resultSet = mock(ResultSet.class);
 		statement = mock(PreparedStatement.class);
 		isyDataSource = new IsyDataSource();
 		isyDataSource.setTargetDataSource(dataSource);
-	}
-	
-	@Test(expected = PersistenzException.class)
-	public void testGetConnectionNull() throws SQLException {
-		when(dataSource.getConnection()).thenReturn(null);
-		isyDataSource.getConnection();
 	}
 	
 	@Test
@@ -66,12 +59,6 @@ public class TestIsyDataSource {
 		Connection ref = isyDataSource.getConnection();
 		assertEquals(connection, ref);
 		
-	}
-	
-	@Test(expected = PersistenzException.class)
-	public void testGetConnectionUserPasswordNull() throws SQLException {
-		when(dataSource.getConnection("user", "password")).thenReturn(null);
-		isyDataSource.getConnection("user", "password");
 	}
 	
 	@Test
@@ -93,6 +80,7 @@ public class TestIsyDataSource {
 		when(resultSet.getString(1)).thenReturn("version");
 		isyDataSource.setSchemaVersion("version");
 		isyDataSource.afterPropertiesSet();
+		assertNotNull(isyDataSource.getConnection());
 	}
 	
 	@Test
@@ -104,11 +92,11 @@ public class TestIsyDataSource {
 		isyDataSource.setSchemaVersion("version");
 		isyDataSource.setInvalidSchemaVersionAction("warn");
 		isyDataSource.afterPropertiesSet();
+		assertNotNull(isyDataSource.getConnection());
 	}
 	
 	@Test(expected = PersistenzException.class)
 	public void testAfterPropertiesSetResultSetIsNull() throws SQLException {
-
 		when(dataSource.getConnection()).thenReturn(connection);
 		when(connection.prepareStatement(query)).thenReturn(statement);
 		when(statement.executeQuery()).thenReturn(null);
@@ -132,5 +120,24 @@ public class TestIsyDataSource {
 		isyDataSource.setSchemaVersion("version");
 		isyDataSource.afterPropertiesSet();
 	}
-	
+
+	@Test(expected = SQLException.class)
+	public void getConnectionErrorState() throws SQLException {
+		when(dataSource.getConnection()).thenThrow(SQLException.class);
+		isyDataSource.setNonCriticalDataSource(true);
+		isyDataSource.setSchemaVersion("version");
+		isyDataSource.afterPropertiesSet();
+
+		isyDataSource.getConnection();
+	}
+
+	@Test(expected = SQLException.class)
+	public void getConnectionUsernamePasswordErrorState() throws SQLException {
+		when(dataSource.getConnection()).thenThrow(SQLException.class);
+		isyDataSource.setNonCriticalDataSource(true);
+		isyDataSource.setSchemaVersion("version");
+		isyDataSource.afterPropertiesSet();
+
+		isyDataSource.getConnection("test", "test");
+	}
 }

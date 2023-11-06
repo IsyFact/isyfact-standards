@@ -22,6 +22,10 @@ public class ZeitraumTest {
 
     private static final LocalTime localTime = LocalTime.of(15, 0);
 
+    private Zeitraum zeitraum1 = Zeitraum.of(ZonedDateTime.parse("2023-01-01T08:00:00Z"), ZonedDateTime.parse("2023-01-01T12:00:00Z"));
+
+    private Zeitraum zeitraum2 = Zeitraum.of(ZonedDateTime.parse("2023-01-01T08:00:00Z"), ZonedDateTime.parse("2023-01-01T12:00:00Z"));
+
     private static final LocalDateTime localDateTime = LocalDateTime.of(localDate, localTime);
 
     private static final ZonedDateTime zonedDateTime =
@@ -478,5 +482,24 @@ public class ZeitraumTest {
                 .format(ohneDatum0Sekunden.getEndzeit());
 
         assertEquals(expected, ohneDatum0Sekunden.toString());
+    }
+
+    @Test
+    public void testEqualsWithEqualObjects() {
+        assertEquals(zeitraum1, zeitraum2);
+        assertEquals(zeitraum2, zeitraum1);
+        assertEquals(zeitraum1, zeitraum1);
+        assertEquals(zeitraum1.hashCode(), zeitraum2.hashCode());
+    }
+
+    @Test
+    public void testEqualsWithDifferentObjects() {
+        Zeitraum differentZeitraum = Zeitraum.of(ZonedDateTime.parse("2023-01-01T13:00:00Z"), ZonedDateTime.parse("2023-01-01T14:00:00Z"));
+        assertNotEquals(zeitraum1, differentZeitraum);
+    }
+
+    @Test
+    public void testEqualsWithNull() {
+        assertNotEquals(zeitraum1, null);
     }
 }

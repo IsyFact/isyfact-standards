@@ -126,4 +126,52 @@ public class UngewissesDatumTest {
         datum = UngewissesDatum.of(2017, 8, 1);
         assertEquals(Optional.of(LocalDate.of(2017, 8, 1)), datum.toLocalDate());
     }
+
+    @Test
+    public void equalsWithEqualObjects() {
+        UngewissesDatum date1 = UngewissesDatum.of(2023, 1, 1);
+        UngewissesDatum date2 = UngewissesDatum.of(2023, 1, 1);
+
+        assertEquals(date1, date2);
+        assertEquals(date2, date1);
+        assertEquals(date1, date1);
+        assertEquals(date1.hashCode(), date2.hashCode());
+    }
+
+    @Test
+    public void equalsWithDifferentObjects() {
+        UngewissesDatum date1 = UngewissesDatum.of(2023, 1, 1);
+        UngewissesDatum date2 = UngewissesDatum.of(2023, 1, 2);
+
+        assertNotEquals(date1, date2);
+    }
+
+    @Test
+    public void equalsWithNull() {
+        UngewissesDatum date1 = UngewissesDatum.of(2023, 1, 1);
+        assertNotEquals(null, date1);
+    }
+
+    @Test
+    public void equalsWithDifferentTypes() {
+        UngewissesDatum date1 = UngewissesDatum.of(2023, 1, 1);
+        String otherObject = "2023-01-01";
+        assertNotEquals(date1, otherObject);
+    }
+
+    @Test
+    public void testHashCodeWithEqualObjects() {
+        UngewissesDatum date1 = UngewissesDatum.of(2023, 1, 1);
+        UngewissesDatum date2 = UngewissesDatum.of(2023, 1, 1);
+
+        assertEquals(date1.hashCode(), date2.hashCode());
+    }
+
+    @Test
+    public void testHashCodeWithDifferentObjects() {
+        UngewissesDatum date1 = UngewissesDatum.of(2023, 1, 1);
+        UngewissesDatum date2 = UngewissesDatum.of(2023, 1, 2);
+
+        assertNotEquals(date1.hashCode(), date2.hashCode());
+    }
 }
