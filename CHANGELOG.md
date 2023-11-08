@@ -1,6 +1,6 @@
 # 2.5.0
 - `IFS-1583`: [isy-persistence] `IsyPersistenceOracleAutoConfiguration` verwendet relaxed-binding für ConditionalOnProperty
-- - [isy-sonderzeichen] Hinzufügen eines neuen Packages mit Transformatoren für die DIN Norm 91379
+- [isy-sonderzeichen] Hinzufügen eines neuen Packages mit Transformatoren für die DIN Norm 91379
 - `IFS-2044`: [isyfact-products-bom] OpenCSV Versionsanhebung auf 5.7.1
 
 # 2.4.4

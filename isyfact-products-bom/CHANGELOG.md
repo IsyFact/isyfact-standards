@@ -1,4 +1,4 @@
-# 2.4.5
+# 2.5.0
 - `IFS-2044`: OpenCSV Versionsanhebung auf 5.7.1
 
 # 2.4.2
