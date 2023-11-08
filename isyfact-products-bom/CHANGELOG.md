@@ -1,3 +1,6 @@
+# 2.5.0
+- `IFS-2044`: OpenCSV Versionsanhebung auf 5.7.1
+
 # 2.4.2
 - `IFS-1466`: Versionsanhebung von Spring Boot auf 2.5.13
 - `IFS-1525`: Versionsanhebung von Spring Boot auf 2.5.14
