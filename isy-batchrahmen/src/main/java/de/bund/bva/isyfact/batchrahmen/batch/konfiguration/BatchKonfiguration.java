@@ -16,18 +16,18 @@
  */
 package de.bund.bva.isyfact.batchrahmen.batch.konfiguration;
 
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
 import de.bund.bva.isyfact.batchrahmen.batch.konstanten.KonfigurationSchluessel;
 import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchStartTyp;
 import de.bund.bva.isyfact.batchrahmen.core.exception.BatchrahmenKonfigurationException;
 import de.bund.bva.isyfact.batchrahmen.core.exception.BatchrahmenParameterException;
 import de.bund.bva.isyfact.batchrahmen.core.konstanten.NachrichtenSchluessel;
 import de.bund.bva.isyfact.batchrahmen.core.launcher.BatchLauncher;
+
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * The configuration for a {@link de.bund.bva.isyfact.batchrahmen.core.rahmen.Batchrahmen}-call.
@@ -64,7 +64,7 @@ public class BatchKonfiguration {
         KommandozeilenParser parser = new KommandozeilenParser();
         Map<String, String> kommandoZeilenParameter = parser.parse(kommandoZeile);
         String propertyDatei = kommandoZeilenParameter.get(KonfigurationSchluessel.KOMMANDO_PARAM_PROP_DATEI);
-        if (propertyDatei == null) {
+        if (propertyDatei == null || propertyDatei.isEmpty()) {
             throw new BatchrahmenParameterException(NachrichtenSchluessel.ERR_KOMMANDO_PARAMETER_KEINE_CONFIG);
         }
         this.properties = ladePropertyDatei(propertyDatei);
@@ -99,9 +99,9 @@ public class BatchKonfiguration {
     public String[] getSpringProfiles() {
         String profiles = properties.getProperty(PROPERTY_SPRINGPROFILES_PROPERTIES);
         if (profiles != null) {
-            return properties.getProperty(PROPERTY_SPRINGPROFILES_PROPERTIES).trim().split(",");
+            return profiles.trim().split(",");
         } else {
-            return new String[]{};
+            return new String[0];
         }
     }
 
@@ -197,14 +197,22 @@ public class BatchKonfiguration {
      */
 
     private Properties ladePropertyDatei(String propertyDateiname) {
+        this.properties = new Properties();
         try (InputStream urlStream = BatchKonfiguration.class.getResource(propertyDateiname).openStream()) {
-            this.properties = new Properties();
             this.properties.load(urlStream);
-            return this.properties;
-        } catch (Throwable ex) {
+        } catch (Exception ex) {
             throw new BatchrahmenKonfigurationException(NachrichtenSchluessel.ERR_KONF_DATEI_LESEN,
                     propertyDateiname, ex.getMessage());
         }
+        boolean start = getAsBoolean(KonfigurationSchluessel.KOMMANDO_PARAM_START, false);
+        boolean restart = getAsBoolean(KonfigurationSchluessel.KOMMANDO_PARAM_RESTART, false);
+
+        if (start && restart) {
+            throw new BatchrahmenParameterException(NachrichtenSchluessel.ERR_KOMMANDO_PARAMETER_KONFLIKT,
+                    KonfigurationSchluessel.KOMMANDO_PARAM_START,
+                    KonfigurationSchluessel.KOMMANDO_PARAM_IGNORIERE_RESTART);
+        }
+        return this.properties;
     }
 
     /**
@@ -245,18 +253,6 @@ public class BatchKonfiguration {
      */
     public BatchStartTyp getStartTyp() {
         boolean start = getAsBoolean(KonfigurationSchluessel.KOMMANDO_PARAM_START, false);
-        boolean restart = getAsBoolean(KonfigurationSchluessel.KOMMANDO_PARAM_RESTART, false);
-
-        if (start && restart) {
-            throw new BatchrahmenParameterException(NachrichtenSchluessel.ERR_KOMMANDO_PARAMETER_KONFLIKT,
-                    KonfigurationSchluessel.KOMMANDO_PARAM_START,
-                    KonfigurationSchluessel.KOMMANDO_PARAM_IGNORIERE_RESTART);
-        }
-        if (!start && !restart) {
-            throw new BatchrahmenParameterException(NachrichtenSchluessel.ERR_KOMMANDO_PARAMETER_UNGUELTIG,
-                    KonfigurationSchluessel.KOMMANDO_PARAM_START,
-                    KonfigurationSchluessel.KOMMANDO_PARAM_IGNORIERE_RESTART);
-        }
         if (start) {
             return BatchStartTyp.START;
         } else {
