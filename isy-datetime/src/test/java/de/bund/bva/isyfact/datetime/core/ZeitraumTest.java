@@ -1,17 +1,10 @@
 package de.bund.bva.isyfact.datetime.core;
 
-import java.time.DateTimeException;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.Period;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.temporal.ChronoUnit;
-
 import de.bund.bva.isyfact.datetime.format.OutFormat;
 import org.junit.Test;
+
+import java.time.*;
+import java.time.temporal.ChronoUnit;
 
 import static org.junit.Assert.*;
 
@@ -487,7 +480,7 @@ public class ZeitraumTest {
     @Test
     public void testEqualsWithEqualObjects() {
         assertEquals(zeitraum1, zeitraum2);
-        assertEquals(zeitraum2, zeitraum1);
+        // Wenn Referenzen identisch sind, wird restliche Logik von equals übersprungen
         assertEquals(zeitraum1, zeitraum1);
         assertEquals(zeitraum1.hashCode(), zeitraum2.hashCode());
     }

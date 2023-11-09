@@ -1,12 +1,12 @@
 package de.bund.bva.isyfact.persistence.datetime;
 
-import java.time.LocalTime;
-
 import de.bund.bva.isyfact.datetime.core.UngewisseZeit;
-import de.bund.bva.isyfact.persistence.datetime.UngewisseZeitEntitaet;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.time.LocalTime;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class UngewisseZeitEntitaetTest {
     private static LocalTime ANFANG = LocalTime.of(12, 0);
@@ -34,6 +34,7 @@ public class UngewisseZeitEntitaetTest {
         entity2.setEnde(ENDE);
 
         assertEquals(entity1, entity2);
+        // Wenn Referenzen identisch sind, wird restliche Logik von equals übersprungen
         assertEquals(entity1, entity1);
 
         assertNotEquals(entity1, null);

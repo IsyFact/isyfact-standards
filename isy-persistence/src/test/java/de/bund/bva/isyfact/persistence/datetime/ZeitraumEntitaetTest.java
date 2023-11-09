@@ -1,14 +1,11 @@
 package de.bund.bva.isyfact.persistence.datetime;
 
+import de.bund.bva.isyfact.datetime.core.Zeitraum;
+import org.junit.Test;
+
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-
-import de.bund.bva.isyfact.datetime.core.Zeitraum;
-import de.bund.bva.isyfact.persistence.datetime.ZeitraumEntitaet;
-import org.junit.Before;
-import org.junit.Test;
 
 import static org.junit.Assert.*;
 
@@ -54,6 +51,7 @@ public class ZeitraumEntitaetTest {
         entity2.setId(1L);
 
         assertEquals(entity1, entity2);
+        // Wenn Referenzen identisch sind, wird restliche Logik von equals übersprungen
         assertEquals(entity1, entity1);
 
         assertNotEquals(entity1, null);
@@ -150,7 +148,6 @@ public class ZeitraumEntitaetTest {
 
         ZonedDateTime anfang2 = ZonedDateTime.of(2023, 1, 1, 11, 0, 0, 0, ZoneId.systemDefault());
         ZonedDateTime ende2 = ZonedDateTime.of(2023, 1, 1, 13, 0, 0, 0, ZoneId.systemDefault());
-        boolean ohneDatum2 = false;
 
         ZeitraumEntitaet entity = new ZeitraumEntitaet(ANFANG, ENDE, ohneDatum1);
 

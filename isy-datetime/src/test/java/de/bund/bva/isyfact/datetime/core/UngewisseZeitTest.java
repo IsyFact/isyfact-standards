@@ -10,8 +10,8 @@ import static org.junit.Assert.*;
 
 
 public class UngewisseZeitTest {
-    private UngewisseZeit time1 = UngewisseZeit.of(14, 30, 45);;
-    private UngewisseZeit time2 = UngewisseZeit.of(14, 30, 45);;
+    private UngewisseZeit time1 = UngewisseZeit.of(14, 30, 45);
+    private UngewisseZeit time2 = UngewisseZeit.of(14, 30, 45);
     @Test
     public void leer() {
         UngewisseZeit leer = UngewisseZeit.leer();

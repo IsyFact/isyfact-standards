@@ -2,7 +2,13 @@ package de.bund.bva.isyfact.batchrahmen.persistence.rahmen;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import static org.junit.Assert.*;
+
 public class BatchStatusTypTest {
 
     @Test
@@ -18,8 +24,14 @@ public class BatchStatusTypTest {
         assertEquals("batchStatus", status.getBatchStatus());
 
         assertEquals(null, status.getKonfigurationsParameter());
-        status.setKonfigurationsParameter(null);
-        assertEquals(null, status.getKonfigurationsParameter());
+        Set<BatchKonfigurationsParameter> parameters = new HashSet<>();
+        BatchKonfigurationsParameter parameter = new BatchKonfigurationsParameter();
+        parameters.add(parameter);
+        status.setKonfigurationsParameter(parameters);
+
+        assertNotNull(status.getKonfigurationsParameter());
+        assertEquals(1, status.getKonfigurationsParameter().size());
+        assertTrue(status.getKonfigurationsParameter().contains(parameter));
 
         assertEquals(0, status.getSatzNummerLetztesCommit());
         status.setSatzNummerLetztesCommit(1);
@@ -30,15 +42,18 @@ public class BatchStatusTypTest {
         assertEquals("schluesselLetztesCommit", status.getSchluesselLetztesCommit());
 
         assertEquals(null, status.getDatumLetzterStart());
-        status.setDatumLetzterStart(null);
-        assertEquals(null, status.getDatumLetzterStart());
+        Timestamp timestamp = new Timestamp(1000);
+        status.setDatumLetzterStart(timestamp);
+        assertEquals(timestamp, status.getDatumLetzterStart());
 
         assertEquals(null, status.getDatumLetzterAbbruch());
-        status.setDatumLetzterAbbruch(null);
-        assertEquals(null, status.getDatumLetzterAbbruch());
+        Date dateLetzerAbbruch = new Date();
+        status.setDatumLetzterAbbruch(dateLetzerAbbruch);
+        assertEquals(dateLetzerAbbruch, status.getDatumLetzterAbbruch());
 
         assertEquals(null, status.getDatumLetzterErfolg());
-        status.setDatumLetzterErfolg(null);
-        assertEquals(null, status.getDatumLetzterErfolg());
+        Date dateLetzerErfolg = new Date();
+        status.setDatumLetzterErfolg(dateLetzerErfolg);
+        assertEquals(dateLetzerErfolg, status.getDatumLetzterErfolg());
     }
 }
