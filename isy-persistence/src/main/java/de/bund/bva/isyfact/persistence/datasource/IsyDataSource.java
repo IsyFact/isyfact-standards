@@ -86,12 +86,8 @@ public class IsyDataSource extends DelegatingDataSource {
                     .getMessage(FehlerSchluessel.KEINE_CONNECTION_WEGEN_FEHLERHAFTER_INITIALISIERUNG),
                 SQLSTATE_CONNECTION_EXCEPTION);
         }
-        Connection conn = super.getConnection();
-        if (conn == null) {
-            throw new PersistenzException(FehlerSchluessel.KEINE_DB_CONNECTION_VERFUEGBAR);
-        }
 
-        return conn;
+        return super.getConnection();
     }
 
     /**
@@ -105,12 +101,8 @@ public class IsyDataSource extends DelegatingDataSource {
                     .getMessage(FehlerSchluessel.KEINE_CONNECTION_WEGEN_FEHLERHAFTER_INITIALISIERUNG),
                 SQLSTATE_CONNECTION_EXCEPTION);
         }
-        Connection conn = super.getConnection(username, password);
-        if (conn == null) {
-            throw new PersistenzException(FehlerSchluessel.KEINE_DB_CONNECTION_VERFUEGBAR);
-        }
 
-        return conn;
+        return super.getConnection(username, password);
     }
 
     /**

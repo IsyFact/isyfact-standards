@@ -68,6 +68,9 @@ public abstract class NachrichtenSchluessel {
     /** Restart not possible. */
     public static final String ERR_BATCH_INIT_ABGEBR = "BAT330";
 
+    /** Failed to initialize DB connection. */
+    public static final String ERR_BATCH_INIT_DB = "BAT340";
+
     // **** Error during execution ****
     /** Not all records were processed. */
     public static final String ERR_BATCH_UNVOLLSTAENDIG = "BAT400";

@@ -10,7 +10,8 @@ import static org.junit.Assert.*;
 
 
 public class UngewisseZeitTest {
-
+    private UngewisseZeit time1 = UngewisseZeit.of(14, 30, 45);
+    private UngewisseZeit time2 = UngewisseZeit.of(14, 30, 45);
     @Test
     public void leer() {
         UngewisseZeit leer = UngewisseZeit.leer();
@@ -130,5 +131,42 @@ public class UngewisseZeitTest {
 
         zeit = UngewisseZeit.of(LocalTime.of(15, 0), LocalTime.of(17, 0));
         assertEquals(Optional.empty(), zeit.toLocalTime());
+    }
+    
+    @Test
+    public void equalsWithEqualObjects() {
+        assertEquals(time1, time2);
+        assertEquals(time2, time1);
+        assertEquals(time1.hashCode(), time2.hashCode());
+    }
+
+    @Test
+    public void equalsWithDifferentObjects() {
+        UngewisseZeit differentTime = UngewisseZeit.of(12, 30, 0);
+
+        assertNotEquals(time1, differentTime);
+    }
+
+    @Test
+    public void equalsWithNull() {
+        assertNotEquals(null, time1);
+    }
+
+    @Test
+    public void equalsWithDifferentTypes() {
+        String otherObject = "14:30:45";
+        assertNotEquals(time1, otherObject);
+    }
+
+    @Test
+    public void testHashCodeWithEqualObjects() {
+        assertEquals(time1.hashCode(), time2.hashCode());
+    }
+
+    @Test
+    public void testHashCodeWithDifferentObjects() {
+        UngewisseZeit differentTime = UngewisseZeit.of(12, 30, 0);
+
+        assertNotEquals(time1.hashCode(), differentTime.hashCode());
     }
 }
