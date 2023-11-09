@@ -2,8 +2,6 @@
 
 include::glossary:licence:partial$licence.adoc[]
 
-include::glossary:miscellaneous:partial$deprecated-baustein.adoc[]
-
 [[einfuehrung-und-allgemeine-prinzipien]]
 == Einführung und allgemeine Prinzipien
 Dieses einführende Kapitel beinhaltet allgemeine Hinweise zum Bedienkonzept.
