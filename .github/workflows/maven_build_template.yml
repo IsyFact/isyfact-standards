@@ -21,7 +21,7 @@ on:
         description: 'Version used for maven CI friendly versions'
         required: false
         type: string
-        default: '0.0.0-SNAPSHOT'
+        default: '3.0.0'
       sonar-skip:
         description: 'Skip Sonar Scan job'
         required: false
