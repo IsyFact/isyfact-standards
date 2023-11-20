@@ -57,7 +57,7 @@ jobs:
           distribution: temurin
           cache: maven
       - name: Test for vulnerabilities
-        run: > 
+        run: >
           snyk test 
           --maven-aggregate-project --severity-threshold=critical --org=${{ vars.SNYK_ORG_ID }} --target-reference=release/3.x
 
@@ -66,11 +66,15 @@ jobs:
     uses: IsyFact/isyfact-standards/.github/workflows/maven_deploy_template.yml@master
     with:
       version: ${{ github.ref_name }}
+      maven-opts: '-P centralRelease'
+      deploy-server-id: ossrh
+      sbom: true
+      sign: true
     secrets:
-      MAVEN_GPG_PRIVATE_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
-      MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
-      MAVEN_CENTRAL_USER_NAME: ${{ secrets.MAVEN_CENTRAL_USER_NAME }}
-      MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
+      GPG_PRIVATE_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+      GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
+      DEPLOY_SERVER_USER_NAME: ${{ secrets.MAVEN_CENTRAL_USER_NAME }}
+      DEPLOY_SERVER_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
 
   DependencyMonitor:
     runs-on: ubuntu-latest
