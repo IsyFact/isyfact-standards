@@ -142,7 +142,7 @@
                         </requires>
 
                         <attributes>
-                            <revnumber>IF-${project.version}</revnumber>
+                            <revnumber>${project.version}</revnumber>
                             <revdate>${maven.build.timestamp}</revdate>
                             <icons>font</icons>
                             <sectanchors>true</sectanchors>
