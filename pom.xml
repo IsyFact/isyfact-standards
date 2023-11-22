@@ -59,7 +59,7 @@
 
     <properties>
         <!-- Build properties -->
-        <revision>3.0.0</revision>
+        <revision>0.0.0-SNAPSHOT</revision>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.propertiesEncoding>ISO-8859-1</project.build.propertiesEncoding>
         <java.release.version>8</java.release.version>

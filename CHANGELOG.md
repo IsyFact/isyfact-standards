@@ -59,8 +59,7 @@
 - `IFS-2416`: [isy-task] Umstellung von isy-sicherheit auf isy-security
 - `ISY-372`: [isy-styleguide] JavaScript-Referenzen entfernt
 - `ISY-416`: [isyfact-products-bom] Versionsanhebung von Metro Webservices auf 2.4.9
-- `ISY-544`:
-  - [isyfact-standards] revision auf 3.0.0 gesetzt
+- `ISY-544`: Update auf den aktuellen Stand von isyfact-erweiterungen 3.0.0
   - [isyfact-standards-bom] isy-security-test zu isyfact-standards-bom hinzugefügt
 
 ## BREAKING CHANGE
