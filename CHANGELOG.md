@@ -1,3 +1,6 @@
+# 3.1.0
+- `IFS-1648`: [isyfact-products-bom] Oracle ojdbc8 und Oracle ucp in isyfact-erweiterungen-products-bom verschoben
+
 # 3.0.0
 - `ISY-183`: [isyfact-standards-doc] Migrationsleitfaden zur Entfernung der Bridge-Module
 - `ISY-54`: [isyfact-standards-doc] Migrationsleitfaden zur Umstellung auf isy-security
