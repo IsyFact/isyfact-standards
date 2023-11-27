@@ -22,18 +22,21 @@ import java.io.InterruptedIOException;
 import java.net.HttpURLConnection;
 import java.util.Optional;
 
+import javax.annotation.Nullable;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.remoting.httpinvoker.HttpInvokerClientConfiguration;
 import org.springframework.remoting.httpinvoker.SimpleHttpInvokerRequestExecutor;
 import org.springframework.remoting.support.RemoteInvocationResult;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.server.resource.authentication.AbstractOAuth2TokenAuthenticationToken;
 
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.serviceapi.common.konstanten.EreignisSchluessel;
-
-import javax.annotation.Nullable;
 
 /**
  * Extension to the Spring {@link SimpleHttpInvokerRequestExecutor} which allows
@@ -123,20 +126,26 @@ public class TimeoutWiederholungHttpInvokerRequestExecutor extends SimpleHttpInv
     @Override
     protected void prepareConnection(HttpURLConnection con, int contentLength) throws IOException {
         super.prepareConnection(con, contentLength);
-
-        if (aufrufKontextVerwalterOptional.isPresent()) {
-            String bearerToken = aufrufKontextVerwalterOptional.get().getBearerToken();
+        String bearerToken = null;
+        try {
+            if (aufrufKontextVerwalterOptional.isPresent()) {
+                bearerToken = aufrufKontextVerwalterOptional.get().getBearerToken();
+            } else if (SecurityContextHolder.getContext() != null && SecurityContextHolder.getContext().getAuthentication() != null) {
+                Authentication currentAuthentication = SecurityContextHolder.getContext().getAuthentication();
+                bearerToken = ((AbstractOAuth2TokenAuthenticationToken<?>) currentAuthentication).getToken().getTokenValue();
+            }
+        } finally {
             if (bearerToken != null) {
                 con.setRequestProperty(HttpHeaders.AUTHORIZATION, "Bearer " + bearerToken);
             } else {
                 LOG.info(LogKategorie.JOURNAL, EreignisSchluessel.KEIN_BEARER_TOKEN_IM_AUFRUFKONTEXT,
-                        "Kein Bearer-Token im AufrufKontextVerwalter. Der Authorization-Header wird nicht gesetzt.");
+                        "Kein Bearer-Token im AufrufKontextVerwalter oder SecurityContext. Der Authorization-Header wird nicht gesetzt.");
             }
         }
-
         con.setReadTimeout(timeout);
         con.setConnectTimeout(timeout);
     }
+
 
     /**
      * Sets the timeout in milliseconds. The timeout is used when establishing and reading via the HTTP connection.
