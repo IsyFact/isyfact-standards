@@ -1,7 +1,0 @@
-// tag::architekturregeln[]
-
-[[architekturregeln-isyfact-versionierung]]
-== Architekturregeln IsyFact–Versionierung
-
-include::inhalt.adoc[tags=architekturregel]
-// end::architekturregeln[]

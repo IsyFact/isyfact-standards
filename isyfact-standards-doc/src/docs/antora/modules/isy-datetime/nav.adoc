@@ -1,4 +1,0 @@
-* Baustein Datum & Zeit
-** xref:konzept/master.adoc[Baustein Datum & Zeit - Konzept]
-** xref:nutzungsvorgaben/master.adoc[Baustein Datum & Zeit - Nutzungsvorgaben]
-
