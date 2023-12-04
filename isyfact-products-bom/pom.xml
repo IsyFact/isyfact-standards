@@ -19,7 +19,7 @@
         <spring.webflow.version>2.5.1.RELEASE</spring.webflow.version>
         <resilience4j.version>1.7.1</resilience4j.version>
         <apache.poi.version>4.1.2</apache.poi.version>
-        <greenmail.version>1.6.14</greenmail.version>
+        <greenmail.version>1.6.15</greenmail.version>
     </properties>
 
     <!-- Dependency management for IsyFact core technology stack. -->
