@@ -31,6 +31,8 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
@@ -44,7 +46,7 @@ import org.xml.sax.SAXException;
  * 
  */
 public class BatchProtokollTester {
-
+    Logger logger = LoggerFactory.getLogger(BatchProtokollTester.class);
     /** Das BatchProtokoll Document. **/
     private Document batchProtokoll;
 
@@ -67,7 +69,7 @@ public class BatchProtokollTester {
             XPathFactory xpathFactory = XPathFactory.newInstance();
             xpath = xpathFactory.newXPath();
         } catch (ParserConfigurationException | SAXException | IOException e) {
-            e.printStackTrace();
+            logger.error("Error while creating BatchProtokollTester", e);
         }
     }
 
