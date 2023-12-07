@@ -1,4 +1,0 @@
-* Isy-Util
-** xref:nutzungsvorgaben/master.adoc[Isy-Util - Nutzungsvorgaben]
-
-

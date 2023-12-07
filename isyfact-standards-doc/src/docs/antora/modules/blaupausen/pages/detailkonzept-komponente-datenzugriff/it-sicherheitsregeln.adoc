@@ -1,7 +1,0 @@
-// tag::it-sicherheitsregeln[]
-
-[[it-sicherheitsregeln-datenzugriff]]
-== IT-Sicherheitsregeln Komponente Datenzugriff
-
-include::inhalt.adoc[tags=sicherheit]
-// end::it-sicherheitsregeln[]

@@ -1,7 +1,0 @@
-// tag::it-sicherheitsregeln[]
-
-[[it-sicherheitsregeln-anwendungskern]]
-== IT-Sicherheitsregeln Komponente Anwendungskern
-
-include::inhalt.adoc[tags=sicherheit]
-// end::it-sicherheitsregeln[]
