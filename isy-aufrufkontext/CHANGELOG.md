@@ -1,3 +1,6 @@
+# 2.5.0
+- `ISY-650`: `FilterRegistrationBean<HttpHeaderNestedDiagnosticContextFilter>` überschreibbar
+
 # 2.4.3
 
 - `IFS-1161`: `HttpHeaderNestedDiagnosticContextFilter` Priorität erhöht
