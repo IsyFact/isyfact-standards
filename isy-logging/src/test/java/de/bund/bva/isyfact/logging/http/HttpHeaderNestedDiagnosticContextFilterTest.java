@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.aufrufkontext.http;
+package de.bund.bva.isyfact.logging.http;
 
 import javax.servlet.http.HttpServletRequest;
 

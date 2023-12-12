@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.aufrufkontext.autoconfigure;
+package de.bund.bva.isyfact.logging.autoconfigure;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 
-import de.bund.bva.isyfact.aufrufkontext.http.HttpHeaderNestedDiagnosticContextFilter;
+import de.bund.bva.isyfact.logging.http.HttpHeaderNestedDiagnosticContextFilter;
 
 /**
  * The MDC filter is a servlet filter and therefore may only be created in servlet web applications.
