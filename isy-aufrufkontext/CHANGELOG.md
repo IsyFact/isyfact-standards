@@ -1,3 +1,6 @@
+# 3.0.0
+- `ISY-650`: `HttpHeaderNestedDiagnosticContextFilter` nach `isy-logging` verschoben
+
 # 2.4.3
 - `IFS-1161`: `HttpHeaderNestedDiagnosticContextFilter` Priorität erhöht
     - `MdcFilterConfiguration` heißt jetzt `MdcFilterAutoConfiguration`

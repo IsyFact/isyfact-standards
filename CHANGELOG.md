@@ -59,8 +59,14 @@
 - `IFS-2416`: [isy-task] Umstellung von isy-sicherheit auf isy-security
 - `ISY-372`: [isy-styleguide] JavaScript-Referenzen entfernt
 - `ISY-416`: [isyfact-products-bom] Versionsanhebung von Metro Webservices auf 2.4.9
+- `ISY-650`: [isy-aufrufkontext, isy-logging] Bean zum Setzen der Korrelations-ID angepasst:
+  * `HttpHeaderNestedDiagnosticContextFilter` aus `isy-aufrufkontext` nach `isy-logging` verschoben 
+  * `FilterRegistrationBean<HttpHeaderNestedDiagnosticContextFilter>` überschreibbar
 
 ## BREAKING CHANGE
+
+### isy-aufrufkontext
+- `HttpHeaderNestedDiagnosticContextFilter` wurde aus `isy-aufrufkontext` nach `isy-logging` verschoben
 
 ### isy-sonderzeichen
 - Die Klassen `stringlatin1_1/core/transformation/ZeichenKategorie.java` und `dinspec91379/transformation/ZeichenKategorie.java` bieten für Abruf aller Möglichkeiten einen `getter` anstelle einer `public static Variable` an
