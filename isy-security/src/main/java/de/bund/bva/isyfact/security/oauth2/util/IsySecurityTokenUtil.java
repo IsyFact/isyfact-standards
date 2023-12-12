@@ -24,21 +24,21 @@ public class IsySecurityTokenUtil {
     /**
      * The JWT claim name that contains the login.
      */
-    private static final String LOGIN = getString("login");
+    private static final String LOGIN = getConfigPropertyValueAsString("login");
 
     /**
      * The JWT claim name that contains the userId.
      */
-    private static final String USERID = getString("userId");
+    private static final String USERID = getConfigPropertyValueAsString("userId");
 
     /**
      * The JWT claim name that contains the bhknz (Behoerdenkennzeichen).
      */
-    private static final String BHKNZ = getString("bhknz");
+    private static final String BHKNZ = getConfigPropertyValueAsString("bhknz");
     /**
      * The JWT claim name that contains the display name.
      */
-    private static final String DISPLAYNAME = getString("displayName");
+    private static final String DISPLAYNAME = getConfigPropertyValueAsString("displayName");
 
     /**
      * The prefix for all configuration properties.
@@ -51,7 +51,7 @@ public class IsySecurityTokenUtil {
      * @param suffix the suffix of the configuration property
      * @return the String value of the configuration property
      */
-    private static String getString(String suffix) {
+    private static String getConfigPropertyValueAsString(String suffix) {
         return BUNDLE.getString(PREFIX + suffix);
     }
 
