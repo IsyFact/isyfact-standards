@@ -44,7 +44,7 @@ jobs:
         with:
           lfs: ${{ inputs.checkout-lfs }}
       - name: Set up JDK ${{ inputs.jdk-version }}
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: ${{ inputs.jdk-version }}
           distribution: temurin
@@ -61,7 +61,7 @@ jobs:
         with:
           lfs: ${{ inputs.checkout-lfs }}
       - name: Set up JDK ${{ inputs.jdk-version }}
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: ${{ inputs.jdk-version }}
           distribution: temurin
@@ -102,7 +102,7 @@ jobs:
         with:
           lfs: ${{ inputs.checkout-lfs }}
       - name: Set up JDK ${{ inputs.jdk-version }}
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: ${{ inputs.jdk-version }}
           distribution: temurin
@@ -136,7 +136,7 @@ jobs:
           # Shallow clones should be disabled for a better relevancy of analysis
           fetch-depth: 0
       - name: Set up JDK 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           # Sonar Plugin requires Java 17 or higher
           java-version: 17

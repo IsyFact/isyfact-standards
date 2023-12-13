@@ -34,7 +34,7 @@ public class BatchAusfuehrungsException extends Exception {
     /**
      * AusnahmeId, wird für Ergbenisprotokoll verwendet.
      */
-    private String ausnahmeId;    
+    private final String ausnahmeId;
     
     /**
      * ReturnCode, mit dem Batch beendet werden soll.

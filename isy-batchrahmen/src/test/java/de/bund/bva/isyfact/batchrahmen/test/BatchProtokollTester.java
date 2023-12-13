@@ -124,8 +124,8 @@ public class BatchProtokollTester {
     public Collection<String> getFehlerIds() {
         ArrayList<String> fehlerListe = new ArrayList<>();
         String xpathQuery = "//Meldung[@Typ='F']";
-        if (getNodeListFromXpath(xpathQuery).getLength() != 0) {
-            NodeList nodes = getNodeListFromXpath(xpathQuery);
+        NodeList nodes = getNodeListFromXpath(xpathQuery);
+        if (nodes.getLength() != 0) {
             for (int i = 0; i < nodes.getLength(); i++) {
                 NamedNodeMap attributMap = nodes.item(i).getAttributes();
                 fehlerListe.add(attributMap.getNamedItem("ID").getNodeValue());
@@ -215,22 +215,5 @@ public class BatchProtokollTester {
         } catch (XPathExpressionException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    /**
-     * Liefert das Feld 'xpath' zurück.
-     * @return Wert von xpath
-     */
-    public XPath getXpath() {
-        return xpath;
-    }
-
-    /**
-     * Setzt das Feld 'xpath'.
-     * @param xpath
-     *            Neuer Wert für xpath
-     */
-    public void setXpath(XPath xpath) {
-        this.xpath = xpath;
     }
 }

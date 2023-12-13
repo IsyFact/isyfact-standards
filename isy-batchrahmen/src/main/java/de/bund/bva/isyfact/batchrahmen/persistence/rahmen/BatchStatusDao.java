@@ -16,6 +16,7 @@
  */
 package de.bund.bva.isyfact.batchrahmen.persistence.rahmen;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.LockModeType;
 
@@ -35,7 +36,7 @@ public class BatchStatusDao {
     /**
      * Der EntityManager.
      */
-    private EntityManagerFactory factory;
+    private final EntityManagerFactory factory;
 
     /**
      * setzt den EntityManager im DAO.
@@ -55,8 +56,8 @@ public class BatchStatusDao {
      * @return der gelesene Batch-Datensatz.
      */
     public BatchStatus leseBatchStatus(String batchId) {
-        return EntityManagerFactoryUtils.getTransactionalEntityManager(this.factory).find(BatchStatus.class,
-            batchId, LockModeType.PESSIMISTIC_WRITE);
+        EntityManager entityManager = getEntityManager();
+        return entityManager.find(BatchStatus.class, batchId, LockModeType.PESSIMISTIC_WRITE);
     }
 
     /**
@@ -66,11 +67,18 @@ public class BatchStatusDao {
      *            der neue Datensatz.
      */
     public void createBatchStatus(BatchStatus status) {
+        EntityManager entityManager = getEntityManager();
         if (leseBatchStatus(status.getBatchId()) != null) {
-            throw new BatchrahmenInitialisierungException(NachrichtenSchluessel.ERR_BATCH_IN_DB,
-                status.getBatchId());
+            throw new BatchrahmenInitialisierungException(NachrichtenSchluessel.ERR_BATCH_IN_DB, status.getBatchId());
         }
-        EntityManagerFactoryUtils.getTransactionalEntityManager(this.factory).persist(status);
+        entityManager.persist(status);
     }
 
+    protected EntityManager getEntityManager() {
+        EntityManager entityManager = EntityManagerFactoryUtils.getTransactionalEntityManager(this.factory);
+        if (entityManager == null) {
+            throw new BatchrahmenInitialisierungException(NachrichtenSchluessel.ERR_BATCH_INIT_DB);
+        }
+        return entityManager;
+    }
 }

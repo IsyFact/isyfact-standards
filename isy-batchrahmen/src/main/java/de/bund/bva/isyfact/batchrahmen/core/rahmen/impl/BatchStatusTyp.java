@@ -77,7 +77,7 @@ public enum BatchStatusTyp {
      */
     static {
         BatchStatusTyp[] status = BatchStatusTyp.values();
-        codeMap = new HashMap<String, BatchStatusTyp>();
+        codeMap = new HashMap<>();
         for (int i = 0; i < status.length; i++) {
             codeMap.put(status[i].name, status[i]);
         }
@@ -91,10 +91,6 @@ public enum BatchStatusTyp {
      * @return Ein Anfragestatus mit dem gesetzten Wert
      */
     public static BatchStatusTyp fromCode(String name) {
-        return (BatchStatusTyp) codeMap.get(name);
+        return codeMap.get(name);
     }
-
-    
-    
-
 }
