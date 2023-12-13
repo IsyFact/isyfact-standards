@@ -118,6 +118,23 @@ updates:
       - dependency-name: "de.bund.bva.isyfact:*"
 
   - package-ecosystem: "github-actions"
+    target-branch: "master"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "ci"
+
+  - package-ecosystem: "github-actions"
+    target-branch: "release/3.x"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "ci"
+
+  - package-ecosystem: "github-actions"
+    target-branch: "release/2.x"
     directory: "/"
     schedule:
       interval: "weekly"
