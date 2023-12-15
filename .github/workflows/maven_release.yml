@@ -15,7 +15,7 @@ jobs:
     needs: [Build]
     env:
       COMMIT_SHA: ${{ github.sha }}
-      BRANCH_REF: master
+      BRANCH_REF: release/3.x
       SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
       SONAR_PROJECT_KEY: ${{ vars.SONAR_PROJECT_KEY }}
     steps:
@@ -59,7 +59,7 @@ jobs:
       - name: Test for vulnerabilities
         run: > 
           snyk test 
-          --maven-aggregate-project --severity-threshold=critical --org=$SNYK_ORG_ID --target-reference=master
+          --maven-aggregate-project --severity-threshold=critical --org=${{ vars.SNYK_ORG_ID }} --target-reference=release/3.x
 
   Deploy:
     needs: [QualityGate, DependencyScan]
@@ -91,4 +91,4 @@ jobs:
       - name: Create dependency snapshot to monitor release for vulnerabilities
         run: >
           snyk monitor 
-          --maven-aggregate-project --target-reference=$GITHUB_REF_NAME --org=$SNYK_ORG_ID
+          --maven-aggregate-project --target-reference=$GITHUB_REF_NAME --org=${{ vars.SNYK_ORG_ID }}
