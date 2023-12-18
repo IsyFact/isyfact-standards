@@ -64,6 +64,31 @@ public class StelltLoggingKontextBereitTest {
         assertNotNull(korrelationsId);
     }
 
+    @Test
+    public void testStelltLoggingKontextBereitMitAufrufKontextNichtErwartet() {
+        String korrelationsId =
+                this.dummyService.stelltLoggingKontextBereitMitAufrufKontextNichtErwartet(this.aufrufKontext);
+        // do not use correlation id of AufrufKontextTo and do not add it to AufrufKontextTo after creation
+        assertNotEquals(korrelationsId, this.aufrufKontext.getKorrelationsId());
+        assertNotNull(korrelationsId);
+    }
+
+    @Test
+    public void testStelltLoggingKontextBereitMitAufrufKontextErwartetKeineKorrelationsId() {
+        this.aufrufKontext.setKorrelationsId(null);
+        String korrelationsId = this.dummyService.stelltLoggingKontextBereitMitAufrufKontext(this.aufrufKontext);
+        // newly created correlation id is added to AufrufKontextTo
+        assertEquals(korrelationsId, this.aufrufKontext.getKorrelationsId());
+    }
+
+    @Test
+    public void testStelltLoggingKontextBereitMitAufrufKontextErwartetLeereKorrelationsId() {
+        this.aufrufKontext.setKorrelationsId("");
+        String korrelationsId = this.dummyService.stelltLoggingKontextBereitMitAufrufKontext(aufrufKontext);
+        // newly created correlation id is added to AufrufKontextTo
+        assertEquals(korrelationsId, this.aufrufKontext.getKorrelationsId());
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void testStelltLoggingKontextBereitOhneAufrufKontextNichtErwartet() {
         this.dummyService.stelltLoggingKontextBereitOhneAufrufKontextNichtErwartet();

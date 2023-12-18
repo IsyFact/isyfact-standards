@@ -19,7 +19,7 @@ package de.bund.bva.isyfact.serviceapi.core.aop.service.httpinvoker.v1_0_0;
 import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 
 /**
- * RemoteBean-Interface des Dummy-Services
+ * RemoteBean-Interface des Dummy-Services.
  */
 public interface DummyKontextServiceRemoteBean {
 
@@ -28,6 +28,8 @@ public interface DummyKontextServiceRemoteBean {
     public String stelltLoggingKontextNichtBereitMitAufrufKontext(AufrufKontextTo aufrufKontextTo);
 
     public String stelltLoggingKontextBereitOhneAufrufKontextErwartet();
+
+    public String stelltLoggingKontextBereitMitAufrufKontextNichtErwartet(AufrufKontextTo aufrufKontextTo);
 
     public String stelltLoggingKontextBereitOhneAufrufKontextNichtErwartet();
 
