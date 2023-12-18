@@ -14,9 +14,12 @@ on:
       - 'isyfact-standards-doc'
 
 jobs:
+  Version:
+    uses: IsyFact/isyfact-standards/.github/workflows/next_version.yml@master
+
   Maven:
     uses: IsyFact/isyfact-standards/.github/workflows/maven_build_template.yml@master
     with:
-      version: '3.0.0-SNAPSHOT'
+      version: ${{ needs.Version.outputs.next-version }}
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
