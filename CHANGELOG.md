@@ -59,6 +59,7 @@
 - `IFS-2416`: [isy-task] Umstellung von isy-sicherheit auf isy-security
 - `ISY-372`: [isy-styleguide] JavaScript-Referenzen entfernt
 - `ISY-416`: [isyfact-products-bom] Versionsanhebung von Metro Webservices auf 2.4.9
+- `ISY-651`: [isyfact-standards-doc] Abschnitt zum Setzen von X-Correlation-Id in den HTTP-Header bei REST-Anfragen
 
 ## BREAKING CHANGE
 
