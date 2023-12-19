@@ -691,6 +691,62 @@ Atlassian bietet den Swagger Request Validator als freie Software an (Apache 2.0
 Damit lassen sich HTTP Requests und Responses gegen eine OpenAPI bzw. Swagger Spezifikation prüfen, OpenAPI v3 wird dabei bereits unterstützt.
 Der https://bitbucket.org/atlassian/swagger-request-validator[Swagger Request Validator] hat keine weiteren Abhängigkeiten und kann somit unabhängig von HTTP APIs oder Frameworks verwendet werden.
 
+[[korrelations-id-in-header]]
+=== Korrelations-ID im HTTP-Header
+
+Beim Versenden einer REST-Anfrage ist der Schlüssel "X-Correlation-Id" mit dem Wert der Korrelations-ID in den Header zu setzen.
+Die Anwendung, welche die REST-Anfragen stellt, muss dieses Verhalten implementieren.
+In diesem Abschnitt wird ein Beispiel für die Implementierung gegeben.
+
+Für das Setzen des korrekten Werts in den HTTP-Header sind folgende Schritte auszuführen:
+
+* Die bestehende Korrelations-ID wird aus dem MdcHelper ausgelesen.
+* Eine neue UUID wird erzeugt und
+** an die bestehende Korrelations-ID angehängt
+** dem MdcHelper übergeben.
+* Die aktualisierte Korrelations-ID wird als Wert für den Schlüssel "X-Correlation-Id" im Header der REST-Anfrage gesetzt.
+
+Für REST-Anfragen sieht die IsyFact Spring WebClient vor.
+Für die folgende Beispielimplementierung wird daher angenommen, dass eine Bean vom Typ `org.springframework.web.reactive.function.client.WebClient` existiert.
+
+Zunächst wird das Interface `ExchangeFilterFunction` implementiert:
+
+[source,java]
+----
+ExchangeFilterFunction correlationIdAddingFilter =
+        (clientRequest, nextFilter) -> {
+
+    StringBuilder correlationIdBuilder = new StringBuilder();
+
+    String existingCorrelationId = MdcHelper.liesKorrelationsId();
+    if (existingCorrelationId != null && !existingCorrelationId.isEmpty()) {
+        correlationIdBuilder.append(existingCorrelationId).append(";");
+    }
+
+    String newCorrelationId = UUID.randomUUID().toString();
+    correlationIdBuilder.append(newCorrelationId);
+
+    MdcHelper.pushKorrelationsId(newCorrelationId);
+
+    ClientRequest filteredRequest = ClientRequest.from(clientRequest)
+        .header("X-Correlation-Id", correlationIdBuilder.toString())
+        .build();
+    return nextFilter.exchange(filteredRequest);
+};
+----
+
+Anschließend wird die zuvor definierte `ExchangeFilterFunction` zur `WebClient`-Bean hinzugefügt:
+
+[source,java]
+----
+@Bean
+public WebClient webClient() {
+    return WebClient.builder()
+        .filter(correlationIdAddingFilter)
+        .build();
+}
+----
+
 [[fehlerbehandlung]]
 === Fehlerbehandlung
 
