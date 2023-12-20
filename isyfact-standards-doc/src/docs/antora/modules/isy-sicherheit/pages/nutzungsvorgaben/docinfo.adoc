@@ -1,8 +1,0 @@
-*Java Bibliothek / IT-System*
-
-[cols="5,2,3"]
-|====
-|Name |Art |Version
-|`isy-sicherheit` |Bibliothek |siehe `isyfact-bom` v{version-ifs}
-|`isy-aufrufkontext` |Bibliothek |siehe `isyfact-bom` v{version-ifs}
-|====
