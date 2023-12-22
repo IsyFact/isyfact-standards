@@ -11,6 +11,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -45,6 +49,9 @@ public class ClientCredentialsExchangeFilterFunctionAuthenticationTest extends A
     public void setup() {
         embeddedOidcProvider.removeAllClients();
         pingUri = "http://localhost:" + port + "/ping";
+
+        // this should not be necessary but the GitHub pipeline fails because an Authentication without a null principal exists
+        SecurityContextHolder.clearContext()
     }
 
     @Test
