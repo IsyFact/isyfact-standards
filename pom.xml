@@ -62,7 +62,7 @@
         <revision>0.0.0-SNAPSHOT</revision>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.propertiesEncoding>ISO-8859-1</project.build.propertiesEncoding>
-        <java.release.version>8</java.release.version>
+        <maven.compiler.release>17</maven.compiler.release>
         <maven.build.timestamp.format>dd.MM.yyyy</maven.build.timestamp.format>
 
         <!-- maven-enforcer-plugin configuration -->
@@ -393,7 +393,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.9.0</version>
                 <configuration>
-                    <release>${java.release.version}</release>
+                    <!-- requires that maven.compiler.release is set -->
                     <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
