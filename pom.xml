@@ -66,7 +66,7 @@
         <maven.build.timestamp.format>dd.MM.yyyy</maven.build.timestamp.format>
 
         <!-- maven-enforcer-plugin configuration -->
-        <enforced.jdk.version>[1.8,18)</enforced.jdk.version>
+        <enforced.jdk.version>[17,18)</enforced.jdk.version>
         <enforced.maven.version>[3.1.1,4)</enforced.maven.version>
 
         <!-- Property is set by jacoco and user by surefire -->
