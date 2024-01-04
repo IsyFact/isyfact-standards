@@ -44,7 +44,6 @@ import de.bund.bva.isyfact.sicherheit.common.exception.AnnotationFehltRuntimeExc
  * like Workflow, TimerTask, etc.
  * </p>
  *
- * @deprecated since IsyFact 3.0.0 in favor of the isy-security module.
  */
 public class NutzerAuthentifizierungInterceptor<K extends AufrufKontext> implements MethodInterceptor {
 
