@@ -84,6 +84,7 @@ jobs:
           [[ $COUNTER -gt 0 ]] && TOTAL_COVERAGE=$((SUM/COUNTER)) || TOTAL_COVERAGE=0
           echo "| Overall | $TOTAL_COVERAGE % |" >> $GITHUB_STEP_SUMMARY
       - name: Upload Reports
+        if: success() || failure()
         uses: actions/upload-artifact@v4
         with:
           name: Test Reports
@@ -116,6 +117,7 @@ jobs:
           mvn $MAVEN_CLI_OPTS ${{ inputs.maven-opts }} -Drevision=${{ inputs.version }} 
           -Dcheckstyle.skip -Denforcer.skip -Dtidy.skip compile spotbugs:check
       - name: Upload Reports
+        if: success() || failure()
         uses: actions/upload-artifact@v4
         with:
           name: Quality Reports
