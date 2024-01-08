@@ -84,7 +84,8 @@ jobs:
           [[ $COUNTER -gt 0 ]] && TOTAL_COVERAGE=$((SUM/COUNTER)) || TOTAL_COVERAGE=0
           echo "| Overall | $TOTAL_COVERAGE % |" >> $GITHUB_STEP_SUMMARY
       - name: Upload Reports
-        uses: actions/upload-artifact@v3
+        if: success() || failure()
+        uses: actions/upload-artifact@v4
         with:
           name: Test Reports
           path: |
@@ -116,7 +117,8 @@ jobs:
           mvn $MAVEN_CLI_OPTS ${{ inputs.maven-opts }} -Drevision=${{ inputs.version }} 
           -Dcheckstyle.skip -Denforcer.skip -Dtidy.skip compile spotbugs:check
       - name: Upload Reports
-        uses: actions/upload-artifact@v3
+        if: success() || failure()
+        uses: actions/upload-artifact@v4
         with:
           name: Quality Reports
           path: |
@@ -150,7 +152,7 @@ jobs:
           restore-keys: ${{ runner.os }}-sonar
       - name: Download Test Reports
         continue-on-error: true
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: Test Reports
       - name: Sonar Scan
@@ -164,7 +166,7 @@ jobs:
           -Dsonar.organization=${{ vars.SONAR_ORGANIZATION }} -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }}
           verify org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar
       - name: Upload Meta Data
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Sonar Meta Data
           path:
