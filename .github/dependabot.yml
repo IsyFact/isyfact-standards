@@ -12,7 +12,7 @@ updates:
           - "org.springframework.webflow:spring-*"
       spring-boot:
         patterns:
-          - "spring.framework.boot:spring-boot-*"
+          - "org.springframework.boot:spring-boot-*"
       jsf:
         patterns:
           - "com.sun.faces:jsf-*"
@@ -51,7 +51,7 @@ updates:
           - "org.springframework.webflow:spring-*"
       spring-boot:
         patterns:
-          - "spring.framework.boot:spring-boot-*"
+          - "org.springframework.boot:spring-boot-*"
       jsf:
         patterns:
           - "com.sun.faces:jsf-*"
@@ -90,7 +90,7 @@ updates:
           - "org.springframework.webflow:spring-*"
       spring-boot:
         patterns:
-          - "spring.framework.boot:spring-boot-*"
+          - "org.springframework.boot:spring-boot-*"
       jsf:
         patterns:
           - "com.sun.faces:jsf-*"
