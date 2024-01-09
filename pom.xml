@@ -2,35 +2,26 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>de.bund.bva.isyfact</groupId>
+    <parent>
+        <groupId>de.bund.bva.isyfact</groupId>
+        <artifactId>isyfact-parent</artifactId>
+        <version>${revision}</version>
+        <relativePath>isyfact-parent</relativePath>
+    </parent>
+
     <artifactId>isyfact-standards</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>
 
-    <name>IsyFact-Standards (Module- &amp; Parent-POM)</name>
+    <name>IsyFact-Standards (Module-POM)</name>
     <description>
         Die IsyFact-Standards bilden das architektonische, technologische und methodische
         Fundament der IsyFact. Sie umfassen allgemeingültige und wiederverwendbare Konzepte und
         Komponenten, die für die Entwicklung beliebiger Fachanwendungen relevant sind.
     </description>
-    <url>http://isyfact.de</url>
-    <licenses>
-        <license>
-            <name>Apache License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
-        </license>
-    </licenses>
-
-    <developers>
-        <developer>
-            <name>IsyFact-Team</name>
-            <email>isyfact@bva.bund.de</email>
-            <organization>Bundesverwaltungsamt (BVA)</organization>
-            <organizationUrl>https://www.bva.bund.de</organizationUrl>
-        </developer>
-    </developers>
 
     <modules>
+        <module>isyfact-parent</module>
         <module>isyfact-standards-bom</module>
         <module>isyfact-products-bom</module>
         <module>isy-batchrahmen</module>
@@ -47,50 +38,11 @@
         <module>isy-security-test</module>
     </modules>
 
-    <scm>
-        <connection>scm:git:git://github.com/IsyFact/isyfact-standards.git</connection>
-        <developerConnection>scm:git:ssh://github.com:IsyFact/isyfact-standards.git</developerConnection>
-        <url>https://github.com/IsyFact/isyfact-standards</url>
-    </scm>
+    <scm child.scm.connection.inherit.append.path="false" child.scm.developerConnection.inherit.append.path="false"
+         child.scm.url.inherit.append.path="false" />
 
     <properties>
-        <!-- Build properties -->
         <revision>0.0.0-SNAPSHOT</revision>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.build.propertiesEncoding>ISO-8859-1</project.build.propertiesEncoding>
-        <maven.compiler.release>17</maven.compiler.release>
-        <maven.build.timestamp.format>dd.MM.yyyy</maven.build.timestamp.format>
-
-        <!-- maven-enforcer-plugin configuration -->
-        <enforced.jdk.version>[17,18)</enforced.jdk.version>
-        <enforced.maven.version>[3.6.3,4)</enforced.maven.version>
-
-        <!-- Property is set by jacoco and user by surefire -->
-        <maven.jacoco.argLine/>
-
-        <!-- maven-surefire-plugin configuration -->
-        <maven.surefire.argline>
-            -Xmx1g -Dfile.encoding=${project.build.sourceEncoding} @{maven.jacoco.argLine}
-        </maven.surefire.argline>
-        <maven-surefire.version>3.2.5</maven-surefire.version>
-
-        <!-- Plugin versions used in several places -->
-        <maven.enforcer.plugin.version>3.5.0</maven.enforcer.plugin.version>
-        <maven.javadoc.plugin.version>3.3.2</maven.javadoc.plugin.version>
-        <asciidoctor.maven.plugin.version>2.2.6</asciidoctor.maven.plugin.version>
-        <asciidoctorj.pdf.version>1.5.4</asciidoctorj.pdf.version>
-        <isy.asciidoctor.extensions.version>2.4.0</isy.asciidoctor.extensions.version>
-
-        <!-- Pfade für Dokumentation -->
-        <isy.doku.standards.bausteine>10_IsyFact-Standards/20_Bausteine</isy.doku.standards.bausteine>
-
-        <!-- Maven plugins for static information -->
-        <!-- Update to 5.0.0 when using java 11 -->
-        <git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
-
-        <!-- Fixed patch for commons-text CVE-2022-42889 -->
-        <commons-text.version>1.10.0</commons-text.version>
-        <isy-checkstyle-config.version>0.2.0</isy-checkstyle-config.version>
     </properties>
 
     <build>
@@ -103,394 +55,18 @@
                 <directory>license</directory>
             </resource>
         </resources>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>${maven.enforcer.plugin.version}</version>
-                    <executions>
-                        <execution>
-                            <id>enforce-maven</id>
-                            <goals>
-                                <goal>enforce</goal>
-                            </goals>
-                            <configuration>
-                                <rules>
-                                    <requireJavaVersion>
-                                        <version>${enforced.jdk.version}</version>
-                                    </requireJavaVersion>
-                                    <requireMavenVersion>
-                                        <version>${enforced.maven.version}</version>
-                                    </requireMavenVersion>
-                                </rules>
-                            </configuration>
-                        </execution>
-                        <execution>
-                            <id>enforce-dependency-convergence</id>
-                            <goals>
-                                <goal>enforce</goal>
-                            </goals>
-                            <configuration>
-                                <rules>
-                                    <dependencyConvergence/>
-                                </rules>
-                                <fail>true</fail>
-                            </configuration>
-                        </execution>
-                        <execution>
-                            <id>enforce-banned-dependencies</id>
-                            <goals>
-                                <goal>enforce</goal>
-                            </goals>
-                            <configuration>
-                                <rules>
-                                    <bannedDependencies>
-                                        <excludes>
-                                            <exclude>de.bund.bva.pliscommon:plis-*</exclude>
-                                            <exclude>log4j:log4j</exclude>
-                                        </excludes>
-                                        <message>Verbotene Abhängigkeiten gefunden, für die neuere Entsprechungen
-                                            (Group-ID: de.bund.bva.isyfact) existieren.
-                                            Bitte dependency:tree prüfen und entsprechend exkludieren.
-                                        </message>
-                                    </bannedDependencies>
-                                </rules>
-                                <fail>true</fail>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-checkstyle-plugin</artifactId>
-                    <version>3.1.2</version>
-                    <configuration>
-                        <configLocation>checkstyle.config.xml</configLocation>
-                        <encoding>UTF-8</encoding>
-                        <consoleOutput>true</consoleOutput>
-                        <failsOnError>true</failsOnError>
-                        <linkXRef>false</linkXRef>
-                    </configuration>
-                    <dependencies>
-                        <dependency>
-                            <groupId>de.bund.bva.isyfact</groupId>
-                            <artifactId>isy-checkstyle-config</artifactId>
-                            <version>${isy-checkstyle-config.version}</version>
-                        </dependency>
-                    </dependencies>
-                    <executions>
-                        <execution>
-                            <id>validate</id>
-                            <phase>validate</phase>
-                            <goals>
-                                <goal>check</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>tidy-maven-plugin</artifactId>
-                    <version>1.2.0</version>
-                    <executions>
-                        <execution>
-                            <id>tidy-before-check</id>
-                            <phase>validate</phase>
-                            <goals>
-                                <goal>pom</goal>
-                            </goals>
-                        </execution>
-                        <execution>
-                            <id>check-pom-style</id>
-                            <phase>process-resources</phase>
-                            <goals>
-                                <goal>check</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.jacoco</groupId>
-                    <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>0.8.12</version>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>prepare-agent</goal>
-                            </goals>
-                            <configuration>
-                                <propertyName>maven.jacoco.argLine</propertyName>
-                            </configuration>
-                        </execution>
-                        <execution>
-                            <id>report</id>
-                            <phase>test</phase>
-                            <goals>
-                                <goal>report</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>${maven-surefire.version}</version>
-                    <configuration>
-                        <argLine>${maven.surefire.argline}</argLine>
-
-                        <systemPropertyVariables>
-                            <user.language>de</user.language>
-                            <user.country>DE</user.country>
-                        </systemPropertyVariables>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>com.github.spotbugs</groupId>
-                    <artifactId>spotbugs-maven-plugin</artifactId>
-                    <version>4.8.6.4</version>
-                    <configuration>
-                        <effort>Max</effort>
-                        <threshold>high</threshold>
-                        <xmlOutput>true</xmlOutput>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>execute-spot-bugs</id>
-                            <phase>verify</phase>
-                            <goals>
-                                <goal>check</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.apache.commons</groupId>
-                            <artifactId>commons-text</artifactId>
-                            <version>${commons-text.version}</version>
-                        </dependency>
-                    </dependencies>
-                </plugin>
-                <plugin>
-                    <groupId>org.asciidoctor</groupId>
-                    <artifactId>asciidoctor-maven-plugin</artifactId>
-                    <version>${asciidoctor.maven.plugin.version}</version>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.asciidoctor</groupId>
-                            <artifactId>asciidoctorj-pdf</artifactId>
-                            <version>${asciidoctorj.pdf.version}</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>de.bund.bva.isyfact</groupId>
-                            <artifactId>isy-asciidoctorj-extensions</artifactId>
-                            <version>${isy.asciidoctor.extensions.version}</version>
-                        </dependency>
-                    </dependencies>
-                    <configuration>
-                        <outputDirectory>${project.build.directory}</outputDirectory>
-                        <attributes>
-                            <revnumber>IF-${project.version}</revnumber>
-                            <revdate>${maven.build.timestamp}</revdate>
-                        </attributes>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>${maven.javadoc.plugin.version}</version>
-                    <configuration>
-                        <!-- The encoding is important for the representation of special characters. -->
-                        <encoding>${project.build.sourceEncoding}</encoding>
-                        <charset>${project.build.sourceEncoding}</charset>
-                        <doclint>none</doclint>
-                        <quiet>true</quiet>
-                    </configuration>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.apache.commons</groupId>
-                            <artifactId>commons-text</artifactId>
-                            <version>${commons-text.version}</version>
-                        </dependency>
-                    </dependencies>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>flatten-maven-plugin</artifactId>
-                    <version>1.2.7</version>
-                    <configuration>
-                        <updatePomFile>true</updatePomFile>
-                        <flattenMode>resolveCiFriendliesOnly</flattenMode>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>flatten</id>
-                            <phase>process-resources</phase>
-                            <goals>
-                                <goal>flatten</goal>
-                            </goals>
-                        </execution>
-                        <execution>
-                            <id>flatten.clean</id>
-                            <phase>clean</phase>
-                            <goals>
-                                <goal>clean</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>2.7.18</version>
-                    <executions>
-                        <execution>
-                            <id>build-info</id>
-                            <goals>
-                                <goal>build-info</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>pl.project13.maven</groupId>
-                    <artifactId>git-commit-id-plugin</artifactId>
-                    <version>${git-commit-id-plugin.version}</version>
-                    <executions>
-                        <execution>
-                            <id>get-the-git-infos</id>
-                            <goals>
-                                <goal>revision</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <generateGitPropertiesFile>true</generateGitPropertiesFile>
-                        <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
-                        <includeOnlyProperties>
-                            <includeOnlyProperty>git.commit.id.abbrev</includeOnlyProperty>
-                            <includeOnlyProperty>git.commit.time</includeOnlyProperty>
-                            <includeOnlyProperty>git.branch</includeOnlyProperty>
-                        </includeOnlyProperties>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.cyclonedx</groupId>
-                    <artifactId>cyclonedx-maven-plugin</artifactId>
-                    <version>2.7.9</version>
-                    <configuration>
-                        <outputFormat>json</outputFormat>
-                        <outputName>${project.artifactId}-${project.version}-cyclonedx</outputName>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.3.1</version>
-                <configuration>
-                    <propertiesEncoding>${project.build.propertiesEncoding}</propertiesEncoding>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.9.0</version>
-                <configuration>
-                    <!-- requires that maven.compiler.release is set -->
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                </configuration>
-            </plugin>
+            <!-- Required to deploy to Maven Central -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.commons</groupId>
-                        <artifactId>commons-text</artifactId>
-                        <version>${commons-text.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.4.2</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                        </manifest>
-                    </archive>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.3.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>versions-maven-plugin</artifactId>
-                <version>2.17.1</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>3.3.2</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>3.7.1</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-install-plugin</artifactId>
-                <version>2.5.2</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <version>2.8.2</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>3.3.2</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>3.1.0</version>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>javancss-maven-plugin</artifactId>
-                <version>2.1</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-site-plugin</artifactId>
-                <version>3.10.0</version>
-            </plugin>
+
+
             <!-- Quality Gates 1 -->
             <!-- Check if all POMs are formatted according to the Maven-Team-Standard. -->
             <!-- Use mvn tidy:pom in order to tidy up the POM. -->
@@ -510,25 +86,13 @@
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.commons</groupId>
-                        <artifactId>commons-text</artifactId>
-                        <version>${commons-text.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
+                <configuration>
+                    <flattenMode>oss</flattenMode>
+                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -537,13 +101,7 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>3.5.0</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>${maven-surefire.version}</version>
             </plugin>
             <!-- Create checkstyle report -->
             <plugin>
@@ -558,258 +116,16 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>
-                <version>2.5</version>
             </plugin>
             <!-- Report bug patterns. -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.22.0</version>
-                <configuration>
-                    <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
-                    <targetJdk>${java.release.version}</targetJdk>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <version>3.0.5</version>
             </plugin>
         </plugins>
     </reporting>
 
     <profiles>
-        <profile>
-            <id>copyReleaseConfiguration</id>
-            <activation>
-                <file>
-                    <exists>src/main/resources/config/release/</exists>
-                </file>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <executions>
-                            <!-- Copy the release configuration to the config directory -->
-                            <execution>
-                                <id>process-resources</id>
-                                <phase>process-resources</phase>
-                                <configuration>
-                                    <target>
-                                        <echo message="Kopiere Release-Konfigurationen aus config/release nach config/..."/>
-                                        <move todir="${project.build.directory}/classes/config/"
-                                              failonerror="true" overwrite="true">
-                                            <fileset dir="${project.build.directory}/classes/config/release"/>
-                                        </move>
-                                    </target>
-                                </configuration>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <!-- Profile to avoid SNAPSHOT-versions in releases. -->
-        <profile>
-            <id>release</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-enforcer-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>enforce-no-snapshots</id>
-                                <goals>
-                                    <goal>enforce</goal>
-                                </goals>
-                                <configuration>
-                                    <rules>
-                                        <requireReleaseDeps>
-                                            <message>Keine SNAPSHOT-Abhängigkeiten erlaubt!</message>
-                                        </requireReleaseDeps>
-                                        <requireReleaseVersion>
-                                            <message>Keine SNAPSHOT-Versionen erlaubt!</message>
-                                        </requireReleaseVersion>
-                                    </rules>
-                                    <fail>true</fail>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <!-- Moves the license files in APIDocs, if present. -->
-            <id>copyLicenseFiles</id>
-            <activation>
-                <file>
-                    <exists>license</exists>
-                </file>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>license-to-apidoc</id>
-                                <phase>generate-sources</phase>
-                                <configuration>
-                                    <target>
-                                        <copy todir="${project.build.directory}/apidocs">
-                                            <fileset dir="${basedir}/license" includes="*"/>
-                                        </copy>
-                                    </target>
-                                </configuration>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <profile>
-            <id>centralRelease</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.sonatype.plugins</groupId>
-                        <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>1.6.13</version>
-                        <extensions>true</extensions>
-                        <configuration>
-                            <serverId>ossrh</serverId>
-                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>JARsigning</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-jarsigner-plugin</artifactId>
-                        <version>3.0.0</version>
-                        <executions>
-                            <execution>
-                                <id>sign</id>
-                                <phase>deploy</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>verify</id>
-                                <goals>
-                                    <goal>verify</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <keystore>${sign.keystore}</keystore>
-                            <alias>${sign.alias}</alias>
-                            <storepass>${sign.storepass}</storepass>
-                            <tsa>http://timestamp.digicert.com</tsa>
-                            <arguments>
-                                <argument>${sign.proxyhost}</argument>
-                                <argument>${sign.proxyport}</argument>
-                            </arguments>
-                            <verbose>true</verbose>
-                            <certs>true</certs>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>GPGsigning</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>3.0.1</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <keyname>${gpg.keyname}</keyname>
-                            <passphrase>${gpg.passphrase}</passphrase>
-                            <!-- Prevent gpg from using pinentry programs -->
-                            <!-- Required for compatibility with gpg version 2.1 or later -->
-                            <gpgArguments>
-                                <arg>--pinentry-mode</arg>
-                                <arg>loopback</arg>
-                            </gpgArguments>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>centralmavenrepo</id>
-            <activation>
-                <property>
-                    <name>centraldeploy</name>
-                    <value>true</value>
-                </property>
-            </activation>
-            <properties>
-            </properties>
-            <distributionManagement>
-                <snapshotRepository>
-                    <id>ossrh</id>
-                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-                </snapshotRepository>
-                <repository>
-                    <id>ossrh</id>
-                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-                </repository>
-            </distributionManagement>
-        </profile>
-        <profile>
-            <id>internalmavenrepo</id>
-            <activation>
-                <property>
-                    <name>!centraldeploy</name>
-                </property>
-            </activation>
-            <properties>
-            </properties>
-            <distributionManagement>
-                <repository>
-                    <id>repository</id>
-                    <name>Repository</name>
-                    <url>${deploy-url-release}</url>
-                </repository>
-                <snapshotRepository>
-                    <id>repository</id>
-                    <name>Repository</name>
-                    <url>${deploy-url-snapshot}</url>
-                </snapshotRepository>
-            </distributionManagement>
-        </profile>
 
         <!-- remove if source code is adjusted to JDK 17 -->
         <profile>
