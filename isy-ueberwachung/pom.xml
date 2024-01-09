@@ -15,7 +15,7 @@
 
     <properties>
         <mockwebserver.version>4.4.1</mockwebserver.version>
-        <kotlin-stdlib.version>1.3.61</kotlin-stdlib.version>
+        <kotlin-stdlib.version>1.3.72</kotlin-stdlib.version>
     </properties>
 
     <dependencyManagement>
