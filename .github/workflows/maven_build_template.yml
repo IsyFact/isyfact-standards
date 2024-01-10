@@ -71,7 +71,10 @@ jobs:
           distribution: temurin
           cache: maven
       - name: Run tests
-        run: mvn $MAVEN_CLI_OPTS ${{ inputs.maven-opts }} -Drevision=${{ inputs.version }} -Dcheckstyle.skip test
+        run: >
+          mvn $MAVEN_CLI_OPTS ${{ inputs.maven-opts }} -Drevision=${{ inputs.version }} 
+          -Dcheckstyle.skip -Dspotbugs.skip
+          test
       - name: Create test coverage summary
         run: |
           echo "| Module | Test Coverage |" >> "$GITHUB_STEP_SUMMARY"
@@ -121,11 +124,13 @@ jobs:
       - name: Run Checkstyle
         run: >
           mvn $MAVEN_CLI_OPTS ${{ inputs.maven-opts }} -Drevision=${{ inputs.version }} 
+          -Dspotbugs.skip -Denforcer.skip -Dtidy.skip
           compile checkstyle:checkstyle-aggregate
       - name: Run SpotBugs
         run: >
           mvn $MAVEN_CLI_OPTS ${{ inputs.maven-opts }} -Drevision=${{ inputs.version }} 
-          -Dcheckstyle.skip -Denforcer.skip -Dtidy.skip compile spotbugs:check
+          -Dcheckstyle.skip -Denforcer.skip -Dtidy.skip 
+          compile spotbugs:check
       - name: Upload Quality Reports
         if: success() || failure()
         uses: actions/upload-artifact@v4
