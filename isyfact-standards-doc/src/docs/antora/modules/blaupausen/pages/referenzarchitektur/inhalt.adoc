@@ -468,6 +468,45 @@ Für derartige Aufrufe gibt es keine Vorgaben: Sie können aus beliebigen Schich
 [id="image-CallFAmGuX",reftext="{figure-caption} {counter:figures}"]
 image::blaupausen:referenzarchitektur/CallFAmGuX.png[align="center"]
 
+[[zentrale-sicherheitsaspekte]]
+=== Zentrale Sicherheitsaspekte in der Referenzarchitektur
+
+Die IT-Sicherheit ist insbesondere dann für Softwaresysteme eine wichtige Anforderung, wenn diese sensible oder gar personenbezogene Daten verarbeiten.
+Solche Systeme stellen hohe Anforderungen an Vertraulichkeit, Integrität und Verfügbarkeit.
+Eine Referenzarchitektur muss als grundlegendes Element der IT-Sicherheitsstrategie die Einhaltung solcher Schutzziele unterstützen.
+
+Ein Pfeiler der IT-Sicherheitsstrategie ist der Schutz der Daten und IT-Systeme vor unberechtigter Nutzung.
+Die IsyFact Referenzarchitektur legt fest, dass jegliche Nutzung von IsyFact-Anwendungen nur authentifizierten und dafür autorisierten Benutzern möglich ist.
+Diese Forderung wird im Querschnitt-Baustein Security umgesetzt, den alle IsyFact-Anwendungen zwingend bei der Kommunikation, sowohl mit anderen Anwendungen innerhalb der Anwendungslandschaft, als auch mit Systemen außerhalb und auch bei der Kommunikation mit Nutzern, einsetzen müssen.
+
+Durch die Verwendung des Querschnitt-Bausteins Security werden die Außengrenzen der Anwendungslandschaft als Ganzes geschützt und die Anwendungen darin sind nur über einen Portal-Zugang bzw. Service-Gateway-Instanzen zugänglich. Außerdem werden die Anwendungsdomänen vor unberechtigtem Aufruf von anderen Anwendungen  innerhalb der Anwendungslandschaft geschützt.
+Dabei werden die Protokolle xref:isyfact-standards-doku:isy-security:konzept/master.adoc#oauth2.0-und-openidconnect[OAuth2.0 und OpenIDConnect] und die dort definierten _Authentication and Authorization Flow Types_  verwendet, um ein Single Sign On (SSO) zur xref:isyfact-standards-doku:isy-security:konzept/master.adoc#authentifizierung[Authentifizierung] und xref:isyfact-standards-doku:isy-security:konzept/master.adoc#autorisierung[Autorisierung] des menschlichen bzw. technischen Nutzers durch ein zentrales IAM-System umzusetzen.
+
+NOTE: IAM steht für xref:glossary:literaturextern:inhalt.adoc#litextern-identity_management[Identity and Access Management].
+
+.Integration von IAM in eine Anwendungslandschaft
+[id="image-iam-integration-awl",reftext="{figure-caption} {counter:figures}"]
+image::referenzarchitektur/sicherheit_iam_integration_awl.dn.svg[]
+
+Menschliche Anwender (egal ob intern oder extern), die mit einer Fachanwendung mittels eines Web-Client interagieren, kommen über den Portal-Zugang der Geschäftsanwendung auf ihre Web-GUI Komponente.
+Bevor das Portal jedoch eine Anfrage weiterleitet, prüft es, ob der Anwender dazu berechtigt ist.
+Dazu müssen Benutzer sich mit dem xref:isyfact-standards-doku:isy-security:konzept/master.adoc#image-Authorization-Code-Flow[_Authorization Code Flow_] per Benutzerkennung und Kennwort gegenüber dem zentralen IAM-System authentifizieren (siehe: xref:isyfact-standards-doku:isy-security:konzept/master.adoc#aufruf-weboberflaeche-portal[Konzept 'Security': Aufruf Web-Oberfläche/Portal]).
+
+Externe Anwendungen gelangen über ein Service-Gateway zu den Services der Geschäftsanwendung.
+Hier prüft das Service-Gateway bei jeder Anfrage, ob das anfragende System dazu berechtigt ist.
+Dazu muss sich die Anwendung gegenüber dem zentralen IAM-System über den xref:isyfact-standards-doku:isy-security:konzept/master.adoc#client-credential-flow[_Client Credential Flow_] mit seiner Client-ID u. -Secret authentifizieren.
+Alternativ kann auch das alte Verfahren xref:isyfact-standards-doku:isy-security:konzept/master.adoc#resource-owner-password-credential-flow[_Resource-Owner Password-Credentials Flow_] mit Anwendungskennung und Kennwort verwendet werden (siehe: xref:isyfact-standards-doku:isy-security:konzept/master.adoc#aufruf-service-gateway[Konzept 'Security': Aufruf Service-Gateway]).
+
+Batch- und Task-Komponenten einer internen Anwendungsdomäne müssen auch eine Authentifizierung und Autorisierung durchlaufen, bevor sie Services anderer interner Anwendungen aufrufen können.
+Dafür nutzen sie auch entweder den xref:isyfact-standards-doku:isy-security:konzept/master.adoc#client-credential-flow[_Client Credential Flow_] oder alternativ das alte Verfahren xref:isyfact-standards-doku:isy-security:konzept/master.adoc#resource-owner-password-credential-flow[_Resource-Owner Password-Credentials Flow_], um sich gegenüber dem zentralen IAM-System zu authentifizieren (siehe: xref:isyfact-standards-doku:isy-security:konzept/master.adoc#ausfuehrung-batch-u-task[Konzept 'Security': Ausführung Batch & Task]).
+
+Wenn zur Ausführung eines Geschäftsprozesses auch Services anderer interner Anwendungen verwendet werden, passiert das im Namen des Nutzers, der den ursprünglichen Geschäftsprozess ausgelöst hat.
+Dazu muss er bereits authentifiziert sein und es wird seine Autorisierung (Rollen) weitergegeben (siehe: xref:isyfact-standards-doku:isy-security:konzept/master.adoc#aufruf-von-nachbarsystemen[Konzept 'Security': Aufruf von Nachbarsystemen]).
+
+Zum anderen erfolgt die Autorisierung zur Benutzung eines Service der Fachanwendung über ein rollenbasiertes Berechtigungssystem.
+Nach erfolgreicher Authentifizierung liefert das IAM-System alle dem Nutzer zugeordneten Rollen zurück.
+Innerhalb der Anwendung erfolgt dann eine fein-granulare Autorisierung des Zugriffs auf die Funktionalität über eine Abbildung der (allgemein gültigen) Rollen des Nutzers auf (anwendungsspezifische) Rechte zur Benutzung einzelner Services (siehe: xref:isyfact-standards-doku:isy-security:konzept/master.adoc#rollen-und-rechte[Konzept 'Security': Rollen & Rechte]).
+
 [[verwendung-von-produkten]]
 === Verwendung von Produkten
 
