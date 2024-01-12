@@ -86,12 +86,8 @@ public class IsyDataSource extends DelegatingDataSource {
                     .getMessage(FehlerSchluessel.KEINE_CONNECTION_WEGEN_FEHLERHAFTER_INITIALISIERUNG),
                 SQLSTATE_CONNECTION_EXCEPTION);
         }
-        Connection conn = super.getConnection();
-        if (conn == null) {
-            throw new PersistenzException(FehlerSchluessel.KEINE_DB_CONNECTION_VERFUEGBAR);
-        }
 
-        return conn;
+        return super.getConnection();
     }
 
     /**
@@ -105,12 +101,8 @@ public class IsyDataSource extends DelegatingDataSource {
                     .getMessage(FehlerSchluessel.KEINE_CONNECTION_WEGEN_FEHLERHAFTER_INITIALISIERUNG),
                 SQLSTATE_CONNECTION_EXCEPTION);
         }
-        Connection conn = super.getConnection(username, password);
-        if (conn == null) {
-            throw new PersistenzException(FehlerSchluessel.KEINE_DB_CONNECTION_VERFUEGBAR);
-        }
 
-        return conn;
+        return super.getConnection(username, password);
     }
 
     /**
@@ -126,14 +118,16 @@ public class IsyDataSource extends DelegatingDataSource {
 
         String ermittelteSchemaVersion = "unbekannt";
         Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
         try {
             conn = getConnection();
             String query =
                 "select version_nummer from m_schema_version where version_nummer = ? and status = 'gueltig'";
 
-            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt = conn.prepareStatement(query);
             stmt.setString(1, this.schemaVersion);
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
             if (rs != null && rs.next()) {
                 ermittelteSchemaVersion = rs.getString(1);
             }
@@ -158,6 +152,22 @@ public class IsyDataSource extends DelegatingDataSource {
         } catch (PersistenzException e1) {
             throw e1;
         } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    LOG.warn(EreignisSchluessel.DB_VERBINDUNG_NICHT_GESCHLOSSEN,
+                        "Das Ergebnis der SQL Anfrage konnte nicht geschlossen werden. Grund {}", e.getMessage());
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    LOG.warn(EreignisSchluessel.DB_VERBINDUNG_NICHT_GESCHLOSSEN,
+                        "Die SQL Anfrage konnte nicht geschlossen werden. Grund: {}", e.getMessage());
+                }
+            }
             if (conn != null) {
                 try {
                     conn.close();

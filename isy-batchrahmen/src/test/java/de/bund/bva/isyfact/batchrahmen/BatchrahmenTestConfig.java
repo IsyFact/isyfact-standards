@@ -1,6 +1,14 @@
 package de.bund.bva.isyfact.batchrahmen;
 
-import de.bund.bva.isyfact.batchrahmen.batch.AufrufKontextTestBatch;
+import javax.annotation.Nullable;
+
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.PlatformTransactionManager;
+
 import de.bund.bva.isyfact.batchrahmen.batch.BasicTestBatch;
 import de.bund.bva.isyfact.batchrahmen.batch.ErrorTestBatch;
 import de.bund.bva.isyfact.batchrahmen.batch.GesicherterTestBatch;
@@ -10,11 +18,7 @@ import de.bund.bva.isyfact.batchrahmen.batch.ReturnCodeTestBatch;
 import de.bund.bva.isyfact.batchrahmen.core.rahmen.Batchrahmen;
 import de.bund.bva.isyfact.batchrahmen.core.rahmen.impl.BatchrahmenImpl;
 import de.bund.bva.isyfact.batchrahmen.core.rahmen.jmx.BatchRahmenMBean;
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontextFactory;
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.transaction.PlatformTransactionManager;
+import de.bund.bva.isyfact.security.oauth2.client.Authentifizierungsmanager;
 
 @Configuration
 public class BatchrahmenTestConfig {
@@ -25,12 +29,11 @@ public class BatchrahmenTestConfig {
     }
 
     @Bean
-    public Batchrahmen batchrahmen(PlatformTransactionManager platformTransactionManager, AufrufKontextVerwalter aufrufKontextVerwalter, AufrufKontextFactory aufrufKontextFactory) {
+    public Batchrahmen batchrahmen(PlatformTransactionManager platformTransactionManager, @Nullable Authentifizierungsmanager authentifizierungsmanager) {
         BatchrahmenImpl batchrahmen = new BatchrahmenImpl();
         batchrahmen.setTransactionManager(platformTransactionManager);
-        batchrahmen.setAufrufKontextFactory(aufrufKontextFactory);
-        batchrahmen.setAufrufKontextVerwalter(aufrufKontextVerwalter);
         batchrahmen.setJmxBean(batchRahmenMBean());
+        batchrahmen.setAuthentifizierungsmanager(authentifizierungsmanager);
 
         return batchrahmen;
     }
@@ -65,8 +68,4 @@ public class BatchrahmenTestConfig {
         return new ReturnCodeTestBatch();
     }
 
-    @Bean
-    public AufrufKontextTestBatch aufrufKontextTestBatch() {
-        return new AufrufKontextTestBatch();
-    }
 }

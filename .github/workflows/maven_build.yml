@@ -1,0 +1,28 @@
+name: Check Maven
+on:
+  pull_request:
+    branches:
+      - master
+      - 'release/**'
+    paths-ignore:
+      - 'isyfact-standards-doc'
+  push:
+    branches:
+      - master
+      - 'release/**'
+    paths-ignore:
+      - 'isyfact-standards-doc'
+
+jobs:
+  Version:
+    uses: IsyFact/isyfact-standards/.github/workflows/next_version.yml@master
+    with:
+      next-version: 4.0.0
+
+  Maven:
+    needs: [Version]
+    uses: IsyFact/isyfact-standards/.github/workflows/maven_build_template.yml@master
+    with:
+      version: ${{ needs.Version.outputs.next-version }}
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

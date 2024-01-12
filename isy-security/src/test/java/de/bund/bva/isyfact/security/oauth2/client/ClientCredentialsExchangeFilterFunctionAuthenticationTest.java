@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -45,6 +46,10 @@ public class ClientCredentialsExchangeFilterFunctionAuthenticationTest extends A
     public void setup() {
         embeddedOidcProvider.removeAllClients();
         pingUri = "http://localhost:" + port + "/ping";
+
+        // make sure that the security context is empty
+        // the ServletOAuth2AuthorizedClientExchangeFilterFunction would fail if an Authentication with a null principal exists
+        SecurityContextHolder.clearContext();
     }
 
     @Test

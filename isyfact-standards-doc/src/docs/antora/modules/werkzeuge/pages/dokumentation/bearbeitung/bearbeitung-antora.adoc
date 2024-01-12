@@ -318,9 +318,9 @@ Der Block Sicherheit beschreibt Regeln, welche die IsyFact an die IT-Sicherheit 
 Die Regeln stellen vor allem eine, vom festgestellten Schutzbedarf abhängige, sichere Umsetzung der IT-Systeme sicher.
 ****
 
-.icon:paint-brush[] Styleguide: Beispiel für Styleguide
+.icon:paint-brush[] Bedienkonzept: Beispiel für Bedienkonzept
 ****
-Der Block Styleguide beschreibt Regeln, welche die IsyFact an die Gestaltung der grafischen Oberflächen stellt.
+Der Block Bedienkonzept beschreibt Regeln, welche die IsyFact an die Gestaltung der grafischen Oberflächen stellt.
 Die Regeln kommen typischerweise aus den Bereichen:
 
 * Allgemeine Gestaltungsrichtlinien,

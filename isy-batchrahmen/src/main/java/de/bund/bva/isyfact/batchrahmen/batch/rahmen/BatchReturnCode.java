@@ -16,8 +16,8 @@
  */
 package de.bund.bva.isyfact.batchrahmen.batch.rahmen;
 
-import de.bund.bva.isyfact.batchrahmen.core.rahmen.impl.NachrichtenProvider;
 import de.bund.bva.isyfact.batchrahmen.core.konstanten.NachrichtenSchluessel;
+import de.bund.bva.isyfact.batchrahmen.core.rahmen.impl.NachrichtenProvider;
 
 /**
  * Enumeration der Batch-Returncodes.

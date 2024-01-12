@@ -1,0 +1,12 @@
+= Vorlage Schnittstellendokumenation
+
+include::glossary:licence:partial$licence.adoc[]
+
+include::00-copyright-allgem-hinweise.adoc[tags=inhalt]
+include::01-allgemeines.adoc[tags=inhalt]
+include::02-fachlicher-ueberblick.adoc[tags=inhalt]
+include::03-nachbarsystemschnittstellen.adoc[tags=inhalt]
+include::04-fehlerbehandlung.adoc[tags=inhalt]
+include::05-schnittstellenverhalten.adoc[tags=inhalt]
+include::06-offene-punkte.adoc[tags=inhalt]
+include::07-anhang.adoc[tags=inhalt]

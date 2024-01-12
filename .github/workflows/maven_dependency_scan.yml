@@ -1,0 +1,17 @@
+name: Dependency Scan
+on:
+  push:
+    branches:
+      - master
+      - 'release/**'
+    paths:
+      - '**/pom.xml'
+
+jobs:
+  Dependencies:
+    uses: IsyFact/isyfact-standards/.github/workflows/maven_dependency_scan_template.yml@master
+    with:
+      snyk-reference: $GITHUB_REF_NAME
+      snyk-organization: ${{ vars.SNYK_ORG_ID }}
+    secrets:
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

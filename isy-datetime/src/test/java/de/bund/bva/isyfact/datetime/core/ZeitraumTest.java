@@ -1,17 +1,10 @@
 package de.bund.bva.isyfact.datetime.core;
 
-import java.time.DateTimeException;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.Period;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.temporal.ChronoUnit;
-
 import de.bund.bva.isyfact.datetime.format.OutFormat;
 import org.junit.Test;
+
+import java.time.*;
+import java.time.temporal.ChronoUnit;
 
 import static org.junit.Assert.*;
 
@@ -21,6 +14,10 @@ public class ZeitraumTest {
     private static final LocalDate localDate = LocalDate.of(2017, 8, 1);
 
     private static final LocalTime localTime = LocalTime.of(15, 0);
+
+    private Zeitraum zeitraum1 = Zeitraum.of(ZonedDateTime.parse("2023-01-01T08:00:00Z"), ZonedDateTime.parse("2023-01-01T12:00:00Z"));
+
+    private Zeitraum zeitraum2 = Zeitraum.of(ZonedDateTime.parse("2023-01-01T08:00:00Z"), ZonedDateTime.parse("2023-01-01T12:00:00Z"));
 
     private static final LocalDateTime localDateTime = LocalDateTime.of(localDate, localTime);
 
@@ -478,5 +475,24 @@ public class ZeitraumTest {
                 .format(ohneDatum0Sekunden.getEndzeit());
 
         assertEquals(expected, ohneDatum0Sekunden.toString());
+    }
+
+    @Test
+    public void testEqualsWithEqualObjects() {
+        assertEquals(zeitraum1, zeitraum2);
+        // Wenn Referenzen identisch sind, wird restliche Logik von equals übersprungen
+        assertEquals(zeitraum1, zeitraum1);
+        assertEquals(zeitraum1.hashCode(), zeitraum2.hashCode());
+    }
+
+    @Test
+    public void testEqualsWithDifferentObjects() {
+        Zeitraum differentZeitraum = Zeitraum.of(ZonedDateTime.parse("2023-01-01T13:00:00Z"), ZonedDateTime.parse("2023-01-01T14:00:00Z"));
+        assertNotEquals(zeitraum1, differentZeitraum);
+    }
+
+    @Test
+    public void testEqualsWithNull() {
+        assertNotEquals(zeitraum1, null);
     }
 }

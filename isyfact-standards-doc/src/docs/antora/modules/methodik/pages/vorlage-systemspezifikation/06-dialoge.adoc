@@ -1,0 +1,128 @@
+// tag::inhalt[]
+[[dialoge]]
+== Dialoge
+
+_In dem folgenden Abschnitt wird beschrieben, wie der Benutzer mit dem Anwendungssystem kommuniziert, d.h. welche Funktionen er wie in welchen Dialogen aufruft und welche Daten er pflegen kann.
+Die Beschreibung umfasst das statische Aussehen und das dynamische Verhalten der Dialoge._
+
+_Der Begriff „Dialog“ bezeichnet die gesamte Benutzerschnittstelle eines Anwendungsfalls (Masken, Zustände, Übergänge).
+Die Spezifikation eines Dialogs umfasst die Beschreibung seiner Masken und Maskenzustände sowie der Übergänge zwischen den Masken.
+Ein Dialog ist in sich abgeschlossen und gegenüber anderen Dialogen abgegrenzt._
+
+_Eine „Maske“ entspricht einem Bildschirmbereich zur Bearbeitung eines Arbeitsschritts eines Anwendungsfalls, z.B. ein Fenster.
+Eine Maske entspricht in der grafischen Benutzungsschnittstelle meist genau einem Fenster.
+Die Übergänge zwischen den Masken bzw. Zuständen eines Dialoges werden textuell bzw. grafisch beschrieben._
+
+_Wird die grafische Benutzeroberfläche innerhalb der Anwendungsfälle spezifiziert, hat das folgende Nachteile:_
+
+* _Die Beschreibung der Anwendungsfälle wird sehr umfangreich und sehr detailliert und lenkt von der Beschreibung des fachlichen Ablaufes ab._
+* _Die Anwendungsfälle werden eventuell unnötigerweise zu detailliert beschrieben, da bestimmte Masken in mehreren Fällen benutzt werden und damit als separater Anwendungsfall ausgelagert werden können._
+
+_Die Maskenbeschreibungen werden nach Anwendungskomponenten oder anderen fachlichen Kriterien gruppiert._
+
+[[dialog-diabezeichnung-dialogs]]
+=== Dialog DIA_<Bezeichnung des Dialogs>
+
+_Der Dialog wird kurz textuell beschrieben.
+Es folgt eine Übersicht der zum Dialog zugehörigen Masken und deren Navigationsmöglichkeiten untereinander.
+Die Abhängigkeiten der Masken zu den Entitäten des Datenmodells bezüglich Eingabe und Ausgabe werden grafisch in einem UML-Komponentendiagramm dargestellt._
+
+_Namen von Dialogen beginnen mit +„DIA_“+ gefolgt von einem Substantiv und einem Verb, z.B. „DIA_Person_hinzufügen“.
+Falls nötig kann noch ein Adjektiv vor das Substantiv gestellt werden._
+
+[[dia-person-hinzufuegen]]
+.Dialog: DIA_Person_hinzufuegen
+image::vorlage-systemspezifikation/diapersonhinzufuegen.png[]
+
+****
+Erstellung des Diagramms im Enterprise Architect:
+
+_Man erstellt ein Composite Structure Diagramm.
+Typischerweise beschreibt man die im Dialog verwendeten Masken zuerst (siehe Kapitel 6.3) und zieht die dort erzeugten Masken in das Diagramm.
+Dann nutzt man die Verbinder aus demselben UML-Profil „Dialoge“, um den Ablauf darzustellen.
+Man nutzt Verzweigung, Start- und Ende-Elemente aus dem UML-Profil „Anwendungsfälle“.
+Die Modellierung des Ablaufs führt man analog der Modellierung des Anwendungsfall-Ablaufs durch._
+****
+
+[[dialog-diabezeichnung-dialogs-2]]
+=== Dialog DIA_<Bezeichnung des Dialogs>
+
+_Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier weitere Dialoge zu beschreiben sind._
+
+[[masken]]
+=== Masken
+
+_Die Masken werden in Kapiteln analog zu den Anwendungskomponenten aufgeteilt.
+Ein Übersichtsdiagramm zeigt die Masken je Anwendungskomponente._
+
+[[uebersicht-masken]]
+.Übersicht Masken
+image::vorlage-systemspezifikation/uebersicht-masken.png[]
+
+****
+Erstellung des Diagramms im Enterprise Architect:
+
+_Man zieht die Ordner, die die Masken enthalten, in ein Composite Structure Diagramm._
+****
+
+[[bezeichnung-anwendungskomponente]]
+==== <Bezeichnung der Anwendungskomponente>
+
+[[maske-masbezeichnung-maske]]
+===== Maske MAS_<Bezeichnung der Maske>
+
+_Der Zweck der Maske wird in ein bis zwei Sätzen erläutert.
+Namen von Masken beginnen mit +„MAS_“+ gefolgt von einem Substantiv und einem Verb, z.B. +„MAS_Suchkriterien_eingeben“+._
+
+_Die Entitätstypen des Datenmodells, die durch die Maske angezeigt oder eingegeben werden, können optional in einer Übersicht dargestellt werden.
+Alternativ können sie auch in der Kurzbeschreibung der Maske aufgezählt werden._
+
+[[mas-person-hinzufuegen]]
+.UML: MAS_Person_hinzufuegen
+image::vorlage-systemspezifikation/maspersonhinzufuegen.png[]
+
+****
+Erstellung des Diagramms im Enterprise Architect:
+
+_Man zieht die Maske als zentrales Element des Diagramms aus dem UML-Profil „Dialoge“ in die Mitte eines „Composite Structure“-Diagramms und ordnet Entitäten aus dem Datenmodell oder Schnittstellenentitäten darum an.
+Die Verbinder stammen ebenfalls aus dem UML-Profil „Dialoge“._
+****
+
+_Die Maske kann optional als Prototyp aufgezeichnet werden.
+Hierzu stehen verschiedene Elemente im UML-Profil „Dialoge“ zur Verfügung.
+Dies kann dazu dienen, vor Erstellung der Masken bereits das Bedienkonzept grob zu beschreiben und Maskenelemente eindeutig zu benennen.
+Alternativ kann ein Masken-Prototyp (Englisch „Mockup“) mit anderen Mitteln erstellt und hier eingefügt werden, oder es kann nach Inbetriebnahme ein Masken-Screenshot des produktiven Systems eingefügt werden._
+
+[[mas-person-hinzufuegen-maske]]
+.Maske: MAS_Person_hinzufuegen
+image::vorlage-systemspezifikation/maspersonhinzufuegen-dialog.png[]
+
+****
+Erstellung des Diagramms im Enterprise Architect:
+
+_Man zieht die Maske in ein Component Diagramm und vergrößert sie.
+Dann zieht man aus dem UML-Profil „Dialoge“ einzelne Maskenelemente in die Maske hinein, benennt sie und ordnet sie an._
+****
+
+[[table-masken]]
+[cols="1,4",options="header"]
+|====
+2+|Maske
+|*Typ*  |_<Maskentyp>_
+|*Referenzen*|_Optionale Referenzen auf bestehende technische Maskennamen._
+|*Kurzbeschreibung* |_Hier werden der Zweck sowie die Anzeige- und Eingabe-Möglichkeiten der Maske beschrieben.
+Falls kein Diagramm zu den genutzten Entitätstypen erstellt wird, werden diese hier zusätzlich aufgezählt._
+|====
+
+[[maske-masbezeichnung-maske-2]]
+===== Maske MAS_<Bezeichnung der Maske>
+
+_Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier weitere Masken der Anwendungskomponente zu beschreiben sind._
+
+[[bezeichnung-anwendungskomponente-2]]
+==== <Bezeichnung der Anwendungskomponente>
+
+_Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier Masken der weiteren Anwendungskomponenten zu beschreiben sind._
+
+// end::inhalt[]
+

@@ -14,12 +14,10 @@ NOTE: Bei Interesse wenden Sie sich bitte per E-Mail (isyfact@bva.bund.de) an un
 Die IsyFact-Erweiterungen stellen eine Reihe von Bausteine zur Verfügung, die bei Bedarf eingesetzt werden können.
 Diese werden im Folgenden dargestellt:
 
-[[styleguide]]
-=== Styleguide
-Der Baustein Styleguide beschreibt die Gestaltung grafischer Oberflächen nach einheitlichen Gesichtspunkten.
-Das zentrale Dokument, der xref:isy-styleguide:styleguide.adoc[Styleguide], enthält Vorgaben zu Aufbau und Gestaltung von Web-GUIs.
-Der Styleguide definiert ebenfalls Form und Funktion der in der IsyFact verfügbaren Anzeige- und Bedienelemente.
-Neben dem Dokument beinhaltet der Baustein eine Software-Bibliothek, welche die Vorgaben als CSS-Stile zur Nutzung bereitstellt.
+[[bedienkonzept]]
+=== Bedienkonzept
+Das Bedienkonzept beschreibt die Gestaltungsregeln, Lösungsmuster und Workflows für fachliche Abläufe in Benutzeroberflächen.
+Ziel des Bedienkonzepts ist es, dass sich Sachbearbeiter möglichst schnell zwischen unterschiedlichen Anwendungen orientieren können.
 
 [[webjsf]]
 === Web JSF

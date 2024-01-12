@@ -1,0 +1,169 @@
+= Vorlage Systemspezifikation
+
+// tag::inhalt[]
+
+[[datenmodell]]
+== Datenmodell
+
+_Das logische Datenmodell beschreibt die fachliche Sicht auf die Daten des Anwendungssystems.
+Es enthält Entitätstypen und ihre Beziehungen zueinander.
+Jeder Entitätstyp enthält Attribute und ihre fachlichen Datentypen (siehe Abschnitt „Datentypen“).
+Den Inhalt des logischen Datenmodells bildet eine Beschreibung der Entitätstypen, Assoziationen und Attribute._
+
+_Die Entitätstypen, Assoziationen und eventuell auch die Attribute (mit ihren Datentypen) werden in einem Diagramm grafisch dargestellt.
+Das Diagramm dient dazu, einen ersten Überblick über die Entitätstypen zu bekommen und die Assoziationen „auf einen Blick“ zu erfassen.
+Die textuelle Beschreibung enthält die Beschreibungen der Entitätstypen und Attribute._
+
+_Für die Darstellung der Attribute spricht, dass so im Diagramm alle Informationen des Datenmodells bis auf die beschreibenden Texte enthalten sind.
+Gegen die Darstellung der Attribute spricht, dass diese dann im Diagramm redundant zur tabellarischen Darstellung gepflegt werden müssen.
+Hier kann es zu Inkonsistenzen kommen.
+Daher muss abgewogen werden, ob die Darstellung der Attribute wirklich notwendig ist._
+
+_Bei großen Datenmodellen werden Modellkomponenten definiert.
+Eine Modellkomponente ist eine Gruppierung, die fachlich zusammengehörige Entitätstypen inklusive ihrer Assoziationen zusammenfasst.
+Sie ist überschneidungsfrei, d.h. ein Entitätstyp gehört zu genau einer Modellkomponente.
+In einer Modellkomponente kann allerdings ein Entitätstyp einer anderen Modellkomponente referenziert werden._
+
+_Modellkomponenten werden in der textuellen Beschreibung durch entsprechende Benennung der Abschnitte gekennzeichnet._
+
+_Für die Modellierung gilt generell: Nicht die ganze Welt modellieren, sondern nur den für die zu realisierende Anwendung wichtigen fachlichen Ausschnitt.
+Die technische Umsetzung berücksichtigen wir hier nicht._
+
+_Ein Entitätstyp hat eine Reihe von Eigenschaften, die dabei helfen können zu entscheiden, ob eine Information als Entitätstyp (oder als Datentyp bzw. Menge von Attributen) zu modellieren ist:_
+
+* _Er ist autonom, d.h. für sich allein lebensfähig (Gegenbeispiel: Alter einer Person)._
+* _Die Entitäten sind (über einen Schlüssel) eindeutig identifizierbar._
+* _Er ist unverzichtbar, d.h. bestimmte Abläufe lassen sich nicht mehr darstellen, wenn man auf den Entitätstyp verzichtet._
+* _Man kann und will ihn durch Attribute näher beschreiben (Gegenbeispiel: Anzahl Mitarbeiter)._
+* _Man kann und will ihn anlegen und löschen (siehe Eigenschaft autonom)._
+
+[[modellkomponente-mkoname-modellkomponente]]
+=== Modellkomponente MKO_<Name der Modellkomponente>
+
+_Namen von Modellkomponenten beginnen mit dem Präfix +„MKO_“+ gefolgt von einem Substantiv, z.B. „MKO_Behörden“.
+Falls nötig kann noch ein Adjektiv vor das Substantiv gestellt werden._
+
+_Hier wird kurz textuell beschrieben, bezüglich welcher fachlichen Logik die Entitätstypen eine Modellkomponente bilden.
+Ein UML-Klassendiagramm enthält alle Entitäten mit Attributen und Assoziationen zwischen diesen.
+Fachliche Schlüsselattribute müssen im UML-Klassendiagramm hervorgehoben werden (in +ETY_Person+  durch die Abtrennung "Schlüsselattribut")._
+
+_Modellkomponenten fremder Entitätstypen, die in dem Übersichtsdiagramm der Modellkomponente referenziert werden, sind unterschiedlich zu kennzeichnen (ETY_Protokolleintrag weiß dargestellt).
+Ebenso sind transiente Entitätstypen im Übersichtsdiagramm kenntlich zu machen (z.B. durch kursiv geschriebenen Entitätsnamen)._
+
+[[mko-bestand-1]]
+.Modellkomponente MKO_xy
+image::vorlage-systemspezifikation/mkobestand.png[]
+
+_Wenn das Diagramm der Modellkomponente zu groß wird, kann man es auf mehrere Diagramme aufteilen.
+Oft ergibt sich im Datenmodell eine baumartige Struktur.
+Hier kann man zentrale Entitäten als „Brücke“ zwischen den Diagrammen nutzen, die man im ersten Diagramm darstellt, als kämen sie aus einer anderen Modellkomponente.
+Im zweiten Diagramm stellt man sie dann vollständig dar, inklusive der ihnen untergeordneten Entitäten des Baumes.
+Ein Beispiel dafür ist nachfolgend abgebildet._
+
+[[mko-uebersicht-alternative]]
+.Modellkomponente MKO_xy (alternativ): Übersicht
+image::vorlage-systemspezifikation/beispieldiagramm-mkobestand-alternativss-uebersicht.png[]
+
+[[mko-bestand-details]]
+.Modellkomponente MKO_xy: Details
+image::vorlage-systemspezifikation/beispieldiagramm-mkobestandss-details.png[]
+
+****
+Erstellung des Diagramms im Enterprise Architect:
+
+_Man zieht die Entitätstypen aus dem UML-Profil „Datenmodell“ in ein Klassendiagramm, gibt ihnen Namen (mit Präfix +„ETY_“+) und falls gewünscht Attribute.
+Die Attribute haben ihrerseits jeweils Namen (mit Präfix +„ATT_“+) und Datentypen (mit Präfix +„DTY_“+)._
+
+_Für die Verbinder nutzt man ebenfalls das UML-Profil.
+In der Source Role und Target Role kann man für die Enden der Assoziationen Multiplizitäten angeben.
+Wenn eine Assoziation ungerichtet ist, blendet man die Pfeilspitze übersetzen von „Navigability“ auf „unspecified“ in der Target Role aus._
+
+_Verknüpfte Entitäten aus anderen Modellkomponenten stellt man in diesem Diagramm weiß dar und blendet ihre Attribute aus.
+Es bietet sich hier an, die Namespaces ausnahmsweise darzustellen.
+So kann man sehen, aus welcher Modellkomponente die fremde Entität stammt._
+
+_Assoziationen zwischen Entitäten können, falls ihre Bedeutung nicht intuitiv klar ist, unterhalb der Diagramme textuell beschrieben werden: Bei den Entitäten selbst werden Assoziationen nicht beschrieben._
+****
+
+[[entitaetstyp-etybezeichnung-entitaetstypen]]
+==== Entitätstyp ETY_<Bezeichnung des Entitätstypen>
+
+_Namen von Entitätstypen beginnen mit dem Präfix +„ETY_“+ gefolgt von einem Substantiv, z.B. +„ETY_Person“+.
+Falls nötig kann noch ein Adjektiv vor das Substantiv gestellt werden._
+
+[[table-entitaetstyp-abc]]
+[cols="2,6", options="header"]
+|===
+2+| Entitätstyp
+|*Kurzbeschreibung* |_Die Beschreibung des Entitätstyps ermöglicht dem Leser, den Namen der Entität und ihre Bedeutung zu verstehen.
+
+Für die Begriffserklärung können Synonyme oder Oberbegriffe benutzt werden (Beispiel: „Ein Mitarbeiter ist eine natürliche Person“…").
+
+Anschließend wird der Begriff inhaltlich und zeitlich abgegrenzt, d.h. wir erläutern, unter welchen Bedingungen eine Ausprägung zu diesem Entitätstyp gehört.
+
+Die Beschreibung kann Beispiele, weitere Erläuterungen und Anmerkungen enthalten.
+Sie sollte auf eine standardisierte Weise erfolgen, so dass sich die Beschreibungen über das Datenmodell hinweg in der Form ähneln._
+|===
+
+
+[[table-att]]
+[cols="1s,1,1",options="header"]
+|====
+|*Attribut* |*Datentyp* |*Bedeutung*
+|_Name des Attributs beginnend mit dem Präfix +„ATT_“+.|_Verweis auf den fachlichen Datentyp (siehe Abschnitt „Datentypen“) oder auf einen einfachen Datentyp („Zeichenkette“, „Ganzzahl“, „Fließkommazahl“ etc.)._ a|
+_Die Beschreibung des Attributes sollte einen inhaltlichen Mehrwert bringen (also Beschreibungen wie „Datum ist das Datum der Buchung“ vermeiden)._
+
+_Es hat sich bewährt, die Beschreibung soweit möglich mit „Enthält“ zu beginnen._
+
+_Folgende Fragestellungen können bei der Beschreibung helfen:_
+
+
+* _Ist diese Information immer oder nur unter bestimmten Bedingungen vorhanden?_
++
+* _Wann und wo entsteht diese Information?_
++
+* _Wie entsteht diese Information im Unternehmen? (Die Information kann festgestellt, festgelegt und abgeleitet sein.)_
++
+* _Für welchen Zeitraum bzw. bis zu welchem Zeitpunkt ist diese Information gültig?_
+
+|_Weitere Attribute in nachfolgenden Zeilen_ |_Weitere Datentypen_ |_Weitere Beschreibungen_
+|====
+
+[[entitaetstyp-etybezeichnung-entitaetstypen-2]]
+==== Entitätstyp ETY_<Bezeichnung des Entitätstypen>
+
+_Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier weitere Entitätstypen der Modellkomponente zu beschreiben sind._
+
+[[modellkomponente-mkoname-modellkomponente-2]]
+=== Modellkomponente MKO_<Name der Modellkomponente>
+
+_Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier weitere Modellkomponenten mit ihren Entitätstypen zu beschreiben sind._
+
+[[datentypen]]
+=== Datentypen
+
+_Fachliche Datentypen gruppieren Typen und Wertebereichsangaben von Attributen.
+Die Datentypen werden in einem Datentypverzeichnis verwaltet.
+Beispiele: ISBN, Fahrgestellnummer, Aufzählungstypen._
+
+_Im Fall von trivialer Fachlichkeit (z.B. Beschreibungstexte, einfache Nummern) verzichten wir auf fachliche Datentypen und verwenden direkt die technischen Basistypen Zeichenkette, Ganzzahl, Kommazahl etc.
+Eigenschaften des Attributes und der Datentyp sollten voneinander getrennt werden._
+
+_Typischerweise verwenden verschiedene Anwendungssysteme ähnliche Datentypen.
+Innerhalb einer Anwendungslandschaft müssen gleich benannte Datentypen auch den gleichen Inhalt haben.
+Ähnliche, aber inhaltlich unterschiedliche Datentypen sollten auch über die Anwendungssysteme der Anwendungslandschaft explizit unterschiedlich benannt werden, um hier Verwirrung zu vermeiden._
+
+_Falls Datentypen für Schlüsselwerte verwendet werden, welche im Schlüsselverzeichnis abgelegt sind, so ist in der Beschreibung des Datentyps die Schlüsselkategorie des SVZ zu nennen.
+Falls die Werte nicht im Schlüsselverzeichnis abgelegt sind, so ist ein Kapitel im Anhang der Spezifikation zu referenzieren, in dem alle fachlichen Ausprägungen des Schlüssels genannt werden._
+
+
+[[table-dty]]
+[cols="1s,1,1,1",options="header"]
+|====
+|*Datentyp* |*Basistyp* |*Bedeutung* |*Wertebereich*
+|_Name des Datentyps beginnend mit dem Präfix +„DTY_“+._ |_Technischer Basistyp wie „String“, „Integer, „Float“, „Alphanum“ oder ähnliche._ |_Fachliche Bedeutung des Datentyps.
+Hier sollen auch Plausibilisierungen und Prüfungen beschrieben werden._ |_Mögliche Ausprägungen des Datentyps._
+|====
+
+// end::inhalt[]
+

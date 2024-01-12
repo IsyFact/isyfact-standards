@@ -1,0 +1,302 @@
+// tag::inhalt[]
+
+
+[[nachbarsystemschnittstellen]]
+== Nachbarsystemschnittstellen
+
+_Ein UML-Komponentendiagramm gibt einen Überblick über die vom Anwendungssystem angebotenen Schnittstellen._
+
+[[image-angebotene-nachbarschnittstelle]]
+.Angebotene Schnittstellen
+image::vorlage-schnittstellendokumentation/angebotene-nachbarschnittstellen.png[]
+
+
+[[angebotene-nachbarsystemschnittstelle-nstbezeichnung-schnittstelle]]
+=== Angebotene Nachbarsystemschnittstelle NST_<Bezeichnung der Schnittstelle>
+
+[[kommunikationsablauf-nstbezeichnung-schnittstelle]]
+==== Kommunikationsablauf NST_<Bezeichnung der Schnittstelle>
+
+_In diesem Kapitel wird der Kommunikationsablauf zwischen einem anderen System und der angebotenen Nachbarsystemschnittstelle beschrieben._
+
+_Der Kommunikationsablauf wird in einem Sequenzdiagramm dargestellt.
+Das Sequenzdiagramm enthält die beteiligten Akteure und die Eingabe- und Ausgabeparameter.
+Im Anschluss an das Sequenzdiagramm wird dieses erläutert._
+
+.Kommunikationsablauf: NST_Meldung_durchführen
+image::vorlage-schnittstellendokumentation/kommunikationsablauf-nst.png[]
+
+[[aufbau-nstbezeichnung-schnittstelle]]
+====  Aufbau NST_<Bezeichnung der Schnittstelle>
+
+_Die Nachbarsystemschnittstelle wird in einem oder mehreren Diagrammen grafisch dargestellt.
+Dabei werden die Parameter und Rückgabewerte als Nachbarschnittstellenentitäten dargestellt.
+Diese beschreiben den Aufbau der Schnittstelle.
+Der Aufbau der Schnittstellenentitäten kann dem Aufbau eines Datenmodells ähneln.
+Meist ergeben sich aber doch Abweichungen, zum Beispiel, weil Attribute erst vom aufgerufenen Anwendungsfall berechnet und gespeichert werden._
+
+_Für die Beschreibung der Nachbarsystemschnittstellen wird eine angepasste Form der Notation UML 2.0 verwendet.
+Die in dieser Notation dargestellten Diagramme bestehen aus Elementen und ihren Beziehungen untereinander.
+Die Beziehungen werden je nach Art der Beziehung durch unterschiedliche Verbinder dargestellt.
+Zur Erläuterung werden in den folgenden Abschnitten die verwendeten Elemente und Verbinder genauer erklärt._
+
+_Zu jeder Schnittstelle werden die Eingabeparameter (<<eingabeparameter>>) links und die Ausgabeparameter (<<ausgabeparameter>>) rechts neben dem Schnittstellensymbol aufgeführt._
+_Die Parameter können komplex sein.
+Um die Übersichtlichkeit zu erhöhen, ist ihre Struktur nicht direkt im Schnittstellendiagramm, sondern in separaten Kapiteln Aufrufparameter und Ausgabeparameter im Detail beschrieben._
+
+_Nachbarschnittstellenentitäten können über mehrere Schnittstellen hinweg wiederverwendet werden._
+
+_Wenn das Diagramm der Schnittstelle zu umfangreich wird, kann es auf mehrere Diagramme aufgeteilt werden._
+
+[[image-meldung-durchfuehren]]
+.NST_Meldung_durchführen
+image::vorlage-schnittstellendokumentation/nst-meldung-durchfuehren.png[]
+
+****
+*Erstellung des Diagramms im Enterprise Architect:*
+
+Man zieht die Nachbarsystemschnittstelle aus dem UML-Profil „Nachbarschnittstellen“ in ein Composite Structure Diagramm und benennt sie richtig.
+Die Schnittstellenentitätstypen werden erst erstellt und dann in diesem Diagramm verwendet.
+Zwischen den Schnittstellenentitätstypen werden Verknüpfungen definiert.
+Typischerweise ergeben sich eine oder mehrere baumartige Strukturen, analog zum Datenmodell.
+Deren „Wurzeln“ werden mit der Schnittstelle verknüpft, entweder als Parameter oder als Rückgabe.
+Beide Verknüpfungen stammen aus dem UML-Profil „Nachbarschnittstellen“.
+****
+
+[[table-fachliche-elemente-schnittstelle]]
+[cols="1,3"]
+|===
+
+|*Kurzbeschreibung* |_Welche fachlichen Dienste werden durch die Schnittstelle bereitgestellt?
+Welchen fachlichen Hintergrund haben die ausgetauschten Daten?_
+|*Synchron/Asynchron* |_Bei synchronen Schnittstellen blockiert der aufrufende Bearbeitungsablauf so lange, bis das aufgerufene Anwendungssystem eine Antwort zurückgesendet hat (enge Kopplung).
+Bei asynchronen Schnittstellen fährt der aufrufende Bearbeitungsablauf sofort mit weiteren, lokalen Schritten fort (lose Kopplung).
+Falls eine Reaktion vom aufgerufenen Anwendungssystem erwartet wird, so muss sie über einen asynchronen Mechanismus wie z.B. ein Aufgabensystem in den Bearbeitungsprozess wieder eingegliedert werden._
+|*Verwendete +
+Entitätstypen (Input)* |_Liste der Schnittstellenentitätstypen, die Parameter beim Aufruf der Schnittstelle durch ein Nachbarsystem sind.
+Durch das Schnittstellendiagramm ist diese Information bereits dargestellt, daher ist die Auflistung optional._
+|*Verwendete +
+Entitätstypen (Output)* |_Liste der Schnittstellenentitätstypen, die von der Schnittstelle zurückgeliefert werden.
+Durch das Schnittstellendiagramm ist diese Information bereits dargestellt, daher ist die Auflistung optional._
+|===
+
+[[eingabeparameter]]
+===== Eingabeparameter
+
+_Die Eingabeparameter der Nachbarsystemschnittstelle werden beschrieben.
+Wenn es viele Überschneidungen zwischen den Eingabeparametern der verschiedenen angebotenen Nachbarsystemschnittstellen gibt, kann dieser Abschnitt auch einmalig nach den Nachbarsystemschnittstellen beschrieben werden._
+
+[[schnittstellenentitaetstyp-nsemeldungperson]]
+====== Schnittstellenentitätstyp NSE_Meldung_Person
+
+_Namen von Schnittstellenentitätstypen beginnen mit dem Präfix „NSE_“ gefolgt von einem Substantiv, z.B. „NSE_Person“.
+Falls nötig, kann noch ein Adjektiv vor das Substantiv gestellt werden.
+Es hat sich als sinnvoll erwiesen, zusätzlich eine Kurzfassung des Namens der Schnittstelle in den Namen der Entität aufzunehmen, z.B. „NSE_Meldung_Person“.
+Wenn die Schnittstellenentität einem Entitätstyp im Datenmodell der Systemspezifikation entspricht, sollte sie auch analog heißen._
+
+_Falls der Schnittstellenentitätstyp aus mehreren Entitäten zusammensetzt ist, kann dieser (nach einer kurzen Gesamtübersicht) in die einzelnen Entitäten zerlegt und diese anschließend ausführlich beschrieben werden.
+Dieses Vorgehen wird exemplarisch in diesem Dokument gezeigt._
+
+[[image-meldung-person]]
+.NSE_Meldung_Person
+image::vorlage-schnittstellendokumentation/nst-meldung-person.png[]
+
+[[schnittstellenentitaetstyp-input]]
+====== Schnittstellenentitätstyp NSE_<Name des Schnittstellenentitätstyps> +
+
+[[table-schnittstellenentitaetstyp]]
+[cols="1,3"]
+|===
+|*Kurzbeschreibung* |_Die Beschreibung des Schnittstellenentitätstyps ermöglicht dem Leser, den Namen der Entität zu verstehen.
+Für die Begriffserklärung können Synonyme oder Oberbegriffe benutzt werden (Beispiel: „Ein Mitarbeiter ist eine natürliche Person“…").
+Anschließend wird der Begriff inhaltlich und zeitlich abgegrenzt, d.h. es wird erläutert, unter welchen Bedingungen eine Ausprägung zu diesem Entitätstyp gehört.
+Die Beschreibung kann Beispiele, weitere Erläuterungen und Anmerkungen enthalten._
+|===
+
+[[table-schnittstellenentitaetstyp-nse-2]]
+[cols="1,1,1,1", options="header"]
+|===
+|*Attribut* |*Datentyp* |*Bedeutung* |*Pflicht*
+|_Name des Nachbarschnittstellenattributs beginnend mit dem Präfix +„NSA_“+._ |_Verweis auf den fachlichen Datentyp (siehe Kapitel „3. 3 Datentypen“) oder auf einen einfachen Datentyp („Zeichenkette“, „Ganzzahl“, „Fließkommazahl“ etc.)._ a|
+_Die Beschreibung des Attributes sollte einen inhaltlichen Mehrwert bringen (also Beschreibungen wie „Datum ist das Datum der Buchung“ vermeiden)._
+
+_Folgende Fragestellungen können bei der Beschreibung helfen:_
+
+* _Ist diese Information immer oder nur unter bestimmten Bedingungen vorhanden?_
+* _Wann und wo entsteht diese Information?_
+* _Wie entsteht diese Information im Unternehmen? (Die Information kann festgestellt, festgelegt und abgeleitet sein.)_
+* _Für welchen Zeitraum bzw. bis zu welchem Zeitpunkt ist diese Information gültig?_
+
+a|
+_Gibt an, ob es sich um ein Pflichtfeld handelt (J/N).
+Weitere Details sind in den entsprechenden Kapiteln zu den Befüllungsregeln der Nachrichten beschrieben._
+
+_Bei einem Pflichtfeld muss ein Wert gesetzt sein.
+Bei einigen Attributen sind auch unscharfe Angaben erlaubt (z.B. NSA_Geburtsdatum und NSA_Vorname).
+Bei einem Datum erkennt man das am Datentyp (DTY_unsicheres_Datum), bei einem Textattribut erkennt man es bei den Regeln für den Aufbau der Nachrichten (z.B. beim NSA_Vorname ist die Angabe ‚+‘ erlaubt, das steht für einen unbekannten Wert)._
+
+_Bei Ausgabeparametern bedeutet die Pflichtangabe, ob das Attribut in der Rückgabe immer gesetzt ist._
+
+|_Weitere Nachbarschnittstellenattribute in nachfolgenden Zeilen_ |_Weitere Datentypen_ |_Weitere Beschreibungen_ |
+|===
+
+
+[[ausgabeparameter]]
+===== Ausgabeparameter
+
+_Die Ausgabeparameter der Nachbarsystemschnittstelle werden analog zu den Eingabeparametern beschrieben.
+Wenn es viele Überschneidungen zwischen den Ausgabeparametern der verschiedenen angebotenen Nachbarsystemschnittstellen gibt, kann dieser Abschnitt auch einmalig nach den Nachbarsystemschnittstellen beschrieben werden.
+Zurückgegebene Fehlermeldungen (z.B. NSE_Fehler) werden in Kapitel 4 beschrieben.
+Diese sollen an dieser Stelle nicht beschrieben werden._
+
+[[schnittstellenentitaetstyp-output]]
+====== Schnittstellenentitätstyp NSE_<Name des Schnittstellenentitätstyps> +
+
+[[table-schnittstellenentitaetstyp-beschreibung]]
+[cols="1,3"]
+|===
+|*Kurzbeschreibung* |_Die Beschreibung des Schnittstellenentitätstyps ermöglicht dem Leser, den Namen der Entität zu verstehen.
+Für die Begriffserklärung können Synonyme oder Oberbegriffe benutzt werden (Beispiel: „Ein Mitarbeiter ist eine natürliche Person“…").
+Anschließend wird der Begriff inhaltlich und zeitlich abgegrenzt, d.h. es wird erläutert, unter welchen Bedingungen eine Ausprägung zu diesem Entitätstyp gehört.
+Die Beschreibung kann Beispiele, weitere Erläuterungen und Anmerkungen enthalten._
+|===
+
+[[table-nachbarschnittstellenattribute-typ-nse]]
+[cols="1,1,1,1", options="header"]
+|===
+|*Attribut* |*Datentyp* |*Bedeutung* |*Mindestangabe*
+|_Name des Nachbarschnittstellenattributs beginnend mit dem Präfix +„NSA_“+._ |_Verweis auf den fachlichen Datentyp (siehe Kapitel „3.3 Datentypen“) oder auf einen einfachen Datentyp („Zeichenkette“, „Ganzzahl“, „Fließkommazahl“ etc.)._ a|
+_Die Beschreibung des Attributes sollte einen inhaltlichen Mehrwert bringen (also Beschreibungen wie „Datum ist das Datum der Buchung“ vermeiden)._
+
+_Folgende Fragestellungen können bei der Beschreibung helfen:_
+
+* _Ist diese Information immer oder nur unter bestimmten Bedingungen vorhanden?_
+* _Wann und wo entsteht diese Information?_
+* _Wie entsteht diese Information im Unternehmen? (Die Information kann festgestellt, festgelegt und abgeleitet sein.)_
+* _Für welchen Zeitraum bzw. bis zu welchem Zeitpunkt ist diese Information gültig?_
+
+|
+|_Weitere Nachbarschnittstellenattribute in nachfolgenden Zeilen_ |_Weitere Datentypen_ |_Weitere Beschreibungen_ |
+|===
+
+[[regeln-den-aufbau-anfragenachricht]]
+==== Regeln für den Aufbau der Anfragenachricht
+
+_In diesem Kapitel wird beschrieben, welche Regeln beim Aufbau der Anfragenachrichten eingehalten werden müssen.
+Diese Regeln werden vom System geprüft.
+Ist die Regel nicht erfüllt, erzeugt das System in der Regel eine Fehlernachricht mit dem angegebenen Fehlercode und einem Fehlertext._
+
+_Geprüft werden kann zum Beispiel,_
+
+_• ob der Anfragende berechtigt ist_
+
+_• ob alle Pflichtattribute gesetzt sind_
+
+_• ob der Wertebereich der Attribute eingehalten wurde_
+
+_• etc._
+
+_Zu jeder Regel muss angegeben werden, welcher Fehlercode bei einer Regelverletzung in der Fehlermeldung zurückgegeben wird.
+Die zugehörigen Fehlertexte werden im Anhang verfasst._
+
+_Die Art und der Umfang der Regeln bestimmen die Kapitelstruktur.
+Die folgenden Kapitel stellen keine abschließende Auflistung von Regeltypen dar.
+Die Beschreibung der Regeln erfolgt auf Schnittstellenentitäts- und Attributsebene.
+Die Regeln sind tabellarisch zu beschreiben und mit dem Fehlercode zu versehen, der bei einem Regelbruch zurückgeliefert wird.
+Beispielhaft kann folgende Struktur als Grundlage gewählt werden:_
+
+[[regeln-schnittstellenentitaeten]]
+===== Regeln der Schnittstellenentitäten
+
+_Hier werden Regeln definiert, die für eine komplette Schnittstellenentität gelten.
+Dies kann zum Beispiel die Prüfung auf Vollständigkeit sein._
+
+[[nsebezeichnung-schnittstellenentitaet]]
+====== NSE_<Bezeichnung der Schnittstellenentität>
+
+[[table-schnittstellen-fehlercodes]]
+[cols="1,2", options="header"]
+|===
+|*_Regel_* |*_Fehlercode_*
+|_Es muss stets eine verantwortliche Organisation angegeben werden._ |_ABCXY0123_
+|_Weitere Regeln_ |_Weitere Fehlercodes_
+|===
+
+
+[[regeln-wertebereich-schnittstellenentitaetsattribute]]
+===== Regeln für Wertebereich der Schnittstellenentitätsattribute
+
+_Hier werden Regeln für die Wertebereiche der einzelnen Schnittstellenentitätsattribute definiert.
+Auf eine Gruppierung nach Schnittstellenentität in Form von Unterkapiteln kann bei Bedarf verzichtet werden, da typischerweise gleiche Attribute über mehrere Schnittstellenentitäten hinweg verwendet werden und der Übersicht halber nur einmal beschrieben werden sollen._
+
+_Typische Regeln:_
+
+* _Max. Länge des anzunehmenden Wertes_
+* _erlaubte Zeichen_
+* _Format ggfs. mit regulären Ausdrücken_
+* _Verwendung von Wildcards_
+
+[[table-schnittstellen-fehlercodes-3]]
+[cols="1,1,1,1", options="header"]
+|===
+|*Attribut* |*Wertebereich* |*Max. Länge* |*Fehlercode*
+|_NSA_Datum_ a|
+* _Ein Datum ist syntaktisch korrekt, wenn es die in der ISO 8601 festgelegte Form (JJJJ-MM-TT) hat, wobei T, M und J Ziffern sind. Beispiele: 2000-02-29, 1999-00-00_
+* _Es muss ein gültiger Kalendertag (inkl. Schalttage) sein._
+
+|_10_ |_ABCXY4567_
+|_Weiteres Attribut_ |_Weiterer Wertebereich_ | |
+| | | |
+|===
+
+[[regeln-zusammensetzungr-anfrage]]
+===== Regeln für Zusammensetzung einer Anfrage
+
+_Oft sind weitere Regeln notwendig, um die korrekte Zusammensetzung einer Anfrage aus mehreren Schnittstellenentitäten oder Schnittstellenentitätsattributen zu gewährleisten._
+
+_Typische Regeln_
+
+* _Einhaltung der Kardinalität_
+* _Einhaltung von logischen Verknüpfungen_
+* _Einhaltung von WENN-DANN Beziehungen (z.B. wenn NSA_Alter < 18, dann muss NSE_Erziehungsberechtigter in der Nachricht enthalten sein.)_
+
+[[table-schnittstellen-fehlercodes-nse]]
+[cols="1,3", options="header"]
+|===
+|*Regel* |*Fehlercode*
+|_Bei einer Anfrage muss entweder NSE_Organisation oder NSE_Person befüllt sein._ |_ABCXY789_
+| |
+|===
+
+[[pruefung-berechtigungen]]
+===== Prüfung der Berechtigungen
+
+_Beschreibt, welche Rollen oder Berechtigungen für die Benutzung der Schnittstelle notwendig sind.
+Sind je nach Aufbau der Nachricht verschiedene Berechtigungen nötig, so sind diese Fälle an dieser Stelle zu beschreiben._
+
+[[angebotene-nachbarsystemschnittstelle-nstbezeichnung-schnittstelle-3]]
+=== Angebotene Nachbarsystemschnittstelle NST_<Bezeichnung der Schnittstelle>
+
+_Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier weitere angebotene Schnittstellen mit ihren Ein- und Ausgabeparametern zu beschreiben sind._
+
+[[datentypen]]
+=== Datentypen
+
+_Fachliche Datentypen gruppieren Typen und Wertebereichsangaben von Attributen.
+Die Datentypen werden in einem Datentypverzeichnis verwaltet. Beispiele: ISBN, Fahrgestellnummer, Aufzählungstypen._
+
+_Im Fall von trivialer Fachlichkeit (z.B. Beschreibungstexte, einfache Nummern) verzichten wir auf fachliche Datentypen und verwenden direkt die technischen Basistypen Zeichenkette, Ganzzahl, Kommazahl etc. Eigenschaften des Attributes und der Datentyp sollten voneinander getrennt werden._
+
+_Typischerweise verwenden verschiedene Anwendungssysteme ähnliche Datentypen.
+Innerhalb einer Anwendungslandschaft müssen gleich benannte Datentypen auch den gleichen Inhalt haben. Ähnliche, aber inhaltlich unterschiedliche Datentypen sollten auch über die Anwendungssysteme der Anwendungslandschaft explizit unterschiedlich benannt werden, um hier Verwirrung zu vermeiden._
+
+
+[[table-datentypen]]
+[cols="1,1,1,1", options="header"]
+|===
+|*Datentyp* |*Basistyp* |*Bedeutung* |*Wertebereich*
+|_Name des Datentyps beginnend mit dem Präfix +„DTY_“+._ |_Technischer Basistyp wie „String“, „Integer, „Float“, „Alphanum“ oder ähnliche._ |_Fachliche Bedeutung des Datentyps. Hier sollen auch Plausibilisierungen und Prüfungen beschrieben werden._ |_Mögliche Ausprägungen des Datentyps._
+|===
+
+
+// end::inhalt[]

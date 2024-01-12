@@ -87,7 +87,7 @@ output:
 Unter dem im Playbook unter `supplemental_files` angegebenen Pfad kann das Standard-UI von Antora leicht mit CSS und JavaScript überschrieben werden.
 Dies sollte jedoch nur bei kleineren Änderungen genutzt werden, bei größeren Änderungen empfiehlt es sich, ein eigenes UI zu schreiben, ggf. auf Basis des Standard-UIs.
 
-Eine wichtige Änderung der IsyFact am Standard-UI ist die Verwendung von xref:glossary:literaturextern:inhalt.adoc#litextern-font-awesome[Font Awesome]. Eine weitere nützliche CSS-Änderung betrifft den standardmäßigen Nichtumbruch in Listings, der durch folgendes CSS trotzdem durchgeführt wird:
+Eine wichtige Änderung der IsyFact am Standard-UI ist die Verwendung von xref:glossary:literaturextern:inhalt.adoc#litextern-prime-faces[Prime Faces]. Eine weitere nützliche CSS-Änderung betrifft den standardmäßigen Nichtumbruch in Listings, der durch folgendes CSS trotzdem durchgeführt wird:
 
 [[listing-css]]
 .Zeilenumbruch in Listings
