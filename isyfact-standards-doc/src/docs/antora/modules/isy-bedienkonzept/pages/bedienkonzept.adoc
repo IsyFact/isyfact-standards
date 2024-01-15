@@ -2380,11 +2380,8 @@ image::Tabelle_mit_Paginator_Box.png[align="center", width="629",height="329"]
 
 * Falls aufgrund begrenzter Ressourcen nicht der komplette Inhalt auf einer Seite geladen werden kann, kann dieser auf mehrere Seiten verteilt werden.
 Ein Paginator wird dann zur Navigation zwischen den einzelnen Seiten verwendet.
-* Ein Paginator ist jedoch nur ein Hilfswerkzeug und sollte nicht als Standard genutzt werden.
-Bestehen keine systembedingten
-
-
-Restriktionen, sollte auch kein Paginator eingesetzt werden.
+* Ein Paginator ist nur ein Hilfswerkzeug und sollte nicht als Standard genutzt werden.
+Bestehen keine systembedingten Restriktionen, sollte auch kein Paginator eingesetzt werden.
 
 * Der Einsatz eines Paginators bringt einige Nachteile mit sich (siehe unten). Daher sollte geprüft werden, ob die Objekte inhaltlich sinnvoll minimiert werden können oder ob Alternativen wie z. B. _Mehr anzeigen_ Button oder falls erlaubt Dynamisches Scrolling genutzt werden können.
 
@@ -2413,7 +2410,7 @@ Die dabei entstehende Lücke zu der ersten und letzten Seite wird mit Auslassung
 [[eingabe-ueberschrift]]
 === Eingabe
 
-Patterns zur Dateneingabe
+In diesem Abschnitt werden Design Patterns für die Eingabe von Daten beschrieben.
 
 [[wertehilfen]]
 ==== Wertehilfen
@@ -2565,17 +2562,17 @@ Die Attribute müssen ohne zu scrollen auf einen Blick ersichtlich sein.
 * Einzelne Zeilen können nicht selektiert werden, um weitere Informationen zu dem Objekt anzuzeigen.
 * Editierbare Zeilen treten immer in einer Gruppe auf.
 * Die Anzahl der Zeilen sollten auf ein sinnvolles Maß (10) begrenzt werden.
-*Editierbare Zeilen im Editieren-Dialog
-** Die Attribute können einzeln bearbeitet werden.
-** Die Attribute sind über Eingabefelder, Dropdown Menüs oder Wertehilfen bearbeitbar.
-** Es können Zeilen hinzugefügt oder gelöscht werden.
+* Editierbare Zeilen im Editieren-Dialog
+* Die Attribute können einzeln bearbeitet werden.
+* Die Attribute sind über Eingabefelder, Dropdown Menüs oder Wertehilfen bearbeitbar.
+* Es können Zeilen hinzugefügt oder gelöscht werden.
 
 
 
 [[selektion-ueberschrift]]
 === Selektion
 
-Patterns zur Selektion von Daten
+In diesem Abschnitt werden Design Patterns für die Selektion von Daten beschrieben.
 
 [[suche-ueberschrift]]
 ==== Suche
@@ -2775,7 +2772,7 @@ Zielliste und Quellliste sollten immer gleich breit sein.
 [[ausgabe-ueberschrift]]
 === Ausgabe
 
-Patterns zur Ausgabe von Daten.
+In diesem Abschnitt werden Design Patterns für die Darstellung von Daten beschrieben.
 
 [[datentabelle]]
 ==== Datentabelle
@@ -3628,7 +3625,7 @@ Beispiele zur Benennung von Schaltflächen
 *  Speichern
 *  Als Vorlage speichern
 
-Verwendung von Auslassungspunkten
+*Verwendung von Auslassungspunkten*
 
 Auslassungspunkte („...“) können eingesetzt werden, um deutlich zu machen, dass mehr Text vorhanden ist, als aus Platzgründen aktuell angezeigt werden kann.
 
