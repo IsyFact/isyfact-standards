@@ -21,6 +21,7 @@ package de.bund.bva.isyfact.ueberwachung.common.konstanten;
  */
 public class EreignisSchluessel {
 
+    private EreignisSchluessel() {}
     /** Standard-Ereignis für Debug/Info-Ausgaben ohne eigene Ereignis-ID. */
     public static final String PLUEB00001 = "PLUEB00001";
 
@@ -38,6 +39,9 @@ public class EreignisSchluessel {
      * @deprecated Wird nicht mehr verwendet. */
     @Deprecated
     public static final String PLUEB00004 = "PLUEB00004";
+
+    /** Loadbalancer wurde abgefragt, aber isAlive-Datei existiert, aber es konnte keine Antwort gesendet werden */
+    public static final String IS_ALIVE_EXISTIERT_IO_EXCEPTION = "PLUEB00006";
 
     /** Loadbalancer wurde abgefragt, aber isAlive-Datei existiert nicht. */
     public static final String IS_ALIVE_EXISTIERT_NICHT = "PLUEB00005";
