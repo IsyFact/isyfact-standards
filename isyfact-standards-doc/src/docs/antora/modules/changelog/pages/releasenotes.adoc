@@ -1,4 +1,4 @@
-= Release Notes Version {page-component-display-version}
+= Release Notes Version {page-component-version}
 :icons: font
 :sectnums:
 
