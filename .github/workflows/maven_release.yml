@@ -51,7 +51,7 @@ jobs:
       - name: Setup snyk
         uses: snyk/actions/setup@master
       - name: Setup JDK
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: 17
           distribution: temurin
@@ -59,7 +59,7 @@ jobs:
       - name: Test for vulnerabilities
         run: > 
           snyk test 
-          --maven-aggregate-project --severity-threshold=critical --org=$SNYK_ORG_ID --target-reference=master
+          --maven-aggregate-project --severity-threshold=critical --org=${{ vars.SNYK_ORG_ID }} --target-reference=master
 
   Deploy:
     needs: [QualityGate, DependencyScan]
@@ -83,7 +83,7 @@ jobs:
       - name: Setup snyk
         uses: snyk/actions/setup@master
       - name: Setup JDK
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: 17
           distribution: temurin
@@ -91,4 +91,4 @@ jobs:
       - name: Create dependency snapshot to monitor release for vulnerabilities
         run: >
           snyk monitor 
-          --maven-aggregate-project --target-reference=$GITHUB_REF_NAME --org=$SNYK_ORG_ID
+          --maven-aggregate-project --target-reference=$GITHUB_REF_NAME --org=${{ vars.SNYK_ORG_ID }}
