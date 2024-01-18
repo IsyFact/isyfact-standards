@@ -396,62 +396,6 @@ Das nachfolgende Sequenzdiagramm zeigt noch einmal schematisch den logischen Abl
 [id="image-sequenzdiagramm-sgw-plus-agw",reftext="{figure-caption} {counter:figures}"]
 image::konzept/Squenzdiagramm_ServiceGateway_plus_AuthGateway.dn.svg[align="center"]
 
-
-[[autorization-grant]]
-===== Autorisierungsverfahren
-
-Mit SpringSecurity(OAuth2.0) werden die vier Berechtigungszuteilungsverfahren _Authorization-Code-Credentials_, _Implicit-Credentials_, _Resource-Owner-Password-Credentials_ und _Client-Credentials_ spezifiziert.
-In IsyFact spielen davon bei den externen Anwendungsaufrufen über ein _Service-Gateway_ die beiden Verfahren _Resource-Owner-Password-Credential_ und _Client-Credential_ ein Rolle, da es sich hierbei um die Berechtigungszuteilung für ausschließlich _Confidential-Clients_ dreht.
-
-[[resource-owner-password-credential-flow]]
-====== Resource-Owner-Password-Credential Flow
-
-:linkaktuell: xref:client-credential-flow[]
-include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
-
-****
-*Anmerkung zur Deprecation*
-
-Dieser Flow soll gemäß OAuth2.0 Vorgaben nicht mehr verwendet werden und wird in zukünftigen Versionen aus dem OAuth-Standard entfernt.
-****
-
-Der _Resource-Owner-Password-Credential_-Flow, der als Authentifizierungsdaten die Attribute `Username` und `Passwort` verwendet, sollte nur eingesetzt werden, wenn die involvierte Client-Anwendung ein hohes Vertrauen zur Wahrung der Authentifizierungsdaten sicherstellt oder wenn keine andere Art der Berechtigungszuteilung verfügbar ist.
-So wird die Authentifizierung für einen techn. Nutzer über diesen Authorization-Flow abgebildet.
-
-.OAuth2.0 Resource-Owner-Password-Credential Flow
-[id="image-resourceowner-password-credential-flow",reftext="{figure-caption} {counter:figures}"]
-image::isy-security:konzept/Resource-Owner-Passwort-Credential-Flow.dn.svg[align="center"]
-
-Im vorherigen Bild wird der logische Ablauf des _Resource-Owner-Password-Credential_-Flows dargestellt.
-Hierbei wird die Konfiguration des techn. Nutzers als der _Resource-Owner_ dargestellt.
-
-Einem _Confidential Client_ wird die Konfiguration (1.) eines techn. Nutzers mit den Authentifizierungsdaten `Username` und `Passwort` zugeordnet.
-Die so konfigurierte (Confidential-Client)-Anwendung schickt (2.) dann diese Authentifizierungsdaten an den IAM-Service.
-Im IAM erfolgt mit den so übergebenen Authentifizierungsdaten die Authentifizierung, die im Ergebnis ein gültiges Access-Token als Antwort (3.) zurückgeliefert.
-Die Client-Anwendung kann, mit dem so erhaltenen Access-Token, dann ihre Fachanwendungen aufrufen.
-Das Access-Token enthält alle notwendigen Daten, um zu verifizieren, ob die aufrufende Anwendung ordnungsgemäß authentifiziert und autorisiert ist.
-
-
-[[client-credential-flow]]
-====== Client-Credential Flow
-
-Der _Client-Credential_-Flow wird und darf nur zur Berechtigungszuteilung eingesetzt werden, wenn die Client-Anwendung selbst auch der Besitzer der Authentifizierungsdaten und damit als Confidential-Client-Anwendung eingestuft ist.
-Dieser Credential-Flow ist nach SpringSecurity OAuth2.0 auch die einzige Möglichkeit einen technischen Nutzer (Client) zu authentifizieren.
-Es erfolgt hierbei keine Interaktion durch einen Benutzer, der sein Passwort eingeben müsste, sondern die Schritte zur Authentifizierung und Autorisierung der Client-Anwendung laufen selbständig als Hintergrundprozess analog einer Batch-Anwendung ab.
-Die dabei verwendeten Authentifizierungsdaten `Client-ID` und `Client-Secret` müssen vor der Nutzung für die Client-Anwendung definiert und mit dem IAM-System abgestimmt sein.
-
-.OAuth2.0 Client-Credential Flow
-[id="image-clientcredential-flow",reftext="{figure-caption} {counter:figures}"]
-image::isy-security:konzept/Client-Credential-Flow.dn.svg[align="center"]
-
-Im vorherigen Bild wird der logische Ablauf des _Client-Credential_-Flows dargestellt.
-Hierbei kann die Client-Anwendung nach einem Access-Token beim IAM anfragen (1.), indem sie dabei ihre eigenen Client-Authentifizierungsdaten oder anderweitig unterstützte Authentifizierungskriterien verwendet.
-Die Authentifizierung mit diesen so übermittelten Authentifizierungsdaten erfolgt dann im IAM-Service.
-Bei erfolgreicher Authentifizierung wird (2.) ein gültiges Access-Token als Antwort zurückgeliefert.
-Mit dem so erhaltenen Access-Token kann die Client-Anwendung dann ihre Fachanwendungen aufrufen.
-Das Access-Token enthält alle notwendigen Daten, um zu verifizieren, ob die aufrufende Anwendung ordnungsgemäß authentifiziert und autorisiert ist.
-
-
 [[ausfuehrung-batch-u-task]]
 ==== Ausführung Batch & Task
 
@@ -522,10 +466,6 @@ Der gestartete _Aufgaben_-Prozess von `isy-task` ermittelt dann anhand der über
 Der Baustein `isy-security` gibt die Authentifizierungsdaten an das IAM-System weiter und erhält von diesem bei erfolgreicher Authentifizierung ein gültiges _Access-Token_ zurück.
 Dieses erhaltene _Access-Token_ wird interpretiert und zur weiteren Verwendung ein `SecurityContext` initialisiert und aufbereitet.
 Der _Aufgaben_-Prozess erhält dann den initialisierten `SecurityContext` zurück.
-
-[[verarbeitung-asynchroner-anfragen]]
-==== Verarbeitung asynchroner Anfragen
-
 
 [[autorization-grant-types]]
 ==== Autorisierungsverfahren
