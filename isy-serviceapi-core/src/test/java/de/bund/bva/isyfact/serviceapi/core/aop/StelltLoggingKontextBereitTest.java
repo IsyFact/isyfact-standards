@@ -87,7 +87,7 @@ public class StelltLoggingKontextBereitTest {
     @Test
     public void testStelltLoggingKontextBereitMitAufrufKontextErwartetLeereKorrelationsId() {
         this.aufrufKontext.setKorrelationsId("");
-        String korrelationsId = this.dummyService.stelltLoggingKontextBereitMitAufrufKontext(aufrufKontext);
+        String korrelationsId = this.dummyService.stelltLoggingKontextBereitMitAufrufKontext(this.aufrufKontext);
         // newly created correlation id is added to AufrufKontextTo
         assertEquals(korrelationsId, this.aufrufKontext.getKorrelationsId());
     }
