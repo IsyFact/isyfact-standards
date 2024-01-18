@@ -58,7 +58,7 @@ Ausblick:: Die konzeptionelle Integration erfolgt in einem nachfolgenden Release
 === Optimierung Dependency Management
 Abhängigkeiten wurden überprüft und reduziert.
 
-[[kapitel-aenderungen]]
+[[kapitel-bausteine]]
 == Isyfact Bausteine
 
 [[kapitel-baustein-sicherheit-deprecated]]
