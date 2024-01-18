@@ -467,7 +467,7 @@ Der Baustein `isy-security` gibt die Authentifizierungsdaten an das IAM-System w
 Dieses erhaltene _Access-Token_ wird interpretiert und zur weiteren Verwendung ein `SecurityContext` initialisiert und aufbereitet.
 Der _Aufgaben_-Prozess erhält dann den initialisierten `SecurityContext` zurück.
 
-[[autorization-grant-types]]
+[[autorization-grant]]
 ==== Autorisierungsverfahren
 
 Mit SpringSecurity (OAuth2.0) werden die vier Berechtigungszuteilungsverfahren (Credential Flows) _Authorization-Code-Credentials_, _Implicit-Credentials_, _Resource-Owner-Password-Credentials_ und _Client-Credentials_ spezifiziert.
