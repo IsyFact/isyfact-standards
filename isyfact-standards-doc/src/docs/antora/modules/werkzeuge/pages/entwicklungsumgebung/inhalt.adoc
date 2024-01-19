@@ -484,7 +484,7 @@ Welcher Profilname angezeigt wird, entscheidet sich durch einen entsprechenden E
 *Schritt 3:* Einrichtung des Import Organizers
 
 * Menüeintrag menu:Window[Preferences > Java > Code Style > Organize Imports]
-* In diesem Menü kann über "Import" die importorder-Datei importiert werden, welche die Reihenfolge automatisch folgendermaßen festlegt: java, javax, net, org, com, de
+* In diesem Menü kann über "Import" die importorder-Datei importiert werden, welche die Reihenfolge automatisch folgendermaßen festlegt: java, jakarta, javax, net, org, com, de
 
 .Eclipse: Import Organizer
 [id="image-import-organizer",reftext="{figure-caption} {counter:figures}"]
