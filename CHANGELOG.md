@@ -2,6 +2,8 @@
 - `ISY-779`: `isyfact-bom` entfernt
     * [isyfact-standards-bom] `isyfact-standards-bom` importiert dependencyManagement aus `isyfact-products-bom`
     * [isyfact-standards-doc] Bezug und Nutzung der IsyFact nach Entfernung der IsyFact-BOM beschrieben
+- `ISY-748`: [isyfact-standards-doc] Jakarta der Import-Reihenfolge für Formatierung in Entwicklungsumgebungen (IntelliJ IDEA sowie Eclipse) hinzugefügt
+  * Versionsanhebung `isy-checkstyle-config` auf 0.2.0
 
 # 3.0.0
 - `ISY-653` : Erweitern des `TimeoutWiederholungHttpInvokerRequestExecutor` um die Token-Beschaffung aus dem Security Context bei Nichtverfügbarkeit des `AufrufKontextVerwalter`.
