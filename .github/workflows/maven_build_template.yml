@@ -31,9 +31,13 @@ on:
       SONAR_TOKEN:
         description: 'Token to publish analysis result on sonar'
         required: false
+      GH_PACKAGES_TOKEN:
+        description: 'Token for GitHub Packages'
+        required: false
 
 env:
   MAVEN_CLI_OPTS: '--batch-mode --errors --fail-at-end -T 1C'
+  GH_PACKAGES_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
 
 jobs:
   Compile:
