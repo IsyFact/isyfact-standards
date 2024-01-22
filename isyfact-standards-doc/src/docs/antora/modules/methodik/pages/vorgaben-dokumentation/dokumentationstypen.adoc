@@ -146,8 +146,7 @@ a|
 |Baustein (allgemein)
 
 |Vorlage / Beispiel
-a|* xref:werkzeuge:dokumentation/changelog/changelog-doku.adoc[Vorgaben zu Changelogs] +
-* xref:changelog:changelog.adoc[Changelog der IsyFact]
+a|xref:werkzeuge:dokumentation/changelog/changelog-doku.adoc[Vorgaben zu Changelogs] +
 |===
 
 
