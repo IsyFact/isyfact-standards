@@ -1,5 +1,6 @@
 # 2.1.0
 - `IFS-156`: Sonderlogik, die Underscores aus dem Attribut durchfuehrenderSachbearbeiterName des Aufrufkontextes entfernt, erneut ausgebaut.
+- `ISY-546`: Abräumen des SecurityContexts im NutzerAuthentifizierungInterceptor
 
 # 2.0.0
 - `IFS-228`: Einführung von Spring Boot
