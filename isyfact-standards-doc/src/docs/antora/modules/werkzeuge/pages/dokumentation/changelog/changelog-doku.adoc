@@ -210,12 +210,12 @@ In diesen Fällen sollte *kein* Changelogeintrag erstellt werden:
 
 [IMPORTANT]
 ====
-Eine knappe Zusammenfassung einer auf ein Release bezogen Änderung ist in den xref:changelog:releasenotes.adoc[Release Notes] zu dokumentieren.
+Eine knappe Zusammenfassung einer auf ein Release bezogen Änderung ist in den xref:release:releasenotes.adoc[Release Notes] zu dokumentieren.
 ====
 
 [IMPORTANT]
 ====
-Eine Migrationsanleitung bei Breaking Changes eines Major Releases ist im xref:changelog:migrationsleitfaden.adoc[Migrationsleitfaden] zu dokumentieren.
+Eine Migrationsanleitung bei Breaking Changes eines Major Releases ist im xref:release:migrationsleitfaden.adoc[Migrationsleitfaden] zu dokumentieren.
 ====
 
 Folgende Anforderungen gelten für den Inhalt eines Changelogeintrags:
