@@ -107,7 +107,7 @@ jobs:
       - name: Check for snapshot version
         if: github.ref_type != 'tag'
         run: |
-          if [ ! "${{ steps.getVersion.outputs.project-version }}" =~ "-SNAPSHOT"]; then
+          if [[ ! "${{ steps.getVersion.outputs.project-version }}" =~ "-SNAPSHOT" ]]; then
             echo "ERROR: Trying to deploy untagged version as stable release"
             exit 1
           fi
