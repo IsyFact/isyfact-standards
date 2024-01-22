@@ -1,4 +1,4 @@
-= Migrationsleitfaden IsyFact {page-component-display-version}
+= Migrationsleitfaden IsyFact {page-component-version}
 :icons: font
 :sectnums:
 
@@ -6,7 +6,7 @@ include::glossary:licence:partial$licence.adoc[]
 
 Für die IsyFact gibt es hiermit drei Versionszweige: IsyFact 1, IsyFact 2 und seit Q1/2023 das neue Major-Release IsyFact 3.0.
 
-Die auf dieser Seite aufgeführten Hinweise sollen IsyFact Anwendungsentwicklern bei der Umstellung einer auf IsyFact 2 basierenden Anwendung auf IsyFact {page-component-display-version} helfen.
+Die auf dieser Seite aufgeführten Hinweise sollen IsyFact Anwendungsentwicklern bei der Umstellung einer auf IsyFact 2 basierenden Anwendung auf IsyFact {page-component-version} helfen.
 
 [[kapitel-geschaeftsanwendung]]
 == Geschäftsanwendung
