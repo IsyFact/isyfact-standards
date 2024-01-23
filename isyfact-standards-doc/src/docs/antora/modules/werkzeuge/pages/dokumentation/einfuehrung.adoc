@@ -1,0 +1,93 @@
+= Online-Dokumentation mit AsciiDoc und Antora
+
+include::glossary:licence:partial$licence.adoc[]
+
+Diese Seiten dienen technischen Autoren der Online-Dokumentation als Wegweiser.
+Die Online-Dokumentation wird nach festgelegten Regeln und nach einem bestimmten Grundschema angefertigt.
+
+[[grundlagen-online-doku]]
+== Grundlagen der Online-Dokumentation
+
+Die Online-Dokumentation basiert auf AsciiDoc als Quellformat und auf Antora als Werkzeug zur Verarbeitung der Quellen.
+Veröffentlicht wird die Online-Dokumentation auf Github Pages mithilfe von Github Actions.
+
+[[grundlagen-asciidoc]]
+=== AsciiDoc
+
+Die Online-Dokumentation wird in https://docs.asciidoctor.org/asciidoc/latest/[AsciiDoc] verfasst.
+AsciiDoc ist textbasiert und bietet viele Möglichkeiten, Inhalte zu formatieren und strukturieren.
+Es eignet sich daher auch besonders gut dazu, in einem modernen Versionsverwaltungssystem parallel zu Quellcode o.ä. verwaltet zu werden.
+Für AsciiDoc gibt es zahlreiche Generatoren, um Quelldokumente in HTML, PDF, E-Book- oder Wiki-Formate umzuwandeln.
+
+[[grundlagen-antora]]
+=== Antora
+
+Die Online-Dokumentation wird mit https://antora.org/[Antora] generiert.
+Antora erzeugt aus AsciiDoc-Quellen, die über mehrere Git-Repositories verteilt liegen können, eine gemeinsame, statische HTML-Seite, auch Projektseite genannt.
+Eine besondere Stärke von Antora ist die Git-Integration, die es ermöglicht, Branches und Tags zu verwenden, um verschiedene Versionen derselben Dokumentation zu erzeugen.
+
+Einzelheiten zur Dokumentation mit Antora finden sich auf den Unterseiten:
+
+* xref:dokumentation/erstellung-antora.adoc[],
+* xref:dokumentation/bearbeitung-antora.adoc[],
+* xref:dokumentation/generierung-antora.adoc[].
+
+[[grundlagen-werkzeuge]]
+=== Werkzeuge
+
+In der Arbeitsumgebung müssen *Git*, *Git LFS* sowie *npm* installiert sein.
+Diese Werkzeuge reichen aus, um eine xref:dokumentation/generierung-antora.adoc[Projektseite zu erzeugen].
+
+Zum Erstellen und Bearbeiten von AsciiDoc-Quellen ist zusätzlich ein fähiger Editor nötig.
+Empfohlen seien an dieser Stelle:
+
+* xref:glossary:literaturextern:inhalt.adoc#litextern-vs-code[Visual Studio Code] zusammen mit der xref:glossary:literaturextern:inhalt.adoc#litextern-vs-code-asciidoc-erweiterung[Erweiterung für AsciiDoc],
+* Editoren von IDEs (u.a. IntelliJ IDEA oder Eclipse), sofern eine Unterstützung für AsciiDoc vorhanden ist.
+
+[[struktur-dokumentation]]
+== Struktur der Quellen
+Die Quellen der Online-Dokumentation der IsyFact verteilen sich auf mehrere Git-Repositories.
+Zur Bereitstellung der Projektseite nutzt die IsyFact zwei übergreifende Repositories:
+
+* https://github.com/IsyFact/isy-antora-playbook[icon:github[] isy-antora-playbook] zur Ablage von globaler Konfiguration wie z.B. dem Playbook oder dem CI/CD-Build,
+* https://github.com/IsyFact/isy-documentation[icon:github[] isy-documentation] zur Bereitstellung übergreifender Inhalte wie z.B. Lizenzhinweise, dem Glossar und einem Quellenverzeichnis.
+
+Die meisten Inhalte sind derzeit im zentralen Repository https://github.com/IsyFact/isyfact-standards[icon:github[] isyfact-standards] enthalten.
+Weitere Inhalte sind im https://github.com/IsyFact/isy-antora-playbook/blob/main/antora-playbook.yml[Playbook] referenziert.
+
+=== Struktur des zentralen Repositories
+
+Die Dokumentation ist vollständig im Modul https://github.com/IsyFact/isyfact-standards/tree/master/isyfact-standards-doc[isyfact-standards-doc] enthalten.
+Sie unterteilt sich in https://docs.antora.org/antora/latest/module-directories/#module[Module], die sich an den Säulen der IsyFact bzw. an ihren Bausteinen orientieren.
+
+[[table-antora-modules]]
+.Module der Dokumentation der IsyFact-Standards
+[cols="1,4", options="header"]
+|===
+|Modul
+|Beschreibung
+
+|einstieg
+|Einführung in die IsyFact & Inhalte zur IsyFact allgemein
+
+|blaupausen
+|Inhalte der Säule xref:blaupausen:blaupausen.adoc[]
+
+|bausteine
+|Allgemeine Inhalte der Säule xref:bausteine:bausteine.adoc[]
+
+|isy-\{baustein}
+|Inhalte des jeweiligen Bausteins
+
+|plattform
+|Inhalte der Säule xref:plattform:plattform.adoc[]
+
+|methodik
+|Inhalte der Säule xref:methodik:methodik.adoc[]
+
+|werkzeuge
+|Inhalte der Säule xref:werkzeuge:werkzeuge.adoc[]
+
+|changelog
+|Changelogs & Inhalte zum aktuellen Release
+|===

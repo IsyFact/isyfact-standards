@@ -2,33 +2,14 @@
 
 include::glossary:licence:partial$licence.adoc[]
 
-Soll eine neue Dokumentation angelegt werden oder die bestehende Dokumentation um eine Seite erweitert werden, so muss zunächst der geeignete Ort zur Ablage bestimmt werden.
-I.d.R. ist dies das Repository, in dem sich der zu dokumentierende Erweiterungsbaustein befindet, da die Dokumentation nah am Code abgelegt werden soll, oder der Baustein liegt im <<verzeichnisstruktur-antora-komponente,Repository `isyfact-standards` im Submodul `isyfact-standards-doc`>>.
-
-[[repository-klonen]]
-== Klonen Repository
-
-Zunächst muss der zu dokumentierende Erweiterungsbaustein oder `isyfact-standards` von Git heruntergeladen werden.
-Hierfür muss auf der Kommandozeile auf eine geeignete Stelle der lokalen Festplatte gewechselt werden und folgendes Kommando eingegeben werden:
-
-====
-C:\tmp\> *git clone* https://github.com/IsyFact/<Repository>
-
-z.B. C:\tmp\> *git clone* https://github.com/IsyFact/isy-baustein
-====
-
-Bei <Repository> kann es sich um einen einzelnen xref:dokumentation/einleitung/einfuehrung.adoc#dokumentation-erweiterungen[Erweiterungsbaustein] handeln oder um ein Repository mit xref:dokumentation/einleitung/einfuehrung.adoc#zentrale-dokumentation[zentraler Dokumentation].
-
-Danach werden die Schritte durchlaufen, die in den folgenden Kapiteln beschrieben sind.
+Soll eine neue Dokumentation angelegt werden oder die bestehende Dokumentation um eine Seite erweitert werden, so muss zunächst das xref:dokumentation/einfuehrung.adoc#struktur-dokumentation[geeignete Repository zur Ablage] bestimmt und ggf. lokal geklont werden.
 
 [[submodul]]
 == Submodul
 
-Als Beispiel dient das Repository `isyfact-standards`.
-Es enthält ein Submodul zur Dokumentation: `isyfact-standards-doc`.
-In Repositories, die noch keine Dokumentation enthalten, muss ein derartiges Submodul zur besseren Strukturierung noch angelegt werden.
-
-Das folgende Listing <<verzeichnisstruktur-submodul>> zeigt die Verzeichnisstruktur bis zum Submodul.
+Als Beispiel dient das Repository https://github.com/IsyFact/isyfact-standards[icon:github[] isyfact-standards].
+Es enthält ein Submodul zur Dokumentation.
+In Repositories, die noch keine Dokumentation enthalten, muss ein derartiges Submodul angelegt werden.
 
 [[verzeichnisstruktur-submodul]]
 .Repository mit Submodul zur Dokumentation
@@ -46,9 +27,9 @@ Innerhalb des Submoduls wird der Pfad `src/docs/antora` angelegt.
 Unterhalb dieses Pfades liegt die Antora-Dokumentationskomponente, repräsentiert durch die Konfigurationsdatei `antora.yml`.
 In Repositories, die noch keine Antora-Komponente enthalten, muss diese Konfigurationsdatei noch angelegt werden.
 Ein Repository sollte jedoch nur eine Antora-Komponente enthalten.
-(Mehrere Antora-Komponenten hätten unterschiedliche Versionen, die eventuell nicht mehr synchron zum Versionsstand des Repositories gehalten werden könnten.)
 
-Das folgende Listing <<verzeichnisstruktur-antora-komponente>> zeigt die Verzeichnisstruktur bis zur Antora-Dokumentationskomponente.
+TIP: Mehrere Antora-Komponenten hätten unterschiedliche Versionen, die eventuell nicht mehr synchron zum Versionsstand des Repositories gehalten werden können.
+
 
 [[verzeichnisstruktur-antora-komponente]]
 .Verzeichnisstruktur Antora-Komponente
@@ -62,14 +43,12 @@ Das folgende Listing <<verzeichnisstruktur-antora-komponente>> zeigt die Verzeic
 ----
 <.> Antora Konfigurationsdatei für die Antora-Komponente.
 
-In der `antora.yml`-Datei wird mindestens der Name der Dokumentationskomponente und ihre Version angegeben.
-Näheres dazu in xref:glossary:literaturextern:inhalt.adoc#litextern-antora-komponente[Antora-Dokumentationskomponente].
+In der `antora.yml`-Datei wird mindestens der Name der xref:glossary:literaturextern:inhalt.adoc#litextern-antora-komponente[Dokumentationskomponente] und ihre Version angegeben.
 
 [[antora-modul]]
 == Antora-Modul
 
-Im gleichen Verzeichnis wie `antora.yml`, `src/docs/antora`, muss das Verzeichnis `modules` liegen.
-Näheres dazu siehe xref:glossary:literaturextern:inhalt.adoc#litextern-antora-verzeichnisstruktur[Antora-Verzeichnisstruktur].
+Im gleichen Verzeichnis wie `antora.yml`, `src/docs/antora`, muss das xref:glossary:literaturextern:inhalt.adoc#litextern-antora-verzeichnisstruktur[Verzeichnis für die Module] liegen.
 
 In einem Antora-Modul wird die Dokumentation eines Bausteins abgelegt oder die Dokumentation einer Säule der IsyFact.
 Unterhalb des Verzeichnisses `modules` wird ein Modul-Verzeichnis mit entsprechendem Namen abgelegt, sofern noch nicht vorhanden.
@@ -91,20 +70,14 @@ Das folgende Listing <<verzeichnisstruktur-antora-modul>> zeigt die Verzeichniss
 <.> Obligatorisches Verzeichnis für Antora-Modul(e).
 <.> Modul `isy-sonderzeichen`.
 
+Ein Beispiel für die Aufteilung von Inhalten auf Module findet sich in der Beschreibung der xref:dokumentation/einfuehrung.adoc#struktur-dokumentation[Struktur der Quellen].
 
-Für die zentrale Dokumentation gibt es für jede Säule ein Antora-Modul mit Ausnahme der Bausteine, für die es für jeden Baustein ein Antora-Modul gibt.
-
-Allgemein;; _Antora-Modul:_ `einstieg`
-Blaupausen;; _Antora-Modul:_ `blaupausen`
-Bausteine;; _Antora-Modul:_ Der jeweilige Baustein, z.B. `isy-sonderzeichen` +
-Methodik;; _Antora-Modul:_ `methodik`
-Werkzeuge;; _Antora-Modul:_ `werkzeuge`
 
 [[struktur-dokuseite]]
 == Strukturierung innerhalb eines Antora-Moduls
 
 Unterhalb des Modul-Verzeichnisses, z.B. `isy-sonderzeichen`, wird ein Verzeichnis mit Namen `pages` angelegt.
-An diesem Ort werden die Dokumentationsseiten als .adoc abgelegt mit einem Namen, der ihren Inhalt widerspiegelt.
+An diesem Ort werden die Dokumentationsseiten als `.adoc` abgelegt mit einem Namen, der ihren Inhalt widerspiegelt.
 
 Außer dem Verzeichnis `pages` kann es bei Bedarf noch weitere Verzeichnisse geben wie `images` und `attachments`.
 Siehe dazu ebenfalls xref:glossary:literaturextern:inhalt.adoc#litextern-antora-verzeichnisstruktur[Antora-Verzeichnisstruktur].
@@ -183,18 +156,13 @@ nav:
 [source,asciidoc]
 ----
 * xref:werkzeuge.adoc[]
-** xref:dokumentation/einleitung/einfuehrung.adoc[]
-*** Antora (empfohlen)
-**** xref:dokumentation/erstellung/erstellung-antora.adoc[]
-***** xref:seitenvorlage.adoc[]
-***** xref:kopiervorlage.adoc[]
-**** xref:dokumentation/bearbeitung/bearbeitung-antora.adoc[]
-**** xref:dokumentation/generierung/generierung-antora.adoc[]
-*** AsciidoctorJ
-**** xref:dokumentation/erstellung/erstellung-asciidoctorj.adoc[]
-**** xref:dokumentation/bearbeitung/bearbeitung-asciidoctorj.adoc[]
-**** xref:dokumentation/generierung/generierung-asciidoctorj.adoc[]
-*** xref:dokumentation/changelog/changelog-doku.adoc[]
+** xref:dokumentation/einfuehrung.adoc[]
+*** xref:dokumentation/erstellung-antora.adoc[]
+**** xref:seitenvorlage.adoc[]
+**** xref:kopiervorlage.adoc[]
+*** xref:dokumentation/bearbeitung-antora.adoc[]
+*** xref:dokumentation/generierung-antora.adoc[]
+** xref:dokumentation/changelog-doku.adoc[Changelogs]
 ** xref:entwicklungsumgebung/master.adoc[Entwicklungsumgebung]
 ** xref:versionierungskontrolle/master.adoc[]
 ** xref:gui-tests/gui-tests-mit-selenium.adoc[]
@@ -203,17 +171,8 @@ nav:
 Die durch das Beispiel generierte Navigation ist links dieser Seite aufgeklappt zu sehen.
 
 [[konfiguration-antora]]
-== Konfigurationsdateien `playbook.yml` und `pom.xml`
+== Anpassung des Playbooks
 
-Die genannten Konfigurationsdateien befinden sich in einem eigenen Repository.
-`playbook.yml` steuert die Antora-Dokumentengenerierung, z.B. welche Antora-Komponenten in welchen Repositories und Branches verwendet werden sollen für die Generierung der Gesamtdokumentation.
-
-Maven sorgt mithilfe der pom.xml dafür, dass lokal im Projekt Node.js, npm und Antora installiert werden und die Dokumentengenerierung ausgeführt wird.
-
-Im Normalfall müssen die Antora-Konfigurationsdatei `playbook.yml` und die Maven-Konfigurationsdatei pom.xml nicht geändert werden.
-Die Konfigurationsdatei `playbook.yml` muss jedoch geändert werden, wenn in einem Repository eine Dokumentation neu erstellt wird, und wenn weitere Branches zur Dokumentengenerierung herangezogen werden sollen.
-
-Zu beachten ist, dass bei Änderungen an `playbook.yml` und pom.xml zunächst nur die lokale Generierung betroffen ist.
-Ggf. muss die Generierung über die CI/CD-Pipeline ebenfalls geändert werden.
-
-// end::inhalt[]
+Das Playbook befindet sich im Repository https://github.com/IsyFact/isy-antora-playbook[icon:github[] isy-antora-playbook].
+Es steuert die Generierung der Projektseite, also z.B. welche Antora-Komponenten in welchen Repositories und Branches verwendet werden sollen für die Generierung der Gesamtdokumentation.
+Das Playbook muss angepasst werden, wenn in einem Repository eine Dokumentation neu erstellt wird, und wenn weitere Branches zur Dokumentengenerierung herangezogen werden sollen.
