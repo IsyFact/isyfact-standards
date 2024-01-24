@@ -3794,19 +3794,28 @@ Stattdessen werden andere, platzsparende Mechanismen angewandt, wie z.B. Expande
 [[icons-ueberscrift]]
 === Icons
 
-Die Icons sollten alle einem einheitlichen Stil Folgen.
-Innerhalb der Anwendung wird der Icon-Font Awesome benutzt.
-Dieser Font muss in die Webanwendung eingebunden werden.
-Die Icons sollten nur an Stellen verwendet werden, an denen das Bedienkonzept den Einsatz von Icons vorsieht.
+Das Iconing in Anwendungen soll einem einheitlichen Stil Folgen und sich primär an Icons der Bibliothekt von:
+xref:glossary:literaturextern:inhalt.adoc#litextern-prime-faces-icons[Prime Faces Icons]
+bedienen. Sollten fachlich notwendige Icons in Prime Faces nicht vorhanden sein, können in Ausnahmefällen Icons aus der
+Bibliothek Font Awesome bezogen werden. Beide Fonts müssen in die Webanwendung eingebunden werden.
+Wichtig ist es dabei darauf zu achten, dass die Icons im Stil und ihrer Art so ähnlich wie möglich
+zu den primär verwendeten Icons sind. Es ist darauf zu achten, dass:
+-Gleiche Bedeutungen mit unterschiedlichen Icons entsteht
+(Beispiel: Warenkorb = Einkaufwagen und Beutel), hier wird die von Prime Faces vorgegebe Lösung genutzt.
+Ist ein Icon für sich nicht ausreichend aussagekräftig ist der Nutzen/die Anwendung mit einem Textattribut zu ergänzen.
 
-In der folgenden Tabelle sind mögliche Icons und deren Funktion dargestellt sowie die dazugehörige CSS-Klasse.
-Die CSS-Klasse bezieht sich auf Font Awesome Version 5.
+Zur Sicherstellung der Barrierefreiheit ist ein Icon mit einem entsprechenden alt-Tag zu versehen.
+(Beispiel: Stift = bearbeiten alt="bearbeiten")
+Icons sind einfarbig und komplementär zum Hintergrund zu gestalten.
+(Beispiel: schwarze Icons auf weißem Hintergrund)
+Sollten Icons aus fachlicher oder technischer Notwendigkeit nicht mit einem höchstmöglichen Kontrast umzusetzen sein, so muss ein Kontrast von mindestens 4:1 sichergestellt sein!
 
 Eine Gesamtübersicht der zur Verfügung stehenden Icons finden Sie unter:
 xref:glossary:literaturextern:inhalt.adoc#litextern-prime-faces-icons[Prime Faces Icons]
 
-// Die CSS-Klassen beziehen sich auf Font Awesome 5, AsciiDoctor verwendet intern aber noch Font Awesome 4.
-// Die von AsciiDoctor gerenderten Icons entsprechen vom Aussehen daher nicht zu 100% den Font Awesome 5 Icons.
+In der folgenden Tabelle sind mögliche Icons und deren Funktion dargestellt, sowie die dazugehörige CSS-Klasse.
+
+// Die CSS-Klassen beziehen sich auf primeicons
 
 .Übersicht verwendeter Icons
 ifdef::backend-pdf[]
