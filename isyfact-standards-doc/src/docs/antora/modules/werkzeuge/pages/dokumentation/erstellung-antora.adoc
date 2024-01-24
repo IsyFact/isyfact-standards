@@ -134,7 +134,7 @@ nav:
 - modules/plattform/nav.adoc
 - modules/methodik/nav.adoc
 - modules/werkzeuge/nav.adoc
-- modules/changelog/nav.adoc
+- modules/release/nav.adoc
 ----
 
 [[listing-nav-adoc]]
