@@ -37,6 +37,8 @@ jobs:
           pattern: '^((feat|fix|build|ci|docs|refactor|style|test|perf|chore)(\(\w+\))?(: (.*\s*)*))|(Merge (.*\s*)*)|(Revert (.*\s*)*)|(Initial commit$)'
           error: 'Commit is not conventional.'
           checkAllCommitMessages: 'true'
+          excludeDescription: 'true'
+          excludeTitle: 'true'
           accessToken: ${{ secrets.GITHUB_TOKEN }}
       - name: Log message
         run: |
