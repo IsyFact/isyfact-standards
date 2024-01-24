@@ -38,3 +38,6 @@ jobs:
           error: 'Commit is not conventional.'
           checkAllCommitMessages: 'true'
           accessToken: ${{ secrets.GITHUB_TOKEN }}
+      - name: Log message
+        run: |
+          echo "The commit checker runs"
