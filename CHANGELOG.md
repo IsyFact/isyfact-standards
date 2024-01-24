@@ -1,3 +1,8 @@
+# 4.0.0
+- `ISY-779`: `isyfact-bom` entfernt
+    * [isyfact-standards-bom] `isyfact-standards-bom` importiert dependencyManagement aus `isyfact-products-bom`
+    * [isyfact-standards-doc] Bezug und Nutzung der IsyFact nach Entfernung der IsyFact-BOM beschrieben
+
 # 3.0.0
 - `ISY-183`: [isyfact-standards-doc] Migrationsleitfaden zur Entfernung der Bridge-Module
 - `ISY-54`: [isyfact-standards-doc] Migrationsleitfaden zur Umstellung auf isy-security
