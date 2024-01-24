@@ -1,3 +1,6 @@
+# 3.1.0
+- `IFS-1648`: Oracle ojdbc8 und Oracle ucp in isyfact-erweiterungen-products-bom verschoben
+ 
 # 3.0.0
 - `IFS-1465`: Spring Boot Versionsanhebung auf 2.7.1
 - `IFS-2021`: Spring Boot Versionsanhebung auf 2.7.9

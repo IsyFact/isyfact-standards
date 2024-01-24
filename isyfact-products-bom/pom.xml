@@ -30,8 +30,6 @@
         <logback-core.version>1.2.13</logback-core.version>
         <logback-json-classic.version>0.1.5</logback-json-classic.version>
         <logback-jackson.version>0.1.5</logback-jackson.version>
-        <ojdbc8.version>19.11.0.0</ojdbc8.version>
-        <ucp.version>19.11.0.0</ucp.version>
         <orika-core.version>1.5.4</orika-core.version>
         <pojobuilder.version>4.3.0</pojobuilder.version>
         <xstream.version>1.4.20</xstream.version>
@@ -183,20 +181,6 @@
                 <groupId>ch.qos.logback.contrib</groupId>
                 <artifactId>logback-jackson</artifactId>
                 <version>${logback-jackson.version}</version>
-            </dependency>
-
-            <!-- JDBC driver: Oracle -->
-            <dependency>
-                <groupId>com.oracle.database.jdbc</groupId>
-                <artifactId>ojdbc8</artifactId>
-                <version>${ojdbc8.version}</version>
-            </dependency>
-
-            <!-- Connection Pool: Oracle Universal Connection Pool (UCP) -->
-            <dependency>
-                <groupId>com.oracle.database.jdbc</groupId>
-                <artifactId>ucp</artifactId>
-                <version>${ucp.version}</version>
             </dependency>
 
             <!-- Bean mapping: Orika -->
