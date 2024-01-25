@@ -31,11 +31,6 @@ public class TimeoutWiederholungHttpInvokerRequestExecutorTest {
     private static final int CONTENT_LENGTH = 1;
 
     /**
-     * AufrufKontextVerwalter to set bearer token in.
-     */
-    private AufrufKontextVerwalter<?> aufrufKontextVerwalterStub;
-
-    /**
      * Stubbed request executor.
      */
     private TimeoutWiederholungHttpInvokerRequestExecutor executorStub;
@@ -47,10 +42,6 @@ public class TimeoutWiederholungHttpInvokerRequestExecutorTest {
 
     @Before
     public void setUp() {
-        aufrufKontextVerwalterStub = new AufrufKontextVerwalterStub<>();
-        aufrufKontextVerwalterStub.setBearerToken(null);
-        SecurityContextHolder.createEmptyContext();
-        executorStub = new TimeoutWiederholungHttpInvokerRequestExecutorStub(null);
         connection = new HttpUrlConnectionStub(null);
     }
 
@@ -60,8 +51,10 @@ public class TimeoutWiederholungHttpInvokerRequestExecutorTest {
     @Test
     public void testPrepareConnectionWithTokenFromAufrufKontextVerwalter() {
         final String token = "testToken1234";
-        executorStub = new TimeoutWiederholungHttpInvokerRequestExecutorStub(aufrufKontextVerwalterStub);
+        AufrufKontextVerwalter<?> aufrufKontextVerwalterStub = new AufrufKontextVerwalterStub<>();
         aufrufKontextVerwalterStub.setBearerToken(token);
+        executorStub = new TimeoutWiederholungHttpInvokerRequestExecutorStub(aufrufKontextVerwalterStub);
+
         try {
             executorStub.prepareConnection(connection, CONTENT_LENGTH);
         } catch (IOException e) {
@@ -78,26 +71,27 @@ public class TimeoutWiederholungHttpInvokerRequestExecutorTest {
      */
     @Test
     public void testPrepareConnectionWithTokenFromSecurityContext() {
+        final String tokenValue = "securityContextToken1234";
+
+        Jwt jwt = Jwt.withTokenValue(tokenValue)
+                .header("alg", "none")
+                .claim("sub", "user1")
+                .build();
+
+        JwtAuthenticationToken authenticationToken = new JwtAuthenticationToken(jwt, null);
+        SecurityContextHolder.createEmptyContext();
+        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        executorStub = new TimeoutWiederholungHttpInvokerRequestExecutor(null);
 
         try {
-            final String tokenValue = "securityContextToken1234";
-            Jwt jwt = Jwt.withTokenValue(tokenValue)
-                    .header("alg", "none")
-                    .claim("sub", "user1")
-                    .build();
-
-            JwtAuthenticationToken authenticationToken = new JwtAuthenticationToken(jwt, null);
-            SecurityContextHolder.createEmptyContext();
-            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-
             executorStub.prepareConnection(connection, CONTENT_LENGTH);
-
-            List<String> authHeader = connection.getRequestProperties().get(HttpHeaders.AUTHORIZATION);
-            assertEquals(1, authHeader.size());
-            assertEquals("Bearer " + tokenValue, authHeader.get(0));
         } catch (IOException e) {
             fail("Expected no exception.");
         }
+
+        List<String> authHeader = connection.getRequestProperties().get(HttpHeaders.AUTHORIZATION);
+        assertEquals(1, authHeader.size());
+        assertEquals("Bearer " + tokenValue, authHeader.get(0));
     }
 
     /**
@@ -105,6 +99,8 @@ public class TimeoutWiederholungHttpInvokerRequestExecutorTest {
      */
     @Test
     public void testPrepareConnectionWithoutToken() {
+        executorStub = new TimeoutWiederholungHttpInvokerRequestExecutor(null);
+
         try {
             executorStub.prepareConnection(connection, CONTENT_LENGTH);
         } catch (IOException e) {
@@ -120,13 +116,15 @@ public class TimeoutWiederholungHttpInvokerRequestExecutorTest {
     @Test
     public void testTimeoutsGetSet() {
         final int timeout = 50;
-
+        executorStub = new TimeoutWiederholungHttpInvokerRequestExecutor(null);
         executorStub.setTimeout(timeout);
+
         try {
             executorStub.prepareConnection(connection, CONTENT_LENGTH);
         } catch (IOException e) {
             fail("Expected no exception.");
         }
+
         assertEquals(timeout, connection.getConnectTimeout());
         assertEquals(timeout, connection.getReadTimeout());
     }
