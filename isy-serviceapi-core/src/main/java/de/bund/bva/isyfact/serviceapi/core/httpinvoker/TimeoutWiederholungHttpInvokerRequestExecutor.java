@@ -128,11 +128,11 @@ public class TimeoutWiederholungHttpInvokerRequestExecutor extends SimpleHttpInv
         super.prepareConnection(con, contentLength);
         String bearerToken = null;
         try {
-            if (aufrufKontextVerwalterOptional.isPresent()) {
-                bearerToken = aufrufKontextVerwalterOptional.get().getBearerToken();
-            } else if (SecurityContextHolder.getContext() != null && SecurityContextHolder.getContext().getAuthentication() != null) {
+            if (SecurityContextHolder.getContext() != null && SecurityContextHolder.getContext().getAuthentication() != null) {
                 Authentication currentAuthentication = SecurityContextHolder.getContext().getAuthentication();
                 bearerToken = ((AbstractOAuth2TokenAuthenticationToken<?>) currentAuthentication).getToken().getTokenValue();
+            } else if (aufrufKontextVerwalterOptional.isPresent()) {
+                bearerToken = aufrufKontextVerwalterOptional.get().getBearerToken();
             }
         } finally {
             if (bearerToken != null) {
