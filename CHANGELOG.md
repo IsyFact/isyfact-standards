@@ -2,6 +2,7 @@
 - `IFS-1583`: [isy-persistence] `IsyPersistenceOracleAutoConfiguration` verwendet relaxed-binding für ConditionalOnProperty
 - [isy-sonderzeichen] Hinzufügen eines neuen Packages mit Transformatoren für die DIN Norm 91379
 - `IFS-2044`: [isyfact-products-bom] OpenCSV Versionsanhebung auf 5.7.1
+- `ISY-651`: [isy-service-rest] Abschnitt zum Setzen von X-Correlation-Id in den HTTP-Header hinzugefügt
 - `ISY-546`: [isy-sicherheit] Abräumen des SecurityContexts im NutzerAuthentifizierungInterceptor
 - `ISY-650`: [isy-aufrufkontext] `FilterRegistrationBean<HttpHeaderNestedDiagnosticContextFilter>` überschreibbar
 
