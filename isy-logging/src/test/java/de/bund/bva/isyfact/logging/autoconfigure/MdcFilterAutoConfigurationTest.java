@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.aufrufkontext.autoconfigure;
+package de.bund.bva.isyfact.logging.autoconfigure;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.InstanceOfAssertFactories.STRING;
@@ -21,14 +21,15 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import de.bund.bva.isyfact.aufrufkontext.http.HttpHeaderNestedDiagnosticContextFilter;
-import de.bund.bva.isyfact.aufrufkontext.test.config.LeereTestConfig;
+import de.bund.bva.isyfact.logging.http.HttpHeaderNestedDiagnosticContextFilter;
+import de.bund.bva.isyfact.logging.test.config.LeereTestConfig;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
 
 @RunWith(SpringRunner.class)
@@ -44,6 +45,7 @@ import de.bund.bva.isyfact.logging.util.MdcHelper;
                 "isy.logging.anwendung.typ = test",
                 "isy.logging.anwendung.version = test"
         })
+@Import(MdcFilterAutoConfiguration.class)
 public class MdcFilterAutoConfigurationTest {
 
     @Autowired

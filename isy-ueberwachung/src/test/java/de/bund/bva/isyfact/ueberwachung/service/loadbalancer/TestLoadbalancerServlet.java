@@ -77,7 +77,7 @@ public class TestLoadbalancerServlet {
 	
 	
 	@Test
-	public void testDoGet() throws ServletException, IOException {
+	public void testDoGet() throws ServletException {
 		when(mockContext.getRealPath("/src/test/resources")).thenReturn("/src/test/resources/isAlive");
 		when(mockConfig.getInitParameter("isAliveFileLocation")).thenReturn("/src/test/resources");
 		loadBalancer.init(mockConfig);	
