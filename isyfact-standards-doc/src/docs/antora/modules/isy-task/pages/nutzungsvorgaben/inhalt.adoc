@@ -206,7 +206,6 @@ Diese kann als Teil der xref:nutzungsvorgaben/master.adoc#allgemeine-konfigurati
 Die Details einer `ClientRegistration`-Konfiguration sind in den xref:isy-security:nutzungsvorgaben/master.adoc#authentifizierungsmanager-authentication[Nutzungsvorgaben Sicherheit und der Authentifizierung eines OAuth 2.0 Clients mit dem Authentifizierungsmanager] beschrieben
 Hierbei kann der Sicherheitsbaustein entweder Resource Owner Password Credentials (ROPC) oder Client Credentials verwenden.
 Die Verwendung von ROPC ermöglicht es, die Identität des Benutzers abzufragen und die Tasks sicher auszuführen, während der Client Credentials Flow die Authentifizierung und Autorisierung der Anwendung selbst ermöglicht, um auf geschützte Ressourcen zuzugreifen.
-Detaillierte Informationen zur Implementierung und Konfiguration dieser Sicherheitsbausteine finden sich in der Spring Boot Security Dokumentation, die eine umfassende Anleitung und Best Practices bereitstellt.
 
 Weitere detaillierte Informationen zur Implementierung und Konfiguration dieser Sicherheitsbausteine finden sich in der Spring Boot Security Dokumentation, die eine umfassende Anleitung und Best Practices bereitstellt.
 
