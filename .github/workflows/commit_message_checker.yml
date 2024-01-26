@@ -5,6 +5,7 @@ on:
       - master
       - 'release/**'
 
+
 jobs:
   check-commit-message:
     uses: IsyFact/isyfact-standards/.github/workflows/commit_message_checker_template.yml@master
