@@ -160,5 +160,5 @@ Die durch das Beispiel generierte Navigation ist links dieser Seite aufgeklappt 
 == Anpassung des Playbooks
 
 Das Playbook befindet sich im Repository xref:glossary:literaturextern:inhalt.adoc#litextern-isyfact-antora[icon:github[] isy-antora-playbook].
-Es steuert die Generierung der Projektseite, also z.B. welche Antora-Komponenten in welchen Repositories und Branches verwendet werden sollen für die Generierung der Gesamtdokumentation.
+Es steuert die Generierung der Projektseite, also z.B. welche Antora-Komponenten in welchen Repositories und Branches für die Generierung der Gesamtdokumentation verwendet werden sollen.
 Das Playbook muss angepasst werden, wenn in einem Repository eine Dokumentation neu erstellt wird, und wenn weitere Branches zur Dokumentengenerierung herangezogen werden sollen.
