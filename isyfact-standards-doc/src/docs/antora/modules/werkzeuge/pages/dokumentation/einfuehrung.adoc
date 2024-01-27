@@ -49,7 +49,7 @@ Empfohlen seien an dieser Stelle:
 Die Quellen der Online-Dokumentation der IsyFact verteilen sich auf mehrere Git-Repositories.
 Zur Bereitstellung der Projektseite nutzt die IsyFact zwei übergreifende Repositories:
 
-* xref:glossary:literaturextern:inhalt.adoc#litextern-isyfact-antora[icon:github[] isy-antora-playbook] zur Ablage von globaler Konfiguration wie z.B. dem Playbook oder dem CI/CD-Build,
+* xref:glossary:literaturextern:inhalt.adoc#litextern-isyfact-antora[icon:github[] isy-antora-playbook] zur Ablage von einer globalen Konfiguration wie z.B. dem Playbook oder dem CI/CD-Build,
 * xref:glossary:literaturextern:inhalt.adoc#litextern-isyfact-online-docs-meta[icon:github[] isy-documentation] zur Bereitstellung übergreifender Inhalte wie z.B. Lizenzhinweise, dem Glossar und einem Quellenverzeichnis.
 
 Die meisten Inhalte sind derzeit im zentralen Repository xref:glossary:literaturextern:inhalt.adoc#litextern-isyfact-standards[icon:github[] isyfact-standards] enthalten.
