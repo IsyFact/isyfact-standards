@@ -3781,7 +3781,7 @@ Die Applikationen innerhalb einer Gruppe erhalten keine unterschiedlichen Farben
 Anwendungen des Bundes sollen über die IT-Landschaft hinweig ein einheltiches Look & Feel bieten, dies wird über die Anwenundg der ISYFact und deren Komponenten gewährleistet.
 Dazu ist es zudem notwendig auch bei der Schrift (im weiteren Font) einheitlich vorzugehen.
 Zur Anwendung kommt primär:
-*BundesSans
+*BundesSans*
 Diese Schriftart wurde extra für Inhalte des Bundes entwickelt und zur Verfügung gestellt.
 Die BundesSans ist eine Humanistische Serifenlose Schrift, Rationalität und äußerste Klarheit kennzeichnen ihre Formensprache.
 Die BundesSans gehört zu den sogenannten Humanistischen Serifenlosen und entspricht den Empfehlungen des DBSV hinsichtlich der Leserlichkeit von Schrift.
@@ -3803,7 +3803,7 @@ Basierend auf UNICODE wurde für jedes Nicht-Lateinische Zeichen, dass in EU Mit
 DIN 91379 wendet sich vorrangig an Behörden und Organisationen, die IT-Verfahren betreiben, welche dem behördenübergreifenden Datenaustausch oder dem Datenaustausch mit Bürgern und Wirtschaft dienen.
 Sie deckt in ihrer Gesamtheit die EU-Amtssprachen und die Amtssprachen Islands, Liechtensteins, Norwegens und der Schweiz sowie die deutschen Minderheitensprachen ab.
 Damit dies gewährleistet wird, kommt sekundär:
-*Liberation
+*Liberation*
 zum Einsatz.
 Diese Schriftart wird nur fehlende UNICODE zeichen in der BundesSans ergänzen, wodurch eine unkonformität mit der BITV durch evtl. Verwechslungen mit einem großen I und kleinen l ausgeschlossen werden kann.
 In diesem konkreten Beispiel kommt die BundesSans zum tragen.
