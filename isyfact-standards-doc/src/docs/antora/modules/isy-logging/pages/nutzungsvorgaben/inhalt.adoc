@@ -604,8 +604,48 @@ Darüber hinaus werden Methoden zum Kennzeichen der Inhalte im MDC als fachlich 
 [[mcdfilter]]
 ==== MDC-Filter
 
-Durch die Spring-Autokonfiguration in `isy-aufrufkontext` wird ein Servlet-Filter erstellt, welcher automatisch bei jedem Request die Korrelations-ID aus dem Http-Header ausliest und in den MDC setzt.
-Ist der Header nicht gesetzt, wird eine neue Korrelations-ID generiert.
+Durch die Spring-Autokonfiguration in `isy-logging` wird ein Servlet-Filter erstellt, welcher automatisch bei jedem Request die Korrelations-ID aus dem Http-Header ausliest und in den MDC setzt.
+Ist der Header nicht gesetzt, wird eine neue Korrelations-ID generiert, indem die autokonfigurierte Bean <<listing-filterRegistrationBean-logging>> aufgerufen wird.
+Das URL-Pattern "/*" schließt dabei alle URLs ein.
+
+[[listing-filterRegistrationBean-logging]]
+.FilterRegistrationBean<HttpHeaderNestedDiagnosticContextFilter> aus isy-logging
+[source,java]
+----
+@Bean
+FilterRegistrationBean<HttpHeaderNestedDiagnosticContextFilter> httpHeaderNestedDiagnosticContextFilter() {
+    FilterRegistrationBean<HttpHeaderNestedDiagnosticContextFilter> registrationBean = new FilterRegistrationBean<>();
+    registrationBean.setFilter(new HttpHeaderNestedDiagnosticContextFilter());
+    registrationBean.addUrlPatterns("/*");
+    registrationBean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+    return registrationBean;
+}
+----
+
+Falls HttpInvoker-Schnittstellen verwendet werden, muss diese Bean im Anwendungssystem so überschrieben werden, dass sie für die HttpInvoker-Schnittstellen deaktiviert ist.
+Grund dafür ist, dass bei HttpInvoker-Schnittstellen durch den Aufruf der Klasse IsyHttpInvokerClientInterceptor bereits eine Korrelations-ID generiert wird.
+Ohne das Überschreiben dieser Bean werden beim Aufruf einer HttpInvoker-Schnittstelle beide Mechanismen aktiv, sodass zwei neue Korrelations-IDs für eine einzige Aktion neu erzeugt werden.
+Dies ist zu vermeiden.
+
+Beim Überschreiben der Bean müssen die URL-Patterns so angegeben werden, dass die HttpInvoker-URLs nicht enthalten sind.
+Die Verwendung des Asterisk-Platzhalters * ist dabei am Ende des URL-Patterns möglich.
+Stellt eine Anwendung beispielsweise HttpInvoker-Schnittstellen unter `"/httpinv-endpoint0"` sowie REST-Schnittstellen unter `"/rest-endpoint1"`, `"/api/rest/example/endpoint2"` und `"/api/rest/example/endpoint3"` bereit, muss die Bean im Anwendungssystem wie folgt überschrieben werden:
+
+[[listing-filterRegistrationBean-anwendungssystem]]
+.Beispiel für Bean-Überschreibung im Anwendungssystem
+[source,java]
+----
+@Bean
+FilterRegistrationBean<HttpHeaderNestedDiagnosticContextFilter> httpHeaderNestedDiagnosticContextFilter() {
+    FilterRegistrationBean<HttpHeaderNestedDiagnosticContextFilter> registrationBean = new FilterRegistrationBean<>();
+    registrationBean.setFilter(new HttpHeaderNestedDiagnosticContextFilter());
+    registrationBean.addUrlPatterns("/rest-endpoint1", "/api/rest/example/*");
+    registrationBean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+    return registrationBean;
+}
+----
+Dadurch wird der `HttpHeaderNestedDiagnosticContextFilter` wie gewünscht nur für die REST-Schnittstellen aufgerufen.
+
 
 [[diagnosekontext-korrelations-id]]
 ==== Diagnosekontext / Korrelations-ID
