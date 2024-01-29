@@ -61,7 +61,15 @@
 - `ISY-416`: [isyfact-products-bom] Versionsanhebung von Metro Webservices auf 2.4.9
 - `ISY-658`: [isy-serviceapi-core], [isyfact-standards-doc] Setzen generierter Korrelations-IDs in das AufrufKontextTo im StelltLoggingKontextBereitInterceptor
   * [isyfact-standards-doc] Abschnitt "Anmerkung zum Parallelbetrieb von AufrufKontextVerwalter und MdcHelper" hinzugefügt
+- `ISY-651`: [isyfact-standards-doc] Abschnitt zum Setzen von X-Correlation-Id in den HTTP-Header bei REST-Anfragen
+- `ISY-650`: [isy-aufrufkontext, isy-logging] Bean zum Setzen der Korrelations-ID angepasst:
+  * `HttpHeaderNestedDiagnosticContextFilter` aus `isy-aufrufkontext` nach `isy-logging` verschoben 
+  * `FilterRegistrationBean<HttpHeaderNestedDiagnosticContextFilter>` überschreibbar
+
 ## BREAKING CHANGE
+
+### isy-aufrufkontext
+- `HttpHeaderNestedDiagnosticContextFilter` wurde aus `isy-aufrufkontext` nach `isy-logging` verschoben
 
 ### isy-sonderzeichen
 - Die Klassen `stringlatin1_1/core/transformation/ZeichenKategorie.java` und `dinspec91379/transformation/ZeichenKategorie.java` bieten für Abruf aller Möglichkeiten einen `getter` anstelle einer `public static Variable` an

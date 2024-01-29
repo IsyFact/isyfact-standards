@@ -1,0 +1,13 @@
+name: Build Documentation
+on:
+  push:
+    tags: ['*']
+
+jobs:
+  TriggerBuild:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.ANTORA_TRIGGER_TOKEN }}
+    steps:
+      - name: Trigger documentation build
+        run: gh workflow run antora_build.yml -R IsyFact/isy-antora-playbook

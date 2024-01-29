@@ -1,4 +1,4 @@
-= Änderungen Version {page-component-display-version}
+= Änderungen Version {page-component-version}
 :icons: font
 :sectnums:
 
