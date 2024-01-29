@@ -3,6 +3,9 @@
 - [isy-sonderzeichen] Hinzufügen eines neuen Packages mit Transformatoren für die DIN Norm 91379
 - `IFS-2044`: [isyfact-products-bom] OpenCSV Versionsanhebung auf 5.7.1
 - `ISY-658`: [isy-serviceapi-core] Setzen generierter Korrelations-IDs in das AufrufKontextTo im StelltLoggingKontextBereitInterceptor
+- `ISY-651`: [isy-service-rest] Abschnitt zum Setzen von X-Correlation-Id in den HTTP-Header hinzugefügt
+- `ISY-546`: [isy-sicherheit] Abräumen des SecurityContexts im NutzerAuthentifizierungInterceptor
+- `ISY-650`: [isy-aufrufkontext] `FilterRegistrationBean<HttpHeaderNestedDiagnosticContextFilter>` überschreibbar
 
 # 2.4.4
 - `IFS-1997`: Fix CVE-2022-42889 durch Anhebung von 'commons-text' auf 1.10
