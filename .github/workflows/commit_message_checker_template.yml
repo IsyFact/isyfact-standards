@@ -11,9 +11,6 @@ on:
 
   workflow_call:
 
-env:
-  ACTIONS_RUNNER_DEBUG: "true"
-
 jobs:
   check-commit-message:
     name: Check Conventional Commit Message
@@ -35,11 +32,8 @@ jobs:
         uses: gsactions/commit-message-checker@v2.0.0
         with:
           pattern: '^((feat|fix|build|ci|docs|refactor|style|test|perf|chore)(\(\w+\))?(: (.*\s*)*))|(Merge (.*\s*)*)|(Revert (.*\s*)*)'
-          error: 'Commit is not conventional.'
+          error: 'Commit message is not conventional.'
           checkAllCommitMessages: 'true'
           excludeDescription: 'true'
           excludeTitle: 'true'
           accessToken: ${{ secrets.GITHUB_TOKEN }}
-      - name: Log message
-        run: |
-          echo "The commit checker runs"
