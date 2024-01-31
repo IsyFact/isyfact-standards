@@ -18,7 +18,7 @@ Der folgende Quelltext dient als Kopiervorlage für neue Seiten.
 
 Der Quelltext einer Seite bricht gemäß der Regel _one sentence per line_ nach jedem Satz um.
 
-Mehr zu Zeilenumbrüchen xref:werkzeuge:dokumentation/bearbeitung/bearbeitung-antora.adoc#ein-satz-pro-zeile[hier].
+Mehr zu Zeilenumbrüchen xref:werkzeuge:dokumentation/bearbeitung-antora.adoc#ein-satz-pro-zeile[hier].
 
 [[formatierung-verweise]]
 === Verweise
@@ -48,7 +48,7 @@ Verweise auf das xref:glossary:glossary:master.adoc[Glossar] dürfen nur bei der
 Alle weitere Vorkommen eines Begriffs werden aus Gründen des Leseflusses nicht mit einem Verweis hinterlegt.
 Es folgt ein Beispiel für den Eintrag der xref:glossary:glossary:master.adoc#glossar-isyfact[IsyFact] im Glossar.
 
-Mehr zu Querverweisen xref:werkzeuge:dokumentation/bearbeitung/bearbeitung-antora.adoc#querverweise[hier].
+Mehr zu Querverweisen xref:werkzeuge:dokumentation/bearbeitung-antora.adoc#querverweise[hier].
 
 [[formatierung-abbildungen]]
 === Abbildungen
@@ -57,7 +57,7 @@ Mehr zu Querverweisen xref:werkzeuge:dokumentation/bearbeitung/bearbeitung-antor
 .Beispiel einer Abbildung
 image::einstieg:sf-saeulen.dn.svg[]
 
-Mehr zu Abbildungen xref:werkzeuge:dokumentation/bearbeitung/bearbeitung-antora.adoc#bilder[hier].
+Mehr zu Abbildungen xref:werkzeuge:dokumentation/bearbeitung-antora.adoc#bilder[hier].
 
 [[formatierung-tabellen]]
 === Tabellen
@@ -73,7 +73,7 @@ Mehr zu Abbildungen xref:werkzeuge:dokumentation/bearbeitung/bearbeitung-antora.
 |Zelle 31|Zelle 32|Zelle 33|Zelle 34
 |===
 
-Mehr zu Tabellen xref:werkzeuge:dokumentation/bearbeitung/bearbeitung-antora.adoc#tabellen[hier].
+Mehr zu Tabellen xref:werkzeuge:dokumentation/bearbeitung-antora.adoc#tabellen[hier].
 
 [[formatierung-listings]]
 === Listings
@@ -89,7 +89,7 @@ public class HalloWelt {
 }
 ----
 
-Mehr zu Listings xref:werkzeuge:dokumentation/bearbeitung/bearbeitung-antora.adoc#listings[hier].
+Mehr zu Listings xref:werkzeuge:dokumentation/bearbeitung-antora.adoc#listings[hier].
 
 [[formatierung-admonitions]]
 === Admonition Blocks
@@ -139,7 +139,7 @@ Regeln für die Sicherheit von IT-Systemen.
 Regeln zur Gestaltung von grafischen Oberflächen.
 ****
 
-Mehr zu Admonition Blocks xref:werkzeuge:dokumentation/bearbeitung/bearbeitung-antora.adoc#admonition-blocks[hier].
+Mehr zu Admonition Blocks xref:werkzeuge:dokumentation/bearbeitung-antora.adoc#admonition-blocks[hier].
 
 [[deprecations]]
 === Deprecations
