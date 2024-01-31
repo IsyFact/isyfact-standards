@@ -125,7 +125,7 @@ _Kurze, prägnante fachliche Darstellung der Anwendung. [...]_
 
 [[fachlicher-kontext]]
 .{anwendung}: Fachlicher Kontext
-image::methodik:vorlage-systemhandbuch/fachlicher-kontext.dn.svg[]
+image::vorlage-systemhandbuch/fachlicher-kontext.dn.svg[]
 
 NOTE: Weitere fachliche Details können in der <<systemspezifikation>> nachgelesen werden.
 
