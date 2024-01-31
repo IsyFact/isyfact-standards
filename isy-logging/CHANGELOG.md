@@ -1,3 +1,8 @@
+# 3.0.0
+- `ISY-650`: Bean zum Setzen der Korrelations-ID angepasst:
+    * `HttpHeaderNestedDiagnosticContextFilter` aus `isy-aufrufkontext` eingefügt
+    * `FilterRegistrationBean<HttpHeaderNestedDiagnosticContextFilter>` überschreibbar
+
 # 2.4.0
 - `IFS-590`: Instanziierung LogApplicationListener Parameter in korrekter Reihenfolge
 - `IFS-802`: SpotBugs Fehler behoben
