@@ -10,7 +10,7 @@ Sie enthalten Word-, Excel- oder AsciiDoc-Dateien, die im Projektverlauf gefüll
 
 Nach Bedarf können für die dauerhafte Ablage aus Word- und AsciiDoc-Vorlagen PDF-Dokumente erzeugt werden.
 Für Word-Vorlagen wird hierzu die integrierte Funktion von Word genutzt.
-Für AsciiDoc-Vorlagen kann xref:werkzeuge:dokumentation/generierung/generierung-asciidoctorj.adoc[die PDF-Generierung mittels AsciidoctorJ] verwendet werden.
+Für AsciiDoc-Vorlagen kann https://docs.asciidoctor.org/pdf-converter/latest/[Asciidoctor PDF] verwendet werden.
 
 Word- und Excel-Vorlagen können direkt von dieser Seite als Download bezogen werden.
 AsciiDoc-Vorlagen können sowohl direkt aufgerufen als auch im ZIP- oder PDF-Format heruntergeladen werden.
