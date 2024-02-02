@@ -59,6 +59,8 @@
 - `IFS-2416`: [isy-task] Umstellung von isy-sicherheit auf isy-security
 - `ISY-372`: [isy-styleguide] JavaScript-Referenzen entfernt
 - `ISY-416`: [isyfact-products-bom] Versionsanhebung von Metro Webservices auf 2.4.9
+- `ISY-658`: [isy-serviceapi-core], [isyfact-standards-doc] Setzen generierter Korrelations-IDs in das AufrufKontextTo im StelltLoggingKontextBereitInterceptor
+  * [isyfact-standards-doc] Abschnitt "Anmerkung zum Parallelbetrieb von AufrufKontextVerwalter und MdcHelper" hinzugefügt
 - `ISY-651`: [isyfact-standards-doc] Abschnitt zum Setzen von X-Correlation-Id in den HTTP-Header bei REST-Anfragen
 - `ISY-650`: [isy-aufrufkontext, isy-logging] Bean zum Setzen der Korrelations-ID angepasst:
   * `HttpHeaderNestedDiagnosticContextFilter` aus `isy-aufrufkontext` nach `isy-logging` verschoben 
