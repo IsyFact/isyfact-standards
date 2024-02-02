@@ -1,0 +1,22 @@
+= Migrationsleitfaden IsyFact {page-component-version}
+:icons: font
+:sectnums:
+
+include::glossary:licence:partial$licence.adoc[]
+
+Die auf dieser Seite aufgeführten Hinweise sollen der Entwicklung bei der Umstellung einer auf IsyFact 3.x basierenden Anwendung auf IsyFact {page-component-version} helfen.
+
+[[kapitel-geschaeftsanwendung]]
+== Geschäftsanwendung
+
+...
+
+[[kapitel-bausteine]]
+== Bausteine
+
+...
+
+[[kapitel-dokumentation]]
+== Dokumentation
+
+...
