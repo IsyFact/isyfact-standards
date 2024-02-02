@@ -1,3 +1,6 @@
+# 2.5.0
+- `ISY-658`: Setzen generierter Korrelations-IDs in das AufrufKontextTo im StelltLoggingKontextBereitInterceptor
+
 # 2.4.0
 - `IFS-668`: Zurücksetzung der KorrelationsId des AnrufKontextTo bei einem Invoke
 

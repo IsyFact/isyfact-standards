@@ -81,6 +81,15 @@ public class StelltLoggingKontextBereitInterceptor implements MethodInterceptor 
         try {
             LOG.debug("Setze Korrelations-ID: " + korrelationsId);
             MdcHelper.pushKorrelationsId(korrelationsId);
+            if (stelltLoggingKontextBereit == null || stelltLoggingKontextBereit.nutzeAufrufKontext()) {
+                Optional<AufrufKontextTo> aufrufKontextToOptional =
+                        aufrufKontextToResolver.leseAufrufKontextTo(invocation.getArguments());
+                aufrufKontextToOptional.ifPresent(aufrufKontextTo -> {
+                    if (aufrufKontextTo.getKorrelationsId() == null || aufrufKontextTo.getKorrelationsId().isEmpty()) {
+                        aufrufKontextTo.setKorrelationsId(korrelationsId);
+                    }
+                });
+            }
             return invocation.proceed();
         } finally {
             // remove correlation id from MDC after service call

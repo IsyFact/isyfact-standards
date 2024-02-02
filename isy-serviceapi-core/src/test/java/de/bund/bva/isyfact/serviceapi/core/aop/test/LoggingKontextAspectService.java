@@ -40,7 +40,7 @@ public class LoggingKontextAspectService {
         throw new Exception();
     }
 
-    public void saveKorrelationsID(){
+    public void saveKorrelationsID() {
         this.korrelationsIDLetzterAufruf = MdcHelper.liesKorrelationsId();
     }
 
