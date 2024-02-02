@@ -20,7 +20,7 @@ Methodik zur Dokumentation von Anwendungen::
 
 Methodik zur Dokumentation der IsyFact::
 * xref:methodik:vorgaben-dokumentation/dokumentationstypen.adoc[]
-* xref:werkzeuge:dokumentation/einleitung/einfuehrung.adoc[]
+* xref:werkzeuge:dokumentation/einfuehrung.adoc[]
 
 [[dokumentation-saeulen]]
 == Dokumentation der Säulen

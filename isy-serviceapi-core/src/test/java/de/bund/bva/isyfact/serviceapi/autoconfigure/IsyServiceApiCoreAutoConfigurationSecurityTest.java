@@ -23,30 +23,31 @@ public class IsyServiceApiCoreAutoConfigurationSecurityTest {
             .withConfiguration(AutoConfigurations.of(IsyServiceApiCoreAutoConfiguration.class, IsyServiceApiSecurityAutoConfiguration.class));
 
     @Test
-    public void autoconfigurationWithoutIsySecurity() {
+    public void isyServiceApiCoreAutoConfigurationWithoutIsySecurity() {
         applicationContextRunner
                 .withClassLoader(new FilteredClassLoader(IsySecurityAutoConfiguration.class))
                 .run(context -> {
-                    assertThat(context).doesNotHaveBean(CreateAufrufKontextToStrategy.class);
-                    assertThat(context).doesNotHaveBean(RemoteInvocationFactory.class);
+                    assertThat(context)
+                            .doesNotHaveBean(CreateAufrufKontextToStrategy.class)
+                            .doesNotHaveBean(RemoteInvocationFactory.class);
                 });
     }
 
     @Test
-    public void autoconfigurationWithIsySecurity() {
+    public void isyServiceApiCoreAutoConfigurationWithIsySecurity() {
         // test that IsyServiceApiCore is autoconfigured after IsySecurity
         applicationContextRunner
                 .withConfiguration(AutoConfigurations.of(IsySecurityAutoConfiguration.class))
                 .run(context -> {
-                    assertThat(context).hasSingleBean(IsySecurityAutoConfiguration.class);
-                    assertThat(context).hasSingleBean(Berechtigungsmanager.class);
-                    assertThat(context).hasSingleBean(CreateAufrufKontextToStrategy.class);
-                    assertThat(context).hasSingleBean(RemoteInvocationFactory.class);
+                    assertThat(context).hasSingleBean(IsySecurityAutoConfiguration.class)
+                            .hasSingleBean(Berechtigungsmanager.class)
+                            .hasSingleBean(CreateAufrufKontextToStrategy.class)
+                            .hasSingleBean(RemoteInvocationFactory.class);
                 });
     }
 
     @Test
-    public void remoteInvocationFactoryIsSet () {
+    public void remoteInvocationFactoryIsSet() {
         applicationContextRunner
                 .withConfiguration(AutoConfigurations.of(IsySecurityAutoConfiguration.class))
                 .withUserConfiguration(TestConfiguration.class)
@@ -62,7 +63,7 @@ public class IsyServiceApiCoreAutoConfigurationSecurityTest {
     @Configuration
     static class TestConfiguration {
         @Bean
-        public IsyHttpInvokerProxyFactoryBean httpInvokerProxyFactoryBean () {
+        public IsyHttpInvokerProxyFactoryBean httpInvokerProxyFactoryBean() {
             IsyHttpInvokerProxyFactoryBean httpInvokerProxyFactoryBean = new IsyHttpInvokerProxyFactoryBean();
             httpInvokerProxyFactoryBean.setRemoteSystemName("testRemoteSystem");
             httpInvokerProxyFactoryBean.setServiceUrl("testServiceUrl");

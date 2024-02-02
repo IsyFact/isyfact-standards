@@ -8,6 +8,7 @@
 - h2 wird über Spring Boot transitiv bezogen, wie im Produktkatalog gefordert
 - `ISY-139`: Spring Boot Versionsanhebung auf 2.7.15
 - `ISY-416`: Versionsanhebung von Metro Webservices auf 2.4.9
+- `ISY-698`: Versionsanhebung von jsoup auf 1.15.3
 
 # 2.4.2
 - `IFS-1466`: Versionsanhebung von Spring Boot auf 2.5.13
