@@ -1,4 +1,4 @@
-package de.bund.bva.isyfact.aufrufkontext.test.config;
+package de.bund.bva.isyfact.logging.test.config;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Configuration;

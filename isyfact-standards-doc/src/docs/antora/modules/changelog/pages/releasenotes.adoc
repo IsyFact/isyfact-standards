@@ -1,4 +1,4 @@
-= Release Notes Version {page-component-display-version}
+= Release Notes Version {page-component-version}
 :icons: font
 :sectnums:
 
@@ -15,7 +15,7 @@ include::glossary:licence:partial$licence.adoc[]
 
 Online Dokumentation über  Asciidoc / Antora:: Die Bereitstellung der Dokumentation der IsyFact (Open Source) erfolgt nicht mehr über PDF Dokumente, sondern über die xref:glossary:literaturextern:inhalt.adoc#litextern-url-isyfact-online-docs[Online-Dokumentation]. 
 Als Werkzeug zur Generierung der Dokumentation wird das Produkt Antora eingesetzt. 
-Vorgaben zur Dokumentation:: Die xref:werkzeuge:dokumentation/bearbeitung/bearbeitung-antora.adoc[Vorgaben zur Dokumentation für technische Autoren] wurden ergänzt.
+Vorgaben zur Dokumentation:: Die xref:werkzeuge:dokumentation/bearbeitung-antora.adoc[Vorgaben zur Dokumentation für technische Autoren] wurden ergänzt.
 Darüber hinaus werden Abbildungen sukzessive in editierbare SVGs gewandelt und in der Dokumentation abgelegt. Eine xref:methodik:diagrammerstellung/diagramsnet.adoc[Beschreibung zum Vorgehen] wurde ergänzt. 
 Auszeichnung von Deprecations:: Deprecations werden im Code und der Dokumentation kenntlich gemacht. 
 Produktkatalog als Teil der Dokumentation:: Der xref:einstieg:produkte.adoc[Produktkatalog] wurde von Excel nach Asciidoc / CSV migriert und ist nun Teil dieser Dokumentation. 
@@ -58,7 +58,7 @@ Ausblick:: Die konzeptionelle Integration erfolgt in einem nachfolgenden Release
 === Optimierung Dependency Management
 Abhängigkeiten wurden überprüft und reduziert.
 
-[[kapitel-aenderungen]]
+[[kapitel-bausteine]]
 == Isyfact Bausteine
 
 [[kapitel-baustein-sicherheit-deprecated]]
