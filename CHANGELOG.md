@@ -64,6 +64,7 @@
 - `ISY-650`: [isy-aufrufkontext, isy-logging] Bean zum Setzen der Korrelations-ID angepasst:
   * `HttpHeaderNestedDiagnosticContextFilter` aus `isy-aufrufkontext` nach `isy-logging` verschoben 
   * `FilterRegistrationBean<HttpHeaderNestedDiagnosticContextFilter>` überschreibbar
+- `ISY-655`: [isy-serviceapi-core] Beheben einer ClassNotFoundException beim Starten von Anwendungen mit IsyServiceApiCoreAutoConfiguration
 
 ## BREAKING CHANGE
 
