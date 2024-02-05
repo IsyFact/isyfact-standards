@@ -8,6 +8,7 @@ import static org.mockito.Mockito.verify;
 
 import java.lang.reflect.Proxy;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -24,6 +25,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.remoting.RemoteAccessException;
 import org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter;
 import org.springframework.remoting.support.RemoteInvocationFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -80,13 +82,18 @@ public class IsyHttpInvokerServiceExporterIntegrationTest {
     @SpyBean
     private CreateAufrufKontextToStrategy createAufrufKontextToStrategy;
 
+    @Before
+    public void setUp() {
+        SecurityContextHolder.clearContext();
+    }
+
     @Test(expected = RemoteAccessException.class)
     public void testAddUserNotAllowedProxyObject() {
         serviceProxy.setServiceUrl("http://localhost:" + port + "/isyDummyServiceBean_v1_0_0");
         userService.setWaitTime(0);
         User b = new UserImpl();
         UserInvocationHandler uih = new UserInvocationHandler(b);
-        User a = (User) Proxy.newProxyInstance(UserImpl.class.getClassLoader(), new Class[]{User.class}, uih);
+        User a = (User) Proxy.newProxyInstance(UserImpl.class.getClassLoader(), new Class[] {User.class}, uih);
         serviceRemoteBean.addUser(a);
     }
 
@@ -96,7 +103,7 @@ public class IsyHttpInvokerServiceExporterIntegrationTest {
         userService.setWaitTime(0);
         User b = new UserImpl();
         UserInvocationHandler uih = new UserInvocationHandler(b);
-        User a = (User) Proxy.newProxyInstance(UserImpl.class.getClassLoader(), new Class[]{User.class}, uih);
+        User a = (User) Proxy.newProxyInstance(UserImpl.class.getClassLoader(), new Class[] {User.class}, uih);
         assertEquals("Added user successful.", serviceRemoteBean.addUser(a));
     }
 
@@ -106,7 +113,7 @@ public class IsyHttpInvokerServiceExporterIntegrationTest {
         userService.setWaitTime(0);
         User b = new UserImpl();
         UserInvocationHandler uih = new UserInvocationHandler(b);
-        User a = (User) Proxy.newProxyInstance(UserImpl.class.getClassLoader(), new Class[]{User.class}, uih);
+        User a = (User) Proxy.newProxyInstance(UserImpl.class.getClassLoader(), new Class[] {User.class}, uih);
         assertEquals("Added user successful.", serviceRemoteBean.addUser(a));
 
         assertEquals(TEST_BEARER_TOKEN, aufrufKontextVerwalter.getBearerToken());
