@@ -3794,13 +3794,13 @@ Stattdessen werden andere, platzsparende Mechanismen angewandt, wie z.B. Expande
 [[icons-ueberscrift]]
 === Icons
 
-Der Einsatz von Icons in Anwendungen soll einem einheitlichen Stil Folgen und sich primär an Icons der Bibliothek xref:glossary:literaturextern:inhalt.adoc#litextern-prime-faces-icons[Prime Faces Icons] bedienen.
+Der Einsatz von Icons in Anwendungen soll einem einheitlichen Stil folgen und sich primär an Icons der Bibliothek xref:glossary:literaturextern:inhalt.adoc#litextern-prime-faces-icons[Prime Faces Icons] bedienen.
 Sollten fachlich notwendige Icons in Prime Faces nicht vorhanden sein, können in Ausnahmefällen Icons aus der Bibliothek Font Awesome bezogen werden.
 Beide Fonts müssen in die Webanwendung eingebunden werden.
 Wichtig ist es dabei darauf zu achten, dass die Icons im Stil und ihrer Art so ähnlich wie möglich zu den primär verwendeten Icons sind.
 Es ist darauf zu achten, dass:
 
-* Gleiche Bedeutungen mit unterschiedlichen Icons entsteht (Beispiel: Warenkorb = Einkaufwagen und Beutel), hier wird die von Prime Faces vorgegeben Lösung genutzt.
+* Gleiche Bedeutungen mit unterschiedlichen Icons entstehen (Beispiel: Warenkorb = Einkaufwagen und Beutel). Hier wird die von Prime Faces vorgegeben Lösung genutzt.
 Ist ein Icon für sich nicht ausreichend aussagekräftig ist der Nutzen/die Anwendung mit einem Textattribut zu ergänzen.
 
 * Zur Sicherstellung der Barrierefreiheit ist ein Icon mit einem entsprechenden alt-Tag zu versehen (Beispiel: Stift = bearbeiten alt="bearbeiten").
