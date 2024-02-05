@@ -1,4 +1,5 @@
 # 3.0.0
+- `ISY-653` : Erweitern des `TimeoutWiederholungHttpInvokerRequestExecutor` um die Token-Beschaffung aus dem Security Context bei Nichtverfügbarkeit des `AufrufKontextVerwalter`.
 - `ISY-183`: [isyfact-standards-doc] Migrationsleitfaden zur Entfernung der Bridge-Module
 - `ISY-54`: [isyfact-standards-doc] Migrationsleitfaden zur Umstellung auf isy-security
 - `ISY-219`: [isyfact-standards-doc] Abschnitt zur Migration der Annotation @NutzerAuthentifizierung
