@@ -3804,7 +3804,7 @@ Die Liste entspricht der Sprachenzeichennorm ISO 639-1-3.
 *Nicht-lateinische Fließtextschriften*
 
 Nicht-lateinische Schriften umfassen Schriftsysteme, die anstelle lateinischer Schriftzeichen z.B. arabische, kyrillische oder chinesische Zeichen beinhalten.
-Mit einem Schriftsystem lassen sich meist mehrere Sprachen schreiben (z.B. mit dem arabischen Schriftsystem Sprachen, wie Arabisch, Urdu, Paschtu, Persisch (Dari/Farsi).
+Mit einem Schriftsystem lassen sich meist mehrere Sprachen schreiben (z.B. mit dem arabischen Schriftsystem Sprachen, wie Arabisch, Urdu, Paschtu, Persisch (Dari/Farsi)).
 Nicht-lateinischer Originaltext wird vom angegebenen Schriftfont erkannt und automatisch in den richtigen Schriftzeichen wiedergegeben.
 Die Notwendigkeit der Darstellung nicht-lateinischer Schriften ergibt sich durch die DIN 91379 „Zeichen und definierte Zeichensequenzen in Unicode für die elektronische Verarbeitung von Namen und den Datenaustausch in Europa“ mit Ausgabedatum 2022-08.
 Basierend auf UNICODE wurde für jedes nicht-lateinische Zeichen, das in EU Mitgliedsstaaten verwendet wird (beispielsweise griechische oder kyrillische Zeichen), eine eindeutige Zuordnung zu einem lateinischen Zeichen vorgenommen.
