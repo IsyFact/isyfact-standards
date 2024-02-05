@@ -676,6 +676,41 @@ Somit müssen alle Klassen, die das Interface Runnable implementieren, eine Meth
 Ansonsten besitzt der gestartete Thread nicht den Kontext des aufrufenden Threads.
 Zusätzlich muss im Thread eine weitere Unique-ID an die Korrelations-ID im MDC angehängt werden, so dass auch die Logeinträge des Threads eindeutig identifiziert werden können.
 
+*Anmerkung zum Parallelbetrieb von AufrufKontextVerwalter und MdcHelper*
+
+Innerhalb der Anwendung wird die Korrelations-ID sowohl über das AufrufKontext-Objekt im AufrufKontextVerwalter
+als auch über den MdcHelper verwaltet und zur Verfügung gestellt.
+
+An der Service-Schnittstelle werden dazu die Annotationen @StelltLoggingKontextBereit und @StelltAufrufKontextBereit
+in Zusammenspiel verwendet.
+
+Die Annotation @StelltLoggingKontextBereit liest die Korrelations-ID aus einem AufrufKontextTo, welches der annotierten
+Methode als Parameter übergeben wird und befüllt den Logging-Kontext, indem die Korrelations-ID in den MdcHelper geschrieben wird.
+
+Enthält das AufrufKontextTo keine (null) oder eine leere ("") Korrelations-ID, so wird eine neue Korrelations-ID generiert.
+Die neu generierte Korrelations-ID wird in das AufrufKontextTo-Objekt zurückgeschrieben und ebenfalls
+an den MdcHelper weitergegeben.
+
+Die @StelltLoggingKontextBereit-Annotation kann auch ohne vorhandenes AufrufKontextTo-Objekt verwendet werden.
+Dazu muss nutzeAufrufKontext auf false gesetzt werden.
+In diesem Fall wird eine neue Korrelations-ID generiert und in den MdcHelper geschrieben.
+
+Nach Aufruf des StelltLoggingKontextBereitInterceptors über die @StelltLoggingKontextBereit-Annotation
+ist die Korrelations-ID sowohl im MDC also auch im AufrufKontextTo vorhanden.
+
+Um die Daten des AufrufKontextTo in den AufrufKontextVerwalter zu schreiben, wird die Annotation @StelltAufrufKontextBereit
+verwendet.
+Im StelltAufrufKontextBereitInterceptor wird hierfür ein neues AufrufKontext-Objekt erstellt.
+Nach der Erstellung werden die Daten aus dem AufrufKontextTo in das AufrufKontext-Objekt übertragen und der AufrufKontext
+in den AufrufKontextVerwalter gesetzt.
+Der vorherige AufrufKontext wird hierbei zwischengespeichert und nach Aufruf der mit @StelltAufrufKontextBereit
+annotierten Methode wiederhergestellt.
+Entsprechend stehen die Daten aus dem AufrufKontextTo innerhalb des Methodenaufrufs in Form eines AufrufKontext-Objekts
+über den AufrufKontextVerwalter zur Verfügung.
+
+Nach dem Durchlaufen beider Interceptoren steht die Korrelations-ID sowohl im AufrufKontext(Verwalter) als auch über den
+MdcHelper zur Verfügung.
+
 [[konfiguration]]
 === Konfiguration
 

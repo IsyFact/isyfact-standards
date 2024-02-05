@@ -64,7 +64,7 @@ public class EreignisSchluessel {
     /** No Authorization header with bearer token received. It is not set in the AufrufKontextVerwalter. */
     public static final String KEIN_BEARER_TOKEN_UEBERMITTELT = "EPLASC00012";
 
-    /** No bearer token in the AufrufKontextVerwalter. The Authorization header is not set. */
+    /** No bearer token in the AufrufKontextVerwalter or the Security Context. The Authorization header is not set. */
     public static final String KEIN_BEARER_TOKEN_IM_AUFRUFKONTEXT = "EPLASC00013";
 
 }
