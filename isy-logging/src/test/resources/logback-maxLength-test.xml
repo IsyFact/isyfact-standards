@@ -36,6 +36,9 @@
     <!-- Bei einem Wet von 0 wird die Länge der Logeinträge nicht überprüft. -->
     <property name="MAX_LENGTH" value="50" /> -->
 
+    <!-- Exclude MDC. -->
+    <property name="INCLUDE_MDC" value="false" />
+
     <include resource="resources/isylogging/logback/appender.xml" />
 
     <logger name="de.bund.bva.isyfact" level="trace" />

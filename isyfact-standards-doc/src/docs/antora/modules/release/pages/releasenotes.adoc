@@ -1,0 +1,28 @@
+= Release Notes Version {page-component-version}
+:icons: font
+:sectnums:
+
+include::glossary:licence:partial$licence.adoc[]
+
+Ergänzend zu den Release Notes erläutert der xref:release:migrationsleitfaden.adoc[Migrationsleitfaden] die notwendigen Schritte zur Migration älterer Anwendungen auf das aktuelle Release.
+
+
+[[kapitel-aenderungen]]
+== Allgemeine Änderungen
+
+...
+
+[[kapitel-bausteine]]
+== Bausteine
+
+...
+
+[[kapitel-deprecations]]
+== Deprecations
+
+...
+
+[[kapitel-entfernt]]
+== Entfernt
+
+...

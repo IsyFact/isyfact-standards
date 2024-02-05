@@ -74,7 +74,7 @@ Das ist ein Text zum Seitentitel.
 [[querverweise]]
 == Querverweise
 
-Antora bietet die Möglichkeit, innerhalb einer Gesamtdokumentation beliebige Querverweise zu setzen, auch über xref:dokumentation/erstellung/erstellung-antora.adoc#antora-modul[Antora-Modul] - und xref:dokumentation/erstellung/erstellung-antora.adoc#antora-komponente[Antora-Komponenten] - Grenzen hinweg.
+Antora bietet die Möglichkeit, innerhalb einer Gesamtdokumentation beliebige Querverweise zu setzen, auch über xref:dokumentation/erstellung-antora.adoc#antora-modul[Antora-Modul] - und xref:dokumentation/erstellung-antora.adoc#antora-komponente[Antora-Komponenten] - Grenzen hinweg.
 Davon sollte jedoch mit Bedacht Gebrauch gemacht werden, denn sehr starke Verlinkungen der Seiten untereinander bewirken auch eine starke Abhängigkeit.
 Jegliche Umbenennungen oder Löschungen von Sprungzielen, dazu gehören auch Seitendatei-, Modul- und Komponentennamen, machen die Querverweise darauf ungültig.
 Allerdings weist Antora bei der Generierung der Dokumentation im Log auf nicht auflösbare Querverweise hin.
@@ -133,7 +133,7 @@ Verweise können auch auf andere Sprungziele zeigen als Überschriften, wie Abbi
 [[verweise-gesamtdoku]]
 === Verweise innerhalb der Antora-Dokumentation
 
-In diesem Abschnitt werden Verweise auf Inline-Anchor beschrieben, die nicht innerhalb derselben Seite in derselben Datei liegen, sondern in anderen Seiten oder anderen xref:dokumentation/erstellung/erstellung-antora.adoc#antora-modul[Antora-Modulen] oder xref:dokumentation/erstellung/erstellung-antora.adoc#antora-komponente[Antora-Komponenten].
+In diesem Abschnitt werden Verweise auf Inline-Anchor beschrieben, die nicht innerhalb derselben Seite in derselben Datei liegen, sondern in anderen Seiten oder anderen xref:dokumentation/erstellung-antora.adoc#antora-modul[Antora-Modulen] oder xref:dokumentation/erstellung-antora.adoc#antora-komponente[Antora-Komponenten].
 Diese Verweise nutzen die Syntax des Xref-Makros von Antora.
 
 Ein xref-Verweis ist bei Antora immer gleich aufgebaut:
@@ -338,8 +338,8 @@ Somit können mit Tags versehene Teile einer Seite in anderen Seiten zusammengez
 
 [IMPORTANT]
 ====
-Das in xref:werkzeuge:dokumentation/bearbeitung/bearbeitung-asciidoctorj.adoc#tag-documents[Auftrennung von Dokumenten mit Tags] beschriebene Vorgehen mit Inhalts-Tags (`tag::inhalt[]`) ist für Seiten nicht erlaubt.
-Seiten besitzen einen xref:werkzeuge:seitenvorlage.adoc#struktur-thema[engen, thematischen Fokus] und sind direkt über die xref:werkzeuge:dokumentation/erstellung/erstellung-antora.adoc#linksnavigation-antora[Linksnavigation] aufrufbar.
+Das zum Teil noch verwendete Vorgehen der Einbettung von Inhalten anhand von Tags (z.B. `tag::inhalt[]`) ist nicht mehr erlaubt.
+Seiten besitzen einen xref:seitenvorlage.adoc#struktur-thema[engen, thematischen Fokus] und sind direkt über die xref:dokumentation/erstellung-antora.adoc#linksnavigation-antora[Linksnavigation] aufrufbar.
 Ein Verweis drückt den Zusammenhang zweier Seiten besser aus als das komplette Einfügen einer Seite in eine andere.
 ====
 
@@ -371,7 +371,7 @@ In der IsyFact-Dokumentation werden Tags genutzt, um Bestandteile zu Bündeln od
 [[bilder]]
 == Abbildungen
 
-IMPORTANT: Abbildungen zu einer Seite werden stets im Unterordner `/images` unterhalb des Antora-Moduls abgelegt, in dem sich die Seite befindet, siehe auch xref:dokumentation/erstellung/erstellung-antora.adoc#struktur-dokuseite[Struktur Dokumentation].
+IMPORTANT: Abbildungen zu einer Seite werden stets im Unterordner `/images` unterhalb des Antora-Moduls abgelegt, in dem sich die Seite befindet, siehe auch xref:dokumentation/erstellung-antora.adoc#struktur-dokuseite[Struktur Dokumentation].
 
 IMPORTANT: Abbildungen sollten mit diagrams.net als <Name Abbildung>.dn.svg erstellt werden, siehe auch xref:methodik:diagrammerstellung/diagramsnet.adoc#arbeiten-mit-diagrams.net[Arbeiten mit diagrams.net].
 
@@ -557,7 +557,7 @@ xref:version@component:module:file.adoc#listing-hallowelt[Text des Verweises]
 == Glossar
 
 Die IsyFact Dokumentation beinhaltet auch ein Glossar.
-Es befindet sich im Repository `isy-documentation` in der xref:dokumentation/erstellung/erstellung-antora.adoc#antora-komponente[Antora-Komponente] `glossary`.
+Es befindet sich im Repository `isy-documentation` in der xref:dokumentation/erstellung-antora.adoc#antora-komponente[Antora-Komponente] `glossary`.
 In der HTML-Dokumentation ist es über die Liste der Antora-Komponenten aufrufbar.
 
 [IMPORTANT]

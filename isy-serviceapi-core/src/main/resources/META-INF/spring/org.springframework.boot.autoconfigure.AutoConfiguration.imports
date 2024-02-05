@@ -1,2 +1,3 @@
 de.bund.bva.isyfact.serviceapi.autoconfigure.IsyServiceApiCoreAutoConfiguration
 de.bund.bva.isyfact.serviceapi.autoconfigure.IsyServiceApiSecurityAutoConfiguration
+de.bund.bva.isyfact.serviceapi.autoconfigure.IsyServiceApiSicherheitAutoConfiguration

@@ -95,7 +95,7 @@ Die <<standardisierte-metadaten,folgende Tabelle>> zeigt, welche Metadaten in de
 
 |Korrelations-ID +
 //(deprecated)
-|X-Correlation-ID
+|X-Correlation-Id
 |ID zur Nachverfolgung von Aufrufen innerhalb einer Anwendungslandschaft.
 //Alte Benennung. +
 //*Wichtig:* Anwendungen müssen in der Übergangszeit beide Namen auflösen können.
