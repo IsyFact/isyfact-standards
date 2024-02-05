@@ -553,6 +553,6 @@ NOTE: Bei einigen Namen in der IsyFact-Dokumentation ist die Umstellung der Name
 
 [[dokumentation-glossar]]
 ==== Spezielle Namensschemata Dokumentation
-include::werkzeuge:page$dokumentation/bearbeitung/bearbeitung-antora.adoc[tag=namenskonvention]
+include::werkzeuge:dokumentation/bearbeitung-antora.adoc[tag=namenskonvention]
 
 // end::inhalt[]

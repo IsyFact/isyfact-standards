@@ -4,6 +4,8 @@
 - `IFS-2488`: AufrufKontextTo wird ad hoc als HttpInvoker-Transportobjekt erzeugt, wenn `isy-security` im Classpath liegt und anstelle des Objekts `null` übergeben wird
 - `IFS-2422`: Deprecation des isy-serviceapi-core Bausteins
 - `ISY-653` : Erweitern des `TimeoutWiederholungHttpInvokerRequestExecutor` um die Token-Beschaffung aus dem Security Context bei Nichtverfügbarkeit des `AufrufKontextVerwalter`.
+- `ISY-655`: Beheben einer ClassNotFoundException beim Starten von Anwendungen mit IsyServiceApiCoreAutoConfiguration
+- `ISY-658`: Setzen generierter Korrelations-IDs in das AufrufKontextTo im StelltLoggingKontextBereitInterceptor
 
 # 2.4.0
 - `IFS-668`: Zurücksetzung der KorrelationsId des AnrufKontextTo bei einem Invoke
