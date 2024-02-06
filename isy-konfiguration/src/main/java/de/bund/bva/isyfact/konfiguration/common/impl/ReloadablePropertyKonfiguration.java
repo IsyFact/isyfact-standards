@@ -29,11 +29,11 @@ import java.util.UUID;
 import de.bund.bva.isyfact.konfiguration.common.Konfiguration;
 import de.bund.bva.isyfact.konfiguration.common.KonfigurationChangeListener;
 import de.bund.bva.isyfact.konfiguration.common.ReloadableKonfiguration;
+import de.bund.bva.isyfact.konfiguration.common.konstanten.EreignisSchluessel;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
-import de.bund.bva.isyfact.konfiguration.common.konstanten.EreignisSchluessel;
 
 /**
  * Diese Klasse bietet einen typsicheren Zugriff auf eine Konfiguration {@link Konfiguration}. Dazu wird an
@@ -45,11 +45,18 @@ import de.bund.bva.isyfact.konfiguration.common.konstanten.EreignisSchluessel;
  * Falls das nicht möglich ist, kann sich eine interessierte Komponente per
  * {@link #addKonfigurationChangeListener(KonfigurationChangeListener)} als Listener für
  * Konfigurationsänderungen registrieren.
- *
+ * <p>
  * Falls die Konfiguration geändert wurde, werden jedem registrierten {@link KonfigurationChangeListener} die
  * geänderten Konfigurationsschlüssel mitgeteilt.
+ * <p>
+ * The module isy-konfiguration is deprecated and will be removed in a future release.
+ * Please use the built-in mechanism of the springframework instead.
+ * <p>
+ * https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.external-config
  *
+ * @deprecated since IsyFact 3.1.0
  */
+@Deprecated
 public class ReloadablePropertyKonfiguration implements ReloadableKonfiguration {
 
     private String namensSchema;
