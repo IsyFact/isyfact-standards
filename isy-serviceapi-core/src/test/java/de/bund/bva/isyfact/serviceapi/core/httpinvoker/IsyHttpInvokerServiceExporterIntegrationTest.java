@@ -8,6 +8,7 @@ import static org.mockito.Mockito.verify;
 
 import java.lang.reflect.Proxy;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -24,6 +25,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.remoting.RemoteAccessException;
 import org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter;
 import org.springframework.remoting.support.RemoteInvocationFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -79,6 +81,11 @@ public class IsyHttpInvokerServiceExporterIntegrationTest {
     @Autowired
     @SpyBean
     private CreateAufrufKontextToStrategy createAufrufKontextToStrategy;
+
+    @Before
+    public void setUp() {
+        SecurityContextHolder.clearContext();
+    }
 
     @Test(expected = RemoteAccessException.class)
     public void testAddUserNotAllowedProxyObject() {
