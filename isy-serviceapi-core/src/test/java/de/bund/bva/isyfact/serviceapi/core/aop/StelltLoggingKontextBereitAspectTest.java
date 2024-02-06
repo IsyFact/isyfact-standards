@@ -100,6 +100,9 @@ public class StelltLoggingKontextBereitAspectTest {
         assertNotNull(service.getKorrelationsIDLetzterAufruf());
         //assert MDC state after call
         assertNull(MdcHelper.liesKorrelationsId());
+
+        // assert that generated correlation id was added to AufrufKontextTo
+        assertEquals(service.getKorrelationsIDLetzterAufruf(), to.getKorrelationsId());
     }
 
     @Test
@@ -119,6 +122,9 @@ public class StelltLoggingKontextBereitAspectTest {
         assertFalse(korrId.isEmpty());
         //assert MDC state after call
         assertNull(MdcHelper.liesKorrelationsId());
+
+        // assert that generated correlation id was added to AufrufKontextTo
+        assertEquals(service.getKorrelationsIDLetzterAufruf(), to.getKorrelationsId());
     }
 
     @Test
