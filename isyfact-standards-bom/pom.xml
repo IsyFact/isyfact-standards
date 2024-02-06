@@ -24,6 +24,13 @@
         <dependencies>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
+                <artifactId>isyfact-products-bom</artifactId>
+                <version>${project.parent.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-aufrufkontext</artifactId>
                 <version>${project.parent.version}</version>
             </dependency>
