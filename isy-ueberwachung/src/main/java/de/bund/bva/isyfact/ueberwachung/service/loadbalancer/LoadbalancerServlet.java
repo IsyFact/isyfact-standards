@@ -88,16 +88,23 @@ public class LoadbalancerServlet extends HttpServlet {
      *             Wenn die Antwort nicht geschrieben werden kann.
      */
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        if (isAliveFile.exists()) {
-            LOG.debug("IsAlive-Datei gefunden, sende HTTP OK.");
-            resp.setStatus(HttpServletResponse.SC_OK);
-            resp.getWriter().write("<html><body><center>IS ALIVE!</center></body></html>");
-        } else {
-            LOG.error(
-                    EreignisSchluessel.IS_ALIVE_EXISTIERT_NICHT,
-                "IsAlive-Datei {} existiert nicht, sende HTTP FORBIDDEN.", isAliveFile.getAbsolutePath());
-            resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
+        try {
+            if (isAliveFile.exists()) {
+                LOG.debug("IsAlive-Datei gefunden, sende HTTP OK.");
+                resp.setStatus(HttpServletResponse.SC_OK);
+                resp.getWriter().write("<html><body><center>IS ALIVE!</center></body></html>");
+            } else {
+                LOG.error(EreignisSchluessel.IS_ALIVE_EXISTIERT_NICHT,
+                        "IsAlive-Datei {} existiert nicht, sende HTTP FORBIDDEN.",
+                        isAliveFile.getAbsolutePath());
+                resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            }
+        } catch (IOException e) {
+            LOG.error(EreignisSchluessel.IS_ALIVE_EXISTIERT_IO_EXCEPTION,
+                    "IsyAlive-Datei {} existiert, Fehler beim Schreiben der Antwort in Output-Stream",
+                    e);
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 }

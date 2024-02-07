@@ -19,3 +19,6 @@ hs_err_pid*
 
 # Ignore Maven-specific files
 target/
+
+# Ignore OS generated files
+.DS_Store

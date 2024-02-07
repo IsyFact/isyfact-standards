@@ -22,6 +22,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -57,11 +58,13 @@ public class BatchProtokollTester {
      *            Das zu überprüfende Batchprotokoll.
      */
     public BatchProtokollTester(String ergebnisDatei) {
-        DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-        docFactory.setNamespaceAware(true);
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+        factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+        factory.setNamespaceAware(true);
         DocumentBuilder builder;
         try {
-            builder = docFactory.newDocumentBuilder();
+            builder = factory.newDocumentBuilder();
             batchProtokoll = builder.parse(ergebnisDatei);
 
             XPathFactory xpathFactory = XPathFactory.newInstance();
@@ -72,7 +75,7 @@ public class BatchProtokollTester {
     }
 
     /**
-     * Überprüft ob das Batchprotokoll mindestens eine Meldung mit der angegebenen ID enthält.
+     * Überprüft, ob das Batchprotokoll mindestens eine Meldung mit der angegebenen ID enthält.
      * @param id
      *            Die gesucht MeldungsID
      * @return true/false
