@@ -269,25 +269,15 @@ Intern besteht die Komponente „Service“ aus zwei Teilen: dem Service-Framewo
 image::blaupausen:referenzarchitektur-it-system/TeileServ.png[align="center"]
 
 *Service-Framework:* Das Service-Framework ist die Bezeichnung für die Technologie, mit der die Services des Anwendungskerns zur Verfügung gestellt werden.
+ice-Logik implementiert.
 
-[NOTE]
-====
-Hierfür wird aktuell das Framework Spring HTTP Invoker verwendet.
-Ab IsyFact 2.0 ist die Verwendung von REST-Schnittstellen erlaubt.
-HTTP Invoker wird in folgenden Releases (IsyFact 2.x) als Schnittstellenformat abgelöst.
-Die Verwendung von REST-Schnittstellen wird einem gesonderten Konzept erläutert.
-====
-
-In der Regel wird ein extern angebotener Service noch durch zusätzliche Daten oder Logik ergänzt.
-Diese werden in der Komponente Service-Logik implementiert.
-
-*Service-Logik:* Die Service-Logik enthält Daten und Funktionalität, die für die Bereitstellung des Services relevant sind.
-Im Normalfall ist der Funktionsumfang der Komponente Service-Logik viel geringer als der Funktionsumfang der Entsprechungen im Anwendungskern.
+*Service-Logik:* Die Service-Logik selbst beinhaltetet (und nutzt) Funktionalität des Anwendungskerns.  
+Im Normalfall ist dabei der Funktionsumfang der Komponente Service-Logik viel geringer als der Funktionsumfang der Entsprechungen im Anwendungskern.
 Dies liegt darin begründet, dass die Komponente Service-Logik die Funktionalität des Anwendungskerns nutzt, um den Service bereitzustellen.
 Die Kernfunktionalität des Services ist also im Anwendungskern implementiert.
 Die Schnittstelle zwischen den Komponenten „Service“ und „Anwendungskern“ ist daher eine interne Schnittstelle.
 
-Weiterführende technische Details zu Services sind im xref:detailkonzept-komponente-service/master.adoc[Detailkonzept Komponente Service] enthalten.
+Weiterführende technische Details zu Services sind im xref:detailkonzept-komponente-service/master.adoc[Detailkonzept Komponente Service] beschrieben.
 
 
 [[unterstuetzung-technischer-funktionalitaeten]]
