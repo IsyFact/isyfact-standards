@@ -22,6 +22,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -63,6 +64,8 @@ public class BatchProtokollTester {
         docFactory.setNamespaceAware(true);
         DocumentBuilder builder;
         try {
+            docFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            docFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
             builder = docFactory.newDocumentBuilder();
             batchProtokoll = builder.parse(ergebnisDatei);
 
