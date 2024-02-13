@@ -14,23 +14,29 @@ Diese technische Komponente besteht aus zwei Teilen: dem Service-Framework und d
 
 Das *Service-Framework* bezeichnet die konkrete Technologie, mit der die Services des Anwendungskerns zur Verfügung gestellt werden.
 
-Die *Servicelogik* enthält Daten und Funktionalität, die für die Bereitstellung des Services relevant sind.
-
+Die Fachkomponenten der *Servicelogik* Servicelogik beinhalten Service-Endpoints, 
+die über das Service-Framework bei eingehenden (Technologie-spezifischen) Requests aufgerufen werden. 
+Die Service-Endpoints wiederum beinhalten Methoden, die ihrerseits entsprechende Methoden des Anwendungskerns aufrufen.
+Die Methoden der Service-Endpoints nehmen Transport-Objekte als Argumente entgegen und liefern Transport-Objekte als Ergebnis zurück.
 [[servicelogik]]
 == Servicelogik
 
 Die Servicelogik gliedert sich, wie der Anwendungskern, in *Fachkomponenten*.
 Die Fachkomponenten setzen im wesentlichen *Service-Schnittstellen* um.
-Sie decken vier wesentliche Aufgaben ab.
+Sie decken fünf wesentliche Aufgaben ab.
+
+Validierung:: Wenn für bestimmte Parameter von Methoden eines Service-Endpoints Bedingungen definiert sind, 
+(z.B. dass ein bestimmter Parameter ein Pflicht-Parameter ist) so sollen diese Bedingungen bereits in der Service-Schnittstelle und nicht erst im Anwendungskern geprüft werden.
 
 Transformation:: Bei einem Service-Aufruf müssen die Transportobjekte der Service-Schnittstelle in passende Objekte des Anwendungskerns umgewandelt werden.
 Außerdem muss das Ergebnis des Anwendungskerns wieder in ein Transportobjekt der Service-Schnittstelle umgewandelt werden.
 Transportobjekte sind Klassen, deren einziger Zweck es ist, Daten zu transportieren.
 Sie definieren lediglich eine Datenstruktur.
 
-Fehlerbehandlung:: Ausnahme, die bei der Verarbeitung eines Service-Aufrufs oder im Anwendungskern  auftreten, werden in eine Ausnahme der Service-Schnittstelle umgewandelt.
+Fehlerbehandlung:: Ausnahmen, die bei der Verarbeitung eines Service-Aufrufs oder im Anwendungskern auftreten, werden in eine Ausnahme der Service-Schnittstelle umgewandelt.
 
-Autorisierung:: Für einen Service-Aufruf muss eine Anwendung überprüfen, ob der Aufrufer autorisiert ist die Service-Operation auszuführen.
+Autorisierung:: Für einen Service-Aufruf muss eine Anwendung überprüfen, ob der Aufrufer autorisiert ist die Service-Operation auszuführen. 
+Eine Authentfizierung des Aufrufers ist dem vorgelagert und wird implizit mit durchgeführt. 
 
 Logging:: Die Komponente muss die Korrelations-ID in den Logging-Kontext einfügen.
 
@@ -41,32 +47,33 @@ Die Schnittstelle zwischen Fachkomponenten im Service und Anwendungskern ist dah
 Die Service-Schnittstellen bestehen aus einer *Service-Fassade* und einer *Exception-Fassade*.
 
 === Service-Fassade
-Die Service-Fassade implementiert die Service-Operationen als Methoden.
-Ihre Hauptaufgabe ist die Transformation der Service-Aufrufe in interne Aufrufe des Anwendungskerns sowie die Transformation dessen Antworten in Antworten der Service-Schnittstelle.
-Dabei transformiert sie die Geschäftsobjekte des Anwendungskerns in Transportobjekte der Service-Schnittstelle und umgekehrt.
-Hierzu wird in der Regel ein Bean Mapper verwendet.
-In Einzelfällen können Teile der Transformation auch programmiert werden, sofern der Nutzen daraus den Aufwand nicht übersteigt.
+Die _Service-Fassade_ beinhaltet Fachkomponenten mit Service-Endpoints. 
+Die Methoden dieser Service-Endpoints rufen entsprechende Methoden des Anwendungskerns auf. 
+Zur Parameterübergabe werden dabei Transport-Objekte der Service-Schnittstelle in Geschäftsobjekte des Anwendungskerns transformiert. 
+Für die Ergebnisübergabe ist eine Transformation in umgekehrter Richtung erforderlich. 
 
-Die _Service-Fassade_ übernimmt auch die Autorisierung des Aufrufs.
+Die _Service-Fassade_ übernimmt neben der Validierung der Aufrufparameter auch die Autorisierung des Aufrufs.
 Dazu nutzt sie die xref:isy-security:nutzungsvorgaben/master.adoc#autorisierung_service_schnittstelle[Möglichkeiten des Bausteins Security].
 Voraussetzung für die Autorisierung ist die Auswertung des mitgelieferten Access-Tokens.
 Über die Annotation `@Secured` wird die Berechtigung zum Zugriff auf die Methode anhand der Rechte des Aufrufers geprüft.
-Alternativ kann die Annotation `@Secured` auch an der _Service-Fassade_ selbst verwendet werden, wenn alle Methoden die gleichen Rechte erfordern.
+Alternativ kann die Annotation `@Secured` auch an der _Service-Fassade_ selbst verwendet werden, wenn alle ihre Methoden die gleichen Rechte erfordern.
 
 === Exception-Fassade
-Die Exception-Fassade ist verantwortlich für die Umwandlung der durch den Anwendungskern oder die Service-Fassade geworfenen Exceptions in Exceptions der Service-Schnittstelle.
-Dies kann auf mehreren Wegen geschehen.
-Je nach gewählter Schnittstellentechnologie werden z. B. Annotationen oder eigens dafür geschriebene Klassen oder Methoden verwendet.
-
-Bevor die Exception-Fassade aufgerufen wird, muss die Korrelations-ID aus dem Aufrufkontext im Logging-Kontext registriert sein.
-Dies geschieht durch die Annotation `@StelltLoggingKontextBereit` an der Methode oder an der Service-Fassade selbst.
-Dabei gilt es zu beachten, dass die Annotation standardmäßig so konfiguriert ist, dass sie vor den Annotationen ohne Angabe einer Priorität ausgeführt wird, sodass diese immer Zugriff auf die Korrelations-ID haben.
-Diese Reihenfolge wird durch Einfügen der `Order` für den Advisor `stelltLoggingKontextBereitAdvisor` in der Autokonfiguration `IsyServiceApiCoreAutoConfiguration` erreicht.
+Die _Exception-Fassade_ ist verantwortlich für die Umwandlung der durch den Anwendungskern oder die Service-Fassade geworfenen Exceptions in Exceptions der Service-Schnittstelle.
+Die Umwandlung der Exceptions sollte nicht redundant in den Service-Endpoint-Methoden, sondern an zentraler Stelle implementiert sein.
+Dabei ist sicherzustellen, dass dem Aufufer keine Stacktraces zurückgegeben werden. 
+Exceptions sollten deshalb in der _Exception-Fassade_ nicht einfach nur durchgereicht werden, sondern sie sind in der _Exception-Fassade_ zu modifizieren oder in entsprechende Transport-Objekte umzuwandeln. 
+ 
+Für die Behandlung und Umwandlung dieser Exceptions sollten Log-Einträge erzeugt werden. 
+Für das Logging ist sicherzustellen, dass zum Zeitpunkt der Erstellung der Log-Einträge eine Korrelations-ID verfügbar ist.
 
 [NOTE]
 ====
-Die weiteren Inhalte zum Aufbau, zur Realisierung und zur Nutzung von Service-Schnittstellen wurden wegen ihrer Abhängigkeit zur konkreten Schnittstellentechnologie in den entsprechenden Technologie-Baustein verschoben.
-Die Inhalte finden sich in den Dokumenten  xref:isy-serviceapi-core:konzept/master.adoc#einleitung[Konzept HTTP-Invoker] und xref:isy-service-rest:konzept/master.adoc#einleitung[Konzept REST-Schnittstellen], sowie xref:isy-serviceapi-core:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben HTTP-Invoker] und xref:isy-service-rest:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben REST-Schnittstellen].
+Die weiteren Inhalte zum Aufbau, zur Realisierung und zur Nutzung von Service-Schnittstellen wurden wegen ihrer Abhängigkeit zur konkreten Schnittstellentechnologie 
+in den entsprechenden Technologie-Baustein verschoben.
+Die Inhalte finden sich in den Dokumenten  
+xref:isy-service-rest:konzept/master.adoc#einleitung[Konzept REST-Schnittstellen], sowie 
+xref:isy-service-rest:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben REST-Schnittstellen].
 ====
 
 [[uebertragung-von-metadaten]]
@@ -95,7 +102,7 @@ Die <<standardisierte-metadaten,folgende Tabelle>> zeigt, welche Metadaten in de
 
 |Korrelations-ID +
 //(deprecated)
-|X-Correlation-Id
+|X-Correlation-ID
 |ID zur Nachverfolgung von Aufrufen innerhalb einer Anwendungslandschaft.
 //Alte Benennung. +
 //*Wichtig:* Anwendungen müssen in der Übergangszeit beide Namen auflösen können.
