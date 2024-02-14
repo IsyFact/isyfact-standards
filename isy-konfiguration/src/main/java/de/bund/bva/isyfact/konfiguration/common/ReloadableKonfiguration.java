@@ -18,9 +18,15 @@ package de.bund.bva.isyfact.konfiguration.common;
 
 /**
  * Interface für Konfigurationen, die Aktualisierungen unterstützen.
- * 
- * 
+ * <p>
+ * The module isy-konfiguration is deprecated and will be removed in a future release.
+ * Please use the built-in mechanism of the springframework instead.
+ * <p>
+ * https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.external-config
+ *
+ * @deprecated since IsyFact 3.1.0
  */
+@Deprecated
 public interface ReloadableKonfiguration extends Konfiguration {
 
     /**

@@ -1,5 +1,9 @@
 = Changelog IsyFact Dokumentation
 
+== Änderungen IsyFact 3.1.0
+
+- Isy-Konfiguration wurde als deprecated gekennzeichnet
+
 == Änderungen IsyFact 3.0.0
 
 // Beginn übergreifende Änderungen

@@ -54,6 +54,20 @@ Es sind die xref:isy-ueberwachung:nutzungsvorgaben/master.adoc[] zu IsyFact 3 zu
 [[kapitel-bausteine]]
 == Bausteine
 
+[[kapitel-konfiguration]]
+=== Konfiguration
+
+[WARNING]
+====
+Der Baustein `isy-konfiguration` ist mit der Version 3.1 als deprecated gekennzeichnet und wird nicht mehr weiter entwickelt. Er wird mit der Version 4 endgültig aus dem Projekt entfernt werden.
+====
+
+Hintergrund der Deprecation und der Entfernung des Bausteines ist, dass `isy-konfiguration` schon seit IsyFact 2 nicht mehr weiterentwickelt wird und stattdessen von Springframework bereit gestellte Mechanismen genutzt werden sollen.
+
+Die Dokumentation der Konfiguration mit Spring ist unter folgender Adresse zu finden:
+
+https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.external-config
+
 [[kapitel-batchrahmen]]
 === Batchrahmen
 

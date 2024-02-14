@@ -160,8 +160,10 @@ Für weitere Details siehe xref:isy-persistence:nutzungsvorgaben/umsetzung-daten
 
 ====
 [WARNING]
-Die Bibliothek `isy-konfiguration` wird nicht mehr weiterentwickelt und ist nur im Ausnahmefall zu verwenden.
+Die Bibliothek `isy-konfiguration` ist veraltet, wird nicht mehr weiterentwickelt und wird in einem zukünftigen Release entfernt.
 ====
+
+include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
 
 Zur Bereitstellung von Konfigurationsparametern in der Anwendung kann die Bibliothek `isy-konfiguration` verwendet werden.
 
