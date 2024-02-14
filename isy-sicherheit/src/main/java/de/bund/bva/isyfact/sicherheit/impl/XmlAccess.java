@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -115,10 +116,12 @@ public class XmlAccess {
     public RollenRechteMapping parseRollenRechteFile(String filename) {
         LOG.debug("Lese Rollen-Rechte-Mapping aus {}.", filename);
         Document dom;
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+        factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
         InputStream stream = XmlAccess.class.getResourceAsStream(filename);
         try {
-            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+            DocumentBuilder documentBuilder = factory.newDocumentBuilder();
             dom = documentBuilder.parse(stream);
             RollenRechteMapping result = parseDocument(dom);
             result.setAlleDefiniertenRechte(this.rechtIdZuRecht.values());
