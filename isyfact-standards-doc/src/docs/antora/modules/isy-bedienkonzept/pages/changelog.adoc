@@ -2,14 +2,13 @@
 = Changelog
 
 // tag::release-4.0.0[]
-- docs: ISY-647 Isyfact-Bedienkonzepts Kap. 6 wurde aufgrund der Umstellung von rechtsbündigen Labels auf Floating-Labels aktualisiert
+- `ISY-647`: Isyfact-Bedienkonzepts Kap. 6 wurde aufgrund der Umstellung von rechtsbündigen Labels auf Floating-Labels aktualisiert
 // end::release-4.0.0[]
 
 
 // *Änderungen IsyFact 3.0.0*
 
 // tag::release-3.0.0[]
-- `ISY-647`: Isyfact-Bedienkonzepts Kap. 6 wurde aufgrund der Umstellung von rechtsbündigen Labels auf Floating-Labels aktualisiert
 - `ISY-514`: Austausch font-awesome Icons durch Primeicons
 - `ISY-516`: Entfernen von automatischen Ausblenden von Toast-Notifications
 - `ISY-501`: Umbenennung der Ressourcen von Styleguide zu Bedienkonzept
