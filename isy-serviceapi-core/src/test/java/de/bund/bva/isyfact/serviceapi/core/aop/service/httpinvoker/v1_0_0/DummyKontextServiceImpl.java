@@ -43,6 +43,12 @@ public class DummyKontextServiceImpl implements DummyKontextServiceRemoteBean {
     }
 
     @Override
+    @StelltLoggingKontextBereit(nutzeAufrufKontext = false)
+    public String stelltLoggingKontextBereitMitAufrufKontextNichtErwartet(AufrufKontextTo aufrufKontextTo) {
+        return MdcHelper.liesKorrelationsId();
+    }
+
+    @Override
     @StelltLoggingKontextBereit
     public String stelltLoggingKontextBereitOhneAufrufKontextNichtErwartet() {
         return MdcHelper.liesKorrelationsId();

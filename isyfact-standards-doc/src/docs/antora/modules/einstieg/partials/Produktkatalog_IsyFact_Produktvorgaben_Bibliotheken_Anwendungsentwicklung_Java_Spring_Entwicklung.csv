@@ -55,6 +55,6 @@ Utility-API;http://commons.apache.org/[Apache Commons BeanUtils];"1.9.x
 (>1.9.3)";1.8.1;verbindlich;Apache Software License;Apache Commons BeanUtils stellt einen einfach zu nutzenden Wrapper um die  Java APIs Reflection und Introspection bereit.
 Utility-API;http://commons.apache.org/[Apache Commons IO];2.x;2.4.0;verbindlich;Apache Software License;Apache Commons IO ist eine Bibliothek mit nützlichen Utilities um IO-Funktionalität zu implementieren.
 Erstellung dynamischer SQL-Queries;http://www.querydsl.com/[QueryDSL];<<spring-boot-dependencies,icon:leaf[]>>;3.0.0;verbindlich;Apache License, Version 2.0;Soll anstatt Criteria-API zur Erstellung dynamischer Queries genutzt werden. Einsatzgebiet wie Criteria-API nur dort wo notwendig.
-HTML-Sanitizer;https://jsoup.org/[jsoup];1.14.x;2.4.0;verbindlich;MIT License;
+HTML-Sanitizer;https://jsoup.org/[jsoup];1.15.x;2.4.0;verbindlich;MIT License;
 Dateityp-Ermittlung;https://tika.apache.org/[Apache Tika];"1.x
 (>1.20)";1.8.0;verbindlich;Apache License, Version 2.0;

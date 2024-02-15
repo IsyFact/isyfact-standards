@@ -1,3 +1,6 @@
+:ifs-bom: IsyFact-Standards-BOM
+:ifs-products-bom: IsyFact-Products-BOM
+
 = Tutorial: Inhalt
 
 // tag::inhalt[]
@@ -7,15 +10,15 @@
 Alle Bibliotheken der IsyFact stehen über xref:glossary:literaturextern:inhalt.adoc#litextern-maven-central[Maven Central] zum Download bereit.
 Zur Nutzung der Bibliotheken in der Anwendungsentwicklung steht ein zentrales BOM (Bill Of Materials) zur Verfügung, das Teil der Maven-Konfiguration (`pom.xml`) wird:
 
-.Einbindung des IsyFact-BOM
-[id="listing-if-bom",reftext="{listing-caption} {counter:listings}"]
+.Einbindung des {ifs-bom}
+[id="listing-ifs-bom",reftext="{listing-caption} {counter:listings}"]
 [source,xml,subs="verbatim,attributes"]
 ----
 <dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>de.bund.bva.isyfact</groupId>
-            <artifactId>isyfact-bom</artifactId>
+            <artifactId>isyfact-standards-bom</artifactId>
             <version>{page-component-version}</version>
             <type>pom</type>
             <scope>import</scope>
@@ -25,10 +28,10 @@ Zur Nutzung der Bibliotheken in der Anwendungsentwicklung steht ein zentrales BO
 ----
 
 Somit kann zentral eine zu nutzende Version der IsyFact festgelegt werden.
-Diese legt ebenfalls die Versionen aller Drittprodukte fest, die im xref:einstieg:produkte.adoc#produktkatalog[Produktkatalog] der IsyFact enthalten sind.
-Aktualisierungen geschehen ebenfalls zentral, durch die Erhöhung der Versionsnummer des IsyFact-BOM.
+Diese legt über das darin enthaltene {ifs-products-bom} auch die Versionen aller Drittprodukte fest, die im xref:einstieg:produkte.adoc#produktkatalog[Produktkatalog] der IsyFact enthalten sind.
+Aktualisierungen geschehen zentral, durch die Erhöhung der Versionsnummer des {ifs-bom}.
 
-Durch die Nutzung des IsyFact-BOM ist es nicht mehr notwendig, die IsyFact-Bibliotheken mit einzelnen Versionsnummern einzubinden.
+Durch die Nutzung des {ifs-bom} ist es nicht mehr notwendig, die IsyFact-Bibliotheken mit einzelnen Versionsnummern einzubinden.
 Die Versionsnummer ermittelt Maven zentral über das BOM.
 Es reicht also folgender Abschnitt, um eine Bibliothek einzubinden:
 
