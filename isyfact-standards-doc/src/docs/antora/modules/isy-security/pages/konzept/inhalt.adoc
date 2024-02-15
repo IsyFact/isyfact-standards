@@ -318,16 +318,16 @@ image::konzept/authorization-code-flow.dn.svg[align="center"]
 
 Anfragen von _externen Anwendungssystemen_ an ein IsyFact-Anwendungssystem, müssen über den IAM-Service authentifiziert und zur Nutzung des aufgerufenen IsyFact-Service autorisiert werden.
 Um das zu gewährleisten, ist in der Informations- und Dienstezone ein _Service-Gateway (SGW)_ zwischen der externen Anwendung und dem internen IsyFact-Service geschaltet.
-Das Service-Gateway nimmt diese fachliche Anfrage von Außen entgegen, leitet diese zur Authentifizierung an den IAM-Serive und bei Erfolg wird die fachliche Anfrage inklusive der Rollen und Rechte an den internen IsyFact-Service weitergeleitet, der dann die noch ausstehende Autorisierung auf Basis der Rollen und Rechte selbst initiiert, bevor er mit der eigentlichen fachlichen Bearbeitung beginnen kann.
+Das Service-Gateway nimmt diese fachliche Anfrage von außen entgegen, 
+leitet diese zur Authentifizierung an den IAM-Service und bei Erfolg wird die fachliche Anfrage inklusive der Rollen und Rechte an den internen IsyFact-Service weitergeleitet, 
+der dann die noch ausstehende Autorisierung auf Basis der Rollen und Rechte selbst initiiert, bevor er mit der eigentlichen fachlichen Bearbeitung beginnen kann.
 
 [[aufruf-service-gateway-ohne-authentication-gateway]]
 ===== Authentifizierung über das SGW am IAM-Service
 
-Aktuell erfolgt die Authentifizierung von Anfragen externer Anwendungen immer über das Service-Gateway.
-Dafür müssen bei jeder Anfrage der externen Anwendung immer auch die Authentifizierungsdaten mitgeschickt werden.
-Das Service-Gateway lässt die Authentifizierungsdaten durch den IAM-Service prüfen und leitet erst nach dessen OK die fachliche Anfrage an das Anwendungssystem weiter - jetzt zusammen mit dem Access-Token.
-
-Die nachfolgende Abbildung zeigt die aktuell verwendete System-Architektur, in der das Service-Gateway mithilfe des IAM-Service die Authentifizierung durchführt.
+Für den Aufruf von Ressourcen einer externen Anwendung ist eine Authentifizierung notwendig.
+ 
+Die nachfolgende Abbildung zeigt die aktuell verwendete System-Architektur, in der das Service-Gateway mithilfe des IAM-Service diese Authentifizierung durchführt.
 
 .Authentifizierung ohne Authentication-Gateway
 [id="image-servicegateway-ohne-authgateway",reftext="{figure-caption} {counter:figures}"]
@@ -335,12 +335,12 @@ image::isy-security:konzept/ServiceGateway-Authentifizierung.dn.svg[align="cente
 
 Zu sehen sind die folgenden Ablaufschritte:
 
-. Eine externe Anwendung sendet fachliche Anfrage zusammen mit Authentifizierungsdaten an das Service-Gateway.
+. Eine externe Anwendung sendet eine fachliche Anfrage zusammen mit ihren Authentifizierungsdaten an das Service-Gateway.
 . Im Service-Gateway werden die Authentifizierungsdaten aus der Anfrage herausgelöst und an den _IAM-Service_ weitergeleitet.
 Im IAM-Service erfolgt dann die eigentliche Authentifizierung.
 . Mit validen Authentifizierungsdaten und erfolgreicher Authentifizierung liefert der IAM-Service ein valides, neu erstelltes Access-Token an das Service-Gateway zurück.
 . Mit Erhalt eines gültigen Access-Tokens leitet das Service-Gateway die fachliche Anfrage zusammen mit dem Token an das eigentliche Anwendungssystem weiter.
-In der Anwendung kann anschließend die Ausführungsberechtigung des Benutzers verifiziert und sichergestellt werden.
+In der Anwendung kann anschließend die Ausführungsberechtigung des Benutzers verifiziert werden.
 
 Dabei muss die Authentifizierung der externen Anwendung noch nicht gemäß _SpringSecurity (OAuth2.0)_ auf einen _OAuth2.0 Client_ (mit Client-ID u. Client-Secret) migriert worden sein, 
 sondern es kann nach wie vor ein technischer Nutzer (mit Username u. Passwort) zur Authentifizierung verwendet werden.
@@ -371,7 +371,11 @@ Die Authentifizierung wird von der eigentlichen fachlichen Anfrage getrennt, so 
 [[aufruf-service-gateway-mit-authentication-gateway]]
 ===== Direkte Authentifizierung am IAM-Service
 
-Die folgende Abbildung zeigt die zukünftig intendierte System-Architektur, die bei Aufrufen von externen Anwendungen zum Einsatz kommen soll.
+Damit eine externe Anwendung auf die Ressourcen eines aufgerufenen Anwendungsystems zugreifen kann, benötigt sie ein gültiges Access-Token. 
+Dieses Token muss sich die externe Anwendung zuerst beschaffen, indem sie sich beim IdentityAccessManagement-Service (IAM-Service) authentifiziert.
+
+Die folgende Abbildung zeigt die zukünftig intendierte System-Architektur, die hier zum Einsatz kommen soll.
+Zukünfig sollen die Aufrufe des IAM-Service direkt aus der externen Anwendung über ein Authentication-Gateway erfolgen.
 
 .Authentifizierung am Authentication-Gateway
 [id="image-servicegateway-plus-authgateway",reftext="{figure-caption} {counter:figures}"]
@@ -383,15 +387,14 @@ In der Abbildung sind die folgenden Ablaufschritte dargestellt:
 An diesen Servicepunkt werden von der extenen Anwendung die Authentifizierungsdaten übergeben.
 . Das _Authentication-Gateway_ leitet die Authentifizierungsdaten an den _IAM-Service_ weiter.
 . Der _IAM-Service_ prüft die Authentifizierungsdaten und liefert dem  _Authentication-Gateway_ ein Access-Token zurück.
-. Das _Authentication-Gateway_ übergibt das Acess-Token der externen Anwendung.
+. Das _Authentication-Gateway_ übergibt das Access-Token der externen Anwendung.
 . Die externe Anwendung kann dieses Access-Token speichern und es anschließend für _mehrere_ fachliche Anfragen an das Anwendungssystem (über das _Service-Gateway_) verwenden.
-. Für jede dieser fachlichen Anfragen wird das jeweils mitgelieferte Access-Token validiert. Das aufgerufene Anwendungssystem prüft hierzu dessen Signatur, dessen Gültigkeit und die im Access-Token hinterlegten Berechtigungen,
-  die im Hinblick auf den jeweils aufgerufenen Service vollständig vorhanden sein müssen.
+. Das Service-Gateway leitet die fachliche Anfrage zusammen mit dem Access-Token an das aufzurufende Anwendungssystem weiter.
+Im aufgerufenen Anwendungssystem wird anschließend das jeweils mitgelieferte Access-Token validiert. 
+Hierzu werden aus dem Access-Token dessen Signatur, dessen Ablaufdatum und die dort hinterlegten Berechtigungen entnommen und überprüft.
 
-Die neue System-Architektur hat den Vorteil, dass sie das Service-Gateway von der Aufgabe befreit, 
-neben dem Aufruf einer anderen Geschäftsanwendung auch einen entsprechenden Authentifizierungs-Prozess mit durchzuführen.
-Der Authentifizierungsprozess wurde in das _Authentication-Gateway_ verlagert. 
-Dies ermöglicht eine Wiederverwendung des Access-Tokens und führt letztlich zu einer starken Verringerung von Authentifizierungs-Anfragen an das IAM.
+Die neue System-Architektur hat den Vorteil, dass in der externen Anwendung eine Wiederverwendung des Access-Tokens ermöglicht, 
+was zu einer starken Verringerung der Authentifizierungs-Anfragen an das IAM führt.
 
 Dabei wird (wie in der bisherigen Systemarchitektur) neben der neuen Authentifizierungslogik des _Client-Credential-Flows_ auch die bisherige Authentifizierungslogik des _Resource-Owner-Password-Credentials-Flows_ unterstützt.
 Der _Client-Credential-Flow_ dient dabei der Authentifizierung eines technischen Clients, und über den _Resource-Owner-Password-Credentials-Flow_ erfolgt die Authentifizierung eines technischen Nutzers.
