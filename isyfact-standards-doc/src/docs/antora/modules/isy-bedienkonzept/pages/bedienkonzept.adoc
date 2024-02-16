@@ -3154,7 +3154,7 @@ image::Formulare_FixeFlexibleSpalten.drawio.svg[align="center"]
 
 *Richtlinien zur Anwendung*
 
-** Formularspalten sollten flexibel gestaltet werden, um den horizontal verfügbaren Platz bei größeren Auflösungen optimal zu nutzen.
+* Formularspalten sollten flexibel gestaltet werden, um den horizontal verfügbaren Platz bei größeren Auflösungen optimal zu nutzen.
 * Bei ausreichendem Platz sollten Formularinhalte nebeneinander dargestellt werden. Bei geringeren Auflösungen sollten sie untereinander angeordnet werden, um sich der begrenzten Breite anzupassen.
 * Die Größenanpassung erfolgt innerhalb von gewissen Bereichen:
 ** Wird das Browserfenster kleiner als der darzustellende Inhalt (i.d.R. bei Tablets und Smartphones), so wird das gesamte Fenster scrollbar.
