@@ -3087,7 +3087,7 @@ Es können bis zu 3 Spalten verwendet werden.
 * Labels enden nicht mit einem Doppelpunkt. Bei sehr langen Labels sollten sinnvolle Abkürzungen verwendet werden.
 * Floating-Labels sollten verwendet werden. Sie dienen als initiale Platzhalter im Eingabefeld und ersetzen damit traditionelle Platzhaltertexte. Dies trägt zu einem minimalistischen und sauberen Design bei.
 * Sobald ein Eingabefeld fokussiert wird oder eine Eingabe enthält, sollte das Floating-Label sich nach oben bewegen, an den oberen Rand des Eingabefeldes. Dies signalisiert dem Benutzer, dass das Feld aktiv ist und erleichtert die Zuordnung der Label zum entsprechnden Eingabefeld.
-* DDie unmittelbare Nähe der Labels zu den zugehörigen Bedienelementen verbessert die visuelle Verbindung und ermöglicht es, den Benutzern Formulare schneller und effizienter auszufüllen.
+* Die unmittelbare Nähe der Labels zu den zugehörigen Bedienelementen verbessert die visuelle Verbindung und ermöglicht es, den Benutzern Formulare schneller und effizienter auszufüllen.
 * Gleichmäßige Feld-Längen unterstützen den Lesefluss des Benutzers.
 * Die Feld-Längen sollten erwartungskonform gewählt werden.
 Soll z.B. eine Postleitzahl innerhalb Deutschlands eingegeben werden, so macht es Sinn die Feld-Länge auf 5 Stellen zu begrenzen.
