@@ -14,8 +14,8 @@ Diese technische Komponente besteht aus zwei Teilen: dem Service-Framework und d
 
 Das *Service-Framework* bezeichnet die konkrete Technologie, mit der die Services des Anwendungskerns zur Verfügung gestellt werden.
 
-Die Fachkomponenten der *Servicelogik* Servicelogik beinhalten Service-Endpoints, 
-die über das Service-Framework bei eingehenden (Technologie-spezifischen) Requests aufgerufen werden. 
+Die Fachkomponenten der *Servicelogik* beinhalten Service-Endpoints.
+Darunter verstehen wir Klassen, die vom Service-Framework bei eingehenden (Technologie-spezifischen) Requests aufgerufen werden. 
 Die Service-Endpoints wiederum beinhalten Methoden, die ihrerseits entsprechende Methoden des Anwendungskerns aufrufen.
 Die Methoden der Service-Endpoints nehmen Transport-Objekte als Argumente entgegen und liefern Transport-Objekte als Ergebnis zurück.
 [[servicelogik]]
@@ -35,10 +35,9 @@ Sie definieren lediglich eine Datenstruktur.
 
 Fehlerbehandlung:: Ausnahmen, die bei der Verarbeitung eines Service-Aufrufs oder im Anwendungskern auftreten, werden in eine Ausnahme der Service-Schnittstelle umgewandelt.
 
-Autorisierung:: Für einen Service-Aufruf muss eine Anwendung überprüfen, ob der Aufrufer autorisiert ist die Service-Operation auszuführen. 
-Eine Authentfizierung des Aufrufers ist dem vorgelagert und wird implizit mit durchgeführt. 
+Autorisierung:: Bei jedem Service-Aufruf muss die aufgerufene Anwendung überprüfen, ob der Aufrufer autorisiert ist, die Service-Operation auszuführen. 
 
-Logging:: Die Komponente muss die Korrelations-ID in den Logging-Kontext einfügen.
+Logging:: Bei jedem Service-Aufruf muss die aufgerufene Anwendung die Korrelations-ID in den Logging-Kontext einfügen.
 
 IMPORTANT: Im Normalfall ist der Funktionsumfang der Fachkomponenten viel geringer als der Funktionsumfang der Entsprechungen im Anwendungskern.
 Dies liegt darin begründet, dass die Servicelogik die Funktionalität des Anwendungskerns nutzt, um den Service bereitzustellen, und selbst keinerlei Geschäftslogik beinhaltet.
@@ -48,8 +47,8 @@ Die Service-Schnittstellen bestehen aus einer *Service-Fassade* und einer *Excep
 
 === Service-Fassade
 Die _Service-Fassade_ beinhaltet Fachkomponenten mit Service-Endpoints. 
-Die Methoden dieser Service-Endpoints rufen entsprechende Methoden des Anwendungskerns auf. 
-Zur Parameterübergabe werden dabei Transport-Objekte der Service-Schnittstelle in Geschäftsobjekte des Anwendungskerns transformiert. 
+Hauptaufgabe der Methoden der Service-Endpoints ist die Transformation der Service-Aufrufe in interne Aufrufe des Anwendungskerns sowie die Transformation der zugehörigen Antworten in Antworten der Service-Schnittstelle.
+Beim Service-Aufruf werden Transportobjekte der Service-Schnittstelle in Geschäftsobjekte des Anwendungskerns umgewandelt. 
 Für die Ergebnisübergabe ist eine Transformation in umgekehrter Richtung erforderlich. 
 
 Die _Service-Fassade_ übernimmt neben der Validierung der Aufrufparameter auch die Autorisierung des Aufrufs.
@@ -69,8 +68,7 @@ Für das Logging ist sicherzustellen, dass zum Zeitpunkt der Erstellung der Log-
 
 [NOTE]
 ====
-Die weiteren Inhalte zum Aufbau, zur Realisierung und zur Nutzung von Service-Schnittstellen wurden wegen ihrer Abhängigkeit zur konkreten Schnittstellentechnologie 
-in den entsprechenden Technologie-Baustein verschoben.
+Die weiteren Inhalte zum Aufbau, zur Realisierung und zur Nutzung von Service-Schnittstellen wurden wegen ihrer Abhängigkeit zur konkreten Schnittstellentechnologie in den entsprechenden Technologie-Baustein verschoben.
 Die Inhalte finden sich in den Dokumenten  
 xref:isy-service-rest:konzept/master.adoc#einleitung[Konzept REST-Schnittstellen], sowie 
 xref:isy-service-rest:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben REST-Schnittstellen].
@@ -102,7 +100,7 @@ Die <<standardisierte-metadaten,folgende Tabelle>> zeigt, welche Metadaten in de
 
 |Korrelations-ID +
 //(deprecated)
-|X-Correlation-ID
+|X-Correlation-Id
 |ID zur Nachverfolgung von Aufrufen innerhalb einer Anwendungslandschaft.
 //Alte Benennung. +
 //*Wichtig:* Anwendungen müssen in der Übergangszeit beide Namen auflösen können.
