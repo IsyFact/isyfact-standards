@@ -325,9 +325,7 @@ der dann die noch ausstehende Autorisierung auf Basis der Rollen und Rechte selb
 [[aufruf-service-gateway-ohne-authentication-gateway]]
 ===== Authentifizierung über das SGW am IAM-Service
 
-Für den Aufruf von Ressourcen einer externen Anwendung ist eine Authentifizierung notwendig.
- 
-Die nachfolgende Abbildung zeigt die aktuell verwendete System-Architektur, in der das Service-Gateway mithilfe des IAM-Service diese Authentifizierung durchführt.
+Die nachfolgende Abbildung zeigt die aktuell verwendete System-Architektur, in der das Service-Gateway mithilfe des IAM-Service die hier notwendige Authentifizierung durchführt.
 
 .Authentifizierung ohne Authentication-Gateway
 [id="image-servicegateway-ohne-authgateway",reftext="{figure-caption} {counter:figures}"]
