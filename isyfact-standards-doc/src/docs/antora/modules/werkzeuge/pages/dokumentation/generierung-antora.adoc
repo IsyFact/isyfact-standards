@@ -2,7 +2,7 @@
 
 include::glossary:licence:partial$licence.adoc[]
 
-Die Generierung einer Projektseite erfolgt, falls das Repository xref:glossary:literaturextern:inhalt.adoc#litextern-isyfact-antora[icon:github[] isy-antora-playbook] verwendet wird, wie in vergleichbaren npm-Projekten.
+Die Generierung einer Projektseite erfolgt, falls das Repository xref:glossary:literaturextern:inhalt.adoc#litextern-isyfact-antora[icon:github[] isyfact.github.io] verwendet wird, wie in vergleichbaren npm-Projekten.
 Nachdem alle Abhängigkeiten installiert wurden, wird die Projektseite mit dem Befehl `npm build` erzeugt.
 
 == Aufbau des Playbooks

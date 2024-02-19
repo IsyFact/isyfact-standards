@@ -3077,17 +3077,17 @@ Formulare können einem 1-spaltigen, 2-spaltigen oder 3-spaltigen Layout folgen.
 .Visuelles Raster für ein 3-spaltiges Formular
 [[image-visuellesRaster]]
 
-image::Formulare_Raster.png[align="center", width="626",height="285"]
+image::Formulare_Raster.drawio.svg[align="center"]
 
 *Richtlinien zur Anwendung*
 
 * Bei der Eingabe oder Anzeige von Inhalten sollte ein gleichmäßiges Leseraster verwendet werden, um visuelle Sprünge zu minimieren.
 * Formulare sind aus gleichmäßig breiten Spalten aufgebaut.
 Es können bis zu 3 Spalten verwendet werden.
-* Labels sind immer rechtsbündig ausgerichtet und haben keinen abschließenden Doppelpunkt.
-Die Nähe der Label zu den Bedienelementen erleichtert somit die Zuordnung.
-* Das längste Label in einer Spalte (gruppenübergreifend) bestimmt die Breite der Label-Spalte.
-Bei sehr langen Labels sollten sinnvolle Abkürzungen verwendet werden, um die Spaltenbreiten so gering wie möglich zu halten.
+* Labels enden nicht mit einem Doppelpunkt. Bei sehr langen Labels sollten sinnvolle Abkürzungen verwendet werden.
+* Floating-Labels sollten verwendet werden. Sie dienen als initiale Platzhalter im Eingabefeld und ersetzen damit traditionelle Platzhaltertexte. Dies trägt zu einem minimalistischen und sauberen Design bei.
+* Sobald ein Eingabefeld fokussiert wird oder eine Eingabe enthält, sollte das Floating-Label sich nach oben bewegen, an den oberen Rand des Eingabefeldes. Dies signalisiert dem Benutzer, dass das Feld aktiv ist und erleichtert die Zuordnung der Label zum entsprechnden Eingabefeld.
+* Die unmittelbare Nähe der Labels zu den zugehörigen Bedienelementen verbessert die visuelle Verbindung und ermöglicht es, den Benutzern Formulare schneller und effizienter auszufüllen.
 * Gleichmäßige Feld-Längen unterstützen den Lesefluss des Benutzers.
 * Die Feld-Längen sollten erwartungskonform gewählt werden.
 Soll z.B. eine Postleitzahl innerhalb Deutschlands eingegeben werden, so macht es Sinn die Feld-Länge auf 5 Stellen zu begrenzen.
@@ -3101,28 +3101,28 @@ Dadurch ergibt sich eine logische Struktur, welche für den Benutzer einfacher z
 .Allgemeines Beispiel Formulargestaltung
 [[image-beispielformulargestaltung]]
 
-image::Formular_BeispielBAV.png[align="center", width="626",height="366"]
+image::Formular_BeispielBAV.drawio.svg[align="center"]
 
 .Gruppierung über 3 Spalten
 [[image-gruppierungdreispalten]]
 
-image::Formular_Gruppierung3Spalten.png[align="center", width="626",height="91"]
+image::Formular_Gruppierung3Spalten.drawio.svg[align="center"]
 
 .Gruppierungen über 1 bzw. 2 Spalten
 [[image-gruppierunguebereinszwei]]
 
-image::Formular_Gruppierung2Spalten.png[align="center", width="626",height="91"]
+image::Formular_Gruppierung2Spalten.drawio.svg[align="center"]
 
 
 .Gruppierungen über 1 Spalte
 [[image-gruppierunguebereinespalte]]
 
-image::Formular_Gruppierung1Spalte.png[align="center", width="626",height="91"]
+image::Formular_Gruppierung1Spalte.drawio.svg[align="center"]
 
 .Gruppierung mittels Whitespace
 [[image-gruppierungwhitespace]]
 
-image::Formulare_Gruppierung_Whitespace.png[align="center", width="626",height="154"]
+image::Formulare_Gruppierung_Whitespace.drawio.svg[align="center"]
 
 
 *Richtlinien zur Anwendung*
@@ -3149,20 +3149,19 @@ In solchen Fällen sollte geprüft werden, ob eine sinnvolle Gruppierung der Ele
 .Layout Verhalten von Formularen
 [[image-layoutverhaltenformulare]]
 
-image::Formulare_FixeFlexibleSpalten.png[align="center", width="626",height="321"]
+image::Formulare_FixeFlexibleSpalten.drawio.svg[align="center"]
 
 
 *Richtlinien zur Anwendung*
 
-* Einige Bereiche von Formularen sollten flexibel gestaltet werden.
-So kann der Platz (horizontal) bei größeren Auflösungen optimal ausgenutzt werden.
-* Die Größenanpassung erfolgt innerhalb von gewissen Bereichen.
-** Wird das Browserfenster kleiner als der darzustellende Inhalt (i.d.R. 1024x768 px), so wird das gesamte Fenster scrollbar.
+* Formularspalten sollten flexibel gestaltet werden, um den horizontal verfügbaren Platz bei größeren Auflösungen optimal zu nutzen.
+* Bei ausreichendem Platz sollten Formularinhalte nebeneinander dargestellt werden. Bei geringeren Auflösungen sollten sie untereinander angeordnet werden, um sich der begrenzten Breite anzupassen.
+* Die Größenanpassung erfolgt innerhalb von gewissen Bereichen:
+** Wird das Browserfenster kleiner als der darzustellende Inhalt (i.d.R. bei Tablets und Smartphones), so wird das gesamte Fenster scrollbar.
 ** Ab einer gewissen Entfernung zwischen den Elementen werden Inhalte schlecht lesbar. Überschreitet die Größe des Browserfensters eine gewisse Grenze (i.d.R. 1600x1200 px) so wächst das Formular nicht weiter mit.
-* Bei einer Größenveränderung des Browserfensters, passen sich die Abstände zwischen den Spalten des Formulars bis zu einem sinnvollen Grad an.
-* Die Spaltenbreite und die eigentlichen Formularinhalte (Eingabefelder, Labels) verändern ihre Größe nicht.
+* Der vertikale Abstand zwischen Gruppen und Formularinhalten bleibt unabhängig von der Bildschirmgröße konstant.
 * Der Abstand zwischen Eingabefeldern und Labels bleibt ebenfalls unverändert.
-* Der vertikale Abstand zwischen Gruppen und Formularinhalten verändert sich nicht.
+* Bei einer Veränderung der Browserfenstergröße sollten sich die Breiten der Spalten dynamisch an den verfügbaren Platz anpassen, ohne dabei die Lesbarkeit zu beeinträchtigen.
 
 
 [[benutzerhilfe-unterstuetzung-1]]
