@@ -1,4 +1,5 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyUeberwachungAutoConfiguration,\
   de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyHealthAutoConfiguration,\
-  de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyMetricsAutoConfiguration
+  de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyMetricsAutoConfiguration,\
+  de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyActuatorSecurityAutoConfiguration  
