@@ -1,5 +1,9 @@
 package de.bund.bva.isyfact.ueberwachung.actuate.health;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +24,7 @@ import org.springframework.boot.actuate.health.Status;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
@@ -34,24 +38,21 @@ import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.
 import de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyHealthAutoConfiguration;
 import de.bund.bva.isyfact.util.spring.MessageSourceHolder;
 
-import static de.bund.bva.isyfact.ueberwachung.actuate.health.HealthIntegrationTest.DELAY_MS;
-import static org.junit.Assert.*;
-
 /**
  * Class for verifying whether the health endpoint functions correctly with the caching registry.
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = { IsyHealthAutoConfiguration.class, HealthIntegrationTest.TestConfiguration.class },
-        properties = {
-                "isy.logging.anwendung.name=HealthIntegrationTest",
-                "isy.logging.anwendung.version=1.0.0-SNAPSHOT",
-                "isy.logging.anwendung.typ=Integrationstest"
-        },
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = {IsyHealthAutoConfiguration.class, HealthIntegrationTest.TestConfiguration.class},
+    properties = {
+        "isy.logging.anwendung.name=HealthIntegrationTest",
+        "isy.logging.anwendung.version=1.0.0-SNAPSHOT",
+        "isy.logging.anwendung.typ=Integrationstest",
+    },
+    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @EnableAutoConfiguration(exclude = {
-        SecurityAutoConfiguration.class,
-        ManagementWebSecurityAutoConfiguration.class
+    SecurityAutoConfiguration.class,
+    ManagementWebSecurityAutoConfiguration.class
 })
 public class HealthIntegrationTest {
 
