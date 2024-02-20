@@ -20,6 +20,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 import de.bund.bva.isyfact.ueberwachung.config.ActuatorSecurityConfigurationProperties;
+/* tag::actuatorSecurity[] */
 
 /**
  * Configures HttpBasic authentication for actuator endpoints.
@@ -83,3 +84,4 @@ public class IsyActuatorSecurityAutoConfiguration {
         return new BCryptPasswordEncoder();
     }
 }
+/* tag::actuatorSecurity[] */

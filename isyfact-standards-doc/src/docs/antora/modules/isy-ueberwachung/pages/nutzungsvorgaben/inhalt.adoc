@@ -1,3 +1,5 @@
+:sourcedir: ../../../../../../../../isy-ueberwachung/src/
+
 = Nutzungsvorgaben Überwachung: Inhalt
 
 // tag::inhalt[]
@@ -324,54 +326,40 @@ isy.task.tasks.isyHealthTask.fixed-delay=30s
 [[absicherung-von-endpoints]]
 ===== Absicherung von Endpoints
 
-Der Zugriff auf Endpoints muss mit einer Authentifizierung abgesichert werden.
-Eine Konfiguration für Spring Security, die alle Endpoints mit HTTP Basic Authentication absichert,
-zeigt <<listing-endpointsecurityconfig>>.
-Der Benutzername und das Passwort werden in `application.properties` gepflegt.
+Standardmäßig wird der Zugriff auf Endpoints durch eine HTTP Basic Authentifizierung abgesichert, wenn die Dependencies:
 
+ * `org.springframework.security:spring-security-config` und
+ * `org.springframework.security:spring-security-web`
 
-.Absicherung der Endpoints mit Spring Security
-[id="listing-endpointsecurityconfig",reftext="{listing-caption} {counter:listings }"]
+im Klassenpfad verfügbar sind.
+
+Die Konfiguration von Benutzername und Passwort zum Zugriff auf die Endpoints ist optional und wird in der `application.properties` gepflegt (siehe <<listing-endpoint-security-properties>>).
+Ohne Konfiguration von Benutzername und Passwort bleibt die Absicherung aktiv und es kann nicht auf die Endpoints zugegriffen werden.
+
+.Konfiguration der Absicherung in `application.properties`
+[id="listing-endpoint-security-properties",reftext="{listing-caption} {counter:listings }"]
+[source,properties]
+----
+# Benutzername des Monitoring Users (Default: Null)
+isy.ueberwachung.security.username=<username>
+# Passwort des Monitoring Users (Default: Null)
+isy.ueberwachung.security.password=<password>
+----
+
+Die Standardabsicherung der Endpoints kann per Konfiguration deaktiviert werden:
+
+`spring.autoconfigure.exclude=de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyActuatorSecurityAutoConfiguration`
+
+Dabei muss beachtet werden, dass über die Endpoints sensible Informationen bereitgestellt werden!
+
+Bei zusätzlichen Anforderungen an die Absicherung können die in <<listing-endpoint-security-config>> definierten Beans individuell überschrieben werden.
+
+.`IsyActuatorSecurityAutoConfiguration.java`
+[id="listing-endpoint-security-config",reftext="{listing-caption} {counter:listings }"]
 [source,java]
 ----
-@Configuration
-@EnableWebSecurity
-@Profile("produktion")
-public class ActuatorSecurityProduktionConfig extends WebSecurityConfigurerAdapter {
-
-    @Autowired
-    private UeberwachungSecurityConfigProperties properties;
-
-    private static final String ENDPOINT_ROLE = "ENDPOINT_ADMIN";
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-         auth.inMemoryAuthentication()
-             .withUser(properties.getUsername())
-             .password(passwordEncoder().encode(properties.getPassword()))
-             .roles(ENDPOINT_ROLE);
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.requestMatcher(EndpointRequest.toAnyEndpoint())
-                .authorizeHttpRequests(requests -> requests.anyRequest().hasRole(ENDPOINT_ROLE))
-                .httpBasic();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-}
+include::{sourcedir}main/java/de/bund/bva/isyfact/ueberwachung/autoconfigure/IsyActuatorSecurityAutoConfiguration.java[tag=actuatorSecurity]
 ----
-
-[[abschalten-der-absicherung-fuer-die-entwicklung]]
-====== Abschalten der Absicherung für die Entwicklung
-
-Um die Authentifizierung für die Endpoints bei der Entwicklung abzuschalten, kann in <<listing-endpointsecurityconfig>>
-gezeigte Konfiguration über ein Spring-Profil (im Beispiel `produktion`) aktiviert bzw. deaktiviert werden.
-
 
 [[vorgaben-fuer-die-pruefung-der-verfuegbarkeit]]
 ==== Prüfung der Verfügbarkeit
