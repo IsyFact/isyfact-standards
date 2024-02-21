@@ -828,7 +828,7 @@ Neben den in der Datenbank gespeicherten Daten müssen auch andere Datenspeicher
 
 Alle Geschäftsdaten werden redundant in Primär- und Standby-Datenbanken gehalten. Zu jeder Primärdatenbank wird mindestens eine Standby-Datenbank eingerichtet.
 
-NOTE: Für besonders ausfallsichere Systeme wird ein Primär- und Sekundär-Datenbank-Cluster verwendet, z.B. ein Oracle RAC.
+NOTE: Für besonders ausfallsichere Systeme wird ein Primär- und Sekundär-Datenbank-Cluster verwendet.
 
 Die Primärdaten werden in einem SAN in einem Rechenzentrum abgelegt, die Standby-Daten im besten Fall in einem SAN eines anderen Rechenzentrums.
 Fällt die Primärdatenbank aus, kann ihre Aufgabe von der Standby-Datenbank übernommen werden (Failover). Die Verfügbarkeit der Anwendungen wird dadurch deutlich erhöht, denn das Failover dauert nur Sekunden oder Minuten, während das Zurückspielen einer Datensicherung (Restore) in der Regel deutlich länger dauern wird.
