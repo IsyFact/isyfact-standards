@@ -74,6 +74,7 @@
   * `HttpHeaderNestedDiagnosticContextFilter` aus `isy-aufrufkontext` nach `isy-logging` verschoben 
   * `FilterRegistrationBean<HttpHeaderNestedDiagnosticContextFilter>` überschreibbar
 - `ISY-655`: [isy-serviceapi-core] Beheben einer ClassNotFoundException beim Starten von Anwendungen mit IsyServiceApiCoreAutoConfiguration
+- `ISY-727`: [isy-batchrahmen] Behebung von SonarCloud Security Issues
 
 ## BREAKING CHANGE
 
