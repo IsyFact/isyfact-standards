@@ -471,41 +471,31 @@ image::blaupausen:referenzarchitektur/CallFAmGuX.png[align="center"]
 [[zentrale-sicherheitsaspekte]]
 === Zentrale Sicherheitsaspekte in der Referenzarchitektur
 
-Die IsyFact Referenzarchitektur legt fest, dass jegliche Nutzung von IsyFact-Anwendungen nur authentifizierten und dafür autorisierten Benutzern möglich ist.
+Sicherheit ist ein Ziel der Referenzarchitektur (<<die-ziele-der-referenzarchitektur>>)
+und technische Querschnittsaufgabe.
+Ein Sicherheitsaspekt ist der Schutz vor unberechtigtem Zugriff auf vertrauliche Daten.
+Wie bereits in <<image-GA-AW2>> angedeutet, können Nutzer einer IsyFact-Anwendung / -Domäne nicht direkt darauf zugreifen, sondern nur über eine dazwischenliegenden Informations- und Dienstezone:
 
-Von Außen können IsyFact-Anwendungen und deren Services nur über Zugangsservices in der Informations- u. Dienstezone erreicht werden:
-
-- Interne und externe menschliche Anwender, die die Anwendung über deren Web-Oberfläche (im Web-Browser) bedienen, werden über das Portal geleitet.
-
-- Externe Systeme werden über ein Service-Gateway geleitet.
-In zukünftigen Versionen von IsyFact muss das externe System erst über das Authentication-Gateway die Berechtigung zur Nutzung einholen.
-
-Interne Systeme, die auf Services anderer IsyFact-Anwendungen in der selben Anwendungslandschaft zugreifen wollen, müssen auch erst die Berechtigung zur Nutzung einholen.
+- Interne u. externe Anwender mit ihrem Web-Client (Browser) über ein Portal,
+- Externe Anwendungen verbinden sich über Internet-Protokolle mit einem Service-Gateway.
+- In zukünftigen Versionen von IsyFact muss sich eine externe Anwendung erst über das Authentication-Gateway durch den IAM-Service authentifizieren lassen, bevor es über ein Service-Gateway Zugang zu einer IsyFact-Anwendung / -Domäne erhält.
 
 .Integration von IAM in eine Anwendungslandschaft
 [id="image-iam-integration-awl",reftext="{figure-caption} {counter:figures}"]
-image::referenzarchitektur/sicherheit_iam_integration_awl.dn.svg[]
+image::referenzarchitektur/sicherheit_iam_integration_awl-2.dn.svg[]
 
-Die Zugangsberechtigung wird dabei in zwei Schritten überprüft:
+In der Informations- und Dienstezone erfolgt eine erste (mehrstufige) Berechtigungsprüfung:
 
-. Die Zugangsservices prüfen die Identität des Aufrufers und lassen nur für die Anwendungslandschaft zugelassene durch.
-Für die Authentifizierung wird ein zentraler Service (IAM-Service) in der Anwendungslandschaft genutzt.
-Der IAM-Service verifiziert die Identität des Anwenders bzw. Systems anhand eindeutiger Eigenschaften (z.B. biometrische Daten) oder geheimer Daten (z.B. Passwort).
-Die Identität und die damit verknüpften Rollen in der Anwendungslandschaft werden in der Anwenderverwaltung gepflegt.
+. (Loadbalancer: Zertifikat des BVA/ITZ-Bund (gültig? , BHKNZ?))
+. Im Portal bzw. Gateway wird die Identität des Aufrufers geprüft (Authentifizierung) und es werden nur für die Anwendungslandschaft zugelassene durchgelassen.
+Dafür wird ein zentraler Service (IAM-Service) in der Anwendungslandschaft genutzt.
+Ist der Nutzer dem IAM-Service bekannt, wird gemäß der Autorisierungs- und Authentifizierungsprotokolle OAuth2.0 und OpenID Connect ein Access-Token ausgestellt, das auch die dem Nutzer zugeordneten Rollen enthält.
+. Der Aufruf wird zusammen mit diesem Access-Token an die (Interaktions- bzw.) Service-Schicht / Systemgrenze der IsyFact-Fachanwendung weitergeleitet.
+Dort wird (über ein Rolle-Rechte Mapping) geprüft, ob der Nutzer das zur Ausführung des gewünschten Service notwendige Recht besitzt.
 
-. Die Autorisierung findet an jeder Systemgrenze der IsyFact-Anwendung statt.
-Jeder extern aufrufbare Service erfordert ein spezielles Recht, das sich aus der o.g. Rolle des Aufrufers ableitet.
-Mit einer einfachen Spring-Security Annotation am Service kann er nur aufgerufen werden, wenn der Aufrufer das angegebene Recht besitzt.
-Dieses Recht ergibt sich aus der dem Aufrufer zugeordneten Rolle über ein anwendungsspezifisches Rollen-Rechte-Mapping.
+Eine detaillierte Beschreibung der erwähnten Systeme (Portal, Service-Gateway, Authentication-Gateway, IAM) und der Autorisierungs- und Authentifizierungsprotokolle OAuth2.0 und OpenID Connect  findet sich in xref:isyfact-standards-doku:isy-security:konzept/master.adoc#inhalt[Konzept des Querschnitt-Bausteins Security].
 
 NOTE: IAM steht für xref:glossary:literaturextern:inhalt.adoc#litextern-identity_management[Identity and Access Management].
-
-Diese Systeme (Portal, Service-Gateway, Authentication-Gateway, IAM-Service) sind im xref:isyfact-standards-doku:isy-security:konzept/master.adoc#inhalt[Konzept des Querschnitt-Bausteins Security] beschrieben.
-Dort sind auch unterstützten Arten der Authentifizierung und Autorisierung detailliert erklärt.
-Der Querschnitt-Baustein Security bietet Funktionalität zur Authentifizierung und Autorisierung von Anfragen, die von internen oder externen Anwendungen an eine IsyFact-Anwendung gestellt werden (M2M-Kommunikation).
-Dabei kommen die Autorisierungs- und Authentifizierungsprotokolle OAuth2.0 und OpenID Connect zum Einsatz.
-Die Authentifizierung und Autorisierung von Anfragen, die von menschlichen Nutzern über eine Benutzeroberfläche (Browser) gestellt werden, findet im Zuge der Einführung von Single-Page-Applications (SPAs) nicht mehr über das Backend oder den Baustein isy-security statt, sondern innerhalb des Portal-Webservers (z.B. Apache http-Server mit `mod_auth_openidc` Modul).
-Ausserdem sichert der Baustein isy-security die Service-Schnittstellen der IsyFact-Anwendungen ab, indem er AOP-Annotationen und Funktionalität zur Berechtigungsprüfung anbietet.
 
 [[verwendung-von-produkten]]
 === Verwendung von Produkten
