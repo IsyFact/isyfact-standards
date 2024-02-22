@@ -850,6 +850,6 @@ Geschäftsanwendungen, die bestehende Geschäftsanwendungen ablösen oder vor de
 Ist der Schalter (und damit der Testmodus) aktiv, wird zusätzlich zur üblichen Autorisierung auf die zusätzliche, fachliche Rolle geprüft.
 Somit ist sichergestellt, dass beim Ablösen von alten Geschäftsanwendungen auch die neue Geschäftsanwendung mit denselben Rollen abgesichert und (falls nötig) parallel betrieben werden kann.
 Genauso funktioniert auch das Freischalten einer neuen Geschäftsanwendung für einen zunächst kleinen Kreis von Anwendern.
-In beiden Fällen muss zur eigentlichen Inbetriebnahme, anstatt einer aufwändigen Migration, nur ein Schalter in der betrieblichen Konfiguration umgelegt werden.
+In beiden Fällen muss zur eigentlichen Inbetriebnahme, anstatt einer aufwändigen Migration, nur ein Schalter in der betrieblichen Konfiguration umgelegt werden. 
 
 // end::inhalt[]
