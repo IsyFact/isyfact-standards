@@ -1,4 +1,9 @@
 # 4.0.0
+- `ISY-889`: Spring Boot Versionsanhebung auf 3.2.x
+  * inkludiert ausserdem folgende Versionsanhebungen: 
+      * Spring Framework 5.x -> 6.x 
+      * Spring Security 5.x -> 6.x
+      * Hibernate 5.x -> 6.x
 - `ISY-779`: `isyfact-bom` entfernt
     * [isyfact-standards-bom] `isyfact-standards-bom` importiert dependencyManagement aus `isyfact-products-bom`
     * [isyfact-standards-doc] Bezug und Nutzung der IsyFact nach Entfernung der IsyFact-BOM beschrieben
