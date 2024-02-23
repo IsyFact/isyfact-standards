@@ -484,14 +484,16 @@ Wie bereits in <<image-GA-AW2>> angedeutet, können Nutzer einer IsyFact-Anwendu
 [id="image-iam-integration-awl",reftext="{figure-caption} {counter:figures}"]
 image::referenzarchitektur/sicherheit_iam_integration_awl-2.dn.svg[]
 
-In der Informations- und Dienstezone erfolgt eine erste (mehrstufige) Berechtigungsprüfung:
+In der Informations- und Dienstezone erfolgt eine Zweifaktor-Berechtigungsprüfung:
 
-. (Loadbalancer: Zertifikat des BVA/ITZ-Bund (gültig? , BHKNZ?))
-. Im Portal bzw. Gateway wird die Identität des Aufrufers geprüft (Authentifizierung) und es werden nur für die Anwendungslandschaft zugelassene durchgelassen.
-Dafür wird ein zentraler Service (IAM-Service) in der Anwendungslandschaft genutzt.
-Ist der Nutzer dem IAM-Service bekannt, wird gemäß der Autorisierungs- und Authentifizierungsprotokolle OAuth2.0 und OpenID Connect ein Access-Token ausgestellt, das auch die dem Nutzer zugeordneten Rollen enthält.
-. Der Aufruf wird zusammen mit diesem Access-Token an die (Interaktions- bzw.) Service-Schicht / Systemgrenze der IsyFact-Fachanwendung weitergeleitet.
-Dort wird (über ein Rolle-Rechte Mapping) geprüft, ob der Nutzer das zur Ausführung des gewünschten Service notwendige Recht besitzt.
+- Ein vorgeschalteter Loadbalancer (nicht im Bild) verlangt ein Client-Zertifikat des BVA/ITZ-Bund.
+Clients (Browser oder Anwendung), die nicht im Besitz dieses Client-Zertifikats sind, werden direkt abgewiesen.
+-  Im Portal bzw. Gateway wird die Identität des Nutzers geprüft (Authentifizierung).
+Der Nutzer muss dafür geheimes Wissen übermitteln (Name und Passwort für Anwender bzw. Client-ID und Secret für Anwendungen), das an einen zentralen Service (IAM-Service) in der Anwendungslandschaft weitergereicht wird.
+Ist der Nutzer dem IAM-Service bekannt, stellt er ein Access-Token aus, das auch die dem Nutzer zugeordneten Rollen enthält.
+
+Der Aufruf des Nutzers wird zusammen mit diesem Access-Token an die (Interaktions- bzw. Service-Schicht /) Systemgrenze der IsyFact-Fachanwendung weitergeleitet.
+Dort wird (über ein Rolle-Rechte Mapping) geprüft, ob der Nutzer das zur Ausführung des gewünschten Service notwendige Recht besitzt (Autorisierung).
 
 Eine detaillierte Beschreibung der erwähnten Systeme (Portal, Service-Gateway, Authentication-Gateway, IAM) und der Autorisierungs- und Authentifizierungsprotokolle OAuth2.0 und OpenID Connect  findet sich in xref:isyfact-standards-doku:isy-security:konzept/master.adoc#inhalt[Konzept des Querschnitt-Bausteins Security].
 
