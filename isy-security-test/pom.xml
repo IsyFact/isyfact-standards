@@ -14,6 +14,10 @@
     <name>IsyFact-Security-Test</name>
     <description>Stellt Utility-Klassen für das Testen von Authentifizierung und Autorisierung bereit.</description>
 
+    <properties>
+        <wiremock.version>3.0.0</wiremock.version>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -54,7 +58,8 @@
 
         <dependency>
             <groupId>com.github.tomakehurst</groupId>
-            <artifactId>wiremock-jre8</artifactId>
+            <artifactId>wiremock</artifactId>
+            <version>${wiremock.version}</version>
             <scope>compile</scope>
             <exclusions>
                 <!-- provided via spring-security-oauth2-client -->
