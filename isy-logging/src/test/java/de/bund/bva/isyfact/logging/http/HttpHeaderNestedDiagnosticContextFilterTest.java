@@ -1,6 +1,6 @@
 package de.bund.bva.isyfact.logging.http;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import de.bund.bva.isyfact.logging.util.MdcHelper;
 import org.junit.Test;

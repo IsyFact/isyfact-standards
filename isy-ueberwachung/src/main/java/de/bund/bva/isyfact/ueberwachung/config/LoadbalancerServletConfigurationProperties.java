@@ -1,6 +1,6 @@
 package de.bund.bva.isyfact.ueberwachung.config;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 import org.springframework.validation.annotation.Validated;
 

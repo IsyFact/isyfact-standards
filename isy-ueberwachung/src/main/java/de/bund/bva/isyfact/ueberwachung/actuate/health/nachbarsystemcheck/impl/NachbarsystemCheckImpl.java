@@ -2,7 +2,7 @@ package de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.impl;
 
 import java.net.URI;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.http.ResponseEntity;

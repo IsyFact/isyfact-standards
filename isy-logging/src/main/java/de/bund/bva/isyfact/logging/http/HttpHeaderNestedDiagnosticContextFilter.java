@@ -18,7 +18,7 @@ package de.bund.bva.isyfact.logging.http;
 
 import java.util.UUID;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.web.filter.AbstractRequestLoggingFilter;
 

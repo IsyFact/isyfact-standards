@@ -1,7 +1,7 @@
 package de.bund.bva.isyfact.persistence.datetime.attributeconverter;
 
 import java.time.Period;
-import javax.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
