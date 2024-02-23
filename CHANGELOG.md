@@ -3,6 +3,9 @@
     * [isyfact-standards-bom] `isyfact-standards-bom` importiert dependencyManagement aus `isyfact-products-bom`
     * [isyfact-standards-doc] Bezug und Nutzung der IsyFact nach Entfernung der IsyFact-BOM beschrieben
 
+# 3.2.0
+- `ISY-948` : Spring Cache Abstraction als verpflichtende Bibliothek für anwendungsseitige Caches eingeführt
+
 # 3.0.0
 - `ISY-653` : Erweitern des `TimeoutWiederholungHttpInvokerRequestExecutor` um die Token-Beschaffung aus dem Security Context bei Nichtverfügbarkeit des `AufrufKontextVerwalter`.
 - `ISY-183`: [isyfact-standards-doc] Migrationsleitfaden zur Entfernung der Bridge-Module

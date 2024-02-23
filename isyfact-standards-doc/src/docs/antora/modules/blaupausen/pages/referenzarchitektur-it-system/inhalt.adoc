@@ -88,13 +88,13 @@ Details hierzu sind im xref:isy-persistence:konzept.adoc[Baustein JPA/Hibernate]
 Anwendungsspezifische Caches sind mit Spring Cache Abstraction zu implementieren.
 Die Caching-Funktionalität wird so mit Spring Cache Abstraction und einem Caching Provider (z.B. EHCache) bereitgestellt.
 Spring Cache Abstraction bietet eine effiziente und flexible Möglichkeit Caching in Anwendungen zu implementieren.
-Weitere und detaillierte Informationen sind in xref:glossary:literaturextern:inhalt.adoc#litextern-spring-cache-abstraction[Spring Cache Abstraction] einzusehen.
+Weitere und detaillierte Informationen sind in xref:glossary:literaturextern:inhalt.adoc#litextern-spring-cache-abstraction[der Spring Dokumentation] einzusehen.
 Durch die Verwendung von Spring Cache Abstraction wird, z.B. über die Nutzung von Annotationen, das Hinzufügen von Caching zu bestehenden Methoden erleichtert.
 Der zugrundeliegende Code ist nicht wesentlich zu verändern.
 Mit dem abstrahierten Caching ist die Cache-Implementierung unabhängig von dem genutzten Cache-Provider.
 Die Wahl des Cache-Providers ist gemäß einer notwendigen Skalierung und betrieblichen Gegebenheiten abzustimmen.
 EHCache wird empfohlen (Vlg. xref:einstieg:produktkatalog/technologiestackJavaSpring.adoc#Entwicklung[Produktkatalog: Entwicklung]).
-Für weitere Informationen zu EHCache sind in der xref:glossary:literaturextern::inhalt.adoc#litextern-ehcache[EHCache Dokumentation] einzusehen.
+Für weitere Informationen zu EHCache sind in der xref:glossary:literaturextern:inhalt.adoc#litextern-ehcache[EHCache Dokumentation] einzusehen.
 
 
 
