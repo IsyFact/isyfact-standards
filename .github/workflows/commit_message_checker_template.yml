@@ -31,7 +31,7 @@ jobs:
       - name: Check Commit Message
         uses: gsactions/commit-message-checker@v2.0.0
         with:
-          pattern: '^((feat|fix|build|ci|docs|refactor|style|test|perf|chore)(\(\w+\))?(: (.*\s*)*))|(Merge (.*\s*)*)|(Revert (.*\s*)*)'
+          pattern: '^((feat|fix|build|ci|docs|refactor|style|test|perf|chore)(\(\w[-\w]*\))?(: (.*\s*)*))|(Merge (.*\s*)*)|(Revert (.*\s*)*)'
           error: 'Commit message is not conventional.'
           checkAllCommitMessages: 'true'
           excludeDescription: 'true'
