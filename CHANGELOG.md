@@ -3,7 +3,7 @@
     * [isyfact-standards-bom] `isyfact-standards-bom` importiert dependencyManagement aus `isyfact-products-bom`
     * [isyfact-standards-doc] Bezug und Nutzung der IsyFact nach Entfernung der IsyFact-BOM beschrieben
 - `ISY-737`: [isyfact-standards] Java Compile Target 17
-- `ISY-876`: [isy-bedienkonzept] Ergänzung der Anzeigeposition von Toasts unten rechts
+- `ISY-948` : Spring Cache Abstraction als verpflichtende Bibliothek für anwendungsseitige Caches eingeführt
 
 # 3.0.0
 - `ISY-653` : Erweitern des `TimeoutWiederholungHttpInvokerRequestExecutor` um die Token-Beschaffung aus dem Security Context bei Nichtverfügbarkeit des `AufrufKontextVerwalter`.
