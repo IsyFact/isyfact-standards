@@ -1,6 +1,5 @@
-= Nutzungsvorgaben Task Scheduling: Inhalt
+= Nutzungsvorgaben Task Scheduling
 
-// tag::inhalt[]
 [[verwendung-der-bibliothek-isy-task]]
 == Verwendung der Bibliothek `isy-task`
 
@@ -22,7 +21,7 @@ Um die Bibliothek einzubinden, fügen Sie die `isy-task` Abhängigkeit in Ihre p
 [[erstellung-eines-tasks]]
 === Erstellung eines Tasks
 
-Um einen Task zu erstellen muss eine Methode mit `@Scheduled` annotiert werden. Dabei handelt es sich um eine Annotation, die eine zu planende Methode kennzeichnet. Es muss genau eines der Attribute `cron()`, `fixedDelay()` oder `fixedRate()` angegeben werden.
+Um einen Task zu erstellen, muss eine Methode mit `@Scheduled` annotiert werden. Dabei handelt es sich um eine Annotation, die eine zu planende Methode kennzeichnet. Es muss genau eines der Attribute `cron()`, `fixedDelay()` oder `fixedRate()` angegeben werden.
 
 Die annotierte Methode darf keine Argumente erwarten. Sie hat normalerweise den Rückgabetyp `void`; andernfalls wird der zurückgegebene Wert beim Aufruf durch den Scheduler ignoriert.
 
@@ -43,14 +42,14 @@ In diesem Fall ist die Dauer zwischen dem Ende der letzten Ausführung und dem B
 
 Diese exemplarische Option sollte verwendet werden, wenn es zwingend erforderlich ist, dass die vorherige Ausführung abgeschlossen ist, bevor sie erneut ausgeführt wird.
 
-Weitere Informationen über den Einsatz von Annotationsattributen finden sich in der xref:https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/scheduling/annotation/Scheduled.html#dokumentation-spring[Spring Dokumentation].
+Weitere Informationen über den Einsatz von Annotationsattributen finden sich in der https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/scheduling/annotation/Scheduled.html#dokumentation-spring[Spring Dokumentation].
 
 Damit eine `@Scheduled`-Annotation von Spring registriert wird, muss die Klasse, in welcher der Task erstellt wird, entweder mit `@Component` annotiert werden oder über eine @Bean-Methode in den Kontext gelegt werden.
 
 Das Starten und Stoppen eines Tasks wird durch Einsatz der Annotationen vollständig von Spring übernommen.
 
 
-[[erstellung-eines-tasks]]
+[[manuelles-starten-stoppen]]
 === Manuelles Starten und Stoppen von Tasks
 
 Es ist ebenfalls möglich, Tasks händisch zu starten und/oder zu stoppen. Zu diesem Zweck wurde `isy-task` um die Annotation `ManualTask` erweitert. Darüber hinaus kommt der `TaskScheduler` aus dem Spring-Framework zum Einsatz.
@@ -219,14 +218,14 @@ Hierüber wird der zu verwendende OAuth 2.0 Client und die Kennung, das Passwort
 
 [source,properties]
 ----
-isy.task.default.oauth2-client-registration-id
+isy.task.default.oauth2-client-registration-id={default-id}
 ----
 
 Der Host, wenn kein Task-spezifischer Host konfiguriert wird:
 
 [source,properties]
 ----
-isy.task.default.host
+isy.task.default.host{default-host}
 ----
 
 [[aufgabenspezifische-konfiguration]]
@@ -237,7 +236,7 @@ Hierüber wird der zu verwendende OAuth 2.0 Client und die Kennung, das Passwort
 
 [source,properties]
 ----
-isy.task.tasks.<Task>.oauth2-client-registration-id
+isy.task.tasks.<Task>.oauth2-client-registration-id={id}
 ----
 
 Der Name des Hosts auf dem der Task ausgeführt werden soll.
@@ -246,7 +245,7 @@ Dadurch kann auch eine Liste von Hostnamen angegeben werden, z.B. `host1|host2|h
 
 [source,properties]
 ----
-isy.task.tasks.<Task>.host
+isy.task.tasks.<Task>.host={host}
 ----
 
 Actuator Monitoring-Endpunkte für Micrometer

@@ -459,7 +459,7 @@ In Abbildung xref:image-sequenzdiagramm-absicherung-task[Absicherung von Aufgabe
 image::isy-security:konzept/Sequenzdiagramm_AbsicherungTask.dn.svg[align="center"]
 
 Sobald eine Anwendungskomponente einen fachlichen Ablauf als abgekoppelten Hintergrundprozess und somit als _Aufgabe_ ausführen möchte, startet diese eine Initialisierung der _Aufgabe_ mit der `TaskID` als Parameter.
-In `isy-task` wird die übergebene `TaskID` verwendet, um in der Betriebskonfiguration gemäß den xref:isy-task:nutzungsvorgaben/master.adoc#konfigurationsschluessel[Task-Konfigurations-Konventionen] nach den entsprechenden Konfigurationswerten aufzulösen.
+In `isy-task` wird die übergebene `TaskID` verwendet, um in der Betriebskonfiguration gemäß den xref:isy-task:nutzungsvorgaben.adoc#konfigurationsschluessel[Task-Konfigurations-Konventionen] nach den entsprechenden Konfigurationswerten aufzulösen.
 
 Der gestartete _Aufgaben_-Prozess von `isy-task` ermittelt dann anhand der übergebenen `TaskID` den _Credential-Flow_-Typ und entscheidet durch diese die entsprechende Authentifizierungsmethode in `isy-security` aufzurufen.
 

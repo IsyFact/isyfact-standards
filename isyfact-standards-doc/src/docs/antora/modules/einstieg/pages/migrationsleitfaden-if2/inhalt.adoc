@@ -275,9 +275,9 @@ Die Verwendung von `isy-sicherheit` wird mit einer Property in `application.prop
 Um die Verwendung von `isy-sicherheit` für die Authentifizierung und Autorisierung zu konfigurieren, wird die Property `isy.task.authentication.enabled`
 in `application.properties` auf `true` oder `false` gesetzt.
 +
-Siehe xref:isy-task:nutzungsvorgaben/master.adoc#spring-konfiguration[Nutzungsvorgaben Task Scheduling - Kapitel: Spring Konfiguration].
+Siehe xref:isy-task:nutzungsvorgaben.adoc#konfigurieren-von-tasks[Nutzungsvorgaben Task Scheduling - Kapitel: Konfigurieren von Tasks].
 +
-Siehe xref:isy-task:nutzungsvorgaben/master.adoc#konfigurationsschluessel[Nutzungsvorgaben Task Scheduling - Kapitel:  Konfigurationsschlüssel].
+Siehe xref:isy-task:nutzungsvorgaben.adoc#konfigurationsschluessel[Nutzungsvorgaben Task Scheduling - Kapitel:  Konfigurationsschlüssel].
 
 
 
