@@ -25,4 +25,7 @@ Ergänzend zu den Release Notes erläutert der xref:release:migrationsleitfaden.
 [[kapitel-entfernt]]
 == Entfernt
 
-...
+=== Dokumentation
+
+Die IsyFact macht keine Vorgaben mehr zur Entwicklungsumgebung.
+Alle Inhalte und Produktvorgaben diesbezüglich wurden entfernt.
