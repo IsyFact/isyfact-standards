@@ -62,11 +62,11 @@ public class IsyActuatorSecurityAutoConfiguration {
     @Bean
     @ConditionalOnProperty("isy.ueberwachung.security.username")
     @ConditionalOnMissingBean(name = "actuatorUserDetailsService")
-    public UserDetailsService actuatorUserDetailsService() {
+    public UserDetailsService actuatorUserDetailsService(PasswordEncoder passwordEncoder) {
         UserDetails actuatorEndpointUser = User
-            // Username must contain at least one
+            // Username must contain at least one non-whitespace character
             .withUsername(properties.getUsername())
-            .password(passwordEncoder().encode(properties.getPassword()))
+            .password(passwordEncoder.encode(properties.getPassword()))
             .roles(ENDPOINT_ROLE)
             .build();
         return new InMemoryUserDetailsManager(actuatorEndpointUser);
