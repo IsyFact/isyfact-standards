@@ -83,7 +83,7 @@ public class ProgrammaticallyScheduledTask implements Runnable {
 
 Exemplarisch kann der Task anschließend durch den Aufruf `taskScheduler.scheduleWithFixedDelay(task, Duration.ofSeconds(3));` gestartet werden. `schedule()` liefert einen Rückgabewert vom Typ `ScheduledFuture`, welcher unter anderem die `cancel()`-Methode bereitstellt und ein manuelles Stoppen des Tasks ermöglicht.
 
-Im folgenden Beispiel wird ein Task mit einer Verzögerung von jeweils drei Sekunden ausgeführt. Nach zehn Sekunden wird der Task durch die `cancel()`-Methode manuell gestoppt. Folglich wird der Task drei mal erfolgreich ausgeführt.
+Im folgenden Beispiel wird ein Task mit einer Verzögerung von jeweils drei Sekunden ausgeführt. Nach zehn Sekunden wird der Task durch die `cancel()`-Methode manuell gestoppt. Folglich wird der Task dreimal erfolgreich ausgeführt.
 
 [source, java]
 ----
@@ -161,13 +161,13 @@ Das folgende Listing zeigt die Konfiguration für einen `scheduleTaskWithFixedDe
 
 [source,properties]
 ----
-isy.task.tasks.scheduledTasks-scheduleTaskWithFixedDelay.benutzer=TestUser1
-isy.task.tasks.scheduledTasks-scheduleTaskWithFixedDelay.passwort=TestPasswort1
-isy.task.tasks.scheduledTasks-scheduleTaskWithFixedDelay.bhkz=BHKZ1
-isy.task.tasks.scheduledTasks-scheduleTaskWithFixedDelay.host=ComputerName
+isy.task.tasks.scheduledTasks-scheduleTaskWithFixedDelay.deaktiviert={true/false}
+isy.task.tasks.scheduledTasks-scheduleTaskWithFixedDelay.host={host}
+isy.task.tasks.scheduledTasks-scheduleTaskWithFixedDelay.oauth2-client-registration-id={id}
 ----
 
-Zu beachten ist die Konvention zur Namensgebung für Tasks. Sie folgt immer dem Schema `"klassenName-geschedulterMethodenName"`.
+Zu beachten ist die Konvention zur Namensgebung für Tasks.
+Sie folgt immer dem Schema `"klassenName-methodenName"`.
 
 `ComputerName` ist der Name der Maschine, auf der der Task läuft.
 
@@ -177,12 +177,13 @@ Ein Task wird grundsätzlich als Spring Bean konfiguriert.
 
 [source, java]
 ----
-taskConfig = isyTaskConfigurationProperties.getTasks()
-    .computeIfAbsent(taskId, k -> new TaskConfig());
+public void configureTasks(IsyTaskConfigurationProperties cp) {
+    taskConfig = cp.getTasks().computeIfAbsent(taskId, k -> new TaskConfig());
 
-taskConfig.setDeaktiviert(true);
-taskConfig.setBenutzer("testBenutzer");
-taskConfig.setPasswort("123");
+    taskConfig.setDeaktiviert("...");
+    taskConfig.setHost("...");
+    taskConfig.setOauth2ClientRegistrationId("...");
+}
 ----
 
 ==== Automatische Aktualisierung der Konfiguration
@@ -191,10 +192,10 @@ Die automatische Prüfung und Aktualisierung der Konfiguration geschieht standar
 
 [source,java]
 ----
-    @Scheduled(fixedDelay = 300, timeUnit = TimeUnit.SECONDS)
-    public void execute() {
-        konfiguration.checkAndUpdate();
-    }
+@Scheduled(fixedDelay = 300, timeUnit = TimeUnit.SECONDS)
+public void execute() {
+    konfiguration.checkAndUpdate();
+}
 ----
 
 [[absicherung-von-tasks]]
@@ -202,7 +203,7 @@ Die automatische Prüfung und Aktualisierung der Konfiguration geschieht standar
 
 Für die Absicherung eines Tasks benötigt es in der Task-Konfiguration eine OAuth 2.0 Client Registration ID.
 Diese kann als Teil der <<allgemeine-konfiguration,allgemeinen Konfiguration>> gültig für alle Tasks definiert werden oder in der <<aufgabenspezifische-konfiguration,aufgabenspezifischen Konfiguration>> speziell für jeden einzelnen Task.
-Die Details einer `ClientRegistration`-Konfiguration sind in den xref:isy-security:nutzungsvorgaben/master.adoc#authentifizierungsmanager-authentication[Nutzungsvorgaben Sicherheit und der Authentifizierung eines OAuth 2.0 Clients mit dem Authentifizierungsmanager] beschrieben
+Die Details einer `ClientRegistration`-Konfiguration sind in den xref:isy-security:nutzungsvorgaben/master.adoc#authentifizierungsmanager-authentication[Nutzungsvorgaben Sicherheit und der Authentifizierung eines OAuth 2.0 Clients mit dem Authentifizierungsmanager] beschrieben.
 Hierbei kann der Sicherheitsbaustein entweder Resource Owner Password Credentials (ROPC) oder Client Credentials verwenden.
 Die Verwendung von ROPC ermöglicht es, die Identität des Benutzers abzufragen und die Tasks sicher auszuführen, während der Client Credentials Flow die Authentifizierung und Autorisierung der Anwendung selbst ermöglicht, um auf geschützte Ressourcen zuzugreifen.
 
@@ -228,7 +229,7 @@ Der Host, wenn kein Task-spezifischer Host konfiguriert wird:
 
 [source,properties]
 ----
-isy.task.default.host{default-host}
+isy.task.default.host={default-host}
 ----
 
 [[aufgabenspezifische-konfiguration]]
@@ -279,7 +280,7 @@ isy-task stellt folgende Task-spezifische Metriken über den Endpunkt `/actuator
 |Namespace
 
 |Timer Metriken
-|Metriken die das Timing von mit `@Timed`-annotierten Tasks betreffen. Zeigt an, wie oft ein Task ausgeführt wurde, wieviel Zeit alle Durchläufe eines Tasks in Anspruch genommen haben und die maximale Ausführungszeit. Darüber hinaus filtern nach Tags möglich, zum Beispiel: `/actuator/metrics/method.timed?tag=method:mySuccessTask`
+|Metriken die das Timing von mit `@Timed`-annotierten Tasks betreffen. Zeigt an, wie oft ein Task ausgeführt wurde, wie viel Zeit alle Durchläufe eines Tasks in Anspruch genommen haben und die maximale Ausführungszeit. Darüber hinaus filtern nach Tags möglich, zum Beispiel: `/actuator/metrics/method.timed?tag=method:mySuccessTask`
 
 |method.timed.
 
@@ -299,13 +300,8 @@ Darüber hinaus sind über `/actuator/info` sowie `/actuator/health` Information
 === Monitoring mit ScheduledFuture
 
 Neben dem Monitoring mit Actuator ist ein Monitoring mit Objekten vom Typ `ScheduledFuture`
-möglich. Dies ist der Typ des Rückgabewerts, wenn ein Task über `taskScheduler.schedule()` manuell gestartet wird. Mit dem Future kann exemplarisch geprüft werden, ob ein Task erledigt ist. Oder es kann geprüft werden, wie viel Zeit bis zum Beginn der Ausführung verbleibt:
-
-[source,java]
-----
-myTask.isDone();
-myTask.getDelay(TimeUnit.MINUTES);
-----
+möglich.
+Dies ist allerdings nur möglich, wenn ein Task über `taskScheduler.schedule()` manuell gestartet wurde.
 
 [[hinweise-fuer-den-task-im-parallelbetrieb]]
 == Hinweise für den Task im Parallelbetrieb
@@ -326,11 +322,12 @@ Denn die Zuordnung der Zeitscheiben erfolgt bei jeder erneuten Ausführung der G
 Daher kann ein erfolgreicher JUnit-Test eine fehlerfreie Ausführung in der Produktionsumgebung nicht gewährleisten.
 Selbst die Aufteilung auf unterschiedliche Rechnerkerne verhindert von sich aus kein fehlerhaftes Verhalten.
 Aus diesem Grund müssen Methoden, die nicht von mehreren Threads gleichzeitig durchlaufen werden sollen, über einen Lock-Mechanismus (beispielsweise über das Schlüsselwort synchronized) davor geschützt werden.
-Ein weiteres Problem gemeinsamer Instanzen, betrifft die Objektvariablen.
+
+Ein weiteres Problem gemeinsamer Instanzen betrifft die Objektvariablen.
 Auch der Zugriff auf eine veränderbare Objektvariable (d.h. eine Objektvariable, die nicht mit final versehen wurde) eines gemeinsamen Objekts kann nicht konsistent erfolgen, weil jeder Rechnerkern über einen eigenen Cache verfügt, der sich bei Änderung des Wertes naturgemäß vom Wert im Cache des anderen Rechnerkerns unterscheidet.
 Hilfreich ist hierbei das Schlüsselwort __volatile__, das dafür sorgt, dass vor jedem Zugriff eine Synchronisation zwischen dem Thread-spezifischen Cache und dem Hauptspeicher stattfindet.
 Die Objektvariable die mit volatile versehen wurde, ist also scheinbar atomar.
-Allerdings trifft das nicht für den schreibenden Zugriff zu, da jegliche Veränderung in mehreren Schritten erledigt wird. 
+Allerdings trifft das nicht für den schreibenden Zugriff zu, da jegliche Veränderung in mehreren Schritten erledigt wird.
 Um sicherzustellen, dass der Zugriff auf eine gemeinsame Objektvariable konsistent ist, wird beispielsweise der Wertebehälter einer Ganzzahl mit dem speziellen Wertetypen AtomicInteger definiert.
 In der Regel wird es sich bei der Objektvariablen aber eher um einen Referenztypen handeln.
 In diesen Fällen sollten die Objektvariablen in einem ThreadLocal-Objekt deklariert werden.
