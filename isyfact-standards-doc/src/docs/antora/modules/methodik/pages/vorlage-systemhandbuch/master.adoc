@@ -11,3 +11,8 @@
 toc::[]
 
 include::inhalt.adoc[tags=inhalt]
+
+// Kapitelnummerierung ausschalten
+:sectnums!:
+
+include::inhalt.adoc[tags=quellen]
