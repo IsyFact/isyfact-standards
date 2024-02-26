@@ -1,6 +1,13 @@
 [[changelog]]
 = Changelog
 
+*Änderungen IsyFact 4.0.0*
+
+// tag::release-4.0.0[]
+* Produkte entfernt:
+** Entwicklungsumgebungen und alle Plugins
+// end::release-4.0.0[]
+
 *Änderungen IsyFact 3.0.0*
 
 // tag::release-3.0.0[]
