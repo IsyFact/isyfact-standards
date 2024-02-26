@@ -15,7 +15,7 @@
     <description>Stellt Utility-Klassen für das Testen von Authentifizierung und Autorisierung bereit.</description>
 
     <properties>
-        <wiremock.version>3.0.0</wiremock.version>
+        <wiremock.version>3.4.2</wiremock.version>
     </properties>
 
     <dependencyManagement>
@@ -57,22 +57,20 @@
         </dependency>
 
         <dependency>
-            <groupId>com.github.tomakehurst</groupId>
-            <artifactId>wiremock</artifactId>
+            <groupId>org.wiremock</groupId>
+            <artifactId>wiremock-standalone</artifactId>
             <version>${wiremock.version}</version>
             <scope>compile</scope>
-            <exclusions>
-                <!-- provided via spring-security-oauth2-client -->
-                <exclusion>
-                    <groupId>org.ow2.asm</groupId>
-                    <artifactId>asm</artifactId>
-                </exclusion>
-                <!-- internal convergence error, not required for wiremock to work -->
-                <exclusion>
-                    <groupId>javax.servlet</groupId>
-                    <artifactId>servlet-api</artifactId>
-                </exclusion>
-            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <scope>test</scope>
         </dependency>
 
         <dependency>

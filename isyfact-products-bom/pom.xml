@@ -40,7 +40,7 @@
         <commons-validator.version>1.7</commons-validator.version>
         <jsoup.version>1.15.3</jsoup.version>
         <ApacheJMeter_core.version>2.13</ApacheJMeter_core.version>
-        <wiremock-jre8.version>2.32.0</wiremock-jre8.version>
+        <wiremock-standalone.version>3.4.2</wiremock-standalone.version>
         <dbunit.version>2.7.3</dbunit.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <tika-core.version>1.28.5</tika-core.version>
@@ -286,10 +286,11 @@
             </dependency>
 
             <!-- Testen, Mocking-Framework: WireMock -->
+            <!-- Use wiremock-standalone due to jetty incompatibility between spring boot >3.2.x and wiremock 3.x -->
             <dependency>
-                <groupId>com.github.tomakehurst</groupId>
-                <artifactId>wiremock-jre8</artifactId>
-                <version>${wiremock-jre8.version}</version>
+                <groupId>org.wiremock</groupId>
+                <artifactId>wiremock-standalone</artifactId>
+                <version>${wiremock-standalone.version}</version>
                 <scope>test</scope>
             </dependency>
 
