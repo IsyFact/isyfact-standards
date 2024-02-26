@@ -24,8 +24,6 @@
         <jsf-impl.version>2.2.20</jsf-impl.version>
         <tomahawk20.version>1.1.14</tomahawk20.version>
         <metro.webservices.version>2.4.10</metro.webservices.version>
-        <logback-classic.version>1.2.13</logback-classic.version>
-        <logback-core.version>1.2.13</logback-core.version>
         <logback-json-classic.version>0.1.5</logback-json-classic.version>
         <logback-jackson.version>0.1.5</logback-jackson.version>
         <ojdbc8.version>19.11.0.0</ojdbc8.version>
@@ -144,16 +142,6 @@
                 <groupId>io.github.resilience4j</groupId>
                 <artifactId>resilience4j-timelimiter</artifactId>
                 <version>${resilience4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-classic</artifactId>
-                <version>${logback-classic.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-core</artifactId>
-                <version>${logback-core.version}</version>
             </dependency>
             <dependency>
                 <groupId>ch.qos.logback.contrib</groupId>
