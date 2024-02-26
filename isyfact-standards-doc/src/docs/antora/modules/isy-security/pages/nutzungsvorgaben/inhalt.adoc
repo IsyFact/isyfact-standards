@@ -123,7 +123,7 @@ Das Präfix sämtlicher Konfigurationsparameter `spring.security.oauth2` wird zu
 [[isyfact-specific-client-registration]]
 ==== Isyfact spezifische Konfigurationsparameter
 
-:linkaktuell: xref:client-credential-flow[]
+:linkaktuell: xref:konzept/inhalt.adoc#client-credential-flow[Client-Credential-Flow]
 include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
 
 ****
