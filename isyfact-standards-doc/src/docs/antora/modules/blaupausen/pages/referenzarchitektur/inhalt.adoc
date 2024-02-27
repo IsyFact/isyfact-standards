@@ -473,19 +473,19 @@ image::blaupausen:referenzarchitektur/CallFAmGuX.png[align="center"]
 
 Sicherheit ist ein Ziel der Referenzarchitektur (<<die-ziele-der-referenzarchitektur>>)
 und technische Querschnittsaufgabe.
-Ein Sicherheitsaspekt ist der Schutz vor unberechtigtem Zugriff auf vertrauliche Daten.
-Wie bereits in <<image-GA-AW2>> angedeutet, können Nutzer einer IsyFact-Anwendung / -Domäne nicht direkt darauf zugreifen, sondern nur über eine dazwischenliegenden Informations- und Dienstezone:
+Ein Aspekt davon ist der Schutz vor unberechtigtem Zugriff auf vertrauliche Daten.
+Wie bereits in <<image-GA-AW2>> angedeutet, können Nutzer einer IsyFact-Anwendung nicht direkt darauf zugreifen, sondern nur über eine dazwischenliegenden Informations- und Dienstezone:
 
 - Interne u. externe Anwender mit ihrem Web-Client (Browser) über ein Portal,
 - Externe Anwendungen verbinden sich über Internet-Protokolle mit einem Service-Gateway.
-- In zukünftigen Versionen von IsyFact muss sich eine externe Anwendung erst über das Authentication-Gateway durch den IAM-Service authentifizieren lassen, bevor es über ein Service-Gateway Zugang zu einer IsyFact-Anwendung / -Domäne erhält.
+- In zukünftigen Versionen von IsyFact muss sich eine externe Anwendung erst über das Authentication-Gateway durch den IAM-Service authentifizieren lassen, bevor es über ein Service-Gateway Zugang zu einer IsyFact-Anwendung erhält.
 Aktuell wird diese Funktion vom Service-Gateway mit übernommen.
 
 .Integration von IAM in eine Anwendungslandschaft
 [id="image-iam-integration-awl",reftext="{figure-caption} {counter:figures}"]
 image::referenzarchitektur/sicherheit_iam_integration_awl-2.dn.svg[]
 
-Bevor der Zugang zu der IsyFact-Anwendung / -Domäne gewährt wird, erfolgt in der Informations- und Dienstezone eine Zweifaktor-Berechtigungsprüfung:
+Bevor der Zugang zu der IsyFact-Anwendung gewährt wird, erfolgt in der Informations- und Dienstezone eine Zweifaktor-Berechtigungsprüfung:
 
 - Ein vorgeschalteter Loadbalancer (nicht im Bild) verlangt ein Client-Zertifikat des BVA/ITZ-Bund.
 Clients (Browser oder Anwendung), die nicht im Besitz dieses Client-Zertifikats sind, werden direkt abgewiesen.
@@ -493,10 +493,10 @@ Clients (Browser oder Anwendung), die nicht im Besitz dieses Client-Zertifikats 
 Der Nutzer muss dafür geheimes Wissen übermitteln (z.B. Name und Passwort für Anwender bzw. Client-ID und Secret für Anwendungen), das an einen zentralen Service (IAM-Service) in der Anwendungslandschaft weitergereicht wird.
 Ist der Nutzer dem IAM-Service bekannt, stellt er ein Access-Token aus, das auch die dem Nutzer zugeordneten Rollen enthält.
 
-Der Aufruf des Nutzers wird zusammen mit diesem Access-Token an die (Interaktions- bzw. Service-Schicht /) Systemgrenze der IsyFact-Fachanwendung weitergeleitet.
+Der Aufruf des Nutzers wird zusammen mit diesem Access-Token an die Interaktions- bzw. Service-Schicht der IsyFact-Fachanwendung weitergeleitet.
 Dort wird (über ein Rolle-Rechte Mapping) geprüft, ob der Nutzer das zur Ausführung des gewünschten Service notwendige Recht besitzt (Autorisierung).
 
-Eine detaillierte Beschreibung der erwähnten Systeme (Portal, Service-Gateway, Authentication-Gateway, IAM) und der Autorisierungs- und Authentifizierungsprotokolle OAuth2.0 und OpenID Connect  findet sich in xref:isyfact-standards-doku:isy-security:konzept/master.adoc#inhalt[Konzept des Querschnitt-Bausteins Security].
+Eine detaillierte Beschreibung der erwähnten Systeme (Portal, Service-Gateway, Authentication-Gateway, IAM) und der Autorisierungs- und Authentifizierungsprotokolle OAuth2.0 und OpenID Connect findet sich in xref:isyfact-standards-doku:isy-security:konzept/master.adoc#inhalt[Konzept des Querschnitt-Bausteins Security].
 
 NOTE: IAM steht für xref:glossary:literaturextern:inhalt.adoc#litextern-identity_management[Identity and Access Management].
 
