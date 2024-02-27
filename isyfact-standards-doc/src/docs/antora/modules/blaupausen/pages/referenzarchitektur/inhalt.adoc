@@ -485,20 +485,21 @@ Aktuell wird diese Funktion vom Service-Gateway mit übernommen.
 [id="image-iam-integration-awl",reftext="{figure-caption} {counter:figures}"]
 image::referenzarchitektur/sicherheit_iam_integration_awl-2.dn.svg[]
 
-Bevor der Zugang zu der IsyFact-Anwendung gewährt wird, erfolgt in der Informations- und Dienstezone eine Zweifaktor-Berechtigungsprüfung:
+Bevor der Zugang zu der IsyFact-Anwendung gewährt wird, erfolgt in der Informations- und Dienstezone eine Berechtigungsprüfung:
 
-- Ein vorgeschalteter Loadbalancer (nicht im Bild) verlangt ein Client-Zertifikat des BVA/ITZ-Bund.
-Clients (Browser oder Anwendung), die nicht im Besitz dieses Client-Zertifikats sind, werden direkt abgewiesen.
--  Im Portal bzw. Authentication-Gateway wird die Identität des Nutzers geprüft (Authentifizierung).
-Der Nutzer muss dafür geheimes Wissen übermitteln (z.B. Name und Passwort für Anwender bzw. Client-ID und Secret für Anwendungen), das an einen zentralen Service (IAM-Service) in der Anwendungslandschaft weitergereicht wird.
+Im Portal bzw. Authentication-Gateway wird die Identität des Nutzers überprüft, indem Authentifizierungsdaten des Nutzers an einen zentralen Service (IAM-Service) in der Anwendungslandschaft weitergereicht werden.
 Ist der Nutzer dem IAM-Service bekannt, stellt er ein Access-Token aus, das auch die dem Nutzer zugeordneten Rollen enthält.
-
-Der Aufruf des Nutzers wird zusammen mit diesem Access-Token an die Interaktions- bzw. Service-Schicht der IsyFact-Fachanwendung weitergeleitet.
+Die Anfrage des Nutzers wird dann zusammen mit diesem Access-Token an die Interaktions- bzw. Service-Schicht der IsyFact-Fachanwendung weitergeleitet.
 Dort wird (über ein Rolle-Rechte Mapping) geprüft, ob der Nutzer das zur Ausführung des gewünschten Service notwendige Recht besitzt (Autorisierung).
 
 Eine detaillierte Beschreibung der erwähnten Systeme (Portal, Service-Gateway, Authentication-Gateway, IAM) und der Autorisierungs- und Authentifizierungsprotokolle OAuth2.0 und OpenID Connect findet sich in xref:isyfact-standards-doku:isy-security:konzept/master.adoc#inhalt[Konzept des Querschnitt-Bausteins Security].
 
 NOTE: IAM steht für xref:glossary:literaturextern:inhalt.adoc#litextern-identity_management[Identity and Access Management].
+
+Weitere Sicherheit bietet die zusätzliche Verwendung eines Client-Zertifikats:
+Die betreibende Behörde stellt ein Client-Zertifikat aus und verteilt es an alle berechtigten Nutzer.
+Ein dem Portal bzw. Authentication-Gateway vorgeschalteter Loadbalancer (nicht im Bild) verlangt und prüft dieses Client-Zertifikat.
+Clients (Browser oder Anwendung), die nicht im Besitz dieses Client-Zertifikats sind, werden direkt abgewiesen.
 
 [[verwendung-von-produkten]]
 === Verwendung von Produkten
