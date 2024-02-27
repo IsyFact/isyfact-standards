@@ -1,3 +1,6 @@
+# 4.0.0
+- `ISY-888`: Freigabe des `/Loadbalancer` Endpunkts auf `SecurityFilterChain` (`@Order(99)`) umgestellt
+
 # 3.0.0
 - `IFS-1702`: Refaktorierung ServiceStatistik
     * Entkoppelt von Micrometer API
