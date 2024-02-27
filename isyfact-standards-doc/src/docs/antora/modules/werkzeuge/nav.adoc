@@ -6,6 +6,5 @@
 *** xref:dokumentation/bearbeitung-antora.adoc[]
 *** xref:dokumentation/generierung-antora.adoc[]
 ** xref:dokumentation/changelog-doku.adoc[Changelogs]
-** xref:entwicklungsumgebung/master.adoc[Entwicklungsumgebung]
 ** xref:versionierungskontrolle/master.adoc[]
 ** xref:gui-tests/gui-tests-mit-selenium.adoc[]
