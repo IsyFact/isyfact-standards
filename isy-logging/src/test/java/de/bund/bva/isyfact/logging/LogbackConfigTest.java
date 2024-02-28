@@ -1,13 +1,15 @@
 package de.bund.bva.isyfact.logging;
 
-import ch.qos.logback.classic.LoggerContext;
-import ch.qos.logback.classic.joran.JoranConfigurator;
-import ch.qos.logback.core.joran.spi.JoranException;
-import de.bund.bva.isyfact.logging.util.MdcHelper;
+import java.net.URL;
+
 import org.junit.Test;
 import org.slf4j.LoggerFactory;
 
-import java.net.URL;
+import de.bund.bva.isyfact.logging.util.MdcHelper;
+
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.classic.joran.JoranConfigurator;
+import ch.qos.logback.core.joran.spi.JoranException;
 
 /*
  * #%L

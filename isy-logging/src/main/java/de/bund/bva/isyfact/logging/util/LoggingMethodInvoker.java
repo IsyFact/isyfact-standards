@@ -23,12 +23,12 @@ package de.bund.bva.isyfact.logging.util;
  * #L%
  */
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.exceptions.InterceptionFehler;
 import de.bund.bva.isyfact.logging.impl.FehlerSchluessel;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 /**
  * Hilfsklasse zum Aufruf von Methoden per Reflection und dem gleichzeitigen erstellen standardisierter

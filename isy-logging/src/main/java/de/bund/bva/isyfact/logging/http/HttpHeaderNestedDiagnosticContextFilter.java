@@ -22,9 +22,9 @@ import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.web.filter.AbstractRequestLoggingFilter;
 
-import de.bund.bva.isyfact.logging.autoconfigure.MdcFilterAutoConfiguration;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
+import de.bund.bva.isyfact.logging.autoconfigure.MdcFilterAutoConfiguration;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
 
 /**

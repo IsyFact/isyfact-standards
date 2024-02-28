@@ -16,17 +16,17 @@
  */
 package de.bund.bva.isyfact.sonderzeichen.stringlatin1_1.core.transformation.impl;
 
+import static org.junit.Assert.*;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import de.bund.bva.isyfact.logging.IsyLogger;
-import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.isyfact.sonderzeichen.stringlatin1_1.core.transformation.ZeichenKategorie;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import de.bund.bva.isyfact.logging.IsyLogger;
+import de.bund.bva.isyfact.logging.IsyLoggerFactory;
+import de.bund.bva.isyfact.sonderzeichen.stringlatin1_1.core.transformation.ZeichenKategorie;
 
 /**
  * Tests the IdentischerTransformator.

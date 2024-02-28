@@ -1,14 +1,13 @@
 package de.bund.bva.isyfact.persistence.datetime.attributeconverter;
 
+import static org.junit.Assert.*;
+
 import java.time.Period;
+
 import jakarta.persistence.EntityManagerFactory;
+
 import javax.sql.DataSource;
 
-import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.github.springtestdbunit.annotation.ExpectedDatabase;
-import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
-import de.bund.bva.isyfact.persistence.datetime.attributeconverter.test.TestPeriodEntity;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,8 +30,12 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.ExpectedDatabase;
+import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
+
+import de.bund.bva.isyfact.persistence.datetime.attributeconverter.test.TestPeriodEntity;
 
 /**
 

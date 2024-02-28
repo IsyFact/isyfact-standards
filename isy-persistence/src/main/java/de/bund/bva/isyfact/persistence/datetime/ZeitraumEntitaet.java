@@ -2,6 +2,7 @@ package de.bund.bva.isyfact.persistence.datetime;
 
 import java.time.ZonedDateTime;
 import java.util.Objects;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;

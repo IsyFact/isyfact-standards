@@ -1,6 +1,6 @@
 package de.bund.bva.isyfact.security.oauth2.client;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Collections;
 

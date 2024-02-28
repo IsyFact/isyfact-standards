@@ -15,15 +15,16 @@
  * permissions and limitations under the License.
  */
 package de.bund.bva.isyfact.polling.annotation;
- 
+
 import java.lang.reflect.Method;
 
-import de.bund.bva.isyfact.polling.PollingVerwalter;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.core.BridgeMethodResolver;
 import org.springframework.util.ClassUtils;
+
+import de.bund.bva.isyfact.polling.PollingVerwalter;
 
 /**
  * Interceptor zum Durchführen einer Polling-Aktion.

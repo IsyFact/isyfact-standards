@@ -10,12 +10,13 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.junit.Assert;
 import org.junit.Test;
 
+import de.bund.bva.isyfact.logging.impl.IsyLocationAwareLoggerImpl;
+
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.rolling.RollingFileAppender;
 import ch.qos.logback.core.rolling.TimeBasedFileNamingAndTriggeringPolicyBase;
 import ch.qos.logback.core.rolling.TimeBasedRollingPolicy;
-import de.bund.bva.isyfact.logging.impl.IsyLocationAwareLoggerImpl;
 
 /*
  * #%L

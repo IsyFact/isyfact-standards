@@ -2,6 +2,7 @@ package de.bund.bva.isyfact.persistence.datetime.attributeconverter;
 
 import java.time.Period;
 import java.util.Objects;
+
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 
