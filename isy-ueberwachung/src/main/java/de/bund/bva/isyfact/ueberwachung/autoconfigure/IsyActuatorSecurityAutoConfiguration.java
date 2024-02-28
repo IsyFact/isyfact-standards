@@ -1,5 +1,6 @@
 package de.bund.bva.isyfact.ueberwachung.autoconfigure;
 
+import static de.bund.bva.isyfact.security.authentication.RolePrivilegeGrantedAuthoritiesConverter.AUTHORITY_PREFIX;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
@@ -46,8 +47,9 @@ public class IsyActuatorSecurityAutoConfiguration {
     @Order(1)
     @ConditionalOnMissingBean(name = "actuatorSecurityFilterChain")
     public SecurityFilterChain actuatorSecurityFilterChain(HttpSecurity http) throws Exception {
-        http.requestMatcher(EndpointRequest.toAnyEndpoint())
-            .authorizeHttpRequests(requests -> requests.anyRequest().hasRole(ENDPOINT_ROLE))
+        http.authorizeHttpRequests(requests -> requests
+                .requestMatchers(EndpointRequest.toAnyEndpoint())
+                .hasRole(ENDPOINT_ROLE))
             .httpBasic(withDefaults());
         return http.build();
     }
@@ -67,7 +69,7 @@ public class IsyActuatorSecurityAutoConfiguration {
             // Username must contain at least one non-whitespace character
             .withUsername(properties.getUsername())
             .password(passwordEncoder.encode(properties.getPassword()))
-            .roles(ENDPOINT_ROLE)
+            .authorities(AUTHORITY_PREFIX + ENDPOINT_ROLE)
             .build();
         return new InMemoryUserDetailsManager(actuatorEndpointUser);
     }
