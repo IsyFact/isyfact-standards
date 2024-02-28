@@ -42,8 +42,7 @@ Mit diesen Benutzern werden die anwendungsspezifischen Datenbankobjekte angelegt
 Es müssen daher alle hierfür benötigten Rechte für die Dauer der Installation gesetzt werden.
 
 Schritt 4: Erzeugen der anwendungsspezifischen Datenbankobjekte::
-Es werden alle Tabellen, Indexe, Views, Prozeduren und Funktionen für die Anwendung angelegt.
-Weiterhin werden benötigte spezielle Datenbankobjekte, z.B. für das Oracle Advanced Queuing angelegt.
+Es werden alle Tabellen, Indexe, Views, Prozeduren, Funktionen und weitere Datenbankobjekte für die Anwendung angelegt.
 Die anwendungsspezifischen Datenbankobjekte werden mit den in Schritt 3 angelegten Benutzern erstellt.
 
 Schritt 5: Abschlussbearbeitung::

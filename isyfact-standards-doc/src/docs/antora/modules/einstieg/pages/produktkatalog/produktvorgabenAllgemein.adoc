@@ -22,16 +22,6 @@ include::partial$/Produktkatalog_IsyFact_Produktvorgaben_Allgemein_Systemsoftwar
 |===
 --
 
-== Entwicklungsumgebung
-
-[.table_head_sticky.unordered_list_identation]
---
-[options=header, format=csv, separator=";", cols="a,a,a,a,a,a,a"]
-|===
-include::partial$/Produktkatalog_IsyFact_Produktvorgaben_Allgemein_Entwicklungsumgebung.csv[]
-|===
---
-
 == Anwendungsentwicklung Sonstiges
 
 include::einstieg:produktkatalog/technologiestackJavaSpring.adoc[tag=spring-boot-managed-dependencies]
