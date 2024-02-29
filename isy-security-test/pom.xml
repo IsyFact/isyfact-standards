@@ -14,10 +14,6 @@
     <name>IsyFact-Security-Test</name>
     <description>Stellt Utility-Klassen für das Testen von Authentifizierung und Autorisierung bereit.</description>
 
-    <properties>
-        <wiremock.version>3.4.2</wiremock.version>
-    </properties>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -59,7 +55,6 @@
         <dependency>
             <groupId>org.wiremock</groupId>
             <artifactId>wiremock-standalone</artifactId>
-            <version>${wiremock.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
