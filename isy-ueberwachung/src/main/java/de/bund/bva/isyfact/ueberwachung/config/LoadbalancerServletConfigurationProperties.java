@@ -4,10 +4,17 @@ import jakarta.validation.constraints.NotBlank;
 
 import org.springframework.validation.annotation.Validated;
 
+/**
+ * Properties to configure the Loadbalancer servlet.
+ */
 @Validated
 public class LoadbalancerServletConfigurationProperties {
 
-    private String isAliveFileLocation = "/WEB-INF/classes/config/isAlive";;
+
+    /**
+     * Location of the isAlive file.
+     */
+    private String isAliveFileLocation = "/WEB-INF/classes/config/isAlive";
 
     @NotBlank
     public String getIsAliveFileLocation() {
