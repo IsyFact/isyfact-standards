@@ -73,8 +73,6 @@ Hierfür ist das Attribut `fetch` der jeweiligen Mapping-Annotation wie folgt zu
 @OneToMany(fetch = FetchType.EAGER)
 ----
 
-Die Verwendung der Annotationen `@LazyToOne` und `@LazyCollection` ist zu vermeiden, falls man nicht den `@LazyCollection` Wert „Extra“ für extra große Collections benötigt.
-
 [[standardmaessig-optimistisches-locking-verwenden]]
 === Standardmäßig optimistisches Locking verwenden
 
