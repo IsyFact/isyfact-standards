@@ -136,7 +136,7 @@ Die Bausteine `isy-sicherheit` und `isy-sicherheit-keycloak` werden durch `isy-s
 [[kapitel-task-scheduler]]
 === Task Scheduler
 
-In IsyFact 3.0 wurden mit der Umstellung auf `isy-security` die Nutzungsvorgaben zur xref:isy-task:nutzungsvorgaben/master.adoc#spring-konfiguration[Authentifizierung von Tasks] aktualisiert.
+In IsyFact 3.0 wurden mit der Umstellung auf `isy-security` die Nutzungsvorgaben zur xref:isy-task:nutzungsvorgaben.adoc#absicherung-von-tasks[Authentifizierung von Tasks] aktualisiert.
 Statt Benutzer, Passwort und BHKNZ (siehe <<task-properties-isy-sicherheit>>) muss in den Task Properties eine `oauth2ClientRegistrationId` konfiguriert werden (siehe <<task-properties-isy-security>>).
 
 [[task-properties-isy-sicherheit]]
