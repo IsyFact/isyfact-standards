@@ -115,7 +115,7 @@ Gibt es allerdings Anforderungen, aus denen heraus die Service-Fassade eine Tran
 Die Aufgabe fällt der Service-Fassade zu, weil es wichtig ist, dass die Fehlerbehandlung auf jeden Fall die Transaktion umschließt.
 Nur so ist gewährleistet, dass auch Fehler, die beim Commit entstehen, von der Fehlerbehandlung erfasst werden.
 
-Die Transaktionalität einzelner Service-Methoden wird über Annotationen (_@Transactional_) an diesen Methoden kofiguriert.
+Die Transaktionalität einzelner Service-Methoden wird über Annotationen (_@Transactional_) an diesen Methoden konfiguriert.
 
 Eine Sonderstellung nehmen Services ein, die im Fehlerfall keinen Fehler zurückgeben, sondern die Fehler in der Antwortnachricht übermitteln.
 Der AOP-Transaktionsmanager wird niemals ein Rollback durchführen, da alle Exceptions abgefangen werden, auf die er reagieren könnte.
