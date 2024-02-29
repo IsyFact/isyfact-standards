@@ -115,14 +115,8 @@ Gibt es allerdings Anforderungen, aus denen heraus die Service-Fassade eine Tran
 Die Aufgabe fällt der Service-Fassade zu, weil es wichtig ist, dass die Fehlerbehandlung auf jeden Fall die Transaktion umschließt.
 Nur so ist gewährleistet, dass auch Fehler, die beim Commit entstehen, von der Fehlerbehandlung erfasst werden.
 
-Die Transaktionalität einzelner Service-Methoden wird über Annotationen an diesen Methoden kofiguriert:
+Die Transaktionalität einzelner Service-Methoden wird über Annotationen (_@Transactional_) an diesen Methoden kofiguriert.
 
-.Transaktionssteuerung in der Service-Fassade
-[id="listing-service-fassade-tx",reftext="{listing-caption} {counter:listings }"]
-[source,java]
-----
-    @Transactional(rollbackFor = Throwable.class, propagation = Propagation.REQUIRED)
-----
 Eine Sonderstellung nehmen Services ein, die im Fehlerfall keinen Fehler zurückgeben, sondern die Fehler in der Antwortnachricht übermitteln.
 Der AOP-Transaktionsmanager wird niemals ein Rollback durchführen, da alle Exceptions abgefangen werden, auf die er reagieren könnte.
 Um auch in diesem Fall ein Rollback der Transaktion zu erzwingen, ist folgender Aufruf durchzuführen:
@@ -191,13 +185,6 @@ Auch hier enthält das Service-Gateway keine Geschäftslogik.
 === Grenzen
 Eine Versionierung ist nur dann sinnvoll, wenn kleine Änderungen an der Schnittstelle zwischen den Versionen auftreten.
 Für den Fall, dass sich die Schnittstelle sowohl syntaktisch als auch semantisch grundlegend ändert, sollte anstatt einer neuen Version besser eine eigenständige, neue Schnittstelle entstehen.
-
-Wenn man sich für eine Service-Versionierung entscheidet, so sollte man sich bewusst sein, wie sich diese auf Klassen und Packages abbildet:
-
-* In der Service-Fassade sollten verschiedene Service-Versionen anhand einer zweistelligen Versionsnummer Major.Minor unterscheidbar sein. 
-Bei kompatiblen Änderungen wird die nur Minor Version, bei inkompatiblen Änderungen immer die Major und die Minor Version angepasst.
-
-* Im Anwendungskern dagegen findet man lediglich zu jeder Major-Version eine jeweils neue Service-Implementierung.
 
 [[verfuegbarkeit]]
 == Verfügbarkeit
