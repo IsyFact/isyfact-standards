@@ -84,6 +84,19 @@ Um zu prüfen, ob die Daten in der Zwischenzeit nicht durch einen anderen Anwend
 Um diesen großen Funktionsumfang abzudecken, wird ein Produkt zum objekt-relationalen Mapping gemäß JPA-Standard eingesetzt.
 Details hierzu sind im xref:isy-persistence:konzept.adoc[Baustein JPA/Hibernate] dokumentiert.
 
+*Caching:*
+Anwendungsspezifische Caches sind mit Spring Cache Abstraction zu implementieren.
+Die Caching-Funktionalität wird so mit Spring Cache Abstraction und einem Caching Provider (z.B. EHCache) bereitgestellt.
+Spring Cache Abstraction bietet eine effiziente und flexible Möglichkeit Caching in Anwendungen zu implementieren.
+Weitere und detaillierte Informationen sind in xref:glossary:literaturextern:inhalt.adoc#litextern-spring-cache-abstraction[der Spring Dokumentation] einzusehen.
+Durch die Verwendung von Spring Cache Abstraction wird, z.B. über die Nutzung von Annotationen, das Hinzufügen von Caching zu bestehenden Methoden erleichtert.
+Der zugrundeliegende Code ist nicht wesentlich zu verändern.
+Mit dem abstrahierten Caching ist die Cache-Implementierung unabhängig von dem genutzten Cache-Provider.
+Die Wahl des Cache-Providers ist gemäß einer notwendigen Skalierung und betrieblichen Gegebenheiten abzustimmen.
+EHCache wird empfohlen (Vlg. xref:einstieg:produktkatalog/technologiestackJavaSpring.adoc#Entwicklung[Produktkatalog: Entwicklung]).
+Für weitere Informationen zu EHCache sind in der xref:glossary:literaturextern:inhalt.adoc#litextern-ehcache[EHCache Dokumentation] einzusehen.
+
+
 [[der-anwendungskern]]
 === Der Anwendungskern
 
@@ -113,24 +126,18 @@ Weitere Details können dem xref:detailkonzept-komponente-anwendungskern/master.
 === Datenzugriff
 
 In der Persistenz-Schicht sind die Fachkomponenten auch gemäß den Komponenten aus der fachlichen Architektur strukturiert.
-Die Komponenten des Anwendungskerns besitzen die Datenhoheit auf Objekte, die ihnen eindeutig zuzuordnen sind.
-Diese Objekte stammen aus den korrespondierenden Komponenten in der Persistenz-Schicht.
-Nur die korrespondierende Anwendungskern-Komponente darf Änderungen an den entsprechenden persistenten Objekten vornehmen.
-Die persistenten Objekte dürfen nicht über Komponentengrenzen hinweg herausgegeben werden.
-In diesem Fall wäre nicht sichergestellt, dass keine Änderungen außerhalb der Komponente passieren.
-Für den Transfer über Komponentengrenzen hinweg müssen eigene, nicht-persistente Schnittstellen-Objekte erzeugt werden, die dann aus den persistenten Objekten mittels eines Bean-Mappers befüllt werden können. +
-Wenn Objekte von mehreren Komponenten genutzt werden und keiner einzelnen Komponente zugeordnet werden können, sollten sie in einem eigenen querschnittlichen Package abgelegt werden.
+Die Komponenten des Anwendungskerns besitzen die Datenhoheit auf die Entitäten, die ihnen eindeutig zuzuordnen sind.
+Diese Entitäten stammen aus den korrespondierenden Komponenten in der Persistenz-Schicht.
+Nur die korrespondierende Anwendungskern-Komponente darf Änderungen an den entsprechenden persistenten Entitäten vornehmen.
 
-Vereinfachend können Anwendungskern-Komponenten persistente Daten an die xref:glossary:glossary:master.adoc#glossar-service[Service]-Schicht (s. Kapitel <<servicezugriffe>>) weitergeben.
-Dies ist insbesondere dann angebracht, wenn die Komponente ausschließlich durch eine Service-Komponente genutzt wird. +
-Da die Service-Schicht keine Logik enthält und daher ohnehin keine Änderung an solchen Entitäten vornehmen darf und eindeutig der Anwendungskern-Komponente zugeordnet ist, bedeutet dies keine Verletzung der Datenhoheit.
-Da die Anwendungskern-Komponente an Ihrer Schnittstelle nun potenziell persistente und nicht persistente Entitäten bereitstellt, müssen Verwechselungen vermieden werden, z.B. indem solche Methoden in getrennten Interfaces deklariert werden.
-
-.icon:university[title=Architekturregel] Architekturregel
+.icon:university[title=Architekturregel] Persistente Entitäten im Anwendungskern
 ****
 Persistente Entitäten dürfen nicht über den Anwendungskern hinaus herausgegeben werden. Sie haben im Anwendungskern zu verbleiben.
 ****
 
+Andernfalls ist nicht sichergestellt, dass andere Komponenten keine Änderungen an den persistenten Entitäten vornehmen.
+Für den Transfer über Komponentengrenzen hinweg - oder aus dem Anwendungskern hinaus - müssen alle Komponenten des Anwendungskerns die ihnen zugeordneten persistenten Entitäten auf Geschäftsobjekte abbilden.
+Wenn Entitäten von mehreren Komponenten genutzt werden und keiner einzelnen Komponente zugeordnet werden können, sollten sie in einem eigenen querschnittlichen Package abgelegt werden.
 
 [[gui]]
 === GUI
