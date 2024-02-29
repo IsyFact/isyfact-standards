@@ -1,0 +1,11 @@
+* Referenzarchitektur
+** Fachliche Referenzarchitektur
+** Softwaretechnische Referenzarchitektur
+*** Backend (ehemals: Referenzarchitektur IT-System)
+**** Anwendungskern
+**** Datenzugriff
+**** Service
+*** Frontend (neu, Angular-basiert)
+*** Batch (neu, aus ehemals: RA IT-System und DK Batch)
+** Referenzarchitektur der technischen Infrastruktur
+** Architekturvorgaben
