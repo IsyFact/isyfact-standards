@@ -17,17 +17,6 @@ Unter Linux-Derivaten kann unter anderem mit dem Parameter
 
 die Encodierung für jeden Benutzer individuell gesetzt werden. Weitere Locale-Parameter und deren Verwendung sind bei xref:glossary:literaturextern:inhalt.adoc#litextern-linux-locale-parameters[gnu.org] nachzulesen.
 
-[[oracle-datenbank]]
-=== Oracle Datenbank
-
-Die Zeichencodierung aller in der Plattform verwendeten Datenbanken muss ebenfalls einheitlich auf die Verwendung von Unicode v4.x in der UTF-8-Codierung gesetzt werden.
-
-Als Beispiel wird hier die Datenbank Oracle 11g betrachtet.
-Oracle unterstützt ab Version 10g Release 2 Unicode v4.0. Oracle empfiehlt xref:glossary:literaturextern:inhalt.adoc#litextern-oracle-globalization-support[Oracle, Globalization Support Guide 10g Release 2 (10.2)], neue Datenbanken als Unicode-Datenbanken anzulegen.
-Hierzu muss beim CREATE DATABASE die folgende Eigenschaft gesetzt werden:
-
-`CHARACTER SET AL32UTF8`
-
 [[hibernate]]
 === Hibernate
 

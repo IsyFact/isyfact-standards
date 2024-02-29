@@ -2,6 +2,8 @@
 - `ISY-779`: `isyfact-bom` entfernt
     * [isyfact-standards-bom] `isyfact-standards-bom` importiert dependencyManagement aus `isyfact-products-bom`
     * [isyfact-standards-doc] Bezug und Nutzung der IsyFact nach Entfernung der IsyFact-BOM beschrieben
+- `ISY-737`: [isyfact-standards] Java Compile Target 17
+- `ISY-876`: [isy-bedienkonzept] Ergänzung der Anzeigeposition von Toasts unten rechts
 
 # 3.0.0
 - `ISY-653` : Erweitern des `TimeoutWiederholungHttpInvokerRequestExecutor` um die Token-Beschaffung aus dem Security Context bei Nichtverfügbarkeit des `AufrufKontextVerwalter`.
@@ -73,6 +75,7 @@
   * `HttpHeaderNestedDiagnosticContextFilter` aus `isy-aufrufkontext` nach `isy-logging` verschoben 
   * `FilterRegistrationBean<HttpHeaderNestedDiagnosticContextFilter>` überschreibbar
 - `ISY-655`: [isy-serviceapi-core] Beheben einer ClassNotFoundException beim Starten von Anwendungen mit IsyServiceApiCoreAutoConfiguration
+- `ISY-727`: [isy-batchrahmen] Behebung von SonarCloud Security Issues
 
 ## BREAKING CHANGE
 

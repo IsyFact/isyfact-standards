@@ -20,11 +20,9 @@
         <resilience4j.version>1.7.1</resilience4j.version>
         <apache.poi.version>4.1.2</apache.poi.version>
         <greenmail.version>1.6.14</greenmail.version>
-        <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
         <jsf-api.version>2.2.20</jsf-api.version>
         <jsf-impl.version>2.2.20</jsf-impl.version>
         <tomahawk20.version>1.1.14</tomahawk20.version>
-        <javax.el-api.version>3.0.0</javax.el-api.version>
         <metro.webservices.version>2.4.10</metro.webservices.version>
         <logback-classic.version>1.2.13</logback-classic.version>
         <logback-core.version>1.2.13</logback-core.version>
@@ -52,14 +50,6 @@
     <!-- Dependency management for IsyFact core technology stack. -->
     <dependencyManagement>
         <dependencies>
-            <!-- JEE APIs -->
-            <dependency>
-                <groupId>javax.servlet</groupId>
-                <artifactId>javax.servlet-api</artifactId>
-                <version>${javax.servlet-api.version}</version>
-                <scope>provided</scope>
-            </dependency>
-
             <!-- Web framework: Spring Webflow -->
             <dependency>
                 <groupId>org.springframework.webflow</groupId>
@@ -94,15 +84,6 @@
                 <groupId>org.apache.myfaces.tomahawk</groupId>
                 <artifactId>tomahawk20</artifactId>
                 <version>${tomahawk20.version}</version>
-            </dependency>
-
-            <!-- Expression Language -->
-            <!-- provided by Tomcat -->
-            <dependency>
-                <groupId>javax.el</groupId>
-                <artifactId>javax.el-api</artifactId>
-                <version>${javax.el-api.version}</version>
-                <scope>provided</scope>
             </dependency>
 
             <dependency>
