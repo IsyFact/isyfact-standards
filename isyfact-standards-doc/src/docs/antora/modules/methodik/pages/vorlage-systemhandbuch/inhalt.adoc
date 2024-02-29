@@ -812,9 +812,7 @@ Folgende Werte müssen nach der Erstinstallation angepasst werden:
 |===
 |Konfigurationsparameter |Beschreibung
 |database.url
-|Gibt die Adresse, den Port und die SID der Datenbank an.
-
-Beispiel: `jdbc:oracle:thin:@<Datenbankserver-Adresse>:<Datenbankport>:<SID>`
+|URL der Datenbankverbindung
 
 |database.username
 |Name des technischen Benutzers für den Zugriff auf die Datenbank.
