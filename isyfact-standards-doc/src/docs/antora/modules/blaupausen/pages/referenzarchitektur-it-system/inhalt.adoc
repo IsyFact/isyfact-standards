@@ -135,7 +135,7 @@ Nur die korrespondierende Anwendungskern-Komponente darf Änderungen an den ents
 Persistente Entitäten dürfen nicht über den Anwendungskern hinaus herausgegeben werden. Sie haben im Anwendungskern zu verbleiben.
 ****
 
-Andernfalls ist nicht sichergestellt, dass andere Komponente keine Änderungen an den persistenten Entitäten vornehmen.
+Andernfalls ist nicht sichergestellt, dass andere Komponenten keine Änderungen an den persistenten Entitäten vornehmen.
 Für den Transfer über Komponentengrenzen hinweg - oder aus dem Anwendungskern hinaus - müssen alle Komponenten des Anwendungskerns die ihnen zugeordneten persistenten Entitäten auf Geschäftsobjekte abbilden.
 Wenn Entitäten von mehreren Komponenten genutzt werden und keiner einzelnen Komponente zugeordnet werden können, sollten sie in einem eigenen querschnittlichen Package abgelegt werden.
 
