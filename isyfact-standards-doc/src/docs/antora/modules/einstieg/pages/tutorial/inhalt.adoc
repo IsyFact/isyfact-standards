@@ -1,9 +1,9 @@
-:ifs-bom: IsyFact-Standards-BOM
-:ifs-products-bom: IsyFact-Products-BOM
-
 = Tutorial: Inhalt
 
 // tag::inhalt[]
+:ifs-bom: IsyFact-Standards-BOM
+:ifs-products-bom: IsyFact-Products-BOM
+
 [[bezug-isyfact]]
 == Bezug und Nutzung der IsyFact
 

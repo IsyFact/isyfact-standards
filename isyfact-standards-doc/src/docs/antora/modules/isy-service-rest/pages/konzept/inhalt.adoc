@@ -787,15 +787,17 @@ Fachlichen Fehlern muss ein entsprechend passender Fehlercode im Bereich 4xx zug
 [[entkopplung-von-fehlerbehandlung-und-service-logik]]
 ==== Entkopplung von Fehlerbehandlung und Service-Logik
 
-Die Fehlerbehandlung erfolgt nicht in der REST-Schnittstelle, sondern in einem separaten `RestExceptionHandler`, welcher die Exception Fassade für REST-Schnittstellen repräsentiert (vgl. <<image-fehlerbehandlung>>).
-
+Die Fehlerbehandlung erfolgt wie im Detailkonzept Service beschrieben, außerhalb der Service-Fassade, an zentraler Stelle, in einer Exception-Fassade.
+Die Exception-Fassade wird durch `RestExceptionHandler` Klassen implementiert, (vgl. <<image-fehlerbehandlung>>). 
+In der Exception-Fassade werden alle Exceptions aus Methoden des Anwendungskerns oder Methoden der Service-Endpoints gefangen, gelogged, 
+in Exception-Transport-Objekte umgewandelt und als Response zurückgegeben.
 
 .Entkopplung Fehlerbehandlung und Service-Logik
 [id="image-fehlerbehandlung",reftext = "{figure-caption} {counter:figures}"]
 image::isy-service-rest:konzept/fehlerbehandlung.dn.svg[align = center,title-align=center]
 
-Spring Webflux unterstützt ebenso wie Spring MVC die Annotation @RestControllerAdvice.
-Die Implementierung des RestExceptionsHandler kann daher über die Annotation einer Klasse mit @RestControllerAdvice erfolgen.
+Spring Webflux unterstützt dazu ebenso wie Spring MVC die Annotation `@RestControllerAdvice`.
+Die Implementierung der `RestExceptionHandler`-Funktionalität kann daher über die Annotation einer Klasse mit `@RestControllerAdvice` erfolgen.
 
 [NOTE]
 ====
