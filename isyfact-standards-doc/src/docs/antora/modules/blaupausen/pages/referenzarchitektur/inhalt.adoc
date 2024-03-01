@@ -475,19 +475,20 @@ Sicherheit ist ein Ziel der Referenzarchitektur (<<die-ziele-der-referenzarchite
 und technische Querschnittsaufgabe.
 Ein Aspekt davon ist der Schutz vor unberechtigtem Zugriff auf vertrauliche Daten.
 IsyFact gewährleistet das durch die Implementierung der Autorisierungs- und Authentifizierungsprotokolle OAuth2.0 und OpenID Connect.
-
-Anwender erhalten Zugriff auf Geschäftsanwendungen innerhalb der IsyFact Anwendungslandschaft nur über Portalanwendungen, Service-Gateways und zukünftig das Authentication-Gateway, die die Außengrenzen der Anwendungslandschaft darstellen.
-Dort erfolgt die Authentifizierung des Anwenders (schwarzer Schlüssel) mit Hilfe eines zentralen Querschnittservice je Anwendungslandschaft, dem IAM-Service.
-Jeder Zugriff innerhalb der Anwendungslandschaft ist somit authentifiziert (grüner Schlüssel).
-Eine grobe Autorisierung von Zugriffen sollte ebenfalls an den Außengrenzen geschehen, z.B. durch Client-Zertifikate.
-
-Die feingranulare Autorisierung zur Verwendung einer Funktion oder eines Service einer IsyFact-Geschäftsanwendung muss an den Systemgrenzen der Anwendung stattfinden (Schloss an der externen Schnittstelle der Anwendung). Es dürfen nur authentifizierte und autorisierte Zugriffe auf eine Anwendung möglich sein (Dokument mit grünem Schlüssel).
+An den Außengrenzen der Anwendungslandschaft erfolgt die Authentifizierung des Anwenders und an den Systemgrenzen der Anwendungen die Prüfung der Autorisierung zur Nutzung des angefragten Zugriffs.
 
 .Integration von IAM in eine Anwendungslandschaft
 [id="image-iam-integration-awl",reftext="{figure-caption} {counter:figures}"]
 image::referenzarchitektur/sicherheit_iam_integration_awl.dn.svg[]
 
 NOTE: IAM steht für xref:glossary:literaturextern:inhalt.adoc#litextern-identity_management[Identity and Access Management].
+
+Anwender erhalten Zugriff auf Geschäftsanwendungen innerhalb der IsyFact Anwendungslandschaft nur über Portalanwendungen, Service-Gateways und zukünftig das Authentication-Gateway, die die Außengrenzen der Anwendungslandschaft darstellen.
+Dort erfolgt die Authentifizierung des Anwenders (im Bild: schwarzer Schlüssel) mit Hilfe eines zentralen Querschnittservice je Anwendungslandschaft, dem IAM-Service.
+Jeder Zugriff innerhalb der Anwendungslandschaft ist somit authentifiziert (grüner Schlüssel).
+Eine grobe Autorisierung von Zugriffen sollte ebenfalls an den Außengrenzen geschehen, z.B. durch Client-Zertifikate.
+
+Die feingranulare Autorisierung zur Verwendung einer Funktion oder eines Service einer IsyFact-Geschäftsanwendung muss an den Systemgrenzen der Anwendung stattfinden (Schloss an der externen Schnittstelle der Anwendung). Es dürfen nur authentifizierte und autorisierte Zugriffe auf eine Anwendung möglich sein (Dokument mit grünem Schlüssel).
 
 Die Autorisierungs- und Authentifizierungsprotokolle OAuth2.0 und OpenID Connect definieren verschiedene Verfahren zur Authentifizierung gegenüber dem IAM und die Ausstellung eines Access Token (grüner Schlüssel) zur Autorisierung an den Systemgrenzen der Anwendung.
 Eine detaillierte Beschreibung der erwähnten Systeme (Portal, Service-Gateway, Authentication-Gateway, IAM), der implementierten Authentifizierungsverfahren und des Access-Tokens findet sich in xref:isyfact-standards-doku:isy-security:konzept/master.adoc#inhalt[Konzept des Querschnitt-Bausteins Security].
