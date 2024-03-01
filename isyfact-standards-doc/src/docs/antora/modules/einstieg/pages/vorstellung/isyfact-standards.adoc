@@ -178,7 +178,7 @@ Ein XML-Schema dazu findet sich im Anhang von xref:isy-security:nutzungsvorgaben
 Der Baustein verwendet als Grundlage das Spring Task Scheduling für die Steuerung (d.h. Planung und Ausführung) periodisch wiederkehrender Aufgaben.
 Aufgaben sind (in Abgrenzung zu Batches) innerhalb einer Anwendungskomponente angesiedelt und werden von der Anwendung selbstständig ausgeführt.
 Das xref:isy-task:konzept.adoc[] beschreibt die konzeptionellen Grundlagen der Steuerung von Aufgaben.
-Die xref:isy-task:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Task Scheduling] beschreiben alle Aspekte, die bei der Entwicklung einer Anwendung zu berücksichtigen sind, und alle bereits in der IsyFact definierten Aufgaben (wie z.B. das periodische Neuladen der Anwendungskonfiguration).
+Die xref:isy-task:nutzungsvorgaben.adoc[] beschreiben alle Aspekte, die bei der Entwicklung einer Anwendung zu berücksichtigen sind, und alle bereits in der IsyFact definierten Aufgaben (wie z.B. das periodische Neuladen der Anwendungskonfiguration).
 
 [[polling]]
 === Polling
