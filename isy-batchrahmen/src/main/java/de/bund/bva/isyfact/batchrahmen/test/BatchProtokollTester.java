@@ -22,6 +22,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -31,6 +32,8 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
@@ -44,7 +47,7 @@ import org.xml.sax.SAXException;
  * 
  */
 public class BatchProtokollTester {
-
+    Logger logger = LoggerFactory.getLogger(BatchProtokollTester.class);
     /** Das BatchProtokoll Document. **/
     private Document batchProtokoll;
 
@@ -61,13 +64,15 @@ public class BatchProtokollTester {
         docFactory.setNamespaceAware(true);
         DocumentBuilder builder;
         try {
+            docFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            docFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
             builder = docFactory.newDocumentBuilder();
             batchProtokoll = builder.parse(ergebnisDatei);
 
             XPathFactory xpathFactory = XPathFactory.newInstance();
             xpath = xpathFactory.newXPath();
         } catch (ParserConfigurationException | SAXException | IOException e) {
-            e.printStackTrace();
+            logger.error("Error while creating BatchProtokollTester", e);
         }
     }
 

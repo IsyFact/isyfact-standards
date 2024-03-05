@@ -2,8 +2,11 @@
 - `ISY-779`: `isyfact-bom` entfernt
     * [isyfact-standards-bom] `isyfact-standards-bom` importiert dependencyManagement aus `isyfact-products-bom`
     * [isyfact-standards-doc] Bezug und Nutzung der IsyFact nach Entfernung der IsyFact-BOM beschrieben
-- `ISY-748`: [isyfact-standards-doc] Jakarta der Import-Reihenfolge für Formatierung in Entwicklungsumgebungen (IntelliJ IDEA sowie Eclipse) hinzugefügt
-  * Versionsanhebung `isy-checkstyle-config` auf 0.2.0
+- `ISY-737`: [isyfact-standards] Java Compile Target 17
+- `ISY-876`: [isy-bedienkonzept] Ergänzung der Anzeigeposition von Toasts unten rechts
+- `ISY-948` : Spring Cache Abstraction als verpflichtende Bibliothek für anwendungsseitige Caches eingeführt
+- `ISY-748`: [isyfact-standards-doc] Versionsanhebung `isy-checkstyle-config` auf 0.2.0
+  * Gruppierung der jakarta.* imports
 
 # 3.0.0
 - `ISY-653` : Erweitern des `TimeoutWiederholungHttpInvokerRequestExecutor` um die Token-Beschaffung aus dem Security Context bei Nichtverfügbarkeit des `AufrufKontextVerwalter`.
@@ -75,6 +78,7 @@
   * `HttpHeaderNestedDiagnosticContextFilter` aus `isy-aufrufkontext` nach `isy-logging` verschoben 
   * `FilterRegistrationBean<HttpHeaderNestedDiagnosticContextFilter>` überschreibbar
 - `ISY-655`: [isy-serviceapi-core] Beheben einer ClassNotFoundException beim Starten von Anwendungen mit IsyServiceApiCoreAutoConfiguration
+- `ISY-727`: [isy-batchrahmen] Behebung von SonarCloud Security Issues
 
 ## BREAKING CHANGE
 

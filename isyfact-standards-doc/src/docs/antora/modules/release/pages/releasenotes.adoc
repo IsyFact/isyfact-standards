@@ -12,6 +12,16 @@ Ergänzend zu den Release Notes erläutert der xref:release:migrationsleitfaden.
 
 ...
 
+[[kapitel-referenzarchitektur]]
+== Referenzarchitektur
+
+=== Software-technische Sicht
+Datenzugriff:: Für die Überführung von persistenten Entitäten in Geschäftsobjekte sollen keine gesonderten Schnittstellenobjekte mehr genutzt werden.
+Die Komponente Datenzugriff übergibt persistente Entitäten an den Anwendungskern.
+Der Anwendungskern darf keine persistenten Entitäten mehr herausgeben, auch nicht zwischen seinen Fachkomponenten.
+Entsprechende Ausnahmen wurden gestrichen.
+
+
 [[kapitel-bausteine]]
 == Bausteine
 
@@ -25,4 +35,7 @@ Ergänzend zu den Release Notes erläutert der xref:release:migrationsleitfaden.
 [[kapitel-entfernt]]
 == Entfernt
 
-...
+=== Dokumentation
+
+Die IsyFact macht keine Vorgaben mehr zur Entwicklungsumgebung.
+Alle Inhalte und Produktvorgaben diesbezüglich wurden entfernt.
