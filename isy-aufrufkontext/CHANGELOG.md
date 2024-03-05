@@ -1,4 +1,5 @@
 # 1.13.0
+- enthält nur Versionsanhebung auf IFS 1.12.0
 
 # 1.12.0
 - `IFS-875`: Umsetzung des Transports von OAuth 2 Bearer-Token zwischen Schnittstellentechnologien

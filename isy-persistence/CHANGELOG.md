@@ -1,4 +1,5 @@
 # 1.14.0
+- enthält nur Versionsanhebung auf IFS 1.12.0
 
 # 1.13.0
 - `IFS-1066`: Protokollierung-Datenstrukturen aus den Template-DB-Skripten entfernt
