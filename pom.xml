@@ -93,6 +93,7 @@
 
         <!-- Fixed patch for commons-text CVE-2022-42889 -->
         <commons-text.version>1.10.0</commons-text.version>
+        <isy-checkstyle-config.version>0.2.0</isy-checkstyle-config.version>
     </properties>
 
     <build>
@@ -178,7 +179,7 @@
                         <dependency>
                             <groupId>de.bund.bva.isyfact</groupId>
                             <artifactId>isy-checkstyle-config</artifactId>
-                            <version>0.1.0</version>
+                            <version>${isy-checkstyle-config.version}</version>
                         </dependency>
                     </dependencies>
                     <executions>
