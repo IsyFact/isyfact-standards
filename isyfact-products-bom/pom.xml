@@ -94,6 +94,13 @@
                 <scope>import</scope>
             </dependency>
 
+            <!-- Override nimbus-jose-jwt 9.22 to mitigate CVE-2023-52428 -->
+            <dependency>
+                <groupId>com.nimbusds</groupId>
+                <artifactId>nimbus-jose-jwt</artifactId>
+                <version>9.37.2</version>
+            </dependency>
+
             <!-- Web service framework (SOAP): Metro
             This library licensed under the Eclipse Distribution License (EDL) Version 1.0
             The full license text can be found in the LICENSES directory of this project. -->
