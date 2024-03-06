@@ -30,10 +30,10 @@ import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.SocketPolicy;
 
-public class NachbarsystemCheckImplTestWithServerMock {
+public class NachbarsystemCheckImplWithServerMockTest {
 
     private final IsyLogger LOGGER =
-            IsyLoggerFactory.getLogger(NachbarsystemCheckImplTestWithServerMock.class);
+            IsyLoggerFactory.getLogger(NachbarsystemCheckImplWithServerMockTest.class);
 
     private static MockWebServer mockBackEnd;
 
