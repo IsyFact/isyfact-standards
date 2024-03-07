@@ -470,27 +470,60 @@ image::blaupausen:referenzarchitektur/CallFAmGuX.png[align="center"]
 
 [[zentrale-sicherheitsaspekte]]
 === Zentrale Sicherheitsaspekte in der Referenzarchitektur
+((vorher: Konzept Security: prinzipien-der-sicherheitsarchitektur))
 
-Ein Ziel der Referenzarchitektur (<<die-ziele-der-referenzarchitektur>>) ist die Gewährleistung von Sicherheitsaspekten als technische Querschnittsaufgabe.
-Ein Teilbereich davon ist der Schutz vor unberechtigtem Zugriff auf vertrauliche Daten.
-IsyFact gewährleistet das durch die Implementierung der standardisierten Protokolle zur Authentifizierung (OpenID Connect) und Autorisierung (OAuth2.0).
-An den Außengrenzen der Anwendungslandschaft erfolgt die Authentifizierung des Anwenders und an den Systemgrenzen der Anwendungen die Prüfung der Autorisierung zur Nutzung des angefragten Zugriffs.
+Die IsyFact-Referenzarchitektur beinhaltet auch Vorgaben für die Sicherheitsarchitektur und für die Prinzipien, nach denen sie aufgebaut ist.
+Eine davon ist die Forderung, dass IsyFact-konforme IT-Systeme gegen unberechtigte Nutzung zu schützen sind:
+
+* Authentifizierungsinformationen, wie Benutzername und Passwort, werden nicht über IT-Systeme hinweg weitergegeben.
+Nur der Eigentümer der Authentifizierungsinformationen und der zentrale IAM-Service besitzen Kenntnis über diese Informationen.
+* Eine Zweifaktor-Authentifizierung ist durch das Client-Zertifikat und dem darin enthaltenen Behördenkennzeichen (BHKNZ) als zusätzliches Authentifizierungsmerkmal konzipiert, allerdings setzt dies im IAM-Service voraus, dass dieses Merkmal dort auch ausgewertet werden kann.
+* Bei Aufrufen von Außen (durch Web-Clients oder externen Anwendungen) erfolgt die Authentifizierung und grobgranulare Autorisierung an den Außengrenzen der Anwendungslandschaft (Portal, Service-Gateway bzw. Authentication-Gateway).
+* Kommt der Aufruf von innerhalb der Systemlandschaft (z.B. bei einem Batch- oder Task-Aufruf), benötigt der (technische) Aufrufer eigene Authentifizierungsinformationen und die Authentifizierung und grobgranulare Autorisierung geschieht aus der Nutzungsschicht (Batch / Task) des aufrufenden IT-Systems.
+* Wird zur Ausführung des Aufrufs ein Service einer anderen Geschäftsanwendung / Domäne benötigt, erfolgt dessen Aufruf im Namen und mit der Autorisierung des ursprünglichen Aufrufers / Benutzers.
+* Die feingranulare Autorisierung geschieht an den Systemgrenzen / externen Schnittstellen der aufgerufenen Geschäftsanwendung.
 
 .Integration von IAM in eine Anwendungslandschaft
 [id="image-iam-integration-awl",reftext="{figure-caption} {counter:figures}"]
 image::referenzarchitektur/sicherheit_iam_integration_awl.dn.svg[]
 
+Existiert keine Systemlandschaft (d.h. IT-Systeme stehen für sich allein), gilt grundsätzlich, dass die Authentifizierung und grobgranulare Autorisierung in der Nutzungsschicht (GUI, Service oder Batch) des IT-Systems geschehen muss.
+
+Darüber hinaus finden Authentifizierung und Autorisierung nach den Vorgaben des Berechtigungskonzepts statt.
+Da das Berechtigungskonzept individuell für jede Anwendungslandschaft erstellt wird und sich im Einzelnen stark von Inhalt und Umfang her unterscheidet, ist es kein Bestandteil  der IsyFact.
+
+Eine detaillierte Beschreibung der erwähnten Zugriffskomponenten (Portal, Service-Gateway, Authentication-Gateway), des IAM-Service, der implementierten Authentifizierungsverfahren und des Access-Tokens findet sich in xref:isyfact-standards-doku:isy-security:konzept/master.adoc#inhalt[Konzept des Querschnitt-Bausteins Security].
+
 NOTE: IAM steht für xref:glossary:literaturextern:inhalt.adoc#litextern-identity_management[Identity and Access Management].
 
-Geschäftsanwendungen einer IsyFact Anwendungslandschaft sind für Anwender von außen nur über die Zugriff-steuernden Komponenten Portalanwendung, Service-Gateway und zukünftige Authentication-Gateway erreichbar, die somit die sichtbare Außengrenze der Anwendungslandschaft darstellen.
-Dort erfolgt die Authentifizierung des Anwenders (_schwarzes Schlüssel_-Symbol) mit Hilfe eines zentralen Querschnittservice je Anwendungslandschaft, dem IAM-Service.
-Jeder Zugriff innerhalb der Anwendungslandschaft ist somit authentifiziert (_grünes Schlüssel_-Symbol).
-Eine grobe Autorisierung von Zugriffen sollte ebenfalls an den Außengrenzen geschehen, z.B. durch Client-Zertifikate.
+Das IAM-System verwaltet *Benutzer* (menschliche Anwender und technische Systeme) und ihre *Rollen* zentral für alle Komponenten der Anwendungs- und Systemlandschaft.
 
-Die feingranulare Autorisierung zur Verwendung einer Funktion oder eines Service einer IsyFact-Geschäftsanwendung muss an den Systemgrenzen der Anwendung stattfinden (_Schloss_-Symbol). Es dürfen nur authentifizierte und autorisierte Zugriffe auf eine Anwendung möglich sein (_Dokument mit grünem Schlüssel_-Symbol).
+[[authentifizierung]]
+==== Authentifizierung
 
-Die Authentifizierungs- und Autorisierungsprotokolle _OpenID Connect_ und _OAuth2.0_ definieren verschiedene Verfahren zur Authentifizierung der Anwenderanmeldedaten (_schwarzes Schlüssel_-Symbol)  gegenüber dem IAM und die Ausstellung eines Access Token (_grünes Schlüssel_-Symbol) zur Autorisierung an den Systemgrenzen der Anwendung.
-Eine detaillierte Beschreibung der erwähnten Zugriffskomponenten (Portal, Service-Gateway, Authentication-Gateway), des IAM-Service, der implementierten Authentifizierungsverfahren und des Access-Tokens findet sich in xref:isyfact-standards-doku:isy-security:konzept/master.adoc#inhalt[Konzept des Querschnitt-Bausteins Security].
+NOTE: Authentifikation: Verifikation der Identität eines Benutzers als Zugangskontrolle zu einem geschützten System.
+Dabei ist es erforderlich, eindeutige Eigenschaften (z.B. biometrische Daten) oder geheime Daten (z.B. Passwort) zur Überprüfung zu übergeben.
+
+Nach der erfolgreichen Authentifizierung eines Benutzers gibt das IAM-System ein Access-Token zurück.
+Dieses Access-Token dient dann als Nachweis des Nutzungsrechts des aufgerufenen Dienstes (*Autorisierung* (s.u.)).
+Die tatsächliche Identität und Authentifizierungsdaten des Benutzers spielen ab hier keine Rolle mehr und sind deshalb nicht Teil des Access-Tokens.
+
+In der Regel erfolgt die Authentifizierung von Benutzern über eine zentrale Komponente der Systemlandschaft, in welche das IT-System eingebettet ist.
+Die Authentifizierung darf auch lokal, d.h. vom IT-System selbst, durchgeführt werden, falls es beispielsweise nicht in eine Systemlandschaft eingebettet ist.
+
+Für die zentrale Authentifizierung wird in der IsyFact ein OAuth 2.0 konformes IAM-System verwendet.
+
+[[autorisierung]]
+==== Autorisierung
+
+NOTE: Autorisierung: Zustimmung oder Erlaubnis, spezieller die Einräumung von Rechten gegenüber interessierten Rechtssubjekten, gegebenenfalls als Nutzungsrecht gegenüber Dritten.
+
+Im aufgerufenen IT-System wird die Anfrage – je nach Schutzbedarf und Funktionalität – autorisiert.
+Zwingend wird das Vorhandensein sowie die Authentizität und Gültigkeit des mit der Anfrage mitgegebenen Access-Tokens geprüft.
+In IsyFact ist eine feingranulare Autorisierung vorgesehen:
+Im IAM-System sind zu einem Benutzer die ihm zugewiesenen *Rollen* in der Anwendungslandschaft verknüpft und Bestandteil des Access-Tokens.
+Anhand dieser Rollen aus dem Access-Token weist das IT-System einem Aufruf anwendungsspezifische *Rechte* zu und prüft diese gegen die für die Nutzung des angefragten Service benötigten Rechte.
+Wie genau Rollen und Rechte spezifiziert werden, beschreibt das xref:isyfact-standards-doku:isy-security:konzept/master.adoc#inhalt[Konzept des Querschnitt-Bausteins Security] im Kapitel xref:isyfact-standards-doku:isy-security:konzept/master.adoc#rollen-und-rechte[Rollen und Rechte].
 
 [[verwendung-von-produkten]]
 === Verwendung von Produkten
