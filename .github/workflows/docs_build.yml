@@ -1,8 +1,9 @@
 name: Build Documentation
 on:
   push:
-    tags:
-      - '\d+.\d+.\d+'
+#    tags:
+#      - '\d+.\d+.\d+'
+    branches: [feature/ISY-998-Analyse_Sichtbarkeit_der_Doku_Warnungen]
 
 jobs:
   TriggerBuild:
