@@ -42,7 +42,7 @@ In diesem Fall ist die Dauer zwischen dem Ende der letzten Ausführung und dem B
 
 Diese exemplarische Option sollte verwendet werden, wenn es zwingend erforderlich ist, dass die vorherige Ausführung abgeschlossen ist, bevor sie erneut ausgeführt wird.
 
-Weitere Informationen über den Einsatz von Annotationsattributen finden sich in der https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/scheduling/annotation/Scheduled.html#dokumentation-spring[Spring Dokumentation].
+Weitere Informationen über den Einsatz von Annotationsattributen finden sich in der xref:https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/scheduling/annotation/Scheduled.html#dokumentation-spring[Spring Dokumentation].
 
 Damit eine `@Scheduled`-Annotation von Spring registriert wird, muss die Klasse, in welcher der Task erstellt wird, entweder mit `@Component` annotiert werden oder über eine @Bean-Methode in den Kontext gelegt werden.
 
