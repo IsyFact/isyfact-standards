@@ -8,8 +8,36 @@ on:
 jobs:
   TriggerBuild:
     runs-on: ubuntu-latest
-    env:
-      GH_TOKEN: ${{ secrets.ANTORA_TRIGGER_TOKEN }}
     steps:
       - name: Trigger documentation build
-        run: gh workflow run antora_build.yml --repo IsyFact/isyfact.github.io --ref feature/ISY-998-Analyse_Sichtbarkeit_der_Doku_Warnungen
+        id: trigger_build
+        run: |
+          RESPONSE=$(gh workflow run antora_build.yml \
+            --repo IsyFact/isyfact.github.io \
+            --ref feature/ISY-998-Analyse_Sichtbarkeit_der_Doku_Warnungen \
+            --json)
+          echo "Response: $RESPONSE"
+          WORKFLOW_RUN_ID=$(echo "$RESPONSE" | jq '.id')
+          echo "Workflow run ID: $WORKFLOW_RUN_ID"
+          echo "WORKFLOW_RUN_ID=$WORKFLOW_RUN_ID" >> $GITHUB_ENV
+        env:
+          GH_TOKEN: ${{ secrets.ANTORA_TRIGGER_TOKEN }}
+
+      - name: Wait for workflow to complete
+        run: |
+          STATUS="queued"
+          while [[ "$STATUS" != "completed" ]]; do
+            sleep 10
+            RESULT=$(gh run view $WORKFLOW_RUN_ID --repo IsyFact/isyfact.github.io --json status,conclusion)
+            STATUS=$(echo "$RESULT" | jq -r '.status')
+            CONCLUSION=$(echo "$RESULT" | jq -r '.conclusion')
+            echo "Current status: $STATUS"
+          done
+          echo "Workflow conclusion: $CONCLUSION"
+          if [[ "$CONCLUSION" != "success" ]]; then
+            echo "::error::Workflow failed"
+            exit 1
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.ANTORA_TRIGGER_TOKEN }}
+          WORKFLOW_RUN_ID: ${{ env.WORKFLOW_RUN_ID }}
