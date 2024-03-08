@@ -12,4 +12,4 @@ jobs:
       GH_TOKEN: ${{ secrets.ANTORA_TRIGGER_TOKEN }}
     steps:
       - name: Trigger documentation build
-        run: gh workflow run antora_build.yml -R IsyFact/isyfact.github.io
+        run: gh workflow run antora_build.yml --repo IsyFact/isyfact.github.io --ref feature/ISY-998-Analyse_Sichtbarkeit_der_Doku_Warnungen
