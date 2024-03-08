@@ -1,4 +1,5 @@
 # 1.12.0
+- enthält nur Versionsanhebung auf IFS 1.12.0
 
 # 1.11.0
 - `IFS-796`: GreenMail als Test Suite für Mail-Server ist in isyfact-products-bom enthalten

@@ -1,4 +1,5 @@
 # 1.15.0
+- enthält nur Versionsanhebung auf IFS 1.12.0
 
 # 1.14.0
 - `IFS-801`: SpotBugs Fehler behoben
