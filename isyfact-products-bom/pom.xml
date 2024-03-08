@@ -282,6 +282,14 @@
                 <version>${commons-beanutils.version}</version>
             </dependency>
 
+            <!-- Ensure use of version 3.2.2 instead of 3.2.1 introduced through
+                 org.apache.myfaces.tomahawk:tomahawk20:1.1.14 to mitigate CVE-2015-7501 & CVE-2015-6420 -->
+            <dependency>
+                <groupId>commons-collections</groupId>
+                <artifactId>commons-collections</artifactId>
+                <version>3.2.2</version>
+            </dependency>
+
             <!-- Apache Tika -->
             <dependency>
                 <groupId>org.apache.tika</groupId>
