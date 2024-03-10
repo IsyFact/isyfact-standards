@@ -14,7 +14,7 @@ jobs:
         id: trigger_build
         with:
           token: ${{ secrets.ANTORA_TRIGGER_TOKEN }}
-          ref: feature/ISY-998-Analyse_Sichtbarkeit_der_Doku_Warnungen
+          ref: refs/heads/feature/ISY-998-Analyse_Sichtbarkeit_der_Doku_Warnungen
           repo: isyfact.github.io
           owner: IsyFact
           workflow: antora_build.yml
