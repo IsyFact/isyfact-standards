@@ -19,5 +19,12 @@ jobs:
           owner: IsyFact
           workflow: antora_build.yml
 
-      - name: Use the output run ID
-        run: echo ${{steps.trigger_build.outputs.run_id}}
+      - name: Await Run ID ${{ steps.trigger_build.outputs.run_id }}
+        uses: codex-/await-remote-run@v1.11.0
+        with:
+          token: ${{ secrets.ANTORA_TRIGGER_TOKEN }}
+          repo: isyfact.github.io
+          owner: IsyFact
+          run_id: ${{ steps.trigger_build.outputs.run_id }}
+          run_timeout_seconds: 300 # Optional
+          poll_interval_ms: 5000 # Optional
