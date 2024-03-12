@@ -9,7 +9,7 @@ Die Software-Architektur des Security-Bausteins bildet das Fundament für die Si
 Die korrekte Gestaltung und Implementierung dieser Architektur ist entscheidend, um Schutzmechanismen gegen potenzielle Sicherheitsbedrohungen zu etablieren.
 In diesem Kapitel wird detailliert auf die verschiedenen Aspekte der Software-Architektur des Security-Bausteins eingegangen und bewährte Methoden sowie bewährte Praktiken vorgestellt, um eine robuste und zuverlässige Sicherheitsinfrastruktur zu schaffen.
 
-Im Folgenden werden die <<aussensicht-der-komponente-security, Interfaces des Bausteins Security>> genauer erläutert.
+Im Folgenden werden die xref:konzept/master.adoc#aussensicht-der-komponente-security [Interfaces des Bausteins Security] genauer erläutert.
 
 [[security-interface]]
 === Security
@@ -123,7 +123,7 @@ Das Präfix sämtlicher Konfigurationsparameter `spring.security.oauth2` wird zu
 [[isyfact-specific-client-registration]]
 ==== Isyfact spezifische Konfigurationsparameter
 
-:linkaktuell: xref:client-credential-flow[]
+:linkaktuell: xref:isy-security:konzept/master.adoc#client-credential-flow[Client-Credential-Flow]
 include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
 
 ****
