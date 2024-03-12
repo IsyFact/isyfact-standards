@@ -36,7 +36,7 @@ class EmbeddedOidcProviderMockTest {
 
     private static final String host = "localhost";
 
-    private static final int port = 9095;
+    private static final int port = 9096;
 
     private static final String issuerPath = "/auth/realms/testrealm";
 
