@@ -131,8 +131,8 @@ jobs:
 
   SonarScan:
     runs-on: ubuntu-latest
-    # run also, if test or code quality jobs fail; skip dependabot pr as dependabot has separate secrets
-    if: vars.SONAR_PROJECT_KEY && !cancelled() && github.actor != 'dependabot[bot]' && !inputs.sonar-skip
+    # run also, if test or code quality jobs fail
+    if: vars.SONAR_PROJECT_KEY && !cancelled() && !inputs.sonar-skip
     needs: [Test, CodeQuality]
     steps:
       - name: Checkout project
@@ -149,7 +149,7 @@ jobs:
           distribution: temurin
           cache: maven
       - name: Sonar Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
