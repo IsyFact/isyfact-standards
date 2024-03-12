@@ -1,4 +1,11 @@
 # 4.0.0
+## FEATURES
+- `ISY-876`: [isy-bedienkonzept] Ergänzung der Anzeigeposition von Toasts unten rechts
+- `ISY-948` : Spring Cache Abstraction als verpflichtende Bibliothek für anwendungsseitige Caches eingeführt
+- `ISY-748`: [isyfact-standards-doc] Versionsanhebung `isy-checkstyle-config` auf 0.2.0
+    * Gruppierung der jakarta.* imports
+## BUG FIXES
+## BREAKING CHANGES
 - `ISY-889`: Spring Boot Versionsanhebung auf 3.2.x
   * inkludiert ausserdem folgende Versionsanhebungen: 
       * Spring Framework 5.x -> 6.x 
@@ -8,10 +15,6 @@
     * [isyfact-standards-bom] `isyfact-standards-bom` importiert dependencyManagement aus `isyfact-products-bom`
     * [isyfact-standards-doc] Bezug und Nutzung der IsyFact nach Entfernung der IsyFact-BOM beschrieben
 - `ISY-737`: [isyfact-standards] Java Compile Target 17
-- `ISY-876`: [isy-bedienkonzept] Ergänzung der Anzeigeposition von Toasts unten rechts
-- `ISY-948` : Spring Cache Abstraction als verpflichtende Bibliothek für anwendungsseitige Caches eingeführt
-- `ISY-748`: [isyfact-standards-doc] Versionsanhebung `isy-checkstyle-config` auf 0.2.0
-  * Gruppierung der jakarta.* imports
 
 # 3.0.0
 - `ISY-653` : Erweitern des `TimeoutWiederholungHttpInvokerRequestExecutor` um die Token-Beschaffung aus dem Security Context bei Nichtverfügbarkeit des `AufrufKontextVerwalter`.
