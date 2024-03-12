@@ -18,11 +18,11 @@ Die IsyFact liefert eine Konfiguration für _Checkstyle_ mit.
 
 Dieses Dokument beschreibt die Einrichtung und Verwendung dieser Funktionen wie folgt:
 
-Das Kapitel xref::entwicklungsumgebung/master.adoc#formatierung-von-quellcode[Formatierung von Quellcode] beschreibt die einheitliche Konfiguration und Verwendung der in Eclipse und IntelliJ IDEA eingebauten Code-Formatierer.
+Das Kapitel xref:entwicklungsumgebung/master.adoc#formatierung-von-quellcode[Formatierung von Quellcode] beschreibt die einheitliche Konfiguration und Verwendung der in Eclipse und IntelliJ IDEA eingebauten Code-Formatierer.
 Die Konfiguration hat zum Ziel, den Quellcode in beiden IDEs nahezu identisch formatiert zu formatieren.
 Das Kapitel schließt mit einer kurzen Diskussion der verbleibenden Unterschiede bei der Formatierung.
 
-Das Kapitel xref::entwicklungsumgebung/master.adoc#generierung-von-equals-und-hashcode[Generierung von equals() und hashCode()] beschreibt insbesondere die Generierung von `equals()` und `hashCode()` konform zu den xref:methodik:java-programmierkonventionen/master.adoc[Java Programmierkonventionen].
+Das Kapitel xref:entwicklungsumgebung/master.adoc#generierung-von-equals-und-hashcode[Generierung von equals() und hashCode()] beschreibt insbesondere die Generierung von `equals()` und `hashCode()` konform zu den xref:methodik:java-programmierkonventionen/master.adoc[Java Programmierkonventionen].
 
-Im Kapitel xref::entwicklungsumgebung/master.adoc#einrichtung-von-checkstyle[Einrichtung von Checkstyle] wird die Installation und Einrichtung der Checkstyle-Plugins für Eclipse und IntelliJ IDEA beschrieben.
+Im Kapitel xref:entwicklungsumgebung/master.adoc#einrichtung-von-checkstyle[Einrichtung von Checkstyle] wird die Installation und Einrichtung der Checkstyle-Plugins für Eclipse und IntelliJ IDEA beschrieben.
 // end::inhalt[]

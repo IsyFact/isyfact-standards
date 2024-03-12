@@ -2208,7 +2208,7 @@ Festlegungen auf höherer Ebene (z.B. der Anwendungslandschaft) gelten für alle
 
 Die IsyFact sieht grundsätzlich zwei Strukturierungen vor.
 
-[BEDIENKONZEPT]
+[example]
 ====
 Bei der fachlichen Spezifikation einer neuen Fachanwendung oder Anwendungslandschaft muss eine der folgenden Strukturierungen für die Navigation ausgewählt und fest vorgegeben werden:
 

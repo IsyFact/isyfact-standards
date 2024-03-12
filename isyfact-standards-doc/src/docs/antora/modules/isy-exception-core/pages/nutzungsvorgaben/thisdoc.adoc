@@ -14,6 +14,6 @@ Es enthält Vorgaben zur Nutzung der Isyfact-Fehlerbehandlung sowie zu deren Ums
 Die von den Anwendungen benötigten Exception-Klassen sind von der konkreten Anwendung abhängig und müssen im entsprechenden Projekt unter Berücksichtigung dieser Vorgaben erstellt werden.
 Zur Umsetzung werden ausführliche Beispiele gegeben.
 
-Im Kapitel xref::nutzungsvorgaben/master.adoc#implementierung-der-fehlerbehandlung[Implementierung der Fehlerbehandlung] werden die Nutzungsvorgaben definiert, wie Exceptions zu erstellen sind und wie sie behandelt werden müssen.
-Abschließend werden typische xref::nutzungsvorgaben/master.adoc#dos-und-donts[Dos and Don'ts] erläutert, die bei der Fehlerbehandlung beachtet werden müssen.
+Im Kapitel xref:nutzungsvorgaben/master.adoc#implementierung-der-fehlerbehandlung[Implementierung der Fehlerbehandlung] werden die Nutzungsvorgaben definiert, wie Exceptions zu erstellen sind und wie sie behandelt werden müssen.
+Abschließend werden typische xref:nutzungsvorgaben/master.adoc#dos-und-donts[Dos and Don'ts] erläutert, die bei der Fehlerbehandlung beachtet werden müssen.
 // end::inhalt[]

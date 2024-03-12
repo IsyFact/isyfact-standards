@@ -12,7 +12,7 @@ Dieses Dokument enthält das technische Feinkonzept zur Fehlerbehandlung für al
 Die prinzipiellen Anforderungen bei der Verarbeitung von Exceptions und das Fehlerbehandlungskonzept werden beschrieben.
 Es werden hierbei die Anforderungen von Betrieb, Nutzern und Softwarelieferanten berücksichtigt.
 
-Ziel der im Kapitel xref::konzept/master.adoc#anforderungen-an-die-fehlerbehandlung[Anforderungen an die Fehlerbehandlung] beschriebenen Fehlerbehandlung ist:
+Ziel der im Kapitel xref:konzept/master.adoc#anforderungen-an-die-fehlerbehandlung[Anforderungen an die Fehlerbehandlung] beschriebenen Fehlerbehandlung ist:
 
 * das Erreichen eines effizienten und einheitlichen Umgangs mit Fehlern
 * die Gewährleistung der Wartbarkeit von Anwendungen durch aussagekräftige Fehler
