@@ -18,7 +18,7 @@ Der Zweck dieses Dokuments ist Vorgaben zur Nutzung der _Java 8 Date and Time AP
 
 Das Dokument ist entsprechend dieser Zielsetzungen in die folgenden Kapitel untergliedert:
 
-Das Kapitel xref::nutzungsvorgaben/master.adoc#dauern-und-zeitzonen[*Dauern und Zeitzonen*] enthält grundlegende Informationen zum Umgang mit Dauern und Zeitzonen.
+Das Kapitel xref:nutzungsvorgaben/master.adoc#dauern-und-zeitzonen[*Dauern und Zeitzonen*] enthält grundlegende Informationen zum Umgang mit Dauern und Zeitzonen.
 
-Im Kapitel xref::nutzungsvorgaben/master.adoc#verwendung-der-bibliothek-isy-datetime[*Verwendung der Bibliothek*] wird der Inhalt und die Verwendung der Bibliothek `isy-datetime` beschrieben.
+Im Kapitel xref:nutzungsvorgaben/master.adoc#verwendung-der-bibliothek-isy-datetime[*Verwendung der Bibliothek*] wird der Inhalt und die Verwendung der Bibliothek `isy-datetime` beschrieben.
 // end::inhalt[]

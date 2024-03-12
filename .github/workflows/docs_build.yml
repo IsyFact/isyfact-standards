@@ -1,9 +1,8 @@
 name: Build Documentation
 on:
   push:
-#    tags:
-#      - '\d+.\d+.\d+'
-    branches: [feature/ISY-998-Analyse_Sichtbarkeit_der_Doku_Warnungen]
+    tags:
+      - '\d+.\d+.\d+'
 
 jobs:
   TriggerBuild:
@@ -14,17 +13,17 @@ jobs:
         id: trigger_build
         with:
           token: ${{ secrets.ANTORA_TRIGGER_TOKEN }}
-          ref: refs/heads/feature/ISY-998-Analyse_Sichtbarkeit_der_Doku_Warnungen
+          ref: main
           repo: isyfact.github.io
           owner: IsyFact
           workflow: antora_build.yml
 
-      - name: Await Run ID ${{ steps.trigger_build.outputs.run_id }}
+      - name: Wait for documentation build completion (Run ID - ${{ steps.trigger_build.outputs.run_id }})
         uses: codex-/await-remote-run@v1.11.0
         with:
           token: ${{ secrets.ANTORA_TRIGGER_TOKEN }}
           repo: isyfact.github.io
           owner: IsyFact
           run_id: ${{ steps.trigger_build.outputs.run_id }}
-          run_timeout_seconds: 300 # Optional
-          poll_interval_ms: 5000 # Optional
+          run_timeout_seconds: 300 # 5 minutes (optional)
+          poll_interval_ms: 5000 # 5 seconds (optional)

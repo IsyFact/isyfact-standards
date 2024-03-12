@@ -429,7 +429,8 @@ Innerhalb der IsyFact werden bei der Autorisierung von Anwendungsaufrufen (von i
 [[resource-owner-password-credential-flow]]
 ===== Resource-Owner-Password-Credential Flow
 
-:linkaktuell: xref:client-credential-flow[]
+:linkaktuell: xref:isy-security:konzept/master.adoc#client-credential-flow[Client-Credential-Flow]
+
 include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
 
 ****
@@ -462,7 +463,7 @@ Das Access-Token enthält alle notwendigen Daten, um zu verifizieren, ob die auf
 
 
 [[client-credential-flow]]
-===== Client-Credential Flow
+===== Client-Credential-Flow
 
 Der _Client-Credential_-Flow wird und darf nur zur Berechtigungszuteilung eingesetzt werden, wenn die Client-Anwendung selbst auch der Besitzer der Authentifizierungsdaten und damit als Confidential-Client-Anwendung eingestuft ist.
 Dieser Credential-Flow ist nach SpringSecurity OAuth2.0 auch die einzige Möglichkeit einen technischen Nutzer (Client) zu authentifizieren.
@@ -470,7 +471,7 @@ Es erfolgt hierbei keine Interaktion durch einen Benutzer, der sein Passwort ein
 Die dabei verwendeten Authentifizierungsdaten `Client-ID` und `Client-Secret` müssen vor der Nutzung für die Client-Anwendung definiert und mit dem IAM-System abgestimmt sein.
 Die Verwaltung des Clients mit dem ihm zugeordneten Rollen erfolgt im IAM-System.
 
-.OAuth2.0 Client-Credential Flow
+.OAuth2.0 Client-Credential-Flow
 [id="image-clientcredential-flow",reftext="{figure-caption} {counter:figures}"]
 image::isy-security:konzept/Client-Credential-Flow.dn.svg[align="center"]
 
@@ -584,7 +585,7 @@ Als optional mögliche 2-Faktor-Authentifizierung ist im IAM-Service die Übermi
 Die Implementierung des IAM-Service muss für die 2-Faktor-Authentifizierung dieses Feature unterstützen, andernfalls wird das BHKNZ als optionales Attribut betrachtet.
 Wenn die IAM-Service-Implementierung dieses Feature unterstützt, dann wird ein mit den Authentifizierungsdaten gemeinsam übergebenes Behördenkennzeichen gegen das Behördenkennzeichen aus dem zu authentifizierenden Nutzerprofil geprüft.
 
-Wie in xref:konzept/master.adoc#aussensicht-der-komponente-security[Schnittstelle des Bausteins Security] beschrieben, wird bei den Authentifizierungsmethoden `authentifiziereClient()` und `authentifiziereSystem()` das Behördenkennzeichen als optionaler Parameter an den `Authentifizierungsmanager` übergeben, der es mit den anderen Authentifizierungsdaten zusammen an den IAM-Service weiterleitet.
+Wie in <<aussensicht-der-komponente-security,Schnittstelle des Bausteins Security>> beschrieben, wird bei den Authentifizierungsmethoden `authentifiziereClient()` und `authentifiziereSystem()` das Behördenkennzeichen als optionaler Parameter an den `Authentifizierungsmanager` übergeben, der es mit den anderen Authentifizierungsdaten zusammen an den IAM-Service weiterleitet.
 
 [[multiple-uris]]
 === Aufruf des IAM-Services über unterschiedliche URIs

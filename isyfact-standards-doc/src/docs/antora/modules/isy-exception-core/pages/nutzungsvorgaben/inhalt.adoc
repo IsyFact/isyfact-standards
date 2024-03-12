@@ -150,7 +150,7 @@ Unchecked Exceptions sind nicht in den Methoden-Signaturen zu deklarieren, aber 
 Der folgende Abschnitt beschreibt das Werfen einer technischen checked Exception.
 Das Vorgehen wird nur für technische checked Exceptions beschrieben, da das Vorgehen für alle Arten von Exceptions gleich ist.
 
-Gemäß der Anforderungen aus xref::konzept/master.adoc#anforderungen-an-die-fehlerbehandlung[Anforderungen an die Fehlerbehandlung] sollte die Fehlerbehandlung übersichtlich sein.
+Gemäß der Anforderungen aus xref:konzept/master.adoc#anforderungen-an-die-fehlerbehandlung[Anforderungen an die Fehlerbehandlung] sollte die Fehlerbehandlung übersichtlich sein.
 Zur Sicherstellung der Übersichtlichkeit darf die Anzahl der verwendeten Exceptions die Anzahl möglicher Behandlungen nicht überschreiten.
 Es sollte also für jede mögliche Fehlerbehandlung auch nur eine Exception geworfen werden.
 Sofern sie nicht behandelbar sind, sind hierfür technische unchecked Exceptions zu verwenden.
