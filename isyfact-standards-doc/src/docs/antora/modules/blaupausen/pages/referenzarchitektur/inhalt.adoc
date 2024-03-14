@@ -471,9 +471,9 @@ image::blaupausen:referenzarchitektur/CallFAmGuX.png[align="center"]
 [[prinzipien-der-sicherheitsarchitektur]]
 === Prinzipien der Sicherheitsarchitektur
 
-Die IsyFact-Referenzarchitektur beinhaltet auch Vorgaben für die Sicherheitsarchitektur und für die Prinzipien, nach denen sie aufgebaut ist.
+Die IsyFact-Referenzarchitektur beinhaltet auch Vorgaben für die Sicherheitsarchitektur einer Systemlandschaft.
 Eine davon ist die Forderung, dass IsyFact-konforme IT-Systeme gegen unberechtigte Nutzung zu schützen sind.
-Folgende Prinzipien müssen bei der Erstellung einer Systemlandschaft eingehalten werden:
+Folgende Prinzipien der Sicherheit liegen der Erstellung einer Systemlandschaft zu Grunde:
 
 * Authentifizierungsinformationen, wie Benutzername und Passwort, werden nicht über IT-Systeme hinweg weitergegeben.
 Nur der Eigentümer der Authentifizierungsinformationen und der zentrale IAM-Service besitzen Kenntnis über diese Informationen.
@@ -484,15 +484,17 @@ Nur der Eigentümer der Authentifizierungsinformationen und der zentrale IAM-Ser
 * Die feingranulare Autorisierung geschieht an den Systemgrenzen / externen Schnittstellen der aufgerufenen Geschäftsanwendung.
 * Existiert keine Systemlandschaft (d.h. IT-Systeme stehen für sich allein), gilt grundsätzlich, dass die Authentifizierung und grobgranulare Autorisierung in der Nutzungsschicht (GUI, Service oder Batch) des IT-Systems geschehen muss.
 
+Folgende Abbildung zeigt die Umsetzung der Prinzipen in der Systemlandschaft:
+
 .Integration des IAM-Service in eine Systemlandschaft
 [id="image-iam-integration-awl",reftext="{figure-caption} {counter:figures}"]
 image::referenzarchitektur/sicherheit_iam_integration_awl.dn.svg[]
 
-* Portal: +
+* *Portal:* +
 Interne und externe Anwender rufen über das Portal die Geschäftsanwendung auf und werden dabei durch das Portal an den IAM-Service weitergeleitet, um die Authentifizierung durchzuführen.
 Erst nach erfolgreicher Authentifizierung leitet das Portal den Anwender zusammen mit den Autorisierungsinformationen an die Geschäftsanwendung weiter.
 
-* Service-Gateway: +
+* *Service-Gateway:* +
 Das Service-Gateway hat die Aufgabe, Anfragen von _externen Anwendungssystemen_ entgegenzunehmen und zusammen mit den Autorisierungsinformationen an den passenden Service der Geschäftsanwendung weiterzuleiten.
 Aktuell übernimmt das Service-Gateway auch die Authentifizierung von externen Anwendungen.
 Dazu leitet es die von der externen Anwendung erhaltenen Authentifizierungsdaten an den IAM-Service weiter.
@@ -500,15 +502,16 @@ Nach erfolgreicher Authentifizierung leitet das Service-Gateway die Anfrage zusa
 Zukünftig soll das Service-Gateway keine Authentifizierungsanfragen mehr verarbeiten.
 Stattdessen soll das Authentication-Gateway verwendet werden.
 
-* Authentication-Gateway: +
+* *Authentication-Gateway:* +
 Das Authentication-Gateway übernimmt die Authentifizierung von externen Anwendungen.
 Dazu leitet es die von der externen Anwendung erhaltene Authentifizierungsanfrage an den IAM-Service weiter.
-Nach erfolgreicher Authentifizierung gibt das Authentication-Gateway die Autorisierungsinformationen an die externe Anwendung zurück. Die externe Anwendung sendet die erhaltenen Autorisierungsinformationen gemeinsam mit der fachlichen Anfrage über das Service-Gateway an die Geschäftsanwendung.
+Nach erfolgreicher Authentifizierung gibt das Authentication-Gateway die Autorisierungsinformationen an die externe Anwendung zurück.
+Die externe Anwendung sendet die erhaltenen Autorisierungsinformationen gemeinsam mit der fachlichen Anfrage über das Service-Gateway an die Geschäftsanwendung.
 
-* Anwendungen innerhalb der Anwendungslandschaft: +
+* *Anwendungen innerhalb der Anwendungslandschaft:* +
 Wenn Anwendungen andere Geschäfts- und Querschnittsanwendungen innerhalb der Systemlandschaft aufrufen, verwenden sie die Autorisierungsinformationen des ursprünglichen Aufrufers oder authentifizieren sich mit ihren eigenen Zugangsdaten direkt am IAM-Service und nutzen die erhaltenen Autorisierungsinformationen zum Aufruf.
 
-* IAM-Service: +
+* *IAM-Service:* +
 Der IAM-Service verarbeitet die Authentifizierungsanfragen und beantwortet sie mit zeitlich begrenzten Autorisierungsinformationen.
 Dazu greift er im Regelfall auf das Benutzerverzeichnis zu.
 
