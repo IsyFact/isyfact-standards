@@ -16,10 +16,11 @@
  */
 package de.bund.bva.isyfact.exception;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
+
+import org.junit.Test;
 
 import de.bund.bva.isyfact.exception.util.TestExceptionFactory;
-import org.junit.Test;
 
 public class TestTechnicalException {
 		

@@ -1,6 +1,5 @@
 package de.bund.bva.isyfact.ueberwachung.autoconfigure;
 
-import de.bund.bva.isyfact.ueberwachung.actuate.health.IsyCachingHealthContributorRegistry;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
 import org.springframework.boot.actuate.health.HealthContributorRegistry;
@@ -16,6 +15,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.util.Assert;
 import org.springframework.web.client.RestTemplate;
 
+import de.bund.bva.isyfact.ueberwachung.actuate.health.IsyCachingHealthContributorRegistry;
 import de.bund.bva.isyfact.ueberwachung.actuate.health.IsyHealthTask;
 import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.NachbarsystemCheck;
 import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.NachbarsystemIndicator;

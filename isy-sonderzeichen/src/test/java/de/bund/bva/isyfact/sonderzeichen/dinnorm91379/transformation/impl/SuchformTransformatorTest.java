@@ -1,6 +1,6 @@
 package de.bund.bva.isyfact.sonderzeichen.dinnorm91379.transformation.impl;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 

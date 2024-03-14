@@ -1,11 +1,11 @@
 package de.bund.bva.isyfact.task.test;
 
+import static org.junit.Assert.*;
+
 import de.bund.bva.isyfact.task.util.TaskCounterBuilder;
+
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class TestTaskRunAssertion {
 

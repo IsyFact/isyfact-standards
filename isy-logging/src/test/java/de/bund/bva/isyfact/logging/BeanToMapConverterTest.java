@@ -23,12 +23,16 @@ package de.bund.bva.isyfact.logging;
  * #L%
  */
 
+import static org.junit.Assert.*;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.junit.Test;
 
 import de.bund.bva.isyfact.logging.exceptions.SerialisierungException;
 import de.bund.bva.isyfact.logging.hilfsklassen.TestBeanEinfach;
@@ -37,9 +41,6 @@ import de.bund.bva.isyfact.logging.hilfsklassen.TestBeanMitException;
 import de.bund.bva.isyfact.logging.impl.LogErrorKategorie;
 import de.bund.bva.isyfact.logging.util.BeanToMapConverter;
 import de.bund.bva.isyfact.logging.util.LogHelper;
-import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  * Testfälle des BeanToMapConverters.

@@ -3,7 +3,7 @@ package de.bund.bva.isyfact.batchrahmen;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.h2.jdbcx.JdbcDataSource;

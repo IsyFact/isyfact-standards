@@ -24,11 +24,10 @@ package de.bund.bva.isyfact.logging;
  */
 
 import org.junit.Assert;
-
 import org.junit.Test;
 
-import de.bund.bva.isyfact.logging.exceptions.IsyLoggingFehlertextProvider;
 import de.bund.bva.isyfact.exception.FehlertextProvider;
+import de.bund.bva.isyfact.logging.exceptions.IsyLoggingFehlertextProvider;
 
 /**
  * Die Tests des Fehlertextproviders.

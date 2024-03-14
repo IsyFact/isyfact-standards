@@ -27,9 +27,10 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.LoggerFactory;
 
+import de.bund.bva.isyfact.logging.impl.IsyLocationAwareLoggerImpl;
+
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
-import de.bund.bva.isyfact.logging.impl.IsyLocationAwareLoggerImpl;
 
 /**
  * Testfälle zum Testen der 'enabled' Methoden. 

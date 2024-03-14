@@ -21,11 +21,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import org.hibernate.usertype.ParameterizedType;
+import org.hibernate.usertype.UserType;
+
 import de.bund.bva.isyfact.persistence.annotation.PersistentValue;
 import de.bund.bva.isyfact.persistence.exception.FehlerSchluessel;
 import de.bund.bva.isyfact.persistence.exception.PersistenzException;
-import org.hibernate.usertype.ParameterizedType;
-import org.hibernate.usertype.UserType;
 
 /**
  * Ein {@link UserType} zur Persistierung beliebiger Enumtypen als String, d.h. in eine VARCHAR-Spalte. Die

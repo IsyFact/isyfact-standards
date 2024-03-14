@@ -1,10 +1,7 @@
 package de.bund.bva.isyfact.task;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
-import static org.junit.Assert.*;
 
-import de.bund.bva.isyfact.task.exception.TaskDeactivatedException;
-import de.bund.bva.isyfact.task.test.TestTaskRunAssertion;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +10,9 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import de.bund.bva.isyfact.task.exception.HostNotApplicableException;
+import de.bund.bva.isyfact.task.test.TestTaskRunAssertion;
 import de.bund.bva.isyfact.task.test.config.TestConfig;
-import de.bund.bva.isyfact.task.util.TaskCounterBuilder;
 
-import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 
 @RunWith(SpringRunner.class)

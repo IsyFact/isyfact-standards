@@ -1,8 +1,9 @@
 package de.bund.bva.isyfact.persistence.datetime.attributeconverter.test;
 
 import java.time.Period;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 @Entity
 public class TestPeriodEntity {

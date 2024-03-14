@@ -16,11 +16,12 @@
  */
 package de.bund.bva.isyfact.exception;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
-import de.bund.bva.isyfact.exception.util.TestExceptionFactory;
 import org.junit.Before;
 import org.junit.Test;
+
+import de.bund.bva.isyfact.exception.util.TestExceptionFactory;
 
 public class TestBusinessException {
 	

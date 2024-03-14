@@ -5,16 +5,18 @@ import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import de.bund.bva.isyfact.logging.impl.IsyLocationAwareLoggerImpl;
 
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.rolling.RollingFileAppender;
 import ch.qos.logback.core.rolling.TimeBasedFileNamingAndTriggeringPolicyBase;
 import ch.qos.logback.core.rolling.TimeBasedRollingPolicy;
-import de.bund.bva.isyfact.logging.impl.IsyLocationAwareLoggerImpl;
 
 /*
  * #%L
@@ -95,9 +97,9 @@ public class RolloverTest extends AbstractLogTest {
                 .getTriggeringPolicy();
         TimeBasedFileNamingAndTriggeringPolicyBase<?> timeBasedFileNamingAndTriggeringPolicy = (TimeBasedFileNamingAndTriggeringPolicyBase<?>) triggeringPolicy
                 .getTimeBasedFileNamingAndTriggeringPolicy();
-        Field nextCheckField = TimeBasedFileNamingAndTriggeringPolicyBase.class.getDeclaredField("nextCheck");
+        Field nextCheckField = TimeBasedFileNamingAndTriggeringPolicyBase.class.getDeclaredField("atomicNextCheck");
         nextCheckField.setAccessible(true);
-        nextCheckField.setLong(timeBasedFileNamingAndTriggeringPolicy, jetzt.getTimeInMillis());
+        nextCheckField.set(timeBasedFileNamingAndTriggeringPolicy, new AtomicLong(jetzt.getTimeInMillis()));
         triggeringPolicy.isTriggeringEvent(null, null);
         appender.rollover();
 

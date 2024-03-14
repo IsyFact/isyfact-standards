@@ -1,9 +1,5 @@
 package de.bund.bva.isyfact.polling.autoconfigure;
 
-import de.bund.bva.isyfact.polling.PollingVerwalter;
-import de.bund.bva.isyfact.polling.annotation.PollingAktionInterceptor;
-import de.bund.bva.isyfact.polling.config.IsyPollingProperties;
-import de.bund.bva.isyfact.polling.impl.PollingVerwalterImpl;
 import org.springframework.aop.Advisor;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
@@ -12,6 +8,11 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+
+import de.bund.bva.isyfact.polling.PollingVerwalter;
+import de.bund.bva.isyfact.polling.annotation.PollingAktionInterceptor;
+import de.bund.bva.isyfact.polling.config.IsyPollingProperties;
+import de.bund.bva.isyfact.polling.impl.PollingVerwalterImpl;
 
 @Configuration
 @EnableAspectJAutoProxy

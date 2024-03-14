@@ -16,10 +16,8 @@
  */
 package de.bund.bva.isyfact.aufrufkontext.common.exception;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-import de.bund.bva.isyfact.aufrufkontext.common.exception.AufrufKontextFehlerhaftException;
-import de.bund.bva.isyfact.aufrufkontext.common.exception.AusnahmeId;
 import org.junit.Test;
 
 public class TestAufrufKontextFehlerhaftException {

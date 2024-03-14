@@ -16,11 +16,7 @@
  */
 package de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.impl;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,8 +26,8 @@ import org.junit.Test;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.ZeichenKategorie;
 import de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.TestData;
+import de.bund.bva.isyfact.sonderzeichen.dinspec91379.transformation.ZeichenKategorie;
 
 /**
  * Tests the IdentischerTransformator.

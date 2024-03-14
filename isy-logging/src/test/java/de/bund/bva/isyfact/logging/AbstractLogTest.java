@@ -36,13 +36,15 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import org.junit.Assert;
+import org.junit.Before;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import de.bund.bva.isyfact.logging.impl.Ereignisschluessel;
 import de.bund.bva.isyfact.logging.impl.FehlerSchluessel;
 import de.bund.bva.isyfact.logging.util.MdcHelper;
-import org.junit.Assert;
-import org.junit.Before;
 
 /**
  * Base class for all logging tests. The class contains methods to check the log files created in the test cases.

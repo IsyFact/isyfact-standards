@@ -23,14 +23,15 @@ package de.bund.bva.isyfact.logging;
  * #L%
  */
 
-import de.bund.bva.isyfact.logging.hilfsklassen.TestZielKlasse;
-import de.bund.bva.isyfact.logging.hilfsklassen.TestZielParameterPerson;
-import de.bund.bva.isyfact.logging.util.LoggingMethodInvoker;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import de.bund.bva.isyfact.logging.hilfsklassen.TestZielKlasse;
+import de.bund.bva.isyfact.logging.hilfsklassen.TestZielParameterPerson;
+import de.bund.bva.isyfact.logging.util.LoggingMethodInvoker;
 
 /**
  * Testfälle zur Klasse LogMethodInvoker.

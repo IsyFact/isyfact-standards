@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.jpa.EntityManagerFactoryUtils;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityManagerFactory;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.Month;

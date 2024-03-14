@@ -1,7 +1,7 @@
 package de.bund.bva.isyfact.task;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.time.Instant;
 

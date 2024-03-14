@@ -23,6 +23,8 @@ package de.bund.bva.isyfact.logging.impl;
  * #L%
  */
 
+import org.slf4j.spi.LocationAwareLogger;
+
 import de.bund.bva.isyfact.exception.BaseException;
 import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
 import de.bund.bva.isyfact.logging.IsyDatentypMarker;
@@ -30,10 +32,6 @@ import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyMarker;
 import de.bund.bva.isyfact.logging.LogKategorie;
 import de.bund.bva.isyfact.logging.exceptions.FehlerhafterLogeintrag;
-import de.bund.bva.isyfact.logging.util.LoggingKonstanten;
-import org.slf4j.spi.LocationAwareLogger;
-
-import java.util.Arrays;
 
 /**
  * Standardimplementierung des Loggers der IsyFact.

@@ -4,12 +4,12 @@ import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.Objects;
 
-import javax.persistence.Embeddable;
+import jakarta.persistence.Embeddable;
 
 import de.bund.bva.isyfact.datetime.core.UngewisseZeit;
 
 /**
- * {@link javax.persistence.Embeddable} to store {@link UngewisseZeitEntitaet} in entity.
+ * {@link jakarta.persistence.Embeddable} to store {@link UngewisseZeitEntitaet} in entity.
  *
  */
 @Embeddable

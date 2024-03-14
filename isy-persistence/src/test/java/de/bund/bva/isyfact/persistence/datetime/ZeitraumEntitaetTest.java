@@ -1,13 +1,14 @@
 package de.bund.bva.isyfact.persistence.datetime;
 
-import de.bund.bva.isyfact.datetime.core.Zeitraum;
-import org.junit.Test;
+import static org.junit.Assert.*;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
-import static org.junit.Assert.*;
+import org.junit.Test;
+
+import de.bund.bva.isyfact.datetime.core.Zeitraum;
 
 public class ZeitraumEntitaetTest {
     private static ZonedDateTime ZONEDDATETIME = ZonedDateTime.of(

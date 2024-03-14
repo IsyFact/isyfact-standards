@@ -1,7 +1,7 @@
 package de.bund.bva.isyfact.batchrahmen.persistence.rahmen;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 
 public class BatchRahmenDaoMock extends BatchStatusDao{
 

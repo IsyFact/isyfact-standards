@@ -21,15 +21,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.springframework.jdbc.datasource.DelegatingDataSource;
+
+import de.bund.bva.isyfact.exception.FehlertextProvider;
+import de.bund.bva.isyfact.logging.IsyLogger;
+import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.persistence.common.EreignisSchluessel;
 import de.bund.bva.isyfact.persistence.exception.FehlerSchluessel;
 import de.bund.bva.isyfact.persistence.exception.PersistenzException;
 import de.bund.bva.isyfact.persistence.exception.PersistenzFehlertextProvider;
-import org.springframework.jdbc.datasource.DelegatingDataSource;
-
-import de.bund.bva.isyfact.logging.IsyLogger;
-import de.bund.bva.isyfact.logging.IsyLoggerFactory;
-import de.bund.bva.isyfact.exception.FehlertextProvider;
 
 /**
  * DataSource-Wrapper, der null-Connections abfängt und eine PersistenzException wirft.

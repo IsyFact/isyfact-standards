@@ -18,10 +18,11 @@ package de.bund.bva.isyfact.util.spring;
 
 import java.util.Locale;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceAware;
 import org.springframework.context.NoSuchMessageException;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Diese Klasse hält eine Referenz auf die aktuelle MessageSource-Bean.

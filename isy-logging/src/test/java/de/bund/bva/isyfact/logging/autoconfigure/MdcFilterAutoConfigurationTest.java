@@ -6,10 +6,10 @@ import static org.assertj.core.api.InstanceOfAssertFactories.STRING;
 import java.io.IOException;
 import java.util.Collections;
 
-import javax.servlet.FilterChain;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.assertj.core.api.ObjectAssert;
 import org.junit.Test;

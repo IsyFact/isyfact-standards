@@ -37,12 +37,9 @@
         <module>isy-batchrahmen</module>
         <module>isy-datetime</module>
         <module>isy-exception-core</module>
-        <module>isy-konfiguration</module>
         <module>isy-logging</module>
         <module>isy-persistence</module>
         <module>isy-polling</module>
-        <module>isy-serviceapi-core</module>
-        <module>isy-sicherheit</module>
         <module>isy-task</module>
         <module>isy-ueberwachung</module>
         <module>isy-util</module>
@@ -209,7 +206,7 @@
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>0.8.7</version>
+                    <version>0.8.11</version>
                     <executions>
                         <execution>
                             <goals>

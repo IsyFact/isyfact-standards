@@ -1,11 +1,11 @@
 package de.bund.bva.isyfact.ueberwachung.actuate.health;
 
+import java.util.Iterator;
+
 import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.actuate.health.HealthContributorRegistry;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.NamedContributor;
-
-import java.util.Iterator;
 
 /**
  * Adapts the original {@link HealthContributorRegistry} linking it to the cache, so that calls to

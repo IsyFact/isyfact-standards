@@ -1,12 +1,11 @@
 package de.bund.bva.isyfact.batchrahmen.test;
 
+import static org.junit.Assert.*;
+
 import java.util.Collection;
 
-import de.bund.bva.isyfact.batchrahmen.test.BatchProtokollTester;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class BatchProtokollTesterTest {
 

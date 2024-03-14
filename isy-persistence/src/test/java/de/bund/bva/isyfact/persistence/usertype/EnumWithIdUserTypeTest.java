@@ -16,14 +16,15 @@
  */
 package de.bund.bva.isyfact.persistence.usertype;
 
+import static org.junit.Assert.*;
+
 import java.io.Serializable;
 import java.util.Properties;
 
-import de.bund.bva.isyfact.persistence.exception.PersistenzException;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import de.bund.bva.isyfact.persistence.exception.PersistenzException;
 
 public class EnumWithIdUserTypeTest {
 

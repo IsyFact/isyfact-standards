@@ -1,12 +1,20 @@
 package de.bund.bva.isyfact.datetime.core;
 
-import de.bund.bva.isyfact.datetime.format.OutFormat;
-import org.junit.Test;
+import static org.junit.Assert.*;
 
-import java.time.*;
+import java.time.DateTimeException;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Period;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 
-import static org.junit.Assert.*;
+import org.junit.Test;
+
+import de.bund.bva.isyfact.datetime.format.OutFormat;
 
 
 public class ZeitraumTest {

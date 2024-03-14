@@ -14,7 +14,7 @@ public abstract class AbstractOidcProviderTest {
 
     private static final String HOST = "localhost";
 
-    private static final int PORT = 9095;
+    private static final int PORT = 9094;
 
     /**
      * Authentication and authorization via EmbeddedOidcProviderMock based on WireMock.

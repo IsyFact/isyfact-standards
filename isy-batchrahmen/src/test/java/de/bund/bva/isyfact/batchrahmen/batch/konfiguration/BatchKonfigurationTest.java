@@ -1,17 +1,17 @@
 package de.bund.bva.isyfact.batchrahmen.batch.konfiguration;
 
-import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchStartTyp;
-import de.bund.bva.isyfact.batchrahmen.core.exception.BatchrahmenKonfigurationException;
-import de.bund.bva.isyfact.batchrahmen.core.exception.BatchrahmenParameterException;
-import de.bund.bva.isyfact.batchrahmen.core.launcher.BatchLauncherTest;
+import java.io.File;
+import java.net.URISyntaxException;
+import java.util.Properties;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import java.io.File;
-import java.net.URISyntaxException;
-import java.util.Properties;
+import de.bund.bva.isyfact.batchrahmen.core.exception.BatchrahmenKonfigurationException;
+import de.bund.bva.isyfact.batchrahmen.core.exception.BatchrahmenParameterException;
+import de.bund.bva.isyfact.batchrahmen.core.launcher.BatchLauncherTest;
 
 public class BatchKonfigurationTest {
     private BatchKonfiguration batchKonfiguration;
