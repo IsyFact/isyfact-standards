@@ -1,59 +1,6 @@
 = Konzept Security (Sicherheit): Inhalt
 
 // tag::inhalt[]
-[[prinzipien-der-sicherheitsarchitektur]]
-== Prinzipien der Sicherheitsarchitektur
-
-Die IsyFact-Referenzarchitektur beinhaltet auf der technischen Ebene Vorgaben für die Sicherheitsarchitektur und für die Prinzipien, nach denen sie aufgebaut ist.
-Eine davon ist die Forderung, dass IsyFact-konforme IT-Systeme gegen unberechtigte Nutzung zu schützen sind.
-Konkret wird das im Baustein `Security` durch ein Rollen-, Rechte- und Berechtigungsmanagement realisiert:
-
-* Authentifizierungsinformationen, wie Benutzername und Passwort, werden nicht über IT-Systeme hinweg weitergegeben.
-Nur der Eigentümer der Authentifizierungsinformationen und der IAM-Service besitzen Kenntnis über diese Informationen.
-* Eine Zweifaktor-Authentifizierung ist durch das Behördenkennzeichen (BHKNZ) als zusätzliches Authentifizierungsmerkmal konzipiert, allerdings setzt dies im IAM-Service voraus, dass dieses Merkmal dort auch ausgewertet werden kann.
-* Die Authentifizierung und grobgranulare Autorisierung (mittels dem Nutzer zugeordneten Rollen) erfolgt an den Außenschnittstellen der Systemlandschaft (Portal, Authentication-Gateway bzw. Service-Gateway).
-* Liegt kein Aufruf über eine Außenschnittstelle vor (z.B. bei einem Batch- oder Task-Aufruf), so geschieht die Authentifizierung und grobgranulare Autorisierung innerhalb der Nutzungsschicht (Batch / Task) des aufrufenden IT-Systems über den IsyFact-Baustein Security.
-* Die feingranulare Autorisierung geschieht in der Nutzungsschicht und im Anwendungskern des aufgerufenen IT-Systems über den IsyFact-Baustein Security, indem die Nutzerrollen auf anwendungsspezifische Rechte abgebildet werden und diese Rechte bei jedem Serviceaufruf geprüft werden.
-
-Existiert keine Systemlandschaft (d.h. IT-Systeme stehen für sich allein), gilt grundsätzlich, dass die Authentifizierung und grobgranulare Autorisierung in der Nutzungsschicht (GUI, Service oder Batch) des IT-Systems geschehen muss.
-
-Darüber hinaus finden Authentifizierung und Autorisierung nach den Vorgaben des Berechtigungskonzepts statt.
-
-Dieses Dokument beschreibt wesentliche Aspekte der Sicherheitsarchitektur für eine konkrete Anwendungslandschaft.
-Da das Berechtigungskonzept individuell für jede Anwendungslandschaft erstellt wird und sich im Einzelnen stark von Inhalt und Umfang her unterscheidet, ist es kein Bestandteil des Bausteins Security oder der IsyFact.
-
-[[authentifizierung]]
-=== Authentifizierung
-
-NOTE: Authentifikation: Verifikation der Identität eines natürlichen Nutzers (menschlicher xref:glossary:glossary:master.adoc#glossar-anwender[Anwender]) oder eines technischen Nutzers (technische Anwendung) als Zugangskontrolle zu einem geschützten System.
-Dabei ist es erforderlich eindeutige Eigenschaften (z.B. biometrische Daten) oder geheime Daten (z.B. Passwort) zur Überprüfung zu übergeben.
-
-In der Regel erfolgt die Authentifizierung von Benutzern über eine zentrale Komponente der Systemlandschaft, in welche das IT-System eingebettet ist.
-Die Authentifizierung darf auch lokal, d.h. vom IT-System selbst, durchgeführt werden, falls es beispielsweise nicht in eine Systemlandschaft eingebettet ist.
-
-Für die zentrale Authentifizierung wird in der IsyFact ein OAuth 2.0 konformes IAM-System verwendet.
-
-NOTE: IAM steht für xref:glossary:literaturextern:inhalt.adoc#litextern-identity_management[Identity and Access Management].
-
-Das IAM-System verwaltet *Benutzer* (menschliche Anwender und technische Systeme) und ihre *Rollen* zentral für alle Komponenten der Anwendungs- und Systemlandschaft.
-
-Die Authentifizierung und grobgranulare Autorisierung erfolgt, gemäß der  xref:konzept/master.adoc#prinzipien-der-sicherheitsarchitektur[Prinzipien der Sicherheitsarchitektur], an den Außenschnittstellen der Systemlandschaft.
-Hierbei übermittelt der Benutzer seine Authentifizierungsmerkmale (z.B. Login-Name u. Passwort) und für eine Zwei-Faktor-Authentifizierung das Behördenkennzeichen (BHKNZ) an den IAM-Service, der sie gegen die bei ihm gespeicherten Merkmale verifiziert.
-Falls der IAM-Service die Auswertung des BHKNZ nicht unterstützt, wird dieses Authentifizierungsmerkmal als optional gewertet.
-Nach erfolgreicher Authentifizierung gibt der IAM-Service das Authentifizierungsergebnis zusammen mit den bei ihm hinterlegten Rollen des Anwenders an das aufrufende Anwendungssystem zurück. +
-Die Rollen allein sind jedoch noch nicht ausreichend, um den Benutzer in der Anwendung vollständig zu autorisieren.
-
-[[autorisierung]]
-=== Autorisierung
-
-NOTE: Autorisierung: Zustimmung oder Erlaubnis, spezieller die Einräumung von Rechten gegenüber interessierten Rechtssubjekten, gegebenenfalls als Nutzungsrecht gegenüber Dritten.
-
-Die Autorisierung geschieht in jedem Fall im jeweiligen IT-System.
-Nach der erfolgreichen Authentifizierung eines Benutzers leitet das IAM-System die Anfrage an das IT-System weiter bzw. gibt dem Aufrufer das Ergebnis der Authentifizierung zurück - angereichert mit weiteren Informationen über den Benutzer (speziell: zugeordnete Rollen).
-Im aufgerufenen IT-System wird die Anfrage – je nach Schutzbedarf und Funktionalität – autorisiert.
-Dazu weist das IT-System einem Benutzer anhand seiner Rollen anwendungsspezifische *Rechte* zu und prüft diese gegen die für die Nutzung des angefragten Service benötigten Rechte.
-Wie genau Rollen und Rechte spezifiziert werden, beschreibt das Kapitel xref:konzept/master.adoc#rollen-und-rechte[Rollen und Rechte].
-
 [[sicherheitsarchitektur-eines-it-systems]]
 == Sicherheitsarchitektur eines IT-Systems
 
@@ -72,7 +19,7 @@ Die *Einfachheit* der Nutzung der Bibliothek `isy-security` wird durch weitgehen
 [[praemissen]]
 === Prämissen
 
-Aus den xref:konzept/master.adoc#prinzipien-der-sicherheitsarchitektur[Prinzipien der Sicherheitsarchitektur] leiten sich die folgenden Randbedingungen für die Umsetzung der Berechtigungsprüfung innerhalb eines IT-Systems ab:
+Aus den xref:blaupausen:referenzarchitektur/master.adoc#prinzipien-der-sicherheitsarchitektur[Prinzipien der Sicherheitsarchitektur] leiten sich die folgenden Randbedingungen für die Umsetzung der Berechtigungsprüfung innerhalb eines IT-Systems ab:
 
 * Anfragen, die am Dialog (Web-App) eines IT-Systems eingehen, sind immer vorher über die mitgegebenen Authentifizierungsdaten durch das IAM-System bzw. die lokale Authentifizierung erfolgreich authentifiziert.
 Durch die Authentifizierung des IAM-Systems enthält der HTTP-Header der Anfrage die Identifikation des Anwenders und dessen Rollen (in Form eines JWT Zugriffstoken).
