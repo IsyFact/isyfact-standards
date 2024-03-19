@@ -40,8 +40,8 @@ XML-Verarbeitung;http://jaxp.java.net/[JAXP];;1.0.0;verbindlich;GPL v2;
 XML-Serialisierung;https://x-stream.github.io/[XStream];1.4.18;2.4.0;verbindlich;BSD;Darf nicht für die (De-)Serialisierung der hauptsächlichen fachlichen Business-Objekte / XML-Nachrichten eingesetzt werden, stattdessen JAXB. Einsatzzweck ist leichtgewichtige Serialisierung Java -> XML, z.B. für die Anzeige von Objekten in einer GUI oder Erzeugung von Testdaten.
 Excel-Datenzugriff;http://poi.apache.org/[Apache POI];4.1.x;2.1.0;verbindlich;;
 Excel-Datenzugriff;http://poi.apache.org/[Apache POI OOXML];4.1.x;2.4.0;verbindlich;;
-CSV-Verarbeitung;http://opencsv.sourceforge.net/[OpenCSV];5.5.x;2.4.0;verbindlich;Apache Software License;
-Utility-API;https://github.com/google/guava[Guava];31.0.x;2.4.0;verbindlich;Apache Software License;"Einsatz und Umfang der genutzten Features ist jeweils abzustimmen. Generell genutzt werden darf:
+CSV-Verarbeitung;http://opencsv.sourceforge.net/[OpenCSV];5.9.x;2.4.0;verbindlich;Apache Software License;
+Utility-API;https://github.com/google/guava[Guava];33.1.x;2.4.0;verbindlich;Apache Software License;"Einsatz und Umfang der genutzten Features ist jeweils abzustimmen. Generell genutzt werden darf:
 
 * Collection-APIs
 * String Funktionen

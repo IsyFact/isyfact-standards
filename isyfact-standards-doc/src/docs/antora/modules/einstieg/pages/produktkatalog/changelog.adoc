@@ -1,6 +1,15 @@
 [[changelog]]
 = Changelog
 
+*Änderungen IsyFact 3.0.1*
+
+// tag::release-3.0.1[]
+* Anhebung von Versionen:
+** Open CSV auf 5.9.x
+** Google Guava auf 33.1.x
+
+// end::release-3.0.1[]
+
 *Änderungen IsyFact 3.0.0*
 
 // tag::release-3.0.0[]
