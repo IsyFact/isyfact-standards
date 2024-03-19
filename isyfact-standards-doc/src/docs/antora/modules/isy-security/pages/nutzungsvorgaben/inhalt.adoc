@@ -123,7 +123,8 @@ Das Präfix sämtlicher Konfigurationsparameter `spring.security.oauth2` wird zu
 [[isyfact-specific-client-registration]]
 ==== Isyfact spezifische Konfigurationsparameter
 
-:linkaktuell: xref:konzept/inhalt.adoc#client-credential-flow[Client-Credential-Flow]
+
+:linkaktuell: xref:spring-oauth2-client-registration[Client-Credentials-Flow]
 include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
 
 ****
@@ -492,7 +493,7 @@ Die Autorisierung erfolgt dementsprechend wenn der Nutzer mindestens eins der in
 
 Bei der Befüllung des Spring Security Context wird das zur Befüllung genutzte Bearer Token ebenfalls im Context abgelegt.
 Dadurch ist der Zugriff auf Attribute des Bearer Tokens über den Spring Security Context möglich.
-Der Zugriff kann über den Berechtigungsmanager oder direkt über den Spring Security Context erfolgen.
+Der Zugriff kann über den Berechtigungsmanager, direkt über den Spring Security Context oder mithilfe der IsySecurityTokenUtil Klasse erfolgen.
 
 Für Zugriff über den Berechtigungsmanager kann die Methode `getTokenAttribute(String key)` genutzt werden.
 Das Beispiel <<listing-berechtigungsmanager-bhknz>> veranschaulicht den Zugriff auf das im Attribut `bhknz` gespeicherte Behördenkennzeichen.
@@ -503,9 +504,55 @@ Das Beispiel <<listing-berechtigungsmanager-bhknz>> veranschaulicht den Zugriff 
 ----
 String bhknz = (String) this.berechtigungsmanager.getTokenAttribute(BEARER_TOKEN_ATTR_BHKNZ);
 ----
+[NOTE]
+====
+Die Methode getTokenAttribute im Berechtigungsmanager ist deprecated und wird in zukünftigen Versionen entfernt.
+====
 
 Für den direkten Zugriff per Security Context kann die `Authentication` abgefragt und per Cast als ein `AbstractOAuth2TokenAuthenticationToken` zugegriffen werden.
 Detaillierte Informationen hierzu können der Spring Dokumentation entnommen werden.
+
+Die IsySecurityTokenUtil Klasse bietet statische Methoden zum Auslesen von Token-Claims:
+
+* getLogin()
+** Beschreibung: Gibt den Login des aktuellen Benutzers zurück.
+** Rückgabewert: Ein Optional<String>, das den Login des Benutzers enthält oder ein leeres Optional, wenn das Login-Attribut nicht gesetzt ist.
+
+* getUserId():
+** Beschreibung: Gibt die UserId des aktuellen Benutzers zurück.
+** Rückgabewert: Ein String, der die UserId oder, falls nicht gesetzt, den Subject Identifier (sub) enthält.
+
+* getBhknz():
+** Beschreibung: Gibt das Behördenkennzeichen (bhknz) des aktuellen Benutzers zurück.
+** Rückgabewert: Ein Optional<String>, das das Behördenkennzeichen enthält
+
+* getDisplayName():
+** Beschreibung: Gibt den Namen des aktuellen Benutzers zurück. Wenn der Name nicht gesetzt ist, wird der Login zurückgegeben.
+** Rückgabewert: Ein optionaler <String>, der den Namen oder, falls nicht gesetzt, den Login enthält.
+
+* getTokenAttribute(String key):
+** Beschreibung: Eine allgemeine Methode, um ein Attribut des Tokens abzurufen.
+** Rückgabewert: Das gesuchte Attribut des Tokens als Object. Sofern dieses nicht existiert, wird eine OAuth2AuthenticationException zurückgegeben.
+
+Beispiel zum Zugriff auf das Behördenkennzeichen mithilfe der IsySecurityTokenUtil Klasse:
+[[listing-IsySecurityTokenUtil-bhknz]]
+.Zugriff auf das Behördenkennzeichen über IsySecurityTokenUtil
+[source,java]
+----
+Optional<String> bhknz = IsySecurityTokenUtil.getBhknz();
+----
+IsySecurityTokenUtil ermöglicht es, Standard-Claims mithilfe von zusätzlichen Properties um benutzerdefinierte Claims zu erweitern. Die entsprechenden Property-Konfigurationen sind in der Datei "isy-security-token.properties" im Verzeichnis "resources/config" hinterlegt. Bei speziellen Anforderungen ist es möglich, die Datei anzupassen, um die Claims entsprechend zu modifizieren.
+
+[[table-parameter-service]]
+.Default Konfigurationsparameter der Claims
+[cols="3m,2m,2m",options="header"]
+|===
+|Parameter |Wertebereich |Default
+|isy.security.oauth2.claim.login | String | preferred_username
+|isy.security.oauth2.claim.userId | String | internekennung
+|isy.security.oauth2.claim.bhknz | String | bhknz
+|isy.security.oauth2.claim.displayName | String | name
+|===
 
 [[annotation-method-auth]]
 == Automatische Authentifizierung innerhalb von Methoden
@@ -537,7 +584,6 @@ void methodThatNeedsAuthentication() {
     ...
 }
 ----
-
 <1> Angabe der Client Registration ID ohne Verwendung von Attributnamen
 <2> Auflösung der Client Registration ID aus dem Wert der Property `test.auth.client-id`
 <3> Angabe der Client Registration ID mit dem Attributnamen `oauth2ClientRegistrationId`
