@@ -16,15 +16,15 @@ Anwendungs-framework;https://spring.io/projects/spring-boot[Spring Boot];2.7.x;3
 "Anwendungs-framework +
 Test-Framework";https://spring.io/projects/spring-framework[Spring];<<spring-boot-dependencies,icon:leaf[]>>;2.4.0;verbindlich;Apache Software License;"* Die Kategorie Test-Framework bezieht sich auf die Features von Spring zur Testunterstützung.
 * Die folgenden Bestandteile des Spring Frameworks sind durch Architektur-entscheidungen explizit zur Nutzung freigegeben."
-Service-Frameworks;https://docs.spring.io/spring-framework/docs/current/reference/html/integration.html#remoting-httpinvoker[Spring Http Invoker];<<spring-boot-dependencies,icon:leaf[]>>;2.4.0;bestandsgeschützt;Apache Software License;
-Service-Frameworks;https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc[Spring Web MVC];<<spring-boot-dependencies,icon:leaf[]>>;2.4.0;verbindlich;Apache Software License;Spring Web MVC wird zur Bereitstellung von Services genutzt.
-Service-Frameworks;https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-client[Spring WebClient];<<spring-boot-dependencies,icon:leaf[]>>;2.4.0;verbindlich;Apache Software License;Spring WebClient (ein Bestandteil von Spring WebFlux) wird zum Konsumieren von Services genutzt.
+Service-Frameworks;https://docs.spring.io/spring-framework/docs/current/reference/html/integration.html#remoting-httpinvoker[Spring Http Invoker];5.3.33;2.4.0;bestandsgeschützt;Apache Software License;
+Service-Frameworks;https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc[Spring Web MVC];5.3.33;2.4.0;verbindlich;Apache Software License;Spring Web MVC wird zur Bereitstellung von Services genutzt.
+Service-Frameworks;https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-client[Spring WebClient];5.3.33;2.4.0;verbindlich;Apache Software License;Spring WebClient (ein Bestandteil von Spring WebFlux) wird zum Konsumieren von Services genutzt.
 HTTP-Client;https://hc.apache.org/httpcomponents-client-5.1.x[Apache Http-Components HttpClient];<<spring-boot-dependencies,icon:leaf[]>>;2.4.0;verbindlich;Apache Software License;Muss anstelle von Netty als HTTP-Client für Spring WebClient verwendet werden.
 Persistenz-Framework;https://spring.io/projects/spring-data-jpa[Spring Data JPA];<<spring-boot-dependencies,icon:leaf[]>>;3.0.0;verbindlich;Apache Software License;
 Persistenz-Framework;http://www.hibernate.org[Hibernate];<<spring-boot-dependencies,icon:leaf[]>>;3.0.0;verbindlich;LGPL v2.1;
 Persistenz;https://www.liquibase.org[Liquibase];<<spring-boot-dependencies,icon:leaf[]>>;3.0.0;verbindlich;Apache Software License;
 JSON-Verarbeitung;https://github.com/FasterXML/jackson[Jackson];<<spring-boot-dependencies,icon:leaf[]>>;2.4.0;verbindlich;Apache Software License;
-Authentifizierung / Autorisierung;http://projects.spring.io/spring-security/[Spring Security];<<spring-boot-dependencies,icon:leaf[]>>;3.0.0;verbindlich;Apache Software License;
+Authentifizierung / Autorisierung;http://projects.spring.io/spring-security/[Spring Security];5.7.12;3.0.0;verbindlich;Apache Software License;
 Resilience-Framework;https://resilience4j.readme.io/[Resilience4J];1.x;2.2.0;verbindlich;Apache Software License;
 Web-Service Framework (SOAP);https://projects.eclipse.org/projects/ee4j.metro/[Eclipse Metro];2.4.9;3.0.0;verbindlich;Eclipse Distribution License 1.0;
 Logging;http://www.slf4j.org/[SLF4J];1.7.x;3.0.0;verbindlich;MIT License;"* Die Verwendung anderer Logging-Backends außer Logback ist nicht erlaubt.
@@ -40,8 +40,8 @@ XML-Verarbeitung;http://jaxp.java.net/[JAXP];;1.0.0;verbindlich;GPL v2;
 XML-Serialisierung;https://x-stream.github.io/[XStream];1.4.18;2.4.0;verbindlich;BSD;Darf nicht für die (De-)Serialisierung der hauptsächlichen fachlichen Business-Objekte / XML-Nachrichten eingesetzt werden, stattdessen JAXB. Einsatzzweck ist leichtgewichtige Serialisierung Java -> XML, z.B. für die Anzeige von Objekten in einer GUI oder Erzeugung von Testdaten.
 Excel-Datenzugriff;http://poi.apache.org/[Apache POI];4.1.x;2.1.0;verbindlich;;
 Excel-Datenzugriff;http://poi.apache.org/[Apache POI OOXML];4.1.x;2.4.0;verbindlich;;
-CSV-Verarbeitung;http://opencsv.sourceforge.net/[OpenCSV];5.5.x;2.4.0;verbindlich;Apache Software License;
-Utility-API;https://github.com/google/guava[Guava];31.0.x;2.4.0;verbindlich;Apache Software License;"Einsatz und Umfang der genutzten Features ist jeweils abzustimmen. Generell genutzt werden darf:
+CSV-Verarbeitung;http://opencsv.sourceforge.net/[OpenCSV];5.9.x;2.4.0;verbindlich;Apache Software License;
+Utility-API;https://github.com/google/guava[Guava];33.1.x;2.4.0;verbindlich;Apache Software License;"Einsatz und Umfang der genutzten Features ist jeweils abzustimmen. Generell genutzt werden darf:
 
 * Collection-APIs
 * String Funktionen

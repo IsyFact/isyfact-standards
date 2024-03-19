@@ -1,5 +1,13 @@
 = Changelog IsyFact Dokumentation
 
+== Änderungen IsyFact 3.0.1
+
+- Anhebung der Versionen mehrerer Abhängigkeiten der IsyFact und durch den Produktkatalog vorgegebenen Abhängigkeiten.
+
+=== Änderungen im Produktkatalog
+
+include::isyfact-standards-doku:einstieg:page$produktkatalog/changelog.adoc[tag=release-3.0.1]
+
 == Änderungen IsyFact 3.0.0
 
 // Beginn übergreifende Änderungen
