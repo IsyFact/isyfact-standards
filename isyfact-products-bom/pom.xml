@@ -40,7 +40,7 @@
         <commons-validator.version>1.7</commons-validator.version>
         <jsoup.version>1.15.3</jsoup.version>
         <ApacheJMeter_core.version>2.13</ApacheJMeter_core.version>
-        <wiremock-jre8.version>2.32.0</wiremock-jre8.version>
+        <wiremock-jre8.version>2.35.2</wiremock-jre8.version>
         <dbunit.version>2.7.3</dbunit.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <tika-core.version>1.28.5</tika-core.version>
