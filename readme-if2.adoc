@@ -68,7 +68,7 @@ public class CoreConfig {}
 
 === 4.2 Konfiguration
 * Die Konfiguration erfolgt über `logback.xml` und zusätzliche Properties in `application.properties`.
-* Die Datei `logback.xml` liegt unter `src/main/resources`.
+* Die Datei `logback.xml` liegt unter `src/main/resources/config`.
 * Die Änderung der Log-Level erfolgt über `application.properties`, diese werden nicht in `logback.xml` angegeben.
 
 .logback.xml
