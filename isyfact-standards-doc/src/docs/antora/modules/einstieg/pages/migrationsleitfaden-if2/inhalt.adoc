@@ -164,7 +164,7 @@ Siehe xref:isy-persistence:nutzungsvorgaben/konfiguration.adoc#konfiguration-von
 
 * Die Konfiguration des Logging-Frameworks erfolgt über `logback.xml` und zusätzliche Properties in `application.properties`.
 +
-Die Datei `logback.xml` liegt unter `src/main/resources`.
+Die Datei `logback.xml` liegt unter `src/main/resources/config`.
 Die Änderung der Log-Level erfolgt über `application.properties`, diese werden nicht in `logback.xml` angegeben.
 +
 Siehe xref:isy-logging:nutzungsvorgaben/master.adoc#logback-konfiguration[Nutzungsvorgaben Logging - Kapitel: Logback-Konfiguration].
