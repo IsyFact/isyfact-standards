@@ -33,7 +33,7 @@ Logging;http://www.slf4j.org/[SLF4J];1.7.x;3.0.0;verbindlich;MIT License;"* Die 
 Logging;http://logback.qos.ch/[Logback];"<<spring-boot-dependencies,icon:leaf[]>> +
 (≥1.2.8)";2.4.0;verbindlich;"EPL v1.0,
 LGPL 2.1";Aufgrund von https://nvd.nist.gov/vuln/detail/CVE-2021-42550[CVE-2021-42550] muss mindestens Version 1.2.8 verwendet werden.
-Bean-Mapping;https://github.com/orika-mapper/orika[Orika];1.5.x;2.0.0;verbindlich;Apache License 2.0;Orika ist ein Runtime-Mapper, d.h. Mappings werden zur Laufzeit erzeugt.
+Bean-Mapping;https://mapstruct.org/[MapStruct];1.5.x;4.0.0;verbindlich;Apache License 2.0;MapStruct ist ein Annotation-Processor, d.h. Mappings werden zur Compilezeit erzeugt.
 Code-Generierung;https://github.com/mkarneim/pojobuilder[pojobuilder];4.x;2.4.0;empfohlen;PUBLIC DOMAIN;pojobuilder generiert Code nach dem Builder-Pattern für bestehende Klassen.
 Code-Generierung;https://projectlombok.org/[Lombok];<<spring-boot-dependencies,icon:leaf[]>>;2.4.0;empfohlen;MIT License;Lombok kann ebenfalls das Builder-Pattern umsetzen, besitzt aber darüber hinaus deutlich mehr Funktionen als pojobuilder.
 XML Binding;https://github.com/javaee/jaxb-v2[JAXB];<<spring-boot-dependencies,icon:leaf[]>>;2.2.0;verbindlich;CDDL + GPLv2 with classpath exception;
