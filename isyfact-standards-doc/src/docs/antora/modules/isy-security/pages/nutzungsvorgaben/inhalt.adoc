@@ -375,15 +375,22 @@ Für die korrekte Anbindung an den `IAM-Service` ist die Angabe der folgenden Ko
 |resourceserver.jwt.issuer-uri  |String |_keiner_ | Auto-Konfiguration des IAM-Services zur Validierung des Bearer Tokens, beispielsweise in der Form "http://<identity-provider>/auth/realms/<realm>/protocol/openid-connect/certs"
 |===
 
-Zusätzlich sind folgende Isyfact-spezifischen Konfigurationsparameter notwendig.
+Zusätzlich sind folgende Isyfact-spezifische Konfigurationsparameter notwendig.
 
 [[table-parameter-service-isyfact]]
 .Isyfact-spezifische Konfigurationsparameter einer Service-Schnittstelle
 [cols="3m,2m,2m,8",options="header"]
 |===
 |Parameter |Wertebereich |Default |Beschreibung
-|isy.security.rolesClaimName | String | _roles_ | Name des Claims im JWT Token der die Rollen enthält
+|isy.security.roles-claim-name | String | _roles_ | Name des Claims im JWT Token der die Rollen enthält
 |===
+
+[INFO]
+====
+Der in `isy.security.roles-claim-name` konfigurierte Wert unterstützt keine Verschachtelungen. Somit kann bspw. ein Claim `custom.roles` (Claim `custom` mit untergeordnetem Claim `roles`) nicht aufgelöst werden. Je nach verwendetem Identity Provider muss ggf. ein zusätzliches Mapping der Rollen auf den konfigurierten Wert erfolgen.
+
+Es ist sicherzustellen, dass das konfigurierte Roles-Claim auch vom Identity Provider befüllt werden.
+====
 
 [[konfiguration-von-rollen-und-rechten]]
 === Konfiguration von Rollen und Rechten
