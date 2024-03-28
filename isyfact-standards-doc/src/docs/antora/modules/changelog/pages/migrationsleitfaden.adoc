@@ -230,7 +230,13 @@ Eine Beschreibung der Parameter findet sich in den xref:isy-security:nutzungsvor
 <<table-sicherheit-konfiguration>> gibt eine Übersicht über die zu ändernden Parameter.
 Die `instances[n]` Notation aus den isy-sicherheit-keycloak Properties wird in isy-security nicht länger unterstützt.
 Jede Instanz soll durch eine sprechende und eindeutige `registration-id` ersetzt werden.
-Falls mehrere Instanzen für das gleiche Realm konfiguriert wurden, kann der `provider-name` pro Realm einmalig konfiguriert und für mehrer OAuth 2.0 Client Registrations (`registration-id`) wiederverwendet werden.
+Falls mehrere Instanzen für das gleiche Realm konfiguriert wurden, kann der `provider-name` pro Realm einmalig konfiguriert und für mehrere OAuth 2.0 Client Registrations (`registration-id`) wiederverwendet werden.
+
+[WARNING]
+====
+Falls Keycloak als Identity Provider verwendet wird, müssen für die Clients zusätzlich ein "Realm Role Mapper", der die Realm-Rollen in den in `isy.security.roles-claim-name` konfigurierten Claim schreibt (Default: `roles`), sowie ein "Audience Mapper",
+welcher das `aud`-Claim auf den Namen des verwendeten Clients setzt, konfiguriert werden.
+====
 
 Aus Platzgründen wurde in der ersten Spalte auf das `isy.sicherheit.keycloak` Präfix verzichtet.
 Analog wurde bei allen Properties der zweiten Spalte, die mit einem Punkt beginnen, auf das Präfix `spring.security.oauth2.client` verzichtet.

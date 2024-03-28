@@ -381,8 +381,15 @@ Zusätzlich sind folgende Isyfact-spezifischen Konfigurationsparameter notwendig
 [cols="3m,2m,2m,8",options="header"]
 |===
 |Parameter |Wertebereich |Default |Beschreibung
-|isy.security.rolesClaimName | String | _roles_ | Name des Claims im JWT Token der die Rollen enthält
+|isy.security.roles-claim-name | String | _roles_ | Name des Claims im JWT Token der die Rollen enthält
 |===
+
+[INFO]
+====
+Der in `isy.security.roles-claim-name` konfigurierte Wert unterstützt keine Verschachtelungen. Somit kann bspw. ein Claim `custom.roles` (Claim `custom` mit untergeordnetem Claim `roles`) nicht aufgelöst werden. Je nach verwendetem Identity Provider muss ggf. ein zusätzliches Mapping der Rollen auf den konfigurierten Wert erfolgen.
+
+Es ist sicherzustellen, dass das konfigurierte Roles-Claim auch vom Identity Provider befüllt werden.
+====
 
 [[konfiguration-von-rollen-und-rechten]]
 === Konfiguration von Rollen und Rechten
