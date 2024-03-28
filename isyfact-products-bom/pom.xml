@@ -105,6 +105,12 @@
                 <scope>provided</scope>
             </dependency>
 
+            <!-- Override version of spring-framework-bom imported through spring-boot-dependnecies -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-framework-bom</artifactId>
+                <version>5.3.33</version>
+            </dependency>
             <!-- Override spring-security-bom imported through spring-boot-dependnecies -->
             <dependency>
                 <groupId>org.springframework.security</groupId>
