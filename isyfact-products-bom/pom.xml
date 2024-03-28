@@ -289,6 +289,13 @@
                 <artifactId>commons-collections</artifactId>
                 <version>3.2.2</version>
             </dependency>
+            <!-- Ensure use of version 1.5 instead of 1.2.1 introduced through
+                 org.apache.myfaces.tomahawk:tomahawk20:1.1.14 to mitigate several CVE -->
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>1.5</version>
+            </dependency>
 
             <!-- Apache Tika -->
             <dependency>
