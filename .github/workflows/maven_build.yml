@@ -10,6 +10,7 @@ on:
     branches:
       - master
       - 'release/**'
+      - feature/ISY-969-sonarcloud_integration_for_feature_workflow
     paths-ignore:
       - 'isyfact-standards-doc'
 
@@ -27,14 +28,14 @@ jobs:
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-  Snapshot:
-    if: github.event_name == 'push'
-    needs: [Version, Maven]
-    uses: IsyFact/isyfact-standards/.github/workflows/maven_deploy_template.yml@master
-    with:
-      version: ${{ needs.Version.outputs.next-version }}
-      maven-opts: '-DaltDeploymentRepository=github::default::https://maven.pkg.github.com/IsyFact/isyfact-standards'
-      deploy-server-id: github
-    secrets:
-      DEPLOY_SERVER_USER_NAME: ${{ github.actor }}
-      DEPLOY_SERVER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#  Snapshot:
+#    if: github.event_name == 'push'
+#    needs: [Version, Maven]
+#    uses: IsyFact/isyfact-standards/.github/workflows/maven_deploy_template.yml@master
+#    with:
+#      version: ${{ needs.Version.outputs.next-version }}
+#      maven-opts: '-DaltDeploymentRepository=github::default::https://maven.pkg.github.com/IsyFact/isyfact-standards'
+#      deploy-server-id: github
+#    secrets:
+#      DEPLOY_SERVER_USER_NAME: ${{ github.actor }}
+#      DEPLOY_SERVER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
