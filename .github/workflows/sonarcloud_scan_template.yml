@@ -1,0 +1,83 @@
+name: SonarCloud Scan Template
+on:
+  workflow_call:
+    inputs:
+      jdk-version:
+        description: 'Version of jdk that is used.'
+        required: false
+        type: number
+        default: 17
+      maven-opts:
+        description: 'Additional arguments passed to maven'
+        required: false
+        type: string
+        default: ''
+      checkout-lfs:
+        description: 'Checkout files from Git LFS'
+        required: false
+        type: boolean
+        default: false
+      version:
+        description: 'Version used for maven CI friendly versions'
+        required: false
+        type: string
+        default: '0.0.0-SNAPSHOT'
+      sonar-skip:
+        description: 'Skip Sonar Scan job'
+        required: false
+        type: boolean
+        default: false
+    secrets:
+      SONAR_TOKEN:
+        description: 'Token to publish analysis result on sonar'
+        required: false
+      GH_PACKAGES_TOKEN:
+        description: 'Token for GitHub Packages'
+        required: false
+
+jobs:
+  sonarcloud_scan:
+    name: SonarCloud Scan
+    if: vars.SONAR_PROJECT_KEY && !cancelled() && !inputs.sonar-skip
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: ${{ inputs.checkout-lfs }}
+          fetch-depth: 0
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: temurin
+          cache: maven
+      - name: Sonar Cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Download Test Reports
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: Test Reports
+      - name: SonarCloud Scan
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: >
+          mvn $MAVEN_CLI_OPTS ${{ inputs.maven-opts }}
+          -Drevision=${{ inputs.version }}
+          -DskipTests -Dspotbugs.skip -Dcheckstyle.skip -Dmaven.javadoc.skip -Denforcer.skip
+          -Dsonar.host.url=${{ vars.SONAR_HOST_URL }}
+          -Dsonar.organization=${{ vars.SONAR_ORGANIZATION }}
+          -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }}
+          verify org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar
+      - name: Upload Metadata
+        uses: actions/upload-artifact@v4
+        with:
+          name: Sonar Metadata
+          path:
+            ${{ github.workspace }}/target/sonar/report-task.txt

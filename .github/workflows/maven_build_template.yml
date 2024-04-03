@@ -129,51 +129,51 @@ jobs:
             ${{ github.workspace }}/**/target/checkstyle-result.xml
              ${{ github.workspace }}/**/target/spotbugs*.xml
 
-  SonarScan:
-    runs-on: ubuntu-latest
-    # run also, if test or code quality jobs fail
-    if: vars.SONAR_PROJECT_KEY && !cancelled() && !inputs.sonar-skip
-    needs: [Test, CodeQuality]
-    steps:
-      - name: Checkout project
-        uses: actions/checkout@v4
-        with:
-          lfs: ${{ inputs.checkout-lfs }}
-          # Shallow clones should be disabled for a better relevancy of analysis
-          fetch-depth: 0
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          # Sonar Plugin requires Java 17 or higher
-          java-version: 17
-          distribution: temurin
-          cache: maven
-      - name: Sonar Cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
-      - name: Download Test Reports
-        continue-on-error: true
-        uses: actions/download-artifact@v4
-        with:
-          name: Test Reports
-      - name: SonarCloud Scan
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: >
-          mvn $MAVEN_CLI_OPTS ${{ inputs.maven-opts }} 
-          -Drevision=${{ inputs.version }}
-          -DskipTests -Dspotbugs.skip -Dcheckstyle.skip -Dmaven.javadoc.skip -Denforcer.skip
-          -Dsonar.host.url=${{ vars.SONAR_HOST_URL }}
-          -Dsonar.organization=${{ vars.SONAR_ORGANIZATION }} 
-          -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }}
-          verify sonar:sonar
-      - name: Upload Metadata
-        uses: actions/upload-artifact@v4
-        with:
-          name: Sonar Metadata
-          path:
-            ${{ github.workspace }}/target/sonar/report-task.txt
+#  SonarScan:
+#    runs-on: ubuntu-latest
+#    # run also, if test or code quality jobs fail
+#    if: vars.SONAR_PROJECT_KEY && !cancelled() && !inputs.sonar-skip
+#    needs: [Test, CodeQuality]
+#    steps:
+#      - name: Checkout project
+#        uses: actions/checkout@v4
+#        with:
+#          lfs: ${{ inputs.checkout-lfs }}
+#          # Shallow clones should be disabled for a better relevancy of analysis
+#          fetch-depth: 0
+#      - name: Set up JDK 17
+#        uses: actions/setup-java@v4
+#        with:
+#          # Sonar Plugin requires Java 17 or higher
+#          java-version: 17
+#          distribution: temurin
+#          cache: maven
+#      - name: Sonar Cache
+#        uses: actions/cache@v4
+#        with:
+#          path: ~/.sonar/cache
+#          key: ${{ runner.os }}-sonar
+#          restore-keys: ${{ runner.os }}-sonar
+#      - name: Download Test Reports
+#        continue-on-error: true
+#        uses: actions/download-artifact@v4
+#        with:
+#          name: Test Reports
+#      - name: SonarCloud Scan
+#        env:
+#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        run: >
+#          mvn $MAVEN_CLI_OPTS ${{ inputs.maven-opts }}
+#          -Drevision=${{ inputs.version }}
+#          -DskipTests -Dspotbugs.skip -Dcheckstyle.skip -Dmaven.javadoc.skip -Denforcer.skip
+#          -Dsonar.host.url=${{ vars.SONAR_HOST_URL }}
+#          -Dsonar.organization=${{ vars.SONAR_ORGANIZATION }}
+#          -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }}
+#          verify org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar
+#      - name: Upload Metadata
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: Sonar Metadata
+#          path:
+#            ${{ github.workspace }}/target/sonar/report-task.txt
