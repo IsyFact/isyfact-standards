@@ -10,9 +10,10 @@ on:
     branches:
       - master
       - 'release/**'
-      - feature/ISY-969-sonarcloud_integration_for_feature_workflow
     paths-ignore:
       - 'isyfact-standards-doc'
+  workflow_dispatch:
+
 
 jobs:
   Version:
