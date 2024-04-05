@@ -31,11 +31,6 @@
             </dependency>
             <dependency>
                 <groupId>de.bund.bva.isyfact</groupId>
-                <artifactId>isy-aufrufkontext</artifactId>
-                <version>${project.parent.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>de.bund.bva.isyfact</groupId>
                 <artifactId>isy-batchrahmen</artifactId>
                 <version>${project.parent.version}</version>
             </dependency>
