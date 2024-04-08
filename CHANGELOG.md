@@ -81,6 +81,7 @@
   * `FilterRegistrationBean<HttpHeaderNestedDiagnosticContextFilter>` überschreibbar
 - `ISY-655`: [isy-serviceapi-core] Beheben einer ClassNotFoundException beim Starten von Anwendungen mit IsyServiceApiCoreAutoConfiguration
 - `ISY-727`: [isy-batchrahmen] Behebung von SonarCloud Security Issues
+- `ISY-1061`: [isyfact-standards-doc] Ergänzung der Dokumentation zum Zurücksetzen der Korrelations-ID aus dem MdcHelper
 
 ## BREAKING CHANGE
 
