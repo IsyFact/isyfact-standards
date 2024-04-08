@@ -291,7 +291,6 @@ Da der Endpoint `health` seine Informationen aus einem Cache abfragt, welcher vo
 .Properties zur Aktivierung des Tasks
 [id="listing-task-activation",reftext="{listing-caption} {counter:listings }"]
 ----
-isy.task.autostart=true
 isy.task.default.host=
 ----
 
