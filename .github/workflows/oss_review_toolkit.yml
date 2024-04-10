@@ -1,6 +1,6 @@
 name: OSS Review Toolkit
 on:
-  workflow_call:
+  push:
 jobs:
   ort:
     runs-on: ubuntu-latest
