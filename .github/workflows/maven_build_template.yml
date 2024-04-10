@@ -146,11 +146,11 @@ jobs:
           lfs: ${{ inputs.checkout-lfs }}
           # fetch full git history for comprehensive SonarCloud analysis
           fetch-depth: 0
-      - name: Set up JDK ${{ inputs.jdk-version }}
+      - name: Set up JDK (17 or higher)
         uses: actions/setup-java@v4
         with:
-          # SonarCloud plugin requires JDK 17 or higher
-          java-version: ${{ inputs.jdk-version }}
+          # set JDK to jdk-version if it's specified and > 17, otherwise defaults to 17
+          java-version: ${{ inputs.jdk-version > 17 && inputs.jdk-version || 17 }}
           distribution: temurin
           cache: maven
       - name: Cache SonarCloud
