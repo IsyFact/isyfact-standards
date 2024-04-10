@@ -4,17 +4,17 @@ on:
     inputs:
       jdk-version:
         required: false
-        description: 'Version of jdk that is used.'
+        description: 'JDK version'
         type: number
         default: 17
       checkout-lfs:
           required: false
-          description: 'Checkout files from Git LFS'
+          description: 'Enable Git LFS checkout'
           type: boolean
           default: false
       snyk-organization:
         required: false
-        description: 'Snyk organization ID'
+        description: 'Snyk Organization ID'
         type: string
       snyk-reference:
         required: true
