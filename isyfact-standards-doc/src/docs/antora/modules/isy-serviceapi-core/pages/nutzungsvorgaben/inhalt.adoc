@@ -582,7 +582,7 @@ Falls die Spring-eigene Factory verwendet wird, muss die `RemoteInvocationFactor
 == Sicherheit
 
 Bei der Übertragung von Daten über eine HTTP-Invoker-Schnittstelle werden Java-Klassen serialisiert und deserialisiert.
-Wird bei der Deserialisierung die Integrität der Daten nicht sichergestellt, können Angreifer schadhaften Code über eine HTTP-Invoker-Schnittstelle einschleusen (siehe xref:glossary:literaturextern:inhalt.adoc#litextern-cwe-502[CWE-502]).
+Wird bei der Deserialisierung die Integrität der Daten nicht sichergestellt, können Angreifer schadhaften Code über eine HTTP-Invoker-Schnittstelle einschleusen (siehe xref:literaturextern:inhalt.adoc#litextern-cwe-502[CWE-502]).
 Das Betrifft alle HTTP-Invoker-Schnittstellen, die direkt von außerhalb einer Anwendungslandschaft benutzt werden können.
 
 Um die Sicherheit an dieser Stelle zu erhöhen, müssen HTTP-Invoker-Schnittstellen den `IsyHttpInvokerServiceExporter` verwenden.

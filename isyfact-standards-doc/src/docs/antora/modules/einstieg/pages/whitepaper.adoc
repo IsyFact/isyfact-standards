@@ -57,6 +57,6 @@ include::einstieg:page$produkte.adoc[tag=whitepaper]
 
 Die IsyFact-Standards sind an folgenden Orten dokumentiert:
 
-* xref:glossary:literaturextern:inhalt.adoc#litextern-url-isyfact-bva[Webseite des Bundesverwaltungsamts zur IsyFact],
-* xref:glossary:literaturextern:inhalt.adoc#litextern-url-isyfact-online-docs[Online-Dokumentation der IsyFact],
-* xref:glossary:literaturextern:inhalt.adoc#litextern-url-isyfact-github[Quellcode der IsyFact auf GitHub].
+* xref:literaturextern:inhalt.adoc#litextern-url-isyfact-bva[Webseite des Bundesverwaltungsamts zur IsyFact],
+* xref:literaturextern:inhalt.adoc#litextern-url-isyfact-online-docs[Online-Dokumentation der IsyFact],
+* xref:literaturextern:inhalt.adoc#litextern-url-isyfact-github[Quellcode der IsyFact auf GitHub].

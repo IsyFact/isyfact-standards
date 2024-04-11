@@ -9,6 +9,7 @@
 // Beginn übergreifende Änderungen
 - Umstellung auf Antora-Dokumentation.
 - Entfernung der Vorlageanwendungen.
+- Externe Verweise (literaturextern) von isy-documentation nach isyfact-standards verschoben.
 // Ende übergreifende Änderungen
 
 // Beginn Produktkatalog
