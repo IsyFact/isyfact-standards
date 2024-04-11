@@ -1,5 +1,0 @@
-= Migrationsleitfaden IsyFact 2
-
-include::glossary:licence:partial$licence.adoc[]
-
-include::inhalt.adoc[tags=inhalt]

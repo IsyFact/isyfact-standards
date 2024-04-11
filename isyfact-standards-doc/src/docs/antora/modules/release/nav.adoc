@@ -1,3 +1,2 @@
 * xref:releasenotes.adoc[]
 ** xref:migrationsleitfaden.adoc[]
-** xref:einstieg:migrationsleitfaden-if2/master.adoc[Migrationsleitfaden IsyFact 2]

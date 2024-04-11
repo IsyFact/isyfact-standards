@@ -1,3 +1,8 @@
+# 4.0.0
+
+- `ISY-305`: Implementierung von IsySecurityTokenUtil zum Auslesen von Attributen aus dem Bearer Token
+- `ISY-980`: Anpassung der Dokumentation aufgrund von Security-Umstellungen
+
 # 3.0.0
 
 - `IFS-2561`: Die Konfiguration via `rollenrechte.xml` erfolgt optional. 
