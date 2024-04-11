@@ -15,13 +15,12 @@ jobs:
     needs: [Build]
     env:
       COMMIT_SHA: ${{ github.sha }}
-      BRANCH_REF: release/3.x
       SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
       SONAR_PROJECT_KEY: ${{ vars.SONAR_PROJECT_KEY }}
     steps:
       - name: SonarQube Quality Gate Check
         run: |
-          ANALYSIS_ID=$( curl --silent "${SONAR_HOST_URL}/api/project_analyses/search?project=${SONAR_PROJECT_KEY}&branch=${BRANCH_REF/\//%2F}" | jq -r "first(.analyses[]|select(.revision==\"$COMMIT_SHA\").key)")
+          ANALYSIS_ID=$( curl --silent "${SONAR_HOST_URL}/api/project_analyses/search?project=${SONAR_PROJECT_KEY}" | jq -r "first(.analyses[]|select(.revision==\"$COMMIT_SHA\").key)")
           
           if [[ -z $ANALYSIS_ID ]]; then
             echo "No Sonar Scan result found for commit $COMMIT_SHA"
