@@ -3,13 +3,13 @@
 == Änderungen IsyFact 3.1.0
 
 - Isy-Konfiguration wurde als deprecated gekennzeichnet
+- Dokumentation: Externe Verweise (literaturextern) von isy-documentation nach isyfact-standards verschoben.
 
 == Änderungen IsyFact 3.0.0
 
 // Beginn übergreifende Änderungen
 - Umstellung auf Antora-Dokumentation.
 - Entfernung der Vorlageanwendungen.
-- Externe Verweise (literaturextern) von isy-documentation nach isyfact-standards verschoben.
 // Ende übergreifende Änderungen
 
 // Beginn Produktkatalog
