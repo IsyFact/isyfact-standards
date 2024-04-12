@@ -27,7 +27,7 @@ jobs:
     uses: IsyFact/isyfact-standards/.github/workflows/maven_deploy_template.yml@master
     with:
       jdk-version: 8
-      version: '2.5.0-SNAPSHOT' # required by template, does not affect snapshot's version without ci friendly versions
+      version: '2.5.1-SNAPSHOT' # required by template, does not affect snapshot's version without ci friendly versions
       maven-opts: '-DaltDeploymentRepository=github::default::https://maven.pkg.github.com/IsyFact/isyfact-standards'
       deploy-server-id: github
     secrets:
