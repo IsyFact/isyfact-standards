@@ -225,7 +225,7 @@ xref:isy-serviceapi-core:nutzungsvorgaben/inhalt.adoc#kompatibilitaet_if1_2_3[Nu
 [[sicherheit-konfiguration]]
 ==== Konfiguration
 
-Eine Beschreibung der Parameter findet sich in den xref:isy-security:nutzungsvorgaben/master.adoc#konfigurationsparameter[Nutzungsvorgaben Security] und der xref:glossary:literaturextern:inhalt.adoc#litextern-spring-security-properties[Dokumentation von Spring Security].
+Eine Beschreibung der Parameter findet sich in den xref:isy-security:nutzungsvorgaben/master.adoc#konfigurationsparameter[Nutzungsvorgaben Security] und der xref:literaturextern:inhalt.adoc#litextern-spring-security-properties[Dokumentation von Spring Security].
 
 <<table-sicherheit-konfiguration>> gibt eine Übersicht über die zu ändernden Parameter.
 Die `instances[n]` Notation aus den isy-sicherheit-keycloak Properties wird in isy-security nicht länger unterstützt.
@@ -395,7 +395,7 @@ de.bund.bva.isyfact.sicherheit.accessmgr.AuthentifizierungsErgebnis
 ==== Exceptions
 
 Die Exceptions aus dem Paket `de.bund.bva.isyfact.sicherheit.common.exception` entfallen.
-Sie werden durch Exceptions aus xref:glossary:literaturextern:inhalt.adoc#litextern-spring-security[Spring Security] ersetzt.
+Sie werden durch Exceptions aus xref:literaturextern:inhalt.adoc#litextern-spring-security[Spring Security] ersetzt.
 
 Eine Ausnahme davon bildet die Exception
 

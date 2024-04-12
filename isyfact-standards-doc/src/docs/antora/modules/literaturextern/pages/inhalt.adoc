@@ -1,0 +1,621 @@
+= Literaturverzeichnis: extern
+
+// tag::inhalt[]
+== externe Literatur/Links
+
+Die folgende Auflistung zeigt alle für die IsyFact-Dokumentation verwendeten externen Links.
+
+[[litextern-cc-licence]]
+Creative-Commons-Lizenz (Lizenzbedingungen)::
+https://creativecommons.org/licenses/by/4.0/legalcode.de
+
+[[litextern-cc-short]]
+Creative-Commons-Lizenz (Kurzfassung)::
+https://creativecommons.org/licenses/by/4.0/deed.de
+
+// W3C Link check: redirected; accepted
+[[litextern-url-isyfact-bva]]
+IsyFact (BVA)::
+http://isyfact.de
+
+[[litextern-url-isyfact-online-docs]]
+IsyFact (Online-Dokumentation)::
+https://isyfact.github.io
+
+[[litextern-url-isyfact-online-docs-source]]
+IsyFact (Quelle der Online-Dokumentation)::
+https://github.com/IsyFact/isyfact-standards/tree/master/isyfact-standards-doc
+
+[[litextern-url-isyfact-github]]
+IsyFact (GitHub)::
+https://github.com/IsyFact
+
+[[litextern-isyfact-online-docs-meta]]
+IsyFact (Online-Dokumentation: übergreifende Inhalte)::
+https://github.com/IsyFact/isy-documentation
+
+[[litextern-isyfact-antora]]
+IsyFact (Antora Playbook & Supplemental UI)::
+https://github.com/IsyFact/isyfact.github.io
+
+[[litextern-isyfact-antora-playbook]]
+IsyFact (Antora Playbook)::
+https://github.com/IsyFact/isyfact.github.io/blob/main/antora-playbook.yml
+
+[[litextern-isyfact-standards]]
+IsyFact (Open Source)::
+https://github.com/IsyFact/isyfact-standards
+
+[[litextern-string-latin-1-2]]
+String Latin 1.2::
+https://www.xoev.de/string-latin-4813
+
+[[litextern-string-latin-1-2-download]]
+String Latin 1.2 (Download)::
+https://www.xoev.de/downloads-2316#StringLatin
+
+[[litextern-cwe-502]]
+CWE-502::
+http://cwe.mitre.org/data/definitions/502.html
+
+[[litextern-semantic-versioning]]
+Semantic Versioning 2.0.0::
+https://semver.org/spec/v2.0.0.html
+// Zugriff am 05.03.2018
+
+[[litextern-vermeulen2000]]
+Allan Vermeulen, Scott W. Ambler, Greg Baumgardner, Eldon Metz, Trevor Misfeldt, Jim Shur, Patrick Thomson::
+The Elements of Java Style. 2000. Cambridge University
+
+[[litextern-ambler1999]]
+Writing Robust Java Code. The AmbySoft Inc. Coding Standards for Java v17.01d::
+http://www.ambysoft.com/downloads/javaCodingStandards.pdf
+
+[[litextern-bloch2008]]
+Joshua Bloch::
+Effective Java Second Edition. 2008. Addison Wesley
+
+[[litextern-rpm-packaging-guide]]
+RPM Packaging Guide::
+https://rpm-packaging-guide.github.io/#what-is-a-spec-file
+
+// AsciiDoc & Antora
+
+[[litextern-asciidoc]]
+What is AsciiDoc? Why do we need it?::
+https://asciidoctor.org/docs/what-is-asciidoc/
+
+[[litextern-asciidoctor-usermanual]]
+Asciidoctor User Manual::
+https://asciidoctor.org/docs/user-manual/
+
+[[litextern-asciidoc-syntax]]
+AsciiDoc Syntax Quick Reference::
+https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/
+
+[[litextern-AsciiDocTaggedRegions]]
+AsciiDoc: Include Content by Tagged Regions::
+https://docs.asciidoctor.org/asciidoc/latest/directives/include-tagged-regions/
+
+[[litextern-asciidoc-tutorial]]
+Tutorial: Using AsciiDoc and Asciidoctor to write documentation::
+https://www.vogella.com/tutorials/AsciiDoc/article.html
+
+[[litextern-asciidoc-recommended-practices]]
+AsciiDoc Recommended Practices::
+https://asciidoctor.org/docs/asciidoc-recommended-practices/
+
+[[litextern-antora]]
+Antora::
+https://antora.org
+
+[[litextern-antora-installationen]]
+Antora Installationen::
+https://docs.antora.org/antora/latest/install-and-run-quickstart/
+
+[[litextern-antora-playbook]]
+Antora Playbook::
+https://docs.antora.org/antora/latest/install-and-run-quickstart/#create-a-playbook
+
+[[litextern-antora-xref-macro-structure]]
+Antora: Xref macro structure::
+https://docs.antora.org/antora/latest/page/xref/#structure
+
+[[litextern-antora-komponente]]
+Antora-Dokumentations-Komponente::
+https://docs.antora.org/antora/latest/component-version-descriptor/
+
+[[litextern-antora-verzeichnisstruktur]]
+Antora-Verzeichnisstruktur::
+https://docs.antora.org/antora/latest/standard-directories/
+
+[[litextern-antora-modules]]
+Antora (Modules)::
+https://docs.antora.org/antora/latest/module-directories/#module
+
+[[litextern-jsr-310]]
+JSR 310 „Date and Time API“::
+https://jcp.org/en/jsr/detail?id=310
+
+[[litextern-maven-standard-directory-layout]]
+Apache Maven Standard Directory Layout::
+https://maven.apache.org/guides/introduction/introduction-to-the-standard-directory-layout.html
+
+[[litextern-sun1997-code-conventions]]
+Sun 1997::
+https://www.oracle.com/technetwork/java/codeconventions-150003.pdf
+
+[[litextern-synopse]]
+Synopse::
+https://de.wikipedia.org/wiki/Synopse
+
+[[litextern-unix]]
+Unix::
+https://de.wikipedia.org/wiki/Unix
+
+[[litextern-maven-central]]
+Maven Central::
+https://search.maven.org
+
+[[litextern-git-lfs]]
+Git LFS::
+https://docs.github.com/en/repositories/working-with-files/managing-large-files/installing-git-large-file-storage
+
+[[litextern-git]]
+Git::
+http://www.git-scm.com
+
+[[litextern-jpa-hibernate]]
+Java Persistence with Hibernate::
+Christian Bauer, Gavin King
+Java Persistence with Hibernate, Second Edition. 2015. Manning Publications
+
+[[litextern-jakarta-persistence]]
+Jakarta Persistence::
+https://jakarta.ee/specifications/persistence/3.0/jakarta-persistence-spec-3.0.html
+
+[[litextern-hibernate-inheritance]]
+Hibernate Documentation, Chapter 2.11. Inheritance::
+https://docs.jboss.org/hibernate/orm/5.6/userguide/html_single/Hibernate_User_Guide.html#entity-inheritance
+
+[[litextern-spring-data-jpa]]
+Spring Data JPA::
+https://docs.spring.io/spring-data/jpa/docs/2.7.x/reference/html/#repositories.query-methods.details
+
+[[litextern-spring]]
+Spring Framework::
+https://docs.spring.io/spring-framework/docs/5.3.x/reference/html/
+
+[[litextern-spring-aop-aspectj-around-advice]]
+Spring Framework: Around-Advice mit @AspectJ-Annotationen::
+https://docs.spring.io/spring-framework/docs/5.3.x/reference/html/core.html#aop-ataspectj-around-advice
+
+[[litextern-spring-task-scheduling-annotations]]
+Spring Framework: Annotationen zum Task Scheduling::
+https://docs.spring.io/spring-framework/docs/5.3.x/reference/html/integration.html#scheduling-annotation-support
+
+[[litextern-spring-cache-abstraction]]
+Spring Cache Abstraction::
+https://docs.spring.io/spring-framework/reference/integration/cache.html
+
+[[litextern-ehcache]]
+EHCache::
+https://www.ehcache.org/documentation/
+
+[[litextern-spring-boot-properties-conversion]]
+Spring Boot Dokumentation zu "Properties Conversion"::
+https://docs.spring.io/spring-boot/docs/2.7.x/reference/html/features.html#features.external-config.typesafe-configuration-properties.conversion
+
+[[litextern-collection-mapping]]
+Hibernate Documentation, Chapter 2.8. Collections::
+https://docs.jboss.org/hibernate/orm/5.6/userguide/html_single/Hibernate_User_Guide.html#collections
+//(Zugriff am 22.06.2023)
+
+[[litextern-hibernate-filter]]
+Hibernate Documentation, Chapter 5.9. Filtering entities and associations::
+https://docs.jboss.org/hibernate/orm/5.6/userguide/html_single/Hibernate_User_Guide.html#pc-filtering
+//(Zugriff am 22.06.2023)
+
+[[litextern-hibernate-toolset-guide]]
+Hibernate Documentation, Chapter 4. Schema generation::
+https://docs.jboss.org/hibernate/orm/5.6/userguide/html_single/Hibernate_User_Guide.html#schema-generation
+//(Zugriff am 22.06.2023)
+
+[[litextern-ucp]]
+Universal Connection Pool for JDBC Developer’s Guide::
+https://docs.oracle.com/cd/E11882_01/java.112/e12265/optimize.htm
+//(Zugriff am 03.02.2022)
+
+[[litextern-temporale-datenhaltung]]
+Zeitmaschine – Temporale Datenhaltung::
+https://web.archive.org/web/20040929014721/http://www.sigs.de/publications/js/2003/05/demelt_JS_05_03.pdf
+
+
+// W3C Link check: redirected/bad request; yet working
+[[litextern-it-grundschutz-bsi]]
+IT-Grundschutz des BSI::
+https://www.bsi.bund.de/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/it-grundschutz_node.html
+
+[[litextern-it-grundschutz-m471]]
+M 4.71 Restriktive Handhabung von Datenbank-Links::
+https://download.gsb.bund.de/BSI/ITGSK/IT-Grundschutz-Kataloge_2016_EL15_DE.pdf Seite 3285
+//(Zugriff am 03.02.2022)
+
+[[litextern-multitable-bulk-operations]]
+Multitable Bulk Operations::
+https://in.relation.to/2005/07/20/multitable-bulk-operations/
+//(Zugriff am 04.02.2022)
+
+[[litextern-v-modell-xt]]
+V-Modell XT::
+https://www.cio.bund.de/Webs/CIO/DE/digitaler-wandel/Achitekturen_und_Standards/V_modell_xt/v_modell_xt-node.html
+
+[[litextern-saga-5]]
+[[litextern-architekturrichtlinie]]
+Architekturrichtlinie für die IT des Bundes / SAGA::
+https://www.cio.bund.de/Webs/CIO/DE/digitaler-wandel/Achitekturen_und_Standards/IT_Architektur_Bund/IT_Architektur_Bund-node.html
+
+[[litextern-register-factory-bausteine]]
+Bausteine der Register Factory::
+https://www.bva.bund.de/DE/Das-BVA/Aufgaben/I/Informationstechnik/RegisterFactory/Produkt/produkt_rf_node.html#doc241990bodyText2
+
+// W3C Link check: redirected; accepted
+[[litextern-register-factory]]
+Register Factory::
+http://www.register-factory.de
+
+[[litextern-owasp]]
+OWASP Top 10::
+https://owasp.org/Top10/
+
+[[litextern-slf4j-fatal]]
+SLF4J FATAL::
+https://www.slf4j.org/faq.html#fatal
+
+[[litextern-slf4j-bridge-handler]]
+SLF4JBridgeHandler::
+http://www.slf4j.org/api/org/slf4j/bridge/SLF4JBridgeHandler.html
+
+[[litextern-identity_management]]
+Identity and Access Management::
+https://en.wikipedia.org/wiki/Identity_management
+
+[[litextern-code2000]]
+Code2000::
+http://www.code2000.net
+
+[[litextern-monitoring-systeme]]
+Micrometer::
+https://micrometer.io/docs
+
+[[litextern-monitoring-systeme-unterstuetzt]]
+Micrometer: Unterstützte Monitoring-Systeme::
+https://micrometer.io/docs/concepts#_supported_monitoring_systems
+
+[[litextern-micrometer-timed-annotation]]
+Micrometer: die `@Timed`-Annotation::
+https://micrometer.io/docs/concepts#_the_timed_annotation
+
+[[litextern-spring-boot-task-scheduling]]
+Task Scheduling von Spring Boot::
+https://docs.spring.io/spring-boot/docs/2.7.x/reference/html/features.html#features.task-execution-and-scheduling
+
+[[litextern-spring-boot-info-endpoint]]
+Dokumentation von Spring Boot zum Info-Endpoint::
+https://docs.spring.io/spring-boot/docs/2.7.x/reference/html/actuator.html#actuator.endpoints.info
+
+[[litextern-spring-boot-managed-dependencies]]
+Liste der Spring Boot Managed Dependencies::
+https://docs.spring.io/spring-boot/docs/2.7.x/reference/html/dependency-versions.html
+
+[[litextern-baeldung-spring-liveness-readiness-probes]]]
+Baeldung: Liveness and Readiness Probes in Spring Boot::
+https://www.baeldung.com/spring-liveness-readiness-probes
+
+[[litextern-medium-enable-liveness-readiness-probes]]
+Medium: How to enable Liveness and Readiness Probes in a Spring Boot Application::
+https://medium.com/@salarai.de/how-to-enable-liveness-and-readiness-probes-in-a-spring-boot-application-a40cf3423db3#:~:text=A%20readiness%20probe%20is%20another%20health%20check%20that,with%20another%20service%20in%20order%20to%20be%20used
+
+[[litextern-vs-code]]
+Visual Studio Code::
+https://code.visualstudio.com/
+
+//W3C Link check: broken; yet working
+[[litextern-vs-code-asciidoc-erweiterung]]
+AsciiDoc Erweiterung für Visual Studio Code::
+https://marketplace.visualstudio.com/items?itemName=asciidoctor.asciidoctor-vscode
+
+[[litextern-diagrams-net]]
+diagrams.net::
+https://www.diagrams.net
+
+[[litextern-diagrams-net-intellij]]
+IntelliJ mit diagrams.net::
+https://plugins.jetbrains.com/plugin/15635-diagrams-net-integration
+
+//W3C Link check: broken; yet working
+[[litextern-diagrams-net-vs-code]]
+diagrams.net Erweiterung für Visual Studio Code::
+https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio
+
+[[litextern-enterprise-architect]]
+Enterprise Architect::
+https://sparxsystems.com/products/ea/index.html
+
+[[litextern-asciidoctorj-extensions]]
+AsciidoctorJ Extensions::
+https://asciidoctor.org/docs/asciidoctorj/
+
+[[litextern-wiki-rest]]
+Wikipedia-Seite zu REST::
+https://de.wikipedia.org/wiki/Representational_State_Transfer
+
+[[litextern-dissertation-roy-fielding]]
+Dissertation von Roy Fielding::
+https://www.ics.uci.edu/~fielding/pubs/dissertation/fielding_dissertation_2up.pdf
+
+[[litextern-wikipedia-http-statuscode]]
+Wikipedia-Seite zu HTTP-Statuscodes::
+https://de.wikipedia.org/wiki/HTTP-Statuscode
+
+[[litextern-restapitutorial-uebersicht-http-statuscodes]]
+openapi-generator.tech::
+https://www.restapitutorial.com/httpstatuscodes.html
+
+[[litextern-openapi-generator-tech]]
+Übersicht HTTP-Statuscodes::
+https://openapi-generator.tech/docs/generators/
+
+[[litextern-swagger-request-validator]]
+Swagger Request Validator::
+https://bitbucket.org/atlassian/swagger-request-validator
+
+[[litextern-spring-security]]
+Spring Security::
+https://docs.spring.io/spring-security/reference/5.7/
+
+[[litextern-spring-webflux]]
+Spring WebFlux::
+https://docs.spring.io/spring-framework/docs/5.3.x/reference/html/web-reactive.html#webflux
+
+[[litextern-spring-oauth2-bearertoken-resolver]]
+Spring Homepage (Bearer Token Resolver)::
+https://docs.spring.io/spring-security/site/docs/5.2.x/reference/html/oauth2.html#oauth2resourceserver-bearertoken-resolver
+
+[[litextern-spring-content-negotiation]]
+Spring Homepage (Content Negotiation)::
+https://docs.spring.io/spring-security/site/docs/5.2.x/reference/html/oauth2.html#oauth2resourceserver-bearertoken-resolver
+
+[[litextern-spring-security-properties]]
+Spring Boot Security Properties::
+https://docs.spring.io/spring-boot/docs/2.7.x/reference/html/application-properties.html#appendix.application-properties.security
+
+[[litextern-spring-api-liveness]]
+Spring Boot API (LivenessState)::
+https://docs.spring.io/spring-boot/docs/2.6.0/api/org/springframework/boot/availability/LivenessState.html
+
+[[litextern-spring-liveness]]
+Spring Boot Liveness::
+https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.spring-application.application-availability.liveness
+
+[[litextern-spring-api-readiness]]
+Spring Boot API (ReadinessState)::
+https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/availability/ReadinessState.html
+
+[[litextern-spring-api-availability]]
+Spring Boot API (AvailabilityState)::
+https://docs.spring.io/spring-boot/docs/2.6.0/api/org/springframework/boot/availability/AvailabilityState.html
+
+[[litextern-kubernetes-liveness-readiness-probes]]
+Kubernetes (Liveness/Readiness Startup probes)::
+https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+
+[[litextern-oracle-availability]]
+Oracle (Availability)::
+https://docs.oracle.com/cd/A97335_02/ias.102/a95201/avail.htm
+
+[[litextern-aws-availability]]
+aws (Availability)::
+https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/availability.html
+
+[[litextern-oauth-homepage]]
+OAuth Homepage::
+https://oauth.net/2/
+
+[[litextern-swagger-editor-intellij]]
+Swagger Editor für IntelliJ::
+https://plugins.jetbrains.com/plugin/14837-openapi-swagger-editor
+
+[[litextern-swagger-editor-eclipse]]
+Swagger Editor für Eclipse::
+https://marketplace.eclipse.org/content/openapi-swagger-editor
+
+[[litextern-swagger-spezification]]
+Swagger Spezifikation::
+https://swagger.io/specification/
+
+[[litextern-prime-faces]]
+Prime Faces::
+https://www.primefaces.org/
+
+[id="litextern-prime-faces-icons"]
+Prime Faces Icons::
+https://www.primefaces.org/showcase/icons.xhtml
+
+[id="litextern-get-bootstrap"]
+Get Bootstrap::
+https://getbootstrap.com
+
+[id="litextern-bootstrap-docs"]
+Bootstrap Docs::
+http://bootstrapdocs.com
+
+[id="litextern-github-bootstrap-less"]
+Bootstrap Less::
+https://github.com/twbs/bootstrap/tree/master/less
+
+[id="litextern-github-bootstrap-mini-js"]
+Bootstrap Mini Js::
+https://github.com/twbs/bootstrap/tree/master/js
+
+[id="litextern-less-stylesheet"]
+Less Stylesheet::
+https://lesscss.org
+
+[id="litextern-dot-less"]
+dotLess::
+http://www.dotlesscss.org
+
+[id="litextern-less-app"]
+Less.app::
+http://incident57.com/less
+
+[id="litextern-grunt-js"]
+GruntJs::
+https://gruntjs.com
+
+[id="litextern-node-js"]
+NodeJs::
+https://nodejs.org/en/
+
+[id="litextern-bootstrap-grid-doc"]
+Bootstrap Grid Documentation::
+https://getbootstrap.com/docs/3.4/css/#grid
+
+[id="litextern-eternicode-bootstrap-datepicker"]
+Bootstrap Date Picker GitHub::
+https://github.com/eternicode/bootstrap-datepicker
+
+[id="litextern-eternicode-bootstrap-datepicker-docs"]
+Bootstrap Date Picker Docs::
+https://bootstrap-datepicker.readthedocs.io
+
+[id="litextern-snapappointments-bootstrap-auswahlbox"]
+Bootstrap Auswahlbox::
+https://developer.snapappointments.com/bootstrap-select/
+
+[id="litextern-jdewit-bootstrap-time-picker"]
+Bootstrap Timepicker::
+https://github.com/jdewit/bootstrap-timepicker/
+
+[id="litextern-liberation-font"]
+Liberation Font::
+https://github.com/liberationfonts/liberation-fonts
+
+[id="litextern-js-lint"]
+JSLint::
+https://www.jslint.com
+
+[id="litextern-firefox-esr"]
+Firefox Extended Support Release::
+https://www.mozilla.org/en-US/firefox/enterprise/
+
+[id="litextern-location-breadcrumb"]
+Location Breadcrumb::
+https://de.wikipedia.org/wiki/Brotkr%C3%BCmelnavigation
+
+[id="litextern-juicystudio-kontrast-analyse"]
+JuicyStudio Kontrast Analyse::
+https://juicystudio.com/services/luminositycontrastratio.php
+
+[id="litextern-color-kontrast-analyse"]
+Color Kontrast Analyse::
+https://www.tpgi.com/color-contrast-checker/
+
+[id="litextern-vicheck"]
+ViCheck::
+http://www.vischeck.com/
+
+[id="litextern-openapi-spezifikation"]
+OpenAPI Spezifikation::
+https://swagger.io/specification
+
+[[litextern-authorization-bearer-token]]
+RFC 6750 Authorization Bearer Token::
+https://datatracker.ietf.org/doc/html/rfc6750
+
+[[litextern-owasp10]]
+OWASP Top 10::
+https://owasp.org/Top10/
+
+[[litextern-jsf-wiki]]
+Jakarta Server Faces::
+https://de.wikipedia.org/wiki/Jakarta_Server_Faces
+
+[[litextern-swf]]
+Spring Web Flow::
+https://spring.io/projects/spring-webflow
+
+[[litextern-javaserver-faces]]
+JavaServer Faces::
+https://www.oracle.com/java/technologies/javaserverfaces.html
+
+[[litextern-tomahawk]]
+Apache Tomahawk::
+https://svn.apache.org/repos/asf/myfaces/site/publish/tomahawk/index.html
+
+[[litextern-selenium]]
+Selenium::
+https://selenium.dev/documentation/
+
+[[litextern-selenium-getting-started]]
+Selenium Getting Started::
+https://selenium.dev/documentation/webdriver/getting_started/first_script/
+
+[[litextern-selenium-finders]]
+Selenium Finders::
+https://selenium.dev/documentation/webdriver/elements/finders/
+
+[[litextern-selenium-locators]]
+Selenium Locators::
+https://selenium.dev/documentation/webdriver/elements/locators/
+
+[[litextern-highlight-js]]
+highlight.js::
+https://highlightjs.org/
+
+[[litextern-highlight-js-uebersicht]]
+highlight.js: Supported Languages::
+https://github.com/highlightjs/highlight.js/blob/main/SUPPORTED_LANGUAGES.md
+
+[[litextern-dsgvo]]
+DSGVO::
+https://eur-lex.europa.eu/legal-content/DE/TXT/PDF/?uri=CELEX:32016R0679&from=DE
+
+[[litextern-linux-locale-parameters]]
+Linux Locale Parameters::
+https://www.gnu.org/software/gettext/manual/html_node/Locale-Environment-Variables.html
+
+[[litextern-token-introspection]]
+RFC 7662: OAuth 2.0 Token Introspection::
+https://tools.ietf.org/html/rfc7662
+
+[[litextern-self-encoded-access-token]]
+OAuth: Self-Encoded Access Tokens::
+https://www.oauth.com/oauth2-servers/access-tokens/self-encoded-access-tokens
+
+[[litextern-validating-jwt-access-tokens]]
+RFC 9068: JSON Web Token (JWT) Profile for OAuth 2.0 Access Tokens - 4. Validating JWT Access Tokens::
+https://datatracker.ietf.org/doc/html/rfc9068#name-validating-jwt-access-token
+
+[[litextern-resource-server-jwt]]
+Spring-Security: OAuth 2.0 Resource Server JWT::
+https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/jwt.html
+
+[[litextern-rfc7519-json-web-token]]
+JSON Web Token Specification (RFC 7519)::
+https://tools.ietf.org/html/rfc7519
+
+[[litextern-rfc7519-jwt-claims]]
+JSON Web Token Specification (RFC 7519) - Section Claims::
+https://datatracker.ietf.org/doc/html/rfc7519#section-4
+
+[[litextern-iana-json-web-token]]
+Internet Assigned Numbers Authority: JSON Web Token::
+https://www.iana.org/assignments/jwt/jwt.xhtml
+
+[[litextern-openid-spec-claims]]
+OpenID Connect 1.0 Specs - Section Claims::
+https://openid.net/specs/openid-connect-core-1_0.html#Claims
+
+// end::inhalt[]

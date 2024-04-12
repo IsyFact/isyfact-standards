@@ -14,10 +14,10 @@ Außer diesem Handbuch sind Kenntnisse der AsciiDoc-Syntax erforderlich.
 Dieses Handbuch erklärt die Grundlagen der AsciiDoc-Syntax nicht weiter.
 Die folgenden Webseiten bieten ausführliche Tutorials und weiterführende Informationen an:
 
-* xref:glossary:literaturextern:inhalt.adoc#litextern-asciidoc[What is AsciiDoc? Why do we need it?] +
-* xref:glossary:literaturextern:inhalt.adoc#litextern-asciidoctor-usermanual[Asciidoctor User Manual] +
-* xref:glossary:literaturextern:inhalt.adoc#litextern-asciidoc-syntax[AsciiDoc Syntax Quick Reference] +
-* xref:glossary:literaturextern:inhalt.adoc#litextern-asciidoc-tutorial[Tutorial: Using AsciiDoc and Asciidoctor to write documentation]
+* xref:literaturextern:inhalt.adoc#litextern-asciidoc[What is AsciiDoc? Why do we need it?] +
+* xref:literaturextern:inhalt.adoc#litextern-asciidoctor-usermanual[Asciidoctor User Manual] +
+* xref:literaturextern:inhalt.adoc#litextern-asciidoc-syntax[AsciiDoc Syntax Quick Reference] +
+* xref:literaturextern:inhalt.adoc#litextern-asciidoc-tutorial[Tutorial: Using AsciiDoc and Asciidoctor to write documentation]
 ====
 
 
@@ -26,7 +26,7 @@ Die folgenden Webseiten bieten ausführliche Tutorials und weiterführende Infor
 
 Der Quelltext eines Dokuments bricht nach jedem Satz um.
 Er orientiert sich nicht anhand einer fixen Spaltenbreite.
-Diese Regel wird "ein Satz pro Zeile" (_one sentence per line_, s. xref:glossary:literaturextern:inhalt.adoc#litextern-asciidoc-recommended-practices[AsciiDoc Recommended Practices]) genannt und orientiert sich an der Art und Weise, wie Quellcode organisiert ist (eine Anweisung pro Zeile).
+Diese Regel wird "ein Satz pro Zeile" (_one sentence per line_, s. xref:literaturextern:inhalt.adoc#litextern-asciidoc-recommended-practices[AsciiDoc Recommended Practices]) genannt und orientiert sich an der Art und Weise, wie Quellcode organisiert ist (eine Anweisung pro Zeile).
 
 Die Anwendung der Regel "ein Satz pro Zeile" bringt unter anderem folgende Vorteile mit sich:
 
@@ -154,7 +154,7 @@ xref:glossary:glossary:master.adoc#glossar-isyfact[IsyFact]
 ----
 
 Für eine Erläuterung der einzelnen Abschnitte eines xref-Verweises wird auf die Antora-Dokumentation verwiesen:
-xref:glossary:literaturextern:inhalt.adoc#litextern-antora-xref-macro-structure[Beschreibung der Struktur des Xref-Makros].
+xref:literaturextern:inhalt.adoc#litextern-antora-xref-macro-structure[Beschreibung der Struktur des Xref-Makros].
 Hier werden dagegen die Konventionen für die Dokumentation der IsyFact beschrieben.
 
 [WARNING]
@@ -211,10 +211,10 @@ Ein Beispiel: +
 .externer Verweis
 [source,asciidoc]
 ----
-xref:glossary:literaturextern:inhalt.adoc#litextern-asciidoctor-usermanual[Asciidoctor User Manual]
+xref:literaturextern:inhalt.adoc#litextern-asciidoctor-usermanual[Asciidoctor User Manual]
 ----
 
-Der Link auf einen Literatureintrag sieht wie folgt aus: xref:glossary:literaturextern:inhalt.adoc#litextern-asciidoctor-usermanual[Asciidoctor User Manual].
+Der Link auf einen Literatureintrag sieht wie folgt aus: xref:literaturextern:inhalt.adoc#litextern-asciidoctor-usermanual[Asciidoctor User Manual].
 
 [[admonition-blocks]]
 == Admonition-Blocks
@@ -358,7 +358,7 @@ Dieser Inhalt ist mit einem Tag versehen und von Leerzeilen umgeben.
 // end::tag-name[]
 ----
 
-NOTE: Eine vollständige Übersicht über die Funktionsweise von Tags bietet die xref:glossary:literaturextern:inhalt.adoc#litextern-AsciiDocTaggedRegions[Dokumentation von AsciiDoc zu _tagged regions_].
+NOTE: Eine vollständige Übersicht über die Funktionsweise von Tags bietet die xref:literaturextern:inhalt.adoc#litextern-AsciiDocTaggedRegions[Dokumentation von AsciiDoc zu _tagged regions_].
 
 In der IsyFact-Dokumentation werden Tags genutzt, um Bestandteile zu Bündeln oder zu Referenzieren:
 
@@ -535,10 +535,10 @@ public class HalloWelt {
 ----
 
 Listings nutzen Syntax Highlighting, um ihren Inhalt farblich hervorzuheben.
-Als Produkt wird hierzu xref:glossary:literaturextern:inhalt.adoc#litextern-highlight-js[highlight.js] genutzt.
+Als Produkt wird hierzu xref:literaturextern:inhalt.adoc#litextern-highlight-js[highlight.js] genutzt.
 Ist für den Inhalt des Listings Syntax Highlighting verfügbar, muss es genutzt werden.
 
-NOTE: Die xref:glossary:literaturextern:inhalt.adoc#litextern-highlight-js-uebersicht[Übersicht aller unterstützten Inhalte] zeigt, für welche Inhalte Syntax Highlighting verfügbar ist.
+NOTE: Die xref:literaturextern:inhalt.adoc#litextern-highlight-js-uebersicht[Übersicht aller unterstützten Inhalte] zeigt, für welche Inhalte Syntax Highlighting verfügbar ist.
 
 Verweise auf Listings nutzen, wie üblich, den Anker.
 

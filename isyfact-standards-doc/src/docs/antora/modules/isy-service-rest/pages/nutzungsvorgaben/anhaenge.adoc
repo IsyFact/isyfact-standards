@@ -155,10 +155,10 @@ components:
 [[anhang-externe-literaturverweise]]
 == Externe Literaturverweise
 
-xref:glossary:literaturextern:inhalt.adoc#litextern-swagger-editor-intellij[Swagger Editor für IntelliJ]
+xref:literaturextern:inhalt.adoc#litextern-swagger-editor-intellij[Swagger Editor für IntelliJ]
 
-xref:glossary:literaturextern:inhalt.adoc#litextern-swagger-editor-eclipse[Swagger Editor für Eclipse]
+xref:literaturextern:inhalt.adoc#litextern-swagger-editor-eclipse[Swagger Editor für Eclipse]
 
-xref:glossary:literaturextern:inhalt.adoc#litextern-swagger-spezification[Swagger Spezifikation]
+xref:literaturextern:inhalt.adoc#litextern-swagger-spezification[Swagger Spezifikation]
 
 // end::inhalt[]

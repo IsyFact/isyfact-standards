@@ -14,7 +14,7 @@ Veröffentlicht wird die Online-Dokumentation auf Github Pages mithilfe von Gith
 [[grundlagen-asciidoc]]
 === AsciiDoc
 
-Die Online-Dokumentation wird in xref:glossary:literaturextern:inhalt.adoc#litextern-asciidoc[AsciiDoc] verfasst.
+Die Online-Dokumentation wird in xref:literaturextern:inhalt.adoc#litextern-asciidoc[AsciiDoc] verfasst.
 AsciiDoc ist textbasiert und bietet viele Möglichkeiten, Inhalte zu formatieren und strukturieren.
 Es eignet sich daher auch besonders gut dazu, in einem modernen Versionsverwaltungssystem parallel zu Quellcode o.ä. verwaltet zu werden.
 Für AsciiDoc gibt es zahlreiche Generatoren, um Quelldokumente in HTML, PDF, E-Book- oder Wiki-Formate umzuwandeln.
@@ -22,7 +22,7 @@ Für AsciiDoc gibt es zahlreiche Generatoren, um Quelldokumente in HTML, PDF, E-
 [[grundlagen-antora]]
 === Antora
 
-Die Online-Dokumentation wird mit xref:glossary:literaturextern:inhalt.adoc#litextern-antora[Antora] generiert.
+Die Online-Dokumentation wird mit xref:literaturextern:inhalt.adoc#litextern-antora[Antora] generiert.
 Antora erzeugt aus AsciiDoc-Quellen, die über mehrere Git-Repositories verteilt liegen können, eine gemeinsame, statische HTML-Seite, auch Projektseite genannt.
 Eine besondere Stärke von Antora ist die Git-Integration, die es ermöglicht, Branches und Tags zu verwenden, um verschiedene Versionen derselben Dokumentation zu erzeugen.
 
@@ -41,7 +41,7 @@ Diese Werkzeuge reichen aus, um eine xref:dokumentation/generierung-antora.adoc[
 Zum Erstellen und Bearbeiten von AsciiDoc-Quellen ist zusätzlich ein fähiger Editor nötig.
 Empfohlen seien an dieser Stelle:
 
-* xref:glossary:literaturextern:inhalt.adoc#litextern-vs-code[Visual Studio Code] zusammen mit der xref:glossary:literaturextern:inhalt.adoc#litextern-vs-code-asciidoc-erweiterung[Erweiterung für AsciiDoc],
+* xref:literaturextern:inhalt.adoc#litextern-vs-code[Visual Studio Code] zusammen mit der xref:literaturextern:inhalt.adoc#litextern-vs-code-asciidoc-erweiterung[Erweiterung für AsciiDoc],
 * Editoren von IDEs (u.a. IntelliJ IDEA oder Eclipse), sofern eine Unterstützung für AsciiDoc vorhanden ist.
 
 [[struktur-dokumentation]]
@@ -49,16 +49,16 @@ Empfohlen seien an dieser Stelle:
 Die Quellen der Online-Dokumentation der IsyFact verteilen sich auf mehrere Git-Repositories.
 Zur Bereitstellung der Projektseite nutzt die IsyFact zwei übergreifende Repositories:
 
-* xref:glossary:literaturextern:inhalt.adoc#litextern-isyfact-antora[icon:github[] isyfact.github.io] zur Ablage der globalen Konfiguration (Playbook, CI/CD-Build, ...) und zur Bereitstellung der erzeugten Projektseite,
-* xref:glossary:literaturextern:inhalt.adoc#litextern-isyfact-online-docs-meta[icon:github[] isy-documentation] zur Bereitstellung übergreifender Inhalte wie z.B. Lizenzhinweise, dem Glossar und einem Quellenverzeichnis.
+* xref:literaturextern:inhalt.adoc#litextern-isyfact-antora[icon:github[] isyfact.github.io] zur Ablage der globalen Konfiguration (Playbook, CI/CD-Build, ...) und zur Bereitstellung der erzeugten Projektseite,
+* xref:literaturextern:inhalt.adoc#litextern-isyfact-online-docs-meta[icon:github[] isy-documentation] zur Bereitstellung übergreifender Inhalte wie z.B. Lizenzhinweise, dem Glossar und einem Quellenverzeichnis.
 
-Die meisten Inhalte sind derzeit im zentralen Repository xref:glossary:literaturextern:inhalt.adoc#litextern-isyfact-standards[icon:github[] isyfact-standards] enthalten.
-Weitere Inhalte sind im xref:glossary:literaturextern:inhalt.adoc#litextern-isyfact-antora-playbook[Playbook] referenziert.
+Die meisten Inhalte sind derzeit im zentralen Repository xref:literaturextern:inhalt.adoc#litextern-isyfact-standards[icon:github[] isyfact-standards] enthalten.
+Weitere Inhalte sind im xref:literaturextern:inhalt.adoc#litextern-isyfact-antora-playbook[Playbook] referenziert.
 
 === Struktur des zentralen Repositories
 
-Die Dokumentation ist vollständig im Modul xref:glossary:literaturextern:inhalt.adoc#litextern-url-isyfact-online-docs-source[isyfact-standards-doc] enthalten.
-Sie unterteilt sich in xref:glossary:literaturextern:inhalt.adoc#litextern-antora-modules[Module], die sich an den Säulen der IsyFact bzw. an ihren Bausteinen orientieren.
+Die Dokumentation ist vollständig im Modul xref:literaturextern:inhalt.adoc#litextern-url-isyfact-online-docs-source[isyfact-standards-doc] enthalten.
+Sie unterteilt sich in xref:literaturextern:inhalt.adoc#litextern-antora-modules[Module], die sich an den Säulen der IsyFact bzw. an ihren Bausteinen orientieren.
 
 [[table-antora-modules]]
 .Module der Dokumentation der IsyFact-Standards
