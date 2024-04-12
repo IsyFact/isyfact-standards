@@ -1,6 +1,6 @@
 package de.bund.bva.isyfact.datetime.core;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.time.LocalDate;
 import java.util.Arrays;

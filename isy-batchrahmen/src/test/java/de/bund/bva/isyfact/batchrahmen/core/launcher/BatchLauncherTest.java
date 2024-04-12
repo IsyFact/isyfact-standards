@@ -1,6 +1,7 @@
 package de.bund.bva.isyfact.batchrahmen.core.launcher;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.net.URISyntaxException;

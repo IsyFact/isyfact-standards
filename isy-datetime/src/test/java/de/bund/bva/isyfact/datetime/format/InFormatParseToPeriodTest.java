@@ -1,6 +1,6 @@
 package de.bund.bva.isyfact.datetime.format;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.time.Period;
 import java.util.Arrays;

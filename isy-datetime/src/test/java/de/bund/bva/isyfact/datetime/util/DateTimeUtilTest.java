@@ -1,6 +1,9 @@
 package de.bund.bva.isyfact.datetime.util;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.time.Clock;
 import java.time.DateTimeException;
