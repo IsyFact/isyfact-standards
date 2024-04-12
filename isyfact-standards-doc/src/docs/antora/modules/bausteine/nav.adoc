@@ -55,7 +55,7 @@
 *** xref:isy-task:konzept.adoc[Konzept]
 **** xref:isy-task:konzept/erweiterung-spring.adoc[]
 **** xref:isy-task:konzept/integration-isyfact.adoc[]
-*** xref:isy-task:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
+*** xref:isy-task:nutzungsvorgaben.adoc[Nutzungsvorgaben]
 
 ** Überwachung
 *** xref:isy-ueberwachung:konzept/master.adoc[Konzept]

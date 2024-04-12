@@ -22,18 +22,24 @@ import java.util.List;
 import java.util.Properties;
 
 import de.bund.bva.isyfact.konfiguration.common.exception.KonfigurationDateiException;
+import de.bund.bva.isyfact.konfiguration.common.konstanten.EreignisSchluessel;
 import de.bund.bva.isyfact.konfiguration.common.konstanten.NachrichtenSchluessel;
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.logging.LogKategorie;
-import de.bund.bva.isyfact.konfiguration.common.konstanten.EreignisSchluessel;
 
 /**
  * Implementiert das Laden und Mergen von Property-Dateien. Über die Methode {@link #checkAndUpdate()} werden
  * geänderte Property-Dateien bei Bedarf neu eingelesen.
+ * <p>
+ * The module isy-konfiguration is deprecated and will be removed in a future release.
+ * Please use the built-in mechanism of the springframework instead.
+ * <p>
+ * https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.external-config
  *
- *
+ * @deprecated since IsyFact 3.1.0
  */
+@Deprecated
 public class ReloadablePropertyProvider {
 
     /**

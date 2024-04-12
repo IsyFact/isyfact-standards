@@ -73,8 +73,6 @@ Standardmäßig verwendet Hibernate:
 Standardmäßig soll für alle Assoziationen Lazy Loading verwendet werden.
 Bytecode-Manipulationen für Lazy Loading sollen nicht verwendet werden.
 
-Die Verwendung der Annotationen `@LazyToOne` und `@LazyCollection` ist zu vermeiden, falls man nicht die Option `LazyCollectionOption.EXTRA` für extra große Collections benötigt.
-
 [[optimistic-locking]]
 === Optimistisches Locking standardmäßig verwenden
 

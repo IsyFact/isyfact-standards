@@ -5,6 +5,7 @@
 
 // tag::release-3.0.0[]
 * `IFS-821`: Detailkonzept Datenzugriff aufgeteilt. Hibernate-spezifische Teile sind in einen eigenen Baustein "JPA/Hibernate" ausgelagert worden.
+* `IFS-1796`: Entfernung der Vorgabe zur Implementierung der Embeddable Annotation
 // end::release-3.0.0[]
 
 // *Änderungen IsyFact 2.4.0*

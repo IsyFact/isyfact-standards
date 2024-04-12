@@ -82,10 +82,3 @@ Idealerweise sollten die Entitäten lediglich Getter- und Setter-Methoden für d
 Jegliche Fachlogik muss im Anwendungskern implementiert werden.
 
 Zur Fachlogik gehören auch Validierungen.
-
-[[embeddables-vorgaben]]
-=== Vorgaben für `@Embeddable`-Entitäten
-
-Für JPA-Entitäten mit der Annotation `@Embeddable` müssen die Methoden `equals` und `hashCode` implementiert werden.
-Die Methoden müssen dafür sämtliche Attribute mit einbeziehen.
-Zusätzlich muss das Interface `Serializable` implementiert werden.

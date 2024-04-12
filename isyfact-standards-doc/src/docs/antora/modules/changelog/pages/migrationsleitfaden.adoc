@@ -54,6 +54,20 @@ Es sind die xref:isy-ueberwachung:nutzungsvorgaben/master.adoc[] zu IsyFact 3 zu
 [[kapitel-bausteine]]
 == Bausteine
 
+[[kapitel-konfiguration]]
+=== Konfiguration
+
+[WARNING]
+====
+Der Baustein `isy-konfiguration` ist mit der Version 3.1 als deprecated gekennzeichnet und wird nicht mehr weiter entwickelt. Er wird mit der Version 4 endgültig aus dem Projekt entfernt werden.
+====
+
+Hintergrund der Deprecation und der Entfernung des Bausteines ist, dass `isy-konfiguration` schon seit IsyFact 2 nicht mehr weiterentwickelt wird und stattdessen von Springframework bereit gestellte Mechanismen genutzt werden sollen.
+
+Die Dokumentation der Konfiguration mit Spring ist unter folgender Adresse zu finden:
+
+https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.external-config
+
 [[kapitel-batchrahmen]]
 === Batchrahmen
 
@@ -122,7 +136,7 @@ Die Bausteine `isy-sicherheit` und `isy-sicherheit-keycloak` werden durch `isy-s
 [[kapitel-task-scheduler]]
 === Task Scheduler
 
-In IsyFact 3.0 wurden mit der Umstellung auf `isy-security` die Nutzungsvorgaben zur xref:isy-task:nutzungsvorgaben/master.adoc#spring-konfiguration[Authentifizierung von Tasks] aktualisiert.
+In IsyFact 3.0 wurden mit der Umstellung auf `isy-security` die Nutzungsvorgaben zur xref:isy-task:nutzungsvorgaben.adoc#absicherung-von-tasks[Authentifizierung von Tasks] aktualisiert.
 Statt Benutzer, Passwort und BHKNZ (siehe <<task-properties-isy-sicherheit>>) muss in den Task Properties eine `oauth2ClientRegistrationId` konfiguriert werden (siehe <<task-properties-isy-security>>).
 
 [[task-properties-isy-sicherheit]]
@@ -216,7 +230,13 @@ Eine Beschreibung der Parameter findet sich in den xref:isy-security:nutzungsvor
 <<table-sicherheit-konfiguration>> gibt eine Übersicht über die zu ändernden Parameter.
 Die `instances[n]` Notation aus den isy-sicherheit-keycloak Properties wird in isy-security nicht länger unterstützt.
 Jede Instanz soll durch eine sprechende und eindeutige `registration-id` ersetzt werden.
-Falls mehrere Instanzen für das gleiche Realm konfiguriert wurden, kann der `provider-name` pro Realm einmalig konfiguriert und für mehrer OAuth 2.0 Client Registrations (`registration-id`) wiederverwendet werden.
+Falls mehrere Instanzen für das gleiche Realm konfiguriert wurden, kann der `provider-name` pro Realm einmalig konfiguriert und für mehrere OAuth 2.0 Client Registrations (`registration-id`) wiederverwendet werden.
+
+[WARNING]
+====
+Falls Keycloak als Identity Provider verwendet wird, müssen für die Clients zusätzlich ein "Realm Role Mapper", der die Realm-Rollen in den in `isy.security.roles-claim-name` konfigurierten Claim schreibt (Default: `roles`), sowie ein "Audience Mapper",
+welcher das `aud`-Claim auf den Namen des verwendeten Clients setzt, konfiguriert werden.
+====
 
 Aus Platzgründen wurde in der ersten Spalte auf das `isy.sicherheit.keycloak` Präfix verzichtet.
 Analog wurde bei allen Properties der zweiten Spalte, die mit einem Punkt beginnen, auf das Präfix `spring.security.oauth2.client` verzichtet.

@@ -160,8 +160,10 @@ Für weitere Details siehe xref:isy-persistence:nutzungsvorgaben/umsetzung-daten
 
 ====
 [WARNING]
-Die Bibliothek `isy-konfiguration` wird nicht mehr weiterentwickelt und ist nur im Ausnahmefall zu verwenden.
+Die Bibliothek `isy-konfiguration` ist veraltet, wird nicht mehr weiterentwickelt und wird in einem zukünftigen Release entfernt.
 ====
+
+include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
 
 Zur Bereitstellung von Konfigurationsparametern in der Anwendung kann die Bibliothek `isy-konfiguration` verwendet werden.
 
@@ -229,7 +231,7 @@ sorgt beim Aufruf dafür, dass alle Konfigurationsdateien auf Änderungen geprü
 
 Die zuvor genannte Methode muss regelmäßig aufgerufen werden.
 Dazu stellt die Bibliothek `isy-task` einen Task bereit.
-Die Konfiguration dieses Tasks ist im Dokument xref:isy-task:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Task-Scheduling] beschrieben.
+Die Konfiguration dieses Tasks ist in den xref:isy-task:nutzungsvorgaben.adoc[] beschrieben.
 
 [[reagieren-auf-konfigurationsaenderungen]]
 ===== Reagieren auf Konfigurationsänderungen

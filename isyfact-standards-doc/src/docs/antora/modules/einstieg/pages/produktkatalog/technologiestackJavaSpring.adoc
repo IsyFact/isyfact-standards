@@ -17,6 +17,7 @@ Produkte und ihre Versionen können in der Liste der xref:glossary:literaturexte
 
 // end::spring-boot-managed-dependencies[]
 
+[[Entwicklung]]
 == Entwicklung
 
 [.table_head_sticky.unordered_list_identation]
@@ -27,6 +28,7 @@ include::partial$/Produktkatalog_IsyFact_Produktvorgaben_Bibliotheken_Anwendungs
 |===
 --
 
+[[Test]]
 == Test
 
 [.table_head_sticky.unordered_list_identation]
