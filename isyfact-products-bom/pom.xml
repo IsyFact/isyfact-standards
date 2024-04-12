@@ -110,12 +110,16 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-framework-bom</artifactId>
                 <version>5.3.33</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
             <!-- Override spring-security-bom imported through spring-boot-dependencies -->
             <dependency>
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-bom</artifactId>
                 <version>5.7.12</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
