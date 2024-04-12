@@ -4,7 +4,7 @@
 
     <groupId>de.bund.bva.isyfact</groupId>
     <artifactId>isyfact-standards</artifactId>
-    <version>2.5.1-SNAPSHOT</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
 
     <name>IsyFact-Standards (Module- &amp; Parent-POM)</name>
@@ -61,6 +61,7 @@
 
     <properties>
         <!-- Build properties -->
+        <revision>0.0.0-SNAPSHOT</revision>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.compile.version>1.8</java.compile.version>
         <maven.build.timestamp.format>dd.MM.yyyy</maven.build.timestamp.format>
