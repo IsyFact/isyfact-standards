@@ -6,6 +6,7 @@
 - `ISY-651`: [isy-service-rest] Abschnitt zum Setzen von X-Correlation-Id in den HTTP-Header hinzugefügt
 - `ISY-546`: [isy-sicherheit] Abräumen des SecurityContexts im NutzerAuthentifizierungInterceptor
 - `ISY-650`: [isy-aufrufkontext] `FilterRegistrationBean<HttpHeaderNestedDiagnosticContextFilter>` überschreibbar
+- `ISY-1061`: [isyfact-standards-doc] Ergänzung der Dokumentation zum Zurücksetzen der Korrelations-ID aus dem MdcHelper
 
 # 2.4.4
 - `IFS-1997`: Fix CVE-2022-42889 durch Anhebung von 'commons-text' auf 1.10
