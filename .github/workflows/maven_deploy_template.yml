@@ -3,21 +3,21 @@ on:
   workflow_call:
     inputs:
       jdk-version:
-        description: 'Version of jdk that is used.'
+        description: 'JDK Version'
         required: false
         type: number
         default: 17
       version:
-        description: 'Version used for maven CI friendly versions'
+        description: 'Version for Maven CI Friendly Versions'
         required: true
         type: string
       maven-opts:
-        description: 'Additional arguments passed to maven'
+        description: 'Custom Maven arguments'
         required: false
         type: string
         default: ''
       checkout-lfs:
-        description: 'Checkout files from Git LFS'
+        description: 'Enable Git LFS checkout'
         required: false
         type: boolean
         default: false
@@ -56,10 +56,10 @@ on:
         description: 'User name for maven central for deployment'
       DEPLOY_SERVER_TOKEN:
         required: false
-        description: 'Token for maven central deployment'
+        description: 'Token for maven central for deployment'
       GH_PACKAGES_TOKEN:
         required: false
-        description: 'Token for GitHub Packages'
+        description: 'GitHub Packages token'
 
 env:
   MAVEN_CLI_OPTS: '--batch-mode --errors --fail-at-end -T 1C'
