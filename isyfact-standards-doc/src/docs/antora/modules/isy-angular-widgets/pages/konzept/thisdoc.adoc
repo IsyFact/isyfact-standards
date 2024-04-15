@@ -1,0 +1,11 @@
+= Konzept Angular: Einleitung
+
+// tag::inhalt[]
+[[einleitung]]
+== Einleitung
+
+NOTE: Beispiel
+
+[[aufbau-und-zweck-des-dokuments]]
+== Aufbau und Zweck des Dokuments
+// end::inhalt[]

@@ -1,0 +1,6 @@
+= Nutzungsvorgaben Angular: Inhalt
+
+// tag::inhalt[]
+[[verwendung-der-bibliothek-isy-angular-widgets]]
+== Verwendung der Bibliothek *_isy-angular-widgets_*
+// end::inhalt[]

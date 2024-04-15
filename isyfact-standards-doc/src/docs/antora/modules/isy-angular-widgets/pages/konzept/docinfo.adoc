@@ -1,0 +1,8 @@
+*Angular Bibliothek / IT-System*
+
+[cols="5,2,3",options="header"]
+|====
+|Name |Art |Version
+//ToDo: Version sollte auf 17.2.0 stehen?
+|isy-angular-widgets |Bibliothek |{page-component-version}
+|====

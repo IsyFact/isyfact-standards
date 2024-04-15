@@ -1,0 +1,14 @@
+= Nutzungsvorgaben Angular: Einleitung
+
+// tag::inhalt[]
+[[einleitung]]
+== Einleitung
+
+Im xref:konzept/master.adoc[] werden die Anforderungen und Vorgaben der IsyFact definiert, um eine einheitliche Umsetzung in der gesamten Anwendungslandschaft zu gewährleisten.
+
+Dieses Dokument beschreibt alle Aspekte, die bei der Entwicklung einer Anwendung zu berücksichtigen sind, um die definierten Anforderungen zu erfüllen.
+Die IsyFact stellt eine eigene xref:glossary:glossary:master.adoc#glossar-bibliothek[Bibliothek] (`isy-angular-widgets`) bereit, um die Anforderungen einheitlich umsetzen zu können.
+
+[[aufbau-und-zweck-des-dokuments]]
+== Aufbau und Zweck des Dokuments
+// end::inhalt[]

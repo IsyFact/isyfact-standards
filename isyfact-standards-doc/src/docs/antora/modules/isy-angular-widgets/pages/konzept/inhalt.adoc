@@ -1,0 +1,100 @@
+= Konzept Angular: Inhalt
+
+// tag::inhalt[]
+[[anforderungen]]
+== Anforderungen
+
+[[definitionen]]
+=== Definitionen
+
+[[definition1]]
+==== Definition1
+
+[[definition2]]
+==== Definition2
+
+[[definition3]]
+==== Definition3
+
+Beispiel-Tabelle
+
+.Abkürzungen für Zeiteinheiten
+[id="table-AbkZeitEin",reftext="{table-caption} {counter:tables}"]
+[cols="4,6",options="header"]
+|====
+|Abkürzung |Zeiteinheit
+|ms |Millisekunde
+|s |Sekunde
+|min |Minute
+|h |Stunde
+|d |Tag
+|a |Jahr
+|====
+
+[[darstellung]]
+=== Darstellung
+
+[[eingabe]]
+=== Eingabe
+
+[[eingabewert1]]
+==== Eingabewert1
+
+[[eingabewert2]]
+==== Eingabewert2
+
+[[persistierung]]
+=== Persistierung
+
+[[vorgaben]]
+== Vorgaben
+
+Die folgenden architektonischen und technischen Vorgaben beziehen sich auf die Umsetzung der
+in Kapitel <<anforderungen>> genannten Anforderungen in der zu diesem Baustein gehörenden Bibliothek.
+
+[[namenskonventionen]]
+=== Namenskonventionen
+
+Die Bibliothek besitzt die folgenden Maven-Koordinaten:
+
+* Group-ID:
+* Artifact-ID:
+
+Das Stammpackage für alle Klassen der Umsetzung setzt sich aus Group-ID und Artifact-ID zusammen und lautet: .
+
+[[bedeutung-der-standardbibliothek]]
+=== Bedeutung der Standardbibliothek
+
+Die Bibliothek muss zur Umsetzung der Anforderungen so stark wie möglich auf die im JSR 310 beschriebene API setzen.
+Falls einige der Anforderungen aus dem Kapitel <<anforderungen>> komplett durch die Funktionalität dieser API abgedeckt sind, wird in den xref:nutzungsvorgaben/master.adoc[Nutzungsvorgaben] die entsprechende Verwendung der API mit Verweis auf die Standarddokumentation knapp erläutert.
+Abweichungen von der API oder eigene Implementierungen bereits vorhandener Funktionalität müssen in den Nutzungsvorgaben begründet und beschrieben werden.
+
+[[verwendung-der-standardbibliothek]]
+=== Verwendung der Standardbibliothek
+
+Innerhalb von Anwendungen können alle Typen des „JSR 310: Date and Time API“ verwendet werden, insofern dieses Konzept an anderer Stelle die Nutzung nicht weiter einschränkt.
+
+Die Bibliothek muss sicherstellen, dass die gesamte Funktionalität für alle geeigneten Typen angeboten wird und an geeigneten Stellen sinnvolle Umwandlungen (d.h. ohne Verlust von Daten oder Genauigkeit) möglich sind.
+
+[[darstellung-eingabe]]
+=== Darstellung & Eingabe
+
+Die Bibliothek wird zur Umsetzung der Darstellung sowie Eingabe keine konkrete Technologie zur Erstellung
+grafischer Oberflächen unterstützen.
+Stattdessen muss sie die Funktionalität auf Basis der Standardbibliothek bereitstellen, damit sie leicht von
+GUI-Technologien verwendet werden kann.
+Zum Ausgeben von Werten und Einlesen von Eingaben muss die Bibliothek die Klasse `java.time.format.DateTimeFormatter`
+verwenden und, falls nötig, auf die in Deutschland gängigen Formate hin konfigurieren oder Funktionen anbieten, um
+gängige Formate leicht ausgeben und einlesen zu können.
+Eine Reihe von Standardformaten, welche die Bibliothek unterstützen muss, sind im Kapitel <<darstellung>> beschrieben.
+
+[[testunterstützung-1]]
+=== Testunterstützung
+
+Die Umsetzung der Testunterstützung geschieht über das Mocken der Klasse `java.time.Clock`.
+Dazu muss die Bibliothek bei der Erzeugung von Datums- und Zeitangaben die Varianten mit einer `Clock` als Parameter
+benutzen und in der Konfiguration eine `Clock` als Abhängigkeit definieren.
+Des Weiteren müssen sich auch Anwendungen an diese Vorgabe halten, um die Testunterstützung nutzen zu können.
+Insbesondere sind Aufrufe von `System.currentTimeMillis()` sowie der Varianten von `now()` auf Typen der Datums- und
+Zeittypen ohne Verwendung einer `Clock` bei Nutzung dieses Bausteins verboten!
+// end::inhalt[]
