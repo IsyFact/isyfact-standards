@@ -35,8 +35,8 @@
         <orika-core.version>1.5.4</orika-core.version>
         <pojobuilder.version>4.3.0</pojobuilder.version>
         <xstream.version>1.4.20</xstream.version>
-        <opencsv.version>5.5.2</opencsv.version>
-        <guava.version>31.0.1-jre</guava.version>
+        <opencsv.version>5.9</opencsv.version>
+        <guava.version>33.1.0-jre</guava.version>
         <commons-cli.version>1.5.0</commons-cli.version>
         <commons-net.version>3.10.0</commons-net.version>
         <commons-validator.version>1.7</commons-validator.version>
@@ -105,12 +105,35 @@
                 <scope>provided</scope>
             </dependency>
 
+            <!-- Override version of spring-framework-bom imported through spring-boot-dependencies -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-framework-bom</artifactId>
+                <version>5.3.33</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- Override spring-security-bom imported through spring-boot-dependencies -->
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-bom</artifactId>
+                <version>5.7.12</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring.boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <!-- Override nimbus-jose-jwt 9.22 to mitigate CVE-2023-52428 -->
+            <dependency>
+                <groupId>com.nimbusds</groupId>
+                <artifactId>nimbus-jose-jwt</artifactId>
+                <version>9.37.2</version>
             </dependency>
 
             <!-- Web service framework (SOAP): Metro
@@ -273,6 +296,21 @@
                 <groupId>commons-beanutils</groupId>
                 <artifactId>commons-beanutils</artifactId>
                 <version>${commons-beanutils.version}</version>
+            </dependency>
+
+            <!-- Ensure use of version 3.2.2 instead of 3.2.1 introduced through
+                 org.apache.myfaces.tomahawk:tomahawk20:1.1.14 to mitigate CVE-2015-7501 & CVE-2015-6420 -->
+            <dependency>
+                <groupId>commons-collections</groupId>
+                <artifactId>commons-collections</artifactId>
+                <version>3.2.2</version>
+            </dependency>
+            <!-- Ensure use of version 1.5 instead of 1.2.1 introduced through
+                 org.apache.myfaces.tomahawk:tomahawk20:1.1.14 to mitigate several CVE -->
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>1.5</version>
             </dependency>
 
             <!-- Apache Tika -->
