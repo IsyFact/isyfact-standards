@@ -5,7 +5,7 @@
 
 // tag::release-4.0.0[]
 - `IFS-2786`: Migrationsleitfaden IsyFact 2 entfernt, da große Teile obsolet wurden.
-- `IFS-2788`: Redundante Leitfaden zum Enterprise Architect (Teil der Systemspezifikation) entfernt.
+- `IFS-2788`: Redundanten Leitfaden zum Enterprise Architect (Teil der Systemspezifikation) entfernt.
 // end::release-4.0.0[]
 
 
