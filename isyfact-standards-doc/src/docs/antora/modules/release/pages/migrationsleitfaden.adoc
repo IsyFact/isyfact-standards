@@ -19,4 +19,7 @@ Die auf dieser Seite aufgeführten Hinweise sollen der Entwicklung bei der Umste
 [[kapitel-dokumentation]]
 == Dokumentation
 
-...
+=== Entfernt
+
+- Migrationsleitfaden IsyFact 2: Große Teile werden durch das Release obsolet.
+- Redundantes Handbuch Enterprise Architect: Dopplung als Teil der Vorlage Systemspezifikation entfernt.
