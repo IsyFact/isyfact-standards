@@ -267,7 +267,7 @@ Die Werte der Keys werden über den Info-Endpoint bereitgestellt.
 
 Bei Bedarf können weitere statische Informationen durch zusätzliche Konfiguration von der Anwendung bereitgestellt werden.
 
-NOTE: Weiterführende Informationen enthält die xref:glossary:literaturextern:inhalt.adoc#litextern-spring-boot-info-endpoint[Dokumentation von Spring Boot zum Info-Endpoint].
+NOTE: Weiterführende Informationen enthält die https://docs.spring.io/spring-boot/docs/2.7.x/reference/html/actuator.html#actuator.endpoints.info[Dokumentation von Spring Boot zum Info-Endpoint].
 
 [[konfiguration-und-absicherung-von-endpoints]]
 ==== Konfiguration und Absicherung von Endpoints
@@ -520,7 +520,7 @@ Diese sind mit der IsyFact 3.0 ausschließlich konzeptionell beschrieben und nic
 [[auslesen-von-liveness-und-readiness-probes]]
 ===== Auslesen von Liveness und Readiness Probes
 
-_Liveness_ und _Readiness_ Probes können aktiviert werden durch (vgl. xref:glossary:literaturextern:inhalt.adoc#litextern-baeldung-spring-liveness-readiness-probes[Baeldung: Liveness und Readiness Probes in Spring Boot]):
+_Liveness_ und _Readiness_ Probes können aktiviert werden durch (vgl. https://www.baeldung.com/spring-liveness-readiness-probes[Baeldung: Liveness und Readiness Probes in Spring Boot]):
 
 [[listing-enable-liveness-readiness-states]]
 [source,properties]
@@ -539,15 +539,15 @@ Andernfalls könnte es sein, dass einem Fehlschlagen eines externen Systems (dat
 Der innere Zustand einer Spring Boot Application wird hauptsächlich über Springs `ApplicationContext` dargestellt.
 Wenn der `ApplicationContext` erfolgreich gestartet ist, geht Spring Boot davon aus, dass die Anwendung in einem korrekten Zustand ist.
 Die Anwendung wird als alive betrachtet, sobald der `Context` aufgefrischt wird
-(vgl. xref:glossary:literaturextern:inhalt.adoc#litextern-spring-liveness[Spring Boot Liveness]).
+(vgl. https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.spring-application.application-availability.liveness[Spring Boot Liveness]).
 
-Neben dem funktionierenden `ApplicationContext` ist der _Liveness_-Zustand von weiteren, anwendungsspezifische Komponenten abhängig und muss entsprechend aktualisiert werden (vgl. xref:glossary:literaturextern:inhalt.adoc#litextern-baeldung-spring-liveness-readiness-probes[Baeldung: Liveness und Readiness Probes in Spring Boot]).
+Neben dem funktionierenden `ApplicationContext` ist der _Liveness_-Zustand von weiteren, anwendungsspezifische Komponenten abhängig und muss entsprechend aktualisiert werden (vgl. https://www.baeldung.com/spring-liveness-readiness-probes[Baeldung: Liveness und Readiness Probes in Spring Boot]).
 
 [[update-des-readiness-states]]
 ===== Update des Readiness States
 
 Für den *Readiness State* kann die Kommunikation durch Rest Aufrufe geprüft werden. D. h. _Readiness_ wird durch von Spring Boot bereitgestellte _Readiness_-Probes sichergestellt. Das System ist z. B. bei einem http 200 Ergebnis ready. Die Probes können wiederum durch einen Task-Scheduler durchgeführt werden (vgl.
-xref:glossary:literaturextern:inhalt.adoc#litextern-medium-enable-liveness-readiness-probes[Medium: Liveness und Readiness Probes]).
+https://medium.com/@salarai.de/how-to-enable-liveness-and-readiness-probes-in-a-spring-boot-application-a40cf3423db3[Medium: Liveness und Readiness Probes]).
 
 
 [[anbindung-eines-monitoring-systems]]
@@ -567,7 +567,7 @@ Soll beispielweise _Prometheus_ angebunden werden, muss die folgende Abhängigke
 ----
 
 Häufig ist keine weitere Konfiguration notwendig, da die Anbindung durch Spring Boot automatische konfiguriert wird.
-Die Konfiguration für die unterstützten Monitoring-System ist in xref:glossary:literaturextern:inhalt.adoc#litextern-monitoring-systeme[Monitoring-Systeme] beschrieben.
+Die Konfiguration für die unterstützten Monitoring-Systeme ist in https://micrometer.io/docs/[Monitoring-Systeme] beschrieben.
 
 [[anwendungen-deaktivierbar-machen]]
 === Anwendungen deaktivierbar machen

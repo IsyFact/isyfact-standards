@@ -10,6 +10,7 @@
 - `ISY-305`: [isy-security] Implementierung von IsySecurityTokenUtil zum Auslesen von Attributen aus dem Bearer Token
 - `ISY-1040`: [isyfact-standards-doc] Anpassung des logback.xml-Konfigurationspfads im IF2-Migrationsleitfaden
 - `IFS-2786`: [isyfact-standards-doc] Migrationsleitfaden IsyFact 2 entfernt
+- `IFS-2784`: [isyfact-standards-doc] Externe Verweise direkt verlinkt statt über literaturextern und URLs korrigiert
 # 3.0.0
 - `ISY-653` : Erweitern des `TimeoutWiederholungHttpInvokerRequestExecutor` um die Token-Beschaffung aus dem Security Context bei Nichtverfügbarkeit des `AufrufKontextVerwalter`.
 - `ISY-183`: [isyfact-standards-doc] Migrationsleitfaden zur Entfernung der Bridge-Module

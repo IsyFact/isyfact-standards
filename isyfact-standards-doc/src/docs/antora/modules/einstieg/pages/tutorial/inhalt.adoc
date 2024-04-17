@@ -7,7 +7,7 @@
 [[bezug-isyfact]]
 == Bezug und Nutzung der IsyFact
 
-Alle Bibliotheken der IsyFact stehen über xref:glossary:literaturextern:inhalt.adoc#litextern-maven-central[Maven Central] zum Download bereit.
+Alle Bibliotheken der IsyFact stehen über https://search.maven.org[Maven Central] zum Download bereit.
 Zur Nutzung der Bibliotheken in der Anwendungsentwicklung steht ein zentrales BOM (Bill Of Materials) zur Verfügung, das Teil der Maven-Konfiguration (`pom.xml`) wird:
 
 .Einbindung des {ifs-bom}
@@ -133,7 +133,7 @@ Dieses muss anschließend noch bearbeitet werden.
 
 NOTE: `hbm2ddl` ist Teil der von Hibernate bereitgestellten Werkzeuge.
 Nutzungsdokumentation unter:
-xref:glossary:literaturextern:inhalt.adoc#litextern-hibernate-toolset-guide[Hibernate Toolset Guide]
+https://docs.jboss.org/hibernate/orm/5.6/userguide/html_single/Hibernate_User_Guide.html#schema-generation[Hibernate Toolset Guide]
 
 [[einbinden-der-bibliotheken]]
 ==== Einbinden der Bibliotheken
@@ -275,7 +275,7 @@ include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
 Der ab IF 3.0 eingesetzte neue Baustein `isy-security` wird keine HTTPInvoker Schnittstellen mehr nativ unterstützen und daher sollen diese ab IF 3.0 nicht mehr verwendet werden.
 ****
 
-Dieser Abschnitt beschreibt die Realisierung von HTTP Invoker Schnittstellen (siehe xref:glossary:literaturextern:inhalt.adoc#litextern-spring[Spring]).
+Dieser Abschnitt beschreibt die Realisierung von HTTP Invoker Schnittstellen (siehe https://docs.spring.io/spring-framework/docs/5.3.x/reference/html/[Spring Framework]).
 HTTP Invoker Schnittstellen sind interne Service-Schnittstellen, die innerhalb der Anwendungslandschaft durch andere Anwendungen genutzt werden dürfen.
 
 [NOTE]

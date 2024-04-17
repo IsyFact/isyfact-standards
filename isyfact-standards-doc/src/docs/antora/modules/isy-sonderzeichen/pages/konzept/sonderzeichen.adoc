@@ -29,21 +29,21 @@ An die Verarbeitung von Sonderzeichen nach den IsyFact-Standards bestehen die fo
 
 * Prinzipiell (technisch) muss jedes Sonderzeichen nutzbar sein.
 * Jedes System nach IsyFact-Standards muss die Sonderzeichen in gleicher Weise verarbeiten können.
-* Nach Erlass des BMI ist für das Personenstands-, Melde- und Ausländerwesen die Verarbeitung sämtlicher Zeichen gem. xref:glossary:literaturextern:inhalt.adoc#litextern-owasp[OWASP Top 10 Project] vorgegeben.
+* Nach Erlass des BMI ist für das Personenstands-, Melde- und Ausländerwesen die Verarbeitung sämtlicher Zeichen gem. https://owasp.org/Top10/[OWASP Top 10 Project] vorgegeben.
 Weder mehr noch weniger Zeichen darf/muss das System verarbeiten können.
 
 [[festlegung-des-zeichensatzes-und-der-codierung]]
 == Festlegung des Zeichensatzes und der Codierung
 
-Laut der xref:glossary:literaturextern:inhalt.adoc#litextern-architekturrichtlinie[Architekturrichtlinie für die IT des Bundes - Technische Spezifikation zur Architekturrichtlinie (Version 2020)] soll der Zeichensatz DIN SPEC 91379 (auch String.Latin 1.2) in der UTF-8-Codierung verwendet werden.
+Laut der https://www.cio.bund.de/Webs/CIO/DE/digitaler-wandel/Achitekturen_und_Standards/IT_Architektur_Bund/IT_Architektur_Bund-node.html[Architekturrichtlinie für die IT des Bundes - Technische Spezifikation zur Architekturrichtlinie (Version 2020)] soll der Zeichensatz DIN SPEC 91379 (auch String.Latin 1.2) in der UTF-8-Codierung verwendet werden.
 Das BMI hat als Rahmenbedingung für seinen Verantwortungsbereich festgelegt, für die Zeichencodierung in neuen Systemen ausschließlich UTF-8 zu nutzen.
 Dieser Zeichensatz stellt ausreichend viele der weltweit existierenden Buchstaben, Ziffern und Symbole zur Verfügung, um Daten in internationalen Schreibweisen abbilden zu können.
 
-Gemäß den Anforderungen des String.Latin Zeichensatzes des BMI xref:glossary:literaturextern:inhalt.adoc#litextern-owasp[OWASP Top 10 Project] soll die IsyFact genau diesen Zeichensatz unterstützen.
+Gemäß den Anforderungen des String.Latin Zeichensatzes des BMI https://owasp.org/Top10/[OWASP Top 10 Project] soll die IsyFact genau diesen Zeichensatz unterstützen.
 Nach Veröffentlichung der DIN Norm 91379 soll diese die DIN SPEC 91379 ersetzen.
 Daher wird festgelegt, dass für IsyFact-Standard-basierte Anwendungen der Zeichensatz DIN Norm 91379 in der UTF-8-Codierung zu verwenden ist.
 
-NOTE: Die Webseiten der KoSIT bieten weitere Informationen zu xref:glossary:literaturextern:inhalt.adoc#litextern-string-latin-1-2[String.Latin 1.2] sowie einen xref:glossary:literaturextern:inhalt.adoc#litextern-string-latin-1-2-download[Download] der entsprechenden Spezifikation.
+NOTE: Die Webseiten der KoSIT bieten weitere Informationen zu https://www.xoev.de/string-latin-4813[String.Latin 1.2] sowie einen https://www.xoev.de/downloads-2316#StringLatin[Download] der entsprechenden Spezifikation.
 
 [[transformation-von-sonderzeichen]]
 == Transformation von Sonderzeichen
