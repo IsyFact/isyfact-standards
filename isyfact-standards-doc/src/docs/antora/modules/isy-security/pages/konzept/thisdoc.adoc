@@ -8,9 +8,9 @@ Sicherheit ist ein zentrales Thema einer jeder  xref:glossary:glossary:master.ad
 Bei der Umsetzung von Geschäftsanwendungen in IT-Systeme wird ein Großteil der Anforderungen an die Sicherheit durch Maßnahmen der IT-Sicherheit abgedeckt.
 Die IsyFact richtet sich beim Thema Sicherheit nach behördlichen Standards sowie De-Facto-Standards aus der Industrie:
 
-* xref:glossary:literaturextern:inhalt.adoc#litextern-it-grundschutz-bsi[IT-Grundschutz]
-* xref:glossary:literaturextern:inhalt.adoc#litextern-owasp[OWASP Top Ten Project]
-* xref:glossary:literaturextern:inhalt.adoc#litextern-oauth-homepage[OAuth 2.0 Homepage]
+* https://www.bsi.bund.de/DE/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/IT-Grundschutz/it-grundschutz_node.html[IT-Grundschutz BSI]
+* https://owasp.org/Top10/[OWASP Top Ten Project]
+* https://oauth.net/2/[OAuth 2.0 Homepage]
 
 Allgemeine xref:blaupausen:referenzarchitektur/master.adoc#prinzipien-der-sicherheitsarchitektur[Prinzipien der Sicherheitsarchitektur] werden im Dokument zur xref:blaupausen:referenzarchitektur/master.adoc[Referenzarchitektur] beleuchtet.
 Dieses Dokument konzentriert sich auf die konzeptionellen Aspekte der Authentifizierung und Autorisierung.

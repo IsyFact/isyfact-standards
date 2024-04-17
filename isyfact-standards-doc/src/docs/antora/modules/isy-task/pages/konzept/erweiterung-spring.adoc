@@ -38,7 +38,7 @@ public class ExampleTasks {
 Der größte Vorteil des Ansatzes von Spring ist die Einfachheit der Verwendung für die Entwicklung.
 Diesen Vorteil nutzt der Baustein Task Scheduling vollständig aus, indem er sich nahtlos in diesen Ansatz integriert.
 
-NOTE: Mehr Informationen zu dem Thema finden sich in der xref:glossary:literaturextern:inhalt.adoc#litextern-spring-boot-task-scheduling[Dokumentation über Task Scheduling von Spring] sowie in der xref:glossary:literaturextern:inhalt.adoc#litextern-spring-task-scheduling-annotations[Dokumentation über die Annotationen zum Scheduling des Spring Frameworks].
+NOTE: Mehr Informationen zu dem Thema finden sich in der https://docs.spring.io/spring-boot/docs/2.7.x/reference/html/features.html#features.task-execution-and-scheduling[Dokumentation über Task Scheduling von Spring] sowie in der https://docs.spring.io/spring-framework/docs/5.3.x/reference/html/integration.html#scheduling-annotation-support[Dokumentation über die Annotationen zum Scheduling des Spring Frameworks].
 
 == Erweiterung des Task Scheduling
 
@@ -55,7 +55,7 @@ Dieser ist dafür zuständig:
 .Ausführung eines Tasks mit dem Baustein Task Scheduling
 image::isy-task:konzept/around-aspect-ablauf.dn.svg[]
 
-NOTE: Mehr Informationen zu Around Advices (und zu Spring AOP) finden sich in der xref:glossary:literaturextern:inhalt.adoc#litextern-spring-aop-aspectj-around-advice[Dokumentation des Spring Frameworks].
+NOTE: Mehr Informationen zu Around Advices (und zu Spring AOP) finden sich in der https://docs.spring.io/spring-framework/docs/5.3.x/reference/html/core.html#aop-ataspectj-around-advice[Dokumentation des Spring Frameworks].
 
 Neben dem Advice gibt es für jeden Task eine eigene Konfiguration sowie eine globale Konfiguration mit Standardwerten für alle Tasks.
 Hierüber lassen sich die xref:isy-task:konzept/integration-isyfact.adoc[integrierten IsyFact-Bausteine] und der Task selbst konfigurieren.
