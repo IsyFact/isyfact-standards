@@ -58,8 +58,6 @@ import de.bund.bva.isyfact.security.oauth2.client.Authentifizierungsmanager;
 
 /**
  * Implementation of the 'Batchrahmen-Funktionalitaet'.
- *
- * @param <T> is the type of 'AufrufKontextes' to be used.
  */
 public class BatchrahmenImpl implements Batchrahmen, InitializingBean,
         ApplicationContextAware, DisposableBean {
