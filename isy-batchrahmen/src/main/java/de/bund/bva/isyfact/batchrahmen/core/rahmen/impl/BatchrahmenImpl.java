@@ -16,6 +16,7 @@
  */
 package de.bund.bva.isyfact.batchrahmen.core.rahmen.impl;
 
+import java.time.Duration;
 import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
@@ -67,6 +68,11 @@ public class BatchrahmenImpl implements Batchrahmen, InitializingBean,
      * Logger.
      */
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(BatchrahmenImpl.class);
+
+    /**
+     * Default time frame before token expiry in seconds during which a token is considered as already expired.
+     */
+    private static final long DEFAULT_TOKEN_EXPIRATION_TIME_OFFSET = 60;
 
     /**
      * Access to the EntityManager.
@@ -161,11 +167,16 @@ public class BatchrahmenImpl implements Batchrahmen, InitializingBean,
             // Initialization phase
             this.batchLaeuft = true;
 
-            try {
-                String oauth2ClientRegistrationId = verarbInfo.getKonfiguration().getAsString(KonfigurationSchluessel.PROPERTY_BATCH_OAUTH2_CLIENT_REGISTRATION_ID);
-                authentifizierungsmanagerOptional.ifPresent(am -> am.authentifiziere(oauth2ClientRegistrationId));
+            long expirationOffsetSeconds = verarbInfo.getKonfiguration().getAsLong(
+                    KonfigurationSchluessel.PROPERTY_BATCH_OAUTH2_MINIMUM_TOKEN_VALIDITY, DEFAULT_TOKEN_EXPIRATION_TIME_OFFSET);
 
-                if (!authentifizierungsmanagerOptional.isPresent()) {
+            String oauth2ClientRegistrationId = null;
+
+            try {
+                oauth2ClientRegistrationId = verarbInfo.getKonfiguration().getAsString(KonfigurationSchluessel.PROPERTY_BATCH_OAUTH2_CLIENT_REGISTRATION_ID);
+                if (authentifizierungsmanagerOptional.isPresent()) {
+                    authentifizierungsmanagerOptional.get().authentifiziere(oauth2ClientRegistrationId);
+                } else {
                     throw new IllegalArgumentException("Es wurde eine " + KonfigurationSchluessel.PROPERTY_BATCH_OAUTH2_CLIENT_REGISTRATION_ID + " gesetzt, jedoch wurde kein Authentifizierungsmanager gefunden.");
                 }
             } catch (BatchrahmenKonfigurationException e) {
@@ -192,6 +203,10 @@ public class BatchrahmenImpl implements Batchrahmen, InitializingBean,
                 verarbInfo.incSatzNummer();
 
                 MdcHelper.pushKorrelationsId(UUID.randomUUID().toString());
+
+                if (authentifizierungsmanagerOptional.isPresent() && oauth2ClientRegistrationId != null) {
+                    authentifizierungsmanagerOptional.get().authentifiziere(oauth2ClientRegistrationId, Duration.ofSeconds(expirationOffsetSeconds));
+                }
 
                 ergebnis = verarbInfo.getBean().verarbeiteSatz();
 
