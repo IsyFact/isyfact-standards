@@ -154,6 +154,7 @@ Ist dies aus technischer oder fachlicher Notwendigkeit nicht möglich, so muss d
 Bilder und Grafiken ergänzen den Text und vermitteln Informationen auf visuelle Weise.
 Hier werden die Leitlinien für die Verwendung von Grafiken festgelegt, einschließlich Stilrichtlinien, Bildgrößen und im Ansatz deren Barrierefreiheit.
 Details werden im entsprechenden Kapitel genauer erläutert.
+
 * Bilder unterliegen in erster Linie der notwendigen Fachlichkeit
 * Jedes Bild benötigt eine Bildunterschrift
 * Jedes Bild benötigt ein aussagekräftiges Alt-Attribut
