@@ -154,17 +154,17 @@ Ist dies aus technischer oder fachlicher Notwendigkeit nicht möglich, so muss d
 Bilder und Grafiken ergänzen den Text und vermitteln Informationen auf visuelle Weise.
 Hier werden die Leitlinien für die Verwendung von Grafiken festgelegt, einschließlich Stilrichtlinien, Bildgrößen und im Ansatz deren Barrierefreiheit.
 Details werden im entsprechenden Kapitel genauer erläutert.
-*•	Bilder unterliegen in erster Linie der notwendigen Fachlichkeit
-*•	Jedes Bild benötigt eine Bildunterschrift
-*•	Jedes Bild benötigt ein aussagekräftiges Alt-Attribut
-*•	Bilder dürfen nicht gegen deutsches Recht verstoßen, politisch, sexuell oder angreifend sein
-*•	Bilder dürfen keine Schriftgrafiken enthalten; in Ausnahmen muss die Schriftgrafik durch z.B. Alt-Attribute ausreichend beschrieben sein
-*•	Schmuckgrafiken können genutzt werden
-*•	Schmuckgrafiken sollen, so wenig wie möglich genutzt werden
-*•	Schmuckgrafiken müssen als solche gekennzeichnet sein
-*•	Schmuckgrafiken benötigen keine Alt-Attribute
-*•	Es ist darauf zu achten, dass durch Bilder kein horizontales Scrolling entsteht
-*•	Es ist darauf zu achten, dass das Bildmaterial ausreichen hoch aufgelöst ist, sodass keine einzelnen Fragmente zu erkennen sind
+*•	Bilder unterliegen in erster Linie der notwendigen Fachlichkeit*
+*•	Jedes Bild benötigt eine Bildunterschrift*
+*•	Jedes Bild benötigt ein aussagekräftiges Alt-Attribut*
+*•	Bilder dürfen nicht gegen deutsches Recht verstoßen, politisch, sexuell oder angreifend sein*
+*•	Bilder dürfen keine Schriftgrafiken enthalten; in Ausnahmen muss die Schriftgrafik durch z.B. Alt-Attribute ausreichend beschrieben sein*
+*•	Schmuckgrafiken können genutzt werden*
+*•	Schmuckgrafiken sollen, so wenig wie möglich genutzt werden*
+*•	Schmuckgrafiken müssen als solche gekennzeichnet sein*
+*•	Schmuckgrafiken benötigen keine Alt-Attribute*
+*•	Es ist darauf zu achten, dass durch Bilder kein horizontales Scrolling entsteht*
+*•	Es ist darauf zu achten, dass das Bildmaterial ausreichen hoch aufgelöst ist, sodass keine einzelnen Fragmente zu erkennen sind*
 
 *_Farben_*
 
