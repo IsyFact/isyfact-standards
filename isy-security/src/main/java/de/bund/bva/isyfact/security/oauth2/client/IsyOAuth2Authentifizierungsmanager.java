@@ -1,5 +1,7 @@
 package de.bund.bva.isyfact.security.oauth2.client;
 
+import java.time.Duration;
+
 import org.springframework.lang.Nullable;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -18,6 +20,7 @@ import de.bund.bva.isyfact.security.config.IsyOAuth2ClientConfigurationPropertie
 import de.bund.bva.isyfact.security.oauth2.client.authentication.token.ClientCredentialsClientRegistrationAuthenticationToken;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.token.ClientCredentialsRegistrationIdAuthenticationToken;
 import de.bund.bva.isyfact.security.oauth2.client.authentication.token.PasswordClientRegistrationAuthenticationToken;
+import de.bund.bva.isyfact.security.oauth2.util.IsySecurityTokenUtil;
 
 /**
  * Default implementation of the {@link Authentifizierungsmanager} that should suffice for most use cases.
@@ -64,6 +67,13 @@ public class IsyOAuth2Authentifizierungsmanager implements Authentifizierungsman
     public void authentifiziere(String oauth2ClientRegistrationId) throws AuthenticationException {
         Authentication unauthenticatedToken = getAuthenticationTokenForRegistrationId(oauth2ClientRegistrationId);
         authenticateAndChangeAuthenticatedPrincipal(unauthenticatedToken);
+    }
+
+    @Override
+    public void authentifiziere(String oauth2ClientRegistrationId, Duration expirationTimeOffset) throws AuthenticationException {
+        if (!IsySecurityTokenUtil.hasOAuth2Token() || IsySecurityTokenUtil.hasTokenExpired(expirationTimeOffset)) {
+            authentifiziere(oauth2ClientRegistrationId);
+        }
     }
 
     @Override
