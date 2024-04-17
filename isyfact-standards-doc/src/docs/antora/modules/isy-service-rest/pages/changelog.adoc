@@ -1,8 +1,10 @@
 [[changelog]]
 = Changelog
 
-// *Änderungen IsyFact 3.0.0*
+*Änderungen IsyFact 3.0.0*
 
 // tag::release-3.0.0[]
+
+- `ISY-1061`: Ergänzung der Dokumentation zum Zurücksetzen der Korrelations-ID aus dem MdcHelper
 
 // end::release-3.0.0[]

@@ -10,6 +10,16 @@
 - `ISY-305`: [isy-security] Implementierung von IsySecurityTokenUtil zum Auslesen von Attributen aus dem Bearer Token
 - `ISY-1040`: [isyfact-standards-doc] Anpassung des logback.xml-Konfigurationspfads im IF2-Migrationsleitfaden
 - `IFS-2786`: [isyfact-standards-doc] Migrationsleitfaden IsyFact 2 entfernt
+
+# 3.0.1
+- `ISY-701`: Google Guava Versionsanhebung auf 33.1.0
+- `ISY-704`: Open CSV Versionsanhebung auf 5.9
+- `ISY-987`: Spring Framework Versionsanhebung auf 5.3.33
+- `ISY-1073`: Spring Security Versionsanhebung auf 5.7.12
+- `ISY-929`: Nimbus JOSE+JWT Versionsanhebung auf 9.37.2
+- `ISY-1036`: Apache Commons Collections Versionsanhebung auf 3.2.2
+- `ISY-1045`: Apache Commons FileUpload Versionsanhebung auf 1.5
+
 # 3.0.0
 - `ISY-653` : Erweitern des `TimeoutWiederholungHttpInvokerRequestExecutor` um die Token-Beschaffung aus dem Security Context bei Nichtverfügbarkeit des `AufrufKontextVerwalter`.
 - `ISY-183`: [isyfact-standards-doc] Migrationsleitfaden zur Entfernung der Bridge-Module
@@ -81,6 +91,7 @@
   * `FilterRegistrationBean<HttpHeaderNestedDiagnosticContextFilter>` überschreibbar
 - `ISY-655`: [isy-serviceapi-core] Beheben einer ClassNotFoundException beim Starten von Anwendungen mit IsyServiceApiCoreAutoConfiguration
 - `ISY-727`: [isy-batchrahmen] Behebung von SonarCloud Security Issues
+- `ISY-1061`: [isyfact-standards-doc] Ergänzung der Dokumentation zum Zurücksetzen der Korrelations-ID aus dem MdcHelper
 
 ## BREAKING CHANGE
 
