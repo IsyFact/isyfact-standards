@@ -1,8 +1,12 @@
 package de.bund.bva.isyfact.security.oauth2.client;
 
+import java.time.Duration;
+
 import org.springframework.lang.Nullable;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.security.oauth2.server.resource.authentication.AbstractOAuth2TokenAuthenticationToken;
 
 import de.bund.bva.isyfact.security.config.IsyOAuth2ClientConfigurationProperties;
 
@@ -34,6 +38,31 @@ public interface Authentifizierungsmanager {
      *         if authentication fails
      */
     void authentifiziere(String oauth2ClientRegistrationId) throws AuthenticationException;
+
+    /**
+     * Performs authentication for the given {@code oauth2ClientRegistrationId} as described in
+     * {@link Authentifizierungsmanager#authentifiziere(String)} if the SecurityContext does not contain
+     * an Authentication of type {@link AbstractOAuth2TokenAuthenticationToken} or the token received from the
+     * SecurityContext is considered as expired with regard to the {@code expirationTimeOffset}.
+     * The {@code expirationTimeOffset} provides a time frame before token expiry during which the token is considered as already expired.
+     * <p>
+     * For clients configured to use the Client Credentials Flow (grant type: client_credentials), authentication will only reliably
+     * occur for an {@code expirationTimeOffset} less than 60 seconds, because Spring will by default skip authentication in the
+     * {@link org.springframework.security.oauth2.client.ClientCredentialsOAuth2AuthorizedClientProvider ClientCredentialsOAuth2AuthorizedClientProvider}
+     * if the access token provided by the corresponding {@link org.springframework.security.oauth2.client.OAuth2AuthorizedClient OAuth2AuthorizedClient}
+     * does not expire within 60 seconds from current time.
+     * When using this method for re-authentication with the Client Credentials Flow, this means that a time longer
+     * than 60 seconds before the next call of this method could lead to token expiration.
+     *
+     * @param oauth2ClientRegistrationId
+     *         registration ID of the OAuth 2.0 Client to authorize
+     * @param expirationTimeOffset
+     *         the time frame before expiry during which the token is considered as already expired
+     * @throws AuthenticationException
+     *         if authentication fails
+     * @see Authentifizierungsmanager#authentifiziere(String)
+     */
+    void authentifiziere(String oauth2ClientRegistrationId, Duration expirationTimeOffset) throws AuthenticationException;
 
     /**
      * Attempts to create and authorize a client with the given credentials via the OAuth 2.0 Client Credentials Flow.
