@@ -2,6 +2,7 @@
 
 - `ISY-305`: Implementierung von IsySecurityTokenUtil zum Auslesen von Attributen aus dem Bearer Token
 - `ISY-980`: Anpassung der Dokumentation aufgrund von Security-Umstellungen
+- `IFS-2248`: Bereitstellen von Funktionalität zur Token-Gültigkeitsüberprüfung und erneuten Authentifizierung
 
 # 3.0.0
 
