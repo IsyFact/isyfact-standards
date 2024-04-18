@@ -5,5 +5,5 @@
 == Verwendung der Bibliothek *_isy-angular-widgets_*
 
 Wie die Bibliothek _isy-angular-widgets_ verwendet wird, ist in der Compodoc auf der Website
-xref:Compodoc[https://isyfact.github.io/isy-angular-widgets/documentation/] ausführlich beschrieben.
+https://isyfact.github.io/isy-angular-widgets/documentation/ ausführlich beschrieben.
 // end::inhalt[]
