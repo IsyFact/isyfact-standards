@@ -350,7 +350,7 @@ In <<image-aufbvLogent>> ist das Zusammenspiel der verschiedenen Klassen zur Auf
 
 .Übersicht der Aufbereitung von Logeinträgen
 [id="image-aufbvLogent",reftext="{figure-caption} {counter:figures}"]
-image::isy-logging:konzept/iaufbvLogent.png[align="center"]
+image::isy-logging:konzept/iaufbvLogent.dn.png[align="center"]
 
 [[hilfsklassen]]
 ==== Hilfsklassen
