@@ -4,11 +4,15 @@
 [[einleitung]]
 == Einleitung
 
-Im xref:konzept/master.adoc[] werden die Anforderungen und Vorgaben der IsyFact definiert, um eine einheitliche Umsetzung in der gesamten Anwendungslandschaft zu gewährleisten.
+Im xref:konzept/master.adoc[] werden die Anforderungen und Vorgaben der IsyFact, die im
+xref:isy-bedienkonzept:bedienkonzept.adoc[Bedienkonzept und Styleguide] definiert sind, als Komponenten-Bibliothek
+umgesetzt oder in der dazugehörigen Demo-Anwendung exemplarisch dargestellt, um eine einheitliche Umsetzung der User
+Interfaces in der gesamten Anwendungslandschaft zu gewährleisten.
 
-Dieses Dokument beschreibt alle Aspekte, die bei der Entwicklung einer Anwendung zu berücksichtigen sind, um die definierten Anforderungen zu erfüllen.
-Die IsyFact stellt eine eigene xref:glossary:glossary:master.adoc#glossar-bibliothek[Bibliothek] (`isy-angular-widgets`) bereit, um die Anforderungen einheitlich umsetzen zu können.
+Dieses Dokument beschreibt alle Aspekte, die bei der Frontend-Entwicklung einer Anwendung zu berücksichtigen sind,
+um die definierten Anforderungen zu erfüllen.
 
 [[aufbau-und-zweck-des-dokuments]]
 == Aufbau und Zweck des Dokuments
+Der Zweck dieses Dokuments ist es, die Verwendung der Bibliothek _isy-angular-widgets_ zu beschreiben.
 // end::inhalt[]
