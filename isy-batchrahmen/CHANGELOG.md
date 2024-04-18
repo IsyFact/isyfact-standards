@@ -1,3 +1,6 @@
+# 4.0.0
+- `IFS-2248`: Durchführen einer erneuten Authentifizierung bei Token-Ablauf in BatchrahmenImpl
+
 # 3.0.0
 - `IFS-1148`: Fehler wegen zu langem Klassenpfad unter Windows behoben
 - `IFS-1091`: Fehlerhafte ExcludeFromBatchContext-Annotation behoben
