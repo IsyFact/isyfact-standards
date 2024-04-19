@@ -2,12 +2,12 @@
 
 include::glossary:licence:partial$licence.adoc[]
 
-Die Generierung einer Projektseite erfolgt, falls das Repository xref:glossary:literaturextern:inhalt.adoc#litextern-isyfact-antora[icon:github[] isyfact.github.io] verwendet wird, wie in vergleichbaren npm-Projekten.
+Die Generierung einer Projektseite erfolgt, falls das Repository https://github.com/IsyFact/isyfact.github.io[icon:github[] isyfact.github.io] verwendet wird, wie in vergleichbaren npm-Projekten.
 Nachdem alle Abhängigkeiten installiert wurden, wird die Projektseite mit dem Befehl `npm build` erzeugt.
 
 == Aufbau des Playbooks
 
-Die offizielle Antora-Dokumentation beschreibt das xref:glossary:literaturextern:inhalt.adoc#litextern-antora-playbook[Playbook].
+Die offizielle Antora-Dokumentation beschreibt das https://docs.antora.org/antora/latest/install-and-run-quickstart/#create-a-playbook[Playbook].
 Deshalb wird hier nur auf die IsyFact-Besonderheiten eingegangen.
 
 [[listing-playbook]]

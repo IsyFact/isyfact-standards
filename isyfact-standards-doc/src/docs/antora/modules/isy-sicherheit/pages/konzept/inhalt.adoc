@@ -27,7 +27,7 @@ Die Authentifizierung darf auch lokal, d.h. vom IT-System selbst, durchgeführt 
 
 Für die zentrale Authentifizierung wird üblicherweise ein IAM-System verwendet.
 
-NOTE: IAM steht für xref:glossary:literaturextern:inhalt.adoc#litextern-identity_management[Identity and Access Management].
+NOTE: IAM steht für https://en.wikipedia.org/wiki/Identity_management[Identity and Access Management].
 
 Das IAM-System verwaltet *Anwender* und ihre *Rollen*.
 
