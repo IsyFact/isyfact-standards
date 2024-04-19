@@ -32,7 +32,7 @@ import de.bund.bva.isyfact.ueberwachung.config.NachbarsystemRestTemplateConfigur
 @WireMockTest(httpPort = 1234)
 class NachbarsystemCheckImplWithServerMockTest {
 
-    public static final String ACUTATOR_PATH = "/actuate/health";
+    public static final String ACTUATOR_PATH = "/actuate/health";
 
     private final IsyLogger LOGGER =
         IsyLoggerFactory.getLogger(NachbarsystemCheckImplWithServerMockTest.class);
@@ -53,7 +53,7 @@ class NachbarsystemCheckImplWithServerMockTest {
     @Test
     void checkNachbarUp() {
 
-        stubFor(get(ACUTATOR_PATH).willReturn(ok().withBody("{\"status\":\"UP\"}").withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)));
+        stubFor(get(ACTUATOR_PATH).willReturn(ok().withBody("{\"status\":\"UP\"}").withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)));
 
         Nachbarsystem nachbarsystem = createNachbarsystemDummy();
 
@@ -66,7 +66,7 @@ class NachbarsystemCheckImplWithServerMockTest {
     //korrekter Durchlauf
     @Test
     void checkNachbarOutOfService() {
-        stubFor(get(ACUTATOR_PATH).willReturn(serviceUnavailable().withBody("{\"status\":\"" + Status.OUT_OF_SERVICE + "\"}").withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)));
+        stubFor(get(ACTUATOR_PATH).willReturn(serviceUnavailable().withBody("{\"status\":\"" + Status.OUT_OF_SERVICE + "\"}").withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)));
 
         Nachbarsystem nachbarsystem = createNachbarsystemDummy();
 
@@ -82,7 +82,7 @@ class NachbarsystemCheckImplWithServerMockTest {
     // und es wird als Status für den Nachbarn "DOWN" zurückgegeben
     @Test
     void responsecode400EmptyBody() {
-        stubFor(get(ACUTATOR_PATH).willReturn(badRequest()));
+        stubFor(get(ACTUATOR_PATH).willReturn(badRequest()));
 
         Nachbarsystem nachbarsystem = createNachbarsystemDummy();
         nachbarsystem.setEssentiell(true);
@@ -95,7 +95,7 @@ class NachbarsystemCheckImplWithServerMockTest {
 
     @Test
     void exceptionBeiAnfrageNichtEssentiell() {
-        stubFor(get(ACUTATOR_PATH).willReturn(badRequest()));
+        stubFor(get(ACTUATOR_PATH).willReturn(badRequest()));
         Nachbarsystem nachbarsystem = createNachbarsystemDummy();
 
         LOGGER.debug("Warn-Log erwartet: ");
