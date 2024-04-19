@@ -170,6 +170,12 @@ public class BatchrahmenImpl implements Batchrahmen, InitializingBean,
             long expirationOffsetSeconds = verarbInfo.getKonfiguration().getAsLong(
                     KonfigurationSchluessel.PROPERTY_BATCH_OAUTH2_MINIMUM_TOKEN_VALIDITY, DEFAULT_TOKEN_EXPIRATION_TIME_OFFSET);
 
+            if (expirationOffsetSeconds < 0) {
+                throw new BatchrahmenKonfigurationException(
+                        NachrichtenSchluessel.ERR_KONF_PARAMETER_UNGUELTIG, String.valueOf(expirationOffsetSeconds),
+                        KonfigurationSchluessel.PROPERTY_BATCH_OAUTH2_MINIMUM_TOKEN_VALIDITY);
+            }
+
             String oauth2ClientRegistrationId = null;
 
             try {
