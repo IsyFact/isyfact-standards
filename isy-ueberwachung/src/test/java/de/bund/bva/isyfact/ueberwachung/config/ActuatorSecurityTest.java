@@ -10,6 +10,9 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 import de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyActuatorSecurityAutoConfiguration;
 
+/**
+ * Checks whether a response is received with authentication and whether it is rejected as 401 without authentication.
+ */
 @SpringBootTest(
     webEnvironment = RANDOM_PORT,
     classes = {IsyActuatorSecurityAutoConfiguration.class},
@@ -18,7 +21,7 @@ import de.bund.bva.isyfact.ueberwachung.autoconfigure.IsyActuatorSecurityAutoCon
         "isy.logging.anwendung.version=0.0.0-SNAPSHOT",
         "isy.logging.anwendung.typ=JUnit5Test",
         "isy.ueberwachung.security.username=test",
-        "isy.ueberwachung.security.password=test"
+        "isy.ueberwachung.security.password=test1"
     }
 )
 @EnableAutoConfiguration

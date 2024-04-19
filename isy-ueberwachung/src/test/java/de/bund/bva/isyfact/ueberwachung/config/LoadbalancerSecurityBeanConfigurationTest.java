@@ -5,7 +5,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener;
-import org.springframework.boot.logging.LogLevel;
 import org.springframework.boot.test.context.FilteredClassLoader;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -21,8 +20,7 @@ public class LoadbalancerSecurityBeanConfigurationTest {
     /**
      * Enable autoconfiguration conditions evaluation report.
      */
-    private final ConditionEvaluationReportLoggingListener initializer = new ConditionEvaluationReportLoggingListener(
-            LogLevel.DEBUG);
+    private final ConditionEvaluationReportLoggingListener initializer = new ConditionEvaluationReportLoggingListener();
 
     /**
      * Sets the contextRunner.

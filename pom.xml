@@ -37,12 +37,9 @@
         <module>isy-batchrahmen</module>
         <module>isy-datetime</module>
         <module>isy-exception-core</module>
-        <module>isy-konfiguration</module>
         <module>isy-logging</module>
         <module>isy-persistence</module>
         <module>isy-polling</module>
-        <module>isy-serviceapi-core</module>
-        <module>isy-sicherheit</module>
         <module>isy-task</module>
         <module>isy-ueberwachung</module>
         <module>isy-util</module>

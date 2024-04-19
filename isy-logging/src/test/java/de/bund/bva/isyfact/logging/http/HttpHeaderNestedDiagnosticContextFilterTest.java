@@ -1,17 +1,18 @@
 package de.bund.bva.isyfact.logging.http;
 
-import javax.servlet.http.HttpServletRequest;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.when;
 
-import de.bund.bva.isyfact.logging.util.MdcHelper;
+import jakarta.servlet.http.HttpServletRequest;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.when;
+import de.bund.bva.isyfact.logging.util.MdcHelper;
 
 @RunWith(MockitoJUnitRunner.class)
 public class HttpHeaderNestedDiagnosticContextFilterTest {

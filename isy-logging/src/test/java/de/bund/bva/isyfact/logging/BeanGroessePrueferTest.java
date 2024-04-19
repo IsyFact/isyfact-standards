@@ -1,12 +1,19 @@
 package de.bund.bva.isyfact.logging;
 
-import de.bund.bva.isyfact.logging.util.BeanGroessePruefer;
-import org.junit.Test;
-
-import java.util.*;
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
+
+import org.junit.Test;
+
+import de.bund.bva.isyfact.logging.util.BeanGroessePruefer;
 
 /**
  * Test des Prüfers für die Größe von Log-Parametern.

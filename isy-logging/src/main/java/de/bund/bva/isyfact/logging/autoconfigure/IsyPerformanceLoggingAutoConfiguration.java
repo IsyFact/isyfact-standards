@@ -1,6 +1,5 @@
 package de.bund.bva.isyfact.logging.autoconfigure;
 
-import de.bund.bva.isyfact.logging.util.LoggingMethodInterceptor;
 import org.springframework.aop.Advisor;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
@@ -8,6 +7,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableLoadTimeWeaving;
+
+import de.bund.bva.isyfact.logging.util.LoggingMethodInterceptor;
 
 @Configuration
 @ConditionalOnProperty(value = "isy.logging.performancelogging.enabled", havingValue = "true")

@@ -3,7 +3,7 @@ package de.bund.bva.isyfact.ueberwachung.autoconfigure;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.ServletRegistration;
+import jakarta.servlet.ServletRegistration;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.ConfigurationProperties;

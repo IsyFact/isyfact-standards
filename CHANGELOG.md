@@ -1,16 +1,24 @@
 # 4.0.0
-- `ISY-779`: `isyfact-bom` entfernt
-    * [isyfact-standards-bom] `isyfact-standards-bom` importiert dependencyManagement aus `isyfact-products-bom`
-    * [isyfact-standards-doc] Bezug und Nutzung der IsyFact nach Entfernung der IsyFact-BOM beschrieben
-- `ISY-737`: [isyfact-standards] Java Compile Target 17
+## FEATURES
 - `ISY-876`: [isy-bedienkonzept] Ergänzung der Anzeigeposition von Toasts unten rechts
 - `ISY-948` : Spring Cache Abstraction als verpflichtende Bibliothek für anwendungsseitige Caches eingeführt
 - `ISY-748`: [isyfact-standards-doc] Versionsanhebung `isy-checkstyle-config` auf 0.2.0
-  * Gruppierung der jakarta.* imports
+    * Gruppierung der jakarta.* imports
 - `ISY-305`: [isy-security] Implementierung von IsySecurityTokenUtil zum Auslesen von Attributen aus dem Bearer Token
 - `ISY-1040`: [isyfact-standards-doc] Anpassung des logback.xml-Konfigurationspfads im IF2-Migrationsleitfaden
 - `IFS-2786`: [isyfact-standards-doc] Migrationsleitfaden IsyFact 2 entfernt
 - `IFS-2784`: [isyfact-standards-doc] Externe Verweise direkt verlinkt statt über literaturextern und URLs korrigiert
+## BUG FIXES
+## BREAKING CHANGES
+- `ISY-889`: Spring Boot Versionsanhebung auf 3.2.x
+  * inkludiert ausserdem folgende Versionsanhebungen: 
+      * Spring Framework 5.x -> 6.x 
+      * Spring Security 5.x -> 6.x
+      * Hibernate 5.x -> 6.x
+- `ISY-779`: `isyfact-bom` entfernt
+    * [isyfact-standards-bom] `isyfact-standards-bom` importiert dependencyManagement aus `isyfact-products-bom`
+    * [isyfact-standards-doc] Bezug und Nutzung der IsyFact nach Entfernung der IsyFact-BOM beschrieben
+- `ISY-737`: [isyfact-standards] Java Compile Target 17
 
 # 3.0.1
 - `ISY-701`: Google Guava Versionsanhebung auf 33.1.0

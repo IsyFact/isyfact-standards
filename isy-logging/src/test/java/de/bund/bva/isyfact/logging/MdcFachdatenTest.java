@@ -1,7 +1,8 @@
 package de.bund.bva.isyfact.logging;
 
-import de.bund.bva.isyfact.logging.util.MdcHelper;
 import org.junit.Test;
+
+import de.bund.bva.isyfact.logging.util.MdcHelper;
 
 /*
  * #%L

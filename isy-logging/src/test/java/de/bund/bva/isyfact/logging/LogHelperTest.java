@@ -23,12 +23,13 @@ package de.bund.bva.isyfact.logging;
  * #L%
  */
 
+import java.util.Random;
+
+import org.junit.Test;
+
 import de.bund.bva.isyfact.logging.hilfsklassen.TestBeanEinfach;
 import de.bund.bva.isyfact.logging.hilfsklassen.TestSignaturKlasse;
 import de.bund.bva.isyfact.logging.util.LogHelper;
-import org.junit.Test;
-
-import java.util.Random;
 
 /**
  * {@link LogHelper} tests.

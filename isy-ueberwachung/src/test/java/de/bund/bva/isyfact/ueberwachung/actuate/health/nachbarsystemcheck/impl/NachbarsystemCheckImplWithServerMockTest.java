@@ -1,22 +1,25 @@
 package de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.impl;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.badRequest;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.ok;
+import static com.github.tomakehurst.wiremock.client.WireMock.serviceUnavailable;
+import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.io.IOException;
 import java.net.URI;
 
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
+
+import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 
 import de.bund.bva.isyfact.logging.IsyLogger;
 import de.bund.bva.isyfact.logging.IsyLoggerFactory;
@@ -26,49 +29,31 @@ import de.bund.bva.isyfact.ueberwachung.actuate.health.nachbarsystemcheck.model.
 import de.bund.bva.isyfact.ueberwachung.config.NachbarsystemConfigurationProperties;
 import de.bund.bva.isyfact.ueberwachung.config.NachbarsystemRestTemplateConfigurer;
 
-import okhttp3.mockwebserver.MockResponse;
-import okhttp3.mockwebserver.MockWebServer;
-import okhttp3.mockwebserver.SocketPolicy;
+@WireMockTest(httpPort = 1234)
+class NachbarsystemCheckImplWithServerMockTest {
 
-public class NachbarsystemCheckImplWithServerMockTest {
+    public static final String ACTUATOR_PATH = "/actuate/health";
 
     private final IsyLogger LOGGER =
-            IsyLoggerFactory.getLogger(NachbarsystemCheckImplWithServerMockTest.class);
-
-    private static MockWebServer mockBackEnd;
+        IsyLoggerFactory.getLogger(NachbarsystemCheckImplWithServerMockTest.class);
 
     private NachbarsystemCheck nachbarsystemCheck;
 
-
-    @BeforeClass
-    public static void startServer() throws IOException {
-        mockBackEnd = new MockWebServer();
-        mockBackEnd.start(1234);
-    }
-
-    @Before
+    @BeforeEach
     public void setUp() {
         RestTemplate restTemplate = NachbarsystemRestTemplateConfigurer
             .configureForNachbarSystemCheck(new RestTemplateBuilder(),
-                new NachbarsystemConfigurationProperties() )
+                new NachbarsystemConfigurationProperties())
             .build();
         nachbarsystemCheck = Mockito.spy(new NachbarsystemCheckImpl(restTemplate));
     }
 
-    @AfterClass
-    public static void tearDown() throws IOException {
-        mockBackEnd.shutdown();
-    }
 
     //korrekter Durchlauf
     @Test
-    public void checkNachbarUp() {
-        mockBackEnd.enqueue(
-                new MockResponse()
-                        .setResponseCode(HttpStatus.OK.value())
-                        .setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                        .setBody("{\"status\":\"UP\"}")
-        );
+    void checkNachbarUp() {
+
+        stubFor(get(ACTUATOR_PATH).willReturn(ok().withBody("{\"status\":\"UP\"}").withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)));
 
         Nachbarsystem nachbarsystem = createNachbarsystemDummy();
 
@@ -80,13 +65,8 @@ public class NachbarsystemCheckImplWithServerMockTest {
 
     //korrekter Durchlauf
     @Test
-    public void checkNachbarOutOfService() {
-        mockBackEnd.enqueue(
-                new MockResponse()
-                        .setResponseCode(HttpStatus.SERVICE_UNAVAILABLE.value())
-                        .setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                        .setBody("{\"status\":\"" + Status.OUT_OF_SERVICE + "\"}")
-        );
+    void checkNachbarOutOfService() {
+        stubFor(get(ACTUATOR_PATH).willReturn(serviceUnavailable().withBody("{\"status\":\"" + Status.OUT_OF_SERVICE + "\"}").withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)));
 
         Nachbarsystem nachbarsystem = createNachbarsystemDummy();
 
@@ -101,11 +81,8 @@ public class NachbarsystemCheckImplWithServerMockTest {
     // gilt der Nachbar als nicht erreichbar
     // und es wird als Status für den Nachbarn "DOWN" zurückgegeben
     @Test
-    public void responsecode400EmptyBody() {
-        mockBackEnd.enqueue(
-                new MockResponse()
-                        .setResponseCode(HttpStatus.BAD_REQUEST.value())
-        );
+    void responsecode400EmptyBody() {
+        stubFor(get(ACTUATOR_PATH).willReturn(badRequest()));
 
         Nachbarsystem nachbarsystem = createNachbarsystemDummy();
         nachbarsystem.setEssentiell(true);
@@ -117,11 +94,8 @@ public class NachbarsystemCheckImplWithServerMockTest {
     }
 
     @Test
-    public void exceptionBeiAnfrageNichtEssentiell() {
-        mockBackEnd.enqueue(
-                new MockResponse()
-                        .setResponseCode(400)
-        );
+    void exceptionBeiAnfrageNichtEssentiell() {
+        stubFor(get(ACTUATOR_PATH).willReturn(badRequest()));
         Nachbarsystem nachbarsystem = createNachbarsystemDummy();
 
         LOGGER.debug("Warn-Log erwartet: ");
@@ -132,12 +106,10 @@ public class NachbarsystemCheckImplWithServerMockTest {
     }
 
     @Test
-    public void nichtParsbareInfos() {
-        mockBackEnd.enqueue(
-                new MockResponse()
-                        .setResponseCode(200)
-                        .setBody("abcd")
-        );
+    void nichtParsbareInfos() {
+
+        stubFor(get("/*").willReturn(ok().withBody("abcd")));
+
         Nachbarsystem nachbarsystem = createNachbarsystemDummy();
 
         LOGGER.debug("Warn-Log erwartet: ");
@@ -148,9 +120,8 @@ public class NachbarsystemCheckImplWithServerMockTest {
     }
 
     @Test
-    public void timeoutWirdGetriggert() {
+    void timeoutWirdGetriggert() {
         //Server gibt keine Response
-        mockBackEnd.enqueue(new MockResponse().setSocketPolicy(SocketPolicy.NO_RESPONSE));
 
         Nachbarsystem nachbarsystem = createNachbarsystemDummy();
 
@@ -167,7 +138,7 @@ public class NachbarsystemCheckImplWithServerMockTest {
         nachbarsystem.setSystemname("system1");
         nachbarsystem.setEssentiell(false);
         nachbarsystem
-                .setHealthEndpoint(URI.create("http://localhost:" + mockBackEnd.getPort() + "/actuate/health"));
+            .setHealthEndpoint(URI.create("http://localhost:1234/actuate/health"));
         return nachbarsystem;
     }
 

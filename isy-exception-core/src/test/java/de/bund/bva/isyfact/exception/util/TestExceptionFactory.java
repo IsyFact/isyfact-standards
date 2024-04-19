@@ -16,8 +16,8 @@
  */
 package de.bund.bva.isyfact.exception.util;
 
-import de.bund.bva.isyfact.exception.FehlertextProvider;
 import de.bund.bva.isyfact.exception.BusinessException;
+import de.bund.bva.isyfact.exception.FehlertextProvider;
 import de.bund.bva.isyfact.exception.TechnicalException;
 import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
 

@@ -23,19 +23,18 @@ package de.bund.bva.isyfact.logging;
  * #L%
  */
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Marker;
 
 import de.bund.bva.isyfact.logging.impl.IsyMarkerImpl;
 import de.bund.bva.isyfact.logging.impl.MarkerSchluessel;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Tests der Klasse IsyMarker.
