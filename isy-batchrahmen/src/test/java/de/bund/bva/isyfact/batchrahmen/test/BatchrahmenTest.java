@@ -482,4 +482,16 @@ class BatchrahmenTest extends AbstractOidcProviderTest {
         verify(11, postRequestedFor(urlMatching(ISSUER_PATH + ".*")));
     }
 
+    /**
+     * Tests that an exception is thrown when the batch property oauth2MinimumTokenValidity is set to a negative number.
+     */
+    @Test
+    void testBatchInvalidOAuth2MinimumTokenValidityProperty() {
+        assertEquals(BatchReturnCode.FEHLER_KONFIGURATION.getWert(), BatchLauncher.run(new String[]{"-start", "-cfg",
+                "/resources/batch/basic-authentication-test-batch-invalid-minimum-token-validity-config.properties",
+                "-Batchrahmen.Ergebnisdatei", ERGEBNIS_DATEI}));
+        BatchProtokollTester bpt = new BatchProtokollTester(ERGEBNIS_DATEI);
+        assertTrue(bpt.enthaeltFehler("BAT110", "-10"));
+    }
+
 }
