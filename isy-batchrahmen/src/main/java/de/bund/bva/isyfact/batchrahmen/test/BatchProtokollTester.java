@@ -221,21 +221,4 @@ public class BatchProtokollTester {
             throw new RuntimeException(e);
         }
     }
-
-    /**
-     * Liefert das Feld 'xpath' zurück.
-     * @return Wert von xpath
-     */
-    public XPath getXpath() {
-        return xpath;
-    }
-
-    /**
-     * Setzt das Feld 'xpath'.
-     * @param xpath
-     *            Neuer Wert für xpath
-     */
-    public void setXpath(XPath xpath) {
-        this.xpath = xpath;
-    }
 }

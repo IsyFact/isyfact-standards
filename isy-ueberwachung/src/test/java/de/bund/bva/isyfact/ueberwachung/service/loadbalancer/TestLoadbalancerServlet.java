@@ -105,4 +105,18 @@ public class TestLoadbalancerServlet {
 		f.delete();
 	}
 
+	@Test
+	public void testDoGetIOException() throws ServletException, IOException {
+		when(mockContext.getRealPath("/src/test/resources")).thenReturn("/src/test/resources/isAlive");
+		when(mockConfig.getInitParameter("isAliveFileLocation")).thenReturn("/src/test/resources");
+		File f = new File("/src/test/resources/isAlive");
+		assertTrue(f.createNewFile());
+		HttpServletResponse resp = mock(HttpServletResponse.class);
+		when(resp.getWriter()).thenThrow(new IOException("Simulated IOException"));
+		loadBalancer.init(mockConfig);
+		loadBalancer.doGet(null, resp);
+		verify(resp, times(1)).setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+
+		f.delete();
+	}
 }
