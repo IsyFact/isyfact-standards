@@ -116,12 +116,12 @@ public class XmlAccess {
     public RollenRechteMapping parseRollenRechteFile(String filename) {
         LOG.debug("Lese Rollen-Rechte-Mapping aus {}.", filename);
         Document dom;
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-        factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
-        InputStream stream = XmlAccess.class.getResourceAsStream(filename);
-        try {
-            DocumentBuilder documentBuilder = factory.newDocumentBuilder();
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        documentBuilderFactory.setExpandEntityReferences(false);
+        try (InputStream stream = XmlAccess.class.getResourceAsStream(filename)) {
+            documentBuilderFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            documentBuilderFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
             dom = documentBuilder.parse(stream);
             RollenRechteMapping result = parseDocument(dom);
             result.setAlleDefiniertenRechte(this.rechtIdZuRecht.values());
@@ -138,16 +138,6 @@ public class XmlAccess {
             throw new RollenRechteMappingException(
                 SicherheitFehlerSchluessel.MSG_AUTORISIERUNG_ROLLENRECHTEMAPPING_FEHLERHAFT, ioe,
                 "IO-Exception");
-        } finally {
-            if (stream != null) {
-                try {
-                    stream.close();
-                } catch (IOException e) {
-                    throw new RollenRechteMappingException(
-                        SicherheitFehlerSchluessel.MSG_AUTORISIERUNG_ROLLENRECHTEMAPPING_FEHLERHAFT, e,
-                        "IO-Exception");
-                }
-            }
         }
     }
 

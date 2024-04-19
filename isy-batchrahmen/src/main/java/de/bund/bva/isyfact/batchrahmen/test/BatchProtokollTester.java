@@ -32,6 +32,8 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
@@ -45,7 +47,7 @@ import org.xml.sax.SAXException;
  * 
  */
 public class BatchProtokollTester {
-
+    Logger logger = LoggerFactory.getLogger(BatchProtokollTester.class);
     /** Das BatchProtokoll Document. **/
     private Document batchProtokoll;
 
@@ -58,24 +60,24 @@ public class BatchProtokollTester {
      *            Das zu überprüfende Batchprotokoll.
      */
     public BatchProtokollTester(String ergebnisDatei) {
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-        factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
-        factory.setNamespaceAware(true);
+        DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+        docFactory.setNamespaceAware(true);
         DocumentBuilder builder;
         try {
-            builder = factory.newDocumentBuilder();
+            docFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            docFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+            builder = docFactory.newDocumentBuilder();
             batchProtokoll = builder.parse(ergebnisDatei);
 
             XPathFactory xpathFactory = XPathFactory.newInstance();
             xpath = xpathFactory.newXPath();
         } catch (ParserConfigurationException | SAXException | IOException e) {
-            e.printStackTrace();
+            logger.error("Error while creating BatchProtokollTester", e);
         }
     }
 
     /**
-     * Überprüft, ob das Batchprotokoll mindestens eine Meldung mit der angegebenen ID enthält.
+     * Überprüft ob das Batchprotokoll mindestens eine Meldung mit der angegebenen ID enthält.
      * @param id
      *            Die gesucht MeldungsID
      * @return true/false
@@ -127,8 +129,8 @@ public class BatchProtokollTester {
     public Collection<String> getFehlerIds() {
         ArrayList<String> fehlerListe = new ArrayList<>();
         String xpathQuery = "//Meldung[@Typ='F']";
-        if (getNodeListFromXpath(xpathQuery).getLength() != 0) {
-            NodeList nodes = getNodeListFromXpath(xpathQuery);
+        NodeList nodes = getNodeListFromXpath(xpathQuery);
+        if (nodes.getLength() != 0) {
             for (int i = 0; i < nodes.getLength(); i++) {
                 NamedNodeMap attributMap = nodes.item(i).getAttributes();
                 fehlerListe.add(attributMap.getNamedItem("ID").getNodeValue());
