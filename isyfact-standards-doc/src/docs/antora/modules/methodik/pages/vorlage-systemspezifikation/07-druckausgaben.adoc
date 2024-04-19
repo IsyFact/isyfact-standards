@@ -70,7 +70,7 @@ Telefax: +49 (0) 12345 - 123
 
 E-Mail: fachbereich@behoerde.de
 
-Internet: http://www.beispielbehoerde.de
+Internet: https://www.beispielbehoerde.de
 ====
 
 [[druckstueck-drubezeichnung-druckausgabe-2]]
