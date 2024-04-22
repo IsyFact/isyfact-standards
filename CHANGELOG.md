@@ -1,5 +1,7 @@
 # 4.0.0
 ## FEATURES
+- `ISY-1025`: Versionsanhebung `maven-surefire-plugin` auf 3.2.5
+    * Automatische Auswahl der benötigten Junit Engines
 - `ISY-876`: [isy-bedienkonzept] Ergänzung der Anzeigeposition von Toasts unten rechts
 - `ISY-948` : Spring Cache Abstraction als verpflichtende Bibliothek für anwendungsseitige Caches eingeführt
 - `ISY-748`: [isyfact-standards-doc] Versionsanhebung `isy-checkstyle-config` auf 0.2.0
