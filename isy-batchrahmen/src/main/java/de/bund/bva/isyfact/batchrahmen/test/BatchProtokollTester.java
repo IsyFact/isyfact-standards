@@ -129,8 +129,8 @@ public class BatchProtokollTester {
     public Collection<String> getFehlerIds() {
         ArrayList<String> fehlerListe = new ArrayList<>();
         String xpathQuery = "//Meldung[@Typ='F']";
-        NodeList nodes = getNodeListFromXpath(xpathQuery);
-        if (nodes.getLength() != 0) {
+        if (getNodeListFromXpath(xpathQuery).getLength() != 0) {
+            NodeList nodes = getNodeListFromXpath(xpathQuery);
             for (int i = 0; i < nodes.getLength(); i++) {
                 NamedNodeMap attributMap = nodes.item(i).getAttributes();
                 fehlerListe.add(attributMap.getNamedItem("ID").getNodeValue());
@@ -144,13 +144,7 @@ public class BatchProtokollTester {
      * @return Menge der eindeutigen FehlerIDs
      */
     public Set<String> getFehlerIdsEindeutig() {
-        HashSet<String> fehlerIdsEindeutig = new HashSet<>();
-        for (String fehlerId : getFehlerIds()) {
-            if (!fehlerIdsEindeutig.contains(fehlerId)) {
-                fehlerIdsEindeutig.add(fehlerId);
-            }
-        }
-        return fehlerIdsEindeutig;
+        return new HashSet<>(getFehlerIds());
     }
 
     /**
