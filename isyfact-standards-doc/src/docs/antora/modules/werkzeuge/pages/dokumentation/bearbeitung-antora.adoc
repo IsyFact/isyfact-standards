@@ -280,7 +280,7 @@ Die Inhalte stellen verpflichtende Regeln oder Konventionen dar und können bei 
 
 [WARNING]
 ====
-Der Block WARNING beschreibt typische Fallstricke, die sich bei der Nutzung der IsyFact (z.B. der beschriebenen Blaupause oder eines Bausteins) ergeben können.
+Der Block WARNING beschreibt typische Fallstricke, die sich bei der Nutzung der IsyFact ergeben können.
 Er warnt davor und bietet Lösungsmöglichkeiten oder hilft, den Fallstrick aktiv zu vermeiden.
 ====
 
