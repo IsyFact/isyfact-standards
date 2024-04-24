@@ -126,7 +126,7 @@ Sie enthält außerdem das Vorgehen zur Erstellung und Beispiele für die zu bes
 == Vorgaben für die Realisierung
 
 Die Realisierung hat gemäß den xref:methodik:java-programmierkonventionen/master.adoc#einleitung[Java Programmierkonventionen] zu erfolgen.
-Die Versionierung von Bibliotheken und Anwendungen muss sich nach den Vorgaben zur xref:werkzeuge:versionierungskontrolle/master.adoc#maven-plugin-versionierungskontrolle[IsyFact Versionierung] richten, die im Wesentlichen auf xref:glossary:literaturextern:inhalt.adoc#litextern-semantic-versioning[Semantic Versioning] basieren.
+Die Versionierung von Bibliotheken und Anwendungen muss sich nach den Vorgaben zur xref:werkzeuge:versionierungskontrolle/master.adoc#maven-plugin-versionierungskontrolle[IsyFact Versionierung] richten, die im Wesentlichen auf xref:literaturextern:inhalt.adoc#litextern-semantic-versioning[Semantic Versioning] basieren.
 Für die Entwicklungsumgebung gelten wenige Vorgaben, die in xref:werkzeuge:entwicklungsumgebung/master.adoc#einleitung[IsyFact Einrichtung Entwicklungsumgebung] zusammengefasst sind.
 
 Die Bibliotheken der IsyFact werden als JAR (Java Archive) bereitgestellt und können über ihre Maven-Koordinaten leicht als Abhängigkeit in die Anwendungsentwicklung eingebunden werden.

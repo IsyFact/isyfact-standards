@@ -484,7 +484,7 @@ Ohne Text in der Titelzeile soll eine Detailseite nicht verwendet werden.
 
 ** *Headline*: Darstellung von zusätzlichem Text neben einem Seitentitel
 
-** *Breadcrumb* (ähnlich einer xref:glossary:literaturextern:inhalt.adoc#litextern-location-breadcrumb[Location Breadcrumb]): In dieser werden der Objekttitel und der zum Objekt gehörige „Ort" angezeigt (siehe <<image-applikationdetailbeispiel>>). Dieser Ort kann je nach Anzahl der Hierarchieebenen variieren.
+** *Breadcrumb* (ähnlich einer xref:literaturextern:inhalt.adoc#litextern-location-breadcrumb[Location Breadcrumb]): In dieser werden der Objekttitel und der zum Objekt gehörige „Ort" angezeigt (siehe <<image-applikationdetailbeispiel>>). Dieser Ort kann je nach Anzahl der Hierarchieebenen variieren.
 An dieser Stelle ist es wichtig dem Benutzer eindeutig zu kommunizieren, welches Objekt er gerade betrachtet und zu welcher Applikation das Objekt gehört.
 
 *** Hier wird *nicht* der vom User gegangene Weg zum angezeigten Objekt dargestellt.
@@ -3746,7 +3746,7 @@ Generell sollten nicht zu viele verschiedene Grundfarben für die Gestaltung ein
 * Die Rot-Grün-Sehschwäche ist die am weitesten verbreitete Form der Farbenfehlsichtigkeit während die Blau-Gelb-Sehschwäche eher selten auftritt.
 Menschen, die unter einer Sehschwäche leiden, nehmen die entsprechenden Farben nicht differenziert wahr, sondern lediglich unterschiedliche Graustufen.
 * Auf der Webseite
-xref:glossary:literaturextern:inhalt.adoc#litextern-vicheck[ViCheck]
+xref:literaturextern:inhalt.adoc#litextern-vicheck[ViCheck]
 finden sich hilfreiche Tools und Downloads, um die verschiedenen Formen der Farbenfehlsichtigkeit zu simulieren.
 
 
@@ -3805,7 +3805,7 @@ In der folgenden Tabelle sind mögliche Icons und deren Funktion dargestellt sow
 Die CSS-Klasse bezieht sich auf Font Awesome Version 5.
 
 Eine Gesamtübersicht der zur Verfügung stehenden Icons finden Sie unter:
-xref:glossary:literaturextern:inhalt.adoc#litextern-prime-faces-icons[Prime Faces Icons]
+xref:literaturextern:inhalt.adoc#litextern-prime-faces-icons[Prime Faces Icons]
 
 // Die CSS-Klassen beziehen sich auf Font Awesome 5, AsciiDoctor verwendet intern aber noch Font Awesome 4.
 // Die von AsciiDoctor gerenderten Icons entsprechen vom Aussehen daher nicht zu 100% den Font Awesome 5 Icons.

@@ -41,7 +41,7 @@ TIP: Wenn Sie keine virtuelle Maschine für Ihre IsyFact-Entwicklungsumgebung ei
 
 Für die Erstellung der virtuellen Maschine benötigen Sie ein Host-System, das die virtuelle Maschine als Gastsystem verwaltet.
 Das gängigste Produkt hierfür ist Oracle VirtualBox.
-VirtualBox lässt sich unter xref:glossary:literaturextern:inhalt.adoc#litextern-virtual-box[Oracle VirtualBox] herunterladen.
+VirtualBox lässt sich unter xref:literaturextern:inhalt.adoc#litextern-virtual-box[Oracle VirtualBox] herunterladen.
 
 .Virtualbox Hauptmenü
 [id="image-leitfaden_entwicklungsumgebung_vb_01",reftext="{figure-caption} {counter:figures}"]
@@ -76,9 +76,9 @@ Danach können Sie eine Festplatte zu der virtuellen Maschine erstellen.
 Hierbei handelt es sich um eine Datei mit der Endung .vdi, die VirtualBox in das Verzeichnis der virtuellen Maschine speichert.
 Über die Option "Festplatte erzeugen" würden Sie diese Datei normalerweise ganz neu anlegen, um dort später das Ubuntu Betriebssystem zu installieren.
 Statt die Festplatte und das darin zu installierende Betriebssystem von Hand zu installieren, beschreibt diese Anleitung eine Abkürzung.
-Die Webseite xref:glossary:literaturextern:inhalt.adoc#litextern-osboxes[OSBoxes] bietet virtuelle Festplatten mit vorinstallierten Betriebssystemen an.
+Die Webseite xref:literaturextern:inhalt.adoc#litextern-osboxes[OSBoxes] bietet virtuelle Festplatten mit vorinstallierten Betriebssystemen an.
 Dieser Leitfaden benutzt die Desktop-Edition von Ubuntu.
-Diese ist unter xref:glossary:literaturextern:inhalt.adoc#litextern-osboxes-ubuntu[OSBoxes Ubuntu] verfügbar.
+Diese ist unter xref:literaturextern:inhalt.adoc#litextern-osboxes-ubuntu[OSBoxes Ubuntu] verfügbar.
 Wählen Sie die VirtualBox-Version der virtuellen Festplatte und laden Sie sie herunter.
 
 Nach dem Herunterladen befindet sich eine Datei mit dem Namen `Ubuntu_<Version>-VB-64bit.7z` in Ihrem Download-Verzeichnis.
@@ -284,7 +284,7 @@ Ubuntu bietet von Haus aus ein eigenes Maven Paket an, das über folgendes Komma
 ===	Spring Tool Suite (STS)
 
 Im nächsten Schritt installieren Sie die integrierte Entwicklungsumgebung Spring Tool Suite (STS).
-Auf der Webseite xref:glossary:literaturextern:inhalt.adoc#litextern-spring-tool-suite[Spring Tool Suite] bietet der Hersteller diesbezüglich eine Reihe von Download-Links an.
+Auf der Webseite xref:literaturextern:inhalt.adoc#litextern-spring-tool-suite[Spring Tool Suite] bietet der Hersteller diesbezüglich eine Reihe von Download-Links an.
 Laden Sie die Linux-Version in der 64-Bit Variante herunter. Danach wechseln Sie in das Verzeichnis `/opt` und installieren die STS-Installationsdatei über folgendes Kommando:
 
  sudo tar -xzf <Pfad zur STS-Installationsdatei> -C /opt
@@ -295,7 +295,7 @@ Anschließend ist die Entwicklungsumgebung über das Kommando `STS` im Ordner `/
 [id="image-leitfaden_entwicklungsumgebung_werkzeuge_sts",reftext="{figure-caption} {counter:figures}"]
 image::werkzeuge:entwicklungsumgebung/leitfaden_entwicklungsumgebung_werkzeuge_sts.png[align="center"]
 
-Um STS darüber hinaus über eine Desktop-Verknüpfung starten zu können, muss im Verzeichnis `.local/share/applications` Ihres Home-Verzeichnisses ein xref:glossary:literaturextern:inhalt.adoc#litextern-ubuntu-programmstarter[Programmstarter] angelegt werden.
+Um STS darüber hinaus über eine Desktop-Verknüpfung starten zu können, muss im Verzeichnis `.local/share/applications` Ihres Home-Verzeichnisses ein xref:literaturextern:inhalt.adoc#litextern-ubuntu-programmstarter[Programmstarter] angelegt werden.
 Legen Sie dazu eine Datei namens `STS.desktop` in diesem Verzeichnis an und versehen Sie sie mit folgendem Inhalt:
 
  #!/usr/bin/env xdg-open
@@ -328,7 +328,7 @@ Bei einer IsyFact-Anwendung handelt es sich um eine Webanwendung, die genauso wi
 Der gängigste Web-Container hierfür ist Catalina bzw. das Produkt Apache Tomcat, das den Catalina Web Container integriert.
 Obwohl STS ein eigenes Apache Tomcat Derivat bereithält, setzt man bei einer IsyFact-Anwendung typischerweise Apache Tomcat ein.
 Deshalb wird in diesem Leitfaden diese Variante gezeigt.
-Laden Sie Apache Tomcat von der Webseite xref:glossary:literaturextern:inhalt.adoc#litextern-apache[Apache] herunter.
+Laden Sie Apache Tomcat von der Webseite xref:literaturextern:inhalt.adoc#litextern-apache[Apache] herunter.
 
 .Download von Apache Tomcat
 [id="image-leitfaden_entwicklungsumgebung_werkzeuge_apache_tomcat_01",reftext="{figure-caption} {counter:figures}"]
@@ -615,7 +615,7 @@ image::werkzeuge:entwicklungsumgebung/Einrichtung_Entwicklungsumgebung_005.png[a
 
 Die Einbindung und Konfiguration von Checkstyle erfolgt über Plugins in der verwendeten IDE.
 
-NOTE: Mehr Details zur Verwendung der Checkstyle-Regeln finden sich im xref:glossary:literaturextern:inhalt.adoc#litextern-isyfact-checkstyle[README] des entsprechenden Repositories.
+NOTE: Mehr Details zur Verwendung der Checkstyle-Regeln finden sich im xref:literaturextern:inhalt.adoc#litextern-isyfact-checkstyle[README] des entsprechenden Repositories.
 
 ==== Installation des Plugins
 
@@ -627,7 +627,7 @@ NOTE: Mehr Details zur Verwendung der Checkstyle-Regeln finden sich im xref:glos
 * Neben dem Eingabefeld _Work With:_ auf die Schaltfläche btn:[Add...] klicken und folgende Daten eintragen: +
 +
 _Name_: Eclipse Checkstyle Plugin +
-_Location_: xref:glossary:literaturextern:inhalt.adoc#litextern-eclipse-checkstyle-plugin[Eclipse Checkstyle Plugin]
+_Location_: xref:literaturextern:inhalt.adoc#litextern-eclipse-checkstyle-plugin[Eclipse Checkstyle Plugin]
 
 .Installationsquelle für Checkstyle hinzufügen
 [id="image-checkstyle-source",reftext="{figure-caption} {counter:figures}"]

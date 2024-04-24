@@ -124,7 +124,7 @@ public interface PersonRepository extends Repository<Person, Long> {
 ----
 
 NOTE: Eine Übersicht zur Ableitung von Queries aus Methodennamen befindet sich in der
-xref:glossary:literaturextern:inhalt.adoc#litextern-spring-data-jpa[Referenzdokumentation zu Spring Data JPA].
+xref:literaturextern:inhalt.adoc#litextern-spring-data-jpa[Referenzdokumentation zu Spring Data JPA].
 
 ==== Ableitung über eine manuell definierte Query.
 

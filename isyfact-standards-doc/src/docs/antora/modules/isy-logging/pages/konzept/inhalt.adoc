@@ -193,7 +193,7 @@ Für die Weitergabe von Log Dateien an Auftragsverarbeiter (Entwickler) bedeutet
 
 .icon:university[title=Architekturregel] Architekturregel
 ****
-Beim Loggen der Nachrichten sind grundsätzlich die Vorgaben der Datenschutzgrundverordnung (xref:glossary:literaturextern:inhalt.adoc#litextern-dsgvo[DSGVO]) einzuhalten.
+Beim Loggen der Nachrichten sind grundsätzlich die Vorgaben der Datenschutzgrundverordnung (xref:literaturextern:inhalt.adoc#litextern-dsgvo[DSGVO]) einzuhalten.
 Eine besondere Rolle spielen dabei personenbezogene Daten und insbesondere Daten gemäß Artikel 9 DSGVO.
 Ebenso dürfen grundsätzlich keine sicherheitsrelevanten Daten (z.B. Passwörter) geloggt werden.
 ****

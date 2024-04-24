@@ -466,7 +466,7 @@ include::blaupausen:page$detailkonzept-komponente-web-gui/inhalt.adoc[tag=namens
 
 Für die Benennung von RPM-Paketen existiert eine Konvention, welche durch den RPM-Standard vorgeben wird.
 
-NOTE: Siehe xref:glossary:literaturextern:inhalt.adoc#litextern-rpm-packaging-guide[RPM Packaging Guide]
+NOTE: Siehe xref:literaturextern:inhalt.adoc#litextern-rpm-packaging-guide[RPM Packaging Guide]
 
 .RPM-Pakete
 [id="table-rpmpak",reftext="{table-caption} {counter:tables}"]
