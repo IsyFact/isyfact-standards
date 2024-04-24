@@ -1,16 +1,14 @@
 package de.bund.bva.isyfact.batchrahmen.test;
 
-import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.util.Collection;
 
-import de.bund.bva.isyfact.batchrahmen.test.BatchProtokollTester;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class BatchProtokollTesterTest {
 
@@ -94,11 +92,11 @@ public class BatchProtokollTesterTest {
     @ParameterizedTest
     @ValueSource(strings = {
             "//Meldung[@ID='ERROR1'",  // Unclosed bracket
-            "//book[nonexistentFunction(@price)]",  // Nonexistent function
-            "//Meldung[@price=]"  // Wrong attribute usage
+            "//Book[nonexistentFunction(@Price)]",  // Nonexistent function
+            "//Meldung[Price=]"  // Wrong attribute usage
     })
-    public void testInvalidXPaths(String invalidXPath) {
-        Assertions.assertThrows(RuntimeException.class, () -> {
+    void testInvalidXPaths(String invalidXPath) {
+        assertThrows(RuntimeException.class, () -> {
             batchProtokollTester.getNodeListFromXpath(invalidXPath);
         });
     }
