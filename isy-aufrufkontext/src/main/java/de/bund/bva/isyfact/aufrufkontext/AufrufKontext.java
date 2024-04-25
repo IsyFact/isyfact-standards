@@ -18,8 +18,10 @@ package de.bund.bva.isyfact.aufrufkontext;
 
 /**
  * Enthält informationen darüber, welcher Nutzer die gerade ausgeführet Berechnung angestoßen hat.
- * 
+ *
+ * @deprecated since IsyFact 3.1.0 in favor of Spring Security OAuth2 and the isy-security library.
  */
+@Deprecated
 public interface AufrufKontext {
 
     /**

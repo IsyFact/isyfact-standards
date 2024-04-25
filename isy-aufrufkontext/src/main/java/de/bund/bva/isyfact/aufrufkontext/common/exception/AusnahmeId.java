@@ -18,9 +18,10 @@ package de.bund.bva.isyfact.aufrufkontext.common.exception;
 
 /**
  * Alle verfügbaren AusnahmeIds.
- * 
  *
+ * @deprecated since IsyFact 3.1.0 in favor of Spring Security OAuth2 and the isy-security library.
  */
+@Deprecated
 public enum AusnahmeId {
     
     /** Der übergebene Parameter ist null oder leer. */

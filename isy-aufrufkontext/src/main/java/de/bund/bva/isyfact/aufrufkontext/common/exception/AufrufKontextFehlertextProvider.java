@@ -28,8 +28,10 @@ import de.bund.bva.isyfact.exception.FehlertextProvider;
 /**
  * Diese Klasse stellt Methoden zum Auslesen von Fehlertexten auf Basis von AusnahmeIDs und Parametern, zur
  * Verfügung.
- * 
+ *
+ * @deprecated since IsyFact 3.1.0 in favor of Spring Security OAuth2 and the isy-security library.
  */
+@Deprecated
 public class AufrufKontextFehlertextProvider implements FehlertextProvider {
     /**
      * Das ResourceBoundle mit den Fehlertexten der AufrufkontextAPI.

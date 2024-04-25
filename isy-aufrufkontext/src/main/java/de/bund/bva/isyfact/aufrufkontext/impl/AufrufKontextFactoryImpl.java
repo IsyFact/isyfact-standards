@@ -28,8 +28,10 @@ import de.bund.bva.isyfact.aufrufkontext.common.exception.AufrufKontextKeinDefau
  * 
  * @param <T>
  *            die anwendungsspezifische AufrufKontext-Klasse
- * 
+ *
+ * @deprecated since IsyFact 3.1.0 in favor of Spring Security OAuth2 and the isy-security library.
  */
+@Deprecated
 public class AufrufKontextFactoryImpl<T extends AufrufKontext> implements AufrufKontextFactory<T> {
 
     /** Die Ausprägung des zu erstellenden AufrufKontextes. */

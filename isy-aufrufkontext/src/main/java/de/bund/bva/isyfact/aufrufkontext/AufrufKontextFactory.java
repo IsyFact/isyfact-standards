@@ -22,8 +22,10 @@ package de.bund.bva.isyfact.aufrufkontext;
  * 
  * @param <T>
  *            die anwendungsspezifische AufrufKontext-Klasse
- * 
+ *
+ * @deprecated since IsyFact 3.1.0 in favor of Spring Security OAuth2 and the isy-security library.
  */
+@Deprecated
 public interface AufrufKontextFactory<T extends AufrufKontext> {
 
     /**
