@@ -29,7 +29,10 @@ import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
  *
  * @param <T>
  *         implementation of the {@link AufrufKontext} that is managed by the class
+ *
+ * @deprecated since IsyFact 3.1.0 in favor of Spring Security OAuth2 and the isy-security library.
  */
+@Deprecated
 public class AufrufKontextVerwalterStub<T extends AufrufKontext>
         implements AufrufKontextVerwalter<T>, InitializingBean {
 

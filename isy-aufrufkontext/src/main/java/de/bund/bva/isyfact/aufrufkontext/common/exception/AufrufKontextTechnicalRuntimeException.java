@@ -21,8 +21,10 @@ import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
 
 /**
  * Für Exceptions, die durch den AufrufKontext entstehen können.
- * 
+ *
+ * @deprecated since IsyFact 3.1.0 in favor of Spring Security OAuth2 and the isy-security library.
  */
+@Deprecated
 public abstract class AufrufKontextTechnicalRuntimeException extends TechnicalRuntimeException {
     /**
      * Serial Version Id.
