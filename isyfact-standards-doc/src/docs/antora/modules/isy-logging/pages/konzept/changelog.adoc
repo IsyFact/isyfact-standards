@@ -3,9 +3,9 @@
 
 *Änderungen IsyFact 4.0.0*
 
-tag::release-4.0.0[]
+// tag::release-4.0.0[]
 - `IFS-3663` Erwähnung PLIS aus Diagramm entfernt
-end::release-4.0.0[]
+// end::release-4.0.0[]
 
 // *Änderungen IsyFact 3.0.0*
 
