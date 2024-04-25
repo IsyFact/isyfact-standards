@@ -1,3 +1,7 @@
+# 3.1.0
+- `IFS-3612`: Bibliothek als `@Deprecated` markiert
+  - Nach Umstellung auf `isy-security` und REST Schnittstellen wird die Bibliothek nicht länger benötigt.
+
 # 3.0.0
 - `ISY-650`: `HttpHeaderNestedDiagnosticContextFilter` nach `isy-logging` verschoben
 
