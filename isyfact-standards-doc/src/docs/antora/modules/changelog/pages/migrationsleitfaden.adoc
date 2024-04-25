@@ -54,6 +54,16 @@ Es sind die xref:isy-ueberwachung:nutzungsvorgaben/master.adoc[] zu IsyFact 3 zu
 [[kapitel-bausteine]]
 == Bausteine
 
+[[kapitel-aufrufkontext]]
+=== Aufrufkontext
+[WARNING]
+====
+Der Baustein `isy-aufrufkontext` ist mit der Version 3.1 als deprecated gekennzeichnet und wird nicht mehr weiterentwickelt.
+Mit der Version 4 wird er endgültig aus dem Projekt entfernt.
+====
+
+Mit dem Umstieg auf `isy-security` und der Verwendung von REST Schnittstellen wird `isy-aufrufkontext` nicht länger benötigt.
+
 [[kapitel-konfiguration]]
 === Konfiguration
 
