@@ -7,7 +7,7 @@ Soll eine neue Dokumentation angelegt werden oder die bestehende Dokumentation u
 [[submodul]]
 == Submodul
 
-Als Beispiel dient das Repository xref:glossary:literaturextern:inhalt.adoc#litextern-isyfact-standards[icon:github[] isyfact-standards].
+Als Beispiel dient das Repository xref:literaturextern:inhalt.adoc#litextern-isyfact-standards[icon:github[] isyfact-standards].
 Es enthält ein Submodul zur Dokumentation.
 In Repositories, die noch keine Dokumentation enthalten, muss ein derartiges Submodul angelegt werden.
 
@@ -43,12 +43,12 @@ TIP: Mehrere Antora-Komponenten hätten unterschiedliche Versionen, die eventuel
 ----
 <.> Antora Konfigurationsdatei für die Antora-Komponente.
 
-In der `antora.yml`-Datei wird mindestens der Name der xref:glossary:literaturextern:inhalt.adoc#litextern-antora-komponente[Dokumentationskomponente] und ihre Version angegeben.
+In der `antora.yml`-Datei wird mindestens der Name der xref:literaturextern:inhalt.adoc#litextern-antora-komponente[Dokumentationskomponente] und ihre Version angegeben.
 
 [[antora-modul]]
 == Antora-Modul
 
-Im gleichen Verzeichnis wie `antora.yml`, `src/docs/antora`, muss das xref:glossary:literaturextern:inhalt.adoc#litextern-antora-verzeichnisstruktur[Verzeichnis für die Module] liegen.
+Im gleichen Verzeichnis wie `antora.yml`, `src/docs/antora`, muss das xref:literaturextern:inhalt.adoc#litextern-antora-verzeichnisstruktur[Verzeichnis für die Module] liegen.
 
 In einem Antora-Modul wird die Dokumentation eines Bausteins abgelegt oder die Dokumentation einer Säule der IsyFact.
 Unterhalb des Verzeichnisses `modules` wird ein Modul-Verzeichnis mit entsprechendem Namen abgelegt, sofern noch nicht vorhanden.
@@ -80,7 +80,7 @@ Eine Dokumentationsseite enthält ein in sich abgeschlossenes Thema und entspric
 Der Aufbau einer Dokumentationsseite ist in der xref:seitenvorlage.adoc[Seitenvorlage] beschrieben.
 Wenn unter `pages` viele Dokumentationsseiten abzulegen sind, können sie xref:seitenvorlage.adoc#dateien-thema[noch weiter strukturiert] werden.
 
-Neben dem Verzeichnis `pages` kann es bei Bedarf xref:glossary:literaturextern:inhalt.adoc#litextern-antora-verzeichnisstruktur[noch weitere Verzeichnisse], z.B. für Bilder oder Anhänge, geben.
+Neben dem Verzeichnis `pages` kann es bei Bedarf xref:literaturextern:inhalt.adoc#litextern-antora-verzeichnisstruktur[noch weitere Verzeichnisse], z.B. für Bilder oder Anhänge, geben.
 Auch in diesen Verzeichnissen kann eine weitere Strukturierung erfolgen, die sich bestenfalls an der Struktur der Dokumentationsseiten orientiert.
 
 [[verzeichnisstruktur-pages-images]]
@@ -117,7 +117,7 @@ In der Datei `nav.adoc` legt jedes Modul fest, wie seine Dokumentationsseiten in
 Die Linksnavigation der Online-Dokumentation spiegelt die Säulen der IsyFact wider.
 Die Säulen sind eins zu eins als Antora-Module deklariert.
 Diese strukturieren die Linksnavigation weiter.
-Unter "Bausteine" befinden sich beispielsweise die Bausteine, die im Repository xref:glossary:literaturextern:inhalt.adoc#litextern-isyfact-standards[icon:github[] isyfact-standards] dokumentiert werden.
+Unter "Bausteine" befinden sich beispielsweise die Bausteine, die im Repository xref:literaturextern:inhalt.adoc#litextern-isyfact-standards[icon:github[] isyfact-standards] dokumentiert werden.
 ====
 
 Die Navigationsdateien der Module werden in der Konfigurationsdatei der Dokumentationskomponente (`antora.yml`) aufgelistet, damit sie von Antora berücksichtigt werden kann.
@@ -159,6 +159,6 @@ Die durch das Beispiel generierte Navigation ist links dieser Seite aufgeklappt 
 [[konfiguration-antora]]
 == Anpassung des Playbooks
 
-Das Playbook befindet sich im Repository xref:glossary:literaturextern:inhalt.adoc#litextern-isyfact-antora[icon:github[] isy-antora-playbook].
+Das Playbook befindet sich im Repository xref:literaturextern:inhalt.adoc#litextern-isyfact-antora[icon:github[] isy-antora-playbook].
 Es steuert die Generierung der Projektseite, also z.B. welche Antora-Komponenten in welchen Repositories und Branches für die Generierung der Gesamtdokumentation verwendet werden sollen.
 Das Playbook muss angepasst werden, wenn in einem Repository eine Dokumentation neu erstellt wird, und wenn weitere Branches zur Dokumentengenerierung herangezogen werden sollen.

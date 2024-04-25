@@ -13,7 +13,7 @@ Ebenfalls findet `Selenium` immer stärkeren Einsatz bei Automatisierung der kom
 == Setup
 Zum Aufsetzen von `Selenium` und dem Erstellen von webbasierten GUI-Tests mit Selenium, sollte die ausführliche Entwickler-Dokumentation von `Selenium` herangezogen werden: +
 
-xref:glossary:literaturextern:inhalt.adoc#litextern-selenium[Selenium Dokumentation]
+xref:literaturextern:inhalt.adoc#litextern-selenium[Selenium Dokumentation]
 
 [[selenium-basic-steps-install]]
 === Selenium installieren
@@ -82,7 +82,7 @@ driver.quit();
 
 [[selenium-basic-steps-eight-basic-actions]]
 ==== Acht grundlegende Funktionen
-xref:glossary:literaturextern:inhalt.adoc#litextern-selenium-getting-started[Grundlegende Funktion in Selenium - Offizielle Dokumentation]
+xref:literaturextern:inhalt.adoc#litextern-selenium-getting-started[Grundlegende Funktion in Selenium - Offizielle Dokumentation]
 
 [[selenium-problems]]
 == Problematiken
@@ -156,9 +156,9 @@ public void testAssertFunctions() {
 === WebElement Finding bei asynchronen Änderungen
 Grundlegende Informationen, wie man WebElemente über Selenium findet: +
 
-xref:glossary:literaturextern:inhalt.adoc#litextern-selenium-finders[Finders]
+xref:literaturextern:inhalt.adoc#litextern-selenium-finders[Finders]
 
-xref:glossary:literaturextern:inhalt.adoc#litextern-selenium-locators[Locators]
+xref:literaturextern:inhalt.adoc#litextern-selenium-locators[Locators]
 
 JSF kann hier durch dynamische Generierung Probleme bei der Suche nach WebElement-Ids bereiten.
 Daher kann auf zwei alternative Möglichkeiten zurückgegriffen werden:

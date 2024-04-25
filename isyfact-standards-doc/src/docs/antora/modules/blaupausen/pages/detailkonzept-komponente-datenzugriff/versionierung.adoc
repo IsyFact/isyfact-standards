@@ -31,7 +31,7 @@ Im Gegensatz zu Schema-übergreifender Versionierung wird von Datenbank-übergre
 
 ****
 Nur eine Lösung, _Oracle Database Links_, bietet im Zusammenspiel mit Oracle-Datenbanken eine generische, transaktionssichere Lösung für dieses Problem an.
-Allerdings sind Oracle Database Links laut Maßnahme M 4.71 des IT-Grundschutzes (xref:glossary:literaturextern:inhalt.adoc#litextern-it-grundschutz-m471[IT-Grundschutz M 4.71]) nur unter strengen Auflagen zulässig, die eine Verwendung erheblich erschweren.
+Allerdings sind Oracle Database Links laut Maßnahme M 4.71 des IT-Grundschutzes (xref:literaturextern:inhalt.adoc#litextern-it-grundschutz-m471[IT-Grundschutz M 4.71]) nur unter strengen Auflagen zulässig, die eine Verwendung erheblich erschweren.
 
 Mit dem Wegfall dieser Lösung gibt es aus Sicht der IsyFact keine geeignete Lösung, um Daten zwischen mehreren Schemata auf unterschiedlichen Datenbank-Instanzen zu bearbeiten.
 ****

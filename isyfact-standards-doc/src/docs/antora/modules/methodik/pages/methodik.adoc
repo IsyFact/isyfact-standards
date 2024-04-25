@@ -9,7 +9,7 @@ include::glossary:licence:partial$licence.adoc[]
 .Methodik: Vorgehen auf Basis des V-Modell XT
 image::methodik:methodik-v-modell.dn.svg[]
 
-NOTE: Das xref:glossary:literaturextern:inhalt.adoc#litextern-v-modell-xt[V-Modell XT] ist als Vorgehensmodell für Systementwicklungsprojekte in deutschen Bundesbehörden vorgeschrieben.
+NOTE: Das xref:literaturextern:inhalt.adoc#litextern-v-modell-xt[V-Modell XT] ist als Vorgehensmodell für Systementwicklungsprojekte in deutschen Bundesbehörden vorgeschrieben.
 
 Die spezifische Methodik der IsyFact umfasst folgende Konventionen und Vorgaben.
 

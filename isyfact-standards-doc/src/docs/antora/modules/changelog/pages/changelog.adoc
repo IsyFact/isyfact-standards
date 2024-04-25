@@ -3,6 +3,7 @@
 == Änderungen IsyFact 3.0.1
 
 - Anhebung der Versionen mehrerer Abhängigkeiten der IsyFact und durch den Produktkatalog vorgegebenen Abhängigkeiten.
+- Dokumentation: Externe Verweise (literaturextern) von isy-documentation nach isyfact-standards verschoben.
 
 === Änderungen im Produktkatalog
 
