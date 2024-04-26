@@ -10,6 +10,7 @@
 - `ISY-1040`: [isyfact-standards-doc] Anpassung des logback.xml-Konfigurationspfads im IF2-Migrationsleitfaden
 - `IFS-2786`: [isyfact-standards-doc] Migrationsleitfaden IsyFact 2 entfernt
 - `IFS-2784`: [isyfact-standards-doc] Externe Verweise direkt verlinkt statt über literaturextern und URLs korrigiert
+- `IFS-2816`: [isyfact-standards-doc] Begriff "Blaupause" durch "Referenzarchitektur" ersetzt
 ## BUG FIXES
 ## BREAKING CHANGES
 - `ISY-889`: Spring Boot Versionsanhebung auf 3.2.x

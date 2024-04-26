@@ -1,6 +1,5 @@
 * xref:blaupausen.adoc[]
-** xref:referenzarchitektur/master.adoc[Referenzarchitektur]
-
+** xref:referenzarchitektur/master.adoc[Referenzarchitektur (allgemein)]
 ** xref:referenzarchitektur-it-system/master.adoc[Referenzarchitektur IT-System]
 *** xref:detailkonzept-komponente-anwendungskern/master.adoc[Anwendungskern]
 *** xref:detailkonzept-komponente-datenzugriff/einordnung-ziele.adoc[Datenzugriff]

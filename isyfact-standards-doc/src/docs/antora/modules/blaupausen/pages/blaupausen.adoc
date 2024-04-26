@@ -1,10 +1,10 @@
-= Blaupausen
+= Referenzarchitektur
 
 include::glossary:licence:partial$licence.adoc[]
 
 // tag::whitepaper[]
 
-*Blaupausen beschreiben die Konzepte, Architektur sowie Erstellung von Anwendungslandschaften und Geschäftsanwendungen auf fachlicher, software-technischer und technisch-infrastruktureller Ebene.*
+*Die Referenzarchitektur beschreibt die Konzepte, Architektur sowie Erstellung von Anwendungslandschaften und Geschäftsanwendungen auf fachlicher, software-technischer und technisch-infrastruktureller Ebene.*
 
 == Fachliche Referenzarchitektur (A-Architektur)
 
@@ -43,7 +43,7 @@ Technische Nutzer über Batches für Stapelverarbeitung oder als Service für ei
 
 Ergänzend zu GUI, Service, Batch, Anwendungskern und Datenhaltung gibt es in den IT-Systemen *querschnittliche Funktionalitäten* wie beispielsweise Fehlerbehandlung, Logging oder Authentifizierung und Autorisierung.
 
-Die IsyFact enthält Blaupausen für die Nutzungsschichten GUI, Batch, Servicekommunikationen sowie für den Anwendungskern und den Datenzugriff.
+Die Referenzarchitektur beschreibt die Nutzungsschichten GUI, Batch und Service sowie den Anwendungskern und den Datenzugriff.
 
 == Die Referenzarchitektur der technischen Infrastruktur (TI-Architektur)
 
