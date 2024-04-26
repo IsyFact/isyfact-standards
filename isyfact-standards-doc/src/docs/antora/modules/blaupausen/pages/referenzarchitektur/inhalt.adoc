@@ -39,7 +39,7 @@ Der Entwickler kann sich dadurch ganz auf die strukturellen und operativen Beson
 
 Die Lösungen decken fünf Bereiche ab: Referenzarchitektur, Bausteine, Betriebsplattform, Methodik und Werkzeuge.
 
-Die xref:glossary:glossary:master.adoc#glossar-blaupause[*Referenzarchitektur*] beschreibt die vorgegebene Architektur und Konzepte einer Anwendungslandschaft für den Betrieb von Geschäftsanwendungen aus drei verschiedenen Sichten: der fachlichen Sicht, der Sicht der softwaretechnischen Umsetzung und der Sicht der technischen Infrastruktur.
+Die xref:glossary:glossary:master.adoc#glossar-referenzarchitektur[*Referenzarchitektur*] beschreibt die vorgegebene Architektur und Konzepte einer Anwendungslandschaft für den Betrieb von Geschäftsanwendungen aus drei verschiedenen Sichten: der fachlichen Sicht, der Sicht der softwaretechnischen Umsetzung und der Sicht der technischen Infrastruktur.
 
 xref:glossary:glossary:master.adoc#glossar-baustein[*Bausteine*] sind konkrete, strukturierte Lösungen zur Umsetzung der in der Referenzarchitektur beschriebenen Architektur und Konzepte.
 Bausteine sind wieder verwendbare Softwarelösungen, z.B. ein Regelwerk für fachliche Konsistenzprüfungen oder Komponenten zur Protokollierung.
