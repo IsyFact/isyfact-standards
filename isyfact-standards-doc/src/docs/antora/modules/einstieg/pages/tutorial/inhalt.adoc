@@ -256,13 +256,13 @@ NOTE: Für das Bundesverwaltungsamt ist dies z.B. `de.bund.bva`
 [[anwendungsnutzung]]
 == Anwendungsnutzung
 
-In diesem Kapitel wird die Realisierung von verschiedenen, technischen Zugangswegen zum Anwendungskern beschrieben, mit Ausnahme des GUI-Zugangs.
+In diesem Kapitel wird die Realisierung von verschiedenen, technischen Zugangswegen zum Anwendungskern beschrieben.
 Das Thema umfasst das Anbieten von internen Service-Schnittstellen per HTTP Invoker, das Nutzen derselben und die Nutzung des Anwendungskerns im
 Rahmen der Batch-Verarbeitung.
 
 .Referenzarchitektur eines IT-Systems
 [id="image-RAIT",reftext="{figure-caption} {counter:figures}"]
-image::einstieg:tutorial/RAIT.png[align="center"]
+image::blaupausen:referenzarchitektur-it-system/architektur-it-system.dn.svg[]
 
 [[anbieten-von-service-schnittstellen]]
 === Anbieten von Service-Schnittstellen

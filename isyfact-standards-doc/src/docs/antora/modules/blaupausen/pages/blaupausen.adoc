@@ -31,7 +31,7 @@ Die Software-Architektur beschreibt die in der fachlichen Architektur definierte
 Die Referenzarchitektur für IT-Systeme der IsyFact basiert auf der bekannten Drei-Schicht-Architektur.
 
 .Software-technische Referenzarchitektur
-image::blaupausen:referenzarchitektur-it-system/RAITSys.png[]
+image::blaupausen:referenzarchitektur-it-system/architektur-it-system.dn.svg[]
 
 Die *Datenhaltungsschicht* kapselt alle Funktionen zum Zugriff auf die Datenbanken.
 

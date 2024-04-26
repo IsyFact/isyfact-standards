@@ -630,7 +630,7 @@ _Schließlich finden sich in diesem Kapitel noch Details, auf die der Chefdesign
 
 *_Beschreibung der Teilsysteme_*
 
-_Die Teilsysteme haben (soweit es sich um Geschäftsanwendungen handelt) folgende, fest vorgegebene T-Architektur:_
+_Die Teilsysteme haben, wenn es sich um Geschäftsanwendungen handelt, folgende, fest vorgegebene T-Architektur:_
 ====
 
 :desc-image-darstellung-teilsysteme: Darstellung der Teilsysteme
@@ -643,7 +643,7 @@ _Die konkrete Ausgestaltung dieser Architektur mit den konkreten Komponenten ist
 
 _Dazu wird zunächst eine Übersicht über das Teilsystem gegeben, anschließend werden bei Bedarf die einzelnen Komponenten detailliert._
 
-_Falls es sich bei dem Teilsystem z. B. um ein Sevicegateway oder einen Querschnittlichen Service handelt, muss die Gliederung im Sinne des oben gesagten. angepasst werden._
+_Falls es sich bei dem Teilsystem z. B. um ein Service-Gateway oder einen Querschnittlichen Service handelt, muss die Gliederung im Sinne des oben gesagten. angepasst werden._
 ====
 
 [[ueberblick]]

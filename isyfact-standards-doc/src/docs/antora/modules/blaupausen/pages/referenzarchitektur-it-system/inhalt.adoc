@@ -12,7 +12,7 @@ Daher wird im Folgenden die Referenz-Architektur beschrieben, nach der diese Anw
 
 .Referenzarchitektur eines IT-Systems
 [id="image-RAITSys",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:referenzarchitektur-it-system/RAITSys.png[align="center"]
+image::blaupausen:referenzarchitektur-it-system/architektur-it-system.dn.svg[]
 
 In der *Persistenzschicht* ist alle Funktionalität enthalten, die zum Erzeugen, Suchen, Bearbeiten und Löschen von Datenobjekten benötigt wird.
 Der Datenzugriff auf das DBMS ist in dieser Schicht vollständig gekapselt.
@@ -240,7 +240,7 @@ Wenn diese Anwendungsfälle auch von anderen Nutzern benötigt werden, dann sind
 
 .Bestandteile von Batchverarbeitungsprogrammen
 [id="image-TeileBat",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:referenzarchitektur-it-system/TeileBat.png[align="center",pdfwidth=90%,width=90%]
+image::blaupausen:referenzarchitektur-it-system/architektur-it-system-batch.dn.svg[]
 
 Batches werden als eigener Prozess auf einem eigenen Server ausgeführt, das heißt sie laufen nicht in der virtuellen Maschine des Application Servers ab.
 Batches werden somit in einer eigenen Ablaufumgebung ausgeführt und greifen direkt auf die Datenbank oder auch auf Dateien zu.
@@ -273,7 +273,7 @@ Intern besteht die Komponente „Service“ aus zwei Teilen: dem Service-Framewo
 
 .Die Bestandteile von Services
 [id="image-TeileServ",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:referenzarchitektur-it-system/TeileServ.png[align="center"]
+image::blaupausen:referenzarchitektur-it-system/architektur-it-system-service.dn.svg[]
 
 *Service-Framework:* Das Service-Framework ist die Bezeichnung für die Technologie, mit der die Services des Anwendungskerns zur Verfügung gestellt werden.
 
