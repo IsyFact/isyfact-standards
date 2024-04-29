@@ -1,7 +1,0 @@
-*Angular Bibliothek / IT-System*
-
-[cols="5,2,3",options="header"]
-|====
-|Name |Art |Version
-|isy-angular-widgets |Bibliothek | https://www.npmjs.com/package/@isyfact/isy-angular-widgets[s. npm package]
-|====
