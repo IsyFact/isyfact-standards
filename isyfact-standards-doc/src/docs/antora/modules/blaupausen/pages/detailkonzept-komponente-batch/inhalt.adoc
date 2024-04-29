@@ -173,7 +173,7 @@ Insgesamt ist dies jedoch als Sonderfall zu betrachten.
 In der Regel gehören Batches zu Geschäftsanwendungen, sie enthalten damit den fachlichen Code dieser Anwendung und
 nutzen diesen nicht über Service-Schnittstellen (siehe Kapitel <<das-deployment-eines-batches>>).
 
-In diesem Fall ist das Anwendungssystem architektonisch ein eigenständiges IT-System nach Zielarchitektur, nur ohne Service und GUI Bereiche in der Nutzungsschicht.
+In diesem Fall ist das Anwendungssystem architektonisch ein eigenständiges IT-System nach Zielarchitektur, das in der Nutzungsschicht alleinig die Batch-Komponente enthält.
 
 Batches die zu einer Geschäftsanwendung gehören sollen jedoch nicht als eigenständiges IT-System umgesetzt werden.
 

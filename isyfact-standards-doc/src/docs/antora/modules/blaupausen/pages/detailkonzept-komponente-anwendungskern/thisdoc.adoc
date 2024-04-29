@@ -7,7 +7,7 @@
 
 Im Anwendungskern werden die fachlichen Funktionen der Anwendung realisiert.
 Diese Funktionen sind im Anwendungskern genau einmal implementiert und können von unterschiedlichen Komponenten einer Anwendung genutzt werden.
-Eine Meldung in einer Geschäftsanwendung kann z.B. sowohl über die GUI als auch über einen Batch oder einen Serviceaufruf vorgenommen werden.
+Eine Meldung in einer Geschäftsanwendung kann z.B. sowohl über einen Batch oder einen Serviceaufruf vorgenommen werden.
 Alle diese Aufrufer nutzen dieselbe Implementierung.
 Der Anwendungskern wird aus Fachkomponenten und Komponenten zur Nutzung externer Services aufgebaut.
 

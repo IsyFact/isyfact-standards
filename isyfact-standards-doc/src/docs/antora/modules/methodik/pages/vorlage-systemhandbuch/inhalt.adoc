@@ -548,42 +548,6 @@ _Spezifische Änderungen an den Dateien (z.B. Entfernen von Testbenutzern oder A
 Die Schlüssel und Mappings der Anwendung {anwendung} müssen in das Schlüsselverzeichnis importiert werden.
 Die entsprechende Datei ist mit den Schlüsseln und Mappings im Releaseletter der {anwendung-ga} angegeben.
 
-[[apache-konfiguration]]
-=== Apache Konfiguration
-
-NOTE: *Falls die Anwendung keine GUI besitzt, kann dieser Abschnitt entfallen.*
-
-Die {anwendung-ga} ist in der `mod_jk`-Konfiguration des Apache HTTP-Servers einzubinden.
-
-==== `uriworkermap.properties`
-
-:desc-listing-apache-request-tomcat: Redirect an den Worker
-[id="listing-apache-request-tomcat",reftext="{listing-caption} {counter:listings}"]
-.{desc-listing-apache-request-tomcat}
-[source,subs="attributes"]
-----
-/{it-system-ga}/={it-system-ga}Worker;use_server_errors=400
-----
-
-==== `workers.properties`
-
-:desc-listing-apache-request-tomcat-worker: Worker-Konfiguration
-[id="listing-apache-request-tomcat-worker",reftext="{listing-caption} {counter:listings}"]
-.{desc-listing-apache-request-tomcat-worker}
-[source,subs="attributes"]
-----
-worker.list=..., {it-system-ga}Worker
-
-# {anwendung-ga}: {it-system-ga}Worker
-worker.{it-system-ga}Worker.type=ajp13
-worker.{it-system-ga}Worker.host=(Host)
-worker.{it-system-ga}Worker.port=(IP)
-worker.{it-system-ga}Worker.cachesize=5
-worker.{it-system-ga}Worker.lbfactor=50
-worker.{it-system-ga}Worker.local_worker=1
-----
-
-Nach der Änderung muss der Apache neu gestartet werden.
 
 [[mail-server-konfiguration]]
 === Mail-Server Konfiguration
@@ -728,23 +692,8 @@ Folgende Werte müssen nach der Erstinstallation angepasst werden:
 [cols="2m,3a",options="header"]
 |===
 |Konfigurationsparameter |Beschreibung
-|behoerdenverzeichnis.service.url
-|Die Adresse des Behördenverzeichnisses.
-
-Beispiel: +
-`http(s)://isy.local.vm:50001/plis-behoerdenverzeichnis`
-
-|gui.behoerdenverzeichnis.url
-|Die Adresse der GUI des Behördenverzeichnisses.
-
-Beispiel: +
-`http(s)://isy.local.vm/plis-behoerdenverzeichnis`
-
-|schluesselverzeichnis.service.url
-|Die Adresse des Schlüsselverzeichnisses.
-
-Beispiel: +
-`http(s)://isy.local.vm:50002/plis-schluesselverzeichnis`
+|\{nachbarsystem}.\{endpunkt}.url
+|URL des Endpunkts (Service / UI) des Nachbarsystems.
 
 |batch.benutzer.kennung
 |System-Benutzer zum Ausführen der Batches.

@@ -22,20 +22,14 @@ Die Persistenz nutzt dazu das Framework Hibernate über die Java Persistence API
 Der *Anwendungskern* umfasst die fachliche Logik zur Datenbearbeitung, die mit dem System realisiert werden soll.
 Dazu gehören zum Beispiel Datenvalidierungen oder Funktionen zum Verarbeiten von Geschäftsobjekten, die über den Datenzugriff geladen wurden.
 
-Die *Nutzungsschicht* ist eine Erweiterung der klassischen Drei-Schichten Architektur, in der die dritte Schicht als GUI oder Präsentation bezeichnet wird.
-In der Referenzarchitektur für ein IT-System wird diese Schicht noch zusätzlich erweitert um Batch und Service.
-
-* Aufgabe der *GUI* ist es, die Funktionalität der Anwendung für einen menschlichen Anwender zur Verfügung zu stellen.
-Dabei unterstützt die GUI den Bearbeitungsprozess einer fachlichen Aufgabe.
-Innerhalb des Bearbeitungsprozesses stellt sie Dialoge dar und transferiert die durch den Anwendungskern gelieferten Datenobjekte in eine präsentable Form.
-Dies kann sowohl durch eine Web-basierte HTML-GUI als auch durch eine sogenannte Rich-Client-Anwendung geschehen.
+Die *Nutzungsschicht* ist eine Erweiterung der klassischen Drei-Schichten Architektur:
 
 * Aufgabe des **Batch**es ist es, automatisierte Prozesse ohne einen direkten menschlichen Anwender durchzuführen.
 Dabei nutzt der Batch ebenfalls die Funktionen des Anwendungskerns.
 Auch hier gibt es spezielle Batch-Schritte, die exklusiv vom Batch benötigt werden und deshalb nicht Bestandteil des Anwendungskerns sind.
 Eine Besonderheit beim Batch ist, dass die Steuerung des Batch-Prozesses in der Regel über ein Scheduling-Werkzeug erfolgt.
 
-* Der dritte Aufrufende von Anwendungslogik sind andere Anwendungen, die mittels *Services* auf den Anwendungskern zugreifen.
+* Andere Anwendungen greifen mittels *Services* auf den Anwendungskern zu.
 Dieser Zugriff erfolgt nicht direkt auf den Anwendungskern, sondern über die Nutzungsschicht „Service“.
 Dadurch können auf einfache Art technische Attribute in die Außenschnittstelle aufgenommen werden und der Service des Anwendungskerns kann auf die Kommunikationstechnik abgebildet werden, die für die Kommunikation zwischen IT-Systemen verwendet wird.
 
