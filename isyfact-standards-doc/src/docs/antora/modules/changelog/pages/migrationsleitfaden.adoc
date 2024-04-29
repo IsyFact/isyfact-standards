@@ -69,7 +69,8 @@ Mit dem Umstieg auf `isy-security` und der Verwendung von REST Schnittstellen wi
 
 [WARNING]
 ====
-Der Baustein `isy-konfiguration` ist mit der Version 3.1 als deprecated gekennzeichnet und wird nicht mehr weiter entwickelt. Er wird mit der Version 4 endgültig aus dem Projekt entfernt werden.
+Der Baustein `isy-konfiguration` ist mit der Version 3.1 als deprecated gekennzeichnet und wird nicht mehr weiterentwickelt.
+Mit der Version 4 wird er endgültig aus dem Projekt entfernt.
 ====
 
 Hintergrund der Deprecation und der Entfernung des Bausteines ist, dass `isy-konfiguration` schon seit IsyFact 2 nicht mehr weiterentwickelt wird und stattdessen von Springframework bereit gestellte Mechanismen genutzt werden sollen.
