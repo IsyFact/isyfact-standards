@@ -1,7 +1,7 @@
 # 3.1.0
-- `ISY-808` isy-konfiguration als deprecated markiert
+- `ISY-808`: [isy-konfiguration] als deprecated markiert
 - `IFS-3612`: [isy-aufrufkontext] als deprecated markiert
-- `ISY-948` : Spring Cache Abstraction als verpflichtende Bibliothek für anwendungsseitige Caches eingeführt
+- `ISY-948`: Spring Cache Abstraction als verpflichtende Bibliothek für anwendungsseitige Caches eingeführt
 - `ISY-305`: [isy-security] Implementierung von IsySecurityTokenUtil zum Auslesen von Attributen aus dem Bearer Token
 - `ISY-1040`: [isyfact-standards-doc] Anpassung des logback.xml-Konfigurationspfads im IF2-Migrationsleitfaden
 - `ISY-1061`: [isyfact-standards-doc] Ergänzung der Dokumentation zum Zurücksetzen der Korrelations-ID aus dem MdcHelper
