@@ -196,7 +196,7 @@ Fachliche Schnittstellen werden von Parametern befreit und Prüfungen auf vorhan
 
 Beim Aufruf grafischer Oberflächen wird der Aufrufkontext über einen `AbstractAuthenticationProcessingFilter` aus Spring Security ausgelesen.
 Die Autorisierung geschieht auf Ebene der Flows aus Spring Webflow.
-Weitere Details zur Umsetzung der Autorisierung in der GUI sind im Dokument xref:blaupausen:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Komponente WebGUI]) beschrieben.
+
 
 [[gui-spring-konfiguration]]
 ==== Spring-Konfiguration

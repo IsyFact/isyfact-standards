@@ -91,11 +91,6 @@ Services bieten fachliche Operationen nach außen an und stellen sie anderen IT-
 Das xref:blaupausen:detailkonzept-komponente-service/master.adoc#einleitung[Detailkonzept Komponente Service] beschreibt die Vorgaben für Services sowie den Aufbau der Service-Komponente.
 Die konkrete Umsetzung mit dem Service-Framework HTTP Invoker sind im xref:isy-serviceapi-core:konzept/master.adoc#einleitung[Konzept HTTP-Invoker] sowie den xref:isy-serviceapi-core:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben HTTP-Invoker] beschrieben.
 
-GUI::
-Grafische Oberflächen bieten fachliche Operationen nach außen an und stellen sie Anwendern zur Nutzung bereit.
-Ihre Umsetzung geschieht als Web-GUI und folgt dem MVC-Pattern.
-Die genauen Festlegungen zur Web-GUI-Entwicklung finden sich im xref:blaupausen:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Komponente Web-GUI].
-
 Die Erstellung von IT-Systemen wird durch einen Systementwurf konkretisiert und dokumentiert.
 
 [[vorgaben-fuer-den-systementwurf]]

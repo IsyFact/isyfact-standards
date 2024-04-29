@@ -7,7 +7,6 @@
 **** xref:detailkonzept-komponente-datenzugriff/historisierung.adoc[]
 **** xref:detailkonzept-komponente-datenzugriff/versionierung.adoc[]
 *** xref:detailkonzept-komponente-service/master.adoc[Service]
-*** xref:detailkonzept-komponente-web-gui/master.adoc[Web GUI]
 *** xref:detailkonzept-komponente-batch/master.adoc[Batch]
 
 

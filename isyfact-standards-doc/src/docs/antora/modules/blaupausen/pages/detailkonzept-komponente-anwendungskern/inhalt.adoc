@@ -140,7 +140,7 @@ Der Anwendungskern hat die Hoheit über die Geschäftsobjekte des IT-Systems.
 In xref:referenzarchitektur/master.adoc[Referenzarchitektur] wurde bereits beschrieben, dass zur Strukturierung eines IT-Systems zwei Sichten verwendet werden können:
 
 *Technische Sicht:* Die technische Sicht unterteilt die IT-Anwendung in Schichten für die jeweils eigene Technologien verwendet werden: Nutzung (GUI, Batch und Service), Anwendungskern und Datenzugriff.
-Das Ziel ist es, eine Durchmischung von Technologien zu verhindern, so darf z. B. in der GUI kein SQL formuliert werden.
+Das Ziel ist es, eine Durchmischung von Technologien zu verhindern, so darf z. B. außerhalb des Datenzugriffs kein SQL formuliert werden.
 
 *Fachliche Sicht:* Die fachliche Sicht beschreibt eine Teilaufgabe, z. B. Meldung, Auskunft oder Fristenkontrolle.
 Innerhalb dieser Teilaufgabe wird der Anwendungskern über eine GUI, Services oder Batches angesprochen, der wiederum über die Datenzugriffsschicht mit der Datenbank kommunizieren muss.
@@ -180,8 +180,7 @@ Die IsyFact verwendet ausgewählte Funktionalitäten des Spring-Frameworks in de
 * Konfiguration der Datenzugriffsschicht: beschrieben im xref:isy-persistence:nutzungsvorgaben/umsetzung-datenzugriff.adoc[Nutzungskonzept des Bausteins JPA/Hibernate],
 * Konfiguration des Logging über Spring: beschrieben in den xref:isy-logging:nutzungsvorgaben/master.adoc[],
 * Bereitstellung von Metriken zur Überwachung: beschrieben im xref:isy-ueberwachung:konzept/master.adoc[],
-* Verwendung der Schnittstellentechnologie HttpInvoker: beschrieben im xref:isy-serviceapi-core:konzept/master.adoc[],
-* Implementierung von Dialogen und Masken mit JSF und Spring-Webflow: beschrieben im xref:detailkonzept-komponente-web-gui/master.adoc[].
+* Verwendung der Schnittstellentechnologie HttpInvoker: beschrieben im xref:isy-serviceapi-core:konzept/master.adoc[].
 
 Alle anderen Spring-Funktionalitäten (Validierung über Spring, Emailing, Thread Pooling, Scripting) werden nicht verwendet.
 
@@ -435,10 +434,8 @@ Ist eine solche Steuerung trotzdem unumgänglich, muss sie über die jeweils zus
 ====
 Details zur Umsetzung von Transaktionen in der Nutzungsschicht finden sich in den jeweiligen Detailkonzepten:
 
-* xref:detailkonzept-komponente-batch/master.adoc[Detailkonzept Komponente Batch]
-* xref:detailkonzept-komponente-service/master.adoc[Detailkonzept Komponente Service]
-* xref:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Komponente Web-GUI]
-
+* xref:detailkonzept-komponente-batch/master.adoc[Detailkonzept Komponente Batch],
+* xref:detailkonzept-komponente-service/master.adoc[Detailkonzept Komponente Service].
 
 ====
 
