@@ -1,9 +1,0 @@
-= Nutzungsvorgaben Angular: Inhalt
-
-// tag::inhalt[]
-[[verwendung-der-bibliothek-isy-angular-widgets]]
-== Verwendung der Bibliothek *_isy-angular-widgets_*
-
-Wie die Bibliothek _isy-angular-widgets_ verwendet wird, ist in der Compodoc auf der Website
-https://isyfact.github.io/isy-angular-widgets/documentation/ ausführlich beschrieben.
-// end::inhalt[]
