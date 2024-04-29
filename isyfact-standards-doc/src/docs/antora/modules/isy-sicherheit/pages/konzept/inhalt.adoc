@@ -13,7 +13,7 @@ Die konkrete Sicherheitsarchitektur einer xref:glossary:glossary:master.adoc#glo
 * Liegt kein Aufruf über eine Außenschnittstelle vor (z.B. bei einem Batch-Aufruf), so geschieht die Authentifizierung und grobgranulare Autorisierung innerhalb der Nutzungsschicht (Batch) des konkreten IT-Systems.
 * Die feingranulare Autorisierung geschieht in der Nutzungsschicht und im Anwendungskern der IT-Systeme über den IsyFact-Baustein Sicherheit.
 
-Existiert keine Systemlandschaft (d.h. IT-Systeme stehen für sich allein), gilt grundsätzlich, dass die Authentifizierung und grobgranulare Autorisierung in der Nutzungsschicht (GUI, Service oder Batch) des IT-Systems geschehen muss.
+Existiert keine Systemlandschaft (d.h. IT-Systeme stehen für sich allein), gilt grundsätzlich, dass die Authentifizierung und grobgranulare Autorisierung in der Nutzungsschicht (Service oder Batch) des IT-Systems geschehen muss.
 
 Darüber hinaus finden Authentifizierung und Autorisierung nach den Vorgaben des Berechtigungskonzepts statt.
 Dieses Dokument beschreibt wesentliche Aspekte der Sicherheitsarchitektur für eine konkrete Anwendungslandschaft.
@@ -48,7 +48,7 @@ Wie genau Rollen und Rechte spezifiziert werden, beschreibt das Kapitel xref:kon
 [[sicherheitsarchitektur-eines-it-systems]]
 == Sicherheitsarchitektur eines IT-Systems
 
-Der Baustein Sicherheit bildet eine Komponente des Querschnitts der xref:blaupausen:referenzarchitektur-it-system/master.adoc#einleitung[IsyFact Referenzarchitektur IT-Systeme].
+Der Baustein Sicherheit bildet eine Komponente des Querschnitts der xref:blaupausen:referenzarchitektur-it-system/master.adoc[IsyFact Referenzarchitektur IT-Systeme].
 Er ist von jedem IT-System zur Autorisierung von Zugriffen und Vorgängen zu verwenden.
 Für ein korrektes Funktionieren benötigt der Baustein die Komponente `AufrufKontextVerwalter`, deren Verwendung ebenfalls in diesem Kapitel erläutert wird.
 

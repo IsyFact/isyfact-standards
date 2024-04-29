@@ -617,7 +617,7 @@ Das IT-System [yellow]#<SYSTEM># benötigt gemäß Produktkatalog der Referenzar
 === Architektur des Teilsystems A
 ====
 _Bei der Beschreibung des Gesamtsystems in 3.1 wurden Teilsysteme eingeführt.
-Diese werden jetzt in eigenen Unterkapiteln der Reihe nach beschrieben. Ggf. kann es sinnvoll sein, ein Kapitel voran zu stellen, das Gemeinsamkeiten aller Teilsysteme erklärt._
+Diese werden jetzt in eigenen Unterkapiteln der Reihe nach beschrieben. Ggf. kann es sinnvoll sein, ein Kapitel voranzustellen, das Gemeinsamkeiten aller Teilsysteme erklärt._
 
 _Dieses Kapitel enthält vornehmlich eine Top-down Beschreibung des Teilsystems.
 Die Beschreibung umfasst die Aufteilung des Systems in Komponenten und deren Bezug zur Systemspezifikation.
@@ -630,14 +630,12 @@ _Schließlich finden sich in diesem Kapitel noch Details, auf die der Chefdesign
 *_Beschreibung der Teilsysteme_*
 
 _Die Teilsysteme haben, wenn es sich um Geschäftsanwendungen handelt, folgende, fest vorgegebene T-Architektur:_
-====
 
-:desc-image-darstellung-teilsysteme: Darstellung der Teilsysteme
+:desc-image-darstellung-teilsysteme: Technisches Architektur eines Teilsystems
 [id="image-darstellung-teilsysteme", reftext = "{figure-caption} {counter:figures}"]
 .{desc-image-darstellung-teilsysteme}
-image::vorlage-systementwurf/darstellung-teilsysteme.png[align = center, title-align=center, width=75%]
+image::vorlage-systementwurf/architektur-it-system.dn.svg[]
 
-====
 _Die konkrete Ausgestaltung dieser Architektur mit den konkreten Komponenten ist Inhalt dieses Unterkapitels._
 
 _Dazu wird zunächst eine Übersicht über das Teilsystem gegeben, anschließend werden bei Bedarf die einzelnen Komponenten detailliert._
@@ -680,7 +678,7 @@ Keine Zusatzinformationen tragende Stereotypen wie << use >> sind explizit zu ve
 image::vorlage-systementwurf/ueberblick-teilsysteme.png[align = center, title-align=center]
 
 ====
-_Die Komponentenstruktur des Anwendungskerns findet sich in der GUI, Batch, Service und Persistenz wieder.
+_Die Struktur des Anwendungskerns findet sich in den Komponenten Batch, Service und Persistenz wieder.
 Der Designer muss abwägen, ob eine differenzierte Darstellung dieser Komponenten hier einen Nutzen bringt._
 ====
 

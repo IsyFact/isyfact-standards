@@ -200,7 +200,7 @@ Weiterführende technische Details zu Services sind im xref:detailkonzept-kompon
 [[unterstuetzung-technischer-funktionalitaeten]]
 === Unterstützung technischer Funktionalitäten
 
-Neben der GUI, Services, Batch, Anwendungskern und Persistenzschicht benötigt ein IT-System mehrere querschnittliche Funktionalitäten.
+Neben Services, Batch, Anwendungskern und Persistenzschicht benötigt ein IT-System mehrere querschnittliche Funktionalitäten.
 Diese querschnittlichen Funktionalitäten sind in jeweils eigenen Dokumenten beschrieben.
 Eine Übersicht dazu liefern die Beschreibungen der Bausteine der xref:einstieg:vorstellung/isyfact-standards.adoc#bausteine-der-isyfact-standards[IsyFact-Standard] sowie der xref:einstieg:vorstellung/isyfact-erweiterungen.adoc#bausteine-der-isyfact-erweiterungen[IsyFact-Erweiterungen].
 

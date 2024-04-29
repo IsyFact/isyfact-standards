@@ -70,7 +70,7 @@ Im Dokument wird unter Batchlogik diese Klassensammlung und keine Komponente ver
 
 .Die Anwendungslogik eines Batches (Zielarchitektur)
 [id="image-AnwLogBat",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:detailkonzept-batch/AnwLogBat.png[align="center"]
+image::blaupausen:detailkonzept-batch/architektur-it-system-batch-parts.dn.svg[]
 
 [[checkpoint-restart-logik]]
 ==== Checkpoint / Restart Logik
@@ -496,7 +496,7 @@ Wie in Kapitel <<grobe-architektur-des-batchrahmens>> beschrieben, werden für e
 Für den Kontext der eigentlichen Geschäftsanwendung können die Spring-Konfigurationsdateien übernommen werden.
 In ihnen müssen folgende Anpassungen vorgenommen werden:
 
-* Beans, die für die Batch-Verarbeitung nicht benötigt werden, sollten entfernt werden (Service-Beans, GUI-Beans).
+* Service-Beans, die für die Batch-Verarbeitung nicht benötigt werden, sollten entfernt werden.
 * Damit die Entity-Klassen des Batchrahmens gefunden werden können, muss in der Spring-Konfiguration der Batches ein Entity-Scan hinzugefügt werden:
 
  @EntityScan("de.bund.bva.isyfact.batchrahmen.persistence.rahmen")

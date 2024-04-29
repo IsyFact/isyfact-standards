@@ -56,7 +56,7 @@ Die xref:methodik:vorlagen.adoc#datenflussdiagramm[Vorlage zu Datenflussdiagramm
 === Vorgaben für die T-Architektur
 Die softwaretechnische Architektur wird auf Basis der Spezifikation aus der fachlichen Architektur entwickelt.
 
-Im Dokument xref:blaupausen:referenzarchitektur-it-system/master.adoc#einleitung[IsyFact Referenzarchitektur IT-Systeme] wird die softwaretechnische Architektur eingeführt und erläutert.
+Im Dokument xref:blaupausen:referenzarchitektur-it-system/master.adoc[IsyFact Referenzarchitektur IT-Systeme] wird die softwaretechnische Architektur eingeführt und erläutert.
 Die technischen Entsprechungen für die fachlich motivierte Anwendungslandschaft und das Anwendungssystem sind die technisch motivierten Begriffe der Systemlandschaft und respektive des IT-Systems.
 
 Ein IT-System basiert auf einer Drei-Schichten-Architektur und besteht aus den Komponenten, die in <<refarch-technisch,der softwaretechnischen Referenzarchitektur eines IT-Systems>> dargestellt sind.

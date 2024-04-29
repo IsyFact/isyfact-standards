@@ -525,7 +525,7 @@ Es wird angenommen, dass diese Dateien in ein Verzeichnis kopiert wurden, das na
 .{desc-listing-benutzerverzeichnis-rollen}
 [source,subs="attributes"]
 ----
-cd /opt/plis-benutzerverzeichnis-batch/bin
+cd /opt/isy-benutzerverzeichnis-batch/bin
 
 ./batch-benutzerverzeichnis-import.sh –ExcelDatei BBV_FILES/xxx-rollen.xls -ignoriereRestart
 
