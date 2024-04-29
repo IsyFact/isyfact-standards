@@ -193,7 +193,7 @@ Für die Weitergabe von Log Dateien an Auftragsverarbeiter (Entwickler) bedeutet
 
 .icon:university[title=Architekturregel] Architekturregel
 ****
-Beim Loggen der Nachrichten sind grundsätzlich die Vorgaben der Datenschutzgrundverordnung (xref:glossary:literaturextern:inhalt.adoc#litextern-dsgvo[DSGVO]) einzuhalten.
+Beim Loggen der Nachrichten sind grundsätzlich die Vorgaben der Datenschutzgrundverordnung (https://eur-lex.europa.eu/legal-content/DE/TXT/PDF/?uri=CELEX:32016R0679&from=DE[DSGVO]) einzuhalten.
 Eine besondere Rolle spielen dabei personenbezogene Daten und insbesondere Daten gemäß Artikel 9 DSGVO.
 Ebenso dürfen grundsätzlich keine sicherheitsrelevanten Daten (z.B. Passwörter) geloggt werden.
 ****
@@ -262,7 +262,7 @@ Die Vorgaben zu Logdateien sowie deren Rotation und Komprimierung sind in den xr
 
 Als Logging-Framework wird in der IsyFact _logback_ eingesetzt (siehe xref:einstieg:produkte.adoc#produktkatalog[Produktkatalog]).
 
-NOTE: Für mehr Informationen zu logback siehe http://logback.qos.ch/
+NOTE: Für mehr Informationen zu logback siehe https://logback.qos.ch/
 
 .icon:university[title=Architekturregel] Architekturregel
 ****
@@ -350,7 +350,7 @@ In <<image-aufbvLogent>> ist das Zusammenspiel der verschiedenen Klassen zur Auf
 
 .Übersicht der Aufbereitung von Logeinträgen
 [id="image-aufbvLogent",reftext="{figure-caption} {counter:figures}"]
-image::isy-logging:konzept/iaufbvLogent.png[align="center"]
+image::isy-logging:konzept/iaufbvLogent.dn.png[align="center"]
 
 [[hilfsklassen]]
 ==== Hilfsklassen

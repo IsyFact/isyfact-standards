@@ -38,7 +38,7 @@ public class EmbeddedOidcProviderStubTest {
     private static final int tokenLifespan = 30;
 
     private final EmbeddedOidcProviderStub oidcProviderStub =
-            new EmbeddedOidcProviderStub("oidc-provider", 9095, "/auth/realms/testrealm", tokenLifespan);
+            new EmbeddedOidcProviderStub("oidc-provider", 9096, "/auth/realms/testrealm", tokenLifespan);
 
     @Test
     public void testAccessTokenWithBhknz() throws ParseException {
@@ -54,7 +54,7 @@ public class EmbeddedOidcProviderStubTest {
         JWT token = JWTParser.parse(accessTokenString);
         JWTClaimsSet claims = token.getJWTClaimsSet();
 
-        assertEquals("http://oidc-provider:9095/auth/realms/testrealm", claims.getIssuer());
+        assertEquals("http://oidc-provider:9096/auth/realms/testrealm", claims.getIssuer());
         assertEquals(userId.toString(), claims.getSubject());
         assertThat(claims.getAudience()).containsOnly(clientId);
         assertEquals(userName, claims.getStringClaim(StandardClaimNames.PREFERRED_USERNAME));
@@ -80,7 +80,7 @@ public class EmbeddedOidcProviderStubTest {
         JWT token = JWTParser.parse(accessTokenString);
         JWTClaimsSet claims = token.getJWTClaimsSet();
 
-        assertEquals("http://oidc-provider:9095/auth/realms/testrealm", claims.getIssuer());
+        assertEquals("http://oidc-provider:9096/auth/realms/testrealm", claims.getIssuer());
         assertEquals(userId.toString(), claims.getSubject());
         assertThat(claims.getAudience()).containsOnly(clientId);
         assertEquals(userName, claims.getStringClaim(StandardClaimNames.PREFERRED_USERNAME));
@@ -113,10 +113,10 @@ public class EmbeddedOidcProviderStubTest {
 
         JsonNode tree = mapper.readTree(configResponse);
 
-        assertEquals("http://oidc-provider:9095/auth/realms/testrealm", tree.get("issuer").asText());
-        assertEquals("http://oidc-provider:9095/auth/realms/testrealm/certs", tree.get("jwks_uri").asText());
-        assertEquals("http://oidc-provider:9095/auth/realms/testrealm/auth", tree.get("authorization_endpoint").asText());
-        assertEquals("http://oidc-provider:9095/auth/realms/testrealm/token", tree.get("token_endpoint").asText());
+        assertEquals("http://oidc-provider:9096/auth/realms/testrealm", tree.get("issuer").asText());
+        assertEquals("http://oidc-provider:9096/auth/realms/testrealm/certs", tree.get("jwks_uri").asText());
+        assertEquals("http://oidc-provider:9096/auth/realms/testrealm/auth", tree.get("authorization_endpoint").asText());
+        assertEquals("http://oidc-provider:9096/auth/realms/testrealm/token", tree.get("token_endpoint").asText());
     }
 
     @Test

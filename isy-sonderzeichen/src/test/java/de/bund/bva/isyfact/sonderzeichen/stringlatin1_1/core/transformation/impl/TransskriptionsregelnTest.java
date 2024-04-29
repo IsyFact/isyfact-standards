@@ -16,14 +16,14 @@
  */
 package de.bund.bva.isyfact.sonderzeichen.stringlatin1_1.core.transformation.impl;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Checks the function of the transcription rules.

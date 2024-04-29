@@ -1,8 +1,8 @@
 package de.bund.bva.isyfact.batchrahmen.batch.protokoll;
 
-import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
 
 public class StatistikEintragTest {
 

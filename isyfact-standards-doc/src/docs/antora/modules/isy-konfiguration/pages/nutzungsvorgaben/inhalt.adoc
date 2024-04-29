@@ -86,7 +86,7 @@ Die Konfigurationswerte werden dabei in Java Standard-Typen (`String`, `int`, `b
 Für Zeitdauern, Zeitperioden und Dateigrößen wird eine erweiterte Syntax für die Konfigurationswerte verwendet.
 Die Werte dieser Konfigurationstypen werden automatisch in die komplexen Datentypen `Duration`, `Period` und `DataSize` umgewandelt.
 
-NOTE: Details hierzu können in der xref:glossary:literaturextern:inhalt.adoc#litextern-spring-boot-properties-conversion[Spring Boot Dokumentation zu "Properties Conversion"] nachgelesen werden.
+NOTE: Details hierzu können in der https://docs.spring.io/spring-boot/docs/2.7.x/reference/html/features.html#features.external-config.typesafe-configuration-properties.conversion[Spring Boot Dokumentation zu "Properties Conversion"] nachgelesen werden.
 
 Zur Überprüfung der Konfigurationswerte sollte Bean Validation eingesetzt werden.
 Damit können Werte auf Vorhandensein und korrektes Format geprüft werden.

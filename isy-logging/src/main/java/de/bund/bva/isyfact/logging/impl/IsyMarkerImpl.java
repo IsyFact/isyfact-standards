@@ -23,13 +23,14 @@ package de.bund.bva.isyfact.logging.impl;
  * #L%
  */
 
-import de.bund.bva.isyfact.logging.IsyMarker;
-import org.slf4j.Marker;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+
+import org.slf4j.Marker;
+
+import de.bund.bva.isyfact.logging.IsyMarker;
 
 /**
  * Standardimplementierung des IsyMarker-Interface.

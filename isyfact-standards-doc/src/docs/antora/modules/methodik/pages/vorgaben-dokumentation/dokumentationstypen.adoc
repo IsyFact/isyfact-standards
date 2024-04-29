@@ -9,10 +9,10 @@ Im Folgenden werden die Dokumentationstypen der IsyFact erläutert.
 Neben einer kurzen Beschreibung des _Ziels_ und _Inhalts_ werden die _Zielgruppen_ und der _Scope_ benannt.
 Unter _Vorlage / Beispiel_ findet sich ein Verweis auf vordefinierte Vorlagen oder ein repräsentatives konkretes Beispiel.
 
-[[saeule-blaupausen]]
-== Säule Blaupausen
+[[saeule-referenzarchitektur]]
+== Säule Referenzarchitektur
 
-Blaupausen werden mit folgenden Dokumentationstypen beschrieben:
+Die Referenzarchitektur wird mit folgenden Dokumentationstypen beschrieben:
 
 [[table-referenzarchitektur]]
 .Referenzarchitektur
@@ -34,7 +34,7 @@ a|
 |Architekten, (Entwickler)
 
 |Scope
-|Blaupause
+|Referenzarchitektur
 
 |Vorlage / Beispiel
 a|
@@ -48,18 +48,18 @@ xref:blaupausen:referenzarchitektur/master.adoc[]
 2+|Detailkonzept
 
 |Ziel
-|Vorgaben zur Umsetzung bezogen auf eine Blaupause, sofern sie eine technische Ausrichtung haben.
+|Vorgaben zur Umsetzung bezogen auf die Referenzarchitektur, sofern sie eine technische Ausrichtung haben.
 
 |Inhalt
 a|
-* Beschreibt Blaupausen für xref:glossary:glossary:master.adoc#glossar-t-architektur[software-technische Architektur] wie z.B. Batches, Datenzugriffe oder Services.
+* Bricht die Referenzarchitektur auf Aspekte der xref:glossary:glossary:master.adoc#glossar-t-architektur[software-technischen Architektur] wie z.B. Batches, Datenzugriff oder Services, herunter.
 * Enthält Architekturvorgaben und Architekturentscheidungen.
 
 |Zielgruppe(n)
 |Architekten, Entwickler, (IT-Betrieb)
 
 |Scope
-|Blaupause
+|Referenzarchitektur
 
 |Vorlage / Beispiel
 a|

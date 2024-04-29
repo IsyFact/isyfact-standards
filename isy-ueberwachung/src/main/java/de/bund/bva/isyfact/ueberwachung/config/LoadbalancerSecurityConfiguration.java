@@ -30,10 +30,10 @@ public class LoadbalancerSecurityConfiguration {
      */
     @Bean
     @Order(99)
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain loadbalancerSecurityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(
             auth -> auth
-                .antMatchers(LOADBALANCER_SERVLET_PATH)
+                .requestMatchers(LOADBALANCER_SERVLET_PATH)
                 .permitAll()
         );
         return http.build();

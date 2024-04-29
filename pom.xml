@@ -37,12 +37,9 @@
         <module>isy-batchrahmen</module>
         <module>isy-datetime</module>
         <module>isy-exception-core</module>
-        <module>isy-konfiguration</module>
         <module>isy-logging</module>
         <module>isy-persistence</module>
         <module>isy-polling</module>
-        <module>isy-serviceapi-core</module>
-        <module>isy-sicherheit</module>
         <module>isy-task</module>
         <module>isy-ueberwachung</module>
         <module>isy-util</module>
@@ -76,6 +73,7 @@
         <maven.surefire.argline>
             -Xmx1g -Dfile.encoding=${project.build.sourceEncoding} @{maven.jacoco.argLine}
         </maven.surefire.argline>
+        <maven-surefire.version>3.2.5</maven-surefire.version>
 
         <!-- Plugin versions used in several places -->
         <maven.enforcer.plugin.version>3.0.0</maven.enforcer.plugin.version>
@@ -209,7 +207,7 @@
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>0.8.7</version>
+                    <version>0.8.11</version>
                     <executions>
                         <execution>
                             <goals>
@@ -231,7 +229,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.22.2</version>
+                    <version>${maven-surefire.version}</version>
                     <configuration>
                         <argLine>${maven.surefire.argline}</argLine>
 
@@ -372,7 +370,7 @@
                 </plugin>
                 <plugin>
                     <groupId>org.cyclonedx</groupId>
-                    <artifactId> cyclonedx-maven-plugin</artifactId>
+                    <artifactId>cyclonedx-maven-plugin</artifactId>
                     <version>2.7.9</version>
                     <configuration>
                         <outputFormat>json</outputFormat>
@@ -539,7 +537,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>2.19.1</version>
+                <version>${maven-surefire.version}</version>
             </plugin>
             <!-- Create checkstyle report -->
             <plugin>

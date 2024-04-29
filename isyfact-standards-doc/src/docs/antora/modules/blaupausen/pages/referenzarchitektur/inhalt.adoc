@@ -37,32 +37,26 @@ image::einstieg:sf-saeulen.dn.svg[]
 Die IsyFact bietet standardisierte Lösungen zu wichtigen Themen beim Bau von Geschäftsanwendungen.
 Der Entwickler kann sich dadurch ganz auf die strukturellen und operativen Besonderheiten seiner Geschäftsanwendung konzentrieren.
 
-Die Lösungen decken fünf Bereiche ab: Blaupausen, Bausteine, Betriebsplattform, Methodik und Werkzeuge.
+Die Lösungen decken fünf Bereiche ab: Referenzarchitektur, Bausteine, Betriebsplattform, Methodik und Werkzeuge.
 
-*Blaupausen:* xref:glossary:glossary:master.adoc#glossar-blaupause[Blaupausen] beschreiben die vorgegebene Architektur und Konzepte einer Anwendungslandschaft für den Betrieb von Geschäftsanwendungen aus drei verschiedenen Sichten: der fachlichen Sicht, der Sicht der softwaretechnischen Umsetzung und der Sicht der technischen Infrastruktur.
+Die xref:glossary:glossary:master.adoc#glossar-referenzarchitektur[*Referenzarchitektur*] beschreibt die vorgegebene Architektur und Konzepte einer Anwendungslandschaft für den Betrieb von Geschäftsanwendungen aus drei verschiedenen Sichten: der fachlichen Sicht, der Sicht der softwaretechnischen Umsetzung und der Sicht der technischen Infrastruktur.
 
-*Bausteine:* xref:glossary:glossary:master.adoc#glossar-baustein[Bausteine] sind konkrete, strukturierte Lösungen zur Umsetzung der in den Blaupausen beschriebenen Architektur und Konzepte.
+xref:glossary:glossary:master.adoc#glossar-baustein[*Bausteine*] sind konkrete, strukturierte Lösungen zur Umsetzung der in der Referenzarchitektur beschriebenen Architektur und Konzepte.
 Bausteine sind wieder verwendbare Softwarelösungen, z.B. ein Regelwerk für fachliche Konsistenzprüfungen oder Komponenten zur Protokollierung.
 Diese Bausteine liegen in unterschiedlichen Formen vor: Es gibt fachliche und technische Services im Sinne einer serviceorientierten Architektur (SOA) und wieder verwendbare Bibliotheken und Programmiervorlagen.
 Dazu gehören auch am Markt verfügbare Fertigprodukte, für die detaillierte Nutzungsvorgaben erstellt wurden.
 
-*Betriebsplattform:* Die xref:glossary:glossary:master.adoc#glossar-plattform[Plattform] definiert allgemeine Vorgaben und Rahmenbedingungen für den Betrieb von Anwendungslandschaften, die sich aus der Verwendung der IsyFact ergeben.
+Die xref:glossary:glossary:master.adoc#glossar-plattform[*Plattform*] definiert allgemeine Vorgaben und Rahmenbedingungen für den Betrieb von Anwendungslandschaften, die sich aus der Verwendung der IsyFact ergeben.
 Es werden Rechner-, Unterstützungsprogramm- und Netzwerkstrukturen beschrieben.
 Die Betriebsplattform besteht aus Hardware und Netzen sowie der benötigten Middleware mit Anwendungsserver oder Datenbankserver und ist hochverfügbar.
 Diese Plattform ist über alle Geschäftsanwendungen einheitlich und ermöglicht so einen standardisierten und effizienten Systembetrieb.
 
-*Methodik:* Im Rahmen einer Software-Factory bildet die xref:glossary:glossary:master.adoc#glossar-methodik[Methodik] die Grundlage für die Umsetzung von Geschäftsanwendungen.
+Im Rahmen einer Software-Factory bildet die xref:glossary:glossary:master.adoc#glossar-methodik[*Methodik*] die Grundlage für die Umsetzung von Geschäftsanwendungen.
 Die Methodik der IsyFact bietet verschiedene Vorschläge zu allen Phasen des Software-Entwicklungsprozesses, wie z. B. Vorlagen für die Spezifikation oder die Programmierung.
 Dieses Dokument ist V-Modell®-XT konform.
 
-*Werkzeuge:* Die IsyFact setzt auf Automatisierung und Werkzeugunterstützung bei der Erstellung von Registern.
-Dazu bietet sie Konfigurationsanleitungen ausgewählter xref:glossary:glossary:master.adoc#glossar-werkzeug[Werkzeuge], z. B. für die Modellierung, die Programmierung, Tests oder die Fehlerverfolgung.
-
-[[einordnung-der-referenzarchitektur-in-die-isyfact]]
-=== Einordnung der Referenzarchitektur in die IsyFact
-
-Die in diesem Dokument beschriebene Referenzarchitektur ist ein zentraler Teil der IsyFact und erläutert auf einer hohen Ebene, wie eine Anwendungslandschaft zu beschreiben und umzusetzen ist.
-Die weiteren _Blaupausen_ der IsyFact detaillieren Teile dieser Referenzarchitektur und werden im vorliegenden Dokument referenziert.
+Die IsyFact setzt auf Automatisierung und Werkzeugunterstützung bei der Erstellung von Registern.
+Dazu bietet sie Konfigurationsanleitungen ausgewählter xref:glossary:glossary:master.adoc#glossar-werkzeug[*Werkzeuge*], z. B. für die Modellierung, die Programmierung, Tests oder die Fehlerverfolgung.
 
 [[die-idee-der-referenzarchitektur]]
 === Die Idee der Referenzarchitektur
@@ -101,7 +95,7 @@ Hierdurch verbessert sich die Verständlichkeit, Wartbarkeit und Betreibbarkeit 
 *Effizienz:* Durch die Verwendung vorhandener Querschnittsanwendungen, Bibliotheken, Generatoren, Beispielanwendungen und die Vorgaben der Referenzarchitektur können die Anwendungssysteme effizienter entwickelt und gewartet werden.
 Durch die infrastrukturelle und betriebliche Gleichartigkeit der Anwendungssysteme können diese effizienter betrieben werden.
 
-*Sicherheit:* Die Referenzarchitektur sieht bewährte Technologien und Produkte, eine Infrastruktur nach der xref:glossary:literaturextern:inhalt.adoc#litextern-architekturrichtlinie[Architekturrichtlinie für die IT des Bundes], und nach klaren architektonischen Vorgaben erstellte Anwendungssysteme vor.
+*Sicherheit:* Die Referenzarchitektur sieht bewährte Technologien und Produkte, eine Infrastruktur nach der https://www.cio.bund.de/Webs/CIO/DE/digitaler-wandel/Achitekturen_und_Standards/IT_Architektur_Bund/IT_Architektur_Bund-node.html[Architekturrichtlinie für die IT des Bundes], und nach klaren architektonischen Vorgaben erstellte Anwendungssysteme vor.
 Die Risiken für Ausfälle, Fehler oder Sicherheitslücken wird hierdurch reduziert und die Zukunftssicherheit der Anwendungssysteme erhöht.
 
 *Erfahrung:* In die Definition der Referenzarchitektur sind wertvolle Erfahrungen zur Umsetzung großer und verteilter Softwaresysteme im Allgemeinen und Registern im Speziellen eingeflossen.
@@ -515,7 +509,7 @@ Wenn Anwendungen andere Geschäfts- und Querschnittsanwendungen innerhalb der Sy
 Der IAM-Service verarbeitet die Authentifizierungsanfragen und beantwortet sie mit zeitlich begrenzten Autorisierungsinformationen.
 Dazu greift er im Regelfall auf das Benutzerverzeichnis zu.
 
-NOTE: IAM steht für xref:glossary:literaturextern:inhalt.adoc#litextern-identity_management[Identity and Access Management].
+NOTE: IAM steht für https://en.wikipedia.org/wiki/Identity_management[Identity and Access Management].
 
 Darüber hinaus finden Authentifizierung und Autorisierung nach den Vorgaben des Berechtigungskonzepts statt.
 Da das Berechtigungskonzept individuell für jede Systemlandschaft erstellt wird und sich im Einzelnen stark von Inhalt und Umfang her unterscheidet, ist es kein Bestandteil  der IsyFact.
