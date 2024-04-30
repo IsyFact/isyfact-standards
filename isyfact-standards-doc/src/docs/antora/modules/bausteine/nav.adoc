@@ -72,7 +72,7 @@
 *** xref:isyfact-jsf-doku:isy-web:nutzungsvorgaben/nutzungsvorgaben.adoc[Nutzungsvorgaben]
 
 ** Angular
-*** xref:isy-angular-widgets-doc:isy-angular-widgets:konzept/konzept.adoc[Konzept]
+*** xref:isy-angular-widgets:ROOT:konzept/konzept.adoc[Konzept]
 *** xref:https://isyfact.github.io/isy-angular-widgets/documentation/[Nutzungsvorgaben]
 
 
