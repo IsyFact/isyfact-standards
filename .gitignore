@@ -24,3 +24,4 @@ target/
 
 # Ignore diagrams.net-specific files
 *.dn.svg.bkp
+*.xml.bkp
