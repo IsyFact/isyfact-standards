@@ -41,7 +41,7 @@ Er enthält architektonische sowie technische Vorgaben und beschreibt die konkre
 Dabei integriert er den Styleguide und stellt auf dessen Grundlage wiederverwendbare Widgets bereit.
 Der Baustein basiert auf JSF und Spring Webflow.
 
-|Konfiguration
+|icon:ban[title=Deprecation] [.line-through]#Konfiguration#
 |Der Baustein beschreibt typische Arten von Konfiguration und macht Vorgaben für deren Erstellung, Handhabung und Pflege.
 
 |Logging
