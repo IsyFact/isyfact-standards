@@ -31,19 +31,17 @@ Die Software-Architektur beschreibt die in der fachlichen Architektur definierte
 Die Referenzarchitektur für IT-Systeme der IsyFact basiert auf der bekannten Drei-Schicht-Architektur.
 
 .Software-technische Referenzarchitektur
-image::blaupausen:referenzarchitektur-it-system/RAITSys.png[]
+image::blaupausen:referenzarchitektur-it-system/architektur-it-system.dn.svg[]
 
 Die *Datenhaltungsschicht* kapselt alle Funktionen zum Zugriff auf die Datenbanken.
 
 Die *Schicht des Anwendungskerns* umfasst die fachliche Logik zur Datenbearbeitung des Systems, beispielsweise Validierungen, spezielle Dialogfunktionen oder Verarbeitung von Geschäftsobjekten.
 
-Die *Nutzungsschicht* bietet Funktionen der Anwendungen für menschliche und technische Nutzer.
-Menschliche Nutzer greifen über eine grafische Nutzeroberfläche (GUI) auf das System zu.
-Technische Nutzer über Batches für Stapelverarbeitung oder als Service für eine Außenschnittstelle mit anderen IT-Systemen.
+Die *Nutzungsschicht* bietet Funktionen der Anwendungen zur Nutzung, über Batches für Stapelverarbeitung oder als Service für eine Außenschnittstelle mit anderen IT-Systemen, an.
 
-Ergänzend zu GUI, Service, Batch, Anwendungskern und Datenhaltung gibt es in den IT-Systemen *querschnittliche Funktionalitäten* wie beispielsweise Fehlerbehandlung, Logging oder Authentifizierung und Autorisierung.
+Ergänzend zu Service, Batch, Anwendungskern und Datenhaltung gibt es in den IT-Systemen *querschnittliche Funktionalitäten* wie beispielsweise Fehlerbehandlung, Logging oder Authentifizierung und Autorisierung.
 
-Die Referenzarchitektur beschreibt die Nutzungsschichten GUI, Batch und Service sowie den Anwendungskern und den Datenzugriff.
+Die Referenzarchitektur beschreibt die Nutzungsschichten Batch und Service sowie den Anwendungskern und den Datenzugriff.
 
 == Die Referenzarchitektur der technischen Infrastruktur (TI-Architektur)
 

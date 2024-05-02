@@ -350,8 +350,8 @@ try {
 }
 ----
 
-Die letzte Variante ist die endgültige Fehlerbehandlung, die meistens in einer Komponente der Nutzungsschicht geschieht: GUI, Batch oder Service.
-Beschreibungen dazu finden sich in den jeweiligen Detailkonzepten oder den Bausteinen zur Umsetzung der Komponenten, d.h. zu GUI- oder Service-Frameworks.
+Die letzte Variante ist die endgültige Fehlerbehandlung, die meistens in einer Komponente der Nutzungsschicht geschieht: Batch oder Service.
+Beschreibungen dazu finden sich in den jeweiligen Detailkonzepten oder den Bausteinen zur Umsetzung der Komponenten.
 
 [[fehlertexte-und-deren-einsatz]]
 === Fehlertexte und deren Einsatz
