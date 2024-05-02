@@ -26,8 +26,7 @@ Die nachfolgende Tabelle beschreibt die Bausteine. Sie stellen in der Regel ein 
 |Angular
 |Der Baustein _Angular_ bietet eine Frontend-Bibliothek, deren Komponenten anhand der Vorgaben im Bedienkonzept
 entwickelt und exemplarisch in der Demo-Anwendung des Bausteins gezeigt werden. Dadurch werden wiederverwendbare Widgets
-bereitgestellt, um User Interfaces in der BVA Anwendungslandschaft zu vereinheitlichen. Der Baustein basiert auf
-Angular, PrimeNG und PrimeFlex.
+bereitgestellt, um User Interfaces zu vereinheitlichen. Der Baustein basiert auf Angular, PrimeNG und PrimeFlex.
 
 |Bedienkonzept
 |Das _Bedienkonzept_ beschreibt die Gestaltungsregeln, Lösungsmuster und Workflows für fachliche Abläufe in Benutzeroberflächen.
