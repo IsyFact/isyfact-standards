@@ -256,13 +256,13 @@ NOTE: Für das Bundesverwaltungsamt ist dies z.B. `de.bund.bva`
 [[anwendungsnutzung]]
 == Anwendungsnutzung
 
-In diesem Kapitel wird die Realisierung von verschiedenen, technischen Zugangswegen zum Anwendungskern beschrieben, mit Ausnahme des GUI-Zugangs.
+In diesem Kapitel wird die Realisierung von verschiedenen, technischen Zugangswegen zum Anwendungskern beschrieben.
 Das Thema umfasst das Anbieten von internen Service-Schnittstellen per HTTP Invoker, das Nutzen derselben und die Nutzung des Anwendungskerns im
 Rahmen der Batch-Verarbeitung.
 
 .Referenzarchitektur eines IT-Systems
 [id="image-RAIT",reftext="{figure-caption} {counter:figures}"]
-image::einstieg:tutorial/RAIT.png[align="center"]
+image::blaupausen:referenzarchitektur-it-system/architektur-it-system.dn.svg[]
 
 [[anbieten-von-service-schnittstellen]]
 === Anbieten von Service-Schnittstellen
@@ -1094,7 +1094,7 @@ public AufrufKontextVerwalter aufrufKontextVerwalter(){
 
 NOTE: Die Scopes `thread` und `request` werden mit dem Einbinden der Bibliothek `isy-sicherheit` registriert.
 
-Der vom AufrufKontextVerwalter verwaltete AufrufKontext wird beim Aufruf der Anwendung in der Service-Schnittstelle oder im Controller der GUI gesetzt und steht fortan, während der Verarbeitung des Requests, in der gesamten Anwendung zur Verfügung.
+Der vom AufrufKontextVerwalter verwaltete AufrufKontext wird beim Aufruf der Anwendung in der Service-Schnittstelle gesetzt und steht fortan, während der Verarbeitung des Requests, in der gesamten Anwendung zur Verfügung.
 
 Komponenten, die diese Informationen benötigen, erhalten dazu einfach eine Referenz auf den `AufrufKontextVerwalter` per Dependency Injection.
 
@@ -1123,12 +1123,9 @@ Dieses Kapitel beschreibt die Realisierung der Authentifizierung und Autorisieru
 * Prozesse, die innerhalb des Anwendungssystems oder der Anwendungslandschaft starten (z.B. Timertasks, Batches) verwenden einen technischen Benutzer und authentifizieren diesen selbständig gegen den IAM-Service.
 * Die Berechtigungsprüfung ist in der Anwendung deklarativ zu definieren bzw.
 zu programmieren.
-* Eine erste Berechtigungsprüfung erfolgt in der Service-Schnittstelle oder im Web-GUI-Dialogcontroller jeder Anwendung.
-Es wird geprüft, ob der Aufrufer den Service oder den Dialog überhaupt verwenden darf.
+* Eine erste Berechtigungsprüfung erfolgt in der Service-Schnittstelle.
+Es wird geprüft, ob der Aufrufer den Service überhaupt verwenden darf.
 * In jeder Service-Methode wird ein Parameter `AufrufKontext` mit den Daten des aufrufenden Benutzers übermittelt.
-Dieser Parameter wird im `AufrufKontextVerwalter` hinterlegt und beim Aufruf weiterer Nachbarsysteme durchgereicht.
-* In der Web-GUI wird ein vom IAM-Service bereitgestellter HTTP-Header mit den
-Daten des aufrufenden Benutzers entgegengenommen und in einen `AufrufKontext` gewandelt.
 Dieser Parameter wird im `AufrufKontextVerwalter` hinterlegt und beim Aufruf weiterer Nachbarsysteme durchgereicht.
 
 [[realisierung-10]]

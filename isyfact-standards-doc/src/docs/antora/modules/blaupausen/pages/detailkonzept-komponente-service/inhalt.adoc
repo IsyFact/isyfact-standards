@@ -8,7 +8,7 @@ Services gliedern sich über eine technische Komponente „Service“ in die T-A
 
 .Referenzarchitektur eines IT-Systems
 [id="image-IFRefArcITSysServ",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:detailkonzept-service/IFRefArcITSysServ.png[align="center"]
+image::blaupausen:referenzarchitektur-it-system/architektur-it-system-service.dn.svg[]
 
 Diese technische Komponente besteht aus zwei Teilen: dem Service-Framework und der Servicelogik.
 

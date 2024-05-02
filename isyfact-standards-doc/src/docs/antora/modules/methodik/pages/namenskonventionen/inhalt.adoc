@@ -454,10 +454,6 @@ include::isy-service-rest:page$konzept/inhalt.adoc[tag=namenskonvention]
 ==== Http-Invoker Schnittstellen
 include::isy-serviceapi-core:page$konzept/inhalt.adoc[tag=namenskonvention]
 
-[[web-gui]]
-=== Web-GUI
-include::blaupausen:page$detailkonzept-komponente-web-gui/inhalt.adoc[tag=namenskonvention]
-
 [[deploymentbetrieb-von-anwendungen]]
 === Deployment/Betrieb von Anwendungen
 
