@@ -12,7 +12,7 @@ Auf diese Weise besitzt jedes Projekt ein zentrales Changelog und (je nach Proje
 .Zusammenführung der einzelnen Komponentenchangelogs
 image::handbuch/architektur_changelog.png[align="center",scaledwidth=80%]
 
-Zum Erstellen und Bearbeiten wird empfohlen, einen xref:documentation-guide:ROOT:guides/einfuehrung.adoc#grundlagen-werkzeuge[Texteditor] zu verwenden, der das AsciiDoc Format unterstützt.
+Zum Erstellen und Bearbeiten wird empfohlen, einen xref:documentation-guide:ROOT:index.adoc#grundlagen-werkzeuge[Texteditor] zu verwenden, der das AsciiDoc Format unterstützt.
 
 Im Folgenden wird beschrieben, wie die einzelnen Changelog-Dateien erstellt und welche Anforderungen an die Struktur und den Inhalt der Changelogs gestellt werden.
 
