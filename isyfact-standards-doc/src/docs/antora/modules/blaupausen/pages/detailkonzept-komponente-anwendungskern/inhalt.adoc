@@ -325,6 +325,8 @@ Die Beans der Komponenten werden mit der Annotation `@Component` bzw. deren Spez
 [[konfigurationsparameter-ueber-property-objekte-konfigurieren]]
 ==== Konfigurationsparameter über Property-Objekte konfigurieren
 
+include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
+
 Die Konfiguration der Anwendung wird (wie im xref:isy-konfiguration:konzept/master.adoc#einleitung[Konzept Konfiguration]  beschrieben) über die Datei `application.properties` durchgeführt.
 Diese Datei enthält sämtliche betrieblichen Konfigurationsparameter der Anwendung. 
 Das Setzen einzelner Konfigurationsparameter über `set`-Methoden ist nur in Ausnahmefällen erlaubt.
