@@ -529,26 +529,6 @@ Die Installationspfade sind im xref:vorlage-systemhandbuch/antora-master.adoc[Sy
 [[dokumentation]]
 === Dokumentation
 
-Auch für die Dokumentation gelten Namenskonventionen.
-Wenn nicht gesondert beschrieben, gelten folgende Konventionen für alle Namen, die der Ablage der Dokumentation dienen und keine Anzeigenamen sind, also z.B. Dateinamen inklusive Asciidoc- und Bild-Dateien, Verzeichnisnamen, Namen für Antora-Komponenten und -Module und Anchor.
-Mit Kleinbuchstaben sind Kleinbuchstaben ohne Umlaute und Sonderzeichen gemeint.
-Ferner sind keine Füllwörter erlaubt (wie z.B. und, oder, für).
-Die Namen sollten den Inhalt widerspiegeln.
-
-NOTE: Bei einigen Namen in der IsyFact-Dokumentation ist die Umstellung der Namen gemäß Namenskonvention noch in Arbeit.
-
-[[table-namenskonvention-dokumentation]]
-.Namensschema für Dokumentation (keine Anzeigenamen)
-[cols="1s,4m",options="header"]
-|====
-2+|Namen in Dokumentation
-|Schema |<beliebig: Kleinbuchstaben, Bindestriche, einzelne Ziffern, wenn unbedingt nötig>
-|Beispiel |isyfact-standards
-|falsch |_isyfact, IsyFact, isyfact standards, lösung, standards-und-erweiterungen
-|====
-
-[[dokumentation-glossar]]
-==== Spezielle Namensschemata Dokumentation
-include::werkzeuge:dokumentation/bearbeitung-antora.adoc[tag=namenskonvention]
+Die Namenskonventionen für die Dokumentation sind Teil des xref:documentation-guide:ROOT:namenskonventionen.adoc[Leitfadens Dokumentation].
 
 // end::inhalt[]
