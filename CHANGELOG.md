@@ -6,6 +6,7 @@
 - `ISY-929`: Nimbus JOSE+JWT Versionsanhebung auf 9.37.2
 - `ISY-1036`: Apache Commons Collections Versionsanhebung auf 3.2.2
 - `ISY-1045`: Apache Commons FileUpload Versionsanhebung auf 1.5
+- `IFS-3665`: [isyfact-standards-doc] "Leitfaden Dokumentation" nach `isy-documentation` verschoben
 
 # 3.0.0
 - `ISY-653` : Erweitern des `TimeoutWiederholungHttpInvokerRequestExecutor` um die Token-Beschaffung aus dem Security Context bei Nichtverfügbarkeit des `AufrufKontextVerwalter`.
