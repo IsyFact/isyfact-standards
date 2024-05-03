@@ -1,16 +1,17 @@
 # 4.0.0
 ## FEATURES
 - `ISY-1025`: Versionsanhebung `maven-surefire-plugin` auf 3.2.5
-    * Automatische Auswahl der benötigten Junit Engines
+    * Automatische Auswahl der benötigten JUnit Engines
 - `ISY-876`: [isy-bedienkonzept] Ergänzung der Anzeigeposition von Toasts unten rechts
-- `ISY-948` : Spring Cache Abstraction als verpflichtende Bibliothek für anwendungsseitige Caches eingeführt
+- `ISY-948`: Spring Cache Abstraction als verpflichtende Bibliothek für anwendungsseitige Caches eingeführt
 - `ISY-748`: [isyfact-standards-doc] Versionsanhebung `isy-checkstyle-config` auf 0.2.0
-    * Gruppierung der jakarta.* imports
+    * Gruppierung der `jakarta.*` imports
 - `ISY-305`: [isy-security] Implementierung von IsySecurityTokenUtil zum Auslesen von Attributen aus dem Bearer Token
 - `ISY-1040`: [isyfact-standards-doc] Anpassung des logback.xml-Konfigurationspfads im IF2-Migrationsleitfaden
 - `IFS-2786`: [isyfact-standards-doc] Migrationsleitfaden IsyFact 2 entfernt
-- `IFS-2784`: [isyfact-standards-doc] Externe Verweise direkt verlinkt statt über literaturextern und URLs korrigiert
+- `IFS-2784`: [isyfact-standards-doc] Externe Verweise direkt verlinkt statt über `literaturextern` und URLs korrigiert
 - `IFS-2816`: [isyfact-standards-doc] Begriff "Blaupause" durch "Referenzarchitektur" ersetzt
+- `IFS-3665`: [isyfact-standards-doc] "Leitfaden Dokumentation" nach `isy-documentation` verschoben
 ## BUG FIXES
 ## BREAKING CHANGES
 - `ISY-889`: Spring Boot Versionsanhebung auf 3.2.x

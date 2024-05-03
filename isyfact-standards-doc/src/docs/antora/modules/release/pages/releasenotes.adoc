@@ -49,10 +49,18 @@ Anwendungskern:: Das Konzept der "Basisdaten" wurde gestrichen, in dem die Refer
 
 ...
 
-[[kapitel-entfernt]]
-== Entfernt
+[[kapitel-dokumentation]]
+== Dokumentation
 
-=== Dokumentation
+=== Änderungen
 
-Die IsyFact macht keine Vorgaben mehr zur Entwicklungsumgebung.
-Alle Inhalte und Produktvorgaben diesbezüglich wurden entfernt.
+- Die Dokumentation verwendet keine Liste für externe Links mehr, sondern das https://docs.asciidoctor.org/asciidoc/latest/macros/url-macro/[URL-Makro] von AsciiDoc.
+- Das xref:glossary:glossary:master.adoc[] und der xref:documentation-guide:ROOT:index.adoc[] werden parallel zu den Releases der IsyFact gepflegt.
+Sie besitzen keine Version und sind damit über alle Releases hinweg gültig.
+Inhalte für spezifische Releases werden ausdrücklich ausgezeichnet.
+
+=== Entfernungen
+
+- Vorgaben zur Entwicklungsumgebung: Stark veraltete Inhalte und Produktvorgaben entfernt.
+- Migrationsleitfaden IsyFact 2: Große Teile werden durch das Release obsolet.
+- Redundantes Handbuch Enterprise Architect: Dopplung als Teil der Vorlage Systemspezifikation entfernt.
