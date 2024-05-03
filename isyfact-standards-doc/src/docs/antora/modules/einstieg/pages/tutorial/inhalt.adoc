@@ -875,6 +875,8 @@ Die Bibliothek `isy-logging` bringt fertig konfigurierte Layouts mit, die dort e
 [[konfiguration]]
 === Konfiguration
 
+include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
+
 In diesem Kapitel wird die Verarbeitung von Konfigurationen in Anwendungen beschrieben.
 
 [[designvorgaben-6]]
