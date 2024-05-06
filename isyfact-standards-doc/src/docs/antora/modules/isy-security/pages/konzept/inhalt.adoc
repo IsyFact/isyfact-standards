@@ -4,7 +4,7 @@
 [[sicherheitsarchitektur-eines-it-systems]]
 == Sicherheitsarchitektur eines IT-Systems
 
-Der Baustein Security bildet eine Komponente des Querschnitts der xref:blaupausen:referenzarchitektur-it-system/master.adoc#einleitung[IsyFact Referenzarchitektur IT-Systeme].
+Der Baustein Security bildet eine Komponente des Querschnitts der xref:blaupausen:referenzarchitektur-it-system/master.adoc[IsyFact Referenzarchitektur IT-Systeme].
 Er ist von jedem IT-System zur Autorisierung von Zugriffen und Vorgängen zu verwenden.
 
 Die Mechanismen zur Absicherung IsyFact-konformer IT-Systeme haben zum Ziel, die Autorisierung von Zugriffen _systematisch_, _einheitlich_ und _einfach_ umzusetzen.
@@ -360,7 +360,7 @@ Da die Absicherung zur Ausführung eines Batches immer ohne User-Interaktionen s
 
 .Fachliche Architektur eines Batches in der Anwendungslandschaft
 [id="image-awlogbat",reftext="{figure-caption} {counter:figures}"]
-image::isy-security:konzept/AnwLogBat.dn.svg[align="center"]
+image::blaupausen:detailkonzept-batch/architektur-it-system-batch-parts.dn.svg[]
 
 Ein Batch wird über ein Batch-Client oder Startprogramm – meist ein Shellscript, UC4, JobNetz, CronJob, o.ä. – initialisiert und gestartet.
 Diese Batch-Clients sind systemseitig dazu berechtigt, den dedizierten Batch auszuführen und damit zu starten.

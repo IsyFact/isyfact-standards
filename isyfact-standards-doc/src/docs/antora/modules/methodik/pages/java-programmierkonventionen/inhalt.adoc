@@ -418,7 +418,7 @@ komponente>. ...
   <anwendungssystem>
 	= (Name gemäß fachlicher Architektur, z. B. "meineanwendung)
   <layer>
-	= common | gui | batch | service | core | persistence
+	= common | batch | service | core | persistence
   <subsystem/komponente>
 	= Name der Geschäftsanwendung bzw. querschnittlichen Komponente gemäß fachlicher Architektur
 ----

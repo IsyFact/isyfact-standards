@@ -117,11 +117,11 @@ Technische Rollen können dafür als Unterrollen von anderen technischen oder fa
 image::vorlage-systemspezifikation/rollenschnitt-am-beispielr-cd-verwaltung.png[]
 
 
-* _Fachliche Rollen werden für Schnittstellen von PLIS-Anwendungen vergeben, welche Zugänge zur PLIS-Anwendungslandschaft geben (GUI-Oberflächen, Service-Gateway Zugänge, interne Systeme wie Systemtasks oder Batches).
+* _Fachliche Rollen werden für Schnittstellen von Anwendungen vergeben, welche Zugänge zur Anwendungslandschaft geben (GUI-Oberflächen, Service-Gateway Zugänge, interne Systeme wie Systemtasks oder Batches).
 Die einzelnen angebotenen Services werden über Rechte abgesichert._
-* _Technische Rollen sichern die Kommunikationswege innerhalb der PLIS-Anwendungslandschaft ab. Sie werden für die Schnittstellen von PLIS-Anwendungen verwendet, welche nur von anderen PLIS-Anwendungen aufgerufen werden.
+* _Technische Rollen sichern die Kommunikationswege innerhalb der Anwendungslandschaft ab. Sie werden für die Schnittstellen von Anwendungen verwendet, welche nur von anderen Anwendungen aufgerufen werden.
 Die einzelnen Schnittstellen werden durch Rechte abgesichert._
-* _Die Querschnittsrolle „QK_Nutzer“ ist eine einheitliche Rolle zur Absicherung von unkritischen Querschnittssysteme, deren Services von fast jeden Aufruf benötig werden.
+* _Die Querschnittsrolle „QK_Nutzer“ ist eine einheitliche Rolle zur Absicherung von unkritischen Querschnittssysteme, deren Services von fast jeden Aufruf benötigt werden.
 Sie ist als Unterrolle von Zugang_Portal und Zugang_SGW definiert._
 
 _[.underline]#Namenskonventionen für die Benennung#_
