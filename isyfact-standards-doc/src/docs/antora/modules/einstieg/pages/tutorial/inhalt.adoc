@@ -67,8 +67,8 @@ Als Implementierung für die JPA wird Hibernate verwendet.
 * DAOs stellen Zugriffsmethoden (Suchen, Schreiben, Löschen...) für genau eine Entität bereit.
 * Datenbank-Queries werden im Normalfall aus den Methodennamen generiert.
   Sonst werden sie per `@Query`-Annotation an der Methode beschrieben.
-* Entitäten werden entweder von genau einer fachlichen Komponente oder querschnittlich von der Komponente „Basisdaten“ verwaltet.
-* Der Datenzugriff erfolgt entweder über die Komponenten-Schnittstelle oder im Fall der Basisdaten direkt über die Basisdaten-DAOs.
+* Entitäten werden von genau einer fachlichen Komponente verwaltet.
+* Der Datenzugriff erfolgt über die Komponenten-Schnittstelle.
 * Für persistente Entitäten, die über eine Komponentenschnittstelle angeboten werden, werden eigene Schnittstellenobjekte definiert, die per Deep-Copy gefüllt werden. Hierfür wird ein Bean-Mapper verwendet.
 Innerhalb einer Teilanwendung dürfen persistente Entitäten allerdings über Komponentengrenzen hinweg genutzt werden.
 * DAOs und Entitäten werden in einer xref:isy-persistence:nutzungsvorgaben/umsetzung-datenzugriff.adoc[festgelegten Paketstruktur] abgelegt.
@@ -82,39 +82,6 @@ Die getrennt entwickelten Aspekte werden dann zur endgültigen Anwendung zusamme
 Besteht der fachliche Schlüssel der Entität aus genau einem Attribut, so wird er auch als Primärschlüssel verwendet.
 Ansonsten wird ein künstlicher technischer Primärschlüssel verwendet.
 ====
-
-
-[[klassendesign]]
-=== Klassendesign
-
-.Klassendesign für die Datenhaltung
-[id="image-Datenhaltung",reftext="{figure-caption} {counter:figures}"]
-image::einstieg:tutorial/Datenhaltung.png[align="center"]
-
-
-.Klassenbeschreibung für die Datenhaltung
-[id="table-Datenhaltung",reftext="{table-caption} {counter:tables}"]
-[cols="2,3"]
-|====
-|*AuskunftImpl* |AuskunftImpl ist die Implementierung der Komponente Auskunft (Anwendungskern). Die Komponente verwendet die DAOs zum  Zugriff auf ihre Daten.
-Während die DAOs die eigentlichen Entitätstypen anbieten, liefert die Komponente Auskunft nur nicht persistente Schnittstellenobjekte auf ihre Daten.
-|*RegisterEintragDao* |DAOs kapseln den Datenbankzugriff für spezifische Entitätstypen.
-Sie stellen Methoden zum Suchen, Anlegen und Löschen dieser Typen zur Verfügung.
-Zur Durchführung der Datenbank-Queries benötigt das DAO den EntityManager.
-Dieser wird von Spring bereitgestellt.
-|*RegisterEintrag* |Implementierungsklasse für Entitäten vom Typ `RegisterEintrag`. Enthält Getter- und Setter-Methoden für alle Attribute.
-|*RegisterEintragDaten* |Nicht persistentes Schnittstellenobjekt, das die Daten des RegisterEintrags enthält.
-Wird als Deep-Copy durch Bean-Mapper erzeugt.
-|====
-
-Im Normalfall verwenden Komponenten die Daten anderer Komponenten über deren Schnittstelle.
-Der direkte Zugriff auf die DAOs ist verboten.
-
-Entitäten, die von mehreren xref:glossary:glossary:master.adoc#glossar-anwendungskomponente[Anwendungskomponenten] verwendet werden, bietet die Komponente Basisdaten an.
-Die Komponente Basisdaten ist keine vollständige Komponente, sie bietet keine Schnittstellen an.
-Ausnahmsweise verwenden Komponenten stattdessen direkt die zugehörigen DAOs der Basisdaten.
-Dieser Fall ist auch in <<image-Datenhaltung>> dargestellt.
-Weitere Details können der xref:blaupausen:referenzarchitektur/master.adoc#einleitung[IsyFact Referenzarchitektur] entnommen werden.
 
 [[realisierung]]
 === Realisierung
@@ -196,9 +163,6 @@ In diesem Kapitel wird die Realisierung von Fachkomponenten beschrieben.
 === Designvorgaben
 
 * Alle Komponenten definieren ihre Schnittstelle über ein Java-Interface.
-Eine Ausnahme bildet die Komponente Basisdaten.
-Diese Komponente verwaltet gemeinsam genutzte Daten und bietet keine eigene Schnittstelle an.
-Der Zugriff erfolgt hier direkt über die DAOs (siehe Kapitel <<klassendesign>>).
 * Komponenten bieten an ihrer Schnittstelle eine Nur-Lese-Sicht auf ihre Daten an.
 Für jeden Entitätstyp wird eine nicht-persistente Schnittstellenklasse erstellt.
 Die Komponentenschnittstelle wird von einer Java-Klasse implementiert.
@@ -693,15 +657,12 @@ Die Ausführungs-Bean übermittelt dem Batchrahmen Status-Informationen für das
 
 .Klassendesign eines Batches
 [id="image-KDBatch",reftext="{figure-caption} {counter:figures}"]
-image::einstieg:tutorial/KDBatch.png[align="center",width=80%,pdfwidth=80%]
+image::einstieg:tutorial/KDBatch.png[]
 
-<<image-KDBatch>> zeigt eine beispielhafte Implementierung eines Batches, der die Komponenten `Auskunft` und `Basisdaten` verwendet.
-
-Im Normalfall erhält die Batch-Bean (`AuskunftBatch`) eine Referenz auf die Komponenten des Anwendungskerns per Spring-Dependency.
-Für die Komponente Basisdaten erfolgt der Zugriff wie immer mittels statischer Aufrufe der DAOs.
+<<image-KDBatch>> zeigt eine beispielhafte Implementierung eines Batches, der die Komponente `Auskunft` verwendet.
 
 Der Batchrahmen definiert das Interface `BatchAusfuehrungsBean`. Dieses dient der Steuerung des Batches durch den Batchrahmen.
-Es muss von der Batch-Ausführungs-Bean implementiert werden.
+Es muss vom Batch implementiert werden.
 Der Batchrahmen sorgt auch für die Initialisierung und Ausführung des Batches.
 
 Der Batchrahmen übernimmt die Transaktionssteuerung.

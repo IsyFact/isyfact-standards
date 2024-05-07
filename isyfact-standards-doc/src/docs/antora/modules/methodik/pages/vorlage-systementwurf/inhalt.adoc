@@ -138,7 +138,6 @@ Das folgende Listing zeigt beispielhaft ein EA-Modell._
     📂 <<IT-System>> Geschäftskomponente XYZ
       📂 Anwendungskern
         📂 <<A-Komponente>> Auskunft
-        📂 <<A-Komponente>> Basisdaten
         📂 <<T-Komponente>> Berechtigung
         📂 <<A-Komponente>> Meldung
         📂 <<A-Komponente>> Protokoll
@@ -882,8 +881,7 @@ Die Datenmodelle werden als UML-Klassendiagramme erstellt._
 
 *[.underline]#Vorgehen zur Konstruktion#*
 
-_Die Entitäten des Datenmodells sollen den Komponenten des Anwendungskerns zugeordnet werden, z. B. zu „Meldung“ oder „Auskunft“.
-Für die Komponenten, die nicht einer dieser Komponenten zugeordnet werden können, dient die Komponente „Basisdaten“.
+_Die Entitäten des Datenmodells sollen den Komponenten des Anwendungskerns zugeordnet werden.
 Dazu werden in die Diagramme Boundaries eingezeichnet, die die Entitäten einer Komponente einrahmen._
 
 _Das Vorgehen zur Konstruktion der Entitäten ist dabei in der Regel das folgende:_

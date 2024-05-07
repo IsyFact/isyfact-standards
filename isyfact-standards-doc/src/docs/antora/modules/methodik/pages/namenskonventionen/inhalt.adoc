@@ -197,7 +197,7 @@ Sie sind vor allem der xref:vorlagen.adoc#dokumentation-anwendung[Vorlage zur Sy
 |====
 2+|Modellkomponente
 |*Schema* |MKO_<modellkomponente>
-|*Beispiele* |MKO_Basisdaten
+|*Beispiele* |MKO_Aktenverwaltung
 |====
 
 [[entitaetstyp]]

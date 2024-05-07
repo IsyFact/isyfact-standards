@@ -64,11 +64,7 @@ Sie werden primär nach ihrer Funktion benannt.
 
 // end::namenskonvention[]
 
-
 In einer allgemeinen Anwendung gibt es z.B. die Geschäftsobjekte `Aufgabe`, `Zeitpunkt` und `Nutzer`.
-
-In Ausnahmefällen können Geschäftsobjekte fachlich nicht genau einer Komponente zugeordnet werden.
-Hierfür wird die Komponente _Basisdaten_ definiert, die nur die eine Aufgabe hat, solche Geschäftsobjekte an zentraler Stelle zu verwalten.
 
 Eine *Anwendungsfallklasse* setzt genau einen Anwendungsfall um.
 Ihr Schnitt ergibt sich aus der fachlichen Architektur.

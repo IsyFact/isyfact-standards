@@ -15,6 +15,14 @@ Ergänzend zu den Release Notes erläutert der xref:release:migrationsleitfaden.
 [[kapitel-referenzarchitektur]]
 == Referenzarchitektur
 
+[CAUTION]
+====
+Dieses Release enthält architektonische "Breaking Changes".
+Anwendungen, die mit den vorigen Releases der IsyFact architektonisch im Einklang sind, sind es mit IsyFact {page-component-version} nicht mehr unbedingt.
+
+Widersprüche zur Referenzarchitektur führen in der Regel zu einem (partiellen) Redesign betroffener Anwendungen.
+====
+
 Der Begriff "Referenzarchitektur" löst den bisherigen Begriff "Blaupause" ab.
 
 === Software-technische Sicht
@@ -27,6 +35,8 @@ Datenzugriff:: Für die Überführung von persistenten Entitäten in Geschäftso
 Die Komponente Datenzugriff übergibt persistente Entitäten an den Anwendungskern.
 Der Anwendungskern darf keine persistenten Entitäten mehr herausgeben, auch nicht zwischen seinen Fachkomponenten.
 Entsprechende Ausnahmen wurden gestrichen.
+
+Anwendungskern:: Das Konzept der "Basisdaten" wurde gestrichen, in dem die Referenzarchitektur erlaubt hat, von Fachkomponenten gemeinsam benutzte Geschäftsobjekte zu definieren. Für diese Geschäftsobjekte gab es keine Komponente im Anwendungskern, sondern nur einen direkten Zugriff auf die dazugehörigen Entitäten. Die Referenzarchitektur sieht nun vor, dass Fachkomponenten ohne Ausnahme die vollständige Datenhoheit über ihre eigenen Geschäftsobjekte besitzen.
 
 
 [[kapitel-bausteine]]
