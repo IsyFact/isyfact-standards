@@ -26,6 +26,11 @@ Widersprüche zur Referenzarchitektur führen in der Regel zu einem (partiellen)
 Der Begriff "Referenzarchitektur" löst den bisherigen Begriff "Blaupause" ab.
 
 === Software-technische Sicht
+// TODO: Links zu den entsprechenden Seiten ergänzen, wenn vorhanden!
+IT-Systeme dürfen keine UI-Komponenten mehr enthalten.
+Zur Umsetzung von UIs sieht die Referenzarchitektur nur noch eigenständige Frontend-Anwendungen vor.
+Ergänzend hierzu beinhaltet die IsyFact einen Baustein zur Umsetzung dieser Anwendungen mit Angular.
+
 Datenzugriff:: Für die Überführung von persistenten Entitäten in Geschäftsobjekte sollen keine gesonderten Schnittstellenobjekte mehr genutzt werden.
 Die Komponente Datenzugriff übergibt persistente Entitäten an den Anwendungskern.
 Der Anwendungskern darf keine persistenten Entitäten mehr herausgeben, auch nicht zwischen seinen Fachkomponenten.

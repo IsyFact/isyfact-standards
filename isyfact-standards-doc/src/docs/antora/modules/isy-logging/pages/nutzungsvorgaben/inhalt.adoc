@@ -853,7 +853,7 @@ Durch `isy-logging` werden zwei Instanzen des LogInterceptors mit unterschiedlic
 
 * `boundaryLogInterceptor`: Dieser wird verwendet, um Aufrufe an Systemgrenzen zu loggen.
 Zur Kennzeichnung von Systemgrenzen wird die von `isy-logging` bereitgestellt Annotation `@Systemgrenze` verwendet.
-Damit werden alle Service-Schnittstellen, GUI-Controller und Batchausführungsbeans annotiert (siehe Szenarien in <<aufruf-an-systemgrenze>> und <<rueckliefern-einer-exception-an-systemgrenze>>).
+Damit werden alle Service-Schnittstellen und Batchausführungsbeans annotiert (siehe Szenarien in <<aufruf-an-systemgrenze>> und <<rueckliefern-einer-exception-an-systemgrenze>>).
 * `komponentLogInterceptor`: Dieser wird verwendet, um Aufrufe an Komponentengrenzen zu loggen.
 Hierfür wird die analog die Annotation `@Komponentengrenze` bereitgestellt.
 Damit werden alle relevanten Komponenten-Schnittstellen annotiert (siehe Szenario in Abschnitt <<aufruf-an-komponentengrenze>>).
@@ -950,7 +950,6 @@ Eine Übersicht über die erfassten Klassen bietet die folgende Tabelle:
 [cols="2,4a",options="header"]
 |====
 |Schicht / Klassen |Pointcut
-|Controller / Webaufrufe a| `public *  *..gui..*Controller.*(..)`
 |Serviceschicht | `public * *..service..*ServiceImpl.*(..)`
 |Core-Komponenten | `public * *..core..*Impl.*(..)`
 |AWF-Klassen | `* * ..core..Awf*.*(..)`
@@ -1276,7 +1275,7 @@ Sollte einer dieser Mechanismen in einer Anwendung nicht umgesetzt werden könne
 
 [cols="2s,5"]
 |====
-|Beschreibung |Es wird eine Außenschnittstelle des Systems – Service, GUI-Controller oder Batch – aufgerufen (eingehender Aufruf).
+|Beschreibung |Es wird eine Außenschnittstelle des Systems – Service oder Batch – aufgerufen (eingehender Aufruf).
 |Logging |Der Aufruf der Methode wird mit Hilfe des `LogInterceptor` geloggt.
 Dieser muss gemäß <<loggingmethodinterceptor>> für alle Außenschnittstellen des Systems konfiguriert sein.
 |Auswertungsszenario a|
@@ -1361,6 +1360,8 @@ Dieser muss gemäß <<LogApplicationListener>> konfiguriert sein.
 
 [[neueinlesen-eines-geänderten-konfigurationsparameters]]
 ===== Neueinlesen eines geänderten Konfigurationsparameters
+
+include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
 
 [cols="2s,5"]
 |====

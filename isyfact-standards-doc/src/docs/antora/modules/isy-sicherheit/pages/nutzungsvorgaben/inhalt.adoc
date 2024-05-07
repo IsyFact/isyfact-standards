@@ -183,7 +183,7 @@ Werden im Lebenszyklus der Geschäftsanwendung weitere Rollen (z.B. für neu hin
 [[autorisierung]]
 == Umsetzung der Autorisierung
 
-Im Dokument xref:blaupausen:referenzarchitektur-it-system/master.adoc#einleitung[IsyFact Referenzarchitektur IT-Systeme] werden drei Möglichkeiten des Zugriffs auf ein IT-System: Grafische Oberflächen (GUIs), Services und Batches beschrieben.
+Im Dokument xref:blaupausen:referenzarchitektur-it-system/master.adoc[IsyFact Referenzarchitektur IT-Systeme] werden drei Möglichkeiten des Zugriffs auf ein IT-System: Grafische Oberflächen (GUIs), Services und Batches beschrieben.
 Für alle diese Möglichkeiten gilt, dass der Aufrufkontext so früh wie möglich aus der eingehenden Anfrage auszulesen und im Verwalter (d.h. dem Spring Bean `AufrufKontextVerwalter`) zu speichern ist.
 Nur so kann sichergestellt werden, dass alle Prüfungen auf Rechte korrekt funktionieren.
 Dazu bietet der Baustein Sicherheit einige Hilfsmittel an.
@@ -196,7 +196,7 @@ Fachliche Schnittstellen werden von Parametern befreit und Prüfungen auf vorhan
 
 Beim Aufruf grafischer Oberflächen wird der Aufrufkontext über einen `AbstractAuthenticationProcessingFilter` aus Spring Security ausgelesen.
 Die Autorisierung geschieht auf Ebene der Flows aus Spring Webflow.
-Weitere Details zur Umsetzung der Autorisierung in der GUI sind im Dokument xref:blaupausen:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Komponente WebGUI]) beschrieben.
+
 
 [[gui-spring-konfiguration]]
 ==== Spring-Konfiguration

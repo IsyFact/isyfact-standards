@@ -23,6 +23,11 @@ Die nachfolgende Tabelle beschreibt die Bausteine. Sie stellen in der Regel ein 
 |Baustein
 |Funktion
 
+|Angular
+|Der Baustein _Angular_ bietet eine Frontend-Bibliothek, deren Komponenten anhand der Vorgaben im Bedienkonzept entwickelt und exemplarisch in der Demo-Anwendung des Bausteins gezeigt werden.
+Dadurch werden wiederverwendbare Widgets bereitgestellt, um User Interfaces zu vereinheitlichen.
+Der Baustein basiert auf Angular, PrimeNG und PrimeFlex.
+
 |Bedienkonzept
 |Das _Bedienkonzept_ beschreibt die Gestaltungsregeln, Lösungsmuster und Workflows für fachliche Abläufe in Benutzeroberflächen.
 Ziel des Bedienkonzepts ist es, dass sich Sachbearbeiter möglichst schnell zwischen unterschiedlichen Anwendungen orientieren können.
@@ -45,7 +50,7 @@ Er enthält architektonische sowie technische Vorgaben und beschreibt die konkre
 Dabei integriert er den Styleguide und stellt auf dessen Grundlage wiederverwendbare Widgets bereit.
 Der Baustein basiert auf JSF und Spring Webflow.
 
-|Konfiguration
+|icon:ban[title=Deprecation] [.line-through]#Konfiguration#
 |Der Baustein beschreibt typische Arten von Konfiguration und macht Vorgaben für deren Erstellung, Handhabung und Pflege.
 
 |Logging

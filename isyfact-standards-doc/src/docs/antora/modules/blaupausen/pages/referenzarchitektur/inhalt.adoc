@@ -77,7 +77,7 @@ Die fachliche Referenzarchitektur wird in Kapitel <<die-fachliche-referenzarchit
 *Software-Referenzarchitektur:* Hierunter fällt eine software-technische Beschreibung der xref:glossary:glossary:master.adoc#glossar-systemlandschaft[Systemlandschaft].
 Die gesamte Systemlandschaft wird in technische Komponenten zerlegt, die miteinander über technische Schnittstellen interagieren.
 Jegliche Abbildung auf physikalische Systeme und deren Infrastruktur sind dabei nicht von Belang.
-Die Software-Referenzarchitektur wird in der xref:referenzarchitektur-it-system/master.adoc#einleitung[Referenzarchitektur IT-Systeme] definiert.
+Die Software-Referenzarchitektur wird in der xref:referenzarchitektur-it-system/master.adoc[Referenzarchitektur IT-Systeme] definiert.
 
 *Referenzarchitektur der technischen Infrastruktur:* Ist eine Beschreibung der Systemlandschaft aus dem Blickwinkel der technischen Infrastruktur.
 Es wird beschrieben, welche technischen Systeme existieren und welche technischen Komponenten auf ihnen laufen.
@@ -200,7 +200,7 @@ Die technische Entsprechung hierfür ist der Begriff der xref:glossary:glossary:
 Eine Systemlandschaft, die eine Anwendungslandschaft nach den IsyFact-Standards umsetzt, wird im Folgenden als _IsyFact-Systemlandschaft_ bezeichnet.
 Eine solche IsyFact-Systemlandschaft beinhaltet alle software-technisch umgesetzten Anwendungssysteme der Anwendungslandschaft sowie technische Systeme zur Unterstützung (z. B. Datenbanken, Web-Server, usw).
 
-Die technische Architektur eines IT-Systems wird in xref:referenzarchitektur-it-system/master.adoc#einleitung[Referenzarchitektur IT-Systeme] definiert.
+Die technische Architektur eines IT-Systems wird in xref:referenzarchitektur-it-system/master.adoc[Referenzarchitektur IT-Systeme] definiert.
 Im Folgenden wird, aufbauend auf diesem Konzept, beschrieben:
 
 * welche Eigenschaften bezogen auf die technische Referenzarchitektur die Typen von Anwendungssystemen in einer IsyFact-Systemlandschaft besitzen (Kapitel <<strukturierung-der-systemlandschaft>>),
@@ -423,51 +423,48 @@ Zur Umsetzung der Servicekommunikation gibt es Service-Bausteine, die ausgewähl
 [[nutzungsarten-eines-anwendungssystems]]
 === Nutzungsarten eines Anwendungssystems
 
-Nachdem im Dokument xref:referenzarchitektur-it-system/master.adoc#einleitung[Referenzarchitektur IT-Systeme] die technische Architektur vorgestellt wurde, soll in diesem Abschnitt konkret vorgestellt werden, wie auf Basis dieser Architektur Anwendungen entworfen werden.
+Nachdem im Dokument xref:referenzarchitektur-it-system/master.adoc[Referenzarchitektur IT-Systeme] die technische Architektur vorgestellt wurde, soll in diesem Abschnitt konkret vorgestellt werden, wie auf Basis dieser Architektur Anwendungen entworfen werden.
 
-Die Nutzungsschicht eines IT-Systems bietet anderen IT-Systemen über Services, dem Betrieb über Batches und menschlichen Nutzern über eine GUI Schnittstellen zur Nutzung der implementierten Fachlichkeit an.
+Die Nutzungsschicht eines IT-Systems bietet anderen IT-Systemen über Services und dem Betrieb über Batches Schnittstellen zur Nutzung der implementierten Fachlichkeit an.
 Im Folgenden wird ein Beispiel-Szenario zur Nutzung eines IT-Systems vorgestellt.
 
+.Erstellung einer Geschäftsanwendung mit einer SOAP-Schnittstelle
 ====
-*_Beispiel:_* Es soll eine Geschäftsanwendung erstellt werden, die sowohl manuell über eine Weboberfläche als auch automatisiert über eine SOAP-Schnittstelle nutzbar sein soll.
-
 Für eine zur Architektur konforme Umsetzung dieser Anforderungen müssen verschiedene IT-Systeme umgesetzt werden:
 
 *Die Geschäftsanwendung:* Die Geschäftsanwendung soll in diesem Beispiel die Präsentationslogik, die Geschäftslogik und die Datenhaltung in einem Anwendungssystem realisieren.
 Sie implementiert dazu drei software-architektonische Schichten:
 
-* Die *Präsentationsschicht*, in der die Webseiten der GUI erzeugt und die Eingaben interpretiert werden.
-* Der *Anwendungskern*, in dem die Geschäftslogik abgebildet ist.
-* Die *Persistenzschicht*, in der sowohl die Anwendungsdaten als auch der Zustand der Anwendungssitzung abgespeichert werden.
+* Die *Nutzungsschicht*, in der die Services abgebildet sind,
+* der *Anwendungskern*, in dem die Geschäftslogik abgebildet ist,
+* die *Persistenzschicht*, in der sowohl die Anwendungsdaten als auch der Zustand der Anwendungssitzung abgespeichert werden.
 
 Zur Implementierung der Geschäftslogik kann die Geschäftsanwendung auch xref:glossary:glossary:master.adoc#glossar-service-fachlich[Services] anderer Geschäftsanwendungen aufrufen.
-
-*Das Portal:* Wie in Kapitel <<strukturierung-der-systemlandschaft>> beschrieben, nimmt das Portal die xref:glossary:glossary:master.adoc#glossar-anwender[Anwender]-Aufrufe entgegen und leitet sie an die Geschäftsanwendung weiter.
 
 *Das Service-Gateway-System:* Wie in Kapitel <<strukturierung-der-systemlandschaft>> beschrieben, dient das Service-Gateway-System als Schnittstelle für die Kommunikation mit bzw. der Annahme der Aufrufe von externen Systemen.
 Im vorliegenden Fall wird nur ein Service-Provider benötigt, da nur Aufrufe entgegengenommen werden.
 Diese werden authentifiziert, autorisiert, und an das zugehörige IT-System weitergeleitet.
 
 Damit ergeben sich die in <<image-CallFAmGuX>> dargestellten IT-Systeme und Aufruf-Beziehungen.
-Die in dieser Abbildung angedeuteten Schichten eines IT-Systems (GUI, Batch, Service, Anwendungskern, Datenzugriff und Querschnitt) werden im Dokument xref:referenzarchitektur-it-system/master.adoc#einleitung[Referenzarchitektur IT-Systeme] erläutert.
+Die in dieser Abbildung angedeuteten Schichten eines IT-Systems (Batch, Service, Anwendungskern, Datenzugriff und Querschnitt) werden im Dokument xref:referenzarchitektur-it-system/master.adoc[Referenzarchitektur IT-Systeme] erläutert.
 Wichtig in Hinblick auf diese Schichten sind folgende Punkte:
 
 * Die Komponente _Batch_ der Geschäftsanwendung wird im obigen Beispiel nicht implementiert, da die Geschäftsanwendung keine Schnittstelle für Batchläufe anbietet.
 * Alle externen Aufrufe an die Geschäftsanwendung werden durch eine _Service-Komponente_ verarbeitet: Keine andere Komponente darf externe Schnittstellen bereitstellen, insbesondere nicht in den _Anwendungskern_.
 * Es wurden keine Aufrufe von Querschnittsanwendungen eingezeichnet.
 Für derartige Aufrufe gibt es keine Vorgaben: Sie können aus beliebigen Schichten von Geschäftsanwendungen und Service-Gateways aus aufgerufen werden.
-====
 
-.Aufrufbeziehungen für eine Geschäftsanwendung mit GUI und XML-Schnittstelle
+.Aufrufbeziehungen für eine Geschäftsanwendung mit Service-Schnittstelle
 [id="image-CallFAmGuX",reftext="{figure-caption} {counter:figures}"]
 image::blaupausen:referenzarchitektur/CallFAmGuX.png[align="center"]
+====
 
 [[prinzipien-der-sicherheitsarchitektur]]
 === Prinzipien der Sicherheitsarchitektur
 
 Die IsyFact-Referenzarchitektur beinhaltet auch Vorgaben für die Sicherheitsarchitektur einer Systemlandschaft.
 Eine davon ist die Forderung, dass IsyFact-konforme IT-Systeme gegen unberechtigte Nutzung zu schützen sind.
-Folgende Prinzipien der Sicherheit liegen der Erstellung einer Systemlandschaft zu Grunde:
+Folgende Prinzipien der Sicherheit liegen der Erstellung einer Systemlandschaft zugrunde:
 
 * Authentifizierungsinformationen, wie Benutzername und Passwort, werden nicht über IT-Systeme hinweg weitergegeben.
 Nur der Eigentümer der Authentifizierungsinformationen und der zentrale IAM-Service besitzen Kenntnis über diese Informationen.
@@ -476,9 +473,9 @@ Nur der Eigentümer der Authentifizierungsinformationen und der zentrale IAM-Ser
 * Kommt der Aufruf von innerhalb der Systemlandschaft (z.B. bei einem Batch- oder Task-Aufruf), benötigt der (technische) Aufrufer eigene Authentifizierungsinformationen und die Authentifizierung und grobgranulare Autorisierung geschieht aus der Nutzungsschicht (Batch / Task) des aufrufenden IT-Systems.
 * Wird zur Ausführung des Aufrufs ein Service einer anderen Geschäftsanwendung / Domäne benötigt, erfolgt dessen Aufruf im Namen und mit der Autorisierung des ursprünglichen Aufrufers.
 * Die feingranulare Autorisierung geschieht an den Systemgrenzen / externen Schnittstellen der aufgerufenen Geschäftsanwendung.
-* Existiert keine Systemlandschaft (d.h. IT-Systeme stehen für sich allein), gilt grundsätzlich, dass die Authentifizierung und grobgranulare Autorisierung in der Nutzungsschicht (GUI, Service oder Batch) des IT-Systems geschehen muss.
+* Existiert keine Systemlandschaft (d.h. IT-Systeme stehen für sich allein), gilt grundsätzlich, dass die Authentifizierung und grobgranulare Autorisierung in der Nutzungsschicht (Service oder Batch) des IT-Systems geschehen muss.
 
-Folgende Abbildung zeigt die Umsetzung der Prinzipen in der Systemlandschaft:
+Folgende Abbildung zeigt die Umsetzung der Prinzipien in der Systemlandschaft:
 
 .Integration des IAM-Service in eine Systemlandschaft
 [id="image-iam-integration-awl",reftext="{figure-caption} {counter:figures}"]
@@ -1014,7 +1011,7 @@ Wenn eine Anwendung nach einer vereinfachten Architektur entwickelt wurde, ist d
 ==== Installation innerhalb eines Clusters
 
 Um eine Anwendung innerhalb eines Clusters von Anwendungsservern zu betreiben, ist es notwendig, den Bearbeitungszustand nicht im Hauptspeicher des Serverprozesses zu halten, sondern ihn bei jedem Request in der Datenbank zu persistieren.
-Dies ist in den GUI-Referenzarchitekturen der IsyFact vorgegeben, allerdings werden Verletzungen dieses Prinzips nicht auffallen, wenn man eine vereinfachte Anwendung auf nur einem Serverknoten betreibt.
+Dies ist in der Referenzarchitektur der IsyFact vorgegeben, allerdings werden Verletzungen dieses Prinzips nicht auffallen, wenn man eine vereinfachte Anwendung auf nur einem Serverknoten betreibt.
 Daher ist vor dem Umzug auf einen Cluster die Anwendung durch geeignete Tests oder Code-Inspektionen zu überprüfen, ob konform zu den Vorgaben entwickelt wurde.
 Alternativ kann natürlich auch auf die Persistierung des Anwendungszustands verzichtet werden, wenn man bewusst auf die Installation in einem Cluster verzichten will.
 
