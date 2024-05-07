@@ -22,6 +22,7 @@
     * [isyfact-standards-bom] `isyfact-standards-bom` importiert dependencyManagement aus `isyfact-products-bom`
     * [isyfact-standards-doc] Bezug und Nutzung der IsyFact nach Entfernung der IsyFact-BOM beschrieben
 - `ISY-737`: [isyfact-standards] Java Compile Target 17
+- `IFS-1259`: [isyfact-standards-doc] Basisdaten (d.h. Möglichkeit der gemeinsamen Nutzung von Geschäftsobjekten durch mehrere Fachkomponenten) entfernt
 
 # 3.0.1
 - `ISY-701`: Google Guava Versionsanhebung auf 33.1.0
