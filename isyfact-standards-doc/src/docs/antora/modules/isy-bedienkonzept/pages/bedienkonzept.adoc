@@ -2,11 +2,6 @@
 
 include::glossary:licence:partial$licence.adoc[]
 
-[[image-eingabefeldplatzhalter]]
-.Eingabfeld mit Platzhalter
-image::24_BE_eingabefeld_normal.png[align="center"]
-
-
 [[einfuehrung-und-allgemeine-Prinzipien]]
 == Einfuehrung und allgemeine Prinzipien
 Das Bedienkonzept & der Styleguide nehmen eine zentrale Rolle in der Entwicklung von Anwendungen und Websites ein, indem es als umfassendes Regelwerk dient, das die Gestaltung und Interaktionselemente definiert.
@@ -274,7 +269,7 @@ Platzhalter müssen sinnvolle Eingabeunterstützungen (im einfachsten Fall das L
 
 [[image-eingabefeldplatzhalter]]
 .Eingabfeld mit Platzhalter
-images::24_BE_eingabefeld_normal.png[align="center"]
+image::24_BE_eingabefeld_normal.png[align="center"]
 
 Abbildung - Eingabefeld mit Platzhalter 
 
