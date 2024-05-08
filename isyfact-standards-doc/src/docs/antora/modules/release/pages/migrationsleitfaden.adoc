@@ -17,17 +17,15 @@ Die auf dieser Seite aufgeführten Hinweise sollen der Entwicklung bei der Umste
 ...
 
 [[isy-ueberwachung]]
-=== Ueberwachung
+=== Überwachung
+
 In IsyFact 3 muss die Absicherung der Endpoints aus den Nutzungsvorgaben abgeleitet und pro Anwendung implementiert werden.
 
 In IsyFact 4 stellt der Baustein `isy-ueberwachung` über die AutoConfiguration eine
 Standardabsicherung für Endpoints und entsprechende Konfigurationsparameter bereit.
-Eine detaillierte Beschreibung zur Konfiguration und Anpassungsmöglichkeiten sind in den xref:isy-ueberwachung:nutzungsvorgaben/master.adoc#absicherung-von-endpoints[Nutzungsvorgaben Ueberwachung] zu finden.
+Eine detaillierte Beschreibung zur Konfiguration und Anpassungsmöglichkeiten sind in den xref:isy-ueberwachung:nutzungsvorgaben/master.adoc#absicherung-von-endpoints[Nutzungsvorgaben Überwachung] zu finden.
 
 [[kapitel-dokumentation]]
 == Dokumentation
 
-=== Entfernt
-
-- Migrationsleitfaden IsyFact 2: Große Teile werden durch das Release obsolet.
-- Redundantes Handbuch Enterprise Architect: Dopplung als Teil der Vorlage Systemspezifikation entfernt.
+...
