@@ -586,7 +586,7 @@ Folgende Meldungsarten können als Toast-Notification verwendet werden:
 
 [[image-toastnotification]]
 .Verschiedene Toastnotification
-24_UC_toast_notification.png
+image::24_UC_toast_notification.png[align="center"]
 
 
 
