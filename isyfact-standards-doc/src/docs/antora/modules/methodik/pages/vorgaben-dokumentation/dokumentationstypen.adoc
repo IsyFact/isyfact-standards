@@ -204,7 +204,7 @@ a|
 * Schnittstellenverhalten
 * Weitergehende Informationen
 
-Abgrenzung zur <<table-technische-schnittstellendokumentation, technischen Schnittstellenspezifikation>>.
+Abgrenzung zur <<table-technische-schnittstellendokumentation,technischen Schnittstellenspezifikation>>.
 
 |Zielgruppe(n)
 |Fachabteilung, fachliche und technische Architekten, Entwickler, Nutzer der Schnittstelle, (alle)
@@ -273,7 +273,7 @@ a|
 * Status Codes
 * Fehlermeldungen
 
-Abgrenzung zur <<table-fachliche-schnittstellenspezifikation, fachlichen Schnittstellenspezifikation>>.
+Abgrenzung zur <<table-fachliche-schnittstellenspezifikation,fachlichen Schnittstellenspezifikation>>.
 
 |Zielgruppe(n)
 |Entwickler, Architekten, IT-Betrieb
@@ -419,7 +419,7 @@ Die Methodik wird mit folgendem Dokumentationstyp beschrieben:
 |Beschreibung von Konventionen oder Vorgaben, die zu einer Methodik oder einem Vorgehensmodell gehören.
 
 |Inhalt
-a|* Beschreibung des Themas (s. xref:werkzeuge:seitenvorlage.adoc[])
+a|* Beschreibung des Themas (s. Vorlage/Beispiel)
 
 |Zielgruppe(n)
 |je nach Thema (meist Architekten, Entwickler, technische Autoren)
@@ -428,7 +428,7 @@ a|* Beschreibung des Themas (s. xref:werkzeuge:seitenvorlage.adoc[])
 |Methodik
 
 |Vorlage / Beispiel
-|xref:werkzeuge:seitenvorlage.adoc[]
+|xref:documentation-guide:ROOT:seitenvorlage.adoc[]
 |===
 
 == Säule Werkzeuge
@@ -445,7 +445,7 @@ Werkzeuge werden mit folgendem Dokumentationstyp beschrieben:
 |Beschreibung von Konventionen oder Vorgaben, die zu einem Werkzeug gehören.
 
 |Inhalt
-a|* Beschreibung des Werkzeugs (s. xref:werkzeuge:seitenvorlage.adoc[])
+a|* Beschreibung des Werkzeugs (s. Vorlage/Beispiel)
 
 |Zielgruppe(n)
 |je nach Thema (meist Architekten, Entwickler, technische Autoren)
@@ -454,6 +454,6 @@ a|* Beschreibung des Werkzeugs (s. xref:werkzeuge:seitenvorlage.adoc[])
 |Werkzeug
 
 |Vorlage / Beispiel
-a|* xref:werkzeuge:seitenvorlage.adoc[]
+a|* xref:documentation-guide:ROOT:seitenvorlage.adoc[]
 * xref:methodik:diagrammerstellung/diagramsnet.adoc[]
 |===
