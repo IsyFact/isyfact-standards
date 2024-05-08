@@ -1,6 +1,8 @@
 = Konzept Konfiguration: Einleitung
 
 // tag::inhalt[]
+include::glossary:miscellaneous:partial$deprecated-baustein.adoc[]
+
 [[einleitung]]
 == Einleitung
 

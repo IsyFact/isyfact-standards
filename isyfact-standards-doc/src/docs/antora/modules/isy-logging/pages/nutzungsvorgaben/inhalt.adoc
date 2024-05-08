@@ -1362,6 +1362,8 @@ Dieser muss gemäß <<LogApplicationListener>> konfiguriert sein.
 [[neueinlesen-eines-geänderten-konfigurationsparameters]]
 ===== Neueinlesen eines geänderten Konfigurationsparameters
 
+include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
+
 [cols="2s,5"]
 |====
 |Beschreibung |Es wird festgestellt, dass sich ein Konfigurationsparameter der betrieblichen Konfiguration oder eine Laufzeitkonfiguration geändert hat.

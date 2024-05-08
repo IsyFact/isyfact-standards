@@ -167,10 +167,14 @@ Der Styleguide bzw. das Bedienkonzept ist deprecated icon:ban[title=Deprecation]
 Das bestehende Konzept soll bei der Entwicklung neuer Anwendungen nicht mehr berücksichtigt werden.
 Das neue, restrukturierte Bedienkonzept wird an anderer Stelle veröffentlicht.
 
+=== Baustein Konfiguration deprecated icon:ban[title=Deprecation]
+
+Anstatt des Bausteins werden die Standardfunktionen von Spring Boot genutzt.
+
 [[kapitel-weitere-deprecations]]
 == Weitere Deprecations
-* Session Management
-* JSF
+
+* Baustein JSF
 
 [[kapitel-entfernt]]
 == Entfernt
