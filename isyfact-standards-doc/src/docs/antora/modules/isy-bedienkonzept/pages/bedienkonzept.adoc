@@ -130,7 +130,6 @@ Berücksichtigen Sie dabei Benutzer mit unterschiedlichen Fähigkeiten, Geräten
 Weitere Informationen zu einer besseren Benutzerfreundlichkeit sind am jeweiligen Bedienelement, dem Pattern und/oder Eingabehilfen und Fehlermeldungen zu finden.
 
 
-
 *_Text_*
 
 Die Textelemente spielen eine entscheidende Rolle bei der Kommunikation mit den Benutzern.
@@ -200,6 +199,7 @@ Dieser Abschnitt beschreibt die primäre und sekundäre Farbpalette, sowie die V
 *	Die Standardpalette (zum Zeitpunkt: dd.mm.yyyy) wird im Bereich Barrierefreiheit mit einer Kontrast-Tabelle angegeben
 *	Verwendung einer Anwendungsfarbe muss vom Projekt auf Barrierefreiheit geprüft werden und ist frei wählbar
 
+
 == Barrierefreiheit
 
 Die Zugänglichkeit ist ein wichtiges Prinzip, um sicherzustellen, dass alle Benutzer unabhängig von ihren Fähigkeiten die Anwendung nutzen können.
@@ -241,6 +241,7 @@ Dafür wird die entsprechende SCSS und CSS in die Anwendung integriert
 Dadurch ist die Wartbarkeit stark beeinträchtigt und die Aufwände können sich in der Pflege der Anwendung stark erhöhen
 *	Die Anwendung ist primär für die Nutzung auf Desktopgeräten konzipiert, kann aber mit ihrer Responsivität auch auf mobilen Geräten (sofern möglich) genutzt werden
 
+
 == Bedienelemente
 
 *_Einleitung und Allgemeines:_*
@@ -266,6 +267,9 @@ Platzhalter müssen sinnvolle Eingabeunterstützungen (im einfachsten Fall das L
 
 *_Normal:_*
 
+[[image-eingabefeldplatzhalter]]
+.Eingabfeld mit Platzhalter
+image::24_BE_eingabefeld_normal.png[align="center", width="629", height=200"]
 
 Abbildung - Eingabefeld mit Platzhalter 
 
