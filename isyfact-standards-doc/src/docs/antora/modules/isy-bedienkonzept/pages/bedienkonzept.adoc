@@ -277,13 +277,17 @@ Aktive Eingabefelder sind inkl. dem Label in der Highlightfarbe (blau) dargestel
 
 *_Aktiv:_*
 
-Abbildung - Eingabefeld aktiv
+[[image-eingabefeldaktiv]]
+.Eingabfeld aktiv
+image::24_BE_eingabefeld_aktiv.png[align="center"]
  
 Aktive Eingabefelder verlieren ihren Platzhalter und können entweder geleert werden (siehe Abbildung 2 oder eine Mask enthalten, um das erwartete Eingabeformat anzuzeigen und als Bedienhilfe die Fehlerwahrscheinlichkeit zu minimieren.
 
 *_Maskoption:_* (exemplarisch, in der Umsetzung kann nur ein Eingabefeld aktiv sein):
 
-Abbilduung - Eingabefeld Maskoption
+[[image-eingabefeldmask]]
+.Eingabfeld mit Mask
+image::24_BE_eingabefeld_mask.png[align="center"]
 
 Eine Mask kann nur im aktiven State angezeigt werden und entspricht der regulären Schriftfarbe.
 Die Mask ist dem erwarteten Inhalt entsprechend fachlich logisch und nachvollziehbar gewählt.
@@ -295,13 +299,17 @@ Der Platzhalter ist verschwunden und die Eingabe wird in der Schriftfarbe angeze
 
 *_Befülltes Eingabefeld:_*
 
-Abbildung - Eingabefeld filled
+[[image-eingabefeldfilled]]
+.Eingabfeld befüllt nicht aktiv
+image::24_BE_eingabefeld_filled.png[align="center"]
 
 Disabled Eingabefelder sind grau hinterlegt und geben zusätzlich über einen Mousecursor-Wechsel beim Hovern den disabled state wieder. 
 
 *_Disabled:_*
 
-Abbildung - Eingabefeld diasabeld
+[[image-eingabefelddisabled]]
+.Eingabfeld disabled
+image::24_BE_eingabefeld_disabled.png[align="center"]
 
 Ein Eingabefeld mit Inputoption ist von der Basis dem eines normalen Eingabefelds identisch.
 Am Ende des Eingabefelds ist die Möglichkeit eine Eingabeoption zu aktivieren (im Beispiel: Sonderzeichen-Picker), z.B.: Sonderzeichen-Picker oder Datumseingabe.
@@ -309,12 +317,18 @@ Die Schaltfläche der Inputoption ist mindestens 44px x 44px.
 
 *_Eingabefeld mit Inputoption:_*
 
-Abbildung - EIngabefeld mit Inputoption
+[[image-eingabefeldinputoption]]
+.Eingabfeld mit Inputoption
+image::24_BE_eingabefeld_inputoption.png[align="center"]
 
 Eingabefelder mit Fehlermeldung sind rot.
 Das Eingabefeld und das Label färben sich rot und es wird ein inhaltlich logischer Hinweistext angegeben, damit die Eingabe korrigiert werden kann.
 
 *_Eingabefeld mit Fehlermeldung und Hinweis:_*
+
+[[image-eingabefelderror]]
+.Eingabfeld mit Fehlermeldung und Hinweis
+image::24_BE_eingabefeld_error.png[align="center"]
 
 Eingabefelder, die eine Erläuterung benötigen, sollen diese immer so kurz wie möglich und so lang wie nötig gestalten.
 Erläuterungen können dabei in verschiedenen Möglichkeiten realisiert werden, sortiert von kurz nach lang:
@@ -334,7 +348,9 @@ Grundlegende Hinweise zur Gestaltung von Eingabefeldern und Labeln:
 
 *_Exemplarische Vermaßung der verschiedenen Eingabefelder:_*
 
-Abbildung - Vermaßung Eingabefelder
+[[image-eingabefeldvermassung]]
+.Eingabfelder und exemplarische Vermaßung
+image::24_BE_eingabefeld_vermassung.png[align="center"]
 
 Die Angaben beziehen sich auf die in der Grafik vorzufindenden Elemente.
 Ein Eingabefeld kann den fachlichen Bedingungen entsprechend kürzer oder auch länger sein.
@@ -359,7 +375,9 @@ Alle hier gezeigten Grafiken beziehen sich auf die aktuelle und zukünftige Umse
 
 *_Beispiel einer Eingabefeldgruppe "Personendaten":_*
 
-Abbildung - persönliche Angaben
+[[image-eingabefeldgruppe]]
+.Eingabfeldgruppe Beispiel: persönliche Daten
+image::24_DP_persoenliche_angaben.png[align="center"]
 
 Verwendet wird ein 1-spaltiges inhaltliches Layout.
 Jedes Eingabefeld ist ein Pflichtfeld, gekennzeichnet durch einen Asterisk (*).
@@ -368,7 +386,9 @@ Sie können durch ihre inhaltliche logische Struktur dem grundlegenden 3-spaltig
 
 *_Beispiel einer Eingabefeldgruppe mit bedingten Pflichtfeldern (ehem. Optionale Pflichtfelder):_*
 
-Abbildung - Bedingte Pflichtfelder
+[[image-bedingtepflichtfeldgruppe]]
+.Eingabfeldgruppe mit bedingten Pflichtfeldern
+image::24_DP_bedingte_pflichtfeldgruppe.png[align="center"]
 
 Erklärung:
 Bedingt ein Pflichtfeld nur eine Teilmenge einer Auswahl an Eingabemöglichkeiten, so lässt sich dies über eine bedingte Pflichtfeldgruppe darstellen.
@@ -391,12 +411,16 @@ Vielmehr sollte überlegt werden, ob es einen verständlicheren fachlichen Lösu
 *	Personendaten (rosa overlay, vertikal gruppiert)
 *	Identitätsnachweis (orange overlay, vertikal gruppiert)
 
-Abbildung - verschiedene EIngabefeldgruppen)
+[[image-variationeingabefeldgruppen]]
+.Verschiedene Eingabefeldgruppen vertikal gruppiert
+image::24_DP_variation_eingabefeldgruppen.png[align="center"]
 
 Hier wird deutlich das in einem mehrspaltigen Layout verschiedene Kombinationen an Eingabefeldern in 2-spaltiger (horizontal) Anordnung einer Hauptgruppe (in lila) unterliegen.
 Die blockartige Anordnung erleichtert das Erfassen und ermöglicht eine thematische Untergruppen-Clusterung.
 
-Abbildung - mehrspalten inhaltgruppe
+[[image-mehrspaltigegruppen]]
+.Mehrspaltige inhaltliche Gruppe
+image::24_DP_mehrspaltige_inhaltliche_Gruppe.png[align="center"]
 
 == Use Cases
 
@@ -416,7 +440,9 @@ Alle hier gezeigten Grafiken beziehen sich auf die aktuelle und zukünftige Umse
 
 *_Beispielhaftes Formular 3-Spaltig:_*
 
-Abbildung - visuelles Raster 3 Spaleten
+[[image-dreispaltenlayout]]
+.3 Spalten Layout
+image::24_UC_3_spalten.png[align="center"]
 
 Damit ein Formular ein Formular ist, besteht es mindestens aus einer Eingabefeldgruppe und einer beliebigen Anzahl weiterer Elemente.
 Alle Regeln für Eingabefelder und Label haben hier auch ihre Gültigkeit (siehe Bedienelement: Eingabefeld).
@@ -426,14 +452,18 @@ Hierbei ist wichtig, dass die Inhaltselemente über eine Gruppenüberschrift log
 
 *_Exemplarische inhaltliche Nutzung der Spalten:_*
 
-Abbildung - Beispiel inhaltlich vertikaler Schnitt
+[[image-vertikalerschnitt]]
+.2 Spalten Layout mit unterschiedlich breiten inhaltlichen Gruppen
+image::24_UC_vertikaler_schnitt.png[align="center"]
 
 Durch die saubere Anwendung der Gruppenüberschriften, Titeln und Eingabefeldgruppen ist auch ein Wechsel der vertikalen Gruppierungsgröße nicht negativ auffällig.
 Jede inhaltliche Gruppe ( 3-Spaltig in der ersten Gruppe (rosa, orange, gelb) und 1-Spaltig in der nächsten Gruppe (grün)) wird ganzheitlich als logisches Element wahrgenommen.
 
 *_Wahrnehmung der inhaltlichen Gruppen:_*
 
-Abbildung - inhaltliche Gruppen
+[[image-wahrnehmunghorizontalegruppe]]
+.Wahrnehmung der der inhaltlichen Gruppen Hierarchie 
+image::24_UC_horizontale_inhaltlichte_gruppe.png[align="center"]
 
 Gleichmäßige Feldlängen unterstützen den Lesefluss des Benutzers.
 Letzte Eingabefelder können bei Bedarf ihrem Inhalt entsprechen gekürzt werden.
@@ -448,7 +478,9 @@ Die Größenanpassung erfolgt innerhalb von gewissen Bereichen:
 
 *_Beispielhafte Gesamtumsetzung eines Formulars im Anwendungsrahmen:_*
 
-Abbildung - Beispielhafte Gesamtumsetzung
+[[image-beispielgesamtumsetzung]]
+.Beispielhafte Gesamtumsetzung eines Beispielformulars im Anwendungsrahmen
+image::24_UC_fullexample_formular.png[align="center"]
 
 == Eingabehilfen und Fehlermeldungen
 
@@ -469,17 +501,17 @@ Platzhaltertexte sind nützlich, um Benutzern zusätzliche Hinweise oder Beispie
 Sie sollten jedoch nicht als Ersatz für Labels dienen. Idealerweise sollten Platzhaltertexte kurz und prägnant sein, um den Benutzern zu helfen, die Anforderungen des jeweiligen Eingabefelds besser zu verstehen, ohne den Platz zu überladen oder den Fokus zu stören.
 
 Beispiel 1, man erwartet einen Nachnamen im Eingabefeld 
-Do´s:
+*_Do´s:_*
 Nachname
 
-Dont´s
+*_Dont´s_*
 Dein Nachname
 
 Beispiel 2, man erwartet eine Telefonnummer
-Do´s:
+*_Do´s:_*
 +49 123 1234567
 
-Dont´s:
+*_Dont´s:_*
 Deine Telefon oder Handynummer
 
 Sobald der Benutzer in das Eingabefeld klickt, wird der Platzhalter ausgeblendet und es besteht die Möglichkeit eine Mask anzeigen zu lassen.
@@ -495,7 +527,9 @@ Autosuggestion ist eine Zusatzfunktion, die in Eingabefeldern ergänzt werden k�
 Sie dient dazu, Eingaben durch Vorschläge zu vervollständigen und somit zu beschleunigen. Diese Eingabehilfe erscheint direkt unter dem Textfeld.
 Sie schließt sich, wenn der Benutzer außerhalb der Eingabehilfe klickt oder innerhalb der Eingabehilfe seine Auswahl trifft.
 
-Abbildung Autosuggestion
+[[image-autosuggestion]]
+.Darstellung einer funktionalen Autosuggestion
+image::24_EF_autosuggestion.png[align="center"]
 
 Sobald der Benutzer mit der Eingabe beginnt, werden mögliche Werte, die mit der vom Benutzer gemachten Eingabe beginnen, in einem Menü unterhalb des Textfelds angezeigt.
 Der Benutzer kann nun weitertippen oder direkt einen Wert aus dem Menü auswählen und somit seine Eingabe verkürzen.
@@ -509,11 +543,13 @@ Für längere Operationen kann ein Fortschritts-Balken (Progress Bar) genutzt we
 Für kürzere Vorgänge kann ein Fortschritts-Spinner (kreisrunde Fortschrittsanzeige) verwendet werden.
 Mit dem Toggle-Filter kann durch einen Klick auf einen Button eine Liste von Objekten oder Formularen nach bestimmten vordefinierten Kriterien eingeschränkt werden.
 
-Abbildung - Fortschrittsanzeige
+[[image-spinnerbar]]
+.Spinner und Progressbar
+image::24_EF_spinner_and_bar.png[align="center"]
 
-Abbildung - Fortschrittsanzeige in einer Liste
-
-Grundlegende Anwendungshinweise:
+[[image-spinnerbarlist]]
+.Spinner und Progressbar in einer Liste angewandt
+image::24_EF_spinner_and_bar_in_list.png[align="center"]
 
 *	Generell sollten Vorgänge oder Operationen, die mehr als eine Sekunde in Anspruch nehmen, eine Rückmeldung in Form einer Fortschrittsanzeige an den Benutzer geben
 *	Die Form der Fortschrittsanzeige richtet sich dabei nach der Länge des Vorgangs und dem Anwendungskontext
@@ -548,7 +584,9 @@ Folgende Meldungsarten können als Toast-Notification verwendet werden:
 *	Fehler
 *	Erfolg
 
-Abbildung - Toastnotification
+[[image-toastnotification]]
+.Verschiedene Toastnotification
+24_UC_toast_notification.png
 
 
 
