@@ -1,13 +1,5 @@
 package de.bund.bva.isyfact.sicherheit.autoconfigure;
 
-import de.bund.bva.isyfact.aufrufkontext.AufrufKontextFactory;
-import de.bund.bva.isyfact.aufrufkontext.impl.AufrufKontextFactoryImpl;
-import de.bund.bva.isyfact.sicherheit.Sicherheit;
-import de.bund.bva.isyfact.sicherheit.SicherheitAdmin;
-import de.bund.bva.isyfact.sicherheit.annotation.GesichertInterceptor;
-import de.bund.bva.isyfact.sicherheit.config.IsySicherheitConfigurationProperties;
-import de.bund.bva.isyfact.sicherheit.impl.SicherheitAdminImpl;
-import de.bund.bva.isyfact.sicherheit.accessmgr.AccessManager;
 import org.springframework.aop.Advisor;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
@@ -20,6 +12,20 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.SimpleThreadScope;
 import org.springframework.web.context.request.RequestScope;
+
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
+import de.bund.bva.isyfact.aufrufkontext.AufrufKontextFactory;
+import de.bund.bva.isyfact.aufrufkontext.impl.AufrufKontextFactoryImpl;
+import de.bund.bva.isyfact.security.core.Berechtigungsmanager;
+import de.bund.bva.isyfact.security.core.Security;
+import de.bund.bva.isyfact.sicherheit.Sicherheit;
+import de.bund.bva.isyfact.sicherheit.SicherheitAdmin;
+import de.bund.bva.isyfact.sicherheit.accessmgr.AccessManager;
+import de.bund.bva.isyfact.sicherheit.annotation.GesichertInterceptor;
+import de.bund.bva.isyfact.sicherheit.config.IsySicherheitConfigurationProperties;
+import de.bund.bva.isyfact.sicherheit.impl.IsySecurityBerechtigungsmanagerImpl;
+import de.bund.bva.isyfact.sicherheit.impl.IsySecurityImpl;
+import de.bund.bva.isyfact.sicherheit.impl.SicherheitAdminImpl;
 
 /**
  * @deprecated since IsyFact 3.0.0 in favor of the isy-security module.
@@ -67,5 +73,17 @@ public class IsySicherheitAutoConfiguration {
     @ConditionalOnBean(AccessManager.class)
     public SicherheitAdmin sicherheitAdmin(AccessManager accessManager) {
         return new SicherheitAdminImpl(accessManager);
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(Security.class)
+    public Security isySecurity(Sicherheit<AufrufKontext> sicherheit) {
+        return new IsySecurityImpl(sicherheit);
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(Berechtigungsmanager.class)
+    public Berechtigungsmanager isySecurityBerechtigungsmanager(Sicherheit<AufrufKontext> sicherheit) {
+        return new IsySecurityBerechtigungsmanagerImpl(sicherheit);
     }
 }
