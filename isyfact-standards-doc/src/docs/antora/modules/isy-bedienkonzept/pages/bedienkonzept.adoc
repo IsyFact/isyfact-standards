@@ -200,8 +200,7 @@ Dieser Abschnitt beschreibt die primäre und sekundäre Farbpalette, sowie die V
 *	Die Standardpalette (zum Zeitpunkt: dd.mm.yyyy) wird im Bereich Barrierefreiheit mit einer Kontrast-Tabelle angegeben
 *	Verwendung einer Anwendungsfarbe muss vom Projekt auf Barrierefreiheit geprüft werden und ist frei wählbar
 
-
-==Barrierefreiheit
+== Barrierefreiheit
 
 Die Zugänglichkeit ist ein wichtiges Prinzip, um sicherzustellen, dass alle Benutzer unabhängig von ihren Fähigkeiten die Anwendung nutzen können.
 Hier werden die Richtlinien zur Barrierefreiheit gemäß den Standards, wie z.B. WCAG und Methoden zur Verbesserung der Zugänglichkeit erläutert.
@@ -228,7 +227,8 @@ Dies bedeutet, dass alle Navigationselemente, Links und interaktiven Elemente le
 *	Vermeidung von reinen Farbunterscheidungen: Informationen sollten nicht allein durch Farbe vermittelt werden, da einige Benutzer Farben nicht unterscheiden können.
 Nutzen Sie daher auch andere visuelle Elemente wie Symbole oder Muster, um wichtige Informationen zu vermitteln
 
-==Technische Rahmenbedingungen
+
+== Technische Rahmenbedingungen
 
 Die technischen Rahmenbedingungen legen fest, welche Technologien und Plattformen für die Umsetzung des Bedienkonzepts und Styleguides verwendet werden sollen.
 Diese Einleitung bietet einen Überblick über die infrastrukturellen Anforderungen und unterstützten Technologien.
@@ -241,7 +241,7 @@ Dafür wird die entsprechende SCSS und CSS in die Anwendung integriert
 Dadurch ist die Wartbarkeit stark beeinträchtigt und die Aufwände können sich in der Pflege der Anwendung stark erhöhen
 *	Die Anwendung ist primär für die Nutzung auf Desktopgeräten konzipiert, kann aber mit ihrer Responsivität auch auf mobilen Geräten (sofern möglich) genutzt werden
 
-==Bedienelemente
+== Bedienelemente
 
 *_Einleitung und Allgemeines:_*
 Bedienelemente sind die Bausteine der Benutzeroberfläche, die es den Benutzern ermöglichen, mit der Anwendung zu interagieren.
@@ -337,7 +337,7 @@ Die Mindesthöhe von 44px darf nicht unterschritten werden, um die Barrierefreih
 Die Schriftgröße sollte 14pt nicht unterschreiten.
 Der Abstand eines Eingabefelds zum darunter liegenden Label eines weiteren Eingabefelds soll ca. dem doppelten Abstand zwischen einem Label-Eingabefeld-Paars entsprechen, um eine eindeutige Zuordnung zu gewährleisten.
 
-==Designpattern
+== Designpattern
 
 Designpattern sind wiederkehrende Lösungen für Designprobleme, die sich über verschiedene Teile der Anwendung erstrecken können.
 Dieser Abschnitt beschreibt die Konzepte von Designpatterns, ihre Bedeutung für die Konsistenz und Effizienz der Benutzeroberfläche, sowie ihre Rolle bei der Gestaltung eines benutzerzentrierten Designs.
@@ -393,7 +393,7 @@ Die blockartige Anordnung erleichtert das Erfassen und ermöglicht eine thematis
 
 Abbildung - mehrspalten inhaltgruppe
 
-==Use Cases
+== Use Cases
 
 *_Einleitung und Allgemeines:_*
 
@@ -445,20 +445,20 @@ Beispielhafte Gesamtumsetzung eines Formulars im Anwendungsrahmen:
 
 Abbildung - Beispielhafte Gesamtumsetzung
 
-==Eingabehilfen und Fehlermeldungen
+== Eingabehilfen und Fehlermeldungen
 
 Eingabehilfen und Fehlermeldungen sind essenziell wichtig, um die Benutzerfreundlichkeit einer Anwendung zu starten, im folgenden Kapitel sollen die Grundlagen zur erfolgreichen Gestaltung von Eingabehilfen und Fehlermeldungen erläutert werden.
 
-===Eingabehilfen
+=== Eingabehilfen
 
-====Korrekte Labels:
+==== Korrekte Labels:
 
 Auch Labels sind schon Eingabehilfen.
 Klare und präzise Beschriftungen (Labels) sind für die Benutzerführung entscheidend, insbesondere für Formulare und Eingabefelder.
 Jedes Eingabefeld muss ein entsprechendes Label haben, das den Benutzern genau sagt, welche Art von Information erwartet wird.
 Beispielsweise sollte ein Anmeldeformular separate Felder für "Benutzername" und "Passwort" haben, jeweils mit deutlich sichtbaren Labels.
 
-====Gute Platzhaltertexte:
+==== Gute Platzhaltertexte:
 
 Platzhaltertexte sind nützlich, um Benutzern zusätzliche Hinweise oder Beispiele für die erwarteten Eingaben zu geben.
 Sie sollten jedoch nicht als Ersatz für Labels dienen. Idealerweise sollten Platzhaltertexte kurz und prägnant sein, um den Benutzern zu helfen, die Anforderungen des jeweiligen Eingabefelds besser zu verstehen, ohne den Platz zu überladen oder den Fokus zu stören.
@@ -484,7 +484,7 @@ Bei komplexeren Formularen oder spezifischen Eingabeanforderungen können Hinwei
 Diese Texte sollten in der Nähe des entsprechenden Eingabefelds platziert werden und sollten klar und präzise sein.
 Sie können beispielsweise erklären, welche Art von Informationen erwartet werden oder auf spezielle Formatierungsanforderungen hinweisen.
 
-====Autosuggestion
+==== Autosuggestion
 
 Feedback-Konzepte für Ladezeiten sind ein sehr wichtiges Instrument zur Erreichung guter User Experience.
 Für längere Operationen kann ein Fortschritts-Balken (Progress Bar) genutzt werden, der sich entsprechend dem Fortschritt des Vorgangs füllt.
