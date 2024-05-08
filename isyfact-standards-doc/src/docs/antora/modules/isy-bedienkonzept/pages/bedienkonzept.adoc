@@ -251,7 +251,7 @@ Dieser Abschnitt definiert die verschiedenen Bedienelemente und legt fest, wie s
 *	Gestaltungsrichtlinien für Bedienelemente (z. B. Größe, Abstände, visuelle Hierarchie in sich)
 
 
-*_Eingabefeld_*
+=== Eingabefeld
 
 Eingabefelder sind grundlegende Interaktionselemente in einer Benutzeroberfläche, die es den Benutzern ermöglichen, Daten einzugeben, zu bearbeiten oder auszuwählen.
 Sie spielen eine zentrale Rolle bei der Interaktion zwischen Benutzer und System und kommen in verschiedensten Formen und Kontexten vor, sei es in Form von Textfeldern, Dropdown-Menüs, Auswahllisten oder Datumsauswahlkalendern.
@@ -264,19 +264,20 @@ Im normalen Status ist das Eingabefeld mit einem bündigen static Label in dunke
 Der Platzhalter ist in einem helleren grau gehalten.
 Platzhalter müssen sinnvolle Eingabeunterstützungen (im einfachsten Fall das Label selbst) enthalten.
 
-Normal:
+*_Normal:_*
+
 
 Abbildung - Eingabefeld mit Platzhalter 
 
 Aktive Eingabefelder sind inkl. dem Label in der Highlightfarbe (blau) dargestellt. Sie haben zusätzlich zur veränderten Farbe eine 1px dickere Border und die Schrift vergrößert sich um 2pt.
 
-Aktiv:
+*_Aktiv:_*
 
 Abbildung - Eingabefeld aktiv
  
 Aktive Eingabefelder verlieren ihren Platzhalter und können entweder geleert werden (siehe Abbildung 2 oder eine Mask enthalten, um das erwartete Eingabeformat anzuzeigen und als Bedienhilfe die Fehlerwahrscheinlichkeit zu minimieren.
 
-Maskoption (exemplarisch, in der Umsetzung kann nur ein Eingabefeld aktiv sein):
+*_Maskoption:_* (exemplarisch, in der Umsetzung kann nur ein Eingabefeld aktiv sein):
 
 Abbilduung - Eingabefeld Maskoption
 
@@ -288,13 +289,13 @@ Eine Mask kann in Einzelfällen auch dem Platzhalter entsprechen.
 Wenn eine Eingabe in einem Eingabefeld getätigt wurde und das Feld wieder verlassen wird, wechselt das Eingabefeld seinen Status wieder auf die Werte des „normal“ Eingabefelds.
 Der Platzhalter ist verschwunden und die Eingabe wird in der Schriftfarbe angezeigt.
 
-Befülltes Eingabefeld:
+*_Befülltes Eingabefeld:_*
 
 Abbildung - Eingabefeld filled
 
 Disabled Eingabefelder sind grau hinterlegt und geben zusätzlich über einen Mousecursor-Wechsel beim Hovern den disabled state wieder. 
 
-Disabled:
+*_Disabled:_*
 
 Abbildung - Eingabefeld diasabeld
 
@@ -302,14 +303,14 @@ Ein Eingabefeld mit Inputoption ist von der Basis dem eines normalen Eingabefeld
 Am Ende des Eingabefelds ist die Möglichkeit eine Eingabeoption zu aktivieren (im Beispiel: Sonderzeichen-Picker), z.B.: Sonderzeichen-Picker oder Datumseingabe.
 Die Schaltfläche der Inputoption ist mindestens 44px x 44px.
 
-Eingabefeld mit Inputoption:
+*_Eingabefeld mit Inputoption:_*
 
 Abbildung - EIngabefeld mit Inputoption
 
 Eingabefelder mit Fehlermeldung sind rot.
 Das Eingabefeld und das Label färben sich rot und es wird ein inhaltlich logischer Hinweistext angegeben, damit die Eingabe korrigiert werden kann.
 
-Eingabefeld mit Fehlermeldung und Hinweis
+*_Eingabefeld mit Fehlermeldung und Hinweis:_*
 
 Eingabefelder, die eine Erläuterung benötigen, sollen diese immer so kurz wie möglich und so lang wie nötig gestalten.
 Erläuterungen können dabei in verschiedenen Möglichkeiten realisiert werden, sortiert von kurz nach lang:
@@ -327,7 +328,7 @@ Grundlegende Hinweise zur Gestaltung von Eingabefeldern und Labeln:
 *	Pflichtfelder werden mit einem Asterisk (*) gekennzeichnet
 *	Der Asterisk unterliegt denselben Regeln wie das Label (Aktiv = Highlightfarbe, Fehler = Fehlermeldungsfarbe)
 
-Exemplarische Vermaßung der verschiedenen Eingabefelder:
+*_Exemplarische Vermaßung der verschiedenen Eingabefelder:_*
 
 Abbildung - Vermaßung Eingabefelder
 
@@ -342,7 +343,7 @@ Der Abstand eines Eingabefelds zum darunter liegenden Label eines weiteren Einga
 Designpattern sind wiederkehrende Lösungen für Designprobleme, die sich über verschiedene Teile der Anwendung erstrecken können.
 Dieser Abschnitt beschreibt die Konzepte von Designpatterns, ihre Bedeutung für die Konsistenz und Effizienz der Benutzeroberfläche, sowie ihre Rolle bei der Gestaltung eines benutzerzentrierten Designs.
 
-*_Eingabefeldgruppen_*
+=== Eingabefeldgruppen
 
 Eingabefeldgruppen sind in fast jeder Anwendung oder Website vorhanden.
 Sie haben stets einen unterschiedlichen fachlichen Schnitt, lassen sich aber in den häufigsten Anwendungsfällen in homogene Gruppen definieren.
@@ -352,7 +353,7 @@ Die nachfolgenden Angaben beziehen sich immer auf Neuentwicklungen und Aktualisi
 Altanwendungen, die nicht angepasst werden müssen, können weiterhin ihrem zum Umsetzungszeitpunkt gültigen Styleguide und Bedienkonzept entsprechen.
 Alle hier gezeigten Grafiken beziehen sich auf die aktuelle und zukünftige Umsetzung.
 
-Beispiel einer Eingabefeldgruppe "Personendaten":
+*_Beispiel einer Eingabefeldgruppe "Personendaten":_*
 
 Abbildung - persönliche Angaben
 
@@ -361,7 +362,7 @@ Jedes Eingabefeld ist ein Pflichtfeld, gekennzeichnet durch einen Asterisk (*).
 Eingabefeldgruppen bedürfen keiner zusätzlichen optischen Gruppierung.
 Sie können durch ihre inhaltliche logische Struktur dem grundlegenden 3-spaltigen Layout folgen.
 
-Beispiel einer Eingabefeldgruppe mit bedingten Pflichtfeldern (ehem. Optionale Pflichtfelder):
+*_Beispiel einer Eingabefeldgruppe mit bedingten Pflichtfeldern (ehem. Optionale Pflichtfelder):_*
 
 Abbildung - Bedingte Pflichtfelder
 
@@ -381,7 +382,7 @@ Für komplexere fachliche Konstellationen, kann über eine textuelle Hilfestellu
 Der Einsatz solcher komplexen bedingten Pflichtfelder ist aus Sicht der Benutzerfreundlichkeit nur im absoluten Ausnahmefall zu wählen.
 Vielmehr sollte überlegt werden, ob es einen verständlicheren fachlichen Lösungsansatz gibt.
 
-Beispielhafte Verwendung von Gruppen und inhaltlich logischer Gruppierung:
+*_Beispielhafte Verwendung von Gruppen und inhaltlich logischer Gruppierung:_*
 
 *	Personendaten (rosa overlay, vertikal gruppiert)
 *	Identitätsnachweis (orange overlay, vertikal gruppiert)
@@ -399,7 +400,7 @@ Abbildung - mehrspalten inhaltgruppe
 
 Use Cases stellen typische Szenarien oder Seiten dar, die bestimmte Funktionalitäten oder Aktionen erfordern. Dieser Abschnitt kombiniert Designpattern, um benutzerfreundliche Lösungen für spezifische Anwendungsfälle zu präsentieren und ihre Umsetzung anhand von Beispiel-Screens zu veranschaulichen.
 
-*_Formulare_*
+=== Formulare
 
 Inhalte von Formularen sollten sich an einem virtuellen, nicht visuell dargestellten Raster ausrichten.
 Formulare können einem 1-spaltigen, 2-spaltigen oder 3-spaltigen Layout folgen.
@@ -409,7 +410,7 @@ Die nachfolgenden Angaben beziehen sich immer auf Neuentwicklungen und Aktualisi
 Altanwendungen, die nicht angepasst werden müssen, können weiterhin ihrem zum Umsetzungszeitpunkt gültigen Styleguide und Bedienkonzept entsprechen.
 Alle hier gezeigten Grafiken beziehen sich auf die aktuelle und zukünftige Umsetzung.
 
-Beispielhaftes Formular 3-Spaltig:
+*_Beispielhaftes Formular 3-Spaltig:_*
 
 Abbildung - visuelles Raster 3 Spaleten
 
@@ -419,14 +420,14 @@ Die inhaltliche Gruppierung folgt dabei keinem starren Muster, sondern kann fach
 Diese Gruppierung der Inhalte kann dabei sowohl horizontal als auch vertikal gestaltet werden.
 Hierbei ist wichtig, dass die Inhaltselemente über eine Gruppenüberschrift logisch zusammengefasst werden.
 
-Exemplarische inhaltliche Nutzung der Spalten:
+*_Exemplarische inhaltliche Nutzung der Spalten:_*
 
 Abbildung - Beispiel inhaltlich vertikaler Schnitt
 
 Durch die saubere Anwendung der Gruppenüberschriften, Titeln und Eingabefeldgruppen ist auch ein Wechsel der vertikalen Gruppierungsgröße nicht negativ auffällig.
 Jede inhaltliche Gruppe ( 3-Spaltig in der ersten Gruppe (rosa, orange, gelb) und 1-Spaltig in der nächsten Gruppe (grün)) wird ganzheitlich als logisches Element wahrgenommen.
 
-Wahrnehmung der inhaltlichen Gruppen:
+*_Wahrnehmung der inhaltlichen Gruppen:_*
 
 Abbildung - inhaltliche Gruppen
 
@@ -441,7 +442,7 @@ Die Größenanpassung erfolgt innerhalb von gewissen Bereichen:
 *	Der Abstand zwischen Eingabefeldern und Labels bleibt ebenfalls unverändert
 *	Bei einer Veränderung der Browserfenstergröße sollten sich die Breiten der Spalten dynamisch an den verfügbaren Platz anpassen, ohne dabei die Lesbarkeit zu beeinträchtigen
 
-Beispielhafte Gesamtumsetzung eines Formulars im Anwendungsrahmen:
+*_Beispielhafte Gesamtumsetzung eines Formulars im Anwendungsrahmen:_*
 
 Abbildung - Beispielhafte Gesamtumsetzung
 
