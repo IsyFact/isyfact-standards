@@ -487,6 +487,19 @@ Sie können beispielsweise erklären, welche Art von Informationen erwartet werd
 
 ==== Autosuggestion
 
+Autosuggestion ist eine Zusatzfunktion, die in Eingabefeldern ergänzt werden können.
+Sie dient dazu, Eingaben durch Vorschläge zu vervollständigen und somit zu beschleunigen. Diese Eingabehilfe erscheint direkt unter dem Textfeld.
+Sie schließt sich, wenn der Benutzer außerhalb der Eingabehilfe klickt oder innerhalb der Eingabehilfe seine Auswahl trifft.
+
+Abbildung Autosuggestion
+
+Sobald der Benutzer mit der Eingabe beginnt, werden mögliche Werte, die mit der vom Benutzer gemachten Eingabe beginnen, in einem Menü unterhalb des Textfelds angezeigt.
+Der Benutzer kann nun weitertippen oder direkt einen Wert aus dem Menü auswählen und somit seine Eingabe verkürzen.
+Gibt es mehr als 10 mögliche passende Werte, so werden die ersten 10 Werte angezeigt, gefolgt von einer Information, dass mehr als 10 Einträge existieren.
+
+
+==== Fortschrittsanzeige
+
 Feedback-Konzepte für Ladezeiten sind ein sehr wichtiges Instrument zur Erreichung guter User Experience.
 Für längere Operationen kann ein Fortschritts-Balken (Progress Bar) genutzt werden, der sich entsprechend dem Fortschritt des Vorgangs füllt.
 Für kürzere Vorgänge kann ein Fortschritts-Spinner (kreisrunde Fortschrittsanzeige) verwendet werden.
@@ -513,7 +526,7 @@ Fortschritts-Spinner (kreisrunde Fortschrittsanzeige)
 *	Fortschritts-Spinner werden für Ladevorgänge verwendet, deren Gesamtlänge unbekannt ist
 *	Für die Dauer der Operation dreht sich der Fortschritts-Spinner und signalisiert dem Benutzer damit, dass sich ein Prozess im Vorgang befindet. Der Fortschritts-Spinner empfiehlt sich aufgrund seiner geringen Ausmaße insbesondere in Situationen, in denen Platzbedarf von großer Bedeutung ist
 
-===Fehlermeldungen
+=== Fehlermeldungen
 
 Korrekte Darstellung von Fehlern und Hilfestellung bei der Korrektur:
 Fehlermeldungen sind unvermeidlich, aber wie sie präsentiert werden, kann einen großen Unterschied für die Benutzererfahrung ausmachen.
