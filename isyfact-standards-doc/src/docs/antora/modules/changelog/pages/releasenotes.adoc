@@ -15,10 +15,14 @@ include::glossary:licence:partial$licence.adoc[]
 
 Online Dokumentation über  Asciidoc / Antora:: Die Bereitstellung der Dokumentation der IsyFact (Open Source) erfolgt nicht mehr über PDF Dokumente, sondern über die xref:literaturextern:inhalt.adoc#litextern-url-isyfact-online-docs[Online-Dokumentation]. 
 Als Werkzeug zur Generierung der Dokumentation wird das Produkt Antora eingesetzt. 
-Vorgaben zur Dokumentation:: Die xref:werkzeuge:dokumentation/bearbeitung-antora.adoc[Vorgaben zur Dokumentation für technische Autoren] wurden ergänzt.
+Vorgaben zur Dokumentation:: Die xref:documentation-guide:ROOT:index.adoc[Vorgaben zur Dokumentation für technische Autoren] wurden ergänzt.
 Darüber hinaus werden Abbildungen sukzessive in editierbare SVGs gewandelt und in der Dokumentation abgelegt. Eine xref:methodik:diagrammerstellung/diagramsnet.adoc[Beschreibung zum Vorgehen] wurde ergänzt. 
 Auszeichnung von Deprecations:: Deprecations werden im Code und der Dokumentation kenntlich gemacht. 
-Produktkatalog als Teil der Dokumentation:: Der xref:einstieg:produkte.adoc[Produktkatalog] wurde von Excel nach Asciidoc / CSV migriert und ist nun Teil dieser Dokumentation. 
+Produktkatalog als Teil der Dokumentation:: Der xref:einstieg:produkte.adoc[Produktkatalog] wurde von Excel nach Asciidoc / CSV migriert und ist nun Teil dieser Dokumentation.
+Externe Links:: Die Dokumentation verwendet keine Liste für externe Links mehr, sondern das https://docs.asciidoctor.org/asciidoc/latest/macros/url-macro/[URL-Makro] von AsciiDoc.
+Glossar & Leitfaden Dokumentation:: Das xref:glossary:glossary:master.adoc[] und der xref:documentation-guide:ROOT:index.adoc[] werden parallel zu den Releases der IsyFact gepflegt.
+Sie besitzen keine Version und sind damit über alle Releases hinweg gültig.
+Inhalte für spezifische Releases werden ausdrücklich ausgezeichnet.
 
 [[kapitel-spring-boot]]
 === Spring Boot
