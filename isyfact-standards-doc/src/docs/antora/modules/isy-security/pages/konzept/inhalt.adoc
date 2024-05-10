@@ -476,7 +476,8 @@ Innerhalb der IsyFact werden bei der Autorisierung von Anwendungsaufrufen (von i
 [[resource-owner-password-credential-flow]]
 ===== Resource-Owner-Password-Credential Flow
 
-:linkaktuell: xref:client-credential-flow[]
+:linkaktuell: xref:konzept/inhalt.adoc#client-credential-flow[Client-Credential-Flow]
+
 include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
 
 ****

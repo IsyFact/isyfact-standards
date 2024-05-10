@@ -127,7 +127,7 @@ _Kurze, prägnante fachliche Darstellung der Anwendung. [...]_
 .{anwendung}: Fachlicher Kontext
 image::vorlage-systemhandbuch/fachlicher-kontext.dn.svg[]
 
-NOTE: Weitere fachliche Details können in der <<systemspezifikation>> nachgelesen werden.
+NOTE: Weitere fachliche Details können in der xref:vorlage-systemhandbuch/inhalt.adoc#systemspezifikation[Systemspezifikation] nachgelesen werden.
 
 ====
 Inhalt::
@@ -191,7 +191,7 @@ _Kurze, prägnante technische Darstellung der Anwendung. [...]_
 .{anwendung}: Technischer Kontext
 image::vorlage-systemhandbuch/technischer-kontext.dn.svg[]
 
-NOTE: Weitere technische Details können im <<systementwurf>> nachgelesen werden.
+NOTE: Weitere technische Details können im xref:vorlage-systemhandbuch/inhalt.adoc#systementwurf[Systementwurf] nachgelesen werden.
 
 ====
 Inhalt::
@@ -1010,7 +1010,7 @@ Die `ZEITSTEMPEL` werden durch die Log-Rotation erzeugt und markieren ältere Lo
 NOTE: *Falls die Anwendung kein Datenbankschema enthält, kann dieser Abschnitt entfallen.*
 Andernfalls ist der Verweis auf den Systementwurf der Anwendung zu korrigieren.
 
-Das Datenbankschema ist vollständig im xref:vorlage-systementwurf/master.adoc[Systementwurf] dokumentiert.
+Das Datenbankschema ist vollständig im xref:vorlage-systementwurf/inhalt.adoc[Systementwurf] dokumentiert.
 
 NOTE: *Falls die Anwendung ein Datenbankschema enthält, kann dieser Abschnitt entfallen.*
 

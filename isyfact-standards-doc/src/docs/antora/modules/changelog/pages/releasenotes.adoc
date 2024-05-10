@@ -110,14 +110,14 @@ Details finden sich in den xref:isy-ueberwachung:nutzungsvorgaben/master.adoc[Nu
 Umstellung auf Spring Boot:: Das Task Scheduling wurde auf Spring Boot umgestellt und hat Auswirkungen auf den xref:isy-konfiguration:konzept/master.adoc[Baustein Konfiguration] und den xref:isy-konfiguration:konzept/master.adoc[Baustein Überwachung].
 
 Verwendung des Bausteins isy-security zur Authentifizierung:
-Für die Authentifizierung nutzt der Baustein Task Scheduling die xref:isy-security:konzept/master.adoc#aussensicht-der-komponente-security[Schnittstelle zur Authentifizierung] aus dem xref:isy-security:konzept/master.adoc#absicherung-task[Baustein Security].
+Für die Authentifizierung nutzt der Baustein Task Scheduling die xref:isy-security:konzept/inhalt.adoc#aussensicht-der-komponente-security[Schnittstelle zur Authentifizierung] aus dem xref:isy-security:konzept/master.adoc#absicherung-task[Baustein Security].
 Die bisherige Art der Authentifizierung des Tasks als 'technischer Nutzer' (mit Nutzername und Passwort) wird perspektivisch durch eine Authentifizierung als 'Client' (mit Client-ID und Client-Secret, vergeben vom IAM-System) abgelöst.
 Für eine weiche Migration bietet die Konfiguration von Tasks dazu die Möglichkeit, alternativ die Authentifizierungs-Credentials Nutzername und Passwort zusätzlich zu Client-ID und Client-Secret zu setzen um vorübergehend den Resource Owner Password Flow zu nutzen.
 
 [[kapitel-batchrahmen]]
 === Baustein Batchrahmen
 Verwendung des Bausteins isy-security zur Authentifizierung:
-Für die Authentifizierung nutzt der Batchrahmen die xref:isy-security:konzept/master.adoc#aussensicht-der-komponente-security[Schnittstelle zur Authentifizierung] aus dem xref:isy-security:konzept/master.adoc#absicherung-task[Baustein Security].
+Für die Authentifizierung nutzt der Batchrahmen die xref:isy-security:konzept/inhalt.adoc#aussensicht-der-komponente-security[Schnittstelle zur Authentifizierung] aus dem xref:isy-security:konzept/master.adoc#absicherung-task[Baustein Security].
 Die bisherige Art der Authentifizierung des Tasks als 'technischer Nutzer' (mit Nutzername und Passwort) wird perspektivisch durch eine Authentifizierung als 'Client' (mit Client-ID und Client-Secret, vergeben vom IAM-System) abgelöst.
 Für eine weiche Migration bietet die Konfiguration von Batches dazu die Möglichkeit, alternativ die Authentifizierungs-Credentials Nutzername und Passwort zusätzlich zu Client-ID und Client-Secret zu setzen um vorübergehend den Resource Owner Password Flow zu nutzen.
 
