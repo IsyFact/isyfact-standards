@@ -9,7 +9,7 @@ Die Software-Architektur des Security-Bausteins bildet das Fundament für die Si
 Die korrekte Gestaltung und Implementierung dieser Architektur ist entscheidend, um Schutzmechanismen gegen potenzielle Sicherheitsbedrohungen zu etablieren.
 In diesem Kapitel wird detailliert auf die verschiedenen Aspekte der Software-Architektur des Security-Bausteins eingegangen und bewährte Methoden sowie bewährte Praktiken vorgestellt, um eine robuste und zuverlässige Sicherheitsinfrastruktur zu schaffen.
 
-Im Folgenden werden die xref:konzept/inhalt.adoc#aussensicht-der-komponente-security[Interfaces des Bausteins Security] genauer erläutert.
+Im Folgenden werden die xref:konzept/master.adoc#aussensicht-der-komponente-security [Interfaces des Bausteins Security] genauer erläutert.
 
 [[security-interface]]
 === Security
@@ -61,7 +61,7 @@ Zur Formulierung von Berechtigungsprüfungen stehen folgende Methoden des Berech
 
 NOTE: Primär sollte die Berechtigungsprüfung über die Spring Annotation `@Secured` und nicht über die hier erwähnte Methode `pruefeRecht(String recht)` erfolgen.
 
-[[aufrufen-von-nachbarsystemen]]
+[[aufrufen_von_nachbarsystemen]]
 == Aufrufen von Nachbarsystemen
 
 Der Aufruf von Nachbarsystemen erfolgt auf Basis des reaktiven `Spring WebClient`.
@@ -122,7 +122,6 @@ Das Präfix sämtlicher Konfigurationsparameter `spring.security.oauth2` wird zu
 
 [[isyfact-specific-client-registration]]
 ==== Isyfact spezifische Konfigurationsparameter
-
 
 :linkaktuell: xref:spring-oauth2-client-registration[Client-Credentials-Flow]
 include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
@@ -385,7 +384,7 @@ Zusätzlich sind folgende Isyfact-spezifische Konfigurationsparameter notwendig.
 |isy.security.roles-claim-name | String | _roles_ | Name des Claims im JWT Token der die Rollen enthält
 |===
 
-[INFO]
+[NOTE]
 ====
 Der in `isy.security.roles-claim-name` konfigurierte Wert unterstützt keine Verschachtelungen. Somit kann bspw. ein Claim `custom.roles` (Claim `custom` mit untergeordnetem Claim `roles`) nicht aufgelöst werden. Je nach verwendetem Identity Provider muss ggf. ein zusätzliches Mapping der Rollen auf den konfigurierten Wert erfolgen.
 
@@ -550,7 +549,7 @@ Optional<String> bhknz = IsySecurityTokenUtil.getBhknz();
 ----
 IsySecurityTokenUtil ermöglicht es, Standard-Claims mithilfe von zusätzlichen Properties um benutzerdefinierte Claims zu erweitern. Die entsprechenden Property-Konfigurationen sind in der Datei "isy-security-token.properties" im Verzeichnis "resources/config" hinterlegt. Bei speziellen Anforderungen ist es möglich, die Datei anzupassen, um die Claims entsprechend zu modifizieren.
 
-[[table-parameter-service]]
+[[table-parameter-claims]]
 .Default Konfigurationsparameter der Claims
 [cols="3m,2m,2m",options="header"]
 |===
