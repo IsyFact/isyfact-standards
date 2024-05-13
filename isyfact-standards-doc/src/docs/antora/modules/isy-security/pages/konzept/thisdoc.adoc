@@ -12,7 +12,7 @@ Die IsyFact richtet sich beim Thema Sicherheit nach behördlichen Standards sowi
 * https://owasp.org/Top10/[OWASP Top Ten Project]
 * https://oauth.net/2/[OAuth 2.0 Homepage]
 
-Allgemeine xref:blaupausen:referenzarchitektur/master.adoc#prinzipien-der-sicherheitsarchitektur[Prinzipien der Sicherheitsarchitektur] werden im Dokument zur xref:blaupausen:referenzarchitektur/master.adoc[Referenzarchitektur] beleuchtet.
+Allgemeine xref:referenzarchitektur:software-technisch.adoc#prinzipien-der-sicherheitsarchitektur[Prinzipien der Sicherheitsarchitektur] werden als Teil der xref:referenzarchitektur:software-technisch.adoc[software-technischen Referenzarchitektur] beleuchtet.
 Dieses Dokument konzentriert sich auf die konzeptionellen Aspekte der Authentifizierung und Autorisierung.
 Es sorgt dafür, dass Authentifizierung und Autorisierung in allen IT-Systemen gleichartig umgesetzt wird und grundlegende Anforderungen an die IT-Sicherheit eingehalten werden.
 Es richtet sich vor allem an Software-Architekten, die eine Geschäftsanwendung gemäß den Vorgaben der IsyFact absichern müssen und beschreibt, wie und in welchen Teilen eines IT-Systems die Authentifizierung und Autorisierung stattfindet.

@@ -4,7 +4,7 @@
 [[einleitung]]
 == Einleitung
 
-In diesem Konzept werden die Designvorgaben für die Überwachung von Anwendungen gemäß der xref:blaupausen:referenzarchitektur/master.adoc#einleitung[IsyFact Referenzarchitektur] vorgestellt.
+In diesem Konzept werden die Designvorgaben für die Überwachung von Anwendungen gemäß der xref:referenzarchitektur:index.adoc[] vorgestellt.
 
 Die Realisierung einer einheitlichen Überwachungsschnittstelle erlaubt dem Betrieb frühzeitig Probleme in der xref:glossary:glossary:master.adoc#glossar-anwendungslandschaft[Anwendungslandschaft] zu erkennen und darauf zu reagieren.
 Dadurch können Ausfallzeiten minimiert werden.

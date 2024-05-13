@@ -14,7 +14,7 @@ Da die Anwendung jedoch nach wie vor manuell entwickelt (und nicht generiert wir
 [[isyfact-standards-und-erweiterungen]]
 == IsyFact: Standards und Erweiterungen
 
-Die *IsyFact* ist eine freie allgemeine Software Factory zum Bau von IT-Systemen, die vom Bundesverwaltungsamt (BVA) bereitgestellt wird.
+Die *IsyFact* ist eine freie allgemeine xref:glossary:glossary:master.adoc#glossar-software-factory[Software Factory] zum Bau von IT-Systemen, die vom Bundesverwaltungsamt (BVA) bereitgestellt wird.
 Sie umfasst Standards und Erweiterungen.
 
 [[isyfact-aufbau]]

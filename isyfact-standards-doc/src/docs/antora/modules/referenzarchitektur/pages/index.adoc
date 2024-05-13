@@ -4,7 +4,37 @@ include::glossary:licence:partial$licence.adoc[]
 
 // tag::whitepaper[]
 
-*Die Referenzarchitektur beschreibt die Konzepte, Architektur sowie Erstellung von Anwendungslandschaften und Geschäftsanwendungen auf fachlicher, software-technischer und technisch-infrastruktureller Ebene.*
+*Die Referenzarchitektur bildet einen Strukturierungsrahmen für Anwendungslandschaften.
+Sie betrachtet Anwendungslandschaften und Anwendungen dabei aus fachlicher Sicht, software-technischer Sicht und technisch-infrastruktureller Sicht.*
+
+*xref:fachlich.adoc[]:* Sie umfasst eine fachliche Beschreibung der xref:glossary:glossary:master.adoc#glossar-anwendungslandschaft[Anwendungslandschaft].
+Diese wird in fachliche Komponenten zerlegt, die miteinander über fachliche Schnittstellen interagieren.
+Jegliche technische Aspekte sind dabei nicht von Belang.
+
+*xref:software-technisch.adoc[]:* Sie umfasst die software-technische Beschreibung der xref:glossary:glossary:master.adoc#glossar-systemlandschaft[Systemlandschaft].
+Die gesamte Systemlandschaft wird in technische Komponenten zerlegt, die miteinander über technische Schnittstellen interagieren.
+Jegliche Abbildung auf physikalische Systeme und deren Infrastruktur sind dabei nicht von Belang.
+
+*xref:technisch-infrastrukturell.adoc[]:* Sie umfasst die Beschreibung der Systemlandschaft aus dem Blickwinkel der technischen Infrastruktur.
+Es wird beschrieben, welche technischen Systeme existieren und welche technischen Komponenten auf ihnen laufen.
+
+Die Referenzarchitektur verfolgt im Wesentlichen fünf Ziele.
+
+*Einheitlichkeit:* Durch die Vorgaben der Referenzarchitektur wird eine Gleichartigkeit der verschiedenen Systeme in Hinblick auf ihre fachliche Strukturierung, ihre technologische Strukturierung und Umsetzung, die verwendeten Produkte, ihre Dokumentation und die Art ihres Betriebs erreicht.
+Hierdurch verbessert sich die Verständlichkeit, Wartbarkeit und Betreibbarkeit der Systeme.
+
+*Effizienz:* Durch die Verwendung vorhandener Querschnittsanwendungen, Bibliotheken, Generatoren, Beispielanwendungen und die Vorgaben der Referenzarchitektur können die Anwendungssysteme effizienter entwickelt und gewartet werden.
+Durch die infrastrukturelle und betriebliche Gleichartigkeit der Anwendungssysteme können diese effizienter betrieben werden.
+
+*Sicherheit:* Die Referenzarchitektur sieht bewährte Technologien und Produkte, eine Infrastruktur nach der https://www.cio.bund.de/Webs/CIO/DE/digitaler-wandel/Achitekturen_und_Standards/IT_Architektur_Bund/IT_Architektur_Bund-node.html[Architekturrichtlinie für die IT des Bundes], und nach klaren architektonischen Vorgaben erstellte Anwendungssysteme vor.
+Die Risiken für Ausfälle, Fehler oder Sicherheitslücken wird hierdurch reduziert und die Zukunftssicherheit der Anwendungssysteme erhöht.
+
+*Erfahrung:* In die Definition der Referenzarchitektur sind wertvolle Erfahrungen zur Umsetzung großer und verteilter Softwaresysteme im Allgemeinen und Registern im Speziellen eingeflossen.
+Diverse Geschäftsanwendungen wurden mit der Referenzarchitektur umgesetzt und die Referenzarchitektur kontinuierlich verbessert.
+Durch die Verwendung der Referenzarchitektur wird diese Erfahrung nutzbar gemacht.
+Die mit dieser Referenzarchitektur erstellten Geschäftsanwendungen sind hierdurch äußerst effizient umsetzbar, wartbar, betreibbar und zukunftssicher.
+
+*Standards:* Durch die Referenzarchitektur werden Standards wie V-Modell XT, XML / XÖV oder Webservices genutzt und die Architekturrichtlinie für die IT des Bundes umgesetzt.
 
 == Fachliche Referenzarchitektur (A-Architektur)
 

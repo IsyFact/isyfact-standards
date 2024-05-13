@@ -15,20 +15,21 @@ Unter _Vorlage / Beispiel_ findet sich ein Verweis auf vordefinierte Vorlagen od
 Die Referenzarchitektur wird mit folgenden Dokumentationstypen beschrieben:
 
 [[table-referenzarchitektur]]
-.Referenzarchitektur
+.Themenseite Referenzarchitektur
 [cols="1s,4",options="header"]
 |===
-2+|Referenzarchitektur
+2+|Themenseite Referenzarchitektur
 
 |Ziel
 |
-Die Referenzarchitektur definiert einen Strukturierungsrahmen für die Anwendungslandschaft und legt Prinzipien für die softwaretechnische Realisierung fest.
+Definition einheitlicher Vorgaben unter Berücksichtigung fachlicher, technischer und betrieblicher Anforderungen bezogen auf die Architektur einer Anwendung bzw. Anwendungslandschaft.
 
 |Inhalt
 a|
-* Definition einheitlicher Vorgaben unter Berücksichtigung fachlicher und technischer Anforderungen bezogen auf die Architektur einer Anwendung bzw. Anwendungslandschaft.
-* Enthält drei Architektursichten: fachlich, software-technisch, technische Infrastruktur.
-* Enthält Architekturvorgaben und Architekturentscheidungen.
+Thematisch zusammenhängende Seiten mit den folgenden Eigenschaften:
+
+* gegliedert nach drei Architektursichten: fachlich, software-technisch, technisch-infrastrukturell,
+* enthält Architekturvorgaben und setzt Architekturentscheidungen um.
 
 |Zielgruppe(n)
 |Architekten, (Entwickler)
@@ -38,14 +39,21 @@ a|
 
 |Vorlage / Beispiel
 a|
-xref:blaupausen:referenzarchitektur/master.adoc[]
+Vorlage:
+
+* xref:documentation-guide::seitenvorlage.adoc[]
+
+Beispiele:
+
+* xref:referenzarchitektur:software-technisch.adoc[]
+* xref:blaupausen:detailkonzept-komponente-datenzugriff/persistenzlogik.adoc[]
 |===
 
 [[table-detailkonzept]]
 .Detailkonzept
 [cols="1s,4",options="header"]
 |===
-2+|Detailkonzept
+2+|icon:ban[title=Deprecation] [.line-through]#Detailkonzept#
 
 |Ziel
 |Vorgaben zur Umsetzung bezogen auf die Referenzarchitektur, sofern sie eine technische Ausrichtung haben.

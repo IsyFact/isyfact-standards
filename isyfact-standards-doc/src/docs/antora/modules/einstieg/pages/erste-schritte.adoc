@@ -8,7 +8,7 @@ Um die IsyFact als Ganzes kennenzulernen, zu verstehen und einzusetzen, empfehle
 . Die *xref:vorstellung.adoc[]* sowie die Beschreibungen der *xref:vorstellung/isyfact-standards.adoc[]* und *xref:vorstellung/isyfact-erweiterungen.adoc[]* vermitteln einen ersten, konkreten Überblick der IsyFact.
 . Das *xref:tutorial/master.adoc[]* gibt einen Überblick über wichtige Aspekte der IsyFact-konformen Anwendungsentwicklung.
 Es erleichtert dem Nutzer, die für ihn relevanten Aspekte der IsyFact zu identifizieren, die im Detail durchgearbeitet werden sollten.
-. Die *xref:blaupausen:blaupausen.adoc[]* beschreiben auf mehreren Ebenen die Architektur, die allen anderen Konzepten der IsyFact zugrunde liegt und führen häufig verwendete Begriffe ein.
+. Die *xref:referenzarchitektur:index.adoc[]* beschreiben auf mehreren Ebenen die Architektur, die allen anderen Konzepten der IsyFact zugrunde liegt und führen häufig verwendete Begriffe ein.
 Es bietet sich daher an, bei der Einarbeitung mit dieser „Säule“ zu beginnen.
 . Danach sollten die _relevanten_ *xref:bausteine:bausteine.adoc[]* im Detail gelesen werden.
 . *xref:plattform:plattform.adoc[] und xref:methodik:methodik.adoc[]* sollten wiederum im Ganzen gelesen werden, da sie querschnittlich die Basis des Systembetriebs bzw. der angewandten Methodik beschreiben.

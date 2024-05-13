@@ -25,7 +25,7 @@ Die folgenden Abschnitte beschreiben die einzelnen Säulen im Detail.
 [[referenzarchitektur]]
 === Referenzarchitektur
 
-include::blaupausen:page$blaupausen.adoc[tag=whitepaper,leveloffset=2]
+include::referenzarchitektur:index.adoc[tag=whitepaper,leveloffset=2]
 
 [[bausteine]]
 === Bausteine
