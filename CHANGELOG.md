@@ -36,6 +36,7 @@
 - `ISY-1045`: Apache Commons FileUpload Versionsanhebung auf 1.5
 
 # 3.0.0
+- `IFS-2383`: Grafiken der TI-Architektur aller Umgebungen neu erstellt und an aktuelle Gegebenheiten angepasst.
 - `ISY-653` : Erweitern des `TimeoutWiederholungHttpInvokerRequestExecutor` um die Token-Beschaffung aus dem Security Context bei Nichtverfügbarkeit des `AufrufKontextVerwalter`.
 - `ISY-183`: [isyfact-standards-doc] Migrationsleitfaden zur Entfernung der Bridge-Module
 - `ISY-54`: [isyfact-standards-doc] Migrationsleitfaden zur Umstellung auf isy-security
@@ -155,6 +156,8 @@
 - `IFS-1397`: [isy-products-bom] Versionsanhebung von Spring Boot auf 2.5.12 (Fix CVE-2022-22965)
 
 # 2.4.0
+- `IFS-1162`: Interne Verschlüsselung als SOLL-Anforderung an eine Systemlandschaft beschrieben
+- `IFS-1092`: Übertragungswege von Daten in der internen Servicekommunikation beschrieben
 - `IFS-590`: [isy-logging] Instanziierung LogApplicationListener Parameter in korrekter Reihenfolge
 - `IFS-601`: [isy-products-bom] Einbindung folgender Produkte über die Spring Boot Dependencies: JPA, JTA, Spring, Hibernate, Jackson, QueryDSL, SLF4J, Logback, JUnit, Mockito, AssertJ, H2.
 - `IFS-661`: [isy-task] CompletionWatchdog loggt Stacktrace bei Exception
@@ -192,6 +195,7 @@
 - `IFS-1175`: [isy-task] Eigenen FehlertextProvider für isy-task erstellt
 
 # 2.3.0
+- `IFS-624`: SAGA-Referenzen durch Architekturrichtlinie der IT des Bundes ersetzt
 - `IFS-1004`: [isy-sonderzeichen]
     * Refactoring des DIN-SPEC-Packages von isy-sonderzeichen
     * Entfernen des `core`-Unterpakets des DIN-SPEC-Packages von isy-sonderzeichen
