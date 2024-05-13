@@ -26,20 +26,19 @@ import org.springframework.core.BridgeMethodResolver;
 import org.springframework.util.ClassUtils;
 
 /**
- * Interceptor zum Durchführen einer Polling-Aktion.
- * Aktualisiert nach dem Aufruf der eigentlichen Polling-Aktion den
- * Zeitpunkt der letzten Ausführung.
- * 
+ * Interceptor for performing a polling action.
+ * Updates the time of the last execution after the actual polling action is called.
+ *
  */
 public class PollingAktionInterceptor implements MethodInterceptor {
 
-    /** Zugriff auf den PollingVerwalter. Wird von Spring gesetzt */
+    /** Access to the Polling Manager. Set by Spring */
     private final PollingVerwalter pollingVerwalter;
 
     /**
-     * Erzeugt einen neuen Interceptor zum Durchführen einer Polling-Aktion.
+     * Creates a new interceptor for performing a polling action.
      *
-     * @param pollingVerwalter der {@link PollingVerwalter}
+     * @param pollingVerwalter the {@link PollingVerwalter}
      */
     public PollingAktionInterceptor(PollingVerwalter pollingVerwalter) {
         this.pollingVerwalter = pollingVerwalter;
@@ -47,68 +46,61 @@ public class PollingAktionInterceptor implements MethodInterceptor {
 
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
-        Class<?> targetClass =
-            (invocation.getThis() != null ? AopUtils.getTargetClass(invocation.getThis()) : null);
-
+        Class<?> targetClass = (invocation.getThis() != null ? AopUtils.getTargetClass(invocation.getThis()) : null);
         PollingAktion pollingAktion = ermittlePollingAktionAnnotation(invocation.getMethod(), targetClass);
+        Object result;
+        boolean successful = false;
 
         try {
-            return invocation.proceed();
+            result = invocation.proceed();
+            successful = true;  // true if no exception was thrown
         } finally {
-            // aktualisiere den Zeitpunkt der letzten Polling-Aktion.
-            pollingVerwalter.aktualisiereZeitpunktLetztePollingAktivitaet(pollingAktion.pollingCluster());
+            if (successful && pollingAktion != null) {
+                pollingVerwalter.aktualisiereZeitpunktLetztePollingAktivitaet(pollingAktion.pollingCluster());
+            }
         }
+        return result;
     }
 
+
+
     /**
-     * Ermittelt die PollingAktion-Annotation.
-     * 
+     * Determines the PollingAktion annotation.
+     *
      * @param method
-     *          Aufgerufene Methode.
+     *          Called method.
      * @param targetClass
-     *          Klasse, an der die Methode aufgerufen wurde.
-     * @return Annotation PollingAktion
+     *          Class on which the method was called.
+     * @return PollingAktion annotation
      */
     private PollingAktion ermittlePollingAktionAnnotation(Method method, Class<?> targetClass) {
+        if (targetClass == null) {
+            return null;  // Check if a targetClass exists
+        }
 
-        // Strategie für die Ermittlung der Annotation ist aus AnnotationTransactionAttributeSource
-        // übernommen.
-
-        // Ignore CGLIB subclasses - introspect the actual user class.
         Class<?> userClass = ClassUtils.getUserClass(targetClass);
-        // The method may be on an interface, but we need attributes from the target class.
-        // If the target class is null, the method will be unchanged.
         Method specificMethod = ClassUtils.getMostSpecificMethod(method, userClass);
-        // If we are dealing with method with generic parameters, find the original method.
         specificMethod = BridgeMethodResolver.findBridgedMethod(specificMethod);
 
-        // First try is the method in the target class.
         PollingAktion pollingAktion = specificMethod.getAnnotation(PollingAktion.class);
         if (pollingAktion != null) {
             return pollingAktion;
         }
 
-        // Second try is the transaction attribute on the target class.
         pollingAktion = specificMethod.getDeclaringClass().getAnnotation(PollingAktion.class);
         if (pollingAktion != null) {
             return pollingAktion;
         }
 
         if (specificMethod != method) {
-            // Fallback is to look at the original method.
             pollingAktion = method.getAnnotation(PollingAktion.class);
             if (pollingAktion != null) {
                 return pollingAktion;
             }
-
-            // Last fallback is the class of the original method.
             return method.getDeclaringClass().getAnnotation(PollingAktion.class);
         }
 
-        return null;        
+        return null;
     }
 
 }
-
-
-

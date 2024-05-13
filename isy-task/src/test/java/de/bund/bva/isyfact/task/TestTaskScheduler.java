@@ -1,8 +1,5 @@
 package de.bund.bva.isyfact.task;
 
-import java.net.InetAddress;
-import java.time.format.DateTimeFormatter;
-
 import de.bund.bva.isyfact.datetime.util.DateTimeUtil;
 import de.bund.bva.isyfact.task.config.IsyTaskConfigurationProperties;
 import de.bund.bva.isyfact.task.test.config.TestConfig;
@@ -12,9 +9,13 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.net.InetAddress;
+import java.time.format.DateTimeFormatter;
+
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
 
 @SpringBootTest(classes = {TestConfig.class, TestTasksConfig.class}, webEnvironment = SpringBootTest.WebEnvironment.NONE,
 properties = {"isy.logging.anwendung.name=test",
@@ -72,4 +73,5 @@ public class TestTaskScheduler extends AbstractTaskTest {
         assertFalse(isTaskRunning("testTask1"));
         assertFalse(isTaskRunning("testTaskOnceInitialDelay"));
     }
+
 }

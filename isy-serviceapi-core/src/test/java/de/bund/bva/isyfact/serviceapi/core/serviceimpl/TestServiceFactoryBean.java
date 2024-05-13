@@ -27,6 +27,9 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.ValidRemoteBean;
 import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.impl.ValidRemoteBeanImpl;
+import org.springframework.transaction.PlatformTransactionManager;
+
+import static org.mockito.Mockito.mock;
 
 public class TestServiceFactoryBean {
 
@@ -34,16 +37,16 @@ public class TestServiceFactoryBean {
 
 	private GesichertInterceptor interceptor1;
 	private ServiceExceptionFassade interceptor2;
-	
+
 	private ServiceFactoryBean bean;
 	
 	private Map<String, String[]> rechte;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		remote = new ValidRemoteBeanImpl();
-		interceptor1 = Mockito.mock(GesichertInterceptor.class);
-		interceptor2 = Mockito.mock(ServiceExceptionFassade.class);
+		interceptor1 = mock(GesichertInterceptor.class);
+		interceptor2 = mock(ServiceExceptionFassade.class);
 		rechte = new HashMap<String, String[]>();
 		rechte.put("rolle1", new String[]{"rechtA","rechtB"});
 		rechte.put("rolle2", new String[]{"rechtC","rechtD"});
@@ -52,7 +55,7 @@ public class TestServiceFactoryBean {
 		bean.setPreInterceptors(new Object[]{interceptor1});
 		bean.setPostInterceptors(new Object[]{interceptor2});
 		bean.setTarget(remote);
-		bean.setValidateConfiguration(false);		
+		bean.setValidateConfiguration(false);
 		bean.setBenoetigtesRecht(rechte);
 	}
 	
@@ -76,14 +79,14 @@ public class TestServiceFactoryBean {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testAfterPropertiesSetKeineMethodMapInGesichertInterface(){
-		SicherheitAttributeSource source = Mockito.mock(AnnotationSicherheitAttributeSource.class);
+		SicherheitAttributeSource source = mock(AnnotationSicherheitAttributeSource.class);
 		Mockito.when(interceptor1.getSicherheitAttributeSource()).thenReturn(source);
 		bean.afterPropertiesSet();
 	}
 	
 	@Test(expected = IllegalStateException.class)
 	public void testAfterPropertiesSetOhneValidierung(){
-		SicherheitAttributeSource source = Mockito.mock(MethodMapSicherheitAttributeSource.class);
+		SicherheitAttributeSource source = mock(MethodMapSicherheitAttributeSource.class);
 		Mockito.when(interceptor1.getSicherheitAttributeSource()).thenReturn(source);
 		bean.afterPropertiesSet();
 	}
@@ -91,7 +94,7 @@ public class TestServiceFactoryBean {
 	@Test(expected = IllegalArgumentException.class)
 	public void testAfterPropertiesSetFalscherRechteKey(){
 		rechte.put("falscher.key", new String[]{"rechtE", "rechtF"});
-		SicherheitAttributeSource source = Mockito.mock(MethodMapSicherheitAttributeSource.class);
+		SicherheitAttributeSource source = mock(MethodMapSicherheitAttributeSource.class);
 		Mockito.when(interceptor1.getSicherheitAttributeSource()).thenReturn(source);
 		bean.afterPropertiesSet();
 	}
@@ -99,8 +102,21 @@ public class TestServiceFactoryBean {
 	@Test(expected = IllegalStateException.class)
 	public void testAfterPropertiesSetMitValidierung(){
 		bean.setValidateConfiguration(true);
-		SicherheitAttributeSource source = Mockito.mock(MethodMapSicherheitAttributeSource.class);
+		SicherheitAttributeSource source = mock(MethodMapSicherheitAttributeSource.class);
 		Mockito.when(interceptor1.getSicherheitAttributeSource()).thenReturn(source);
+		bean.afterPropertiesSet();
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testAfterPropertiesSetIncorrectSicherheitAttributeSource() {
+		SicherheitAttributeSource incorrectSource = mock(AnnotationSicherheitAttributeSource.class);
+		Mockito.when(interceptor1.getSicherheitAttributeSource()).thenReturn(incorrectSource);
+		bean.setPreInterceptors(new Object[]{interceptor1});
+
+		Map<String, String[]> rechte = new HashMap<>();
+		rechte.put("someMethod", new String[]{"someRight"});
+		bean.setBenoetigtesRecht(rechte);
+
 		bean.afterPropertiesSet();
 	}
 

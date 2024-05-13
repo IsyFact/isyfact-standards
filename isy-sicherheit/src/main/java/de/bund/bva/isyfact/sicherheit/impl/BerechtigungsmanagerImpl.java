@@ -31,37 +31,37 @@ import de.bund.bva.isyfact.sicherheit.common.exception.SicherheitFehlertextProvi
 import de.bund.bva.isyfact.sicherheit.common.konstanten.SicherheitFehlerSchluessel;
 
 /**
- * Standard-Implementierung des Interface BerechtigungsManager, die Informationen über das Mapping von Rollen
- * zu Rechten wird über die Methode setRollenRechteMapping gesetzt.
- * 
+ * Standard implementation of the Berechtigungsmanager interface, which manages the mapping of roles
+ * to rights set via the setRollenRechteMapping method.
+ *
  */
 public class BerechtigungsmanagerImpl implements Berechtigungsmanager {
 
-    /** Anwendungsspezifische Abbildung von Rollen auf Rechte. */
+    /** Application-specific mapping of roles to rights. */
     private RollenRechteMapping mapping;
 
     /**
-     * Liste der Rollen des Benutzers.
+     * List of the user's roles.
      */
     private final Set<Rolle> rollen;
 
     /**
-     * Die Rechte die aus den Rollen des aktuellen Benutzers berechnet wurden.
+     * The rights calculated from the roles of the current user.
      */
     private Set<Recht> rechte;
 
     /**
-     * Konstruktor der Klasse, Rollen müssen übergeben werden.
-     * 
+     * Constructor of the class, roles must be provided.
+     *
      * @param rollenIds
-     *            die IDs der Rollen des aktuellen Nutzers
+     *            the IDs of the roles of the current user
      * @throws AuthentifizierungTechnicalException
-     *             wenn keine Rollen übergeben werden
+     *             if no roles are provided
      */
     public BerechtigungsmanagerImpl(String[] rollenIds) throws AuthentifizierungTechnicalException {
         rollen = new HashSet<Rolle>();
         if (rollenIds == null) {
-            return; 
+            return;
         }
         for (String rollenId : rollenIds) {
             rollen.add(new RolleImpl(rollenId));
@@ -79,11 +79,10 @@ public class BerechtigungsmanagerImpl implements Berechtigungsmanager {
     }
 
     /**
-     * Berechnet aus den vorhandenen Rollen die Rechte des Benutzers. Wird einmalig aufgerufen, wenn zum
-     * ersten mal Rechte benötigt werden.
-     * 
+     * Calculates the rights of the user from the available roles. Called once when rights are first needed.
+     *
      * @throws RollenRechteMappingException
-     *             Falls das Mapping der Rollen zu Rechten fehlt
+     *             If the mapping of roles to rights is missing
      */
     private void berechneRechteAusRollen() {
         rechte = new HashSet<>();
@@ -92,14 +91,14 @@ public class BerechtigungsmanagerImpl implements Berechtigungsmanager {
         }
         if (mapping == null) {
             throw new RollenRechteMappingException(
-                SicherheitFehlerSchluessel.MSG_AUTORISIERUNG_ROLLENRECHTEMAPPING_FEHLT);
+                    SicherheitFehlerSchluessel.MSG_AUTORISIERUNG_ROLLENRECHTEMAPPING_FEHLT);
         }
 
         for (Rolle rolle : rollen) {
             List<Recht> rollenRechte = mapping.getRollenRechteMapping().get(rolle);
 
             if (rollenRechte == null) {
-                // Es wurde eine Rolle angegeben, die nicht zum aktuellen System gehört
+                // A role that does not belong to the current system was specified
                 continue;
             }
             rechte.addAll(rollenRechte);
@@ -111,17 +110,19 @@ public class BerechtigungsmanagerImpl implements Berechtigungsmanager {
      */
     public boolean hatRecht(String recht) {
         if (recht == null || recht.isEmpty()) {
-            throw new IllegalArgumentException(new SicherheitFehlertextProvider().getMessage(
-                SicherheitFehlerSchluessel.MSG_PARAMETER_FEHLT, "recht"));
+            throw new IllegalArgumentException(
+                    new SicherheitFehlertextProvider().getMessage(
+                            SicherheitFehlerSchluessel.MSG_PARAMETER_FEHLT, "recht")
+            );
         }
-       
+
         RechtImpl rechtImpl = new RechtImpl(recht, null);
         if (getRechte().contains(rechtImpl)) {
             return true;
         } else {
             if (!mapping.getAlleDefiniertenRechte().contains(rechtImpl)) {
                 throw new RollenRechteMappingException(
-                    SicherheitFehlerSchluessel.MSG_AUTORISIERUNG_RECHT_UNDEFINIERT, recht);
+                        SicherheitFehlerSchluessel.MSG_AUTORISIERUNG_RECHT_UNDEFINIERT, recht);
             }
             return false;
         }
@@ -133,7 +134,7 @@ public class BerechtigungsmanagerImpl implements Berechtigungsmanager {
     public void pruefeRecht(String recht) throws AutorisierungFehlgeschlagenException {
         if (!hatRecht(recht)) {
             throw new AutorisierungFehlgeschlagenException(
-                SicherheitFehlerSchluessel.MSG_AUTORISIERUNG_FEHLGESCHLAGEN, recht);
+                    SicherheitFehlerSchluessel.MSG_AUTORISIERUNG_FEHLGESCHLAGEN, recht);
         }
     }
 
@@ -142,8 +143,10 @@ public class BerechtigungsmanagerImpl implements Berechtigungsmanager {
      */
     public Recht getRecht(String recht) {
         if (recht == null || recht.isEmpty()) {
-            throw new IllegalArgumentException(new SicherheitFehlertextProvider().getMessage(
-                SicherheitFehlerSchluessel.MSG_PARAMETER_FEHLT, "recht"));
+            throw new IllegalArgumentException(
+                    new SicherheitFehlertextProvider().getMessage(
+                            SicherheitFehlerSchluessel.MSG_PARAMETER_FEHLT, "recht")
+            );
         }
         if (rechte == null) {
             berechneRechteAusRollen();
@@ -157,10 +160,10 @@ public class BerechtigungsmanagerImpl implements Berechtigungsmanager {
     }
 
     /**
-     * Setzt das Mapping von Rollen zu Rechten für alle Berechtigungsmanager einer Anwendung.
-     * 
+     * Sets the mapping of roles to rights for all Berechtigungsmanager of an application.
+     *
      * @param mapping
-     *            Mapping von Rollen zu Rechten
+     *            Mapping of roles to rights
      */
     public void setRollenRechteMapping(RollenRechteMapping mapping) {
         this.mapping = mapping;
@@ -168,6 +171,6 @@ public class BerechtigungsmanagerImpl implements Berechtigungsmanager {
 
     public Set<Rolle> getRollen() {
         return rollen;
-}
+    }
 
 }

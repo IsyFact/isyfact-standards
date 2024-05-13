@@ -32,7 +32,7 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.exception.FehlertextProvider;
 
 /**
- * DataSource-Wrapper, der null-Connections abfängt und eine PersistenzException wirft.
+ * DataSource wrapper that catches null connections and throws a PersistenceException.
  *
  */
 public class IsyDataSource extends DelegatingDataSource {
@@ -40,38 +40,37 @@ public class IsyDataSource extends DelegatingDataSource {
     /** Logger. */
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(IsyDataSource.class);
 
-    /** Fehlertext-Provider für die isy-persistence. */
+    /** Error text provider for isy-persistence. */
     private static final FehlertextProvider FEHLERTEXT_PROVIDER = new PersistenzFehlertextProvider();
 
-    /** Der SQLSTATE Code "connection exception". */
+    /** The SQLSTATE code "connection exception". */
     private static final String SQLSTATE_CONNECTION_EXCEPTION = "08000";
 
-    /** Erwartete Version des Datenbank-Schemas. */
+    /** Expected version of the database schema. */
     private String schemaVersion;
 
     /**
-     * Durchzuführende Aktion, falls das DB-Schema nicht der erwarteten Version entspricht.<br>
-     * warn: es wird eine Warnung in das Log geschrieben.<br>
-     * fail: es wird eine Exception geworfen.
+     * Action to perform if the DB schema does not match the expected version.<br>
+     * warn: a warning is logged.<br>
+     * fail: an exception is thrown.
      */
     private String invalidSchemaVersionAction;
 
     /**
-     * Dieses Flag zeigt an, dass diese DataSource für die Anwendung nicht absolut notwendig ist. Ein Beispiel
-     * wäre die DataSource für ein Archivschema, welches für den regulären Betrieb nicht essentiell ist.<br>
-     * false: Ist die Datenbank beim Hochfahren nicht erreichbar, wird eine Exception geworfen und die
-     * DataSource wird nicht erzeugt<br>
-     * true: Ist die Datenbank beim Hochfahren nicht erreichbar, wird ein Log-Eintrag auf dem Level WARN
-     * geschrieben. Die DataSource wird jedoch erzeugt und die Anwendung kann starten. Wird von dieser
-     * DataSource später eine Verbindung angefordert, wirft sie jedoch eine Exception. Dies bleibt bis zum
-     * Neustart bestehen.
+     * This flag indicates that this DataSource is not absolutely necessary for the application. An example
+     * would be the DataSource for an archive schema, which is not essential for regular operation.<br>
+     * false: If the database is not reachable at startup, an exception is thrown, and the
+     * DataSource is not created<br>
+     * true: If the database is not reachable at startup, a log entry at the WARN level
+     * is written. However, the DataSource is created, and the application can start. If a connection from this
+     * DataSource is later requested, it will throw an exception. This remains until the
+     * restart.
      */
     private boolean nonCriticalDataSource;
 
     /**
-     * Dieses Flag ist true, wenn {@link nonCriticalDataSource} auf true gesetzt war und die DataSource trotz
-     * fehlgeschlagener Schemaprüfung erstellt wurde. In diesem Fall dürfen keine Connections herausgegeben
-     * werden.
+     * This flag is true if {@link nonCriticalDataSource} was set to true and the DataSource was created despite
+     * failed schema verification. In this case, no connections should be issued.
      */
     private boolean initializationFailed;
 
@@ -125,58 +124,55 @@ public class IsyDataSource extends DelegatingDataSource {
         }
 
         String ermittelteSchemaVersion = "unbekannt";
-        Connection conn = null;
-        try {
-            conn = getConnection();
-            String query =
-                "select version_nummer from m_schema_version where version_nummer = ? and status = 'gueltig'";
+        // Use of try-with-resources for Connection
+        try (Connection conn = getConnection()) {
+            String query = "select version_nummer from m_schema_version where version_nummer = ? and status = 'gueltig'";
 
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, this.schemaVersion);
-            ResultSet rs = stmt.executeQuery();
-            if (rs != null && rs.next()) {
-                ermittelteSchemaVersion = rs.getString(1);
-            }
-            if (!this.schemaVersion.equals(ermittelteSchemaVersion)) {
-                if ("warn".equals(this.invalidSchemaVersionAction)) {
-                    LOG.warn(EreignisSchluessel.FALSCHE_SCHEMA_VERSION,
-                        "Die Version des Datenbankschemas entspricht nicht der "
-                            + "erwarteten Version ( {} ).", this.schemaVersion);
-                } else {
-                    throw new PersistenzException(FehlerSchluessel.FALSCHE_DB_SCHEMAVERSION,
-                        this.schemaVersion);
+            // Use of try-with-resources for PreparedStatement
+            try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                stmt.setString(1, this.schemaVersion);
+                try (ResultSet rs = stmt.executeQuery()) {
+                    if (rs != null && rs.next()) {
+                        ermittelteSchemaVersion = rs.getString(1);
+                    }
+                }
+
+                if (!this.schemaVersion.equals(ermittelteSchemaVersion)) {
+                    if ("warn".equals(this.invalidSchemaVersionAction)) {
+                        LOG.warn(EreignisSchluessel.FALSCHE_SCHEMA_VERSION,
+                                "Die Version des Datenbankschemas entspricht nicht der erwarteten Version ( {} ).", this.schemaVersion);
+                    } else {
+                        throw new PersistenzException(FehlerSchluessel.FALSCHE_DB_SCHEMAVERSION,
+                                this.schemaVersion);
+                    }
                 }
             }
         } catch (SQLException e) {
-            if (this.nonCriticalDataSource) {
-                this.initializationFailed = true;
-                LOG.warn(FehlerSchluessel.DB_BEIM_HOCHFAHREN_NICHT_VERFUEGBAR,
-                    FEHLERTEXT_PROVIDER.getMessage(FehlerSchluessel.DB_BEIM_HOCHFAHREN_NICHT_VERFUEGBAR), e);
-            } else {
-                throw new PersistenzException(FehlerSchluessel.PRUEFEN_DER_SCHEMAVERSION_FEHLGESCHLAGEN, e);
-            }
+            handleSQLException(e);
         } catch (PersistenzException e1) {
             throw e1;
-        } finally {
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException e1) {
-                    LOG.warn(EreignisSchluessel.DB_VERBINDUNG_NICHT_GESCHLOSSEN,
-                        "Die Datenbankverbindung konnte nicht geschlossen werden. Grund: {}", e1.getMessage());
-                }
-            }
         }
     }
+
+    private void handleSQLException(SQLException e) throws PersistenzException {
+        if (this.nonCriticalDataSource) {
+            this.initializationFailed = true;
+            LOG.warn(FehlerSchluessel.DB_BEIM_HOCHFAHREN_NICHT_VERFUEGBAR,
+                    FEHLERTEXT_PROVIDER.getMessage(FehlerSchluessel.DB_BEIM_HOCHFAHREN_NICHT_VERFUEGBAR), e);
+        } else {
+            throw new PersistenzException(FehlerSchluessel.PRUEFEN_DER_SCHEMAVERSION_FEHLGESCHLAGEN, e);
+        }
+    }
+
 
     public void setSchemaVersion(String schemaVersion) {
         this.schemaVersion = schemaVersion;
     }
 
     /**
-     * Setzt das Feld 'invalidSchemaVersionAction'.
+     * Sets the 'invalidSchemaVersionAction' field.
      * @param invalidSchemaVersionAction
-     *            Neuer Wert für invalidSchemaVersionAction
+     *            New value for invalidSchemaVersionAction
      */
     public void setInvalidSchemaVersionAction(String invalidSchemaVersionAction) {
         if (invalidSchemaVersionAction != null) {
@@ -187,9 +183,9 @@ public class IsyDataSource extends DelegatingDataSource {
     }
 
     /**
-     * Setzt das Feld 'nonCriticalDataSource'.
+     * Sets the 'nonCriticalDataSource' field.
      * @param nonCriticalDataSource
-     *            Neuer Wert für nonCriticalDataSource
+     *            New value for nonCriticalDataSource
      */
     public void setNonCriticalDataSource(boolean nonCriticalDataSource) {
         this.nonCriticalDataSource = nonCriticalDataSource;

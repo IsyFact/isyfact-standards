@@ -46,6 +46,7 @@ import de.bund.bva.isyfact.aufrufkontext.AufrufKontextFactory;
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -63,7 +64,7 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
  *
  */
 public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, InitializingBean,
-    ApplicationContextAware, DisposableBean {
+        ApplicationContextAware, DisposableBean {
 
     /** Logger. */
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(BatchrahmenImpl.class);
@@ -111,18 +112,18 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
      * {@inheritDoc}
      */
     public void runBatch(BatchKonfiguration konfiguration, BatchErgebnisProtokoll protokoll)
-        throws BatchAusfuehrungsException {
+            throws BatchAusfuehrungsException {
         VerarbeitungsInformationen verarbInfo = new VerarbeitungsInformationen(konfiguration);
         boolean erfolgreich = false;
         boolean initErfolgreich = false;
 
         if (verarbInfo.istMaximaleLaufzeitKonfiguriert()) {
             LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001,
-                "Die maximale Laufzeit ist als {} Minuten konfiguriert.",
-                verarbInfo.getMaximaleLaufzeitLimitInMinuten());
+                    "Die maximale Laufzeit ist als {} Minuten konfiguriert.",
+                    verarbInfo.getMaximaleLaufzeitLimitInMinuten());
         } else {
             LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001,
-                "Es wurde keine maximale Laufzeit konfiguriert.");
+                    "Es wurde keine maximale Laufzeit konfiguriert.");
         }
 
         // Initialize 'Status-Satz'
@@ -147,29 +148,29 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
             this.batchLaeuft = true;
 
             AuthenticationCredentials authentifikation =
-                getBatchAusfuehrer(verarbInfo.getKonfiguration()).getAuthenticationCredentials(konfiguration);
+                    getBatchAusfuehrer(verarbInfo.getKonfiguration()).getAuthenticationCredentials(konfiguration);
             if (authentifikation != null) {
                 aufrufKontext.setDurchfuehrendeBehoerde(authentifikation.getBehoerdenkennzeichen());
                 aufrufKontext.setDurchfuehrenderBenutzerKennung(authentifikation.getBenutzerkennung());
                 aufrufKontext.setDurchfuehrenderBenutzerPasswort(authentifikation.getPasswort());
             }
             aufrufKontext.setDurchfuehrenderSachbearbeiterName(konfiguration
-                .getAsString(KonfigurationSchluessel.PROPERTY_BATCH_NAME));
+                    .getAsString(KonfigurationSchluessel.PROPERTY_BATCH_NAME));
             this.aufrufKontextFactory.nachAufrufKontextVerarbeitung(aufrufKontext);
             initialisiereBatch(verarbInfo, protokoll);
 
             initErfolgreich = true;
 
             LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001,
-                "Beginne Batch-Satzverarbeitung...");
+                    "Beginne Batch-Satzverarbeitung...");
             // Start Transaction
             verarbInfo.setTransactionStatus(starteTransaktion());
             VerarbeitungsErgebnis ergebnis = null;
             // Execute until Bean stops processing records.
             while ((ergebnis == null || !ergebnis.isAlleSaetzeVerarbeitet())
-                && !(verarbInfo.getLetzterDatensatzNummer() != 0 && verarbInfo.getLetzterDatensatzNummer() == verarbInfo
+                    && !(verarbInfo.getLetzterDatensatzNummer() != 0 && verarbInfo.getLetzterDatensatzNummer() == verarbInfo
                     .getSatzNummer()) && !this.batchAbgebrochen
-                && !(this.maximaleLaufzeitUeberschritten = istMaximaleLaufzeitUeberschritten(verarbInfo))) {
+                    && !(this.maximaleLaufzeitUeberschritten = istMaximaleLaufzeitUeberschritten(verarbInfo))) {
                 verarbInfo.incSatzNummer();
 
                 MdcHelper.pushKorrelationsId(UUID.randomUUID().toString());
@@ -182,23 +183,29 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
 
                 this.jmxBean.satzVerarbeitet(ergebnis.getDatenbankSchluessel());
                 if ((verarbInfo.getCommitIntervall() > 0)
-                    && (verarbInfo.getSatzNummer() % verarbInfo.getCommitIntervall() == 0)) {
+                        && (verarbInfo.getSatzNummer() % verarbInfo.getCommitIntervall() == 0)) {
                     // Checkpunkt verarbeiten
                     verarbeiteCheckpunkt(verarbInfo, ergebnis.getDatenbankSchluessel());
                 }
                 if ((verarbInfo.getClearIntervall() > 0)
-                    && (verarbInfo.getSatzNummer() % verarbInfo.getClearIntervall() == 0)) {
+                        && (verarbInfo.getSatzNummer() % verarbInfo.getClearIntervall() == 0)) {
                     // Get the latest EntityManager
                     EntityManager entityManager =
-                        EntityManagerFactoryUtils.getTransactionalEntityManager(this.transactionManager
-                            .getEntityManagerFactory());
+                            EntityManagerFactoryUtils.getTransactionalEntityManager(this.transactionManager
+                                    .getEntityManagerFactory());
                     // Clear Session-Cache
-                    entityManager.flush();
-                    entityManager.clear();
+                    if (entityManager != null) {
+                        entityManager.flush();
+                        entityManager.clear();
+                    } else {
+                        LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001,
+                                "Fehler während der Initialisierung erkannt, beende Batch...");
+                    }
+
                 }
             }
             if (verarbInfo.getLetzterDatensatzNummer() != 0
-                && verarbInfo.getLetzterDatensatzNummer() == verarbInfo.getSatzNummer()) {
+                    && verarbInfo.getLetzterDatensatzNummer() == verarbInfo.getSatzNummer()) {
                 throw new BatchrahmenAbbruchException(NachrichtenSchluessel.ERR_BATCH_UNVOLLSTAENDIG);
             }
             String dbschl = null;
@@ -212,7 +219,7 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
                 // Check for errors during Init
                 if (!initErfolgreich) {
                     LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001,
-                        "Fehler während der Initialisierung erkannt, beende Batch...");
+                            "Fehler während der Initialisierung erkannt, beende Batch...");
                     // Process and end batch execution
                     rollbackTransaction(verarbInfo.getTransactionStatus(), verarbInfo.getBean());
                     beendeBatchMitVorigemStatus();
@@ -255,7 +262,7 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
      *             for errors when informing the Bean.
      */
     private void verarbeiteCheckpunkt(VerarbeitungsInformationen verarbInfo, String dbSchluessel)
-        throws BatchAusfuehrungsException {
+            throws BatchAusfuehrungsException {
         // Update Status Table
         BatchStatus status = this.statusHandler.leseBatchStatus();
         status.setSatzNummerLetztesCommit(verarbInfo.getSatzNummer());
@@ -282,7 +289,7 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
      *             for initialization errors of the execution bean.
      */
     private void initialisiereBatch(VerarbeitungsInformationen verarbInfo, BatchErgebnisProtokoll protokoll)
-        throws BatchAusfuehrungsException {
+            throws BatchAusfuehrungsException {
 
         // Start Transaction
 
@@ -293,25 +300,25 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
 
         if (verarbInfo.getStartTyp().equals(BatchStartTyp.RESTART)) {
             protokoll.ergaenzeMeldung(new VerarbeitungsMeldung("RESTART", MeldungTyp.INFO,
-                "Batch wurde im Restart-Modus gestartet."));
+                    "Batch wurde im Restart-Modus gestartet."));
             LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001,
-                "Batch wurde im Restart-Modus gestartet.");
+                    "Batch wurde im Restart-Modus gestartet.");
         }
 
         // Read and initialize bean
         LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001,
-            "Batch Initialisierungsphase beginnt...");
+                "Batch Initialisierungsphase beginnt...");
         verarbInfo.setBean(getBatchAusfuehrer(verarbInfo.getKonfiguration()));
         int anzSaetze =
-            verarbInfo.getBean().initialisieren(verarbInfo.getKonfiguration(),
-                status.getSatzNummerLetztesCommit(), status.getSchluesselLetztesCommit(),
-                verarbInfo.getStartTyp(), status.getDatumLetzterErfolg(), protokoll);
+                verarbInfo.getBean().initialisieren(verarbInfo.getKonfiguration(),
+                        status.getSatzNummerLetztesCommit(), status.getSchluesselLetztesCommit(),
+                        verarbInfo.getStartTyp(), status.getDatumLetzterErfolg(), protokoll);
         LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001,
-            "Batch Initialisierungsphase beendet.");
+                "Batch Initialisierungsphase beendet.");
         verarbInfo.setSatzNummer(status.getSatzNummerLetztesCommit());
         long anzahlDatensaetze =
-            verarbInfo.getKonfiguration().getAsLong(
-                KonfigurationSchluessel.PROPERTY_BATCHRAHMEN_ZU_VERARBEITENDE_DATENSAETZE_ANZAHL, -1);
+                verarbInfo.getKonfiguration().getAsLong(
+                        KonfigurationSchluessel.PROPERTY_BATCHRAHMEN_ZU_VERARBEITENDE_DATENSAETZE_ANZAHL, -1);
         if (anzahlDatensaetze > 0) {
             verarbInfo.setLetzterDatensatzNummer(anzahlDatensaetze + verarbInfo.getSatzNummer());
         } else {
@@ -333,11 +340,11 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
      *            the database key that was last processed.
      */
     private void beendeBatch(VerarbeitungsInformationen verarbInfo, BatchErgebnisProtokoll protokoll,
-        String dbschl) {
+                             String dbschl) {
         BatchStatus status = this.statusHandler.leseBatchStatus();
         if (!this.batchAbgebrochen && !this.maximaleLaufzeitUeberschritten) {
             LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001,
-                "Batch beendet. Setze Status auf beendet.");
+                    "Batch beendet. Setze Status auf beendet.");
             status.setBatchStatus(BatchStatusTyp.BEENDET.getName());
             status.setDatumLetzterErfolg(new Date());
             verarbInfo.getBean().batchBeendet();
@@ -345,15 +352,15 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
             if (this.batchAbgebrochen) {
                 protokoll.setBatchAbgebrochen(true);
                 LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001,
-                    "Batch wurde abgebrochen. Setze Status auf abgebrochen.");
+                        "Batch wurde abgebrochen. Setze Status auf abgebrochen.");
                 protokoll.ergaenzeMeldung(new VerarbeitungsMeldung("BENUTZERABBRUCH", MeldungTyp.INFO,
-                    "Batch wurde manuell abgebrochen."));
+                        "Batch wurde manuell abgebrochen."));
             } else if (this.maximaleLaufzeitUeberschritten) {
                 protokoll.setMaximaleLaufzeitUeberschritten(true);
                 LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001,
-                    "Batch wurde wegen Laufzeitüberschreitung abgebrochen. Setze Status auf abgebrochen.");
+                        "Batch wurde wegen Laufzeitüberschreitung abgebrochen. Setze Status auf abgebrochen.");
                 protokoll.ergaenzeMeldung(new VerarbeitungsMeldung("MAX_LAUFZEIT_UEBERSCHRITTEN",
-                    MeldungTyp.INFO, "Batch wurde durch die Überschreitung der maximalen Laufzeit ("
+                        MeldungTyp.INFO, "Batch wurde durch die Überschreitung der maximalen Laufzeit ("
                         + verarbInfo.getMaximaleLaufzeitLimitInMinuten() + " Minuten) abgebrochen."));
             }
             status.setBatchStatus(BatchStatusTyp.ABGEBROCHEN.getName());
@@ -372,7 +379,7 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
     private void setzeStatusSatzAufAbbruch() {
         TransactionStatus transactionStatus = null;
         LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001,
-            "Setze Batch-Status auf Abbruch...");
+                "Setze Batch-Status auf Abbruch...");
         try {
             transactionStatus = starteTransaktion();
             BatchStatus status = this.statusHandler.leseBatchStatus();
@@ -393,7 +400,7 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
     private void beendeBatchMitVorigemStatus() {
         TransactionStatus transactionStatus = null;
         LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001,
-            "Setze Batch-Status auf vorigen Status ({})...", this.vorigerBatchStatus);
+                "Setze Batch-Status auf vorigen Status ({})...", this.vorigerBatchStatus);
         try {
             transactionStatus = starteTransaktion();
             BatchStatus status = this.statusHandler.leseBatchStatus();
@@ -444,16 +451,19 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
      */
     private BatchAusfuehrungsBean getBatchAusfuehrer(BatchKonfiguration konfig) {
         String beanName = konfig.getAsString(KonfigurationSchluessel.PROPERTY_AUSFUEHRUNGSBEAN);
-        if (beanName == null || beanName.length() == 0) {
+        if (beanName == null || beanName.isEmpty()) {
             throw new BatchrahmenKonfigurationException(NachrichtenSchluessel.ERR_KONF_PARAMETER_FEHLT,
-                KonfigurationSchluessel.PROPERTY_AUSFUEHRUNGSBEAN);
+                    KonfigurationSchluessel.PROPERTY_AUSFUEHRUNGSBEAN);
         }
-        BatchAusfuehrungsBean bean = (BatchAusfuehrungsBean) this.applicationContext.getBean(beanName);
-        if (bean == null) {
+
+        try {
+            BatchAusfuehrungsBean bean = (BatchAusfuehrungsBean) this.applicationContext.getBean(beanName);
+            return bean; // If bean is not found, an exception will be thrown
+        } catch (NoSuchBeanDefinitionException e) {
             throw new BatchrahmenKonfigurationException(NachrichtenSchluessel.ERR_KONF_BEAN_PFLICHT, beanName);
         }
-        return bean;
     }
+
 
     /**
      * called by Spring to configure the Transaction Manager.
@@ -498,7 +508,7 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
 
         if (this.batchLaeuft) {
             LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001,
-                "Warte auf Batch Ende...");
+                    "Warte auf Batch Ende...");
         }
         while (this.batchLaeuft) {
             Thread.sleep(1000);

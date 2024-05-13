@@ -31,7 +31,7 @@ import de.bund.bva.isyfact.sicherheit.annotation.GesichertInterceptor;
 import de.bund.bva.isyfact.sicherheit.annotation.SicherheitAttributeSource;
 
 /**
- * Factory-Bean, die eine generische Implementierung einer RemoteBean-Schnittstelle erzeugt.
+ * Factory bean that creates a generic implementation of a RemoteBean interface.
  *
  */
 public class ServiceFactoryBean extends TransactionProxyFactoryBean {
@@ -42,29 +42,29 @@ public class ServiceFactoryBean extends TransactionProxyFactoryBean {
     /** Isy-Logger. */
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(ServiceFactoryBean.class);
 
-    /** Konfigurierte Interceptor. */
+    /** Configured interceptors. */
     private final List<Object> interceptors = new ArrayList<Object>();
 
-    /** Die RemoteBean-Schnittstelle. */
+    /** The RemoteBean interface. */
     private Class<?> remoteBeanInterface;
 
-    /** Die Target-Bean. */
+    /** The target bean. */
     private Object target;
 
-    /** Die benötigten Rechte. */
+    /** The required permissions. */
     private Map<String, String[]> benoetigtesRecht;
 
     /**
-     * Ob die Konfiguration des Services sofort validiert werden soll. Wenn nicht, treten Konfigurationsfehler
-     * erst beim Aufruf des Services auf.
+     * Whether the service configuration should be validated immediately. If not, configuration errors
+     * will only occur when the service is called.
      */
     private boolean validateConfiguration = true;
 
     /**
-     * Setzt die RemoteBean-Schnittstelle, die durch die Service-Implementierung umgesetzt werden soll.
+     * Sets the RemoteBean interface that the service implementation should realize.
      *
      * @param remoteBeanInterface
-     *            die RemoteBean-Schnittstelle
+     *            the RemoteBean interface
      */
     public void setRemoteBeanInterface(Class<?> remoteBeanInterface) {
         if (!remoteBeanInterface.isInterface()) {
@@ -102,53 +102,60 @@ public class ServiceFactoryBean extends TransactionProxyFactoryBean {
 
     @Override
     public void afterPropertiesSet() {
-
-        if (this.benoetigtesRecht != null && this.benoetigtesRecht.size() > 0) {
+        if (this.benoetigtesRecht != null && !this.benoetigtesRecht.isEmpty()) {
             GesichertInterceptor gesichert = getInterceptor(GesichertInterceptor.class);
-            SicherheitAttributeSource sicherheitAttributeSource = gesichert.getSicherheitAttributeSource();
-            if (!(sicherheitAttributeSource instanceof MethodMapSicherheitAttributeSource)) {
-                throw new IllegalArgumentException("Die Konfiguration der benötigten Rechte erfordert eine "
-                    + MethodMapSicherheitAttributeSource.class.getSimpleName() + " im "
-                    + GesichertInterceptor.class.getName() + ", konfiguriert ist aber eine "
-                    + sicherheitAttributeSource.getClass().getName());
-            }
-            MethodMapSicherheitAttributeSource methodMapSicherheitAttributeSource =
-                (MethodMapSicherheitAttributeSource) sicherheitAttributeSource;
 
+            // Check if the secured interceptor actually exists
+            MethodMapSicherheitAttributeSource methodMap = getMethodMapSicherheitAttributeSource(gesichert);
             for (Map.Entry<String, String[]> entry : this.benoetigtesRecht.entrySet()) {
                 if (entry.getKey().contains(".")) {
                     throw new IllegalArgumentException("Ungültiger Punkt in Methoden-Pattern '"
-                        + entry.getKey() + "' in Konfiguration des Service "
-                        + this.remoteBeanInterface.getName());
+                            + entry.getKey() + "' in Konfiguration des Service "
+                            + this.remoteBeanInterface.getName());
                 }
-                methodMapSicherheitAttributeSource.addGesichertMethod(this.remoteBeanInterface.getName()
-                    + "." + entry.getKey(), entry.getValue());
+                methodMap.addGesichertMethod(this.remoteBeanInterface.getName() + "." + entry.getKey(), entry.getValue());
             }
         }
 
         if (this.validateConfiguration) {
-            LOG.info(LogKategorie.JOURNAL, EreignisSchluessel.VALIDIERUNG_KONFIGURATION,
-                "Validiere Konfiguration für Service-Implementierung {}", this.remoteBeanInterface.getName());
-
-            for (Object interceptor : this.interceptors) {
-                if (interceptor instanceof Validatable) {
-                    ((Validatable) interceptor).validateConfiguration(this.remoteBeanInterface, this.target);
-                }
-            }
+            validateConfiguration();
         }
 
         super.afterPropertiesSet();
+    }
 
+    private static MethodMapSicherheitAttributeSource getMethodMapSicherheitAttributeSource(GesichertInterceptor gesichert) {
+        if (gesichert == null) {
+            throw new IllegalStateException("GesichertInterceptor ist nicht konfiguriert.");
+        }
+
+        SicherheitAttributeSource sicherheitAttributeSource = gesichert.getSicherheitAttributeSource();
+        if (!(sicherheitAttributeSource instanceof MethodMapSicherheitAttributeSource)) {
+            throw new IllegalArgumentException("Die Konfiguration der benötigten Rechte erfordert eine "
+                    + MethodMapSicherheitAttributeSource.class.getSimpleName() + " im "
+                    + GesichertInterceptor.class.getName() + ", konfiguriert ist aber eine "
+                    + sicherheitAttributeSource.getClass().getName());
+        }
+
+        return (MethodMapSicherheitAttributeSource) sicherheitAttributeSource;
+    }
+
+    private void validateConfiguration() {
+        for (Object interceptor : this.interceptors) {
+            if (interceptor instanceof Validatable) {
+                ((Validatable) interceptor).validateConfiguration(this.remoteBeanInterface, this.target);
+            }
+        }
     }
 
     /**
-     * Ermittelt einen Interceptor eines bestimmten Typs.
+     * Identifies an interceptor of a specific type.
      *
      * @param <T>
-     *            der gesuchte Typ
+     *            the type sought
      * @param interceptorClass
-     *            der gesuchte Typ
-     * @return der Interceptor oder null
+     *            the type sought
+     * @return the interceptor or null
      */
     private <T> T getInterceptor(Class<T> interceptorClass) {
         for (Object interceptor : this.interceptors) {

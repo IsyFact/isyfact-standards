@@ -39,7 +39,7 @@ import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.sicherheit.Recht;
 
 /**
- * Diese Klasse ließt ein RollenRechte-XML ein und gibt es aus.
+ * This class reads a RoleRights XML and outputs it.
  *
  */
 public class XmlAccess {
@@ -48,69 +48,69 @@ public class XmlAccess {
     private static final IsyLogger LOG = IsyLoggerFactory.getLogger(XmlAccess.class);
 
     /**
-     * In einem ersten Schritt wird eine Übersicht über alle Rechte erstellt.
+     * In a first step, an overview of all rights is created.
      */
     private HashMap<String, Recht> rechtIdZuRecht = new HashMap<String, Recht>();
 
     /**
-     * Name des XML-Elementes in Recht über das die Properties angesprochen werden.
+     * Name of the XML element in Recht over which the properties are addressed.
      */
     private static final String PROPERTIES = "properties";
 
     /**
-     * Name des XML-Attributes der Id einer Rolle.
+     * Name of the XML attribute of the ID of a role.
      */
     private static final String PROPERTY_NAME = "PropertyName";
 
     /**
-     * Name des XML-Attributes der Id einer Rolle.
+     * Name of the XML attribute of the value of a property.
      */
     private static final String PROPERTY_VALUE = "PropertyValue";
 
     /**
-     * Name des XML-Elementes in Recht über das die RechtId angesprochen wird.
+     * Name of the XML element in Recht over which the RechtId is addressed.
      */
     private static final String RECHT_ID = "rechtId";
 
     /**
-     * Name des XML-Attributes der Id einer RechteId.
+     * Name of the XML attribute of the ID of a RechteId.
      */
     private static final String ID_IN_RECHTE_ID = "Id";
 
     /**
-     * Name des XML-Attributes der Id einer Rolle.
+     * Name of the XML attribute of the ID of a role.
      */
     private static final String ROLLE_ID = "RolleId";
 
     /**
-     * Name des XML-Attributes des Namen einer Rolle.
+     * Name of the XML attribute of the name of a role.
      */
     private static final String ROLLE_NAME = "RolleName";
 
     /**
-     * Name der XML-Elementes über die Rollen von einer Anwendung aus angesprochen werden.
+     * Name of the XML element over which the roles of an application are addressed.
      */
     private static final String ROLLEN = "rollen";
 
     /**
-     * Name der XML-Elementes über die Rechte von einer Anwendung aus angesprochen werden.
+     * Name of the XML element over which the rights of an application are addressed.
      */
     private static final String RECHTE = "rechte";
 
     /**
-     * Name des XML-Attributes der Id einer Anwendung.
+     * Name of the XML attribute of the ID of an application.
      */
     private static final String ANWENDUNGS_ID = "AnwendungsId";
 
     /**
-     * Parst die Datei an dem übergebenen Pfad und macht daraus ein RollenRechteMapping mit dem ein
-     * Berechtigungsmanager über das Mapping von Rollen zu Rechten innerhalbe einer Anwendung informiert wird.
+     * Parses the file at the given path and turns it into a RoleRightsMapping which informs a
+     * Berechtigungsmanager about the mapping of roles to rights within an application.
      *
      * @param filename
-     *            Vollständiger Pfad zur Datei mit den Rechten
-     * @return Die eingelesene Datei als Rollen zu Rechte Mapping
+     *            Full path to the file with the rights
+     * @return The read file as Role to Rights Mapping
      * @throws RollenRechteMappingException
-     *             Bei allen Verarbeitungsfehlern
+     *             For all processing errors
      */
     public RollenRechteMapping parseRollenRechteFile(String filename) {
         LOG.debug("Lese Rollen-Rechte-Mapping aus {}.", filename);
@@ -125,38 +125,38 @@ public class XmlAccess {
             return result;
         } catch (ParserConfigurationException pce) {
             throw new RollenRechteMappingException(
-                SicherheitFehlerSchluessel.MSG_AUTORISIERUNG_ROLLENRECHTEMAPPING_FEHLERHAFT, pce,
-                "XML-Parser Fehler");
+                    SicherheitFehlerSchluessel.MSG_AUTORISIERUNG_ROLLENRECHTEMAPPING_FEHLERHAFT, pce,
+                    "XML-Parser Fehler");
         } catch (SAXException se) {
             throw new RollenRechteMappingException(
-                SicherheitFehlerSchluessel.MSG_AUTORISIERUNG_ROLLENRECHTEMAPPING_FEHLERHAFT, se,
-                "SAX-Exception");
+                    SicherheitFehlerSchluessel.MSG_AUTORISIERUNG_ROLLENRECHTEMAPPING_FEHLERHAFT, se,
+                    "SAX-Exception");
         } catch (IOException ioe) {
             throw new RollenRechteMappingException(
-                SicherheitFehlerSchluessel.MSG_AUTORISIERUNG_ROLLENRECHTEMAPPING_FEHLERHAFT, ioe,
-                "IO-Exception");
+                    SicherheitFehlerSchluessel.MSG_AUTORISIERUNG_ROLLENRECHTEMAPPING_FEHLERHAFT, ioe,
+                    "IO-Exception");
         } finally {
             if (stream != null) {
                 try {
                     stream.close();
                 } catch (IOException e) {
-                    throw new RollenRechteMappingException(
-                        SicherheitFehlerSchluessel.MSG_AUTORISIERUNG_ROLLENRECHTEMAPPING_FEHLERHAFT, e,
-                        "IO-Exception");
+                    // Log the exception instead of throwing it.
+                    LOG.error("Failed to close the InputStream", String.valueOf(e));
                 }
             }
         }
     }
 
+
     /**
-     * In dieser Methode wird die AnwendungsId aus dem Document extrahiert und ins Mapping gesetzt. Das Parse
-     * der Mappinginformationen von Rollen zu Rechten wird aufgerufen.
+     * In this method, the application ID is extracted from the Document and set into the mapping. The parse
+     * of the mapping information from roles to rights is called.
      *
      * @param doc
-     *            Das geparste Document
-     * @return Das vollständige RollenRechteMapping
+     *            The parsed Document
+     * @return The complete RoleRightsMapping
      * @throws RollenRechteMappingException
-     *             Falls die AnwendungsId fehlt oder es bei den aufgerufenen Methoden zu Fehlern kommt
+     *             If the application ID is missing or if errors occur in the called methods
      */
     private RollenRechteMapping parseDocument(Document doc) {
         RollenRechteMapping ergebnis = new RollenRechteMapping();
@@ -174,13 +174,13 @@ public class XmlAccess {
     }
 
     /**
-     * Durchläuft alle Nodes und ruft für jedes Recht die Methode leseRecht auf. Alle gelesenen Rechte werden
-     * dann in der HashMap rechtIdZuRecht gesetzt.
+     * Goes through all nodes and calls the method readRecht for each right. All read rights are
+     * then set in the HashMap rechtIdZuRecht.
      *
      * @param anwendung
-     *            Das Basis-Element der eingelesenen XML-Datein
+     *            The base element of the read XML files
      * @throws RollenRechteMappingException
-     *             Wenn es beim lesen eines Rechtes zu Fehlern kommt
+     *             If an error occurs when reading a right
      */
     private void erstelleRechteUebersicht(Element anwendung) {
         Node child = anwendung.getFirstChild();
@@ -195,13 +195,13 @@ public class XmlAccess {
     }
 
     /**
-     * Wandelt ein Element das ein Recht hat in eine Instanz des Interfaces Recht um.
+     * Converts an element that has a right into an instance of the Recht interface.
      *
      * @param recht
-     *            Element das ein Recht ist
-     * @return Das Transofmierte Recht
+     *            Element that is a right
+     * @return The transformed right
      * @throws RollenRechteMappingException
-     *             Wenn das Recht nicht den Erwartungen entspricht
+     *             If the right does not meet expectations
      */
     private Recht leseRecht(Element recht) {
         String rechtId = null;
@@ -253,14 +253,14 @@ public class XmlAccess {
     }
 
     /**
-     * Liest alle definierten Rollen aus speichert für diese die RollenId und ruft jeweils das Mapping aller
-     * Rechte für diese Rolle auf.
+     * Reads all defined roles from and saves for these the role ID and calls the mapping of all
+     * rights for this role.
      *
      * @param anwendung
-     *            Das Top-Element des RollenRechteMapping
-     * @return Eine HashMaps mit Rechten zu Rollen
+     *            The top element of the RoleRightsMapping
+     * @return A HashMap with rights to roles
      * @throws RollenRechteMappingException
-     *             Falls bei einem Eintrag die RollenId fehlt, oder keine Rolle definiert wurde
+     *             If an entry is missing the role ID, or no role was defined
      */
     private HashMap<Rolle, List<Recht>> getRollenRechtMapping(Element anwendung) {
         boolean mindestensEineRolleGefunden = false;
@@ -292,13 +292,13 @@ public class XmlAccess {
     }
 
     /**
-     * Liest aus dem Element einer Rolle alle Rechte aus.
+     * Reads from the role element all the rights.
      *
      * @param rolle
-     *            Das Element für eine Rolle
-     * @return Eine Liste aller Rechte für diese Rolle
+     *            The element for a role
+     * @return A list of all rights for this role
      * @throws RollenRechteMappingException
-     *             Falls eine unbekannte RechtId gefunden wird
+     *             If an unknown RechtId is found
      */
     private List<Recht> getRechteFuerRolle(Element rolle) {
         List<Recht> alleRechte = new ArrayList<Recht>();

@@ -20,46 +20,82 @@ import static org.junit.Assert.assertEquals;
 
 import de.bund.bva.isyfact.exception.service.BusinessToException;
 import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.RemoteBean;
+import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.SomeOtherBusinessException;
 import org.junit.Before;
 import org.junit.Test;
 
 import de.bund.bva.isyfact.exception.BusinessException;
 import de.bund.bva.isyfact.exception.service.TechnicalToException;
 
+import java.lang.reflect.Method;
+
 public class TestReflectiveExceptionMappingSource {
 
 	ReflectiveExceptionMappingSource source;
-	
+
 	@Before
 	public void setUp(){
 		source = new ReflectiveExceptionMappingSource();
 	}
-	
+
 	@Test
 	public void testGetToExceptionClass() throws NoSuchMethodException, SecurityException {
 		Class<?> clazz = source.getToExceptionClass(RemoteBean.class.getMethod("methodeMitZweiToExceptions"), BusinessException.class);
 		assertEquals(BusinessToException.class, clazz);
 	}
-	
+
 	@Test(expected = IllegalStateException.class)
 	public void testGetToExceptionClassMethodWiothoutException() throws NoSuchMethodException, SecurityException {
 		source.getToExceptionClass(RemoteBean.class.getMethod("eineMethode"), BusinessException.class);
 	}
-	
+
 	@Test
 	public void testGetGenericTechnicalToException() throws NoSuchMethodException, SecurityException{
 		Class<?> clazz = source.getGenericTechnicalToException(RemoteBean.class.getMethod("methodeMitZweiToExceptions"));
 		assertEquals(TechnicalToException.class, clazz);
 	}
-	
+
 	@Test(expected = IllegalStateException.class)
 	public void testGetGenericTechnicalToExceptionMehrereToExceptions() throws NoSuchMethodException, SecurityException{
-		source.getGenericTechnicalToException(RemoteBean.class.getMethod("methodeMitZweiTechnicalToExceptions"));		
+		source.getGenericTechnicalToException(RemoteBean.class.getMethod("methodeMitZweiTechnicalToExceptions"));
 	}
-	
+
 	@Test(expected = IllegalStateException.class)
 	public void testGetGenericTechnicalToExceptionMethodeOhneException() throws NoSuchMethodException, SecurityException{
-		source.getGenericTechnicalToException(RemoteBean.class.getMethod("eineMethode"));		
+		source.getGenericTechnicalToException(RemoteBean.class.getMethod("eineMethode"));
+	}
+
+	@Test(expected = IllegalStateException.class)
+	public void testGetToExceptionClassWithNoMatchingToException() throws NoSuchMethodException {
+		Method method = RemoteBean.class.getMethod("methodeMitZweiToExceptions");
+		source.getToExceptionClass(method, SomeOtherBusinessException.class);
+	}
+
+	@Test
+	public void testGetToExceptionClassWithMultipleToExceptions() throws NoSuchMethodException {
+		Method method = RemoteBean.class.getMethod("methodeMitZweiToExceptions");
+		Class<?> expectedClass = BusinessToException.class;
+		Class<?> actualClass = source.getToExceptionClass(method, BusinessException.class);
+		assertEquals(expectedClass, actualClass);
+	}
+
+	@Test
+	public void testRemoveEnd() throws Exception {
+		Method method = ReflectiveExceptionMappingSource.class.getDeclaredMethod("removeEnd", String.class, String.class);
+		method.setAccessible(true);
+		String result = (String) method.invoke(source, "BusinessException", "Exception");
+		assertEquals("Business", result);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetToExceptionClassWithNullMethod() throws NoSuchMethodException {
+		source.getToExceptionClass(null, BusinessException.class);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetToExceptionClassWithNullExceptionClass() throws NoSuchMethodException {
+		Method method = RemoteBean.class.getMethod("methodeMitZweiToExceptions");
+		source.getToExceptionClass(method, null);
 	}
 
 }

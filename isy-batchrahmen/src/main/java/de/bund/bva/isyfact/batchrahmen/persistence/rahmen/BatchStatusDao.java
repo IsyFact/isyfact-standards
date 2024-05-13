@@ -16,60 +16,74 @@
  */
 package de.bund.bva.isyfact.batchrahmen.persistence.rahmen;
 
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.LockModeType;
-
 import de.bund.bva.isyfact.batchrahmen.core.exception.BatchrahmenInitialisierungException;
 import de.bund.bva.isyfact.batchrahmen.core.konstanten.NachrichtenSchluessel;
-import org.springframework.orm.jpa.EntityManagerFactoryUtils;
+
+import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 
 /**
- * Das BatchStatusDAO entspricht nicht den Vorgaben fuer Hibernate, da es in einem Unter-Spring-Kontext ohne
- * eigene SessionFactory arbeitet. Auf statische Methoden und statisches Auslesen des Hibernate-Templates wird
- * deshalb verzichtet.
- *
+ * The BatchStatusDAO does not comply with the specifications for Hibernate as it operates in a sub-Spring context without
+ * its own SessionFactory. Therefore, static methods and static reading of the Hibernate template are avoided.
  *
  */
 public class BatchStatusDao {
     /**
-     * Der EntityManager.
+     * The EntityManager.
      */
-    private EntityManagerFactory factory;
+    private final EntityManagerProvider entityManagerProvider;
 
     /**
-     * setzt den EntityManager im DAO.
+     * sets the EntityManager in the DAO.
      *
-     * @param entityManagerFactory
-     *            die EntityManagerFactory
+     * @param entityManagerProvider
+     *            the EntityManagerProvider
      */
-    public BatchStatusDao(EntityManagerFactory entityManagerFactory) {
-        this.factory = entityManagerFactory;
+    public BatchStatusDao(EntityManagerProvider entityManagerProvider) {
+        this.entityManagerProvider = entityManagerProvider;
     }
 
     /**
-     * liest einen Datensatz anhand eines Schluessels aus.
+     * reads a record based on a key.
      *
      * @param batchId
-     *            die ID des Batches.
-     * @return der gelesene Batch-Datensatz.
+     *            the ID of the batch.
+     * @return the read batch record.
      */
     public BatchStatus leseBatchStatus(String batchId) {
-        return EntityManagerFactoryUtils.getTransactionalEntityManager(this.factory).find(BatchStatus.class,
-            batchId, LockModeType.PESSIMISTIC_WRITE);
+        if (batchId == null || batchId.trim().isEmpty()) {
+            throw new BatchrahmenInitialisierungException(NachrichtenSchluessel.ERR_KONF_PARAMETER_FEHLT,
+                    "Batch ID darf nicht null oder leer sein.");
+        }
+        EntityManager entityManager = entityManagerProvider.getTransactionalEntityManager();
+        if (entityManager == null) {
+            throw new BatchrahmenInitialisierungException(NachrichtenSchluessel.ERR_KONF_PARAMETER_FEHLT,
+                    "Transactional EntityManager ist nicht verfügbar für Batch ID: " + batchId);
+        }
+        return entityManager.find(BatchStatus.class, batchId, LockModeType.PESSIMISTIC_WRITE);
     }
 
+
     /**
-     * persistiert den gegebenen Batch-Datensatz.
+     * persists the given batch record.
      *
      * @param status
-     *            der neue Datensatz.
+     *            the new record.
      */
     public void createBatchStatus(BatchStatus status) {
+        if (status == null) {
+            throw new IllegalArgumentException("Status darf nicht null sein");
+        }
         if (leseBatchStatus(status.getBatchId()) != null) {
             throw new BatchrahmenInitialisierungException(NachrichtenSchluessel.ERR_BATCH_IN_DB,
-                status.getBatchId());
+                    status.getBatchId());
         }
-        EntityManagerFactoryUtils.getTransactionalEntityManager(this.factory).persist(status);
+        EntityManager entityManager = entityManagerProvider.getTransactionalEntityManager();
+        if (entityManager == null) {
+            throw new BatchrahmenInitialisierungException(NachrichtenSchluessel.ERR_KONF_PARAMETER_FEHLT,
+                    "Transactional EntityManager ist nicht verfügbar.");
+        }
+        entityManager.persist(status);
     }
 
 }

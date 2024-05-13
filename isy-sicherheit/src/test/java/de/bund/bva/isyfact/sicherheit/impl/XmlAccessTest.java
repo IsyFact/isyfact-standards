@@ -45,13 +45,18 @@ public class XmlAccessTest {
 	public void testRollenRechteDateiExistiertNicht(){
 		xmlAccess.parseRollenRechteFile(ROLLEN_RECHTE_XML_PATH + "datei.xml");
 	}
-	
-	@Test(expected = RollenRechteMappingException.class)
-	public void testFalschesDateiFormat(){
-		xmlAccess.parseRollenRechteFile(ROLLEN_RECHTE_XML_PATH + "rollenrechte_FalschesFormat.xml");
+
+	@Test
+	public void testFalschesDateiFormat() {
+		try {
+			xmlAccess.parseRollenRechteFile(ROLLEN_RECHTE_XML_PATH + "rollenrechte_FalschesFormat.xml");
+			fail("Expected RollenRechteMappingException not thrown.");
+		} catch (RollenRechteMappingException ex) {
+			String expectedMessageStart = "#SIC2001 Fehler beim Parsen der Datei zum RollenRechteMapping: SAX-Exception.";
+			assertTrue("Expected message to start with specific text", ex.getMessage().startsWith(expectedMessageStart));
+		}
 	}
 
-	
 	@Test(expected = RollenRechteMappingException.class)
 	public void testMehrereRechteIdsInRecht() {
 		xmlAccess.parseRollenRechteFile(ROLLEN_RECHTE_XML_PATH + "rollenrechte_MehrereRechteIdsInRecht.xml");		
@@ -126,4 +131,5 @@ public class XmlAccessTest {
 	public void testRechtOhneIdElementInRolle(){
 		xmlAccess.parseRollenRechteFile(ROLLEN_RECHTE_XML_PATH + "rollenrechte_RechteOhneIdElementInRolle.xml");
 	}
+
 }

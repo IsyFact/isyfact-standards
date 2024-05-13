@@ -38,36 +38,35 @@ import de.bund.bva.isyfact.sicherheit.common.exception.RollenRechteMappingExcept
 import static org.junit.Assert.*;
 
 /**
- * Testet die Implementierung des Berechtigungsmanagers.
- *
+ * Tests the implementation of the Berechtigungsmanager.
  *
  */
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class BerechtigungsmanagerTest {
 
-    /** der zu testende Berechtigungsmanager. */
+    /** The Berechtigungsmanager to be tested. */
     private BerechtigungsmanagerImpl berechtigungsmanager;
 
-    /** der Nutzerkennung des Aufrufkontext auf dem der Berechtigungsmanager arbeitet. */
+    /** The user identifier of the Aufrufkontext that the Berechtigungsmanager operates on. */
     private static final String AUFRUF_KONTEXT_NUTZERKENNUNG = "test02@test.de";
 
-    /** das Behördenkennzeichen des Aufrufkontext auf dem der Berechtigungsmanager arbeitet. */
+    /** The agency code of the Aufrufkontext that the Berechtigungsmanager operates on. */
     private static final String AUFRUF_KONTEXT_BHKNZ = "123456";
 
-    /** der Rollen des Aufrufkontext auf dem der Berechtigungsmanager arbeitet. */
+    /** The roles of the Aufrufkontext that the Berechtigungsmanager operates on. */
     private static final String[] AUFRUF_KONTEXT_ROLLEN = new String[] {};
 
-    /** der Pfad zur Rollen-Rechte-Mapping Datei. */
+    /** The path to the role-rights mapping file. */
     private static final String ROLLENRECHTE_PFAD = "/resources/sicherheit/rollenrechte.xml";
 
-    /** der AufrufKontext, aus dem der Berechtigungsmanager erzeugt wird. */
+    /** The AufrufKontext from which the Berechtigungsmanager is created. */
     private AufrufKontext aufrufKontext;
 
-    /** die geparste RollenRechteMapping-Datei. */
+    /** The parsed role-rights mapping file. */
     private RollenRechteMapping mapping;
 
     /**
-     * Erstellt den zu Testenden Berechtigungsmanager.
+     * Sets up the Berechtigungsmanager to be tested.
      */
     @Before
     public void setup() {
@@ -172,15 +171,15 @@ public class BerechtigungsmanagerTest {
             this.berechtigungsmanager.getRecht(null);
             fail("Erwartete Exception wird nicht ausgelöst");
         } catch (IllegalArgumentException e) {
-            // hier ist alles in Ordnung
+            // this is expected
         }
         try {
             this.berechtigungsmanager = new BerechtigungsmanagerImpl(this.aufrufKontext.getRolle());
-            // berechtigungsmanager.setRollenRechteMapping wird nicht aufgerufen - Fehler!
+            // berechtigungsmanager.setRollenRechteMapping is not called - error!
             this.berechtigungsmanager.getRecht("Recht_A");
             fail("Erwartete Exception wird nicht ausgelöst");
         } catch (RollenRechteMappingException e) {
-            // hier ist alles in Ordnung
+            // this is expected
         }
     }
 
@@ -207,4 +206,43 @@ public class BerechtigungsmanagerTest {
         Berechtigungsmanager berechtigungsManager = sicherheit.getBerechtigungsManager();
         berechtigungsManager.hatRecht("Dieses Recht kommt in der RollenRechteMappingDatei nicht vor.");
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testHatRechtMitLeererEingabe() {
+        this.berechtigungsmanager.hatRecht("");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testHatRechtMitNullEingabe() {
+        this.berechtigungsmanager.hatRecht(null);
+    }
+
+    @Test(expected = RollenRechteMappingException.class)
+    public void testHatRechtMitNichtDefiniertemRecht() {
+        // Prerequisite: Mapping does not contain this right
+        this.berechtigungsmanager.hatRecht("NichtExistierendesRecht");
+    }
+
+    @Test
+    public void testGetRechtMitNichtExistierendemRecht() {
+        assertNull("Erwartetes Ergebnis für nicht definiertes Recht ist null.",
+                this.berechtigungsmanager.getRecht("NichtExistierendesRecht"));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetRechtMitLeererEingabe() {
+        this.berechtigungsmanager.getRecht("");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetRechtMitNullEingabe() {
+        this.berechtigungsmanager.getRecht(null);
+    }
+
+    @Test(expected = RollenRechteMappingException.class)
+    public void testBerechneRechteAusRollenOhneMapping() {
+        this.berechtigungsmanager.setRollenRechteMapping(null);
+        this.berechtigungsmanager.getRechte();  // This should trigger the exception
+    }
+
 }

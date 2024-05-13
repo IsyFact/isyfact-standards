@@ -4,7 +4,7 @@ package de.bund.bva.isyfact.logging.util;
  * #%L
  * isy-logging
  * %%
- * 
+ *
  * %%
  * See the NOTICE file distributed with this work for additional
  * information regarding copyright ownership.
@@ -12,9 +12,9 @@ package de.bund.bva.isyfact.logging.util;
  * licenses this file to you under the Apache License, Version 2.0 (the
  * License). You may not use this file except in compliance with the
  * License. You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
@@ -41,57 +41,57 @@ import de.bund.bva.isyfact.logging.exceptions.SerialisierungException;
 import de.bund.bva.isyfact.logging.impl.FehlerSchluessel;
 
 /**
- * Konverter, um ein Bean in eine Map umzuwandeln, die als Eingabe der Serialisierung in JSON dient.
+ * Converter to transform a bean into a map, which serves as input for serialization into JSON.
  */
 public class BeanToMapConverter implements BeanConverter {
 
-    /** List mit zu berücksichtigenden Packages. Diese wird für die Filterung einzelner Propterties verwendet. */
+    /** List of packages to consider. This is used for filtering individual properties. */
     private final List<String> includes;
 
-    /** List mit zu ignorierenden Packages. Diese wird für die Filterung einzelner Propterties verwendet. */
+    /** List of packages to ignore. This is used for filtering individual properties. */
     private final List<String> excludes;
 
-    /** Der zu verwendende String für Null-Werte. */
+    /** The string to use for null values. */
     public static final String NULL_STRING = "null";
 
-    /** Der zu verwendende String für die Ausgabe des HashCodes. */
+    /** The string to use for outputting the hash code. */
     public static final String HASHCODE_KEY = "hashCode";
-    
-    /** Der zu verwendende String für bei der Ausgabe eines excludierten Objects.. */
+
+    /** The string to use when outputting an excluded object. */
     public static final String EXCLUDED_VALUE = "NICHT_SERIALISIERT";
 
     /**
-     * Konstruktor der Klasse. Initialisiert die übergebenen Properties.
-     * 
+     * Constructor of the class. Initializes the passed properties.
+     *
      * @param includes
-     *            List der zu berücksichtigenden Packages.
+     *            List of packages to consider.
      * @param excludes
-     *            List der zu ignorierenden Packages.
+     *            List of packages to ignore.
      */
     public BeanToMapConverter(List<String> includes, List<String> excludes) {
         this.includes = includes;
         this.excludes = excludes;
     }
 
-    /** Enum zum bestimmen der Art in der die Verarbeitung einer Property stattfinden soll. */
+    /** Enum to determine the manner in which property processing should occur. */
     protected enum ConversionStyle {
-        /** Die Property wird rekursiv durchlaufen. */
+        /** The property is processed recursively. */
         RECURSIVE,
-        /** Auf der Property wird die "toString-Methode" aufgerufen. */
+        /** The toString method is called on the property. */
         TOSTRING,
-        /** Die Property wird ignoriert. */
+        /** The property is ignored. */
         IGNORE;
     }
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @see de.bund.bva.isyfact.logging.util.BeanConverter#convert(java.lang.Object)
      */
     @Override
     public Object convert(Object bean) {
 
-        // Null wird als 'null' in die Serialisierung gegeben.
+        // Null is given as 'null' in serialization.
         if (bean == null) {
             return NULL_STRING;
         }
@@ -104,21 +104,20 @@ public class BeanToMapConverter implements BeanConverter {
     }
 
     /**
-     * Sammelt rekursiv, alle zu Properties in den Beans. Dabei wird für jedes Bean eine Map erstellt, in der
-     * der Name der Properties auf die jeweiligen Werte abgebildet werden. Properties, die selbst Beans sind
-     * und bei der Serialisierung berücksichtigt werden, werden selbst wiederum als Map in die übergeordnete
-     * Map (des enthaltenden Beans) mitaufgenommen.
-     * 
+     * Recursively collects all properties in the beans. For each bean, a map is created in which
+     * the names of the properties are mapped to their respective values. Properties that are themselves beans
+     * and are considered during serialization are themselves included as maps in the parent
+     * map (of the containing bean).
+     *
      * @param bean
-     *            das zu konveriterende Bean.
+     *            the bean to be converted.
      * @param seen
-     *            Liste der bereits verarbeiteten Objekte, um zu vermeiden das die Rekursion nicht in einer
-     *            Endlosschleife landet.
-     * @return die Map-Struktur mit den Werten des zu serialisierenden Beans.
+     *            List of already processed objects to prevent recursion from ending in an infinite loop.
+     * @return the map structure with the values of the bean to be serialized.
      */
     private Map<String, Object> collectAttributesRecursive(Object bean, Set<Object> seen) {
 
-        // Die Ergebnismap. Treemap wird verwendet, für eine stabile Sortierungsreihenfolge.
+        // The result map. TreeMap is used for a stable sorting order.
         Map<String, Object> propertyMap = new TreeMap<>();
 
         propertyMap.put(HASHCODE_KEY, "" + bean.hashCode());
@@ -131,20 +130,20 @@ public class BeanToMapConverter implements BeanConverter {
         }
         PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
 
-        // Iteration über alle Properties des Beans.
+        // Iteration over all properties of the bean.
         for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
 
-            // Name der Property
+            // Name of the property
             String name = propertyDescriptor.getName();
 
             Method readMethod = propertyDescriptor.getReadMethod();
 
-            // Überspringen, falls keine öffentliche Read-Methode für die Property vorhanden ist.
+            // Skip if there is no public read method for the property.
             if (readMethod == null) {
                 continue;
             }
 
-            // Wert der Property
+            // Value of the property
             Object value;
             try {
                 value = readMethod.invoke(bean);
@@ -152,15 +151,9 @@ public class BeanToMapConverter implements BeanConverter {
                 throw new SerialisierungException(FehlerSchluessel.FEHLER_SERIALISIERUNG_AUFRUFPARAMETER, e);
             }
 
-            // Leerwerte werden nicht übernommen
-            Object converted;
-            if (value == null) {
-                converted = processValue(value, seen);
-            } else {
-                converted = processValue(value, seen);
-            }
-            // Leerwerte werden nicht übernommen - Null-Werte, die übernommen werden sollen, werden bereits in
-            // der Konvertierung zu einem String umgewandelt.
+            Object converted = processValue(value, seen);
+            // Empty values are not included - Null values that are to be included are already converted
+            // to a string during conversion.
             if (converted != null) {
                 propertyMap.put(name, converted);
             }
@@ -170,47 +163,45 @@ public class BeanToMapConverter implements BeanConverter {
     }
 
     /**
-     * Übernimmt den übergebenen Wert einer Property.
-     * 
+     * Takes the given value of a property.
+     *
      * @param value
-     *            der zu verarbeitende Wert.
+     *            the value to process.
      * @param seen
-     *            Liste der bereits verarbeiteten Objekte, um zu vermeiden das die Rekursion nicht in einer
-     *            Endlosschleife landet.
-     * 
-     * @return der Wert in serialisierter Form.
+     *            List of already processed objects to prevent recursion from ending in an infinite loop.
+     *
+     * @return the value in serialized form.
      */
     private Object processSimpleValue(Object value, Set<Object> seen) {
 
-        // Ermittelt die Art der Serialisierung
+        // Determines the type of serialization
         ConversionStyle serialisierungsart = determineConversionStyle(value);
 
         switch (serialisierungsart) {
-        case TOSTRING:
-            return convertToString(value);
-        case RECURSIVE:
-            if (seen.contains(value)) {
-                // Abbruch, falls das Object bereits aufgenommen wurde, um Endlosschleifen zu vermeiden
-                return "Bereits verarbeitet: " + value.hashCode();
-            } else {
-                seen.add(value);
-                return collectAttributesRecursive(value, seen);
-            }
-        default:
-            return EXCLUDED_VALUE;
+            case TOSTRING:
+                return convertToString(value);
+            case RECURSIVE:
+                if (seen.contains(value)) {
+                    // Break if the object has already been included to prevent infinite loops
+                    return "Bereits verarbeitet: " + value.hashCode();
+                } else {
+                    seen.add(value);
+                    return collectAttributesRecursive(value, seen);
+                }
+            default:
+                return EXCLUDED_VALUE;
         }
 
     }
 
     /**
-     * Übernimmt den übergebenen Wert.
-     * 
+     * Takes the given value.
+     *
      * @param value
-     *            der zu übernehmende Wert (beliebiger Datentyp).
+     *            the value to take (any data type).
      * @param seen
-     *            Liste der bereits verarbeiteten Objekte, um zu vermeiden das die Rekursion nicht in einer
-     *            Endlosschleife landet.
-     * @return der Werte in konvertierter Form.
+     *            List of already processed objects to prevent recursion from ending in an infinite loop.
+     * @return the values in converted form.
      */
     private Object processValue(Object value, Set<Object> seen) {
 
@@ -218,12 +209,12 @@ public class BeanToMapConverter implements BeanConverter {
             return processSimpleValue(value, seen);
         }
 
-        // Arrays werden wie Listen behandelt
+        // Arrays are treated like lists
         if (value.getClass().isArray()) {
             List<Object> valueList = new ArrayList<>();
 
-            // Hier wird explizit nicht Arrays.asList verwendet, da dies zu problemen bei Arrays von
-            // primitiven Datentypen führt.
+            // Explicitly not using Arrays.asList here as it leads to problems with arrays of
+            // primitive types.
             for (int i = 0; i < Array.getLength(value); i++) {
                 Object entry = Array.get(value, i);
                 valueList.add(entry);
@@ -242,15 +233,14 @@ public class BeanToMapConverter implements BeanConverter {
     }
 
     /**
-     * Übernimmt den übergebenen Map-Wert einer Property.
-     * 
+     * Takes the given map value of a property.
+     *
      * @param value
-     *            der zu verarbeitende Wert.
+     *            the value to process.
      * @param seen
-     *            Liste der bereits verarbeiteten Objekte, um zu vermeiden das die Rekursion nicht in einer
-     *            Endlosschleife landet.
-     * 
-     * @return die Werte in konvertierter Form.
+     *            List of already processed objects to prevent recursion from ending in an infinite loop.
+     *
+     * @return the values in converted form.
      */
     private Object processMapValue(Map<?, ?> value, Set<Object> seen) {
         Map<Object, Object> convertedMap = new TreeMap<>(Comparator.comparing(Object::toString));
@@ -258,8 +248,8 @@ public class BeanToMapConverter implements BeanConverter {
         for (Object mapKey : value.keySet()) {
             Object mapValue = value.get(mapKey);
 
-            // Wert Ignorieren, wenn der Key 'null' ist - dies ist nur dann der Fall wenn der Wert wirklich
-            // ignoriert werden soll, bei anderen wird der "NULL-String" zurückgegeben.
+            // Ignore the value if the key is 'null' - this only happens if the value really
+            // should be ignored, otherwise the "NULL_STRING" is returned.
             Object convertedKey = processValue(mapKey, seen);
             if (convertedKey != null) {
                 Object convertedValue = processValue(mapValue, seen);
@@ -272,15 +262,14 @@ public class BeanToMapConverter implements BeanConverter {
     }
 
     /**
-     * Übernimmt den übergebenen Iterable-Wert einer Property.
-     * 
+     * Takes the given iterable value of a property.
+     *
      * @param iterable
-     *            der zu verarbeitende Wert.
+     *            the value to process.
      * @param seen
-     *            Liste der bereits verarbeiteten Objekte, um zu vermeiden das die Rekursion nicht in einer
-     *            Endlosschleife landet.
-     * 
-     * @return die Werte in konvertierter Form.
+     *            List of already processed objects to prevent recursion from ending in an infinite loop.
+     *
+     * @return the values in converted form.
      */
     private List<Object> processIterableValue(Iterable<?> iterable, Set<Object> seen) {
 
@@ -297,11 +286,11 @@ public class BeanToMapConverter implements BeanConverter {
     }
 
     /**
-     * Hilfsmethode zum Konvertieren eines Werts zu einem String.
-     * 
+     * Helper method for converting a value to a string.
+     *
      * @param value
-     *            der zu konvertirende Wert.
-     * @return der konvertierte Wert.
+     *            the value to be converted.
+     * @return the converted value.
      */
     private String convertToString(Object value) {
         if (value == null) {
@@ -312,16 +301,16 @@ public class BeanToMapConverter implements BeanConverter {
     }
 
     /**
-     * Bestimmung in welcher Form das übergebene Objekt serialisiert werden soll. Diese Methode kann als
-     * Erweiterungspunkt für eine spezifischere Logik genutzt werden.
-     * 
+     * Determines in what form the given object should be serialized. This method can be used as
+     * an extension point for more specific logic.
+     *
      * @param value
-     *            der zu konvertierende Wert.
-     * @return die Art der Konvertierung.
+     *            the value to be converted.
+     * @return the type of conversion.
      */
     protected ConversionStyle determineConversionStyle(Object value) {
 
-        // Null-Werte werden ignoriert.
+        // Null values are ignored.
         if (value == null) {
             return ConversionStyle.TOSTRING;
         }
@@ -329,8 +318,8 @@ public class BeanToMapConverter implements BeanConverter {
         Class<? extends Object> classObj = value.getClass();
         String className = classObj.getName();
 
-        // Einfache Datentypen werden als String übernommen (Primitives können nicht vorkommen, da diese
-        // automatisch gewrapped werden in INTEGER etc.
+        // Simple data types are taken as a string (Primitives cannot occur as they are
+        // automatically wrapped in INTEGER etc.
         if (classObj.isEnum()) {
             return ConversionStyle.TOSTRING;
         }
@@ -339,24 +328,24 @@ public class BeanToMapConverter implements BeanConverter {
         boolean excluded = checkIsExclude(className);
 
         if (excluded) {
-            // Excludierte Klassen werden immer ignoriert
+            // Excluded classes are always ignored
             return ConversionStyle.IGNORE;
         } else if (included) {
-            // Includierte die nicht excludiert sind werden immer Rekursiv durchlaufen
+            // Included but not excluded are always processed recursively
             return ConversionStyle.RECURSIVE;
         } else {
-            // Bei Klassen ohne Angabe wird ToString aufgerufen
+            // Classes without specification are processed using ToString
             return ConversionStyle.TOSTRING;
         }
 
     }
 
     /**
-     * Prüft ob die übergebene Klasse in die Serialisierung mit einbezogen (Include) werden soll.
-     * 
+     * Checks if the given class should be included in the serialization (Include).
+     *
      * @param className
-     *            Name der zu prüfenden Klasse.
-     * @return <code>true</code> wenn die Klasse included werden soll, <code>false</code> sonst.
+     *            Name of the class to check.
+     * @return <code>true</code> if the class should be included, <code>false</code> otherwise.
      */
     private boolean checkIsInclude(String className) {
         if (includes != null && !includes.isEmpty()) {
@@ -370,12 +359,11 @@ public class BeanToMapConverter implements BeanConverter {
     }
 
     /**
-     * Prüft ob die übergebene Klasse in die Serialisierung explizit nicht mit einbezogen (Excluded) werden
-     * soll.
-     * 
+     * Checks if the given class should explicitly not be included in the serialization (Excluded).
+     *
      * @param className
-     *            Name der zu prüfenden Klasse.
-     * @return <code>true</code> wenn die Klasse excluded werden soll, <code>false</code> sonst.
+     *            Name of the class to check.
+     * @return <code>true</code> if the class should be excluded, <code>false</code> otherwise.
      */
     private boolean checkIsExclude(String className) {
         if (excludes != null && !excludes.isEmpty()) {
@@ -389,18 +377,18 @@ public class BeanToMapConverter implements BeanConverter {
     }
 
     /**
-     * Liefert den Wert des Attributs 'includes'.
-     * 
-     * @return Wert des Attributs.
+     * Returns the value of the 'includes' attribute.
+     *
+     * @return Value of the attribute.
      */
     public List<String> getIncludes() {
         return includes;
     }
 
     /**
-     * Liefert den Wert des Attributs 'excludes'.
-     * 
-     * @return Wert des Attributs.
+     * Returns the value of the 'excludes' attribute.
+     *
+     * @return Value of the attribute.
      */
     public List<String> getExcludes() {
         return excludes;
