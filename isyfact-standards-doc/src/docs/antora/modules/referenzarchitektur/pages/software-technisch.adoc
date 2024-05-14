@@ -1,58 +1,31 @@
 = Software-technische Referenzarchitektur
 
-[[software-referenzarchitektur]]
-== Software Referenzarchitektur
+Die software-technische Referenzarchitektur beschreibt, wie die in der fachlichen Referenzarchitektur definierten Elemente (Anwendungssysteme, Anwendungskomponenten, fachliche Entitäten, Anwendungsfälle etc.) software-technisch in Form von IT-Systemen, Komponenten, Klassen, physischen Datenmodellen etc. umgesetzt werden.
 
-Die individuell erstellten Anwendungssysteme der Anwendungslandschaft sind technisch gleichartig aufgebaut.
-Daher wird eine Referenzarchitektur aufgestellt, nach denen Anwendungssysteme (Geschäftsanwendungen und Querschnittsanwendungen) software-technisch in xref:glossary:glossary:master.adoc#glossar-it-system[IT-Systeme] umgesetzt werden.
-Das Dokument xref:blaupausen:referenzarchitektur-it-system/master.adoc[Referenzarchitektur IT-Systeme] beschreibt diese Referenzarchitektur.
+Eine zentrale Eigenschaft der software-technischen Referenzarchitektur ist, dass sie nicht zwischen xref:glossary:glossary:master.adoc#glossar-anwendungstyp[Anwendungstypen] unterscheidet.
+Ungeachtet ihrer Fachlichkeit von Anwendung ist ihre Umsetzung der technischen Architektur gleich.
+Die software-technische Referenzarchitektur definiert hierzu das xref:glossary:glossary:master.adoc#glossar-it-system[IT-System], und beschreibt dessen Umsetzung in der xref:blaupausen:referenzarchitektur-it-system/master.adoc[].
 
-Skalierbarkeit und Hochverfügbarkeit sind wichtige Anforderungen an die Referenzarchitektur.
-Dies wird unterstützt durch eine zustandslose Serverarchitektur.
-Der Zustand einer Anwendung wird in der Datenbank persistiert und bei jedem eintreffenden Service-Aufruf aus dieser gelesen und bei Beendigung des Service-Aufrufs wieder in die Datenbank geschrieben.
-
-.Horizontale Skalierung
-[id="image-horSkal",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:referenzarchitektur/horSkal.png[align="center",pdfwidth=50%,width=50%]
-
-In der Referenzarchitektur erfolgt die Anpassung an steigende Anforderungen durch horizontale Skalierung auf der Ebene der Anwendungsserver.
-Ein (Hardware- oder Software-)Loadbalancer verteilt die eingehenden Anfragen auf die vorhandenen Anwendungsserver.
-Im Falle eines Serverausfalls kann die Aufgabe des ausgefallenen Servers durch einen anderen Server übernommen werden.
-Die Skalierung des Systems ist in <<image-horSkal>> dargestellt.
-
-Die Referenzarchitektur ist die Umsetzung einer serviceorientierten Architektur.
-Im Design des xref:glossary:glossary:master.adoc#glossar-anwendungskern[Anwendungskerns] (siehe xref:blaupausen:detailkonzept-komponente-anwendungskern/master.adoc[Detailkonzept Komponente Anwendungskern]) finden sich explizit Komponenten und Services.
-Der Anwendungskern unterscheidet dabei noch zwischen Anwendungs-internen Services, die nur innerhalb der Anwendung aufgerufen werden und Anwendungs-externen Services, die über eine Nutzungsschnittstelle als Service anderen Anwendungen zur Verfügung gestellt werden.
-
-Der Entwurf der Services leitet sich in der Referenzarchitektur aus fachlichen Kriterien her.
-Services werden in der fachlichen Referenzarchitektur identifiziert und finden sich dann auch in der technischen Implementierung wieder.
-
-Die in diesem Dokument beschriebene Referenzarchitektur ist eine vollwertige JEE-Architektur.
+Die software-technische Referenzarchitektur ist eine vollwertige JEE-Architektur.
 Jedoch wird eine zentrale Spezifikation von JEE nicht genutzt: die EJB-Spezifikation aus dem Bereich Enterprise Application.
 Dies hat vor allem Performance- und Komplexitätsgründe.
 Es hat zur Folge, dass als Application Server ein Servlet-Container ausreichend ist.
 
-[[die-software-referenzarchitektur]]
-== Die Software-Referenzarchitektur
-
-Eine Software-Architektur beschreibt, wie die in einer fachlichen Architektur definierten Elemente (Anwendungssysteme, Anwendungskomponenten, fachliche Entitäten, Anwendungsfälle etc.) software-technisch in Form von IT-Systemen, Komponenten, Klassen, physischen Datenmodellen etc. umgesetzt werden.
-
-Die Besonderheit der Software-Referenzarchitektur ist, dass sie nicht zwischen Systemarten (Geschäftsanwendungen, Querschnittsanwendungen, usw.) unterscheidet.
-Obwohl unterschiedliche Systeme stark unterschiedliche Fachlichkeit umsetzen können, sind die Anforderungen an ihre technische Architektur gleich.
+== Definition der Systemlandschaft
 
 Der Begriff der Anwendungslandschaft ist fachlich motiviert.
 Die technische Entsprechung hierfür ist der Begriff der xref:glossary:glossary:master.adoc#glossar-systemlandschaft[Systemlandschaft].
 Eine Systemlandschaft, die eine Anwendungslandschaft nach den IsyFact-Standards umsetzt, wird im Folgenden als _IsyFact-Systemlandschaft_ bezeichnet.
-Eine solche IsyFact-Systemlandschaft beinhaltet alle software-technisch umgesetzten Anwendungssysteme der Anwendungslandschaft sowie technische Systeme zur Unterstützung (z. B. Datenbanken, Web-Server, usw).
+Eine solche IsyFact-Systemlandschaft beinhaltet alle software-technisch umgesetzten Anwendungssysteme der Anwendungslandschaft sowie technische Systeme zur Unterstützung (z.B. Datenbanken, Web-Server, usw).
 
-Die technische Architektur eines IT-Systems wird in xref:blaupausen:referenzarchitektur-it-system/master.adoc[Referenzarchitektur IT-System] definiert.
+Die technische Architektur eines IT-Systems wird in xref:blaupausen:referenzarchitektur-it-system/master.adoc[] definiert.
 Im Folgenden wird, aufbauend auf diesem Konzept, beschrieben:
 
 * welche Eigenschaften bezogen auf die technische Referenzarchitektur die Typen von Anwendungssystemen in einer IsyFact-Systemlandschaft besitzen (Kapitel <<strukturierung-der-systemlandschaft>>),
 * welche Vorgaben für die Verwendung von Produkten existieren (Kapitel <<verwendung-von-produkten>>).
 
 [[strukturierung-der-systemlandschaft]]
-=== Strukturierung der Systemlandschaft
+== Strukturierung der Systemlandschaft
 
 Wichtige Grundlagen für die Software-Referenzarchitektur sind die Schnittstellen und Aufruf-Beziehungen der IT-Systeme vom Typ _Geschäftsanwendung_,
 _Querschnittsanwendung_ sowie _Portal_ und _Service-Gateway_.
@@ -102,15 +75,15 @@ Querschnittsanwendungen werden nur von internen Benutzern oder anderen IT-System
 Eine Ausnahme bilden Querschnittsanwendungen, wie z.B. ein Mail-Gateway für den Versand von E-Mails an externe Empfänger.
 
 [[servicekommunikation]]
-=== Servicekommunikation
+== Servicekommunikation
 
-Wie in <<strukturierung-der-systemlandschaft>> beschrieben, kommunizieren IT-Systeme auf Basis von Services (s. <<image-servicekommunikation>>).
+Wie in <<strukturierung-der-systemlandschaft>> beschrieben, kommunizieren IT-Systeme auf Basis von Services (s. <<servicekommunikation-intern-extern>>).
 Wenn ausschließlich IT-Systeme innerhalb der Systemlandschaft miteinander kommunizieren, spricht die Referenzarchitektur von *interner Servicekommunikation*.
 Wenn die Kommunikation auch IT-Systeme einschließt, die außerhalb liegen, verwendet die Referenzarchitektur den Begriff *externe Servicekommunikation*.
 
+[[servicekommunikation-intern-extern]]
 .Interne und externe Servicekommunikation
-[id="image-servicekommunikation",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:referenzarchitektur/servicekommunikation.dn.svg[align="center"]
+image::software-technisch/servicekommunikation.dn.svg[]
 
 IT-Systeme tauschen in der Kommunikation untereinander Daten aus.
 Diese lassen sich in Metadaten und Nutzdaten unterteilen.
@@ -141,16 +114,16 @@ Die IsyFact standardisiert die Art und Weise, wie Nutzdaten spezifiziert, dokume
 
 
 [[synchrone-service-aufrufe]]
-==== Synchrone Service-Aufrufe
+=== Synchrone Service-Aufrufe
 
-Synchrone Service-Aufrufe bieten die Möglichkeit der direkten Kommunikation zwischen zwei IT-Systemen (s. <<image-synchronous-call>>).
-Hierbei schickt der Sender eine Anfrage (engl. _request_) an den Empfänger.
-Der Empfänger bearbeitet die Anfrage und schickt eine Antwort (engl. _response_) an den Sender zurück.
+Synchrone Service-Aufrufe bieten die Möglichkeit der direkten Kommunikation zwischen zwei IT-Systemen (s. <<service-aufruf-synchron>>).
+Hierbei schickt der Sender eine Anfrage (englisch: _request_) an den Empfänger.
+Der Empfänger bearbeitet die Anfrage und schickt eine Antwort (englisch: _response_) an den Sender zurück.
 Der Sender wartet auf die Antwort, bevor er seine Verarbeitung fortsetzt.
 
+[[service-aufruf-synchron]]
 .Ablauf eines synchronen Service-Aufrufs
-[id="image-synchronous-call",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:referenzarchitektur/synchroner-service-aufruf.dn.svg[align="center"]
+image::software-technisch/synchroner-service-aufruf.dn.svg[]
 
 Deswegen sind synchrone Service-Aufrufe in der Regel eine vergleichsweise zeitintensive Operation.
 Häufig ist es sinnvoll, Service-Aufrufe nach Möglichkeit einzusparen.
@@ -160,11 +133,11 @@ Die Abwägung darüber muss während der Erstellung des Systementwurfs geschehen
 .icon:university[title=Architekturregel] Verwendung von HTTP für Service-Aufrufe
 ****
 Synchrone Service-Aufrufe finden über das Protokoll *HTTP* statt und werden sowohl zur internen als auch externen Servicekommunikation genutzt.
-HTTP-Anfragen bzw. HTTP-Antworten (s. <<image-http-messages>>) erlauben es an drei Stellen, anwendungsspezifische Daten zu übertragen: in der URL, in den Headern sowie im Body.
+HTTP-Anfragen bzw. HTTP-Antworten erlauben es an drei Stellen, anwendungsspezifische Daten zu übertragen: in der URL, in den Headern sowie im Body.
 
+[[http-message-aufbau]]
 .Aufbau von HTTP-Anfragen bzw. HTTP-Antworten
-[id="image-http-messages",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:referenzarchitektur/http-messages-aufbau.dn.svg[align="center"]
+image::referenzarchitektur:software-technisch/http-messages-aufbau.dn.svg[]
 Header enthalten Metadaten.
 Der Body enthält Nutzdaten.
 Bei Anfragen mittels `GET` und `DELETE`, die keinen Body erwarten, enthalten URL-Parameter Nutzdaten.
@@ -175,20 +148,20 @@ Hierbei sind z.B. datenschutzrechtliche Aspekte zu prüfen, wenn URL-Parameter p
 Im Zweifelsfall ist die Methode `POST` eine gangbare Alternative, um solche Nutzdaten im Body zu übertragen.
 
 [[asynchrone-service-aufrufe]]
-==== Asynchrone Service-Aufrufe
+=== Asynchrone Service-Aufrufe
 
 Für asynchrone Service-Aufrufe gelten dieselben Vorgaben wie für <<synchrone-service-aufrufe,synchrone Service-Aufrufe>>.
 Sie unterscheiden sich im Ablauf dahingehend, dass der Sender nicht aktiv auf die Antwort des Empfängers wartet.
 Stattdessen wird die Verarbeitung erst durch die Antwort des Empfängers wieder aufgenommen, z.B. in Form eines Callbacks.
 
+[[service-aufruf-asynchron]]
 .Ablauf eines asynchronen Service-Aufrufs
-[id="image-asynchronous-call",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:referenzarchitektur/asynchroner-service-aufruf.dn.svg[align="center"]
+image::software-technisch/asynchroner-service-aufruf.dn.svg[]
 
 Asynchrone Service-Aufrufe können z.B. dann eingesetzt werden, wenn eine länger dauernde Verarbeitung durch den Empfänger eine direkte Rückmeldung unmöglich macht.
 
 [[queueing]]
-==== Queueing
+=== Queueing
 
 Beim Queueing baut ein Message-Broker eine Punkt-zu-Punkt-Verbindung zwischen zwei IT-Systemen auf.
 Dies geschieht in Form einer Queue.
@@ -197,20 +170,19 @@ Der Sender ist nun in der Lage, dem Empfänger über die Queue Nachrichten zu sc
 Die Nachrichten sind anhand eines zentral definierten Formats strukturiert.
 Der Sender enthält keine direkte Antwort vom Empfänger.
 
+[[service-aufruf-queueing]]
 .Ablauf der Kommunikation beim Queueing
-[id="image-queueing",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:referenzarchitektur/queueing.dn.svg[align="center"]
-
+image::software-technisch/queueing.dn.svg[]
 
 Für das Queueing infrage kommende Message-Broker müssen *JMS* (Jakarta Messaging, ehemals _Java Message Service_) unterstützen.
 Queueing wird ausschließlich in der internen Servicekommunikation eingesetzt.
 
-JMS-Nachrichten bestehen aus Header, Properties und einem Body (s. <<image-jms-message>>).
+JMS-Nachrichten bestehen aus Header, Properties und einem Body (s. <<jms-message-aufbau>>).
 Die Properties unterteilen sich noch einmal in applikationsspezifische Properties, die nur für Publisher und Subscriber Bedeutung haben, sowie provider-spezifische und Standard-Properties, die zur Verarbeitung der JMS-Nachrichten durch den Message-Broker gedacht sind.
 
+[[jms-message-aufbau]]
 .Aufbau einer JMS-Nachricht
-[id="image-jms-message",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:referenzarchitektur/jms-message-aufbau.dn.svg[align="center"]
+image::software-technisch/jms-message-aufbau.dn.svg[]
 
 Applikationsspezifische Properties enthalten Metadaten.
 Der Body enthält Nutzdaten.
@@ -226,7 +198,7 @@ Weitere Details zu JMS-Nachrichten finden sich in der JMS-Spezifikation im Kapit
 Besonders relevant für die Referenzarchitektur sind die Abschnitte https://jakarta.ee/specifications/messaging/3.0/jakarta-messaging-spec-3.0.html#jakarta-messaging-messages[3.3. Jakarta Messaging messages] sowie https://jakarta.ee/specifications/messaging/3.0/jakarta-messaging-spec-3.0.html#jakarta-messaging-message-body[3.11. Jakarta Messaging message body].
 ====
 
-==== Kommunikation mit externen IT-Systemen
+=== Kommunikation mit externen IT-Systemen
 
 Die Kommunikation mit externen IT-Systemen basiert auf Web-Services.
 Hierbei muss man zwischen zwei Fällen unterscheiden:
@@ -253,22 +225,22 @@ Wird ein Service von einem externen IT-System angeboten, wird er als „externer
 Ein Service-Consumer macht diesen „externen Service“ als „inneren Service“ der Systemlandschaft verfügbar.
 Wird ein Service von einem internen IT-System angeboten, so ist das ebenfalls ein „innerer Service“.
 Wenn ein Service-Provider diesen „inneren Service“ einer Anwendung außerhalb der Plattform zugänglich macht, ist dies ein „äußerer Service“ der Systemlandschaft.
-Dies ist in <<image-extintServ>> dargestellt.
+Dies ist in <<services-typen>> dargestellt.
 Die Unterscheidung zwischen „innere“ und „äußere“ ist analog für die Begriffe „Request“ und „Response“ zu verwenden.
 
+[[services-typen]]
 .Externe, äußere und innere Services
-[id="image-extintServ",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:referenzarchitektur/extintServ.png[align="center"]
+image::software-technisch/extintServ.png[]
 
-==== Umsetzung der Servicekommunikation
+=== Umsetzung der Servicekommunikation
 
 Zur Umsetzung der Servicekommunikation gibt es Service-Bausteine, die ausgewählte Schnittstellentechnologien in die Referenzarchitektur integrieren.
 
 
 [[nutzungsarten-eines-anwendungssystems]]
-=== Nutzungsarten eines Anwendungssystems
+== Nutzungsarten eines Anwendungssystems
 
-Nachdem in xref:blaupausen:referenzarchitektur-it-system/master.adoc[Referenzarchitektur IT-System] die technische Architektur vorgestellt wurde, soll in diesem Abschnitt konkret vorgestellt werden, wie auf Basis dieser Architektur Anwendungen entworfen werden.
+Nachdem in xref:blaupausen:referenzarchitektur-it-system/master.adoc[] die technische Architektur vorgestellt wurde, soll in diesem Abschnitt konkret vorgestellt werden, wie auf Basis dieser Architektur Anwendungen entworfen werden.
 
 Die Nutzungsschicht eines IT-Systems bietet anderen IT-Systemen über Services und dem Betrieb über Batches Schnittstellen zur Nutzung der implementierten Fachlichkeit an.
 Im Folgenden wird ein Beispiel-Szenario zur Nutzung eines IT-Systems vorgestellt.
@@ -290,8 +262,8 @@ Zur Implementierung der Geschäftslogik kann die Geschäftsanwendung auch xref:g
 Im vorliegenden Fall wird nur ein Service-Provider benötigt, da nur Aufrufe entgegengenommen werden.
 Diese werden authentifiziert, autorisiert, und an das zugehörige IT-System weitergeleitet.
 
-Damit ergeben sich die in <<image-CallFAmGuX>> dargestellten IT-Systeme und Aufruf-Beziehungen.
-Die in dieser Abbildung angedeuteten Schichten eines IT-Systems (Batch, Service, Anwendungskern, Datenzugriff und Querschnitt) werden von der xref:blaupausen:referenzarchitektur-it-system/master.adoc[Referenzarchitektur IT-System] erläutert.
+Damit ergeben sich die in <<ga-aufrufbeziehungen>> dargestellten IT-Systeme und Aufruf-Beziehungen.
+Die in dieser Abbildung angedeuteten Schichten eines IT-Systems (Batch, Service, Anwendungskern, Datenzugriff und Querschnitt) werden von der xref:blaupausen:referenzarchitektur-it-system/master.adoc[] erläutert.
 Wichtig in Hinblick auf diese Schichten sind folgende Punkte:
 
 * Die Komponente _Batch_ der Geschäftsanwendung wird im obigen Beispiel nicht implementiert, da die Geschäftsanwendung keine Schnittstelle für Batchläufe anbietet.
@@ -299,13 +271,13 @@ Wichtig in Hinblick auf diese Schichten sind folgende Punkte:
 * Es wurden keine Aufrufe von Querschnittsanwendungen eingezeichnet.
 Für derartige Aufrufe gibt es keine Vorgaben: Sie können aus beliebigen Schichten von Geschäftsanwendungen und Service-Gateways aus aufgerufen werden.
 
+[[ga-aufrufbeziehungen]]
 .Aufrufbeziehungen für eine Geschäftsanwendung mit Service-Schnittstelle
-[id="image-CallFAmGuX",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:referenzarchitektur/CallFAmGuX.png[align="center"]
+image::software-technisch/CallFAmGuX.png[]
 ====
 
 [[prinzipien-der-sicherheitsarchitektur]]
-=== Prinzipien der Sicherheitsarchitektur
+== Prinzipien der Sicherheitsarchitektur
 
 Die IsyFact-Referenzarchitektur beinhaltet auch Vorgaben für die Sicherheitsarchitektur einer Systemlandschaft.
 Eine davon ist die Forderung, dass IsyFact-konforme IT-Systeme gegen unberechtigte Nutzung zu schützen sind.
@@ -323,7 +295,6 @@ Nur der Eigentümer der Authentifizierungsinformationen und der zentrale IAM-Ser
 Folgende Abbildung zeigt die Umsetzung der Prinzipien in der Systemlandschaft:
 
 .Integration des IAM-Service in eine Systemlandschaft
-[id="image-iam-integration-awl",reftext="{figure-caption} {counter:figures}"]
 image::software-technisch/sicherheit_iam_integration_awl.dn.svg[]
 
 * *Portal:* +
@@ -359,13 +330,13 @@ Da das Berechtigungskonzept individuell für jede Systemlandschaft erstellt wird
 Eine detaillierte Beschreibung der erwähnten Zugriffskomponenten (Portal, Service-Gateway, Authentication-Gateway), des IAM-Service, der implementierten Authentifizierungsverfahren und der Autorisierungsinformationen (Access-Token) findet sich im xref:isyfact-standards-doku:isy-security:konzept/master.adoc[].
 
 [[authentifizierung]]
-==== Authentifizierung
+=== Authentifizierung
 
 NOTE: Authentifikation: Verifikation der Identität eines Benutzers als Zugangskontrolle zu einem geschützten System.
 Dabei ist es erforderlich, eindeutige Eigenschaften (z.B. biometrische Daten) oder geheime Daten (z.B. Passwort) zur Überprüfung zu übergeben.
 
 Nach der erfolgreichen Authentifizierung eines Benutzers gibt der IAM-Service Autorisierungsinformationen zurück.
-Diese Autorisierungsinformationen dienen dann als Nachweis des Nutzungsrechts des aufgerufenen Dienstes (*Autorisierung* (s.u.)).
+Diese Autorisierungsinformationen dienen dann als Nachweis des Nutzungsrechts des aufgerufenen Dienstes (s. <<autorisierung>>).
 Die tatsächliche Identität und Authentifizierungsinformationen des Benutzers spielen ab hier keine Rolle mehr und sind deshalb nicht Teil der Autorisierungsinformationen.
 
 In der Regel erfolgt die Authentifizierung von Benutzern über eine zentrale Komponente der Systemlandschaft, in welche das IT-System eingebettet ist, dem IAM-Service.
@@ -374,7 +345,7 @@ Die Authentifizierung darf auch lokal, d.h. vom IT-System selbst, durchgeführt 
 Für die zentrale Authentifizierung wird in der IsyFact ein OAuth 2.0 konformer IAM-Service verwendet.
 
 [[autorisierung]]
-==== Autorisierung
+=== Autorisierung
 
 NOTE: Autorisierung: Zustimmung oder Erlaubnis, spezieller die Einräumung von Rechten gegenüber interessierten Rechtssubjekten, gegebenenfalls als Nutzungsrecht gegenüber Dritten.
 
@@ -386,7 +357,7 @@ Anhand dieser Rollen aus den Autorisierungsinformationen weist das IT-System ein
 Wie genau Rollen und Rechte spezifiziert werden, beschreibt das xref:isyfact-standards-doku:isy-security:konzept/master.adoc[] im Kapitel xref:isyfact-standards-doku:isy-security:konzept/master.adoc#rollen-und-rechte[Rollen und Rechte].
 
 [[verwendung-von-produkten]]
-=== Verwendung von Produkten
+== Verwendung von Produkten
 
 Bei der Umsetzung einer Architektur für eine Anwendung oder eine Anwendungslandschaft können an vielen Stellen fertige Produkte Dritter eingesetzt werden.
 Das beschleunigt die Entwicklung und reduziert die Kosten.

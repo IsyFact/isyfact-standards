@@ -13,7 +13,7 @@ Die Verfügbarkeit wird über einen Prozentwert gemessen, der unter Berücksicht
 
 .Verfügbarkeit
 [id="image-verfuegbar",reftext="{figure-caption} {counter:figures}"]
-image::blaupausen:referenzarchitektur/verfuegbar.png[align="center"]
+image::referenzarchitektur:technisch-infrastrukturell/verfuegbar.png[]
 
 Der Aufbau der Produktionsumgebung ist so zu gestalten, dass die angestrebte Verfügbarkeit erreicht werden kann.
 
@@ -54,6 +54,21 @@ Voraussetzung für die Möglichkeit der horizontalen Skalierung ist eine Softwar
 Die Referenzarchitektur unterstützt durch den zustandslosen Anwendungsserver den Ansatz der horizontalen Skalierung optimal.
 Sie bietet für die Zukunft maximale Flexibilität.
 
+[[skalierung]]
+== Horizontale Skalierung
+
+Skalierbarkeit und Hochverfügbarkeit sind wichtige Anforderungen an die Referenzarchitektur.
+Dies wird unterstützt durch eine zustandslose Serverarchitektur.
+Der Zustand einer Anwendung wird in der Datenbank persistiert und bei jedem eintreffenden Service-Aufruf aus dieser gelesen und bei Beendigung des Service-Aufrufs wieder in die Datenbank geschrieben.
+
+[[horizontale-skalierung]]
+.Horizontale Skalierung
+image::software-technisch/horSkal.png[]
+
+Die Referenzarchitektur sieht eine horizontale Skalierung auf der Ebene der Anwendungsserver vor.
+Ein <<lastverteilung,Loadbalancer>> verteilt die eingehenden Anfragen auf die vorhandenen Anwendungsserver.
+Im Falle eines Serverausfalls kann die Aufgabe des ausgefallenen Servers durch einen anderen Server übernommen werden.
+
 [[lastverteilung]]
 == Lastverteilung
 
@@ -64,7 +79,8 @@ In der Hardware-Lastverteilung werden die eingehenden Anfragen von einer Hardwar
 Diese Hardware-Komponente ist für die Verteilung der Anfragen auf die dahinterliegenden Server zuständig.
 
 Analog arbeitet die Software-Lastverteilung.
-Hier übernimmt eine Software-Komponente wie z.B. ein Http-Server mit entsprechendem Plugin die Verteilung der Anfragen.
+Hier übernimmt eine Software-Komponente wie z.B. ein HTTP-Server mit entsprechendem Plugin die Verteilung der Anfragen.
+
 
 [[auslieferung-installation-und-versionswechsel]]
 == Auslieferung, Installation und Versionswechsel

@@ -48,7 +48,7 @@ Wie genau Rollen und Rechte spezifiziert werden, beschreibt das Kapitel xref:kon
 [[sicherheitsarchitektur-eines-it-systems]]
 == Sicherheitsarchitektur eines IT-Systems
 
-Der Baustein Sicherheit bildet eine Komponente des Querschnitts der xref:blaupausen:referenzarchitektur-it-system/master.adoc[IsyFact Referenzarchitektur IT-Systeme].
+Der Baustein Sicherheit bildet eine Komponente des Querschnitts der xref:blaupausen:referenzarchitektur-it-system/master.adoc[].
 Er ist von jedem IT-System zur Autorisierung von Zugriffen und Vorgängen zu verwenden.
 Für ein korrektes Funktionieren benötigt der Baustein die Komponente `AufrufKontextVerwalter`, deren Verwendung ebenfalls in diesem Kapitel erläutert wird.
 

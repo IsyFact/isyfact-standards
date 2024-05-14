@@ -16,6 +16,6 @@ Dadurch ist es möglich, die xref:referenzarchitektur:software-technisch.adoc[so
 
 [[anpassung-referenzarchitektur]]
 .Anpassung der Referenzarchitektur auf verschiedene, fachliche Kontexte
-image::blaupausen:referenzarchitektur/AnptRAafK.png[align="center"]
+image::referenzarchitektur:AnptRAafK.png[]
 
 // TODO: Grafik neuzeichnen.

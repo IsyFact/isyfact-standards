@@ -7,15 +7,15 @@ include::glossary:licence:partial$licence.adoc[]
 *Die Referenzarchitektur bildet einen Strukturierungsrahmen für Anwendungslandschaften.
 Sie betrachtet Anwendungslandschaften und Anwendungen dabei aus fachlicher Sicht, software-technischer Sicht und technisch-infrastruktureller Sicht.*
 
-*xref:fachlich.adoc[]:* Sie umfasst eine fachliche Beschreibung der xref:glossary:glossary:master.adoc#glossar-anwendungslandschaft[Anwendungslandschaft].
+*xref:referenzarchitektur:fachlich.adoc[]:* Sie umfasst eine fachliche Beschreibung der xref:glossary:glossary:master.adoc#glossar-anwendungslandschaft[Anwendungslandschaft].
 Diese wird in fachliche Komponenten zerlegt, die miteinander über fachliche Schnittstellen interagieren.
 Jegliche technische Aspekte sind dabei nicht von Belang.
 
-*xref:software-technisch.adoc[]:* Sie umfasst die software-technische Beschreibung der xref:glossary:glossary:master.adoc#glossar-systemlandschaft[Systemlandschaft].
+*xref:referenzarchitektur:software-technisch.adoc[]:* Sie umfasst die software-technische Beschreibung der xref:glossary:glossary:master.adoc#glossar-systemlandschaft[Systemlandschaft].
 Die gesamte Systemlandschaft wird in technische Komponenten zerlegt, die miteinander über technische Schnittstellen interagieren.
 Jegliche Abbildung auf physikalische Systeme und deren Infrastruktur sind dabei nicht von Belang.
 
-*xref:technisch-infrastrukturell.adoc[]:* Sie umfasst die Beschreibung der Systemlandschaft aus dem Blickwinkel der technischen Infrastruktur.
+*xref:referenzarchitektur:technisch-infrastrukturell.adoc[]:* Sie umfasst die Beschreibung der Systemlandschaft aus dem Blickwinkel der technischen Infrastruktur.
 Es wird beschrieben, welche technischen Systeme existieren und welche technischen Komponenten auf ihnen laufen.
 
 Die Referenzarchitektur verfolgt im Wesentlichen fünf Ziele.
@@ -41,7 +41,7 @@ Die mit dieser Referenzarchitektur erstellten Geschäftsanwendungen sind hierdur
 Die fachliche Architektur strukturiert die Anwendungslandschaft hierarchisch in Domänen, Systeme und Komponenten.
 
 .Anwendungslandschaft
-image::blaupausen:referenzarchitektur/fachliche-referenzarchitektur-anwendungslandschaft.dn.svg[]
+image::referenzarchitektur:fachlich/fachliche-referenzarchitektur-anwendungslandschaft.dn.svg[]
 
 Anwendungssysteme bieten dabei eine zusammengehörige, logische Einheit aus Funktionen, Daten und Schnittstellen.
 Es werden zwei Typen unterschieden:
@@ -87,7 +87,7 @@ Auf der TI-Ebene können mehrere Instanzen einer technischen Komponente betriebe
 Auch können mehrere technische Komponenten auf einer gemeinsamen Hardware laufen.
 
 .Architektursichten
-image::blaupausen:architektursichten-abbildung.png[]
+image::referenzarchitektur:architektursichten-abbildung.png[]
 
 Ziel ist es, in jeder Sicht auf die Gesamtarchitektur eine für diese Sicht adäquate Zerlegung zu finden.
 

@@ -6,6 +6,7 @@ prerelease: true
 start_page: einstieg:einstieg.adoc
 nav:
 - modules/einstieg/nav.adoc
+- modules/referenzarchitektur/nav.adoc
 - modules/blaupausen/nav.adoc
 - modules/bausteine/nav.adoc
 - modules/plattform/nav.adoc

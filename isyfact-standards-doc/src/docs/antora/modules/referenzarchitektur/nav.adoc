@@ -1,6 +1,6 @@
 * xref:index.adoc[]
-** xref:fachlich.adoc[]
-** xref:software-technisch.adoc[]
+** xref:fachlich.adoc[fachlich]
+** xref:software-technisch.adoc[software-technisch]
 *** xref:blaupausen:referenzarchitektur-it-system/master.adoc[IT-System]
 // (neu: Backend)
 **** xref:blaupausen:detailkonzept-komponente-anwendungskern/master.adoc[Anwendungskern]
@@ -12,7 +12,7 @@
 **** xref:blaupausen:detailkonzept-komponente-batch/master.adoc[Batch]
 //*** Frontend (neu, Angular-basiert)
 //*** Batch (neu, aus ehemals: RA IT-System und DK Batch)
-** xref:technisch-infrastrukturell.adoc[]
-** xref:tailoring.adoc[]
-** xref:vereinfachung.adoc[]
-** Architekturvorgaben
+** xref:technisch-infrastrukturell.adoc[technisch-infrastrukturell]
+** Anpassung der Referenzarchitektur
+*** xref:tailoring.adoc[Tailoring]
+*** xref:vereinfachung.adoc[Vereinfachung]

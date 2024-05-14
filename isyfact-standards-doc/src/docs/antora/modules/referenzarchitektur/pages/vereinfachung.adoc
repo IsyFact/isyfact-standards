@@ -29,7 +29,7 @@ Dieses Szenario ist in <<vereinfachung-soa-architektur,der folgenden Abbildung>>
 
 [[vereinfachung-soa-architektur]]
 .Vereinfachung der SOA-Architektur
-image::blaupausen:referenzarchitektur/einfachsoArch.png[align="center"]
+image::referenzarchitektur:einfachsoArch.png[]
 
 Links ist eine typische Umsetzung einer Geschäftsanwendung zu sehen.
 Sie ist über ein Portal in eine Anwendungslandschaft integriert, hat Außenschnittstellen, die über ein Service-Gateway angeboten werden und sie nutzen die zentralen Services "Output Management", "Alphanumerisches Suchverfahren" und "Schlüsselverzeichnis".
@@ -52,7 +52,7 @@ Die xref:software-technisch.adoc[software-technische Referenzarchitektur] der An
 Bei geringeren nicht-funktionalen Anforderungen kann auf eine Lastverteilung und Clustering für die Datenbank verzichtet werden.
 
 .Vereinfachung durch Wegfall von Clustering
-image::blaupausen:referenzarchitektur/noCluster.png[align="center"]
+image::referenzarchitektur:noCluster.png[]
 
 [[verzicht-auf-das-saga-zonenmodell]]
 == Verzicht auf das SAGA-Zonenmodell

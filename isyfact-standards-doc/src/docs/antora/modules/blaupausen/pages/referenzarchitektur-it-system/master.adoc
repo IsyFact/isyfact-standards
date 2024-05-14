@@ -1,4 +1,4 @@
-= Softwaretechnische Referenzarchitektur
+= Referenzarchitektur IT-System
 
 include::glossary:licence:partial$licence.adoc[]
 
