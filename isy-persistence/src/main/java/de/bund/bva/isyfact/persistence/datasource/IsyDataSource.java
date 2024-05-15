@@ -115,7 +115,6 @@ public class IsyDataSource extends DelegatingDataSource {
     /**
      * {@inheritDoc}
      */
-    @Override
     public void afterPropertiesSet() {
         super.afterPropertiesSet();
 
@@ -123,34 +122,38 @@ public class IsyDataSource extends DelegatingDataSource {
             return;
         }
 
+        String ermittelteSchemaVersion = getSchemaVersionFromDatabase();
+        if (!this.schemaVersion.equals(ermittelteSchemaVersion)) {
+            handleSchemaVersionMismatch();
+        }
+    }
+
+    private String getSchemaVersionFromDatabase() {
         String ermittelteSchemaVersion = "unbekannt";
-        // Use of try-with-resources for Connection
-        try (Connection conn = getConnection()) {
-            String query = "select version_nummer from m_schema_version where version_nummer = ? and status = 'gueltig'";
+        String query = "select version_nummer from m_schema_version where version_nummer = ? and status = 'gueltig'";
 
-            // Use of try-with-resources for PreparedStatement
-            try (PreparedStatement stmt = conn.prepareStatement(query)) {
-                stmt.setString(1, this.schemaVersion);
-                try (ResultSet rs = stmt.executeQuery()) {
-                    if (rs != null && rs.next()) {
-                        ermittelteSchemaVersion = rs.getString(1);
-                    }
-                }
-
-                if (!this.schemaVersion.equals(ermittelteSchemaVersion)) {
-                    if ("warn".equals(this.invalidSchemaVersionAction)) {
-                        LOG.warn(EreignisSchluessel.FALSCHE_SCHEMA_VERSION,
-                                "Die Version des Datenbankschemas entspricht nicht der erwarteten Version ( {} ).", this.schemaVersion);
-                    } else {
-                        throw new PersistenzException(FehlerSchluessel.FALSCHE_DB_SCHEMAVERSION,
-                                this.schemaVersion);
-                    }
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, this.schemaVersion);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs != null && rs.next()) {
+                    ermittelteSchemaVersion = rs.getString(1);
                 }
             }
         } catch (SQLException e) {
             handleSQLException(e);
-        } catch (PersistenzException e1) {
-            throw e1;
+        }
+
+        return ermittelteSchemaVersion;
+    }
+
+    private void handleSchemaVersionMismatch() {
+        if ("warn".equals(this.invalidSchemaVersionAction)) {
+            LOG.warn(EreignisSchluessel.FALSCHE_SCHEMA_VERSION,
+                    "Die Version des Datenbankschemas entspricht nicht der erwarteten Version ( {} ).", this.schemaVersion);
+        } else {
+            throw new PersistenzException(FehlerSchluessel.FALSCHE_DB_SCHEMAVERSION,
+                    this.schemaVersion);
         }
     }
 
@@ -163,7 +166,6 @@ public class IsyDataSource extends DelegatingDataSource {
             throw new PersistenzException(FehlerSchluessel.PRUEFEN_DER_SCHEMAVERSION_FEHLGESCHLAGEN, e);
         }
     }
-
 
     public void setSchemaVersion(String schemaVersion) {
         this.schemaVersion = schemaVersion;

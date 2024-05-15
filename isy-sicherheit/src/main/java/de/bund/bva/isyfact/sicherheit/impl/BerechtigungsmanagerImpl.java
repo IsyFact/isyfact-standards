@@ -141,6 +141,7 @@ public class BerechtigungsmanagerImpl implements Berechtigungsmanager {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Recht getRecht(String recht) {
         if (recht == null || recht.isEmpty()) {
             throw new IllegalArgumentException(

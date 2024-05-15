@@ -182,27 +182,9 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
                 MdcHelper.entferneKorrelationsId();
 
                 this.jmxBean.satzVerarbeitet(ergebnis.getDatenbankSchluessel());
-                if ((verarbInfo.getCommitIntervall() > 0)
-                        && (verarbInfo.getSatzNummer() % verarbInfo.getCommitIntervall() == 0)) {
-                    // Checkpunkt verarbeiten
-                    verarbeiteCheckpunkt(verarbInfo, ergebnis.getDatenbankSchluessel());
-                }
-                if ((verarbInfo.getClearIntervall() > 0)
-                        && (verarbInfo.getSatzNummer() % verarbInfo.getClearIntervall() == 0)) {
-                    // Get the latest EntityManager
-                    EntityManager entityManager =
-                            EntityManagerFactoryUtils.getTransactionalEntityManager(this.transactionManager
-                                    .getEntityManagerFactory());
-                    // Clear Session-Cache
-                    if (entityManager != null) {
-                        entityManager.flush();
-                        entityManager.clear();
-                    } else {
-                        LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001,
-                                "Fehler während der Initialisierung erkannt, beende Batch...");
-                    }
 
-                }
+                handleCommit(verarbInfo, ergebnis);
+                handleClear(verarbInfo);
             }
             if (verarbInfo.getLetzterDatensatzNummer() != 0
                     && verarbInfo.getLetzterDatensatzNummer() == verarbInfo.getSatzNummer()) {
@@ -234,6 +216,33 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
             }
         }
     }
+
+    private void handleCommit(VerarbeitungsInformationen verarbInfo, VerarbeitungsErgebnis ergebnis) throws BatchAusfuehrungsException {
+        if (verarbInfo.getCommitIntervall() > 0
+                && verarbInfo.getSatzNummer() % verarbInfo.getCommitIntervall() == 0) {
+            // Checkpunkt verarbeiten
+            verarbeiteCheckpunkt(verarbInfo, ergebnis.getDatenbankSchluessel());
+        }
+    }
+
+    private void handleClear(VerarbeitungsInformationen verarbInfo) {
+        if (verarbInfo.getClearIntervall() > 0
+                && verarbInfo.getSatzNummer() % verarbInfo.getClearIntervall() == 0) {
+            // Get the latest EntityManager
+            EntityManager entityManager =
+                    EntityManagerFactoryUtils.getTransactionalEntityManager(this.transactionManager
+                            .getEntityManagerFactory());
+            // Clear Session-Cache
+            if (entityManager != null) {
+                entityManager.flush();
+                entityManager.clear();
+            } else {
+                LOG.info(LogKategorie.JOURNAL, BatchRahmenEreignisSchluessel.EPLBAT00001,
+                        "Fehler während der Initialisierung erkannt, beende Batch...");
+            }
+        }
+    }
+
 
     /**
      * Checks if the runtime has been exceeded, if the runtime is configured.
@@ -455,10 +464,8 @@ public class BatchrahmenImpl<T extends AufrufKontext> implements Batchrahmen, In
             throw new BatchrahmenKonfigurationException(NachrichtenSchluessel.ERR_KONF_PARAMETER_FEHLT,
                     KonfigurationSchluessel.PROPERTY_AUSFUEHRUNGSBEAN);
         }
-
         try {
-            BatchAusfuehrungsBean bean = (BatchAusfuehrungsBean) this.applicationContext.getBean(beanName);
-            return bean; // If bean is not found, an exception will be thrown
+            return (BatchAusfuehrungsBean) this.applicationContext.getBean(beanName);
         } catch (NoSuchBeanDefinitionException e) {
             throw new BatchrahmenKonfigurationException(NachrichtenSchluessel.ERR_KONF_BEAN_PFLICHT, beanName);
         }

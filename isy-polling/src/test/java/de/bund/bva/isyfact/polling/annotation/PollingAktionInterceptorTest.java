@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class PollingAktionInterceptorTest {
+class PollingAktionInterceptorTest {
 
     @Mock
     private PollingVerwalter pollingVerwalter;
@@ -31,14 +31,13 @@ public class PollingAktionInterceptorTest {
     private static final String POLLING_CLUSTER = "testCluster";
 
     @BeforeEach
-    public void setup() throws Throwable {
+    void setup() throws Throwable {
         lenient().when(methodInvocation.proceed()).thenReturn(null);
     }
 
-
     @Test
-    public void testInvokeWithNullTarget() throws Throwable {
-        Method method = MyClass.class.getMethod("myMethod");
+    void testInvokeWithNullTarget() throws Throwable {
+        Method method = MyClass.class.getDeclaredMethod("myMethod");
         when(methodInvocation.getMethod()).thenReturn(method);
         when(methodInvocation.getThis()).thenReturn(null);
 
@@ -46,10 +45,9 @@ public class PollingAktionInterceptorTest {
         verify(pollingVerwalter, never()).aktualisiereZeitpunktLetztePollingAktivitaet(anyString());
     }
 
-
     @Test
-    public void testInvokeWithPollingAktion() throws Throwable {
-        Method method = MyClass.class.getMethod("myMethod");
+    void testInvokeWithPollingAktion() throws Throwable {
+        Method method = MyClass.class.getDeclaredMethod("myMethod");
         when(methodInvocation.getMethod()).thenReturn(method);
         when(methodInvocation.getThis()).thenReturn(new MyClass());
 
@@ -58,10 +56,9 @@ public class PollingAktionInterceptorTest {
         verify(pollingVerwalter).aktualisiereZeitpunktLetztePollingAktivitaet("testCluster");
     }
 
-
     @Test
-    public void testInvokeWithoutPollingAktion() throws Throwable {
-        Method method = MyClass.class.getMethod("myMethodWithoutAnnotation");
+    void testInvokeWithoutPollingAktion() throws Throwable {
+        Method method = MyClass.class.getDeclaredMethod("myMethodWithoutAnnotation");
         when(methodInvocation.getMethod()).thenReturn(method);
 
         interceptor.invoke(methodInvocation);
@@ -70,8 +67,8 @@ public class PollingAktionInterceptorTest {
     }
 
     @Test
-    public void testInvokeWithExceptionInProceed() throws Throwable {
-        Method method = MyClass.class.getMethod("myMethod");
+    void testInvokeWithExceptionInProceed() throws Throwable {
+        Method method = MyClass.class.getDeclaredMethod("myMethod");
         when(methodInvocation.getMethod()).thenReturn(method);
         when(methodInvocation.getThis()).thenReturn(new MyClass());
         doThrow(new RuntimeException("Test exception")).when(methodInvocation).proceed();
@@ -81,10 +78,9 @@ public class PollingAktionInterceptorTest {
         verify(pollingVerwalter, never()).aktualisiereZeitpunktLetztePollingAktivitaet(anyString());
     }
 
-
     @Test
-    public void testReturnValues() throws Throwable {
-        Method method = MyClass.class.getMethod("methodWithReturnValue");
+    void testReturnValues() throws Throwable {
+        Method method = MyClass.class.getDeclaredMethod("methodWithReturnValue");
         when(methodInvocation.getMethod()).thenReturn(method);
         when(methodInvocation.getThis()).thenReturn(new MyClass());
         when(methodInvocation.proceed()).thenReturn("Expected Return");
@@ -94,20 +90,16 @@ public class PollingAktionInterceptorTest {
         Assertions.assertEquals("Expected Return", result, "The interceptor should return the value from proceed()");
     }
 
-
-
-
     static class MyClass {
         @PollingAktion(pollingCluster = POLLING_CLUSTER)
-        public void myMethod() {
+        void myMethod() {
         }
 
-        public void myMethodWithoutAnnotation() {
+        void myMethodWithoutAnnotation() {
         }
 
-        public String methodWithReturnValue() {
+        String methodWithReturnValue() {
             return "Expected Return";
         }
-
     }
 }
