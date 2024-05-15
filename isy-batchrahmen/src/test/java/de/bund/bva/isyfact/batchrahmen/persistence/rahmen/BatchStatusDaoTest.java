@@ -9,12 +9,14 @@ import javax.persistence.LockModeType;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import de.bund.bva.isyfact.batchrahmen.core.exception.BatchrahmenInitialisierungException;
 
+@RunWith(MockitoJUnitRunner.class)
 public class BatchStatusDaoTest {
 
     @Mock
@@ -28,7 +30,6 @@ public class BatchStatusDaoTest {
 
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
         when(entityManagerProvider.getTransactionalEntityManager()).thenReturn(entityManager);
     }
 
@@ -96,7 +97,6 @@ public class BatchStatusDaoTest {
     public void testCreateBatchStatus_NoEntityManagerWhilePersisting() {
         BatchStatus newStatus = new BatchStatus();
         newStatus.setBatchId("persistId");
-        when(entityManager.find(BatchStatus.class, "persistId", LockModeType.PESSIMISTIC_WRITE)).thenReturn(null);
         when(entityManagerProvider.getTransactionalEntityManager()).thenReturn(null);
 
         batchStatusDao.createBatchStatus(newStatus);

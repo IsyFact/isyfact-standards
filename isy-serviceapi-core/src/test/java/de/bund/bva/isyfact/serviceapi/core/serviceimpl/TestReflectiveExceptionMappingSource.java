@@ -45,7 +45,7 @@ public class TestReflectiveExceptionMappingSource {
 	}
 
 	@Test(expected = IllegalStateException.class)
-	public void testGetToExceptionClassMethodWiothoutException() throws NoSuchMethodException, SecurityException {
+	public void testGetToExceptionClassMethodWithoutException() throws NoSuchMethodException, SecurityException {
 		source.getToExceptionClass(RemoteBean.class.getMethod("eineMethode"), BusinessException.class);
 	}
 
@@ -88,7 +88,7 @@ public class TestReflectiveExceptionMappingSource {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testGetToExceptionClassWithNullMethod() throws NoSuchMethodException {
+	public void testGetToExceptionClassWithNullMethod() {
 		source.getToExceptionClass(null, BusinessException.class);
 	}
 

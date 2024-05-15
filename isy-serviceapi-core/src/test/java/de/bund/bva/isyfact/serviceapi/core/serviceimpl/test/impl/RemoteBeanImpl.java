@@ -25,17 +25,17 @@ public class RemoteBeanImpl implements RemoteBean {
 	}
 
 	@Override
-	public void methodeMitZweiToExceptions() throws IllegalStateException, TechnicalToException, BusinessToException {
+	public void methodeMitZweiToExceptions() throws IllegalStateException {
 		// noop
 	}
 
 	@Override
-	public void methodeMitToException() throws IllegalStateException, TechnicalToException {
+	public void methodeMitToException() throws IllegalStateException {
 		// noop
 	}
 
 	@Override
-	public void methodeMitZweiTechnicalToExceptions() throws IllegalStateException, TechnicalToException, TechnicalTestToException {
+	public void methodeMitZweiTechnicalToExceptions() throws IllegalStateException{
 		// noop
 	}
 

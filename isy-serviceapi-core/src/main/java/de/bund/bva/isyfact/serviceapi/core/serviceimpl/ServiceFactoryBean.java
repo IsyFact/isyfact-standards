@@ -16,8 +16,6 @@
  */
 package de.bund.bva.isyfact.serviceapi.core.serviceimpl;
 
-import de.bund.bva.isyfact.logging.IsyLogger;
-import de.bund.bva.isyfact.logging.IsyLoggerFactory;
 import de.bund.bva.isyfact.sicherheit.annotation.GesichertInterceptor;
 import de.bund.bva.isyfact.sicherheit.annotation.SicherheitAttributeSource;
 import org.springframework.transaction.interceptor.TransactionProxyFactoryBean;

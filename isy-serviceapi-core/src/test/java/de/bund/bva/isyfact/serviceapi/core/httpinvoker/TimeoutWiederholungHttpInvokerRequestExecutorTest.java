@@ -1,13 +1,9 @@
 package de.bund.bva.isyfact.serviceapi.core.httpinvoker;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InterruptedIOException;
 import java.net.HttpURLConnection;
-import java.net.UnknownServiceException;
 import java.util.List;
 
 import org.junit.Before;
@@ -18,7 +14,6 @@ import de.bund.bva.isyfact.aufrufkontext.AufrufKontextVerwalter;
 import de.bund.bva.isyfact.aufrufkontext.stub.AufrufKontextVerwalterStub;
 import de.bund.bva.isyfact.serviceapi.core.httpinvoker.stub.HttpUrlConnectionStub;
 import de.bund.bva.isyfact.serviceapi.core.httpinvoker.stub.TimeoutWiederholungHttpInvokerRequestExecutorStub;
-import org.springframework.remoting.httpinvoker.HttpInvokerClientConfiguration;
 
 /**
  * Plain unit tests for {@link TimeoutWiederholungHttpInvokerRequestExecutor}.
@@ -41,12 +36,7 @@ public class TimeoutWiederholungHttpInvokerRequestExecutorTest {
     public void setUp() {
         aufrufKontextVerwalterStub = new AufrufKontextVerwalterStub<>();
         aufrufKontextVerwalterStub.setBearerToken(null);
-        executorStub = new TimeoutWiederholungHttpInvokerRequestExecutorStub(aufrufKontextVerwalterStub) {
-            @Override
-            protected HttpURLConnection createConnection(HttpInvokerClientConfiguration config) throws IOException {
-                return null;
-            }
-        };
+        executorStub = new TimeoutWiederholungHttpInvokerRequestExecutorStub(aufrufKontextVerwalterStub);
         connection = new HttpUrlConnectionStub(null);
     }
 
@@ -98,19 +88,6 @@ public class TimeoutWiederholungHttpInvokerRequestExecutorTest {
         }
         assertEquals(timeout, connection.getConnectTimeout());
         assertEquals(timeout, connection.getReadTimeout());
-    }
-
-    @Test(expected = UnknownServiceException.class)
-    public void testConnectionProtocolSupport() throws IOException {
-        // Set up the mock to throw an exception when getInputStream is called
-        HttpURLConnection connection = mock(HttpURLConnection.class);
-        when(connection.getInputStream()).thenThrow(new UnknownServiceException("protocol doesn't support input"));
-
-        // Make sure to call the method that uses getInputStream
-        executorStub.prepareConnection(connection, CONTENT_LENGTH);
-
-        // Force a call that uses getInputStream to ensure the exception is thrown
-        connection.getInputStream();
     }
 
 }

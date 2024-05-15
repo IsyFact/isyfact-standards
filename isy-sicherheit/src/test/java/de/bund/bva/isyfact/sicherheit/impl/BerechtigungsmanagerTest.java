@@ -16,24 +16,18 @@
  */
 package de.bund.bva.isyfact.sicherheit.impl;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import de.bund.bva.isyfact.sicherheit.config.IsySicherheitConfigurationProperties;
-import de.bund.bva.isyfact.sicherheit.impl.BerechtigungsmanagerImpl;
-import de.bund.bva.isyfact.sicherheit.impl.RechtImpl;
-import de.bund.bva.isyfact.sicherheit.impl.RollenRechteMapping;
-import de.bund.bva.isyfact.sicherheit.impl.SicherheitImpl;
-import de.bund.bva.isyfact.sicherheit.impl.XmlAccess;
-import org.junit.Before;
-import org.junit.Test;
-
 import de.bund.bva.isyfact.aufrufkontext.AufrufKontext;
 import de.bund.bva.isyfact.aufrufkontext.impl.AufrufKontextImpl;
 import de.bund.bva.isyfact.aufrufkontext.impl.AufrufKontextVerwalterImpl;
 import de.bund.bva.isyfact.sicherheit.Berechtigungsmanager;
 import de.bund.bva.isyfact.sicherheit.Recht;
 import de.bund.bva.isyfact.sicherheit.common.exception.RollenRechteMappingException;
+import de.bund.bva.isyfact.sicherheit.config.IsySicherheitConfigurationProperties;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -74,12 +68,12 @@ public class BerechtigungsmanagerTest {
         this.aufrufKontext.setDurchfuehrenderBenutzerKennung(AUFRUF_KONTEXT_NUTZERKENNUNG);
         this.aufrufKontext.setDurchfuehrendeBehoerde(AUFRUF_KONTEXT_BHKNZ);
         this.aufrufKontext.setRolle(AUFRUF_KONTEXT_ROLLEN);
-        BerechtigungsmanagerImpl berechtigungsmanager =
-            new BerechtigungsmanagerImpl(this.aufrufKontext.getRolle());
+        BerechtigungsmanagerImpl tempBerechtigungsmanager =
+                new BerechtigungsmanagerImpl(this.aufrufKontext.getRolle());
         XmlAccess access = new XmlAccess();
         this.mapping = access.parseRollenRechteFile(ROLLENRECHTE_PFAD);
-        berechtigungsmanager.setRollenRechteMapping(this.mapping);
-        this.berechtigungsmanager = berechtigungsmanager;
+        tempBerechtigungsmanager.setRollenRechteMapping(this.mapping);
+        this.berechtigungsmanager = tempBerechtigungsmanager;
     }
 
     @Test
@@ -190,17 +184,17 @@ public class BerechtigungsmanagerTest {
 
     @Test(expected = RollenRechteMappingException.class)
     public void testRechtWurdeNichtKonfiguriert() throws Exception {
-        AufrufKontextImpl aufrufKontext = new AufrufKontextImpl();
-        aufrufKontext.setDurchfuehrenderBenutzerKennung(AUFRUF_KONTEXT_NUTZERKENNUNG);
-        aufrufKontext.setDurchfuehrendeBehoerde(AUFRUF_KONTEXT_BHKNZ);
-        aufrufKontext.setRolle(AUFRUF_KONTEXT_ROLLEN);
-        aufrufKontext.setRollenErmittelt(true);
+        AufrufKontextImpl aufrufTestKontext = new AufrufKontextImpl();
+        aufrufTestKontext.setDurchfuehrenderBenutzerKennung(AUFRUF_KONTEXT_NUTZERKENNUNG);
+        aufrufTestKontext.setDurchfuehrendeBehoerde(AUFRUF_KONTEXT_BHKNZ);
+        aufrufTestKontext.setRolle(AUFRUF_KONTEXT_ROLLEN);
+        aufrufTestKontext.setRollenErmittelt(true);
 
         AufrufKontextVerwalterImpl aufrufKontextVerwalter = new AufrufKontextVerwalterImpl();
-        aufrufKontextVerwalter.setAufrufKontext(aufrufKontext);
+        aufrufKontextVerwalter.setAufrufKontext(aufrufTestKontext);
 
         SicherheitImpl
-            sicherheit = new SicherheitImpl(ROLLENRECHTE_PFAD, aufrufKontextVerwalter, null, null, new IsySicherheitConfigurationProperties());
+                sicherheit = new SicherheitImpl(ROLLENRECHTE_PFAD, aufrufKontextVerwalter, null, null, new IsySicherheitConfigurationProperties());
         sicherheit.afterPropertiesSet();
 
         Berechtigungsmanager berechtigungsManager = sicherheit.getBerechtigungsManager();

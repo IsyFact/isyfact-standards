@@ -18,8 +18,6 @@ package de.bund.bva.isyfact.sicherheit.impl;
 
 import de.bund.bva.isyfact.sicherheit.Recht;
 import de.bund.bva.isyfact.sicherheit.common.exception.RollenRechteMappingException;
-import de.bund.bva.isyfact.sicherheit.impl.RollenRechteMapping;
-import de.bund.bva.isyfact.sicherheit.impl.XmlAccess;
 import org.junit.Before;
 import org.junit.Test;
 

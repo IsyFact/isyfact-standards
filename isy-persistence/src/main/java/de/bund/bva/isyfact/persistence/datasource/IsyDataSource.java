@@ -115,6 +115,7 @@ public class IsyDataSource extends DelegatingDataSource {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void afterPropertiesSet() {
         super.afterPropertiesSet();
 

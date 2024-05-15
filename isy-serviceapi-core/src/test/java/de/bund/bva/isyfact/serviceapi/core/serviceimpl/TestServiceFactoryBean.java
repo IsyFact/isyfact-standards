@@ -16,18 +16,17 @@
  */
 package de.bund.bva.isyfact.serviceapi.core.serviceimpl;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.ValidRemoteBean;
+import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.impl.ValidRemoteBeanImpl;
 import de.bund.bva.isyfact.sicherheit.annotation.AnnotationSicherheitAttributeSource;
 import de.bund.bva.isyfact.sicherheit.annotation.GesichertInterceptor;
 import de.bund.bva.isyfact.sicherheit.annotation.SicherheitAttributeSource;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.ValidRemoteBean;
-import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.impl.ValidRemoteBeanImpl;
-import org.springframework.transaction.PlatformTransactionManager;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.mockito.Mockito.mock;
 
@@ -43,7 +42,7 @@ public class TestServiceFactoryBean {
 	private Map<String, String[]> rechte;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		remote = new ValidRemoteBeanImpl();
 		interceptor1 = mock(GesichertInterceptor.class);
 		interceptor2 = mock(ServiceExceptionFassade.class);
@@ -113,9 +112,9 @@ public class TestServiceFactoryBean {
 		Mockito.when(interceptor1.getSicherheitAttributeSource()).thenReturn(incorrectSource);
 		bean.setPreInterceptors(new Object[]{interceptor1});
 
-		Map<String, String[]> rechte = new HashMap<>();
-		rechte.put("someMethod", new String[]{"someRight"});
-		bean.setBenoetigtesRecht(rechte);
+		Map<String, String[]> testRechte = new HashMap<>();
+		testRechte.put("someMethod", new String[]{"someRight"});
+		bean.setBenoetigtesRecht(testRechte);
 
 		bean.afterPropertiesSet();
 	}
