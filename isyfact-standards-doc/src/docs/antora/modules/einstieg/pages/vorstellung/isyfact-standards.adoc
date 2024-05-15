@@ -106,7 +106,7 @@ IT-Systeme müssen auf Basis dieser Produkte und Bibliotheken gebaut werden.
 === Vorgaben für die TI-Architektur
 Die Architektur der technischen Infrastruktur wird auf Grundlage der Spezifikation und des Entwurfs entwickelt.
 
-Die Grundlagen der TI-Architektur auf Ebene von Anwendungslandschaften und Anwendungssystemen ist in der xref:referenzarchitektur:technisch-infrastrukturell.adoc[technisch-infrastrukturelle Referenzarchitektur] beschrieben.
+Die Grundlagen der TI-Architektur auf Ebene von Anwendungslandschaften und Anwendungssystemen ist in der xref:referenzarchitektur:technisch-infrastrukturell.adoc[technisch-infrastrukturellen Referenzarchitektur] beschrieben.
 Die zu verwendende Infrastruktur ist zum Teil durch den xref:einstieg:produkte.adoc#produktkatalog[Produktkatalog] vorgegeben.
 
 [[vorgaben-fuer-das-systemhandbuch]]
