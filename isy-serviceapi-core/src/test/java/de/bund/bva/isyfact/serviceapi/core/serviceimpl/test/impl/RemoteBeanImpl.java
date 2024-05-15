@@ -2,12 +2,9 @@ package de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.impl;
 
 import de.bund.bva.isyfact.exception.BaseException;
 import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
-import de.bund.bva.isyfact.exception.service.BusinessToException;
-import de.bund.bva.isyfact.exception.service.TechnicalToException;
 import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.BusinessTestException;
 import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.RemoteBean;
 import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.TechnicalRuntimeTestException;
-import de.bund.bva.isyfact.serviceapi.core.serviceimpl.test.TechnicalTestToException;
 import de.bund.bva.isyfact.serviceapi.service.httpinvoker.v1_0_0.AufrufKontextTo;
 
 import java.lang.reflect.InvocationTargetException;

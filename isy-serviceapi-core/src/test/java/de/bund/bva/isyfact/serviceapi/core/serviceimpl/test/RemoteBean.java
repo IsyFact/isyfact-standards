@@ -48,5 +48,4 @@ public interface RemoteBean {
 	void eineMethodeMitBusinessException() throws BaseException, TechnicalToException;
 	
 	void eineMethodeMitTechnicalRuntimeException() throws TechnicalRuntimeException, TechnicalToException;
-
 }
