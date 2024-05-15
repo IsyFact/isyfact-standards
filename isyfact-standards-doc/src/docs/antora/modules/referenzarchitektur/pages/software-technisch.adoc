@@ -21,8 +21,8 @@ Eine solche IsyFact-Systemlandschaft beinhaltet alle software-technisch umgesetz
 Die technische Architektur eines IT-Systems wird in xref:blaupausen:referenzarchitektur-it-system/master.adoc[] definiert.
 Im Folgenden wird, aufbauend auf diesem Konzept, beschrieben:
 
-* welche Eigenschaften bezogen auf die technische Referenzarchitektur die Typen von Anwendungssystemen in einer IsyFact-Systemlandschaft besitzen (Kapitel <<strukturierung-der-systemlandschaft>>),
-* welche Vorgaben für die Verwendung von Produkten existieren (Kapitel <<verwendung-von-produkten>>).
+* welche Eigenschaften bezogen auf die technische Referenzarchitektur die Typen von Anwendungssystemen in einer IsyFact-Systemlandschaft besitzen (s. <<strukturierung-der-systemlandschaft>>),
+* welche Vorgaben für die <<verwendung-von-produkten>> existieren.
 
 [[strukturierung-der-systemlandschaft]]
 == Strukturierung der Systemlandschaft
@@ -77,7 +77,7 @@ Eine Ausnahme bilden Querschnittsanwendungen, wie z.B. ein Mail-Gateway für den
 [[servicekommunikation]]
 == Servicekommunikation
 
-Wie in <<strukturierung-der-systemlandschaft>> beschrieben, kommunizieren IT-Systeme auf Basis von Services (s. <<servicekommunikation-intern-extern>>).
+Wie in <<strukturierung-der-systemlandschaft>> beschrieben, kommunizieren IT-Systeme auf Basis von Services.
 Wenn ausschließlich IT-Systeme innerhalb der Systemlandschaft miteinander kommunizieren, spricht die Referenzarchitektur von *interner Servicekommunikation*.
 Wenn die Kommunikation auch IT-Systeme einschließt, die außerhalb liegen, verwendet die Referenzarchitektur den Begriff *externe Servicekommunikation*.
 
@@ -116,7 +116,7 @@ Die IsyFact standardisiert die Art und Weise, wie Nutzdaten spezifiziert, dokume
 [[synchrone-service-aufrufe]]
 === Synchrone Service-Aufrufe
 
-Synchrone Service-Aufrufe bieten die Möglichkeit der direkten Kommunikation zwischen zwei IT-Systemen (s. <<service-aufruf-synchron>>).
+Synchrone Service-Aufrufe bieten die Möglichkeit der direkten Kommunikation zwischen zwei IT-Systemen.
 Hierbei schickt der Sender eine Anfrage (englisch: _request_) an den Empfänger.
 Der Empfänger bearbeitet die Anfrage und schickt eine Antwort (englisch: _response_) an den Sender zurück.
 Der Sender wartet auf die Antwort, bevor er seine Verarbeitung fortsetzt.
@@ -177,7 +177,7 @@ image::software-technisch/queueing.dn.svg[]
 Für das Queueing infrage kommende Message-Broker müssen *JMS* (Jakarta Messaging, ehemals _Java Message Service_) unterstützen.
 Queueing wird ausschließlich in der internen Servicekommunikation eingesetzt.
 
-JMS-Nachrichten bestehen aus Header, Properties und einem Body (s. <<jms-message-aufbau>>).
+JMS-Nachrichten bestehen aus Header, Properties und einem Body.
 Die Properties unterteilen sich noch einmal in applikationsspezifische Properties, die nur für Publisher und Subscriber Bedeutung haben, sowie provider-spezifische und Standard-Properties, die zur Verarbeitung der JMS-Nachrichten durch den Message-Broker gedacht sind.
 
 [[jms-message-aufbau]]
@@ -225,7 +225,6 @@ Wird ein Service von einem externen IT-System angeboten, wird er als „externer
 Ein Service-Consumer macht diesen „externen Service“ als „inneren Service“ der Systemlandschaft verfügbar.
 Wird ein Service von einem internen IT-System angeboten, so ist das ebenfalls ein „innerer Service“.
 Wenn ein Service-Provider diesen „inneren Service“ einer Anwendung außerhalb der Plattform zugänglich macht, ist dies ein „äußerer Service“ der Systemlandschaft.
-Dies ist in <<services-typen>> dargestellt.
 Die Unterscheidung zwischen „innere“ und „äußere“ ist analog für die Begriffe „Request“ und „Response“ zu verwenden.
 
 [[services-typen]]

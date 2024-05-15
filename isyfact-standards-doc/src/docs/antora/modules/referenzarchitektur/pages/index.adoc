@@ -36,9 +36,9 @@ Die mit dieser Referenzarchitektur erstellten Geschäftsanwendungen sind hierdur
 
 *Standards:* Durch die Referenzarchitektur werden Standards wie V-Modell XT, XML / XÖV oder Webservices genutzt und die Architekturrichtlinie für die IT des Bundes umgesetzt.
 
-== Fachliche Referenzarchitektur (A-Architektur)
+== Fachliche Referenzarchitektur
 
-Die fachliche Architektur strukturiert die Anwendungslandschaft hierarchisch in Domänen, Systeme und Komponenten.
+Die xref:referenzarchitektur:fachlich.adoc[fachliche Referenzarchitektur] strukturiert die Anwendungslandschaft hierarchisch in Domänen, Systeme und Komponenten.
 
 .Anwendungslandschaft
 image::referenzarchitektur:fachlich/fachliche-referenzarchitektur-anwendungslandschaft.dn.svg[]
@@ -54,11 +54,11 @@ Ein Anwendungssystem besteht aus Anwendungskomponenten, die eine Menge funktiona
 Für den Zugriff der Anwender auf die Anwendungssysteme dient eine Benutzeroberfläche im Portal.
 Externen Anwendungssystemen stellen Service-Gateways die entsprechenden Schnittstellen über Web-Services zur Verfügung.
 
-== Software-technische Referenzarchitektur (T-Architektur)
+== Software-technische Referenzarchitektur
 
-Die Software-Architektur beschreibt die in der fachlichen Architektur definierten Elemente in technischer Form von IT-Systemen, Komponenten, Klassen, Datenmodellen etc.
+Die xref:referenzarchitektur:software-technisch.adoc[software-technische Referenzarchitektur] beschreibt die in der fachlichen Referenzarchitektur definierten Elemente in technischer Form von IT-Systemen, Komponenten, Klassen, Datenmodellen etc.
 
-Die Referenzarchitektur für IT-Systeme der IsyFact basiert auf der bekannten Drei-Schicht-Architektur.
+Die Referenzarchitektur für IT-Systeme basiert auf der bekannten Drei-Schicht-Architektur.
 
 .Software-technische Referenzarchitektur
 image::blaupausen:referenzarchitektur-it-system/architektur-it-system.dn.svg[]
@@ -73,9 +73,9 @@ Ergänzend zu Service, Batch, Anwendungskern und Datenhaltung gibt es in den IT-
 
 Die Referenzarchitektur beschreibt die Nutzungsschichten Batch und Service sowie den Anwendungskern und den Datenzugriff.
 
-== Die Referenzarchitektur der technischen Infrastruktur (TI-Architektur)
+== Technisch-infrastrukturelle Referenzarchitektur
 
-Die Referenzarchitektur der technischen Infrastruktur, auch TI-Architektur genannt, beschreibt den Aufbau der Betriebsumgebung für die IT-Systeme einer IsyFact-konformen Anwendungslandschaft.
+Die xref:referenzarchitektur:technisch-infrastrukturell.adoc[technisch-infrastrukturelle Referenzarchitektur] beschreibt den Aufbau der Betriebsumgebung für die IT-Systeme einer IsyFact-konformen Anwendungslandschaft.
 Dazu gehören die physischen Geräte (Rechnersysteme, Netzwerkverbindungen und -komponenten, Drucker etc.), die installierte Systemsoftware (Betriebssystem, Applikationsserver, Middleware, Datenbanksystem) und das Zusammenspiel von Hardware und Systemsoftware.
 
 == Strukturierungsrahmen der IsyFact
