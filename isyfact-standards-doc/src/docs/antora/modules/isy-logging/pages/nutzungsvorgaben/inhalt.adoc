@@ -544,7 +544,6 @@ Daher stellt der Invoker für Methodenaufrufe von Nachbarsystemen einen eigenen 
 * `LoggingMethodInvoker(Method methode, IsyLogger logger, boolean loggeAufruf, boolean loggeErgebnis, boolean loggeDauer, boolean loggeDaten, boolean loggeDatenBeiException , long loggeMaximaleParameterGroesse, String nachbarsystemName, String nachbarsystemUrl)`: Analog zu oben, nur das der Name und die URL des aufgerufenen Nachbarsystems übergeben wird.
 
 Dieser Konstruktor ist beim Aufruf einer Service-Schnittstelle eines Nachbarsystems zu verwenden (vgl. auch Szenario „Performance überwachen“ in <<performance-ueberwachen>>).
-Zu beachten ist, dass die Klasse `IsyHttpInvokerClientInterceptor`, welche durch den Baustein Service bereitgestellt wird (siehe xref:blaupausen:detailkonzept-komponente-service/master.adoc#einleitung[Detailkonzept Komponente Service]), bereits einen entsprechenden Aufruf des Invokers durchführt.
 Bei Verwendung dieses Konstruktors werden die Logeinträge mit folgenden Ereignisschlüsseln erstellt:
 
 Ereignisschlüssel LoggingMethodInvoker (Nachbarsystemaufruf)
@@ -622,14 +621,14 @@ FilterRegistrationBean<HttpHeaderNestedDiagnosticContextFilter> httpHeaderNested
 }
 ----
 
-Falls HttpInvoker-Schnittstellen verwendet werden, muss diese Bean im Anwendungssystem so überschrieben werden, dass sie für die HttpInvoker-Schnittstellen deaktiviert ist.
-Grund dafür ist, dass bei HttpInvoker-Schnittstellen durch den Aufruf der Klasse IsyHttpInvokerClientInterceptor bereits eine Korrelations-ID generiert wird.
-Ohne das Überschreiben dieser Bean werden beim Aufruf einer HttpInvoker-Schnittstelle beide Mechanismen aktiv, sodass zwei neue Korrelations-IDs für eine einzige Aktion neu erzeugt werden.
+Falls die Anwendung Service-Schnittstellen besitzt, muss diese Bean im Anwendungssystem so überschrieben werden, dass sie für diese Schnittstellen deaktiviert ist.
+Grund dafür ist, dass Service-Schnittstellen bereits eine Korrelations-ID generieren.
+Ohne das Überschreiben dieser Bean werden beim Aufruf einer Schnittstelle beide Mechanismen aktiv, sodass zwei neue Korrelations-IDs für eine einzige Aktion neu erzeugt werden.
 Dies ist zu vermeiden.
 
-Beim Überschreiben der Bean müssen die URL-Patterns so angegeben werden, dass die HttpInvoker-URLs nicht enthalten sind.
+Beim Überschreiben der Bean müssen die URL-Patterns so angegeben werden, dass die URLs der Endpunkte nicht enthalten sind.
 Die Verwendung des Asterisk-Platzhalters * ist dabei am Ende des URL-Patterns möglich.
-Stellt eine Anwendung beispielsweise HttpInvoker-Schnittstellen unter `"/httpinv-endpoint0"` sowie REST-Schnittstellen unter `"/rest-endpoint1"`, `"/api/rest/example/endpoint2"` und `"/api/rest/example/endpoint3"` bereit, muss die Bean im Anwendungssystem wie folgt überschrieben werden:
+Stellt eine Anwendung beispielsweise REST-Schnittstellen unter `"/rest-endpoint1"`, `"/api/rest/example/endpoint2"` und `"/api/rest/example/endpoint3"` bereit, muss die Bean im Anwendungssystem wie folgt überschrieben werden:
 
 [[listing-filterRegistrationBean-anwendungssystem]]
 .Beispiel für Bean-Überschreibung im Anwendungssystem
@@ -1335,9 +1334,8 @@ Dieser muss gemäß <<loggingmethodinterceptor>> für alle Komponentenschnittste
 [cols="2s,5"]
 |====
 |Beschreibung |Es wird ein entfernter Service eines Nachbarsystems aufgerufen.
-|Logging |Der Aufruf der Methode wird mit Hilfe des `LogInterceptor` geloggt.
-Dazu muss in der aufrufenden Klasse gemäß <<loggingmethodinterceptor-und-loggingmethodinvoker>> eine Instanz der Klasse erstellt und das Remote-Interface des Nachbarsystems mit Hilfe der Methode `rufeNachbarsystemAuf` aufgerufen werden.
-Dies wird bereits durch den Baustein HTTP Invoker umgesetzt (siehe xref:isy-serviceapi-core:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben HTTP-Invoker]), sodass hierfür keine Anpassung notwendig ist.
+|Logging |Der Aufruf der Methode wird mithilfe des `LogInterceptor` geloggt.
+Dazu muss in der aufrufenden Klasse gemäß <<loggingmethodinterceptor-und-loggingmethodinvoker>> eine Instanz der Klasse erstellt und das Remote-Interface des Nachbarsystems mithilfe der Methode `rufeNachbarsystemAuf` aufgerufen werden.
 Bei Nachbarsystemen, die selbst kein IsyFact-konformes Logging umsetzen (Drittsoftware wie bspw. ein Suchverfahren), kann es notwendig sein, zusätzliche Informationen in der aufrufenden Anwendung zu loggen.
 Entsprechende Vorgaben werden in den Nutzungskonzepten der jeweiligen Bausteine definiert.
 |Auswertungsszenario a|

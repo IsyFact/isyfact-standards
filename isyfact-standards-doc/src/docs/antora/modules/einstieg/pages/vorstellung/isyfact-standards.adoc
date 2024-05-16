@@ -87,7 +87,7 @@ Zur Umsetzung von Batches wird der Batchrahmen der IsyFact vorgeschrieben.
 Service::
 Services bieten fachliche Operationen nach außen an und stellen sie anderen IT-Systemen zur Nutzung bereit.
 Das xref:blaupausen:detailkonzept-komponente-service/master.adoc#einleitung[Detailkonzept Komponente Service] beschreibt die Vorgaben für Services sowie den Aufbau der Service-Komponente.
-Die konkrete Umsetzung mit dem Service-Framework HTTP Invoker sind im xref:isy-serviceapi-core:konzept/master.adoc#einleitung[Konzept HTTP-Invoker] sowie den xref:isy-serviceapi-core:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben HTTP-Invoker] beschrieben.
+Die konkrete Umsetzung mittels REST sind im xref:isy-service-rest:konzept/master.adoc[] sowie den xref:isy-service-rest:nutzungsvorgaben/master.adoc[] beschrieben.
 
 Die Erstellung von IT-Systemen wird durch einen Systementwurf konkretisiert und dokumentiert.
 

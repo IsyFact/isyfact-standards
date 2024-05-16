@@ -294,8 +294,6 @@ Anwendungsschnittstellen verwendet werden, folgende Vorgaben gemacht:
 ** Übermittlung von Fehler-Kategorie (technisch/Art des fachlichen Fehlers)
 ** Übermittlung von Fehlernachricht (kein Stack-Trace!)
 
-Die Vorgaben für HTTP Invoker sind im xref:isy-serviceapi-core:nutzungsvorgaben/master.adoc[Nutzungsvorgaben HttpInvoker] beschrieben.
-
 Unabhängig von der eingesetzten Technologie gelten für die Antworten an das aufrufende Nachbarsystem folgende Anforderungen:
 
 *Technische Exceptions*
@@ -309,13 +307,6 @@ Der tatsächliche Fehler wird im Error-Log der aufgerufenen Anwendung gespeicher
 Fachliche Exceptions sind mit einer ausführlichen und für den Fehler spezifischen Fehler-Nachricht an das aufrufende Nachbarsystem zurückzugeben.
 Die Fehler-Nachricht muss für den Anwender verständlich sein und sollte zur Lösung/Vermeidung des Fehlers beitragen.
 
-
-[[isyfact-bibliotheken-fuer-fehlerbehandlung]]
-==== IsyFact-Bibliotheken für Fehlerbehandlung
-
-Die in den vorigen Abschnitten beschriebenen abstrakten Oberklassen, die zur Umsetzung der Exception-Hierarchie notwendig sind, werden über die IsyFact-Bibliotheken `isy-exception-core` und `isy-exception-sst` in neue Anwendungen integriert.
-
-Dabei enthält die Bibliothek `isy-exception-core` die notwendigen Klassen für den Anwendungskern, die Bibliothek `isy-exception-sst` die Klassen für die Schnittstellen (Transport-Exceptions).
 
 [[behandlung-von-exceptions]]
 === Behandlung von Exceptions
