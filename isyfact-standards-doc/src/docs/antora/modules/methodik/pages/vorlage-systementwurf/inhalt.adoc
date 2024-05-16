@@ -817,7 +817,7 @@ _Die allgemeinen Vorgaben zu Services sind in eigenen Konzepten der IsyFact besc
 Ggf. werden hier Spezialisierungen und zusätzliche Festlegungen zu Services beschrieben._
 
 _In diesem Abschnitt ist die konkrete Konstruktion der einzelnen Services beschrieben, in der Regel mit einem eigenen Abschnitt pro Service, den das System anbietet.
-Dies sind Services, die per httpInvoker bereitgestellt werden.
+Dies sind Services, die per REST bereitgestellt werden.
 Services, die externen Nutzern zur Verfügung gestellt werden, werden im Rahmen der Dokumentation des Teilsystems Service-Gateway beschrieben.
 Die eigentliche Servicedokumentation für externe Nutzer ist dabei dann ein eigenes Dokument._
 

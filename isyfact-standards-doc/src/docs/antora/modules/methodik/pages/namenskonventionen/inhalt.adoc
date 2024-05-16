@@ -444,15 +444,9 @@ include::blaupausen:page$detailkonzept-komponente-anwendungskern/inhalt.adoc[tag
 === Batchrahmen
 include::blaupausen:page$detailkonzept-komponente-batch/inhalt.adoc[tag=namenskonvention]
 
-[[schnittstellen]]
-=== Externe Schnittstellen
 [[rest-schnittstellen]]
-==== REST-Schnittstellen
+=== REST-Schnittstellen
 include::isy-service-rest:page$konzept/inhalt.adoc[tag=namenskonvention]
-
-[[http-invoker-schnittstellen]]
-==== Http-Invoker Schnittstellen
-include::isy-serviceapi-core:page$konzept/inhalt.adoc[tag=namenskonvention]
 
 [[deploymentbetrieb-von-anwendungen]]
 === Deployment/Betrieb von Anwendungen
