@@ -16,6 +16,15 @@ Die folgende Abbildung zeigt einen Überblick über die Bausteine im aktuellen R
 .Bausteine der IsyFact
 image::bausteine:bausteine.dn.svg[]
 
+.Legende
+****
+Jede Wabe steht für einen Baustein.
+Blau gefüllte Waben sind Teil der xref:einstieg:vorstellung/isyfact-standards.adoc[].
+Grau gefüllte Waben sind Teil der xref:einstieg:vorstellung/isyfact-erweiterungen.adoc[].
+
+Hellblau umrandete Waben bedeuten, dass der Baustein als Software-Bibliothek veröffentlicht wird.
+****
+
 Die nachfolgende Tabelle beschreibt die Bausteine. Sie stellen in der Regel ein Dokument aus architektonischer Sicht – das Konzept – und ein Dokument aus technischer Sicht – die Nutzungsvorgaben – sowie eine Software-Bibliothek zur Integration in eigene Anwendungssysteme bereit.
 
 [cols="1s,3a",options="header"]
@@ -37,9 +46,6 @@ Ziel des Bedienkonzepts ist es, dass sich Sachbearbeiter möglichst schnell zwis
 
 |Fehlerbehandlung
 |Der Baustein _Fehlerbehandlung_ enthält das technische Konzept und eine Bibliothek zur einheitlichen Implementierung der Fehlerbehandlung.
-
-|icon:ban[title=Deprecation] [.line-through]#Http Invoker#
-|Der Baustein Http Invoker bietet die Möglichkeit, interne Services der Anwendungslandschaft mit der Technologie Spring Http Invoker zu realisieren.
 
 |JPA/Hibernate
 |Der Baustein beschreibt die Umsetzung des Datenzugriffs auf Basis von JPA und dem O/R-Mapper Hibernate.
