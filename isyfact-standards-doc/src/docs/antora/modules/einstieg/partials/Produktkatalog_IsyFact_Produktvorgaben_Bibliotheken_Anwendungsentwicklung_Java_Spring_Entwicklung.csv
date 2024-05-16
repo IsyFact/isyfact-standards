@@ -16,7 +16,6 @@ Anwendungs-framework;https://spring.io/projects/spring-boot[Spring Boot];3.2.x;4
 "Anwendungs-framework +
 Test-Framework";https://spring.io/projects/spring-framework[Spring];<<spring-boot-dependencies,icon:leaf[]>>;2.4.0;verbindlich;Apache Software License;"* Die Kategorie Test-Framework bezieht sich auf die Features von Spring zur Testunterstützung.
 * Die folgenden Bestandteile des Spring Frameworks sind durch Architektur-entscheidungen explizit zur Nutzung freigegeben."
-Service-Frameworks;https://docs.spring.io/spring-framework/docs/current/reference/html/integration.html#remoting-httpinvoker[Spring Http Invoker];<<spring-boot-dependencies,icon:leaf[]>>;2.4.0;bestandsgeschützt;Apache Software License;
 Service-Frameworks;https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc[Spring Web MVC];<<spring-boot-dependencies,icon:leaf[]>>;2.4.0;verbindlich;Apache Software License;Spring Web MVC wird zur Bereitstellung von Services genutzt.
 Service-Frameworks;https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-client[Spring WebClient];<<spring-boot-dependencies,icon:leaf[]>>;2.4.0;verbindlich;Apache Software License;Spring WebClient (ein Bestandteil von Spring WebFlux) wird zum Konsumieren von Services genutzt.
 HTTP-Client;https://hc.apache.org/httpcomponents-client-5.1.x[Apache Http-Components HttpClient];<<spring-boot-dependencies,icon:leaf[]>>;2.4.0;verbindlich;Apache Software License;Muss anstelle von Netty als HTTP-Client für Spring WebClient verwendet werden.

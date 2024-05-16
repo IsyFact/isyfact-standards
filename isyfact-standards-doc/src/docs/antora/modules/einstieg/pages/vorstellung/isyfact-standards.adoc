@@ -187,12 +187,12 @@ Die zugrunde liegenden Schnittstellen-Technologien bieten dafür kein Standardve
 Der Baustein Polling definiert ein solches Verfahren.
 Die Nutzerdokumentation befindet sich unter xref:isy-polling:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Polling].
 
-[[http-invoker]]
-=== HTTP-Invoker
+[[rest]]
+=== REST
 
-Für den externen Zugriff auf Anwendungskomponenten werden deren Schnittstellen über das HTTP(S)-Protokoll exponiert.
-Dies ermöglicht eine standardisierte und lose Kopplung der Anwendungen untereinander, insbesondere da die Schnittstellen in verschiedenen, zeitgleich verfügbaren Versionen ausgeliefert werden.
-Dazu wird der HTTP-Invoker von Spring verwendet. Details sind zu finden unter xref:isy-serviceapi-core:konzept/master.adoc#einleitung[Konzept HTTP-Invoker].
+Für den externen Zugriff auf Anwendungskomponenten werden deren Schnittstellen über REST-Endpunkte exponiert.
+Dies ermöglicht eine standardisierte Kommunikation der Anwendungen untereinander und eine lose Kopplung der Anwendungen voneinander.
+Zur Standardisierung der REST-Schnittstellen gibt es den xref:isy-service-rest:konzept/master.adoc[Baustein REST].
 
 [[util]]
 === Util
