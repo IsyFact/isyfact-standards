@@ -10,9 +10,14 @@ on:
         description: 'Base version to use, e.g., 4.0.0'
         type: string
         required: false
+      calculate-rc:
+        description: 'Whether to calculate a release candidate version'
+        type: boolean
+        required: false
+        default: false
     outputs:
       next-version:
-        description: 'Computed version with appropriate suffix'
+        description: 'Calculated version with appropriate suffix'
         value: ${{ jobs.Next.outputs.next-version }}
 
 jobs:
@@ -37,8 +42,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
+          repository: ${{ github.repository }}
+          ref: ${{ github.ref }}
           fetch-depth: 0
-      - name: Compute semantic version
+      - name: Fetch develop branch
+        run: git fetch origin develop:develop
+      - name: Calculate semantic version
         id: semantic-version
         if: ${{ ! inputs.base-version }}
         uses: PaulHatch/semantic-version@v5.4.0
@@ -48,24 +57,26 @@ jobs:
           major_pattern: "/BREAKING/"
           minor_pattern: "/feat/"
           search_commit_body: true
-      - name: Validate Version
+      - name: Validate version
         if: ${{ ! inputs.base-version }}
         run: |
           RE_SEMVER="^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$"
           if [[ ! "${{ steps.semantic-version.outputs.version }}" =~ $RE_SEMVER ]]; then
-            echo "ERROR computed version with value ${{ steps.semantic-version.outputs.version }} is an invalid semantic version"
+            echo "ERROR calculated version with value ${{ steps.semantic-version.outputs.version }} is an invalid semantic version"
               exit 1
           fi
+
       - name: Calculate next version
         id: calculate-version
         run: |
           BASE_VERSION="${{ inputs.base-version }}"
           BRANCH_NAME="${{ inputs.branch-name }}"
+          CALCULATE_RC="${{ inputs.calculate-rc }}"
           
           # Use the semantic version or a provided base version, defaulting to the semantic version output if base-version is empty
           FINAL_BASE_VERSION="${BASE_VERSION:-${{ steps.semantic-version.outputs.version }}}"
           
-          if [[ "$BRANCH_NAME" =~ ^feature/ ]]; then
+          if [[ "$CALCULATE_RC" == 'true' && "$BRANCH_NAME" =~ ^feature/ ]]; then
             # Calculate the number of commits on this release branch since its creation from develop
             BASE_BRANCH='develop'
             COMMON_ANCESTOR=$(git merge-base HEAD refs/heads/$BASE_BRANCH)
@@ -76,7 +87,5 @@ jobs:
             NEXT_VERSION="${FINAL_BASE_VERSION}-SNAPSHOT"
           fi
           
-          echo "version=$NEXT_VERSION" >> $GITHUB_ENV
-          echo "::set-output name=next-version::$NEXT_VERSION"
-#          echo "version=${NEXT_VERSION:-${{ steps.semantic-version.outputs.version }}}-SNAPSHOT" >> "$GITHUB_OUTPUT"
-#          echo "Computed and set ${NEXT_VERSION:-${{ steps.semantic-version.outputs.version }}}-SNAPSHOT as version."
+          echo "version=$NEXT_VERSION" >> $GITHUB_OUTPUT
+          echo "Calculated version: $NEXT_VERSION"
