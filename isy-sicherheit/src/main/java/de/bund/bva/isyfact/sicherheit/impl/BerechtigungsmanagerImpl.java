@@ -146,7 +146,8 @@ public class BerechtigungsmanagerImpl implements Berechtigungsmanager {
         if (recht == null || recht.isEmpty()) {
             throw new IllegalArgumentException(
                     new SicherheitFehlertextProvider().getMessage(
-                            SicherheitFehlerSchluessel.MSG_PARAMETER_FEHLT, "recht")
+                            SicherheitFehlerSchluessel.MSG_PARAMETER_FEHLT, "recht"
+                    )
             );
         }
         if (rechte == null) {
@@ -159,6 +160,7 @@ public class BerechtigungsmanagerImpl implements Berechtigungsmanager {
         }
         return null;
     }
+
 
     /**
      * Sets the mapping of roles to rights for all Berechtigungsmanager of an application.
