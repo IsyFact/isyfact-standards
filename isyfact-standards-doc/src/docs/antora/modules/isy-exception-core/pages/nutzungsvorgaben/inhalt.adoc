@@ -506,7 +506,6 @@ public void increaseCount() throws MaximumCountReachedException {
 
 *Leere catch-Blöcke:* +
 Wenn dies der Fall ist, dann ist die Exception unnötig oder die Ausnahme muss behandelt werden.
-Siehe auch <<isyfact-bibliotheken-fuer-fehlerbehandlung>>.
 
 .Don't: Leerer catch-Block
 [id="listing-LeererCatchBlock2",reftext="{listing-caption} {counter:listings }"]

@@ -17,6 +17,8 @@ Die folgende Abbildung zeigt einen Überblick über die Bausteine im aktuellen R
 image::bausteine:bausteine.dn.svg[]
 
 .Legende
+[%collapsible]
+====
 ****
 Jede Wabe steht für einen Baustein.
 Blau gefüllte Waben sind Teil der xref:einstieg:vorstellung/isyfact-standards.adoc[].
@@ -24,6 +26,7 @@ Grau gefüllte Waben sind Teil der xref:einstieg:vorstellung/isyfact-erweiterung
 
 Hellblau umrandete Waben bedeuten, dass der Baustein als Software-Bibliothek veröffentlicht wird.
 ****
+====
 
 Die nachfolgende Tabelle beschreibt die Bausteine. Sie stellen in der Regel ein Dokument aus architektonischer Sicht – das Konzept – und ein Dokument aus technischer Sicht – die Nutzungsvorgaben – sowie eine Software-Bibliothek zur Integration in eigene Anwendungssysteme bereit.
 
