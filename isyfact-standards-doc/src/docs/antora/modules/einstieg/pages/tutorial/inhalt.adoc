@@ -72,7 +72,6 @@ Als Implementierung für die JPA wird Hibernate verwendet.
 * Für persistente Entitäten, die über eine Komponentenschnittstelle angeboten werden, werden eigene Schnittstellenobjekte definiert, die per Deep-Copy gefüllt werden. Hierfür wird ein Bean-Mapper verwendet.
 Innerhalb einer Teilanwendung dürfen persistente Entitäten allerdings über Komponentengrenzen hinweg genutzt werden.
 * DAOs und Entitäten werden in einer xref:isy-persistence:nutzungsvorgaben/umsetzung-datenzugriff.adoc[festgelegten Paketstruktur] abgelegt.
-* Die Transaktionssteuerung wird per AOP in der Service-Schicht durchgeführt (siehe Kapitel <<anbieten-von-service-schnittstellen>>).
 +
 [NOTE]
 ====
@@ -388,19 +387,6 @@ public class MyClass {
 Der `IsyLoggerStandard` ist dabei für technisches Logging gedacht.
 Je nach Anwendungsszenario sind andere spezifische Logger (`IsyLoggerFachdaten`, `IsyLoggerTypisiert`) zu verwenden.
 
-Wichtig ist, in der Exception-Fassade an der Service-Schnittstelle (siehe Kapitel <<klassendesign-2>>) die Correlation-ID zu setzen:
-
-[source,java]
-----
-public class ServiceSchnittstelleExceptionFassade {
-
-    @StelltLoggingKontextBereit
-    public Object serviceMethode(AufrufKontext kontext, Parameter serviceParameter) {
-        // ...
-    }
-}
-----
-
 [[einbinden-der-bibliotheken-1]]
 ===== Einbinden der Bibliotheken
 
@@ -511,17 +497,7 @@ Komponente genutzt werden, gehören in das Paket:
 [[realisierung-7]]
 ==== Realisierung
 
-Die Bibliothek ist in zwei Teile aufgeteilt: `isy-exception-core` und `isy-exception-sst`.
-Das Core-Paket enthält anwendungsinterne Exception-Klassen und Hilfsklassen für das Exception-Mapping.
-Im Schnittstellen-Projekt sind die Klassen für die Transport-Exceptions enthalten.
-Wenn das Core-Paket eingebunden wird, wird über Maven automatisch das Schnittstellen-Projekt mit eingebunden.
-Die explizite Einbindung von `isy-exception-sst` sollte dann entfernt werden.
-
-Die Core-Bibliothek wird im Wesentlichen im Anwendungskern bzw.
-der Service-Schnittstellen-Implementierung benötigt
-(siehe <<bibliotheken-fuer-die-implementierung-der-service-schnittstelle>>). Für Service-Schnittstellen
-werden lediglich die Transport-Exceptions aus `isy-exception-sst` benötigt
-(siehe Kapitel <<bibliotheken-fuer-das-service-schnittstellen-projekt>>).
+Die Bibliothek enthält anwendungsinterne Exception-Klassen und Hilfsklassen für das Exception-Mapping.
 
 [[einbinden-der-bibliothek-1]]
 ===== Einbinden der Bibliothek
@@ -562,10 +538,9 @@ Diese unterstützt das Laden von Fehlertexten aus einer Spring-Message-Source.
 [[fehlerbehandlung-an-der-anwendungsschnittstelle]]
 ===== Fehlerbehandlung an der Anwendungsschnittstelle
 
-Fehler sind entweder zu behandeln und zu loggen oder weiterzuwerfen.
-Es muss jedoch sichergestellt werden, dass interne Fehler der Anwendung nicht über die
-System-Schnittstelle (siehe <<anbieten-von-service-schnittstellen>>) geworfen werden.
-Dazu wird in der Exception-Fassade eine explizite Fehlerbehandlung mit einem Catch-Throwable-Block durchgeführt.
+Fehler sind entweder zu behandeln und zu loggen oder weiter zu werfen.
+Es muss jedoch sichergestellt werden, dass interne Fehler der Anwendung nicht über die Service-Schnittstelle geworfen werden.
+Dazu wird an der Service-Schnittstelle eine explizite Fehlerbehandlung durchgeführt.
 
 Alle Exceptions der Anwendungen werden hier in Transport-Exceptions umgewandelt.
 Dazu wird das im Folgenden beschrieben Muster verwendet.
