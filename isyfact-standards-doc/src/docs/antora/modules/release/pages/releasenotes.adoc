@@ -50,7 +50,11 @@ Anwendungskern:: Das Konzept der "Basisdaten" wurde gestrichen, in dem die Refer
 [[kapitel-bausteine]]
 == Bausteine
 
-...
+=== Http Invoker
+
+Der Baustein wurde entfernt.
+Anwendungen müssen auf den xref:isy-service-rest:konzept/master.adoc[Baustein REST] migrieren.
+
 
 [[kapitel-deprecations]]
 == Deprecations
