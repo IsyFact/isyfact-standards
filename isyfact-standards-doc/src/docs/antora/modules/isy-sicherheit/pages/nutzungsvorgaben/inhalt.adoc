@@ -183,7 +183,7 @@ Werden im Lebenszyklus der Geschäftsanwendung weitere Rollen (z.B. für neu hin
 [[autorisierung]]
 == Umsetzung der Autorisierung
 
-Im Dokument xref:blaupausen:referenzarchitektur-it-system/master.adoc[IsyFact Referenzarchitektur IT-Systeme] werden drei Möglichkeiten des Zugriffs auf ein IT-System: Grafische Oberflächen (GUIs), Services und Batches beschrieben.
+In der xref:blaupausen:referenzarchitektur-it-system/master.adoc[] werden drei Möglichkeiten des Zugriffs auf ein IT-System: Grafische Oberflächen (GUIs), Services und Batches beschrieben.
 Für alle diese Möglichkeiten gilt, dass der Aufrufkontext so früh wie möglich aus der eingehenden Anfrage auszulesen und im Verwalter (d.h. dem Spring Bean `AufrufKontextVerwalter`) zu speichern ist.
 Nur so kann sichergestellt werden, dass alle Prüfungen auf Rechte korrekt funktionieren.
 Dazu bietet der Baustein Sicherheit einige Hilfsmittel an.

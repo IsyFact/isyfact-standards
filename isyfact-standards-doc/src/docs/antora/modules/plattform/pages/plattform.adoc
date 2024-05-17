@@ -13,7 +13,7 @@ Neben der reinen technischen Plattform sieht die Plattform der IsyFact auch Konz
 
 [[betriebsplattform-isyfact]]
 .Betriebsplattform der IsyFact
-image::blaupausen:referenzarchitektur/ti-architektur-awl-pru.dn.svg[]
+image::referenzarchitektur:technisch-infrastrukturell/ti-architektur-awl-pru.dn.svg[]
 
 Die Plattform entspricht dem SAGA/BSI Netzkonzept mit drei Zonen:
 

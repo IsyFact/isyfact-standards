@@ -133,7 +133,7 @@ Neben der technischen Kommunikation erfolgt durch diese Komponenten auch die Abb
 === Austausch von Geschäftsobjekten
 
 Der Anwendungskern hat die Hoheit über die Geschäftsobjekte des IT-Systems.
-In xref:referenzarchitektur/master.adoc[Referenzarchitektur] wurde bereits beschrieben, dass zur Strukturierung eines IT-Systems zwei Sichten verwendet werden können:
+In der xref:referenzarchitektur:index.adoc[] wurde bereits beschrieben, dass zur Strukturierung eines IT-Systems zwei Sichten verwendet werden können:
 
 *Technische Sicht:* Die technische Sicht unterteilt die IT-Anwendung in Schichten für die jeweils eigene Technologien verwendet werden: Nutzung (Batch und Service), Anwendungskern und Datenzugriff.
 Das Ziel ist es, eine Durchmischung von Technologien zu verhindern, so darf z. B. außerhalb des Datenzugriffs kein SQL formuliert werden.

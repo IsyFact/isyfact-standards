@@ -4,7 +4,7 @@
 [[sicherheitsarchitektur-eines-it-systems]]
 == Sicherheitsarchitektur eines IT-Systems
 
-Der Baustein Security bildet eine Komponente des Querschnitts der xref:blaupausen:referenzarchitektur-it-system/master.adoc[IsyFact Referenzarchitektur IT-Systeme].
+Der Baustein Security bildet eine Komponente des Querschnitts der xref:blaupausen:referenzarchitektur-it-system/master.adoc[].
 Er ist von jedem IT-System zur Autorisierung von Zugriffen und Vorgängen zu verwenden.
 
 Die Mechanismen zur Absicherung IsyFact-konformer IT-Systeme haben zum Ziel, die Autorisierung von Zugriffen _systematisch_, _einheitlich_ und _einfach_ umzusetzen.
@@ -19,7 +19,7 @@ Die *Einfachheit* der Nutzung der Bibliothek `isy-security` wird durch weitgehen
 [[praemissen]]
 === Prämissen
 
-Aus den xref:blaupausen:referenzarchitektur/master.adoc#prinzipien-der-sicherheitsarchitektur[Prinzipien der Sicherheitsarchitektur] leiten sich die folgenden Randbedingungen für die Umsetzung der Berechtigungsprüfung innerhalb eines IT-Systems ab:
+Aus den xref:referenzarchitektur:software-technisch.adoc#prinzipien-der-sicherheitsarchitektur[Prinzipien der Sicherheitsarchitektur] leiten sich die folgenden Randbedingungen für die Umsetzung der Berechtigungsprüfung innerhalb eines IT-Systems ab:
 
 * Anfragen, die am Dialog (Web-App) eines IT-Systems eingehen, sind immer vorher über die mitgegebenen Authentifizierungsdaten durch das IAM-System bzw. die lokale Authentifizierung erfolgreich authentifiziert.
 Durch die Authentifizierung des IAM-Systems enthält der HTTP-Header der Anfrage die Identifikation des Anwenders und dessen Rollen (in Form eines JWT Zugriffstoken).
@@ -131,7 +131,7 @@ Für eine fachliche und prozessbezogene Aufrufkette wird dieses `Access-Token` i
 
 Es erfolgt an der jeweiligen Schnittstelle des Nachbarsystems eine entsprechende Transformation der Daten des `Access-Tokens` in einen `SecurityContext`.
 
-Gemäß Referenzarchitektur ist HTTP als das Übertragungsprotokoll der xref:blaupausen:referenzarchitektur/master.adoc#servicekommunikation[Servicekommunikation] definiert.
+Gemäß Referenzarchitektur ist HTTP als das Übertragungsprotokoll der xref:referenzarchitektur:software-technisch.adoc#servicekommunikation[Servicekommunikation] definiert.
 Dazu sind an den Schnittstellen meist dedizierte Consumer-Provider-Bibliotheken vorgesehen, die bereits die Logik zur Transformation und  Weiterleitung des `Access-Tokens` übernehmen.
 
 Gibt es diese Bibliotheken nicht an den Schnittstellen, dann muss das Nachbarsystem direkt aufgerufen werden.

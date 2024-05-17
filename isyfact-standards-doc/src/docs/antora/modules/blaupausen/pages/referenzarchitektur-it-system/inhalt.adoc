@@ -1,4 +1,4 @@
-= Softwaretechnische Architektur: Inhalt
+= Referenzarchitektur IT-System: Inhalt
 
 // tag::inhalt[]
 == Technische Architektur
@@ -8,7 +8,7 @@ Die technische Architektur (xref:glossary:glossary:master.adoc#glossar-t-archite
 === Die Referenzarchitektur eines IT-Systems
 
 Die individuell erstellten Anwendungssysteme der Systemlandschaft müssen technisch gleichartig aufgebaut sein.
-Daher wird im Folgenden die Referenz-Architektur beschrieben, nach der diese Anwendungssysteme software-technisch in IT-Systeme umgesetzt werden.
+Daher wird im Folgenden die Referenzarchitektur beschrieben, nach der diese Anwendungssysteme software-technisch in IT-Systeme umgesetzt werden.
 
 .Referenzarchitektur eines IT-Systems
 [id="image-RAITSys",reftext="{figure-caption} {counter:figures}"]

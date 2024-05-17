@@ -1,0 +1,194 @@
+= Betriebliche Aspekte
+
+include::glossary:licence:partial$licence.adoc[]
+
+Im Folgenden wird auf wichtige Aspekte des Betriebs einer Systemlandschaft eingegangen.
+Dazu gehören Verfügbarkeit, Ausfallsicherheit, Performance, Lastverteilung, Auslieferung, Installation, Versionswechsel, Monitoring und Datensicherung.
+
+[[verfuegbarkeit-und-ausfallsicherheit]]
+== Verfügbarkeit und Ausfallsicherheit
+
+Die Verfügbarkeit wird über einen Prozentwert gemessen, der unter Berücksichtigung von definierten Betriebs- und Wartungsfenstern angibt, wie ausfallsicher ein System sein soll und tatsächlich ist.
+<<image-verfuegbar>> gibt einen Überblick, was bei der Messung der Verfügbarkeit zu berücksichtigen ist.
+
+.Verfügbarkeit
+[id="image-verfuegbar",reftext="{figure-caption} {counter:figures}"]
+image::referenzarchitektur:technisch-infrastrukturell/verfuegbar.png[]
+
+Der Aufbau der Produktionsumgebung ist so zu gestalten, dass die angestrebte Verfügbarkeit erreicht werden kann.
+
+TIP: Dies kann beispielsweise eine Verfügbarkeit von 7x24 Stunden und eine auf den Monat berechnete Verfügbarkeit von über 99 % sein.
+Eine Beispielrechnung findet sich im xref:blaupausen:detailkonzept-komponente-service/master.adoc#verfuegbarkeit[Detailkonzept Service].
+
+In der Produktionsumgebung einer IsyFact-Systemlandschaft wird die geforderte Verfügbarkeit über das Mittel der Redundanz realisiert.
+Jede Komponente der technischen Infrastruktur ist mehrfach vorhanden.
+Bei einem Ausfall einer Komponente kann der Wirkbetrieb immer noch über die andere Komponente abgewickelt werden (Failover).
+Die Zustandslosigkeit der Applikationsserver (s. xref:technisch-infrastrukturell.adoc[]) unterstützt diese Redundanz und das Failover.
+Beim Ausfall eines Applikationsservers gehen die notwendigen Informationen, um den Betrieb über einen anderen Applikationsserver abzuwickeln, nicht verloren.
+
+Neben der technischen Redundanz sollte auch eine räumliche Redundanz gegeben sein.
+Die Komponenten der technischen Infrastruktur sollten über mehrere Rechenzentren redundant verteilt sein.
+Dadurch ist die Verfügbarkeit auch in Katastrophen-Szenarien (z.B. einem Brand in einem Rechenzentrum) sichergestellt.
+
+[[performance]]
+== Performance
+
+Ein weiterer wichtiger Aspekt der technischen Infrastruktur ist die Performance der IT-Systeme in einer IsyFact-Systemlandschaft.
+Auf der Ebene der technischen Infrastruktur wird die Performance vor allem durch die folgenden Aspekte limitiert:
+
+*Leistungsfähigkeit eines Serverknotens:* Die Leistungsfähigkeit eines Serverknotens wird bestimmt durch seine Rechenleistung (Anzahl und Taktung der Prozessoren) und Größe des Hauptspeichers.
+
+*Netzwerk-Durchsatz:* In einem verteilten System erfolgt die Verarbeitung von Informationen innerhalb einer Geschäftsfunktion meist durch die Zusammenarbeit von verschiedenen Knoten der Infrastruktur.
+Dazu müssen die Knoten miteinander kommunizieren.
+Ist die Obergrenze des Netzwerk-Durchsatzes erreicht, so führt dies zu einem Performance-Verlust.
+
+Bringt ein IT-System einen Serverknoten an seine Leistungsgrenzen, so existieren grundsätzlich zwei Möglichkeiten der Skalierung: Horizontale Skalierung und Vertikale Skalierung.
+
+Bei der vertikalen Skalierung wird die Hardware eines Serverknotens durch leistungsfähigere Hardware oder durch einen leistungsfähigeren Serverknoten ersetzt.
+Bei der horizontalen Skalierung werden zusätzliche Serverknoten eingesetzt, um die Last besser verteilen zu können.
+Vertikale Skalierung tritt im Laufe der Zeit von selbst auf – da die Entwicklung von leistungsfähigerer Hardware in kurzen Zyklen abläuft.
+Bei der Beschaffung eines Servers wurde das ursprüngliche Modell vom Hersteller häufig durch ein Leistungsfähigeres ersetzt.
+Im Rahmen des Prozesses der gezielten Erneuerung der Hardware (zum Beispiel alle fünf Jahre) bietet die Veränderung der Leistungsparameter dann in der Regel auch Chancen zur Konsolidierung (weniger Server), vorausgesetzt der Ressourcenbedarf der Anwendungen wächst nicht durch neue oder geänderte Anforderungen.
+
+Voraussetzung für die Möglichkeit der horizontalen Skalierung ist eine Software-Architektur, bei der es keine Rolle spielt, welcher Serverknoten einen Verarbeitungsschritt durchführt.
+Die Referenzarchitektur unterstützt durch den zustandslosen Anwendungsserver den Ansatz der horizontalen Skalierung optimal.
+Sie bietet für die Zukunft maximale Flexibilität.
+
+[[skalierung]]
+== Horizontale Skalierung
+
+Skalierbarkeit und Hochverfügbarkeit sind wichtige Anforderungen an die Referenzarchitektur.
+Dies wird unterstützt durch eine zustandslose Serverarchitektur.
+Der Zustand einer Anwendung wird in der Datenbank persistiert und bei jedem eintreffenden Service-Aufruf aus dieser gelesen und bei Beendigung des Service-Aufrufs wieder in die Datenbank geschrieben.
+
+[[horizontale-skalierung]]
+.Horizontale Skalierung
+image::software-technisch/horSkal.png[]
+
+Die Referenzarchitektur sieht eine horizontale Skalierung auf der Ebene der Anwendungsserver vor.
+Ein <<lastverteilung,Loadbalancer>> verteilt die eingehenden Anfragen auf die vorhandenen Anwendungsserver.
+Im Falle eines Serverausfalls kann die Aufgabe des ausgefallenen Servers durch einen anderen Server übernommen werden.
+
+[[lastverteilung]]
+== Lastverteilung
+
+Für die horizontalen Skalierung und die Ausfallsicherheit wird eine Lastverteilung notwendig.
+Lastverteilung (englisch: _load balancing_) kann entweder durch dedizierte Hardware-Komponenten (Hardware-Lastverteilung) oder durch eine Software-Lösung (Software-Lastverteilung) implementiert werden.
+
+In der Hardware-Lastverteilung werden die eingehenden Anfragen von einer Hardware-Komponente entgegengenommen.
+Diese Hardware-Komponente ist für die Verteilung der Anfragen auf die dahinterliegenden Server zuständig.
+
+Analog arbeitet die Software-Lastverteilung.
+Hier übernimmt eine Software-Komponente wie z.B. ein HTTP-Server mit entsprechendem Plugin die Verteilung der Anfragen.
+
+
+[[auslieferung-installation-und-versionswechsel]]
+== Auslieferung, Installation und Versionswechsel
+
+Durch die Auslieferung und Installation einer neuen Version eines IT-Systems wird die Konfiguration der Systemlandschaft verändert.
+In diesem Abschnitt wird auf diese Aspekte eingegangen.
+Dazu werden zunächst die Begriffe Konfiguration und Auslieferung definiert.
+Im Anschluss daran werden die organisatorischen Verantwortlichkeiten betrachtet.
+
+*Konfiguration:* Mit dem Begriff „Konfiguration“ wird die Betriebsumgebung zu einem bestimmten Zeitpunkt beschrieben.
+Alle Komponenten der Betriebsumgebung, das heißt Hardware-Komponenten, System­software-Komponenten, Anwendungssoftware-Komponenten und ihre Konfigurationsparameter haben eine Version.
+Eine Konfiguration beschreibt die Betriebsumgebung durch die Angabe der Versionen der einzelnen Komponenten zu einem Zeitpunkt.
+Wird an der Betriebsumgebung eine Änderung zum Beispiel durch Austausch einer Hardware-Komponente durchgeführt, dann erhält diese Hardware-Komponente eine neue Versionsnummer.
+Gleichzeitig hat sich die Konfiguration der Betriebsumgebung verändert und wird ebenfalls mit einer neuen Versionsnummer bezeichnet.
+Gleiches gilt, wenn sich zum Beispiel die Parameter eines Anwendungsservers ändern:
+Eine neue Version der Parameter liegt vor und damit liegt auch eine neue Konfiguration der Betriebsumgebung vor.
+Um nachvollziehen zu können, was sich wann warum geändert hat, ist es empfehlenswert, dass jede Veränderung an der Betriebsumgebung genehmigt und nachvollziehbar dokumentiert wird.
+
+*xref:glossary:glossary:master.adoc#glossar-auslieferung[Auslieferung]:* Mit dem Begriff „Auslieferung“ wird die Übergabe von Liefergegenständen aus der Hoheit der Software-Entwicklung in die Hoheit des Betriebs bezeichnet.
+Dabei werden im allgemeinen Software, Parameter und eine Dokumentation ausgeliefert.
+Bei der Software wird eine ablauffähige Einheit (RPM-Paket) ausgeliefert.
+Dieses RPM-Paket wird durch das Installationsprogramm unter Angabe der Parameter installiert.
+Anschließend wird die installierte Software gemäß der in der Auslieferungsdokumentation angegebenen Parameter konfiguriert.
+Die Auslieferungsdokumentation besteht aus einem Releaseletter, einem Betriebshandbuch und ggf. einem Benutzerhandbuch.
+Im Releaseletter werden Inhalt und Version der Pakete in Form einer Stückliste beschrieben.
+Weiterhin wird beschrieben, welche bekannten Fehler und Probleme es mit diesem Paket gibt.
+Im Releaseletter sind auch die Installationsanleitung inklusive der Parameter der Installation und die Aufstellung der mit dem xref:glossary:glossary:master.adoc#glossar-release[Release] geschlossenen Fehler-Meldungen enthalten.
+Eine Auslieferung umfasst ebenfalls Ergänzungen und Anpassungen der betroffenen Betriebshandbücher.
+
+Wie oben bereits erwähnt bezeichnet der Begriff Auslieferung einen Verantwortungsübergang zwischen zwei Organisationseinheiten.
+Die Entwicklung erstellt und testet die Software-Pakete und erzeugt die zugehörigen Dokumentationen.
+Der Betrieb übernimmt diese Artefakte.
+Für die Installation der Software ist der Betrieb verantwortlich.
+Insbesondere liegt die Sicherstellung der Rücksetzbarkeit nach einer fehlgeschlagenen Installation eines Pakets in der Verantwortung des Betriebs.
+Treten Fehler auf, so informiert der Betrieb die Entwicklung über ein geregeltes Verfahren über das Problem.
+Auf Anfrage des Betriebs unterstützt die Entwicklung direkt bei der Fehleranalyse.
+Der Betrieb ist auch für die Dokumentation der Konfigurationsänderungen durch die Installation der neuen Anwendungssoftware-Pakete zuständig.
+
+[[betriebsueberwachung]]
+== Betriebsüberwachung
+
+Um den Gesamt-Status eines Systems zu überwachen, sind die Überwachung der IT-Systeme sowie das Monitoring der Komponenten der technischen Infrastruktur notwendig.
+Auf die Überwachung der IT-Systeme wird im Dokument xref:isy-ueberwachung:konzept/master.adoc#einleitung[Konzept Überwachung] im Detail eingegangen.
+Hier wird unter anderem festgelegt, welche Informationen ein nach der Referenzarchitektur erstelltes IT-System für die Überwachung mindestens bereitstellen muss.
+Hierfür wird das Framework Micrometer verwendet, das sich an eine Vielzahl gängiger Überwachungstools anbinden kann.
+
+Zum Monitoring der technischen Infrastruktur können für das zentrale Überwachungstool verfügbare Client-Programme verwendet werden.
+Diese Programme ermitteln den Status und die Leistungsparameter (zum Beispiel CPU-Auslastung, Hauptspeicher-Auslastung, Netzwerk-Auslastung) eines Server-Knotens und senden diese Informationen an das zentrale Überwachungstool.
+Zusätzlich ist auch ein Betriebsmonitoring der Netzwerkkomponenten (Router, Switches und andere) notwendig.
+
+Beim Über- oder Unterschreiten bestimmter Schwellwerte oder bei einem Totalausfall von Komponenten kann vom zentralen Überwachungstool ein Alarm ausgelöst und der zuständige Systembetreuer informiert werden.
+Es müssen Abhängigkeitsgrafen für die Rechnersysteme und Anwendungen erstellt werden, an Hand derer das zentrale Überwachungstool sinnvolle Alarmierungen vornehmen kann.
+Auch müssen darüber hinaus – am besten bereits während der Entwicklung – sicherheitskritische Ereignisse definiert werden, deren Auftreten explizit überwacht werden soll.
+
+Aus Sicherheitsgründen kommunizieren die Client-Programme des zentralen Überwachungstools nicht direkt mit dem zentralen Überwachungstool, sondern mit einem Satelliten-System.
+Damit benötigt nicht jeder Server der Betriebsumgebung eine direkte Verbindung zum plattformübergreifenden zentralen Überwachungstool.
+
+[[daten-und-datensicherungen]]
+== Daten und Datensicherungen
+
+Die Datensicherung (Backup) für eine IsyFact-Systemlandschaft erfolgt durch den Betrieb.
+Bei der Datensicherung muss zwischen der Sicherung der Software inklusive der Konfigurationsdateien, der Sicherung der Logdateien und der Sicherung der Datenbank unterschieden werden.
+
+[[software-und-konfigurationsdateien]]
+=== Software und Konfigurationsdateien
+
+Mit Ausnahme des Betriebssystems wird die Software selbst inklusive zugehöriger Konfigurationen über ein Konfigurationsmanagement verwaltet.
+Dieses hat nichts mit den Systemen zum Betrieb der Anwendungen zu tun und wird unabhängig betrieben und gesichert.
+Jeder Stand ist über das Konfigurationsmanagement vollständig reproduzierbar.
+Im Falle von Datenverlust können die Software-Pakete in den entsprechenden Versionen neu gebaut und neu installiert werden.
+Dies wird aber in der Regel nur dann notwendig, wenn auch die Systemsicherungen vom Verlust betroffen sind.
+Der Betrieb muss jedoch in der Lage sein, bei Ausfall eines Server-Knotens eine Neuinstallation in kurzer Zeit durchführen zu können (zum Beispiel durch Einspielen zuvor gesicherter Images).
+
+[[log-dateien]]
+=== Log-Dateien
+
+Die verschiedenen Server der Betriebsumgebung schreiben Log-Dateien in das Dateisystem auf dem jeweiligen Server.
+Die Log-Dateien enthalten wichtige Informationen, um bei Problemen das Verhalten der Anwendung nachzuvollziehen oder Nachweise zu erbringen.
+Sie müssen daher gesichert werden.
+Gemäß einer Anforderung des Bundesamtes für Sicherheit in der Informationstechnik (BSI), die im behördlichen Umfeld verbindlich ist, müssen die Log-Dateien zentral gesichert werden.
+
+Die Log-Dateien eines Servers werden regelmäßig von einem Scheduler-Job auf einen zentralen Log-Server transferiert, von wo aus sie gesichert werden.
+Der Betrieb ist für die Datensicherung der Log-Dateien verantwortlich.
+Durch die Vorgaben zum Logging wird sichergestellt, dass Log-Dateien zusammengeführt werden können, und dass der technische Ablauf auch über verschiedene Log-Dateien hinweg nachvollzogen werden kann.
+Die Grundidee dabei ist, dass alle Log-Dateien in einem einheitlichen Format vorliegen und zusätzlich jeder Anfrage an das Gesamtsystem eine xref:isy-logging:konzept/master.adoc#korrelations-id[Korrelations-ID] zugeordnet wird, mit der sich zusammen gehörende Einträge unterschiedlicher Log-Files einander zuordnen lassen.
+
+[[datenbank]]
+=== Datenbank
+
+Die Geschäftsdaten aller Anwendungen einer IsyFact-Systemumgebung werden in relationalen Datenbanken gehalten.
+Der Verlust dieser Daten wäre mit erheblichem Schaden verbunden.
+Eine angemessene Datensicherung ist daher unerlässlich.
+
+Da nur die Produktionsumgebung Echtdaten verarbeitet, beschränken wir uns nachfolgend auf die Datensicherung in der Produktionsumgebung.
+Die Sicherung der Daten in den anderen Systemumgebungen muss nicht regelmäßig erfolgen, sondern kann punktuell je nach Bedarf durchgeführt werden.
+Der durchgängige Einsatz eines Datenbanksystems vereinfacht dabei die Datensicherung.
+Neben den in der Datenbank gespeicherten Daten müssen auch andere Datenspeicher, wie z.B. die Sourcen bei der Datensicherung berücksichtigt werden.
+
+Alle Geschäftsdaten werden redundant in Primär- und Standby-Datenbanken gehalten. Zu jeder Primärdatenbank wird mindestens eine Standby-Datenbank eingerichtet.
+
+NOTE: Für besonders ausfallsichere Systeme wird ein Primär- und Sekundär-Datenbank-Cluster verwendet.
+
+Die Primärdaten werden in einem SAN in einem Rechenzentrum abgelegt, die Standby-Daten im besten Fall in einem SAN eines anderen Rechenzentrums.
+Fällt die Primärdatenbank aus, kann ihre Aufgabe von der Standby-Datenbank übernommen werden (Failover). Die Verfügbarkeit der Anwendungen wird dadurch deutlich erhöht, denn das Failover dauert nur Sekunden oder Minuten, während das Zurückspielen einer Datensicherung (Restore) in der Regel deutlich länger dauern wird.
+Ein Restore wird nur dann notwendig sein, wenn die Datenbestände aufgrund von Softwarefehlern oder menschlichem Versagen korrumpiert wurden.
+Ein Restore aufgrund von technischen Gründen ist sehr unwahrscheinlich.
+Auch ein Komplettausfall der Primärdatenbank ist durch den Einsatz eines über Rechenzentren verteilten Datenbank-Clusters sehr unwahrscheinlich.
+
+Die Replikation der Daten aus den Primärdatenbanken in die Standby-Datenbanken erfolgt über die Weitergabe der ReDo-Informationen.
+Die Datensicherung auf Bänder erfolgt online ausschließlich auf den Standby-Datenbanken und belastet die Primärdatenbank nicht.
+Die Datensicherung der Produktionsdaten wird vom Betrieb durchgeführt und verantwortet.
