@@ -5,7 +5,7 @@ include::glossary:licence:partial$licence.adoc[]
 [[einfuehrung-in-software-factories]]
 == Einführung in Software Factories
 
-Eine Software Factory ist eine Sammlung von Referenzarchitekturen, Bausteinen, einer Plattform, Methoden und Werkzeugen, die es erlaubt, Anwendungen weitgehend „automatisiert“ und standardisiert zu entwickeln.
+Eine Software Factory ist eine Sammlung, bestehend aus einer Referenzarchitektur, Bausteinen, einer Plattform, Methoden und Werkzeugen, die es erlaubt, Anwendungen weitgehend „automatisiert“ und standardisiert zu entwickeln.
 Dabei bedeutet „automatisiert“ hier nicht, dass der Quelltext des Softwaresystems ohne menschliches Zutun durch einen Automaten erzeugt würde.
 Es bezieht sich vielmehr darauf, dass alle wesentlichen technischen Architekturentscheidungen bereits durch die Software Factory getroffen sind, und diese auch entsprechende Komponenten zur Implementierung dieser Architektur bereithält.
 Architekten und Entwickler können sich damit im Normalfall auf die Umsetzung der jeweiligen Fachlichkeit der Anwendung konzentrieren.
