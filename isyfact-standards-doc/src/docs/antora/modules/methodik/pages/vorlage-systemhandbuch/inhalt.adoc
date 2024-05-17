@@ -1172,7 +1172,6 @@ disk.
 
 |HTTP Client
 |Metriken zum Aufruf Services via HTTP.
-Ausgenommen hiervon ist der Aufruf von HTTP Invoker Services!
 |http.client.requests
 
 |Cache
@@ -1193,35 +1192,6 @@ Ausfüllhinweise::
 _Metriken, die nicht angeboten werden, müssen aus der Tabelle entfernt werden._
 _Ebenso müssen Lücken gefüllt werden, da sie anwendungsspezifisch sind._
 ====
-
-[[informationen-ga-sgw]]
-==== Informationen der {anwendung-ga} und des {anwendung-sgw}
-
-:desc-table-service-metriken: Metriken für HTTP Invoker Services
-[id="table-service-metriken", reftext = "{table-caption} {counter:tables}"]
-.{desc-table-service-metriken}
-[cols="2s,2,2m", options="header"]
-|===
-|Metrik
-|Beschreibung
-|Namespace
-
-|Erfolgreiche Aufrufe
-|Liefert die Anzahl der nicht fehlerhaften Aufrufe in der letzten Minute.
-|anzahlAufrufe.LetzteMinute
-
-|Fehlerhafte Aufrufe
-|Liefert die Anzahl der fehlerhaften Aufrufe in der letzten Minute.
-|anzahlFehler.LetzteMinute
-
-|Fachlich fehlerhafte Aufrufe
-|Liefert die Anzahl der fachlich fehlerhaften Aufrufe in der letzten Minute.
-|anzahlFachlicheFehler.LetzteMinute
-
-|Durchschnittliche Dauer der Aufrufe
-|Liefert die durchschnittliche Dauer der letzten 10 Aufrufe in Millisekunden.
-|durchschnittsDauer.LetzteAufrufe
-|===
 
 [[monitoring-batches]]
 ==== Monitoring Batches

@@ -175,8 +175,7 @@ Die IsyFact verwendet ausgewählte Funktionalitäten des Spring-Frameworks in de
 
 * Konfiguration der Datenzugriffsschicht: beschrieben im xref:isy-persistence:nutzungsvorgaben/umsetzung-datenzugriff.adoc[Nutzungskonzept des Bausteins JPA/Hibernate],
 * Konfiguration des Logging über Spring: beschrieben in den xref:isy-logging:nutzungsvorgaben/master.adoc[],
-* Bereitstellung von Metriken zur Überwachung: beschrieben im xref:isy-ueberwachung:konzept/master.adoc[],
-* Verwendung der Schnittstellentechnologie HttpInvoker: beschrieben im xref:isy-serviceapi-core:konzept/master.adoc[].
+* Bereitstellung von Metriken zur Überwachung: beschrieben im xref:isy-ueberwachung:konzept/master.adoc[].
 
 Alle anderen Spring-Funktionalitäten (Validierung über Spring, Emailing, Thread Pooling, Scripting) werden nicht verwendet.
 
@@ -394,14 +393,11 @@ Neben der Konfiguration der Beans enthält eine Anwendung kaum Abhängigkeiten v
 In einigen Fällen existieren jedoch weitere Abhängigkeiten von Spring:
 
 * Für die Bereitstellung von JMX-Beans wird der Spring-MbeanExporter Mechanismus verwendet (siehe xref:isy-konfiguration:konzept/master.adoc#einleitung[Konzept Konfiguration]).
-* Bei HTTP Invoker Schnittstellen-Beans muss explizit eine Bean des eigentlichen Anwendungskontextes aufgerufen werden (siehe xref:isy-serviceapi-core:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben HTTP-Invoker]).
-
 * Beans werden per Namen aus dem Anwendungskontext ausgelesen.
-
 * Beans werden nicht per Dependency Injection, sondern über statische Methoden bereitgestellt.
 Hierüber entstehen Abhängigkeiten zur Instanziierungsreihenfolge der Beans durch Spring.
 
-Für die noch nicht in anderen Konzepten besprochenen (letzten beiden) Themen werden im folgenden Vorgaben aufgestellt.
+Für die letzten beiden Themen werden im folgenden Vorgaben aufgestellt.
 
 [[keine-beans-per-namen-auslesen]]
 ==== Keine Beans per Namen auslesen

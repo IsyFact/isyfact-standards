@@ -6,6 +6,7 @@
 // tag::release-4.0.0[]
 * Produkte entfernt:
 ** Entwicklungsumgebungen und alle Plugins
+** Spring Http Invoker
 // end::release-4.0.0[]
 
 *Änderungen IsyFact 3.0.1*

@@ -81,7 +81,7 @@ In Ausnahmefällen kann auf die Einhaltung der Vorgabe zum Reifegrad (mindestens
 [[prozessorientierte-aufrufe]]
 *Prozessorientierte Aufrufe - Geschäftsvorfälle*
 
-Ein Ausnahmefall stellt die Abbildung von prozessorientierten Aufrufen dar, die häufig durch die Migration von bestehenden prozessorientierten Schnittstellen (z.B. RPC, httpInvoker) entstanden sind.
+Ein Ausnahmefall stellt die Abbildung von prozessorientierten Aufrufen dar, die häufig durch die Migration von bestehenden prozessorientierten Schnittstellen (z.B. RPC) entstanden sind.
 Die Abbildung auf eine ressourcenorientierte REST-Schnittstelle ist i.d.R. mit einer Neukonzeption der Anwendung unter einer ressourcenorientierten Denkweise verbunden.
 Der Aufwand für die Neukonzeption steht oft nicht im Verhältnis zum tatsächlichen (fachlichen) Nutzen.
 Aus diesem Grund dürfen prozessorientierte Aufrufe über einfache http-Aufrufe realisiert werden, die bis auf die Ressourcenorientierung und Verwendung der http-Verben, den übrigen Vorgaben des REST-Konzepts folgen.
@@ -883,7 +883,7 @@ Informationen zur Bearer Propagation gibt es in der https://docs.spring.io/sprin
 
 Um eine Klasse oder einzelne Methoden zu sichern, ist die `@Secured` Annotation des Bausteins Security zu verwendet.
 
-Generell ist das xref:isy-security:konzept/master.adoc#prinzipien-der-sicherheitsarchitektur[Konzept der Sicherheitsarchitektur] zu beachten.
+Generell ist das xref:isy-security:konzept/master.adoc[Konzept der Sicherheitsarchitektur] zu beachten.
 
 [[logging]]
 === Logging
