@@ -27,6 +27,7 @@
 - `IFS-1259`: [isyfact-standards-doc] Basisdaten (d.h. Möglichkeit der gemeinsamen Nutzung von Geschäftsobjekten durch mehrere Fachkomponenten) entfernt
 - `IFS-3676`: [isyfact-standards-doc] IT-Systeme dürfen keine UI-Komponenten mehr enthalten.
 - `IFS-3700`: [isyfact-standards-doc] Baustein Http Invoker entfernt.
+- `IFS-3697`: [isyfact-products-bom] Update JMeter Core auf 5.6.x
 
 # 3.0.1
 - `ISY-701`: Google Guava Versionsanhebung auf 33.1.0
