@@ -302,10 +302,6 @@ Dadurch ist die Wartbarkeit stark beeinträchtigt und die Aufwände können sich
 Bedienelemente sind die Bausteine der Benutzeroberfläche, die es den Benutzern ermöglichen, mit der Anwendung zu interagieren.
 Dieser Abschnitt definiert die verschiedenen Bedienelemente und legt fest, wie sie gestaltet und angeordnet werden sollen, um eine intuitive Benutzererfahrung zu gewährleisten.
 
-*	Definition der verschiedenen Bedienelemente (z. B. Buttons, Eingabefeld, Links).
-*	Gestaltungsrichtlinien für Bedienelemente (z. B. Größe, Abstände, visuelle Hierarchie in sich).
-
-
 === Eingabefeld
 
 Eingabefelder sind grundlegende Interaktionselemente in einer Benutzeroberfläche, die es den Benutzern ermöglichen, Daten einzugeben, zu bearbeiten oder auszuwählen.
@@ -419,7 +415,9 @@ Listen sind zentrale Bestandteile einer jeden Website und insbesondere von Facha
 Listen sind in ihrer alleinigen Form recht simpel. Sie bestehen optische aus einem geschlossenen Rahmen und bestenfalls aus logisch sortierten Elementen. Listen können in den verschiedensten Ausprägungen eingesetzt werden: Eingabefeld + Liste, Eingabefeld + Suchbox + Liste, Menüitem + Liste, etc…
 Die einfachste Form einer Liste ist die rein textuelle Liste.
  
--Abbildung 9 - Einfache Liste-
+[[image-Liste]]
+.Einfache Liste
+image::24_BE_liste.png[align="center"]
 
 Eine Liste kann theoretisch beliebig viele Einträge enthalten, was aber die Usability verschlechtert. Im optimalen Fall haben Liste eine logisch relevante überschaubare Anzahl an Einträgen. Die Einträge sind eindeutig und prägnant. Bei langen Einträgen können auch sinnvolle Abkürzungen genutzt werden.
 Die Listenelemente sind mindestens 44px hoch und entsprechend dem dazugehörigen Element breit (hier exemplarisch das Eingabefeld).
@@ -445,23 +443,31 @@ Checkboxen sind ein wesentliches Element der Benutzeroberfläche, das in vielen 
 Sie ermöglichen es Benutzern, mehrere Optionen aus einer (offenen) Liste auszuwählen und spielen eine wichtige Rolle bei der Interaktivität und Benutzerführung.
 Ein gut gestaltetes Checkbox-Design verbessert die Lesbarkeit und Zugänglichkeit, was besonders wichtig ist, um sicherzustellen, dass alle Benutzer, einschließlich derjenigen mit Behinderungen, die Anwendung problemlos nutzen können.
 Letztlich fördern konsistente Checkbox-Designs eine bessere Benutzererfahrung und erhöhen die Effizienz bei der Datenerfassung und Interaktion.
- 
--Abbildung 10 – Checkboxen-
+
+[[image-Checkboxen]]
+.Checkboxen
+image::24_BE_checkboxen.png[align="center"]
 
 Checkboxen sind 24px x 24px groß, haben aber für mobile Geräte mindestens eine 44px x 44px große Clicktargetarea.
 Checkboxen haben immer ein rechtsstehendes Label mit einer Schriftgröße von mindestens 14pt (hier exemplarisch 16pt).
 Eine Checkbox repräsentiert eine unabhängige, nicht-exklusive Auswahl. Der Benutzer kann beliebige Optionen auswählen.
 Dabei können Checkboxen vertikal angeordnet werden.
  
--Abbildung 11 - Vertikale Gruppe von Checkboxen-
+[[image-Checkboxen vertikal]]
+.Vertikale Gruppe von Checkboxen
+image::24_BE_checkboxen_vertikal.png[align="center"]
 
 Oder auch horizontal angeordnet werden.
  
--Abbildung 12 - horizontale Gruppe von Checkboxen-
+[[image-Checkboxen horizontal]]
+.Horizontale Gruppe von Checkboxen
+image::24_BE_checkboxen_horizontal.png[align="center"]
 
 Wichtig ist, dass jede Checkbox ihrem Label zuzuordnen ist. Für eine homogene Darstellung sind folgende Abstände einzuhalten.
  
--Abbildung 13 - Vermaßung von Checkboxen horizontal und vertikal-
+[[image-Checkboxen mit Einheiten]]
+.Vermaßung von Checkboxen horizontal und vertikal
+image::24_BE_checkboxen_measured.png[align="center"]
 
 *_Do´s_*
 
@@ -483,7 +489,9 @@ Dieser Zustand wird häufig mit einem Quadrat innerhalb der Checkbox symbolisier
 Radiobuttons sind ein wesentliches Element der Benutzeroberfläche, das in vielen Web- und Anwendungsdesigns verwendet wird. Sie ermöglichen es Benutzern, eine Option aus einer (offenen) Liste auszuwählen und spielen eine wichtige Rolle bei der Interaktivität und Benutzerführung. Ein gut gestaltetes Radiobutton-Design verbessert die Lesbarkeit und Zugänglichkeit, was besonders wichtig ist, um sicherzustellen, dass alle Benutzer, einschließlich derjenigen mit Behinderungen, die Anwendung problemlos nutzen können. Letztlich fördern konsistente Checkbox-Designs eine bessere Benutzererfahrung und erhöhen die Effizienz bei der Datenerfassung und Interaktion.
 
  
--Abbildung 14 - Radiobuttons-
+[[image-Radiobutton]]
+.Radiobuttons
+image::24_BE_radiobutton.png[align="center"]
 
 Radiobuttons sind 24px groß, haben aber für mobile Geräte mindestens eine 44px x 44px große Clicktargetarea.
 Radiobuttons haben immer ein rechtsstehendes Label mit einer Schriftgröße von mindestens 14pt (hier exemplarisch 16pt).
@@ -491,16 +499,22 @@ Ein Radiobutton repräsentiert eine exklusive Auswahl.
 Der Benutzer kann innerhalb der Gruppe genau eine Option auswählen.
 Dabei können Checkboxen vertikal angeordnet werden.
  
--Abbildung 15 - Vertikale Gruppe von Radiobuttons-
+[[image-Radiobutton vertikal]]
+.Vertikale Gruppe von Radionbuttons
+image::24_BE_radiobutton_vertikal.png[align="center"]
 
 Oder auch horizontal angeordnet werden.
  
--Abbildung 16 - horizontale Gruppe von Radiobuttons-
+[[image-Radiobutton horizontal]]
+.Horizontale Gruppe von Radionbuttons
+image::24_BE_radiobutton_horizontal.png[align="center"]
 
 Wichtig ist, dass jede Checkbox ihrem Label zuzuordnen ist.
 Für eine homogene Darstellung sind folgende Abstände einzuhalten.
  
--Abbildung 17 - Vermaßung von Radiobuttons horizontal und vertikal-
+[[image-Radiobutton mit Einheiten]]
+.Vermaßung von Radiobuttons horizontal und vertikal
+image::24_BE_radiobutton_measured.png[align="center"]
 
 *_Do´s_*
 
@@ -524,30 +538,40 @@ Dies fördert nicht nur die Benutzerfreundlichkeit, sondern auch die Effizienz b
 In der heutigen digitalen Welt, in der Nutzer eine schnelle und nahtlose Interaktion erwarten, ist ein gut gestaltetes Tabview ein unverzichtbares Werkzeug für jede Webseite.
 Es ermöglicht Entwicklern, Inhalte logisch zu organisieren und sorgt für eine klare Struktur, die die Nutzerbindung und Zufriedenheit steigert.
  
--Abbildung 18 – Tabview-
+[[image-Tabview]]
+.Tabview
+image::24_BE_tabmenu.png[align="center"]
 
 Ein Tabview hat initial einen aktivierten, aber nicht markierten/fokussierten State (siehe obige Abbildung).
 Sobald ein Tab aktiv ausgewählt wird, wird auch die Markierung im Reiter visuell deutlich.
 Der aktive Tab erhält eine 3px dicke Markierungslinie und ein gefärbtes Label in der Highlightfarbe (hier exemplarisch blau).
  
--Abbildung 19 - Tabview mit aktivem Reiter-
+[[image-Tabview active]]
+.Tabview mit aktivem Reiter
+image::24_BE_tabmenu_active.png[align="center"]
 
 Tabmview können ihre Reiter auch mit visuellen Icons unterstützen.
 Diese verhalten sich analog zum Tablabel.
  
--Abbildung 20 - Tabreiter mit Icons-
+[[image-Tabview mit Icons]]
+.Tabview mit Icons
+image::24_BE_tabmenu_icons.png[align="center"]
 
 Es ist ratsam Tabview zu nutzen, wenn der Inhalt nicht ohne massives Scrolling innerhalb des Screens dargestellt werden kann.
 Dabei ist eine fachlich logische Aufgliederung vorauszusetzen.
 Die optimale Anzahl an Tabs liegt bei 4-7 Tabs.
 Sollte es fachlich zwingend notwendig sein, mehr Tabs anzubieten, so kann ein „Taboverflow“ via Scrolling eingesetzt werden, dieses Element ist ein“ Überlangentabview“.
  
--Abbildung 21 - Initales Aussehen eines Überlängentabview-
+[[image-Tabview overlong]]
+.Initiales Aussehen eines Überlängentabview
+image::24_BE_tabmenu_long1.png[align="center"]
 
 Das Tabview nutzt dabei die volle, ihm zur Verfügung stehende, Breite und faded den letzten sichtbaren Menüpunkt aus.
 Darüber liegt ein Pfeil, der es ermöglicht die nächsten Tabs zu erreichen. Wurde dieser gedrückt, so springt das Tabview entsprechend viele Einträge weiter. 
  
--Abbildung 22 - Überlängentabview mit mindestens einem Seitensprung-
+[[image-Tabview overlong skipped]]
+.Überlängentabview mit mindestens einem Seitensprung
+image::24_BE_tabmenu_long2.png[align="center"]
 
 Die Schriftgröße eines Labels im Tabview sollte 14pt nicht unterschreiten.
 Ist die Standardschriftgröße gewählt, so erhöht sie sich diese bei aktiven Elementen um 2pt (hier exemplarisch auf 16pt).
@@ -555,8 +579,9 @@ Die Höhe eines Tabreiters ist mindestens 44px.
 Die Breite ist abhängig vom Label.
 Icons sind mindestens 17px x 17 px groß.
  
--Abbildung 23 - Exemplarische Vermaßung des Tabview-
-
+[[image-Tabview measured]]
+.Exemplarische Vermaßung des Tabview
+image::24_BE_tabmenu_measured.png[align="center"]
 
 *_Do´s:_*
 
@@ -589,11 +614,15 @@ Eingabefeldlisten setzen Standards für interaktive Eingabefelder, Dropdown-Men�
 Dadurch wird sichergestellt, dass alle Eingabefelder auf der Webseite oder in der Anwendung einheitlich gestaltet sind und den besten Praktiken hinsichtlich Benutzerfreundlichkeit und Barrierefreiheit entsprechen.
 Ein konsistentes Design fördert die Orientierung und das Vertrauen der Benutzer, was letztendlich zu einer höheren Zufriedenheit und Effizienz führt.
 
--Abbildung 24 - Eingabefeld mit hinterlegten Auswahlmöglichkeiten-
+[[image-Eingabefeldliste Dropdown]]
+.Eingabefeld mit hinterlegten Auswahlmöglichkeiten
+image::24_BE_eingabefeldliste.png[align="center"]
 
 Beim Klick auf das gesamte Element klappt die Liste aus und ein Element kann angewählt werden.
  
--Abbildung 25 - Aktives Dropdown-
+[[image-Eingabefeldliste aktiv/ Aktives Dropdown]]
+.Aktives Dropdown
+image::24_BE_eingabefeldliste_aufgeklappt.png[align="center"]
 
 Die Listenelemente sind mindestens 44px hoch und entsprechend dem dazugehörigen Element breit (hier exemplarisch das Eingabefeld).
 Aktive Elemente sind in der Highlightfarbe und hinterlegt dargestellt.
