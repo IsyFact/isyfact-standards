@@ -9,7 +9,7 @@ Darüber hinaus werden die Bausteine der IsyFact-Standards kurz beschrieben.
 [[vorgaben-architektur]]
 == Vorgaben für die Architektur
 
-Die xref:blaupausen:referenzarchitektur/master.adoc#einleitung[IsyFact Referenzarchitektur] definiert die Architektur einzelner Anwendungssysteme bis hin zu Anwendungslandschaften.
+Die xref:referenzarchitektur:index.adoc[] definiert die Architektur einzelner Anwendungssysteme bis hin zu Anwendungslandschaften.
 Dazu beschreibt sie drei Architektursichten:
 
 * Fachliche Architektur (A-Architektur),
@@ -54,16 +54,14 @@ Die xref:methodik:vorlagen.adoc#datenflussdiagramm[Vorlage zu Datenflussdiagramm
 
 [[vorgaben-fuer-die-t-architektur]]
 === Vorgaben für die T-Architektur
-Die softwaretechnische Architektur wird auf Basis der Spezifikation aus der fachlichen Architektur entwickelt.
-
-Im Dokument xref:blaupausen:referenzarchitektur-it-system/master.adoc#einleitung[IsyFact Referenzarchitektur IT-Systeme] wird die softwaretechnische Architektur eingeführt und erläutert.
+Die xref:referenzarchitektur:software-technisch.adoc[software-technische Referenzarchitektur] wird auf Basis der Spezifikation aus der fachlichen Architektur entwickelt.
 Die technischen Entsprechungen für die fachlich motivierte Anwendungslandschaft und das Anwendungssystem sind die technisch motivierten Begriffe der Systemlandschaft und respektive des IT-Systems.
 
-Ein IT-System basiert auf einer Drei-Schichten-Architektur und besteht aus den Komponenten, die in <<refarch-technisch,der softwaretechnischen Referenzarchitektur eines IT-Systems>> dargestellt sind.
+Ein xref:blaupausen:referenzarchitektur-it-system/master.adoc[IT-System] basiert auf einer Drei-Schichten-Architektur und besteht aus den Komponenten, die in <<refarch-technisch,der softwaretechnischen Referenzarchitektur eines IT-Systems>> dargestellt sind.
 
 [[refarch-technisch]]
 .Softwaretechnische Referenzarchitektur eines IT-Systems
-image::blaupausen:referenzarchitektur-it-system/RAITSys.png[]
+image::blaupausen:referenzarchitektur-it-system/architektur-it-system.dn.svg[]
 
 Die Abbildung der fachlichen Architektur wird vor allem durch die Fachkomponenten sichtbar.
 Jede Fachkomponente besitzt, soweit sinnvoll, eine Entsprechung in jeder Komponente des IT-Systems.
@@ -89,12 +87,7 @@ Zur Umsetzung von Batches wird der Batchrahmen der IsyFact vorgeschrieben.
 Service::
 Services bieten fachliche Operationen nach außen an und stellen sie anderen IT-Systemen zur Nutzung bereit.
 Das xref:blaupausen:detailkonzept-komponente-service/master.adoc#einleitung[Detailkonzept Komponente Service] beschreibt die Vorgaben für Services sowie den Aufbau der Service-Komponente.
-Die konkrete Umsetzung mit dem Service-Framework HTTP Invoker sind im xref:isy-serviceapi-core:konzept/master.adoc#einleitung[Konzept HTTP-Invoker] sowie den xref:isy-serviceapi-core:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben HTTP-Invoker] beschrieben.
-
-GUI::
-Grafische Oberflächen bieten fachliche Operationen nach außen an und stellen sie Anwendern zur Nutzung bereit.
-Ihre Umsetzung geschieht als Web-GUI und folgt dem MVC-Pattern.
-Die genauen Festlegungen zur Web-GUI-Entwicklung finden sich im xref:blaupausen:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Komponente Web-GUI].
+Die konkrete Umsetzung mittels REST sind im xref:isy-service-rest:konzept/master.adoc[] sowie den xref:isy-service-rest:nutzungsvorgaben/master.adoc[] beschrieben.
 
 Die Erstellung von IT-Systemen wird durch einen Systementwurf konkretisiert und dokumentiert.
 
@@ -113,7 +106,7 @@ IT-Systeme müssen auf Basis dieser Produkte und Bibliotheken gebaut werden.
 === Vorgaben für die TI-Architektur
 Die Architektur der technischen Infrastruktur wird auf Grundlage der Spezifikation und des Entwurfs entwickelt.
 
-Die Grundlagen der TI-Architektur auf Ebene von Anwendungslandschaften und Anwendungssystemen ist in  der xref:blaupausen:referenzarchitektur/master.adoc#einleitung[Referenzarchitektur] beschrieben.
+Die Grundlagen der TI-Architektur auf Ebene von Anwendungslandschaften und Anwendungssystemen ist in der xref:referenzarchitektur:technisch-infrastrukturell.adoc[technisch-infrastrukturellen Referenzarchitektur] beschrieben.
 Die zu verwendende Infrastruktur ist zum Teil durch den xref:einstieg:produkte.adoc#produktkatalog[Produktkatalog] vorgegeben.
 
 [[vorgaben-fuer-das-systemhandbuch]]
@@ -126,7 +119,7 @@ Sie enthält außerdem das Vorgehen zur Erstellung und Beispiele für die zu bes
 == Vorgaben für die Realisierung
 
 Die Realisierung hat gemäß den xref:methodik:java-programmierkonventionen/master.adoc#einleitung[Java Programmierkonventionen] zu erfolgen.
-Die Versionierung von Bibliotheken und Anwendungen muss sich nach den Vorgaben zur xref:werkzeuge:versionierungskontrolle/master.adoc#maven-plugin-versionierungskontrolle[IsyFact Versionierung] richten, die im Wesentlichen auf xref:glossary:literaturextern:inhalt.adoc#litextern-semantic-versioning[Semantic Versioning] basieren.
+Die Versionierung von Bibliotheken und Anwendungen muss sich nach den Vorgaben zur xref:werkzeuge:versionierungskontrolle/master.adoc#maven-plugin-versionierungskontrolle[IsyFact Versionierung] richten, die im Wesentlichen auf https://semver.org/spec/v2.0.0.html[Semantic Versioning] basieren.
 
 Die Bibliotheken der IsyFact werden als JAR (Java Archive) bereitgestellt und können über ihre Maven-Koordinaten leicht als Abhängigkeit in die Anwendungsentwicklung eingebunden werden.
 
@@ -194,12 +187,12 @@ Die zugrunde liegenden Schnittstellen-Technologien bieten dafür kein Standardve
 Der Baustein Polling definiert ein solches Verfahren.
 Die Nutzerdokumentation befindet sich unter xref:isy-polling:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben Polling].
 
-[[http-invoker]]
-=== HTTP-Invoker
+[[rest]]
+=== REST
 
-Für den externen Zugriff auf Anwendungskomponenten werden deren Schnittstellen über das HTTP(S)-Protokoll exponiert.
-Dies ermöglicht eine standardisierte und lose Kopplung der Anwendungen untereinander, insbesondere da die Schnittstellen in verschiedenen, zeitgleich verfügbaren Versionen ausgeliefert werden.
-Dazu wird der HTTP-Invoker von Spring verwendet. Details sind zu finden unter xref:isy-serviceapi-core:konzept/master.adoc#einleitung[Konzept HTTP-Invoker].
+Für den externen Zugriff auf Anwendungskomponenten werden deren Schnittstellen über REST-Endpunkte exponiert.
+Dies ermöglicht eine standardisierte Kommunikation der Anwendungen untereinander und eine lose Kopplung der Anwendungen voneinander.
+Zur Standardisierung der REST-Schnittstellen gibt es den xref:isy-service-rest:konzept/master.adoc[Baustein REST].
 
 [[util]]
 === Util

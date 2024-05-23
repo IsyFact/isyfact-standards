@@ -18,7 +18,7 @@ package de.bund.bva.isyfact.batchrahmen.core.rahmen.impl;
 
 import java.sql.Timestamp;
 
-import javax.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityManagerFactory;
 
 import de.bund.bva.isyfact.batchrahmen.batch.konfiguration.BatchKonfiguration;
 import de.bund.bva.isyfact.batchrahmen.batch.konstanten.KonfigurationSchluessel;

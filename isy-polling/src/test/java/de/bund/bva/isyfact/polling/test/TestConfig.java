@@ -1,12 +1,13 @@
 package de.bund.bva.isyfact.polling.test;
 
-import de.bund.bva.isyfact.polling.PollingMBean;
-import de.bund.bva.isyfact.polling.PollingVerwalter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
+
+import de.bund.bva.isyfact.polling.PollingMBean;
+import de.bund.bva.isyfact.polling.PollingVerwalter;
 
 @Configuration
 @EnableAutoConfiguration

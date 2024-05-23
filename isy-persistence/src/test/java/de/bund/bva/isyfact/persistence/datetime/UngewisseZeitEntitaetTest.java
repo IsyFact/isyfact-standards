@@ -1,12 +1,13 @@
 package de.bund.bva.isyfact.persistence.datetime;
 
-import de.bund.bva.isyfact.datetime.core.UngewisseZeit;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import java.time.LocalTime;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import org.junit.Test;
+
+import de.bund.bva.isyfact.datetime.core.UngewisseZeit;
 
 public class UngewisseZeitEntitaetTest {
     private static LocalTime ANFANG = LocalTime.of(12, 0);

@@ -1,6 +1,6 @@
 package de.bund.bva.isyfact.batchrahmen;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;

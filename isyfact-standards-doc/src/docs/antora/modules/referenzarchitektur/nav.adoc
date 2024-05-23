@@ -1,11 +1,18 @@
-* Referenzarchitektur
-** Fachliche Referenzarchitektur
-** Softwaretechnische Referenzarchitektur
-*** Backend (ehemals: Referenzarchitektur IT-System)
-**** Anwendungskern
-**** Datenzugriff
-**** Service
-*** Frontend (neu, Angular-basiert)
-*** Batch (neu, aus ehemals: RA IT-System und DK Batch)
-** Referenzarchitektur der technischen Infrastruktur
-** Architekturvorgaben
+* xref:index.adoc[]
+** xref:fachlich.adoc[fachlich]
+** xref:software-technisch.adoc[software-technisch]
+*** xref:blaupausen:referenzarchitektur-it-system/master.adoc[IT-System]
+// (neu: Backend)
+**** xref:blaupausen:detailkonzept-komponente-anwendungskern/master.adoc[Anwendungskern]
+**** xref:blaupausen:detailkonzept-komponente-datenzugriff/einordnung-ziele.adoc[Datenzugriff]
+***** xref:blaupausen:detailkonzept-komponente-datenzugriff/persistenzlogik.adoc[]
+***** xref:blaupausen:detailkonzept-komponente-datenzugriff/historisierung.adoc[]
+***** xref:blaupausen:detailkonzept-komponente-datenzugriff/versionierung.adoc[]
+**** xref:blaupausen:detailkonzept-komponente-service/master.adoc[Service]
+**** xref:blaupausen:detailkonzept-komponente-batch/master.adoc[Batch]
+//*** Frontend (neu, Angular-basiert)
+//*** Batch (neu, aus ehemals: RA IT-System und DK Batch)
+** xref:technisch-infrastrukturell.adoc[technisch-infrastrukturell]
+** Anpassung der Referenzarchitektur
+*** xref:tailoring.adoc[Tailoring]
+*** xref:vereinfachung.adoc[Vereinfachung]

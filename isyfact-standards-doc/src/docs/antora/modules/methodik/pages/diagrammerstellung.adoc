@@ -33,7 +33,7 @@ Die IsyFact empfiehlt die Verwendung von *diagrams.net* und *Enterprise Architec
 [[einsatzszenarien_diagrams_net]]
 == Einsatzszenarien diagrams.net
 
-xref:glossary:literaturextern:inhalt.adoc#litextern-diagrams-net[_diagrams.net_] eignet sich insbesondere für:
+https://diagrams.net[_diagrams.net_] eignet sich insbesondere für:
 
 * Diagramme und Schaubilder, die nicht UML-konform sein müssen,
 * Mockups und andere Diagrammtypen.
@@ -50,10 +50,10 @@ Die IsyFact bietet xref:diagrammerstellung/diagramsnet.adoc[eine Konfiguration s
 [[einsatzszenarien_enterprise_architect]]
 == Einsatzszenarien Enterprise Architect
 
-xref:glossary:literaturextern:inhalt.adoc#litextern-enterprise-architect[_Enterprise Architect_] wird häufig verwendet, um modellgetriebene Diagramme für Referenzarchitekturen, Systemspezifikationen und Systementwürfe zu erstellen, da diese Dokumentausprägungen:
+https://sparxsystems.com/products/ea/[_Enterprise Architect_] wird häufig verwendet, um modellgetriebene Diagramme für Systemspezifikationen und Systementwürfe zu erstellen, da diese Dokumente:
 
 * hauptsächlich UML- und ER-Diagramme enthalten,
-* UML-Profil-fähig und konform sein sollen und
+* UML-Profil-fähig und konform sein sollen und,
 * die Verwendung eines UML-Datenmodells die Wartung und Sicherstellung der Konsistenz der Daten und Diagramme gewährleistet.
 
 Die Herausforderungen dieses Werkzeugs sind:

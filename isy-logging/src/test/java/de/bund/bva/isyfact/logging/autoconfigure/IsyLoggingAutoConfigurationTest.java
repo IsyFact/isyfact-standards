@@ -1,14 +1,15 @@
 package de.bund.bva.isyfact.logging.autoconfigure;
 
-import de.bund.bva.isyfact.logging.util.LogApplicationListener;
-import de.bund.bva.isyfact.logging.util.LoggingMethodInterceptor;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import de.bund.bva.isyfact.logging.util.LogApplicationListener;
+import de.bund.bva.isyfact.logging.util.LoggingMethodInterceptor;
 
 public class IsyLoggingAutoConfigurationTest {
 

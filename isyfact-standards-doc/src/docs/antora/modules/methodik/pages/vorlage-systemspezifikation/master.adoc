@@ -16,5 +16,5 @@ include::10-querschnittskonzepte.adoc[tags=inhalt]
 include::11-betriebliche-anforderungen.adoc[tags=inhalt]
 include::12-offene-punkte.adoc[tags=inhalt]
 include::13-anhang.adoc[tags=inhalt]
-include::14-anleitung-ea.adoc[tags=inhalt]
+
 

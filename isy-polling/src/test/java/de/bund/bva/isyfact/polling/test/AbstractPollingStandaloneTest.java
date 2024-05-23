@@ -16,17 +16,17 @@
  */
 package de.bund.bva.isyfact.polling.test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.time.Duration;
+
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import de.bund.bva.isyfact.datetime.test.TestClock;
 import de.bund.bva.isyfact.datetime.util.DateTimeUtil;
 import de.bund.bva.isyfact.polling.PollingVerwalter;
-import de.bund.bva.isyfact.polling.config.IsyPollingProperties;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Tests für den Polling Verwalter im Standalone-Modus.

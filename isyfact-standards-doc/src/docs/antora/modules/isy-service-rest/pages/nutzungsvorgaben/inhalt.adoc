@@ -12,10 +12,10 @@ Wir empfehlen jedoch den Einsatz des Swagger-Editors, der sowohl die syntaktisch
 
 Swagger Editor ist ein Tool zum Bearbeiten von OpenAPI-Spezifikationen und unterstützt OpenAPI 3.0.
 Swagger Editor validiert die eingegebene Spezifikation und bietet darüber hinaus weitere Funktionalität, wie z.B. Auto-Completion.
-Wir empfehlen das entsprechende IntelliJ und Eclipse Plugins dieses Editors (siehe xref:glossary:literaturextern:inhalt.adoc#litextern-swagger-editor-intellij[Swagger Editor für IntelliJ] und xref:glossary:literaturextern:inhalt.adoc#litextern-swagger-editor-eclipse[Swagger Editor für Eclipse]).
+Wir empfehlen das entsprechende IntelliJ und Eclipse Plugins dieses Editors (siehe https://plugins.jetbrains.com/plugin/14837-openapi-swagger-editor[Swagger Editor für IntelliJ] und https://marketplace.eclipse.org/content/openapi-swagger-editor[Swagger Editor für Eclipse]).
 Die Verwendung dieser Plugins ist besonders sinnvoll, da sie die Integration der Spezifikation in das Projekt ermöglicht und die Verwaltung mit Version Control erleichtert.
 
-Weitere Informationen zu OpenAPI 3.0 (Beschreibung und Vorgaben) finden Sie unter xref:glossary:literaturextern:inhalt.adoc#litextern-swagger-spezification[Swagger Spezifikation]).
+Weitere Informationen zu OpenAPI 3.0 (Beschreibung und Vorgaben) finden Sie unter https://swagger.io/specification/[Swagger Spezifikation]).
 Bei der Erstellung der Spezifikation sind die Vorgaben der IsyFact (siehe xref:isy-service-rest:konzept/master.adoc#einleitung[Konzept REST]) zu beachten.
 Relevante Vorgaben beziehen sich u.a. auf den Aufbau der URls und der Anfrage, die Verwendung der http-Verben und Statuscodes.
 
@@ -438,7 +438,7 @@ Der Zugriff auf das Artefakt ist über das entsprechende Artifactory und/oder Gi
 ==== Antora
 Antora ist eine Dokumentationspipeline, die es Dokumentations-, Produkt- und Entwicklungsteams ermöglicht, Dokumentationsseiten zu erstellen, zu verwalten und zu veröffentlichen, die in AsciiDoc erstellt und aus mehreren versionierten Repositories bezogen wurden.
 
-Mithilfe des OpenAPI Generators kann aus der xref:glossary:literaturextern:inhalt.adoc#litextern-openapi-spezifikation[OpenAPI Spezifikation] (YAML Datei) AsciiDoc generiert/erstellt werden.
+Mithilfe des OpenAPI Generators kann aus der https://swagger.io/specification/[OpenAPI Spezifikation] (YAML Datei) AsciiDoc generiert/erstellt werden.
 Allgemeine Informationen zum OpenAPI Generator finden sich im Kapitel <<Verwendung_von_OpenAPI_Generator,Verwendung von OpenAPI Generator>>.
 Die generierten AsciiDoc-Dateien können dann in den Antora-Dokumentenbuild aufgenommen und gemeinsam mit der übrigen Dokumentation des Bausteins oder der Anwendung generiert und veröffentlicht werden.
 
@@ -519,5 +519,9 @@ public WebClient webClient() {
         .build();
 }
 ----
+
+Nachdem eine Anfrage bearbeitet wurde, sorgt der `HttpHeaderNestedDiagnosticContextFilter` im Rahmen seiner
+`afterRequest()`-Methode dafür, dass die Korrelations-ID aus dem MdcHelper entfernt wird. Dies erfolgt durch den Aufruf
+von `MdcHelper.entferneKorrelationsIds()`, der alle zuvor gesetzten Korrelations-IDs zurücksetzt.
 
 // end::inhalt[]

@@ -26,7 +26,7 @@ Die Gültigkeit des Bedienkonzepts für Altanwendungen bleibt zum damaligen Zeit
 *_Bedeutung des Bedienkonzepts & Styleguides_*
 
 Das Bedienkonzept & Styleguide ist weit mehr als nur ein Dokument mit Gestaltungsrichtlinien.
-Es ist ein umfassendes Werkzeug, das die Grundlage für die Entwicklung einer erfolgreichen Benutzeroberfläche bildet. 
+Es ist ein umfassendes Werkzeug, das die Grundlage für die Entwicklung einer erfolgreichen Benutzeroberfläche bildet.
 Indem es einheitliche Standards und Best Practices festlegt, trägt es maßgeblich zur Erreichung der Ziele einer Anwendung oder Website bei.
 Diese Ziele können von der Steigerung der Benutzerzufriedenheit über die Verbesserung der Effizienz bis hin zur Stärkung der Markenidentität reichen.
 
@@ -325,7 +325,7 @@ Platzhalter müssen sinnvolle Eingabeunterstützungen (im einfachsten Fall das L
 .Eingabfeld mit Platzhalter
 image::24_BE_eingabefeld_normal.png[align="center"]
 
-Abbildung - Eingabefeld mit Platzhalter 
+Abbildung - Eingabefeld mit Platzhalter
 
 Aktive Eingabefelder sind inkl. dem Label in der Highlightfarbe (blau) dargestellt. Sie haben zusätzlich zur veränderten Farbe eine 1px dickere Border und die Schrift vergrößert sich um 2pt.
 
@@ -334,7 +334,7 @@ Aktive Eingabefelder sind inkl. dem Label in der Highlightfarbe (blau) dargestel
 [[image-eingabefeldaktiv]]
 .Eingabfeld aktiv
 image::24_BE_eingabefeld_aktiv.png[align="center"]
- 
+
 Aktive Eingabefelder verlieren ihren Platzhalter und können entweder geleert werden (siehe Abbildung 2 oder eine Mask enthalten, um das erwartete Eingabeformat anzuzeigen und als Bedienhilfe die Fehlerwahrscheinlichkeit zu minimieren.
 
 *_Maskoption:_* (exemplarisch, in der Umsetzung kann nur ein Eingabefeld aktiv sein):
@@ -357,7 +357,7 @@ Der Platzhalter ist verschwunden und die Eingabe wird in der Schriftfarbe angeze
 .Eingabfeld befüllt nicht aktiv
 image::24_BE_eingabefeld_filled.png[align="center"]
 
-Disabled Eingabefelder sind grau hinterlegt und geben zusätzlich über einen Mousecursor-Wechsel beim Hovern den disabled state wieder. 
+Disabled Eingabefelder sind grau hinterlegt und geben zusätzlich über einen Mousecursor-Wechsel beim Hovern den disabled state wieder.
 
 *_Disabled:_*
 
@@ -418,7 +418,7 @@ Der Abstand eines Eingabefelds zum darunter liegenden Label eines weiteren Einga
 Listen sind zentrale Bestandteile einer jeden Website und insbesondere von Fachanwendungen. Sie dienen dazu, Inhalte zu strukturieren und schnell zu erfassen.Listen ermöglichen es dem Nutzer darüber zulässige Werte auszuwählen. Dadurch werden Fehleingaben und unerwartete Ergebnisse reduziert.
 Listen sind in ihrer alleinigen Form recht simpel. Sie bestehen optische aus einem geschlossenen Rahmen und bestenfalls aus logisch sortierten Elementen. Listen können in den verschiedensten Ausprägungen eingesetzt werden: Eingabefeld + Liste, Eingabefeld + Suchbox + Liste, Menüitem + Liste, etc…
 Die einfachste Form einer Liste ist die rein textuelle Liste.
- 
+
 -Abbildung 9 - Einfache Liste-
 
 Eine Liste kann theoretisch beliebig viele Einträge enthalten, was aber die Usability verschlechtert. Im optimalen Fall haben Liste eine logisch relevante überschaubare Anzahl an Einträgen. Die Einträge sind eindeutig und prägnant. Bei langen Einträgen können auch sinnvolle Abkürzungen genutzt werden.
@@ -445,22 +445,22 @@ Checkboxen sind ein wesentliches Element der Benutzeroberfläche, das in vielen 
 Sie ermöglichen es Benutzern, mehrere Optionen aus einer (offenen) Liste auszuwählen und spielen eine wichtige Rolle bei der Interaktivität und Benutzerführung.
 Ein gut gestaltetes Checkbox-Design verbessert die Lesbarkeit und Zugänglichkeit, was besonders wichtig ist, um sicherzustellen, dass alle Benutzer, einschließlich derjenigen mit Behinderungen, die Anwendung problemlos nutzen können.
 Letztlich fördern konsistente Checkbox-Designs eine bessere Benutzererfahrung und erhöhen die Effizienz bei der Datenerfassung und Interaktion.
- 
+
 -Abbildung 10 – Checkboxen-
 
 Checkboxen sind 24px x 24px groß, haben aber für mobile Geräte mindestens eine 44px x 44px große Clicktargetarea.
 Checkboxen haben immer ein rechtsstehendes Label mit einer Schriftgröße von mindestens 14pt (hier exemplarisch 16pt).
 Eine Checkbox repräsentiert eine unabhängige, nicht-exklusive Auswahl. Der Benutzer kann beliebige Optionen auswählen.
 Dabei können Checkboxen vertikal angeordnet werden.
- 
+
 -Abbildung 11 - Vertikale Gruppe von Checkboxen-
 
 Oder auch horizontal angeordnet werden.
- 
+
 -Abbildung 12 - horizontale Gruppe von Checkboxen-
 
 Wichtig ist, dass jede Checkbox ihrem Label zuzuordnen ist. Für eine homogene Darstellung sind folgende Abstände einzuhalten.
- 
+
 -Abbildung 13 - Vermaßung von Checkboxen horizontal und vertikal-
 
 *_Do´s_*
@@ -482,7 +482,7 @@ Dieser Zustand wird häufig mit einem Quadrat innerhalb der Checkbox symbolisier
 
 Radiobuttons sind ein wesentliches Element der Benutzeroberfläche, das in vielen Web- und Anwendungsdesigns verwendet wird. Sie ermöglichen es Benutzern, eine Option aus einer (offenen) Liste auszuwählen und spielen eine wichtige Rolle bei der Interaktivität und Benutzerführung. Ein gut gestaltetes Radiobutton-Design verbessert die Lesbarkeit und Zugänglichkeit, was besonders wichtig ist, um sicherzustellen, dass alle Benutzer, einschließlich derjenigen mit Behinderungen, die Anwendung problemlos nutzen können. Letztlich fördern konsistente Checkbox-Designs eine bessere Benutzererfahrung und erhöhen die Effizienz bei der Datenerfassung und Interaktion.
 
- 
+
 -Abbildung 14 - Radiobuttons-
 
 Radiobuttons sind 24px groß, haben aber für mobile Geräte mindestens eine 44px x 44px große Clicktargetarea.
@@ -490,16 +490,16 @@ Radiobuttons haben immer ein rechtsstehendes Label mit einer Schriftgröße von 
 Ein Radiobutton repräsentiert eine exklusive Auswahl.
 Der Benutzer kann innerhalb der Gruppe genau eine Option auswählen.
 Dabei können Checkboxen vertikal angeordnet werden.
- 
+
 -Abbildung 15 - Vertikale Gruppe von Radiobuttons-
 
 Oder auch horizontal angeordnet werden.
- 
+
 -Abbildung 16 - horizontale Gruppe von Radiobuttons-
 
 Wichtig ist, dass jede Checkbox ihrem Label zuzuordnen ist.
 Für eine homogene Darstellung sind folgende Abstände einzuhalten.
- 
+
 -Abbildung 17 - Vermaßung von Radiobuttons horizontal und vertikal-
 
 *_Do´s_*
@@ -523,30 +523,30 @@ Durch die Verwendung von Tabs können Benutzer schnell und einfach zwischen vers
 Dies fördert nicht nur die Benutzerfreundlichkeit, sondern auch die Effizienz bei der Informationssuche.
 In der heutigen digitalen Welt, in der Nutzer eine schnelle und nahtlose Interaktion erwarten, ist ein gut gestaltetes Tabview ein unverzichtbares Werkzeug für jede Webseite.
 Es ermöglicht Entwicklern, Inhalte logisch zu organisieren und sorgt für eine klare Struktur, die die Nutzerbindung und Zufriedenheit steigert.
- 
+
 -Abbildung 18 – Tabview-
 
 Ein Tabview hat initial einen aktivierten, aber nicht markierten/fokussierten State (siehe obige Abbildung).
 Sobald ein Tab aktiv ausgewählt wird, wird auch die Markierung im Reiter visuell deutlich.
 Der aktive Tab erhält eine 3px dicke Markierungslinie und ein gefärbtes Label in der Highlightfarbe (hier exemplarisch blau).
- 
+
 -Abbildung 19 - Tabview mit aktivem Reiter-
 
 Tabmview können ihre Reiter auch mit visuellen Icons unterstützen.
 Diese verhalten sich analog zum Tablabel.
- 
+
 -Abbildung 20 - Tabreiter mit Icons-
 
 Es ist ratsam Tabview zu nutzen, wenn der Inhalt nicht ohne massives Scrolling innerhalb des Screens dargestellt werden kann.
 Dabei ist eine fachlich logische Aufgliederung vorauszusetzen.
 Die optimale Anzahl an Tabs liegt bei 4-7 Tabs.
 Sollte es fachlich zwingend notwendig sein, mehr Tabs anzubieten, so kann ein „Taboverflow“ via Scrolling eingesetzt werden, dieses Element ist ein“ Überlangentabview“.
- 
+
 -Abbildung 21 - Initales Aussehen eines Überlängentabview-
 
 Das Tabview nutzt dabei die volle, ihm zur Verfügung stehende, Breite und faded den letzten sichtbaren Menüpunkt aus.
-Darüber liegt ein Pfeil, der es ermöglicht die nächsten Tabs zu erreichen. Wurde dieser gedrückt, so springt das Tabview entsprechend viele Einträge weiter. 
- 
+Darüber liegt ein Pfeil, der es ermöglicht die nächsten Tabs zu erreichen. Wurde dieser gedrückt, so springt das Tabview entsprechend viele Einträge weiter.
+
 -Abbildung 22 - Überlängentabview mit mindestens einem Seitensprung-
 
 Die Schriftgröße eines Labels im Tabview sollte 14pt nicht unterschreiten.
@@ -554,7 +554,7 @@ Ist die Standardschriftgröße gewählt, so erhöht sie sich diese bei aktiven E
 Die Höhe eines Tabreiters ist mindestens 44px.
 Die Breite ist abhängig vom Label.
 Icons sind mindestens 17px x 17 px groß.
- 
+
 -Abbildung 23 - Exemplarische Vermaßung des Tabview-
 
 
@@ -592,7 +592,7 @@ Ein konsistentes Design fördert die Orientierung und das Vertrauen der Benutzer
 -Abbildung 24 - Eingabefeld mit hinterlegten Auswahlmöglichkeiten-
 
 Beim Klick auf das gesamte Element klappt die Liste aus und ein Element kann angewählt werden.
- 
+
 -Abbildung 25 - Aktives Dropdown-
 
 Die Listenelemente sind mindestens 44px hoch und entsprechend dem dazugehörigen Element breit (hier exemplarisch das Eingabefeld).
@@ -628,7 +628,7 @@ image::24_DP_bedingte_pflichtfeldgruppe.png[align="center"]
 
 Erklärung:
 Bedingt ein Pflichtfeld nur eine Teilmenge einer Auswahl an Eingabemöglichkeiten, so lässt sich dies über eine bedingte Pflichtfeldgruppe darstellen.
-Hier ist die Eingabe mindestens einer Option Voraussetzung, um den Prozess abzuschließen. 
+Hier ist die Eingabe mindestens einer Option Voraussetzung, um den Prozess abzuschließen.
 Im konkreten Beispiel: Identitätsnachweisdokument.
 Der Prozess sieht vor das ein Nachweis über die Identität erbracht wird.
 Dies kann jedoch über verschiedene Dokumente erfolgen.
@@ -698,7 +698,7 @@ Jede inhaltliche Gruppe ( 3-Spaltig in der ersten Gruppe (rosa, orange, gelb) un
 *_Wahrnehmung der inhaltlichen Gruppen:_*
 
 [[image-wahrnehmunghorizontalegruppe]]
-.Wahrnehmung der der inhaltlichen Gruppen Hierarchie 
+.Wahrnehmung der der inhaltlichen Gruppen Hierarchie
 image::24_UC_horizontale_inhaltlichte_gruppe.png[align="center"]
 
 Gleichmäßige Feldlängen unterstützen den Lesefluss des Benutzers.
@@ -736,7 +736,7 @@ Beispielsweise sollte ein Anmeldeformular separate Felder für "Benutzername" un
 Platzhaltertexte sind nützlich, um Benutzern zusätzliche Hinweise oder Beispiele für die erwarteten Eingaben zu geben.
 Sie sollten jedoch nicht als Ersatz für Labels dienen. Idealerweise sollten Platzhaltertexte kurz und prägnant sein, um den Benutzern zu helfen, die Anforderungen des jeweiligen Eingabefelds besser zu verstehen, ohne den Platz zu überladen oder den Fokus zu stören.
 
-Beispiel 1, man erwartet einen Nachnamen im Eingabefeld 
+Beispiel 1, man erwartet einen Nachnamen im Eingabefeld
 *_Do´s:_*
 Nachname
 

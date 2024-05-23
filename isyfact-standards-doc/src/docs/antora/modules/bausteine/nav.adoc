@@ -7,10 +7,6 @@
 *** xref:isy-exception-core:konzept/master.adoc[Konzept]
 *** xref:isy-exception-core:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
 
-** HttpInvoker
-*** xref:isy-serviceapi-core:konzept/master.adoc[Konzept]
-*** xref:isy-serviceapi-core:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
-
 ** JPA/Hibernate
 *** xref:isy-persistence:konzept.adoc[Konzept]
 **** xref:isy-persistence:konzept/vorgaben-konventionen.adoc[]
@@ -70,5 +66,9 @@
 ** JSF
 *** xref:isyfact-jsf-doku:isy-web:konzept/konzept.adoc[Konzept]
 *** xref:isyfact-jsf-doku:isy-web:nutzungsvorgaben/nutzungsvorgaben.adoc[Nutzungsvorgaben]
+
+** Angular
+*** xref:isy-angular-widgets-doc:ROOT:konzept/konzept.adoc[Konzept]
+*** https://isyfact.github.io/isy-angular-widgets/documentation/[Nutzungsvorgaben]
 
 

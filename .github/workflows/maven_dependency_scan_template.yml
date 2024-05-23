@@ -20,6 +20,11 @@ on:
         required: true
         description: 'Target reference for snyk project'
         type: string
+      snyk-arguments:
+        required: false
+        description: "Optional arguments for snyk cli"
+        type: string
+        default: "--maven-aggregate-project"
     secrets:
       SNYK_TOKEN:
         required: true
@@ -47,5 +52,5 @@ jobs:
       - name: Create dependency snapshot to monitor for vulnerabilities
         run: > 
           snyk monitor 
-          --maven-aggregate-project 
+          ${{ inputs.snyk-arguments }}
           --target-reference=${{ inputs.snyk-reference }} --org=${{ inputs.snyk-organization }}

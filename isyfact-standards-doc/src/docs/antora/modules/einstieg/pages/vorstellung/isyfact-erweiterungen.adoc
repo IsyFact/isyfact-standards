@@ -3,7 +3,7 @@
 include::glossary:licence:partial$licence.adoc[]
 
 Aktuell werden nur wenige Erweiterungen, wie in den xref:vorstellung/rahmenbedingungen.adoc#aktueller-stand-und-weiterentwicklung[Rahmenbedingungen] beschrieben, unter einer Open-Source-Lizenz zur Verfügung gestellt.
-Auf der xref:glossary:literaturextern:inhalt.adoc#litextern-register-factory-bausteine[Webseite der Register Factory] befindet sich eine Übersicht über vorhandene Bausteine, die in Zukunft potenziell als IsyFact-Erweiterung zur Verfügung gestellt werden.
+Auf der https://www.bva.bund.de/DE/Das-BVA/Aufgaben/I/Informationstechnik/RegisterFactory/Produkt/produkt_rf_node.html#doc241990bodyText2[Webseite der Register Factory] befindet sich eine Übersicht über vorhandene Bausteine, die in Zukunft potenziell als IsyFact-Erweiterung zur Verfügung gestellt werden.
 Teilweise können diese auf Anfrage herausgegeben werden.
 
 NOTE: Bei Interesse wenden Sie sich bitte per E-Mail (isyfact@bva.bund.de) an uns.

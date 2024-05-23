@@ -64,11 +64,7 @@ Sie werden primär nach ihrer Funktion benannt.
 
 // end::namenskonvention[]
 
-
 In einer allgemeinen Anwendung gibt es z.B. die Geschäftsobjekte `Aufgabe`, `Zeitpunkt` und `Nutzer`.
-
-In Ausnahmefällen können Geschäftsobjekte fachlich nicht genau einer Komponente zugeordnet werden.
-Hierfür wird die Komponente _Basisdaten_ definiert, die nur die eine Aufgabe hat, solche Geschäftsobjekte an zentraler Stelle zu verwalten.
 
 Eine *Anwendungsfallklasse* setzt genau einen Anwendungsfall um.
 Ihr Schnitt ergibt sich aus der fachlichen Architektur.
@@ -137,13 +133,13 @@ Neben der technischen Kommunikation erfolgt durch diese Komponenten auch die Abb
 === Austausch von Geschäftsobjekten
 
 Der Anwendungskern hat die Hoheit über die Geschäftsobjekte des IT-Systems.
-In xref:referenzarchitektur/master.adoc[Referenzarchitektur] wurde bereits beschrieben, dass zur Strukturierung eines IT-Systems zwei Sichten verwendet werden können:
+In der xref:referenzarchitektur:index.adoc[] wurde bereits beschrieben, dass zur Strukturierung eines IT-Systems zwei Sichten verwendet werden können:
 
-*Technische Sicht:* Die technische Sicht unterteilt die IT-Anwendung in Schichten für die jeweils eigene Technologien verwendet werden: Nutzung (GUI, Batch und Service), Anwendungskern und Datenzugriff.
-Das Ziel ist es, eine Durchmischung von Technologien zu verhindern, so darf z. B. in der GUI kein SQL formuliert werden.
+*Technische Sicht:* Die technische Sicht unterteilt die IT-Anwendung in Schichten für die jeweils eigene Technologien verwendet werden: Nutzung (Batch und Service), Anwendungskern und Datenzugriff.
+Das Ziel ist es, eine Durchmischung von Technologien zu verhindern, so darf z. B. außerhalb des Datenzugriffs kein SQL formuliert werden.
 
 *Fachliche Sicht:* Die fachliche Sicht beschreibt eine Teilaufgabe, z. B. Meldung, Auskunft oder Fristenkontrolle.
-Innerhalb dieser Teilaufgabe wird der Anwendungskern über eine GUI, Services oder Batches angesprochen, der wiederum über die Datenzugriffsschicht mit der Datenbank kommunizieren muss.
+Innerhalb dieser Teilaufgabe wird der Anwendungskern über Services oder Batches angesprochen, der wiederum über die Datenzugriffsschicht mit der Datenbank kommunizieren muss.
 Daher zerlegt die fachliche Sicht das IT-System in fachliche Säulen.
 Diese fachlichen Säulen werden im folgenden Teilanwendungen genannt.
 Das Ziel ist die fachliche Trennung und Minimierung inhaltlicher Abhängigkeiten.
@@ -153,7 +149,7 @@ Damit kann eine IT-Anwendung sowohl vertikal in Teilanwendungen (fachliche Sicht
 
 [[image-schichten-und-teilanwendungen]]
 .Schichten und Teilanwendungen
-image::blaupausen:detailkonzept-anwendungskern/SchichtTAnw.png[]
+image::blaupausen:detailkonzept-anwendungskern/teilsysteme-aufbau.dn.svg[]
 
 Eine Teilanwendung erstreckt sich über alle technischen Schichten, kapselt aber die Fachlichkeit, zu der gewisse Geschäftsobjekte gehören.
 Um den Austausch von Objekten innerhalb einer Teilanwendung zwischen den Schichten zu vereinfachen, gleichzeitig aber unterschiedliche Teilanwendungen gegeneinander abzugrenzen, wird für die Verwendung von Objekten in Schnittstellen folgende Regel aufgestellt:
@@ -172,17 +168,14 @@ Zu dieser Teilanwendung gehören in der Schicht Nutzung die Oberfläche _Aspekta
 == Verwendung des Spring-Frameworks
 
 Das Spring-Framework ist ein Java EE Framework, welches im Kern sehr verständlich und leicht zu verwenden ist.
-In ihm werden die Bestandteile eines Systems als „Beans“ definiert.
+In ihm werden die Bestandteile eines Systems als "Beans" definiert.
 Neben seiner Kern-Funktionalität der Verwaltung, Konfiguration und aspektorientierten Erweiterung von Beans bietet Spring viele Funktionalitäten, welche die Entwicklung einer Anwendung erleichtern sollen.
 
-Die IsyFact verwendet ausgewählte Funktionalitäten des Spring-Frameworks in der Anwendungsentwicklung.
-Die Verwendung dieser Funktionalitäten ist in den Blaupausen und Bausteinen wie folgt beschrieben:
+Die IsyFact verwendet ausgewählte Funktionalitäten des Spring-Frameworks in der Anwendungsentwicklung:
 
 * Konfiguration der Datenzugriffsschicht: beschrieben im xref:isy-persistence:nutzungsvorgaben/umsetzung-datenzugriff.adoc[Nutzungskonzept des Bausteins JPA/Hibernate],
 * Konfiguration des Logging über Spring: beschrieben in den xref:isy-logging:nutzungsvorgaben/master.adoc[],
-* Bereitstellung von Metriken zur Überwachung: beschrieben im xref:isy-ueberwachung:konzept/master.adoc[],
-* Verwendung der Schnittstellentechnologie HttpInvoker: beschrieben im xref:isy-serviceapi-core:konzept/master.adoc[],
-* Implementierung von Dialogen und Masken mit JSF und Spring-Webflow: beschrieben im xref:detailkonzept-komponente-web-gui/master.adoc[].
+* Bereitstellung von Metriken zur Überwachung: beschrieben im xref:isy-ueberwachung:konzept/master.adoc[].
 
 Alle anderen Spring-Funktionalitäten (Validierung über Spring, Emailing, Thread Pooling, Scripting) werden nicht verwendet.
 
@@ -327,6 +320,8 @@ Die Beans der Komponenten werden mit der Annotation `@Component` bzw. deren Spez
 [[konfigurationsparameter-ueber-property-objekte-konfigurieren]]
 ==== Konfigurationsparameter über Property-Objekte konfigurieren
 
+include::glossary:miscellaneous:partial$deprecated-abschnitt.adoc[]
+
 Die Konfiguration der Anwendung wird (wie im xref:isy-konfiguration:konzept/master.adoc#einleitung[Konzept Konfiguration]  beschrieben) über die Datei `application.properties` durchgeführt.
 Diese Datei enthält sämtliche betrieblichen Konfigurationsparameter der Anwendung. 
 Das Setzen einzelner Konfigurationsparameter über `set`-Methoden ist nur in Ausnahmefällen erlaubt.
@@ -348,8 +343,6 @@ public class ReloadablePropertyKonfiguration {
     @Bean
     public ReloadablePropertyKonfiguration config() {
          return new ReloadablePropertyKonfiguration(String[]{
-            "/resources/nachrichten/gui-linksnavigation.properties",
-            "/config/isy-webgui.properties",
             "/config/allgemeine-anwendung.properties",
             "/config/jpa.properties",
             "/config/tasks.properties"
@@ -400,14 +393,11 @@ Neben der Konfiguration der Beans enthält eine Anwendung kaum Abhängigkeiten v
 In einigen Fällen existieren jedoch weitere Abhängigkeiten von Spring:
 
 * Für die Bereitstellung von JMX-Beans wird der Spring-MbeanExporter Mechanismus verwendet (siehe xref:isy-konfiguration:konzept/master.adoc#einleitung[Konzept Konfiguration]).
-* Bei HTTP Invoker Schnittstellen-Beans muss explizit eine Bean des eigentlichen Anwendungskontextes aufgerufen werden (siehe xref:isy-serviceapi-core:nutzungsvorgaben/master.adoc#einleitung[Nutzungsvorgaben HTTP-Invoker]).
-
 * Beans werden per Namen aus dem Anwendungskontext ausgelesen.
-
 * Beans werden nicht per Dependency Injection, sondern über statische Methoden bereitgestellt.
 Hierüber entstehen Abhängigkeiten zur Instanziierungsreihenfolge der Beans durch Spring.
 
-Für die noch nicht in anderen Konzepten besprochenen (letzten beiden) Themen werden im folgenden Vorgaben aufgestellt.
+Für die letzten beiden Themen werden im folgenden Vorgaben aufgestellt.
 
 [[keine-beans-per-namen-auslesen]]
 ==== Keine Beans per Namen auslesen
@@ -430,16 +420,14 @@ In diesem Fall wird die Transaktion nicht fortgeschrieben, sondern zurückgeroll
 Der Anwendungskern bietet an seiner Schnittstelle fachliche Operationen, in fachliche Komponenten gruppiert, an.
 Die fachlichen Operationen sind in der Regel zustandslos.
 Daher ist eine Transaktion über mehrere Aufrufe des Anwendungskerns oder ein Caching über Transaktionsgrenzen hinaus nicht notwendig und nach Möglichkeit zu vermeiden.
-Ist eine solche Steuerung trotzdem unumgänglich, muss sie über die jeweils zuständige Nutzungsschicht (GUI, Batch oder Service) erfolgen.
+Ist eine solche Steuerung trotzdem unumgänglich, muss sie über die jeweils zuständige Nutzungsschicht (Batch oder Service) erfolgen.
 
 [NOTE]
 ====
 Details zur Umsetzung von Transaktionen in der Nutzungsschicht finden sich in den jeweiligen Detailkonzepten:
 
-* xref:detailkonzept-komponente-batch/master.adoc[Detailkonzept Komponente Batch]
-* xref:detailkonzept-komponente-service/master.adoc[Detailkonzept Komponente Service]
-* xref:detailkonzept-komponente-web-gui/master.adoc[Detailkonzept Komponente Web-GUI]
-
+* xref:detailkonzept-komponente-batch/master.adoc[Detailkonzept Komponente Batch],
+* xref:detailkonzept-komponente-service/master.adoc[Detailkonzept Komponente Service].
 
 ====
 

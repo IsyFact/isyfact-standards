@@ -1,15 +1,16 @@
 package de.bund.bva.isyfact.batchrahmen.batch.exception;
 
-import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchReturnCode;
-import de.bund.bva.isyfact.exception.BaseException;
-import de.bund.bva.isyfact.exception.FehlertextProvider;
-import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
-import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
+import org.junit.Test;
+
+import de.bund.bva.isyfact.batchrahmen.batch.rahmen.BatchReturnCode;
+import de.bund.bva.isyfact.exception.BaseException;
+import de.bund.bva.isyfact.exception.FehlertextProvider;
+import de.bund.bva.isyfact.exception.TechnicalRuntimeException;
 
 public class BatchAusfuehrungsExceptionTest {
 
