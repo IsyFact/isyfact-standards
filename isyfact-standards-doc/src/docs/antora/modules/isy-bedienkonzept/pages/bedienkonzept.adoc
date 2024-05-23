@@ -119,13 +119,13 @@ Durch die Festlegung einheitlicher Gestaltungsrichtlinien und Interaktionselemen
 Konsistenz trägt nicht nur zur Benutzerzufriedenheit bei, sondern erleichtert auch die Wiedererkennung und Nutzung der Benutzeroberfläche über verschiedene Seiten und Funktionen hinweg.
 
 *	Klare Anweisungen und Fehlermeldungen: Nutzer sollten stets verstehen, was von ihnen erwartet wird.
-Klare Anweisungen und verständliche Fehlermeldungen helfen dabei, Frustration zu vermeiden und den Nutzer durch den Prozess zu führen
+Klare Anweisungen und verständliche Fehlermeldungen helfen dabei, Frustration zu vermeiden und den Nutzer durch den Prozess zu führen.
 * Validierung von Eingaben: Validieren Sie Eingabefelder in Echtzeit, um Benutzer vor Fehlern zu warnen, bevor sie das Formular absenden.
-Dadurch wird vermieden, dass Benutzer nach dem Absenden des Formulars feststellen, dass sie fehlerhafte oder unvollständige Informationen eingegeben haben
+Dadurch wird vermieden, dass Benutzer nach dem Absenden des Formulars feststellen, dass sie fehlerhafte oder unvollständige Informationen eingegeben haben.
 * Progressive Offenbarung von Informationen: Überladen Sie die Benutzeroberfläche nicht mit zu vielen Informationen auf einmal.
-Stellen Sie sicher, dass Informationen kontextbezogen und schrittweise offenbart werden, um Benutzer nicht zu überfordern
+Stellen Sie sicher, dass Informationen kontextbezogen und schrittweise offenbart werden, um Benutzer nicht zu überfordern.
 * Testen mit verschiedenen Benutzergruppen: Um sicherzustellen, dass Ihre Oberfläche für eine breite Palette von Benutzern zugänglich ist, ist es wichtig, Tests mit verschiedenen Benutzergruppen durchzuführen.
-Berücksichtigen Sie dabei Benutzer mit unterschiedlichen Fähigkeiten, Geräten und technischen Kenntnissen
+Berücksichtigen Sie dabei Benutzer mit unterschiedlichen Fähigkeiten, Geräten und technischen Kenntnissen.
 
 Weitere Informationen zu einer besseren Benutzerfreundlichkeit sind am jeweiligen Bedienelement, dem Pattern und/oder Eingabehilfen und Fehlermeldungen zu finden.
 
@@ -160,17 +160,18 @@ Zusätzlich zu einem klar leserlichen Schriftschnitt sind auch die Gestaltungsme
 Die Standard-Schriftart für Bedienelemente und Inhalte ist BundesSans 14 pt regular in dunkelgrau.
 Grundsätzlich gilt, ausreichende Schriftgrößen sind abhängig vom Betrachtungsabstand, von der Art des Textes und von der Sehschärfe der Lesenden.
 Individuelle Schriftgrößen können Sie mit dem Schriftgrößenrechner auf leserlich.info ermitteln und entsprechend dem Nutzerkreis anpassen.
-Richtlinien zur Anwendung
 
-* Die Verwendung verschiedener Schriftarten, über die im Bedienkonzept hinaus vorgegebenen Schriftarten, muss vermieden werden
+*_Richtlinien zur Anwendung:_*
+
+* Die Verwendung verschiedener Schriftarten, über die im Bedienkonzept hinaus vorgegebenen Schriftarten, muss vermieden werden.
 * Die Schriftgröße muss immer ausreichend groß sein. Ein Unterschreiten von Mindestgrößen zugunsten des Platzgewinns muss vermieden werden.
-Stattdessen werden andere, platzsparende Mechanismen angewandt, wie z.B. Expander (Progressive Disclosure)
+Stattdessen werden andere, platzsparende Mechanismen angewandt, wie z.B. Expander (Progressive Disclosure).
 
 *Die Anzahl verschiedener Schriftgrößen muss auf ein notwendiges Minimum reduziert werden
 *	Es muss sichergestellt sein, dass der Kontrast der Schriftfarbe zur Hintergrundfarbe ausreichend groß ist.
-Hier ist der Kontrast größtmöglich zu wählen (z.B. dunkelgraue (#212529) Schrift auf weißen Hintergrund)
+Hier ist der Kontrast größtmöglich zu wählen (z.B. dunkelgraue (#212529) Schrift auf weißen Hintergrund).
 Ist dies aus technischer oder fachlicher Notwendigkeit nicht möglich, so muss der Kontrast bei kleiner Schrift mindestens 4:1 entsprechen.
-Überschriften und großer/dicker Text muss mindestens einen Kontrast von 3:1 aufweisen
+* Überschriften und großer/dicker Text muss mindestens einen Kontrast von 3:1 aufweisen.
 
 *_Grafiken_*
 
@@ -178,17 +179,17 @@ Bilder und Grafiken ergänzen den Text und vermitteln Informationen auf visuelle
 Hier werden die Leitlinien für die Verwendung von Grafiken festgelegt, einschließlich Stilrichtlinien, Bildgrößen und im Ansatz deren Barrierefreiheit.
 Details werden im entsprechenden Kapitel genauer erläutert.
 
-* Bilder unterliegen in erster Linie der notwendigen Fachlichkeit
-* Jedes Bild benötigt eine Bildunterschrift
-* Jedes Bild benötigt ein aussagekräftiges Alt-Attribut
-* Bilder dürfen nicht gegen deutsches Recht verstoßen, politisch, sexuell oder angreifend sein
-* Bilder dürfen keine Schriftgrafiken enthalten; in Ausnahmen muss die Schriftgrafik durch z.B. Alt-Attribute ausreichend beschrieben sein
-* Schmuckgrafiken können genutzt werden
-* Schmuckgrafiken sollen, so wenig wie möglich genutzt werden
-* Schmuckgrafiken müssen als solche gekennzeichnet sein
-* Schmuckgrafiken benötigen keine Alt-Attribute
-* Es ist darauf zu achten, dass durch Bilder kein horizontales Scrolling entsteht
-* Es ist darauf zu achten, dass das Bildmaterial ausreichen hoch aufgelöst ist, sodass keine einzelnen Fragmente zu erkennen sind
+* Bilder unterliegen in erster Linie der notwendigen Fachlichkeit.
+* Jedes Bild benötigt eine Bildunterschrift.
+* Jedes Bild benötigt ein aussagekräftiges Alt-Attribut.
+* Bilder dürfen nicht gegen deutsches Recht verstoßen, politisch, sexuell oder angreifend sein.
+* Bilder dürfen keine Schriftgrafiken enthalten; in Ausnahmen muss die Schriftgrafik durch z.B. Alt-Attribute ausreichend beschrieben sein.
+* Schmuckgrafiken können genutzt werden.
+* Schmuckgrafiken sollen, so wenig wie möglich genutzt werden.
+* Schmuckgrafiken müssen als solche gekennzeichnet sein.
+* Schmuckgrafiken benötigen keine Alt-Attribute.
+* Es ist darauf zu achten, dass durch Bilder kein horizontales Scrolling entsteht.
+* Es ist darauf zu achten, dass das Bildmaterial ausreichen hoch aufgelöst ist, sodass keine einzelnen Fragmente zu erkennen sind.
 
 *_Farben_*
 
@@ -207,25 +208,25 @@ Hier werden die Richtlinien zur Barrierefreiheit gemäß den Standards, wie z.B.
 
 Zugänglichkeitsstandards müssen berücksichtigt werden:
 
-*	WCAG 2.1 und EN 305419 mindestens bis zum Level AA
-*	Für Haupt & Einstiegsseiten, Seiten mit rechtlicher Relevanz sollte das Level AAA berücksichtigt werden
+*	WCAG 2.1 und EN 305419 mindestens bis zum Level AA.
+*	Für Haupt & Einstiegsseiten, Seiten mit rechtlicher Relevanz sollte das Level AAA berücksichtigt werden.
 
 Vor der Auflistung der einzelnen Kriterien sind im Kontext der IsyFact besondere Kriterien der Barrierefreiheit herauszustellen und bei der fachlichen Konzeption bereits zu berücksichtigen.
 Alle hier genannten Maßnahmen sind zur Steigerung der Awareness und Transparenz aufgelistet.
 In der Regel sind die genannten Anforderungen durch die Anwendung der Standardelemente der ISY-Fact sichergestellt oder die Möglichkeit geboten die fachlichen Elemente sicherzustellen.
 
-*	Eingabefelder müssen nach der Aktivierung eines Hochkontrastmodus/Farbfilters zu 50% bestehen bleiben – eine einzelne Linie als Bestandteil ist nicht ausreichend als Identifizierung eines Eingabefeldes 
-*	Die Textgröße soll im Standard mindestens 14pt betragen
-*	Der Textkontrast muss immer mindestens 4:1 und bei großen Texten mindestens 3:1 betragen
-Für Haupt & Einstiegsseiten, Seiten mit rechtlicher Relevanz muss der Kontrast 7:1 betragen
-*	Es dürfen keine Schriftgrafiken genutzt werden
-*	Alle Bilder benötigen ein inhaltlich sinnvolles beschreibendes Alt-Attribut
-*	Bilder die ausschließlich der Gestaltung dienen, wie Trennlinien müssen als solche (Schmuckgrafik) gekennzeichnet werden
+*	Eingabefelder müssen nach der Aktivierung eines Hochkontrastmodus/Farbfilters zu 50% bestehen bleiben – eine einzelne Linie als Bestandteil ist nicht ausreichend als Identifizierung eines Eingabefeldes.
+*	Die Textgröße soll im Standard mindestens 14pt betragen.
+*	Der Textkontrast muss immer mindestens 4:1 und bei großen Texten mindestens 3:1 betragen.
+Für Haupt & Einstiegsseiten, Seiten mit rechtlicher Relevanz muss der Kontrast 7:1 betragen.
+*	Es dürfen keine Schriftgrafiken genutzt werden.
+*	Alle Bilder benötigen ein inhaltlich sinnvolles beschreibendes Alt-Attribut.
+*	Bilder die ausschließlich der Gestaltung dienen, wie Trennlinien müssen als solche (Schmuckgrafik) gekennzeichnet werden.
 *	Tastatur-Navigation: Nicht alle Benutzer können eine Maus verwenden.
 Daher ist es wichtig, dass alle Interaktionen auf der Website auch über die Tastatur möglich sind.
-Dies bedeutet, dass alle Navigationselemente, Links und interaktiven Elemente leicht per Tastatur zugänglich sein müssen
+Dies bedeutet, dass alle Navigationselemente, Links und interaktiven Elemente leicht per Tastatur zugänglich sein müssen.
 *	Vermeidung von reinen Farbunterscheidungen: Informationen sollten nicht allein durch Farbe vermittelt werden, da einige Benutzer Farben nicht unterscheiden können.
-Nutzen Sie daher auch andere visuelle Elemente wie Symbole oder Muster, um wichtige Informationen zu vermitteln
+Nutzen Sie daher auch andere visuelle Elemente wie Symbole oder Muster, um wichtige Informationen zu vermitteln.
 
 Die richtige Verwendung von Alt-Attributen für Bilder und ARIA-Labels für andere Bedienelemente ist von großer Bedeutung.
 
@@ -237,17 +238,19 @@ Alt-Attribute (alternative Texte) sind textuelle Beschreibungen, die in den HTML
 *	Zugänglichkeit: Screenreader verwenden Alt-Attribute, um sehbehinderten oder blinden Benutzern den Inhalt und Zweck eines Bildes zu vermitteln.
 *	SEO: Suchmaschinen nutzen Alt-Texte, um den Inhalt von Bildern zu indexieren, was die Auffindbarkeit der Webseite verbessern kann.
 *	Fehlertoleranz: Wenn ein Bild aus irgendeinem Grund nicht geladen werden kann, zeigt der Browser den Alt-Text anstelle des Bildes an.
-Best Practices für das Schreiben von Alt-Attributen
+
+*_Best Practices für das Schreiben von Alt-Attributen_*
+
 Beim Erstellen von Alt-Texten sollten folgende Richtlinien beachtet werden:
 
 *	Beschreibend und prägnant: Der Alt-Text sollte den Inhalt und Zweck des Bildes kurz und genau beschreiben
-Beispiel: <img src="blume.jpg" alt="Gelbe Tulpe im Frühlingsgarten">
-*	Kontextbezogen: Der Alt-Text sollte den Kontext berücksichtigen, in dem das Bild verwendet wird
-Beispiel: Bei einem Bild eines Einkaufswagens auf einer E-Commerce-Seite könnte der Alt-Text lauten: <img src="cart.png" alt="Einkaufswagen">
-*	Keine redundante Information: Informationen, die bereits im umgebenden Text enthalten sind, müssen nicht im Alt-Text wiederholt werden
-Beispiel: Wenn ein Bild neben einer Überschrift „Teamfoto 2024“ steht, sollte der Alt-Text nicht einfach „Teamfoto 2024“ wiederholen
-*	Vermeidung von Keyword-Stuffing: Der Alt-Text sollte nicht mit Schlüsselwörtern überladen werden, da dies sowohl die Zugänglichkeit als auch die SEO beeinträchtigt
-*	Verwendung von leeren Alt-Attributen für dekorative Bilder: Wenn ein Bild rein dekorativ ist und keinen informativen Wert hat, sollte das Alt-Attribut leer sein (alt=""), um Screenreader zu signalisieren, dass sie das Bild ignorieren können
+Beispiel: <img src="blume.jpg" alt="Gelbe Tulpe im Frühlingsgarten">.
+*	Kontextbezogen: Der Alt-Text sollte den Kontext berücksichtigen, in dem das Bild verwendet wird.
+Beispiel: Bei einem Bild eines Einkaufswagens auf einer E-Commerce-Seite könnte der Alt-Text lauten: <img src="cart.png" alt="Einkaufswagen">.
+*	Keine redundante Information: Informationen, die bereits im umgebenden Text enthalten sind, müssen nicht im Alt-Text wiederholt werden.
+Beispiel: Wenn ein Bild neben einer Überschrift „Teamfoto 2024“ steht, sollte der Alt-Text nicht einfach „Teamfoto 2024“ wiederholen.
+*	Vermeidung von Keyword-Stuffing: Der Alt-Text sollte nicht mit Schlüsselwörtern überladen werden, da dies sowohl die Zugänglichkeit als auch die SEO beeinträchtigt.
+*	Verwendung von leeren Alt-Attributen für dekorative Bilder: Wenn ein Bild rein dekorativ ist und keinen informativen Wert hat, sollte das Alt-Attribut leer sein (alt=""), um Screenreader zu signalisieren, dass sie das Bild ignorieren können.
 
 === ARIA-Labels für andere Bedienelemente
 
@@ -255,22 +258,24 @@ Bedeutung von ARIA-Labels:
 ARIA (Accessible Rich Internet Applications) Labels sind ein Set von Attributen, die entwickelt wurden, um die Zugänglichkeit von dynamischen Webinhalten und Benutzeroberflächen zu verbessern.
 Sie bieten zusätzliche Informationen für Screenreader, insbesondere für Elemente, die keine standardisierten HTML-Attribute zur Beschreibung ihres Zwecks haben.
 
-Implementierung von ARIA-Labels:
+*_Implementierung von ARIA-Labels:_*
 ARIA-Labels kommen zum Einsatz, wenn ein Bedienelement keinen eindeutigen, für Screenreader zugänglichen Text enthält. Hier sind die wichtigsten ARIA-Attribute und ihre Anwendungen:
 
 *	aria-label: Wird verwendet, um ein Element zu beschreiben. Es ist besonders nützlich für Bedienelemente ohne sichtbaren Text
-Beispiel: <button aria-label="Schließen">X</button>
-*	aria-labelledby: Verweist auf ein anderes Element, dessen Text als Beschriftung dient
-Beispiel: <button aria-labelledby="closeButtonText">X</button> <span id="closeButtonText" hidden>Schließen</span>
+Beispiel: <button aria-label="Schließen">X</button>.
+*	aria-labelledby: Verweist auf ein anderes Element, dessen Text als Beschriftung dient.
+Beispiel: <button aria-labelledby="closeButtonText">X</button> <span id="closeButtonText" hidden>Schließen</span>.
 *	aria-describedby: Gibt ein anderes Element an, das eine ausführlichere Beschreibung des aktuellen Elements enthält
-Beispiel: <input type="text" aria-describedby="nameDesc"> <span id="nameDesc">Bitte geben Sie Ihren vollständigen Namen ein.</span>
-Best Practices für die Verwendung von ARIA-Labels
+Beispiel: <input type="text" aria-describedby="nameDesc"> <span id="nameDesc">Bitte geben Sie Ihren vollständigen Namen ein.</span>.
+
+*_Best Practices für die Verwendung von ARIA-Labels_*
+
 Um sicherzustellen, dass ARIA-Labels effektiv eingesetzt werden, sollten folgende Richtlinien beachtet werden:
 
-*	Klarheit und Präzision: ARIA-Labels sollten klar und präzise sein, um den Zweck des Elements genau zu vermitteln
-*	Vermeidung von Redundanz: ARIA-Labels sollten nicht redundant zu bereits vorhandenen textuellen Beschreibungen sein
-*	Konsistenz: Die Verwendung von ARIA-Labels sollte konsistent über die gesamte Webseite hinweg erfolgen, um eine einheitliche Benutzererfahrung zu gewährleisten
-*	Testen: Die implementierten ARIA-Labels sollten regelmäßig mit verschiedenen Screenreadern getestet werden, um sicherzustellen, dass sie korrekt interpretiert werden
+*	Klarheit und Präzision: ARIA-Labels sollten klar und präzise sein, um den Zweck des Elements genau zu vermitteln.
+*	Vermeidung von Redundanz: ARIA-Labels sollten nicht redundant zu bereits vorhandenen textuellen Beschreibungen sein.
+*	Konsistenz: Die Verwendung von ARIA-Labels sollte konsistent über die gesamte Webseite hinweg erfolgen, um eine einheitliche Benutzererfahrung zu gewährleisten.
+*	Testen: Die implementierten ARIA-Labels sollten regelmäßig mit verschiedenen Screenreadern getestet werden, um sicherzustellen, dass sie korrekt interpretiert werden.
 
 Zusammenfassung:
 Alt-Attribute und ARIA-Labels sind unverzichtbare Werkzeuge, um die Zugänglichkeit und Benutzerfreundlichkeit von Webseiten und Webanwendungen zu gewährleisten.
@@ -282,13 +287,13 @@ Das Beachten der Best Practices beim Schreiben von Alt-Attributen und der Implem
 Die technischen Rahmenbedingungen legen fest, welche Technologien und Plattformen für die Umsetzung des Bedienkonzepts und Styleguides verwendet werden sollen.
 Diese Einleitung bietet einen Überblick über die infrastrukturellen Anforderungen und unterstützten Technologien.
 
-*	Prime NG
-*	Primär kommen in den Neuentwicklungen die durch die IsyFact zur Verfügung gestellten Bausteine zum Einsatz
+*	Prime NG.
+*	Primär kommen in den Neuentwicklungen die durch die IsyFact zur Verfügung gestellten Bausteine zum Einsatz.
 *	Das Styling der Anwendung wird primär aus dem hier zu Grunde liegenden Prinzipien erstellt.
-Dafür wird die entsprechende SCSS und CSS in die Anwendung integriert
-*	Es ist möglich „harte Overrides“ im CSS vorzunehmen, davon wird jedoch abgeraten
-Dadurch ist die Wartbarkeit stark beeinträchtigt und die Aufwände können sich in der Pflege der Anwendung stark erhöhen
-*	Die Anwendung ist primär für die Nutzung auf Desktopgeräten konzipiert, kann aber mit ihrer Responsivität auch auf mobilen Geräten (sofern möglich) genutzt werden
+Dafür wird die entsprechende SCSS und CSS in die Anwendung integriert.
+*	Es ist möglich „harte Overrides“ im CSS vorzunehmen, davon wird jedoch abgeraten.
+Dadurch ist die Wartbarkeit stark beeinträchtigt und die Aufwände können sich in der Pflege der Anwendung stark erhöhen.
+*	Die Anwendung ist primär für die Nutzung auf Desktopgeräten konzipiert, kann aber mit ihrer Responsivität auch auf mobilen Geräten (sofern möglich) genutzt werden.
 
 
 == Bedienelemente
@@ -297,8 +302,8 @@ Dadurch ist die Wartbarkeit stark beeinträchtigt und die Aufwände können sich
 Bedienelemente sind die Bausteine der Benutzeroberfläche, die es den Benutzern ermöglichen, mit der Anwendung zu interagieren.
 Dieser Abschnitt definiert die verschiedenen Bedienelemente und legt fest, wie sie gestaltet und angeordnet werden sollen, um eine intuitive Benutzererfahrung zu gewährleisten.
 
-*	Definition der verschiedenen Bedienelemente (z. B. Buttons, Eingabefeld, Links)
-*	Gestaltungsrichtlinien für Bedienelemente (z. B. Größe, Abstände, visuelle Hierarchie in sich)
+*	Definition der verschiedenen Bedienelemente (z. B. Buttons, Eingabefeld, Links).
+*	Gestaltungsrichtlinien für Bedienelemente (z. B. Größe, Abstände, visuelle Hierarchie in sich).
 
 
 === Eingabefeld
@@ -382,18 +387,19 @@ image::24_BE_eingabefeld_error.png[align="center"]
 Eingabefelder, die eine Erläuterung benötigen, sollen diese immer so kurz wie möglich und so lang wie nötig gestalten.
 Erläuterungen können dabei in verschiedenen Möglichkeiten realisiert werden, sortiert von kurz nach lang:
 
-*	Als Platzhalter im Eingabefeld selbst
-*	Als Klammeranhang am Label, um das Label zu erläutern – z.B.: Name (gemeint ist der eingetragene Familienname)
-*	Als maximal 2 zeiliger Hinweistext unter oder über dem Label (bitte nach Entscheidung konsistent in der gesamten Anwendung damit fortfahren)
-*	Alle Erläuterungstexte die Länger als 2 Zeilen einer Eingabefeldlänge benötigen, sind zu komplex gestalten und bedürfen einer fachlichen Neugestaltung. Sollte dies nicht möglich sein, so ist ein vorangegangenes Textelement über dem Eingabefeld notwendig
-*	Erläuterungshilfen, sollen nicht dynamisch versteckt werden – Entweder ist die Erläuterung notwendig = sichtbar oder nicht notwendig = entfernen
+*	Als Platzhalter im Eingabefeld selbst.
+*	Als Klammeranhang am Label, um das Label zu erläutern – z.B.: Name (gemeint ist der eingetragene Familienname).
+*	Als maximal 2 zeiliger Hinweistext unter oder über dem Label (bitte nach Entscheidung konsistent in der gesamten Anwendung damit fortfahren).
+*	Alle Erläuterungstexte die Länger als 2 Zeilen einer Eingabefeldlänge benötigen, sind zu komplex gestalten und bedürfen einer fachlichen Neugestaltung.
+Sollte dies nicht möglich sein, so ist ein vorangegangenes Textelement über dem Eingabefeld notwendig.
+*	Erläuterungshilfen, sollen nicht dynamisch versteckt werden – Entweder ist die Erläuterung notwendig = sichtbar oder nicht notwendig = entfernen.
 Grundlegende Hinweise zur Gestaltung von Eingabefeldern und Labeln:
 *	Labels enden nicht mit einem Doppelpunkt. Bei sehr langen Labels sollten sinnvolle Abkürzungen verwendet werden.
 *	Die unmittelbare Nähe der Labels zu den zugehörigen Bedienelementen verbessert die visuelle Verbindung und ermöglicht es, den Benutzern Formulare schneller und effizienter auszufüllen.
 *	Gleichmäßige Feld-Längen unterstützen den Lesefluss des Benutzers.
 *	Die Feld-Längen sollten erwartungskonform gewählt werden. Soll z.B. eine Postleitzahl innerhalb Deutschlands eingegeben werden, so macht es Sinn die Feld-Länge auf 5 Stellen zu begrenzen. Optisch kann das Eingabefeld der Konsistenz entsprechend länger sein.
-*	Pflichtfelder werden mit einem Asterisk (*) gekennzeichnet
-*	Der Asterisk unterliegt denselben Regeln wie das Label (Aktiv = Highlightfarbe, Fehler = Fehlermeldungsfarbe)
+*	Pflichtfelder werden mit einem Asterisk (*) gekennzeichnet.
+*	Der Asterisk unterliegt denselben Regeln wie das Label (Aktiv = Highlightfarbe, Fehler = Fehlermeldungsfarbe).
 
 *_Exemplarische Vermaßung der verschiedenen Eingabefelder:_*
 
@@ -407,10 +413,191 @@ Die Mindesthöhe von 44px darf nicht unterschritten werden, um die Barrierefreih
 Die Schriftgröße sollte 14pt nicht unterschreiten.
 Der Abstand eines Eingabefelds zum darunter liegenden Label eines weiteren Eingabefelds soll ca. dem doppelten Abstand zwischen einem Label-Eingabefeld-Paars entsprechen, um eine eindeutige Zuordnung zu gewährleisten.
 
+=== Liste
+
+Listen sind zentrale Bestandteile einer jeden Website und insbesondere von Fachanwendungen. Sie dienen dazu, Inhalte zu strukturieren und schnell zu erfassen.Listen ermöglichen es dem Nutzer darüber zulässige Werte auszuwählen. Dadurch werden Fehleingaben und unerwartete Ergebnisse reduziert.
+Listen sind in ihrer alleinigen Form recht simpel. Sie bestehen optische aus einem geschlossenen Rahmen und bestenfalls aus logisch sortierten Elementen. Listen können in den verschiedensten Ausprägungen eingesetzt werden: Eingabefeld + Liste, Eingabefeld + Suchbox + Liste, Menüitem + Liste, etc…
+Die einfachste Form einer Liste ist die rein textuelle Liste.
+ 
+-Abbildung 9 - Einfache Liste-
+
+Eine Liste kann theoretisch beliebig viele Einträge enthalten, was aber die Usability verschlechtert. Im optimalen Fall haben Liste eine logisch relevante überschaubare Anzahl an Einträgen. Die Einträge sind eindeutig und prägnant. Bei langen Einträgen können auch sinnvolle Abkürzungen genutzt werden.
+Die Listenelemente sind mindestens 44px hoch und entsprechend dem dazugehörigen Element breit (hier exemplarisch das Eingabefeld).
+Aktive Elemente sind in der Highlightfarbe und hinterlegt dargestellt.
+
+*_Do´s_*
+
+*	Gestalte Listen inhaltlich so einfach wie möglich.
+*	Sollten Listen viele Einträge haben, sorge mit anderen Elementen für die Durchsuchbarkeit, Filterung oder Kategorisierung.
+*	Listen helfen bei komplexen Eingaben Fehler zu vermeiden.
+*	Kombiniere Listen mit unterschiedlichen interaktiven Elementen, um dem Nutzer eine Hilfestellung zu bieten.
+
+*_Dont´s_*
+
+*	Listeneinträge sind nie mehrzeilig.
+*	Listeneinträge sind nicht doppelt vorhanden und nicht eindeutig unterscheidbar.
+*	Listen sind unsortiert und sehr lang.
+*	Listeneinträge sind als ganze Sätze formuliert.
+
+=== Checkbox
+
+Checkboxen sind ein wesentliches Element der Benutzeroberfläche, das in vielen Web- und Anwendungsdesigns verwendet wird.
+Sie ermöglichen es Benutzern, mehrere Optionen aus einer (offenen) Liste auszuwählen und spielen eine wichtige Rolle bei der Interaktivität und Benutzerführung.
+Ein gut gestaltetes Checkbox-Design verbessert die Lesbarkeit und Zugänglichkeit, was besonders wichtig ist, um sicherzustellen, dass alle Benutzer, einschließlich derjenigen mit Behinderungen, die Anwendung problemlos nutzen können.
+Letztlich fördern konsistente Checkbox-Designs eine bessere Benutzererfahrung und erhöhen die Effizienz bei der Datenerfassung und Interaktion.
+ 
+-Abbildung 10 – Checkboxen-
+
+Checkboxen sind 24px x 24px groß, haben aber für mobile Geräte mindestens eine 44px x 44px große Clicktargetarea.
+Checkboxen haben immer ein rechtsstehendes Label mit einer Schriftgröße von mindestens 14pt (hier exemplarisch 16pt).
+Eine Checkbox repräsentiert eine unabhängige, nicht-exklusive Auswahl. Der Benutzer kann beliebige Optionen auswählen.
+Dabei können Checkboxen vertikal angeordnet werden.
+ 
+-Abbildung 11 - Vertikale Gruppe von Checkboxen-
+
+Oder auch horizontal angeordnet werden.
+ 
+-Abbildung 12 - horizontale Gruppe von Checkboxen-
+
+Wichtig ist, dass jede Checkbox ihrem Label zuzuordnen ist. Für eine homogene Darstellung sind folgende Abstände einzuhalten.
+ 
+-Abbildung 13 - Vermaßung von Checkboxen horizontal und vertikal-
+
+*_Do´s_*
+
+*	Das Ein- oder Ausschalten einer Checkbox kann dazu genutzt werden, um andere Elemente dynamisch zu aktivieren/anzuzeigen oder zu deaktivieren/unsichtbar zu machen, z.B. „Abweichende Lieferanschrift“ (einzige zulässige Funktion).
+*	Nicht nur die Box und Targetarea sollten klickbar sein, auch das Label.
+*	Eine Gruppe von Checkboxen sollte immer eine Beschriftung aufweisen, die entsprechend bei einer einzelnen Checkbox entfallen kann.
+*	Für optimale Lesbarkeit sollten Checkboxen vertikal untereinander angeordnet sein.
+*	Solange die Werte der untergeordneten Optionen gleich sind (alle „Aus“ oder alle „An“), zeigt dies die übergeordnete Checkbox mit dem entsprechenden Wert an.
+*	Sind die Werte der untergeordneten Optionen jedoch nicht mehr homogen gesetzt, so schaltet die übergeordnete Checkbox in den Zustand „nicht definiert“.
+Dieser Zustand wird häufig mit einem Quadrat innerhalb der Checkbox symbolisiert.
+
+*_Dont´s_*
+
+*	Checkboxen sind kein alleinstehender Ein- und Ausschalter, dafür gibt es p-inputSwitch.
+*	Eine Checkbox soll keine Funktionen (drucken, speichern, etc…) auslösen oder Seiten öffnen/verlinken.
+
+=== Radiobutton
+
+Radiobuttons sind ein wesentliches Element der Benutzeroberfläche, das in vielen Web- und Anwendungsdesigns verwendet wird. Sie ermöglichen es Benutzern, eine Option aus einer (offenen) Liste auszuwählen und spielen eine wichtige Rolle bei der Interaktivität und Benutzerführung. Ein gut gestaltetes Radiobutton-Design verbessert die Lesbarkeit und Zugänglichkeit, was besonders wichtig ist, um sicherzustellen, dass alle Benutzer, einschließlich derjenigen mit Behinderungen, die Anwendung problemlos nutzen können. Letztlich fördern konsistente Checkbox-Designs eine bessere Benutzererfahrung und erhöhen die Effizienz bei der Datenerfassung und Interaktion.
+
+ 
+-Abbildung 14 - Radiobuttons-
+
+Radiobuttons sind 24px groß, haben aber für mobile Geräte mindestens eine 44px x 44px große Clicktargetarea.
+Radiobuttons haben immer ein rechtsstehendes Label mit einer Schriftgröße von mindestens 14pt (hier exemplarisch 16pt).
+Ein Radiobutton repräsentiert eine exklusive Auswahl.
+Der Benutzer kann innerhalb der Gruppe genau eine Option auswählen.
+Dabei können Checkboxen vertikal angeordnet werden.
+ 
+-Abbildung 15 - Vertikale Gruppe von Radiobuttons-
+
+Oder auch horizontal angeordnet werden.
+ 
+-Abbildung 16 - horizontale Gruppe von Radiobuttons-
+
+Wichtig ist, dass jede Checkbox ihrem Label zuzuordnen ist.
+Für eine homogene Darstellung sind folgende Abstände einzuhalten.
+ 
+-Abbildung 17 - Vermaßung von Radiobuttons horizontal und vertikal-
+
+*_Do´s_*
+
+*	Die Verwendung von Radio Buttons empfiehlt sich für eine kleinere Anzahl an Optionen.
+Ist die Menge der zur Verfügung stehenden Optionen sehr groß oder hat der Platzbedarf eine große Bedeutung, so kann der Einsatz eines Dropdown Menüs in Betracht gezogen werden.
+
+*	Eine Gruppe von Radio Buttons sollte immer eine Beschriftung aufweisen.
+*	Für optimale Lesbarkeit sollten Radio Buttons vertikal und untereinander angeordnet sein.
+*	Sollte es wahrscheinlich sein, dass keine (oder alle) der angebotenen Optionen zutrifft, sollte eine Meta-Option wie „Keine Option“ („Alle“) angeboten werden.
+
+*_Dont´s_*
+
+*	Ein Radio Button darf nicht genutzt werden, um unmittelbar Funktionen auszuführen oder Aktionen auszulösen. Für diese Zwecke sollten Buttons verwendet werden.
+
+=== Tabview
+
+Ein Tabview ist ein wesentliches Element im modernen Webdesign, das die Benutzererfahrung erheblich verbessert.
+Es bietet eine intuitive Möglichkeit, verschiedene Inhalte oder Abschnitte einer Webseite übersichtlich und platzsparend darzustellen.
+Durch die Verwendung von Tabs können Benutzer schnell und einfach zwischen verschiedenen Bereichen navigieren, ohne die Seite ständig neu laden zu müssen.
+Dies fördert nicht nur die Benutzerfreundlichkeit, sondern auch die Effizienz bei der Informationssuche.
+In der heutigen digitalen Welt, in der Nutzer eine schnelle und nahtlose Interaktion erwarten, ist ein gut gestaltetes Tabview ein unverzichtbares Werkzeug für jede Webseite.
+Es ermöglicht Entwicklern, Inhalte logisch zu organisieren und sorgt für eine klare Struktur, die die Nutzerbindung und Zufriedenheit steigert.
+ 
+-Abbildung 18 – Tabview-
+
+Ein Tabview hat initial einen aktivierten, aber nicht markierten/fokussierten State (siehe obige Abbildung).
+Sobald ein Tab aktiv ausgewählt wird, wird auch die Markierung im Reiter visuell deutlich.
+Der aktive Tab erhält eine 3px dicke Markierungslinie und ein gefärbtes Label in der Highlightfarbe (hier exemplarisch blau).
+ 
+-Abbildung 19 - Tabview mit aktivem Reiter-
+
+Tabmview können ihre Reiter auch mit visuellen Icons unterstützen.
+Diese verhalten sich analog zum Tablabel.
+ 
+-Abbildung 20 - Tabreiter mit Icons-
+
+Es ist ratsam Tabview zu nutzen, wenn der Inhalt nicht ohne massives Scrolling innerhalb des Screens dargestellt werden kann.
+Dabei ist eine fachlich logische Aufgliederung vorauszusetzen.
+Die optimale Anzahl an Tabs liegt bei 4-7 Tabs.
+Sollte es fachlich zwingend notwendig sein, mehr Tabs anzubieten, so kann ein „Taboverflow“ via Scrolling eingesetzt werden, dieses Element ist ein“ Überlangentabview“.
+ 
+-Abbildung 21 - Initales Aussehen eines Überlängentabview-
+
+Das Tabview nutzt dabei die volle, ihm zur Verfügung stehende, Breite und faded den letzten sichtbaren Menüpunkt aus.
+Darüber liegt ein Pfeil, der es ermöglicht die nächsten Tabs zu erreichen. Wurde dieser gedrückt, so springt das Tabview entsprechend viele Einträge weiter. 
+ 
+-Abbildung 22 - Überlängentabview mit mindestens einem Seitensprung-
+
+Die Schriftgröße eines Labels im Tabview sollte 14pt nicht unterschreiten.
+Ist die Standardschriftgröße gewählt, so erhöht sie sich diese bei aktiven Elementen um 2pt (hier exemplarisch auf 16pt).
+Die Höhe eines Tabreiters ist mindestens 44px.
+Die Breite ist abhängig vom Label.
+Icons sind mindestens 17px x 17 px groß.
+ 
+-Abbildung 23 - Exemplarische Vermaßung des Tabview-
+
+
+*_Do´s:_*
+
+*	Setze Tabs ein, wenn die Komplexität der UI reduziert werden soll und eine sinnvolle Gruppierung einzelner Bereiche vorgenommen werden kann.
+*	Die optimale Anzahl an Tabs ist 4 – 7.
+*	Labels für die Tabreiter sollten kurz und aussagekräftig sein. Es kann auch mit sinnvollen und verständlichen Abkürzungen gearbeitet werden.
+*	Muss der Inhalt verschiedener Tabreiter verglichen/abgestimmt werden, ist eventuell ein dynamisches Panel das passendere Element.
+*	Sollten es weniger als 3 Tabreiter sein, ist eventuell ein dynamisches Panel das passendere Element.
+*	Verzichte, wenn möglich, auf ein Überlängentabmenü.
+
+*_Dont´s:_*
+
+*	Gestalte keine Seiten mit nur einem Tabreiter.
+*	Tabreiter stellen nicht verschiedene Sichten zu gleichen Daten dar.
+*	Tabreiter sind kein Prozess. Für so etwas wird ein Wizard genutzt.
+*	Tabreiter sollen keine Abhängigkeiten zueinander haben.
+*	Nutze keine Labels, die länger als 26 Zeichen sind.
+
+
 == Designpattern
 
 Designpattern sind wiederkehrende Lösungen für Designprobleme, die sich über verschiedene Teile der Anwendung erstrecken können.
 Dieser Abschnitt beschreibt die Konzepte von Designpatterns, ihre Bedeutung für die Konsistenz und Effizienz der Benutzeroberfläche, sowie ihre Rolle bei der Gestaltung eines benutzerzentrierten Designs.
+
+=== Eingabefeldliste (Dropdown)
+
+Ein Eingabefeld mit hinterlegten Werten ist in seiner einfachsten Form ein Eingabefeld mit Liste.
+Die Liste ist die bekannteste Art eines interaktiven Eingabefelds besser bekannt als Dropdown.
+Eingabefeldlisten setzen Standards für interaktive Eingabefelder, Dropdown-Menüs, enthaltene Kontrollkästchen und andere interaktive Elemente.
+Dadurch wird sichergestellt, dass alle Eingabefelder auf der Webseite oder in der Anwendung einheitlich gestaltet sind und den besten Praktiken hinsichtlich Benutzerfreundlichkeit und Barrierefreiheit entsprechen.
+Ein konsistentes Design fördert die Orientierung und das Vertrauen der Benutzer, was letztendlich zu einer höheren Zufriedenheit und Effizienz führt.
+
+-Abbildung 24 - Eingabefeld mit hinterlegten Auswahlmöglichkeiten-
+
+Beim Klick auf das gesamte Element klappt die Liste aus und ein Element kann angewählt werden.
+ 
+-Abbildung 25 - Aktives Dropdown-
+
+Die Listenelemente sind mindestens 44px hoch und entsprechend dem dazugehörigen Element breit (hier exemplarisch das Eingabefeld).
+Aktive Elemente sind in der Highlightfarbe und hinterlegt dargestellt.
+
 
 === Eingabefeldgruppen
 
