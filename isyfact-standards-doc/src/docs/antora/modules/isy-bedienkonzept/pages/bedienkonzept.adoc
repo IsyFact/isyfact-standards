@@ -227,6 +227,55 @@ Dies bedeutet, dass alle Navigationselemente, Links und interaktiven Elemente le
 *	Vermeidung von reinen Farbunterscheidungen: Informationen sollten nicht allein durch Farbe vermittelt werden, da einige Benutzer Farben nicht unterscheiden können.
 Nutzen Sie daher auch andere visuelle Elemente wie Symbole oder Muster, um wichtige Informationen zu vermitteln
 
+Die richtige Verwendung von Alt-Attributen für Bilder und ARIA-Labels für andere Bedienelemente ist von großer Bedeutung.
+
+=== Alt-Attribute für Bilder
+
+Bedeutung der Alt-Attribute:
+Alt-Attribute (alternative Texte) sind textuelle Beschreibungen, die in den HTML-Code von Bildern eingebettet werden. Sie dienen mehreren wichtigen Zwecken:
+
+*	Zugänglichkeit: Screenreader verwenden Alt-Attribute, um sehbehinderten oder blinden Benutzern den Inhalt und Zweck eines Bildes zu vermitteln.
+*	SEO: Suchmaschinen nutzen Alt-Texte, um den Inhalt von Bildern zu indexieren, was die Auffindbarkeit der Webseite verbessern kann.
+*	Fehlertoleranz: Wenn ein Bild aus irgendeinem Grund nicht geladen werden kann, zeigt der Browser den Alt-Text anstelle des Bildes an.
+Best Practices für das Schreiben von Alt-Attributen
+Beim Erstellen von Alt-Texten sollten folgende Richtlinien beachtet werden:
+
+*	Beschreibend und prägnant: Der Alt-Text sollte den Inhalt und Zweck des Bildes kurz und genau beschreiben
+Beispiel: <img src="blume.jpg" alt="Gelbe Tulpe im Frühlingsgarten">
+*	Kontextbezogen: Der Alt-Text sollte den Kontext berücksichtigen, in dem das Bild verwendet wird
+Beispiel: Bei einem Bild eines Einkaufswagens auf einer E-Commerce-Seite könnte der Alt-Text lauten: <img src="cart.png" alt="Einkaufswagen">
+*	Keine redundante Information: Informationen, die bereits im umgebenden Text enthalten sind, müssen nicht im Alt-Text wiederholt werden
+Beispiel: Wenn ein Bild neben einer Überschrift „Teamfoto 2024“ steht, sollte der Alt-Text nicht einfach „Teamfoto 2024“ wiederholen
+*	Vermeidung von Keyword-Stuffing: Der Alt-Text sollte nicht mit Schlüsselwörtern überladen werden, da dies sowohl die Zugänglichkeit als auch die SEO beeinträchtigt
+*	Verwendung von leeren Alt-Attributen für dekorative Bilder: Wenn ein Bild rein dekorativ ist und keinen informativen Wert hat, sollte das Alt-Attribut leer sein (alt=""), um Screenreader zu signalisieren, dass sie das Bild ignorieren können
+
+=== ARIA-Labels für andere Bedienelemente
+
+Bedeutung von ARIA-Labels:
+ARIA (Accessible Rich Internet Applications) Labels sind ein Set von Attributen, die entwickelt wurden, um die Zugänglichkeit von dynamischen Webinhalten und Benutzeroberflächen zu verbessern.
+Sie bieten zusätzliche Informationen für Screenreader, insbesondere für Elemente, die keine standardisierten HTML-Attribute zur Beschreibung ihres Zwecks haben.
+
+Implementierung von ARIA-Labels:
+ARIA-Labels kommen zum Einsatz, wenn ein Bedienelement keinen eindeutigen, für Screenreader zugänglichen Text enthält. Hier sind die wichtigsten ARIA-Attribute und ihre Anwendungen:
+
+*	aria-label: Wird verwendet, um ein Element zu beschreiben. Es ist besonders nützlich für Bedienelemente ohne sichtbaren Text
+Beispiel: <button aria-label="Schließen">X</button>
+*	aria-labelledby: Verweist auf ein anderes Element, dessen Text als Beschriftung dient
+Beispiel: <button aria-labelledby="closeButtonText">X</button> <span id="closeButtonText" hidden>Schließen</span>
+*	aria-describedby: Gibt ein anderes Element an, das eine ausführlichere Beschreibung des aktuellen Elements enthält
+Beispiel: <input type="text" aria-describedby="nameDesc"> <span id="nameDesc">Bitte geben Sie Ihren vollständigen Namen ein.</span>
+Best Practices für die Verwendung von ARIA-Labels
+Um sicherzustellen, dass ARIA-Labels effektiv eingesetzt werden, sollten folgende Richtlinien beachtet werden:
+
+*	Klarheit und Präzision: ARIA-Labels sollten klar und präzise sein, um den Zweck des Elements genau zu vermitteln
+*	Vermeidung von Redundanz: ARIA-Labels sollten nicht redundant zu bereits vorhandenen textuellen Beschreibungen sein
+*	Konsistenz: Die Verwendung von ARIA-Labels sollte konsistent über die gesamte Webseite hinweg erfolgen, um eine einheitliche Benutzererfahrung zu gewährleisten
+*	Testen: Die implementierten ARIA-Labels sollten regelmäßig mit verschiedenen Screenreadern getestet werden, um sicherzustellen, dass sie korrekt interpretiert werden
+
+Zusammenfassung:
+Alt-Attribute und ARIA-Labels sind unverzichtbare Werkzeuge, um die Zugänglichkeit und Benutzerfreundlichkeit von Webseiten und Webanwendungen zu gewährleisten.
+Durch sorgfältige Planung und Implementierung dieser Attribute können Designer und Entwickler sicherstellen, dass ihre Inhalte für alle Benutzer zugänglich sind.
+Das Beachten der Best Practices beim Schreiben von Alt-Attributen und der Implementierung von ARIA-Labels trägt wesentlich dazu bei, eine inklusive und effiziente Benutzererfahrung zu schaffen.
 
 == Technische Rahmenbedingungen
 
