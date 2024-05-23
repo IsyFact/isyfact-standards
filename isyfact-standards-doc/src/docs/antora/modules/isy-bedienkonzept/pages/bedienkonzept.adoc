@@ -624,7 +624,6 @@ image::24_BE_eingabefeldliste_aufgeklappt.png[align="center"]
 Die Listenelemente sind mindestens 44px hoch und entsprechend dem dazugehörigen Element breit (hier exemplarisch das Eingabefeld).
 Aktive Elemente sind in der Highlightfarbe und hinterlegt dargestellt.
 
-
 === Eingabefeldgruppen
 
 Eingabefeldgruppen sind in fast jeder Anwendung oder Website vorhanden.
