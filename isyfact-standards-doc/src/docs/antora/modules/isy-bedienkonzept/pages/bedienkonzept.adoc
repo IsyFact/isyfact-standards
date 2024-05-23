@@ -321,8 +321,6 @@ Platzhalter müssen sinnvolle Eingabeunterstützungen (im einfachsten Fall das L
 .Eingabfeld mit Platzhalter
 image::24_BE_eingabefeld_normal.png[align="center"]
 
-Abbildung - Eingabefeld mit Platzhalter
-
 Aktive Eingabefelder sind inkl. dem Label in der Highlightfarbe (blau) dargestellt. Sie haben zusätzlich zur veränderten Farbe eine 1px dickere Border und die Schrift vergrößert sich um 2pt.
 
 *_Aktiv:_*
