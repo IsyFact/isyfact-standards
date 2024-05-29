@@ -19,10 +19,6 @@ Diese werden im Folgenden dargestellt:
 Das Bedienkonzept beschreibt die Gestaltungsregeln, Lösungsmuster und Workflows für fachliche Abläufe in Benutzeroberflächen.
 Ziel des Bedienkonzepts ist es, dass sich Sachbearbeiter möglichst schnell zwischen unterschiedlichen Anwendungen orientieren können.
 
-[[webjsf]]
-=== Web JSF
-Der Baustein Web JSF enthält alle notwendigen Abhängigkeiten, Spring-Konfigurationen, JSF-Komponenten (Composite Components) sowie zugehörige XHTML-Templates zur Erstellung einer GUI mit JSF.
-
 [[webangular]]
 === Web Angular
 Der Baustein Web Angular stellt querschnittlich nutzbare Komponenten und Services zur Verwendung mit dem Angular Web Framework zur Verfügung.
