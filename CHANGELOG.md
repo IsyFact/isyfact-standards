@@ -1,6 +1,6 @@
 # 2.5.0
 - `IFS-1583`: [isy-persistence] `IsyPersistenceOracleAutoConfiguration` verwendet relaxed-binding für ConditionalOnProperty
-- `IFS-3256`: [isy-sonderzeichen] Hinzufügen eines neuen Packages mit Transformatoren für die DIN Norm 91379
+- `IFS-3443`: [isy-sonderzeichen] Hinzufügen eines neuen Packages mit Transformatoren für die DIN Norm 91379
 - `IFS-2044`: [isyfact-products-bom] OpenCSV Versionsanhebung auf 5.7.1
 - `ISY-658`: [isy-serviceapi-core] Setzen generierter Korrelations-IDs in das AufrufKontextTo im StelltLoggingKontextBereitInterceptor
 - `ISY-651`: [isy-service-rest] Abschnitt zum Setzen von X-Correlation-Id in den HTTP-Header hinzugefügt
