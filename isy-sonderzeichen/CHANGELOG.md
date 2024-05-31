@@ -1,5 +1,5 @@
 # 2.5.0
-- `IFS-3256`: Hinzufügen eines neuen Packages mit Transformatoren für die DIN Norm 91379
+- `IFS-3443`: Hinzufügen eines neuen Packages mit Transformatoren für die DIN Norm 91379
 
 # 2.4.4
 - `IFS-1912`: Tabelle angepasst, sodass Glyphen, die von dem Buchstaben e abstammen, im Legacy Mapping auf sich selbst gemappt werden
