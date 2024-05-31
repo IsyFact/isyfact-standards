@@ -23,40 +23,44 @@ import de.bund.bva.isyfact.exception.service.TechnicalToException;
 import de.bund.bva.isyfact.exception.service.ToException;
 
 /**
- * Ermittelt die Abbildung von Exceptions per Reflection.
- * 
+ * Determines the mapping of exceptions via reflection.
+ *
  * <p>
- * Diese Klasse erwartet, dass zu jeder AWK-Exception genau eine zugehörige TO-Exception in der
- * RemoteBean-Operation deklariert ist, die sich nur im Namenssuffix "ToException" (vs. "Exception")
- * unterscheidet. Weiterhin erwartet sie, dass in der RemoteBean-Operation genau eine TechnicalToException
- * deklariert ist, die als generische technische Exception fungiert.
+ * This class expects that for each AWK-Exception there is exactly one corresponding TO-Exception declared
+ * in the RemoteBean operation, which only differs in the name suffix "ToException" (vs. "Exception").
+ * Furthermore, it expects that exactly one TechnicalToException is declared in the RemoteBean operation,
+ * which acts as a generic technical exception.
  * </p>
- * 
+ *
  */
 public class ReflectiveExceptionMappingSource implements ExceptionMappingSource {
 
     /**
      * {@inheritDoc}
      */
-    public Class<? extends ToException> getToExceptionClass(Method remoteBeanMethod,
-        Class<? extends BaseException> exceptionClass) {
+    public Class<? extends ToException> getToExceptionClass(Method remoteBeanMethod, Class<? extends BaseException> exceptionClass) {
+        if (remoteBeanMethod == null || exceptionClass == null) {
+            throw new IllegalArgumentException("Methoden- und Exception-Parameter dürfen nicht null sein.");
+        }
 
         String coreExceptionName = removeEnd(exceptionClass.getSimpleName(), "Exception");
+        if (coreExceptionName == null || coreExceptionName.isEmpty()) {
+            throw new IllegalStateException("Die Ausnahme " + exceptionClass.getSimpleName() +
+                    " hat keinen gültigen Kernnamen nach dem Entfernen von 'Exception'.");
+        }
 
         for (Class<?> toExceptionClass : remoteBeanMethod.getExceptionTypes()) {
             if (ToException.class.isAssignableFrom(toExceptionClass)) {
                 String toExceptionName = removeEnd(toExceptionClass.getSimpleName(), "ToException");
                 if (coreExceptionName.equals(toExceptionName)) {
-                    @SuppressWarnings("unchecked")
-                    Class<? extends ToException> castToExceptionClass =
-                        (Class<? extends ToException>) toExceptionClass;
-                    return castToExceptionClass;
+                    // Ensure that toExceptionClass really is a ToException
+                    return toExceptionClass.asSubclass(ToException.class); // Safer than the cast and no warning
                 }
             }
         }
 
         throw new IllegalStateException("Keine TO-Exception für die AWK-Exception " + exceptionClass
-            + " in Serviceoperation " + getMethodSignatureString(remoteBeanMethod));
+                + " in der Serviceoperation " + getMethodSignatureString(remoteBeanMethod));
     }
 
     /**
@@ -87,11 +91,11 @@ public class ReflectiveExceptionMappingSource implements ExceptionMappingSource 
     }
 
     /**
-     * Liefert die Methodensignatur als String.
-     * 
+     * Returns the method signature as a string.
+     *
      * @param method
-     *            die Methode
-     * @return die Methodensignatur als String.
+     *            the method
+     * @return the method signature as a string.
      */
     protected String getMethodSignatureString(Method method) {
         return method.getDeclaringClass().getName() + "." + method.getName();
@@ -106,6 +110,5 @@ public class ReflectiveExceptionMappingSource implements ExceptionMappingSource 
         }
         return str;
     }
-
 
 }

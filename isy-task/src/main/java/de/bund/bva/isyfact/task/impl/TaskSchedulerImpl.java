@@ -235,17 +235,16 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
 
                     stop = true;
                 } catch (CancellationException e) {
-                    String nachricht =
-                        MessageSourceHolder.getMessage(Ereignisschluessel.TASK_WURDE_ABGEBROCHEN, taskId);
+                    String nachricht = MessageSourceHolder.getMessage(Ereignisschluessel.TASK_WURDE_ABGEBROCHEN, taskId);
                     LOG.info(LogKategorie.JOURNAL, Ereignisschluessel.TASK_WURDE_ABGEBROCHEN,
-                        DateTimeUtil.localDateTimeNow() + " " + nachricht);
+                            DateTimeUtil.localDateTimeNow() + " " + nachricht);
 
                     entferneLaufendenTask(taskId);
 
                     stop = true;
                 } catch (ExecutionException e) {
                     String nachricht = MessageSourceHolder
-                        .getMessage(Ereignisschluessel.TASK_WURDE_FEHLERHAFT_BEENDET, taskId, e.getMessage());
+                            .getMessage(Ereignisschluessel.TASK_WURDE_FEHLERHAFT_BEENDET, taskId, e.getMessage());
                     LOG.warn(Ereignisschluessel.TASK_WURDE_FEHLERHAFT_BEENDET, nachricht, e);
 
                     if (scheduledExecutorService.isShutdown()) {
@@ -259,13 +258,16 @@ public class TaskSchedulerImpl implements TaskScheduler, ApplicationContextAware
                     try {
                         SECONDS.sleep(configurationProperties.getWatchdog().getRestartInterval().getSeconds());
                     } catch (InterruptedException ie) {
+                        Thread.currentThread().interrupt();
                         stop = true;
                     }
                 } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
                     stop = true;
                 }
             } while (!stop);
         }
+
 
         private void addTask(String id) {
             try {
