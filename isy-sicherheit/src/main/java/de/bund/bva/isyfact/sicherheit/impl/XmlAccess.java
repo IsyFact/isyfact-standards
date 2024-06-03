@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -116,8 +117,10 @@ public class XmlAccess {
         LOG.debug("Lese Rollen-Rechte-Mapping aus {}.", filename);
         Document dom;
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        InputStream stream = XmlAccess.class.getResourceAsStream(filename);
-        try {
+        documentBuilderFactory.setExpandEntityReferences(false);
+        try (InputStream stream = XmlAccess.class.getResourceAsStream(filename)) {
+            documentBuilderFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            documentBuilderFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
             dom = documentBuilder.parse(stream);
             RollenRechteMapping result = parseDocument(dom);
@@ -135,16 +138,6 @@ public class XmlAccess {
             throw new RollenRechteMappingException(
                 SicherheitFehlerSchluessel.MSG_AUTORISIERUNG_ROLLENRECHTEMAPPING_FEHLERHAFT, ioe,
                 "IO-Exception");
-        } finally {
-            if (stream != null) {
-                try {
-                    stream.close();
-                } catch (IOException e) {
-                    throw new RollenRechteMappingException(
-                        SicherheitFehlerSchluessel.MSG_AUTORISIERUNG_ROLLENRECHTEMAPPING_FEHLERHAFT, e,
-                        "IO-Exception");
-                }
-            }
         }
     }
 

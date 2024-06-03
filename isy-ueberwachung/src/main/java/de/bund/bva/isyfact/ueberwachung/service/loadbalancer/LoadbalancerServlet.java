@@ -88,11 +88,18 @@ public class LoadbalancerServlet extends HttpServlet {
      *             Wenn die Antwort nicht geschrieben werden kann.
      */
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         if (isAliveFile.exists()) {
             LOG.debug("IsAlive-Datei gefunden, sende HTTP OK.");
             resp.setStatus(HttpServletResponse.SC_OK);
-            resp.getWriter().write("<html><body><center>IS ALIVE!</center></body></html>");
+            try {
+                resp.getWriter().write("<html><body><center>IS ALIVE!</center></body></html>");
+            } catch (IOException e) {
+                LOG.error(
+                        EreignisSchluessel.IS_ALIVE_EXISTIERT_IO_EXCEPTION,
+                        "IsyAlive-Datei {} existiert, fehler bei schreiben der Antwort in output-stream", isAliveFile.getAbsolutePath());
+                resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            }
         } else {
             LOG.error(
                     EreignisSchluessel.IS_ALIVE_EXISTIERT_NICHT,
