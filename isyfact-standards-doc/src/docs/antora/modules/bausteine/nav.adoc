@@ -39,10 +39,6 @@
 *** xref:isy-security:konzept/master.adoc[Konzept]
 *** xref:isy-security:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
 
-** Sicherheit
-*** xref:isy-sicherheit:konzept/master.adoc[Konzept]
-*** xref:isy-sicherheit:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
-
 ** Sonderzeichen
 *** xref:isy-sonderzeichen:konzept/sonderzeichen.adoc[Konzept]
 *** xref:isy-sonderzeichen:nutzungsvorgaben/master.adoc[Nutzungsvorgaben]
