@@ -621,7 +621,8 @@ public EmbeddedOidcProviderMock createMock() {
     mock.addClient("client-credentials-client", "supersecretpassword",
             Collections.singleton("Test_Role"));
     mock.addUser("ressource-owner-password-credentials-client", "hypersecretpassword",
-            "admin", "adminpassword", Optional.of("123456"), Collections.singleton("Test_Role"));
+            "admin", "adminpassword", Optional.of("123456"),
+            Collections.singleton("Test_Role"));
 
     return mock;
 }

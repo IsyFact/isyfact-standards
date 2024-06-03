@@ -318,8 +318,6 @@ Zusätzlich müssen folgende Beans erstellt werden:
 
 * Eine Bean vom Typ `BatchRahmenMBean` zur Überwachung des Batchrahmens.
   Diese muss über den Spring MBeanExporter exportiert werden.
-* Eine Bean für den `AufrufKontextVerwalter`, die nicht den Scope `thread` hat. Ist in der Anwendungskonfiguration
-  bereits eine Bean dieses Typs definiert, kann sie mit der Annotation `@ExcludeFromBatchContext` ausschließen.
 * Eine Bean für einen `JpaTransactionManager`.
 * Die Konfigurationsklasse der Batch-Schicht muss mit der Annotation
 +
