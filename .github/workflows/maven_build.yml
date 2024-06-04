@@ -33,7 +33,7 @@ jobs:
     uses: IsyFact/isy-github-actions-templates/.github/workflows/maven_deploy_template.yml@v1.5.0
     with:
       version: ${{ needs.Version.outputs.next-version }}
-      maven-opts: '-DaltDeploymentRepository=github::default::https://maven.pkg.github.com/IsyFact/isyfact-standards'
+      maven-opts: '-DaltDeploymentRepository=github::https://maven.pkg.github.com/IsyFact/isyfact-standards'
       deploy-server-id: github
     secrets:
       DEPLOY_SERVER_USER_NAME: ${{ github.actor }}
