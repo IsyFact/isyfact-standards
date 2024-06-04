@@ -58,7 +58,12 @@ Anwendungen müssen auf den xref:isy-service-rest:konzept/master.adoc[Baustein R
 === JSF
 
 Der Baustein wurde entfernt.
-Anwendungen müssen auf den xref:isy-angular-widgets-doc:ROOT:konzept/konzept.adoc[Baustein Angular] migrieren.
+Anwendungen müssen auf den xref:isy-angular-widgets-doc::konzept/konzept.adoc[Baustein Angular] migrieren.
+
+=== Sicherheit
+
+Der Baustein wurde entfernt.
+Anwendungen müssen auf den xref:isy-security:konzept/master.adoc[Baustein Security] migrieren.
 
 [[kapitel-deprecations]]
 == Deprecations

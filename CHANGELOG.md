@@ -26,8 +26,9 @@
 - `ISY-737`: [isyfact-standards] Java Compile Target 17
 - `IFS-1259`: [isyfact-standards-doc] Basisdaten (d.h. Möglichkeit der gemeinsamen Nutzung von Geschäftsobjekten durch mehrere Fachkomponenten) entfernt
 - `IFS-3676`: [isyfact-standards-doc] IT-Systeme dürfen keine UI-Komponenten mehr enthalten.
+- `IFS-3699`: [isyfact-standards-doc] Baustein Sicherheit entfernt.
 - `IFS-3700`: [isyfact-standards-doc] Baustein Http Invoker entfernt.
-- `IFS-3701`: [isyfact-standards-doc] Baustein JSF entfernt
+- `IFS-3701`: [isyfact-standards-doc] Baustein JSF entfernt.
 
 # 3.0.1
 - `ISY-701`: Google Guava Versionsanhebung auf 33.1.0

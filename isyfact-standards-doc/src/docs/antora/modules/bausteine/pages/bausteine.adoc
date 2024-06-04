@@ -67,11 +67,8 @@ Der Baustein unterstützt unterschiedliche Arten von Schnittstellen und sorgt da
 |Der Baustein _REST_ bietet die Möglichkeit, interne Services der Anwendungslandschaft als REST-Services zu realisieren.
 
 |Security
-|Als Nachfolger des Bausteins _Sicherheit_ übernimmt der Baustein _Security_ die Authentifizierungsanfragen von natürlichen Anwendern als auch von technischen Systemen und leitet diese in die entsprechenden Credential-Flows des IAM-Service.
+|Der Baustein _Security_ übernimmt die Authentifizierungsanfragen von natürlichen Anwendern als auch von technischen Systemen und leitet diese in die entsprechenden Credential-Flows des IAM-Service.
 Aus den vom IAM-Service erhaltenen Zugangsdaten übernimmt der Baustein das Rollen- und Rechte-Handling zur Autorisierung der Anwendungsaufrufe innerhalb der Aufrufkette der Fachanwendungen.
-
-|icon:ban[title=Deprecation] [.line-through]#Sicherheit#
-|Der Baustein übernimmt die Autorisierung von Anfragen, sowohl von menschlichen Anwendern als auch externen Systemen, und dient zur Verwaltung von Rollen und Rechten innerhalb von IT-Systemen.
 
 |Sonderzeichen
 |Der Baustein bietet wichtige Hinweise für den Umgang mit Sonderzeichen und enthält Transkriptionsregeln zur Übertragung von nicht-lateinischen Zeichen.

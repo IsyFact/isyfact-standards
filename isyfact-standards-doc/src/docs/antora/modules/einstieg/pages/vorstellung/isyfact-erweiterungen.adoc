@@ -20,10 +20,5 @@ Das Bedienkonzept beschreibt die Gestaltungsregeln, Lösungsmuster und Workflows
 Ziel des Bedienkonzepts ist es, dass sich Sachbearbeiter möglichst schnell zwischen unterschiedlichen Anwendungen orientieren können.
 
 [[webangular]]
-=== Web Angular
-Der Baustein Web Angular stellt querschnittlich nutzbare Komponenten und Services zur Verwendung mit dem Angular Web Framework zur Verfügung.
-
-[[sicherheitkeycloak]]
-=== Sicherheit Keycloak
-Der Baustein Sicherheit Keycloak erweitert den Baustein Sicherheit um Funktionalität zur Verwendung des Keycloak Authorization Servers.
-Konkret beinhaltet die Erweiterung die Implementierung des IAM-Services für Keycloak sowie einen Filter zur Authentifizierung von REST-Aufrufen.
+=== Angular
+Der Baustein Angular stellt querschnittlich nutzbare Komponenten und Services zur Verwendung mit dem Angular Web Framework zur Verfügung.
