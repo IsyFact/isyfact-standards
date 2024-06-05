@@ -20,11 +20,9 @@ import static com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.resetAllRequests;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlMatching;
 import static com.github.tomakehurst.wiremock.client.WireMock.verify;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -418,7 +416,7 @@ class BatchrahmenTest extends AbstractOidcProviderTest {
                 .run(new String[]{"-start", "-cfg", "/resources/batch/basic-test-batch-1-config.properties"}));
         final LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
         final String actualBatchId = loggerContext.getProperty("BatchId");
-        assertEquals("BatchId ist in Batch LoggerContext gesetzt", "basicTestBatch-1", actualBatchId);
+        assertEquals("basicTestBatch-1", actualBatchId, "BatchId ist in Batch LoggerContext gesetzt");
     }
 
     @Test
@@ -477,9 +475,10 @@ class BatchrahmenTest extends AbstractOidcProviderTest {
         assertEquals(BatchReturnCode.OK.getWert(), BatchLauncher.run(new String[]{"-start", "-cfg",
                 "/resources/batch/basic-authentication-test-batch-authenticated-ropc-config.properties"}));
 
-        // should be called 11 (1 + 10) times, because oauth2MinimumTokenValidity is set to the value of
+        // should be called 11 (1 + 10 + 1) times, because oauth2MinimumTokenValidity is set to the value of
         // tokenLifespan, meaning re-authentication should be done for each step of the batch
-        verify(11, postRequestedFor(urlMatching(ISSUER_PATH + ".*")));
+        // 1x initialisiere, 10x verarbeite, 1x beende
+        verify(12, postRequestedFor(urlMatching(ISSUER_PATH + ".*")));
     }
 
     /**
