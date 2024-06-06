@@ -1,0 +1,46 @@
+= Zerlegung einer Anwendung in IT-Systeme
+
+include::glossary:licence:partial$licence.adoc[]
+
+include::documentation-guide::partial$content-new-page.adoc[]
+
+*Intro: Warum zerlegen wir überhaupt in IT-Systeme, also in unabhängig voneinander deploybare Einheiten?*
+
+== Schritt: Identifikation von IT-Systemen
+
+Das im Folgenden skizzierte Vorgehen eignet sich gut zur Prüfung, ob zwei oder mehrere Anwendungskomponenten (AWKs) vom selben IT-System umgesetzt werden sollten.
+Es ist recht einfach zu befolgen und bezieht die wichtigsten Ergebnisse aus der xref:methodik:vorlagen.adoc#dokumentation-anwendung[Systemspezifikation] mit ein.
+Auf genügend Kombinationen von Anwendungskomponenten angewendet, ergibt sich so eine Menge von IT-Systemen, in die eine Anwendung zerfällt.
+
+IMPORTANT: Das Vorgehen ist keine feste Vorgabe der IsyFact.
+Es dient als Empfehlung, wenn in einem Umsetzungsprojekt bisher kein Vorgehen hierfür etabliert wurde.
+
+Das Vorgehen ist zunächst nach Art eines Ablaufdiagramms beschrieben.
+Als Input dient eine Auswahl aus zwei oder mehr Anwendungskomponenten (im folgenden: AWKs) aus der Systemspezifikation der Anwendung.
+
+.Prüfung von AWK auf Zugehörigkeit zu einem IT-System
+image::software-technisch/vorgehen-zerlegung-it-systeme.dn.svg[]
+
+Es umfasst die folgenden Entscheidungspunkte:
+
+Gemeinsame GEP & ETY?::
+An diesem Punkt wird geprüft, ob die AWKs gemeinsam auf denselben Datenmodellen (MKO) und fachlichen Objekten (ETY) arbeiten. +
+Wird diese Frage mit *Nein* beantwortet, sollten die AWKs in separaten IT-System umgesetzt werden, da sie kaum bis keine gemeinsame Fachlichkeit besitzen.
+
+Hohe Kohäsion?::
+An diesem Punkt wird geprüft, ob die AWKs für sich zusammengenommen eine hohe Kohäsion aufweisen.
+Das bedeutet, dass sie zusammen gemäß dem Single-Responsibility-Prinzip einen wohldefinierten Teil der Fachlichkeit der Anwendung übernehmen. +
+Wird diese Frage mit *Nein* beantwortet, sollten die AWKs in separaten IT-System umgesetzt werden, da sie eine schwache Kohäsion aufweisen und das entstehende IT-System somit mehrere nicht zusammenhängende Aufgaben übernimmt.
+
+Vergleichbare NFAs?::
+An diesem Punkt wird geprüft, ob die AWKs mit hoher Kohäsion auch vergleichbare nichtfunktionale Anforderungen (NFAs) erfüllen müssen.
+Dies kann z.B. bedeuten, dass sie ähnliche Mengengerüste zur Grundlage haben oder die Anforderungen an Antwortzeiten oder Sicherheit vergleichbar hoch sind. +
+Wird diese Frage mit *Nein* beantwortet, sollten die AWKs aufgrund ihrer stark unterschiedlichen nichtfunktionale Anforderungen in separaten IT-System umgesetzt werden.
+
+Am Ende steht eine Einschätzung, ob die geprüften AWKs im selben oder in separaten IT-Systemen umgesetzt werden sollten.
+
+IMPORTANT: Eine Umsetzung in separaten IT-Systemen bedingt meist eine gewisse Form von redundante Datenhaltung (bzw. Definition von Datenhoheit) und ein gewisses Maß an _eventual consistency_, da Änderungen an den Daten erst über den gesamten Verbund aus IT-Systemen propagiert werden müssen.
+
+== Schritt: Zuweisung von IT-Systemtypen
+
+*Anwendungen in IT-Systeme zu schneiden ist nur der erste Teil. Es muss auch noch der Typ festgelegt werden, also: Backend, Backend + Frontend, Backend + Batch?*

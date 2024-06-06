@@ -4,8 +4,6 @@ include::glossary:licence:partial$licence.adoc[]
 
 include::documentation-guide::partial$content-new-page.adoc[]
 
-== Abbildung von Anwendungen auf IT-Systeme
-
 Die software-technische Referenzarchitektur bildet Anwendungen auf IT-Systeme ab.
 Für diese Abbildung gelten die folgenden, fundamentalen Eigenschaften:
 
@@ -27,9 +25,11 @@ image::software-technisch/beziehung-anwendung-it-system.dn.svg[]
 
 Grob gesagt besteht eine Anwendung, egal welchem Anwendungstyp sie entspricht, immer aus mindestens einem IT-System.
 Dabei muss dieses IT-System entweder ein Backend oder ein Frontend sein.
-Die Frage, in wie viele IT-Systeme eine Anwendung zerlegt wird, ist eine Entwurfsentscheidung, die im xref:methodik:vorlagen.adoc#dokumentation-anwendung[Systementwurf] dokumentiert wird.
+Die Frage, in welche IT-Systeme eine Anwendung zerlegt wird, ist eine Entwurfsentscheidung, die im xref:methodik:vorlagen.adoc#dokumentation-anwendung[Systementwurf] dokumentiert wird.
+Die software-technische Referenzarchitektur beschreibt ein xref:software-technisch/it-system-zerlegung.adoc[Verfahren zur Zerlegung], das wiederum auf der fachlichen Zerlegung in Anwendungskomponenten beruht.
 
 
+[[it-systemtypen]]
 == IT-Systemtypen
 
 IT-Systemtypen fokussieren sich auf einen bestimmten Teil der Fachlichkeit einer Anwendung und sind maßgeblich für dessen Umsetzung.
@@ -55,6 +55,7 @@ Das bedeutet: Anhand der spezifizierten Fachlichkeit einer Anwendung kann direkt
 IT-Systemtypen setzen neben ihrer maßgeblichen Fachlichkeit in der Regel auch weitere Fachlichkeit (z.B. Datenmodelle oder Akteure bzw. Rollen) um.
 Diese Bestandteile der fachlichen Zerlegung erzwingen allerdings nicht, dass sie von einem bestimmten IT-Systemtyp umgesetzt werden.
 
+[[backend]]
 === Backend
 
 Backends stellen hauptsächlich Services bereit.
@@ -65,6 +66,7 @@ Sie nutzen Spring Boot als Anwendungsframework und weitere Produkte von Spring s
 
 Die Systemarchitektur und die Umsetzung querschnittlicher, technischer Aspekte für Backends beschreibt die xref:blaupausen:referenzarchitektur-it-system/master.adoc[software-technische Referenzarchitektur für Backends].
 
+[[frontend]]
 === Frontend
 
 Frontends stellen hauptsächlich grafische Benutzerschnittstellen (GUIs) bereit.
@@ -75,6 +77,7 @@ Sie nutzen Angular als Anwendungsframework und weitere, zu Angular kompatible, P
 
 Die Systemarchitektur und die Umsetzung querschnittlicher, technischer Aspekte für Frontends beschreibt die xref:software-technisch/frontend.adoc[software-technische Referenzarchitektur für Frontends].
 
+[[batch]]
 === Batch
 
 Batches stellen, wie der Name schon sagt, hauptsächlich die Batches der Anwendung bereit.
