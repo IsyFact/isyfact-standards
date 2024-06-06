@@ -302,14 +302,14 @@ Dadurch ist die Wartbarkeit stark beeinträchtigt und die Aufwände können sich
 Bedienelemente sind die Bausteine der Benutzeroberfläche, die es den Benutzern ermöglichen, mit der Anwendung zu interagieren.
 Dieser Abschnitt definiert die verschiedenen Bedienelemente und legt fest, wie sie gestaltet und angeordnet werden sollen, um eine intuitive Benutzererfahrung zu gewährleisten.
 
-===Überschriften
+=== Überschriften
 
 Überschriften ermöglichen es Benutzern, schnell die Hauptthemen einer Seite zu erfassen und sich zu orientieren.
 Sie definieren Überschriften, die Hierarchie und das visuelle Erscheinungsbild, um Konsistenz und eine optimale Benutzererfahrung sicherzustellen.
 Überschriften spielen eine wichtige Rolle.
 Sie helfen, Inhalte in logische Abschnitte zu gliedern, wodurch Benutzer die Informationen leichter aufnehmen und navigieren können.
 
-====Best Practices für die Verwendung von Überschriften
+==== Best Practices für die Verwendung von Überschriften
 
 *_Hierarchie und Struktur_*
 
@@ -343,7 +343,7 @@ Der Kontrast sollte mindestens 4:1 sein.
 Fettdruck und Kursivschrift: Verwenden Sie Fettdruck oder Kursivschrift, um wichtige Überschriften hervorzuheben, jedoch sparsam, um eine Überladung zu vermeiden.
 Farben: Farben können verwendet werden, um Hierarchie zu betonen, sollten jedoch mit Bedacht gewählt werden, um ein harmonisches Gesamtbild zu bewahren. Es wird empfohlen die Standardfarben zu nutzen.
 
-===Hyperlink
+=== Hyperlink
 
 Hyperlinks folgen per Default einem einheitlichen Styling.
 Links sind in der Regel unterstrichen. Daher ist es nicht ratsam dies zu ändern, da der Nutzer es gelernt hat weiterführende Informationen/Links in einem Fließtext oder auf einer Seite anhand des unterstrichenen Textes zu erkennen.
@@ -361,12 +361,12 @@ Wird die Maus über einen Hyperlink bewegt, ändert sich der Cursor vom Pfeil zu
 Fachlicher Hinweis: Hyperlinks sollten einen aussagekräftigen Text zur Verfügung stellen.
 Generische Phrasen wie „Hier klicken“ sind nicht hilfreich und sollten vermieden werden.
 
-===Label
+=== Label
 
 Label dienen dazu, Eingabefelder und andere Bedienelemente klar zu kennzeichnen, sodass Benutzer genau verstehen, welche Informationen erforderlich sind und welche Aktionen durchgeführt werden können. Ein konsistentes und gut durchdachtes Design von Labels trägt wesentlich zur Verbesserung der Nutzererfahrung bei.
 Labels sind nicht nur visuelle Hinweise, sondern auch wesentliche Bestandteile der Barrierefreiheit. Sie ermöglichen es Screenreadern, die Beziehung zwischen einem Eingabefeld und seiner Beschreibung zu verstehen, was besonders für sehbehinderte Benutzer von großer Bedeutung ist. Ein korrekt implementiertes Label sorgt dafür, dass alle Benutzer, unabhängig von ihren Fähigkeiten, Formulare und andere interaktive Elemente problemlos nutzen können.
 
-====Best Practices für die Verwendung von Labels
+==== Best Practices für die Verwendung von Labels
 
 *_Klarheit und Prägnanz_*
 
