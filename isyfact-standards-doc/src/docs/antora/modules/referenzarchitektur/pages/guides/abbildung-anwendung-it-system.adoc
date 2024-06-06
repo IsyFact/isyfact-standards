@@ -1,0 +1,5 @@
+= Beispiel: Zerlegung einer Anwendung in IT-Systeme
+
+.Beispiel: Zerlegung einer Anwendung in IT-Systeme
+image::software-technisch/abbildung-anwendung-it-system.dn.svg[]
+
