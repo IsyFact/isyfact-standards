@@ -1,14 +1,19 @@
-name: Next Version
+name: Next Version Template
 on:
   workflow_call:
     inputs:
       next-version:
-        description: 'If set, this version is used with Snapshot suffix.'
+        description: 'Base version to use, e.g., 4.0.0'
         type: string
         required: false
+      calculate-rc:
+        description: 'Calculate a release candidate version'
+        type: boolean
+        required: false
+        default: false
     outputs:
       next-version:
-        description: 'Computed snapshot version'
+        description: 'Calculated version with appropriate suffix'
         value: ${{ jobs.Next.outputs.next-version }}
 
 jobs:
@@ -27,15 +32,18 @@ jobs:
       security-events: none
       statuses: none
 
-    env:
-      NEXT_VERSION: ${{ inputs.next-version }}
     outputs:
-      next-version: ${{ steps.next-version.outputs.version }}
+      next-version: ${{ steps.set-version.outputs.version }}
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - id: semantic-version
+      - name: Fetch develop branch
+        if: ${{ inputs.calculate-rc }}
+        run: git fetch origin develop:develop
+      - name: Calculate semantic version
+        id: semantic-version
         if: ${{ ! inputs.next-version }}
         uses: PaulHatch/semantic-version@v5.4.0
         with:
@@ -44,16 +52,41 @@ jobs:
           major_pattern: "/BREAKING/"
           minor_pattern: "/feat/"
           search_commit_body: true
-      - name: Validate Version
+      - name: Validate version
         if: ${{ ! inputs.next-version }}
         run: |
           RE_SEMVER="^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$"
           if [[ ! "${{ steps.semantic-version.outputs.version }}" =~ $RE_SEMVER ]]; then
-            echo "ERROR computed version with value ${{ steps.semantic-version.outputs.version }} is an invalid semantic version"
+            echo "ERROR calculated version with value ${{ steps.semantic-version.outputs.version }} is an invalid semantic version"
               exit 1
           fi
-      - id: next-version
-        name: Set next version
+
+      - name: Prepare base version
         run: |
-          echo "version=${NEXT_VERSION:-${{ steps.semantic-version.outputs.version }}}-SNAPSHOT" >> "$GITHUB_OUTPUT"
-          echo "Computed and set ${NEXT_VERSION:-${{ steps.semantic-version.outputs.version }}}-SNAPSHOT as version."
+          BASE_VERSION="${{ inputs.next-version }}"
+          FINAL_BASE_VERSION="${BASE_VERSION:-${{ steps.semantic-version.outputs.version }}}"
+          echo "FINAL_BASE_VERSION=$FINAL_BASE_VERSION" >> $GITHUB_ENV
+
+      - name: Calculate snapshot version
+        if: ${{ !inputs.calculate-rc }}
+        run: |
+          NEXT_VERSION="${FINAL_BASE_VERSION}-SNAPSHOT"
+          echo "version=$NEXT_VERSION" >> $GITHUB_ENV
+          echo "Snapshot version: $NEXT_VERSION"
+
+      - name: Calculate RC version
+        if: ${{ inputs.calculate-rc }}
+        run: |
+          BRANCH_NAME="${{ github.ref_name }}"
+          BASE_BRANCH='develop'
+          COMMON_ANCESTOR=$(git merge-base HEAD refs/heads/$BASE_BRANCH)
+          COMMIT_COUNT=$(git rev-list --count $COMMON_ANCESTOR..HEAD)
+          NEXT_VERSION="${FINAL_BASE_VERSION}-RC-${COMMIT_COUNT}"
+          echo "version=$NEXT_VERSION" >> $GITHUB_ENV
+          echo "RC version: $NEXT_VERSION"
+
+      - name: Set version
+        id: set-version
+        run: |
+          echo "version=${{ env.version }}" >> $GITHUB_OUTPUT
+          echo "Set version: ${{ env.version }}"
