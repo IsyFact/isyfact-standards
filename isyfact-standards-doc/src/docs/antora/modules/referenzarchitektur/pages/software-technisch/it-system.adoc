@@ -1,6 +1,8 @@
-= IT-Systeme
+= IT-Systeme und IT-Systemtypen
 
 include::glossary:licence:partial$licence.adoc[]
+
+include::documentation-guide::partial$content-new-page.adoc[]
 
 == Abbildung von Anwendungen auf IT-Systeme
 
@@ -55,22 +57,29 @@ Diese Bestandteile der fachlichen Zerlegung erzwingen allerdings nicht, dass sie
 
 === Backend
 
-* Was macht den IT-Systemtyp aus?
-* Welchen Technologie-Stack verwendet er?
-* Wo gibt es weitere Informationen hierzu?
+Backends stellen hauptsächlich Services bereit.
+Dabei kann es sich um Nachbarsystemschnittstellen der Anwendung handeln, die von anderen Anwendungen verwendet werden, oder um interne Schnittstellen, die von anderen IT-Systemen derselben Anwendung verwendet werden.
 
-...
+Backends setzen auf den xref:einstieg:produktkatalog/technologiestackJavaSpring.adoc[].
+Sie nutzen Spring Boot als Anwendungsframework und weitere Produkte von Spring sowie JEE-Standards und xref:bausteine:bausteine.adoc[] der IsyFact zur Umsetzung der Services.
+
+Die Systemarchitektur und die Umsetzung querschnittlicher, technischer Aspekte für Backends beschreibt die xref:blaupausen:referenzarchitektur-it-system/master.adoc[software-technische Referenzarchitektur für Backends].
 
 === Frontend
 
-...
+Frontends stellen hauptsächlich grafische Benutzerschnittstellen (GUIs) bereit.
+Sie kommunizieren hierzu über interne Schnittstellen mit Backends.
+
+Frontends setzen auf den xref:einstieg:produktkatalog/technologiestackTypescriptAngular.adoc[].
+Sie nutzen Angular als Anwendungsframework und weitere, zu Angular kompatible, Produkte sowie De-facto-Standards und xref:bausteine:bausteine.adoc[] der IsyFact zur Umsetzung der GUIs.
+
+Die Systemarchitektur und die Umsetzung querschnittlicher, technischer Aspekte für Frontends beschreibt die xref:software-technisch/frontend.adoc[software-technische Referenzarchitektur für Frontends].
 
 === Batch
 
-...
+Batches stellen, wie der Name schon sagt, hauptsächlich die Batches der Anwendung bereit.
 
-== Beispiel: Zerlegung einer Anwendung in IT-Systeme
+Batches setzen wie Backends auf den xref:einstieg:produktkatalog/technologiestackJavaSpring.adoc[].
+Sie nutzen Spring Boot als Anwendungsframework und weitere Produkte von Spring sowie JEE-Standards und xref:bausteine:bausteine.adoc[] der IsyFact zur Umsetzung der Services.
 
-.Beispiel: Zerlegung einer Anwendung in IT-Systeme
-image::software-technisch/abbildung-anwendung-it-system.dn.svg[]
-
+Die Systemarchitektur und die Umsetzung querschnittlicher, technischer Aspekte für Batches beschreibt die xref:blaupausen:detailkonzept-komponente-batch/master.adoc[software-technische Referenzarchitektur für Batches].
