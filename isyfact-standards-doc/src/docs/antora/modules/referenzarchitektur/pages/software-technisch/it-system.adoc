@@ -36,6 +36,7 @@ IT-Systemtypen fokussieren sich auf einen bestimmten Teil der Fachlichkeit einer
 Zwischen den IT-Systemtypen gibt es keine Überschneidungen.
 Das bedeutet: Anhand der spezifizierten Fachlichkeit einer Anwendung kann direkt abgelesen werden, welche IT-Systemtypen zur Umsetzung der Anwendung notwendig sind.
 
+[[abbildung-it-systemtypen-fachlichkeit]]
 .Abbildung von IT-Systemtypen auf ihre maßgeblich umgesetzte Fachlichkeit
 [cols="1s,3",options="header"]
 |===
