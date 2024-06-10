@@ -265,13 +265,11 @@ _Zur Einordnung in die Systemlandschaft kann eine Abbildung ähnlich der folgend
 Für konkrete Entwürfe muss die Grafik durch eine nicht anonymisierte aktuelle Version der zugehörigen Systemlandschaft ersetzt werden._
 ====
 
-:desc-image-einbettung-anwendungssystem: Einbettung von <Anwendungssystem (roten Rahmen platzieren)> in die Systemlandschaft.
+:desc-image-einbettung-anwendung: Einbettung von <Anwendung (roten Rahmen platzieren)> in die Systemlandschaft.
 
-[id="image-einbettung-anwendungssystem", reftext = "{figure-caption} {counter:figures}"]
-.{desc-image-einbettung-anwendungssystem}
-image::vorlage-systementwurf/einbettung-anwendungssystem.png[align = center, title-align=center]
-
-
+[id="image-einbettung-anwendung", reftext = "{figure-caption} {counter:figures}"]
+.{desc-image-einbettung-anwendung}
+image::vorlage-systementwurf/einbettung-anwendung.png[align = center, title-align=center]
 
 [[randbedingungen-annahmen]]
 === Randbedingungen und Annahmen

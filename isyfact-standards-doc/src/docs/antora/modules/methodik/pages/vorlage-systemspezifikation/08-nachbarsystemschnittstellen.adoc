@@ -1,12 +1,10 @@
-// tag::inhalt[]
-
 [[nachbarsystemschnittstellen]]
 == Nachbarsystemschnittstellen
 
-_Das Kapitel Nachbarsystemschnittstellen beschreibt die Verbindung zwischen dem Anwendungssystem und den externen Nachbarsystemen, mit denen das Anwendungssystem kommunizieren soll._
+_Das Kapitel Nachbarsystemschnittstellen beschreibt die Verbindung zwischen der Anwendung und den externen Nachbarsystemen, mit denen die Anwendung kommunizieren soll._
 
 _Alle zu berücksichtigenden Nachbarsysteme werden im xref:vorlage-systemspezifikation/02-projektgrundlagen.adoc#fachlicher-architekturueberblick[Abschnitt "Fachlicher Architekturüberblick"] vorgestellt.
-Hier werden die einzelnen Schnittstellen beschrieben, wobei zwischen von dem Anwendungssystem benutzten und durch das Anwendungssystem angebotenen Schnittstellen unterschieden wird._
+Hier werden die einzelnen Schnittstellen beschrieben, wobei zwischen von der Anwendung benutzten und durch die Anwendung angebotenen Schnittstellen unterschieden wird._
 
 _Namen von Nachbarsystem-Schnittstellen beginnen mit +„NST_“+ gefolgt von einem Substantiv und einem Verb, z.B. „NST_Auskunft_durchführen“.
 Falls nötig, kann noch ein Adjektiv gefolgt von einem Unterstrich vor das Substantiv gestellt werden._
@@ -14,7 +12,7 @@ Falls nötig, kann noch ein Adjektiv gefolgt von einem Unterstrich vor das Subst
 [[angebotene-schnittstellen]]
 === Angebotene Schnittstellen
 
-_Ein UML-Komponentendiagramm gibt einen Überblick über die vom Anwendungssystem angebotenen Schnittstellen._
+_Ein UML-Komponentendiagramm gibt einen Überblick über die von der Anwendung angebotenen Schnittstellen._
 
 [[angebotene-schnittstellen-2]]
 .Angebotene Schnittstellen
@@ -26,7 +24,7 @@ image::vorlage-systemspezifikation/angebotene-schnittstellen.png[]
 _Die Nachbarsystemschnittstelle wird in einem oder mehreren Diagrammen grafisch dargestellt.
 Dabei werden die Parameter und Rückgabewerte als Nachbarschnittstellenentitäten dargestellt.
 Diese beschreiben analog zu den Entitäten des Datenmodells den Aufbau der Schnittstelle.
-Die Vor- und Nachteile der Darstellung der Schnittstellenattribute +(NSA_...)+ gelten analog.
+Die Vor- und Nachteile der Darstellung der Schnittstellenattribute +(NSA_ ...)+ gelten analog.
 Auch der Aufbau der Schnittstellenentitäten kann dem Aufbau des Datenmodells ähneln.
 Meist ergeben sich aber doch Abweichungen, zum Beispiel weil Attribute erst vom aufgerufenen Anwendungsfall berechnet und gespeichert werden._
 
@@ -38,9 +36,8 @@ _Wenn das Diagramm der Schnittstelle zu umfangreich wird, kann es auf mehrere Di
 .NST_Meldung_durchführen
 image::vorlage-systemspezifikation/nstmeldungdurchfuehren.png[]
 
+._Erstellung des Diagramms im Enterprise Architect_
 ****
-Erstellung des Diagramms im Enterprise Architect:
-
 _Man zieht die Nachbarsystemschnittstelle aus dem UML-Profil „Nachbarschnittstellen“ in ein Composite Structure Diagramm und benennt sie richtig.
 Die Schnittstellenentitätstypen werden erst wie im Kapitel <<schnittstellenentitaetstyp-nse-name-schnittstellenentitaetstyps>> beschrieben erstellt und dann in diesem Diagramm verwendet.
 Zwischen den Schnittstellenentitätstypen werden Verknüpfungen definiert.
@@ -57,14 +54,14 @@ Beide Verknüpfungen stammen aus dem UML-Profil „Nachbarschnittstellen“._
 |*Kurzbeschreibung* |_Welche fachlichen Dienste werden durch die Schnittstelle bereitgestellt?
 Welchen fachlichen Hintergrund haben die ausgetauschten Daten?_
 |*Nutzende
-Nachbarssysteme* |_Liste der Anwendungssysteme, welche auf die Schnittstelle zugreifen._
+Nachbarssysteme* |_Liste der Anwendungen, welche auf die Schnittstelle zugreifen._
 |*Komplexität* |_Einschätzung der fachlichen Komplexität der Schnittstelle: „hoch“, „mittel“, „gering“.
-Die hierfür notwendigen Einschätzungsregeln müssen vorab systemabhängig festgelegt und beschrieben werden._
-|*Synchron/ Asynchron* |_Bei synchronen Schnittstellen blockiert der aufrufende Bearbeitungsablauf so lange, bis das aufgerufene Anwendungssystem eine Antwort zurückgesendet hat (enge Kopplung).
+Die hierfür notwendigen Regeln müssen vorab systemabhängig festgelegt und beschrieben werden._
+|*Synchron/ Asynchron* |_Bei synchronen Schnittstellen blockiert der aufrufende Bearbeitungsablauf so lange, bis die aufgerufene Anwendung eine Antwort zurückgesendet hat (enge Kopplung).
 Bei asynchronen Schnittstellen fährt der aufrufende Bearbeitungsablauf sofort mit weiteren, lokalen Schritten fort (lose Kopplung).
-Falls eine Reaktion vom aufgerufenen Anwendungssystem erwartet wird, so muss sie über einen asynchronen Mechanismus wie z.B. ein Aufgabensystem in den Bearbeitungsprozess wieder eingegliedert werden._
-|*Online/ Offline* |_Bei Online-Schnittstellen führt der Datenaustausch sofort zu einer Verarbeitung im angesprochenen Anwendungssystem.
-Bei Offline-Schnittstellen wird eine Datenstruktur (Nachricht, Datei, …) für das angesprochene Anwendungssystem hinterlegt, die zu einem späteren Zeitpunkt, z.B. im Rahmen eines nächtlichen Batch-Laufes verarbeitet wird.
+Falls eine Reaktion von der aufgerufenen Anwendung erwartet wird, so muss sie über einen asynchronen Mechanismus wie z.B. ein Aufgabensystem in den Bearbeitungsprozess wieder eingegliedert werden._
+|*Online/ Offline* |_Bei Online-Schnittstellen führt der Datenaustausch sofort zu einer Verarbeitung in der angesprochenen Anwendung.
+Bei Offline-Schnittstellen wird eine Datenstruktur (Nachricht, Datei, …) für die angesprochene Anwendung hinterlegt, die zu einem späteren Zeitpunkt, z.B. im Rahmen eines nächtlichen Batch-Laufes verarbeitet wird.
 Offline-Schnittstellen werden alternativ als Batches mit Druckstücken spezifiziert._
 |*Verwendete Entitätstypen (Input)* |_Liste der Schnittstellenentitätstypen, die Parameter beim Aufruf der Schnittstelle durch ein Nachbarsystem sind.
 Durch das Schnittstellendiagramm ist diese Information bereits dargestellt, daher ist die Auflistung optional._
@@ -129,7 +126,7 @@ _Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier weitere
 [[benutzte-schnittstellen]]
 === Benutzte Schnittstellen
 
-_Ein UML-Komponentendiagramm gibt einen Überblick über die vom Anwendungssystem benutzten Schnittstellen, geordnet nach den anbietenden Anwendungssystemen.
+_Ein UML-Komponentendiagramm gibt einen Überblick über die von der Anwendung benutzten Schnittstellen, geordnet nach den anbietenden Anwendungen.
 Benutzte Schnittstellen werden normalerweise im anbietenden Nachbarsystem modelliert.
 Falls keine derartige Dokumentation vorliegt, können sie hier analog der angebotenen Schnittstellen modelliert werden._
 
@@ -137,12 +134,11 @@ Falls keine derartige Dokumentation vorliegt, können sie hier analog der angebo
 .Benutzte Schnittstellen
 image::vorlage-systemspezifikation/benutzte-schnittstellen.png[]
 
+._Erstellung des Diagramms im Enterprise Architect_
 ****
-_Erstellung des Diagramms im Enterprise Architect:_
-
-_Hier hat man zwei Alternativen: Entweder die Nachbarsysteme sind bereits im EA modelliert, dann nimmt man die angebotenen Schnittstellen aus diesen Anwendungssystemen und zieht sie in ein Composite Structure Diagramm im eigenen Anwendungssystem.
-Wenn nötig kann man dazu die Schnittstellen oder die gesamten Anwendungssysteme ins eigene EA-Modell importieren.
-Oder die Nachbarsysteme werden nicht modelliert (z.B. bei Anwendungssystemen außerhalb der Anwendungslandschaft), dann spezifiziert man benutzte Schnittstellen im eigenen Anwendungssystem._
+_Hier hat man zwei Alternativen: Entweder die Nachbarsysteme sind bereits im EA modelliert, dann nimmt man die angebotenen Schnittstellen aus diesen Anwendungen und zieht sie in ein Composite Structure Diagramm in der eigenen Anwendung.
+Wenn nötig, kann man dazu die Schnittstellen oder die gesamten Anwendungen ins eigene EA-Modell importieren.
+Oder die Nachbarsysteme werden nicht modelliert (z.B. bei Anwendungen außerhalb der Anwendungslandschaft), dann spezifiziert man benutzte Schnittstellen in der eigenen Anwendung._
 
 _Zur Abgrenzung verschiedener Nachbarsysteme zieht man je eine Boundary um die Schnittstellen eines Nachbarsystems und gibt ihr über ihre Properties den Namen des Nachbarsystems._
 ****
@@ -156,6 +152,3 @@ _Falls benutzte Nachbarschnittstellen ausmodelliert werden, erfolgt dies hier an
 ==== Benutzte Nachbarschnittstelle NNST_<Bezeichnung der Nachbarschnittstelle>
 
 _Dieser Abschnitt ist ein Platzhalter, um zu verdeutlichen, dass ab hier weitere benutzte Nachbarschnittstellen zu beschreiben sind._
-
-// end::inhalt[]
-

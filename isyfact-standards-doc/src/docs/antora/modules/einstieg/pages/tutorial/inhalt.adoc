@@ -245,7 +245,7 @@ Diese Query soll die (fachlichen) Schlüssel von Entitäten, nicht Entitäten se
 * Batches erzeugen ein Ausführungsprotokoll.
 Der Batchrahmen, die Steuerungsimplementierung, die jeden Batch und dessen Arbeitsschritte steuert, stellt die notwendige Implementierung bereit.
 Die Ausführungs-Bean übermittelt dem Batchrahmen Status-Informationen für das Protokoll.
-* Batches verwenden einen (konfigurierten) technischen Benutzer, um sich vor Start der fachlichen Verarbeitung am IAM-Service des Anwendungssystems oder der Anwendungslandschaft zu authentifizieren.
+* Batches verwenden einen (konfigurierten) technischen Benutzer, um sich vor Start der fachlichen Verarbeitung am IAM-Service der Anwendung oder der Anwendungslandschaft zu authentifizieren.
 * Alle Batches zu einer Anwendung werden als eigenständige Deployment-Einheit ausgeliefert.
 
 [[klassendesign-4]]

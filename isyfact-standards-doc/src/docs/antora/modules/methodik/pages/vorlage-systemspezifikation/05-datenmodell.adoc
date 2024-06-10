@@ -1,11 +1,7 @@
-= Vorlage Systemspezifikation
-
-// tag::inhalt[]
-
 [[datenmodell]]
 == Datenmodell
 
-_Das logische Datenmodell beschreibt die fachliche Sicht auf die Daten des Anwendungssystems.
+_Das logische Datenmodell beschreibt die fachliche Sicht auf die Daten der Anwendung.
 Es enthält Entitätstypen und ihre Beziehungen zueinander.
 Jeder Entitätstyp enthält Attribute und ihre fachlichen Datentypen (siehe Abschnitt „Datentypen“).
 Den Inhalt des logischen Datenmodells bildet eine Beschreibung der Entitätstypen, Assoziationen und Attribute._
@@ -68,9 +64,8 @@ image::vorlage-systemspezifikation/beispieldiagramm-mkobestand-alternativss-uebe
 .Modellkomponente MKO_xy: Details
 image::vorlage-systemspezifikation/beispieldiagramm-mkobestandss-details.png[]
 
+._Erstellung des Diagramms im Enterprise Architect_
 ****
-Erstellung des Diagramms im Enterprise Architect:
-
 _Man zieht die Entitätstypen aus dem UML-Profil „Datenmodell“ in ein Klassendiagramm, gibt ihnen Namen (mit Präfix +„ETY_“+) und falls gewünscht Attribute.
 Die Attribute haben ihrerseits jeweils Namen (mit Präfix +„ATT_“+) und Datentypen (mit Präfix +„DTY_“+)._
 
@@ -97,7 +92,7 @@ Falls nötig kann noch ein Adjektiv vor das Substantiv gestellt werden._
 2+| Entitätstyp
 |*Kurzbeschreibung* |_Die Beschreibung des Entitätstyps ermöglicht dem Leser, den Namen der Entität und ihre Bedeutung zu verstehen.
 
-Für die Begriffserklärung können Synonyme oder Oberbegriffe benutzt werden (Beispiel: „Ein Mitarbeiter ist eine natürliche Person“…").
+Für die Begriffserklärung können Synonyme oder Oberbegriffe benutzt werden (Beispiel: „Ein Mitarbeiter ist eine natürliche Person …“).
 
 Anschließend wird der Begriff inhaltlich und zeitlich abgegrenzt, d.h. wir erläutern, unter welchen Bedingungen eine Ausprägung zu diesem Entitätstyp gehört.
 
@@ -149,9 +144,9 @@ Beispiele: ISBN, Fahrgestellnummer, Aufzählungstypen._
 _Im Fall von trivialer Fachlichkeit (z.B. Beschreibungstexte, einfache Nummern) verzichten wir auf fachliche Datentypen und verwenden direkt die technischen Basistypen Zeichenkette, Ganzzahl, Kommazahl etc.
 Eigenschaften des Attributes und der Datentyp sollten voneinander getrennt werden._
 
-_Typischerweise verwenden verschiedene Anwendungssysteme ähnliche Datentypen.
+_Typischerweise verwenden verschiedene Anwendungen ähnliche Datentypen.
 Innerhalb einer Anwendungslandschaft müssen gleich benannte Datentypen auch den gleichen Inhalt haben.
-Ähnliche, aber inhaltlich unterschiedliche Datentypen sollten auch über die Anwendungssysteme der Anwendungslandschaft explizit unterschiedlich benannt werden, um hier Verwirrung zu vermeiden._
+Ähnliche, aber inhaltlich unterschiedliche Datentypen sollten auch über die Anwendungen der Anwendungslandschaft explizit unterschiedlich benannt werden, um hier Verwirrung zu vermeiden._
 
 _Falls Datentypen für Schlüsselwerte verwendet werden, welche im Schlüsselverzeichnis abgelegt sind, so ist in der Beschreibung des Datentyps die Schlüsselkategorie des SVZ zu nennen.
 Falls die Werte nicht im Schlüsselverzeichnis abgelegt sind, so ist ein Kapitel im Anhang der Spezifikation zu referenzieren, in dem alle fachlichen Ausprägungen des Schlüssels genannt werden._
@@ -161,9 +156,6 @@ Falls die Werte nicht im Schlüsselverzeichnis abgelegt sind, so ist ein Kapitel
 [cols="1s,1,1,1",options="header"]
 |====
 |*Datentyp* |*Basistyp* |*Bedeutung* |*Wertebereich*
-|_Name des Datentyps beginnend mit dem Präfix +„DTY_“+._ |_Technischer Basistyp wie „String“, „Integer, „Float“, „Alphanum“ oder ähnliche._ |_Fachliche Bedeutung des Datentyps.
+|_Name des Datentyps beginnend mit dem Präfix +„DTY_“+._ |_Technischer Basistyp wie „String“, „Integer“, „Float“, „Alphanum“ oder ähnliche._ |_Fachliche Bedeutung des Datentyps.
 Hier sollen auch Plausibilisierungen und Prüfungen beschrieben werden._ |_Mögliche Ausprägungen des Datentyps._
 |====
-
-// end::inhalt[]
-

@@ -163,17 +163,17 @@ Die Einbindung weiterer Datenbanken ist in xref:isy-persistence:konzept/vorgaben
 === Batches als eigenes IT-System
 
 Batches existieren meistens als weiterer Zugangsweg in der Nutzungsschicht einer bestehenden Geschäftsanwendung
-(siehe <<image-AnwLogBat>>), da sie auf den Daten des jeweiligen Anwendungssystems operieren.
+(siehe <<image-AnwLogBat>>), da sie auf den Daten der jeweiligen Anwendung operieren.
 
 Es kann allerdings auch Batches geben, die unabhängig von einer bestimmten Geschäftsanwendung sind.
 Dies kann beispielsweise der Fall sein, wenn ein Import-Batch angelieferte Dateien in verschiedene Geschäftsanwendungen importiert.
-Wenn Batches nicht eindeutig einem Anwendungssystem zugeordnet werden können, kann man sie auch als eigenständiges IT-System implementieren.
+Wenn Batches nicht eindeutig einer Anwendung zugeordnet werden können, kann man sie auch als eigenständiges IT-System implementieren.
 Dieses „Batch-System“ kann dann die Service-Schnittstellen anderer Geschäftsanwendungen aufrufen.
 Insgesamt ist dies jedoch als Sonderfall zu betrachten.
 In der Regel gehören Batches zu Geschäftsanwendungen, sie enthalten damit den fachlichen Code dieser Anwendung und
 nutzen diesen nicht über Service-Schnittstellen (siehe Kapitel <<das-deployment-eines-batches>>).
 
-In diesem Fall ist das Anwendungssystem architektonisch ein eigenständiges IT-System nach Zielarchitektur, das in der Nutzungsschicht alleinig die Batch-Komponente enthält.
+In diesem Fall ist die Anwendung architektonisch ein eigenständiges IT-System nach Zielarchitektur, das in der Nutzungsschicht alleinig die Batch-Komponente enthält.
 
 Batches die zu einer Geschäftsanwendung gehören sollen jedoch nicht als eigenständiges IT-System umgesetzt werden.
 
@@ -389,7 +389,7 @@ Batches im Status „Abbruch“ müssen mit „-restart“ gestartet werden oder
 |`-ignoriereRestart` |Auch bei Fehlern Start akzeptieren, nicht auf Restart beharren.
 |`-ignoriereLauf` |Auch bei Status "laeuft" Start akzeptieren.
 |`-testmodus` |Startet den Batch im Testmodus.
-Dieser arbeitet analog zum normalen Wirkbetrieb, jedoch werden keine Änderungen an Datenbeständen vom Anwendungssystem oder Nachbarsystemen durchgeführt.
+Dieser arbeitet analog zum normalen Wirkbetrieb, jedoch werden keine Änderungen an Datenbeständen der Anwendung oder der Nachbarsysteme durchgeführt.
 Ein detailliertes Konzept ist in Kapitel <<testmodus>> beschrieben.
 |`-laufzeit <Minuten>` |Gibt eine maximale Laufzeit in Minuten an.
 Wird die angegebene Zeit überschritten, wird der aktuelle Datensatz zu Ende bearbeitet.
@@ -895,7 +895,7 @@ Ereignis eingetreten ist:
 [[testmodus]]
 === Testmodus
 
-Der Batch im Testmodus arbeitet analog zum normalen Wirkbetrieb, jedoch werden keine Änderungen an Datenbeständen vom Anwendungssystem oder Nachbarsystemen durchgeführt.
+Der Batch im Testmodus arbeitet analog zum normalen Wirkbetrieb, jedoch werden keine Änderungen an Datenbeständen der Anwendung oder der Nachbarsysteme durchgeführt.
 Der Testmodus ist für den Betrieb wichtig, um Abschätzungen der Laufzeit durchführen zu können und somit den Batchbetrieb planen können.
 Weiter ist der Testlauf für Bereinigungsläufe wichtig, da so der Fachbereich sehen kann, welche Änderungen durch den Bereinigungslauf ausgeführt werden würden.
 

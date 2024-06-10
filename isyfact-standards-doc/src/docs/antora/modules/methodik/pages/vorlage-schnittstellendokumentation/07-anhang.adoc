@@ -19,8 +19,8 @@ _Beispielhaft ein Glossar zu den in diesem Dokument verwendeten Begriffen:_
 |===
 |Begriff |Kategorie |Erläuterung |Synonym(e) oder Übersetzung(en)
 |_Anwendungskomponente_ |_Architektur_ |_Eine Anwendungskomponente beschreibt eine Menge funktional zusammenhängender Anwendungsfälle._ |
-|_Anwendungslandschaft_ |_Architektur_ |_Die Anwendungslandschaft einer Organisation ist bestimmt durch die Menge der von der Organisationseinheit betriebenen Anwendungssysteme._ |_IT-Anwendungslandschaft_
-|_Anwendungssystem_ |_Architektur_ |_Ein Anwendungssystem ist eine zusam­mengehörende, logische Einheit aus Funktionen, Daten und Benutzungsschnittstellen._ |_Anwendung, IT-System_
+|_Anwendungslandschaft_ |_Architektur_ |_Die Anwendungslandschaft einer Organisation ist bestimmt durch die Menge der von der Organisationseinheit betriebenen Anwendungen._ |_IT-Anwendungslandschaft_
+|_Anwendung_ |_Architektur_ |_Eine Anwendung ist eine zusammengehörende, logische Einheit aus Funktionen, Daten und Benutzungsschnittstellen._ |_IT-System_
 |_Attribut_ |_Daten_ |_Als „Attribut“ versteht man eine dem Entitätstyp zugeordnete Information._ |
 |_Entität_ |_Daten_ |_Als Entität wird ein eindeutig zu bestimmendes Objekt bezeichnet, dem Informationen zugeordnet werden.
 Die Objekte können materiell oder immateriell sein._ |_Informationsobjekt, Objekt_
@@ -52,8 +52,8 @@ _Es handelt sich nicht um Logging!_
 |
 |_UML-Klassendiagramm_ |_Methodik_ |_Ein Klassendiagramm ist in der Informatik eine grafische Darstellung von Entitätstypen sowie der Assoziationen zwischen diesen Entitätstypen._ |
 |_UML-Komponenten­diagramm_ |_Methodik_ |_Das Komponentendiagramm ist ein Strukturdiagramm.
-Es zeigt eine bestimmte Sicht auf die Struktur des modellierten Anwendungssystems._ |
-|_Unified Modelling Language (UML)_ |_Methodik_ |_Die Unified Modeling Language (UML) ist eine von der Object Management Group (OMG) entwickelte und standardisierte Sprache für die Modellierung von Software und anderen Anwendungssystemen._ |
+Es zeigt eine bestimmte Sicht auf die Struktur der modellierten Anwendung._ |
+|_Unified Modelling Language (UML)_ |_Methodik_ |_Die Unified Modeling Language (UML) ist eine von der Object Management Group (OMG) entwickelte und standardisierte Sprache für die Modellierung von Software und anderen Anwendungen._ |
 |===
 
 [[fehlercodes-fehlertexte]]

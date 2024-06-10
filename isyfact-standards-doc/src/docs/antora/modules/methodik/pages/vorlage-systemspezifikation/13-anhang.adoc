@@ -1,5 +1,3 @@
-// tag::inhalt[]
-
 [[anhang]]
 == Anhang
 
@@ -10,7 +8,7 @@ _Das Glossar definiert die wichtigen fachlichen und technischen Begriffe und Abk
 Zudem werden häufig verwendete fremdsprachige Begriffe übersetzt und erläutert.
 Das Glossar klärt somit Begriffsbedeutungen und beugt Missverständnissen vor.
 Es erleichtert das gemeinsame Verständnis von Fachlichkeit und Technik, sowie die Einarbeitung der Projektbeteiligten.
-Schließlich etabliert das Glossar eine gemeinsame Sprache aller Projektbeteiligten, sowohl im Entwicklungsprojekt wie auch auf Kundenseite._
+Schließlich etabliert das Glossar eine gemeinsame Sprache aller Projektbeteiligten, sowohl im Entwicklungsprojekt als auch auf Kundenseite._
 
 _Beispielhaft ein Glossar zu den in diesem Dokument verwendeten Begriffen:_
 
@@ -24,15 +22,15 @@ _Beispielhaft ein Glossar zu den in diesem Dokument verwendeten Begriffen:_
 Dabei wird z.B. bei jedem Einsprung in eine Funktion, sowie bei jedem Verlassen eine Meldung ausgegeben, sodass der Programmierer mitverfolgen kann, wann und von wo welche Funktion aufgerufen wird.
 Die Meldungen können auch die Argumente an die Funktion enthalten.
 Zusammen mit weiteren Diagnose-Ausgaben lässt sich so der Programmablauf eines fehlerhaften Programmes häufig sehr schnell bis zu der fehlerverursachenden Funktion zurückverfolgen._ |_Tracing_
-|_Akteur_ |_Abläufe_ |_Ein Akteur ist ein außerhalb des Anwendungssystems agierender Beteiligter, der den in einem Anwendungsfall beschriebenen Ablauf anstößt._ |
+|_Akteur_ |_Abläufe_ |_Ein Akteur ist ein außerhalb der Anwendung agierender Beteiligter, der den in einem Anwendungsfall beschriebenen Ablauf anstößt._ |
 |_Aktivität_ |_Abläufe_ |_Eine Aktivität ist eine Tätigkeit, die einen elementaren, logischen Schritt innerhalb eines Geschäftsvorfalls bildet.
 Sie wird von einem Akteur mit einem bestimmten Ziel ausgeführt.
 Eine Aktivität kann sowohl manuell als auch teilweise oder vollständig automatisiert (computer-unterstützt) ablaufen._ |
-|_Anwendungsfall_ |_Abläufe_ |_Ein Anwendungsfall ist eine Abfolge zielgerichteter Interaktionen zwischen Akteuren und einem Anwendungssystem._ |_Use Case_
-|_Anwendungsfunktion_ |_Abläufe_ |_Eine Anwendungsfunktion ist ein Ausschnitt eines Anwendungsfalls, der ohne Unterbrechung vom Awendungssystem ausgeführt wird._ |
+|_Anwendungsfall_ |_Abläufe_ |_Ein Anwendungsfall ist eine Abfolge zielgerichteter Interaktionen zwischen Akteuren und einer Anwendung._ |_Use Case_
+|_Anwendungsfunktion_ |_Abläufe_ |_Eine Anwendungsfunktion ist ein Ausschnitt eines Anwendungsfalls, der ohne Unterbrechung der Anwendung ausgeführt wird._ |
 |_Anwendungskomponente_ |_Architektur_ |_Eine Anwendungskomponente beschreibt eine Menge funktional zusammenhängender Anwendungsfälle._ |
-|_Anwendungslandschaft_ |_Architektur_ |_Die Anwendungslandschaft einer Organisation ist bestimmt durch die Menge der von der Organisationseinheit betriebenen Anwendungssysteme._ |_IT-Anwendungslandschaft_
-|_Anwendungssystem_ |_Architektur_ |_Ein Anwendungssystem ist eine zusammengehörende, logische Einheit aus Funktionen, Daten und Benutzungsschnittstellen._ |_Anwendung, IT-System_
+|_Anwendungslandschaft_ |_Architektur_ |_Die Anwendungslandschaft einer Organisation ist bestimmt durch die Menge der von der Organisationseinheit betriebenen Anwendungen._ |_IT-Anwendungslandschaft_
+|_Anwendung_ |_Architektur_ |_Eine Anwendung ist eine zusammengehörende, logische Einheit aus Funktionen, Daten und Benutzungsschnittstellen._ |_IT-System_
 |_Assoziation_ |_Daten_ |_Eine Assoziation beschreibt eine Beziehung zwischen zwei oder mehr Entitätstypen._ |_Beziehung_
 |_Attribut_ |_Daten_ |_Als „Attribut“ versteht man eine dem Entitätstyp zugeordnete Information._ |
 |_Batch_ |_Benutzungsschnittstelle_ |_Ein Batchprogramm realisiert eine eigenständige Verarbeitung ohne direkten Benutzereingriff während des Ablaufes._ |_Batchprogramm, Batchverarbeitung_
@@ -45,7 +43,7 @@ Die Spezifikation eines Dialogs umfasst die Beschreibung seiner Masken und Maske
 Ein Dialog ist in sich abgeschlossen und gegenüber anderen Dialogen abgegrenzt._ |
 |_Dialog-Gestaltungsvorgabe_ |_Benutzungsschnittstelle_ |_Die Dialog-Gestaltungsvorgabe spezifiziert grundlegende Eigenschaften der Benutzerschnittstelle.
 Sie umfasst Grundprinzipien des Dialogaufbaus, des Layouts und der Benutzerinteraktion.
-Oft setzt die Dialog-Gestaltungsvorgabe unternehmensweit gültige Vorgaben für das zu entwickelnde Anwendungssystem um.
+Oft setzt die Dialog-Gestaltungsvorgabe unternehmensweit gültige Vorgaben für die zu entwickelnde Anwendung um.
 Sie vereinheitlicht die Benutzerschnittstelle und trägt wesentlich zur effizienten Dialogspezifikation bei._ |_Bedienkonzept_
 |_Entität_ |_Daten_ |_Als Entität wird ein eindeutig zu bestimmendes Objekt bezeichnet, dem Informationen zugeordnet werden.
 Die Objekte können materiell oder immateriell sein._ |_Informationsobjekt, Objekt_
@@ -70,9 +68,9 @@ Eine Maske entspricht bei einer GUI meist genau einem Fenster._ |_Screen_
 |_Modellkomponente_ |_Daten_ |_Eine Modellkomponente ist eine Gruppierung, die fachlich zusammengehörige Entitätstypen inklusive ihrer Assoziationen zusammenfasst.
 Sie ist überschneidungsfrei, d.h. ein Entitätstyp gehört zu genau einer Modellkomponente.
 In einer Modellkomponente kann allerdings ein Entitätstyp einer anderen Modellkomponente referenziert werden._ |
-|_Nachbarsystem_ |_Architektur_ |_Ein externes System mit dem über eine Schnittstelle kommuniziert wird._ |
-|_Nachbarsystemschnittstelle_ |_Architektur_ |_Über eine Nachbarsystemschnittstelle werden zwischen zwei Anwendungssystemen Daten ausgetauscht oder externe Dienste benutzt._ |_Schnittstellen_
-|_Nichtfunktionale Anforderung_ |_Architektur_ |_Während die funktionalen Anforderungen die geforderten Fähigkeiten des Anwendungssystems beschreiben, stellen die nichtfunktionalen Anforderungen die zu erfüllenden Rahmenbedingungen für die Anwendung dar (z.B. Performanz, Verfügbarkeit)._ |_Non-functional requirement_
+|_Nachbarsystem_ |_Architektur_ |_Ein externes System, mit dem über eine Schnittstelle kommuniziert wird._ |
+|_Nachbarsystemschnittstelle_ |_Architektur_ |_Über eine Nachbarsystemschnittstelle werden zwischen zwei Anwendungen Daten ausgetauscht oder externe Dienste benutzt._ |_Schnittstellen_
+|_Nichtfunktionale Anforderung_ |_Architektur_ |_Während die funktionalen Anforderungen die geforderten Fähigkeiten der Anwendung beschreiben, stellen die nichtfunktionalen Anforderungen die zu erfüllenden Rahmenbedingungen für die Anwendung dar (z.B. Performanz, Verfügbarkeit)._ |_Non-functional requirement_
 |_Organisationseinheit_ |_Abläufe_ |_Einheiten des Unternehmens, die eine Aktivität ausführen bzw. Personen, die in einer bestimmten Rolle am Prozess beteiligt sind._ |
 |_Projekt_ |_Vorgehen_ |_Ein Projekt ist ein Vorhaben, bei dem innerhalb einer definierten Zeitspanne ein definiertes Ziel erreicht werden soll, und das sich dadurch auszeichnet, dass es im Wesentlichen ein einmaliges Vorhaben ist._ |_IT-Projekt_
 |_Protokollierung_ |_Nichtfunktionale Anforderungen_ a|
@@ -82,18 +80,18 @@ _Es handelt sich nicht um Logging!_
 
 |
 |_Stützprozess_ |_Abläufe_ |_Stützprozesse sind die unterstützenden Prozesse, die notwendig sind, um die Kernprozesse am Laufen zu halten. Externe Nutzer nehmen sie nicht wahr._ |
-|_UML-Aktivitätendiagramm_ |_Methodik_ |_Das Aktivitätsdiagramm ist ein Verhaltensdiagramm. Es zeigt eine bestimmte Sicht auf die dynamischen Aspekte des modellierten Anwendungssystems._ |
+|_UML-Aktivitätendiagramm_ |_Methodik_ |_Das Aktivitätsdiagramm ist ein Verhaltensdiagramm. Es zeigt eine bestimmte Sicht auf die dynamischen Aspekte der modellierten Anwendung._ |
 |_UML-Klassendiagramm_ |_Methodik_ |_Ein Klassendiagramm ist in der Informatik eine grafische Darstellung von Entitätstypen sowie der Assoziationen zwischen diesen Entitätstypen._ |
 |_UML-Komponentendiagramm_ |_Methodik_ |_Das Komponentendiagramm ist ein Strukturdiagramm.
-Es zeigt eine bestimmte Sicht auf die Struktur des modellierten Anwendungssystems._ |
-|_Unified Modelling Language (UML)_ |_Methodik_ |_Die Unified Modeling Language (UML) ist eine von der Object Management Group (OMG) entwickelte und standardisierte Sprache für die Modellierung von Software und anderen Anwendungssystemen._ |
+Es zeigt eine bestimmte Sicht auf die Struktur der modellierten Anwendung._ |
+|_Unified Modelling Language (UML)_ |_Methodik_ |_Die Unified Modeling Language (UML) ist eine von der Object Management Group (OMG) entwickelte und standardisierte Sprache für die Modellierung von Software und anderen Anwendungen._ |
 |====
 
 [[fachliche-grundlagen]]
 === Fachliche Grundlagen
 
 _Die fachlichen Grundlagen dokumentieren Fakten und Hintergrundinformationen zum Anwendungsbereich.
-Es handelt sich dabei um solche Informationen, die für das Verständnis der Spezifikation und für die Entwicklung des Anwendungssystems hilfreich sind, sich aber nicht in den Anforderungen direkt widerspiegeln._
+Es handelt sich dabei um solche Informationen, die für das Verständnis der Spezifikation und für die Entwicklung der Anwendung hilfreich sind, sich aber nicht in den Anforderungen direkt widerspiegeln._
 
 _Fachliche Grundlagen werden in diesem Abschnitt beschrieben und können aus allen anderen Abschnitten der Systemspezifikation referenziert werden._
 
@@ -133,7 +131,7 @@ _Das Schema zur Benennung einer fachlichen Rolle für GUI oder Service-Gateway i
 
 * *_<Fachlicher Systemname>_<Funktion>_*
 
-_Für <Fachlicher Systemname> wird der abgekürzte Namen des Systems bzw. der Anwendungsdomäne aus der Spezifikation ohne Zusätze wie GA, Register eingesetzt, z. B. „CD_Auskunft“._
+_Für <Fachlicher Systemname> wird der abgekürzte Name des Systems bzw. der Anwendungsdomäne aus der Spezifikation ohne Zusätze wie GA, Register eingesetzt, z. B. „CD_Auskunft“._
 
 _Das Schema zur Benennung einer fachlichen Rolle für ein internes System (Batch/Task) ist:_
 
@@ -184,6 +182,3 @@ _Liste mit Referenzen auf weiterführende Dokumentation._
 |*Kürzel* |*Beschreibung* |*Ablage*
 |[Kürzel] |Eine Beschreibung des Dokuments |Verweis auf den Ablageort des Dokuments, z.B. eine URL.
 |====
-
-// end::inhalt[]
-
