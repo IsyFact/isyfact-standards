@@ -13,6 +13,9 @@
 - `IFS-2816`: [isyfact-standards-doc] Begriff "Blaupause" durch "Referenzarchitektur" ersetzt
 - `IFS-3665`: [isyfact-standards-doc] "Leitfaden Dokumentation" nach `isy-documentation` verschoben
 - `IFS-3692`: [isyfact-standards-doc] Seite "Referenzarchitekur" nach Architektursichten aufgeteilt
+- `IFS-2248`: [isy-batchrahmen, isy-security] Tokenerneuerung in isy-batchrahmen:
+    * `IsySecurityTokenUtil` und `IsyOAuth2Authentifizierungsmanager` stellen Funktionalität zur Token-Gültigkeitsüberprüfung und erneuten Authentifizierung bereit
+    * Funktionalität zur erneuten Authentifizierung wird von `BatchrahmenImpl` aufgerufen
 ## BUG FIXES
 ## BREAKING CHANGES
 - `ISY-1122`: Bausteine `isy-sicherheit`, `isy-aufrufkontext`, `isy-serviceapi-core` und `isy-konfiguration` entfernt
@@ -29,6 +32,7 @@
 - `IFS-3676`: [isyfact-standards-doc] IT-Systeme dürfen keine UI-Komponenten mehr enthalten.
 - `IFS-3699`: [isyfact-standards-doc] Baustein Sicherheit entfernt.
 - `IFS-3700`: [isyfact-standards-doc] Baustein Http Invoker entfernt.
+- `IFS-3763`: [isyfact-standards-doc] Dokumentation der Änderungen zu IFS-2248 (Tokenerneuerung isy-batchrahmen)
 - `IFS-3701`: [isyfact-standards-doc] Baustein JSF entfernt.
 
 # 3.0.1
