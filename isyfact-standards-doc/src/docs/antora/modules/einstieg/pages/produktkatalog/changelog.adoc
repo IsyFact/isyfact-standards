@@ -7,6 +7,13 @@
 * Produkte entfernt:
 ** Entwicklungsumgebungen und alle Plugins
 ** Spring Http Invoker
+** Expression API
+** Spring Webflow
+** JSF
+** Tomahawk
+** jQuery
+** jQuery Timepicker
+** Bootstrap
 // end::release-4.0.0[]
 
 *Änderungen IsyFact 3.0.1*

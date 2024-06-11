@@ -302,6 +302,102 @@ Dadurch ist die Wartbarkeit stark beeinträchtigt und die Aufwände können sich
 Bedienelemente sind die Bausteine der Benutzeroberfläche, die es den Benutzern ermöglichen, mit der Anwendung zu interagieren.
 Dieser Abschnitt definiert die verschiedenen Bedienelemente und legt fest, wie sie gestaltet und angeordnet werden sollen, um eine intuitive Benutzererfahrung zu gewährleisten.
 
+=== Überschriften
+
+Überschriften ermöglichen es Benutzern, schnell die Hauptthemen einer Seite zu erfassen und sich zu orientieren.
+Sie definieren Überschriften, die Hierarchie und das visuelle Erscheinungsbild, um Konsistenz und eine optimale Benutzererfahrung sicherzustellen.
+Überschriften spielen eine wichtige Rolle.
+Sie helfen, Inhalte in logische Abschnitte zu gliedern, wodurch Benutzer die Informationen leichter aufnehmen und navigieren können.
+
+==== Best Practices für die Verwendung von Überschriften
+
+*_Hierarchie und Struktur_*
+
+Hierarchische Ordnung: Überschriften sollten in einer klaren hierarchischen Struktur verwendet werden.
+Die Hauptüberschrift (<h1>) sollte nur einmal pro Seite verwendet werden, gefolgt von Unterüberschriften (<h2>, <h3>, etc.) in absteigender Reihenfolge.
+
+*_Konsistenz und Lesbarkeit_*
+
+Einheitliches Design: Überschriften sollten über die gesamte Webseite hinweg einheitlich gestaltet sein, um ein kohärentes Erscheinungsbild zu gewährleisten.
+Dies umfasst Schriftart, -größe, -farbe und -stil.
+
+Abstände und Margins: Angemessene Abstände vor und nach den Überschriften verbessern die Lesbarkeit und visuelle Struktur der Seite.
+
+*_Zugänglichkeit_*
+
+Beschreibende Texte: Überschriften sollten aussagekräftig und beschreibend sein, um den Inhalt des folgenden Abschnitts klar zu kommunizieren.
+Dies hilft sowohl Benutzern als auch Suchmaschinen, die Relevanz des Inhalts zu erkennen.
+
+Verwendung von ARIA-Rollen: In Fällen, in denen Überschriften nicht aus Standard-HTML-Überschriftentags bestehen, können ARIA-Rollen verwendet werden, um die Struktur zu erhalten.
+
+Beispiel: <div role="heading" aria-level="2">Unterüberschrift</div>
+
+*_Typografie und Design_*
+
+Schriftart ist Bundes Sans und mindestens 14pt.
+Die Hauptüberschrift sollte deutlich größer und auffälliger als der normale Text sein.
+Der Kontrast sollte mindestens 4:1 sein.
+
+*_Stile und Akzente_*
+
+Fettdruck und Kursivschrift: Verwenden Sie Fettdruck oder Kursivschrift, um wichtige Überschriften hervorzuheben, jedoch sparsam, um eine Überladung zu vermeiden.
+Farben: Farben können verwendet werden, um Hierarchie zu betonen, sollten jedoch mit Bedacht gewählt werden, um ein harmonisches Gesamtbild zu bewahren. Es wird empfohlen die Standardfarben zu nutzen.
+
+=== Hyperlink
+
+Hyperlinks folgen per Default einem einheitlichen Styling.
+Links sind in der Regel unterstrichen. Daher ist es nicht ratsam dies zu ändern, da der Nutzer es gelernt hat weiterführende Informationen/Links in einem Fließtext oder auf einer Seite anhand des unterstrichenen Textes zu erkennen.
+Viele Webseiten greifen per CSS in das Styling ein und färben Links entsprechend ihrer Designregeln.
+
+Hyperlinks können einen State normal, hovered/focus und clicked haben.
+ 
+[[image-Hyperlinks]]
+.States von Hyperlinks
+image::24_BE_Links.png[align="center"]
+
+Hyperlinks dürfen nicht nur durch eine andere Farbe erkennbar sein. Sie benötigen zwingend ein farbunabhängiges Element zum Identifizieren und zum Erkennen des States.
+Hyperlinks sind verlinkte Texte (oder auch Grafiken), die im Wesentlichen als Navigations-Mechanismus dienen – so z.B. um andere Inhalte wie Fenster zu öffnen.
+Wird die Maus über einen Hyperlink bewegt, ändert sich der Cursor vom Pfeil zum Handsymbol.
+Fachlicher Hinweis: Hyperlinks sollten einen aussagekräftigen Text zur Verfügung stellen.
+Generische Phrasen wie „Hier klicken“ sind nicht hilfreich und sollten vermieden werden.
+
+=== Label
+
+Label dienen dazu, Eingabefelder und andere Bedienelemente klar zu kennzeichnen, sodass Benutzer genau verstehen, welche Informationen erforderlich sind und welche Aktionen durchgeführt werden können. Ein konsistentes und gut durchdachtes Design von Labels trägt wesentlich zur Verbesserung der Nutzererfahrung bei.
+Labels sind nicht nur visuelle Hinweise, sondern auch wesentliche Bestandteile der Barrierefreiheit. Sie ermöglichen es Screenreadern, die Beziehung zwischen einem Eingabefeld und seiner Beschreibung zu verstehen, was besonders für sehbehinderte Benutzer von großer Bedeutung ist. Ein korrekt implementiertes Label sorgt dafür, dass alle Benutzer, unabhängig von ihren Fähigkeiten, Formulare und andere interaktive Elemente problemlos nutzen können.
+
+==== Best Practices für die Verwendung von Labels
+
+*_Klarheit und Prägnanz_*
+
+Eindeutige Beschreibung: Labels sollten klar und eindeutig beschreiben, was von den Benutzern erwartet wird.
+Beispielsweise sollte ein Label für ein Namensfeld "Vollständiger Name" und nicht nur "Name" lauten.
+Kurze Formulierungen: Labels sollten kurz und prägnant sein, um die Benutzerfreundlichkeit zu maximieren.
+
+*_Platzierung und Ausrichtung_*
+
+Nähe zum Eingabefeld: Labels sollten in unmittelbarer Nähe des zugehörigen Eingabefelds platziert werden, entweder darüber oder links davon, um eine klare Zuordnung zu gewährleisten.
+Ausrichtung: Labels können linksbündig oder rechtsbündig zum Eingabefeld ausgerichtet sein, wobei linksbündige Labels tendenziell besser lesbar und benutzerfreundlicher sind.
+
+*_Zugänglichkeit_*
+
+HTML-For-Attribut: Jedes Label sollte das for-Attribut verwenden, das mit der id des entsprechenden Eingabefelds übereinstimmt.
+Dies stellt sicher, dass Screenreader die Verbindung zwischen Label und Eingabefeld korrekt interpretieren können.
+Beispiel: <label for="email">E-Mail-Adresse</label> <input type="email" id="email">
+Vermeidung von Platzhaltern als Labels: Platzhaltertexte (placeholder) sollten nicht als Ersatz für Labels verwendet werden, da sie verschwinden, sobald der Benutzer mit der Eingabe beginnt, was die Benutzerfreundlichkeit und Zugänglichkeit beeinträchtigen können.
+
+*_Stil und Design_*
+
+Lesbarkeit: Labels sollten in einer gut lesbaren Schriftart und -größe dargestellt werden.
+Der Kontrast muss mindestens 4:1 betragen, um auch bei schlechten Lichtverhältnissen gut lesbar zu sein.
+Konsistenz: Die Gestaltung von Labels sollte über die gesamte Webseite hinweg konsistent sein. Einheitliche Schriftarten, Größen und Abstände tragen zur Benutzerfreundlichkeit und einem professionellen Erscheinungsbild bei. 
+
+*_Interaktive Elemente_*
+
+Schaltflächen und Links: Labels können auch für interaktive Elemente wie Schaltflächen und Links verwendet werden.
+Hier sollten ARIA-Labels (aria-label) oder ARIA-Beschreibungen (aria-labelledby) eingesetzt werden, um die Zugänglichkeit zu verbessern.
+Beispiel: <button aria-label="Schließen">X</button>
+
 === Eingabefeld
 
 Eingabefelder sind grundlegende Interaktionselemente in einer Benutzeroberfläche, die es den Benutzern ermöglichen, Daten einzugeben, zu bearbeiten oder auszuwählen.
@@ -406,6 +502,17 @@ Ein Eingabefeld kann den fachlichen Bedingungen entsprechend kürzer oder auch l
 Die Mindesthöhe von 44px darf nicht unterschritten werden, um die Barrierefreiheit von Inputoptionen zu gewährleisten.
 Die Schriftgröße sollte 14pt nicht unterschreiten.
 Der Abstand eines Eingabefelds zum darunter liegenden Label eines weiteren Eingabefelds soll ca. dem doppelten Abstand zwischen einem Label-Eingabefeld-Paars entsprechen, um eine eindeutige Zuordnung zu gewährleisten.
+
+Eingabefelder können auch eine unbestimmte Menge an Zeichen erwarten.
+Dann spricht man von Textboxen. Sie unterscheiden sich in der Größe und Form von gewöhnlichen Eingabefeldern.
+ 
+[[image-Textbox]]
+.Textbox
+image::24_BE_Textbox.png[align="center"]
+
+Textboxen lassen sich per Default in ihrer Größe verändern, damit der gesamte Inhalt angezeigt werden kann.
+Textboxen sollten mindestens so groß gestaltetet werden, dass der am häufigsten zu erwartende Inhalt hineinpasst, ohne manuell die Box zu verändern.
+Hinweis: Textboxen haben die gleichen States und Styles wie Eingabefelder.
 
 === Liste
 

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<configuration>
-    <include resource="resources/isylogging/logback/appender-entwicklung.xml"/>
-    <root level="warn">
-        <appender-ref ref="KONSOLE"/>
-    </root>
-</configuration>

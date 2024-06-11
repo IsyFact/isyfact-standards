@@ -33,7 +33,6 @@
     <modules>
         <module>isyfact-standards-bom</module>
         <module>isyfact-products-bom</module>
-        <module>isy-aufrufkontext</module>
         <module>isy-batchrahmen</module>
         <module>isy-datetime</module>
         <module>isy-exception-core</module>
@@ -242,7 +241,7 @@
                 <plugin>
                     <groupId>com.github.spotbugs</groupId>
                     <artifactId>spotbugs-maven-plugin</artifactId>
-                    <version>4.8.1.0</version>
+                    <version>4.8.5.0</version>
                     <configuration>
                         <effort>Max</effort>
                         <threshold>high</threshold>

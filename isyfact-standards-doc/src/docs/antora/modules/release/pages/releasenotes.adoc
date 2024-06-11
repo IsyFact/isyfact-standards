@@ -55,6 +55,15 @@ Anwendungskern:: Das Konzept der "Basisdaten" wurde gestrichen, in dem die Refer
 Der Baustein wurde entfernt.
 Anwendungen müssen auf den xref:isy-service-rest:konzept/master.adoc[Baustein REST] migrieren.
 
+=== JSF
+
+Der Baustein wurde entfernt.
+Anwendungen müssen auf den xref:isy-angular-widgets-doc::konzept/konzept.adoc[Baustein Angular] migrieren.
+
+=== Sicherheit
+
+Der Baustein wurde entfernt.
+Anwendungen müssen auf den xref:isy-security:konzept/master.adoc[Baustein Security] migrieren.
 
 [[kapitel-deprecations]]
 == Deprecations

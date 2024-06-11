@@ -1,5 +1,7 @@
 = Technisch-infrastrukturelle Referenzarchitektur
 
+include::glossary:licence:partial$licence.adoc[]
+
 Die technisch-infrastrukturelle Referenzarchitektur beschreibt den Aufbau der Betriebsumgebung für die IT-Systeme einer IsyFact-Systemlandschaft.
 Dazu gehören die physischen Geräte (Rechnersysteme, Netzwerkverbindungen und -komponenten, Drucker etc.), die installierte Systemsoftware (Betriebssystem, Applikationsserver, Middleware, Datenbanksystem) und das Zusammenspiel von Hardware und Systemsoftware.
 

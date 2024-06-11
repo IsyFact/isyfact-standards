@@ -18,19 +18,22 @@
     * Funktionalität zur erneuten Authentifizierung wird von `BatchrahmenImpl` aufgerufen
 ## BUG FIXES
 ## BREAKING CHANGES
+- `ISY-1122`: Bausteine `isy-sicherheit`, `isy-aufrufkontext`, `isy-serviceapi-core` und `isy-konfiguration` entfernt
 - `ISY-889`: Spring Boot Versionsanhebung auf 3.2.x
-  * inkludiert ausserdem folgende Versionsanhebungen: 
-      * Spring Framework 5.x -> 6.x 
-      * Spring Security 5.x -> 6.x
-      * Hibernate 5.x -> 6.x
+    * inkludiert ausserdem folgende Versionsanhebungen:
+        * Spring Framework 5.x -> 6.x
+        * Spring Security 5.x -> 6.x
+        * Hibernate 5.x -> 6.x
 - `ISY-779`: `isyfact-bom` entfernt
     * [isyfact-standards-bom] `isyfact-standards-bom` importiert dependencyManagement aus `isyfact-products-bom`
     * [isyfact-standards-doc] Bezug und Nutzung der IsyFact nach Entfernung der IsyFact-BOM beschrieben
 - `ISY-737`: [isyfact-standards] Java Compile Target 17
 - `IFS-1259`: [isyfact-standards-doc] Basisdaten (d.h. Möglichkeit der gemeinsamen Nutzung von Geschäftsobjekten durch mehrere Fachkomponenten) entfernt
 - `IFS-3676`: [isyfact-standards-doc] IT-Systeme dürfen keine UI-Komponenten mehr enthalten.
+- `IFS-3699`: [isyfact-standards-doc] Baustein Sicherheit entfernt.
 - `IFS-3700`: [isyfact-standards-doc] Baustein Http Invoker entfernt.
 - `IFS-3763`: [isyfact-standards-doc] Dokumentation der Änderungen zu IFS-2248 (Tokenerneuerung isy-batchrahmen)
+- `IFS-3701`: [isyfact-standards-doc] Baustein JSF entfernt.
 
 # 3.0.1
 - `ISY-701`: Google Guava Versionsanhebung auf 33.1.0
@@ -98,7 +101,7 @@
 - `IFS-2153`: [isy-task] Umstellung isy-task auf Spring Boot
   * Übersetzungen hinzugefügt
 - `ISY-139`: [isyfact-products-bom] Spring Boot Versionsanhebung auf 2.7.15
-- [isy-sonderzeichen] Hinzufügen eines neuen Packages mit Transformatoren für die DIN Norm 91379
+- `IFS-3443`: [isy-sonderzeichen] Hinzufügen eines neuen Packages mit Transformatoren für die DIN Norm 91379
 - `IFS-1853`: [isy-batchrahmen] Umstellung von `isy-sicherheit` und `isy-aufrufkontext` auf neuen Baustein `isy-security`
 - `IFS-2416`: [isyfact-standards-bom] zentrale Versionsverwaltung von `isy-security`
 - `IFS-2416`: [isy-task] Umstellung von isy-sicherheit auf isy-security

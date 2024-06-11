@@ -29,8 +29,9 @@ Keycloak
 [cols="1,1",options="header"]
 |====
 2+|Bibliotheken für die Anwendungsentwicklung
-|Web-Framework |JSF/Spring MVC/Webflow +
-Angular
+|Web-Framework |Angular
+|Service-Framework |Spring Web MVC, Spring WebClient, +
+Eclipse Metro (Soap)
 |Anwendungskern-Framework |Spring Boot
 |Persistenz-Framework |Spring Data & JPA/Hibernate
 |Logging-Framework |Logback

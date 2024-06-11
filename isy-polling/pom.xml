@@ -87,7 +87,7 @@
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
+            <artifactId>junit-jupiter-api</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -129,10 +129,10 @@
                         -Dfile.encoding=${project.build.sourceEncoding}
                         @{maven.jacoco.argLine}
                     </argLine>
-                    <systemProperties>
+                    <systemPropertyVariables>
                         <user.language>de</user.language>
                         <user.country>DE</user.country>
-                    </systemProperties>
+                    </systemPropertyVariables>
                 </configuration>
             </plugin>
         </plugins>

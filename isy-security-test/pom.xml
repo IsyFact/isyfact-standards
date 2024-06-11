@@ -74,10 +74,5 @@
             <artifactId>spring-webflux</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-reactive-httpclient</artifactId>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 </project>
