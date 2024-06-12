@@ -215,11 +215,12 @@ Vor der Auflistung der einzelnen Kriterien sind im Kontext der IsyFact besondere
 Alle hier genannten Maßnahmen sind zur Steigerung der Awareness und Transparenz aufgelistet.
 In der Regel sind die genannten Anforderungen durch die Anwendung der Standardelemente der ISY-Fact sichergestellt oder die Möglichkeit geboten die fachlichen Elemente sicherzustellen.
 
+* Sorge dafür, dass alle Elemente auch ohne Maus erreichbar und bedienbar sind.
 *	Eingabefelder müssen nach der Aktivierung eines Hochkontrastmodus/Farbfilters zu 50% bestehen bleiben – eine einzelne Linie als Bestandteil ist nicht ausreichend als Identifizierung eines Eingabefeldes.
 *	Die Textgröße soll im Standard mindestens 14pt betragen.
 *	Der Textkontrast muss immer mindestens 4:1 und bei großen Texten mindestens 3:1 betragen.
 Für Haupt & Einstiegsseiten, Seiten mit rechtlicher Relevanz muss der Kontrast 7:1 betragen.
-*	Es dürfen keine Schriftgrafiken genutzt werden.
+*	Es sollten keine Schriftgrafiken genutzt werden.
 *	Alle Bilder benötigen ein inhaltlich sinnvolles beschreibendes Alt-Attribut.
 *	Bilder die ausschließlich der Gestaltung dienen, wie Trennlinien müssen als solche (Schmuckgrafik) gekennzeichnet werden.
 *	Tastatur-Navigation: Nicht alle Benutzer können eine Maus verwenden.
@@ -227,6 +228,8 @@ Daher ist es wichtig, dass alle Interaktionen auf der Website auch über die Tas
 Dies bedeutet, dass alle Navigationselemente, Links und interaktiven Elemente leicht per Tastatur zugänglich sein müssen.
 *	Vermeidung von reinen Farbunterscheidungen: Informationen sollten nicht allein durch Farbe vermittelt werden, da einige Benutzer Farben nicht unterscheiden können.
 Nutzen Sie daher auch andere visuelle Elemente wie Symbole oder Muster, um wichtige Informationen zu vermitteln.
+* Vermeide schwache Kontraste z.B. hellblau auf grau.
+* Löse keine Aktionen durch Bedienelemente aus, wenn diese nicht dazu vorgesehen sind (z.B. Radiobutton und Checkboxen).
 
 Die richtige Verwendung von Alt-Attributen für Bilder und ARIA-Labels für andere Bedienelemente ist von großer Bedeutung.
 
@@ -373,6 +376,7 @@ Labels sind nicht nur visuelle Hinweise, sondern auch wesentliche Bestandteile d
 Eindeutige Beschreibung: Labels sollten klar und eindeutig beschreiben, was von den Benutzern erwartet wird.
 Beispielsweise sollte ein Label für ein Namensfeld "Vollständiger Name" und nicht nur "Name" lauten.
 Kurze Formulierungen: Labels sollten kurz und prägnant sein, um die Benutzerfreundlichkeit zu maximieren.
+Vermeide Labels mit mehr als drei Wörtern.
 
 *_Platzierung und Ausrichtung_*
 
@@ -534,6 +538,7 @@ Aktive Elemente sind in der Highlightfarbe und hinterlegt dargestellt.
 *	Sollten Listen viele Einträge haben, sorge mit anderen Elementen für die Durchsuchbarkeit, Filterung oder Kategorisierung.
 *	Listen helfen bei komplexen Eingaben Fehler zu vermeiden.
 *	Kombiniere Listen mit unterschiedlichen interaktiven Elementen, um dem Nutzer eine Hilfestellung zu bieten.
+* Erwäge die Nutzung einer Radio-Button-Gruppe bei einer kleinen Liste.
 
 *_Dont´s_*
 
@@ -623,8 +628,7 @@ image::24_BE_radiobutton_measured.png[align="center"]
 *_Do´s_*
 
 *	Die Verwendung von Radio Buttons empfiehlt sich für eine kleinere Anzahl an Optionen.
-Ist die Menge der zur Verfügung stehenden Optionen sehr groß oder hat der Platzbedarf eine große Bedeutung, so kann der Einsatz eines Dropdown Menüs in Betracht gezogen werden.
-
+Ist die Menge der zur Verfügung stehenden Optionen sehr groß oder hat der Platzbedarf eine große Bedeutung, so kann der Einsatz eines Dropdowns in Betracht gezogen werden.
 *	Eine Gruppe von Radio Buttons sollte immer eine Beschriftung aufweisen.
 *	Für optimale Lesbarkeit sollten Radio Buttons vertikal und untereinander angeordnet sein.
 *	Sollte es wahrscheinlich sein, dass keine (oder alle) der angebotenen Optionen zutrifft, sollte eine Meta-Option wie „Keine Option“ („Alle“) angeboten werden.
@@ -926,11 +930,13 @@ Für Wartezeiten, die sich auf die Bedienung des Benutzers zurückführen lassen
 
 Balken oder Spinner:
 
-Fortschritts-Balken (Progress Bar)
+*_Fortschritts-Balken (Progress Bar)_*
 
 *	Fortschritts-Balken werden in der Regel für Ladevorgänge mit bestimmbarer Gesamtlänge verwendet
 *	Ein Balken zeigt den Grad der Zielerreichung an. Dabei füllt sich der Balken von links (0%) nach rechts (100%)
-Fortschritts-Spinner (kreisrunde Fortschrittsanzeige)
+
+*_Fortschritts-Spinner (kreisrunde Fortschrittsanzeige)_*
+
 *	Fortschritts-Spinner werden für Ladevorgänge verwendet, deren Gesamtlänge unbekannt ist
 *	Für die Dauer der Operation dreht sich der Fortschritts-Spinner und signalisiert dem Benutzer damit, dass sich ein Prozess im Vorgang befindet. Der Fortschritts-Spinner empfiehlt sich aufgrund seiner geringen Ausmaße insbesondere in Situationen, in denen Platzbedarf von großer Bedeutung ist
 
