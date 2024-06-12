@@ -39,7 +39,7 @@ _Ein Entitätstyp hat eine Reihe von Eigenschaften, die dabei helfen können zu 
 _Namen von Modellkomponenten beginnen mit dem Präfix +„MKO_“+ gefolgt von einem Substantiv, z.B. „MKO_Behörden“.
 Falls nötig kann noch ein Adjektiv vor das Substantiv gestellt werden._
 
-_Hier wird kurz textuell beschrieben, bezüglich welcher fachlichen Logik die Entitätstypen eine Modellkomponente bilden.
+_Hier wird kurz textuell beschrieben, bezüglich welcher Geschäftslogik die Entitätstypen eine Modellkomponente bilden.
 Ein UML-Klassendiagramm enthält alle Entitäten mit Attributen und Assoziationen zwischen diesen.
 Fachliche Schlüsselattribute müssen im UML-Klassendiagramm hervorgehoben werden (in +ETY_Person+  durch die Abtrennung "Schlüsselattribut")._
 

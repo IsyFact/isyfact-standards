@@ -46,7 +46,7 @@ image::referenzarchitektur:fachlich/fachliche-referenzarchitektur-anwendungsland
 Anwendungen bieten dabei eine zusammengehörige, logische Einheit aus Funktionen, Daten und Schnittstellen.
 Es werden zwei Typen unterschieden:
 
-* *Geschäftsanwendungen* implementieren fachliche Logik, Prozesse oder speichern Daten. Sie können Präsentationslogik enthalten, oder reine Datenspeicher im Hintergrund sein, die anderen Geschäftsanwendungen ihre Daten bereitstellen. Je nach Anwendungsdomäne kann es unterschiedliche Arten von Geschäftsanwendungen geben, die spezielle Aufgaben wahrnehmen.
+* *Geschäftsanwendungen* implementieren Geschäftslogik, Prozesse oder speichern Daten. Sie können Präsentationslogik enthalten, oder reine Datenspeicher im Hintergrund sein, die anderen Geschäftsanwendungen ihre Daten bereitstellen. Je nach Anwendungsdomäne kann es unterschiedliche Arten von Geschäftsanwendungen geben, die spezielle Aufgaben wahrnehmen.
 * *Querschnittsanwendungen* stellen Services für mehrere Geschäftsanwendungen bereit, beispielsweise ein Suchverfahren oder die Anwenderverwaltung.
 
 Eine Anwendung besteht aus Anwendungskomponenten, die eine Menge funktional zusammenhängender Anwendungsfälle beschreiben.
@@ -65,7 +65,7 @@ image::blaupausen:referenzarchitektur-it-system/architektur-it-system.dn.svg[]
 
 Die *Datenhaltungsschicht* kapselt alle Funktionen zum Zugriff auf die Datenbanken.
 
-Die *Schicht des Anwendungskerns* umfasst die fachliche Logik zur Datenbearbeitung des Systems, beispielsweise Validierungen, spezielle Dialogfunktionen oder Verarbeitung von Geschäftsobjekten.
+Die *Schicht des Anwendungskerns* umfasst die Geschäftslogik zur Datenbearbeitung des Systems, beispielsweise Validierungen, spezielle Dialogfunktionen oder Verarbeitung von Geschäftsobjekten.
 
 Die *Nutzungsschicht* bietet Funktionen der Anwendungen zur Nutzung, über Batches für Stapelverarbeitung oder als Service für eine Außenschnittstelle mit anderen IT-Systemen, an.
 

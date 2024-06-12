@@ -197,7 +197,7 @@ Annahmen in Bezug auf) die Batchlogik stellen.
 
 Für die umzusetzende Batchlogik gelten folgende Anforderungen:
 
-* Sie sollen keine Fachlogik enthalten, sondern die Komponenten des Anwendungskerns verwenden.
+* Sie sollen keine Geschäftslogik enthalten, sondern die Komponenten des Anwendungskerns verwenden.
 Abweichungen sind nur aus zwingenden Performance-Gründen erlaubt.
 Dies ist jeweils mit dem technischen Chefarchitekten abzustimmen und im Systementwurf zu dokumentieren.
 Falls in Ausnahmefällen direkte Datenbankzugriffe notwendig sind, sind alle weiteren Verarbeitungen an die Fach-Komponenten zu delegieren.
@@ -272,7 +272,7 @@ Multithreading innerhalb eines Batches wird nicht unterstützt.
 Der Batchrahmen ist das Framework, in welches sich die Logik eines konkreten Batches einfügt.
 Der Batchrahmen ruft (anhand einer Konfiguration) diese Logik auf.
 Da eine Batch-Anwendung über Spring verwaltet wird, wird die Batchlogik als Spring-Bean konfiguriert, als sogenannte _Ausführungsbean_.
-Diese Bean wiederum ruft die Geschäftsanwendungs-Komponenten auf, welche die fachliche Logik enthalten.
+Diese Bean wiederum ruft die Geschäftsanwendungs-Komponenten auf, welche die Geschäftslogik enthalten.
 
 
 Für eine Beispielanwendung zeigt <<image-BeanGriffBat>> eine Auswahl der vorhandenen Beans.
@@ -1014,12 +1014,12 @@ Mittlerweile wurde dies durch eine UUID ersetzt.
 Zusätzlich erhält jeder zu verarbeitende Satz auch eine eigene Korrelations-ID, welche an die Korrelations-ID des Batches angehängt wird. Die entstehende Korrelations-ID Kette wird dann dem Aufruf-Kontext hinzugefügt.
 
 [[fachliche-logik-in-den-komponenten-der-geschaeftsanwendung-implementieren]]
-=== Fachliche Logik in den Komponenten der Geschäftsanwendung implementieren
+=== Geschäftslogik in den Komponenten der Geschäftsanwendung implementieren
 
-Falls für die Verarbeitung im Batch Fachlogik benötigt wird, welche für die Webanwendung nicht benötigt wird, ist diese trotzdem den Geschäftsanwendungskomponenten hinzuzufügen.
-Die Ausführungsbean erhält die Referenzen auf die Komponenten über Dependency Injection und ruft die Fachlogik dort auf.
+Falls für die Verarbeitung im Batch Geschäftslogik benötigt wird, welche für die Webanwendung nicht benötigt wird, ist diese trotzdem den Geschäftsanwendungskomponenten hinzuzufügen.
+Die Ausführungsbean erhält die Referenzen auf die Komponenten über Dependency Injection und ruft die Geschäftslogik dort auf.
 
-Auch wenn in Sonderfällen Datenbank-Aufrufe direkt durch die Ausführungsbean ausgeführt werden müssen, ist die sonstige fachliche Logik an die Fachkomponenten der Geschäftsanwendung zu delegieren.
+Auch wenn in Sonderfällen Datenbank-Aufrufe direkt durch die Ausführungsbean ausgeführt werden müssen, ist die sonstige Geschäftslogik an die Fachkomponenten der Geschäftsanwendung zu delegieren.
 
 [[plausibilitaetspruefung-in-der-initialisierung]]
 === Plausibilitätsprüfung in der Initialisierung
@@ -1182,7 +1182,7 @@ Reguläre Batches werden meist ebenfalls über ein Shell-Skript gestartet, ihre 
 Das Skript startet also nur das zugehörige Programm.
 
 Der Vorteil von Shell-Batches ist, dass sie etwas schlanker sind und daher auch schneller entwickelt werden können.
-Komplexe fachliche Logik sollte aber immer als dediziertes Batchprogramm umgesetzt werden, da diese auf lange Sicht besser wartbar sind.
+Komplexe Geschäftslogik sollte aber immer als dediziertes Batchprogramm umgesetzt werden, da diese auf lange Sicht besser wartbar sind.
 
 Ein Beispiel für Shell-Batches sind einmalige SQL-Migrationen.
 Das Shell-Skript baut dabei eine Verbindung mit dem Datenbank-Server auf und führt eine SQL-Datei aus.

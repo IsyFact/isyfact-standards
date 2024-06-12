@@ -43,7 +43,7 @@ Dies umfasst die Definition des Persistenz-Klassenmodells sowie den Einsatz von 
 Schmale, definierte JPA-Schnittstelle::
 Die Verwendung und Konfiguration von JPA soll isoliert und über eine schmale Schnittstelle erfolgen.
 Die Komponente Datenzugriff soll auf JPA über die schmale Schnittstelle zugreifen.
-Die Stellen, an welchen JPA verwendet wird, sollen keine Fachlogik enthalten.
+Die Stellen, an welchen JPA verwendet wird, sollen keine Geschäftslogik enthalten.
 
 Effizienz und Schnelligkeit der Komponente Datenzugriff::
 JPA und die gewählte JPA-Implementierung müssen effizient und schnell arbeiten.

@@ -44,7 +44,7 @@ Im Rahmen der Referenzarchitektur werden zunächst Geschäftsanwendungen und Que
 Eine weitergehende Unterscheidung der Geschäftsanwendungen muss durch ein xref:tailoring.adoc[Tailoring] der Referenzarchitektur erfolgen.
 
 *xref:glossary:glossary:master.adoc#glossar-geschaeftsanwendung[Geschäftsanwendung]:* Eine Geschäftsanwendung implementiert für sich genommen oder im Zusammenspiel mit anderen Geschäftsanwendungen einen oder mehrere Geschäftsprozesse einer Anwendungsdomäne.
-Sie implementiert entweder die gesamte hierfür notwendige Funktionalität (monolithisch), von der Benutzerschnittstelle über die fachliche Logik, die Prozesse bis hin zur Datenhaltung, oder sie implementiert nur einen Teilbereich der Funktionalität und greift für den Rest über Schnittstellen auf benachbarte Geschäftsanwendungen zu.
+Sie implementiert entweder die gesamte hierfür notwendige Funktionalität (monolithisch), von der Benutzerschnittstelle über die Geschäftslogik, die Prozesse bis hin zur Datenhaltung, oder sie implementiert nur einen Teilbereich der Funktionalität und greift für den Rest über Schnittstellen auf benachbarte Geschäftsanwendungen zu.
 
 .Trennung in Bestandsverwaltung und Benutzerinteraktion
 ====
