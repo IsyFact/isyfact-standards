@@ -14,6 +14,8 @@
 - `IFS-3665`: [isyfact-standards-doc] "Leitfaden Dokumentation" nach `isy-documentation` verschoben
 - `IFS-3692`: [isyfact-standards-doc] Seite "Referenzarchitekur" nach Architektursichten aufgeteilt
 - `ISY-909`: [isyfact-products-bom] Orika durch MapStruct ersetzt
+- `IFS-3833`: [isy-security] Implementierung von Multi-Tenanacy-Support
+
 ## BUG FIXES
 ## BREAKING CHANGES
 - `ISY-1122`: Bausteine `isy-sicherheit`, `isy-aufrufkontext`, `isy-serviceapi-core` und `isy-konfiguration` entfernt

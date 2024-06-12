@@ -1,9 +1,10 @@
 # 4.0.0
-
+ 
 - `ISY-305`: Implementierung von IsySecurityTokenUtil zum Auslesen von Attributen aus dem Bearer Token
 - `ISY-980`: Anpassung der Dokumentation aufgrund von Security-Umstellungen
 - `IFS-2804`: Entfernen der `@EnableMethodSecurity` Annotation von `IsySecurityAutoConfiguration`
     - Die Annotation muss in der Anwendung selbst gesetzt werden um Method Security zu aktivieren
+- `IFS-3833`: Implementierung von Multi-Tenanacy-Support
 
 # 3.0.0
 
