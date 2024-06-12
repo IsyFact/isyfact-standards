@@ -17,5 +17,3 @@
 ** Anpassung der Referenzarchitektur
 *** xref:tailoring.adoc[Tailoring]
 *** xref:vereinfachung.adoc[Vereinfachung]
-** Guides
-*** xref:guides/abbildung-anwendung-it-system.adoc[]

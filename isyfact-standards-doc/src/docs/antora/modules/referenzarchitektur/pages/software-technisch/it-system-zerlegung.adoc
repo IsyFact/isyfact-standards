@@ -22,7 +22,7 @@ Dem gegenüber stehen einige Herausforderungen:
 [[schritt-1]]
 == Schritt: Identifikation von IT-Systemen
 
-Das im Folgenden skizzierte Vorgehen eignet sich gut zur Prüfung, ob zwei oder mehrere Anwendungskomponenten (AWKs) vom selben IT-System umgesetzt werden sollten.
+Das im Folgenden skizzierte Vorgehen eignet sich gut zur Prüfung, ob zwei oder mehrere Anwendungskomponenten (ANKs) vom selben IT-System umgesetzt werden sollten.
 Es ist recht einfach zu befolgen und bezieht die wichtigsten Ergebnisse aus der xref:methodik:vorlagen.adoc#dokumentation-anwendung[Systemspezifikation] mit ein.
 Es ergibt sich so eine Menge von IT-Systemen, in die eine Anwendung zerfällt.
 
@@ -30,29 +30,29 @@ IMPORTANT: Das Vorgehen ist keine feste Vorgabe der IsyFact.
 Es dient als Empfehlung, wenn in einem Projekt oder einer Organisation bisher kein Vorgehen hierfür etabliert wurde.
 
 Das Vorgehen ist zunächst nach Art eines Ablaufdiagramms beschrieben.
-Als Input dient eine Auswahl aus zwei oder mehr Anwendungskomponenten (im folgenden: AWKs) aus der Systemspezifikation der Anwendung.
+Als Input dient eine Auswahl aus zwei oder mehr Anwendungskomponenten (im folgenden: ANKs) aus der Systemspezifikation der Anwendung.
 
-.Prüfung von AWK auf Zugehörigkeit zu einem IT-System
+.Prüfung von ANK auf Zugehörigkeit zu einem IT-System
 image::software-technisch/vorgehen-zerlegung-it-systeme.dn.svg[]
 
 Es umfasst die folgenden Entscheidungspunkte:
 
 Gemeinsame MKO / ETY?::
-An diesem Punkt wird geprüft, ob die AWKs auf denselben Datenmodellen (MKO) und fachlichen Objekten (ETY) arbeiten. +
-Wird diese Frage mit *Nein* beantwortet, sollten die AWKs in separaten IT-System umgesetzt werden, da sie kaum bis keine gemeinsame Fachlichkeit besitzen.
+An diesem Punkt wird geprüft, ob die ANKs auf denselben Datenmodellen (MKO) und fachlichen Objekten (ETY) arbeiten. +
+Wird diese Frage mit *Nein* beantwortet, sollten die ANKs in separaten IT-System umgesetzt werden, da sie kaum bis keine gemeinsame Fachlichkeit besitzen.
 
 Hohe Kohäsion?::
-An diesem Punkt wird geprüft, ob die AWKs für sich zusammengenommen eine hohe Kohäsion aufweisen.
+An diesem Punkt wird geprüft, ob die ANKs für sich zusammengenommen eine hohe Kohäsion aufweisen.
 Das bedeutet, dass sie zusammen einen wohldefinierten Teil der Fachlichkeit der Anwendung übernehmen. +
-Wird diese Frage mit *Nein* beantwortet, sollten die AWKs in separaten IT-System umgesetzt werden, da sie keine hohe Kohäsion aufweisen und das entstehende IT-System somit mehrere nicht zusammenhängende Aufgaben übernehmen würde.
+Wird diese Frage mit *Nein* beantwortet, sollten die ANKs in separaten IT-System umgesetzt werden, da sie keine hohe Kohäsion aufweisen und das entstehende IT-System somit mehrere nicht zusammenhängende Aufgaben übernehmen würde.
 
 Vergleichbare NFAs?::
-An diesem Punkt wird geprüft, ob die AWKs mit hoher Kohäsion auch vergleichbare nichtfunktionale Anforderungen (NFAs) erfüllen müssen.
+An diesem Punkt wird geprüft, ob die ANKs mit hoher Kohäsion auch vergleichbare nichtfunktionale Anforderungen (NFAs) erfüllen müssen.
 Dies kann z.B. bedeuten, dass sie ähnliche Mengengerüste zur Grundlage haben oder die Anforderungen an Antwortzeiten oder Sicherheit vergleichbar hoch sind. +
-Wird diese Frage mit *Nein* beantwortet, sollten die AWKs aufgrund ihrer stark unterschiedlichen nichtfunktionale Anforderungen in separaten IT-System umgesetzt werden.
+Wird diese Frage mit *Nein* beantwortet, sollten die ANKs aufgrund ihrer stark unterschiedlichen nichtfunktionale Anforderungen in separaten IT-System umgesetzt werden.
 
-Am Ende steht eine Einschätzung, ob die geprüften AWKs im selben oder in separaten IT-Systemen umgesetzt werden sollten.
-Sind alle AWKs auf IT-Systeme verteilt, ist der Schritt abgeschlossen.
+Am Ende steht eine Einschätzung, ob die geprüften ANKs im selben oder in separaten IT-Systemen umgesetzt werden sollten.
+Sind alle ANKs auf IT-Systeme verteilt, ist der Schritt abgeschlossen.
 
 [[schritt-2]]
 == Schritt: Zuweisung von IT-Systemtypen
@@ -66,3 +66,114 @@ Würden für ein IT-System nach dieser Abbildung mehrere IT-Systemtypen infrage 
 TIP: IT-Systeme zerfallen in diesem Schritt oft in ein Backend sowie ggf. ein Frontend und mehrere Batches.
 
 Als Ergebnis steht eine Zerlegung der Anwendung in IT-Systeme, denen jeweils genau ein IT-Systemtyp zugeordnet ist und die den Vorgaben aus xref:software-technisch/it-system.adoc[], vor allem bezüglich der umgesetzten Fachlichkeit, entsprechen.
+
+== Beispielzerlegung
+
+Es folgt ein kurzes Beispiel zur Zerlegung der "Beispielanwendung" (abgekürzt: BSP).
+Die Beispielanwendung ist eine Geschäftsanwendung.
+Aus der fachlichen Sicht heraus enthält sie:
+
+* Dialog-Komponenten (`DIA_BSP_*`),
+* Nachbarsystemschnittstellen (`NST_BSP_*`),
+* Batches (`BAT_BSP_*`),
+* Anwendungskomponenten (`ANK_BSP_*`).
+
+.Fachliche Sicht auf die Beispielanwendung
+image::software-technisch/beispiel-fachliche-sicht.dn.svg[]
+
+Die Anwendung des obigen Vorgehens führt zur Erkenntnis, dass die Anwendungskomponenten `ANK_BSP_1` und `ANK_BSP_2` so stark zusammenhängen, dass eine Umsetzung in getrennten IT-Systemen nicht sinnvoll ist.
+Alle anderen Anwendungskomponenten können in separaten IT-Systemen umgesetzt werden.
+Es entsteht eine Abbildung von Anwendungskomponenten auf IT-Systeme.
+
+.Abbildung von Anwendungskomponenten auf IT-Systeme
+[cols="2m,1m",options="header"]
+|===
+|Anwendungskomponente(n)
+|IT-System
+
+|ANK_BSP_1, ANK_BSP_2
+|BSP_1+2
+
+|ANK_BSP_3
+|BSP_3
+
+|ANK_BSP_4
+|BSP_4
+|===
+
+Im nächsten Schritt werden den IT-Systemen alle weiteren fachlichen Inhalte zugeordnet, die einen Bezug zu den in ihnen enthaltenen Anwendungskomponenten besitzen.
+
+.Abbildung von Fachlichkeit auf IT-Systeme
+[cols="2m,1m",options="header"]
+|===
+|Anwendungskomponente(n)
+|IT-System
+
+|ANK_BSP_1, DIA_BSP_1, ANK_BSP_2, BAT_BSP_2
+|BSP_1+2
+
+|ANK_BSP_3, NST_BSP_3
+|BSP_3
+
+|ANK_BSP_4
+|BSP_4
+|===
+
+Die Zuweisung von IT-Systemtypen gelingt auf Anhieb nur für die IT-Systeme `BSP_3` und `BSP_4`.
+Das IT-System `BSP_1+2` muss noch weiter zerlegt werden
+
+.Abbildung von Fachlichkeit auf IT-Systeme (Zwischenergebnis)
+[cols="2m,1m,1",options="header"]
+|===
+|Anwendungskomponente(n)
+|IT-System
+|IT-Systemtyp
+
+|ANK_BSP_1, DIA_BSP_1, ANK_BSP_2, BAT_BSP_2
+|BSP_1+2
+|?
+
+|ANK_BSP_3, NST_BSP_3
+|BSP_3-GK
+|Backend
+
+|ANK_BSP_4
+|BSP_4-GK
+|Backend
+|===
+
+Das IT-System `BSP_1+2` enthält neben Anwendungskomponenten auch eine Dialog-Komponente und einen Batch.
+Aus dieser Kombination entstehen gemäß der xref:software-technisch/it-system.adoc#abbildung-it-systemtypen-fachlichkeit[Abbildung von IT-Systemtypen auf ihre maßgeblich umgesetzte Fachlichkeit] drei IT-Systeme.
+
+.Abbildung von Fachlichkeit auf IT-Systeme
+[cols="2m,1m,1",options="header"]
+|===
+|Anwendungskomponente(n)
+|IT-System
+|IT-Systemtyp
+
+|ANK_BSP_1, ANK_BSP_2
+|BSP_1+2-GK
+|Backend
+
+|DIA_BSP_1
+|BSP_1+2-GKGUI
+|Frontend
+
+|BAT_BSP_2
+|BSP_1+2-GKBATCH
+|Batch
+
+|ANK_BSP_3, NST_BSP_3
+|BSP_3-GK
+|Backend
+
+|ANK_BSP_4
+|BSP_4-GK
+|Backend
+|===
+
+Zum Abschluss ist die Zerlegung noch einmal grafisch dargestellt.
+
+.Beispiel: Zerlegung einer Anwendung in IT-Systeme
+image::software-technisch/beispiel-technische-sicht.dn.svg[]
