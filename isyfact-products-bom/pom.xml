@@ -19,7 +19,7 @@
         <spring.webflow.version>3.0.0</spring.webflow.version>
         <resilience4j.version>1.7.1</resilience4j.version>
         <apache.poi.version>4.1.2</apache.poi.version>
-        <greenmail.version>1.6.14</greenmail.version>
+        <greenmail.version>1.6.15</greenmail.version>
         <jsf-api.version>2.2.20</jsf-api.version>
         <jsf-impl.version>2.2.20</jsf-impl.version>
         <tomahawk20.version>1.1.14</tomahawk20.version>
@@ -37,7 +37,7 @@
         <commons-net.version>3.10.0</commons-net.version>
         <commons-validator.version>1.7</commons-validator.version>
         <jsoup.version>1.15.3</jsoup.version>
-        <ApacheJMeter_core.version>2.13</ApacheJMeter_core.version>
+        <ApacheJMeter_core.version>5.6.3</ApacheJMeter_core.version>
         <wiremock-standalone.version>3.4.2</wiremock-standalone.version>
         <dbunit.version>2.7.3</dbunit.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
