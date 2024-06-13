@@ -13,6 +13,6 @@ jobs:
       - name: Dependency Review
         uses: actions/dependency-review-action@v4
         with:
-          allow-licenses: MIT
+          config-file: IsyFact/isyfact-standards/.github/dependency-review-config.yml@feature/IFS-2835_license_management_isy_sonderzeichen
           base-ref: ${{ github.event.pull_request.base.sha || 'master' }}
           head-ref: ${{ github.event.pull_request.head.sha || github.ref }}
