@@ -1,2 +1,28 @@
+license_types:
+  # Unencumbered: Licenses that declare the code is "free for any use".
+#  unencumbered: &unencumbered
+#    - ''
+#  # Permissive: Extremely lenient licenses that impose minimal restrictions and do not even require a copyright notice for compliance.
+  permissive: &permissive
+    - MIT
+#  # Notice: Licenses with minimal restrictions, allowing original or modified third-party software to be shipped, but requiring inclusion of an original copyright notice or advertising clause in external distributions.
+#  notice: &notice
+#    - ''
+#  # Reciprocal: Licenses that allow free use of unmodified software, but require any modifications to the original third-party source code to be made available under the same terms.
+#  reciprocal: &reciprocal
+#    - ''
+#  # Restricted: Licenses that mandate source distribution if a product includes third-party code protected by such a license.
+#  restricted: &restricted
+#    - ''
+#  # Forbidden: Licenses that are explicitly prohibited from use.
+#  forbidden: &forbidden
+#    - ''
+
 allow_licenses:
-  - MIT
+  - *permissive
+#  - *notice
+#  - *unencumbered
+#deny_licenses:
+#  - *reciprocal
+#  - *restricted
+#  - *forbidden
