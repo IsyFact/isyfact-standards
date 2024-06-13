@@ -13,10 +13,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import de.bund.bva.isyfact.security.IsySecurityTestConfiguration;
 
-@SpringBootTest(classes = { IsySecurityTestConfiguration.class, AuthorityPrefixTest.AnnotationTest.class })
+@SpringBootTest(classes = {IsySecurityTestConfiguration.class, AuthorityPrefixTest.AnnotationTest.class})
 public class AuthorityPrefixTest {
 
-    private static final String[] TEST_AUTHORITIES = { "PRIV_test", "ROLE_test" };
+    private static final String[] TEST_AUTHORITIES = {"PRIV_test"};
 
     @Autowired
     private AnnotationTest annotationTest;
