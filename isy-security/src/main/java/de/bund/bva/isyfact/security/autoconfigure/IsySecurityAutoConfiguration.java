@@ -7,18 +7,17 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.lang.Nullable;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 
-import de.bund.bva.isyfact.security.oauth2.client.Authentifizierungsmanager;
-import de.bund.bva.isyfact.security.core.Berechtigungsmanager;
-import de.bund.bva.isyfact.security.core.Security;
 import de.bund.bva.isyfact.security.authentication.RolePrivilegeGrantedAuthoritiesConverter;
 import de.bund.bva.isyfact.security.config.IsySecurityConfigurationProperties;
+import de.bund.bva.isyfact.security.core.Berechtigungsmanager;
 import de.bund.bva.isyfact.security.core.IsyOAuth2Berechtigungsmanager;
 import de.bund.bva.isyfact.security.core.IsyOAuth2Security;
+import de.bund.bva.isyfact.security.core.Security;
+import de.bund.bva.isyfact.security.oauth2.client.Authentifizierungsmanager;
 import de.bund.bva.isyfact.security.xmlparser.RolePrivilegesMapper;
 
 /**
@@ -27,7 +26,6 @@ import de.bund.bva.isyfact.security.xmlparser.RolePrivilegesMapper;
 @ConditionalOnClass(EnableWebSecurity.class)
 @AutoConfiguration
 @EnableConfigurationProperties
-@EnableGlobalMethodSecurity(securedEnabled = true)
 public class IsySecurityAutoConfiguration {
 
     @Bean
