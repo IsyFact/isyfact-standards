@@ -273,6 +273,9 @@ Um diesen Konflikt zu lösen wird das zweite Property `jwk-set-uri` verwendet.
 Sobald also beide Properties für einen Mandant gesetzt sind, dann wird der Wert von `jwk-set-uri` für den Zugriff auf den Authentifizierungsserver der IAM verwendet und der Wert von `issuer-uri` wird nur bei der Token-Validierung herangezogen.
 Gegebenenfalls erweitert Spring intern bei der Token-Validierung die `issuer-uri` um den Standard-Pfad `protocol/openid-connect/certs` um das notwendige Zertifikat zu ermitteln.
 
+*Konfigurations-Details*
+
+Zur weiteren Vertiefung dieser Sonderkonstellation kann in der xref:https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/jwt.html#oauth2resourceserver-jwt-jwkseturi[_Spring_-Dokumentation] und für Details bei der Implementierung bzw. Konfiguration kann in den xref:nutzungsvorgaben/inhalt.adoc#spring-konfiguration[Nutzungsvorgaben] nachgeschlagen werden.
 
 [[aufruf-weboberflaeche-portal]]
 ==== Aufruf Web-Oberfläche/Portal
