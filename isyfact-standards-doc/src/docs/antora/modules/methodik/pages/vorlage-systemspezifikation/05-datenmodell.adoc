@@ -90,13 +90,13 @@ Falls nötig kann noch ein Adjektiv vor das Substantiv gestellt werden._
 [cols="2,6", options="header"]
 |===
 2+| Entitätstyp
-|*Kurzbeschreibung* |_Die Beschreibung des Entitätstyps ermöglicht dem Leser, den Namen der Entität und ihre Bedeutung zu verstehen.
+|*Kurzbeschreibung* |_Die Beschreibung des Entitätstyps ermöglicht dem Leser, den Namen der Entität und ihre Bedeutung zu verstehen._
 
-Für die Begriffserklärung können Synonyme oder Oberbegriffe benutzt werden (Beispiel: „Ein Mitarbeiter ist eine natürliche Person …“).
+_Für die Begriffserklärung können Synonyme oder Oberbegriffe benutzt werden (Beispiel: „Ein Mitarbeiter ist eine natürliche Person …“)._
 
-Anschließend wird der Begriff inhaltlich und zeitlich abgegrenzt, d.h. wir erläutern, unter welchen Bedingungen eine Ausprägung zu diesem Entitätstyp gehört.
+_Anschließend wird der Begriff inhaltlich und zeitlich abgegrenzt, d.h. wir erläutern, unter welchen Bedingungen eine Ausprägung zu diesem Entitätstyp gehört._
 
-Die Beschreibung kann Beispiele, weitere Erläuterungen und Anmerkungen enthalten.
+_Die Beschreibung kann Beispiele, weitere Erläuterungen und Anmerkungen enthalten.
 Sie sollte auf eine standardisierte Weise erfolgen, so dass sich die Beschreibungen über das Datenmodell hinweg in der Form ähneln._
 |===
 
@@ -105,7 +105,7 @@ Sie sollte auf eine standardisierte Weise erfolgen, so dass sich die Beschreibun
 [cols="1s,1,1",options="header"]
 |====
 |*Attribut* |*Datentyp* |*Bedeutung*
-|_Name des Attributs beginnend mit dem Präfix +„ATT_“+.|_Verweis auf den fachlichen Datentyp (siehe Abschnitt „Datentypen“) oder auf einen einfachen Datentyp („Zeichenkette“, „Ganzzahl“, „Fließkommazahl“ etc.)._ a|
+|_Name des Attributs beginnend mit dem Präfix +„ATT_“+._|_Verweis auf den fachlichen Datentyp (siehe Abschnitt „Datentypen“) oder auf einen einfachen Datentyp („Zeichenkette“, „Ganzzahl“, „Fließkommazahl“ etc.)._ a|
 _Die Beschreibung des Attributes sollte einen inhaltlichen Mehrwert bringen (also Beschreibungen wie „Datum ist das Datum der Buchung“ vermeiden)._
 
 _Es hat sich bewährt, die Beschreibung soweit möglich mit „Enthält“ zu beginnen._
@@ -114,11 +114,8 @@ _Folgende Fragestellungen können bei der Beschreibung helfen:_
 
 
 * _Ist diese Information immer oder nur unter bestimmten Bedingungen vorhanden?_
-+
 * _Wann und wo entsteht diese Information?_
-+
 * _Wie entsteht diese Information im Unternehmen? (Die Information kann festgestellt, festgelegt und abgeleitet sein.)_
-+
 * _Für welchen Zeitraum bzw. bis zu welchem Zeitpunkt ist diese Information gültig?_
 
 |_Weitere Attribute in nachfolgenden Zeilen_ |_Weitere Datentypen_ |_Weitere Beschreibungen_
