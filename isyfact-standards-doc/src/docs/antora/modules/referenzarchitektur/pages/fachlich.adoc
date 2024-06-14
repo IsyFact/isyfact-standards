@@ -27,11 +27,9 @@ In <<awl-fachlich,der obigen Abbildung>> wurden zwei Domänen gebildet.
 
 Zwischen den Anwendungen unterschiedlicher Anwendungsdomänen sollten nur wenige, klar definierte Nutzungsbeziehungen existieren.
 
-*xref:glossary:glossary:master.adoc#glossar-anwendung[Anwendung]:* Eine Anwendung ist eine zusammengehörende, logische Einheit aus Funktionen, Daten und Schnittstellen.
-Anwendungen unterstützen Geschäftsprozesse.
-Anwendungen sind einer Anwendungsdomäne zugeordnet und setzen sich aus Anwendungskomponenten zusammen.
-Eine Anwendung ist Bestandteil der xref:glossary:glossary:master.adoc#glossar-a-architektur[A-Architektur].
-Aus Sicht der xref:glossary:glossary:master.adoc#glossar-t-architektur[T-Architektur] bildet ein xref:glossary:glossary:master.adoc#glossar-it-system[IT-System] die software-technische Umsetzung einer Anwendung ab.
+*xref:glossary:glossary:master.adoc#glossar-anwendung[Anwendung]:*
+include::glossary:glossary:inhalt.adoc[tag="anwendung-definition"]
+
 
 *xref:glossary:glossary:master.adoc#glossar-anwendungskomponente[Anwendungskomponenten]:* Eine Anwendungskomponente beschreibt eine Menge funktional zusammenhängender Anwendungsfälle.
 Anwendungskomponenten sind Bestandteile von Anwendungen.
@@ -53,8 +51,8 @@ Im Zuge einer solchen Aufgabenteilung werden auch weitergehende Regeln definiert
 Derartige Prinzipien und Regeln zur Strukturierung sind jedoch immer spezifisch für den jeweiligen Kontext der Anwendungslandschaft und können nicht allgemeingültig festgelegt werden.
 ====
 
-*xref:glossary:glossary:master.adoc#glossar-querschnittsanwendung[Querschnittsanwendung]:* Eine Querschnittsanwendung ist eine Anwendung, die Services für mehrere Geschäftsanwendungen bereitstellt, wie z.B. ein Behördenverzeichnis oder ein Output-Management.
-Diese Services sind oft technisch motiviert.
+*xref:glossary:glossary:master.adoc#glossar-querschnittsanwendung[Querschnittsanwendung]:*
+include::glossary:glossary:inhalt.adoc[tag="querschnittsanwendung-definition"]
 
 === Zugriff auf die Anwendungslandschaft
 
