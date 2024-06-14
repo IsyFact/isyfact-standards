@@ -1,3 +1,7 @@
+# References:
+# https://opensource.google/documentation/reference/thirdparty/licenses
+# https://github.com/google/go-licenses/blob/master/licenses/types.go
+# https://spdx.org/licenses/
 allow_licenses:
   # Unencumbered: Licenses that declare the code is "free for any use".
   - 'CC0-1.0'
