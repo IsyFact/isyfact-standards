@@ -59,8 +59,7 @@ Diese Bestandteile der fachlichen Zerlegung erzwingen allerdings nicht, dass sie
 [[backend]]
 === Backend
 
-Backends stellen hauptsächlich Services bereit.
-Dabei kann es sich um Nachbarsystemschnittstellen der Anwendung handeln, die von anderen Anwendungen verwendet werden, oder um interne Schnittstellen, die von anderen IT-Systemen derselben Anwendung verwendet werden.
+include::glossary:glossary:inhalt.adoc[tag=backend-definition]
 
 Backends setzen auf den xref:einstieg:produktkatalog/technologiestackJavaSpring.adoc[].
 Sie nutzen Spring Boot als Anwendungsframework und weitere Produkte von Spring sowie JEE-Standards und xref:bausteine:bausteine.adoc[] der IsyFact zur Umsetzung der Services.
@@ -70,8 +69,7 @@ Die Systemarchitektur und die Umsetzung querschnittlicher, technischer Aspekte f
 [[frontend]]
 === Frontend
 
-Frontends stellen hauptsächlich grafische Benutzerschnittstellen (GUIs) bereit.
-Sie kommunizieren hierzu über interne Schnittstellen mit Backends.
+include::glossary:glossary:inhalt.adoc[tag=frontend-definition]
 
 Frontends setzen auf den xref:einstieg:produktkatalog/technologiestackTypescriptAngular.adoc[].
 Sie nutzen Angular als Anwendungsframework und weitere, zu Angular kompatible, Produkte sowie De-facto-Standards und xref:bausteine:bausteine.adoc[] der IsyFact zur Umsetzung der GUIs.
@@ -81,7 +79,7 @@ Die Systemarchitektur und die Umsetzung querschnittlicher, technischer Aspekte f
 [[batch]]
 === Batch
 
-Batches stellen, wie der Name schon sagt, hauptsächlich die Batches der Anwendung bereit.
+include::glossary:glossary:inhalt.adoc[tag=batch-definition]
 
 Batches setzen wie Backends auf den xref:einstieg:produktkatalog/technologiestackJavaSpring.adoc[].
 Sie nutzen Spring Boot als Anwendungsframework und weitere Produkte von Spring sowie JEE-Standards und xref:bausteine:bausteine.adoc[] der IsyFact zur Umsetzung der Services.
