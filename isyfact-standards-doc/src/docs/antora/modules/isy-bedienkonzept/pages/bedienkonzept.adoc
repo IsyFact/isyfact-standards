@@ -375,18 +375,21 @@ Labels sind nicht nur visuelle Hinweise, sondern auch wesentliche Bestandteile d
 
 Eindeutige Beschreibung: Labels sollten klar und eindeutig beschreiben, was von den Benutzern erwartet wird.
 Beispielsweise sollte ein Label für ein Namensfeld "Vollständiger Name" und nicht nur "Name" lauten.
+
 Kurze Formulierungen: Labels sollten kurz und prägnant sein, um die Benutzerfreundlichkeit zu maximieren.
 Vermeide Labels mit mehr als drei Wörtern.
 
 *_Platzierung und Ausrichtung_*
 
 Nähe zum Eingabefeld: Labels sollten in unmittelbarer Nähe des zugehörigen Eingabefelds platziert werden, entweder darüber oder links davon, um eine klare Zuordnung zu gewährleisten.
+
 Ausrichtung: Labels können linksbündig oder rechtsbündig zum Eingabefeld ausgerichtet sein, wobei linksbündige Labels tendenziell besser lesbar und benutzerfreundlicher sind.
 
 *_Zugänglichkeit_*
 
 HTML-For-Attribut: Jedes Label sollte das for-Attribut verwenden, das mit der id des entsprechenden Eingabefelds übereinstimmt.
 Dies stellt sicher, dass Screenreader die Verbindung zwischen Label und Eingabefeld korrekt interpretieren können.
+
 Beispiel: <label for="email">E-Mail-Adresse</label> <input type="email" id="email">
 Vermeidung von Platzhaltern als Labels: Platzhaltertexte (placeholder) sollten nicht als Ersatz für Labels verwendet werden, da sie verschwinden, sobald der Benutzer mit der Eingabe beginnt, was die Benutzerfreundlichkeit und Zugänglichkeit beeinträchtigen können.
 
