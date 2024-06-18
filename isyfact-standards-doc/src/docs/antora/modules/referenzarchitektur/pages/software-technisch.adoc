@@ -14,7 +14,7 @@ Diese Ausprägung ist technisch motiviert und umfasst aktuell *Backends*, *Front
 Der Begriff der Anwendungslandschaft ist fachlich motiviert.
 Die technische Entsprechung hierfür ist der Begriff der xref:glossary:glossary:master.adoc#glossar-systemlandschaft[Systemlandschaft].
 Eine Systemlandschaft, die eine Anwendungslandschaft nach den IsyFact-Standards umsetzt, wird im Folgenden als _IsyFact-Systemlandschaft_ bezeichnet.
-Eine solche IsyFact-Systemlandschaft beinhaltet alle in IT-Systeme umgesetzten Anwendungen der Anwendungslandschaft sowie technische Systeme zur Unterstützung (z.B. Datenbanken oder Web-Server).
+Eine solche IsyFact-Systemlandschaft beinhaltet alle IT-Systeme als technische Umsetzung der Anwendungen  der Anwendungslandschaft sowie technische Systeme zur Unterstützung (z.B. Datenbanken oder Web-Server).
 
 Die Architektur eines IT-Systems wird in xref:blaupausen:referenzarchitektur-it-system/master.adoc[] definiert.
 Im Folgenden wird, aufbauend auf diesem Konzept, beschrieben:

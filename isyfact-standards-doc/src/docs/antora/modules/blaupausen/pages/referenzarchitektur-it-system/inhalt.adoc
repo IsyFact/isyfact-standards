@@ -7,7 +7,7 @@ Die technische Architektur (xref:glossary:glossary:master.adoc#glossar-t-archite
 [[die-referenzarchitektur-eines-it-systems]]
 === Die Referenzarchitektur eines IT-Systems
 
-Die individuell erstellten Anwendungen der Systemlandschaft müssen technisch gleichartig aufgebaut sein.
+Die individuell erstellten Anwendungen der Anwendungslandschaft müssen technisch gleichartig aufgebaut sein.
 Daher wird im Folgenden die Referenzarchitektur beschrieben, nach der diese Anwendungen software-technisch in IT-Systeme umgesetzt werden.
 
 .Referenzarchitektur eines IT-Systems

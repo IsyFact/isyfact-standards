@@ -4,30 +4,39 @@ include::glossary:licence:partial$licence.adoc[]
 
 include::documentation-guide::partial$content-new-page.adoc[]
 
-Eine der ersten und wichtigsten Entwurfsentscheidung ist, wie eine Anwendung technisch in IT-Systeme zerlegt wird.
+Eine der ersten und wichtigsten Entwurfsentscheidungen ist, wie eine Anwendung technisch in IT-Systeme zerlegt wird.
 Die Zerlegung einer Anwendung in kleine Einheiten, die auf eine Aufgabe fokussiert und untereinander lose gekoppelt sind, verspricht einige Vorteile:
 
 * Kleine IT-Systeme mit klaren Verantwortlichkeiten ändern sich vorhersehbar und sind leichter wartbar.
-* Die IT-Systeme können verschieden ausgeprägte nichtfunktionale Anforderung erfüllen, da sie sich z.B. unabhängig voneinander skaliert lassen.
-* Ein Verbund von IT-System ist resilienter als ein großes IT-System, da Störungen in der Regel nur einen Teil der Anwendung betreffen.
+* Die IT-Systeme können verschieden ausgeprägte nichtfunktionale Anforderung erfüllen, da sie sich z. B. unabhängig voneinander skalieren lassen.
+* Ein Verbund von IT-Systemen ist resilienter als ein großes IT-System, da Störungen in der Regel nur einen Teil der Anwendung betreffen.
 
 Dem gegenüber stehen einige Herausforderungen:
 
-* Kommunikation geschieht zwischen IT-Systemen anstatt innerhalb eines IT-Systems.
+* Erhöhter Koordinationsaufwand zwischen den IT-Systemen (z. B. bei Build, Deployment und Kommunikation).
 * Mehrere IT-Systeme nehmen unterschiedliche Sichten auf dieselben Datenmodelle ein.
 * Änderungen an den Daten sind nicht sofort allen IT-Systemen bekannt.
 
-"Unterm Strich" ist eine sinnvolle Zerlegung von Anwendungen in jedem Fall erstrebenswert.
+"Unterm Strich" ist eine Zerlegung von Anwendungen erstrebenswert, sofern die resultierenden IT-Systeme lose gekoppelt sind.
 
 [[schritt-1]]
 == Schritt: Identifikation von IT-Systemen
 
-Das im Folgenden skizzierte Vorgehen eignet sich gut zur Prüfung, ob zwei oder mehrere Anwendungskomponenten (ANKs) vom selben IT-System umgesetzt werden sollten.
+Das im Folgenden skizzierte Vorgehen orientiert sich an der Systemspezifikation und kann als Entscheidungshilfe bei der Frage unterstützen, ob zwei oder mehrere Anwendungskomponenten (ANKs) vom selben IT-System umgesetzt werden sollten.
 Es ist recht einfach zu befolgen und bezieht die wichtigsten Ergebnisse aus der xref:methodik:vorlagen.adoc#dokumentation-anwendung[Systemspezifikation] mit ein.
-Es ergibt sich so eine Menge von IT-Systemen, in die eine Anwendung zerfällt.
+Als Ergebnis steht ein technischer Schnitt der Anwendung in IT-Systeme.
 
-IMPORTANT: Das Vorgehen ist keine feste Vorgabe der IsyFact.
+[IMPORTANT]
+====
+Das Vorgehen ist keine feste Vorgabe der IsyFact.
 Es dient als Empfehlung, wenn in einem Projekt oder einer Organisation bisher kein Vorgehen hierfür etabliert wurde.
+
+Ebenso kann es gute Gründe dafür geben, die IT-Systeme nicht nach diesen Gesichtspunkten zu schneiden.
+Diese können z. B. mit der Organisation der Entwicklung bzw. Wartung oder mit der Infrastruktur des Betriebs zusammenhängen.
+
+Es wird ausdrücklich davor gewarnt, das Vorgehen "blind" zu verwenden.
+Das Vorgehen sollte stets mit Blick auf die eigenen Rahmenbedingungen angewendet werden.
+====
 
 Das Vorgehen ist zunächst nach Art eines Ablaufdiagramms beschrieben.
 Als Input dient eine Auswahl aus zwei oder mehr Anwendungskomponenten (im folgenden: ANKs) aus der Systemspezifikation der Anwendung.
@@ -101,49 +110,10 @@ Es entsteht eine Abbildung von Anwendungskomponenten auf IT-Systeme.
 |BSP_4
 |===
 
-Im nächsten Schritt werden den IT-Systemen alle weiteren fachlichen Inhalte zugeordnet, die einen Bezug zu den in ihnen enthaltenen Anwendungskomponenten besitzen.
-
-.Abbildung von Fachlichkeit auf IT-Systeme
-[cols="2m,1m",options="header"]
-|===
-|Anwendungskomponente(n)
-|IT-System
-
-|ANK_BSP_1, DIA_BSP_1, ANK_BSP_2, BAT_BSP_2
-|BSP_1+2
-
-|ANK_BSP_3, NST_BSP_3
-|BSP_3
-
-|ANK_BSP_4
-|BSP_4
-|===
-
-Die Zuweisung von IT-Systemtypen gelingt auf Anhieb nur für die IT-Systeme `BSP_3` und `BSP_4`.
-Das IT-System `BSP_1+2` muss noch weiter zerlegt werden
-
-.Abbildung von Fachlichkeit auf IT-Systeme (Zwischenergebnis)
-[cols="2m,1m,1",options="header"]
-|===
-|Anwendungskomponente(n)
-|IT-System
-|IT-Systemtyp
-
-|ANK_BSP_1, DIA_BSP_1, ANK_BSP_2, BAT_BSP_2
-|BSP_1+2
-|?
-
-|ANK_BSP_3, NST_BSP_3
-|BSP_3-GK
-|Backend
-
-|ANK_BSP_4
-|BSP_4-GK
-|Backend
-|===
-
-Das IT-System `BSP_1+2` enthält neben Anwendungskomponenten auch eine Dialog-Komponente und einen Batch.
-Aus dieser Kombination entstehen gemäß der xref:software-technisch/it-system.adoc#abbildung-it-systemtypen-fachlichkeit[Abbildung von IT-Systemtypen auf ihre maßgeblich umgesetzte Fachlichkeit] drei IT-Systeme.
+Im nächsten Schritt werden alle weiteren fachlichen Inhalte zugeordnet und die IT-Systemtypen identifiziert.
+Gemäß der xref:software-technisch/it-system.adoc#abbildung-it-systemtypen-fachlichkeit[Abbildung von IT-Systemtypen auf ihre maßgeblich umgesetzte Fachlichkeit] werden aus Dialogen und Batches jeweils eigene IT-Systeme.
+Die Nachbarsystemschnittstelle wird dem Backend mit der zugehörigen ANK zugeordnet.
+Allen IT-Systemen kann nun ein IT-Systemtyp zugeordnet werden.
 
 .Abbildung von Fachlichkeit auf IT-Systeme
 [cols="2m,1m,1",options="header"]
@@ -175,5 +145,5 @@ Aus dieser Kombination entstehen gemäß der xref:software-technisch/it-system.a
 
 Zum Abschluss ist die Zerlegung noch einmal grafisch dargestellt.
 
-.Beispiel: Zerlegung einer Anwendung in IT-Systeme
+.Software-technische Sicht auf die Beispielanwendung
 image::software-technisch/beispiel-technische-sicht.dn.svg[]

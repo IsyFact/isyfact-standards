@@ -32,7 +32,7 @@ Eine Aktivität kann sowohl manuell als auch teilweise oder vollständig automat
 |_Anwendungslandschaft_ |_Architektur_ |Die Anwendungslandschaft einer Organisation ist bestimmt durch die Menge der von der Organisationseinheit betriebenen Anwendungen. |
 |_Anwendung_ |_Architektur_ |
 include::glossary:glossary:inhalt.adoc[tag="anwendung-definition"]
-|_IT-System_
+|
 |_Assoziation_ |_Daten_ |Eine Assoziation beschreibt eine Beziehung zwischen zwei oder mehr Entitätstypen. |_Beziehung_
 |_Attribut_ |_Daten_ |Als „Attribut“ versteht man eine dem Entitätstyp zugeordnete Information. |
 |_Batch_ |_Benutzungsschnittstelle_ |Ein Batchprogramm realisiert eine eigenständige Verarbeitung ohne direkten Benutzereingriff während des Ablaufes. |_Batchprogramm, Batchverarbeitung_

@@ -26,7 +26,7 @@ Dazu gehören sowohl vom Betrieb zu pflegende Konfigurationsdateien, als auch st
   Ausnahmen hiervon bedürfen besonderer technischer und organisatorischer Maßnahmen.
   Details dazu werden in dem Dokument xref:nutzungsvorgaben/master.adoc[Konfiguration - Nutzungsvorgaben] beschrieben.
 * Das Konfigurationskonzept berücksichtigt sowohl die Konfiguration für die Entwicklungsumgebung als auch geeignete Vorgehensweisen für die Konfiguration der Produktionsumgebung.
-* Alle Anwendungen und Batches, die schreibend auf eine andere Geschäftsanwendung zugreifen, müssen auf die Nichtverfügbarkeit dieser Komponente vorbereitet sein.
+* Alle Anwendungen, die schreibend auf eine andere Anwendung zugreifen, müssen auf deren Nichtverfügbarkeit vorbereitet sein.
   Entweder können jene Systeme vorübergehend heruntergefahren sein, oder bestimmte Funktionen, z.B. der Schreibzugriff, können über Konfigurationsparameter deaktiviert sein.
   Systeme, bei denen Funktionen deaktiviert sind, zeigen Benutzern frühzeitig einen Hinweis an, welche Funktionen nicht zur Verfügung stehen.
   Ob eine Anwendung einen Konfigurationsparameter erhält oder heruntergefahren werden kann, muss für jede Anwendung, abhängig von deren Verfügbarkeitsanforderung, individuell entschieden werden.

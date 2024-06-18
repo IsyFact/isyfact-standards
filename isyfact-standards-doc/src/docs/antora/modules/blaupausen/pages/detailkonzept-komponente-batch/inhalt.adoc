@@ -1016,7 +1016,7 @@ Zusätzlich erhält jeder zu verarbeitende Satz auch eine eigene Korrelations-ID
 [[fachliche-logik-in-den-komponenten-der-geschaeftsanwendung-implementieren]]
 === Geschäftslogik in den Komponenten der Geschäftsanwendung implementieren
 
-Falls für die Verarbeitung im Batch Geschäftslogik benötigt wird, welche für die Webanwendung nicht benötigt wird, ist diese trotzdem den Geschäftsanwendungskomponenten hinzuzufügen.
+Falls für die Verarbeitung im Batch Geschäftslogik benötigt wird, welche für die Webanwendung nicht benötigt wird, ist diese trotzdem den Anwendungskomponenten hinzuzufügen.
 Die Ausführungsbean erhält die Referenzen auf die Komponenten über Dependency Injection und ruft die Geschäftslogik dort auf.
 
 Auch wenn in Sonderfällen Datenbank-Aufrufe direkt durch die Ausführungsbean ausgeführt werden müssen, ist die sonstige Geschäftslogik an die Fachkomponenten der Geschäftsanwendung zu delegieren.
@@ -1182,7 +1182,7 @@ Reguläre Batches werden meist ebenfalls über ein Shell-Skript gestartet, ihre 
 Das Skript startet also nur das zugehörige Programm.
 
 Der Vorteil von Shell-Batches ist, dass sie etwas schlanker sind und daher auch schneller entwickelt werden können.
-Komplexe Geschäftslogik sollte aber immer als dediziertes Batchprogramm umgesetzt werden, da diese auf lange Sicht besser wartbar sind.
+Komplexe Geschäftslogik sollte aber immer als dediziertes IT-System umgesetzt werden, da diese auf lange Sicht besser wartbar sind.
 
 Ein Beispiel für Shell-Batches sind einmalige SQL-Migrationen.
 Das Shell-Skript baut dabei eine Verbindung mit dem Datenbank-Server auf und führt eine SQL-Datei aus.

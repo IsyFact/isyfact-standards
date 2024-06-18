@@ -14,20 +14,21 @@ Sie ist für alle Anwendungstypen gleich.
 
 Das *IT-System* bildet einen Oberbegriff für die technische Umsetzung eines Teils der Anwendung.
 Seine wichtigste Eigenschaft ist, dass es eine in sich abgeschlossene, ausführbare Einheit (vgl. _deployment unit_) darstellt.
-Spezialisierungen des IT-Systems, auch *IT-Systemtypen* genannt, besitzen eine jeweils eigene Systemarchitektur und einen eigenen Technologie-Stack, um die jeweiligen Teile der Anwendung möglichst effizient umsetzen zu können.
+Spezialisierungen des IT-Systems, auch *IT-Systemtypen* genannt, besitzen eine jeweils eigene Systemarchitektur und einen eigenen Technologie-Stack, um die jeweiligen Teile der Anwendung möglichst effektiv umsetzen zu können.
 Die software-technische Referenzarchitektur kennt drei IT-Systemtypen: das *Backend*, das *Frontend* und den *Batch*.
 
 Die nachfolgende Abbildung verdeutlicht den Zusammenhang zwischen den Begrifflichkeiten Anwendung und IT-System.
-Sie geht auch auf die jeweiligen Spezialisierungen (d.h. Anwendungstypen und IT-Systemtypen) ein und benennt den Teil der Referenzarchitektur, in dem die Begriffe definiert und beschrieben sind.
+Sie geht auch auf die jeweiligen Spezialisierungen (d. h. Anwendungstypen und IT-Systemtypen) ein und benennt den Teil der Referenzarchitektur, in dem die Begriffe definiert und beschrieben sind.
 
 .Zusammenhang zwischen Anwendung und IT-System
 image::software-technisch/beziehung-anwendung-it-system.dn.svg[]
 
-Grob gesagt besteht eine Anwendung, egal welchem Anwendungstyp sie entspricht, immer aus mindestens einem IT-System.
-Dabei muss dieses IT-System entweder ein Backend oder ein Frontend sein.
+Eine Anwendung besteht, egal welchem Anwendungstyp sie entspricht, immer aus mindestens einem IT-System.
+Dabei muss dieses IT-System entweder ein Backend oder ein Frontend sein, da eine Anwendung stets Geschäftslogik zur Verarbeitung oder Darstellung von Daten enthält.
+Weitere IT-Systeme anderer IT-Systemtypen erweitern den Funktionsumfang einer Anwendung.
+
 Die Frage, in welche IT-Systeme eine Anwendung zerlegt wird, ist eine Entwurfsentscheidung, die im xref:methodik:vorlagen.adoc#dokumentation-anwendung[Systementwurf] dokumentiert wird.
 Die software-technische Referenzarchitektur beschreibt ein xref:software-technisch/it-system-zerlegung.adoc[Verfahren zur Zerlegung], das wiederum auf der fachlichen Zerlegung in Anwendungskomponenten beruht.
-
 
 [[it-systemtypen]]
 == IT-Systemtypen
@@ -44,7 +45,7 @@ Das bedeutet: Anhand der spezifizierten Fachlichkeit einer Anwendung kann direkt
 |Maßgeblich umgesetzte Fachlichkeit
 
 |Backend
-|Anwendungskomponenten (AWK), Nachbarsystemschnittstellen (NST)
+|Anwendungskomponenten (ANK), Nachbarsystemschnittstellen (NST)
 
 |Frontend
 |Dialoge (DIA), Masken (MAS)
@@ -53,8 +54,7 @@ Das bedeutet: Anhand der spezifizierten Fachlichkeit einer Anwendung kann direkt
 |Batch (BAT)
 |===
 
-IT-Systemtypen setzen neben ihrer maßgeblichen Fachlichkeit in der Regel auch weitere Fachlichkeit (z.B. Datenmodelle oder Akteure bzw. Rollen) um.
-Diese Bestandteile der fachlichen Zerlegung erzwingen allerdings nicht, dass sie von einem bestimmten IT-Systemtyp umgesetzt werden.
+Weitere Fachlichkeit wie z. B. Datenmodelle oder Akteure stehen mit der Fachlichkeit aus <<abbildung-it-systemtypen-fachlichkeit,obiger Tabelle>> in Zusammenhang und werden durch die jeweiligen IT-Systemtypen mit umgesetzt.
 
 [[backend]]
 === Backend
