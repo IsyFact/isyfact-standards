@@ -166,7 +166,6 @@ Individuelle Schriftgrößen können Sie mit dem Schriftgrößenrechner auf lese
 * Die Verwendung verschiedener Schriftarten, über die im Bedienkonzept hinaus vorgegebenen Schriftarten, muss vermieden werden.
 * Die Schriftgröße muss immer ausreichend groß sein. Ein Unterschreiten von Mindestgrößen zugunsten des Platzgewinns muss vermieden werden.
 Stattdessen werden andere, platzsparende Mechanismen angewandt, wie z.B. Expander (Progressive Disclosure).
-
 * Die Anzahl verschiedener Schriftgrößen muss auf ein notwendiges Minimum reduziert werden
 * Es muss sichergestellt sein, dass der Kontrast der Schriftfarbe zur Hintergrundfarbe ausreichend groß ist.
 Hier ist der Kontrast größtmöglich zu wählen (z.B. dunkelgraue (#212529) Schrift auf weißen Hintergrund).
@@ -390,6 +389,7 @@ HTML-For-Attribut: Jedes Label sollte das for-Attribut verwenden, das mit der id
 Dies stellt sicher, dass Screenreader die Verbindung zwischen Label und Eingabefeld korrekt interpretieren können.
 
 Beispiel: <label for="email">E-Mail-Adresse</label> <input type="email" id="email">
+
 Vermeidung von Platzhaltern als Labels: Platzhaltertexte (placeholder) sollten nicht als Ersatz für Labels verwendet werden, da sie verschwinden, sobald der Benutzer mit der Eingabe beginnt, was die Benutzerfreundlichkeit und Zugänglichkeit beeinträchtigen können.
 
 *_Stil und Design_*
@@ -838,7 +838,7 @@ Jede inhaltliche Gruppe ( 3-spaltig in der ersten Gruppe (rosa, orange, gelb) un
 *_Wahrnehmung der inhaltlichen Gruppen:_*
 
 [[image-wahrnehmunghorizontalegruppe]]
-.Wahrnehmung der der inhaltlichen Gruppen Hierarchie
+.Wahrnehmung der inhaltlichen Gruppen Hierarchie
 image::24_UC_horizontale_inhaltlichte_gruppe.png[align="center"]
 
 Gleichmäßige Feldlängen unterstützen den Lesefluss des Benutzers.
@@ -850,7 +850,7 @@ Die Größenanpassung erfolgt innerhalb von gewissen Bereichen:
 * Wird das Browserfenster kleiner als der darzustellende Inhalt (i.d.R. bei Tablets und Smartphones), so wird das gesamte Fenster vertikal scrollbar
 * Der vertikale Abstand zwischen Gruppen und Formularinhalten bleibt unabhängig von der Bildschirmgröße konstant
 * Der Abstand zwischen Eingabefeldern und Labels bleibt ebenfalls unverändert
-* Bei einer Veränderung der Browserfenster größe sollten sich die Breiten der Spalten dynamisch an den verfügbaren Platz anpassen, ohne dabei die Lesbarkeit zu beeinträchtigen
+* Bei einer Veränderung der Browserfenster Größe sollten sich die Breiten der Spalten dynamisch an den verfügbaren Platz anpassen, ohne dabei die Lesbarkeit zu beeinträchtigen
 
 *_Beispielhafte Gesamtumsetzung eines Formulars im Anwendungsrahmen:_*
 
@@ -890,7 +890,7 @@ Beispiel 2, man erwartet eine Telefonnummer
 +49 123 1234567
 
 *_Dont:_*
-Deine Telefon oder Handynummer
+Deine Telefon- oder Handynummer
 
 Sobald der Benutzer in das Eingabefeld klickt, wird der Platzhalter ausgeblendet und es besteht die Möglichkeit eine Mask anzeigen zu lassen.
 Im Kapitel Eingabefelder sind Masks als Element dargestellt. Sie geben das gewünschte Eingabepattern vor und lassen sich fast vollständig frei gestalten.
@@ -965,5 +965,5 @@ Folgende Meldungsarten können als Toast-Notification verwendet werden:
 * Erfolg
 
 [[image-toastnotification]]
-.Verschiedene Toast notifications
+.Verschiedene Toast Notifications
 image::24_UC_toast_notification.png[align="center"]
