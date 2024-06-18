@@ -5,8 +5,8 @@
 [[erklaerung-darstellung-von-datenflussdiagrammen]]
 == Erklärung der Darstellung von Datenflussdiagrammen
 
-Eine Anwendungslandschaft besteht aus mehreren Anwendungssystemen, die Daten untereinander und mit ihren Nutzern austauschen.
-Die Nutzer sind entweder über Schnittstellen zu diesen Anwendungen angebunden, oder benutzen die Anwendungen der Anwendungslandschaft über deren graphische Oberflächen oder Batches.
+Eine Anwendungslandschaft besteht aus mehreren Anwendungen, die Daten untereinander und mit ihren Nutzern austauschen.
+Die Nutzer sind entweder über Schnittstellen zu diesen Anwendungen angebunden, oder benutzen die Anwendungen der Anwendungslandschaft über deren grafische Oberflächen oder Batches.
 
 Die Datenflussdiagramme werden im Dokument nach Anwendungsdomänen und darin nach den verschiedenen fachlichen Themen aufgeteilt.
 Die Aufteilung muss so gewählt werden, dass jedes Diagramm nicht zu komplex wird.
@@ -25,20 +25,20 @@ Die Darstellung der Datenflussdiagramme enthält folgende Elemente:
 Dies können z.B. externe Organisationen, externe Behörden oder interne Fachbereiche sein.
 
 Nutzer werden in Datenflussdiagrammen meist als „Schnittstellen“ bezeichnet.
-Da nicht die Schnittstellen der Anwendungssysteme aus der Systemspezifikation abgebildet werden, wird dieser Name hier nicht verwendet.
+Da nicht die Schnittstellen der Anwendungen aus der Systemspezifikation abgebildet werden, wird dieser Name hier nicht verwendet.
 
 
 | image:anleitung-datenflussdiagramme/batch-adressen-importieren.png[] |*Prozesse* werden als Ovale eingezeichnet.
-Diese entsprechen den Anwendungsfällen der Anwendungssysteme.
+Diese entsprechen den Anwendungsfällen der Anwendungen.
 
 Ein Prozess kann dabei mehrere Anwendungsfälle zusammenfassen, z.B. verschiedene Meldungsarten.
 Dies dient der Übersichtlichkeit der Darstellung.
-Der Name des Prozesses beginnt mit dem Anwendungssystem, dass ihn umsetzt.
+Der Name des Prozesses beginnt mit der Anwendung, dass ihn umsetzt.
 Dann folgen ein Doppelpunkt und meist ein Substantiv und ein Verb.
 
 | image:anleitung-datenflussdiagramme/adressdatenbank.png[]  |*Datenspeicher* werden mit einem Strich über und unter dem Datenspeicher dargestellt.
 
-Die Aufteilung der Datenspeicher entspricht der Aufteilung der Datenmodelle der Anwendungssysteme in Modellkomponenten.
+Die Aufteilung der Datenspeicher entspricht der Aufteilung der Datenmodelle der Anwendung in Modellkomponenten.
 Zum Zweck der Übersichtlichkeit können Modellkomponenten zusammengefasst werden.
 
 | image:anleitung-datenflussdiagramme/fachanwendung-2.png[] |*Datenflüsse über Grenzen von Diagrammen hinweg* werden mit einem *Tor* (englisch „Gate“) dargestellt.

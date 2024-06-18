@@ -7,7 +7,7 @@ Nachfolgend wird ein Beispiel für ein Datenflussdiagramm-Dokument dargestellt.
 [[beispiel-datenflussdiagramme]]
 == Beispiel
 
-Im Beispiel wird ein einfaches Anwendungssystem zur Verwaltung von Adressen dargestellt.
+Im Beispiel wird eine einfache Anwendung zur Verwaltung von Adressen dargestellt.
 Das Beispiel ist sehr einfach gehalten und dient nur der Veranschaulichung des Formalismus.
 Es erhebt keinen Anspruch, in der Praxis umsetzbar zu sein.
 
