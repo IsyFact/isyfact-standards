@@ -21,7 +21,7 @@ _Beispielhaft ein Glossar zu den in diesem Dokument verwendeten Begriffen:_
 |_Anwendungskomponente_ |_Architektur_ |Eine Anwendungskomponente beschreibt eine Menge funktional zusammenhängender Anwendungsfälle. |
 |_Anwendungslandschaft_ |_Architektur_ |Die Anwendungslandschaft einer Organisation ist bestimmt durch die Menge der von der Organisationseinheit betriebenen Anwendungen. |
 |_Anwendung_ |_Architektur_ |
-include::glossary:glossary:inhalt.adoc[tag="anwendung-definition"]
+include::glossary::terms-definitions.adoc[tag="anwendung-definition"]
 |
 |_Attribut_ |_Daten_ |Als „Attribut“ versteht man eine dem Entitätstyp zugeordnete Information. |
 |_Entität_ |_Daten_ |Als Entität wird ein eindeutig zu bestimmendes Objekt bezeichnet, dem Informationen zugeordnet werden.
