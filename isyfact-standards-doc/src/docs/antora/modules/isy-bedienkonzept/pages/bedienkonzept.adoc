@@ -229,7 +229,7 @@ In der Regel sind die genannten Anforderungen durch die Anwendung der Standardel
 Für Haupt & Einstiegsseiten, Seiten mit rechtlicher Relevanz muss der Kontrast 7:1 betragen.
 * Es sollten keine Schriftgrafiken genutzt werden.
 * Alle Bilder benötigen ein inhaltlich sinnvolles beschreibendes Alt-Attribut.
-* Bilder, die ausschließlich der Gestaltung dienen, (z.B. Trennlinien) müssen als solche (Schmuckgrafik) gekennzeichnet werden.
+* Bilder, die ausschließlich der Gestaltung dienen (z.B. Trennlinien), müssen als solche (Schmuckgrafik) gekennzeichnet werden.
 * Tastatur-Navigation: Nicht alle Benutzer können eine Maus verwenden.
 Daher ist es wichtig, dass alle Interaktionen auf der Website auch über die Tastatur möglich sind.
 Dies bedeutet, dass alle Navigationselemente, Links und interaktiven Elemente leicht per Tastatur zugänglich sein müssen.
