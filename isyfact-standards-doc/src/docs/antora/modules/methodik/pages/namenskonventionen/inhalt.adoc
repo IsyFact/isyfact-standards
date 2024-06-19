@@ -5,7 +5,7 @@
 == Namenskonventionen
 
 Dieser Abschnitt beschreibt die Namenskonventionen der IsyFact.
-In komplexen Anwendungslandschaften werden xref:glossary:glossary:master.adoc#glossar-anwendungssystem[Anwendungssysteme] in der Regel in funktionale Kategorien eingeordnet und typisiert (z.B. Register und Geschäftsanwendungen).
+In komplexen Anwendungslandschaften werden xref:glossary:glossary:master.adoc#glossar-anwendung[Anwendungen] in der Regel in funktionale Kategorien eingeordnet und typisiert (z.B. Register und Geschäftsanwendungen).
 Bei weniger komplexen Kontexten, in denen nur eine einzige oder wenige Geschäftsanwendungen existieren, wird meist allgemein von „Geschäftsanwendungen“ gesprochen.
 
 In folgenden Vorgaben wird daher zwischen Geschäftsanwendungen und Registern unterschieden.
@@ -16,10 +16,10 @@ Für andere Kontexte können weitere Systemtypen eingeführt werden, für die en
 
 In diesem Abschnitt werden allgemeine Namenskonventionen festgehalten.
 
-[[namen-von-anwendungssystemen]]
-==== Namen von Anwendungssystemen
+[[namen-von-anwendungen]]
+==== Namen von Anwendungen
 
-Je nach Typ eines Anwendungssystems ist der Name unterschiedlich zu wählen.
+Je nach Anwendungstyp ist der Name unterschiedlich zu wählen.
 Die verschiedenen Varianten sind wie folgt abgebildet.
 
 [[geschaeftsanwendung]]
@@ -128,15 +128,15 @@ Sie sind vor allem der xref:vorlagen.adoc#dokumentation-anwendung[Vorlage zur Sy
 |*Beispiele* |ORG_Abteilung_Xyz
 |====
 
-[[anwendungssystem]]
-==== Anwendungssystem
+[[anwendung]]
+==== Anwendung
 
-.Anwendungssystem
+.Anwendung
 [id="table-Anwsys",reftext="{table-caption} {counter:tables}"]
 [cols="1,6m",options="header"]
 |====
-2+|Anwendungssystem
-|*Schema* |SYS_<anwendungssystemname>
+2+|Anwendung
+|*Schema* |SYS_<anwendung>
 |*Beispiele* |SYS_Register_Xyz
 |====
 
@@ -287,7 +287,7 @@ Sie sind vor allem der xref:vorlagen.adoc#dokumentation-anwendung[Vorlage zur Sy
 [[entwicklung]]
 === Entwicklung
 
-Dieser Abschnitt fasst die Namenskonventionen zusammen, die bei der Entwicklung eines Anwendungssystems nach IsyFact relevant sind.
+Dieser Abschnitt fasst die Namenskonventionen zusammen, die bei der Entwicklung einer Anwendung nach IsyFact relevant sind.
 Das sind vor allem Klassen- und Dateinamen.
 
 Einige der hier genannten Namenskonventionen sind von denen der Spezifikation abhängig, beziehungsweise werden davon abgeleitet.
@@ -301,7 +301,7 @@ include::methodik:page$java-programmierkonventionen/inhalt.adoc[tag=namenskonven
 [[technische-systemnamen]]
 ==== Technische Systemnamen
 
-Die technischen Systemnamen entsprechen der technischen Bezeichnung für ein IsyFact-konformes Anwendungssystem.
+Die technischen Systemnamen entsprechen der technischen Bezeichnung für eine IsyFact-konforme Anwendung.
 Sie werden unter anderem für Projektnamen in Eclipse, Dokument Basis / Context Root bei Schnittstellen-URLs und als Namen von Deployment-Einheiten (vgl. Kapitel <<rpm-pakete>>) verwendet.
 
 [[geschaeftsanwendung-1]]

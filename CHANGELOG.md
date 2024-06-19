@@ -31,6 +31,7 @@
 - `IFS-3700`: [isyfact-standards-doc] Baustein Http Invoker entfernt.
 - `IFS-3697`: [isyfact-products-bom] Update JMeter Core auf 5.6.x
 - `IFS-3701`: [isyfact-standards-doc] Baustein JSF entfernt.
+- `IFS-3736`: [isyfact-standards-doc] Abbildung von Anwendungen in IT-Systeme ("technischer Schnitt") beschrieben.
 
 
 # 3.0.1

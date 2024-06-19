@@ -1,23 +1,21 @@
-// tag::inhalt[]
-
 [[betriebliche-anforderungen]]
 == Betriebliche Anforderungen
 
-_Betriebsanforderungen sind die Anforderungen, die der Betrieb an das zu entwickelnde Anwendungssystem stellt.
+_Betriebsanforderungen sind die Anforderungen, die der Betrieb an die zu entwickelnde Anwendung stellt.
 Sie dienen dazu, die Belange des späteren Betriebes schon frühzeitig bei der Systementwicklung zu berücksichtigen und spätere Nachbesserungen zu vermeiden._
 
-_Der Betrieb spielt eine gewichtige Rolle und trägt wesentlich zum Projekterfolg bei, sobald das Anwendungssystem implementiert ist und schrittweise in den Produktivbetrieb überführt wird.
-Allerdings stehen zu Projektbeginn funktionale Aspekte des zu entwickelnden Anwendungssystems im Vordergrund und die Belange des Betriebes werden oft übersehen.
+_Der Betrieb spielt eine gewichtige Rolle und trägt wesentlich zum Projekterfolg bei, sobald die Anwendung implementiert ist und schrittweise in den Produktivbetrieb überführt wird.
+Allerdings stehen zu Projektbeginn funktionale Aspekte der zu entwickelnden Anwendung im Vordergrund und die Belange des Betriebes werden oft übersehen.
 Dadurch entstehen später dann häufig Reibungen und aufwändiger Nachbesserungsbedarf._
 
-_Betriebsanforderungen unterscheiden sich nicht von anderen Anforderungen an das Anwendungssystem.
-Die betrieblichen Anforderungen betreffen jedoch jedes Anwendungssystem der Anwendungslandschaft, und sind oft über verschiedene Anwendungssysteme hinweg sehr ähnlich.
+_Betriebsanforderungen unterscheiden sich nicht von anderen Anforderungen an die Anwendung.
+Die betrieblichen Anforderungen betreffen jedoch jede Anwendung der Anwendungslandschaft, und sind oft über verschiedene Anwendungen hinweg sehr ähnlich.
 Somit besteht bei den Betriebsanforderungen ein hohes Wiederverwendungspotenzial über Projektgrenzen hinweg._
 
 _Die Betriebsanforderungen umfassen in der Regel Anforderungen aus den folgenden Themengebieten:_
 
 * _Technische Plattform (relevant insbesondere für TI-Architektur)_
-* _Schnittstellen zum Anwendungssystem für den Betrieb_
+* _Schnittstellen zur Anwendung für den Betrieb_
 * _Migration_
 * _Überwachbarkeit, Konfigurierbarkeit, Wiederherstellbarkeit, Deployment_
 * _Systemeinführung_
@@ -27,6 +25,3 @@ _Die Betriebsanforderungen umfassen in der Regel Anforderungen aus den folgenden
 _Die Betriebsanforderungen stehen oft in engem Zusammenhang mit anderen technischen, projektbezogenen oder querschnittlichen Anforderungen.
 Falls für diese anderen Anforderungen separate Spezifikationskapitel existieren, sollten sie eher an diesen anderen Stellen zusammenhängend beschrieben werden.
 Hier finden sich dann kurz erläuterte Querverweise auf jene Kapitel._
-
-// end::inhalt[]
-
