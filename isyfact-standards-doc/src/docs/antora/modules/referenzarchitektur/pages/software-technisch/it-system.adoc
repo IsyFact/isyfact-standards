@@ -59,7 +59,7 @@ Weitere Fachlichkeit wie z. B. Datenmodelle oder Akteure stehen mit der Fachli
 [[backend]]
 === Backend
 
-include::glossary:glossary:inhalt.adoc[tag=backend-definition]
+include::glossary::terms-definitions.adoc[tag=backend-definition]
 
 Backends setzen auf den xref:einstieg:produktkatalog/technologiestackJavaSpring.adoc[].
 Sie nutzen Spring Boot als Anwendungsframework und weitere Produkte von Spring sowie JEE-Standards und xref:bausteine:bausteine.adoc[] der IsyFact zur Umsetzung der Services.
@@ -69,7 +69,7 @@ Die Systemarchitektur und die Umsetzung querschnittlicher, technischer Aspekte f
 [[frontend]]
 === Frontend
 
-include::glossary:glossary:inhalt.adoc[tag=frontend-definition]
+include::glossary::terms-definitions.adoc[tag=frontend-definition]
 
 Frontends setzen auf den xref:einstieg:produktkatalog/technologiestackTypescriptAngular.adoc[].
 Sie nutzen Angular als Anwendungsframework und weitere, zu Angular kompatible, Produkte sowie De-facto-Standards und xref:bausteine:bausteine.adoc[] der IsyFact zur Umsetzung der GUIs.
@@ -79,7 +79,7 @@ Die Systemarchitektur und die Umsetzung querschnittlicher, technischer Aspekte f
 [[batch]]
 === Batch
 
-include::glossary:glossary:inhalt.adoc[tag=batch-definition]
+include::glossary::terms-definitions.adoc[tag=batch-definition]
 
 Batches setzen wie Backends auf den xref:einstieg:produktkatalog/technologiestackJavaSpring.adoc[].
 Sie nutzen Spring Boot als Anwendungsframework und weitere Produkte von Spring sowie JEE-Standards und xref:bausteine:bausteine.adoc[] der IsyFact zur Umsetzung der Services.
