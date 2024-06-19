@@ -238,7 +238,6 @@ Bedeutung der Alt-Attribute:
 Alt-Attribute (alternative Texte) sind textuelle Beschreibungen, die in den HTML-Code von Bildern eingebettet werden. Sie dienen mehreren wichtigen Zwecken:
 
 * Zugänglichkeit: Screenreader verwenden Alt-Attribute, um sehbehinderten oder blinden Benutzern den Inhalt und Zweck eines Bildes zu vermitteln.
-* SEO: Suchmaschinen nutzen Alt-Texte, um den Inhalt von Bildern zu indexieren, was die Auffindbarkeit der Webseite verbessern kann.
 * Fehlertoleranz: Wenn ein Bild aus irgendeinem Grund nicht geladen werden kann, zeigt der Browser den Alt-Text anstelle des Bildes an.
 
 *_Best Practices für das Schreiben von Alt-Attributen_*
@@ -283,6 +282,47 @@ Zusammenfassung:
 Alt-Attribute und ARIA-Labels sind unverzichtbare Werkzeuge, um die Zugänglichkeit und Benutzerfreundlichkeit von Webseiten und Webanwendungen zu gewährleisten.
 Durch sorgfältige Planung und Implementierung dieser Attribute können Designer und Entwickler sicherstellen, dass ihre Inhalte für alle Benutzer zugänglich sind.
 Das Beachten der Best Practices beim Schreiben von Alt-Attributen und der Implementierung von ARIA-Labels trägt wesentlich dazu bei, eine inklusive und effiziente Benutzererfahrung zu schaffen.
+
+=== Language Tag
+
+Das lang-Attribut informiert Browser und assistive Technologien über die Sprache des Inhalts.
+Dies hat mehrere Vorteile:
+
+* Zugänglichkeit: Screenreader verwenden das lang-Attribut, um die richtige Aussprache und Sprachregeln anzuwenden, was für Benutzer mit Sehbehinderungen von entscheidender Bedeutung ist.
+* Mehrsprachige Webseiten: Das lang-Attribut ermöglicht es, verschiedene Sprachversionen einer Webseite korrekt zu kennzeichnen und so die Benutzererfahrung zu verbessern.
+
+ Nutzen Sie die standardisierten ISO 639-1 Sprachcodes (zwei Buchstaben), um die Sprache zu definieren. z.B. de = deutsch
+Dabei gilt es folgende Grundregeln zu beachten:
+
+*_Festlegen der Hauptsprache eines Dokuments_*
+
+Das lang-Attribut sollte im <html>-Tag des Dokuments festgelegt werden, um die Hauptsprache der gesamten Seite anzugeben.
+Dies stellt sicher, dass alle Inhalte auf der Seite als in dieser Sprache verfasst erkannt werden.
+
+*_Festlegen der Sprache für spezifische Elemente_*
+
+Wenn einzelne Abschnitte oder Elemente in einer anderen Sprache verfasst sind, sollte das lang-Attribut entsprechend auf diesen Elementen angewendet werden.
+Dies ist besonders wichtig für mehrsprachige Webseiten, Dokumente und die korrekte Aussprache durch Screenreader.
+
+Wenn nötig, geben Sie spezifische Sprachvarianten oder Dialekte mit Hilfe von Codes für Regionen oder Länder an (z.B. en-US für amerikanisches Englisch, en-GB für britisches Englisch).
+
+Verwenden Sie das lang-Attribut nur, wenn der Text tatsächlich in einer anderen Sprache verfasst ist.
+Setzen Sie das Attribut nicht aus ästhetischen oder stilistischen Gründen ein.
+
+*_Beispiel:_*
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Mehrsprachige Webseite</title>
+</head>
+<body>
+<h1>Willkommen auf unserer Webseite</h1>
+<p>Dies ist ein Beispieltext in deutscher Sprache.</p>
+<p lang="en">This is a sample text in English.</p>
+</body>
+</html>
 
 == Technische Rahmenbedingungen
 
