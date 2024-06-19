@@ -10,6 +10,9 @@ Das Hauptziel des Bedienkonzepts ist es, eine herausragende Benutzererfahrung zu
 Es soll sicherstellen, dass Benutzer die Anwendung ohne Schwierigkeiten nutzen können und dabei ihre Ziele effizient erreichen.
 In den folgenden Kapiteln werden diese Konzepte weiter ausgearbeitet und konkrete Richtlinien und Best Practices für die Entwicklung von Benutzeroberflächen für Webanwendungen bereitgestellt.
 
+Eine LiveDemo aller hier beschriebenen Richtlinien finden Sie unter:
+
+https://isyfact.github.io/isy-angular-widgets/
 
 [[einfuehrung-in-das-bedienkonzept]]
 === Einführung in das Bedienkonzept
@@ -169,7 +172,7 @@ Stattdessen werden andere, platzsparende Mechanismen angewandt, wie z.B. Expande
 * Die Anzahl verschiedener Schriftgrößen muss auf ein notwendiges Minimum reduziert werden
 * Es muss sichergestellt sein, dass der Kontrast der Schriftfarbe zur Hintergrundfarbe ausreichend groß ist.
 Hier ist der Kontrast größtmöglich zu wählen (z.B. dunkelgraue (#212529) Schrift auf weißen Hintergrund).
-Ist dies aus technischer oder fachlicher Notwendigkeit nicht möglich, so muss der Kontrast bei kleiner Schrift mindestens 4:1 entsprechen.
+Ist dies aus technischer oder fachlicher Notwendigkeit nicht möglich, so muss der Kontrast bei kleiner Schrift mindestens 4,5:1 entsprechen.
 * Überschriften und großer/dicker Text muss mindestens einen Kontrast von 3:1 aufweisen.
 
 *_Grafiken_*
@@ -207,8 +210,13 @@ Hier werden die Richtlinien zur Barrierefreiheit gemäß den Standards, wie z.B.
 
 Zugänglichkeitsstandards müssen berücksichtigt werden:
 
-* WCAG 2.1 und EN 305419 mindestens bis zum Level AA.
-* Für Haupt & Einstiegsseiten, Seiten mit rechtlicher Relevanz sollte das Level AAA berücksichtigt werden.
+* Alle Seiten mindestens bis zum Level AA.
+* Für Haupt- & Einstiegsseiten und Seiten mit rechtlicher Relevanz sollte das Level AAA berücksichtigt werden.
+
+Die detaillierten Anforderungen sind zu finden unter:
+
+* https://www.w3.org/TR/WCAG21/[WCAG 2.1]
+* https://www.barrierefreiheit-dienstekonsolidierung.bund.de/Webs/PB/DE/gesetze-und-richtlinien/en301549/en301549-node.html[EN 305419]
 
 Vor der Auflistung der einzelnen Kriterien sind im Kontext der IsyFact besondere Kriterien der Barrierefreiheit herauszustellen und bei der fachlichen Konzeption bereits zu berücksichtigen.
 Alle hier genannten Maßnahmen sind zur Steigerung der Awareness und Transparenz aufgelistet.
@@ -217,11 +225,11 @@ In der Regel sind die genannten Anforderungen durch die Anwendung der Standardel
 * Sorge dafür, dass alle Elemente auch ohne Maus erreichbar und bedienbar sind.
 * Eingabefelder müssen nach der Aktivierung eines Hochkontrastmodus/Farbfilters zu 50% bestehen bleiben – eine einzelne Linie als Bestandteil ist nicht ausreichend als Identifizierung eines Eingabefeldes.
 * Die Textgröße soll im Standard mindestens 14pt betragen.
-* Der Textkontrast muss immer mindestens 4:1 und bei großen Texten mindestens 3:1 betragen.
+* Der Textkontrast muss immer mindestens 4,5:1 und bei großen Texten mindestens 3:1 betragen.
 Für Haupt & Einstiegsseiten, Seiten mit rechtlicher Relevanz muss der Kontrast 7:1 betragen.
 * Es sollten keine Schriftgrafiken genutzt werden.
 * Alle Bilder benötigen ein inhaltlich sinnvolles beschreibendes Alt-Attribut.
-* Bilder die ausschließlich der Gestaltung dienen, wie Trennlinien müssen als solche (Schmuckgrafik) gekennzeichnet werden.
+* Bilder, die ausschließlich der Gestaltung dienen (z.B. Trennlinien), müssen als solche (Schmuckgrafik) gekennzeichnet werden.
 * Tastatur-Navigation: Nicht alle Benutzer können eine Maus verwenden.
 Daher ist es wichtig, dass alle Interaktionen auf der Website auch über die Tastatur möglich sind.
 Dies bedeutet, dass alle Navigationselemente, Links und interaktiven Elemente leicht per Tastatur zugänglich sein müssen.
@@ -238,17 +246,22 @@ Bedeutung der Alt-Attribute:
 Alt-Attribute (alternative Texte) sind textuelle Beschreibungen, die in den HTML-Code von Bildern eingebettet werden. Sie dienen mehreren wichtigen Zwecken:
 
 * Zugänglichkeit: Screenreader verwenden Alt-Attribute, um sehbehinderten oder blinden Benutzern den Inhalt und Zweck eines Bildes zu vermitteln.
-* SEO: Suchmaschinen nutzen Alt-Texte, um den Inhalt von Bildern zu indexieren, was die Auffindbarkeit der Webseite verbessern kann.
 * Fehlertoleranz: Wenn ein Bild aus irgendeinem Grund nicht geladen werden kann, zeigt der Browser den Alt-Text anstelle des Bildes an.
 
 *_Best Practices für das Schreiben von Alt-Attributen_*
 
 Beim Erstellen von Alt-Texten sollten folgende Richtlinien beachtet werden:
 
-* Beschreibend und prägnant: Der Alt-Text sollte den Inhalt und Zweck des Bildes kurz und genau beschreiben
-Beispiel: <img src="blume.jpg" alt="Gelbe Tulpe im Frühlingsgarten">.
+* Beschreibend und prägnant: Der Alt-Text sollte den Inhalt und Zweck des Bildes kurz und genau beschreiben.
+Beispiel:
+[source,xml]
+<img src="blume.jpg" alt="Gelbe Tulpe im Frühlingsgarten">.
+
 * Kontextbezogen: Der Alt-Text sollte den Kontext berücksichtigen, in dem das Bild verwendet wird.
-Beispiel: Bei einem Bild eines Einkaufswagens auf einer E-Commerce-Seite könnte der Alt-Text lauten: <img src="cart.png" alt="Einkaufswagen">.
+Beispiel: Bei einem Bild eines Einkaufswagens auf einer E-Commerce-Seite könnte der Alt-Text lauten:
+[source,xml]
+<img src="cart.png" alt="Einkaufswagen">.
+
 * Keine redundante Information: Informationen, die bereits im umgebenden Text enthalten sind, müssen nicht im Alt-Text wiederholt werden.
 Beispiel: Wenn ein Bild neben einer Überschrift „Teamfoto 2024“ steht, sollte der Alt-Text nicht einfach „Teamfoto 2024“ wiederholen.
 * Vermeidung von Keyword-Stuffing: Der Alt-Text sollte nicht mit Schlüsselwörtern überladen werden, da dies sowohl die Zugänglichkeit als auch die SEO beeinträchtigt.
@@ -263,12 +276,22 @@ Sie bieten zusätzliche Informationen für Screenreader, insbesondere für Eleme
 *_Implementierung von ARIA-Labels:_*
 ARIA-Labels kommen zum Einsatz, wenn ein Bedienelement keinen eindeutigen, für Screenreader zugänglichen Text enthält. Hier sind die wichtigsten ARIA-Attribute und ihre Anwendungen:
 
-* aria-label: Wird verwendet, um ein Element zu beschreiben. Es ist besonders nützlich für Bedienelemente ohne sichtbaren Text
-Beispiel: <button aria-label="Schließen">X</button>.
+* aria-label: Wird verwendet, um ein Element zu beschreiben. Es ist besonders nützlich für Bedienelemente ohne sichtbaren Text.
+Beispiel:
+[source,xml]
+<button aria-label="Schließen">X</button>.
+
 * aria-labelledby: Verweist auf ein anderes Element, dessen Text als Beschriftung dient.
-Beispiel: <button aria-labelledby="closeButtonText">X</button> <span id="closeButtonText" hidden>Schließen</span>.
-* aria-describedby: Gibt ein anderes Element an, das eine ausführlichere Beschreibung des aktuellen Elements enthält
-Beispiel: <input type="text" aria-describedby="nameDesc"> <span id="nameDesc">Bitte geben Sie Ihren vollständigen Namen ein.</span>.
+Beispiel:
+[source,xml]
+<button aria-labelledby="closeButtonText">X</button>
+<span id="closeButtonText" hidden>Schließen</span>.
+
+* aria-describedby: Gibt ein anderes Element an, das eine ausführlichere Beschreibung des aktuellen Elements enthält.
+Beispiel:
+[source,xml]
+<input type="text" aria-describedby="nameDesc">
+<span id="nameDesc">Bitte geben Sie Ihren vollständigen Namen ein.</span>.
 
 *_Best Practices für die Verwendung von ARIA-Labels_*
 
@@ -284,6 +307,48 @@ Alt-Attribute und ARIA-Labels sind unverzichtbare Werkzeuge, um die Zugänglichk
 Durch sorgfältige Planung und Implementierung dieser Attribute können Designer und Entwickler sicherstellen, dass ihre Inhalte für alle Benutzer zugänglich sind.
 Das Beachten der Best Practices beim Schreiben von Alt-Attributen und der Implementierung von ARIA-Labels trägt wesentlich dazu bei, eine inklusive und effiziente Benutzererfahrung zu schaffen.
 
+=== Language Tag
+
+Das lang-Attribut informiert Browser und assistive Technologien über die Sprache des Inhalts.
+Dies hat mehrere Vorteile:
+
+* Zugänglichkeit: Screenreader verwenden das lang-Attribut, um die richtige Aussprache und Sprachregeln anzuwenden, was für Benutzer mit Sehbehinderungen von entscheidender Bedeutung ist.
+* Mehrsprachige Webseiten: Das lang-Attribut ermöglicht es, verschiedene Sprachversionen einer Webseite korrekt zu kennzeichnen und so die Benutzererfahrung zu verbessern.
+
+Nutzen Sie die standardisierten ISO 639-1 Sprachcodes (zwei Buchstaben), um die Sprache zu definieren (z.B. de = deutsch).
+Dabei gilt es folgende Grundregeln zu beachten:
+
+*_Festlegen der Hauptsprache eines Dokuments_*
+
+Das lang-Attribut sollte im <html>-Tag des Dokuments festgelegt werden, um die Hauptsprache der gesamten Seite anzugeben.
+Dies stellt sicher, dass alle Inhalte auf der Seite als in dieser Sprache verfasst erkannt werden.
+
+*_Festlegen der Sprache für spezifische Elemente_*
+
+Wenn einzelne Abschnitte oder Elemente in einer anderen Sprache verfasst sind, sollte das lang-Attribut entsprechend auf diesen Elementen angewendet werden.
+Dies ist besonders wichtig für mehrsprachige Webseiten, Dokumente und die korrekte Aussprache durch Screenreader.
+
+Wenn nötig, geben Sie spezifische Sprachvarianten oder Dialekte mit Hilfe von Codes für Regionen oder Länder an (z.B. en-US für amerikanisches Englisch, en-GB für britisches Englisch).
+
+Verwenden Sie das lang-Attribut nur, wenn der Text tatsächlich in einer anderen Sprache verfasst ist.
+Setzen Sie das Attribut nicht aus ästhetischen oder stilistischen Gründen ein.
+
+*_Beispiel:_*
+
+[source,xml]
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8">
+        <title>Mehrsprachige Webseite</title>
+    </head>
+    <body>
+        <h1>Willkommen auf unserer Webseite</h1>
+            <p>Dies ist ein Beispieltext in deutscher Sprache.</p>
+            <p lang="en">This is a sample text in English.</p>
+    </body>
+</html>
+
 == Technische Rahmenbedingungen
 
 Die technischen Rahmenbedingungen legen fest, welche Technologien und Plattformen für die Umsetzung des Bedienkonzepts und Styleguides verwendet werden sollen.
@@ -296,7 +361,6 @@ Dafür wird die entsprechende SCSS und CSS in die Anwendung integriert.
 * Es ist möglich „harte Overrides“ im CSS vorzunehmen, davon wird jedoch abgeraten.
 Dadurch ist die Wartbarkeit stark beeinträchtigt und die Aufwände können sich in der Pflege der Anwendung stark erhöhen.
 * Die Anwendung ist primär für die Nutzung auf Desktopgeräten konzipiert, kann aber mit ihrer Responsivität auch auf mobilen Geräten (sofern möglich) genutzt werden.
-
 
 == Bedienelemente
 
@@ -332,13 +396,15 @@ Dies hilft sowohl Benutzern als auch Suchmaschinen, die Relevanz des Inhalts zu 
 
 Verwendung von ARIA-Rollen: In Fällen, in denen Überschriften nicht aus Standard-HTML-Überschriftentags bestehen, können ARIA-Rollen verwendet werden, um die Struktur zu erhalten.
 
-Beispiel: <div role="heading" aria-level="2">Unterüberschrift</div>
+Beispiel:
+[source,xml]
+<div role="heading" aria-level="2">Unterüberschrift</div>
 
 *_Typografie und Design_*
 
 Schriftart ist Bundes Sans und mindestens 14pt.
 Die Hauptüberschrift sollte deutlich größer und auffälliger als der normale Text sein.
-Der Kontrast sollte mindestens 4:1 sein.
+Der Kontrast sollte mindestens 4,5:1 sein.
 
 *_Stile und Akzente_*
 
@@ -388,14 +454,17 @@ Ausrichtung: Labels können linksbündig oder rechtsbündig zum Eingabefeld ausg
 HTML-For-Attribut: Jedes Label sollte das for-Attribut verwenden, das mit der id des entsprechenden Eingabefelds übereinstimmt.
 Dies stellt sicher, dass Screenreader die Verbindung zwischen Label und Eingabefeld korrekt interpretieren können.
 
-Beispiel: <label for="email">E-Mail-Adresse</label> <input type="email" id="email">
+Beispiel:
+[source,xml]
+<label for="email">E-Mail-Adresse</label>
+<input type="email" id="email">
 
 Vermeidung von Platzhaltern als Labels: Platzhaltertexte (placeholder) sollten nicht als Ersatz für Labels verwendet werden, da sie verschwinden, sobald der Benutzer mit der Eingabe beginnt, was die Benutzerfreundlichkeit und Zugänglichkeit beeinträchtigen können.
 
 *_Stil und Design_*
 
 Lesbarkeit: Labels sollten in einer gut lesbaren Schriftart und -größe dargestellt werden.
-Der Kontrast muss mindestens 4:1 betragen, um auch bei schlechten Lichtverhältnissen gut lesbar zu sein.
+Der Kontrast muss mindestens 4,5:1 betragen, um auch bei schlechten Lichtverhältnissen gut lesbar zu sein.
 
 Konsistenz: Die Gestaltung von Labels sollte über die gesamte Webseite hinweg konsistent sein. Einheitliche Schriftarten, Größen und Abstände tragen zur Benutzerfreundlichkeit und einem professionellen Erscheinungsbild bei. 
 
@@ -403,7 +472,10 @@ Konsistenz: Die Gestaltung von Labels sollte über die gesamte Webseite hinweg k
 
 Schaltflächen und Links: Labels können auch für interaktive Elemente wie Schaltflächen und Links verwendet werden.
 Hier sollten ARIA-Labels (aria-label) oder ARIA-Beschreibungen (aria-labelledby) eingesetzt werden, um die Zugänglichkeit zu verbessern.
-Beispiel: <button aria-label="Schließen">X</button>
+
+Beispiel:
+[source,xml]
+<button aria-label="Schließen">X</button>
 
 === Eingabefeld
 
