@@ -210,14 +210,13 @@ Hier werden die Richtlinien zur Barrierefreiheit gemäß den Standards, wie z.B.
 
 Zugänglichkeitsstandards müssen berücksichtigt werden:
 
-
 * Alle Seiten mindestens bis zum Level AA.
-* Für Haupt & Einstiegsseiten, Seiten mit rechtlicher Relevanz sollte das Level AAA berücksichtigt werden.
+* Für Haupt- & Einstiegsseiten und Seiten mit rechtlicher Relevanz sollte das Level AAA berücksichtigt werden.
 
 Die detaillierten Anforderungen sind zu finden unter:
 
-* WCAG 2.1 https://www.w3.org/TR/WCAG21/
-* EN 305419 https://www.barrierefreiheit-dienstekonsolidierung.bund.de/Webs/PB/DE/gesetze-und-richtlinien/en301549/en301549-node.html
+* https://www.w3.org/TR/WCAG21/[WCAG 2.1]
+* https://www.barrierefreiheit-dienstekonsolidierung.bund.de/Webs/PB/DE/gesetze-und-richtlinien/en301549/en301549-node.html[EN 305419]
 
 Vor der Auflistung der einzelnen Kriterien sind im Kontext der IsyFact besondere Kriterien der Barrierefreiheit herauszustellen und bei der fachlichen Konzeption bereits zu berücksichtigen.
 Alle hier genannten Maßnahmen sind zur Steigerung der Awareness und Transparenz aufgelistet.
@@ -230,7 +229,7 @@ In der Regel sind die genannten Anforderungen durch die Anwendung der Standardel
 Für Haupt & Einstiegsseiten, Seiten mit rechtlicher Relevanz muss der Kontrast 7:1 betragen.
 * Es sollten keine Schriftgrafiken genutzt werden.
 * Alle Bilder benötigen ein inhaltlich sinnvolles beschreibendes Alt-Attribut.
-* Bilder, die ausschließlich der Gestaltung dienen, wie Trennlinien müssen als solche (Schmuckgrafik) gekennzeichnet werden.
+* Bilder, die ausschließlich der Gestaltung dienen, (z.B. Trennlinien) müssen als solche (Schmuckgrafik) gekennzeichnet werden.
 * Tastatur-Navigation: Nicht alle Benutzer können eine Maus verwenden.
 Daher ist es wichtig, dass alle Interaktionen auf der Website auch über die Tastatur möglich sind.
 Dies bedeutet, dass alle Navigationselemente, Links und interaktiven Elemente leicht per Tastatur zugänglich sein müssen.
@@ -285,12 +284,14 @@ Beispiel:
 * aria-labelledby: Verweist auf ein anderes Element, dessen Text als Beschriftung dient.
 Beispiel:
 [source,xml]
-<button aria-labelledby="closeButtonText">X</button> <span id="closeButtonText" hidden>Schließen</span>.
+<button aria-labelledby="closeButtonText">X</button>
+<span id="closeButtonText" hidden>Schließen</span>.
 
 * aria-describedby: Gibt ein anderes Element an, das eine ausführlichere Beschreibung des aktuellen Elements enthält.
 Beispiel:
 [source,xml]
-<input type="text" aria-describedby="nameDesc"> <span id="nameDesc">Bitte geben Sie Ihren vollständigen Namen ein.</span>.
+<input type="text" aria-describedby="nameDesc">
+<span id="nameDesc">Bitte geben Sie Ihren vollständigen Namen ein.</span>.
 
 *_Best Practices für die Verwendung von ARIA-Labels_*
 
@@ -361,7 +362,6 @@ Dafür wird die entsprechende SCSS und CSS in die Anwendung integriert.
 Dadurch ist die Wartbarkeit stark beeinträchtigt und die Aufwände können sich in der Pflege der Anwendung stark erhöhen.
 * Die Anwendung ist primär für die Nutzung auf Desktopgeräten konzipiert, kann aber mit ihrer Responsivität auch auf mobilen Geräten (sofern möglich) genutzt werden.
 
-
 == Bedienelemente
 
 *_Einleitung und Allgemeines:_*
@@ -397,7 +397,6 @@ Dies hilft sowohl Benutzern als auch Suchmaschinen, die Relevanz des Inhalts zu 
 Verwendung von ARIA-Rollen: In Fällen, in denen Überschriften nicht aus Standard-HTML-Überschriftentags bestehen, können ARIA-Rollen verwendet werden, um die Struktur zu erhalten.
 
 Beispiel:
-
 [source,xml]
 <div role="heading" aria-level="2">Unterüberschrift</div>
 
@@ -456,9 +455,9 @@ HTML-For-Attribut: Jedes Label sollte das for-Attribut verwenden, das mit der id
 Dies stellt sicher, dass Screenreader die Verbindung zwischen Label und Eingabefeld korrekt interpretieren können.
 
 Beispiel:
-
 [source,xml]
-<label for="email">E-Mail-Adresse</label> <input type="email" id="email">
+<label for="email">E-Mail-Adresse</label>
+<input type="email" id="email">
 
 Vermeidung von Platzhaltern als Labels: Platzhaltertexte (placeholder) sollten nicht als Ersatz für Labels verwendet werden, da sie verschwinden, sobald der Benutzer mit der Eingabe beginnt, was die Benutzerfreundlichkeit und Zugänglichkeit beeinträchtigen können.
 
@@ -475,7 +474,6 @@ Schaltflächen und Links: Labels können auch für interaktive Elemente wie Scha
 Hier sollten ARIA-Labels (aria-label) oder ARIA-Beschreibungen (aria-labelledby) eingesetzt werden, um die Zugänglichkeit zu verbessern.
 
 Beispiel:
-
 [source,xml]
 <button aria-label="Schließen">X</button>
 
