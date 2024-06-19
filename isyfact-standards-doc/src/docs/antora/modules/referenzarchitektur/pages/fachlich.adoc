@@ -28,7 +28,7 @@ In <<awl-fachlich,der obigen Abbildung>> wurden zwei Domänen gebildet.
 Zwischen den Anwendungen unterschiedlicher Anwendungsdomänen sollten nur wenige, klar definierte Nutzungsbeziehungen existieren.
 
 *xref:glossary:glossary:master.adoc#glossar-anwendung[Anwendung]:*
-include::glossary:glossary:inhalt.adoc[tag="anwendung-definition"]
+include::glossary::terms-definitions.adoc[tag="anwendung-definition"]
 
 
 *xref:glossary:glossary:master.adoc#glossar-anwendungskomponente[Anwendungskomponenten]:* Eine Anwendungskomponente beschreibt eine Menge funktional zusammenhängender Anwendungsfälle.
@@ -52,7 +52,7 @@ Derartige Prinzipien und Regeln zur Strukturierung sind jedoch immer spezifisch 
 ====
 
 *xref:glossary:glossary:master.adoc#glossar-querschnittsanwendung[Querschnittsanwendung]:*
-include::glossary:glossary:inhalt.adoc[tag="querschnittsanwendung-definition"]
+include::glossary::terms-definitions.adoc[tag="querschnittsanwendung-definition"]
 
 === Zugriff auf die Anwendungslandschaft
 
