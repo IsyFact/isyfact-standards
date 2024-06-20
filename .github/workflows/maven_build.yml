@@ -14,20 +14,25 @@ on:
       - 'isyfact-standards-doc'
 
 jobs:
+  Version:
+    uses: IsyFact/isyfact-standards/.github/workflows/next_version.yml@master
+
   Maven:
+    needs: [Version]
     uses: IsyFact/isyfact-standards/.github/workflows/maven_build_template.yml@master
     with:
       jdk-version: 8
+      version: ${{ needs.Version.outputs.next-version }}
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   Snapshot:
     if: github.event_name == 'push'
-    needs: [Maven]
+    needs: [Version, Maven]
     uses: IsyFact/isyfact-standards/.github/workflows/maven_deploy_template.yml@master
     with:
       jdk-version: 8
-      version: '2.5.0-SNAPSHOT' # required by template, does not affect snapshot's version without ci friendly versions
+      version: ${{ needs.Version.outputs.next-version }}
       maven-opts: '-DaltDeploymentRepository=github::default::https://maven.pkg.github.com/IsyFact/isyfact-standards'
       deploy-server-id: github
     secrets:

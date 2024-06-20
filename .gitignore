@@ -19,3 +19,4 @@ hs_err_pid*
 
 # Ignore Maven-specific files
 target/
+.flattened-pom.xml
