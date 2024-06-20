@@ -747,6 +747,10 @@ public WebClient webClient() {
 }
 ----
 
+Nachdem eine Anfrage bearbeitet wurde, sorgt der `HttpHeaderNestedDiagnosticContextFilter` im Rahmen seiner
+`afterRequest()`-Methode dafür, dass die Korrelations-ID aus dem MdcHelper entfernt wird. Dies erfolgt durch den Aufruf
+von `MdcHelper.entferneKorrelationsIds()`, der alle zuvor gesetzten Korrelations-IDs zurücksetzt.
+
 [[fehlerbehandlung]]
 === Fehlerbehandlung
 
