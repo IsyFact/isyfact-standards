@@ -851,7 +851,7 @@ Fehler werden in einem Array zurückgegeben um auch das Senden mehrerer Fehler, 
      "timestamp": "2020-08-23T14:53:33.452+02:00",
      "status": 404,
      "error": "Not Found",
-     "message": "0001 Die Nachricht mit der ID=1 konnte nicht gefunden werden. 4321",
+     "message": "#0001 Die Nachricht mit der ID=1 konnte nicht gefunden werden. #4321",
      "path": "/ressource/1234"
     }
 ]
